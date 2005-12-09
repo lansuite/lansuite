@@ -1,0 +1,354 @@
+
+
+<!-- TEMPLATE - STANDARD - CATERING MONEYCOUNTER -->
+
+<script language="JavaScript">
+
+function doOnchange() {
+
+	c1  = document.getElementById('onecent').value;
+	c2  = document.getElementById('twocent').value;	
+	c5  = document.getElementById('fivecent').value;	
+	c10 = document.getElementById('tencent').value;	
+	c20 = document.getElementById('twentycent').value;	
+	c50 = document.getElementById('fiftycent').value;
+	e1   = document.getElementById('oneeuro').value;	
+	e2   = document.getElementById('twoeuro').value;		
+	e5   = document.getElementById('fiveeuro').value;	
+	e10  = document.getElementById('teneuro').value;	
+	e20  = document.getElementById('twentyeuro').value;
+	e50  = document.getElementById('fiftyeuro').value;
+	e100 = document.getElementById('hunderteuro').value;				
+	e200 = document.getElementById('twohunderteuro').value;	
+	e500 = document.getElementById('fivehunderteuro').value;
+		
+	c1t 	= c1 	* 0.01;	
+	c2t 	= c2 	* 0.02;	
+	c5t 	= c5 	* 0.05;
+	c10t 	= c10 	* 0.10;
+	c20t	= c20	* 0.20;
+	c50t	= c50	* 0.50;
+	e1t		= e1	* 1;
+	e2t		= e2	* 2;
+	e5t		= e5	* 5;
+	e10t	= e10	* 10;
+	e20t	= e20	* 20;
+	e50t	= e50	* 50;
+	e100t	= e100	* 100;
+	e200t	= e200	* 200;
+	e500t	= e500	* 500;
+	
+	hardeurototal	= c1t + c2t + c5t + c10t + c20t + c50t + e1t + e2t;
+	softeurototal	= e5t + e10t + e20t + e50t + e100t + e200t + e500t;
+	eurototal 		= hardeurototal + softeurototal;
+	
+	document.getElementById('onecenttotal').value=c1t;
+	document.getElementById('twocenttotal').value=c2t;
+	document.getElementById('fivecenttotal').value=c5t;	
+	document.getElementById('tencenttotal').value=c10t;
+	document.getElementById('twentycenttotal').value=c20t;
+	document.getElementById('fiftycenttotal').value=c50t;
+	document.getElementById('oneeurototal').value=e1t;
+	document.getElementById('twoeurototal').value=e2t;
+	document.getElementById('fiveeurototal').value=e5t;
+	document.getElementById('teneurototal').value=e10t;
+	document.getElementById('twentyeurototal').value=e20t;
+	document.getElementById('fiftyeurototal').value=e50t;
+	document.getElementById('hunderteurototal').value=e100t;
+	document.getElementById('twohunderteurototal').value=e200t;
+	document.getElementById('fivehunderteurototal').value=e500t;
+
+	document.getElementById('hardeurototal').value=hardeurototal;
+	document.getElementById('softeurototal').value=softeurototal;
+ 	document.getElementById('eurototal').value=eurototal;		
+}
+
+</script>
+<form name="money" method="POST" action="">
+<table width="100%" cellspacing="0" cellpadding="0">
+  <tr class="tbl_5"> 
+    <td colspan="2"> 
+      <table width="100%" cellspacing="0" cellpadding="3" class="tbl_5">
+        <tr> 
+          <td><b>Geldz&auml;hlassistent</b><br/></td>
+        </tr>
+        <tr> 
+          <td> 
+		  Tragen Sie einfach die vorhanden Menge der einzelnen Geldstücke/scheine ein. Das Ergebnis wird sofort berechnet und angezeigt.
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+   	   <td><input type="text" name="onecent" id="onecent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/> 1 Cent M&uuml;nzen</td>
+	   <td align="right"><input readonly type="text" name="onecenttotal" id="onecenttotal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="twocent" id="twocent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+		2 Cent M&uuml;nzen
+	   </td>
+	   <td align="right"><input readonly type="text" name="twocenttotal" id="twocenttotal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="fivecent" id="fivecent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+        5 Cent M&uuml;nzen
+	   </td>
+	   <td align="right"><input readonly type="text" name="fivecenttotal" id="fivecenttotal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="tencent" id="tencent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+        10 Cent M&uuml;nzen
+	   </td>
+	   <td align="right"><input readonly type="text" name="tencenttotal" id="tencenttotal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="twentycent" id="twentycent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+        20 Cent M&uuml;nzen
+	   </td>
+	   <td align="right"><input readonly type="text" name="twentycenttotal" id="twentycenttotal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="fiftycent" id="fiftycent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+        50 Cent M&uuml;nzen
+	   </td>
+	   <td align="right"><input readonly type="text" name="fiftycenttotal" id="fiftycenttotal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr> 
+  <tr>
+    <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="oneeuro" id="oneeuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+		1 Euro M&uuml;nzen
+	   </td>
+	   <td align="right"><input readonly type="text" name="oneeurototal" id="oneeurototal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="twoeuro" id="twoeuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+       2 Euro M&uuml;nzen
+	   </td>
+	   <td align="right"><input readonly type="text" name="twoeurototal" id="twoeurototal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr>
+    <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="fiveeuro" id="fiveeuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+       5 Euro Scheine
+	   </td>
+	   <td align="right"><input readonly type="text" name="fiveeurototal" id="fiveeurototal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="teneuro" id="teneuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+       10 Euro Scheine
+	   </td>
+	   <td align="right"><input readonly type="text" name="teneurototal" id="teneurototal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="twentyeuro" id="twentyeuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+       20 Euro Scheine
+	   </td>
+	   <td align="right"><input readonly type="text" name="twentyeurototal" id="twentyeurototal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="fiftyeuro" id="fiftyeuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+       50 Euro Scheine
+	   </td>
+	   <td align="right"><input readonly type="text" name="fiftyeurototal" id="fiftyeurototal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="hunderteuro" id="hunderteuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+       100 Euro Scheine
+	   </td>
+	   <td align="right"><input readonly type="text" name="hunderteurototal" id="hunderteurototal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="twohunderteuro" id="twohunderteuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+       200 Euro Scheine
+	   </td>
+	   <td align="right"><input readonly type="text" name="twohunderteurototal" id="twohunderteurototal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td>
+   		<input type="text" name="fivehunderteuro" id="fivehunderteuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"/>  
+       500 Euro Scheine
+	   </td>
+	   <td align="right"><input readonly type="text" name="fivehunderteurototal" id="fivehunderteurototal" maxlength="5" size="5" class="form" value=""/> Euro &nbsp;</td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+    <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_1"> 
+    <td colspan="2"> 
+     <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+      <tr> 
+	   <td align="right">
+	    Hartgeld total:
+	    <input readonly type="text" name="hardeurototal" id="hardeurototal" maxlength="6" size="6" class="form" value=""/> Euro &nbsp;
+	    &nbsp;&nbsp;
+		Weichgeld total:
+	    <input readonly type="text" name="softeurototal" id="softeurototal" maxlength="6" size="6" class="form" value=""/> Euro &nbsp;
+	    &nbsp;&nbsp;
+		<b>Total:
+	    <input readonly type="text" name="eurototal" id="eurototal" maxlength="7" size="7" class="form" value=""/>
+	    Euro</b> &nbsp;
+	   </td>
+      </tr>
+     </table>
+    </td>
+  </tr>
+  <tr class="tbl_4"> 
+   <td colspan="2"><img src="/" width="1" height="1"/></td>
+  </tr>
+  <tr class="tbl_5"> 
+    <td colspan="2"> 
+      <p><br/>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- TEMPLATE - STANDARD - CATERING  MONEYCOUNTER -->
