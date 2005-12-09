@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<menu>
+	<pos>29</pos>
+	<entry>
+		<caption>Sonstiges</caption>
+		<hint></hint>
+		<link>?mod=misc</link>
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<needed_config></needed_config>
+		<level>0</level>
+	</entry>
+	<entry>
+		<caption>Logfile</caption>
+		<hint></hint>
+		<link>?mod=misc&action=log</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>Was geht ab ?!</caption>
+		<hint>Was passiert gerade.. eine komplette &Uuml;bersicht</hint>
+		<link>?mod=misc&action=whatsup</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>IPs generieren</caption>
+		<hint></hint>
+		<link>?mod=misc&action=ipgen</link>
+		<requirement>3</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>IPs &auml;ndern</caption>
+		<hint>Hier k&ouml;nnen Sie die IP eines Sitzplatzes &auml;ndern</hint>
+		<link>?mod=misc&action=ip</link>
+		<requirement>3</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>IP-Blacklist</caption>
+		<hint>Hier k&ouml;nnen Sie IP blocken</hint>
+		<link>?mod=misc&action=ip_block</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+</menu>

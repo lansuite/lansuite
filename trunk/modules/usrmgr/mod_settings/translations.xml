@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Benutzermanager</de>
+		<en>User manager</en>
+	</entry>
+	<entry>
+		<de>Zum verwalten der Benutzeraccounts</de>
+		<en>For managing huser accounts</en>
+	</entry>
+	<entry>
+		<de>Benutzergruppen</de>
+		<en>User groups</en>
+	</entry>
+	<entry>
+		<de>Erweiterte Suche</de>
+		<en>Extended search</en>
+	</entry>
+	<entry>
+		<de>Hinzuf&uuml;gen</de>
+		<en>Add</en>
+	</entry>
+	<entry>
+		<de>Einlass-Assistent</de>
+		<en>Checkin assistend</en>
+	</entry>
+	<entry>
+		<de>Sollen bei einem Orga die Felder "CheckIN/Out" angezeigt werden?</de>
+		<en>Should an orga see the fields "check in / out"?</en>
+	</entry>
+	<entry>
+		<de>Sollen bei einem Orga die Felder "Bezahlt/PlatzpfandCheckIN/Out" angzeigt werden?</de>
+		<en>Should an orga see the fields "paid / seat paid"?</en>
+	</entry>
+	<entry>
+		<de>Sollen dem Benutzer SEINE Straße/Passnummer/Sonstiges angezeigt werden? (Orga sieht diese Felder immer)</de>
+		<en>Sould a user see HIS "street / ID-Card number / misc"? (Orgas always see this field)</en>
+	</entry>
+	<entry>
+		<de>Sollen die PLZ und Stadt eines Benutzers JEDEM angezeigt werden? (Orga sieht diese Felder immer)</de>
+		<en>Should every one see the postal code and city of an user? (Orgas always see this field)</en>
+	</entry>
+	<entry>
+		<de>Soll die eMail eines Benutzers JEDEM angezeigt werden? (Orga sieht diese Felder immer, im Internetmodus wird sie nie angezeigt)</de>
+		<en>Should the email of an user be visible to everyone? (Orgas always see this field, in internet mode it is never displayed)</en>
+	</entry>
+	<entry>
+		<de>Darf der Benutzer ein Avatarbild uploaden?</de>
+		<en>Ma an user upload an avatar picture?</en>
+	</entry>
+	<entry>
+		<de>Darf der Benutzer das Design auswählen?</de>
+		<en>May an user choose his design?</en>
+	</entry>
+	<entry>
+		<de>Sollen die User ihre Details im Nachhinein selbst ändern dürfen?</de>
+		<en>May users edit their details afterwards?</en>
+	</entry>
+	<entry>
+		<de>Soll in der Benutzerdaten-Box der Link zur Eintrittskarte gezeigt werden?</de>
+		<en>Should the link to the ticket be displayed in the user data box?</en>
+	</entry>
+	<entry>
+		<de>Name des PDF-Templates für Eintrittskarte</de>
+		<en>Name of the PDF-Template for the ticket</en>
+	</entry>
+	<entry>
+		<de>Ausweise</de>
+		<en>Tickets</en>
+	</entry>
+</translations>

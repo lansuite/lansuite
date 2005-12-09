@@ -1,0 +1,18 @@
+<form name="ms_search" method="post" action="{$templ['ms']['action']}">
+
+<div class="content_head" align="left">
+	<b>{$templ['ms']['title']}</b>
+	<br/>{$templ['ms']['search_hint']}
+</div>
+
+<table width="100%" cellspacing="0" cellpadding="0">
+{$templ['ms']['inputs']}
+<tr> 
+	<td width="20%" class="row_key">
+		<a href="#" onclick="javascript:var w=window.open('base.php?mod=helplet&helpletid=mastersearch/form','_blank','width=320,height=400,resizable=no');"><img src="design/{default_design}/images/arrows_help.gif" width="12" height="13" border="0" /></a> <a href="#" onclick="javascript:var w=window.open('base.php?mod=helplet&helpletid=mastersearch/form','_blank','width=320,height=400,resizable=no');">Hilfe</a>
+	</td>
+	<td width="80%" class="row_key"><input type="image" style="border:0; width:61; height:17" name="sending" src="ext_inc/auto_images/{default_design}/{language}/button_search.png" /></td>
+</tr>
+</table>
+
+</form>

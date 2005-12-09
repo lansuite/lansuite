@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Beispielmodul</de>
+		<en>Sample module</en>
+	</entry>
+	<entry>
+		<de>Dieses Modul ist nur für Entwickler gedacht und demonstriert an einem Beispiel den Aufbau eines Modules</de>
+		<en>This module is for developers only. It demonstrates how a module looks like</en>
+	</entry>
+</translations>

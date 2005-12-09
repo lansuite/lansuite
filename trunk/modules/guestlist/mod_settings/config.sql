@@ -1,0 +1,1 @@
+('guestlist_guestmap', '0', 'boolean', 'guestlist', 'Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der Gäste) anzeigen?');

@@ -1,0 +1,33 @@
+<?php
+
+	$templ['home']['show']['item']['info']['caption'] = $lang["home"]["news_caption"];
+	$templ['home']['show']['item']['control']['row'] = "";
+	
+	
+	$query = $db->query("SELECT newsid, caption, priority FROM {$config["tables"]["news"]} order by date DESC LIMIT 0,5");
+	if($db->num_rows($query) > 0) {
+		while($row = $db->fetch_array($query)) {
+
+				$newsid 	= $row["newsid"];
+				$caption	= $row["caption"];
+				$prio		= $row["priority"];
+				
+				$templ['home']['show']['row']['control']['link']	= "index.php?mod=news&action=comment&newsid=$newsid";
+				$templ['home']['show']['row']['info']['text']		= $caption;
+
+				if ($prio == 1) { 
+					$templ['home']['show']['row']['info']['text2']		= "<strong>!!!</strong>";
+				 }				
+
+			$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row");
+
+			$templ['home']['show']['row']['info']['text']		= "";	// set var to NULL
+			$templ['home']['show']['row']['info']['text2']		= "";	// set var to NULL
+		} // while - news
+	} // if
+	else {
+		$templ['home']['show']['row']['text']['info']['text'] = "<i>{$lang["home"]["news_noentry"]}</i>";
+		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row_text");
+	}
+
+?>

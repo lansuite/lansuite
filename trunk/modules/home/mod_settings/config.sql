@@ -1,0 +1,2 @@
+('home_login', '0', 'homesite', 'Startseite', 'Welche Startseite soll im eingeloggten Zustand angezeigt werden?');
+('home_logout', '0', 'homesite', 'Startseite', 'Welche Startseite soll im ausgeloggten Zustand angezeigt werden?');

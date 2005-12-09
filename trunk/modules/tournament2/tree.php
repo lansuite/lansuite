@@ -1,0 +1,90 @@
+<?php
+/*************************************************************************
+*
+*	Lansuite - Webbased LAN-Party Management System
+*	-------------------------------------------------------------------
+*	Lansuite Version:	2.0
+*	File Version:		2.1
+*	Filename: 			tree.php
+*	Module: 			Tournamentsystem
+*	Main editor: 		jochen@one-network.org
+*	Last change: 		20.04.2004
+*	Description: 		show tournament tree
+*	Remarks: 		
+*
+**************************************************************************/
+
+$step 		= $vars["step"];
+$tournamentid 	= $vars["tournamentid"];
+$group		= $vars["group"];
+
+switch($step) {
+case 1:
+	$mastersearch = new MasterSearch( $vars, 
+					  "index.php?mod=tournament2&action=tree&step=1", 
+					  "index.php?mod=tournament2&action=tree&step=2&tournamentid=", 
+					  "" );
+	$mastersearch->LoadConfig( "tournament", 
+				   "Turnier &auml;ndern: Suche", 
+				   "Turnierauswahl: Ergebnis" );
+	$mastersearch->PrintForm();
+	$mastersearch->Search();
+	$mastersearch->PrintResult();
+	
+	$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+break;
+
+
+case 2:
+	$tournament = $db->query_first("SELECT name, mode FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+
+	if ($tournament['mode'] == "single") $modus = $lang["tourney"]["se"];
+	if ($tournament['mode'] == "double") $modus = $lang["tourney"]["de"];
+	if ($tournament['mode'] == "liga") $modus = $lang["tourney"]["league"];
+	if ($tournament['mode'] == "groups") $modus = $lang["tourney"]["groups"];
+	if ($tournament['mode'] == "all") $modus = $lang["tourney"]["all"];
+
+	$games = $db->query("SELECT gameid FROM {$config["tables"]["t2_games"]} WHERE (tournamentid = '$tournamentid') AND (round=0)");
+	$team_anz = $db->num_rows($games);
+	$db->free_result($games);
+
+	$dsp->NewContent(str_replace("%NAME%", $tournament['name'], str_replace("%MODE%", $modus, $lang["tourney"]["tree_caption"])), $lang["tourney"]["tree_subcaption"]);
+
+	if ($team_anz == 0) {
+		$func->information($lang["tourney"]["games_pairs_unknown"], "index.php?mod=tournament2&action=tree&step=1");
+		break;
+	} elseif ($tournament['mode'] == "all") {
+		$func->information($lang["tourney"]["tree_wrong_mode"], "index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid");
+		break;
+	} else {
+		if ($tournament['mode'] == "liga") {
+			$height = $team_anz * 20 + 30;
+		} else {
+			$height = (($team_anz/2) * 50) + 60;
+		}
+
+		if (($tournament["mode"] == "groups") && ($group == "")) {
+			$teams = $db->query_first("SELECT MAX(group_nr) AS max_group_nr
+				FROM {$config["tables"]["t2_games"]}
+				WHERE (tournamentid = '$tournamentid') AND (round = 0)
+				");
+
+			$t_array = array("<option value=\"0\">{$lang["tourney"]["tree_group_select_final"]}</option>");
+			for ($i = 1; $i <= $teams["max_group_nr"]; $i++) array_push ($t_array, "<option value=\"$i\">{$lang["tourney"]["tree_group_select_group"]} $i</option>");
+
+			$dsp->SetForm("index.php?mod=tournament2&action=tree&step=2&tournamentid=$tournamentid");
+			$dsp->AddDropDownFieldRow("group", $lang["tourney"]["tree_group_select"], $t_array, "");
+			$dsp->AddFormSubmitRow("next");
+
+		} else {
+			$dsp->AddSingleRow("<iframe src=\"base.php?mod=tree_frame&tournamentid=$tournamentid&group=$group\" width=\"99%\" height=\"$height\"><a href=\"base.php?mod=tree_frame&tournamentid=$tournamentid&group=$group\">Tree</a></iframe>");
+			$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_$tournamentid.png\">{$lang["tourney"]["tree_download"]}</a>");
+		}
+
+		
+		if ($func->internal_referer) $dsp->AddBackButton($func->internal_referer, "tournament2/games");
+		else $dsp->AddBackButton("index.php?mod=tournament2&action=tree&step=1", "tournament2/games");
+		$dsp->AddContent();
+	}
+} // Switch
+?>

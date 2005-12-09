@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<menu>
+	<pos>6</pos>
+	<entry>
+		<action>default</action>
+		<file>show</file>
+		<caption>Turniere</caption>
+		<hint>Hier k&ouml;nnen Sie eine &Uuml;bersicht &uuml;ber alle Turniere aufrufen</hint>
+		<link>?mod=tournament2</link>
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<needed_config></needed_config>
+		<level>0</level>
+	</entry>
+	<entry>
+		<action>timetable</action>
+		<file>timetable</file>
+		<caption>Zeitplan</caption>
+		<hint>Eine Übersicht über die Zeiten zu denen welches Turnier stattfindet</hint>
+		<link>?mod=tournament2&action=timetable</link>
+		<requirement>0</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>games</action>
+		<file>games</file>
+		<caption>Paarungen</caption>
+		<hint>Hier sehen Sie eine Liste aller Paarungen zu einem Turnier</hint>
+		<link>?mod=tournament2&action=games&step=1</link>
+		<requirement>0</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>tree</action>
+		<file>tree</file>
+		<caption>Spielbaum</caption>
+		<hint>Hier sehen Sie eine Grafik aller Paarungen zu einem Turnier</hint>
+		<link>?mod=tournament2&action=tree&step=1</link>
+		<requirement>0</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>rangliste</action>
+		<file>rangliste</file>
+		<caption>Rangliste</caption>
+		<hint>Nachdem ein Turnier beendet ist, sehen Sie hier die Rangliste</hint>
+		<link>?mod=tournament2&action=rangliste&step=1</link>
+		<requirement>0</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>teammgr</action>
+		<file>teammgr</file>
+		<caption>Teammanager</caption>
+		<hint>Hier k&ouml;nnen Sie Ihre Teams verwalten</hint>
+		<link>?mod=tournament2&action=teammgr</link>
+		<requirement>1</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>add</action>
+		<file>tournaments</file>
+		<caption>Hinzuf&uuml;gen</caption>
+		<hint>Hier k&ouml;nnen Sie ein neues Turnier erstellen</hint>
+		<link>?mod=tournament2&action=add</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>change</action>
+		<file>tournaments</file>
+		<caption>&Auml;ndern</caption>
+		<hint>Hier k&ouml;nnen Sie ein bereits erstelltes Turnier &auml;ndern</hint>
+		<link>?mod=tournament2&action=change</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>delete</action>
+		<file>tournaments_del</file>
+		<caption>L&ouml;schen</caption>
+		<hint>Hier k&ouml;nnen Sie Turniere entfernen</hint>
+		<link>?mod=tournament2&action=delete</link>
+		<requirement>3</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>teammgr_admin</action>
+		<file>teammgr_admin</file>
+		<caption>Teammanager</caption>
+		<hint>Hier k&ouml;nnen Sie Teams verwalten</hint>
+		<link>?mod=tournament2&action=teammgr_admin</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>export</action>
+		<file>export</file>
+		<caption>Export</caption>
+		<hint>Hier k&ouml;nnen Sie Ergebnisse exportieren</hint>
+		<link>?mod=tournament2&action=export</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>details</action>
+		<file>details</file>
+		<requirement>0</requirement>
+	</entry>
+	<entry>
+		<action>gamedetails</action>
+		<file>gamedetails</file>
+		<requirement>0</requirement>
+	</entry>
+	<entry>
+		<action>tdetails</action>
+		<file>team_details</file>
+		<requirement>0</requirement>
+	</entry>
+	<entry>
+		<action>submit_result</action>
+		<file>submit_result</file>
+		<requirement>1</requirement>
+	</entry>
+	<entry>
+		<action>join</action>
+		<file>join</file>
+		<requirement>1</requirement>
+	</entry>
+	<entry>
+		<action>disqualify</action>
+		<file>disqualify</file>
+		<requirement>2</requirement>
+	</entry>
+	<entry>
+		<action>generate_pairs</action>
+		<file>generate_pairs</file>
+		<requirement>2</requirement>
+	</entry>
+	<entry>
+		<action>undo_generate</action>
+		<file>change_status</file>
+		<requirement>2</requirement>
+	</entry>
+	<entry>
+		<action>undo_close</action>
+		<file>change_status</file>
+		<requirement>2</requirement>
+	</entry>
+</menu>

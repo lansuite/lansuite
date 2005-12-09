@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Bildergalerie</de>
+		<en>Picture gallery</en>
+	</entry>
+	<entry>
+		<de>Bietete die Möglichkeit Bilder hochzuladen und stellt diese in Kleinansicht in einer Liste dar</de>
+		<en>Provites the possibility to upload and presentate pictures</en>
+	</entry>
+	<entry>
+		<de>Maximalbreite eines Thumbnails</de>
+		<en>Maximum width of a thumbnail</en>
+	</entry>
+	<entry>
+		<de>Maximalhöhe eines Thumbnails</de>
+		<en>Maximum height of a thumbnail</en>
+	</entry>
+	<entry>
+		<de>Bilder in der Übersicht pro Reihe</de>
+		<en>Pictures per row in the overview</en>
+	</entry>
+	<entry>
+		<de>Reihen mit Bildern in der Übersicht</de>
+		<en>Number of rows in the overview</en>
+	</entry>
+	<entry>
+		<de>Darf jeder Bilder hochladen</de>
+		<en>Is everyone allowed to upload pictures?</en>
+	</entry>
+</translations>

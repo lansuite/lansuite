@@ -1,0 +1,1 @@
+('msgsys_alwayson', '1', 'boolean', 'Messenger', 'Soll der Messenger auch im Internet-Modus angezeigt werden?');

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Informationen2</de>
+		<en>Informations2</en>
+	</entry>
+	<entry>
+		<de>Ermöglicht das einfache hinzufügen weiterer statischer Webseiten</de>
+		<en>Makes the adding of additional static web pages easy</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie die Informationseite Ihren W&uuml;nschen anpassen</de>
+		<en>Here you can fit the information page to your needs</en>
+	</entry>
+	<entry>
+		<de>Breite des Editors</de>
+		<en>Editors width</en>
+	</entry>
+	<entry>
+		<de>Höhe des Editors</de>
+		<en>Editors height</en>
+	</entry>
+	<entry>
+		<de>Erweiterte Toolbar</de>
+		<en>Extended toolbar</en>
+	</entry>
+	<entry>
+		<de>Eingabe über den WYYSIWYG-Editor Spaw?</de>
+		<en>Use the WYYSIWYG-editor Spaw for text input?</en>
+	</entry>
+</translations>
