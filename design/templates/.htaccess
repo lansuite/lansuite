@@ -1,0 +1,20 @@
+# Standard Passwortschutz
+
+Authtype Basic
+AuthName Sicherheitszone
+AuthUserFile ../inc/.htpasswd
+AuthGroupFile ../inc/.htgroup
+require valid-user
+
+# Entschützt eine einzelne Datei
+#<files frei.htm> 
+#allow from all 
+#satisfy any 
+#</files>
+
+#Entschuetzed einzelne Verzeichnisse
+#<Directory /kunden/domain.de/entschuetzt>
+#   allow from all 
+#   satisfy any 
+#</Directory>
+

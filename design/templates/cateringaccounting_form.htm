@@ -1,0 +1,115 @@
+
+<!-- TEMPLATE - STANDARD - CATERING FORM -->
+
+<form name="form" method="post" action="{$templ['cateringaccounting']['form']['control']['form_action']}">
+  <input type="hidden" name="userid" value="{$_GET['userid']}"/>
+  <table width="100%" cellspacing="0" cellpadding="0">
+    <tr class="tbl_5"> 
+      <td colspan="2"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_5">
+          <tr> 
+            <td><b>{$templ['cateringaccounting']['form']['info']['page_title']}</b><br/>
+              <br/>
+              {$templ['cateringaccounting']['form']['info']['page_description']}
+			  <br/>
+              <br/>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"/></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Betrag</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['cateringaccounting']['form']['error']['amount']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3">
+          <tr> 
+            <td class="tbl_1"> 
+              <input type="text" name="cateringaccounting_amount" size="8" maxlength="12" class="form" value="{$_POST['cateringaccounting_amount']}"/> <b>{$config['catering']['currency']}</b> (Auszahlungen als negativen Betrag verbuchen!)
+              {$templ['cateringaccounting']['form']['error']['amount']['msg']}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>    
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"/></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Aktuelles Guthaben</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['cateringaccounting']['form']['error']['curamount']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3">
+          <tr> 
+            <td class="tbl_1"> 
+              <input type="text" name="cateringaccounting_curamount_disabled" disabled size="8" maxlength="12" class="form" value="{$_POST['cateringaccounting_curamount']}"/> <b>{$config['catering']['currency']}</b> (Nur zu Informationszwecken.)
+              <input type="hidden" name="cateringaccounting_curamount" value="{$_POST['cateringaccounting_curamount']}"/>
+              {$templ['cateringaccounting']['form']['error']['curamount']['msg']}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>        
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"/></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Kommentar zur Zahlung</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['cateringaccounting']['form']['error']['comment']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3">
+          <tr> 
+            <td> 
+              <input type="text" name="cateringaccounting_comment" size="50" maxlength="200" class="form" value="{$_POST['cateringaccounting_comment']}"/>
+              {$templ['cateringaccounting']['form']['error']['comment']['msg']}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>            
+    <tr> 
+      <td class="tbl_6"><img src="/" width="1" height="1"/></td>
+      <td class="tbl_4"><img src="/" width="1" height="1"/></td>
+    </tr>
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"/></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30" width="30%">&nbsp;</td>
+      <td class="tbl_6" height="30" width="70%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td> 
+              <input type="image" border="0" name="imageField" src="design/{default_design}/images/buttons_add.gif" width="61" height="17"/>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"/></td>
+    </tr>
+    <tr class="tbl_5"> 
+      <td colspan="2"> 
+        <p><br/>
+        </p>
+      </td>
+    </tr>
+  </table>
+</form>
+<!-- TEMPLATE - STANDARD - CATERING FORM -->
