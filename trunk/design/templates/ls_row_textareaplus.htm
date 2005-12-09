@@ -1,0 +1,82 @@
+<tr>
+	<td class="row_key" width="30%" height="30">
+		{$templ['ls']['row']['textarea']['key']}
+		<br />
+		<span class="small">
+			<br />LS-Code ist <strong>an</strong>
+			<br />Verbl. Zeichen: <input type="text" name="{$templ['ls']['row']['textarea']['name']}_chr" class="form" maxlength="8" size="8" value="{$templ['ls']['row']['textarea']['maxchar']}" readonly />
+		</span>
+	</td>
+
+	<td width="70%" height="30">
+		<table width="100%" cellspacing="0" cellpadding="0">
+		<tr>
+			<td class="row_value">
+
+<script language="JavaScript" type="text/javascript">
+<!--
+function code_{$templ['ls']['row']['textarea']['name']} (sign) {
+	document.{$templ['ls']['row']['textarea']['formname']}.{$templ['ls']['row']['textarea']['name']}.value += sign;
+	checklength_{$templ['ls']['row']['textarea']['name']}();
+}
+
+function checklength_{$templ['ls']['row']['textarea']['name']}(){
+	var maxchars = {$templ['ls']['row']['textarea']['maxchar']};
+	with (document.{$templ['ls']['row']['textarea']['formname']}){
+		text_val = {$templ['ls']['row']['textarea']['name']}.value;
+		if (text_val.length > maxchars){
+			{$templ['ls']['row']['textarea']['name']}.value = text_val.substr(0, maxchars);
+			{$templ['ls']['row']['textarea']['name']}.blur();
+		}
+		{$templ['ls']['row']['textarea']['name']}_chr.value = maxchars - {$templ['ls']['row']['textarea']['name']}.value.length;
+	}
+}
+//-->
+</script>
+
+			<textarea name="{$templ['ls']['row']['textarea']['name']}" id="{$templ['ls']['row']['textarea']['name']}" class="form{$templ['ls']['row']['textarea']['optional']}" cols="{$templ['ls']['row']['textarea']['cols']}" rows="{$templ['ls']['row']['textarea']['rows']}" onKeyUp="checklength_{$templ['ls']['row']['textarea']['name']}()">{$templ['ls']['row']['textarea']['value']}</textarea>
+			{$templ['ls']['row']['textarea']['errortext']}
+			</td>
+		</tr>
+
+		<tr> 
+			<td class="row_value">{$templ['ls']['row']['textarea']['smilies']}</td>
+		</tr>
+
+		<tr> 
+			<td class="row_value">{$templ['ls']['row']['textarea']['buttons']}</td>
+		</tr>
+
+		<tr> 
+			<td class="row_value"> Schriftfarbe: 
+			<select name="color" onChange="javascript:code_{$templ['ls']['row']['textarea']['name']}('[color=' + this.options[this.selectedIndex].value + '][/color]')" class="form">
+			<option style="color:black;" value="black" >Standard</option>
+			<option style="color:darkred;" value="darkred" >Dunkelrot</option>
+			<option style="color:red;" value="red" >Rot</option>
+			<option style="color:orange;" value="orange" >Orange</option>
+			<option style="color:brown;" value="brown" >Braun</option>
+			<option style="color:yellow;" value="yellow" >Gelb</option>
+			<option style="color:green;" value="green" >Grün</option>
+			<option style="color:olive;" value="olive" >Oliv</option>
+			<option style="color:cyan;" value="cyan" >Cyan</option>
+			<option style="color:blue;" value="blue" >Blau</option>
+			<option style="color:darkblue;" value="darkblue" >Dunkelblau</option>
+			<option style="color:indigo;" value="indigo" >Indigo</option>
+			<option style="color:violet;" value="violet" >Violett</option>
+			<option style="color:black;" value="black" >Schwarz</option>
+			</select>
+
+			Schriftgr&ouml;&szlig;e: 
+			<select name="color" onChange="javascript:code_{$templ['ls']['row']['textarea']['name']}('[size=' + this.options[this.selectedIndex].value + '][/size]')" class="form">
+			<option value="12" selected>Standard</option>
+			<option value="7"  >Winzig</option>
+			<option value="9"  >Klein</option>
+			<option value="12" >Normal</option>
+			<option value="18" >Groß</option>
+			<option value="24" >Riesig</option>
+			</select>
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
