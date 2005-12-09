@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Troubleticket</de>
+		<en>Troubleticket</en>
+	</entry>
+	<entry>
+		<de>Benutzer können hier ihre Probleme posten, Orgas können sie beheben, oder anderen Orgas zuweisen</de>
+		<en>Users can post their problems here. An orga can answer them or assign them to another</en>
+	</entry>
+	<entry>
+		<de>Troubletickets</de>
+		<en>Troubletickets</en>
+	</entry>
+	<entry>
+		<de>Mit den Troubletickets können die Orgas und die Teilnehmer ihre Probleme etc. verwalten</de>
+		<en>By troubletickets orgas can manage the users problems</en>
+	</entry>
+	<entry>
+		<de>Hinzuf&uuml;gen</de>
+		<en>Add</en>
+	</entry>
+	<entry>
+		<de>Ein Troubleticket hinzuf&uuml;gen</de>
+		<en>Add a troubleticket</en>
+	</entry>
+	<entry>
+		<de>Zuweisen</de>
+		<en>Assign</en>
+	</entry>
+	<entry>
+		<de>Ein Troubleticket einem Orga zum bearbeiten zuweisen. (Nur Operator, wenn bereits zugewiesen.)</de>
+		<en>Assign a troubleticket to another orga (Only for operators, if allready assigned)</en>
+	</entry>
+	<entry>
+		<de>Meine Tickets</de>
+		<en>My tickets</en>
+	</entry>
+	<entry>
+		<de>Eine Auflistung aller Troubletickets die mir zugewiesen wurden sowie Bearbeitung nach Auswahl</de>
+		<en>A list of all troubetickets assigned to myselfe</en>
+	</entry>
+	<entry>
+		<de>&Auml;ndern</de>
+		<en>Change</en>
+	</entry>
+	<entry>
+		<de>Den Status, Kommentar usw. aller Troubeltickets &auml;ndern</de>
+		<en>Change the state and comments of a troubleticket</en>
+	</entry>
+	<entry>
+		<de>L&ouml;schen</de>
+		<en>Delete</en>
+	</entry>
+	<entry>
+		<de>Ein Troubleticket aus dem LanSuite-System l&ouml;schen</de>
+		<en>Delete a troubleticket</en>
+	</entry>
+</translations>

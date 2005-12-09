@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Verleih</de>
+		<en>Rental</en>
+	</entry>
+	<entry>
+		<de>Orgas können hier eintragen, welche Gegenständig sie welchen Benutzer für die LAN geliehen haben</de>
+		<en>Orgas could enter which stuff they have givven to which user</en>
+	</entry>
+	<entry>
+		<de>Verleihbares Equip.</de>
+		<en>Rentabel equip.</en>
+	</entry>
+	<entry>
+		<de>&Uuml;bersicht des verleihbaren Equipments mit der M&ouml;glichkeit diese Auszuleihen</de>
+		<en>Overview over the rentable equipment and the possibility to rent it</en>
+	</entry>
+	<entry>
+		<de>Verliehenes Equip.</de>
+		<en>Rented equip.</en>
+	</entry>
+	<entry>
+		<de>&Uuml;bersicht des verliehenen Equipments mit der M&ouml;glichkeit der R&uuml;cknahme</de>
+		<en>Overview over the rented equipment and the possibility to take it back</en>
+	</entry>
+	<entry>
+		<de>Zur&uuml;ckgen. Equip.</de>
+		<en>Taken back equip.</en>
+	</entry>
+	<entry>
+		<de>&Uuml;bersicht der zur&uuml;ckgenommen Equipments</de>
+		<en>Overview over the equipment taken back</en>
+	</entry>
+	<entry>
+		<de>Equip. hinzuf.</de>
+		<en>Add equipment</en>
+	</entry>
+	<entry>
+		<de>Equipment zum Verleih hinzuf&uuml;gen.</de>
+		<en>Add equipment for rental</en>
+	</entry>
+	<entry>
+		<de>Eq. bearb./l&ouml;schen.</de>
+		<en>Edit / Delete eq.</en>
+	</entry>
+	<entry>
+		<de>Equipment aus dem Verleih entfernen</de>
+		<en>Remove equipment from the rental</en>
+	</entry>
+</translations>

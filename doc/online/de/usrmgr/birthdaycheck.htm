@@ -1,0 +1,63 @@
+<script language="JavaScript">
+
+function CalculateAge(year, month, day)
+{
+  // Wenn eine Angabe fehlt wird "" zurückgegeben
+  if (year == 0 || month == 0 || day == 0)
+    return "";
+              
+  var birthday = new Date(year, month - 1, day);
+  var today = new Date();
+              
+  var age = today.getFullYear() - birthday.getFullYear();
+  // Wenn der Monat noch nicht erreicht ist => 1 Jahr abziehen
+  if (today.getMonth() < birthday.getMonth())
+    age = age - 1;
+  else
+  {
+    // Richtiger Monat aber der Tag ist noch nicht erreicht 
+    // => 1 Jahr abziehen
+    if (today.getMonth() == birthday.getMonth() &&
+    today.getDate() < birthday.getDate())
+      age = age - 1;
+  }
+  // Alter zurückgeben
+  return age;
+}
+
+function doOnchange() {
+
+    dd = document.getElementById('dd').value;
+    mm = document.getElementById('mm').value;
+    yy = document.getElementById('yy').value;
+	
+	document.getElementById('bstatus').value=CalculateAge(yy, mm, dd);
+}
+
+</script>
+
+<table class="tbl_1" width="300" border="0" cellpadding="3" cellspacing="1">
+  <tr> 
+    <td> 
+      <table class="tbl_helplet" cellspacing="0" cellpadding="3" width="100%" border="0">
+        <tr>
+          <td height="25" class="tbl_helplet_left">Geben Sie das Geburtsdatum 
+            ein.</td>
+        </tr>
+        <tr> 
+          <td width="80%">
+<form>
+              Tag 
+              <input class="form" type="text" name="dd" id="dd" size="2" maxlength="2" onkeyup="doOnchange();" onChange="doOnchange();">
+              Monat 
+              <input class="form" type="text" name="mm" id="mm" size="2" maxlength="2" onChange="doOnchange();">
+              Jahr 
+              <input class="form" type="text" name="yy" id="yy" size="4" maxlength="4" onChange="doOnchange();">
+              &nbsp;=&nbsp;
+              <input class="form_optional" type="text" id="bstatus" size="2" readonly>
+              Jahre </form> </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

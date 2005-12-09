@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>PayPal</de>
+		<en>PayPal</en>
+	</entry>
+	<entry>
+		<de>Mit diesem Modul können die Benutzer einzahlungen machen</de>
+		<en>Using this modules youser can transfer money to you</en>
+	</entry>
+	<entry>
+		<de>Bezahlen mit Paypal</de>
+		<en>Pay with PayPal</en>
+	</entry>
+	<entry>
+		<de>E-Mail PayPal-Kontobesitzer</de>
+		<en>Email of PayPal account</en>
+	</entry>
+	<entry>
+		<de>Homepage Konto-Besitzer</de>
+		<en>Homepage of account owner</en>
+	</entry>
+	<entry>
+		<de>Währung (USD,GBP,JPY,CAD,EUR)</de>
+		<en>Currency (USD,GBP,JPY,CAD,EUR)</en>
+	</entry>
+	<entry>
+		<de>Zahlungsgrund</de>
+		<en>Payment cause</en>
+	</entry>
+	<entry>
+		<de>PayPal URL</de>
+		<en>PayPal URL</en>
+	</entry>
+	<entry>
+		<de>Anmeldung an Party</de>
+		<en>Sign on to party</en>
+	</entry>
+	<entry>
+		<de>Soll der Besucher auch gleich das Depot zahlen können?</de>
+		<en>Should the user also be able to pay the deposit?</en>
+	</entry>
+	<entry>
+		<de>Sollen die Besucher Geld für das Catering einzahlen können?</de>
+		<en>Should the user be able to transfer monay for catering?</en>
+	</entry>
+	<entry>
+		<de>Sollen die Besucher Spenden einzahlen können?</de>
+		<en>Should users be able to donate money?</en>
+	</entry>
+</translations>

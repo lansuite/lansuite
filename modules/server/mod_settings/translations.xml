@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Server</de>
+		<en>Server</en>
+	</entry>
+	<entry>
+		<de>Eine öffentliche Liste aller Server auf der Lan, in der jeder eingeloggt Benutzer seinen Server eintragen kann</de>
+		<en>A public list of all servers, where each logged in youser could add his / her server</en>
+	</entry>
+	<entry>
+		<de>Nach wie vielen Sekunden soll die Erreichbarkeit eines Servers neu getestet werden?</de>
+		<en>After how many secounds should the accessibilty of the server be testet again?</en>
+	</entry>
+	<entry>
+		<de>Nur Admins dürfen Server hinzufügen</de>
+		<en>Only admins may add servers</en>
+	</entry>
+	<entry>
+		<de>Hinzuf&uuml;gen</de>
+		<en>Add</en>
+	</entry>
+	<entry>
+		<de>&Auml;ndern</de>
+		<en>Change</en>
+	</entry>
+	<entry>
+		<de>L&ouml;schen</de>
+		<en>Delete</en>
+	</entry>
+</translations>

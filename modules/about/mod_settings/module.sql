@@ -1,0 +1,1 @@
+INSERT INTO lansuite_modules (name, caption, description, active, def, changeable, menu_pos) VALUES ('about', 'About', '', 1, 1, 0, 31);

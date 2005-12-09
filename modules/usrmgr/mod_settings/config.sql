@@ -1,0 +1,10 @@
+('orga_showcheck', '1', 'boolean', 'Userdetails', 'Sollen bei einem Orga die Felder "CheckIN/Out" angezeigt werden?');
+('orga_showpaid', '1', 'boolean', 'Userdetails', 'Sollen bei einem Orga die Felder "Bezahlt/PlatzpfandCheckIN/Out" angzeigt werden?');
+('user_showownstreet', '1', 'boolean', 'Userdetails', 'Sollen dem Benutzer SEINE Straße/Passnummer/Sonstiges angezeigt werden? (Orga sieht diese Felder immer)');
+('user_showcity4all', '1', 'boolean', 'Userdetails', 'Sollen die PLZ und Stadt eines Benutzers JEDEM angezeigt werden? (Orga sieht diese Felder immer)');
+('user_showmail4all', '1', 'boolean', 'Userdetails', 'Soll die eMail eines Benutzers JEDEM angezeigt werden? (Orga sieht diese Felder immer, im Internetmodus wird sie nie angezeigt)');
+('user_avatarupload', '1', 'boolean', 'Userdetails', 'Darf der Benutzer ein Avatarbild uploaden?');
+('user_design_change', '1', 'boolean', 'Userdetails', 'Darf der Benutzer das Design auswählen?');
+('user_self_details_change', '0', 'boolean', 'Userdetails', 'Sollen die User ihre Details im Nachhinein selbst ändern dürfen?');
+('user_show_ticket', '0', 'boolean', 'Userdetails', 'Soll in der Benutzerdaten-Box der Link zur Eintrittskarte gezeigt werden?');
+('user_ticket_template', 'Ausweise', 'string', 'Userdetails', 'Name des PDF-Templates für Eintrittskarte');

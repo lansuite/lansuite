@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Turnier</de>
+		<en>Tournament</en>
+	</entry>
+	<entry>
+		<de>Zum Verwalten der Turniere (Modi: Single + Double Elimination; Liga; Gruppenspiele)</de>
+		<en>For managing tournaments (Modes: Single + Double Elimination; League; Group games)</en>
+	</entry>
+	<entry>
+		<de>Turniere</de>
+		<en>Tournaments</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie eine &Uuml;bersicht &uuml;ber alle Turniere aufrufen</de>
+		<en>Here you can see an overview over all tournaments</en>
+	</entry>
+	<entry>
+		<de>Zeitplan</de>
+		<en>Timeline</en>
+	</entry>
+	<entry>
+		<de>Eine Übersicht über die Zeiten zu denen welches Turnier stattfindet</de>
+		<en>AN overview over the times a tournament takes place</en>
+	</entry>
+	<entry>
+		<de>Paarungen</de>
+		<en>Games</en>
+	</entry>
+	<entry>
+		<de>Hier sehen Sie eine Liste aller Paarungen zu einem Turnier</de>
+		<en>Here you can see a list of all games in the selected tournament</en>
+	</entry>
+	<entry>
+		<de>Spielbaum</de>
+		<en>Game tree</en>
+	</entry>
+	<entry>
+		<de>Hier sehen Sie eine Grafik aller Paarungen zu einem Turnier</de>
+		<en>Here you can see a graphic of all pairs in the selected tournament</en>
+	</entry>
+	<entry>
+		<de>Rangliste</de>
+		<en>Ranking</en>
+	</entry>
+	<entry>
+		<de>Nachdem ein Turnier beendet ist, sehen Sie hier die Rangliste</de>
+		<en>After a tournament has finished, you can find its ranking here</en>
+	</entry>
+	<entry>
+		<de>Teammanager</de>
+		<en>Team manager</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie Ihre Teams verwalten</de>
+		<en>Here you can manage your teams</en>
+	</entry>
+	<entry>
+		<de>Hinzuf&uuml;gen</de>
+		<en>Add</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie ein neues Turnier erstellen</de>
+		<en>Here you can add a new tournament</en>
+	</entry>
+	<entry>
+		<de>&Auml;ndern</de>
+		<en>Change</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie ein bereits erstelltes Turnier &auml;ndern</de>
+		<en>Here you can change an existing tournament</en>
+	</entry>
+	<entry>
+		<de>L&ouml;schen</de>
+		<en>Delete</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie Turniere entfernen</de>
+		<en>Here you can delete a tournament</en>
+	</entry>
+	<entry>
+		<de>Teammanager</de>
+		<en>Team manager</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie Teams verwalten</de>
+		<en>Here you can manage teams</en>
+	</entry>
+	<entry>
+		<de>Export</de>
+		<en>Export</en>
+	</entry>
+	<entry>
+		<de>Sieg-Punkte bei einem Sieg in einem Liga-Turnier (Verlierer bekommen 0, Unentschieden gibt einen Punkt für beide)</de>
+		<en>Win points when winning a league tournament (losers got 0, draw is 1 point for each)</en>
+	</entry>
+	<entry>
+		<de>Nur Verlierer dürfen das Ergebnis eintragen</de>
+		<en>Only losers may submit the score</en>
+	</entry>
+	<entry>
+		<de>Die Anzahl an Coins, die jedem Turnierteilnehmer von Beginn an zur Verfügung stehen</de>
+		<en>The number of coins each users has at the beginning</en>
+	</entry>
+	<entry>
+		<de>Der Pfad zu der zu verwendenen Schriftart für den Turnierbaum</de>
+		<en>The path to the userd font for the tournament tree</en>
+	</entry>
+	<entry>
+		<de>Die Schriftgröße der zu verwendenen Schriftart für den Turnierbaum</de>
+		<en>The font size of the tournament tree</en>
+	</entry>
+	<entry>
+		<de>Punkte, die dem Sieger vergeben werden, bei Zeitüberschreitung, oder Disqualifizierung des Gegners</de>
+		<en>Points, the winner got, when drawn because of time exceeding, or disqualification of his opponent</en>
+	</entry>
+</translations>

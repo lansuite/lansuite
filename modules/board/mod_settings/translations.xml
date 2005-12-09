@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Board</de>
+		<en>Board</en>
+	</entry>
+	<entry>
+		<de>Suchen</de>
+		<en>Search</en>
+	</entry>
+	<entry>
+		<de>Lesezeichen</de>
+		<en>Bookmark</en>
+	</entry>
+	<entry>
+		<de>Hier siehst du die von dir marieren Threads</de>
+		<en>Look at your marked threads</en>
+	</entry>
+	<entry>
+		<de>Hinzufügen</de>
+		<en>Add</en>
+	</entry>
+	<entry>
+		<de>Ändern</de>
+		<en>Change</en>
+	</entry>
+	<entry>
+		<de>Löschen</de>
+		<en>Delete</en>
+	</entry>
+	<entry>
+		<de>Suche</de>
+		<en>Search</en>
+	</entry>
+	<entry>
+		<de>Ranking anzeigen?</de>
+		<en>Show ranking?</en>
+	</entry>
+	<entry>
+		<de>Gast Präfix</de>
+		<en>Guest prefix</en>
+	</entry>
+	<entry>
+		<de>Anzahl der angezeigten Forumeinträge</de>
+		<en>Number of shown board entries</en>
+	</entry>
+	<entry>
+		<de>Anzahl der angezeigten Einträge</de>
+		<en>Number of shown entries</en>
+	</entry>
+	<entry>
+		<de>Es ist ein neuer Beitrag vorhanden</de>
+		<en>A new post is available</en>
+	</entry>
+	<entry>
+		<de>Betreff der Hinweismail auf neue Beiträge</de>
+		<en>Subject of the reminder mail for new posts</en>
+	</entry>
+	<entry>
+		<de>Im Forum gibt es einen neuen Beitrag. Du kannst ihn dir unter %URL% ansehen.</de>
+		<en>There is a new post in the board. You can have a look at in unter %URL%.</en>
+	</entry>
+	<entry>
+		<de>Text der Hinweismail auf neue Beiträge</de>
+		<en>Text of the reminder mail for new posts</en>
+	</entry>
+	<entry>
+		<de>Board</de>
+		<en>Board</en>
+	</entry>
+	<entry>
+		<de>Ein Forum - Gäste können hier Nachrichten hinterlassen, worauf andere antworten können</de>
+		<en>Guests could leave messages here, so others can reply</en>
+	</entry>
+</translations>
