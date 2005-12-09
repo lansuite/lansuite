@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.5
 
+- Bugfix: Im Editormodus wurde beim Sitzplan das Bild wiederholt, was bei Seperatoren zu Problemen führte. (KnoX 09.12.2005)
 - Bugfix: Fehler in der Passwortabfrage beim betreten eines Passwortgeschützten Teams (KnoX 04.12.2005)
 - Bugfix: #240 Newskommentare wurden nicht angezeigt (KnoX 21.11.2005)
 - Bugfix: Bei der Installation im ersten Schritt kamen MySQL-Fehler, wenn man aufgrund unzureichender MySQL-Rechte die Version nicht auslesen darf. Gleiches galt für den shell_exec Befehl (KnoX 21.11.2005)

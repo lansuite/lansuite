@@ -228,22 +228,22 @@ class seat2 {
 					case 2:
 						$templ['seat']['cell_content'] = '';
 						if ($seat_state[$y][$x] == 0){
-							$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/seating_symbols/100.png);height=14px;width=14px\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
+							$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/seating_symbols/100.png); background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
 							$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
 #						elseif ($seat_state[$y][$x] == $_POST['icon'])
 #							$templ['seat']['cell_content'] = "<input type=\"checkbox\" name=\"cell[". ($x * 100 + $y) ."]\" value=\"". ($x * 100 + $y) ."\"checked />";
 						}else {
 							if ($seat_state[$y][$x] > 1 && $seat_state[$y][$x] < 10) {
-								$templ['seat']['cell_content'] = "<td style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png);height=14px;width=14px\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
+								$templ['seat']['cell_content'] = "<td style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png); height=14px; width=14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
 //								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png";
 //								$templ['seat']['cell_content'] = $dsp->FetchModTpl('seating', 'plan_cell_img');
 							} else {
 								if ($seat_state[$y][$x] == 1) {
 //									$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_free.png";
-									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_free.png);height=14px;width=14px\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
+									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_free.png); background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
 									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
 								} else{
-									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/seating_symbols/{$seat_state[$y][$x]}.png);height=14px;width=14px\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
+									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/seating_symbols/{$seat_state[$y][$x]}.png); background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
 									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
 								}
 								//$templ['seat']['img_name'] = "ext_inc/seating_symbols/". $seat_state[$y][$x] .".png";
