@@ -28,6 +28,7 @@ Version 2.0.5
 - Bugfix: #223 SponsorenKlicks wurden nicht immer gezählt und Ziel-URLs mit eigenen Parametern funktionierten nicht (Poschi 09.10.2005)
 - Bugfix: #224 Boards konnten nicht gelöscht werden (Poschi 09.10.2005)
 
+- Add: Step1 bei Installation zeigt nun den verfügbaren Platten-Platz (KnoX 14.12.2005)
 - Add: Am Ende der Installation hat man nun noch eine Seite, auf der die Wichtigsten Konfigurationen eingestellt werden können (KnoX 25.11.2005)
 - Add: #202: Neuer Turnier-Modus: Alle in einem Spiel (KnoX 24.11.2005)
 - Add: #180 Statistiken-Box (KnoX 23.11.2005)
@@ -47,6 +48,9 @@ Version 2.0.5
 - Add: #222 BMP-Support für Bildergallery (KnoX 07.10.2005)
 - Add: #229 Die Designer haben nun eine globale Variable mit Statistiken zur Verfügung (Genesis 10.10.05)
 
+- Change: Bei fehlendem MySQL gehts bei Step1 nicht mehr weiter (KnoX 14.12.2005)
+- Change: Nur noch orangener Fehler bei deaktiviertem MagicQuotes (KnoX 14.12.2005)
+- Change: GD-Buttons haben nun alle einen Alt-Text, damit sie auch ohne die Bilder selbst anklickbar sind (KnoX 14.12.2005)
 - Change: Foodcenter erweitert und angepasst :) (Genesis 7.11.2005)
 - Change: Foodcenter erweitert und angepasst :) (Genesis 3.11.2005)
 - Change: SQL-Befehle der Besucherkarte optimiert (p0pSi 30.10.2005)

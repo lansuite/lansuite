@@ -432,7 +432,7 @@ class Install {
 
 	// System prüfen
 	function envcheck(){
-		global $lang, $dsp, $config;
+		global $lang, $dsp, $config, $func;
 
 		$continue = 1;
 
@@ -452,6 +452,7 @@ class Install {
 			."<tr><td class=\"row_value\">Max. Data-Input-Zeit:</td><td class=\"row_value\">". ini_get('max_input_time') ." Sec.</td></tr>"
 			."<tr><td class=\"row_value\">Memory Limit:</td><td class=\"row_value\">". ini_get('memory_limit') ." MB</td></tr>"
 			."<tr><td class=\"row_value\">Max. Post-Form Size:</td><td class=\"row_value\">". (int)ini_get('post_max_size') ." MB</td></tr>"
+			."<tr><td class=\"row_value\">Free space:</td><td class=\"row_value\">". $func->FormatSize(disk_free_space('.')) .' / '. $func->FormatSize(disk_total_space('.')) .'</td></tr>'
 			."</table>"
 			);
 
@@ -462,7 +463,10 @@ class Install {
 
 		// MySQL installed?
 		if (extension_loaded("mysql")) $mysql_check = $ok;
-		else $mysql_check = $failed . $lang["install"]["env_no_mysql"];
+		else {
+			$mysql_check = $failed . $lang["install"]["env_no_mysql"];
+			$continue = 0;
+		}
 		$dsp->AddDoubleRow("MySQL", $mysql_check);
 
 		// Register Globals
@@ -480,7 +484,7 @@ class Install {
 			$mq_check = $ok;
 			$config["environment"]["mq"] = 1;
 		} else {
-			$mq_check = $failed . $lang["install"]["env_mq"];
+			$mq_check = $not_possible . $lang["install"]["env_mq"];
 			$config["environment"]["mq"] = 0;
 		}
 		$dsp->AddDoubleRow("Magic Quotes", $mq_check);

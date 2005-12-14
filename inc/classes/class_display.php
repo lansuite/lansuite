@@ -576,6 +576,8 @@ class display {
 	function FetchButton($link, $picname, $hint = NULL, $target = NULL) {
 		global $templ, $gd;
 
+		if (!$hint) $hint = 'Pic: '. $picname;
+
 		$templ['ls']['linkbutton']['link'] = $link;
 		$templ['ls']['linkbutton']['picname'] = $picname;
 		$templ['ls']['linkbutton']['hint'] = $hint;

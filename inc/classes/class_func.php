@@ -311,10 +311,10 @@ class func {
 		$string = str_replace('[/i]', '</i>', $string);
 		$string = str_replace('[u]', '<u>', $string);
 		$string = str_replace('[/u]', '</u>', $string);
-		$string = str_replace('[c]', '<blockquote><div class="small">Code:</div><div class="row_value_code">', $string);
-		$string = str_replace('[/c]', '</div></blockquote>', $string);
-		$string = str_replace('[quote]', '<blockquote><div class="small">Zitat:</div><div class="row_value_code">', $string);
-		$string = str_replace('[/quote]', '</div></blockquote>', $string);
+		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><table width="100%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>', $string);
+		$string = str_replace('[/c]', '</td></tr></table></blockquote>', $string);
+		$string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><table width="70%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>', $string);
+		$string = str_replace('[/quote]', '</td></tr></table></blockquote>', $string);
 
 		$get_smilie = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
 		while ($row=$db->fetch_array($get_smilie))
@@ -680,6 +680,16 @@ class func {
 
 		if ($out) return $out[$cfg["sys_language"]];
 		else return $in;
+	}
+	
+	function FormatSize($size) {
+		if ($size < 1024) return $size . ' B';
+		$units = array("kB", "MiB", "GB", "TB");
+		foreach ($units as $unit) {
+			$size = round($size / 1024, 1);
+			if ($size < 1024) break;
+		}
+		return $size .' '. $unit;
 	}
 }
 ?>
