@@ -1,6 +1,6 @@
 Lansuite2 
 
-Version: 2.0.5 RC1
+Version: 2.0.6 RC1
 MD5-Sum: xxx
 
 The MD5-Sum consists of all files in modules/, install/, inc/, base.php and index.php.
