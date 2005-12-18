@@ -19,7 +19,7 @@
 
 
 [lansuite]
-version				= LANsuite V2.0.5 RC1
+version				= LANsuite V2.0.6 RC1
 default_design			= osX
 user_timeout			= 300
 chmod_dir			= 777
