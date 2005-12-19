@@ -214,6 +214,9 @@ class gd {
 
 		$this->NewImage($new_width, $new_height);
 		ImageCopyResized($this->img, $imgsrc_old, 0, 0, 0, 0, $new_width, $new_height, $old_width, $old_height);
+
+    imagecolortransparent($this->img, imagecolorallocate($this->img, 255, 255, 255));
+
 		$this->PutImage($new_file);
 		ImageDestroy($imgsrc_old);
 
