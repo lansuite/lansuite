@@ -494,18 +494,28 @@ class display {
 		if ($max_rows == "") $max_rows = 100;
 		if ($pics_per_row == "") $pics_per_row = 3;
 
-		$handle = @opendir($path);
-		$z = 0;
-
 		$templ['ls']['row']['pictureselect']['zeile'] = "";
 		$templ['ls']['row']['pictureselect']['spalte'] = "";
 
 		$templ['ls']['row']['pictureselect']['name'] = $key;
-        if($optional) $templ['ls']['row']['pictureselect']['optional'] = "_optional";
-		
-		while (($z < $max_rows * $pics_per_row) && ($file = @readdir ($handle)))
-		if (($file != ".") && ($file != "..") && (!is_dir($file)) && (substr($file, 0, 8) != "lsthumb_")){
+    if($optional) $templ['ls']['row']['pictureselect']['optional'] = "_optional";
 
+		$handle = @opendir($path);
+		$z = 0;
+		// Filter and sort files in directory
+		$file_list = array();
+		while (($z < $max_rows * $pics_per_row) && ($file = @readdir($handle))) {
+  		if (($file != ".") && ($file != "..") && (!is_dir($file)) && (substr($file, 0, 8) != "lsthumb_")) {
+	   	  array_push($file_list, $file);
+		  	$z++;
+		  }
+		}
+		@closedir($handle);
+		sort($file_list, SORT_NUMERIC);
+		
+		// For each file in directory
+		$z = 0;
+		foreach ($file_list as $file) {
 			$extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
 			if (($extension == "jpeg") or ($extension == "jpg") or ($extension == "png") or ($extension == "gif")){
 
@@ -535,7 +545,6 @@ class display {
 				}
 			}
 		}
-		@closedir($handle);
 
 		if ($z % $pics_per_row != 0) {
 			$templ['ls']['row']['pictureselect']['zeile'] .= $this->FetchModTpl("", "ls_row_pictureselect_zeile");
