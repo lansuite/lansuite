@@ -172,9 +172,6 @@ function setFlag(Ereignis){
 function resetFlag(Ereignis){
 	mouseflag = 0;
 }
-
-document.onmousedown = setFlag;
-document.onmouseup = resetFlag;
 //-->
 </script>
 
@@ -182,7 +179,7 @@ document.onmouseup = resetFlag;
 
 {$templ['seat']['input_hidden']}
 
-<table cellspacing="4" cellpadding="0" class="content" align="center">
+<table cellspacing="4" cellpadding="0" class="content" align="center" onMousedown="setFlag()" onMouseup="resetFlag()">
 	<tr>
 		<td class="frame_box" width="33%" colspan="2">{$templ['seat']['text_tl']}&nbsp;</td>
 		<td class="frame_box" width="34%">{$templ['seat']['text_tc']}&nbsp;</td>
