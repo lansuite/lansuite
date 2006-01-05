@@ -46,6 +46,11 @@ switch($_GET["step"]) {
 			$func->information($lang['troubleticket']['err_no_head'], "index.php?mod=troubleticket&action=add");
 			$_GET["step"] = 1;
 		}
+		
+		if(isset($_POST['tticket_cat']) && $_POST['tticket_cat'] == 0){
+			$error['tticket_cat'] = $lang['troubleticket']['err_no_cat'];
+			$_GET['step'] = 1;
+		}
 	break;
 }
 
@@ -57,6 +62,19 @@ switch ($_GET["step"]) {
 
 		$dsp->AddTextFieldRow("tticket_desc",$lang['troubleticket']['description'], $_POST['tticket_desc'], $error["tticket_desc"]);
 
+		$t_cat = $db->query("SELECT *FROM {$config["tables"]["troubleticket_cat"]}");
+		
+		if($db->num_rows($t_cat) > 0){
+
+			$t_cat_array[] = "<option value=\"0\">{$lang['troubleticket']['no_cat']}</option>";
+			
+			while ($row = $db->fetch_array($t_cat)){
+				$t_cat_array[] .= "<option value=\"{$row['cat_id']}\">{$row['cat_text']}</option>";
+			}
+			
+			$dsp->AddDropDownFieldRow("tticket_cat",$lang['troubleticket']['cat'],$t_cat_array,$error['tticket_cat']);
+		}
+			
 		$options = array("10" => $lang['troubleticket']['state_0'],
 			"20" => $lang['troubleticket']['state_1'],
 			"30" => $lang['troubleticket']['state_2'],
@@ -96,6 +114,17 @@ switch ($_GET["step"]) {
 
 		if (!$_POST["tticket_text"]) $_POST["tticket_text"] = $lang['troubleticket']['no_contend'];
 
+		$target_userid = 0;
+		if (!isset($_POST["tticket_cat"]) || $_POST["tticket_cat"] == 0){
+			$_POST["tticket_cat"] = 0;
+		}else{
+			$cat_data = $db->query_first("SELECT * FROM {$config["tables"]["troubleticket_cat"]} WHERE cat_id = {$_POST["tticket_cat"]}");
+			if($cat_data['orga'] > 0){	
+				$target_userid	= $cat_data['orga'];
+			}
+		}
+		
+				
 		$db->query("INSERT INTO {$config["tables"]["troubleticket"]} SET
 				created = '$czeit',
 				verified = '$vzeit',
@@ -105,15 +134,24 @@ switch ($_GET["step"]) {
 				processstatus = '0',
 				priority = '{$_POST["tticket_priority"]}',
 				origin_userid = '{$auth["userid"]}',
-				target_userid = '0',
+				target_userid = '$target_userid',
 				orgaonly = '{$_POST["orgaonly"]}',
 				caption = '{$_POST["tticket_desc"]}',
 				text = '{$_POST["tticket_text"]}',
 				orgacomment = '',
-				publiccomment = '$pubcomment'
+				publiccomment = '$pubcomment',
+				cat = '{$_POST["tticket_cat"]}'
 				");
 
+		
+		if($cat_data['orga'] > 0 && isset($_POST["tticket_cat"]) && $_POST["tticket_cat"] > 0){
+			$func->setainfo(str_replace("%TTCaption%",$_POST["tticket_desc"],$lang['troubleticket']['user_assign']),$cat_data['orga'],1,"troubleticket",$db->insert_id());
+		}
+		
 		$func->confirmation($lang['troubleticket']['add_confirm'], "index.php?mod=troubleticket&action=add");
 	break;
 }
+
+
 ?>
+

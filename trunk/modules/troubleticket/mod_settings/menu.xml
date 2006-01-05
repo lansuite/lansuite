@@ -12,6 +12,16 @@
 		<level>0</level>
 	</entry>
 	<entry>
+		<action>cat</action>
+		<file>cat</file>
+		<caption>Kategorie</caption>
+		<hint>Neue Kategorie hinzufügen oder &auml;ndern</hint>
+		<link>?mod=troubleticket&action=cat</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>	
+	<entry>
 		<action>add</action>
 		<file>add</file>
 		<caption>Hinzuf&uuml;gen</caption>

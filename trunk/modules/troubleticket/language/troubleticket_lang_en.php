@@ -70,6 +70,10 @@
  $lang['troubleticket']['state_2'] = "High";
  $lang['troubleticket']['state_3'] = "Critical";
 
+ //Categories
+ $lang['troubleticket']['no_cat'] 	= "Please choise";
+ $lang['troubleticket']['cat']		= "Categorie";
+ 
  //Questions
  $lang['troubleticket']['q_unlink'] = "Would you really delete this ticket?";
 
@@ -80,5 +84,5 @@
  $lang['troubleticket']['err_no_reason'] = "Please give a short reason by refusing a ticket.";
  $lang['troubleticket']['err_no_tt_id']  = "There where no ticket-id.";
  $lang['troubleticket']['err_unlink']    = "The troubleticket could not be deleted! Possible database problems!";
-
+ $lang['troubleticket']['err_no_cat']    = "Please choise a Categorie";
 ?>
