@@ -19,7 +19,7 @@ if($auth['login'] == 1) {
 		elseif ($row["priority"] == "3") $class = "row_value_important";
 
 		$box->EngangedRow("<i>" . $func->unixstamp2date($row["date"], "datetime") . "</i>", "", "", $class);
-		$box->EngangedRow("<i>" . $func->unixstamp2date($row["text"], "", "", $class));
+		$box->EngangedRow("<i>" . $row["text"], "", "", $class);
 	}
 
 	if($db->num_rows() < "1") {
