@@ -1212,7 +1212,7 @@ class cat{
 		if($cat_array){
 			$dsp->AddDropDownFieldRow("cat_id",$lang['foodcenter']['add_product_prod_cat'],$cat_array,"");
 		}
-		$dsp->AddTextFieldRow("cat_name",$lang['foodcenter']['add_product_prod_cat_new'],"",$this->error['cat_name']);
+		$dsp->AddTextFieldRow("cat_name",$lang['foodcenter']['add_product_prod_cat_new'],$_POST['cat_name'],$this->error['cat_name']);
 	}
 	
 }
