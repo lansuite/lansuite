@@ -24,16 +24,26 @@ error_reporting(E_ALL ^ E_NOTICE);
 // Start session-management
 session_start();
 
-// Laden der Variablen
+// load $_POST and $_GET variables
 if (!is_array($_POST)) $_POST = $HTTP_POST_VARS;
 if (!is_array($_GET)) $_GET = $HTTP_GET_VARS;
-$__GET = $_GET;
-$__POST = $_POST;
+
+// Save original Array
+if (get_magic_quotes_gpc()) {
+  foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $__GET[$key] = stripslashes($_GET[$key]);
+  foreach ($_POST as $key => $val) if (!is_array($_POST[$key])) $__POST[$key] = stripslashes($_POST[$key]);
+} else {
+  $__GET = $_GET;
+  $__POST = $_POST;
+}
+
+// Emulate MQ, if disabled
 if (!get_magic_quotes_gpc()) {	 // and !get_magic_quotes_runtime()
 	foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $_GET[$key] = addslashes($_GET[$key]);
 	foreach ($_POST as $key => $val) if (!is_array($_POST[$key])) $_POST[$key] = addslashes($_POST[$key]);
 }
 $vars = array_merge((array)$_GET, (array)$_POST);
+
 
 // Save Path
 #$script_filename = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1, strlen($_SERVER["SCRIPT_NAME"]));

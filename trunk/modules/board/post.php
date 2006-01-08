@@ -9,8 +9,8 @@ $fid 		= $_GET['fid'];
 
 if ($fid == "") $fid = $bfunc->get_fid($tid);
 
-$text 		= $func->text2db($_POST['text']);
-$caption 	= $func->text2db($_POST['caption']);
+$text 		= $_POST['text'];
+$caption 	= $_POST['caption'];
 
 switch ($step) {
 	default:
@@ -62,33 +62,32 @@ switch ($step) {
 		if ($_GET["tid"] == "")	{
 			$dsp->NewContent($lang['board']['thread_add_caption'],$lang['board']['thread_add_subcaption']);
 			$dsp->SetForm("index.php?mod=board&action=post&step=2&fid=$fid");
-			if ($auth["login"] == 0){
-				$dsp->AddSingleRow("<font color=\"red\">" . $lang['board']['not_login']	. "</font>");
-				$dsp->AddTextFieldRow("boardname", $lang['board']['board_name'], $_POST['boardname'], $board_error['board_name']);
-			}
-			$dsp->AddTextFieldRow("caption", $lang['board']['thread_desc'], $caption, $board_error['caption']);
-			$dsp->AddTextAreaPlusRow("text", $lang['board']['thread_text'], $_POST['text'], $board_error['text']);
-			$dsp->AddFormSubmitRow("add");
-			$dsp->AddContent();
-
 		} else {
 			$dsp->NewContent(str_replace("%CAPTION%", $caption, $lang['board']['post_add_caption']), $lang['board']['post_add_subcaption']);
 			$dsp->SetForm("index.php?mod=board&action=post&step=2&fid=$fid&tid=$tid");
-			if ($auth["login"] == 0){
-				$dsp->AddSingleRow("<font color=\"red\">" . $lang['board']['not_login']	. "</font>");
-				$dsp->AddTextFieldRow("boardname", $lang['board']['board_name'], $_POST['boardname'], $board_error['board_name']);
-			}						
+    }
+    			
+		if ($auth["login"] == 0){
+			$dsp->AddSingleRow("<font color=\"red\">" . $lang['board']['not_login']	. "</font>");
+			$dsp->AddTextFieldRow("boardname", $lang['board']['board_name'], $_POST['boardname'], $board_error['board_name']);
+		}
 
-			// Display Preview
-			if (($_POST["preview_x"] or $_POST["preview_y"]) and (!$board_error['text'])) {
-				$dsp->AddSingleRow("<b>{$lang['button']['preview']}</b>");
-				$dsp->AddDoubleRow($auth["username"] ."<br />". $func->unixstamp2date(time(), "daydatetime"), $func->db2text2html($_POST['text']));
-			}
+		// Display Preview
+		if (($_POST["preview_x"] or $_POST["preview_y"]) and (!$board_error['text'])) {
+			$dsp->AddSingleRow("<b>{$lang['button']['preview']}</b>");
+			$dsp->AddDoubleRow($auth["username"] ."<br />". $func->unixstamp2date(time(), "daydatetime"), $func->db2text2html($_POST['text']));
+		}
+			
+		if ($_GET["tid"] == "")	{
+			$dsp->AddTextFieldRow("caption", $lang['board']['thread_desc'], $caption, $board_error['caption']);
+		}
+		
+		$dsp->AddTextAreaPlusRow("text", $lang['board']['thread_text'], $__POST['text'], $board_error['text']);
+		$dsp->AddFormSubmitRow("preview", "", "preview", false);
+		$dsp->AddFormSubmitRow("add");
+		$dsp->AddContent();
 
-			$dsp->AddTextAreaPlusRow("text", $lang['board']['thread_text'], $text, $board_error['text']);
-			$dsp->AddFormSubmitRow("preview", "", "preview", false);
-			$dsp->AddFormSubmitRow("add", "", "add");
-
+		if ($_GET["tid"] != "")	{
 			// Show most recent posts
 			$dsp->AddSingleRow("<b>{$lang['board']['recent_posts']}</b>");
 			$posts = $db->query("SELECT post.comment, post.date, user.username FROM {$config['tables']['board_posts']} AS post
