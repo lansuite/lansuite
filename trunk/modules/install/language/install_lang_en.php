@@ -9,6 +9,7 @@ $lang["install"]["index_caption"]	= "Installation and Administration";
 $lang["install"]["index_subcaption"]	= "At this page you can install and admin LANSuite";
 $lang["install"]["index_envcheck"]	= "Check System";
 $lang["install"]["index_ls_conf"]	= "Main-Settings (DB-Connection)";
+$lang["install"]["index_dbmenu"]	= "Rewrite Navigation";
 $lang["install"]["index_db"]	= "Update / Manage database";
 $lang["install"]["index_module"]	= "Modulmanager";
 $lang["install"]["index_settings"]	= "Common Settings";

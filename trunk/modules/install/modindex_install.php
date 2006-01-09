@@ -5,6 +5,10 @@ switch($_GET["action"]) {
 		include ("modules/install/envcheck.php");
 	break;
 
+	case "dbmenu":
+		include ("modules/install/dbmenu.php");
+	break;
+	
 	case "wizard":
 		include ("modules/install/wizard.php");
 	break;
