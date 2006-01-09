@@ -8,6 +8,7 @@ $lang['install']['translator'] = "Jochen";
 $lang["install"]["index_caption"]	= "Installation und Administration";
 $lang["install"]["index_subcaption"]	= "Auf diesen Seiten können Sie LanSuite installieren und verwalten";
 $lang["install"]["index_envcheck"]	= "Systemvorraussetzungen testen";
+$lang["install"]["index_dbmenu"]	= "Menueinträge neu schreiben";
 $lang["install"]["index_ls_conf"]	= "Grundeinstellungen (Datenbank-Zugangsdaten)";
 $lang["install"]["index_db"]	= "Datenbank updaten und verwalten";
 $lang["install"]["index_module"]	= "Modulmanager";
@@ -229,6 +230,9 @@ $lang["install"]["modules_config"] = "Konfig.";
 $lang["install"]["modules_menu"] = "Menü";
 $lang["install"]["modules_db"] = "DB";
 $lang["install"]["unknown"] = "Unbekannt";
+$lang["install"]["menu_cap"] = "Menu einträge ersetzen";
+$lang["install"]["menu_rewrite"] = "Alle Einträge ersetzen?";
+$lang["install"]["menu_write"] = "Menu erfolgreich neu geschrieben";
 
 $lang["install"]["wizard_vars_caption"] = "Wichtige Systemvariablen einstellen";
 $lang["install"]["wizard_vars_subcaption"] = "Hier, in diesem letzten Schritt, werden die wichtigsten Konfigurationen in LanSuite eingestellt";

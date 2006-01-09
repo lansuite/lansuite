@@ -27,6 +27,7 @@ $dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=menu\">{$lang["
 #$dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=adminaccount\">{$lang["install"]["index_adminaccount"]}</a>");
 $dsp->AddHRuleRow();
 $dsp->AddSingleRow("<b>{$lang["install"]["index_update_repair_ls"]}</b>");
+$dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=dbmenu\">{$lang["install"]["index_dbmenu"]}</a>");
 $dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=env_check\">{$lang["install"]["index_envcheck"]}</a>");
 $dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=db\">{$lang["install"]["index_db"]}</a>");
 $dsp->AddHRuleRow();

@@ -17,6 +17,11 @@
 		<requirement>3</requirement>
 	</entry>
 	<entry>
+		<action>dbmenu</action>
+		<file>dbmenu</file>
+		<requirement>3</requirement>
+	</entry>	
+	<entry>
 		<action>wizard</action>
 		<file>wizard</file>
 		<requirement>3</requirement>
