@@ -207,16 +207,42 @@ class tfunc {
 
 			case "single":
 			case "double":
-				// Teams auslesen und in Array schreiben
-				$teams = $db->query("SELECT teams.teamid, teams.name, teams.disqualified
+				// Array für Teams auslesen
+				$teams = $db->query("SELECT teams.teamid, teams.name, teams.disqualified, MAX(games.round) AS rounds
+					FROM {$config["tables"]["t2_games"]} AS games
+					LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
+					WHERE games.tournamentid = $tournamentid AND NOT ISNULL( teams.name )
+					GROUP BY teams.teamid
+					ORDER BY teams.disqualified ASC, rounds DESC, games.score DESC
+					");
+			
+				// Bei Doublemodus die ersten 2 Plätze auslesen und Array neu auslesen
+				if($tournament['mode'] == "double"){
+					for ($i = 0; $i < 2;$i++){
+						$team = $db->fetch_array($teams);
+						if ($team['teamid']){
+							$array_id++;
+							array_push ($ranking_data->id, $array_id);
+							array_push ($ranking_data->tid, $team['teamid']);
+							array_push ($ranking_data->name, $team['name']);
+							array_push ($ranking_data->pos, $num++);
+							array_push ($ranking_data->disqualified, $team['disqualified']);
+						}
+					}
+					$db->free_result($teams);
+
+					// Teams auslesen und in Array schreiben
+					$teams = $db->query("SELECT teams.teamid, teams.name, teams.disqualified, MIN(games.round) AS rounds
 					FROM {$config["tables"]["t2_games"]} AS games
 					LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
 					WHERE games.tournamentid = $tournamentid
 					GROUP BY teams.teamid
-					ORDER BY teams.disqualified ASC, MAX(games.round) DESC, games.score DESC
+					ORDER BY teams.disqualified ASC, rounds ASC, games.score DESC
 					");
+				}
 
-				while ($team = $db->fetch_array($teams)) if ($team['teamid']){
+				// Array schreiben
+				while ($team = $db->fetch_array($teams)) if ($team['teamid'] && !in_array($team['teamid'],$ranking_data->tid)){
 					$array_id++;
 					array_push ($ranking_data->id, $array_id);
 					array_push ($ranking_data->tid, $team['teamid']);
@@ -226,11 +252,11 @@ class tfunc {
 				}
 				$db->free_result($teams);
 
-				array_multisort ($ranking_data->disqualified, SORT_ASC, SORT_NUMERIC,
+				/*array_multisort ($ranking_data->disqualified, SORT_ASC, SORT_NUMERIC,
 							$ranking_data->id, SORT_ASC, SORT_NUMERIC,
 							$ranking_data->tid,
 							$ranking_data->name,
-							$ranking_data->pos);
+							$ranking_data->pos);*/
 			break;
 
 			case "liga":
