@@ -158,4 +158,6 @@ $seat = new seat;
 	// Output: Searchassitant's case
 	if ($overall_entries == 0) echo $func->no_items("{$lang["guestlist"]["list_user"]} $active_action","","search");
 	else $dsp->AddSingleRow($dsp->FetchModTpl("guestlist", "guestlist"));
+	
+	$dsp->AddContent();
 ?>
