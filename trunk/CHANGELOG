@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.6
 
+- Bugfix: Darstellungsfehler beim Sitzplan behoben ( Genesis 12.1.06)
 - Bugfix: Im Turniermodul wurden falsche Ranglisten erzeugt. (Genesis 9.1.06)
 - Bugfix: #249 " wurden in abgeschickten Formularen mit Fehleingaben in \" umgewandelt (KnoX 08.01.2006)
 - Bugfix: #249 Ein Preview des Posts ist nun auch beim Ersten Post eines Threads möglich (KnoX 08.01.2006)
