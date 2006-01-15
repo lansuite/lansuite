@@ -21,6 +21,9 @@ include_once("modules/foodcenter/class_basket.php");
 
 	$product_list = new product_list();
 	
+	if($basket->count > 0){
+		$dsp->AddSingleRow("<a href='index.php?mod=foodcenter&action=basket'>" . $basket->count . $lang['foodcenter']['basket_product_item'] . "</a>"," align=\"right\"");
+	}
 	if($_GET['info']){
 		$product_list->load_cat($cat[$_GET['headermenuitem']]);
 		$product_list->get_info($_GET['info'],"?mod=foodcenter&action=showfood&headermenuitem={$_GET['headermenuitem']}");

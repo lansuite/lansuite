@@ -56,9 +56,9 @@
 	$this->config['result_fields'][$z]['sqlrow']   = "p.caption";
 	$this->config['result_fields'][$z]['row']      = "caption";
 	if($this->vars['search_select1'] == 4){
-		$this->config['result_fields'][$z]['width']    = "25%";
+		$this->config['result_fields'][$z]['width']    = "20%";
 	}else{
-		$this->config['result_fields'][$z]['width']    = "40%";
+		$this->config['result_fields'][$z]['width']    = "35%";
 	}
 	$this->config['result_fields'][$z]['maxchar']  = "20";
 	$this->config['result_fields'][$z]['checkbox']   = "checkbox";
@@ -71,6 +71,15 @@
 	$this->config['result_fields'][$z]['maxchar']  = "10";
 	$this->config['result_fields'][$z]['callback'] = "GetFoodoption";
 
+
+	$z++;
+	$this->config['result_fields'][$z]['name']     = $lang['ms']['users']['username'];
+	$this->config['result_fields'][$z]['sqlrow']   = "a.userid";
+	$this->config['result_fields'][$z]['row']      = "userid";
+	$this->config['result_fields'][$z]['width']    = "20%";
+	$this->config['result_fields'][$z]['maxchar']  = "10";
+	$this->config['result_fields'][$z]['callback'] = "GetUsername";
+	
 	
 	$z++;
 	$this->config['result_fields'][$z]['name']     = $lang['ms']['foodcenter']['orderdate'];
@@ -84,7 +93,7 @@
 	$this->config['result_fields'][$z]['name']     = $lang['foodcenter']['add_product_prod_supp'];
 	$this->config['result_fields'][$z]['sqlrow']   = "s.name";
 	$this->config['result_fields'][$z]['row']      = "name";
-	$this->config['result_fields'][$z]['width']    = "20%";
+	$this->config['result_fields'][$z]['width']    = "10%";
 	$this->config['result_fields'][$z]['maxchar']  = "20";
 
 	
@@ -94,7 +103,7 @@
 		$this->config['result_fields'][$z]['name']     = $lang['ms']['foodcenter']['suppdate'];
 		$this->config['result_fields'][$z]['sqlrow']   = "a.supplytime";
 		$this->config['result_fields'][$z]['row']      = "supplytime";
-		$this->config['result_fields'][$z]['width']    = "15%";
+		$this->config['result_fields'][$z]['width']    = "10%";
 		$this->config['result_fields'][$z]['maxchar']  = "20";
 		$this->config['result_fields'][$z]['callback'] = "GetDate";
 	}

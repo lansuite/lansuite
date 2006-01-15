@@ -675,7 +675,7 @@ class product{
 					ordertime = '$time',
 					lastchange = '$time',
 					supplytime = '0'")){
-				return $price;
+				return $price * $this->ordered;
 			}else{
 				return 0;
 			}
@@ -694,7 +694,7 @@ class product{
 									ordertime = '$time',
 									lastchange = '$time',
 									supplytime = '0'")){
-						$price += $this->option[$key]->price;
+						$price += $this->option[$key]->price * $this->option[$key]->ordered;
 					}
 					if($this->mat == 1){
 						$db->query("UPDATE {$config['tables']['food_option']} SET pice = 'pice - {$this->option[$key]->ordered}' WHERE id = {$this->option[$key]->id}");

@@ -14,26 +14,46 @@ switch ($_GET['step']) {
 			$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET['status']}, lastchange = '$time', supplytime = '$time'  WHERE id = {$_GET['id']}");
 		}elseif ($_GET['status'] == 4){
 			$prodrow = $db->query_first("SELECT * FROM {$config['tables']['food_ordering']} WHERE id = {$_GET['id']}");				
-			$price = 0;
-			$account = new accounting($prodrow['userid']);
-			if(stristr($prodrow['opts'],"/")){
-				$values = split("/",$prodrow['opts']);
 			
-				foreach ($values as $number){
-					if(is_numeric($number)){
-						$optrow = $db->query_first("SELECT price FROM {$config['tables']['food_option']} WHERE id = " . $number);
-						$price += $optrow['price'];
-					}
-		
+			if($prodrow['pice'] > 1 && !isset($_POST['delcount'])){
+				$count_array[] = "<option selected value=\"{$prodrow['pice']}\">{$lang['foodcenter']['ordered_delete_all']}</option>";
+				
+				for($i = $prodrow['pice'];$i > 0;$i--){
+					$count_array[] .= "<option value=\"{$i}\">{$i}</option>";
 				}
-			}else{		
-				$optrow = $db->query_first("SELECT price FROM {$config['tables']['food_option']} WHERE id = " . $prodrow['opts']);
-				$price += $optrow['price'];
+				$_GET['step'] = 10;
+			}else{
+				$price = 0;
+				$account = new accounting($prodrow['userid']);
+				if(stristr($prodrow['opts'],"/")){
+					$values = split("/",$prodrow['opts']);
+
+					foreach ($values as $number){
+						if(is_numeric($number)){
+							$optrow = $db->query_first("SELECT price FROM {$config['tables']['food_option']} WHERE id = " . $number);
+							$price += $optrow['price'];
+						}
+
+					}
+				}else{
+					$optrow = $db->query_first("SELECT price FROM {$config['tables']['food_option']} WHERE id = " . $prodrow['opts']);
+					$price += $optrow['price'];
+				}
+
+				if(isset($_POST['delcount'])){
+					$price = $price * $_POST['delcount'];
+				}else{
+					$price = $price * $prodrow['pice'];
+				}
+				$account->change($price,$lang['foodcenter']['theke_repayment'] . " (" . $auth['username'] . ")");
+				
+				if(!isset($_POST['delcount']) || $_POST['delcount'] == $prodrow['pice']){
+					$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $_GET['id']);
+				}else{
+					$pice = $prodrow['pice'] - $_POST['delcount'];
+					$db->query_first("UPDATE {$config['tables']['food_ordering']} SET pice = {$pice} WHERE id = " . $_GET['id']);
+				}
 			}
-	
-			$price = $price * $prodrow['pice'];
-			$account->change($price,$lang['foodcenter']['theke_repayment'] . " (" . $auth['username'] . ")");
-			$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $_GET['id']);
 		}else{
 			$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET['status']}, lastchange = '$time' WHERE id = {$_GET['id']}");
 		}
@@ -124,6 +144,14 @@ switch ($_GET['step']){
 		$link_array[5] = "index.php?mod=foodcenter&action=statchange";
 		$func->multiquestion($lang['foodcenter']['ordered_status_quest'],$link_array,$lang['foodcenter']['ordered_status_question']);
 	}
+	break;
+	
+	case 10:
+		$dsp->NewContent($lang['foodcenter']['ordered_delete_capt'],$lang['foodcenter']['ordered_delete_subcapt']);
+		$dsp->SetForm("index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=4");
+		$dsp->AddDropDownFieldRow("delcount",$lang['foodcenter']['ordered_delete_count'],$count_array,"");
+		$dsp->AddFormSubmitRow("next");
+		$dsp->AddContent();
 	break;
 }
 ?>
