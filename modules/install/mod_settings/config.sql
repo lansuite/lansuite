@@ -12,3 +12,4 @@
 ('sys_country', 'de', 'country', 'System', 'Land in dem die Party stattfindet');
 ('sys_barcode_on', '0', 'boolean', 'System', 'Soll das Barcodesystem verwendet werden?');
 ('sys_barcode_typ', 'EAN-13', 'barcode', 'System', 'Barcode-Typ der verwendet werden soll.');
+('sys_compress_level', '0', 'int', 'System', 'Stärke der Seitenkompression: 0 = Kompression deaktiviert, 1 = schwach, 9 = stark');

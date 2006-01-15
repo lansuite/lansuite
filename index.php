@@ -189,7 +189,7 @@ if ($found_adm) {
 		$dsp->AddContent();
 		eval("\$index = \"". $func->gettemplate("setup_index")."\";");
 		$func->templ_output($index);
-		$sitetool->out_optimizer(1);
+		$sitetool->out_optimizer();
 		exit;
 	}
 } else {
@@ -248,7 +248,7 @@ if (($_SESSION["lansuite"]["fullscreen"] == 1) and file_exists("design/{$auth["d
 else eval("\$index = \"". $func->gettemplate("index_login")."\";");
 
 $func->templ_output($index);
-$sitetool->out_optimizer(1);
+$sitetool->out_optimizer();
 
 // Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
 if ($db->success) $stats->update($sitetool->out_work(), $sitetool->get_send_size());
