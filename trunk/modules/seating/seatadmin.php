@@ -21,7 +21,7 @@ if ($_GET['step'] == 10 and $_GET['quest']) {
 }
 
 // Select seat and user infos
-if ($_GET['blockid'] and $_GET['row'] and $_GET['col'])
+if ($_GET['blockid'] and isset($_GET['row']) and isset($_GET['col']))
 	$seat = $db->query_first("SELECT s.userid, s.status, u.username, u.firstname, u.name FROM {$config["tables"]["seat_seats"]} AS s
 		LEFT JOIN {$config["tables"]["user"]} AS u ON s.userid = u.userid
 		WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}'");
@@ -60,6 +60,7 @@ switch($_GET['step']) {
 
 	// Reserve seat
 	case 10:
+		print_r($seat['status']);
 		switch ($seat['status']) {
 			case 0:	// Seat unavailable
 			case '':
