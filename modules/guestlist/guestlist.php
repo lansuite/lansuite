@@ -96,7 +96,7 @@ $seat = new seat;
 			$count_bezahlt = $db->query_first("SELECT COUNT(*) AS number 
 												FROM {$config["tables"]["user"]} AS user
 												LEFT JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id 
-												WHERE type $usertype AND type != '-4' AND party.paid = {$party->party_id}");
+												WHERE type $usertype AND type != '-4' AND party.party_id = {$party->party_id} AND (party.paid > 0)");
 
 			$max_teilnehmer = $_SESSION['party_info']['max_guest'];
 			$teilnehmer_bezahlt = $count_bezahlt[number];
