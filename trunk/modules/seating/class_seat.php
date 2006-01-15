@@ -38,8 +38,8 @@ class seat2 {
 		$gd->MergeImages("ext_inc/auto_images/{$auth['design']}/seat/{$name}.png", "design/{$auth['design']}/images/seat_onclick.png", "ext_inc/auto_images/{$auth['design']}/seat/{$name}_onclick.png");
 	}
 
-	function DrawPlan($blockid, $mode, $linktarget = '') {
-		global $db, $config, $dsp, $templ, $auth, $gd;
+	function DrawPlan($blockid, $mode, $linktarget = '', $selected_user = false) {
+		global $db, $config, $dsp, $templ, $auth, $gd, $lang;
 		// $mode:
 		// 0 = Normal display mode
 		// 1 = With seperators
@@ -195,8 +195,10 @@ class seat2 {
 								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_free.png";
 							break;
 							case 2: // Seat occupied
+								if($selected_user)	$userid = $selected_user;
+								else $userid = $selected_user;
 								// My Seat
-								if ($seat_userid[$y][$x] == $auth['userid']) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_myselfe.png";
+								if ($seat_userid[$y][$x] == $userid) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_myselfe.png";
 								// Clanmate
 								elseif (in_array($seat_userid[$y][$x], $my_clanmates)) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_clanmate.png";
 								// Other ones seat
@@ -280,6 +282,14 @@ class seat2 {
 		}
 
 		$plan = $dsp->FetchModTpl('seating', 'plan');
+		$templ['seating']['legend']['free']		= $lang['seating']['free'];
+		$templ['seating']['legend']['reserved']	= $lang['seating']['reserved'];
+		$templ['seating']['legend']['clan']		= $lang['seating']['clan'];
+		$templ['seating']['legend']['marked']	= $lang['seating']['marked'];
+		
+		if($selected_user) $templ['seating']['legend']['me'] = $lang['seating']['selected'];
+		else	$templ['seating']['legend']['me']			 = $lang['seating']['me'];
+				
 		if ($mode == 0) $plan .= $dsp->FetchModTpl('seating', 'plan_legend');
 		return $plan;
 	}
