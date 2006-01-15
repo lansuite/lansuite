@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.6
 
+- Bugfix: Einige Fehler im Foodcenter verbessert und erweitert (Genesis 15.1.06) 
 - Bugfix: Kleiner Fehler bei der Gästeliste gefixt. ( Genesis 15.1.06)
 - Bugfix: Darstellungsfehler beim Sitzplan behoben ( Genesis 12.1.06  / 15.1.06)
 - Bugfix: Im Turniermodul wurden falsche Ranglisten erzeugt. (Genesis 9.1.06)

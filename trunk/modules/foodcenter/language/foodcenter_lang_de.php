@@ -84,6 +84,7 @@ $lang['foodcenter']['show_product_noproducts']	= "In dieser Kategorie sind keine
 $lang['foodcenter']['show_product_not_available'] = "Artikel nicht mehr verfügbar";
 $lang['foodcenter']['show_product_subproduct'] = "Produkt hat Unterprodukte";
 
+
 // Basket
 $lang['foodcenter']['basket_caption']			= "Warenkorb";
 $lang['foodcenter']['basket_sub_caption']		= "Um einen Artikel zu löschen setze ihn auf 0";
@@ -94,6 +95,7 @@ $lang['foodcenter']['basket_item']				= "Artikel / Preis";
 $lang['foodcenter']['basket_count']				= "Anzahl";
 $lang['foodcenter']['basket_ordered']			= "Die Bestellung wurde aufgenommen";
 $lang['foodcenter']['basket_order']				= "Bestellung Foodcenter";
+$lang['foodcenter']['basket_product_item']		= " Produkt(e) im Warenkorb";
 
 // Accounting
 $lang['foodcenter']['account_caption']			= "Kontoauszug";
@@ -133,7 +135,10 @@ $lang['foodcenter']['ordered_status_ask'][5]	= "Status auf abgeholt gesetzt";
 $lang['foodcenter']['ordered_status_ask'][3]	= "Status auf Abholbereit gesetzt";
 $lang['foodcenter']['ordered_status_ask'][2]	= "Status auf bestellt gesetzt";
 $lang['foodcenter']['ordered_status_ask'][1]	= "Status auf bestellen gesetzt";
-
+$lang['foodcenter']['ordered_delete_capt']		= "Produkt abbestellen";
+$lang['foodcenter']['ordered_delete_subcapt']	= "Bitte wählen sie die Produktanzahl die abbestellt werden soll.";
+$lang['foodcenter']['ordered_delete_all']		= "Alle";
+$lang['foodcenter']['ordered_delete_count']		= "Anzahl";
 
 // Info
 $lang['foodcenter']['product_desc']				= "Produktebeschreibung";

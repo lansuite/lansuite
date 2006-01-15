@@ -30,13 +30,16 @@ class basket{
 		if(isset($_GET['add']) && $_GET['add'] > 0){
 			if($_GET['opt'] != 0){
 				$this->product->add_product($_GET['add'],$_GET['opt']);
+				$this->count ++;
 			}else{
 				if(!is_array($_POST['option'])) $_POST['option'] = array();
 				$this->product->add_product($_GET['add'],$_POST['option']);
+				$this->count ++;
 			}
 		}
 		
 		$_SESSION['basket_item']['product'] = serialize($this->product);
+		$_SESSION['basket_count'] = $this->count;
 	}
 	
 	
@@ -74,19 +77,22 @@ class basket{
 	function change_basket($userid){
 		global $func,$lang;
 		$ok = true;
+		$this->count = 0;
 		foreach ($_POST as $key => $value){
 				if(stristr($key,"option")){
 					$tmp = split("_",$key);
 					if(!$this->product->chanche_ordered($tmp[1],$tmp[2],$value)){
 						$ok = false;
 					}
+					$this->count += $value;
 				}
 		}
 		$this->product->check_list();
 		$_SESSION['basket_item']['product'] = serialize($this->product);
+		$_SESSION['basket_count'] = $this->count;
 		
 		$this->account = new accounting($userid);
-		if($this->price < $this->account->balance){
+		if($this->product->count_products_price() < $this->account->balance){
 			return $ok;
 		}else{
 			$func->error($lang['foodcenter']['ordered_err_amount'],"index.php?mod=foodcenter&action={$_GET['action']}");
@@ -96,22 +102,14 @@ class basket{
 	
 	function order_basket($userid, $delivered = 0){
 		global $db,$config,$func,$lang,$auth;
-		$this->account->change(- $this->product->order_product($userid,$delivered),$lang['foodcenter']['basket_order'] . "  (" . $auth['username '] . ")");
+		$this->account->change(- $this->product->order_product($userid,$delivered),$lang['foodcenter']['basket_order'] . "  (" . $auth['username'] . ")");
 		unset($this->product);
 		$this->product = new product_list();
 		unset($_SESSION['basket_item']['product']);
 		$_SESSION['basket_item']['product'] = serialize($this->product);
+		$_SESSION['basket_count'] = 0;
 
 	}
 	
 }
-
-
-
-
-
-
-
-
-
 ?>
