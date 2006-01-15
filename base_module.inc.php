@@ -64,6 +64,7 @@ switch($_GET['mod'])
 	//////////////////////////////////////// Seating /////////////////////////////////////////////
 	case "seating":
 #		include_once("modules/seating/mod_settings/modul_tables.inc.php");
+		include_once("modules/seating/language/seating_lang_".$language.".php");
 		include('modules/seating/popup.php');
 	break;
 	case "ipprint":

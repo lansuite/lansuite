@@ -58,6 +58,15 @@ $lang['seating']['c_seat_res2']   = 'Der Sitzplatz wurde erfolgreich reserviert'
 $lang['seating']['c_seat_mark']   = 'Der Sitzplatz wurde erfolgreich vorgemerkt';
 $lang['seating']['c_release']     = 'Der Sitzplatz wurde erfolgreich freigegeben';
 
+// Seating
+$lang['seating']['free']		  = 'Frei';
+$lang['seating']['reserved']	  = 'Besetzt';
+$lang['seating']['me']			  = 'Ihr Platz';
+$lang['seating']['clan']		  = 'Platz eines Clanmates';
+$lang['seating']['marked']		  = 'Vorgemerkt';
+$lang['seating']['selected']	  = "Ausgewählter User";
+
+
 // Errors
 $lang['seating']['e_hori_lenght'] = 'Bitte geben Sie die horizontale L&auml;nge ein';
 $lang['seating']['e_vert_lenght'] = 'Bitte geben Sie die vertikale L&auml;nge ein';
