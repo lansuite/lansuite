@@ -85,7 +85,7 @@ class sitetool {
 	}
 
 	// Finalize Output and return Outputbuffer
-	function out_optimizer($compress = 1) {
+	function out_optimizer() {
 		global $templ, $cfg, $db, $lang;
 
 		// Get Content
@@ -111,15 +111,15 @@ class sitetool {
 			else $ru_suffix .= "&";
 
 			// Erweiterung für Statisktik
-			if ($check and $compress){
-				$this->send_size = sprintf("%01.2f",((strlen(gzcompress($this->content, $compress)))/1024));
+			if ($check and $cfg['sys_compress_level']){
+				$this->send_size = sprintf("%01.2f",((strlen(gzcompress($this->content, $cfg['sys_compress_level'])))/1024));
 				$compressed = " | Compressed: ". $this->send_size ." kBytes";		
 			} else $this->send_size = sprintf("%01.2f", (strlen($this->content)) / 1024);
 
 			$uncompressed = " | Uncompressed: ".sprintf ("%01.2f", ((strlen($this->content))/1024))." KBytes";
 			$processed = " | Processed in: ". $this->out_work() ." Sec";
 			$dbquery = "Total DB-Querys: ". $db->count_query;
-			
+
 			// Define Footer-Message
 			$footer = $templ['index']['info']['version']." &copy; 2001-".date("Y")." <a href=\"http://www.One-Network.org\" target=\"_blank\" class=\"menu\">One-Network.org</a>
 			| All rights reserved
@@ -129,20 +129,20 @@ class sitetool {
 
 			if ($cfg["sys_optional_footer"]) $footer .= $cfg["sys_optional_footer"];
 			$this->content = str_replace("{footer}", $footer, $this->content);
-			
+
 			// change & to &amp;
 			$this->content = preg_replace("~&(?=(\w+|[a-f0-9]+)=)~i", "&amp;", $this->content);
 			// $this->content = preg_replace("~&(?!(\w+|#\d+|#x[a-f0-9]+);)~i", "&amp;", $this->content);
 			$this->content = preg_replace("~<img src=\"/\"((\w|\s|\"|\=)+)>~i", "", $this->content);
-			
-			if ($check and $compress) {
+
+			if ($check and $cfg['sys_compress_level']) {
 				Header("Content-Encoding: $check");
 				echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
 				$this->content = "<!-- SiteTool - Compressed by $check -->\n".$this->content;
 				$this->content_size = strlen($this->content);
 				$this->content_crc = crc32($this->content);
-				$this->content = gzcompress($this->content, $compress);
-				$this->content = substr($this->content, 0, strlen($this->content) - 4); // Letzte 4 Zeichen werden abgeschitten. Aber Warum?
+				$this->content = gzcompress($this->content, $cfg['sys_compress_level']);
+				$this->content = substr($this->content, 0, strlen($this->content) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
 				echo $this->content;
 				echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
 			} else echo $this->content;
