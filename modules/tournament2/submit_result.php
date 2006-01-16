@@ -42,13 +42,11 @@ if ($tournament["name"] == "") {
 
 ########## Keine Einschränkungen gefunden
 } else {
-	$dsp->NewContent(str_replace("%TEAM1%", $team1['name'], str_replace("%TEAM2%", $team2['name'], $lang["tourney"]["s_res_caption"])), $lang["tourney"]["s_res_subcaption"]);
-
 	switch ($_GET["step"]) {
 		default:
 			unset($_SESSION['tournament_submit_result_blocker']);
 			$seat = new seat;
-
+			$dsp->NewContent(str_replace("%TEAM1%", $team1['name'], str_replace("%TEAM2%", $team2['name'], $lang["tourney"]["s_res_caption"])), $lang["tourney"]["s_res_subcaption"]);
 			// Write Start and Enddate for each round
 			$round_start = $tfunc->GetGameStart($tournament, $team1['round']);
 			$round_end = $tfunc->GetGameEnd($tournament, $team1['round']);
@@ -87,6 +85,12 @@ if ($tournament["name"] == "") {
 			// Formular ausgeben
 			$dsp->AddTextAreaPlusRow("score_comment", $lang["tourney"]["s_res_comment"], $score_comment, "", "", "", 1);
 			$dsp->AddFormSubmitRow("result");
+			
+			$buttons = "";
+			$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid", "games");
+			$buttons .= " ". $dsp->FetchButton("index.php?mod=tournament2&action=tree&step=2&tournamentid=$tournamentid", "tree");
+			$dsp->AddDoubleRow("", $buttons);
+			$dsp->AddContent();
 		break;
 
 		// Formular in Datenbank eintragen
@@ -142,11 +146,5 @@ if ($tournament["name"] == "") {
 			}
 		break;
 	} // Switch
-
-	$buttons = "";
-	$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid", "games");
-	$buttons .= " ". $dsp->FetchButton("index.php?mod=tournament2&action=tree&step=2&tournamentid=$tournamentid", "tree");
-	$dsp->AddDoubleRow("", $buttons);
-	$dsp->AddContent();
 }
 ?>

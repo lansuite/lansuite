@@ -44,8 +44,7 @@ else switch ($_GET["step"]){
 					$score1 = $cfg["t_default_win"];
 					$score2 = 0;
 				}
-
-				$tfunc->SubmitResult($team['tournamentid'], $team2['gid1'], $team2['gid2'], $score1, $score2, str_replace("%NAME%", $team['name'], $lang["tourney"]["disqualify_comment"]));
+				$tfunc->SubmitResult($team['tournamentid'], $team2['gid1'], $team2['gid2'], $score1, $score2, addslashes(str_replace("%NAME%", $team['name'], $lang["tourney"]["disqualify_comment"])));
 			}
 		}
 
