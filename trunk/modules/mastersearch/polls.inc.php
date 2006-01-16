@@ -20,14 +20,14 @@
 	$this->config['result_fields'][$z]['sqlrow']   = "p.caption";
 	$this->config['result_fields'][$z]['row']      = "caption";
 	$this->config['result_fields'][$z]['width']    = "45%";
-	$this->config['result_fields'][$z]['maxchar']  = "20";
+	$this->config['result_fields'][$z]['maxchar']  = "50";
 	$z++;
 	$this->config['result_fields'][$z]['name']     = $lang['ms']['polls']['state'];
 	$this->config['result_fields'][$z]['sqlrow']   = "p.pollid";
 	$this->config['result_fields'][$z]['row']      = "pollid";
 	$this->config['result_fields'][$z]['callback'] = "GetPollStatus";
 	$this->config['result_fields'][$z]['width']    = "30%";
-	$this->config['result_fields'][$z]['maxchar']  = "40";
+	$this->config['result_fields'][$z]['maxchar']  = "20";
 	$z++;
 	$this->config['result_fields'][$z]['name']     = $lang['ms']['polls']['votes'];
 	$this->config['result_fields'][$z]['sqlrow']   = "p.pollid";
