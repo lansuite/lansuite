@@ -471,9 +471,9 @@ class tfunc {
 
 
 	// Sumbit Score $score1:$score2 in the tournament $tournamentid, for the game $gameid1 vs. $gameid2
-	function SubmitResult($tournamentid, $gameid1, $gameid2, $score1, $score2, $comment) {
-		global $lang, $db, $func, $config, $tournamentid, $round, $pos, $score, $tournamentid, $leaderid, $num_rounds, $team_anz;
-
+	function SubmitResult($ttid, $gameid1, $gameid2, $score1, $score2, $comment) {
+		global $lang, $db, $func, $config, $tournamentid, $round, $pos, $score, $leaderid, $num_rounds, $team_anz;
+		$tournamentid = $ttid;
 		$score[1] = $score1;
 		$score[2] = $score2;
 
