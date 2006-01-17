@@ -19,6 +19,7 @@ Version 2.0.6
 - Bugfix: Der Text wurde in der Infobox nicht mehr angezeigt. (Genesis 5.1.2006)
 - Bugfix: #248 MySQL-Fehler beim Editieren von Benutzern mit MySQL5 (KnoX 31.12.2005)
 
+- Add: #Buchstaben-Icons im Sitzplan (al cazone 17.01.2006)
 - Add: #252 Möglichkeit die Menus neu zu schreiben hinzugefügt. (Genesis 9.1.06)
 - Add: #129 Kategorien für Troubletickes eingefügt und die möglichkeit einen festen Admin zuzuweisen. (Genesis 5.1.2006)
 - Add: Sitzplan-Bilder ergänzt und Sitzplan-Malfunktion verbessert (KnoX 31.12.2005)
