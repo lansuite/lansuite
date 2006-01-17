@@ -208,12 +208,12 @@ class seat2 {
 								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_marked.png";
 							break;
 							default: // Symbol
-								if(file_exists("ext_inc/seating_symbols/". $seat_state[$y][$x] .".png")){
-									$templ['seat']['img_name'] = "ext_inc/seating_symbols/". $seat_state[$y][$x] .".png";
-								}elseif (file_exists("ext_inc/seating_symbols/". $seat_state[$y][$x] .".gif")){
-									$templ['seat']['img_name'] = "ext_inc/seating_symbols/". $seat_state[$y][$x] .".gif";
-								}else{
-									$templ['seat']['img_name'] = "ext_inc/seating_symbols/". $seat_state[$y][$x] .".jpg";
+								if (file_exists("ext_inc/seating_symbols/". $seat_state[$y][$x] .".png")) {
+									$templ['seat']['img_name'] = "ext_inc/seating_symbols/lsthumb_". $seat_state[$y][$x] .".png";
+								} elseif (file_exists("ext_inc/seating_symbols/lsthumb_". $seat_state[$y][$x] .".gif")) {
+									$templ['seat']['img_name'] = "ext_inc/seating_symbols/lsthumb_". $seat_state[$y][$x] .".gif";
+								} else {
+									$templ['seat']['img_name'] = "ext_inc/seating_symbols/lsthumb_". $seat_state[$y][$x] .".jpg";
 								}
 							break;
 						}
@@ -260,7 +260,7 @@ class seat2 {
 									}
 									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
 								}
-								//$templ['seat']['img_name'] = "ext_inc/seating_symbols/". $seat_state[$y][$x] .".png";
+								//$templ['seat']['img_name'] = "ext_inc/seating_symbols/lsthumb_". $seat_state[$y][$x] .".png";
 
 //								$templ['seat']['link_href'] = "index.php?mod=seating&action=edit&step=6&blockid={$_GET['blockid']}&deleteid=". ($x * 100 + $y);
 //								$templ['seat']['link_content'] = $dsp->FetchModTpl('seating', 'plan_cell_img');
