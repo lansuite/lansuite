@@ -7,7 +7,7 @@ $lang['signon']['lastchange'] = "22. Juni 2004";
 $lang['signon']['translator'] = "Jochen";
 
 $lang["signon"]["add_caption"]	= "Zur Lan-Party '%NAME%' anmelden";
-$lang["signon"]["add_subcaption"]	= "Bitte f&uuml;llen Sie die folgenden Felder sorgf&auml;lltig aus. Es wird eine g&uuml;ltige E-Mail Adresse ben&ouml;tigt!";
+$lang["signon"]["add_subcaption"]	= "Bitte f&uuml;llen Sie die folgenden Felder sorgf&auml;lltig aus";
 $lang["signon"]["add_caption2"]	= "Zur Lan-Party '%NAME%' anmelden";
 $lang["signon"]["add_subcaption2"]	= "Wenn Sie bereits auf einer anderen Lan-Party dieses Teams zu Gast waren, reicht die Eingabe von Email und Kennwort zur Anmeldung aus, andernfalls m&uuml;ssen Sie sich einen neuen Account erstellen";
 $lang["signon"]["add_subcaption2_old"]	= "Um sich an dieser Party anzumelden gib bitte deine Logindaten ein.";
