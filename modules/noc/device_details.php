@@ -1,15 +1,7 @@
 <?php
 
-// ---------------------------------------------------------------------
-
-/*	Network Operations Centre
- *
- *	originally based on phpSMITH
- *	
- *
- *	Maintainer: Joachim Garth <josch@one-network.org>
- */
-// ---------------------------------------------------------------------
+include_once( "modules/noc/class_noc.php" );
+$noc = new noc();
 
 // Get the device details
 $db->query("SELECT * from {$config["tables"]["noc_devices"]} WHERE id=" . $_GET["deviceid"]);

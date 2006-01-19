@@ -1,5 +1,8 @@
 <?php
 
+include_once( "modules/noc/class_noc.php" );
+$noc = new noc();
+
 /*	Network Operations Centre
  *
  *	originally based on phpSMITH

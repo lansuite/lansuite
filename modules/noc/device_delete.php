@@ -1,12 +1,7 @@
 <?php
 
-/*	Network Operations Centre
- *
- *	originally based on phpSMITH
- *	
- *
- *	Maintainer: Joachim Garth <josch@one-network.org>
- */
+include_once( "modules/noc/class_noc.php" );
+$noc = new noc();
 
 switch( $_GET["step"] ) {
 
