@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.6
 
+- Bugfix: #263 Beim Hinzufügen von Sponsoren-Bannern als Internet-URLs kamen Fehlermeldungen, da die Thumbnails nicht erstellt werden konnten (KnoX 19.01.2005) 
 - Bugfix: #260 Anzahl Zeichen bei Pollübersicht erhöht ( Genesis 16.1.06)
 - Bugfix: #258 Fehler im Turniermodul beim Disqualifizieren behoben. ( Genesis 16.1.06)
 - Bugfix: Einige Fehler im Foodcenter verbessert und erweitert (Genesis 15.1.06) 
