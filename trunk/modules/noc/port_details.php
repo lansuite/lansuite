@@ -1,18 +1,7 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	 2.0
-*	File Version:		 2.0
-*	Filename: 		port_details.php
-*	Module: 			NOC
-*	Main editor: 		josch@one-network.org
-*	Last change: 		31-01-2002
-*	Description: 		Shows detailed port information and changes port-status as well
-*	Remarks: 		
-*
-**************************************************************************/
+
+include_once( "modules/noc/class_noc.php" );
+$noc = new noc();
 
  
 switch( $_GET["step"] ) {

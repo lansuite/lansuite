@@ -1,5 +1,8 @@
 <?php
 
+include_once( "modules/noc/class_noc.php" );
+$noc = new noc();
+
 switch ($_GET['step']){
 	case "2":
 			if($_POST['ip'] == ''){

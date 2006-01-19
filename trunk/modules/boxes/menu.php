@@ -56,8 +56,9 @@ $res = $db->query("SELECT menu.*
 		OR (menu.requirement = 5 AND ". (int)$auth['login'] ." = 0))
 		ORDER BY menu.pos");
 
-while ($main_item = $db->fetch_array($res)) if ($main_item["needed_config"] == "" or $cfg[$main_item["needed_config"]]) {
+while ($main_item = $db->fetch_array($res)) if ($main_item["needed_config"] == "" or $cfg[$main_item["needed_config"]] or $config['environment'][$main_item["needed_config"]]) {
 	$menu_out .= FetchItem($main_item);
+
 
 	// If selected Module: Get Sub-Items
 	if (isset($_GET["module"])) $module = $_GET["module"]; else $module = $_GET["mod"];
@@ -75,7 +76,7 @@ while ($main_item = $db->fetch_array($res)) if ($main_item["needed_config"] == "
 				OR (menu.requirement = 5 AND ". (int)$auth['login'] ." = 0))
 				ORDER BY menu.pos");
 
-		while ($sub_item = $db->fetch_array($res2)) if (($sub_item["needed_config"] == "") || ($cfg[$sub_item["needed_config"]])) {
+		while ($sub_item = $db->fetch_array($res2)) if (($sub_item["needed_config"] == "") or ($cfg[$sub_item["needed_config"]]) or ($config['environment'][$sub_item["needed_config"]])) {
 			$menu_out .= FetchItem($sub_item);
 		}
 		$db->free_result($res2);
