@@ -79,4 +79,7 @@ $lang['boxes']['stats_visits']		= 'Visitors';
 $lang['boxes']['stats_hits']		= 'Hits';
 $lang['boxes']['stats_user_online']	= 'Currently';
 
+// WWCL
+$lang['boxes']['wwcl']				= 'Tourney-Support by';
+
 ?>
