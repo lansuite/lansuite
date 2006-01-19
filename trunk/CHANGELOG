@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.6
 
+- Bugfix: #265 Wenn $dsp->AddContent aufgerufen wurde, ohne dass zuvor eine andere $dsp-> Funktionen aufgerufen wurde, kam es zu Tabellenfehlern (KnoX 19.01.2005)
 - Bugfix: #263 Beim Hinzufügen von Sponsoren-Bannern als Internet-URLs kamen Fehlermeldungen, da die Thumbnails nicht erstellt werden konnten (KnoX 19.01.2005) 
 - Bugfix: #260 Anzahl Zeichen bei Pollübersicht erhöht ( Genesis 16.1.06)
 - Bugfix: #258 Fehler im Turniermodul beim Disqualifizieren behoben. ( Genesis 16.1.06)
