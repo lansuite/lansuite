@@ -49,4 +49,7 @@ $lang['picgallery']['show_pic_next']			= "Previous picture";
 $lang['picgallery']['show_file_name']			= "File name";
 $lang['picgallery']['show_pic_size']			= "Picture size";
 $lang['picgallery']['show_created']				= "Created";
+
+$lang['picgallery']['add_gallery']				= "Add a new gallery";
+$lang['picgallery']['err_add_gallery_denied']  = "You are not allowed to add new galleries";
 ?>

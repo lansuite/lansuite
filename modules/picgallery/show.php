@@ -30,6 +30,12 @@ function IsSupportedType($ext) {
 	else return false;
 }
 
+// If a new gallery should be created
+if ($_POST['gallery_name']) {
+	if ($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) {
+	  $func->CreateDir('ext_inc/picgallery/'. $_GET['file'] . $_POST['gallery_name']);
+	} else $func->error($lang['picgallery']['err_add_gallery_denied'], "index.php?mod=picgallery&file={$_GET["file"]}");
+}
 
 if (!$_GET["file"]) $_GET["file"] = "/";
 $akt_dir = substr($_GET["file"], 0, strrpos($_GET["file"], '/') + 1);
@@ -180,6 +186,11 @@ elseif (!$akt_file) {
 	if ($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) {
 		$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}", "", "", "multipart/form-data");
 		$dsp->AddFileSelectRow("file_upload", $lang['picgallery']['show_upload_file'], "");
+		$dsp->AddFormSubmitRow("add");
+
+		// Add Gallery
+		$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}", "Form2", "", "");
+		$dsp->AddTextFieldRow("gallery_name", $lang['picgallery']['add_gallery'], "", "");
 		$dsp->AddFormSubmitRow("add");
 	}
 
