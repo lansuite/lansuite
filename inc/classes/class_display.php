@@ -647,42 +647,11 @@ class display {
 	function AddContent($target = NULL) {
 		global $templ, $auth, $language;
 
-		$templ['index']['info']['content'] .= '</table>';
-		$this->TableOpen = false;
-
-/*
-        if ($this->form_open) $this->CloseForm();
-
-		$templ['ls']['case']['caption'] = $this->display_caption;
-		$templ['ls']['case']['header_text'] = $this->display_header;
-		$templ['ls']['case']['content']['rows'] = $this->ContentRows;
-
-		switch($target) {
-			default:
-				$handle = fopen ("design/templates/ls_case.htm", "rb");
-				$tpl_str = fread ($handle, filesize ("design/templates/ls_case.htm"));
-				fclose ($handle);
-
-				$tpl_str = str_replace("\"","\\\"", $tpl_str );
-				$tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str );
-				$tpl_str = str_replace("{language}", $language, $tpl_str );
-				eval("\$templ['index']['info']['content'] .= \"" .$tpl_str. "\";");
-			break;
-
-			case "base_help":
-				$handle = fopen ("design/templates/ls_base_help_case.htm", "rb");
-				$tpl_str = fread ($handle, filesize ("design/templates/ls_base_help_case.htm"));
-				fclose ($handle);
-
-				$tpl_str = str_replace("\"","\\\"", $tpl_str );
-				$tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str );
-				$tpl_str = str_replace("{language}", $language, $tpl_str );
-				eval("\$templ['index']['info']['content'] .= \"" .$tpl_str. "\";");
-				echo $templ['index']['info']['content'];
-			break;
-		}
-*/
+		if ($this->TableOpen) {
+      $templ['index']['info']['content'] .= '</table>';
+  		$this->TableOpen = false;
+  	}
 	}
 
-} // END CLASS
+}
 ?>
