@@ -238,8 +238,9 @@ class product{
 			$this->error_food['file']	= $lang['foodcenter']['add_product_err_file'];
 			$this->noerror = false;
 		}elseif($_FILES['file']['name'] != ""){
-			$this->pic = $func->FileUpload("file","ext_inc/foodcenter/",$_FILES['file']['name']);
-			$_POST['pic'] = $this->pic;
+			$func->FileUpload("file","ext_inc/foodcenter/",$_FILES['file']['name']);
+			$_POST['pic'] = $_FILES['file']['name'];
+			$this->pic = $_FILES['file']['name'];
 			
 		}
 
@@ -558,7 +559,7 @@ class product{
 			$dsp->NewContent($lang['foodcenter']['product_desc']);
 			$dsp->AddDoubleRow($lang['foodcenter']['add_product_prod_cap'],"<b>" . $this->caption . "</b>");
 			if($this->desc != "") $dsp->AddDoubleRow($lang['foodcenter']['add_product_prod_desc'],$this->desc);
-			if($this->pic != "" && file_exists($this->pic)) $dsp->AddDoubleRow("","<img src=\"{$this->pic}\" border=\"0\" alt=\"{$this->caption}\" />");
+			if($this->pic != "" && file_exists("ext_inc/foodcenter/" . $this->pic)) $dsp->AddDoubleRow("","<img src=\"ext_inc/foodcenter/{$this->pic}\" border=\"0\" alt=\"{$this->caption}\" />");
 			$dsp->AddSingleRow($lang['foodcenter']['product_choise']);
 			
 			switch ($this->type){
