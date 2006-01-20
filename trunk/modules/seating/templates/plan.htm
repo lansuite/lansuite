@@ -93,11 +93,11 @@ function showseat(id) {
 		MM_swapImgRestore();
 
 		// Write userdata
+		document.getElementById("seating").firstChild.nodeValue = 'Block: ' + data_array[4] + ' - ' + data_array[5];
 		document.getElementById("name").firstChild.nodeValue = data_array[0];
 		if (data_array[1] || data_array[2]) document.getElementById("name").firstChild.nodeValue += ' (' + data_array[1] + ' ' + data_array[2] + ')';
 		document.getElementById("clan").firstChild.nodeValue = data_array[3];
 		document.getElementById("ip").firstChild.nodeValue = data_array[8];
-		document.getElementById("seating").firstChild.nodeValue = 'Block: ' + data_array[4] + ' - ' + data_array[5];
 
 		switch (data_array[7]) {
 			case "1":

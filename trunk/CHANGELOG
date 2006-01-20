@@ -22,6 +22,8 @@ Version 2.0.6
 - Bugfix: Der Text wurde in der Infobox nicht mehr angezeigt. (Genesis 5.1.2006)
 - Bugfix: #248 MySQL-Fehler beim Editieren von Benutzern mit MySQL5 (KnoX 31.12.2005)
 
+- Add: #264: Noch nicht bezahlte User können sich nun einen Sitzplatz vormerken, falls die Orgas dies erlauben (Default-Wert) (KnoX 20.01.2006)
+- Add: #262: Bei den Systemvorraussetzungen sieht man nun alle Details zur aktuellen GD-Version, falls installiert (KnoX 20.01.2006)
 - Add: #259 In der Bildergalerie kann man nun neue Galerien auch per Webinterface anlegen (KnoX 19.01.2005)
 - Add: #261: Sofern mind. ein WWCL-Spiel vorhanden ist, wird nun eine WWCL-Box mit Mini-Banner auf Turniermodul-Seiten gezeigt (KnoX 19.01.2005)
 - Add: Buchstaben-Icons im Sitzplan (al cazone 17.01.2006)

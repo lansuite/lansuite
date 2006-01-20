@@ -10,7 +10,8 @@ $lang['seating']['translator']        = "Cewigo (Jan)";
 $lang['seating']['create_block']  = 'Sitzblock erstellen';
 $lang['seating']['cr_block_sub']  = ' Mit Hilfe des folgenden Formulars k&ouml;nnen Sie einen neuen Sitzblock erstellen. In einem folgenden zweiten Schritt k&ouml;nnen Sie dann Pl&auml;tze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bed&uuml;rfnissen anzupassen..';
 $lang['seating']['reserve_seat']  = 'Diesen Sitzplatz für mich reservieren';
-$lang['seating']['mark_seat']     = 'Diesen Sitzplatz für einen Freund vormerken';
+$lang['seating']['mark_seat']     = 'Diesen Sitzplatz für einen Freund vormerken'. HTML_NEWLINE .'(Eine Vormekung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)';
+$lang['seating']['mark_my_seat']  = 'Diesen Sitzplatz für mich vormerken'. HTML_NEWLINE .'(Eine Vormekung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)';
 $lang['seating']['unfilled_seat'] = 'Dieser Sitzplatz ist momentan noch frei';
 $lang['seating']['confim_reserv'] = 'Dieser Sitzplatz ist momentan für Sie reserviert';
 $lang['seating']['orientation']   = 'Orientierung';
@@ -66,7 +67,6 @@ $lang['seating']['clan']		  = 'Platz eines Clanmates';
 $lang['seating']['marked']		  = 'Vorgemerkt';
 $lang['seating']['selected']	  = "Ausgewählter User";
 
-
 // Errors
 $lang['seating']['e_hori_lenght'] = 'Bitte geben Sie die horizontale L&auml;nge ein';
 $lang['seating']['e_vert_lenght'] = 'Bitte geben Sie die vertikale L&auml;nge ein';
@@ -80,5 +80,6 @@ $lang['seating']['e_choose_seat'] = 'Es wurde kein Sitzblock ausgew&auml;hlt';
 $lang['seating']['e_no_seat']     = 'Dieser Sitzplatz existiert nicht';
 $lang['seating']['e_assigned']    = 'Dieser Sitzplatz ist bereits vergeben';
 $lang['seating']['e_max_marked']  = 'Sie haben bereits das Maximum an Sitzen reserviert';
+$lang['seating']['e_max_marked_not_paid']  = 'Solange Sie nicht für diese Party bezahlt haben, dürfen Sie nur einen Sitz vormerken';
 
 ?>

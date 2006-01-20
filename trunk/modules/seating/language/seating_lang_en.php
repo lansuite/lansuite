@@ -10,7 +10,8 @@ $lang['seating']['translator']        = "Jochen";
 $lang['seating']['create_block']  = 'Create Seating plan';
 $lang['seating']['cr_block_sub']  = 'By using this form you can create a new seating plan. The next two steps will lead you through the process, wehere you can de-/activate each seat on the plan and are able to customize it';
 $lang['seating']['reserve_seat']  = 'Reserve this place for me';
-$lang['seating']['mark_seat']     = 'Reserve this place for a friend';
+$lang['seating']['mark_seat']     = 'Mark this place for a friend (A marked place may be reserved by anyone other. You can only reserve a seat, if you have paid)';
+$lang['seating']['mark_my_seat']  = 'Mark this place for myselfe (A marked place may be reserved by anyone other. You can only reserve a seat, if you have paid)';
 $lang['seating']['unfilled_seat'] = 'This place is free, yet';
 $lang['seating']['confim_reserv'] = 'This place is reserved for you, at the moment';
 $lang['seating']['orientation']   = 'Orientation';
@@ -58,6 +59,14 @@ $lang['seating']['c_seat_res2']   = 'The place was reserved successfully';
 $lang['seating']['c_seat_mark']   = 'The place was marked successfully';
 $lang['seating']['c_release']     = 'The place was resigned successfully';
 
+// Seating
+$lang['seating']['free']		  = 'Free';
+$lang['seating']['reserved']	  = 'Occupied';
+$lang['seating']['me']			  = 'Me';
+$lang['seating']['clan']		  = 'Clanmate';
+$lang['seating']['marked']		  = 'Marked';
+$lang['seating']['selected']	  = "Selected User";
+
 // Errors
 $lang['seating']['e_hori_lenght'] = 'Submit the horizontal length, please';
 $lang['seating']['e_vert_lenght'] = 'Submit the vertical length, please';
@@ -71,5 +80,6 @@ $lang['seating']['e_choose_seat'] = 'No seat plan has been chosen';
 $lang['seating']['e_no_seat']     = 'This place does not exist';
 $lang['seating']['e_assigned']    = 'This place is assigned allready';
 $lang['seating']['e_max_marked']  = 'You have allready reserved the maximum of seats';
+$lang['seating']['e_max_marked_not_paid']  = 'As long as you haven\'t paid for this party, you may only mark a seat';
 
 ?>

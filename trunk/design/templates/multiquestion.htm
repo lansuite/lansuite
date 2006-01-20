@@ -1,23 +1,13 @@
- 
-<!-- TEMPLATE - STANDARD - MULTIQUESTION -->
 <table width="100%" cellspacing="0" cellpadding="0">
-  <tr class="tbl_5"> 
-    <td colspan="2"> 
-      <table width="100%" cellspacing="0" cellpadding="3" class="tbl_5">
-        <tr> 
-          <td width="45"><img src="design/{default_design}/images/icon_question.gif"></td>
-          <td><b>Auswahl</b></td>
-        </tr>
-        <tr> 
-          <td>&nbsp;</td>
-          <td>{$templ['multiquestion']['info']['text']}</td>
-        </tr>
-		<tr height="5"><td height="5"><img src="/" height="5" border="0"></td></tr>
-       </table>
-       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_5">
-                {$templ['multiquestion']['control']['row']}
-       </table>
+  <tr>
+		<td class="box_content" width="45" valign="top">
+      <img src="design/{default_design}/images/icon_question.gif" alt="Question"/>
     </td>
+		<td class="box_content" colspan="2"><b>Auswahl</b></td>
+	</tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td class="box_content" colspan="2">{$templ['multiquestion']['info']['text']}</td>
   </tr>
+	{$templ['multiquestion']['control']['row']}
 </table>
-<!-- TEMPLATE - STANDARD - MULTIQUESTION -->
