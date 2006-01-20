@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.6
 
+- Bugfix: Kleiner Fehler mit der Bild editierung im Foodcenter gelöst. (Genesis 20.1.06)
 - Bugfix: #265 Wenn $dsp->AddContent aufgerufen wurde, ohne dass zuvor eine andere $dsp-> Funktionen aufgerufen wurde, kam es zu Tabellenfehlern (KnoX 19.01.2005)
 - Bugfix: #263 Beim Hinzufügen von Sponsoren-Bannern als Internet-URLs kamen Fehlermeldungen, da die Thumbnails nicht erstellt werden konnten (KnoX 19.01.2005) 
 - Bugfix: #260 Anzahl Zeichen bei Pollübersicht erhöht ( Genesis 16.1.06)
@@ -28,6 +29,7 @@ Version 2.0.6
 - Add: #129 Kategorien für Troubletickes eingefügt und die möglichkeit einen festen Admin zuzuweisen. (Genesis 5.1.2006)
 - Add: Sitzplan-Bilder ergänzt und Sitzplan-Malfunktion verbessert (KnoX 31.12.2005)
 
+- Change: Die neue SPAW Version hinzugefügt. (Genesis 20.1.06)
 - Change: #251 Die Seitenkompression ist nun optional und per Default deaktiviert. (KnoX 15.01.2006)
 
 
