@@ -2,6 +2,8 @@
 <menu>
 	<pos>29</pos>
 	<entry>
+		<action>default</action>
+		<file>default</file>
 		<caption>Sonstiges</caption>
 		<hint></hint>
 		<link>?mod=misc</link>
@@ -10,6 +12,8 @@
 		<level>0</level>
 	</entry>
 	<entry>
+		<action>log</action>
+		<file>log</file>
 		<caption>Logfile</caption>
 		<hint></hint>
 		<link>?mod=misc&action=log</link>
@@ -18,6 +22,8 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>whatsup</action>
+		<file>whatsup</file>
 		<caption>Was geht ab ?!</caption>
 		<hint>Was passiert gerade.. eine komplette &Uuml;bersicht</hint>
 		<link>?mod=misc&action=whatsup</link>
@@ -26,6 +32,8 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>ipgen</action>
+		<file>ipgen</file>
 		<caption>IPs generieren</caption>
 		<hint></hint>
 		<link>?mod=misc&action=ipgen</link>
@@ -34,6 +42,8 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>ip</action>
+		<file>ip</file>
 		<caption>IPs &auml;ndern</caption>
 		<hint>Hier k&ouml;nnen Sie die IP eines Sitzplatzes &auml;ndern</hint>
 		<link>?mod=misc&action=ip</link>
@@ -42,11 +52,18 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>ip_block</action>
+		<file>ip_block</file>
 		<caption>IP-Blacklist</caption>
 		<hint>Hier k&ouml;nnen Sie IP blocken</hint>
 		<link>?mod=misc&action=ip_block</link>
-		<requirement>2</requirement>
+		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
+	</entry>
+	<entry>
+		<action>ipprint</action>
+		<file>ipprint</file>
+		<requirement>2</requirement>
 	</entry>
 </menu>
