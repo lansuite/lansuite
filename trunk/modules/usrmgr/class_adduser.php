@@ -251,7 +251,7 @@ class AddUser {
 			($_POST["type"] > 1) ? $templ['ls']['row']['hidden_row']['display'] = "" : $templ['ls']['row']['hidden_row']['display'] = "none";
 			
 			$dsp->AddModTpl("usrmgr","hiddenbox_start");
-			$dsp->AddSelectFieldRow("permissions", $lang['usrmgr']['add_permission'], $t_array, $error["permissions"], 0, 6);
+			$dsp->AddSelectFieldRow("permissions", $lang['usrmgr']['add_permission'], $t_array, $error["permissions"], 0, 7);
 			$dsp->AddModTpl("usrmgr","hiddenbox_stop");
 			
 			$paid_array = array("0" => $lang["usrmgr"]["add_paid_no"],
