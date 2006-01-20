@@ -442,7 +442,7 @@ class Install {
 		$warning = "<span class=\"warning\">{$lang["install"]["env_warning"]}</span>" . HTML_NEWLINE;
 		$not_possible = "<span class=\"warning\">{$lang["install"]["env_stats_info"]}</span>" . HTML_NEWLINE;
 
-		// Dysplay System-Variables
+		// Display System-Variables
 		$mysql_version = @mysql_get_server_info();
 		if (!$mysql_version) $mysql_version = $lang["install"]["unknown"];
 		$dsp->AddDoubleRow("System-Info", "<table width=\"99%\">"
@@ -496,6 +496,9 @@ class Install {
 				if (!strstr($GD["GD Version"], "2.0")) $gd_check = $warning . $lang["install"]["env_gd1"];
 				elseif (!$GD["FreeType Support"]) $gd_check = $warning . $lang["install"]["env_gd2"];
 				else $gd_check = $ok;
+				$gd_check .= '<table>';
+				foreach ($GD as $key => $val) $gd_check .= '<tr><td class="content">'. $key .'</td><td class="content">'. $val .'</td></tr>';
+				$gd_check .= '</table>';
 				$config["environment"]["gd"] = 1;
 			} else $gd_check = $warning . $lang["install"]["env_gd1"];
 		} else {
@@ -590,7 +593,7 @@ class Install {
 
 		// Ext_inc Rights
 		$ext_inc = "ext_inc";
-		if (!@file_exists($ext_inc)) $ext_inc_check = $failed . $lang["install"]["env_no_ext_inc"];
+		if (!file_exists($ext_inc)) $ext_inc_check = $failed . $lang["install"]["env_no_ext_inc"];
 		elseif (!is_writable($ext_inc)) $ext_inc_check = $failed . $lang["install"]["env_ext_inc"];
 		else $ext_inc_check = $ok;
 		$dsp->AddDoubleRow($lang["install"]["env_ext_inc_key"], $ext_inc_check);
