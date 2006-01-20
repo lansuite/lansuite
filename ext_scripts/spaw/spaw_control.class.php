@@ -222,7 +222,7 @@ class SPAW_Wysiwyg {
       //$buf.= '<input type="hidden" id="'.$n.'" name="'.$n.'">';
       //$buf.= '<textarea id="'.$n.'" name="'.$orn.'" style="width:'.$this->getWidth().'; height:'.$this->getHeight().'; display:none;" class="SPAW_'.$this->theme.'_editarea"></textarea>';
 
-      $buf.= '<textarea id="'.$n.'" name="'.$orn.'" style="width:'.$this->getWidth().'; height:'.$this->getHeight().'; display:none;" class="SPAW_'.$this->theme.'_editarea">';
+      $buf.= '<textarea id="'.$n.'" rows="20" cols="80" name="'.$orn.'" style="width:'.$this->getWidth().'; height:'.$this->getHeight().'; display:none;" class="SPAW_'.$this->theme.'_editarea">';
       $buf.= htmlspecialchars($this->getValue());
       $buf.= '</textarea>';
 
