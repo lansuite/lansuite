@@ -233,7 +233,7 @@ class AddUser {
 			if($count['n'] != 1 OR $action == "add" OR $_POST["type"] != 3){
 				$dsp->AddDropDownFieldRow("type\" onChange=\"change_type(this.options[this.options.selectedIndex].value)", $lang["usrmgr"]["add_type"], $t_array, $error["type"], 0);
 			}else{
-				$dsp->AddDoubleRow($lang["usrmgr"]["add_type"],$lang["usrmgr"]["add_type_operator"]);
+				$dsp->AddDoubleRow($lang["usrmgr"]["add_type"],$lang["usrmgr"]["add_type_operator"] . "<input type='hidden' name='type' value='3'>");
 			}
 
 			$t_array = array();

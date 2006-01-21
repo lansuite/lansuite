@@ -290,4 +290,13 @@ $lang['usrmgr']['remind_email'] = "Ihre Email";
 $lang['usrmgr']['switch_success'] = "Benutzer wechsel erfolgreich. Die &Auml;nderungen werden beim laden der n&auml;chsten Seite wirksam";
 $lang['usrmgr']['switch_wrong_sbc'] = "Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterst&uuml;tzt.";
 $lang['usrmgr']['switch_wrong_level'] = "Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt";
+
+$lang['usrmgr']['clanpw_noclan']	= "Kein Clan ausgewählt";
+$lang['usrmgr']['clanpw_noperm']	= "Keine Berechtigung das Passwort zu ändern";
+$lang['usrmgr']['clanpw_diffpw']	= "Die eingabe und die Wiederholung müssen übereinstimmen.";
+$lang['usrmgr']['clanpw_oldpw']		= "Ihr Ursprüngliches Passwort stimmt nicht.";
+$lang['usrmgr']['clanpw_caption']	= "Clanpasswort ändern";
+$lang['usrmgr']['clanpw_subcaption']= "Alle Mitglieder im Clan werden über die Änderung benachrichtig. Das Passwort muss aber durch euch mitgeteilt werden.";
+$lang['usrmgr']['clanpw_haschange_sub'] = "Clanpasswort geändert";
+$lang['usrmgr']['clanpw_haschange']	= "Das Clanpasswort wurde durch den Benutzer %%USER%% geändert";
 ?>

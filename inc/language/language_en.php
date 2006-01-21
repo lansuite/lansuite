@@ -166,4 +166,5 @@
 	$lang["button"]["year"]	= "Year overview";
 	$lang["button"]["finish"]	= "Finish";
 	$lang["button"]["print"]	= "Print";
+	$lang["button"]["changeclanpw"] = "Change Clanpw";
 ?>

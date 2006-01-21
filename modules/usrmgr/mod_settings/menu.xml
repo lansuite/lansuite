@@ -61,6 +61,11 @@
 		<requirement>1</requirement>
 	</entry>
 	<entry>
+		<action>changeclanpw</action>
+		<file>changeclanpw</file>
+		<requirement>1</requirement>
+	</entry>	
+	<entry>
 		<action>settings</action>
 		<file>settings</file>
 		<requirement>1</requirement>

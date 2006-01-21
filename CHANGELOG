@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.6
 
+- Bugfix: Wenn der letzte vorhandene Operator geändert wurde wurdem diesem der Type 0 zugewiesen. (Genesis 21.1.06)
 - Bugfix: In der Statistikbox werden nur noch User angezeigt die angemeldet sind (Genesis 21.1.06)
 - Bugfix: Im Info2 das Editfenster im HTML modus vergrössert (Genesis 20.1.06)
 - Bugfix: Kleiner Fehler mit der Bild editierung im Foodcenter gelöst. (Genesis 20.1.06)
@@ -24,6 +25,7 @@ Version 2.0.6
 - Bugfix: Der Text wurde in der Infobox nicht mehr angezeigt. (Genesis 5.1.2006)
 - Bugfix: #248 MySQL-Fehler beim Editieren von Benutzern mit MySQL5 (KnoX 31.12.2005)
 
+- Add: #221 Möglichkeit Clanpw zu ändern hinzugefügt (Genesis 21.1.06)
 - Add: Im Foodcentermodul können nur HTML Bestelllisten ausgedruckt werden. (Genesis 21.1.06)
 - Add: #264: Noch nicht bezahlte User können sich nun einen Sitzplatz vormerken, falls die Orgas dies erlauben (Default-Wert) (KnoX 20.01.2006)
 - Add: #262: Bei den Systemvorraussetzungen sieht man nun alle Details zur aktuellen GD-Version, falls installiert (KnoX 20.01.2006)
