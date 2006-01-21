@@ -130,8 +130,8 @@ $lang['foodcenter']['ordered_status_quest'][3]	= "Status auf bestellen setzen";
 $lang['foodcenter']['ordered_status_quest'][4]	= "Produkt abbestellen und Geld zurücküberweisen.";
 $lang['foodcenter']['ordered_status_quest'][5]	= "Zurück";
 $lang['foodcenter']['ordered_status_question']	= "Status setzen";
-$lang['foodcenter']['ordered_status_ask'][4]	= "Produkte abbestellt";
-$lang['foodcenter']['ordered_status_ask'][5]	= "Status auf abgeholt gesetzt";
+$lang['foodcenter']['ordered_status_ask'][5]	= "Produkte abbestellt";
+$lang['foodcenter']['ordered_status_ask'][4]	= "Status auf abgeholt gesetzt";
 $lang['foodcenter']['ordered_status_ask'][3]	= "Status auf Abholbereit gesetzt";
 $lang['foodcenter']['ordered_status_ask'][2]	= "Status auf bestellt gesetzt";
 $lang['foodcenter']['ordered_status_ask'][1]	= "Status auf bestellen gesetzt";
@@ -162,5 +162,7 @@ $lang['foodcenter']['theke_delivered'][1]		= "Alles direkt abgeholt";
 $lang['foodcenter']['theke_delivered'][2]		= "Abgeholt ausser Wartelisten Produkte";
 $lang['foodcenter']['theke_repayment']			= "Rückzahlung bei abbestellten Produkten";
 
+// Print
+$lang['foodcenter']['template']					= "Bitte Template auswählen:";
 
 ?>

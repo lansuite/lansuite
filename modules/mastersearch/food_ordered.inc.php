@@ -33,7 +33,6 @@
 		$this->config['result_fields'][$z]['width']    = "45%";
 	}
 	$this->config['result_fields'][$z]['maxchar']  = "20";
-	$this->config['result_fields'][$z]['checkbox']   = "checkbox";
 
 	$z++;
 	$this->config['result_fields'][$z]['name']     = $lang['ms']['foodcenter']['caption'];

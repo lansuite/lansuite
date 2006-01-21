@@ -4,7 +4,7 @@ $product_list = new product_list();
 
 if(!isset($vars['search_select1'])) $vars['search_select1'] = 3;
 		
-	$mastersearch = new MasterSearch($vars, "index.php?mod=foodcenter&action=ordered", "index.php?mod=foodcenter&action=ordered&step=2&id=", "");
+	$mastersearch = new MasterSearch($vars, "index.php?mod=foodcenter&action=ordered", "index.php?mod=foodcenter&action=ordered&step=2&id=", "AND userid=" . $auth['userid']);
 
 	switch ($vars['search_select1']){
 		case 1:

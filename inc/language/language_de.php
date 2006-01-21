@@ -182,4 +182,6 @@
 	$lang["button"]["month"]	= "Monats Übersicht";
 	$lang["button"]["year"]	= "Jahres Übersicht";
 	$lang["button"]["finish"]	= "Beenden";
+	$lang["button"]["print"]	= "Drucken";
+	
 ?>

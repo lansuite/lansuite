@@ -165,4 +165,5 @@
 	$lang["button"]["month"]	= "Month overview";
 	$lang["button"]["year"]	= "Year overview";
 	$lang["button"]["finish"]	= "Finish";
+	$lang["button"]["print"]	= "Print";
 ?>

@@ -10,9 +10,9 @@ if($auth['type'] < 2){
 switch ($_GET['step']) {
 	case 3:
 		$time = time();
-		if($_GET['status'] == 5){
+		if($_GET['status'] == 4){
 			$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET['status']}, lastchange = '$time', supplytime = '$time'  WHERE id = {$_GET['id']}");
-		}elseif ($_GET['status'] == 4){
+		}elseif ($_GET['status'] == 5){
 			$prodrow = $db->query_first("SELECT * FROM {$config['tables']['food_ordering']} WHERE id = {$_GET['id']}");				
 			
 			if($prodrow['pice'] > 1 && !isset($_POST['delcount'])){
@@ -96,6 +96,24 @@ switch ($_GET['step']){
 		$mastersearch->PrintForm();		
 		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
 
+		if($mastersearch->data['count'] > 0){
+			$handle = opendir("ext_inc/foodcenter_templates");
+			while ($file = readdir ($handle)) if (($file != ".") and ($file != "..") and ($file != "CVS") and (!is_dir($file))) {
+				if((substr($file, -3, 3) == "htm") && (substr($file, -7, 7) != "row.htm") || (substr($file, -4, 4) == "html") && (substr($file, -8, 8) != "row.html")){
+					$file_array[] .= "<option value=\"$file\">$file</option>";
+				}
+			}
+			$dsp->SetForm("base.php?mod=foodcenter&action=print\" target=\"_blank\"","print");
+			$dsp->AddDropDownFieldRow("file",$lang['foodcenter']['template'],$file_array,"");
+			
+			$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_keywords\" value=\"{$vars['search_keywords']}\">";
+			$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select1\" value=\"{$vars['search_select1']}\">";
+			$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select2\" value=\"{$vars['search_select2']}\">";
+			$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select3\" value=\"{$vars['search_select3']}\">";
+			$dsp->AddFormSubmitRow("print");
+			$dsp->AddContent();
+		}
+
 		break;
 	case 2:
 	
@@ -103,9 +121,9 @@ switch ($_GET['step']){
 		$time = time();
 		$totprice = 0;
 		foreach($_POST["checkbox"] AS $item) {
-			if($_POST["action_select"] == 5){
+			if($_POST["action_select"] == 4){
 				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_POST["action_select"]}, lastchange = '$time', supplytime = '$time'  WHERE id = {$item}");
-			}elseif ($_POST["action_select"] == 4){
+			}elseif ($_POST["action_select"] == 5){
 				$prodrow = $db->query_first("SELECT * FROM {$config['tables']['food_ordering']} WHERE id = {$item}");				
 				
 				unset($account);
@@ -126,21 +144,21 @@ switch ($_GET['step']){
 					$price += $optrow['price'];
 				}
 				$totprice += $price * $prodrow['pice'];
+				$account->change($totprice,$lang['foodcenter']['theke_repayment'] . " (" . $auth['username'] . ")");
 				$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $item);
 			}else{
 				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_POST["action_select"]}, lastchange = '$time'  WHERE id = {$item}");
 			}
 	
 		}
-		$account->change($totprice,$lang['foodcenter']['theke_repayment'] . " (" . $auth['username'] . ")");
 		$func->confirmation($lang['foodcenter']['ordered_status_ask'][$_POST["action_select"]],"index.php?mod=foodcenter&action=statchange");
 	}else{
 	
-		$link_array[0] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=5";
+		$link_array[0] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=4";
 		$link_array[1] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=3";
 		$link_array[2] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=2";
 		$link_array[3] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=1";
-		$link_array[4] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=4";
+		$link_array[4] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=5";
 		$link_array[5] = "index.php?mod=foodcenter&action=statchange";
 		$func->multiquestion($lang['foodcenter']['ordered_status_quest'],$link_array,$lang['foodcenter']['ordered_status_question']);
 	}

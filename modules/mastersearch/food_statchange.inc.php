@@ -119,9 +119,9 @@
 	$this->config['action_select']['select_all']	= $lang['ms']['select_all'];
 	$this->config['action_select']['select_none']	= $lang['ms']['select_none'];
 	$this->config['action_select']['hr']	= "------------------------";
-	$this->config['action_select'][5]			=	$lang['foodcenter']['ordered_status_quest'][0];
-	$this->config['action_select'][4]			=	$lang['foodcenter']['ordered_status_quest'][4];
+	$this->config['action_select'][4]			=	$lang['foodcenter']['ordered_status_quest'][0];
 	$this->config['action_select'][3]			=	$lang['foodcenter']['ordered_status_quest'][1];
 	$this->config['action_select'][2]			=	$lang['foodcenter']['ordered_status_quest'][2];
 	$this->config['action_select'][1]			=	$lang['foodcenter']['ordered_status_quest'][3];
+	$this->config['action_select'][5]			=	$lang['foodcenter']['ordered_status_quest'][4];
 ?>
