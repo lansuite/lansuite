@@ -10,6 +10,7 @@ class foodcenter_print{
 	var $row_temp = "";
 
 	function foodcenter_print(){
+		global $func;
 		if(!file_exists($this->path . $_POST['file']) || $_POST['file'] == ""){
 			header("HTTP/1.0 404 Not Found");
 			exit();
@@ -32,8 +33,12 @@ class foodcenter_print{
 		
 		$this->sql();
 		$temp['content'] = $this->row_temp;		
-		eval("\$this->output .= \"" .$temp_file. "\";");
-
+		$temp['supp'] = $this->GetSupp($_POST['search_select2']);
+		$temp['user'] = $this->GetUsername($_POST['search_select3']);
+		$temp['time'] = $func->unixstamp2date( $time , "datetime");
+		
+		eval("\$this->output .= \"" .$temp_file. "\";");		
+		
 		echo $this->output;
 	}
 
@@ -50,32 +55,58 @@ class foodcenter_print{
 	}
 
 
+	function GetSupp($value){
+		global $lang, $db, $config;
+		
+		if($value == "all"){
+			return $lang['foodcenter']['different'];		
+		}else{
+			$supp = $db->query_first("SELECT name FROM {$config['tables']['food_supp']} WHERE id = " . $value);
+			return $supp['name'];
+		}
+		
+	}
+	
+	
+	
 	function GetFoodoption($value){
-		global $db, $config;
-
-
+		global $func, $cfg, $db, $config, $lang;
+		
+		
 		if(stristr($value,"/")){
 			$values = split("/",$value);
 
 			foreach ($values as $number){
 				if(is_numeric($number)){
-					$data = $db->query_first("SELECT caption FROM {$config['tables']['food_option']} WHERE id = " . $number);
-					$out .= $data['caption'] . HTML_NEWLINE;
+					$data = $db->query_first("SELECT caption, unit FROM {$config['tables']['food_option']} WHERE id = " . $number);
+					if($data['caption'] == ""){
+						$out .= $data['unit'] . "<br />";
+					}else{
+						$out .= $data['caption'] . "<br />";
+					}
 				}
-
+		
 			}
 		}else {
-			$data = $db->query_first("SELECT caption FROM {$config['tables']['food_option']} WHERE id = " . $value);
-			$out .= $data['caption'] . HTML_NEWLINE;
+			$data = $db->query_first("SELECT caption,unit FROM {$config['tables']['food_option']} WHERE id = " . $value);
+			if($data['caption'] == ""){
+				$out .= $data['unit'] . "<br />";
+			}else{
+				$out .= $data['caption'] . "<br />";
+			}			
 		}
-		return $out;
-
+		return $out;	
+		
 	}
 
 	function GetUsername( $userid )	{
-		global $db, $config;
-		$get_username = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = '$userid'");
-		return $get_username["username"];
+		global $db, $config, $lang;
+		if($userid == 'all'){
+			return $lang['foodcenter']['different'];	
+		}else {
+			$get_username = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = '$userid'");
+			return $get_username["username"];
+		}
 	}
 	
 	function GetDate( $time ) {

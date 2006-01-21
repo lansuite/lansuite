@@ -152,6 +152,7 @@ $lang['foodcenter']['list_fetched'] 			= "Abgeholt";
 $lang['foodcenter']['list_fetched_subcap']		= "Diese Produkte hast du Bereits abgeholt";
 $lang['foodcenter']['list_fetch'] 				= "Abholbereit";
 $lang['foodcenter']['list_fetch_subcap']		= "Diese Produkte kannst du abholen.";
+$lang['foodcenter']['statchange_fetch']			= "Deine bestellten Produkte sind abholbereit";
 
 
 // Theke
@@ -164,5 +165,5 @@ $lang['foodcenter']['theke_repayment']			= "Rückzahlung bei abbestellten Produkt
 
 // Print
 $lang['foodcenter']['template']					= "Bitte Template auswählen:";
-
+$lang['foodcenter']['different']				= "Verschiedene";
 ?>

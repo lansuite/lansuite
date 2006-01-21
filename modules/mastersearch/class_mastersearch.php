@@ -774,14 +774,22 @@ class MasterSearch {
 
 			foreach ($values as $number){
 				if(is_numeric($number)){
-					$data = $db->query_first("SELECT caption FROM {$config['tables']['food_option']} WHERE id = " . $number);
-					$out .= $data['caption'] . HTML_NEWLINE;
+					$data = $db->query_first("SELECT caption, unit FROM {$config['tables']['food_option']} WHERE id = " . $number);
+					if($data['caption'] == ""){
+						$out .= $data['unit'] . HTML_NEWLINE;
+					}else{
+						$out .= $data['caption'] . HTML_NEWLINE;
+					}
 				}
 		
 			}
 		}else {
-			$data = $db->query_first("SELECT caption FROM {$config['tables']['food_option']} WHERE id = " . $value);
-			$out .= $data['caption'] . HTML_NEWLINE;			
+			$data = $db->query_first("SELECT caption,unit FROM {$config['tables']['food_option']} WHERE id = " . $value);
+			if($data['caption'] == ""){
+				$out .= $data['unit'] . HTML_NEWLINE;
+			}else{
+				$out .= $data['caption'] . HTML_NEWLINE;
+			}			
 		}
 		return $out;	
 		
