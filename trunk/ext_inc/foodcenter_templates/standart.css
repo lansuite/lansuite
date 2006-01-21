@@ -1,0 +1,84 @@
+
+/*
+Lansuite Foodcenter Style-Definitions
+
+For detailed Information see:
+http://lansuite-docu.orgapage.de/index.php?title=Stylesheets
+*/
+
+
+
+/* Basic HTML-Elements-Rewrite */
+body {
+	background:		#FFFFFF;
+	font-family:	verdana, helvetica, sans-serif;
+	font-size:		11px; 
+	font-weight:	normal;
+	text-align:		left;
+	color:			#000000;
+	margin-left:	8px;
+	margin-right:	8px;
+}
+
+
+.tbl{
+  table-layout: fixed;
+  width:1300px;
+  border-width:1px;
+  border-style:solid;
+  border-color:black;
+  padding:0em;
+  text-align:justify;
+  border-collapse: collapse;
+}
+
+
+.col_main{
+  border-width:1px;
+  border-style:solid;
+  border-color:black;
+  padding:0em;
+  text-align:justify; 
+  text-align:		left;  
+  font-size: 18px;
+  font-weight: bold;
+  border-collapse: collapse;
+}
+
+.row_top{
+  border-width:1px;
+  border-style:solid;
+  border-color:black;
+  padding:0em;
+  text-align:justify; 
+  font-weight: bold;
+  border-collapse: collapse;
+}
+
+.col{
+  border-width:1px;
+  border-style:solid;
+  border-color:black;
+  padding:0em;
+  text-align:justify;
+  border-collapse: collapse; 
+}
+
+.col_mid{
+  border-width:1px;
+  border-style:solid;
+  border-color:black;
+  padding:0em;
+  text-align:middle;
+  vertical-align:middle;
+  border-collapse: collapse; 
+}
+
+.row{
+  border-width:1px;
+  border-style:solid;
+  border-color:black;
+  padding:0em;
+  text-align:justify; 
+  border-collapse: collapse;
+}

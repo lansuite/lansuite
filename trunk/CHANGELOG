@@ -34,6 +34,7 @@ Version 2.0.6
 - Add: #129 Kategorien für Troubletickes eingefügt und die möglichkeit einen festen Admin zuzuweisen. (Genesis 5.1.2006)
 - Add: Sitzplan-Bilder ergänzt und Sitzplan-Malfunktion verbessert (KnoX 31.12.2005)
 
+- Change: Kleine änderungen im Foodcenter, es werden nun Infos ausgegeben wenn ein Produkt abholbereit ist (Genesis 21.1.06)
 - Change: Die neue SPAW Version hinzugefügt. (Genesis 20.1.06)
 - Change: #251 Die Seitenkompression ist nun optional und per Default deaktiviert. (KnoX 15.01.2006)
 

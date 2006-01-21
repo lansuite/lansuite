@@ -163,6 +163,8 @@ switch($_GET['mod'])
 	case "foodcenter":
 		if ($_SESSION["auth"]["type"] > 2){
 			if($_GET['action'] == "print")
+			include("modules/foodcenter/language/foodcenter_lang_de.php");
+			if(file_exists("modules/foodcenter/language/foodcenter_lang_".$language.".php")) include("modules/foodcenter/language/foodcenter_lang_".$language.".php");
 			include('modules/foodcenter/print.php');
 		}
 	break;

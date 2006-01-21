@@ -56,6 +56,10 @@ switch ($_GET['step']) {
 			}
 		}else{
 			$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET['status']}, lastchange = '$time' WHERE id = {$_GET['id']}");
+			if($_GET['status'] == 3){
+				$user_id = $db->query_first("SELECT userid FROM {$config['tables']['food_ordering']} WHERE id = {$_GET['id']}");
+				$func->setainfo($lang['foodcenter']['statchange_fetch'],$user_id['userid'],2,"foodcenter",$_GET['id']);
+			}
 		}
 		break;
 }
@@ -148,6 +152,10 @@ switch ($_GET['step']){
 				$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $item);
 			}else{
 				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_POST["action_select"]}, lastchange = '$time'  WHERE id = {$item}");
+				if($_POST["action_select"] == 3){
+					$user_id = $db->query_first("SELECT userid FROM {$config['tables']['food_ordering']} WHERE id = {$item}");
+					$func->setainfo($lang['foodcenter']['statchange_fetch'],$user_id['userid'],2,"foodcenter",$item);
+				}
 			}
 	
 		}
