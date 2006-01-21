@@ -1,10 +1,30 @@
 <?php
 
+/**
+ * 	Produktliste
+ *	Wird verwendet um zum einen die Liste der Speisekarte anzuzeigen
+ *  zum anderen für den Warenkorb
+ */
 class product_list{
+	/**
+	 * Array mit den Produktnummern
+	 *
+	 * @var int
+	 */
 	var $product_list	= array();
+	/**
+	 * Array mit allen in der Liste enthaltenen Produkte 
+	 *
+	 * @var product
+	 */
 	var $product		= array();
 
 	
+	/**
+	 * Lade alle Produkte einer Kategorie
+	 *
+	 * @param int $cat
+	 */
 	function load_cat($cat){
 		global $db,$config;
 		$products = $db->query("SELECT id FROM {$config['tables']['food_product']} WHERE cat_id={$cat}");
@@ -17,6 +37,11 @@ class product_list{
 		}
 	}
 	
+	/**
+	 * Produktliste für anzeige ausgeben
+	 *
+	 * @param string $worklink
+	 */
 	function get_list($worklink){
 		global $dsp,$lang;
 		
@@ -29,6 +54,12 @@ class product_list{
 		}
 	}
 	
+	/**
+	 * Zeige Detailansicht eines eingefügten Produktes
+	 *
+	 * @param int $id
+	 * @param string $worklink
+	 */
 	function get_info($id,$worklink){
 		global $dsp,$lang,$cfg,$db,$config;
 		
@@ -37,6 +68,14 @@ class product_list{
 		
 	}
 	
+	/**
+	 * Produkt zur Liste hinzufügen
+	 * Gibt true zurück wenn das Produkt hinzugefügt wurde sonst false
+	 * 
+	 * @param int $id
+	 * @param array or int $opt
+	 * @return boolean
+	 */
 	function add_product($id,$opt){
 		// Produkt schon vorhanden?
 		if(in_array($id,$this->product_list)){
@@ -108,6 +147,14 @@ class product_list{
 			
 	}
 	
+	/**
+	 * Warenkorb neu schreiben bei änderungen
+	 *
+	 * @param int $listid
+	 * @param array or int $opt
+	 * @param int $value
+	 * @return true or false 
+	 */
 	function chanche_ordered($listid,$opt,$value){
 		if(!is_null($opt)){
 			//print_r($this->product[$listid]);
@@ -118,6 +165,10 @@ class product_list{
 		}
 	}
 	
+	/**
+	 * Leere objekte aus der Liste entfernen
+	 *
+	 */
 	function check_list(){
 		foreach ($this->product_list as $key => $value){
 			if($this->product[$key]->count_unit() == 0){
@@ -127,12 +178,21 @@ class product_list{
 		}
 	}
 	
+	/**
+	 * Erzeuge Formular für Warenkorb
+	 *
+	 */
 	function get_basket_form(){
 		foreach ($this->product_list as $key => $value){
 			$this->product[$key]->get_basket($key);	
 		}
 	}
 	
+	/**
+	 * Produkte zählen
+	 *
+	 * @return int
+	 */
 	function count_products(){
 		foreach ($this->product_list as $key => $value){
 			$count += $this->product[$key]->count_unit();	
@@ -140,6 +200,11 @@ class product_list{
 		return $count;
 	}
 	
+	/**
+	 * Produktepreis zusammenzählen
+	 *
+	 * @return int
+	 */
 	function count_products_price(){
 		foreach ($this->product_list as $key => $value){
 			$price += $this->product[$key]->count_price();	
@@ -147,6 +212,13 @@ class product_list{
 		return $price;
 	}
 	
+	/**
+	 * Produkt kaufen 
+	 *
+	 * @param int $userid
+	 * @param array $delivered
+	 * @return int
+	 */
 	function order_product($userid,$delivered){
 		$price = 0;
 		foreach ($this->product_list as $key => $value){
@@ -157,22 +229,103 @@ class product_list{
 }
 
 
+/**
+ * Produkt Klasse
+ * Ermöglicht alle Funktionen die für ein Produkt benötigt werden.
+ *
+ */
 class product{
+	/**
+	 * Produktid
+	 *
+	 * @var int
+	 */
 	var $id			= null;
+	/**
+	 * Produktname
+	 *
+	 * @var string
+	 */
 	var $caption 	= "";
+	/**
+	 * Produktbeschreibung
+	 *
+	 * @var string
+	 */
 	var $desc 		= "";
+	/**
+	 * Kategorie 
+	 *
+	 * @var cat_object
+	 */
 	var $cat;
+	/**
+	 * Lieferant
+	 *
+	 * @var supp_object
+	 */
 	var $supp;
+	/**
+	 * Produktebild
+	 *
+	 * @var string
+	 */
 	var $pic		= "";
+	/**
+	 * Materialverwaltung
+	 *
+	 * @var boolean
+	 */
 	var $mat		= "";
+	/**
+	 * Produktetype
+	 *
+	 * @var int
+	 */
 	var $type		= null;
+	/**
+	 * Mehrfachauswahl
+	 *
+	 * @var int
+	 */
 	var $choise		= 0;
+	/**
+	 * Bestellartikel
+	 *
+	 * @var int
+	 */
 	var $wait		= 0;
+	/**
+	 * Anzahl bestellte Produkte
+	 *
+	 * @var int
+	 */
 	var $ordered	= 0;
+	/**
+	 * Produkteoptionen
+	 *
+	 * @var array
+	 */
 	var $option 	= array();
+	/**
+	 * Fehlerarray
+	 *
+	 * @var array
+	 */
 	var $error_food	= array();
+	/**
+	 * Fehlerstatus
+	 *
+	 * @var boolean
+	 */
 	var $noerror	= true;
 			
+	/**
+	 * Konstruktor bestehendes Produkt wird geladen sonst ein neues erzeugt
+	 *
+	 * @param int $id
+	 * @return product
+	 */
 	function product($id = null){
 		if($id != null && $id > 0){
 			$this->id = $id;
@@ -189,6 +342,10 @@ class product{
 		$product = $db->query_first("SELECT * FROM {$config['tables']['food_product']} WHERE id={$option['parentid']}");	
 	}*/
 	
+	/**
+	 * Produktinformationen aus dem Formular auslesen
+	 *
+	 */
 	function read_post(){
 		$this->caption 	=	$_POST['p_caption'];
 		$this->desc		=	$_POST['desc'];
@@ -227,6 +384,11 @@ class product{
 		}
 	}
 	
+	/**
+	 * Eingaben aus dem Formular prüfen
+	 *
+	 * @return boolean
+	 */
 	function check(){
 		global $lang,$func;
 		if($this->caption == ""){
@@ -254,6 +416,11 @@ class product{
 
 	}
 	
+	/**
+	 * Produktdaten aus der DB lesen
+	 *
+	 * @return boolean
+	 */
 	function read(){
 		global $db,$config;
 		if($this->id == null){
@@ -283,6 +450,10 @@ class product{
 		return true;
 	}
 	
+	/**
+	 * Produktdaten in die Datenbank schreiben
+	 *
+	 */
 	function write(){
 		global $db,$config;	
 
@@ -321,6 +492,11 @@ class product{
 			
 	}
 	
+	/**
+	 * Preis zusammenzählen
+	 *
+	 * @return int
+	 */
 	function count_price(){
 		if($this->type == 2){
 			for($i=0;$i<count($this->option);$i++){
@@ -340,6 +516,13 @@ class product{
 		
 	}
 	
+	/**
+	 * Produktioption bestellen
+	 *
+	 * @param int $id
+	 * @param int $value
+	 * @return boolean
+	 */
 	function order_option($id,$value = null){
 		global $lang;
 		$ok = true;
@@ -362,6 +545,11 @@ class product{
 		return $ok;
 	}
 	
+	/**
+	 * Produkte zählen
+	 *
+	 * @return int
+	 */
 	function count_unit(){
 		if($this->type == 2){
 			return $this->ordered;
@@ -375,6 +563,11 @@ class product{
 		}
 	}
 	
+	/**
+	 * Formular für das ändern und hinzufügen von Produkten ausgeben
+	 *
+	 * @param int $step
+	 */
 	function form_add_product($step){
 		global $dsp,$gd,$lang,$templ;
 		
@@ -477,6 +670,11 @@ class product{
 	}
 	
 	
+	/**
+	 * Bestellforumlar anzeigen
+	 *
+	 * @param string $worklink
+	 */
 	function order_form($worklink){
 		global $dsp,$cfg,$templ,$auth;
 		
@@ -535,6 +733,11 @@ class product{
 		}
 	}
 	
+	/**
+	 * Eintrag für den Warenkorb anzeigen
+	 *
+	 * @param int $listid
+	 */
 	function get_basket($listid){
 		global $dsp;
 		$show_caption = $this->caption;
@@ -553,6 +756,11 @@ class product{
 			
 	}
 
+	/**
+	 * Detailanzeige des Produktes
+	 *
+	 * @param string $worklink
+	 */
 	function get_info($worklink){
 		global $dsp,$lang,$auth,$cfg;
 				
@@ -567,10 +775,10 @@ class product{
 				case 1:
 				
 				if(is_object($this->option[0])){
-					$dsp->AddDoubleRow("","<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>");
+					$dsp->AddDoubleRow("","<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>");
 				}
 				if(is_object($this->option[1])){
-					$dsp->AddDoubleRow("","<b>" . $this->option[1]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[1]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>");
+					$dsp->AddDoubleRow("","<b>" . $this->option[1]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'>" . $this->option[1]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>");
 				}
 				if(is_object($this->option[2])){
 					$dsp->AddDoubleRow("","<b>" . $this->option[2]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[2]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>");
@@ -612,6 +820,12 @@ class product{
 	}
 
 	
+	/**
+	 * Produkt mit anderem Produkt vergleichen 
+	 *
+	 * @param product_object $prod
+	 * @return boolean
+	 */
 	function compare($prod){
 		if($this->type == 2){
 			for ($i = 0;$i < count($prod->option);$i++){
@@ -629,6 +843,12 @@ class product{
 	}
 	
 	
+	/**
+	 * Bestellte Produkte ändern 
+	 *
+	 * @param int $val
+	 * @return boolean
+	 */
 	function set_ordered($val){
 		global $lang;
 		$error = -1;
@@ -649,6 +869,13 @@ class product{
 		return true;
 	}
 	
+	/**
+	 * Produkt bestellen gibt den Preis für das hinzugefügte Produkt zurück
+	 *
+	 * @param int $userid
+	 * @param int $delivered
+	 * @return int
+	 */
 	function order($userid,$delivered){
 		global $db,$config;
 		$time = time();
@@ -712,20 +939,86 @@ class product{
 
 
 
+/**
+ * Produktoptionen 
+ *
+ */
 class product_option{
 
+	/**
+	 * Produktoptionsid
+	 *
+	 * @var int
+	 */
 	var $id;
+	/**
+	 * Id des Elternproduktes
+	 *
+	 * @var int
+	 */
 	var $parentid;
+	/**
+	 * Typ des Elternproduktes
+	 *
+	 * @var int
+	 */
 	var $parenttyp;
+	/**
+	 * Produktoptionsname
+	 *
+	 * @var string
+	 */
 	var $caption;
+	/**
+	 * Einheit
+	 *
+	 * @var String
+	 */
 	var $unit;
+	/**
+	 * Anzahl der am Lager vorhanden Produkte
+	 *
+	 * @var int
+	 */
 	var $pice;
+	/**
+	 * Verkaufspreis
+	 *
+	 * @var int
+	 */
 	var $price;
+	/**
+	 * Einkaufspreis
+	 *
+	 * @var int
+	 */
 	var $eprice;
+	/**
+	 * Muss mitbestellt werden
+	 *
+	 * @var int
+	 */
 	var $fix		= 0;
+	/**
+	 * Anzahl bestellte Produkte
+	 *
+	 * @var int
+	 */
 	var $ordered	= 0;
+	/**
+	 * Fehlermeldungsarray
+	 *
+	 * @var array
+	 */
 	var $error 		= array();
 	
+	/**
+	 * Konstruktor
+	 *
+	 * @param int $id
+	 * @param int $type
+	 * @return product_option
+	 */
 	function product_option($id = null,$type = null){
 		$this->parenttyp = $type;
 		if($id != null && $id > 0){
@@ -736,6 +1029,13 @@ class product_option{
 		
 	}
 	
+	/**
+	 * Produktoptionsinformationen aus dem Formular lesen
+	 *
+	 * @param int $parentid
+	 * @param int $type
+	 * @param int $nr
+	 */
 	function read_post($parentid,$type,$nr){
 		if($_POST['hidden'][$nr] > 0){
 			$this->id = $_POST['hidden'][$nr];
@@ -752,6 +1052,10 @@ class product_option{
 		$this->fix		= isset($_POST['fix'][$nr]) ? 1 : 0;
 	}
 	
+	/**
+	 * Produktoption aus der DB lesen
+	 *
+	 */
 	function read(){
 		global $db,$config;
 		
@@ -767,6 +1071,11 @@ class product_option{
 	
 	}
 	
+	/**
+	 * Produktoption hinzufügen
+	 *
+	 * @param int $id
+	 */
 	function write($id = 0){
 		global $db,$config;
 		if($this->parentid == null) $this->parentid = $id;
@@ -795,6 +1104,11 @@ class product_option{
 
 	}
 	
+	/**
+	 * Eingabedaten prüfen
+	 *
+	 * @return boolean
+	 */
 	function check(){
 		global $lang;
 		if($this->caption == "" && $this->parenttyp == 2) $this->error['caption'] = $lang['foodcenter']['add_product_err_opt_cap'];
@@ -814,10 +1128,20 @@ class product_option{
 	
 	}
 	
+	/**
+	 * Produkte zählen
+	 *
+	 * @return unknown
+	 */
 	function count_unit(){
 		return $this->ordered;	
 	}
 	
+	/**
+	 * Preiszusammenzählen
+	 *
+	 * @return int
+	 */
 	function count_price(){
 		if($this->fix){
 			return $this->fix * $this->price;
@@ -826,6 +1150,14 @@ class product_option{
 		}	
 	}
 	
+	/**
+	 * Formular für Dateneingabe anzeigen
+	 *
+	 * @param int $nr
+	 * @param int $optional
+	 * @param boolean $big
+	 * @param boolean $multiselect
+	 */
 	function option_form($nr,$optional = null, $big = false, $multiselect = false){
 		global $dsp,$templ,$lang;
 		($multiselect) ? $display = "" : $display = "none";
@@ -843,6 +1175,13 @@ class product_option{
 		
 	}
 	
+	/**
+	 * Warenkorbinhalt anzeigen
+	 *
+	 * @param int $listid
+	 * @param string $caption
+	 * @param boolean $checkbox
+	 */
 	function get_basket($listid,$caption,$checkbox = false){
 		global $dsp,$cfg;
 		if($this->caption == "" && $checkbox == false){
@@ -861,6 +1200,28 @@ class product_option{
 	}
 	
 	
+	/**
+	 * Produktoptionstemplate
+	 *
+	 * @param string $text
+	 * @param string $text_product
+	 * @param string $text_price
+	 * @param string $text_eprice
+	 * @param string $text_piece
+	 * @param string $name_product
+	 * @param string $name_price
+	 * @param string $name_eprice
+	 * @param string $name_piece
+	 * @param int $value_product
+	 * @param int $value_price
+	 * @param int $value_eprice
+	 * @param int $value_piece
+	 * @param string $hidden_name
+	 * @param int $hidden_id
+	 * @param string $errortext
+	 * @param string $optional
+	 * @return template
+	 */
 	function _Add_Option_Row($text,$text_product,$text_price,$text_eprice,$text_piece,$name_product,$name_price,$name_eprice,$name_piece,$value_product,$value_price,$value_eprice,$value_piece,$hidden_name,$hidden_id,$errortext,$optional = false) {
 		global $dsp,$templ;
 				
@@ -1067,7 +1428,7 @@ class supp{
 /**
  * Kategorien verwalten
  * Werden für Menu der Speisekarte verwendet.
- *
+ * Diese sind als Headermenu verfügbar
  */
 class cat{
 	/**
