@@ -183,5 +183,6 @@
 	$lang["button"]["year"]	= "Jahres Übersicht";
 	$lang["button"]["finish"]	= "Beenden";
 	$lang["button"]["print"]	= "Drucken";
+	$lang["button"]["changeclanpw"] = "Clanpw ändern";
 	
 ?>

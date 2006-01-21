@@ -237,6 +237,9 @@ else {
 		if ($auth['type'] >= 3)
 			$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=delete&step=2&userid=". $_GET['userid'], "delete")." ";
 
+		if($user_data['clan'] != "" &&($user_data['clan'] == $auth['clan'] || $auth['type'] > 1)){
+			$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=changeclanpw&clan=". urlencode($user_data['clan']),"changeclanpw");
+		}
 		$dsp->AddHRuleRow();
 		$dsp->AddDoubleRow($userdetails_back, $userdetails_buttons);
 	} // end if login = true
