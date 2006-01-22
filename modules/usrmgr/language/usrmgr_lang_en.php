@@ -290,4 +290,13 @@ $lang['usrmgr']['remind_email'] = "Your mail";
 $lang['usrmgr']['switch_success'] = "User switches successfully. The changes will take effect, when loading the next page";
 $lang['usrmgr']['switch_wrong_sbc'] = "Error: Wrong switch back code! This may be because, your browser does not support cookies.";
 $lang['usrmgr']['switch_wrong_level'] = "Your user level is lower, than the one of the target user. Switching therefore is forbitten";
+
+$lang['usrmgr']['clanpw_noclan']	= "No clan selected";
+$lang['usrmgr']['clanpw_noperm']	= "No permission to change password";
+$lang['usrmgr']['clanpw_diffpw']	= "The passwords need to match";
+$lang['usrmgr']['clanpw_oldpw']		= "Your original password is misspelled";
+$lang['usrmgr']['clanpw_caption']	= "Change clan password";
+$lang['usrmgr']['clanpw_subcaption']= "All members of the clan will be informed about the changes, but the password you need to forward yourselfe";
+$lang['usrmgr']['clanpw_haschange_sub'] = "Clanpassword changed";
+$lang['usrmgr']['clanpw_haschange']	= "The clan password has been changed by the user %%USER%%";
 ?>
