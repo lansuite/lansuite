@@ -39,7 +39,7 @@ class seat2 {
 	}
 
 	function DrawPlan($blockid, $mode, $linktarget = '', $selected_user = false) {
-		global $db, $config, $dsp, $templ, $auth, $gd, $lang;
+		global $db, $config, $dsp, $templ, $auth, $gd, $lang, $cfg;
 		// $mode:
 		// 0 = Normal display mode
 		// 1 = With seperators
@@ -166,7 +166,13 @@ class seat2 {
 				else $s_state = $seat_state[$y][$x];
 //				$user_info = $db->query_first("SELECT username, firstname, name, clan, clanurl FROM {$config["tables"]["user"]} WHERE userid = '{$seat_userid[$y][$x]}'");
 //				$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info['username']},{$user_info['firstname']},{$user_info['name']},{$user_info['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info['clanurl']}';\r\n";
-				$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},{$user_info[$y][$x]['firstname']},{$user_info[$y][$x]['name']},{$user_info['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
+
+				if(!$cfg['sys_internet'] OR $auth['type'] > 1 OR ($auth['userid'] == $selected_user && $selected_user != false)){
+					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},{$user_info[$y][$x]['firstname']},{$user_info[$y][$x]['name']},{$user_info['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
+				}else{
+					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},,,{$user_info['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
+				}
+				
 
 										
 				switch ($mode) {
