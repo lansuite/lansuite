@@ -293,7 +293,7 @@ $lang['usrmgr']['switch_wrong_level'] = "Ihr Benutzerlevel ist geringer, als das
 
 $lang['usrmgr']['clanpw_noclan']	= "Kein Clan ausgewählt";
 $lang['usrmgr']['clanpw_noperm']	= "Keine Berechtigung das Passwort zu ändern";
-$lang['usrmgr']['clanpw_diffpw']	= "Die eingabe und die Wiederholung müssen übereinstimmen.";
+$lang['usrmgr']['clanpw_diffpw']	= "Die Eingabe und die Wiederholung müssen übereinstimmen.";
 $lang['usrmgr']['clanpw_oldpw']		= "Ihr Ursprüngliches Passwort stimmt nicht.";
 $lang['usrmgr']['clanpw_caption']	= "Clanpasswort ändern";
 $lang['usrmgr']['clanpw_subcaption']= "Alle Mitglieder im Clan werden über die Änderung benachrichtig. Das Passwort muss aber durch euch mitgeteilt werden.";
