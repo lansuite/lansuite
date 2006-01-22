@@ -63,7 +63,7 @@ $lang['seating']['c_release']     = 'Der Sitzplatz wurde erfolgreich freigegeben
 $lang['seating']['free']		  = 'Frei';
 $lang['seating']['reserved']	  = 'Besetzt';
 $lang['seating']['me']			  = 'Ihr Platz';
-$lang['seating']['clan']		  = 'Platz eines Clanmates';
+$lang['seating']['clan_seat']	  = 'Platz eines Clanmates';
 $lang['seating']['marked']		  = 'Vorgemerkt';
 $lang['seating']['selected']	  = "Ausgewählter User";
 

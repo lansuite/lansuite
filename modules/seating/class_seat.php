@@ -168,9 +168,9 @@ class seat2 {
 //				$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info['username']},{$user_info['firstname']},{$user_info['name']},{$user_info['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info['clanurl']}';\r\n";
 
 				if(!$cfg['sys_internet'] OR $auth['type'] > 1 OR ($auth['userid'] == $selected_user && $selected_user != false)){
-					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},{$user_info[$y][$x]['firstname']},{$user_info[$y][$x]['name']},{$user_info['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
+					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},{$user_info[$y][$x]['firstname']},{$user_info[$y][$x]['name']},{$user_info[$y][$x]['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
 				}else{
-					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},,,{$user_info['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
+					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},,,{$user_info[$y][$x]['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
 				}
 				
 
@@ -290,7 +290,7 @@ class seat2 {
 		$plan = $dsp->FetchModTpl('seating', 'plan');
 		$templ['seating']['legend']['free']		= $lang['seating']['free'];
 		$templ['seating']['legend']['reserved']	= $lang['seating']['reserved'];
-		$templ['seating']['legend']['clan']		= $lang['seating']['clan'];
+		$templ['seating']['legend']['clan']		= $lang['seating']['clan_seat'];
 		$templ['seating']['legend']['marked']	= $lang['seating']['marked'];
 		
 		if($selected_user) $templ['seating']['legend']['me'] = $lang['seating']['selected'];

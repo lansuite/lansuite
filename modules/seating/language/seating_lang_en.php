@@ -63,7 +63,7 @@ $lang['seating']['c_release']     = 'The place was resigned successfully';
 $lang['seating']['free']		  = 'Free';
 $lang['seating']['reserved']	  = 'Occupied';
 $lang['seating']['me']			  = 'Me';
-$lang['seating']['clan']		  = 'Clanmate';
+$lang['seating']['clan_seat']	  = 'Clanmate';
 $lang['seating']['marked']		  = 'Marked';
 $lang['seating']['selected']	  = "Selected User";
 

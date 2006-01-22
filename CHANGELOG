@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.6
 
+- Bugfix: Im Sitzplan wurde der Clan nicht angezeigt. (Genesis 22.1.06)
 - Bugfix: #267 Die Namen werden im Sitzplan nun im INternetmodus nicht mehr angezeigt. (Genesis 22.1.06)
 - Bugfix: Wenn der letzte vorhandene Operator geändert wurde wurdem diesem der Type 0 zugewiesen. (Genesis 21.1.06)
 - Bugfix: In der Statistikbox werden nur noch User angezeigt die angemeldet sind (Genesis 21.1.06)
