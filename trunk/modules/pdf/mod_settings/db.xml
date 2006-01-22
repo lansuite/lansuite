@@ -622,7 +622,23 @@
 				<blue>0</blue>
 				<user_type>0</user_type>
 				<sort>100</sort>
-			</entry>					
+			</entry>
+			<entry>		
+			  <pdfid>63</pdfid> 
+			  <template_id>6</template_id> 
+			  <visible>1</visible> 
+			  <type>barcode</type> 
+			  <pos_x>15</pos_x> 
+			  <pos_y>60</pos_y> 
+			  <end_x>0</end_x> 
+			  <end_y>0</end_y> 
+			  <fontsize>0</fontsize> 
+			  <red>0</red> 
+			  <green>0</green> 
+			  <blue>0</blue> 
+			  <user_type>0</user_type> 
+			  <sort>10</sort> 
+			</entry>
 		</content>		
 	</table>
 	<table>

@@ -1783,7 +1783,6 @@ class barcode_system{
 		$code = 768300000000;
 		$code = $code + ($userid * 10000);
 		$code = $code + mt_rand(0,9999);
-		echo $code;
 		return $code;
 	}
 	
