@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.6
 
+- Bugfix: #267 Die Namen werden im Sitzplan nun im INternetmodus nicht mehr angezeigt. (Genesis 22.1.06)
 - Bugfix: Wenn der letzte vorhandene Operator geändert wurde wurdem diesem der Type 0 zugewiesen. (Genesis 21.1.06)
 - Bugfix: In der Statistikbox werden nur noch User angezeigt die angemeldet sind (Genesis 21.1.06)
 - Bugfix: Im Info2 das Editfenster im HTML modus vergrössert (Genesis 20.1.06)
