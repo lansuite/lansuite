@@ -66,7 +66,7 @@ elseif (!$akt_file) {
 	session_unregister("klick_reload");
 	unset($klick_reload);
 
-	$dsp->NewContent($lang['picgallery']['pic_show_caption'] . ": ". $get_gname["caption"], $overall_entries . " " . $lang['picgallery']['pic_show_subcaption'], "help");
+	$dsp->NewContent($lang['picgallery']['pic_show_caption'] . ": ". $get_gname["caption"], $overall_entries . " " . $lang['picgallery']['pic_show_subcaption']);
 
 	if (!$cfg["picgallery_items_per_row"]) $cfg["picgallery_items_per_row"] = 3;
 	if (!$cfg["picgallery_rows"]) $cfg["picgallery_rows"] = 4;
