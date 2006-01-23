@@ -2,7 +2,7 @@
 
 eval("\$index .= \"". $func->gettemplate("helplet_show_index")."\";");
 
-include("doc/online/$language/" . $_GET['helpletid'] . ".php");
+include("modules/{$_GET['module']}/docu/{$language}_{$_GET['helpletid']}.php");
 
 $dsp->NewContent($helplet['modul'] .' ('. $helplet['action'] .')', $helplet['info']);
 $dsp->AddHruleRow();
