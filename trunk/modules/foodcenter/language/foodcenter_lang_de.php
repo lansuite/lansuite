@@ -16,7 +16,7 @@ $lang['foodcenter']['coincounter_cents']		= "Cent";
 $lang['foodcenter']['coincounter_coins']		= "M&uuml;nzen";
 $lang['foodcenter']['coincounter_note']			= "Noten";
 $lang['foodcenter']['coincounter_hardmoney']	= "Hartgeld total:";
-$lang['foodcenter']['coincounter_hardmoney']	= "Weichgeld total:";
+$lang['foodcenter']['coincounter_softmoney']	= "Weichgeld total:";
 $lang['foodcenter']['coincounter_money']		= "Total";
 
 
@@ -130,8 +130,8 @@ $lang['foodcenter']['ordered_status_quest'][3]	= "Status auf bestellen setzen";
 $lang['foodcenter']['ordered_status_quest'][4]	= "Produkt abbestellen und Geld zurücküberweisen.";
 $lang['foodcenter']['ordered_status_quest'][5]	= "Zurück";
 $lang['foodcenter']['ordered_status_question']	= "Status setzen";
-$lang['foodcenter']['ordered_status_ask'][5]	= "Produkte abbestellt";
-$lang['foodcenter']['ordered_status_ask'][4]	= "Status auf abgeholt gesetzt";
+$lang['foodcenter']['ordered_status_ask'][4]	= "Produkte abbestellt";
+$lang['foodcenter']['ordered_status_ask'][5]	= "Status auf abgeholt gesetzt";
 $lang['foodcenter']['ordered_status_ask'][3]	= "Status auf Abholbereit gesetzt";
 $lang['foodcenter']['ordered_status_ask'][2]	= "Status auf bestellt gesetzt";
 $lang['foodcenter']['ordered_status_ask'][1]	= "Status auf bestellen gesetzt";
