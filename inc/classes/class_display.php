@@ -58,8 +58,13 @@ class display {
 /* External-Functions */
 
 	// Writes the headline of a page
-    function NewContent($caption, $header = NULL) {
+    function NewContent($caption, $header = NULL, $helplet_id = NULL) {
 		global $templ;
+
+    if ($helplet_id) {
+      $templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
+      $templ['ls']['row']['helpletbutton']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
+    }
 
 		$templ['ls']['case']['caption'] = $caption;
 		$templ['ls']['case']['header_text'] = $header;
