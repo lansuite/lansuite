@@ -29,16 +29,19 @@ body {
 .error {
 	color:			#FF0000;
 	font-weight:	bold;
+	text-align:		left;	
 }
 
 .warning {
 	color:			#EE6600;
 	font-weight:	bold;
+	text-align:		left;	
 }
 
 .okay {
 	color:			#008000;
 	font-weight:	bold;
+	text-align:		left;	
 }
 
 
@@ -57,6 +60,7 @@ body {
 	background:		#DEE3E7;
 	padding:		0px;
 	font-size:		11px; 
+	text-align:		left;	
 }
 
 .content_head {		/* old name: tbl_5 */
@@ -64,6 +68,7 @@ body {
 	padding:		4px;
 	font-size:		11px; 
 	border-bottom:	1px solid #9D9D9D;
+	text-align:		left;	
 }
 
 .row_key {			/* old name: tbl_6 */
@@ -71,6 +76,7 @@ body {
 	padding:		4px;
 	font-size:		11px; 
 	border-bottom:	1px solid #9D9D9D;
+	text-align:		left;
 }
 
 .row_value {		/* old name: tbl_1 */
@@ -78,6 +84,7 @@ body {
 	padding:		4px;
 	font-size:		11px; 
 	border-bottom:	1px solid #9D9D9D;
+	text-align:		left;	
 }
 
 .row_value_highlighted {		/* old name: tbl_2 */
