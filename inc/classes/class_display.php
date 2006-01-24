@@ -321,13 +321,13 @@ class display {
 
 		$gd->CreateButton("back");
 
-        if ($helplet_id) {
-            $templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
-            $templ['ls']['row']['helpletbutton']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
-		} else {
+//        if ($helplet_id) {
+//            $templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
+//            $templ['ls']['row']['helpletbutton']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
+//		} else {
 			$templ['ls']['row']['helpletbutton']['helplet_id'] = "";
 			$templ['ls']['row']['helpletbutton']['help'] = "";
-		}
+//		}
 
         $templ['ls']['row']['backbutton']['back_link'] = $back_link;
 
