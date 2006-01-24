@@ -166,4 +166,9 @@ $lang['foodcenter']['theke_repayment']			= "Rückzahlung bei abbestellten Produkt
 // Print
 $lang['foodcenter']['template']					= "Bitte Template auswählen:";
 $lang['foodcenter']['different']				= "Verschiedene";
+
+// Timemanagement
+$lang['foodcenter']['time_closed_block']		= "Das Foodcenter ist geschlossen. Die Öffnungszeigen sind:";
+$lang['foodcenter']['time_closed_info']			= "Das Foodcenter ist geschlossen Bestellungen sind möglich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:";
+$lang['foodcenter']['time_closed_onlyshow']		= "Das Foodcenter ist geschlossen. Die Produkte werden nicht im Warenkorb abgelegt. Die Öffnungszeigen sind:";
 ?>
