@@ -295,13 +295,13 @@ class display {
 	function AddFormSubmitRow($button, $helplet_id = NULL, $var = false, $close = true) {
 		global $templ, $gd;
 
-		if ($helplet_id) {
-			$templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
-			$templ['ls']['row']['helpletbutton']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
-		} else {
+//		if ($helplet_id) {
+//			$templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
+//			$templ['ls']['row']['helpletbutton']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
+//		} else {
 			$templ['ls']['row']['helpletbutton']['helplet_id'] = "";
 			$templ['ls']['row']['helpletbutton']['help'] = "&nbsp;";
-		}
+//		}
 
 		$templ['ls']['row']['formsubmit']['button'] = $button;
 		
