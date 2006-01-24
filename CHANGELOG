@@ -6,6 +6,9 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.6
 
+
+- Bugfix: Kleine änderungen im Foodcenter (Genesis 24.01.06)
+RC2
 - Bugfix: Da der IE nicht mit transparenten PNG-Bildern umgehen kann, ist der Tabellenhintergrund im Sitzplan nun Weiß (KnoX 24.01.2006) 
 - Bugfix: Im Sitzplan wurde der Clan nicht angezeigt. (Genesis 22.1.06)
 - Bugfix: #267 Die Namen werden im Sitzplan nun im INternetmodus nicht mehr angezeigt. (Genesis 22.1.06)
@@ -28,6 +31,8 @@ Version 2.0.6
 - Bugfix: Der Text wurde in der Infobox nicht mehr angezeigt. (Genesis 5.1.2006)
 - Bugfix: #248 MySQL-Fehler beim Editieren von Benutzern mit MySQL5 (KnoX 31.12.2005)
 
+- Add: Das Foodcentermodul kann nun mit Öffnungszeiten umgehen. (Genesis 24.1.06)
+RC2
 - Add: #221 Möglichkeit Clanpw zu ändern hinzugefügt (Genesis 21.1.06)
 - Add: Im Foodcentermodul können nur HTML Bestelllisten ausgedruckt werden. (Genesis 21.1.06)
 - Add: #264: Noch nicht bezahlte User können sich nun einen Sitzplatz vormerken, falls die Orgas dies erlauben (Default-Wert) (KnoX 20.01.2006)
@@ -40,6 +45,7 @@ Version 2.0.6
 - Add: Sitzplan-Bilder ergänzt und Sitzplan-Malfunktion verbessert (KnoX 31.12.2005)
 
 - Change: Neues Helplet-System. Diese können nun einfach über PHP-Variablen (ähnlich wie die Language-Files) gefüllt werden und sollen nur noch wichtige Informationen zu einem Modul enthalten (KnoX 23.01.2006) 
+RC2
 - Change: Kleine änderungen im Foodcenter, es werden nun Infos ausgegeben wenn ein Produkt abholbereit ist (Genesis 21.1.06)
 - Change: Die neue SPAW Version hinzugefügt. (Genesis 20.1.06)
 - Change: #251 Die Seitenkompression ist nun optional und per Default deaktiviert. (KnoX 15.01.2006)

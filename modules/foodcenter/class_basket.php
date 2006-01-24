@@ -92,7 +92,7 @@ class basket{
 		$_SESSION['basket_count'] = $this->count;
 		
 		$this->account = new accounting($userid);
-		if($this->product->count_products_price() < $this->account->balance){
+		if($this->product->count_products_price() <= $this->account->balance){
 			return $ok;
 		}else{
 			$func->error($lang['foodcenter']['ordered_err_amount'],"index.php?mod=foodcenter&action={$_GET['action']}");
