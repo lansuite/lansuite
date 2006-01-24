@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.6
 
+- Bugfix: Da der IE nicht mit transparenten PNG-Bildern umgehen kann, ist der Tabellenhintergrund im Sitzplan nun Weiß (KnoX 24.01.2006) 
 - Bugfix: Im Sitzplan wurde der Clan nicht angezeigt. (Genesis 22.1.06)
 - Bugfix: #267 Die Namen werden im Sitzplan nun im INternetmodus nicht mehr angezeigt. (Genesis 22.1.06)
 - Bugfix: Wenn der letzte vorhandene Operator geändert wurde wurdem diesem der Type 0 zugewiesen. (Genesis 21.1.06)
