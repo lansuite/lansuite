@@ -31,6 +31,7 @@ class foodcenter_print{
 		
 		$temp_file = str_replace("\"","\\\"", $temp_file );
 		
+		$time = time();
 		$this->sql();
 		$temp['content'] = $this->row_temp;		
 		$temp['supp'] = $this->GetSupp($_POST['search_select2']);
