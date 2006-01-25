@@ -110,6 +110,16 @@ class foodcenter_print{
 		}
 	}
 	
+	function GetUserdata( $userid )	{
+		global $db, $config, $lang;
+		if($userid == 'all'){
+			return $lang['foodcenter']['different'];	
+		}else {
+			$get_username = $db->query_first("SELECT * FROM {$config["tables"]["user"]} WHERE userid = '$userid'");
+			return $get_username;
+		}
+	}
+		
 	function GetDate( $time ) {
 		global $func;
 
@@ -188,10 +198,14 @@ class foodcenter_print{
 
 		while ($data = $db->fetch_array($result)) {
 			unset($row_temp);
+			unset($userdata);
+			$userdata = $this->GetUserdata($data['userid']);
 			$row_temp['supp_name'] 			= $data['name'];
 			$row_temp['supp_info'] 			= $data['s_desc'];
-			$row_temp['product_caption'] 	= $data['caption'];
-			$row_temp['username'] 			= $this->GetUsername($data['userid']);
+			$row_temp['product_caption'] 	= $data['caption']; 
+			$row_temp['username'] 			= $userdata['username'];
+			$row_temp['userip'] 			= $userdata['ipaddress'];
+			$row_temp['usercomment']		= $userdata['comment'];
 			$row_temp['product_option'] 	= $this->GetFoodoption($data['opts']);
 			$row_temp['order_count']		= $data['pice'];
 			$row_temp['ordertime']			= $this->GetDate($data['ordertime']);
