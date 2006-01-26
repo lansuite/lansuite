@@ -46,6 +46,12 @@ class Import {
 	function ImportXML($rewrite = NULL){
 		global $xml, $db, $config, $func;
 
+    // Get Array of installed tables
+		$res = $db->query("SHOW TABLES");
+		$installed_tables = array();
+		while ($row = $db->fetch_array($res)) array_push($installed_tables, $row[0]); 
+		$db->free_result($res);
+
 		$tables = $xml->get_tag_content_array("table", $this->xml_content_lansuite);
 		foreach ($tables as $table) {
 
@@ -60,15 +66,9 @@ class Import {
 			// If Rewrite: Drop current table
 			if ($rewrite) $db->query_first("DROP TABLE IF EXISTS {$config["database"]["prefix"]}$table_name");
 
-			// Search Table
-			$table_found = 0;
-			$res = $db->query("SHOW TABLES");
-			while ($row = $db->fetch_array($res)) if ($row[0] == $config["database"]["prefix"] . $table_name) {
-				$this->table_state[] = "exist";
-				$table_found = 1;
-				break;
-			}
-			$db->free_result($res);
+			// Search current XML-Table in installed tables
+			$table_found = in_array($config['database']['prefix'] . $table_name, $installed_tables);
+			if ($table_found) $this->table_state[] = "exist";
 
 			// Get current table-structure from DB, to compare with XML-File
 			$db_fields = array();

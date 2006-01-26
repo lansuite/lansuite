@@ -65,7 +65,7 @@ class db {
 
 
 	function query($query_string) {
-   		$this->querys[] = $query_string;
+    $this->querys[] = $query_string;
 		$this->querys_count++;
 		$this->query_id = @mysql_query($query_string, $GLOBALS['db_link_id']);
 		$this->sql_error = @mysql_error($GLOBALS['db_link_id']);
@@ -83,7 +83,7 @@ class db {
 	function fetch_array($query_id=-1) {
 		if ($query_id != -1) $this->query_id = $query_id;
 
-		$this->record = @mysql_fetch_assoc($this->query_id);
+		$this->record = @mysql_fetch_array($this->query_id);
 		return $this->record;
 	}
 
