@@ -60,15 +60,19 @@ class Import {
 			$table_name = $xml->get_tag_content("name", $table_head);
 			$this->table_names[] = $table_name;
 
+			// Search current XML-Table in installed tables
+			$table_found = in_array($config['database']['prefix'] . $table_name, $installed_tables);
+
 			// Just temporary becauso of errors in the update 2.0.1 -> 2.0.2
-			if ($table_name == "config_selections") $db->query_first("DROP TABLE IF EXISTS {$config["database"]["prefix"]}$table_name");
+			if ($table_name == "config_selections") {
+        $table_found = 0;
+        $db->query_first("DROP TABLE IF EXISTS {$config["database"]["prefix"]}$table_name");
+      }
+
+			if ($table_found) $this->table_state[] = "exist";
 
 			// If Rewrite: Drop current table
 			if ($rewrite) $db->query_first("DROP TABLE IF EXISTS {$config["database"]["prefix"]}$table_name");
-
-			// Search current XML-Table in installed tables
-			$table_found = in_array($config['database']['prefix'] . $table_name, $installed_tables);
-			if ($table_found) $this->table_state[] = "exist";
 
 			// Get current table-structure from DB, to compare with XML-File
 			$db_fields = array();
@@ -77,7 +81,7 @@ class Import {
 				while ($row = $db->fetch_array($query)) $db_fields[] = $row;
 				$db->free_result($query);
 			}
-		
+
 			// Import Table-Structure
 			$structure = $xml->get_tag_content("structure", $table, 0);
 			$fields = $xml->get_tag_content_array("field", $structure);
@@ -132,6 +136,7 @@ class Import {
 
 						// Check wheather the field in the DB differs from the one in the XML-File
 						// Change it
+						if ($null_xml == '' and $db_field['Null'] = 'NO') $null_xml = $db_field['Null']; // Some MySQL-Versions return 'NO' instead of ''
 						if ($db_field["Type"] != $type or $db_field["Null"] != $null_xml or $db_field["Default"] != $default_xml or $db_field["Extra"] != $extra) {
 							$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name CHANGE $name $name $type $null $default $extra");
 						}
@@ -144,9 +149,10 @@ class Import {
 
 							// Index in DB, but not in XML -> Drop it!
 							if ($db_field["Key"] == "PRI") {
-								if ($primary_key) {
-									$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY, ADD PRIMARY KEY ($primary_key_tmp)");
-								} else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
+							  $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
+#								if ($primary_key) {
+#									$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY, ADD PRIMARY KEY ($primary_key_tmp)");
+#								} else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
 							} elseif ($db_field["Key"] == "UNI") {
 								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
 							} elseif ($db_field["Key"] == "MUL") {
@@ -155,22 +161,24 @@ class Import {
 
 							// Index in XML, but not in DB -> Add it!
 							if ($key == "MUL") {
-								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD INDEX ($name)");
+                if ($type == 'text' or substr($type, 0, 7) == 'varchar')
+                  $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD FULLTEXT ($name)"); 							
+								else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD INDEX ($name)");
 							} elseif ($key == "UNI") {
 								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD UNIQUE ($name)");
 							} elseif ($key == "PRI") {
-								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD PRIMARY KEY ($name)");
+								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY, ADD PRIMARY KEY ($name)");
 #								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD UNIQUE ($name)");
 							}
 						}
-/*
+
 						// Differece-Report
 						if ($db_field["Type"] != $type) echo $db_field["Type"] ."=". $type ." Type in $table_name $name<br>";
 						if ($db_field["Null"] != $null_xml) echo $db_field["Null"] ."=". $null_xml ." Null in $table_name $name<br>";
 						if ($db_field["Key"] != $key) echo $db_field["Key"] ."=". $key ." Key in $table_name $name<br>";
 						if ($db_field["Default"] != $default_xml) echo $db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>";
 						if ($db_field["Extra"] != $extra) echo $db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>";
-*/
+
 						$found_in_db = 1;
 						break;
 					}
@@ -214,6 +222,9 @@ class Import {
 			}
 
 			if ($rewrite) $this->table_state[] = "rewrite";
+			
+			// Optimize table
+			$db->query_first("OPTIMIZE TABLE $table_name");
 		}
 	}
 

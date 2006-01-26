@@ -46,7 +46,7 @@
 			</field>
 			<field>
 				<name>changedate</name>
-				<type>timestamp(14)</type>
+				<type>timestamp</type>
 				<null>YES</null>
 				<key></key>
 				<default></default>
