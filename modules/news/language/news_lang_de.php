@@ -10,6 +10,7 @@ $lang["news"]["add_caption"]	= "News hinzuf&uuml;gen / &auml;ndern";
 $lang["news"]["add_subcaption"]	= "Mit Hilfe des folgenden Formulars k&ouml;nnen Sie eine Newsmeldung hinzuf&uuml;gen / &auml;ndern.";
 $lang["news"]["add_headline"]	= "&Uuml;berschrift";
 $lang["news"]["add_text"]	= "Text";
+$lang["news"]["add_icon"]	= "Kategorie / Icon";
 $lang["news"]["add_priority"]	= "Priorit&auml;t";
 $lang["news"]["add_err_longtext"]	= "Die Newsmeldung darf nicht mehr als 5000 Zeichen enthalten";
 $lang["news"]["add_err_noheadline"]	= "Bitte geben Sie eine &Uuml;berschrift ein";

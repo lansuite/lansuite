@@ -10,6 +10,7 @@ $lang["news"]["add_caption"]	= "Add / chage news";
 $lang["news"]["add_subcaption"]	= "Using this form you can add / change a newspost.";
 $lang["news"]["add_headline"]	= "Headline";
 $lang["news"]["add_text"]	= "Text";
+$lang["news"]["add_icon"]	= "Category / Icon";
 $lang["news"]["add_priority"]	= "Priotity";
 $lang["news"]["add_err_longtext"]	= "The newspost may not contain more than 5000 Characters";
 $lang["news"]["add_err_noheadline"]	= "Enter a headline, please";
