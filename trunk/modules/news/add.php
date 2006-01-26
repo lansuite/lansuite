@@ -51,11 +51,12 @@ switch ($vars['step']) {
 		$dsp->NewContent($lang["news"]["add_caption"], $lang["news"]["add_subcaption"]);
 
 		if ($vars['action'] == "change") {
-			$get_data = $db->query_first("SELECT newsid, caption, text, priority FROM {$config["tables"]["news"]} WHERE newsid = '{$vars['newsid']}'");
+			$get_data = $db->query_first("SELECT newsid, caption, text, icon, priority FROM {$config["tables"]["news"]} WHERE newsid = '{$vars['newsid']}'");
 
 			if($vars['newsid'] != "") {
 				if($vars['news_caption'] == "") $vars['news_caption'] = $get_data['caption'];
 				if($vars['news_text'] == "") $vars['news_text']    = $get_data['text'];
+				if($vars['news_icon'] == "") $vars['news_icon']    = $get_data['icon'];
 				if($vars['news_priority'] == "") $vars['news_priority'] = $get_data['priority'];
 			} else {
 				$func->error($lang["news"]["change_err_notexist"], "index.php?mod=news&action=change");
@@ -66,6 +67,7 @@ switch ($vars['step']) {
 
 		$dsp->SetForm("index.php?mod=news&action={$vars['action']}&step=3&newsid={$vars['newsid']}");
 		$dsp->AddTextFieldRow("news_caption", $lang["news"]["add_headline"], $vars["news_caption"], $news_caption_error);
+		$dsp->AddPictureDropDownRow("news_icon", $lang["news"]["add_icon"], 'ext_inc/news_icons', '', 1, $vars["news_icon"]);
 		$dsp->AddTextAreaPlusRow("news_text", $lang["news"]["add_text"], $vars["news_text"], $news_text_error, "", "", "", 100000);
 
 		$priority_array = array("0" => $lang["news"]["add_normal"],
@@ -94,6 +96,7 @@ switch ($vars['step']) {
 				$add_it = $db->query("INSERT INTO {$config["tables"]["news"]} SET
 							caption = '{$vars["news_caption"]}',
 							text = '{$vars["news_text"]}',
+							icon = '{$vars["news_icon"]}',
 							poster = '{$_SESSION["auth"]["userid"]}',
 							priority = '{$vars["news_priority"]}',
 							date = '$current_date'
@@ -107,6 +110,7 @@ switch ($vars['step']) {
 				$change_it = $db->query("UPDATE {$config["tables"]["news"]} SET
 							caption = '{$vars["news_caption"]}',
 							text = '{$vars["news_text"]}',
+							icon = '{$vars["news_icon"]}',
 							priority = '{$vars["news_priority"]}'
 							WHERE newsid = '{$vars["newsid"]}'
 							");
