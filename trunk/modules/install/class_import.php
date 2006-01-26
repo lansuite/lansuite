@@ -171,14 +171,14 @@ class Import {
 #								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD UNIQUE ($name)");
 							}
 						}
-
+/*
 						// Differece-Report
 						if ($db_field["Type"] != $type) echo $db_field["Type"] ."=". $type ." Type in $table_name $name<br>";
 						if ($db_field["Null"] != $null_xml) echo $db_field["Null"] ."=". $null_xml ." Null in $table_name $name<br>";
 						if ($db_field["Key"] != $key) echo $db_field["Key"] ."=". $key ." Key in $table_name $name<br>";
 						if ($db_field["Default"] != $default_xml) echo $db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>";
 						if ($db_field["Extra"] != $extra) echo $db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>";
-
+*/
 						$found_in_db = 1;
 						break;
 					}
