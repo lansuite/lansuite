@@ -75,10 +75,14 @@ class Import {
 			if ($rewrite) $db->query_first("DROP TABLE IF EXISTS {$config["database"]["prefix"]}$table_name");
 
 			// Get current table-structure from DB, to compare with XML-File
+			$pri_key_count = 0;
 			$db_fields = array();
 			if ($table_found) {
 				$query = $db->query("DESCRIBE {$config["database"]["prefix"]}$table_name");
-				while ($row = $db->fetch_array($query)) $db_fields[] = $row;
+				while ($row = $db->fetch_array($query)) {
+          $db_fields[] = $row;
+					if ($row["Key"] == "PRI") $pri_key_count++;  // If primary key in DB, increase counter
+				}
 				$db->free_result($query);
 			}
 
@@ -106,7 +110,6 @@ class Import {
 			}
 
 			// Read the DB-Structure form XML-File
-			$primary_key_tmp = "";
 			if ($fields) foreach ($fields as $field) {
 
 				// Read XML-Entries
@@ -141,34 +144,32 @@ class Import {
 							$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name CHANGE $name $name $type $null $default $extra");
 						}
 
-						// Safe first Primary Key
-						if ($key == "PRI" and $primary_key_tmp == "") $primary_key_tmp = $name;
-
 						// Has an Index been removed / added?
 						if ($db_field["Key"] != $key) {
 
 							// Index in DB, but not in XML -> Drop it!
 							if ($db_field["Key"] == "PRI") {
 							  $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
-#								if ($primary_key) {
-#									$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY, ADD PRIMARY KEY ($primary_key_tmp)");
-#								} else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
-							} elseif ($db_field["Key"] == "UNI") {
-								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
-							} elseif ($db_field["Key"] == "MUL") {
-								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
-							}
+							  $pri_key_count = 0;
+							} elseif ($db_field["Key"] == "UNI") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+							elseif ($db_field["Key"] == "MUL") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+
 
 							// Index in XML, but not in DB -> Add it!
 							if ($key == "MUL") {
+							
+                // If type is string, or text use FULLTEXT as index, otherwise use simple INDEX							
                 if ($type == 'text' or substr($type, 0, 7) == 'varchar')
                   $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD FULLTEXT ($name)"); 							
 								else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD INDEX ($name)");
-							} elseif ($key == "UNI") {
-								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD UNIQUE ($name)");
-							} elseif ($key == "PRI") {
-								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY, ADD PRIMARY KEY ($name)");
-#								$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD UNIQUE ($name)");
+
+							} elseif ($key == "UNI") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD UNIQUE ($name)");
+							elseif ($key == "PRI") {
+							
+                // If primary key is in DB, drop it first, otherwise just add the new one							
+                if ($pri_key_count == 0) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD PRIMARY KEY ($name)");
+                else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY, ADD PRIMARY KEY ($name)");
+                $pri_key_to_add = $name;
 							}
 						}
 /*
@@ -189,10 +190,9 @@ class Import {
 						if ($extra == "auto_increment") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra , ADD PRIMARY KEY ($name), ADD UNIQUE ($name)");
 						else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra");
 					}
-
 				}
-
 			}
+			
 			$mysql_fields = substr($mysql_fields, 0, strlen($mysql_fields) - 2);
 			if ($primary_key) $primary_key = ", PRIMARY KEY (". substr($primary_key, 0, strlen($primary_key) - 2) .")";
 
