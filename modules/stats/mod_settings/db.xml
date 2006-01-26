@@ -65,7 +65,7 @@
 				<name>time</name>
 				<type>int(15)</type>
 				<null></null>
-				<key>UNI</key>
+				<key>PRI</key>
 				<default></default>
 				<extra></extra>
 			</field>
