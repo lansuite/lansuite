@@ -125,6 +125,8 @@ class seat2 {
 					$templ['seat']['cell_content'] = '';
 					$templ['seat']['plan_sep_row_head_cols'] .= $dsp->FetchModTpl('seating', 'plan_cell');
 				}
+			}elseif ($mode == 2){
+				if ($x < $block['cols']) $templ['seat']['plan_sep_row_head_cols'] .= "<td style=\"font-size:8px; table-layout:fixed; width:{$templ['sep_width']}px;\"><img src=\"ext_inc/seating_symbols/100.png\" name=\"leerpic{$block['cols']}\" /></td>";
 			}
 			$templ['seat']['col_nr'] = $this->CoordinateToName($x, -1, $block['orientation']);
 #			($block['orientation'])? $templ['seat']['col_nr'] = chr(65 + $x) : $templ['seat']['col_nr'] = ($x + 1);
@@ -132,14 +134,16 @@ class seat2 {
 		}
 		$templ['seat']['plan_extra_top'] .= $dsp->FetchModTpl('seating', 'plan_sep_row_head');
 
-		// Images
-		$handel = opendir("ext_inc/seating_symbols/");
+		if($mode == 2){
+			// Images
+			$handel = opendir("ext_inc/seating_symbols/");
 		
-		while ($imagedata = readdir($handel)){
-			if(!($imagedata == ".." || $imagedata == "." || is_dir($imagedata) || substr($imagedata,0,2) == "ls")){
-				$imagename = substr($imagedata,0,strlen($imagedata)-4);
-				$templ['seat']['seat_data_image'] .= "image[$imagename] = new Image();\n";
-				$templ['seat']['seat_data_image'] .= "image[$imagename].src = \"ext_inc/seating_symbols/$imagedata\";\n";
+			while ($imagedata = readdir($handel)){
+				if(!($imagedata == ".." || $imagedata == "." || is_dir($imagedata) || substr($imagedata,0,2) == "ls")){
+					$imagename = substr($imagedata,0,strlen($imagedata)-4);
+					$templ['seat']['seat_data_image'] .= "image[$imagename] = new Image();\n";
+					$templ['seat']['seat_data_image'] .= "image[$imagename].src = \"ext_inc/seating_symbols/$imagedata\";\n";
+				}
 			}
 		}
 		// Main-Table
