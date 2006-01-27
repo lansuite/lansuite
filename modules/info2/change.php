@@ -97,6 +97,7 @@ if ($_POST["checkbox"]) {
 			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
 
 			if ($_GET["infoid"] == "") {
+				/*
 				$db->query("INSERT INTO {$config['tables']['menu']}
 					SET module = 'info2',
 					caption = '{$_POST["title"]}',
@@ -108,7 +109,7 @@ if ($_POST["checkbox"]) {
 					action = 'show_info2',
 					file = 'show'
 					");
-
+				*/
 				$db->query("INSERT INTO {$config['tables']['info']}
 					SET caption = '{$_POST["title"]}',
 					shorttext = '{$_POST["subtitle"]}',
@@ -117,12 +118,16 @@ if ($_POST["checkbox"]) {
 				$func->confirmation($lang["info"]["add_success"], "index.php?mod=info2&action=change");
 
 			} else {
-				$db->query("UPDATE {$config['tables']['menu']}
-					SET module = 'info2',
-					caption = '{$_POST["title"]}',
-					hint = '{$_POST["subtitle"]}',
-					link = '?mod=info2&action=show_info2&submod={$_POST["title"]}'
-					WHERE id = '{$_GET["menuid"]}'");
+				$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = {$_GET["infoid"]}");
+				
+				if($menu_intem['active'] == 1){
+					$db->query("UPDATE {$config['tables']['menu']}
+						SET module = 'info2',
+						caption = '{$_POST["title"]}',
+						hint = '{$_POST["subtitle"]}',
+						link = '?mod=info2&action=show_info2&submod={$_POST["title"]}'
+						WHERE id = '{$_GET["menuid"]}'");
+				}
 
 				$db->query("UPDATE {$config['tables']['info']}
 					SET caption = '{$_POST["title"]}',
