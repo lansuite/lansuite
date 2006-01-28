@@ -139,8 +139,10 @@ class display {
 		if($val == "") $templ['ls']['row']['checkbox']['val'] = "1";
 		else $templ['ls']['row']['checkbox']['val'] = $val;
 
-		if($errortext) $templ['ls']['row']['checkbox']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
-		if($optional) $templ['ls']['row']['checkbox']['optional'] = "_optional";
+		if ($errortext) $templ['ls']['row']['checkbox']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+		else $templ['ls']['row']['checkbox']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['checkbox']['optional'] = "_optional";
+		else $templ['ls']['row']['checkbox']['optional'] = '';
 
 		$this->AddTpl("design/templates/ls_row_checkbox.htm");
 	}
@@ -158,8 +160,10 @@ class display {
 		if($disabled) $templ['ls']['row']['radio']['disabled'] = "disabled";
 		else $templ['ls']['row']['radio']['disabled'] = "";
 
-		if($errortext) $templ['ls']['row']['radio']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
-		if($optional) $templ['ls']['row']['radio']['optional'] = "_optional";
+		if ($errortext) $templ['ls']['row']['radio']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+		else $templ['ls']['row']['radio']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['radio']['optional'] = "_optional";
+		else $templ['ls']['row']['radio']['optional'] = '';
 
 		$this->AddTpl("design/templates/ls_row_radio.htm");
 	}
@@ -177,8 +181,10 @@ class display {
 		$templ['ls']['row']['textfield']['value'] = stripslashes($value);
 		$templ['ls']['row']['textfield']['size'] = $size;
 
-        if ($errortext) $templ['ls']['row']['textfield']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    if ($errortext) $templ['ls']['row']['textfield']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['textfield']['errortext'] = ''; 
 		if ($optional) $templ['ls']['row']['textfield']['optional'] = "_optional";
+		else $templ['ls']['row']['textfield']['optional'] = '';
 
 		$this->AddTpl("design/templates/ls_row_textfield.htm");
 	}
@@ -194,8 +200,11 @@ class display {
 		$templ['ls']['row']['textfield']['value'] = stripslashes($value);
 		$templ['ls']['row']['textfield']['size'] = $size;
 
-        if($errortext) $templ['ls']['row']['textfield']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
-		if($optional) $templ['ls']['row']['textfield']['optional'] = "_optional";
+    if ($errortext) $templ['ls']['row']['textfield']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['textfield']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['textfield']['optional'] = "_optional";
+		else $templ['ls']['row']['textfield']['optional'] = '';
+		
 		$templ['ls']['row']['textfield']['additional'] = $additional;
 
 		$this->AddTpl("design/templates/ls_row_password.htm");
@@ -214,8 +223,10 @@ class display {
 		$templ['ls']['row']['textarea']['cols'] = $cols;
 		$templ['ls']['row']['textarea']['rows'] = $rows;
 
-        if($errortext) $templ['ls']['row']['textarea']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
-		if($optional) $templ['ls']['row']['textarea']['optional'] = "_optional";
+    if ($errortext) $templ['ls']['row']['textarea']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['textarea']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['textarea']['optional'] = "_optional";
+		else $templ['ls']['row']['textarea']['optional'] = '';
 
 		$this->AddTpl("design/templates/ls_row_textarea.htm");
 	}
@@ -235,8 +246,10 @@ class display {
         $templ['ls']['row']['textarea']['rows'] = $rows;
 		$templ['ls']['row']['textarea']['maxchar'] = $maxchar;
 
-        if($errortext) $templ['ls']['row']['textarea']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
-        if($optional) $templ['ls']['row']['textarea']['optional'] = "_optional";
+    if ($errortext) $templ['ls']['row']['textarea']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['textarea']['errortext'] = '';
+    if ($optional) $templ['ls']['row']['textarea']['optional'] = "_optional";
+    else $templ['ls']['row']['textarea']['optional'] = '';
 
 		$templ['ls']['row']['textarea']['buttons'] = $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[b][/b]')", "bold");
 		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[i][/i]')", "kursiv");
@@ -268,8 +281,10 @@ class display {
 		$templ['ls']['row']['dropdown']['key'] = $key;
 		$templ['ls']['row']['dropdown']['options'] = implode("", $option_array);
 
-        if($errortext) { $templ['ls']['row']['dropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix; }
-		if($optional) {	$templ['ls']['row']['dropdown']['optional'] = "_optional"; }
+    if ($errortext) $templ['ls']['row']['dropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['dropdown']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['dropdown']['optional'] = "_optional";
+		else $templ['ls']['row']['dropdown']['optional'] = '';
 
 		$this->AddTpl("design/templates/ls_row_dropdown.htm");
 	}
@@ -283,8 +298,11 @@ class display {
 		$templ['ls']['row']['dropdown']['key'] = $key;
 		$templ['ls']['row']['dropdown']['options'] = implode("", $option_array);
 
-        if ($errortext) { $templ['ls']['row']['dropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix; }
-		if ($optional) {	$templ['ls']['row']['dropdown']['optional'] = "_optional"; }
+    if ($errortext) $templ['ls']['row']['dropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['dropdown']['errortext'] = ''; 
+		if ($optional) $templ['ls']['row']['dropdown']['optional'] = "_optional";
+		else $templ['ls']['row']['dropdown']['optional'] = '';
+		
 		($size) ? $templ['ls']['row']['dropdown']['size'] = $size : $templ['ls']['row']['dropdown']['size'] = 4;
 
 		$this->AddTpl("design/templates/ls_row_select.htm");
@@ -347,8 +365,10 @@ class display {
 		$templ['ls']['row']['formbegin']['action'] = $action;
 		$templ['ls']['row']['formbegin']['method'] = $methode;
 
-        if($errortext) $templ['ls']['row']['textfield']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
-		if($optional) $templ['ls']['row']['textfield']['optional'] = "_optional";
+    if ($errortext) $templ['ls']['row']['textfield']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['textfield']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['textfield']['optional'] = "_optional";
+		else $templ['ls']['row']['textfield']['optional'] = '';
 
 		$this->AddTpl("design/templates/ls_row_barcode.htm");
 		$this->AddContent();
@@ -432,7 +452,8 @@ class display {
         if($disableds['min'])  { $templ['ls']['row']['datetime']['disabled']['min'] = "disabled"; }
 		else                   { $templ['ls']['row']['datetime']['disabled']['min'] = ""; }
 
-        if($errortext) { $templ['ls']['row']['datetime']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix; }
+    if ($errortext) $templ['ls']['row']['datetime']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['datetime']['errortext'] = '';
 
 		// 0 =  All visible / 1 = Hide Time / 2 = Hide Date
 		($hidetime == 2)? $templ['ls']['row']['datetime']['show_date'] = ""
@@ -477,10 +498,12 @@ class display {
         $templ['ls']['row']['picdropdown']['options'] = implode("", $file_out);
 		$templ['ls']['row']['picdropdown']['path'] = $path."/";
 
-        if($errortext) { $templ['ls']['row']['picdropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix; }
-        if($optional)  { $templ['ls']['row']['picdropdown']['optional'] = "_optional"; }
-        if($selected AND $selected != "none")  { $templ['ls']['row']['picdropdown']['picpreview_init'] = $path."/".$selected;  }
-        else { $templ['ls']['row']['picdropdown']['picpreview_init'] = "design/standard/images/index_transparency.gif";  }
+        if ($errortext) $templ['ls']['row']['picdropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+        else $templ['ls']['row']['picdropdown']['errortext'] = '';
+        if ($optional) $templ['ls']['row']['picdropdown']['optional'] = "_optional";
+        else $templ['ls']['row']['picdropdown']['optional'] = '';
+        if ($selected AND $selected != "none") $templ['ls']['row']['picdropdown']['picpreview_init'] = $path."/".$selected;
+        else $templ['ls']['row']['picdropdown']['picpreview_init'] = "design/standard/images/index_transparency.gif";
 
 		$this->AddTpl("design/templates/ls_row_picdropdown.htm");
     }
@@ -569,8 +592,10 @@ class display {
 		$templ['ls']['row']['file']['size'] = $size;
 		$templ['ls']['row']['file']['maxlength'] = $maxlength;
 
-        if($errortext) { $templ['ls']['row']['file']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix; }
-		if($optional) {	$templ['ls']['row']['file']['optional'] = "_optional"; }
+    if ($errortext) $templ['ls']['row']['file']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['file']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['file']['optional'] = "_optional";
+		else $templ['ls']['row']['file']['optional'] = '';
 
 		$this->AddTpl("design/templates/ls_row_fileselect.htm");
 	}
