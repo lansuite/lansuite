@@ -7,8 +7,9 @@ Hier bitte die wichtigen Änderungen einfügen :
 Version 2.0.6
 
 
+- Bugfix: #246 Wenn ein neu generiertes Bild nur 0Byte groß ist, wird dieses wieder gelöscht, so dass es als nicht existierend erkannt wird. (KnoX 28.01.2006)
 - Bugfix: #273 Schreibfehler im Poolmodul gefixt. (Genesis 27.1.06)
-- Bugfix: #257	Den Sitzplan etwas verbessert und optimiert. (Genesis 27.1.06)
+- Bugfix: #257 Den Sitzplan etwas verbessert und optimiert. (Genesis 27.1.06)
 - Bugfix: #271 Info2 hatte falsche Statusanzeigen. (Genesis 27.1.06)
 - Bugfix: DB-Manager hatte nicht mehr upgedated + DB-Manager optimierung (KnoX 26.01.2006)
 - Bugfix: Kleine änderungen im Foodcenter (Genesis 24.01.06)
