@@ -37,6 +37,7 @@ class gd {
 	}
 
 
+  // Output image (as file if $file is specified, or as direct output if not)
 	function PutImage($file = NULL, $type = NULL, $destroy = TRUE) {
 		global $lang, $config;
 
@@ -76,6 +77,9 @@ class gd {
 				default: if (ImageTypes() & IMG_PNG) ImagePNG($this->img, $file); break;
 			}
 			chmod ($file, octdec($config["lansuite"]["chmod_file"]));
+
+			// Check filesize. Delete if filesize = 0 (i.e. becaus of exceeded disk quota), so it is tried to be generated on next load
+      if (filesize($file) == 0) unlink($file);
 
 		} else {
 			switch(strtolower($type)) {
