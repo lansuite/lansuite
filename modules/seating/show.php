@@ -13,11 +13,12 @@ switch($_GET['step']) {
 	// Show seatplan
 	case 2:
 		$dsp->NewContent($lang['seating']['seat_info'], $lang['seating']['seat_info_sub']);
-
+/*
 		$dsp->AddDoubleRow($lang['seating']['seating'] . HTML_SPACE, '', 'seating');
 		$dsp->AddDoubleRow($lang['seating']['user'] . HTML_SPACE,    '', 'name');
 		$dsp->AddDoubleRow($lang['seating']['clan'] . HTML_SPACE,    '', 'clan');
 		$dsp->AddDoubleRow($lang['seating']['ip'] . HTML_SPACE,      '', 'ip');
+*/		
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0));
 
 		$dsp->AddBackButton('index.php?mod=seating', 'seating/show');
