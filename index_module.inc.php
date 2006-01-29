@@ -45,7 +45,10 @@ if ($language != "de" and file_exists("modules/{$mod}/language/{$mod}_lang_{$lan
 
 // Reset $auth["type"], if no permission to Mod
 if ($found_adm and $auth["type"] > 1) {
-	$permission = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["user_permissions"]} WHERE (module = '$mod')");
+	$permission = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["user_permissions"]} AS p
+    LEFT JOIN {$config["tables"]["user"]} AS u ON p.userid = u.userid 
+    WHERE (p.module = '$mod') AND (u.type >= {$auth['type']})");
+	// If at least one user with the same rights, or more has rights to this module
 	if ($permission["found"]) {
 		$permission = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["user_permissions"]} WHERE (module = '$mod') AND (userid = '{$auth['userid']}')");
 		if (!$permission["found"]) {

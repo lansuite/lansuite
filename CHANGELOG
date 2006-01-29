@@ -53,6 +53,7 @@ RC2
 - Add: #129 Kategorien für Troubletickes eingefügt und die möglichkeit einen festen Admin zuzuweisen. (Genesis 5.1.2006)
 - Add: Sitzplan-Bilder ergänzt und Sitzplan-Malfunktion verbessert (KnoX 31.12.2005)
 
+- Change: #274 Operatoren können nun keine Admins mehr aus einem Modul aussperren, indem sie sich die Rechte am Modul sicher (KnoX 29.01.2006)
 - Change: #152 Alle Module sind nun auf die menu.xml umgestellt. modindex entfällt. Daher sind nun auch alle module in den Zugriffsberechtigungen gelistet (KnoX 28.01.2006)
 - Change: Neues Helplet-System. Diese können nun einfach über PHP-Variablen (ähnlich wie die Language-Files) gefüllt werden und sollen nur noch wichtige Informationen zu einem Modul enthalten (KnoX 23.01.2006) 
 RC2
