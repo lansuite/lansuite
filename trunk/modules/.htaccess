@@ -5,3 +5,7 @@ Deny from all
 <Files admin_icon.gif>
    Allow from all 
 </Files>
+
+<Files *.js> 
+   Allow from all  
+</Files>
