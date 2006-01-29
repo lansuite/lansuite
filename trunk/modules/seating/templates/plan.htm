@@ -172,6 +172,65 @@ function setFlag(Ereignis){
 function resetFlag(Ereignis){
 	mouseflag = 0;
 }
+
+// Tooltip windows
+function TX_getScrollPos() { 
+   if (document.body.scrollTop != undefined && navigator.appName.indexOf("Explorer") != -1 ) { 
+      var res = (document.compatMode != "CSS1Compat") ? document.body : document.documentElement; 
+      return {x : res.scrollLeft, y : res.scrollTop}; 
+   } 
+   else { 
+      return {x : window.pageXOffset, y : window.pageYOffset}; 
+   } 
+ 
+} 
+ 
+function TX_showToolTip(e,id) { 
+	showseat(id);
+ 	if (id != 'null') {
+ 		
+        var scr = TX_getScrollPos(); 
+        var cordX = e.clientX + scr.x; 
+        var cordY = e.clientY + scr.y; 
+ 		var text = "<table>";
+ 		
+ 		data_array = seat[id].split(",");
+ 		
+ 		
+ 		switch (data_array[7]){
+		
+		case "2":
+		case "3":
+		case "8":
+		case "9":
+ 			text += '<tr><td style="font-weight: bold;">Block:</td><td>' + data_array[4] + ' - ' + data_array[5] + "</td></tr>";
+        	text += '<tr><td style="font-weight: bold;">Benutzername:</td><td>' + data_array[0] + "</td></tr>";
+        	text += '<tr><td style="font-weight: bold;">Name / Vorname:</td><td>' + data_array[1] + ' ' + data_array[2] + "</td></tr>";
+        	text += '<tr><td style="font-weight: bold;">Clan :</td><td>' + data_array[3] + "</td></tr>";
+        	text += '<tr><td style="font-weight: bold;">IP :</td><td>' + data_array[8] + "</td></tr>";
+        	break;
+        case "1":
+        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + ' - ' + data_array[5] + " Frei</td></tr>";
+        	break;
+		default:
+			text = "";
+			break;
+ 		}
+ 		if(data_array[7] < 10){
+ 			text += "</table>"
+	        document.getElementById("tooltip").style.position = "absolute"; 
+    	    document.getElementById("tooltip").style.left =  ( cordX + 20 ) + "px"; 
+        	document.getElementById("tooltip").style.top = ( cordY + 20 ) + "px"; 
+	        document.getElementById("tooltip").innerHTML = text; 
+    	    document.getElementById("tooltip").style.visibility = "visible"; 
+ 		}
+ 	}
+} 
+ 
+function TX_hideToolTip() { 
+        document.getElementById("tooltip").style.visibility = "hidden"; 
+        document.getElementById("tooltip").innerHTML = "false"; 
+} 
 //-->
 </script>
 
@@ -215,3 +274,4 @@ function resetFlag(Ereignis){
 		<td class="frame_box" colspan="2">{$templ['seat']['text_br']}&nbsp;</td>
 	</tr>
 </table>
+<div id="tooltip" class="tooltip" style="background-color:#FFFF99; border-width:1px; border-style:solid; position: absolute; width: auto; height: auto; z-index: 100; visibility: hidden; left: 0; top: 0;"></div>
