@@ -240,7 +240,6 @@ class AddUser {
   			$dsp->AddSelectFieldRow("permissions", $lang['usrmgr']['add_permission'], $t_array, $error["permissions"], 0, 7);
   			$dsp->AddModTpl("usrmgr","hiddenbox_stop");
 
-  			$party->get_user_group_dropdown('NULL',1,$_POST['group_id'],true);			
       }
  		}
       
@@ -270,10 +269,11 @@ class AddUser {
 			($_POST["signon"] == 1) ? $templ['ls']['row']['hidden_row']['display'] = "" : $templ['ls']['row']['hidden_row']['display'] = "none";
 			$dsp->AddModTpl("usrmgr","hiddenbox_start");
 			
-			$party->get_price_dropdown($_POST["group_id"],$_POST["price_id"],true);
+			$party->get_price_dropdown($_POST["group_id"], $_POST["price_id"], true);
 			$dsp->AddDropDownFieldRow("paid", $lang["usrmgr"]["add_paid"], $t_array, $error["paid"], 0);
 			$dsp->AddModTpl("usrmgr","hiddenbox_stop");
 
+      $party->get_user_group_dropdown('NULL', 1, $_POST['group_id'], true);			
 
 # 		$dsp->AddCheckBoxRow("platzpfand", $lang["usrmgr"]["add_platzpfand"], $lang["usrmgr"]["add_platzpfand_detail"], "", 1, $_POST["platzpfand"]);
 			$dsp->AddHRuleRow();
@@ -367,7 +367,6 @@ class AddUser {
 	function WriteToDB($action, $quick_signon = 0) {
 		global $db, $config, $lang, $cfg, $signon, $func, $birthday, $street, $nr, $plz, $city, $party, $auth, $missing_fields, $perso;
 
-			$_SESSION['add_blocker_usrmgr'] = false;
 		if ($_SESSION['add_blocker_usrmgr']) $func->error("NO_REFRESH", "");
 		else {
 			$_SESSION['add_blocker_usrmgr'] = TRUE;
@@ -382,13 +381,13 @@ class AddUser {
 
       $db_set_fields = "
       email		= '{$_POST["email"]}',
+			group_id	= '{$_POST["group_id"]}',
       ";
 
       if (!$quick_signon) { 
         $db_set_fields .= "
   				firstname	= '{$_POST["firstname"]}',
   				name 		= '{$_POST["lastname"]}',
-  				group_id	= '{$_POST["group_id"]}',
   				clan		= '{$_POST["clan"]}',
   				clanurl		= '{$_POST["clanurl"]}',
   				wwclid		= '{$_POST["wwcl_id"]}',
