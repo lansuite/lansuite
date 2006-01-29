@@ -217,9 +217,12 @@ if ($script_filename != "install.php") {
 	include_once("modules/boxes/modindex_boxes.php");
 }
 
-// Include Module $_GET["mod"]
-include_once("index_module.inc.php");
+// Check, if all required user data fields, are known and force user to add them, if not.
+$missing_fields = 0;
+if ($auth['login']) include_once('modules/usrmgr/missing_fields.php');
 
+// Include Module $_GET["mod"]
+if (!$missing_fields) include_once("index_module.inc.php");
 
 // Define general index variables
 $templ['index']['info']['current_date'] = $func->unixstamp2date(time(),'daydatetime');

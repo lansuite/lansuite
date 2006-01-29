@@ -76,7 +76,7 @@ class func {
 	}
 
 	function date2unixstamp($year,$month,$day,$hour,$minute,$second) {	
-		$func_timestamp = mktime($hour,$minute,$second,$month,$day,$year);
+		$func_timestamp = @mktime($hour,$minute,$second,$month,$day,$year);
 		return $func_timestamp;		
 	} 
 	

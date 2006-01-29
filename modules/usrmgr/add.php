@@ -42,6 +42,8 @@ if (($auth["type"] >= 2) or (($auth["userid"] == $_GET["userid"]) && $cfg['user_
 
 	switch($_GET['step']) {
 		default:
+    	$dsp->NewContent($lang["usrmgr"]["add_caption"], $lang["usrmgr"]["add_subcaption"]);
+    	$dsp->SetForm("index.php?mod=usrmgr&action={$_GET["action"]}&umode={$action}&quick_signon={$_GET['quick_signon']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}", "signon", "", "multipart/form-data");
 			$AddUser->ShowForm($_GET["action"]);
 		break;
 

@@ -2,7 +2,7 @@
 
 $timestamp 	= time();
 
-include("modules/usrmgr/class_adduser.php");
+include_once("modules/usrmgr/class_adduser.php");
 $AddUser = new AddUser();
 
 $user_data = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid='{$_GET["userid"]}'");
@@ -14,7 +14,7 @@ switch($_GET["step"]) {
 	break;
 
 	case 4:
-		$AddUser->CheckErrors($_GET["umode"]);
+		$AddUser->CheckErrors($_GET["umode"], $_GET['quick_signon']);
 	break;
 	
 	case 5:
@@ -32,12 +32,14 @@ switch($_GET["step"]) {
 		if($cfg['sys_barcode_on']){
 			$dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>","","index.php?mod=usrmgr&action=entrance&step=3&umode=change&userid=");
 		}
-		$questionarr[1] = $lang["usrmgr"]["entrance_comunity"];
-		$questionarr[2] = $lang["usrmgr"]["entrance_signedon"];
+		$questionarr[1] = $lang["usrmgr"]["entrance_signedon"];
+		$questionarr[2] = $lang["usrmgr"]["entrance_comunity"];
 		$questionarr[3] = $lang["usrmgr"]["entrance_notsignedon"];
-		$linkarr[1]	= "index.php?mod=usrmgr&action=entrance&step=2&umode=change&signon=0";
-		$linkarr[2]	= "index.php?mod=usrmgr&action=entrance&step=2&umode=change&signon=1";
-		$linkarr[3]	= "index.php?mod=usrmgr&action=entrance&step=3&umode=add";
+		$questionarr[4] = $lang["usrmgr"]["entrance_notsignedon_advanced"];
+		$linkarr[1]	= "index.php?mod=usrmgr&action=entrance&step=2&umode=change&signon=1";
+		$linkarr[2]	= "index.php?mod=usrmgr&action=entrance&step=2&umode=change&signon=0";
+		$linkarr[3]	= "index.php?mod=usrmgr&action=entrance&step=3&umode=add&quick_signon=1";
+		$linkarr[4]	= "index.php?mod=usrmgr&action=entrance&step=3&umode=add&quick_signon=0";
 		$func->multiquestion($questionarr, $linkarr, "");
 	break;
 
@@ -64,13 +66,16 @@ switch($_GET["step"]) {
 			$_POST["paid"] = 2;
 		}
 		$_POST["signon"] = 1;
-		$AddUser->ShowForm($_GET["umode"]);
+
+		$dsp->NewContent($lang["usrmgr"]["add_caption"], $lang["usrmgr"]["add_subcaption"]);
+		$dsp->SetForm("index.php?mod=usrmgr&action={$_GET["action"]}&umode={$action}&quick_signon={$_GET['quick_signon']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}", "signon", "", "multipart/form-data");
+		$AddUser->ShowForm($_GET["umode"], $_GET['quick_signon']);
 	break;
 
-		// Platzpfand prüfen
+	// Platzpfand prüfen
 	case 4:
 		$cfg["signon_autocheckin"] = 1;
-		$AddUser->WriteToDB($_GET["umode"]);
+		$AddUser->WriteToDB($_GET["umode"], $_GET['quick_signon']);
 
 		$user = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = {$_GET["userid"]}");
 		$seatcontrol = $party->get_seatcontrol($_GET['userid']);
@@ -84,9 +89,8 @@ switch($_GET["step"]) {
 		}
 		
 		
-		// Passwort ausgeben
-	case 5:
-	
+	// Passwort ausgeben
+	case 5:	
 		if ($_GET["umode"] == "change") $func->confirmation(str_replace("%USER%", $_POST["username"], $lang["usrmgr"]["add_editsuccess"]), "");
 		else {
 			(($cfg["signon_autopw"]) || ($cfg["signon_password_view"]))? $pw_text = HTML_NEWLINE . str_replace("%PASSWORD%", $_POST["password"], $lang["usrmgr"]["add_pwshow"]) : $pw_text = "";

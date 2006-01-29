@@ -105,6 +105,12 @@ $lang["usrmgr"]["checkin_confirm"]	= "Soll der Benutzer <b>%USER%</b> wirklich e
 $lang["usrmgr"]["checkin_nouser"]	= "This user does not exist";
 $lang["usrmgr"]["checkin_re_confirm"]	= "The user <strong>%USER%</strong> has allready been checked out. Should the user be checked in again?". HTML_NEWLINE ."(Check-In and -Out time will be resettet then)";
 $lang["usrmgr"]["checkin_success"]	= "The user <strong>%USER%</strong> was checked in successfully";
+$lang["usrmgr"]["entrance_signedon"]	= "Checkin a <b>signed on guest</b>";
+$lang["usrmgr"]["entrance_comunity"]	= "Checkin a <b>to a previously party signed on guest</b>";
+$lang["usrmgr"]["entrance_notsignedon"]	= "New guest. <b>Create an account</b>". HTML_NEWLINE ."<i>Only username and password will be defined. All other data has to be submitted by the user on his/her first login</i>";
+$lang["usrmgr"]["entrance_notsignedon_advanced"]	= "New guest. <b>Create an advanced account</b>". HTML_NEWLINE ."<i>Using this option, all userdata could be entered right now</i>";
+
+
 $lang["usrmgr"]["entrance_comunity"]	= "The user was previously signed on to a party";
 $lang["usrmgr"]["entrance_signedon"]	= "The user has online signed on to this party";
 $lang["usrmgr"]["entrance_notsignedon"]	= "The user has <strong>no account</strong>, yet";
