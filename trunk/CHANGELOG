@@ -37,6 +37,7 @@ RC2
 - Bugfix: Der Text wurde in der Infobox nicht mehr angezeigt. (Genesis 5.1.2006)
 - Bugfix: #248 MySQL-Fehler beim Editieren von Benutzern mit MySQL5 (KnoX 31.12.2005)
 
+- Add: In Einlass-Assistent gibt es jetzt die Option einem Benutzer nur noch Benutzernamen und Kennwort zu geben. Alle weiteren Pflichtfelder müssen beim ersten Einloggen eingetragen werden (KnoX 29.01.2006)
 - Add: #269 Den News können nun Kategorie-Icons zugewiesen werden (KnoX 26.01.2006) 
 - Add: Das Foodcentermodul kann nun mit Öffnungszeiten umgehen. (Genesis 24.1.06)
 RC2
