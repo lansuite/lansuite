@@ -414,6 +414,10 @@ class AddUser {
   				type		= '{$_POST["type"]}',
   				comment		= '{$_POST["comment"]}',
   				";
+      } else {
+			  $db_set_fields .= "
+				type		= '1',
+ 				";
       }
       
 			if ($action == "change"){			
