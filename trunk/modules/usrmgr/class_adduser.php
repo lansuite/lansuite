@@ -29,8 +29,8 @@ class AddUser {
         FROM lansuite_user AS u
         LEFT JOIN lansuite_party_user AS p ON u.userid = p.user_id
         LEFT JOIN lansuite_partys AS s ON p.party_id = s.party_id
-        WHERE u.userid={$_GET["userid"]} AND (p.party_id={$party->party_id} OR ISNULL(p.party_id))");
-			
+        WHERE u.userid={$_GET["userid"]}"); // AND (p.party_id={$party->party_id} OR ISNULL(p.party_id))
+
 			$_POST["username"] = $user_data["username"];
 			$_POST["firstname"] = $user_data["firstname"];
 			$_POST["lastname"] = $user_data["name"];
@@ -44,6 +44,7 @@ class AddUser {
 			}else{
 				$_POST["signon"] = 0;
 			}
+
 			$_POST["email"] = $user_data["email"];
 			$_POST["clan"] = $user_data["clan"];
 			$_POST["clanurl"] = $user_data["clanurl"];
