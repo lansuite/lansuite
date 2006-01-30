@@ -103,6 +103,7 @@ $lang["usrmgr"]["myticket_show"]	= "Show ticket (Please save the file to your lo
 $lang["usrmgr"]["checkin_not_paid"]	= "This user has <strong>not</strong> paid yet.". HTML_NEWLINE ."After checkin he will be set to 'paid'.";
 $lang["usrmgr"]["checkin_confirm"]	= "Soll der Benutzer <b>%USER%</b> wirklich eingecheckt werden?";
 $lang["usrmgr"]["checkin_nouser"]	= "This user does not exist";
+$lang["usrmgr"]["checkin_not_signed_on"]	= "This user has not signed on to the current party. Therefore he can not be checked in";
 $lang["usrmgr"]["checkin_re_confirm"]	= "The user <strong>%USER%</strong> has allready been checked out. Should the user be checked in again?". HTML_NEWLINE ."(Check-In and -Out time will be resettet then)";
 $lang["usrmgr"]["checkin_success"]	= "The user <strong>%USER%</strong> was checked in successfully";
 $lang["usrmgr"]["entrance_signedon"]	= "Checkin a <b>signed on guest</b>";

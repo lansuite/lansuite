@@ -25,11 +25,15 @@ class AddUser {
 		global $db, $config, $birthday, $party, $auth;
 		
 		if ($action == "change"){
-			$user_data = $db->query_first("SELECT u.*, s.party_id, p.*
-        FROM lansuite_user AS u
-        LEFT JOIN lansuite_party_user AS p ON u.userid = p.user_id
-        LEFT JOIN lansuite_partys AS s ON p.party_id = s.party_id
-        WHERE u.userid={$_GET["userid"]}"); // AND (p.party_id={$party->party_id} OR ISNULL(p.party_id))
+		  // Is this user registered to the current party?
+			$user_at_party = $db->query_first("SELECT 1 AS found FROM {$config['tables']['party_user']} WHERE user_id = {$_GET["userid"]} AND party_id={$party->party_id}");
+			if ($user_at_party['found']) $user_data = $db->query_first("SELECT u.*, pu.*
+        FROM {$config['tables']['user']} AS u
+        LEFT JOIN {$config['tables']['party_user']} AS pu ON u.userid = pu.user_id
+        WHERE u.userid={$_GET["userid"]} AND pu.party_id={$party->party_id}");
+      else $user_data = $db->query_first("SELECT u.*, {$party->party_id} AS party_id
+        FROM {$config['tables']['user']} AS u
+        WHERE u.userid={$_GET["userid"]}");
 
 			$_POST["username"] = $user_data["username"];
 			$_POST["firstname"] = $user_data["firstname"];
