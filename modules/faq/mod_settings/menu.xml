@@ -69,4 +69,9 @@
 		<file>change_cat</file>
 		<requirement>2</requirement>
 	</entry>
+	<entry>
+		<action>comment</action>
+		<file>show_item</file>
+		<requirement>0</requirement>
+	</entry>
 </menu>
