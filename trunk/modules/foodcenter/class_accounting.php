@@ -61,14 +61,14 @@ class accounting{
 		
 		if($this->balance > 0){
 			$dsp->AddDoubleRow("<strong>" . $lang['foodcenter']['account_total'] . "</strong>","<table width=\"100%\">
-								<tr><td align=\"right\" width=\"33%\"><strong><font color='green'>" . $deposit['total'] . " " . $cfg['sys_currency'] ."</font></strong></td>
-								<td align=\"right\" width=\"33%\"><strong><font color='red'>" . $disbursement['total'] . " " . $cfg['sys_currency'] ."</font></strong></td>
-								<td align=\"right\" width=\"34%\"><strong><font color='green'>" . $this->balance . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
+								<tr><td align=\"right\" width=\"33%\"><strong><font color='green'>" . round($deposit['total'],2) . " " . $cfg['sys_currency'] ."</font></strong></td>
+								<td align=\"right\" width=\"33%\"><strong><font color='red'>" . round($disbursement['total'],2) . " " . $cfg['sys_currency'] ."</font></strong></td>
+								<td align=\"right\" width=\"34%\"><strong><font color='green'>" . round($this->balance,2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
 		}else{
 			$dsp->AddDoubleRow("<strong>" . $lang['foodcenter']['account_total'] . "</strong>","<table width=\"100%\">
-								<tr><td align=\"right\" width=\"33%\"><strong><font color='green'>" . $deposit['movement'] . " " . $cfg['sys_currency'] ."</font></strong></td>
-								<td align=\"right\" width=\"33%\"><strong><font color='red'>" . $disbursement['movement'] . " " . $cfg['sys_currency'] ."</font></strong></td>
-								<td align=\"right\" width=\"34%\"><strong><font color='red'>" . $this->balance . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
+								<tr><td align=\"right\" width=\"33%\"><strong><font color='green'>" . round($deposit['movement'],2) . " " . $cfg['sys_currency'] ."</font></strong></td>
+								<td align=\"right\" width=\"33%\"><strong><font color='red'>" . round($disbursement['movement'],2) . " " . $cfg['sys_currency'] ."</font></strong></td>
+								<td align=\"right\" width=\"34%\"><strong><font color='red'>" . round($this->balance,2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
 		}
 		
 		if($db->num_rows($result) > 0){
@@ -78,26 +78,26 @@ class accounting{
 				if($row['movement'] > 0){
 					if($total > 0){
 						$dsp->AddDoubleRow($row['time'] . "  " . $row['comment'],"<table width=\"100%\">
-							<tr><td align=\"right\" width=\"33%\"><font color='green'>" . $row['movement'] . " " . $cfg['sys_currency'] ."</font></td>
+							<tr><td align=\"right\" width=\"33%\"><font color='green'>" . round($row['movement'],2) . " " . $cfg['sys_currency'] ."</font></td>
 							<td align=\"right\" width=\"33%\"><font color='red'>&nbsp;</font></td>
-							<td align=\"right\" width=\"34%\"><strong><font color='green'>" . $total . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
+							<td align=\"right\" width=\"34%\"><strong><font color='green'>" . round($total,2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
 					}else{
 						$dsp->AddDoubleRow($row['time'] . "  " . $row['comment'],"<table width=\"100%\">
-							<tr><td align=\"right\" width=\"33%\"><font color='green'>" . $row['movement'] . " " . $cfg['sys_currency'] ."</font></td>
+							<tr><td align=\"right\" width=\"33%\"><font color='green'>" . round($row['movement'],2) . " " . $cfg['sys_currency'] ."</font></td>
 							<td align=\"right\" width=\"33%\"><font color='red'>&nbsp;</font></td>
-							<td align=\"right\" width=\"34%\"><strong><font color='red'>" . $total . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
+							<td align=\"right\" width=\"34%\"><strong><font color='red'>" . round($total,2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
 					}
 				}else{
 					if($total > 0){
 						$dsp->AddDoubleRow($row['time'] . "  " . $row['comment'],"<table width=\"100%\">
 							<tr><td align=\"right\" width=\"33%\"><font color='green'>&nbsp;</font></td>
-							<td align=\"right\" width=\"33%\"><font color='red'>" . $row['movement'] . " " . $cfg['sys_currency'] ."</font></td>
-							<td align=\"right\" width=\"34%\"><strong><font color='green'>" . $total . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
+							<td align=\"right\" width=\"33%\"><font color='red'>" . round($row['movement'],2) . " " . $cfg['sys_currency'] ."</font></td>
+							<td align=\"right\" width=\"34%\"><strong><font color='green'>" . round($total,2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
 					}else{
 						$dsp->AddDoubleRow($row['time'] . "  " . $row['comment'],"<table width=\"100%\">
 							<tr><td align=\"right\" width=\"33%\"><font color='green'>&nbsp;</font></td>
-							<td align=\"right\" width=\"33%\"><font color='red'>" . $row['movement'] . " " . $cfg['sys_currency'] ."</font></td>
-							<td align=\"right\" width=\"34%\"><strong><font color='red'>" . $total . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
+							<td align=\"right\" width=\"33%\"><font color='red'>" . round($row['movement'],2) . " " . $cfg['sys_currency'] ."</font></td>
+							<td align=\"right\" width=\"34%\"><strong><font color='red'>" . round($total,2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
 					}
 
 				}
