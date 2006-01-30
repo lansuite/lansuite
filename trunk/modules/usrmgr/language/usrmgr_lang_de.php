@@ -103,6 +103,7 @@ $lang["usrmgr"]["myticket_show"]	= "Eintrittskarte anzeigen (Bitte speichern sie
 $lang["usrmgr"]["checkin_not_paid"]	= "Der Benutzer hat noch <strong>nicht</strong> bezahlt.". HTML_NEWLINE ."Er wird beim Einchecken auf 'bezahlt' gesetzt.";
 $lang["usrmgr"]["checkin_confirm"]	= "Soll der Benutzer <b>%USER%</b> wirklich eingecheckt werden?";
 $lang["usrmgr"]["checkin_nouser"]	= "Dieser Benutzer existiert nicht";
+$lang["usrmgr"]["checkin_not_signed_on"]	= "Dieser Benutzer ist nicht zur aktuellen Party angemeldet und kann daher nicht eingecheckt werden";
 $lang["usrmgr"]["checkin_re_confirm"]	= "Der Benutzer <b>%USER%</b> ist bereits ausgecheckt worden. Soll der User erneut eingecheckt werden?". HTML_NEWLINE ."(Die CheckIn-Zeit und die CheckOut-Zeit werden dabei zur&uuml;ckgesetzt)";
 $lang["usrmgr"]["checkin_success"]	= "Der Benutzer <b>%USER%</b> wurde erfolgreich eingecheckt";
 $lang["usrmgr"]["entrance_signedon"]	= "Bereits <b>angemeldeten Gast einchecken</b>";

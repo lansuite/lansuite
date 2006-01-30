@@ -15,14 +15,20 @@ switch($_GET['step']) {
 	break;
 
 	case "2":
-		 $u_data = $db->query_first("SELECT username, party.paid, type FROM {$config["tables"]["user"]} LEFT JOIN {$config["tables"]["party_user"]} AS party ON userid=party.user_id WHERE userid='$userid' AND party_id={$party->party_id}");
-
-		 $q_text = "";
-		 if ((!$u_data["paid"]) && ($u_data["type"] < 2)) $q_text = $lang["usrmgr"]["checkin_not_paid"] .HTML_NEWLINE . HTML_NEWLINE;
-		 $q_text .= str_replace("%USER%", $u_data["username"], $lang["usrmgr"]["checkin_confirm"]);
-
-		 if ($u_data["username"]) $func->question($q_text, "index.php?mod=usrmgr&action=checkin&step=3&userid=$userid", $func->internal_referer);
-		 else $func->error($lang["usrmgr"]["checkin_nouser"], "index.php?mod=usrmgr&action=checkin");
+	  // Is this user registered to the current party?
+		$user_at_party = $db->query_first("SELECT 1 AS found FROM {$config['tables']['party_user']} WHERE user_id = {$_GET["userid"]} AND party_id={$party->party_id}");
+		if ($user_at_party['found']) {
+      $u_data = $db->query_first("SELECT u.*, pu.*
+        FROM {$config['tables']['user']} AS u
+        LEFT JOIN {$config['tables']['party_user']} AS pu ON u.userid = pu.user_id
+        WHERE u.userid={$_GET["userid"]} AND pu.party_id={$party->party_id}");
+  
+        $q_text = "";
+        if ((!$u_data["paid"]) && ($u_data["type"] < 2)) $q_text = $lang["usrmgr"]["checkin_not_paid"] .HTML_NEWLINE . HTML_NEWLINE;
+        $q_text .= str_replace("%USER%", $u_data["username"], $lang["usrmgr"]["checkin_confirm"]);
+        
+        $func->question($q_text, "index.php?mod=usrmgr&action=checkin&step=3&userid=$userid", $func->internal_referer);
+    } else $func->error($lang["usrmgr"]["checkin_not_signed_on"], "index.php?mod=usrmgr&action=checkin");
 	break;
 
 	case "2a":   // Re-CheckIn, after CheckOut
