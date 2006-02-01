@@ -2,9 +2,9 @@
 <!-- TEMPLATE - STANDARD - BOARD THREAD ROW -->
 <tr>
   <td class="tbl_1" height="30" colspan="2"> 
-    <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+    <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1" style="table-layout:fixed;">
       <tr> 
-        <td width="100" align="left" valign="top" class="tbl_6" nowrap>
+        <td align="left" valign="top" class="tbl_6" style="width:150px;">
 		  <a name = "pid{$templ['board']['thread']['case']['info']['post']['pid']}" />
 		  <b>{$templ['board']['thread']['case']['info']['post']['poster']['username']}</b> 
           <a href="?mod=usrmgr&action=details&userid={$templ['board']['thread']['case']['info']['post']['poster']['userid']}"> 
@@ -19,7 +19,7 @@
           <br/>
           {$templ['board']['thread']['case']['info']['post']['poster']['rank']} 
           <br/> <br/> </td>
-        <td width="90%" height="28" valign="top" class="tbl_1"> <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbl_1">
+        <td height="28" valign="top" class="tbl_1"> <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbl_1">
             <tr> 
               <td width="100%"> {$templ['board']['thread']['case']['info']['post']['date']} 
                 &nbsp;&nbsp;&nbsp; </td>
@@ -44,7 +44,7 @@
           </table></td>
       </tr>
       <tr> 
-        <td width="100" align="left" valign="middle" class="tbl_6"> <a href="#top">{$templ['board']['thread']['case']['info']['thread']['go_top']}</a> </td>
+        <td style="width:150px;" align="left" valign="middle" class="tbl_6"> <a href="#top">{$templ['board']['thread']['case']['info']['thread']['go_top']}</a> </td>
         <td width="90%" height="28" valign="bottom" class="tbl_1">&nbsp;</td>
       </tr>
     </table>
