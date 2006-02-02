@@ -6,7 +6,7 @@
 ;*
 ;*	(c) 2001-2004 by One-Network.Org
 ;*
-;*	Lansuite Version:	2.0.3 RC1
+;*	Lansuite Version:	2.0.6
 ;*	Filename: 		config.php
 ;*	Module: 		Framework
 ;*	Main editor: 		denny@one-network.org
@@ -19,7 +19,7 @@
 
 
 [lansuite]
-version				= LANsuite V2.0.6 RC2
+version				= LANsuite V2.07 RC1
 default_design			= osX
 user_timeout			= 300
 chmod_dir			= 777
