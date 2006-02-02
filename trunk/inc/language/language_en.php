@@ -167,7 +167,9 @@
 	$lang["button"]["finish"]	= "Finish";
 	$lang["button"]["print"]	= "Print";
 	$lang["button"]["changeclanpw"] = "Change Clanpw";
-	
+	$lang['button']['register'] = 'Register';
+	$lang['button']['lost_pw'] = 'Lost password?';
+
 	// Missing-Fields dialog
 	$lang['missing_fields']['caption'] = 'There are missing fields';
 	$lang['missing_fields']['subcaption'] = 'Please enter your data first, to complete your signon to the system';

@@ -21,7 +21,7 @@ $res = $db->query("SELECT plz FROM {$config["tables"]["user"]} LEFT JOIN {$confi
 if ($db->num_rows($res) == 0) $dsp->AddSingleRow($lang["guestlist"]["map_err_noplz"]);
 else {
 
-	$map_out = "<map name=\"deutschland\">";
+	$map_out = '<div id="tooltip" class="tooltip" style="background-color:#FFFF99; border-width:1px; border-style:solid; position: absolute; width: auto; height: auto; z-index: 100; visibility: hidden; left: 0; top: 0;"></div><script src="modules/guestlist/templates/map.js" type="text/javascript"></script><map name="deutschland">';
 
 	$x_start = 5.43;
 	$y_start = 46.95;
@@ -35,15 +35,16 @@ else {
 	$xf = $img_width / (abs($x_start - $x_end));
 	$yf = $img_height / (abs($y_start - $y_end));
 
-#		LEFT JOIN {$config["tables"]["locations"]} AS locations ON LOCATE(user.plz, locations.plz)
-	$res = $db->query("SELECT user.userid, user.username, user.city, user.plz, COUNT(*) AS anz, locations.laenge, locations.breite 
+	$res = $db->query("SELECT user.userid, user.username, user.city, user.plz, COUNT(*) AS anz, locations.laenge, locations.breite
 		FROM {$config["tables"]["user"]} AS user
 		INNER JOIN {$config["tables"]["locations"]} AS locations ON user.plz = locations.plz
 		INNER JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id
 		WHERE (user.plz > 0) AND (party.party_id = {$party->party_id}) AND user.type > 0 
 		GROUP BY user.plz
 		");
+	$z = 0;
 	while ($user = $db->fetch_array($res)) {
+	  $z++;
 
 		$kx = (int) ($xf * ($user['laenge'] - $x_start));
 		$ky = (int) ($img_height - $yf * ($user['breite'] - $y_start));
@@ -51,9 +52,23 @@ else {
 		$size = floor(1 + 0.25 * $user['anz']);
 		if ($size > 5) $size = 5;
 
-		$map_out .= "<area shape=\"rect\" coords=\"". ($kx-$size) .", ". ($ky-$size) .", ". ($kx+$size) .", ". ($ky+$size) ."\" href=\"index.php?mod=usrmgr&action=details&userid={$user["userid"]}\" title=\"{$lang["guestlist"]["map_city"]}: {$user["plz"]} {$user["city"]}
-{$lang["guestlist"]["map_name"]}: {$user["username"]}
-{$lang["guestlist"]["map_user"]}: {$user["anz"]}\">";
+		// Get list of all users with current plz
+    $res2 = $db->query("SELECT u.username, u.firstname, u.name
+		FROM {$config["tables"]["user"]} AS u
+		INNER JOIN {$config["tables"]["party_user"]} AS p ON u.userid = p.user_id
+		WHERE (u.plz = {$user["plz"]}) AND (p.party_id = {$party->party_id}) AND u.type > 0
+		");
+		$users2jsarray = '';
+		while ($current_user = $db->fetch_array($res2)) {
+		  $users2jsarray .= "'{$current_user['username']}', '{$current_user['firstname']}', '{$current_user['name']}', ";
+		}
+		$db->free_result($res2);
+    $users2jsarray = substr($users2jsarray, 0, strlen($users2jsarray) - 2);
+
+		$mouse_over_text = "javascript:user_data = new Array('{$user['plz']}', '{$user['city']}', '{$user['anz']}', $users2jsarray); TX_showToolTip(event, user_data);";
+
+		$map_out .= "<area name=\"point$z\" shape=\"rect\" coords=\"". ($kx-$size) .", ". ($ky-$size) .", ". ($kx+$size) .", ". ($ky+$size) ."\" onMouseOver=\"$mouse_over_text\" onMouseOut=\"javascript:TX_hideToolTip();\" />";
+		# href=\"index.php?mod=usrmgr&action=details&userid={$user["userid"]}\"
 	}
 	$db->free_result($res);
 	$map_out .= "</map>";
