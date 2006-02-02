@@ -168,12 +168,15 @@ if ($_GET["mod"] != "install"){
 	$party->write_party_infos();
 }
 
-
+// Set Missingfields to false
+$missing_fields = 0;
 if ($found_adm) {
 	// Startup authentication
 	$authentication = new auth();
 	$auth = $authentication->auth;
 
+	// Check, if all required user data fields, are known and force user to add them, if not.
+	if ($auth['login'] && $_GET["mod"] != "install") include_once('modules/usrmgr/missing_fields.php');
 	// If not logged in as Administrator on Admin-Page
 	if ($_GET["mod"] == "install" and $auth["type"] < 2) {
 		$dsp->NewContent("Bitte mit einem der angelegten LanSuite-Administrator-Accounts einloggen, um fortzufahren", "Die Installation und Administration von LanSuite dürfen nur Benutzer mit Operator-Rechten durchführen");
@@ -217,9 +220,6 @@ if ($script_filename != "install.php") {
 	include_once("modules/boxes/modindex_boxes.php");
 }
 
-// Check, if all required user data fields, are known and force user to add them, if not.
-$missing_fields = 0;
-if ($auth['login']) include_once('modules/usrmgr/missing_fields.php');
 
 // Include Module $_GET["mod"]
 if (!$missing_fields) include_once("index_module.inc.php");
