@@ -176,7 +176,7 @@ if ($found_adm) {
 	$auth = $authentication->auth;
 
 	// Check, if all required user data fields, are known and force user to add them, if not.
-	if ($auth['login'] && $_GET["mod"] != "install") include_once('modules/usrmgr/missing_fields.php');
+	if ($auth['login'] and $auth['userid'] and $_GET["mod"] != "install") include_once('modules/usrmgr/missing_fields.php');
 	// If not logged in as Administrator on Admin-Page
 	if ($_GET["mod"] == "install" and $auth["type"] < 2) {
 		$dsp->NewContent("Bitte mit einem der angelegten LanSuite-Administrator-Accounts einloggen, um fortzufahren", "Die Installation und Administration von LanSuite dürfen nur Benutzer mit Operator-Rechten durchführen");
