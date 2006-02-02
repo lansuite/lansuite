@@ -1,11 +1,11 @@
 <?php
 
-if ($cfg['signon_multiparty'] != "0") include("modules/signon/show_party.php");
+if ($cfg['signon_multiparty']) include("modules/signon/show_party.php");
 else {
 	$user = $db->query_first("SELECT * FROM {$config["tables"]["party_user"]} WHERE user_id = '{$auth['userid']}' AND party_id = '{$party->party_id}'");
-	
+
 	$currenttime = time();
-	if ($db->num_rows($user) > 0) {
+	if ($user["user_id"]) {
 		$func->information($lang['signon']['allready'], "index.php?mod=news");
 
 	} elseif($_SESSION['party_info']['s_startdate'] >= $currenttime) {
