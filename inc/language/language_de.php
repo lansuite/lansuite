@@ -184,7 +184,9 @@
 	$lang["button"]["finish"]	= "Beenden";
 	$lang["button"]["print"]	= "Drucken";
 	$lang["button"]["changeclanpw"] = "Clanpw ändern";
-	
+	$lang['button']['register'] = 'Registrieren';
+	$lang['button']['lost_pw'] = 'Passwort vergessen?';
+
 	// Missing-Fields dialog
 	$lang['missing_fields']['caption'] = 'Es gibt noch unausgefüllte Felder';
 	$lang['missing_fields']['subcaption'] = 'Bitte geben Sie zuerst die fehldenen Daten unterhalb ein, um die Anmeldung am System zu vervollständigen';

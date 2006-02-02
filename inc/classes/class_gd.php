@@ -153,10 +153,13 @@ class gd {
 			if (strlen($lang['button'][$name]) <= 10) {
 				$start_x = 34 - (strlen($lang['button'][$name]) * 6) / 2;
 				$this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button.png");
-			} else {
+			} elseif (strlen($lang['button'][$name]) <= 15) {
 				$start_x = 49 - (strlen($lang['button'][$name]) * 6) / 2;
-				if (strlen($lang['button'][$name]) > 16) $lang['button'][$name] = substr($lang['button'][$name], 0, 16);
 				$this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button_b.png");
+			} else {
+				$start_x = 64 - (strlen($lang['button'][$name]) * 6) / 2;
+				if (strlen($lang['button'][$name]) > 20) $lang['button'][$name] = substr($lang['button'][$name], 0, 20);
+				$this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button_c.png");
 			}
 			$this->SetFont("ext_inc/fonts/verdana.ttf", 7);
 			$this->Text ($start_x, 4, imagecolorallocate($this->img, 30, 30, 30), $lang['button'][$name], 20);

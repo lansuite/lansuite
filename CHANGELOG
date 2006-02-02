@@ -41,6 +41,8 @@ RC2
 - Bugfix: Der Text wurde in der Infobox nicht mehr angezeigt. (Genesis 5.1.2006)
 - Bugfix: #248 MySQL-Fehler beim Editieren von Benutzern mit MySQL5 (KnoX 31.12.2005)
 
+- Add: In der Login-Box gibt es jetzt einen Button "Registrieren", der einen direkt zur anmeldung bringt (KnoX 02.02.2006)
+- Add: #233 Die Besucherkarte hat nun eine JS-PopUp-Infobox in der alle Benutzer zur aktuellen PLZ stehen (KnoX 02.02.2006)
 - Add: Imsitzplan ein Tooltip Fenster eingebaut. (Genesis 29.1.06)
 - Add: In Einlass-Assistent gibt es jetzt die Option einem Benutzer nur noch Benutzernamen und Kennwort zu geben. Alle weiteren Pflichtfelder müssen beim ersten Einloggen eingetragen werden (KnoX 29.01.2006)
 - Add: #269 Den News können nun Kategorie-Icons zugewiesen werden (KnoX 26.01.2006) 
@@ -57,6 +59,7 @@ RC2
 - Add: #129 Kategorien für Troubletickes eingefügt und die möglichkeit einen festen Admin zuzuweisen. (Genesis 5.1.2006)
 - Add: Sitzplan-Bilder ergänzt und Sitzplan-Malfunktion verbessert (KnoX 31.12.2005)
 
+- Change: Es gibt nun eine 3. Button-Vorlage "button_c.png", die 120px breit ist und somit Platz für längere Texte bietet (KnoX 02.02.2006)
 - Change: #274 Operatoren können nun keine Admins mehr aus einem Modul aussperren, indem sie sich die Rechte am Modul sicher (KnoX 29.01.2006)
 - Change: #152 Alle Module sind nun auf die menu.xml umgestellt. modindex entfällt. Daher sind nun auch alle module in den Zugriffsberechtigungen gelistet (KnoX 28.01.2006)
 - Change: Neues Helplet-System. Diese können nun einfach über PHP-Variablen (ähnlich wie die Language-Files) gefüllt werden und sollen nur noch wichtige Informationen zu einem Modul enthalten (KnoX 23.01.2006) 
