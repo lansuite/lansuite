@@ -3,7 +3,7 @@
 	<pos>4</pos>
 	<entry>
 		<action>default</action>
-		<file>add</file>
+		<file>show</file>
 		<caption>Anmelden</caption>
 		<hint></hint>
 		<link>?mod=signon</link>
@@ -36,6 +36,16 @@
 		<file>guestlist</file>
 		<requirement>0</requirement>
 	</entry>
+	<entry>
+		<action>show_party</action>
+		<file>show_party</file>
+		<requirement>0</requirement>
+	</entry>	
+	<entry>
+		<action>add</action>
+		<file>add</file>
+		<requirement>0</requirement>
+	</entry>	
 	<entry>
 		<action>usermap</action>
 		<file>usermap</file>

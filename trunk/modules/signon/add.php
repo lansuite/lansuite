@@ -1,7 +1,5 @@
 <?php
 
-if ($cfg['signon_multiparty']) include("modules/signon/show_party.php");
-else {
 	$user = $db->query_first("SELECT * FROM {$config["tables"]["party_user"]} WHERE user_id = '{$auth['userid']}' AND party_id = '{$party->party_id}'");
 
 	$currenttime = time();
@@ -565,5 +563,4 @@ else {
     	break;
     }
 	} // End: If signon activated
-} // End: If not multiparty
 ?>
