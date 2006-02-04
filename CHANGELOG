@@ -4,6 +4,10 @@ Hier bitte die wichtigen Änderungen einfügen :
 (Auch Name,Datum und falls vorhanden BugID für die Änderung angeben!)
 -----
 
+Version 2.0.7
+- Bugfix: Wenn das System auf Multiparty eingestellt war konnten sich die Leute nicht mehr anmelden. (Genesis 4.2.05)
+
+
 Version 2.0.6
 
 
