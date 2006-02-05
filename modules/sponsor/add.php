@@ -37,7 +37,7 @@ switch($_GET["step"]) {
 			if (substr($sponsor['pic_path'], 0, 12) != 'html-code://') $pic_url = 'html-code://'. $pic_url;
 			$pic_is_code = 1;
 		} else {
-			if($_POST["pic_url"] != "http://" && $_POST["pic_url"] != ""){
+			if(!($_POST["pic_url"] == "http://" || $_POST["pic_url"] == "")){
 				$pic_url = $_POST["pic_url"];
 				$pic_is_code = 1;
 			}
