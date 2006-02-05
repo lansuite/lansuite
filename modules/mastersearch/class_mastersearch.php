@@ -316,6 +316,7 @@ class MasterSearch {
 						// Link Item?
 						if (!$this->config['list_only'] and !$result_field['list_only']) {
 							$target = $this->config['target_link'] . $row[$this->config['linkcol']];
+							if($result_field['ext_link']) $target .= "&" . $result_field['ext_link'];
 							$text = "<a class=\"menu\" href=\"$target\">{$text}</a>";
 						}
 
@@ -328,8 +329,10 @@ class MasterSearch {
 						// Display Profil-Icon?
 						if ($result_field['profil'])
 							$text .= " <a href=\"index.php?mod=usrmgr&action=details&userid={$row[$this->config['userid']]}\"><img src=\"design/$design/images/arrows_user.gif\" border=\"0\" /></a>";
-
-
+						// Display complete profil
+						if ($result_field['fullprofil'])
+							$text .= HTML_NEWLINE . $this->GetUsername($row[$this->config['userid']]) ."<a href=\"index.php?mod=usrmgr&action=details&userid={$row[$this->config['userid']]}\"><img src=\"design/$design/images/arrows_user.gif\" border=\"0\" /></a>";
+							
 						// Generate Text
 						$text = "<div title=\"{$org_text}\">$text</div>";
 
@@ -522,7 +525,7 @@ class MasterSearch {
 		if (($arr[3]) && ($arr[3] != "none")) $return .= "<img src=\"ext_inc/tournament_icons/{$arr[3]}\" title=\"Icon\" border=\"0\" /> ";
 
 		// Name + Link
-		$return .= sprintf('<a class="menu" href="'. $this->config['target_link'] . $arr[2] .'">%s</a>', $arr[0]);
+		$return .= sprintf('</a><a class="menu" href="'. $this->config['target_link'] . $arr[2] .'">%s', $arr[0]);
 
 		// WWCL Icon
 		if ($arr[4]) $return .= " <img src=\"ext_inc/tournament_icons/leagues/wwcl.png\" title=\"WWCL Game\" border=\"0\" />";
@@ -537,7 +540,7 @@ class MasterSearch {
 	}
 
 	function GetTournamentTeamAnz($arr) {
-		return "<a href=\"index.php?mod=tournament2&action=details&tournamentid={$arr[2]}&headermenuitem=2\">". $arr[0] ."/". $arr[1] . "</a>";
+		return "</a><a href=\"index.php?mod=tournament2&action=details&tournamentid={$arr[2]}&headermenuitem=2\">". $arr[0] ."/". $arr[1];
 	}
 
 	function GetDate( $time ) {
@@ -551,9 +554,9 @@ class MasterSearch {
 		global $db, $config, $auth;
 
 		if ($pid){
-			$last_post = $db->query_first("SELECT date, userid FROM {$config["tables"]["board_posts"]} WHERE pid = $pid");
+			$last_post = $db->query_first("SELECT date, b.userid, username FROM {$config["tables"]["board_posts"]} AS b LEFT JOIN {$config["tables"]["user"]} AS u ON u.userid=b.userid WHERE pid = $pid");
 
-			return $this->GetDate($last_post["date"]) . " <a href=\"index.php?mod=usrmgr&action=details&userid={$last_post["userid"]}\"><img src=\"design/{$auth["design"]}/images/arrows_user.gif\" border=\"0\" /></a>";
+			return $this->GetDate($last_post["date"]) . HTML_NEWLINE . "</a>{$last_post['username']} <a href=\"index.php?mod=usrmgr&action=details&userid={$last_post["userid"]}\"><img src=\"design/{$auth["design"]}/images/arrows_user.gif\" border=\"0\" />";
 		} else return "---";
 	}
 

@@ -22,6 +22,7 @@ else {
 	$count_entrys =  $db->num_rows($query);
 
 	if ($count_entrys > $cfg['board_max_posts']){
+		if($_GET['pid'] == "last") $_GET['posts_page'] = floor($count_entrys / $cfg['board_max_posts']);
 		$pages = $func->page_split($_GET['posts_page'],$cfg['board_max_posts'],$count_entrys,"index.php?mod=board&action=thread&fid=$fid&tid=$tid","posts_page");
 		$query = $db->query("SELECT pid, comment, userid, date FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date {$pages['sql']}");
 		$templ['board']['overview']['case']['info']['page_split'] = $pages['html'];
