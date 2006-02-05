@@ -32,14 +32,16 @@ switch($_GET["step"]) {
 		$active = $_POST["active"];
 
 		$pic_is_code = 0;
-		if ($_POST['pic_code']) {
+		if ($_POST['pic_code'] != "") {
 			$pic_url = $_POST['pic_code'];
 			if (substr($sponsor['pic_path'], 0, 12) != 'html-code://') $pic_url = 'html-code://'. $pic_url;
 			$pic_is_code = 1;
 		} else {
-      $pic_url = $_POST["pic_url"];
-			$pic_is_code = 1;
-    }
+			if($_POST["pic_url"] != "http://" && $_POST["pic_url"] != ""){
+				$pic_url = $_POST["pic_url"];
+				$pic_is_code = 1;
+			}
+    	}
 
 		// Check for errors
 		if ($name == "") {
