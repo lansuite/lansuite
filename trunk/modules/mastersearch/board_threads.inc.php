@@ -48,7 +48,7 @@
 	$this->config['result_fields'][$z]['callback'] = "GetDate";
 	$this->config['result_fields'][$z]['width']    = "20%";
 	$this->config['result_fields'][$z]['maxchar']  = "20";
-	$this->config['result_fields'][$z]['profil']   = "1";
+	$this->config['result_fields'][$z]['fullprofil']   = "1";
 	$z++;
 	$this->config['result_fields'][$z]['name']     = $lang['ms']['board_bm']['last_p'];
 	$this->config['result_fields'][$z]['sqlrow']   = "t.last_pid";
@@ -56,4 +56,7 @@
 	$this->config['result_fields'][$z]['callback'] = "GetPostDate";
 	$this->config['result_fields'][$z]['width']    = "20%";
 	$this->config['result_fields'][$z]['maxchar']  = "20";
+	$this->config['result_fields'][$z]['ext_link'] = "pid=last";
+	
+	
 ?>
