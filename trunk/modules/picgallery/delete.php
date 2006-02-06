@@ -19,7 +19,7 @@ switch ($_GET["step"]) {
 		$delete_db = $db->query("DELETE FROM {$config[tables][picgallery]} WHERE name = '$db_dir'");
 
 		unlink($root_file);
-		unlink($root_dir ."lsthumb_". $akt_file);
+		if(file_exists($root_dir ."lsthumb_". $akt_file)) unlink($root_dir ."lsthumb_". $akt_file);
 
 		$func->confirmation(str_replace("%NAME%", $_GET["file"], str_replace("%CAPTION%", $pic['caption'], $lang['picgallery']['del_pic_success'])), "index.php?mod=picgallery&file=$akt_dir");
 	break;

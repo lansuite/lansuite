@@ -15,6 +15,7 @@
 *
 ***************************************************************************/
 
+$icon_dir = "ext_inc/picgallery_icon/";
 // Returns, wheather the supplied extension is supported, or not.
 function IsSupportedType($ext) {
 	$ext = strtolower($ext);
@@ -28,6 +29,18 @@ function IsSupportedType($ext) {
 #	or ($ext == "ani")		// Problem: "Die" in target-function + most Browsers can not display this type
 	) return true;
 	else return false;
+}
+
+function IsPackage($ext){
+	$ext = strtolower($ext);
+	if (($ext == "zip")
+	or ($ext == "tar")
+	or ($ext == "rar")
+	or ($ext == "ace")
+	or ($ext == "gz")
+	or ($ext == "bz")
+	) return true;
+	else return false;	
 }
 
 // If a new gallery should be created
@@ -49,10 +62,11 @@ if (!$_GET["page"]) $_GET["page"] = 0;
 
 // Upload posted File
 if  (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["file_upload"]) {
-	if (IsSupportedType(substr($_FILES['file_upload']['name'], strrpos($_FILES['file_upload']['name'], ".") + 1, 4))) {
+	$extension = substr($_FILES['file_upload']['name'], strrpos($_FILES['file_upload']['name'], ".") + 1, 4);
+	if (IsSupportedType($extension) || IsPackage($extension)) {
 		$upload = $func->FileUpload("file_upload", $root_dir);
 		$db->query("REPLACE INTO {$config["tables"]["picgallery"]} SET userid = '{$auth["userid"]}', name = '$db_dir{$_FILES["file_upload"]["name"]}'");
-	} else $func->error("Bitte nur Grafik-Dateien hochladen (Format: Jpg, Png, Gif, Bmp)", "index.php?mod=picgallery");
+	} else $func->error("Bitte nur Grafik-Dateien hochladen (Format: Jpg, Png, Gif, Bmp)<br> oder Archive (Format: zip,ace,rar,tar,gz,bz)", "index.php?mod=picgallery");
 }
 
 // Set Changed Name
@@ -76,6 +90,7 @@ elseif (!$akt_file) {
 	// Scan Directory
 	$dir_list = array();
 	$file_list = array();
+	$package_list = array();
 	$dir_size = 0;
 	$last_modified = 0;
 	if (is_dir($root_dir)) $handle = opendir($root_dir);
@@ -88,6 +103,11 @@ elseif (!$akt_file) {
 				$file_modified = filemtime($root_dir . $file);
 				if ($file_modified > $last_modified) $last_modified = $file_modified;
 				array_push($file_list, $file);
+			}elseif (IsPackage($extension)){
+				$dir_size += filesize($root_dir . $file);
+				$file_modified = filemtime($root_dir . $file);
+				if ($file_modified > $last_modified) $last_modified = $file_modified;
+				array_push($package_list, $file);
 			}
 		}
 	}
@@ -115,7 +135,7 @@ elseif (!$akt_file) {
 	if ($num_pages > 1) $dsp->AddDoubleRow($lang['picgallery']['show_page'], $page_selection);
 
 	// Show Picture-List
-	if (!$file_list) $dsp->AddSingleRow("<i>{$lang['picgallery']['show_no_pic_dir']}</i>");
+	if (!$file_list && !$package_list) $dsp->AddSingleRow("<i>{$lang['picgallery']['show_no_pic_dir']}</i>");
 	else {
 		$z = 0;
 
@@ -125,49 +145,110 @@ elseif (!$akt_file) {
 		$templ['ls']['row']['gallery']['name'] = $key;
 		if($optional) $templ['ls']['row']['gallery']['optional'] = "_optional";
 
-		foreach($file_list as $file) {
-			$z++;
-			if ($z > $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * $_GET["page"]
-			and $z <= $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * ($_GET["page"] + 1)) {
+		if($file_list){
+			foreach($file_list as $file) {
+				$z++;
+				if ($z > $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * $_GET["page"]
+				and $z <= $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * ($_GET["page"] + 1)) {
 
-				$thumb_path = $root_dir ."lsthumb_". $file;
+					$thumb_path = $root_dir ."lsthumb_". $file;
 
-				// Wenn Thumb noch nicht generiert wurde, generieren versuchen
-				if (!file_exists($thumb_path)) $gd->CreateThumb($root_dir . $file, $thumb_path, $cfg["picgallery_max_width"], $cfg["picgallery_max_height"]);
+					// Wenn Thumb noch nicht generiert wurde, generieren versuchen
+					if (!file_exists($thumb_path)) $gd->CreateThumb($root_dir . $file, $thumb_path, $cfg["picgallery_max_width"], $cfg["picgallery_max_height"]);
 
-				// Size HTML
-				if (file_exists($thumb_path)) $pic_dimensions = GetImageSize($thumb_path);
-				if (!$pic_dimensions) {
-					$pic_dimensions[0] = $cfg["picgallery_max_width"];
-					$pic_dimensions[1] = $cfg["picgallery_max_height"];
-				}
+					// Size HTML
+					if (file_exists($thumb_path)) $pic_dimensions = GetImageSize($thumb_path);
+					if (!$pic_dimensions) {
+						$pic_dimensions[0] = $cfg["picgallery_max_width"];
+						$pic_dimensions[1] = $cfg["picgallery_max_height"];
+					}
 
-				$templ['ls']['row']['gallery']['pic_width'] = $pic_dimensions[0];
-				$templ['ls']['row']['gallery']['pic_height'] = $pic_dimensions[1];
+					$templ['ls']['row']['gallery']['pic_width'] = $pic_dimensions[0];
+					$templ['ls']['row']['gallery']['pic_height'] = $pic_dimensions[1];
 
-				$templ['ls']['row']['gallery']['pic_src'] = $thumb_path;
-				$templ['ls']['row']['gallery']['file'] = $akt_dir . $file;
-				if (strlen($file) > 22) $templ['ls']['row']['gallery']['file_name'] = substr(strtolower($file), 0, 16) ."..". substr(strtolower($file), strrpos($file, "."), 5);
-				else $templ['ls']['row']['gallery']['file_name'] = strtolower($file);
+					$templ['ls']['row']['gallery']['pic_src'] = $thumb_path;
+					$templ['ls']['row']['gallery']['file'] = $akt_dir . $file;
+					if (strlen($file) > 22) $templ['ls']['row']['gallery']['file_name'] = substr(strtolower($file), 0, 16) ."..". substr(strtolower($file), strrpos($file, "."), 5);
+					else $templ['ls']['row']['gallery']['file_name'] = strtolower($file);
 
-				$pic = $db->query_first("SELECT picid, caption, clicks FROM {$config["tables"]["picgallery"]} WHERE name = '$db_dir$file'");
-				($pic['caption']) ? $templ['ls']['row']['gallery']['caption'] = $pic['caption']
+					$pic = $db->query_first("SELECT picid, caption, clicks FROM {$config["tables"]["picgallery"]} WHERE name = '$db_dir$file'");
+					($pic['caption']) ? $templ['ls']['row']['gallery']['caption'] = $pic['caption']
 					: $templ['ls']['row']['gallery']['caption'] = "<i>Unbenannt</i>";
-				$templ['ls']['row']['gallery']['clicks'] = $pic['clicks'];
+					$templ['ls']['row']['gallery']['clicks'] = $pic['clicks'];
 
-				$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
+					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
 
-				$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchButton("index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", "open", $lang['picgallery']['show_show_pic']);
-				if ($auth["type"] > 1) {
-					$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchButton("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
+					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchButton("index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", "open", $lang['picgallery']['show_show_pic']);
+					if ($auth["type"] > 1) {
+						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchButton("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
+					}
+
+					$templ['ls']['row']['gallery']['spalte'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_spalte");
+
+					if ($z % $cfg["picgallery_items_per_row"] == 0) {
+						$templ['ls']['row']['gallery']['zeile'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_zeile");
+						$templ['ls']['row']['gallery']['spalte'] = "";
+					}
+				}
+			}
+		}
+
+		// Gepackte Daten anzeigen
+		if($package_list){
+			foreach($package_list as $package) {
+				$z++;
+				if ($z > $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * $_GET["page"]
+				and $z <= $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * ($_GET["page"] + 1)) {
+
+					$extension =  strtolower(substr($package, strrpos($package, ".") + 1, 4));
+
+					switch ($extension){
+						case "ace":		$icon = "ace.jpg";
+						break;
+						case "rar":		$icon = "rar.jpg";
+						break;
+						case "zip":		$icon = "zip.jpg";
+						break;
+						default:		$icon = "zip.jpg";
+						break;
+					}
+
+					$thumb_path = $icon_dir . $icon;
+					if (file_exists($thumb_path)) $pic_dimensions = GetImageSize($thumb_path);
+					if (!$pic_dimensions) {
+						$pic_dimensions[0] = "100px";
+						$pic_dimensions[1] = "100px";
+					}
+
+					$templ['ls']['row']['gallery']['pic_width'] = $pic_dimensions[0];
+					$templ['ls']['row']['gallery']['pic_height'] = $pic_dimensions[1];
+
+					$templ['ls']['row']['gallery']['pic_src'] = $thumb_path;
+					$templ['ls']['row']['gallery']['file'] = $akt_dir . $package;
+					if (strlen($file) > 22) $templ['ls']['row']['gallery']['file_name'] = substr(strtolower($package), 0, 16) ."..". substr(strtolower($package), strrpos($package, "."), 5);
+					else $templ['ls']['row']['gallery']['file_name'] = strtolower($package);
+
+
+					$pic = $db->query_first("SELECT picid, caption, clicks FROM {$config["tables"]["picgallery"]} WHERE name = '$db_dir$package'");
+					($pic['caption']) ? $templ['ls']['row']['gallery']['caption'] = $pic['caption']
+					: $templ['ls']['row']['gallery']['caption'] = "<i>Unbenannt</i>";
+					$templ['ls']['row']['gallery']['clicks'] = $pic['clicks'];
+					
+					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
+
+					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchButton("base.php?mod=pic_download&picurl=$akt_dir$package", "download", $lang['picgallery']['show_download_pic']);
+					if ($auth["type"] > 1) {
+						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchButton("index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
+					}
+
+					$templ['ls']['row']['gallery']['spalte'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_spalte");
+
+					if ($z % $cfg["picgallery_items_per_row"] == 0) {
+						$templ['ls']['row']['gallery']['zeile'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_zeile");
+						$templ['ls']['row']['gallery']['spalte'] = "";
+					}
 				}
 
-				$templ['ls']['row']['gallery']['spalte'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_spalte");
-
-				if ($z % $cfg["picgallery_items_per_row"] == 0) {
-					$templ['ls']['row']['gallery']['zeile'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_zeile");
-					$templ['ls']['row']['gallery']['spalte'] = "";
-				}
 			}
 		}
 
@@ -208,6 +289,7 @@ elseif (!$akt_file) {
 			$picinfo = GetImageSize($root_file);
 			$picinfo['5'] = filesize($root_file) / 1024;
 
+			$extension =  strtolower(substr($root_file, strrpos($root_file, ".") + 1, 4));
 			// Check width
 			($picinfo['0'] > "450") ? $pic_width = "450" : $pic_width = $picinfo['0'];
 
@@ -232,7 +314,7 @@ elseif (!$akt_file) {
 				$dsp->AddDoubleRow("", "<a href=\"$js_full_link\"><img border=\"1\" src=\"$root_file\" width=\"$pic_width\" class=\"img\"></a>");
 
 			// Define Buttons
-			$dl_button = $dsp->FetchButton($js_full_link, "fullscreen", $lang['picgallery']['show_fullscreen']);
+			if(!IsPackage($extension)) $dl_button = $dsp->FetchButton($js_full_link, "fullscreen", $lang['picgallery']['show_fullscreen']);
 			$full_button = $dsp->FetchButton("base.php?mod=pic_download&picurl={$_GET["file"]}", "download", $lang['picgallery']['show_download_pic']);
 			($auth[type] > "1") ? $del_button = $dsp->FetchButton("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", $lang['picgallery']['show_del_pic']) : $del_button = "";
 
@@ -274,7 +356,8 @@ elseif (!$akt_file) {
 				}
 			}
 			if ($size_format == "") $size_format = "100:". round($verh * 100, 1);
-			$dsp->AddDoubleRow($lang['picgallery']['show_pic_size'], "{$picinfo['0']} x {$picinfo['1']} Pixel ($size_format); ". round($picinfo['5'], 1) ." kB");
+			if(!IsPackage($extension)) $dsp->AddDoubleRow($lang['picgallery']['show_pic_size'], "{$picinfo['0']} x {$picinfo['1']} Pixel ($size_format); ". round($picinfo['5'], 1) ." kB");
+			else $dsp->AddDoubleRow($lang['picgallery']['show_pic_size'],round($picinfo['5'], 1) ." kB");
 
 			// File-Times
 			$dsp->AddDoubleRow($lang['picgallery']['show_created'], $func->unixstamp2date(filectime($root_file), "datetime"));
