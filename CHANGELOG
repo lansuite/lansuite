@@ -5,6 +5,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 -----
 
 Version 2.0.7
+- Bugfix: #289 Fehler in der DB-Import behoben (Genesis 6.2.06)
 - Bugfix: #288 Fehler im Verleihmodul gefixt. (Genesis 6.2.06)
 - Bugfix: #287 Style der Tooltipbox in das style.css ausgelagert (Genesis 6.2.06)
 - Bugfix: #288 Probleme mit thumbs.db im Sitzplan-Ordner behoben (Genesis 6.2.06)
