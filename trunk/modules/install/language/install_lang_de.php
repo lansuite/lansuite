@@ -90,7 +90,7 @@ $lang["install"]["env_invalid"]	= "fehlgeschlagen";
 $lang["install"]["env_warning"]	= "bedenkliche Einstellung";
 $lang["install"]["env_stats_info"]	= "Leider nicht möglich";
 $lang["install"]["env_stats_safemode"]	= "Statistiken funktionieren nicht wenn PHP im Safe-Modus läuft.";
-$lang["install"]["env_stats"]	= "Auf ihrem System leider nicht möglich. Der Befehl oder die Datei " . HTML_NEWLINE . "{FEHLER} wurde nicht gefunden. Evtl. fehlen sind nur die Berechtigungen der Datei nicht ausreichend gesetzt";
+$lang["install"]["env_stats"]	= "Auf ihrem System leider nicht möglich. Der Befehl oder die Datei " . HTML_NEWLINE . "{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt";
 $lang["install"]["env_stats_os"]	= "Die Statistiken für Server funktionieren auf ihrem System leider nicht";
 $lang["install"]["env_phpversion"]	= "Auf Ihrem System wurde die PHP-Version " . phpversion() . " gefunden.  Lansuite ben&ouml;tigt mindestens PHP Version 4.3.0. Sie können zwar die Installation fortsetzen, allerdings kann keinerlei Garantie auf die ordnungsgemäße Funktionsweise gegeben werden. Laden und installieren Sie sich eine aktuellere Version von <a href=\"http://www.php.net\" target=\"_blank\">www.php.net</a>.";
 $lang["install"]["env_no_mysql"]	= "Die MySQL-Erweiterung ist in PHP nicht geladen. Diese wird benötigt um auf die Datenbank zuzugreifen. Bevor keine Datenbank verfügbar ist, kann LanSuite nicht installiert werden. Den MySQL-Server gibt es unter <a href=\"http://www.mysql.com\" target=\"_blank\">www.mysql.com</a> zum download.";

@@ -5,9 +5,12 @@ Hier bitte die wichtigen Änderungen einfügen :
 -----
 
 Version 2.0.7
+- Bugfix: #287 Style der Tooltipbox in das style.css ausgelagert (Genesis 6.2.06)
+- Bugfix: #288 Probleme mit thumbs.db im Sitzplan-Ordner behoben (Genesis 6.2.06)
+- Bugfix: #258 Hochkommas sind nun nicht mehr möglich (Genesis 6.2.06)
+- Bugfix: #291 Schreibfehler korigiert in der Installroutine (Genesis 6.2.06)
 - Bugfix: Es konnten im Sposorenmodul keine Bilder mehr hochgeladen werden. (Genesis 5.2.06)
 - Bugfix: Wenn das System auf Multiparty eingestellt war konnten sich die Leute nicht mehr anmelden. (Genesis 4.2.05)
-
 
 - Change #284 Nun werden bei jedem Boardeintrag die Namen angezeigt. Es kann auch direkt der letzte eintrag aufgerufen werden. (Genesis 5.2.06)
 

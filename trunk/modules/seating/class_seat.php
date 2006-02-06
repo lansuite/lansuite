@@ -99,10 +99,12 @@ class seat2 {
 
 		// Get current users clanmates
 		$my_clanmates = array();
-		$clanmates = $db->query("SELECT userid FROM {$config["tables"]["user"]} WHERE clan = '{$auth['clan']}'");
-		while ($clanmate = $db->fetch_array($clanmates)) array_push($my_clanmates, $clanmate['userid']);
-		$db->free_result($clanmates);
-
+		if($auth['clan'] != ""){
+			$clanmates = $db->query("SELECT userid FROM {$config["tables"]["user"]} WHERE clan = '{$auth['clan']}'");
+			while ($clanmate = $db->fetch_array($clanmates)) array_push($my_clanmates, $clanmate['userid']);
+			$db->free_result($clanmates);
+		}
+		
 		// Header-Row
 		$templ['seat']['plan_sep_row_head_cols'] = '';
 		$templ['seat']['plan_sep_row_desc_x'] = '';
@@ -141,8 +143,11 @@ class seat2 {
 			while ($imagedata = readdir($handel)){
 				if(!($imagedata == ".." || $imagedata == "." || is_dir($imagedata) || substr($imagedata,0,2) == "ls")){
 					$imagename = substr($imagedata,0,strlen($imagedata)-4);
-					$templ['seat']['seat_data_image'] .= "image[$imagename] = new Image();\n";
-					$templ['seat']['seat_data_image'] .= "image[$imagename].src = \"ext_inc/seating_symbols/$imagedata\";\n";
+					$imageext = substr($imagedata,-4);
+					if($imageext == ".jpg" || $imageext == "jpeg" || $imageext == ".gif" || $imageext == ".png"){
+						$templ['seat']['seat_data_image'] .= "image[$imagename] = new Image();\n";
+						$templ['seat']['seat_data_image'] .= "image[$imagename].src = \"ext_inc/seating_symbols/$imagedata\";\n";
+					}
 				}
 			}
 		}
