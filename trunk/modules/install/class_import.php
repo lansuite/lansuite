@@ -72,7 +72,10 @@ class Import {
 			if ($table_found) $this->table_state[] = "exist";
 
 			// If Rewrite: Drop current table
-			if ($rewrite) $db->query_first("DROP TABLE IF EXISTS {$config["database"]["prefix"]}$table_name");
+			if ($rewrite){
+				$db->query_first("DROP TABLE IF EXISTS {$config["database"]["prefix"]}$table_name");
+				$table_found = false;
+			}
 
 			// Get current table-structure from DB, to compare with XML-File
 			$pri_key_count = 0;
