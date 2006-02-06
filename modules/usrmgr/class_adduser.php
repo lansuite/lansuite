@@ -466,7 +466,7 @@ class AddUser {
 
 			// Update Party-Signon
 			if (isset($_POST['signon']) && $_POST['signon'] == "1") $party->add_user_to_party($_GET["userid"], $_POST['price_id'], $_POST['paid'], $checkin);
-			elseif(isset($_POST['signon']) && $auth["type"] > 1){
+			elseif((!isset($_POST['signon']) || $_POST['signon'] == "0") && $auth["type"] > 1){
 			 	$party->delete_user_from_party($_GET["userid"]);	
 			}
 
