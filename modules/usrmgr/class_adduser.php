@@ -101,9 +101,14 @@ class AddUser {
 		if (!preg_match("/^([a-zA-Z0-9])+([\.a-zA-Z0-9_-])*@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-]+)+/", $_POST["email"])) $error["email"] = $lang["usrmgr"]["add_err_invalid_mail"];
 
     if (!$quick_signon) {
-  		if (($this->Needed("lastname")) && ($_POST["lastname"] == "")) $error["lastname"] = $lang["usrmgr"]["add_err_no_last"];
-  
+  		// Check exist Lastname
+    	if (($this->Needed("lastname")) && ($_POST["lastname"] == "")) $error["lastname"] = $lang["usrmgr"]["add_err_no_last"];
+ 		// Check Chars
+ 		if ($_POST['lastname'] != "" && preg_match("/([.^\"\'`´]+)/", $_POST["lastname"])) $error["lastname"] = $lang["usrmgr"]["add_err_user_chars"];
+    	// Check exist Firsname
   		if (($this->Needed("firstname")) && ($_POST["firstname"] == "")) $error["firstname"] = $lang["usrmgr"]["add_err_no_first"];
+  		// Check Chars
+  		if ($_POST['firstname'] != "" && preg_match("/([.^\"\'`´]+)/", $_POST["firstname"])) $error["firstname"] = $lang["usrmgr"]["add_err_user_chars"];
     }
     
 		// PW Check
@@ -147,7 +152,9 @@ class AddUser {
   
   		// Get Clandata
   		if ($_POST["clan_new"] != "") $_POST["clan"] = $_POST["clan_new"];
-  
+		// Check Chars  		
+  		if ($_POST["clan_new"] != "" && preg_match("/([.^\"\'`´]+)/", $_POST["clan_new"])) $error["clan_new"] = $lang["usrmgr"]["add_err_user_chars"];
+  		
   		if ($_POST["clanurl"] == "http://") $_POST["clanurl"] = "";
   		if ($_POST["clanurl"] == "") {
   			$clandata = $db->query_first("SELECT clanurl

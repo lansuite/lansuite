@@ -21,7 +21,7 @@ $res = $db->query("SELECT plz FROM {$config["tables"]["user"]} LEFT JOIN {$confi
 if ($db->num_rows($res) == 0) $dsp->AddSingleRow($lang["guestlist"]["map_err_noplz"]);
 else {
 
-	$map_out = '<div id="tooltip" class="tooltip" style="background-color:#FFFF99; border-width:1px; border-style:solid; position: absolute; width: auto; height: auto; z-index: 100; visibility: hidden; left: 0; top: 0;"></div><script src="modules/guestlist/templates/map.js" type="text/javascript"></script><map name="deutschland">';
+	$map_out = '<div id="tooltip" class="tooltip" style="position: absolute; width: auto; height: auto; z-index: 100; visibility: hidden; left: 0; top: 0;"></div><script src="modules/guestlist/templates/map.js" type="text/javascript"></script><map name="deutschland">';
 
 	$x_start = 5.43;
 	$y_start = 46.95;

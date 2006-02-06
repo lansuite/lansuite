@@ -457,5 +457,12 @@ acronym
 
 /* IMAGE STYLE */
 
+/* TOOLTIP STYLE in Seatplan and Guestmap*/
+.tooltip {
+	background-color:#FFFF99; 
+	border-width:1px; 
+	border-style:solid;
+}
+
 form { 
 display: inline }

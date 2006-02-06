@@ -125,7 +125,8 @@
     			$username_error = $lang["signon"]["add_err_user_chars"];
     			$step = 2;
     		}
-    		if ($get_email["email"] != "") {
+    		
+	   		if ($get_email["email"] != "") {
     			$email_error = $lang["signon"]["add_err_mail_exist"];
     			$step = 2;
     		}
@@ -137,8 +138,16 @@
     			$lastname_error = $lang["signon"]["add_err_no_last"];
     			$step = 2;
     		}
+    		if($_POST['lastname'] != "" && preg_match("/([.^\"\'`´]+)/",$_POST["lastname"])){
+    			$lastname_error = $lang["signon"]["add_err_user_chars"];
+    			$step = 2;
+    		}
     		if (($signup_cfg["firstname"] == 2) && ($_POST["firstname"] == "")) {
     			$firstname_error = $lang["signon"]["add_err_no_first"];
+    			$step = 2;
+    		}
+    		if($_POST['firstname'] != "" && preg_match("/([.^\"\'`´]+)/",$_POST["firstname"])){
+    			$firstname_error = $lang["signon"]["add_err_user_chars"];
     			$step = 2;
     		}
     		if (!preg_match("/^([a-zA-Z0-9])+([\.a-zA-Z0-9_-])*@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-]+)+/", $_POST["email"])) {
@@ -211,6 +220,11 @@
     
     
     		// Get Clandata
+    		// Check Clandata chars
+    		if($_POST['new_clan'] != "" && preg_match("/([.^\"\'`´]+)/",$_POST["new_clan"])){
+    			$clan_error = $lang["signon"]["add_err_user_chars"];
+    			$step = 2;
+    		}
     		if ($_POST["clan"] == "") {
     			$_POST["clan"] = $_POST["clan_new"];
     		} else {
