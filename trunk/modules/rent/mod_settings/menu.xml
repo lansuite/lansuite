@@ -2,6 +2,7 @@
 <menu>
 	<pos>30</pos>
 	<entry>
+		<action>default</action>
 		<caption>Verleih</caption>
 		<hint></hint>
 		<link>?mod=rent</link>
@@ -11,6 +12,7 @@
 		<level>0</level>
 	</entry>
 	<entry>
+		<action>show_stuff</action>
 		<caption>Verleihbares Equip.</caption>
 		<hint>&Uuml;bersicht des verleihbaren Equipments mit der M&ouml;glichkeit diese Auszuleihen</hint>
 		<link>?mod=rent&action=show_stuff</link>
@@ -20,6 +22,7 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>show_out</action>
 		<caption>Verliehenes Equip.</caption>
 		<hint>&Uuml;bersicht des verliehenen Equipments mit der M&ouml;glichkeit der R&uuml;cknahme</hint>
 		<link>?mod=rent&action=show_out</link>
@@ -29,6 +32,7 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>show_back</action>
 		<caption>Zur&uuml;ckgen. Equip.</caption>
 		<hint>&Uuml;bersicht der zur&uuml;ckgenommen Equipments</hint>
 		<link>?mod=rent&action=show_back</link>
@@ -38,6 +42,7 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>add_stuff</action>
 		<caption>Equip. hinzuf.</caption>
 		<hint>Equipment zum Verleih hinzuf&uuml;gen.</hint>
 		<link>?mod=rent&action=add_stuff</link>
@@ -47,6 +52,7 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>delete_stuff</action>
 		<caption>Eq. bearb./l&ouml;schen.</caption>
 		<hint>Equipment aus dem Verleih entfernen</hint>
 		<link>?mod=rent&action=delete_stuff</link>
