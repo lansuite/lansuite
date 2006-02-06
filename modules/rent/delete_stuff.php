@@ -110,7 +110,7 @@ switch($step) {
 		$comment  = ($_GET["com"]);
 		$quantity = ($_GET["qua"]);
 
-		$mastersearch = new MasterSearch($vars, "index.php?mod=rent&action=delete_stuff&step=12","index.php?mod=rent&action=delete_stuff&step=15&cap=$caption&com=$comment&qua=$quantity&itemid=$item_id&userid=", " AND (type > 1) GROUP BY user_id");
+		$mastersearch = new MasterSearch($vars, "index.php?mod=rent&action=delete_stuff&step=12&cap=$caption&com=$comment&qua=$quantity&itemid=$item_id","index.php?mod=rent&action=delete_stuff&step=15&cap=$caption&com=$comment&qua=$quantity&itemid=$item_id&userid=", " AND (type > 1) GROUP BY user_id");
 		$mastersearch->LoadConfig("users", "", "");
 		$mastersearch->PrintForm();
 		$mastersearch->Search();
@@ -126,9 +126,9 @@ switch($step) {
 		$comment  = rawurldecode($_GET["com"]);
 		$quantity = rawurldecode($_GET["qua"]);
 
-		if($user_id!="") $user_chg=", ownerid='$userid'"; else $user_chg="";
+		if($_GET['userid'] != "") $user_chg=", ownerid='{$_GET['userid']}'"; else $user_chg="";
 		
-		$change_it = $db->query("UPDATE {$config["tables"]["rentstuff"]} SET caption = '$caption', comment = '$comment', quantity = '$quantity' $user_chg WHERE stuffid = '$item_id'");
+		$change_it = $db->query("UPDATE {$config["tables"]["rentstuff"]} SET caption = '$caption', comment = '$comment', quantity = '$quantity' $user_chg WHERE stuffid = '{$_GET['itemid']}'");
 		if($change_it == 1) { $func->confirmation($lang['rent']['del_stuff_edit_ok'],"index.php?mod=rent&action=delete_stuff");
 		}
 		else
@@ -145,8 +145,8 @@ switch($step) {
 
 	case 5:		// eintrag löschen
 
-		$db->query("DELETE FROM {$config["tables"]["rentstuff"]} WHERE stuffid = '$item_id'");
-		$del_it = $db->query("DELETE FROM {$config["tables"]["rentuser"]} WHERE stuffid = '$item_id'");
+		$db->query("DELETE FROM {$config["tables"]["rentstuff"]} WHERE stuffid = '{$_GET['itemid']}'");
+		$del_it = $db->query("DELETE FROM {$config["tables"]["rentuser"]} WHERE stuffid = '{$_GET['itemid']}'");
 
 		if($del_it == 1) { $func->confirmation($lang['rent']['del_stuff_del_ok'],"index.php?mod=rent&action=delete_stuff");
 		}

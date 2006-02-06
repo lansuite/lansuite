@@ -100,7 +100,7 @@ switch($_GET["step"]) {
 		$comment  = ($_GET["com"]);
 		$quantity = ($_GET["qua"]);
 
-		$mastersearch = new MasterSearch($vars, "index.php?mod=rent&action=add_stuff&step=3","index.php?mod=rent&action=add_stuff&step=4&cap=$caption&com=$comment&qua=$quantity&userid=", " AND (type > 1) GROUP BY user_id");
+		$mastersearch = new MasterSearch($vars, "index.php?mod=rent&action=add_stuff&step=3&cap=$caption&com=$comment&qua=$quantity","index.php?mod=rent&action=add_stuff&step=4&cap=$caption&com=$comment&qua=$quantity&userid=", " AND (type > 1) GROUP BY user_id");
 		$mastersearch->LoadConfig("users", "", "");
 		$mastersearch->PrintForm();
 		$mastersearch->Search();
