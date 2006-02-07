@@ -5,6 +5,8 @@ Hier bitte die wichtigen Änderungen einfügen :
 -----
 
 Version 2.0.7
+
+- Bugfix: Smilies im Messenger wurden nicht mehr angezeigt. (Genesis 7.6.03)
 - Bugfix: User konnten nicht mehr von der Party abgemeldet werden. (Genesis 6.2.06)
 - Bugfix: #289 Fehler in der DB-Import behoben (Genesis 6.2.06)
 - Bugfix: #288 Fehler im Verleihmodul gefixt. (Genesis 6.2.06)
