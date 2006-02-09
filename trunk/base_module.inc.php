@@ -151,12 +151,22 @@ switch($_GET['mod'])
 
 		///////////////////////////////////////    PDF Export Modul     ////////////////////////////
 	case "pdf":
-#		include("modules/pdf/mod_settings/modul_tables.inc.php");
 		if ($_SESSION["auth"]["type"] > 2 || ($auth['userid'] == $_GET['userid'] && $_GET['action'] == "guestcards")){
 			if(isset($_GET['userid'])) $_POST['user'] = $_GET['userid'];
-			include("modules/pdf/modindex_pdf.php");
+			switch($_GET['action']) {
+				case "guestcards":
+				include("modules/pdf/pdf_act.php");
+				break;
+
+				case "seatcards":
+				include("modules/pdf/pdf_act.php");
+				break;
+				case "userlist":
+				include("modules/pdf/pdf_act.php");
+				break;
+			}
+			break;
 		}
-	break;
 	///////////////////////////////////////    PDF Export Modul     ////////////////////////////////
 
 		///////////////////////////////////////    FOODCENTER  ///////////////////////////////////////////
