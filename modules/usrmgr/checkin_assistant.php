@@ -68,7 +68,7 @@ switch($_GET["step"]) {
 		$_POST["signon"] = 1;
 
 		$dsp->NewContent($lang["usrmgr"]["add_caption"], $lang["usrmgr"]["add_subcaption"]);
-		$dsp->SetForm("index.php?mod=usrmgr&action={$_GET["action"]}&umode={$action}&quick_signon={$_GET['quick_signon']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}", "signon", "", "multipart/form-data");
+		$dsp->SetForm("index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&quick_signon={$_GET['quick_signon']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}", "signon", "", "multipart/form-data");
 		$AddUser->ShowForm($_GET["umode"], $_GET['quick_signon']);
 	break;
 
@@ -84,7 +84,7 @@ switch($_GET["step"]) {
 		$pw = urlencode(base64_encode($_POST['password']));
 
 		if($seatprice > 0 && $_POST['paid'] > 0 && $_POST['signon'] && $seatcontrol == "0"){
-			$func->question(str_replace("%PRICE%",$seatprice . " " . $cfg['sys_currency'] ,$lang['usrmgr']['paid_seatcontrol_quest']),"index.php?mod=usrmgr&action={$_GET["action"]}&umode={$action}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=1&username=$username&priceid={$_POST['price_id']}&pw=$pw","index.php?mod=usrmgr&action={$_GET["action"]}&umode={$action}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=0&username=$username&priceid={$_POST['price_id']}&pw=$pw");
+			$func->question(str_replace("%PRICE%",$seatprice . " " . $cfg['sys_currency'] ,$lang['usrmgr']['paid_seatcontrol_quest']),"index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=1&username=$username&priceid={$_POST['price_id']}&pw=$pw","index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=0&username=$username&priceid={$_POST['price_id']}&pw=$pw");
 			break;
 		}
 		
