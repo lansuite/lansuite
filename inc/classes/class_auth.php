@@ -122,9 +122,9 @@ class auth {
 
 	// When user logs in
 	function login($loginart) {
-		global $db, $func, $cfg, $config, $party, $lang;
+		global $db, $func, $cfg, $config, $party, $lang, $auth;
 		
-		$this->auth['design'] = $config['lansuite']['default_design'];
+		$auth['design'] = $config['lansuite']['default_design'];
 		
 		$tmp_login_email = "";
 		$tmp_login_pass = "";
