@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.7
 
+- Bugfix: Bei einem Fehlerhaften login wurde das Errorsymbol nicht angezeigt.  (Genesis 11.2.06)
 - Bugfix: #300 Sitzpläte die Vorgemert sind konnten nicht reserviert werden (Genesis 11.2.06)
 - Bugfix: In der Boardsuche wurde kein Text angezeigt. (Genesis 11.2.06)
 - Bugfix: Es konnte ohne Clan eine Clanurl angegeben werden das führte zu Fehlern. (Genesis 11.2.06)
