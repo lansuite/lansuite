@@ -84,6 +84,7 @@ $lang["usrmgr"]["add_err_invalid_nr"]	= "The housenumber has to be numeric";
 $lang["usrmgr"]["add_err_invalid_city"]	= "Enzet the postalcode an City in the following format: '12345 City'";
 $lang["usrmgr"]["add_err_invalid_plz"]	= "The postalcode has to consist of 5 digits. If your postalcode has less digits, write leeding zeros. (i.e. 00123)";
 $lang["usrmgr"]["add_err_no_clan"]	= "Choose an existing clan, or create a new one";
+$lang["usrmgr"]["add_err_clanurl_no_clan"]	= "You can't give a clanurl when you don't in a clan";
 $lang["usrmgr"]["add_err_nopass"]	= "Choose a password, please";
 $lang["usrmgr"]["add_err_wrong2ndpass"]	= "passwords do not match";
 $lang["usrmgr"]["add_err_no_clanurl"]	= "Submit the website of your clan, please";

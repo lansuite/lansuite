@@ -46,6 +46,7 @@ $lang["signon"]["add_err_no_clan"]	= "Bitte w&auml;hlen Sie entweder einen vorha
 $lang["signon"]["add_err_nopass"]	= "Bitte geben Sie ein Kennwort ein";
 $lang["signon"]["add_err_wrong2ndpass"]	= "Die Wiederholung des Kennwortes stimmt nicht mit der ersten Eingabe &uuml;berein";
 $lang["signon"]["add_err_no_clanurl"]	= "Bitte geben Sie die Webseite Ihres Clans an";
+$lang["usrmgr"]["add_err_clanurl_no_clan"]	= "Sie können keine Clanurl angeben wenn Sie keinen Clan angegeben haben.";
 $lang["signon"]["add_err_no_clanpass"] = "Bitte geben Sie das korrekte Passwort f&uuml;r den Clan an";
 $lang["signon"]["add_err_no_wwclid"]	= "Bitte geben Sie Ihre WWCL ID an";
 $lang["signon"]["add_err_no_nglid"]	= "Bitte geben Sie Ihre NGL ID an";

@@ -84,6 +84,7 @@ $lang["usrmgr"]["add_err_invalid_nr"]	= "Die Hausnummer muss numerisch sein";
 $lang["usrmgr"]["add_err_invalid_city"]	= "Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: '12345 Stadt'";
 $lang["usrmgr"]["add_err_invalid_plz"]	= "Die Postleitzahl muss aus 5 Ziffern bestehen. PLZ mit weniger Ziffern, bitte mit f&uuml;hrenden Nullen schreiben (z.B. 00123)";
 $lang["usrmgr"]["add_err_no_clan"]	= "Bitte w&auml;hlen Sie entweder einen vorhandenen Clan aus, oder erstellen Sie einen neuen";
+$lang["usrmgr"]["add_err_clanurl_no_clan"]	= "Sie können keine Clanurl angeben wenn Sie keinen Clan angegeben haben.";
 $lang["usrmgr"]["add_err_nopass"]	= "Bitte geben Sie ein Kennwort ein";
 $lang["usrmgr"]["add_err_wrong2ndpass"]	= "Die Wiederholung des Kennwortes stimmt nicht mit der ersten Eingabe &uuml;berein";
 $lang["usrmgr"]["add_err_no_clanurl"]	= "Bitte geben Sie die Webseite Ihres Clans an";

@@ -156,7 +156,12 @@ class AddUser {
   		if ($_POST["clan_new"] != "" && preg_match("/([.^\"\'`´]+)/", $_POST["clan_new"])) $error["clan_new"] = $lang["usrmgr"]["add_err_user_chars"];
   		
   		if ($_POST["clanurl"] == "http://") $_POST["clanurl"] = "";
-  		if ($_POST["clanurl"] == "") {
+  		
+  		if(($_POST["clanurl"] != "" && $_POST['clan'] == "")){
+  			$error["clanurl"] = $lang["usrmgr"]["add_err_clanurl_no_clan"];
+  		}
+  		
+  		if ($_POST["clanurl"] == "" && $_POST['clan'] != "") {
   			$clandata = $db->query_first("SELECT clanurl
   				FROM {$config["tables"]["user"]}
   				WHERE (clan = '{$_POST["clan"]}') AND (clanurl != '') AND (clanurl != 'http://')
@@ -164,7 +169,7 @@ class AddUser {
   				");
   			$_POST["clanurl"] = $clandata["clanurl"];
   		}
-  
+  		
   		if (($this->Needed("clan")) && ($_POST["clan"] == "")) $error["clan"] = $lang["usrmgr"]["add_err_no_clan"];
   		if (($this->Needed("clanurl")) && ($_POST["clanurl"] == "")) $error["clanurl"] = $lang["usrmgr"]["add_err_no_clanurl"];
   		if (($this->Needed("wwcl_id")) && ($_POST["wwcl_id"] == "")) $error["wwcl_id"] = $lang["usrmgr"]["add_err_no_wwclid"];
@@ -305,7 +310,7 @@ class AddUser {
   		($_POST["clan"] == "") ? $selected = "selected" : $selected = "";
   		array_push ($t_array, "<option $selected value=\"\">---</option>");
   		while($row = $db->fetch_array($clans_query)) {
-  			if ($_POST["clan"] == $row["clan"]){
+  			if ($_POST["clan"] == $row["clan"] && $_POST['clan'] != ""){
   				$selected = "selected";
   				if ($_POST["clanurl"] == "") $_POST["clanurl"] = $row["clanurl"];
   			} else $selected = "";

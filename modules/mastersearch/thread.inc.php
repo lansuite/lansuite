@@ -3,7 +3,7 @@
 	$this->config['search_fields'][]  = "t.caption";
 	$this->config['search_fields'][]  = "p.comment";
 	$this->config['search_fields'][]  = "b.name";
-	$this->config['sql_statment']     = "SELECT b.name, t.* FROM {$config["tables"]["board_threads"]} AS t
+	$this->config['sql_statment']     = "SELECT b.name, t.*, p.comment FROM {$config["tables"]["board_threads"]} AS t
 										LEFT JOIN {$config["tables"]["board_forums"]} AS b ON t.fid = b.fid
 										LEFT JOIN {$config["tables"]["board_posts"]} AS p ON p.tid = t.tid";
 	$this->config['title']            = $lang['ms']['thread']['title'];

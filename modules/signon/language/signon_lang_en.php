@@ -43,6 +43,7 @@ $lang["signon"]["add_err_invalid_nr"]	= "The housenumber has to be numeric";
 $lang["signon"]["add_err_invalid_city"]	= "Enter your postalcode and City in the following format: '12345 City'";
 $lang["signon"]["add_err_invalid_plz"]	= "The postalcode has to contain of 5 digits. Write postalcodes, having less than 5 digits with leading zeros (i.e. 00123)";
 $lang["signon"]["add_err_no_clan"]	= "Select one of the existing clans, or create a new one";
+$lang["usrmgr"]["add_err_clanurl_no_clan"]	= "You can't give a clanurl when you don't in a clan";
 $lang["signon"]["add_err_nopass"]	= "Enter a password";
 $lang["signon"]["add_err_wrong2ndpass"]	= "The verification of the password is incorrect";
 $lang["signon"]["add_err_no_clanurl"]	= "Submit the website of your clan, please";
