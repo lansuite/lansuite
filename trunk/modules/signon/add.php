@@ -247,6 +247,10 @@
     		}
     		if ($_POST["clanurl"] == "http://") $_POST["clanurl"] = "";
     
+    		if($_POST["clanurl"] != "" && $_POST['clan'] == ""){
+    			$clanurl_error = $lang["usrmgr"]["add_err_clanurl_no_clan"];
+    			$step = 2;
+    		}
     		if (($signup_cfg["clan"] == 2) && ($_POST["clan"] == "")) {
     			$clan_error = $lang["signon"]["add_err_no_clan"];
     			$step = 2;
