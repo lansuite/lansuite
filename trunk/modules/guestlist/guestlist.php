@@ -5,7 +5,6 @@ $guestlist["target_link"] 	= "index.php?mod=usrmgr&action=details";
 $guestlist["task"] 			= "guestlist";
 $guestlist["search_item"] 	= "user";
 
-$seat = new seat;
 	// Loading the Template
 
 		$templ['guestlist']['search']['form']['user']['control']['form_action'] = ("index.php?mod=guestlist&action=guestlist");
@@ -117,12 +116,14 @@ $seat = new seat;
 					$templ['guestlist']['search']['row']['user']['info']['tbl'] = "";
 					$userid = $row["userid"];
 
-					$templ['guestlist']['search']['row']['user']['info']['seat'] = $seat->display_seat_link("mastersearch",$userid);
+			    $get_seat = $db->query_first("SELECT s.col, s.row, s.blockid, b.name, b.orientation
+            FROM {$config['tables']['seat_seats']} AS s
+			      LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b.blockid
+            WHERE s.userid = {$row['userid']}"); 
 
-					if ($row["paid"] == 1 && !$templ['guestlist']['search']['row']['user']['info']['seat']) {
-						$templ['guestlist']['search']['row']['user']['info']['seat'] = $lang["guestlist"]["list_paid"];
-					}
-					elseif ($row["paid"] == 0) {
+          if ($get_seat['col'] and $get_seat['row']) $templ['guestlist']['search']['row']['user']['info']['seat'] = "<a href=\"index.php?mod=seating&action=show&step=2&blockid={$get_seat['blockid']}&col={$get_seat['col']}&row={$get_seat['row']}\">". $get_seat['name'] ." - ". $seat2->CoordinateToName($get_seat['col'], $get_seat['row'], $get_seat['orientation']) ."</a>";
+					elseif ($row["paid"]) $templ['guestlist']['search']['row']['user']['info']['seat'] = $lang["guestlist"]["list_paid"];
+					else {
 						$templ['guestlist']['search']['row']['user']['info']['seat'] = $lang["guestlist"]["list_not_paid"];
 						$templ['guestlist']['search']['row']['user']['info']['tbl'] = "_off";
 					}
