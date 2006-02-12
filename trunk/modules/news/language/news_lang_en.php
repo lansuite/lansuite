@@ -8,7 +8,7 @@ $lang['news']['translator'] = "Jochen";
 
 $lang["news"]["add_caption"]	= "Add / chage news";
 $lang["news"]["add_subcaption"]	= "Using this form you can add / change a newspost.";
-$lang["news"]["add_headline"]	= "Headline";
+$lang["news"]["add_headline"]	= 'Headline (Short description for home page)';
 $lang["news"]["add_text"]	= "Text";
 $lang["news"]["add_icon"]	= "Category / Icon";
 $lang["news"]["add_priority"]	= "Priotity";
