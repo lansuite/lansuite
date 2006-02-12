@@ -240,8 +240,8 @@ class MasterSearch {
 				$templ["ms"]["pages"] = $page_data["html"];
 			} else {
 				$templ["ms"]["pages"] = "";
-				$page_data[0] = "0";
-				$page_data[1] = $this->data['count'];
+				$page_data['a'] = "0";
+				$page_data['b'] = $this->data['count'];
 			}
 
 			// Tabellenkopf generieren
