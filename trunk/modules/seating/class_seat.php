@@ -286,6 +286,13 @@ class seat2 {
 						$templ['seat']['seat_data_array'] = "";
 						// $templ['seat']['cols'] .= $dsp->FetchModTpl('seating', 'plan_cell');
 					break;
+					
+					// IP-Input-Fields
+					case 3:
+						if ($seat_state[$y][$x] >= 1 and $seat_state[$y][$x] < 10) $templ['seat']['cell_content'] = "<input type=\"text\" name=\"cell[". ($x * 100 + $y) ."]\" size=\"15\" maxlength=\"15\" value=\"". $seat_ip[$y][$x] ."\" />";
+						else $templ['seat']['cell_content'] = "&nbsp;";
+						$templ['seat']['cols'] .= $dsp->FetchModTpl('seating', 'plan_cell');
+					break;
 				}
 				$cell_nr++;
 			}

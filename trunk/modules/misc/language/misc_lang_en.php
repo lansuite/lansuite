@@ -32,6 +32,8 @@
  $lang['misc']['err_dbl']       = "tautologous";
  $lang['misc']['err_invalid']   = "invalid";
  $lang['misc']['err_no_block']  = "This block does not exist.";
+ $lang['misc']['err_double_ip'] = "At least one of the ips has allready been assigned";
+ $lang['misc']['err_ip_format'] = "The form of at least one ip ist invallid. Form: 192.168.123.12";
 
  //Contend
  $lang['misc']['this_plan']     = "this plan";

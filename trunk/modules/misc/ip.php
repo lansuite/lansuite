@@ -1,143 +1,67 @@
 <?php
-
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*
-*	(c) 2001-2003 by One-Network.Org
-*
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		ip.php
-*	Module: 		seat
-*	Main editor: 		raphael@lansuite.de
-*	Last change: 		04.01.2003 14:51
-*	Description: 		To change ips =)
-*	Remarks:
-*
-**************************************************************************/
-
-
 $blockid = $_GET['blockid'];
-$step 	 = $_GET['step'];
 $seating_ip = $_POST['seating_ip'];
-
 
 $seat = new seat;
 
-
-switch($step) {
-
+switch($_GET['step']) {
 	case 3:
+		$seating_ip_exists = array();
+		$seating_ip = array();
 
+		if ($_POST['cell']) foreach($_POST['cell'] as $cur_cell => $value) if ($value) {
+			$col = floor($cur_cell / 100);
+			$row = $cur_cell % 100;
 
-	$query = $db->query("SELECT ip FROM {$config["tables"]["seat_seats"]} WHERE blockid!='$blockid'");
+			// Check IP format
+			if (!$func->checkIP($value)) {
+		    $func->error($lang['misc']['err_ip_format'], '');
+				$_GET['step'] = 2;
+				break;
+			}
 
-	while($row =$db->fetch_array($query)) {
-		$seating_ip_exists[] = $row["ip"];
-	} // while
-
-	if(!is_array($seating_ip_exists)) $seating_ip_exists = array();
-	if(!is_array($seating_ip)) $seating_ip = array();
-
-	foreach($seating_ip as $seatid => $ip) {
-
-		$ip = chop(ltrim($ip));
-
-		$seat->seat_ip_new[$seatid] = $ip;
-
-		if($func->checkIP($ip) == FALSE) {
-			eval($func->generate_error_template("general_general_form", $seatid, $lang['misc']['err_invalid']));
-			$step = 2;
-
-
+			// Check for allready assigned IPs
+			/*
+			$current_ip = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["seat_seats"]} WHERE ip = '$value'");
+			if ($current_ip['found']) {
+				$func->error($lang['misc']['err_double_ip'], '');
+				$_GET['step'] = 2;
+				break;
+			}*/
 		}
-		/*
-		 elseif(in_array($ip, $seating_ip_exists)) {
-			eval($func->generate_error_template("general_general_form", $seatid, "existiert"));
-			$step = 2;
-
-		}
-		*/
-
-		if(isset($checked_ips[$ip]))
-		{
-		$double_ips[$seatid] = $ip;
-		$double_ips[$checked_ips[$ip]] =  $seating_ip[$checked_ips[$ip]];
-		}
-		else
-		{
-		$checked_ips[$ip] = $seatid;
-		}
-
-	} // foreach
-
-
-
-	if(is_array($double_ips)) {
-	foreach($double_ips as $seatid => $ip) {
-		eval($func->generate_error_template("general_general_form", $seatid, $lang['misc']['err_dbl']));
-		$step = 2;
-
-	} // foreach
-	} // if
-
 	break;
+}
 
-
-} // switch - step - error
-
-
-
-switch($step) {
-
-
+switch($_GET['step']) {
 	default:
-		$func->error("Under construction", '');
-	/*
 		$mastersearch = new MasterSearch($vars, 'index.php?mod=misc&action=ip', "index.php?mod=misc&action=ip&step=2&blockid=", '');
 		$mastersearch->LoadConfig('seat_blocks', $lang['seat']['ms_search'], $lang['seat']['ms_result']);
 		$mastersearch->PrintForm();
 		$mastersearch->Search();
 		$mastersearch->PrintResult();
 		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-*/
 	break;
-
 
 	case 2:
-		$templ['seating']['ip']['form']['control']['backlink'] = "index.php?mod=misc&action=ip";
-		$templ['seating']['ip']['form']['control']['action']   = "index.php?mod=misc&action=ip&step=3&blockid=$blockid";
+		$dsp->NewContent($lang['seating']['seat_info'], $lang['seating']['seat_info_sub']);
 
+		$dsp->SetForm("index.php?mod=misc&action=ip&step=3&blockid={$_GET['blockid']}");
+		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 3));
+		$dsp->AddFormSubmitRow('next');
 
-
-		$templ['misc']['general']['case']['control']['plan'] .=  $seat->view_block_with_input($blockid);
-
-		$templ['misc']['ip']['case']['info']['js_popup'] = $seat->convert_js_string("ip", $blockid, "", $lang['misc']['this_plan'], 0);
-
-		$templ['index']['info']['content'] .= $dsp->FetchModTpl("misc","misc_ip_form_step2");
-
+		$dsp->AddBackButton('index.php?mod=misc&action=ip', 'seating/show');
+		$dsp->AddContent();
 	break;
-
 
 	case 3:
+		if ($_POST['cell']) foreach($_POST['cell'] as $cur_cell => $value) {
+			$col = floor($cur_cell / 100);
+			$row = $cur_cell % 100;
 
-	foreach($seating_ip as $seatid => $ip) {
-
-		$db->query("UPDATE {$config["tables"]["seat_seats"]} SET ip='$ip' WHERE seatid='$seatid'");
-
-
+			$db->query_first("UPDATE {$config["tables"]["seat_seats"]} SET ip='$value'
+				WHERE blockid = '{$_GET['blockid']}' AND row = '$row' AND col = '$col'");
 		}
-
-	$func->confirmation($lang['misc']['cf_add_ips'], "index.php?mod=seating&action=ip");
-
-
+		$func->confirmation($lang['misc']['cf_add_ips'], 'index.php?mod=misc&action=ip');
 	break;
-
-
-} // switch - step
-
-
-
+}
 ?>
