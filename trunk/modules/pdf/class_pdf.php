@@ -409,7 +409,8 @@ class pdf {
 				$pdf_sqlstring .= "LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id OR printed.item_id is NULL WHERE (printed.time > '" . $_POST['date'] . "' OR printed.time is NULL) AND (printed.template_id='{$this->templ_id}' OR printed.template_id is NULL)";
 			}
 		}else{
-				$pdf_sqlstring .= "LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id OR printed.item_id is NULL WHERE (printed.template_id='{$this->templ_id}' OR printed.template_id is NULL)";
+				// $pdf_sqlstring .= "LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id OR printed.item_id is NULL WHERE (printed.template_id='{$this->templ_id}' OR printed.template_id is NULL)";
+				$pdf_sqlstring .= "WHERE 1";
 		}
 
 		if ($pdf_guestid == "null"){
