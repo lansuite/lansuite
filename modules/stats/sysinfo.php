@@ -1,8 +1,8 @@
 <?php
-$sysinfo_ramusage=60;
+$sysinfo_ramusage=83;
 $sysinfo_ramtotal=536199168;
-$sysinfo_ramfree=210145280;
+$sysinfo_ramfree=89436160;
 $sysinfo_virtualtotal=2147352576;
-$sysinfo_virtualfree=2127560704;
-$sysinfo_cpuusage=4;
+$sysinfo_virtualfree=2128490496;
+$sysinfo_cpuusage=10;
 ?>

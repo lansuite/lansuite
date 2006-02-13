@@ -25,6 +25,7 @@ Version 2.0.7
 - Bugfix: Es konnten im Sposorenmodul keine Bilder mehr hochgeladen werden. (Genesis 5.2.06)
 - Bugfix: Wenn das System auf Multiparty eingestellt war konnten sich die Leute nicht mehr anmelden. (Genesis 4.2.06)
 
+- Change: Catering-Modul entfernt, da inzwischen vom Foodcenter abgelöst. Das Catering-Modul ist jedoch weiterhin unter old_modules zu finden (KnoX 13.02.2006)
 - Change: #305: Sitzplatz (manuell) eine IP zuweisen wieder eingebaut. War seid neuem Sitzplan nicht mehr verfügbar (KnoX 13.02.2006)
 - Change: Sitzplan in Gästeliste öffnet sich nun nicht mehr in Popup (KnoX 12.02.2006)
 - Change: #284 Nun werden bei jedem Boardeintrag die Namen angezeigt. Es kann auch direkt der letzte eintrag aufgerufen werden. (Genesis 5.2.06)
