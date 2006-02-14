@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.7
 
+- Bugfix: #308: Benutzer, die einen Sitzplatz vorgemerkt haben, wurden in Gästeliste mit dem Sitz angezeigt (KnoX 14.02.2006)
 - Bugfix: #301 Bei eigenen Vorlagen wurde nicht alles User gedruckt. Bug erst teilweise behoben. (Genesis 13.2.06)
 - Bugfix: Mastersearch lieferte keine Ergebnisse, wenn $config["size"]["table_rows"] leer war (KnoX 12.02.2006)
 - Bugfix: Bei einem Fehlerhaften login wurde das Errorsymbol nicht angezeigt.  (Genesis 11.2.06)

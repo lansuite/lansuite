@@ -119,7 +119,7 @@ $guestlist["search_item"] 	= "user";
 			    $get_seat = $db->query_first("SELECT s.col, s.row, s.blockid, b.name, b.orientation
             FROM {$config['tables']['seat_seats']} AS s
 			      LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b.blockid
-            WHERE s.userid = {$row['userid']}"); 
+            WHERE s.userid = {$row['userid']} AND s.status = 2"); 
 
           if ($get_seat['col'] and $get_seat['row']) $templ['guestlist']['search']['row']['user']['info']['seat'] = "<a href=\"index.php?mod=seating&action=show&step=2&blockid={$get_seat['blockid']}&col={$get_seat['col']}&row={$get_seat['row']}\">". $get_seat['name'] ." - ". $seat2->CoordinateToName($get_seat['col'], $get_seat['row'], $get_seat['orientation']) ."</a>";
 					elseif ($row["paid"]) $templ['guestlist']['search']['row']['user']['info']['seat'] = $lang["guestlist"]["list_paid"];
