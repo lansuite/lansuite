@@ -133,7 +133,7 @@ default:
 								WHERE	userid = '{$POLL_VOTES["userid"]}'
 								");
 
-								$templ['poll']['show']['details']['case']['control']['javascript'] .= "," . addslashes($USER["username"]);	
+								$templ['poll']['show']['details']['case']['control']['javascript'] .= ", " . addslashes($USER["username"]);	
 							}
 						} // while users
 
