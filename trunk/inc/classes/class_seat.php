@@ -837,7 +837,7 @@ var $field_seatid_index = array();
 
 		global $db,$func,$party;
 		if($user != ""){
-			$row_seat = $db->query_first("SELECT s.blockid, s.col, s.row FROM {$GLOBALS['config']['tables']['seat_seats']} AS s LEFT JOIN {$GLOBALS['config']['tables']['seat_block']} AS b USING(blockid) WHERE s.userid='$user' AND b.party_id={$party->party_id}");
+			$row_seat = $db->query_first("SELECT s.blockid, s.col, s.row FROM {$GLOBALS['config']['tables']['seat_seats']} AS s LEFT JOIN {$GLOBALS['config']['tables']['seat_block']} AS b USING(blockid) WHERE s.userid='$user' AND s.status = 2 AND b.party_id={$party->party_id}");
 			$blockid  = $row_seat["blockid"];
 			if($blockid != "") {
 				$row_block    = $db->query_first("SELECT orientation, name FROM {$GLOBALS['config']['tables']['seat_block']} WHERE blockid='$blockid'");

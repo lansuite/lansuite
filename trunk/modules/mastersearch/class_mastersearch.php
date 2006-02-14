@@ -443,7 +443,7 @@ class MasterSearch {
 
 		$row = $db->query_first("SELECT s.row, s.col, b.orientation, b.name FROM {$config['tables']['seat_seats']} AS s
 			LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b.blockid
-			WHERE s.userid='$userid'
+			WHERE s.userid='$userid' AND s.status = 2
 			");
 
 		return $row['name'] .' - '. $seat2->CoordinateToName($row['row'], $row['col'], $row['orientation']);
