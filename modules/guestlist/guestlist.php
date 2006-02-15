@@ -116,12 +116,8 @@ $guestlist["search_item"] 	= "user";
 					$templ['guestlist']['search']['row']['user']['info']['tbl'] = "";
 					$userid = $row["userid"];
 
-			    $get_seat = $db->query_first("SELECT s.col, s.row, s.blockid, b.name, b.orientation
-            FROM {$config['tables']['seat_seats']} AS s
-			      LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b.blockid
-            WHERE s.userid = {$row['userid']} AND s.status = 2 AND b.party_id = ". (int)$party->party_id); 
-
-          if ($get_seat['col'] and $get_seat['row']) $templ['guestlist']['search']['row']['user']['info']['seat'] = "<a href=\"index.php?mod=seating&action=show&step=2&blockid={$get_seat['blockid']}&col={$get_seat['col']}&row={$get_seat['row']}\">". $get_seat['name'] ." - ". $seat2->CoordinateToName($get_seat['col'], $get_seat['row'], $get_seat['orientation']) ."</a>";
+          $SeatText = $seat2->SeatOfUser($row['userid'], 0, 1);
+          if ($SeatText) $templ['guestlist']['search']['row']['user']['info']['seat'] = $SeatText;
 					elseif ($row["paid"]) $templ['guestlist']['search']['row']['user']['info']['seat'] = $lang["guestlist"]["list_paid"];
 					else {
 						$templ['guestlist']['search']['row']['user']['info']['seat'] = $lang["guestlist"]["list_not_paid"];

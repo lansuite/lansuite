@@ -98,13 +98,8 @@ else {
 			$dsp->AddDoubleRow($lang['usrmgr']['details_newsletter'], ($user_data['newsletter']) ? $lang['sys']['yes'] : $lang['sys']['no']);
 
 			// Seating
-			if($user_data['blockid'] == "") $seattxt = $lang['usrmgr']['details_no_seat'];
-			else {
-				$seat = new seat;
-				$details_user = $_GET['userid'];
-				$seattxt = $seat->display_seat_link("usrmgr", $details_user);
-			}
-			$dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $seattxt);
+			if ($user_data['blockid'] == "") $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $lang['usrmgr']['details_no_seat']);
+			else $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $seat2->SeatOfUser($_GET['userid']));
 
 			// IPAdress
 			if($cfg['sys_internet'] == 0) {

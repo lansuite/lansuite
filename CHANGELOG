@@ -6,6 +6,8 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.7
 
+- Bugfix: In Gästeliste und Benutzerdetails wurden die Sitzplatzbezeichnungen nicht korrekt angezeigt (KnoX 15.02.2006) 
+- Bugfix: Es war nicht möglich die Sitzplanorientierung zwischen horizontal und vertikal umzustellen (KnoX 15.02.2006) 
 - Bugfix: Der eigene Sitz wurde im Sitzplan als Platz eines Clanmates angezeigt (KnoX 15.02.2006)
 - Bugfix: Die Sitzplatzanzeige in der Gästeliste und der Benutersuche, war nicht abhängig von der aktuellen Party (KnoX 14.02.2006)
 - Bugfix: #308: Benutzer, die einen Sitzplatz vorgemerkt haben, wurden in Gästeliste mit dem Sitz angezeigt (KnoX 14.02.2006)
