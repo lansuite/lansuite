@@ -12,16 +12,42 @@ class seat2 {
 		return $res;
 	}
 
+	function SeatOfUser($userid, $MaxBlockLength = 0, $LinkIt = 0) {
+	  global $db, $config, $party; 
+
+		$row = $db->query_first("SELECT s.row, s.col, b.blockid, b.name FROM {$config['tables']['seat_seats']} AS s
+			LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b.blockid
+			WHERE s.userid='$userid' AND s.status = 2 AND b.party_id = ". (int)$party->party_id);
+
+    if ($row['blockid']) return $this->CoordinateToBlockAndName($row['col'] + 1, $row['row'], $row['blockid'], $MaxBlockLength, $LinkIt);
+    else return false;
+	}
+
+  function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0) {
+    global $db, $config;
+    
+		$row = $db->query_first("SELECT name, orientation FROM {$config['tables']['seat_block']} WHERE blockid = $blockid");
+
+		if (!$row['name']) return false;
+		else {
+      if ($MaxBlockLength > 4 and strlen($row['name']) > $MaxBlockLength) $row['name'] = substr($row['name'], 0, $MaxBlockLength - 3) . '...';
+      		
+		  $LinkText = $row['name'] .' - '. $this->CoordinateToName($x, $y, $row['orientation']);
+	    if ($LinkIt) return "<a href=\"index.php?mod=seating&action=show&step=2&blockid=$blockid&col=$x&row=$y\">$LinkText</a>";
+	    else return $LinkText;
+	  }
+  }
+
 	function CoordinateToName($x, $y, $orientation) {
 		$out = '';
 		if ($orientation) {
 			if ($y > -1)				$out = ($y + 1);
 			if ($x > -1 and $y > -1)	$out .= '-';
-			if ($x > -1)				$out .= str_replace('@', '', chr(64 + floor($x / 26))) . chr(65 + $x % 26);
+			if ($x > -1)				$out .= str_replace('@', '', chr(64 + floor(($x - 1) / 26))) . chr(65 + ($x - 1) % 26);
 		} else {
-			if ($y > -1)				$out = str_replace('@', '', chr(64 + floor($y / 26))) . chr(65 + $y % 26);
+			if ($y > -1)				$out = str_replace('@', '', chr(64 + floor(($y) / 26))) . chr(65 + ($y) % 26);
 			if ($x > -1 and $y > -1)	$out .= '-';
-			if ($x > -1)				$out .= ($x + 1);
+			if ($x > -1)				$out .= ($x);
 		}
 
 		return $out;
@@ -54,7 +80,8 @@ class seat2 {
 		$this->CreateSeatImage('seat_clanmate', 0, 100, 200, 50);
 
 		// Get Block data (side descriptions + number of rows + cols)
-		$block = $db->query_first("SELECT * FROM {$config["tables"]["seat_block"]} WHERE blockid = '$blockid'");
+		$block = $db->query_first("SELECT * FROM {$config["tables"]["seat_block"]} WHERE blockid = '{$_GET['blockid']}'");
+
 		$templ['seat']['text_tl'] = $block['text_tl'];
 		$templ['seat']['text_tc'] = $block['text_tc'];
 		$templ['seat']['text_tr'] = $block['text_tr'];
@@ -130,7 +157,7 @@ class seat2 {
 			}elseif ($mode == 2){
 				if ($x < $block['cols']) $templ['seat']['plan_sep_row_head_cols'] .= "<td style=\"font-size:8px; table-layout:fixed; width:{$templ['sep_width']}px;\"><img src=\"ext_inc/seating_symbols/100.png\" name=\"leerpic{$block['cols']}\" /></td>";
 			}
-			$templ['seat']['col_nr'] = $this->CoordinateToName($x, -1, $block['orientation']);
+			$templ['seat']['col_nr'] = $this->CoordinateToName($x + 1, -1, $block['orientation']);
 #			($block['orientation'])? $templ['seat']['col_nr'] = chr(65 + $x) : $templ['seat']['col_nr'] = ($x + 1);
 			$templ['seat']['plan_sep_row_desc_x'] .= $dsp->FetchModTpl('seating', 'plan_row_head');
 		}
@@ -173,13 +200,11 @@ class seat2 {
 				if ($seat_state[$y][$x] == 2 and $seat_userid[$y][$x] == $auth['userid']) $s_state = 8;
 				elseif ($seat_state[$y][$x] == 2 and in_array($seat_userid[$y][$x], $my_clanmates)) $s_state = 9;
 				else $s_state = $seat_state[$y][$x];
-//				$user_info = $db->query_first("SELECT username, firstname, name, clan, clanurl FROM {$config["tables"]["user"]} WHERE userid = '{$seat_userid[$y][$x]}'");
-//				$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info['username']},{$user_info['firstname']},{$user_info['name']},{$user_info['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info['clanurl']}';\r\n";
 
 				if(!$cfg['sys_internet'] OR $auth['type'] > 1 OR ($auth['userid'] == $selected_user && $selected_user != false)){
-					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},{$user_info[$y][$x]['firstname']},{$user_info[$y][$x]['name']},{$user_info[$y][$x]['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
-				}else{
-					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},,,{$user_info[$y][$x]['clan']},{$block['name']},". $this->CoordinateToName($x, $y, $block['orientation']). ",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
+					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},{$user_info[$y][$x]['firstname']},{$user_info[$y][$x]['name']},{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $_GET['blockid']) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
+				} else {
+					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},,,{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $_GET['blockid']) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
 				}
 				
 
@@ -187,7 +212,7 @@ class seat2 {
 				switch ($mode) {
 					default:
 						$templ['seat']['cell_nr'] = $cell_nr;
-						$templ['seat']['img_title'] = $this->CoordinateToName($x, $y, $block['orientation']);
+						$templ['seat']['img_title'] = $this->CoordinateToName($x + 1, $y, $block['orientation']);
 
 						// Set seat link target
 						$templ['seat']['link_href'] = '';

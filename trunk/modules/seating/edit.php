@@ -150,9 +150,9 @@ switch($_GET['step']) {
 		// Orientation
 		$selections = array();
 		($_POST['orientation'] == 0) ? $selected = 'selected' : $selected = '';
-		array_push ($selections, "<option $selected value=\"1\">".$lang['seating']['horizontal'].'</option>');
+		array_push ($selections, "<option $selected value=\"0\">".$lang['seating']['vertical'].'</option>');
 		($_POST['orientation'] == 1) ? $selected = 'selected' : $selected = '';
-		array_push ($selections, "<option $selected value=\"1\">".$lang['seating']['vertical'].'</option>');
+		array_push ($selections, "<option $selected value=\"1\">".$lang['seating']['horizontal'].'</option>');
 		$dsp->AddDropDownFieldRow('orientation', $lang['seating']['orientation'], $selections, '');
 
 		$dsp->AddCheckBoxRow('u18', $lang['seating']['u18_block'], '', '', 0, $_POST['u18']);

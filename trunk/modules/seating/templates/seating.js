@@ -84,13 +84,13 @@ function showseat(id) {
 		MM_swapImgRestore();
 
 		// Write userdata
-		document.getElementById("seating").firstChild.nodeValue = 'Block: ' + data_array[4] + ' - ' + data_array[5];
+		document.getElementById("seating").firstChild.nodeValue = 'Block: ' + data_array[4];
 		document.getElementById("name").firstChild.nodeValue = data_array[0];
 		if (data_array[1] || data_array[2]) document.getElementById("name").firstChild.nodeValue += ' (' + data_array[1] + ' ' + data_array[2] + ')';
 		document.getElementById("clan").firstChild.nodeValue = data_array[3];
-		document.getElementById("ip").firstChild.nodeValue = data_array[8];
+		document.getElementById("ip").firstChild.nodeValue = data_array[7];
 
-		switch (data_array[7]) {
+		switch (data_array[6]) {
 			case "1":
 					document.getElementById("seating").firstChild.nodeValue += ' [Frei]';
 					MM_swapImage(id,'','ext_inc/auto_images/{default_design}/seat/seat_free_onclick.png',1);
@@ -185,36 +185,36 @@ function TX_showToolTip(e,id) {
  		data_array = seat[id].split(",");
  		
  		// Text für die Verschiedenen Symbole
- 		switch (data_array[7]){
+ 		switch (data_array[6]){
 		
 		case "2":
 		case "3":
 		case "8":
 		case "9":
- 			text += '<tr><td style="font-weight: bold;">Block:</td><td>' + data_array[4] + ' - ' + data_array[5] + "</td></tr>";
+ 			text += '<tr><td style="font-weight: bold;">Block:</td><td>' + data_array[4] + "</td></tr>";
         	text += '<tr><td style="font-weight: bold;">Benutzername:</td><td>' + data_array[0] + "</td></tr>";
         	text += '<tr><td style="font-weight: bold;">Name / Vorname:</td><td>' + data_array[1] + ' ' + data_array[2] + "</td></tr>";
         	text += '<tr><td style="font-weight: bold;">Clan :</td><td>' + data_array[3] + "</td></tr>";
-        	text += '<tr><td style="font-weight: bold;">IP :</td><td>' + data_array[8] + "</td></tr>";
+        	text += '<tr><td style="font-weight: bold;">IP :</td><td>' + data_array[7] + "</td></tr>";
         	break;
         case "1":
-        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + ' - ' + data_array[5] + " Frei</td></tr>";
+        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + " Frei</td></tr>";
         	break;
   
         // Text für die Verschiedenen Symbole
         case "80":
         case "81":
-        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + ' - ' + data_array[5] + "</td></tr>";
+        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + "</td></tr>";
         	text += '<tr><td style="font-weight: bold;">Beschreibung :</td><td> WC</td></tr>';
         break;
 
         case "82":
-        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + ' - ' + data_array[5] + "</td></tr>";
+        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + "</td></tr>";
         	text += '<tr><td style="font-weight: bold;">Beschreibung :</td><td> Notausgang</td></tr>';
         break;
         
         case "83":
-        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + ' - ' + data_array[5] + "</td></tr>";
+        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + "</td></tr>";
         	text += '<tr><td style="font-weight: bold;">Beschreibung :</td><td> Catering</td></tr>';
         break;
         
