@@ -210,8 +210,8 @@ class seat2 {
 								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_free.png";
 							break;
 							case 2: // Seat occupied
-								if($selected_user)	$userid = $selected_user;
-								else $userid = $selected_user;
+								if ($selected_user)	$userid = $selected_user;
+								else $userid = $auth['userid'];
 								// My Seat
 								if ($seat_userid[$y][$x] == $userid) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_myselfe.png";
 								// Clanmate
@@ -309,7 +309,7 @@ class seat2 {
 		$templ['seating']['legend']['clan']		= $lang['seating']['clan_seat'];
 		$templ['seating']['legend']['marked']	= $lang['seating']['marked'];
 		
-		if($selected_user) $templ['seating']['legend']['me'] = $lang['seating']['selected'];
+		if ($selected_user) $templ['seating']['legend']['me'] = $lang['seating']['selected'];
 		else	$templ['seating']['legend']['me']			 = $lang['seating']['me'];
 				
 		if ($mode == 0) $plan .= $dsp->FetchModTpl('seating', 'plan_legend');
