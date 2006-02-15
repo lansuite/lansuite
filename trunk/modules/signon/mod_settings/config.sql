@@ -1,7 +1,7 @@
 ('signon_multiparty', '0', 'boolean', 'System-Daten', 'Wird das System für mehrere Partys verwendet?');
 ('signon_signonemail_subject', 'Informationsmail zur Anmeldung bei der LANparty', 'string', 'Anmeldung', 'Subjekt der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird.');
 ('signon_agb_targetblank', '1', 'boolean', 'Anmeldung', 'Soll der Link zu den AGB in einem neuen Fenster angezeigt werden?');
-('signon_agblink', '', 'string', 'Anmeldung', 'Link zu den AGB');
+('signon_agblink', '/index.php?mod=info2&action=show_info2&submod=Regeln%20(AGB)', 'string', 'Anmeldung', 'Link zu den AGB');
 ('signon_volllink', '', 'string', 'Anmeldung', 'Link zu der U18-Vollmacht');
 ('signon_show_firstname', '2', 'signon', 'Anmeldungsfelder', 'Vorname');
 ('signon_show_lastname', '2', 'signon', 'Anmeldungsfelder', 'Nachname');
