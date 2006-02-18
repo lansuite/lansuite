@@ -100,16 +100,18 @@ switch ($_GET['step']){
 				$dsp->AddHRuleRow();
 				$dsp->AddDoubleRow("","<a href='?mod=usrmgr&action=group&step=15'>{$lang['usrmgr']['group_sort_list']}</a>");
 			}
+			$dsp->AddHRuleRow();
+			$dsp->SetForm("index.php?mod=usrmgr&action=group&step=2&var=update");
 			if($party->get_user_group_dropdown()){
-				$dsp->AddHRuleRow();
-				$dsp->SetForm("index.php?mod=usrmgr&action=group&step=2&var=update");
 				$dsp->AddFormSubmitRow("edit");
 			}				
+			if($dsp->form_open) $dsp->CloseForm();
+			$dsp->AddHRuleRow();
+			$dsp->SetForm("index.php?mod=usrmgr&action=group&step=20");
 			if($party->get_user_group_dropdown()){
-				$dsp->AddHRuleRow();
-				$dsp->SetForm("index.php?mod=usrmgr&action=group&step=20");
 				$dsp->AddFormSubmitRow("delete");
 			}
+			if($dsp->form_open) $dsp->CloseForm();
 			
 		}
 		
