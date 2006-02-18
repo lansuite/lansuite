@@ -249,9 +249,10 @@ class pdf {
 		// Array mit Benutzern
 		$t_array = array();
 		array_push ($t_array, "<option $selected value=\"null\">Alle</option>");
-		$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user 
+/*		$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user 
 							LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id OR printed.item_id is NULL WHERE user.type != '-1'");
-
+*/
+		$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user WHERE user.type > 0");
 		while($row = $db->fetch_array($query)) {
 			if($row['item_id'] == ""){
 				array_push ($t_array, "<option $selected value=\"" . $row['userid'] . "\">" . $row['username'] . "</option>");
@@ -261,7 +262,7 @@ class pdf {
 		}
 		$dsp->AddSingleRow($lang["pdf"]["user_caption"]);				
 		$dsp->AddDropDownFieldRow("user", $lang["pdf"]["user"], $t_array, "", 1);
-		
+/*		
 		// Array für Datum
 		$d_array = array("<option selected value=\"null\">Alle</option>");
 		
@@ -272,7 +273,7 @@ class pdf {
 		$dsp->AddSingleRow($lang["pdf"]["date_caption"]);				
 		$dsp->AddDropDownFieldRow("date", $lang["pdf"]["date"], $d_array, "", 1);
 		$dsp->AddCheckBoxRow("only", $lang["pdf"]["only"], "", "", "1", "0", "0");
-		
+*/		
 		// Knopf für erzeugen der PDF
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddBackButton("index.php?mod=pdf&action=$action","pdf/usercards"); 
@@ -404,9 +405,9 @@ class pdf {
 		// Auf Datum prüfen
 		if ($_POST['date'] != "null" && $_POST['date'] != ""){
 			if($_POST['only'] == 1){
-				$pdf_sqlstring .= "LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id WHERE printed.time = '" . $_POST['date'] . "' AND (printed.template_id='{$this->templ_id}' OR printed.template_id is NULL)";
+				$pdf_sqlstring .= "LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id WHERE printed.time = '" . $_POST['date'] . "' AND (printed.template_id='{$this->templ_id}')";
 			}else{
-				$pdf_sqlstring .= "LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id OR printed.item_id is NULL WHERE (printed.time > '" . $_POST['date'] . "' OR printed.time is NULL) AND (printed.template_id='{$this->templ_id}' OR printed.template_id is NULL)";
+				$pdf_sqlstring .= "LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id WHERE (ISNULL(printed.item_id) AND NOT(ISNULL(user.userid))) OR  user.userid=printed.item_id AND (printed.time > '" . $_POST['date'] . "' OR printed.time is NULL) AND (printed.template_id='{$this->templ_id}' OR printed.template_id is NULL)";
 			}
 		}else{
 				// $pdf_sqlstring .= "LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id OR printed.item_id is NULL WHERE (printed.template_id='{$this->templ_id}' OR printed.template_id is NULL)";
