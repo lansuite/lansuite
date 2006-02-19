@@ -107,10 +107,26 @@ if((!$cfg["server_admin_only"] AND $get_paid["paid"] == 1) OR ($auth["type"] > 1
 			if($_POST["server_ram"] == "") 			$_POST["server_ram"] = $server["ram"];
 			if($_POST["server_hdd"] == "") 			$_POST["server_hdd"] = $server["hdd"];
 			if($_POST["server_password"] == "")		$_POST["server_password"] = $server["pw"];
-
+			if($_POST["owner"] == "")				$_POST["owner"] = $server["owner"];
+			if($_POST["owner"] == "")				$_POST["owner"] = $auth['userid'];
+			
 			$dsp->NewContent($lang["server"]["add_caption"], $lang["server"]["add_subcaption"]);
 			$dsp->SetForm("index.php?mod=server&action={$_GET["action"]}&step=3&serverid={$_GET["serverid"]}");
 
+			if($auth['type'] > 1){
+				$t_array = array();
+				$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user WHERE user.type > 0");
+				while($row = $db->fetch_array($query)) {
+					if($_POST["owner"] == $row['userid']) $selected ="selected"; else $selected = "";
+					if($row['item_id'] == ""){
+						array_push ($t_array, "<option $selected value=\"" . $row['userid'] . "\">" . $row['username'] . "</option>");
+					}else{
+						array_push ($t_array, "<option $selected value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>");	
+					}
+				}
+				$dsp->AddDropDownFieldRow("owner", $lang["server"]["details_owner"], $t_array, "", 1);
+
+			}
 			$dsp->AddTextFieldRow("server_caption", $lang["server"]["details_name"], $_POST["server_caption"], $caption_error);
 
 			$server_typen = array("gameserver" => $lang["server"]["details_gameserver"],
@@ -147,13 +163,15 @@ if((!$cfg["server_admin_only"] AND $get_paid["paid"] == 1) OR ($auth["type"] > 1
 		break; // BREAK CASE 2
 		
 		case 3:
+			if($_POST['owner'] == "") $user_id = $_SESSION["auth"]["userid"];
+			else $user_id = $_POST['owner'];
 			if($_SESSION["add_blocker_server"] == TRUE) $func->error("NO_REFRESH", "index.php?mod=server&action={$_GET["action"]}");
 			else {
 				switch ($_GET["action"]) {
 					case "add":
 						$add_it = $db->query("INSERT INTO {$config["tables"]["server"]} SET
 							caption = '{$_POST["server_caption"]}',
-							owner = '{$_SESSION["auth"]["userid"]}',
+							owner = '{$user_id}',
 							text = '{$_POST["server_text"]}',
 							ip = '{$_POST["server_ipaddress"]}',
 							port = '{$_POST["server_port"]}',
@@ -174,7 +192,7 @@ if((!$cfg["server_admin_only"] AND $get_paid["paid"] == 1) OR ($auth["type"] > 1
 						if (($server["owner"] == $_SESSION["auth"]["userid"]) || ($_SESSION["auth"]["type"] > 1)) {
 							$change_it = $db->query("UPDATE {$config[tables][server]} SET
 								caption = '{$_POST["server_caption"]}',
-								owner = '{$_SESSION["auth"]["userid"]}',
+								owner = '{$user_id}',
 								text = '{$_POST["server_text"]}',
 								ip = '{$_POST["server_ipaddress"]}',
 								port = '{$_POST["server_port"]}',
