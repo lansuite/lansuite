@@ -58,7 +58,7 @@ if ($tteam->SignonCheck($tournamentid)) {
 
 				// Vorhandene Teams
 				$t_array = array("<option $selected value=\"\">-{$lang["tourney"]["join_create_new_team"]}-</option>");
-				$teams = $db->query("SELECT teamid, name FROM {$config["tables"]["t2_teams"]} WHERE tournamentid = $tournamentid");
+				$teams = $db->query("SELECT teamid, name FROM {$config["tables"]["t2_teams"]} WHERE tournamentid = $tournamentid");
 				while ($team = $db->fetch_array($teams)) {
 					if ($_POST["existing_team_name"] == $team['teamid']) $selected = "selected";
 					array_push ($t_array, "<option $selected value=\"{$team['teamid']}\">{$team['name']}</option>");

@@ -60,8 +60,8 @@ class team {
 			WHERE u.userid = $userid AND party_id={$party->party_id}
 			");
 
-		$team = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = $tid) AND (leaderid = $userid)");
-		$teammember = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["t2_teammembers"]} WHERE (tournamentid = $tid) AND (userid = $userid)");
+		$team = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = $tid) AND (leaderid = $userid)");
+		$teammember = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["t2_teammembers"]} WHERE (tournamentid = $tid) AND (userid = $userid)");
 
 		$in_group = $db->query_first("SELECT 1 AS found
 			FROM {$config["tables"]["t2_teams"]} AS team
