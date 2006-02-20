@@ -160,7 +160,7 @@ else {
 
 			// Threads
 			while($row_threads = $db->fetch_array($get_board_threads)) {
-				$threads .= $func->unixstamp2date($row_threads['date'], "datetime")." - <a href=\"index.php?mod=board&level=thread&tid={$row_threads['tid']}\">{$row_threads['caption']}</a>". HTML_NEWLINE;
+				$threads .= $func->unixstamp2date($row_threads['date'], "datetime")." - <a href=\"index.php?mod=board&action=thread&tid={$row_threads['tid']}\">{$row_threads['caption']}</a>". HTML_NEWLINE;
 			}
 			$dsp->AddDoubleRow($lang['usrmgr']['details_top10_threads'], $threads);
 
