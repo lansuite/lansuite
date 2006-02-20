@@ -28,9 +28,19 @@ switch($_GET['step']) {
 
 	// Reserve free seat
 	case 10:
+		$user_data = $db->query_first("SELECT paid FROM {$config['tables']['party_user']}
+      WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
+		$seat_user = $db->query_first("SELECT status FROM {$config["tables"]["seat_seats"]}
+      WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}'");
+
 		// Check paid
-		$user_data = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
 		if (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) $func->information($lang['seating']['i_not_paid2'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+
+		// Check seat availability
+	  elseif ($seat_user['status'] == 2) $func->error($lang['seating']['e_assigned'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+	    
+		// Check seat availability
+	  elseif ($seat_user['status'] == 0 or $seat_user['status'] > 9) $func->error($lang['seating']['e_no_seat'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 		
 		// No errors
 		else {
@@ -85,7 +95,10 @@ switch($_GET['step']) {
 		if (!$user_data['paid'] and $cfg['seating_paid_only']) $func->information($lang['seating']['i_not_paid2'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check seat availability
-	    elseif ($seat_user['status'] == 2)  $func->error($lang['seating']['e_assigned'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+	  elseif ($seat_user['status'] == 2) $func->error($lang['seating']['e_assigned'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+	    
+		// Check seat availability
+	  elseif ($seat_user['status'] == 0 or $seat_user['status'] > 9) $func->error($lang['seating']['e_no_seat'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// No errors
 		else {
