@@ -40,7 +40,7 @@ $guestlist["search_item"] 	= "user";
 		
 			$data_query =("SELECT A.userid, A.firstname, A.name, A.username, party.paid, A.clan
 						FROM {$config["tables"]["user"]} as A
-						LEFT JOIN {$config["tables"]["party_user"]} AS party ON A.userid = party.user_id
+						INNER JOIN {$config["tables"]["party_user"]} AS party ON A.userid = party.user_id
 						WHERE
 						A.type $usertype AND
 						A.type != '-4' AND
@@ -49,7 +49,7 @@ $guestlist["search_item"] 	= "user";
 			
 			$count_query = ("SELECT COUNT(*) AS number FROM
 						{$config["tables"]["user"]} AS A
-						LEFT JOIN {$config["tables"]["party_user"]} AS party ON A.userid = party.user_id
+						INNER JOIN {$config["tables"]["party_user"]} AS party ON A.userid = party.user_id
 						WHERE
 						A.type $usertype AND
 						A.type != '-4' AND
