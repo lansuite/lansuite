@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.7
 
+- Bugfix: Gästeliste zeigte manchmal Gäste an, die zu keiner Party angemeldet waren (KnoX 21.02.2006)
 - Bugfix: #317 Beim verlassen des Vollbildmodus wurden 2 ?? gemacht dadurch konnte man den Vollbildmodus nicht verlassen (KnoX 21.02.2006)
 - Bugfix: #309 Problematische Leerzeichen in SQL-Befehl in Turnierteam-Verwaltung entfernt (KnoX 20.02.2006)
 - Bugfix: #319 Im Sitzplan konnten mit manipuliertem Link nicht existierende Plätze reserviert werden (KnoX 20.02.2006)
@@ -34,6 +35,7 @@ Version 2.0.7
 - Bugfix: Es konnten im Sposorenmodul keine Bilder mehr hochgeladen werden. (Genesis 5.2.06)
 - Bugfix: Wenn das System auf Multiparty eingestellt war konnten sich die Leute nicht mehr anmelden. (Genesis 4.2.06)
 
+- Change: #324 Link "Nur einen neuen Account erstellen. NICHT zur Party anmelden" nun auch im Multi-Party-Modus (KnoX)
 - Change: Catering-Modul entfernt, da inzwischen vom Foodcenter abgelöst. Das Catering-Modul ist jedoch weiterhin unter old_modules zu finden (KnoX 13.02.2006)
 - Change: #305: Sitzplatz (manuell) eine IP zuweisen wieder eingebaut. War seid neuem Sitzplan nicht mehr verfügbar (KnoX 13.02.2006)
 - Change: Sitzplan in Gästeliste öffnet sich nun nicht mehr in Popup (KnoX 12.02.2006)

@@ -457,14 +457,15 @@
     		
     
     		if ($auth["type"] == 0){
-    			if ($cfg['singon_multiparty'] == "0"){
+#    			if ($cfg['singon_multiparty'] == "0"){
     				$dsp->AddSingleRow("<b>". $lang["signon"]["add_not_registered"] ."</b>");
     				$dsp->AddDoubleRow("", "<input type='hidden' name='login_x' value='1'><a href=\"index.php?mod=signon&action=add&step=2&signon=1\">". $lang["signon"]["add_not_registered_signup"] ."</a>");
     				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=signon&action=add&step=2&signon=0\">". $lang["signon"]["add_not_registered_nosignup"] ."</a>");
-    			} else {
+/*    			} else {
     				$dsp->AddSingleRow("<b>". $lang["signon"]["add_not_registered"] ."</b>");				
     				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=signon&action=add&step=2&signon=1\">". $lang["signon"]["add_not_registered_signup"] ."</a>");
-    			}
+    				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=signon&action=add&step=2&signon=0\">". $lang["signon"]["add_not_registered_nosignup"] ."</a>");
+    			}*/
     		}
     		$dsp->AddContent();
     	break;
