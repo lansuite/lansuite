@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.7
 
+- Bugfix: #317 Beim verlassen des Vollbildmodus wurden 2 ?? gemacht dadurch konnte man den Vollbildmodus nicht verlassen (KnoX 21.02.2006)
 - Bugfix: #309 Problematische Leerzeichen in SQL-Befehl in Turnierteam-Verwaltung entfernt (KnoX 20.02.2006)
 - Bugfix: #319 Im Sitzplan konnten mit manipuliertem Link nicht existierende Plätze reserviert werden (KnoX 20.02.2006)
 - Bugfix: #325 Linkfehler (letzten 10 Posts) in Userdetails (Cewigo 20.02.2006)
