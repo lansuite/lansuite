@@ -139,14 +139,14 @@ class team {
 			return false;
 
 		} else {
-			$team = $db->query_first("SELECT team.tournamentid, team.password, team.name AS teamname, t.name AS tname, t.teamplayer
+			$team = $db->query_first("SELECT team.tournamentid, team.password, team.leaderid, team.name AS teamname, t.name AS tname, t.teamplayer
 				FROM {$config["tables"]["t2_teams"]} AS team
 				LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS t ON team.tournamentid = t.tournamentid
 				WHERE team.teamid = $teamid
 				");
 
-      // Check password, if set
-      if (($team['password'] != '') and (md5($password) != $team['password'])) {
+      // Check password, if set and if acction is not performed, by teamadmin or ls-admin
+      if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= 1) and ($team['password'] != '') and (md5($password) != $team['password'])) {
         $func->information('Das eingegebene Kennwort ist nicht korrekt', $func->internal_referer);
         return false;
 
