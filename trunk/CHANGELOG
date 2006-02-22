@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.0.7
 
+- Bugfix: #304 Party-Auswahl-Drop-Down war nicht in jedem Anzeigemodus verfügbar (KnoX 22.02.2006)
 - Bugfix: #318 Im Teammanager konnte einem Team kein Benutzer hinzugefügt werden, wenn das Team ein Passwort hatte (KnoX 22.02.2006)
 - Bugfix: Gästeliste zeigte manchmal Gäste an, die zu keiner Party angemeldet waren (KnoX 21.02.2006)
 - Bugfix: #317 Beim verlassen des Vollbildmodus wurden 2 ?? gemacht dadurch konnte man den Vollbildmodus nicht verlassen (KnoX 21.02.2006)
