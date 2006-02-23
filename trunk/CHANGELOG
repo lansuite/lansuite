@@ -4,6 +4,9 @@ Hier bitte die wichtigen Änderungen einfügen :
 (Auch Name,Datum und falls vorhanden BugID für die Änderung angeben!)
 -----
 
+Version 2.1.0
+
+
 Version 2.1.0 Beta
 
 - Bugfix: #304 Party-Auswahl-Drop-Down war nicht in jedem Anzeigemodus verfügbar (KnoX 22.02.2006)
