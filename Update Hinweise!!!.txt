@@ -1,2 +1,0 @@
-Bei einem Update von Version 2.0.2 müssen alle Rechte im Forum neu gesetzt werden.
-Es ist nicht möglich von der Version > 2.0.2 wieder auf 2.0.2 zu wechseln.
