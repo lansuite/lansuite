@@ -8,5 +8,5 @@
 	<author>Raphael, Jochen</author>				<!-- The author of this module -->
 	<email>raphael@one-network.org</email>					<!-- The E-Mail-Adress of the modules author -->
 	<version>2.0</version>			<!-- The version of this module -->
-	<state>Beta</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
+	<state>Stable</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
 </lansuite-module>
