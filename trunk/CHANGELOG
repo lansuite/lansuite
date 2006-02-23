@@ -4,7 +4,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 (Auch Name,Datum und falls vorhanden BugID für die Änderung angeben!)
 -----
 
-Version 2.0.7
+Version 2.1.0 Beta
 
 - Bugfix: #304 Party-Auswahl-Drop-Down war nicht in jedem Anzeigemodus verfügbar (KnoX 22.02.2006)
 - Bugfix: #318 Im Teammanager konnte einem Team kein Benutzer hinzugefügt werden, wenn das Team ein Passwort hatte (KnoX 22.02.2006)
