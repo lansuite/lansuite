@@ -1,6 +1,6 @@
 Lansuite2 
 
-Version: 2.1.0 Beta
+Version: 2.1.0 CVS
 MD5-Sum: xxx
 
 The MD5-Sum consists of all files in modules/, install/, inc/, base.php and index.php.
