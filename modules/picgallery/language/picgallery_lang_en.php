@@ -15,7 +15,7 @@ $lang['picgallery']['owner']					= "Creator";
 $lang['picgallery']['clicks']					= "Clicks";
 
 $lang['picgallery']['pic_show_caption']			= "Picture gallery";
-$lang['picgallery']['pic_show_subcaption']		= "Picture(s) have been submitted, yet. Click a picture, or its description, to view it.";
+$lang['picgallery']['pic_show_subcaption']		= "Click a picture, or the open button below it, to view it.";
 $lang['picgallery']['del_gallery']			    = "The gallery has been deleted.";
 $lang['picgallery']['del_gallery_get']			= "Select gallery to delete:";
 $lang['picgallery']['gallery_search']			= "Gallery serach";

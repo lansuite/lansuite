@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+- Bugfix: #334 Picgallery: Falscher Text in Überschrift, Bildercounter zählte keine Pack-formate (KnoX 24.02.2006)
 
 Version 2.1.0 Beta
 
