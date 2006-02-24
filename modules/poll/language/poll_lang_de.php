@@ -1,9 +1,9 @@
 <?php
 
 $lang['poll']['structure_version'] = "1";
-$lang['poll']['content_version']   = "3";
+$lang['poll']['content_version']   = "4";
 $lang['poll']['language_name']     = "Deutsch";
-$lang['poll']['lastchange']        = "16. Oktober 2005";
+$lang['poll']['lastchange']        = "24. Februar 2006";
 $lang['poll']['translator']        = "Jochen, Jan";
 
 $lang["poll"]["add_caption"]       = "Poll hinzuf&uuml;gen / &auml;ndern";
@@ -35,7 +35,7 @@ $lang["poll"]["show_multiple"]     = "Mehrfachauswahl";
 $lang["poll"]["show_open"]         = "Offen";
 $lang["poll"]["show_comment"]      = "Bemerkung";
 $lang["poll"]["show_closed"]       = "Beendet";
-$lang["poll"]["show_js_voted"]     = "Folgende Benutzer haben f&uuml;r diese Option gevotet";
+$lang["poll"]["show_js_voted"]     = "Folgende Benutzer haben für diese Option gevotet";
 $lang["poll"]["vote_caption"]      = "F&uuml;r Poll '%NAME%' voten";
 $lang["poll"]["vote_subcaption"]   = "Um f&uuml;r einen Poll zu voten, klicken Sie bitte das Feld der Option an f&uuml;r die Sie stimmen wollen. Wenn die Mehrfachauswahl f&uuml;r diesen Poll aktiviert ist, k&ouml;nnen Sie auch f&uuml;r mehrere Optionen stimmen.";
 $lang["poll"]["vote_err_nooption"] = "Sie m&uuml;ssen eine Option ausw&auml;hlen";
