@@ -15,7 +15,7 @@ $lang['picgallery']['owner']					= "Ersteller";
 $lang['picgallery']['clicks']					= "Aufrufe";
 
 $lang['picgallery']['pic_show_caption']			= "Bildergalerie";
-$lang['picgallery']['pic_show_subcaption']		= "Bild(er) wurden bisher eingetragen. Klicken Sie auf ein Bild oder auf die darunter stehende Beschreibung um das Bild anzuzeigen.";
+$lang['picgallery']['pic_show_subcaption']		= "Klicken Sie auf ein Bild oder auf 'öffnen' um das Bild anzuzeigen.";
 $lang['picgallery']['del_gallery']			    = "Die Galerie wurde gel&ouml;scht.";
 $lang['picgallery']['del_gallery_get']			= "Galerie zum L&ouml;schen ausw&auml;hlen:";
 $lang['picgallery']['gallery_search']			= "Galeriesuche";

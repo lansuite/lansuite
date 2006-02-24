@@ -103,7 +103,7 @@ elseif (!$akt_file) {
 				$file_modified = filemtime($root_dir . $file);
 				if ($file_modified > $last_modified) $last_modified = $file_modified;
 				array_push($file_list, $file);
-			}elseif (IsPackage($extension)){
+			} elseif (IsPackage($extension)){
 				$dir_size += filesize($root_dir . $file);
 				$file_modified = filemtime($root_dir . $file);
 				if ($file_modified > $last_modified) $last_modified = $file_modified;
@@ -113,6 +113,7 @@ elseif (!$akt_file) {
 	}
 	closedir($handle);
 	$num_files = count($file_list);
+	$num_files += count($package_list);
 
 	// Show Directory Navigation
 	$directory_selection = "";
