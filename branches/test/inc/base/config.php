@@ -1,25 +1,7 @@
 ;<? /*
-;*************************************************************************
-;*
-;*	Lansuite - Webbased LAN-Party Management System
-;*	-----------------------------------------------
-;*
-;*	(c) 2001-2004 by One-Network.Org
-;*
-;*	Lansuite Version:	2.0.6
-;*	Filename: 		config.php
-;*	Module: 		Framework
-;*	Main editor: 		denny@one-network.org
-;*	Description: 		This is the master lansuite config file
-;*				This file should'nt be edited manually!
-;*				Please use the script's settings menu for
-;*				any changes!
-;*
-;**************************************************************************
-
 
 [lansuite]
-version				= LANsuite V2.07 RC1
+version				= LANsuite V2.1.0 CVS
 default_design			= osX
 user_timeout			= 300
 chmod_dir			= 777
