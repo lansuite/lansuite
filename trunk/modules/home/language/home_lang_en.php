@@ -22,11 +22,8 @@ $lang["home"]["tourney_caption"]	= "Tournament: Games";
 $lang["home"]["tourney_noentry"]	= "No current games available";
 $lang["home"]["stats_caption"]	= "Statistics";
 $lang["home"]["stats_tts"]	= "Troubletickets";
-$lang["home"]["stats_guests"]	= "Guests paid";
-$lang["home"]["stats_guests_checked"]	= "Guests checked in";
+$lang["home"]["stats_guests"]	= "Guests paid / checked in / checked out";
 $lang["home"]["stats_rental"]	= "Rental";
-$lang["home"]["stats_guests_checked_out"]	= "Guests checked out";
-$lang["home"]["stats_user_online"]	= "User online";
-$lang["home"]["stats_user_visits"] =  "User total";
+$lang["home"]["stats_user"]	= "User overall / online";
 
 ?>
