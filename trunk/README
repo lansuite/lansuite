@@ -2,7 +2,7 @@
 	Lansuite - Webbased LAN-Party Management System
 	-----------------------------------------------
 		
-	(c) 2001-2005 by One-Network.Org
+	(c) 2001-2006 by One-Network.Org
 	
 	
 INSTALLATION
@@ -31,9 +31,18 @@ INSTALLATION
 	Jeder Gast/Orga dessen Rechner nun über ein Netzwerk mit dem Server verbunden ist, kann auf Lansuite 
 	zugreifen, indem er in einem Browser die IP Nummer des Server eingibt (z.B. http://192.168.1.1).
 	
+
+WEITERE HILFEN - ONLINE
+=======================
 	
-	Sollten Sie Probleme mit der Installation haben, steht Ihnen unser Support-Board unter
-	http://board.one-network.org zur Verfügung.
+	Sollten Sie Probleme mit der Installation haben, oder weitere Fragen zum Arbeiten mit Lansuite haben, schauen Sie doch mal
+	im Online-Doku-Wiki unter http://lansuite-docu.orgapage.de vorbei. Hier steht Ihnen eine inzwischen sehr ausführliche und
+	ständig aktuallisierte Dokumentation zu Lansuite bereit.
+
+	Falls Sie Fehler im System finden, oder Feature-Wünsche äußern möchten, so verwenden Sie dazu bitte unseren Bugtracker:
+  http://bugtracking.one-network.org
+
+	Für Diskussionen und sonstige Fragen steht Ihnen unser Board unter http://board.one-network.org zur Verfügung.
 
 
 SYSTEMVORAUSSETZUNGEN
@@ -62,7 +71,6 @@ SYSTEMVORAUSSETZUNGEN
 	
 		Empfohlene Betriebssysteme: Linux, FreeBSD, OpenBSD, Solaris9+, Microsoft Windows NT 4.0+, Windows 2000,  
 								Windows .net Server, 
-		
 		
 		- PHP kompatibler Webserver. Empfohlen: Apache ab Version 1.3
 		- MySQL ab Version 3.2
