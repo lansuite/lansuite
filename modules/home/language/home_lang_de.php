@@ -22,10 +22,7 @@ $lang["home"]["tourney_caption"]	= "Turnier: Spielpaarungen";
 $lang["home"]["tourney_noentry"]	= "Es sind keine aktuellen Spielpaarungen vorhanden";
 $lang["home"]["stats_caption"]	= "Statistiken";
 $lang["home"]["stats_tts"]	= "Troubletickets";
-$lang["home"]["stats_guests"]	= "G&auml;ste bezahlt";
-$lang["home"]["stats_guests_checked"]	= "G&auml;ste eingecheckt";
+$lang["home"]["stats_guests"]	= "G&auml;ste bezahlt / eingecheckt / ausgecheckt";
 $lang["home"]["stats_rental"]	= "Verleih";
-$lang["home"]["stats_guests_checked_out"]	= "G&auml;ste ausgecheckt";
-$lang["home"]["stats_user_online"]	= "Benutzer online";
-$lang["home"]["stats_user_visits"] =  "Besucher gesamt";
+$lang["home"]["stats_user"]	= "Benutzer gesamt / online";
 ?>
