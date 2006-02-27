@@ -24,6 +24,6 @@ $lang["home"]["stats_caption"]	= "Statistics";
 $lang["home"]["stats_tts"]	= "Troubletickets";
 $lang["home"]["stats_guests"]	= "Guests paid / checked in / checked out";
 $lang["home"]["stats_rental"]	= "Rental";
-$lang["home"]["stats_user"]	= "User overall / online";
+$lang["home"]["stats_user"]	= "Visits overall / online";
 
 ?>
