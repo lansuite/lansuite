@@ -200,6 +200,11 @@ function TX_showToolTip(e,id) {
         case "1":
         	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + " Frei</td></tr>";
         	break;
+        
+// Änderung durch HSE: 3 Zeilen eingefügt
+        case "7":
+        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + " Gesperrt</td></tr>";
+        	break;
   
         // Text für die Verschiedenen Symbole
         case "80":

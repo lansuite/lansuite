@@ -66,6 +66,8 @@ $lang['seating']['me']			  = 'Ihr Platz';
 $lang['seating']['clan_seat']	  = 'Platz eines Clanmates';
 $lang['seating']['marked']		  = 'Vorgemerkt';
 $lang['seating']['selected']	  = "Ausgewählter User";
+// Änderung durch HSE: Zeile eingefügt
+$lang['seating']['locked']      = "Gesperrter Platz";
 
 // Errors
 $lang['seating']['e_hori_lenght'] = 'Bitte geben Sie die horizontale L&auml;nge ein';

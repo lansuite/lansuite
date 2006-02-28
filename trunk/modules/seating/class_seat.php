@@ -200,7 +200,7 @@ class seat2 {
 				if ($seat_state[$y][$x] == 2 and $seat_userid[$y][$x] == $auth['userid']) $s_state = 8;
 				elseif ($seat_state[$y][$x] == 2 and in_array($seat_userid[$y][$x], $my_clanmates)) $s_state = 9;
 				else $s_state = $seat_state[$y][$x];
-
+        
 				if(!$cfg['sys_internet'] OR $auth['type'] > 1 OR ($auth['userid'] == $selected_user && $selected_user != false)){
 					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},{$user_info[$y][$x]['firstname']},{$user_info[$y][$x]['name']},{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $_GET['blockid']) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
 				} else {
@@ -247,6 +247,10 @@ class seat2 {
 							case 3: // Seat marked
 								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_marked.png";
 							break;
+// Geändert von HSE: 3 Zeilen hinzugefügt
+							case 7: // Seat reserved
+								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_locked.png";
+							break;
 							default: // Symbol
 								if (file_exists("ext_inc/seating_symbols/". $seat_state[$y][$x] .".png")) {
 									$templ['seat']['img_name'] = "ext_inc/seating_symbols/lsthumb_". $seat_state[$y][$x] .".png";
@@ -281,14 +285,19 @@ class seat2 {
 #						elseif ($seat_state[$y][$x] == $_POST['icon'])
 #							$templ['seat']['cell_content'] = "<input type=\"checkbox\" name=\"cell[". ($x * 100 + $y) ."]\" value=\"". ($x * 100 + $y) ."\"checked />";
 						}else {
-							if ($seat_state[$y][$x] > 1 && $seat_state[$y][$x] < 10) {
-								$templ['seat']['cell_content'] = "<td style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png); height:14px; width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
+// Geändert von HSE: Zeile angepasst ("< 7" statt "< 10")
+							if ($seat_state[$y][$x] > 1 && $seat_state[$y][$x] < 7) {
+							  $templ['seat']['cell_content'] = "<td style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png); height:14px; width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
 //								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png";
 //								$templ['seat']['cell_content'] = $dsp->FetchModTpl('seating', 'plan_cell_img');
 							} else {
 								if ($seat_state[$y][$x] == 1) {
 //									$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_free.png";
 									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_free.png); width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
+									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
+// Geändert von HSE: 3 Zeilen hinzugefügt
+								} elseif ($seat_state[$y][$x] == 7) {
+									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_locked.png); width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
 									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
 								} else{
 									if(file_exists("ext_inc/seating_symbols/". $seat_state[$y][$x] .".png")){
@@ -333,6 +342,7 @@ class seat2 {
 		$templ['seating']['legend']['reserved']	= $lang['seating']['reserved'];
 		$templ['seating']['legend']['clan']		= $lang['seating']['clan_seat'];
 		$templ['seating']['legend']['marked']	= $lang['seating']['marked'];
+		$templ['seating']['legend']['locked']	= $lang['seating']['locked'];
 		
 		if ($selected_user) $templ['seating']['legend']['me'] = $lang['seating']['selected'];
 		else	$templ['seating']['legend']['me']			 = $lang['seating']['me'];
