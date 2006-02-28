@@ -11,6 +11,8 @@ Version 2.1.0
 
 - Change: #333 Die Statistiken auf der Startseite haben nun ein neues Format (KnoX 25.02.2006)
 
+- Add: Im Sitzplan können nun gesperrte Plätze eingefügt werden (Kernel, 28.02.2006)
+
 Version 2.1.0 Beta
 
 - Bugfix: #304 Party-Auswahl-Drop-Down war nicht in jedem Anzeigemodus verfügbar (KnoX 22.02.2006)

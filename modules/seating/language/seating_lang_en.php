@@ -66,6 +66,8 @@ $lang['seating']['me']			  = 'Me';
 $lang['seating']['clan_seat']	  = 'Clanmate';
 $lang['seating']['marked']		  = 'Marked';
 $lang['seating']['selected']	  = "Selected User";
+// Änderung durch HSE: Zeile eingefügt
+$lang['seating']['locked']      = "Locked seat";
 
 // Errors
 $lang['seating']['e_hori_lenght'] = 'Submit the horizontal length, please';

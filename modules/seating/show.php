@@ -95,11 +95,11 @@ switch($_GET['step']) {
 		if (!$user_data['paid'] and $cfg['seating_paid_only']) $func->information($lang['seating']['i_not_paid2'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check seat availability
-	  elseif ($seat_user['status'] == 2) $func->error($lang['seating']['e_assigned'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-	    
-		// Check seat availability
-	  elseif ($seat_user['status'] == 0 or $seat_user['status'] > 9) $func->error($lang['seating']['e_no_seat'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+    elseif ($seat_user['status'] == 2)  $func->error($lang['seating']['e_assigned'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
+    // Check is a seat 
+    elseif ($seat_user['status'] == 0 or $seat_user['status'] > 9)  $func->error($lang['seating']['e_no_seat'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+	    
 		// No errors
 		else {
 			$seat2->AssignSeat($auth['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
@@ -129,6 +129,9 @@ switch($_GET['step']) {
 
 		// Check number of marked seats of this user
 		elseif ($user_data['paid'] and $marked_seats['anz'] >= $cfg['seating_max_marks']) $func->information($lang['seating']['e_max_marked'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+
+    // Check is a seat 
+    elseif ($seat_user['status'] > 9) $func->error($lang['seating']['e_no_seat'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// No errors
 		else {
