@@ -249,7 +249,7 @@ class seat2 {
 							break;
 // Geändert von HSE: 3 Zeilen hinzugefügt
 							case 7: // Seat reserved
-								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_locked.png";
+								$templ['seat']['img_name'] = "ext_inc/seating_symbols/7.png";
 							break;
 							default: // Symbol
 								if (file_exists("ext_inc/seating_symbols/". $seat_state[$y][$x] .".png")) {
@@ -297,7 +297,7 @@ class seat2 {
 									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
 // Geändert von HSE: 3 Zeilen hinzugefügt
 								} elseif ($seat_state[$y][$x] == 7) {
-									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_locked.png); width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
+									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/seating_symbols/7.png); width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
 									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
 								} else{
 									if(file_exists("ext_inc/seating_symbols/". $seat_state[$y][$x] .".png")){
