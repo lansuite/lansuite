@@ -46,9 +46,9 @@ if (!get_magic_quotes_gpc()) {	 // and !get_magic_quotes_runtime()
 // Delete Statements from URL, which could manipulate an SQL-WHERE-Clause
 foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) {
   $_GET[$key] = eregi_replace(' and ', '', $_GET[$key]);
-  $_GET[$key] = eregi_replace(' and(', '', $_GET[$key]);
+  $_GET[$key] = eregi_replace(' and\(', '', $_GET[$key]);
   $_GET[$key] = eregi_replace(' or ', '', $_GET[$key]);
-  $_GET[$key] = eregi_replace(' or(', '', $_GET[$key]);
+  $_GET[$key] = eregi_replace(' or\(', '', $_GET[$key]);
 }
 $vars = array_merge((array)$_GET, (array)$_POST);
 
