@@ -8,6 +8,7 @@ switch($_GET["step"]) {
 		if ($_POST["pass"]) $config["database"]["passwd"] = $_POST["pass"];
 		if ($_POST["database"]) $config["database"]["database"] = $_POST["database"];
 		if ($_POST["prefix"]) $config["database"]["prefix"] = $_POST["prefix"];
+		if ($_POST["display_debug_errors"] != '') $config["database"]["display_debug_errors"] = $_POST["display_debug_errors"];
 		if ($_POST["design"]) $config["lansuite"]["default_design"] = $_POST["design"];
 
 		if(!$install->WriteConfig()) {
@@ -26,6 +27,7 @@ switch($_GET["step"]) {
 		if ($_POST["pass"] == "") $_POST["pass"] = $config['database']['passwd'];
 		if ($_POST["database"] == "") $_POST["database"] = $config['database']['database'];
 		if ($_POST["prefix"] == "") $_POST["prefix"] = $config['database']['prefix'];
+		if ($_POST["display_debug_errors"] == "") $_POST["display_debug_errors"] = $config['database']['display_debug_errors'];
 
 		#### Database Access
 		$dsp->AddSingleRow("<b>". $lang["install"]["conf_dbdata"] ."</b>");
@@ -34,6 +36,12 @@ switch($_GET["step"]) {
 		$dsp->AddPasswordRow("pass", $lang["install"]["conf_pass"], $_POST["pass"], "");
 		$dsp->AddTextFieldRow("database", $lang["install"]["conf_db"], $_POST["database"], "");
 		$dsp->AddTextFieldRow("prefix", $lang["install"]["conf_prefix"], $_POST["prefix"], "");
+		$t_array = array();
+		(!$_POST["display_debug_errors"])? $selected = ' selected' :  $selected = ''; 
+		array_push ($t_array, "<option $selected value=\"0\"$selected>{$lang["sys"]["no"]}</option>");
+		($_POST["display_debug_errors"])? $selected = ' selected' :  $selected = ''; 
+		array_push ($t_array, "<option $selected value=\"1\">{$lang["sys"]["yes"]}</option>");
+		$dsp->AddDropDownFieldRow("display_debug_errors", $lang["install"]["conf_display_debug_errors"], $t_array, "");
 
 		#### Default Design
 		// Open the design-dir

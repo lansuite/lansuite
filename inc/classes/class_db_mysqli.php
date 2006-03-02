@@ -65,7 +65,22 @@ class db {
 
 
 	function query($query_string) {
-   		$this->querys[] = $query_string;
+    // Escape bad mysql
+    $query_test_string = str_replace("\'", '', strtolower($query_string)); # Cut out escaped ' and convert to lower string
+    $query_test_string = ereg_replace("'[^']*'", "", strtolower($query_test_string)); # Cut out strings within '-quotes
+    // No UNION
+    if (!strpos($query_test_string, 'union ') === false) $query_string = '___UNION_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
+
+    // No INTO OUTFILE
+    elseif (!strpos($query_test_string, 'into outfile') === false) $query_string = '___INTO OUTFILE_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
+
+    // SELECT, UPDATE, REPLACE, INSERT, DELETE only at the beginning of a statement
+    elseif ((!strpos ($query_test_string, 'select ', 5) === false) or (!strpos ($query_test_string, 'update ', 5) === false)
+      or (!strpos ($query_test_string, 'replace ', 5) === false) or (!strpos ($query_test_string, 'insert ', 5) === false)
+      or (!strpos ($query_test_string, 'delete ', 5) === false))
+      $query_string = '___THE FOLLOWING_SQL-STATEMENTS_MUST_ONLY_BE_USED_AT_THE_BEGINNING_OF_AN_SQL-QUERY_IN_LANSUITE:_SELECT,_UPDATE,_REPLACE,_INSERT,_DELETE___'; 
+
+   	$this->querys[] = $query_string;
 		$this->querys_count++;
 		$this->query_id = @mysqli_query($GLOBALS['db_link_id'], $query_string);
 		$this->sql_error = @mysqli_error($GLOBALS['db_link_id']);
@@ -136,8 +151,8 @@ class db {
 
 		$url_array = parse_url($_SERVER['REQUEST_URI']);
 
-		$error_msg = str_replace("%SCRIPT%", '?' . $url_array['query'] . $url_array['fragment'], str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%REFERRER%", $func->internal_referer, $lang['class_db_mysql']['sql_error_log']))));
-		echo '<font color="red">' . $error_msg . '</font><br /><br />';
+ 		$error_msg = str_replace("%SCRIPT%", '?' . $url_array['query'] . $url_array['fragment'], str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%REFERRER%", $func->internal_referer, $lang['class_db_mysql']['sql_error_log']))));
+    if ($config['database']['display_debug_errors']) echo '<font color="red">' . $error_msg . '</font><br /><br />';
 
 		$error_msg = $func->escape_sql($error_msg);
 
