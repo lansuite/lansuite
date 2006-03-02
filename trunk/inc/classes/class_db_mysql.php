@@ -65,6 +65,21 @@ class db {
 
 
 	function query($query_string) {
+    // Escape bad mysql
+    $query_test_string = str_replace("\'", '', strtolower($query_string)); # Cut out escaped ' and convert to lower string
+    $query_test_string = ereg_replace("'[^']*'", "", strtolower($query_test_string)); # Cut out strings within '-quotes
+    // No UNION
+    if (!strpos($query_test_string, 'union ') === false) $query_string = '___UNION_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
+
+    // No INTO OUTFILE
+    elseif (!strpos($query_test_string, 'into outfile') === false) $query_string = '___INTO OUTFILE_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
+
+    // SELECT, UPDATE, REPLACE, INSERT, DELETE only at the beginning of a statement
+    elseif ((!strpos ($query_test_string, 'select ', 5) === false) or (!strpos ($query_test_string, 'update ', 5) === false)
+      or (!strpos ($query_test_string, 'replace ', 5) === false) or (!strpos ($query_test_string, 'insert ', 5) === false)
+      or (!strpos ($query_test_string, 'delete ', 5) === false))
+      $query_string = '___THE FOLLOWING_SQL-STATEMENTS_MUST_ONLY_BE_USED_AT_THE_BEGINNING_OF_AN_SQL-QUERY_IN_LANSUITE:_SELECT,_UPDATE,_REPLACE,_INSERT,_DELETE___'; 
+
     $this->querys[] = $query_string;
 		$this->querys_count++;
 		$this->query_id = @mysql_query($query_string, $GLOBALS['db_link_id']);
@@ -134,7 +149,7 @@ class db {
 	function print_error($msg, $query_string_with_error) {
 		global $func, $config, $auth, $lang;
 
-		echo str_replace("%LINE%", __LINE__, str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $func->internal_referer, $lang['class_db_mysql']['sql_error']))));
+		if ($config['database']['display_debug_errors']) echo str_replace("%LINE%", __LINE__, str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $func->internal_referer, $lang['class_db_mysql']['sql_error']))));
 
 		$msg = str_replace("'", "", $msg);
 		$post_this_error = str_replace("%LINE%", __LINE__, str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $func->internal_referer, $lang['class_db_mysql']['sql_error_log']))));
