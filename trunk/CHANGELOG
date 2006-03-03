@@ -10,8 +10,6 @@ Version 2.1.0
 - Bugfix: Schutz vor SQL-Injections erweitert (KnoX 02.03.2006)
 !! Wichtig für Programmierer: 
 -- In SQL-Statements dürfen nun nicht mehr die Strings ' UNION ' und 'INTO OUTFILE' vorkommen
--- 'SELECT ', 'UPDATE ', 'REPLACE ', 'INSERT ' und 'DELETE ' dürfen nur noch am Anfang (erste 5 Zeichen) eines SQL-Statements stehen
--- In URLs darf in $_GET kein ' AND ', ' AND(', ' OR ' und ' OR(' mehr stehen
 -- Die MySQL-Fehlermeldungen, die in Lansuite ausgegeben wurden, können nun bei den DB-Zugangsdaten auf der AdminSeite deaktiviert werden 
 !!
 - Bugfix: #334 Picgallery: Falscher Text in Überschrift, Bildercounter zählte keine Pack-formate (KnoX 24.02.2006)

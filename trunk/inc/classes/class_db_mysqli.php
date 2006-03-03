@@ -74,12 +74,6 @@ class db {
     // No INTO OUTFILE
     elseif (!strpos($query_test_string, 'into outfile') === false) $query_string = '___INTO OUTFILE_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
 
-    // SELECT, UPDATE, REPLACE, INSERT, DELETE only at the beginning of a statement
-    elseif ((!strpos ($query_test_string, 'select ', 5) === false) or (!strpos ($query_test_string, 'update ', 5) === false)
-      or (!strpos ($query_test_string, 'replace ', 5) === false) or (!strpos ($query_test_string, 'insert ', 5) === false)
-      or (!strpos ($query_test_string, 'delete ', 5) === false))
-      $query_string = '___THE FOLLOWING_SQL-STATEMENTS_MUST_ONLY_BE_USED_AT_THE_BEGINNING_OF_AN_SQL-QUERY_IN_LANSUITE:_SELECT,_UPDATE,_REPLACE,_INSERT,_DELETE___'; 
-
    	$this->querys[] = $query_string;
 		$this->querys_count++;
 		$this->query_id = @mysqli_query($GLOBALS['db_link_id'], $query_string);
