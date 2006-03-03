@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+- Bugfix: Als wichtig markierte News hatten keine, bzw. falsche Buttons darunter (KnoX 03.03.2006)
 - Bugfix: Schutz vor SQL-Injections erweitert (KnoX 02.03.2006)
 !! Wichtig für Programmierer: 
 -- In SQL-Statements dürfen nun nicht mehr die Strings ' UNION ' und 'INTO OUTFILE' vorkommen
