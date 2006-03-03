@@ -263,5 +263,8 @@ $func->templ_output($index);
 $sitetool->out_optimizer();
 
 // Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
-if ($db->success) $stats->update($sitetool->out_work(), $sitetool->get_send_size());
+if ($db->success) {
+  $stats->update($sitetool->out_work(), $sitetool->get_send_size());
+  $db->disconnect();
+}
 ?>

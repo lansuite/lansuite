@@ -83,6 +83,9 @@ class db {
 		return $this->query_id;
 	}
 
+	function disconnect() {
+    mysql_close($this->link_id);
+  }
 
 	function get_affected_rows() {
 		return @mysqli_affected_rows($GLOBALS['db_link_id']);

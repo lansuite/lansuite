@@ -63,6 +63,9 @@ class db {
 		return true;
 	}
 
+	function disconnect() {
+    mysql_close($this->link_id);
+  }
 
 	function query($query_string) {
     // Escape bad mysql
