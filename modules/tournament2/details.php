@@ -145,12 +145,12 @@ else {
 								else $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=10&tournamentid=$tournamentid&teamid={$team['teamid']}\">{$lang["tourney"]["details_seeding_mark"]}</a>";
 							}
 						}
-
+/*  // Disquallifiy droped, due to errors
 						if ($auth["type"] > 1 and $tournament['status'] == "process") {
 							if ($team['disqualified']) $team_out .= " <font color=\"#ff0000\">{$lang["tourney"]["details_disqualifyed"]}</font> ". $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}&step=10", "undisqualify");
 							else $team_out .= " ". $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}", "disqualify");
 						}
-
+*/
 						$team_out .= HTML_NEWLINE;
 						if(($members["members"] + 1) < $tournament['teamplayer'])  {
 							$teamcount[0]++;

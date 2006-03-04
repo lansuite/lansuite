@@ -59,10 +59,12 @@ if ($tournament["name"] == "") {
 
 			// Write Team 1
 			$disqualify_link = "";
+/*  // Disquallifiy droped, due to errors
 			if ($auth["type"] > 1 and $tournament['status'] == "process") {
 				if ($team1['disqualified']) $disqualify_link = "<font color=\"#ff0000\">{$lang["tourney"]["details_disqualifyed"]}</font> ". $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team1['teamid']}&step=10", "undisqualify");
 				else $disqualify_link = $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team1['teamid']}", "disqualify");
 			}
+*/
 			$dsp->AddDoubleRow("<b>{$lang["tourney"]["team"]} 1</b>", "<b>'". $team1['name'] ."'</b>" . $tfunc->button_team_details($team1['teamid'], $tournamentid) . " ". $disqualify_link);
 			$dsp->AddDoubleRow($lang["tourney"]["s_res_teamleader"], $team1['username'] . $func->button_userdetails($team1['userid'], "") . " ({$lang["tourney"]["position"]}: ". $seat->display_seat_link("usrmgr", $team1['userid']) .")");
 			$dsp->AddTextFieldRow("score_team1", $lang["tourney"]["s_res_score"], (int) $team1["score"], "");
@@ -70,10 +72,12 @@ if ($tournament["name"] == "") {
 			// Write Team 2
 			$dsp->AddHRuleRow();
 			$disqualify_link = "";
+/*  // Disquallifiy droped, due to errors
 			if ($auth["type"] > 1 and $tournament['status'] == "process") {
 				if ($team2['disqualified']) $disqualify_link = "<font color=\"#ff0000\">{$lang["tourney"]["details_disqualifyed"]}</font> ". $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team2['teamid']}&step=10", "undisqualify");
 				else $disqualify_link = $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team2['teamid']}", "disqualify");
 			}
+*/
 			$dsp->AddDoubleRow("<b>{$lang["tourney"]["team"]} 2</b>", "<b>'". $team2['name'] ."'</b>" . $tfunc->button_team_details($team2['teamid'], $tournamentid) . " ". $disqualify_link);
 			$dsp->AddDoubleRow($lang["tourney"]["s_res_teamleader"], $team2['username'] . $func->button_userdetails($team2['userid'], "") . " ({$lang["tourney"]["position"]}: ". $seat->display_seat_link("usrmgr", $team2['userid']) .")");
 			$dsp->AddTextFieldRow("score_team2", $lang["tourney"]["s_res_score"], (int) $team2["score"], "");
