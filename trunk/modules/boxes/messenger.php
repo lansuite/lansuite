@@ -50,7 +50,7 @@ if ($auth['login']) {
 	$querynotinlist = $db->query("SELECT m.senderid, u.username
 		FROM {$config['tables']['messages']} m
 		LEFT JOIN {$config["tables"]["user"]} u ON u.userid = m.senderid
-		WHERE m.receiverid = '{$auth['userid']}'
+		WHERE m.receiverid = '{$auth['userid']}' AND m.new = 1
 		ORDER BY u.username
 		");
 	while ($row=$db->fetch_array($querynotinlist)) {
