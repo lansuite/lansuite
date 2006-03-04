@@ -70,7 +70,12 @@ switch ($_GET['step']){
 		$dsp->AddTextFieldRow("price",$lang['signon']['price'],$_POST['price'],$error_signon['price']);
 		$dsp->AddTextFieldRow("depot_desc",$lang['signon']['depot_desc'],$_POST['depot_desc'],$error_signon['depot_desc']);
 		$dsp->AddTextFieldRow("depot_price",$lang['signon']['depot_price'],$_POST['depot_price'],$error_signon['depot_price']);
-		$party->get_user_group_dropdown('NULL',1,$_POST['group_id']);
+		
+		if($party->get_price_count(0) > 1){
+			$party->get_user_group_dropdown('NULL',1,$_POST['group_id']);
+		}else{
+			$dsp->AddDoubleRow($lang['class_party']['drowpdown_user_group'],$lang['signon']['price_group_0']);
+		}
 		$dsp->AddFormSubmitRow("add");
 		$dsp->AddHRuleRow();
 		if($_GET['var'] != "update"){

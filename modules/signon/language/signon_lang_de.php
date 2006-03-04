@@ -151,6 +151,7 @@ $lang['signon']['delete_price'] =			"Wollen sie den Preis %PRICE% wirklich l&oum
 $lang['signon']['delete_price_capt'] =		"Preis zuweisen";
 $lang['signon']['delete_price_subcapt'] =	"Welchen Preis wollen sie Benutzern mit diesem Preis zuweisen.";
 $lang['signon']['delete_price_ok'] =		"Der Preis wurde gel&ouml;scht.";
+$lang['signon']['price_group_0'] =			"Der Preis wird keiner Gruppe zugewiesen da ein allgemeiner Preis existieren muss.";
 
 
 // Gruppenverwaltung
