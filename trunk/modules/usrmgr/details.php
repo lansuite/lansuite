@@ -99,7 +99,7 @@ else {
 
 			// Seating
 			if ($user_data['blockid'] == "") $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $lang['usrmgr']['details_no_seat']);
-			else $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $seat2->SeatOfUser($_GET['userid']));
+			else $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $seat2->SeatOfUser($_GET['userid'],0,2));
 
 			// IPAdress
 			if($cfg['sys_internet'] == 0) {

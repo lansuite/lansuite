@@ -19,11 +19,11 @@ class seat2 {
 			LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b.blockid
 			WHERE s.userid='$userid' AND s.status = 2 AND b.party_id = ". (int)$party->party_id);
 
-    if ($row['blockid']) return $this->CoordinateToBlockAndName($row['col'] + 1, $row['row'], $row['blockid'], $MaxBlockLength, $LinkIt);
+    if ($row['blockid']) return $this->CoordinateToBlockAndName($row['col'] + 1, $row['row'], $row['blockid'], $MaxBlockLength, $LinkIt, $userid);
     else return false;
 	}
 
-  function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0) {
+  function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0, $userid = 0) {
     global $db, $config;
     
 		$row = $db->query_first("SELECT name, orientation FROM {$config['tables']['seat_block']} WHERE blockid = $blockid");
@@ -33,7 +33,8 @@ class seat2 {
       if ($MaxBlockLength > 4 and strlen($row['name']) > $MaxBlockLength) $row['name'] = substr($row['name'], 0, $MaxBlockLength - 3) . '...';
       		
 		  $LinkText = $row['name'] .' - '. $this->CoordinateToName($x, $y, $row['orientation']);
-	    if ($LinkIt) return "<a href=\"index.php?mod=seating&action=show&step=2&blockid=$blockid&col=$x&row=$y\">$LinkText</a>";
+	    if ($LinkIt == 1) return "<a href=\"index.php?mod=seating&action=show&step=2&blockid=$blockid&col=$x&row=$y\">$LinkText</a>";
+	    if ($LinkIt == 2) return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id=$blockid&&userarray[]={$userid}&l=1','_blank','width=596,height=638,resizable=yes');\">$LinkText</a>";
 	    else return $LinkText;
 	  }
   }
@@ -80,7 +81,7 @@ class seat2 {
 		$this->CreateSeatImage('seat_clanmate', 0, 100, 200, 50);
 
 		// Get Block data (side descriptions + number of rows + cols)
-		$block = $db->query_first("SELECT * FROM {$config["tables"]["seat_block"]} WHERE blockid = '{$_GET['blockid']}'");
+		$block = $db->query_first("SELECT * FROM {$config["tables"]["seat_block"]} WHERE blockid = '{$blockid}'");
 
 		$templ['seat']['text_tl'] = $block['text_tl'];
 		$templ['seat']['text_tc'] = $block['text_tc'];

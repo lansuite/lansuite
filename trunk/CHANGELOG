@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+- Bugfix: Popup vom Sitzplan wurde falsch angezeigt. (Genesis 04.03.06)
 - Bugfix: #341 Ein Benutzer konnte über das Editieren der eigenen Details einem Clan mit ClanPW beitreten (KnoX 04.03.2006)
 - Bugfix: #310 Es muss nun ein allgemeiner Preis existieren der keiner Gruppe zugeteilt ist. ( Genesis 04.03.06)
 - Bugfix: #346 Im Boardmodul wurden unter der Suche auch gesperrte Foren angezeigt (Genesis 04.03.06)
