@@ -40,5 +40,5 @@ $lang["sponsor"]["stats_rate"]	= "Klickrate";
 $lang["sponsor"]["add_err_upload"]	= "Die hochgeladene Datei ('%TMP_PATH%') konnte nicht in das Avatar-Verzeichnis ('%PATH%') kopiert werden!" . HTML_NEWLINE . "Fehlermeldung: '%ERROR%'";
 $lang["sponsor"]["err_no_banner_id"]	= "Diese Banner-ID existiert nicht! Manipulationsversuch oder Datenbankfehler. Bitte ZURC&Uuml;CK anklicken.";
 $lang["sponsor"]["redirect"]	= "Sie werden weitergeleitet...";
-$lang["sponsor"]["add_other_sizes"] = "<b>Sponsorbox-Button und Rotation-Banner</b>" . HTML_NEWLINE . "Wenn Sie unterhalb keine Datei angeben, wird der Banner / Button automatisch, durch verkleinern der oben angegebenen Datei erzeugt";
+$lang["sponsor"]["add_other_sizes"] = "<b>Sponsorbox-Button und Rotation-Banner</b>". HTML_NEWLINE . HTML_FONT_ERROR ."Wenn Sie unterhalb keine Datei angeben, wird der Banner / Button automatisch, durch verkleinern der oben angegebenen Datei erzeugt.". HTML_NEWLINE ."Dies ist jedoch außschließlich bei heraufgeladenen Dateien möglich!". HTML_FONT_ERROR;
 ?>
