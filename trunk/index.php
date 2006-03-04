@@ -209,6 +209,9 @@ if ($found_adm) {
 	$auth["login"] = 1;
 }
 
+// Show Blocked Site
+if($cfg['sys_blocksite'] == 1 && $auth['type'] < 2) $siteblock = true;
+
 // Set Default-Design, if non is set
 if (!$auth["design"]) $auth["design"] = "standard";
 if (!file_exists("design/{$auth["design"]}/templates/index_login.htm")) $auth["design"] = "standard";
@@ -224,14 +227,18 @@ if ($db->success) {
 	include_once("modules/sponsor/banner.php");
 }
 
-if ($script_filename != "install.php") {
+if ($script_filename != "install.php" && $siteblock == false) {
 	// Boxes (die Defenierung ob linke oder rechte Seite befindet sich jetzt in der modindex_boxes.php)
 	include_once("modules/boxes/modindex_boxes.php");
 }
 
+// Info Seite blockiert
+if ($cfg['sys_blocksite'] == 1){
+	$func->error($cfg['sys_blocksite_text'],"install.php?mod=install");
+}
 
 // Include Module $_GET["mod"]
-if (!$missing_fields) include_once("index_module.inc.php");
+if (!$missing_fields && !$siteblock) include_once("index_module.inc.php");
 
 // Define general index variables
 $templ['index']['info']['current_date'] = $func->unixstamp2date(time(),'daydatetime');

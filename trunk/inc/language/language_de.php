@@ -11,6 +11,7 @@
 	$lang["sys"]["uncompressed"] = "unkomprimiert";
 	$lang["sys"]["seconds"] = "Sekunden";
 	$lang["sys"]["language"] = "Sprache";
+	$lang["sys"]["siteblocked"] = "Die Lansuiteseite ist momentan Offline";
 
 	// Index Module
 	$lang['index_module']['logout'] = "Sie wurden erfolgreich aus dem Intranet ausgeloggt";
