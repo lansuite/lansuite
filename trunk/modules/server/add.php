@@ -115,7 +115,7 @@ if((!$cfg["server_admin_only"] AND $get_paid["paid"] == 1) OR ($auth["type"] > 1
 
 			if($auth['type'] > 1){
 				$t_array = array();
-				$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user WHERE user.type > 0");
+				$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user WHERE user.type > 0 ORDER BY username");
 				while($row = $db->fetch_array($query)) {
 					if($_POST["owner"] == $row['userid']) $selected ="selected"; else $selected = "";
 					if($row['item_id'] == ""){
