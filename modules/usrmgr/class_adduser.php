@@ -169,6 +169,15 @@ class AddUser {
   				");
   			$_POST["clanurl"] = $clandata["clanurl"];
   		}
+
+			$clanpass = $db->query_first("SELECT clanpass
+				FROM {$config["tables"]["user"]}
+				WHERE (clan = '{$_POST["clan"]}')
+				GROUP BY clan
+				");
+			if ($_POST["clan"] and $auth['type'] <= 1 and md5($_POST["clanpass"]) != $clanpass["clanpass"]) {
+				$error['clan_pass'] = $lang["usrmgr"]["add_err_no_clanpass"];
+			}
   		
   		if (($this->Needed("clan")) && ($_POST["clan"] == "")) $error["clan"] = $lang["usrmgr"]["add_err_no_clan"];
   		if (($this->Needed("clanurl")) && ($_POST["clanurl"] == "")) $error["clanurl"] = $lang["usrmgr"]["add_err_no_clanurl"];
@@ -317,8 +326,8 @@ class AddUser {
   			array_push ($t_array, "<option $selected value=\"{$row["clan"]}\">{$row["clan"]} ({$row["members"]})</option>");
   		}
   		$dsp->AddDropDownFieldRow("clan", $lang["usrmgr"]["add_existing_clan"], $t_array, $error["clan"], $this->Optional("clan"));
-  
   		$dsp->AddTextFieldRow("clan_new", $lang["usrmgr"]["add_create_clan"], $_POST["clan_new"], $error["clan_new"], "", $this->Optional("clan"));
+    	if ($auth['type'] <= 1) $dsp->AddTextFieldRow("clanpass", $lang["usrmgr"]["add_create_clanpass"], $_POST["clanpass"], $error["clan_pass"], '', $this->Optional("clan"));
   
   		$dsp->AddTextFieldRow("clanurl", $lang["usrmgr"]["add_clanurl"], $_POST["clanurl"], $error["clanurl"], "", $this->Optional("clan"));
   		$dsp->AddTextFieldRow("wwcl_id", $lang["usrmgr"]["add_wwcl_id"], $_POST["wwcl_id"], $error["wwcl_id"], "", $this->Optional("wwcl_id"));
