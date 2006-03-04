@@ -275,6 +275,24 @@ class party{
 			
 		}
 		
+		
+		/**
+		 * Preise zählen
+		 */
+		
+		function get_price_count($groupid = false){
+			global $db,$config;
+			
+			if($groupid){
+				$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} AND group_id='$groupid'");
+				
+			}else{
+				$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id}");	
+			
+			}
+			return $db->num_rows($row);
+			
+		}
 		/**
 		 * Funktion um ein Dorpdownfeld mit Preisen zur Party auszugeben
 		 *
