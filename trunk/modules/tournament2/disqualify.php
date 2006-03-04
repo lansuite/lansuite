@@ -1,5 +1,5 @@
 <?php
-
+/*  // Disquallifiy droped, due to errors
 $teamid = $_GET["teamid"];
 
 $team = $db->query_first("SELECT teams.name, t.name AS t_name, teams.leaderid, teams.tournamentid
@@ -67,4 +67,5 @@ else switch ($_GET["step"]){
 		$func->confirmation(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], $lang["tourney"]["undisqualify_success"])), "index.php?mod=tournament2");
 	break;
 }
+*/
 ?>
