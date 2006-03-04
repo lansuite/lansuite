@@ -6,6 +6,9 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+
+- Bugfix: #310 Es muss nun ein allgemeiner Preis existieren der keiner Gruppe zugeteilt ist. ( Genesis 04.03.06)
+- Bugfix: #346 Im Boardmodul wurden unter der Suche auch gesperrte Foren angezeigt (Genesis 04.03.06)
 - Bugfix: #344 Zählalgorithmus im Sitzplanmodul zählt gesperrte Plätze nicht mit (kernelmonster  04.03.2006)
 - Bugfix: Als wichtig markierte News hatten keine, bzw. falsche Buttons darunter (KnoX 03.03.2006)
 - Bugfix: Schutz vor SQL-Injections erweitert (KnoX 02.03.2006)
@@ -18,6 +21,7 @@ Version 2.1.0
 
 - Change: #333 Die Statistiken auf der Startseite haben nun ein neues Format (KnoX 25.02.2006)
 
+- Add: Die Lansuiteseite lässt sich nun sperren (Genesis 4.3.06)
 - Add: MySQL-Verbindungen werden nun immer am Ende des Skripts getrennt (KnoX, 04.03.2006)
 - Add: Im Sitzplan können nun gesperrte Plätze eingefügt werden (Kernel, 28.02.2006)
 
