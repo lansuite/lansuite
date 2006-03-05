@@ -34,7 +34,7 @@ class seat2 {
       		
 		  $LinkText = $row['name'] .' - '. $this->CoordinateToName($x, $y, $row['orientation']);
 	    if ($LinkIt == 1) return "<a href=\"index.php?mod=seating&action=show&step=2&blockid=$blockid&col=$x&row=$y\">$LinkText</a>";
-	    if ($LinkIt == 2) return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id=$blockid&&userarray[]={$userid}&l=1','_blank','width=596,height=638,resizable=yes');\">$LinkText</a>";
+	    if ($LinkIt == 2) return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id=$blockid&userarray[]={$userid}&l=1','_blank','width=596,height=638,resizable=yes');\">$LinkText</a>";
 	    else return $LinkText;
 	  }
   }
@@ -203,9 +203,9 @@ class seat2 {
 				else $s_state = $seat_state[$y][$x];
         
 				if(!$cfg['sys_internet'] OR $auth['type'] > 1 OR ($auth['userid'] == $selected_user && $selected_user != false)){
-					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},{$user_info[$y][$x]['firstname']},{$user_info[$y][$x]['name']},{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $_GET['blockid']) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
+					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},{$user_info[$y][$x]['firstname']},{$user_info[$y][$x]['name']},{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
 				} else {
-					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},,,{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $_GET['blockid']) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
+					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},,,{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
 				}
 				
 
