@@ -968,8 +968,8 @@ class pdf {
 					$imagename = mt_rand(100000,999999);
 					$barcode->get_image($_SESSION['userid'],BARCODE_PATH .$imagename);
 					$image = getimagesize(BARCODE_PATH .$imagename . ".png");
-					if($image[0] > $this->object_width) $this->object_width = $image[0];
-					if($image[1] > $this->object_high) $this->object_high = $image[1];
+					if(($image[0]/2) > $this->object_width) $this->object_width = $image[0];
+					if(($image[1]/2) > $this->object_high) $this->object_high = $image[1];
 					$barcode->kill_image(BARCODE_PATH . $imagename);
 					
 				case 'data':
@@ -978,8 +978,8 @@ class pdf {
 					if(($templ[$i]['fontsize']/2) > $this->object_high) $this->object_high = ($templ[$i]['fontsize']/2);
 				break;
 			}
-		}	
-			
+		}
+		
 	}
 	
 	/**
