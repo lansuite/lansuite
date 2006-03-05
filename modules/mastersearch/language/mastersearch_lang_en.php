@@ -178,5 +178,11 @@ $lang['ms']['foodcenter']['caption'] = "Description";
 $lang['ms']['foodcenter']['orderdate'] = "Time of order";
 $lang['ms']['foodcenter']['suppdate'] = "Time of delivery";
 $lang['ms']['foodcenter']['count'] = "Amount";
+$lang['ms']['log']['title'] = "Logfile";
+$lang['ms']['log']['priority'] = "Priority";
+$lang['ms']['log']['gourp'] = "Group";
+$lang['ms']['log']['message'] = "Message";
+$lang['ms']['log']['date'] = "Date";
+$lang['ms']['log']['user'] = "User";
 
 ?>
