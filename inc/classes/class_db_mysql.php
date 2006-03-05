@@ -151,6 +151,8 @@ class db {
 		$msg = str_replace("'", "", $msg);
 		$post_this_error = str_replace("%LINE%", __LINE__, str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $func->internal_referer, $lang['class_db_mysql']['sql_error_log']))));
 
+		$post_this_error = $func->escape_sql($post_this_error);
+		
 		$current_time = date("U");
 		@mysql_query("INSERT INTO {$config["tables"]["log"]} SET date = '$current_time',  userid = '{$auth["userid"]}', type='3', description = '$post_this_error', sort_tag = 'SQL-Fehler'");	
 		$this->count_query++;

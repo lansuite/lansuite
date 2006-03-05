@@ -103,6 +103,8 @@ $cfg = $func->read_db_config();
 $barcode 	= new barcode_system();
 
 //// Load Base-Lang-File
+include_once("inc/language/language_de.php");
+include_once("modules/mastersearch/language/mastersearch_lang_de.php");
 // 2) Overwrite with $language
 if ($language != "de" and file_exists("inc/language/language_$language.php")) include_once("inc/language/language_$language.php");
 if ($language != "de" and file_exists("modules/mastersearch/language/mastersearch_lang_$language.php")) include_once("modules/mastersearch/language/mastersearch_lang_$language.php");
