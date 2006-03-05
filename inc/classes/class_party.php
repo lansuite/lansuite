@@ -333,7 +333,7 @@ class party{
 		}
 		
 		function get_party_javascript(){
-			global $db,$config;
+			global $db,$config,$cfg;
 			$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} ORDER BY group_id");
 			$option = "var option = new Array();\n";
 			$prices = "var price = new Array();\n";
@@ -344,7 +344,7 @@ class party{
 					$prices .= "price[{$data['group_id']}] = new Array();\n";
 					$i = 0;
 				}
-				$option .= "option[{$data['group_id']}][$i] = \"{$data['price_text']}\";\n";
+				$option .= "option[{$data['group_id']}][$i] = \"{$data['price_text']} / {$data['price']} {$cfg['sys_currency']}\";\n";
 				$prices .= "price[{$data['group_id']}][$i] = \"{$data['price_id']}\";\n";
 				$i++;
 			}
