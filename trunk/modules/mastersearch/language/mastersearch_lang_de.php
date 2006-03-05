@@ -185,5 +185,11 @@ $lang['ms']['foodcenter']['fetch'] = "Abholbereit";
 $lang['ms']['foodcenter']['status'] = "Status";
 $lang['ms']['foodcenter']['user'] = "Benutzername";
 $lang['ms']['foodcenter']['suppname'] = "Lieferantenname";
+$lang['ms']['log']['title'] = "Logdatei";
+$lang['ms']['log']['priority'] = "Priorität";
+$lang['ms']['log']['gourp'] = "Gruppe";
+$lang['ms']['log']['message'] = "Meldung";
+$lang['ms']['log']['date'] = "Datum";
+$lang['ms']['log']['user'] = "Verursacher";
 
 ?>
