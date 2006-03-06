@@ -84,7 +84,7 @@ class db {
 	}
 
 	function disconnect() {
-    mysql_close($this->link_id);
+    mysqli_close($this->link_id);
   }
 
 	function get_affected_rows() {
