@@ -62,7 +62,7 @@ switch($_GET['step']) {
 
 
 		// --- Box Button ---
-		// 1) Was a special banner uploaded?
+		// 1) Was a special box button uploaded?
     if ($_FILES['pic_upload_button']['name']) {
       if ($_FILES['pic_upload']['name']) $_FILES['pic_upload_button']['name'] = $_FILES['pic_upload']['name'];
       $func->FileUpload('pic_upload_button', 'ext_inc/banner/', 'button_'. $_FILES['pic_upload_button']['name']);
@@ -96,8 +96,8 @@ switch($_GET['step']) {
 			$dsp->AddTextFieldRow('pic_url', $lang['sponsor']['add_pic'], $pic_url, '', '', OPTIONAL);
 			$dsp->AddTextAreaRow('pic_code', $lang['sponsor']['add_pic_code'], $pic_code, '', '', 4, OPTIONAL);
 			$dsp->AddSingleRow($lang['sponsor']['add_other_sizes']);
-			$dsp->AddFileSelectRow('pic_upload_banner', $lang['sponsor']['add_pic_upload'] .' (120 x 60)', $pic_error, '', '', OPTIONAL);
-			$dsp->AddFileSelectRow('pic_upload_button', $lang['sponsor']['add_pic_upload'] .' (468 x 60)', $pic_error, '', '', OPTIONAL);
+			$dsp->AddFileSelectRow('pic_upload_banner', $lang['sponsor']['add_pic_upload'] .' (468 x 60)', $pic_error, '', '', OPTIONAL);
+			$dsp->AddFileSelectRow('pic_upload_button', $lang['sponsor']['add_pic_upload'] .' (120 x 60)', $pic_error, '', '', OPTIONAL);
 			$dsp->AddHRuleRow();
 			$dsp->AddTextFieldRow('pos', $lang['sponsor']['add_pos'], $_POST['pos'], '', '', OPTIONAL);
 			$dsp->AddCheckBoxRow('sponsor', $lang['sponsor']['add_sponsor'], $lang['sponsor']['add_sponsor2'], '', OPTIONAL, $_POST['sponsor']);
