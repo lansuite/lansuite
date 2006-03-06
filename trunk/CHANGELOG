@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+- Bugfix: In der Bildergallerie konnte man durch eine modifizierte URL auf Bilder übergeordneter Ordner zugreifen (KnoX 06.03.2006) 
 - Bugfix: #332 Komplette Überarbeitung des Sponsorenmoduls. Sollte unter anderem die im Bugtracker genannten Bugs fixen (KnoX 06.03.2006)
 - Bugfix: #349 Berechtigungsfehler im Boardmodul. (Genesis 06.03.06)
 - Bugfix: #330 Anzeigefehler beim Pricedropdown im Benuzermanager behoben. (Genesis 04.03.06)
