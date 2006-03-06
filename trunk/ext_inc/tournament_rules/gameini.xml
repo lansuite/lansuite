@@ -5,7 +5,7 @@
 	type	= P: Player Game  C: Clan Game
 
 
-	Build: Wed Aug  3 15:57:25 2005
+	Build: Mon Mar  6 03:00:01 2006
 -->
 <wwclgameini>
 	<game>
@@ -31,14 +31,6 @@
 		<rules>http://www.wwcl.net/rules/wwcl_scbw_1on1-2on2.pdf</rules>
 		<player>1</player>
 		<partnersite>http://www.broodwar.de</partnersite>
-	</game>
-	<game>
-		<id>12</id>
-		<name>Serious Sam 2 (1on1)</name>
-		<type>P</type>
-		<rules>http://www.wwcl.net/rules/wwcl_sesam2_1on1.pdf</rules>
-		<player>1</player>
-		<partnersite></partnersite>
 	</game>
 	<game>
 		<id>24</id>
@@ -102,7 +94,7 @@
 		<type>P</type>
 		<rules>http://www.wwcl.net/rules/wwcl_bv_1on1.pdf</rules>
 		<player>1</player>
-		<partnersite></partnersite>
+		<partnersite/>
 	</game>
 	<game>
 		<id>48</id>
@@ -114,33 +106,33 @@
 	</game>
 	<game>
 		<id>50</id>
-		<name>NFSU Drag (1on1)</name>
+		<name>NFSMW Drag (1on1)</name>
 		<type>P</type>
-		<rules>http://www.wwcl.net/rules/wwcl_nfsu_circuit_drag_1on1.pdf</rules>
+		<rules>http://www.wwcl.net/rules/wwcl_nfsmw_circuit_drag_1on1.pdf</rules>
 		<player>1</player>
 		<partnersite>http://www.nfs-players.de</partnersite>
 	</game>
 	<game>
 		<id>51</id>
-		<name>NFSU Circuit (1on1)</name>
+		<name>NFSMW Circuit (1on1)</name>
 		<type>P</type>
-		<rules>http://www.wwcl.net/rules/wwcl_nfsu_circuit_drag_1on1.pdf</rules>
+		<rules>http://www.wwcl.net/rules/wwcl_nfsmw_circuit_drag_1on1.pdf</rules>
 		<player>1</player>
 		<partnersite>http://www.nfs-players.de</partnersite>
 	</game>
 	<game>
 		<id>52</id>
-		<name>CoD 3on3 TDM</name>
+		<name>CoD2 3on3 SD</name>
 		<type>C</type>
-		<rules>http://www.wwcl.net/rules/wwcl_cod_3on3_tdm.pdf</rules>
+		<rules>http://www.wwcl.net/rules/wwcl_cod2_5on5_3on3_sd.pdf</rules>
 		<player>3</player>
 		<partnersite>http://cod.justgamers.de</partnersite>
 	</game>
 	<game>
 		<id>53</id>
-		<name>CoD 5on5 S+D</name>
+		<name>CoD2 5on5 SD</name>
 		<type>C</type>
-		<rules>http://www.wwcl.net/rules/wwcl_cod_5on5_sd.pdf</rules>
+		<rules>http://www.wwcl.net/rules/wwcl_cod2_5on5_3on3_sd.pdf</rules>
 		<player>5</player>
 		<partnersite>http://cod.justgamers.de</partnersite>
 	</game>
@@ -186,9 +178,9 @@
 	</game>
 	<game>
 		<id>60</id>
-		<name>Pro Evolution Soccer4</name>
+		<name>Pro Evolution Soccer5</name>
 		<type>P</type>
-		<rules>http://www.wwcl.net/rules/wwcl_pes4_1on1.pdf</rules>
+		<rules>http://www.wwcl.net/rules/wwcl_pes_1on1.pdf</rules>
 		<player>1</player>
 		<partnersite>http://www.wwcl.net</partnersite>
 	</game>
@@ -238,7 +230,7 @@
 		<type>C</type>
 		<rules>http://www.wwcl.net/rules/wwcl_csp_4on4.pdf</rules>
 		<player>4</player>
-		<partnersite></partnersite>
+		<partnersite/>
 	</game>
 	<game>
 		<id>67</id>
@@ -246,7 +238,7 @@
 		<type>C</type>
 		<rules>http://www.wwcl.net/rules/wwcl_sw4_3on3.pdf</rules>
 		<player>3</player>
-		<partnersite></partnersite>
+		<partnersite/>
 	</game>
 	<game>
 		<id>68</id>
@@ -254,7 +246,7 @@
 		<type>P</type>
 		<rules>http://www.wwcl.net/rules/wwcl_ee2_1on1.pdf</rules>
 		<player>1</player>
-		<partnersite></partnersite>
+		<partnersite/>
 	</game>
 	<game>
 		<id>69</id>
@@ -262,6 +254,14 @@
 		<type>C</type>
 		<rules>http://www.wwcl.net/rules/wwcl_bf2_8on8.pdf</rules>
 		<player>8</player>
-		<partnersite></partnersite>
+		<partnersite/>
+	</game>
+	<game>
+		<id>70</id>
+		<name>CoD2 3on3 TDM</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_cod2_3on3_tdm.pdf</rules>
+		<player>3</player>
+		<partnersite>http://cod.justgamers.de</partnersite>
 	</game>
 </wwclgameini>
