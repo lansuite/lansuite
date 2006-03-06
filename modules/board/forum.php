@@ -1,6 +1,7 @@
 <?php
 
 if ($_POST["fid"] != "") $_GET["fid"] = $_POST["fid"];
+$_GET["fid"] = (int)$_GET["fid"];
 $mastersearch = new MasterSearch($vars, "index.php?mod=board&action=forum&fid={$_GET["fid"]}", "index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid=", " AND t.fid = {$_GET["fid"]}");
 $mastersearch->LoadConfig("board_threads", $lang['board']['ms_post_search'], $lang['board']['ms_post_result']);
 $mastersearch->PrintForm();
