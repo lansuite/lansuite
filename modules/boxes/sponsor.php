@@ -20,8 +20,6 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 */	
     $file_name = 'ext_inc/banner/button_'. substr($sponsor['pic_path'], strrpos($sponsor["pic_path"], 'ext_inc/banner/') + 15, strlen($sponsor['pic_path']));
 		if (file_exists($file_name)) {
-			$sponsor["pic_path"] = $file_name;
-
 			$ImgSize = @GetImageSize($file_name);
 			if (!$ImgSize[0]) $ImgSize[0] = 60;
 			if ($ImgSize[0] > $cfg["sponsor_picwidth_small"]) $ImgSize[0] = $cfg["sponsor_picwidth_small"];
