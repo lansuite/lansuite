@@ -1,19 +1,8 @@
 <?php
 
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		query.php
-*	Module: 		Picgallery
-*	Main editor: 		johannes@one-network.org
-*	Last change: 		06.01.2003 17:43
-*	Description: 		 
-*	Remarks: 		
-*
-***************************************************************************/
+# Forbid changedir to upper directories
+$_GET['file'] = str_replace('/..', '', $_GET['file']);
+$_GET['file'] = str_replace('\\..', '', $_GET['file']);
 
 $icon_dir = "ext_inc/picgallery_icon/";
 // Returns, wheather the supplied extension is supported, or not.
