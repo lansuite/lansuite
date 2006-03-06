@@ -16,4 +16,11 @@ Hier gilt das gleiche, wie oberhalb bei der WWCL.
 Die NGL-Datei heiﬂt 'games.xml'
 
 Die URL zum aktuallisieren der Datei ist:
-Irgendwo auf http://ngl-europe.com :-) Hab sie leider nicht gefunden...
+Irgendwo auf http://www.ngl-germany.de/ :-) Hab sie leider nicht gefunden...
+
+
+=== LGZ ===
+Die aktuellen LGZ-Regeln sind unter folgender URL zu finden
+http://lan.gamer-zone.com/content.php?id=3
+
+Eine automatisch updatebare XML-Datei mit einer Liste der aktuellen Spiele wird von dieser Liga leider noch nicht angeboten
