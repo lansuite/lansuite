@@ -6,8 +6,8 @@ $tid = $_GET["tid"];
 $list_type = $auth['type'] + 1;
 $thread = $db->query_first("SELECT fid, caption, userid, date  FROM {$config["tables"]["board_threads"]} WHERE tid='$tid'");
 
-$query = $db->query("SELECT fid FROM {$config["tables"]["board_forums"]} WHERE (need_type <= '{$list_type}') and (fid='{$thread["fid"]}') GROUP BY fid");
-if ($db->num_rows($query) == 0) $func->error($lang['board']['posts'], "");
+$query_form = $db->query("SELECT fid, need_type FROM {$config["tables"]["board_forums"]} WHERE (need_type <= '{$list_type}') and (fid='{$thread["fid"]}') GROUP BY fid");
+if ($db->num_rows($query_form) == 0) $func->error($lang['board']['posts'], "");
 else {
 
 	// Mark thread read
@@ -28,8 +28,9 @@ else {
 		$templ['board']['overview']['case']['info']['page_split'] = $pages['html'];
 	}
 
-	$forum = $db->query_first("SELECT name FROM {$config["tables"]["board_forums"]} WHERE fid='$fid'");
+	$forum = $db->query_first("SELECT name, need_type FROM {$config["tables"]["board_forums"]} WHERE fid='$fid'");
 	$hyperlink = '<a href="%s" class="menu">%s</a>';
+	$need_type = $forum['need_type'];
 
 	//Bugfix by Poschi: Hier wurde auf "index.php?mod=board&action=forum&fid=$fid" verlinkt, aber das ist deffiniv nicht die Forenübersicht, sondern die Thread übersicht eines Forums ==> ausgebessert
 	$overview_capt = sprintf($hyperlink, "index.php?mod=board", $lang['board']['overview_caption']);
@@ -80,7 +81,7 @@ else {
 
 	// Generate Thread-Buttons
 	$templ['board']['forum']['case']['control']['new'] = "";
-	if ($auth["login"] == 1 || $row['tape_need'] == 0) $templ['board']['forum']['case']['control']['new'] .= " ". $dsp->FetchButton("index.php?mod=board&action=post&fid=$fid", "new_thread") ." ". $dsp->FetchButton("index.php?mod=board&action=post&tid=$tid", "new_post");
+	if (($auth["login"] == 1 && $need_type >= 1) || $need_type == 0 || $auth['type'] > 1) $templ['board']['forum']['case']['control']['new'] .= " ". $dsp->FetchButton("index.php?mod=board&action=post&fid=$fid", "new_thread") ." ". $dsp->FetchButton("index.php?mod=board&action=post&tid=$tid", "new_post");
 	#." ". $dsp->FetchButton("index.php?mod=board&action=bookmark&tid=$tid", "bookmark");
 	if ($auth["type"] > 1) $templ['board']['forum']['case']['control']['new'] .= " ". $dsp->FetchButton("index.php?mod=board&action=edit&mode=delete&tid=$tid", "delete");
 

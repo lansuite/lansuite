@@ -6,7 +6,8 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
-- Bugfix: #330 Anzeigefehler beim Pricedropdown im Benuzermanager behoben. (Genesis 04.0306)
+- Bugfix: #349 Berechtigungsfehler im Boardmodul. (Genesis 06.03.06)
+- Bugfix: #330 Anzeigefehler beim Pricedropdown im Benuzermanager behoben. (Genesis 04.03.06)
 - Bugfix: #337 Fehler im PDF mit dem anzeigen von Barcodes behoben. (Genesis 04.03.06)
 - Bugfix: Popup vom Sitzplan wurde falsch angezeigt. (Genesis 04.03.06)
 - Bugfix: #341 Ein Benutzer konnte über das Editieren der eigenen Details einem Clan mit ClanPW beitreten (KnoX 04.03.2006)

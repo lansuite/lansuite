@@ -54,7 +54,7 @@ switch ($step) {
 switch ($step) {
 	default:
 		$row = $db->query_first("SELECT need_type FROM {$config["tables"]["board_forums"]} WHERE fid=$fid");
-		if (!($row['need_type'] == 0 || $auth['type'] > 1 || ($row['need_type'] == 1 && $auth['login'] == 1))){
+		if (!($row['need_type'] == 0 || $auth['type'] > 1 || (($row['need_type'] == 2 || $row['need_type'] == 1) && $auth['login'] == 1))){
 			$func->error("ACCESS_DENIED","");
 			break;
 		}
