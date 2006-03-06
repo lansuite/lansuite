@@ -18,7 +18,7 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 	// Else add Image-Tag
 	} else {
 */	
-    $file_name = 'ext_inc/banner/banner_'. substr($sponsor['pic_path'], strrpos($sponsor["pic_path"], 'ext_inc/banner/') + 15, strlen($sponsor['pic_path']));
+    $file_name = 'ext_inc/banner/button_'. substr($sponsor['pic_path'], strrpos($sponsor["pic_path"], 'ext_inc/banner/') + 15, strlen($sponsor['pic_path']));
 		if (file_exists($file_name)) {
 			$sponsor["pic_path"] = $file_name;
 

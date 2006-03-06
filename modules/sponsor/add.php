@@ -53,7 +53,8 @@ switch($_GET['step']) {
 		// --- Rotation Banner ---
 		// 1) Was a special banner uploaded?
     if ($_FILES['pic_upload_banner']['name']) {
-      $func->FileUpload('pic_upload_banner', 'ext_inc/banner/banner_');
+      if ($_FILES['pic_upload']['name']) $_FILES['pic_upload_banner']['name'] = $_FILES['pic_upload']['name'];
+      $func->FileUpload('pic_upload_banner', 'ext_inc/banner/', 'banner_'. $_FILES['pic_upload_banner']['name']);
   		if (!$pic_url) $pic_url = 'ext_inc/banner/'. $_FILES['pic_upload_banner']['name'];
 
     // 2) Otherwise use an automatic resized image of the first banner, if available
@@ -63,7 +64,8 @@ switch($_GET['step']) {
 		// --- Box Button ---
 		// 1) Was a special banner uploaded?
     if ($_FILES['pic_upload_button']['name']) {
-      $pic_url = $func->FileUpload('pic_upload_button', 'ext_inc/banner/button_');
+      if ($_FILES['pic_upload']['name']) $_FILES['pic_upload_button']['name'] = $_FILES['pic_upload']['name'];
+      $func->FileUpload('pic_upload_button', 'ext_inc/banner/', 'button_'. $_FILES['pic_upload_button']['name']);
   		if (!$pic_url) $pic_url = 'ext_inc/banner/'. $_FILES['pic_upload_button']['name'];
 
     // 2) Otherwise use an automatic resized image of the first banner, if available
