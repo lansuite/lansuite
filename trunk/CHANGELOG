@@ -30,6 +30,7 @@ Version 2.1.0
 - Change: Möglichkeit zu Disqualifizieren aus dem Turniermodul wieder entfernt, da Buggy (KnoX 04.03.2006)
 - Change: #333 Die Statistiken auf der Startseite haben nun ein neues Format (KnoX 25.02.2006)
 
+- Add: Im Sponsorenmodul kann man nun auch für Banner und Buttons eigenen Code eingeben, oder exteren Verweise definieren (KnoX 07.03.2006)
 - Add: Die Lansuiteseite lässt sich nun sperren (Genesis 4.3.06)
 - Add: MySQL-Verbindungen werden nun immer am Ende des Skripts getrennt (KnoX, 04.03.2006)
 - Add: Im Sitzplan können nun gesperrte Plätze eingefügt werden (Kernel, 28.02.2006)
