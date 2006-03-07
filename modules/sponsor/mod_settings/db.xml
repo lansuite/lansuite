@@ -77,6 +77,22 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>pic_path_banner</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>pic_path_button</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>active</name>
 				<type>int(1)</type>
 				<null></null>
