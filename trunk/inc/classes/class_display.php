@@ -8,6 +8,7 @@ class display {
 	var $form_open = 0;
 	var $formcount = 1;
 	var $TableOpen = false;
+	var $HiddenBoxJSLoaded = false;
 
 /* Class-Internal Functions*/
 
@@ -99,6 +100,29 @@ class display {
 
 		$this->AddTpl("design/templates/ls_row_headermenu.htm");
     }
+
+	function StartHiddenBox($name, $vissible = false) {
+		global $templ;
+
+    $templ['ls']['row']['hidden_row']['id'] = $name;
+
+    if (!$this->HiddenBoxJSLoaded) {
+      $this->HiddenBoxJSLoaded = true;
+      $this->AddTpl("design/templates/ls_row_hiddenbox_js.htm");
+    }
+    
+    if ($vissible) $templ['ls']['row']['hidden_row']['display'] = '';
+    else $templ['ls']['row']['hidden_row']['display'] = 'none';
+
+		$this->AddTpl("design/templates/ls_row_hiddenbox_start.htm");
+	}
+
+	function StopHiddenBox() {
+		global $templ;
+		
+		$this->AddTpl("design/templates/ls_row_hiddenbox_stop.htm");
+	}
+
 
 	function AddSingleRow($text, $parm = NULL) {
 		global $templ;
