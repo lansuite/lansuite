@@ -120,10 +120,9 @@ switch($_GET['step']) {
       $sec->unlock('sponsor');
 
 			if ($_POST['url'] == '') $_POST['url'] = 'http://';
-#			if ($pic_path == '') $pic_path = 'http://';
 			if ($_POST['pos'] == '') $_POST['pos'] = '0';
-			if ($_POST['active'] == '') $_POST['active'] = SELECTED;
-			if ($_POST['rotation'] == '') $_POST['rotation'] = SELECTED;
+#			if ($_POST['active'] == '') $_POST['active'] = SELECTED;
+#			if ($_POST['rotation'] == '') $_POST['rotation'] = SELECTED;
 			if ($_POST['sponsor'] == '') $_POST['sponsor'] = SELECTED;
 			if (substr($_POST['pic_path'], 0, 12) == 'html-code://') $pic_code = substr($sponsor['pic_path'], 12, strlen($sponsor['pic_path']) - 12);
       else $pic_path = $_POST['pic_path'];
@@ -138,22 +137,32 @@ switch($_GET['step']) {
 			$dsp->AddTextFieldRow('name', $lang['sponsor']['add_name'], $_POST['name'], $name_error);
 			$dsp->AddTextFieldRow('url', $lang['sponsor']['add_url'], $_POST['url'], '', '', OPTIONAL);
 			$dsp->AddHRuleRow();
-			$dsp->AddCheckBoxRow('sponsor', $lang['sponsor']['add_sponsor'], $lang['sponsor']['add_sponsor2'], '', OPTIONAL, $_POST['sponsor']);
+
+			$dsp->AddCheckBoxRow('sponsor" onChange="change_check_box_state(\'banner_page\', this.checked)', $lang['sponsor']['add_sponsor'], $lang['sponsor']['add_sponsor2'], '', OPTIONAL, $_POST['sponsor']);
+			$dsp->StartHiddenBox('banner_page', $_POST['sponsor']);
 			$dsp->AddFileSelectRow('pic_upload', $lang['sponsor']['add_pic_upload'], $pic_error, '', '', OPTIONAL);
 			$dsp->AddTextFieldRow('pic_path', $lang['sponsor']['add_pic'], $pic_path, '', '', OPTIONAL);
 			$dsp->AddTextAreaRow('pic_code', $lang['sponsor']['add_pic_code'], $pic_code, '', '', 4, OPTIONAL);
+			$dsp->StopHiddenBox();
 			$dsp->AddHRuleRow();
+
 			$dsp->AddSingleRow($lang['sponsor']['add_other_sizes']);
-			$dsp->AddCheckBoxRow('rotation', $lang['sponsor']['add_banner'], $lang['sponsor']['add_banner2'], '', OPTIONAL, $_POST['rotation']);
+			$dsp->AddCheckBoxRow('rotation" onChange="change_check_box_state(\'banner_rotation\', this.checked)', $lang['sponsor']['add_banner'], $lang['sponsor']['add_banner2'], '', OPTIONAL, $_POST['rotation']);
+			$dsp->StartHiddenBox('banner_rotation', $_POST['rotation']);
 			$dsp->AddFileSelectRow('pic_upload_banner', $lang['sponsor']['add_pic_upload'] .' (468 x 60)', $pic_error, '', '', OPTIONAL);
 			$dsp->AddTextFieldRow('pic_path_banner', $lang['sponsor']['add_pic'], $pic_path_banner, '', '', OPTIONAL);
 			$dsp->AddTextAreaRow('pic_code_banner', $lang['sponsor']['add_pic_code'], $pic_code_banner, '', '', 4, OPTIONAL);
+			$dsp->StopHiddenBox();
 			$dsp->AddHRuleRow();
-			$dsp->AddCheckBoxRow('active', $lang['sponsor']['add_active'], $lang['sponsor']['add_active2'], '', OPTIONAL, $_POST['active']);
+
+			$dsp->AddCheckBoxRow('active" onChange="change_check_box_state(\'button\', this.checked)', $lang['sponsor']['add_active'], $lang['sponsor']['add_active2'], '', OPTIONAL, $_POST['active']);
+			$dsp->StartHiddenBox('button', $_POST['active']);
 			$dsp->AddFileSelectRow('pic_upload_button', $lang['sponsor']['add_pic_upload'] .' (120 x 60)', $pic_error, '', '', OPTIONAL);
 			$dsp->AddTextFieldRow('pic_path_button', $lang['sponsor']['add_pic'], $pic_path_button, '', '', OPTIONAL);
 			$dsp->AddTextAreaRow('pic_code_button', $lang['sponsor']['add_pic_code'], $pic_code_button, '', '', 4, OPTIONAL);
+			$dsp->StopHiddenBox();
 			$dsp->AddHRuleRow();
+
 			$dsp->AddTextFieldRow('pos', $lang['sponsor']['add_pos'], $_POST['pos'], '', '', OPTIONAL);
 			$dsp->AddTextAreaPlusRow('text', $lang['sponsor']['add_text'], $_POST['text'], $text_error);
 
