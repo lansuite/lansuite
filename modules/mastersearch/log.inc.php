@@ -16,7 +16,7 @@
 	$this->config['title']            = $lang['ms']['log']['title'];
 	$this->config['orderby']          = "l.date, DESC";
 	$this->config['userid']           = "userid";
-	$this->config['linkcol']          = "userid";
+	$this->config['linkcol']          = "logid";
 	$this->config['entrys_page']      = $config["size"]["table_rows"]; // Hier kanste definieren wieviele einträge du pro seite ausgegeben bekommen willst
 	
 	$this->config['inputs'][1]['title']   = $lang['ms']['log']['priority'];

@@ -167,8 +167,6 @@ class team {
 						teamid = $teamid
 						");
 
-					$team = $db->query_first("SELECT name FROM {$config["tables"]["t2_teams"]} WHERE tournamentid = $teamid");
-
 					$mail->create_sys_mail($userid, str_replace("%T%", $team["tname"], str_replace("%TEAM%", $team["teamname"], $lang["tourney"]["teammgr_join_mail_subj"])), str_replace("%T%", $team["tname"], str_replace("%TEAM%", $team["teamname"], $lang["tourney"]["teammgr_join_mail"])));
 
 					$func->log_event(str_replace("%USER%", $auth["username"], str_replace("%TEAM%", $team["teamname"], str_replace("%T%", $team["tname"], $lang["tourney"]["join_log_success_team"]))), 1, $lang["tourney"]["log_t_teammanage"]);
