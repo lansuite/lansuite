@@ -66,7 +66,7 @@ class seat2 {
 	}
 
 	function DrawPlan($blockid, $mode, $linktarget = '', $selected_user = false) {
-		global $db, $config, $dsp, $templ, $auth, $gd, $lang, $cfg;
+		global $db, $config, $dsp, $templ, $auth, $gd, $lang, $cfg, $party;
 		// $mode:
 		// 0 = Normal display mode
 		// 1 = With seperators
@@ -74,11 +74,13 @@ class seat2 {
 		// 3 = Admin mode
 
 		// Create Images
-		$this->CreateSeatImage('seat_free', 0, 200, 0, 50);
-		$this->CreateSeatImage('seat_reserved', 200, 0, 0, 50);
-		$this->CreateSeatImage('seat_marked', 200, 200, 0, 50);
-		$this->CreateSeatImage('seat_myselfe', 0, 0, 200, 50);
-		$this->CreateSeatImage('seat_clanmate', 0, 100, 200, 50);
+		$this->CreateSeatImage('seat_free', 0, 250, 0, 60);
+		$this->CreateSeatImage('seat_reserved', 250, 0, 0, 60);
+		$this->CreateSeatImage('seat_checked_in', 100, 0, 0, 60);
+		$this->CreateSeatImage('seat_checked_out', 0, 100, 0, 60);
+		$this->CreateSeatImage('seat_marked', 200, 200, 0, 60);
+		$this->CreateSeatImage('seat_myselfe', 0, 0, 200, 60);
+		$this->CreateSeatImage('seat_clanmate', 0, 100, 200, 60);
 
 		// Get Block data (side descriptions + number of rows + cols)
 		$block = $db->query_first("SELECT * FROM {$config["tables"]["seat_block"]} WHERE blockid = '{$blockid}'");
@@ -112,14 +114,21 @@ class seat2 {
 		$seat_state = array();
 		$seat_ip = array();
 		$seat_userid = array();
-		$seats_qry = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]} AS s LEFT JOIN {$config["tables"]["user"]} AS u ON u.userid = s.userid WHERE blockid = '$blockid'");
+		$seats_qry = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]} AS s
+      LEFT JOIN {$config["tables"]["user"]} AS u ON u.userid = s.userid
+      WHERE blockid = '$blockid'");
 		if (!$db->num_rows() == 0) {
 #			for ($x = 0; $x <= $block['cols']; $x++) for ($y = 0; $y <= $block['rows']; $y++) $seat_state[$y][$x] = 1;
 #		else {
 			while ($seat_row = $db->fetch_array($seats_qry)) {
+        if ($seat_row['userid']) $party_user = $db->query_first("SELECT checkin, checkout FROM {$config["tables"]["party_user"]}
+          WHERE user_id = {$seat_row['userid']} AND party_id = {$party->party_id}");
+          
 				$seat_state[$seat_row['row']][$seat_row['col']] = $seat_row['status'];
 				$seat_ip[$seat_row['row']][$seat_row['col']] = $seat_row['ip'];
 				$seat_userid[$seat_row['row']][$seat_row['col']] = $seat_row['userid'];
+				$seat_user_checkin[$seat_row['row']][$seat_row['col']] = $party_user['checkin'];
+				$seat_user_checkout[$seat_row['row']][$seat_row['col']] = $party_user['checkout'];
 				$user_info[$seat_row['row']][$seat_row['col']] = $seat_row;
 			}
 			$db->free_result($seats_qry);
@@ -242,7 +251,11 @@ class seat2 {
 								if ($seat_userid[$y][$x] == $userid) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_myselfe.png";
 								// Clanmate
 								elseif (in_array($seat_userid[$y][$x], $my_clanmates)) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_clanmate.png";
-								// Other ones seat
+                // Checked out
+								elseif ($seat_user_checkout[$y][$x]) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_out.png";
+                // Checked in
+								elseif ($seat_user_checkin[$y][$x]) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_in.png";
+								// Normal occupied seat
 								else $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png";
 							break;
 							case 3: // Seat marked
@@ -286,17 +299,17 @@ class seat2 {
 #						elseif ($seat_state[$y][$x] == $_POST['icon'])
 #							$templ['seat']['cell_content'] = "<input type=\"checkbox\" name=\"cell[". ($x * 100 + $y) ."]\" value=\"". ($x * 100 + $y) ."\"checked />";
 						}else {
-// Geändert von HSE: Zeile angepasst ("< 7" statt "< 10")
 							if ($seat_state[$y][$x] > 1 && $seat_state[$y][$x] < 7) {
 							  $templ['seat']['cell_content'] = "<td style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png); height:14px; width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
 //								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png";
 //								$templ['seat']['cell_content'] = $dsp->FetchModTpl('seating', 'plan_cell_img');
 							} else {
+						    // Free seat
 								if ($seat_state[$y][$x] == 1) {
 //									$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_free.png";
 									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_free.png); width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
 									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
-// Geändert von HSE: 3 Zeilen hinzugefügt
+                // Locked seat
 								} elseif ($seat_state[$y][$x] == 7) {
 									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/seating_symbols/7.png); width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
 									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
@@ -344,6 +357,8 @@ class seat2 {
 		$templ['seating']['legend']['clan']		= $lang['seating']['clan_seat'];
 		$templ['seating']['legend']['marked']	= $lang['seating']['marked'];
 		$templ['seating']['legend']['locked']	= $lang['seating']['locked'];
+		$templ['seating']['legend']['checked_in']	= $lang['seating']['checked_in'];
+		$templ['seating']['legend']['checked_out']	= $lang['seating']['checked_out'];    		
 		
 		if ($selected_user) $templ['seating']['legend']['me'] = $lang['seating']['selected'];
 		else	$templ['seating']['legend']['me']			 = $lang['seating']['me'];
