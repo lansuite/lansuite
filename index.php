@@ -110,6 +110,9 @@ include_once("modules/mastersearch/class_mastersearch.php");
 include_once("modules/mail/class_mail.php");
 include_once("modules/stats/class_stats.php");
 
+// Cronjob laden
+include_once("modules/cron/class_cronjob.php");
+
 // Initialize base classes
 $func		= new func;			// Base Functions (anything that doesnt belong elsewere)
 $gd		= new gd;			// GD Functions (for graphical outputs)
@@ -122,7 +125,7 @@ $xml		= new xml;			// XML Functions (to maintain XML-Ex-/Imports)
 $install	= new Install();		// Install Functions (Some basic Setup-Routines)
 $db			= new db;			// DB Functions (to work with the databse)
 $sec		= new sec;			// Security Functions (to lock pages)
-
+$cronjob	= new cronjob();	// Load Cronjob
 
 
 // Wenn Install: Connect ohne Abbruch bei Fehler, sonst mit Abbruch
@@ -153,6 +156,9 @@ if ($db->success) {
 	$cfg = $func->read_db_config();
 
 	$sec->check_blacklist();
+	
+	// Check Cronjobs
+	$cronjob->check_jobs();
 }
 
 // Set language
