@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+- Bugfix: #315 Die IP-Generierung hatte im einfachen durchzählmodus auch Leer-Plätze mit nummeriert (KnoX 08.03.2006) 
 - Bugfix: In der Bildergallerie konnte man durch eine modifizierte URL auf Bilder übergeordneter Ordner zugreifen (KnoX 06.03.2006) 
 - Bugfix: #332 Komplette Überarbeitung des Sponsorenmoduls. Sollte unter anderem die im Bugtracker genannten Bugs fixen (KnoX 06.03.2006)
 - Bugfix: #349 Berechtigungsfehler im Boardmodul. (Genesis 06.03.06)
@@ -31,6 +32,7 @@ Version 2.1.0
 - Change: Möglichkeit zu Disqualifizieren aus dem Turniermodul wieder entfernt, da Buggy (KnoX 04.03.2006)
 - Change: #333 Die Statistiken auf der Startseite haben nun ein neues Format (KnoX 25.02.2006)
 
+- Add: #354 Ein- und ausgecheckte User werden nun farblich im Sitzplan gekennzeichnet (KnoX 08.03.2006)
 - Add: Cronjob Modul eingebaut. Nun muss noch entschieden werden welche Aufgaben eingetragen werden. (Genesis 08.03.06)
 - Add: Im Sponsorenmodul kann man nun auch für Banner und Buttons eigenen Code eingeben, oder exteren Verweise definieren (KnoX 07.03.2006)
 - Add: Die Lansuiteseite lässt sich nun sperren (Genesis 4.3.06)

@@ -88,11 +88,13 @@ echo $s_row;
 		$max_row = $get_size["rows"];
 		$max_col = $get_size["cols"];
 
+    if ($br != 'rowcol' and $br != 'rowcol2') $check_status = 'status < 10 AND status > 0 AND';
+    else $check_status = '';
 
 		// Hole alle seatids nach reihen sortiert in ein array
 		$count = 0;
 		if($sort=="col") { $order = "col $s_col,row $s_row"; } else { $order = "row $s_row,col $s_col"; }
-		$query_sub = $db->query("SELECT seatid, row, col FROM {$config["tables"]["seat_seats"]} WHERE blockid='$block_id' ORDER BY $order");
+		$query_sub = $db->query("SELECT seatid, row, col FROM {$config["tables"]["seat_seats"]} WHERE $check_status blockid='$block_id' ORDER BY $order");
 		while($row_seat_ids = $db->fetch_array($query_sub)) {
 			$seat_ids[$count] = $row_seat_ids["seatid"];
 			$seat_row[$count] = $row_seat_ids["row"];
