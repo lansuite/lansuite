@@ -192,4 +192,9 @@ $lang['ms']['log']['message'] = "Meldung";
 $lang['ms']['log']['date'] = "Datum";
 $lang['ms']['log']['user'] = "Verursacher";
 
+$lang['ms']['cron']['starttime']	= "Nächste Ausführung";
+$lang['ms']['cron']['caption']		= "Name";
+$lang['ms']['cron']['class']		= "Cron-Klasse";
+$lang['ms']['cron']['no_items_caption']	= "Keine anfallende Aufgaben gefunden";
+$lang['ms']['cron']['delete']		= "Job löschen";
 ?>
