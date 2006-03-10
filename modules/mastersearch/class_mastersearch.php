@@ -448,7 +448,7 @@ class MasterSearch {
 	function SeatsAvailable($blockid) {
 		global $db, $config;
 
-		$row = $db->query_first("SELECT COUNT(*) AS SeatsAvailable FROM {$config['tables']['seat_seats']} WHERE blockid='$blockid' AND status > 0 AND status < 8");
+		$row = $db->query_first("SELECT COUNT(*) AS SeatsAvailable FROM {$config['tables']['seat_seats']} WHERE blockid='$blockid' AND status > 0 AND status < 7");
 		return $row['SeatsAvailable'];
 	}
 
