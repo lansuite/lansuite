@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+- Bugfix: Anzwahl der Antworten im Board waren immer um 1 zu groß (KnoX 10.03.2006)
 - Bugfix: Der Button Registrieren war flasch verlinkt. ( Genesis 10.3.06)
 - Bugfix: Wenn keine offene Party vorhanden war konnte sich niemand registrieren. (Genesis 10.3.06)
 - Bugfix: #Logeintrag im Turniermodul beim Joinen war fehlerhaft (KnoX 08.03.2006)
@@ -29,6 +30,7 @@ Version 2.1.0
 - Bugfix: #334 Picgallery: Falscher Text in Überschrift, Bildercounter zählte keine Pack-formate (KnoX 24.02.2006)
 - Bugfix: #331 Poll: Durch Java-Script wurde Entitie alt Text anstatt Umlaut angezeigt (Cewigo 24.02.2006)
 
+- Change: #314: " in ' in language files abgeändert für mehr Performance (KnoX 10.03.2006)
 - Change: In der Loganzeige kann man nun Details zu einem Eintrag aufrufen (KnoX 08.03.2006)
 - Change: Games und Map Modul vom Addon ins Main-Package verschoben und auf Englisch übersetzt (KnoX 07.03.2006)
 - Change: Aktuelle NGL-Regelwerke ins Mainpackage verschoben (KnoX 06.03.2006)
@@ -36,6 +38,7 @@ Version 2.1.0
 - Change: Möglichkeit zu Disqualifizieren aus dem Turniermodul wieder entfernt, da Buggy (KnoX 04.03.2006)
 - Change: #333 Die Statistiken auf der Startseite haben nun ein neues Format (KnoX 25.02.2006)
 
+- Add: #350 In den Userdetails sieht man nun, an welchen Turnieren dieser User teil nimmt (KnoX 10.03.2006)
 - Add: #354 Ein- und ausgecheckte User werden nun farblich im Sitzplan gekennzeichnet (KnoX 08.03.2006)
 - Add: Cronjob Modul eingebaut. Nun muss noch entschieden werden welche Aufgaben eingetragen werden. (Genesis 08.03.06)
 - Add: Im Sponsorenmodul kann man nun auch für Banner und Buttons eigenen Code eingeben, oder exteren Verweise definieren (KnoX 07.03.2006)
