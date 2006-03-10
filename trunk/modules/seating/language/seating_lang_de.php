@@ -1,10 +1,10 @@
 <?
 // Default
-$lang['seating']['structure_version'] = "1";
-$lang['seating']['content_version']   = "1";
-$lang['seating']['language_name']     = "Deutsch";
-$lang['seating']['lastchange']        = "22. Oktober 2005";
-$lang['seating']['translator']        = "Cewigo (Jan)";
+$lang['seating']['structure_version'] = '1';
+$lang['seating']['content_version']   = '1';
+$lang['seating']['language_name']     = 'Deutsch';
+$lang['seating']['lastchange']        = '22. Oktober 2005';
+$lang['seating']['translator']        = 'Cewigo (Jan)';
 
 // Contend
 $lang['seating']['create_block']  = 'Sitzblock erstellen';
@@ -65,10 +65,10 @@ $lang['seating']['reserved']	  = 'Besetzt';
 $lang['seating']['me']			  = 'Ihr Platz';
 $lang['seating']['clan_seat']	  = 'Platz eines Clanmates';
 $lang['seating']['marked']		  = 'Vorgemerkt';
-$lang['seating']['selected']	  = "Ausgewählter User";
-$lang['seating']['locked']      = "Gesperrter Platz";
-$lang['seating']['checked_in']      = "Besetzt (Eingecheckt)";
-$lang['seating']['checked_out']      = "Frei (Ausgecheckt)";
+$lang['seating']['selected']	  = 'Ausgewählter User';
+$lang['seating']['locked']      = 'Gesperrter Platz';
+$lang['seating']['checked_in']      = 'Besetzt (Eingecheckt)';
+$lang['seating']['checked_out']      = 'Frei (Ausgecheckt)';
 
 // Errors
 $lang['seating']['e_hori_lenght'] = 'Bitte geben Sie die horizontale L&auml;nge ein';

@@ -17,17 +17,17 @@
  // The next 4 tags must be in every modul-language file exist !
 
 
- $lang['sample']['language_name'] = "English";
+ $lang['sample']['language_name'] = 'English';
  $lang['sample']['version'] = 1;					// Integer !, Increment this Counter after you add, delete or rename of tags
- $lang['sample']['lastchange'] = "14. June 2005";	// String, must not have a strict format
- $lang['sample']['translator'] = "Jochen";			// String, the Realname of the translator
+ $lang['sample']['lastchange'] = '14. June 2005';	// String, must not have a strict format
+ $lang['sample']['translator'] = 'Jochen';			// String, the Realname of the translator
 
 
- $lang['sample']['headline']	= "Headline";
- $lang['sample']['subheadline'] = "Additional headline";
- $lang["sample"]["single_row"]	= "A plain row";
- $lang["sample"]["name"]	= "Textinput";
- $lang["sample"]["user_insg"]	= "Overall users";
+ $lang['sample']['headline']	= 'Headline';
+ $lang['sample']['subheadline'] = 'Additional headline';
+ $lang['sample']['single_row']	= 'A plain row';
+ $lang['sample']['name']	= 'Textinput';
+ $lang['sample']['user_insg']	= 'Overall users';
 
 
  //
