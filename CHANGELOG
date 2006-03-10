@@ -6,6 +6,8 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+- Bugfix: Der Button Registrieren war flasch verlinkt. ( Genesis 10.3.06)
+- Bugfix: Wenn keine offene Party vorhanden war konnte sich niemand registrieren. (Genesis 10.3.06)
 - Bugfix: #Logeintrag im Turniermodul beim Joinen war fehlerhaft (KnoX 08.03.2006)
 - Bugfix: #315 Die IP-Generierung hatte im einfachen durchzählmodus auch Leer-Plätze mit nummeriert (KnoX 08.03.2006) 
 - Bugfix: In der Bildergallerie konnte man durch eine modifizierte URL auf Bilder übergeordneter Ordner zugreifen (KnoX 06.03.2006) 
