@@ -101,9 +101,9 @@ switch ($_GET['step']){
 					$dsp->AddDoubleRow("<a href='index.php?mod=signon&action=show_party&step=1&party_id={$res['party_id']}'>" . $res['name'] . "</a>",$party_start . " - " .$party_end . HTML_NEWLINE . $user_signon);
 
 				}
-				if($_SESSION["auth"]["type"] == 0){
-					$dsp->AddDoubleRow("", "<a href=\"index.php?mod=signon&action=add&step=2&signon=0\">". $lang["signon"]["add_not_registered_nosignup"] ."</a>");
-				}
+			}
+			if($_SESSION["auth"]["type"] == 0){
+				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=signon&action=add&step=2&signon=0\">". $lang["signon"]["add_not_registered_nosignup"] ."</a>");
 			}
 			$dsp->AddContent();
 		}

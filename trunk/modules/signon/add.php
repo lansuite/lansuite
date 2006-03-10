@@ -6,12 +6,20 @@
 	if ($user["user_id"]) {
 		$func->information($lang['signon']['allready'], "index.php?mod=news");
 
-	} elseif($_SESSION['party_info']['s_startdate'] >= $currenttime) {
+	} elseif($_SESSION['party_info']['s_startdate'] >= $currenttime && $_GET['signon'] != 0) {
 		$func->information(HTML_NEWLINE . "{$lang['signon']['signon_start']}:" . HTML_NEWLINE . HTML_NEWLINE . "<strong>". $func->unixstamp2date($_SESSION['party_info']['s_startdate'], "daydatetime"). "</strong>", "");
-
-	} elseif($_SESSION['party_info']['s_enddate'] <= $currenttime) {
+		if($_SESSION["auth"]["type"] == 0){
+			$dsp->NewContent("");
+			$dsp->AddDoubleRow("", "<a href=\"index.php?mod=signon&action=add&step=2&signon=0\">". $lang["signon"]["add_not_registered_nosignup"] ."</a>");
+			$dsp->AddContent();
+		}
+	} elseif($_SESSION['party_info']['s_enddate'] <= $currenttime && $_GET['signon'] != 0) {
 		$func->information( HTML_NEWLINE . "{$lang['signon']['signon_closed']}:" . HTML_NEWLINE . HTML_NEWLINE . "<strong>". $func->unixstamp2date($_SESSION['party_info']['s_enddate'],"daydatetime"). "</strong>", "");
-
+		if($_SESSION["auth"]["type"] == 0){
+			$dsp->NewContent("");
+			$dsp->AddDoubleRow("", "<a href=\"index.php?mod=signon&action=add&step=2&signon=0\">". $lang["signon"]["add_not_registered_nosignup"] ."</a>");
+			$dsp->AddContent();
+		}
 	} else {
     $step 		= $_GET['step'];
     
