@@ -1,6 +1,6 @@
 <?php
 	$this->config['search_fields'][]  = "t.caption";
-	$this->config['sql_statment']     = "SELECT t.*, r.last_read FROM {$config["tables"]["board_threads"]} AS t
+	$this->config['sql_statment']     = "SELECT t.*, t.posts-1 AS posts, r.last_read FROM {$config["tables"]["board_threads"]} AS t
 										LEFT JOIN {$config["tables"]["board_read_state"]} AS r ON t.tid = r.tid AND r.userid = '{$auth["userid"]}'";
 	$this->config['title']            = $lang['ms']['board_threads']['title'];
 	$this->config['orderby']          = "last_pid, DESC";
