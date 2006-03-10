@@ -49,6 +49,7 @@ else {
 	$menunames[] = $lang['usrmgr']['details_playerinfos'];
 	$menunames[] = $lang['usrmgr']['details_private'];
 	$menunames[] = $lang['usrmgr']['details_misc'];
+	$menunames[] = $lang['usrmgr']['details_tournament'];
 	if(!$vars['headermenuitem']) { $vars['headermenuitem'] = 1; }
 
 	# Beginn der Ausgabe
@@ -58,7 +59,7 @@ else {
 	// User Name
 	$dsp->AddDoubleRow($lang['usrmgr']['details_username'], $user_data['username']." &nbsp; (".$_GET['userid'].")");
 
-	// Select menu details (step/headermenuitem)
+	// < menu details (step/headermenuitem)
 	switch($vars['headermenuitem']){
 		default:
 		case 1: // Main
@@ -181,6 +182,31 @@ else {
 				$avatar	= "<img border=\"0\" src=\"ext_inc/avatare/" . $user_data['avatar_path'] . "\">"
 				: $avatar = $lang['usrmgr']['details_no_avatar'];
 			$dsp->AddDoubleRow($lang['usrmgr']['details_avatar'], $avatar);
+		break;
+		
+    // Tournament list
+		case 5:
+      include_once("modules/tournament2/class_tournament.php");
+      $tfunc = new tfunc;
+		
+      $dsp->AddSingleRow('<b>'. $lang['usrmgr']['details_leader_teams'] .'</b>');
+			$leader_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
+		    LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
+        WHERE team.leaderid = '{$_GET['userid']}'");
+      if ($db->num_rows($leader_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
+      else while ($leader_team = $db->fetch_array($leader_teams)) {
+	      $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $leader_team['tid']. '">'. $leader_team['name'] .'</a>', $leader_team['teamname'] .' '. $tfunc->button_team_details($leader_team['teamid'], $leader_team['tid']));
+      }
+      		  
+      $dsp->AddSingleRow('<b>'. $lang['usrmgr']['details_member_teams'] .'</b>');
+			$member_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
+		    LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
+		    LEFT JOIN {$config['tables']['t2_teammembers']} AS m ON team.teamid = m.teamid
+        WHERE m.userid = '{$_GET['userid']}'");
+      if ($db->num_rows($member_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
+      else while ($member_team = $db->fetch_array($member_teams)) {
+	      $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $member_team['tid']. '">'. $member_team['name'] .'</a>', $member_team['teamname'] .' '. $tfunc->button_team_details($member_team['teamid'], $member_team['tid']));
+      }
 		break;
 	} // end switch
 
