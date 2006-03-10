@@ -1,10 +1,10 @@
 <?
 // Default
-$lang['seating']['structure_version'] = "1";
-$lang['seating']['content_version']   = "1";
-$lang['seating']['language_name']     = "English";
-$lang['seating']['lastchange']        = "30. November 2005";
-$lang['seating']['translator']        = "Jochen";
+$lang['seating']['structure_version'] = '1';
+$lang['seating']['content_version']   = '1';
+$lang['seating']['language_name']     = 'English';
+$lang['seating']['lastchange']        = '30. November 2005';
+$lang['seating']['translator']        = 'Jochen';
 
 // Contend
 $lang['seating']['create_block']  = 'Create Seating plan';
@@ -65,10 +65,10 @@ $lang['seating']['reserved']	  = 'Occupied';
 $lang['seating']['me']			  = 'Me';
 $lang['seating']['clan_seat']	  = 'Clanmate';
 $lang['seating']['marked']		  = 'Marked';
-$lang['seating']['selected']	  = "Selected User";
-$lang['seating']['locked']      = "Locked seat";
-$lang['seating']['checked_in']      = "Occupied (Checked in)";
-$lang['seating']['checked_out']      = "Free (Checked out)";
+$lang['seating']['selected']	  = 'Selected User';
+$lang['seating']['locked']      = 'Locked seat';
+$lang['seating']['checked_in']      = 'Occupied (Checked in)';
+$lang['seating']['checked_out']      = 'Free (Checked out)';
 
 // Errors
 $lang['seating']['e_hori_lenght'] = 'Submit the horizontal length, please';
