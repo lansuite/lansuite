@@ -76,10 +76,12 @@ switch($_GET["step"]) {
 		if ($_GET["module"] == "usrmgr_") $_GET["module"] = "Userdetails";
 		if ($_GET["module"] == "tournament2_") $_GET["module"] = "Turnier";
 
+		$like = ereg_replace('_','\_', $_GET["module"]);		//Erestze alle _ durch \_ , da mysql _ für ein beliebiges Zeichen interpretiert.
+
 		$res = $db->query("SELECT cfg_key, cfg_value, cfg_desc, cfg_type
 				FROM {$config["tables"]["config"]}
 				WHERE (cfg_group = '{$_GET["module"]}')
-				OR (cfg_key LIKE '{$_GET["module"]}%')");
+				OR (cfg_key LIKE '{$like}%')");
 
 		if ($db->num_rows($res) == 0) $func->error($lang["install"]["mod_set_err_nosettings"], "install.php?mod=install&action=modules");
 		else {
