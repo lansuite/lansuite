@@ -51,4 +51,7 @@ ifconfig			= "0"
 loadavg				= "0"
 ls_getinfo			= "1"
 
+[board2]
+configured			= "0"
+
 ;*/ ?>
