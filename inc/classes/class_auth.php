@@ -109,7 +109,7 @@ class auth {
 
 	// When the User logs off
 	function logout() {
-		global $db, $config;
+		global $db, $config, $lang, $board_config;
 
 		$db->query("UPDATE {$config["tables"]["stats_auth"]} SET login='0' WHERE sessid='{$this->auth["sessid"]}'");
 
@@ -117,12 +117,27 @@ class auth {
 		
 		setcookie("auth[email]", "", time() - 3600);
 		setcookie("auth[userpassword]", "", time() - 3600);
+		
+		// The User will be logged out on the phpBB Board if the modul is available, configured and active.
+		if ($db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name='board2'")) {
+			if ($config["board2"]["configured"]) {
+				$temp_db = $db;
+				$temp_lang = $lang;
+				$tempboard_config = $board_config;
+				include_once ('./modules/board2/PHPBB_Login.php');
+				$phpBB = new PHPBB_Login();
+				$phpBB->logout(session_id(), $this->auth['userid']);
+				$db = $temp_db;
+				$lang = $temp_lang;
+				$board_config = $tempboard_config;
+			}
+		}
 	}
 
 
 	// When user logs in
 	function login($loginart) {
-		global $db, $func, $cfg, $config, $party, $lang, $auth;
+		global $db, $func, $cfg, $config, $party, $lang, $auth, $board_config;
 		
 		$auth['design'] = $config['lansuite']['default_design'];
 		
@@ -200,7 +215,22 @@ class auth {
 					setcookie("auth[userpassword]", $user_data['password'], time() + (3600*24*365));
 				}
 				
-
+				$this->auth['userid'] = $user['userid'];
+				
+				// The User will be logged in on the phpBB Board if the modul is available, configured and active.
+				if ($db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name='board2'")) {
+					if ($config["board2"]["configured"]) {
+						$temp_db = $db;
+						$temp_lang = $lang;
+						$tempboard_config = $board_config;
+						include_once ('./modules/board2/PHPBB_Login.php');
+						$phpBB = new PHPBB_Login();
+						$phpBB->login($user["userid"]);
+						$db = $temp_db;
+						$lang = $temp_lang;
+						$board_config = $tempboard_config;
+					}
+				}
 			}
 		}
 	}
