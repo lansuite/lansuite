@@ -1,6 +1,6 @@
 <?php
 
-include("modules/tournament2/class_tournament.php");
+include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
 if (!$_GET["teamid"]) $func->error($lang["tourney"]["tdet_no_team"]);

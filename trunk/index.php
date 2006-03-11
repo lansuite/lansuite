@@ -156,9 +156,6 @@ if ($db->success) {
 	$cfg = $func->read_db_config();
 
 	$sec->check_blacklist();
-	
-	// Check Cronjobs
-	$cronjob->check_jobs();
 }
 
 // Set language
@@ -168,6 +165,10 @@ if ($_SESSION['language']) $language = $_SESSION['language'];
 elseif ($cfg["sys_language"]) $language = $cfg["sys_language"];
 else $language = "de";
 
+if($db->success){
+		// Check Cronjobs
+	$cronjob->check_jobs();
+}
 // Load Barcode System
 $barcode	= new barcode_system();	// Barcode System
 

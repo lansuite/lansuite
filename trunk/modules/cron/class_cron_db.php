@@ -13,7 +13,7 @@ class cron_db extends cron_parent {
 	 *
 	 * @param int $jobid
 	 */
-	function start($jobid){
+	function start_job($jobid){
 		global $db, $config;
 		
 		$time = time();

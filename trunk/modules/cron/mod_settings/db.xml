@@ -60,6 +60,14 @@
 				<default>0</default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>function</name>
+				<type>longtext</type>
+				<null>NULL</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
 		</structure>
 	</table>
 	<table>

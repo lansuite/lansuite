@@ -3,7 +3,8 @@
 $tournamentid = $_GET["tournamentid"];
 if ($_GET["group"] == "") $_GET["group"] = 1;
 
-include("modules/tournament2/class_tournament.php");
+include_once("modules/tournament2/language/tournament2_lang_".$language.".php");
+include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
 ######## Check if roundtime has exceeded and set awaiting scores randomly
@@ -271,7 +272,11 @@ if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['statu
 	}
 
 	#### Create PNG-Image
-	$gd->PutImage("", "", FALSE);
-	$gd->PutImage("ext_inc/tournament_trees/tournament_$tournamentid.png");
+	// $gd->PutImage("", "", FALSE);
+	if($tournament["mode"] == "groups"){
+		$gd->PutImage("ext_inc/tournament_trees/tournament_$tournamentid" . "_" . $_GET['group'] . ".png");
+	}else{
+		$gd->PutImage("ext_inc/tournament_trees/tournament_$tournamentid.png");
+	}
 }
 ?>

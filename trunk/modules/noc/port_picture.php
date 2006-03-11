@@ -12,7 +12,14 @@ $noc = new noc();
  */
 
 If ( $config['environment']['gd'] == "0" ) { break; }
- 
+
+
+// Check Filesystem
+$filepath = "ext_inc/auto_images/noc/";
+if(!file_exists($filepath)){
+	mkdir($filepath,octdec($config["lansuite"]["chmod_dir"]));
+}
+
 // Check Portstatus:
 //
 // On  = Connected, Enabled
@@ -205,7 +212,7 @@ switch( $_GET["type"] ) {
 }          
 
 // Output the image
-
+		imagepng($Image,$filepath . "port_" . $_GET['type'] . "_" . $_GET['status'] . "_" . $_GET['portnr']);
 		header ("Content-type: image/png");
 		ImagePNG($Image);
 		
