@@ -14,7 +14,7 @@
 *
 **************************************************************************/
 
-include("modules/tournament2/class_tournament.php");
+include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
 $tournamentid 	= $vars["tournamentid"];

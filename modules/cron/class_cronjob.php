@@ -4,7 +4,13 @@ include_once("modules/cron/class_parent.php");
 
 class cronjob{
 
-	
+	var $class_id;
+	var $job_class;
+	var $rottime;
+	var $rot;
+	var $function;
+	var $loaded_class;
+
 	/**
 	 * Auf anstehende Aufgaben Prüfen
 	 * Falls eine Aufgabe ansteht wird sie ausgeführt und entweder gelöscht oder die Ausführzeit neu gesetzt
@@ -16,19 +22,24 @@ class cronjob{
 		$time = time();
 		
 		$job = $db->query("SELECT * FROM {$config['tables']['cron_job']} WHERE starttime < {$time} ORDER BY starttime ASC LIMIT 0,1");
+		
 		if($db->num_rows($job) != 0){
 			$job_data = $db->fetch_array($job);
+			
+			$this->class_id = $job_data['class_id'];
+			$this->rot = $job_data['rot'];
+			$this->rottime = $job_data['rottime'];
+			$this->job_class = $job_data['job_class'];
+			$this->function = $job_data['function'];
 			
 			$this->start_job($job_data['job_class'],$job_data['class_id']);
 
 			if($job_data['rotation'] == 1){
 				$db->query("UPDATE {$config['tables']['cron_job']} SET starttime = ($time + {$job_data['rottime']}) WHERE jobid = ". $job_data['jobid']);
 			}else {
-				$db->query("DELETE {$config['tables']['cron_job']} WHERE jobid = ". $job_data['jobid']);				
+				$db->query("DELETE FROM {$config['tables']['cron_job']} WHERE jobid = ". $job_data['jobid']);				
 			}
 		}
-		
-		
 	}
 	
 	
@@ -45,9 +56,20 @@ class cronjob{
 			include_once("modules/cron/class_{$job_class}.php");
 			$class = new $job_class($this);
 			
-			$class->start($job_id);
+			$class->start_job($job_id);
 		}
 		
+	}
+	
+	/**
+	 * Cronmodul laden und zugreifbar machen.
+	 *
+	 */
+	function load_job($job_class){
+		if(file_exists("modules/cron/class_{$job_class}.php")){
+			include_once("modules/cron/class_{$job_class}.php");
+			$this->loaded_class = new $job_class($this);
+		}
 	}
 		
 	/**
@@ -94,7 +116,7 @@ class cronjob{
 					if(file_exists("modules/cron/$file")){
 						include_once("modules/cron/$file");
 						if(class_exists($class_name)){
-							$new_class = new $class_name;
+							$new_class = new $class_name($this);
 							$dsp->AddDoubleRow("","<a href=\"index.php?mod=cron&action=config&job=" . urlencode($class_name) . "\">" . $new_class->name() . "</a>");
 						}
 					}

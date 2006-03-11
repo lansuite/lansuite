@@ -1,7 +1,7 @@
 <?php
-include("modules/tournament2/class_tournament.php");
+include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
-include("modules/tournament2/class_t_league_export.php");
+include_once("modules/tournament2/class_t_league_export.php");
 $t_league_export = new t_league_export;
 
 

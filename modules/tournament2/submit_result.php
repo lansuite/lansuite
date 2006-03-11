@@ -1,6 +1,6 @@
 <?php
 
-include("modules/tournament2/class_tournament.php");
+include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
 $qacc 		= $_GET["qacc"];
@@ -146,6 +146,13 @@ if ($tournament["name"] == "") {
 					$tfunc->SubmitResult($tournamentid, $gameid1, $gameid2, $vars["score_team1"], $vars["score_team2"], $vars["score_comment"]);
 
 					$func->confirmation($lang["tourney"]["s_res_success"], "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
+					
+					$cronjob->load_job("cron_tmod");
+					if($tournament['mode'] == "groups"){
+						$cronjob->loaded_class->add_job($_GET["tournamentid"],$team1["group_nr"]);
+					}else{
+						$cronjob->loaded_class->add_job($_GET["tournamentid"],"");
+					}
 				}
 			}
 		break;

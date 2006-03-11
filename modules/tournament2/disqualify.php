@@ -19,7 +19,7 @@ else switch ($_GET["step"]){
 	case 2:
 		$db->query("UPDATE {$config["tables"]["t2_teams"]} SET disqualified='1' WHERE (teamid = $teamid)");
 
-		include("modules/tournament2/class_tournament.php");
+		include_once("modules/tournament2/class_tournament.php");
 		$tfunc = new tfunc;
 
 		$team2['teamid'] = 1;

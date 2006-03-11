@@ -61,16 +61,6 @@
 		<needed_config>snmp</needed_config>
 		<level>1</level>
 	</entry>
-	<entry>
-		<action>noc_statistics_graph</action>
-		<file>device_show</file>
-		<caption>Netzwerkstatistik</caption>
-		<hint></hint>
-		<link>javascript:var w=window.open(\'base.php?mod=noc_statistics_graph\',\'_blank\',\'width=640,height=520,resizable=no,scrollbars=no\')</link>
-		<requirement>2</requirement>
-		<needed_config>snmp</needed_config>
-		<level>1</level>
-	</entry>
 	<entry>	
 		<action>details_device</action>
 		<file>device_details</file>

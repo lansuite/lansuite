@@ -171,7 +171,11 @@ if ($team_anz == 0) {
 
 } // Ende Wenn keine Fehler
 
-$templ['index']['info']['content'] = "<map name=\"tree\">$map_output</map><img src=\"base.php?mod=tree_img&tournamentid=$tournamentid&group=$group\" usemap=\"#tree\" border=\"0\">";
+if($tournament["mode"] == "groups"){
+	$templ['index']['info']['content'] = "<map name=\"tree\">$map_output</map><img src=\"ext_inc/tournament_trees/tournament_$tournamentid" . "_" . $_GET['group'] . ".png\" usemap=\"#tree\" border=\"0\">";
+}else{
+	$templ['index']['info']['content'] = "<map name=\"tree\">$map_output</map><img src=\"ext_inc/tournament_trees/tournament_$tournamentid.png\" usemap=\"#tree\" border=\"0\">";
+}
 
 if ($_SESSION["lansuite"]["fullscreen"]) {
 	$templ['index']['info']['content'] .= "<script type=\"text/javascript\">\r\n<!--\r\n";

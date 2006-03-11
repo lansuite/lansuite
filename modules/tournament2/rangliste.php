@@ -43,7 +43,7 @@ switch($step) {
 			break;
 		}
 
-		include("modules/tournament2/class_tournament.php");
+		include_once("modules/tournament2/class_tournament.php");
 		$tfunc = new tfunc;
 		$ranking_data = $tfunc->get_ranking($tournamentid);
 

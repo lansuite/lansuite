@@ -71,7 +71,7 @@ class cron_parent {
 	 * @param int $starttime
 	 * @return boolean
 	 */
-	function add_job($class, $class_id, $rot, $rottime, $starttime){
+	function add_job($class, $class_id, $rot, $rottime, $starttime, $function = ""){
 		global $db, $config;
 		
 		if($db->query("INSERT INTO {$config['tables']['cron_job']} 
@@ -79,7 +79,8 @@ class cron_parent {
 					class_id = '{$class_id}',
 					rotation = '{$rot}',
 					rottime  = '{$rottime}',
-					starttime= '{$starttime}'")) return true;
+					starttime= '{$starttime}',
+					function=  '{$function}'")) return true;
 		else return false;
 		
 	}
