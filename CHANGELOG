@@ -6,6 +6,8 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+- Bugfix: #362 Der Status Online wurde falsch angezeigt. (Genesis 12.3.06)
+- Bugfix: #369 Im Paypalmodul kann nun die grösse des zusatzfensters geändert werden. (Genesis 12.3.06)
 - Bugfix: Wenn kein Modul in der URL stand, wurden die Standard Admin-Einträge bei jedem balken ($module == '') angezeigt (KnoX 12.03.2006)
 - Bugfix: #307 Wenn beim Anmelden keine optionale Angaben sind wurde trotzdem der Text Optionale Angaben angezeigt (KnoX 12.03.2006) 
 - Bugfix: #363 WWCL-Box hatte keinen Hilfe-Text (KnoX 12.03.2006)

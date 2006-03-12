@@ -30,7 +30,7 @@ else {
 	$user_party = $db->query_first("SELECT * FROM {$config['tables']['party_user']} WHERE user_id = {$_GET['userid']} AND party_id = {$party->party_id}");
 
 	// Select from table_stats_auth
-	$user_auth = $db->query_first("SELECT count(*) as count FROM {$config['tables']['stats_auth']} WHERE userid = '{$_GET['userid']}' AND login = '1'");
+	$user_auth = $db->query_first("SELECT count(*) as count FROM {$config['tables']['stats_auth']} WHERE userid = '{$_GET['userid']}' AND login = '1' AND lasthit > " . (time() - $config['lansuite']['user_timeout']) );
 
 	// Select from table_board_posts/threads
 	$get_board_threads = $db->query("SELECT b.tid, b.date, t.caption FROM {$config[tables][board_posts]} AS b
