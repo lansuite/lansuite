@@ -331,7 +331,7 @@ class MasterSearch {
 							$text .= " <a href=\"index.php?mod=usrmgr&action=details&userid={$row[$this->config['userid']]}\"><img src=\"design/$design/images/arrows_user.gif\" border=\"0\" /></a>";
 						// Display complete profil
 						if ($result_field['fullprofil'])
-							$text .= HTML_NEWLINE . $this->GetUsername($row[$this->config['userid']]) ."<a href=\"index.php?mod=usrmgr&action=details&userid={$row[$this->config['userid']]}\"><img src=\"design/$design/images/arrows_user.gif\" border=\"0\" /></a>";
+							$text .= HTML_NEWLINE . $this->GetUsername($row[$this->config['userid']]) ."<a href=\"index.php?mod=usrmgr&action=details&userid={$row[$this->config['userid']]}\"> <img src=\"design/$design/images/arrows_user.gif\" border=\"0\" /></a>";
 							
 						// Generate Text
 						$text = "<div title=\"{$org_text}\">$text</div>";
