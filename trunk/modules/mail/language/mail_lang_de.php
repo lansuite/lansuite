@@ -57,6 +57,6 @@ $lang['mail']['out_outbox']	= 'Postausgang';
 $lang['mail']['out_hint']	= 'Sie haben <b>%TOTAL%</b> Mail(s) versendet. Davon wurde(n) <b>%READ%</b> gelesen.';
 $lang['mail']['subject']	= 'Betreff';
 $lang['mail']['in_inbox']	= 'Posteingang';
-$lang['mail']['in_hint']	= 'Sie haben <b>%UNREAD%</b> neue Mail(s) von insgesamt <b>%TOTAL%</b>.';
+$lang['mail']['in_hint']	= 'Sie haben <b>%UNREAD%</b> neue Mail(s) von insgesamt <b>%TOTAL%</b>. <br/><strong> Achtung sie dürfen maximal %MAXMSG% gelesene Nachrichten speichern. Überzählige werden automatisch gelöscht. </strong>';
 
 ?>

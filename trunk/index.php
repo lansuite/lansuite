@@ -165,10 +165,6 @@ if ($_SESSION['language']) $language = $_SESSION['language'];
 elseif ($cfg["sys_language"]) $language = $cfg["sys_language"];
 else $language = "de";
 
-if($db->success){
-		// Check Cronjobs
-	$cronjob->check_jobs();
-}
 // Load Barcode System
 $barcode	= new barcode_system();	// Barcode System
 
@@ -279,6 +275,8 @@ $sitetool->out_optimizer();
 // Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
 if ($db->success) {
   $stats->update($sitetool->out_work(), $sitetool->get_send_size());
+  // Check Cronjobs
+  $cronjob->check_jobs();
   $db->disconnect();
 }
 ?>

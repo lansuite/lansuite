@@ -57,6 +57,6 @@ $lang['mail']['out_outbox']	= 'Outgoing';
 $lang['mail']['out_hint']	= 'You have send <b>%TOTAL%</b> mail(s). <b>%READ%</b> of those were read.';
 $lang['mail']['subject']	= 'Subject';
 $lang['mail']['in_inbox']	= 'Inbox';
-$lang['mail']['in_hint']	= 'You have <b>%UNREAD%</b> new mail(s) of a total of <b>%TOTAL%</b>.';
+$lang['mail']['in_hint']	= 'You have <b>%UNREAD%</b> new mail(s) of a total of <b>%TOTAL%</b>. <strong>Caution: You may store a maximum of %MAXMSG% read mails. All additional ones will be deleted</stron>';
 
 ?>
