@@ -149,12 +149,12 @@ class db {
 		if ($config['database']['display_debug_errors']) echo str_replace("%LINE%", __LINE__, str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $func->internal_referer, $lang['class_db_mysql']['sql_error']))));
 
 		$msg = str_replace("'", "", $msg);
-		$post_this_error = str_replace("%LINE%", __LINE__, str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $func->internal_referer, $lang['class_db_mysql']['sql_error_log']))));
+		$post_this_error = str_replace("%LINE%", __LINE__, str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $_SERVER["REQUEST_URI"], str_replace("%REFERRER%", $func->internal_referer, $lang['class_db_mysql']['sql_error_log'])))));
 
 		$post_this_error = $func->escape_sql($post_this_error);
 		
 		$current_time = date("U");
-		@mysql_query("INSERT INTO {$config["tables"]["log"]} SET date = '$current_time',  userid = '{$auth["userid"]}', type='3', description = '$post_this_error', sort_tag = 'SQL-Fehler'");	
+		@mysql_query("INSERT INTO {$config["tables"]["log"]} SET date = '$current_time',  userid = '{$auth["userid"]}', type='3', description = '$post_this_error', sort_tag = 'SQL-Fehler'", $GLOBALS['db_link_id']);	
 		$this->count_query++;
 	}
 	

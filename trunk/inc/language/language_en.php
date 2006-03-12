@@ -37,7 +37,7 @@
 	$lang['class_db_mysql']['no_connection'] = 'The connection to the database has failed. Lansuite is aborting.';
 	$lang['class_db_mysql']['no_db'] = 'The database \'%DB%\' could not be selected. Lansuite is aborting.';
 	$lang['class_db_mysql']['sql_error'] = '(%LINE%) SQL-Failure. Database respondet: <font color=\'red\'><b>%ERROR%</b></font><br/> Your query was: <i>%QUERY%</i><br/><br/> Script: %SCRIPT%';
-	$lang['class_db_mysql']['sql_error_log'] = 'SQL-Failure in PHP-Script '%SCRIPT%' (Referrer: \'%REFERRER%\')<br />SQL-Error-Message: %ERROR%<br />Query: %QUERY%';
+	$lang['class_db_mysql']['sql_error_log'] = 'SQL-Failure in PHP-Script \'%SCRIPT%\' (Referrer: \'%REFERRER%\')<br />SQL-Error-Message: %ERROR%<br />Query: %QUERY%';
 
 	// Class Display
 	# No Language
