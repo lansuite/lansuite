@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+- Bugfix: Wenn kein Modul in der URL stand, wurden die Standard Admin-Einträge bei jedem balken ($module == '') angezeigt (KnoX 12.03.2006)
 - Bugfix: #307 Wenn beim Anmelden keine optionale Angaben sind wurde trotzdem der Text Optionale Angaben angezeigt (KnoX 12.03.2006) 
 - Bugfix: #363 WWCL-Box hatte keinen Hilfe-Text (KnoX 12.03.2006)
 - Bugfix: Anzwahl der Antworten im Board waren immer um 1 zu groß (KnoX 10.03.2006)

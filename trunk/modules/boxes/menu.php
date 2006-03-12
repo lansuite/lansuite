@@ -62,7 +62,7 @@ while ($main_item = $db->fetch_array($res)) if ($main_item["needed_config"] == "
 
 	// If selected Module: Get Sub-Items
 	if (isset($_GET["module"])) $module = $_GET["module"]; else $module = $_GET["mod"];
-	if ($main_item["module"] == $module and $main_item["action"] != "show_info2") {
+	if ($module and $main_item["module"] == $module and $main_item["action"] != "show_info2") {
 		$res2 = $db->query("SELECT menu.*
 				FROM {$config["tables"]["menu"]} AS menu
 				LEFT JOIN {$config["tables"]["modules"]} AS module ON menu.module = module.name
