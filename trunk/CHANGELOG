@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+- Bugfix: #356 Die Statistik der bezahlten user wurde falsch angezeigt. (Genesis 12.03.06)
 - Bugfix: #362 Der Status Online wurde falsch angezeigt. (Genesis 12.3.06)
 - Bugfix: #369 Im Paypalmodul kann nun die grösse des zusatzfensters geändert werden. (Genesis 12.3.06)
 - Bugfix: Wenn kein Modul in der URL stand, wurden die Standard Admin-Einträge bei jedem balken ($module == '') angezeigt (KnoX 12.03.2006)
