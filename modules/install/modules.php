@@ -368,6 +368,12 @@ switch($_GET["step"]) {
 			if (file_exists("modules/{$row["name"]}/mod_settings/db.xml")) $templ['ls']['row']['module']['db_link'] = " | <a href=\"install.php?mod=install&action=modules&step=30&module={$row["name"]}\">{$lang["install"]["modules_db"]}</a>";
 			else $templ['ls']['row']['module']['db_link'] = "";
 
+			if (file_exists("modules/{$row["name"]}/docu/{$language}_help.php")) {
+        $templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
+        $templ['ls']['row']['helpletbutton']['help'] = 
+        $templ['ls']['row']['module']['help_link'] = " | <a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=helplet&module={$row["name"]}&helpletid=help','_blank','width=700,height=500,resizable=no,scrollbars=yes');\" class=\"underline_on_hover\"><img src=\"design/{$auth['design']}/images/arrows_help.gif\" width=\"12\" height=\"13\" border=\"0\" alt=\"help\"/></a>";
+      } else $templ['ls']['row']['module']['help_link'] = '';
+
 			$dsp->AddModTpl("install", "module");
 		}
 		$db->free_result($res);
