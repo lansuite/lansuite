@@ -58,7 +58,7 @@ class db {
 			}
 		} else $GLOBALS['db_link_id'] = $this->link_id;
 
-		@mysqli_query("/*!40101 SET NAMES latin1 */;", $GLOBALS['db_link_id']);
+		@mysqli_query($GLOBALS['db_link_id'], "/*!40101 SET NAMES latin1 */;");
 
 		return true;
 	}
@@ -148,13 +148,13 @@ class db {
 
 		$url_array = parse_url($_SERVER['REQUEST_URI']);
 
- 		$error_msg = str_replace("%SCRIPT%", '?' . $url_array['query'] . $url_array['fragment'], str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%REFERRER%", $func->internal_referer, $lang['class_db_mysql']['sql_error_log']))));
+ 		$error_msg = str_replace("%SCRIPT%", '?' . $url_array['query'] . $url_array['fragment'], str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $_SERVER["REQUEST_URI"], str_replace("%REFERRER%", $func->internal_referer, $lang['class_db_mysql']['sql_error_log'])))));
     if ($config['database']['display_debug_errors']) echo '<font color="red">' . $error_msg . '</font><br /><br />';
 
 		$error_msg = $func->escape_sql($error_msg);
 
 		$current_time = date("U");
-		@mysqli_query("INSERT INTO {$config["tables"]["log"]} SET date = '$current_time',  userid = '{$auth["userid"]}', type='3', description = '$error_msg', sort_tag = 'SQL-Fehler'");	
+		@mysqli_query($GLOBALS['db_link_id'], "INSERT INTO {$config["tables"]["log"]} SET date = '$current_time',  userid = '{$auth["userid"]}', type='3', description = '$error_msg', sort_tag = 'SQL-Fehler'");	
 		$this->count_query++;
 	}
 	
