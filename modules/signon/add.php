@@ -490,7 +490,7 @@
     			$helplet = "signon/add_mini";
     		}else{
     			WriteForm(0);
-    			$dsp->AddSingleRow("<b>". $lang["signon"]["optional"] ."</b>");
+    			if (in_array(1, $signup_cfg)) $dsp->AddSingleRow("<b>". $lang["signon"]["optional"] ."</b>");
     			$helplet = "signon/add";
     			WriteForm(1);
     		}
