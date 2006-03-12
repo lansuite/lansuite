@@ -51,14 +51,14 @@
 	$this->config['result_fields'][$z]['maxchar']  = "15";
 	$z++;
 	$this->config['result_fields'][$z]['name']     = $lang['ms']['server']['pw'];
-	$this->config['result_fields'][$z]['sqlrow']   = "t.pw";
+	$this->config['result_fields'][$z]['sqlrow']   = "s.pw";
 	$this->config['result_fields'][$z]['row']      = "pw";
 	$this->config['result_fields'][$z]['callback'] = "server_pwicon";
 	$this->config['result_fields'][$z]['width']    = "10%";
 	$this->config['result_fields'][$z]['maxchar']  = "10";
 	$z++;
 	$this->config['result_fields'][$z]['name']     = $lang['ms']['server']['state'];
-	$this->config['result_fields'][$z]['sqlrow']   = "t.scans";
+	$this->config['result_fields'][$z]['sqlrow']   = "s.scans";
 	$this->config['result_fields'][$z]['row']      = "scans";
 	$this->config['result_fields'][$z]['callback'] = "server_status";
 	$this->config['result_fields'][$z]['width']    = "20%";
