@@ -269,5 +269,14 @@ else {
 	if ($userdetails_adminbuttons_seat) $dsp->AddDoubleRow($lang['usrmgr']['details_seat_options'], $userdetails_adminbuttons_seat);
 
 	$dsp->AddContent();
+	
+	// Including comment-engine     
+	if($auth["login"] == 1) {
+		include_once("modules/mastercomment/class_mastercomment.php");
+		$comment = new Mastercomment($vars, "index.php?mod=usrmgr&action=details&userid=". $_GET["userid"], "User", $_GET["userid"], $user_data['username']);
+		$comment->action();
+	}
+	//End comment-engine	
+	
 } // else end if exist userid
 ?>
