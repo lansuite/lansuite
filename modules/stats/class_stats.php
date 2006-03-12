@@ -226,7 +226,7 @@ class stats {
 			if($cfg["signon_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
 			
 			$timestamp = time()-600;
-			$row = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p LEFT JOIN {$config["tables"]["user"]} ON user_id=userid WHERE (p.paid=1 or p.checkin>0) AND $querytype AND (p.paid = 1) AND p.party_id={$party->party_id}");
+			$row = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p LEFT JOIN {$config["tables"]["user"]} ON user_id=userid WHERE $querytype AND (p.paid > 0) AND p.party_id={$party->party_id}");
 			$row2 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p LEFT JOIN {$config["tables"]["user"]} ON user_id=userid WHERE p.checkin>1 AND p.checkout=0 AND $querytype AND p.party_id={$party->party_id}");
 			$row3 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p LEFT JOIN {$config["tables"]["user"]} ON user_id=userid WHERE p.checkout>1 AND $querytype AND p.party_id={$party->party_id}");
 			$row4  = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["stats_auth"]} WHERE lasthit>=$timestamp AND userid!='0' GROUP BY userid");
