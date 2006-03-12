@@ -78,7 +78,20 @@ case 2:
 
 		} else {
 			$dsp->AddSingleRow("<iframe src=\"base.php?mod=tree_frame&tournamentid=$tournamentid&group=$group\" width=\"99%\" height=\"$height\"><a href=\"base.php?mod=tree_frame&tournamentid=$tournamentid&group=$group\">Tree</a></iframe>");
-			$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_$tournamentid.png\">{$lang["tourney"]["tree_download"]}</a>");
+			
+			if ($tournament["mode"] == "groups"){
+				if(!file_exists("xt_inc/tournament_trees/tournament_" . $tournamentid . "_" . $group . ".png")){
+					$cronjob->load_job("cron_tmod");
+					$cronjob->loaded_class->add_job($_GET["tournamentid"],$group);
+				}
+				$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_" . $tournamentid . "_" . $group . ".png\">{$lang["tourney"]["tree_download"]}</a>");
+			}else{
+				if(!file_exists("xt_inc/tournament_trees/tournament_" . $tournamentid . ".png")){
+					$cronjob->load_job("cron_tmod");
+					$cronjob->loaded_class->add_job($_GET["tournamentid"],"");
+				}
+				$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_$tournamentid.png\">{$lang["tourney"]["tree_download"]}</a>");
+			}
 		}
 
 		

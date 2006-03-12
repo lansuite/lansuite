@@ -42,7 +42,7 @@ class cron_parent {
 	function confmenu(){
 		global $func, $lang;
 		
-		$func->error($lang['cron']['menu_nomenu'],"index.php?mod=cronjob");
+		$func->error($lang['cron']['menu_nomenu'],"index.php?mod=cron&action=config");
 		
 	}
 	
@@ -56,7 +56,7 @@ class cron_parent {
 	function start_job(){
 		global $func;
 		
-		$func->error($lang['cron']['error_modul'],"index.php?mod=cronjob");
+		$func->error($lang['cron']['error_modul'],"index.php?mod=home");
 		
 	}
 	
