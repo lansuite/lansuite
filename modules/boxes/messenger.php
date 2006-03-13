@@ -27,18 +27,32 @@ if ($auth['login']) {
 			$username = "<span title=\"{$row["username"]}\" class = \"$class\">$usertemp</span>";
 		} else $username = "<span title=\"{$row["username"]}\" class = \"$class\">{$row["username"]}</span>";
 
-		// New message available?
-		$row_new_msg = $db->query_first("SELECT senderid FROM {$config['tables']['messages']} WHERE senderid = '$row[buddyid]' AND receiverid = '{$auth["userid"]}' AND	new = '1'");
-		if ($row_new_msg['senderid']) $item = "message_blink";
-		else $item = "message";
-
 		// Session ID
 		$msg_sid = "&" . session_name() . "=" . session_id();
+		
+		// New message available?
+		$row_new_msg = $db->query_first("SELECT senderid FROM {$config['tables']['messages']} WHERE senderid = '$row[buddyid]' AND receiverid = '{$auth["userid"]}' AND	new = '1'");
+		if ($row_new_msg['senderid']){
+			$item = "message_blink";
+			if($cfg['msgsys_popup']){
+				$caption = "<script type=\"text/javascript\" language=\"JavaScript\"> 
+								var link = \"base.php?mod=query&amp;queryid={$row["buddyid"]}$msg_sid\";
+								var suche = /&amp;/;
+
+								while(suche.exec(link)){
+									link = link.replace(suche, \"&\");
+								}
+					   			window.open(link,'_blank','width=600,height=400,resizable=no');
+							</script>";
+			}else $caption = "";
+		}else{
+			$item = "message";
+			$caption = "";
+		}
 
 		// Output
-		$box->ItemRow($item,
-			"<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=query&amp;queryid={$row["buddyid"]}$msg_sid','_blank','width=600,height=400,resizable=no');\" class=\"$class\">". $username . "</a> ". $dsp->FetchUserIcon($row["buddyid"]) ." <a href=\"index.php?mod=msgsys&amp;action=removebuddy&amp;queryid={$row["buddyid"]}\"><img src=\"design/{$auth["design"]}/images/arrows_delete.gif\" width=\"12\" height=\"13\" hspace=\"1\" vspace=\"0\" border=\"0\"></a>"
-			);
+		$caption .= "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=query&amp;queryid={$row["buddyid"]}$msg_sid','_blank','width=600,height=400,resizable=no');\" class=\"$class\">". $username . "</a> ". $dsp->FetchUserIcon($row["buddyid"]) ." <a href=\"index.php?mod=msgsys&amp;action=removebuddy&amp;queryid={$row["buddyid"]}\"><img src=\"design/{$auth["design"]}/images/arrows_delete.gif\" width=\"12\" height=\"13\" hspace=\"1\" vspace=\"0\" border=\"0\"></a>";
+		$box->ItemRow($item,$caption);
 
 		$buddycount++;
 	}
