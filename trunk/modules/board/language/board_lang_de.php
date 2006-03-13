@@ -19,7 +19,7 @@ $lang['board']['board_name']			= 'Besuchername';
 $lang['board']['subject']				= 'Titel';
 $lang['board']['clicks']				= 'Abrufe';
 $lang['board']['replys']				= 'Antworten';
-$lang['board']['guest_prefix']			= 'Gast_';
+$lang['board']['guest_prefix']			= 'Gast';
 
 $lang['board']['last_post']				= 'Letzter Beitrag:';
 $lang['board']['posts_total']			= 'Beitr&auml;ge insgesamt:';
