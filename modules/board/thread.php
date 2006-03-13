@@ -48,9 +48,10 @@ else {
 
 		if ($row['userid'] == 0){
 			preg_match("@<!--(.*)-->@",$row['comment'],$tmp);
-			$userdata['username'] = $lang['board']['guest_prefix'] . $tmp[1];
+			$userdata['username'] = $lang['board']['guest_prefix'] . "_" . trim($tmp[1]);
+			$userdata['type'] = $lang['board']['guest_prefix'];
 			$userdata["avatar"] = "";
-			$userdata["rank"] = "";
+			$userdata["rank"] =  $lang['board']['guest_prefix'];
 			$userdata["posts"] = "";
 			$userdata["signature"] = "";
 		} else $userdata = $bfunc->getuserinfo($row["userid"]);
