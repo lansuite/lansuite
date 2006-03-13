@@ -21,6 +21,7 @@ $user_online = $db->query("SELECT user.username, user.userid
 		LEFT JOIN {$config['tables']['user']} AS user ON user.userid = auth.userid
 		WHERE (auth.lasthit > $visit_timeout)
 		AND user.userid > 0
+		GROUP BY userid
 		ORDER BY auth.lasthit
 		LIMIT 5
 		");
