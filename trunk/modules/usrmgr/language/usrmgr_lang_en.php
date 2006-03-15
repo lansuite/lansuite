@@ -312,4 +312,11 @@ $lang['usrmgr']['clanpw_caption']	= 'Change clan password';
 $lang['usrmgr']['clanpw_subcaption']= 'All members of the clan will be informed about the changes, but the password you need to forward yourselfe';
 $lang['usrmgr']['clanpw_haschange_sub'] = 'Clanpassword changed';
 $lang['usrmgr']['clanpw_haschange']	= 'The clan password has been changed by the user %USER%';
+$lang['usrmgr']['userid'] = 'Userid';
+$lang['usrmgr']['name'] = 'Name';
+$lang['usrmgr']['all'] = 'All';
+$lang['usrmgr']['checkin'] = 'Checked in';
+$lang['usrmgr']['checkin_no'] = 'Not checked in';
+$lang['usrmgr']['checkout'] = 'Checked out';
+$lang['usrmgr']['checkout_no'] = 'Not checked out';
 ?>
