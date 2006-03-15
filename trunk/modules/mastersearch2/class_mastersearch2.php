@@ -172,12 +172,6 @@ class MasterSearch2 {
       $this->query['limit'] = "LIMIT $page_start, ". $this->config['EntriesPerPage'];
     }
         
-    // Get number of results
-    $res_count = $db->query_first("SELECT count(*) AS count
-      FROM {$this->query['from']}
-      WHERE {$this->query['where']}
-      ");
-
     
     ###### Execute SQL
     $res = $db->query("SELECT SQL_CALC_FOUND_ROWS {$this->query['select']}
@@ -187,7 +181,7 @@ class MasterSearch2 {
       {$this->query['order_by']}
       {$this->query['limit']}
       ");
-      
+/*
     echo "SELECT SQL_CALC_FOUND_ROWS {$this->query['select']}<br>
       FROM {$this->query['from']}<br>
       WHERE {$this->query['where']}<br>
@@ -195,7 +189,7 @@ class MasterSearch2 {
       {$this->query['order_by']}<br>
       {$this->query['limit']}
       ";
-
+*/
 
     ###### Generate Page-Links
     $count_rows = $db->query_first('SELECT FOUND_ROWS() AS count');
@@ -204,12 +198,10 @@ class MasterSearch2 {
 		if ($count_rows['count'] > $this->config['EntriesPerPage']) {
 		  $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&page=";
 			$templ['ms2']['pages'] = ("Seiten: ");
-
 			// Previous page link
 			if ($_GET['page'] != "all" and (int)$_GET['page'] > 0) {
 				$templ['ms2']['pages'] .= (' <a class="menue" href="'. $link . ($_GET['page'] - 1) .'"><b>&lt;</b></a>');
 			}
-
 			// Direct page link
 			$i = 0;					
 			while($i < $count_pages) {
@@ -217,12 +209,10 @@ class MasterSearch2 {
 				else $templ['ms2']['pages'] .= (' <a class="menue" href="' . $link . $i . '"><b>'. ($i + 1) .'</b></a>');
 				$i++;
 			}
-
 			// Next page link
 			if ($_GET['page'] != "all" and ($_GET['page'] + 1) < $count_pages) {
 				$templ['ms2']['pages'] .= (' <a class="menue" href="'. $link . ($_GET['page'] + 1) .'"><b>&gt;</b></a>');
 			}
-
 			// All link
 			if ($_GET['page'] == "all") $templ['ms2']['pages'] .= " Alle";
 			else $templ['ms2']['pages'] .= (' <a class="menue" href="'. $link . 'all"><b>Alle</b></a>');									
@@ -233,29 +223,40 @@ class MasterSearch2 {
     $templ['ms2']['action'] = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}";
     $templ['ms2']['inputs'] = '';
     // Text Inputs
-    $z = 0;
+    $z = 0; $x = 0;
     foreach ($this->search_fields as $current_field) {
-      $templ['ms2']['input_field_caption'] = $current_field['caption'];
+      $current = $x % 2;
       $templ['ms2']['input_field_name'] = "search_input[$z]";
       $templ['ms2']['input_field_value'] = $_POST['search_input'][$z];
-      $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_input_field');
-      $z++;
+      $templ['ms2']['input_field_caption'][$current] = $current_field['caption'];
+      $templ['ms2']['search'][$current] = $dsp->FetchModTpl('mastersearch2', 'search_input_field');
+      if ($current == 1) $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_row');
+      $z++; $x++;
     }
+
     // Dropdown Inputs
     $z = 0;
     foreach ($this->search_dropdown as $current_field) {
-      $templ['ms2']['input_field_caption'] = $current_field['caption'];
+      $current = $x % 2;
       $templ['ms2']['input_field_name'] = "search_dd_input[$z]";
       $templ['ms2']['input_field_options'] = '';
       foreach ($current_field['selections'] as $key => $value) {
         ((string)$_POST['search_dd_input'][$z] == (string)$key)? $selected = ' selected' : $selected = '';
         $templ['ms2']['input_field_options'] .= '<option value="'.$key.'"'.$selected.'>'.$value.'</option>';
       }
-      $templ['ms2']['input_field_value'] = 
-      $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_input_dropdown');
-      $z++;
+      $templ['ms2']['input_field_caption'][$current] = $current_field['caption'];
+      $templ['ms2']['search'][$current] = $dsp->FetchModTpl('mastersearch2', 'search_input_dropdown');
+      if ($current == 1) $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_row');
+      $z++; $x++;
+    }
+    // If odd number of input fields, add the last one in a single row
+    if ($current == 0) {
+      $templ['ms2']['input_field_caption'][1] = '&nbsp;';
+      $templ['ms2']['search'][1] = '&nbsp;';
+      $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_row');
     }
     $dsp->AddModTpl('mastersearch2', 'search_case');
+
 
     ###### Output Result
     // Generate Result Head
