@@ -2,72 +2,86 @@
 class MasterSearch2 {
 	var $query;
 	var $result_field = array();
-	var $result_fields = 0;
 	var $search_fields = array();
 	var $search_dropdown = array();
 	var $icon_field = array();
-	var $icon_fields = 0;
   var $config = array();
   var $sql_select_field_list = array();
+  var $post_in_get = '';
 
   // Constructor
   function MasterSearch2() {
     $this->config['EntriesPerPage'] = 20;
+
+    // Add $_POST[]-Fields to $working_link
+    if ($_POST['search_input']) foreach($_POST['search_input'] as $key => $val) $this->post_in_get .= "&search_input[$key]=$val";
+    elseif ($_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $this->post_in_get .= "&search_input[$key]=$val";     
+    if ($_POST['search_dd_input']) foreach($_POST['search_dd_input'] as $key => $val) $this->post_in_get .= "&search_dd_input[$key]=$val";
+    elseif ($_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) $this->post_in_get .= "&search_dd_input[$key]=$val";
+
+    // Write back from $_GET[] to $_POST[]
+    #$_POST['sending_x'] == ''
+    if (!isset($_POST['search_input']) and $_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
+    if (!isset($_POST['search_dd_input']) and $_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) $_POST['search_dd_input'][$key] = $val;
   }
   
   function AddTextSearchField($caption, $sql_fields) {
+    $arr = array();
     $arr['caption'] = $caption;
     $arr['sql_fields'] = $sql_fields;
     array_push($this->search_fields, $arr);
   }
 
-  function AddTextSearchDropDown($caption, $sql_field, $selections) {
+  function AddTextSearchDropDown($caption, $sql_field, $selections, $default = '') {
+    $arr = array();
     $arr['caption'] = $caption;
     $arr['sql_field'] = $sql_field;
     $arr['selections'] = $selections;
+
+    $curr_pos = count($this->search_dropdown);
+    if ($default != '' and !isset($_POST["search_dd_input"][$curr_pos])) $_POST["search_dd_input"][$curr_pos] = $default;
+
     array_push($this->search_dropdown, $arr);
   }
 
   function AddResultField($caption, $sql_field, $link = '', $link_id = '', $callback = '', $max_char = 0) {
-    $this->result_field[$this->result_fields]['caption'] = $caption;
-    $this->result_field[$this->result_fields]['sql_field'] = $sql_field;
+    $arr = array();
+    $arr['caption'] = $caption;
+    $arr['sql_field'] = $sql_field;
+    $arr['callback'] = $callback;
+    $arr['max_char'] = $max_char;
+    $arr['link'] = $link;
+    $arr['link_id'] = $link_id;
+    array_push($this->result_field, $arr);
+
     if ($sql_field and !in_array($sql_field, $this->sql_select_field_list)) array_push($this->sql_select_field_list, $sql_field); 
-    $this->result_field[$this->result_fields]['callback'] = $callback;
-    $this->result_field[$this->result_fields]['max_char'] = $max_char;
-    $this->result_field[$this->result_fields]['link'] = $link;
-    $this->result_field[$this->result_fields]['link_id'] = $link_id;
     if ($link_id and !in_array($link_id, $this->sql_select_field_list)) array_push($this->sql_select_field_list, $link_id); 
-    $this->result_fields++;
   }
 
   function AddIconField($icon_name, $sql_field, $link = '') {
-    $this->icon_field[$this->icon_fields]['icon_name'] = $icon_name;
-    $this->icon_field[$this->icon_fields]['sql_field'] = $sql_field;
+    $arr = array();
+    $arr['icon_name'] = $icon_name;
+    $arr['sql_field'] = $sql_field;
+    $arr['link'] = $link;
+    array_push($this->icon_field, $arr);
+
     if ($sql_field and !in_array($sql_field, $this->sql_select_field_list)) array_push($this->sql_select_field_list, $sql_field); 
-    $this->icon_field[$this->icon_fields]['link'] = $link;
-    $this->icon_fields++;
   }
 
-	function PrintSearch($working_link, $target_link, $target_id) {
+
+	function PrintSearch($working_link, $group_by) {
     global $db, $config, $dsp, $templ, $func, $auth;
 
-    // Add $_POST[]-Fields to $working_link
-    if ($_POST) foreach($_POST['search_input'] as $key => $val) $working_link .= "&search_input[$key]=$val";
-    elseif ($_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $working_link .= "&search_input[$key]=$val";     
-    if ($_POST) foreach($_POST['search_dd_input'] as $key => $val) $working_link .= "&search_dd_input[$key]=$val";
-    elseif ($_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) $working_link .= "&search_dd_input[$key]=$val";
-
-    // Write back from $_GET[] to $_POST[]
-    if ($_POST['sending_x'] == '' and $_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
-    if ($_POST['sending_x'] == '' and $_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) $_POST['search_dd_input'][$key] = $val;
+    $working_link .= $this->post_in_get;
 
     ###### Generate Select
-    if ($target_id and !in_array($target_id, $this->sql_select_field_list)) array_push($this->sql_select_field_list, $target_id);
     $this->query['select'] = implode(', ', $this->sql_select_field_list);
     
     
     ###### Generate Where
     $this->query['where'] = '1 = 1';
+    
+    // Generate where from input fields
     $z = 0;
     if ($this->search_fields) foreach ($this->search_fields as $current_field_list) {
       if ($_POST["search_input"][$z] != '') {
@@ -110,6 +124,7 @@ class MasterSearch2 {
       $z++;
     }
 
+    // Generate additional where from dropdown fields 
     $z = 0;
     if ($this->search_dropdown) foreach ($this->search_dropdown as $current_field_list) {
       if ($_POST["search_dd_input"][$z] != '') {
@@ -138,7 +153,7 @@ class MasterSearch2 {
 
 
     ###### Generate Group By
-    $this->query['group_by'] = $target_id;
+    $this->query['group_by'] = $group_by;
 
     
     ###### Generate Order By
@@ -172,7 +187,7 @@ class MasterSearch2 {
       {$this->query['order_by']}
       {$this->query['limit']}
       ");
-/*      
+      
     echo "SELECT SQL_CALC_FOUND_ROWS {$this->query['select']}<br>
       FROM {$this->query['from']}<br>
       WHERE {$this->query['where']}<br>
@@ -180,7 +195,7 @@ class MasterSearch2 {
       {$this->query['order_by']}<br>
       {$this->query['limit']}
       ";
-*/
+
 
     ###### Generate Page-Links
     $count_rows = $db->query_first('SELECT FOUND_ROWS() AS count');
@@ -205,12 +220,12 @@ class MasterSearch2 {
 
 			// Next page link
 			if ($_GET['page'] != "all" and ($_GET['page'] + 1) < $count_pages) {
-				$templ['ms2']['pages'] .= (' <a class="menue" href="'. $link . ($current_page + 1) .'"><b>&gt;</b></a>');
+				$templ['ms2']['pages'] .= (' <a class="menue" href="'. $link . ($_GET['page'] + 1) .'"><b>&gt;</b></a>');
 			}
 
 			// All link
 			if ($_GET['page'] == "all") $templ['ms2']['pages'] .= " Alle";
-			else $templ['ms2']['pages'] .= (' <a class="menue" href="'. $link . '"><b>Alle</b></a>');									
+			else $templ['ms2']['pages'] .= (' <a class="menue" href="'. $link . 'all"><b>Alle</b></a>');									
     }
 
 
@@ -285,6 +300,10 @@ class MasterSearch2 {
         if ($current_field['callback']) $line[$current_field['sql_field']] = $this->$current_field['callback']($line[$current_field['sql_field']]);
         $templ['ms2']['table_entrys_row_field_entry'] = $line[$current_field['sql_field']];
         if ($templ['ms2']['table_entrys_row_field_entry'] == '') $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
+        
+        // Cut of oversize chars
+        if ($current_field['max_char'] and strlen($templ['ms2']['table_entrys_row_field_entry'] > $current_field['max_char']))
+          $templ['ms2']['table_entrys_row_field_entry'] = substr($templ['ms2']['table_entrys_row_field_entry'], 0, $current_field['max_char'] - 2) .'..';
         
         // Link it?
         ($current_field['link_id'] != '')? $link_id = $line[$current_field['link_id']] : $link_id = ''; 
