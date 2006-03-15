@@ -269,7 +269,6 @@ if (($_SESSION["lansuite"]["fullscreen"] == 1) and file_exists("design/{$auth["d
 } elseif ($script_filename == "install.php") eval("\$index = \"". $func->gettemplate("setup_index")."\";");
 else eval("\$index = \"". $func->gettemplate("index_login")."\";");
 
-$func->templ_output($index);
 $sitetool->out_optimizer();
 
 // Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.

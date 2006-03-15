@@ -676,7 +676,8 @@ class func {
 	function translate($in) {
 		global $db, $config, $cfg;
 
-		$out = $db->query_first("SELECT {$cfg["sys_language"]} FROM {$config["tables"]["translations"]} WHERE de = '". $this->escape_sql($in) ."'");
+    if ($cfg["sys_language"] == 'de') return $in;
+		else $out = $db->query_first("SELECT {$cfg["sys_language"]} FROM {$config["tables"]["translations"]} WHERE de = '". $this->escape_sql($in) ."'");
 
 		if ($out) return $out[$cfg["sys_language"]];
 		else return $in;

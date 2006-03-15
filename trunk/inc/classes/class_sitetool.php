@@ -50,10 +50,6 @@ class sitetool {
 		// Should be called earlyer...
 		$this->timer = time();
 		$this->timer2 = explode(' ', microtime());
-
-		// Activate Output-buffer
-		ob_implicit_flush(0);
-		ob_start();
 	}
 
 
@@ -71,11 +67,11 @@ class sitetool {
 	function check_optimizer() {
 		if (headers_sent()
 			or connection_aborted()
-			or (ereg("(error</b>:)(.+) in <b>(.+)</b> on line <b>(.+)</b>", $this->content))
-			or (ereg("SQL-Failure. Database respondet:", $this->content))
+			or (ereg("(error</b>:)(.+) in <b>(.+)</b> on line <b>(.+)</b>", $index))
+			or (ereg("SQL-Failure. Database respondet:", $index))
 			) return 0;
 		elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip') !== false) return "x-gzip";
-		elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"],'gzip') !== false) return "gzip"; 
+		elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip') !== false) return "gzip"; 
 		else return 0; 
 	}
 
@@ -86,16 +82,12 @@ class sitetool {
 
 	// Finalize Output and return Outputbuffer
 	function out_optimizer() {
-		global $templ, $cfg, $db, $lang;
-
-		// Get Content
-		$this->content = ob_get_contents();
-		ob_end_clean();
-
-		$check = $this->check_optimizer();
+		global $templ, $cfg, $db, $lang, $index;
+    
+		$compression_mode = $this->check_optimizer();
 
 		// Check for {footer}-String in Design
-		if (strpos($this->content, "{footer}") === false) echo "<font face=\"Verdana\" color=\"#ff0000\" site=\"6\">{$lang['class_sitetool']['footer_violation']}</font>";
+		if (strpos($index, "{footer}") === false) echo "<font face=\"Verdana\" color=\"#ff0000\" site=\"6\">{$lang['class_sitetool']['footer_violation']}</font>";
 		else {
 
 			$ru_suffix = "";
@@ -111,12 +103,12 @@ class sitetool {
 			else $ru_suffix .= "&";
 
 			// Erweiterung für Statisktik
-			if ($check and $cfg['sys_compress_level']){
-				$this->send_size = sprintf("%01.2f",((strlen(gzcompress($this->content, $cfg['sys_compress_level'])))/1024));
+			if ($compression_mode and $cfg['sys_compress_level']){
+				$this->send_size = sprintf("%01.2f",((strlen(gzcompress($index, $cfg['sys_compress_level'])))/1024));
 				$compressed = " | Compressed: ". $this->send_size ." kBytes";		
-			} else $this->send_size = sprintf("%01.2f", (strlen($this->content)) / 1024);
+			} else $this->send_size = sprintf("%01.2f", (strlen($index)) / 1024);
 
-			$uncompressed = " | Uncompressed: ".sprintf ("%01.2f", ((strlen($this->content))/1024))." KBytes";
+			$uncompressed = " | Uncompressed: ".sprintf ("%01.2f", ((strlen($index))/1024))." KBytes";
 			$processed = " | Processed in: ". $this->out_work() ." Sec";
 			$dbquery = "Total DB-Querys: ". $db->count_query;
 
@@ -128,24 +120,24 @@ class sitetool {
 			<br/>$dbquery $processed $compressed $uncompressed";
 
 			if ($cfg["sys_optional_footer"]) $footer .= $cfg["sys_optional_footer"];
-			$this->content = str_replace("{footer}", $footer, $this->content);
+			$index = str_replace("{footer}", $footer, $index);
 
 			// change & to &amp;
-			$this->content = preg_replace("~&(?=(\w+|[a-f0-9]+)=)~i", "&amp;", $this->content);
-			// $this->content = preg_replace("~&(?!(\w+|#\d+|#x[a-f0-9]+);)~i", "&amp;", $this->content);
-			$this->content = preg_replace("~<img src=\"/\"((\w|\s|\"|\=)+)>~i", "", $this->content);
+			$index = preg_replace("~&(?=(\w+|[a-f0-9]+)=)~i", "&amp;", $index);
+			// $index = preg_replace("~&(?!(\w+|#\d+|#x[a-f0-9]+);)~i", "&amp;", $index);
+			$index = preg_replace("~<img src=\"/\"((\w|\s|\"|\=)+)>~i", "", $index);
 
-			if ($check and $cfg['sys_compress_level']) {
-				Header("Content-Encoding: $check");
+			if ($compression_mode and $cfg['sys_compress_level']) {
+				Header("Content-Encoding: $compression_mode");
 				echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-				$this->content = "<!-- SiteTool - Compressed by $check -->\n".$this->content;
-				$this->content_size = strlen($this->content);
-				$this->content_crc = crc32($this->content);
-				$this->content = gzcompress($this->content, $cfg['sys_compress_level']);
-				$this->content = substr($this->content, 0, strlen($this->content) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
-				echo $this->content;
+				$index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $index;
+				$this->content_size = strlen($index);
+				$this->content_crc = crc32($index);
+				$index = gzcompress($index, $cfg['sys_compress_level']);
+				$index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
+				echo $index;
 				echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
-			} else echo $this->content;
+			} else echo $index;
 		}
 	}
 }

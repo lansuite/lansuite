@@ -37,6 +37,7 @@ Version 2.1.0
 - Bugfix: #334 Picgallery: Falscher Text in Überschrift, Bildercounter zählte keine Pack-formate (KnoX 24.02.2006)
 - Bugfix: #331 Poll: Durch Java-Script wurde Entitie alt Text anstatt Umlaut angezeigt (Cewigo 24.02.2006)
 
+- Change: Ausgabenpufferung aus Sitetool entfernt und Menüübersetzung nur noch, wenn Sprache != De -> Bessere Performance (KnoX 15.03.2006)
 - Change: #368 Bei einer neuen Messengernachricht wird nun ein POPUP geöffnet. (Genesis 13.3.06)
 - Change: Mailmodul die Anzahl Mails pro user sind nun limitiert um die DB grösse zu minimieren. (Genesis 12.3.06)
 - Change: Im Modulmanager sieht man nun den Hilfe-Link jedes Moduls um sich zusätzliche Infos zum Modul zu holen (KnoX 12.03.2006)
