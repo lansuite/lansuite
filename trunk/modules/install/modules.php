@@ -86,7 +86,9 @@ switch($_GET["step"]) {
 		if ($db->num_rows($res) == 0) $func->error($lang["install"]["mod_set_err_nosettings"], "install.php?mod=install&action=modules");
 		else {
 			$dsp->NewContent($lang["install"]["mod_set_caption"], $lang["install"]["mod_set_subcaption"]);
-			$dsp->SetForm("install.php?mod=install&action=modules&step=11&module={$_GET["module"]}");
+  		if ($script_filename == "install.php") $formlink = "install.php?mod=install&action=modules&step=11&module={$_GET["module"]}";
+      else $formlink = "index.php?mod=install&action=modules&step=11&module={$_GET["module"]}";
+			$dsp->SetForm($formlink);
 
 			while ($row = $db->fetch_array($res)){
 
@@ -159,7 +161,10 @@ switch($_GET["step"]) {
 			} else $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '$val' WHERE cfg_key = '$key'");
 		}
 
-		$func->confirmation($lang["install"]["modules_settings_success"], "install.php?mod=install&action=modules&step=10&module={$_GET["module"]}");
+		if ($_GET["module"] == "sys_") $backlink = 'install.php?mod=install'; 
+		elseif ($script_filename == "install.php") $backlink = 'install.php?mod=install&action=modules';
+    else $backlink = 'index.php?mod=install&action=modules&step=10&module='. substr($_GET["module"], 0, strlen($_GET["module"]) - 1);
+		$func->confirmation($lang["install"]["modules_settings_success"], $backlink);
 	break;
 
 	// Add Menuentry
