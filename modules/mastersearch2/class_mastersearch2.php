@@ -24,7 +24,11 @@ class MasterSearch2 {
     if (!isset($_POST['search_input']) and $_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
     if (!isset($_POST['search_dd_input']) and $_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) $_POST['search_dd_input'][$key] = $val;
   }
-  
+
+  function AddSelect($sql_field){
+    if ($sql_field and !in_array($sql_field, $this->sql_select_field_list)) array_push($this->sql_select_field_list, $sql_field);
+  }
+ 
   function AddTextSearchField($caption, $sql_fields) {
     $arr = array();
     $arr['caption'] = $caption;
@@ -44,18 +48,19 @@ class MasterSearch2 {
     array_push($this->search_dropdown, $arr);
   }
 
-  function AddResultField($caption, $sql_field, $link = '', $link_id = '', $callback = '', $max_char = 0) {
+  function AddResultField($caption, $sql_field, $link = '', $link_id = '', $callback = '', $callback_full_sql_res = 0, $max_char = 0) {
     $arr = array();
     $arr['caption'] = $caption;
     $arr['sql_field'] = $sql_field;
     $arr['callback'] = $callback;
+    $arr['callback_full_sql_res'] = $callback_full_sql_res;
     $arr['max_char'] = $max_char;
     $arr['link'] = $link;
     $arr['link_id'] = $link_id;
     array_push($this->result_field, $arr);
 
-    if ($sql_field and !in_array($sql_field, $this->sql_select_field_list)) array_push($this->sql_select_field_list, $sql_field); 
-    if ($link_id and !in_array($link_id, $this->sql_select_field_list)) array_push($this->sql_select_field_list, $link_id); 
+    $this->AddSelect($sql_field); 
+    $this->AddSelect($link_id); 
   }
 
   function AddIconField($icon_name, $sql_field, $link = '') {
@@ -65,7 +70,7 @@ class MasterSearch2 {
     $arr['link'] = $link;
     array_push($this->icon_field, $arr);
 
-    if ($sql_field and !in_array($sql_field, $this->sql_select_field_list)) array_push($this->sql_select_field_list, $sql_field); 
+    $this->AddSelect($sql_field); 
   }
 
 
@@ -224,7 +229,7 @@ class MasterSearch2 {
     $templ['ms2']['inputs'] = '';
     // Text Inputs
     $z = 0; $x = 0;
-    foreach ($this->search_fields as $current_field) {
+    if ($this->search_fields) foreach ($this->search_fields as $current_field) {
       $current = $x % 2;
       $templ['ms2']['input_field_name'] = "search_input[$z]";
       $templ['ms2']['input_field_value'] = $_POST['search_input'][$z];
@@ -236,7 +241,7 @@ class MasterSearch2 {
 
     // Dropdown Inputs
     $z = 0;
-    foreach ($this->search_dropdown as $current_field) {
+    if ($this->search_dropdown) foreach ($this->search_dropdown as $current_field) {
       $current = $x % 2;
       $templ['ms2']['input_field_name'] = "search_dd_input[$z]";
       $templ['ms2']['input_field_options'] = '';
@@ -255,7 +260,7 @@ class MasterSearch2 {
       $templ['ms2']['search'][1] = '&nbsp;';
       $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_row');
     }
-    $dsp->AddModTpl('mastersearch2', 'search_case');
+    if ($this->search_fields or $this->search_dropdown) $dsp->AddModTpl('mastersearch2', 'search_case');
 
 
     ###### Output Result
@@ -294,11 +299,16 @@ class MasterSearch2 {
       
       // Normal rows
       foreach ($this->result_field as $current_field) {
+
+        // cut of 'table.', befor field name
         if (strpos($current_field['sql_field'], '.') > 0) $current_field['sql_field'] = substr($current_field['sql_field'], strpos($current_field['sql_field'], '.') + 1, strlen($current_field['sql_field']));
         if (strpos($current_field['link_id'], '.') > 0) $current_field['link_id'] = substr($current_field['link_id'], strpos($current_field['link_id'], '.') + 1, strlen($current_field['link_id']));
 
         // Exec Callback
-        if ($current_field['callback']) $line[$current_field['sql_field']] = $this->$current_field['callback']($line[$current_field['sql_field']]);
+        if ($current_field['callback']) {
+          if ($current_field['callback_full_sql_res']) $line[$current_field['sql_field']] = $this->$current_field['callback']($line);
+          else $line[$current_field['sql_field']] = $this->$current_field['callback']($line[$current_field['sql_field']]);
+        }
         $templ['ms2']['table_entrys_row_field_entry'] = $line[$current_field['sql_field']];
         if ($templ['ms2']['table_entrys_row_field_entry'] == '') $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
         
@@ -334,6 +344,7 @@ class MasterSearch2 {
   
 
   ###### Callbacks
+  // General
   function GetDate($time){
     if ($time > 0) return date('d.m.y H:i', $time);
     else return '0'; 
@@ -342,6 +353,38 @@ class MasterSearch2 {
   function GetTime($time){
     if ($time > 0) return date('H:i', $time);
     else return '0'; 
-  }      
+  }
+  
+  // Tournament
+  function GetTournamentName($sql_fields) {
+		global $auth, $lang;
+
+		$return = '';
+		// Game Icon
+		if ($sql_fields['icon'] and $sql_fields['icon'] != 'none') $return .= "<img src=\"ext_inc/tournament_icons/{$sql_fields['icon']}\" title=\"Icon\" /> ";
+		// Name
+		$return .= $sql_fields['name'];
+		// WWCL Icon
+		if ($sql_fields['wwcl_gameid']) $return .= " <img src=\"ext_inc/tournament_icons/leagues/wwcl.png\" title=\"WWCL Game\" />";
+		// NGL Icon
+		if ($sql_fields['ngl_gamename']) $return .= " <img src=\"ext_inc/tournament_icons/leagues/ngl.png\" title=\"NGL Game\" />";
+		// Over 18 Icon
+		if ($sql_fields['over18']) $return .= " <img src='design/".$auth["design"]."/images/fsk_18.gif' title=\"{$lang['ms']['cb_t_over18']}\" />";
+
+		return $return;
+	}
+
+	function GetTournamentTeamAnz($sql_fields) {
+		return $sql_fields['teamanz'] .'/'. $sql_fields['maxteams'];
+	}
+
+	function GetTournamentStatus($status) {
+		global $lang;
+		$status_descriptor["open"] 	= $lang['ms']['cb_ts_open'];
+		$status_descriptor["process"] 	= $lang['ms']['cb_ts_progress'];
+		$status_descriptor["closed"] 	= $lang['ms']['cb_ts_closed'];
+		
+		return $status_descriptor[$status];
+	}	
 }
 ?>
