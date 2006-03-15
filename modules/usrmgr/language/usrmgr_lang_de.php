@@ -307,4 +307,11 @@ $lang['usrmgr']['clanpw_caption']	= 'Clanpasswort ändern';
 $lang['usrmgr']['clanpw_subcaption']= 'Alle Mitglieder im Clan werden über die Änderung benachrichtig. Das Passwort muss aber durch euch mitgeteilt werden.';
 $lang['usrmgr']['clanpw_haschange_sub'] = 'Clanpasswort geändert';
 $lang['usrmgr']['clanpw_haschange']	= 'Das Clanpasswort wurde durch den Benutzer %%USER%% geändert';
+$lang['usrmgr']['userid'] = 'Userid';
+$lang['usrmgr']['name'] = 'Name';
+$lang['usrmgr']['all'] = 'Alle';
+$lang['usrmgr']['checkin'] = 'Eingecheckt';
+$lang['usrmgr']['checkin_no'] = 'Nicht eingecheckt';
+$lang['usrmgr']['checkout'] = 'Ausgecheckt';
+$lang['usrmgr']['checkout_no'] = 'Nicht ausgecheckt';
 ?>
