@@ -12,7 +12,7 @@ switch($_GET["step"]){
     $ms2->query['from'] = "{$config['tables']['user']} AS u LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id";
   
     $ms2->config['EntriesPerPage'] = 20;
-  
+
     $ms2->AddTextSearchField($lang['usrmgr']['userid'], array('u.userid' => 'exact'));
     $ms2->AddTextSearchField($lang['usrmgr']['add_username'], array('u.username' => '1337'));
     $ms2->AddTextSearchField($lang['usrmgr']['name'], array('u.name' => 'like', 'u.firstname' => 'like'));
@@ -23,7 +23,7 @@ switch($_GET["step"]){
     $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
     while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
     $db->free_result($row);
-    $ms2->AddTextSearchDropDown('Party', 'p.party_id', $party_list);
+    $ms2->AddTextSearchDropDown('Party', 'p.party_id', $party_list, $party->party_id);
   
     $ms2->AddTextSearchDropDown($lang['usrmgr']['add_paid'], 'p.paid', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['add_paid_no'], '>1' => $lang['usrmgr']['details_paid']));
     $ms2->AddTextSearchDropDown($lang['usrmgr']['checkin'], 'p.checkin', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkin_no'], '>1' => $lang['usrmgr']['checkin']));
@@ -35,7 +35,7 @@ switch($_GET["step"]){
     $ms2->AddResultField($lang['usrmgr']['add_lastname'], 'u.name');
     $ms2->AddResultField($lang['usrmgr']['details_clan'], 'u.clan', 'http://', 'u.clanurl');
     // If Party selected
-    if ($_POST["search_dd_input"][1] != '') {
+    if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
       $ms2->AddResultField('Bez.', 'p.paid');
       $ms2->AddResultField('In', 'p.checkin', '', '', 'GetDate');
       $ms2->AddResultField('Out', 'p.checkout', '', '', 'GetDate');
@@ -45,7 +45,7 @@ switch($_GET["step"]){
     if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'u.userid', 'index.php?mod=usrmgr&action=change&step=1&userid=');
     if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'u.userid', 'index.php?mod=usrmgr&action=delete&step=2&userid=');
   
-    $ms2->PrintSearch('index.php?mod=usrmgr&action=search', '', 'u.userid');
+    $ms2->PrintSearch('index.php?mod=usrmgr&action=search', 'u.userid');
 	break;
 
 
