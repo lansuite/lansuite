@@ -48,6 +48,7 @@ Version 2.1.0
 - Change: Möglichkeit zu Disqualifizieren aus dem Turniermodul wieder entfernt, da Buggy (KnoX 04.03.2006)
 - Change: #333 Die Statistiken auf der Startseite haben nun ein neues Format (KnoX 25.02.2006)
 
+- Add: #282 Mastersearch 2 integriert (KnoX 15.03.2006)
 - Add: #366 Im Benutzermanager können nun per Mastercomment einem Benutzer Kommentare zugeordnet werden (KnoX 13.03.2006)
 - Add: Cronjobmodul erweitert für den Turniermodus (Genesis 11.03.06)
 - Add: #350 In den Userdetails sieht man nun, an welchen Turnieren dieser User teil nimmt (KnoX 10.03.2006)
