@@ -36,7 +36,7 @@ switch($_GET["step"]){
     $ms2->AddResultField($lang['usrmgr']['details_clan'], 'u.clan', 'http://', 'u.clanurl');
     // If Party selected
     if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
-      $ms2->AddResultField('Bez.', 'p.paid');
+      $ms2->AddResultField('Bez.', 'p.paid', '', '', 'PaidIconLink');
       $ms2->AddResultField('In', 'p.checkin', '', '', 'GetDate');
       $ms2->AddResultField('Out', 'p.checkout', '', '', 'GetDate');
     }

@@ -9,7 +9,7 @@ INSTALLATION
 ============
 	
 	(1) Um Lansuite zu installieren stellen Sie zunächst sicher dass ein Webserver (z.B. Apache), 
-	ein MySQL-Server (Ab Version 3.2) sowie PHP (Ab Version 4.3) installiert sind. 
+	ein MySQL-Server (Ab Version 4.0) sowie PHP (Ab Version 4.3) installiert sind. 
 	
 	(2) Danach kopieren Sie bitte alle Lansuite-Dateien in den "DocumentRoot" Ihres Webservers (oder einen Unterordner darin).
 	Bei den meisten Webservern heisst dieser Ordner "htdocs".
