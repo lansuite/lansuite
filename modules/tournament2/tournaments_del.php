@@ -20,12 +20,15 @@ $tournamentid 	= $vars["tournamentid"];
 switch($step) {
 
 	default:
+    include_once('modules/tournament2/search.inc.php');
+/*    
 		$mastersearch = new MasterSearch( $vars, "index.php?mod=tournament2&action=delete", "index.php?mod=tournament2&action=delete&step=2&tournamentid=", "");
 		$mastersearch->LoadConfig("tournament", $lang["tourney"]["t_del_ms_caption"], $lang["tourney"]["t_del_ms_subcaption"]);
 		$mastersearch->PrintForm();
 		$mastersearch->Search();
 		$mastersearch->PrintResult();
 		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+*/		
 	break;
 
 	case 2:

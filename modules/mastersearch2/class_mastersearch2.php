@@ -63,11 +63,12 @@ class MasterSearch2 {
     $this->AddSelect($link_id); 
   }
 
-  function AddIconField($icon_name, $sql_field, $link = '') {
+  function AddIconField($icon_name, $sql_field, $link = '', $tooltipp = '') {
     $arr = array();
     $arr['icon_name'] = $icon_name;
     $arr['sql_field'] = $sql_field;
     $arr['link'] = $link;
+    $arr['tooltipp'] = $tooltipp;
     array_push($this->icon_field, $arr);
 
     $this->AddSelect($sql_field); 
@@ -331,7 +332,7 @@ class MasterSearch2 {
 
         $templ['ms2']['link'] = $current_field['link'] . $line[$current_field['sql_field']];
         $templ['ms2']['icon_name'] = $current_field['icon_name'];
-        $templ['ms2']['icon_title'] = $current_field['icon_name'];
+        $templ['ms2']['icon_title'] = $current_field['tooltipp'];
         $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_icon_link');
         $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');        
       }      

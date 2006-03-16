@@ -18,6 +18,8 @@ $user_data = $db->query_first("SELECT name, firstname, username, type FROM {$con
 
 switch($_GET['step']) {	
 	default:
+    include_once('modules/usrmgr/search.inc.php');
+/*
 		$mastersearch = new MasterSearch($vars, "index.php?mod=usrmgr&action=newpwd", "index.php?mod=usrmgr&action=newpwd&step=2&userid=", " AND (u.type > 0)");
 		$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
 		$mastersearch->PrintForm();
@@ -25,6 +27,7 @@ switch($_GET['step']) {
 		$mastersearch->PrintResult();
 
 		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+*/		
 	break;
 
 	case 2:

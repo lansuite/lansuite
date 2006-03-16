@@ -141,6 +141,8 @@ switch ($_GET['step']){
 	
 	case 10:
 		if(isset($_POST['group_id'])) $_GET['group_id'] = $_POST['group_id'];
+    include_once('modules/usrmgr/search.inc.php');
+/*
 		$mastersearch = new MasterSearch($vars, "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=11&group_id={$_GET['group_id']}&userid=", "GROUP BY email");
 		$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
 		$mastersearch->config['result_fields'][0]['checkbox']   = "checkbox";
@@ -148,7 +150,8 @@ switch ($_GET['step']){
 		$mastersearch->Search();
 		$mastersearch->PrintResult();
 		
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();	
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+*/
 	break;
 
 	case 11:

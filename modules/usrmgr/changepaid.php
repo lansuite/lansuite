@@ -5,6 +5,9 @@ $userid 	= $_GET["userid"];
 switch($_GET["step"]) {
 	// Search User
 	default:
+    include_once('modules/usrmgr/search.inc.php');
+
+/*
 		if ($auth["type"] == 3) $additional = " AND userid != '{$auth["userid"]}' AND type >= 1 AND p.party_id={$party->party_id}";
 		else $additional = " AND userid != '{$auth["userid"]}' AND type = 1 AND p.party_id={$party->party_id}";
 
@@ -15,7 +18,8 @@ switch($_GET["step"]) {
 		$mastersearch->Search();
 		$mastersearch->PrintResult();
 
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();	
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+*/    	
 	break;
 
 	// Confirm Action
