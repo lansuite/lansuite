@@ -24,32 +24,17 @@
 	<entry>
 		<action>games</action>
 		<file>games</file>
-		<caption>Paarungen</caption>
-		<hint>Hier sehen Sie eine Liste aller Paarungen zu einem Turnier</hint>
-		<link>?mod=tournament2&action=games&step=1</link>
 		<requirement>0</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>tree</action>
 		<file>tree</file>
-		<caption>Spielbaum</caption>
-		<hint>Hier sehen Sie eine Grafik aller Paarungen zu einem Turnier</hint>
-		<link>?mod=tournament2&action=tree&step=1</link>
 		<requirement>0</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>rangliste</action>
 		<file>rangliste</file>
-		<caption>Rangliste</caption>
-		<hint>Nachdem ein Turnier beendet ist, sehen Sie hier die Rangliste</hint>
-		<link>?mod=tournament2&action=rangliste&step=1</link>
 		<requirement>0</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>teammgr</action>
@@ -74,22 +59,12 @@
 	<entry>
 		<action>change</action>
 		<file>tournaments</file>
-		<caption>&Auml;ndern</caption>
-		<hint>Hier k&ouml;nnen Sie ein bereits erstelltes Turnier &auml;ndern</hint>
-		<link>?mod=tournament2&action=change</link>
 		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>delete</action>
 		<file>tournaments_del</file>
-		<caption>L&ouml;schen</caption>
-		<hint>Hier k&ouml;nnen Sie Turniere entfernen</hint>
-		<link>?mod=tournament2&action=delete</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>teammgr_admin</action>

@@ -4,6 +4,8 @@ $userid 	= $_GET["userid"];
 
 switch ($_GET["step"]) {
 	default:
+    include_once('modules/usrmgr/search.inc.php');
+/*
 		$sql = " AND u.type > 0 AND u.userid != '{$auth["userid"]}'";
 		if ($auth["type"] != 3) $sql .= " AND u.type < 2";
 
@@ -14,6 +16,7 @@ switch ($_GET["step"]) {
 		$mastersearch->PrintResult();
 
 		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+*/		
 	break;
 
 	case 2:

@@ -20,6 +20,8 @@ $group		= $vars["group"];
 
 switch($step) {
 case 1:
+  include_once('modules/tournament2/search.inc.php');
+/*
 	$mastersearch = new MasterSearch( $vars, 
 					  "index.php?mod=tournament2&action=tree&step=1", 
 					  "index.php?mod=tournament2&action=tree&step=2&tournamentid=", 
@@ -32,6 +34,7 @@ case 1:
 	$mastersearch->PrintResult();
 	
 	$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+*/	
 break;
 
 

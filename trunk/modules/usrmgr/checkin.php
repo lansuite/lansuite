@@ -5,13 +5,16 @@ $timestamp = time();
 
 switch($_GET['step']) {
 	default:
+    include_once('modules/usrmgr/search.inc.php');
+/*
 		$mastersearch = new MasterSearch($vars, "index.php?mod=usrmgr&action=checkin", "index.php?mod=usrmgr&action=checkin&step=2&userid=", " (p.checkin = '0' OR p.checkout != '0') AND u.type > 0 AND (p.party_id={$party->party_id}) ");
 		$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
 		$mastersearch->PrintForm();
 		$mastersearch->Search();
 		$mastersearch->PrintResult();
 		
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();	
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+*/    	
 	break;
 
 	case "2":
