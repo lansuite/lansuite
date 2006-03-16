@@ -75,7 +75,7 @@ class MasterSearch2 {
 
 
 	function PrintSearch($working_link, $group_by) {
-    global $db, $config, $dsp, $templ, $func, $auth;
+    global $db, $config, $dsp, $templ, $func, $auth, $line;
 
     $working_link .= $this->post_in_get;
 
@@ -385,6 +385,23 @@ class MasterSearch2 {
 		$status_descriptor["closed"] 	= $lang['ms']['cb_ts_closed'];
 		
 		return $status_descriptor[$status];
-	}	
+	}
+	
+	function PaidIconLink($paid){
+    global $dsp, $templ, $line, $party;
+    
+    // Only link, if selected party = current party
+    if ($_POST["search_dd_input"][1] == $party->party_id) $templ['ms2']['link'] = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
+    else $templ['ms2']['link'] = '';
+    
+    if ($paid) {
+      $templ['ms2']['icon_name'] = 'paid';
+      $templ['ms2']['icon_title'] = 'Paid';
+    } else {
+      $templ['ms2']['icon_name'] = 'not_paid';
+      $templ['ms2']['icon_title'] = 'Not Paid';
+    }
+    return $dsp->FetchModTpl('mastersearch2', 'result_icon_link');
+  }
 }
 ?>
