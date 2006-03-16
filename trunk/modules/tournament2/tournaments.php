@@ -289,20 +289,19 @@ switch($step) {
 		if ($cfg["sys_country"] != "de" and $cfg["sys_country"] != "at" and $cfg["sys_country"] != "ch")
 			$dsp->AddDoubleRow($lang["tourney"]["t_add_ngl_game"], $lang["tourney"]["ngl_in_de_at_ch_only"]);
 		else {
-			$country_xml = $xml->get_tag_content("country short=\"{$cfg["sys_country"]}\"", $xml_file);
-			$liga_xml = $xml->get_tag_content_array("liga", $country_xml);
+#			$country_xml = $xml->get_tag_content("country short=\"{$cfg["sys_country"]}\"", $xml_file);
+			$liga_xml = $xml->get_tag_content_array("league", $xml_file);
 			while ($akt_liga = array_shift($liga_xml)) {
-				$info_xml = $xml->get_tag_content("info", $akt_liga);
-				$liga_name = $xml->get_tag_content("name", $info_xml);
+  			$info_xml = $xml->get_tag_content_array("info", $akt_liga);
+  			while ($akt_info = array_shift($info_xml)) $info_title = $xml->get_tag_content("title", $akt_info);
 
 				$game_xml = $xml->get_tag_content_array("game", $akt_liga);
 
 				while ($game_xml_id = array_shift($game_xml)) {
 					$akt_game_id = $xml->get_tag_content("short", $game_xml_id);
-					$akt_game_name = $xml->get_tag_content("name", $game_xml_id);
-		#			$akt_game_name = array_shift($game_namen);
+					$akt_game_name = $xml->get_tag_content("title", $game_xml_id);
 					($_POST["tournament_ngl_gamename"] == $akt_game_id) ? $selected = "selected" : $selected = "";
-					array_push ($t_array, "<option $selected value=\"$akt_game_id\">$liga_name - $akt_game_name</option>");
+					array_push ($t_array, "<option $selected value=\"$akt_game_id\">$info_title - $akt_game_name</option>");
 				}
 			}
 			$dsp->AddDropDownFieldRow("tournament_ngl_gamename", $lang["tourney"]["t_add_ngl_game"], $t_array, $tournament_ngl_gamename_error, 1);
