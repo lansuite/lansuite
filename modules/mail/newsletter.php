@@ -64,12 +64,13 @@ switch($_GET["step"]) {
 		$where = "(u.username != 'LS_SYSTEM')";
 		if ($_POST["onlynewsletter"]) $where .= " AND (u.newsletter = 1) ";
 		if ($_POST["onlysignon"]) $where .= " AND p.party_id={$party->party_id}";
-		if ($_POST["onlypaid"]) $where .= " AND (p.paid = 1)";
-		$where .= " AND (type > -4) GROUP BY email";
+		if ($_POST["onlypaid"]) $where .= " AND p.party_id={$party->party_id} AND (p.paid = 1)";
+		$where .= " AND (u.type > 0) GROUP BY email";
 
 		$success = "";
 		$fail = "";
-		$users = $db->query("SELECT * FROM {$config["tables"]["user"]} AS u LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id=u.userid WHERE $where");
+		$users = $db->query("SELECT * FROM {$config["tables"]["user"]} AS u
+      LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id=u.userid WHERE $where");
 
 		while ($user = $db->fetch_array($users)){
 			$text = $_POST["text"];
