@@ -554,13 +554,21 @@
     			
     			$signon->WriteXMLStatFile();
     			if($_GET['signon']){
-    				$func->question($confirm_text, "index.php?mod=signon&action=add&step=4&userid=$userid&group_id={$_POST["group_id"]}","index.php?mod=news");
+    				$func->confirmation($confirm_text, "index.php?mod=news");
+  	    			$dsp->NewContent(str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_caption"]));
+  		  			$dsp->SetForm("index.php?mod=signon&action=add&step=5&userid=$userid");
+    				$party->get_price_dropdown($_POST["group_id"]);
+    				$dsp->AddFormSubmitRow("add");
+    				$dsp->AddBackButton("index.php?mod=news");
+    				$dsp->AddContent();
+    				
+ 	   				// $func->question($confirm_text, "index.php?mod=signon&action=add&step=4&userid=$userid&group_id={$_POST["group_id"]}","index.php?mod=news");
     			}else{
     				$func->confirmation($confirm_text, "index.php?mod=news");
     			}
     		}
     	break;
-    
+ /*   
     	case 4:
     			$dsp->NewContent(str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_caption"]));
     			$dsp->SetForm("index.php?mod=signon&action=add&step=5&userid={$_GET["userid"]}");
@@ -569,6 +577,7 @@
     			$dsp->AddContent();
     
     	break;
+*/    	
     	case 5:
     			$party->add_user_to_party($_GET['userid'],$_POST['price_id']);
     			$func->confirmation(str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_success"]),"index.php?mod=home");
