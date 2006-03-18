@@ -97,8 +97,8 @@ switch($_GET['step']) {
     
     // 4) Was a normal banner uploaded, that could be resized?
     } elseif ($_FILES['pic_upload']['name']) {
-      $gd->CreateThumb('ext_inc/banner/'. $_FILES['pic_upload']['name'], 'ext_inc/banner/banner_'. $_FILES['pic_upload']['name'], 468, 60);
-      $pic_path_banner = 'ext_inc/banner/banner_'. $_FILES['pic_upload']['name'];
+      $gd->CreateThumb('ext_inc/banner/'. $_FILES['pic_upload']['name'], 'ext_inc/banner/button_'. $_FILES['pic_upload']['name'], 468, 60);
+      $pic_path_button = 'ext_inc/banner/button_'. $_FILES['pic_upload']['name'];
     }
 
 /*
