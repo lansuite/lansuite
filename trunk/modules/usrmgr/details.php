@@ -116,7 +116,7 @@ else {
 			$dsp->AddDoubleRow($lang['usrmgr']['details_clan'], $user_data['clan']);
 
 			// clanurl
-			$dsp->AddDoubleRow($lang['usrmgr']['details_clan_url'], $user_data['clanurl']);
+			$dsp->AddDoubleRow($lang['usrmgr']['details_clan_url'], "<a href=\"http://{$user_data['clanurl']}\" target=\"_blank\">{$user_data['clanurl']}</a>");
 
 			// wwclid
 			$dsp->AddDoubleRow($lang['usrmgr']['details_wwcl_id'], ($user_data['wwclid'] == 0) ? "" : $user_data['wwclid']);

@@ -85,7 +85,7 @@ class MasterSearch2 {
     
     
     ###### Generate Where
-    $this->query['where'] = '1 = 1';
+    if ($this->query['where'] == '') $this->query['where'] = '1 = 1';
     
     // Generate where from input fields
     $z = 0;
@@ -267,6 +267,7 @@ class MasterSearch2 {
     ###### Output Result
     // Generate Result Head
     $templ['ms2']['table_head'] = '';
+
     foreach ($this->result_field as $current_field) {    
       $templ['ms2']['table_head_width'] = '*';    
       $templ['ms2']['table_head_entry'] = $current_field['caption'];
@@ -286,10 +287,10 @@ class MasterSearch2 {
 
     // Icon Headline
     foreach ($this->icon_field as $current_field) {
-      $templ['ms2']['table_head_width'] = '1%';    
+      $templ['ms2']['table_head_width'] = '22';    
       $templ['ms2']['table_head_entry'] = '&nbsp;';
-      $templ['ms2']['arrow_order_asc'] = '';
-      $templ['ms2']['arrow_order_desc'] = '';
+      $templ['ms2']['order_link'] = '';
+      $templ['ms2']['order_image'] = '';
       $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
     }
 
@@ -403,6 +404,16 @@ class MasterSearch2 {
       $templ['ms2']['icon_title'] = 'Not Paid';
     }
     return $dsp->FetchModTpl('mastersearch2', 'result_icon_link');
+  }
+  
+  function SeatNameLink($status){
+    global $seat2, $line;
+    
+    if (!$line['blockname']) return '';
+    else {
+      $LinkText = $line['blockname'] .'<br />'. $seat2->CoordinateToName($line['col'], $line['row'], $line['orientation']);
+  	  return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id={$line['blockid']}&userarray[]={$line['userid']}&l=1','_blank','width=596,height=638,resizable=yes');\" class=\"small\">$LinkText</a>";
+  	}
   }
 }
 ?>
