@@ -206,22 +206,22 @@ class MasterSearch2 {
 			$templ['ms2']['pages'] = ("Seiten: ");
 			// Previous page link
 			if ($_GET['page'] != "all" and (int)$_GET['page'] > 0) {
-				$templ['ms2']['pages'] .= (' <a class="menue" href="'. $link . ($_GET['page'] - 1) .'"><b>&lt;</b></a>');
+				$templ['ms2']['pages'] .= (' <a class="menu" href="'. $link . ($_GET['page'] - 1) .'"><b>&lt;</b></a>');
 			}
 			// Direct page link
 			$i = 0;					
 			while($i < $count_pages) {
 				if ($_GET['page'] != "all" and $_GET['page'] == $i) $templ['ms2']['pages'] .= (" " . ($i + 1));
-				else $templ['ms2']['pages'] .= (' <a class="menue" href="' . $link . $i . '"><b>'. ($i + 1) .'</b></a>');
+				else $templ['ms2']['pages'] .= (' <a class="menu" href="' . $link . $i . '"><b>'. ($i + 1) .'</b></a>');
 				$i++;
 			}
 			// Next page link
 			if ($_GET['page'] != "all" and ($_GET['page'] + 1) < $count_pages) {
-				$templ['ms2']['pages'] .= (' <a class="menue" href="'. $link . ($_GET['page'] + 1) .'"><b>&gt;</b></a>');
+				$templ['ms2']['pages'] .= (' <a class="menu" href="'. $link . ($_GET['page'] + 1) .'"><b>&gt;</b></a>');
 			}
 			// All link
 			if ($_GET['page'] == "all") $templ['ms2']['pages'] .= " Alle";
-			else $templ['ms2']['pages'] .= (' <a class="menue" href="'. $link . 'all"><b>Alle</b></a>');									
+			else $templ['ms2']['pages'] .= (' <a class="menu" href="'. $link . 'all"><b>Alle</b></a>');									
     }
 
 
@@ -270,18 +270,19 @@ class MasterSearch2 {
 
     foreach ($this->result_field as $current_field) {    
       $templ['ms2']['table_head_width'] = '*';    
-      $templ['ms2']['table_head_entry'] = $current_field['caption'];
+      $templ['ms2']['link_item'] = $current_field['caption'];
       
       // Order Link and Image
       if ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC') $order_dir = 'DESC';
       else $order_dir = 'ASC';
-      $templ['ms2']['order_link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir";
+      $templ['ms2']['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir";
             
       if ($_GET['order_by'] == $current_field['sql_field']) {
-        if ($_GET['order_dir'] == 'DESC') $templ['ms2']['order_image'] = " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
-        else $templ['ms2']['order_image'] = " <img src=\"design/{$auth['design']}/images/arrows_orderby_asc_active.gif\" border=\"0\" />";
-      } else $templ['ms2']['order_image'] = '';
+        if ($_GET['order_dir'] == 'DESC') $templ['ms2']['link_item'] = " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
+        else $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_asc_active.gif\" border=\"0\" />";
+      } else $templ['ms2']['link_item'] .= '';
 
+      $templ['ms2']['table_head_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
       $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
     }
 
@@ -289,8 +290,9 @@ class MasterSearch2 {
     foreach ($this->icon_field as $current_field) {
       $templ['ms2']['table_head_width'] = '22';    
       $templ['ms2']['table_head_entry'] = '&nbsp;';
-      $templ['ms2']['order_link'] = '';
-      $templ['ms2']['order_image'] = '';
+      
+#<a href="{$templ['ms2']['order_link']}">{$templ['ms2']['table_head_entry']}{$templ['ms2']['order_image']}</a></th>
+      
       $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
     }
 
@@ -334,7 +336,9 @@ class MasterSearch2 {
         $templ['ms2']['link'] = $current_field['link'] . $line[$current_field['sql_field']];
         $templ['ms2']['icon_name'] = $current_field['icon_name'];
         $templ['ms2']['icon_title'] = $current_field['tooltipp'];
-        $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_icon_link');
+        $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
+        if ($templ['ms2']['link']) $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+        else $templ['ms2']['table_entrys_row_field_entry'] = $templ['ms2']['link_item'];
         $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');        
       }      
       $templ['ms2']['table_entrys'] .= $dsp->FetchModTpl('mastersearch2', 'result_row');
@@ -403,7 +407,9 @@ class MasterSearch2 {
       $templ['ms2']['icon_name'] = 'not_paid';
       $templ['ms2']['icon_title'] = 'Not Paid';
     }
-    return $dsp->FetchModTpl('mastersearch2', 'result_icon_link');
+    $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
+    if ($templ['ms2']['link']) $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+    return $templ['ms2']['link_item'];
   }
   
   function SeatNameLink($status){
