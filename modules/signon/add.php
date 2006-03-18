@@ -554,7 +554,7 @@
     			
     			$signon->WriteXMLStatFile();
     			if($_GET['signon']){
-    				$func->confirmation($confirm_text, "index.php?mod=news");
+    				$func->confirmation($confirm_text, 0);
   	    			$dsp->NewContent(str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_caption"]));
   		  			$dsp->SetForm("index.php?mod=signon&action=add&step=5&userid=$userid");
     				$party->get_price_dropdown($_POST["group_id"]);
