@@ -8,5 +8,5 @@
 	<author>!Dom</author>				<!-- The author of this module -->
 	<email>dom@calamity-lan.de</email>					<!-- The E-Mail-Adress of the modules author -->
 	<version>1.0</version>			<!-- The version of this module -->
-	<state>stable</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
+	<state>Stable</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
 </lansuite-module>

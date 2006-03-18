@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-15"?>
 <menu>
-	<pos>8</pos>	<!-- The position in the navigation, where this entry should be located. 1 = top; 100 = botom -->
+	<pos>31</pos>	<!-- The position in the navigation, where this entry should be located. 1 = top; 100 = botom -->
 
 	<entry>
 		<action>default</action>  <!-- This is the trigger standing in the URL behin the "action=" -->

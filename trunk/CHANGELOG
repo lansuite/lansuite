@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.0
 
+- Bugfix: Einige kleine Fehler im Turniermodul gefixt. (Genesis 18.03.06)
 - Bugfix: #374 Board "Anzahl der angezeigten Forumeinträge" rausgenommen, da es eh nicht funktionierte (KnoX 18.03.2006)
 - Bugfix: #378 %BEZAHLT% Status wurde bei Rundmail bei mehreren Partys falsch ausgelesen (KnoX 18.03.2006) 
 - Bugfix: #376 Die Zurück-Links beim Ändern der Konfig eines Moduls waren falsch (KnoX 15.03.2006)

@@ -47,9 +47,12 @@ case 2:
 	if ($tournament['mode'] == "groups") $modus = $lang["tourney"]["groups"];
 	if ($tournament['mode'] == "all") $modus = $lang["tourney"]["all"];
 
-	$games = $db->query("SELECT gameid FROM {$config["tables"]["t2_games"]} WHERE (tournamentid = '$tournamentid') AND (round=0)");
+/*	$games = $db->query("SELECT gameid FROM {$config["tables"]["t2_games"]} WHERE (tournamentid = '$tournamentid') AND (round=0)");
 	$team_anz = $db->num_rows($games);
-	$db->free_result($games);
+	$db->free_result($games);*/
+	include_once("modules/tournament2/class_tournament.php"); 
+	$tfunc = new tfunc; 
+	$team_anz = $tfunc->GetTeamAnz($tournamentid, $tournament['mode'], $vars["group"]);  
 
 	$dsp->NewContent(str_replace("%NAME%", $tournament['name'], str_replace("%MODE%", $modus, $lang["tourney"]["tree_caption"])), $lang["tourney"]["tree_subcaption"]);
 
@@ -83,13 +86,13 @@ case 2:
 			$dsp->AddSingleRow("<iframe src=\"base.php?mod=tree_frame&tournamentid=$tournamentid&group=$group\" width=\"99%\" height=\"$height\"><a href=\"base.php?mod=tree_frame&tournamentid=$tournamentid&group=$group\">Tree</a></iframe>");
 			
 			if ($tournament["mode"] == "groups"){
-				if(!file_exists("xt_inc/tournament_trees/tournament_" . $tournamentid . "_" . $group . ".png")){
+				if(!file_exists("ext_inc/tournament_trees/tournament_" . $tournamentid . "_" . $group . ".png")){
 					$cronjob->load_job("cron_tmod");
 					$cronjob->loaded_class->add_job($_GET["tournamentid"],$group);
 				}
 				$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_" . $tournamentid . "_" . $group . ".png\">{$lang["tourney"]["tree_download"]}</a>");
 			}else{
-				if(!file_exists("xt_inc/tournament_trees/tournament_" . $tournamentid . ".png")){
+				if(!file_exists("ext_inc/tournament_trees/tournament_" . $tournamentid . ".png")){
 					$cronjob->load_job("cron_tmod");
 					$cronjob->loaded_class->add_job($_GET["tournamentid"],"");
 				}

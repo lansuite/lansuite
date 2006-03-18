@@ -31,7 +31,7 @@ if (($tournament['mode'] == "groups") && ($group > 0)) {
 } elseif (($tournament['mode'] == "groups") && ($group == 0)) {
 	$game = $db->query("SELECT gameid
 		FROM {$config["tables"]["t2_games"]}
-		WHERE (tournamentid = $tournamentid) AND (group_nr > 0)
+		WHERE (tournamentid = $tournamentid) AND (group_nr > 0) AND (round = 0)
 		GROUP BY group_nr
 		");
 	$team_anz = 2 * $db->num_rows($game);
