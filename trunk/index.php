@@ -1,22 +1,4 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*
-*	(c) 2001-2005 by One-Network.Org
-*
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		index.php
-*	Module: 		Framework
-*	Last change: 		15.05.2003 15:14
-*	Description: 		The index.php is the framework constructor
-*				for all lansuite modules. This file makes
-*				all functions and configurations available
-*	Remarks: 		
-*
-**************************************************************************/
 
 // Error Reporting auf "Alles außer Hinweise" setzen
 error_reporting(E_ALL ^ E_NOTICE);
@@ -203,7 +185,6 @@ if ($found_adm) {
 
 		$dsp->AddContent();
 		eval("\$index = \"". $func->gettemplate("setup_index")."\";");
-		$func->templ_output($index);
 		$sitetool->out_optimizer();
 		exit;
 	}
