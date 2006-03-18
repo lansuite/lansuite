@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-15"?>
 <menu>
-	<pos>31</pos>
+	<pos>32</pos>
 	<entry>
 		<action>default</action>
 		<file>index</file>

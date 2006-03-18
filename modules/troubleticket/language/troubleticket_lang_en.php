@@ -24,7 +24,7 @@
  $lang['troubleticket']['add_confirm']    = 'The troubleticket has been added';
  $lang['troubleticket']['change_confirm'] = 'The troubleticket has been changed';
  $lang['troubleticket']['unlink_confirm'] = 'The choosen ticket has been deleted.';
- //$lang['troubleticket']['user_assign']    = 'Ihnen wurde das Troubleticket \'<b>%TTCaption%</b>\'zugewiesen. '; //endign with dot and space
+ //$lang['troubleticket']['user_assign']    = 'Ihnen wurde das Troubleticket "<b>%TTCaption%</b>" zugewiesen. '; //endign with dot and space
  $lang['troubleticket']['assign_confirm'] = 'The choosen ticket were assigned';
  $lang['troubleticket']['show_info']      = 'Here you can find all informations on this ticket';
  $lang['troubleticket']['no_hint']        = ' No hint';	//beginning with a space

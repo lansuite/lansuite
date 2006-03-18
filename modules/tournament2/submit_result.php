@@ -13,7 +13,7 @@ $score_comment 		= $vars["score_comment"];
 
 
 ########## Infos holen
-$tournament = $db->query_first("SELECT name, teamplayer, over18, status, mode, mapcycle, starttime, max_games, game_duration, break_duration FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+$tournament = $db->query_first("SELECT name, teamplayer, over18, status, mode, mapcycle, starttime, max_games, game_duration, break_duration, tournamentid FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
 $map = explode("\n", $func->db2text($tournament["mapcycle"]));
 if ($map[0] == "") $map[0] = $lang["tourney"]["unknown"];
 
@@ -48,8 +48,8 @@ if ($tournament["name"] == "") {
 			$seat = new seat;
 			$dsp->NewContent(str_replace("%TEAM1%", $team1['name'], str_replace("%TEAM2%", $team2['name'], $lang["tourney"]["s_res_caption"])), $lang["tourney"]["s_res_subcaption"]);
 			// Write Start and Enddate for each round
-			$round_start = $tfunc->GetGameStart($tournament, $team1['round']);
-			$round_end = $tfunc->GetGameEnd($tournament, $team1['round']);
+			$round_start = $tfunc->GetGameStart($tournament, $team1['round'],$team1['group_nr']);
+			$round_end = $tfunc->GetGameEnd($tournament, $team1['round'],$team1['group_nr']);
 			$dsp->AddDoubleRow($lang["tourney"]["gametime"], $func->unixstamp2date($round_start, "datetime") ." - ". $func->unixstamp2date($round_end, "datetime"));
 			$dsp->AddDoubleRow($lang["tourney"]["map"], $map[(abs(floor($team1['round'])) % count($map))]);
 

@@ -276,8 +276,8 @@ $lang['tourney']['tree_time']	= 'Zeit';
 $lang['tourney']['tree_map']	= 'Map';
 
 // USE \r\n for linebreak - lines longer than about 18 Chars are too big to display completely in the image
-$lang['tourney']['tree_from_winner']	= 'Verlierer aus\r\nRunde %ROUND% Partie %GAME%';
-$lang['tourney']['tree_final_text']	= 'Der Gewinner aus\r\nRunde %ROUND% Partie %GAME%\r\nmuss hier 2x siegen';
+$lang['tourney']['tree_from_winner']	= "Verlierer aus\r\nRunde %ROUND% Partie %GAME%";
+$lang['tourney']['tree_final_text']	= "Der Gewinner aus\r\nRunde %ROUND% Partie %GAME%\r\nmuss hier 2x siegen";
 
 $lang['tourney']['tree_download']	= 'Hier k&ouml;nnen Sie die Grafik herunterladen';
 $lang['tourney']['chg_st_question']	= 'Sind sie sicher, dass Sie das generieren r&uuml;ckg&auml;ngig machen wollen? Alle Paarungen und alle bereits eingetragenen Ergebnisse dieses Turnieres werden dabei gel&ouml;scht! Bei bereits beendeten Turnieren geht dadurch auﬂerdem die Rangliste verloren!';

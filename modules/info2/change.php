@@ -87,7 +87,7 @@ if ($_POST["checkbox"]) {
 		} else $dsp->AddTextAreaRow("content", "", $_POST["content"], "", 80, 25, 0);
 
 		$dsp->AddFormSubmitRow("add");
-		$dsp->AddBackButton("index.php?mod=info2", "info2/form"); 
+		$dsp->AddBackButton("index.php?mod=info2&action=change", "info2/form"); 
 		$dsp->AddContent();
 	break;
 

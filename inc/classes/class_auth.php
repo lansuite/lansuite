@@ -70,7 +70,9 @@ class auth {
 			LEFT JOIN {$config["tables"]["user"]} AS user ON user.userid = session.userid
 			LEFT JOIN {$config["tables"]["usersettings"]} AS user_set ON user.userid = user_set.userid
 			WHERE session.sessid='{$this->auth["sessid"]}' ORDER BY session.lasthit");
-		$this->auth = array_merge($this->auth, $user_data);
+		if(is_array($user_data)){
+			$this->auth = array_merge($this->auth, $user_data);
+		}
 
 		// If Login / Logout
 		if ($_GET['mod'] == "logout") $this->logout();

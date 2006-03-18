@@ -278,8 +278,8 @@ $lang['tourney']['tree_time']	= 'Time';
 $lang['tourney']['tree_map']	= 'Map';
 
 // USE \r\n for linebreak - lines longer than about 18 Chars are too big to display completely in the image
-$lang['tourney']['tree_from_winner']	= 'Looser from\r\nround %ROUND% game %GAME%';
-$lang['tourney']['tree_final_text']	= 'Winner from\r\nround %ROUND% game %GAME%\r\nhas to win twice';
+$lang['tourney']['tree_from_winner']	= "Looser from\r\nround %ROUND% game %GAME%";
+$lang['tourney']['tree_final_text']	= "Winner from\r\nround %ROUND% game %GAME%\r\nhas to win twice";
 
 $lang['tourney']['tree_download']	= 'Download the graphic';
 $lang['tourney']['chg_st_question']	= 'Are you shure the undo generating? All games and submitted scores and the ranking from finished tournaments will be lost!';

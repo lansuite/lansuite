@@ -79,9 +79,10 @@ class tfunc {
 
 		} else {
 			if ($mode != "groups") $group = 0;
+			if ($mode == "liga") $group = 1;
 
 			## In liga-mode dye's do not count as team, in ko-modes they do
-			($mode == "liga")? $add_where = "AND (leaderid != 0)" : $add_where = "";
+			($mode == "liga" or $mode == "groups")? $add_where = "AND (leaderid != 0)" : $add_where = "";
 
 			$games = $db->query_first("SELECT COUNT(*) AS anz
 				FROM {$config["tables"]["t2_games"]}
@@ -94,7 +95,7 @@ class tfunc {
 
 
 	## Returns the time, when the given round in this tournament starts
-	function GetGameStart($tournament, $round) {
+	function GetGameStart($tournament, $round, $group_nr = 0) {
 		global $db, $config;
 
 		$break_duration = $tournament["break_duration"] * 60;
@@ -102,7 +103,7 @@ class tfunc {
 		($tournament['mode'] == "double")? $faktor = 2 : $faktor = 1;
 
 		## If final games of a group-tournament add time for group-games
-		if (($tournament["mode"] == "groups") and ($game['group_nr'] == 0)){
+		if (($tournament["mode"] == "groups") and ($group_nr == 0)){
 			## Count numer of teams of the first group
 			$get_team_anz = $db->query_first("SELECT COUNT(*) AS anz
 					FROM {$config["tables"]["t2_games"]}
@@ -120,7 +121,7 @@ class tfunc {
 
 
 	## Returns the time, when the given round in this tournament ends
-	function GetGameEnd($tournament, $round) {
+	function GetGameEnd($tournament, $round, $group_nr = 0) {
 		global $db, $config;
 
 		$break_duration = $tournament["break_duration"] * 60;
@@ -128,7 +129,7 @@ class tfunc {
 		($tournament['mode'] == "double")? $faktor = 2 : $faktor = 1;
 
 		## If final games of a group-tournament add time for group-games
-		if (($tournament["mode"] == "groups") and ($game['group_nr'] == 0)){
+		if (($tournament["mode"] == "groups") and ($group_nr == 0)){
 			## Count numer of teams of the first group
 			$get_team_anz = $db->query_first("SELECT COUNT(*) AS anz
 					FROM {$config["tables"]["t2_games"]}
@@ -260,8 +261,9 @@ class tfunc {
 			break;
 
 			case "liga":
-			case "group":
-
+			case "groups":
+	 			if ($group_nr == '') $group_nr = 1;
+	 			
 				// Beteiligte Teams in Array einlesen
 				$teams = $db->query("SELECT teamid, name, disqualified
 					FROM {$config["tables"]["t2_teams"]}
@@ -293,6 +295,7 @@ class tfunc {
 					AND ((games1.position + 1) = games2.position)
 					AND ((games1.position / 2) = FLOOR(games1.position / 2))
 					AND ((games1.score != 0) OR (games2.score != 0))
+					AND games1.group_nr = '$group_nr'
 					");
 
 				while ($score = $db->fetch_array($scores)){
