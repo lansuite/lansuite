@@ -322,7 +322,7 @@ class MasterSearch2 {
         
         // Link it?
         ($current_field['link_id'] != '')? $link_id = $line[$current_field['link_id']] : $link_id = ''; 
-        if ($current_field['link'] != '' or $link_id != '') {
+        if (($current_field['link'] != '' and $current_field['link'] != 'http://') or ($link_id != '' and $link_id != 'http://')) {
           $templ['ms2']['table_entrys_row_field_entry'] = '<a href="'. $current_field['link'] . $link_id .'">'. $templ['ms2']['table_entrys_row_field_entry'] .'</a>'; 
         }
         
