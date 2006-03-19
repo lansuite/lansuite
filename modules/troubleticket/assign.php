@@ -9,7 +9,7 @@ switch($_GET["step"]) {
     include_once('modules/usrmgr/search_main.inc.php');
     
     $ms2->query['where'] .= "u.type > 1";
-    if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'http://lansuite.local/index.php?mod=troubleticket&action=assign&step=3&ttid='.$_GET['ttid'] .'&userid=', 'Assign');
+    if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=troubleticket&action=assign&step=3&ttid='.$_GET['ttid'] .'&userid=', 'Assign');
     
     $ms2->PrintSearch('index.php?mod=troubleticket&action=assign&step=2&ttid='. $_GET['ttid'], 'u.userid');
 	break;

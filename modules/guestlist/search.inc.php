@@ -13,11 +13,7 @@ function SeatNameLink($status){
 }
 
 function PaidIconLink($paid){
-  global $dsp, $templ, $line, $party;
-  
-  // Only link, if selected party = current party
-  if ($_POST["search_dd_input"][1] == $party->party_id) $templ['ms2']['link'] = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
-  else $templ['ms2']['link'] = '';
+  global $dsp, $templ, $line, $auth;
   
   if ($paid) {
     $templ['ms2']['icon_name'] = 'paid';
@@ -27,7 +23,9 @@ function PaidIconLink($paid){
     $templ['ms2']['icon_title'] = 'Not Paid';
   }
   $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
-  if ($templ['ms2']['link']) $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+  $templ['ms2']['link'] = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
+  if ($auth['type'] > 1) $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+  
   return $templ['ms2']['link_item'];
 }
 
