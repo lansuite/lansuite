@@ -29,7 +29,6 @@ class MasterSearch2 {
     elseif ($_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) $this->post_in_get .= "&search_dd_input[$key]=$val";
 
     // Write back from $_GET[] to $_POST[]
-    #$_POST['sending_x'] == ''
     if (!isset($_POST['search_input']) and $_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
     if (!isset($_POST['search_dd_input']) and $_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) $_POST['search_dd_input'][$key] = $val;
   }
@@ -57,15 +56,12 @@ class MasterSearch2 {
     array_push($this->search_dropdown, $arr);
   }
 
-  function AddResultField($caption, $sql_field, $link = '', $link_id = '', $callback = '', $callback_full_sql_res = 0, $max_char = 0) {
+  function AddResultField($caption, $sql_field, $callback = '', $max_char = 0) {
     $arr = array();
     $arr['caption'] = $caption;
     $arr['sql_field'] = $sql_field;
     $arr['callback'] = $callback;
-    $arr['callback_full_sql_res'] = $callback_full_sql_res;
     $arr['max_char'] = $max_char;
-    $arr['link'] = $link;
-    $arr['link_id'] = $link_id;
     array_push($this->result_field, $arr);
 
     $this->AddSelect($sql_field); 
@@ -282,16 +278,17 @@ class MasterSearch2 {
 
 
     ###### Output Result
-    // Generate Result Head
+    #### Generate Result Head
     $templ['ms2']['table_head'] = '';
 
-    // Checkbox Headline
+    // Checkbox Headline (Empty field)
     if (count($this->multi_select_action) > 0) {
       $templ['ms2']['table_head_width'] = '16';    
       $templ['ms2']['table_head_entry'] = '&nbsp;';      
       $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
     }
 
+    // Normal headline
     foreach ($this->result_field as $current_field) {    
       $templ['ms2']['table_head_width'] = '*';    
       $templ['ms2']['link_item'] = $current_field['caption'];
@@ -310,16 +307,16 @@ class MasterSearch2 {
       $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
     }
 
-    // Icon Headline
+    // Icon Headline (Empty field)
     foreach ($this->icon_field as $current_field) {
       $templ['ms2']['table_head_width'] = '22';    
       $templ['ms2']['table_head_entry'] = '&nbsp;';      
       $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
     }
 
-    // Generate Result Body    
+    #### Generate Result Body    
     $templ['ms2']['table_entrys'] = '';
-    while($line = $db->fetch_array($res)) {
+    while($line = $db->fetch_array($res)) { // Start: Row
       $templ['ms2']['table_entrys_row_field'] = '';
 
       // cut of 'table.', befor field name
@@ -331,35 +328,28 @@ class MasterSearch2 {
         $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');
       }
       
-      // Normal rows
+      // Normal fields
       foreach ($this->result_field as $current_field) {
 
-        // cut of 'table.', befor field name
+        // cut of 'table.', in front of field name
         if (strpos($current_field['sql_field'], '.') > 0) $current_field['sql_field'] = substr($current_field['sql_field'], strpos($current_field['sql_field'], '.') + 1, strlen($current_field['sql_field']));
         if (strpos($current_field['link_id'], '.') > 0) $current_field['link_id'] = substr($current_field['link_id'], strpos($current_field['link_id'], '.') + 1, strlen($current_field['link_id']));
 
         // Exec Callback
-        if ($current_field['callback']) {
-          if ($current_field['callback_full_sql_res']) $line[$current_field['sql_field']] = $this->$current_field['callback']($line);
-          else $line[$current_field['sql_field']] = $this->$current_field['callback']($line[$current_field['sql_field']]);
-        }
+        if ($current_field['callback'])
+          $line[$current_field['sql_field']] = call_user_func($current_field['callback'], $line[$current_field['sql_field']]);
+
         $templ['ms2']['table_entrys_row_field_entry'] = $line[$current_field['sql_field']];
-        if ($templ['ms2']['table_entrys_row_field_entry'] == '') $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
         
         // Cut of oversize chars
         if ($current_field['max_char'] and strlen($templ['ms2']['table_entrys_row_field_entry'] > $current_field['max_char']))
           $templ['ms2']['table_entrys_row_field_entry'] = substr($templ['ms2']['table_entrys_row_field_entry'], 0, $current_field['max_char'] - 2) .'..';
-        
-        // Link it?
-        ($current_field['link_id'] != '')? $link_id = $line[$current_field['link_id']] : $link_id = ''; 
-        if (($current_field['link'] != '' and $current_field['link'] != 'http://') or ($link_id != '' and $link_id != 'http://')) {
-          $templ['ms2']['table_entrys_row_field_entry'] = '<a href="'. $current_field['link'] . $link_id .'">'. $templ['ms2']['table_entrys_row_field_entry'] .'</a>'; 
-        }
-        
+
+        if ($templ['ms2']['table_entrys_row_field_entry'] == '') $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
         $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');        
       }
       
-      // Icon rows
+      // Icon fields
       foreach ($this->icon_field as $current_field) {
         $templ['ms2']['link'] = $current_field['link'] . $line[$select_id_field];
         $templ['ms2']['icon_name'] = $current_field['icon_name'];
@@ -370,7 +360,7 @@ class MasterSearch2 {
         $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');        
       }      
       $templ['ms2']['table_entrys'] .= $dsp->FetchModTpl('mastersearch2', 'result_row');
-    }
+    } // End: Row
 
     // Multi-Select Dropdown
     $templ['ms2']['multi_select_dropdown'] = '';
@@ -393,93 +383,19 @@ class MasterSearch2 {
     $templ['ms2']['result_action'] = $multiaction;
     $dsp->AddModTpl('mastersearch2', 'result_case');
   }
+} // End: Class
 
-  
 
-  ###### Callbacks
-  // General
-  function GetDate($time){
-    if ($time > 0) return date('d.m.y H:i', $time);
-    else return '0'; 
-  }      
-  
-  function GetTime($time){
-    if ($time > 0) return date('H:i', $time);
-    else return '0'; 
-  }
-  
-  // Tournament
-  function GetTournamentName($sql_fields) {
-		global $auth, $lang;
+###### Some global Callbacks
+// Callbacks which are only for local interest, should be defined in the modules search-file
 
-		$return = '';
-		// Game Icon
-		if ($sql_fields['icon'] and $sql_fields['icon'] != 'none') $return .= "<img src=\"ext_inc/tournament_icons/{$sql_fields['icon']}\" title=\"Icon\" /> ";
-		// Name
-		$return .= $sql_fields['name'];
-		// WWCL Icon
-		if ($sql_fields['wwcl_gameid']) $return .= " <img src=\"ext_inc/tournament_icons/leagues/wwcl.png\" title=\"WWCL Game\" />";
-		// NGL Icon
-		if ($sql_fields['ngl_gamename']) $return .= " <img src=\"ext_inc/tournament_icons/leagues/ngl.png\" title=\"NGL Game\" />";
-		// Over 18 Icon
-		if ($sql_fields['over18']) $return .= " <img src='design/".$auth["design"]."/images/fsk_18.gif' title=\"{$lang['ms']['cb_t_over18']}\" />";
+function MS2GetDate($time){
+  if ($time > 0) return date('d.m.y H:i', $time);
+  else return '0'; 
+}
 
-		return $return;
-	}
-
-	function GetTournamentTeamAnz($sql_fields) {
-		return $sql_fields['teamanz'] .'/'. $sql_fields['maxteams'];
-	}
-
-	function GetTournamentStatus($status) {
-		global $lang;
-		$status_descriptor["open"] 	= $lang['ms']['cb_ts_open'];
-		$status_descriptor["process"] 	= $lang['ms']['cb_ts_progress'];
-		$status_descriptor["closed"] 	= $lang['ms']['cb_ts_closed'];
-		
-		return $status_descriptor[$status];
-	}
-	
-	function PaidIconLink($paid){
-    global $dsp, $templ, $line, $party;
-    
-    // Only link, if selected party = current party
-    if ($_POST["search_dd_input"][1] == $party->party_id) $templ['ms2']['link'] = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
-    else $templ['ms2']['link'] = '';
-    
-    if ($paid) {
-      $templ['ms2']['icon_name'] = 'paid';
-      $templ['ms2']['icon_title'] = 'Paid';
-    } else {
-      $templ['ms2']['icon_name'] = 'not_paid';
-      $templ['ms2']['icon_title'] = 'Not Paid';
-    }
-    $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
-    if ($templ['ms2']['link']) $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
-    return $templ['ms2']['link_item'];
-  }
-  
-  function SeatNameLink($status){
-    global $seat2, $line;
-    
-    if (!$line['blockname']) return '';
-    else {
-      $LinkText = $line['blockname'] .'<br />'. $seat2->CoordinateToName($line['col'], $line['row'], $line['orientation']);
-  	  return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id={$line['blockid']}&userarray[]={$line['userid']}&l=1','_blank','width=596,height=638,resizable=yes');\" class=\"small\">$LinkText</a>";
-  	}
-  }
-  
-	function TTStatus($status) {
-		global $lang;
-
-		switch ($status) {
-			default: return $lang['ms']['cb_tt_unassigned']; break;
-			case 1: return $lang['ms']['cb_tt_new']; break;
-			case 2: return $lang['ms']['cb_tt_accepted']; break;
-			case 3: return $lang['ms']['cb_tt_in_work']; break;
-			case 4: return $lang['ms']['cb_tt_closed']; break;
-			case 5: return $lang['ms']['cb_tt_rejected']; break;
-		}
-	}  
+function MS2GetTime($time){
+  if ($time > 0) return date('H:i', $time);
+  else return '0'; 
 }
 ?>

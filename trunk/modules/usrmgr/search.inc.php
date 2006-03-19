@@ -1,6 +1,33 @@
 <?php
 include_once('modules/usrmgr/search_main.inc.php');
 
+function PaidIconLink($paid){
+  global $dsp, $templ, $line, $party;
+  
+  // Only link, if selected party = current party
+  if ($_POST["search_dd_input"][1] == $party->party_id) $templ['ms2']['link'] = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
+  else $templ['ms2']['link'] = '';
+  
+  if ($paid) {
+    $templ['ms2']['icon_name'] = 'paid';
+    $templ['ms2']['icon_title'] = 'Paid';
+  } else {
+    $templ['ms2']['icon_name'] = 'not_paid';
+    $templ['ms2']['icon_title'] = 'Not Paid';
+  }
+  $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
+  if ($templ['ms2']['link']) $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+  return $templ['ms2']['link_item'];
+}
+
+function ClanURLLink($clan) {
+  global $line;
+  
+  if ($clan != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
+    return '<a href="http://'. $line['clanurl'] .'" target="_blank">'. $clan .'</a>';
+  } else return '';
+}
+
 $ms2->AddTextSearchDropDown($lang['usrmgr']['add_type'], 'u.type', array('' => $lang['usrmgr']['all'], '1' => $lang['usrmgr']['details_guest'], '!1' => 'Nicht Gast', '2' => $lang['usrmgr']['add_type_admin'], '3' => $lang['usrmgr']['add_type_operator'], '2,3' => 'Admin und Op'));
 	
 $party_list = array('' => 'Alle');
@@ -13,12 +40,13 @@ $ms2->AddTextSearchDropDown($lang['usrmgr']['add_paid'], 'p.paid', array('' => $
 $ms2->AddTextSearchDropDown($lang['usrmgr']['checkin'], 'p.checkin', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkin_no'], '>1' => $lang['usrmgr']['checkin']));
 $ms2->AddTextSearchDropDown($lang['usrmgr']['checkout'], 'p.checkout', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkout_no'], '>1' => $lang['usrmgr']['checkout']));
 
-$ms2->AddResultField($lang['usrmgr']['details_clan'], 'u.clan', 'http://', 'u.clanurl');
+$ms2->AddSelect('u.clanurl');
+$ms2->AddResultField($lang['usrmgr']['details_clan'], 'u.clan', 'ClanURLLink');
 // If Party selected
 if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
-  $ms2->AddResultField('Bez.', 'p.paid', '', '', 'PaidIconLink');
-  $ms2->AddResultField('In', 'p.checkin', '', '', 'GetDate');
-  $ms2->AddResultField('Out', 'p.checkout', '', '', 'GetDate');
+  $ms2->AddResultField('Bez.', 'p.paid', 'PaidIconLink');
+  $ms2->AddResultField('In', 'p.checkin', 'MS2GetDate');
+  $ms2->AddResultField('Out', 'p.checkout', 'MS2GetDate');
 }
 
 $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', 'Details');

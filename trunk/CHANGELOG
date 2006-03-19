@@ -6,6 +6,8 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.1
 
+- Change: MS2 Callbachs in die einzelnen Module verlagert (KnoX 19.03.2006)
+
 - Add: #323: Troubletickets können nun direkt aus "Meine Tickets" heraus bearbeitet werden (KnoX 19.03.2006)
 - Add: Mastersearch2 kann nun Checkboxen. Ein Beispiel ist zum Löschen von Turnieren eingebaut (KnoX 19.03.2006)
 
