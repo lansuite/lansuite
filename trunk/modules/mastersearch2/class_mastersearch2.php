@@ -76,7 +76,7 @@ class MasterSearch2 {
 
 
 	function PrintSearch($working_link, $group_by) {
-    global $db, $config, $dsp, $templ, $func, $auth, $line;
+    global $db, $config, $dsp, $templ, $func, $auth, $line, $gd;
 
     $working_link .= $this->post_in_get;
 
@@ -261,7 +261,10 @@ class MasterSearch2 {
       $templ['ms2']['search'][1] = '&nbsp;';
       $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_row');
     }
-    if ($this->search_fields or $this->search_dropdown) $dsp->AddModTpl('mastersearch2', 'search_case');
+    if ($this->search_fields or $this->search_dropdown) {
+      $gd->CreateButton('search');
+      $dsp->AddModTpl('mastersearch2', 'search_case');
+    }
 
 
     ###### Output Result
