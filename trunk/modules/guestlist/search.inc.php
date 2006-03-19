@@ -43,7 +43,7 @@ if (!$cfg['sys_internet']) {
   $ms2->AddResultField('In', 'p.checkin', '', '', 'GetDate');
   $ms2->AddResultField('Out', 'p.checkout', '', '', 'GetDate');
 }
-$ms2->AddIconField('details', 'u.userid', 'index.php?mod=usrmgr&action=details&userid=', 'Details');
+$ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', 'Details');
 
 $ms2->PrintSearch('index.php?mod=guestlist', 'u.userid');
 ?>

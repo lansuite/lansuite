@@ -21,14 +21,6 @@ switch($step) {
 
 	default:
     include_once('modules/tournament2/search.inc.php');
-/*    
-		$mastersearch = new MasterSearch( $vars, "index.php?mod=tournament2&action=delete", "index.php?mod=tournament2&action=delete&step=2&tournamentid=", "");
-		$mastersearch->LoadConfig("tournament", $lang["tourney"]["t_del_ms_caption"], $lang["tourney"]["t_del_ms_subcaption"]);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-*/		
 	break;
 
 	case 2:
@@ -60,6 +52,18 @@ switch($step) {
 			$func->confirmation(str_replace("%T%", $row["name"], $lang["tourney"]["t_del_success"]), "index.php?mod=tournament2&action=delete");
 			$func->log_event(str_replace("%T%", $row["name"], $lang["tourney"]["t_del_log"]), 1, $lang["tourney"]["log_t_manage"]);
 		} // else
+	break;
+	
+	// Multi-Delete
+	case 10:
+  	foreach ($_POST[action] as $key => $val) {
+  		$db->query("DELETE FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$key'");
+  		$db->query("DELETE FROM {$config["tables"]["t2_teams"]} WHERE tournamentid = '$key'");
+  		$db->query("DELETE FROM {$config["tables"]["t2_teammembers"]} WHERE tournamentid = '$key'");
+  		$db->query("DELETE FROM {$config["tables"]["t2_games"]} WHERE tournamentid = '$key'");	
+    }
+  	$func->confirmation(str_replace("%T%", $row["name"], $lang["tourney"]["t_del_success"]), "index.php?mod=tournament2&action=delete");
+  	$func->log_event(str_replace("%T%", $row["name"], $lang["tourney"]["t_del_log"]), 1, $lang["tourney"]["log_t_manage"]);
 	break;
 }//step
 ?>

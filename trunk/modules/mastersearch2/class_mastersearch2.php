@@ -5,6 +5,7 @@ class MasterSearch2 {
 	var $search_fields = array();
 	var $search_dropdown = array();
 	var $icon_field = array();
+	var $multi_select_action = array();
   var $config = array();
   var $sql_select_field_list = array();
   var $post_in_get = '';
@@ -63,22 +64,27 @@ class MasterSearch2 {
     $this->AddSelect($link_id); 
   }
 
-  function AddIconField($icon_name, $sql_field, $link = '', $tooltipp = '') {
+  function AddIconField($icon_name, $link = '', $tooltipp = '') {
     $arr = array();
     $arr['icon_name'] = $icon_name;
-    $arr['sql_field'] = $sql_field;
     $arr['link'] = $link;
     $arr['tooltipp'] = $tooltipp;
     array_push($this->icon_field, $arr);
-
-    $this->AddSelect($sql_field); 
   }
 
+  function AddMultiSelectAction($caption, $action, $security_question = 0) {
+    $arr = array();
+    $arr['caption'] = $caption;
+    $arr['action'] = $action;
+    $arr['security_question'] = $security_question;
+    array_push($this->multi_select_action, $arr);
+  }
 
-	function PrintSearch($working_link, $group_by) {
+	function PrintSearch($working_link, $select_id_field, $multiaction = '') {
     global $db, $config, $dsp, $templ, $func, $auth, $line, $gd;
 
     $working_link .= $this->post_in_get;
+    $this->AddSelect($select_id_field); 
 
     ###### Generate Select
     $this->query['select'] = implode(', ', $this->sql_select_field_list);
@@ -159,7 +165,7 @@ class MasterSearch2 {
 
 
     ###### Generate Group By
-    $this->query['group_by'] = $group_by;
+    $this->query['group_by'] = $select_id_field;
 
     
     ###### Generate Order By
@@ -271,6 +277,13 @@ class MasterSearch2 {
     // Generate Result Head
     $templ['ms2']['table_head'] = '';
 
+    // Checkbox Headline
+    if (count($this->multi_select_action) > 0) {
+      $templ['ms2']['table_head_width'] = '16';    
+      $templ['ms2']['table_head_entry'] = '&nbsp;';      
+      $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
+    }
+
     foreach ($this->result_field as $current_field) {    
       $templ['ms2']['table_head_width'] = '*';    
       $templ['ms2']['link_item'] = $current_field['caption'];
@@ -292,10 +305,7 @@ class MasterSearch2 {
     // Icon Headline
     foreach ($this->icon_field as $current_field) {
       $templ['ms2']['table_head_width'] = '22';    
-      $templ['ms2']['table_head_entry'] = '&nbsp;';
-      
-#<a href="{$templ['ms2']['order_link']}">{$templ['ms2']['table_head_entry']}{$templ['ms2']['order_image']}</a></th>
-      
+      $templ['ms2']['table_head_entry'] = '&nbsp;';      
       $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
     }
 
@@ -303,6 +313,15 @@ class MasterSearch2 {
     $templ['ms2']['table_entrys'] = '';
     while($line = $db->fetch_array($res)) {
       $templ['ms2']['table_entrys_row_field'] = '';
+
+      // cut of 'table.', befor field name
+      if (strpos($select_id_field, '.') > 0) $select_id_field = substr($select_id_field, strpos($select_id_field, '.') + 1, strlen($select_id_field));
+      
+      // Checkbox      
+      if (count($this->multi_select_action) > 0) {
+        $templ['ms2']['table_entrys_row_field_entry'] = '<input type="checkbox" name="action['. $line[$select_id_field] .']">';
+        $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');
+      }
       
       // Normal rows
       foreach ($this->result_field as $current_field) {
@@ -334,9 +353,7 @@ class MasterSearch2 {
       
       // Icon rows
       foreach ($this->icon_field as $current_field) {
-        if (strpos($current_field['sql_field'], '.') > 0) $current_field['sql_field'] = substr($current_field['sql_field'], strpos($current_field['sql_field'], '.') + 1, strlen($current_field['sql_field']));
-
-        $templ['ms2']['link'] = $current_field['link'] . $line[$current_field['sql_field']];
+        $templ['ms2']['link'] = $current_field['link'] . $line[$select_id_field];
         $templ['ms2']['icon_name'] = $current_field['icon_name'];
         $templ['ms2']['icon_title'] = $current_field['tooltipp'];
         $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
@@ -346,10 +363,29 @@ class MasterSearch2 {
       }      
       $templ['ms2']['table_entrys'] .= $dsp->FetchModTpl('mastersearch2', 'result_row');
     }
+
+    // Multi-Select Dropdown
+    $templ['ms2']['multi_select_dropdown'] = '';
+    if (count($this->multi_select_action) > 0) {
+      $templ['ms2']['select_caption'] = 'Bitte auswählen';
+      $templ['ms2']['select_options'] = '';
+      $z = 0;
+      foreach ($this->multi_select_action as $current_action) {
+        if ($z == 0) $templ['ms2']['multi_select_actions'] = '"'. $current_action['action'] .'"';
+        else $templ['ms2']['multi_select_actions'] .= ', "'. $current_action['action'] .'"';
+        if ($z == 0) $templ['ms2']['security_questions'] = '"'. $current_action['security_question'] .'"';
+        else $templ['ms2']['security_questions'] .= ', "'. $current_action['security_question'] .'"';
+        $templ['ms2']['select_options'] .= "<option value=\"$z\">{$current_action['caption']}</option>";
+        $z++;
+      }
+      $templ['ms2']['multi_select_dropdown'] = $dsp->FetchModTpl('mastersearch2', 'result_multi_dropdown');
+    }
         
     $db->free_result($res);
+    $templ['ms2']['result_action'] = $multiaction;
     $dsp->AddModTpl('mastersearch2', 'result_case');
   }
+
   
 
   ###### Callbacks

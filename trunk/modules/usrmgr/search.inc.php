@@ -34,9 +34,9 @@ if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
   $ms2->AddResultField('Out', 'p.checkout', '', '', 'GetDate');
 }
 
-$ms2->AddIconField('details', 'u.userid', 'index.php?mod=usrmgr&action=details&userid=', 'Details');
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'u.userid', 'index.php?mod=usrmgr&action=change&step=1&userid=', 'Edit');
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'u.userid', 'index.php?mod=usrmgr&action=delete&step=2&userid=', 'Delete');
+$ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', 'Details');
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=', 'Edit');
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=', 'Delete');
 
 $ms2->PrintSearch('index.php?mod=usrmgr&action=search', 'u.userid');
 ?>
