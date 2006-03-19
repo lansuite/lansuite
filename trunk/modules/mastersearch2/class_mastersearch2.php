@@ -399,4 +399,10 @@ function MS2GetTime($time){
   if ($time > 0) return date('H:i', $time);
   else return '0'; 
 }
+
+function UserNameAndIcon($username){
+  global $line, $dsp;
+  
+  return $username .' '. $dsp->FetchUserIcon($line['userid']);
+}
 ?>

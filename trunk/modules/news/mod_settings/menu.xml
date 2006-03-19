@@ -31,7 +31,7 @@
 	<entry>
 		<action>change</action>
 		<file>add</file>
-		<caption>Ändern</caption>
+		<caption>Verwalten</caption>
 		<hint>Hier können Sie bereits eingetragene News-Meldungen ändern</hint>
 		<link>?mod=news&action=change</link>
 		<requirement>2</requirement>
@@ -40,10 +40,6 @@
 	<entry>
 		<action>delete</action>
 		<file>delete</file>
-		<caption>Löschen</caption>
-		<hint>Hier können Sie News-Meldungen löschen</hint>
-		<link>?mod=news&action=delete</link>
 		<requirement>3</requirement>
-		<level>1</level>
 	</entry>
 </menu>

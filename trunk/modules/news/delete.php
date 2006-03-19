@@ -16,12 +16,7 @@
 
 switch($vars["step"]) {
 	default:
-		$mastersearch = new MasterSearch( $vars, "index.php?mod=news&action=delete", "index.php?mod=news&action=delete&step=2&newsid=", "");
-		$mastersearch->LoadConfig( "news", $lang["news"]["del_ms_caption"], $lang["news"]["del_ms_subcaption"]);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/news/search.inc.php');
 	break;
 
 	case 2:

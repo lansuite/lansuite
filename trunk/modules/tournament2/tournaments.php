@@ -30,15 +30,6 @@ $startzeit["min"] = $_POST["startzeit_value_minutes"];
 
 if (($action == "change") && ($step == "")){
   include_once('modules/tournament2/search.inc.php');
-/*
-	$mastersearch = new MasterSearch( $vars, "index.php?mod=tournament2&action=change", "index.php?mod=tournament2&action=change&step=1&tournamentid=", "");
-	$mastersearch->LoadConfig("tournament", $lang["tourney"]["t_add_ms_caption"], $lang["tourney"]["t_add_ms_subcaption"]);
-	$mastersearch->PrintForm();
-	$mastersearch->Search();
-	$mastersearch->PrintResult();
-
-	$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-*/	
 } else {
 	
 switch($step) {

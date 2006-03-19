@@ -20,16 +20,6 @@ $tournamentid = $vars["tournamentid"];
 switch($step) {
 	case 1:
 	  include_once('modules/tournament2/search.inc.php');
-
-/*
-		$mastersearch = new MasterSearch($vars, "index.php?mod=tournament2&action=rangliste&step=1", "index.php?mod=tournament2&action=rangliste&step=2&tournamentid=", "");
-		$mastersearch->LoadConfig("tournament", $lang["tourney"]["ms_search"], $lang["tourney"]["ms_result"]);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-*/
 	break;
 
 
