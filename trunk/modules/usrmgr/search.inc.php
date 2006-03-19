@@ -22,6 +22,9 @@ if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
 }
 
 $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', 'Details');
+$ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', 'Mail senden');
+$ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=', 'Passwort ändern');
+if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid=', 'Benutzer wechseln');
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=', 'Edit');
 if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=', 'Delete');
 
