@@ -13,4 +13,5 @@ $ms2->AddTextSearchField($lang['usrmgr']['name'], array('u.name' => 'like', 'u.f
 $ms2->AddResultField($lang['usrmgr']['add_username'], 'u.username');
 $ms2->AddResultField($lang['usrmgr']['add_firstname'], 'u.firstname');
 $ms2->AddResultField($lang['usrmgr']['add_lastname'], 'u.name');
+
 ?>
