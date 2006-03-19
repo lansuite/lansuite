@@ -11,8 +11,16 @@ class MasterSearch2 {
   var $post_in_get = '';
 
   // Constructor
-  function MasterSearch2() {
+  function MasterSearch2($module = '') {
+    global $language, $lang;
+    
     $this->config['EntriesPerPage'] = 20;
+
+    // Load language files, if included from within another module
+    if ($module and $module != $_GET['mod']) {
+      if (file_exists("modules/{$module}/language/{$module}_lang_de.php")) include_once("modules/{$module}/language/{$module}_lang_de.php");
+      if ($language != "de" and file_exists("modules/{$module}/language/{$module}_lang_{$language}.php")) include_once("modules/{$module}/language/{$module}_lang_{$language}.php");
+    }
 
     // Add $_POST[]-Fields to $working_link
     if ($_POST['search_input']) foreach($_POST['search_input'] as $key => $val) $this->post_in_get .= "&search_input[$key]=$val";
@@ -460,5 +468,18 @@ class MasterSearch2 {
   	  return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id={$line['blockid']}&userarray[]={$line['userid']}&l=1','_blank','width=596,height=638,resizable=yes');\" class=\"small\">$LinkText</a>";
   	}
   }
+  
+	function TTStatus($status) {
+		global $lang;
+
+		switch ($status) {
+			default: return $lang['ms']['cb_tt_unassigned']; break;
+			case 1: return $lang['ms']['cb_tt_new']; break;
+			case 2: return $lang['ms']['cb_tt_accepted']; break;
+			case 3: return $lang['ms']['cb_tt_in_work']; break;
+			case 4: return $lang['ms']['cb_tt_closed']; break;
+			case 5: return $lang['ms']['cb_tt_rejected']; break;
+		}
+	}  
 }
 ?>

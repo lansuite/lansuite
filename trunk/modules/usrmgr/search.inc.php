@@ -1,14 +1,5 @@
 <?php
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
-
-$ms2->query['from'] = "{$config['tables']['user']} AS u LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id";
-
-$ms2->config['EntriesPerPage'] = 20;
-
-$ms2->AddTextSearchField($lang['usrmgr']['userid'], array('u.userid' => 'exact'));
-$ms2->AddTextSearchField($lang['usrmgr']['add_username'], array('u.username' => '1337'));
-$ms2->AddTextSearchField($lang['usrmgr']['name'], array('u.name' => 'like', 'u.firstname' => 'like'));
+include_once('modules/usrmgr/search_main.inc.php');
 
 $ms2->AddTextSearchDropDown($lang['usrmgr']['add_type'], 'u.type', array('' => $lang['usrmgr']['all'], '1' => $lang['usrmgr']['details_guest'], '!1' => 'Nicht Gast', '2' => $lang['usrmgr']['add_type_admin'], '3' => $lang['usrmgr']['add_type_operator'], '2,3' => 'Admin und Op'));
 	
@@ -22,10 +13,6 @@ $ms2->AddTextSearchDropDown($lang['usrmgr']['add_paid'], 'p.paid', array('' => $
 $ms2->AddTextSearchDropDown($lang['usrmgr']['checkin'], 'p.checkin', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkin_no'], '>1' => $lang['usrmgr']['checkin']));
 $ms2->AddTextSearchDropDown($lang['usrmgr']['checkout'], 'p.checkout', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkout_no'], '>1' => $lang['usrmgr']['checkout']));
 
-
-$ms2->AddResultField($lang['usrmgr']['add_username'], 'u.username');
-$ms2->AddResultField($lang['usrmgr']['add_firstname'], 'u.firstname');
-$ms2->AddResultField($lang['usrmgr']['add_lastname'], 'u.name');
 $ms2->AddResultField($lang['usrmgr']['details_clan'], 'u.clan', 'http://', 'u.clanurl');
 // If Party selected
 if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
