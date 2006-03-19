@@ -1,7 +1,7 @@
 ;<? /*
 
 [lansuite]
-version				= "LANsuite V2.1.0 CVS"
+version				= "LANsuite V2.1.1 CVS"
 default_design			= "osX"
 user_timeout			= "300"
 chmod_dir			= "777"
