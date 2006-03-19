@@ -39,12 +39,7 @@ switch($vars['step']) {
 
 switch ($vars['step']) {
 	default:
-		$mastersearch = new MasterSearch($vars, "index.php?mod=news&action=change", "index.php?mod=news&action=change&step=2&newsid=", "");
-		$mastersearch->LoadConfig("news", $lang["news"]["change_ms_caption"], $lang["news"]["change_ms_subcaption"]);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/news/search.inc.php');
 	break; 
 
 	case 2:
