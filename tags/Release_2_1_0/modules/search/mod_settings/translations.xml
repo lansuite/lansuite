@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Suche</de>
+		<en>Search</en>
+	</entry>
+	<entry>
+		<de>Eine auf jeder Seite sichtbare Such-Eingabe zum Durchsuchen verschiedener Module</de>
+		<en>A search box. For searching in several modules</en>
+	</entry>
+</translations>

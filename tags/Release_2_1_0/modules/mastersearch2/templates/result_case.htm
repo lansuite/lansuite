@@ -1,0 +1,36 @@
+<script language="JavaScript" type="text/javascript">
+<!--
+function markieren(EintragSpalte) {
+  if (typeof(document.getElementsByTagName) != 'undefined') var Spalten = EintragSpalte.getElementsByTagName('td');
+  else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
+  else return false;
+
+  for (var c = 0; c < Spalten.length; c++) Spalten[c].style.backgroundColor = '#D25555';
+
+  return true;
+}
+function unmarkieren(EintragSpalte) {
+  if (typeof(document.getElementsByTagName) != 'undefined') var Spalten = EintragSpalte.getElementsByTagName('td');
+  else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
+  else return false;
+
+  for (var c = 0; c < Spalten.length; c++) Spalten[c].style.backgroundColor = '';
+  
+  return true;
+}
+-->
+</script>
+<div class="content_head" align="left">
+		<div align="right">{$templ['ms2']['pages']}</div>
+</div>
+
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr>
+	{$templ['ms2']['table_head']}
+</tr>
+{$templ['ms2']['table_entrys']}
+</table>
+
+<div class="content_head" align="left">
+		<div align="right">{$templ['ms2']['pages']}</div>
+</div>

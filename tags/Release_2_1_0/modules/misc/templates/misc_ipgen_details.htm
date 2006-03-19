@@ -1,0 +1,186 @@
+<!-- TEMPLATE - STANDARD - SEATING IPGEN DETAILS --> 
+<form name="form" method="post" action="{$templ['misc']['ipgen']['details']['control']['form_action']}">
+  <table width="100%" cellspacing="0" cellpadding="0">
+    <tr class="tbl_5"> 
+      <td colspan="2"> <table width="100%" cellspacing="0" cellpadding="3" class="tbl_5">
+          <tr> 
+            <td><b>{$templ['misc']['ipgen']['details']['info']['page_title']}</b><br/> 
+              <br/>
+			  Geben Sie zunächste die gewünschte Vorgabe für die ersten 3 Teile der IP Adressen ein. Das letzte Feld wird
+			  automatisch generiert. Wir empfehlen die Vorgabe 10.10.0.xxx mit dem Subnet 255.255.0.0 zu verwenden.
+			  <br/><br/>
+			  Mit der Zählrichtung bestimmen Sie, ob die IPs von links nach rechts (Zeilen) oder von oben nach unten (Spalten) vergeben werden.
+			  <br/><br/>
+			  Beachten Sie, das nach 254 Sitzplätzen die 3. IP-Stelle um eins hoch gezählt wird und die 4 Stelle wieder bei 1 startet.
+			  <br/><br/>
+			  Alternativ k&ouml;nnen Sie auch die Option "3. Stelle Break" benutzen, um ein hochz&auml;hlen der 3. Stelle und ein zur&uuml;cksetzen
+			  der 4. Stelle zu erzwingen.
+
+			  <br/><br/>
+			  Wählen Sie im nächsten Schritt den Sitzblock aus, für dem die IP Adressen generiert werden sollen.
+			</td>
+          </tr>
+        </table></td>
+    </tr>
+    
+    <tr class="tbl_4"> 
+      <td colspan="2" height="1"></td>
+    </tr>
+  
+     <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Adressvorgabe</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['ipgen_ip']['add']['case']['error']['caption']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1{$templ['ipgen_ip']['add']['case']['error']['caption']['bgrd']}">
+          <tr> 
+            <td> 
+              <input type="text" name="ipgen_a" size="3" maxlength="3" class="form" value="{$_POST['ipgen_a']}"/> .
+              <input type="text" name="ipgen_b" size="3" maxlength="3" class="form" value="{$_POST['ipgen_b']}"/> .
+              <input type="text" name="ipgen_c" size="3" maxlength="3" class="form" value="{$_POST['ipgen_c']}"/> .		  
+              <input type="text" name="ipgen_d" size="3" maxlength="3" class="form" value="xxx" disabled />
+			  <!-- Marco Müller -->
+               Offset <input type="text" name="ipgen_offset" size="3" maxlength="3" class="form" value="{$_POST['ipgen_offset']}" /> .	 
+			   <!-- END -->
+			   <br/>
+               {$templ['ipgen_ip']['add']['case']['error']['caption']['msg']}
+			</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr class="tbl_4"> 
+      <td colspan="2" height="1"></td>
+    </tr>
+
+     <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Zählrichtung</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['ipgen_ip']['add']['case']['error']['caption']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1{$templ['ipgen_ip']['add']['case']['error']['caption']['bgrd']}">
+          <tr> 
+            <td> 
+			 <select name="ipgen_sort" size="1" class="form">
+			  <option value="col">Spalten</option>
+			  <option value="row">Zeilen</option>
+			 </select>
+			</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr class="tbl_4"> 
+      <td colspan="2" height="1"></td>
+    </tr>
+
+     <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Startreihe</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['ipgen_ip']['add']['case']['error']['startrow']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1{$templ['ipgen_ip']['add']['case']['error']['startrow']['bgrd']}">
+          <tr> 
+            <td> 
+			 <select name="ipgen_startrow" size="1" class="form">
+			  <option value="ASC">Oben</option>
+			  <option value="DESC">Unten</option>
+			 </select>
+			</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr class="tbl_4"> 
+      <td colspan="2" height="1"></td>
+    </tr>
+	
+     <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Startspalte</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['ipgen_ip']['add']['case']['error']['startrow']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1{$templ['ipgen_ip']['add']['case']['error']['startrow']['bgrd']}">
+          <tr> 
+            <td> 
+			 <select name="ipgen_startcol" size="1" class="form">
+			  <option value="ASC">Links</option>
+			  <option value="DESC">Rechts</option>
+			 </select>
+			</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr class="tbl_4"> 
+      <td colspan="2" height="1"></td>
+    </tr>
+
+    <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>3. Stelle Break</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['ipgen_ip']['add']['case']['error']['caption']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1{$templ['ipgen_ip']['add']['case']['error']['caption']['bgrd']}">
+          <tr> 
+            <td> 
+			 <select name="ipgen_break" size="1" class="form">
+			  <option value="none">Kein Break</option>
+			  <option value="rowcol">Nach jeder Zeile bzw. Spalte (je nach Z&auml;hlrichtung)</option>
+			  <option value="rowcol2">Nach jeder ZWEITEN Zeile bzw. Spalte </option>
+<!--			  <option value="sep">Nach jedem Seperator (nur 90 Grad zur Z&auml;hlrichtung)</option> //-->
+			 </select>
+			</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr class="tbl_4"> 
+      <td colspan="2" height="1"></td>
+    </tr>
+
+    <tr> 
+      <td class="tbl_6" height="30" width="30%"> <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+        </table></td>
+      <td class="tbl_6" height="30" width="70%"> <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td> <input type="image" border="0" name="imageField" src="design/{default_design}/images/buttons_new_calculate.gif"/> 
+            </td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr class="tbl_4"> 
+      <td colspan="2" height="1"></td>
+    </tr>
+    <tr class="tbl_5"> 
+      <td colspan="2"> <p><br/>
+        </p></td>
+    </tr>
+  </table>
+</form>
+<!-- TEMPLATE - STANDARD - SEATING IPGEN DETAILS -->

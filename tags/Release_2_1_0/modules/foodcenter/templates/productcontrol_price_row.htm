@@ -1,0 +1,36 @@
+<!--  FOODCENTER - Productcontrol Price ROW - BEGIN   -->
+    <tr class="tbl_4">
+      <td colspan="2" height="1"></td>
+    </tr>
+
+    <tr>
+      <td class="tbl_6" height="30" width="30%">
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr>
+            <td>{$templ['foodcenter']['productcontrol']['pricerow']['text_row']}&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1" width="70%" height="30">
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
+          <tr>
+            <td width="30">{$templ['foodcenter']['productcontrol']['pricerow']['text_product']}</td>
+            <td> <input type="text" name="{$templ['foodcenter']['productcontrol']['pricerow']['name_product']}" value="{$templ['foodcenter']['productcontrol']['pricerow']['value_name']}" class="form{$templ['foodcenter']['productcontrol']['pricerow']['optional']}" size="5" /></td>
+			<td width="30">{$templ['foodcenter']['productcontrol']['pricerow']['text_piece']}</td>
+			<td><input type="text" name="{$templ['foodcenter']['productcontrol']['pricerow']['name_piece']}" value="{$templ['foodcenter']['productcontrol']['pricerow']['value_piece']}" class="form{$templ['foodcenter']['productcontrol']['pricerow']['optional']}" size="3" maxlength="3" /></td>
+          </tr>
+          <tr>
+          	<td width="40">{$templ['foodcenter']['productcontrol']['pricerow']['text_eprice']}</td>
+          	<td><input type="text" name="{$templ['foodcenter']['productcontrol']['pricerow']['name_eprice']}" value="{$templ['foodcenter']['productcontrol']['pricerow']['value_eprice']}" class="form{$templ['foodcenter']['productcontrol']['pricerow']['optional']}" size="10" maxlength="10" /></td>
+			<td width="40">{$templ['foodcenter']['productcontrol']['pricerow']['text_price']}</td> 
+			<td><input type="text" name="{$templ['foodcenter']['productcontrol']['pricerow']['name_price']}" value="{$templ['foodcenter']['productcontrol']['pricerow']['value_price']}" class="form{$templ['foodcenter']['productcontrol']['pricerow']['optional']}" size="10" maxlength="10" /><input type="hidden" name="{$templ['foodcenter']['productcontrol']['pricerow']['hidden_name']}" value="{$templ['foodcenter']['productcontrol']['pricerow']['hidden_id']}" /></td>
+          </tr>
+          <tr>
+          	<td colspan="4"><font class="tbl_red">{$templ['foodcenter']['productcontrol']['pricerow']['errortext']}&nbsp;</font></td>
+          </tr>
+          
+        </table>
+      </td>
+    </tr>
+
+<!-- FOODCENTER - Productcontrol Price ROW - END -->

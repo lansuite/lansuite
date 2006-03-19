@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<menu>
+	<pos>4</pos>
+	<entry>
+		<action>default</action>
+		<file>guestlist</file>
+		<caption>G&auml;steliste</caption>
+		<hint></hint>
+		<link>?mod=guestlist&action=guestlist</link>
+		<requirement>0</requirement>
+		<needed_config></needed_config>
+		<level>0</level>
+	</entry>
+	<entry>
+		<action>usermap</action>
+		<file>usermap</file>
+		<caption>Besucherkarte</caption>
+		<hint>Hier sehen Sie aus welchen Gegenden die Besucher kommen</hint>
+		<link>?mod=guestlist&action=usermap</link>
+		<requirement>0</requirement>
+		<needed_config>guestlist_guestmap</needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>Zahlstatus ändern</caption>
+		<hint></hint>
+		<link>?mod=usrmgr&action=changepaid</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+</menu>

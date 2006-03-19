@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+	id	= WWCL Game ID des jeweiligen spieles
+	name	= Name des Spieles / Tourney mode
+	type	= P: Player Game  C: Clan Game
+
+
+	Build: Mon Mar  6 03:00:01 2006
+-->
+<wwclgameini>
+	<game>
+		<id>7</id>
+		<name>Counter-Strike (5on5)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_hlcs_2on2-5on5.pdf</rules>
+		<player>5</player>
+		<partnersite>http://www.counterstrike.de</partnersite>
+	</game>
+	<game>
+		<id>9</id>
+		<name>Broodwar (2on2)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_scbw_1on1-2on2.pdf</rules>
+		<player>2</player>
+		<partnersite>http://www.broodwar.de</partnersite>
+	</game>
+	<game>
+		<id>10</id>
+		<name>Broodwar (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_scbw_1on1-2on2.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.broodwar.de</partnersite>
+	</game>
+	<game>
+		<id>24</id>
+		<name>Counter-Strike (2on2)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_hlcs_2on2-5on5.pdf</rules>
+		<player>2</player>
+		<partnersite>http://www.counterstrike.de</partnersite>
+	</game>
+	<game>
+		<id>31</id>
+		<name>WarCraft 3 TFT (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_wc3_1on1-2on2.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.inwarcraft.de</partnersite>
+	</game>
+	<game>
+		<id>32</id>
+		<name>WarCraft 3 TFT (2on2)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_wc3_1on1-2on2.pdf</rules>
+		<player>2</player>
+		<partnersite>http://www.inwarcraft.de</partnersite>
+	</game>
+	<game>
+		<id>33</id>
+		<name>Battlefield 1942 (8on8)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_bf1942_8on8.pdf</rules>
+		<player>8</player>
+		<partnersite>http://www.planet-battlefield.de</partnersite>
+	</game>
+	<game>
+		<id>34</id>
+		<name>UT 2004 (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_ut2k4_1on1.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.inunreal.de</partnersite>
+	</game>
+	<game>
+		<id>37</id>
+		<name>UT 2004 (4on4 TDM)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_ut2k4_4on4.pdf</rules>
+		<player>4</player>
+		<partnersite>http://www.inunreal.de</partnersite>
+	</game>
+	<game>
+		<id>44</id>
+		<name>CnC Generäle (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_cncg_1on1-2on2.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.wwcl.net</partnersite>
+	</game>
+	<game>
+		<id>46</id>
+		<name>Blobby Volley (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_bv_1on1.pdf</rules>
+		<player>1</player>
+		<partnersite/>
+	</game>
+	<game>
+		<id>48</id>
+		<name>CnC Generäle (2on2)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_cncg_1on1-2on2.pdf</rules>
+		<player>2</player>
+		<partnersite>http://www.wwcl.net</partnersite>
+	</game>
+	<game>
+		<id>50</id>
+		<name>NFSMW Drag (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_nfsmw_circuit_drag_1on1.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.nfs-players.de</partnersite>
+	</game>
+	<game>
+		<id>51</id>
+		<name>NFSMW Circuit (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_nfsmw_circuit_drag_1on1.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.nfs-players.de</partnersite>
+	</game>
+	<game>
+		<id>52</id>
+		<name>CoD2 3on3 SD</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_cod2_5on5_3on3_sd.pdf</rules>
+		<player>3</player>
+		<partnersite>http://cod.justgamers.de</partnersite>
+	</game>
+	<game>
+		<id>53</id>
+		<name>CoD2 5on5 SD</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_cod2_5on5_3on3_sd.pdf</rules>
+		<player>5</player>
+		<partnersite>http://cod.justgamers.de</partnersite>
+	</game>
+	<game>
+		<id>54</id>
+		<name>BF: Vietnam (8on8)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_bfv_8on8.pdf</rules>
+		<player>8</player>
+		<partnersite>http://www.wwcl.net</partnersite>
+	</game>
+	<game>
+		<id>55</id>
+		<name>Ground Control 2 (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_gc2_1on1.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.gc2exodus.de</partnersite>
+	</game>
+	<game>
+		<id>56</id>
+		<name>DOOM 3 (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_d3_1on1.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.doom3.de</partnersite>
+	</game>
+	<game>
+		<id>57</id>
+		<name>Trackmania (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_tm_1on1.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.wwcl.net</partnersite>
+	</game>
+	<game>
+		<id>58</id>
+		<name>Dawn of War (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_dow_1on1-2on2.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.wwcl.net</partnersite>
+	</game>
+	<game>
+		<id>60</id>
+		<name>Pro Evolution Soccer5</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_pes_1on1.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.wwcl.net</partnersite>
+	</game>
+	<game>
+		<id>61</id>
+		<name>DSuM (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_dsum_1on1_2on2.pdf</rules>
+		<player>1</player>
+		<partnersite>http://www.wwcl.net</partnersite>
+	</game>
+	<game>
+		<id>62</id>
+		<name>DSuM (2on2)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_dsum_1on1_2on2.pdf</rules>
+		<player>2</player>
+		<partnersite>http://www.wwcl.net</partnersite>
+	</game>
+	<game>
+		<id>63</id>
+		<name>CStrike: Source (5on5)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_css_2on2_5on5.pdf</rules>
+		<player>5</player>
+		<partnersite>http://www.counterstrike.de</partnersite>
+	</game>
+	<game>
+		<id>64</id>
+		<name>CStrike: Source (2on2)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_css_2on2_5on5.pdf</rules>
+		<player>2</player>
+		<partnersite>http://www.counterstrike.de</partnersite>
+	</game>
+	<game>
+		<id>65</id>
+		<name>Tactical Ops (5on5)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_to_5on5.pdf</rules>
+		<player>5</player>
+		<partnersite>http://www.to-nation.de</partnersite>
+	</game>
+	<game>
+		<id>66</id>
+		<name>Chrome Specforce (4on4)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_csp_4on4.pdf</rules>
+		<player>4</player>
+		<partnersite/>
+	</game>
+	<game>
+		<id>67</id>
+		<name>SWAT 4 (3on3)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_sw4_3on3.pdf</rules>
+		<player>3</player>
+		<partnersite/>
+	</game>
+	<game>
+		<id>68</id>
+		<name>Empire Earth II (1on1)</name>
+		<type>P</type>
+		<rules>http://www.wwcl.net/rules/wwcl_ee2_1on1.pdf</rules>
+		<player>1</player>
+		<partnersite/>
+	</game>
+	<game>
+		<id>69</id>
+		<name>Battlefield 2 (8on8)</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_bf2_8on8.pdf</rules>
+		<player>8</player>
+		<partnersite/>
+	</game>
+	<game>
+		<id>70</id>
+		<name>CoD2 3on3 TDM</name>
+		<type>C</type>
+		<rules>http://www.wwcl.net/rules/wwcl_cod2_3on3_tdm.pdf</rules>
+		<player>3</player>
+		<partnersite>http://cod.justgamers.de</partnersite>
+	</game>
+</wwclgameini>

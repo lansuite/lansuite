@@ -1,0 +1,314 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>SPAW Editor documentation</title>
+</head>
+
+<body>
+<style type="text/css">
+  pre {
+    background : #cccccc; 
+    padding : 5 5 5 5;
+  }
+</style>
+
+<h1>SPAW Editor (PHP Edition) Documentation</h1>
+
+<h2>Table of Contents</h2>
+
+<ol>
+	<li><a href="#about">About SPAW Editor</a></li>
+	<li><a href="#license">License</a></li>
+	<li><a href="#install">Installation</a></li>
+	<li><a href="#config">Configuration</a></li>
+	<li><a href="#using">Using SPAW Editor in your applications</a></li>
+	<li><a href="#advanced">Using advanced SPAW Editor features</a></li>
+	<li><a href="#info">Submiting bugs, feature request ,obtaining additional information</a></li>
+	<li><a href="#credits">Credits</a></li>
+</ol>
+
+<hr>
+<h2><a name="about">About SPAW Editor</a></h2>
+
+<P><STRONG><a href="http://www.solmetra.com/">Solmetra's</a> SPAW Editor</STRONG> is a web based WYSIWYG editor control enabling web site developers to replace a standard textarea html control with full-featured, fully customizable, multilingual, skinable web based WYSIWYG editor. </P>
+
+<P>Check out the <A href="http://www.solmetra.com/en/disp.php/en_products/en_spaw/en_spaw_demo">online demonstration</A> (IE 5.5 or above or Mozilla/Firefox/Netscape required) or <A href="http://www.solmetra.com/en/disp.php/en_products/en_spaw/en_spaw_screenshots">screenshots</A> to get an idea how powerful the control is.</P>
+
+<P>Subscribe to <A href="http://lists.sourceforge.net/lists/listinfo/spaw-announce" target=_blank><STRONG>spaw-announce mailing list</STRONG></A> to be notified about new releases.</P>
+
+<P><STRONG>Features included in this release:</STRONG> </P>
+<UL>
+<LI>Basic text editor features (cut, copy, paste, undo, redo); </LI>
+<LI>Basic formatting features (bold, italic, underline, fore color, background color, fonts, etc.); </LI>
+<LI>Management of HTML objects (images, links, tables, etc.); </LI>
+<LI>Applying CSS classes to text and objects; </LI>
+<LI>Advanced image manipulation - image library sub-control (upload, preview and select images); </LI>
+<LI>Advanced table manipulation - create, modify attributes of table and cells, insert/delete rows and columns, merge/split cells (including unique vertical merging feature!); </LI>
+<LI>Support for themes (skins) - 2 ready to use themes included; </LI>
+<LI>Fully customizable toolbars - 4 presets included; </LI>
+<LI>Multilanguage support - English, Lithuanian, Russian, German, Dutch, Italian, French, Hebrew, Turkish, Chinese, Czech, Brazilian Portuguese, Swedish, Danish, Hungarian, Bulgarian, Polish, Finish, Estonian, Japanese, Galego, Norwegian, Slovak, Catalan, Portuguese, Slovenian, Greek, Thai, Vietnamese, Korean, Ukrainian and Croatian language files included; </LI>
+<LI>Support for multiple fully independent instances of control on the same page (each instance can have different theme, toolbar, language, style classes, etc.); </LI>
+<li>HTML code cleanup (useful for copy/pasting content from MS Word);</li>
+<li>Optional design time borders on borderless tables;</li>
+<li>Active toolbar reflecting applicable features and current style;</li>
+<LI>Demo script showcasing the use of the control;</LI>
+<LI>Basic documentation (this file). </LI>
+</UL>
+
+<P><STRONG>Requirements for PHP edition:</STRONG></P>
+<UL>
+<LI>Server: PHP4 on any compatible OS </LI>
+<LI>Client: Microsoft Internet Explorer 5.5. or above on Windows, modern Gecko based browsers on other OSs.</LI></UL>
+
+<hr>
+<h2><a name="license">License</a></h2>
+
+<p>This program is copyright &copy; 2003-2004 by Solmetra. 
+<br>
+By using this program you agree to the terms of License Agreement found in <em><a href="license.txt">license.txt</a></em> file in <em>docs</em> directory</p>
+
+
+<hr>
+<h2><a name="install">Installation</a></h2>
+<p>Unzip the contents of the distribution to some location on your computer. If the location is not a place you intend to run the control from, upload the <em>spaw</em> directory to the location under your web sites root. As of final version 1.0 of the control you'll need to rename the file <em>spaw_control.default.config.php</em> in <em>config</em> sub-directory to <em>spaw_control.config.php</em> when installing control for the first time. This is done to prevent accidental overwriting of the config file when upgrading from one version to another. If you installed the control to the root of your web site you should be able to run <em>demo.php</em> script from <em>scripts</em> directory.</p>
+
+
+<hr>
+<h2><a name="config">Configuration</a></h2>
+
+<p>All of the SPAW Editor configuration options are located in the <em>config/spaw_control.config.php</em> file. If you have installed SPAW Editor for the first time you will need to create this file by simply renaming <em>spaw_control.default.config.php</em> to <em>spaw_control.config.php</em> in the <em>config</em> subdirectory. As you may have guessed from the extension it's a PHP file so you can do whatever you can do in PHP in this file if you need to add some additional instructions.</p>
+
+<p>Now let's take a look at the configuration options available in the config file:</p>
+
+<p><strong>$spaw_dir</strong> - directory where spaw files are located. Set this to a virtual directory value relative from the root of your website</p>
+
+<p><strong>$spaw_base_url</strong> - this is used as a base url for images inserted through image library. It was introduced for cases when you access your admin area via different hostname than the one used by visitors. Set this to your web hosts root including the trailing slash (i.e. http://www.mycompany.com/).</p>
+
+<p><strong>$spaw_root</strong> - this is the physical directory where spaw control resides. This is calculated automatically and you don't need to explicitly set this if only in some very rare cases.</p>
+
+<p><strong>$spaw_default_toolbars</strong> - default toolbar mode to be used if no toolbar mode specified. Valid values are the names of subdirectories in <em>lib/toolbars/</em> directory.</p> 
+
+<p><strong>$spaw_default_theme</strong> - default theme (skin) to be used if no theme specified. Valid values are the names of subdirectories in <em>lib/themes/</em> directory.</p>
+
+<p><strong>$spaw_default_lang</strong> - default language to be used if no language is specified. This is also used as a backup if selected language file has no translation for specific phrase. For this reason we suggest that, even if you always use the control in Italian, you leave it as 'en' because English language file will always be up-to-date and other language files may lack latest additions in the upcoming versions. Names of the subdirectories in there are the valid values for the <strong>$lang</strong> parameter.</p>
+
+<p><strong>$spaw_default_css_stylesheet</strong> - default stylesheet file to be used for the control's content. Set this to the virtual path to the css file.</p>
+
+<p><strong>$spaw_inline_js</strong> - if set to true forces SPAW to output functional javascript inline the including page. Otherwise script is included as external file via <em>src</em> attribute of <em>script</em> tag.</p>
+
+<p><strong>$spaw_active_toolbar</strong> - if set to true enables "active toolbar" feature. If you plan that editor will be used by users on slow computers you better set this to false.</p>
+
+<p><strong>$spaw_dropdown_data</strong> - array holding values and texts for the toolbar items of dropdown type like style, font, fontsize and paragraph in the following format: <strong>$spaw_dropdown_data['control_name']['value'] = 'text';</strong>.</p>
+
+<p><em>Following settings apply to image library dialog only</em></p>
+
+<p><strong>$spaw_valid_imgs</strong> - file extensions allowed for uploaded images.</p>
+
+<p><strong>$spaw_upload_allowed</strong> - if set to true users will be allowed to upload images in image library. Otherwise upload functionality is disabled.</p>
+
+<p><strong>$spaw_img_delete_allowed</strong> - if set to true delete button is shown in image library dialog.</p>
+
+<p><strong>$spaw_imglibs</strong> - array of arrays describing image libraries (directories), each array consists of 'value' element holding the path to the directory from the root without starting slash and 'text' element is a description visible to user.</p>
+
+<p><strong>$spaw_imglib_include</strong> - path to the include file to be included in image library. You can dynamically modify $spaw_imglibs array (set image libraries dynamically) and toggle upload and delete function on and off. <b>$request_uri</b> variable is set to the URI of the script where SPAW is located. You can parse it set libraries and other settings accordingly.</p>
+
+<p><strong>$spaw_a_targets</strong> - array holding selectable targets for hyperlinks (via hyperlink dialog). array index - target value, value - default text in dropdown. For example: <strong>$spaw_a_targets['_top'] = 'Top';</strong>. Control first tries to get the text from language file (hyperlink_targets block), if there's no text default text is used.</p>
+
+<p><strong>$spaw_img_popup_url</strong> - url to the image popup sript (inserted when image popup feature is used). You may use included script (default value) or create your own. Image url is passed via img_url query string parameter.</p>
+
+<p><strong>$spaw_internal_link_script</strong> - url to the script returning hyperlink data for links to internal content management system pages. See Advanced features for detailed information.</p>
+
+<p><strong>$spaw_disable_style_controls</strong> <sup style="color : red;">new</sup> - if set to true disables all style related properties in table and table cell dialogs when css class is selected.</p>
+
+<hr>
+<h2><a name="using">Using SPAW Editor in your applications</a></h2>
+<p>Using SPAW Editor is pretty simple and straight-forward:</p>
+
+<ol>
+  <li>Set <strong>$spaw_root</strong> variable to a physical path to the control's directory</li>
+  <li>Include <strong>spaw/spaw_control.class.php</strong></li>
+  <li>Create an instance of <strong>SPAW_Wysiwyg</strong> class</li>
+  <li>Call <strong>show()</strong> method of the object. <em>Note: <strong>show()</strong> method should be called from the place in the script surrounded by &lt;form&gt;&lt;/form&gt; tags</em></li>
+</ol>
+
+<p>So as you can see it is indeed pretty simple. The main factor affecting the look and feel of the control is what you pass to the contstructor. Those who like learning by example should now switch to the source code and output of <em>demo.php</em> script in <em>scripts</em> directory.</p>
+
+<p>The full interface of <strong>SPAW_Wysiwyg</strong> contructor is:</p>
+
+<pre>
+SPAW_Wysiwyg(
+              $control_name='spaweditor', // control's name
+              $value='',                  // initial value
+              $lang='',                   // language
+              $mode = '',                 // toolbar mode
+              $theme='',                  // theme (skin)
+              $width='100%',              // width
+              $height='300px',            // height
+              $css_stylesheet='',         // css stylesheet file for content
+              $dropdown_data=''           // data for dropdowns (style, font, etc.)
+            )
+</pre>
+
+<p>Parameters:</p>
+
+<p><strong>$control_name</strong> - the name of the control. This will be used for the id of the field holding the contents of the control and you will use it to obtain the contents when submitted to the server (i.e. $HTTP_POST_VARS['spaweditor']). The default value is <em>"spaw_editor"</em>. <em>Don't forget to set this parameter to different values if using more than one instance of the control on one page.</em></p>
+
+<p><strong>$value</strong> - initial content of the control. This is what you want to be in the editable area when control loads. Use something like <code>stripslashes($HTTP_POST_VARS['spaweditor'])</code> if you want control to display what was typed prior to submitting.</p>
+
+<p><strong>$lang</strong> - this denotes the language to be used in the control's interface. The default is the value of <strong>$spaw_default_lang</strong> variable set in config file which by default is equal to <em>"en"</em> (English). If you specify a value other than set in <strong>$spaw_default_lang</strong> variable, the control loads language data for default language as a "backup". This is done so in case the translation is a little outdated control is still usable (i.e. you will get messages in default language (most likely English) instead of missing translations from your selected language files. Available languages can be determined by taking a look at <em>lib/lang/</em> subdirectory. Names of the subdirectories in there are the valid values for the <strong>$lang</strong> parameter.</p>
+
+<p><strong>$mode</strong> - toolbar mode (layout). Toolbar mode specifies the toolbar layout to be used for the instance. It defaults to the value of <strong>$spaw_default_toolbars</strong> config variable. You can also think of it as a way to limit (or extend) the features available to the user (this is why it was called mode). Valid values are the names of subdirectories in <em>lib/toolbars/</em> directory.</p>
+
+<p><strong>$theme</strong> - the skin (look) of the control. This affects the images and rollover effects used for toolbar buttons and controls css styles. The default is the value of <strong>$spaw_default_theme</strong> config variable. Valid values are the names of subdirectories in <em>lib/themes/</em> directory.</p>
+
+<p><strong>$width</strong> - control's width. The default is 100%.</p>
+
+<p><strong>$height</strong> - control's height. The default is 300 pixels.</p>
+
+<p><strong>$css_stylesheet</strong> - CSS stylesheet file to be used for control's content. The default is the value of <strong>$spaw_default_css_stylesheet</strong> config variable.</p>
+
+<p><strong>$dropdown_data</strong> - the array holding values to be used in a dropdown type toolbar controls like style, font, fontsize and paragraph. The structure is <code>$dropdown_data['control_name']['value'] = 'Text'</code>. The default data is taken from <strong>$spaw_default_dropdown_data</strong> config variable. You may use it as a starting point when customizing the dropdown data. You will most likely want to customize the data for the "style" dropdown cause it's the most instance specific of all dropdowns. Don't forget to provide the style with value "default". This one is used to remove the class attribute.</p>
+
+<h3>Examples</h3>
+
+<h4>Example 1</h4>
+<p>This is the simpliest usage of the control with all the default parameters</p>
+<pre>
+$sw = new SPAW_Wysiwyg('spaw1',stripslashes($HTTP_POST_VARS['spaw1']));
+$sw->show();
+</pre>
+
+<h4>Example #2</h4>
+<p>Now let's try something else... let's specify width and height of the control, Lithuanian language and different toolbar mode (sidetable in this example).</p>
+<pre>
+$sw = new SPAW_Wysiwyg('spaw2' /*name*/,stripslashes($HTTP_POST_VARS['spaw2']) /*value*/,
+                       'lt' /*language*/, 'sidetable' /*toolbar mode*/, 'default' /*theme*/,
+                       '550px' /*width*/, '350px' /*height*/);
+$sw->show();
+</pre>
+
+<h4>Example #3</h4>
+<p>In this example we pass an url (demo_red.css) of the stylesheet file to the consturctor/p>
+<pre>
+$sw = new SPAW_Wysiwyg('spaw5' /*name*/,stripslashes($HTTP_POST_VARS['spaw5']) /*value*/,
+                       'en' /*language*/, 'mini' /*toolbar mode*/, '' /*theme*/,
+                       '250px' /*width*/, '90px' /*height*/, 'demo_red.css' /*stylesheet file*/);
+$sw->show();
+</pre>
+
+<h4>Example #4</h4>
+<p>There is a way to customize the content of the dropdowns like styles, fonts, etc. You can customize it for all instances of the control by modifying $spaw_dropdown_data array in config file or in the script. Or you can specify specific data for dropdowns for each of the separate instances. This example shows how...</p>
+<pre>
+// make a copy of $spaw_dropdown_data array
+$demo_array = $spaw_dropdown_data;
+// unset current styles
+unset($demo_array['style']);
+// set new styles
+$demo_array['style']['default'] = 'Default';
+$demo_array['style']['crazystyle1'] = 'Crazy style no. 1';
+$demo_array['style']['crazystyle2'] = 'Crazy style no. 2';
+$demo_array['style']['crazystyle3'] = 'Crazy style no. 3';
+
+// pass $demo_array to the constructor
+$sw = new SPAW_Wysiwyg('spaw6' /*name*/,stripslashes($HTTP_POST_VARS['spaw6']) /*value*/,
+                       'en' /*language*/, 'default' /*toolbar mode*/, '' /*theme*/,
+                       '550px' /*width*/, '90px' /*height*/, '' /*stylesheet file*/,
+                       $demo_array /*dropdown data*/);
+$sw->show();
+</pre>
+
+<hr>
+<h2><a name="advanced">Using advanced SPAW Editor features</a></h2>
+<p>SPAW Editor has a number of advanced features allowing you to customize and control editor functions to even greater extent. These features are described in this section.</p>
+
+<h3>Dynamic image libraries</h3>
+
+<p>You can create your own custom PHP script to manage image libraries dynamically based on user logged to your CMS or section of the site being edited or some other parameters. Specify path to this script via <strong>$spaw_imglib_include</strong> variable in config file. This file will be included in img_library.php (Image library dialog script). <strong>$request_uri</strong> variable will be set to the URL of the page where SPAW Editor instance resides. In your script you should set $spaw_imblibs array items to the image libraries you want to show in the image library for this instance. You can also enable/disable image upload and image deletion functions by setting <strong>$spaw_upload_allowed</strong> and <strong>$spaw_img_delete_allowed</strong> to <em>true</em> or <em>false</em> respectivelly.</p>
+
+<h3>Internal links</h3>
+
+<p>Now you can provide a way for your users to add links to internal content management system pages via special dialog. You just have to create a script allowing user to select a page from the CMS and return the selection to SPAW in a special format.</p>
+
+<p>To utilize this feature set <strong>$spaw_internal_link_script</strong> to the url of your script. "intlink" toolbar contains a special button declared like this:</p>
+
+<pre>
+array(
+	'name' => 'internal_link',
+	'type' => SPAW_TBI_BUTTON
+),
+</pre>
+
+<p>Adding such item to your toolbar enables internal link button. Now you need to return selected item from your script via JavaScript.</p>
+
+<p>Your script will be show via showModalDialog JavaScript method. Object with the following properties will be passed (if it's link editing) and should be returned from your script:</p>
+
+<ul>
+<li><strong>href</strong> - link url</li>
+<li><strong>name</strong> - anchor name</li>
+<li><strong>target</strong> - link target window/frame</li>
+<li><strong>title</strong> - link title (shown as tooltip when mouse pointer is over a link in browser)</li>
+<li><strong>description</strong> - hyperlink text (part between &lt;a&gt;&lt;/a&gt; tags)</li>
+</ul>
+
+<p>You can get passed data in your dialog via <strong> window.dialogArguments</strong> JavaScript property. To return selected item assign the object to <strong>window.returnValue</strong> property before closing the window.</p>
+
+<p>You can use SPAW's hyperlink dialog (dialogs/a.php) as an example of such script.</p>
+
+<hr>
+<h2><a name="info">Submiting bugs, feature request, obtaining additional information</a></h2>
+
+<p>SPAW Editor's web site is located at <a href="http://www.solmetra.com/spaw/">http://www.solmetra.com/spaw/</a>. </p>
+<p>Open source development of SPAW Editor is powered by <a href="http://sourceforge.net/">SourceForge.net</a>.</p> 
+<p>SPAW Editor's main page at SF.net - <a href="http://sourceforge.net/projects/spaw">http://sourceforge.net/projects/spaw</a></p>
+<p>Find answers to your questions in <a href="http://www.solmetra.com/en/disp.php/en_products/en_spaw/en_spaw_faq">SPAW Editor FAQ</a></p>
+<p>If you find a bug in SPAW Editor please submit it to our <a href="http://sourceforge.net/tracker/?group_id=77954&atid=551772">SF.net bug tracking system</a></p>
+<p>Submit your feature requests to <a href="http://sourceforge.net/tracker/?group_id=77954&atid=551775">SF.net RFE system</a>.</p>
+<p>Discuss your problems and ideas in <a href="http://sourceforge.net/forum/?group_id=77954">forums</a></p>
+<P>Subscribe to <A href="http://lists.sourceforge.net/lists/listinfo/spaw-announce" target=_blank><STRONG>spaw-announce mailing list</STRONG></A> to be notified about new releases</P>
+<p>Address all other inquiries to <a href="mailto:spaw@solmetra.com">spaw@solmetra.com</a></p>
+
+<hr>
+<h2><a name="credits">Credits</a></h2>
+
+<p>SPAW Editor copyright &copy; 2003-2005 by Solmetra. All rights reserved.</p>
+
+<ul>
+	<li>Programming, documentation, "classic" theme, English and Russian language files - Alan Mendelevich (alan@solmetra.com);</li>
+	<li>"default", "blue" and "green" themes - Margarita Buksnaityte (marga@solmetra.com);</li>
+	<li>Lithuanian translation - Martynas Majeris (martynas@solmetra.com), Saulius Okunevicius (saulius@solmetra.lt);</li>
+	<li>German translation - Simon Schmitz (schmitz@unitedfuor.com), Matthias Höschele (matthias.hoeschele@gmx.net);</li>
+	<li>Dutch translation: Koen Koppens (k.koppens@home.nl), Alex Timmermans;</li>
+	<li>Italian translation: Omar Di Marzio (omar@networking.it), Stefano Luchetta;</li>
+	<li>French translation: Laurent Fasnacht (lf@o-t.ch);</li>
+	<li>Hebrew translation: Yaron Gonen (lord_gino@yahoo.com), Boris Aranovich;</li>
+	<li>Turkish translation: Zeki Erkmen (erkmen@t-online.de);</li>
+  <li>Chinese translation: (aman@wealthgrp.com.tw);</li>
+  <li>Czech translation: BrM (BrM@bridlicna.cz);</li>
+  <li>Brazilian Portuguese translation: Fernando José Karl (fernandokarl@superig.com.br);</li>
+  <li>Swedish translation: Tomas Jogin (tomas@jogin.com);</li>
+  <li>Danish translation: Morten Skyt Eriksen (xgd_bitnissen@hotmail.com);</li>
+  <li>Hungarian translation: Bagoly Sándor Zsigmond (sasa@networldtrading.com);</li>
+	<li>Bulgarian translation: Atanas Tchobanov (atanas@webdressy.com);</li>
+	<li>Polish translation: Jacek Czekala (jacek_czekala@post.pl), Slawomir Jasinski;</li>
+	<li>Finish translation: Teemu Joensuu (teemu.joensuusaunalahti.fi);</li>
+	<li>Estonian translation: Maku (maktak@phpnuke-est.net);</li>
+	<li>Japanese translation: DigiPower (http://pwr.jp/);</li>
+	<li>Galego translation: Pedro Telmo (p.telmo@valminor.info);</li>
+	<li>Norwegian translation: Torkil Johnsen (torkil@torkiljohnsen.com);</li>
+	<li>Slovak translation: Pavel Koutny (pavel.koutny@inetix.sk);</li>
+	<li>Greek translation: Saxinidis B. Konstantinos;</li>
+	<li>Slovenian translation:Vladimir Ota;</li>
+	<li>Portuguese translation: Ricardo Vidal;</li>
+	<li>Catalan translation: Jordi Cato;</li>
+	<li>Thai translation: Chanon Mee-iam;</li>
+	<li>Vietnamese translation: Nguyen Viet Son;</li>
+	<li>Croatian translation: dragan@pfri.hr;</li>
+	<li>Ukrainian translation: Alexandr Kaplun;</li>
+	<li>Korean translation: zionweb@hotmail.com.</li>
+</ul>
+
+<hr>
+<p><em>SPAW Editor &copy; 2003-2004 by <a href="http://www.solmetra.com/">Solmetra</a>. All rights reserved.<br> $Revision: 1.14 $, $Date: 2005/04/24 10:13:39 $</em></p>
+</body>
+</html>

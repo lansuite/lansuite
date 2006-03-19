@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- COPYRIGHT 2001-2003 "http://www.One-Network.Org" - ALL RIGHTS RESERVED -->
+<html>
+<head>
+	<title>{$templ['index']['info']['lanparty_name']} - lansuite {$templ['index']['info']['version']} - www.lansuite.de</title>
+
+	<link rel="STYLESHEET" href="design/{default_design}/style.css"  type="text/css" />
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+</head>
+
+<body {$templ['index']['body']['js']} style="leftmargin: 4px; topmargin: 4px; marginwidth: 4px;marginheight: 4px">
+{$templ['index']['control']['js']}
+<a name="top"></a>
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+<tr> 
+	<td colspan="5">
+	<div align="right" class="small">{$templ['index']['info']['current_date']}{$templ['index']['info']['logout_link']}</div>
+
+	<table width="100%" cellspacing="0" cellpadding="0" style="leftmargin: 4px; topmargin: 4px; marginwidth: 4px;marginheight: 4px">
+	<tr> 
+		<td><a href="index.php"><img src="design/{default_design}/images/index_top_lansuite.gif" border="0" alt="" /></a></td>
+		<td align="right" ><img src="design/{default_design}/images/index_top_advertisement.gif" width="7" height="60" alt="" />{$templ['index']['banner_code']}</td>
+		<td align="right" valign="bottom">&nbsp;</td>
+	</tr>
+	</table>
+
+	</td>
+</tr>
+
+<!-- 20er Space  //-->
+<tr>
+	<td colspan="5">&nbsp;</td>
+</tr>
+
+<tr> 
+	<!-- Block: Boxes left -->
+	<td class="box_frame" valign="top">{$templ['index']['control']['boxes_letfside']}</td>
+
+	<!-- 10er Space //-->
+	<td><img src="design/{default_design}/images/px.gif" width="10" height="1" alt="" /></td>
+
+	<!-- MiddleBlock //-->
+	<td valign="top" width="75%">
+		<table width="100%" cellspacing="0" cellpadding="0" align="center">
+		<tr> 
+			<td style="background:url(design/{default_design}/images/menu_topic_bg.gif)" height="15" valign="top" width="1%"><img src="design/{default_design}/images/arrows_content.gif" width="15" height="12" hspace="1" vspace="0" alt="" /></td>
+			<td style="background:url(design/{default_design}/images/menu_topic_bg.gif)" height="15"><img src="design/{default_design}/images/index_topic_lansuite.gif" width="78" height="7" alt="" /></td>
+		</tr>
+		<tr class="content"> 
+			<td colspan="2"> {$templ['index']['info']['content']} </td>
+		</tr>
+		<tr class="content"> 
+			<td colspan="2" align="right" valign="bottom"><a href="#top"><img src="design/{default_design}/images/index_bottom_2top.gif" width="78" height="7" border="0" alt="" /></a></td>
+		</tr>
+		<tr> 
+			<td colspan="2" class="hrule"></td>
+		</tr>
+		</table>
+
+		<table width="100%" cellspacing="0" cellpadding="0" align="center">
+		<tr><td>
+		{$templ['index']['debug']['content']}
+		</td></tr>
+		</table>
+	</td>
+
+	<!-- 10er Space //-->
+	<td valign="top"><img src="design/{default_design}/images/px.gif" width="10" height="1" alt=""/></td>
+
+	<!-- RightBlock //-->
+	<td class="box_frame" valign="top">{$templ['index']['control']['boxes_rightside']}</td>
+</tr>
+<tr> 
+	<td valign="bottom" height="1"></td>
+	<td colspan="3"><div align="center" class="copyright">{footer}</div></td>
+	<td valign="bottom" height="1"></td>
+</tr>
+</table>
+<br />
+
+</body>
+</html>

@@ -1,0 +1,2 @@
+This folder contains pictures of users.
+You can either upload them using the usermanagers edit function, or you can put them into this directory manualy, using the filename picXXX.jpg, where XXX is the users userid (without leeding zeros).
