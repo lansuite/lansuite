@@ -390,7 +390,7 @@ class MasterSearch2 {
 // Callbacks which are only for local interest, should be defined in the modules search-file
 
 function MS2GetDate($time){
-  if ($time > 0) return date('d.m.y H:i', $time);
+  if ($time > 0) return '<span class="small">'. date('d.m.y', $time) .'<br />'. date('H:i', $time) .'</span>';
   else return '0'; 
 }
 
