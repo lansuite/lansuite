@@ -1,65 +1,63 @@
-<script language="JavaScript" type="text/javascript">
-<!--
-// Highlights the current table row under the mouse
-function markieren(EintragSpalte) {
-  if (typeof(document.getElementsByTagName) != 'undefined') var Spalten = EintragSpalte.getElementsByTagName('td');
-  else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
-  else return false;
-
-  for (var c = 0; c < Spalten.length; c++) Spalten[c].style.backgroundColor = '#D25555';
-
-  return true;
-}
-
-// Un-Highlights the current table row under the mouse
-function unmarkieren(EintragSpalte) {
-  if (typeof(document.getElementsByTagName) != 'undefined') var Spalten = EintragSpalte.getElementsByTagName('td');
-  else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
-  else return false;
-
-  for (var c = 0; c < Spalten.length; c++) Spalten[c].style.backgroundColor = '';
-  
-  return true;
-}
-
-MultiSelectActions = new Array({$templ['ms2']['multi_select_actions']});
-MultiSelectSecurityQuest = new Array({$templ['ms2']['security_questions']});
-
-// Checks all/none/inverted checkboxes
-function change_selection() {
-  if (document.ms_result.action_select.value == "") return 0;
-	else if (document.ms_result.action_select.value == "select_all") for (z=0; z<=document.ms_result.length-1; z++){
-		document.ms_result.elements[z].checked = 1;
-	} else if (document.ms_result.action_select.value == "select_none") for (z=0; z<=document.ms_result.length-1; z++){
-		document.ms_result.elements[z].checked = 0;
-	} else if (document.ms_result.action_select.value == "select_invert") for (z=0; z<=document.ms_result.length-1; z++){
-		if (document.ms_result.elements[z].checked) document.ms_result.elements[z].checked = 0;
-		else document.ms_result.elements[z].checked = 1;
-	} else {
-	  if (MultiSelectSecurityQuest[document.ms_result.action_select.value] == 1) {
-      if (!confirm("Wollen Sie die Aktion '"+ document.ms_result.action_select.options[document.ms_result.action_select.selectedIndex].text +"' wirklich auf alle ausgewählten Einträge anwenden?")) return 0;
-    }
-    MultiSelectActions[document.ms_result.action_select.value] = MultiSelectActions[document.ms_result.action_select.value].replace(/&amp;/g, "&");
-    document.ms_result.action = MultiSelectActions[document.ms_result.action_select.value];
-    document.ms_result.submit();
-  }
-}
--->
-</script>
-<div class="content_head" align="left">
-		<div align="right">{$templ['ms2']['pages']}</div>
-</div>
-
-<form name="ms_result" method="post" action="">
-<table width="100%" cellspacing="0" cellpadding="0">
 <tr>
-	{$templ['ms2']['table_head']}
+	<td colspan="2">
+    <script language="JavaScript" type="text/javascript">
+    <!--
+    // Highlights the current table row under the mouse
+    function markieren(EintragSpalte) {
+      if (typeof(document.getElementsByTagName) != 'undefined') var Spalten = EintragSpalte.getElementsByTagName('td');
+      else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
+      else return false;
+    
+      for (var c = 0; c < Spalten.length; c++) Spalten[c].style.backgroundColor = '#D25555';
+    
+      return true;
+    }
+    
+    // Un-Highlights the current table row under the mouse
+    function unmarkieren(EintragSpalte) {
+      if (typeof(document.getElementsByTagName) != 'undefined') var Spalten = EintragSpalte.getElementsByTagName('td');
+      else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
+      else return false;
+    
+      for (var c = 0; c < Spalten.length; c++) Spalten[c].style.backgroundColor = '';
+      
+      return true;
+    }
+    
+    MultiSelectActions = new Array({$templ['ms2']['multi_select_actions']});
+    MultiSelectSecurityQuest = new Array({$templ['ms2']['security_questions']});
+    
+    // Checks all/none/inverted checkboxes
+    function change_selection() {
+      if (document.ms_result.action_select.value == "") return 0;
+    	else if (document.ms_result.action_select.value == "select_all") for (z=0; z<=document.ms_result.length-1; z++){
+    		document.ms_result.elements[z].checked = 1;
+    	} else if (document.ms_result.action_select.value == "select_none") for (z=0; z<=document.ms_result.length-1; z++){
+    		document.ms_result.elements[z].checked = 0;
+    	} else if (document.ms_result.action_select.value == "select_invert") for (z=0; z<=document.ms_result.length-1; z++){
+    		if (document.ms_result.elements[z].checked) document.ms_result.elements[z].checked = 0;
+    		else document.ms_result.elements[z].checked = 1;
+    	} else {
+    	  if (MultiSelectSecurityQuest[document.ms_result.action_select.value] == 1) {
+          if (!confirm("Wollen Sie die Aktion '"+ document.ms_result.action_select.options[document.ms_result.action_select.selectedIndex].text +"' wirklich auf alle ausgewählten Einträge anwenden?")) return 0;
+        }
+        MultiSelectActions[document.ms_result.action_select.value] = MultiSelectActions[document.ms_result.action_select.value].replace(/&amp;/g, "&");
+        document.ms_result.action = MultiSelectActions[document.ms_result.action_select.value];
+        document.ms_result.submit();
+      }
+    }
+    -->
+    </script>
+ 		<div class="content_head" style="text-align:right">{$templ['ms2']['pages']}</div>
+    <form name="ms_result" method="post" action="">
+    <table width="100%" cellspacing="0" cellpadding="0">
+    <tr>
+    	{$templ['ms2']['table_head']}
+    </tr>
+    {$templ['ms2']['table_entrys']}
+    </table>
+    {$templ['ms2']['multi_select_dropdown']}
+    </form>
+ 		<div class="content_head" style="text-align:right">{$templ['ms2']['pages']}</div>
+	</td>
 </tr>
-{$templ['ms2']['table_entrys']}
-</table>
-{$templ['ms2']['multi_select_dropdown']}
-</form>
-
-<div class="content_head" align="left">
-		<div align="right">{$templ['ms2']['pages']}</div>
-</div>

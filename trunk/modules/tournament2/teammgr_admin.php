@@ -40,13 +40,12 @@ switch($_GET["step"]) {
 	// Neues Team eröffnen - Teamleiter auswählen
 	case 40:
 		if ($tteam->SignonCheck($vars["tournamentid"])) {
-			$mastersearch = new MasterSearch($vars, "index.php?mod=tournament2&action=teammgr_admin&step=40&tournamentid=$tournamentid", "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=", " AND p.party_id={$party->party_id} AND (p.paid) GROUP BY u.email");
-			$mastersearch->LoadConfig("users", $lang["tourney"]["teammgr_adm_ms_caption"], $lang["tourney"]["teammgr_adm_ms_subcaption"]);
-			$mastersearch->PrintForm();
-			$mastersearch->Search();
-			$mastersearch->PrintResult();
-
-			$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+      include_once('modules/usrmgr/search_main.inc.php');
+      
+      $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
+      if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid='. $tournamentid .'&userid=', 'Assign');
+      
+      $ms2->PrintSearch('index.php?mod=tournament2&action=teammgr_admin&step=40&tournamentid='. $tournamentid, 'u.userid');
 		}
 	break;
 

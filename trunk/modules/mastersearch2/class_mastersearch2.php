@@ -382,6 +382,7 @@ class MasterSearch2 {
     $db->free_result($res);
     $templ['ms2']['result_action'] = $multiaction;
     $dsp->AddModTpl('mastersearch2', 'result_case');
+    $dsp->AddContent();
   }
 } // End: Class
 
