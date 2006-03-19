@@ -2,25 +2,7 @@
 
 switch ($_GET["step"]) {
 	default:
-		switch ($auth["type"]) {
-			default:
-				$sql = " AND status > '0' AND orgaonly = '0'";
-			break;
-			case 2:
-				$sql = " AND status > '0'";
-			break;
-			case 3:
-				 $sql = " AND status > '0'";
-			break;
-		}
-
-		$mastersearch = new MasterSearch($vars, "index.php?mod=troubleticket&action=show", "index.php?mod=troubleticket&action=show&step=2&ttid=", $sql);
-		$mastersearch->LoadConfig($lang['troubleticket']['modulname'],$lang['troubleticket']['ms_search_ticket'],$lang['troubleticket']['ms_ticket_result']);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/troubleticket/search.inc.php');	
 	break;
 
 

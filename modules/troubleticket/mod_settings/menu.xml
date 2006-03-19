@@ -34,12 +34,7 @@
 	<entry>
 		<action>assign</action>
 		<file>assign</file>
-		<caption>Zuweisen</caption>
-		<hint>Ein Troubleticket einem Orga zum bearbeiten zuweisen. (Nur Operator, wenn bereits zugewiesen.)</hint>
-		<link>?mod=troubleticket&action=assign</link>
 		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>showme</action>
@@ -54,21 +49,11 @@
 	<entry>
 		<action>change</action>
 		<file>change</file>
-		<caption>&Auml;ndern</caption>
-		<hint>Den Status, Kommentar usw. aller Troubeltickets &auml;ndern</hint>
-		<link>?mod=troubleticket&action=change</link>
 		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>delete</action>
 		<file>delete</file>
-		<caption>L&ouml;schen</caption>
-		<hint>Ein Troubleticket aus dem LanSuite-System l&ouml;schen</hint>
-		<link>?mod=troubleticket&action=delete</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 </menu>

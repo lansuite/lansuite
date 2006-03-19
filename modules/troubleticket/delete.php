@@ -2,13 +2,7 @@
 
 switch($_GET["step"]) {
 	default:
-		$mastersearch = new MasterSearch($vars, "index.php?mod=troubleticket&action=delete", "index.php?mod=troubleticket&action=delete&step=2&ttid=", "");
-		$mastersearch->LoadConfig("troubleticket",$lang['troubleticket']['ms_search_ticket'],$lang['troubleticket']['ms_ticket_result']);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/troubleticket/search.inc.php');	
 	break;
 
 	case 2:
