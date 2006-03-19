@@ -50,8 +50,10 @@ $ms2->AddTextSearchField('Benutzername', array('u.username' => '1337'));
 $ms2->AddTextSearchField('Name', array('u.name' => 'like', 'u.firstname' => 'like'));
 
 $ms2->AddTextSearchDropDown('Bezahlt', 'p.paid', array('' => 'Alle', '0' => 'Nicht bezahlt', '>1' => 'Bezahlt'));
-$ms2->AddTextSearchDropDown('Eingecheckt', 'p.checkin', array('' => 'Alle', '0' => 'Nicht Eingecheckt', '>1' => 'Eingecheckt'));
-$ms2->AddTextSearchDropDown('Ausgecheckt', 'p.checkout', array('' => 'Alle', '0' => 'Nicht Ausgecheckt', '>1' => 'Ausgecheckt'));
+if (!$cfg['sys_internet']) {
+  $ms2->AddTextSearchDropDown('Eingecheckt', 'p.checkin', array('' => 'Alle', '0' => 'Nicht Eingecheckt', '>1' => 'Eingecheckt'));
+  $ms2->AddTextSearchDropDown('Ausgecheckt', 'p.checkout', array('' => 'Alle', '0' => 'Nicht Ausgecheckt', '>1' => 'Ausgecheckt'));
+}
 
 $block_list = array('' => 'Alle');
 $row = $db->query("SELECT blockid, name FROM {$config['tables']['seat_block']} WHERE party_id = {$party->party_id}");
