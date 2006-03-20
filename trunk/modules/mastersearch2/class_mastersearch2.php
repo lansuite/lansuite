@@ -209,7 +209,7 @@ class MasterSearch2 {
 
     ###### Generate Page-Links
     $count_rows = $db->query_first('SELECT FOUND_ROWS() AS count');
-    $count_pages = floor($count_rows['count'] / $this->config['EntriesPerPage']);
+    $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
     
 		if ($count_rows['count'] > $this->config['EntriesPerPage']) {
 		  $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&page=";
