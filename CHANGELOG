@@ -6,6 +6,9 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.1
 
+- Bugfix: #382 In der Gästeliste wurde der Sitzplan um eine Stelle falsch angezeigt (KnoX 20.03.2006)
+- Bugfix: In der neuen Mastersearch war jeweils die letzte Seite nicht auswählbar, außer durch den Link 'Alle' (KnoX 20.03.2006)
+
 - Change: MS2 Callbachs in die einzelnen Module verlagert (KnoX 19.03.2006)
 
 - Add: #323: Troubletickets können nun direkt aus "Meine Tickets" heraus bearbeitet werden (KnoX 19.03.2006)
