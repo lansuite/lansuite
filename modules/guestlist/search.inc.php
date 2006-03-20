@@ -5,7 +5,7 @@ $ms2 = new mastersearch2();
 function SeatNameLink($status){
   global $seat2, $line;
   
-  if (!$line['blockname']) return '';
+  if (!$line['blockid']) return '';
   else {
     $LinkText = $line['blockname'] .'<br />'. $seat2->CoordinateToName($line['col'] + 1, $line['row'], $line['orientation']);
 	  return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id={$line['blockid']}&userarray[]={$line['userid']}&l=1','_blank','width=596,height=638,resizable=yes');\" class=\"small\">$LinkText</a>";
@@ -37,11 +37,17 @@ function ClanURLLink($clan) {
   } else return '';
 }
 
+// Get current parties blockids
+$res = $db->query("SELECT blockid FROM {$config['tables']['seat_block']} WHERE party_id = {$party->party_id}");
+$blocks = '';
+while ($row = $db->fetch_array($res)) $blocks .= "s.blockid = {$row['blockid']} OR ";
+$db->free_result($res);
+
 $ms2->query['from'] = "{$config['tables']['user']} AS u
     LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id
     LEFT JOIN {$config['tables']['seat_seats']} AS s ON u.userid = s.userid
-    INNER JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b.blockid AND p.party_id = b.party_id";
-$ms2->query['where'] = 'p.party_id = '. $party->party_id .' AND (s.status = 2 OR s.userid IS NULL)';
+    LEFT JOIN {$config['tables']['seat_block']} AS b ON b.party_id = p.party_id AND b.blockid = s.blockid";
+$ms2->query['where'] = 'p.party_id = '. $party->party_id .' AND ('. $blocks .'s.blockid IS NULL) AND (s.status = 2 OR s.userid IS NULL)';
 
 $ms2->config['EntriesPerPage'] = 20;
 
