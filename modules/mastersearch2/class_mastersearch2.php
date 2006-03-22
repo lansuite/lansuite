@@ -15,6 +15,12 @@ class MasterSearch2 {
     global $language, $lang;
     
     $this->config['EntriesPerPage'] = 20;
+    
+    $this->query['from'] = '';
+    $this->query['where'] = '';
+    $this->query['group_by'] = '';
+    $this->query['order_by'] = '';
+    $this->query['limit'] = '';
 
     // Load language files, if included from within another module
     if ($module and $module != $_GET['mod']) {
@@ -169,15 +175,16 @@ class MasterSearch2 {
 
 
     ###### Generate Group By
-    $this->query['group_by'] = $select_id_field;
+    $this->query['group_by'] .= $select_id_field;
 
     
     ###### Generate Order By
-    $this->query['order_by'] = '';
     if ($_GET['order_by']) {
-      $this->query['order_by'] = 'ORDER BY '. $_GET['order_by'];
+      $this->query['order_by'] .= $_GET['order_by'];
       if ($_GET['order_dir']) $this->query['order_by'] .= ' '. $_GET['order_dir'];
     }
+    if ($this->query['order_by'] == '') $this->query['order_by'] = $select_id_field .' ASC';
+    if ($this->query['order_by_end']) $this->query['order_by'] .= ', '. $this->query['order_by_end'];
 
     
     ###### Generate Limit
@@ -194,7 +201,7 @@ class MasterSearch2 {
       FROM {$this->query['from']}
       WHERE {$this->query['where']}
       GROUP BY {$this->query['group_by']}
-      {$this->query['order_by']}
+      ORDER BY {$this->query['order_by']}
       {$this->query['limit']}
       ");
 /*
@@ -202,7 +209,7 @@ class MasterSearch2 {
       FROM {$this->query['from']}<br>
       WHERE {$this->query['where']}<br>
       GROUP BY {$this->query['group_by']}<br>
-      {$this->query['order_by']}<br>
+      ORDER BY {$this->query['order_by']}<br>
       {$this->query['limit']}
       ";
 */
@@ -336,10 +343,8 @@ class MasterSearch2 {
         if (strpos($current_field['link_id'], '.') > 0) $current_field['link_id'] = substr($current_field['link_id'], strpos($current_field['link_id'], '.') + 1, strlen($current_field['link_id']));
 
         // Exec Callback
-        if ($current_field['callback'])
-          $line[$current_field['sql_field']] = call_user_func($current_field['callback'], $line[$current_field['sql_field']]);
-
-        $templ['ms2']['table_entrys_row_field_entry'] = $line[$current_field['sql_field']];
+        if ($current_field['callback']) $templ['ms2']['table_entrys_row_field_entry'] = call_user_func($current_field['callback'], $line[$current_field['sql_field']]);
+        else $templ['ms2']['table_entrys_row_field_entry'] = $line[$current_field['sql_field']];
         
         // Cut of oversize chars
         if ($current_field['max_char'] and strlen($templ['ms2']['table_entrys_row_field_entry'] > $current_field['max_char']))
