@@ -2,13 +2,18 @@
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
-function SeatNameLink($status){
-  global $seat2, $line;
-  
-  if (!$line['blockid'] or $line['status'] != 2) return '';
+function SeatNameLink($userid){
+  global $seat2, $db, $config, $party;
+
+  if (!$userid) return '';
+  else $row = $db->query_first("SELECT b.blockid, b.name, b.orientation, s.col, s.row FROM {$config['tables']['seat_block']} AS b
+    LEFT JOIN {$config['tables']['seat_seats']} AS s ON b.blockid = s.blockid
+    WHERE b.party_id = {$party->party_id} AND s.userid = $userid");
+
+  if (!$row['blockid']) return '';
   else {
-    $LinkText = $line['blockname'] .'<br />'. $seat2->CoordinateToName($line['col'] + 1, $line['row'], $line['orientation']);
-	  return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id={$line['blockid']}&userarray[]={$line['userid']}&l=1','_blank','width=596,height=638,resizable=yes');\" class=\"small\">$LinkText</a>";
+    $LinkText = $row['name'] .'<br />'. $seat2->CoordinateToName($row['col'] + 1, $row['row'], $row['orientation']);
+	  return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id={$row['blockid']}&userarray[]=$userid&l=1','_blank','width=596,height=638,resizable=yes');\" class=\"small\">$LinkText</a>";
 	}
 }
 
@@ -44,11 +49,8 @@ while ($row = $db->fetch_array($res)) $blocks .= "s.blockid = {$row['blockid']} 
 $db->free_result($res);
 
 $ms2->query['from'] = "{$config['tables']['user']} AS u
-    LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id
-    LEFT JOIN {$config['tables']['seat_seats']} AS s ON u.userid = s.userid
-    LEFT JOIN {$config['tables']['seat_block']} AS b ON b.party_id = p.party_id AND b.blockid = s.blockid";
-$ms2->query['where'] = 'p.party_id = '. $party->party_id .' AND ('. $blocks .'s.blockid IS NULL OR s.userid IS NULL)';
-# OR b.blockid IS NULL
+    LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id";
+$ms2->query['where'] = 'p.party_id = '. $party->party_id;
 
 $ms2->config['EntriesPerPage'] = 20;
 
@@ -62,12 +64,6 @@ if (!$cfg['sys_internet']) {
   $ms2->AddTextSearchDropDown('Ausgecheckt', 'p.checkout', array('' => 'Alle', '0' => 'Nicht Ausgecheckt', '>1' => 'Ausgecheckt'));
 }
 
-$block_list = array('' => 'Alle');
-$row = $db->query("SELECT blockid, name FROM {$config['tables']['seat_block']} WHERE party_id = {$party->party_id}");
-while($res = $db->fetch_array($row)) $block_list[$res['blockid']] = $res['name'];
-$db->free_result($row);
-$ms2->AddTextSearchDropDown('Sitzblock', 'b.blockid', $block_list);
-
 $ms2->AddResultField('Benutzername', 'u.username');
 if ($auth['type'] >= 2) {
   $ms2->AddResultField('Vorname', 'u.firstname');
@@ -77,12 +73,7 @@ $ms2->AddSelect('u.clanurl');
 $ms2->AddResultField('Clan', 'u.clan', 'ClanURLLink');
 $ms2->AddResultField('Bez.', 'p.paid', 'PaidIconLink');
 
-$ms2->AddSelect('b.orientation');
-$ms2->AddSelect('b.name AS blockname');
-$ms2->AddSelect('s.blockid');
-$ms2->AddSelect('s.col');
-$ms2->AddSelect('s.row');
-$ms2->AddResultField('Sitz', 's.status', 'SeatNameLink');
+$ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLink');
 
 if (!$cfg['sys_internet']) {
   $ms2->AddResultField('In', 'p.checkin', 'MS2GetDate');
