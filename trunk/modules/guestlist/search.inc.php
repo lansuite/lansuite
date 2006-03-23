@@ -38,7 +38,8 @@ function ClanURLLink($clan) {
   global $line;
   
   if ($clan != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
-    return '<a href="http://'. $line['clanurl'] .'" target="_blank">'. $clan .'</a>';
+    if (substr($line['clanurl'], 0, 7) != 'http://') $line['clanurl'] = 'http://'. $line['clanurl'];
+    return '<a href="'. $line['clanurl'] .'" target="_blank">'. $clan .'</a>';
   } else return $clan;
 }
 
