@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.1
 
+- Bugfix: #386 SQL Fehler durch manipulierte URL ohne TurnierID (KnoX 23.03.2006)
 - Bugfix: #389 Unvollständiger Eintrag im Turnier-Logfile, beim Entfernen von Teammembers (KnoX 23.03.2006) 
 - Bugfix: #387 Clanurs wird nun kein doppeltes http:// mehr vorangestellt (KnoX 23.03.2006)
 - Bugfix: #382 In der Gästeliste wurde der Sitzplan um eine Stelle falsch angezeigt (KnoX 20.03.2006)
