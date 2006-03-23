@@ -336,7 +336,7 @@ class team {
 
 		// Create Outputs
 		$mail->create_sys_mail($userid, str_replace("%NAME%", $t["name"], $lang["tourney"]["teammgr_deluser_mail_subj"]), str_replace("%NAME%", $t["name"], $lang["tourney"]["teammgr_deluser_mail"]));
-		$func->log_event(str_replace("%NAME%", $user["username"], str_replace("%TEAM%", $team, $lang["tourney"]["teammgr_deluser_log"])), 1, $lang["tourney"]["log_t_teammanage"]);
+		$func->log_event(str_replace("%NAME%", $user["username"], str_replace("%TEAM%", $team['name'], $lang["tourney"]["teammgr_deluser_log"])), 1, $lang["tourney"]["log_t_teammanage"]);
 
 		return true;
 	}
