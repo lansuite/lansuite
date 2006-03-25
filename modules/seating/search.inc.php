@@ -40,14 +40,14 @@ $ms2->query['where'] = 'b.party_id = '. $party->party_id;
 
 $ms2->config['EntriesPerPage'] = 30;
 
-$ms2->AddResultField('Blockname', 'b.name');
-$ms2->AddResultField('Plätze', 'b.blockid', 'SeatsAvailable');
-$ms2->AddResultField('Belegt', 'b.blockid', 'SeatsOccupied');
-$ms2->AddResultField('Auslastung', 'b.blockid', 'SeatLoad');
+$ms2->AddResultField($lang['seating']['blockname'], 'b.name');
+$ms2->AddResultField($lang['seating']['seatcount'], 'b.blockid', 'SeatsAvailable');
+$ms2->AddResultField($lang['seating']['seatsoccupied'], 'b.blockid', 'SeatsOccupied');
+$ms2->AddResultField($lang['seating']['seatload'], 'b.blockid', 'SeatLoad');
 
-$ms2->AddIconField('details', 'index.php?mod=seating&action=show&step=2&blockid=', 'Details');
-$ms2->AddIconField('edit', 'index.php?mod=seating&action=edit&step=2&blockid=', 'Edit');
-$ms2->AddIconField('delete', 'index.php?mod=seating&action=delete&step=2&blockid=', 'Delete');
+$ms2->AddIconField('details', 'index.php?mod=seating&action=show&step=2&blockid=', $lang['ms2']['details']);
+$ms2->AddIconField('edit', 'index.php?mod=seating&action=edit&step=2&blockid=', $lang['ms2']['edit']);
+$ms2->AddIconField('delete', 'index.php?mod=seating&action=delete&step=2&blockid=', $lang['ms2']['delete']);
 
 $ms2->PrintSearch('index.php?mod=seating', 'b.blockid');
 ?>
