@@ -12,26 +12,6 @@
 		<level>0</level>
 	</entry>
 	<entry>
-		<action>group</action>
-		<file>group</file>
-		<caption>Benutzergruppen</caption>
-		<hint></hint>
-		<link>?mod=usrmgr&action=group</link>
-		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>	
-	<entry>
-		<action>extendsearch</action>
-		<file>search</file>
-		<caption>Erweiterte Suche</caption>
-		<hint></hint>
-		<link>?mod=usrmgr&action=search&step=2</link>
-		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
 		<action>add</action>
 		<file>add</file>
 		<caption>Hinzuf&uuml;gen</caption>
@@ -41,6 +21,16 @@
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
+	<entry>
+		<action>group</action>
+		<file>group</file>
+		<caption>Benutzergruppen</caption>
+		<hint></hint>
+		<link>?mod=usrmgr&action=group</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>	
 	<entry>
 		<action>entrance</action>
 		<file>checkin_assistant</file>

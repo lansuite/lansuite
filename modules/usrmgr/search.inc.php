@@ -28,7 +28,9 @@ function ClanURLLink($clan) {
   } else return '';
 }
 
-$ms2->AddTextSearchDropDown($lang['usrmgr']['add_type'], 'u.type', array('' => $lang['usrmgr']['all'], '1' => $lang['usrmgr']['details_guest'], '!1' => 'Nicht Gast', '2' => $lang['usrmgr']['add_type_admin'], '3' => $lang['usrmgr']['add_type_operator'], '2,3' => 'Admin und Op'));
+$ms2->AddTextSearchField('NGL/WWCL/LGZ-ID', array('u.nglid' => 'exact', 'u.nglclanid' => 'exact', 'u.wwclid' => 'exact', 'u.wwclclanid' => 'exact', 'u.lgzid' => 'exact', 'u.lgzclanid' => 'exact',));
+
+$ms2->AddTextSearchDropDown($lang['usrmgr']['add_type'], 'u.type', array('' => $lang['usrmgr']['all'], '1' => $lang['usrmgr']['details_guest'], '!1' => 'Nicht Gast', '<0' => $lang['usrmgr']['search_deactivated'], '2' => $lang['usrmgr']['add_type_admin'], '3' => $lang['usrmgr']['add_type_operator'], '2,3' => $lang['usrmgr']['search_orga']));
 	
 $party_list = array('' => 'Alle');
 $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
@@ -36,9 +38,10 @@ while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'
 $db->free_result($row);
 $ms2->AddTextSearchDropDown('Party', 'p.party_id', $party_list, $party->party_id);
 
-$ms2->AddTextSearchDropDown($lang['usrmgr']['add_paid'], 'p.paid', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['add_paid_no'], '>1' => $lang['usrmgr']['details_paid']));
+$ms2->AddTextSearchDropDown($lang['usrmgr']['add_paid'], 'p.paid', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['add_paid_no'], '>1' => $lang['usrmgr']['details_paid'], '1' => 'Bezahlt per Vorverkauf', '2' => $lang['usrmgr']['search_paid_ak']));
 $ms2->AddTextSearchDropDown($lang['usrmgr']['checkin'], 'p.checkin', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkin_no'], '>1' => $lang['usrmgr']['checkin']));
 $ms2->AddTextSearchDropDown($lang['usrmgr']['checkout'], 'p.checkout', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkout_no'], '>1' => $lang['usrmgr']['checkout']));
+$ms2->AddTextSearchDropDown($lang['usrmgr']['add_gender'], 'u.sex', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['search_unknown_sex'], '1' => $lang['usrmgr']['search_male'], '2' => $lang['usrmgr']['search_female']));
 
 $ms2->AddSelect('u.clanurl');
 $ms2->AddResultField($lang['usrmgr']['details_clan'], 'u.clan', 'ClanURLLink');
