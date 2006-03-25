@@ -60,7 +60,11 @@ else {
 		");
 		$users2jsarray = '';
 		while ($current_user = $db->fetch_array($res2)) {
-		  $users2jsarray .= "'{$current_user['username']}', '{$current_user['firstname']}', '{$current_user['name']}', ";
+		  if ($auth['type'] < 2 and ($cfg['sys_internet'])) {
+		    $current_user['firstname'] = '---';
+		    $current_user['name'] = '---';
+      }
+      $users2jsarray .= "'{$current_user['username']}', '{$current_user['firstname']}', '{$current_user['name']}', ";
 		}
 		$db->free_result($res2);
     $users2jsarray = substr($users2jsarray, 0, strlen($users2jsarray) - 2);

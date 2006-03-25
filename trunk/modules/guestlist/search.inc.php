@@ -52,6 +52,8 @@ $db->free_result($res);
 $ms2->query['from'] = "{$config['tables']['user']} AS u
     LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id";
 $ms2->query['where'] = 'p.party_id = '. $party->party_id;
+($cfg['guestlist_showorga'])? $ms2->query['where'] .= ' AND u.type >= 1' : $ms2->query['where'] .= ' AND u.type = 1';
+
 
 $ms2->config['EntriesPerPage'] = 20;
 
@@ -66,7 +68,7 @@ if (!$cfg['sys_internet']) {
 }
 
 $ms2->AddResultField('Benutzername', 'u.username');
-if ($auth['type'] >= 2) {
+if ($auth['type'] >= 2 or (!$cfg['sys_internet'])) {
   $ms2->AddResultField('Vorname', 'u.firstname');
   $ms2->AddResultField('Nachname', 'u.name');
 }

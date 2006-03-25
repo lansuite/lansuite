@@ -4,7 +4,7 @@ $templ['home']['show']['item']['info']['caption'] = $lang["home"]["stats_caption
 $templ['home']['show']['item']['control']['row'] = "";
 
 // With or without admins?
-if($cfg["signon_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
+if($cfg["guestlist_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
 
 $stat_infos = $stats->get_stat();
 $templ['home']['show']['item']['control']['row'] = '';

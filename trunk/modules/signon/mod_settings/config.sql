@@ -25,5 +25,4 @@
 ('signon_ask_paid_email', '1', 'boolean', 'Anmeldung', 'Soll nach der Bezahltstatusänderung die Option geboten werden, dem Benutzer eine Mail zu senden?');
 ('signon_alwaysagb', '0', 'boolean', 'Anmeldung', 'Soll die AGB auch angezeigt werden, wenn man nur einen Account erstellt?');
 ('signon_partyid', '1', 'string', 'System-Daten', 'Bitte Standart Party festlegen (Nummer muss existieren)');
-('signon_showorga', '0', 'boolean', 'signon', 'Sollen Orgas mit in der Gästeliste angezeigt werden.');
 ('signon_last_user_box', '1', 'boolean', 'Anmeldung', 'Soll eine Box mit den zuletzt angemeldeten Benutzern angezeigt werden?');
