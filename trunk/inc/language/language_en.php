@@ -175,4 +175,15 @@
 	$lang['missing_fields']['caption'] = 'There are missing fields';
 	$lang['missing_fields']['subcaption'] = 'Please enter your data first, to complete your signon to the system';
   $lang['missing_fields']['success'] = 'Thanks, for submitting your data';	
+  
+  // MS2
+  $lang['ms2']['details'] = 'Details';
+  $lang['ms2']['edit'] = 'Edit';
+  $lang['ms2']['delete'] = 'Delete';
+  $lang['ms2']['send_mail'] = 'Send mail';
+  $lang['ms2']['change_pw'] = 'Change password';
+  $lang['ms2']['switch_user'] = 'Switch user';  
+  $lang['ms2']['game_tree'] = 'Game tree';  
+  $lang['ms2']['game_pairs'] = 'Pairs';  
+  $lang['ms2']['ranking'] = 'Ranking';  
 ?>

@@ -48,12 +48,12 @@ $ms2->AddResultField($lang['tourney']['details_startat'], 't.starttime', 'MS2Get
 $ms2->AddResultField($lang['tourney']['team'], 't.maxteams', 'GetTournamentTeamAnz');
 $ms2->AddResultField($lang['tourney']['details_state'], 't.status', 'GetTournamentStatus');
 
-$ms2->AddIconField('details', 'index.php?mod=tournament2&action=details&tournamentid=', 'Details');
-$ms2->AddIconField('tree', 'index.php?mod=tournament2&action=tree&step=2&tournamentid=', 'Spielbaum');
-$ms2->AddIconField('play', 'index.php?mod=tournament2&action=games&step=2&tournamentid=', 'Paarungen');
-$ms2->AddIconField('ranking', 'index.php?mod=tournament2&action=rangliste&step=2&tournamentid=', 'Rangliste');
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=tournament2&action=change&step=1&tournamentid=', 'Edit');
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=tournament2&action=delete&step=2&tournamentid=', 'Delete');
+$ms2->AddIconField('details', 'index.php?mod=tournament2&action=details&tournamentid=', $lang['ms2']['details']);
+$ms2->AddIconField('tree', 'index.php?mod=tournament2&action=tree&step=2&tournamentid=', $lang['ms2']['game_tree']);
+$ms2->AddIconField('play', 'index.php?mod=tournament2&action=games&step=2&tournamentid=', $lang['ms2']['game_pairs']);
+$ms2->AddIconField('ranking', 'index.php?mod=tournament2&action=rangliste&step=2&tournamentid=', $lang['ms2']['ranking']);
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=tournament2&action=change&step=1&tournamentid=', $lang['ms2']['edit']);
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=tournament2&action=delete&step=2&tournamentid=', $lang['ms2']['delete']);
 
 if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('Löschen', 'index.php?mod=tournament2&action=delete&step=10', 1);
 

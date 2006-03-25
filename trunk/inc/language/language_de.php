@@ -192,5 +192,16 @@
 	// Missing-Fields dialog
 	$lang['missing_fields']['caption'] = 'Es gibt noch unausgefüllte Felder';
 	$lang['missing_fields']['subcaption'] = 'Bitte geben Sie zuerst die fehldenen Daten unterhalb ein, um die Anmeldung am System zu vervollständigen';
-  $lang['missing_fields']['success'] = 'Danke, dass Sie Ihre Daten vervollständigt haben'	
+  $lang['missing_fields']['success'] = 'Danke, dass Sie Ihre Daten vervollständigt haben';	
+  
+  // MS2
+  $lang['ms2']['details'] = 'Details';
+  $lang['ms2']['edit'] = 'Editieren';
+  $lang['ms2']['delete'] = 'Löschen';
+  $lang['ms2']['send_mail'] = 'Mail senden';
+  $lang['ms2']['change_pw'] = 'Passwort ändern';
+  $lang['ms2']['switch_user'] = 'Benutzer wechseln';
+  $lang['ms2']['game_tree'] = 'Spielbaum';  
+  $lang['ms2']['game_pairs'] = 'Paarungen';  
+  $lang['ms2']['ranking'] = 'Rangliste';  
 ?>

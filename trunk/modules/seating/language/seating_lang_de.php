@@ -7,6 +7,14 @@ $lang['seating']['lastchange']        = '22. Oktober 2005';
 $lang['seating']['translator']        = 'Cewigo (Jan)';
 
 // Contend
+$lang['seating']['blockname']     = 'Blockname';
+$lang['seating']['seatcount']     = 'Plätze';
+$lang['seating']['seatsoccupied'] = 'Belegt';
+$lang['seating']['seatload']      = 'Auslastung';
+$lang['seating']['blockname']     = 'Blockname';
+$lang['seating']['blockname']     = 'Blockname';
+$lang['seating']['blockname']     = 'Blockname';
+$lang['seating']['blockname']     = 'Blockname';
 $lang['seating']['create_block']  = 'Sitzblock erstellen';
 $lang['seating']['cr_block_sub']  = ' Mit Hilfe des folgenden Formulars k&ouml;nnen Sie einen neuen Sitzblock erstellen. In einem folgenden zweiten Schritt k&ouml;nnen Sie dann Pl&auml;tze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bed&uuml;rfnissen anzupassen..';
 $lang['seating']['reserve_seat']  = 'Diesen Sitzplatz für mich reservieren';

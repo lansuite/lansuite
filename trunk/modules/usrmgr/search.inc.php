@@ -49,12 +49,12 @@ if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
   $ms2->AddResultField('Out', 'p.checkout', 'MS2GetDate');
 }
 
-$ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', 'Details');
-$ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', 'Mail senden');
-$ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=', 'Passwort ändern');
-if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid=', 'Benutzer wechseln');
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=', 'Edit');
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=', 'Delete');
+$ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', $lang['ms2']['details']);
+$ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', $lang['ms2']['send_mail']);
+$ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=', $lang['ms2']['change_pw']);
+if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid=', $lang['ms2']['switch_user']);
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=', $lang['ms2']['edit']);
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=', $lang['ms2']['delete']);
 
 $ms2->PrintSearch('index.php?mod=usrmgr&action=search', 'u.userid');
 ?>

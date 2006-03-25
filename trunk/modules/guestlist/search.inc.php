@@ -77,8 +77,8 @@ if (!$cfg['sys_internet']) {
   $ms2->AddResultField('In', 'p.checkin', 'MS2GetDate');
   $ms2->AddResultField('Out', 'p.checkout', 'MS2GetDate');
 }
-$ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', 'Details');
-$ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', 'Mail senden');
+$ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', $lang['ms2']['details']);
+$ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', $lang['ms2']['send_mail']);
 
 $ms2->PrintSearch('index.php?mod=guestlist', 'u.userid');
 ?>
