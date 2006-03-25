@@ -24,22 +24,12 @@
 	<entry>
 		<action>edit</action>
 		<file>edit</file>
-		<caption>&Auml;ndern</caption>
-		<hint>Hier k&ouml;nnen Sie einen Sitzblock &Auml;nern</hint>
-		<link>?mod=seating&action=edit</link>
 		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>delete</action>
 		<file>delete</file>
-		<caption>L&ouml;schen</caption>
-		<hint>Hier k&ouml;nnen Sie einen Sitzblock l&ouml;schen</hint>
-		<link>?mod=seating&action=delete</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>seatadmin</action>
@@ -53,12 +43,7 @@
 	</entry>
 	<entry>
 		<action>free_seat</action>
-		<file>free_seat</file>
-		<caption>Platzfreigabe</caption>
-		<hint>Hier k&ouml;nnen Sie einzelne Pl&auml;tze freigeben</hint>
-		<link>?mod=seating&action=free_seat</link>
+		<file>show</file>
 		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 </menu>

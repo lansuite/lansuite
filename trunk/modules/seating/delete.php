@@ -2,12 +2,7 @@
 
 switch($_GET['step']) {
 	default:
-		$mastersearch = new MasterSearch( $vars, 'index.php?mod=seating&action=delete', 'index.php?mod=seating&action=delete&step=2&blockid=', '');
-		$mastersearch->LoadConfig('seat_blocks', $lang['seat']['ms_search'], $lang['seat']['ms_result']);   // <- Wo stehen diese Übersetzungen ???
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/seating/search.inc.php');
 	break;
 
 	case 2:

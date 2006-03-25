@@ -228,12 +228,16 @@ class seat2 {
 						$templ['seat']['link_href'] = '';
 						if ($linktarget) $templ['seat']['link_href'] = "$linktarget&row=$y&col=$x";
 						elseif ($auth['login']) {
-							// If free, or marked for another one
+							// If free, or marked for another one -> Possibility to reserve this seat
 							if ($seat_state[$y][$x] == 1 or ($seat_state[$y][$x] == 3 and $seat_userid[$y][$x] != $auth['userid']))
 								$templ['seat']['link_href'] = "index.php?mod=seating&action=show&step=10&blockid=$blockid&row=$y&col=$x";
-							// If assigned to me, or marked for me
+							// If assigned to me, or marked for me -> Possibility to free this seat again
 							elseif (($seat_state[$y][$x] == 2 or $seat_state[$y][$x] == 3) and $seat_userid[$y][$x] == $auth['userid'])
 								$templ['seat']['link_href'] = "index.php?mod=seating&action=show&step=20&blockid=$blockid&row=$y&col=$x";
+							// If free and user is admin -> Possibility to free this seat 
+							elseif ($seat_state[$y][$x] == 2 and $auth['type'] > 1) {
+								$templ['seat']['link_href'] = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
+              }
 						}
 
 						// Set seat image

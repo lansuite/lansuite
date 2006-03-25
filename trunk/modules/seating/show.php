@@ -2,23 +2,12 @@
 
 switch($_GET['step']) {
 	default:
-		$mastersearch = new MasterSearch($vars, 'index.php?mod=seating&action=show', 'index.php?mod=seating&action=show&step=2&blockid=', '');
-		$mastersearch->LoadConfig('seat_blocks', $lang['seat']['ms_search'], $lang['seat']['ms_result']);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/seating/search.inc.php');
 	break;
 
 	// Show seatplan
 	case 2:
 		$dsp->NewContent($lang['seating']['seat_info'], $lang['seating']['seat_info_sub']);
-/*
-		$dsp->AddDoubleRow($lang['seating']['seating'] . HTML_SPACE, '', 'seating');
-		$dsp->AddDoubleRow($lang['seating']['user'] . HTML_SPACE,    '', 'name');
-		$dsp->AddDoubleRow($lang['seating']['clan'] . HTML_SPACE,    '', 'clan');
-		$dsp->AddDoubleRow($lang['seating']['ip'] . HTML_SPACE,      '', 'ip');
-*/		
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0));
 
 		$dsp->AddBackButton('index.php?mod=seating', 'seating/show');
@@ -165,6 +154,24 @@ switch($_GET['step']) {
 
 	// Change reserved to mark
 	case 22:
+	break;
+
+
+	// Free seat as admin (question)
+	case 30:
+    if ($auth['type'] > 1) {
+      $func->question($lang['seating']['q_rel_seat'], "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}", "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+    }
+	break;
+	
+	// Free seat as admin
+	case 31:
+    if ($auth['type'] > 1) {
+			$db->query("UPDATE {$config["tables"]["seat_seats"]} SET userid = 0, status = 1
+			WHERE blockid = {$_GET['blockid']} AND row = {$_GET['row']} AND col = {$_GET['col']}");
+
+		$func->confirmation($lang['seating']['i_rel_seat'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+    }
 	break;
 }
 ?>
