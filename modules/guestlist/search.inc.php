@@ -43,11 +43,6 @@ function ClanURLLink($clan) {
   } else return $clan;
 }
 
-// Get current parties blockids
-$res = $db->query("SELECT blockid FROM {$config['tables']['seat_block']} WHERE party_id = {$party->party_id}");
-$blocks = '';
-while ($row = $db->fetch_array($res)) $blocks .= "s.blockid = {$row['blockid']} OR ";
-$db->free_result($res);
 
 $ms2->query['from'] = "{$config['tables']['user']} AS u
     LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id";

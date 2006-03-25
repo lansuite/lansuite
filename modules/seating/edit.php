@@ -75,32 +75,6 @@ switch($_GET['step']) {
 					WHERE seatid = {$seats_qry['seatid']}
 					");
 		}
-			
-		
-/*
-		if (is_array($_POST['cell'])) {
-			$block = $db->query_first("SELECT cols, rows FROM {$config["tables"]["seat_block"]} WHERE blockid = '{$_GET['blockid']}'");
-			for ($y = 0; $y <= $block['rows']; $y++) for ($x = 0; $x <= $block['cols']; $x++) {
-				$cur_cell = $x * 100 + $y;
-
-				if ($_POST['cell'][$cur_cell] != '') {
-					$seats_qry = $db->query_first("SELECT seatid FROM {$config["tables"]["seat_seats"]}
-						WHERE blockid = '{$_GET['blockid']}' AND row = '$y' AND col = '$x'");
-
-					if (!$seats_qry['seatid'])
-						$db->query("INSERT INTO {$config["tables"]["seat_seats"]} SET
-							blockid = '{$_GET['blockid']}',
-							row = '$y',
-							col = '$x',
-							status = '1'
-							");
-				} else $db->query("DELETE FROM {$config["tables"]["seat_seats"]} WHERE blockid = '{$_GET['blockid']}' AND row = '$y' AND col = '$x'");
-			}
-		} else {
-			$func->information($lang['seating']['i_choose_seat'], '');
-			$_GET['step']--;
-		}
-*/
 	break;
 }
 
@@ -108,12 +82,7 @@ switch($_GET['step']) {
 // Form-Switch
 switch($_GET['step']) {
 	default:
-		$mastersearch = new MasterSearch( $vars, 'index.php?mod=seating&action=edit', 'index.php?mod=seating&action=edit&step=2&blockid=', '');
-		$mastersearch->LoadConfig('seat_blocks', $lang['seat']['ms_search'], $lang['seat']['ms_result']);       // <- Da, schon wieder !
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/seating/search.inc.php');
 	break;
 
 	case 2:
