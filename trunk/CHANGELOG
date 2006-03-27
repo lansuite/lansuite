@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.1
 
+- Bugfix: #396 Turniere waren sein Umstellung auf MS2 nicht mehr Multi-Lan-fähig (KnoX 27.03.2006)
 - Bugfix: #393 In der Beuscherkarte wurden die Realnames für jeden sichtbar angezeigt. (KnoX 25.03.2006)
 - Bugfix: In der Gästeliste wird jetzt wieder berücksichtigt, ob orgas angezeigt werden sollen, oder nicht (KnoX 25.03.2006)
 - Bugfix: #386 SQL Fehler durch manipulierte URL ohne TurnierID (KnoX 23.03.2006)
