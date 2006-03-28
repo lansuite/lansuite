@@ -7,7 +7,7 @@ $ms2->query['from'] = "{$config["tables"]["news"]} n LEFT JOIN {$config["tables"
 $ms2->config['EntriesPerPage'] = 20;
 
 $ms2->AddTextSearchField('Titel', array('n.caption' => 'like'));
-$ms2->AddTextSearchField('Text', array('n.text' => 'like'));
+$ms2->AddTextSearchField('Text', array('n.text' => 'fulltext'));
 $ms2->AddTextSearchField('Autor', array('u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
 
 $ms2->AddResultField('Titel', 'n.caption');

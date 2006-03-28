@@ -195,6 +195,7 @@
   $lang['missing_fields']['success'] = 'Danke, dass Sie Ihre Daten vervollständigt haben';	
   
   // MS2
+  $lang['ms2']['score'] = 'Relevanz';
   $lang['ms2']['details'] = 'Details';
   $lang['ms2']['edit'] = 'Editieren';
   $lang['ms2']['delete'] = 'Löschen';

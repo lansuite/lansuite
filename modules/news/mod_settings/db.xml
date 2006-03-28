@@ -32,7 +32,7 @@
 				<name>text</name>
 				<type>longtext</type>
 				<null></null>
-				<key></key>
+				<key>MUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
