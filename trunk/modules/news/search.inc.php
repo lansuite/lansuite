@@ -1,6 +1,6 @@
 <?php
 include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+$ms2 = new mastersearch2('news');
 
 $ms2->query['from'] = "{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON n.poster=u.userid";
 

@@ -112,8 +112,11 @@ class MasterSearch2 {
               $sql_one_search_field .= "($sql_field = '". $_POST["search_input"][$z] ."')";
             break;
             case 'fulltext':
-              $sql_one_search_field .= "(MATCH ($sql_field) AGAINST ('{$_POST["search_input"][$z]}'))";
-              $this->AddResultField($lang['ms2']['score'], "ROUND(MATCH ($sql_field) AGAINST ('{$_POST["search_input"][$z]}'), 3) AS score");
+              $sql_one_search_field .= "(MATCH ($sql_field) AGAINST ('{$_POST["search_input"][$z]}' IN BOOLEAN MODE))";
+              $this->AddResultField($lang['ms2']['score'], "ROUND(MATCH ($sql_field) AGAINST ('{$_POST["search_input"][$z]}' IN BOOLEAN MODE), 3) AS score");
+              $templ['ms2']['helplet_id'] = 'fulltext';
+              $templ['ms2']['helplet_text'] = 'Fulltext';
+              $this->search_fields[$z]['help_link'] = $dsp->FetchModTpl('mastersearch2', 'search_help_link');
             break;
             case '1337':
       				$key_1337 = $_POST["search_input"][$z];
@@ -255,7 +258,9 @@ class MasterSearch2 {
       $current = $x % 2;
       $templ['ms2']['input_field_name'] = "search_input[$z]";
       $templ['ms2']['input_field_value'] = $_POST['search_input'][$z];
-      $templ['ms2']['input_field_caption'][$current] = $current_field['caption'];
+      $templ['ms2']['input_field_caption'][$current] = $current_field['caption'];      
+      $templ['ms2']['search_help'][$current] = '';
+      if ($current_field['help_link']) $templ['ms2']['search_help'][$current] = $current_field['help_link'];
       $templ['ms2']['search'][$current] = $dsp->FetchModTpl('mastersearch2', 'search_input_field');
       if ($current == 1) $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_row');
       $z++; $x++;
@@ -280,6 +285,7 @@ class MasterSearch2 {
     if ($current == 0) {
       $templ['ms2']['input_field_caption'][1] = '&nbsp;';
       $templ['ms2']['search'][1] = '&nbsp;';
+      $templ['ms2']['search_help'][1] = '';
       $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_row');
     }
     if ($this->search_fields or $this->search_dropdown) {
