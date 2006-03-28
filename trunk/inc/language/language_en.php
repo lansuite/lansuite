@@ -177,6 +177,7 @@
   $lang['missing_fields']['success'] = 'Thanks, for submitting your data';	
   
   // MS2
+  $lang['ms2']['score'] = 'Score';
   $lang['ms2']['details'] = 'Details';
   $lang['ms2']['edit'] = 'Edit';
   $lang['ms2']['delete'] = 'Delete';

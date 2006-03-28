@@ -71,7 +71,6 @@ class MasterSearch2 {
     array_push($this->result_field, $arr);
 
     $this->AddSelect($sql_field); 
-    $this->AddSelect($link_id); 
   }
 
   function AddIconField($icon_name, $link = '', $tooltipp = '') {
@@ -91,14 +90,11 @@ class MasterSearch2 {
   }
 
 	function PrintSearch($working_link, $select_id_field, $multiaction = '') {
-    global $db, $config, $dsp, $templ, $func, $auth, $line, $gd;
+    global $db, $config, $dsp, $templ, $func, $auth, $line, $gd, $lang;
 
     $working_link .= $this->post_in_get;
     $this->AddSelect($select_id_field); 
 
-    ###### Generate Select
-    $this->query['select'] = implode(', ', $this->sql_select_field_list);
-    
     
     ###### Generate Where
     if ($this->query['where'] == '') $this->query['where'] = '1 = 1';
@@ -114,6 +110,10 @@ class MasterSearch2 {
           switch ($compare_mode) {
             case 'exact':
               $sql_one_search_field .= "($sql_field = '". $_POST["search_input"][$z] ."')";
+            break;
+            case 'fulltext':
+              $sql_one_search_field .= "(MATCH ($sql_field) AGAINST ('{$_POST["search_input"][$z]}'))";
+              $this->AddResultField($lang['ms2']['score'], "ROUND(MATCH ($sql_field) AGAINST ('{$_POST["search_input"][$z]}'), 3) AS score");
             break;
             case '1337':
       				$key_1337 = $_POST["search_input"][$z];
@@ -173,6 +173,10 @@ class MasterSearch2 {
       $z++;
     }
 
+
+    ###### Generate Select
+    $this->query['select'] = implode(', ', $this->sql_select_field_list);
+    
 
     ###### Generate Group By
     $this->query['group_by'] .= $select_id_field;
@@ -299,6 +303,9 @@ class MasterSearch2 {
     foreach ($this->result_field as $current_field) {    
       $templ['ms2']['table_head_width'] = '*';    
       $templ['ms2']['link_item'] = $current_field['caption'];
+
+      $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
+      if ($first_as > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
       
       // Order Link and Image
       if ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC') $order_dir = 'DESC';
@@ -306,7 +313,7 @@ class MasterSearch2 {
       $templ['ms2']['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir";
             
       if ($_GET['order_by'] == $current_field['sql_field']) {
-        if ($_GET['order_dir'] == 'DESC') $templ['ms2']['link_item'] = " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
+        if ($_GET['order_dir'] == 'DESC') $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
         else $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_asc_active.gif\" border=\"0\" />";
       } else $templ['ms2']['link_item'] .= '';
 
@@ -339,8 +346,10 @@ class MasterSearch2 {
       foreach ($this->result_field as $current_field) {
 
         // cut of 'table.', in front of field name
-        if (strpos($current_field['sql_field'], '.') > 0) $current_field['sql_field'] = substr($current_field['sql_field'], strpos($current_field['sql_field'], '.') + 1, strlen($current_field['sql_field']));
-        if (strpos($current_field['link_id'], '.') > 0) $current_field['link_id'] = substr($current_field['link_id'], strpos($current_field['link_id'], '.') + 1, strlen($current_field['link_id']));
+        $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
+        $first_dot = strpos($current_field['sql_field'], '.');
+        if ($first_as > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
+        elseif ($first_dot > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_dot + 1, strlen($current_field['sql_field']));
 
         // Exec Callback
         if ($current_field['callback']) $templ['ms2']['table_entrys_row_field_entry'] = call_user_func($current_field['callback'], $line[$current_field['sql_field']]);

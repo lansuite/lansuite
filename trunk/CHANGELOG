@@ -17,6 +17,7 @@ Version 2.1.1
 
 - Change: MS2 Callbachs in die einzelnen Module verlagert (KnoX 19.03.2006)
 
+- Add: Fulltext-Suche in MS2 eingebaut. Zum Testen ist es in der Verwalten-Funktion der News zum Durchsuchen aller Newstexte drin (KnoX 28.03.2006)
 - Add: #323: Troubletickets können nun direkt aus "Meine Tickets" heraus bearbeitet werden (KnoX 19.03.2006)
 - Add: Mastersearch2 kann nun Checkboxen. Ein Beispiel ist zum Löschen von Turnieren eingebaut (KnoX 19.03.2006)
 
