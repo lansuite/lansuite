@@ -16,9 +16,10 @@ function GetTypeDescription($type) {
 
 // Select from table_user
 // username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment 
-$user_data = $db->query_first("SELECT u.*, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip
+$user_data = $db->query_first("SELECT u.*, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
 	FROM {$config['tables']['user']} AS u
 	LEFT JOIN {$config['tables']['usersettings']} AS c ON u.userid = c.userid
+	LEFT JOIN {$config['tables']['clan']} AS clan ON u.clanid = clan.clanid
 	LEFT JOIN {$config['tables']['seat_seats']} AS s ON u.userid = s.userid
 	WHERE u.userid='{$_GET['userid']}'
 	");

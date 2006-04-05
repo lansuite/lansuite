@@ -170,12 +170,22 @@ class MasterSearch2 {
             if ($value != '') $sql_one_search_field .= "({$current_field_list['sql_field']} $pre_eq= '$value')";
             $x++;
           }
-          $this->query['where'] .= " AND ($sql_one_search_field)";
+          // If COUNT function is used in select, write this variable in the having statement, otherwise in the where statement
+          if (strpos($current_field_list['sql_field'], 'OUNT(') == 0) $this->query['where'] .= " AND ($sql_one_search_field)";
+          else $this->query['having'] .= "($sql_one_search_field) AND ";
         }
       }
       $z++;
     }
 
+    ###### Modificate Having
+    if ($this->query['having'] != '') {
+      // Cut off trailing AND, if exists
+      if (substr($this->query['having'], strlen($this->query['having']) - 5, 5) == ' AND ')
+        $this->query['having'] = substr($this->query['having'], 0, strlen($this->query['having']) - 5);
+      // Write HAVING in front of statement
+      $this->query['having'] = 'HAVING '.$this->query['having'];
+    }
 
     ###### Generate Select
     $this->query['select'] = implode(', ', $this->sql_select_field_list);
@@ -208,6 +218,7 @@ class MasterSearch2 {
       FROM {$this->query['from']}
       WHERE {$this->query['where']}
       GROUP BY {$this->query['group_by']}
+      {$this->query['having']}
       ORDER BY {$this->query['order_by']}
       {$this->query['limit']}
       ");
@@ -216,6 +227,7 @@ class MasterSearch2 {
       FROM {$this->query['from']}<br>
       WHERE {$this->query['where']}<br>
       GROUP BY {$this->query['group_by']}<br>
+      {$this->query['having']}<br>
       ORDER BY {$this->query['order_by']}<br>
       {$this->query['limit']}
       ";
@@ -233,7 +245,7 @@ class MasterSearch2 {
 				$templ['ms2']['pages'] .= (' <a class="menu" href="'. $link . ($_GET['page'] - 1) .'"><b>&lt;</b></a>');
 			}
 			// Direct page link
-			$i = 0;					
+			$i = 0;
 			while($i < $count_pages) {
 				if ($_GET['page'] != "all" and $_GET['page'] == $i) $templ['ms2']['pages'] .= (" " . ($i + 1));
 				else $templ['ms2']['pages'] .= (' <a class="menu" href="' . $link . $i . '"><b>'. ($i + 1) .'</b></a>');

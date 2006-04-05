@@ -2,7 +2,9 @@
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2('usrmgr');
 
-$ms2->query['from'] = "{$config['tables']['user']} AS u LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id";
+$ms2->query['from'] = "{$config['tables']['user']} AS u
+    LEFT JOIN {$config['tables']['clan']} AS c ON u.clanid = c.clanid
+    LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id";
 
 $ms2->config['EntriesPerPage'] = 20;
 

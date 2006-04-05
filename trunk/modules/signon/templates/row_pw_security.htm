@@ -13,7 +13,7 @@ function ChangePicture(PicObject) {
 	window.document.images.seclevel.src = PicObject.src;
 }
 
-function checkInput() {
+function checkInput(password) {
 	var TestNumberOfChars = false;
 	var TestUppercaseChars = false;
 	var TestLowercaseChars = false;
@@ -24,7 +24,7 @@ function checkInput() {
 	var TestWhiteSpaces = false;
 	
 	var counter = 0;
-	hilfe = window.document.signon.password.value;
+	hilfe = password.value;
 
 	/* Check if length of password is greather then 8 */
 	if(hilfe.length >= 8) {

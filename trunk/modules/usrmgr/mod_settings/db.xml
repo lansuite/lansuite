@@ -77,24 +77,8 @@
 				<extra></extra>
 			</field>
 			<field>
-				<name>clan</name>
-				<type>varchar(50)</type>
-				<null></null>
-				<key>MUL</key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>clanpass</name>
-				<type>varchar(60)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>			
-			<field>
-				<name>clanurl</name>
-				<type>varchar(200)</type>
+				<name>clanid</name>
+				<type>int(11)</type>
 				<null></null>
 				<key></key>
 				<default></default>
@@ -722,6 +706,45 @@
 				<default></default>
 				<extra></extra>
 			</field>
+		</structure>
+	</table>
+	<table>
+		<table_head>
+			<name>clan</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>clanid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>name</name>
+				<type>varchar(50)</type>
+				<null></null>
+				<key>UNI</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>password</name>
+				<type>varchar(60)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>			
+			<field>
+				<name>url</name>
+				<type>varchar(200)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>	
 		</structure>
 	</table>
 </lansuite>

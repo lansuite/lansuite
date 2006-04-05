@@ -50,8 +50,7 @@ class AddUser {
 			}
 
 			$_POST["email"] = $user_data["email"];
-			$_POST["clan"] = $user_data["clan"];
-			$_POST["clanurl"] = $user_data["clanurl"];
+			$_POST["clan"] = $user_data["clanid"];
 			$_POST["wwcl_id"] = $user_data["wwclid"];
 			$_POST["ngl_id"] = $user_data["nglid"];
 			if (($user_data["street"]) && ($user_data["hnr"])) $_POST["addr1"] = $user_data["street"] ." ". $user_data["hnr"];
@@ -150,34 +149,32 @@ class AddUser {
   			}
   		}
   
-  		// Get Clandata
-  		if ($_POST["clan_new"] != "") $_POST["clan"] = $_POST["clan_new"];
-		// Check Chars  		
-  		if ($_POST["clan_new"] != "" && preg_match("/([.^\"\'`´]+)/", $_POST["clan_new"])) $error["clan_new"] = $lang["usrmgr"]["add_err_user_chars"];
-  		
-  		if ($_POST["clanurl"] == "http://") $_POST["clanurl"] = "";
-  		
-  		if(($_POST["clanurl"] != "" && $_POST['clan'] == "")){
+  		// URL given, but no clan selected / entered
+  		if ($_POST['clanurl'] == 'http://') $_POST['clanurl'] = '';
+  		if(($_POST['clanurl'] != '' and $_POST['clan'] == '' and $_POST['clan_new'] == '')){
   			$error["clanurl"] = $lang["usrmgr"]["add_err_clanurl_no_clan"];
   		}
-  		
-  		if ($_POST["clanurl"] == "" && $_POST['clan'] != "") {
-  			$clandata = $db->query_first("SELECT clanurl
-  				FROM {$config["tables"]["user"]}
-  				WHERE (clan = '{$_POST["clan"]}') AND (clanurl != '') AND (clanurl != 'http://')
-  				GROUP BY clan
+
+      // Get Clanurl, if clan selected  		
+  		if ($_POST['clanurl'] == '' and $_POST['clan'] != '') {
+  			$clandata = $db->query_first("SELECT url
+  				FROM {$config['tables']['clan']}
+  				WHERE clanid = '{$_POST['clan']}'
   				");
-  			$_POST["clanurl"] = $clandata["clanurl"];
+  			$_POST['clanurl'] = $clandata['url'];
   		}
 
-			$clanpass = $db->query_first("SELECT clanpass
-				FROM {$config["tables"]["user"]}
-				WHERE (clan = '{$_POST["clan"]}')
-				GROUP BY clan
+      // Check clanpass, when join
+			$clanpass = $db->query_first("SELECT password
+				FROM {$config["tables"]["clan"]}
+				WHERE clanid = '{$_POST['clan']}'
 				");
-			if ($_POST["clan"] and $auth['type'] <= 1 and md5($_POST["clanpass"]) != $clanpass["clanpass"]) {
+			if ($clanpass['password'] != md5('') and $_POST['clan'] and $auth['type'] <= 1 and md5($_POST['clanpw']) != $clanpass['password']) {
 				$error['clan_pass'] = $lang["usrmgr"]["add_err_no_clanpass"];
 			}
+			
+			// Check clanpass, when create
+			if ($_POST['newclanpw'] != $_POST['newclanpw2']) $error['newclanpw'] = $lang['usrmgr']['clanpw_diffpw'];			
   		
   		if (($this->Needed("clan")) && ($_POST["clan"] == "")) $error["clan"] = $lang["usrmgr"]["add_err_no_clan"];
   		if (($this->Needed("clanurl")) && ($_POST["clanurl"] == "")) $error["clanurl"] = $lang["usrmgr"]["add_err_no_clanurl"];
@@ -309,31 +306,41 @@ class AddUser {
   		$dsp->AddHRuleRow();
   
   		// Clan select
-  		$clans_query = $db->query("SELECT clan, clanurl, COUNT(*) AS members
-  				FROM {$config["tables"]["user"]}
-  				WHERE (type >= 1) AND (clan != '') AND (clan != '---')
-  				GROUP BY clan
-  				ORDER BY clan
+  		$clans_query = $db->query("SELECT c.clanid, c.name, c.url, COUNT(u.clanid) AS members
+  				FROM {$config["tables"]["clan"]} AS c
+  				LEFT JOIN {$config["tables"]["user"]} AS u ON c.clanid = u.clanid
+  				WHERE u.clanid IS NULL or u.type >= 1
+  				GROUP BY c.clanid
+  				ORDER BY c.name
   				");
   		$t_array = array();
-  		($_POST["clan"] == "") ? $selected = "selected" : $selected = "";
+  		($_POST["clan"] == '') ? $selected = "selected" : $selected = "";
   		array_push ($t_array, "<option $selected value=\"\">---</option>");
   		while($row = $db->fetch_array($clans_query)) {
-  			if ($_POST["clan"] == $row["clan"] && $_POST['clan'] != ""){
+  			if ($_POST['clan'] == $row['clanid'] and $_POST['clan'] != ""){
   				$selected = "selected";
-  				if ($_POST["clanurl"] == "") $_POST["clanurl"] = $row["clanurl"];
+  				if ($_POST["clanurl"] == "") $_POST["clanurl"] = $row["url"];
   			} else $selected = "";
-  			array_push ($t_array, "<option $selected value=\"{$row["clan"]}\">{$row["clan"]} ({$row["members"]})</option>");
+  			array_push ($t_array, "<option $selected value=\"{$row['clanid']}\">{$row['name']} ({$row['members']})</option>");
   		}
   		$dsp->AddDropDownFieldRow("clan", $lang["usrmgr"]["add_existing_clan"], $t_array, $error["clan"], $this->Optional("clan"));
+      $dsp->AddPasswordRow('clanpw', $lang["usrmgr"]["chpwd_password2"], '', $error['clan_pass'], '', OPTIONAL);
+			$dsp->AddCheckBoxRow('new_clan_select" onChange="change_check_box_state(\'new_clan_fields\', this.checked)', $lang["usrmgr"]["add_create_clan"], '', '', OPTIONAL, $_POST['new_clan_select']);
+			$dsp->StartHiddenBox('new_clan_fields', $_POST['new_clan_select']);
   		$dsp->AddTextFieldRow("clan_new", $lang["usrmgr"]["add_create_clan"], $_POST["clan_new"], $error["clan_new"], "", $this->Optional("clan"));
-    	if ($auth['type'] <= 1) $dsp->AddTextFieldRow("clanpass", $lang["usrmgr"]["add_create_clanpass"], $_POST["clanpass"], $error["clan_pass"], '', $this->Optional("clan"));
-  
   		$dsp->AddTextFieldRow("clanurl", $lang["usrmgr"]["add_clanurl"], $_POST["clanurl"], $error["clanurl"], "", $this->Optional("clan"));
+      $dsp->AddPasswordRow('newclanpw', $lang["usrmgr"]["chpwd_password"], '', $error['newclanpw'], '', OPTIONAL, ' onKeyUp="checkInput(this);"');
+      $dsp->AddPasswordRow('newclanpw2', $lang["usrmgr"]["chpwd_password2"], '', '', '', OPTIONAL);
+  		$dsp->AddDoubleRow($lang["usrmgr"]["chpwd_password_security"], $dsp->FetchModTPL('signon', 'row_pw_security'));
+			$dsp->StopHiddenBox();
+  		$dsp->AddHRuleRow();
+			
+			// League IDs
   		$dsp->AddTextFieldRow("wwcl_id", $lang["usrmgr"]["add_wwcl_id"], $_POST["wwcl_id"], $error["wwcl_id"], "", $this->Optional("wwcl_id"));
   		$dsp->AddTextFieldRow("ngl_id", $lang["usrmgr"]["add_ngl_id"], $_POST["ngl_id"], $error["ngl_id"], "", $this->Optional("ngl_id"));
   		$dsp->AddHRuleRow();
   
+      // Adress
   		$dsp->AddTextFieldRow("addr1", $lang["usrmgr"]["add_street"], $_POST['addr1'], $error["street"], "", $this->Optional("street"));
   		$dsp->AddTextFieldRow("addr2", $lang["usrmgr"]["add_city"], $_POST['addr2'], $error["city"], "", $this->Optional("city"));
   
@@ -414,8 +421,6 @@ class AddUser {
         $db_set_fields .= "
   				firstname	= '{$_POST["firstname"]}',
   				name 		= '{$_POST["lastname"]}',
-  				clan		= '{$_POST["clan"]}',
-  				clanurl		= '{$_POST["clanurl"]}',
   				wwclid		= '{$_POST["wwcl_id"]}',
   				nglid		= '{$_POST["ngl_id"]}',
   				street		= '$street',
@@ -449,12 +454,6 @@ class AddUser {
 				if ($checkin) $checkin = "checkin = '$checkin',";
 				else $checkin = "";
 
-				$db->query("UPDATE {$config["tables"]["user"]} SET
-					$db_set_fields
-					changedate	= NOW()
-					WHERE userid = {$_GET["userid"]}
-					");
-
 			} else { // Add
   			// generate / crypt password
 				if ($cfg["signon_autopw"]) $_POST["password"] = $signon->GeneratePassword();
@@ -471,6 +470,13 @@ class AddUser {
 				
 				$signon->WriteXMLStatFile();
 			}
+
+      // Clan-Management
+      include_once("modules/usrmgr/class_clan.php");
+      $clan = new Clan();
+      if ($_POST['clan_new']) $_POST['clan'] = $clan->Add($_POST['clan_new'], $_POST["clanurl"], $_POST["newclanpw"]);
+      if ($_POST['clan']) $clan->AddMember($_POST['clan'], $_GET["userid"]);
+      else $clan->RemoveMember($_GET["userid"]);
 
 			// Update User-Perissions
 			$db->query("DELETE FROM {$config["tables"]["user_permissions"]} WHERE userid = {$_GET["userid"]}");

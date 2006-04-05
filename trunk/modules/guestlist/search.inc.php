@@ -34,17 +34,18 @@ function PaidIconLink($paid){
   return $templ['ms2']['link_item'];
 }
 
-function ClanURLLink($clan) {
+function ClanURLLink($clan_name) {
   global $line;
   
-  if ($clan != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
+  if ($clan_name != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
     if (substr($line['clanurl'], 0, 7) != 'http://') $line['clanurl'] = 'http://'. $line['clanurl'];
-    return '<a href="'. $line['clanurl'] .'" target="_blank">'. $clan .'</a>';
-  } else return $clan;
+    return '<a href="'. $line['clanurl'] .'" target="_blank">'. $clan_name .'</a>';
+  } else return $clan_name;
 }
 
 
 $ms2->query['from'] = "{$config['tables']['user']} AS u
+    LEFT JOIN {$config['tables']['clan']} AS c ON u.clanid = c.clanid
     LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id";
 $ms2->query['where'] = 'p.party_id = '. $party->party_id;
 ($cfg['guestlist_showorga'])? $ms2->query['where'] .= ' AND u.type >= 1' : $ms2->query['where'] .= ' AND u.type = 1';
@@ -67,8 +68,8 @@ if ($auth['type'] >= 2 or (!$cfg['sys_internet'])) {
   $ms2->AddResultField('Vorname', 'u.firstname');
   $ms2->AddResultField('Nachname', 'u.name');
 }
-$ms2->AddSelect('u.clanurl');
-$ms2->AddResultField('Clan', 'u.clan', 'ClanURLLink');
+$ms2->AddSelect('c.url AS clanurl');
+$ms2->AddResultField('Clan', 'c.name', 'ClanURLLink');
 $ms2->AddResultField('Bez.', 'p.paid', 'PaidIconLink');
 
 $ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLink');
