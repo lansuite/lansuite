@@ -20,13 +20,15 @@ function PaidIconLink($paid){
   return $templ['ms2']['link_item'];
 }
 
-function ClanURLLink($clan) {
+function ClanURLLink($clan_name) {
   global $line;
-  
-  if ($clan != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
-    return '<a href="http://'. $line['clanurl'] .'" target="_blank">'. $clan .'</a>';
-  } else return '';
+
+  if ($clan_name != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
+    if (substr($line['clanurl'], 0, 7) != 'http://') $line['clanurl'] = 'http://'. $line['clanurl'];
+    return '<a href="'. $line['clanurl'] .'" target="_blank">'. $clan_name .'</a>';
+  } else return $clan_name;
 }
+
 
 $ms2->AddTextSearchField('NGL/WWCL/LGZ-ID', array('u.nglid' => 'exact', 'u.nglclanid' => 'exact', 'u.wwclid' => 'exact', 'u.wwclclanid' => 'exact', 'u.lgzid' => 'exact', 'u.lgzclanid' => 'exact',));
 
@@ -43,8 +45,8 @@ $ms2->AddTextSearchDropDown($lang['usrmgr']['checkin'], 'p.checkin', array('' =>
 $ms2->AddTextSearchDropDown($lang['usrmgr']['checkout'], 'p.checkout', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkout_no'], '>1' => $lang['usrmgr']['checkout']));
 $ms2->AddTextSearchDropDown($lang['usrmgr']['add_gender'], 'u.sex', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['search_unknown_sex'], '1' => $lang['usrmgr']['search_male'], '2' => $lang['usrmgr']['search_female']));
 
-$ms2->AddSelect('u.clanurl');
-$ms2->AddResultField($lang['usrmgr']['details_clan'], 'u.clan', 'ClanURLLink');
+$ms2->AddSelect('c.url AS clanurl');
+$ms2->AddResultField($lang['usrmgr']['details_clan'], 'c.name AS clan', 'ClanURLLink');
 // If Party selected
 if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
   $ms2->AddResultField('Bez.', 'p.paid', 'PaidIconLink');

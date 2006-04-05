@@ -225,8 +225,35 @@
     			}
     			if ($perso_res > 1) $step = 2;
     		}
+
+    		// URL given, but no clan selected / entered
+    		if ($_POST['clanurl'] == 'http://') $_POST['clanurl'] = '';
+    		if(($_POST['clanurl'] != '' and $_POST['clan'] == '' and $_POST['clan_new'] == '')){
+    			$error["clanurl"] = $lang["usrmgr"]["add_err_clanurl_no_clan"];
+    		}
+  
+        // Get Clanurl, if clan selected  		
+    		if ($_POST['clanurl'] == '' and $_POST['clan'] != '') {
+    			$clandata = $db->query_first("SELECT url
+    				FROM {$config['tables']['clan']}
+    				WHERE clanid = '{$_POST['clan']}'
+    				");
+    			$_POST['clanurl'] = $clandata['url'];
+    		}
+  
+        // Check clanpass, when join
+  			$clanpass = $db->query_first("SELECT password
+  				FROM {$config["tables"]["clan"]}
+  				WHERE clanid = '{$_POST['clan']}'
+  				");
+  			if ($clanpass['password'] != md5('') and $_POST['clan'] and md5($_POST['clanpw']) != $clanpass['password']) {
+  				$error['clan_pass'] = $lang["signon"]["add_err_no_clanpass"];
+  			}
+  			
+  			// Check clanpass, when create
+  			if ($_POST['newclanpw'] != $_POST['newclanpw2']) $error['newclanpw'] = $lang['usrmgr']['clanpw_diffpw'];			
     
-    
+/*    
     		// Get Clandata
     		// Check Clandata chars
     		if($_POST['new_clan'] != "" && preg_match("/([.^\"\'`´]+)/",$_POST["new_clan"])){
@@ -267,6 +294,7 @@
     			$clanurl_error = $lang["signon"]["add_err_no_clanurl"];
     			$step = 2;
     		}
+*/
     		if (($signup_cfg["wwcl_id"] == 2) && ($_POST["wwcl_id"] == "")) {
     			$wwclid_error = $lang["signon"]["add_err_no_wwclid"];
     			$step = 2;
@@ -284,6 +312,10 @@
     			$step = 2;
     		}
     		
+    		if ($error) foreach ($error as $e_key => $e_val) if ($error[$e_key] != "") {
+    			$step = 2;
+    		}    		
+
     		// Check for Usergroups
     		$_POST['group_id'] = 0;
     		$groups = $db->query("SELECT * FROM {$config['tables']['party_usergroups']} WHERE selection != 0 ORDER BY pos DESC");
@@ -342,7 +374,7 @@
     
     
     function WriteForm($optional){
-    	global $dsp, $lang, $signon, $db, $signup_cfg, $config, $username_error, $firstname_error, $lastname_error, $email_error, $agb_error, $voll_error, $street_error, $city_error, $perso_error, $clan_error, $clanurl_error, $wwclid_error, $nglid_error, $birthday_error, $gender_error, $cfg, $templ, $password_error, $password2_error, $clan_err_pass;
+    	global $dsp, $lang, $signon, $db, $signup_cfg, $config, $username_error, $firstname_error, $lastname_error, $email_error, $agb_error, $voll_error, $street_error, $city_error, $perso_error, $clan_error, $clanurl_error, $wwclid_error, $nglid_error, $birthday_error, $gender_error, $cfg, $templ, $password_error, $password2_error, $clan_err_pass, $error;
     
     	($optional)? $needed = 1 : $needed = 2;
     
@@ -352,7 +384,7 @@
     	if ($optional == 0) $dsp->AddTextFieldRow("email", $lang["signon"]["add_email"], $_POST["email"], $email_error);
     
     	if ((!$cfg["signon_autopw"]) && (!$optional)){
-    		$dsp->AddPasswordRow("password", $lang["signon"]["add_password"], $_POST["password"], $password_error, "", "", "onKeyUp=\"checkInput()\"");
+    		$dsp->AddPasswordRow("password", $lang["signon"]["add_password"], $_POST["password"], $password_error, "", "", "onKeyUp=\"checkInput(this);\"");
     		$dsp->AddPasswordRow("password2", $lang["signon"]["add_password2"], $_POST["password2"], $password2_error);
     		$dsp->AddDoubleRow($lang["signon"]["add_password_security"], str_replace("{default_design}", $_SESSION["auth"]["design"], $dsp->FetchModTPL("signon", "row_pw_security")));
     	}
@@ -361,7 +393,41 @@
     	if (($signup_cfg["agb"] == $needed) && (($_GET["signon"]) || ($cfg["signon_alwaysagb"]))) $dsp->AddCheckBoxRow("agb", $lang["signon"]["add_agb"], str_replace("%LINK%", "<a href=\"". $cfg["signon_agblink"] ."\"$target>AGB</a>", str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_agb_detail"])), $agb_error, $optional, $_POST["agb"]);
     
     	if ($signup_cfg["voll"] == $needed) $dsp->AddCheckBoxRow("voll", $lang["signon"]["add_vollmacht"], str_replace("%LINK%", "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">U18 Vollmacht</a>", str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_vollmacht_detail"])), $voll_error, $optional, $_POST["voll"]);
-    
+
+
+    	if ($signup_cfg["clan"] == $needed) {
+    		// Clan select
+    		$clans_query = $db->query("SELECT c.clanid, c.name, c.url, COUNT(u.clanid) AS members
+    				FROM {$config["tables"]["clan"]} AS c
+    				LEFT JOIN {$config["tables"]["user"]} AS u ON c.clanid = u.clanid
+    				WHERE u.clanid IS NULL or u.type >= 1
+    				GROUP BY c.clanid
+    				ORDER BY c.name
+    				");
+    		$t_array = array();
+    		($_POST["clan"] == '') ? $selected = "selected" : $selected = "";
+    		array_push ($t_array, "<option $selected value=\"\">---</option>");
+    		while($row = $db->fetch_array($clans_query)) {
+    			if ($_POST['clan'] == $row['clanid'] and $_POST['clan'] != ""){
+    				$selected = "selected";
+    				if ($_POST["clanurl"] == "") $_POST["clanurl"] = $row["url"];
+    			} else $selected = "";
+    			array_push ($t_array, "<option $selected value=\"{$row['clanid']}\">{$row['name']} ({$row['members']})</option>");
+    		}
+    		$dsp->AddDropDownFieldRow("clan", $lang["signon"]["add_existing_clan"], $t_array, $error["clan"], $optional);
+        $dsp->AddPasswordRow('clanpw', $lang["signon"]["add_create_clanpass"], '', $error['clan_pass'], '', OPTIONAL);
+  			$dsp->AddCheckBoxRow('new_clan_select" onChange="change_check_box_state(\'new_clan_fields\', this.checked)', $lang["signon"]["add_create_clan"], '', '', OPTIONAL, $_POST['new_clan_select']);
+  			$dsp->StartHiddenBox('new_clan_fields', $_POST['new_clan_select']);
+    		$dsp->AddTextFieldRow("clan_new", $lang["signon"]["add_create_clan"], $_POST["clan_new"], $error["clan_new"], "", $optional);  
+    		if ($signup_cfg["clanurl"] == $needed) $dsp->AddTextFieldRow("clanurl", $lang["signon"]["add_clanurl"], $_POST["clanurl"], $error["clanurl"], "", $optional);
+        $dsp->AddPasswordRow('newclanpw', $lang["signon"]["add_create_clanpass"], '', $error['newclanpw'], '', OPTIONAL, ' onKeyUp="checkInput(this);"');
+        $dsp->AddPasswordRow('newclanpw2', $lang["signon"]["add_create_clanpass"], '', '', '', OPTIONAL);
+    		$dsp->AddDoubleRow($lang["usrmgr"]["chpwd_password_security"], $dsp->FetchModTPL('signon', 'row_pw_security'));
+  			$dsp->StopHiddenBox();
+    		$dsp->AddHRuleRow();
+      }
+
+/*    
     	// Clan select
     	if ($signup_cfg["clan"] == $needed) {
     		$clans_query = $db->query("SELECT clan, COUNT(*) AS members
@@ -383,6 +449,7 @@
     		$dsp->AddTextFieldRow("clanpass",$lang["signon"]["add_create_clanpass"], $_POST["clanpass"], $clan_err_pass,"",$optional);
     	}
     	if ($signup_cfg["clanurl"] == $needed) $dsp->AddTextFieldRow("clanurl", $lang["signon"]["add_clanurl"], $_POST["clanurl"], $clanurl_error, "", $optional);
+*/    	
     	if ($signup_cfg["wwcl_id"] == $needed) $dsp->AddTextFieldRow("wwcl_id", $lang["signon"]["add_wwcl_id"], $_POST["wwcl_id"], $wwclid_error, "", $optional);
     	if ($signup_cfg["ngl_id"] == $needed) $dsp->AddTextFieldRow("ngl_id", $lang["signon"]["add_ngl_id"], $_POST["ngl_id"], $nglid_error, "", $optional);
     	if ($signup_cfg["street"] == $needed) $dsp->AddTextFieldRow("addr1", $lang["signon"]["add_street"], $_POST['addr1'], $street_error, "", $optional);
@@ -516,9 +583,6 @@
     										type		= '1',
     										name 		= '{$_POST["lastname"]}',
     										firstname	= '{$_POST["firstname"]}',
-    										clan		= '{$_POST["clan"]}',
-    										clanpass	= MD5('{$_POST["clanpass"]}'),
-    										clanurl		= '{$_POST["clanurl"]}',
     										email		= '{$_POST["email"]}',
     										wwclid		= '{$_POST["wwcl_id"]}',
     										wwclclanid	= '{$_POST["wwcl_clanid"]}',
@@ -535,7 +599,14 @@
     										");
     			$userid = $db->insert_id();
     			$add_query2 = $db->query("INSERT INTO {$GLOBALS["config"]["tables"]["usersettings"]} SET userid = $userid");
-    			
+
+          // Clan-Management
+          include_once("modules/usrmgr/class_clan.php");
+          $clan = new Clan();
+          if ($_POST['clan_new']) $_POST['clan'] = $clan->Add($_POST['clan_new'], $_POST["clanurl"], $_POST["newclanpw"]);
+          if ($_POST['clan']) $clan->AddMember($_POST['clan'], $userid);
+          else $clan->RemoveMember($_GET["userid"]);
+
     			$confirm_text = $lang["signon"]["add_success"];
     			
     			if ($cfg["signon_password_mail"]) {

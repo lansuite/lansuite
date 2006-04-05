@@ -13,7 +13,7 @@ if(time() > $_SESSION['party_info']['partyend']){
 }
 
 // mit oder ohne orgas
-if($cfg["signon_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
+if($cfg["guestlist_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
 
 // Ermittle die Anzahl der registrierten Usern
 $get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user WHERE ($querytype)");

@@ -32,6 +32,16 @@
 		<level>1</level>
 	</entry>	
 	<entry>
+		<action>clanmgr</action>
+		<file>clanmgr</file>
+		<caption>Clanmanager</caption>
+		<hint></hint>
+		<link>?mod=usrmgr&action=clanmgr</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>	
+	<entry>
 		<action>entrance</action>
 		<file>checkin_assistant</file>
 		<caption>Einlass-Assistent</caption>

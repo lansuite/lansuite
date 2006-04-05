@@ -60,7 +60,6 @@ switch($_GET['step']) {
 
 	// Reserve seat
 	case 10:
-		print_r($seat['status']);
 		switch ($seat['status']) {
 			case 0:	// Seat unavailable
 			case '':

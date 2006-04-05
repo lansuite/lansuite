@@ -28,6 +28,13 @@ switch($_GET["step"]) {
 		$dsp->AddCheckBoxRow("onlynewsletter", $lang["mail"]["newsletter_onlynewsletter"], $lang["mail"]["newsletter_onlynewsletter2"], "", 1, $_POST["onlynewsletter"]);
 		$dsp->AddCheckBoxRow("onlysignon", $lang["mail"]["newsletter_onlysignon"], $lang["mail"]["newsletter_onlysignon2"], "", 1, $_POST["onlysignon"]);
 		$dsp->AddCheckBoxRow("onlypaid", $lang["mail"]["newsletter_onlypaid"], $lang["mail"]["newsletter_onlypaid2"], "", 1, $_POST["onlypaid"]);
+		
+		$t_array = array();
+		array_push ($t_array, "<option $selected value=\"0\">{$lang['mail']['newsletter_onlypaid_all']}</option>");
+		array_push ($t_array, "<option $selected value=\"1\">{$lang['mail']['newsletter_onlypaid2']}</option>");
+		array_push ($t_array, "<option $selected value=\"2\">{$lang['mail']['newsletter_onlypaid_not']}</option>");
+		$dsp->AddDropDownFieldRow("onlypaid", $lang["mail"]["newsletter_onlypaid"], $t_array, '');
+		
 
 		$dsp->AddHRuleRow();
 
@@ -64,13 +71,16 @@ switch($_GET["step"]) {
 		$where = "(u.username != 'LS_SYSTEM')";
 		if ($_POST["onlynewsletter"]) $where .= " AND (u.newsletter = 1) ";
 		if ($_POST["onlysignon"]) $where .= " AND p.party_id={$party->party_id}";
-		if ($_POST["onlypaid"]) $where .= " AND p.party_id={$party->party_id} AND (p.paid = 1)";
-		$where .= " AND (u.type > 0) GROUP BY email";
+		if ($_POST["onlypaid"] == 1) $where .= " AND p.party_id={$party->party_id} AND (p.paid = 1)";
+		elseif ($_POST["onlypaid"] == 2) $where .= " AND p.party_id={$party->party_id} AND (p.paid = 0)";
+		$where .= " AND (u.type > 0)";
 
 		$success = "";
 		$fail = "";
 		$users = $db->query("SELECT * FROM {$config["tables"]["user"]} AS u
-      LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id=u.userid WHERE $where");
+      LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id=u.userid
+      WHERE $where
+      GROUP BY u.email");
 
 		while ($user = $db->fetch_array($users)){
 			$text = $_POST["text"];
@@ -107,7 +117,7 @@ switch($_GET["step"]) {
 		$db->free_result($users);
 
 		if ($_POST["toinet"]) $inet_success = $lang["mail"]["newsletter_success"] .HTML_NEWLINE. $success .HTML_NEWLINE . HTML_NEWLINE . $lang["mail"]["newsletter_fail"] .HTML_NEWLINE. $fail . HTML_NEWLINE . HTML_NEWLINE;
-		if ($_POST["tosys"]) $sys_success = $lang["mail"]["newsletter_success"];
+		if ($_POST["tosys"]) $sys_success = $lang["mail"]["newsletter_system_success"];
 
 		$func->confirmation($inet_success . $sys_success, "index.php?mod=mail&action=newsletter&step=1");
 	break;
