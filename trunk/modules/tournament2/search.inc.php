@@ -7,15 +7,15 @@ function GetTournamentName($name) {
 
 	$return = '';
 	// Game Icon
-	if ($line['icon'] and $line['icon'] != 'none') $return .= "<img src=\"ext_inc/tournament_icons/{$line['icon']}\" title=\"Icon\" /> ";
+	if ($line['icon'] and $line['icon'] != 'none') $return .= "<img src=\"ext_inc/tournament_icons/{$line['icon']}\" title=\"Icon\" border=\"0\" /> ";
 	// Name
 	$return .= $name;
 	// WWCL Icon
-	if ($line['wwcl_gameid']) $return .= " <img src=\"ext_inc/tournament_icons/leagues/wwcl.png\" title=\"WWCL Game\" />";
+	if ($line['wwcl_gameid']) $return .= ' <img src="ext_inc/tournament_icons/leagues/wwcl.png" title="WWCL Game\" border="0" />';
 	// NGL Icon
-	if ($line['ngl_gamename']) $return .= " <img src=\"ext_inc/tournament_icons/leagues/ngl.png\" title=\"NGL Game\" />";
+	if ($line['ngl_gamename']) $return .= ' <img src="ext_inc/tournament_icons/leagues/ngl.png" title="NGL Game" border="0" />';
 	// Over 18 Icon
-	if ($line['over18']) $return .= " <img src='design/".$auth["design"]."/images/fsk_18.gif' title=\"{$lang['ms']['cb_t_over18']}\" />";
+	if ($line['over18']) $return .= " <img src='design/".$auth["design"]."/images/fsk_18.gif' title=\"{$lang['ms']['cb_t_over18']}\" border=\"0\" />";
 
 	return $return;
 }
