@@ -164,20 +164,20 @@ class AddUser {
   			$_POST['clanurl'] = $clandata['url'];
   		}
 
-      // Check clanpass, when join
-			$clanpass = $db->query_first("SELECT password
-				FROM {$config["tables"]["clan"]}
-				WHERE clanid = '{$_POST['clan']}'
-				");
-			if ($clanpass['password'] != md5('') and $_POST['clan'] and $auth['type'] <= 1 and md5($_POST['clanpw']) != $clanpass['password']) {
-				$error['clan_pass'] = $lang["usrmgr"]["add_err_no_clanpass"];
-			}
-			
-			// Check clanpass, when create
-			if ($_POST['newclanpw'] != $_POST['newclanpw2']) $error['newclanpw'] = $lang['usrmgr']['clanpw_diffpw'];			
-  		
-  		if (($this->Needed("clan")) && ($_POST["clan"] == "")) $error["clan"] = $lang["usrmgr"]["add_err_no_clan"];
-  		if (($this->Needed("clanurl")) && ($_POST["clanurl"] == "")) $error["clanurl"] = $lang["usrmgr"]["add_err_no_clanurl"];
+      if ($_POST['new_clan_select']) {
+        // Check clanpass, when join
+  			$clanpass = $db->query_first("SELECT password
+  				FROM {$config["tables"]["clan"]}
+  				WHERE clanid = '{$_POST['clan']}'
+  				");
+  			if ($clanpass['password'] != md5('') and $_POST['clan'] and $auth['type'] <= 1 and md5($_POST['clanpw']) != $clanpass['password'])
+          $error['clan_pass'] = $lang["usrmgr"]["add_err_no_clanpass"];
+  			
+  			// Check clanpass, when create
+  			if ($_POST['newclanpw'] != $_POST['newclanpw2']) $error['newclanpw'] = $lang['usrmgr']['clanpw_diffpw'];			
+      }  		
+  		if (($this->Needed("clan")) and $_POST['new_clan_select'] and ($_POST["clan"] == "")) $error["clan"] = $lang["usrmgr"]["add_err_no_clan"];
+  		if (($this->Needed("clanurl")) and $_POST['new_clan_select'] and ($_POST["clanurl"] == "")) $error["clanurl"] = $lang["usrmgr"]["add_err_no_clanurl"];
   		if (($this->Needed("wwcl_id")) && ($_POST["wwcl_id"] == "")) $error["wwcl_id"] = $lang["usrmgr"]["add_err_no_wwclid"];
   		if (($this->Needed("ngl_id")) && ($_POST["ngl_id"] == "")) $error["ngl_id"] = $lang["usrmgr"]["add_err_no_nglid"];
   
@@ -190,7 +190,7 @@ class AddUser {
   
   		if ($_POST["type"] > $auth["type"]) $error["type"] = $lang["usrmgr"]["add_err_less_rights"];
     }
-    
+
 		foreach ($error as $e_key => $e_val) if ($error[$e_key] != "") {
 			$_GET['step']--;
 			return;
@@ -453,6 +453,12 @@ class AddUser {
 			if ($action == "change"){			
 				if ($checkin) $checkin = "checkin = '$checkin',";
 				else $checkin = "";
+
+				$db->query("UPDATE {$config["tables"]["user"]} SET
+  	      $db_set_fields
+  				changedate	= NOW()
+  				WHERE userid = '{$_GET['userid']}'
+  				");
 
 			} else { // Add
   			// generate / crypt password
