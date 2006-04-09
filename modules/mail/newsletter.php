@@ -27,7 +27,6 @@ switch($_GET["step"]) {
 
 		$dsp->AddCheckBoxRow("onlynewsletter", $lang["mail"]["newsletter_onlynewsletter"], $lang["mail"]["newsletter_onlynewsletter2"], "", 1, $_POST["onlynewsletter"]);
 		$dsp->AddCheckBoxRow("onlysignon", $lang["mail"]["newsletter_onlysignon"], $lang["mail"]["newsletter_onlysignon2"], "", 1, $_POST["onlysignon"]);
-		$dsp->AddCheckBoxRow("onlypaid", $lang["mail"]["newsletter_onlypaid"], $lang["mail"]["newsletter_onlypaid2"], "", 1, $_POST["onlypaid"]);
 		
 		$t_array = array();
 		array_push ($t_array, "<option $selected value=\"0\">{$lang['mail']['newsletter_onlypaid_all']}</option>");
