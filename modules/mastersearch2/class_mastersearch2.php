@@ -361,6 +361,7 @@ class MasterSearch2 {
       }
       
       // Normal fields
+      $z = 0;
       foreach ($this->result_field as $current_field) {
 
         // cut of 'table.', in front of field name
@@ -377,8 +378,18 @@ class MasterSearch2 {
         if ($current_field['max_char'] and strlen($templ['ms2']['table_entrys_row_field_entry'] > $current_field['max_char']))
           $templ['ms2']['table_entrys_row_field_entry'] = substr($templ['ms2']['table_entrys_row_field_entry'], 0, $current_field['max_char'] - 2) .'..';
 
+        // Link first row to same target as first icon
+        if ($z == 0 and $this->icon_field[0]['link']) {
+          $templ['ms2']['link'] = $this->icon_field[0]['link'] . $line[$select_id_field];
+          $templ['ms2']['link_item'] = $templ['ms2']['table_entrys_row_field_entry'];
+          $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+        }
+
+        // Output fro template
         if ($templ['ms2']['table_entrys_row_field_entry'] == '') $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
-        $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');        
+        $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');
+        
+        $z++;        
       }
       
       // Icon fields
