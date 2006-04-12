@@ -120,18 +120,15 @@ class Mastercomment{
 					$templ['mastercomment']['show']['row']['control']['button_edit'] = $dsp->FetchButton($this->config['working_link'] . "&mcact=change&commentid=" . $row["commentid"],"edit");
 					$templ['mastercomment']['show']['row']['control']['button_delete'] = $dsp->FetchButton($this->config['working_link'] . "&mcact=delete&commentid=" . $row["commentid"],"delete");
 				}
-				$dsp->AddSingleRow($dsp->FetchModTpl("mastercomment", "mastercomment_show_row"));
+				$dsp->AddModTpl("mastercomment", "mastercomment_show_row");
 			}
 
 			if ($pages["html"]) $dsp->AddSingleRow($pages["html"] ,"align=\"right\"");
 			$dsp->AddSingleRow($this->lang['mastercomment']['count_comments'] . " $count_entrys");
-		}else{
-			$dsp->AddSingleRow($this->lang['mastercomment']['no_comments']);
-		}
-
+		} else $dsp->AddSingleRow($this->lang['mastercomment']['no_comments']);
 		
 		if($_SESSION["auth"]["login"] != 0)
-		$dsp->AddDoubleRow($this->lang['mastercomment']['add_comment'],$dsp->FetchButton($this->config['working_link'] . "&mcact=add","add"));
+		$dsp->AddDoubleRow($this->lang['mastercomment']['add_comment'], $dsp->FetchButton($this->config['working_link'] . "&mcact=add","add"));
 		$dsp->AddContent();
 		
 	}

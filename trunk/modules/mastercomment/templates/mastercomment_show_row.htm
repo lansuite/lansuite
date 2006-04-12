@@ -1,30 +1,13 @@
-
-<!-- TEMPLATE - STANDARD - COMMENTS ROW -->
-    <tr> 
-        <td class="tbl_6" rowspan="2" valign="top" width="30%"> 
-          <table width="100%" cellspacing="0" cellpadding="2" class="tbl_6">
-            <tr> 
-              <td clasS="tbl_small">{$templ['mastercomment']['show']['row']['info']['number']}</td>
-            </tr>
-            <tr> 
-              <td clasS="tbl_small">{$templ['mastercomment']['show']['row']['info']['date']}</td>
-            </tr>
-            <tr> 
-              <td><b>{$templ['mastercomment']['show']['row']['info']['username']}</b> <a href="?mod=usrmgr&action=details&userid={$templ['mastercomment']['show']['row']['info']['userid']}"><img src="design/{default_design}/images/arrows_user.gif" border="0"></a></td>
-            </tr>
-            <tr> 
-              <td>{$templ['mastercomment']['show']['row']['info']['avatar']}</td>
-            </tr>
-          </table>
-        </td>
-        <td class="tbl_1" colspan="2"> 
-          <p>{$templ['mastercomment']['show']['row']['info']['text']}<br/>
-            <br/>
-          </p>
-          </td>
-      </tr>
-      <tr> 
-        <td class="tbl_1">{$templ['mastercomment']['show']['row']['control']['button_edit']} {$templ['mastercomment']['show']['row']['control']['button_delete']}</td>
-        <td class="tbl_1">{$templ['mastercomment']['show']['row']['control']['button_quote']}</td>
-      </tr>
-<!-- TEMPLATE - STANDARD - COMMENTS ROW -->
+<tr>
+	<td class="row_key" width="30%" height="30" valign="top">
+    {$templ['mastercomment']['show']['row']['info']['number']}<br />
+    {$templ['mastercomment']['show']['row']['info']['date']}<br />
+    <b>{$templ['mastercomment']['show']['row']['info']['username']}</b> <a href="?mod=usrmgr&action=details&userid={$templ['mastercomment']['show']['row']['info']['userid']}"><img src="design/{default_design}/images/arrows_user.gif" border="0"></a><br />
+    {$templ['mastercomment']['show']['row']['info']['avatar']}
+  </td>
+	<td class="row_value" width="70%" height="30" id="{$templ['ls']['row']['double']['id']}">
+	  {$templ['mastercomment']['show']['row']['info']['text']}<br />
+	  <br />
+	  {$templ['mastercomment']['show']['row']['control']['button_quote']} {$templ['mastercomment']['show']['row']['control']['button_edit']} {$templ['mastercomment']['show']['row']['control']['button_delete']}
+  </td>
+</tr>
