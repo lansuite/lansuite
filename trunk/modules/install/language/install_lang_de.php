@@ -59,6 +59,7 @@ $lang['install']['conf_user']	= 'Benutzername';
 $lang['install']['conf_pass']	= 'Kennwort';
 $lang['install']['conf_db']	= 'Datenbank';
 $lang['install']['conf_prefix']	= 'Tabellen-Prefix';
+$lang['install']['conf_display_debug_errors']	= 'MySQL-Fehler zeigen';
 $lang['install']['conf_err_write']	= 'Datei \'config.php\' konnte <strong>nicht</strong> geschrieben werden.';
 $lang['install']['conf_success']	= 'Datei \'config.php\' wurde erfolgreich geschrieben.';
 $lang['install']['conf_design']	= 'Standard-Design';
