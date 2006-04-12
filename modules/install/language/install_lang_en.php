@@ -59,6 +59,7 @@ $lang['install']['conf_user']	= 'User';
 $lang['install']['conf_pass']	= 'Password';
 $lang['install']['conf_db']	= 'Database';
 $lang['install']['conf_prefix']	= 'Table-Prefix';
+$lang['install']['conf_display_debug_errors']	= 'Show MySQL-errors';
 $lang['install']['conf_err_write']	= 'Unable to write into file \'config.php\'.';
 $lang['install']['conf_success']	= 'File \'config.php\' has been updated successfully.';
 $lang['install']['conf_design']	= 'Standard-Design';
