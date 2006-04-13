@@ -272,7 +272,7 @@ if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['statu
 	}
 
 	#### Create PNG-Image
-	// $gd->PutImage("", "", FALSE);
+	$gd->PutImage("", "", FALSE);
 	if($tournament["mode"] == "groups"){
 		$gd->PutImage("ext_inc/tournament_trees/tournament_$tournamentid" . "_" . $_GET['group'] . ".png");
 	}else{
