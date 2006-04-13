@@ -19,7 +19,7 @@ $lang['signon']['add_create_clan']	= 'Neuer Clan';
 $lang['signon']['add_existing_clan']	= 'Vorhandener Clan';
 $lang['signon']['add_wwcl_id']	= 'WWCL-ID';
 $lang['signon']['add_ngl_id']	= 'NGL-ID';
-$lang['signon']['add_street']	= 'Straﬂe und Hausnummer';
+$lang['signon']['add_street']	= 'Stra√üe und Hausnummer';
 $lang['signon']['add_city']	= 'PLZ und Ort';
 $lang['signon']['add_gender']	= 'Geschlecht';
 $lang['signon']['add_gender_no']	= 'Keine Angabe';
@@ -38,7 +38,7 @@ $lang['signon']['add_err_no_user']	= 'Bitte geben Sie einen Benutzernamen ein';
 $lang['signon']['add_err_no_first']	= 'Bitte geben Sie einen Vornamen ein';
 $lang['signon']['add_err_no_last']	= 'Bitte geben Sie einen Nachnamen ein';
 $lang['signon']['add_err_invalid_mail']	= 'Bitte geben Sie eine g&uuml;ltige Mail-Adresse ein';
-$lang['signon']['add_err_invalid_street']	= 'Bitte geben Sie Straﬂe und Hausnummer in folgendem Format ein: \'Straﬂenname 12\'';
+$lang['signon']['add_err_invalid_street']	= 'Bitte geben Sie Stra√üe und Hausnummer in folgendem Format ein: \'Stra√üenname 12\'';
 $lang['signon']['add_err_invalid_nr']	= 'Die Hausnummer muss numerisch sein';
 $lang['signon']['add_err_invalid_city']	= 'Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: \'12345 Stadt\'';
 $lang['signon']['add_err_invalid_plz']	= 'Die Postleitzahl muss aus 5 Ziffern bestehen. PLZ mit weniger Ziffern, bitte mit f&uuml;hrenden Nullen schreiben (z.B. 00123)';
@@ -46,7 +46,7 @@ $lang['signon']['add_err_no_clan']	= 'Bitte w&auml;hlen Sie entweder einen vorha
 $lang['signon']['add_err_nopass']	= 'Bitte geben Sie ein Kennwort ein';
 $lang['signon']['add_err_wrong2ndpass']	= 'Die Wiederholung des Kennwortes stimmt nicht mit der ersten Eingabe &uuml;berein';
 $lang['signon']['add_err_no_clanurl']	= 'Bitte geben Sie die Webseite Ihres Clans an';
-$lang['usrmgr']['add_err_clanurl_no_clan']	= 'Sie kˆnnen keine Clanurl angeben wenn Sie keinen Clan angegeben haben.';
+$lang['usrmgr']['add_err_clanurl_no_clan']	= 'Sie k√∂nnen keine Clanurl angeben wenn Sie keinen Clan angegeben haben.';
 $lang['signon']['add_err_no_clanpass'] = 'Bitte geben Sie das korrekte Passwort f&uuml;r den Clan an';
 $lang['signon']['add_err_no_wwclid']	= 'Bitte geben Sie Ihre WWCL ID an';
 $lang['signon']['add_err_no_nglid']	= 'Bitte geben Sie Ihre NGL ID an';
@@ -115,7 +115,7 @@ $lang['signon']['error_group'] =			'Bitte geben Sie einen Gruppennamen ein';
 $lang['signon']['error_price_text'] =		'Bitte geben Sie einen Text ein';
 $lang['signon']['error_price'] =			'Bitte geben Sie einen Preis ein';
 
-// Party hinzuf¸gen
+// Party hinzuf√ºgen
 $lang['signon']['add_party_caption'] = 		'Party hinzuf&uuml;gen';
 $lang['signon']['add_party_subcaption'] =	'Bitte gib die Daten ein um eine Party hinzuzuf&uuml;gen';
 $lang['signon']['partyname'] =				'Partyname';

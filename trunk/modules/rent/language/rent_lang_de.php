@@ -4,14 +4,14 @@ $lang['rent']['structure_version']	= '1';
 $lang['rent']['content_version']	= '2';
 $lang['rent']['language_name'] = 'Deutsch';
 $lang['rent']['lastchange'] = '16. Oktober 2005';
-$lang['rent']['translator'] = 'Marco Müller (Genesis)';
+$lang['rent']['translator'] = 'Marco MÃ¼ller (Genesis)';
 
 
 
 $lang['rent']['add_stuff_error'] 	= 'Bitte geben Sie einen Namen f&uuml;r das Equipment ein.';
 $lang['rent']['add_stuff_quantity_error'] 	= 'Bitte geben Sie eine Equipmentmenge an.';
 $lang['rent']['add_stuff_no_number_error'] 	= 'Bitte geben Sie eine Zahl ein.';
-$lang['rent']['add_stuff_max_error'] 		= 'Die Equipmentmenge darf nicht gr&ouml;ßer als 999 sein.';
+$lang['rent']['add_stuff_max_error'] 		= 'Die Equipmentmenge darf nicht gr&ouml;ÃŸer als 999 sein.';
 $lang['rent']['add_stuff_length_error']		= 'Der Equipmentname darf nicht mehr als 50 Zeichen enthalten.';
 $lang['rent']['add_stuff_length_info_error']= 'Die Anmerkung darf nicht mehr als 100 Zeichen enthalten.';
 

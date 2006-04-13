@@ -113,7 +113,7 @@ $lang['signon']['error_group'] =			'Submit a groupname, please';
 $lang['signon']['error_price_text'] =		'Submit a text, please';
 $lang['signon']['error_price'] =			'Submit a price, please';
 
-// Party hinzufügen
+// Party hinzufÃ¼gen
 $lang['signon']['add_party_caption'] = 		'Add a party';
 $lang['signon']['add_party_subcaption'] =	'Submit the data to create a new party';
 $lang['signon']['partyname'] =				'Partyname';

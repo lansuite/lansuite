@@ -33,7 +33,7 @@
  $lang['misc']['err_invalid']   = 'ung&uuml;ltig';
  $lang['misc']['err_no_block']  = 'Dieser Block existiert nicht.';
  $lang['misc']['err_double_ip'] = 'Mindestens eine IP wurde bereits vergeben';
- $lang['misc']['err_ip_format'] = 'Das Format mindestens einer IP ist ungültig. Format: 192.168.123.12';
+ $lang['misc']['err_ip_format'] = 'Das Format mindestens einer IP ist ungÃ¼ltig. Format: 192.168.123.12';
 
  //Contend
  $lang['misc']['this_plan']     = 'diesen Plan';

@@ -83,8 +83,8 @@ $lang['noc']['ping_error']	=	'Kann den Befehl ping nicht ausf&uuml;hren';
 $lang['noc']['arp_error']	=	'Kann den Befehl arp nicht ausf&uuml;hren';
 
 // Warning
-$lang['noc']['write_warning']	=	HTML_NEWLINE . HTML_NEWLINE . '<big>Warnung:</big> Eine Standartm&auml;ßig eingestellte Write-Community ( \'private\' ) beinhaltet ein hohes Sicherheitsrisiko!';
-$lang['noc']['read_warning']	=	HTML_NEWLINE . HTML_NEWLINE . '<big>Warnung:</big> Eine Standartm&auml;ßig eingestellte Read-Community ( \'public\' ) beinhaltet ein hohes Sicherheitsrisiko!';
+$lang['noc']['write_warning']	=	HTML_NEWLINE . HTML_NEWLINE . '<big>Warnung:</big> Eine Standartm&auml;ÃŸig eingestellte Write-Community ( \'private\' ) beinhaltet ein hohes Sicherheitsrisiko!';
+$lang['noc']['read_warning']	=	HTML_NEWLINE . HTML_NEWLINE . '<big>Warnung:</big> Eine Standartm&auml;ÃŸig eingestellte Read-Community ( \'public\' ) beinhaltet ein hohes Sicherheitsrisiko!';
 
 $lang['noc']['ms_search']	=	'Device&uuml;bersicht: Suche';
 $lang['noc']['ms_result']	=	'Deviceauswahl: Ergebnis';
