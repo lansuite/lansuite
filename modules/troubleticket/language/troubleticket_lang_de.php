@@ -72,15 +72,15 @@
 
  
  //Categories
- $lang['troubleticket']['no_cat'] 	= 'Bitte Auswählen';
+ $lang['troubleticket']['no_cat'] 	= 'Bitte AuswÃ¤hlen';
  $lang['troubleticket']['cat'] 		= 'Kategorie';
  $lang['troubleticket']['cat_empty']= 'Keine Kategorien vorhanden';
- $lang['troubleticket']['cat_user'] = 'Zuständiger Admin';
- $lang['troubleticket']['cat_nouser'] = 'Kein zuständiger Admin';
+ $lang['troubleticket']['cat_user'] = 'ZustÃ¤ndiger Admin';
+ $lang['troubleticket']['cat_nouser'] = 'Kein zustÃ¤ndiger Admin';
  $lang['troubleticket']['cat_err_name'] = 'Name zu lang oder leer';
- $lang['troubleticket']['cat_ok']		= 'Kategorie erfolgreich hinzugefügt/geändert';
- $lang['troubleticket']['cat_err']		= 'Kategorie konnte nicht hinzugefügt/geändert werden';
- $lang['troubleticket']['cat_no_err']		= 'Sie haben keine Kategorie zum ändern ausgewählt';
+ $lang['troubleticket']['cat_ok']		= 'Kategorie erfolgreich hinzugefÃ¼gt/geÃ¤ndert';
+ $lang['troubleticket']['cat_err']		= 'Kategorie konnte nicht hinzugefÃ¼gt/geÃ¤ndert werden';
+ $lang['troubleticket']['cat_no_err']		= 'Sie haben keine Kategorie zum Ã¤ndern ausgewÃ¤hlt';
  
  //Questions
  $lang['troubleticket']['q_unlink'] = 'Wollen Sie das ausgew&auml;hlte Troubleticket wirklich l&ouml;schen?';
@@ -92,6 +92,6 @@
  $lang['troubleticket']['err_no_reason'] = 'Bei einer direkten Ablehnung ist die Angabe eines Grundes notwendig.';
  $lang['troubleticket']['err_no_tt_id']  = 'Es wurde keine Troubleticket-ID &uuml;bergeben. Aufruf inkorrekt.';
  $lang['troubleticket']['err_unlink']    = 'Das Troubleticket konnte nicht gel&ouml;scht werden! Problem mit der Datenbank!';
- $lang['troubleticket']['err_no_cat']    = 'Bitte wählen sie eine Kategorie';
+ $lang['troubleticket']['err_no_cat']    = 'Bitte wÃ¤hlen sie eine Kategorie';
  
 ?>

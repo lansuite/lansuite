@@ -8,7 +8,7 @@ $lang['news']['translator'] = 'Jochen';
 
 $lang['news']['add_caption']	= 'News hinzuf&uuml;gen / &auml;ndern';
 $lang['news']['add_subcaption']	= 'Mit Hilfe des folgenden Formulars k&ouml;nnen Sie eine Newsmeldung hinzuf&uuml;gen / &auml;ndern.';
-$lang['news']['add_headline']	= 'Überschrift (Knappe Zusammenfassung für die Startseite)';
+$lang['news']['add_headline']	= 'Ãœberschrift (Knappe Zusammenfassung fÃ¼r die Startseite)';
 $lang['news']['add_text']	= 'Text';
 $lang['news']['add_icon']	= 'Kategorie / Icon';
 $lang['news']['add_priority']	= 'Priorit&auml;t';

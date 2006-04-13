@@ -15,7 +15,7 @@ $lang['boxes']['sponsor_thanks']	= 'Wir danken:';
 // Userdata
 $lang['boxes']['userdata_admin']         = 'Admin:';
 $lang['boxes']['userdata_id']            = 'ID:';
-$lang['boxes']['userdata_switch_back']	= 'Zurück wechseln';
+$lang['boxes']['userdata_switch_back']	= 'ZurÃ¼ck wechseln';
 $lang['boxes']['userdata_username']	= 'Benutzername:';
 $lang['boxes']['userdata_last_login']	= 'Zuletzt eingeloggt:';
 $lang['boxes']['userdata_last_login2']   = 'Zuletzt angemeldet';
@@ -23,7 +23,7 @@ $lang['boxes']['userdata_logins']	= 'Logins:';
 $lang['boxes']['userdata_my_seat']	= 'Mein Sitzplatz';
 $lang['boxes']['userdata_my_data']       = 'Meine Daten';
 $lang['boxes']['userdata_my_ticket']	= 'Meine Eintrittskarte';
-$lang['boxes']['userdata_change_pw']	= 'Passwort ändern';
+$lang['boxes']['userdata_change_pw']	= 'Passwort Ã¤ndern';
 $lang['boxes']['userdata_priv_settings']	= 'Pers. Einstellungen';
 $lang['boxes']['userdata_priv_details']	= 'Pers. Details';
 $lang['boxes']['userdata_login']         = 'Login';
@@ -38,11 +38,11 @@ $lang['boxes']['signonstatus_no_party_planed'] = 'Momentan ist keine Party gepla
 $lang['boxes']['signonstatus_paid']            = 'Bezahlt';
 $lang['boxes']['signonstatus_signed_on']       = 'Angemeldet';
 $lang['boxes']['signonstatus_free']            = 'Frei';
-$lang['boxes']['signonstatus_next_party']      = 'Nächste Party';
+$lang['boxes']['signonstatus_next_party']      = 'NÃ¤chste Party';
 $lang['boxes']['signonstatus_sign_on_at']      = '<b>Anmeldungen</b> an';
 $lang['boxes']['signonstatus_reg']             = 'Registriert';
-$lang['boxes']['signonstatus_free_places']     = 'Plätze frei';
-$lang['boxes']['signonstatus_party_running']   = 'Die Party läuft gerade!';
+$lang['boxes']['signonstatus_free_places']     = 'PlÃ¤tze frei';
+$lang['boxes']['signonstatus_party_running']   = 'Die Party lÃ¤uft gerade!';
 $lang['boxes']['signonstatus_days_left_sing']  = 'noch %DAYS% Tag';
 $lang['boxes']['signonstatus_days_left_plur']  = 'noch %DAYS% Tage';
 $lang['boxes']['signonstatus_counter']         = 'Counter';
@@ -50,12 +50,12 @@ $lang['boxes']['signonstatus_counter']         = 'Counter';
 // Messenger
 $lang['boxes']['messenger']             = 'Messenger';
 $lang['boxes']['messenger_no_buddies']  = 'Noch keine Buddies';
-$lang['boxes']['messenger_add_buddy']   = 'Benutzer hinzufügen';
+$lang['boxes']['messenger_add_buddy']   = 'Benutzer hinzufÃ¼gen';
 
 // Menu
 $lang['boxes']['menu_mod_cfg']  = 'Modul-Konfig';
 $lang['boxes']['menu_mod_db']   = 'Modul-DB';
-$lang['boxes']['menu_mod_menu'] = 'Menü-Einträge';
+$lang['boxes']['menu_mod_menu'] = 'MenÃ¼-EintrÃ¤ge';
 
 // Info
 $lang['boxes']['infobox_headline']      = 'Info';
