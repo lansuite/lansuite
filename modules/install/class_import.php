@@ -123,9 +123,15 @@ class Import {
 				$default_xml = $xml->get_tag_content("default", $field);
 				$extra = $xml->get_tag_content("extra", $field);
 
+        // Set default value to 0 or '', if NOT NULL and not autoincrement
+        if ($null_xml == '' and $extra == '') {
+          if (substr($type, 0, 3) == 'int' or substr($type, 0, 7) == 'tinyint') $default = 'default 0';
+          else $default = "default '$default_xml'";
+        } else $default = '';
+
 				// Create MySQL-String to import
-				($null_xml == "")? $null = "NOT NULL" : $null = "NULL";
-				($default_xml != "")? $default = "default '$default_xml'" : $default = "";
+				($null_xml == '')? $null = "NOT NULL" : $null = "NULL";
+				($default_xml != '')? $default = "default '$default_xml'" : $default = "";
 				if ($key == "PRI") $primary_key .= "$name, ";
 				if ($key == "UNI" or $key == "PRI") $unique_key .= ", UNIQUE KEY $name ($name)";
 				$mysql_fields .= "$name $type $null $default $extra, ";
