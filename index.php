@@ -1,5 +1,9 @@
 <?php
 
+// HTTP-Headers
+header('Content-Type: text/html; charset=utf-8');
+header("Cache-Control: no-cache, must-revalidate");
+
 // Error Reporting auf "Alles außer Hinweise" setzen
 error_reporting(E_ALL ^ E_NOTICE);
 
