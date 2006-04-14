@@ -9,39 +9,23 @@ class display {
 	var $formcount = 1;
 	var $TableOpen = false;
 	var $HiddenBoxJSLoaded = false;
-
+  var $TplCache = array();
+  
 /* Class-Internal Functions*/
-
-	// Output the template $file
-	function AddTpl($file){
-		global $auth, $language, $templ, $cfg;
-
-		if (!$this->TableOpen) {
-			$templ['index']['info']['content'] .= '<table width="100%" cellspacing="0" cellpadding="0">';
-			$this->TableOpen = true;
-		}
-
-		$handle = fopen ($file, "rb");
-		$tpl_str = fread ($handle, filesize ($file));
-		fclose ($handle);
-
-		$tpl_str = str_replace("\"","\\\"", $tpl_str );
-		$tpl_str = str_replace("{language}", $language, $tpl_str );
-		$tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str);
-
-		if ($cfg['sys_showdebug']) $templ['index']['info']['content'] .= "\r\n<!-- Start of template '$file' -->\r\n";
-		eval("\$templ['index']['info']['content'] .= \"".$tpl_str."\";");
-		if ($cfg['sys_showdebug']) $templ['index']['info']['content'] .= "\r\n<!-- End of template '$file' -->\r\n";
-	}
-
 
 	// Returns the template $file
 	function FetchTpl($file, $templ){
-		global $auth, $language, $cfg;
+		global $auth, $language, $cfg, $TplCache;
 
-		$handle = fopen ($file, "rb");
-		$tpl_str = fread ($handle, filesize ($file));
-		fclose ($handle);
+    #echo "Loading $file<br>";
+
+    if ($this->TplCache[$file] != '') $tpl_str = $this->TplCache[$file];
+    else {
+  		$handle = fopen ($file, "rb");
+  		$tpl_str = fread ($handle, filesize ($file));
+  		fclose ($handle);
+  		$this->TplCache[$file] = $tpl_str;
+    }
 
 		$tpl_str = str_replace("\"","\\\"", $tpl_str );
 		$tpl_str = str_replace("{language}", $language, $tpl_str );
@@ -53,6 +37,18 @@ class display {
 		if ($cfg['sys_showdebug']) $tpl .= "\r\n<!-- End of template '$file' -->\r\n";
 
 		return $tpl;
+	}
+
+	// Output the template $file
+	function AddTpl($file){
+		global $templ;
+
+		if (!$this->TableOpen) {
+			$templ['index']['info']['content'] .= '<table width="100%" cellspacing="0" cellpadding="0">';
+			$this->TableOpen = true;
+		}
+
+    $templ['index']['info']['content'] .= $this->FetchTpl($file, $templ);
 	}
 
 
