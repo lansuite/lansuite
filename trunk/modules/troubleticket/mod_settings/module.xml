@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <lansuite-module>
 	<name>troubleticket</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
 	<caption>Troubleticket</caption>		<!-- The modulname displayed to the user -->
-	<description>Benutzer können hier ihre Probleme posten, Orgas können sie beheben, oder anderen Orgas zuweisen</description>		<!-- A short description of the module -->
+	<description>Benutzer kÃ¶nnen hier ihre Probleme posten, Orgas kÃ¶nnen sie beheben, oder anderen Orgas zuweisen</description>		<!-- A short description of the module -->
 	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
 	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>Denny Mleinek</author>				<!-- The author of this module -->

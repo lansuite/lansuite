@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <lansuite-module>
 	<name>pdf</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
 	<caption>PDF Export</caption>		<!-- The modulname displayed to the user -->

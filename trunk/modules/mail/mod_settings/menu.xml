@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<pos>5</pos>
 	<entry>
@@ -45,7 +45,7 @@
 		<action>newsletter</action>
 		<file>newsletter</file>
 		<caption>Rundmail</caption>
-		<hint>Hier können Sie allen Ihren Gästen eine Mail schreiben</hint>
+		<hint>Hier kÃ¶nnen Sie allen Ihren GÃ€sten eine Mail schreiben</hint>
 		<link>?mod=mail&action=newsletter</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>

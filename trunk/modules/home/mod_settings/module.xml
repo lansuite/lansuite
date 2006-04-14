@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <lansuite-module>
 	<name>home</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
 	<caption>Startseite</caption>		<!-- The modulname displayed to the user -->
-	<description>Dieses Modul gibt eine Übersicht über aktuelle Aktivitäten in LanSuite</description>		<!-- A short description of the module -->
+	<description>Dieses Modul gibt eine Ãbersicht ÃŒber aktuelle AktivitÃ€ten in LanSuite</description>		<!-- A short description of the module -->
 	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
 	<changeable>0</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>Unbekannt</author>				<!-- The author of this module -->

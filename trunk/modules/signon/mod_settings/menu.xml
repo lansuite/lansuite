@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<pos>4</pos>
 	<entry>
@@ -14,8 +14,8 @@
 	<entry>
 		<action>edit_party</action>
 		<file>edit_party</file>
-		<caption>Party ändern</caption>
-		<hint>Hier kann die Party geändert werden</hint>
+		<caption>Party Ã€ndern</caption>
+		<hint>Hier kann die Party geÃ€ndert werden</hint>
 		<link>?mod=signon&action=edit_party</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
@@ -24,8 +24,8 @@
 	<entry>
 		<action>price</action>
 		<file>price</file>
-		<caption>Preise ändern</caption>
-		<hint>Hier können Preise geändert werden</hint>
+		<caption>Preise Ã€ndern</caption>
+		<hint>Hier kÃ¶nnen Preise geÃ€ndert werden</hint>
 		<link>?mod=signon&action=price</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>

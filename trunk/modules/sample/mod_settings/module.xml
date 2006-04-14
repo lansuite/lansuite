@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <lansuite-module>
 	<name>sample</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
 	<caption>Beispielmodul</caption>		<!-- The modulname displayed to the user -->
-	<description>Dieses Modul ist nur für Entwickler gedacht und demonstriert an einem Beispiel den Aufbau eines Modules</description>		<!-- A short description of the module -->
+	<description>Dieses Modul ist nur fÃŒr Entwickler gedacht und demonstriert an einem Beispiel den Aufbau eines Modules</description>		<!-- A short description of the module -->
 	<active>0</active>				<!-- Is the module activated by default? 0/1 -->
 	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>LanSuite</author>				<!-- The author of this module -->

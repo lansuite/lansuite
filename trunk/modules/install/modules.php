@@ -56,7 +56,7 @@ switch($_GET["step"]) {
 		$db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 1 WHERE name = 'banner'");
 		$db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 1 WHERE name = 'about'");
 
-		$func->confirmation("Die Änderungen wurden übernommen.", "install.php?mod=install&action=modules");
+		$func->confirmation($lang['install']['modules_settings_success'], "install.php?mod=install&action=modules");
 	break;
 
 	// Question: Reset all Modules
