@@ -57,7 +57,6 @@ class Install {
 
 		$link_id = mysql_connect($dbserver, $dbuser, $dbpasswd);
 		if ($link_id) {
-			@mysql_query("/*!40101 SET NAMES latin1 */;"); 
 
 			// If User wants to rewrite all tables, drop databse. It will be created anew in the next step
 			if ((!$_GET["quest"]) && ($createnew) && ($_GET["step"] == 3)) mysql_query("DROP DATABASE $database");
@@ -66,8 +65,10 @@ class Install {
 			if (@mysql_select_db($database, $link_id)) $ret_val = 1;
 			else {
 
+  			@mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $link_id);
+         
 				// Try to create DB
-				$query_id = @mysql_query("CREATE DATABASE $database", $link_id);
+				$query_id = @mysql_query("CREATE DATABASE $database CHARACTER SET utf8 COLLATE utf8_general_ci", $link_id);
 				if ($query_id) $ret_val = 3; else $ret_val = 2;
 			}
 		} else $ret_val = 0;
@@ -165,7 +166,7 @@ class Install {
 		$tablecreate = Array("anz" => 0, "created" => 0, "exist" => 0, "failed" => "");
 		$dsp->AddSingleRow("<b>". $lang["install"]["db_createtables"] ."</b>");
 
-		$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}table_names (name varchar(80) NOT NULL default '') TYPE=MyISAM");
+		$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}table_names (name varchar(80) NOT NULL default '') TYPE = MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci");
 		$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = 'table_names'");
 
 		if (is_dir("modules")) {
