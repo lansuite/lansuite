@@ -18,6 +18,7 @@ Version 2.1.1
 - Bugfix: #382 In der Gästeliste wurde der Sitzplan um eine Stelle falsch angezeigt (KnoX 20.03.2006)
 - Bugfix: In der neuen Mastersearch war jeweils die letzte Seite nicht auswählbar, außer durch den Link 'Alle' (KnoX 20.03.2006)
 
+- Change: Wenn bei einer Suche "Alle anzeigen" ausgewählt ist, bleibt dies nun beim neuen Suchen, oder Sortieren erhalten. Eine spezielle Seite wird jedoch auf Seite 1 zurückgesetzt (KnoX 14.04.2006)
 - Change: Performance um ca. 0.2 sec pro Seite verbessert durch Template-Caching (KnoX 14.04.2006)
 - Change: Als Zeichensatz wird nun immer UTF-8 im HTTP-Header mitgesendet (KnoX 13.04.2006)
 - Change: #401 Die erste Spalte einer MS2 verlinkt nun immer auf das Ziel des der ertsen Icon-Spalte (KnoX 09.04.2006)
