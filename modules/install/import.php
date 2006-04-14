@@ -78,21 +78,24 @@ switch($_GET["step"]){
 				$items = explode($_POST["seperator"], $csv_file[0]);
 
 				// Read fields in user table
-				$query = $db->query("DESCRIBE {$config["database"]["prefix"]}user");
-				while ($row = $db->fetch_array($query)){
-					reset($items);
-					$fields = array();
-					array_push ($fields, "<option value=\"\">-Leer-</option>");
-					$z = 0;
-					foreach ($items as $item) {
-						if ($item == $row["Field"]) $selected = "selected"; else $selected = "";
-						array_push ($fields, "<option $selected value=\"$z\">$z - $item</option>");
-						$z++;
-					}
-					$dsp->AddDropDownFieldRow($row["Field"], "<b>user.{$row["Field"]}</b>", $fields, "");
-				}
-				$db->free_result($query);
-
+				$tables = array('user', 'party_user');
+				foreach ($tables as $table){
+  				$query = $db->query("DESCRIBE {$config["database"]["prefix"]}$table");
+  				while ($row = $db->fetch_array($query)){
+  					reset($items);
+  					$fields = array();
+  					array_push ($fields, "<option value=\"\">-Leer-</option>");
+  					$z = 0;
+  					foreach ($items as $item) {
+  						if ($item == $row["Field"]) $selected = "selected"; else $selected = "";
+  						array_push ($fields, "<option $selected value=\"$z\">$z - $item</option>");
+  						$z++;
+  					}
+  					$dsp->AddDropDownFieldRow($table.'--'.$row["Field"], "<b>$table.{$row["Field"]}</b>", $fields, "");
+  				}
+  				$db->free_result($query);
+        }
+        
 				$dsp->AddFormSubmitRow("next"); 
 				$dsp->AddBackButton("install.php?mod=install&action=import", "install/import"); 
 				$dsp->AddContent();
@@ -112,7 +115,10 @@ switch($_GET["step"]){
 				// Get index assignment
 				$indexes = array();
 				foreach ($_POST as $var => $val) if ($var != "imageField_x" and $var != "imageField_y") {
-					if ($val != "") $indexes[$val] = $var;
+				  $var = split('--', $var);
+				  $table = $var[0];
+				  $field = $var[1];
+					if ($val) $indexes[$table][$field] = $val;
 				}
 
 				// Read CSV file to DB
@@ -122,11 +128,24 @@ switch($_GET["step"]){
 					if ($z > 0) {
 						$items = explode($_GET["seperator"], $csv_line);
 
-						$sql = "";
-						foreach ($indexes as $itemnr => $sql_name) $sql .= "$sql_name = '{$items[$itemnr]}', ";
+            // User table
+						$table = $indexes['user'];
+						$sql = '';
+					  foreach ($table as $field => $itemnr) $sql .= "$field = '". $func->escape_sql($items[$itemnr]) ."', ";
 						$sql = substr($sql, 0, strlen($sql) - 2);
 
-						$db->query_first("REPLACE INTO {$config["database"]["prefix"]}user SET $sql");
+						$db->query("REPLACE INTO {$config["database"]["prefix"]}user SET $sql");
+						$userid = $db->insert_id();
+
+            // Party-user table
+            if ($userid) {
+  						$table = $indexes['party_user'];
+  						$sql = '';
+  					  foreach ($table as $field => $itemnr) $sql .= "$field = '". $func->escape_sql($items[$itemnr]) ."', ";
+  						$sql = substr($sql, 0, strlen($sql) - 2);
+  
+  						$db->query("REPLACE INTO {$config["database"]["prefix"]}party_user SET user_id = $userid, party_id = {$party->party_id}, $sql");
+            }            
 					}
 					$z++;
 				}
