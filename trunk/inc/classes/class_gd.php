@@ -211,7 +211,10 @@ class gd {
 		$ratio_x = $old_width / $max_width;
 		$ratio_y = $old_height / $max_height;
 
-		if ($ratio_x > $ratio_y) {
+    if ($old_width <= $max_width and $old_height <= $max_height) {
+      $new_width = $old_width;
+      $new_height = $old_height;
+    } elseif ($ratio_x > $ratio_y) {
 			$new_width = $max_width;
 			$new_height = $old_height / $ratio_x;
 		} else {
