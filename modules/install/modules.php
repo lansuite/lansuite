@@ -1,4 +1,21 @@
 <?php
+
+function FindCfgKeyForMod($name) {
+  global $db, $config;
+
+	$cfg_grp = $name . "_";
+	if ($cfg_grp == "downloads_") $cfg_grp = "Download";
+	if ($cfg_grp == "usrmgr_") $cfg_grp = "Userdetails";
+	if ($cfg_grp == "tournament2_") $cfg_grp = "t";
+	$find_config = $db->query_first("SELECT cfg_key
+			FROM {$config["tables"]["config"]}
+			WHERE (cfg_group = '$cfg_grp')
+			OR (cfg_key LIKE '$cfg_grp%')
+			");
+	if ($find_config["cfg_key"]) return true;
+  else return false;
+} 
+
 function WriteMenuEntries() {
 	global $templ, $res, $db, $config, $dsp, $lang;
 
@@ -83,9 +100,21 @@ switch($_GET["step"]) {
 				WHERE (cfg_group = '{$_GET["module"]}')
 				OR (cfg_key LIKE '{$like}%')");
 
+		$dsp->NewContent($lang["install"]["mod_set_caption"], $lang["install"]["mod_set_subcaption"]);
+
+    // Add select row for other module configs
+    if ($script_filename != 'install.php') {
+      $menunames = array();
+  		$res2 = $db->query("SELECT name, caption FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
+  		while ($row2 = $db->fetch_array($res2)) if (FindCfgKeyForMod($row2["name"])) $menunames[$row2['name']] = $row2['caption'];
+    	$db->free_result($res2);
+    	$dsp->AddHeaderMenu2($menunames, "index.php?mod=install&action=modules&step=10&module=", $_GET['headermenuitem']);
+  		$dsp->AddContent();
+    }
+    
 		if ($db->num_rows($res) == 0) $func->error($lang["install"]["mod_set_err_nosettings"], "install.php?mod=install&action=modules");
 		else {
-			$dsp->NewContent($lang["install"]["mod_set_caption"], $lang["install"]["mod_set_subcaption"]);
+			
   		if ($script_filename == "install.php") $formlink = "install.php?mod=install&action=modules&step=11&module={$_GET["module"]}";
       else $formlink = "index.php?mod=install&action=modules&step=11&module={$_GET["module"]}";
 			$dsp->SetForm($formlink);
@@ -137,10 +166,10 @@ switch($_GET["step"]) {
 			$db->free_result($res);
 
 			$dsp->AddFormSubmitRow("next");
-			if ($_GET["module"] == "sys_") $dsp->AddBackButton("install.php?mod=install", "install/modules"); 
-			elseif ($script_filename == "install.php")  $dsp->AddBackButton("install.php?mod=install&action=modules", "install/modules"); 
-			$dsp->AddContent();
 		}
+		if ($_GET["module"] == "sys_") $dsp->AddBackButton("install.php?mod=install", "install/modules"); 
+		elseif ($script_filename == "install.php")  $dsp->AddBackButton("install.php?mod=install&action=modules", "install/modules"); 
+		$dsp->AddContent();
 	break;
 
 	// Change Settings
@@ -351,16 +380,7 @@ switch($_GET["step"]) {
 			(file_exists("modules/{$row["name"]}/images/admin_icon.gif"))? $templ['ls']['row']['module']['img'] = "modules/{$row["name"]}/images/admin_icon.gif"
 			: $templ['ls']['row']['module']['img'] = "modules/sample/images/admin_icon.gif";
 
-			$cfg_grp = $row["name"] . "_";
-			if ($cfg_grp == "downloads_") $cfg_grp = "Download";
-			if ($cfg_grp == "usrmgr_") $cfg_grp = "Userdetails";
-			if ($cfg_grp == "tournament2_") $cfg_grp = "t";
-			$find_config = $db->query_first("SELECT cfg_key
-					FROM {$config["tables"]["config"]}
-					WHERE (cfg_group = '$cfg_grp')
-					OR (cfg_key LIKE '$cfg_grp%')
-					");
-			if ($find_config["cfg_key"]) $templ['ls']['row']['module']['settings_link'] = " | <a href=\"install.php?mod=install&action=modules&step=10&module={$row["name"]}\">{$lang["install"]["modules_config"]}</a>";
+			if (FindCfgKeyForMod($row["name"])) $templ['ls']['row']['module']['settings_link'] = " | <a href=\"install.php?mod=install&action=modules&step=10&module={$row["name"]}\">{$lang["install"]["modules_config"]}</a>";
 			else $templ['ls']['row']['module']['settings_link'] = "";
 
 			$find_mod = $db->query_first("SELECT module
