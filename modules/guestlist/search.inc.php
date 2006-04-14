@@ -3,18 +3,9 @@ include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
 function SeatNameLink($userid){
-  global $seat2, $db, $config, $party;
+  global $seat2;
 
-  if (!$userid) return '';
-  else $row = $db->query_first("SELECT b.blockid, b.name, b.orientation, s.col, s.row FROM {$config['tables']['seat_block']} AS b
-    LEFT JOIN {$config['tables']['seat_seats']} AS s ON b.blockid = s.blockid
-    WHERE b.party_id = {$party->party_id} AND s.userid = $userid");
-
-  if (!$row['blockid']) return '';
-  else {
-    $LinkText = $row['name'] .'<br />'. $seat2->CoordinateToName($row['col'] + 1, $row['row'], $row['orientation']);
-	  return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id={$row['blockid']}&userarray[]=$userid&l=1','_blank','width=596,height=638,resizable=yes');\" class=\"small\">$LinkText</a>";
-	}
+  return $seat2->SeatNameLink($userid);
 }
 
 function PaidIconLink($paid){

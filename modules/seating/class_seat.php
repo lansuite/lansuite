@@ -12,6 +12,21 @@ class seat2 {
 		return $res;
 	}
 
+  function SeatNameLink($userid, $MaxBlockLength = 0){
+    global $db, $config, $party;
+  
+    if (!$userid) return '';
+    else $row = $db->query_first("SELECT b.blockid, b.name, b.orientation, s.col, s.row FROM {$config['tables']['seat_block']} AS b
+      LEFT JOIN {$config['tables']['seat_seats']} AS s ON b.blockid = s.blockid
+      WHERE b.party_id = {$party->party_id} AND s.userid = $userid");
+  
+    if (!$row['blockid']) return '';
+    else {
+      $LinkText = $row['name'] .'<br />'. $this->CoordinateToName($row['col'] + 1, $row['row'], $row['orientation'], $MaxBlockLength);
+  	  return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id={$row['blockid']}&userarray[]=$userid&l=1','_blank','width=596,height=638,resizable=yes');\" class=\"small\">$LinkText</a>";
+  	}
+  }
+
 	function SeatOfUser($userid, $MaxBlockLength = 0, $LinkIt = 0) {
 	  global $db, $config, $party; 
 
