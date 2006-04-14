@@ -96,6 +96,18 @@ class display {
 
 		$this->AddTpl("design/templates/ls_row_headermenu.htm");
     }
+    
+  function AddHeaderMenu2($names, $link, $active = NULL) {
+   	global $templ;
+
+    foreach($names as $key => $name) {
+      ($key == $active and $active != '')? $am = '' : $am = 'class="menu"';
+      $templ['ls']['row']['headermenu']['items'] .= '<a href="'. $link . $key .'"'. $am .'><b>'. $name .'</b></a> - ';
+    }
+    $templ['ls']['row']['headermenu']['items'] = substr($templ['ls']['row']['headermenu']['items'], 0, -3);
+    
+    $this->AddTpl("design/templates/ls_row_headermenu.htm");
+  }
 
 	function StartHiddenBox($name, $vissible = false) {
 		global $templ;
