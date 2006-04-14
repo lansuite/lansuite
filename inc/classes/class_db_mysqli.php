@@ -58,7 +58,7 @@ class db {
 			}
 		} else $GLOBALS['db_link_id'] = $this->link_id;
 
-		@mysqli_query($GLOBALS['db_link_id'], "/*!40101 SET NAMES latin1 */;");
+		@mysqli_query($GLOBALS['db_link_id'], "/*!40101 SET NAMES utf8_general_ci */;");
 
 		return true;
 	}
