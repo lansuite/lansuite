@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<pos>6</pos>
 	<entry>
@@ -15,7 +15,7 @@
 		<action>timetable</action>
 		<file>timetable</file>
 		<caption>Zeitplan</caption>
-		<hint>Eine Übersicht über die Zeiten zu denen welches Turnier stattfindet</hint>
+		<hint>Eine Ãbersicht ÃŒber die Zeiten zu denen welches Turnier stattfindet</hint>
 		<link>?mod=tournament2&action=timetable</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>

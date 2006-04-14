@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<pos>21</pos>
 	<entry>
 		<action>default</action>
 		<file>show</file>
 		<caption>Troubletickets</caption>
-		<hint>Mit den Troubletickets können die Orgas und die Teilnehmer ihre Probleme etc. verwalten</hint>
+		<hint>Mit den Troubletickets kÃ¶nnen die Orgas und die Teilnehmer ihre Probleme etc. verwalten</hint>
 		<link>?mod=troubleticket</link>
 		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<needed_config></needed_config>
@@ -15,7 +15,7 @@
 		<action>cat</action>
 		<file>cat</file>
 		<caption>Kategorie</caption>
-		<hint>Neue Kategorie hinzufügen oder &auml;ndern</hint>
+		<hint>Neue Kategorie hinzufÃŒgen oder &auml;ndern</hint>
 		<link>?mod=troubleticket&action=cat</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>

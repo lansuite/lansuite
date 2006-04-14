@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<pos>2</pos>
 	<entry>
@@ -22,8 +22,8 @@
 	<entry>
 		<action>add</action>
 		<file>add</file>
-		<caption>Hinzufügen</caption>
-		<hint>Hier können Sie News-Meldungen hinzufügen</hint>
+		<caption>HinzufÃŒgen</caption>
+		<hint>Hier kÃ¶nnen Sie News-Meldungen hinzufÃŒgen</hint>
 		<link>?mod=news&action=add</link>
 		<requirement>2</requirement>
 		<level>1</level>
@@ -32,7 +32,7 @@
 		<action>change</action>
 		<file>add</file>
 		<caption>Verwalten</caption>
-		<hint>Hier können Sie bereits eingetragene News-Meldungen ändern</hint>
+		<hint>Hier kÃ¶nnen Sie bereits eingetragene News-Meldungen Ã€ndern</hint>
 		<link>?mod=news&action=change</link>
 		<requirement>2</requirement>
 		<level>1</level>

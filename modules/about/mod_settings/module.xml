@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <lansuite-module>
 	<name>about</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
 	<caption>About</caption>		<!-- The modulname displayed to the user -->
-	<description>Eine Übersicht der Programmierer von LanSuite</description>		<!-- A short description of the module -->
+	<description>Eine Ãbersicht der Programmierer von LanSuite</description>		<!-- A short description of the module -->
 	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
 	<changeable>0</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>Raphael Mansmann</author>				<!-- The author of this module -->

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<pos>4</pos>
 	<entry>
@@ -22,7 +22,7 @@
 		<level>1</level>
 	</entry>
 	<entry>
-		<caption>Zahlstatus ändern</caption>
+		<caption>Zahlstatus Ã€ndern</caption>
 		<hint></hint>
 		<link>?mod=usrmgr&action=changepaid</link>
 		<requirement>2</requirement>

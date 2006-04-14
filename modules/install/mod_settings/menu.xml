@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <menu>
 	<pos>32</pos>
 	<entry>
 		<action>default</action>
 		<file>index</file>
 		<caption>Admin-Seite</caption>
-		<hint>Hier können Sie Änderungen an der Konfiguration von LanSuite vornehmen</hint>
+		<hint>Hier kÃ¶nnen Sie Ãnderungen an der Konfiguration von LanSuite vornehmen</hint>
 		<link>install.php?mod=install</link>
 		<requirement>3</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<needed_config></needed_config>
