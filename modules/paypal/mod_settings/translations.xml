@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -6,7 +6,7 @@
 		<en>PayPal</en>
 	</entry>
 	<entry>
-		<de>Mit diesem Modul können die Benutzer einzahlungen machen</de>
+		<de>Mit diesem Modul kÃ¶nnen die Benutzer einzahlungen machen</de>
 		<en>Using this modules youser can transfer money to you</en>
 	</entry>
 	<entry>
@@ -22,7 +22,7 @@
 		<en>Homepage of account owner</en>
 	</entry>
 	<entry>
-		<de>Währung (USD,GBP,JPY,CAD,EUR)</de>
+		<de>WÃ€hrung (USD,GBP,JPY,CAD,EUR)</de>
 		<en>Currency (USD,GBP,JPY,CAD,EUR)</en>
 	</entry>
 	<entry>
@@ -38,15 +38,15 @@
 		<en>Sign on to party</en>
 	</entry>
 	<entry>
-		<de>Soll der Besucher auch gleich das Depot zahlen können?</de>
+		<de>Soll der Besucher auch gleich das Depot zahlen kÃ¶nnen?</de>
 		<en>Should the user also be able to pay the deposit?</en>
 	</entry>
 	<entry>
-		<de>Sollen die Besucher Geld für das Catering einzahlen können?</de>
+		<de>Sollen die Besucher Geld fÃŒr das Catering einzahlen kÃ¶nnen?</de>
 		<en>Should the user be able to transfer monay for catering?</en>
 	</entry>
 	<entry>
-		<de>Sollen die Besucher Spenden einzahlen können?</de>
+		<de>Sollen die Besucher Spenden einzahlen kÃ¶nnen?</de>
 		<en>Should users be able to donate money?</en>
 	</entry>
 </translations>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -6,7 +6,7 @@
 		<en>Picture gallery</en>
 	</entry>
 	<entry>
-		<de>Bietete die Möglichkeit Bilder hochzuladen und stellt diese in Kleinansicht in einer Liste dar</de>
+		<de>Bietete die MÃ¶glichkeit Bilder hochzuladen und stellt diese in Kleinansicht in einer Liste dar</de>
 		<en>Provites the possibility to upload and presentate pictures</en>
 	</entry>
 	<entry>
@@ -14,15 +14,15 @@
 		<en>Maximum width of a thumbnail</en>
 	</entry>
 	<entry>
-		<de>Maximalhöhe eines Thumbnails</de>
+		<de>MaximalhÃ¶he eines Thumbnails</de>
 		<en>Maximum height of a thumbnail</en>
 	</entry>
 	<entry>
-		<de>Bilder in der Übersicht pro Reihe</de>
+		<de>Bilder in der Ãbersicht pro Reihe</de>
 		<en>Pictures per row in the overview</en>
 	</entry>
 	<entry>
-		<de>Reihen mit Bildern in der Übersicht</de>
+		<de>Reihen mit Bildern in der Ãbersicht</de>
 		<en>Number of rows in the overview</en>
 	</entry>
 	<entry>

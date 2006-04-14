@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -6,7 +6,7 @@
 		<en>Sign on</en>
 	</entry>
 	<entry>
-		<de>Durch dieses Modul können sich Benutzer zu der Party anmelden und Partys können verwaltet werden.</de>
+		<de>Durch dieses Modul kÃ¶nnen sich Benutzer zu der Party anmelden und Partys kÃ¶nnen verwaltet werden.</de>
 		<en>By using this module user can sign on to the party. Multiple partys are managed here</en>
 	</entry>
 	<entry>
@@ -14,23 +14,23 @@
 		<en>Sign on</en>
 	</entry>
 	<entry>
-		<de>Party ändern</de>
+		<de>Party Ã€ndern</de>
 		<en>Change party</en>
 	</entry>
 	<entry>
-		<de>Hier kann die Party geändert werden</de>
+		<de>Hier kann die Party geÃ€ndert werden</de>
 		<en>This is where the party could be changed</en>
 	</entry>
 	<entry>
-		<de>Preise ändern</de>
+		<de>Preise Ã€ndern</de>
 		<en>Change price</en>
 	</entry>
 	<entry>
-		<de>Hier können Preise geändert werden</de>
+		<de>Hier kÃ¶nnen Preise geÃ€ndert werden</de>
 		<en>The is where prices could be changed</en>
 	</entry>
 	<entry>
-		<de>Wird das System für mehrere Partys verwendet?</de>
+		<de>Wird das System fÃŒr mehrere Partys verwendet?</de>
 		<en>Is the system for multiple partys in use?</en>
 	</entry>
 	<entry>
@@ -62,7 +62,7 @@
 		<en>Last name</en>
 	</entry>
 	<entry>
-		<de>Straße</de>
+		<de>StraÃe</de>
 		<en>Street</en>
 	</entry>
 	<entry>
@@ -130,7 +130,7 @@
 		<en>Should the password be generated automatically?</en>
 	</entry>
 	<entry>
-		<de>Soll nach der Bezahltstatusänderung die Option geboten werden, dem Benutzer eine Mail zu senden?</de>
+		<de>Soll nach der BezahltstatusÃ€nderung die Option geboten werden, dem Benutzer eine Mail zu senden?</de>
 		<en>Should - after changing the users paid state - apear a selection to send him / her a mail?</en>
 	</entry>
 	<entry>
@@ -142,7 +142,7 @@
 		<en>Select standard party, please (number has to exist)</en>
 	</entry>
 	<entry>
-		<de>Sollen Orgas mit in der Gästeliste angezeigt werden.</de>
+		<de>Sollen Orgas mit in der GÃ€steliste angezeigt werden.</de>
 		<en>Should orgas be shown in the guest list?</en>
 	</entry>
 	<entry>

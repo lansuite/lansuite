@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -6,7 +6,7 @@
 		<en>Sample module</en>
 	</entry>
 	<entry>
-		<de>Dieses Modul ist nur für Entwickler gedacht und demonstriert an einem Beispiel den Aufbau eines Modules</de>
+		<de>Dieses Modul ist nur fÃŒr Entwickler gedacht und demonstriert an einem Beispiel den Aufbau eines Modules</de>
 		<en>This module is for developers only. It demonstrates how a module looks like</en>
 	</entry>
 </translations>

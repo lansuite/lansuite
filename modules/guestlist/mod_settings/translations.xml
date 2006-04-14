@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
-		<de>Gästeliste</de>
+		<de>GÃ€steliste</de>
 		<en>Guest list</en>
 	</entry>
 	<entry>
-		<de>Dies ist eine Liste aller angemeldeter Gäste</de>
+		<de>Dies ist eine Liste aller angemeldeter GÃ€ste</de>
 		<en>This is a list of all signed on guests</en>
 	</entry>
 	<entry>
@@ -22,11 +22,11 @@
 		<en>Here you can see which areas your users come from</en>
 	</entry>
 	<entry>
-		<de>Zahlstatus ändern</de>
+		<de>Zahlstatus Ã€ndern</de>
 		<en>Change paid</en>
 	</entry>
 	<entry>
-		<de>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der Gäste) anzeigen?</de>
+		<de>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der GÃ€ste) anzeigen?</de>
 		<en>Show user map (A germay map with markings at the origins of the guests)</en>
 	</entry>
 </translations>
