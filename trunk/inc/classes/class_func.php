@@ -283,7 +283,7 @@ class func {
 		$string = str_replace("&lt;!--", "<!--", $string);
 		$string = str_replace("--&gt;", "-->", $string);
 		$string = str_replace("&lt;?", "<?", $string);
-		$string = str_replace("?&gt;", "?>", $string);
+		$string = str_replace("?&gt;", '?'.'>', $string);
 		$string = strip_tags($string);
 
 		$string = eregi_replace('\[img\]([^\[]*)\[/img\]', '<img src="\1" border="1" class="img" alt="" />', $string);

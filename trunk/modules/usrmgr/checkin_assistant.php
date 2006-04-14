@@ -45,24 +45,16 @@ switch($_GET["step"]) {
 
 	// Wenn Angemeldet: Benutzerauswahl
 	case 2:
-		if ($_GET["signon"]){
-			$sql = " AND NOT ISNULL(p.user_id) AND (p.checkin = '0' OR p.checkout != '0') AND u.type > 0 AND party_id = {$party->party_id}";
-		}else{
-			$sql = " AND u.type > 0 GROUP BY email";
-		}
-		$mastersearch = new MasterSearch($vars, "index.php?mod=usrmgr&action=entrance&step=2", "index.php?mod=usrmgr&action=entrance&step=3&umode=change&userid=", $sql);
-		$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/usrmgr/search_checkin_assistant.inc.php');
 	break;
 
 	// Benutzerdaten eingeben / ändern
 	case 3:
 		if (($_POST["paid"] == "") || ($_POST["paid"] == 0)) {
-			if ($_GET["umode"] != "add") $error["paid"] = $lang["usrmgr"]["entrance_notpaid_warning"];
+			if ($_GET["umode"] != "add") {
+			  $_GET['quick_signon'] = 1;
+        $error["paid"] = $lang["usrmgr"]["entrance_notpaid_warning"];
+      }
 			$_POST["paid"] = 2;
 		}
 		$_POST["signon"] = 1;
@@ -83,8 +75,8 @@ switch($_GET["step"]) {
 		$username = urlencode($_POST['username']);
 		$pw = urlencode(base64_encode($_POST['password']));
 
-		if($seatprice > 0 && $_POST['paid'] > 0 && $_POST['signon'] && $seatcontrol == "0"){
-			$func->question(str_replace("%PRICE%",$seatprice . " " . $cfg['sys_currency'] ,$lang['usrmgr']['paid_seatcontrol_quest']),"index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=1&username=$username&priceid={$_POST['price_id']}&pw=$pw","index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=0&username=$username&priceid={$_POST['price_id']}&pw=$pw");
+		if ($seatprice > 0 and $_POST['paid'] > 0 and $_POST['signon'] and $seatcontrol == "0"){
+			$func->question(str_replace("%PRICE%", $seatprice . " " . $cfg['sys_currency'] ,$lang['usrmgr']['paid_seatcontrol_quest']),"index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=1&username=$username&priceid={$_POST['price_id']}&pw=$pw","index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=0&username=$username&priceid={$_POST['price_id']}&pw=$pw");
 			break;
 		}
 		
@@ -99,7 +91,7 @@ switch($_GET["step"]) {
 
 	// Neuen Sitzplatz auswählen?
 	case 6:
-		$func->question($lang["usrmgr"]["entrance_seat_user"], "index.php?mod=usrmgr&action=entrance&step=7&umode=". $_GET["umode"] ."&userid=". $_GET["userid"], "index.php?mod=usrmgr&action=entrance&step=11&umode=". $_GET["umode"] ."&userid=". $_GET["userid"]);
+		$func->question(str_replace("%SEAT%", $seat2->SeatNameLink($_GET["userid"]), $lang["usrmgr"]["entrance_seat_user"]), "index.php?mod=usrmgr&action=entrance&step=7&umode=". $_GET["umode"] ."&userid=". $_GET["userid"], "index.php?mod=usrmgr&action=entrance&step=11&umode=". $_GET["umode"] ."&userid=". $_GET["userid"]);
 	break;	
 
 	// Sitzblock auswählen
