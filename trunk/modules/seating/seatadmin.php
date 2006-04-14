@@ -66,7 +66,8 @@ switch($_GET['step']) {
 				$func->error($lang['seating']['e_no_seat'], "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}");
 			break;
 
-			case 1:	// Seat free -> reserve it
+			case 1:	// Seat free, or just marked -> reserve it
+			case 3:
 				$seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
 				$func->confirmation(str_replace("%USERNAME%", $new_user['username'], $lang['seating']['c_seat_res']), "index.php?mod=seating&action=seatadmin");
 			break;
