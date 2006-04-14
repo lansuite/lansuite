@@ -262,7 +262,8 @@ class MasterSearch2 {
 
 
     ###### Output Search
-    $templ['ms2']['action'] = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}";
+    ($_GET['page'] == 'all')? $add_page = '&page=all' : $add_page = '';
+    $templ['ms2']['action'] = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}$add_page";
     $templ['ms2']['inputs'] = '';
     // Text Inputs
     $z = 0; $x = 0;
@@ -326,9 +327,9 @@ class MasterSearch2 {
       if ($first_as > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
       
       // Order Link and Image
-      if ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC') $order_dir = 'DESC';
-      else $order_dir = 'ASC';
-      $templ['ms2']['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir";
+      ($_GET['page'] == 'all')? $add_page = '&page=all' : $add_page = '';
+      ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC')? $order_dir = 'DESC' : $order_dir = 'ASC';
+      $templ['ms2']['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
             
       if ($_GET['order_by'] == $current_field['sql_field']) {
         if ($_GET['order_dir'] == 'DESC') $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
