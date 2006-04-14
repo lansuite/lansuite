@@ -122,6 +122,8 @@ if ($_GET["mod"] != "install"){
 // Include base-files
 //
 include("inc/classes/class_seat.php");
+include_once("modules/seating/class_seat.php");
+$seat2 = new seat2();
 
 //
 // Define general index vars

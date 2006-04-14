@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.1
 
+- Bugfix: #379 Der CSV-Export bezieht sich nun immer auf die aktuelle Party + Weitere zahlreiche Bugfixes am CSV-Export (KnoX 14.04.2006)
 - Bugfix: #392 Änderungen an der Generierung der Turnierbaumgrafiken vorrübergehend wieder rückgängig gemacht, da sie auf manchen Systemen zu noch nicht nachvollziehbaren Fehlern führen (KnoX 13.04.2006)
 - Bugfix: #384 Mastercomment-Template korrigiert (KnoX 12.04.2006)
 - Bugfix: #383 Text in den DB-Grundeinstellungen hatte gefehlt (KnoX 12.04.2006)
