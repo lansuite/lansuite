@@ -31,12 +31,12 @@ class Export {
 
 		$this->output .= $xml->write_master_tag("lansuite", $this->lansuite, 0);
 
-		header("Content-Type: application/octetstream");
-	    header("Content-Disposition: attachment; filename=\"{$this->filename}\"" );
-	    header("Content-Length: " . strlen($this->output));
-	    header("Expires: 0");
-	    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-	    header("Pragma: public");
+    header('Content-Type: application/octetstream; charset=utf-8');
+    header("Content-Disposition: attachment; filename=\"{$this->filename}\"" );
+    header('Content-Length: '. strlen($this->output));
+    header('Expires: 0');
+    header('Cache-Control: no-cache, must-revalidate');
+    header('Pragma: public');
 
 		echo $this->output;
 	}
@@ -126,30 +126,28 @@ class Export {
 	function SendExport($out, $name){
 		global $func;
 
-		header("Content-Type: application/octetstream");
-	    header("Content-Disposition: attachment; filename=\"$name\"" );
-	    header("Content-Length: " . strlen($out));
-	    header("Expires: 0");
-	    header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
-	    header("Pragma: public");
+    header('Content-Type: application/octetstream; charset=utf-8');
+    header("Content-Disposition: attachment; filename=\"$name\"" );
+    header('Content-Length: '. strlen($out));
+    header('Expires: 0');
+    header('Cache-Control: no-cache, must-revalidate');
+    header('Pragma: public');
 
 		echo $out;
 	}
 
 
 	function ExportCSVComplete($sep){
-		global $db, $config, $func;
+		global $db, $config, $func, $party, $seat2;
 
-		include_once("inc/classes/class_seat.php");
-		$seat = new seat;
-
-		$user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(),'daydatetime')."\r\n\r\n";
+		$user_export = $config['lansuite']['version']." CSV Export\r\nParty: ". $_SESSION['party_info']['name'] ."\r\nExportdate: ".$func->unixstamp2date(time(),'daydatetime')."\r\n\r\n";
 
 		$user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;passnr/misc;md5pwd;usertype;paid;seatcontrol;clan;clanurl;wwclid;nglid;checkin;checkout;signondate;seatblock;seat;ip;comment\r\n";
 
 		$query = $db->query("SELECT u.*, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
 			FROM {$config["tables"]["user"]} AS u
 			LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id = u.userid
+			WHERE p.party_id = {$party->party_id}
 			");
 		while($row = $db->fetch_array($query)) {
 			$user_export .= $row["userid"].$sep;
@@ -186,21 +184,16 @@ class Export {
 			$user_export .= ($row["signondate"] > "0") ? $func->unixstamp2date($row["signondate"],"datetime").$sep : $sep;
 
 			// seat
-			$row_seat = $db->query_first("SELECT blockid, col, row, ip FROM {$GLOBALS['config']['tables']['seat_seats']} WHERE userid='{$row["userid"]}'");
+			$row_seat = $db->query_first("SELECT blockid, col, row, ip FROM {$config['tables']['seat_seats']} WHERE userid='{$row["userid"]}' AND status = 2");
 			$blockid  = $row_seat["blockid"];
-			if($blockid != "") {
-				$row_block    = $db->query_first("SELECT orientation, name FROM {$GLOBALS['config']['tables']['seat_block']} WHERE blockid='$blockid'");
-				$orientation  = $row_block["orientation"];
-				$ic           = $row_seat["col"];
-				$ir           = $row_seat["row"];
-				$seatindex    = $seat->display_seat_index($orientation, $ic, $ir);
+			if ($blockid != "") {
+				$row_block    = $db->query_first("SELECT orientation, name FROM {$config['tables']['seat_block']} WHERE blockid='$blockid'");
+				$seatindex = $seat2->CoordinateToName($row_seat["col"] + 1, $row_seat["row"], $row_block["orientation"]);
 				$user_export .= $row_block["name"].$sep;
 				$user_export .= $seatindex.$sep;
-			} else {
-				$user_export .= "".$sep."".$sep;						
-			}
+			} else $user_export .= $sep.$sep;
 
-			$user_export .= "".$row_seat["ip"].$sep;
+			$user_export .= $row_seat["ip"].$sep;
 			$user_export .= $row["comment"].$sep;
 			$user_export .= "\r\n";
 		}
@@ -211,10 +204,7 @@ class Export {
 
 
 	function ExportCSVSticker($sep){
-		global $db, $config, $func;
-
-		include_once("inc/classes/class_seat.php");
-		$seat = new seat;
+		global $db, $config, $func, $party, $seat2;
 
 		$user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(),'daydatetime')."\r\n\r\n";
 
@@ -222,6 +212,7 @@ class Export {
 		$query = $db->query("SELECT u.*, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
 			FROM {$config["tables"]["user"]} AS u
 			LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id = u.userid
+			WHERE p.party_id = {$party->party_id}
 			");
 
 		while($row = $db->fetch_array($query)) {
@@ -237,14 +228,11 @@ class Export {
 			$user_export .= $row["clan"].$sep;
 
 			// seat
-			$row_seat = $db->query_first("SELECT blockid, col, row, ip FROM {$GLOBALS['config']['tables']['seat_seats']} WHERE userid='{$row["userid"]}'");
+			$row_seat = $db->query_first("SELECT blockid, col, row, ip FROM {$GLOBALS['config']['tables']['seat_seats']} WHERE userid='{$row["userid"]} AND status = 2'");
 			$blockid  = $row_seat["blockid"];
 			if($blockid != "") {
 				$row_block    = $db->query_first("SELECT orientation, name FROM {$GLOBALS['config']['tables']['seat_block']} WHERE blockid='$blockid'");
-				$orientation  = $row_block["orientation"];
-				$ic           = $row_seat["col"];
-				$ir           = $row_seat["row"];
-				$seatindex    = $seat->display_seat_index($orientation, $ic, $ir);
+				$seatindex = $seat2->CoordinateToName($row_seat["col"] + 1, $row_seat["row"], $row_block["orientation"]);
 				$user_export .= $row_block["name"].$sep;
 				$user_export .= $seatindex.$sep;
 			}
@@ -258,48 +246,46 @@ class Export {
 
 
 	function ExportCSVCard($sep){
-		global $db, $config, $func;
-
-		include_once("inc/classes/class_seat.php");
-		$seat = new seat;
+		global $db, $config, $func, $party, $seat2;
 
 		$user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(),'daydatetime')."\r\n\r\n";
 
-        $user_export .= "username;name;firstname;clan;seatblock;col;row;seat;ip\n";
+    $user_export .= "username;name;firstname;clan;seatblock;col;row;seat;ip\n";
+    
+    $query = $db->query("SELECT s.* FROM {$config["tables"]["seat_seats"]} AS s
+      LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b.blockid
+      WHERE b.party_id = {$party->party_id} AND s.status = 2
+      ORDER BY s.blockid");      
+    while ($row_seat = $db->fetch_array($query)) {
+      $userid = $row_seat["userid"];
 
-		$query = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]} ORDER BY blockid");
-			while($row_seat = $db->fetch_array($query)) {
-				$userid = $row_seat["userid"];
-
-				$row = $db->query("SELECT u.*, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
-					FROM {$config["tables"]["user"]} AS u
-					LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id = u.userid
-					WHERE u.userid='$userid'
-					");
-	            $username = str_replace("&gt;","",$row["username"]);
-				$username = str_replace("&lt;","",$username);
-				$username = str_replace("&gt","",$username);
-				$username = str_replace("&lt","",$username);
-				$username = trim($username);
-				$user_export .= $username.$sep;
-				$user_export .= $row["name"].$sep;
-				$user_export .= $row["firstname"].$sep;
-				$user_export .= $row["clan"].$sep;
-
-			    $blockid  = $row_seat["blockid"];
-				$row_block    = $db->query_first("SELECT orientation, name FROM {$config['tables']['seat_block']} WHERE blockid='$blockid'");
-				$orientation  = $row_block["orientation"];
-				$ic           = $row_seat["col"];
-				$ir           = $row_seat["row"];
-				$seatindex    = $seat->display_seat_index($orientation, $ic, $ir);
-				$user_export .= $row_block["name"].$sep;
-				$user_export .= $row_seat["col"].$sep;
-				$user_export .= $row_seat["row"].$sep;
-				$user_export .= $seatindex.$sep;
-		        $user_export .= $row_seat["ip"];
-
-				$user_export .= "\n";
-			} // end while
+      $row = $db->query_first("SELECT u.*, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
+        FROM {$config["tables"]["user"]} AS u
+        LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id = u.userid
+        WHERE u.userid='$userid'
+        ");
+      
+      $username = str_replace("&gt;","",$row["username"]);
+      $username = str_replace("&lt;","",$username);
+      $username = str_replace("&gt","",$username);
+      $username = str_replace("&lt","",$username);
+      $username = trim($username);
+      $user_export .= $username.$sep;
+      $user_export .= $row["name"].$sep;
+      $user_export .= $row["firstname"].$sep;
+      $user_export .= $row["clan"].$sep;
+      
+      $blockid  = $row_seat["blockid"];
+      $row_block    = $db->query_first("SELECT orientation, name FROM {$config['tables']['seat_block']} WHERE blockid='$blockid'");
+  		$seatindex = $seat2->CoordinateToName($row_seat["col"] + 1, $row_seat["row"], $row_block["orientation"]);
+      $user_export .= $row_block["name"].$sep;
+      $user_export .= $row_seat["col"].$sep;
+      $user_export .= $row_seat["row"].$sep;
+      $user_export .= $seatindex.$sep;
+      $user_export .= $row_seat["ip"];
+      
+      $user_export .= "\r\n";
+    } // end while
 		return $user_export;
 	}
 
