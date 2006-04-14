@@ -206,7 +206,7 @@ class Import {
 			if ($primary_key) $primary_key = ", PRIMARY KEY (". substr($primary_key, 0, strlen($primary_key) - 2) .")";
 
 			// Create a new table, if it does not exist yet, or has been dropped above, due to rewrite
-			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}$table_name ($mysql_fields $primary_key $unique_key) TYPE=MyISAM");
+			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}$table_name ($mysql_fields $primary_key $unique_key) TYPE = MyISAM  CHARACTER SET utf8 COLLATE utf8_general_ci");
 			$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
 
 			// Import Table-Content
