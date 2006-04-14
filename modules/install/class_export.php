@@ -15,7 +15,7 @@ class Export {
 		if ($filename) $this->filename = $filename;
 		else $this->filename = "lansuite_". date("ymd") .".xml";
 
-		$this->output = '<?xml version="1.0" encoding="UTF-8"?>'."\r\n\r\n";
+		$this->output = '<?xml version="1.0" encoding="UTF-8"?'.">\r\n\r\n";
 
 		/* Header */
 		$header = $xml->write_tag("filetype", "LanSuite", 2);
