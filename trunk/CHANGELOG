@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.1
 
+- Bugfix: #372 Im Navigationsmanager wurde eine Trennlinie mal vor und mal nach dem angeklickten Eintrag eingefügt (KnoX 14.04.2006)
 - Bugfix: #365 Avatare und andere Thumbnails werden nun nicht mehr zwanghaft vergrößert, sondern nur noch verkleinert (KnoX 14.04.2006)
 - Bugfix: #391 Man konnte als Admin einem Benutzer keinen vorreservierten Platz zuweisen (KnoX 14.04.2006)
 - Bugfix: #379 Der CSV-Export bezieht sich nun immer auf die aktuelle Party + Weitere zahlreiche Bugfixes am CSV-Export (KnoX 14.04.2006)

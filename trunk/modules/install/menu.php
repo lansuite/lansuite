@@ -16,7 +16,8 @@ switch($_GET["step"]) {
 
 	// Add HRule Row
 	case 4:
-		$db->query("INSERT INTO {$config["tables"]["menu"]} SET caption = '--hr--', pos = {$_GET["pos"]}");
+		$db->query("UPDATE {$config["tables"]["menu"]} SET pos = pos + 1 WHERE pos > {$_GET["pos"]}");
+		$db->query("INSERT INTO {$config["tables"]["menu"]} SET caption = '--hr--', pos = ". ($_GET["pos"] + 1));
 	break;
 
 	// Delete
