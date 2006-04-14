@@ -6,20 +6,6 @@ switch($_GET["step"]) {
 	// Search User
 	default:
     include_once('modules/usrmgr/search.inc.php');
-
-/*
-		if ($auth["type"] == 3) $additional = " AND userid != '{$auth["userid"]}' AND type >= 1 AND p.party_id={$party->party_id}";
-		else $additional = " AND userid != '{$auth["userid"]}' AND type = 1 AND p.party_id={$party->party_id}";
-
-		$mastersearch = new MasterSearch($vars, "index.php?mod=usrmgr&action=changepaid", "index.php?mod=usrmgr&action=changepaid&step=2&userid=", $additional);
-		$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
-		$mastersearch->config['result_fields'][0]['checkbox']   = "checkbox";
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-*/    	
 	break;
 
 	// Confirm Action
@@ -73,7 +59,7 @@ switch($_GET["step"]) {
 							$text .= $lang['usrmgr']['paid_seatcontrol_paid'];
 						}else{
 							$text .= $lang['usrmgr']['paid_seatcontrol_not_paid'];
-						}					
+						}
 					$func->question($text,"index.php?mod=usrmgr&action=changepaid&step=4&userid=$userid&paid=1&seatcontrol=1","index.php?mod=usrmgr&action=changepaid&step=4&userid=$userid&paid=1&seatcontrol=0");
 					break;
 				}elseif($seatprice > 0 && $_GET['paid'] == 0){
@@ -98,10 +84,16 @@ switch($_GET["step"]) {
 				if ($user_data["paid"]) $paid = 0;
 				else $paid = 1;
 				$db->query("UPDATE {$config["tables"]["party_user"]} SET paid = '$paid' WHERE user_id = $userid AND party_id={$party->party_id} LIMIT 1");
+				if ($paid == 1) $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
+				else $seat2->MarkSeatIfNotPaidAndSeatReserved($userid);
 			}
-		} else $db->query("UPDATE {$config["tables"]["party_user"]} SET paid = '{$_GET["paid"]}' WHERE user_id = $userid AND party_id={$party->party_id} LIMIT 1");
+		} else {
+      $db->query("UPDATE {$config["tables"]["party_user"]} SET paid = '{$_GET["paid"]}' WHERE user_id = $userid AND party_id={$party->party_id} LIMIT 1");
+      if ($_GET["paid"] == 1) $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
+      else $seat2->MarkSeatIfNotPaidAndSeatReserved($userid);
+    }
 
-		if(isset($_GET['seatcontrol'])){
+		if (isset($_GET['seatcontrol'])){
 			$party->set_seatcontrol($userid,$_GET['seatcontrol']);
 		}
 		$func->confirmation($lang["usrmgr"]["chpaid_success"], "index.php?mod=usrmgr&action=details&userid=$userid");

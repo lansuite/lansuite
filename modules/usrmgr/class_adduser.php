@@ -398,7 +398,7 @@ class AddUser {
 
 	// Writes the submitted data to the DB
 	function WriteToDB($action, $quick_signon = 0) {
-		global $db, $config, $lang, $cfg, $signon, $func, $birthday, $street, $nr, $plz, $city, $party, $auth, $missing_fields, $perso;
+		global $db, $config, $lang, $cfg, $signon, $func, $birthday, $street, $nr, $plz, $city, $party, $auth, $missing_fields, $perso, $seat2;
 
 		if ($_SESSION['add_blocker_usrmgr']) $func->error("NO_REFRESH", "");
 		else {
@@ -495,6 +495,10 @@ class AddUser {
 			elseif((!isset($_POST['signon']) || $_POST['signon'] == "0") && $auth["type"] > 1){
 			 	$party->delete_user_from_party($_GET["userid"]);	
 			}
+			
+			// Update Seating
+			if ($_POST['paid']) $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($_GET["userid"]);
+			else $seat2->MarkSeatIfNotPaidAndSeatReserved($_GET["userid"]);
 
 			// Picture Upload
 			if ($auth["type"] >= 2) if (file_exists($_FILES['picture']['tmp_name'])) {

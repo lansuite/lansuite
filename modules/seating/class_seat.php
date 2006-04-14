@@ -373,7 +373,28 @@ class seat2 {
 
 
 	// Seat management functions
-
+  function ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid) {
+    global $db, $config, $party;
+    
+    $res = $db->query("SELECT s.seatid, s.status FROM {$config["tables"]["seat_block"]} AS b
+			LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON b.blockid = s.blockid
+			WHERE b.party_id = {$party->party_id} AND s.userid = '$userid'
+			");
+		$row = $db->fetch_array($res);
+		if ($db->num_rows($res) == 1 and $row['status'] == 3)
+      $db->query("UPDATE {$config["tables"]["seat_seats"]} SET status = 2 WHERE seatid = {$row['seatid']}");    
+  }
+	
+  function MarkSeatIfNotPaidAndSeatReserved($userid) {
+    global $db, $config, $party;
+    
+    $row = $db->query_first("SELECT s.seatid, s.status FROM {$config["tables"]["seat_block"]} AS b
+			LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON b.blockid = s.blockid
+			WHERE b.party_id = {$party->party_id} AND s.userid = '$userid' AND s.status = 2
+			");
+		if ($row['seatid'] > 0) $db->query("UPDATE {$config["tables"]["seat_seats"]} SET status = 3 WHERE seatid = {$row['seatid']}");    
+  }
+	
 	function AssignSeat($userid, $blockid, $row, $col) {
 		global $db, $config, $party;
 

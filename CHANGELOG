@@ -28,6 +28,7 @@ Version 2.1.1
           ACHTUNG: sämtliche Clandaten gehen bei Update verloren und können nicht in die neue Version übernommen werden!
 - Change: MS2 Callbachs in die einzelnen Module verlagert (KnoX 19.03.2006)
 
+- Add: #360 Wird ein User auf bezahlt geschaltet, wird sein vorgemerkter Platz in einen reservierten umgeändert. Verliert ein User den Zahlstatus, wird der reservierte Platz wieder nur vorgemerkt sein. (KnoX 14.04.2006)
 - Add: CSV-Import verbessert. U.a. lässt sich nun auch in die party_user-Tabelle hinein importieren (KnoX 14.04.2006)
 - Add: #398 Die Rundmail kann man nun auch nur an NICHT bezahlte senden (KnoX 01.04.2006)
 - Add: Fulltext-Suche in MS2 eingebaut. Zum Testen ist es in der Verwalten-Funktion der News zum Durchsuchen aller Newstexte drin (KnoX 28.03.2006)
