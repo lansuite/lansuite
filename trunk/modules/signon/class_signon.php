@@ -130,7 +130,7 @@ var $perso;
 
 		include_once ("inc/classes/class_xml.php");
 		$xml = new xml;
-		$output = '<?xml version="1.0" encoding="ISO-8859-1"?>'."\r\n";
+		$output = '<?xml version="1.0" encoding="UTF-8"?>'."\r\n";
 
 		$part_infos = $xml->write_tag("name", $cfg["feed_partyname"], 2);
 		$part_infos .= $xml->write_tag("link", $cfg["sys_partyurl"], 2);

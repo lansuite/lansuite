@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -10,7 +10,7 @@
 		<en>Provides an JavaApplet for chatting on an IRC-Server for LanSuite</en>
 	</entry>
 	<entry>
-		<de>IRC Server auf dem der Chat läuft?</de>
+		<de>IRC Server auf dem der Chat lÃ€uft?</de>
 		<en>IRC Server, the chat is running on</en>
 	</entry>
 	<entry>
@@ -22,7 +22,7 @@
 		<en>Width of chat window</en>
 	</entry>
 	<entry>
-		<de>Höhe des Chatfensters</de>
+		<de>HÃ¶he des Chatfensters</de>
 		<en>Height of chat window</en>
 	</entry>
 </translations>

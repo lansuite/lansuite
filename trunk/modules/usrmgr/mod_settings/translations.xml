@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -34,7 +34,7 @@
 		<en>Should an orga see the fields "paid / seat paid"?</en>
 	</entry>
 	<entry>
-		<de>Sollen dem Benutzer SEINE Straße/Passnummer/Sonstiges angezeigt werden? (Orga sieht diese Felder immer)</de>
+		<de>Sollen dem Benutzer SEINE StraÃe/Passnummer/Sonstiges angezeigt werden? (Orga sieht diese Felder immer)</de>
 		<en>Sould a user see HIS "street / ID-Card number / misc"? (Orgas always see this field)</en>
 	</entry>
 	<entry>
@@ -50,11 +50,11 @@
 		<en>Ma an user upload an avatar picture?</en>
 	</entry>
 	<entry>
-		<de>Darf der Benutzer das Design auswählen?</de>
+		<de>Darf der Benutzer das Design auswÃ€hlen?</de>
 		<en>May an user choose his design?</en>
 	</entry>
 	<entry>
-		<de>Sollen die User ihre Details im Nachhinein selbst ändern dürfen?</de>
+		<de>Sollen die User ihre Details im Nachhinein selbst Ã€ndern dÃŒrfen?</de>
 		<en>May users edit their details afterwards?</en>
 	</entry>
 	<entry>
@@ -62,7 +62,7 @@
 		<en>Should the link to the ticket be displayed in the user data box?</en>
 	</entry>
 	<entry>
-		<de>Name des PDF-Templates für Eintrittskarte</de>
+		<de>Name des PDF-Templates fÃŒr Eintrittskarte</de>
 		<en>Name of the PDF-Template for the ticket</en>
 	</entry>
 	<entry>

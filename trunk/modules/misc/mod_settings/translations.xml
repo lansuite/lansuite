@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -46,7 +46,7 @@
 		<en>Here you can block IPs</en>
 	</entry>
 	<entry>
-		<de>Aufzeichnungszeitraum für IP-Reload in Sekunden</de>
+		<de>Aufzeichnungszeitraum fÃŒr IP-Reload in Sekunden</de>
 		<en>Log rotate for IP-reload blocking in secounds</en>
 	</entry>
 	<entry>

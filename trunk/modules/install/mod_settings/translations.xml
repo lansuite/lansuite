@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
-		<de>Fügt den Text als weitere Fooderzeile unter dem bestehendem hinzu. (html-code)</de>
+		<de>FÃŒgt den Text als weitere Fooderzeile unter dem bestehendem hinzu. (html-code)</de>
 		<en>Adds the text as an additional fooder line (HTML-Code)</en>
 	</entry>
 	<entry>
-		<de>Sollen Passwörter in DIESER Übersicht in Klartext angezeigt werden?</de>
+		<de>Sollen PasswÃ¶rter in DIESER Ãbersicht in Klartext angezeigt werden?</de>
 		<en>Should passwords in THIS overview be shown as plain text?</en>
 	</entry>
 	<entry>
@@ -18,7 +18,7 @@
 		<en>The lanpartys contact mail (Webmaster)</en>
 	</entry>
 	<entry>
-		<de>Läuft diese Version im Internet (Anmeldesystem) ?</de>
+		<de>LÃ€uft diese Version im Internet (Anmeldesystem) ?</de>
 		<en>Does this version run in internet mode (sign on system)?</en>
 	</entry>
 	<entry>
@@ -26,7 +26,7 @@
 		<en>Should debug messages be shown</en>
 	</entry>
 	<entry>
-		<de>Zeigt zusätzliche Debug-Informationen.</de>
+		<de>Zeigt zusÃ€tzliche Debug-Informationen.</de>
 		<en>Shows additional debug messages</en>
 	</entry>
 	<entry>
@@ -38,7 +38,7 @@
 		<en>Should a logged in user be logged off, if a 2nd one signs on with his account</en>
 	</entry>
 	<entry>
-		<de>Währung des Systems</de>
+		<de>WÃ€hrung des Systems</de>
 		<en>Currency of the system</en>
 	</entry>
 	<entry>
@@ -54,7 +54,7 @@
 		<en>Admin page</en>
 	</entry>
 	<entry>
-		<de>Hier können Sie Änderungen an der Konfiguration von LanSuite vornehmen</de>
+		<de>Hier kÃ¶nnen Sie Ãnderungen an der Konfiguration von LanSuite vornehmen</de>
 		<en>This is where you can configure LanSuite</en>
 	</entry>
 	<entry>
@@ -62,7 +62,7 @@
 		<en>Installation</en>
 	</entry>
 	<entry>
-		<de>Ermöglicht das Installieren und Administrieren von LanSuite</de>
+		<de>ErmÃ¶glicht das Installieren und Administrieren von LanSuite</de>
 		<en>For installing and adinstrationg the LanSuite system</en>
 	</entry>
 	<entry>
@@ -110,8 +110,8 @@
 		<en>Deutschland</en>
 	</entry>
 	<entry>
-		<de>Österreich</de>
-		<en>Österreich</en>
+		<de>Ãsterreich</de>
+		<en>Ãsterreich</en>
 	</entry>
 	<entry>
 		<de>Schweiz</de>

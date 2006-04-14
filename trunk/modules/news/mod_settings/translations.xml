@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -6,7 +6,7 @@
 		<en>News</en>
 	</entry>
 	<entry>
-		<de>Präsentiert Bekanntmachungen der Orgas</de>
+		<de>PrÃ€sentiert Bekanntmachungen der Orgas</de>
 		<en>Presents announcments of the orgas</en>
 	</entry>
 	<entry>
@@ -22,27 +22,27 @@
 		<en>Here you can search for news messages</en>
 	</entry>
 	<entry>
-		<de>Hinzufügen</de>
+		<de>HinzufÃŒgen</de>
 		<en>Add</en>
 	</entry>
 	<entry>
-		<de>Hier können Sie News-Meldungen hinzufügen</de>
+		<de>Hier kÃ¶nnen Sie News-Meldungen hinzufÃŒgen</de>
 		<en>Here you can add news messages</en>
 	</entry>
 	<entry>
-		<de>Ändern</de>
+		<de>Ãndern</de>
 		<en>Change</en>
 	</entry>
 	<entry>
-		<de>Hier können Sie bereits eingetragene News-Meldungen ändern</de>
+		<de>Hier kÃ¶nnen Sie bereits eingetragene News-Meldungen Ã€ndern</de>
 		<en>Here you can change existing news messages</en>
 	</entry>
 	<entry>
-		<de>Löschen</de>
+		<de>LÃ¶schen</de>
 		<en>Delete</en>
 	</entry>
 	<entry>
-		<de>Hier können Sie News-Meldungen löschen</de>
+		<de>Hier kÃ¶nnen Sie News-Meldungen lÃ¶schen</de>
 		<en>Here you can delete news messages</en>
 	</entry>
 	<entry>

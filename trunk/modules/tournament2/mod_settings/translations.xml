@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -22,7 +22,7 @@
 		<en>Timeline</en>
 	</entry>
 	<entry>
-		<de>Eine Übersicht über die Zeiten zu denen welches Turnier stattfindet</de>
+		<de>Eine Ãbersicht ÃŒber die Zeiten zu denen welches Turnier stattfindet</de>
 		<en>AN overview over the times a tournament takes place</en>
 	</entry>
 	<entry>
@@ -94,27 +94,27 @@
 		<en>Export</en>
 	</entry>
 	<entry>
-		<de>Sieg-Punkte bei einem Sieg in einem Liga-Turnier (Verlierer bekommen 0, Unentschieden gibt einen Punkt für beide)</de>
+		<de>Sieg-Punkte bei einem Sieg in einem Liga-Turnier (Verlierer bekommen 0, Unentschieden gibt einen Punkt fÃŒr beide)</de>
 		<en>Win points when winning a league tournament (losers got 0, draw is 1 point for each)</en>
 	</entry>
 	<entry>
-		<de>Nur Verlierer dürfen das Ergebnis eintragen</de>
+		<de>Nur Verlierer dÃŒrfen das Ergebnis eintragen</de>
 		<en>Only losers may submit the score</en>
 	</entry>
 	<entry>
-		<de>Die Anzahl an Coins, die jedem Turnierteilnehmer von Beginn an zur Verfügung stehen</de>
+		<de>Die Anzahl an Coins, die jedem Turnierteilnehmer von Beginn an zur VerfÃŒgung stehen</de>
 		<en>The number of coins each users has at the beginning</en>
 	</entry>
 	<entry>
-		<de>Der Pfad zu der zu verwendenen Schriftart für den Turnierbaum</de>
+		<de>Der Pfad zu der zu verwendenen Schriftart fÃŒr den Turnierbaum</de>
 		<en>The path to the userd font for the tournament tree</en>
 	</entry>
 	<entry>
-		<de>Die Schriftgröße der zu verwendenen Schriftart für den Turnierbaum</de>
+		<de>Die SchriftgrÃ¶Ãe der zu verwendenen Schriftart fÃŒr den Turnierbaum</de>
 		<en>The font size of the tournament tree</en>
 	</entry>
 	<entry>
-		<de>Punkte, die dem Sieger vergeben werden, bei Zeitüberschreitung, oder Disqualifizierung des Gegners</de>
+		<de>Punkte, die dem Sieger vergeben werden, bei ZeitÃŒberschreitung, oder Disqualifizierung des Gegners</de>
 		<en>Points, the winner got, when drawn because of time exceeding, or disqualification of his opponent</en>
 	</entry>
 </translations>

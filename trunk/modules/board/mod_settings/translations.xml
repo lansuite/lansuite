@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -18,15 +18,15 @@
 		<en>Look at your marked threads</en>
 	</entry>
 	<entry>
-		<de>Hinzufügen</de>
+		<de>HinzufÃŒgen</de>
 		<en>Add</en>
 	</entry>
 	<entry>
-		<de>Ändern</de>
+		<de>Ãndern</de>
 		<en>Change</en>
 	</entry>
 	<entry>
-		<de>Löschen</de>
+		<de>LÃ¶schen</de>
 		<en>Delete</en>
 	</entry>
 	<entry>
@@ -38,15 +38,15 @@
 		<en>Show ranking?</en>
 	</entry>
 	<entry>
-		<de>Gast Präfix</de>
+		<de>Gast PrÃ€fix</de>
 		<en>Guest prefix</en>
 	</entry>
 	<entry>
-		<de>Anzahl der angezeigten Forumeinträge</de>
+		<de>Anzahl der angezeigten ForumeintrÃ€ge</de>
 		<en>Number of shown board entries</en>
 	</entry>
 	<entry>
-		<de>Anzahl der angezeigten Einträge</de>
+		<de>Anzahl der angezeigten EintrÃ€ge</de>
 		<en>Number of shown entries</en>
 	</entry>
 	<entry>
@@ -54,7 +54,7 @@
 		<en>A new post is available</en>
 	</entry>
 	<entry>
-		<de>Betreff der Hinweismail auf neue Beiträge</de>
+		<de>Betreff der Hinweismail auf neue BeitrÃ€ge</de>
 		<en>Subject of the reminder mail for new posts</en>
 	</entry>
 	<entry>
@@ -62,7 +62,7 @@
 		<en>There is a new post in the board. You can have a look at in unter %URL%.</en>
 	</entry>
 	<entry>
-		<de>Text der Hinweismail auf neue Beiträge</de>
+		<de>Text der Hinweismail auf neue BeitrÃ€ge</de>
 		<en>Text of the reminder mail for new posts</en>
 	</entry>
 	<entry>
@@ -70,7 +70,7 @@
 		<en>Board</en>
 	</entry>
 	<entry>
-		<de>Ein Forum - Gäste können hier Nachrichten hinterlassen, worauf andere antworten können</de>
+		<de>Ein Forum - GÃ€ste kÃ¶nnen hier Nachrichten hinterlassen, worauf andere antworten kÃ¶nnen</de>
 		<en>Guests could leave messages here, so others can reply</en>
 	</entry>
 </translations>

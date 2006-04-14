@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -6,7 +6,7 @@
 		<en>Informations2</en>
 	</entry>
 	<entry>
-		<de>Ermöglicht das einfache hinzufügen weiterer statischer Webseiten</de>
+		<de>ErmÃ¶glicht das einfache hinzufÃŒgen weiterer statischer Webseiten</de>
 		<en>Makes the adding of additional static web pages easy</en>
 	</entry>
 	<entry>
@@ -18,7 +18,7 @@
 		<en>Editors width</en>
 	</entry>
 	<entry>
-		<de>Höhe des Editors</de>
+		<de>HÃ¶he des Editors</de>
 		<en>Editors height</en>
 	</entry>
 	<entry>
@@ -26,7 +26,7 @@
 		<en>Extended toolbar</en>
 	</entry>
 	<entry>
-		<de>Eingabe über den WYYSIWYG-Editor Spaw?</de>
+		<de>Eingabe ÃŒber den WYYSIWYG-Editor Spaw?</de>
 		<en>Use the WYYSIWYG-editor Spaw for text input?</en>
 	</entry>
 </translations>

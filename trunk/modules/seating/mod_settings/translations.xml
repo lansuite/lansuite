@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -6,7 +6,7 @@
 		<en>Seating</en>
 	</entry>
 	<entry>
-		<de>Bezahlte Benutzer können sich hier Sitzplätze reservieren. So kann jeder nachschauen, wo eine gesuchte Person sitzt</de>
+		<de>Bezahlte Benutzer kÃ¶nnen sich hier SitzplÃ€tze reservieren. So kann jeder nachschauen, wo eine gesuchte Person sitzt</de>
 		<en>Paid users could reserver their seat here. So each user can look where another could be found</en>
 	</entry>
 	<entry>

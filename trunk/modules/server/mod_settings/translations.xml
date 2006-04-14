@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <translations>
 	<entry>
@@ -6,7 +6,7 @@
 		<en>Server</en>
 	</entry>
 	<entry>
-		<de>Eine öffentliche Liste aller Server auf der Lan, in der jeder eingeloggt Benutzer seinen Server eintragen kann</de>
+		<de>Eine Ã¶ffentliche Liste aller Server auf der Lan, in der jeder eingeloggt Benutzer seinen Server eintragen kann</de>
 		<en>A public list of all servers, where each logged in youser could add his / her server</en>
 	</entry>
 	<entry>
@@ -14,7 +14,7 @@
 		<en>After how many secounds should the accessibilty of the server be testet again?</en>
 	</entry>
 	<entry>
-		<de>Nur Admins dürfen Server hinzufügen</de>
+		<de>Nur Admins dÃŒrfen Server hinzufÃŒgen</de>
 		<en>Only admins may add servers</en>
 	</entry>
 	<entry>
