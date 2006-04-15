@@ -21,7 +21,7 @@ else {
 
 $dsp->AddSingleRow("<b>{$lang["install"]["index_config_ls"]}</b>");
 $dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=ls_conf\">{$lang["install"]["index_ls_conf"]}</a>");
-$dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=modules&step=10&module=sys\">{$lang["install"]["index_settings"]}</a>");
+$dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=modules&step=10&module=install\">{$lang["install"]["index_settings"]}</a>");
 $dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=modules\">{$lang["install"]["index_module"]}</a>");
 $dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=menu\">{$lang["install"]["index_navigation"]}</a>");
 #$dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=adminaccount\">{$lang["install"]["index_adminaccount"]}</a>");

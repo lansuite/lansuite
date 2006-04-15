@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Felder bei Anmeldung</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_show_firstname</name>
+    		<type>signon</type>
+    		<default>2</default>
+    		<description>Vorname</description>
+    	</item>
+    	<item>
+    		<name>signon_show_lastname</name>
+    		<type>signon</type>
+    		<default>2</default>
+    		<description>Nachname</description>
+    	</item>
+    	<item>
+    		<name>signon_show_street</name>
+    		<type>signon</type>
+    		<default>1</default>
+    		<description>Straße</description>
+    	</item>
+    	<item>
+    		<name>signon_show_city</name>
+    		<type>signon</type>
+    		<default>1</default>
+    		<description>Stadt</description>
+    	</item>
+    	<item>
+    		<name>signon_show_perso</name>
+    		<type>signon</type>
+    		<default>0</default>
+    		<description>Personalausweis</description>
+    	</item>
+    	<item>
+    		<name>signon_show_birthday</name>
+    		<type>signon</type>
+    		<default>1</default>
+    		<description>Geburtstag</description>
+    	</item>
+    	<item>
+    		<name>signon_show_gender</name>
+    		<type>signon</type>
+    		<default>1</default>
+    		<description>Geschlecht</description>
+    	</item>
+    	<item>
+    		<name>signon_show_agb</name>
+    		<type>signon</type>
+    		<default>2</default>
+    		<description>AGB Zustimmung</description>
+    	</item>
+    	<item>
+    		<name>signon_show_voll</name>
+    		<type>signon</type>
+    		<default>0</default>
+    		<description>U18 Zustimmung</description>
+    	</item>
+    	<item>
+    		<name>signon_show_clan</name>
+    		<type>signon</type>
+    		<default>1</default>
+    		<description>Clan</description>
+    	</item>
+    	<item>
+    		<name>signon_show_clanurl</name>
+    		<type>signon</type>
+    		<default>1</default>
+    		<description>Clanurl</description>
+    	</item>
+    	<item>
+    		<name>signon_show_wwcl_id</name>
+    		<type>signon</type>
+    		<default>1</default>
+    		<description>WWCL-ID</description>
+    	</item>
+    	<item>
+    		<name>signon_show_ngl_id</name>
+    		<type>signon</type>
+    		<default>1</default>
+    		<description>NGL-ID</description>
+    	</item>
+    	<item>
+    		<name>signon_show_newsletter</name>
+    		<type>signon</type>
+    		<default>1</default>
+    		<description>Newsletter Anforderung</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Multi-Party</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_multiparty</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Wird das System für mehrere Partys verwendet?</description>
+    	</item>
+    	<item>
+    		<name>signon_partyid</name>
+    		<type>int</type>
+    		<default>1</default>
+    		<description>Bitte Standart Party festlegen (Nummer muss existieren)</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Anmelde-Mail</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_signonemail_subject</name>
+    		<type>string</type>
+    		<default>Informationsmail zur Anmeldung bei der LANparty</default>
+    		<description>Betreff der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>AGB und U18-Vollmach</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_alwaysagb</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Soll die AGB auch angezeigt werden, wenn man nur einen Account erstellt?</description>
+    	</item>
+    	<item>
+    		<name>signon_agb_targetblank</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Soll der Link zu den AGB in einem neuen Fenster angezeigt werden?</description>
+    	</item>
+    	<item>
+    		<name>signon_agblink</name>
+    		<type>string</type>
+    		<default>/index.php?mod=info2&amp;action=show_info2&amp;submod=Regeln%20(AGB)</default>
+    		<description>Link zu den AGB</description>
+    	</item>
+    	<item>
+    		<name>signon_volllink</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Link zu der U18-Vollmacht</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Auto-Checkin und Auto-Paid</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_autocheckin</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Sollen neu angemeldete User automatisch eingecheckt werden?</description>
+    	</item>
+    	<item>
+    		<name>signon_autopaid</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Sollen neu angemeldete User automatisch auf bezahlt gesetzt werden?</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Passwort-Generierung und -Mitteilung</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_password_mail</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Dem neuen Teilnehmer sein Passwort per eMail zusenden?</description>
+    	</item>
+    	<item>
+    		<name>signon_password_view</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Dem neuen Teilnehmer sein Passwort anzeigen?</description>
+    	</item>
+    	<item>
+    		<name>signon_autopw</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Soll das Passwort automatisch generiert werden?</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Zahlstatus Mail</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_ask_paid_email</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Soll nach der Bezahltstatusänderung die Option geboten werden, dem Benutzer eine Mail zu senden?</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Info-Boxen</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_last_user_box</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Soll eine Box mit den zuletzt angemeldeten Benutzern angezeigt werden?</description>
+    	</item>
+    </items>
+  </group>
+</config>

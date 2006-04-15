@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>sys_optional_footer</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Fügt den Text als weitere Fooderzeile unter dem bestehendem hinzu. (html-code)</description>
+    	</item>
+    	<item>
+    		<name>sys_show_password_direct</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Sollen Passwörter in DIESER Übersicht in Klartext angezeigt werden?</description>
+    	</item>
+    	<item>
+    		<name>sys_internet</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Läuft diese Version im Internet (Anmeldesystem)?</description>
+    	</item>
+    	<item>
+    		<name>sys_logoffdoubleusers</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Soll ein eingeloggter User ausgeloggt werden, wenn sich ein 2. mit diesem Account anmeldet?</description>
+    	</item>
+    	<item>
+    		<name>sys_compress_level</name>
+    		<type>int</type>
+    		<default>0</default>
+    		<description>Stärke der Seitenkompression: 0 = Kompression deaktiviert, 1 = schwach, 9 = stark</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Lokalisierung</name>
+    </head>
+    <items>
+    	<item>
+    		<name>sys_language</name>
+    		<type>country</type>
+    		<default>de</default>
+    		<description>Land in dem die Party stattfindet</description>
+    	</item>
+    	<item>
+    		<name>sys_currency</name>
+    		<type>string</type>
+    		<default>Euro</default>
+    		<description>Währung des Systems</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Website-Spezifisches</name>
+    </head>
+    <items>
+    	<item>
+    		<name>sys_partyurl</name>
+    		<type>string</type>
+    		<default>http://www.one-network.org</default>
+    		<description>Der Link zu der LanParty-Homepage</description>
+    	</item>
+    	<item>
+    		<name>sys_party_mail</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Kontaktemail der Lanparty (Webmaster)</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Debuging</name>
+    </head>
+    <items>
+    	<item>
+    		<name>sys_showdebug</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Sollen Debug-Mitteilungen angezeigt werden?</description>
+    	</item>
+    	<item>
+    		<name>sys_debug_allinfo</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Zeigt zusätzliche Debug-Informationen.</description>
+    	</item>
+    	<item>
+    		<name>sys_showdebug_ftp</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>FTP Debug Messages</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Barcode</name>
+    </head>
+    <items>
+     	<item>
+    		<name>sys_barcode_on</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Soll das Barcodesystem verwendet werden?</description>
+    	</item>
+    	<item>
+    		<name>sys_barcode_typ</name>
+    		<type>barcode</type>
+    		<default>EAN-13</default>
+    		<description>Barcode-Typ der verwendet werden soll</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Seite sperren</name>
+    </head>
+    <items>
+    	<item>
+    		<name>sys_blocksite</name>
+    		<type>boolean</type>
+    		<default></default>
+    		<description>Lansuiteseite gesperrt?</description>
+    	</item>
+    	<item>
+    		<name>sys_blocksite_text</name>
+    		<type>string</type>
+    		<default>Die Seite ist momentan Offline.</default>
+    		<description>Offlinetext wenn die Seite gesperrt ist.</description>
+    	</item>
+    </items>
+  </group>
+</config>

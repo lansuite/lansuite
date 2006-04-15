@@ -22,6 +22,8 @@ Version 2.1.1
 - Bugfix: #382 In der Gästeliste wurde der Sitzplan um eine Stelle falsch angezeigt (KnoX 20.03.2006)
 - Bugfix: In der neuen Mastersearch war jeweils die letzte Seite nicht auswählbar, außer durch den Link 'Alle' (KnoX 20.03.2006)
 
+- Change: #380 Modulkonfig wird nun in XML gespeichert und bietet die Möglichkeit Gruppen zu bilden (KnoX 15.04.2006)
+          ACHTUNG: sämtliche Modul-Konfigurationen gehen bei Update verloren und können nicht in die neue Version übernommen werden!
 - Change: #371 Der Einlasassistent ist nun auf MS2 umgestellt, gibt Sitzplanlinks aus und erwartet standardmäßig nur noch die aller nötigsten Felder zur Eingabe (KnoX 14.04.2006)
 - Change: #381 Es werden nur noch die User der letzen 10min (nicht mehr 60min) als 'Aktuell Online' markiert (KnoX 14.04.2006)
 - Change: In der Modul-Konfig lässt sich nun über eine Kopf-Navigation leicht von einem Modul ins nächtse wechseln (KnoX 14.04.2006)

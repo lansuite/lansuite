@@ -165,6 +165,9 @@ class func {
 	function error($text, $link_target) {
 		global $templ, $auth, $lang, $language, $dsp;
 
+    // Close Layout table, if opened 
+    $dsp->AddContent();
+
 		if ($link_target) $templ['error']['info']['link'] = $dsp->FetchButton($link_target, "back");
 
 		switch($text) {
@@ -674,12 +677,12 @@ class func {
 	}
 
 	function translate($in) {
-		global $db, $config, $cfg;
+		global $db, $config, $language;
 
-    if ($cfg["sys_language"] == 'de') return $in;
-		else $out = $db->query_first("SELECT {$cfg["sys_language"]} FROM {$config["tables"]["translations"]} WHERE de = '". $this->escape_sql($in) ."'");
+    if ($language == 'de') return $in;
+		else $out = $db->query_first("SELECT $language FROM {$config["tables"]["translations"]} WHERE de = '". $this->escape_sql($in) ."'");
 
-		if ($out) return $out[$cfg["sys_language"]];
+		if ($out) return $out[$language];
 		else return $in;
 	}
 	

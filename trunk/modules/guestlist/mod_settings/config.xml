@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>guestlist_guestmap</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der Gäste) anzeigen?</description>
+    	</item>
+    	<item>
+    		<name>guestlist_showorga</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Sollen Orgas mit in der Gästeliste angezeigt werden.</description>
+    	</item>
+    </items>
+  </group>
+</config>

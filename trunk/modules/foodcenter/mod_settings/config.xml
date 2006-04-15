@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Öffnungszeiten</name>
+    </head>
+    <items>
+    	<item>
+    		<name>foodcenter_foodtime</name>
+    		<type>food_time</type>
+    		<default>4</default>
+    		<description>Wie soll sich das Modul ausserhalb der Öffnungszeiten verhalten.</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_s_time_1</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Start der Öffungszeit 1</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_e_time_1</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Ende der Öffungszeit 1</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_s_time_2</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Start der Öffungszeit 2</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_e_time_2</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Ende der Öffungszeit 2</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_s_time_3</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Start der Öffungszeit 3</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_e_time_3</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Ende der Öffungszeit 3</description>
+    	</item>
+    </items>
+  </group>
+</config>

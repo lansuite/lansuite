@@ -40,10 +40,10 @@ class display {
 	}
 
 	// Output the template $file
-	function AddTpl($file){
+	function AddTpl($file, $OpenTable = 1){
 		global $templ;
 
-		if (!$this->TableOpen) {
+		if (!$this->TableOpen and $OpenTable) {
 			$templ['index']['info']['content'] .= '<table width="100%" cellspacing="0" cellpadding="0">';
 			$this->TableOpen = true;
 		}
@@ -319,6 +319,22 @@ class display {
 		else $templ['ls']['row']['dropdown']['optional'] = '';
 
 		$this->AddTpl("design/templates/ls_row_dropdown.htm");
+	}
+
+
+	function AddFieldsetStart($name) {
+		global $templ;
+
+		$this->AddContent();
+    $templ['ls']['row']['fieldset']['name'] = $name;
+		$this->AddTpl("design/templates/ls_row_fieldset_start.htm", 0);
+	}
+	
+	function AddFieldsetEnd() {
+		global $templ;
+
+		$this->AddContent();
+		$this->AddTpl("design/templates/ls_row_fieldset_end.htm", 0);
 	}
 
 

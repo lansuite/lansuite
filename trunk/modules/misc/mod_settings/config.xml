@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>IP-Sperre</name>
+    </head>
+    <items>
+    	<item>
+    		<name>misc_reload_time</name>
+    		<type>int</type>
+    		<default>600</default>
+    		<description>Aufzeichnungszeitraum für IP-Reload in Sekunden</description>
+    	</item>
+    	<item>
+    		<name>misc_reload_hits</name>
+    		<type>int</type>
+    		<default>120</default>
+    		<description>Nach wie vielen Hits im Zeitraum soll eine IP gesperrt werden?</description>
+    	</item>
+    </items>
+  </group>
+</config>

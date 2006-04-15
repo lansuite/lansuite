@@ -38,7 +38,7 @@ function ClanURLLink($clan_name) {
 $ms2->query['from'] = "{$config['tables']['user']} AS u
     LEFT JOIN {$config['tables']['clan']} AS c ON u.clanid = c.clanid
     LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id";
-$ms2->query['where'] = 'p.party_id = '. $party->party_id;
+$ms2->query['where'] = 'p.party_id = '. (int)$party->party_id;
 ($cfg['guestlist_showorga'])? $ms2->query['where'] .= ' AND u.type >= 1' : $ms2->query['where'] .= ' AND u.type = 1';
 
 

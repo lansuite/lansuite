@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>board_ranking</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Ranking anzeigen?</description>
+    	</item>
+    	<item>
+    		<name>board_prefix</name>
+    		<type>string</type>
+    		<default>Gast_</default>
+    		<description>Gast Präfix</description>
+    	</item>
+    	<item>
+    		<name>board_max_posts</name>
+    		<type>integer</type>
+    		<default>5</default>
+    		<description>Anzahl der angezeigten Einträge</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Thread abonieren</name>
+    </head>
+    <items>
+    	<item>
+    		<name>board_subscribe_subject</name>
+    		<type>string</type>
+    		<default>Es ist ein neuer Beitrag vorhanden</default>
+    		<description>Betreff der Hinweismail auf neue Beiträge</description>
+    	</item>
+    	<item>
+    		<name>board_subscribe_text</name>
+    		<type>text</type>
+    		<default>Im Forum gibt es einen neuen Beitrag. Du kannst ihn dir unter %URL% ansehen</default>
+    		<description>Text der Hinweismail auf neue Beiträge</description>
+    	</item>
+    </items>
+  </group>
+</config>
