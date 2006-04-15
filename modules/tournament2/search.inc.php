@@ -7,7 +7,7 @@ function GetTournamentName($name) {
 
 	$return = '';
 	// Game Icon
-	if ($line['icon'] and $line['icon'] != 'none') $return .= "<img src=\"ext_inc/tournament_icons/{$line['icon']}\" title=\"Icon\" border=\"0\" /> ";
+	if ($line['icon'] and $line['icon'] != 'none' and file_exists("ext_inc/tournament_icons/{$line['icon']}")) $return .= "<img src=\"ext_inc/tournament_icons/{$line['icon']}\" title=\"Icon\" border=\"0\" /> ";
 	// Name
 	$return .= $name;
 	// WWCL Icon

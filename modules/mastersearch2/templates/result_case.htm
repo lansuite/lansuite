@@ -8,7 +8,7 @@
       else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
       else return false;
     
-      for (var c = 0; c < Spalten.length; c++) Spalten[c].style.backgroundColor = '#D25555';
+      for (var c = 0; c < Spalten.length; c++) Spalten[c].className = 'row_value_important';
     
       return true;
     }
@@ -19,7 +19,7 @@
       else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
       else return false;
     
-      for (var c = 0; c < Spalten.length; c++) Spalten[c].style.backgroundColor = '';
+      for (var c = 0; c < Spalten.length; c++) Spalten[c].className = 'row_value';
       
       return true;
     }

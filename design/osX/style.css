@@ -92,6 +92,7 @@ body {
 	padding:		4px;
 	font-size:		11px; 
 	border-bottom:	1px solid #9D9D9D;
+	text-align:		left;	
 }
 
 .row_value_important {		/* old name: tbl_important */
@@ -99,6 +100,7 @@ body {
 	padding:		4px;
 	font-size:		11px; 
 	border-bottom:	1px solid #9D9D9D;
+	text-align:		left;	
 }
 
 .row_value_code {		/* old name: tbl_7 */
