@@ -22,6 +22,7 @@ Version 2.1.1
 - Bugfix: #382 In der Gästeliste wurde der Sitzplan um eine Stelle falsch angezeigt (KnoX 20.03.2006)
 - Bugfix: In der neuen Mastersearch war jeweils die letzte Seite nicht auswählbar, außer durch den Link 'Alle' (KnoX 20.03.2006)
 
+- Change: #390 Der farbige MouseOver-Effekt in der Mastersearch2 wird nun aus dem Style row_value_important geholt (KnoX 15.04.2006)
 - Change: #380 Die Config-Selections in der Modulconfig stehen nun auch im jeweiligen confix.xml der Module (KnoX 15.04.2006)
 - Change: #298 Mailtexte werden nun nicht mehr in Templates definiert, sondern in der Modul-Konfig (KnoX 15.04.2006)
 - Change: #380 Modulkonfig wird nun in XML gespeichert und bietet die Möglichkeit Gruppen zu bilden (KnoX 15.04.2006)
