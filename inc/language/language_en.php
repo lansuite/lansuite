@@ -187,4 +187,6 @@
   $lang['ms2']['game_tree'] = 'Game tree';  
   $lang['ms2']['game_pairs'] = 'Pairs';  
   $lang['ms2']['ranking'] = 'Ranking';  
+  $lang['ms2']['assign'] = 'Assign';  
+  $lang['ms2']['generate'] = 'Generate';  
 ?>

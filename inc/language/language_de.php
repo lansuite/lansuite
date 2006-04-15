@@ -205,4 +205,6 @@
   $lang['ms2']['game_tree'] = 'Spielbaum';  
   $lang['ms2']['game_pairs'] = 'Paarungen';  
   $lang['ms2']['ranking'] = 'Rangliste';  
+  $lang['ms2']['assign'] = 'Zuweisen';  
+  $lang['ms2']['generate'] = 'Generieren';  
 ?>

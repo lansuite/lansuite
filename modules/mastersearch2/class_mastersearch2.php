@@ -73,11 +73,12 @@ class MasterSearch2 {
     $this->AddSelect($sql_field); 
   }
 
-  function AddIconField($icon_name, $link = '', $tooltipp = '') {
+  function AddIconField($icon_name, $link = '', $tooltipp = '', $callback = '') {
     $arr = array();
     $arr['icon_name'] = $icon_name;
     $arr['link'] = $link;
     $arr['tooltipp'] = $tooltipp;
+    $arr['callback'] = $callback;
     array_push($this->icon_field, $arr);
   }
 
@@ -94,7 +95,7 @@ class MasterSearch2 {
 
     $working_link .= $this->post_in_get;
     $this->AddSelect($select_id_field); 
-
+    $min_skipped_items = 99;
     
     ###### Generate Where
     if ($this->query['where'] == '') $this->query['where'] = '1 = 1';
@@ -126,8 +127,8 @@ class MasterSearch2 {
       				$key_1337 = str_replace ("L", "(L|1|\\\\||!)", $key_1337);
       				$key_1337 = str_replace ("i", "(i|1|\\\\||!)", $key_1337);
       				$key_1337 = str_replace ("I", "(I|1|\\\\||!)", $key_1337);
-      				$key_1337 = str_replace ("e", "(e|3|€)", $key_1337);
-      				$key_1337 = str_replace ("E", "(E|3|€)", $key_1337);
+      				$key_1337 = str_replace ("e", "(e|3|â‚¬)", $key_1337);
+      				$key_1337 = str_replace ("E", "(E|3|â‚¬)", $key_1337);
       				$key_1337 = str_replace ("t", "(t|7)", $key_1337);
       				$key_1337 = str_replace ("T", "(T|7)", $key_1337);
       				$key_1337 = str_replace ("a", "(a|@)", $key_1337);
@@ -340,13 +341,6 @@ class MasterSearch2 {
       $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
     }
 
-    // Icon Headline (Empty field)
-    foreach ($this->icon_field as $current_field) {
-      $templ['ms2']['table_head_width'] = '22';    
-      $templ['ms2']['table_head_entry'] = '&nbsp;';      
-      $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
-    }
-
     #### Generate Result Body    
     $templ['ms2']['table_entrys'] = '';
     while($line = $db->fetch_array($res)) { // Start: Row
@@ -394,22 +388,36 @@ class MasterSearch2 {
       }
       
       // Icon fields
+      $skipped_items = 0;
+      $templ_icon_cells = '';
       foreach ($this->icon_field as $current_field) {
-        $templ['ms2']['link'] = $current_field['link'] . $line[$select_id_field];
-        $templ['ms2']['icon_name'] = $current_field['icon_name'];
-        $templ['ms2']['icon_title'] = $current_field['tooltipp'];
-        $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
-        if ($templ['ms2']['link']) $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
-        else $templ['ms2']['table_entrys_row_field_entry'] = $templ['ms2']['link_item'];
-        $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');        
-      }      
+        $templ['ms2']['table_entrys_row_field_entry'] = '';
+        if (!$current_field['callback'] or call_user_func($current_field['callback'], $line[$select_id_field])) {
+          $templ['ms2']['link'] = $current_field['link'] . $line[$select_id_field];
+          $templ['ms2']['icon_name'] = $current_field['icon_name'];
+          $templ['ms2']['icon_title'] = $current_field['tooltipp'];
+          $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
+          if ($templ['ms2']['link']) $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+          else $templ['ms2']['table_entrys_row_field_entry'] = $templ['ms2']['link_item'];
+          $templ_icon_cells .= $dsp->FetchModTpl('mastersearch2', 'result_field');
+        } else $skipped_items++;      
+      }
+      if ($skipped_items < $min_skipped_items) $min_skipped_items = $skipped_items;
+      
+      // Add an empty table cell for each skipped item
+      for ($i = 0; $i < $skipped_items; $i++) {
+        $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
+        $templ_icon_cells = $dsp->FetchModTpl('mastersearch2', 'result_field') . $templ_icon_cells;
+      }
+
+      $templ['ms2']['table_entrys_row_field'] .= $templ_icon_cells;
       $templ['ms2']['table_entrys'] .= $dsp->FetchModTpl('mastersearch2', 'result_row');
     } // End: Row
 
     // Multi-Select Dropdown
     $templ['ms2']['multi_select_dropdown'] = '';
     if (count($this->multi_select_action) > 0) {
-      $templ['ms2']['select_caption'] = 'Bitte auswählen';
+      $templ['ms2']['select_caption'] = 'Bitte auswÃ¤hlen';
       $templ['ms2']['select_options'] = '';
       $z = 0;
       foreach ($this->multi_select_action as $current_action) {
@@ -422,7 +430,17 @@ class MasterSearch2 {
       }
       $templ['ms2']['multi_select_dropdown'] = $dsp->FetchModTpl('mastersearch2', 'result_multi_dropdown');
     }
-        
+
+    // For each IconField in the row with the most icons, add an empty headline field
+    $i = 0; 
+    foreach ($this->icon_field as $current_field) {
+      if ($i >= $min_skipped_items) $templ['ms2']['table_head_width'] = '22';
+      else $templ['ms2']['table_head_width'] = '1';
+      $templ['ms2']['table_head_entry'] = '&nbsp;';
+      $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');
+      $i++;
+    }
+
     $db->free_result($res);
     $templ['ms2']['result_action'] = $multiaction;
     $dsp->AddModTpl('mastersearch2', 'result_case');

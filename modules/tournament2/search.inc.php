@@ -34,6 +34,28 @@ function GetTournamentStatus($status) {
 	return $status_descriptor[$status];
 }
 
+function IfGenerated($tid) {
+  global $line;
+
+  if ($line['status'] == 'open') return false;
+  else return true;
+}
+
+function IfNotGenerated($tid) {
+  global $line;
+
+  if ($line['status'] == 'open') return true;
+  else return false;
+}
+
+function IfFinished($tid) {
+  global $line;
+
+  if ($line['status'] == 'closed') return true;
+  else return false;
+}
+
+
 $ms2->query['from'] = "{$config["tables"]["tournament_tournaments"]} AS t LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON t.tournamentid = teams.tournamentid";
 $ms2->query['where'] = 't.party_id = '. (int)$party->party_id;
 
@@ -50,9 +72,10 @@ $ms2->AddResultField($lang['tourney']['team'], 't.maxteams', 'GetTournamentTeamA
 $ms2->AddResultField($lang['tourney']['details_state'], 't.status', 'GetTournamentStatus');
 
 $ms2->AddIconField('details', 'index.php?mod=tournament2&action=details&tournamentid=', $lang['ms2']['details']);
-$ms2->AddIconField('tree', 'index.php?mod=tournament2&action=tree&step=2&tournamentid=', $lang['ms2']['game_tree']);
-$ms2->AddIconField('play', 'index.php?mod=tournament2&action=games&step=2&tournamentid=', $lang['ms2']['game_pairs']);
-$ms2->AddIconField('ranking', 'index.php?mod=tournament2&action=rangliste&step=2&tournamentid=', $lang['ms2']['ranking']);
+$ms2->AddIconField('tree', 'index.php?mod=tournament2&action=tree&step=2&tournamentid=', $lang['ms2']['game_tree'], 'IfGenerated');
+$ms2->AddIconField('play', 'index.php?mod=tournament2&action=games&step=2&tournamentid=', $lang['ms2']['game_pairs'], 'IfGenerated');
+$ms2->AddIconField('ranking', 'index.php?mod=tournament2&action=rangliste&step=2&tournamentid=', $lang['ms2']['ranking'], 'IfFinished');
+$ms2->AddIconField('generate', 'index.php?mod=tournament2&action=generate_pairs&step=2&tournamentid=', $lang['ms2']['generate'], 'IfNotGenerated');
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=tournament2&action=change&step=1&tournamentid=', $lang['ms2']['edit']);
 if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=tournament2&action=delete&step=2&tournamentid=', $lang['ms2']['delete']);
 
