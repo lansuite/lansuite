@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.1
 
+- Bugfix: #393 Auf der Startseite wurden keine aktuellen Turnierpaarungen mehr gezeigt (KnoX 16.04.2006)
 - Bugfix: #372 Im Navigationsmanager wurde eine Trennlinie mal vor und mal nach dem angeklickten Eintrag eingefügt (KnoX 14.04.2006)
 - Bugfix: #365 Avatare und andere Thumbnails werden nun nicht mehr zwanghaft vergrößert, sondern nur noch verkleinert (KnoX 14.04.2006)
 - Bugfix: #391 Man konnte als Admin einem Benutzer keinen vorreservierten Platz zuweisen (KnoX 14.04.2006)
@@ -38,6 +39,7 @@ Version 2.1.1
           ACHTUNG: sämtliche Clandaten gehen bei Update verloren und können nicht in die neue Version übernommen werden!
 - Change: MS2 Callbachs in die einzelnen Module verlagert (KnoX 19.03.2006)
 
+- Add: #267 Als Admin hat man nun auf der Startseite ein Dropdown, in dem man alle aktiven Turnierspiele sieht und zu diesen wechseln kann (KnoX 16.04.2006)
 - Add: #282 Mastersearch2 unterstützt nun Callbacks, die festlegen, ob ein Aktions-Icon in der entsprechenden Zeile angezeigt werden soll, oder nicht (KnoX 15.04.2006)
 - Add: #326 Ein Admin kann nun bei der Zuweisung eines Sitzplatzes wählen, ob dieser reserviert, oder nur markiert werden soll (KnoX 15.04.2006)
 - Add: #380 Modul-Konfig kann nun auch Text-Eingabefelder anzeigen (KnoX 15.04.2006)
