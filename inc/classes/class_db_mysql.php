@@ -167,5 +167,10 @@ class db {
       	}
        return $found;
 	} 
+	
+	function get_mysqli_stmt() {
+		$prep = $link_id->stmt_init();
+		return $prep;
+	}
 }
 ?>

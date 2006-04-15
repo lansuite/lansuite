@@ -647,6 +647,35 @@ class display {
 
 		$this->AddTpl("design/templates/ls_row_fileselect.htm");
 	}
+	
+	/*
+	 * This function shows any URL in an Frame in the MoudleContent.
+	 */
+    function AddIFrame($url, $width=795, $height=600)
+    {
+	  global $lang, $templ;
+	  
+	  $templ["class_display"]["IFrame"]["noIFrame"] .= $lang['class_display']['IFrame']['noIFrame'];
+	  $templ["class_display"]["IFrame"]["clickhere"] .= $lang['class_display']['clickhere'];
+	  $templ["class_display"]["IFrame"]["url"] = $url;
+	  $templ["class_display"]["IFrame"]["width"] = $width;
+	  $templ["class_display"]["IFrame"]["height"] = $height;
+	  
+      $this->AddSingleRow($this->FetchModTpl("", "ls_row_IFrame"));
+    }
+    
+	/*
+	 * This function shows an URL in an new PopUp Page.
+	 */
+    function ShowNewWindow($url)
+    {
+	  global $lang, $templ;
+	  
+	  $templ["class_display"]["NewWindow"]["popupBlocked"] .= $lang['class_display']['newWindow']['popupBlocked'];
+	  $templ["class_display"]["NewWindow"]["clickhere"] .= $lang['class_display']['clickhere'];
+	  $templ["class_display"]["NewWindow"]["url"] = $url;
+      $this->AddSingleRow($this->FetchModTpl("", "ls_row_newWindow"));
+    }
 
 
 	// ################################################################################################################# //
