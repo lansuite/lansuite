@@ -1,16 +1,10 @@
 <?php
 switch($_GET["step"]) {
 	default:
-		$mastersearch = new MasterSearch($vars, "index.php?mod=server&action=delete", "index.php?mod=server&action=delete&step=2&serverid=", "");
-		$mastersearch->LoadConfig("server", $lang["server"]["ms_search"], $lang["server"]["ms_result"]);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-    break;
+    include_once('modules/server/search.inc.php');
+  break;
     
-    case 2:
+  case 2:
 		$server = $db->query_first("SELECT caption FROM {$config[tables][server]} WHERE serverid = '{$_GET["serverid"]}'");
 		
 		$servername = $server["caption"];

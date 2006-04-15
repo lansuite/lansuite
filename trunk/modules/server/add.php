@@ -83,13 +83,7 @@ if((!$cfg["server_admin_only"] AND $get_paid["paid"] == 1) OR ($auth["type"] > 1
 
 	switch($_GET["step"]) {
 		default:
-			$mastersearch = new MasterSearch($vars, "index.php?mod=server&action=change", "index.php?mod=server&action=change&step=2&serverid=", "");
-			$mastersearch->LoadConfig("server", $lang["server"]["ms_search"], $lang["server"]["ms_result"]);
-			$mastersearch->PrintForm();
-			$mastersearch->Search();
-			$mastersearch->PrintResult();
-
-			$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+      include_once('modules/server/search.inc.php');
 		break;
 
 		case 2:
