@@ -194,106 +194,70 @@ class Install {
 	function InsertSettings($module) {
 		global $db, $config, $xml, $func;
 
-		if (is_dir('modules')) {
-			$modules_dir = opendir('modules/');
-			while ($module = readdir($modules_dir)) if ($module != '.' and $module != '..' and $module != 'CVS' and is_dir("modules/$module")) {
+		$ConfigFileName = "modules/$module/mod_settings/config.xml";
+		if (file_exists($ConfigFileName)){
 
-				if (is_dir("modules/$module/mod_settings")) {
-					// Try to find DB-XML-File
-					$ConfigFileName = "modules/$module/mod_settings/config.xml";
-					if (file_exists($ConfigFileName)){
+			$handle = fopen ($ConfigFileName, "r");
+			$xml_file = fread ($handle, filesize ($ConfigFileName));
+			fclose ($handle);
 
-    				$handle = fopen ($ConfigFileName, "r");
-    				$xml_file = fread ($handle, filesize ($ConfigFileName));
-    				fclose ($handle);
+      $SettingList = array();
 
-            $SettingList = array();
+      $xml_config = $xml->get_tag_content('config', $xml_file);
+      // Read types
+      $xml_types = $xml->get_tag_content_array('typedefinition', $xml_config);
+      if ($xml_types) while ($xml_type = array_shift($xml_types)) {
 
-            $xml_config = $xml->get_tag_content('config', $xml_file);
-            $xml_groups = $xml->get_tag_content_array('group', $xml_config);
-            if ($xml_groups) while ($xml_group = array_shift($xml_groups)) {
-              $xml_head = $xml->get_tag_content('head', $xml_group);
-              $group = $xml->get_tag_content('name', $xml_head);
+        $xml_head = $xml->get_tag_content('head', $xml_type);
+        $name = $xml->get_tag_content('name', $xml_head);
+        $db->query("DELETE FROM {$config["database"]["prefix"]}config_selections WHERE cfg_key = '". $func->escape_sql($name) ."'");
 
-              $xml_items = $xml->get_tag_content_array('item', $xml_group);
-              if ($xml_items) while ($xml_item = array_shift($xml_items)) {
-        				$name = $xml->get_tag_content('name', $xml_item);
-        				$type = $xml->get_tag_content('type', $xml_item);
-        				$default = $xml->get_tag_content('default', $xml_item);
-        				$description = $xml->get_tag_content('description', $xml_item);
-        				array_push($SettingList, $name);
-      				
-        				// Insert into DB, if not exists
-        				$found = $db->query_first("SELECT cfg_key FROM {$config["database"]["prefix"]}config WHERE cfg_key = '$name' and cfg_module = '$module'");
-        				if (!$found['cfg_key']) $db->query("INSERT INTO {$config["database"]["prefix"]}config SET
-        				  cfg_key = '". $func->escape_sql($name) ."',
-        				  cfg_value = '". $func->escape_sql($default) ."',
-        				  cfg_type = '". $func->escape_sql($type) ."',
-        				  cfg_group = '". $func->escape_sql($group) ."',
-        				  cfg_desc = '". $func->escape_sql($description) ."',
-        				  cfg_module = '$module'
-        				  ");
-        			}
-            }
+        $xml_entries = $xml->get_tag_content_array('entry', $xml_type);
+        if ($xml_entries) while ($xml_entry = array_shift($xml_entries)) {
+  				$value = $xml->get_tag_content('value', $xml_entry);
+  				$description = $xml->get_tag_content('description', $xml_entry);              
 
-      			// Delete Settings from DB, which are no longer in the modules config.sql
-      			$settings_db = $db->query("SELECT cfg_key FROM {$config["database"]["prefix"]}config WHERE (cfg_module = '$module')");
-      			while ($setting_db = $db->fetch_array($settings_db)) {
-      				if (!in_array($setting_db["cfg_key"], $SettingList)) $db->query("DELETE FROM {$config["database"]["prefix"]}config WHERE cfg_key = '{$setting_db["cfg_key"]}'");
-      			}
-					}
-				}
-			}
-			closedir($modules_dir);
-		}
+  				if ($name != '' and $description != '') $db->query("INSERT INTO {$config["database"]["prefix"]}config_selections SET
+  				  cfg_key = '". $func->escape_sql($name) ."',
+  				  cfg_value = '". $func->escape_sql($value) ."',
+  				  cfg_display = '". $func->escape_sql($description) ."'
+  				  ");
+        }
+      }            
 
-/*
-		$file = "modules/$module/mod_settings/config.sql";
-		if (file_exists($file)) {
-			$fp2 = fopen($file, "r");
-			$contents2 = fread ($fp2, 1024*256);
-			fclose ($fp2);
+      // Read settings
+      $xml_groups = $xml->get_tag_content_array('group', $xml_config);
+      if ($xml_groups) while ($xml_group = array_shift($xml_groups)) {
+        $xml_head = $xml->get_tag_content('head', $xml_group);
+        $group = $xml->get_tag_content('name', $xml_head);
 
-			// Read cfg_key fro config.sql-File
-			$querrys2 = explode(";", trim($contents2));
-			$settings_cfg = array();
-			$settings_cfg_found = array();
-			while (list ($key, $val) = each ($querrys2)) if ($val) {
-				$entry_key = substr($val, strpos($val, "('") + 2, strlen($val));
-				$entry_key = substr($entry_key, 0, strpos($entry_key, "'"));
-
-				array_push($settings_cfg, $entry_key);
-			}
-
-			$module .= "_";
-			if ($module == "downloads_") $module = "Download";
-			if ($module == "usrmgr_") $module = "Userdetails";
-			if ($module == "tournament2_") $module = "Turnier";
-			if ($module == "install_") $module = "System";
+        $xml_items = $xml->get_tag_content_array('item', $xml_group);
+        if ($xml_items) while ($xml_item = array_shift($xml_items)) {
+  				$name = $xml->get_tag_content('name', $xml_item);
+  				$type = $xml->get_tag_content('type', $xml_item);
+  				$default = $xml->get_tag_content('default', $xml_item);
+  				$description = $xml->get_tag_content('description', $xml_item);
+  				array_push($SettingList, $name);
+				
+  				// Insert into DB, if not exists
+  				$found = $db->query_first("SELECT cfg_key FROM {$config["database"]["prefix"]}config WHERE cfg_key = '$name' and cfg_module = '$module'");
+  				if (!$found['cfg_key']) $db->query("INSERT INTO {$config["database"]["prefix"]}config SET
+  				  cfg_key = '". $func->escape_sql($name) ."',
+  				  cfg_value = '". $func->escape_sql($default) ."',
+  				  cfg_type = '". $func->escape_sql($type) ."',
+  				  cfg_group = '". $func->escape_sql($group) ."',
+  				  cfg_desc = '". $func->escape_sql($description) ."',
+  				  cfg_module = '$module'
+  				  ");
+  			}
+      }
 
 			// Delete Settings from DB, which are no longer in the modules config.sql
-			$settings_db = $db->query("SELECT cfg_key
-					FROM {$config["database"]["prefix"]}config
-					WHERE (cfg_group = '$module') OR (cfg_key LIKE '$module%')
-					");
+			$settings_db = $db->query("SELECT cfg_key FROM {$config["database"]["prefix"]}config WHERE (cfg_module = '$module')");
 			while ($setting_db = $db->fetch_array($settings_db)) {
-				if (in_array($setting_db["cfg_key"], $settings_cfg)) array_push($settings_cfg_found, $setting_db["cfg_key"]);
-				else $db->query("DELETE FROM {$config["database"]["prefix"]}config WHERE cfg_key = '{$setting_db["cfg_key"]}'");
-			}
-
-			// Insert Settings in DB, which only exist in the modules config.sql
-			$add_to_db = array_diff($settings_cfg, $settings_cfg_found);
-
-			reset($querrys2);
-			while (list ($key, $val) = each ($querrys2)) if ($val) {
-				$entry_key = substr($val, strpos($val, "('") + 2, strlen($val));
-				$entry_key = substr($entry_key, 0, strpos($entry_key, "'"));
-
-				if (in_array($entry_key, $add_to_db))
-					$db->query("REPLACE INTO {$config["database"]["prefix"]}config (cfg_key, cfg_value, cfg_type, cfg_group, cfg_desc) VALUES $val");
+				if (!in_array($setting_db["cfg_key"], $SettingList)) $db->query("DELETE FROM {$config["database"]["prefix"]}config WHERE cfg_key = '{$setting_db["cfg_key"]}'");
 			}
 		}
-*/
 	}
 
 

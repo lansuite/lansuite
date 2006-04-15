@@ -174,8 +174,10 @@ switch($_GET["step"]) {
 
 			$dsp->AddFormSubmitRow("next");
 		}
-		if ($_GET["module"] == "sys_") $dsp->AddBackButton("install.php?mod=install", "install/modules"); 
-		elseif ($script_filename == "install.php")  $dsp->AddBackButton("install.php?mod=install&action=modules", "install/modules"); 
+		if ($script_filename == "install.php") {
+		  if ($_GET["module"] == "install") $dsp->AddBackButton("install.php?mod=install", "install/modules"); 
+		  else $dsp->AddBackButton("install.php?mod=install&action=modules", "install/modules");
+    } 
 		$dsp->AddContent();
 	break;
 
@@ -197,9 +199,10 @@ switch($_GET["step"]) {
 			} else $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '$val' WHERE cfg_key = '$key'");
 		}
 
-		if ($_GET["module"] == "sys_") $backlink = 'install.php?mod=install'; 
-		elseif ($script_filename == "install.php") $backlink = 'install.php?mod=install&action=modules';
-    else $backlink = 'index.php?mod=install&action=modules&step=10&module='. substr($_GET["module"], 0, strlen($_GET["module"]) - 1);
+		if ($script_filename == "install.php") { 
+      if ($_GET["module"] == "install") $backlink = 'install.php?mod=install'; 
+		  else $backlink = 'install.php?mod=install&action=modules';
+		} else $backlink = 'index.php?mod=install&action=modules&step=10&module='. $_GET["module"];
 		$func->confirmation($lang["install"]["modules_settings_success"], $backlink);
 	break;
 

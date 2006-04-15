@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+  <typedefinition>
+    <head>
+      <name>homesite</name>    
+    </head>
+    <entries>
+  		<entry>
+  			<value>0</value>
+  			<description>Neues in den Modulen</description>
+  		</entry>
+  		<entry>
+  			<value>1</value>
+  			<description>Neuigkeiten</description>
+  		</entry>
+  		<entry>
+  			<value>2</value>
+  			<description>Text aus ext_inc/home/logout.txt</description>
+  		</entry>
+    </entries>
+  </typedefinition>
   <group>
     <head>
       <name>Allgemein</name>

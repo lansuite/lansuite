@@ -382,23 +382,13 @@ class display {
 	}
 	
 
-    function AddBackButton($back_link, $helplet_id = NULL) {
-        global $templ, $gd, $auth;
+  function AddBackButton($back_link, $helplet_id = NULL) {
+    global $templ, $gd, $auth;
 
-		$gd->CreateButton("back");
-
-//        if ($helplet_id) {
-//            $templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
-//            $templ['ls']['row']['helpletbutton']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
-//		} else {
-			$templ['ls']['row']['helpletbutton']['helplet_id'] = "";
-			$templ['ls']['row']['helpletbutton']['help'] = "";
-//		}
-
-        $templ['ls']['row']['backbutton']['back_link'] = $back_link;
-
-		$this->AddTpl("design/templates/ls_row_backbutton.htm");
-    }
+    $gd->CreateButton("back");
+    $templ['ls']['row']['backbutton']['back_link'] = $back_link;    
+    $this->AddTpl("design/templates/ls_row_backbutton.htm");
+  }
 
     
     function AddBarcodeForm($key, $value, $action, $methode = "post", $errortext = NULL,  $size = NULL, $optional = NULL){
