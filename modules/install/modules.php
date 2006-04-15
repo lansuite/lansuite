@@ -3,17 +3,8 @@
 function FindCfgKeyForMod($name) {
   global $db, $config;
 
-	$cfg_grp = $name . "_";
-	if ($cfg_grp == "downloads_") $cfg_grp = "Download";
-	if ($cfg_grp == "usrmgr_") $cfg_grp = "Userdetails";
-	if ($cfg_grp == "tournament2_") $cfg_grp = "t";
-	$find_config = $db->query_first("SELECT cfg_key
-			FROM {$config["tables"]["config"]}
-			WHERE (cfg_group = '$cfg_grp')
-			OR (cfg_key LIKE '$cfg_grp%')
-			");
-	if ($find_config["cfg_key"]) return true;
-  else return false;
+	$find_config = $db->query_first("SELECT cfg_key FROM {$config["tables"]["config"]} WHERE (cfg_module = '$name')");
+	if ($find_config["cfg_key"]) return true; else return false;
 } 
 
 function WriteMenuEntries() {
@@ -88,82 +79,94 @@ switch($_GET["step"]) {
 
 	// Settings
 	case 10:
+/*
 		$_GET["module"] .= "_";
 		if ($_GET["module"] == "downloads_") $_GET["module"] = "Download";
 		if ($_GET["module"] == "usrmgr_") $_GET["module"] = "Userdetails";
 		if ($_GET["module"] == "tournament2_") $_GET["module"] = "Turnier";
-
-		$like = ereg_replace('_','\_', $_GET["module"]);		//Erestze alle _ durch \_ , da mysql _ für ein beliebiges Zeichen interpretiert.
-
-		$res = $db->query("SELECT cfg_key, cfg_value, cfg_desc, cfg_type
-				FROM {$config["tables"]["config"]}
-				WHERE (cfg_group = '{$_GET["module"]}')
-				OR (cfg_key LIKE '{$like}%')");
+		$like = ereg_replace('_','\_', $_GET["module"]);		//Erestze alle _ durch \_ , da mysql _ fÃ¼r ein beliebiges Zeichen interpretiert.
+*/
 
 		$dsp->NewContent($lang["install"]["mod_set_caption"], $lang["install"]["mod_set_subcaption"]);
 
     // Add select row for other module configs
     if ($script_filename != 'install.php') {
       $menunames = array();
-  		$res2 = $db->query("SELECT name, caption FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
+  		$res2 = $db->query("SELECT name, caption FROM {$config["tables"]["modules"]} ORDER BY caption");
   		while ($row2 = $db->fetch_array($res2)) if (FindCfgKeyForMod($row2["name"])) $menunames[$row2['name']] = $row2['caption'];
     	$db->free_result($res2);
     	$dsp->AddHeaderMenu2($menunames, "index.php?mod=install&action=modules&step=10&module=", $_GET['headermenuitem']);
-  		$dsp->AddContent();
     }
-    
-		if ($db->num_rows($res) == 0) $func->error($lang["install"]["mod_set_err_nosettings"], "install.php?mod=install&action=modules");
+
+    // Get groups
+		$resGroup = $db->query("SELECT cfg_group
+				FROM {$config["tables"]["config"]}
+				WHERE cfg_module = '{$_GET["module"]}'
+				GROUP BY cfg_group
+				ORDER BY cfg_group
+        ");
+		if ($db->num_rows($resGroup) == 0) $func->error($lang["install"]["mod_set_err_nosettings"], "install.php?mod=install&action=modules");
 		else {
-			
   		if ($script_filename == "install.php") $formlink = "install.php?mod=install&action=modules&step=11&module={$_GET["module"]}";
       else $formlink = "index.php?mod=install&action=modules&step=11&module={$_GET["module"]}";
 			$dsp->SetForm($formlink);
-
-			while ($row = $db->fetch_array($res)){
-
-				$row["cfg_desc"] = $func->translate($row["cfg_desc"]);
-				$row["cfg_value"] = $func->translate($row["cfg_value"]);
-
-				// Get Selections
-				$get_cfg_selection = $db->query("SELECT cfg_display, cfg_value
-					FROM {$config["tables"]["config_selections"]}
-					WHERE cfg_key = '{$row["cfg_type"]}'
-					");
-				if ($db->num_rows($get_cfg_selection) > 0){
-					$t_array = array();
-					while ($selection = $db->fetch_array($get_cfg_selection)){
-						($row["cfg_value"] == $selection["cfg_value"]) ? $selected = "selected" : $selected = "";
-						array_push ($t_array, "<option $selected value=\"{$selection["cfg_value"]}\">". $func->translate($selection["cfg_display"]) ."</option>");
-					}
-					$dsp->AddDropDownFieldRow($row["cfg_key"], $row["cfg_desc"], $t_array, "", 1);
-
-				// Show Edit-Fields for Settings
-				} else switch ($row["cfg_type"]){
-					case "password":
-						$dsp->AddPasswordRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], "", "", 1);
-					break;
-
-					case "datetime":
-						$dsp->AddDateTimeRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], "", "");
-					break;
-
-					case "date":
-						$dsp->AddDateTimeRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], "", "", "", "", "", 1);
-					break;
-
-					case "time":
-						$dsp->AddDateTimeRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], "", "", "", "", "", 2);
-					break;
-
-					default:
-						$row["cfg_value"] = str_replace("<", "&lt;", $row["cfg_value"]);
-						$row["cfg_value"] = str_replace(">", "&gt;", $row["cfg_value"]);
-						$row["cfg_value"] = str_replace("\"", "'", $row["cfg_value"]);
-						$dsp->AddTextFieldRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], "");
-					break;
-				}
-			}
-			$db->free_result($res);
+		
+      while ($rowGroup = $db->fetch_array($resGroup)){
+    		$dsp->AddFieldsetStart($rowGroup['cfg_group']);
+      
+        // Get items in group
+    		$res = $db->query("SELECT cfg_key, cfg_value, cfg_desc, cfg_type, cfg_group
+    				FROM {$config["tables"]["config"]}
+    				WHERE cfg_module = '{$_GET["module"]}' and cfg_group = '{$rowGroup['cfg_group']}'
+    				ORDER BY cfg_key
+            ");
+  			while ($row = $db->fetch_array($res)){
+  				$row["cfg_desc"] = $func->translate($row["cfg_desc"]);
+  				$row["cfg_value"] = $func->translate($row["cfg_value"]);
+  
+  				// Get Selections
+  				$get_cfg_selection = $db->query("SELECT cfg_display, cfg_value
+  					FROM {$config["tables"]["config_selections"]}
+  					WHERE cfg_key = '{$row["cfg_type"]}'
+  					");
+  				if ($db->num_rows($get_cfg_selection) > 0){
+  					$t_array = array();
+  					while ($selection = $db->fetch_array($get_cfg_selection)){
+  						($row["cfg_value"] == $selection["cfg_value"]) ? $selected = "selected" : $selected = "";
+  						array_push ($t_array, "<option $selected value=\"{$selection["cfg_value"]}\">". $func->translate($selection["cfg_display"]) ."</option>");
+  					}
+  					$dsp->AddDropDownFieldRow($row["cfg_key"], $row["cfg_desc"], $t_array, "", 1);
+  
+  				// Show Edit-Fields for Settings
+  				} else switch ($row["cfg_type"]){
+  					case "password":
+  						$dsp->AddPasswordRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], "", "", 1);
+  					break;
+  
+  					case "datetime":
+  						$dsp->AddDateTimeRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], "", "");
+  					break;
+  
+  					case "date":
+  						$dsp->AddDateTimeRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], "", "", "", "", "", 1);
+  					break;
+  
+  					case "time":
+  						$dsp->AddDateTimeRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], "", "", "", "", "", 2);
+  					break;
+  
+  					default:
+  						$row["cfg_value"] = str_replace("<", "&lt;", $row["cfg_value"]);
+  						$row["cfg_value"] = str_replace(">", "&gt;", $row["cfg_value"]);
+  						$row["cfg_value"] = str_replace("\"", "'", $row["cfg_value"]);
+  						$dsp->AddTextFieldRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], "");
+  					break;
+  				}
+  			}
+  			$db->free_result($res);
+        $dsp->AddFieldsetEnd();
+  		}
+			$db->free_result($resGroup);
 
 			$dsp->AddFormSubmitRow("next");
 		}

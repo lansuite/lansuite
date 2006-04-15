@@ -89,14 +89,9 @@ while ($main_item = $db->fetch_array($res)) if ($main_item["needed_config"] == "
 			$sub_item['requirement'] = 2;
 			$menu_out .= FetchItem($sub_item);
 
-			$cfg_grp = $module;
-			if ($cfg_grp == "downloads") $cfg_grp = "Download";
-			if ($cfg_grp == "usrmgr") $cfg_grp = "Userdetails";
-			if ($cfg_grp == "tournament2") $cfg_grp = "t";
 			$find_config = $db->query_first("SELECT cfg_key
 					FROM {$config["tables"]["config"]}
-					WHERE (cfg_group = '$cfg_grp')
-					OR (cfg_key LIKE '$cfg_grp%')
+					WHERE cfg_module = '$module'
 					");
 			if ($find_config["cfg_key"]) {
 				$sub_item["link"] = "index.php?mod=install&action=modules&step=10&module=$module";

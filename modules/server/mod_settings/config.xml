@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>server_admin_only</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Nur Admins dürfen Server hinzufügen</description>
+    	</item>
+    	<item>
+    		<name>server_ping_refresh</name>
+    		<type>int</type>
+    		<default>60</default>
+    		<description>Nach wie vielen Sekunden soll die Erreichbarkeit eines Servers neu getestet werden?</description>
+    	</item>
+    </items>
+  </group>
+</config>

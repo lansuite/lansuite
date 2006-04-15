@@ -192,8 +192,62 @@ class Install {
 
 	// Insert Setting-Entrys in DB, if not exist
 	function InsertSettings($module) {
-		global $db, $config, $lang;
+		global $db, $config, $xml, $func;
 
+		if (is_dir('modules')) {
+			$modules_dir = opendir('modules/');
+			while ($module = readdir($modules_dir)) if ($module != '.' and $module != '..' and $module != 'CVS' and is_dir("modules/$module")) {
+
+				if (is_dir("modules/$module/mod_settings")) {
+					// Try to find DB-XML-File
+					$ConfigFileName = "modules/$module/mod_settings/config.xml";
+					if (file_exists($ConfigFileName)){
+
+    				$handle = fopen ($ConfigFileName, "r");
+    				$xml_file = fread ($handle, filesize ($ConfigFileName));
+    				fclose ($handle);
+
+            $SettingList = array();
+
+            $xml_config = $xml->get_tag_content('config', $xml_file);
+            $xml_groups = $xml->get_tag_content_array('group', $xml_config);
+            if ($xml_groups) while ($xml_group = array_shift($xml_groups)) {
+              $xml_head = $xml->get_tag_content('head', $xml_group);
+              $group = $xml->get_tag_content('name', $xml_head);
+
+              $xml_items = $xml->get_tag_content_array('item', $xml_group);
+              if ($xml_items) while ($xml_item = array_shift($xml_items)) {
+        				$name = $xml->get_tag_content('name', $xml_item);
+        				$type = $xml->get_tag_content('type', $xml_item);
+        				$default = $xml->get_tag_content('default', $xml_item);
+        				$description = $xml->get_tag_content('description', $xml_item);
+        				array_push($SettingList, $name);
+      				
+        				// Insert into DB, if not exists
+        				$found = $db->query_first("SELECT cfg_key FROM {$config["database"]["prefix"]}config WHERE cfg_key = '$name' and cfg_module = '$module'");
+        				if (!$found['cfg_key']) $db->query("INSERT INTO {$config["database"]["prefix"]}config SET
+        				  cfg_key = '". $func->escape_sql($name) ."',
+        				  cfg_value = '". $func->escape_sql($default) ."',
+        				  cfg_type = '". $func->escape_sql($type) ."',
+        				  cfg_group = '". $func->escape_sql($group) ."',
+        				  cfg_desc = '". $func->escape_sql($description) ."',
+        				  cfg_module = '$module'
+        				  ");
+        			}
+            }
+
+      			// Delete Settings from DB, which are no longer in the modules config.sql
+      			$settings_db = $db->query("SELECT cfg_key FROM {$config["database"]["prefix"]}config WHERE (cfg_module = '$module')");
+      			while ($setting_db = $db->fetch_array($settings_db)) {
+      				if (!in_array($setting_db["cfg_key"], $SettingList)) $db->query("DELETE FROM {$config["database"]["prefix"]}config WHERE cfg_key = '{$setting_db["cfg_key"]}'");
+      			}
+					}
+				}
+			}
+			closedir($modules_dir);
+		}
+
+/*
 		$file = "modules/$module/mod_settings/config.sql";
 		if (file_exists($file)) {
 			$fp2 = fopen($file, "r");
@@ -239,6 +293,7 @@ class Install {
 					$db->query("REPLACE INTO {$config["database"]["prefix"]}config (cfg_key, cfg_value, cfg_type, cfg_group, cfg_desc) VALUES $val");
 			}
 		}
+*/
 	}
 
 
@@ -273,7 +328,7 @@ class Install {
 
 	// Auto-Load Modules from XML-Files
 	function InsertModules($rewrite = false) {
-		global $db, $config, $xml;
+		global $db, $config, $xml, $func;
 
 		// Tabelle Modules leeren um Module zu deinstallieren
 		if($_GET["action"] == "wizard"){
@@ -308,25 +363,25 @@ class Install {
 
 				if ($name) {
 					if (!$mod_found["found"]) $db->query_first("REPLACE INTO {$config["tables"]["modules"]} SET
-						name='$name',
-						caption='$caption',
-						description='$description',
-						author='$author',
-						email='$email',
-						active='$active',
-						changeable='$changeable',
-						version='$version',
-						state='$state'
+						name='". $func->escape_sql($name) ."',
+						caption='". $func->escape_sql($caption) ."',
+						description='". $func->escape_sql($description) ."',
+						author='". $func->escape_sql($author) ."',
+						email='". $func->escape_sql($email) ."',
+						active='". $func->escape_sql($active) ."',
+						changeable='". $func->escape_sql($changeable) ."',
+						version='". $func->escape_sql($version) ."',
+						state='". $func->escape_sql($state) ."'
 						");
 					elseif ($rewrite) $db->query_first("REPLACE INTO {$config["tables"]["modules"]} SET
-						name='$name',
-						caption='$caption',
-						description='$description',
-						author='$author',
-						email='$email',
-						changeable='$changeable',
-						version='$version',
-						state='$state'
+						name='". $func->escape_sql($name) ."',
+						caption='". $func->escape_sql($caption) ."',
+						description='". $func->escape_sql($description) ."',
+						author='". $func->escape_sql($author) ."',
+						email='". $func->escape_sql($email) ."',
+						changeable='". $func->escape_sql($changeable) ."',
+						version='". $func->escape_sql($version) ."',
+						state='". $func->escape_sql($state) ."'
 						");
 				}
 			}

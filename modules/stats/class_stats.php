@@ -222,8 +222,8 @@ class stats {
 		global $db,$config,$party,$cfg;
 
 				
-		if(!isset($this->stat_data['user_paid'])){
-			if($cfg["guestlist_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
+		if (!isset($this->stat_data['user_paid']) and $party->party_id != ''){
+			if ($cfg["guestlist_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
 			
 			$timestamp = time()-600;
 			$row = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p LEFT JOIN {$config["tables"]["user"]} ON user_id=userid WHERE $querytype AND (p.paid > 0) AND p.party_id={$party->party_id}");

@@ -1,2 +1,0 @@
-('server_ping_refresh', '60', 'integer', 'Server', 'Nach wie vielen Sekunden soll die Erreichbarkeit eines Servers neu getestet werden?');
-('server_admin_only', '0', 'boolean', 'Server', 'Nur Admins dürfen Server hinzufügen');

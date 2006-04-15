@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>home_login</name>
+    		<type>homesite</type>
+    		<default>0</default>
+    		<description>Welche Startseite soll im eingeloggten Zustand angezeigt werden?</description>
+    	</item>
+    	<item>
+    		<name>home_logout</name>
+    		<type>homesite</type>
+    		<default>0</default>
+    		<description>Welche Startseite soll im ausgeloggten Zustand angezeigt werden?</description>
+    	</item>
+    </items>
+  </group>
+</config>

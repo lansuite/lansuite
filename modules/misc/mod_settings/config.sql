@@ -1,2 +1,0 @@
-('misc_reload_time', '600', 'integer', 'Reload', 'Aufzeichnungszeitraum für IP-Reload in Sekunden');
-('misc_reload_hits', '120', 'integer', 'Reload', 'Nach wie vielen Hits im Zeitraum soll eine IP gesperrt werden?');

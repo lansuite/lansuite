@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>mail_max_msg</name>
+    		<type>int</type>
+    		<default>20</default>
+    		<description>Maximale anzahl der gespeicherten Mails (gelöscht und gelesen)</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Verbindungsdaten SMTP</name>
+    </head>
+    <items>
+    	<item>
+    		<name>mail_use_smtp</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Sollen Internet-Mails per SMTP-versendet werden (Nicht empfohlen)</description>
+    	</item>
+    	<item>
+    		<name>mail_smtp_host</name>
+    		<type>string</type>
+    		<default>localhost</default>
+    		<description>Hostname des SMTP-Servers</description>
+    	</item>
+    	<item>
+    		<name>mail_smtp_user</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Benutzername des SMTP-Servers</description>
+    	</item>
+    	<item>
+    		<name>mail_smtp_pass</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Passwort des SMTP-Servers</description>
+    	</item>
+    </items>
+  </group>
+</config>
