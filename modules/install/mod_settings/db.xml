@@ -87,7 +87,7 @@
 			</field>
 			<field>
 				<name>cfg_value</name>
-				<type>varchar(255)</type>
+				<type>text</type>
 				<null></null>
 				<key></key>
 				<default></default>

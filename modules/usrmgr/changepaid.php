@@ -113,9 +113,6 @@ switch($_GET["step"]) {
 
 	// Send Mail
 	case 5:
-		$templ['signon']['username'] = $user_data["username"];
-		$templ['signon']['partyname'] = $_SESSION['party_info']['name'];
-
 		if ($_GET["userids"]) $userids = split(",", $_GET["userids"]);
 		else $userids[] = $_GET["userid"];
 
@@ -125,8 +122,11 @@ switch($_GET["step"]) {
 		foreach ($userids as $userid) {
 			$user_data = $db->query_first("SELECT username, party.paid, email from {$config["tables"]["user"]} LEFT JOIN {$config["tables"]["party_user"]} AS party ON userid=party.user_id WHERE userid = $userid AND party.party_id={$party->party_id}");
 
-			if ($user_data["paid"]) $msgtext = $dsp->FetchModTpl("usrmgr", "mail_paid");
-			else $msgtext = $dsp->FetchModTpl("usrmgr", "mail_not_paid");
+			if ($user_data["paid"]) $msgtext = $cfg['signon_paid_email_text'];
+			else $msgtext = $cfg['signon_not_paid_email_text'];
+
+      $msgtext = str_replace('%USERNAME%', $user_data["username"], $msgtext);
+      $msgtext = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $msgtext);
 
 			$signonmail = New Mail();
 			if ($_GET['sysmail']) {

@@ -121,6 +121,53 @@
     		<default>Informationsmail zur Anmeldung bei der LANparty</default>
     		<description>Betreff der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird</description>
     	</item>
+    	<item>
+    		<name>signon_signonemail_text</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%!
+
+Sie sind nun registriert und für die kommende LanParty "%PARTYNAME%" vorgemerkt. Ihre Anmeldung ist jedoch erst vollständig, wenn Sie die Teilnahmegebühr überwiesen haben.
+
+Bitte halten Sie diese E-Mail gespeichert, falls Sie Ihr Passwort vergessen sollten.
+Ihre Login-Daten sind die folgenden:
+
+--Userdata------------------
+Username: %USERNAME%
+E-Mail: %EMAIL%
+Passwort: %PASSWORD%
+Clan: %CLAN%
+----------------------------
+
+
+--LANdata-------------------
+Event: %PARTYNAME%
+Webseite: %PARTYURL%
+Teilnehmer: %MAXGUESTS%
+---------------------------
+
+
+Ihre Orgas</default>
+    		<description>Text der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird, wenn er nur einen Account erstellt</description>
+    	</item>
+    	<item>
+    		<name>signon_signonemail_text_register</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%!
+
+Sie haben sich erfolgreich auf %PARTYURL% angemeldet.
+
+Hier nochmal Ihre Daten, die Sie angegeben haben:
+
+--Userdata------------------
+Username: %USERNAME%
+E-Mail: %EMAIL%
+Passwort: %PASSWORD%
+Clan: %CLAN%
+----------------------------
+
+Ihre Orgas</default>
+    		<description>Text der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird, wenn er sich auch zur aktuellen Party anmeldet</description>
+    	</item>
     </items>
   </group>
   <group>
@@ -195,19 +242,6 @@
     		<type>boolean</type>
     		<default>0</default>
     		<description>Soll das Passwort automatisch generiert werden?</description>
-    	</item>
-    </items>
-  </group>
-  <group>
-    <head>
-      <name>Zahlstatus Mail</name>
-    </head>
-    <items>
-    	<item>
-    		<name>signon_ask_paid_email</name>
-    		<type>boolean</type>
-    		<default>1</default>
-    		<description>Soll nach der Bezahltstatusänderung die Option geboten werden, dem Benutzer eine Mail zu senden?</description>
     	</item>
     </items>
   </group>

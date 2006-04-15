@@ -109,16 +109,16 @@ var $perso;
 		$anmelde_schluss = "";
 		if ($_SESSION['party_info']['s_enddate'] > 0) $anmelde_schluss = "Anmeldeschluß: ". $func->unixstamp2date($_SESSION['party_info']['s_enddate'], date) .HTML_NEWLINE;
 
-		$templ['signon']['username'] = $_POST["username"];
-		$templ['signon']['email'] = $_POST["email"];
-		$templ['signon']['password'] = $_POST["password"];
-		$templ['signon']['clan'] = $_POST["clan"];
-		$templ['signon']['partyname'] = $_SESSION['party_info']['name'];
-		$templ['signon']['partyurl'] = $cfg["sys_partyurl"];
-		$templ['signon']['max_guests'] = $_SESSION['party_info']['max_guest'];
+		if ($_GET["signon"]) $message = $cfg["signon_signonemail_text"];
+		else $message = $cfg["signon_signonemail_text_register"];
 
-		if ($_GET["signon"]) $message = $dsp->FetchModTpl("signon", "mail_signon");
-		else $message = $dsp->FetchModTpl("signon", "mail_register");
+		$message = str_replace('%USERNAME%', '', $_POST['username'], $message);
+		$message = str_replace('%EMAIL%', '', $_POST['email'], $message);
+		$message = str_replace('%PASSWORD%', '', $_POST['password'], $message);
+		$message = str_replace('%CLAN%', '', $_POST['clan'], $message);
+		$message = str_replace('%PARTYNAME%', '', $_SESSION['party_info']['name'], $message);
+		$message = str_replace('%PARTYURL%', '', $cfg['sys_partyurl'], $message);
+		$message = str_replace('%MAXGUESTS%', '', $_SESSION['party_info']['max_guest'], $message);
 
 		if ($mail->create_inet_mail($_POST["firstname"]." ".$_POST["lastname"], $_POST["email"], $cfg["signon_signonemail_subject"], $message, $cfg["sys_party_mail"])) return true;
 		else return false;
