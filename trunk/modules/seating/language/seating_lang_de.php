@@ -51,6 +51,10 @@ $lang['seating']['q_res_howev_2'] = 'Dennoch reservieren und %USERNAME% anschlie
 $lang['seating']['q_cancel']      = 'Aktion abbrechen. Zurück zum Sitzplan';
 $lang['seating']['q_reserved_by'] = 'Dieser Sitzplatz ist aktuell belegt durch %USERNAME% (%FIRSTNAME% %NAME%)';
 $lang['seating']['q_change_seat'] = 'Du hast bereits einen Sitzplatz reserviert. M&ouml;chtest deinen Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?';
+$lang['seating']['q_reserve_mark']= 'Dieser Sitzplatz ist aktuell noch frei (bzw. nur markiert)'. HTML_NEWLINE .'Soll er fest reserviert oder nur markiert werden?';
+$lang['seating']['q_answ_reserve']= 'Sitzplatz reservieren'. HTML_NEWLINE .'(Ein evtl. zuvor für diesen Benutzer reservierter Platz wird freigegeben)';
+$lang['seating']['q_answ_mark']   = 'Sitzplatz markieren';
+
 
 // Informations
 $lang['seating']['i_choose_seat'] = 'Bitte w&auml;hlen Sie mindestens einen Sitzplatz aus!';
@@ -65,6 +69,7 @@ $lang['seating']['c_plan_edit']   = 'Der Sitzplan wurde erfolgreich bearbeitet';
 $lang['seating']['c_seat_res']    = 'Der Sitzplatz wurde erfolgreich für %USERNAME% reserviert';
 $lang['seating']['c_seat_res2']   = 'Der Sitzplatz wurde erfolgreich reserviert';
 $lang['seating']['c_seat_mark']   = 'Der Sitzplatz wurde erfolgreich vorgemerkt';
+$lang['seating']['c_seat_mark2']  = 'Der Sitzplatz wurde erfolgreich für %USERNAME% vorgemerkt';
 $lang['seating']['c_release']     = 'Der Sitzplatz wurde erfolgreich freigegeben';
 
 // Seating

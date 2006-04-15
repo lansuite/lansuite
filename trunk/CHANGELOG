@@ -36,6 +36,7 @@ Version 2.1.1
           ACHTUNG: sämtliche Clandaten gehen bei Update verloren und können nicht in die neue Version übernommen werden!
 - Change: MS2 Callbachs in die einzelnen Module verlagert (KnoX 19.03.2006)
 
+- Add: #326 Ein Admin kann nun bei der Zuweisung eines Sitzplatzes wählen, ob dieser reserviert, oder nur markiert werden soll (KnoX 15.04.2006)
 - Add: #380 Modul-Konfig kann nun auch Text-Eingabefelder anzeigen (KnoX 15.04.2006)
 - Add: #360 Wird ein User auf bezahlt geschaltet, wird sein vorgemerkter Platz in einen reservierten umgeändert. Verliert ein User den Zahlstatus, wird der reservierte Platz wieder nur vorgemerkt sein. (KnoX 14.04.2006)
 - Add: CSV-Import verbessert. U.a. lässt sich nun auch in die party_user-Tabelle hinein importieren (KnoX 14.04.2006)

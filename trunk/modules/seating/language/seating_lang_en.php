@@ -43,6 +43,9 @@ $lang['seating']['q_res_howev_2'] = 'Reserve anyways and assign a new seat to %U
 $lang['seating']['q_cancel']      = 'Cancel action. Back to the seat plan';
 $lang['seating']['q_reserved_by'] = 'This placed is currently reserved for %USERNAME% (%FIRSTNAME% %NAME%)';
 $lang['seating']['q_change_seat'] = 'You have reserved a seat allready. Would you like to resign the old seat an reserve this one instead?';
+$lang['seating']['q_reserve_mark']= 'This placed is currently free (or only marked)'. HTML_NEWLINE .'Should it be reserved, or only marked?';
+$lang['seating']['q_answ_reserve']= 'Reserve seat'. HTML_NEWLINE .'(Any seat, reserved for this user before, will be released again)';
+$lang['seating']['q_answ_mark']   = 'Mark seat';
 
 // Informations
 $lang['seating']['i_choose_seat'] = 'Select at least one seat, please!';
@@ -57,6 +60,7 @@ $lang['seating']['c_plan_edit']   = 'The seat plan was edited successfully';
 $lang['seating']['c_seat_res']    = 'The place was assigned to %USERNAME% successfully';
 $lang['seating']['c_seat_res2']   = 'The place was reserved successfully';
 $lang['seating']['c_seat_mark']   = 'The place was marked successfully';
+$lang['seating']['c_seat_mark2']  = 'The place was marked for %USERNAME% successfully';
 $lang['seating']['c_release']     = 'The place was resigned successfully';
 
 // Seating
