@@ -81,4 +81,38 @@
     	</item>
     </items>
   </group>
+  <group>
+    <head>
+      <name>Zahlstatus Mail</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_ask_paid_email</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Soll nach der Bezahltstatusänderung die Option geboten werden, dem Benutzer eine Mail zu senden?</description>
+    	</item>
+    	<item>
+    		<name>signon_paid_email_text</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%!
+
+Sie sind nun auf den Status bezahlt gesetzt und können
+für die kommende LanParty "%PARTYNAME%" Ihren Sitzplatz reservieren.
+
+Ihre Orgas</default>
+    		<description>Text der Mail, die ein Benutzer bekommt, wenn er auf 'Bezahlt' gesetzt wird</description>
+    	</item>
+    	<item>
+    		<name>signon_not_paid_email_text</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%,
+
+Ihr Bezahltstatus der LanParty "%PARTYNAME%" wurde zurück auf "NICHT bezahlt" gesetzt.
+
+Ihre Orgas</default>
+    		<description>Text der Mail, die ein Benutzer bekommt, wenn er auf 'Nicht Bezahlt' gesetzt wird</description>
+    	</item>
+    </items>
+  </group>  
 </config>

@@ -155,6 +155,10 @@ switch($_GET["step"]) {
   						$dsp->AddDateTimeRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], "", "", "", "", "", 2);
   					break;
   
+  					case "text":
+  						$dsp->AddTextAreaRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], '');
+  					break;
+  
   					default:
   						$row["cfg_value"] = str_replace("<", "&lt;", $row["cfg_value"]);
   						$row["cfg_value"] = str_replace(">", "&gt;", $row["cfg_value"]);
