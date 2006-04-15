@@ -45,7 +45,11 @@ switch($_GET["step"]) {
 
 	// Wenn Angemeldet: Benutzerauswahl
 	case 2:
-    include_once('modules/usrmgr/search_checkin_assistant.inc.php');
+    if ($_GET['signon']) $additional_where = "(p.checkin = '0' OR p.checkout != '0') AND u.type > 0 AND p.party_id = {$party->party_id}";
+    else $additional_where = 'u.type > 0';
+    $current_url = 'index.php?mod=usrmgr&action=entrance&step=2&umode=change&signon='. $_GET['signon'];
+    $target_url = 'index.php?mod=usrmgr&action=entrance&step=3&umode=change&userid=';
+    include_once('modules/usrmgr/search_basic_userselect.inc.php');
 	break;
 
 	// Benutzerdaten eingeben / ändern
@@ -102,12 +106,9 @@ switch($_GET["step"]) {
 			$_GET['userid'] = $_GET['next_userid'];
 		}
 
-		$mastersearch = new MasterSearch($vars, "index.php?mod=usrmgr&action=entrance&step=7&umode={$_GET["umode"]}&userid={$_GET["userid"]}", "index.php?mod=usrmgr&action=entrance&step=8&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid=", '');
-		$mastersearch->LoadConfig('seat_blocks', $lang['seat']['ms_search'], $lang['seat']['ms_result']);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    $current_url = "index.php?mod=usrmgr&action=entrance&step=7&umode={$_GET["umode"]}&userid={$_GET["userid"]}";
+    $target_url = "index.php?mod=usrmgr&action=entrance&step=8&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid=";
+    include_once('modules/seating/search_basic_blockselect.inc.php');
 	break;
 
 	// Sitzplatz auswählen

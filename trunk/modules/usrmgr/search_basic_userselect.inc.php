@@ -29,8 +29,7 @@ function ClanURLLink($clan_name) {
   } else return $clan_name;
 }
 
-if ($_GET['signon']) $ms2->query['where'] = "(p.checkin = '0' OR p.checkout != '0') AND u.type > 0 AND p.party_id = {$party->party_id}";
-else $ms2->query['where'] = 'u.type > 0';
+$ms2->query['where'] = $additional_where;
 
 $ms2->AddTextSearchField('NGL/WWCL/LGZ-ID', array('u.nglid' => 'exact', 'u.nglclanid' => 'exact', 'u.wwclid' => 'exact', 'u.wwclclanid' => 'exact', 'u.lgzid' => 'exact', 'u.lgzclanid' => 'exact',));
 
@@ -45,7 +44,7 @@ $ms2->AddResultField('Bez.', 'p.paid', 'PaidIcon');
 
 $ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLink');
 
-$ms2->AddIconField('assign', 'index.php?mod=usrmgr&action=entrance&step=3&umode=change&userid=', $lang['ms2']['assign']);
+$ms2->AddIconField('assign', $target_url, $lang['ms2']['assign']);
 
-$ms2->PrintSearch('index.php?mod=usrmgr&action=entrance&step=2&umode=change&signon='. $_GET['signon'], 'u.userid');
+$ms2->PrintSearch($current_url, 'u.userid');
 ?>

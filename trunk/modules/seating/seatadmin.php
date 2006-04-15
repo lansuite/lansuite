@@ -32,21 +32,16 @@ if ($_GET['userid'])
 
 switch($_GET['step']) {
 	default:
-		$mastersearch = new MasterSearch($vars, "index.php?mod=seating&action=seatadmin", "index.php?mod=seating&action=seatadmin&step=2&userid=", "GROUP BY email");
-		$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    $additional_where = "p.party_id = {$party->party_id} and u.type > 0";
+    $current_url = 'index.php?mod=seating&action=seatadmin';
+    $target_url = 'index.php?mod=seating&action=seatadmin&step=2&userid=';
+    include_once('modules/usrmgr/search_basic_userselect.inc.php');		
 	break;
 
 	case 2:
-		$mastersearch = new MasterSearch($vars, "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}", "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid=", '');
-		$mastersearch->LoadConfig('seat_blocks', $lang['seat']['ms_search'], $lang['seat']['ms_result']);   // seat-lang file ?
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    $current_url = "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}";
+    $target_url = "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid=";
+    include_once('modules/seating/search_basic_blockselect.inc.php');
 	break;
 
 	case 3:
