@@ -111,7 +111,7 @@ class auth {
 
 	// When the User logs off
 	function logout() {
-		global $db, $config, $lang, $board_config;
+		global $db, $config;
 
 		$db->query("UPDATE {$config["tables"]["stats_auth"]} SET login='0' WHERE sessid='{$this->auth["sessid"]}'");
 
@@ -123,15 +123,9 @@ class auth {
 		// The User will be logged out on the phpBB Board if the modul is available, configured and active.
 		if ($db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name='board2'")) {
 			if ($config["board2"]["configured"]) {
-				$temp_db = $db;
-				$temp_lang = $lang;
-				$tempboard_config = $board_config;
-				include_once ('./modules/board2/PHPBB_Login.php');
-				$phpBB = new PHPBB_Login();
-				$phpBB->logout(session_id(), $this->auth['userid']);
-				$db = $temp_db;
-				$lang = $temp_lang;
-				$board_config = $tempboard_config;
+				include_once ('./modules/board2/class_board2.php');
+				$board2 = new board2();
+				$board2->logoutPhpBB($this->auth['userid']);
 			}
 		}
 	}
@@ -222,19 +216,29 @@ class auth {
 				// The User will be logged in on the phpBB Board if the modul is available, configured and active.
 				if ($db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name='board2'")) {
 					if ($config["board2"]["configured"]) {
-						$temp_db = $db;
-						$temp_lang = $lang;
-						$tempboard_config = $board_config;
-						include_once ('./modules/board2/PHPBB_Login.php');
-						$phpBB = new PHPBB_Login();
-						$phpBB->login($user["userid"]);
-						$db = $temp_db;
-						$lang = $temp_lang;
-						$board_config = $tempboard_config;
+						include_once ('./modules/board2/class_board2.php');
+						$board2 = new board2();
+						$board2->loginPhpBB($this->auth['userid']);
 					}
 				}
 			}
 		}
+	}
+	
+	function isCurrentUserOperator($module) {
+		global $db, $config, $func;
+		if ($this->auth['type'] != 2)
+			return 0;
+		
+		$count = $db->num_rows($db->query('SELECT userid FROM ' . $config['database']['prefix'] . 'user_permissions WHERE module = \'' . $module . '\' AND userid = \'' . $this->auth['userid'] . '\''));
+		if ($count > 0) //If the user is operator of the module.
+			return 1;
+		
+		$count2 = $db->num_rows($db->query('SELECT userid FROM ' . $config['database']['prefix'] . 'user_permissions WHERE module = \'' . $module . '\''));
+		if ($count2 == 0) //when no user is operator of this module, every user is operator of the module.
+			return 1;
+
+		return 0;
 	}
 }
 ?>

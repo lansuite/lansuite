@@ -53,5 +53,8 @@ ls_getinfo			= "1"
 
 [board2]
 configured			= "0"
+prefix				= "lansuite_phpbb_"
+path				= "ext_scripts/phpBB/"
+version				= "2.0.19"
 
 ;*/ ?>
