@@ -1,5 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+  <typedefinition>
+    <head>
+      <name>boolean</name>    
+    </head>
+    <entries>
+  		<entry>
+  			<value>0</value>
+  			<description>Nein</description>
+  		</entry>
+  		<entry>
+  			<value>1</value>
+  			<description>Ja</description>
+  		</entry>
+    </entries>
+  </typedefinition>
+  <typedefinition>
+    <head>
+      <name>language</name>    
+    </head>
+    <entries>
+  		<entry>
+  			<value>de</value>
+  			<description>Deutsch</description>
+  		</entry>
+  		<entry>
+  			<value>en</value>
+  			<description>English</description>
+  		</entry>
+    </entries>
+  </typedefinition>
+  <typedefinition>
+    <head>
+      <name>country</name>    
+    </head>
+    <entries>
+  		<entry>
+  			<value>de</value>
+  			<description>Deutschland</description>
+  		</entry>
+  		<entry>
+  			<value>at</value>
+  			<description>Österreich</description>
+  		</entry>
+  		<entry>
+  			<value>ch</value>
+  			<description>Schweiz</description>
+  		</entry>
+  		<entry>
+  			<value></value>
+  			<description>Sonstiges</description>
+  		</entry>
+    </entries>
+  </typedefinition>
+  <typedefinition>
+    <head>
+      <name>barcode</name>    
+    </head>
+    <entries>
+  		<entry>
+  			<value>EAN-13</value>
+  			<description>EAN-13</description>
+  		</entry>
+  		<entry>
+  			<value>CODE39</value>
+  			<description>CODE39</description>
+  		</entry>
+  		<entry>
+  			<value>CODE93</value>
+  			<description>CODE93</description>
+  		</entry>
+  		<entry>
+  			<value>UPC-A</value>
+  			<description>UPC-A</description>
+  		</entry>
+    </entries>
+  </typedefinition>
   <group>
     <head>
       <name>Allgemein</name>
@@ -127,7 +203,7 @@
     	<item>
     		<name>sys_blocksite</name>
     		<type>boolean</type>
-    		<default></default>
+    		<default>0</default>
     		<description>Lansuiteseite gesperrt?</description>
     	</item>
     	<item>

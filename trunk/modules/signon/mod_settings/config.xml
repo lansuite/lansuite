@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+  <typedefinition>
+    <head>
+      <name>signon</name>    
+    </head>
+    <entries>
+  		<entry>
+  			<value>0</value>
+  			<description>Feld deaktiviert</description>
+  		</entry>
+  		<entry>
+  			<value>1</value>
+  			<description>Optionale Angabe</description>
+  		</entry>
+  		<entry>
+  			<value>2</value>
+  			<description>Pflichtfeld</description>
+  		</entry>
+    </entries>
+  </typedefinition>
   <group>
     <head>
       <name>Felder bei Anmeldung</name>

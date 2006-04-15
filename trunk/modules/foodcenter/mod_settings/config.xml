@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+  <typedefinition>
+    <head>
+      <name>food_time</name>    
+    </head>
+    <entries>
+  		<entry>
+  			<value>1</value>
+  			<description>Hinweis Bestellung möglich</description>
+  		</entry>
+  		<entry>
+  			<value>2</value>
+  			<description>Keine Bestellungen aber Ansicht</description>
+  		</entry>
+  		<entry>
+  			<value>3</value>
+  			<description>Modul komplett gesperrt</description>
+  		</entry>
+  		<entry>
+  			<value>4</value>
+  			<description>Öffnungszeiten deaktiviert</description>
+  		</entry>
+    </entries>
+  </typedefinition>
   <group>
     <head>
       <name>Öffnungszeiten</name>
