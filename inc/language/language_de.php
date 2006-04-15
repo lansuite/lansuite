@@ -13,6 +13,7 @@
 	$lang['sys']['language'] = 'Sprache';
 	$lang['sys']['siteblocked'] = 'Die Lansuiteseite ist momentan Offline';
 	$lang['sys']['none'] = 'Keine';
+	$lang['sys']['all'] = 'Alle';
 
 	// Index Module
 	$lang['index_module']['logout'] = 'Sie wurden erfolgreich aus dem Intranet ausgeloggt';

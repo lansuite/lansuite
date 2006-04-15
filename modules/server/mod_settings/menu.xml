@@ -24,21 +24,11 @@
 	<entry>
 		<action>change</action>
 		<file>add</file>
-		<caption>&Auml;ndern</caption>
-		<hint></hint>
-		<link>?mod=server&action=change</link>
 		<requirement>1</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>delete</action>
 		<file>delete</file>
-		<caption>L&ouml;schen</caption>
-		<hint></hint>
-		<link>?mod=server&action=delete</link>
 		<requirement>1</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 </menu>

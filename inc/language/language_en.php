@@ -12,6 +12,7 @@
 	$lang['sys']['seconds'] = 'seconds';
 	$lang['sys']['language'] = 'Language';
 	$lang['sys']['none'] = 'None';
+	$lang['sys']['all'] = 'All';
 
 	// Index Module
 	$lang['index_module']['logout'] = 'You hav been logged out from the intranet successfully';
