@@ -115,9 +115,6 @@ class MasterSearch2 {
             case 'fulltext':
               $sql_one_search_field .= "(MATCH ($sql_field) AGAINST ('{$_POST["search_input"][$z]}' IN BOOLEAN MODE))";
               $this->AddResultField($lang['ms2']['score'], "ROUND(MATCH ($sql_field) AGAINST ('{$_POST["search_input"][$z]}' IN BOOLEAN MODE), 3) AS score");
-              $templ['ms2']['helplet_id'] = 'fulltext';
-              $templ['ms2']['helplet_text'] = 'Fulltext';
-              $this->search_fields[$z]['help_link'] = $dsp->FetchModTpl('mastersearch2', 'search_help_link');
             break;
             case '1337':
       				$key_1337 = $_POST["search_input"][$z];
@@ -195,8 +192,11 @@ class MasterSearch2 {
     ###### Generate Group By
     $this->query['group_by'] .= $select_id_field;
 
-    
     ###### Generate Order By
+    if (!$_GET['order_by'] and $this->query['default_order_by']) {
+      $_GET['order_by'] = $this->query['default_order_by'];
+      if ($this->query['default_order_dir']) $_GET['order_dir'] = $this->query['default_order_dir'];
+    }
     if ($_GET['order_by']) {
       $this->query['order_by'] .= $_GET['order_by'];
       if ($_GET['order_dir']) $this->query['order_by'] .= ' '. $_GET['order_dir'];
@@ -274,7 +274,11 @@ class MasterSearch2 {
       $templ['ms2']['input_field_value'] = $_POST['search_input'][$z];
       $templ['ms2']['input_field_caption'][$current] = $current_field['caption'];      
       $templ['ms2']['search_help'][$current] = '';
-      if ($current_field['help_link']) $templ['ms2']['search_help'][$current] = $current_field['help_link'];
+      if ($current_field['sql_fields']) foreach ($current_field['sql_fields'] as $compare_mode) if ($compare_mode == 'fulltext') {
+        $templ['ms2']['helplet_id'] = 'fulltext';
+        $templ['ms2']['helplet_text'] = 'Fulltext';
+        $templ['ms2']['search_help'][$current] = $dsp->FetchModTpl('mastersearch2', 'search_help_link');
+      }
       $templ['ms2']['search'][$current] = $dsp->FetchModTpl('mastersearch2', 'search_input_field');
       if ($current == 1) $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_row');
       $z++; $x++;
@@ -489,7 +493,8 @@ function TrueFalse($val){
 
 function UserNameAndIcon($username){
   global $line, $dsp;
-  
-  return $username .' '. $dsp->FetchUserIcon($line['userid']);
+
+  if ($username == '') return '<i>System</i>';
+  else return $username .' '. $dsp->FetchUserIcon($line['userid']);
 }
 ?>
