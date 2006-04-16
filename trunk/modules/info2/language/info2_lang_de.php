@@ -17,6 +17,7 @@ $lang['info']['change_caption_2'] = 'Informationsseite - Bearbeiten';
 $lang['info']['change_subcaption_2'] = 'Hier k&ouml;nnen Sie den Inhalt der Seite editieren';
 $lang['info']['title'] = 'Seitentitel';
 $lang['info']['subtitle'] = 'Untertitel';
+$lang['info']['active'] = 'Aktiv';
 $lang['info']['err_missing_fields'] = 'Bitte f&uuml;llen Sie alle Felder aus!';
 $lang['info']['add_success'] = 'Der Eintrag wurde erfolgreich erstellt';
 $lang['info']['change_success'] = 'Der Eintrag wurde erfolgreich ge&auml;ndert';
