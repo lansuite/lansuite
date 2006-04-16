@@ -344,14 +344,19 @@ class Import {
 				if (($db->num_rows($res) > 0) && (!$replace)) $skip = 1;
 
 				if (!$skip){
+					$db->query("REPLACE INTO {$config["tables"]["clan"]} SET
+							clan = '$clan',
+							clanurl = '$clanurl'
+							");
+					$clan_id = $db->insert_id();
+
 					$db->query("REPLACE INTO {$config["tables"]["user"]} SET
 							email = '$email',
 							name = '$name',
 							username = '$username',
 							firstname = '$firstname',
-							clan = '$clan',
-							clanurl = '$clanurl',
 							type = '$type',
+							clanid = ". (int)$clan_id .",
 							password = '$password',
 							wwclid = '$wwclid',
 							wwclclanid = '$wwclclanid',
