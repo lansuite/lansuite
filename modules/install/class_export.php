@@ -290,5 +290,22 @@ class Export {
 	}
 
 
+	function ExportExtInc($filename) {
+    include_once('ext_scripts/archive.php');
+
+    $zip = new gzip_file($filename);
+    $zip->set_options(array('basedir' => '.', 'overwrite' => 1, 'level' => 1, 'inmemory' => 1));
+    $zip->add_files(array('ext_inc'));
+    #$zip->exclude_files("ext_inc/CVS/*");
+    $zip->create_archive();
+
+    header('Content-Type: application/octetstream; charset=utf-8');
+    header("Content-Disposition: attachment; filename=\"$filename\"" );
+    $zip->download_file();
+    
+    if (count($zip->errors) > 0) return false;
+    return true;
+  }
+
 } // END CLASS
 ?>

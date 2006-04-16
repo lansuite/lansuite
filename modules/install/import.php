@@ -10,18 +10,18 @@ switch($_GET["step"]){
 
 		$dsp->AddSingleRow("<b>{$lang["install"]["import_file"]}</b>");
 		$dsp->AddFileSelectRow("importdata", $lang["install"]["import_import"], "");
-		$dsp->AddHRuleRow();
-		$dsp->AddSingleRow("<b>{$lang["install"]["import_settings_new"]}</b>");
+
+ 		$dsp->AddFieldsetStart($lang["install"]["import_settings_new"]);
 		$dsp->AddCheckBoxRow("rewrite", $lang["install"]["import_settings_overwrite"], "", "", 1, "");
-		$dsp->AddHRuleRow();
-		$dsp->AddSingleRow("<b>{$lang["install"]["import_settings_old"]}</b>");
+ 		$dsp->AddFieldsetEnd();
+
+ 		$dsp->AddFieldsetStart($lang["install"]["import_settings_lansurfer"]);
 		$dsp->AddTextFieldRow("comment", $lang["install"]["import_comment"], "", "", "", 1);
 		$dsp->AddCheckBoxRow("deldb", $lang["install"]["import_deldb"], "", "", 1, "");
 		$dsp->AddCheckBoxRow("replace", $lang["install"]["import_replace"], "", "", 1, 1);
 		$dsp->AddCheckBoxRow("signon", $lang["install"]["import_signon"], "", "", 1, 1);
-		$dsp->AddHRuleRow();
-		$dsp->AddSingleRow("<b>{$lang["install"]["import_settings_lansurfer"]}</b>");
 		$dsp->AddCheckBoxRow("noseat", $lang["install"]["import_noseat"], "", "", 1, "");
+ 		$dsp->AddFieldsetEnd();
 
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddBackButton("install.php?mod=install", "install/import"); 
@@ -99,6 +99,11 @@ switch($_GET["step"]){
 				$dsp->AddFormSubmitRow("next"); 
 				$dsp->AddBackButton("install.php?mod=install&action=import", "install/import"); 
 				$dsp->AddContent();
+			break;
+			
+			case 'tgz':
+			  $import->ImportExtInc($_FILES['importdata']['tmp_name']);
+				$func->confirmation($lang["install"]["import_success"], "install.php?mod=install&action=import");
 			break;
 
 			default:
