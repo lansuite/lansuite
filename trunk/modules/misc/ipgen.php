@@ -1,23 +1,5 @@
 <?php
 
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*
-*	(c) 2001-2003 by One-Network.Org
-*
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		ipgen.php
-*	Module: 		seat
-*	Main editor: 		raphael@lansuite.de
-*	Last change: 		15.02.2003 16:04
-*	Description: 		generate new IPs for all seatblocks
-*	Remarks:
-*
-**************************************************************************/
-
 $step 		= $_GET['step'];
 
 switch($step) {
@@ -32,6 +14,7 @@ switch($step) {
 		$templ['misc']['ipgen']['details']['control']['form_action']	= "index.php?mod=misc&action=ipgen&step=10";
 		$templ['misc']['ipgen']['details']['info']['page_title'] 	= $lang['misc']['ip_gen'];
 
+    $gd->CreateButton('new_calculate');
 		$templ['misc']['ipgen']['control']['case'] .= $dsp->FetchModTpl("misc","misc_ipgen_details");
 		$templ['index']['info']['content'] .= $dsp->FetchModTpl("misc","misc_ipgen");
 

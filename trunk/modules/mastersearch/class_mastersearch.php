@@ -358,7 +358,7 @@ class MasterSearch {
 					}
 					$templ["ms"]["form"] .= "</select>";
 				}
-				$templ["ms"]["form"] .= " <input type=\"image\" value=\"send\" name=\"ms_send\" src=\"design/{$design}/images/buttons_send.gif\" />";
+				$templ["ms"]["form"] .= " <input type=\"image\" value=\"send\" name=\"ms_send\" src=\"ext_inc/auto_images/{default_design}/{language}/button_search.png\" />";
 			}
 			$templ['ms']['sort_hint'] = $lang['ms']['sort_hint'];
 			$this->return .= $dsp->FetchModTpl("mastersearch", "mastersearch_case");

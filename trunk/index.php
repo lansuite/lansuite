@@ -183,9 +183,10 @@ if ($found_adm) {
 		$dsp->AddTextFieldRow("email", "E-Mail", "", "", "");
 		$dsp->AddPasswordRow("password", "Passwort", "", "", "");
 
-		$dsp->AddDoubleRow("", $dsp->FetchModTpl("install", "login"));
-
-		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=usrmgr&action=pwrecover\">Passwort vergessen?</a>");
+    $gd->CreateButton('login');
+    $gd->CreateButton('save');
+		$dsp->AddDoubleRow('', $dsp->FetchModTpl("install", "login"));
+		$dsp->AddDoubleRow('', $dsp->FetchButton("index.php?mod=usrmgr&action=pwrecover", "lost_pw"));
 
 		$dsp->AddContent();
 		eval("\$index = \"". $func->gettemplate("setup_index")."\";");
