@@ -10,6 +10,7 @@ Version 2.1.2
 
 - Change: Alte Buttons aus design/ entfernt. Überall, wo noch auf diese verlinkt wurde, neue ethode eingefügt (KnoX 16.04.2006)
 
+- Add: #399 Daten-Export und Import für den ext_inc Ordner hinzugefügt (KnoX 16.04.2006)
 - Add: #340 Man kann nun den Ein-/Aus-Check-Status wieder zurücksetzen (KnoX 16.04.2006)
 
 Version 2.1.1 (16.04.2006)

@@ -13,7 +13,8 @@ switch($_GET["step"]){
 			"xml_tables" => $lang["install"]["export_xml_tables"],
 			"csv_complete" => $lang["install"]["export_cvs_complete"],
 			"csv_sticker" => $lang["install"]["export_cvs_sticker"],
-			"csv_card" => $lang["install"]["export_cvs_card"]
+			"csv_card" => $lang["install"]["export_cvs_card"],
+			"ext_inc_data" => $lang['install']['export_data_ext_inc']
 			);
 		$t_array = array();
 		while (list ($key, $val) = each ($type_array)) {
@@ -121,6 +122,10 @@ switch($_GET["step"]){
 				$dsp->AddDoubleRow("", "<a href=\"base.php?mod=export_data&type={$_POST["type"]}&step=3\">{$lang["install"]["export_cvs_card_save"]}</a>", "", "", "");
 			break;
 
+      case 'ext_inc_data':
+				$dsp->AddDoubleRow("", "<a href=\"base.php?mod=export_data&type={$_POST["type"]}&step=3\">{$lang['install']['export_ext_inc']}</a>", "", "", "");
+      break;
+
 			default:
 				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "install.php?mod=install&action=import");
 			break;
@@ -170,6 +175,10 @@ switch($_GET["step"]){
 			case "csv_card":
 				$output = $export->ExportCSVCard(";");
 				$export->SendExport($output, "lansuite_card.csv");
+			break;
+
+			case "ext_inc_data":
+				$export->ExportExtInc('lansuite_data.tgz');
 			break;
 
 			default:
