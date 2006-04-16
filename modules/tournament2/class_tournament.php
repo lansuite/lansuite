@@ -46,16 +46,14 @@ class tfunc {
 
 	// Generates a string to output a memberlist of one team
 	function GetMemberList($teamid){
-		global $db, $config, $func, $seat, $lang;
-
-		$seat = new seat;
+		global $db, $config, $func, $seat2, $lang;
 
 		$member_liste = "";
 		$team_memb = $db->query("SELECT user.username, user.userid
 				FROM {$config["tables"]["t2_teammembers"]} AS teammember
 				LEFT JOIN {$config["tables"]["user"]} AS user ON teammember.userid = user.userid
 				WHERE teammember.teamid = $teamid");
-		while ($member = $db->fetch_array($team_memb)) $member_liste .= $member['username'] . $func->button_userdetails($member['userid'], "") . " (Platz: ". $seat->display_seat_link("usrmgr", $member['userid']) .")" . HTML_NEWLINE;
+		while ($member = $db->fetch_array($team_memb)) $member_liste .= $member['username'] . $func->button_userdetails($member['userid'], "") . " (Platz: ". $seat2->SeatNameLink($member['userid'], '', '') .")" . HTML_NEWLINE;
 		$db->free_result($team_memb);
 
 		if ($member_liste == "") return "<i>{$lang["tourney"]["s_res_none"]}</i>";

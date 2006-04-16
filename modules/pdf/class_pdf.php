@@ -387,11 +387,8 @@ class pdf {
 	 */
 	function _makeUserCard($pdf_paid,$pdf_normal,$pdf_op,$pdf_orga,$pdf_guestid){
 		define('IMAGE_PATH','ext_inc/pdf_templates/');
-		global $db, $config, $func, $party;
+		global $db, $config, $func, $party, $seat2;
 				
-		include_once("inc/classes/class_seat.php");
-		$seat = new seat;
-		
 		$date = date('U');
 				
 		// abfrage String erstellen
@@ -549,9 +546,8 @@ class pdf {
 				$data['orientation']  = $row_block["orientation"];
 				$data['col']          = $row_seat["col"];
 				$data['row']          = $row_seat["row"];
-				$data['user_seat']    = $seat->display_seat_index($row_block['orientation'], $row_seat['col'], $row_seat['row']);
+				$data['user_seat']    = $seat2->CoordinateToName($row_seat['col'] + 1, $row_seat['row'], $row_block['orientation']);
 				$data['user_block']	  = $row_block["name"];
-				
 			}
 
 			$data['user_ip'] = $row_seat["ip"];
@@ -603,10 +599,7 @@ class pdf {
 	 */
 	function _makeSeatCard($block,$order){
 		define('IMAGE_PATH','ext_inc/pdf_templates/');
-		global $db, $config, $func,$party;
-				
-		include_once("inc/classes/class_seat.php");
-		$seat = new seat;
+		global $db, $config, $func,$party, $seat2;
 		
 		if($order == "row"){
 			$sql_order = ", 'row', 'col'";
@@ -646,7 +639,7 @@ class pdf {
 			$data['col']  		  = $row["col"];
 			$data['row']  		  = $row["row"];
 			$data['seat_block']   = $row_block['name'];
-			$data['seat']    	  = $seat->display_seat_index($row_block['orientation'], $data['col'], $data['row']);
+			$data['seat']    	  = $seat2->CoordinateToName($data['col'] + 1, $data['row'], $row_block['orientation']);
 			$data['party_name']    = $_SESSION['party_info']['name']; 	
 			
 			$row_user = $db->query_first("SELECT * FROM {$config["tables"]["user"]} WHERE userid='$userid'");
@@ -708,11 +701,8 @@ class pdf {
 	 */
 	function _makeUserlist($pdf_paid,$pdf_normal,$pdf_op,$pdf_orga,$order){
 		define('IMAGE_PATH','ext_inc/pdf_templates/');
-		global $db, $config, $func,$party;
+		global $db, $config, $func,$party, $seat2;
 				
-		include_once("inc/classes/class_seat.php");
-		$seat = new seat;
-		
 		// abfrage String erstellen
 		$pdf_sqlstring = "";
 
@@ -866,9 +856,8 @@ class pdf {
 				$data['orientation']  = $row_block["orientation"];
 				$data['col']          = $row_seat["col"];
 				$data['row']          = $row_seat["row"];
-				$data['user_seat']    = $seat->display_seat_index($data['orientation'], $data['col'], $data['row']);
+				$data['user_seat']    = $seat2->CoordinateToName($data['col'] + 1, $data['row'], $data['orientation']);
 				$data['user_block']	  = $row_block["name"];
-				
 			}
 
 			$data['user_ip'] = $row_seat["ip"];
