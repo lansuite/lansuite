@@ -453,13 +453,25 @@ class MasterSearch2 {
 // Callbacks which are only for local interest, should be defined in the modules search-file
 
 function MS2GetDate($time){
+  global $dsp, $templ;
+  
   if ($time > 0) return '<span class="small">'. date('d.m.y', $time) .'<br />'. date('H:i', $time) .'</span>';
-  else return '0'; 
+  else {
+    $templ['ms2']['icon_name'] = 'no';
+    $templ['ms2']['icon_title'] = '-';
+    return $dsp->FetchModTpl('mastersearch2', 'result_icon');  
+  } 
 }
 
 function MS2GetTime($time){
+  global $dsp, $templ;
+  
   if ($time > 0) return date('H:i', $time);
-  else return '0'; 
+  else {
+    $templ['ms2']['icon_name'] = 'no';
+    $templ['ms2']['icon_title'] = '-';
+    return $dsp->FetchModTpl('mastersearch2', 'result_icon');  
+  } 
 }
 
 function UserNameAndIcon($username){

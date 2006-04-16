@@ -29,6 +29,20 @@ function ClanURLLink($clan_name) {
   } else return $clan_name;
 }
 
+function IfLowerUserlevel($userid) {
+  global $line, $auth;
+  
+  if ($line['type'] < $auth['type']) return true;
+  else return false;
+}
+
+function IfLowerOrEqualUserlevel($userid) {
+  global $line, $auth;
+  
+  if ($line['type'] <= $auth['type']) return true;
+  else return false;
+}
+
 
 $ms2->AddTextSearchField('NGL/WWCL/LGZ-ID', array('u.nglid' => 'exact', 'u.nglclanid' => 'exact', 'u.wwclid' => 'exact', 'u.wwclclanid' => 'exact', 'u.lgzid' => 'exact', 'u.lgzclanid' => 'exact',));
 
@@ -46,6 +60,7 @@ $ms2->AddTextSearchDropDown($lang['usrmgr']['checkout'], 'p.checkout', array('' 
 $ms2->AddTextSearchDropDown($lang['usrmgr']['add_gender'], 'u.sex', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['search_unknown_sex'], '1' => $lang['usrmgr']['search_male'], '2' => $lang['usrmgr']['search_female']));
 
 $ms2->AddSelect('c.url AS clanurl');
+$ms2->AddSelect('u.type');
 $ms2->AddResultField($lang['usrmgr']['details_clan'], 'c.name AS clan', 'ClanURLLink');
 // If Party selected
 if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
@@ -56,8 +71,8 @@ if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
 
 $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', $lang['ms2']['details']);
 $ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', $lang['ms2']['send_mail']);
-$ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=', $lang['ms2']['change_pw']);
-if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid=', $lang['ms2']['switch_user']);
+$ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=', $lang['ms2']['change_pw'], 'IfLowerOrEqualUserlevel');
+if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid=', $lang['ms2']['switch_user'], 'IfLowerUserlevel');
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=', $lang['ms2']['edit']);
 if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=', $lang['ms2']['delete']);
 
