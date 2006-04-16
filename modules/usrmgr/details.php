@@ -243,7 +243,7 @@ else {
 				if ($user_party['checkin'] > 0 AND $user_party['checkout'] == 0)
 					$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=checkout&step=2&userid=". $_GET['userid'], "checkout")." ";
 				if ($user_party['checkin'] > 0 AND $user_party['checkout'] > 0)
-					$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=checkin&step=2a&userid=". $_GET['userid'], "checkin")." ";
+					$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=checkout&step=10&userid=". $_GET['userid'], "checkin_reset")." ";
 
 				$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=changepaid&step=2&userid=". $_GET['userid'], "paidchange", $lang['usrmgr']['details_chpaid_help'])." ";
 				$userdetails_adminbuttons_seat .= $dsp->FetchButton("index.php?mod=seating&action=seatadmin&step=2&userid=". $_GET['userid'], "edit")." ";

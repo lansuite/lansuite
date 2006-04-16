@@ -113,6 +113,7 @@
 	$lang['button']['bold'] = 'Bold';
 	$lang['button']['checkin'] = 'Check in';
 	$lang['button']['checkout'] = 'Check out';
+	$lang['button']['checkin_reset'] = 'Reset Check in';
 	$lang['button']['close'] = 'Close';
 	$lang['button']['code'] = 'Code';
 	$lang['button']['comments'] = 'Comments';
