@@ -4,7 +4,10 @@ Hier bitte die wichtigen Änderungen einfügen :
 (Auch Name,Datum und falls vorhanden BugID für die Änderung angeben!)
 -----
 
-Version 2.1.1
+Version 2.1.2
+
+
+Version 2.1.1 (16.04.2006)
 
 - Bugfix: #393 Auf der Startseite wurden keine aktuellen Turnierpaarungen mehr gezeigt (KnoX 16.04.2006)
 - Bugfix: #372 Im Navigationsmanager wurde eine Trennlinie mal vor und mal nach dem angeklickten Eintrag eingefügt (KnoX 14.04.2006)
