@@ -6,6 +6,8 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.2
 
+- Bugfix: #412 Beim DB-Update wurden fälschlicherweise bei machen Feldern versucht einen Fulltext-Index anzulegen (KnoX 16.04.2006)
+
 - Change: Alte Buttons aus design/ entfernt. Überall, wo noch auf diese verlinkt wurde, neue ethode eingefügt (KnoX 16.04.2006)
 
 - Add: #340 Man kann nun den Ein-/Aus-Check-Status wieder zurücksetzen (KnoX 16.04.2006)

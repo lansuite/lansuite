@@ -168,7 +168,7 @@ class Import {
 							if ($key == "MUL") {
 							
                 // If type is string, or text use FULLTEXT as index, otherwise use simple INDEX							
-                if ($type == 'text' or $type = 'longtext' or substr($type, 0, 7) == 'varchar')
+                if ($type == 'text' or $type == 'longtext' or substr($type, 0, 7) == 'varchar')
                   $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD FULLTEXT ($name)"); 							
 								else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD INDEX ($name)");
 
