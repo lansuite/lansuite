@@ -50,15 +50,10 @@ switch($_GET["step"]) {
 
 	// Übersicht ihrer Mails im Posteingang
 	case "userbyms":
-		$mastersearch = new MasterSearch( $vars, 
-										"index.php?mod=mail&action=newmail&step=userbyms", 
-										"index.php?mod=mail&action=newmail&step=2&userID=", 
-										"AND (u.type > 0) GROUP BY email" );
-		$mastersearch->LoadConfig( "users", $lang["mail"]["new_ms_search"], $lang["mail"]["new_ms_result"]);
-		$mastersearch->Search();
-		$mastersearch->PrintForm();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    $additional_where = 'u.type > 0';
+    $current_url = 'index.php?mod=mail&action=newmail&step=userbyms';
+    $target_url = 'index.php?mod=mail&action=newmail&step=2&userID=';
+    include_once('modules/usrmgr/search_basic_userselect.inc.php');
 	break;
 
 	case 2:
