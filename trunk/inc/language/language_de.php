@@ -42,7 +42,9 @@
 	$lang['class_db_mysql']['sql_error_log'] = 'SQL-Fehler in PHP-Skript \'%SCRIPT%\' (Referrer: \'%REFERRER%\')<br />SQL-Fehler-Meldung: %ERROR%<br />Query: %QUERY%';
 
 	// Class Display
-	# No Language
+	$lang['class_display']['clickhere'] = 'bitte hier klicken!';
+	$lang['class_display']['IFrame']['noIFrame'] = 'Wenn ihr Broswer keine IFrames unterstützt, ';
+	$lang['class_display']['newWindow']['popupBlocked'] ='Wenn das PupUp geblockt wurde, ';
 
 	// Class func
 	$lang['class_func']['no_templ'] = 'Das Template <b>%TEMPL%</b> konnte nicht ge&ouml;ffnet werden';

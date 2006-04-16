@@ -41,8 +41,10 @@
 	$lang['class_db_mysql']['sql_error_log'] = 'SQL-Failure in PHP-Script \'%SCRIPT%\' (Referrer: \'%REFERRER%\')<br />SQL-Error-Message: %ERROR%<br />Query: %QUERY%';
 
 	// Class Display
-	# No Language
-
+	$lang['class_display']['clickhere'] = 'please click here!';
+	$lang['class_display']['IFrame']['noIFrame'] = 'If your browser doesn\'t support IFrames, ';
+	$lang['class_display']['newWindow']['popupBlocked'] ='If the PupUp was blocked, ';
+	
 	// Class func
 	$lang['class_func']['no_templ'] = 'The template <b>%TEMPL%</b> could not be opened';
 	$lang['class_func']['seatinfo_priority'] = 'Function setainfo needs Priority defined as integer: 0 low (grey), 1 middle (green), 2 high (orange)';
