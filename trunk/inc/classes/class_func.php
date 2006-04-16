@@ -162,8 +162,10 @@ class func {
 	
 	// #### DIALOG FUNCTIONS ####
 	
-	function error($text, $link_target) {
+	function error($text, $link_target = '') {
 		global $templ, $auth, $lang, $language, $dsp;
+		
+		if ($link_target == '') $link_target = $this->internal_referer;
 
     // Close Layout table, if opened 
     $dsp->AddContent();
@@ -193,8 +195,10 @@ class func {
 		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("error")."\";");
 	}
 
-	function confirmation($text, $link_target) {
+	function confirmation($text, $link_target = '') {
 		global $templ, $auth, $dsp, $language;
+
+		if ($link_target == '') $link_target = $this->internal_referer;
 
 		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
 		$templ['confirmation']['info']['confirmationmsg']	= $text;
@@ -202,8 +206,10 @@ class func {
 	}
 
 	
-	function information($text, $link_target) {
+	function information($text, $link_target = '') {
 		global $templ, $auth, $dsp, $language;
+
+		if ($link_target == '') $link_target = $this->internal_referer;
 
 		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
 		$templ['confirmation']['info']['confirmationmsg'] = $text;
@@ -246,8 +252,10 @@ class func {
 		eval ("\$templ['index']['info']['content'] .= \"".$this->gettemplate("dialog")."\";");
 	}
 
-	function question($text, $link_target_yes, $link_target_no) {
+	function question($text, $link_target_yes, $link_target_no = '') {
 		global $templ, $auth, $dsp, $language;
+
+		if ($link_target_no == '') $link_target_no = $this->internal_referer;
 
 		$templ['question']['info']['questionmsg']	= $text;
 		$templ['question']['control']['link']['yes'] = $dsp->FetchButton($link_target_yes, "yes");
