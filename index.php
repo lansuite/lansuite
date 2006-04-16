@@ -95,8 +95,7 @@ include_once("modules/install/class_install.php");
 include_once("modules/mastersearch/class_mastersearch.php");
 include_once("modules/mail/class_mail.php");
 include_once("modules/stats/class_stats.php");
-
-// Cronjob laden
+include_once("modules/seating/class_seat.php");
 include_once("modules/cron/class_cronjob.php");
 
 // Initialize base classes
@@ -112,6 +111,7 @@ $install	= new Install();		// Install Functions (Some basic Setup-Routines)
 $db			= new db;			// DB Functions (to work with the databse)
 $sec		= new sec;			// Security Functions (to lock pages)
 $cronjob	= new cronjob();	// Load Cronjob
+$seat2 = new seat2();   // Load Seat-Controll Class
 
 
 // Wenn Install: Connect ohne Abbruch bei Fehler, sonst mit Abbruch
@@ -210,8 +210,6 @@ if ($db->success) {
 
 	// Include base-files
 	include_once("inc/classes/class_seat.php");
-	include_once("modules/seating/class_seat.php");
-	$seat2 = new seat2();
 	include_once("modules/sponsor/banner.php");
 }
 
