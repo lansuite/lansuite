@@ -370,8 +370,8 @@ class MasterSearch2 {
         else $templ['ms2']['table_entrys_row_field_entry'] = $line[$current_field['sql_field']];
         
         // Cut of oversize chars
-        if ($current_field['max_char'] and strlen($templ['ms2']['table_entrys_row_field_entry'] > $current_field['max_char']))
-          $templ['ms2']['table_entrys_row_field_entry'] = substr($templ['ms2']['table_entrys_row_field_entry'], 0, $current_field['max_char'] - 2) .'..';
+        if ($current_field['max_char'] and strlen($templ['ms2']['table_entrys_row_field_entry']) > $current_field['max_char'])
+          $templ['ms2']['table_entrys_row_field_entry'] = substr($templ['ms2']['table_entrys_row_field_entry'], 0, $current_field['max_char'] - 2) .'...';
 
         // Link first row to same target as first icon
         if ($z == 0 and $this->icon_field[0]['link']) {
@@ -472,6 +472,19 @@ function MS2GetTime($time){
     $templ['ms2']['icon_title'] = '-';
     return $dsp->FetchModTpl('mastersearch2', 'result_icon');  
   } 
+}
+
+function TrueFalse($val){
+  global $dsp, $templ, $lang;
+  
+  if ($val) {
+    $templ['ms2']['icon_name'] = 'yes';
+    $templ['ms2']['icon_title'] = $lang['sys']['yes'];
+  } else {
+    $templ['ms2']['icon_name'] = 'no';
+    $templ['ms2']['icon_title'] = $lang['sys']['no'];
+  } 
+  return $dsp->FetchModTpl('mastersearch2', 'result_icon');  
 }
 
 function UserNameAndIcon($username){

@@ -1,63 +1,29 @@
 <?php
 
-if ($_POST["checkbox"]) {
-	switch ($_POST["action_select"]) {
-
-		// Delete entry
-		case "del":
-			foreach($_POST["checkbox"] AS $item) {
-				$menu_intem = $db->query_first("SELECT caption FROM {$config['tables']['info']} WHERE infoID = $item");
-				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
-				$db->query("DELETE FROM {$config['tables']['info']} WHERE infoID = $item");
-			}
-
-			$func->confirmation($lang["info"]["del_success"], "index.php?mod=info2&action=change");
-		break;
-
-		// Change active state
-		case "active":
-			foreach($_POST["checkbox"] AS $item) {
-				$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
-				$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
-				if ($menu_intem["active"]) {
-					// Set not active and delete menuitem
-					$db->query("UPDATE {$config['tables']['info']} SET active = 0 WHERE infoID = $item");
-					$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
-				} else {
-					// Set active and write menuitem
-					$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
-					$db->query("INSERT INTO {$config['tables']['menu']}
-						SET module = 'info2',
-						caption = '{$menu_intem["caption"]}',
-						hint = '{$menu_intem["shorttext"]}',
-						link = '?mod=info2&action=show_info2&submod={$menu_intem["caption"]}',
-						requirement = 0,
-						level = 0,
-						pos = {$info_menu["pos"]},
-						action = 'show_info2',
-						file = 'show'
-						");
-				}
-			}
-
-			$func->confirmation($lang["info"]["change_active_success"], "index.php?mod=info2&action=change");
-		break;
-	}
-
-
-} else switch($_GET["step"]){
+switch($_GET["step"]){
 	default:
 		$dsp->NewContent($lang["info"]["change_caption"], $lang["info"]["change_subcaption"]);
 		$dsp->SetForm("index.php?mod=info2&action=change&step=2");
 		$dsp->AddFormSubmitRow("add");
 		$dsp->AddContent();
 
-		$mastersearch = new MasterSearch($vars, "index.php?mod=info2&action=change", "index.php?mod=info2&action=change&step=2&id=", "");
-		$mastersearch->LoadConfig("info2", "", $lang["info2"]["change_ms"]);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/mastersearch2/class_mastersearch2.php');
+    $ms2 = new mastersearch2();
+    
+    $ms2->query['from'] = "{$config['tables']['info']} AS i";
+    
+    $ms2->config['EntriesPerPage'] = 50;
+    
+    $ms2->AddResultField($lang['info']['title'], 'i.caption');
+    $ms2->AddResultField($lang['info']['subtitle'], 'i.shorttext', '', 140);
+    $ms2->AddResultField($lang['info']['active'], 'i.active', 'TrueFalse');
+
+    if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=info2&action=change&step=2&id=', $lang['ms2']['edit']);
+
+    if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Aktiv-Status ändern', 'index.php?mod=info2&action=change&step=20', 1);
+    if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('Löschen', 'index.php?mod=info2&action=change&step=10', 1);
+    
+    $ms2->PrintSearch('index.php?mod=tournament2', 'i.infoID');
 	break;
 
 	case 2:
@@ -139,5 +105,46 @@ if ($_POST["checkbox"]) {
 			}
 		}
 	break;
+
+	// Delete entry
+	case 10:
+		foreach($_POST["action"] AS $item => $val) {
+			$menu_intem = $db->query_first("SELECT caption FROM {$config['tables']['info']} WHERE infoID = $item");
+			$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
+			$db->query("DELETE FROM {$config['tables']['info']} WHERE infoID = $item");
+		}
+
+		$func->confirmation($lang["info"]["del_success"], "index.php?mod=info2&action=change");
+	break;
+
+	// Change active state
+	case 20:
+		foreach($_POST["action"] AS $item => $val) {
+			$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
+			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
+			if ($menu_intem["active"]) {
+				// Set not active and delete menuitem
+				$db->query("UPDATE {$config['tables']['info']} SET active = 0 WHERE infoID = $item");
+				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
+			} else {
+				// Set active and write menuitem
+				$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
+				$db->query("INSERT INTO {$config['tables']['menu']}
+					SET module = 'info2',
+					caption = '{$menu_intem["caption"]}',
+					hint = '{$menu_intem["shorttext"]}',
+					link = '?mod=info2&action=show_info2&submod={$menu_intem["caption"]}',
+					requirement = 0,
+					level = 0,
+					pos = {$info_menu["pos"]},
+					action = 'show_info2',
+					file = 'show'
+					");
+			}
+		}
+
+		$func->confirmation($lang["info"]["change_active_success"], "index.php?mod=info2&action=change");
+	break;
+	
 }
 ?>
