@@ -513,7 +513,7 @@ class Import {
     include_once('ext_scripts/archive.php');
 
     $zip = new gzip_file($filename);
-    $zip->set_options(array('basedir' => 'testw/', 'overwrite' => 1));
+    $zip->set_options(array('basedir' => '.', 'overwrite' => 1));
     $zip->extract_files();
   }
 	
