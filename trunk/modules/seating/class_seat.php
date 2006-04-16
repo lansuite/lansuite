@@ -12,7 +12,7 @@ class seat2 {
 		return $res;
 	}
 
-  function SeatNameLink($userid, $MaxBlockLength = 0){
+  function SeatNameLink($userid, $MaxBlockLength = 0, $break = '<br />'){
     global $db, $config, $party;
   
     if (!$userid) return '';
@@ -22,7 +22,7 @@ class seat2 {
   
     if (!$row['blockid']) return '';
     else {
-      $LinkText = $row['name'] .'<br />'. $this->CoordinateToName($row['col'] + 1, $row['row'], $row['orientation'], $MaxBlockLength);
+      $LinkText = $row['name'] .' '. $break . $this->CoordinateToName($row['col'] + 1, $row['row'], $row['orientation'], $MaxBlockLength);
   	  return "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=seating&function=usrmgr&id={$row['blockid']}&userarray[]=$userid&l=1','_blank','width=596,height=638,resizable=yes');\" class=\"small\">$LinkText</a>";
   	}
   }
@@ -79,6 +79,35 @@ class seat2 {
 		// Create Image for selection
 		$gd->MergeImages("ext_inc/auto_images/{$auth['design']}/seat/{$name}.png", "design/{$auth['design']}/images/seat_onclick.png", "ext_inc/auto_images/{$auth['design']}/seat/{$name}_onclick.png");
 	}
+
+	function U18Block($id, $idtype) {
+		global $db;
+		/*
+		$id 	can be a userid or blockid
+		$idtype can be
+			"u" for userid (standard)
+			"b" for blockid or
+
+		TRUE - MEANS THAT IS A U18 BLOCK
+		FALSE - MEANS THAT IS A over18 BLOCK OR !!! BLOCK DOESN'T EXIST
+		*/
+
+		if ($idtype == "b") $blockid = $id;
+		elseif ($idtype != "b") {
+      $row_seat = $db->query_first("SELECT blockid FROM {$GLOBALS['config']['tables']['seat_seats']} WHERE userid='$id'");
+      $blockid = $row_seat['blockid'];
+      if ($blockid == "") return FALSE;
+		}
+
+		$row_block = $db->query_first("SELECT u18, blockid FROM {$GLOBALS['config']['tables']['seat_block']} WHERE blockid='$blockid'");
+		$blockid = $row_block['blockid'];
+		if ($blockid == "") return FALSE;
+
+		$u18 = $row_block["u18"];
+		if ($u18 == TRUE) return TRUE;
+		else return FALSE;
+	}
+
 
 	function DrawPlan($blockid, $mode, $linktarget = '', $selected_user = false) {
 		global $db, $config, $dsp, $templ, $auth, $gd, $lang, $cfg, $party;

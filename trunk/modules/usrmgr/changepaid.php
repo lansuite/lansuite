@@ -154,8 +154,7 @@ switch($_GET["step"]) {
 		if (!$_GET["paid"] && !is_array($userids)) {
 			$get_seat = $db->query_first("SELECT s.seatid, s.blockid FROM {$config["tables"]["seat_seats"]} AS s LEFT JOIN {$config["tables"]["seat_block"]} AS b ON s.blockid=b.blockid WHERE s.userid ='$userid' AND b.party_id={$party->party_id}");
 			if ($get_seat['blockid']) {
-				$seat = new seat;
-				$dia_quest[2] = str_replace("%SEAT%", $seat->display_seat_link("usrmgr", $userid), $lang["usrmgr"]["chpaid_seat_quest"]);
+				$dia_quest[2] = $lang["usrmgr"]["chpaid_seat_quest"];
 				$dia_link[] = "index.php?mod=seating&action=free_seat&step=4&seatid=". $get_seat['seatid'] ."&userid=$userid";
 				$dia_sel[] = "yes";
 				$func->dialog($dia_quest, $dia_link, $dia_sel);

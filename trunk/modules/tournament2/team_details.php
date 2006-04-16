@@ -25,8 +25,7 @@ else {
 	if ($team['banner']) $dsp->AddSingleRow("<img src=\"ext_inc/team_banners/{$team['banner']}\" alt=\"{$team['banner']}\">");
 
 	// Leader
-	$seat = new seat;
-	$dsp->AddDoubleRow($lang["tourney"]["t_det_leader"], $team['username'] . $func->button_userdetails($team['userid'], "") . " (Platz: ". $seat->display_seat_link("usrmgr", $team['userid']) .")");
+	$dsp->AddDoubleRow($lang["tourney"]["t_det_leader"], $team['username'] . $func->button_userdetails($team['userid'], "") . " (Platz: ". $seat2->SeatNameLink($team['userid'], '', '') .")");
 
 	// Members
 	$dsp->AddDoubleRow($lang["tourney"]["t_det_member"], $tfunc->GetMemberList($_GET["teamid"]));

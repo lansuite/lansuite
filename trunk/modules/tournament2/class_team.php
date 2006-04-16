@@ -51,7 +51,7 @@ class team {
 
 	// To Check if a user may signon to a tournament
 	function SignonCheckUser($tid, $userid) {
-		global $db, $config, $lang, $func, $party, $cfg;
+		global $db, $config, $lang, $func, $party, $cfg, $seat2;
 
 		$t = $db->query_first("SELECT groupid, maxteams, over18, status, coins FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = $tid");
 		$user = $db->query_first("SELECT p.paid, u.username
@@ -76,11 +76,7 @@ class team {
 			");
 
 		$over_18_error = 0;
-		if ($t["over18"] == 1) {
-			require_once("inc/classes/class_seat.php");
-			$seat = new seat;
-			if ($seat->check_u18_block($userid, "u")) $over_18_error = 1;
-		}
+		if ($t["over18"] == 1 and $seat2->U18Block($userid, "u")) $over_18_error = 1;
 
 		$team_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
 			FROM {$config["tables"]["tournament_tournaments"]} AS t

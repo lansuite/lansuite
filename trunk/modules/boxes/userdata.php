@@ -39,21 +39,6 @@ $box->EngangedRow("<b>". $user_lg["logins"] ."</b>");
 
 $box->EmptyRow();
 
-/*
-// Show Link to seat details
-$seat = new seat();
-$row_seat = $db->query_first("SELECT s.blockid, s.col, s.row
-	FROM {$config['tables']['seat_seats']} AS s
-	LEFT JOIN {$config['tables']['seat_block']} AS b USING(blockid)
-	WHERE s.userid='{$auth['userid']}' AND b.party_id={$party->party_id}
-	");
-$blockid  = $row_seat["blockid"];
-if(is_numeric($blockid) && $blockid > 0) $seat_item = $seat->convert_js_string("home", $blockid, $auth['userid'], $lang['boxes']['userdata_my_seat'], 0);
-else $seat_item = "<a href=\"index.php?mod=seating&action=seatuser\" class=\"menu\">{$lang['boxes']['userdata_my_seat']}</a>";
-unset($seat);
-$box->ItemRow("data", $seat_item, "", "", "menu");
-*/
-
 // Show other links
 if ($cfg["user_show_ticket"]) $box->ItemRow("data", $lang['boxes']['userdata_my_ticket'], "index.php?mod=usrmgr&action=myticket", "", "menu");
 $box->ItemRow("data", $lang['boxes']['userdata_change_pw'], "index.php?mod=usrmgr&action=changepw", "", "menu");

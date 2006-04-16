@@ -209,7 +209,6 @@ if ($db->success) {
 	$stats = new stats(); // Statistic Functions (for generating server- and usage-statistics)
 
 	// Include base-files
-	include_once("inc/classes/class_seat.php");
 	include_once("modules/sponsor/banner.php");
 }
 

@@ -90,20 +90,9 @@
 
 	// Class Graph
 
-         // Class Seat
-         $lang['class_seat']['not_shown'] = 'nicht angezeigt';
-         $lang['class_seat']['u18_block'] = '&lt;Unter18&gt; Block';
-
-         // Class Seatadmin
-	$lang['class_seatadmin']['search_new_seat'] = 'neuen Platz suchen';
-        	$lang['class_seatadmin']['swap_seat'] = 'Platz von <strong>\'%CURRENTUSERNAME%\'</strong> mit dem von <strong>\'%USERNAME%\' tauschen</strong>';
-         $lang['class_seatadmin']['set_filled_seat'] = '<strong>\'%CURRENTUSERNAME%\'</strong> Platz zuweisen und <strong>\'%USERNAME%\'</strong> <strong>keinen</strong> Platz vergeben';
-         $lang['class_seatadmin']['set_filled_seat2'] = '<strong>\'%CURRENTUSERNAME%\'</strong> Platz zuweisen und <strong>\'%USERNAME%\'</strong> neuen Platz suchen';
-         $lang['class_seatadmin']['cancel_changes'] = 'Sitzplan&auml;nderung verwerfen / Zur&uuml;ck';
-         $lang['class_seatadmin']['nothing_to_change'] = 'Keine Daten zum &Auml;ndern vorhanden.';
-         $lang['class_seatadmin']['seat_changed'] = 'Der Platz wurde bereits ge&auml;ndert.';
-         $lang['class_seatadmin']['user_has_seat'] = 'Dem Benutzer wurde bereits ein Platz zugewiesen.';
-         $lang['class_seatadmin']['change_confirm'] = 'Die Sitzpl&auml;tze wurden erfolgreich ge&auml;ndert';
+  // Class Seat
+  $lang['class_seat']['not_shown'] = 'nicht angezeigt';
+  $lang['class_seat']['u18_block'] = '&lt;Unter18&gt; Block';
 
 	// Class Party
 	$lang['class_party']['drowpdown_name'] = 'Party auswählen';

@@ -72,6 +72,7 @@ include_once("inc/classes/class_barcode.php");
 include_once("modules/install/class_install.php");
 include_once("modules/mastersearch/class_mastersearch.php" );
 include_once("modules/mail/class_mail.php" );
+include_once("modules/seating/class_seat.php");
 
 // Initialize base classes
 $func		= new func;			// Base Functions (anything that doesnt belong elsewere)
@@ -85,6 +86,7 @@ $mail		= new mail();			// Mail Functions (for sending mails to lansuite-users)
 $install	= new Install();		// Install Functions (Some basic Setup-Routines)
 $db		= new db;			// DB Functions (to work with the databse)
 //$stats		= new stats();			// Statistic Functions (for generating server- and usage-statistics)
+$seat2 = new seat2();
 
 
 $db->connect();
@@ -117,13 +119,6 @@ $party 		= new party();	// initialize Parys
 if ($_GET["mod"] != "install"){
 	$party->write_party_infos();
 }
-
-//
-// Include base-files
-//
-include("inc/classes/class_seat.php");
-include_once("modules/seating/class_seat.php");
-$seat2 = new seat2();
 
 //
 // Define general index vars

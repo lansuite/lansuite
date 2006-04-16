@@ -45,7 +45,7 @@ if ($tournament["name"] == "") {
 	switch ($_GET["step"]) {
 		default:
 			unset($_SESSION['tournament_submit_result_blocker']);
-			$seat = new seat;
+
 			$dsp->NewContent(str_replace("%TEAM1%", $team1['name'], str_replace("%TEAM2%", $team2['name'], $lang["tourney"]["s_res_caption"])), $lang["tourney"]["s_res_subcaption"]);
 			// Write Start and Enddate for each round
 			$round_start = $tfunc->GetGameStart($tournament, $team1['round'],$team1['group_nr']);
@@ -66,7 +66,7 @@ if ($tournament["name"] == "") {
 			}
 */
 			$dsp->AddDoubleRow("<b>{$lang["tourney"]["team"]} 1</b>", "<b>'". $team1['name'] ."'</b>" . $tfunc->button_team_details($team1['teamid'], $tournamentid) . " ". $disqualify_link);
-			$dsp->AddDoubleRow($lang["tourney"]["s_res_teamleader"], $team1['username'] . $func->button_userdetails($team1['userid'], "") . " ({$lang["tourney"]["position"]}: ". $seat->display_seat_link("usrmgr", $team1['userid']) .")");
+			$dsp->AddDoubleRow($lang["tourney"]["s_res_teamleader"], $team1['username'] . $func->button_userdetails($team1['userid'], "") . " ({$lang["tourney"]["position"]}: ". $seat2->SeatNameLink($team1['userid'], '', '') .")");
 			$dsp->AddTextFieldRow("score_team1", $lang["tourney"]["s_res_score"], (int) $team1["score"], "");
 
 			// Write Team 2
@@ -79,7 +79,7 @@ if ($tournament["name"] == "") {
 			}
 */
 			$dsp->AddDoubleRow("<b>{$lang["tourney"]["team"]} 2</b>", "<b>'". $team2['name'] ."'</b>" . $tfunc->button_team_details($team2['teamid'], $tournamentid) . " ". $disqualify_link);
-			$dsp->AddDoubleRow($lang["tourney"]["s_res_teamleader"], $team2['username'] . $func->button_userdetails($team2['userid'], "") . " ({$lang["tourney"]["position"]}: ". $seat->display_seat_link("usrmgr", $team2['userid']) .")");
+			$dsp->AddDoubleRow($lang["tourney"]["s_res_teamleader"], $team2['username'] . $func->button_userdetails($team2['userid'], "") . " ({$lang["tourney"]["position"]}: ". $seat2->SeatNameLink($team2['userid'], '', '') .")");
 			$dsp->AddTextFieldRow("score_team2", $lang["tourney"]["s_res_score"], (int) $team2["score"], "");
 
 			// Write Comment

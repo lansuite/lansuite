@@ -2,8 +2,6 @@
 $blockid = $_GET['blockid'];
 $seating_ip = $_POST['seating_ip'];
 
-$seat = new seat;
-
 switch($_GET['step']) {
 	case 3:
 		$seating_ip_exists = array();
