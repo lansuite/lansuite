@@ -1,8 +1,5 @@
 <?php
 
-	// Können benötigte Klassen geladen werden
-	$this->class['seat'] = new seat;
-					
 	// Ab hier die Konfiguration
 	$this->config['search_fields'][]  = "l.description";
 	$this->config['search_type'][]  = "like";

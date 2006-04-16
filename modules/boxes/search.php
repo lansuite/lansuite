@@ -47,6 +47,7 @@ if(in_array("rent",$module_array)){
 }
 $templ['mastersearch']['search']['content']['module'] .= "</select>\n";
 
+$gd->CreateButton('search');
 $box->AddTemplate("box_search_content");
 $boxes['search'] .= $box->CreateBox("search",$lang['boxes']['search']);
 ?>

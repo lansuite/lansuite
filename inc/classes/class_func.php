@@ -192,7 +192,7 @@ class func {
 				$templ['error']['info']['errormsg'] = $text;
 			break;
 		}
-		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("error")."\";");
+    $dsp->AddTpl("design/templates/error.htm");
 	}
 
 	function confirmation($text, $link_target = '') {
@@ -202,7 +202,7 @@ class func {
 
 		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
 		$templ['confirmation']['info']['confirmationmsg']	= $text;
-		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("confirmation")."\";");
+    $dsp->AddTpl("design/templates/confirmation.htm");
 	}
 
 	
@@ -213,7 +213,7 @@ class func {
 
 		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
 		$templ['confirmation']['info']['confirmationmsg'] = $text;
-		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("information")."\";");
+    $dsp->AddTpl("design/templates/information.htm");
 	}
 	
 	
@@ -227,13 +227,13 @@ class func {
 			$templ['multiquestion']['row']['text']	= $question;
 			$templ['multiquestion']['row']['link']	= $linkarray[$ind];
 
-			eval("\$templ['multiquestion']['control']['row'] .= \"".$this->gettemplate("multiquestion_row")."\";");
+      $templ['multiquestion']['control']['row'] = $dsp->FetchTpl("design/templates/multiquestion_row.htm", $templ);
 		}
-		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("multiquestion")."\";");
+    $dsp->AddTpl("design/templates/multiquestion.htm");
 	}
 
 	function dialog($dialogarray, $linkarray, $picarray) {
-		global $templ;
+		global $templ, $gd, $dsp;
 
 		if ($dialogarray[0]=="") $dialogarray[0]="question";
 		if ($dialogarray[1]=="") $dialogarray[1]="Frage";
@@ -242,14 +242,10 @@ class func {
 		$templ['dialog']['info']['caption']		= $dialogarray[1];
 		$templ['dialog']['info']['questionmsg']	= $dialogarray[2];
 
-		if (is_array($linkarray)) foreach ($linkarray as $ind => $link) {
-			$templ['dialog']['row']['link']	= $link;
-			$templ['dialog']['row']['pic']		= $picarray[$ind];  // using the pic filename w/o "button_" & ".gif" !
+		if (is_array($linkarray)) foreach ($linkarray as $ind => $link)
+      $templ['dialog']['control']['row'] = $dsp->FetchButton($link, $picarray[$ind]);
 
-			eval ("\$templ['dialog']['control']['row'] .= \"".$this->gettemplate("dialog_row")."\";");			
-		}
-
-		eval ("\$templ['index']['info']['content'] .= \"".$this->gettemplate("dialog")."\";");
+    $dsp->AddTpl("design/templates/dialog.htm");
 	}
 
 	function question($text, $link_target_yes, $link_target_no = '') {
@@ -261,7 +257,7 @@ class func {
 		$templ['question']['control']['link']['yes'] = $dsp->FetchButton($link_target_yes, "yes");
 		$templ['question']['control']['link']['no'] = $dsp->FetchButton($link_target_no, "no");
 
-		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("question")."\";");
+    $dsp->AddTpl("design/templates/question.htm");
 	}
 
 	function no_items($object,$link_target,$type) {
@@ -275,7 +271,7 @@ class func {
 
 		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
 
-		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("no_item")."\";");
+    $dsp->AddTpl("design/templates/no_item.htm");
 	}
 	
 	function text2html($string) {
