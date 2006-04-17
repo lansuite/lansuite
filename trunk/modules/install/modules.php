@@ -19,6 +19,7 @@ function WriteMenuEntries() {
 		$templ['ls']['row']['menuitem']['hint'] = $row["hint"];
 		$templ['ls']['row']['menuitem']['link'] = $row["link"];
 		$templ['ls']['row']['menuitem']['link'] = $row["link"];
+		$templ['ls']['row']['menuitem']['pos'] = $row["pos"];
 
 		$templ['ls']['row']['menuitem']['needed_config'] = "<option value=\"\">-{$lang["install"]["none"]}-</option>";
 		$res2 = $db->query("SELECT cfg_key FROM {$config["tables"]["config"]} WHERE cfg_type = 'boolean' ORDER BY cfg_key");
@@ -222,19 +223,22 @@ switch($_GET["step"]) {
 		$db->query("DELETE FROM {$config["tables"]["menu"]} WHERE caption='' AND action='' AND file=''");
 
 		$dsp->NewContent($lang["install"]["mod_menu_caption"], $lang["install"]["mod_menu_subcaption"]);
-		$dsp->SetForm("install.php?mod=install&action=modules&step=21&module={$_GET["module"]}");
+		$dsp->SetForm($script_filename ."?mod=install&action=modules&step=21&module={$_GET["module"]}");
 
-		$dsp->AddSingleRow("<b>{$lang["install"]["modules_menu_start"]}</b>");
-		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND level = 0 AND caption != '' ORDER BY pos");
+ 		$dsp->AddFieldsetStart($lang["install"]["modules_menu_start"]);
+		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND level = 0 AND caption != '' ORDER BY requirement, pos");
 		WriteMenuEntries();
+ 		$dsp->AddFieldsetEnd();
 
-		$dsp->AddSingleRow("<b>{$lang["install"]["modules_menu_sub"]}</b>");
-		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND level > 0 AND caption != '' ORDER BY pos");
+ 		$dsp->AddFieldsetStart($lang["install"]["modules_menu_sub"]);
+		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND level > 0 AND caption != '' ORDER BY requirement, pos");
 		WriteMenuEntries();
+ 		$dsp->AddFieldsetEnd();
 
-		$dsp->AddSingleRow("<b>{$lang["install"]["modules_menu_internal"]}</b>");
-		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND caption = '' ORDER BY pos");
+ 		$dsp->AddFieldsetStart($lang["install"]["modules_menu_internal"]);
+		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND caption = '' ORDER BY requirement, pos");
 		WriteMenuEntries();
+ 		$dsp->AddFieldsetEnd();
 
 		$dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=modules&module={$_GET["module"]}&step=22\">{$lang["install"]["modules_menu_new"]}</a>");
 
@@ -253,11 +257,12 @@ switch($_GET["step"]) {
 					hint = '{$_POST["hint"][$key]}',
 					link = '{$_POST["link"][$key]}',
 					file = '{$_POST["file"][$key]}',
+					pos = '{$_POST["pos"][$key]}',
 					needed_config = '{$_POST["needed_config"][$key]}'
 					WHERE id = '$key'");
 		}
 
-		$func->confirmation($lang["install"]["modules_settings_success"], "install.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
+		$func->confirmation($lang["install"]["modules_settings_success"], $script_filename ."?mod=install&action=modules&step=20&module={$_GET["module"]}");
 	break;
 
 	// Delete Menuentry

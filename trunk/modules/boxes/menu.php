@@ -74,7 +74,7 @@ while ($main_item = $db->fetch_array($res)) if ($main_item["needed_config"] == "
 				OR (menu.requirement = 3 AND ". (int)$auth['type'] ." > 2)
 				OR (menu.requirement = 4 AND ". (int)$auth['type'] ." = 1)
 				OR (menu.requirement = 5 AND ". (int)$auth['login'] ." = 0))
-				ORDER BY menu.pos");
+				ORDER BY menu.requirement, menu.pos");
 
 		while ($sub_item = $db->fetch_array($res2)) if (($sub_item["needed_config"] == "") or ($cfg[$sub_item["needed_config"]]) or ($config['environment'][$sub_item["needed_config"]])) {
 			$menu_out .= FetchItem($sub_item);
