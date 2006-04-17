@@ -206,12 +206,12 @@ class func {
 	}
 
 	
-	function information($text, $link_target = '') {
+	function information($text, $link_target = '', $button_text = 'back') {
 		global $templ, $auth, $dsp, $language;
 
 		if ($link_target == '') $link_target = $this->internal_referer;
 
-		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
+		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, $button_text);
 		$templ['confirmation']['info']['confirmationmsg'] = $text;
     $dsp->AddTpl("design/templates/information.htm");
 	}
