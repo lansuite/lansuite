@@ -9,7 +9,7 @@
 			<td>Aktion</td>
 			<td><input type="text" name="action[{$templ['ls']['row']['menuitem']['id']}]" value="{$templ['ls']['row']['menuitem']['action']}" size="18"></td>
 			<td>PHP-Datei</td>
-			<td><input type="text" name="file[{$templ['ls']['row']['menuitem']['id']}]" value="{$templ['ls']['row']['menuitem']['file']}" size="36"> [<a href="?mod=install&action=modules&module={$_GET['module']}&step=23&id={$templ['ls']['row']['menuitem']['id']}">löschen</a>]</td>
+			<td><input type="text" name="file[{$templ['ls']['row']['menuitem']['id']}]" value="{$templ['ls']['row']['menuitem']['file']}" size="25"> Pos <input type="text" name="pos[{$templ['ls']['row']['menuitem']['id']}]" value="{$templ['ls']['row']['menuitem']['pos']}" size="2"> [<a href="?mod=install&action=modules&module={$_GET['module']}&step=23&id={$templ['ls']['row']['menuitem']['id']}">lÃ¶schen</a>]</td>
 		</tr>
 		<tr>
 			<td>Titel</td>
@@ -22,7 +22,7 @@
 			<td><select name="requirement[{$templ['ls']['row']['menuitem']['id']}]">
 				{$templ['ls']['row']['menuitem']['requirement']}
 			</select></td>
-			<td>Abhängigkeit</td>
+			<td>AbhÃ¤ngigkeit</td>
 			<td><select name="needed_config[{$templ['ls']['row']['menuitem']['id']}]">
 				{$templ['ls']['row']['menuitem']['needed_config']}
 			</select></td>
