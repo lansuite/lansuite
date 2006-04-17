@@ -125,7 +125,7 @@ class Import {
 
         // Set default value to 0 or '', if NOT NULL and not autoincrement
         if ($null_xml == '' and $extra == '') {
-          if (substr($type, 0, 3) == 'int' or substr($type, 0, 7) == 'tinyint') $default = 'default 0';
+          if (substr($type, 0, 3) == 'int' or substr($type, 0, 7) == 'tinyint') $default = 'default '. (int)$default_xml;
           else $default = "default '$default_xml'";
         } else $default = '';
 
