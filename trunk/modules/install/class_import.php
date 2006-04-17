@@ -344,12 +344,14 @@ class Import {
 				if (($db->num_rows($res) > 0) && (!$replace)) $skip = 1;
 
 				if (!$skip){
-					$db->query("REPLACE INTO {$config["tables"]["clan"]} SET
-							clan = '$clan',
-							clanurl = '$clanurl'
-							");
-					$clan_id = $db->insert_id();
-
+				  $clan_id = 0;
+				  if ($clan != '') {
+  					$db->query("REPLACE INTO {$config["tables"]["clan"]} SET
+  							clan = '$clan',
+  							clanurl = '$clanurl'
+  							");
+  					$clan_id = $db->insert_id();
+          }
 					$db->query("REPLACE INTO {$config["tables"]["user"]} SET
 							email = '$email',
 							name = '$name',
@@ -518,7 +520,7 @@ class Import {
     include_once('ext_scripts/archive.php');
 
     $zip = new gzip_file($filename);
-    $zip->set_options(array('basedir' => '.', 'overwrite' => 1));
+    $zip->set_options(array('basedir' => 'testw/', 'overwrite' => 1));
     $zip->extract_files();
   }
 	
