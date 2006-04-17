@@ -168,22 +168,24 @@ function showseat(id) {
 	}
 }
 
-MM_preloadImages('ext_inc/auto_images/{default_design}/seat/seat_free_onclick.png'); 
-MM_preloadImages('ext_inc/auto_images/{default_design}/seat/seat_reserved_onclick.png'); 
-MM_preloadImages('ext_inc/auto_images/{default_design}/seat/seat_marked_onclick.png'); 
-MM_preloadImages('ext_inc/auto_images/{default_design}/seat/seat_myselfe_onclick.png'); 
-MM_preloadImages('ext_inc/auto_images/{default_design}/seat/seat_clanmate_onclick.png');
-
-var flagV = new Array();
-var flagH = new Array();
-
-for (i = 0; i <= cols; i++) {
-	flagV[i] = false;
+function InitSeating() {
+  MM_preloadImages('ext_inc/auto_images/{default_design}/seat/seat_free_onclick.png'); 
+  MM_preloadImages('ext_inc/auto_images/{default_design}/seat/seat_reserved_onclick.png'); 
+  MM_preloadImages('ext_inc/auto_images/{default_design}/seat/seat_marked_onclick.png'); 
+  MM_preloadImages('ext_inc/auto_images/{default_design}/seat/seat_myselfe_onclick.png'); 
+  MM_preloadImages('ext_inc/auto_images/{default_design}/seat/seat_clanmate_onclick.png');
+  
+  var flagV = new Array();
+  var flagH = new Array();
+  
+  for (i = 0; i <= cols; i++) {
+  	flagV[i] = false;
+  }
+  
+  for (i = 0; i <= rows; i++) {
+  	flagH[i] = false;
+  } 
 }
-
-for (i = 0; i <= rows; i++) {
-	flagH[i] = false;
-} 
 
 function AllselectH(rowid) {
 	for (var x = 0; x < cols; x++) {
