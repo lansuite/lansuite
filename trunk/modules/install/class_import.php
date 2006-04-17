@@ -125,7 +125,7 @@ class Import {
 
         // Set default value to 0 or '', if NOT NULL and not autoincrement
         if ($null_xml == '' and $extra == '') {
-          if (substr($type, 0, 3) == 'int' or substr($type, 0, 7) == 'tinyint') $default = 'default '. (int)$default_xml;
+          if (substr($type, 0, 3) == 'int' or substr($type, 0, 7) == 'tinyint' or substr($type, 0, 6) == 'bigint') $default = 'default '. (int)$default_xml;
           else $default = "default '$default_xml'";
         } else $default = '';
 
@@ -345,11 +345,18 @@ class Import {
 				if (!$skip){
 				  $clan_id = 0;
 				  if ($clan != '') {
-  					$db->query("REPLACE INTO {$config["tables"]["clan"]} SET
-  							clan = '$clan',
-  							clanurl = '$clanurl'
-  							");
-  					$clan_id = $db->insert_id();
+				    // Search clan
+   					$search_clan = $db->query_first("SELECT clanid FROM {$config["tables"]["clan"]} WHERE name = '$clan'");
+   					if ($search_clan['clanid'] != '') $clan_id = $search_clan['clanid'];
+   					
+   					// Insert new clan
+            else {
+    					$db->query("INSERT INTO {$config["tables"]["clan"]} SET
+    							name = '$clan',
+    							url = '$clanurl'
+    							");
+    					$clan_id = $db->insert_id();
+    				}
           }
 					$db->query("REPLACE INTO {$config["tables"]["user"]} SET
 							email = '$email',
