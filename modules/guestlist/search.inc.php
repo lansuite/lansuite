@@ -60,7 +60,7 @@ if ($auth['type'] >= 2 or (!$cfg['sys_internet'])) {
   $ms2->AddResultField('Nachname', 'u.name');
 }
 $ms2->AddSelect('c.url AS clanurl');
-$ms2->AddResultField('Clan', 'c.name', 'ClanURLLink');
+$ms2->AddResultField('Clan', 'c.name AS clan', 'ClanURLLink');
 $ms2->AddResultField('Bez.', 'p.paid', 'PaidIconLink');
 
 $ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLink');
