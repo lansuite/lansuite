@@ -55,6 +55,6 @@ ls_getinfo			= "1"
 configured			= "0"
 prefix				= "lansuite_phpbb_"
 path				= "ext_scripts/phpBB/"
-version				= "2.0.19"
+version				= "2.0.20"
 
 ;*/ ?>
