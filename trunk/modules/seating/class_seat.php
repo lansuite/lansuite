@@ -72,12 +72,16 @@ class seat2 {
 	function CreateSeatImage($name, $r, $g, $b, $percentage) {
 		global $func, $gd, $auth;
 
-		$func->CreateDir("ext_inc/auto_images/{$auth['design']}/seat");
-		$gd->Colorize("design/{$auth['design']}/images/seat.png", $r, $g, $b, $percentage);
-		$gd->PutImage("ext_inc/auto_images/{$auth['design']}/seat/$name.png", 'png');
-
-		// Create Image for selection
-		$gd->MergeImages("ext_inc/auto_images/{$auth['design']}/seat/{$name}.png", "design/{$auth['design']}/images/seat_onclick.png", "ext_inc/auto_images/{$auth['design']}/seat/{$name}_onclick.png");
+    $target_dir = "ext_inc/auto_images/{$auth['design']}/seat/";
+    $source_dir = "design/{$auth['design']}/images/";
+    if (!file_exists($target_dir . $name .'.png')) {
+  		$func->CreateDir($target_dir);
+  		$gd->Colorize($source_dir .'seat.png', $r, $g, $b, $percentage);
+  		$gd->PutImage($target_dir . $name .'.png', 'png');
+  
+  		// Create Image for selection
+  		$gd->MergeImages($target_dir . $name .'.png', $source_dir .'seat_onclick.png', $target_dir . $name .'_onclick.png');
+  	}
 	}
 
 	function U18Block($id, $idtype) {
@@ -260,10 +264,10 @@ class seat2 {
 				} else {
 					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},,,{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
 				}
-				
 
-										
+
 				switch ($mode) {
+          // Show plan				
 					default:
 						$templ['seat']['cell_nr'] = $cell_nr;
 						$templ['seat']['img_title'] = $this->CoordinateToName($x + 1, $y, $block['orientation']);
@@ -309,18 +313,14 @@ class seat2 {
 							case 3: // Seat marked
 								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_marked.png";
 							break;
-// Geändert von HSE: 3 Zeilen hinzugefügt
 							case 7: // Seat reserved
 								$templ['seat']['img_name'] = "ext_inc/seating_symbols/7.png";
 							break;
 							default: // Symbol
-								if (file_exists("ext_inc/seating_symbols/". $seat_state[$y][$x] .".png")) {
-									$templ['seat']['img_name'] = "ext_inc/seating_symbols/lsthumb_". $seat_state[$y][$x] .".png";
-								} elseif (file_exists("ext_inc/seating_symbols/lsthumb_". $seat_state[$y][$x] .".gif")) {
-									$templ['seat']['img_name'] = "ext_inc/seating_symbols/lsthumb_". $seat_state[$y][$x] .".gif";
-								} else {
-									$templ['seat']['img_name'] = "ext_inc/seating_symbols/lsthumb_". $seat_state[$y][$x] .".jpg";
-								}
+  						  $SymbolePath = 'ext_inc/seating_symbols/lsthumb_'. $seat_state[$y][$x];
+  							if (file_exists($SymbolePath .'.png')) $templ['seat']['img_name'] = $SymbolePath .'.png';
+  							elseif (file_exists($SymbolePath .'.gif')) $templ['seat']['img_name'] = $SymbolePath .'.gif';
+  							elseif (file_exists($SymbolePath .'.jpg')) $templ['seat']['img_name'] = $SymbolePath .'.jpg';
 							break;
 						}
 
@@ -334,53 +334,49 @@ class seat2 {
 						$templ['seat']['cols'] .= $dsp->FetchModTpl('seating', 'plan_cell');
 					break;
 
+          // Seperator definition
 					case 1:
 						$templ['seat']['cell_content'] = "<img src=\"ext_inc/auto_images/{$auth['design']}/seat/seat_free.png\" />";
 						$templ['seat']['cols'] .= $dsp->FetchModTpl('seating', 'plan_cell');
 					break;
 
+          // Edit plan
 					case 2:
-						$templ['seat']['cell_content'] = '';
-						if ($seat_state[$y][$x] == 0){
-							$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/seating_symbols/100.png); background-repeat:no-repeat; \" id=\"fcell". ($x * 100 + $y) ."\"></td>";
-							$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
-#						elseif ($seat_state[$y][$x] == $_POST['icon'])
-#							$templ['seat']['cell_content'] = "<input type=\"checkbox\" name=\"cell[". ($x * 100 + $y) ."]\" value=\"". ($x * 100 + $y) ."\"checked />";
-						}else {
-							if ($seat_state[$y][$x] > 1 && $seat_state[$y][$x] < 7) {
-							  $templ['seat']['cell_content'] = "<td style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png); height:14px; width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
-//								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png";
-//								$templ['seat']['cell_content'] = $dsp->FetchModTpl('seating', 'plan_cell_img');
-							} else {
-						    // Free seat
-								if ($seat_state[$y][$x] == 1) {
-//									$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_free.png";
-									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/auto_images/{$auth['design']}/seat/seat_free.png); width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
-									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
-                // Locked seat
-								} elseif ($seat_state[$y][$x] == 7) {
-									$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/seating_symbols/7.png); width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
-									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
-								} else{
-									if(file_exists("ext_inc/seating_symbols/". $seat_state[$y][$x] .".png")){
-										$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/seating_symbols/{$seat_state[$y][$x]}.png); width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
-									}elseif (file_exists("ext_inc/seating_symbols/". $seat_state[$y][$x] .".gif")){	
-										$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/seating_symbols/{$seat_state[$y][$x]}.gif); width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
-									}else{
-										$templ['seat']['cell_content'] = "<td onClick=\"changeImage(this); return false\" onMousemove=\"changeImage(this); return false\" style=\"background:url(ext_inc/seating_symbols/{$seat_state[$y][$x]}.jpg); width:14px; background-repeat:no-repeat;\" id=\"fcell". ($x * 100 + $y) ."\"></td>";
-									}
-									$templ['seat']['input_hidden'] .= "<input type=\"hidden\" id=\"cell". ($x * 100 + $y) ."\" name=\"cell[" . ($x * 100 + $y) . "]\" value=\"" . $seat_state[$y][$x] . "\"/>\n";
-								}
-								//$templ['seat']['img_name'] = "ext_inc/seating_symbols/lsthumb_". $seat_state[$y][$x] .".png";
+						$templ['seat']['cell_symbole'] = '';
+            $input_hidden = '<input type="hidden" id="cell'. ($x * 100 + $y) .'" name="cell['. ($x * 100 + $y) .']" value="'. $seat_state[$y][$x] .'" />'."\n";
 
-//								$templ['seat']['link_href'] = "index.php?mod=seating&action=edit&step=6&blockid={$_GET['blockid']}&deleteid=". ($x * 100 + $y);
-//								$templ['seat']['link_content'] = $dsp->FetchModTpl('seating', 'plan_cell_img');
-//								$templ['seat']['cell_content'] = $dsp->FetchModTpl('seating', 'plan_cell_link');
-							}
+						// Empty cell
+						if ($seat_state[$y][$x] == 0) {
+						  $templ['seat']['cell_symbole'] = 'ext_inc/seating_symbols/100.png';
+							$templ['seat']['input_hidden'] .= $input_hidden;
+
+				    // Free seat cell
+						} elseif ($seat_state[$y][$x] == 1) {
+						  $templ['seat']['cell_symbole'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_free.png';
+							$templ['seat']['input_hidden'] .= $input_hidden;
+
+					  // Reserved seat cell
+						} elseif ($seat_state[$y][$x] > 1 && $seat_state[$y][$x] < 7) {
+						  $templ['seat']['cell_symbole'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_reserved.png';
+
+            // Locked seat cell
+						} elseif ($seat_state[$y][$x] == 7) {
+						  $templ['seat']['cell_symbole'] = 'ext_inc/seating_symbols/7.png';
+							$templ['seat']['input_hidden'] .= $input_hidden;
+
+            // Symbol cell
+						} else {
+						  $SymbolePath = 'ext_inc/seating_symbols/'. $seat_state[$y][$x];
+							if (file_exists($SymbolePath .'.png')) $templ['seat']['cell_symbole'] = $SymbolePath .'.png';
+							elseif (file_exists($SymbolePath .'.gif')) $templ['seat']['cell_symbole'] = $SymbolePath .'.gif';
+							elseif (file_exists($SymbolePath .'.jpg')) $templ['seat']['cell_symbole'] = $SymbolePath .'.jpg';
+							$templ['seat']['input_hidden'] .= $input_hidden;
 						}
+
+					  $templ['seat']['cell_id'] = 'fcell'. ($x * 100 + $y);
+					  $templ['seat']['cell_content'] = $dsp->FetchModTpl('seating', 'plan_cell_edit');
 						$templ['seat']['cols'] .= $templ['seat']['cell_content'];
 						$templ['seat']['seat_data_array'] = "";
-						// $templ['seat']['cols'] .= $dsp->FetchModTpl('seating', 'plan_cell');
 					break;
 					
 					// IP-Input-Fields
