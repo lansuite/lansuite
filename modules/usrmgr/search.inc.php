@@ -76,5 +76,16 @@ if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=usrmgr&actio
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=', $lang['ms2']['edit']);
 if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=', $lang['ms2']['delete']);
 
+
+if ($auth['type'] >= 2) {
+  $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
+  $ms2->AddMultiSelectAction("Gruppenzuordung aufheben", "index.php?mod=usrmgr&action=group&step=30&group_id=0", 0);
+  while ($row = $db->fetch_array($res)) {
+    $ms2->AddMultiSelectAction("Der Gruppe '{$row['group_name']}' zuordnen", "index.php?mod=usrmgr&action=group&step=30&group_id={$row['group_id']}", 0);
+  }
+  $db->free_result($res);
+}
+if ($auth['type'] >= 3) $ms2->AddMultiSelectAction($lang['ms2']['delete'], "index.php?mod=usrmgr&action=delete&step=10", 1);
+
 $ms2->PrintSearch('index.php?mod=usrmgr&action=search', 'u.userid');
 ?>

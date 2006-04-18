@@ -141,17 +141,9 @@ switch ($_GET['step']){
 	
 	case 10:
 		if(isset($_POST['group_id'])) $_GET['group_id'] = $_POST['group_id'];
-    include_once('modules/usrmgr/search.inc.php');
-/*
-		$mastersearch = new MasterSearch($vars, "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=11&group_id={$_GET['group_id']}&userid=", "GROUP BY email");
-		$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
-		$mastersearch->config['result_fields'][0]['checkbox']   = "checkbox";
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-*/
+    $current_url = "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}";
+    $target_url = "index.php?mod=usrmgr&action=group&step=11&group_id={$_GET['group_id']}&userid=";
+    include_once('modules/usrmgr/search_basic_userselect.inc.php');
 	break;
 
 	case 11:
@@ -238,10 +230,14 @@ switch ($_GET['step']){
 		$party->delete_usergroups($_GET['group_id'],$_POST['group_id']);
 		$func->confirmation($lang['usrmgr']['delete_group_ok'],"index.php?mod=usrmgr&action=group");
 	break;
-		
+	
+	// Multi-User-Assign
+  case 30;
+  	foreach ($_POST['action'] as $key => $val) {
+      $db->query("UPDATE {$config["tables"]["user"]} SET group_id = '{$_GET['group_id']}' WHERE userid = ". (int)$key);
+    }
+		$func->confirmation($lang['usrmgr']['change_usergroup_ok'], "index.php?mod=usrmgr");
+  break;
 }
-
-
-
 
 ?>
