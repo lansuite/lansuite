@@ -13,6 +13,7 @@ Version 2.1.2
           ACHTUNG: Wer ein eigenes Design verwendet muss diese Datei nun im Header laden!
 - Change: Alte Buttons aus design/ entfernt. Überall, wo noch auf diese verlinkt wurde, neue ethode eingefügt (KnoX 16.04.2006)
 
+- Add: #430 In der Haupt-Suche des Benutzermanagers kann man nun per Checkbox die Benutzer einer Gruppe zuordnen, bzw. sie löschen
 - Add: #322 Untermenüpunkte werden nun nach Zugriffslevel sortiert. Innerhalb eines Zugriffslevels kann man nun die Position anpassen (KnoX 17.04.2006)
 - Add: #399 Daten-Export und Import für den ext_inc Ordner hinzugefügt (KnoX 16.04.2006)
 - Add: #340 Man kann nun den Ein-/Aus-Check-Status wieder zurücksetzen (KnoX 16.04.2006)
