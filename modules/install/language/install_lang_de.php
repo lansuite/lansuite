@@ -244,4 +244,6 @@ $lang['install']['vars_email'] = 'Email des Webmasters';
 $lang['install']['vars_system_mode'] = 'Internet-, oder Lokaler-Modus?';
 $lang['install']['vars_system_mode_internet'] = 'Internet-Seite. Vor der Party';
 $lang['install']['vars_system_mode_intranet'] = 'Intranet-Seite. Auf der party';
+
+$lang['install']['warning_del_menuitem'] = 'Mit diesem Eintrag ist eine Zugriffsberechtigung verknüpft. Sie sollten diesen Eintrag daher nicht löschen, da sonst jeder Zugriff auf die Betreffende Datei hat.'. HTML_NEWLINE .'Wenn Sie nur den Menülink entfernen möchten, löschen Sie die Felder Titel und Linkziel.'. HTML_NEWLINE .'Wenn Sie wirklich jedem Zugriff auf die Datei geben möchten, setzen Sie den Zugriff auf Jeder und löschen Sie dann den Eintrag';
 ?>
