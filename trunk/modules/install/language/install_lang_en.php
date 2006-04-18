@@ -242,4 +242,6 @@ $lang['install']['vars_email'] = 'The webmasters email';
 $lang['install']['vars_system_mode'] = 'Internet-, or Local-Mode?';
 $lang['install']['vars_system_mode_internet'] = 'Internet-Page. Before the party';
 $lang['install']['vars_system_mode_intranet'] = 'Intranet-Page. At the party';
+
+$lang['install']['warning_del_menuitem'] = 'An accesslevel is linked to this entry. If you delete this item, anyone will gain access to this file.'. HTML_NEWLINE .'If you only like to remove the menu entry, delete the fields title and linktarget.'. HTML_NEWLINE .'If you realy would like to grand access to anyone, set the accesslevel to everyone and delete the entry afterwards';
 ?>

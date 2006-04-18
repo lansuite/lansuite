@@ -267,8 +267,13 @@ switch($_GET["step"]) {
 
 	// Delete Menuentry
 	case 23:
-		$db->query("DELETE FROM {$config["tables"]["menu"]} WHERE id='{$_GET["id"]}'");
-		$func->confirmation($lang["install"]["modules_del_success"], "install.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
+	  $row = $db->query_first("SELECT requirement FROM {$config["tables"]["menu"]} WHERE id='{$_GET["id"]}'");
+	  if ($row['requirement'] > 0) $func->information($lang['install']['warning_del_menuitem'], "install.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
+	  
+	  else {
+  		$db->query("DELETE FROM {$config["tables"]["menu"]} WHERE id='{$_GET["id"]}'");
+  		$func->confirmation($lang["install"]["modules_del_success"], "install.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
+  	}
 	break;
 
 	// Show Module-DB
