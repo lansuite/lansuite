@@ -1,6 +1,6 @@
 <?php
 
-	$templ['home']['show']['item']['info']['caption'] = $lang["home"]["news_caption"];
+	$templ['home']['show']['item']['info']['caption'] = $lang["home"]["news_caption"] . ' <span class="small">[<a href="ext_inc/newsfeed/news.xml" class="menu" title="XML Newsfeed">RSS</a>]</span>';
 	$templ['home']['show']['item']['control']['row'] = "";
 	
 	
