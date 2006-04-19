@@ -4,7 +4,10 @@ Hier bitte die wichtigen Änderungen einfügen :
 (Auch Name,Datum und falls vorhanden BugID für die Änderung angeben!)
 -----
 
-Version 2.1.2
+Version 2.1.3
+
+
+Version 2.1.2 (19.04.2006)
 
 - Bugfix: utf8_encode() wird nun auf den ganzen HTML-Code angewendet und auf LanSurfer-Importe (KnoX 19.04.2006)
 - Bugfix: #412 Durch die Änderung an der Clan-Tabelle liesen sich LanSurfer-Importe nicht mehr durchführen (KnoX 17.04.2006)
