@@ -18,7 +18,7 @@ class Import {
 
 		## Open XML-File
 		$xml_file    = fopen($tmp_file_name, "r");
-		$this->xml_content = fread($xml_file, filesize($tmp_file_name));
+		$this->xml_content = utf8_encode(fread($xml_file, filesize($tmp_file_name)));
 		fclose($xml_file);
 
 		## Get Header-Tag

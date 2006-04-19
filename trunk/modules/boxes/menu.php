@@ -114,5 +114,5 @@ while ($main_item = $db->fetch_array($res)) if ($main_item["needed_config"] == "
 $db->free_result($res);
 
 $templ['box']['rows'] .= $menu_out;
-$boxes['menu'] .= $box->CreateBox("menu", "Menü");
+$boxes['menu'] .= $box->CreateBox("menu", "MenÃ¼");
 ?>
