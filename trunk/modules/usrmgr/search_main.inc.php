@@ -8,8 +8,8 @@ $ms2->query['from'] = "{$config['tables']['user']} AS u
 
 $ms2->config['EntriesPerPage'] = 20;
 
-$ms2->AddTextSearchField($lang['usrmgr']['userid'], array('u.userid' => 'exact'));
 $ms2->AddTextSearchField($lang['usrmgr']['add_username'], array('u.username' => '1337'));
+$ms2->AddTextSearchField($lang['usrmgr']['userid'], array('u.userid' => 'exact'));
 $ms2->AddTextSearchField($lang['usrmgr']['name'], array('u.name' => 'like', 'u.firstname' => 'like'));
 
 $ms2->AddResultField($lang['usrmgr']['add_username'], 'u.username');

@@ -7,8 +7,7 @@ $box = new boxes();
 include("modules/boxes/menu.php");
 
 // Suche
-$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'search'");
-if ($module["active"]) include("modules/boxes/search.php");
+if ($cfg['search_box']) include("modules/boxes/search.php");
 
 // Info-Box
 if ((!$cfg["sys_internet"]) && ($auth['login'])) include("modules/boxes/infobox.php");

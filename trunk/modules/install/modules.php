@@ -4,7 +4,7 @@ function FindCfgKeyForMod($name) {
   global $db, $config;
 
 	$find_config = $db->query_first("SELECT cfg_key FROM {$config["tables"]["config"]} WHERE (cfg_module = '$name')");
-	if ($find_config["cfg_key"]) return true; else return false;
+	if ($find_config["cfg_key"] != '') return true; else return false;
 } 
 
 function WriteMenuEntries() {

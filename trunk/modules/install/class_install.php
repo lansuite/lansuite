@@ -248,7 +248,7 @@ class Install {
   				  cfg_group = '". $func->escape_sql($group) ."',
   				  cfg_desc = '". $func->escape_sql($description) ."',
   				  cfg_module = '$module'
-  				  ");
+  				  ");  				  
   			}
       }
 
