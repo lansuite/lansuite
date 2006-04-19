@@ -126,7 +126,7 @@ class sitetool {
 			$index = preg_replace("~&(?=(\w+|[a-f0-9]+)=)~i", "&amp;", $index);
 			// $index = preg_replace("~&(?!(\w+|#\d+|#x[a-f0-9]+);)~i", "&amp;", $index);
 			$index = preg_replace("~<img src=\"/\"((\w|\s|\"|\=)+)>~i", "", $index);
-			$index = utf8_encode($index);
+#			$index = utf8_encode($index);
 
 			if ($compression_mode and $cfg['sys_compress_level']) {
 				Header("Content-Encoding: $compression_mode");
