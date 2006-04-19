@@ -8,44 +8,42 @@ while($modules = $db->fetch_array($module_row)){
 }
 $db->free_result($module_row);
 
-$templ['mastersearch']['search']['content']['search_keywords'] = $_POST['search_keywords'];
-$templ['mastersearch']['search']['content']['module'] .= "<select name=\"search_module\" class=\"form\" style=\"width: 138px\">\n";
-if ($_POST['search_module'] == "user") $s = "selected"; else $s = "";
-$templ['mastersearch']['search']['content']['module'] .= "<option value=\"user\" $s>".$lang['boxes']['search_user']."</option>\n";
 
-if(in_array("news",$module_array)){
-	if ($_POST['search_module'] == "news") $s = "selected"; else $s = "";
-	$templ['mastersearch']['search']['content']['module'] .= "<option value=\"news\" $s>".$lang['boxes']['search_news']."</option>\n";
-}
-if(in_array("tournament",$module_array)){
-	if ($_POST['search_module'] == "tournament") $s = "selected"; else $s = "";
-	$templ['mastersearch']['search']['content']['module'] .= "<option value=\"tournament\" $s>".$lang['boxes']['search_tournaments']."</option>\n";
-}
-if(in_array("poll",$module_array)){
-	if ($_POST['search_module'] == "poll") $s = "selected"; else $s = "";
-	$templ['mastersearch']['search']['content']['module'] .= "<option value=\"poll\" $s>".$lang['boxes']['search_poll']."</option>\n";
-}
-if(in_array("faq",$module_array)){
-	if ($_POST['search_module'] == "faq") $s = "selected"; else $s = "";
-	$templ['mastersearch']['search']['content']['module'] .= "<option value=\"faq\" $s>".$lang['boxes']['search_faq']."</option>\n";
-}
+($_GET['mod'] == 'usrmgr')? $s = 'selected' : $s = '';
+$templ['searchbox']['module'] = "<option value=\"index.php?mod=guestlist&action=guestlist\" $s>".$lang['boxes']['search_user']."</option>\n";
+
+/*if (in_array("news", $module_array)){
+	($_GET['mod'] == 'news')? $s = 'selected' : $s = '';
+	$templ['searchbox']['module'] .= "<option value=\"news\" $s>".$lang['boxes']['search_news']."</option>\n";
+}*/
+/*if (in_array("tournament2", $module_array)){
+	($_GET['mod'] == 'tournament2')? $s = 'selected' : $s = '';
+	$templ['searchbox']['module'] .= "<option value=\"tournament\" $s>".$lang['boxes']['search_tournaments']."</option>\n";
+}*/
+/*if(in_array("poll",$module_array)){
+	($_GET['mod'] == 'poll')? $s = 'selected' : $s = '';
+	$templ['searchbox']['module'] .= "<option value=\"poll\" $s>".$lang['boxes']['search_poll']."</option>\n";
+}*/
+/*if(in_array("faq",$module_array)){
+	($_GET['mod'] == 'faq')? $s = 'selected' : $s = '';
+	$templ['searchbox']['module'] .= "<option value=\"faq\" $s>".$lang['boxes']['search_faq']."</option>\n";
+}*/
 if(in_array("server",$module_array)){
-	if ($_POST['search_module'] == "server") $s = "selected"; else $s = "";
-	$templ['mastersearch']['search']['content']['module'] .= "<option value=\"server\" $s>".$lang['boxes']['search_server']."</option>\n";
+	($_GET['mod'] == 'server')? $s = 'selected' : $s = '';
+	$templ['searchbox']['module'] .= "<option value=\"index.php?mod=server\" $s>".$lang['boxes']['search_server']."</option>\n";
 }
-if(in_array("board",$module_array)){
-	if ($_POST['search_module'] == "thread") $s = "selected"; else $s = "";
-	$templ['mastersearch']['search']['content']['module'] .= "<option value=\"thread\" $s>".$lang['boxes']['search_thread']."</option>\n";
-}
+/*if(in_array("board",$module_array)){
+	($_GET['mod'] == 'board')? $s = 'selected' : $s = '';
+	$templ['searchbox']['module'] .= "<option value=\"thread\" $s>".$lang['boxes']['search_thread']."</option>\n";
+}*/
 if(in_array("troubleticket",$module_array)){
-	if ($_POST['search_module'] == "troubleticket") $s = "selected"; else $s = "";
-	$templ['mastersearch']['search']['content']['module'] .= "<option value=\"troubleticket\" $s>".$lang['boxes']['search_troubletickets']."</option>\n";
+	($_GET['mod'] == 'troubleticket')? $s = 'selected' : $s = '';
+	$templ['searchbox']['module'] .= "<option value=\"index.php?mod=troubleticket\" $s>".$lang['boxes']['search_troubletickets']."</option>\n";
 }
-if(in_array("rent",$module_array)){
-	if ($_POST['search_module'] == "rent") $s = "selected"; else $s = "";
-	$templ['mastersearch']['search']['content']['module'] .= "<option value=\"rent\" $s>".$lang['boxes']['search_rent']."</option>\n";
-}
-$templ['mastersearch']['search']['content']['module'] .= "</select>\n";
+/*if(in_array("rent",$module_array)){
+	($_GET['mod'] == 'rent')? $s = 'selected' : $s = '';
+	$templ['searchbox']['module'] .= "<option value=\"rent\" $s>".$lang['boxes']['search_rent']."</option>\n";
+}*/
 
 $gd->CreateButton('search');
 $box->AddTemplate("box_search_content");

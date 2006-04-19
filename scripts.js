@@ -43,6 +43,12 @@ function change_selection() {
   }
 }
 
+//// Search Box ////
+function SubmitSearch() {
+  document.SearchBox.action = document.SearchBox.SearchBoxModule.value;
+  document.SearchBox.submit();
+}
+
 
 //// Seating ////
 

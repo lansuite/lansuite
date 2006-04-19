@@ -1,13 +1,13 @@
-<!-- TEMPLATE - STANDARD - BOX LOGIN CONTENT -->
-<form name="form_searchbox" method="post" action="?mod=search&action=searchbox">
+<form name="SearchBox" method="post" onSubmit="javascript:SubmitSearch();" action="index.php">
 	<img src="design/{default_design}/images/search_topic_keywords.gif" width="85" height="7" alt="keyword"/>
-	<input type="text" name="search_keywords" value="{$templ['mastersearch']['search']['content']['search_keywords']}" class="form" style="width: 138px" />
+	<input type="text" name="search_input[0]" value="{$_POST['search_input'][0]}" class="form" style="width: 138px" />
 
 	<img src="design/{default_design}/images/search_topic_module.gif" width="85" height="7" alt="module"/>
-	{$templ['mastersearch']['search']['content']['module']}
-
+  <select name="SearchBoxModule" class="form" style="width: 138px">
+	{$templ['searchbox']['module']}
+  </select>
+  
 	<div align="right">
 		<input type="image" name="suchen" src="ext_inc/auto_images/{default_design}/{language}/button_search.png" />
 	</div>
 </form>
-<!-- TEMPLATE - STANDARD - BOX LOGIN CONTENT -->

@@ -44,8 +44,8 @@ $ms2->query['where'] = 'p.party_id = '. (int)$party->party_id;
 
 $ms2->config['EntriesPerPage'] = 20;
 
-$ms2->AddTextSearchField('Userid', array('u.userid' => 'exact'));
 $ms2->AddTextSearchField('Benutzername', array('u.username' => '1337'));
+$ms2->AddTextSearchField('Userid', array('u.userid' => 'exact'));
 $ms2->AddTextSearchField('Name', array('u.name' => 'like', 'u.firstname' => 'like'));
 
 $ms2->AddTextSearchDropDown('Bezahlt', 'p.paid', array('' => 'Alle', '0' => 'Nicht bezahlt', '>1' => 'Bezahlt'));
