@@ -227,7 +227,7 @@ class func {
 			$templ['multiquestion']['row']['text']	= $question;
 			$templ['multiquestion']['row']['link']	= $linkarray[$ind];
 
-      $templ['multiquestion']['control']['row'] = $dsp->FetchTpl("design/templates/multiquestion_row.htm", $templ);
+      $templ['multiquestion']['control']['row'] .= $dsp->FetchTpl("design/templates/multiquestion_row.htm", $templ);
 		}
     $dsp->AddTpl("design/templates/multiquestion.htm");
 	}
@@ -243,7 +243,7 @@ class func {
 		$templ['dialog']['info']['questionmsg']	= $dialogarray[2];
 
 		if (is_array($linkarray)) foreach ($linkarray as $ind => $link)
-      $templ['dialog']['control']['row'] = $dsp->FetchButton($link, $picarray[$ind]);
+      $templ['dialog']['control']['row'] .= $dsp->FetchButton($link, $picarray[$ind]);
 
     $dsp->AddTpl("design/templates/dialog.htm");
 	}

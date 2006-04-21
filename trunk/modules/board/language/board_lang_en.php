@@ -21,6 +21,8 @@ $lang['board']['clicks']				= 'Clicks';
 $lang['board']['replys']				= 'Replys';
 $lang['board']['guest_prefix']			= 'Guest';
 
+$lang['board']['author']				= 'Author';
+$lang['board']['date']				= 'Date';
 $lang['board']['new']				= 'New';
 $lang['board']['last_post']				= 'Latest post';
 $lang['board']['first_post']				= 'First post';
