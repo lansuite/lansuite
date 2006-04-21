@@ -218,7 +218,7 @@ class func {
 	
 	
 	function multiquestion($questionarray, $linkarray, $text) {
-		global $templ;
+		global $templ, $dsp;
 
 		if (!$text) $templ['multiquestion']['info']['text'] = "Bitte w&auml;hlen Sie eine M&ouml;glichkeit aus";
 		else $templ['multiquestion']['info']['text']	= $text;
