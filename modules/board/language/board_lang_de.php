@@ -21,6 +21,8 @@ $lang['board']['clicks']				= 'Abrufe';
 $lang['board']['replys']				= 'Antworten';
 $lang['board']['guest_prefix']			= 'Gast';
 
+$lang['board']['author']				= 'Autor';
+$lang['board']['date']				= 'Datum';
 $lang['board']['new']				= 'Neu';
 $lang['board']['last_post']				= 'Letzter Beitrag';
 $lang['board']['first_post']				= 'Erster Beitrag';

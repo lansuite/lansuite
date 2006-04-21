@@ -11,20 +11,20 @@
 		<level>0</level>
 	</entry>
 	<entry>
-		<action>search</action>
-		<file>search</file>
-		<caption>Suchen</caption>
+		<action>forum</action>
+		<file>forum</file>
+		<caption>Thread-Suche</caption>
 		<hint></hint>
-		<link>?mod=board&action=search</link>
+		<link>index.php?mod=board&action=forum</link>
 		<requirement>0</requirement>
 		<level>1</level>
 	</entry>
 	<entry>
 		<action>bookmark</action>
-		<file>bookmark</file>
+		<file>forum</file>
 		<caption>Lesezeichen</caption>
 		<hint>Hier siehst du die von dir marieren Threads</hint>
-		<link>?mod=board&action=bookmark</link>
+		<link>index.php?mod=board&action=bookmark</link>
 		<requirement>1</requirement>
 		<level>1</level>
 	</entry>
@@ -38,32 +38,24 @@
 		<level>1</level>
 	</entry>
 	<entry>
-		<action>change</action>
-		<file>change</file>
-		<caption>Ändern</caption>
-		<hint></hint>
-		<link>?mod=board&action=change</link>
-		<requirement>2</requirement>
-		<level>1</level>
-	</entry>
-	<entry>
-		<action>delete</action>
-		<file>delete</file>
-		<caption>Löschen</caption>
-		<hint></hint>
-		<link>?mod=board&action=delete</link>
-		<requirement>3</requirement>
-		<level>1</level>
-	</entry>
-	<entry>
 		<action>admin_search</action>
 		<file>admin_search</file>
-		<caption>Suche</caption>
+		<caption>Post-Suche</caption>
 		<hint></hint>
 		<link>?mod=board&action=admin_search</link>
 		<level>1</level>
 		<requirement>2</requirement>
 	</entry>	
+	<entry>
+		<action>change</action>
+		<file>change</file>
+		<requirement>2</requirement>
+	</entry>
+	<entry>
+		<action>delete</action>
+		<file>delete</file>
+		<requirement>3</requirement>
+	</entry>
 	<entry>
 		<action>edit</action>
 		<file>edit</file>
