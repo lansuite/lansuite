@@ -193,4 +193,5 @@
   $lang['ms2']['ranking'] = 'Ranking';  
   $lang['ms2']['assign'] = 'Assign';  
   $lang['ms2']['generate'] = 'Generate';  
+  $lang['ms2']['reply'] = 'Reply';  
 ?>

@@ -21,7 +21,9 @@ $lang['board']['clicks']				= 'Abrufe';
 $lang['board']['replys']				= 'Antworten';
 $lang['board']['guest_prefix']			= 'Gast';
 
-$lang['board']['last_post']				= 'Letzter Beitrag:';
+$lang['board']['new']				= 'Neu';
+$lang['board']['last_post']				= 'Letzter Beitrag';
+$lang['board']['first_post']				= 'Erster Beitrag';
 $lang['board']['posts_total']			= 'Beitr&auml;ge insgesamt:';
 $lang['board']['topics_total']			= 'Themen insgesamt:';
 $lang['board']['no_posts']				= 'keine Beitr&auml;ge vorhanden';

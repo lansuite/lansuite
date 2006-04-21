@@ -21,7 +21,9 @@ $lang['board']['clicks']				= 'Clicks';
 $lang['board']['replys']				= 'Replys';
 $lang['board']['guest_prefix']			= 'Guest';
 
-$lang['board']['last_post']				= 'Latest post:';
+$lang['board']['new']				= 'New';
+$lang['board']['last_post']				= 'Latest post';
+$lang['board']['first_post']				= 'First post';
 $lang['board']['posts_total']			= 'Overall posts:';
 $lang['board']['topics_total']			= 'Overall topics:';
 $lang['board']['no_posts']				= 'No topics available';
