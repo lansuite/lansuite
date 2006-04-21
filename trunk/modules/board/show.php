@@ -1,58 +1,46 @@
 <?php
 
-$query = $db->query("SELECT fid, name, description, need_type FROM {$config["tables"]["board_forums"]} WHERE need_type <= '". ($auth['type'] + 1) ."' ORDER BY name");
-if ($db->num_rows($query) == 0) $func->error($lang['board']['show_err_noboards'], "");
-else {
-	$templ['board']['overview']['case']['info']['caption_text'] = $lang['board']['overview_caption'];
-	$templ['board']['overview']['case']['info']['forum_text'] = $lang['board']['forum'];
-	$templ['board']['overview']['case']['info']['topic_text'] = $lang['board']['topic'];
-	$templ['board']['overview']['case']['info']['posts_text'] = $lang['board']['posts'];
-	$templ['board']['overview']['case']['info']['last_post_text'] = $lang['board']['last_post'];
+function NameAndDesc($name) {
+  global $line, $auth;
 
-	while( $row = $db->fetch_array($query) ) {
-		$fid = $row["fid"];
-
-		$row_posts = $db->query_first("SELECT t.tid AS tid, t.caption AS caption, count(p.tid) AS number, max(p.date) AS last_post, max(t.date) AS last_thread
-			FROM {$config["tables"]["board_threads"]} AS t
-			INNER JOIN {$config["tables"]["board_posts"]} AS p ON t.fid = p.fid
-			WHERE t.fid='$fid'
-			GROUP BY t.tid
-			ORDER BY t.last_pid DESC, t.date DESC
-			");
-
-		$row_threads = $db->query_first("SELECT count(*) AS number FROM {$config["tables"]["board_threads"]} WHERE fid='$fid' GROUP BY fid");
-
-		$linktothread = "<a href=\"index.php?mod=board&action=thread&tid={$row_posts['tid']}\"><b>{$row_posts['caption']}</b></a>" . HTML_NEWLINE;
-		$templ['board']['overview']['row']['last_post'] .= $linktothread;
-		if ($row_posts["last_post"] == 0) $templ['board']['overview']['row']['last_post'] = $lang['board']['no_posts'];
-		elseif ($row_posts["last_thread"] > $row_posts["last_post"])
-			$templ['board']['overview']['row']['last_post'] .= $func->unixstamp2date( $row_posts["last_thread"], "daydatetime");
-		else $templ['board']['overview']['row']['last_post'] .= $func->unixstamp2date( $row_posts["last_post"], "daydatetime");
-	
-		$templ['board']['overview']['row']['posts'] = ($row_posts["number"] == "") ? "0" : $row_posts["number"];
-		$templ['board']['overview']['row']['topics'] = ($row_threads["number"] == "") ? "0" : $row_threads["number"];
-	
-		$templ["board"]["overview"]["row"]["forum_link"] = "index.php?mod=board&action=forum&fid=$fid";
-		$templ["board"]["overview"]["row"]["name"] = $row["name"];
-		$templ["board"]["overview"]["row"]["description"] = $func->db2text2html($row["description"]);
-
-		$templ['board']['overview']['case']['control']['rows'] .= $dsp->FetchModTpl("board","board_overview_row"); 
-		unset($templ['board']['overview']['row']['last_post']);
-	}
-
-	$row_threads = $db->query_first("SELECT count(*) AS number, max(date) as last_thread FROM {$config["tables"]["board_threads"]}");	
-	$row_posts   = $db->query_first("SELECT count(*) AS number, max(date) AS last_post FROM {$config["tables"]["board_posts"]}");	
-
-	$templ['board']['overview']['case']['info']['topics'] = $lang['board']['topics_total'] . " " . $row_threads["number"];
-	$templ['board']['overview']['case']['info']['posts']  = $lang['board']['posts_total'] . " " . $row_posts["number"];
-
-	if ($row_posts["last_post"] == 0) $templ['board']['overview']['case']['info']['last_post'] = $lang['board']['no_posts'];
-	elseif ($row_threads["last_thread"] > $row_posts["last_post"])
-		$templ['board']['overview']['case']['info']['last_post'] = $lang['board']['last_post']	. " " .$func->unixstamp2date( $row_threads["last_thread"], "daydatetime" );
-	else $templ['board']['overview']['case']['info']['last_post'] = $lang['board']['last_post']	. " " .$func->unixstamp2date( $row_posts["last_post"], "daydatetime" );
-
-	$dsp->AddSingleRow($dsp->FetchModTpl("board", "board_overview_case")); 
-	$dsp->AddContent();
+  return '<img src="/design/'. $auth['design'] .'/images/arrows_forum.gif" hspace="3" align="left" border="0"><b>'. $name .'</b><br />' .$line['description'];
 }
 
+function LastPostDetails($date) {
+  global $db, $config, $line, $dsp;
+
+  $row = $db->query_first("SELECT t.caption, p.userid, p.tid FROM {$config['tables']['board_posts']} AS p
+    LEFT JOIN {$config['tables']['board_threads']} AS t ON p.tid = t.tid
+    WHERE p.date = $date AND p.fid = {$line['fid']}");
+
+  if (strlen($row['caption']) > 18) $row['caption'] = substr($row['caption'], 0, 16). '...';
+  return '<a href="index.php?mod=board&action=thread&fid='. $line['fid'] .'&tid='. $row['tid'] .'&pid=last" class="menu">'. $row['caption'] .'<br />'. date('d.m.y H:i', $date) .'</a> '. $dsp->FetchUserIcon($row['userid']);
+}
+
+include_once('modules/mastersearch2/class_mastersearch2.php');
+$ms2 = new mastersearch2();
+
+$ms2->query['from'] = "{$config['tables']['board_forums']} AS f
+    LEFT JOIN {$config['tables']['board_posts']} AS p ON f.fid = p.fid";
+$ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1);
+
+$ms2->AddSelect('f.description');
+$ms2->AddResultField($lang['board']['board'], 'f.name', 'NameAndDesc');
+$ms2->AddResultField($lang['board']['posts'], 'COUNT(p.pid) AS posts');
+$ms2->AddResultField($lang['board']['last_post'], 'MAX(p.date) AS LastPost', 'LastPostDetails');
+
+$ms2->AddIconField('details', 'index.php?mod=board&action=forum&fid=', $lang['ms2']['details']);
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=board&action=add&var=change&fid=', $lang['ms2']['edit']);
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=2&fid=', $lang['ms2']['delete']);
+$ms2->PrintSearch('index.php?mod=board', 'f.fid');
+
+
+// Statistics
+$total_threads = $db->query_first("SELECT COUNT(tid) as threads FROM {$config['tables']['board_threads']}");
+$dsp->AddSingleRow($lang['board']['topics_total'] .' '. $total_threads['threads']);
+ 
+$total_posts = $db->query_first("SELECT COUNT(pid) as posts FROM {$config['tables']['board_posts']}");
+$dsp->AddSingleRow($lang['board']['posts_total'] .' '. $total_posts['posts']);
+
+$dsp->AddContent();
 ?>

@@ -200,4 +200,5 @@
   $lang['ms2']['ranking'] = 'Rangliste';  
   $lang['ms2']['assign'] = 'Zuweisen';  
   $lang['ms2']['generate'] = 'Generieren';  
+  $lang['ms2']['reply'] = 'Antworten';  
 ?>

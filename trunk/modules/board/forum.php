@@ -1,22 +1,75 @@
 <?php
 
-if ($_POST["fid"] != "") $_GET["fid"] = $_POST["fid"];
-$_GET["fid"] = (int)$_GET["fid"];
-$mastersearch = new MasterSearch($vars, "index.php?mod=board&action=forum&fid={$_GET["fid"]}", "index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid=", " AND t.fid = {$_GET["fid"]}");
-$mastersearch->LoadConfig("board_threads", $lang['board']['ms_post_search'], $lang['board']['ms_post_result']);
-$mastersearch->PrintForm();
-$mastersearch->Search();
-$mastersearch->PrintResult();
+function LastPostDetails($date) {
+  global $db, $config, $line, $dsp;
+
+  $row = $db->query_first("SELECT p.userid, p.pid, p.tid, p.fid, u.username FROM {$config['tables']['board_posts']} AS p
+    LEFT JOIN {$config['tables']['user']} AS u ON p.userid = u.userid
+    WHERE p.date = $date AND p.tid = {$line['tid']}");
+
+  return '<a href="index.php?mod=board&action=thread&fid='. $row['fid'] .'&tid='. $row['tid'] .'&pid='. $row['pid'] .'" class="menu">'. date('d.m.y H:i', $date) .'<br />'. $row['username'] .'</a> '. $dsp->FetchUserIcon($row['userid']);
+}
+
+function NewPosts($last_read) {
+	global $db, $config, $auth, $line;
+
+	// Delete old entries
+	$db->query("DELETE FROM {$config["tables"]["board_read_state"]} WHERE last_read < ". (time() - 60 * 60 * 24 * 7));
+
+	// Older, than one week
+	if ($line['LastPost'] < (time() - 60 * 60 * 24 * 7)) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">Alt</a>";
+
+	// No entry -> Thread completely new
+	elseif (!$last_read) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">Neu</a>";
+
+	// Entry exists
+	else {
+
+		// The posts date is newer than the mark -> New
+		if ($last_read < $line['LastPost']) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}#pid{$line['last_pid']}\">Neu</a>";
+
+		// The posts date is older than the mark -> Old
+		else return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">Alt</a>";
+	}
+}
+
 
 $row = $db->query_first("SELECT need_type FROM {$config["tables"]["board_forums"]} WHERE fid={$_GET["fid"]}");
-if ($row['need_type'] == 1 and $auth['login'] == 0){
-	$new_thread = $lang['board']['only_loggedin_post'];
-} else $new_thread = $dsp->FetchButton("index.php?mod=board&action=post&fid={$vars["fid"]}", "new_thread");
-
+if ($row['need_type'] == 1 and $auth['login'] == 0) $new_thread = $lang['board']['only_loggedin_post'];
+else $new_thread = $dsp->FetchButton("index.php?mod=board&action=post&fid={$vars["fid"]}", "new_thread");
 
 $dsp->AddSingleRow($new_thread ." ". $dsp->FetchButton("index.php?mod=board", "back"));
-$dsp->AddSingleRow($mastersearch->GetReturn());
+
+
+include_once('modules/mastersearch2/class_mastersearch2.php');
+$ms2 = new mastersearch2();
+
+$ms2->query['from'] = "{$config['tables']['board_threads']} AS t
+    LEFT JOIN {$config['tables']['board_forums']} AS f ON t.fid = f.fid
+    LEFT JOIN {$config['tables']['board_posts']} AS p ON t.tid = p.tid
+    LEFT JOIN {$config["tables"]["board_read_state"]} AS r ON t.tid = r.tid AND r.userid = ". (int)$auth['userid'] ."
+    LEFT JOIN {$config["tables"]["user"]} AS u ON p.userid = u.userid
+    ";
+$ms2->query['where'] = 't.fid = '. (int)$_GET['fid'] .' AND  f.need_type <= '. (int)($auth['type'] + 1);
+$ms2->query['default_order_by'] = 'MAX(p.date) DESC';
+
+$ms2->AddTextSearchField($lang['board']['subject'], array('t.caption' => 'like'));
+$ms2->AddTextSearchField('Text', array('p.comment' => 'fulltext'));
+$ms2->AddTextSearchField('Autor', array('u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
+
+$ms2->AddResultField($lang['board']['subject'], 't.caption');
+$ms2->AddResultField($lang['board']['new'], 'r.last_read', 'NewPosts');
+$ms2->AddResultField($lang['board']['clicks'], 't.views');
+$ms2->AddResultField($lang['board']['replys'], '(COUNT(p.pid) - 1) AS posts');
+$ms2->AddResultField($lang['board']['first_post'], 'MIN(p.date) AS FirstPost', 'LastPostDetails');
+$ms2->AddResultField($lang['board']['last_post'], 'MAX(p.date) AS LastPost', 'LastPostDetails');
+
+$ms2->AddIconField('details', 'index.php?mod=board&action=thread&fid='. $_GET["fid"] .'&tid=', $lang['ms2']['details']);
+$ms2->AddIconField('send_mail', 'index.php?mod=board&action=post&tid='. $_GET["fid"] .'&tid=', $lang['ms2']['reply']);
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=edit&mode=delete&tid=', $lang['ms2']['delete']);
+$ms2->PrintSearch('index.php?mod=board&action=forum&fid='. $_GET['fid'], 't.tid');
+
+
 $dsp->AddSingleRow($new_thread ." ". $dsp->FetchButton("index.php?mod=board", "back"));
 $dsp->AddContent();
-
 ?>
