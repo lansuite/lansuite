@@ -13,7 +13,7 @@ switch($_GET['step']) {
 
 			// Check IP format
 			if (!$func->checkIP($value)) {
-		    $func->error($lang['misc']['err_ip_format'], '');
+		    $func->error($lang['seating']['err_ip_format'], '');
 				$_GET['step'] = 2;
 				break;
 			}
@@ -22,7 +22,7 @@ switch($_GET['step']) {
 			/*
 			$current_ip = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["seat_seats"]} WHERE ip = '$value'");
 			if ($current_ip['found']) {
-				$func->error($lang['misc']['err_double_ip'], '');
+				$func->error($lang['seating']['err_double_ip'], '');
 				$_GET['step'] = 2;
 				break;
 			}*/
@@ -32,7 +32,7 @@ switch($_GET['step']) {
 
 switch($_GET['step']) {
 	default:
-		$mastersearch = new MasterSearch($vars, 'index.php?mod=misc&action=ip', "index.php?mod=misc&action=ip&step=2&blockid=", '');
+		$mastersearch = new MasterSearch($vars, 'index.php?mod=seating&action=ip', "index.php?mod=seating&action=ip&step=2&blockid=", '');
 		$mastersearch->LoadConfig('seat_blocks', $lang['seat']['ms_search'], $lang['seat']['ms_result']);
 		$mastersearch->PrintForm();
 		$mastersearch->Search();
@@ -43,11 +43,11 @@ switch($_GET['step']) {
 	case 2:
 		$dsp->NewContent($lang['seating']['seat_info'], $lang['seating']['seat_info_sub']);
 
-		$dsp->SetForm("index.php?mod=misc&action=ip&step=3&blockid={$_GET['blockid']}");
+		$dsp->SetForm("index.php?mod=seating&action=ip&step=3&blockid={$_GET['blockid']}");
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 3));
 		$dsp->AddFormSubmitRow('next');
 
-		$dsp->AddBackButton('index.php?mod=misc&action=ip', 'seating/show');
+		$dsp->AddBackButton('index.php?mod=seating&action=ip', 'seating/show');
 		$dsp->AddContent();
 	break;
 
@@ -59,7 +59,7 @@ switch($_GET['step']) {
 			$db->query_first("UPDATE {$config["tables"]["seat_seats"]} SET ip='$value'
 				WHERE blockid = '{$_GET['blockid']}' AND row = '$row' AND col = '$col'");
 		}
-		$func->confirmation($lang['misc']['cf_add_ips'], 'index.php?mod=misc&action=ip');
+		$func->confirmation($lang['seating']['cf_add_ips'], 'index.php?mod=seating&action=ip');
 	break;
 }
 ?>
