@@ -48,12 +48,11 @@ $box->ItemRow("delete", $lang['boxes']['userdata_logout'], "index.php?mod=logout
 
 
 // New-Mail Notice
-$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'mail'");
-if ($module["active"]) {
+if (in_array('mail', $ActiveModules)) {
 	$mail_new_total = $db->query_first("SELECT count(*) as n
-			FROM {$config["tables"]["mail_messages"]}
-			WHERE ToUserID = '{$_SESSION['auth']['userid']}' AND mail_status = 'active' AND rx_date = '0'
-			");
+		FROM {$config["tables"]["mail_messages"]}
+		WHERE ToUserID = '{$_SESSION['auth']['userid']}' AND mail_status = 'active' AND rx_date = '0'
+		");
 
 	if ($mail_new_total["n"] > 0) $templ['box']['rows'] .= $box->LinkItem("index.php?mod=mail", "<img src=\"design/{$config['lansuite']['default_design']}/images/mail_newmail.gif\" alt=\"{$lang['boxes']['userdata_new_mail']}\" border=\"0\">");
 }
