@@ -16,10 +16,9 @@ class sec {
 
 		$db->query("INSERT INTO {$config["tables"]["ip_hits"]} SET ip = '{$_SERVER['REMOTE_ADDR']}', module = '{$_GET["mod"]}', action = '{$_GET["action"]}', step = '{$_GET["step"]}', date = ". time());
 
-		$ip_hits = $db->query_first("SELECT COUNT(*) AS hits FROM {$config["tables"]["ip_blacklist"]} AS b
-			LEFT JOIN {$config["tables"]["ip_hits"]} AS h ON h.ip = b.ip
-			WHERE b.ip = '{$_SERVER['REMOTE_ADDR']}'
-			GROUP BY b.ip
+		$ip_hits = $db->query_first("SELECT COUNT(*) AS hits FROM {$config["tables"]["ip_hits"]}
+			WHERE ip = '{$_SERVER['REMOTE_ADDR']}'
+			GROUP BY ip
 			LIMIT 1
 			");
 
@@ -32,14 +31,14 @@ class sec {
 		global $db, $config;
 
 		$_SESSION["lock_$module"] = true;
-		$found = $db->query("REPLACE INTO {$config["tables"]["ip_locklist"]} SET ip = '{$_SERVER['REMOTE_ADDR']}', module = '$module'");
+		$db->query("REPLACE INTO {$config["tables"]["ip_locklist"]} SET ip = '{$_SERVER['REMOTE_ADDR']}', module = '$module'");
 	}
 
 	function unlock ($module = NULL) {
 		global $db, $config;
 
 		$_SESSION["lock_$module"] = false;
-		$found = $db->query("DELETE FROM {$config["tables"]["ip_locklist"]} WHERE ip = '{$_SERVER['REMOTE_ADDR']}' AND module = '$module'");
+		$db->query("DELETE FROM {$config["tables"]["ip_locklist"]} WHERE ip = '{$_SERVER['REMOTE_ADDR']}' AND module = '$module'");
 	}
 
 	function locked ($module = NULL) {
