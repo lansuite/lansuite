@@ -38,10 +38,11 @@ function NewPosts($last_read) {
 }
 
 if ($_GET['fid'] != '') {
-  $row = $db->query_first("SELECT need_type FROM {$config["tables"]["board_forums"]} WHERE fid={$_GET["fid"]}");
+  $row = $db->query_first("SELECT name, need_type FROM {$config["tables"]["board_forums"]} WHERE fid={$_GET["fid"]}");
   if ($row['need_type'] == 1 and $auth['login'] == 0) $new_thread = $lang['board']['only_loggedin_post'];
   else $new_thread = $dsp->FetchButton("index.php?mod=board&action=post&fid={$vars["fid"]}", "new_thread");
 
+	$dsp->NewContent($row['name']);
   $dsp->AddSingleRow($new_thread ." ". $dsp->FetchButton("index.php?mod=board", "back"));
 }
 
@@ -81,4 +82,13 @@ $ms2->PrintSearch('index.php?mod=board&action='. $_GET['action'] .'&fid='. $_GET
 
 if ($_GET['fid'] != '') $dsp->AddSingleRow($new_thread ." ". $dsp->FetchButton("index.php?mod=board", "back"));
 $dsp->AddContent();
+
+// Generate Boardlist-Dropdown
+$foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]} WHERE need_type <= ". (int)($auth['type'] + 1));
+while ($forum = $db->fetch_array($foren_liste))
+  $templ['board']['thread']['case']['control']['goto'] .= "<option value=\"index.php?mod=board&action=forum&fid={$forum["fid"]}\">{$forum["name"]}</option>";
+$templ['board']['forum']['case']['info']['forum_choise'] = $lang['board']['forum_choise'];
+$dsp->AddDoubleRow($lang['board']['goto_forum'], $dsp->FetchModTpl('board', 'forum_dropdown'));
+$dsp->AddContent();
+
 ?>
