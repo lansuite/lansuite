@@ -164,6 +164,7 @@ if ($_GET["mod"] != "install"){
 $missing_fields = 0;
 if ($found_adm) {
   // Fetch all names of active modules
+  $ActiveModules = array();
   $res = $db->query("SELECT name FROM {$config["tables"]["modules"]} WHERE active = 1");
   while($row = $db->fetch_array($res)) $ActiveModules[] = $row['name'];
   $db->free_result($res);

@@ -18,16 +18,14 @@ $templ['home']['show']['item']['control']['row'] .= $lang["home"]["stats_user"] 
 // Additional Admin-Stats	
 if ($auth["type"] >= 2) {
   // Troubletickets
-  $module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'troubleticket'");
-  if ($module["active"]) {
+  if (in_array('troubleticket', $ActiveModules)) {
     $row6 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["troubleticket"]} WHERE target_userid = '0'");
     $row7 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["troubleticket"]}");
     $templ['home']['show']['item']['control']['row'] .= $lang["home"]["stats_tts"] .": ".$row6["n"]." / ".$row7["n"] . HTML_NEWLINE;
   }
   
 	// Rental
-	$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'rent'");
-	if ($module["active"]) {
+  if (in_array('rent', $ActiveModules)) {
     $row8 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["rentuser"]} WHERE back_orgaid = '' AND out_orgaid != ''");
     $row9 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["rentuser"]} WHERE back_orgaid > '0' AND out_orgaid > '0'");	
     $templ['home']['show']['item']['control']['row'] .= $lang["home"]["stats_rental"] .": ".$row8["n"]." / ".$row9["n"] . HTML_NEWLINE;

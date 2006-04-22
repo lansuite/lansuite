@@ -85,7 +85,7 @@ class auth {
 
 	// When the User logs off
 	function logout() {
-		global $db, $config;
+		global $db, $config, $ActiveModules;
 
 		$db->query("UPDATE {$config["tables"]["stats_auth"]} SET login='0' WHERE sessid='{$this->auth["sessid"]}'");
 		$db->query("DELETE FROM {$config["tables"]["stats_auth"]} WHERE login='0'");
@@ -106,7 +106,7 @@ class auth {
 
 	// When user logs in
 	function login($loginart) {
-		global $db, $func, $cfg, $config, $party, $lang, $auth, $board_config;
+		global $db, $func, $cfg, $config, $party, $lang, $auth, $board_config, $ActiveModules;
 		
 		$auth['design'] = $config['lansuite']['default_design'];
 		
