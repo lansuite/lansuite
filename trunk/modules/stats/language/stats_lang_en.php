@@ -51,7 +51,7 @@ $lang['stats']['user_hits_avg']	= 'Pages per Visitor';
 $lang['stats']['user_visits_sid']	= 'Visitory with Session-ID';
 $lang['stats']['user_size']			= 'Transfered traffic, yet';
 $lang['stats']['user_time']			= 'Required work time, yet';
-$lang['stats']['user_user_online']	= 'User online (last houre)';
+$lang['stats']['user_user_online']	= 'User logged in (last houre)';
 $lang['stats']['user_known']		= 'Out of those known';
 
 

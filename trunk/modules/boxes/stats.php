@@ -2,11 +2,11 @@
 $templ['box']['rows'] = '';
 
 // Number of visits
-$visits = $db->query_first("SELECT COUNT(visits) AS insg FROM {$config['tables']['stats_auth']}");
+$visits = $db->query_first("SELECT COUNT(visits) AS insg FROM {$config['tables']['stats_usage']}");
 $box->DotRow($lang['boxes']['stats_visits'] .': '. $visits['insg']);
 
 // Number of hits
-$hits = $db->query_first("SELECT SUM(hits) AS insg FROM {$config['tables']['stats_auth']}");
+$hits = $db->query_first("SELECT SUM(hits) AS insg FROM {$config['tables']['stats_usage']}");
 $box->DotRow($lang['boxes']['stats_hits'] .': '. $hits['insg']);
 $box->EmptyRow();
 

@@ -10,46 +10,40 @@ switch ($home_page) {
 
 		$z = 1;
 
-		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'news'");
-		if ($module["active"]) {
-		    include('modules/home/news.inc.php');
-			$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-		    $z++;
+    if (in_array('news', $ActiveModules)) {
+      include('modules/home/news.inc.php');
+      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+      $z++;
 		}
 
-		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'board'");
-		if ($module["active"]) {
-		    include('modules/home/board.inc.php');
-			$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-		    $z++;
+		if (in_array('board', $ActiveModules)) {
+      include('modules/home/board.inc.php');
+      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+      $z++;
 		}
 
-		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'server'");
-		if ($module["active"]) {
-		    include('modules/home/server.inc.php');
-		 	$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-		   $z++;
+		if (in_array('server', $ActiveModules)) {
+      include('modules/home/server.inc.php');
+      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+      $z++;
 		}
 
-		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'poll'");
-		if ($module["active"]) {
-		    include('modules/home/poll.inc.php');
-		 	$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-		   $z++;
+		if (in_array('poll', $ActiveModules)) {
+      include('modules/home/poll.inc.php');
+      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+      $z++;
 		}
 
-		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'tournament2'");
-		if ($module["active"]) {
-		    include('modules/home/tournament.inc.php');
-		 	$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-		   $z++;
+    if (in_array('tournament2', $ActiveModules)) {
+      include('modules/home/tournament.inc.php');
+      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+      $z++;
 		}
 
-		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'stats'");
-		if ($module["active"]) {
-		    include('modules/home/stats.inc.php');
-		 	$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-		   $z++;
+		if (in_array('stats', $ActiveModules)) {
+      include('modules/home/stats.inc.php');
+      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+      $z++;
 		}
 
 		$dsp->AddSingleRow($dsp->FetchModTpl("home", "show_case"));

@@ -15,8 +15,9 @@ $ms2->AddSelect('u.userid');
 $ms2->AddResultField('Autor', 'u.username', 'UserNameAndIcon');
 $ms2->AddResultField('Datum', 'n.date', 'MS2GetDate');
 
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', 'Edit');
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', 'Delete');
+$ms2->AddIconField('details', 'index.php?mod=news&action=comment&newsid=', $lang['ms2']['details']);
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', $lang['ms2']['edit']);
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', $lang['ms2']['delete']);
 
 $ms2->PrintSearch('index.php?mod=news&action=change', 'n.newsid');
 ?>

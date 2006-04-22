@@ -222,7 +222,7 @@ class Import {
 					$mysql_entries = "";
 					if ($field_names) foreach ($field_names as $field_name) {
 						$value = $xml->get_tag_content($field_name, $entry);
-						if ($value) $mysql_entries .= "$field_name = '". $func->escape_sql($value) ."', ";
+						if ($value != '') $mysql_entries .= "$field_name = '". $func->escape_sql($value) ."', ";
 					}
 					$mysql_entries = substr($mysql_entries, 0, strlen($mysql_entries) - 2);
 					if ($num_rows == 0) $db->query_first("REPLACE INTO {$config["database"]["prefix"]}$table_name SET $mysql_entries");
