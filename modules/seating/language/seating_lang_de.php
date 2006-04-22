@@ -98,4 +98,10 @@ $lang['seating']['e_assigned']    = 'Dieser Sitzplatz ist bereits vergeben';
 $lang['seating']['e_max_marked']  = 'Sie haben bereits das Maximum an Sitzen reserviert';
 $lang['seating']['e_max_marked_not_paid']  = 'Solange Sie nicht für diese Party bezahlt haben, dürfen Sie nur einen Sitz vormerken';
 
+$lang['seating']['err_double_ip'] = 'Mindestens eine IP wurde bereits vergeben';
+$lang['seating']['err_ip_format'] = 'Das Format mindestens einer IP ist ungültig. Format: 192.168.123.12';
+$lang['seating']['cf_add_ips']    = 'Die IPs wurden erfolgreich eingetragen';
+$lang['seating']['cf_add_ip']     = 'Die IP Adressen wurden erfolgreich eingetragen.';
+$lang['misc']['ip_gen']        = 'IP-Generierung';
+
 ?>

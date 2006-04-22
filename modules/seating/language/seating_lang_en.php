@@ -89,4 +89,10 @@ $lang['seating']['e_assigned']    = 'This place is assigned allready';
 $lang['seating']['e_max_marked']  = 'You have allready reserved the maximum of seats';
 $lang['seating']['e_max_marked_not_paid']  = 'As long as you haven\'t paid for this party, you may only mark a seat';
 
+$lang['seating']['err_double_ip'] = 'At least one of the ips has allready been assigned';
+$lang['seating']['err_ip_format'] = 'The form of at least one ip ist invallid. Form: 192.168.123.12';
+$lang['seating']['cf_add_ips']    = 'The IPs has been successfully added';
+$lang['seating']['cf_add_ip']     = 'The ip-adresses has been sucessfully added.';
+$lang['misc']['ip_gen']        = 'IP-generation';
+
 ?>

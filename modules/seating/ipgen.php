@@ -11,12 +11,12 @@ switch($step) {
 		$_POST["ipgen_c"] = "0";
 		$_POST["ip_offset"] = "0";
 
-		$templ['misc']['ipgen']['details']['control']['form_action']	= "index.php?mod=misc&action=ipgen&step=10";
-		$templ['misc']['ipgen']['details']['info']['page_title'] 	= $lang['misc']['ip_gen'];
+		$templ['misc']['ipgen']['details']['control']['form_action']	= "index.php?mod=seating&action=ipgen&step=10";
+		$templ['misc']['ipgen']['details']['info']['page_title'] 	= $lang['seating']['ip_gen'];
 
     $gd->CreateButton('new_calculate');
-		$templ['misc']['ipgen']['control']['case'] .= $dsp->FetchModTpl("misc","misc_ipgen_details");
-		$templ['index']['info']['content'] .= $dsp->FetchModTpl("misc","misc_ipgen");
+		$templ['misc']['ipgen']['control']['case'] .= $dsp->FetchModTpl("seating", "ipgen_details");
+		$templ['index']['info']['content'] .= $dsp->FetchModTpl("seating", "ipgen");
 
 
 	break;
@@ -35,12 +35,9 @@ switch($step) {
 		$s_col = $_POST["ipgen_startcol"];
 		$s_row = $_POST["ipgen_startrow"];
 
-		$mastersearch = new MasterSearch($vars, 'index.php?mod=misc&action=ipgen&step=10', "index.php?mod=misc&action=ipgen&step=11&ipa=$ip_a&ipb=$ip_b&ipc=$ip_c&ipoffset=$ip_offset&sort=$sort&br=$br&scol=$s_col&srow=$s_row&blockid=", '');
-		$mastersearch->LoadConfig('seat_blocks', $lang['seat']['ms_search'], $lang['seat']['ms_result']);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    $current_url = "index.php?mod=seating&action=ipgen&step=10";
+    $target_url = "index.php?mod=seating&action=ipgen&step=11&ipa=$ip_a&ipb=$ip_b&ipc=$ip_c&ipoffset=$ip_offset&sort=$sort&br=$br&scol=$s_col&srow=$s_row&blockid=";
+    include_once('modules/seating/search_basic_blockselect.inc.php');
 	break;
 
 	case 11:
@@ -204,7 +201,7 @@ echo $s_row;
 
 		} //for loop
 
-		$func->confirmation($lang['misc']['cf_add_ip'], "index.php?mod=misc&action=ipgen");
+		$func->confirmation($lang['seating']['cf_add_ip'], "index.php?mod=seating&action=ipgen");
 
 	break;
 
