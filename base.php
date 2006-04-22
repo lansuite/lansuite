@@ -111,8 +111,8 @@ include_once("modules/mastersearch/language/mastersearch_lang_de.php");
 if ($language != "de" and file_exists("inc/language/language_$language.php")) include_once("inc/language/language_$language.php");
 if ($language != "de" and file_exists("modules/mastersearch/language/mastersearch_lang_$language.php")) include_once("modules/mastersearch/language/mastersearch_lang_$language.php");
 
-$authentication = new auth(false);
-$auth = $authentication->auth;
+$authentication = new auth();
+$auth = $authentication->GetAuthData(false);
 
 // Party schreiben 
 $party 		= new party();	// initialize Parys

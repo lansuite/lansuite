@@ -77,7 +77,7 @@ $lang['boxes']['search_rent']           = 'Rent';
 $lang['boxes']['stats']				= 'Statistics';
 $lang['boxes']['stats_visits']		= 'Visitors';
 $lang['boxes']['stats_hits']		= 'Hits';
-$lang['boxes']['stats_user_online']	= 'Currently';
+$lang['boxes']['stats_user_online']	= 'Logged in';
 
 // WWCL
 $lang['boxes']['wwcl']				= 'Tourney-Support by';

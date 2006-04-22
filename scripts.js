@@ -1,5 +1,5 @@
 
-//// Mastersearch ////
+//// Mastersearch2 ////
 
 // Highlights the current table row under the mouse
 function markieren(EintragSpalte) {
@@ -41,12 +41,6 @@ function change_selection() {
     document.ms_result.action = MultiSelectActions[document.ms_result.action_select.value];
     document.ms_result.submit();
   }
-}
-
-//// Search Box ////
-function SubmitSearch() {
-  document.SearchBox.action = document.SearchBox.SearchBoxModule.value;
-  document.SearchBox.submit();
 }
 
 

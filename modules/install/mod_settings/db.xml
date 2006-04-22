@@ -750,14 +750,6 @@
 		</table_head>
 		<structure>
 			<field>
-				<name>id</name>
-				<type>int(20) unsigned</type>
-				<null></null>
-				<key>PRI</key>
-				<default></default>
-				<extra>auto_increment</extra>
-			</field>
-			<field>
 				<name>userid</name>
 				<type>int(6)</type>
 				<null></null>
@@ -769,7 +761,7 @@
 				<name>sessid</name>
 				<type>varchar(32)</type>
 				<null></null>
-				<key>UNI</key>
+				<key>PRI</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -808,22 +800,6 @@
 			<field>
 				<name>hits</name>
 				<type>int(11) unsigned</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>time</name>
-				<type>double</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>size</name>
-				<type>double</type>
 				<null></null>
 				<key></key>
 				<default>0</default>

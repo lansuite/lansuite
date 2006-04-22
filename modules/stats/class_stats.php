@@ -10,31 +10,22 @@ class stats {
 
 		// Update usage stats
 		// Is the user known, or is it a new visit? - After 30min idle this counts as a new visit
-		$ses = $db->query_first_rows("SELECT lasthit FROM {$config["tables"]["stats_auth"]} WHERE (sessid='{$auth["sessid"]}') AND lasthit > ". (time() - 60 * 30));
-		if ($ses["number"] > 0) {
-			// Exists an entry for this houre?
+		if ($_SESSION['last_hit'] > (time() - 60 * 30)) {
+      // Existing session -> Only hit
 			$find = $db->query_first_rows("SELECT hits FROM {$config["tables"]["stats_usage"]} WHERE time = ". floor(time() / (60 * 60)));
 			if ($find["number"] > 0) $db->query("UPDATE {$config["tables"]["stats_usage"]} SET hits = hits + 1 WHERE time = ". floor(time() / (60 * 60)));
 			else $db->query("INSERT INTO {$config["tables"]["stats_usage"]} SET visits = 0, hits = 1, time = ". floor(time() / (60 * 60)));
-		} else {
-			// Exists an entry for this houre?
+    } else {
+      // New session -> Hit and visit
 			$find = $db->query_first_rows("SELECT hits FROM {$config["tables"]["stats_usage"]} WHERE time = ". floor(time() / (60 * 60)));
 			if ($find["number"] > 0) $db->query("UPDATE {$config["tables"]["stats_usage"]} SET visits = visits + 1, hits = hits + 1 WHERE time = ". floor(time() / (60 * 60)));
 			else $db->query("INSERT INTO {$config["tables"]["stats_usage"]} SET visits = 1, hits = 1, time = ". floor(time() / (60 * 60)));
+      
+  		$_SESSION['last_hit'] = time();
 		}
 
 
 		// Update search engine data
-		$query_var = array(
-			"google" => 'q',
-			"yahoo" => "p",
-			"altavista" => "q",
-			"msn" => "q",
-			"aol_de" => "q",
-			"aol_com" => "query",
-			"web_de" => "su"
-			);
-
 		$search_engine = "";
 		if (strpos($_SERVER["http_referer"], "ttp://www.google.") > 0) $search_engine = "google";
 		if (strpos($_SERVER["http_referer"], ".yahoo.com/search") > 0) $search_engine = "yahoo";
@@ -45,6 +36,16 @@ class stats {
 		if (strpos($_SERVER["http_referer"], ".web.de/") > 0) $search_engine = "web_de";
 
 		if ($search_engine != "") {
+
+  		$query_var = array(
+  			"google" => 'q',
+  			"yahoo" => "p",
+  			"altavista" => "q",
+  			"msn" => "q",
+  			"aol_de" => "q",
+  			"aol_com" => "query",
+  			"web_de" => "su"
+  			);
 
 			// Read URL parameters into an array
 			$url_paras = explode ("?", $_SERVER["http_referer"]); // URL part behind ? -> $url_paras[1]
@@ -69,7 +70,7 @@ class stats {
 		global $db, $config, $auth;
 
 		// Update duration and traffic
-		$db->query("UPDATE {$config["tables"]["stats_auth"]} SET time = time + '$time', size = size + '$size' WHERE (sessid='{$auth["sessid"]}')");
+		$db->query("UPDATE {$config["tables"]["stats"]} SET hits = hits + 1, time = time + '$time', size = size + '$size'");
 	}
 	
 	// Auslesen der CPU Informationen
@@ -226,14 +227,29 @@ class stats {
 			if ($cfg["guestlist_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
 			
 			$timestamp = time()-600;
-			$row = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p LEFT JOIN {$config["tables"]["user"]} ON user_id=userid WHERE $querytype AND (p.paid > 0) AND p.party_id={$party->party_id}");
-			$row2 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p LEFT JOIN {$config["tables"]["user"]} ON user_id=userid WHERE p.checkin>1 AND p.checkout=0 AND $querytype AND p.party_id={$party->party_id}");
-			$row3 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p LEFT JOIN {$config["tables"]["user"]} ON user_id=userid WHERE p.checkout>1 AND $querytype AND p.party_id={$party->party_id}");
-			$row4  = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["stats_auth"]} WHERE lasthit>=$timestamp AND userid!='0' GROUP BY userid");
-			$row5  = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["stats_auth"]} WHERE lasthit>=$timestamp AND userid='0'");
-			$row6 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["user"]} WHERE $querytype");
+			$row = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p
+        LEFT JOIN {$config["tables"]["user"]} ON user_id=userid
+        WHERE $querytype AND (p.paid > 0) AND p.party_id={$party->party_id}
+        ");
+			$row2 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p
+        LEFT JOIN {$config["tables"]["user"]} ON user_id=userid
+        WHERE p.checkin>1 AND p.checkout=0 AND $querytype AND p.party_id={$party->party_id}
+        ");
+			$row3 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p
+        LEFT JOIN {$config["tables"]["user"]} ON user_id=userid
+        WHERE p.checkout>1 AND $querytype AND p.party_id={$party->party_id}
+        ");
+			$row4  = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["stats_auth"]}
+        WHERE lasthit>=$timestamp AND userid!='0' GROUP BY userid
+        ");
+			$row5 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["stats_auth"]}
+        WHERE lasthit>=$timestamp AND userid='0'
+        ");
+			$row6 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["user"]}
+        WHERE $querytype
+        ");
 			$visits = $db->query_first("SELECT COUNT(visits) AS insg FROM {$config["tables"]["stats_auth"]}");
-			
+
 			$this->stat_data['user_paid'] = $row['n'];
 			$this->stat_data['user_checkin'] = $row2['n'];
 			$this->stat_data['user_checkout'] = $row3['n'];

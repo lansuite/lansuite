@@ -1,4 +1,5 @@
 <?php 
+
 // BOXES CONTROLFILE
 include("modules/boxes/class_boxes.php");
 $box = new boxes();
@@ -16,22 +17,13 @@ if ((!$cfg["sys_internet"]) && ($auth['login'])) include("modules/boxes/infobox.
 if ($cfg["sys_internet"] and $cfg["signon_last_user_box"]) include("modules/boxes/last_user.php");
 
 //  Messenger
-if (((!$cfg["sys_internet"]) || ($cfg["msgsys_alwayson"])) && ($auth['login'])) {
-	$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'msgsys'");
-	if ($module["active"]) include("modules/boxes/messenger.php");
-}
+if ((!$cfg["sys_internet"] or $cfg["msgsys_alwayson"]) and $auth['login'] and in_array('msgsys', $ActiveModules)) include("modules/boxes/messenger.php");
 
 //  Sponsoren
-if ($cfg["sponsor_show_box"]) {
-	$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'sponsor'");
-	if ($module["active"]) include("modules/boxes/sponsor.php");
-}
+if ($cfg["sponsor_show_box"] and in_array('sponsor', $ActiveModules)) include("modules/boxes/sponsor.php");
 
 // Kontostand
-if ((!$cfg["sys_internet"]) && ($auth['login'])) {
-	$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'cashmgr'");
-	if ($module["active"]) include("modules/boxes/cashmgr.php");
-}
+if (!$cfg["sys_internet"] and $auth['login'] and in_array('cashmgr', $ActiveModules)) include("modules/boxes/cashmgr.php");
 
 // Benutzerdaten-, bzw. Login-Box
 if ($auth['login']) include("modules/boxes/userdata.php");
@@ -41,8 +33,7 @@ else include("modules/boxes/login.php");
 if ($cfg["sys_internet"]) include("modules/boxes/signonstatus.php");
 
 // Stats
-$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'stats'");
-if ($module["active"]) include("modules/boxes/stats.php");
+if (in_array('stats', $ActiveModules)) include("modules/boxes/stats.php");
 
 // WWCL (Die WWCL-Box soll bei jeder Veranstaltung mit mind. einem WWCL-Spiel auf allen Seiten des Turnier-Moduls erscheinen)
 $t_wwcl = $db->query_first("SELECT name FROM {$config["tables"]["tournament_tournaments"]} WHERE wwcl_gameid > 0 AND party_id = '{$party->party_id}'");

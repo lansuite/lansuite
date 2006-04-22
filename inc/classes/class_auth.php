@@ -1,24 +1,4 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*
-*	(c) 2001-2003 by One-Network.Org
-*
-*	Lansuite Version:		2.0.3
-*	File Version:			2.2
-*	Filename: 				class_auth.php
-*	Module: 				Framework
-*	Main editor: 			raphael@one-network.org
-*   Sub editor:				marco@chuchi.tv (Genesis)
-*	Last change: 			22.05.2005 18.00
-*	Description: 			This file manages the login, logout and
-*										permission system in lansuite
-*	Remarks:
-*
-**************************************************************************/
-
 // logtime =	Datum des ersten Eintrags zu dieser SessionID
 // logintime =	Datum des letzten Einloggens dieser SessionID
 // lasthit =	Datum des letzten Seitenaufrufes dieser SessionID
@@ -30,49 +10,44 @@ class auth {
 	var $tocheck;
 	var $err;
 
-	// Constructor
-	function auth($update = true) {
-		global $db, $config,$func,$cfg;
-
-		// Init-Vars
-		$this->auth["sessid"] = session_id();
-		$this->auth["ip"] = $_SERVER['REMOTE_ADDR'];
-		$this->timestamp = time();
-
-		// Insert SID to DB (if unknown) or update visits, even if not logged 
-		$find_sid = $db->query("SELECT sessid FROM {$config["tables"]["stats_auth"]} WHERE sessid = '{$this->auth["sessid"]}'");
-		if ($db->success) {
-			if ($db->num_rows($find_sid) == 0) {
-				 $db->query("INSERT INTO {$config["tables"]["stats_auth"]} SET
-				sessid = '{$this->auth["sessid"]}',
-				userid = '0',
-				login = '0',
-				ip = '{$this->auth["ip"]}',
-				logtime = '{$this->timestamp}',
-				logintime = '{$this->timestamp}',
-				lasthit = '{$this->timestamp}',
-				hits = 1,
-				visits = 1
-				");
-			} elseif($update) {
-				// Update visits
-				$visit_timeout = time() - 60*60; // If a session loaded no page for over one hour, this counts as a new visit
-				$db->query("UPDATE {$config["tables"]["stats_auth"]} SET visits = visits + 1 WHERE (sessid='{$this->auth["sessid"]}') AND (lasthit < $visit_timeout)");
-				// Update user-stats and lasthit, so the timeout is resetted
-				$db->query("UPDATE {$config["tables"]["stats_auth"]} SET lasthit='{$this->timestamp}', hits = hits + 1, ip='{$this->auth["ip"]}' WHERE sessid='{$this->auth["sessid"]}'");
-			}
-		}
-		$db->free_result($find_sid);
-
+	function LoadAuthData() {
+	  global $db, $config;
 		// Put all User-Data into $auth-Array
 		$user_data = $db->query_first("SELECT session.userid, session.login, session.ip, user.*, user_set.design
 			FROM {$config["tables"]["stats_auth"]} AS session
 			LEFT JOIN {$config["tables"]["user"]} AS user ON user.userid = session.userid
 			LEFT JOIN {$config["tables"]["usersettings"]} AS user_set ON user.userid = user_set.userid
 			WHERE session.sessid='{$this->auth["sessid"]}' ORDER BY session.lasthit");
-		if(is_array($user_data)){
-			$this->auth = array_merge($this->auth, $user_data);
+		if (is_array($user_data)) foreach ($user_data as $key => $val) if (!is_numeric($key)) $this->auth[$key] = $val;
+  }
+
+
+	// Constructor
+	function GetAuthData($update = true) {
+		global $db, $config, $func, $cfg;
+
+		// Init-Vars
+		$this->auth["sessid"] = session_id();
+		$this->auth["ip"] = $_SERVER['REMOTE_ADDR'];
+		$this->timestamp = time();
+
+		// Update visits, hits, IP and lasthit
+		if ($update) {
+  		// Update visits
+  		$visit_timeout = time() - 60*60; // If a session loaded no page for over one hour, this counts as a new visit
+  		$db->query("UPDATE {$config["tables"]["stats_auth"]} SET
+        visits = visits + 1
+        WHERE (sessid='{$this->auth["sessid"]}') AND (lasthit < $visit_timeout)");
+  
+  		// Update user-stats and lasthit, so the timeout is resetted
+  		$db->query("UPDATE {$config["tables"]["stats_auth"]} SET
+        lasthit='{$this->timestamp}',
+        hits = hits + 1,
+        ip='{$this->auth["ip"]}'
+        WHERE sessid='{$this->auth["sessid"]}'");
 		}
+
+    $this->LoadAuthData();
 
 		// If Login / Logout
 		if ($_GET['mod'] == "logout") $this->logout();
@@ -101,11 +76,10 @@ class auth {
 		if (!$this->auth['design'] || $cfg['user_design_change'] == 0) $this->auth['design'] = $config['lansuite']['default_design'];
 		if (!$this->auth['design']) $this->auth['design'] = "standard";
 
-		// Set Session/Coockie-Vars (only for those mods, which still use this variables)
-		foreach ($this->auth AS $key => $val){
-			$_SESSION['auth'][$key] = $val;
-			$_COOCKIE['auth'][$key] = $val;
-		}
+		// Set Session-Vars (only for those mods, which still use this variables)
+		foreach ($this->auth AS $key => $val) $_SESSION['auth'][$key] = $val;
+		
+    return $this->auth;
 	}
 
 
@@ -114,19 +88,18 @@ class auth {
 		global $db, $config;
 
 		$db->query("UPDATE {$config["tables"]["stats_auth"]} SET login='0' WHERE sessid='{$this->auth["sessid"]}'");
+		$db->query("DELETE FROM {$config["tables"]["stats_auth"]} WHERE login='0'");
 
 		$this->auth['login'] = "0";
-		
+
 		setcookie("auth[email]", "", time() - 3600);
 		setcookie("auth[userpassword]", "", time() - 3600);
-		
+
 		// The User will be logged out on the phpBB Board if the modul is available, configured and active.
-		if ($db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name='board2'")) {
-			if ($config["board2"]["configured"]) {
-				include_once ('./modules/board2/class_board2.php');
-				$board2 = new board2();
-				$board2->logoutPhpBB($this->auth['userid']);
-			}
+		if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
+			include_once ('./modules/board2/class_board2.php');
+			$board2 = new board2();
+			$board2->logoutPhpBB($this->auth['userid']);
 		}
 	}
 
@@ -192,19 +165,17 @@ class auth {
 				$db->query("UPDATE {$config["tables"]["user"]} SET logins = logins + 1, changedate = changedate WHERE userid = '{$user["userid"]}'");
 				if ($cfg["sys_logoffdoubleusers"]) $db->query("DELETE FROM {$config["tables"]["stats_auth"]} WHERE userid='{$user["userid"]}'");
 
-				$db->query("UPDATE {$config["tables"]["stats_auth"]} SET
-						userid='{$user["userid"]}',
-						login='1',
-						logintime='{$this->timestamp}'
-						WHERE sessid='{$this->auth["sessid"]}'");
+  			$db->query("REPLACE INTO {$config["tables"]["stats_auth"]} SET
+    			sessid = '{$this->auth["sessid"]}',
+  				userid = '{$user["userid"]}',
+    			login = '1',
+    			ip = '{$this->auth["ip"]}',
+    			logtime = '{$this->timestamp}',
+    			logintime = '{$this->timestamp}',
+    			lasthit = '{$this->timestamp}'
+          ");
 
-	 			// Put all User-Data into $auth-Array
-				$user_data = $db->query_first("SELECT session.userid, session.login, session.ip, user.*, user_set.design
-					FROM {$config["tables"]["stats_auth"]} AS session
-					LEFT JOIN {$config["tables"]["user"]} AS user ON user.userid = session.userid
-					LEFT JOIN {$config["tables"]["usersettings"]} AS user_set ON user.userid = user_set.userid
-					WHERE session.sessid='{$this->auth["sessid"]}' ORDER BY session.lasthit");
-				$this->auth = array_merge($this->auth, $user_data);
+	 			$this->LoadAuthData();
 
 				if ($loginart == "save"){
 					setcookie("auth[email]", $this->auth['email'], time() + (3600*24*365));
@@ -214,12 +185,10 @@ class auth {
 				$this->auth['userid'] = $user['userid'];
 				
 				// The User will be logged in on the phpBB Board if the modul is available, configured and active.
-				if ($db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name='board2'")) {
-					if ($config["board2"]["configured"]) {
-						include_once ('./modules/board2/class_board2.php');
-						$board2 = new board2();
-						$board2->loginPhpBB($this->auth['userid']);
-					}
+		    if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
+					include_once ('./modules/board2/class_board2.php');
+					$board2 = new board2();
+					$board2->loginPhpBB($this->auth['userid']);
 				}
 			}
 		}

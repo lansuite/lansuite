@@ -120,21 +120,15 @@ if ($_GET["mod"] == "install") {
 } else $db->success = $db->connect(0);
 
 
+$found_adm = 0;
 if ($db->success) {
-	// Try to find Adminaccount
-/*	$res = mysqli_query($db->link_id, "SELECT userid FROM {$config["database"]["prefix"]}user WHERE type = 3 LIMIT 1");
-	if (@mysqli_num_rows($res) > 0) $found_adm = 1; else $found_adm = 0;
-	@mysqli_free_result($res);
-*/
 	$res = $db->query("SELECT userid FROM {$config["database"]["prefix"]}user WHERE type = 3 LIMIT 1");
-	if ($db->num_rows($res) > 0) $found_adm = 1; else $found_adm = 0;
+	if ($db->num_rows($res) > 0) $found_adm = 1;
 	$db->free_result($res);
 
 	// Reset DB-Success in Setup if no Adm.-Account was found, because a connection could work, but prefix is wrong
 	if (!$found_adm and (($_GET["action"] == "wizard" and $_GET["step"] <= 3) or ($_GET["action"] == "ls_conf"))) $db->success = 0;
-}
 
-if ($db->success) {
 	// Load SQL-Tables used by each page
 	$install->SetTableNames();
 
@@ -169,9 +163,14 @@ if ($_GET["mod"] != "install"){
 // Set Missingfields to false
 $missing_fields = 0;
 if ($found_adm) {
+  // Fetch all names of active modules
+  $res = $db->query("SELECT name FROM {$config["tables"]["modules"]} WHERE active = 1");
+  while($row = $db->fetch_array($res)) $ActiveModules[] = $row['name'];
+  $db->free_result($res);
+
 	// Startup authentication
 	$authentication = new auth();
-	$auth = $authentication->auth;
+	$auth = $authentication->GetAuthData();
 
 	// Check, if all required user data fields, are known and force user to add them, if not.
 	if ($auth['login'] and $auth['userid'] and $_GET["mod"] != "install") include_once('modules/usrmgr/missing_fields.php');

@@ -50,7 +50,7 @@ $lang['stats']['user_hits_avg']	= 'Seiten pro Besucher';
 $lang['stats']['user_visits_sid']	= 'Besucher mit Session-ID';
 $lang['stats']['user_size']			= 'Bis jetzt &uuml;bertragene Daten';
 $lang['stats']['user_time']			= 'Bis jetzt ben&ouml;tigte Zeit f&uuml;r Skript';
-$lang['stats']['user_user_online']	= 'Benutzer online (letzte Stunde)';
+$lang['stats']['user_user_online']	= 'Benutzer eingeloggt (letzte Stunde)';
 $lang['stats']['user_known']		= 'Davon bekannt';
 
 
