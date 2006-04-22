@@ -20,27 +20,27 @@ $templ['searchbox']['module'] = "<option value=\"index.php?mod=guestlist&action=
 	($_GET['mod'] == 'tournament2')? $s = 'selected' : $s = '';
 	$templ['searchbox']['module'] .= "<option value=\"tournament\" $s>".$lang['boxes']['search_tournaments']."</option>\n";
 }*/
-/*if(in_array("poll",$module_array)){
+/*if (in_array("poll", $module_array)){
 	($_GET['mod'] == 'poll')? $s = 'selected' : $s = '';
 	$templ['searchbox']['module'] .= "<option value=\"poll\" $s>".$lang['boxes']['search_poll']."</option>\n";
 }*/
-/*if(in_array("faq",$module_array)){
+/*if (in_array("faq", $module_array)){
 	($_GET['mod'] == 'faq')? $s = 'selected' : $s = '';
 	$templ['searchbox']['module'] .= "<option value=\"faq\" $s>".$lang['boxes']['search_faq']."</option>\n";
 }*/
-if(in_array("server",$module_array)){
+if (in_array("server", $module_array)){
 	($_GET['mod'] == 'server')? $s = 'selected' : $s = '';
 	$templ['searchbox']['module'] .= "<option value=\"index.php?mod=server\" $s>".$lang['boxes']['search_server']."</option>\n";
 }
-/*if(in_array("board",$module_array)){
+if (in_array("board", $module_array)){
 	($_GET['mod'] == 'board')? $s = 'selected' : $s = '';
-	$templ['searchbox']['module'] .= "<option value=\"thread\" $s>".$lang['boxes']['search_thread']."</option>\n";
-}*/
-if(in_array("troubleticket",$module_array)){
+	$templ['searchbox']['module'] .= "<option value=\"index.php?mod=board&action=forum\" $s>".$lang['boxes']['search_thread']."</option>\n";
+}
+if (in_array("troubleticket", $module_array)){
 	($_GET['mod'] == 'troubleticket')? $s = 'selected' : $s = '';
 	$templ['searchbox']['module'] .= "<option value=\"index.php?mod=troubleticket\" $s>".$lang['boxes']['search_troubletickets']."</option>\n";
 }
-/*if(in_array("rent",$module_array)){
+/*if (in_array("rent", $module_array)){
 	($_GET['mod'] == 'rent')? $s = 'selected' : $s = '';
 	$templ['searchbox']['module'] .= "<option value=\"rent\" $s>".$lang['boxes']['search_rent']."</option>\n";
 }*/

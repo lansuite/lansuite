@@ -2,47 +2,49 @@
 include("modules/board/class_board.php");
 $bfunc = new board_func;
 
-$tid = $_GET["tid"];
+$tid = (int)$_GET["tid"];
 $list_type = $auth['type'] + 1;
-$thread = $db->query_first("SELECT fid, caption, userid, date  FROM {$config["tables"]["board_threads"]} WHERE tid='$tid'");
+$thread = $db->query_first("SELECT t.fid, t.caption, f.name AS ForumName, f.need_type FROM {$config["tables"]["board_threads"]} AS t
+  LEFT JOIN {$config["tables"]["board_forums"]} AS f ON t.fid = f.fid
+  WHERE t.tid=$tid AND (f.need_type <= '{$list_type}')");
 
-$query_form = $db->query("SELECT fid, need_type FROM {$config["tables"]["board_forums"]} WHERE (need_type <= '{$list_type}') and (fid='{$thread["fid"]}') GROUP BY fid");
-if ($db->num_rows($query_form) == 0) $func->error($lang['board']['posts'], "");
+if ($thread['caption'] == '') $func->error($lang['board']['no_posts'], '');
 else {
+
+	$fid = $thread["fid"];
 
 	// Mark thread read
 	$search_read = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["board_read_state"]} WHERE tid = $tid and userid = '{$auth["userid"]}'");
 	if ($search_read["found"]) $db->query_first("UPDATE {$config["tables"]["board_read_state"]} SET last_read = ". time() ." WHERE tid = $tid and userid = '{$auth["userid"]}'");
 	else $db->query_first("INSERT INTO {$config["tables"]["board_read_state"]} SET last_read = ". time() .", tid = $tid, userid = '{$auth["userid"]}'");
 
-	$templ['board']['thread']['case']['info']['thread']['caption'] 	= $func->db2text($thread["caption"]);
-	$fid = $thread["fid"];
+  // Tread Headline
+	$hyperlink = '<a href="%s" class="menu">%s</a>';
+	$overview_capt = sprintf($hyperlink, "index.php?mod=board", $lang['board']['overview_caption']);
+	$forum_capt = sprintf($hyperlink, "index.php?mod=board&action=forum&fid=$fid", $thread['ForumName']);
+	$dsp->NewContent($func->db2text($thread["caption"]), "{$lang['board']['board']} - $overview_capt - $forum_capt - ". $func->db2text($thread["caption"]));
+
+	// Generate Thread-Buttons
+	$buttons = '';
+	if (($auth["login"] == 1 and $thread['need_type'] >= 1) or $thread['need_type'] == 0 or $auth['type'] > 1) $buttons .= " ". $dsp->FetchButton("index.php?mod=board&action=post&fid=$fid", "new_thread") .' '. $dsp->FetchButton("index.php?mod=board&action=post&tid=$tid", "new_post");
+	if ($auth["type"] > 1) $buttons .= ' '. $dsp->FetchButton("index.php?mod=board&action=edit&mode=delete&tid=$tid", "delete");
 
 	$query = $db->query("SELECT pid, comment, userid, date FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date");
-	$count_entrys =  $db->num_rows($query);
+	$count_entrys = $db->num_rows($query);
 
+  // Page select
 	if ($count_entrys > $cfg['board_max_posts']){
-		if($_GET['pid'] == "last") $_GET['posts_page'] = floor($count_entrys / $cfg['board_max_posts']);
-		$pages = $func->page_split($_GET['posts_page'],$cfg['board_max_posts'],$count_entrys,"index.php?mod=board&action=thread&fid=$fid&tid=$tid","posts_page");
+		if($_GET['pid'] == "last") $_GET['posts_page'] = ceil(($count_entrys) / $cfg['board_max_posts']) - 1;
+		$pages = $func->page_split($_GET['posts_page'], $cfg['board_max_posts'], $count_entrys, "index.php?mod=board&action=thread&tid=$tid", "posts_page");
 		$query = $db->query("SELECT pid, comment, userid, date FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date {$pages['sql']}");
-		$templ['board']['overview']['case']['info']['page_split'] = $pages['html'];
 	}
-
-	$forum = $db->query_first("SELECT name, need_type FROM {$config["tables"]["board_forums"]} WHERE fid='$fid'");
-	$hyperlink = '<a href="%s" class="menu">%s</a>';
-	$need_type = $forum['need_type'];
-
-	//Bugfix by Poschi: Hier wurde auf "index.php?mod=board&action=forum&fid=$fid" verlinkt, aber das ist deffiniv nicht die Forenübersicht, sondern die Thread übersicht eines Forums ==> ausgebessert
-	$overview_capt = sprintf($hyperlink, "index.php?mod=board", $lang['board']['overview_caption']);
-	$forum_capt = sprintf($hyperlink, "index.php?mod=board&action=forum&fid=$fid", $forum["name"]);
-	$dsp->NewContent($func->db2text($thread["caption"]), "{$lang['board']['board']} - $overview_capt - $forum_capt - ". $func->db2text($thread["caption"]));
+  $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
 
 	while ($row = $db->fetch_array($query)){
 		$pid = $row["pid"];
 
 		$templ['board']['thread']['case']['info']['post']['pid'] 		= $pid;
 		$templ['board']['thread']['case']['info']['post']['text'] 		= $func->db2text2html($row["comment"]);
-		$templ['board']['thread']['case']['info']['post']['poster']['userid'] 	= $row["userid"];
 		$templ['board']['thread']['case']['info']['post']['date'] 		= $lang['board']['add_at'] . ": " . $func->unixstamp2date($row["date"],"daydatetime");
 		$templ['board']['thread']['case']['info']['thread']['go_top'] 	= $lang['board']['go_top'];
 
@@ -56,7 +58,7 @@ else {
 			$userdata["signature"] = "";
 		} else $userdata = $bfunc->getuserinfo($row["userid"]);
 
-		$templ['board']['thread']['case']['info']['post']['poster']['username'] 	= $userdata["username"];
+		$templ['board']['thread']['case']['info']['post']['poster']['username'] 	= $userdata["username"] .' '. $dsp->FetchUserIcon($row['userid']);;
 		$templ['board']['thread']['case']['info']['post']['poster']['type'] 		= $userdata["type"];
 		$templ['board']['thread']['case']['info']['post']['poster']['rank'] 		= $lang['board']['rank'] . ": " . $userdata["rank"];
 		$templ['board']['thread']['case']['info']['post']['poster']['posts'] 		= $lang['board']['posts'] . ": " . $userdata["posts"];
@@ -69,7 +71,7 @@ else {
 		if ($auth['type'] > 1)
 			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchButton("index.php?mod=board&action=edit&mode=pdelete&pid=$pid", "delete");
 
-		$templ['board']['forum']['case']['control']['rows'] .= $dsp->FetchModTpl("board", "board_thread_row");
+		$templ['board']['forum']['case']['control']['rows'] .= $dsp->AddModTpl("board", "board_thread_row");
 	}
 
 	// Generate Boardlist-Dropdown
@@ -80,16 +82,12 @@ else {
 	if ($_SESSION['threadview'] != $tid) $db->query("UPDATE {$config["tables"]["board_threads"]} SET views=views+1 WHERE tid='$tid'");
 	$_SESSION['threadview'] = $tid;
 
-	// Generate Thread-Buttons
-	$templ['board']['forum']['case']['control']['new'] = "";
-	if (($auth["login"] == 1 && $need_type >= 1) || $need_type == 0 || $auth['type'] > 1) $templ['board']['forum']['case']['control']['new'] .= " ". $dsp->FetchButton("index.php?mod=board&action=post&fid=$fid", "new_thread") ." ". $dsp->FetchButton("index.php?mod=board&action=post&tid=$tid", "new_post");
-	#." ". $dsp->FetchButton("index.php?mod=board&action=bookmark&tid=$tid", "bookmark");
-	if ($auth["type"] > 1) $templ['board']['forum']['case']['control']['new'] .= " ". $dsp->FetchButton("index.php?mod=board&action=edit&mode=delete&tid=$tid", "delete");
+  $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
+  $dsp->AddContent();
 
 	$templ['board']['forum']['case']['info']['forum_choise'] = $lang['board']['forum_choise'];
 	$templ['board']['forum']['case']['info']['forum_goto'] = $lang['board']['goto_forum'];
-
-	$dsp->AddSingleRow($dsp->FetchModTpl("board", "board_thread_case"));
+  $dsp->AddDoubleRow($lang['board']['goto_forum'], $dsp->FetchModTpl('board', 'forum_dropdown'));
 
 	// Bookmarks and Auto-Mail
 	if ($auth['login']) {

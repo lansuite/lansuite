@@ -76,14 +76,6 @@
 				<extra></extra>
 			</field>
 			<field>
-				<name>fid</name>
-				<type>int(4)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
 				<name>userid</name>
 				<type>int(6)</type>
 				<null></null>
@@ -139,27 +131,11 @@
 				<extra></extra>
 			</field>
 			<field>
-				<name>userid</name>
-				<type>int(6)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
 				<name>caption</name>
 				<type>varchar(50)</type>
 				<null></null>
 				<key></key>
 				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>date</name>
-				<type>int(15)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
 				<extra></extra>
 			</field>
 			<field>
@@ -171,33 +147,9 @@
 				<extra></extra>
 			</field>
 			<field>
-				<name>last_pid</name>
-				<type>int(8)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>posts</name>
-				<type>int(8)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
 				<name>changedate</name>
 				<type>timestamp</type>
 				<null>YES</null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>ip</name>
-				<type>varchar(15)</type>
-				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>

@@ -113,5 +113,6 @@ $lang['board']['show_err_noboards']		= 'Keine Eintr&auml;ge vorhanden';
 
 $lang['board']['recent_posts']			= 'Die letzten Posts';
 $lang['board']['only_loggedin_post']	= 'Sie m&uuml;ssen sich zuerst einloggen, um einen Thread in diesem Forum starten zu k&ouml;nnen';
+$lang['board']['search_hint']	= 'Achtung: Sie haben als Suche einen Autor, bzw. Text angegeben. Die Ergebnis-Felder Antworten, sowie erster und letzter Beitrag beziehen sich daher nur noch auf Posts, in denen diese Eingaben gefunden wurden, nicht mehr auf den ganzen Thread!';
 
 ?>

@@ -9,19 +9,20 @@ function NameAndDesc($name) {
 function LastPostDetails($date) {
   global $db, $config, $line, $dsp;
 
-  $row = $db->query_first("SELECT t.caption, p.userid, p.tid FROM {$config['tables']['board_posts']} AS p
+  $row = $db->query_first("SELECT t.caption, p.userid, p.tid, p.pid FROM {$config['tables']['board_posts']} AS p
     LEFT JOIN {$config['tables']['board_threads']} AS t ON p.tid = t.tid
-    WHERE p.date = $date AND p.fid = {$line['fid']}");
+    WHERE p.date = $date AND t.fid = {$line['fid']}");
 
   if (strlen($row['caption']) > 18) $row['caption'] = substr($row['caption'], 0, 16). '...';
-  return '<a href="index.php?mod=board&action=thread&fid='. $line['fid'] .'&tid='. $row['tid'] .'&pid=last" class="menu">'. $row['caption'] .'<br />'. date('d.m.y H:i', $date) .'</a> '. $dsp->FetchUserIcon($row['userid']);
+  return '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&pid=last#pid'. $row['pid'] .'" class="menu">'. $row['caption'] .'<br />'. date('d.m.y H:i', $date) .'</a> '. $dsp->FetchUserIcon($row['userid']);
 }
 
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
 $ms2->query['from'] = "{$config['tables']['board_forums']} AS f
-    LEFT JOIN {$config['tables']['board_posts']} AS p ON f.fid = p.fid";
+    LEFT JOIN {$config['tables']['board_threads']} AS t ON f.fid = t.fid
+    LEFT JOIN {$config['tables']['board_posts']} AS p ON t.tid = p.tid";
 $ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1);
 
 $ms2->AddSelect('f.description');

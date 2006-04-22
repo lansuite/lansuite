@@ -1,58 +1,23 @@
-
-<!-- TEMPLATE - STANDARD - BOARD THREAD ROW -->
 <tr>
-  <td class="tbl_1" height="30" colspan="2"> 
-    <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1" style="table-layout:fixed;">
-      <tr> 
-        <td align="left" valign="top" class="tbl_6" style="width:150px;">
-		  <a name = "pid{$templ['board']['thread']['case']['info']['post']['pid']}" />
-		  <b>{$templ['board']['thread']['case']['info']['post']['poster']['username']}</b> 
-          <a href="?mod=usrmgr&action=details&userid={$templ['board']['thread']['case']['info']['post']['poster']['userid']}"> 
-          <img src="design/{default_design}/images/arrows_user.gif" alt="Benutzerdetails anzeigen"  border="0"/></a> 
-          <br/>
-          {$templ['board']['thread']['case']['info']['post']['poster']['type']} 
-          <br/> <br/>
-          {$templ['board']['thread']['case']['info']['post']['poster']['avatar']} 
-          <br/>
-          <br/> <br/>
-          {$templ['board']['thread']['case']['info']['post']['poster']['posts']} 
-          <br/>
-          {$templ['board']['thread']['case']['info']['post']['poster']['rank']} 
-          <br/> <br/> </td>
-        <td height="28" valign="top" class="tbl_1"> <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tbl_1">
-            <tr> 
-              <td width="100%"> {$templ['board']['thread']['case']['info']['post']['date']} 
-                &nbsp;&nbsp;&nbsp; </td>
-              <td valign="top" align="right" nowrap> {$templ['board']['thread']['case']['info']['post']['edit']} 
-                <!--
-		   <a href="?mod=board&action=post&level=post&tid=$tid&mode=quote">
-		   <img src="ext_inc/auto_images/{default_design}/{language}/button_zitat.png" alt="Antworten mit Zitat"  border="0"/>
-		</a>   
-		-->
-              </td>
-            </tr>
-            <tr> 
-              <td colspan="2"><hr size="1" noshade class="tbl_1"></td>
-            </tr>
-            <tr> 
-              <td colspan="2">{$templ['board']['thread']['case']['info']['post']['text']}
-                <br/>
-				<hr size="1">
-                {$templ['board']['thread']['case']['info']['post']['poster']['signature']} 
-              </td>
-            </tr>
-          </table></td>
-      </tr>
-      <tr> 
-        <td style="width:150px;" align="left" valign="middle" class="tbl_6"> <a href="#top">{$templ['board']['thread']['case']['info']['thread']['go_top']}</a> </td>
-        <td width="90%" height="28" valign="bottom" class="tbl_1">&nbsp;</td>
+	<td class="row_key" id="pid{$templ['board']['thread']['case']['info']['post']['pid']}" width="150" height="30" valign="top">
+    <b>{$templ['board']['thread']['case']['info']['post']['poster']['username']}</b> 
+    <br />{$templ['board']['thread']['case']['info']['post']['poster']['type']} 
+    <br />{$templ['board']['thread']['case']['info']['post']['poster']['avatar']} 
+    <br />
+    <br />{$templ['board']['thread']['case']['info']['post']['poster']['posts']} 
+    <br />{$templ['board']['thread']['case']['info']['post']['poster']['rank']} 
+    <br />
+    <br />{$templ['board']['thread']['case']['info']['thread']['go_top']}
+  </td>
+	<td class="row_value" width="*" height="30" valign="top">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="row_value">
+      <tr>
+        <td width="100%">{$templ['board']['thread']['case']['info']['post']['date']}</td>
+        <td align="right" style="white-space:nowrap;">{$templ['board']['thread']['case']['info']['post']['edit']}</td>
       </tr>
     </table>
+    {$templ['board']['thread']['case']['info']['post']['text']}
+    <hr size="1">
+    {$templ['board']['thread']['case']['info']['post']['poster']['signature']}
   </td>
 </tr>
-
-  <tr class="tbl_4">
-    <td colspan="2" height="1"></td>
-  </tr>
-
-<!-- TEMPLATE - STANDARD - BOARD THREAD ROW -->
