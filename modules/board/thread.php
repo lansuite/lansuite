@@ -74,19 +74,17 @@ else {
 		$templ['board']['forum']['case']['control']['rows'] .= $dsp->AddModTpl("board", "board_thread_row");
 	}
 
-	// Generate Boardlist-Dropdown
-	$foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]} WHERE (need_type <= '{$list_type}')");
-	while ($forum = $db->fetch_array($foren_liste))
-		$templ['board']['thread']['case']['control']['goto'] .= "<option value=\"{$forum["fid"]}\">{$forum["name"]}</option>";
-
 	if ($_SESSION['threadview'] != $tid) $db->query("UPDATE {$config["tables"]["board_threads"]} SET views=views+1 WHERE tid='$tid'");
 	$_SESSION['threadview'] = $tid;
 
   $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
   $dsp->AddContent();
 
+	// Generate Boardlist-Dropdown
+	$foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]} WHERE (need_type <= '{$list_type}')");
+	while ($forum = $db->fetch_array($foren_liste))
+	  $templ['board']['thread']['case']['control']['goto'] .= "<option value=\"index.php?mod=board&action=forum&fid={$forum["fid"]}\">{$forum["name"]}</option>";
 	$templ['board']['forum']['case']['info']['forum_choise'] = $lang['board']['forum_choise'];
-	$templ['board']['forum']['case']['info']['forum_goto'] = $lang['board']['goto_forum'];
   $dsp->AddDoubleRow($lang['board']['goto_forum'], $dsp->FetchModTpl('board', 'forum_dropdown'));
 
 	// Bookmarks and Auto-Mail

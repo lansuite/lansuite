@@ -50,6 +50,13 @@ function SubmitSearch() {
 }
 
 
+//// Search Box ////
+function SubmitDropDown(FormObj, DropDownObj) {
+  FormObj.action = DropDownObj.value;
+  FormObj.submit();
+}
+
+
 //// Seating ////
 
 // Define marker for images
