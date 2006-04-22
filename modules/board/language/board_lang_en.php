@@ -111,5 +111,6 @@ $lang['board']['show_err_noboards']		= 'No boards availible';
 
 $lang['board']['recent_posts']			= 'Most recent posts';
 $lang['board']['only_loggedin_post']	= 'You have to login first, to create a new thread in this board';
+$lang['board']['search_hint']	= 'Attention: You have searched for an author, or text within a post. As a result of that, the result fields answers, as well as first and last post, will only reffer to these entries, not to the whole thread!';
 
 ?>
