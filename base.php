@@ -70,7 +70,7 @@ include_once("inc/classes/class_party.php");
 include_once("inc/classes/class_barcode.php");
 
 include_once("modules/install/class_install.php");
-include_once("modules/mastersearch/class_mastersearch.php" );
+if (file_exists("modules/mastersearch/class_mastersearch.php")) include_once("modules/mastersearch/class_mastersearch.php" );
 include_once("modules/mail/class_mail.php" );
 include_once("modules/seating/class_seat.php");
 
@@ -106,7 +106,7 @@ $barcode 	= new barcode_system();
 
 //// Load Base-Lang-File
 include_once("inc/language/language_de.php");
-include_once("modules/mastersearch/language/mastersearch_lang_de.php");
+if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) include_once("modules/mastersearch/language/mastersearch_lang_de.php");
 // 2) Overwrite with $language
 if ($language != "de" and file_exists("inc/language/language_$language.php")) include_once("inc/language/language_$language.php");
 if ($language != "de" and file_exists("modules/mastersearch/language/mastersearch_lang_$language.php")) include_once("modules/mastersearch/language/mastersearch_lang_$language.php");
