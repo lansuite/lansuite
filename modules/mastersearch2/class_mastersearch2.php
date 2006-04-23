@@ -9,6 +9,7 @@ class MasterSearch2 {
   var $config = array();
   var $sql_select_field_list = array();
   var $post_in_get = '';
+  var $NoItemsText = '';
 
   // Constructor
   function MasterSearch2($module = '') {
@@ -311,143 +312,148 @@ class MasterSearch2 {
       $dsp->AddModTpl('mastersearch2', 'search_case');
     }
 
-
     ###### Output Result
-    #### Generate Result Head
-    $templ['ms2']['table_head'] = '';
+    // When no Items were found
+    if ($db->num_rows($res) == 0) {
+      if ($this->NoItemsText) $func->Information($this->NoItemsText);
+    } else {
 
-    // Checkbox Headline (Empty field)
-    if (count($this->multi_select_action) > 0) {
-      $templ['ms2']['table_head_width'] = '16';    
-      $templ['ms2']['table_head_entry'] = '&nbsp;';      
-      $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
-    }
+      #### Generate Result Head
+      $templ['ms2']['table_head'] = '';
 
-    // Normal headline
-    foreach ($this->result_field as $current_field) {    
-      $templ['ms2']['table_head_width'] = '*';    
-      $templ['ms2']['link_item'] = $current_field['caption'];
-
-      $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
-      if ($first_as > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
-      
-      // Order Link and Image
-      ($_GET['page'] == 'all')? $add_page = '&page=all' : $add_page = '';
-      ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC')? $order_dir = 'DESC' : $order_dir = 'ASC';
-      $templ['ms2']['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
-            
-      if ($_GET['order_by'] == $current_field['sql_field']) {
-        if ($_GET['order_dir'] == 'DESC') $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
-        else $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_asc_active.gif\" border=\"0\" />";
-      } else $templ['ms2']['link_item'] .= '';
-
-      $templ['ms2']['table_head_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
-      $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');        
-    }
-
-    #### Generate Result Body    
-    $templ['ms2']['table_entrys'] = '';
-    while($line = $db->fetch_array($res)) { // Start: Row
-      $templ['ms2']['table_entrys_row_field'] = '';
-
-      // cut of 'table.', befor field name
-      if (strpos($select_id_field, '.') > 0) $select_id_field = substr($select_id_field, strpos($select_id_field, '.') + 1, strlen($select_id_field));
-      
-      // Checkbox      
+      // Checkbox Headline (Empty field)
       if (count($this->multi_select_action) > 0) {
-        $templ['ms2']['table_entrys_row_field_entry'] = '<input type="checkbox" name="action['. $line[$select_id_field] .']">';
-        $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');
+        $templ['ms2']['table_head_width'] = '16';
+        $templ['ms2']['table_head_entry'] = '&nbsp;';
+        $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');
       }
-      
-      // Normal fields
-      $z = 0;
+
+      // Normal headline
       foreach ($this->result_field as $current_field) {
+        $templ['ms2']['table_head_width'] = '*';
+        $templ['ms2']['link_item'] = $current_field['caption'];
 
-        // cut of 'table.', in front of field name
         $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
-        $first_dot = strpos($current_field['sql_field'], '.');
         if ($first_as > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
-        elseif ($first_dot > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_dot + 1, strlen($current_field['sql_field']));
 
-        // Exec Callback
-        if ($current_field['callback']) $templ['ms2']['table_entrys_row_field_entry'] = call_user_func($current_field['callback'], $line[$current_field['sql_field']]);
-        else $templ['ms2']['table_entrys_row_field_entry'] = $line[$current_field['sql_field']];
-        
-        // Cut of oversize chars
-        if ($current_field['max_char'] and strlen($templ['ms2']['table_entrys_row_field_entry']) > $current_field['max_char'])
-          $templ['ms2']['table_entrys_row_field_entry'] = substr($templ['ms2']['table_entrys_row_field_entry'], 0, $current_field['max_char'] - 2) .'...';
+        // Order Link and Image
+        ($_GET['page'] == 'all')? $add_page = '&page=all' : $add_page = '';
+        ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC')? $order_dir = 'DESC' : $order_dir = 'ASC';
+        $templ['ms2']['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
 
-        // Link first row to same target as first icon
-        if ($z == 0 and $this->icon_field[0]['link']) {
-          $templ['ms2']['link'] = $this->icon_field[0]['link'] . $line[$select_id_field];
-          $templ['ms2']['link_item'] = $templ['ms2']['table_entrys_row_field_entry'];
-          $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+        if ($_GET['order_by'] == $current_field['sql_field']) {
+          if ($_GET['order_dir'] == 'DESC') $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
+          else $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_asc_active.gif\" border=\"0\" />";
+        } else $templ['ms2']['link_item'] .= '';
+
+        $templ['ms2']['table_head_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+        $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');
+      }
+
+      #### Generate Result Body
+      $templ['ms2']['table_entrys'] = '';
+      while($line = $db->fetch_array($res)) { // Start: Row
+        $templ['ms2']['table_entrys_row_field'] = '';
+
+        // cut of 'table.', befor field name
+        if (strpos($select_id_field, '.') > 0) $select_id_field = substr($select_id_field, strpos($select_id_field, '.') + 1, strlen($select_id_field));
+
+        // Checkbox
+        if (count($this->multi_select_action) > 0) {
+          $templ['ms2']['table_entrys_row_field_entry'] = '<input type="checkbox" name="action['. $line[$select_id_field] .']">';
+          $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');
         }
 
-        // Output fro template
-        if ($templ['ms2']['table_entrys_row_field_entry'] == '') $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
-        $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');
-        
-        $z++;        
+        // Normal fields
+        $z = 0;
+        foreach ($this->result_field as $current_field) {
+
+          // cut of 'table.', in front of field name
+          $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
+          $first_dot = strpos($current_field['sql_field'], '.');
+          if ($first_as > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
+          elseif ($first_dot > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_dot + 1, strlen($current_field['sql_field']));
+
+          // Exec Callback
+          if ($current_field['callback']) $templ['ms2']['table_entrys_row_field_entry'] = call_user_func($current_field['callback'], $line[$current_field['sql_field']]);
+          else $templ['ms2']['table_entrys_row_field_entry'] = $line[$current_field['sql_field']];
+
+          // Cut of oversize chars
+          if ($current_field['max_char'] and strlen($templ['ms2']['table_entrys_row_field_entry']) > $current_field['max_char'])
+            $templ['ms2']['table_entrys_row_field_entry'] = substr($templ['ms2']['table_entrys_row_field_entry'], 0, $current_field['max_char'] - 2) .'...';
+
+          // Link first row to same target as first icon
+          if ($z == 0 and $this->icon_field[0]['link']) {
+            $templ['ms2']['link'] = $this->icon_field[0]['link'] . $line[$select_id_field];
+            $templ['ms2']['link_item'] = $templ['ms2']['table_entrys_row_field_entry'];
+            $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+          }
+
+          // Output fro template
+          if ($templ['ms2']['table_entrys_row_field_entry'] == '') $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
+          $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');
+
+          $z++;
+        }
+
+        // Icon fields
+        $skipped_items = 0;
+        $templ_icon_cells = '';
+        foreach ($this->icon_field as $current_field) {
+          $templ['ms2']['table_entrys_row_field_entry'] = '';
+          if (!$current_field['callback'] or call_user_func($current_field['callback'], $line[$select_id_field])) {
+            $templ['ms2']['link'] = $current_field['link'] . $line[$select_id_field];
+            $templ['ms2']['icon_name'] = $current_field['icon_name'];
+            $templ['ms2']['icon_title'] = $current_field['tooltipp'];
+            $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
+            if ($templ['ms2']['link']) $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+            else $templ['ms2']['table_entrys_row_field_entry'] = $templ['ms2']['link_item'];
+            $templ_icon_cells .= $dsp->FetchModTpl('mastersearch2', 'result_field');
+          } else $skipped_items++;
+        }
+        if ($skipped_items < $min_skipped_items) $min_skipped_items = $skipped_items;
+
+        // Add an empty table cell for each skipped item
+        for ($i = 0; $i < $skipped_items; $i++) {
+          $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
+          $templ_icon_cells = $dsp->FetchModTpl('mastersearch2', 'result_field') . $templ_icon_cells;
+        }
+
+        $templ['ms2']['table_entrys_row_field'] .= $templ_icon_cells;
+        $templ['ms2']['table_entrys'] .= $dsp->FetchModTpl('mastersearch2', 'result_row');
+      } // End: Row
+
+      // Multi-Select Dropdown
+      $templ['ms2']['multi_select_dropdown'] = '';
+      if (count($this->multi_select_action) > 0) {
+        $templ['ms2']['select_caption'] = 'Bitte auswählen';
+        $templ['ms2']['select_options'] = '';
+        $z = 0;
+        foreach ($this->multi_select_action as $current_action) {
+          if ($z == 0) $templ['ms2']['multi_select_actions'] = '"'. $current_action['action'] .'"';
+          else $templ['ms2']['multi_select_actions'] .= ', "'. $current_action['action'] .'"';
+          if ($z == 0) $templ['ms2']['security_questions'] = '"'. $current_action['security_question'] .'"';
+          else $templ['ms2']['security_questions'] .= ', "'. $current_action['security_question'] .'"';
+          $templ['ms2']['select_options'] .= "<option value=\"$z\">{$current_action['caption']}</option>";
+          $z++;
+        }
+        $templ['ms2']['multi_select_dropdown'] = $dsp->FetchModTpl('mastersearch2', 'result_multi_dropdown');
       }
-      
-      // Icon fields
-      $skipped_items = 0;
-      $templ_icon_cells = '';
+
+      // For each IconField in the row with the most icons, add an empty headline field
+      $i = 0;
       foreach ($this->icon_field as $current_field) {
-        $templ['ms2']['table_entrys_row_field_entry'] = '';
-        if (!$current_field['callback'] or call_user_func($current_field['callback'], $line[$select_id_field])) {
-          $templ['ms2']['link'] = $current_field['link'] . $line[$select_id_field];
-          $templ['ms2']['icon_name'] = $current_field['icon_name'];
-          $templ['ms2']['icon_title'] = $current_field['tooltipp'];
-          $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
-          if ($templ['ms2']['link']) $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
-          else $templ['ms2']['table_entrys_row_field_entry'] = $templ['ms2']['link_item'];
-          $templ_icon_cells .= $dsp->FetchModTpl('mastersearch2', 'result_field');
-        } else $skipped_items++;      
-      }
-      if ($skipped_items < $min_skipped_items) $min_skipped_items = $skipped_items;
-      
-      // Add an empty table cell for each skipped item
-      for ($i = 0; $i < $skipped_items; $i++) {
-        $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
-        $templ_icon_cells = $dsp->FetchModTpl('mastersearch2', 'result_field') . $templ_icon_cells;
+        if ($i >= $min_skipped_items) $templ['ms2']['table_head_width'] = '22';
+        else $templ['ms2']['table_head_width'] = '1';
+        $templ['ms2']['table_head_entry'] = '&nbsp;';
+        $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');
+        $i++;
       }
 
-      $templ['ms2']['table_entrys_row_field'] .= $templ_icon_cells;
-      $templ['ms2']['table_entrys'] .= $dsp->FetchModTpl('mastersearch2', 'result_row');
-    } // End: Row
-
-    // Multi-Select Dropdown
-    $templ['ms2']['multi_select_dropdown'] = '';
-    if (count($this->multi_select_action) > 0) {
-      $templ['ms2']['select_caption'] = 'Bitte auswählen';
-      $templ['ms2']['select_options'] = '';
-      $z = 0;
-      foreach ($this->multi_select_action as $current_action) {
-        if ($z == 0) $templ['ms2']['multi_select_actions'] = '"'. $current_action['action'] .'"';
-        else $templ['ms2']['multi_select_actions'] .= ', "'. $current_action['action'] .'"';
-        if ($z == 0) $templ['ms2']['security_questions'] = '"'. $current_action['security_question'] .'"';
-        else $templ['ms2']['security_questions'] .= ', "'. $current_action['security_question'] .'"';
-        $templ['ms2']['select_options'] .= "<option value=\"$z\">{$current_action['caption']}</option>";
-        $z++;
-      }
-      $templ['ms2']['multi_select_dropdown'] = $dsp->FetchModTpl('mastersearch2', 'result_multi_dropdown');
+      $db->free_result($res);
+      $templ['ms2']['result_action'] = $multiaction;
+      $dsp->AddModTpl('mastersearch2', 'result_case');
     }
-
-    // For each IconField in the row with the most icons, add an empty headline field
-    $i = 0; 
-    foreach ($this->icon_field as $current_field) {
-      if ($i >= $min_skipped_items) $templ['ms2']['table_head_width'] = '22';
-      else $templ['ms2']['table_head_width'] = '1';
-      $templ['ms2']['table_head_entry'] = '&nbsp;';
-      $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');
-      $i++;
-    }
-
-    $db->free_result($res);
-    $templ['ms2']['result_action'] = $multiaction;
-    $dsp->AddModTpl('mastersearch2', 'result_case');
     $dsp->AddContent();
   }
 } // End: Class
