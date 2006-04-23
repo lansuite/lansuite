@@ -23,7 +23,7 @@
 	$lang['class_auth']['wrong_pw_inet'] = 'Haben Sie ihr Passwort vergessen?<br/><a href=\'index.php?mod=usrmgr&action=pwrecover\'>Hier können Sie sich ein neues Passwort generieren</a>';
 	$lang['class_auth']['wrong_pw_lan'] = 'Sollten Sie ihr Passwort vergessen haben wenden Sie sich bitte an die Organisation';
 	$lang['class_auth']['wrong_pw'] = 'Das von Ihnen eingegebene Passwort ist falsch.';
-	$lang['class_auth']['wrong_pw_log'] = 'Login fÃ¼r %EMAIL% fehlgeschlagen (Passwort-Fehler)';
+	$lang['class_auth']['wrong_pw_log'] = 'Login für %EMAIL% fehlgeschlagen (Passwort-Fehler)';
 	$lang['class_auth']['closed'] = 'Ihr Account ist gesperrt. Melden Sie sich bitte bei der Organisation.';
 	$lang['class_auth']['closed_log'] = 'Login für %EMAIL% fehlgeschlagen (Account gesperrt)';
 	$lang['class_auth']['not_checkedin'] = 'Sie sind nicht eingecheckt. Melden Sie sich bitte bei der Organisation.';
@@ -32,6 +32,8 @@
 	$lang['class_auth']['checkedout_log'] = 'Login für %EMAIL% fehlgeschlagen (Account ausgecheckt)';
 	$lang['class_auth']['get_email_or_id'] = 'Bitte geben Sie Ihre Emailadresse, oder Ihre LanSuite-ID ein';
 	$lang['class_auth']['get_pw'] = 'Bitte geben Sie Ihr Kennwort ein';
+	$lang['class_auth']['locked'] = 'Dieser Account ist noch nicht freigeschaltet. Bitte warten Sie, bis ein Organisator Sie freigeschaltet hat';
+	$lang['class_auth']['locked_log'] = 'Account von %EMAIL% ist noch gesperrt. Loggin daher fehlgeschlagen';
 
 
 	// Class db_mysql

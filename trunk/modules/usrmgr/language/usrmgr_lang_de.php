@@ -323,4 +323,11 @@ $lang['usrmgr']['clan_has_members'] = 'Hat Mitglieder';
 $lang['usrmgr']['clan_name'] = 'Clan Name';
 $lang['usrmgr']['clan_url'] = 'Webseite';
 $lang['usrmgr']['clan_members'] = 'Mitglieder';
+$lang['usrmgr']['accounts_locked'] = 'Accounts wurden gesperrt';
+$lang['usrmgr']['accounts_unlocked'] = 'Accounts wurden freigegeben';
+$lang['usrmgr']['lock'] = 'Sperren';
+$lang['usrmgr']['unlock'] = 'Freigeben';
+$lang['usrmgr']['accounts'] = 'Accounts';
+$lang['usrmgr']['locked'] = 'Nur Gesperrte';
+$lang['usrmgr']['unlocked'] = 'Nur Freigeben';
 ?>

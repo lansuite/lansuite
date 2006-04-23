@@ -31,6 +31,8 @@
 	$lang['class_auth']['checkedout_log'] = 'loggin error for %EMAIL% (checked out)';
 	$lang['class_auth']['get_email_or_id'] = 'Please get your email or your Lansuite-id';
 	$lang['class_auth']['get_pw'] = 'Please get your password';
+	$lang['class_auth']['locked'] = 'This account has not been unlocked, yet. Wait for an organisator to unlock your account, please';
+	$lang['class_auth']['locked_log'] = 'Account of %EMAIL% is not unlocked, yet. Therefore his login failed';
 
 
 	// Class db_mysql

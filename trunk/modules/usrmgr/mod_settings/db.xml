@@ -301,6 +301,14 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>locked</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>user_active</name>
 				<type>tinyint(1)</type>
 				<null>YES</null>
