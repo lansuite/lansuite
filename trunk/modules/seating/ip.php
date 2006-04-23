@@ -32,12 +32,10 @@ switch($_GET['step']) {
 
 switch($_GET['step']) {
 	default:
-		$mastersearch = new MasterSearch($vars, 'index.php?mod=seating&action=ip', "index.php?mod=seating&action=ip&step=2&blockid=", '');
-		$mastersearch->LoadConfig('seat_blocks', $lang['seat']['ms_search'], $lang['seat']['ms_result']);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    $current_url = 'index.php?mod=seating&action=ip';
+    $target_url = 'index.php?mod=seating&action=ip&step=2&blockid=';
+    $target_icon = 'generate';
+    include_once('modules/seating/search_basic_blockselect.inc.php');
 	break;
 
 	case 2:

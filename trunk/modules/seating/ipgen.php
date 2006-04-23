@@ -37,6 +37,7 @@ switch($step) {
 
     $current_url = "index.php?mod=seating&action=ipgen&step=10";
     $target_url = "index.php?mod=seating&action=ipgen&step=11&ipa=$ip_a&ipb=$ip_b&ipc=$ip_c&ipoffset=$ip_offset&sort=$sort&br=$br&scol=$s_col&srow=$s_row&blockid=";
+    $target_icon = 'generate';
     include_once('modules/seating/search_basic_blockselect.inc.php');
 	break;
 

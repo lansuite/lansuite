@@ -1,34 +1,30 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.1
-*	Filename: 			show_back.php
-*	Module: 			Verleih/Rent
-*	Main editor: 		denny@one-network.org
-*	Description: 		show all stuff thats back
-*	Remarks: 		
-*
-**************************************************************************/
 
 $step 	 = $vars["step"];
 $item_id = $vars["itemid"];
 $user_id = $vars["userid"];
 
 switch($step) {
-
 	default:
-		$mastersearch = new MasterSearch( $vars, "index.php?mod=rent&action=show_back", "index.php?mod=rent&action=show_back&link=", " AND (ru.back_orgaid != '')");
-		$mastersearch->LoadConfig( "rentback", $lang['rent']['show_back_search_eq'], $lang['rent']['show_back_search_result'] );
-		$mastersearch->PrintForm(); // such-formular
-		$mastersearch->Search(); // init suche
-		$mastersearch->PrintResult(); // anzeige
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/mastersearch2/class_mastersearch2.php');
+    $ms2 = new mastersearch2('news');
 
+    $ms2->query['from'] = "{$config["tables"]["rentuser"]} AS u
+      LEFT JOIN {$config["tables"]["rentstuff"]} AS s ON u.stuffid = s.stuffid
+      LEFT JOIN {$config["tables"]["user"]} AS um ON u.userid = um.userid
+      LEFT JOIN {$config["tables"]["user"]} AS uv ON u.out_orgaid = uv.userid
+      LEFT JOIN {$config["tables"]["user"]} AS uz ON u.back_orgaid = uz.userid";
+    $ms2->query['where'] = "u.back_orgaid != ''";
+
+    $ms2->AddTextSearchField('Mieter', array('um.username' => '1337', 'um.name' => 'like', 'um.firstname' => 'like'));
+
+    $ms2->AddSelect('u.userid');
+    $ms2->AddResultField('Equipment', 's.caption');
+    $ms2->AddResultField('Mieter', 'um.username AS Mieter', 'UserNameAndIcon');
+    $ms2->AddResultField('Vermieter', 'uv.username AS Vermieter');
+    $ms2->AddResultField('Zurücknehmer', 'uz.username AS Zuruecknehmer');
+
+    $ms2->PrintSearch('index.php?mod=rent&action=show_back', 'u.userid, s.stuffid');
 	break;
-	
-}// switch
-
+}
 ?>

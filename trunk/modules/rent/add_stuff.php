@@ -1,20 +1,4 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	 2.0
-*	File Version:		 2.0
-*	Filename: 			add_stuff.php
-*	Module: 			Verleih/Rent
-*	Main editor: 		denny@one-network.org
-*	Last change: 		
-*	Description: 		Adds Equipment	
-*	Remarks: 			
-*
-**************************************************************************/
-  
-
 switch($_GET["step"]) {
 	
 	case 2:
@@ -100,13 +84,10 @@ switch($_GET["step"]) {
 		$comment  = ($_GET["com"]);
 		$quantity = ($_GET["qua"]);
 
-		$mastersearch = new MasterSearch($vars, "index.php?mod=rent&action=add_stuff&step=3&cap=$caption&com=$comment&qua=$quantity","index.php?mod=rent&action=add_stuff&step=4&cap=$caption&com=$comment&qua=$quantity&userid=", " AND (type > 1) GROUP BY user_id");
-		$mastersearch->LoadConfig("users", "", "");
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    $additional_where = 'u.type >= 1';
+    $current_url = "index.php?mod=rent&action=add_stuff&step=3&cap=$caption&com=$comment&qua=$quantity";
+    $target_url = "index.php?mod=rent&action=add_stuff&step=4&cap=$caption&com=$comment&qua=$quantity&userid=";
+    include_once('modules/usrmgr/search_basic_userselect.inc.php');
 	break;
 
 

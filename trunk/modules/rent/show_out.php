@@ -1,18 +1,4 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.1
-*	Filename: 			show_out.php
-*	Module: 			Verleih/Rent
-*	Main editor: 		denny@one-network.org
-*	Description: 		show all stuff thats rented at time
-*	Remarks: 		
-*
-**************************************************************************/
-
 $step 	 = $vars["step"];
 $item_id = $vars["itemid"];
 $user_id = $vars["userid"];
@@ -34,21 +20,46 @@ switch($step) {
 switch($step) {
 
 	default:
+    include_once('modules/mastersearch2/class_mastersearch2.php');
+    $ms2 = new mastersearch2('news');
 
-		$mastersearch = new MasterSearch( $vars, "index.php?mod=rent&action=show_out", "index.php?mod=rent&action=show_out&step=2&userid=", "AND ru.back_orgaid='' GROUP BY ru.userid");
-		$mastersearch->LoadConfig( "rentout", $lang['rent']['show_out_print_form'], $lang['rent']['show_out_search_result'] );
-//		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-	
-	
-	
-	break;
+    $ms2->query['from'] = "{$config["tables"]["rentuser"]} AS u
+      LEFT JOIN {$config["tables"]["rentstuff"]} AS s ON u.stuffid = s.stuffid
+      LEFT JOIN {$config["tables"]["user"]} AS r ON u.userid = r.userid";
+    $ms2->query['where'] = "u.back_orgaid = ''";
+
+    $ms2->AddTextSearchField('Mieter', array('r.username' => '1337', 'r.name' => 'like', 'r.firstname' => 'like'));
+
+    $ms2->AddSelect('r.userid');
+    $ms2->AddResultField('Mieter', 'r.username', 'UserNameAndIcon');
+    $ms2->AddResultField('Gemietet', 'COUNT(*) AS RentCount');
+
+    $ms2->AddIconField('details', 'index.php?mod=rent&action=show_out&step=2&userid=', $lang['ms2']['details']);
+
+    $ms2->PrintSearch('index.php?mod=rent&action=show_out', 'u.userid');
+  break;
 
 	
 	case 2:
+    include_once('modules/mastersearch2/class_mastersearch2.php');
+    $ms2 = new mastersearch2('news');
 
+    $ms2->query['from'] = "{$config["tables"]["rentstuff"]} AS s
+      LEFT JOIN {$config["tables"]["rentuser"]} AS u ON u.stuffid = s.stuffid
+      LEFT JOIN {$config["tables"]["user"]} AS v ON u.out_orgaid = v.userid";
+    $ms2->query['where'] = "u.back_orgaid = '' AND u.userid = {$_GET['userid']}";
+
+    $ms2->AddTextSearchField('Vermieter', array('v.username' => '1337', 'v.name' => 'like', 'v.firstname' => 'like'));
+
+    $ms2->AddSelect('v.userid');
+    $ms2->AddResultField('Equipment', 's.caption');
+    $ms2->AddResultField('Vermieter', 'v.username', 'UserNameAndIcon');
+
+    $ms2->AddIconField('delete', 'index.php?mod=rent&action=show_out&step=20&userid=22&itemid=3&stuffid=', $lang['ms2']['delete']);
+
+    $ms2->PrintSearch('index.php?mod=rent&action=show_out', 's.stuffid');
+
+/*
 		$get_organame = $db->query_first("SELECT uu.username FROM {$config["tables"]["rentuser"]} AS ru LEFT JOIN {$config["tables"]["user"]} AS uu ON ru.userid=uu.userid WHERE ru.userid = '$user_id'");
 
 		$get_stuff = $db->query("SELECT ru.rentid, rs.stuffid, rs.caption, uu.userid, uu.username FROM {$config["tables"]["rentuser"]} AS ru LEFT JOIN {$config["tables"]["rentstuff"]} AS rs ON ru.stuffid = rs.stuffid LEFT JOIN {$config["tables"]["user"]} AS uu ON uu.userid=ru.out_orgaid WHERE ru.userid='$user_id' AND ru.back_orgaid = '0'");
@@ -76,7 +87,7 @@ switch($step) {
 			$pic[0]="back";
 			$func->dialog($dialog,$link,$pic);
 		}
-		
+*/
 	break;
 	
 	case 3:		// abfrage ob eintrag zurückgenommen werden soll
