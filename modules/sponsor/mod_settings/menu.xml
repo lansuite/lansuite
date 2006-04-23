@@ -24,20 +24,10 @@
 	<entry>
 		<action>change</action>
 		<file>add</file>
-		<caption>Ändern</caption>
+		<caption>Verwalten</caption>
 		<hint>Sponsor editieren</hint>
 		<link>?mod=sponsor&action=change</link>
 		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
-		<action>delete</action>
-		<file>delete</file>
-		<caption>Löschen</caption>
-		<hint>Sponsor löschen</hint>
-		<link>?mod=sponsor&action=delete</link>
-		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
@@ -55,5 +45,10 @@
 		<action>gotourl</action>
 		<file>gotourl</file>
 		<requirement>0</requirement>
+	</entry>
+	<entry>
+		<action>delete</action>
+		<file>delete</file>
+		<requirement>3</requirement>
 	</entry>
 </menu>

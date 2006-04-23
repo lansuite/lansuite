@@ -12,9 +12,9 @@ class cronjob{
 	var $loaded_class;
 
 	/**
-	 * Auf anstehende Aufgaben Prüfen
-	 * Falls eine Aufgabe ansteht wird sie ausgeführt und entweder gelöscht oder die Ausführzeit neu gesetzt
-	 * Es wird pro Seitenaufruf immer nur eine Aufgabe ausgeführt um Systemlast zu minimieren.
+	 * Auf anstehende Aufgaben PrÃ¼fen
+	 * Falls eine Aufgabe ansteht wird sie ausgefÃ¼hrt und entweder gelÃ¶scht oder die AusfÃ¼hrzeit neu gesetzt
+	 * Es wird pro Seitenaufruf immer nur eine Aufgabe ausgefÃ¼hrt um Systemlast zu minimieren.
 	 * 
 	 */
 	function check_jobs(){
@@ -44,8 +44,8 @@ class cronjob{
 	
 	
 	/**
-	 * Ausführen einer Aufgabe.
-	 * Mit dieser Funktion wird die entspechende Funktion zum ausführen des Jobs aufgerufen.
+	 * AusfÃ¼hren einer Aufgabe.
+	 * Mit dieser Funktion wird die entspechende Funktion zum ausfÃ¼hren des Jobs aufgerufen.
 	 *
 	 * @param unknown_type $job_class
 	 * @param unknown_type $job_id
@@ -74,7 +74,7 @@ class cronjob{
 		
 	/**
 	 * Anzeigen aller anstehenden Aufgaben. 
-	 * Hier können auch Aufgaben gelöscht werden.
+	 * Hier kÃ¶nnen auch Aufgaben gelÃ¶scht werden.
 	 *
 	 */
 	function menu_joblist(){
@@ -82,18 +82,25 @@ class cronjob{
 		
 		$cron = new cron_parent($this);
 		
-		if($_POST['action_select'] == "del"){
-			foreach ($_POST['checkbox'] as $value){
-				$cron->del_job($value);
-			}
+		if($_GET['del_job']){
+			foreach ($_POST['action'] as $key => $val) $cron->del_job($key);
 		}else{
-			$mastersearch = new MasterSearch($vars,"index.php?mod=cron&action=joblist","index.php?mod=cron&action=joblist","");
-			$mastersearch->LoadConfig("cron_joblist",$lang['cron']['menu_joblist_cap']);
-			$mastersearch->PrintForm();
-			$mastersearch->Search();
-			$mastersearch->PrintResult();
+      include_once('modules/mastersearch2/class_mastersearch2.php');
+      $ms2 = new mastersearch2('news');
 
-			$templ['index']['info']['content'] .= $mastersearch->GetReturn();	
+      $ms2->query['from'] = "{$config['tables']['cron_job']} AS j
+        LEFT JOIN {$config['tables']['cron_config']} AS c ON j.class_id = c.config_id";
+
+      $ms2->AddTextSearchField('Job', array('j.job_class' => 'like', 'c.cron_var' => 'like'));
+
+      $ms2->AddResultField('Cron-Klasse', 'j.job_class');
+      $ms2->AddResultField('Name', 'c.cron_var');
+      $ms2->AddResultField('NÃ¤chste AusfÃ¼hrung', 'j.starttime', 'MS2GetDate');
+
+      #$ms2->AddIconField('details', 'index.php?mod=cron&action=joblist', $lang['ms2']['details']);
+      $ms2->AddMultiSelectAction('LÃ¶schen', 'index.php?mod=cron&action=joblist&del_job=1', 1);
+
+      $ms2->PrintSearch('index.php?mod=cron&action=joblist', 'j.jobid');
 		}
 	}
 	

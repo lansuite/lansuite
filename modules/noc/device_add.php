@@ -86,13 +86,13 @@ switch( $_GET["step"] ) {
 	// ------------------------------------------------------------------------------------
 	// Store Everything, print confirmation
 	case 2:
-	
+
 		If( $noc->checkSNMPDevice( $_POST["device_ip"], $_POST["device_read"] ) != 1 ) { 
 			
 			$func->error($lang['noc']['connect_error'],"index.php?mod=noc&action=add_device&step=1");
 			break;
 		}
-	
+
 		// Fetched Vars from SNMP from tha device
 		$sysDescr 	= $noc->getSNMPValue($_POST["device_ip"], $_POST["device_read"], ".1.3.6.1.2.1.1.1.0"	);
 		$sysContact 	= $noc->getSNMPValue($_POST["device_ip"], $_POST["device_read"], ".1.3.6.1.2.1.1.4.0" 	);

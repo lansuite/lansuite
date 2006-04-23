@@ -12,16 +12,6 @@
 		<level>0</level>
 	</entry>
 	<entry>
-		<action>show_device</action>
-		<file>device_show</file>
-		<caption>Device Anzeigen</caption>
-		<hint></hint>
-		<link>?mod=noc&action=show_device</link>
-		<requirement>2</requirement>
-		<needed_config>snmp</needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
 		<action>add_device</action>
 		<file>device_add</file>
 		<caption>Device Hinzuf&uuml;gen</caption>
@@ -32,24 +22,22 @@
 		<level>1</level>
 	</entry>
 	<entry>
-		<action>change_device</action>
-		<file>device_change</file>
-		<caption>Device &Auml;ndern</caption>
-		<hint></hint>
-		<link>?mod=noc&action=change_device</link>
+		<action>show_device</action>
+		<file>device_show</file>
 		<requirement>2</requirement>
 		<needed_config>snmp</needed_config>
-		<level>1</level>
+	</entry>
+	<entry>
+		<action>change_device</action>
+		<file>device_change</file>
+		<requirement>2</requirement>
+		<needed_config>snmp</needed_config>
 	</entry>
 	<entry>
 		<action>delete_device</action>
 		<file>device_delete</file>
-		<caption>Device L&ouml;schen</caption>
-		<hint></hint>
-		<link>?mod=noc&action=delete_device</link>
 		<requirement>2</requirement>
 		<needed_config>snmp</needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>find</action>
