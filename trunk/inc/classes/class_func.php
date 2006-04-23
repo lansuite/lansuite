@@ -193,6 +193,7 @@ class func {
 			break;
 		}
     $dsp->AddTpl("design/templates/error.htm");
+    $dsp->AddContent();
 	}
 
 	function confirmation($text, $link_target = '') {
@@ -203,6 +204,7 @@ class func {
 		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
 		$templ['confirmation']['info']['confirmationmsg']	= $text;
     $dsp->AddTpl("design/templates/confirmation.htm");
+    $dsp->AddContent();
 	}
 
 	
@@ -213,7 +215,9 @@ class func {
 
 		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, $button_text);
 		$templ['confirmation']['info']['confirmationmsg'] = $text;
+
     $dsp->AddTpl("design/templates/information.htm");
+    $dsp->AddContent();
 	}
 	
 	
@@ -230,6 +234,7 @@ class func {
       $templ['multiquestion']['control']['row'] .= $dsp->FetchTpl("design/templates/multiquestion_row.htm", $templ);
 		}
     $dsp->AddTpl("design/templates/multiquestion.htm");
+    $dsp->AddContent();
 	}
 
 	function dialog($dialogarray, $linkarray, $picarray) {
@@ -246,6 +251,7 @@ class func {
       $templ['dialog']['control']['row'] .= $dsp->FetchButton($link, $picarray[$ind]);
 
     $dsp->AddTpl("design/templates/dialog.htm");
+    $dsp->AddContent();
 	}
 
 	function question($text, $link_target_yes, $link_target_no = '') {
@@ -258,6 +264,7 @@ class func {
 		$templ['question']['control']['link']['no'] = $dsp->FetchButton($link_target_no, "no");
 
     $dsp->AddTpl("design/templates/question.htm");
+    $dsp->AddContent();
 	}
 
 	function no_items($object,$link_target,$type) {
@@ -272,6 +279,7 @@ class func {
 		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
 
     $dsp->AddTpl("design/templates/no_item.htm");
+    $dsp->AddContent();
 	}
 	
 	function text2html($string) {
