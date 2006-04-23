@@ -2,12 +2,7 @@
 
 switch ($_GET['step']) {
 	default:
-		$mastersearch = new MasterSearch( $vars, "index.php?mod=board&action=delete", "index.php?mod=board&action=delete&step=2&fid=", "");
-		$mastersearch->LoadConfig("board_forums", $lang['board']['ms_board_search'], $lang['board']['ms_board_result']);
-	//	$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/board/show.php');
 	break;
 
 	case 2:

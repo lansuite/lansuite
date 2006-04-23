@@ -58,17 +58,7 @@ switch($step) {
 //
 switch($step) {
 	default:
-		//
-		// -----[ SELECT POLLS FOR OVERVIEW ]-----
-		//
-		$mastersearch = new MasterSearch( $vars, "index.php?mod=poll&action=change", "index.php?mod=poll&action=change&step=2&pollid=", "");
-		$mastersearch->LoadConfig("polls", $lang["poll"]["ms_search"], $lang["poll"]["ms_result"]);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-
+	  include_once('modules/poll/search.inc.php');
 	break;
 
 	case 2:

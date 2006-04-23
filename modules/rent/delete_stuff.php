@@ -1,19 +1,4 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.1
-*	Filename: 			delete_stuff.php
-*	Module: 			Verleih/Rent
-*	Main editor: 		denny@one-network.org
-*	Description: 		delete stuff 
-*	Remarks: 		
-*
-**************************************************************************/
-
-
 $step 	 = $vars["step"];
 $item_id = $vars["itemid"];
 $user_id = $vars["userid"];
@@ -21,15 +6,7 @@ $user_id = $vars["userid"];
 switch($step) {
 
 	default:
-
-		$mastersearch = new MasterSearch( $vars, "index.php?mod=rent&action=delete_stuff", "index.php?mod=rent&action=delete_stuff&step=2&itemid=", "");
-		$mastersearch->LoadConfig( "rentdelstuff", $lang['rent']['show_out_print_form'], $lang['rent']['del_stuff_search_result'] );
-//		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-
-	
+    include_once('modules/rent/search.inc.php');
 	break;
 
 	
@@ -110,13 +87,7 @@ switch($step) {
 		$comment  = ($_GET["com"]);
 		$quantity = ($_GET["qua"]);
 
-		$mastersearch = new MasterSearch($vars, "index.php?mod=rent&action=delete_stuff&step=12&cap=$caption&com=$comment&qua=$quantity&itemid=$item_id","index.php?mod=rent&action=delete_stuff&step=15&cap=$caption&com=$comment&qua=$quantity&itemid=$item_id&userid=", " AND (type > 1) GROUP BY user_id");
-		$mastersearch->LoadConfig("users", "", "");
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/rent/search.inc.php');
 	break;
 	
 

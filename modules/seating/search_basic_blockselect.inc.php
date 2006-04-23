@@ -44,7 +44,8 @@ $ms2->AddResultField($lang['seating']['seatcount'], 'b.blockid', 'SeatsAvailable
 $ms2->AddResultField($lang['seating']['seatsoccupied'], 'b.blockid', 'SeatsOccupied');
 $ms2->AddResultField($lang['seating']['seatload'], 'b.blockid', 'SeatLoad');
 
-if ($target_url) $ms2->AddIconField('details', $target_url, $lang['ms2']['details']);
+if (!$target_icon) $target_icon = 'details';
+if ($target_url) $ms2->AddIconField($target_icon, $target_url, $lang['ms2'][$target_icon]);
 else {
   $ms2->AddIconField('details', 'index.php?mod=seating&action=show&step=2&blockid=', $lang['ms2']['details']);
   $ms2->AddIconField('edit', 'index.php?mod=seating&action=edit&step=2&blockid=', $lang['ms2']['edit']);

@@ -1,22 +1,5 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 			show.php
-*	Module: 			Poll
-*	Main editor: 		johannes@one-network.org
-*	Last change: 		26.02.03 18:00 
-*	Description: 		 
-*	Remarks: 		
-*
-**************************************************************************/
 
-//
-// Define standard vars
-//
 $HANDLE["POLLID"]	= $_GET["pollid"];
 $HANDLE["STEP"]		= $_GET["step"];
 $HANDLE["ACTION"]	= $_GET["action"];
@@ -30,16 +13,7 @@ default:
 		// Overview page (Related to Mastersearch)
 		//
 		default:
-			//
-			// Include Mastersearch
-			//
-			$mastersearch = new MasterSearch( $vars, "index.php?mod=poll&action=show", "index.php?mod=poll&action=show&step=2&pollid=", "");
-			$mastersearch->LoadConfig("polls", $lang["poll"]["ms_search"], $lang["poll"]["ms_result"]);
-			//$mastersearch->PrintForm();
-			$mastersearch->Search();
-			$mastersearch->PrintResult();
-	
-			$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+		  include_once('modules/poll/search.inc.php');
 		break;
 		
 		//
@@ -224,19 +198,8 @@ default:
 	} // switch step
 break;
 
-case search:
-	//
-	// Include Mastersearch
-	//
-	
-	$mastersearch = new MasterSearch( $vars, "index.php?mod=poll&action=search", "index.php?mod=poll&action=show&step=2&pollid=", "");
-	$mastersearch->LoadConfig("polls", $lang["poll"]["ms_search"], $lang["poll"]["ms_result"]);
-	$mastersearch->PrintForm();
-	$mastersearch->Search();
-	$mastersearch->PrintResult();
-	
-	$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-		
+case 'search':
+  include_once('modules/poll/search.inc.php');
 break;
 
 } // switch action

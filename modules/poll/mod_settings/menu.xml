@@ -14,12 +14,7 @@
 	<entry>
 		<action>search</action>
 		<file>show</file>
-		<caption>Suchen</caption>
-		<hint>Hier k&ouml;nnen Sie nach einzelnen Polls suchen</hint>
-		<link>?mod=poll&action=search</link>
 		<requirement>0</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>add</action>
@@ -34,22 +29,12 @@
 	<entry>
 		<action>change</action>
 		<file>add</file>
-		<caption>&Auml;ndern</caption>
-		<hint>Hier k&ouml;nnen Sie Polls &auml;ndern</hint>
-		<link>?mod=poll&action=change</link>
 		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>delete</action>
 		<file>delete</file>
-		<caption>L&ouml;schen</caption>
-		<hint>Hier k&ouml;nnen Sie einen Poll samt Stimmen l&ouml;schen</hint>
-		<link>?mod=poll&action=delete</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>vote</action>
