@@ -20,16 +20,10 @@ if(!isset($_SESSION['foodcenter']['theke_userid'])){
 	if($cfg['sys_barcode_on']){
 		$dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>","","index.php?mod=foodcenter&action=theke&userid=");
 	}
-	$mastersearch = new MasterSearch($vars, "index.php?mod=foodcenter&action=theke", "index.php?mod=foodcenter&action=theke&userid=", "GROUP BY email");
-	$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
-	$mastersearch->PrintForm();
-	$mastersearch->Search();
-	$mastersearch->PrintResult();
-
-	$templ['index']['info']['content'] .= $mastersearch->GetReturn();
-
-	
-}else{
+  $current_url = 'index.php?mod=foodcenter&action=theke';
+  $target_url = 'index.php?mod=foodcenter&action=theke&userid=';
+  include_once('modules/usrmgr/search_basic_userselect.inc.php');
+} else {
 	
 	
 	// Productgroups

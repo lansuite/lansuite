@@ -68,66 +68,100 @@ switch ($_GET['step']) {
 switch ($_GET['step']){
 	
 	default:
-		if(!isset($vars['search_select1'])) $vars['search_select1'] = 3;
-		
-		$mastersearch = new MasterSearch($vars, "index.php?mod=foodcenter&action=statchange", "index.php?mod=foodcenter&action=statchange&step=2&id=", "");
 
-		switch ($vars['search_select1']){
-			case 1:
-				$mastersearch->config['title']	= $lang['foodcenter']['list_order'];
-				$mastersearch->config['no_items_caption'] = $lang['foodcenter']['ordered_no_stop'];
-			break;
-			
-			case 2:
-				$mastersearch->config['title']	= $lang['foodcenter']['list_ordered'];
-				$mastersearch->config['no_items_caption'] = $lang['foodcenter']['ordered_no_supplied'];
-			break;
-			
-			case 3:
-				$mastersearch->config['title']	= $lang['foodcenter']['list_fetch'];
-				$mastersearch->config['no_items_caption'] = $lang['foodcenter']['ordered_no_wait'];
-			break;
-			
-			case 4:
-				$mastersearch->config['title']	= $lang['foodcenter']['list_fetched'];
-				$mastersearch->config['no_items_caption'] = $lang['foodcenter']['ordered_no_supply'];
-			break;
-		}
+    include_once('modules/mastersearch2/class_mastersearch2.php');
+    $ms2 = new mastersearch2('news');
 
-		$mastersearch->LoadConfig("food_statchange", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$mastersearch->PrintForm();		
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    $ms2->query['from'] = "{$config['tables']['food_ordering']} AS a
+		  LEFT JOIN {$config['tables']['food_product']} AS p ON a.productid = p.id
+		  LEFT JOIN {$config['tables']['food_supp']} AS s ON p.supp_id = s.supp_id
+		  LEFT JOIN {$config['tables']['user']} AS u ON u.userid = a.userid
+      ";
 
-		if($mastersearch->data['count'] > 0){
-			$handle = opendir("ext_inc/foodcenter_templates");
-			while ($file = readdir ($handle)) if (($file != ".") and ($file != "..") and ($file != "CVS") and (!is_dir($file))) {
-				if((substr($file, -3, 3) == "htm") && (substr($file, -7, 7) != "row.htm") || (substr($file, -4, 4) == "html") && (substr($file, -8, 8) != "row.html")){
-					$file_array[] .= "<option value=\"$file\">$file</option>";
-				}
+    $ms2->AddTextSearchField('Titel', array('p.caption' => 'like'));
+    $ms2->AddTextSearchDropDown('Status', 'a.status', array('1' => 'Wird bestellt', '2' => 'Lieferung erwartet', '3' => 'Abholbereit', '4' => 'abgeholt'), 3);
+
+  	$supp = $db->query("SELECT * FROM {$config['tables']['food_supp']}");
+  	$supp_array[''] = $lang['ms']['select_all'];
+  	while ($supprows = $db->fetch_array($supp)) {
+  		$supp_array[$supprows['supp_id']] = $supprows['name'];
+  	}
+    $ms2->AddTextSearchDropDown('Lieferant', 's.supp_id', $supp_array);
+
+  	$userquery = $db->query("SELECT * FROM {$config['tables']['food_ordering']} AS a LEFT JOIN {$config['tables']['user']} AS u ON a.userid=u.userid");
+  	$user_array[''] = $lang['ms']['select_all'];
+  	while ($userrows = $db->fetch_array($userquery)) {
+  		$user_array[$userrows['userid']] = $userrows['username'];
+  	}
+    $ms2->AddTextSearchDropDown('Besteller', 'a.userid', $user_array);
+
+    $ms2->AddSelect('u.userid');
+    $ms2->AddResultField('Titel', 'p.caption');
+    $ms2->AddResultField('Beschreibung', 'a.opts');
+    $ms2->AddResultField('Besteller', 'u.username', 'UserNameAndIcon');
+    $ms2->AddResultField('Bestellt', 'a.ordertime', 'MS2GetDate');
+    $ms2->AddResultField('Lieferant', 's.name');
+    $ms2->AddResultField('Geliefert', 'a.supplytime', 'MS2GetDate');
+    $ms2->AddResultField('Anzahl', 'a.pice');
+
+    $ms2->AddIconField('details', 'index.php?mod=foodcenter&action=statchange&step=2&id=', $lang['ms2']['details']);
+	
+	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][0], 'index.php?mod=foodcenter&action=statchange&step=2&status=4', 1);
+	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][1], 'index.php?mod=foodcenter&action=statchange&step=2&status=3', 1);
+	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][2], 'index.php?mod=foodcenter&action=statchange&step=2&status=2', 1);
+	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][3], 'index.php?mod=foodcenter&action=statchange&step=2&status=1', 1);
+	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][4], 'index.php?mod=foodcenter&action=statchange&step=2&status=5', 1);
+
+    switch ($_POST['search_dd_input'][0]){
+    	case 1:
+        $dsp->NewContent($lang['foodcenter']['list_order'], '');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_stop'];
+    	break;
+
+    	case 2:
+        $dsp->NewContent($lang['foodcenter']['list_ordered'], '');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_supplied'];
+    	break;
+
+    	case 3:
+        $dsp->NewContent($lang['foodcenter']['list_fetch'], '');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_wait'];
+    	break;
+
+    	case 4:
+        $dsp->NewContent($lang['foodcenter']['list_fetched'], '');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_supply'];
+    	break;
+    }
+
+    $ms2->PrintSearch('index.php?mod=foodcenter&action=statchange', 'p.id');
+
+
+		$handle = opendir("ext_inc/foodcenter_templates");
+		while ($file = readdir ($handle)) if (($file != ".") and ($file != "..") and ($file != "CVS") and (!is_dir($file))) {
+			if((substr($file, -3, 3) == "htm") && (substr($file, -7, 7) != "row.htm") || (substr($file, -4, 4) == "html") && (substr($file, -8, 8) != "row.html")){
+				$file_array[] .= "<option value=\"$file\">$file</option>";
 			}
-			$dsp->SetForm("base.php?mod=foodcenter&action=print\" target=\"_blank\"","print");
-			$dsp->AddDropDownFieldRow("file",$lang['foodcenter']['template'],$file_array,"");
-			
-			$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_keywords\" value=\"{$vars['search_keywords']}\">";
-			$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select1\" value=\"{$vars['search_select1']}\">";
-			$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select2\" value=\"{$vars['search_select2']}\">";
-			$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select3\" value=\"{$vars['search_select3']}\">";
-			$dsp->AddFormSubmitRow("print");
-			$dsp->AddContent();
 		}
-
+		$dsp->SetForm("base.php?mod=foodcenter&action=print\" target=\"_blank\"","print");
+		$dsp->AddDropDownFieldRow("file",$lang['foodcenter']['template'],$file_array,"");
+		
+		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_keywords\" value=\"{$vars['search_keywords']}\">";
+		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select1\" value=\"{$vars['search_select1']}\">";
+		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select2\" value=\"{$vars['search_select2']}\">";
+		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select3\" value=\"{$vars['search_select3']}\">";
+		$dsp->AddFormSubmitRow("print");
+		$dsp->AddContent();
 		break;
 	case 2:
 	
-	if(isset($_POST['checkbox'])){
+	if($_POST['action']){
 		$time = time();
 		$totprice = 0;
-		foreach($_POST["checkbox"] AS $item) {
-			if($_POST["action_select"] == 4){
-				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_POST["action_select"]}, lastchange = '$time', supplytime = '$time'  WHERE id = {$item}");
-			}elseif ($_POST["action_select"] == 5){
+		foreach($_POST["action"] AS $item => $val) {
+			if($_GET["status"] == 4){
+				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET["status"]}, lastchange = '$time', supplytime = '$time'  WHERE id = {$item}");
+			}elseif ($_GET["status"] == 5){
 				$prodrow = $db->query_first("SELECT * FROM {$config['tables']['food_ordering']} WHERE id = {$item}");				
 				
 				unset($account);
@@ -151,15 +185,15 @@ switch ($_GET['step']){
 				$account->change($totprice,$lang['foodcenter']['theke_repayment'] . " (" . $auth['username'] . ")");
 				$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $item);
 			}else{
-				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_POST["action_select"]}, lastchange = '$time'  WHERE id = {$item}");
-				if($_POST["action_select"] == 3){
+				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET["status"]}, lastchange = '$time'  WHERE id = {$item}");
+				if($_GET["status"] == 3){
 					$user_id = $db->query_first("SELECT userid FROM {$config['tables']['food_ordering']} WHERE id = {$item}");
 					$func->setainfo($lang['foodcenter']['statchange_fetch'],$user_id['userid'],2,"foodcenter",$item);
 				}
 			}
 	
 		}
-		$func->confirmation($lang['foodcenter']['ordered_status_ask'][$_POST["action_select"]],"index.php?mod=foodcenter&action=statchange");
+		$func->confirmation($lang['foodcenter']['ordered_status_ask'][$_GET["status"]],"index.php?mod=foodcenter&action=statchange");
 	}else{
 	
 		$link_array[0] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=4";
