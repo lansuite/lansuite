@@ -58,6 +58,7 @@ $ms2->AddTextSearchDropDown($lang['usrmgr']['add_paid'], 'p.paid', array('' => $
 $ms2->AddTextSearchDropDown($lang['usrmgr']['checkin'], 'p.checkin', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkin_no'], '>1' => $lang['usrmgr']['checkin']));
 $ms2->AddTextSearchDropDown($lang['usrmgr']['checkout'], 'p.checkout', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkout_no'], '>1' => $lang['usrmgr']['checkout']));
 $ms2->AddTextSearchDropDown($lang['usrmgr']['add_gender'], 'u.sex', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['search_unknown_sex'], '1' => $lang['usrmgr']['search_male'], '2' => $lang['usrmgr']['search_female']));
+$ms2->AddTextSearchDropDown($lang['usrmgr']['accounts'], 'u.locked', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['unlocked'], '1' => $lang['usrmgr']['locked']));
 
 $ms2->AddSelect('c.url AS clanurl');
 $ms2->AddSelect('u.type');
@@ -85,6 +86,8 @@ if ($auth['type'] >= 2) {
   }
   $db->free_result($res);
 }
+if ($auth['type'] >= 3) $ms2->AddMultiSelectAction($lang['usrmgr']['unlock'], "index.php?mod=usrmgr&action=account_lock&step=11", 1);
+if ($auth['type'] >= 3) $ms2->AddMultiSelectAction($lang['usrmgr']['lock'], "index.php?mod=usrmgr&action=account_lock&step=10", 1);
 if ($auth['type'] >= 3) $ms2->AddMultiSelectAction($lang['ms2']['delete'], "index.php?mod=usrmgr&action=delete&step=10", 1);
 
 $ms2->PrintSearch('index.php?mod=usrmgr&action=search', 'u.userid');

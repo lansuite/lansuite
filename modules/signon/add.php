@@ -576,7 +576,7 @@
     
     			if ($cfg["signon_autopw"]) $_POST["password"] = $signon->GeneratePassword();
     			$md5_password = md5($_POST["password"]);
-    
+
     			$add_query = $db->query("INSERT INTO {$GLOBALS["config"]["tables"]["user"]} SET
     										username	= '{$_POST["username"]}',
     										password	= '$md5_password',
@@ -595,8 +595,9 @@
     										birthday	= '$signon->birthday',
     										newsletter	= '{$_POST["newsletter"]}',
     										group_id	= '{$_POST["group_id"]}',
-    										perso		= '$perso'
-    										");
+    										perso		= '$perso',
+    										locked = ". (int)$cfg['signon_locked']
+    										);
     			$userid = $db->insert_id();
     			$add_query2 = $db->query("INSERT INTO {$GLOBALS["config"]["tables"]["usersettings"]} SET userid = $userid");
 

@@ -124,7 +124,7 @@ class auth {
 		if ($tmp_login_email == "") $func->information($lang['class_auth']['get_email_or_id'], "");
 		elseif ($tmp_login_pass == "") $func->information($lang['class_auth']['get_pw'], "");
 		else {
-			$user = $db->query_first("SELECT userid, username, email, password, type
+			$user = $db->query_first("SELECT userid, username, email, password, type, locked
 				FROM {$config["tables"]["user"]}
 				WHERE ('". (int)$tmp_login_email."' = '".$tmp_login_email."' AND userid = '$tmp_login_email')
 					OR LOWER(email) = '$tmp_login_email'");
@@ -159,6 +159,11 @@ class auth {
 			} elseif ($user["checkout"] AND $user["type"] < 2 AND !$cfg["sys_internet"]){
 				$func->information($lang['class_auth']['checkedout'], "");
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['checkedout_log']), "2", "Authentifikation");
+
+			// Account locked?
+			} elseif ($user['locked']){
+				$func->information($lang['class_auth']['locked'], '');
+				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['locked_log']), "2", "Authentifikation");
 
 			// Everything fine!
 			} else {
