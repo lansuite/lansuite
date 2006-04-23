@@ -9,7 +9,7 @@ switch($step) {
 
 	case 20:		// set back 
 
-		$db->query("UPDATE {$config["tables"]["rentuser"]} SET back_orgaid = '{$auth["userid"]}' WHERE rentid = '$item_id'");
+		$db->query("UPDATE {$config["tables"]["rentuser"]} SET back_orgaid = '{$auth["userid"]}' WHERE userid = '$user_id' AND stuffid = '$stuff_id'");
 		$db->query("UPDATE {$config["tables"]["rentstuff"]} SET quantity = quantity+1, rented = rented-1 WHERE stuffid = '$stuff_id'");
 		$step = 2;
 
@@ -55,39 +55,9 @@ switch($step) {
     $ms2->AddResultField('Equipment', 's.caption');
     $ms2->AddResultField('Vermieter', 'v.username', 'UserNameAndIcon');
 
-    $ms2->AddIconField('delete', 'index.php?mod=rent&action=show_out&step=20&userid=22&itemid=3&stuffid=', $lang['ms2']['delete']);
+    $ms2->AddIconField('delete', 'index.php?mod=rent&action=show_out&step=20&userid='. $_GET['userid'] .'&stuffid=', $lang['ms2']['delete']);
 
     $ms2->PrintSearch('index.php?mod=rent&action=show_out', 's.stuffid');
-
-/*
-		$get_organame = $db->query_first("SELECT uu.username FROM {$config["tables"]["rentuser"]} AS ru LEFT JOIN {$config["tables"]["user"]} AS uu ON ru.userid=uu.userid WHERE ru.userid = '$user_id'");
-
-		$get_stuff = $db->query("SELECT ru.rentid, rs.stuffid, rs.caption, uu.userid, uu.username FROM {$config["tables"]["rentuser"]} AS ru LEFT JOIN {$config["tables"]["rentstuff"]} AS rs ON ru.stuffid = rs.stuffid LEFT JOIN {$config["tables"]["user"]} AS uu ON uu.userid=ru.out_orgaid WHERE ru.userid='$user_id' AND ru.back_orgaid = '0'");
-		if($db->num_rows($get_stuff) > 0) {
-			$dsp->NewContent($lang['rent']['rent_on_user'] . " " .$get_organame["username"],$lang['rent']['rent_info']);
-			while( $row = $db->fetch_array( $get_stuff ) ) {
-				$templ["rent"]["stuffback"]["row"]["control"]["link"] = "index.php?mod=rent&action=show_out&step=20&userid=".$user_id."&itemid=".$row["rentid"]."&stuffid=".$row["stuffid"];
-				$templ["rent"]["stuffback"]["row"]["info"]["caption"] = $row["caption"];
-				$templ["rent"]["stuffback"]["row"]["info"]["out_organame"] = $row["username"];			
-				$templ["rent"]["stuffback"]["row"]["info"]["orgaid"] = $row["userid"];			
-				$templ['rent']['stuffback']['case']['control']['row'] .= $dsp->FetchModTpl("rent","rent_stuffback_row");
-			}	
-			
-			$templ['rent']['stuffback']['case']['control']['eq'] = $lang['rent']['equipment'];
-			$templ['rent']['stuffback']['case']['control']['rent_from'] = $lang['rent']['rent_from'];
-			$dsp->AddSingleRow($dsp->FetchModTpl("rent","rent_stuffback_case"));
-			$dsp->AddContent();
-		}
-		else
-		{
-			$dialog[0]="information";
-			$dialog[1]="Information";
-			$dialog[2]=str_replace("%NAME%",$get_organame["username"],$lang['rent']['user_no_rent']);
-			$link[0]="index.php?mod=rent&action=show_out";
-			$pic[0]="back";
-			$func->dialog($dialog,$link,$pic);
-		}
-*/
 	break;
 	
 	case 3:		// abfrage ob eintrag zurückgenommen werden soll

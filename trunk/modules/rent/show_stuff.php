@@ -19,7 +19,7 @@ switch($step) {
 	case 3:		// user auswählen
     $additional_where = 'u.type >= 1';
     $current_url = 'index.php?mod=rent&action=show_stuff&step=3';
-    $target_url = 'index.php?mod=rent&action=show_stuff&step=4&itemid=$item_id&userid=';
+    $target_url = "index.php?mod=rent&action=show_stuff&step=4&itemid=$item_id&userid=";
     include_once('modules/usrmgr/search_basic_userselect.inc.php');
 	break;
 
