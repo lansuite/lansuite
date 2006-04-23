@@ -64,13 +64,7 @@ switch( $_GET["step"] ) {
 	// Display Form
 	default:
 	case 1:
-		$mastersearch = new MasterSearch( $vars, "index.php?mod=noc&action=change_device", "index.php?mod=noc&action=change_device&step=2&deviceid=", "" );
-		$mastersearch->LoadConfig("noc", $lang['noc']['ms_search'], $lang['noc']['ms_result']);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();	 
+    include_once('modules/noc/search.inc.php');
 	break;
 		
 	case 2:	

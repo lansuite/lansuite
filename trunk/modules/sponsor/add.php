@@ -4,12 +4,7 @@ switch($_GET['step']) {
 	default:
 		if ($_GET['action'] == 'change') {
 			if ($_GET['sponsorid'] == '') {
-				$mastersearch = new MasterSearch($vars, 'index.php?mod=sponsor&action=change', 'index.php?mod=sponsor&action=change&sponsorid=', '');
-				$mastersearch->LoadConfig('sponsor', '', $lang['sponsor']['add_ms']);
-				$mastersearch->PrintForm();
-				$mastersearch->Search();
-				$mastersearch->PrintResult();
-				$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+        include_once('modules/sponsor/search.inc.php');
 			} else {
 				$sponsor = $db->query_first("SELECT * FROM {$config['tables']['sponsor']} WHERE sponsorid = {$_GET['sponsorid']}");
 				$_POST['name'] = $sponsor['name'];

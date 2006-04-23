@@ -19,12 +19,7 @@ $step = $vars["step"];
 
 switch ($step){
 	default:
-		$mastersearch = new MasterSearch($vars, "index.php?mod=sponsor&action=delete", "index.php?mod=sponsor&action=delete&step=2&sponsorid=", "");
-		$mastersearch->LoadConfig("sponsor", "", $lang["sponsor"]["del_ms"]);
-		$mastersearch->PrintForm();
-		$mastersearch->Search();
-		$mastersearch->PrintResult();
-		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+    include_once('modules/sponsor/search.inc.php');
 	break;
 
 	case 2:
