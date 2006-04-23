@@ -92,7 +92,7 @@ include_once("inc/classes/class_sec.php");
 include_once("inc/classes/class_barcode.php");
 
 include_once("modules/install/class_install.php");
-include_once("modules/mastersearch/class_mastersearch.php");
+if (file_exists("modules/mastersearch/class_mastersearch.php")) include_once("modules/mastersearch/class_mastersearch.php");
 include_once("modules/mail/class_mail.php");
 include_once("modules/stats/class_stats.php");
 include_once("modules/seating/class_seat.php");

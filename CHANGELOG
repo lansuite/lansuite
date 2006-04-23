@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.3
 
+- Change: Alle Module auf MS2 umgestellt (KnoX 23.04.2006)
 - Change: IP-Generieren von Misc-Modul nach Seating-Modul verschobene (KnoX 23.04.2006)
 - Change: Session-IDs werden nun aus Performace-Gründen nur noch in der DB gespeichert, wenn man sich einloggt. Das hat zur Folge, dass nur noch die eingeloggten User als 'online' in der Statistik erkannt weren (KnoX 22.04.2006)
 - Change: Rewrite Board. Speziell Templates und MS2 (KnoX 22.04.2006)
