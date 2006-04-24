@@ -112,13 +112,13 @@ var $perso;
 		if ($_GET["signon"]) $message = $cfg["signon_signonemail_text"];
 		else $message = $cfg["signon_signonemail_text_register"];
 
-		$message = str_replace('%USERNAME%', '', $_POST['username'], $message);
-		$message = str_replace('%EMAIL%', '', $_POST['email'], $message);
-		$message = str_replace('%PASSWORD%', '', $_POST['password'], $message);
-		$message = str_replace('%CLAN%', '', $_POST['clan'], $message);
-		$message = str_replace('%PARTYNAME%', '', $_SESSION['party_info']['name'], $message);
-		$message = str_replace('%PARTYURL%', '', $cfg['sys_partyurl'], $message);
-		$message = str_replace('%MAXGUESTS%', '', $_SESSION['party_info']['max_guest'], $message);
+		$message = str_replace('%USERNAME%', $_POST['username'], $message);
+		$message = str_replace('%EMAIL%', $_POST['email'], $message);
+		$message = str_replace('%PASSWORD%', $_POST['password'], $message);
+		$message = str_replace('%CLAN%', $_POST['clan'], $message);
+		$message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
+		$message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
+		$message = str_replace('%MAXGUESTS%', $_SESSION['party_info']['max_guest'], $message);
 
 		if ($mail->create_inet_mail($_POST["firstname"]." ".$_POST["lastname"], $_POST["email"], $cfg["signon_signonemail_subject"], $message, $cfg["sys_party_mail"])) return true;
 		else return false;
