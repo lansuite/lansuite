@@ -84,6 +84,16 @@ class board_func {
 		if ($tid != "") return TRUE;
 		else return FALSE;
 	}
+	
+	function CloseThread($tid) {
+		global $db, $config;
+	  $db->query("UPDATE {$config['tables']['board_threads']} SET closed = 1 WHERE tid = ". (int)$tid);
+	}
+
+	function OpenThread($tid) {
+		global $db, $config;
+	  $db->query("UPDATE {$config['tables']['board_threads']} SET closed = 0 WHERE tid = ". (int)$tid);
+	}
 }
 
 ?>

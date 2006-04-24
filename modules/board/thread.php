@@ -2,11 +2,22 @@
 include("modules/board/class_board.php");
 $bfunc = new board_func;
 
+// Exec Admin-Functions
+if ($auth['type'] >= 2) switch ($_GET['step']) {
+  case 10:
+    $bfunc->CloseThread($_GET['tid']);
+  break;
+  case 11:
+    $bfunc->OpenThread($_GET['tid']);
+  break;
+}
+
 $tid = (int)$_GET["tid"];
 $list_type = $auth['type'] + 1;
-$thread = $db->query_first("SELECT t.fid, t.caption, f.name AS ForumName, f.need_type FROM {$config["tables"]["board_threads"]} AS t
+$thread = $db->query_first("SELECT t.fid, t.caption, t.closed, f.name AS ForumName, f.need_type FROM {$config["tables"]["board_threads"]} AS t
   LEFT JOIN {$config["tables"]["board_forums"]} AS f ON t.fid = f.fid
   WHERE t.tid=$tid AND (f.need_type <= '{$list_type}')");
+
 
 if ($thread['caption'] == '') $func->error($lang['board']['no_posts'], '');
 else {
@@ -27,7 +38,11 @@ else {
 	// Generate Thread-Buttons
 	$buttons = '';
 	if (($auth["login"] == 1 and $thread['need_type'] >= 1) or $thread['need_type'] == 0 or $auth['type'] > 1) $buttons .= " ". $dsp->FetchButton("index.php?mod=board&action=post&fid=$fid", "new_thread") .' '. $dsp->FetchButton("index.php?mod=board&action=post&tid=$tid", "new_post");
-	if ($auth["type"] > 1) $buttons .= ' '. $dsp->FetchButton("index.php?mod=board&action=edit&mode=delete&tid=$tid", "delete");
+	if ($auth["type"] > 1) {
+    if ($thread['closed']) $buttons .= ' '. $dsp->FetchButton("index.php?mod=board&action=thread&step=11&tid=$tid", "open");
+    else $buttons .= ' '. $dsp->FetchButton("index.php?mod=board&action=thread&step=10&tid=$tid", "close");
+    $buttons .= ' '. $dsp->FetchButton("index.php?mod=board&action=edit&mode=delete&tid=$tid", "delete");
+  }
 
 	$query = $db->query("SELECT pid, comment, userid, date FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date");
 	$count_entrys = $db->num_rows($query);

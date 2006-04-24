@@ -14,6 +14,18 @@ function FirstPostDetails($date) {
   return LastPostDetails($date, '');
 }
 
+function FormatTitle($title) {
+  global $dsp, $templ, $line;
+  
+  $icon = '';
+  if ($line['closed']) {
+    $templ['ms2']['icon_name'] = 'locked';
+    $templ['ms2']['icon_title'] = 'Not Paid';
+    $icon = $dsp->FetchModTpl('mastersearch2', 'result_icon'). ' ';
+  }
+  return $icon . $title;
+}
+
 function NewPosts($last_read) {
 	global $db, $config, $auth, $line;
 
@@ -67,8 +79,9 @@ $ms2->AddTextSearchField($lang['board']['subject'], array('t.caption' => 'like')
 $ms2->AddTextSearchField($lang['board']['thread_text'], array('p.comment' => 'fulltext'));
 $ms2->AddTextSearchField($lang['board']['author'], array('u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
 
-if ($_GET['fid'] != '') $ms2->AddResultField($lang['board']['subject'], 't.caption');
-else $ms2->AddResultField($lang['board']['subject'], 'CONCAT(\'<b>\', f.name, \'</b><br />\', t.caption) AS ThreadName');
+$ms2->AddSelect('t.closed');
+if ($_GET['fid'] != '') $ms2->AddResultField($lang['board']['subject'], 't.caption', 'FormatTitle');
+else $ms2->AddResultField($lang['board']['subject'], 'CONCAT(\'<b>\', f.name, \'</b><br />\', t.caption) AS ThreadName', 'FormatTitle');
 $ms2->AddResultField($lang['board']['new'], 'r.last_read', 'NewPosts');
 $ms2->AddResultField($lang['board']['clicks'], 't.views');
 $ms2->AddResultField($lang['board']['replys'], '(COUNT(p.pid) - 1) AS posts');
