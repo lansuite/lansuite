@@ -2,7 +2,7 @@
 include_once('modules/usrmgr/search_main.inc.php');
 
 function PaidIconLink($paid){
-  global $dsp, $templ, $line, $party;
+  global $dsp, $templ, $line, $party, $lang;
   
   // Only link, if selected party = current party
   if ($_POST["search_dd_input"][1] == $party->party_id) $templ['ms2']['link'] = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
@@ -10,10 +10,10 @@ function PaidIconLink($paid){
   
   if ($paid) {
     $templ['ms2']['icon_name'] = 'paid';
-    $templ['ms2']['icon_title'] = 'Paid';
+    $templ['ms2']['icon_title'] = $lang['usrmgr']['paid_yes'];
   } else {
     $templ['ms2']['icon_name'] = 'not_paid';
-    $templ['ms2']['icon_title'] = 'Not Paid';
+    $templ['ms2']['icon_title'] = $lang['usrmgr']['paid_no'];
   }
   $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
   if ($templ['ms2']['link']) $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
@@ -65,7 +65,7 @@ $ms2->AddSelect('u.type');
 $ms2->AddResultField($lang['usrmgr']['details_clan'], 'c.name AS clan', 'ClanURLLink');
 // If Party selected
 if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
-  $ms2->AddResultField('Bez.', 'p.paid', 'PaidIconLink');
+  $ms2->AddResultField($lang['usrmgr']['paid'], 'p.paid', 'PaidIconLink');
   $ms2->AddResultField('In', 'p.checkin', 'MS2GetDate');
   $ms2->AddResultField('Out', 'p.checkout', 'MS2GetDate');
 }
