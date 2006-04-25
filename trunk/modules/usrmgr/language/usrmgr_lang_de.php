@@ -291,7 +291,7 @@ $lang['usrmgr']['remind_subcaption'] = 'Mit diesem Modul k&ouml;nnen Sie sich ei
 $lang['usrmgr']['remind_only_online'] = 'Diese Funktion ist nur im Internetmodus verf&uuml;gbar';
 $lang['usrmgr']['remind_err_sysacc'] = 'F&uuml;r den System-Account darf kein neues Passwort generiert werden';
 $lang['usrmgr']['remind_mail_head'] = 'LanSuite-Passwortrecovery';
-$lang['usrmgr']['remind_mail'] = 'Hallo %USERNAME%\r\n\r\nSie haben ein neues LanSuite Passwort angefordert\r\nDamit das neue Passwort generiert wird, gehen Sie bitte auf folgende Webseite:%PATH%\r\n';
+$lang['usrmgr']['remind_mail'] = "Hallo %USERNAME%\r\n\r\nSie haben ein neues LanSuite Passwort angefordert\r\nDamit das neue Passwort generiert wird, gehen Sie bitte auf folgende Webseite:%PATH%\r\n";
 $lang['usrmgr']['remind_success'] = 'Ihnen wurde nun eine Freischalte-URL an die angegebene Emailadresse gesendet. Mit dem Aufruf dieser URL wird Ihr neues Passwort generiert werden.';
 $lang['usrmgr']['remind_err_email'] = 'Die von Ihnen eigegebene Email existiert nicht in der Datenbank';
 $lang['usrmgr']['remind_pw_generated'] = 'Das neue Kennwort wurde erfolgreich generiert.'. HTML_NEWLINE .'Es lautet:';
@@ -330,4 +330,7 @@ $lang['usrmgr']['unlock'] = 'Freigeben';
 $lang['usrmgr']['accounts'] = 'Accounts';
 $lang['usrmgr']['locked'] = 'Nur Gesperrte';
 $lang['usrmgr']['unlocked'] = 'Nur Freigeben';
+$lang['usrmgr']['paid'] = 'Bez.';
+$lang['usrmgr']['paid_yes'] = 'Bezahlt';
+$lang['usrmgr']['paid_no'] = 'Nicht bezahlt';
 ?>
