@@ -2,13 +2,16 @@
 
 class Clan {
 
-  function Add($name, $url = '', $password = ''){
-    global $db, $config, $lang;
+  function Add($name, $url = '', $password = '') {
+    global $db, $config, $func, $lang;
 
     if ($name == '') return false;
     
     // Invalid chars in clan name
-		if (preg_match("/([.^\"\'`´]+)/", $name)) return $lang['usrmgr']['add_err_user_chars'];
+		if (preg_match("/([.^\"\'`´]+)/", $name)) {
+      $func->information('Clan:'. $lang['usrmgr']['add_err_user_chars']);
+      return false;
+    }
 		
     $db->query("INSERT INTO {$config['tables']['clan']} SET
       name = '$name',
