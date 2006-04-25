@@ -23,7 +23,7 @@ if ($_POST['action']) {
       LEFT JOIN {$config['tables']['board_forums']} AS f ON t.fid = f.fid
       ";
   $ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1);
-  $ms2->query['default_order_by'] = 'MAX(p.date) DESC';
+  $ms2->query['default_order_by'] = 'LastPost DESC';
   
   $ms2->AddTextSearchField($lang['board']['board'], array('f.name' => 'like'));
   $ms2->AddTextSearchField($lang['board']['subject'], array('t.caption' => 'like'));
@@ -32,6 +32,7 @@ if ($_POST['action']) {
   
   $ms2->AddSelect('p.userid');
   $ms2->AddSelect('f.fid');
+  $ms2->AddSelect('MAX(p.date) AS LastPost');
   $ms2->AddResultField($lang['board']['thread_text'], 'CONCAT(\'<b>\', f.name, \'</b> (\', t.caption, \')<br />\', p.comment) AS ThreadName', '', 140);
   $ms2->AddResultField($lang['board']['author'], 'u.username', 'UserNameAndIcon');
   $ms2->AddResultField('IP', 'p.ip');

@@ -73,7 +73,7 @@ $ms2->query['from'] = "{$config['tables']['board_threads']} AS t
 $ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1);
 if ($_GET['fid'] != '') $ms2->query['where'] .= ' AND t.fid = '. (int)$_GET['fid'];
 if ($_GET['action'] == 'bookmark') $ms2->query['where'] .= ' AND b.bid IS NOT NULL';
-$ms2->query['default_order_by'] = 'MAX(p.date) DESC';
+$ms2->query['default_order_by'] = 'LastPost DESC';
 
 $ms2->AddTextSearchField($lang['board']['subject'], array('t.caption' => 'like'));
 $ms2->AddTextSearchField($lang['board']['thread_text'], array('p.comment' => 'fulltext'));
