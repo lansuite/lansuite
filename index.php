@@ -136,6 +136,12 @@ if ($db->success) {
 	$cfg = $func->read_db_config();
 
 	$sec->check_blacklist();
+
+  // Fetch all names of active modules
+  $ActiveModules = array();
+  $res = $db->query("SELECT name FROM {$config["tables"]["modules"]} WHERE active = 1");
+  while($row = $db->fetch_array($res)) $ActiveModules[] = $row['name'];
+  $db->free_result($res);
 }
 
 // Set language
@@ -163,12 +169,6 @@ if ($_GET["mod"] != "install"){
 // Set Missingfields to false
 $missing_fields = 0;
 if ($found_adm) {
-  // Fetch all names of active modules
-  $ActiveModules = array();
-  $res = $db->query("SELECT name FROM {$config["tables"]["modules"]} WHERE active = 1");
-  while($row = $db->fetch_array($res)) $ActiveModules[] = $row['name'];
-  $db->free_result($res);
-
 	// Startup authentication
 	$authentication = new auth();
 	$auth = $authentication->GetAuthData();
