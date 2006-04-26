@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.3
 
+- Bugfix: #424 Es konnten keine Threads mehr im Board erstellt werden (KnoX 26.04.2006)
 - Bugfix: #418 Wenn im Clannamen Sonderzeichen vorkamen wurde der Eintrag nicht übernommen, aber auch kein Fehler ausgegeben (KnoX 25.04.2006)
 - Bugfix: #423 Auf manchen DB-Systemen, konnte das Board nicht mehr angezeigt werden, statt dessen nur ein MySQL-Fehler (KnoX 25.04.2006)
 - Bugfix: #419 Die PW-Recovery Mail hatte codierte Line-Break Zeichen enthalten. (KnoX 25.04.2006)

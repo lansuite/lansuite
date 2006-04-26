@@ -9,12 +9,18 @@ function NameAndDesc($name) {
 function LastPostDetails($date) {
   global $db, $config, $line, $dsp;
 
-  $row = $db->query_first("SELECT t.caption, p.userid, p.tid, p.pid FROM {$config['tables']['board_posts']} AS p
-    LEFT JOIN {$config['tables']['board_threads']} AS t ON p.tid = t.tid
-    WHERE p.date = $date AND t.fid = {$line['fid']}");
+  if ($date) {
+    $row = $db->query_first("SELECT t.caption, p.userid, p.tid, p.pid FROM {$config['tables']['board_posts']} AS p
+      LEFT JOIN {$config['tables']['board_threads']} AS t ON p.tid = t.tid
+      WHERE p.date = $date AND t.fid = {$line['fid']}");
 
-  if (strlen($row['caption']) > 18) $row['caption'] = substr($row['caption'], 0, 16). '...';
-  return '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&pid=last#pid'. $row['pid'] .'" class="menu">'. $row['caption'] .'<br />'. date('d.m.y H:i', $date) .'</a> '. $dsp->FetchUserIcon($row['userid']);
+    if (strlen($row['caption']) > 18) $row['caption'] = substr($row['caption'], 0, 16). '...';
+    return '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&pid=last#pid'. $row['pid'] .'" class="menu">'. $row['caption'] .'<br />'. date('d.m.y H:i', $date) .'</a> '. $dsp->FetchUserIcon($row['userid']);
+  } else {
+    $templ['ms2']['icon_name'] = 'no';
+    $templ['ms2']['icon_title'] = '-';
+    return $dsp->FetchModTpl('mastersearch2', 'result_icon');
+  }
 }
 
 include_once('modules/mastersearch2/class_mastersearch2.php');

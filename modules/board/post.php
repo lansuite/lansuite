@@ -110,39 +110,27 @@ else {
   			$date = time();
   			if ($auth['login'] == 0) $text .= "<!-- " .$_POST['boardname'] . " -->";
 
+        // When new thread
   			if ($_GET["tid"] == "")	{
-  				$backlink   = "index.php?mod=board&action=forum&fid=$fid";
-
-  				// Insert thread-headline, if this post starts a new thread
-  				$row = $db->query_first("SELECT max(last_pid) as max_pid FROM {$config['tables']['board_threads']}");
-  				$max_pid = $row["max_pid"];
-
   				$db->query("INSERT INTO {$config['tables']['board_threads']} SET
   						fid='$fid',
-  						userid = '{$auth['userid']}',
-  						caption = '$caption',
-  						date = '$date',
-  						last_pid='$max_pid',
-  						ip='{$_SERVER['REMOTE_ADDR']}'
+  						caption = '$caption'
   						");
   				$tid = $db->insert_id();
-  			} else {
-  				$backlink = "index.php?mod=board&action=thread&tid=$tid";
-  			}
+
+  				$backlink   = "index.php?mod=board&action=forum&fid=$fid";
+  			} else $backlink = "index.php?mod=board&action=thread&tid=$tid";
 
   			// Insert post to table
   			$db->query("INSERT INTO {$config['tables']['board_posts']} SET
-  					fid='$fid',
   					tid='$tid',
   					userid = '{$auth['userid']}',
   					comment = '$text',
   					date = '$date',
   					ip='{$_SERVER['REMOTE_ADDR']}'
   					");
-  			$last_pid = $db->insert_id();
 
-  			// Update last-post-id und user-posts
-  			$db->query("UPDATE {$config['tables']['board_threads']} SET last_pid = '$last_pid', posts = posts + 1 WHERE tid='$tid'");
+  			// Update user-posts
   			$db->query("UPDATE {$config["tables"]["user"]} SET posts = posts + 1, changedate = changedate WHERE userid='{$auth['userid']}'");
 
   			// Send email-notifications to thread-subscribers

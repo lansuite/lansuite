@@ -3,11 +3,17 @@
 function LastPostDetails($date, $jump_to_pid = 'last') {
   global $db, $config, $line, $dsp;
 
-  $row = $db->query_first("SELECT p.userid, p.pid, p.tid, u.username FROM {$config['tables']['board_posts']} AS p
-    LEFT JOIN {$config['tables']['user']} AS u ON p.userid = u.userid
-    WHERE p.date = $date AND p.tid = {$line['tid']}");
+  if ($date) {
+    $row = $db->query_first("SELECT p.userid, p.pid, p.tid, u.username FROM {$config['tables']['board_posts']} AS p
+      LEFT JOIN {$config['tables']['user']} AS u ON p.userid = u.userid
+      WHERE p.date = $date AND p.tid = {$line['tid']}");
 
-  return '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&pid='. $jump_to_pid .'#pid'. $row['pid'] .'" class="menu">'. date('d.m.y H:i', $date) .'<br />'. $row['username'] .'</a> '. $dsp->FetchUserIcon($row['userid']);
+    return '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&pid='. $jump_to_pid .'#pid'. $row['pid'] .'" class="menu">'. date('d.m.y H:i', $date) .'<br />'. $row['username'] .'</a> '. $dsp->FetchUserIcon($row['userid']);
+  } else {
+    $templ['ms2']['icon_name'] = 'no';
+    $templ['ms2']['icon_title'] = '-';
+    return $dsp->FetchModTpl('mastersearch2', 'result_icon');
+  }
 }
 
 function FirstPostDetails($date) {
