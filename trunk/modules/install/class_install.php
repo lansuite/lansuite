@@ -240,7 +240,7 @@ class Install {
   				array_push($SettingList, $name);
 				
   				// Insert into DB, if not exists
-  				$found = $db->query_first("SELECT cfg_key FROM {$config["database"]["prefix"]}config WHERE cfg_key = '$name' and cfg_module = '$module'");
+  				$found = $db->query_first("SELECT cfg_key FROM {$config["database"]["prefix"]}config WHERE cfg_key = '$name'");
   				if (!$found['cfg_key']) $db->query("INSERT INTO {$config["database"]["prefix"]}config SET
   				  cfg_key = '". $func->escape_sql($name) ."',
   				  cfg_value = '". $func->escape_sql($default) ."',
@@ -248,7 +248,7 @@ class Install {
   				  cfg_group = '". $func->escape_sql($group) ."',
   				  cfg_desc = '". $func->escape_sql($description) ."',
   				  cfg_module = '$module'
-  				  ");  				  
+  				  ");
   			}
       }
 
