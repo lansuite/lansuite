@@ -53,11 +53,13 @@ class auth {
 		if ($_GET['mod'] == "logout") $this->logout();
 		elseif (isset($_POST['login_x'])) $this->login("normal"); # Normal Login
 		elseif (isset($_POST['save_x'])) $this->login("save"); # Login + Save
-#		elseif ($_COOKIE['auth']['email'] != "" and (!$this->auth['login'])) $this->login("cookie"); # Login via Coockie
-#		elseif ($_COOKIE['auth']['email'] != "" and $this->auth['login']) { # Reset Coockie-Timeout
-#			setcookie("auth[email]", $_COOKIE['auth']['email'], time() + (3600*24*365));
-#			setcookie("auth[userpassword]", $_COOKIE['auth']['userpassword'], time() + (3600*24*365));
-#		}
+		elseif ($_COOKIE['auth']['email'] != "" and (!$this->auth['login'])) $this->login("cookie"); # Login via Coockie
+
+    // Reset Coockie-Timeout
+    if ($_COOKIE['auth']['email'] != "" and $this->auth['login']) {
+			setcookie("auth[email]", $_COOKIE['auth']['email'], time() + (3600*24*365));
+			setcookie("auth[userpassword]", $_COOKIE['auth']['userpassword'], time() + (3600*24*365));
+		}
 
 		// If not logged in, delete the sessions userdata
 		if ($this->auth['login'] == "" or $this->auth['login'] == "0"){
@@ -113,13 +115,13 @@ class auth {
 		$tmp_login_email = "";
 		$tmp_login_pass = "";
 
-#		if ($loginart == "cookie"){
-#			if ($_COOKIE['auth']['email'] != "") $tmp_login_email = $_COOKIE['auth']['email'];
-#			if ($_COOKIE['auth']['userpassword'] != "") $tmp_login_pass = $_COOKIE['auth']['userpassword'];
-#		} else {
+		if ($loginart == "cookie"){
+			if ($_COOKIE['auth']['email'] != "") $tmp_login_email = $_COOKIE['auth']['email'];
+			if ($_COOKIE['auth']['userpassword'] != "") $tmp_login_pass = md5($_COOKIE['auth']['userpassword']);
+		} else {
 			if ($_POST['email'] != "") $tmp_login_email = strtolower(htmlspecialchars(trim($_POST['email'])));
 			if ($_POST['password'] != "") $tmp_login_pass = md5($_POST['password']);
-#		}
+		}
 
 		if ($tmp_login_email == "") $func->information($lang['class_auth']['get_email_or_id'], "");
 		elseif ($tmp_login_pass == "") $func->information($lang['class_auth']['get_pw'], "");
@@ -182,9 +184,9 @@ class auth {
 
 	 			$this->LoadAuthData();
 
-				if ($loginart == "save"){
+				if ($loginart == 'save'){
 					setcookie("auth[email]", $this->auth['email'], time() + (3600*24*365));
-					setcookie("auth[userpassword]", $user_data['password'], time() + (3600*24*365));
+					setcookie("auth[userpassword]", $_POST['password'], time() + (3600*24*365));
 				}
 				
 				$this->auth['userid'] = $user['userid'];
