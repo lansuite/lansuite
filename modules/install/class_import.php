@@ -208,6 +208,9 @@ class Import {
 			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}$table_name ($mysql_fields $primary_key $unique_key) TYPE = MyISAM  CHARACTER SET utf8");
 			$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
 
+      // Set Table-Charset to UTF-8
+      $db->query_first("ALTER TABLE {$config["database"]["prefix"]}$table_name DEFAULT CHARACTER SET utf8");
+
 			// Import Table-Content
 			$content = $xml->get_tag_content("content", $table, 0);
 			$entrys = $xml->get_tag_content_array("entry", $content);
