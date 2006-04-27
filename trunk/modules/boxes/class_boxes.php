@@ -87,8 +87,7 @@ class boxes {
 	}
 
 	function DotRow($caption, $link = "", $hint = "", $class = "", $highlighted = "") {
-		if ($highlighted) $item = "menurow_close";
-		else $item = "menurow";
+		if ($highlighted) $item = "_active";
 
 		$this->ItemRow($item, $caption, $link, $hint, $class);
 	}

@@ -117,6 +117,7 @@ body {
 }
 
 .engaged {			/* old name: tbl_1 */		/* Used, if a text should be engaged */
+	background:		#EFEFEF;
 	padding:		2px;
 	padding-left:	18px;
 }
@@ -140,10 +141,25 @@ body {
 }
 
 .box_entry {
+	text-align:		left;
 	background:		#EFEFEF;
 	padding:		2px;
+	padding-left: 16px;
 	font-size:		11px;
 	white-space:	nowrap;
+	background-image: url(images/arrows_menurow.gif);
+  background-repeat: no-repeat;
+}
+
+.box_entry_active {
+	text-align:		left;
+	background:		#EFEFEF;
+	padding:		2px;
+	padding-left: 16px;
+	font-size:		11px;
+	white-space:	nowrap;
+	background-image: url(images/arrows_menurow_close.gif);
+  background-repeat: no-repeat;
 }
 
 
@@ -458,16 +474,6 @@ a.admin:link, a.admin:visited {
 
 a.admin:hover {
 	text-decoration: underline;}
-
-/* FORM FIELD'S */
-.form {
-	font-family: 	 Verdana,Arial,Helvetica;
-	font-size:	     11px;
-	font-weight:  	 normal;
-	color: 		     #000000;
-	border:		     1px solid #999999;
-	background-color:#E4E4E4;
-	background-image: url(images/index_form_bg.gif);}
 
 /* OPTIONAL FORM FIELD'S */
 .form_optional {

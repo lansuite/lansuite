@@ -131,10 +131,25 @@ body {
 }
 
 .box_entry {
+	text-align:		left;
 	background:		#EFEFEF;
 	padding:		2px;
-	font-size:		11px; 
+	padding-left: 16px;
+	font-size:		11px;
 	white-space:	nowrap;
+	background-image: url(images/arrows_menurow.gif);
+  background-repeat: no-repeat;
+}
+
+.box_entry_active {
+	text-align:		left;
+	background:		#EFEFEF;
+	padding:		2px;
+	padding-left: 16px;
+	font-size:		11px;
+	white-space:	nowrap;
+	background-image: url(images/arrows_menurow_close.gif);
+  background-repeat: no-repeat;
 }
 
 
