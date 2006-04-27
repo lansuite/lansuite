@@ -87,7 +87,7 @@ class sitetool {
 		$compression_mode = $this->check_optimizer();
 
 		// Check for {footer}-String in Design
-		if (strpos($index, "{footer}") === false) echo "<font face=\"Verdana\" color=\"#ff0000\" site=\"6\">{$lang['class_sitetool']['footer_violation']}</font>";
+		if (!$_GET['contentonly'] and strpos($index, "{footer}") === false) echo "<font face=\"Verdana\" color=\"#ff0000\" site=\"6\">{$lang['class_sitetool']['footer_violation']}</font>";
 		else {
 
 			$ru_suffix = "";
@@ -118,6 +118,7 @@ class sitetool {
 			| <a href=\"index.php?mod=about\" class=\"menu\">about Lansuite</a>
 			| <a href=\"".$_SERVER['REQUEST_URI'].$ru_suffix."fullscreen=yes\" class=\"menu\">Vollbild</a>
 			<br/>$dbquery $processed $compressed $uncompressed";
+      if ($_GET['contentonly']) $index .= '<div id="NewLSfooter">'. $footer .'</div>';
 
 			if ($cfg["sys_optional_footer"]) $footer .= $cfg["sys_optional_footer"];
 			$index = str_replace("{footer}", $footer, $index);
@@ -126,7 +127,6 @@ class sitetool {
 			$index = preg_replace("~&(?=(\w+|[a-f0-9]+)=)~i", "&amp;", $index);
 			// $index = preg_replace("~&(?!(\w+|#\d+|#x[a-f0-9]+);)~i", "&amp;", $index);
 			$index = preg_replace("~<img src=\"/\"((\w|\s|\"|\=)+)>~i", "", $index);
-#			$index = utf8_encode($index);
 
 			if ($compression_mode and $cfg['sys_compress_level']) {
 				Header("Content-Encoding: $compression_mode");

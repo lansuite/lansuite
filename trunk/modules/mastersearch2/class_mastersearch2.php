@@ -242,24 +242,26 @@ class MasterSearch2 {
 		if ($count_rows['count'] > $this->config['EntriesPerPage']) {
 		  $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&page=";
 			$templ['ms2']['pages'] = ("Seiten: ");
+      $link_start = ' <a class="menu" href="#" OnClick="javascript:loadPage(\'';
+      $link_end = '\');">';
 			// Previous page link
 			if ($_GET['page'] != "all" and (int)$_GET['page'] > 0) {
-				$templ['ms2']['pages'] .= (' <a class="menu" href="'. $link . ($_GET['page'] - 1) .'"><b>&lt;</b></a>');
+				$templ['ms2']['pages'] .= $link_start . $link . ($_GET['page'] - 1) . $link_end .'<b>&lt;</b></a>';
 			}
 			// Direct page link
 			$i = 0;
 			while($i < $count_pages) {
 				if ($_GET['page'] != "all" and $_GET['page'] == $i) $templ['ms2']['pages'] .= (" " . ($i + 1));
-				else $templ['ms2']['pages'] .= (' <a class="menu" href="' . $link . $i . '"><b>'. ($i + 1) .'</b></a>');
+				else $templ['ms2']['pages'] .= $link_start . $link . $i . $link_end .'<b>'. ($i + 1) .'</b></a>';
 				$i++;
 			}
 			// Next page link
 			if ($_GET['page'] != "all" and ($_GET['page'] + 1) < $count_pages) {
-				$templ['ms2']['pages'] .= (' <a class="menu" href="'. $link . ($_GET['page'] + 1) .'"><b>&gt;</b></a>');
+				$templ['ms2']['pages'] .= $link_start . $link . ($_GET['page'] + 1) . $link_end .'<b>&gt;</b></a>';
 			}
 			// All link
 			if ($_GET['page'] == "all") $templ['ms2']['pages'] .= " Alle";
-			else $templ['ms2']['pages'] .= (' <a class="menu" href="'. $link . 'all"><b>Alle</b></a>');									
+			else $templ['ms2']['pages'] .= ' <a class="menu" href="' . $link . 'all' . '"><b>Alle</b></a>';
     }
 
 

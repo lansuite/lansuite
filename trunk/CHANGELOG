@@ -11,6 +11,7 @@ Version 2.1.3
 - Bugfix: #423 Auf manchen DB-Systemen, konnte das Board nicht mehr angezeigt werden, statt dessen nur ein MySQL-Fehler (KnoX 25.04.2006)
 - Bugfix: #419 Die PW-Recovery Mail hatte codierte Line-Break Zeichen enthalten. (KnoX 25.04.2006)
 
+- Add: AJAX-Support implementiert und MasterSearch2 darauf testweise umgestellt (KnoX 27.04.2006)
 - Add: #327 Im Board kann man nun einen Thread schließen (KnoX 24.04.2006)
 - Add: #410 Option eingebaut, dass Admins auf Wunsch neu angemeldete User erst freischalten müssen, bevor diese sich einloggen können (KnoX 23.04.2006)
 

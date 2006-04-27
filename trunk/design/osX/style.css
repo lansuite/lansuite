@@ -213,6 +213,16 @@ a.admin:hover {
 	padding:		4px;
 }
 
+.loading {
+	background:		#555555;
+	border:			1px solid #9D9D9D;
+	color:			#ffffff;
+	padding:		4px;
+	font-size:		11px;
+	text-align:		left;
+	visibility:  hidden;
+}
+
 option[value=de]:before { content:url("/ext_inc/country_flags/de.gif"); }
 option[value=en]:before { content:url("/ext_inc/country_flags/en.gif"); }
 option[value=at]:before { content:url("/ext_inc/country_flags/at.gif"); }
