@@ -63,7 +63,7 @@
 			<field>
 				<name>function</name>
 				<type>longtext</type>
-				<null>NULL</null>
+				<null>YES</null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -102,7 +102,7 @@
 			<field>
 				<name>cron_key</name>
 				<type>longtext</type>
-				<null>NULL</null>
+				<null>YES</null>
 				<key></key>
 				<default></default>
 				<extra></extra>

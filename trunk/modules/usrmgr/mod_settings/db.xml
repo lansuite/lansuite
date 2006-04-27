@@ -319,7 +319,7 @@
 			<field>
 				<name>user_session_time</name>
 				<type>int(11)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -327,7 +327,7 @@
 			<field>
 				<name>user_session_page</name>
 				<type>smallint(5)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -335,7 +335,7 @@
 			<field>
 				<name>user_lastvisit</name>
 				<type>int(11)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -343,7 +343,7 @@
 			<field>
 				<name>user_regdate</name>
 				<type>int(11)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -359,7 +359,7 @@
 			<field>
 				<name>user_posts</name>
 				<type>mediumint(8) unsigned</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -367,7 +367,7 @@
 			<field>
 				<name>user_timezone</name>
 				<type>decimal(5,2)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -391,7 +391,7 @@
 			<field>
 				<name>user_dateformat</name>
 				<type>varchar(14)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -399,7 +399,7 @@
 			<field>
 				<name>user_new_privmsg</name>
 				<type>smallint(5) unsigned</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -407,7 +407,7 @@
 			<field>
 				<name>user_unread_privmsg</name>
 				<type>smallint(5) unsigned</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -415,7 +415,7 @@
 			<field>
 				<name>user_last_privmsg</name>
 				<type>int(11)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -423,7 +423,7 @@
 			<field>
 				<name>user_login_tries</name>
 				<type>smallint(5) unsigned</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -431,7 +431,7 @@
 			<field>
 				<name>user_last_login_try</name>
 				<type>int(11)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -487,7 +487,7 @@
 			<field>
 				<name>user_allowavatar</name>
 				<type>tinyint(1)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -495,7 +495,7 @@
 			<field>
 				<name>user_allow_pm</name>
 				<type>tinyint(1)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -503,7 +503,7 @@
 			<field>
 				<name>user_allow_viewonline</name>
 				<type>tinyint(1)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -511,7 +511,7 @@
 			<field>
 				<name>user_notify</name>
 				<type>tinyint(1)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -519,7 +519,7 @@
 			<field>
 				<name>user_notify_pm</name>
 				<type>tinyint(1)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -527,7 +527,7 @@
 			<field>
 				<name>user_popup_pm</name>
 				<type>tinyint(1)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
@@ -551,7 +551,7 @@
 			<field>
 				<name>user_avatar_type</name>
 				<type>tinyint(4)</type>
-				<null>NO</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
