@@ -230,6 +230,7 @@ a.admin:hover {
 }
 
 .loading {
+  position: absolute;
 	background:		#555555;
 	border:			1px solid #9D9D9D;
 	color:			#ffffff;

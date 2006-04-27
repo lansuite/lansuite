@@ -14,6 +14,7 @@
 <body {$templ['index']['body']['js']}>
 {$templ['index']['control']['js']}
 <a name="top"></a>
+<span id="LSloading" class="loading"></span>
 <table width="100%" cellspacing="0" cellpadding="0" border="0">
 
 <!-- Block: Top -->
@@ -54,7 +55,7 @@
 		<td style="background:url(design/{default_design}/images/menu_topic_bg.gif)" height="15"><img src="design/{default_design}/images/index_topic_lansuite.gif" width="78" height="7" alt="lansuite_topic"/></td>
 	</tr>
 	<tr class="content"> 
-		<td colspan="2">{$templ['index']['info']['content']} </td>
+		<td colspan="2" id="LScontent">{$templ['index']['info']['content']} </td>
 	</tr>
 	<tr class="content"> 
 		<td colspan="2" align="right" valign="bottom"><a href="#top"><img src="design/{default_design}/images/index_bottom_2top.gif" width="78" height="7" border="0" alt="lansuite_buttom"/></a></td>
@@ -81,7 +82,7 @@
 <!-- Block: Bottom -->
 <tr> 
 	<td valign="bottom" height="1"></td>
-	<td colspan="3"><div align="center" class="copyright">{footer}</div></td>
+	<td colspan="3"><div align="center" class="copyright" id="LSfooter">{footer}</div></td>
 	<td valign="bottom" height="1"></td>
 </tr>
 </table>

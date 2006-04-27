@@ -52,10 +52,11 @@ class boxes {
 	}
 
 
-	function LinkItem($link, $caption, $class = "") {
+	function LinkItem($link, $caption, $class = "", $hint='') {
 		global $templ, $dsp;
 
 		if ($link != "") {
+  		$templ['box']['row']['hint'] = $hint;
 			$templ['box']['row']['link'] = $link;
 			$templ['box']['row']['class'] = $class;
 
@@ -67,10 +68,9 @@ class boxes {
 	function ItemRow($item, $caption, $link = "", $hint = "", $class = "") {
 		global $templ, $dsp;
 
-		$templ['box']['row']['hint'] = $hint;
 		$templ['box']['row']['item'] = $item;
 		if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18, "<br />\n");
-		$templ['box']['row']['link_cont'] = $this->LinkItem($link, $caption, $class);
+		$templ['box']['row']['link_cont'] = $this->LinkItem($link, $caption, $class, $hint);
 		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", "item_row");
 	}
 
