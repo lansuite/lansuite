@@ -213,7 +213,7 @@ if ($db->success) {
 	include_once("modules/sponsor/banner.php");
 }
 
-if ($script_filename != "install.php" && $siteblock == false) {
+if ($script_filename != "install.php" and !$_GET['contentonly'] and $siteblock == false) {
 	// Boxes (die Defenierung ob linke oder rechte Seite befindet sich jetzt in der modindex_boxes.php)
 	include_once("modules/boxes/modindex_boxes.php");
 }
@@ -243,15 +243,17 @@ if ($db->success){
 
 // Output HTML
 #$templ['index']['info']['content'] = '<table width="100%" cellspacing="0" cellpadding="0">'. $templ['index']['info']['content']. '</table>';
-if (($_SESSION["lansuite"]["fullscreen"] == 1) and file_exists("design/{$auth["design"]}/templates/index_fullscreen.htm")) {
-	$_SERVER['REQUEST_URI'] = str_replace("fullscreen=yes", "", $_SERVER['REQUEST_URI']);
-	$cur_url = parse_url($_SERVER['REQUEST_URI']);
-	if ($cur_url["query"] == "") $templ['index']['control']['current_url'] = str_replace('?', '', $_SERVER['REQUEST_URI']) ."?fullscreen=no";
-	else $templ['index']['control']['current_url'] = $_SERVER['REQUEST_URI'] ."fullscreen=no";
-	eval("\$index = \"". $func->gettemplate("index_fullscreen")."\";");
-} elseif ($script_filename == "install.php") eval("\$index = \"". $func->gettemplate("setup_index")."\";");
-else eval("\$index = \"". $func->gettemplate("index_login")."\";");
-
+if ($_GET['contentonly']) $index = $templ['index']['info']['content'];
+else {
+  if (($_SESSION["lansuite"]["fullscreen"] == 1) and file_exists("design/{$auth["design"]}/templates/index_fullscreen.htm")) {
+  	$_SERVER['REQUEST_URI'] = str_replace("fullscreen=yes", "", $_SERVER['REQUEST_URI']);
+  	$cur_url = parse_url($_SERVER['REQUEST_URI']);
+  	if ($cur_url["query"] == "") $templ['index']['control']['current_url'] = str_replace('?', '', $_SERVER['REQUEST_URI']) ."?fullscreen=no";
+  	else $templ['index']['control']['current_url'] = $_SERVER['REQUEST_URI'] ."fullscreen=no";
+  	eval("\$index = \"". $func->gettemplate("index_fullscreen")."\";");
+  } elseif ($script_filename == "install.php") eval("\$index = \"". $func->gettemplate("setup_index")."\";");
+  else eval("\$index = \"". $func->gettemplate("index_login")."\";");
+}
 $sitetool->out_optimizer();
 
 // Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.

@@ -1,4 +1,58 @@
 
+//// AJAX ////
+
+// globale Instanz von XMLHttpRequest
+var xmlHttp = false;
+
+// XMLHttpRequest-Instanz erstellen
+// ... für Internet Explorer
+try {
+  xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+} catch(e) {
+  try {
+    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+  } catch(e) {
+    xmlHttp = false;
+  }
+}
+// ... für Mozilla, Opera und Safari
+if (!xmlHttp && typeof XMLHttpRequest != 'undefined') xmlHttp = new XMLHttpRequest();
+
+// aktuelle Daten laden
+function loadPage(url) {
+  LoadingToolTip('<b>Loading...</b>');
+  if (xmlHttp) {
+    xmlHttp.open('GET', url +'&contentonly=1');
+    xmlHttp.onreadystatechange = function () {
+      if (xmlHttp.readyState == 4) {
+        document.getElementById("LScontent").innerHTML = xmlHttp.responseText;
+        document.getElementById("LSfooter").innerHTML = document.getElementById("NewLSfooter").innerHTML;
+        document.getElementById("LScontent").removeChild(document.getElementById("NewLSfooter"));
+        document.getElementById("LSloading").style.visibility = "hidden";
+      }
+    }
+    xmlHttp.send(null);
+  }
+}
+
+function LoadingToolTip(text) {
+  if (window.event) {
+    var scr = TX_getScrollPos();
+    var cordX = window.event.clientX + scr.x;
+    var cordY = window.event.clientY + scr.y;
+  }
+  
+  document.getElementById("LSloading").style.position = "absolute";
+  document.getElementById("LSloading").style.left =  ( cordX + 20 ) + "px";
+  document.getElementById("LSloading").style.top = ( cordY + 20 ) + "px";
+  document.getElementById("LSloading").innerHTML = text;
+  document.getElementById("LSloading").style.visibility = "visible";
+}
+
+
+
+
+
 //// Mastersearch2 ////
 
 // Highlights the current table row under the mouse

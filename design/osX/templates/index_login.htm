@@ -19,6 +19,7 @@
 
 <body {$templ['index']['body']['js']} style="leftmargin: 4px; topmargin: 4px; marginwidth: 4px;marginheight: 4px">
 {$templ['index']['control']['js']}
+<span id="LSloading" class="loading"></span>
 <a name="top"></a>
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%">
 <tr>
@@ -54,7 +55,7 @@
 		</tr>
 		<tr> 
 			<td valign="top" width="8" style="background:url(design/{default_design}/images/menu_content_ml.gif) repeat-y"></td>
-			<td valign="top" align="center">{$templ['index']['info']['content']}</td>
+			<td valign="top" align="center" id="LScontent">{$templ['index']['info']['content']}</td>
 			<td valign="top" width="8" style="background:url(design/{default_design}/images/menu_content_mr.gif) repeat-y"></td>
 		</tr>
 		<tr> 
@@ -76,7 +77,7 @@
 	<td valign="top" width="155" style="padding-left:8px;text-align:right">{$templ['index']['control']['boxes_rightside']}</td>
 </tr>
 <tr>
-	<td colspan="3" align="center" class="copyright">{footer}</td>
+	<td colspan="3" align="center" class="copyright" id="LSfooter">{footer}</td>
 </tr>
 </table>
 
