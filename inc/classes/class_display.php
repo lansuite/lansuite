@@ -10,7 +10,13 @@ class display {
 	var $TableOpen = false;
 	var $HiddenBoxJSLoaded = false;
   var $TplCache = array();
-  
+  var $errortext_prefix = '';
+  var $errortext_suffix = '';
+
+  function display() {
+    $this->errortext_prefix = HTML_NEWLINE . HTML_FONT_ERROR;
+    $this->errortext_suffix = HTML_FONT_END;
+  }
 /* Class-Internal Functions*/
 
 	// Returns the template $file
@@ -69,8 +75,6 @@ class display {
 		unset($this->content_need_form);
 		$this->form_ok = false;
 
-        $this->errortext_prefix = HTML_NEWLINE . HTML_FONT_ERROR;
-        $this->errortext_suffix = HTML_FONT_END;
 
 		$this->AddTpl("design/templates/ls_row_headline.htm");
 	}

@@ -141,7 +141,7 @@ class Mail {
 		if ($this->inet_from_mail == "") $this->inet_from_mail = $cfg["sys_party_mail"];
 
 		$this->inet_headers   = "MIME-Version: 1.0\r\n";
-		$this->inet_headers  .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+		$this->inet_headers  .= "Content-type: text/plain; charset=utf-8\r\n";
 		$this->inet_headers  .= "To: $to_user_name <$to_user_email>\r\n";
 		$this->inet_headers  .= "From: $from\r\n";
 		$this->inet_headers  .= "Reply-To: $from\r\n";
