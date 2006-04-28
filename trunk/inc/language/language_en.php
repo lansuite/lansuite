@@ -196,4 +196,10 @@
   $lang['ms2']['assign'] = 'Assign';  
   $lang['ms2']['generate'] = 'Generate';  
   $lang['ms2']['reply'] = 'Reply';  
+
+  $lang['mf']['add_success'] = 'The data has been submitted';
+  $lang['mf']['change_success'] = 'The data has been changed';
+  $lang['mf']['err_no_value'] = 'Fill out this mandatory field, please';
+  $lang['mf']['err_no_integer'] = 'Submit a numeric value, please';
+  $lang['mf']['err_invalid_date'] = 'Invalid date submitted';
 ?>

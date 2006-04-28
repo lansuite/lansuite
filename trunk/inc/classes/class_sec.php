@@ -43,7 +43,7 @@ class sec {
 		$db->query("DELETE FROM {$config["tables"]["ip_locklist"]} WHERE ip = '{$_SERVER['REMOTE_ADDR']}' AND module = '$module'");
 	}
 
-	function locked ($module = NULL) {
+	function locked ($module = NULL, $referrer = '') {
 		global $db, $config, $func;
 
 		if ($_SESSION["lock_$module"]) $locked = true;
@@ -53,7 +53,7 @@ class sec {
 			else $locked = false;
 		}
 
-		if ($locked) $func->error("NO_REFRESH", $func->internal_referer);
+		if ($locked) $func->error("NO_REFRESH", $referrer);
 		return $locked;
 	}
 }
