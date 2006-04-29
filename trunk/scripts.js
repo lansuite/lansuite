@@ -6,14 +6,6 @@ function OpenWindow(url, name) {
   Win1.focus();
 }
 
-function TextAreaPlusCharsLeft(textarea, counter, maxchar){
-	if (textarea.value.length > maxchar){
-		textarea.value = textarea.value.substr(0, maxchar);
-		textarea.blur();
-	}
-	counter.value = maxchar - textarea.value.length;
-}
-
 
 //// AJAX ////
 
@@ -66,7 +58,82 @@ function LoadingToolTip(text) {
 }
 
 
+//// Class Display ////
 
+function TextAreaPlusCharsLeft(textarea, counter, maxchar){
+	if (textarea.value.length > maxchar){
+		textarea.value = textarea.value.substr(0, maxchar);
+		textarea.blur();
+	}
+	counter.value = maxchar - textarea.value.length;
+}
+
+
+function CheckPasswordSecurity(password) {
+	var TestNumberOfChars = false;
+	var TestUppercaseChars = false;
+	var TestLowercaseChars = false;
+	var TestDigits = false;
+	var TestSpecialChars = false;
+	var TestCounter = false;
+	var TestCounter2 = false;
+	var TestWhiteSpaces = false;
+
+	var counter = 0;
+
+	/* Check if length of password is greather then 8 */
+	if (password.length >= 8) TestNumberOfChars = true;
+	else TestNumberOfChars = false;
+
+	/* Check for minimum of 2 uppercase Letters */
+	if (password.match(/[A-Z].*[A-Z]/)) TestUppercaseChars = true;
+	else TestUppercaseChars = false;
+
+	/* Check for minimum of 2 lowercase letters */
+	if (password.match(/[a-z].*[a-z]/)) TestLowercaseChars = true;
+	else TestLowercaseChars = false;
+
+	/* Check for minimum of 2 digits */
+	if (password.match(/[0-9].*[0-9]/)) TestDigits = true;
+	else TestDigits = false;
+
+	/* Check for minimum of 2 special chars */
+	var specCharCounter = 0;
+	if (password.length > 0) {
+		characters = password.split("");
+
+		for (var i = 0; i < characters.length; i++) {
+			singleChar = characters[i];
+			if (singleChar.match(/[^a-zA-Z0-9]/)) specCharCounter++;
+		}
+
+		if (specCharCounter >= 2) TestSpecialChars = true;
+		else TestSpecialChars = false;
+	}
+
+	/* Check for whitespaces and ESC-Sequences */
+	if (password.match(/\s/)) TestWhiteSpaces = true;
+	else TestWhiteSpaces = false;
+
+	/* Check for minimum of 2 true ifs */
+	if (TestUppercaseChars) counter++;
+	if (TestLowercaseChars) counter++;
+	if (TestDigits) counter++;
+	if (TestSpecialChars) counter++;
+
+	if ((counter >= 2) && !TestWhiteSpaces) TestCounter = true;
+	else TestCounter = false;
+
+	if ((counter >= 3) && !TestWhiteSpaces) TestCounter2 = true;
+	else TestCounter2 = false;
+
+	var zaehler = 0;
+	if (TestCounter) zaehler++;
+	if (TestCounter2) zaehler++;
+	if (TestNumberOfChars) zaehler++;
+
+	document.images.seclevel.src = 'design/osX/images/password_bar'+ zaehler +'.jpg';
+}
 
 
 //// Mastersearch2 ////

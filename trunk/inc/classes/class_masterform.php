@@ -2,6 +2,8 @@
 
 define('FIELD_OPTIONAL', 1);
 define('HTML_ALLOWED', 1);
+define('IS_PASSWORD', 1);
+define('IS_NEW_PASSWORD', 2);
 
 class masterform {
 
@@ -122,9 +124,8 @@ class masterform {
           if ($group['caption']) $dsp->AddFieldsetStart($group['caption']);
           if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) switch($SQLFieldTypes[$field['name']]) {
             default:
-              // Dropdown
               if ($field['selections']) {
-                // Pre-Defined
+                // Pre-Defined Dropdown
                 if (is_array($field['selections'])) {
               		$selections = array();
               		foreach($field['selections'] as $key => $val) {
@@ -132,11 +133,20 @@ class masterform {
               			$selections[] = "<option$selected value=\"$key\">$val</option>";
               		}
               		$dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional']);
+
                 // Picture Dropdown from path
                 } elseif (is_dir($field['selections'])) {
                		$dsp->AddPictureDropDownRow($field['name'], $field['caption'], $field['selections'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']]);
+
+                // Password
+                } elseif ($field['selections'] == IS_PASSWORD) {
+                  $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
+                } elseif ($field['selections'] == IS_NEW_PASSWORD) {
+                  $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value)\"");
+                  $dsp->AddPasswordRow($field['name'].'2', $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], 0);
+                  $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
                 }
-              // Textfield
+              // Normal Textfield
               } else $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
             break;
 

@@ -20,9 +20,9 @@ class display {
 /* Class-Internal Functions*/
 
 	// Returns the template $file
-	function FetchTpl($file, $templ){
-		global $auth, $language, $cfg, $TplCache;
-
+	function FetchTpl($file, $templx = ''){
+		global $auth, $language, $cfg, $TplCache, $templ;
+		
     #echo "Loading $file<br>";
 
     if ($this->TplCache[$file] != '') $tpl_str = $this->TplCache[$file];
