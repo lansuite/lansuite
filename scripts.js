@@ -1,4 +1,20 @@
 
+//// Basic ////
+
+function OpenWindow(url, name) {
+  Win1 = window.open(url, name, "width=600,height=200,left=100,top=100");
+  Win1.focus();
+}
+
+function TextAreaPlusCharsLeft(textarea, counter, maxchar){
+	if (textarea.value.length > maxchar){
+		textarea.value = textarea.value.substr(0, maxchar);
+		textarea.blur();
+	}
+	counter.value = maxchar - textarea.value.length;
+}
+
+
 //// AJAX ////
 
 // globale Instanz von XMLHttpRequest
