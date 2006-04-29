@@ -30,12 +30,8 @@
 	</entry>
 	<entry>
 		<action>change</action>
-		<file>search</file>
-		<caption>Verwalten</caption>
-		<hint>Hier können Sie bereits eingetragene News-Meldungen ändern</hint>
-		<link>?mod=news&action=change</link>
+		<file>add</file>
 		<requirement>2</requirement>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>delete</action>
