@@ -181,6 +181,10 @@ $mf->AddField($lang['tourney']['t_add_comment'], 'comment', FIELD_OPTIONAL, '', 
 $mf->AddField($lang['tourney']['t_add_mapcycle'], 'mapcycle', FIELD_OPTIONAL);
 $mf->AddGroup($lang['tourney']['t_add_league_rules']);
 
+if (!$_GET['tournamentid']) {
+  $mf->AddFix('party_id', $party->party_id);
+}
+
 if ($mf->SendForm('index.php?mod=tournament2&action='. $_GET['action'], 'tournament_tournaments', 'tournamentid', $_GET['tournamentid'])) {
   $func->log_event(str_replace("%T%", $_POST["name"], $lang["tourney"]["t_add_log_add"]), 1, $lang["tourney"]["log_t_manage"]);
 }
