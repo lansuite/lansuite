@@ -16,6 +16,10 @@ switch($_GET['mod'])
 
 // DONT CHANGE FOLLOW !
 
+	case "ls_row_textareaplus":
+		include('design/templates/ls_row_textareaplus_popup.php');
+	break;
+
 	/////////////////////////////////////// Messenger ////////////////////////////////////////////
 	case "query":
 #		include_once("modules/msgsys/mod_settings/modul_tables.inc.php");
