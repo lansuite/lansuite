@@ -242,8 +242,8 @@ class MasterSearch2 {
 		if ($count_rows['count'] > $this->config['EntriesPerPage']) {
 		  $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&page=";
 			$templ['ms2']['pages'] = ("Seiten: ");
-      $link_start = ' <a class="menu" href="#" OnClick="javascript:loadPage(\'';
-      $link_end = '\');">';
+      $link_start = ' <a href="';
+      $link_end = '" onclick="loadPage(this.href); return false" class="menu">';
 			// Previous page link
 			if ($_GET['page'] != "all" and (int)$_GET['page'] > 0) {
 				$templ['ms2']['pages'] .= $link_start . $link . ($_GET['page'] - 1) . $link_end .'<b>&lt;</b></a>';
@@ -261,7 +261,7 @@ class MasterSearch2 {
 			}
 			// All link
 			if ($_GET['page'] == "all") $templ['ms2']['pages'] .= " Alle";
-			else $templ['ms2']['pages'] .= ' <a class="menu" href="' . $link . 'all' . '"><b>Alle</b></a>';
+			else $templ['ms2']['pages'] .= ' <a href="' . $link . 'all' . '" class="menu"><b>Alle</b></a>';
     }
 
 

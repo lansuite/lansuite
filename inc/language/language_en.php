@@ -202,4 +202,5 @@
   $lang['mf']['err_no_value'] = 'Fill out this mandatory field, please';
   $lang['mf']['err_no_integer'] = 'Submit a numeric value, please';
   $lang['mf']['err_invalid_date'] = 'Invalid date submitted';
+  $lang['mf']['err_invalid_id'] = 'Invalid ID given';
 ?>

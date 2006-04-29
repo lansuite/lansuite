@@ -1,4 +1,8 @@
 <?php
+
+define('FIELD_OPTIONAL', 1);
+define('HTML_ALLOWED', 1);
+
 class masterform {
 
 	var $FormFields = array();
@@ -7,6 +11,11 @@ class masterform {
 	var $SQLFieldTypes = array();
 	var $error = array();
 	var $CurrentDBFields = array();
+
+  function AddFix($name, $value){
+    $this->SQLFields[] = $name;
+    $_POST[$name] = $value;
+  }
 
   function AddField($caption, $name, $optional = 0, $callback = '', $selections = '') {
     $arr = array();
@@ -48,10 +57,13 @@ class masterform {
       }
       $db_query = substr($db_query, 0, strlen($db_query) - 2);
 
-      $row = $db->query_first("SELECT $db_query FROM {$config['tables'][$table]} WHERE $idname = ". (int)$id);
-      foreach ($this->SQLFields as $key => $val) {
+      $row = $db->query_first("SELECT 1 AS found, $db_query FROM {$config['tables'][$table]} WHERE $idname = ". (int)$id);
+      if ($row['found']) foreach ($this->SQLFields as $key => $val) {
         $this->CurrentDBFields[$val] = $row[$val];
         if ($_POST[$val] == '') $_POST[$val] = $row[$val];
+      } else {
+        $func->error($lang['mf']['err_invalid_id']);
+        return false;
       }
     }
 
@@ -76,6 +88,7 @@ class masterform {
 
             // Check Int
             elseif (strpos($SQLFieldTypes[$field['name']], 'int') !== false and $SQLFieldTypes[$field['name']] != 'tinyint(1)'
+              and $SQLFieldTypes[$field['name']] != "enum('0','1')"
               and $_POST[$field['name']] and (int)$_POST[$field['name']] == 0) $this->error[$field['name']] = $lang['mf']['err_no_integer'];
 
             // Check date
@@ -129,10 +142,17 @@ class masterform {
 
             // Textarea
             case 'text':
-              $dsp->AddTextAreaRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional']);
+              $maxchar = 65535;
+            case 'mediumtext':
+              if (!$maxchar) $maxchar = 16777215;
+            case 'longtext':
+              if (!$maxchar) $maxchar = 4294967295;
+              if ($field['selections']) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
+              else $dsp->AddTextAreaRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional']);
             break;
 
             // Checkbox
+            case "enum('0','1')":
             case 'tinyint(1)':
               list($field['caption1'], $field['caption2']) = split('\|', $field['caption']);
               $dsp->AddCheckBoxRow($field['name'], $field['caption1'], $field['caption2'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']]);

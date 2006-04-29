@@ -55,7 +55,7 @@ $selecttions['groups'] = $lang['tourney']['groups'];
 $selecttions['all'] = $lang['tourney']['all'];
 $mf->AddField($lang['tourney']['details_mode'], 'mode', '', 'CheckModeChangeAllowed', $selecttions);
 
-$mf->AddField($lang['tourney']['add_blind_draw'].'|'.$lang['tourney']['add_blind_draw2'], 'blind_draw', 1);
+$mf->AddField($lang['tourney']['add_blind_draw'].'|'.$lang['tourney']['add_blind_draw2'], 'blind_draw', FIELD_OPTIONAL);
 $mf->AddGroup($lang['tourney']['t_add_mode']);
 
 
@@ -63,13 +63,13 @@ $mf->AddGroup($lang['tourney']['t_add_mode']);
 $selecttions = array();
 $selecttions[0] = $lang["tourney"]["details_none"];
 for($i = 1; $i <= 20; $i++) $selecttions[$i] = $i;
-$mf->AddField($lang['tourney']['details_group'], 'groupid', 1, '', $selecttions);
+$mf->AddField($lang['tourney']['details_group'], 'groupid', FIELD_OPTIONAL, '', $selecttions);
 
 $selecttions = array();
 for($i = 0; $i <= 10; $i++) $selecttions[$i] = $lang['tourney']['t_add_coin_cost'] .' '. $i .' '. $lang['tourney']['t_add_coin_name'];
-$mf->AddField($lang['tourney']['details_coins'], 'coins', 1, '', $selecttions);
+$mf->AddField($lang['tourney']['details_coins'], 'coins', FIELD_OPTIONAL, '', $selecttions);
 
-$mf->AddField($lang['tourney']['details_u18'].'|'.$lang['tourney']['t_add_u18_detail'], 'over18', 1);
+$mf->AddField($lang['tourney']['details_u18'].'|'.$lang['tourney']['t_add_u18_detail'], 'over18', FIELD_OPTIONAL);
 $mf->AddGroup($lang['tourney']['details_reg_limits']);
 
 
@@ -100,7 +100,7 @@ $mf->AddGroup($lang['tourney']['details_times']);
 
 
 // League + Misc
-$mf->AddField($lang['tourney']['t_add_icon'], 'icon', 1, '', 'ext_inc/tournament_icons');
+$mf->AddField($lang['tourney']['t_add_icon'], 'icon', FIELD_OPTIONAL, '', 'ext_inc/tournament_icons');
 
 // WWCL-Spiel Auswahl
 $xml_file = "";
@@ -120,7 +120,7 @@ while ($akt_game_id = array_shift($game_ids)) {
 	($_POST["tournament_wwcl_gameid"] == $akt_game_id) ? $selected = "selected" : $selected = "";
 	$selecttions[$akt_game_id] = $akt_game_name;
 }
-$mf->AddField($lang['tourney']['t_add_wwcl_game'], 'wwcl_gameid', 1, 'CheckModeForLeague', $selecttions);
+$mf->AddField($lang['tourney']['t_add_wwcl_game'], 'wwcl_gameid', FIELD_OPTIONAL, 'CheckModeForLeague', $selecttions);
 
 // NGL-Spiel auswahl
 $xml_file = "";
@@ -151,7 +151,7 @@ $selecttions[''] = $lang["tourney"]["t_add_no_ngl"];
 			$selecttions[$akt_game_id] = $info_title .' - '. $akt_game_name;
 		}
 	}
-	$mf->AddField($lang['tourney']['t_add_ngl_game'], 'ngl_gamename', 1, 'CheckModeForLeague', $selecttions);
+	$mf->AddField($lang['tourney']['t_add_ngl_game'], 'ngl_gamename', FIELD_OPTIONAL, 'CheckModeForLeague', $selecttions);
 #}
 
 // LGZ-Spiel auswahl
@@ -167,7 +167,7 @@ $selecttions['bv_1on1'] = 'Blobby Volley 1on1';
 $selecttions['hdr_1on1'] = 'Herr der Ringe S.u.M 1on1';
 $selecttions['css_5on5'] = 'Counter-Strike:Source 5on5';
 $selecttions['nfsu2_1on1'] = 'Need For Speed Underground2 1on1';
-$mf->AddField($lang['tourney']['t_add_lgz_game'], 'lgz_gamename', 1, 'CheckModeForLeague', $selecttions);
+$mf->AddField($lang['tourney']['t_add_lgz_game'], 'lgz_gamename', FIELD_OPTIONAL, 'CheckModeForLeague', $selecttions);
 
 // Rules (Extern)
 $selecttions = array();
@@ -175,13 +175,13 @@ $selecttions[] = $lang['tourney']['t_add_none'];
 $verz = @opendir('ext_inc/tournament_rules/');
 while ($file_name = @readdir($verz)) if (!is_dir($file_name)) $selecttions[$file_name] = $file_name;
 @closedir($verz);
-$mf->AddField($lang['tourney']['t_add_ext_rules'], 'rules_ext', 1, '', $selecttions);
+$mf->AddField($lang['tourney']['t_add_ext_rules'], 'rules_ext', FIELD_OPTIONAL, '', $selecttions);
 
-$mf->AddField($lang['tourney']['t_add_comment'], 'comment', 1);
-$mf->AddField($lang['tourney']['t_add_mapcycle'], 'mapcycle', 1);
+$mf->AddField($lang['tourney']['t_add_comment'], 'comment', FIELD_OPTIONAL, '', HTML_ALLOWED);
+$mf->AddField($lang['tourney']['t_add_mapcycle'], 'mapcycle', FIELD_OPTIONAL);
 $mf->AddGroup($lang['tourney']['t_add_league_rules']);
 
 if ($mf->SendForm('index.php?mod=tournament2&action='. $_GET['action'], 'tournament_tournaments', 'tournamentid', $_GET['tournamentid'])) {
-  $func->log_event(str_replace("%T%", $_POST["tournament_name"], $lang["tourney"]["t_add_log_add"]), 1, $lang["tourney"]["log_t_manage"]);
+  $func->log_event(str_replace("%T%", $_POST["name"], $lang["tourney"]["t_add_log_add"]), 1, $lang["tourney"]["log_t_manage"]);
 }
 ?>
