@@ -209,4 +209,5 @@
   $lang['mf']['err_no_value'] = 'Bitte füllen Sie dieses Pflichtfeld aus';
   $lang['mf']['err_no_integer'] = 'Bitte geben Sie eine Zahl ein';
   $lang['mf']['err_invalid_date'] = 'Das eingegebene Datum ist nicht korrekt';
+  $lang['mf']['err_invalid_id'] = 'Diese ID existiert nicht';
 ?>

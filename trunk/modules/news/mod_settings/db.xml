@@ -30,7 +30,7 @@
 			</field>
 			<field>
 				<name>text</name>
-				<type>longtext</type>
+				<type>text</type>
 				<null></null>
 				<key>MUL</key>
 				<default></default>
