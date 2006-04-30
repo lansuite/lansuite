@@ -4,6 +4,10 @@ define('FIELD_OPTIONAL', 1);
 define('HTML_ALLOWED', 1);
 define('IS_PASSWORD', 1);
 define('IS_NEW_PASSWORD', 2);
+define('IS_SELECTION', 3);
+define('IS_MULTI_SELECTION', 4);
+define('IS_FILE_UPLOAD', 5);
+define('IS_PICTURE_SELECT', 6);
 
 class masterform {
 
@@ -20,13 +24,14 @@ class masterform {
     $_POST[$name] = $value;
   }
 
-  function AddField($caption, $name, $optional = 0, $callback = '', $selections = '') {
+  function AddField($caption, $name, $type = '', $selections = '', $optional = 0, $callback = '') {
     $arr = array();
     $arr['caption'] = $caption;
     $arr['name'] = $name;
     $arr['optional'] = $optional;
     $arr['callback'] = $callback;
     $arr['selections'] = $selections;
+    $arr['type'] = $type;
     $this->FormFields[] = $arr;
     $this->SQLFields[] = $name;
   }
@@ -103,7 +108,7 @@ class masterform {
               $this->error[$field['name']] = $lang['mf']['err_invalid_date'];
 
             // Check new passwords
-            elseif ($field['selections'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
+            elseif ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
               $this->error[$field['name']] = $lang['mf']['err_no_value'];
 
             // Callbacks
@@ -113,7 +118,10 @@ class masterform {
             }
 
             // Convert Passwords
-            if ($field['selections'] == IS_NEW_PASSWORD) $_POST[$field['name']] = md5($_POST[$field['name']]);
+            if ($field['type'] == IS_NEW_PASSWORD) $_POST[$field['name']] = md5($_POST[$field['name']]);
+
+            // Upload submitted file
+            if ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
           }
         }
 
@@ -135,31 +143,53 @@ class masterform {
           if ($group['caption']) $dsp->AddFieldsetStart($group['caption']);
           if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) switch($SQLFieldTypes[$field['name']]) {
             default:
-              if ($field['selections']) {
-                // Pre-Defined Dropdown
-                if (is_array($field['selections'])) {
-              		$selections = array();
-              		foreach($field['selections'] as $key => $val) {
-              			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
-              			$selections[] = "<option$selected value=\"$key\">$val</option>";
-              		}
-                  if (substr($field['name'], 0, 6) == 'multi_') $dsp->AddSelectFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], 7);
-              		else $dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional']);
-
-                // Picture Dropdown from path
-                } elseif (is_dir($field['selections'])) {
-               		$dsp->AddPictureDropDownRow($field['name'], $field['caption'], $field['selections'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']]);
-
-                // Password
-                } elseif ($field['selections'] == IS_PASSWORD) {
+              switch ($field['type']) {
+                case IS_PASSWORD: // Password-Row
                   $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
-                } elseif ($field['selections'] == IS_NEW_PASSWORD) {
+                break;
+                
+                case IS_NEW_PASSWORD: // New-Password-Row
                   $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value)\"");
                   $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.$lang['mf']['pw2_caption'], $_POST[$field['name'].'2'], $this->error[$field['name'].'2'], '', $field['optional'], 0);
                   $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
-                }
-              // Normal Textfield
-              } else $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
+                break;
+
+                case IS_SELECTION: // Pre-Defined Dropdown
+                  if (is_array($field['selections'])) {
+                		$selections = array();
+                		foreach($field['selections'] as $key => $val) {
+                			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
+                			$selections[] = "<option$selected value=\"$key\">$val</option>";
+                		}
+                    $dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional']);
+                  }
+                break;
+
+                case IS_MULTI_SELECTION: // Pre-Defined Multiselection
+                  if (is_array($field['selections'])) {
+                		$selections = array();
+                		foreach($field['selections'] as $key => $val) {
+                			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
+                			$selections[] = "<option$selected value=\"$key\">$val</option>";
+                		}
+                    $dsp->AddSelectFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], 7);
+                  }
+                break;
+
+                case IS_FILE_UPLOAD: // File Upload to path
+                  if (is_dir($field['selections']))
+                    $dsp->AddFileSelectRow($field['name'], $field['caption'], $this->error[$field['name']], '', '', $field['optional']);
+                break;
+                
+                case IS_PICTURE_SELECT: // Picture Dropdown from path
+                  if (is_dir($field['selections']))
+                    $dsp->AddPictureDropDownRow($field['name'], $field['caption'], $field['selections'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']]);
+                break;
+
+                default: // Normal Textfield
+                  $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
+                break;
+              }
             break;
 
             // Textarea
@@ -169,7 +199,7 @@ class masterform {
               if (!$maxchar) $maxchar = 16777215;
             case 'longtext':
               if (!$maxchar) $maxchar = 4294967295;
-              if ($field['selections']) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
+              if ($field['type'] == HTML_ALLOWED) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
               else $dsp->AddTextAreaRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional']);
             break;
 
@@ -197,14 +227,16 @@ class masterform {
       case 2:
         if (!$this->SQLFields) $func->error('No Fields!');
         elseif (!$sec->locked($table, $StartURL)) {
+
+          // Generate INSERT/UPDATE query
           $db_query = '';
           foreach ($this->SQLFields as $key => $val) {
             if ($SQLFieldTypes[$val] == 'datetime') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
             else $db_query .= "$val = '$_POST[$val]', ";
           }
-
           $db_query = substr($db_query, 0, strlen($db_query) - 2);
 
+          // Send query
           if ($id) {
             $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $idname = ". (int)$id);
             $func->confirmation($lang['mf']['change_success'], $StartURL);

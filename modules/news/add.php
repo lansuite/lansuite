@@ -7,16 +7,16 @@ $mf = new masterform();
 
 // Name
 $mf->AddField($lang['news']['add_headline'], 'caption');
-$mf->AddField($lang['news']['add_icon'], 'icon', FIELD_OPTIONAL, '', 'ext_inc/news_icons');
-$mf->AddField($lang['news']['add_text'], 'text', '', '', HTML_ALLOWED);
+$mf->AddField($lang['news']['add_icon'], 'icon', IS_PICTURE_SELECT, 'ext_inc/news_icons', FIELD_OPTIONAL);
+$mf->AddField($lang['news']['add_text'], 'text', HTML_ALLOWED);
 $selections = array();
 $selections['0'] = $lang['news']['add_normal'];
 $selections['1'] = $lang['news']['add_important'];
-$mf->AddField($lang['news']['add_priority'], 'priority', FIELD_OPTIONAL, '', $selections);
+$mf->AddField($lang['news']['add_priority'], 'priority', IS_SELECTION, $selections, FIELD_OPTIONAL);
 $selections = array();
 $selections['0'] = $lang['sys']['no'];
 $selections['1'] = $lang['sys']['yes'];
-$mf->AddField($lang['news']['add_topnews'], 'top', FIELD_OPTIONAL, '', $selections);
+$mf->AddField($lang['news']['add_topnews'], 'top', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
 if (!$_GET['newsid']) {
   $mf->AddFix('date', time());
