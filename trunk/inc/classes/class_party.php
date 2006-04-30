@@ -299,25 +299,25 @@ class party{
 		 */
 		function get_price_dropdown($group_id = 0,$price_id = 0,$dropdown = false){
 			global $db,$dsp,$config,$lang,$cfg;
-			
+
 			if($group_id !== "NULL") $subquery = " AND group_id='{$group_id}'";
 			if($price_id == "NULL") $price_id = 0;
-			
+
 			$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} $subquery");
 			$anzahl = $db->num_rows($row);
-			
+
 			if($anzahl == 0){
 				$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} AND group_id='0'");
 			}
-			
-			if($anzahl >1 || $dropdown == true){		
+
+			if($anzahl >1 || $dropdown == true){
 				while ($res = $db->fetch_array($row)){
 						if($price_id == $res['price_id']){
-							$selected = "selected='selected'";	
+							$selected = "selected='selected'";
 						}else{
 							$selected = "";
 						}
-						
+
 						if(is_array($data)){
 							array_push($data,"<option $selected value='{$res['price_id']}'>{$res['price_text']} / {$res['price']} {$cfg['sys_currency']}</option>");
 						}else{
@@ -327,11 +327,29 @@ class party{
 				$dsp->AddDropDownFieldRow("price_id",$lang['class_party']['drowpdown_price'],$data,'');
 			}else{
 				$res = $db->fetch_array($row);
-				$dsp->AddDoubleRow($lang['class_party']['drowpdown_price'],$res['price_text'] . "  / {$res['price']} {$cfg['sys_currency']}<input name='price_id' type='hidden' value='{$res['price_id']}' />");	
+				$dsp->AddDoubleRow($lang['class_party']['drowpdown_price'],$res['price_text'] . "  / {$res['price']} {$cfg['sys_currency']}<input name='price_id' type='hidden' value='{$res['price_id']}' />");
 			}
-			
+
 		}
-		
+
+		function GetPriceDropdown($group_id = 0,$price_id = 0){
+			global $db,$config,$lang,$cfg,$mf;
+
+      $selections = array();
+      
+			if($group_id !== "NULL") $subquery = " AND group_id='{$group_id}'";
+			if($price_id == "NULL") $price_id = 0;
+
+			$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} $subquery");
+			$anzahl = $db->num_rows($row);
+
+			if($anzahl == 0) $row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} AND group_id='0'");
+
+			while ($res = $db->fetch_array($row)) $selections[$res['price_id']] = $res['price_text'] .' / '. $res['price'] .' '. $cfg['sys_currency'];
+			$mf->AddField($lang['class_party']['drowpdown_price'], 'price_id', IS_SELECTION, $selections);
+			$res = $db->free_result($res);
+		}
+
 		function get_party_javascript(){
 			global $db,$config,$cfg;
 			$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} ORDER BY group_id");
@@ -530,11 +548,26 @@ class party{
 				
 		}
 
-			
+
 		/**
 		 * Funktion um ein Dropdownfeld mit Benutzergruppen hinzuzufügen.
 		 *
 		 */
+		function GetUserGroupDropdown($group_id = "NULL",$nogroub = 0,$select_id = 0,$javascript = false){
+			global $db,$mf,$config,$lang;
+
+			if($group_id == "NULL") $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
+			else $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']} WHERE group_id = {$group_id}");
+
+			$selections = array();
+      $selections[] = $lang['class_party']['drowpdown_no_group'];
+
+			if ($res) while ($row = $db->fetch_array($res)) $selections[$row['group_id']] = $row['group_name'];
+      $mf->AddField($lang['class_party']['drowpdown_user_group'], 'group_id', IS_SELECTION, $selections);
+			return true;
+		}
+
+
 		function get_user_group_dropdown($group_id = "NULL",$nogroub = 0,$select_id = 0,$javascript = false){
 			global $db,$dsp,$config,$lang;
 			

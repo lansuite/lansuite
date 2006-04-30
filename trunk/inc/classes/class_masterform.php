@@ -8,6 +8,10 @@ define('IS_SELECTION', 3);
 define('IS_MULTI_SELECTION', 4);
 define('IS_FILE_UPLOAD', 5);
 define('IS_PICTURE_SELECT', 6);
+define('IS_TEXT_MESSAGE', 7);
+
+define('READ_DB_PROC', 0);
+define('CHECK_ERROR_PROC', 1);
 
 class masterform {
 
@@ -15,20 +19,24 @@ class masterform {
 	var $Groups = array();
 	var $SQLFields = array();
 	var $SQLFieldTypes = array();
+	var $DependOn = array();
 	var $error = array();
 	var $CurrentDBFields = array();
 	var $AdditionalDBUpdateFunction = '';
+	var $DependOnStarted = 0;
 
   function AddFix($name, $value){
     $this->SQLFields[] = $name;
     $_POST[$name] = $value;
   }
 
-  function AddField($caption, $name, $type = '', $selections = '', $optional = 0, $callback = '') {
+  function AddField($caption, $name, $type = '', $selections = '', $optional = 0, $callback = '', $DependOnThis = 0) {
     $arr = array();
     $arr['caption'] = $caption;
     $arr['name'] = $name;
+    $arr['optional'] = 0;
     $arr['optional'] = $optional;
+    if ($DependOnThis) $this->DependOn[$name] = $DependOnThis;
     $arr['callback'] = $callback;
     $arr['selections'] = $selections;
     $arr['type'] = $type;
@@ -94,6 +102,9 @@ class masterform {
               $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
               $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_hours'], $_POST[$field['name'].'_value_minutes'], 0);
 
+            if ($field['type'] == IS_CALLBACK) $err = call_user_func($field['selections'], $field['name'], CHECK_ERROR_PROC);
+            if ($err) $this->error[$field['name']] = $err;
+
             // Check for value
             if (!$field['optional'] and !$_POST[$field['name']]) $this->error[$field['name']] = $lang['mf']['err_no_value'];
 
@@ -141,79 +152,100 @@ class masterform {
         // Output fields
         if ($this->Groups) foreach ($this->Groups as $GroupKey => $group) {
           if ($group['caption']) $dsp->AddFieldsetStart($group['caption']);
-          if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) switch($SQLFieldTypes[$field['name']]) {
-            default:
-              switch ($field['type']) {
-                case IS_PASSWORD: // Password-Row
-                  $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
-                break;
-                
-                case IS_NEW_PASSWORD: // New-Password-Row
-                  $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value)\"");
-                  $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.$lang['mf']['pw2_caption'], $_POST[$field['name'].'2'], $this->error[$field['name'].'2'], '', $field['optional'], 0);
-                  $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
-                break;
+          if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) {
 
-                case IS_SELECTION: // Pre-Defined Dropdown
-                  if (is_array($field['selections'])) {
-                		$selections = array();
-                		foreach($field['selections'] as $key => $val) {
-                			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
-                			$selections[] = "<option$selected value=\"$key\">$val</option>";
-                		}
-                    $dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional']);
-                  }
-                break;
+            $additionalHTML = '';
+            if (!$field['type']) $field['type'] = $SQLFieldTypes[$field['name']];
+            switch ($field['type']) {
 
-                case IS_MULTI_SELECTION: // Pre-Defined Multiselection
-                  if (is_array($field['selections'])) {
-                		$selections = array();
-                		foreach($field['selections'] as $key => $val) {
-                			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
-                			$selections[] = "<option$selected value=\"$key\">$val</option>";
-                		}
-                    $dsp->AddSelectFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], 7);
-                  }
-                break;
+              case 'text': // Textarea
+                $maxchar = 65535;
+              case 'mediumtext':
+                if (!$maxchar) $maxchar = 16777215;
+              case 'longtext':
+                if (!$maxchar) $maxchar = 4294967295;
+                if ($field['selections'] == HTML_ALLOWED) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
+                else $dsp->AddTextAreaRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional']);
+              break;
 
-                case IS_FILE_UPLOAD: // File Upload to path
-                  if (is_dir($field['selections']))
-                    $dsp->AddFileSelectRow($field['name'], $field['caption'], $this->error[$field['name']], '', '', $field['optional']);
-                break;
-                
-                case IS_PICTURE_SELECT: // Picture Dropdown from path
-                  if (is_dir($field['selections']))
-                    $dsp->AddPictureDropDownRow($field['name'], $field['caption'], $field['selections'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']]);
-                break;
+              case "enum('0','1')": // Checkbox
+              case 'tinyint(1)':
+                if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) $additionalHTML = "onchange=\"CheckBoxBoxActivate('box_{$field['name']}', this.checked)\"";
+                list($field['caption1'], $field['caption2']) = split('\|', $field['caption']);
+                $dsp->AddCheckBoxRow($field['name'], $field['caption1'], $field['caption2'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']], '', '', $additionalHTML);
+              break;
 
-                default: // Normal Textfield
-                  $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
-                break;
-              }
-            break;
+              case 'datetime': // Date-Select
+                $dsp->AddDateTimeRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', '', '', '', $field['optional']);
+              break;
 
-            // Textarea
-            case 'text':
-              $maxchar = 65535;
-            case 'mediumtext':
-              if (!$maxchar) $maxchar = 16777215;
-            case 'longtext':
-              if (!$maxchar) $maxchar = 4294967295;
-              if ($field['type'] == HTML_ALLOWED) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
-              else $dsp->AddTextAreaRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional']);
-            break;
+              case IS_PASSWORD: // Password-Row
+                $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
+              break;
 
-            // Checkbox
-            case "enum('0','1')":
-            case 'tinyint(1)':
-              list($field['caption1'], $field['caption2']) = split('\|', $field['caption']);
-              $dsp->AddCheckBoxRow($field['name'], $field['caption1'], $field['caption2'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']]);
-            break;
+              case IS_NEW_PASSWORD: // New-Password-Row
+                $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value)\"");
+                $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.$lang['mf']['pw2_caption'], $_POST[$field['name'].'2'], $this->error[$field['name'].'2'], '', $field['optional'], 0);
+                $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
+              break;
 
-            // Date-Select
-            case 'datetime':
-              $dsp->AddDateTimeRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', '', '', '', $field['optional']);
-            break;
+              case IS_SELECTION: // Pre-Defined Dropdown
+                if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) $additionalHTML = "onchange=\"DropDownBoxActivate('box_{$field['name']}', this.options[this.options.selectedIndex].value)\"";
+                if (is_array($field['selections'])) {
+              		$selections = array();
+              		foreach($field['selections'] as $key => $val) {
+              			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
+              			$selections[] = "<option$selected value=\"$key\">$val</option>";
+              		}
+                  $dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], $additionalHTML);
+                }
+              break;
+
+              case IS_MULTI_SELECTION: // Pre-Defined Multiselection
+                if (is_array($field['selections'])) {
+              		$selections = array();
+              		foreach($field['selections'] as $key => $val) {
+              			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
+              			$selections[] = "<option$selected value=\"$key\">$val</option>";
+              		}
+                  $dsp->AddSelectFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], 7);
+                }
+              break;
+
+              case IS_FILE_UPLOAD: // File Upload to path
+                if (is_dir($field['selections']))
+                  $dsp->AddFileSelectRow($field['name'], $field['caption'], $this->error[$field['name']], '', '', $field['optional']);
+              break;
+
+              case IS_PICTURE_SELECT: // Picture Dropdown from path
+                if (is_dir($field['selections']))
+                  $dsp->AddPictureDropDownRow($field['name'], $field['caption'], $field['selections'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']]);
+              break;
+              
+              case IS_TEXT_MESSAGE:
+                $dsp->AddDoubleRow($field['caption'], $field['selections']);
+              break;
+
+              case IS_CALLBACK:
+                $ret = call_user_func($field['selections'], $field['name'], OUTPUT_PROC, $this->error[$field['name']]);
+                if ($ret) $dsp->AddDoubleRow($field['caption'], $ret);
+              break;
+
+              default: // Normal Textfield
+                $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
+              break;
+            }
+
+            // Start HiddenBox
+            if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) {
+              $dsp->StartHiddenBox('box_'.$field['name'], $_POST[$field['name']]);
+              $this->DependOnStarted = $this->DependOn[$field['name']] + 1;
+              unset($this->DependOn[$field['name']]);
+            }
+            // Stop HiddenBox, when counter has reached the last box-field
+            if ($this->DependOnStarted == 1) $dsp->StopHiddenBox();
+            // Decrease counter
+            if ($this->DependOnStarted > 0) $this->DependOnStarted--;
           }
           if ($group['caption']) $dsp->AddFieldsetEnd();
         }
