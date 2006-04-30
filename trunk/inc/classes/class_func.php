@@ -547,7 +547,7 @@ class func {
 			if(is_array($value)){
 				$this->debug_parse_array($value,"Array => $key");
 			}else{
-				if (strlen($value) > 80) $value = wordwrap($value, 80, HTML_NEWLINE, 1);
+				if (strlen($value) > 80) $value = $this->wrap($value, 80);
 				$debug[] = HTML_NEWLINE . "$key = $value";
 			}
 		}
@@ -715,5 +715,15 @@ class func {
 		}
 		return $size .' '. $unit;
 	}
+
+  function wrap($text, $maxlength, $spacer = "<br />\n") {
+    $textarr = explode(' ', $text);
+    $i = 0;
+    foreach($textarr as $textpart) {
+      if (strlen($textpart) > $maxlength) $textarr[$i] = chunk_split($textpart, $maxlength, $spacer);
+      $i++;
+    }
+    return implode (' ', $textarr);
+  }
 }
 ?>
