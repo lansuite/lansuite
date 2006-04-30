@@ -17,6 +17,7 @@ $lang['news']['add_err_noheadline']	= 'Bitte geben Sie eine &Uuml;berschrift ein
 $lang['news']['add_err_notext']	= 'Bitte geben Sie einen Text ein';
 $lang['news']['add_normal']	= 'Normal';
 $lang['news']['add_important']	= 'Wichtig';
+$lang['news']['add_topnews']	= 'Top-Meldung';
 $lang['news']['add_success']	= 'Die Newsmeldung wurde erfolgreich eingetragen';
 $lang['news']['add_log']	= 'Die News \'%NAME%\' wurde erstellt';
 $lang['news']['change_success']	= 'Die Newsmeldung wurde erfolgreich ge&auml;ndert';

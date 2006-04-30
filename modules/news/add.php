@@ -13,6 +13,10 @@ $selections = array();
 $selections['0'] = $lang['news']['add_normal'];
 $selections['1'] = $lang['news']['add_important'];
 $mf->AddField($lang['news']['add_priority'], 'priority', FIELD_OPTIONAL, '', $selections);
+$selections = array();
+$selections['0'] = $lang['sys']['no'];
+$selections['1'] = $lang['sys']['yes'];
+$mf->AddField($lang['news']['add_topnews'], 'top', FIELD_OPTIONAL, '', $selections);
 
 if (!$_GET['newsid']) {
   $mf->AddFix('date', time());

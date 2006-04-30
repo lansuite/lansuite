@@ -1,20 +1,4 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		show.php
-*	Module: 			news
-*	Main editor: 		Michael@one-network.org
-*	Last change: 		08.03.2003 19:55
-*	Description: 		Shows news
-*	Remarks: 		
-*
-**************************************************************************/
-
-// Hier wird noch ein Update reinkommen zu PageSplit
 
 // COUNT NEWS
 $get_amount = $db->query_first("SELECT count(*) as number FROM {$config["tables"]["news"]}");
@@ -29,7 +13,7 @@ else {
 	$pages = $func->page_split($vars["news_page"], $cfg["news_count"], $overall_news, "index.php?mod=news&action=show", "news_page");
 
 	//GET NEWS DATA AND ORDER NEWS
-	$get_news = $db->query("SELECT n.*, u.username FROM	{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.date DESC {$pages["sql"]}");
+	$get_news = $db->query("SELECT n.*, u.username FROM	{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC {$pages["sql"]}");
 
 	while($row=$db->fetch_array($get_news)) {
 		$priority = $row["priority"];

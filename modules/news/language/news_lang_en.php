@@ -17,6 +17,7 @@ $lang['news']['add_err_noheadline']	= 'Enter a headline, please';
 $lang['news']['add_err_notext']	= 'Enter a text, please';
 $lang['news']['add_normal']	= 'Normal';
 $lang['news']['add_important']	= 'Important';
+$lang['news']['add_topnews']	= 'Top-News';
 $lang['news']['add_success']	= 'The newspost has been submittes successfully';
 $lang['news']['add_log']	= 'The newspost \'%NAME%\' has been created';
 $lang['news']['change_success']	= 'The newspost has been changed successfully';

@@ -4,7 +4,7 @@
 	$templ['home']['show']['item']['control']['row'] = "";
 	
 	
-	$query = $db->query("SELECT newsid, caption, priority FROM {$config["tables"]["news"]} order by date DESC LIMIT 0,5");
+	$query = $db->query("SELECT newsid, caption, priority FROM {$config["tables"]["news"]} order by top DESC, date DESC LIMIT 0,5");
 	if($db->num_rows($query) > 0) {
 		while($row = $db->fetch_array($query)) {
 
