@@ -203,4 +203,5 @@
   $lang['mf']['err_no_integer'] = 'Submit a numeric value, please';
   $lang['mf']['err_invalid_date'] = 'Invalid date submitted';
   $lang['mf']['err_invalid_id'] = 'Invalid ID given';
+  $lang['mf']['pw2_caption'] = 'verfication';
 ?>

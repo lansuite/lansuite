@@ -13,6 +13,7 @@ class masterform {
 	var $SQLFieldTypes = array();
 	var $error = array();
 	var $CurrentDBFields = array();
+	var $AdditionalDBUpdateFunction = '';
 
   function AddFix($name, $value){
     $this->SQLFields[] = $name;
@@ -50,10 +51,13 @@ class masterform {
     while ($row = $db->fetch_array($res)) $SQLFieldTypes[$row['Field']] = $row['Type'];
     $db->free_result($res);
 
+    // Delete non existing DB fields, from array
+    foreach ($this->SQLFields as $key => $val) if (!$SQLFieldTypes[$val]) unset($this->SQLFields[$key]);
+
     // Read current values, if change
     if ($id) {
       $db_query = '';
-      foreach ($this->SQLFields as $key => $val) {
+      foreach ($this->SQLFields as $val) {
         if ($SQLFieldTypes[$val] == 'datetime') $db_query .= "UNIX_TIMESTAMP($val) AS $val, ";
         else $db_query .= "$val, ";
       }
@@ -75,7 +79,7 @@ class masterform {
         $sec->unlock($table);
       break;
 
-      // Check for errors
+      // Check for errors and convert data, if necessary (dates, passwords, ...)
       case 2:
         if ($this->Groups) foreach ($this->Groups as $GroupKey => $group) {
           if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) {
@@ -98,11 +102,18 @@ class masterform {
               and !checkdate($_POST[$field['name'].'_value_month'], $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_year']))
               $this->error[$field['name']] = $lang['mf']['err_invalid_date'];
 
+            // Check new passwords
+            elseif ($field['selections'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
+              $this->error[$field['name']] = $lang['mf']['err_no_value'];
+
             // Callbacks
             elseif ($field['callback']) {
               $err = call_user_func($field['callback'], $_POST[$field['name']]);
               if ($err) $this->error[$field['name']] = $err;
             }
+
+            // Convert Passwords
+            if ($field['selections'] == IS_NEW_PASSWORD) $_POST[$field['name']] = md5($_POST[$field['name']]);
           }
         }
 
@@ -132,7 +143,8 @@ class masterform {
               			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
               			$selections[] = "<option$selected value=\"$key\">$val</option>";
               		}
-              		$dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional']);
+                  if (substr($field['name'], 0, 6) == 'multi_') $dsp->AddSelectFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], 7);
+              		else $dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional']);
 
                 // Picture Dropdown from path
                 } elseif (is_dir($field['selections'])) {
@@ -143,7 +155,7 @@ class masterform {
                   $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
                 } elseif ($field['selections'] == IS_NEW_PASSWORD) {
                   $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value)\"");
-                  $dsp->AddPasswordRow($field['name'].'2', $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], 0);
+                  $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.$lang['mf']['pw2_caption'], $_POST[$field['name'].'2'], $this->error[$field['name'].'2'], '', $field['optional'], 0);
                   $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
                 }
               // Normal Textfield
@@ -199,10 +211,13 @@ class masterform {
           } else {
             $db->query("INSERT INTO {$config['tables'][$table]} SET $db_query");
             $func->confirmation($lang['mf']['add_success'], $StartURL);
+            $id = $db->insert_id();
           }
 
           $sec->lock($table);
-          return true;
+
+          if ($AdditionalDBUpdateFunction) return call_user_func($AdditionalDBUpdateFunction, $id);
+          else return true;
         }
       break;
     }
