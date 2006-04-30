@@ -66,10 +66,10 @@ class boxes {
 	}
 
 	function ItemRow($item, $caption, $link = "", $hint = "", $class = "") {
-		global $templ, $dsp;
+		global $templ, $dsp, $func;
 
 		$templ['box']['row']['item'] = $item;
-		if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18, "<br />\n");
+		if (strip_tags($caption) == $caption) $caption = $func->wrap($caption, 18);
 		$templ['box']['row']['link_cont'] = $this->LinkItem($link, $caption, $class, $hint);
 		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", "item_row");
 	}
@@ -99,11 +99,11 @@ class boxes {
 	}
 
 	function EngangedRow($caption, $link = "", $hint = "", $class = "") {
-		global $templ, $dsp;
+		global $templ, $dsp, $func;
 
 		$templ['box']['row']['hint'] = $hint;
 		$templ['box']['row']['content'] = $caption;
-		if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18, "<br />\n");
+		if (strip_tags($caption) == $caption) $caption = $func->wrap($caption, 18);
 		$templ['box']['row']['link_cont'] = $this->LinkItem($link, $caption, $class);
 		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", "engaged_row");
 	}
