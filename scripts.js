@@ -61,13 +61,22 @@ function LoadingToolTip(text) {
 //// Class Display ////
 
 function TextAreaPlusCharsLeft(textarea, counter, maxchar){
-	if (textarea.value.length > maxchar){
+	if (textarea.value.length > maxchar) {
 		textarea.value = textarea.value.substr(0, maxchar);
 		textarea.blur();
 	}
 	counter.value = maxchar - textarea.value.length;
 }
 
+function CheckBoxBoxActivate(name, id) {
+  if (id) document.getElementById(name).style.display = "";
+  else document.getElementById(name).style.display = "none";
+}
+
+function DropDownBoxActivate(name, id) {
+  if (id <= 1) document.getElementById(name).style.display = "none";
+  else document.getElementById(name).style.display = "";
+}
 
 function CheckPasswordSecurity(password) {
 	var TestNumberOfChars = false;
