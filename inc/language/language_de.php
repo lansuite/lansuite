@@ -210,4 +210,5 @@
   $lang['mf']['err_no_integer'] = 'Bitte geben Sie eine Zahl ein';
   $lang['mf']['err_invalid_date'] = 'Das eingegebene Datum ist nicht korrekt';
   $lang['mf']['err_invalid_id'] = 'Diese ID existiert nicht';
+  $lang['mf']['pw2_caption'] = 'Verfikation';
 ?>
