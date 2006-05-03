@@ -46,7 +46,7 @@
 			</field>
 			<field>
 				<name>type</name>
-				<type>tinyint(1)</type>
+				<type>tinyint(2)</type>
 				<null></null>
 				<key>MUL</key>
 				<default>0</default>
@@ -306,6 +306,14 @@
 				<null></null>
 				<key></key>
 				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>picture</name>
+				<type>varchar(80)</type>
+				<null></null>
+				<key></key>
+				<default></default>
 				<extra></extra>
 			</field>
 			<field>
