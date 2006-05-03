@@ -21,9 +21,10 @@ class masterform {
 	var $SQLFieldTypes = array();
 	var $DependOn = array();
 	var $error = array();
-	var $CurrentDBFields = array();
+#	var $CurrentDBFields = array();
 	var $AdditionalDBUpdateFunction = '';
 	var $DependOnStarted = 0;
+	var $isChange = false;
 
   function AddFix($name, $value){
     $this->SQLFields[] = $name;
@@ -58,81 +59,93 @@ class masterform {
     global $dsp, $db, $config, $func, $sec, $lang;
 
     $StartURL = $BaseURL .'&'. $idname .'='. $id;
+    if ($id) $this->isChange = true;
 
     // Get SQL-Field Types
     $res = $db->query("DESCRIBE {$config['tables'][$table]}");
     while ($row = $db->fetch_array($res)) $SQLFieldTypes[$row['Field']] = $row['Type'];
     $db->free_result($res);
 
+    // Split fields, which consist of more than one
+    foreach ($this->SQLFields as $key => $val) if (strpos($this->SQLFields[$key], '|') > 0) {
+      $subfields = split('\|', $this->SQLFields[$key]);
+      if ($subfields) foreach ($subfields as $subfield) $this->SQLFields[] = $subfield;
+    }
+
     // Delete non existing DB fields, from array
     foreach ($this->SQLFields as $key => $val) if (!$SQLFieldTypes[$val]) unset($this->SQLFields[$key]);
-
-    // Read current values, if change
-    if ($id) {
-      $db_query = '';
-      foreach ($this->SQLFields as $val) {
-        if ($SQLFieldTypes[$val] == 'datetime') $db_query .= "UNIX_TIMESTAMP($val) AS $val, ";
-        else $db_query .= "$val, ";
-      }
-      $db_query = substr($db_query, 0, strlen($db_query) - 2);
-
-      $row = $db->query_first("SELECT 1 AS found, $db_query FROM {$config['tables'][$table]} WHERE $idname = ". (int)$id);
-      if ($row['found']) foreach ($this->SQLFields as $key => $val) {
-        $this->CurrentDBFields[$val] = $row[$val];
-        if ($_POST[$val] == '') $_POST[$val] = $row[$val];
-      } else {
-        $func->error($lang['mf']['err_invalid_id']);
-        return false;
-      }
-    }
 
     // Error-Switch
     switch ($_GET['mf_step']) {
       default:
         $sec->unlock($table);
+
+        // Read current values, if change
+        if ($this->isChange) {
+          $db_query = '';
+          foreach ($this->SQLFields as $val) {
+            if ($SQLFieldTypes[$val] == 'datetime') $db_query .= "UNIX_TIMESTAMP($val) AS $val, ";
+            else $db_query .= "$val, ";
+          }
+          $db_query = substr($db_query, 0, strlen($db_query) - 2);
+
+          $row = $db->query_first("SELECT 1 AS found, $db_query FROM {$config['tables'][$table]} WHERE $idname = ". (int)$id);
+          if ($row['found']) foreach ($this->SQLFields as $key => $val) {
+#           $this->CurrentDBFields[$val] = $row[$val];
+            $_POST[$val] = $row[$val];
+          } else {
+            $func->error($lang['mf']['err_invalid_id']);
+            return false;
+          }
+        }
       break;
 
       // Check for errors and convert data, if necessary (dates, passwords, ...)
       case 2:
         if ($this->Groups) foreach ($this->Groups as $GroupKey => $group) {
-          if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) {
+          if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) if($field['name']) {
 
-            // Convert Post-date to unix-timestap
-            if ($SQLFieldTypes[$field['name']] == 'datetime')
-              $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
-              $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_hours'], $_POST[$field['name'].'_value_minutes'], 0);
+            // If not in DependOn-Group, or DependOn-Group is active
+            if (!$this->DependOnStarted or $POST_[$this->DependOnField]) {
+              // Convert Post-date to unix-timestap
+              if ($SQLFieldTypes[$field['name']] == 'datetime')
+                $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
+                $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_hours'], $_POST[$field['name'].'_value_minutes'], 0);
 
-            if ($field['type'] == IS_CALLBACK) $err = call_user_func($field['selections'], $field['name'], CHECK_ERROR_PROC);
-            if ($err) $this->error[$field['name']] = $err;
-
-            // Check for value
-            if (!$field['optional'] and !$_POST[$field['name']]) $this->error[$field['name']] = $lang['mf']['err_no_value'];
-
-            // Check Int
-            elseif (strpos($SQLFieldTypes[$field['name']], 'int') !== false and $SQLFieldTypes[$field['name']] != 'tinyint(1)'
-              and $SQLFieldTypes[$field['name']] != "enum('0','1')"
-              and $_POST[$field['name']] and (int)$_POST[$field['name']] == 0) $this->error[$field['name']] = $lang['mf']['err_no_integer'];
-
-            // Check date
-            elseif ($SQLFieldTypes[$field['name']] == 'datetime'
-              and !checkdate($_POST[$field['name'].'_value_month'], $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_year']))
-              $this->error[$field['name']] = $lang['mf']['err_invalid_date'];
-
-            // Check new passwords
-            elseif ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
-              $this->error[$field['name']] = $lang['mf']['err_no_value'];
-
-            // Callbacks
-            elseif ($field['callback']) {
-              $err = call_user_func($field['callback'], $_POST[$field['name']]);
+              if ($field['type'] == IS_CALLBACK) $err = call_user_func($field['selections'], $field['name'], CHECK_ERROR_PROC);
               if ($err) $this->error[$field['name']] = $err;
+
+              // Check for value
+              if (!$field['optional'] and $_POST[$field['name']] == '') $this->error[$field['name']] = $lang['mf']['err_no_value'];
+
+              // Check Int
+              elseif (strpos($SQLFieldTypes[$field['name']], 'int') !== false and $SQLFieldTypes[$field['name']] != 'tinyint(1)'
+                and $SQLFieldTypes[$field['name']] != "enum('0','1')"
+                and $_POST[$field['name']] and (int)$_POST[$field['name']] == 0) $this->error[$field['name']] = $lang['mf']['err_no_integer'];
+
+              // Check date
+              elseif ($SQLFieldTypes[$field['name']] == 'datetime'
+                and !checkdate($_POST[$field['name'].'_value_month'], $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_year']))
+                $this->error[$field['name']] = $lang['mf']['err_invalid_date'];
+
+              // Check new passwords
+              elseif ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
+                $this->error[$field['name'].'2'] = $lang['mf']['err_pw2'];
+
+              // Callbacks
+              elseif ($field['callback']) {
+                $err = call_user_func($field['callback'], $_POST[$field['name']]);
+                if ($err) $this->error[$field['name']] = $err;
+              }
             }
 
-            // Convert Passwords
-            if ($field['type'] == IS_NEW_PASSWORD) $_POST[$field['name']] = md5($_POST[$field['name']]);
+            // Manage Depend-On-Groups
+            if ($this->DependOnStarted >= 1) $this->DependOnStarted--;
+            if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) {
+              $this->DependOnStarted = $this->DependOn[$field['name']];
+              $this->DependOnField = $field['name'];
+            }
 
-            // Upload submitted file
-            if ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
           }
         }
 
@@ -172,6 +185,7 @@ class masterform {
               case 'tinyint(1)':
                 if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) $additionalHTML = "onchange=\"CheckBoxBoxActivate('box_{$field['name']}', this.checked)\"";
                 list($field['caption1'], $field['caption2']) = split('\|', $field['caption']);
+                if (!$_POST[$field['name']]) unset($_POST[$field['name']]);
                 $dsp->AddCheckBoxRow($field['name'], $field['caption1'], $field['caption2'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']], '', '', $additionalHTML);
               break;
 
@@ -260,6 +274,12 @@ class masterform {
         if (!$this->SQLFields) $func->error('No Fields!');
         elseif (!$sec->locked($table, $StartURL)) {
 
+          // Convert Passwords
+          if ($field['type'] == IS_NEW_PASSWORD) $_POST[$field['name']] = md5($_POST[$field['name']]);
+
+          // Upload submitted file
+          if ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
+
           // Generate INSERT/UPDATE query
           $db_query = '';
           foreach ($this->SQLFields as $key => $val) {
@@ -269,19 +289,21 @@ class masterform {
           $db_query = substr($db_query, 0, strlen($db_query) - 2);
 
           // Send query
-          if ($id) {
-            $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $idname = ". (int)$id);
-            $func->confirmation($lang['mf']['change_success'], $StartURL);
-          } else {
+          if ($this->isChange) $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $idname = ". (int)$id);
+          else {
             $db->query("INSERT INTO {$config['tables'][$table]} SET $db_query");
-            $func->confirmation($lang['mf']['add_success'], $StartURL);
             $id = $db->insert_id();
           }
 
-          $sec->lock($table);
+          $addUpdSuccess = true;
+          if ($AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($AdditionalDBUpdateFunction, $id);
+          if ($addUpdSuccess) {
+            if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $StartURL);
+            else $func->confirmation($lang['mf']['add_success'], $StartURL);
+          }
 
-          if ($AdditionalDBUpdateFunction) return call_user_func($AdditionalDBUpdateFunction, $id);
-          else return true;
+          $sec->lock($table);
+          return $addUpdSuccess;
         }
       break;
     }

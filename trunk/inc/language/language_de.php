@@ -211,4 +211,5 @@
   $lang['mf']['err_invalid_date'] = 'Das eingegebene Datum ist nicht korrekt';
   $lang['mf']['err_invalid_id'] = 'Diese ID existiert nicht';
   $lang['mf']['pw2_caption'] = 'Verfikation';
+  $lang['mf']['err_pw2'] = 'Die beiden Kennworte stimmen nicht überein';
 ?>
