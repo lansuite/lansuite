@@ -1,5 +1,123 @@
 <?php
 
+function UploadFiles() {
+global $func, $gd;
+  // --- Sponsor Page Banner ---
+  // 1) Was a picture uploaded?
+  if ($_FILES['pic_upload']['name']) {
+		$pic_path = $func->FileUpload('pic_upload', 'ext_inc/banner/');
+
+	// 2) Was an external URL given?
+	} elseif ($_POST['pic_path'] != 'http://' and $_POST['pic_path'] != '') $pic_path = $_POST['pic_path'];
+
+	// 3) Was a code submitted?
+  elseif ($_POST['pic_code'] != '') {
+    $pic_path = $_POST['pic_code'];
+    if (substr($pic_path, 0, 12) != 'html-code://') $pic_path = 'html-code://'. $pic_path;
+  }
+
+
+	// --- Rotation Banner ---
+  // 1) Was a picture uploaded?
+  if ($_FILES['pic_upload_banner']['name']) {
+		$pic_path_banner = $func->FileUpload('pic_upload_banner', 'ext_inc/banner/');
+
+	// 2) Was an external URL given?
+	} elseif ($_POST['pic_path_banner'] != 'http://' and $_POST['pic_path_banner'] != '') $pic_path_banner = $_POST['pic_path_banner'];
+
+	// 3) Was a code submitted?
+  elseif ($_POST['pic_code_banner'] != '') {
+    $pic_path_banner = $_POST['pic_code_banner'];
+    if (substr($pic_path_banner, 0, 12) != 'html-code://') $pic_path_banner = 'html-code://'. $pic_path_banner;
+
+  // 4) Was a normal banner uploaded, that could be resized?
+  } elseif ($_FILES['pic_upload']['name']) {
+    $gd->CreateThumb('ext_inc/banner/'. $_FILES['pic_upload']['name'], 'ext_inc/banner/banner_'. $_FILES['pic_upload']['name'], 468, 60);
+    $pic_path_banner = 'ext_inc/banner/banner_'. $_FILES['pic_upload']['name'];
+  }
+
+/*
+	// 1) Was a special banner uploaded?
+  if ($_FILES['pic_upload_banner']['name']) {
+    if ($_FILES['pic_upload']['name']) $_FILES['pic_upload_banner']['name'] = $_FILES['pic_upload']['name'];
+    $func->FileUpload('pic_upload_banner', 'ext_inc/banner/', 'banner_'. $_FILES['pic_upload_banner']['name']);
+		if (!$pic_url) $pic_url = 'ext_inc/banner/'. $_FILES['pic_upload_banner']['name'];
+
+  // 2) Otherwise use an automatic resized image of the first banner, if available
+	} elseif ($_FILES['pic_upload']['name']) $gd->CreateThumb('ext_inc/banner/'. $_FILES['pic_upload']['name'], 'ext_inc/banner/banner_'. $_FILES['pic_upload']['name'], 468, 60);
+*/
+
+	// --- Box Button ---
+  // 1) Was a picture uploaded?
+  if ($_FILES['pic_upload_button']['name']) {
+		$pic_path_button = $func->FileUpload('pic_upload_button', 'ext_inc/banner/');
+
+	// 2) Was an external URL given?
+	} elseif ($_POST['pic_path_button'] != 'http://' and $_POST['pic_path_button'] != '') $pic_path_button = $_POST['pic_path_button'];
+
+	// 3) Was a code submitted?
+  elseif ($_POST['pic_code_button'] != '') {
+    $pic_path_button = $_POST['pic_code_button'];
+    if (substr($pic_path_button, 0, 12) != 'html-code://') $pic_path_button = 'html-code://'. $pic_path_button;
+
+  // 4) Was a normal banner uploaded, that could be resized?
+  } elseif ($_FILES['pic_upload']['name']) {
+    $gd->CreateThumb('ext_inc/banner/'. $_FILES['pic_upload']['name'], 'ext_inc/banner/button_'. $_FILES['pic_upload']['name'], 468, 60);
+    $pic_path_button = 'ext_inc/banner/button_'. $_FILES['pic_upload']['name'];
+  }
+
+/*
+	// 1) Was a special box button uploaded?
+  if ($_FILES['pic_upload_button']['name']) {
+    if ($_FILES['pic_upload']['name']) $_FILES['pic_upload_button']['name'] = $_FILES['pic_upload']['name'];
+    $func->FileUpload('pic_upload_button', 'ext_inc/banner/', 'button_'. $_FILES['pic_upload_button']['name']);
+		if (!$pic_url) $pic_url = 'ext_inc/banner/'. $_FILES['pic_upload_button']['name'];
+
+  // 2) Otherwise use an automatic resized image of the first banner, if available
+	} elseif ($_FILES['pic_upload']['name']) $gd->CreateThumb('ext_inc/banner/'. $_FILES['pic_upload']['name'], 'ext_inc/banner/button_'. $_FILES['pic_upload']['name'], 468, 60);
+*/
+
+}
+
+if ($_GET['action'] == 'change' and $_GET['sponsorid'] == '') include_once('modules/sponsor/search.inc.php');
+else {
+  include_once('inc/classes/class_masterform.php');
+  $mf = new masterform();
+
+  $mf->AddField($lang['sponsor']['add_name'], 'name');
+  $mf->AddField($lang['sponsor']['add_url'], 'url', '', '', FIELD_OPTIONAL);
+  $mf->AddGroup('General');
+
+  $mf->AddField($lang['sponsor']['add_sponsor'].'|'.$lang['sponsor']['add_sponsor2'], 'sponsor', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+  $mf->AddField($lang['sponsor']['add_pic_upload'], 'pic_upload', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic'], 'pic_path', 'varchar(255)', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic_code'], 'pic_code', 'text', '', FIELD_OPTIONAL);
+  $mf->AddGroup('Sponsorenseite');
+
+  $mf->AddField('', '', IS_TEXT_MESSAGE, $lang['sponsor']['add_other_sizes']);
+  $mf->AddGroup('');
+
+  $mf->AddField($lang['sponsor']['add_banner'].'|'.$lang['sponsor']['add_banner2'], 'rotation', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+  $mf->AddField($lang['sponsor']['add_pic_upload'], 'pic_upload_banner', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic'], 'pic_path_banner', 'varchar(255)', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic_code'], 'pic_code_banner', 'text', '', FIELD_OPTIONAL);
+  $mf->AddGroup('Rotation Banner');
+
+  $mf->AddField($lang['sponsor']['add_active'].'|'.$lang['sponsor']['add_active2'], 'active', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+  $mf->AddField($lang['sponsor']['add_pic_upload'], 'pic_upload_button', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic'], 'pic_path_button', 'varchar(255)', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic_code'], 'pic_code_button', 'text', '', FIELD_OPTIONAL);
+  $mf->AddGroup('Sponsoren Box');
+
+  $mf->AddField($lang['sponsor']['add_pos'], 'pos');
+  $mf->AddField($lang['sponsor']['add_text'], 'text', '', HTML_ALLOWED, FIELD_OPTIONAL);
+  $mf->AddGroup('Misc.');
+
+  $mf->AdditionalDBUpdateFunction = 'UploadFiles';
+  $mf->SendForm('index.php?mod=sponsor&action='. $_GET['action'], 'sponsor', 'sponsorid', $_GET['sponsorid']);
+}
+
+/*
 switch($_GET['step']) {
 	default:
 		if ($_GET['action'] == 'change') {
@@ -66,17 +184,6 @@ switch($_GET['step']) {
       $pic_path_banner = 'ext_inc/banner/banner_'. $_FILES['pic_upload']['name'];
     }
       		
-/*
-		// 1) Was a special banner uploaded?
-    if ($_FILES['pic_upload_banner']['name']) {
-      if ($_FILES['pic_upload']['name']) $_FILES['pic_upload_banner']['name'] = $_FILES['pic_upload']['name'];
-      $func->FileUpload('pic_upload_banner', 'ext_inc/banner/', 'banner_'. $_FILES['pic_upload_banner']['name']);
-  		if (!$pic_url) $pic_url = 'ext_inc/banner/'. $_FILES['pic_upload_banner']['name'];
-
-    // 2) Otherwise use an automatic resized image of the first banner, if available
-		} elseif ($_FILES['pic_upload']['name']) $gd->CreateThumb('ext_inc/banner/'. $_FILES['pic_upload']['name'], 'ext_inc/banner/banner_'. $_FILES['pic_upload']['name'], 468, 60);
-*/
-
 		// --- Box Button ---
     // 1) Was a picture uploaded?
     if ($_FILES['pic_upload_button']['name']) {    
@@ -96,16 +203,6 @@ switch($_GET['step']) {
       $pic_path_button = 'ext_inc/banner/button_'. $_FILES['pic_upload']['name'];
     }
 
-/*
-		// 1) Was a special box button uploaded?
-    if ($_FILES['pic_upload_button']['name']) {
-      if ($_FILES['pic_upload']['name']) $_FILES['pic_upload_button']['name'] = $_FILES['pic_upload']['name'];
-      $func->FileUpload('pic_upload_button', 'ext_inc/banner/', 'button_'. $_FILES['pic_upload_button']['name']);
-  		if (!$pic_url) $pic_url = 'ext_inc/banner/'. $_FILES['pic_upload_button']['name'];
-
-    // 2) Otherwise use an automatic resized image of the first banner, if available
-		} elseif ($_FILES['pic_upload']['name']) $gd->CreateThumb('ext_inc/banner/'. $_FILES['pic_upload']['name'], 'ext_inc/banner/button_'. $_FILES['pic_upload']['name'], 468, 60);
-*/		
 	break;
 }
 
@@ -204,4 +301,5 @@ switch($_GET['step']) {
   	}
 	break;
 }
+*/
 ?>

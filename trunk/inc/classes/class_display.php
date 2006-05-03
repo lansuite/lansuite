@@ -8,7 +8,6 @@ class display {
 	var $form_open = 0;
 	var $formcount = 1;
 	var $TableOpen = false;
-	var $HiddenBoxJSLoaded = false;
   var $TplCache = array();
   var $errortext_prefix = '';
   var $errortext_suffix = '';
@@ -118,11 +117,6 @@ class display {
 
     $templ['ls']['row']['hidden_row']['id'] = $name;
 
-    if (!$this->HiddenBoxJSLoaded) {
-      $this->HiddenBoxJSLoaded = true;
-      $this->AddTpl("design/templates/ls_row_hiddenbox_js.htm");
-    }
-    
     if ($vissible) $templ['ls']['row']['hidden_row']['display'] = '';
     else $templ['ls']['row']['hidden_row']['display'] = 'none';
 
@@ -160,12 +154,13 @@ class display {
 	}
 
 
-	function AddCheckBoxRow($name, $key, $text, $errortext, $optional = NULL, $checked = NULL, $disabled = NULL, $val = NULL) {
+	function AddCheckBoxRow($name, $key, $text, $errortext, $optional = NULL, $checked = NULL, $disabled = NULL, $val = NULL, $additionalHTML = NULL) {
 		global $templ;
 
 		$templ['ls']['row']['checkbox']['name'] = $name;
 		$templ['ls']['row']['checkbox']['key'] = $key;
 		$templ['ls']['row']['checkbox']['text'] = $text;
+		$templ['ls']['row']['additionalHTML'] = $additionalHTML;
 
 		if($checked) $templ['ls']['row']['checkbox']['checked'] = "checked";
 		else $templ['ls']['row']['checkbox']['checked'] = "";
@@ -310,12 +305,13 @@ class display {
 
 
 
-	function AddDropDownFieldRow($name, $key, $option_array, $errortext, $optional = NULL) {
+	function AddDropDownFieldRow($name, $key, $option_array, $errortext, $optional = NULL, $additionalHTML = NULL) {
 		global $templ;
 
 		$templ['ls']['row']['dropdown']['name'] = $name;
 		$templ['ls']['row']['dropdown']['key'] = $key;
 		$templ['ls']['row']['dropdown']['options'] = implode("", $option_array);
+		$templ['ls']['row']['additionalHTML'] = $additionalHTML;
 
     if ($errortext) $templ['ls']['row']['dropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
     else $templ['ls']['row']['dropdown']['errortext'] = '';
