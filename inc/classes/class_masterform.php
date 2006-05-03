@@ -21,10 +21,10 @@ class masterform {
 	var $SQLFieldTypes = array();
 	var $DependOn = array();
 	var $error = array();
-#	var $CurrentDBFields = array();
 	var $AdditionalDBUpdateFunction = '';
 	var $DependOnStarted = 0;
 	var $isChange = false;
+	var $FormEncType = '';
 
   function AddFix($name, $value){
     $this->SQLFields[] = $name;
@@ -35,12 +35,13 @@ class masterform {
     $arr = array();
     $arr['caption'] = $caption;
     $arr['name'] = $name;
+    $arr['type'] = $type;
+    if ($type == IS_FILE_UPLOAD) $this->FormEncType = 'multipart/form-data';
     $arr['optional'] = 0;
     $arr['optional'] = $optional;
     if ($DependOnThis) $this->DependOn[$name] = $DependOnThis;
     $arr['callback'] = $callback;
     $arr['selections'] = $selections;
-    $arr['type'] = $type;
     $this->FormFields[] = $arr;
     $this->SQLFields[] = $name;
   }
@@ -90,10 +91,8 @@ class masterform {
           $db_query = substr($db_query, 0, strlen($db_query) - 2);
 
           $row = $db->query_first("SELECT 1 AS found, $db_query FROM {$config['tables'][$table]} WHERE $idname = ". (int)$id);
-          if ($row['found']) foreach ($this->SQLFields as $key => $val) {
-#           $this->CurrentDBFields[$val] = $row[$val];
-            $_POST[$val] = $row[$val];
-          } else {
+          if ($row['found']) foreach ($this->SQLFields as $key => $val) $_POST[$val] = $row[$val];
+          else {
             $func->error($lang['mf']['err_invalid_id']);
             return false;
           }
@@ -160,7 +159,7 @@ class masterform {
       // Output form
       default:
     		$this->AddGroup(); // Adds non-group-fields to fake group
-    		$dsp->SetForm($StartURL .'&mf_step=2');
+    		$dsp->SetForm($StartURL .'&mf_step=2', '', '', $this->FormEncType);
 
         // Output fields
         if ($this->Groups) foreach ($this->Groups as $GroupKey => $group) {

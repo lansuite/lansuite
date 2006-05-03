@@ -19,6 +19,7 @@ Version 2.1.3
 - Add: #327 Im Board kann man nun einen Thread schließen (KnoX 24.04.2006)
 - Add: #410 Option eingebaut, dass Admins auf Wunsch neu angemeldete User erst freischalten müssen, bevor diese sich einloggen können (KnoX 23.04.2006)
 
+- Change: Benutzermanager (hinzufügen/editieren) umgeschrieben. Speziell auf MasterForm umgestellt (KnoX 03.05.2006)
 - Change: Smielies und Textformatierungen für Textboxen, werden nun aus einem extra Fenster geladen, um Übersicht zu gewinnen (KnoX 28.04.2006)
 - Change: Alle Module auf MS2 umgestellt (KnoX 23.04.2006)
 - Change: IP-Generieren von Misc-Modul nach Seating-Modul verschobene (KnoX 23.04.2006)
