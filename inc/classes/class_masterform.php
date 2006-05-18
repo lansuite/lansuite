@@ -143,7 +143,7 @@ class masterform {
               }
 
               // Check double uniques
-              if ($SQLFieldUnique[$field['name']]) {
+              if (!$this->isChange and $SQLFieldUnique[$field['name']]) {
                 $row = $db->query_first("SELECT 1 AS found FROM {$config['tables'][$table]} WHERE {$field['name']} = '{$_POST[$field['name']]}'");
                 if ($row['found']) $this->error[$field['name']] = 'Duplicate Entry';
               }
