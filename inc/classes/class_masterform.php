@@ -19,6 +19,7 @@ class masterform {
 	var $Groups = array();
 	var $SQLFields = array();
 	var $SQLFieldTypes = array();
+	var $SQLFieldUnique = array();
 	var $DependOn = array();
 	var $error = array();
 	var $AdditionalDBUpdateFunction = '';
@@ -64,7 +65,11 @@ class masterform {
 
     // Get SQL-Field Types
     $res = $db->query("DESCRIBE {$config['tables'][$table]}");
-    while ($row = $db->fetch_array($res)) $SQLFieldTypes[$row['Field']] = $row['Type'];
+    while ($row = $db->fetch_array($res)) {
+      $SQLFieldTypes[$row['Field']] = $row['Type'];
+      if ($row['Key'] == 'PRI' or $row['Key'] == 'UNI') $SQLFieldUnique[$row['Field']] = true;
+      else $SQLFieldUnique[$row['Field']] = false;
+    }
     $db->free_result($res);
 
     // Split fields, which consist of more than one
@@ -126,7 +131,7 @@ class masterform {
               elseif ($SQLFieldTypes[$field['name']] == 'datetime'
                 and !checkdate($_POST[$field['name'].'_value_month'], $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_year']))
                 $this->error[$field['name']] = $lang['mf']['err_invalid_date'];
-
+                
               // Check new passwords
               elseif ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
                 $this->error[$field['name'].'2'] = $lang['mf']['err_pw2'];
@@ -135,6 +140,12 @@ class masterform {
               elseif ($field['callback']) {
                 $err = call_user_func($field['callback'], $_POST[$field['name']]);
                 if ($err) $this->error[$field['name']] = $err;
+              }
+
+              // Check double uniques
+              if ($SQLFieldUnique[$field['name']]) {
+                $row = $db->query_first("SELECT 1 AS found FROM {$config['tables'][$table]} WHERE {$field['name']} = '{$_POST[$field['name']]}'");
+                if ($row['found']) $this->error[$field['name']] = 'Duplicate Entry';
               }
             }
 
@@ -273,11 +284,13 @@ class masterform {
         if (!$this->SQLFields) $func->error('No Fields!');
         elseif (!$sec->locked($table, $StartURL)) {
 
-          // Convert Passwords
-          if ($field['type'] == IS_NEW_PASSWORD) $_POST[$field['name']] = md5($_POST[$field['name']]);
+          if ($this->Groups) foreach ($this->Groups as $group) if ($group['fields']) foreach ($group['fields'] as $field) {
+            // Convert Passwords
+            if ($field['type'] == IS_NEW_PASSWORD) $_POST[$field['name']] = md5($_POST[$field['name']]);
 
-          // Upload submitted file
-          if ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
+            // Upload submitted file
+            if ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
+          }
 
           // Generate INSERT/UPDATE query
           $db_query = '';
