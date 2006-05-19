@@ -154,6 +154,8 @@ else {
 			$geschlecht[1] = $lang['usrmgr']['details_male'];
 			$geschlecht[2] = $lang['usrmgr']['details_female'];
 			$dsp->AddDoubleRow($lang['usrmgr']['details_sex'], $geschlecht[$user_data['sex']]);
+
+			if ($user_data['picture'] != '') $dsp->AddDoubleRow($lang['usrmgr']['picture'], '<img src="'. $user_data['picture'] .'">');
 		break;
 
 		case 4:

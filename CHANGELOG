@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.3
 
+- Bugfix: MasterForm fängt nun doppelte Einträge auf DB-Felder die eindeutig sein müssen ab (KnoX 19.05.2006)
 - Bugfix: In neuen PHP-Versionen ist die Funktion wordwrap() dekativiert, daher hat LanSuite nun eine eigene wordwrap-Funktion (KnoX 30.04.2006)
 - Bugfix: #429 Turnierzeitplan war nicht Multi-Lan-fähig (KnoX 27.04.2006)
 - Bugfix: #424 Es konnten keine Threads mehr im Board erstellt werden (KnoX 26.04.2006)
@@ -13,6 +14,7 @@ Version 2.1.3
 - Bugfix: #423 Auf manchen DB-Systemen, konnte das Board nicht mehr angezeigt werden, statt dessen nur ein MySQL-Fehler (KnoX 25.04.2006)
 - Bugfix: #419 Die PW-Recovery Mail hatte codierte Line-Break Zeichen enthalten. (KnoX 25.04.2006)
 
+- Add: Benutzerbild wird nun in den Benutzerdetails angezeigt, falls vorhanden (KnoX 19.05.2006)
 - Add: 342: Newsmeldungen können nun als Top-Meldung fixiert werden (KnoX 30.04.2006)
 - Add: MasterForm. Klasse zum einfachen erstellen von Formularen zum Eintragen von Daten in die DB. Testweise in tournament2 integriert (KnoX 28.04.2006)
 - Add: AJAX-Support implementiert und MasterSearch2 darauf testweise umgestellt (KnoX 27.04.2006)

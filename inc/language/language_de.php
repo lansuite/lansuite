@@ -212,4 +212,5 @@
   $lang['mf']['err_invalid_id'] = 'Diese ID existiert nicht';
   $lang['mf']['pw2_caption'] = 'Verfikation';
   $lang['mf']['err_pw2'] = 'Die beiden Kennworte stimmen nicht überein';
+  $lang['mf']['err_double_on_unique'] = 'Dieser Eintrag existiert bereits in unserer Datenbank';
 ?>
