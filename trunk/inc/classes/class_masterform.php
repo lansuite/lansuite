@@ -239,6 +239,8 @@ class masterform {
               case IS_FILE_UPLOAD: // File Upload to path
                 if (is_dir($field['selections']))
                   $dsp->AddFileSelectRow($field['name'], $field['caption'], $this->error[$field['name']], '', '', $field['optional']);
+                  // Todo: Show current picture (if picture)
+                  // Todo: Possibility to keep curent picture, when only changing other data
               break;
 
               case IS_PICTURE_SELECT: // Picture Dropdown from path
