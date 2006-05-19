@@ -68,6 +68,7 @@ $lang['usrmgr']['add_signon_detail']	= 'Ist der Benutzer zur aktuellen Party ang
 $lang['usrmgr']['add_platzpfand']	= 'Platzpfand erhalten';
 $lang['usrmgr']['add_u18check']	= 'U18 Check';
 $lang['usrmgr']['add_picture']	= 'Benutzerbild hochladen';
+$lang['usrmgr']['picture']	= 'Benutzerbild';
 $lang['usrmgr']['add_comment']	= 'Kommentar';
 $lang['usrmgr']['add_err_user_exist']	= 'Dieser Benutzername existiert bereits';
 $lang['usrmgr']['add_err_user_chars']	= 'Sie verwenden nicht zugelassene Sonderzeichen';

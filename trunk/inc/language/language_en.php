@@ -205,4 +205,5 @@
   $lang['mf']['err_invalid_id'] = 'Invalid ID given';
   $lang['mf']['pw2_caption'] = 'verfication';
   $lang['mf']['err_pw2'] = 'The passwords do not match';
+  $lang['mf']['err_double_on_unique'] = 'This entry exists already in our database';
 ?>

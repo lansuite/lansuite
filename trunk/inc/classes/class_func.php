@@ -614,7 +614,7 @@ class func {
 	function FileUpload($source_var, $path, $name = NULL) {
 		global $config;
 
-    if (!isset($_FILES[$source_var])) return false;
+    if ($_FILES[$source_var]['tmp_name'] == '') return false;
 		switch ($_FILES[$source_var]['error']) {
 			case 1:
 				echo "Fehler: Die hochgeladene Datei überschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte Größe";
