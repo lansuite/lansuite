@@ -310,7 +310,7 @@ class masterform {
           }
 
           $addUpdSuccess = true;
-          if ($AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($AdditionalDBUpdateFunction, $id);
+          if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
           if ($addUpdSuccess) {
             if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $StartURL);
             else $func->confirmation($lang['mf']['add_success'], $StartURL);
