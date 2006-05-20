@@ -1,12 +1,12 @@
 <?php 
 
 function Update($id) {
-global $mf;
+global $mf, $db, $config, $auth, $party, $seat2;
 
   // Clan-Management
   include_once("modules/usrmgr/class_clan.php");
   $clan = new Clan();
-  if ($_POST['clan_new']) $_POST['clan'] = $clan->Add($_POST['clan_new'], $_POST["clanurl"], $_POST["newclanpw"]);
+  if ($_POST['new_clan_select']) $_POST['clan'] = $clan->Add($_POST['clan_new'], $_POST["clanurl"], $_POST["newclanpw"]);
   if ($_POST['clan']) $clan->AddMember($_POST['clan'], $id);
   else $clan->RemoveMember($id);
 
@@ -263,6 +263,13 @@ if ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_sel
 
 
   if (!$quick_signon) {
+  	if ($_POST['clan'] == '') {
+      $users_clan = $db->query_first("SELECT clanid FROM {$config["tables"]["user"]} WHERE userid = ". (int)$_GET['userid']);
+      $_POST['clan'] = $users_clan['clanid'];
+    }
+
+    $selections = array();
+    $selections[''] = '---';
     // Clan select
     $clans_query = $db->query("SELECT c.clanid, c.name, c.url, COUNT(u.clanid) AS members
     		FROM {$config["tables"]["clan"]} AS c
@@ -271,14 +278,9 @@ if ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_sel
     		GROUP BY c.clanid
     		ORDER BY c.name
     		");
-    $selections = array();
-    $selections[''] = '---';
-    while($row = $db->fetch_array($clans_query)) {
-    	if ($_POST['clan'] == '') $_POST['clan'] = $row['clanid'];
-    	if ($_POST['clanurl'] == '') $_POST['clanurl'] = $row['url'];
-      $selections[$row['clanid']] = $row['name'] .' '. $row['members'];
-    }
+    while ($row = $db->fetch_array($clans_query)) $selections[$row['clanid']] = $row['name'] .' '. $row['members'];
     $db->free_result($clans_query);
+
     $mf->AddField($lang['usrmgr']['add_existing_clan'], 'clan', IS_SELECTION, $selections, Optional('clan'));
     $mf->AddField($lang['usrmgr']['chpwd_password2'], 'clanpw', IS_PASSWORD, '', FIELD_OPTIONAL);
     $mf->AddField($lang['usrmgr']['add_create_clan'], 'new_clan_select', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
