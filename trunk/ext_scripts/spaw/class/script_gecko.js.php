@@ -49,13 +49,23 @@
     var ed = document.getElementById(editor+'_rEdit');
     if (!SPAW_editor_registered(editor))
     {
-      // register the editor 
+      try
+      {
+        if(ed.contentDocument.designMode != 'on')
+          ed.contentDocument.designMode = 'on';
+      }
+      catch(e)
+      {
+		    setTimeout(function(){try{ed.contentDocument.designMode = 'on';}catch(e){}}, 20);
+        setTimeout(function(){SPAW_editorInit(editor, css_stylesheet, direction);},50);
+        return;
+      }
+      // register the editor
       spaw_editors[spaw_editors.length] = editor;
-    
+
       // add on submit handler
       SPAW_addOnSubmitHandler(editor);
-   
-      ed.contentDocument.designMode = 'on';
+      
       var s_sheet = ed.contentDocument.createElement("link");
       s_sheet.setAttribute("rel","stylesheet");
       s_sheet.setAttribute("type","text/css");
@@ -64,10 +74,13 @@
       var head = ed.contentDocument.getElementsByTagName("head");
       head[0].appendChild(s_sheet);
 
+      // set direction
+      ed.contentDocument.body.dir = direction;
+
       // set initial value
       var ta_field = document.getElementById(editor);
       var html = ta_field.value;
-      if (html != null && html != "\n")
+      if (html != null && html != "\n" && html != "")
         ed.contentDocument.body.innerHTML = html;
         
      // hookup active toolbar related events
@@ -116,6 +129,14 @@
   {
     var ed = document.getElementById(editor+'_rEdit');
    	ed.contentDocument.execCommand('underline', false, null);
+    ed.contentWindow.focus();
+    SPAW_update_toolbar(editor, true);    
+  }
+
+  function SPAW_strike_click(editor, sender)
+  {
+    var ed = document.getElementById(editor+'_rEdit');
+   	ed.contentDocument.execCommand('strikethrough', false, null);
     ed.contentWindow.focus();
     SPAW_update_toolbar(editor, true);    
   }
@@ -420,7 +441,23 @@
     if (imgSrc != null)
     {
       var ed = document.getElementById(editor+'_rEdit');
-     	ed.contentDocument.execCommand('insertimage', false, imgSrc);
+      // check if image is flash or regular image
+      if (imgSrc.toLowerCase().indexOf('.swf') == -1)
+      {
+        // regular image
+       	ed.contentDocument.execCommand('insertimage', false, imgSrc);
+      }
+      else
+      {
+        // flash
+    	  var flash = document.createElement('EMBED');
+    	  flash.setAttribute('type','application/x-shockwave-flash');
+    	  flash.setAttribute('src',imgSrc);
+    	  flash.setAttribute('play','true');
+    	  flash.setAttribute('loop','true');
+    	  flash.setAttribute('menu','true');
+        insertNodeAtSelection(ed.contentWindow, flash);        
+      }
     }
     ed.contentWindow.focus();
   }
@@ -434,6 +471,7 @@
       var iProps = {};
       if (im.attributes["src"])
         iProps.src = im.attributes["src"].nodeValue;
+      iProps.type = "img";
       iProps.alt = im.alt;
       iProps.width = (im.style.width)?im.style.width:im.width;
       iProps.height = (im.style.height)?im.style.height:im.height;
@@ -1261,6 +1299,7 @@
                             ["bold",                "bold"],
                             ["italic",              "italic"],
                             ["underline",           "underline"],
+                            ["strikethrough",       "strike"],
                             ["justifyleft",         "left"],
                             ["justifycenter",       "center"],
                             ["justifyright",        "right"],
@@ -1283,6 +1322,7 @@
                             ["bold",                "bold"],
                             ["italic",              "italic"],
                             ["underline",           "underline"],
+                            ["strikethrough",       "strike"],
                             ["justifyleft",         "left"],
                             ["justifycenter",       "center"],
                             ["justifyright",        "right"],

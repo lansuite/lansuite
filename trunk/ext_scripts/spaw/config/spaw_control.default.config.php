@@ -12,11 +12,19 @@
 // v.1.0, 2003-03-27
 // ================================================
 
+$tmp_relpath  = "";
+
+if (substr_count($_SERVER['PHP_SELF'],"spaw/dialogs/") >= 1) {
+	$tmp_relpath  = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], "ext_scripts/spaw/dialogs/"));
+}else{
+	$tmp_relpath  = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], "index.php"));
+}
+
 // directory where spaw files are located
-$spaw_dir = '/spaw/';
+$spaw_dir = $tmp_relpath  . 'ext_scripts/spaw/';
 
 // base url for images
-$spaw_base_url = 'http://spaw/';
+$spaw_base_url = "http://" . $_SERVER["HTTP_HOST"];
 
 if (!ereg('/$', $HTTP_SERVER_VARS['DOCUMENT_ROOT']))
   $spaw_root = $HTTP_SERVER_VARS['DOCUMENT_ROOT'].$spaw_dir;
@@ -106,4 +114,6 @@ $spaw_internal_link_script = 'url to your internal link selection script';
 // disables style related controls in dialogs when css class is selected
 $spaw_disable_style_controls = true;
 
+// disables stripping domain part from local urls
+$spaw_disable_absolute_url_stripping = false;
 ?>

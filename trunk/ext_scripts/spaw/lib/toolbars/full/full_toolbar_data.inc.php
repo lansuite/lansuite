@@ -68,6 +68,10 @@ $spaw_toolbar_data = array(
               'type' => SPAW_TBI_BUTTON
             ),
             array(
+              'name' => 'strike',
+              'type' => SPAW_TBI_BUTTON
+            ),
+            array(
               'name' => 'vertical_separator',
               'type' => SPAW_TBI_IMAGE
             ),

@@ -17,13 +17,13 @@ include '../config/spaw_control.config.php';
 include $spaw_root.'class/util.class.php';
 include $spaw_root.'class/lang.class.php';
 
-$theme = empty($HTTP_GET_VARS['theme'])?$spaw_default_theme:$HTTP_GET_VARS['theme'];
+$theme = SPAW_Util::getGETVar('theme',$spaw_default_theme);
 $theme_path = $spaw_dir.'lib/themes/'.$theme.'/';
 
-$l = new SPAW_Lang($HTTP_GET_VARS['lang']);
+$l = new SPAW_Lang(SPAW_Util::getGETVar('lang'));
 $l->setBlock('table_cell_prop');
 
-$request_uri = urldecode(empty($HTTP_POST_VARS['request_uri'])?(empty($HTTP_GET_VARS['request_uri'])?'':$HTTP_GET_VARS['request_uri']):$HTTP_POST_VARS['request_uri']);
+$request_uri = urldecode(SPAW_Util::getPOSTVar('request_uri',SPAW_Util::getGETVar('request_uri')));
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 

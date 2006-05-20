@@ -1,4 +1,26 @@
-2004-04-24 v.1.1 RC1
+2006-04-13 v.1.1
+----------------
+- FEATURE ADDED: added config variable 
+  $spaw_disable_absolute_url_stripping to disable stripping of
+  domain part of local urls
+- FEATURE ADDED: strikethrough function added
+- BUGFIX: made php5 compatible
+- BUGFIX: fixed bug with multiple instances of spaw instantiated
+  before first call to show() method
+- BUGFIX: cursor was missing on first load in Firefox 1.5
+- BUGFIX: added title attribute to toolbar buttons
+- BUGFIX: text direction wasn't set under Gecko
+- BUGFIX: preview in image library dialog was triggering insecure
+  content warning when used under https
+- BUGFIX: implemented hiding of non-applicable rows in hyperlink
+  dialog under Gecko
+- BUGFIX: added code to workaround javascript errors on 
+  initialization with some firefox installations
+- BUGFIX: updated 'default' theme for Gecko
+- LANGUAGE FILE ADDED: Arabic (Mohammed Ahmed)
+- LANGUAGE FILE ADDED: Serbian (latin) (jbole@neobee.net)
+
+2005-04-24 v.1.1 RC1
 --------------------
 - FEATURE ADDED (GECKO): implemented active toolbar on Gecko
 - CHANGE: changed the way initial value is passed to the editor. 

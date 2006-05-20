@@ -9,7 +9,7 @@
 // ------------------------------------------------
 //                                www.solmetra.com
 // ================================================
-// $Revision: 1.14 $, $Date: 2004/12/18 14:28:50 $
+// $Revision: 1.16 $, $Date: 2006/04/12 14:07:05 $
 // ================================================
 
 // unset $spaw_imglib_include
@@ -20,13 +20,13 @@ include '../config/spaw_control.config.php';
 include $spaw_root.'class/util.class.php';
 include $spaw_root.'class/lang.class.php';
 
-$theme = empty($HTTP_POST_VARS['theme'])?(empty($HTTP_GET_VARS['theme'])?$spaw_default_theme:$HTTP_GET_VARS['theme']):$HTTP_POST_VARS['theme'];
+$theme = SPAW_Util::getPOSTVar('theme',SPAW_Util::getGETVar('theme',$spaw_default_theme));
 $theme_path = $spaw_dir.'lib/themes/'.$theme.'/';
 
-$l = new SPAW_Lang(empty($HTTP_POST_VARS['lang'])?$HTTP_GET_VARS['lang']:$HTTP_POST_VARS['lang']);
+$l = new SPAW_Lang(SPAW_Util::getPOSTVar('lang',SPAW_Util::getGETVar('lang')));
 $l->setBlock('image_insert');
 
-$request_uri = urldecode(empty($HTTP_POST_VARS['request_uri'])?(empty($HTTP_GET_VARS['request_uri'])?'':$HTTP_GET_VARS['request_uri']):$HTTP_POST_VARS['request_uri']);
+$request_uri = urldecode(SPAW_Util::getPOSTVar('request_uri',SPAW_Util::getGETVar('request_uri')));
 
 // if set include file specified in $spaw_imglib_include
 if (!empty($spaw_imglib_include))
@@ -36,8 +36,9 @@ if (!empty($spaw_imglib_include))
 ?>
 
 <?php 
-$imglib = isset($HTTP_POST_VARS['lib'])?$HTTP_POST_VARS['lib']:'';
-if (empty($imglib) && isset($HTTP_GET_VARS['lib'])) $imglib = $HTTP_GET_VARS['lib'];
+
+$imglib = SPAW_Util::getPOSTVar('lib');
+if (empty($imglib) && SPAW_Util::getGETVar('lib')!='') $imglib = SPAW_Util::getGETVar('lib');
 
 $value_found = false;
 // callback function for preventing listing of non-library directory
@@ -59,12 +60,13 @@ if (!$value_found || empty($imglib))
 $lib_options = liboptions($spaw_imglibs,'',$imglib);
 
 
-$img = isset($HTTP_POST_VARS['imglist'])?$HTTP_POST_VARS['imglist']:'';
+$img = SPAW_Util::getPOSTVar('imglist');
 
-$preview = '';
+$preview = '../empty.html';
 
 $errors = array();
-if (isset($HTTP_POST_FILES['img_file']['size']) && $HTTP_POST_FILES['img_file']['size']>0)
+$img_file_var = SPAW_Util::getFILESVar('img_file');
+if (isset($img_file_var['size']) && $img_file_var['size']>0)
 {
   if ($img = uploadImg('img_file'))
   {
@@ -72,10 +74,11 @@ if (isset($HTTP_POST_FILES['img_file']['size']) && $HTTP_POST_FILES['img_file'][
   }
 }
 // delete
-if ($spaw_img_delete_allowed && isset($HTTP_POST_VARS['lib_action']) 
-	&& ($HTTP_POST_VARS['lib_action']=='delete') && !empty($img)) {
+if ($spaw_img_delete_allowed && SPAW_Util::getPOSTVar('lib_action') 
+	&& (SPAW_Util::getPOSTVar('lib_action')=='delete') && !empty($img)) {
   deleteImg();
 }
+
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 
@@ -163,10 +166,10 @@ if ($spaw_img_delete_allowed && isset($HTTP_POST_VARS['lib_action'])
 <tr>
   <td valign="top" align="left">
   <?php 
-    if (!ereg('/$', $HTTP_SERVER_VARS['DOCUMENT_ROOT']))
-      $_root = $HTTP_SERVER_VARS['DOCUMENT_ROOT'].'/';
+    if (!ereg('/$', SPAW_Util::getSERVERVar('DOCUMENT_ROOT')))
+      $_root = SPAW_Util::getSERVERVar('DOCUMENT_ROOT').'/';
     else
-      $_root = $HTTP_SERVER_VARS['DOCUMENT_ROOT'];
+      $_root = SPAW_Util::getSERVERVar('DOCUMENT_ROOT');
     
     $d = @dir($_root.$imglib);
   ?>
@@ -252,6 +255,7 @@ if ($spaw_img_delete_allowed && isset($HTTP_POST_VARS['lib_action'])
 </html>
 
 <?php 
+
 function liboptions($arr, $prefix = '', $sel = '')
 {
   $buf = '';
@@ -263,8 +267,6 @@ function liboptions($arr, $prefix = '', $sel = '')
 
 function uploadImg($img) {
 
-  global $HTTP_POST_FILES;
-  global $HTTP_SERVER_VARS;
   global $spaw_valid_imgs;
   global $imglib;
   global $errors;
@@ -273,16 +275,17 @@ function uploadImg($img) {
   
   if (!$spaw_upload_allowed) return false;
 
-  if (!ereg('/$', $HTTP_SERVER_VARS['DOCUMENT_ROOT']))
-    $_root = $HTTP_SERVER_VARS['DOCUMENT_ROOT'].'/';
+  if (!ereg('/$', SPAW_Util::getSERVERVar('DOCUMENT_ROOT')))
+    $_root = SPAW_Util::getSERVERVar('DOCUMENT_ROOT').'/';
   else
-    $_root = $HTTP_SERVER_VARS['DOCUMENT_ROOT'];
+    $_root = SPAW_Util::getSERVERVar('DOCUMENT_ROOT');
   
-  if ($HTTP_POST_FILES[$img]['size']>0) {
-    $data['type'] = $HTTP_POST_FILES[$img]['type'];
-    $data['name'] = $HTTP_POST_FILES[$img]['name'];
-    $data['size'] = $HTTP_POST_FILES[$img]['size'];
-    $data['tmp_name'] = $HTTP_POST_FILES[$img]['tmp_name'];
+  $img_file_var = SPAW_Util::getFILESVar($img);
+  if ($img_file_var['size']>0) {
+    $data['type'] = $img_file_var['type'];
+    $data['name'] = $img_file_var['name'];
+    $data['size'] = $img_file_var['size'];
+    $data['tmp_name'] = $img_file_var['tmp_name'];
 
     // get file extension
     $ext = strtolower(substr(strrchr($data['name'],'.'), 1));
@@ -312,7 +315,6 @@ function uploadImg($img) {
 
 function deleteImg()
 {
-  global $HTTP_SERVER_VARS;
   global $imglib;
   global $img;
   global $spaw_img_delete_allowed;
@@ -321,10 +323,10 @@ function deleteImg()
   
   if (!$spaw_img_delete_allowed) return false;
 
-  if (!ereg('/$', $HTTP_SERVER_VARS['DOCUMENT_ROOT']))
-    $_root = $HTTP_SERVER_VARS['DOCUMENT_ROOT'].'/';
+  if (!ereg('/$', SPAW_Util::getSERVERVar('DOCUMENT_ROOT')))
+    $_root = SPAW_Util::getSERVERVar('DOCUMENT_ROOT').'/';
   else
-    $_root = $HTTP_SERVER_VARS['DOCUMENT_ROOT'];
+    $_root = SPAW_Util::getSERVERVar('DOCUMENT_ROOT');
 	
   $full_img_name = $_root.$imglib.$img;
 
@@ -337,4 +339,5 @@ function deleteImg()
 	return false;
   }
 }
+
 ?>
