@@ -156,6 +156,11 @@ class Mail {
 			$board_config["smtp_password"] = $cfg["mail_smtp_pass"];
 			$board_config["board_email"] = $this->inet_from_mail;
 
+      if (!$cfg['mail_utf8']) {
+        $subject_text = utf8_decode($subject_text);
+        $msgbody_text = utf8_decode($msgbody_text);
+      }
+
 			include_once("modules/mail/smtp.php");
 
 			if (smtpmail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) return true;
