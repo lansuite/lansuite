@@ -3,6 +3,7 @@ body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 9pt;
 	margin : 5 5 5 5;
+	background: #E7E7E7;
 	filter:progid:dximagetransform.microsoft.gradient(gradienttype=0,startcolorstr=#D7D7D7,endcolorstr=#FCFBFF);
 }
 
@@ -48,6 +49,7 @@ hr {
 	font-size: 8pt;
 	font-weight: bold;
 	border : 1px solid #b2b2b2;
+	background: #D7D7D7;
 	filter:progid:dximagetransform.microsoft.gradient(gradienttype=0,startcolorstr=#FCFCFC,endcolorstr=#CECECE);
 }
 .img_pick {

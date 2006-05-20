@@ -112,6 +112,13 @@ SPAW_toggle_borders(editor,this[editor+'_rEdit'].document.body,null);
     this[editor+'_rEdit'].document.execCommand('underline', false, null);
     SPAW_update_toolbar(editor, true);    
   }
+
+  function SPAW_strike_click(editor, sender)
+  {
+    window.frames[editor+'_rEdit'].focus();     
+    this[editor+'_rEdit'].document.execCommand('strikethrough', false, null);
+    SPAW_update_toolbar(editor, true);    
+  }
   
   function SPAW_left_click(editor, sender)
   {
@@ -416,8 +423,27 @@ SPAW_toggle_borders(editor,this[editor+'_rEdit'].document.body,null);
     var imgSrc = showModalDialog('<?php echo $spaw_dir?>dialogs/img_library.php?lang=' + document.all['SPAW_'+editor+'_lang'].value + '&theme=' + document.all['SPAW_'+editor+'_theme'].value+'&request_uri='+escape(window.location.href), '', 
       'dialogHeight:420px; dialogWidth:420px; resizable:no; status:no');
     
-    if(imgSrc != null)    
-    	this[editor+'_rEdit'].document.execCommand('insertimage', false, imgSrc);
+    if(imgSrc != null)
+    {
+      // check if image is flash or regular image
+      if (imgSrc.toLowerCase().indexOf('.swf') == -1)
+      {
+        // regular image
+    	  this[editor+'_rEdit'].document.execCommand('insertimage', false, imgSrc);
+    	}
+    	else
+    	{
+    	  // flash
+    	  var flash = document.createElement('EMBED');
+    	  flash.setAttribute('type','application/x-shockwave-flash');
+    	  flash.setAttribute('src',imgSrc);
+    	  flash.setAttribute('play','true');
+    	  flash.setAttribute('loop','true');
+    	  flash.setAttribute('menu','true');
+    	  var selection = window.frames[editor+'_rEdit'].document.selection.createRange();
+    	  selection.pasteHTML(flash.outerHTML);
+    	}
+    }
 
     SPAW_update_toolbar(editor, true);    
   }
@@ -429,53 +455,77 @@ SPAW_toggle_borders(editor,this[editor+'_rEdit'].document.body,null);
     if (im)
     {
       var iProps = {};
-      iProps.src = SPAW_stripAbsoluteUrlFromImg(editor, im.src);
-      iProps.alt = im.alt;
-      iProps.width = (im.style.width)?im.style.width:im.width;
-      iProps.height = (im.style.height)?im.style.height:im.height;
-      iProps.border = im.border;
-      iProps.align = im.align;
-      iProps.hspace = im.hspace;
-      iProps.vspace = im.vspace;
+      if (im.tagName == 'IMG')
+      {
+        // regular image
+        iProps.src = SPAW_stripAbsoluteUrlFromImg(editor, im.src);
+        iProps.type = 'img';
+        iProps.alt = im.alt;
+        iProps.width = (im.style.width)?im.style.width:im.width;
+        iProps.height = (im.style.height)?im.style.height:im.height;
+        iProps.border = im.border;
+        iProps.align = im.align;
+        iProps.hspace = im.hspace;
+        iProps.vspace = im.vspace;
+      }
+      else
+      {
+        // flash
+        iProps.src = ''; // TODO
+        iProps.type = 'flash';
+        iProps.width = (im.style.width)?im.style.width:im.width;
+        iProps.height = (im.style.height)?im.style.height:im.height;
+        if (iProps.width && iProps.width.indexOf('px') != -1)
+          iProps.width = iProps.width.substring(0, iProps.width.length - 2);
+        if (iProps.height && iProps.height.indexOf('px') != -1)
+          iProps.height = iProps.height.substring(0, iProps.height.length - 2);
+      }
   
       var niProps = showModalDialog('<?php echo $spaw_dir?>dialogs/img.php?lang=' + document.all['SPAW_'+editor+'_lang'].value + '&theme=' + document.all['SPAW_'+editor+'_theme'].value, iProps, 
         'dialogHeight:200px; dialogWidth:366px; resizable:no; status:no');  
       
       if (niProps)  
       {
-        im.src = (niProps.src)?niProps.src:'';
-        if (niProps.alt) {
-          im.alt = niProps.alt;
-        }
-        else
-        {
-          im.removeAttribute("alt",0);
-        }
-        im.align = (niProps.align)?niProps.align:'';
         im.width = (niProps.width)?niProps.width:'';
-        //im.style.width = (niProps.width)?niProps.width:'';
         im.height = (niProps.height)?niProps.height:'';
-        //im.style.height = (niProps.height)?niProps.height:'';
-        if (niProps.border) {
-          im.border = niProps.border;
+        if (im.tagName == 'IMG')
+        {
+          im.src = (niProps.src)?niProps.src:'';
+          if (niProps.alt) {
+            im.alt = niProps.alt;
+          }
+          else
+          {
+            im.removeAttribute("alt",0);
+          }
+          im.align = (niProps.align)?niProps.align:'';
+          if (niProps.border) {
+            im.border = niProps.border;
+          }
+          else
+          {
+            im.removeAttribute("border",0);
+          }
+          if (niProps.hspace) {
+            im.hspace = niProps.hspace;
+          }
+          else
+          {
+            im.removeAttribute("hspace",0);
+          }
+          if (niProps.vspace) {
+            im.vspace = niProps.vspace;
+          }
+          else
+          {
+            im.removeAttribute("vspace",0);
+          }
         }
         else
         {
-          im.removeAttribute("border",0);
-        }
-        if (niProps.hspace) {
-          im.hspace = niProps.hspace;
-        }
-        else
-        {
-          im.removeAttribute("hspace",0);
-        }
-        if (niProps.vspace) {
-          im.vspace = niProps.vspace;
-        }
-        else
-        {
-          im.removeAttribute("vspace",0);
+          // flash
+          im.style.width = (niProps.width)?niProps.width:'';
+          im.style.height = (niProps.height)?niProps.height:'';
         }
       }      
       //SPAW_updateField(editor,"");
@@ -1001,7 +1051,7 @@ SPAW_toggle_borders(editor,this[editor+'_rEdit'].document.body,null);
     if (window.frames[editor+'_rEdit'].document.selection.type == "Control")
     { 
       var tControl = window.frames[editor+'_rEdit'].document.selection.createRange();
-      if (tControl(0).tagName == 'IMG')
+      if (tControl(0).tagName == 'IMG' || (tControl(0).tagName == 'EMBED'))
         return(tControl(0));
       else
         return(null);
@@ -1536,6 +1586,7 @@ SPAW_toggle_borders(editor,this[editor+'_rEdit'].document.body,null);
   
   function SPAW_stripAbsoluteUrl(editor, url)
   {
+  <?php if (!$spaw_disable_absolute_url_stripping) { ?>
 	var curl = window.frames[editor+'_rEdit'].location.href;
 	var di = curl.lastIndexOf('/', curl.lastIndexOf('?')!=-1?curl.lastIndexOf('?'):curl.length);
 	var cdir = curl;
@@ -1557,11 +1608,13 @@ SPAW_toggle_borders(editor,this[editor+'_rEdit'].document.body,null);
 	{
 		url = url.substr(chost.length);
 	}
+	<?php } ?>
 	return(url);
   }
 
   function SPAW_stripAbsoluteUrlFromImg(editor, url)
   {
+	<?php if (!$spaw_disable_absolute_url_stripping) { ?>
 	var curl = window.frames[editor+'_rEdit'].location.href;
 	var chost = curl;
 	var hi = curl.indexOf('/',curl.indexOf('://')!=-1?(curl.indexOf('://')+3):curl.length);
@@ -1571,6 +1624,7 @@ SPAW_toggle_borders(editor,this[editor+'_rEdit'].document.body,null);
 	{
 		url = url.substr(chost.length);
 	}
+	<?php } ?>
 	return(url);
   }
   
@@ -1836,6 +1890,7 @@ SPAW_toggle_borders(editor,this[editor+'_rEdit'].document.body,null);
                             ["bold",                "bold"],
                             ["italic",              "italic"],
                             ["underline",           "underline"],
+                            ["strikethrough",       "strike"],
                             ["justifyleft",         "left"],
                             ["justifycenter",       "center"],
                             ["justifyright",        "right"],
@@ -1858,6 +1913,7 @@ SPAW_toggle_borders(editor,this[editor+'_rEdit'].document.body,null);
                             ["bold",                "bold"],
                             ["italic",              "italic"],
                             ["underline",           "underline"],
+                            ["strikethrough",       "strike"],
                             ["justifyleft",         "left"],
                             ["justifycenter",       "center"],
                             ["justifyright",        "right"],

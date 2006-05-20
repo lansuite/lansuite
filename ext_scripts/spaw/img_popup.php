@@ -41,6 +41,6 @@ function init()
 </script>
 </head>
 <body marginheight="0" marginwidth="0" topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0" onLoad="init();" bgcolor="red">
-<img name="LargeImg" src="<?php echo $HTTP_GET_VARS['img_url']?>" border="0"/>
+<img name="LargeImg" src="<?php echo $_GET['img_url']?>" border="0"/>
 </body>
 </html>

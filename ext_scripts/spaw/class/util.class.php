@@ -67,5 +67,57 @@ class SPAW_Util
       return 'Unknown';
     }
   }
+  
+  // returns GET variable
+  function getGETVar($var_name, $empty_value='')
+  {
+  
+    global $HTTP_GET_VARS;
+    if (!empty($_GET[$var_name]))
+      return $_GET[$var_name];
+    elseif (!empty($HTTP_GET_VARS[$var_name]))
+      return $HTTP_GET_VARS[$var_name];
+    else
+      return $empty_value;
+  }
+
+  // returns POST variable
+  function getPOSTVar($var_name, $empty_value='')
+  {
+    global $HTTP_POST_VARS;
+    if (!empty($_POST[$var_name]))
+      return $_POST[$var_name];
+    else if (!empty($HTTP_POST_VARS[$var_name]))
+      return $HTTP_POST_VARS[$var_name];
+    else
+      return $empty_value;
+  }
+  
+   // returns FILES variable
+  function getFILESVar($var_name, $empty_value='')
+  {
+    global $HTTP_POST_FILES;
+    if (!empty($_FILES[$var_name]))
+      return $_FILES[$var_name];
+    else if (!empty($HTTP_POST_FILES[$var_name]))
+      return $HTTP_POST_FILES[$var_name];
+    else
+      return $empty_value;
+  }
+  
+   // returns SERVER variable
+  function getSERVERVar($var_name, $empty_value='')
+  {
+    global $HTTP_SERVER_VARS;
+    if (!empty($_SERVER[$var_name]))
+      return $_SERVER[$var_name];
+    else if (!empty($HTTP_SERVER_VARS[$var_name]))
+      return $HTTP_SERVER_VARS[$var_name];
+    else
+      return $empty_value;
+  }
+ 
+ 
+
 }
 ?>

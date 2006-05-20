@@ -49,7 +49,11 @@ switch($_GET["step"]){
 			else $tmp_spaw_type = "mini";
 
 			$sw = new SPAW_Wysiwyg('content', $_POST["content"], $language, $tmp_spaw_type, 'default', $cfg["info2_width"], $cfg["info2_height"]);
-			$dsp->AddSingleRow($sw->show());
+			ob_start();
+			$sw->show();
+			$spaw_content = ob_get_contents();
+			ob_end_clean();
+			$dsp->AddSingleRow($spaw_content);
 		} else $dsp->AddTextAreaRow("content", "", $_POST["content"], "", 80, 25, 0);
 
 		$dsp->AddFormSubmitRow("add");

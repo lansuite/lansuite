@@ -17,10 +17,10 @@ include '../config/spaw_control.config.php';
 include $spaw_root.'class/util.class.php';
 include $spaw_root.'class/lang.class.php';
 
-$theme = empty($HTTP_GET_VARS['theme'])?$spaw_default_theme:$HTTP_GET_VARS['theme'];
+$theme = SPAW_Util::getGETVar('theme',$spaw_default_theme);
 $theme_path = $spaw_dir.'lib/themes/'.$theme.'/';
 
-$l = new SPAW_Lang($HTTP_GET_VARS['lang']);
+$l = new SPAW_Lang(SPAW_Util::getGETVar('lang'));
 $l->setBlock('hyperlink');
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -149,13 +149,10 @@ $l->setBlock('hyperlink');
       document.getElementById("catype").selectedIndex = 2;
     }
 
-    <?php if (SPAW_Util::getBrowser() != 'Gecko') { ?>
-    // doesn't work right in mozilla
-    document.getElementById("url_row").style.display = new_type=="link"?"inline":"none";
-  	document.getElementById("name_row").style.display = new_type=="anchor"?"inline":"none";
-  	document.getElementById("anchor_row").style.display = new_type=="link2anchor"?"inline":"none";
-  	document.getElementById("target_row").style.display = (new_type=="link"||new_type=="link2anchor")?"inline":"none";
-  	<?php } ?>
+    document.getElementById("url_row").style.display = new_type=="link"?"":"none";
+  	document.getElementById("name_row").style.display = new_type=="anchor"?"":"none";
+  	document.getElementById("anchor_row").style.display = new_type=="link2anchor"?"":"none";
+  	document.getElementById("target_row").style.display = (new_type=="link"||new_type=="link2anchor")?"":"none";
   	
     resizeDialogToContent();
   }

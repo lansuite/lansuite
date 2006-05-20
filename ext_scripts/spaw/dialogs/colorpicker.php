@@ -9,7 +9,7 @@
 // ------------------------------------------------
 //                                www.solmetra.com
 // ================================================
-// $Revision: 1.8 $, $Date: 2004/12/18 14:28:50 $
+// $Revision: 1.9 $, $Date: 2006/04/12 14:07:05 $
 // ================================================
 
 // include wysiwyg config
@@ -17,10 +17,10 @@ include '../config/spaw_control.config.php';
 include $spaw_root.'class/util.class.php';
 include $spaw_root.'class/lang.class.php';
 
-$theme = empty($HTTP_GET_VARS['theme'])?$spaw_default_theme:$HTTP_GET_VARS['theme'];
+$theme = SPAW_Util::getGETVar('theme',$spaw_default_theme);
 $theme_path = $spaw_dir.'lib/themes/'.$theme.'/';
 
-$l = new SPAW_Lang($HTTP_GET_VARS['lang']);
+$l = new SPAW_Lang(SPAW_Util::getGETVar('lang'));
 $l->setBlock('colorpicker');
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">

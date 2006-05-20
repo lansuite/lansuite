@@ -47,7 +47,7 @@
 <LI>Advanced table manipulation - create, modify attributes of table and cells, insert/delete rows and columns, merge/split cells (including unique vertical merging feature!); </LI>
 <LI>Support for themes (skins) - 2 ready to use themes included; </LI>
 <LI>Fully customizable toolbars - 4 presets included; </LI>
-<LI>Multilanguage support - English, Lithuanian, Russian, German, Dutch, Italian, French, Hebrew, Turkish, Chinese, Czech, Brazilian Portuguese, Swedish, Danish, Hungarian, Bulgarian, Polish, Finish, Estonian, Japanese, Galego, Norwegian, Slovak, Catalan, Portuguese, Slovenian, Greek, Thai, Vietnamese, Korean, Ukrainian and Croatian language files included; </LI>
+<LI>Multilanguage support - English, Lithuanian, Russian, German, Dutch, Italian, French, Hebrew, Turkish, Chinese, Czech, Brazilian Portuguese, Swedish, Danish, Hungarian, Bulgarian, Polish, Finish, Estonian, Japanese, Galego, Norwegian, Slovak, Catalan, Portuguese, Slovenian, Greek, Thai, Vietnamese, Korean, Ukrainian, Croatian, Arabic and Serbian language files included; </LI>
 <LI>Support for multiple fully independent instances of control on the same page (each instance can have different theme, toolbar, language, style classes, etc.); </LI>
 <li>HTML code cleanup (useful for copy/pasting content from MS Word);</li>
 <li>Optional design time borders on borderless tables;</li>
@@ -61,10 +61,25 @@
 <LI>Server: PHP4 on any compatible OS </LI>
 <LI>Client: Microsoft Internet Explorer 5.5. or above on Windows, modern Gecko based browsers on other OSs.</LI></UL>
 
+<p><strong>Known issues under Gecko (please don't submit as bugs)</strong></p>
+<ul>
+<li>Cut, Copy and Paste functions aren't available cause they are disabled in
+  Mozilla for security reasons and it takes editing config files to enable them</li>
+<li>Word cleanup is not implemented, yet</li>
+<li>Borders on borderless objects feature is not implemented</li>
+<li>Table functions (insert/delete row/column, merge/split cells) are not yet
+  implemented (but you can insert/delete rows/columns visually in gecko)</li>
+<li>Dialogs aren't really modal. So you can bug the behavior if you move cursor 
+  in the editor area while dialog is open.</li>
+<li>You need to change paragraph values in config file to &lt;H1&gt;, &lt;H2&gt;, etc. in 
+  order for paragraphs to work in Gecko. It will also work in IE but wont
+  be reflected in active toolbar</li>
+</ul>
+
 <hr>
 <h2><a name="license">License</a></h2>
 
-<p>This program is copyright &copy; 2003-2004 by Solmetra. 
+<p>This program is copyright &copy; 2003-2006 by Solmetra. 
 <br>
 By using this program you agree to the terms of License Agreement found in <em><a href="license.txt">license.txt</a></em> file in <em>docs</em> directory</p>
 
@@ -101,6 +116,16 @@ By using this program you agree to the terms of License Agreement found in <em><
 
 <p><strong>$spaw_dropdown_data</strong> - array holding values and texts for the toolbar items of dropdown type like style, font, fontsize and paragraph in the following format: <strong>$spaw_dropdown_data['control_name']['value'] = 'text';</strong>.</p>
 
+<p><strong>$spaw_a_targets</strong> - array holding selectable targets for hyperlinks (via hyperlink dialog). array index - target value, value - default text in dropdown. For example: <strong>$spaw_a_targets['_top'] = 'Top';</strong>. Control first tries to get the text from language file (hyperlink_targets block), if there's no text default text is used.</p>
+
+<p><strong>$spaw_img_popup_url</strong> - url to the image popup sript (inserted when image popup feature is used). You may use included script (default value) or create your own. Image url is passed via img_url query string parameter.</p>
+
+<p><strong>$spaw_internal_link_script</strong> - url to the script returning hyperlink data for links to internal content management system pages. See Advanced features for detailed information.</p>
+
+<p><strong>$spaw_disable_style_controls</strong> - if set to true disables all style related properties in table and table cell dialogs when css class is selected.</p>
+
+<p><strong>$spaw_disable_absolute_url_stripping</strong> - if set to true SPAW won't strip host part from links and images located on the same host</p>
+
 <p><em>Following settings apply to image library dialog only</em></p>
 
 <p><strong>$spaw_valid_imgs</strong> - file extensions allowed for uploaded images.</p>
@@ -112,14 +137,6 @@ By using this program you agree to the terms of License Agreement found in <em><
 <p><strong>$spaw_imglibs</strong> - array of arrays describing image libraries (directories), each array consists of 'value' element holding the path to the directory from the root without starting slash and 'text' element is a description visible to user.</p>
 
 <p><strong>$spaw_imglib_include</strong> - path to the include file to be included in image library. You can dynamically modify $spaw_imglibs array (set image libraries dynamically) and toggle upload and delete function on and off. <b>$request_uri</b> variable is set to the URI of the script where SPAW is located. You can parse it set libraries and other settings accordingly.</p>
-
-<p><strong>$spaw_a_targets</strong> - array holding selectable targets for hyperlinks (via hyperlink dialog). array index - target value, value - default text in dropdown. For example: <strong>$spaw_a_targets['_top'] = 'Top';</strong>. Control first tries to get the text from language file (hyperlink_targets block), if there's no text default text is used.</p>
-
-<p><strong>$spaw_img_popup_url</strong> - url to the image popup sript (inserted when image popup feature is used). You may use included script (default value) or create your own. Image url is passed via img_url query string parameter.</p>
-
-<p><strong>$spaw_internal_link_script</strong> - url to the script returning hyperlink data for links to internal content management system pages. See Advanced features for detailed information.</p>
-
-<p><strong>$spaw_disable_style_controls</strong> <sup style="color : red;">new</sup> - if set to true disables all style related properties in table and table cell dialogs when css class is selected.</p>
 
 <hr>
 <h2><a name="using">Using SPAW Editor in your applications</a></h2>
@@ -133,6 +150,9 @@ By using this program you agree to the terms of License Agreement found in <em><
 </ol>
 
 <p>So as you can see it is indeed pretty simple. The main factor affecting the look and feel of the control is what you pass to the contstructor. Those who like learning by example should now switch to the source code and output of <em>demo.php</em> script in <em>scripts</em> directory.</p>
+
+<p><em>Note: in case you submit your form via javascript (submit() method of the form object) you'll need to call SPAW_UpdateFields() function prior to calling
+submit()</em></p>
 
 <p>The full interface of <strong>SPAW_Wysiwyg</strong> contructor is:</p>
 
@@ -264,7 +284,7 @@ array(
 <p>Find answers to your questions in <a href="http://www.solmetra.com/en/disp.php/en_products/en_spaw/en_spaw_faq">SPAW Editor FAQ</a></p>
 <p>If you find a bug in SPAW Editor please submit it to our <a href="http://sourceforge.net/tracker/?group_id=77954&atid=551772">SF.net bug tracking system</a></p>
 <p>Submit your feature requests to <a href="http://sourceforge.net/tracker/?group_id=77954&atid=551775">SF.net RFE system</a>.</p>
-<p>Discuss your problems and ideas in <a href="http://sourceforge.net/forum/?group_id=77954">forums</a></p>
+<p>Discuss your problems and ideas in <a href="http://forums.solmetra.com/">forums</a></p>
 <P>Subscribe to <A href="http://lists.sourceforge.net/lists/listinfo/spaw-announce" target=_blank><STRONG>spaw-announce mailing list</STRONG></A> to be notified about new releases</P>
 <p>Address all other inquiries to <a href="mailto:spaw@solmetra.com">spaw@solmetra.com</a></p>
 
@@ -306,9 +326,12 @@ array(
 	<li>Croatian translation: dragan@pfri.hr;</li>
 	<li>Ukrainian translation: Alexandr Kaplun;</li>
 	<li>Korean translation: zionweb@hotmail.com.</li>
+  <li>Arabic translation: Mohammed Ahmed</li>
+  <li>Serbian translation: jbole@neobee.net</li>
+
 </ul>
 
 <hr>
-<p><em>SPAW Editor &copy; 2003-2004 by <a href="http://www.solmetra.com/">Solmetra</a>. All rights reserved.<br> $Revision: 1.14 $, $Date: 2005/04/24 10:13:39 $</em></p>
+<p><em>SPAW Editor &copy; 2003-2006 by <a href="http://www.solmetra.com/">Solmetra</a>. All rights reserved.<br> $Revision: 1.15 $, $Date: 2006/04/13 11:25:55 $</em></p>
 </body>
 </html>

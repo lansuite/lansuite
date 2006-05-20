@@ -21,6 +21,7 @@ include $spaw_root.'class/lang.class.php';
 
 // instance counter (static)
 $spaw_wysiwyg_instCount = 0;
+$spaw_javascript_sent = false;
 
 class SPAW_Wysiwyg {
   // controls name
@@ -53,11 +54,10 @@ class SPAW_Wysiwyg {
     global $spaw_wysiwyg_instCount;
     global $spaw_default_theme;
     global $spaw_default_css_stylesheet;
-	global $spaw_wysiwyg_instCount;
     
     $spaw_wysiwyg_instCount++;
     
-	$this->original_name = $control_name;
+    $this->original_name = $control_name;
     $this->control_name = str_replace(']','_',str_replace('[','_',str_replace('[]','_'.$spaw_wysiwyg_instCount.'_',$control_name)));
     $this->value = $value;
     $this->width = $width;
@@ -175,20 +175,21 @@ class SPAW_Wysiwyg {
   function getHtml()
   {
     global $spaw_dir;
-    global $spaw_wysiwyg_instCount;
+    global $spaw_javascript_sent;
     global $spaw_active_toolbar;
     
     
     $n = $this->control_name;
-	$orn = $this->original_name;
+    $orn = $this->original_name;
     // todo: make more customizable
 
     $buf = '';
     if (SPAW_Util::checkBrowser())
     {
-      if ($spaw_wysiwyg_instCount == 1)
+      if (!$spaw_javascript_sent)
       {
         $buf.= $this->getCssScript();
+        $spaw_javascript_sent = true;
       }
       // theme based css file and javascript
       $buf.= '<script language="JavaScript" src="'.$spaw_dir.'lib/themes/'.$this->theme.'/js/toolbar.js.php"></script>';
@@ -222,7 +223,7 @@ class SPAW_Wysiwyg {
       //$buf.= '<input type="hidden" id="'.$n.'" name="'.$n.'">';
       //$buf.= '<textarea id="'.$n.'" name="'.$orn.'" style="width:'.$this->getWidth().'; height:'.$this->getHeight().'; display:none;" class="SPAW_'.$this->theme.'_editarea"></textarea>';
 
-      $buf.= '<textarea id="'.$n.'" rows="20" cols="80" name="'.$orn.'" style="width:'.$this->getWidth().'; height:'.$this->getHeight().'; display:none;" class="SPAW_'.$this->theme.'_editarea">';
+      $buf.= '<textarea id="'.$n.'" name="'.$orn.'" style="width:'.$this->getWidth().'; height:'.$this->getHeight().'; display:none;" class="SPAW_'.$this->theme.'_editarea">';
       $buf.= htmlspecialchars($this->getValue());
       $buf.= '</textarea>';
 
@@ -307,7 +308,7 @@ class SPAW_Wysiwyg {
   // outputs wysiwyg control
   function show()
   {
-    return $this->getHtml();
+    echo $this->getHtml();
   }
 
 }

@@ -17,10 +17,10 @@ include '../config/spaw_control.config.php';
 include $spaw_root.'class/util.class.php';
 include $spaw_root.'class/lang.class.php';
 
-$theme = empty($HTTP_GET_VARS['theme'])?$spaw_default_theme:$HTTP_GET_VARS['theme'];
+$theme = SPAW_Util::getGETVar('theme',$spaw_default_theme);
 $theme_path = $spaw_dir.'lib/themes/'.$theme.'/';
 
-$l = new SPAW_Lang($HTTP_GET_VARS['lang']);
+$l = new SPAW_Lang(SPAW_Util::getGETVar('lang'));
 $l->setBlock('image_prop');
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -50,22 +50,37 @@ $l->setBlock('image_prop');
         document.getElementById('cheight').value = iProps.height;
       }
       
-      setAlign(iProps.align);
-      
-      if (iProps.src) {
-        document.getElementById('csrc').value = iProps.src;
+      if (iProps.type == 'img')
+      {
+        // regular image
+        setAlign(iProps.align);
+        
+        if (iProps.src) {
+          document.getElementById('csrc').value = iProps.src;
+        }
+        if (iProps.alt) {
+          document.getElementById('calt').value = iProps.alt;
+        }
+        if (iProps.border) {
+          document.getElementById('cborder').value = iProps.border;
+        }
+        if (iProps.hspace) {
+          document.getElementById('chspace').value = iProps.hspace;
+        }
+        if (iProps.vspace) {
+          document.getElementById('cvspace').value = iProps.vspace;
+        }
       }
-      if (iProps.alt) {
-        document.getElementById('calt').value = iProps.alt;
-      }
-      if (iProps.border) {
-        document.getElementById('cborder').value = iProps.border;
-      }
-      if (iProps.hspace) {
-        document.getElementById('chspace').value = iProps.hspace;
-      }
-      if (iProps.vspace) {
-        document.getElementById('cvspace').value = iProps.vspace;
+      else
+      {
+        // flash
+        // disable controls
+        document.getElementById('csrc').disabled = true;
+        document.getElementById('calign').disabled = true;
+        document.getElementById('calt').disabled = true;
+        document.getElementById('cborder').disabled = true;
+        document.getElementById('chspace').disabled = true;
+        document.getElementById('cvspace').disabled = true;
       }
     }
     resizeDialogToContent();

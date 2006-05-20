@@ -1,9 +1,9 @@
 SPAW Editor PHP Edition
-version 1.1 Beta
+version 1.1
 README
 
 ------------------------------------------------------------------
-This program is copyright (c) 2003-2004 by Solmetra.
+This program is copyright (c) 2003-2006 by Solmetra.
 By using this program you agree to the terms of License Agreement
 found in license.txt file in docs directory.
 ------------------------------------------------------------------
@@ -35,8 +35,9 @@ Features included in this release:
 - Multilanguage support - English, Lithuanian, Russian, German, Dutch, 
   Italian, French, Hebrew, Turkish, Chinese, Czech, Brazilian Portuguese,
   Swedish, Danish, Bulgarian, Polish, Finish, Estonian, Japanese, 
-  Galego, Norwegian, Slovak, Catalan, Portuguese, Slovenian, Greek 
-  and Thai language files included; 
+  Galego, Norwegian, Slovak, Catalan, Portuguese, Slovenian, Greek, 
+  Thai, Korean, Ukrainian, Croatian, Vietnamese, Arabic and Serbian 
+  language files included; 
 - Support for multiple fully independent instances of control on the same page 
   (each instance can have different theme, toolbar, language, style classes, etc.); 
 - HTML code cleanup (useful for copy/pasting content from MS Word);
@@ -47,7 +48,7 @@ Features included in this release:
 
 Requirements for PHP edition:
 
-Server: PHP4 on any compatible OS 
+Server: PHP4 or higher on any compatible OS 
 Client: Microsoft Internet Explorer 5.5. or above on Windows, 
         Mozilla 1.3 (or other Gecko based browser) or higher on any supported OS
 
@@ -57,7 +58,7 @@ See documentation.html
 
 Credits
 =======
-SPAW Editor copyright © 2003-2004 by Solmetra. All rights reserved.
+SPAW Editor copyright © 2003-2006 by Solmetra. All rights reserved.
 
 - Programming, documentation, "classic" theme, English and 
   Russian language files - Alan Mendelevich (alan@solmetra.com); 
@@ -94,6 +95,8 @@ SPAW Editor copyright © 2003-2004 by Solmetra. All rights reserved.
 - Croatian translation: dragan@pfri.hr
 - Ukrainian translation: Alexandr Kaplun
 - Korean translation: zionweb@hotmail.com
+- Arabic translation: Mohammed Ahmed
+- Serbian translation: jbole@neobee.net
 
 
 
