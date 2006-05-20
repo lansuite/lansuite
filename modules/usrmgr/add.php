@@ -42,6 +42,18 @@ global $mf, $db, $config, $auth, $party, $seat2;
 }
 
 
+
+function CheckClanPW ($clanpw) {
+  global $db, $config, $auth;
+
+  if (!$_POST['new_clan_select'] and $auth['type'] <= 1) {
+    $clan = $db->query_first("SELECT password FROM {$config['tables']['clan']} WHERE clanid = '{$_POST['clan']}'");
+    if ($clan['password'] and $clan['password'] != md5($clanpw)) return 'Wrong PW!';
+  }
+  return false;
+}
+
+
 function PersoInput($field, $mode, $error = '') {
   global $dsp, $templ, $lang, $auth;
 
@@ -282,7 +294,7 @@ if ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_sel
     $db->free_result($clans_query);
 
     $mf->AddField($lang['usrmgr']['add_existing_clan'], 'clan', IS_SELECTION, $selections, Optional('clan'));
-    $mf->AddField($lang['usrmgr']['chpwd_password2'], 'clanpw', IS_PASSWORD, '', FIELD_OPTIONAL);
+    $mf->AddField($lang['usrmgr']['chpwd_password2'], 'clanpw', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckClanPW');
     $mf->AddField($lang['usrmgr']['add_create_clan'], 'new_clan_select', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
     $mf->AddField($lang['usrmgr']['add_create_clan'], 'clan_new', '', '', FIELD_OPTIONAL);
     $mf->AddField($lang['usrmgr']['add_clanurl'], 'clanurl', '', '', FIELD_OPTIONAL);
