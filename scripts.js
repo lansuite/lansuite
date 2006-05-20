@@ -33,9 +33,13 @@ function loadPage(url) {
     xmlHttp.open('GET', url +'&contentonly=1');
     xmlHttp.onreadystatechange = function () {
       if (xmlHttp.readyState == 4) {
-        document.getElementById("LScontent").innerHTML = xmlHttp.responseText;
-        document.getElementById("LSfooter").innerHTML = document.getElementById("NewLSfooter").innerHTML;
-        document.getElementById("LScontent").removeChild(document.getElementById("NewLSfooter"));
+        // If target has script inside, use normal redirect, for the script wont run otherwise
+        if (xmlHttp.responseText.indexOf("<script ") > 0) location.href = url;
+        else {
+          document.getElementById("LScontent").innerHTML = xmlHttp.responseText;
+          document.getElementById("LSfooter").innerHTML = document.getElementById("NewLSfooter").innerHTML;
+          document.getElementById("LScontent").removeChild(document.getElementById("NewLSfooter"));
+        }
         document.getElementById("LSloading").style.visibility = "hidden";
       }
     }

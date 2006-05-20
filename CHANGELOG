@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.3
 
+- Bugfix: #439 JavaScripts konnten auf über AJAX geladenen Seiten nicht ausgeführt werden. Diese Seiten werden nun direkt verlinkt (KnoX 20.05.2006)
 - Bugfix: Seid dem MasterForm-Update im Benutzermanager konnten keine Clans mehr erstellt werden und die Clananzeige war fehlerhaft (KnoX 20.05.2006)
 - Bugfix: MasterForm fängt nun doppelte Einträge auf DB-Felder die eindeutig sein müssen ab (KnoX 19.05.2006)
 - Bugfix: In neuen PHP-Versionen ist die Funktion wordwrap() dekativiert, daher hat LanSuite nun eine eigene wordwrap-Funktion (KnoX 30.04.2006)
