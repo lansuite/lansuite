@@ -108,7 +108,8 @@ class masterform {
       case 2:
         if ($this->Groups) foreach ($this->Groups as $GroupKey => $group) {
           if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) if($field['name']) {
-
+            $err = false;
+            
             // If not in DependOn-Group, or DependOn-Group is active
             if (!$this->DependOnStarted or $POST_[$this->DependOnField]) {
               // Convert Post-date to unix-timestap
@@ -288,7 +289,7 @@ class masterform {
 
           if ($this->Groups) foreach ($this->Groups as $group) if ($group['fields']) foreach ($group['fields'] as $field) {
             // Convert Passwords
-            if ($field['type'] == IS_NEW_PASSWORD) $_POST[$field['name']] = md5($_POST[$field['name']]);
+            if ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != '') $_POST[$field['name']] = md5($_POST[$field['name']]);
 
             // Upload submitted file
             if ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
