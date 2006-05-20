@@ -1,11 +1,12 @@
 <?php
-
+/*
 function UploadFiles() {
 global $func, $gd;
   // --- Sponsor Page Banner ---
   // 1) Was a picture uploaded?
   if ($_FILES['pic_upload']['name']) {
-		$pic_path = $func->FileUpload('pic_upload', 'ext_inc/banner/');
+#		$pic_path = $func->FileUpload('pic_upload', 'ext_inc/banner/');
+		$pic_path = $_POST['pic_upload'];
 
 	// 2) Was an external URL given?
 	} elseif ($_POST['pic_path'] != 'http://' and $_POST['pic_path'] != '') $pic_path = $_POST['pic_path'];
@@ -36,17 +37,6 @@ global $func, $gd;
     $pic_path_banner = 'ext_inc/banner/banner_'. $_FILES['pic_upload']['name'];
   }
 
-/*
-	// 1) Was a special banner uploaded?
-  if ($_FILES['pic_upload_banner']['name']) {
-    if ($_FILES['pic_upload']['name']) $_FILES['pic_upload_banner']['name'] = $_FILES['pic_upload']['name'];
-    $func->FileUpload('pic_upload_banner', 'ext_inc/banner/', 'banner_'. $_FILES['pic_upload_banner']['name']);
-		if (!$pic_url) $pic_url = 'ext_inc/banner/'. $_FILES['pic_upload_banner']['name'];
-
-  // 2) Otherwise use an automatic resized image of the first banner, if available
-	} elseif ($_FILES['pic_upload']['name']) $gd->CreateThumb('ext_inc/banner/'. $_FILES['pic_upload']['name'], 'ext_inc/banner/banner_'. $_FILES['pic_upload']['name'], 468, 60);
-*/
-
 	// --- Box Button ---
   // 1) Was a picture uploaded?
   if ($_FILES['pic_upload_button']['name']) {
@@ -65,18 +55,6 @@ global $func, $gd;
     $gd->CreateThumb('ext_inc/banner/'. $_FILES['pic_upload']['name'], 'ext_inc/banner/button_'. $_FILES['pic_upload']['name'], 468, 60);
     $pic_path_button = 'ext_inc/banner/button_'. $_FILES['pic_upload']['name'];
   }
-
-/*
-	// 1) Was a special box button uploaded?
-  if ($_FILES['pic_upload_button']['name']) {
-    if ($_FILES['pic_upload']['name']) $_FILES['pic_upload_button']['name'] = $_FILES['pic_upload']['name'];
-    $func->FileUpload('pic_upload_button', 'ext_inc/banner/', 'button_'. $_FILES['pic_upload_button']['name']);
-		if (!$pic_url) $pic_url = 'ext_inc/banner/'. $_FILES['pic_upload_button']['name'];
-
-  // 2) Otherwise use an automatic resized image of the first banner, if available
-	} elseif ($_FILES['pic_upload']['name']) $gd->CreateThumb('ext_inc/banner/'. $_FILES['pic_upload']['name'], 'ext_inc/banner/button_'. $_FILES['pic_upload']['name'], 468, 60);
-*/
-
 }
 
 if ($_GET['action'] == 'change' and $_GET['sponsorid'] == '') include_once('modules/sponsor/search.inc.php');
@@ -116,8 +94,8 @@ else {
   $mf->AdditionalDBUpdateFunction = 'UploadFiles';
   $mf->SendForm('index.php?mod=sponsor&action='. $_GET['action'], 'sponsor', 'sponsorid', $_GET['sponsorid']);
 }
+*/
 
-/*
 switch($_GET['step']) {
 	default:
 		if ($_GET['action'] == 'change') {
@@ -230,7 +208,7 @@ switch($_GET['step']) {
 			$dsp->AddTextFieldRow('url', $lang['sponsor']['add_url'], $_POST['url'], '', '', OPTIONAL);
 			$dsp->AddHRuleRow();
 
-			$dsp->AddCheckBoxRow('sponsor" onChange="change_check_box_state(\'banner_page\', this.checked)', $lang['sponsor']['add_sponsor'], $lang['sponsor']['add_sponsor2'], '', OPTIONAL, $_POST['sponsor']);
+			$dsp->AddCheckBoxRow('sponsor" onChange="CheckBoxBoxActivate(\'banner_page\', this.checked)', $lang['sponsor']['add_sponsor'], $lang['sponsor']['add_sponsor2'], '', OPTIONAL, $_POST['sponsor']);
 			$dsp->StartHiddenBox('banner_page', $_POST['sponsor']);
 			$dsp->AddFileSelectRow('pic_upload', $lang['sponsor']['add_pic_upload'], $pic_error, '', '', OPTIONAL);
 			$dsp->AddTextFieldRow('pic_path', $lang['sponsor']['add_pic'], $pic_path, '', '', OPTIONAL);
@@ -239,7 +217,7 @@ switch($_GET['step']) {
 			$dsp->AddHRuleRow();
 
 			$dsp->AddSingleRow($lang['sponsor']['add_other_sizes']);
-			$dsp->AddCheckBoxRow('rotation" onChange="change_check_box_state(\'banner_rotation\', this.checked)', $lang['sponsor']['add_banner'], $lang['sponsor']['add_banner2'], '', OPTIONAL, $_POST['rotation']);
+			$dsp->AddCheckBoxRow('rotation" onChange="CheckBoxBoxActivate(\'banner_rotation\', this.checked)', $lang['sponsor']['add_banner'], $lang['sponsor']['add_banner2'], '', OPTIONAL, $_POST['rotation']);
 			$dsp->StartHiddenBox('banner_rotation', $_POST['rotation']);
 			$dsp->AddFileSelectRow('pic_upload_banner', $lang['sponsor']['add_pic_upload'] .' (468 x 60)', $pic_error, '', '', OPTIONAL);
 			$dsp->AddTextFieldRow('pic_path_banner', $lang['sponsor']['add_pic'], $pic_path_banner, '', '', OPTIONAL);
@@ -247,7 +225,7 @@ switch($_GET['step']) {
 			$dsp->StopHiddenBox();
 			$dsp->AddHRuleRow();
 
-			$dsp->AddCheckBoxRow('active" onChange="change_check_box_state(\'button\', this.checked)', $lang['sponsor']['add_active'], $lang['sponsor']['add_active2'], '', OPTIONAL, $_POST['active']);
+			$dsp->AddCheckBoxRow('active" onChange="CheckBoxBoxActivate(\'button\', this.checked)', $lang['sponsor']['add_active'], $lang['sponsor']['add_active2'], '', OPTIONAL, $_POST['active']);
 			$dsp->StartHiddenBox('button', $_POST['active']);
 			$dsp->AddFileSelectRow('pic_upload_button', $lang['sponsor']['add_pic_upload'] .' (120 x 60)', $pic_error, '', '', OPTIONAL);
 			$dsp->AddTextFieldRow('pic_path_button', $lang['sponsor']['add_pic'], $pic_path_button, '', '', OPTIONAL);
@@ -301,5 +279,5 @@ switch($_GET['step']) {
   	}
 	break;
 }
-*/
+
 ?>
