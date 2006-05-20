@@ -1,0 +1,34 @@
+SPAW Editor PHP Edition
+version 1.1
+Release Notes
+
+Thanks to everyone who downloaded, tried and supported SPAW Editor!
+
+Here is updated Gecko compatible release of SPAW Editor PHP Edition. Now
+it should be stable on modern Gecko based browsers. It should also
+work on PHP5 from now on without any modifications.
+
+Here's the list of known issues and limitations in Gecko implementation. Please,
+don't report these as bugs!
+
+- Cut, Copy and Paste functions aren't available cause they are disabled in
+  Mozilla for security reasons and it takes editing config files to enable them
+- Word cleanup is not implemented, yet
+- Borders on borderless objects feature is not implemented
+- Table functions (insert/delete row/column, merge/split cells) are not yet
+  implemented (but you can insert/delete rows/columns visually in gecko)
+- Dialogs aren't really modal. So you can bug the behavior if you move cursor 
+  in the editor area while dialog is open.
+- You need to change paragraph values in config file to <H1>, <H2>, etc. in 
+  order for paragraphs to work in Gecko. It will also work in IE but wont
+  be reflected in active toolbar
+
+Check out ChangeLog.txt for the list of new features and bugfixes.
+
+If you are fluent in any of languages that are now included and 
+see any typos or mistakes please report to spaw@solmetra.com
+
+Happy editing,
+Alan Mendelevich a.k.a. ailon
+alan@solmetra.com
+

@@ -1,0 +1,53 @@
+.SPAW_default_toolbar {
+}
+.SPAW_default_toolbar_top {
+	background : url(../img/toolbar_background.gif);
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	height : 34px;
+	vertical-align : middle;
+	padding-left : 10px;
+	padding-right : 10px;
+}
+
+.SPAW_default_toolbar_left,  SPAW_default_toolbar_right {
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	padding-left : 5px;
+	padding-right : 5px;
+	padding-top : 5px;
+	filter:progid:dximagetransform.microsoft.gradient(gradienttype=0,startcolorstr=#EDECF0,endcolorstr=#FCFBFF);
+}
+
+.SPAW_default_toolbar_bottom {
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9pt;
+	vertical-align : top;
+	padding-right : 5px;
+}
+
+.SPAW_default_editarea {
+	border : 1px solid #B2B2B2;
+}
+
+.SPAW_default_tb_input {
+	color: #000000;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+.SPAW_default_tb_over {
+	border : 0px solid #aaaaaa;
+}
+.SPAW_default_tb_out {
+	border : 0px solid #D6D3CE;
+}
+.SPAW_default_tb_down {
+	border-top : 0px solid #aaaaaa;
+	border-left : 0px solid #aaaaaa;
+	border-right : 0px solid #eeeeee;
+	border-bottom : 0px solid #eeeeee;
+}
+
