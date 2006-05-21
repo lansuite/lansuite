@@ -208,20 +208,26 @@ switch($_GET['step']) {
 			$dsp->AddTextFieldRow('url', $lang['sponsor']['add_url'], $_POST['url'], '', '', OPTIONAL);
 			$dsp->AddHRuleRow();
 
+      $code_popup_link = '<ul>
+        <li><a href="javascript:OpenHelplet(\'sponsor\', \'ngl\');">NGL-Button</a></li>
+        <li><a href="javascript:OpenHelplet(\'sponsor\', \'wwcl\');">WWCL-Banner</a></li>
+        <li><a href="javascript:OpenHelplet(\'sponsor\', \'adsense\');">Google Anzeigen</a></li>
+        </ul>';
+
 			$dsp->AddCheckBoxRow('sponsor" onChange="CheckBoxBoxActivate(\'banner_page\', this.checked)', $lang['sponsor']['add_sponsor'], $lang['sponsor']['add_sponsor2'], '', OPTIONAL, $_POST['sponsor']);
 			$dsp->StartHiddenBox('banner_page', $_POST['sponsor']);
 			$dsp->AddFileSelectRow('pic_upload', $lang['sponsor']['add_pic_upload'], $pic_error, '', '', OPTIONAL);
 			$dsp->AddTextFieldRow('pic_path', $lang['sponsor']['add_pic'], $pic_path, '', '', OPTIONAL);
-			$dsp->AddTextAreaRow('pic_code', $lang['sponsor']['add_pic_code'], $pic_code, '', '', 4, OPTIONAL);
+			$dsp->AddTextAreaRow('pic_code', $lang['sponsor']['add_pic_code'] . $code_popup_link, $pic_code, '', '', 4, OPTIONAL);
 			$dsp->StopHiddenBox();
 			$dsp->AddHRuleRow();
 
-			$dsp->AddSingleRow($lang['sponsor']['add_other_sizes']);
 			$dsp->AddCheckBoxRow('rotation" onChange="CheckBoxBoxActivate(\'banner_rotation\', this.checked)', $lang['sponsor']['add_banner'], $lang['sponsor']['add_banner2'], '', OPTIONAL, $_POST['rotation']);
 			$dsp->StartHiddenBox('banner_rotation', $_POST['rotation']);
 			$dsp->AddFileSelectRow('pic_upload_banner', $lang['sponsor']['add_pic_upload'] .' (468 x 60)', $pic_error, '', '', OPTIONAL);
 			$dsp->AddTextFieldRow('pic_path_banner', $lang['sponsor']['add_pic'], $pic_path_banner, '', '', OPTIONAL);
-			$dsp->AddTextAreaRow('pic_code_banner', $lang['sponsor']['add_pic_code'], $pic_code_banner, '', '', 4, OPTIONAL);
+			$dsp->AddTextAreaRow('pic_code_banner', $lang['sponsor']['add_pic_code'] . $code_popup_link, $pic_code_banner, '', '', 4, OPTIONAL);
+			$dsp->AddSingleRow($lang['sponsor']['add_other_sizes']);
 			$dsp->StopHiddenBox();
 			$dsp->AddHRuleRow();
 
@@ -229,7 +235,8 @@ switch($_GET['step']) {
 			$dsp->StartHiddenBox('button', $_POST['active']);
 			$dsp->AddFileSelectRow('pic_upload_button', $lang['sponsor']['add_pic_upload'] .' (120 x 60)', $pic_error, '', '', OPTIONAL);
 			$dsp->AddTextFieldRow('pic_path_button', $lang['sponsor']['add_pic'], $pic_path_button, '', '', OPTIONAL);
-			$dsp->AddTextAreaRow('pic_code_button', $lang['sponsor']['add_pic_code'], $pic_code_button, '', '', 4, OPTIONAL);
+			$dsp->AddTextAreaRow('pic_code_button', $lang['sponsor']['add_pic_code'] . $code_popup_link, $pic_code_button, '', '', 4, OPTIONAL);
+			$dsp->AddSingleRow($lang['sponsor']['add_other_sizes']);
 			$dsp->StopHiddenBox();
 			$dsp->AddHRuleRow();
 
