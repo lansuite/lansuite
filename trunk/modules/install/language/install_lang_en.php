@@ -184,6 +184,7 @@ $lang['install']['import_settings_new'] = 'LanSuite-XML-Exports';
 $lang['install']['import_settings_lansurfer'] = 'LanSurfer-XML-Export';
 $lang['install']['import_settings_overwrite'] = 'Replace existing entries';
 $lang['install']['import_success'] = 'Import sucessfull';
+$lang['install']['import_err_tgz'] = 'The export of the ext_inc-Directory could not be imported using lansuite, yet. Upload and extract it anually, please';
 $lang['install']['import_err_filetype'] = 'This does not seam to be a LANSuite-compatible-XML-File. Check the entry &lt;filetype&gt; at the beginning of the XML-File, please (FileType: \'%FILETYPE%\')';
 $lang['install']['import_cvs_temp_unavailable'] = 'The CSV-Import is due to many errors temporary deactivated.';
 $lang['install']['menu_reset_navi_quest'] = 'Are you sure to reset all navigation-entries?';

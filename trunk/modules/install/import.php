@@ -100,10 +100,11 @@ switch($_GET["step"]){
 				$dsp->AddBackButton("install.php?mod=install&action=import", "install/import"); 
 				$dsp->AddContent();
 			break;
-			
+
 			case 'tgz':
-			  $import->ImportExtInc($_FILES['importdata']['tmp_name']);
-				$func->confirmation($lang["install"]["import_success"], "install.php?mod=install&action=import");
+			  $func->information($lang['install']['import_err_tgz'], 'install.php?mod=install&action=import');
+//			  $import->ImportExtInc($_FILES['importdata']['tmp_name']);
+//				$func->confirmation($lang["install"]["import_success"], "install.php?mod=install&action=import");
 			break;
 
 			default:
