@@ -177,7 +177,7 @@ while ($file_name = @readdir($verz)) if (!is_dir($file_name)) $selecttions[$file
 @closedir($verz);
 $mf->AddField($lang['tourney']['t_add_ext_rules'], 'rules_ext', IS_SELECTION, $selecttions, FIELD_OPTIONAL);
 
-$mf->AddField($lang['tourney']['t_add_comment'], 'comment', HTML_ALLOWED, '', FIELD_OPTIONAL);
+$mf->AddField($lang['tourney']['t_add_comment'], 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
 $mf->AddField($lang['tourney']['t_add_mapcycle'], 'mapcycle', '', '', FIELD_OPTIONAL);
 $mf->AddGroup($lang['tourney']['t_add_league_rules']);
 

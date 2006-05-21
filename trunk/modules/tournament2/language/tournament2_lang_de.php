@@ -346,4 +346,7 @@ $lang['tourney']['timetable_hint'] = 'Achtung: Der Zeitraum eines Turnieres kann
 $lang['tourney']['add_blind_draw'] = 'Blind Draw';
 $lang['tourney']['add_blind_draw2'] = 'Teammitglieder werden zugelost';
 $lang['tourney']['ngl_in_de_at_ch_only'] = 'NGL-Support ist nur in Deutschland, &Ouml;sterreich, oder der Schweiz m&ouml;glich. Das Land deiner Party kannst du auf der Adminseite einstellen';
+$lang['tourney']['cb_ts_open'] = 'Anmeldung offen';
+$lang['tourney']['cb_ts_progress'] = 'Wird gespielt';
+$lang['tourney']['cb_ts_closed'] = 'Beendet';
 ?>
