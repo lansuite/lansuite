@@ -20,6 +20,10 @@ switch($_GET['mod'])
 		include('design/templates/ls_row_textareaplus_popup.php');
 	break;
 
+	case "mail_popup":
+		include('modules/mail/mail_popup.php');
+	break;
+
 	/////////////////////////////////////// Messenger ////////////////////////////////////////////
 	case "query":
 #		include_once("modules/msgsys/mod_settings/modul_tables.inc.php");
