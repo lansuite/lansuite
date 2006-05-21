@@ -17,6 +17,12 @@
     		<default>1</default>
     		<description>Eingabe über den WYYSIWYG-Editor Spaw?</description>
     	</item>
+    	<item>
+    		<name>info2_use_submenus</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Sollen neue Menüpunkte Unterpunkte des Info2-Modules sein?</description>
+    	</item>
     </items>
   </group>
   <group>
