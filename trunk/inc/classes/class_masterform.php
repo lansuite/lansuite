@@ -194,7 +194,7 @@ class masterform {
 
               case "enum('0','1')": // Checkbox
               case 'tinyint(1)':
-                if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) $additionalHTML = "onchange=\"CheckBoxBoxActivate('box_{$field['name']}', this.checked)\"";
+                if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) $additionalHTML = "onclick=\"CheckBoxBoxActivate('box_{$field['name']}', this.checked)\"";
                 list($field['caption1'], $field['caption2']) = split('\|', $field['caption']);
                 if (!$_POST[$field['name']]) unset($_POST[$field['name']]);
                 $dsp->AddCheckBoxRow($field['name'], $field['caption1'], $field['caption2'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']], '', '', $additionalHTML);
