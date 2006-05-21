@@ -17,7 +17,7 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 		$ImgSize = @GetImageSize($sponsor["pic_path"]);
 		if (!$ImgSize[0]) $ImgSize[0] = 200;
 		if ($ImgSize[0] > $cfg["sponsor_picwidth"]) $ImgSize[0] = $cfg["sponsor_picwidth"];
-		$templ['sponsor']['row']['col1'] = "<img src=\"{$sponsor["pic_path"]}\" width=\"{$ImgSize[0]}\" border=\"0\" title=\"{$sponsor["name"]}\">";
+		$templ['sponsor']['row']['col1'] = "<img src=\"". rawurlencode($sponsor["pic_path"]) ."\" width=\"{$ImgSize[0]}\" border=\"0\" title=\"{$sponsor["name"]}\">";
 		if ($sponsor["url"] != "" and $sponsor["url"] != "http://")
 			$templ['sponsor']['row']['col1'] = "<a href=\"index.php?mod=sponsor&action=bannerclick&design=base&sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $templ['sponsor']['row']['col1'] ."</a>";
 	}
