@@ -347,4 +347,7 @@ $lang['tourney']['timetable_hint'] = 'Attention: the duration of a tournament ma
 $lang['tourney']['add_blind_draw'] = 'Blind Draw';
 $lang['tourney']['add_blind_draw2'] = 'Teammembers will be choosen by the system';
 $lang['tourney']['ngl_in_de_at_ch_only'] = 'NGL-Support is only available for germany, austria and switzerland. You can define your country at the admin-page';
+$lang['tourney']['cb_ts_open'] = 'Signup open';
+$lang['tourney']['cb_ts_progress'] = 'Beeing played';
+$lang['tourney']['cb_ts_closed'] = 'Finished';
 ?>

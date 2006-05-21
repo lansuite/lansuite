@@ -27,9 +27,9 @@ function GetTournamentTeamAnz($maxteams) {
 
 function GetTournamentStatus($status) {
 	global $lang;
-	$status_descriptor["open"] 	= $lang['ms']['cb_ts_open'];
-	$status_descriptor["process"] 	= $lang['ms']['cb_ts_progress'];
-	$status_descriptor["closed"] 	= $lang['ms']['cb_ts_closed'];
+	$status_descriptor["open"] 	= $lang['tourney']['cb_ts_open'];
+	$status_descriptor["process"] 	= $lang['tourney']['cb_ts_progress'];
+	$status_descriptor["closed"] 	= $lang['tourney']['cb_ts_closed'];
 	
 	return $status_descriptor[$status];
 }
