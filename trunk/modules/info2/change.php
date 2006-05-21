@@ -67,19 +67,6 @@ switch($_GET["step"]){
 			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
 
 			if ($_GET["infoid"] == "") {
-				/*
-				$db->query("INSERT INTO {$config['tables']['menu']}
-					SET module = 'info2',
-					caption = '{$_POST["title"]}',
-					hint = '{$_POST["subtitle"]}',
-					link = '?mod=info2&action=show_info2&submod={$_POST["title"]}',
-					requirement = 0,
-					level = 0,
-					pos = {$info_menu["pos"]},
-					action = 'show_info2',
-					file = 'show'
-					");
-				*/
 				$db->query("INSERT INTO {$config['tables']['info']}
 					SET caption = '{$_POST["title"]}',
 					shorttext = '{$_POST["subtitle"]}',
@@ -90,11 +77,14 @@ switch($_GET["step"]){
 			} else {
 				$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = {$_GET["infoid"]}");
 				
-				if($menu_intem['active'] == 1){
+				if ($menu_intem['active'] == 1){
+          ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
+
 					$db->query("UPDATE {$config['tables']['menu']}
 						SET module = 'info2',
 						caption = '{$_POST["title"]}',
 						hint = '{$_POST["subtitle"]}',
+						level = $level,
 						link = '?mod=info2&action=show_info2&submod={$_POST["title"]}'
 						WHERE id = '{$_GET["menuid"]}'");
 				}
@@ -132,6 +122,8 @@ switch($_GET["step"]){
 				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
 			} else {
 				// Set active and write menuitem
+        ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
+
 				$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
 				$db->query("INSERT INTO {$config['tables']['menu']}
 					SET module = 'info2',
@@ -139,7 +131,7 @@ switch($_GET["step"]){
 					hint = '{$menu_intem["shorttext"]}',
 					link = '?mod=info2&action=show_info2&submod={$menu_intem["caption"]}',
 					requirement = 0,
-					level = 0,
+					level = $level,
 					pos = {$info_menu["pos"]},
 					action = 'show_info2',
 					file = 'show'
