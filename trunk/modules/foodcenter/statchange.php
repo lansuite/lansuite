@@ -143,7 +143,7 @@ switch ($_GET['step']){
 				$file_array[] .= "<option value=\"$file\">$file</option>";
 			}
 		}
-		$dsp->SetForm("base.php?mod=foodcenter&action=print\" target=\"_blank\"","print");
+		$dsp->SetForm("index.php?mod=foodcenter&action=print&design=base\" target=\"_blank\"","print");
 		$dsp->AddDropDownFieldRow("file",$lang['foodcenter']['template'],$file_array,"");
 		
 		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_keywords\" value=\"{$vars['search_keywords']}\">";

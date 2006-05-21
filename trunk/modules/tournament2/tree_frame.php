@@ -171,7 +171,7 @@ if ($team_anz == 0) {
 
 } // Ende Wenn keine Fehler
 
-$templ['index']['info']['content'] = "<map name=\"tree\">$map_output</map><img src=\"base.php?mod=tree_img&tournamentid=$tournamentid&group=$group\" usemap=\"#tree\" border=\"0\">";
+$templ['index']['info']['content'] = "<map name=\"tree\">$map_output</map><img src=\"index.php?mod=tournament2&action=tree_img&design=base&tournamentid=$tournamentid&group=$group\" usemap=\"#tree\" border=\"0\">";
 
 /*if($tournament["mode"] == "groups"){
 	$templ['index']['info']['content'] = "<map name=\"tree\">$map_output</map><img src=\"ext_inc/tournament_trees/tournament_$tournamentid" . "_" . $_GET['group'] . ".png\" usemap=\"#tree\" border=\"0\">";

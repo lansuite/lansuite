@@ -84,7 +84,7 @@ else include_once("inc/classes/class_db_mysql.php");
 include_once("inc/classes/class_func.php");
 include_once("inc/classes/class_auth.php");
 include_once("inc/classes/class_xml.php");
-include_once("inc/classes/class_sitetool.php");
+if ($_GET['design'] != 'base') include_once("inc/classes/class_sitetool.php");
 include_once("inc/classes/class_display.php");
 include_once("inc/classes/class_gd.php");
 include_once("inc/classes/class_party.php");
@@ -102,7 +102,7 @@ include_once("modules/cron/class_cronjob.php");
 $func		= new func;			// Base Functions (anything that doesnt belong elsewere)
 $gd		= new gd;			// GD Functions (for graphical outputs)
 
-$sitetool	= new sitetool("");		// Sitetool (for compressing the content send to the browser)
+if ($_GET['design'] != 'base') $sitetool	= new sitetool("");		// Sitetool (for compressing the content send to the browser)
 
 $dsp		= new display();		// Display Functions (to load the lansuite-templates)
 $mail		= new mail();			// Mail Functions (for sending mails to lansuite-users)
@@ -142,6 +142,8 @@ if ($db->success) {
   $res = $db->query("SELECT name FROM {$config["tables"]["modules"]} WHERE active = 1");
   while($row = $db->fetch_array($res)) $ActiveModules[] = $row['name'];
   $db->free_result($res);
+  $ActiveModules[] = 'helplet';
+  $ActiveModules[] = 'popups';
 }
 
 // Set language
@@ -190,7 +192,7 @@ if ($found_adm) {
 
 		$dsp->AddContent();
 		eval("\$index = \"". $func->gettemplate("setup_index")."\";");
-		$sitetool->out_optimizer();
+		if ($_GET['design'] != 'base') $sitetool->out_optimizer();
 		exit;
 	}
 } else {
@@ -213,7 +215,7 @@ if ($db->success) {
 	include_once("modules/sponsor/banner.php");
 }
 
-if ($script_filename != "install.php" and !$_GET['contentonly'] and $siteblock == false) {
+if ($script_filename != "install.php" and !$_GET['contentonly'] and $_GET['design'] != 'base' and $siteblock == false) {
 	// Boxes (die Defenierung ob linke oder rechte Seite befindet sich jetzt in der modindex_boxes.php)
 	include_once("modules/boxes/modindex_boxes.php");
 }
@@ -243,7 +245,7 @@ if ($db->success){
 
 // Output HTML
 #$templ['index']['info']['content'] = '<table width="100%" cellspacing="0" cellpadding="0">'. $templ['index']['info']['content']. '</table>';
-if ($_GET['contentonly']) $index = $templ['index']['info']['content'];
+if ($_GET['contentonly'] or $_GET['design'] == 'base') $index = $templ['index']['info']['content'];
 else {
   if (($_SESSION["lansuite"]["fullscreen"] == 1) and file_exists("design/{$auth["design"]}/templates/index_fullscreen.htm")) {
   	$_SERVER['REQUEST_URI'] = str_replace("fullscreen=yes", "", $_SERVER['REQUEST_URI']);
@@ -254,11 +256,11 @@ else {
   } elseif ($script_filename == "install.php") eval("\$index = \"". $func->gettemplate("setup_index")."\";");
   else eval("\$index = \"". $func->gettemplate("index_login")."\";");
 }
-$sitetool->out_optimizer();
+if ($_GET['design'] != 'base') $sitetool->out_optimizer();
 
 // Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
 if ($db->success) {
-  $stats->update($sitetool->out_work(), $sitetool->get_send_size());
+  if ($_GET['design'] != 'base') $stats->update($sitetool->out_work(), $sitetool->get_send_size());
   // Check Cronjobs
   $cronjob->check_jobs();
   $db->disconnect();

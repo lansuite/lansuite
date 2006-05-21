@@ -6,7 +6,7 @@ if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
 }else{
 	$dsp->NewContent($lang["paypal"]["caption"], $lang["paypal"]["subcaption"]);
 	$dsp->AddModTpl("paypal","javascript");
-	$dsp->SetForm("base.php?mod=paypal\" target=\"PopWnd\" onsubmit=\"submitpaypal(); return false;","paypal");
+	$dsp->SetForm("index.php?mod=paypal&action=paying&design=base\" target=\"PopWnd\" onsubmit=\"submitpaypal(); return false;","paypal");
 
 	// LIST ALL PARTYS
 	if($auth['userid'] != 0){

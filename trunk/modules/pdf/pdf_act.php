@@ -2,6 +2,8 @@
 include_once("modules/pdf/class_templ_pdf.php");
 include_once("modules/pdf/class_pdf.php");
 
+if(isset($_GET['userid'])) $_POST['user'] = $_GET['userid'];
+
 //Template ID Laden
 if(isset($_POST['id'])) $templ_id = $_POST['id'];
 if(isset($_GET['id'])) $templ_id = $_GET['id'];

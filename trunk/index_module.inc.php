@@ -79,6 +79,7 @@ switch ($mod) {
 			// 3) Search file named $_GET["action"] in the Mod-Directory
 			// 4) Search "default"-Entry in DB
 			// 5) Error: "Not Found"
+
 			$menu = $db->query_first("SELECT * FROM {$config["tables"]["menu"]} WHERE (module = '$mod') and (action = '{$_GET['action']}')");
 			if ($menu["file"] != "") {
 				if (authorized($mod, $menu["file"])) include_once("modules/{$mod}/{$menu["file"]}.php");
