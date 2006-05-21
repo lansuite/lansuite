@@ -6,6 +6,10 @@ function OpenWindow(url, name) {
   Win1.focus();
 }
 
+function OpenHelplet(module, helpletid) {
+  w = window.open('index.php?mod=helplet&action=helplet&design=base&module='+ module +'&helpletid='+ helpletid, 'neu', 'width=800, height=500, resizable=yes, scrollbars=yes');
+}
+
 
 //// AJAX ////
 

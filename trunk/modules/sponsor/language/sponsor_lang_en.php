@@ -40,6 +40,5 @@ $lang['sponsor']['stats_rate']	= 'Click-Rate';
 $lang['sponsor']['add_err_upload']	= 'The uploaded file (\'%TMP_PATH%\') could not be copied to the Avatar-Directory (\'%PATH%\')!' . HTML_NEWLINE . 'Errormessage: \'%ERROR%\'';
 $lang['sponsor']['err_no_banner_id']	= 'Banner-ID unavailable! Manipulation, or Database-Error. Klick the back-link, please';
 $lang['sponsor']['redirect']	= 'Redirecting...';
-$lang['sponsor']['add_other_sizes'] = '<b>Sponsorbox-Button and Rotation-Banner</b>' . HTML_NEWLINE . 'If you do not select a file below, the banner / button, will be generated automatically of the picture above';
-$lang['sponsor']['add_other_sizes'] = '<b>Sponsorbox-Button and Rotation-Banner</b>'. HTML_NEWLINE . HTML_FONT_ERROR .'If you do not select a file below, the banner / button, will be generated automatically of the picture above'. HTML_NEWLINE .'This is only possible with uploaded files!!'. HTML_FONT_ERROR;
+$lang['sponsor']['add_other_sizes'] = 'If you do not select a file here, the banner/button, will be generated automatically of the picture above (Works with oploaded files, only).';
 ?>

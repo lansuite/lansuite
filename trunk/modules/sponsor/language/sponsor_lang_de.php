@@ -14,7 +14,7 @@ $lang['sponsor']['add_url']	= 'Ziel-URL';
 $lang['sponsor']['add_text']	= 'Text';
 $lang['sponsor']['add_pic_upload']	= 'Bild-Upload';
 $lang['sponsor']['add_pic']	= 'Oder: Bild-URL';
-$lang['sponsor']['add_pic_code']	= 'Oder: Bild-Code'. HTML_NEWLINE .'(z.B. Flash-Code)';
+$lang['sponsor']['add_pic_code']	= 'Oder: Bild-Code (z.B. Flash)';
 $lang['sponsor']['add_pos']	= 'Position';
 $lang['sponsor']['add_active']	= 'In Sponsoren-Box';
 $lang['sponsor']['add_active2']	= 'Der Banner wird in der Sponsoren-Box angezeigt';
@@ -40,5 +40,5 @@ $lang['sponsor']['stats_rate']	= 'Klickrate';
 $lang['sponsor']['add_err_upload']	= 'Die hochgeladene Datei (\'%TMP_PATH%\') konnte nicht in das Avatar-Verzeichnis (\'%PATH%\') kopiert werden!' . HTML_NEWLINE . 'Fehlermeldung: \'%ERROR%\'';
 $lang['sponsor']['err_no_banner_id']	= 'Diese Banner-ID existiert nicht! Manipulationsversuch oder Datenbankfehler. Bitte ZURC&Uuml;CK anklicken.';
 $lang['sponsor']['redirect']	= 'Sie werden weitergeleitet...';
-$lang['sponsor']['add_other_sizes'] = '<b>Sponsorbox-Button und Rotation-Banner</b>'. HTML_NEWLINE . HTML_FONT_ERROR .'Wenn Sie unterhalb keine Datei angeben, wird der Banner / Button automatisch, durch verkleinern der oben angegebenen Datei erzeugt.'. HTML_NEWLINE .'Dies ist jedoch außschließlich bei heraufgeladenen Dateien möglich!'. HTML_FONT_ERROR;
+$lang['sponsor']['add_other_sizes'] = 'Wenn Sie hier keine Datei angeben, wird der Banner/Button automatisch, durch verkleinern der oben angegebenen Datei erzeugt (Funktioniert nur bei heraufgeladenen Dateien).';
 ?>
