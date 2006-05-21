@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.3
 
+- Bugfix: Falsche Zeichen in Buttons 'Ändern' und 'Überspringen' (KnoX 21.05.2006)
 - Bugfix: #435 Bei der Anmeldung wurden nur noch ein Teil der Felder gezeigt (KnoX 21.05.2006)
 - Bugfix: #437 Anmeldung war über trotz noch nicht gestartet über Umweg möglich (KnoX 21.05.2006)
 - Bugfix: #439 JavaScripts konnten auf über AJAX geladenen Seiten nicht ausgeführt werden. Diese Seiten werden nun direkt verlinkt (KnoX 20.05.2006)

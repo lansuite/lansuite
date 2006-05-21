@@ -158,7 +158,7 @@
 	$lang['button']['search'] = 'Suchen';
 	$lang['button']['send'] = 'Senden';
 	$lang['button']['sendmail'] = 'Mail senden';
-	$lang['button']['skip'] = 'Ãœberspringen';
+	$lang['button']['skip'] = 'Überspringen';
 	$lang['button']['thread_delete'] = 'Thema löschen';
 	$lang['button']['tree'] = 'Spielbaum';
 	$lang['button']['unblock'] = 'Freigeben';
@@ -168,7 +168,7 @@
 	$lang['button']['yes'] = 'Ja';
 	$lang['button']['zitat'] = 'Zitat';
 	$lang['button']['bookmark'] = 'Lesezeichen';
-	$lang['button']['change'] = 'Ã„ndern';
+	$lang['button']['change'] = 'Ändern';
 	$lang['button']['undo_generate']	= 'Generieren rückgangig';
 	$lang['button']['undo_close']	= 'Beenden rückgangig';
 	$lang['button']['preview']	= 'Vorschau';
