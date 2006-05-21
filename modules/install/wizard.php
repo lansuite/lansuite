@@ -296,9 +296,9 @@ switch ($_GET["step"]){
 		// Online, or offline mode?
 		$dsp->AddHRuleRow();
 		$mode_array = array();
-		if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') $selected = 0; else $selected = 1;
+		if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') $selected = ""; else $selected = "selected";
 		array_push ($mode_array, '<option $selected value="1">'. $lang['install']['vars_system_mode_internet'] .'</option>');
-		if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') $selected = 1; else $selected = 0;
+		if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') $selected = "selected"; else $selected = "";
 		array_push ($mode_array, '<option $selected value="0">'. $lang['install']['vars_system_mode_intranet'] .'</option>');
 		$dsp->AddDropDownFieldRow("mode", $lang["install"]["vars_system_mode"], $mode_array, "");
 
