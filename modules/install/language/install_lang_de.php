@@ -183,6 +183,7 @@ $lang['install']['import_settings_new'] = 'LanSuite-XML-Export';
 $lang['install']['import_settings_lansurfer'] = 'LanSurfer-XML-Export';
 $lang['install']['import_settings_overwrite'] = 'Vorhandene Einträge ersetzen';
 $lang['install']['import_success'] = 'Import erfolgreich';
+$lang['install']['import_err_tgz'] = 'Der Export des Ext-Inc Ordners kann aktuell leider nicht über LanSuite importiert werden. Bitte laden und entpacken Sie den Ordner manuell auf Ihren Webspace';
 $lang['install']['import_err_filetype'] = 'Dies scheint keine LanSuite-kompatible-XML-Datei zu sein. Bitte Überprüfen sie den Eintrag &lt;filetype&gt; am Anfang der XML-Datei (FileType: \'%FILETYPE%\')';
 $lang['install']['import_cvs_temp_unavailable'] = 'Der CSV-Import ist Aufgrund vieler Fehler vorrübergehend aus dem System genommen worden';
 $lang['install']['menu_reset_navi_quest'] = 'Sind Sie sicher, dass Sie alle Navigationseinträge zurücksetzen möchten?';
