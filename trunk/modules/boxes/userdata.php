@@ -49,12 +49,29 @@ $box->ItemRow("delete", $lang['boxes']['userdata_logout'], "index.php?mod=logout
 
 // New-Mail Notice
 if (in_array('mail', $ActiveModules)) {
-	$mail_new_total = $db->query_first("SELECT count(*) as n
+	$mails_new = $db->query("SELECT mailID
 		FROM {$config["tables"]["mail_messages"]}
-		WHERE ToUserID = '{$_SESSION['auth']['userid']}' AND mail_status = 'active' AND rx_date = '0'
+		WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active' AND rx_date = '0'
 		");
 
-	if ($mail_new_total["n"] > 0) $templ['box']['rows'] .= $box->LinkItem("index.php?mod=mail", "<img src=\"design/{$config['lansuite']['default_design']}/images/mail_newmail.gif\" alt=\"{$lang['boxes']['userdata_new_mail']}\" border=\"0\">");
+	if ($db->num_rows($mails_new) > 0) {
+    $templ['box']['rows'] .= $box->LinkItem("index.php?mod=mail", "<img src=\"design/{$config['lansuite']['default_design']}/images/mail_newmail.gif\" alt=\"{$lang['boxes']['userdata_new_mail']}\" border=\"0\">");
+  
+    // Open PopUp
+    $found_not_popped_up_mail = false;
+    while ($mail_new = $db->fetch_array($mails_new)) {
+      if (!isset($_SESSION['mail_popup'][$mail_new['mailID']])) {
+        $_SESSION['mail_popup'][$mail_new['mailID']] = 1;
+        $found_not_popped_up_mail = true;
+      }
+    }
+    if ($cfg['mail_popup_on_new_mails'] and $found_not_popped_up_mail) {
+      $templ['box']['rows'] .= '<script language="JavaScript">
+      OpenWindow("base.php?mod=mail_popup", "new_mail");
+      </script>';
+    }
+  }
+  $db->free_result($mails_new);
 }
 
 $boxes['userdata'] .= $box->CreateBox("user",$lang['boxes']['userdata_my_data']);
