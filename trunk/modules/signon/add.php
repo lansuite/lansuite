@@ -383,9 +383,9 @@ if ($user["user_id"]) {
   	if ($optional == 0) $dsp->AddTextFieldRow("email", $lang["signon"]["add_email"], $_POST["email"], $email_error);
   
   	if ((!$cfg["signon_autopw"]) && (!$optional)){
-  		$dsp->AddPasswordRow("password", $lang["signon"]["add_password"], $_POST["password"], $password_error, "", "", "onKeyUp=\"checkInput(this);\"");
+  		$dsp->AddPasswordRow("password", $lang["signon"]["add_password"], $_POST["password"], $password_error, "", "", "onKeyUp=\"CheckPasswordSecurity(this.value);\"");
   		$dsp->AddPasswordRow("password2", $lang["signon"]["add_password2"], $_POST["password2"], $password2_error);
-  		$dsp->AddDoubleRow($lang["signon"]["add_password_security"], str_replace("{default_design}", $_SESSION["auth"]["design"], $dsp->FetchModTPL("signon", "row_pw_security")));
+  		$dsp->AddDoubleRow($lang["signon"]["add_password_security"], $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
   	}
 
   	($cfg["signon_agb_targetblank"]) ? $target = "target=\"_blank\"" : $target = "";
@@ -419,9 +419,9 @@ if ($user["user_id"]) {
 			$dsp->StartHiddenBox('new_clan_fields', $_POST['new_clan_select']);
   		$dsp->AddTextFieldRow("clan_new", $lang["signon"]["add_create_clan"], $_POST["clan_new"], $error["clan_new"], "", $optional);  
   		if ($signup_cfg["clanurl"] == $needed) $dsp->AddTextFieldRow("clanurl", $lang["signon"]["add_clanurl"], $_POST["clanurl"], $error["clanurl"], "", $optional);
-      $dsp->AddPasswordRow('newclanpw', $lang["signon"]["add_create_clanpass"], '', $error['newclanpw'], '', OPTIONAL, ' onKeyUp="checkInput(this);"');
+      $dsp->AddPasswordRow('newclanpw', $lang["signon"]["add_create_clanpass"], '', $error['newclanpw'], '', OPTIONAL, ' onKeyUp="CheckPasswordSecurity(this.value);"');
       $dsp->AddPasswordRow('newclanpw2', $lang["signon"]["add_create_clanpass"], '', '', '', OPTIONAL);
-  		$dsp->AddDoubleRow($lang["usrmgr"]["chpwd_password_security"], $dsp->FetchModTPL('signon', 'row_pw_security'));
+  		$dsp->AddDoubleRow($lang["usrmgr"]["chpwd_password_security"], $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
 			$dsp->StopHiddenBox();
   		$dsp->AddHRuleRow();
     }
