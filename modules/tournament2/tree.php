@@ -57,7 +57,7 @@ else {
   			$dsp->AddFormSubmitRow("next");
   
   		} else {
-  			$dsp->AddSingleRow("<iframe src=\"base.php?mod=tree_frame&tournamentid=$tournamentid&group=$group\" width=\"99%\" height=\"$height\"><a href=\"base.php?mod=tree_frame&tournamentid=$tournamentid&group=$group\">Tree</a></iframe>");
+  			$dsp->AddSingleRow("<iframe src=\"index.php?mod=tournament2&action=tree_frame&design=base&tournamentid=$tournamentid&group=$group\" width=\"99%\" height=\"$height\"><a href=\"index.php?mod=tournament2&action=tree_frame&design=base&tournamentid=$tournamentid&group=$group\">Tree</a></iframe>");
   			
   			if ($tournament["mode"] == "groups"){
   				if(!file_exists("ext_inc/tournament_trees/tournament_" . $tournamentid . "_" . $group . ".png")){

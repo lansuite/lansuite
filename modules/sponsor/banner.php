@@ -24,7 +24,7 @@ elseif (substr($banner['pic_path_banner'], 0, 12) == 'html-code://') {
   	$templ['index']['banner_code'] = '<img src="'. $file_name .'" border="1" width="468" height="60" class="img_border" alt="top"/>';
 
   	// Link banner, if in online mode
-  	if ($cfg["sys_internet"]) $templ['index']['banner_code'] = '<a href="base.php?mod=bannerclick&sponsorid='. $banner["sponsorid"] .'" target="_blank">'. $templ['index']['banner_code'] .'</a>';
+  	if ($cfg["sys_internet"]) $templ['index']['banner_code'] = '<a href="index.php?mod=sponsor&action=bannerclick&design=base&sponsorid='. $banner["sponsorid"] .'" target="_blank">'. $templ['index']['banner_code'] .'</a>';
   }
 }
 ?>

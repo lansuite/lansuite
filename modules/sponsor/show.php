@@ -19,12 +19,12 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 		if ($ImgSize[0] > $cfg["sponsor_picwidth"]) $ImgSize[0] = $cfg["sponsor_picwidth"];
 		$templ['sponsor']['row']['col1'] = "<img src=\"{$sponsor["pic_path"]}\" width=\"{$ImgSize[0]}\" border=\"0\" title=\"{$sponsor["name"]}\">";
 		if ($sponsor["url"] != "" and $sponsor["url"] != "http://")
-			$templ['sponsor']['row']['col1'] = "<a href=\"base.php?mod=bannerclick&sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $templ['sponsor']['row']['col1'] ."</a>";
+			$templ['sponsor']['row']['col1'] = "<a href=\"index.php?mod=sponsor&action=bannerclick&design=base&sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $templ['sponsor']['row']['col1'] ."</a>";
 	}
 
 	$templ['sponsor']['row']['col2'] = $sponsor["name"];
 	if ($sponsor["url"] != "" && $sponsor["url"] != "http://")
-		$templ['sponsor']['row']['col2'] = "<a href=\"base.php?mod=bannerclick&sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $templ['sponsor']['row']['col2'] ."</a>";
+		$templ['sponsor']['row']['col2'] = "<a href=\"index.php?mod=sponsor&action=bannerclick&design=base&sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $templ['sponsor']['row']['col2'] ."</a>";
 	$templ['sponsor']['row']['col2'] .= HTML_NEWLINE. $func->db2text2html($sponsor["text"]);
 
 	$out .= $dsp->FetchModTpl("sponsor", "liste");

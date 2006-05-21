@@ -77,7 +77,7 @@ else {
 	$db->free_result($res);
 	$map_out .= "</map>";
 
-	$dsp->AddSingleRow($map_out ."<img src=\"base.php?mod=usermap_img\" usemap=\"#deutschland\" border=\"0\">");
+	$dsp->AddSingleRow($map_out ."<img src=\"index.php?mod=guestlist&action=usermap_img&design=base\" usemap=\"#deutschland\" border=\"0\">");
 }
 
 $db->free_result($res);

@@ -225,7 +225,7 @@ class pdf {
 		
 		
 		$dsp->NewContent($lang["pdf"]["guestcard_caption"], $lang["pdf"]["guestcard_subcaption"]);
-		$dsp->SetForm("base.php?mod=pdf&action=" .$action . "&act=print&id=" .  $this->templ_id, "", "", "");
+		$dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
 		$dsp->AddSingleRow($lang["pdf"]["rules"]);
 		
 		// Array für Zahlungsstatus
@@ -290,7 +290,7 @@ class pdf {
 		global $lang,$dsp,$db,$config,$party,$func;
 		
 		$dsp->NewContent($lang["pdf"]["seatcard_caption"], $lang["pdf"]["seatcard_subcaption"]);
-		$dsp->SetForm("base.php?mod=pdf&action=" .$action . "&act=print&id=" .  $this->templ_id, "", "", "");
+		$dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
 		$dsp->AddSingleRow($lang["pdf"]["rules"]);
 
 		// Array mit Sitzen
@@ -332,7 +332,7 @@ class pdf {
 		global $lang,$dsp,$db,$config;
 		
 		$dsp->NewContent($lang["pdf"]["guestlist_caption"], $lang["pdf"]["guestlist_subcaption"]);
-		$dsp->SetForm("base.php?mod=pdf&action=" .$action . "&act=print&id=" .  $this->templ_id, "", "", "");
+		$dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
 		$dsp->AddSingleRow($lang["pdf"]["rules"]);
 		
 		// Array für Zahlungsstatus

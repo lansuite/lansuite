@@ -226,7 +226,7 @@ elseif (!$akt_file) {
 					
 					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
 
-					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchButton("base.php?mod=pic_download&picurl=$akt_dir$package", "download", $lang['picgallery']['show_download_pic']);
+					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchButton("index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", "download", $lang['picgallery']['show_download_pic']);
 					if ($auth["type"] > 1) {
 						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchButton("index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
 					}
@@ -305,7 +305,7 @@ elseif (!$akt_file) {
 
 			// Define Buttons
 			if(!IsPackage($extension)) $dl_button = $dsp->FetchButton($js_full_link, "fullscreen", $lang['picgallery']['show_fullscreen']);
-			$full_button = $dsp->FetchButton("base.php?mod=pic_download&picurl={$_GET["file"]}", "download", $lang['picgallery']['show_download_pic']);
+			$full_button = $dsp->FetchButton("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "download", $lang['picgallery']['show_download_pic']);
 			($auth[type] > "1") ? $del_button = $dsp->FetchButton("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", $lang['picgallery']['show_del_pic']) : $del_button = "";
 
 			// Scan Directory

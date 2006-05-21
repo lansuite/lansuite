@@ -27,7 +27,7 @@ function checklength()
 // Reload message-window
 function loadwindow()
 {
-	top.location.href='base.php?mod=query&queryid=$_GET[queryid]';
+	top.location.href='index.php?mod=msgsys&action=query&design=base&queryid=$_GET[queryid]';
 }
 //-->
 <!--
@@ -40,7 +40,7 @@ function x()
 </script>
 </head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<form name="form" method="post" action="base.php?mod=query_console&queryid=$_GET[queryid]&action=add">
+<form name="form" method="post" action="index.php?mod=msgsys&action=query_console&design=base&queryid=$_GET[queryid]&action=add">
   <table width="100%" cellspacing="0" cellpadding="0">
     <tr class="tbl_4"> 
       <td><img src="/" width="1" height="1"></td>
@@ -138,7 +138,7 @@ function x()
             </td>
             <td><div align="right"><a href="javascript:var r=loadwindow()" class="menu"><img src="design/{default_design}/images/arrows_info.gif" width="12" height="13" border="0"> 
                 Aktualisieren</a></div></td>
-            <td width="50"><a href="javascript:var w=window.open('base.php?mod=helplet&helpletid=msgsys/query','_blank','width=320,height=400,resizable=no');" class="menu"><img src="design/{default_design}/images/arrows_help.gif" width="12" height="13" border="0"> 
+            <td width="50"><a href="javascript:var w=window.open('index.php?mod=helplet&action=helplet&design=base&helpletid=msgsys/query','_blank','width=320,height=400,resizable=no');" class="menu"><img src="design/{default_design}/images/arrows_help.gif" width="12" height="13" border="0">
               Hilfe</a></td>
             <td width="80"><a href="javascript:x();" class="menu"><img src="design/{default_design}/images/arrows_delete.gif" width="12" height="13" border="0"> 
               Schlieﬂen</a></td>
