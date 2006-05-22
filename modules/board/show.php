@@ -1,9 +1,9 @@
 <?php
 
 function NameAndDesc($name) {
-  global $line, $auth;
+  global $line, $auth, $func;
 
-  return '<img src="/design/'. $auth['design'] .'/images/arrows_forum.gif" hspace="3" align="left" border="0"><b>'. $name .'</b><br />' .$line['description'];
+  return '<img src="/design/'. $auth['design'] .'/images/arrows_forum.gif" hspace="3" align="left" border="0"><b>'. $name .'</b><br />' . $func->text2html($line['description']);
 }
 
 function LastPostDetails($date) {
