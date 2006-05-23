@@ -1,5 +1,7 @@
 <?php
 
+$_POST['content'] = $_POST['FCKeditor1'];
+
 switch($_GET["step"]){
 	default:
 		$dsp->NewContent($lang["info"]["change_caption"], $lang["info"]["change_subcaption"]);
@@ -42,18 +44,19 @@ switch($_GET["step"]){
 		$dsp->AddTextFieldRow("title", $lang["info"]["title"], $_POST["title"], $title_error);
 		$dsp->AddTextFieldRow("subtitle", $lang["info"]["subtitle"], $_POST["subtitle"], $title_error);
 
-		if ($cfg["info2_use_spaw"]) {
-			include "ext_scripts/spaw/spaw_control.class.php";
+		if ($cfg["info2_use_fckedit"]) {
+		
+      ob_start();
+      include_once("ext_scripts/FCKeditor/fckeditor.php");
+      $oFCKeditor = new FCKeditor('FCKeditor1') ;
+      $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
+      $oFCKeditor->Value = $_POST['content'];
+      $oFCKeditor->Height = 380;
+      $oFCKeditor->Create();
+      $fcke_content = ob_get_contents();
+      ob_end_clean();
+      $dsp->AddSingleRow($fcke_content);
 
-			if ($cfg["info2_toolbar"] == 1) $tmp_spaw_type = "default";
-			else $tmp_spaw_type = "mini";
-
-			$sw = new SPAW_Wysiwyg('content', $_POST["content"], $language, $tmp_spaw_type, 'default', $cfg["info2_width"], $cfg["info2_height"]);
-			ob_start();
-			$sw->show();
-			$spaw_content = ob_get_contents();
-			ob_end_clean();
-			$dsp->AddSingleRow($spaw_content);
 		} else $dsp->AddTextAreaRow("content", "", $_POST["content"], "", 80, 25, 0);
 
 		$dsp->AddFormSubmitRow("add");
