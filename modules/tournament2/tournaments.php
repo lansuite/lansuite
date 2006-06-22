@@ -144,11 +144,13 @@ else {
 
 		$game_xml = $xml->get_tag_content_array("game", $akt_liga);
 
-		while ($game_xml_id = array_shift($game_xml)) {
-			$akt_game_id = $xml->get_tag_content("short", $game_xml_id);
-			$akt_game_name = $xml->get_tag_content("title", $game_xml_id);
-			($_POST["tournament_ngl_gamename"] == $akt_game_id) ? $selected = "selected" : $selected = "";
-			$selecttions[$akt_game_id] = $info_title .' - '. $akt_game_name;
+		if(is_array($game_xml)){
+			while ($game_xml_id = array_shift($game_xml)) {
+				$akt_game_id = $xml->get_tag_content("short", $game_xml_id);
+				$akt_game_name = $xml->get_tag_content("title", $game_xml_id);
+				($_POST["tournament_ngl_gamename"] == $akt_game_id) ? $selected = "selected" : $selected = "";
+				$selecttions[$akt_game_id] = $info_title .' - '. $akt_game_name;
+			}
 		}
 	}
 	$mf->AddField($lang['tourney']['t_add_ngl_game'], 'ngl_gamename', IS_SELECTION, $selecttions, FIELD_OPTIONAL, 'CheckModeForLeague');
