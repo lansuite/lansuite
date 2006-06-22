@@ -120,6 +120,12 @@
     <items>
     	<item>
     		<name>sys_language</name>
+    		<type>language</type>
+    		<default>de</default>
+    		<description>Sprache des Systems</description>
+    	</item>    
+    	<item>
+    		<name>sys_country</name>
     		<type>country</type>
     		<default>de</default>
     		<description>Land in dem die Party stattfindet</description>
