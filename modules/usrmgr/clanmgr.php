@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 switch ($_GET['step']) {
   default:
@@ -17,7 +17,7 @@ switch ($_GET['step']) {
     $ms2->AddResultField($lang['usrmgr']['clan_url'], 'c.url');
     $ms2->AddResultField($lang['usrmgr']['clan_members'], 'COUNT(u.clanid) AS members');
 
-    if ($auth['type'] >= 2) $ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=clanmgr&step=10&userid=', $lang['ms2']['change_pw']);
+    if ($auth['type'] >= 2) $ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=clanmgr&step=10&clanid=', $lang['ms2']['change_pw']);
     if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=clanmgr&step=20&clanid=', $lang['ms2']['delete']);
 
     if ($auth['type'] >= 3) $ms2->AddMultiSelectAction($lang['ms2']['delete'], 'index.php?mod=usrmgr&action=clanmgr&step=20', 1);
