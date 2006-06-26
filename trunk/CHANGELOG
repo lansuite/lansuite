@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.3
 
+- Bugfix: #453 Clanmanager sendete Mails bei Passwortänderung an alle clanlosen User. Danke an Maztah ! (Cewigo 26.06.2006)
 - Bugfix: #445 Smilies wurden in der Boardübersicht-Beschreibung nicht umgewandelt (KnoX 22.05.2006)
 - Bugfix: Auto-Hide-Formulare gingen beim IE erst nach 2. Klick auf (KnoX 21.05.2006)
 - Bugfix: Falsche Zeichen in Buttons 'Ändern' und 'Überspringen' (KnoX 21.05.2006)
