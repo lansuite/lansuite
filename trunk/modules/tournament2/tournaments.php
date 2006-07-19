@@ -95,7 +95,7 @@ if($_POST['break_duration'] == '') { $_POST['break_duration'] = '30';}
 for($i = 0; $i <= 30; $i+=5) $selecttions[$i] = $i .' Min';
 $mf->AddField($lang['tourney']['details_break_duration'], 'break_duration', IS_SELECTION, $selecttions);
 
-$mf->AddField($lang['tourney']['t_add_defwin_on_time_exceed'].'|'.$lang['tourney']['t_add_defwin_on_time_exceed_detail'], 'defwin_on_time_exceed', 1);
+$mf->AddField($lang['tourney']['t_add_defwin_on_time_exceed'].'|'.$lang['tourney']['t_add_defwin_on_time_exceed_detail'], 'defwin_on_time_exceed', '', 1, FIELD_OPTIONAL);
 $mf->AddGroup($lang['tourney']['details_times']);
 
 

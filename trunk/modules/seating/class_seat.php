@@ -185,7 +185,7 @@ class seat2 {
 		// Get current users clanmates
 		$my_clanmates = array();
 		if($auth['clan'] != ""){
-			$clanmates = $db->query("SELECT userid FROM {$config["tables"]["user"]} WHERE clan = '{$auth['clan']}'");
+			$clanmates = $db->query("SELECT userid FROM {$config["tables"]["user"]} WHERE clanid = '{$auth['clanid']}'");
 			while ($clanmate = $db->fetch_array($clanmates)) array_push($my_clanmates, $clanmate['userid']);
 			$db->free_result($clanmates);
 		}
