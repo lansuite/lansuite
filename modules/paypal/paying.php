@@ -169,7 +169,7 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 			// Donation
 			$price = $price + $_POST['donation'];
 			
-			if($price == 0){
+			if($price <= 0){
 				$func->error($lang["paypal"]["no_price_error"],"\" OnClick=\"javascript: refreshParent()");
 			}else{
 				
