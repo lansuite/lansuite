@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 switch ($_GET['step']) {
   default:
@@ -59,6 +59,7 @@ switch ($_GET['step']) {
       if ($_GET['clanid']) $_POST['action'][$_GET['clanid']] = 1;
       if ($_POST['action']) foreach ($_POST['action'] as $key => $val) {
         $db->query("DELETE FROM {$config["tables"]["clan"]} WHERE clanid = '$key'");
+        $db->query("UPDATE {$config["tables"]["user"]} SET clanid = 0 WHERE clanid = '$key'");
       }
       $func->confirmation($lang['usrmgr']['clan_del_success'], 'index.php?mod=usrmgr&action=clanmgr');      
     }
