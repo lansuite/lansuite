@@ -297,7 +297,7 @@ class tfunc {
 					");
 
 				while ($score = $db->fetch_array($scores)){
-					if ($tournament['mode'] == "groups" and $scores["groupnr"] == 0){
+					if ($tournament['mode'] == "groups" and $group_nr == 0){
 						$ranking_data->reached_finales[array_search($score['tid1'], $ranking_data->tid)] = 1;
 						$ranking_data->reached_finales[array_search($score['tid2'], $ranking_data->tid)] = 1;
 					}
