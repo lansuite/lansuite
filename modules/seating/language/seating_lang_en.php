@@ -53,6 +53,7 @@ $lang['seating']['i_rel_seat']    = 'This seat was resigned successfully';
 $lang['seating']['i_seat_locked'] = 'You have allready chosen your seat! If you like to change it, referr to the orga-team, please.';
 $lang['seating']['i_not_paid']    = 'You have not paid for this party, yet, or are not checked in.';
 $lang['seating']['i_not_paid2']   = 'You have to pay for this party first, to obtain a seat';
+$lang['seating']['i_signon_only'] = 'Only users having signed on to the current party may mark seats';
 
 // Confirmations
 $lang['seating']['c_del_block']   = 'The seat block was deleted successfully';

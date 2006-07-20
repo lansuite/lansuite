@@ -62,6 +62,7 @@ $lang['seating']['i_rel_seat']    = 'Der Sitzplatz wurde erfolgreich freigegeben
 $lang['seating']['i_seat_locked'] = 'Sie haben bereits Ihren Sitzplatz gew&auml;hlt! Sollten Sie diesen &auml;ndern wollen, wenden sie sich bitte an die Orgas.';
 $lang['seating']['i_not_paid']    = 'Sie haben ihre Teilnahmegeb&uuml;hr noch nicht &uuml;berwiesen, oder Sie ist noch nicht bei uns eingetroffen!';
 $lang['seating']['i_not_paid2']   = 'Du musst zuerst für diese Party bezahlen, bevor du dir einen Sitzplatz reservieren darfst';
+$lang['seating']['i_signon_only'] = 'Nur zur Party angemeldete Benutzer dürfen Sitzplätze vormerken';
 
 // Confirmations
 $lang['seating']['c_del_block']   = 'Der Sitzblock wurde erfolgreich gel&ouml;scht';

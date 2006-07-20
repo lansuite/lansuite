@@ -107,8 +107,13 @@ switch($_GET['step']) {
 		$seat_user = $db->query_first("SELECT userid FROM {$config["tables"]["seat_seats"]}
 			WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}'");
 
+    $user_party = $db->query_first("SELECT user_id FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
+
+		// Check Signed on
+		if (!$user_party['user_id']) $func->information($lang['seating']['i_signon_only'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+
 		// Check paid
-		if (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) $func->information($lang['seating']['i_not_paid2'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+		elseif (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) $func->information($lang['seating']['i_not_paid2'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check seat availability
 		elseif ($seat_user['userid']) $func->error($lang['seating']['e_assigned'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
