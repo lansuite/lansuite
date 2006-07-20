@@ -105,7 +105,7 @@ else {
   	// Check if roundtime has exceeded and set awaiting scores randomly
   	$tfunc->CheckTimeExceed($tournamentid);
   
-  	$tournament = $db->query_first("SELECT * FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+  	$tournament = $db->query_first("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
   
   	// Get Maparray
   	$map = explode("\r\n", $func->db2text($tournament["mapcycle"]));

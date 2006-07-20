@@ -24,7 +24,7 @@ $headermenuitem	= $vars["headermenuitem"];
 
 if ($headermenuitem == "") $headermenuitem = 1;
 
-$tournament = $db->query_first_rows("SELECT * FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'"); 
+$tournament = $db->query_first_rows("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
 
 if($tournament["number"] == 0) $func->error($lang["tourney"]["t_not_exist"], "index.php?mod=tournament2");
 else {

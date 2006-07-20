@@ -67,7 +67,7 @@ $ms2->AddSelect('t.wwcl_gameid');
 $ms2->AddSelect('t.ngl_gamename');
 $ms2->AddSelect('COUNT(teams.tournamentid) AS teamanz');
 $ms2->AddResultField($lang['tourney']['details_name'], 't.name', 'GetTournamentName');
-$ms2->AddResultField($lang['tourney']['details_startat'], 't.starttime', 'MS2GetDate');
+$ms2->AddResultField($lang['tourney']['details_startat'], 'UNIX_TIMESTAMP(t.starttime) AS starttime', 'MS2GetDate');
 $ms2->AddResultField($lang['tourney']['team'], 't.maxteams', 'GetTournamentTeamAnz');
 $ms2->AddResultField($lang['tourney']['details_state'], 't.status', 'GetTournamentStatus');
 
