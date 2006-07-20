@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+  <typedefinition>
+    <head>
+      <name>news_type</name>    
+    </head>
+    <entries>
+  		<entry>
+  			<value>0</value>
+  			<description>Nein</description>
+  		</entry>
+  		<entry>
+  			<value>1</value>
+  			<description>Ja - als Quelltext</description>
+  		</entry>
+  		<entry>
+  			<value>2</value>
+  			<description>Ja - &Uuml;ber WYSIWYG-Editor</description>
+  		</entry>
+    </entries>
+  </typedefinition>
   <group>
     <head>
       <name>Allgemein</name>
@@ -7,7 +26,7 @@
     <items>
     	<item>
     		<name>news_html</name>
-    		<type>boolean</type>
+    		<type>news_type</type>
     		<default>0</default>
     		<description>Werden News als HTML verfasst?</description>
     	</item>

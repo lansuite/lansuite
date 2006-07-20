@@ -2,6 +2,7 @@
 
 define('FIELD_OPTIONAL', 1);
 define('HTML_ALLOWED', 1);
+define('HTML_WYSIWYG', 2);
 define('IS_PASSWORD', 1);
 define('IS_NEW_PASSWORD', 2);
 define('IS_SELECTION', 3);
@@ -60,6 +61,9 @@ class masterform {
 	function SendForm($BaseURL, $table, $idname = '', $id = 0) {
     global $dsp, $db, $config, $func, $sec, $lang;
 
+    		$this->AddGroup(); // Adds non-group-fields to fake group
+
+
     $StartURL = $BaseURL .'&'. $idname .'='. $id;
     if ($id) $this->isChange = true;
 
@@ -109,7 +113,11 @@ class masterform {
         if ($this->Groups) foreach ($this->Groups as $GroupKey => $group) {
           if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) if($field['name']) {
             $err = false;
-            
+
+            // Copy WYSIWYG editor variable
+            if (($SQLFieldTypes[$field['name']] == 'text' or $SQLFieldTypes[$field['name']] == 'mediumtext' or $SQLFieldTypes[$field['name']] == 'longtext')
+              and $field['selections'] == HTML_WYSIWYG) $_POST[$field['name']] = $_POST['FCKeditor1'];
+
             // If not in DependOn-Group, or DependOn-Group is active
             if (!$this->DependOnStarted or $POST_[$this->DependOnField]) {
               // Convert Post-date to unix-timestap
@@ -170,7 +178,6 @@ class masterform {
 
       // Output form
       default:
-    		$this->AddGroup(); // Adds non-group-fields to fake group
     		$dsp->SetForm($StartURL .'&mf_step=2', '', '', $this->FormEncType);
 
         // Output fields
@@ -189,6 +196,19 @@ class masterform {
               case 'longtext':
                 if (!$maxchar) $maxchar = 4294967295;
                 if ($field['selections'] == HTML_ALLOWED) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
+                elseif ($field['selections'] == HTML_WYSIWYG) {
+                  ob_start();
+                  include_once("ext_scripts/FCKeditor/fckeditor.php");
+                  $oFCKeditor = new FCKeditor('FCKeditor1') ;
+                  $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
+                  $oFCKeditor->Value = $_POST[$field['name']];
+                  $oFCKeditor->Height = 380;
+                  $oFCKeditor->Create();
+                  $fcke_content = ob_get_contents();
+                  ob_end_clean();
+                  $dsp->AddDoubleRow($field['caption'], $fcke_content);
+                  if ($this->error[$field['name']]) $dsp->AddDoubleRow('', $this->error[$field['name']]);
+                }
                 else $dsp->AddTextAreaRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional']);
               break;
 
