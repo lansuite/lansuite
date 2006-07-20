@@ -220,7 +220,7 @@ function WriteXMLStatFile() {
 
 if ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_self_details_change'])) {
   $party_user = $db->query_first("SELECT * FROM {$config['tables']['party_user']} WHERE user_id = ". (int)$_GET["userid"] ." AND party_id={$party->party_id}");
-  if (!isset($_POST['signon'])) $_POST['signon'] = $party_user['party_id'];
+  if (!isset($_POST['email'])) $_POST['signon'] = $party_user['party_id'];
   if (!isset($_POST['price_id'])) $_POST['price_id'] = $party_user['price_id'];
   if (!isset($_POST['paid'])) $_POST['paid'] = $party_user['paid'];
 
@@ -259,7 +259,7 @@ if ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_sel
   $mf->AddGroup('Account');
 
   if ($auth['type'] >= 2) {
-    $mf->AddField($lang['usrmgr']['add_signon'], 'signon', 'tinyint(1)', '', '', '', 3);
+    $mf->AddField($lang['usrmgr']['add_signon'], 'signon', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
 
     $party->GetPriceDropdown((int)$_POST["group_id"], (int)$_POST["price_id"]);
 
