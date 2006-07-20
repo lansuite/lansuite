@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.3
 
+- Bugfix: #479 Nicht angemeldete Benutzer konnten Sitzplätze vormerken. (KnoX 21.07.2006)
 - Bugfix: #480 Clanmates wurden nicht mehr im Sitzplan gezeigt und Clan wurde im Sitzplan nicht in den Details gezeigt (KnoX 21.07.2006)
 - Bugfix: #467 Tippfehler in $lang['install']['env_ext_inc'] der deutschen Languagefile. Danke an Maztah ! (Cewigo 26.06.2006)
 - Bugfix: #453 Clanmanager sendete Mails bei Passwortänderung an alle clanlosen User. Danke an Maztah ! (Cewigo 26.06.2006)
