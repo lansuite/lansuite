@@ -162,8 +162,9 @@ class seat2 {
 		$seat_state = array();
 		$seat_ip = array();
 		$seat_userid = array();
-		$seats_qry = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]} AS s
+		$seats_qry = $db->query("SELECT s.*, u.*, c.name AS clan, c.url AS clanurl FROM {$config["tables"]["seat_seats"]} AS s
       LEFT JOIN {$config["tables"]["user"]} AS u ON u.userid = s.userid
+      LEFT JOIN {$config["tables"]["clan"]} AS c ON u.clanid = c.clanid
       WHERE blockid = '$blockid'");
 		if (!$db->num_rows() == 0) {
 #			for ($x = 0; $x <= $block['cols']; $x++) for ($y = 0; $y <= $block['rows']; $y++) $seat_state[$y][$x] = 1;
@@ -184,7 +185,7 @@ class seat2 {
 
 		// Get current users clanmates
 		$my_clanmates = array();
-		if($auth['clan'] != ""){
+		if ($auth['clanid'] != ''){
 			$clanmates = $db->query("SELECT userid FROM {$config["tables"]["user"]} WHERE clanid = '{$auth['clanid']}'");
 			while ($clanmate = $db->fetch_array($clanmates)) array_push($my_clanmates, $clanmate['userid']);
 			$db->free_result($clanmates);
@@ -259,7 +260,7 @@ class seat2 {
 				elseif ($seat_state[$y][$x] == 2 and in_array($seat_userid[$y][$x], $my_clanmates)) $s_state = 9;
 				else $s_state = $seat_state[$y][$x];
         
-				if(!$cfg['sys_internet'] OR $auth['type'] > 1 OR ($auth['userid'] == $selected_user && $selected_user != false)){
+				if (!$cfg['sys_internet'] OR $auth['type'] > 1 OR ($auth['userid'] == $selected_user && $selected_user != false)){
 					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},{$user_info[$y][$x]['firstname']},{$user_info[$y][$x]['name']},{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
 				} else {
 					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},,,{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
