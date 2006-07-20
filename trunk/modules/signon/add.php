@@ -415,7 +415,7 @@ if ($user["user_id"]) {
   		}
   		$dsp->AddDropDownFieldRow("clan", $lang["signon"]["add_existing_clan"], $t_array, $error["clan"], $optional);
       $dsp->AddPasswordRow('clanpw', $lang["signon"]["add_create_clanpass"], '', $error['clan_pass'], '', OPTIONAL);
-			$dsp->AddCheckBoxRow('new_clan_select" onChange="CheckBoxBoxActivate(\'new_clan_fields\', this.checked)', $lang["signon"]["add_create_clan"], '', '', OPTIONAL, $_POST['new_clan_select']);
+			$dsp->AddCheckBoxRow('new_clan_select" onclick="CheckBoxBoxActivate(\'new_clan_fields\', this.checked)', $lang["signon"]["add_create_clan"], '', '', OPTIONAL, $_POST['new_clan_select']);
 			$dsp->StartHiddenBox('new_clan_fields', $_POST['new_clan_select']);
   		$dsp->AddTextFieldRow("clan_new", $lang["signon"]["add_create_clan"], $_POST["clan_new"], $error["clan_new"], "", $optional);  
   		if ($signup_cfg["clanurl"] == $needed) $dsp->AddTextFieldRow("clanurl", $lang["signon"]["add_clanurl"], $_POST["clanurl"], $error["clanurl"], "", $optional);
