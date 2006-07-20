@@ -701,7 +701,7 @@ class tfunc {
 		global $team_anz, $akt_round, $tournament, $db, $config, $lang, $mail, $func, $game, $mail, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
 
 		$tournament = $db->query_first("SELECT mode, defwin_on_time_exceed, name,
-			break_duration, max_games, game_duration, starttime, tournamentid
+			break_duration, max_games, game_duration, UNIX_TIMESTAMP(starttime) AS starttime, tournamentid
 			FROM {$config["tables"]["tournament_tournaments"]}
 			WHERE tournamentid = $tournamentid
 			");

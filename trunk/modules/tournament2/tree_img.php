@@ -11,7 +11,7 @@ $tfunc = new tfunc;
 $tfunc->CheckTimeExceed($tournamentid);
 
 
-$tournament = $db->query_first("SELECT name, mode, starttime, break_duration, game_duration, max_games, status, mapcycle
+$tournament = $db->query_first("SELECT name, mode, UNIX_TIMESTAMP(starttime) AS starttime, break_duration, game_duration, max_games, status, mapcycle
 		FROM {$config["tables"]["tournament_tournaments"]}
 		WHERE tournamentid = '$tournamentid'
 		");
