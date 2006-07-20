@@ -33,7 +33,7 @@ else {
 
 		$templ['news']['show']['row'][$type]['info']['date']        = $func->unixstamp2date($date,"daydatetime");
 
-		if (!$cfg["news_html"]) $text = $func->text2html($text);
+		if ($cfg["news_html"]) $text = $func->text2html($text);
 		$templ['news']['show']['row'][$type]['info']['text']        = $text;
 
 		// GET NUMBER OF COMMENTS
