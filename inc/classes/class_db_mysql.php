@@ -168,6 +168,14 @@ class db {
        return $found;
 	} 
 	
+	function num_fields() {
+    return mysql_num_fields($this->query_id);
+  }
+
+	function field_name($pos) {
+    return mysql_field_name($this->query_id, $pos);
+  }
+
 	function get_mysqli_stmt() {
 		$prep = $link_id->stmt_init();
 		return $prep;

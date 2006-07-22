@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.3
 
+- Bugfix: Bei MySQLi war kein Daten Export mehr möglich (KnoX 22.07.2006)
 - Bugfix: Das PopUp bei neuen Mails hatte nicht die korrekte Seite geladen (KnoX 22.07.2006)
 - Bugfix: Es war beim Benutzereditieren nicht möglich einen Clan wieder zu entfernen (KnoX 22.07.2006)
 - Bugfix: #456 In der PLZ im Benutzermanager waren führende 0en nicht mehr möglich (KnoX 22.07.2006)
