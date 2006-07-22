@@ -320,7 +320,7 @@ class masterform {
           $db_query = '';
           foreach ($this->SQLFields as $key => $val) {
             if ($SQLFieldTypes[$val] == 'datetime') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
-            else $db_query .= "$val = '$_POST[$val]', ";
+            else $db_query .= "$val = '{$_POST[$val]}', ";
           }
           $db_query = substr($db_query, 0, strlen($db_query) - 2);
 
