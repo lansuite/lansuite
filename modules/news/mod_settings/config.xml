@@ -7,15 +7,15 @@
     <entries>
   		<entry>
   			<value>0</value>
-  			<description>Nein</description>
+  			<description>Ja - Über Textfeld</description>
   		</entry>
   		<entry>
   			<value>1</value>
-  			<description>Ja - als Quelltext</description>
+  			<description>Nein - LS-Code verwenden</description>
   		</entry>
   		<entry>
   			<value>2</value>
-  			<description>Ja - &Uuml;ber WYSIWYG-Editor</description>
+  			<description>Ja - Über WYSIWYG-Editor</description>
   		</entry>
     </entries>
   </typedefinition>

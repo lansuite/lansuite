@@ -292,12 +292,11 @@ class func {
 	
 	function text2html($string) {
 		global $db, $config;
-		
 
 		$img_start = "<img src=\"design/".$_SESSION["auth"]["design"]."/images/";
 		$img_start2 = "<img src=\"ext_inc/smilies/";
 		$img_end   = "\" border=\"0\" />";
-				
+
 		$string = str_replace("&", "&amp;", $string);
 		$string = str_replace("\"", "&quot;", $string);
 		$string = str_replace("<", "&lt;", $string);

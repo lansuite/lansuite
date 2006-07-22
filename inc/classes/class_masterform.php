@@ -2,6 +2,7 @@
 
 define('FIELD_OPTIONAL', 1);
 define('HTML_ALLOWED', 1);
+define('LSCODE_ALLOWED', 1);
 define('HTML_WYSIWYG', 2);
 define('IS_PASSWORD', 1);
 define('IS_NEW_PASSWORD', 2);
@@ -195,7 +196,7 @@ class masterform {
                 if (!$maxchar) $maxchar = 16777215;
               case 'longtext':
                 if (!$maxchar) $maxchar = 4294967295;
-                if ($field['selections'] == HTML_ALLOWED) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
+                if ($field['selections'] == HTML_ALLOWED or $field['selections'] == LSCODE_ALLOWED) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
                 elseif ($field['selections'] == HTML_WYSIWYG) {
                   ob_start();
                   include_once("ext_scripts/FCKeditor/fckeditor.php");
@@ -206,8 +207,8 @@ class masterform {
                   $oFCKeditor->Create();
                   $fcke_content = ob_get_contents();
                   ob_end_clean();
-                  $dsp->AddDoubleRow($field['caption'], $fcke_content);
-                  if ($this->error[$field['name']]) $dsp->AddDoubleRow('', $this->error[$field['name']]);
+                  $dsp->AddSingleRow($fcke_content);
+                  if ($this->error[$field['name']]) $dsp->AddDoubleRow($field['caption'], $dsp->errortext_prefix . $this->error[$field['name']] . $dsp->errortext_suffix);
                 }
                 else $dsp->AddTextAreaRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional']);
               break;
