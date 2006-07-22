@@ -167,7 +167,17 @@ class db {
       	}
        return $found;
 	} 
-	
+
+
+	function num_fields() {
+    return mysqli_num_fields($this->query_id);
+  }
+
+	function field_name($pos) {
+    $finfo = mysqli_fetch_field_direct($this->query_id, $pos);
+    return $finfo->name;
+  }
+  
 	function get_mysqli_stmt() {
 		$prep = $link_id->stmt_init();
 		return $prep;

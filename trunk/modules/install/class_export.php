@@ -72,8 +72,8 @@ class Export {
 			$query = $db->query("SELECT * FROM {$config["database"]["prefix"]}$table");
 			while ($row = $db->fetch_array($query)) {
 				$entry = "";
-				for ($z = 0; $z < mysql_num_fields($db->query_id); $z++) {
-					$field_name = mysql_field_name($db->query_id, $z);
+				for ($z = 0; $z < $db->num_fields(); $z++) {
+					$field_name = $db->field_name($z);
 					if ($row[$field_name] != "") $entry .= $xml->write_tag($field_name, $row[$field_name], 4);
 				}
 				if ($entry) $content .= $xml->write_master_tag("entry", $entry, 3);
