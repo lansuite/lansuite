@@ -192,7 +192,7 @@ class seat2 {
 		}
 
     // Has user paid?
-		$user_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
+		if ($auth['login']) $user_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
 
 		// Header-Row
 		$templ['seat']['plan_sep_row_head_cols'] = '';
