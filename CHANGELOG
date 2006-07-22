@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.3
 
+- Bugfix: Es war beim Benutzereditieren nicht möglich einen Clan wieder zu entfernen (KnoX 22.07.2006)
 - Bugfix: #456 In der PLZ im Benutzermanager waren führende 0en nicht mehr möglich (KnoX 22.07.2006)
 - Bugfix: #482 Einträge in News-Config überarbeitet, da sie falsch benannt waren (KnoX 22.07.2006)
 - Bugfix: #481 Beim Löschen eines Clans wurde die Clanid nicht aus den Benutzerdaten gelöscht (Maztah 21.07.2006)
