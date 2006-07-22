@@ -8,7 +8,7 @@ $mf = new masterform();
 // Name
 $mf->AddField($lang['news']['add_headline'], 'caption');
 $mf->AddField($lang['news']['add_icon'], 'icon', IS_PICTURE_SELECT, 'ext_inc/news_icons', FIELD_OPTIONAL);
-$mf->AddField($lang['news']['add_text'], 'text', '', $cfg['news_html']); # 0 = No HTML, 1 = HTML_ALLOWED, 2 = HTML_WYSIWYG
+$mf->AddField($lang['news']['add_text'], 'text', '', $cfg['news_html']); # 0 = HTML, 1 = LSCODE_ALLOWED, 2 = HTML_WYSIWYG
 $selections = array();
 $selections['0'] = $lang['news']['add_normal'];
 $selections['1'] = $lang['news']['add_important'];
