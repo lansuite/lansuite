@@ -157,7 +157,7 @@ function Addr2Input($field, $mode, $error = '') {
     case CHECK_ERROR_PROC:
   		if (($_POST['plz|city'] != '') || (FieldNeeded('city'))){
         $pieces = explode(' ', $_POST['plz|city']);
-        $_POST['plz'] = (int)array_shift($pieces);
+        $_POST['plz'] = array_shift($pieces);
         $_POST['city'] = implode(' ', $pieces);
 
   			if ($_POST['plz'] == 0 or $_POST['city'] == '') return $lang['usrmgr']['add_err_invalid_city'];
@@ -167,7 +167,6 @@ function Addr2Input($field, $mode, $error = '') {
     break;
   }
 }
-
 
 function Optional($key){
 	global $cfg;
