@@ -319,7 +319,7 @@
 			<field>
 				<name>user_active</name>
 				<type>tinyint(1)</type>
-				<null>YES</null>
+				<null></null>
 				<key></key>
 				<default>1</default>
 				<extra></extra>
