@@ -16,9 +16,9 @@ class Clan {
     $db->query("INSERT INTO {$config['tables']['clan']} SET
       name = '$name',
       url = '$url',
-      password = '". md5($password) ."'
+      password = '$password'
       ");
-    
+
     return $db->insert_id();
   }
   

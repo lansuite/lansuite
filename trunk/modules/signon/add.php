@@ -603,7 +603,7 @@ if ($user["user_id"]) {
         // Clan-Management
         include_once("modules/usrmgr/class_clan.php");
         $clan = new Clan();
-        if ($_POST['clan_new']) $_POST['clan'] = $clan->Add($_POST['clan_new'], $_POST["clanurl"], $_POST["newclanpw"]);
+        if ($_POST['clan_new']) $_POST['clan'] = $clan->Add($_POST['clan_new'], $_POST["clanurl"], md5($_POST["newclanpw"]));
         if ($_POST['clan']) $clan->AddMember($_POST['clan'], $userid);
         else $clan->RemoveMember($_GET["userid"]);
 
