@@ -15,8 +15,8 @@ function GetTypeDescription($type) {
 
 
 // Select from table_user
-// username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment 
-$user_data = $db->query_first("SELECT u.*, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
+// username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment
+$user_data = $db->query_first("SELECT u.*, u.clanid, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
 	FROM {$config['tables']['user']} AS u
 	LEFT JOIN {$config['tables']['usersettings']} AS c ON u.userid = c.userid
 	LEFT JOIN {$config['tables']['clan']} AS clan ON u.clanid = clan.clanid
@@ -262,7 +262,7 @@ else {
 			$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=delete&step=2&userid=". $_GET['userid'], "delete")." ";
 
 		if($user_data['clan'] != "" &&($user_data['clan'] == $auth['clan'] || $auth['type'] > 1)){
-			$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=changeclanpw&clan=". urlencode($user_data['clan']),"changeclanpw");
+      $userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=changeclanpw&clanid=". $user_data['clanid'],"changeclanpw");
 		}
 		$dsp->AddHRuleRow();
 		$dsp->AddDoubleRow($userdetails_back, $userdetails_buttons);
