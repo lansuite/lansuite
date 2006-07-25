@@ -503,6 +503,13 @@ function UserNameAndIcon($username){
   global $line, $dsp;
 
   if ($username == '') return '<i>System</i>';
-  else return $username .' '. $dsp->FetchUserIcon($line['userid']);
+  else if ($line['userid']) return $username .' '. $dsp->FetchUserIcon($line['userid']);
+  else return $username;
+}
+
+function Text2LSCode($text) {
+  global $func;
+  
+  return $func->text2html($text);
 }
 ?>

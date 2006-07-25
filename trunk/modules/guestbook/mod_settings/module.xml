@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<lansuite-module>
+	<name>guestbook</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
+	<caption>Gästebuch</caption>		<!-- The modulname displayed to the user -->
+	<description>Besucher können hier eine kurze Nachricht hinterlassen</description>		<!-- A short description of the module -->
+	<active>0</active>				<!-- Is the module activated by default? 0/1 -->
+	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
+	<author>Pati</author>				<!-- The author of this module -->
+	<email>admin@hkh-gaming.de</email>					<!-- The E-Mail-Adress of the modules author -->
+	<version>1.5</version>			<!-- The version of this module -->
+	<state>Beta</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
+</lansuite-module>

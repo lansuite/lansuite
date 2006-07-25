@@ -206,4 +206,5 @@
   $lang['mf']['pw2_caption'] = 'verfication';
   $lang['mf']['err_pw2'] = 'The passwords do not match';
   $lang['mf']['err_double_on_unique'] = 'This entry exists already in our database';
+  $lang['mf']['err_captcha'] = 'Captcha does not match';
 ?>
