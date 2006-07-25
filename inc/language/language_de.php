@@ -213,4 +213,5 @@
   $lang['mf']['pw2_caption'] = 'Verfikation';
   $lang['mf']['err_pw2'] = 'Die beiden Kennworte stimmen nicht überein';
   $lang['mf']['err_double_on_unique'] = 'Dieser Eintrag existiert bereits in unserer Datenbank';
+  $lang['mf']['err_captcha'] = 'Captcha falsch wiedergegeben';
 ?>

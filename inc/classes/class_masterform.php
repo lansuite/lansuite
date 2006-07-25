@@ -11,6 +11,7 @@ define('IS_MULTI_SELECTION', 4);
 define('IS_FILE_UPLOAD', 5);
 define('IS_PICTURE_SELECT', 6);
 define('IS_TEXT_MESSAGE', 7);
+define('IS_CAPTCHA', 8);
 
 define('READ_DB_PROC', 0);
 define('CHECK_ERROR_PROC', 1);
@@ -146,6 +147,10 @@ class masterform {
               elseif ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
                 $this->error[$field['name'].'2'] = $lang['mf']['err_pw2'];
 
+              // Check captcha
+              elseif ($field['type'] == IS_CAPTCHA and ($_POST['captcha'] == '' or $_COOKIE['image_auth_code'] != md5(strtoupper($_POST['captcha']))))
+                $this->error['captcha'] = $lang['mf']['err_captcha'];
+
               // Callbacks
               elseif ($field['callback']) {
                 $err = call_user_func($field['callback'], $_POST[$field['name']]);
@@ -233,6 +238,10 @@ class masterform {
                 $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value)\"");
                 $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.$lang['mf']['pw2_caption'], $_POST[$field['name'].'2'], $this->error[$field['name'].'2'], '', $field['optional'], 0);
                 $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
+              break;
+
+              case IS_CAPTCHA: // Captcha-Row
+                $dsp->AddTextFieldRow('captcha', 'Captcha <img src="ext_scripts/captcha.php">', $_POST['captcha'], $this->error['captcha']);
               break;
 
               case IS_SELECTION: // Pre-Defined Dropdown
