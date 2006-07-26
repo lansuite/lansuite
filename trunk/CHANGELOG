@@ -4,7 +4,15 @@ Hier bitte die wichtigen Änderungen einfügen :
 (Auch Name,Datum und falls vorhanden BugID für die Änderung angeben!)
 -----
 
-Version 2.1.3
+Version 2.1.4
+
+- Bugfix:
+
+- Add:
+
+- Change:
+
+Version 2.1.3 (26.07.2006)
 
 - Bugfix: #444 Fehler beim Setzen von Clanpasswörtern (KnoX 24.07.2006)
 - Bugfix: Bei MySQLi war kein Daten Export mehr möglich (KnoX 22.07.2006)
