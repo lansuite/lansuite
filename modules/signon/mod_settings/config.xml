@@ -166,7 +166,7 @@ Teilnehmer: %MAXGUESTS%
 
 
 Ihre Orgas</default>
-    		<description>Text der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird, wenn er nur einen Account erstellt</description>
+    		<description>Text der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird, wenn er sich auch zur aktuellen Party anmeldet</description>
     	</item>
     	<item>
     		<name>signon_signonemail_text_register</name>
@@ -185,7 +185,7 @@ Clan: %CLAN%
 ----------------------------
 
 Ihre Orgas</default>
-    		<description>Text der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird, wenn er sich auch zur aktuellen Party anmeldet</description>
+    		<description>Text der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird, wenn er nur einen Account erstellt</description>
     	</item>
     </items>
   </group>
