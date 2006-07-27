@@ -444,7 +444,7 @@ class party{
 			}elseif ($paid == "NULL"){
 				$paid = "0";	
 			}
-			
+
 			$row = $db->query("SELECT * FROM {$config['tables']['party_user']} WHERE user_id={$user_id} AND party_id={$this->party_id}");
 			if($db->num_rows($row) < 1){
 				$prices = $db->query_first("SELECT * FROM {$config['tables']['party_prices']} WHERE price_id=$price_id");
@@ -453,14 +453,14 @@ class party{
 				}else {
 					$seatcontrol = 0;	
 				}
-				
+
 				$db->query("INSERT INTO {$config['tables']['party_user']} SET
-									user_id = {$user_id},
-									party_id = {$this->party_id},
-									price_id = {$price_id},
-									checkin = {$checkin},
-									paid = {$paid},
-									seatcontrol = {$seatcontrol},
+									user_id = ". (int)$user_id .",
+									party_id = ". (int)$this->party_id .",
+									price_id = ". (int)$price_id .",
+									checkin = ". (int)$checkin .",
+									paid = ". (int)$paid .",
+									seatcontrol = ". (int)$seatcontrol .",
 									signondate = $timestamp
 									");
 			}else{
@@ -482,7 +482,7 @@ class party{
 		function update_user_at_party($user_id, $paid, $price_id = "0", $checkin = "0",$checkout = "0",$seatcontrol = "NULL"){
 			global $db,$config,$func,$lang;
 			$timestamp = time();
-			
+
 			if($checkin == "1"){
 				$checkin = $timestamp;
 			}
@@ -521,8 +521,8 @@ class party{
 			$msg = str_replace("%PARTY%",$this->party_id,str_replace("%ID%",$user_id,str_replace("%PIRCEID%",$price_id,str_replace("%SEATCONTROL%",$seatcontrol,str_replace("%CHECKOUT%",$checkout,str_replace("%CHECKIN%",$checkin,str_replace("%PAID%",$paid,$lang['class_party']['logevent'])))))));
 			$func->log_event($msg,1);
 			$db->query($query);
-		
-			
+
+
 		}
 			
 

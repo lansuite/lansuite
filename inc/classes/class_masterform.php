@@ -29,7 +29,7 @@ class masterform {
 	var $DependOnStarted = 0;
 	var $isChange = false;
 	var $FormEncType = '';
-
+	
   function AddFix($name, $value){
     $this->SQLFields[] = $name;
     $_POST[$name] = $value;
@@ -51,11 +51,13 @@ class masterform {
   }
   
   function AddGroup($caption = '') {
-    $arr = array();
-    $arr['caption'] = $caption;
-    $arr['fields'] = $this->FormFields;
-    $this->Groups[] = $arr;
-    $this->FormFields = array();
+    if (count($this->FormFields) > 0) {
+      $arr = array();
+      $arr['caption'] = $caption;
+      $arr['fields'] = $this->FormFields;
+      $this->Groups[] = $arr;
+      $this->FormFields = array();
+    }
   }
 
 
@@ -63,8 +65,7 @@ class masterform {
 	function SendForm($BaseURL, $table, $idname = '', $id = 0) {
     global $dsp, $db, $config, $func, $sec, $lang;
 
-    		$this->AddGroup(); // Adds non-group-fields to fake group
-
+		$this->AddGroup(); // Adds non-group-fields to fake group
 
     $StartURL = $BaseURL .'&'. $idname .'='. $id;
     if ($id) $this->isChange = true;
@@ -79,13 +80,13 @@ class masterform {
     $db->free_result($res);
 
     // Split fields, which consist of more than one
-    foreach ($this->SQLFields as $key => $val) if (strpos($this->SQLFields[$key], '|') > 0) {
+    if ($this->SQLFields) foreach ($this->SQLFields as $key => $val) if (strpos($this->SQLFields[$key], '|') > 0) {
       $subfields = split('\|', $this->SQLFields[$key]);
       if ($subfields) foreach ($subfields as $subfield) $this->SQLFields[] = $subfield;
     }
 
     // Delete non existing DB fields, from array
-    foreach ($this->SQLFields as $key => $val) if (!$SQLFieldTypes[$val]) unset($this->SQLFields[$key]);
+    if ($this->SQLFields) foreach ($this->SQLFields as $key => $val) if (!$SQLFieldTypes[$val]) unset($this->SQLFields[$key]);
 
     // Error-Switch
     switch ($_GET['mf_step']) {
@@ -95,13 +96,12 @@ class masterform {
         // Read current values, if change
         if ($this->isChange) {
           $db_query = '';
-          foreach ($this->SQLFields as $val) {
-            if ($SQLFieldTypes[$val] == 'datetime') $db_query .= "UNIX_TIMESTAMP($val) AS $val, ";
-            else $db_query .= "$val, ";
+          if ($this->SQLFields) foreach ($this->SQLFields as $val) {
+            if ($SQLFieldTypes[$val] == 'datetime') $db_query .= ", UNIX_TIMESTAMP($val) AS $val";
+            else $db_query .= ", $val";
           }
-          $db_query = substr($db_query, 0, strlen($db_query) - 2);
 
-          $row = $db->query_first("SELECT 1 AS found, $db_query FROM {$config['tables'][$table]} WHERE $idname = ". (int)$id);
+          $row = $db->query_first("SELECT 1 AS found $db_query FROM {$config['tables'][$table]} WHERE $idname = ". (int)$id);
           if ($row['found']) foreach ($this->SQLFields as $key => $val) $_POST[$val] = $row[$val];
           else {
             $func->error($lang['mf']['err_invalid_id']);
@@ -314,8 +314,8 @@ class masterform {
 
       // Update DB
       case 2:
-        if (!$this->SQLFields) $func->error('No Fields!');
-        elseif (!$sec->locked($table, $StartURL)) {
+#        if (!$this->SQLFields) $func->error('No Fields!');
+        if (!$sec->locked($table, $StartURL)) {
 
           if ($this->Groups) foreach ($this->Groups as $group) if ($group['fields']) foreach ($group['fields'] as $field) {
             // Convert Passwords
@@ -327,17 +327,19 @@ class masterform {
 
           // Generate INSERT/UPDATE query
           $db_query = '';
-          foreach ($this->SQLFields as $key => $val) {
-            if ($SQLFieldTypes[$val] == 'datetime') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
-            else $db_query .= "$val = '{$_POST[$val]}', ";
-          }
-          $db_query = substr($db_query, 0, strlen($db_query) - 2);
+          if ($this->SQLFields) {
+            foreach ($this->SQLFields as $key => $val) {
+              if ($SQLFieldTypes[$val] == 'datetime') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
+              else $db_query .= "$val = '{$_POST[$val]}', ";
+            }
+            $db_query = substr($db_query, 0, strlen($db_query) - 2);
 
-          // Send query
-          if ($this->isChange) $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $idname = ". (int)$id);
-          else {
-            $db->query("INSERT INTO {$config['tables'][$table]} SET $db_query");
-            $id = $db->insert_id();
+            // Send query
+            if ($this->isChange) $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $idname = ". (int)$id);
+            else {
+              $db->query("INSERT INTO {$config['tables'][$table]} SET $db_query");
+              $id = $db->insert_id();
+            }
           }
 
           $addUpdSuccess = true;
