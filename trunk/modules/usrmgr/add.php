@@ -246,6 +246,8 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $mf->AddGroup('Rechte');
       }
     }
+    // If not admin and user is created (not changed)
+    if ($auth['type'] < 2 and !$_GET['userid']) $mf->AddFix('type', 1);
 
     $mf->AddField($lang['usrmgr']['add_email'], 'email');
     if ($_GET['action'] != 'change') {
