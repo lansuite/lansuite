@@ -53,7 +53,7 @@
     		<name>news_copyright</name>
     		<type>string</type>
     		<default></default>
-    		<description>Copyright des der Webseite</description>
+    		<description>Copyright der Webseite</description>
     	</item>
     	<item>
     		<name>news_logourl</name>
