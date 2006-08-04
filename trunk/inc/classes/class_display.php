@@ -750,5 +750,18 @@ class display {
   	}
 	}
 
+  function AddIcon($name, $link = '', $title = '') {
+    global $templ;
+    
+	  $templ['ms2']['icon_name'] = $name;
+    $templ['ms2']['icon_title'] = $title;
+    $templ['ms2']['link_item'] = $this->FetchModTpl('mastersearch2', 'result_icon');
+    if ($link) {
+      $templ['ms2']['link'] = $link;
+      return $this->FetchModTpl('mastersearch2', 'result_link');
+    } else return $templ['ms2']['link_item'];
+  }
+
+
 }
 ?>
