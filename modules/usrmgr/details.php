@@ -1,5 +1,17 @@
 <?php
 
+include_once("modules/usrmgr/class_usrmgr.php");
+$usrmgr = new UsrMgr;
+
+function IsAuthorizedAdmin() {
+  global $auth, $user_data, $link;
+  
+  $link = '';
+  if ($auth['type'] >= 2 and $auth['type'] >= $user_data['type']) return true;
+  else return false;
+}
+
+
 function GetTypeDescription($type) {
 	global $lang;
 
@@ -53,55 +65,93 @@ else {
 	$menunames[] = $lang['usrmgr']['details_tournament'];
 	if(!$vars['headermenuitem']) { $vars['headermenuitem'] = 1; }
 
-	# Beginn der Ausgabe
+
+
 	$dsp->NewContent(str_replace("%USER%", $user_data['username'], $lang['usrmgr']['details_caption']), $lang['usrmgr']['details_subcaption']);
 	$dsp->AddHeaderMenu($menunames,"index.php?mod=usrmgr&action=details&userid=".$_GET['userid'],$vars['headermenuitem']);
-
-	// User Name
-	$dsp->AddDoubleRow($lang['usrmgr']['details_username'], $user_data['username']." &nbsp; (".$_GET['userid'].")");
 
 	// < menu details (step/headermenuitem)
 	switch($vars['headermenuitem']){
 		default:
 		case 1: // Main
+    	// First name, last name, username, user ID
+    	$name = '';
+    	if ($user_data['firstname']) $name .= $user_data['firstname'] .' ';
+    	if ($user_data['name']) $name .= $user_data['name'] .' ';
+    	if ($user_data['username']) $name .= '('. $user_data['username'] .') ';
+    	$name .= '['. $user_data['userid'] .']';
+    	if (IsAuthorizedAdmin()) {
+        $name .= ' '. $dsp->AddIcon('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid='. $_GET['userid'], $lang['button']['switch_user']);
+        $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid='. $_GET['userid'], $lang['ms2']['change_pw']);
+      }
+      if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change']))
+        $name .= ' '. $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid='. $_GET['userid'], $lang['button']['edit']);
+      if ($auth['type'] >= 3)
+        $name .= ' '. $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid='. $_GET['userid'], $lang['button']['delete']);
+    	$dsp->AddDoubleRow('Benutzername', $name);
+
+
+      // Party Checkin, paid, ...
+      $party_info = '';
+      $link = '';
+      ($user_party['user_id'])? $party_info .= $lang['usrmgr']['details_signon'] :  $party_info .= $lang['usrmgr']['details_not_signon'];
+      if (IsAuthorizedAdmin()) $link = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $_GET['userid'];
+      // Paid
+      ($user_party['paid'])? $party_info .= ', '. $dsp->AddIcon('paid', $link) : $party_info .= ', '. $dsp->AddIcon('not_paid', $link);
+      if ($user_party['paid'] == 1) $party_info .= ' ('. $lang['usrmgr']['details_paid_vvk'] .')';
+    	elseif ($user_party['paid'] == 2) $party_info .= ' ('. $lang['usrmgr']['details_paid_ak'] .')';
+      // Platzpfand
+      if ($party_seatcontrol['depot_price'] > 0){
+      	$party_info .= ', '. $party_seatcontrol['depot_desc'];
+      	$party_info .= ($user_party['seatcontrol']) ? $lang['usrmgr']['details_seat_paid'] : $lang['usrmgr']['details_seat_not_paid'];
+      }
+      // CheckIn CheckOut
+      $party_info .= ', CheckIn: ';
+      if (IsAuthorizedAdmin()) $link = 'index.php?mod=usrmgr&action=checkin&step=2&userid='. $_GET['userid'];
+      if ($user_party['checkin']) $party_info .= $func->unixstamp2date($user_party['checkin'], 'datetime');
+      else $party_info .= $dsp->AddIcon('no', $link);
+
+      $party_info .= ', CheckOut: ';
+      if (IsAuthorizedAdmin() and $user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkout&step=2&userid='. $_GET['userid'];
+      if ($user_party['checkout']) $party_info .= $func->unixstamp2date($user_party['checkout'], 'datetime');
+      else $party_info .= $dsp->AddIcon('no', $link);
+
+      if (IsAuthorizedAdmin() and $user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkout&step=10&userid='. $_GET['userid'];
+      if ($user_party['checkin'] > 0 and $user_party['checkout'] > 0) $party_info .= $dsp->AddIcon('delete', $link, 'Reset Checkin');
+
+      $dsp->AddDoubleRow('Party '. $_SESSION['party_info']['name'], $party_info);
+
+
+			// Clan
+			$clan = $user_data['clan'];
+			if ($user_data['clanurl']) $clan .= " [<a href=\"http://{$user_data['clanurl']}\" target=\"_blank\">{$user_data['clanurl']}</a>]";
+			if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or $user_data['clan'] == $auth['clan']))
+        $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changeclanpw&clanid='. $user_data['clanid'], $lang['ms2']['change_pw']);
+			$dsp->AddDoubleRow($lang['usrmgr']['details_clan'], $clan);
+
+
+			// Seating
+			if ($user_data['blockid'] == '') $seat = $lang['usrmgr']['details_no_seat'];
+			else {
+			  $seat = $seat2->SeatOfUser($_GET['userid'], 0, 2);
+			  if (IsAuthorizedAdmin()) {
+  			  $seat .= ' '. $dsp->AddIcon('edit', 'index.php?mod=seating&action=seatadmin&step=2&userid='. $_GET['userid'], $lang['button']['edit']);
+  			  $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=free_seat&step=3&blockid={$user_data['blockid']}&row={$user_data['row']}&col={$user_data['col']}", $lang['button']['delete']);
+        }
+			}
+      $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $seat);
+
+
 			// User-Type
 			$dsp->AddDoubleRow($lang['usrmgr']['details_type'], GetTypeDescription($user_data['type']));
 
-			// Signon
-			$dsp->AddDoubleRow($lang['usrmgr']['details_signon'], ($user_party['user_id']) ? $lang['sys']['yes'] : $lang['sys']['no']);
-
-			// Paid , Seatcontrol (platzpfand)
-			if ($user_party['user_id'] AND ($user_data['type'] == 1 OR $cfg['orga_showpaid'] == 1)) {
-				if ($user_party['paid'] == 1) $paidtxt = $lang['usrmgr']['details_paid_vvk'];
-				elseif ($user_party['paid'] == 2) $paidtxt = $lang['usrmgr']['details_paid_ak']; 
-				else $paidtxt = $lang['usrmgr']['details_not_paid'];
-
-				if($party_seatcontrol['depot_price'] > 0){
-					$paidtxt .= ",&nbsp;" . $party_seatcontrol['depot_desc']; 
-					$paidtxt .= ($user_party['seatcontrol']) ? $lang['usrmgr']['details_seat_paid'] : $lang['usrmgr']['details_seat_not_paid'];
-				}
-				$dsp->AddDoubleRow($lang['usrmgr']['details_paid'], $paidtxt);
-				
-			}
 			
-			// Check IN/OUT
-			if (!$cfg['sys_internet'] AND ($user_data['type'] OR $cfg['orga_showcheck'])) {
-				if (!$user_party['checkin'] AND !$user_party['checkout']) $checktxt = $lang['usrmgr']['details_not_checked_in'];
-				elseif ($user_party['checkin'] AND !$user_party['checkout']) $checktxt =  $lang['usrmgr']['details_checked_in'] . $func->unixstamp2date($user_party['checkin'], "datetime");
-				elseif($user_party['checkin'] AND $user_party['checkout']) $checktxt =  $lang['usrmgr']['details_checked_out'] . $func->unixstamp2date($user_party['checkout'], "datetime") ." ({$lang['usrmgr']['details_in']}: ". $func->unixstamp2date($user_party['checkin'], "datetime") .")";
-
-				$dsp->AddDoubleRow($lang['usrmgr']['details_check_in_out'], $checktxt);
-			}
 
 			// Online/Offline
 			$dsp->AddDoubleRow($lang['usrmgr']['details_online'], ($user_auth['count'] >= "1") ? $lang['sys']['yes'] : $lang['sys']['no']);
 
 			// Newsletter
 			$dsp->AddDoubleRow($lang['usrmgr']['details_newsletter'], ($user_data['newsletter']) ? $lang['sys']['yes'] : $lang['sys']['no']);
-
-			// Seating
-			if ($user_data['blockid'] == "") $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $lang['usrmgr']['details_no_seat']);
-			else $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $seat2->SeatOfUser($_GET['userid'],0,2));
 
 			// IPAdress
 			if($cfg['sys_internet'] == 0) {
@@ -113,12 +163,6 @@ else {
 		break;
 
 		case 2:
-			// clan
-			$dsp->AddDoubleRow($lang['usrmgr']['details_clan'], $user_data['clan']);
-
-			// clanurl
-			$dsp->AddDoubleRow($lang['usrmgr']['details_clan_url'], "<a href=\"http://{$user_data['clanurl']}\" target=\"_blank\">{$user_data['clanurl']}</a>");
-
 			// wwclid
 			$dsp->AddDoubleRow($lang['usrmgr']['details_wwcl_id'], ($user_data['wwclid'] == 0) ? "" : $user_data['wwclid']);
 
@@ -213,11 +257,6 @@ else {
 		break;
 	} // end switch
 
-	//
-	// BUTTONS
-	//
-
-	$userdetails_back .= $dsp->FetchButton("index.php?mod=usrmgr&action=search", "back", $lang['usrmgr']['details_back_help'])." ";
 
 	// Nur Buttons die einen LogIn erfordern
 	if ($auth['login']) {
@@ -236,41 +275,11 @@ else {
 				$userdetails_buttons .= $dsp->FetchButton("index.php?mod=msgsys&action=addbuddy&step=2&checkbox[]=". $_GET['userid'], "add_to_buddylist", $lang['usrmgr']['details_buddy_help'])." ";
 			}
 		}
-		
-		if (($auth['type'] >= 2) && ($auth['type'] >= $user_data['type'])) {
-			$userdetails_adminbuttons_user = $dsp->FetchButton("index.php?mod=usrmgr&action=newpwd&step=2&userid=".$_GET['userid'], "newpassword")." ";
-#			if ($user_data['party_id'] > 0){
-				if ($user_party['checkin'] == 0)
-					$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=checkin&step=2&userid=". $_GET['userid'], "checkin")." ";
-				if ($user_party['checkin'] > 0 AND $user_party['checkout'] == 0)
-					$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=checkout&step=2&userid=". $_GET['userid'], "checkout")." ";
-				if ($user_party['checkin'] > 0 AND $user_party['checkout'] > 0)
-					$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=checkout&step=10&userid=". $_GET['userid'], "checkin_reset")." ";
 
-				$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=changepaid&step=2&userid=". $_GET['userid'], "paidchange", $lang['usrmgr']['details_chpaid_help'])." ";
-				$userdetails_adminbuttons_seat .= $dsp->FetchButton("index.php?mod=seating&action=seatadmin&step=2&userid=". $_GET['userid'], "edit")." ";
-				if ($user_data['blockid'] != '' and $user_data['row'] != '' and $user_data['col'] != '') $userdetails_adminbuttons_seat .=
-					$dsp->FetchButton("index.php?mod=seating&action=free_seat&step=3&blockid={$user_data['blockid']}&row={$user_data['row']}&col={$user_data['col']}", "delete")." ";
-#			}
-			$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=switch_user&step=10&userid=". $_GET['userid'], "switch_user")." ";
-		}
-
-		if ((($auth['type'] >= 2) && ($auth['type'] >= $user_data['type'])) || (($_GET['userid'] == $auth['userid']) && $cfg['user_self_details_change']))
-			$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=change&step=1&userid=". $_GET['userid'], "edit")." ";
-
-		if ($auth['type'] >= 3)
-			$userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=delete&step=2&userid=". $_GET['userid'], "delete")." ";
-
-		if($user_data['clan'] != "" &&($user_data['clan'] == $auth['clan'] || $auth['type'] > 1)){
-      $userdetails_adminbuttons_user .= $dsp->FetchButton("index.php?mod=usrmgr&action=changeclanpw&clanid=". $user_data['clanid'],"changeclanpw");
-		}
-		$dsp->AddHRuleRow();
-		$dsp->AddDoubleRow($userdetails_back, $userdetails_buttons);
-	} // end if login = true
+		$dsp->AddBackButton('index.php?mod=usrmgr&action=search');
+	}
 
 	if ($userdetails_adminbuttons_user) $dsp->AddDoubleRow($lang['usrmgr']['details_user_options'], $userdetails_adminbuttons_user);
-	if ($userdetails_adminbuttons_seat) $dsp->AddDoubleRow($lang['usrmgr']['details_seat_options'], $userdetails_adminbuttons_seat);
-
 	$dsp->AddContent();
 	
 	// Including comment-engine     
