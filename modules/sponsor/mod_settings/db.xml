@@ -125,5 +125,23 @@
 				<extra></extra>
 			</field>
 		</structure>
+		<content>
+			<entry>
+				<sponsorid>0</sponsorid>
+				<name>LanSuite</name>
+				<url>http://lansuite.de</url>
+				<hits>0</hits>
+				<views>0</views>
+				<text>LanSuite stellt uns dieses LanParty-Verwaltungs System zur Verfügung, durch das du dich gerade bewegst</text>
+				<date></date>
+				<pic_path>ext_inc/banner/one_network_banner.jpg</pic_path>
+				<pic_path_banner>ext_inc/banner/one_network_banner.jpg</pic_path_banner>
+				<pic_path_button></pic_path_button>
+				<active>0</active>
+				<rotation>1</rotation>
+				<sponsor>1</sponsor>
+				<pos>0</pos>
+			</entry>
+		</content>
 	</table>
 </lansuite>
