@@ -257,7 +257,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       }
       else $mf->AddField($lang['usrmgr']['add_password'], 'password', IS_NEW_PASSWORD);
     }
-    $mf->AddGroup('Account');
+    $mf->AddGroup($lang['usrmgr']['account']);
   }
   
   // If Admin: Signon and Payed options
@@ -320,18 +320,26 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $mf->AddField($lang['usrmgr']['add_create_clan'], 'clan_new', '', '', FIELD_OPTIONAL);
         if (ShowField('clanurl')) $mf->AddField($lang['usrmgr']['add_clanurl'], 'clanurl', '', '', FIELD_OPTIONAL);
         $mf->AddField($lang['usrmgr']['chpwd_password'], 'newclanpw', IS_NEW_PASSWORD, '', FIELD_OPTIONAL);
-        $mf->AddGroup('Clan');
+        $mf->AddGroup($lang['usrmgr']['leagues']);
       }
 
       // Leagues
       if (ShowField('wwcl_id')) $mf->AddField($lang['usrmgr']['add_wwcl_id'], 'wwclid', '', '', Optional('wwclid'));
       if (ShowField('ngl_id')) $mf->AddField($lang['usrmgr']['add_ngl_id'], 'nglid', '', '', Optional('nglid'));
-      $mf->AddGroup('Leagues');
+      $mf->AddGroup($lang['usrmgr']['leagues']);
 
       // Address
       if (ShowField('street')) $mf->AddField($lang['usrmgr']['add_street'], 'street|hnr', IS_CALLBACK, 'Addr1Input', Optional('street'));
       if (ShowField('city')) $mf->AddField($lang['usrmgr']['add_city'], 'plz|city', IS_CALLBACK, 'Addr2Input', Optional('city'));
-      $mf->AddGroup('Adresse');
+      $mf->AddGroup($lang['usrmgr']['address']);
+
+      // Contact
+      if (ShowField('telefon')) $mf->AddField($lang['usrmgr']['telefon'], 'telefon', '', '', Optional('telefon'));
+      if (ShowField('handy')) $mf->AddField($lang['usrmgr']['handy'], 'handy', '', '', Optional('telefon'));
+      if (ShowField('icq')) $mf->AddField('ICQ', 'icq', '', '', Optional('icq'));
+      if (ShowField('msn')) $mf->AddField('MSN', 'msn', '', '', Optional('msn'));
+      if (ShowField('skype')) $mf->AddField('Skype', 'skype', '', '', Optional('skype'));
+      $mf->AddGroup($lang['usrmgr']['contact']);
 
       // Misc (Perso + Birthday + Gender + Newsletter)
       if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) {
@@ -352,7 +360,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $mf->AddField($lang['usrmgr']['add_picture'], 'picture', IS_FILE_UPLOAD, 'ext_inc/user_pics/', Optional('picture'));
         $mf->AddField($lang['usrmgr']['add_comment'], 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
       }
-      $mf->AddGroup('Misc.');
+      $mf->AddGroup($lang['usrmgr']['misc']);
     }
   }
   
