@@ -317,6 +317,46 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>icq</name>
+				<type>varchar(12)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>msn</name>
+				<type>varchar(120)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>skype</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>telefon</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>handy</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>user_active</name>
 				<type>tinyint(1)</type>
 				<null></null>

@@ -339,4 +339,12 @@ $lang['usrmgr']['unlocked'] = 'Unlocked only';
 $lang['usrmgr']['paid'] = 'Paid';
 $lang['usrmgr']['paid_yes'] = 'Paid';
 $lang['usrmgr']['paid_no'] = 'Not paid';
+$lang['usrmgr']['telefon'] = 'Telefon';
+$lang['usrmgr']['handy'] = 'Handy';
+$lang['usrmgr']['contact'] = 'Contakt';
+$lang['usrmgr']['address'] = 'Addres';
+$lang['usrmgr']['misc'] = 'Miscalanous';
+$lang['usrmgr']['leagues'] = 'Leagues';
+$lang['usrmgr']['clan'] = 'Clan';
+$lang['usrmgr']['account'] = 'Account';
 ?>
