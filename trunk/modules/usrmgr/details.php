@@ -98,23 +98,23 @@ else {
       if (IsAuthorizedAdmin()) $link = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $_GET['userid'];
       // Paid
       ($user_party['paid'])? $party_info .= ', '. $dsp->AddIcon('paid', $link) : $party_info .= ', '. $dsp->AddIcon('not_paid', $link);
-      if ($user_party['paid'] == 1) $party_info .= ' ('. $lang['usrmgr']['details_paid_vvk'] .')';
-    	elseif ($user_party['paid'] == 2) $party_info .= ' ('. $lang['usrmgr']['details_paid_ak'] .')';
+      if ($user_party['paid'] == 1) $party_info .= ' ['. $lang['usrmgr']['details_paid_vvk'] .']';
+    	elseif ($user_party['paid'] == 2) $party_info .= ' ['. $lang['usrmgr']['details_paid_ak'] .']';
       // Platzpfand
       if ($party_seatcontrol['depot_price'] > 0){
       	$party_info .= ', '. $party_seatcontrol['depot_desc'];
       	$party_info .= ($user_party['seatcontrol']) ? $lang['usrmgr']['details_seat_paid'] : $lang['usrmgr']['details_seat_not_paid'];
       }
       // CheckIn CheckOut
-      $party_info .= ', CheckIn: ';
-      if (IsAuthorizedAdmin()) $link = 'index.php?mod=usrmgr&action=checkin&step=2&userid='. $_GET['userid'];
-      if ($user_party['checkin']) $party_info .= $func->unixstamp2date($user_party['checkin'], 'datetime');
-      else $party_info .= $dsp->AddIcon('no', $link);
+      $link = '';
+      if (IsAuthorizedAdmin() and !$user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkin&step=2&userid='. $_GET['userid'];
+      if ($user_party['checkin']) $party_info .= ' '. $dsp->AddIcon('in', $link, $lang['usrmgr']['checkin']) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
+      else $party_info .= $dsp->AddIcon('not_in', $link, $lang['usrmgr']['checkin_no']);
 
-      $party_info .= ', CheckOut: ';
-      if (IsAuthorizedAdmin() and $user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkout&step=2&userid='. $_GET['userid'];
-      if ($user_party['checkout']) $party_info .= $func->unixstamp2date($user_party['checkout'], 'datetime');
-      else $party_info .= $dsp->AddIcon('no', $link);
+      $link = '';
+      if (IsAuthorizedAdmin() and !$user_party['checkout'] and $user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkout&step=2&userid='. $_GET['userid'];
+      if ($user_party['checkout']) $party_info .= ' '. $dsp->AddIcon('out', $link, $lang['usrmgr']['checkout']) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
+      else $party_info .= $dsp->AddIcon('not_out', $link, $lang['usrmgr']['checkout_no']);
 
       if (IsAuthorizedAdmin() and $user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkout&step=10&userid='. $_GET['userid'];
       if ($user_party['checkin'] > 0 and $user_party['checkout'] > 0) $party_info .= $dsp->AddIcon('delete', $link, 'Reset Checkin');
@@ -145,8 +145,8 @@ else {
 
 			// Phone
 			$phone = '';
-      if ($user_data['telefon'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= $user_data['telefon'] . ' ';
-      if ($user_data['handy'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= '(Handy:'. $user_data['handy'] . ') ';
+      if ($user_data['telefon'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= $dsp->AddIcon('phone', '', 'Phone'). ' '. $user_data['telefon'] . ' ';
+      if ($user_data['handy'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= $dsp->AddIcon('cellphone', '', 'Handy'). ' '. $user_data['handy'] . ' ';
       if ($user_data['skype']) {
         if ($cfg['sys_internet']) $phone .= '<a href="skype:'. $user_data['skype'] .'?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="17" height="17" alt="Skype" title="Skype:'. $user_data['skype'] .'" /></a>';
         else $phone .= '[Skype:'. $user_data['skype'] .']';
