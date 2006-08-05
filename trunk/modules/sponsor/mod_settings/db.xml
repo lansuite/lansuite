@@ -53,6 +53,38 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>hits_banner</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>views_banner</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>hits_box</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>views_box</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>text</name>
 				<type>text</type>
 				<null></null>
