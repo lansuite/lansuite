@@ -156,6 +156,14 @@
 				<default>0</default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>tournamentid</name>
+				<type>tinyint(3) unsigned</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
 		</structure>
 		<content>
 			<entry>
@@ -164,6 +172,10 @@
 				<url>http://lansuite.de</url>
 				<hits>0</hits>
 				<views>0</views>
+				<views_box>0</views_box>
+				<hits_box>0</hits_box>
+				<views_banner>0</views_banner>
+				<hits_banner>0</hits_banner>
 				<text>LanSuite stellt uns dieses LanParty-Verwaltungs System zur Verfügung, durch das du dich gerade bewegst</text>
 				<date></date>
 				<pic_path>ext_inc/banner/one_network_banner.jpg</pic_path>
@@ -173,6 +185,7 @@
 				<rotation>1</rotation>
 				<sponsor>1</sponsor>
 				<pos>0</pos>
+				<tournamentid>0</tournamentid>
 			</entry>
 		</content>
 	</table>

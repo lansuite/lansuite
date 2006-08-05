@@ -113,6 +113,7 @@ switch($_GET['step']) {
 				$_POST['active'] = $sponsor['active'];
 				$_POST['rotation'] = $sponsor['rotation'];
 				$_POST['sponsor'] = $sponsor['sponsor'];
+				$_POST['tournamentid'] = $sponsor['tournamentid'];
 			}
 		}
 	break;
@@ -240,6 +241,16 @@ switch($_GET['step']) {
 			$dsp->StopHiddenBox();
 			$dsp->AddHRuleRow();
 
+      $t = $db->query("SELECT tournamentid, name FROM {$config['tables']['tournament_tournaments']} WHERE party_id = ". (int)$party->party_id);
+  		$selections = array();
+			$selections[] = "<option value=\"0\">{$lang['sys']['none']}</option>";
+  		while($tRow = $db->fetch_array($t)) {
+  			($_POST['tournamentid'] == $tRow['tournamentid']) ? $selected = " selected" : $selected = "";
+  			$selections[] = "<option$selected value=\"{$tRow['tournamentid']}\">{$tRow['name']}</option>";
+  		}
+      $dsp->AddDropDownFieldRow('tournamentid', $lang['sponsor']['add_tournament'], $selections, '', 0);
+      $db->free_result($t);
+
 			$dsp->AddTextFieldRow('pos', $lang['sponsor']['add_pos'], $_POST['pos'], '', '', OPTIONAL);
 			$dsp->AddTextAreaPlusRow('text', $lang['sponsor']['add_text'], $_POST['text'], $text_error);
 
@@ -264,7 +275,8 @@ switch($_GET['step']) {
   								pos = ". (int)$_POST['pos'] .",
   								rotation = '{$_POST['rotation']}',
   								sponsor = '{$_POST['sponsor']}',
-  								active = ". (int)$_POST['active'] ."
+  								active = ". (int)$_POST['active'] .",
+  								tournamentid = ". (int)$_POST['tournamentid'] ."
   								WHERE sponsorid = {$_GET['sponsorid']}");
   			$func->confirmation($lang['sponsor']['change_success'], "index.php?mod=sponsor&action={$_GET['action']}");
   		}
@@ -279,7 +291,8 @@ switch($_GET['step']) {
   								pos = ". (int)$_POST['pos'] .",
   								rotation = '{$_POST['rotation']}',
   								sponsor = '{$_POST['sponsor']}',
-  								active = ". (int)$_POST['active'] ."
+  								active = ". (int)$_POST['active'] .",
+  								tournamentid = ". (int)$_POST['tournamentid'] ."
   								");
   			$func->confirmation($lang['sponsor']['add_success'], "index.php?mod=sponsor&action={$_GET['action']}");
   		}

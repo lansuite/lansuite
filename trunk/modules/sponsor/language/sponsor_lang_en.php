@@ -23,6 +23,7 @@ $lang['sponsor']['add_banner2']	= 'The banner will be displayed in the rotationb
 $lang['sponsor']['add_sponsor']	= 'Sponsor-Site';
 $lang['sponsor']['add_sponsor2']	= 'The banner will be displayed on the Sponsor-Site';
 $lang['sponsor']['add_success']	= 'This sponsor was added successfully';
+$lang['sponsor']['add_tournament'] = 'Assign sponsor to a tournament';
 $lang['sponsor']['add_ms']	= 'Sponsors';
 $lang['sponsor']['err_name']	= 'Submit a name, please';
 $lang['sponsor']['err_text']	= 'The text may not contain more than 5000 Characters';
