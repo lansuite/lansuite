@@ -320,7 +320,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $mf->AddField($lang['usrmgr']['add_create_clan'], 'clan_new', '', '', FIELD_OPTIONAL);
         if (ShowField('clanurl')) $mf->AddField($lang['usrmgr']['add_clanurl'], 'clanurl', '', '', FIELD_OPTIONAL);
         $mf->AddField($lang['usrmgr']['chpwd_password'], 'newclanpw', IS_NEW_PASSWORD, '', FIELD_OPTIONAL);
-        $mf->AddGroup($lang['usrmgr']['leagues']);
+        $mf->AddGroup($lang['usrmgr']['clan']);
       }
 
       // Leagues

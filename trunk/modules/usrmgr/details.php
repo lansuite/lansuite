@@ -58,11 +58,9 @@ else {
 			WHERE price_id = '{$user_party['price_id']}'
 			");
 
-	$menunames[] = $lang['usrmgr']['details_state'];
 	$menunames[] = $lang['usrmgr']['details_playerinfos'];
-	$menunames[] = $lang['usrmgr']['details_private'];
-	$menunames[] = $lang['usrmgr']['details_misc'];
 	$menunames[] = $lang['usrmgr']['details_tournament'];
+	$menunames[] = $lang['usrmgr']['details_misc'];
 	if(!$vars['headermenuitem']) { $vars['headermenuitem'] = 1; }
 
 
@@ -76,8 +74,10 @@ else {
 		case 1: // Main
     	// First name, last name, username, user ID
     	$name = '';
-    	if ($user_data['firstname']) $name .= $user_data['firstname'] .' ';
-    	if ($user_data['name']) $name .= $user_data['name'] .' ';
+    	if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['userid'] == $_GET['userid']) {
+      	if ($user_data['firstname']) $name .= $user_data['firstname'] .' ';
+      	if ($user_data['name']) $name .= $user_data['name'] .' ';
+      }
     	if ($user_data['username']) $name .= '('. $user_data['username'] .') ';
     	$name .= '['. $user_data['userid'] .']';
     	if (IsAuthorizedAdmin()) {
@@ -139,59 +139,68 @@ else {
   			  $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=free_seat&step=3&blockid={$user_data['blockid']}&row={$user_data['row']}&col={$user_data['col']}", $lang['button']['delete']);
         }
 			}
+			if ($cfg['sys_internet'] == 0 and $user_data['ip']) $seat .= ' IP:'. $user_data['ip'];
       $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $seat);
+
+
+			// Phone
+			$phone = '';
+      if (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid']) $phone .= $user_data['telefon'] . ' ';
+      if (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid']) $phone .= '(Handy:'. $user_data['handy'] . ') ';
+      if ($user_data['skype']) {
+        if ($cfg['sys_internet']) $phone .= '<a href="skype:'. $user_data['skype'] .'?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="17" height="17" alt="Skype" title="Skype:'. $user_data['skype'] .'" /></a>';
+        else $phone .= '[Skype:'. $user_data['skype'] .']';
+      }
+      $dsp->AddDoubleRow($lang['usrmgr']['telefon'], $phone);
+
+
+			// Messenger
+			$messenger = '';
+      if ($user_data['icq']) {
+        if ($cfg['sys_internet']) $messenger .= '<a href="http://wwp.icq.com/scripts/search.dll?to='. $user_data['icq'] .'" target="_blank"><img src="http://status.icq.com/online.gif?icq='. $user_data['icq'] .'&img=26" alt="ICQ" title="ICQ#'. $user_data['icq'] .'" border="0" /></a> ';
+        else $messenger .= '[ICQ#'. $user_data['icq'] .'] ';
+      }
+      if ($user_data['msn']) $messenger .= '[MSN:'. $user_data['msn'] .'] ';
+      $messenger .= 'Online:';
+      ($user_auth['count'] >= '1') ? $messenger .= $dsp->AddIcon('yes') : $messenger .= $dsp->AddIcon('no');
+		  if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->FetchButton("index.php?mod=msgsys&action=addbuddy&step=2&checkbox[]=". $_GET['userid'], "add_to_buddylist", $lang['usrmgr']['details_buddy_help']) .' ';
+      $dsp->AddDoubleRow('Messenger', $messenger);
+
+
+			// Mail
+			$mail = '';
+			if ((!$cfg['sys_internet'] and $cfg['user_showmail4all']) or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']) {
+        $mail .= '<a href="mailto:'. $user_data['email'] .'">'. $user_data['email'] .'</a> ';
+      }
+		  if ($auth['login'] and in_array('mail', $ActiveModules)) $mail .= $dsp->AddIcon('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID='. $_GET['userid']. $_GET['userid'], $lang['usrmgr']['details_mail_help']) .' ';
+      $mail .= '[Newsletter-Abo:';
+      ($user_data['newsletter']) ? $mail .= $dsp->AddIcon('yes') : $mail .= $dsp->AddIcon('no');
+      $mail .= ']';
+      $dsp->AddDoubleRow($lang['usrmgr']['add_email'], $mail);
+
+
+			// Address
+			$address = '';
+			if (($user_data['street'] != '' or $user_data['hnr']) and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1')))
+				$address .= $user_data['street'] .' '. $user_data['hnr'] .', ';
+			if (($user_data['plz'] != '' or $user_data['city']) and ($cfg['user_showcity4all'] == '1' or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']))
+				$address .= $user_data['plz'] .' '. $user_data['city'];
+			if ($address) $dsp->AddDoubleRow($lang['usrmgr']['address'], $address);
 
 
 			// User-Type
 			$dsp->AddDoubleRow($lang['usrmgr']['details_type'], GetTypeDescription($user_data['type']));
 
-			
 
-			// Online/Offline
-			$dsp->AddDoubleRow($lang['usrmgr']['details_online'], ($user_auth['count'] >= "1") ? $lang['sys']['yes'] : $lang['sys']['no']);
+      // Perso
+			if ($user_data['perso'] and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1')))
+				$dsp->AddDoubleRow($lang['usrmgr']['details_passport_misc'], $user_data['perso'] .'<br>'. $lang['usrmgr']['details_hint']);
 
-			// Newsletter
-			$dsp->AddDoubleRow($lang['usrmgr']['details_newsletter'], ($user_data['newsletter']) ? $lang['sys']['yes'] : $lang['sys']['no']);
-
-			// IPAdress
-			if($cfg['sys_internet'] == 0) {
-				$dsp->AddDoubleRow($lang['usrmgr']['details_ip'], ($user_data['ip'] == "") ? $lang['usrmgr']['details_no_ip'] : $user_data['ip']);
-			}
-
-			// Comment
-			$dsp->AddDoubleRow($lang['usrmgr']['details_comment'], ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));
-		break;
-
-		case 2:
-			// wwclid
-			$dsp->AddDoubleRow($lang['usrmgr']['details_wwcl_id'], ($user_data['wwclid'] == 0) ? "" : $user_data['wwclid']);
-
-			// nglid
-			$dsp->AddDoubleRow($lang['usrmgr']['details_ngl_id'], ($user_data['wwclid'] == 0) ? "" : $user_data['nglid']);
-		break;
-
-		case 3:
-			// first+name
-			if (!$cfg['sys_internet'] OR $auth['type'] > 1 OR $auth['userid'] == $_GET['userid']) $dsp->AddDoubleRow("Vor und Nachname", $user_data['firstname'] ." ". $user_data['name']);
-			else $dsp->AddDoubleRow($lang['usrmgr']['details_first_lastname'], $lang['usrmgr']['details_only_orga_self']);
-
-			// orga and self only
-			if ($auth['type'] >= 2 OR ($auth['userid'] == $_GET['userid'] AND $cfg['user_showownstreet'] == '1')) {
-				$dsp->AddDoubleRow($lang['usrmgr']['details_street_nr'], $user_data['street']." ".$user_data['hnr']);
-				$dsp->AddDoubleRow($lang['usrmgr']['details_passport_misc'], $user_data['perso']);
-				$dsp->AddSingleRow($lang['usrmgr']['details_hint']);
-			}
-
-			// City/Plz
-			if ($cfg['user_showcity4all'] == '1' OR $auth['type'] >= 2 OR $auth['userid'] == $_GET['userid']) {
-				$dsp->AddDoubleRow($lang['usrmgr']['details_postal_city'], $user_data['plz']." ".$user_data['city']);
-			}
-
-			// Email
-			if ((!$cfg['sys_internet'] AND $cfg['user_showmail4all']) OR $auth['type'] >= 2 OR $auth['userid'] == $_GET['userid']) $dsp->AddDoubleRow("eMail", $user_data['email']);
 
 			// Birthday
-			if ($cfg['sys_internet'] == 0 OR $auth['type'] >= 2 OR $auth['userid'] == $_GET['userid']) $dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? $func->unixstamp2date($user_data['birthday'], "date") : $lang['usrmgr']['details_not_entered']);
+			if ($cfg['sys_internet'] == 0 OR $auth['type'] >= 2 OR $auth['userid'] == $_GET['userid'])
+        $dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? $func->unixstamp2date($user_data['birthday'], "date") : $lang['usrmgr']['details_not_entered']);
+
 
 			// Gender
 			$geschlecht[0] = $lang['usrmgr']['details_not_entered'];
@@ -199,10 +208,62 @@ else {
 			$geschlecht[2] = $lang['usrmgr']['details_female'];
 			$dsp->AddDoubleRow($lang['usrmgr']['details_sex'], $geschlecht[$user_data['sex']]);
 
+
+      // Picture
 			if ($user_data['picture'] != '') $dsp->AddDoubleRow($lang['usrmgr']['picture'], '<img src="'. $user_data['picture'] .'">');
+
+
+			// Comment
+			$dsp->AddDoubleRow($lang['usrmgr']['details_comment'], ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));
 		break;
 
-		case 4:
+
+    // Tournament list
+		case 2:
+			// League IDs
+      $dsp->AddFieldsetStart($lang['usrmgr']['leagues']);
+			$wwcl = '';
+			if ($user_data['wwclid']) $wwcl .= $user_data['wwclid'] .' ';
+			if ($user_data['wwclclanid']) $wwcl .= '('. $user_data['wwclclanid'] .')';
+			$dsp->AddDoubleRow($lang['usrmgr']['details_wwcl_id']. ' (Clan-ID)', $wwcl);
+			$ngl = '';
+			if ($user_data['nglid']) $ngl .= $user_data['nglid'] .' ';
+			if ($user_data['nglclanid']) $ngl .= '('. $user_data['nglclanid'] .')';
+			$dsp->AddDoubleRow($lang['usrmgr']['details_ngl_id']. ' (Clan-ID)', $ngl);
+			$lgz = '';
+			if ($user_data['lgzid']) $lgz .= $user_data['lgzid'] .' ';
+			if ($user_data['lgzclanid']) $lgz .= '('. $user_data['lgzclanid'] .')';
+			$dsp->AddDoubleRow('LGZ-ID (Clan-ID)', $lgz);
+      $dsp->AddFieldsetEnd();
+
+
+      include_once("modules/tournament2/class_tournament.php");
+      $tfunc = new tfunc;
+
+      $dsp->AddFieldsetStart($lang['usrmgr']['details_leader_teams']);
+			$leader_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
+		    LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
+        WHERE team.leaderid = '{$_GET['userid']}'");
+      if ($db->num_rows($leader_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
+      else while ($leader_team = $db->fetch_array($leader_teams)) {
+	      $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $leader_team['tid']. '">'. $leader_team['name'] .'</a>', $leader_team['teamname'] .' '. $tfunc->button_team_details($leader_team['teamid'], $leader_team['tid']));
+      }
+      $dsp->AddFieldsetEnd();
+
+      $dsp->AddFieldsetStart($lang['usrmgr']['details_member_teams']);
+			$member_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
+		    LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
+		    LEFT JOIN {$config['tables']['t2_teammembers']} AS m ON team.teamid = m.teamid
+        WHERE m.userid = '{$_GET['userid']}'");
+      if ($db->num_rows($member_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
+      else while ($member_team = $db->fetch_array($member_teams)) {
+	      $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $member_team['tid']. '">'. $member_team['name'] .'</a>', $member_team['teamname'] .' '. $tfunc->button_team_details($member_team['teamid'], $member_team['tid']));
+      }
+      $dsp->AddFieldsetEnd();
+		break;
+
+
+		case 3:
 			// forumposts
 			$dsp->AddDoubleRow($lang['usrmgr']['details_posts'], $user_data['posts']);
 
@@ -230,56 +291,9 @@ else {
 				: $avatar = $lang['usrmgr']['details_no_avatar'];
 			$dsp->AddDoubleRow($lang['usrmgr']['details_avatar'], $avatar);
 		break;
-		
-    // Tournament list
-		case 5:
-      include_once("modules/tournament2/class_tournament.php");
-      $tfunc = new tfunc;
-		
-      $dsp->AddSingleRow('<b>'. $lang['usrmgr']['details_leader_teams'] .'</b>');
-			$leader_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
-		    LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
-        WHERE team.leaderid = '{$_GET['userid']}'");
-      if ($db->num_rows($leader_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
-      else while ($leader_team = $db->fetch_array($leader_teams)) {
-	      $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $leader_team['tid']. '">'. $leader_team['name'] .'</a>', $leader_team['teamname'] .' '. $tfunc->button_team_details($leader_team['teamid'], $leader_team['tid']));
-      }
-      		  
-      $dsp->AddSingleRow('<b>'. $lang['usrmgr']['details_member_teams'] .'</b>');
-			$member_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
-		    LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
-		    LEFT JOIN {$config['tables']['t2_teammembers']} AS m ON team.teamid = m.teamid
-        WHERE m.userid = '{$_GET['userid']}'");
-      if ($db->num_rows($member_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
-      else while ($member_team = $db->fetch_array($member_teams)) {
-	      $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $member_team['tid']. '">'. $member_team['name'] .'</a>', $member_team['teamname'] .' '. $tfunc->button_team_details($member_team['teamid'], $member_team['tid']));
-      }
-		break;
 	} // end switch
 
-
-	// Nur Buttons die einen LogIn erfordern
-	if ($auth['login']) {
-		// Marco Müller
-		// Nachsehen ob Mail-Modul aktiv ist.
-		$module = $db->query_first("SELECT * FROM {$config['tables']['modules']} WHERE name = 'mail'");
-		if ($module['active']){
-			$userdetails_buttons .= $dsp->FetchButton("index.php?mod=mail&action=newmail&step=2&userID=". $_GET['userid'], "sendmail", $lang['usrmgr']['details_mail_help'])." ";
-		}
-		
-		// Marco Müller
-		// Nachsehen ob Mail-Modul aktiv ist.
-		if ($_GET['userid'] <> $auth['userid']) {
-			$module = $db->query_first("SELECT * FROM {$config['tables']['modules']} WHERE name = 'msgsys'");
-			if ($module['active']){
-				$userdetails_buttons .= $dsp->FetchButton("index.php?mod=msgsys&action=addbuddy&step=2&checkbox[]=". $_GET['userid'], "add_to_buddylist", $lang['usrmgr']['details_buddy_help'])." ";
-			}
-		}
-
-		$dsp->AddBackButton('index.php?mod=usrmgr&action=search');
-	}
-
-	if ($userdetails_adminbuttons_user) $dsp->AddDoubleRow($lang['usrmgr']['details_user_options'], $userdetails_adminbuttons_user);
+	$dsp->AddBackButton('index.php?mod=usrmgr&action=search');
 	$dsp->AddContent();
 	
 	// Including comment-engine     
