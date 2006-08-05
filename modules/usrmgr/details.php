@@ -145,8 +145,8 @@ else {
 
 			// Phone
 			$phone = '';
-      if (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid']) $phone .= $user_data['telefon'] . ' ';
-      if (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid']) $phone .= '(Handy:'. $user_data['handy'] . ') ';
+      if ($user_data['telefon'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= $user_data['telefon'] . ' ';
+      if ($user_data['handy'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= '(Handy:'. $user_data['handy'] . ') ';
       if ($user_data['skype']) {
         if ($cfg['sys_internet']) $phone .= '<a href="skype:'. $user_data['skype'] .'?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="17" height="17" alt="Skype" title="Skype:'. $user_data['skype'] .'" /></a>';
         else $phone .= '[Skype:'. $user_data['skype'] .']';

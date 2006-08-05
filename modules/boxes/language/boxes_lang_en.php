@@ -78,6 +78,7 @@ $lang['boxes']['stats']				= 'Statistics';
 $lang['boxes']['stats_visits']		= 'Visitors';
 $lang['boxes']['stats_hits']		= 'Hits';
 $lang['boxes']['stats_user_online']	= 'Logged in';
+$lang['boxes']['avg_last_h']	= '<span title="based on 10min intervalls">&Oslash; online last hour</span>';
 
 // WWCL
 $lang['boxes']['wwcl']				= 'Tourney-Support by';
