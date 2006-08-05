@@ -23,6 +23,7 @@ $lang['sponsor']['add_banner2']	= 'Der Banner wird oben in den Rotations-Banner 
 $lang['sponsor']['add_sponsor']	= 'Auf Sponsorenseite';
 $lang['sponsor']['add_sponsor2']	= 'Der Banner wird auf der Sponsorenseite angezeigt';
 $lang['sponsor']['add_success']	= 'Der Sponsor wurde erfolgreich eingetragen';
+$lang['sponsor']['add_tournament'] = 'Sponsor einem Turnier zuordnen';
 $lang['sponsor']['add_ms']	= 'Sponsor: Ergebnis';
 $lang['sponsor']['err_name']	= 'Bitte geben Sie einen Namen ein';
 $lang['sponsor']['err_text']	= 'Der Text darf nicht mehr als 5000 Zeichen enthalten';

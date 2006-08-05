@@ -74,7 +74,17 @@ else {
 					else $blind_draw = "";
 					$dsp->AddDoubleRow($lang["tourney"]["details_mode"], $modus .", ". $tournament['teamplayer'] ." {$lang["tourney"]["details_vs"]} ". $tournament['teamplayer'] . $blind_draw . $league);
 
-					$dsp->AddSingleRow("<b>". $lang["tourney"]["details_reg_limits"] ."</b>");
+          $sponsor_banners = '';
+          $sponsor = $db->query("SELECT * FROM {$config['tables']['sponsor']} WHERE tournamentid = ". (int)$tournamentid);
+      		while($sponsor_row = $db->fetch_array($sponsor)) {
+            $sponsor_banner = '<img src="'. $sponsor_row['pic_path'] .'" border="1" class="img_border" title="'. $sponsor_row['name'] .'" alt="Sponsor Banner"/>';
+            if ($cfg['sys_internet']) $sponsor_banner = '<a href="index.php?mod=sponsor&action=bannerclick&design=base&type=banner&sponsorid='. $sponsor_row["sponsorid"] .'" target="_blank">'. $sponsor_banner .'</a><br>';
+            $sponsor_banners .= $sponsor_banner;
+          }
+          $db->free_result($sponsor);
+					if ($sponsor_banners) $dsp->AddDoubleRow('Sponsored by', $sponsor_banners);
+
+          $dsp->AddFieldsetStart($lang["tourney"]["details_reg_limits"]);
 					if ($tournament['status'] == "invisible") $status = $lang["tourney"]["details_state_invisible"];
 					if ($tournament['status'] == "open") $status = $lang["tourney"]["details_state_open"];
 					if ($tournament['status'] == "closed") $status = "<div class=\"tbl_error\">{$lang["tourney"]["details_state_closed"]}</div>";
@@ -111,20 +121,24 @@ else {
 					($tournament['over18']) ?
 						$dsp->AddDoubleRow($lang["tourney"]["details_u18"], $lang["tourney"]["details_u18_limit"])
 						: $dsp->AddDoubleRow($lang["tourney"]["details_u18"], $lang["tourney"]["details_u18_nolimit"]);
+          $dsp->AddFieldsetEnd();
+
 
 					($tournament["defwin_on_time_exceed"] == "1")? $defwin_warning = "<div class=\"tbl_error\">{$lang["tourney"]["details_defwin_warning"]}</div> {$lang["tourney"]["details_defwin_warning2"]}" : $defwin_warning = "";
-					$dsp->AddSingleRow("<b>". $lang["tourney"]["details_times"] ."</b> $defwin_warning");
+          $dsp->AddFieldsetStart($lang["tourney"]["details_times"] . $defwin_warning);
 					$dsp->AddDoubleRow($lang["tourney"]["details_startat"], $func->unixstamp2date($tournament["starttime"], "datetime"));
 
 					$dsp->AddDoubleRow($lang["tourney"]["details_round_duration"], str_replace("%MAX_GAMES%", $tournament["max_games"], str_replace("%GAME_DURATION%", $tournament["game_duration"] ."min", str_replace("%BREAK_DURATION%", $tournament["break_duration"] ."min", str_replace("%SUM%", ($tournament["max_games"] * $tournament["game_duration"] + $tournament["break_duration"]) ."min", $lang["tourney"]["details_round_duration_val"])))));
+          $dsp->AddFieldsetEnd();
 
-					$dsp->AddSingleRow("<b>". $lang["tourney"]["details_rules_misc"] ."</b>");
 
+          $dsp->AddFieldsetStart($lang["tourney"]["details_rules_misc"]);
 					if ($tournament["rules_ext"] != "") $dsp->AddDoubleRow($lang["tourney"]["details_rules"], "<a href=\"./ext_inc/tournament_rules/{$tournament['rules_ext']}\" target=\"_blank\">{$lang["tourney"]["details_openrules"]}({$tournament['rules_ext']})</a>");
 
 					$dsp->AddDoubleRow($lang["tourney"]["details_comment"], $func->db2text2html($tournament["comment"]));
 
 					$dsp->AddDoubleRow($lang["tourney"]["details_mapcycle"], $func->db2text2html($tournament["mapcycle"]));
+          $dsp->AddFieldsetEnd();
 				break;
 
 				case 2:
