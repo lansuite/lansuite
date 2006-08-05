@@ -8,6 +8,8 @@ $sponsoren = $db->query("SELECT * FROM {$config['tables']['sponsor']}
 		WHERE active
 		ORDER BY pos, sponsorid");
 
+$db->query("UPDATE {$config['tables']['sponsor']} SET views_box = views_box + 1 WHERE active");
+
 while ($sponsor = $db->fetch_array($sponsoren)){
 	$out = '';
 
@@ -30,7 +32,7 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 			$out = "<img src=\"$file_name\" width=\"{$ImgSize[0]}\" border=\"0\" title=\"{$sponsor["name"]}\">";
 		} elseif ($sponsor["name"] != '') $out = "<b>{$sponsor["name"]}</b>";
 
-		if ($out and $sponsor["url"] != '' and $sponsor["url"] != "http://") $out = "<a href=\"index.php?mod=sponsor&action=bannerclick&design=base&sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">$out</a>";
+		if ($out and $sponsor["url"] != '' and $sponsor["url"] != "http://") $out = "<a href=\"index.php?mod=sponsor&action=bannerclick&design=base&type=box&sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">$out</a>";
 	}
 
 	if ($out != '') $templ['box']['rows'] .= $out . "<br /><br />";
