@@ -11,6 +11,7 @@ Version 2.1.4
 - Bugfix: #490 Fehlerhafter Text für Copyright eines Newsfeeds (Cewigo 29.07.2006)
 - Bugfix: #487 Vertauschte Texte in der Config ber Anmeldemails (KnoX 27.07.2006)
 
+- Add: #484 In der Statistik Box wird nun angezeigt, wie viele Visits und Hits es in der letzten Stunde durchschnittlich gab (KnoX 05.08.2006)
 - Add: #201 Zusätzliche Benutzerfelder: Telefon, Handy, ICQ, MSN, Skype (KnoX 04.08.2006)
 
 - Change: Signon auf Masterform umgestellt und neu gecoded (mit Usrmgr vereint) (KnoX 27.07.2006)

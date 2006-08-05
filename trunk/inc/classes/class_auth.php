@@ -89,16 +89,15 @@ class auth {
 	function logout() {
 		global $db, $config, $ActiveModules;
 
-		$db->query("UPDATE {$config["tables"]["stats_auth"]} SET login='0' WHERE sessid='{$this->auth["sessid"]}'");
-		$db->query("DELETE FROM {$config["tables"]["stats_auth"]} WHERE login='0'");
-
+    // Delete entry from SID table
+		$db->query("DELETE FROM {$config['tables']['stats_auth']} WHERE sessid='{$this->auth["sessid"]}'");
 		$this->auth['login'] = "0";
 
 		setcookie("auth[email]", "", time() - 3600);
 		setcookie("auth[userpassword]", "", time() - 3600);
 
 		// The User will be logged out on the phpBB Board if the modul is available, configured and active.
-		if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
+		if (in_array('board2', $ActiveModules) and $config['board2']['configured']) {
 			include_once ('./modules/board2/class_board2.php');
 			$board2 = new board2();
 			$board2->logoutPhpBB($this->auth['userid']);
