@@ -25,6 +25,8 @@ class masterform {
 	var $SQLFieldUnique = array();
 	var $DependOn = array();
 	var $error = array();
+	var $AdditionalDBAfterSelectFunction = '';
+	var $AdditionalDBPreUpdateFunction = '';
 	var $AdditionalDBUpdateFunction = '';
 	var $DependOnStarted = 0;
 	var $isChange = false;
@@ -108,6 +110,7 @@ class masterform {
             return false;
           }
         }
+        if ($this->AdditionalDBAfterSelectFunction) $addUpdSuccess = call_user_func($this->AdditionalDBAfterSelectFunction, '');
       break;
 
       // Check for errors and convert data, if necessary (dates, passwords, ...)
@@ -324,6 +327,8 @@ class masterform {
             // Upload submitted file
             if ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
           }
+
+          if ($this->AdditionalDBPreUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBPreUpdateFunction, $id);
 
           // Generate INSERT/UPDATE query
           $db_query = '';
