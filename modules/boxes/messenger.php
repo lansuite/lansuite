@@ -5,7 +5,7 @@ $templ['box']['rows'] = "";
 if ($auth['login']) {
 
 	// Buddylist
-	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/messenger_topic_buddylist.gif\" border=\"0\"/>");
+	$box->EngangedRow('<span class="copyright">-- Buddy List --</span>');
 
 	$query = $db->query("SELECT b.buddyid, u.username
 		FROM {$config["tables"]["buddys"]} b
@@ -79,7 +79,7 @@ if ($auth['login']) {
 			if ($notinlist != "1") {
 				$notinlist = "1";
 				$box->EmptyRow();
-				$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/messenger_topic_notinlist.gif\" border=\"0\">");
+      	$box->EngangedRow('<span class="copyright">-- Not in list --</span>');
 			}
 
 			// Is user online, or offline?

@@ -16,6 +16,7 @@ Version 2.1.4
 - Add: #484 In der Statistik Box wird nun angezeigt, wie viele Visits und Hits es in der letzten Stunde durchschnittlich gab (KnoX 05.08.2006)
 - Add: #201 Zusätzliche Benutzerfelder: Telefon, Handy, ICQ, MSN, Skype (KnoX 04.08.2006)
 
+- Change: Grafiken, die in allen Designs gleich sind (icons, pw-bar, noc-ports), in den neuen Ordner /design/images verschoben (KnoX 06.08.2006)
 - Change: #353 Sponsorenstatistiken werden nun aufgeschlüsselt in Hits/Visits auf Sponsorenseite, Banner und Box (KnoX 05.08.2006)
 - Change: Signon auf Masterform umgestellt und neu gecoded (mit Usrmgr vereint) (KnoX 27.07.2006)
 
