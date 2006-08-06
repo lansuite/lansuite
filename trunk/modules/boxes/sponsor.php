@@ -19,11 +19,12 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 
 	// Else add Image-Tag
 	} else {
-    $file_name = '';
-    $old_file_name = 'ext_inc/banner/button_'. substr($sponsor['pic_path'], strrpos($sponsor["pic_path"], 'ext_inc/banner/') + 15, strlen($sponsor['pic_path']));
-		if (file_exists($sponsor['pic_path_button'])) $file_name = $sponsor['pic_path_button'];
-		elseif (file_exists($old_file_name)) $file_name = $old_file_name;
-    else  $file_name = $sponsor['pic_path_button'];
+    #$file_name = '';
+    #$old_file_name = 'ext_inc/banner/button_'. substr($sponsor['pic_path'], strrpos($sponsor["pic_path"], 'ext_inc/banner/') + 15, strlen($sponsor['pic_path']));
+		#if (file_exists($sponsor['pic_path_button'])) $file_name = $sponsor['pic_path_button'];
+		#elseif (file_exists($old_file_name)) $file_name = $old_file_name;
+    #else
+    $file_name = $sponsor['pic_path_button'];
   		
 		if ($file_name != '') {
 			$ImgSize = @GetImageSize($file_name);
