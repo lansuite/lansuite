@@ -148,7 +148,7 @@ else {
       if ($user_data['telefon'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= $dsp->AddIcon('phone', '', 'Phone'). ' '. $user_data['telefon'] . ' ';
       if ($user_data['handy'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= $dsp->AddIcon('cellphone', '', 'Handy'). ' '. $user_data['handy'] . ' ';
       if ($user_data['skype']) {
-        if ($cfg['sys_internet']) $phone .= '<a href="skype:'. $user_data['skype'] .'?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="17" height="17" alt="Skype" title="Skype:'. $user_data['skype'] .'" /></a>';
+        if ($cfg['sys_internet']) $phone .= '<a href="skype:'. $user_data['skype'] .'?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="20" height="20" alt="Skype" title="Skype:'. $user_data['skype'] .'" /></a>';
         else $phone .= '[Skype:'. $user_data['skype'] .']';
       }
       $dsp->AddDoubleRow($lang['usrmgr']['telefon'], $phone);
@@ -163,7 +163,7 @@ else {
       if ($user_data['msn']) $messenger .= '[MSN:'. $user_data['msn'] .'] ';
       $messenger .= 'Online:';
       ($user_auth['count'] >= '1') ? $messenger .= $dsp->AddIcon('yes') : $messenger .= $dsp->AddIcon('no');
-		  if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->FetchButton("index.php?mod=msgsys&action=addbuddy&step=2&checkbox[]=". $_GET['userid'], "add_to_buddylist", $lang['usrmgr']['details_buddy_help']) .' ';
+		  if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], $lang['usrmgr']['details_buddy_help']) .' ';
       $dsp->AddDoubleRow('Messenger', $messenger);
 
 
