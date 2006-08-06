@@ -108,7 +108,7 @@
 		<structure>
 			<field>
 				<name>time</name>
-				<type>int(15)</type>
+				<type>datetime</type>
 				<null></null>
 				<key>PRI</key>
 				<default></default>

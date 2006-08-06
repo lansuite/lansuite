@@ -12,14 +12,15 @@ class stats {
 		// Is the user known, or is it a new visit? - After 30min idle this counts as a new visit
 		if ($_SESSION['last_hit'] > (time() - 60 * 30)) {
       // Existing session -> Only hit
-			$find = $db->query_first_rows("SELECT hits FROM {$config["tables"]["stats_usage"]} WHERE time = ". floor(time() / (60 * 60)));
-			if ($find["number"] > 0) $db->query("UPDATE {$config["tables"]["stats_usage"]} SET hits = hits + 1 WHERE time = ". floor(time() / (60 * 60)));
-			else $db->query("INSERT INTO {$config["tables"]["stats_usage"]} SET visits = 0, hits = 1, time = ". floor(time() / (60 * 60)));
+      
+			$find = $db->query_first_rows("SELECT hits FROM {$config["tables"]["stats_usage"]} WHERE DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
+			if ($find["number"] > 0) $db->query("UPDATE {$config["tables"]["stats_usage"]} SET hits = hits + 1 WHERE DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
+			else $db->query("INSERT INTO {$config["tables"]["stats_usage"]} SET visits = 0, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
     } else {
       // New session -> Hit and visit
-			$find = $db->query_first_rows("SELECT hits FROM {$config["tables"]["stats_usage"]} WHERE time = ". floor(time() / (60 * 60)));
-			if ($find["number"] > 0) $db->query("UPDATE {$config["tables"]["stats_usage"]} SET visits = visits + 1, hits = hits + 1 WHERE time = ". floor(time() / (60 * 60)));
-			else $db->query("INSERT INTO {$config["tables"]["stats_usage"]} SET visits = 1, hits = 1, time = ". floor(time() / (60 * 60)));
+			$find = $db->query_first_rows("SELECT hits FROM {$config["tables"]["stats_usage"]} WHERE DATE_FORMAT(time, '%Y%m%d%H') = DATE_FORMAT(NOW(), '%Y%m%d%H')");
+			if ($find["number"] > 0) $db->query("UPDATE {$config["tables"]["stats_usage"]} SET visits = visits + 1, hits = hits + 1 WHERE DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
+			else $db->query("INSERT INTO {$config["tables"]["stats_usage"]} SET visits = 1, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
       
   		$_SESSION['last_hit'] = time();
 		}
