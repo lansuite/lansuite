@@ -1,22 +1,4 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*
-*	(c) 2001-2003 by One-Network.Org
-*
-*	Lansuite Version:		2.0
-*	File Version:			1.0
-*	Filename: 				boxes.php
-*	Module: 				boxes
-*	Main editor: 			traxanos@madnet.info
-*	2nd editor: 			knox@orgapage.net
-*	Last change: 			15.10.2004
-*	Description: 			Boxenverwaltung / -generierung
-*	Remarks: 					
-*	
-**************************************************************************/
 
 class boxes {
 	var $box_status;
