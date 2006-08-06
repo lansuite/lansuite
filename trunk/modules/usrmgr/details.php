@@ -83,7 +83,7 @@ else {
     	if (IsAuthorizedAdmin()) {
         $name .= ' '. $dsp->AddIcon('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid='. $_GET['userid'], $lang['button']['switch_user']);
         $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid='. $_GET['userid'], $lang['ms2']['change_pw']);
-      }
+      } elseif ($_GET['userid'] == $auth['userid']) $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changepw', $lang['ms2']['change_pw']);
       if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change']))
         $name .= ' '. $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid='. $_GET['userid'], $lang['button']['edit']);
       if ($auth['type'] >= 3)
@@ -116,8 +116,7 @@ else {
       if ($user_party['checkout']) $party_info .= ' '. $dsp->AddIcon('out', $link, $lang['usrmgr']['checkout']) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
       else $party_info .= $dsp->AddIcon('not_out', $link, $lang['usrmgr']['checkout_no']);
 
-      if (IsAuthorizedAdmin() and $user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkout&step=10&userid='. $_GET['userid'];
-      if ($user_party['checkin'] > 0 and $user_party['checkout'] > 0) $party_info .= $dsp->AddIcon('delete', $link, 'Reset Checkin');
+      if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) $party_info .= $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=checkout&step=10&userid='. $_GET['userid'], 'Reset Checkin');
 
       $dsp->AddDoubleRow('Party '. $_SESSION['party_info']['name'], $party_info);
 
@@ -125,8 +124,9 @@ else {
 			// Clan
 			$clan = $user_data['clan'];
 			if ($user_data['clanurl']) $clan .= " [<a href=\"http://{$user_data['clanurl']}\" target=\"_blank\">{$user_data['clanurl']}</a>]";
-			if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or $user_data['clan'] == $auth['clan']))
-        $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changeclanpw&clanid='. $user_data['clanid'], $lang['ms2']['change_pw']);
+			if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or $user_data['clanid'] == $auth['clanid']))
+        $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changeclanpw&clanid='. $user_data['clanid'], $lang['ms2']['change_pw']) .
+          $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=clanmgr&step=30&clanid='. $user_data['clanid'], $lang['ms2']['edit']);
 			$dsp->AddDoubleRow($lang['usrmgr']['details_clan'], $clan);
 
 

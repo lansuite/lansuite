@@ -40,11 +40,10 @@ $box->EngangedRow("<b>". $user_lg["logins"] ."</b>");
 $box->EmptyRow();
 
 // Show other links
-if ($cfg["user_show_ticket"]) $box->ItemRow("data", $lang['boxes']['userdata_my_ticket'], "index.php?mod=usrmgr&action=myticket", "", "menu");
-$box->ItemRow("data", $lang['boxes']['userdata_change_pw'], "index.php?mod=usrmgr&action=changepw", "", "menu");
-$box->ItemRow("data", $lang['boxes']['userdata_priv_settings'], "index.php?mod=usrmgr&action=settings", "", "menu");
-$box->ItemRow("data", $lang['boxes']['userdata_priv_details'], "index.php?mod=usrmgr&action=details&userid={$auth["userid"]}", "", "menu");
-$box->ItemRow("delete", $lang['boxes']['userdata_logout'], "index.php?mod=logout", "", "menu");
+if ($cfg["user_show_ticket"]) $box->DotRow($lang['boxes']['userdata_my_ticket'], "index.php?mod=usrmgr&action=myticket", "", "menu");
+$box->DotRow($lang['boxes']['userdata_priv_details'], "index.php?mod=usrmgr&action=details&userid={$auth["userid"]}", "", "menu");
+$box->DotRow($lang['boxes']['userdata_priv_settings'], "index.php?mod=usrmgr&action=settings", "", "menu");
+$box->DotRow($lang['boxes']['userdata_logout'], "index.php?mod=logout", "", "menu");
 
 
 // New-Mail Notice

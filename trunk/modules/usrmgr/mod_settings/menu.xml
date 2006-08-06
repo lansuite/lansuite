@@ -37,7 +37,7 @@
 		<caption>Clanmanager</caption>
 		<hint></hint>
 		<link>?mod=usrmgr&action=clanmgr</link>
-		<requirement>2</requirement>
+		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>	
