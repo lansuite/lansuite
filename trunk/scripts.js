@@ -150,7 +150,7 @@ function CheckPasswordSecurity(password) {
 	if (TestCounter2) zaehler++;
 	if (TestNumberOfChars) zaehler++;
 
-	document.images.seclevel.src = 'design/osX/images/password_bar'+ zaehler +'.jpg';
+	document.images.seclevel.src = 'design/images/password_bar'+ zaehler +'.jpg';
 }
 
 

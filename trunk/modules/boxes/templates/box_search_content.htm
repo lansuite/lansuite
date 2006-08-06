@@ -1,8 +1,8 @@
 <form name="SearchBox" method="post" onSubmit="javascript:SubmitDropDown(this, this.SearchBoxModule);" action="index.php">
-	<img src="design/{default_design}/images/search_topic_keywords.gif" width="85" height="7" alt="keyword"/>
+	<label for="text" class="copyright">Suchbegriff</label>
 	<input type="text" name="search_input[0]" value="{$_POST['search_input'][0]}" class="form" style="width: 138px" />
 
-	<img src="design/{default_design}/images/search_topic_module.gif" width="85" height="7" alt="module"/>
+	<label for="SearchBoxModule" class="copyright">Modul</label>
   <select name="SearchBoxModule" class="form" style="width: 138px">
 	{$templ['searchbox']['module']}
   </select>
