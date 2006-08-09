@@ -60,10 +60,10 @@ if ($where_back) {
   $dsp->AddBackButton('index.php?mod=stats&action=usage&time='. $back .'&timeframe='. $row_back['back_time'], "stats/usage");
 }
 
-#$dsp->AddSingleRow('<object data="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&start='. $_GET['start'] .'" type="image/svg+xml" width="650" height="250">
-#    <param name="src" value="index.php?mod=stats&action=usage_grafik&design=base">
-#    Ihr Browser kann das Objekt leider nicht anzeigen!
-#  </object>');
-
+$dsp->AddContent();
+$dsp->AddSingleRow('<object data="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
+  <param name="src" value="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'>
+  Ihr Browser kann das Objekt leider nicht anzeigen!
+</object>');
 $dsp->AddContent();
 ?>
