@@ -49,7 +49,7 @@ switch ($_GET['time']) {
     $where = '%Y-%m-%d-00-00-00';
     $where_back = '%Y-%m-00-00-00-00';
     $XSteps = 24;
-    $multiply = 'h';
+    $multiply = 'H';
 	break;
 }
 
