@@ -173,7 +173,7 @@ class pdf {
 	 * @param string $action
 	 */
 	function pdf_make($action){
-		global $lang;
+		global $lang,$auth;
 		switch ($action){
 			case 'guestcards':
 				$this->_makeUserCard($_POST['paid'],$_POST['guest'],$_POST['op'],$_POST['orga'],$_POST['user']);
@@ -187,6 +187,11 @@ class pdf {
 			default:
 				$func->error($lang['pdf']['action_error'],"index.php?mod=pdf&action=" . $action);
 			break;
+			case 'ticket':
+				if($auth["userid"] == $_GET['userid'] || $auth["type"] > 2){
+					$this->_makeUserCard(1,0,1,1,$_GET['userid']);
+				}
+			break;				
 		}
 
 		
