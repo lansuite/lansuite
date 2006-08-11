@@ -20,9 +20,12 @@ if(!isset($_SESSION['foodcenter']['theke_userid'])){
 	if($cfg['sys_barcode_on']){
 		$dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>","","index.php?mod=foodcenter&action=theke&userid=");
 	}
+	
+  if(!isset($_POST['search_dd_input'][2])) $_POST['search_dd_input'][2] = ">1";
+  if(!isset($_POST['search_dd_input'][3])) $_POST['search_dd_input'][3] = "0";
   $current_url = 'index.php?mod=foodcenter&action=theke';
   $target_url = 'index.php?mod=foodcenter&action=theke&userid=';
-  include_once('modules/usrmgr/search_basic_userselect.inc.php');
+  include_once('modules/foodcenter/search.inc.php');
 } else {
 	
 	

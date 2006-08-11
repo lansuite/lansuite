@@ -42,5 +42,5 @@ switch ($_POST['search_dd_input'][0]){
 	break;
 }
 
-$ms2->PrintSearch('index.php?mod=foodcenter&action=ordered', 'p.id');
+$ms2->PrintSearch('index.php?mod=foodcenter&action=ordered', 'a.id');
 ?>
