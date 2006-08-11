@@ -134,7 +134,7 @@ switch ($_GET['step']){
     	break;
     }
 
-    $ms2->PrintSearch('index.php?mod=foodcenter&action=statchange', 'p.id');
+    $ms2->PrintSearch('index.php?mod=foodcenter&action=statchange', 'a.id');
 
 
 		$handle = opendir("ext_inc/foodcenter_templates");
