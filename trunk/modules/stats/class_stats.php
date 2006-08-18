@@ -249,14 +249,15 @@ class stats {
 			$row6 = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["user"]}
         WHERE $querytype
         ");
-			$visits = $db->query_first("SELECT COUNT(visits) AS insg FROM {$config["tables"]["stats_auth"]}");
-
+			
+			$visits = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$config['tables']['stats_usage']}");
+			
 			$this->stat_data['user_paid'] = $row['n'];
 			$this->stat_data['user_checkin'] = $row2['n'];
 			$this->stat_data['user_checkout'] = $row3['n'];
 			$this->stat_data['user_online'] = ($row4['n'] + $row5['n']);
 			$this->stat_data['user_registred'] = $row6['n'];
-			$this->stat_data['user_visits'] = $visits['insg'];
+			$this->stat_data['user_visits'] = $visits['visits'];
 					
 		}
 		return $this->stat_data;
