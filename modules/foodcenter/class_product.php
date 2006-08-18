@@ -1048,7 +1048,7 @@ class product_option{
 		$this->unit		= $_POST['unit'][$nr];
 		$this->price	= $_POST['price'][$nr];
 		$this->eprice	= $_POST['eprice'][$nr];
-		$this->pice		= $_POST['pice'][$nr];
+		$this->pice		= $_POST['piece'][$nr];
 		$this->fix		= isset($_POST['fix'][$nr]) ? 1 : 0;
 	}
 	

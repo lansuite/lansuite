@@ -146,10 +146,10 @@ switch ($_GET['step']){
 		$dsp->SetForm("index.php?mod=foodcenter&action=print&design=base\" target=\"_blank\"","print");
 		$dsp->AddDropDownFieldRow("file",$lang['foodcenter']['template'],$file_array,"");
 		
-		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_keywords\" value=\"{$vars['search_keywords']}\">";
-		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select1\" value=\"{$vars['search_select1']}\">";
-		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select2\" value=\"{$vars['search_select2']}\">";
-		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_select3\" value=\"{$vars['search_select3']}\">";
+		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_input[0]\" value=\"{$_POST['search_input'][0]}\">";
+		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_dd_input[1]\" value=\"{$_POST['search_dd_input'][0]}\">";
+		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_dd_input[2]\" value=\"{$_POST['search_dd_input'][1]}\">";
+		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_dd_input[3]\" value=\"{$_POST['search_dd_input'][2]}\">";
 		$dsp->AddFormSubmitRow("print");
 		$dsp->AddContent();
 		break;
