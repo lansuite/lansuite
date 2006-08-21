@@ -97,7 +97,7 @@ class AddUser {
 				");
 		if ($get_email["email"] != "") $error["email"] = $lang["usrmgr"]["add_err_mail_exist"];
 
-		if (!preg_match("/^([a-zA-Z0-9])+([\.a-zA-Z0-9_-])*@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-]+)+/", $_POST["email"])) $error["email"] = $lang["usrmgr"]["add_err_invalid_mail"];
+		if (!preg_match("/^([a-zA-Z0-9_])+([\.a-zA-Z0-9_-])*@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-]+)+/", $_POST["email"])) $error["email"] = $lang["usrmgr"]["add_err_invalid_mail"];
 
     if (!$quick_signon) {
   		// Check exist Lastname
