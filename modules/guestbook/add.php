@@ -6,7 +6,7 @@ $mf = new masterform();
 if ($_POST['poster'] == '') $_POST['poster'] = $auth['username'];
 
 $mf->AddField($lang['guestbook']['author'], 'poster', '', '');
-if (!$auth['login']) $mf->AddField('', '', IS_CAPTCHA);
+if (!$auth['login']) $mf->AddField('', 'captcha', IS_CAPTCHA);
 $mf->AddField($lang['guestbook']['entry'], 'text', '', LSCODE_ALLOWED);
 $mf->AddGroup($lang['guestbook']['entry']);
 
