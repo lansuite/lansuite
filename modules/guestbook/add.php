@@ -11,7 +11,7 @@ $mf->AddField($lang['guestbook']['entry'], 'text', '', LSCODE_ALLOWED);
 $mf->AddGroup($lang['guestbook']['entry']);
 
 $mf->AddFix('date', time());
-$mf->AddFix('userid', $auth['userid']);
+if (!$_GET['guestbookid']) $mf->AddFix('userid', $auth['userid']);
 
 $mf->SendForm('index.php?mod=guestbook&action=add', 'guestbook', 'guestbookid', $_GET['guestbookid']);
 
