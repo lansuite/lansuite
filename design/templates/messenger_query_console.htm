@@ -27,7 +27,7 @@ function checklength()
 // Reload message-window
 function loadwindow()
 {
-	top.location.href='index.php?mod=msgsys&action=query&design=base&queryid=$_GET[queryid]';
+	top.location.href='index.php?mod=msgsys&action=query&design=base&queryid={$_GET[queryid]}';
 }
 //-->
 <!--
@@ -40,7 +40,7 @@ function x()
 </script>
 </head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<form name="form" method="post" action="index.php?mod=msgsys&action=query_console&design=base&queryid=$_GET[queryid]&action=add">
+<form name="form" method="post" action="index.php?mod=msgsys&action=query_console&design=base&queryid={$_GET['queryid']}&step=2">
   <table width="100%" cellspacing="0" cellpadding="0">
     <tr class="tbl_4"> 
       <td><img src="/" width="1" height="1"></td>
