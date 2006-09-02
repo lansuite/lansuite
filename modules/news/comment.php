@@ -1,19 +1,4 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		1.0
-*	Filename: 		comment.php
-*	Module: 		news
-*	Main editor: 		Michael@one-network.org
-*	Last change: 		05.02.2003 15:51
-*	Description: 		Comments news
-*	Remarks: 		no bugs reported, should be ready for release
-*
-******************************************************************************/
-
 // CHECK IF NEWSID IS VALID
 $check = $db->query_first("SELECT caption FROM {$config["tables"]["news"]} WHERE newsid = '{$vars["newsid"]}'");
 if($check["caption"] != "") { 
@@ -30,8 +15,8 @@ if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $n
 	$templ['news']['show']['single']['row'][$news_type]['info']['username']     = $get_news["username"];
 	$date                                                                       = $get_news["date"];
 	
-	$templ['news']['show']['single']['row'][$news_type]['info']['date']         = $func->unixstamp2date($date,"daydatetime"); 
-	if (!$cfg["news_html"]) $text = $func->text2html($text);
+	$templ['news']['show']['single']['row'][$news_type]['info']['date']         = $func->unixstamp2date($date,"daydatetime");
+  if ($cfg["news_html"] == 1) $text = $func->text2html($text);
 	$templ['news']['show']['single']['row'][$news_type]['info']['text']         = $text;
 	
 	// SELECT ACTION TYPE
