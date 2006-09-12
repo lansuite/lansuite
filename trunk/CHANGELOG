@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.4
 
+- Bugfix: #509 In der Anfahrt funktionierte das Hausnummern-Feld nicht (KnoX 12.09.2006)
 - Bugfix: #502 News in Newskommentaren waren nicht richtig formatiert (KnoX 02.09.2006)
 - Bugfix: #503 Im Messenger konnten keine Nachrichten mehr verschickt werden (KnoX 02.09.2006)
 - Bugfix: #498 Captcha Abfrage im Gästebuch hatte nicht funktioniert (KnoX 28.08.2006)
