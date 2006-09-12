@@ -126,14 +126,14 @@ var $perso;
 			$opts['http']['content'] =	$in_post;
 
 			$lansurfer_site = "";
-			$handle = fopen('http://www.lansurfer.com/user/edit.phtml?LS_Session=$LS_Session', 'r', false, stream_context_create($opts));
+			$handle = fopen("http://www.lansurfer.com/user/edit.phtml?LS_Session=$LS_Session", 'r', false, stream_context_create($opts));
 			while (!feof($handle)) {
 				$lansurfer_site .= fgets($handle, 4096);
 			}
 			fclose($handle);
 
 			// Log out
-			$handle = fopen('http://lansurfer.com/user.phtml?action=logout?LS_Session=$LS_Session', 'r', false, stream_context_create($opts));
+			$handle = fopen("http://lansurfer.com/user.phtml?action=logout?LS_Session=$LS_Session", 'r', false, stream_context_create($opts));
 
 			// HTML-Daten auswerten
 			$input_start = 2;
