@@ -311,11 +311,11 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         		GROUP BY c.clanid
         		ORDER BY c.name
         		");
-        while ($row = $db->fetch_array($clans_query)) $selections[$row['clanid']] = $row['name'] .' '. $row['members'];
+        while ($row = $db->fetch_array($clans_query)) $selections[$row['clanid']] = $row['name'] .' ('. $row['members'] .')';
         $db->free_result($clans_query);
 
         $mf->AddField($lang['usrmgr']['add_existing_clan'], 'clan', IS_SELECTION, $selections, Optional('clan'));
-        $mf->AddField($lang['usrmgr']['chpwd_password2'], 'clanpw', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckClanPW');
+        $mf->AddField($lang['usrmgr']['add_password'], 'clanpw', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckClanPW');
         $mf->AddField($lang['usrmgr']['add_create_clan'], 'new_clan_select', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
         $mf->AddField($lang['usrmgr']['add_create_clan'], 'clan_new', '', '', FIELD_OPTIONAL);
         if (ShowField('clanurl')) $mf->AddField($lang['usrmgr']['add_clanurl'], 'clanurl', '', '', FIELD_OPTIONAL);
