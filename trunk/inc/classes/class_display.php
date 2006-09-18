@@ -282,11 +282,11 @@ class display {
     if ($optional) $templ['ls']['row']['textarea']['optional'] = "_optional";
     else $templ['ls']['row']['textarea']['optional'] = '';
 
-		$templ['ls']['row']['textarea']['buttons'] = $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[b][/b]')", "bold");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[i][/i]')", "kursiv");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[u][/u]')", "underline");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[c][/c]')", "code");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[img][/img]')", "picture");
+		$templ['ls']['row']['textarea']['buttons'] = $this->FetchButton("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b][/b]')", "bold");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i][/i]')", "kursiv");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u][/u]')", "underline");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:InsertCode(document.{$this->form_name}.{$name}, '[c][/c]')", "code");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:InsertCode(document.{$this->form_name}.{$name}, '[img][/img]')", "picture");
 
 		$templ['ls']['row']['textarea']['smilies'] = "";
 		$smilie = $db->query("SELECT shortcut, image FROM {$GLOBALS["config"]["tables"]["smilies"]}");
