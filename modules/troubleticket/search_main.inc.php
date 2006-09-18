@@ -6,12 +6,12 @@ function TTStatus($status) {
 	global $lang;
 
 	switch ($status) {
-		default: return $lang['ms']['cb_tt_unassigned']; break;
-		case 1: return $lang['ms']['cb_tt_new']; break;
-		case 2: return $lang['ms']['cb_tt_accepted']; break;
-		case 3: return $lang['ms']['cb_tt_in_work']; break;
-		case 4: return $lang['ms']['cb_tt_closed']; break;
-		case 5: return $lang['ms']['cb_tt_rejected']; break;
+		default: return $lang['troubleticket']['st_checked']; break;
+		case 1: return $lang['troubleticket']['st_new']; break;
+		case 2: return $lang['troubleticket']['st_acc']; break;
+		case 3: return $lang['troubleticket']['st_in_work']; break;
+		case 4: return $lang['troubleticket']['st_finished']; break;
+		case 5: return $lang['troubleticket']['st_denied']; break;
 	}
 }  
 
