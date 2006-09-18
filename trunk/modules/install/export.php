@@ -140,9 +140,7 @@ switch($_GET["step"]){
 
 		switch ($_GET["type"]){
 			case "xml":	
-				$export->LSTableHead();
 				$export->ExportAllTables($_POST["e_struct"], $_POST["e_cont"]);
-				$export->LSTableFoot();
 			break;
 
 			case "xml_modules":
