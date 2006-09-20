@@ -2,7 +2,7 @@
 $templ['home']['show']['item']['info']['caption'] = $lang["home"]["poll_caption"];
 $templ['home']['show']['item']['control']['row'] = "";
 
-$query = $db->query("SELECT p.pollid, p.caption, COUNT(*) AS votes FROM {$config["tables"]["polls"]} AS p
+$query = $db->query("SELECT p.pollid, p.caption, COUNT(v.pollid) AS votes FROM {$config["tables"]["polls"]} AS p
   LEFT JOIN {$config["tables"]["pollvotes"]} AS v on p.pollid = v.pollid
   GROUP BY p.pollid
   ORDER BY p.changedate DESC
