@@ -114,6 +114,9 @@ class pdf {
 		$this->data_type_array['guestcards']['user_block']		= "Sitzblock";
 		$this->data_type_array['guestcards']['user_ip']			= "IP-Adresse";
 		$this->data_type_array['guestcards']['party_name']		= "Lanparty-Name";
+		$this->data_type_array['guestcards']['plz']		= "PLZ";
+		$this->data_type_array['guestcards']['city']		= "Ort";
+		$this->data_type_array['guestcards']['birthday']		= "Geburtstag";
 		$this->data_type_array['seatcards']['user_nickname'] 	= "Nickname";
 		$this->data_type_array['seatcards']['name'] 			= "Name";
 		$this->data_type_array['seatcards']['firstname'] 		= "Vorname";
@@ -125,6 +128,9 @@ class pdf {
 		$this->data_type_array['seatcards']['seat_block']		= "Sitzblock";
 		$this->data_type_array['seatcards']['seat_ip']			= "IP-Adresse";
 		$this->data_type_array['seatcards']['party_name']		= "Lanparty-Name";
+		$this->data_type_array['seatcards']['plz']		= "PLZ";
+		$this->data_type_array['seatcards']['city']		= "Ort";
+		$this->data_type_array['seatcards']['birthday']		= "Geburtstag";
 		$this->data_type_array['userlist']['user_nickname'] 	= "Nickname";
 		$this->data_type_array['userlist']['lastname'] 			= "Name";
 		$this->data_type_array['userlist']['firstname'] 		= "Vorname";
@@ -137,6 +143,9 @@ class pdf {
 		$this->data_type_array['userlist']['user_ip']			= "IP-Adresse";
 		$this->data_type_array['userlist']['party_name']		= "Lanparty-Name";
 		$this->data_type_array['userlist']['nr']				= "fortlaufende Nummer";
+		$this->data_type_array['userlist']['plz']		= "PLZ";
+		$this->data_type_array['userlist']['city']		= "Ort";
+		$this->data_type_array['userlist']['birthday']		= "Geburtstag";
 	}
 
 	
@@ -542,7 +551,10 @@ class pdf {
 			$data['clan'] = $row["clan"];
 			$data['fullname'] = $row["firstname"] . " " . $row["name"];
 			$data['userid'] = $row['userid'];
-			
+			$data['plz'] = $row['plz'];
+			$data['city'] = $row['city'];
+			$data['birthday'] = $row['birthday'];
+
 			// seat
 			$row_seat = $db->query_first("SELECT s.blockid, col, row, ip FROM {$config["tables"]["seat_seats"]} AS s LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid WHERE b.party_id={$party->party_id} AND s.userid='{$row["userid"]}'");
 			$blockid  = $row_seat["blockid"];
@@ -659,7 +671,10 @@ class pdf {
 			$data['firstname'] = $row_user["firstname"];
 			$data['clan'] 		= $row_user["clan"];
 			$data['fullname'] = $row["firstname"] . " " . $row["name"];
-			
+			$data['plz'] = $row['plz'];
+			$data['city'] = $row['city'];
+			$data['birthday'] = $row['birthday'];
+
 			$data['seat_ip'] 		= $row["ip"];
 	
 			// Neue Seite Anlegen wenn die letze voll ist
@@ -850,9 +865,10 @@ class pdf {
 			$data['firstname'] 	= $row["firstname"];
 			$data['fullname'] = $row["firstname"] . " " . $row["name"];
 			$data['clan'] 		= $row["clan"];
-			$data['city'] 		= $row["city"];
-			$data['plz'] 		= $row["plz"];
-			
+			$data['plz'] = $row['plz'];
+			$data['city'] = $row['city'];
+			$data['birthday'] = $row['birthday'];
+
 			// seat
 			$row_seat = $db->query_first("SELECT s.blockid, col, row, ip FROM {$config["tables"]["seat_seats"]} AS s LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid WHERE b.party_id={$party->party_id} AND s.userid='{$row["userid"]}'");
 			$blockid  = $row_seat["blockid"];
