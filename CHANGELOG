@@ -19,6 +19,7 @@ Version 2.1.4
 - Bugfix: #490 Fehlerhafter Text für Copyright eines Newsfeeds (Cewigo 29.07.2006)
 - Bugfix: #487 Vertauschte Texte in der Config ber Anmeldemails (KnoX 27.07.2006)
 
+- Add: #402 Im PDF-Modul kann nun in PDFs auch der Wohnort, die PLZ und das Geburtsdatum eingefügt werden (KnoX 20.09.2006)
 - Add: Im Gästebuch können nun Admins auch editieren und löschen (KnoX 28.08.2006)
 - Add: Usage-Statistik in Grafik. Allerdings nur mit FireFox, bzw. IE mit SVG-Plugin anschaubar (KnoX 09.08.2006)
 - Add: Admins können nun über den Clanmanager und Benutzer über ihre Details ihren Clan editieren (KnoX 06.08.2006)
