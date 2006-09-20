@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.4
 
+- Bugfix: #516 Votes wurden auf der startseite mit 1 angegeben, obwohl es 0 waren (KnoX 20.09.2006)
 - Bugfix: #510 In der Troubleticketübersicht wurde der Status nicht mehr angezeigt (KnoX 18.09.2006)
 - Bugfix: #513 Externe Regeln wurden in Turnierübersicht angezeigt, obwohl nicht vorhanden (KnoX 15.09.2006)
 - Bugfix: #509 In der Anfahrt funktionierte das Hausnummern-Feld nicht (KnoX 12.09.2006)

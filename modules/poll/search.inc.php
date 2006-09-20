@@ -15,7 +15,7 @@ $ms2->AddTextSearchField('Titel', array('p.caption' => 'like'));
 
 $ms2->AddResultField('Titel', 'p.caption');
 $ms2->AddResultField('Autor', 'p.endtime', 'GetPollStatus');
-$ms2->AddResultField('Datum', 'COUNT(v.pollid) AS Votes');
+$ms2->AddResultField('Votes', 'COUNT(v.pollid) AS Votes');
 
 $ms2->AddIconField('details', 'index.php?mod=poll&action=show&step=2&pollid=', $lang['ms2']['details']);
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=poll&action=change&step=2&pollid=', $lang['ms2']['edit']);
