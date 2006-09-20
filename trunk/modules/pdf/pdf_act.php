@@ -13,8 +13,6 @@ $pdf_tmpl = new pdf_tmpl($_GET['action'],$templ_id);
 $pdf_export = new pdf($templ_id);
 
 switch ($_GET['act']){
-	
-
 	default:
 		// Eintrag löschen
 		if(isset($_GET['delete'])){
@@ -43,7 +41,6 @@ switch ($_GET['act']){
 		
 		// Einträge anzeigen			    
 		$pdf_tmpl->display_data();
-		
 	break;
 	
 	// Neues Feld anlegen
@@ -74,10 +71,4 @@ switch ($_GET['act']){
 		$pdf_export->pdf_make($_GET['action']);
 	break;
 }
-
-
-
-
-
-
 ?>
