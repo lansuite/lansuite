@@ -86,9 +86,16 @@ function CheckBoxBoxActivate(name, id) {
   else document.getElementById(name).style.display = "none";
 }
 
-function DropDownBoxActivate(name, id) {
-  if (id <= 1) document.getElementById(name).style.display = "none";
-  else document.getElementById(name).style.display = "";
+function DropDownBoxActivate(name, id, list) {
+  if (list) {
+    var found = false;
+    for (var x = 0; x < list.length; x++) if (list[x] == id) found = true;
+    if (!found) document.getElementById(name).style.display = "none";
+    else document.getElementById(name).style.display = "";
+  } else {
+    if (id <= 1) document.getElementById(name).style.display = "none";
+    else document.getElementById(name).style.display = "";
+  }
 }
 
 function CheckPasswordSecurity(password) {

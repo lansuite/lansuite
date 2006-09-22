@@ -37,7 +37,7 @@ class masterform {
     $_POST[$name] = $value;
   }
 
-  function AddField($caption, $name, $type = '', $selections = '', $optional = 0, $callback = '', $DependOnThis = 0) {
+  function AddField($caption, $name, $type = '', $selections = '', $optional = 0, $callback = '', $DependOnThis = 0, $DependOnCriteria = '') {
     $arr = array();
     $arr['caption'] = $caption;
     $arr['name'] = $name;
@@ -48,6 +48,7 @@ class masterform {
     if ($DependOnThis) $this->DependOn[$name] = $DependOnThis;
     $arr['callback'] = $callback;
     $arr['selections'] = $selections;
+    $arr['DependOnCriteria'] = $DependOnCriteria;
     $this->FormFields[] = $arr;
     $this->SQLFields[] = $name;
   }
@@ -248,7 +249,9 @@ class masterform {
               break;
 
               case IS_SELECTION: // Pre-Defined Dropdown
-                if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) $additionalHTML = "onchange=\"DropDownBoxActivate('box_{$field['name']}', this.options[this.options.selectedIndex].value)\"";
+                if ($field['DependOnCriteria']) $addCriteria = ", Array('". implode("', '", $field['DependOnCriteria']) ."')";
+                else $addCriteria = '';
+                if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) $additionalHTML = "onchange=\"DropDownBoxActivate('box_{$field['name']}', this.options[this.options.selectedIndex].value{$addCriteria})\"";
                 if (is_array($field['selections'])) {
               		$selections = array();
               		foreach($field['selections'] as $key => $val) {
