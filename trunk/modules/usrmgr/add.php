@@ -304,17 +304,21 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
 
         $selections = array();
         $selections[''] = '---';
-        $clans_query = $db->query("SELECT c.clanid, c.name, c.url, COUNT(u.clanid) AS members
+        $PWClans = array();
+        $clans_query = $db->query("SELECT c.clanid, c.name, c.url, c.password, COUNT(u.clanid) AS members
         		FROM {$config["tables"]["clan"]} AS c
         		LEFT JOIN {$config["tables"]["user"]} AS u ON c.clanid = u.clanid
         		WHERE u.clanid IS NULL or u.type >= 1
         		GROUP BY c.clanid
         		ORDER BY c.name
         		");
-        while ($row = $db->fetch_array($clans_query)) $selections[$row['clanid']] = $row['name'] .' ('. $row['members'] .')';
+        while ($row = $db->fetch_array($clans_query)) {
+          $selections[$row['clanid']] = $row['name'] .' ('. $row['members'] .')';
+          if ($row['password']) $PWClans[] = $row['clanid'];
+        }
         $db->free_result($clans_query);
 
-        $mf->AddField($lang['usrmgr']['add_existing_clan'], 'clan', IS_SELECTION, $selections, Optional('clan'));
+        $mf->AddField($lang['usrmgr']['add_existing_clan'], 'clan', IS_SELECTION, $selections, Optional('clan'), '', 1, $PWClans);
         $mf->AddField($lang['usrmgr']['add_password'], 'clanpw', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckClanPW');
         $mf->AddField($lang['usrmgr']['add_create_clan'], 'new_clan_select', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
         $mf->AddField($lang['usrmgr']['add_create_clan'], 'clan_new', '', '', FIELD_OPTIONAL);
