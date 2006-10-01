@@ -48,8 +48,8 @@ if (!$target_icon) $target_icon = 'details';
 if ($target_url) $ms2->AddIconField($target_icon, $target_url, $lang['ms2'][$target_icon]);
 else {
   $ms2->AddIconField('details', 'index.php?mod=seating&action=show&step=2&blockid=', $lang['ms2']['details']);
-  $ms2->AddIconField('edit', 'index.php?mod=seating&action=edit&step=2&blockid=', $lang['ms2']['edit']);
-  $ms2->AddIconField('delete', 'index.php?mod=seating&action=delete&step=2&blockid=', $lang['ms2']['delete']);
+  if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=seating&action=edit&step=2&blockid=', $lang['ms2']['edit']);
+  if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=seating&action=delete&step=2&blockid=', $lang['ms2']['delete']);
 }
 $ms2->PrintSearch($current_url, 'b.blockid');
 ?>
