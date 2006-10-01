@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.4
 
+- Bugfix: #504 Turnierzeitplan hatte kiene Zeiten mehr angezeigt (KnoX 01.10.2006)
 - Bugfix: #301 Eintrittskarten-PDF war eine weiße Seite, da Menüeintrag gefehlt hat (KnoX 20.09.2006)
 - Bugfix: #516 Votes wurden auf der startseite mit 1 angegeben, obwohl es 0 waren (KnoX 20.09.2006)
 - Bugfix: #510 In der Troubleticketübersicht wurde der Status nicht mehr angezeigt (KnoX 18.09.2006)
