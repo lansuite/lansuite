@@ -98,7 +98,7 @@ function DropDownBoxActivate(name, id, list) {
   }
 }
 
-function CheckPasswordSecurity(password) {
+function CheckPasswordSecurity(password, ImgObj) {
 	var TestNumberOfChars = false;
 	var TestUppercaseChars = false;
 	var TestLowercaseChars = false;
@@ -112,19 +112,15 @@ function CheckPasswordSecurity(password) {
 
 	/* Check if length of password is greather then 8 */
 	if (password.length >= 8) TestNumberOfChars = true;
-	else TestNumberOfChars = false;
 
 	/* Check for minimum of 2 uppercase Letters */
 	if (password.match(/[A-Z].*[A-Z]/)) TestUppercaseChars = true;
-	else TestUppercaseChars = false;
 
 	/* Check for minimum of 2 lowercase letters */
 	if (password.match(/[a-z].*[a-z]/)) TestLowercaseChars = true;
-	else TestLowercaseChars = false;
 
 	/* Check for minimum of 2 digits */
 	if (password.match(/[0-9].*[0-9]/)) TestDigits = true;
-	else TestDigits = false;
 
 	/* Check for minimum of 2 special chars */
 	var specCharCounter = 0;
@@ -137,12 +133,10 @@ function CheckPasswordSecurity(password) {
 		}
 
 		if (specCharCounter >= 2) TestSpecialChars = true;
-		else TestSpecialChars = false;
 	}
 
 	/* Check for whitespaces and ESC-Sequences */
 	if (password.match(/\s/)) TestWhiteSpaces = true;
-	else TestWhiteSpaces = false;
 
 	/* Check for minimum of 2 true ifs */
 	if (TestUppercaseChars) counter++;
@@ -150,18 +144,16 @@ function CheckPasswordSecurity(password) {
 	if (TestDigits) counter++;
 	if (TestSpecialChars) counter++;
 
-	if ((counter >= 2) && !TestWhiteSpaces) TestCounter = true;
-	else TestCounter = false;
+	if ((counter >= 2) && (!TestWhiteSpaces)) TestCounter = true;
 
-	if ((counter >= 3) && !TestWhiteSpaces) TestCounter2 = true;
-	else TestCounter2 = false;
+	if ((counter >= 3) && !(TestWhiteSpaces)) TestCounter2 = true;
 
 	var zaehler = 0;
 	if (TestCounter) zaehler++;
 	if (TestCounter2) zaehler++;
 	if (TestNumberOfChars) zaehler++;
 
-	document.images.seclevel.src = 'design/images/password_bar'+ zaehler +'.jpg';
+	ImgObj.src = 'design/images/password_bar'+ zaehler +'.jpg';
 }
 
 

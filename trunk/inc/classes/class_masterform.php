@@ -31,6 +31,7 @@ class masterform {
 	var $DependOnStarted = 0;
 	var $isChange = false;
 	var $FormEncType = '';
+	var $PWSecID = 0;
 	
   function AddFix($name, $value){
     $this->SQLFields[] = $name;
@@ -66,7 +67,7 @@ class masterform {
 
   // Print form
 	function SendForm($BaseURL, $table, $idname = '', $id = 0) {
-    global $dsp, $db, $config, $func, $sec, $lang;
+    global $dsp, $db, $config, $func, $sec, $lang, $templ;
 
 		$this->AddGroup(); // Adds non-group-fields to fake group
 
@@ -239,8 +240,10 @@ class masterform {
               break;
 
               case IS_NEW_PASSWORD: // New-Password-Row
-                $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value)\"");
+                $PWSecID++;
+                $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel{$PWSecID})\"");
                 $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.$lang['mf']['pw2_caption'], $_POST[$field['name'].'2'], $this->error[$field['name'].'2'], '', $field['optional'], 0);
+                $templ['pw_security']['id'] = $PWSecID;
                 $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
               break;
 
