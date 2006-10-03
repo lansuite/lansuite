@@ -264,27 +264,22 @@ function MM_swapImgRestore() {
 }
 
 // Functions to Change Image
-var icon_nr = 0;
-
 function changeImage(id){
 	var i = 0;
-	if(mouseflag == 1){
-		while(document.getElementsByName("icon")[i]){
-			if(document.getElementsByName("icon")[i].checked){
-				img = document.getElementsByName("icon")[i].value;
-				icon_nr = i;
-			}
-			i++;
-		}
-		img = img.substring(0,img.length -4);
-		if( id != 'null' && document.getElementById(id.id.substring(1,id.id.length)).value != img){
-			id.style.background = "transparent url(" + image[img].src + ") repeat scroll 0% 0%";
+	if (mouseflag == 1){
+		img = CurrentPicture.substring(0, CurrentPicture.length - 4);
+		if (id != 'null' && document.getElementById(id.id.substring(1, id.id.length)).value != img){
+			id.style.backgroundImage = "url("+ image[img].src +")";
 			document.getElementById(id.id.substring(1,id.id.length)).value = img;
 		}
 	}
 }
 
-
+var CurrentPicture = '';
+function UpdateCurrentPicture(file, selection) {
+  CurrentPicture = selection;
+  document.images["PreviewIcon"].src = file;
+}
 
 
 // Functions for details an swap
