@@ -269,8 +269,14 @@ class masterform {
                 if (is_array($field['selections'])) {
               		$selections = array();
               		foreach($field['selections'] as $key => $val) {
-              			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
-              			$selections[] = "<option$selected value=\"$key\">$val</option>";
+              		  $selected = '';
+                    if ($_POST[$field['name']]) foreach($_POST[$field['name']] as $PostedField) {
+                      if ($PostedField == $key) {
+                        $selected = ' selected';
+                        break;
+                      }
+                    }
+              			$selections[] = "<option value=\"$key\"$selected>$val</option>";
               		}
                   $dsp->AddSelectFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], 7);
                 }
