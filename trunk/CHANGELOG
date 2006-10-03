@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.4
 
+- Bugfix: #525 Modul Rechte im Benutzermanager wurden beim Laden eines Benutzers nicht aus der DB ausgelesen (KnoX 03.10.2006)
 - Bugfix: #517 BeimSitzplan editieren wurde bei Zeilenabstand das Icon nach dem Zeichen doppelt gezeigt (KnoX 03.10.2006)
 - Bugfix: #524 Der passwortbalken auf der Anmeldeseite hatte nicht korrekt funktioniert, wenn 2 zu sehen waren (KnoX 02.10.2006)
 - Bugfix: #504 Turnierzeitplan hatte kiene Zeiten mehr angezeigt (KnoX 01.10.2006)
