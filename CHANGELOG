@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.4
 
+- Bugfix: #517 BeimSitzplan editieren wurde bei Zeilenabstand das Icon nach dem Zeichen doppelt gezeigt (KnoX 03.10.2006)
 - Bugfix: #524 Der passwortbalken auf der Anmeldeseite hatte nicht korrekt funktioniert, wenn 2 zu sehen waren (KnoX 02.10.2006)
 - Bugfix: #504 Turnierzeitplan hatte kiene Zeiten mehr angezeigt (KnoX 01.10.2006)
 - Bugfix: #301 Eintrittskarten-PDF war eine weiße Seite, da Menüeintrag gefehlt hat (KnoX 20.09.2006)
@@ -29,6 +30,7 @@ Version 2.1.4
 - Add: #484 In der Statistik Box wird nun angezeigt, wie viele Visits und Hits es in der letzten Stunde durchschnittlich gab (KnoX 05.08.2006)
 - Add: #201 Zusätzliche Benutzerfelder: Telefon, Handy, ICQ, MSN, Skype (KnoX 04.08.2006)
 
+- Change: #519 Beim Sitzplan editieren wählt man die Icons nun ohne Radio-Buttons durch einfaches Anklicken aus (KnoX 03.10.2006)
 - Change: #514 Das Eingabefeld für Clanpasswörter wird nun nur noch angezeigt, wenn der Ausgewählte Clan über ein Passwort verfügt (KnoX 22.09.2006)
 - Change: #512 Kommentare kann man nun direkt unterhalb der bereits vorhandenen schreiben, ohne vorher eine neue Seite laden zu müssen (KnoX 18.09.2006)
 - Change: #512 Foratierungsbuttons sind wieder unter der Textarea. Nur die Smilies sind in einem extra Popup untergebracht (KnoX 18.09.2006)

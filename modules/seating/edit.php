@@ -203,7 +203,7 @@ switch($_GET['step']) {
 		$dsp->NewContent($lang['seating']['define_seat'], $lang['seating']['def_seat_sub']);
 		$dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=6&blockid={$_GET['blockid']}", "block");
 
-		$dsp->AddPictureSelectRow('icon', 'ext_inc/seating_symbols', 15, 15, 0, $_POST["icon"], 14, 14);
+		$dsp->AddPictureSelectRow('icon', 'ext_inc/seating_symbols', 20, 15, 0, $_POST["icon"], 14, 14, true);
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 2));
 
 		$dsp->AddFormSubmitRow('save');

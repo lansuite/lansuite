@@ -551,7 +551,7 @@ class display {
 
 
 
-    function AddPictureSelectRow($key, $path, $pics_per_row = NULL, $max_rows = NULL, $optional = NULL, $checked = NULL, $max_width = NULL, $max_height = NULL) {
+    function AddPictureSelectRow($key, $path, $pics_per_row = NULL, $max_rows = NULL, $optional = NULL, $checked = NULL, $max_width = NULL, $max_height = NULL, $JS = false) {
 		global $templ, $gd;
 
 		if ($max_width == "") $max_width = 150;
@@ -562,8 +562,7 @@ class display {
 		$templ['ls']['row']['pictureselect']['zeile'] = "";
 		$templ['ls']['row']['pictureselect']['spalte'] = "";
 
-		$templ['ls']['row']['pictureselect']['name'] = $key;
-    if($optional) $templ['ls']['row']['pictureselect']['optional'] = "_optional";
+    if ($optional) $optional = '_optional';
 
 		$handle = @opendir($path);
 		$z = 0;
@@ -596,11 +595,15 @@ class display {
 				$templ['ls']['row']['pictureselect']['pic_height'] = $pic_dimensions[1];
 
 				$templ['ls']['row']['pictureselect']['pic_src'] = $file_out;
-				$templ['ls']['row']['pictureselect']['value'] = $file;
-				$templ['ls']['row']['pictureselect']['caption'] = strtolower(substr($file, 0, strrpos($file, ".")));
-				if (($z == $checked) || ($file == $checked)) $templ['ls']['row']['pictureselect']['checked'] = "checked";
-				else $templ['ls']['row']['pictureselect']['checked'] = "";
+				$caption = strtolower(substr($file, 0, strrpos($file, ".")));
+				if (($z == $checked) || ($file == $checked)) $check = 'checked';
+				else $check = '';
 
+        if ($JS) {
+          $templ['pictureselect']['IconClick'] = " onClick=\"javascript:UpdateCurrentPicture('$file_out', '$file');\"";
+          $templ['pictureselect']['InputForm'] = '<input type="hidden" name="'. $key .'" value="'. $file .'" />';
+        }
+        else $templ['pictureselect']['InputForm'] = '<input type="radio" name="'. $key .'" class="form'. $optional .'" value="'. $file .'" '. $check .' />'. $caption;
 				$templ['ls']['row']['pictureselect']['spalte'] .= $this->FetchModTpl("", "ls_row_pictureselect_spalte");
 				$z++;
 
