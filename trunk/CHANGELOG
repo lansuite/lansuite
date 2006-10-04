@@ -4,6 +4,10 @@ Hier bitte die wichtigen Änderungen einfügen :
 (Auch Name,Datum und falls vorhanden BugID für die Änderung angeben!)
 -----
 
+Version 2.1.5
+
+- Add: #513 Maps können nun in den Turnierdetails durchgemischt werden. Außerdem steht nun die Runde dabei (KnoX 04.10.2006)
+
 Version 2.1.4
 
 - Bugfix: #525 Modul Rechte im Benutzermanager wurden beim Laden eines Benutzers nicht aus der DB ausgelesen (KnoX 03.10.2006)

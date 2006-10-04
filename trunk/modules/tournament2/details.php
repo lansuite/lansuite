@@ -1,18 +1,4 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.1
-*	Filename: 			details.php
-*	Module: 			Tournamentsystem
-*	Main editor: 		jochen@orgapage.net
-*	Last change: 		30.04.2004
-*	Description: 		show tournament details
-*	Remarks: 		
-*
-**************************************************************************/
 
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
@@ -29,6 +15,16 @@ $tournament = $db->query_first_rows("SELECT *, UNIX_TIMESTAMP(starttime) AS star
 if($tournament["number"] == 0) $func->error($lang["tourney"]["t_not_exist"], "index.php?mod=tournament2");
 else {
 
+	switch ($step){
+    // Shuffle maps
+    case 20:
+      $maps = explode("\n", $tournament["mapcycle"]);
+      shuffle($maps);
+      $tournament["mapcycle"] = implode("\n", $maps);
+      $db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET mapcycle = '{$tournament['mapcycle']}' WHERE tournamentid = '$tournamentid'");
+    break;
+  }
+  
 	switch ($step){
 		case 10:	// Activate Seeding
 			$seeded = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = '$tournamentid') AND (seeding_mark = '1') GROUP BY tournamentid");
@@ -137,7 +133,12 @@ else {
 
 					$dsp->AddDoubleRow($lang["tourney"]["details_comment"], $func->db2text2html($tournament["comment"]));
 
-					$dsp->AddDoubleRow($lang["tourney"]["details_mapcycle"], $func->db2text2html($tournament["mapcycle"]));
+          $maps = explode("\n", $tournament["mapcycle"]);
+          $map_str = '';
+          foreach ($maps as $key => $val) $map_str .= "{$lang['tourney']['games_round']} $key: $val \n";
+					$dsp->AddDoubleRow($lang["tourney"]["details_mapcycle"]
+            .'<br /><br /><a href="index.php?mod=tournament2&action=details&tournamentid='. $_GET['tournamentid'] .'&step=20">'. $lang["tourney"]["details_mapcycle_shuffle"] .'</a>',
+            $func->db2text2html($map_str));
           $dsp->AddFieldsetEnd();
 				break;
 

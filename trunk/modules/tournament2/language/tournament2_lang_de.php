@@ -57,6 +57,7 @@ $lang['tourney']['details_none']	= 'Keine';
 $lang['tourney']['details_teamnames']	= 'Teamnamen';
 $lang['tourney']['details_uncompleded']	= 'Folgende %NUM_TEAMS% Teams sind noch unvollst&auml;ndig';
 $lang['tourney']['details_mapcycle']	= 'Mapcycle';
+$lang['tourney']['details_mapcycle_shuffle']	= 'Maps neu mischen';
 $lang['tourney']['details_round_duration']	= 'Dauer einer Runde';
 $lang['tourney']['details_round_duration_val']	= 'Maximal %MAX_GAMES% Spiel(e) pro Runde (je %GAME_DURATION%) + %BREAK_DURATION% Pause -> %SUM%';
 $lang['tourney']['export_caption']	= 'Exporte';
