@@ -24,14 +24,18 @@ function FCKAutoGrow_Check()
 {
 	var oInnerDoc = FCK.EditorDocument ;
 
-	var iFrameHeight ;
+	var iFrameHeight, iInnerHeight ;
 	
 	if ( FCKBrowserInfo.IsIE )
+	{
 		iFrameHeight = FCK.EditorWindow.frameElement.offsetHeight ;
+		iInnerHeight = oInnerDoc.body.scrollHeight ;
+	}
 	else
+	{
 		iFrameHeight = FCK.EditorWindow.innerHeight ;
-
-	var iInnerHeight = oInnerDoc.body.offsetHeight ;
+		iInnerHeight = oInnerDoc.body.offsetHeight ;
+	}
 
 	var iDiff = iInnerHeight - iFrameHeight ;
 
@@ -68,7 +72,7 @@ function FCKAutoGrow_SetListeners()
 
 if ( FCKBrowserInfo.IsIE )
 {
-	FCKAutoGrow_SetListeners() ;
+//	FCKAutoGrow_SetListeners() ;
 	FCK.Events.AttachEvent( 'OnAfterSetHTML', FCKAutoGrow_SetListeners ) ;
 }
 

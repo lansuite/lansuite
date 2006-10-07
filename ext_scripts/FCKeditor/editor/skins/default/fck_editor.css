@@ -63,7 +63,7 @@ body
 
 .TB_Toolbar
 {
-    display: inline;
+    display: inline-table;	/* inline = Opera jumping buttons bug */
 }
 
 .TB_Separator

@@ -15,6 +15,7 @@
  * 
  * File Authors:
  * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+ * 		Dominik Pesch ?dom? (empty selection patch) (d.pesch@11com7.de)
  */
 
 var oEditor		= window.parent.InnerDialogLoaded() ;
@@ -429,7 +430,7 @@ function FillPopupFields( windowName, features )
 //#### The OK button was hit.
 function Ok()
 {
-	var sUri ;
+	var sUri, sInnerHtml ;
 
 	switch ( GetE('cmbLinkType').value )
 	{
@@ -478,19 +479,50 @@ function Ok()
 			break ;
 	}
 
-	if ( oLink )	// Modifying an existent link.
-	{
-		oEditor.FCKUndo.SaveUndoStep() ;
-		oLink.href = sUri ;
-	}
-	else			// Creating a new link.
-	{
+	// No link selected, so try to create one.
+	if ( !oLink )
 		oLink = oEditor.FCK.CreateLink( sUri ) ;
-		if ( ! oLink )
-			return true ;
+	
+	if ( oLink )
+		sInnerHtml = oLink.innerHTML ;		// Save the innerHTML (IE changes it if it is like a URL).
+	else
+	{
+		// If no selection, use the uri as the link text (by dom, 2006-05-26)
+
+		sInnerHtml = sUri;
+
+		// try to built better text for empty link
+		switch (GetE('cmbLinkType').value)
+		{
+			// anchor: use old behavior --> return true
+			case 'anchor':
+				sInnerHtml = sInnerHtml.replace( /^#/, '' ) ;
+				break;
+
+			// url: try to get path
+			case 'url':
+				var oLinkPathRegEx = new RegExp("//?([^?\"']+)([?].*)?$");
+				var asLinkPath = oLinkPathRegEx.exec( sUri );
+				if (asLinkPath != null)
+					sInnerHtml = asLinkPath[1];  // use matched path
+				break;
+
+			// mailto: try to get email address
+			case 'email':
+				sInnerHtml = GetE('txtEMailAddress').value
+				break;
+		}
+
+		// built new anchor and add link text
+		oLink = oEditor.FCK.CreateElement( 'a' ) ;
 	}
 	
+	oEditor.FCKUndo.SaveUndoStep() ;
+
+	oLink.href = sUri ;
 	SetAttribute( oLink, '_fcksavedurl', sUri ) ;
+
+	oLink.innerHTML = sInnerHtml ;		// Set (or restore) the innerHTML
 
 	// Target
 	if( GetE('cmbTarget').value != 'popup' )
@@ -520,6 +552,9 @@ function Ok()
 		SetAttribute( oLink, 'style', GetE('txtAttStyle').value ) ;
 	}
 
+	// Select the link.
+	oEditor.FCKSelection.SelectNode(oLink);
+	
 	return true ;
 }
 

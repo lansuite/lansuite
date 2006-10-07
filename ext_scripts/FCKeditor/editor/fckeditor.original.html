@@ -29,7 +29,7 @@
 
 // Instead of loading scripts and CSSs using inline tags, all scripts are
 // loaded by code. In this way we can guarantee the correct processing order,
-// otherwise external scripts and inline scripts could be executed in a
+// otherwise external scripts and inline scripts could be executed in an
 // unwanted order (IE).
 
 function LoadScript( url )
@@ -60,11 +60,11 @@ LoadScript( '_source/internals/fckbrowserinfo.js' ) ;
 LoadScript( '_source/internals/fckurlparams.js' ) ;
 LoadScript( '_source/internals/fck.js' ) ;
 LoadScript( '_source/internals/fckconfig.js' ) ;
-LoadScript( '_source/fckeditorapi.js' ) ;
 
 LoadScript( '_source/internals/fckdebug.js' ) ;
 LoadScript( '_source/internals/fcktools.js' ) ;
 LoadScript( '_source/internals/fcktools_' + sSuffix + '.js' ) ;
+LoadScript( '_source/fckeditorapi.js' ) ;
 LoadScript( '_source/internals/fckregexlib.js' ) ;
 LoadScript( '_source/internals/fcklanguagemanager.js' ) ;
 LoadScript( '_source/classes/fckevents.js' ) ;
@@ -119,6 +119,7 @@ LoadScript( '_source/internals/fckdialog.js' ) ;
 LoadScript( '_source/internals/fckdialog_' + sSuffix + '.js' ) ;
 LoadScript( '_source/classes/fckmenuitem.js' ) ;
 LoadScript( '_source/classes/fckmenublock.js' ) ;
+LoadScript( '_source/classes/fckmenublockpanel.js' ) ;
 LoadScript( '_source/classes/fckcontextmenu.js' ) ;
 LoadScript( '_source/internals/fck_contextmenu.js' ) ;
 LoadScript( '_source/classes/fckplugin.js' ) ;
@@ -137,6 +138,7 @@ if ( FCKBrowserInfo.IsIE )
 {
 	FCK.IECleanup = new FCKIECleanup( window ) ;
 	FCK.IECleanup.AddItem( FCKTempBin, FCKTempBin.Reset ) ;
+	FCK.IECleanup.AddItem( FCK, FCK_Cleanup ) ;
 }
 
 // The config hidden field is processed immediately, because
@@ -246,6 +248,9 @@ if ( FCKBrowserInfo.IsGecko )
 {
 	function Window_OnResize()
 	{
+		if ( FCKBrowserInfo.IsOpera )
+			return ;
+
 		var oCell = document.getElementById( 'xEditingArea' ) ;
 
 		var eInnerElement ;

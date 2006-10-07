@@ -17,6 +17,14 @@
  * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
  */
 
+/* Fix to allow putting the caret at the end of the
+content in Firefox if clicking below the content */
+html
+{
+	min-height:100%;
+}
+
+
 table.FCK__ShowTableBorders, table.FCK__ShowTableBorders td, table.FCK__ShowTableBorders th
 {
 	border: #d3d3d3 1px solid;

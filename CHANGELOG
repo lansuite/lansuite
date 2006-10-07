@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.5
 
+- Bugfix: #511 FCK-Editor konnte keine Bilder und Dateien hochladen (KnoX 07.10.2006)
 - Bugfix: #528 Nervige SQL-Fehler beim Sitzplan erstellen (KnoX 06.10.2006)
 - Bugfix: SQL-Fehlermeldung im Benutzermanger beim Benutzer hinzufügen (KnoX 06.10.2006)
 - Bugfix: #526 Clans konnten im PDF Modul nicht mehr auf die Karten gedruckt werden (KnoX 06.10.2006)
