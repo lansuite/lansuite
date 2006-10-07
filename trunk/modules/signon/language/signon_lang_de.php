@@ -10,7 +10,7 @@ $lang['signon']['add_caption']	= 'Zur Lan-Party \'%NAME%\' anmelden';
 $lang['signon']['add_subcaption']	= 'Bitte f&uuml;llen Sie die folgenden Felder sorgf&auml;lltig aus';
 $lang['signon']['add_caption2']	= 'Zur Lan-Party \'%NAME%\' anmelden';
 $lang['signon']['add_subcaption2']	= 'Wenn Sie bereits auf einer anderen Lan-Party dieses Teams zu Gast waren, reicht die Eingabe von Email und Kennwort zur Anmeldung aus, andernfalls m&uuml;ssen Sie sich einen neuen Account erstellen';
-$lang['signon']['add_subcaption2_old']	= 'Um sich an dieser Party anzumelden gib bitte deine Logindaten ein.';
+$lang['signon']['add_subcaption2_old']	= 'Um sich zu dieser Party anzumelden gib bitte deine Logindaten ein.';
 $lang['signon']['add_username']	= 'Benutzername';
 $lang['signon']['add_firstname']	= 'Vorname';
 $lang['signon']['add_lastname']	= 'Nachname';
@@ -96,11 +96,11 @@ $lang['signon']['add_try_lansurfer2']	= 'Versuche Daten von Lansurfer zu holen, 
 // Partyverwaltung
 $lang['signon']['party_list_caption'] =		'Partyliste';
 $lang['signon']['party_list_subcaption'] =  'Hier sehen sie alle Partys';
-$lang['signon']['is_signon'] =				'An diese Party bist du angemeldet';
+$lang['signon']['is_signon'] =				'Zu dieser Party bist du angemeldet';
 $lang['signon']['signon_start'] =			'Die Anmeldung &ouml;ffnet am:';
 $lang['signon']['signon_end'] =				'Die Anmeldung endete am:';
-$lang['signon']['signon_true'] =			'An diese Party warst du angemeldet';
-$lang['signon']['signon_false'] =			'An dieser Party warst du nicht angemeldet';
+$lang['signon']['signon_true'] =			'Zu dieser Party warst du angemeldet';
+$lang['signon']['signon_false'] =			'Zu dieser Party warst du nicht angemeldet';
 $lang['signon']['signon_history'] =			'Party-History';
 
 
