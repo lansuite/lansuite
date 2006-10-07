@@ -32,6 +32,10 @@ $Config['UserFilesPath'] = '/UserFiles/' ;
 // Attention: The above 'UserFilesPath' must point to the same directory.
 $Config['UserFilesAbsolutePath'] = '' ;
 
+// Due to security issues with Apache modules, it is reccomended to leave the
+// following setting enabled.
+$Config['ForceSingleExtension'] = true ;
+
 $Config['AllowedExtensions']['File']	= array() ;
 $Config['DeniedExtensions']['File']		= array('php','php2','php3','php4','php5','phtml','pwml','inc','asp','aspx','ascx','jsp','cfm','cfc','pl','bat','exe','com','dll','vbs','js','reg','cgi') ;
 

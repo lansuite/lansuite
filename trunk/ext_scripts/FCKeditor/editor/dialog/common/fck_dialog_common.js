@@ -115,8 +115,20 @@ function OpenFileBrowser( url, width, height )
 		// http://support.microsoft.com/default.aspx?scid=kb;en-us;831678
 		// by Simone Chiaretta.
 		var oWindow = oEditor.window.open( url, 'FCKBrowseWindow', sOptions ) ;
+		
 		if ( oWindow )
-			oWindow.opener = window ;
+		{
+			// Detect Yahoo popup blocker.
+			try
+			{
+				var sTest = oWindow.name ; // Yahoo returns "something", but we can't access it, so detect that and avoid strange errors for the user.
+				oWindow.opener = window ;
+			}
+			catch(e)
+			{
+				alert( oEditor.FCKLang.BrowseServerBlocked ) ;
+			}
+		}
 		else
 			alert( oEditor.FCKLang.BrowseServerBlocked ) ;
     }

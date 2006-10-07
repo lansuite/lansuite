@@ -39,6 +39,9 @@ document.write( '<title>' + sTitle + '<\/title>' ) ;
 
 function LoadInnerDialog()
 {
+	// The following value is set, so the editor can check that the dialog has been correctly opened.
+	window.setTimeout( function() { window.returnValue = true ; }, 100 ) ;
+
 	if ( window.onresize )
 		window.onresize() ;
 

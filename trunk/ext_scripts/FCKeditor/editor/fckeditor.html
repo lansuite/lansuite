@@ -27,7 +27,7 @@
 
 // Instead of loading scripts and CSSs using inline tags, all scripts are
 // loaded by code. In this way we can guarantee the correct processing order,
-// otherwise external scripts and inline scripts could be executed in a
+// otherwise external scripts and inline scripts could be executed in an
 // unwanted order (IE).
 
 function LoadScript( url )
@@ -56,6 +56,7 @@ if ( FCKBrowserInfo.IsIE )
 {
 	FCK.IECleanup = new FCKIECleanup( window ) ;
 	FCK.IECleanup.AddItem( FCKTempBin, FCKTempBin.Reset ) ;
+	FCK.IECleanup.AddItem( FCK, FCK_Cleanup ) ;
 }
 
 // The config hidden field is processed immediately, because
@@ -165,6 +166,9 @@ if ( FCKBrowserInfo.IsGecko )
 {
 	function Window_OnResize()
 	{
+		if ( FCKBrowserInfo.IsOpera )
+			return ;
+
 		var oCell = document.getElementById( 'xEditingArea' ) ;
 
 		var eInnerElement ;

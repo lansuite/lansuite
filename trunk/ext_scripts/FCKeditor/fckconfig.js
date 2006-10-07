@@ -1,4 +1,4 @@
-﻿/*
+/*
  * FCKeditor - The text editor for internet
  * Copyright (C) 2003-2006 Frederico Caldeira Knabben
  * 
@@ -39,13 +39,13 @@ FCKConfig.PluginsPath = FCKConfig.BasePath + 'plugins/' ;
 // FCKConfig.Plugins.Add( 'autogrow' ) ;
 FCKConfig.AutoGrowMax = 400 ;
 
-FCKConfig.ProtectedSource.Add( /<script[\s\S]*?\/script>/gi ) ;	// <SCRIPT> tags.
+FCKConfig.ProtectedSource.Add( /<script[\s\S]*?<\/script>/gi ) ; // <SCRIPT> tags.
 // FCKConfig.ProtectedSource.Add( /<%[\s\S]*?%>/g ) ;	// ASP style server side code <%...%>
 // FCKConfig.ProtectedSource.Add( /<\?[\s\S]*?\?>/g ) ;	// PHP style server side code
 // FCKConfig.ProtectedSource.Add( /(<asp:[^\>]+>[\s|\S]*?<\/asp:[^\>]+>)|(<asp:[^\>]+\/>)/gi ) ;	// ASP.Net style tags <asp:control>
 
 FCKConfig.AutoDetectLanguage	= true ;
-FCKConfig.DefaultLanguage		= 'en' ;
+FCKConfig.DefaultLanguage		= 'de' ;
 FCKConfig.ContentLangDirection	= 'ltr' ;
 
 FCKConfig.ProcessHTMLEntities	= true ;
@@ -131,8 +131,8 @@ FCKConfig.FlashDlgHideAdvanced	= false ;
 // inline when creating the editor instance. In that cases you must set the 
 // values of LinkBrowserURL, ImageBrowserURL and so on.
 // Custom implementations should just ignore it.
-var _FileBrowserLanguage	= 'asp' ;	// asp | aspx | cfm | lasso | perl | php | py
-var _QuickUploadLanguage	= 'asp' ;	// asp | aspx | cfm | lasso | php
+var _FileBrowserLanguage	= 'php' ;	// asp | aspx | cfm | lasso | perl | php | py
+var _QuickUploadLanguage	= 'php' ;	// asp | aspx | cfm | lasso | php
 
 // Don't care about the following line. It just calculates the correct connector 
 // extension to use for the default File Browser (Perl uses "cgi").

@@ -41,9 +41,16 @@ if ( !isset( $_FILES['NewFile'] ) || is_null( $_FILES['NewFile']['tmp_name'] ) |
 // Get the posted file.
 $oFile = $_FILES['NewFile'] ;
 
-// Get the uploaded file name and extension.
+// Get the uploaded file name extension.
 $sFileName = $oFile['name'] ;
+
+// Replace dots in the name with underscores (only one dot can be there... security issue).
+if ( $Config['ForceSingleExtension'] )
+	$sFileName = preg_replace( '/\\.(?![^.]*$)/', '_', $sFileName ) ;
+
 $sOriginalFileName = $sFileName ;
+
+// Get the extension.
 $sExtension = substr( $sFileName, ( strrpos($sFileName, '.') + 1 ) ) ;
 $sExtension = strtolower( $sExtension ) ;
 
@@ -69,7 +76,7 @@ $sFileUrl		= '' ;
 $iCounter = 0 ;
 
 // The the target directory.
-if ( isset( $Config['UserFilesAbsolutePath'] ) )
+if ( isset( $Config['UserFilesAbsolutePath'] ) && strlen( $Config['UserFilesAbsolutePath'] ) > 0 )
 	$sServerDir = $Config['UserFilesAbsolutePath'] ;
 else 
 	$sServerDir = GetRootPath() . $Config["UserFilesPath"] ;
