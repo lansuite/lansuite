@@ -58,6 +58,7 @@ switch($_GET['step']) {
 		if ($_POST['cell']) foreach($_POST['cell'] as $cur_cell => $value) {
 			$col = floor($cur_cell / 100);
 			$row = $cur_cell % 100;
+      $value = (int)$value;
 
 			$seats_qry = $db->query_first("SELECT seatid FROM {$config["tables"]["seat_seats"]}
 			WHERE blockid = '{$_GET['blockid']}' AND row = '$row' AND col = '$col'");

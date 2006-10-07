@@ -243,7 +243,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         while($row = $db->fetch_array($res)) $selections[$row['name']] = $row['caption'];
         $db->free_result($res);
 
-        if (!$_GET['mf_step']) {
+        if (!$_GET['mf_step'] and $_GET['userid']) {
           $res = $db->query("SELECT module FROM {$config["tables"]["user_permissions"]} WHERE userid = {$_GET['userid']}");
           while($row = $db->fetch_array($res)) $_POST["permissions"][] = $row["module"];
           $db->free_result($res);

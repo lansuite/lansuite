@@ -516,7 +516,9 @@ class pdf {
 		}
 		$pdf_sqlstring = $pdf_sqlstring . " user.type != '-1'";
 
-		$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user "  . $pdf_sqlstring);
+		$query = $db->query("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM {$config["tables"]["user"]} AS user
+      LEFT JOIN {$config['tables']['clan']} AS clan ON user.clanid = clan.clanid ".
+      $pdf_sqlstring);
 
 		$user_numusers = $db->num_rows($query);
 		// erste Seite erstellen
@@ -625,9 +627,12 @@ class pdf {
 		}
 		//Daten der Sitzreihen auslesen
 		if($block == "null"){
-			$query = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]} AS s LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid WHERE b.party_id={$party->party_id} ORDER BY 's.blockid'$sql_order");
+			$query = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]} AS s
+        LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid
+        WHERE b.party_id={$party->party_id} ORDER BY 's.blockid'$sql_order");
 		}else{
-			$query = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]} WHERE blockid='$block' ORDER BY 'blockid'$sql_order");
+			$query = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]}
+      WHERE blockid='$block' ORDER BY 'blockid'$sql_order");
 		}
 		
 		$seat_numusers = $db->num_rows($query);
@@ -659,8 +664,10 @@ class pdf {
 			$data['seat']    	  = $seat2->CoordinateToName($data['col'] + 1, $data['row'], $row_block['orientation']);
 			$data['party_name']    = $_SESSION['party_info']['name']; 	
 			
-			$row_user = $db->query_first("SELECT * FROM {$config["tables"]["user"]} WHERE userid='$userid'");
-				
+			$row_user = $db->query_first("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM {$config["tables"]["user"]} AS user
+        LEFT JOIN {$config['tables']['clan']} AS clan ON user.clanid = clan.clanid
+        WHERE userid='$userid'");
+
 			$data['user_nickname'] = str_replace("&gt;","",$row_user["username"]);
 			$data['user_nickname'] = str_replace("&lt;","",$data['user_nickname']);
 			$data['user_nickname'] = str_replace("&gt","",$data['user_nickname']);
@@ -829,7 +836,10 @@ class pdf {
 		}
 		
 		
-		$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user " . $pdf_sqlstring);
+		$query = $db->query("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM {$config["tables"]["user"]} AS user
+      LEFT JOIN {$config['tables']['clan']} AS clan ON user.clanid = clan.clanid ".
+      $pdf_sqlstring);
+
 		$user_numusers = $db->num_rows($query);
 		// erste Seite erstellen
 		$this->_make_page();

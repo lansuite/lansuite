@@ -6,6 +6,11 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.5
 
+- Bugfix: #528 Nervige SQL-Fehler beim Sitzplan erstellen (KnoX 06.10.2006)
+- Bugfix: SQL-Fehlermeldung im Benutzermanger beim Benutzer hinzufügen (KnoX 06.10.2006)
+- Bugfix: #526 Clans konnten im PDF Modul nicht mehr auf die Karten gedruckt werden (KnoX 06.10.2006)
+
+- Add: HTML-Turnierbaum als Alternative zur Grafik (hanez 06.10.2006)
 - Add: Schräge-Wände Icons im Sitzplan (05.10.2006)
 - Add: #513 Maps können nun in den Turnierdetails durchgemischt werden. Außerdem steht nun die Runde dabei (KnoX 04.10.2006)
 

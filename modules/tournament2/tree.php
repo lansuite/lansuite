@@ -70,7 +70,7 @@ else {
   					$cronjob->load_job("cron_tmod");
   					$cronjob->loaded_class->add_job($_GET["tournamentid"],"");
   				}
-  				$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_$tournamentid.png\">{$lang["tourney"]["tree_download"]}</a>");
+  				if (!$cfg['t_text_tree']) $dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_$tournamentid.png\">{$lang["tourney"]["tree_download"]}</a>");
   			}
   		}
   
