@@ -91,6 +91,15 @@ else {
     	$dsp->AddDoubleRow('Benutzername', $name);
 
 
+			// Clan
+			$clan = $user_data['clan'];
+			if ($user_data['clanurl']) $clan .= " [<a href=\"http://{$user_data['clanurl']}\" target=\"_blank\">{$user_data['clanurl']}</a>]";
+			if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or $user_data['clanid'] == $auth['clanid']))
+        $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changeclanpw&clanid='. $user_data['clanid'], $lang['ms2']['change_pw']) .
+          $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=clanmgr&step=30&clanid='. $user_data['clanid'], $lang['ms2']['edit']);
+			$dsp->AddDoubleRow($lang['usrmgr']['details_clan'], $clan);
+
+
       // Party Checkin, paid, ...
       $party_info = '';
       $link = '';
@@ -118,16 +127,7 @@ else {
 
       if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) $party_info .= $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=checkout&step=10&userid='. $_GET['userid'], 'Reset Checkin');
 
-      $dsp->AddDoubleRow('Party '. $_SESSION['party_info']['name'], $party_info);
-
-
-			// Clan
-			$clan = $user_data['clan'];
-			if ($user_data['clanurl']) $clan .= " [<a href=\"http://{$user_data['clanurl']}\" target=\"_blank\">{$user_data['clanurl']}</a>]";
-			if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or $user_data['clanid'] == $auth['clanid']))
-        $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changeclanpw&clanid='. $user_data['clanid'], $lang['ms2']['change_pw']) .
-          $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=clanmgr&step=30&clanid='. $user_data['clanid'], $lang['ms2']['edit']);
-			$dsp->AddDoubleRow($lang['usrmgr']['details_clan'], $clan);
+      $dsp->AddDoubleRow("Party '<i>". $_SESSION['party_info']['name'] ."</i>'", $party_info);
 
 
 			// Seating
@@ -143,6 +143,16 @@ else {
       $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $seat);
 
 
+      $dsp->AddFieldsetStart($lang['usrmgr']['contact']);
+			// Address
+			$address = '';
+			if (($user_data['street'] != '' or $user_data['hnr']) and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1')))
+				$address .= $user_data['street'] .' '. $user_data['hnr'] .', ';
+			if (($user_data['plz'] != '' or $user_data['city']) and ($cfg['user_showcity4all'] == '1' or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']))
+				$address .= $user_data['plz'] .' '. $user_data['city'];
+			if ($address) $dsp->AddDoubleRow($lang['usrmgr']['address'], $address);
+
+
 			// Phone
 			$phone = '';
       if ($user_data['telefon'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= $dsp->AddIcon('phone', '', 'Phone'). ' '. $user_data['telefon'] . ' ';
@@ -152,19 +162,6 @@ else {
         else $phone .= '[Skype:'. $user_data['skype'] .']';
       }
       $dsp->AddDoubleRow($lang['usrmgr']['telefon'], $phone);
-
-
-			// Messenger
-			$messenger = '';
-      if ($user_data['icq']) {
-        if ($cfg['sys_internet']) $messenger .= '<a href="http://wwp.icq.com/scripts/search.dll?to='. $user_data['icq'] .'" target="_blank"><img src="http://status.icq.com/online.gif?icq='. $user_data['icq'] .'&img=26" alt="ICQ" title="ICQ#'. $user_data['icq'] .'" border="0" /></a> ';
-        else $messenger .= '[ICQ#'. $user_data['icq'] .'] ';
-      }
-      if ($user_data['msn']) $messenger .= '[MSN:'. $user_data['msn'] .'] ';
-      $messenger .= 'Online:';
-      ($user_auth['count'] >= '1') ? $messenger .= $dsp->AddIcon('yes') : $messenger .= $dsp->AddIcon('no');
-		  if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], $lang['usrmgr']['details_buddy_help']) .' ';
-      $dsp->AddDoubleRow('Messenger', $messenger);
 
 
 			// Mail
@@ -177,17 +174,23 @@ else {
       ($user_data['newsletter']) ? $mail .= $dsp->AddIcon('yes') : $mail .= $dsp->AddIcon('no');
       $mail .= ']';
       $dsp->AddDoubleRow($lang['usrmgr']['add_email'], $mail);
+      
 
+			// Messenger
+			$messenger = '';
+      if ($user_data['icq']) {
+        if ($cfg['sys_internet']) $messenger .= '<a href="http://wwp.icq.com/scripts/search.dll?to='. $user_data['icq'] .'" target="_blank"><img src="http://status.icq.com/online.gif?icq='. $user_data['icq'] .'&img=26" alt="ICQ" title="ICQ#'. $user_data['icq'] .'" border="0" /></a> ';
+        else $messenger .= '[ICQ#'. $user_data['icq'] .'] ';
+      }
+      if ($user_data['msn']) $messenger .= '[MSN:'. $user_data['msn'] .'] ';
+      $messenger .= 'Online:';
+      ($user_auth['count'] >= '1') ? $messenger .= $dsp->AddIcon('yes') : $messenger .= $dsp->AddIcon('no');
+		  if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], $lang['usrmgr']['details_buddy_help']) .' ';
+      $dsp->AddDoubleRow('Messenger', $messenger);
+      $dsp->AddFieldsetEnd();
+      
 
-			// Address
-			$address = '';
-			if (($user_data['street'] != '' or $user_data['hnr']) and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1')))
-				$address .= $user_data['street'] .' '. $user_data['hnr'] .', ';
-			if (($user_data['plz'] != '' or $user_data['city']) and ($cfg['user_showcity4all'] == '1' or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']))
-				$address .= $user_data['plz'] .' '. $user_data['city'];
-			if ($address) $dsp->AddDoubleRow($lang['usrmgr']['address'], $address);
-
-
+      $dsp->AddFieldsetStart($lang['usrmgr']['misc']);
 			// User-Type
 			$dsp->AddDoubleRow($lang['usrmgr']['details_type'], GetTypeDescription($user_data['type']));
 
@@ -215,6 +218,7 @@ else {
 
 			// Comment
 			$dsp->AddDoubleRow($lang['usrmgr']['details_comment'], ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));
+      $dsp->AddFieldsetEnd();
 		break;
 
 
@@ -290,19 +294,17 @@ else {
 				$avatar	= "<img border=\"0\" src=\"ext_inc/avatare/" . $user_data['avatar_path'] . "\">"
 				: $avatar = $lang['usrmgr']['details_no_avatar'];
 			$dsp->AddDoubleRow($lang['usrmgr']['details_avatar'], $avatar);
+
+    	// Including comment-engine
+    	if($auth["login"] == 1) {
+    		include_once("modules/mastercomment/class_mastercomment.php");
+    		$comment = new Mastercomment($vars, "index.php?mod=usrmgr&action=details&userid=". $_GET["userid"], "User", $_GET["userid"], $user_data['username']);
+    		$comment->action();
+    	}
 		break;
 	} // end switch
 
 	$dsp->AddBackButton('index.php?mod=usrmgr&action=search');
 	$dsp->AddContent();
-	
-	// Including comment-engine     
-	if($auth["login"] == 1) {
-		include_once("modules/mastercomment/class_mastercomment.php");
-		$comment = new Mastercomment($vars, "index.php?mod=usrmgr&action=details&userid=". $_GET["userid"], "User", $_GET["userid"], $user_data['username']);
-		$comment->action();
-	}
-	//End comment-engine	
-	
-} // else end if exist userid
+}
 ?>
