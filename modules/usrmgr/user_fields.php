@@ -21,6 +21,7 @@ switch ($_GET['step']) {
     $ms2->AddResultField('Bezeichnung', 'f.caption');
     $ms2->AddResultField('Optional', 'f.optional');
     
+    if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=user_fields&step=20&fieldid=', $lang['ms2']['delete']);
     $ms2->PrintSearch('index.php?mod=usrmgr&action=user_fields', 'f.fieldid');
     
     $dsp->AddSingleRow($dsp->FetchButton("index.php?mod=usrmgr&action=user_fields&step=10", 'add'));
@@ -38,6 +39,16 @@ switch ($_GET['step']) {
 
     $mf->AdditionalDBUpdateFunction = 'Update';
     $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $_GET['fieldid']);
+  break;
+  
+  // Delete entry
+  case 20:
+    $fild_row = $db->query_first("SELECT name FROM {$config["tables"]["user_fields"]} WHERE fieldid = '{$_GET['fieldid']}'");
+    $db->query("ALTER TABLE {$config['tables']['user']} DROP {$fild_row['name']}");
+
+    $db->query("DELETE FROM {$config["tables"]["user_fields"]} WHERE fieldid = '{$_GET['fieldid']}'");
+    
+    $func->confirmation('Gelöscht', 'index.php?mod=usrmgr&action=user_fields');
   break;
 }
 ?>
