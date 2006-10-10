@@ -372,6 +372,14 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $mf->AddField($lang['usrmgr']['add_comment'], 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
       }
       $mf->AddGroup($lang['usrmgr']['misc']);
+
+
+      // Add extra admin-defined fields    
+      $user_fields = $db->query("SELECT name, caption, optional FROM {$config['tables']['user_fields']}");
+      while ($user_field = $db->fetch_array($user_fields)) {
+        $mf->AddField($user_field['caption'], $user_field['name'], '', '', $user_field['optional']);
+      }
+      $db->free_result($user_fields);
     }
   }
   

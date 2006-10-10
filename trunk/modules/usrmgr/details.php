@@ -61,6 +61,7 @@ else {
 	$menunames[] = $lang['usrmgr']['details_playerinfos'];
 	$menunames[] = $lang['usrmgr']['details_tournament'];
 	$menunames[] = $lang['usrmgr']['details_misc'];
+	$menunames[] = $lang['usrmgr']['details_own_fields'];
 	if(!$vars['headermenuitem']) { $vars['headermenuitem'] = 1; }
 
 
@@ -301,6 +302,16 @@ else {
     		$comment = new Mastercomment($vars, "index.php?mod=usrmgr&action=details&userid=". $_GET["userid"], "User", $_GET["userid"], $user_data['username']);
     		$comment->action();
     	}
+		break;
+
+
+		case 4:
+      // Add extra admin-defined fields    
+      $user_fields = $db->query("SELECT name, caption, optional FROM {$config['tables']['user_fields']}");
+      while ($user_field = $db->fetch_array($user_fields)) {
+  			$dsp->AddDoubleRow($user_field['caption'], $user_data[$user_field['name']]);
+      }
+      $db->free_result($user_fields);
 		break;
 	} // end switch
 

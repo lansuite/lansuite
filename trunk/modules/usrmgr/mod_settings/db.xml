@@ -803,4 +803,43 @@
 			</field>	
 		</structure>
 	</table>
+	<table>
+		<table_head>
+			<name>user_fields</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>fieldid</name>
+				<type>int(6)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>name</name>
+				<type>varchar(50)</type>
+				<null></null>
+				<key>UNI</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>caption</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>optional</name>
+				<type>int(6)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+	</table>
 </lansuite>

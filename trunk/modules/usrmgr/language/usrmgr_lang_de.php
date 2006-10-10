@@ -205,6 +205,7 @@ $lang['usrmgr']['details_state'] = 'Status';
 $lang['usrmgr']['details_playerinfos'] = 'Spielerinfos';
 $lang['usrmgr']['details_private'] = 'Pers&ouml;nlich';
 $lang['usrmgr']['details_misc'] = 'Sonstiges';
+$lang['usrmgr']['details_own_fields'] = 'Eigene Felder';
 $lang['usrmgr']['details_tournament'] = 'Turniere';
 $lang['usrmgr']['details_leader_teams'] = 'Benutzer hat folgende Teams eröffnet';
 $lang['usrmgr']['details_member_teams'] = 'Benutzer ist in folgenden Teams Mitglied';
