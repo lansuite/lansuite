@@ -210,6 +210,7 @@ $lang['usrmgr']['details_state'] = 'State';
 $lang['usrmgr']['details_playerinfos'] = 'Playerinfos';
 $lang['usrmgr']['details_private'] = 'Private';
 $lang['usrmgr']['details_misc'] = 'Miscallanous';
+$lang['usrmgr']['details_own_fields'] = 'Own fields';
 $lang['usrmgr']['details_tournament'] = 'Tournaments';
 $lang['usrmgr']['details_leader_teams'] = 'User is leader of the following teams';
 $lang['usrmgr']['details_member_teams'] = 'User is member of the following teams';

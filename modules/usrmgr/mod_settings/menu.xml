@@ -42,6 +42,16 @@
 		<level>1</level>
 	</entry>	
 	<entry>
+		<action>user_fields</action>
+		<file>user_fields</file>
+		<caption>Felder ergänzen</caption>
+		<hint></hint>
+		<link>?mod=usrmgr&action=user_fields</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>	
+	<entry>
 		<action>entrance</action>
 		<file>checkin_assistant</file>
 		<caption>Einlass-Assistent</caption>
