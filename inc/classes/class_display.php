@@ -600,7 +600,7 @@ class display {
 				else $check = '';
 
         if ($JS) {
-          $templ['pictureselect']['IconClick'] = " onClick=\"javascript:UpdateCurrentPicture('$file_out', '$file');\"";
+          $templ['pictureselect']['IconClick'] = " onClick=\"javascript:UpdateCurrentPicture('$file_out');\"";
           $templ['pictureselect']['InputForm'] = '<input type="hidden" name="'. $key .'" value="'. $file .'" />';
         }
         else $templ['pictureselect']['InputForm'] = '<input type="radio" name="'. $key .'" class="form'. $optional .'" value="'. $file .'" '. $check .' />'. $caption;
