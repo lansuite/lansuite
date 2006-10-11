@@ -267,17 +267,22 @@ function MM_swapImgRestore() {
 function changeImage(id){
 	var i = 0;
 	if (mouseflag == 1){
-		img = CurrentPicture.substring(0, CurrentPicture.length - 4);
+    var StartPos = 0; 
+		//img = CurrentPicture.substring(0, CurrentPicture.length - 4);
+		if (CurrentPicture.indexOf("lsthumb_") > 0) StartPos = CurrentPicture.indexOf("lsthumb_") + 8;
+		else StartPos = CurrentPicture.lastIndexOf("/") + 1;
+		img = CurrentPicture.substring(StartPos, CurrentPicture.length - 4);
 		if (id != 'null' && document.getElementById(id.id.substring(1, id.id.length)).value != img){
-			id.style.backgroundImage = "url("+ image[img].src +")";
+			//id.style.backgroundImage = "url("+ image[img].src +")";
+			id.style.backgroundImage = "url("+ CurrentPicture +")";
 			document.getElementById(id.id.substring(1,id.id.length)).value = img;
 		}
 	}
 }
 
 var CurrentPicture = '';
-function UpdateCurrentPicture(file, selection) {
-  CurrentPicture = selection;
+function UpdateCurrentPicture(file) {
+  CurrentPicture = file;
   document.images["PreviewIcon"].src = file;
 }
 

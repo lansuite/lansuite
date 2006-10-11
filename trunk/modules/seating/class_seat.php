@@ -324,10 +324,13 @@ class seat2 {
 								$templ['seat']['img_name'] = "ext_inc/seating_symbols/7.png";
 							break;
 							default: // Symbol
-  						  $SymbolePath = 'ext_inc/seating_symbols/lsthumb_'. $seat_state[$y][$x];
-  							if (file_exists($SymbolePath .'.png')) $templ['seat']['img_name'] = $SymbolePath .'.png';
-  							elseif (file_exists($SymbolePath .'.gif')) $templ['seat']['img_name'] = $SymbolePath .'.gif';
-  							elseif (file_exists($SymbolePath .'.jpg')) $templ['seat']['img_name'] = $SymbolePath .'.jpg';
+							  if (file_exists('ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png')) $templ['seat']['img_name'] = 'ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png';
+							  else {
+    						  $SymbolePath = 'ext_inc/seating_symbols/lsthumb_'. $seat_state[$y][$x];
+    							if (file_exists($SymbolePath .'.png')) $templ['seat']['img_name'] = $SymbolePath .'.png';
+    							elseif (file_exists($SymbolePath .'.gif')) $templ['seat']['img_name'] = $SymbolePath .'.gif';
+    							elseif (file_exists($SymbolePath .'.jpg')) $templ['seat']['img_name'] = $SymbolePath .'.jpg';
+    						}
 							break;
 						}
 
@@ -373,10 +376,13 @@ class seat2 {
 
             // Symbol cell
 						} else {
-						  $SymbolePath = 'ext_inc/seating_symbols/'. $seat_state[$y][$x];
-							if (file_exists($SymbolePath .'.png')) $templ['seat']['cell_symbole'] = $SymbolePath .'.png';
-							elseif (file_exists($SymbolePath .'.gif')) $templ['seat']['cell_symbole'] = $SymbolePath .'.gif';
-							elseif (file_exists($SymbolePath .'.jpg')) $templ['seat']['cell_symbole'] = $SymbolePath .'.jpg';
+						  if (file_exists('ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png')) $templ['seat']['cell_symbole'] = 'ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png';
+						  else {
+  						  $SymbolePath = 'ext_inc/seating_symbols/'. $seat_state[$y][$x];
+  							if (file_exists($SymbolePath .'.png')) $templ['seat']['cell_symbole'] = $SymbolePath .'.png';
+  							elseif (file_exists($SymbolePath .'.gif')) $templ['seat']['cell_symbole'] = $SymbolePath .'.gif';
+  							elseif (file_exists($SymbolePath .'.jpg')) $templ['seat']['cell_symbole'] = $SymbolePath .'.jpg';
+  						}
 							$templ['seat']['input_hidden'] .= $input_hidden;
 						}
 
