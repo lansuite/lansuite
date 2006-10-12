@@ -287,6 +287,26 @@ function UpdateCurrentPicture(file) {
 }
 
 
+function AllselectH(rowid) {
+  mouseflag = 1;
+	for (var x = 0; x < cols; x++) {
+		var zahl = x * 100 + rowid;
+    changeImage(document.getElementById("fcell"+zahl));
+	}
+  mouseflag = 0;
+}
+
+
+function AllselectV(colid) {
+  mouseflag = 1;
+	for (var x = 0; x < rows; x++) {
+		var zahl = colid * 100 + x;
+    changeImage(document.getElementById("fcell"+zahl));
+	}
+  mouseflag = 0;
+}
+
+
 // Functions for details an swap
 function showseat(id) {
 	if (id != 'null' && setdata != id) {
@@ -350,23 +370,6 @@ function InitSeating() {
   for (i = 0; i <= rows; i++) {
   	flagH[i] = false;
   } 
-}
-
-function AllselectH(rowid) {
-	for (var x = 0; x < cols; x++) {
-		var zahl = x * 100 + rowid;
-		if (document.getElementById("cell"+zahl)) document.getElementById("cell"+zahl).checked = flagH[rowid];
-	}
-	flagH[rowid] = !flagH[rowid];
-}
-
-
-function AllselectV(colid) {
-	for (var x = 0; x < rows; x++) { 	
-		var zahl = colid * 100 + x;
-		if (document.getElementById("cell"+zahl)) document.getElementById("cell"+zahl).checked = flagV[colid];
-	}
-	flagV[colid] = !flagV[colid];
 }
 
 function setFlag(Ereignis){

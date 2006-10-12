@@ -11,6 +11,7 @@ Version 2.1.5
 - Bugfix: SQL-Fehlermeldung im Benutzermanger beim Benutzer hinzufügen (KnoX 06.10.2006)
 - Bugfix: #526 Clans konnten im PDF Modul nicht mehr auf die Karten gedruckt werden (KnoX 06.10.2006)
 
+- Add: Beim Sitzplan editieren lassen sich wieder ganze Zeilen durch klicken auf die Reihen-Zahl mit einem Icon füllen (KnoX 12.10.2006)
 - Add: #522 In der User-Tabelle können nun eigene Felder ergänzt werden (KnoX 10.10.2006)
 - Add: HTML-Turnierbaum als Alternative zur Grafik (hanez 06.10.2006)
 - Add: Schräge-Wände Icons im Sitzplan (05.10.2006)
