@@ -33,27 +33,43 @@ class party{
 		function party(){
 			global $cfg,$db,$config;
 			
-			if(!isset($_SESSION['party_info'])){
-				$_SESSION['party_info'] = array();
-			}
+			if (!isset($_SESSION['party_info'])) $_SESSION['party_info'] = array();
 			
-			if($cfg['signon_multiparty'] == 0){
-				$this->party_id = $cfg['signon_partyid'];
-			}else{
-				if(isset($_GET['party_id'])){
-					$this->party_id = $_GET['party_id'];
-				}elseif (isset($_POST['party_id']) && is_numeric($_POST['party_id'])){
-					$this->party_id = $_POST['party_id'];
-				}elseif (isset($_SESSION['party_id'])){
-					$this->party_id = $_SESSION['party_id'];
-				}else{
-					$this->party_id = $cfg['signon_partyid'];
-				}
-				$_SESSION['party_id'] =  $this->party_id;
+			if ($cfg['signon_multiparty'] == 0) $this->party_id = $cfg['signon_partyid'];
+			else {
+				if (isset($_GET['party_id'])) $this->party_id = $_GET['party_id'];
+				elseif (isset($_POST['party_id']) and is_numeric($_POST['party_id'])) $this->party_id = $_POST['party_id'];
+				elseif (isset($_SESSION['party_id'])) $this->party_id = $_SESSION['party_id'];
+				else $this->party_id = $cfg['signon_partyid'];
+
+  			$_SESSION['party_id'] =  $this->party_id;
 			}
-			
 		}
+
 	
+		/**
+		 * Party in die Session schreiben Interne Funktion
+		 *
+		 */
+		function write_party_infos(){
+			global $db,$config;
+	
+			if (is_numeric($this->party_id)){
+  			// Lese Partydaten
+  			$row = $db->query_first("SELECT * FROM {$config['tables']['partys']} WHERE party_id={$this->party_id}");	
+  			
+  			$_SESSION['party_info']['name']			= $row['name'];
+  			$_SESSION['party_info']['partyort']		= $row['ort'];
+  			$_SESSION['party_info']['partyplz']		= $row['plz'];
+  			$_SESSION['party_info']['partybegin'] 	= $row['startdate'];
+  			$_SESSION['party_info']['partyend'] 	= $row['enddate'];
+  			$_SESSION['party_info']['s_startdate'] 	= $row['sstartdate'];
+  			$_SESSION['party_info']['s_enddate'] 	= $row['senddate'];
+  			$_SESSION['party_info']['max_guest'] 	= $row['max_guest']; 
+			}
+		}
+		
+		
 		// Partyid abfragen
 		/**
 		 * Funktion zum ausgeben der Party_id
@@ -249,30 +265,6 @@ class party{
 			
 			$this->set_party_id($cfg['signon_partyid']);
 						
-		}
-		
-		
-		/**
-		 * Party in die Session schreiben Interne Funktion
-		 *
-		 */
-		function write_party_infos(){
-			global $db,$config;
-			
-			if(is_numeric($this->party_id)){
-			// Lese Partydaten
-			$row = $db->query_first("SELECT * FROM {$config['tables']['partys']} WHERE party_id={$this->party_id}");	
-			
-			$_SESSION['party_info']['name']			= $row['name'];
-			$_SESSION['party_info']['partyort']		= $row['ort'];
-			$_SESSION['party_info']['partyplz']		= $row['plz'];
-			$_SESSION['party_info']['partybegin'] 	= $row['startdate'];
-			$_SESSION['party_info']['partyend'] 	= $row['enddate'];
-			$_SESSION['party_info']['s_startdate'] 	= $row['sstartdate'];
-			$_SESSION['party_info']['s_enddate'] 	= $row['senddate'];
-			$_SESSION['party_info']['max_guest'] 	= $row['max_guest']; 
-			}
-			
 		}
 		
 		
