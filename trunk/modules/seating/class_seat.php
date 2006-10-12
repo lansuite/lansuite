@@ -216,9 +216,9 @@ class seat2 {
 					$templ['seat']['cell_content'] = '';
 					$templ['seat']['plan_sep_row_head_cols'] .= $dsp->FetchModTpl('seating', 'plan_cell');
 				}
-			}elseif ($mode == 2){
-				if ($x < $block['cols']) $templ['seat']['plan_sep_row_head_cols'] .= "<td style=\"font-size:8px; table-layout:fixed; width:{$templ['sep_width']}px;\"><img src=\"ext_inc/seating_symbols/100.png\" name=\"leerpic{$block['cols']}\" /></td>";
-			}
+			}# elseif ($mode == 2){
+			#	if ($x < $block['cols']) $templ['seat']['plan_sep_row_head_cols'] .= "<td style=\"font-size:8px; table-layout:fixed; width:{$templ['sep_width']}px;\"><img src=\"ext_inc/seating_symbols/100.png\" name=\"leerpic{$block['cols']}\" /></td>";
+			#}
 			$templ['seat']['col_nr'] = $this->CoordinateToName($x + 1, -1, $block['orientation']);
 #			($block['orientation'])? $templ['seat']['col_nr'] = chr(65 + $x) : $templ['seat']['col_nr'] = ($x + 1);
 			$templ['seat']['plan_sep_row_desc_x'] .= $dsp->FetchModTpl('seating', 'plan_row_head');
@@ -357,7 +357,7 @@ class seat2 {
 
 						// Empty cell
 						if ($seat_state[$y][$x] == 0) {
-						  $templ['seat']['cell_symbole'] = 'ext_inc/seating_symbols/100.png';
+						  $templ['seat']['cell_symbole'] = 'ext_inc/seating_symbols/lsthumb_100.png';
 							$templ['seat']['input_hidden'] .= $input_hidden;
 
 				    // Free seat cell
