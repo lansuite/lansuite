@@ -22,8 +22,11 @@ global $mf, $db, $config, $auth, $party, $seat2, $usrmgr, $func, $lang, $cfg;
   }
 
 	// Update Party-Signon
-	if (isset($_POST['signon']) and $_POST['signon'] == "1") $party->add_user_to_party($id, $_POST['price_id'], $_POST['paid'], $checkin);
-	elseif ((!isset($_POST['signon']) or $_POST['signon'] == "0") and $auth["type"] > 1) $party->delete_user_from_party($id);
+  // If ID is emplty. When already registered and signing on to a party. Due to no userdata beeing inserted then, no ID is retured
+	if ($id) $PartyUserID = $id;
+  else $PartyUserID = $auth['userid']; 
+	if (isset($_POST['signon']) and $_POST['signon'] == "1") $party->add_user_to_party($PartyUserID, $_POST['price_id'], $_POST['paid'], $checkin);
+	elseif ((!isset($_POST['signon']) or $_POST['signon'] == "0") and $auth["type"] > 1) $party->delete_user_from_party($PartyUserID);
 
 	// Update Seating
 	if ($_POST['paid']) $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($id);
@@ -205,7 +208,6 @@ function ShowField($key){
 	if ($cfg["signon_show_".$key] > 0) return 1;
 	else return 0;
 }
-
 
 if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and $cfg['user_self_details_change'])) {
   $party_user = $db->query_first("SELECT * FROM {$config['tables']['party_user']} WHERE user_id = ". (int)$_GET["userid"] ." AND party_id={$party->party_id}");
