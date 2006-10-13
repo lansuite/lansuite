@@ -81,10 +81,12 @@ else {
       }
     	if ($user_data['username']) $name .= '('. $user_data['username'] .') ';
     	$name .= '['. $user_data['userid'] .']';
-    	if (IsAuthorizedAdmin()) {
+    	if (IsAuthorizedAdmin())
         $name .= ' '. $dsp->AddIcon('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid='. $_GET['userid'], $lang['button']['switch_user']);
+      if ($_GET['userid'] == $auth['userid'])
+        $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changepw', $lang['ms2']['change_pw']);
+      elseif (IsAuthorizedAdmin())
         $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid='. $_GET['userid'], $lang['ms2']['change_pw']);
-      } elseif ($_GET['userid'] == $auth['userid']) $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changepw', $lang['ms2']['change_pw']);
       if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change']))
         $name .= ' '. $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid='. $_GET['userid'], $lang['button']['edit']);
       if ($auth['type'] >= 3)
