@@ -37,6 +37,9 @@ global $mf, $db, $config, $auth, $party, $seat2, $usrmgr, $func, $lang, $cfg;
     if ($id) $add_query2 = $db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid = '$id'");
     $usrmgr->WriteXMLStatFile();
 
+    // If auto generated PW, use PW stored in session, else use PW send by POST field
+    if ($_POST['password_original']) $_SESSION['tmp_pass'] = $_POST['password_original'];
+
   	if ($cfg["signon_password_mail"]) {
   		if ($usrmgr->SendSignonMail()) $func->confirmation($lang['signon']['add_pw_mail_success']);
   		else {
@@ -46,8 +49,8 @@ global $mf, $db, $config, $auth, $party, $seat2, $usrmgr, $func, $lang, $cfg;
     }
 
     // Show passwort, if wanted, or has mail failed
-    if ($cfg['signon_password_view']) $func->information(str_replace("%PASSWORD%", "<b>". $_COOKIE['tmp_pass'] ."</b>", $lang["signon"]["add_pw_text"]));
-    $_COOKIE['tmp_pass'] = '';
+    if ($cfg['signon_password_view']) $func->information(str_replace("%PASSWORD%", "<b>". $_SESSION['tmp_pass'] ."</b>", $lang["signon"]["add_pw_text"]));
+    $_SESSION['tmp_pass'] = '';
 	}
 
 /*
@@ -261,8 +264,8 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
     $mf->AddField($lang['usrmgr']['add_email'], 'email');
     if ($_GET['action'] != 'change') {
       if ($cfg['signon_autopw']) {
-        $_COOKIE['tmp_pass'] = $usrmgr->GeneratePassword();
-        $mf->AddFix('password', md5($_COOKIE['tmp_pass']));
+        $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
+        $mf->AddFix('password', md5($_SESSION['tmp_pass']));
       }
       else $mf->AddField($lang['usrmgr']['add_password'], 'password', IS_NEW_PASSWORD);
     }

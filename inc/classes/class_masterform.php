@@ -334,7 +334,10 @@ class masterform {
 
           if ($this->Groups) foreach ($this->Groups as $group) if ($group['fields']) foreach ($group['fields'] as $field) {
             // Convert Passwords
-            if ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != '') $_POST[$field['name']] = md5($_POST[$field['name']]);
+            if ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != '') {
+              $_POST[$field['name'] .'_original'] = $_POST[$field['name']];
+              $_POST[$field['name']] = md5($_POST[$field['name']]);
+            }
 
             // Upload submitted file
             if ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);

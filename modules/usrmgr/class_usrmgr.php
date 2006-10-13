@@ -30,7 +30,7 @@ class UsrMgr {
 
 		$message = str_replace('%USERNAME%', $_POST['username'], $message);
 		$message = str_replace('%EMAIL%', $_POST['email'], $message);
-		$message = str_replace('%PASSWORD%', $_COOKIE['tmp_pass'], $message);
+		$message = str_replace('%PASSWORD%', $_SESSION['tmp_pass'], $message);
 		$message = str_replace('%CLAN%', $_POST['clan'], $message);
 		$message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
 		$message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
