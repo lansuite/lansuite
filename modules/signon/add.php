@@ -29,7 +29,6 @@ elseif ($_SESSION['party_info']['s_startdate'] >= $currenttime) { # and $_GET['s
     $dsp->NewContent(str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_caption2"]), str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_subcaption2"]));
 
     $DoSignon = 1;
-    $_GET['userid'] = $auth['userid'];
 
   // Show form to insert data
   } else $dsp->NewContent(str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_caption"]), str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_subcaption"]));
