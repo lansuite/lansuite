@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.5
 
+- Bugfix: #534 Das Password wurde beim Anmelden nur angezeigt (und in der Mail geschickt), wenn es automatisch generiert wurde (KnoX 13.10.2006)
 - Bugfix: #531 Wenn "Sollen die User ihre Details im Nachhinein selbst ändern dürfen?" auf nein stand, konnten sich eingeloggte User nicht mehr zu Partys anmelden (KnoX 13.10.2006)
 - Bugfix: Bei aktivem register_globals konnte man sich nicht mehr zur Party anmelden, sobald man die Benutzerdetails eines Besuchers aufgerufen hat (KnoX 12.10.2006)
 - Bugfix: #511 FCK-Editor konnte keine Bilder und Dateien hochladen (KnoX 07.10.2006)
