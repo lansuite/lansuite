@@ -1,12 +1,12 @@
 <?
 
-$helplet['modul'] = 'Menü-Box';
+$helplet['modul'] = 'MenÃ¼-Box';
 $helplet['action'] = 'Hilfe';
-$helplet['info'] = 'Dies ist die Haupt-Navigationsbox. Benutzen Sie die unten aufgeführten Links um durch die Seite zu navigieren';
+$helplet['info'] = 'Dies ist die Haupt-Navigationsbox. Benutzen Sie die unten aufgefÃ¼hrten Links um durch die Seite zu navigieren';
 
-$helplet['key'][1] = 'Einträge editieren/hinzufügen';
-$helplet['value'][1] = 'Als Admin verwenden Sie bitte den Navigations-Manager auf der Admin-Seite um die Navigationseinträge zu verwalten. Dort lassen sich Einträge editieren, sowie Untermenüpunkt ergänzen, oder löschen. Auch die Reihenfolge in der sie angezeigt werden lässt sich festlegen.';
-$helplet['key'][2] = 'Hauptmenüpunkt hinzufügen';
-$helplet['value'][2] = 'Ein Hauptmenüpunkt lässt sich über den navigations-Manager jedoch leider nicht anlegen. Das hat den grund darin, dass Hauptmenüpunkte in Lansuite immer mit einem Modul verknüpft sein müssen. Sie können jedoch das Info2-Modul verwenden um eine neune Seite zu erstellen, die dann einen Hauptmenüpunkt besitzt.';
+$helplet['key'][1] = 'EintrÃ¤ge editieren/hinzufÃ¼gen';
+$helplet['value'][1] = 'Als Admin verwenden Sie bitte den Navigations-Manager auf der Admin-Seite um die NavigationseintrÃ¤ge zu verwalten. Dort lassen sich EintrÃ¤ge editieren, sowie UntermenÃ¼punkt ergÃ¤nzen, oder lÃ¶schen. Auch die Reihenfolge in der sie angezeigt werden lÃ¤sst sich festlegen.';
+$helplet['key'][2] = 'HauptmenÃ¼punkt hinzufÃ¼gen';
+$helplet['value'][2] = 'Ein HauptmenÃ¼punkt lÃ¤sst sich Ã¼ber den navigations-Manager jedoch leider nicht anlegen. Das hat den grund darin, dass HauptmenÃ¼punkte in Lansuite immer mit einem Modul verknÃ¼pft sein mÃ¼ssen. Sie kÃ¶nnen jedoch das Info2-Modul verwenden um eine neune Seite zu erstellen, die dann einen HauptmenÃ¼punkt besitzt.';
 
 ?>
