@@ -2,6 +2,6 @@
 
 $helplet['modul'] = 'Troubleticket';
 $helplet['action'] = 'Hilfe';
-$helplet['info'] = 'Im Troubleticket-Modul können Orgas, oder User Probleme posten die aufgetreten sind, beispielsweise Netzwerk- oder Stromausfälle (Falls dies denn dann noch möglich ist ;-)). Die Orgas und User haben so immer einen Überblick über die aktuelle Lage der LAN und können über Probleme und deren geschätze Dauer informiert werden.';
+$helplet['info'] = 'Im Troubleticket-Modul kÃ¶nnen Orgas, oder User Probleme posten die aufgetreten sind, beispielsweise Netzwerk- oder StromausfÃ¤lle (Falls dies denn dann noch mÃ¶glich ist ;-)). Die Orgas und User haben so immer einen Ãœberblick Ã¼ber die aktuelle Lage der LAN und kÃ¶nnen Ã¼ber Probleme und deren geschÃ¤tze Dauer informiert werden.';
 
 ?>
