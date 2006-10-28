@@ -344,4 +344,5 @@ $lang['usrmgr']['misc'] = 'Verschiedenes';
 $lang['usrmgr']['leagues'] = 'Liegen';
 $lang['usrmgr']['clan'] = 'Clan';
 $lang['usrmgr']['account'] = 'Zugang';
+$lang['usrmgr']['add_not_registered_nosignup']	= 'Nur einen neuen Account erstellen. Zu keiner Party anmelden';
 ?>
