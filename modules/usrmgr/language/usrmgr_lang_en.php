@@ -349,4 +349,5 @@ $lang['usrmgr']['misc'] = 'Miscalanous';
 $lang['usrmgr']['leagues'] = 'Leagues';
 $lang['usrmgr']['clan'] = 'Clan';
 $lang['usrmgr']['account'] = 'Account';
+$lang['signon']['add_not_registered_nosignup']	= 'Only create a new account. Do do not sign on to any party';
 ?>

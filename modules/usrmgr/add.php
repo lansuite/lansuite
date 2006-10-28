@@ -25,9 +25,16 @@ global $mf, $db, $config, $auth, $party, $seat2, $usrmgr, $func, $lang, $cfg;
   // If ID is emplty. When already registered and signing on to a party. Due to no userdata beeing inserted then, no ID is retured
 	if ($id) $PartyUserID = $id;
   else $PartyUserID = $auth['userid']; 
+  if ($_POST['party_id']) {
+    $party->party_id = $_POST['party_id'];
+    $party->add_user_to_party($PartyUserID, $_POST['price_id'], $_POST['paid'], $checkin);
+  } elseif ($auth['type'] > 1) $party->delete_user_from_party($PartyUserID);
+/*
+	if ($id) $PartyUserID = $id;
+  else $PartyUserID = $auth['userid']; 
 	if (isset($_POST['signon']) and $_POST['signon'] == "1") $party->add_user_to_party($PartyUserID, $_POST['price_id'], $_POST['paid'], $checkin);
 	elseif ((!isset($_POST['signon']) or $_POST['signon'] == "0") and $auth["type"] > 1) $party->delete_user_from_party($PartyUserID);
-
+*/
 	// Update Seating
 	if ($_POST['paid']) $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($id);
 	else $seat2->MarkSeatIfNotPaidAndSeatReserved($id);
@@ -238,7 +245,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $selections['1'] = $lang['usrmgr']['add_type_user'];
         $selections['2'] = $lang['usrmgr']['add_type_admin'];
         if ($auth['type'] >= 3) $selections['3'] = $lang['usrmgr']['add_type_operator'];
-        $mf->AddField($lang['usrmgr']['add_type'], 'type', IS_SELECTION, $selections, '', '', 1);
+        $mf->AddField($lang['usrmgr']['add_type'], 'type', IS_SELECTION, $selections, '', '', 1, array('2', '3'));
 
         $selections = array();
         $res = $db->query("SELECT module.name, module.caption FROM {$config["tables"]["modules"]} AS module
@@ -279,7 +286,17 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       if (ShowField('voll')) $DependOn++;
       if (ShowField('agb') and !$cfg['signon_alwaysagb']) $DependOn++;
     }
-    $mf->AddField($lang['usrmgr']['add_signon'], 'signon', 'tinyint(1)', '', FIELD_OPTIONAL, '', $DependOn);
+
+		#if ($archive = 0) $query = "SELECT * FROM {$config['tables']['partys']} WHERE enddate < " . time();
+		$selections = array();
+    $selections[] = $lang['usrmgr']['add_not_registered_nosignup'];
+		if (!$_POST['party_id']) $_POST['party_id'] = $party->party_id;
+		$row = $db->query("SELECT * FROM {$config['tables']['partys']} WHERE startdate > ". time());
+		while ($res = $db->fetch_array($row))  $selections[$res['party_id']] = $res['name']
+      .' ('. $func->unixstamp2date($res['startdate'], 'date') .' -  '. $func->unixstamp2date($res['enddate'], 'date') .')';
+    $mf->AddField($lang['class_party']['drowpdown_name'], 'party_id', IS_SELECTION, $selections, FIELD_OPTIONAL, '', $DependOn);
+
+#    $mf->AddField($lang['usrmgr']['add_signon'], 'signon', 'tinyint(1)', '', FIELD_OPTIONAL, '', $DependOn);
     $party->GetPriceDropdown((int)$_POST["group_id"], (int)$_POST["price_id"]);
 
     if ($auth['type'] >= 2) {

@@ -93,8 +93,38 @@ function DropDownBoxActivate(name, id, list) {
     if (!found) document.getElementById(name).style.display = "none";
     else document.getElementById(name).style.display = "";
   } else {
-    if (id <= 1) document.getElementById(name).style.display = "none";
+    if (id <= 0) document.getElementById(name).style.display = "none";
     else document.getElementById(name).style.display = "";
+
+    var Preisliste = document.getElementsByName("price_id")[0];
+    if (Preisliste) {
+      // Delete all current prices    
+      for(z = 0; z < Preisliste.length; z++) Preisliste.remove(z);
+  
+      // Add new prices
+      LoadingToolTip('<b>Loading new pricelist...</b>');
+      if (xmlHttp) {
+        xmlHttp.open('GET', 'index.php?mod=usrmgr&action=pricelist&design=base&party_id='+ document.getElementsByName("party_id")[0].value);
+        xmlHttp.onreadystatechange = function () {
+          if (xmlHttp.readyState == 4) {
+            var Lines = xmlHttp.responseText.split("\r");
+            for (CurLine = 0; CurLine < Lines.length; CurLine++) {
+              var Row = Lines[CurLine].split("%");
+              if (Row[0] != "") {
+                var Eintrag = document.createElement("option");
+                Eintrag.text = Row[0];
+                Eintrag.value = Row[1];
+                var FolgendeOption = null;
+                if (document.all) FolgendeOption = Auswahlliste.length;
+                Preisliste.add(Eintrag, FolgendeOption);
+              }
+            }
+            document.getElementById("LSloading").style.visibility = "hidden";
+          }
+        }
+        xmlHttp.send(null);
+      }
+    }
   }
 }
 
