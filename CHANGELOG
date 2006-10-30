@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.5
 
+- Bugfix: #496 Designfixes Standard-Theme (nighth4wk 30.10.2006)
 - Bugfix: #538 In den userdetails wurde der Clan-URL immer ein http:// vorrangestellt, auch wenn es bereits teil des Namens war (KnoX 25.10.2006)
 - Bugfix: Helplets auf UTF-8 Umgestellt (KnoX 17.10.2006)
 - Bugfix: Admins konnten ihr Kennwort nur in ein zufälliges ändern (KnoX 14.10.2006)

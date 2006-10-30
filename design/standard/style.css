@@ -115,13 +115,13 @@ body {
 
 /* Boxes */
 .box_frame {		/* old name: tbl_1 */
-	background:		#EFEFEF;
 }
 
 .box_caption {
 	color:			#EFEFEF;
 	padding:		0px;
-	font-size:		9px; 
+	font-size:		9px;
+	max-width:		140px; 
 }
 
 .box_content {
