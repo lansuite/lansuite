@@ -23,7 +23,7 @@
 	<td colspan="5">
 	<div align="right" class="small">{$templ['index']['info']['current_date']}{$templ['index']['info']['logout_link']}</div>
 
-	<table width="100%" cellspacing="0" cellpadding="0" style="background:url(design/{default_design}/images/index_top_background.gif)">
+	<table width="100%" cellspacing="0" cellpadding="0" style="background:url(design/{default_design}/images/index_top_background.gif); background-repeat:no-repeat;background-color:#EFEFEF;">
 	<tr> 
 		<td><a href="index.php"><img src="design/{default_design}/images/index_top_lansuite.gif" alt="lansuite_top_logo" border="0"/></a></td>
 		<td align="right" ><img src="design/{default_design}/images/index_top_advertisement.gif" width="7" height="60" alt="index_top_advertisement" />{$templ['index']['banner_code']}</td>
@@ -42,7 +42,7 @@
 <!-- Block: Main -->
 <tr> 
 	<!-- Block: Boxes left -->
-	<td class="box_frame" valign="top">{$templ['index']['control']['boxes_letfside']}</td>
+	<td width="155px" class="box_frame" valign="top">{$templ['index']['control']['boxes_letfside']}</td>
 
 	<!-- 10px space -->
 	<td><img src="design/{default_design}/images/px.gif" width="10" height="1" alt="px"/></td>
@@ -52,8 +52,8 @@
 
 	<table width="100%" cellspacing="0" cellpadding="0" align="center">
 	<tr> 
-		<td style="background-image:url(design/{default_design}/images/menu_topic_bg.gif); background-repeat:no-repeat" height="15" valign="top" width="1%"><img src="design/{default_design}/images/arrows_content.gif" width="15" height="12" hspace="1" vspace="0" alt="arrows_content"/></td>
-		<td style="background-image:url(design/{default_design}/images/menu_topic_bg.gif); background-repeat:no-repeat" height="15"><img src="design/{default_design}/images/index_topic_lansuite.gif" width="78" height="7" alt="lansuite_topic"/></td>
+		<td style="background-image:url(design/{default_design}/images/menu_topic_bg.gif); height="15" valign="top" width="1%"><img src="design/{default_design}/images/arrows_content.gif" width="15" height="12" hspace="1" vspace="0" alt="arrows_content"/></td>
+		<td style="background-image:url(design/{default_design}/images/menu_topic_bg.gif); height="15"><img src="design/{default_design}/images/index_topic_lansuite.gif" width="78" height="7" alt="lansuite_topic"/></td>
 	</tr>
 	<tr class="content"> 
 		<td colspan="2" id="LScontent">{$templ['index']['info']['content']} </td>
@@ -77,7 +77,7 @@
 	<td valign="top"><img src="design/{default_design}/images/px.gif" width="10" height="1" alt="px"/></td>
 
 	<!-- Block: Boxes right -->
-	<td class="box_frame" valign="top">{$templ['index']['control']['boxes_rightside']}</td>
+	<td width="155" class="box_frame" valign="top">{$templ['index']['control']['boxes_rightside']}</td>
 </tr>
 
 <!-- Block: Bottom -->
