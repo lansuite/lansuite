@@ -141,7 +141,7 @@ switch($step) {
 			$anz_memb = 0;
 			while($member = $db->fetch_array($members)) {
 				$anz_memb++;
-				$member_liste .= HTML_NEWLINE . "- ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"/design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a> ". $dsp->FetchButton("index.php?mod=tournament2&action=teammgr&step=20&teamid={$member['teamid']}&userid={$member['userid']}", "kick");
+				$member_liste .= HTML_NEWLINE . "- ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a> ". $dsp->FetchButton("index.php?mod=tournament2&action=teammgr&step=20&teamid={$member['teamid']}&userid={$member['userid']}", "kick");
 			}
 			$db->free_result($members);
 			
@@ -176,11 +176,11 @@ switch($step) {
 			$anz_memb = 0;
 			while($member2 = $db->fetch_array($members2)) {
 				$anz_memb++;
-				$member_liste .= HTML_NEWLINE . "- ". $member2["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member2['userid']}\"><img src=\"/design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>";
+				$member_liste .= HTML_NEWLINE . "- ". $member2["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member2['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>";
 			}
 			$db->free_result($members2);
 
-			$dsp->AddDoubleRow($lang["tourney"]["teammgr_team"] ." ". $i, "{$member["name"]} ({$member["tname"]}) ({$lang["tourney"]["teammgr_teamsize"]}: ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . "{$lang["tourney"]["teammgr_leader"]}: ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"/design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>$member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">{$lang["tourney"]["teammgr_signoff_team"]}</a>");
+			$dsp->AddDoubleRow($lang["tourney"]["teammgr_team"] ." ". $i, "{$member["name"]} ({$member["tname"]}) ({$lang["tourney"]["teammgr_teamsize"]}: ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . "{$lang["tourney"]["teammgr_leader"]}: ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>$member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">{$lang["tourney"]["teammgr_signoff_team"]}</a>");
 		}
 		$db->free_result($members);
 

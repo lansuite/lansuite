@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.5
 
+- Bugfix: #546 Falsche Bild-Pfade in Usericons im Turniermodul (Bytekilla 15.11.2006)
 - Bugfix: #496 Designfixes Standard-Theme (nighth4wk 30.10.2006)
 - Bugfix: #538 In den userdetails wurde der Clan-URL immer ein http:// vorrangestellt, auch wenn es bereits teil des Namens war (KnoX 25.10.2006)
 - Bugfix: Helplets auf UTF-8 Umgestellt (KnoX 17.10.2006)
