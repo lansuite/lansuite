@@ -16,7 +16,7 @@ else {
 		$dsp->NewContent($lang["server"]["details_caption"], str_replace("%CAPTION%", $server["caption"], $lang["server"]["details_subcaption"]));
 
 		$dsp->AddDoubleRow($lang["server"]["details_name"], $server["caption"]);
-		$dsp->AddDoubleRow($lang["server"]["details_owner"], $server["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$server['userid']}\"><img src=\"/design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>");
+		$dsp->AddDoubleRow($lang["server"]["details_owner"], $server["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$server['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>");
 
 		$type_descriptor["gameserver"] = $lang["server"]["details_gameserver"];	
 		$type_descriptor["ftp"] = $lang["server"]["details_ftpserver"];
