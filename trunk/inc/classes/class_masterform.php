@@ -32,6 +32,14 @@ class masterform {
 	var $isChange = false;
 	var $FormEncType = '';
 	var $PWSecID = 0;
+	var $AdditionalKey = '';
+  var $AddInsertControllField = '';
+  var $AddChangeCondition = '';
+  var $NumFields = 0;
+  
+  function masterform($MFID = 0) {
+    $this->MFID = $MFID;
+  }
 	
   function AddFix($name, $value){
     $this->SQLFields[] = $name;
@@ -52,6 +60,7 @@ class masterform {
     $arr['DependOnCriteria'] = $DependOnCriteria;
     $this->FormFields[] = $arr;
     $this->SQLFields[] = $name;
+    $this->NumFields++;
   }
   
   function AddGroup($caption = '') {
@@ -73,6 +82,17 @@ class masterform {
 
     $StartURL = $BaseURL .'&'. $idname .'='. $id;
     if ($id) $this->isChange = true;
+
+    $AddKey = '';
+    if ($this->AdditionalKey != '') $AddKey = $this->AdditionalKey .' AND ';
+    $InsContName = 'InsertControll'. $this->MFID;
+
+    // If the table entry should be created, or deleted wheter the control field is checked
+    if ($this->AddInsertControllField != '') {
+      $find_entry = $db->query("SELECT * FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
+      ($db->num_rows($find_entry))? $this->isChange = 1 : $this->isChange = 0;
+      $db->free_result($find_entry);
+    }
 
     // Get SQL-Field Types
     $res = $db->query("DESCRIBE {$config['tables'][$table]}");
@@ -105,7 +125,7 @@ class masterform {
             else $db_query .= ", $val";
           }
 
-          $row = $db->query_first("SELECT 1 AS found $db_query FROM {$config['tables'][$table]} WHERE $idname = ". (int)$id);
+          $row = $db->query_first("SELECT 1 AS found $db_query FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
           if ($row['found']) foreach ($this->SQLFields as $key => $val) $_POST[$val] = $row[$val];
           else {
             $func->error($lang['mf']['err_invalid_id']);
@@ -190,6 +210,17 @@ class masterform {
       // Output form
       default:
     		$dsp->SetForm($StartURL .'&mf_step=2', '', '', $this->FormEncType);
+
+        // InsertControll check box - the table entry will only be created, if this check box is checked, otherwise the existing entry will be deleted
+        if ($this->AddInsertControllField != '') {
+          $find_entry = $db->query("SELECT * FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
+          if ($db->num_rows($find_entry)) $_POST[$InsContName] = 1;
+
+          $this->DependOnStarted = $this->NumFields;
+          $additionalHTML = "onclick=\"CheckBoxBoxActivate('box_$InsContName', this.checked)\"";
+          $dsp->AddCheckBoxRow($InsContName, $this->AddInsertControllField, '', '', $field['optional'], $_POST[$InsContName], '', '', $additionalHTML);
+          $dsp->StartHiddenBox('box_'.$InsContName, $_POST[$InsContName]);
+        }
 
         // Output fields
         if ($this->Groups) foreach ($this->Groups as $GroupKey => $group) {
@@ -344,31 +375,45 @@ class masterform {
           }
 
           if ($this->AdditionalDBPreUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBPreUpdateFunction, $id);
+          $ChangeError = false;
+          if ($this->AddChangeCondition) $ChangeError = call_user_func($this->AddChangeCondition, $id);
 
-          // Generate INSERT/UPDATE query
-          $db_query = '';
-          if ($this->SQLFields) {
-            foreach ($this->SQLFields as $key => $val) {
-              if ($SQLFieldTypes[$val] == 'datetime') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
-              else $db_query .= "$val = '{$_POST[$val]}', ";
+          if ($ChangeError) $func->information($ChangeError);
+          else {
+            // Generate INSERT/UPDATE query
+            $db_query = '';
+            if ($this->SQLFields) {
+              foreach ($this->SQLFields as $key => $val) {
+                if ($SQLFieldTypes[$val] == 'datetime') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
+                else $db_query .= "$val = '{$_POST[$val]}', ";
+              }
+              $db_query = substr($db_query, 0, strlen($db_query) - 2);
+  
+              // If the table entry should be created, or deleted wheter the control field is checked
+              if ($this->AddInsertControllField != '' and !$_POST[$InsContName])
+                $db->query("DELETE FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
+  
+              // Send query
+              else {
+                if ($this->isChange) $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $AddKey $idname = ". (int)$id);
+                else {
+                  $DBInsertQuery = $db_query;
+                  if ($this->AdditionalKey != '') $DBInsertQuery .= ', '. $this->AdditionalKey;
+                  if ($this->AddInsertControllField) $DBInsertQuery .= ', '. $idname .' = '. (int)$id;
+                  $db->query("INSERT INTO {$config['tables'][$table]} SET $DBInsertQuery");
+                  $id = $db->insert_id();
+                }
+              }
             }
-            $db_query = substr($db_query, 0, strlen($db_query) - 2);
-
-            // Send query
-            if ($this->isChange) $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $idname = ". (int)$id);
-            else {
-              $db->query("INSERT INTO {$config['tables'][$table]} SET $db_query");
-              $id = $db->insert_id();
+  
+            $addUpdSuccess = true;
+            if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
+            if ($addUpdSuccess) {
+              if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $StartURL);
+              else $func->confirmation($lang['mf']['add_success'], $StartURL);
             }
           }
-
-          $addUpdSuccess = true;
-          if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
-          if ($addUpdSuccess) {
-            if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $StartURL);
-            else $func->confirmation($lang['mf']['add_success'], $StartURL);
-          }
-
+          
           $sec->lock($table);
           return $addUpdSuccess;
         }

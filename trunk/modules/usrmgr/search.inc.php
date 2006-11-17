@@ -71,6 +71,7 @@ if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
 }
 
 $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', $lang['ms2']['details']);
+$ms2->AddIconField('signon', 'index.php?mod=usrmgr&action=party&user_id=', $lang['ms2']['signon']);
 $ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', $lang['ms2']['send_mail']);
 $ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=', $lang['ms2']['change_pw'], 'IfLowerOrEqualUserlevel');
 if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid=', $lang['ms2']['switch_user'], 'IfLowerUserlevel');

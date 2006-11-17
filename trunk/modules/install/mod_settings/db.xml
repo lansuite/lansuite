@@ -1111,7 +1111,7 @@
 			</field>
 			<field>
 				<name>signondate</name>
-				<type>int(15)</type>
+				<type>datetime</type>
 				<null></null>
 				<key></key>
 				<default></default>
