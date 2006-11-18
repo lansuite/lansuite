@@ -1,14 +1,21 @@
 <?php
 
 function ChangeAllowed($id) {
-  global $db, $config, $row;
+  global $db, $config, $row, $lang, $func;
+
   // Do not allow changes, if party is over
   if ($row['enddate'] < time()) return $lang['usrmgr']['err_party_over'];
   
+  // Signon started?
+  if ($row['sstartdate'] > time()) return $lang['signon']['signon_start']. HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['sstartdate'], 'daydatetime'). '</strong>';
+
+  // Signon ended?
+  if ($row['senddate'] < time()) return $lang['signon']['signon_closed']. HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['senddate'], 'daydatetime'). '</strong>';
+
   // Do not allow changes, if user has paid
   $row2 = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE party_id = ". (int)$_GET['party_id'] ." AND user_id = ". (int)$id);
   if ($row2['paid']) return $lang['usrmgr']['err_paid_no_change'];
-  
+
   return false;
 }
 

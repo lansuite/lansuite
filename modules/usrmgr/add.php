@@ -4,7 +4,7 @@ include_once("modules/usrmgr/class_usrmgr.php");
 $usrmgr = new UsrMgr();
 
 function Update($id) {
-global $mf, $db, $config, $auth, $party, $seat2, $usrmgr, $func, $lang, $cfg;
+global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func, $lang, $cfg, $signon;
 
   // Clan-Management
   include_once("modules/usrmgr/class_clan.php");
@@ -20,7 +20,7 @@ global $mf, $db, $config, $auth, $party, $seat2, $usrmgr, $func, $lang, $cfg;
   		$db->query("INSERT INTO {$config["tables"]["user_permissions"]} SET module = '$perm', userid = $id");
   	}
   }
-
+/*
 	// Update Party-Signon
   // If ID is emplty. When already registered and signing on to a party. Due to no userdata beeing inserted then, no ID is retured
 	if ($id) $PartyUserID = $id;
@@ -29,16 +29,16 @@ global $mf, $db, $config, $auth, $party, $seat2, $usrmgr, $func, $lang, $cfg;
     $party->party_id = $_POST['party_id'];
     $party->add_user_to_party($PartyUserID, $_POST['price_id'], $_POST['paid'], $checkin);
   } elseif ($auth['type'] > 1) $party->delete_user_from_party($PartyUserID);
-/*
-	if ($id) $PartyUserID = $id;
-  else $PartyUserID = $auth['userid']; 
-	if (isset($_POST['signon']) and $_POST['signon'] == "1") $party->add_user_to_party($PartyUserID, $_POST['price_id'], $_POST['paid'], $checkin);
-	elseif ((!isset($_POST['signon']) or $_POST['signon'] == "0") and $auth["type"] > 1) $party->delete_user_from_party($PartyUserID);
-*/
+
+//	if ($id) $PartyUserID = $id;
+//  else $PartyUserID = $auth['userid']; 
+//	if (isset($_POST['signon']) and $_POST['signon'] == "1") $party->add_user_to_party($PartyUserID, $_POST['price_id'], $_POST['paid'], $checkin);
+//	elseif ((!isset($_POST['signon']) or $_POST['signon'] == "0") and $auth["type"] > 1) $party->delete_user_from_party($PartyUserID);
+
 	// Update Seating
 	if ($_POST['paid']) $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($id);
 	else $seat2->MarkSeatIfNotPaidAndSeatReserved($id);
-  
+*/  
   // If new user has been added
   if (!$mf->isChange) {
     if ($id) $add_query2 = $db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid = '$id'");
@@ -67,6 +67,7 @@ global $mf, $db, $config, $auth, $party, $seat2, $usrmgr, $func, $lang, $cfg;
 		@copy($_FILES["picture"]["tmp_name"], "ext_inc/user_pics/pic$id.jpg");
 	}
 */
+
 	return true;
 }
 
@@ -223,11 +224,11 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
   $party_user = $db->query_first("SELECT * FROM {$config['tables']['party_user']} WHERE user_id = ". (int)$_GET["userid"] ." AND party_id={$party->party_id}");
   include_once('inc/classes/class_masterform.php');
   $mf = new masterform();
-
+/*
   if (count($_POST) == 0) $_POST['signon'] = $party_user['party_id'];
   if (!isset($_POST['price_id'])) $_POST['price_id'] = $party_user['price_id'];
   if (!isset($_POST['paid'])) $_POST['paid'] = $party_user['paid'];
-
+*/
   if (!$DoSignon) {
     if (!$quick_signon) {
       // If Admin, Creating a new user, or Missing fields:
@@ -278,7 +279,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
     }
     $mf->AddGroup($lang['usrmgr']['account']);
   }
-  
+/*  
   // If Admin: Signon and Payed options
   if ($auth['type'] >= 2 or !$_GET['userid'] or $DoSignon) {
     ($auth['type'] >= 2) ? $DependOn = 3 : $DependOn = 1;
@@ -309,18 +310,9 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       $party->GetUserGroupDropdown('NULL', 1, (int)$_POST['group_id'], true);
     }
 
-    // AGB and Vollmacht, if new user
-    if (!$_GET['userid'] or $DoSignon) {
-    	if (ShowField('voll')) $mf->AddField($lang["signon"]["add_vollmacht"] .'|'. str_replace("%LINK%", "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">U18 Vollmacht</a>", str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_vollmacht_detail"])), 'vollmacht', 'tinyint(1)');
-
-      if (ShowField('agb')) {
-      	($cfg['signon_agb_targetblank']) ? $target = 'target="_blank"' : $target = '';
-        $mf->AddField($lang["signon"]["add_agb"] .'|'. str_replace("%LINK%", "<a href=\"". $cfg["signon_agblink"] ."\"$target>AGB</a>", str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_agb_detail"])), 'agb', 'tinyint(1)');
-      }
-    }
-
     $mf->AddGroup('Party "'. $_SESSION['party_info']['name'] .'"');
   }
+*/
 
   if (!$DoSignon) {
     if (!$quick_signon) {
@@ -393,6 +385,16 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $mf->AddField($lang['usrmgr']['add_picture'], 'picture', IS_FILE_UPLOAD, 'ext_inc/user_pics/', Optional('picture'));
         $mf->AddField($lang['usrmgr']['add_comment'], 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
       }
+
+      // AGB and Vollmacht, if new user
+      if (!$_GET['userid'] or $DoSignon) {
+      	if (ShowField('voll')) $mf->AddField($lang["signon"]["add_vollmacht"] .'|'. str_replace("%LINK%", "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">U18 Vollmacht</a>", str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_vollmacht_detail"])), 'vollmacht', 'tinyint(1)');
+    
+        if (ShowField('agb')) {
+        	($cfg['signon_agb_targetblank']) ? $target = 'target="_blank"' : $target = '';
+          $mf->AddField($lang["signon"]["add_agb"] .'|'. str_replace("%LINK%", "<a href=\"". $cfg["signon_agblink"] ."\"$target>AGB</a>", str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_agb_detail"])), 'agb', 'tinyint(1)');
+        }
+      }
       $mf->AddGroup($lang['usrmgr']['misc']);
 
 
@@ -407,7 +409,18 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
   
 
   $mf->AdditionalDBUpdateFunction = 'Update';
-  $mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $_GET['step'] .'&signon='. $_GET['signon'], 'user', 'userid', $_GET['userid']);
+  if($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $_GET['step'] .'&signon='. $_GET['signon'], 'user', 'userid', $_GET['userid'])) {
+    // Log in new user
+    if (!$auth['login']) {
+      $_POST['email'] = $_POST['email']; 
+      $_POST['password'] = $_POST['password_original'];
+      $authentication->login('save');
+  
+      $_GET['mf_step'] = 1;
+      $_GET['user_id'] = $auth['userid'];
+      include_once("modules/usrmgr/party.php");
+    }
+  }
 }
 
 ?>
