@@ -387,7 +387,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       }
 
       // AGB and Vollmacht, if new user
-      if (!$_GET['userid'] or $DoSignon) {
+      if ((!$_GET['userid'] or $DoSignon) and $auth['type'] <= 1) {
       	if (ShowField('voll')) $mf->AddField($lang["signon"]["add_vollmacht"] .'|'. str_replace("%LINK%", "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">U18 Vollmacht</a>", str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_vollmacht_detail"])), 'vollmacht', 'tinyint(1)');
     
         if (ShowField('agb')) {
