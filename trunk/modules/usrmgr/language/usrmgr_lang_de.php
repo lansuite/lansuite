@@ -345,4 +345,11 @@ $lang['usrmgr']['leagues'] = 'Liegen';
 $lang['usrmgr']['clan'] = 'Clan';
 $lang['usrmgr']['account'] = 'Zugang';
 $lang['usrmgr']['add_not_registered_nosignup']	= 'Nur einen neuen Account erstellen. Zu keiner Party anmelden';
+$lang['usrmgr']['err_party_over'] = 'Sie können Sich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist';
+$lang['usrmgr']['err_paid_no_change'] = 'Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden';
+$lang['usrmgr']['history'] = 'Vergangene Partys';
+$lang['usrmgr']['upcomming'] = 'Zukünftige Partys';
+$lang['usrmgr']['signon'] = 'Anmelden';
+$lang['usrmgr']['signondate'] = 'Anmeldedatum';
+$lang['usrmgr']['prince_id'] = 'Eintrittspreis';
 ?>
