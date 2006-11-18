@@ -350,4 +350,9 @@ $lang['usrmgr']['leagues'] = 'Leagues';
 $lang['usrmgr']['clan'] = 'Clan';
 $lang['usrmgr']['account'] = 'Account';
 $lang['signon']['add_not_registered_nosignup']	= 'Only create a new account. Do do not sign on to any party';
+$lang['usrmgr']['history'] = 'Party History';
+$lang['usrmgr']['upcomming'] = 'Upcomming Partys';
+$lang['usrmgr']['signon'] = 'Sign on';
+$lang['usrmgr']['signondate'] = 'Sign on date';
+$lang['usrmgr']['prince_id'] = 'Entrance fee';
 ?>
