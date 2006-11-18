@@ -1,11 +1,13 @@
 <?php
-// Multiparty or Singelparty
-//if ($cfg['signon_multiparty']) include("modules/signon/show_party.php");
-//else
+
+include_once("modules/usrmgr/language/usrmgr_lang_de.php");
+if ($language != "de" and file_exists("modules/usrmgr/usrmgr_lang_$language.php")) include_once("modules/usrmgr/usrmgr_lang_$language.php");
 
 if ($auth['login']) {
   $_GET['user_id'] = $auth['userid'];
-  include("modules/usrmgr/language/usrmgr_lang_de.php");
-  include("modules/usrmgr/party.php");
-} else include("modules/signon/add.php");
+  include_once("modules/usrmgr/party.php");
+
+} else {
+  include_once ("modules/usrmgr/add.php");
+}
 ?>

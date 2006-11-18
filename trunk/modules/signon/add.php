@@ -39,4 +39,5 @@ elseif ($_SESSION['party_info']['s_startdate'] >= $currenttime) { # and $_GET['s
 
 	$dsp->AddContent();
 }
+
 ?>
