@@ -42,11 +42,6 @@
 		<requirement>0</requirement>
 	</entry>	
 	<entry>
-		<action>add</action>
-		<file>add</file>
-		<requirement>0</requirement>
-	</entry>	
-	<entry>
 		<action>usermap</action>
 		<file>usermap</file>
 		<requirement>0</requirement>
