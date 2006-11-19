@@ -24,7 +24,7 @@ else {
 		$text                                                       = $row["text"];
 		$templ['news']['show']['row'][$type]['info']['username']    = $row["username"];
 		$templ['news']['show']['row'][$type]['control']['userid']   = $row["poster"];
-		if ($row['icon']) $templ['news']['show']['row']['normal']['info']['icon'] =	'<img src="ext_inc/news_icons/'.$row['icon'].'" vspace="2" align="right" />';
+		if ($row['icon'] and $row['icon'] != 'none') $templ['news']['show']['row']['normal']['info']['icon'] =	'<img src="ext_inc/news_icons/'.$row['icon'].'" vspace="2" align="right" />';
 		else $templ['news']['show']['row']['normal']['info']['icon'] = '';
 
 		$newsid                                                     = $row["newsid"];
