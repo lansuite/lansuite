@@ -85,6 +85,7 @@ switch ($mod) {
 				if (authorized($mod, $menu["file"])) include_once("modules/{$mod}/{$menu["file"]}.php");
 			} elseif (file_exists("modules/$mod/modindex_$mod.php")) include_once("modules/$mod/modindex_$mod.php");
 			elseif (file_exists("modules/$mod/{$_GET["action"]}.php")) {
+#  			$menu = $db->query_first("SELECT * FROM {$config["tables"]["menu"]} WHERE (module = '$mod') and (action = 'default')");
 				if (authorized($mod, $_GET["action"])) include_once("modules/{$mod}/{$_GET["action"]}.php");
 			} else {
 				$menu = $db->query_first("SELECT * FROM {$config["tables"]["menu"]} WHERE (module = '$mod') and (action = 'default')");

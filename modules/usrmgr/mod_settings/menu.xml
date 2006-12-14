@@ -91,6 +91,11 @@
 		<requirement>1</requirement>
 	</entry>
 	<entry>
+		<action>search</action>
+		<file>search</file>
+		<requirement>2</requirement>
+	</entry>
+	<entry>
 		<action>delete</action>
 		<file>delete</file>
 		<requirement>2</requirement>
