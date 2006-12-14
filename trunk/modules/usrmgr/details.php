@@ -318,7 +318,7 @@ else {
 		break;
 	} // end switch
 
-	$dsp->AddBackButton('index.php?mod=usrmgr&action=search');
+	$dsp->AddBackButton('index.php?mod='. $_GET['mod'] .'&action=search');
 	$dsp->AddContent();
 }
 ?>
