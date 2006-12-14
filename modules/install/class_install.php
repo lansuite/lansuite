@@ -624,7 +624,7 @@ class Install {
 		$dsp->AddDoubleRow("Error Reporting", $errreport_check);
 
 		// Get Operating System
-		$software_arr =  preg_split('/\s/', $_SERVER['SERVER_SOFTWARE'], 0, PREG_SPLIT_NO_EMPTY);
+		$software_arr =  preg_split('/\s/', $_SERVER['SERVER_SOFTWARE'], 0);
 		$environment_os =  preg_replace('/\(|\)/', "", $software_arr[1]);
 		$config["environment"]["os"] = $environment_os;
 
