@@ -194,10 +194,10 @@ class noc {
 		// Host anpingen um seine MAC-Adresse in den Speicher zu laden.
 		$func->ping($ip);
 		if (stristr(strtolower($_SERVER['SERVER_SOFTWARE']) , "win") == ""){
-			if(shell_exec("/sbin/arp") == ""){
+			if(shell_exec("/sbin/arp -n") == ""){
 				$dsp->AddSingleRow($lang['noc']['arp_error']);
 			}
-			@exec("/sbin/arp $ip | grep $ip", $arp_output);
+			@exec("/sbin/arp -n $ip | grep $ip", $arp_output);
 			$result = array();
 			preg_match("/.{2}:.{2}:.{2}:.{2}:.{2}:.{2}/i",implode("",$arp_output),$result);
 			
