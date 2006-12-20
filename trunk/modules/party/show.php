@@ -3,7 +3,7 @@
 switch($_GET['step']){
 	default:
     include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2('news');
+    $ms2 = new mastersearch2('party');
     
     $ms2->query['from'] = "{$config["tables"]["partys"]} AS p";
     $ms2->query['default_order_by'] = 'p.startdate DESC';
@@ -15,15 +15,15 @@ switch($_GET['step']){
     $ms2->AddResultField('Von', 'p.startdate');
     $ms2->AddResultField('Bis', 'p.enddate');
     
-    $ms2->AddIconField('details', 'index.php?mod=signon&action=party&step=1&party_id=', $lang['ms2']['details']);
-    if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=signon&action=party_edit&party_id=', $lang['ms2']['edit']);
-    #if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', $lang['ms2']['delete']);
+    $ms2->AddIconField('details', 'index.php?mod=party&action=show&step=1&party_id=', $lang['ms2']['details']);
+    if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=party&action=edit&party_id=', $lang['ms2']['edit']);
+    if ($auth['type'] >= 2) $ms2->AddIconField('paid', 'index.php?mod=party&action=price&step=2&party_id=');
 
-    if ($auth['type'] >= 3) $ms2->AddMultiSelectAction($lang['ms2']['delete'], 'index.php?mod=signon&action=party_del', 1);
+    if ($auth['type'] >= 3) $ms2->AddMultiSelectAction($lang['ms2']['delete'], 'index.php?mod=party&action=delete', 1);
 
-    $ms2->PrintSearch('index.php?mod=signon&action=party', 'p.party_id');
+    $ms2->PrintSearch('index.php?mod=party', 'p.party_id');
 
-    $dsp->AddSingleRow($dsp->FetchButton('index.php?mod=signon&action=party_edit', 'add'));
+    $dsp->AddSingleRow($dsp->FetchButton('index.php?mod=party&action=edit', 'add'));
     $dsp->AddContent();
 	break;
 
@@ -39,9 +39,9 @@ switch($_GET['step']){
 		$dsp->AddDoubleRow($lang['signon']['etime'],$func->unixstamp2date($row['enddate'],"date"));
 		$dsp->AddDoubleRow($lang['signon']['sstime'],$func->unixstamp2date($row['sstartdate'],"date"));
 		$dsp->AddDoubleRow($lang['signon']['setime'],$func->unixstamp2date($row['senddate'],"date"));
-		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=signon&action=party_edit&party_id={$_GET['party_id']}","edit"));
+		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=party&action=edit&party_id={$_GET['party_id']}","edit"));
 
-    $dsp->AddBackButton('index.php?mod=signon&action=party');
+    $dsp->AddBackButton('index.php?mod=party');
 		$dsp->AddContent();
 	break;
 }
