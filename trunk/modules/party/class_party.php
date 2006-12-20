@@ -1,17 +1,17 @@
 <?php
 class party{
 
-	var $party_id;
+	var $party_id = 0;
 	var $count = 0;
 	
   // Constructor
 	function party(){
 		global $cfg, $db, $config;
 		
-		if (isset($_GET['party_id'])) $this->party_id = $_GET['party_id'];
-		elseif (isset($_POST['party_id']) and is_numeric($_POST['party_id'])) $this->party_id = $_POST['party_id'];
-		elseif (isset($_SESSION['party_id'])) $this->party_id = $_SESSION['party_id'];
-		else $this->party_id = $cfg['signon_partyid'];
+		if (is_numeric($_GET['party_id'])) $this->party_id = $_GET['party_id'];
+		elseif (is_numeric($_POST['party_id'])) $this->party_id = $_POST['party_id'];
+		elseif (is_numeric($_SESSION['party_id'])) $this->party_id = $_SESSION['party_id'];
+		elseif (is_numeric($cfg['signon_partyid'])) $this->party_id = $cfg['signon_partyid'];
 
     $this->UpdatePartyArray();
     

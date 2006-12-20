@@ -1,5 +1,18 @@
 <?php
 
+function GetActiveState($id) {
+	global $cfg;
+
+  if ($cfg['signon_partyid'] == $id) return 'Aktive Party';
+	else return '<a href="index.php?mod=party&action=show&step=10&party_id='. $id .'">Aktivieren</a>';
+}
+
+// Set Active PartyID
+if ($_GET['step'] == 10 and is_numeric($_GET['party_id'])) {
+  $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '{$_GET['party_id']}' WHERE cfg_key = 'signon_partyid'");
+  $cfg['signon_partyid'] = $_GET['party_id'];
+}
+
 switch($_GET['step']){
 	default:
     include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -14,6 +27,7 @@ switch($_GET['step']){
     $ms2->AddResultField('Gäste', 'p.max_guest');
     $ms2->AddResultField('Von', 'p.startdate');
     $ms2->AddResultField('Bis', 'p.enddate');
+    $ms2->AddResultField('Aktiv', 'p.party_id', 'GetActiveState');
     
     $ms2->AddIconField('details', 'index.php?mod=party&action=show&step=1&party_id=', $lang['ms2']['details']);
     if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=party&action=edit&party_id=', $lang['ms2']['edit']);

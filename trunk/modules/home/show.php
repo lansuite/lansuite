@@ -47,13 +47,13 @@ switch ($home_page) {
 		}
 
 		$dsp->AddSingleRow($dsp->FetchModTpl("home", "show_case"));
-		$party->get_party_dropdown_form();
+		if ($party->count > 1) $party->get_party_dropdown_form();
 		$dsp->AddContent();
 	break;
 
 	// Show News
 	case 1:
-		$party->get_party_dropdown_form();
+		if ($party->count > 1) $party->get_party_dropdown_form();
 		include ("modules/news/show.php");
 	break;
 	
@@ -77,7 +77,7 @@ switch ($home_page) {
 		}
 		$db->free_result($get_news_caption);
 
-		$party->get_party_dropdown_form();
+		if ($party->count > 1) $party->get_party_dropdown_form();
 		$dsp->AddContent();
   break;
 }
