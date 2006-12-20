@@ -12,11 +12,11 @@
 		<level>0</level>
 	</entry>
 	<entry>
-		<action>edit_party</action>
-		<file>edit_party</file>
-		<caption>Party ändern</caption>
+		<action>party</action>
+		<file>party</file>
+		<caption>Partys verwalten</caption>
 		<hint>Hier kann die Party geändert werden</hint>
-		<link>?mod=signon&action=edit_party</link>
+		<link>?mod=signon&action=party</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -24,7 +24,7 @@
 	<entry>
 		<action>price</action>
 		<file>price</file>
-		<caption>Preise ändern</caption>
+		<caption>Preise verwalten</caption>
 		<hint>Hier können Preise geändert werden</hint>
 		<link>?mod=signon&action=price</link>
 		<requirement>2</requirement>
@@ -36,11 +36,6 @@
 		<file>guestlist</file>
 		<requirement>0</requirement>
 	</entry>
-	<entry>
-		<action>show_party</action>
-		<file>show_party</file>
-		<requirement>0</requirement>
-	</entry>	
 	<entry>
 		<action>usermap</action>
 		<file>usermap</file>
@@ -57,8 +52,8 @@
 		<requirement>2</requirement>
 	</entry>
 	<entry>
-		<action>add_party</action>
-		<file>add_party</file>
+		<action>party_edit</action>
+		<file>party_edit</file>
 		<requirement>2</requirement>
 	</entry>
 </menu>
