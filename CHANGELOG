@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.5
 
+- Bugfix: #550 Signatur konnte nicht geändert werden, wenn Avatar-Upload verboten ist (KnoX 20.12.2006)
 - Bugfix: Die Funktion preg_split ergab in neueren PHP-versionen einige Fehlermeldungen auf den Installations-Seiten (KnoX 14.12.2006)
 - Bugfix: #546 Falsche Bild-Pfade in Usericons im Turniermodul (Bytekilla 15.11.2006)
 - Bugfix: #496 Designfixes Standard-Theme (nighth4wk 30.10.2006)
