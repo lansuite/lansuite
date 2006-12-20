@@ -26,6 +26,7 @@ Version 2.1.5
 - Add: Schräge-Wände Icons im Sitzplan (05.10.2006)
 - Add: #513 Maps können nun in den Turnierdetails durchgemischt werden. Außerdem steht nun die Runde dabei (KnoX 04.10.2006)
 
+- Change: Partyverwaltung überarbeitet und in eigenes Modul ausgelagert (KnoX 20.12.2006)
 - Change: #539 Anmeldung nun nur noch über eine Seite, auf der auch ausgewählt werden kann ob und für welche Party man sich anmeldet (KnoX 28.10.2006)
 - Change: #518 Sitzplan Symbolauswahl besser angeordnet (KnoX 10.10.2006)
 

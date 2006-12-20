@@ -18,7 +18,7 @@
 		<hint>Hier sehen Sie aus welchen Gegenden die Besucher kommen</hint>
 		<link>?mod=guestlist&action=usermap</link>
 		<requirement>0</requirement>
-		<needed_config>guestlist_guestmap</needed_config>
+		<needed_config>ShowGuestMap</needed_config>
 		<level>1</level>
 	</entry>
 	<entry>

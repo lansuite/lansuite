@@ -87,10 +87,10 @@ include_once("inc/classes/class_xml.php");
 if ($_GET['design'] != 'base') include_once("inc/classes/class_sitetool.php");
 include_once("inc/classes/class_display.php");
 include_once("inc/classes/class_gd.php");
-include_once("inc/classes/class_party.php");
 include_once("inc/classes/class_sec.php");
 include_once("inc/classes/class_barcode.php");
 
+include_once("modules/party/class_party.php");
 include_once("modules/install/class_install.php");
 if (file_exists("modules/mastersearch/class_mastersearch.php")) include_once("modules/mastersearch/class_mastersearch.php");
 include_once("modules/mail/class_mail.php");
@@ -162,11 +162,8 @@ if ($language != "de" and file_exists("inc/language/language_$language.php")) in
 if ($language != "de" and file_exists("modules/mastersearch/language/mastersearch_lang_$language.php")) include_once("modules/mastersearch/language/mastersearch_lang_$language.php");
 if ($language != "de" and file_exists("modules/boxes/language/boxes_lang_$language.php")) include_once("modules/boxes/language/boxes_lang_$language.php");
 
-// Party schreiben 
-$party = new party();	// initialize Parys
-if ($_GET["mod"] != "install"){
-	$party->write_party_infos();
-}
+// Initialize party
+$party = new party();
 
 // Set Missingfields to false
 $missing_fields = 0;
