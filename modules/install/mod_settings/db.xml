@@ -929,7 +929,7 @@
 			</field>
 			<field>
 				<name>startdate</name>
-				<type>int(15)</type>
+				<type>date</type>
 				<null></null>
 				<key></key>
 				<default></default>
@@ -937,7 +937,7 @@
 			</field>
 			<field>
 				<name>enddate</name>
-				<type>int(15)</type>
+				<type>date</type>
 				<null></null>
 				<key></key>
 				<default></default>
@@ -945,7 +945,7 @@
 			</field>
 			<field>
 				<name>sstartdate</name>
-				<type>int(15)</type>
+				<type>date</type>
 				<null></null>
 				<key></key>
 				<default></default>
@@ -953,7 +953,7 @@
 			</field>
 			<field>
 				<name>senddate</name>
-				<type>int(15)</type>
+				<type>date</type>
 				<null></null>
 				<key></key>
 				<default></default>

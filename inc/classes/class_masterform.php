@@ -121,7 +121,7 @@ class masterform {
         if ($this->isChange) {
           $db_query = '';
           if ($this->SQLFields) foreach ($this->SQLFields as $val) {
-            if ($SQLFieldTypes[$val] == 'datetime') $db_query .= ", UNIX_TIMESTAMP($val) AS $val";
+            if ($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') $db_query .= ", UNIX_TIMESTAMP($val) AS $val";
             else $db_query .= ", $val";
           }
 
@@ -152,6 +152,10 @@ class masterform {
                 $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
                 $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_hours'], $_POST[$field['name'].'_value_minutes'], 0);
 
+              if ($SQLFieldTypes[$field['name']] == 'date')
+                $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
+                $_POST[$field['name'].'_value_day'], 0, 0, 0);
+
               if ($field['type'] == IS_CALLBACK) $err = call_user_func($field['selections'], $field['name'], CHECK_ERROR_PROC);
               if ($err) $this->error[$field['name']] = $err;
 
@@ -164,7 +168,7 @@ class masterform {
                 and $_POST[$field['name']] and (int)$_POST[$field['name']] == 0) $this->error[$field['name']] = $lang['mf']['err_no_integer'];
 
               // Check date
-              elseif ($SQLFieldTypes[$field['name']] == 'datetime'
+              elseif (($SQLFieldTypes[$field['name']] == 'datetime' or $SQLFieldTypes[$field['name']] == 'date')
                 and !checkdate($_POST[$field['name'].'_value_month'], $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_year']))
                 $this->error[$field['name']] = $lang['mf']['err_invalid_date'];
                 
@@ -264,6 +268,10 @@ class masterform {
 
               case 'datetime': // Date-Select
                 $dsp->AddDateTimeRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', '', '', '', $field['optional']);
+              break;
+
+              case 'date': // Date-Select
+                $dsp->AddDateTimeRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', '', '', 1, $field['optional']);
               break;
 
               case IS_PASSWORD: // Password-Row
@@ -384,7 +392,7 @@ class masterform {
             $db_query = '';
             if ($this->SQLFields) {
               foreach ($this->SQLFields as $key => $val) {
-                if ($SQLFieldTypes[$val] == 'datetime') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
+                if ($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
                 else $db_query .= "$val = '{$_POST[$val]}', ";
               }
               $db_query = substr($db_query, 0, strlen($db_query) - 2);
