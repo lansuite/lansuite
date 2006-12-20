@@ -23,6 +23,7 @@ class party{
 	 */
 	
 	var $party_id;
+	var $count = 0;
 	
 		
 		/**
@@ -35,15 +36,16 @@ class party{
 			
 			if (!isset($_SESSION['party_info'])) $_SESSION['party_info'] = array();
 			
-			if ($cfg['signon_multiparty'] == 0) $this->party_id = $cfg['signon_partyid'];
-			else {
-				if (isset($_GET['party_id'])) $this->party_id = $_GET['party_id'];
-				elseif (isset($_POST['party_id']) and is_numeric($_POST['party_id'])) $this->party_id = $_POST['party_id'];
-				elseif (isset($_SESSION['party_id'])) $this->party_id = $_SESSION['party_id'];
-				else $this->party_id = $cfg['signon_partyid'];
+			if (isset($_GET['party_id'])) $this->party_id = $_GET['party_id'];
+			elseif (isset($_POST['party_id']) and is_numeric($_POST['party_id'])) $this->party_id = $_POST['party_id'];
+			elseif (isset($_SESSION['party_id'])) $this->party_id = $_SESSION['party_id'];
+			else $this->party_id = $cfg['signon_partyid'];
 
-  			$_SESSION['party_id'] =  $this->party_id;
-			}
+			$_SESSION['party_id'] =  $this->party_id;
+
+			$row = $db->query("SELECT * FROM {$config['tables']['partys']}");
+			$this->count = $db->num_rows();
+			$db->free_result();
 		}
 
 	
@@ -95,8 +97,7 @@ class party{
 			}
 			$this->write_party_infos();
 		}
-		
-		
+
 		/**
 		 * Funktion zum hinzufügen eines Formulars zur Partyauswahl
 		 *
@@ -107,42 +108,28 @@ class party{
 			global $dsp,$db,$lang,$templ,$func,$cfg,$config;
 			
 			// Bei leerem String
-			if ($link == ''){
-				$link = "index.php?" . $_SERVER['QUERY_STRING'];
-			}
+			if ($link == '') $link = "index.php?" . $_SERVER['QUERY_STRING'];
 			
-			// Wenn die Anzeige auf nur einer party steht dann nichts ausgeben
-			if($cfg['signon_multiparty'] == 1){
-				if($show_old = 0){
-					$query = "SELECT * FROM {$config['tables']['partys']} WHERE enddate < " . time();
-				}else{
-					$query = "SELECT * FROM {$config['tables']['partys']}";
-				}
+			if ($show_old = 0) $query = "SELECT * FROM {$config['tables']['partys']} WHERE enddate < " . time();
+			else $query = "SELECT * FROM {$config['tables']['partys']}";
+			
+			// Wenn nur eine Party aufgelistet ist nichts ausgeben
+			$row = $db->query($query);
+			if ($db->num_rows($row) >= 1) {
 				
-				// Wenn nur eine Party aufgelistet ist nichts ausgeben
-				$row = $db->query($query);
-				if($db->num_rows($row) >= 1){
+				while ($res = $db->fetch_array($row)){
+					$start_date = $func->unixstamp2date($res["startdate"], "date");
+					$end_date = $func->unixstamp2date($res["enddate"], "date");
+
+					if ($res['party_id'] == $this->party_id) $selected = "selected='selected'";
+					else $selected = "";
 					
-					while($res = $db->fetch_array($row)){
-						$start_date = $func->unixstamp2date($res["startdate"], "date");
-						$end_date = $func->unixstamp2date($res["enddate"], "date");
-						
-						if($res['party_id'] == $this->party_id){
-							$selected = "selected='selected'";
-						}else{
-							$selected = "";
-						}
-						if(is_array($list_array)){
-							array_push($list_array,"<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
-						}else{
-							$list_array = array("<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
-						}
-					}
-		        	$dsp->SetForm($link);
-					$dsp->AddDropDownFieldRow("party_id",$lang['class_party']['drowpdown_name'],$list_array,'');
-		        	$dsp->AddFormSubmitRow("send");
+					if (is_array($list_array)) array_push($list_array,"<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
+					else $list_array = array("<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
 				}
-			
+        $dsp->SetForm($link);
+				$dsp->AddDropDownFieldRow("party_id",$lang['class_party']['drowpdown_name'],$list_array,'');
+        $dsp->AddFormSubmitRow("send");
 			}
 		}
 

@@ -142,15 +142,9 @@
   </group>
   <group>
     <head>
-      <name>Multi-Party</name>
+      <name>Partyeinstellungen</name>
     </head>
     <items>
-    	<item>
-    		<name>signon_multiparty</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Wird das System für mehrere Partys verwendet?</description>
-    	</item>
     	<item>
     		<name>signon_partyid</name>
     		<type>int</type>
