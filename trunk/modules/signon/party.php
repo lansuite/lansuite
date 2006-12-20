@@ -18,6 +18,9 @@ switch($_GET['step']){
     $ms2->AddIconField('details', 'index.php?mod=signon&action=party&step=1&party_id=', $lang['ms2']['details']);
     if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=signon&action=party_edit&party_id=', $lang['ms2']['edit']);
     #if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', $lang['ms2']['delete']);
+
+    if ($auth['type'] >= 3) $ms2->AddMultiSelectAction($lang['ms2']['delete'], 'index.php?mod=signon&action=party_del', 1);
+
     $ms2->PrintSearch('index.php?mod=signon&action=party', 'p.party_id');
 
     $dsp->AddSingleRow($dsp->FetchButton('index.php?mod=signon&action=party_edit', 'add'));
