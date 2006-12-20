@@ -7,7 +7,7 @@ switch ($_GET["step"]) {
 		}
 
 		// Avatar Upload
-		if (!$_FILES["newavatar"]["error"]) {
+		if ($cfg['user_avatarupload'] and !$_FILES["newavatar"]["error"]) {
 			$target = $func->FileUpload("newavatar", "ext_inc/avatare/", "avatar_". $auth["userid"]);
 			if (!$target) {
 				$newavatar_error = $lang['usrmgr']['settings_upload_error'];
