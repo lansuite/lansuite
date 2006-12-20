@@ -1,20 +1,25 @@
 <?php
 
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0.3
-*	File Version:		1.0
-*	Filename: 			price.php
-*	Module: 			signon
-*	Main editor: 		Genesis marco@chuchi.tv
-*	Last change: 		25.02.05
-*	Description: 		Editieren der Preise für die Partys
-*	Remarks:
-*
-**************************************************************************/
+if (!$_GET['party_id']) $_GET['party_id'] = $party->party_id;
 
+include_once('inc/classes/class_masterform.php');
+$mf = new masterform();
+
+$mf->AdditionalKey = 'party_id = '. (int)$_GET['party_id'];
+
+$dsp->AddDoubleRow('Party', (int)$_GET['party_id']);
+
+$mf->AddField($lang['signon']['price_text'], 'price_text');
+$mf->AddField($lang['signon']['price'], 'price');
+$mf->AddField($lang['signon']['depot_desc'], 'depot_desc');
+$mf->AddField($lang['signon']['depot_price'], 'depot_price');
+
+$mf->SendForm('index.php?mod=party&action=price_edit', 'party_prices', 'price_id', $_GET['price_id']);
+$dsp->AddBackButton('index.php?mod=party&action=price');
+$dsp->AddContent();
+
+
+/*
 switch ($_GET['step']){
 	case 3:
 		if($_POST['price_text'] == ""){
@@ -44,9 +49,13 @@ switch ($_GET['step']){
 	default:
 		$party->get_party_dropdown_form(1,'?mod=signon&action=price&step=2');
 		$dsp->AddContent();
-	}
+#	break;
 	
 	case 2 :
+    #$_POST['price_id'] = $_GET['party_id'];
+
+
+
 		$dsp->NewContent($lang['signon']['edit_price_caption'],$lang['signon']['edit_price_subcaption']);
 		if($_GET['var'] == "update"){
 			$dsp->SetForm("index.php?mod=signon&action=price&step=3&var=update");
@@ -126,8 +135,5 @@ switch ($_GET['step']){
 	break;
 		
 }
-
-
-
-
+*/
 ?>

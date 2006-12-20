@@ -29,6 +29,6 @@ $mf->AddField($lang['signon']['setime'], 'senddate');
 */
 
 $mf->AdditionalDBUpdateFunction = 'UpdatePartyID';
-$mf->SendForm('index.php?mod=signon&action=party_edit', 'partys', 'party_id', $_GET['party_id']);
+$mf->SendForm('index.php?mod=party&action=edit', 'partys', 'party_id', $_GET['party_id']);
 
 ?>
