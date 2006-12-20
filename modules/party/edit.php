@@ -6,8 +6,8 @@ $mf = new masterform();
 function UpdatePartyID($id) {
   global $db, $config, $lang, $func;
   
-  $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '" . $_POST['party_id'] . "' WHERE cfg_key = 'signon_partyid'");
-  $func->confirmation($lang['mf']['change_success']);
+  $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '$id' WHERE cfg_key = 'signon_partyid'");
+  $func->confirmation($lang['mf']['change_success']);  
 }
 
 $mf->AddField($lang['signon']['partyname'], 'name');

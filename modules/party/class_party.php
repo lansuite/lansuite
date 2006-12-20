@@ -1,109 +1,67 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0.3
-*	File Version:		1.0
-*	Filename: 			class_party.php
-*	Main editor: 		Genesis marco@chuchi.tv
-*	Last change: 		25.02.2005
-*	Description: 		Klasse für die Verwaltung mehrerer Partys
-*	Remarks:			
-*
-**************************************************************************/
-
-
 class party{
 
-	/**
-	 * Party_id bezeichnet die momentane Party 
-	 *
-	 * @var int
-	 */
-	
 	var $party_id;
 	var $count = 0;
 	
+  // Constructor
+	function party(){
+		global $cfg, $db, $config;
 		
-		/**
-		 * Klasse um mehrere Party zu verwalten
-		 *
-		 * @return party
-		 */
-		function party(){
-			global $cfg,$db,$config;
-			
-			if (!isset($_SESSION['party_info'])) $_SESSION['party_info'] = array();
-			
-			if (isset($_GET['party_id'])) $this->party_id = $_GET['party_id'];
-			elseif (isset($_POST['party_id']) and is_numeric($_POST['party_id'])) $this->party_id = $_POST['party_id'];
-			elseif (isset($_SESSION['party_id'])) $this->party_id = $_SESSION['party_id'];
-			else $this->party_id = $cfg['signon_partyid'];
+		if (isset($_GET['party_id'])) $this->party_id = $_GET['party_id'];
+		elseif (isset($_POST['party_id']) and is_numeric($_POST['party_id'])) $this->party_id = $_POST['party_id'];
+		elseif (isset($_SESSION['party_id'])) $this->party_id = $_SESSION['party_id'];
+		else $this->party_id = $cfg['signon_partyid'];
 
-			$_SESSION['party_id'] =  $this->party_id;
+    $this->UpdatePartyArray();
+    
+		$_SESSION['party_id'] = $this->party_id;
+	}
 
-			$row = $db->query("SELECT * FROM {$config['tables']['partys']}");
-			$this->count = $db->num_rows();
-			$db->free_result();
-		}
+	// Read PartyInfo into Vars
+	function UpdatePartyArray(){
+	global $cfg, $db, $config;
 
-	
-		/**
-		 * Party in die Session schreiben Interne Funktion
-		 *
-		 */
-		function write_party_infos(){
-			global $db,$config;
-	
-			if (is_numeric($this->party_id)){
-  			// Lese Partydaten
-  			$row = $db->query_first("SELECT * FROM {$config['tables']['partys']} WHERE party_id={$this->party_id}");	
-  			
-  			$_SESSION['party_info']['name']			= $row['name'];
-  			$_SESSION['party_info']['partyort']		= $row['ort'];
-  			$_SESSION['party_info']['partyplz']		= $row['plz'];
-  			$_SESSION['party_info']['partybegin'] 	= $row['startdate'];
-  			$_SESSION['party_info']['partyend'] 	= $row['enddate'];
-  			$_SESSION['party_info']['s_startdate'] 	= $row['sstartdate'];
-  			$_SESSION['party_info']['s_enddate'] 	= $row['senddate'];
-  			$_SESSION['party_info']['max_guest'] 	= $row['max_guest']; 
-			}
-		}
-		
-		
-		// Partyid abfragen
-		/**
-		 * Funktion zum ausgeben der Party_id
-		 *
-		 * @return int
-		 */
-		function get_party_id(){
-			return $this->party_id;
-		}
-		
-		// Partyid setzen
-		/**
-		 * Funktion um eine neue Party zu setzen es wird geprüft ob die Party existiert
-		 *
-		 * @param int $id
-		 */
-		function set_party_id($id){
-			global $db,$config;
-			$row = $db->query_first_rows("SELECT * FROM {$config['tables']['partys']} WHERE party_id={$id}");	
-			if($row['number'] == 1){
-				$this->party_id = $id;
-				// $_SESSION['party_id'] = $id;
-			}
-			$this->write_party_infos();
-		}
+    if ($db->success) {
+      // Count Partys
+  		$res = $db->query("SELECT * FROM {$config['tables']['partys']}");
+  		$this->count = $db->num_rows($res);
+  		$db->free_result($res);
 
-		/**
-		 * Funktion zum hinzufügen eines Formulars zur Partyauswahl
-		 *
-		 * @param boolean $show_old
-		 * @param string $link
-		 */
+  		if ($this->count == 0) {
+    		$cfg['signon_partyid'] = 0;
+    		$this->party_id = 0;
+      }
+
+			$row = $db->query_first("SELECT * FROM {$config['tables']['partys']} WHERE party_id={$this->party_id}");	
+			$_SESSION['party_info'] = array();
+			$_SESSION['party_info']['name']			= $row['name'];
+			$_SESSION['party_info']['partyort']		= $row['ort'];
+			$_SESSION['party_info']['partyplz']		= $row['plz'];
+			$_SESSION['party_info']['partybegin'] 	= $row['startdate'];
+			$_SESSION['party_info']['partyend'] 	= $row['enddate'];
+			$_SESSION['party_info']['s_startdate'] 	= $row['sstartdate'];
+			$_SESSION['party_info']['s_enddate'] 	= $row['senddate'];
+			$_SESSION['party_info']['max_guest'] 	= $row['max_guest']; 
+    }
+	}
+
+	function get_party_id(){
+		return $this->party_id;
+	}
+
+	function set_party_id($id){
+		global $db, $config;
+
+		$row = $db->query_first_rows("SELECT * FROM {$config['tables']['partys']} WHERE party_id={$id}");	
+		if($row['number'] == 1){
+			$this->party_id = $id;
+		}
+		$this->UpdatePartyArray();
+	}
+
+
+
 		function get_party_dropdown_form($show_old = 0, $link = ''){
 			global $dsp,$db,$lang,$templ,$func,$cfg,$config;
 			
@@ -715,24 +673,5 @@ class party{
 				return false;
 			}
 		}
-		/*
-		function delete_party($party_id){
-			global $db, $config;
-				// Sitzplan löschen
-				if(isset($config['tables']['seat_block'])){
-					$db->query("DELETE FROM {$config['tables']['seat_block']} WHERE party_id=$party_id");
-				}
-				// Turniere löschen
-				if(isset($config['tables']['seat_block'])){
-					$db->query("DELETE FROM {$config['tables']['seat_block']} WHERE party_id=$party_id");
-				}
-			
-			
-		}
-		*/
-		
-		
 }
-
-
 ?>
