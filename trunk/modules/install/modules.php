@@ -24,7 +24,7 @@ function WriteMenuEntries() {
 		$templ['ls']['row']['menuitem']['needed_config'] = "<option value=\"\">-{$lang["install"]["none"]}-</option>";
 
 		$res2 = $db->query("SELECT cfg_key FROM {$config["tables"]["config"]} WHERE cfg_type = 'boolean' OR cfg_type = 'int' ORDER BY cfg_key");
-		foreach ($MenuCallbacks as $MenuCallback) {
+		if ($MenuCallbacks) foreach ($MenuCallbacks as $MenuCallback) {
 			($MenuCallback == $row["needed_config"])? $selected = " selected" : $selected = "";
 			$templ['ls']['row']['menuitem']['needed_config'] .= "<option value=\"{$MenuCallback}\"$selected>{$MenuCallback}</option>";
 		}
