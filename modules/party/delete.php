@@ -3,6 +3,6 @@
 foreach ($_POST[action] as $key => $val) {
 	$db->query("DELETE FROM {$config["tables"]["partys"]} WHERE party_id = ". (int)$key);
 }
-$func->confirmation('Erfolgreich gelöscht', 'index.php?mod=party');
+$func->confirmation('Erfolgreich gelÃ¶scht', 'index.php?mod=party');
 
 ?>
