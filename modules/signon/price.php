@@ -42,11 +42,9 @@ switch ($_GET['step']){
 switch ($_GET['step']){
 	
 	default:
-		if($cfg['signon_multiparty'] == 1){
-			$party->get_party_dropdown_form(1,'?mod=signon&action=price&step=2');
-			$dsp->AddContent();
-		break;
-		}
+		$party->get_party_dropdown_form(1,'?mod=signon&action=price&step=2');
+		$dsp->AddContent();
+	}
 	
 	case 2 :
 		$dsp->NewContent($lang['signon']['edit_price_caption'],$lang['signon']['edit_price_subcaption']);
