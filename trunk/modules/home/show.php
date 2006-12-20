@@ -40,7 +40,9 @@ switch ($home_page) {
       $z++;
 		}
 
-		if (in_array('stats', $ActiveModules)) {
+		if (in_array('stats', $ActiveModules)
+      and ($party->count > 0 or
+      ($auth['type'] >= 2) and (in_array('troubleticket', $ActiveModules) or in_array('rent', $ActiveModules)))) {
       include('modules/home/stats.inc.php');
       $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
       $z++;
