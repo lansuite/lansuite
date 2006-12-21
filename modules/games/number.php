@@ -24,8 +24,8 @@ $step = $_GET["step"];
 
 $dsp->NewContent($lang["games"]["ng_caption"], $lang["games"]["ng_subcaption"]);
 
-$menunames[] = $lang["games"]["ms_navi_start"];
-$menunames[] = $lang["games"]["ms_navi_highscore"];
+$menunames[1] = $lang["games"]["ms_navi_start"];
+$menunames[2] = $lang["games"]["ms_navi_highscore"];
 $dsp->AddHeaderMenu($menunames, "?mod=games&action=number", $headermenuitem);
 
 if ($headermenuitem == 1) $step = 1;

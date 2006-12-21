@@ -84,21 +84,20 @@ class display {
 	}
 
 
-    function AddHeaderMenu($names, $link, $active = NULL) {
-     	global $templ;
+  function AddHeaderMenu($names, $link, $active = NULL) {
+   	global $templ;
 
-        $i = 1;
-        foreach($names as $name) {
-			if($i == $active AND $active != NULL) { $am = ""; } else { $am = "class=\"menu\""; }
-			$templ['ls']['row']['headermenu']['items'] .= "<a href=\"".$link."&headermenuitem=$i\"".$am."><strong>".$name."</strong></a> - ";
-			$i++;
-        }
+    foreach ($names as $key => $name) {
+			if ($key == $active and $active != NULL) $am = '';
+      else $am = 'class="menu"';
+			$templ['ls']['row']['headermenu']['items'] .= "<a href=\"".$link."&headermenuitem=$key\"".$am."><strong>".$name."</strong></a> - ";
+    }
 
-		// Letztes Minus rausschneiden
-		$templ['ls']['row']['headermenu']['items'] = substr($templ['ls']['row']['headermenu']['items'], 0, -3);
+  	// Letztes Minus rausschneiden
+  	$templ['ls']['row']['headermenu']['items'] = substr($templ['ls']['row']['headermenu']['items'], 0, -3);
 
 		$this->AddTpl("design/templates/ls_row_headermenu.htm");
-    }
+  }
     
   function AddHeaderMenu2($names, $link, $active = NULL) {
    	global $templ;

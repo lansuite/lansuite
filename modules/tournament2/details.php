@@ -46,8 +46,8 @@ else {
 		default:	// Show details
 			$dsp->NewContent(str_replace("%NAME%", $tournament['name'], $lang["tourney"]["details_caption"]), $lang["tourney"]["details_subcaption"]);
 
-			$menunames[] = $lang["tourney"]["details_navi_info"];
-			$menunames[] = $lang["tourney"]["details_navi_regteams"];
+			$menunames[1] = $lang["tourney"]["details_navi_info"];
+			$menunames[2] = $lang["tourney"]["details_navi_regteams"];
 			$dsp->AddHeaderMenu($menunames, "index.php?mod=tournament2&action=details&tournamentid=$tournamentid", $headermenuitem);
 
 			switch ($headermenuitem) {

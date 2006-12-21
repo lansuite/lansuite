@@ -6,8 +6,10 @@ $dsp->NewContent($lang["stats"]["se_caption"], $lang["stats"]["se_subcaption"]);
 $se_name = array ();
 $se_name[] = $lang["stats"]["se_all"];
 $query = $db->query("SELECT se FROM {$config["tables"]["stats_se"]} GROUP BY se ORDER BY se");
+$i = 1;
 while ($row = $db->fetch_array($query)) {
-	$se_name[] = $row["se"];
+	$se_name[$i] = $row["se"];
+	$i++;
 }
 $db->free_result($res);
 $dsp->AddHeaderMenu($se_name, "index.php?mod=stats&action=search_engines", $_GET["headermenuitem"]);

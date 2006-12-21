@@ -20,8 +20,8 @@
 
 $dsp->NewContent($lang["games"]["hm_caption"], $lang["games"]["hm_subcaption"]);
 
-$menunames[] = $lang["games"]["ms_navi_start"];
-$menunames[] = $lang["games"]["ms_navi_highscore"];
+$menunames[1] = $lang["games"]["ms_navi_start"];
+$menunames[2] = $lang["games"]["ms_navi_highscore"];
 $dsp->AddHeaderMenu($menunames, "?mod=games&action=hangman", $_GET["headermenuitem"]);
 
 if ($_GET["headermenuitem"] == 1) $_GET["step"] = 0;
