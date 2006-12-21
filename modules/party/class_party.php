@@ -3,6 +3,7 @@ class party{
 
 	var $party_id = 0;
 	var $count = 0;
+	var $data = array();
 	
   // Constructor
 	function party(){
@@ -33,7 +34,9 @@ class party{
     		$this->party_id = 0;
       }
 
-			$row = $db->query_first("SELECT * FROM {$config['tables']['partys']} WHERE party_id={$this->party_id}");	
+			$row = $db->query_first("SELECT name, ort, plz, startdate, enddate, sstartdate, senddate, max_guest FROM {$config['tables']['partys']} WHERE party_id={$this->party_id}");
+			$this->data = $row;
+
 			$_SESSION['party_info'] = array();
 			$_SESSION['party_info']['name']			= $row['name'];
 			$_SESSION['party_info']['partyort']		= $row['ort'];
@@ -42,7 +45,7 @@ class party{
 			$_SESSION['party_info']['partyend'] 	= $row['enddate'];
 			$_SESSION['party_info']['s_startdate'] 	= $row['sstartdate'];
 			$_SESSION['party_info']['s_enddate'] 	= $row['senddate'];
-			$_SESSION['party_info']['max_guest'] 	= $row['max_guest']; 
+			$_SESSION['party_info']['max_guest'] 	= $row['max_guest'];
     }
 	}
 
