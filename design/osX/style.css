@@ -240,10 +240,10 @@ a.admin:hover {
 	visibility:  hidden;
 }
 
-option[value=de]:before { content:url("/ext_inc/country_flags/de.gif"); }
-option[value=en]:before { content:url("/ext_inc/country_flags/en.gif"); }
-option[value=at]:before { content:url("/ext_inc/country_flags/at.gif"); }
-option[value=ch]:before { content:url("/ext_inc/country_flags/ch.gif"); }
+option[value=de]:before { content:url("../../ext_inc/country_flags/de.gif"); }
+option[value=en]:before { content:url("../../ext_inc/country_flags/en.gif"); }
+option[value=at]:before { content:url("../../ext_inc/country_flags/at.gif"); }
+option[value=ch]:before { content:url("../../ext_inc/country_flags/ch.gif"); }
 
 
 
