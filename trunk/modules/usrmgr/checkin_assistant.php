@@ -28,7 +28,8 @@ switch($_GET["step"]) {
 // Main-Switch
 switch($_GET["step"]) {
 	// Auswahl: Angemeldet? ja/Nein
-	default:
+	case '':
+	case 1:
 		if($cfg['sys_barcode_on']){
 			$dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>","","index.php?mod=usrmgr&action=entrance&step=3&umode=change&userid=");
 		}
@@ -64,14 +65,24 @@ switch($_GET["step"]) {
 		$_POST["signon"] = 1;
 
 		$dsp->NewContent($lang["usrmgr"]["add_caption"], $lang["usrmgr"]["add_subcaption"]);
-		$dsp->SetForm("index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&quick_signon={$_GET['quick_signon']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}", "signon", "", "multipart/form-data");
-		$AddUser->ShowForm($_GET["umode"], $_GET['quick_signon']);
-	break;
 
+    $quick_signon = $_GET['quick_signon'];
+    include_once("modules/usrmgr/add.php");
+    if ($AddUserSuccess) {
+      $_GET['userid'] = $mf->insert_id;
+      $_GET['step']++;
+    }
+
+#		$dsp->SetForm("index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&quick_signon={$_GET['quick_signon']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}", "signon", "", "multipart/form-data");
+#		$AddUser->ShowForm($_GET["umode"], $_GET['quick_signon']);
+	break;
+}
+
+switch($_GET["step"]) {
 	// Platzpfand prüfen
-	case 4:
+  case 4:
 		$cfg["signon_autocheckin"] = 1;
-		$AddUser->WriteToDB($_GET["umode"], $_GET['quick_signon']);
+		#$AddUser->WriteToDB($_GET["umode"], $_GET['quick_signon']);
 
 		$user = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = {$_GET["userid"]}");
 		$seatcontrol = $party->get_seatcontrol($_GET['userid']);
@@ -81,10 +92,9 @@ switch($_GET["step"]) {
 
 		if ($seatprice > 0 and $_POST['paid'] > 0 and $_POST['signon'] and $seatcontrol == "0"){
 			$func->question(str_replace("%PRICE%", $seatprice . " " . $cfg['sys_currency'] ,$lang['usrmgr']['paid_seatcontrol_quest']),"index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=1&username=$username&priceid={$_POST['price_id']}&pw=$pw","index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=0&username=$username&priceid={$_POST['price_id']}&pw=$pw");
-			break;
+    	break;
 		}
-		
-		
+
 	// Passwort ausgeben
 	case 5:	
 		if ($_GET["umode"] == "change") $func->confirmation(str_replace("%USER%", $_POST["username"], $lang["usrmgr"]["add_editsuccess"]), "");
