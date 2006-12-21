@@ -106,47 +106,50 @@ else {
 
 
       // Party Checkin, paid, ...
-      $party_row = '';
-      $link = '';
-      ($user_party['user_id'])? $party_row .= $lang['usrmgr']['details_signon'] :  $party_row .= $lang['usrmgr']['details_not_signon'];
-      if (IsAuthorizedAdmin()) $link = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $_GET['userid'];
-      // Paid
-      ($user_party['paid'])? $party_row .= ', '. $dsp->AddIcon('paid', $link) : $party_row .= ', '. $dsp->AddIcon('not_paid', $link);
-      if ($user_party['paid'] == 1) $party_row .= ' ['. $lang['usrmgr']['details_paid_vvk'] .']';
-    	elseif ($user_party['paid'] == 2) $party_row .= ' ['. $lang['usrmgr']['details_paid_ak'] .']';
-      // Platzpfand
-      if ($party_seatcontrol['depot_price'] > 0){
-      	$party_row .= ', '. $party_seatcontrol['depot_desc'];
-      	$party_row .= ($user_party['seatcontrol']) ? $lang['usrmgr']['details_seat_paid'] : $lang['usrmgr']['details_seat_not_paid'];
+      if ($party->count > 0) {
+        $party_row = '';
+        $link = '';
+        ($user_party['user_id'])? $party_row .= $lang['usrmgr']['details_signon'] :  $party_row .= $lang['usrmgr']['details_not_signon'];
+        if (IsAuthorizedAdmin()) $link = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $_GET['userid'];
+        // Paid
+        ($user_party['paid'])? $party_row .= ', '. $dsp->AddIcon('paid', $link) : $party_row .= ', '. $dsp->AddIcon('not_paid', $link);
+        if ($user_party['paid'] == 1) $party_row .= ' ['. $lang['usrmgr']['details_paid_vvk'] .']';
+      	elseif ($user_party['paid'] == 2) $party_row .= ' ['. $lang['usrmgr']['details_paid_ak'] .']';
+        // Platzpfand
+        if ($party_seatcontrol['depot_price'] > 0){
+        	$party_row .= ', '. $party_seatcontrol['depot_desc'];
+        	$party_row .= ($user_party['seatcontrol']) ? $lang['usrmgr']['details_seat_paid'] : $lang['usrmgr']['details_seat_not_paid'];
+        }
+        // CheckIn CheckOut
+        $link = '';
+        if (IsAuthorizedAdmin() and !$user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkin&step=2&userid='. $_GET['userid'];
+        if ($user_party['checkin']) $party_row .= ' '. $dsp->AddIcon('in', $link, $lang['usrmgr']['checkin']) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
+        else $party_row .= $dsp->AddIcon('not_in', $link, $lang['usrmgr']['checkin_no']);
+  
+        $link = '';
+        if (IsAuthorizedAdmin() and !$user_party['checkout'] and $user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkout&step=2&userid='. $_GET['userid'];
+        if ($user_party['checkout']) $party_row .= ' '. $dsp->AddIcon('out', $link, $lang['usrmgr']['checkout']) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
+        else $party_row .= $dsp->AddIcon('not_out', $link, $lang['usrmgr']['checkout_no']);
+  
+        if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) $party_row .= $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=checkout&step=10&userid='. $_GET['userid'], 'Reset Checkin');
+  
+        $dsp->AddDoubleRow("Party '<i>". $_SESSION['party_info']['name'] ."</i>'", $party_row);
       }
-      // CheckIn CheckOut
-      $link = '';
-      if (IsAuthorizedAdmin() and !$user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkin&step=2&userid='. $_GET['userid'];
-      if ($user_party['checkin']) $party_row .= ' '. $dsp->AddIcon('in', $link, $lang['usrmgr']['checkin']) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
-      else $party_row .= $dsp->AddIcon('not_in', $link, $lang['usrmgr']['checkin_no']);
-
-      $link = '';
-      if (IsAuthorizedAdmin() and !$user_party['checkout'] and $user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkout&step=2&userid='. $_GET['userid'];
-      if ($user_party['checkout']) $party_row .= ' '. $dsp->AddIcon('out', $link, $lang['usrmgr']['checkout']) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
-      else $party_row .= $dsp->AddIcon('not_out', $link, $lang['usrmgr']['checkout_no']);
-
-      if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) $party_row .= $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=checkout&step=10&userid='. $_GET['userid'], 'Reset Checkin');
-
-      $dsp->AddDoubleRow("Party '<i>". $_SESSION['party_info']['name'] ."</i>'", $party_row);
-
 
 			// Seating
-			if ($user_data['blockid'] == '') $seat = $lang['usrmgr']['details_no_seat'];
-			else {
-			  $seat = $seat2->SeatOfUser($_GET['userid'], 0, 2);
-			  if (IsAuthorizedAdmin()) {
-  			  $seat .= ' '. $dsp->AddIcon('edit', 'index.php?mod=seating&action=seatadmin&step=2&userid='. $_GET['userid'], $lang['button']['edit']);
-  			  $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=free_seat&step=3&blockid={$user_data['blockid']}&row={$user_data['row']}&col={$user_data['col']}", $lang['button']['delete']);
-        }
-			}
-			if ($cfg['sys_internet'] == 0 and $user_data['ip']) $seat .= ' IP:'. $user_data['ip'];
-      $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $seat);
-
+			if (in_array('seating', $ActiveModules)) { 
+  			if ($user_data['blockid'] == '') $seat = $lang['usrmgr']['details_no_seat'];
+  			else {
+  			  $seat = $seat2->SeatOfUser($_GET['userid'], 0, 2);
+  			  if (IsAuthorizedAdmin()) {
+    			  $seat .= ' '. $dsp->AddIcon('edit', 'index.php?mod=seating&action=seatadmin&step=2&userid='. $_GET['userid'], $lang['button']['edit']);
+    			  $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=free_seat&step=3&blockid={$user_data['blockid']}&row={$user_data['row']}&col={$user_data['col']}", $lang['button']['delete']);
+          }
+  			}
+  			if ($cfg['sys_internet'] == 0 and $user_data['ip']) $seat .= ' IP:'. $user_data['ip'];
+        $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $seat);
+      }
+      
 
       $dsp->AddFieldsetStart($lang['usrmgr']['contact']);
 			// Address
