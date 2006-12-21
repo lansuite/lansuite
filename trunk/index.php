@@ -238,14 +238,14 @@ $func->show_debug();
 // Output HTML
 if ($_GET['contentonly'] or $_GET['design'] == 'base') $index = $templ['index']['info']['content'];
 else {
-  if (($_SESSION["lansuite"]["fullscreen"] == 1) and file_exists("design/{$auth["design"]}/templates/index_fullscreen.htm")) {
-  	$_SERVER['REQUEST_URI'] = str_replace("fullscreen=yes", "", $_SERVER['REQUEST_URI']);
+  if (($_SESSION['lansuite']['fullscreen'] == 1) and file_exists("design/{$auth["design"]}/templates/index_fullscreen.htm")) {
+  	$_SERVER['REQUEST_URI'] = str_replace('fullscreen=yes', '', $_SERVER['REQUEST_URI']);
   	$cur_url = parse_url($_SERVER['REQUEST_URI']);
-  	if ($cur_url["query"] == "") $templ['index']['control']['current_url'] = str_replace('?', '', $_SERVER['REQUEST_URI']) ."?fullscreen=no";
-  	else $templ['index']['control']['current_url'] = $_SERVER['REQUEST_URI'] ."fullscreen=no";
-  	eval("\$index = \"". $func->gettemplate("index_fullscreen")."\";");
-  } elseif ($script_filename == "install.php") eval("\$index = \"". $func->gettemplate("setup_index")."\";");
-  else eval("\$index = \"". $func->gettemplate("index_login")."\";");
+  	if ($cur_url['query'] == '') $templ['index']['control']['current_url'] = str_replace('?', '', $_SERVER['REQUEST_URI']) .'?fullscreen=no';
+  	else $templ['index']['control']['current_url'] = $_SERVER['REQUEST_URI'] .'&fullscreen=no';
+  	eval("\$index = \"". $func->gettemplate('index_fullscreen')."\";");
+  } elseif ($script_filename == 'install.php') eval("\$index = \"". $func->gettemplate("setup_index")."\";");
+  else eval("\$index = \"". $func->gettemplate('index_login')."\";");
 }
 if ($_GET['design'] != 'base') $sitetool->out_optimizer();
 
