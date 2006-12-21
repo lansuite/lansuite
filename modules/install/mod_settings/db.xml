@@ -961,17 +961,6 @@
 			</field>									
 		</structure>
 		<content>
-			<entry>
-				<party_id>1</party_id>
-				<max_guest>50</max_guest>
-				<name>Lansuite-Party</name>
-				<ort>Berlin</ort>
-				<plz>10000</plz>
-				<startdate></startdate>
-				<enddate></enddate>
-				<sstartdate></sstartdate>
-				<senddate></senddate>
-			</entry>
 		</content>
 	</table>	
 	<table>
@@ -1037,15 +1026,6 @@
 			</field>
 		</structure>
 		<content>
-			<entry>
-				<price_id>1</price_id>
-				<party_id>1</party_id>
-				<price_text>Eintritt</price_text>
-				<price>10</price>
-				<depot_desc></depot_desc>
-				<depot_price></depot_price>
-				<group_id>0</group_id>
-			</entry>
 		</content>
 	</table>	
 	<table>
