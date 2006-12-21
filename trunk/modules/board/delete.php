@@ -14,9 +14,13 @@ switch ($_GET['step']) {
 	break;
 
 	case 3:
-		$db->query("DELETE FROM {$config["tables"]["board_forums"]} WHERE fid='{$_GET['fid']}'");
+		$res = $db->query("SELECT tid FROM {$config["tables"]["board_threads"]} WHERE fid='{$_GET['fid']}'");
+		while ($row = $db->fetch_array($res)) {
+			$db->query("DELETE FROM {$config["tables"]["board_posts"]} WHERE tid='{$row['tid']}'");
+		}
+		$db->free_result($res);
 		$db->query("DELETE FROM {$config["tables"]["board_threads"]} WHERE fid='{$_GET['fid']}'");
-		$db->query("DELETE FROM {$config["tables"]["board_posts"]} WHERE fid='{$_GET['fid']}'");
+		$db->query("DELETE FROM {$config["tables"]["board_forums"]} WHERE fid='{$_GET['fid']}'");
 
 		$func->confirmation($lang['board']['forum_del'], "index.php?mod=board&action=delete"); 
 	break;
