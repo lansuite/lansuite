@@ -1,19 +1,40 @@
 <?php
   $templ['home']['show']['item']['info']['caption'] = $lang["home"]["stats_caption"] . " " . $_SESSION['party_info']['name'];
-  $templ['home']['show']['item']['control']['row'] = "";
-  
-if ($party->count > 0) {
-  // With or without admins?
-  if($cfg["guestlist_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
-  
-  $stat_infos = $stats->get_stat();
   $templ['home']['show']['item']['control']['row'] = '';
   
-  // User paid / Checked In / Checked Out
-  $templ['home']['show']['item']['control']['row'] .= $lang["home"]["stats_guests"] .': '. $stat_infos['user_paid'] .' / '. $stat_infos['user_checkin'] .' / '. $stat_infos['user_checkout'] . HTML_NEWLINE;
-  
-  // User overall / online
-  $templ['home']['show']['item']['control']['row'] .= $lang["home"]["stats_user"] .": ". $stat_infos['user_visits'] .' / '. $stat_infos['user_online'] . HTML_NEWLINE;
+if ($party->count > 0) {
+
+  // With or without admins?
+  if ($cfg['guestlist_showorga'] == 0) $querytype = 'type = 1';
+  else $querytype = 'type >= 1';
+
+	if ($party->party_id != '') {
+		$timestamp = time()-600;
+
+    // User paid / Checked In / Checked Out
+		$user_paid = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p
+      LEFT JOIN {$config["tables"]["user"]} ON user_id=userid
+      WHERE $querytype AND (p.paid > 0) AND p.party_id={$party->party_id}
+      ");
+		$user_checkin = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p
+      LEFT JOIN {$config["tables"]["user"]} ON user_id=userid
+      WHERE p.checkin>1 AND p.checkout=0 AND $querytype AND p.party_id={$party->party_id}
+      ");
+		$user_checkout = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p
+      LEFT JOIN {$config["tables"]["user"]} ON user_id=userid
+      WHERE p.checkout>1 AND $querytype AND p.party_id={$party->party_id}
+      ");
+    $templ['home']['show']['item']['control']['row'] .= $lang["home"]["stats_guests"] .': '. $user_paid['n'] .' / '. $user_checkin['n'] .' / '. $user_checkout['n'] . HTML_NEWLINE;
+
+
+    // User overall / online
+		$user_online = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["stats_auth"]}
+      WHERE lasthit>=$timestamp AND userid!='0' GROUP BY userid
+      ");
+		$visits = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$config['tables']['stats_usage']}");
+
+    $templ['home']['show']['item']['control']['row'] .= $lang["home"]["stats_user"] .": ". $visits['visits'] .' / '. $user_online['n'] . HTML_NEWLINE;
+  }
 }
 
 // Additional Admin-Stats	

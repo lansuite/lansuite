@@ -235,13 +235,7 @@ else $templ['index']['info']['logout_link'] = "";
 // Out Debug info, if present
 $func->show_debug();
 
-// Get Global Variables
-if ($db->success){
-	$templ['index']['info']['stats'] = $stats->get_stat();
-}
-
 // Output HTML
-#$templ['index']['info']['content'] = '<table width="100%" cellspacing="0" cellpadding="0">'. $templ['index']['info']['content']. '</table>';
 if ($_GET['contentonly'] or $_GET['design'] == 'base') $index = $templ['index']['info']['content'];
 else {
   if (($_SESSION["lansuite"]["fullscreen"] == 1) and file_exists("design/{$auth["design"]}/templates/index_fullscreen.htm")) {
