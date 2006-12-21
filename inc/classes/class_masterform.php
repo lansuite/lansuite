@@ -36,6 +36,7 @@ class masterform {
   var $AddInsertControllField = '';
   var $AddChangeCondition = '';
   var $NumFields = 0;
+  var $insert_id = -1;
   
   function masterform($MFID = 0) {
     $this->MFID = $MFID;
@@ -410,6 +411,7 @@ class masterform {
                   if ($this->AddInsertControllField) $DBInsertQuery .= ', '. $idname .' = '. (int)$id;
                   $db->query("INSERT INTO {$config['tables'][$table]} SET $DBInsertQuery");
                   $id = $db->insert_id();
+                  $this->insert_id = $id;
                 }
               }
             }

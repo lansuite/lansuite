@@ -10,7 +10,7 @@ function DeleteUser($userid) {
 	if ($auth["type"] == 2 and $get_data["type"] >= 2) $func->error($lang['usrmgr']['del_tofew_rights'], "index.php?mod=usrmgr");
 	elseif ($get_data["type"] < 0) $func->error($lang['usrmgr']['del_allready'], "index.php?mod=usrmgr");
 	elseif ($auth["userid"] == $userid) $func->error($lang['usrmgr']['del_no_self'], "index.php?mod=usrmgr");
-	elseif ($get_data["username"] == "") $func->error($lang["usrmgr"]["checkin_nouser"], "index.php?mod=usrmgr");
+	#elseif ($get_data["username"] == "") $func->error($lang["usrmgr"]["checkin_nouser"], "index.php?mod=usrmgr");
 	else {						
 		$db->query("UPDATE {$config["tables"]["user"]} SET type = '-4', username = CONCAT(username,' (Deleted)'), comment = CONCAT('{$lang["usrmgr"]["del_sql_mark"]} email: ',email), email = CONCAT(userid,'_deleted') WHERE userid = '$userid'");
 		$db->query("UPDATE {$config["tables"]["seat_seats"]} SET status = '1', userid='0' WHERE userid = '$userid'");

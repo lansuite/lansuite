@@ -413,8 +413,9 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
   }
   
 
+  $AddUserSuccess = 0;
   $mf->AdditionalDBUpdateFunction = 'Update';
-  if($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $_GET['step'] .'&signon='. $_GET['signon'], 'user', 'userid', $_GET['userid'])) {
+  if ($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $_GET['step'] .'&signon='. $_GET['signon'], 'user', 'userid', $_GET['userid'])) {
     // Log in new user
     if (!$auth['login']) {
       $_POST['email'] = $_POST['email']; 
@@ -425,6 +426,8 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       $_GET['user_id'] = $auth['userid'];
       include_once("modules/usrmgr/party.php");
     }
+    
+    $AddUserSuccess = 1;
   }
 }
 
