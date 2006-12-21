@@ -30,7 +30,7 @@ if ($auth['login']) include("modules/boxes/userdata.php");
 else include("modules/boxes/login.php");
 
 // Anmeldestatus
-if ($cfg["sys_internet"]) include("modules/boxes/signonstatus.php");
+if ($cfg["sys_internet"] and $party->count > 0) include("modules/boxes/signonstatus.php");
 
 // Stats
 if (in_array('stats', $ActiveModules)) include("modules/boxes/stats.php");

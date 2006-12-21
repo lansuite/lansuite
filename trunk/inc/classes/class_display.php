@@ -310,7 +310,7 @@ class display {
 
 		$templ['ls']['row']['dropdown']['name'] = $name;
 		$templ['ls']['row']['dropdown']['key'] = $key;
-		$templ['ls']['row']['dropdown']['options'] = implode("", $option_array);
+		$templ['ls']['row']['dropdown']['options'] = implode('', $option_array);
 		$templ['ls']['row']['additionalHTML'] = $additionalHTML;
 
     if ($errortext) $templ['ls']['row']['dropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
