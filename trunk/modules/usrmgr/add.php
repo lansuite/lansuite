@@ -249,6 +249,13 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $mf->AddField($lang['usrmgr']['add_type'], 'type', IS_SELECTION, $selections, '', '', 1, array('2', '3'));
 
         $selections = array();
+        $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
+        while ($row = $db->fetch_array($res)) {
+          $selections[$row['group_id']] = $row['group_name'];
+        }
+        $mf->AddField($lang['usrmgr']['group'], 'group_id', IS_SELECTION, $selections, 1);
+
+        $selections = array();
         $res = $db->query("SELECT module.name, module.caption FROM {$config["tables"]["modules"]} AS module
         	LEFT JOIN {$config["tables"]["menu"]} AS menu ON menu.module = module.name
         	WHERE menu.file != ''
@@ -306,8 +313,6 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       $selections['1'] = $lang['usrmgr']['add_paid_vvk'];
       $selections['2'] = $lang['usrmgr']['add_paid_ak'];
       $mf->AddField($lang['usrmgr']['add_paid'], 'paid', IS_SELECTION, $selections);
-
-      $party->GetUserGroupDropdown('NULL', 1, (int)$_POST['group_id'], true);
     }
 
     $mf->AddGroup('Party "'. $_SESSION['party_info']['name'] .'"');
