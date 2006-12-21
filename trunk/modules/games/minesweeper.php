@@ -23,8 +23,8 @@ $action = $_GET["action"];
 
 $dsp->NewContent($lang["games"]["ms_caption"], $lang["games"]["ms_subcaption"]);
 
-$menunames[] = $lang["games"]["ms_navi_start"];
-$menunames[] = $lang["games"]["ms_navi_highscore"];
+$menunames[1] = $lang["games"]["ms_navi_start"];
+$menunames[2] = $lang["games"]["ms_navi_highscore"];
 $dsp->AddHeaderMenu($menunames, "?mod=games&action=minesweeper", $headermenuitem);
 
 if ($headermenuitem == 1) $_GET["step"] = 1;

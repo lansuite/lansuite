@@ -58,10 +58,11 @@ else {
 			WHERE price_id = '{$user_party['price_id']}'
 			");
 
-	$menunames[] = $lang['usrmgr']['details_playerinfos'];
-	$menunames[] = $lang['usrmgr']['details_tournament'];
-	$menunames[] = $lang['usrmgr']['details_misc'];
-	$menunames[] = $lang['usrmgr']['details_own_fields'];
+	$menunames[1] = $lang['usrmgr']['details_playerinfos'];
+	if (in_array('tournament2', $ActiveModules)) $menunames[2] = $lang['usrmgr']['details_tournament'];
+	$menunames[3] = $lang['usrmgr']['details_misc'];
+  $user_fields = $db->query("SELECT name, caption, optional FROM {$config['tables']['user_fields']}");
+  if ($db->num_rows($user_fields) > 0) $menunames[4] = $lang['usrmgr']['details_own_fields'];
 	if(!$vars['headermenuitem']) { $vars['headermenuitem'] = 1; }
 
 
@@ -228,46 +229,48 @@ else {
 
     // Tournament list
 		case 2:
-			// League IDs
-      $dsp->AddFieldsetStart($lang['usrmgr']['leagues']);
-			$wwcl = '';
-			if ($user_data['wwclid']) $wwcl .= $user_data['wwclid'] .' ';
-			if ($user_data['wwclclanid']) $wwcl .= '('. $user_data['wwclclanid'] .')';
-			$dsp->AddDoubleRow($lang['usrmgr']['details_wwcl_id']. ' (Clan-ID)', $wwcl);
-			$ngl = '';
-			if ($user_data['nglid']) $ngl .= $user_data['nglid'] .' ';
-			if ($user_data['nglclanid']) $ngl .= '('. $user_data['nglclanid'] .')';
-			$dsp->AddDoubleRow($lang['usrmgr']['details_ngl_id']. ' (Clan-ID)', $ngl);
-			$lgz = '';
-			if ($user_data['lgzid']) $lgz .= $user_data['lgzid'] .' ';
-			if ($user_data['lgzclanid']) $lgz .= '('. $user_data['lgzclanid'] .')';
-			$dsp->AddDoubleRow('LGZ-ID (Clan-ID)', $lgz);
-      $dsp->AddFieldsetEnd();
-
-
-      include_once("modules/tournament2/class_tournament.php");
-      $tfunc = new tfunc;
-
-      $dsp->AddFieldsetStart($lang['usrmgr']['details_leader_teams']);
-			$leader_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
-		    LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
-        WHERE team.leaderid = '{$_GET['userid']}'");
-      if ($db->num_rows($leader_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
-      else while ($leader_team = $db->fetch_array($leader_teams)) {
-	      $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $leader_team['tid']. '">'. $leader_team['name'] .'</a>', $leader_team['teamname'] .' '. $tfunc->button_team_details($leader_team['teamid'], $leader_team['tid']));
+		  if (in_array('tournament2', $ActiveModules)) { 
+  			// League IDs
+        $dsp->AddFieldsetStart($lang['usrmgr']['leagues']);
+  			$wwcl = '';
+  			if ($user_data['wwclid']) $wwcl .= $user_data['wwclid'] .' ';
+  			if ($user_data['wwclclanid']) $wwcl .= '('. $user_data['wwclclanid'] .')';
+  			$dsp->AddDoubleRow($lang['usrmgr']['details_wwcl_id']. ' (Clan-ID)', $wwcl);
+  			$ngl = '';
+  			if ($user_data['nglid']) $ngl .= $user_data['nglid'] .' ';
+  			if ($user_data['nglclanid']) $ngl .= '('. $user_data['nglclanid'] .')';
+  			$dsp->AddDoubleRow($lang['usrmgr']['details_ngl_id']. ' (Clan-ID)', $ngl);
+  			$lgz = '';
+  			if ($user_data['lgzid']) $lgz .= $user_data['lgzid'] .' ';
+  			if ($user_data['lgzclanid']) $lgz .= '('. $user_data['lgzclanid'] .')';
+  			$dsp->AddDoubleRow('LGZ-ID (Clan-ID)', $lgz);
+        $dsp->AddFieldsetEnd();
+  
+  
+        include_once("modules/tournament2/class_tournament.php");
+        $tfunc = new tfunc;
+  
+        $dsp->AddFieldsetStart($lang['usrmgr']['details_leader_teams']);
+  			$leader_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
+  		    LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
+          WHERE team.leaderid = '{$_GET['userid']}'");
+        if ($db->num_rows($leader_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
+        else while ($leader_team = $db->fetch_array($leader_teams)) {
+  	      $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $leader_team['tid']. '">'. $leader_team['name'] .'</a>', $leader_team['teamname'] .' '. $tfunc->button_team_details($leader_team['teamid'], $leader_team['tid']));
+        }
+        $dsp->AddFieldsetEnd();
+  
+        $dsp->AddFieldsetStart($lang['usrmgr']['details_member_teams']);
+  			$member_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
+  		    LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
+  		    LEFT JOIN {$config['tables']['t2_teammembers']} AS m ON team.teamid = m.teamid
+          WHERE m.userid = '{$_GET['userid']}'");
+        if ($db->num_rows($member_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
+        else while ($member_team = $db->fetch_array($member_teams)) {
+  	      $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $member_team['tid']. '">'. $member_team['name'] .'</a>', $member_team['teamname'] .' '. $tfunc->button_team_details($member_team['teamid'], $member_team['tid']));
+        }
+        $dsp->AddFieldsetEnd();
       }
-      $dsp->AddFieldsetEnd();
-
-      $dsp->AddFieldsetStart($lang['usrmgr']['details_member_teams']);
-			$member_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
-		    LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
-		    LEFT JOIN {$config['tables']['t2_teammembers']} AS m ON team.teamid = m.teamid
-        WHERE m.userid = '{$_GET['userid']}'");
-      if ($db->num_rows($member_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
-      else while ($member_team = $db->fetch_array($member_teams)) {
-	      $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $member_team['tid']. '">'. $member_team['name'] .'</a>', $member_team['teamname'] .' '. $tfunc->button_team_details($member_team['teamid'], $member_team['tid']));
-      }
-      $dsp->AddFieldsetEnd();
 		break;
 
 
@@ -309,14 +312,16 @@ else {
 
 
 		case 4:
-      // Add extra admin-defined fields    
-      $user_fields = $db->query("SELECT name, caption, optional FROM {$config['tables']['user_fields']}");
-      while ($user_field = $db->fetch_array($user_fields)) {
-  			$dsp->AddDoubleRow($user_field['caption'], $user_data[$user_field['name']]);
+		  if ($db->num_rows($user_fields) > 0) { 
+        // Add extra admin-defined fields    
+        while ($user_field = $db->fetch_array($user_fields)) {
+    			$dsp->AddDoubleRow($user_field['caption'], $user_data[$user_field['name']]);
+        }
       }
-      $db->free_result($user_fields);
 		break;
 	} // end switch
+
+  $db->free_result($user_fields);
 
 	$dsp->AddBackButton('index.php?mod='. $_GET['mod'] .'&action=search');
 	$dsp->AddContent();
