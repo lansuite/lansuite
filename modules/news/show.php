@@ -1,4 +1,5 @@
 <?php
+$LSCurFile = __FILE__;
 
 // COUNT NEWS
 $get_amount = $db->query_first("SELECT count(*) as number FROM {$config["tables"]["news"]}");
@@ -6,7 +7,7 @@ $overall_news = $get_amount["number"];
 
 if($overall_news == 0) $func->no_items("Newsmeldungen", "", "rlist");
 else {
-	$dsp->NewContent($lang["news"]["show_caption"], $lang["news"]["show_subcaption"]);
+	$dsp->NewContent(t('Neuigkeiten'), t('Hier sehen Sie aktuelle Informationen'));
 
 	// SET PAGE SPLIT
 	if ($cfg["news_count"] == "") $cfg["news_count"] = 5;

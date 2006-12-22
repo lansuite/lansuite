@@ -1,4 +1,6 @@
 <?php
+$LSCurFile = __FILE__;
+
 // CHECK IF NEWSID IS VALID
 $check = $db->query_first("SELECT caption FROM {$config["tables"]["news"]} WHERE newsid = '{$vars["newsid"]}'");
 if($check["caption"] != "") { 
@@ -22,7 +24,7 @@ if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $n
 	// SELECT ACTION TYPE
 	if ($vars["mcact"] == "" OR $vars["mcact"] == "show") {
 
-		$dsp->NewContent($lang["news"]["com_caption"], $lang["news"]["com_subcaption"]);
+		$dsp->NewContent(t('Newsmeldung + Kommentare'), t('Hier können Sie diese News kommentieren');
 
 		// SET ADMIN-ONLY FUNCTION BUTTONS
 		$templ['news']['show']['single']['row'][$news_type]['control']['buttons'] = "";
@@ -41,5 +43,5 @@ if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $n
 	$comment = new Mastercomment($vars,"index.php?mod=news&action=comment&newsid=" . $vars["newsid"],"news",$vars["newsid"],$templ['news']['show']['single']['row'][$news_type]['info']['caption']);
 	$comment->action();
 
-} else $func->error($lang["news"]["change_err_notexist"], "");
+} else $func->error(t('Diese Newsmeldung existiert nicht'), '');
 ?>

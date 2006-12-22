@@ -89,6 +89,7 @@ include_once("inc/classes/class_display.php");
 include_once("inc/classes/class_gd.php");
 include_once("inc/classes/class_sec.php");
 include_once("inc/classes/class_barcode.php");
+include_once("inc/classes/class_translation.php");
 
 include_once("modules/party/class_party.php");
 include_once("modules/install/class_install.php");

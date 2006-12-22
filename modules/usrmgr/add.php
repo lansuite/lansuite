@@ -224,6 +224,9 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
   $party_user = $db->query_first("SELECT * FROM {$config['tables']['party_user']} WHERE user_id = ". (int)$_GET["userid"] ." AND party_id={$party->party_id}");
   include_once('inc/classes/class_masterform.php');
   $mf = new masterform();
+  
+  if ($cfg['signon_def_locked']) $mf->AddFix('locked', 1);
+  
 /*
   if (count($_POST) == 0) $_POST['signon'] = $party_user['party_id'];
   if (!isset($_POST['price_id'])) $_POST['price_id'] = $party_user['price_id'];
@@ -283,6 +286,8 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $mf->AddFix('password', md5($_SESSION['tmp_pass']));
       }
       else $mf->AddField($lang['usrmgr']['add_password'], 'password', IS_NEW_PASSWORD);
+
+      if ($cfg['signon_captcha'] and !$_GET['userid']) $mf->AddField('', 'captcha', IS_CAPTCHA);
     }
     $mf->AddGroup($lang['usrmgr']['account']);
   }

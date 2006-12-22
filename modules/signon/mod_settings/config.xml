@@ -283,6 +283,25 @@ Ihre Orgas</default>
   </group>
   <group>
     <head>
+      <name>Sicherheit</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_captcha</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Captcha-Code verlangen (Hilft gegen Bot-Accounts)</description>
+    	</item>
+    	<item>
+    		<name>signon_def_locked</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Sind neue Accounts automatisch gesperrt?</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
       <name>Info-Boxen</name>
     </head>
     <items>

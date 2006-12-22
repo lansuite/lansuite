@@ -46,6 +46,7 @@ switch($_GET["step"]){
 
 				$dsp->AddCheckBoxRow("e_struct", $lang["install"]["export_structure"], "", "", 1, 1);
 				$dsp->AddCheckBoxRow("e_cont", $lang["install"]["export_content"], "", "", 1, 1);
+				$dsp->AddCheckBoxRow("e_trans", 'Übersetzungsdaten exportieren', "", "", 1, 1);
 				$dsp->AddHRuleRow();
 
 				$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
@@ -82,6 +83,7 @@ switch($_GET["step"]){
 
 				$dsp->AddCheckBoxRow("e_struct", $lang["install"]["export_structure"], "", "", 1, 1);
 				$dsp->AddCheckBoxRow("e_cont", $lang["install"]["export_content"], "", "", 1, 1);
+				$dsp->AddCheckBoxRow("e_trans", 'Übersetzungsdaten exportieren', "", "", 1, 1);
 				$dsp->AddHRuleRow();
 
 				$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
@@ -146,7 +148,7 @@ switch($_GET["step"]){
 			case "xml_modules":
 				$export->LSTableHead();
 				foreach ($_POST["table"] as $key => $value) {
-					if ($key) $export->ExportMod($key, $_POST["e_struct"], $_POST["e_cont"]);
+					if ($key) $export->ExportMod($key, $_POST["e_struct"], $_POST["e_cont"], $_POST["e_trans"]);
 				}
 				$export->LSTableFoot();
 			break;
@@ -154,7 +156,7 @@ switch($_GET["step"]){
 			case "xml_tables":
 				$export->LSTableHead();
 				foreach ($_POST["table"] as $key => $value) {
-					if ($key) $export->ExportTable($key, $_POST["e_struct"], $_POST["e_cont"]);
+					if ($key) $export->ExportTable($key, $_POST["e_struct"], $_POST["e_cont"], $_POST["e_trans"]);
 				}
 				$export->LSTableFoot();
 			break;

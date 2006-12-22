@@ -170,8 +170,17 @@ class Install {
 		$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = 'table_names'");
 
 		if (is_dir("modules")) {
+      // Do install-mod first! (for translations-table must exist)
+			if (is_dir("modules/install/mod_settings")) {
+				// Try to find DB-XML-File
+				if (file_exists("modules/install/mod_settings/db.xml")){
+					$this->WriteTableFromXMLFile('install');
+					if ($display_to_screen) $dsp->AddDoubleRow("Modul 'install'", "[<a href=\"install.php?mod=install&action=db&step=7&module=install&quest=1\">{$lang["install"]["db_rewrite"]}</a>]");
+				}
+			}
+
 			$modules_dir = opendir("modules/");
-			while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != "CVS" AND is_dir("modules/$module")) {
+			while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != "CVS" AND $module != "install" AND is_dir("modules/$module")) {
 			
 				if (is_dir("modules/$module/mod_settings")) {
 					// Try to find DB-XML-File
