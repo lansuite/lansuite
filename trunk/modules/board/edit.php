@@ -149,12 +149,6 @@ switch($mode) {
 
 			case 2:
 				$db->query("DELETE FROM {$config['tables']['board_posts']} WHERE pid='$pid'");
-
-				$row_lpid = $db->query_first("SELECT pid FROM {$config["tables"]["board_posts"]} WHERE tid='$tid' ORDER BY date DESC LIMIT 1");
-				$last_pid = ($row_lpid["pid"] == "") ? 0 : $row_lpid["pid"];
-
-				$db->query("UPDATE {$config['tables']['board_threads']} SET last_pid='$last_pid' WHERE tid = '$tid'");
-
 				$func->confirmation($lang['board']['post_del_ok'], "index.php?mod=board&action=thread&tid=$tid");
 			break;
 		} else $func->information($lang['board']['post_del_orga'], "index.php?mod=board&action=thread&tid=$tid");
