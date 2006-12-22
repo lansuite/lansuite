@@ -7,13 +7,14 @@ $box->DotRow($lang['boxes']['stats_visits'] .': '. $total['visits']);
 
 // Avgerage online, this hour
 $avg = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$config["tables"]["stats_usage"]}
-  WHERE time = ". (floor(time() / (60 * 60)) - 1)
-	);
-$box->DotRow($lang['boxes']['avg_last_h'] .': '. round($avg['visits'] / 6, 1));
+  WHERE DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 HOUR), '%Y-%m-%d %H:00:00')
+	");
+#  time >= ". (floor(time() / (60 * 60)))
+$box->DotRow($lang['boxes']['avg_last_h'] .': '. $avg['visits']);
 
 // Number of hits
 $box->DotRow($lang['boxes']['stats_hits'] .': '. $total['hits']);
-$box->DotRow($lang['boxes']['avg_last_h'] .': '. round($avg['hits'] / 6, 1));
+$box->DotRow($lang['boxes']['avg_last_h'] .': '. $avg['hits']);
 $box->EmptyRow();
 
 // Get list of users currently online
