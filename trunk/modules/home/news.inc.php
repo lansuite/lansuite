@@ -8,12 +8,18 @@
 	if($db->num_rows($query) > 0) {
 		while($row = $db->fetch_array($query)) {
 
+    $comments = $db->query_first("SELECT COUNT(*) AS n FROM {$config["tables"]["comments"]}
+      WHERE relatedto_item = 'news' AND relatedto_id = {$row["newsid"]}
+      GROUP BY relatedto_id
+      ");
+    
+
 				$newsid 	= $row["newsid"];
 				$caption	= $row["caption"];
 				$prio		= $row["priority"];
 				
 				$templ['home']['show']['row']['control']['link']	= "index.php?mod=news&action=comment&newsid=$newsid";
-				$templ['home']['show']['row']['info']['text']		= $caption;
+				$templ['home']['show']['row']['info']['text']		= $caption.' ('.$comments['n'].')';
 
 				if ($prio == 1) { 
 					$templ['home']['show']['row']['info']['text2']		= "<strong>!!!</strong>";

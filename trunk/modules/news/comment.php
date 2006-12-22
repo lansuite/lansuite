@@ -24,7 +24,7 @@ if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $n
 	// SELECT ACTION TYPE
 	if ($vars["mcact"] == "" OR $vars["mcact"] == "show") {
 
-		$dsp->NewContent(t('Newsmeldung + Kommentare'), t('Hier können Sie diese News kommentieren');
+		$dsp->NewContent(t('Newsmeldung + Kommentare'), t('Hier können Sie diese News kommentieren'));
 
 		// SET ADMIN-ONLY FUNCTION BUTTONS
 		$templ['news']['show']['single']['row'][$news_type]['control']['buttons'] = "";
