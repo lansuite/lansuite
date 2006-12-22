@@ -37,11 +37,11 @@ else {
 
 	// Generate Thread-Buttons
 	$buttons = '';
-	if (($auth["login"] == 1 and $thread['need_type'] >= 1) or $thread['need_type'] == 0 or $auth['type'] > 1) $buttons .= " ". $dsp->FetchButton("index.php?mod=board&action=post&fid=$fid", "new_thread") .' '. $dsp->FetchButton("index.php?mod=board&action=post&tid=$tid", "new_post");
+	if (($auth["login"] == 1 and $thread['need_type'] >= 1) or $thread['need_type'] == 0 or $auth['type'] > 1) $buttons .= " ". $dsp->FetchButton("index.php?mod=board&action=post&fid=$fid", "new_thread") .' '. $dsp->FetchIcon("index.php?mod=board&action=post&tid=$tid", "send_mail");
 	if ($auth["type"] > 1) {
-    if ($thread['closed']) $buttons .= ' '. $dsp->FetchButton("index.php?mod=board&action=thread&step=11&tid=$tid", "open");
-    else $buttons .= ' '. $dsp->FetchButton("index.php?mod=board&action=thread&step=10&tid=$tid", "close");
-    $buttons .= ' '. $dsp->FetchButton("index.php?mod=board&action=edit&mode=delete&tid=$tid", "delete");
+    if ($thread['closed']) $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=thread&step=11&tid=$tid", "unlocked");
+    else $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=thread&step=10&tid=$tid", "locked");
+    $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=edit&mode=delete&tid=$tid", "delete");
   }
 
 	$query = $db->query("SELECT pid, comment, userid, date FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date");
@@ -83,9 +83,9 @@ else {
 
 		$templ['board']['thread']['case']['info']['post']['edit'] = "";
 		if ($auth['type'] > 1 or $row["userid"] == $auth["userid"])
-			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchButton("index.php?mod=board&action=edit&mode=pchange&pid=$pid", "edit");
+			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=edit&mode=pchange&pid=$pid", "edit");
 		if ($auth['type'] > 1)
-			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchButton("index.php?mod=board&action=edit&mode=pdelete&pid=$pid", "delete");
+			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=edit&mode=pdelete&pid=$pid", "delete");
 
 		$templ['board']['forum']['case']['control']['rows'] .= $dsp->AddModTpl("board", "board_thread_row");
 	}
@@ -116,9 +116,12 @@ else {
 		if ($bookmark["sysemail"]) $_POST["check_sysemail"] = 1;
 
 		$dsp->SetForm("index.php?mod=board&action=thread&tid=$tid&fid=$fid&set_bm=1");
-		$dsp->AddCheckBoxRow("check_bookmark", $lang["board"]["check_bookmark"], $lang["board"]["check_bookmark2"], "", 1, $_POST["check_bookmark"]);
+    $additionalHTML = "onclick=\"CheckBoxBoxActivate('email', this.checked)\"";
+		$dsp->AddCheckBoxRow("check_bookmark", $lang["board"]["check_bookmark"], $lang["board"]["check_bookmark2"], "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
+		$dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
 		$dsp->AddCheckBoxRow("check_email", $lang["board"]["check_email"], $lang["board"]["check_email2"], "", 1, $_POST["check_email"]);
 		$dsp->AddCheckBoxRow("check_sysemail", $lang["board"]["check_sysemail"], $lang["board"]["check_sysemail2"], "", 1, $_POST["check_sysemail"]);
+		$dsp->StopHiddenBox();
 		$dsp->AddFormSubmitRow("change");
 	}
 
