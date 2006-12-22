@@ -183,6 +183,7 @@
 	$lang['button']['changeclanpw'] = 'Clanpw ändern';
 	$lang['button']['register'] = 'Registrieren';
 	$lang['button']['lost_pw'] = 'Passwort vergessen?';
+	$lang['button']['quote'] = 'Zitieren';
 
 	// Missing-Fields dialog
 	$lang['missing_fields']['caption'] = 'Es gibt noch unausgefüllte Felder';

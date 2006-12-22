@@ -78,7 +78,8 @@ else {
 		$templ['board']['thread']['case']['info']['post']['poster']['rank'] 		= $lang['board']['rank'] . ": " . $userdata["rank"];
 		$templ['board']['thread']['case']['info']['post']['poster']['posts'] 		= $lang['board']['posts'] . ": " . $userdata["posts"];
 		$templ['board']['thread']['case']['info']['post']['poster']['avatar']		= $userdata["avatar"];
-		$templ['board']['thread']['case']['info']['post']['poster']['signature'] 	= $func->db2text2html($userdata["signature"]);
+		$templ['board']['thread']['case']['info']['post']['poster']['signature'] = '';
+		if ($userdata["signature"]) $templ['board']['thread']['case']['info']['post']['poster']['signature'] 	= '<hr size="1">'.$func->db2text2html($userdata["signature"]);
 
 		$templ['board']['thread']['case']['info']['post']['edit'] = "";
 		if ($auth['type'] > 1 or $row["userid"] == $auth["userid"])

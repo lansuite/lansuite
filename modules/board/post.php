@@ -19,10 +19,10 @@ else {
 
   $text 		= $_POST['text'];
   $caption 	= $_POST['caption'];
-
+$sec->unlock("board_post");
   switch ($step) {
   	default:
-  		$sec->unlock("board_post");
+  		#$sec->unlock("board_post");
   	break;
 
   	case 2:
@@ -84,7 +84,7 @@ else {
   			$dsp->AddTextFieldRow("caption", $lang['board']['thread_desc'], $caption, $board_error['caption']);
   		}
 
-  		$dsp->AddTextAreaPlusRow("text", $lang['board']['thread_text'], $__POST['text'], $board_error['text']);
+  		$dsp->AddTextAreaPlusRow("text", $lang['board']['thread_text'], $__POST['text'], $board_error['text'], 100, 20);
   		$dsp->AddFormSubmitRow("preview", "", "preview", false);
   		$dsp->AddFormSubmitRow("add");
   		$dsp->AddContent();
@@ -99,7 +99,8 @@ else {
   				LIMIT 5
   				");
   			while ($post = $db->fetch_array($posts)){
-  				$dsp->AddDoubleRow($post["username"] ."<br />". $func->unixstamp2date($post["date"], "daydatetime"), $func->db2text2html($post["comment"]));
+  				$dsp->AddDoubleRow($post["username"] ."<br />". $func->unixstamp2date($post["date"], "daydatetime"),
+            $func->db2text2html($post["comment"]).'<br>'. $dsp->FetchButton("javascript:InsertCode(document.dsp_form1.text, '[quote]". addslashes(str_replace('"', '', $post["comment"])) ."[/quote]')", "quote"));
   			}
   			$dsp->AddContent();
   		}
@@ -156,7 +157,7 @@ else {
 
   			// Print confirmation message
   			$func->confirmation($lang['board']['post_add_ok'], $backlink);
-  			$sec->lock("board_post");
+  			#$sec->lock("board_post");
   		}
   	break;
   }
