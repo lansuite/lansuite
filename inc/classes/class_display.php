@@ -696,6 +696,18 @@ class display {
 		return $this->FetchModTpl("", "ls_linkbutton");
 	}
 
+	function FetchIcon($link, $picname, $hint = NULL, $target = NULL) {
+		global $templ, $gd;
+
+    $templ['ms2']['icon_name'] = $picname;
+    $templ['ms2']['icon_title'] = $hint;
+    $ret = $this->FetchModTpl('mastersearch2', 'result_icon');
+    
+		if ($target) $target = " target=\"$target\"";
+    if ($link) $ret = '<a href="'.$link.'"'.$target.'>'.$ret.'</a>';
+    return $ret;  
+	}
+
 	function FetchUserIcon($userid) {
 		global $templ;
 
