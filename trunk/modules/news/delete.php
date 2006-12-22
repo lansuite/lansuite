@@ -1,18 +1,5 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		1.0
-*	Filename: 		delete.php
-*	Module: 		news
-*	Main editor: 		Michael@one-network.org
-*	Last change: 		05.02.2003 15:59
-*	Description: 		Deletes news
-*	Remarks: 		no bugs reported, should be ready for release
-*
-******************************************************************************/
+$LSCurFile = __FILE__;
 
 switch($vars["step"]) {
 	default:
@@ -26,8 +13,8 @@ switch($vars["step"]) {
 		$newsid = $vars["newsid"];
 	
 		if ($caption != "") {
-			$func->question(str_replace("%NAME%", $caption, $lang["news"]["del_confirm"]), "index.php?mod=news&action=delete&step=3&newsid=$newsid", "index.php?mod=news");
-		} else $func->error($lang["news"]["change_err_notexist"], "index.php?mod=news&action=delete");
+			$func->question(t('Sind Sie sicher, dass Sie die Newsmeldung <b>%1</b> wirklich l&ouml;schen wollen?', array($caption)), "index.php?mod=news&action=delete&step=3&newsid=$newsid", "index.php?mod=news");
+		} else $func->error(t('Diese Newsmeldung existiert nicht'), "index.php?mod=news&action=delete");
 	break;
 
 	case 3:
@@ -39,10 +26,10 @@ switch($vars["step"]) {
 		if($caption != "") {
 			$del_it = $db->query("DELETE from {$config["tables"]["news"]} WHERE newsid = '$newsid'");
 			if ($del_it) {
-				$func->confirmation($lang["news"]["del_success"], "index.php?mod=news&action=show");
-				$func->log_event(str_replace("%NAME%", $get_data["caption"], $lang["news"]["del_log"]), 1, "News");
+				$func->confirmation(t('Die Newsmeldung wurde erfolgreich gelöscht'), "index.php?mod=news&action=show");
+				$func->log_event(t('Die News "%1" wurde gelöscht', array($get_data['caption'])), 1, "News");
 			}
-		} else $func->error($lang["news"]["change_err_notexist"], "index.php?mod=news&action=delete");
+		} else $func->error(t('Diese Newsmeldung existiert nicht'), "index.php?mod=news&action=delete");
 	break;
 }
 ?>

@@ -86,12 +86,12 @@ class Export {
 	}
 
 
-	function ExportMod($mod, $e_struct = NULL, $e_cont = NULL){
-		global $xml;
+	function ExportMod($mod, $e_struct = NULL, $e_cont = NULL, $e_trans = NULL){
+		global $xml, $db, $config;
 
 		if (is_dir("modules/$mod/mod_settings/")){
 
-			// Try db.xml
+			// Read DB-Names from db.xml
 			$file = "modules/$mod/mod_settings/db.xml";
 			if (file_exists($file)) {
 				$xml_file = fopen($file, "r");
@@ -103,21 +103,45 @@ class Export {
 				foreach ($tables as $table) {
 					$table_head = $xml->get_tag_content("table_head", $table);
 					$table_name = $xml->get_tag_content("name", $table_head);
-					$this->ExportTable($table_name, $e_struct, $e_cont);
+					$table_structure = $xml->get_tag_content("structure", $table);
+					if ($table_structure != '') $this->ExportTable($table_name, $e_struct, $e_cont);
 				}
 			}
+			
+			// Export Translations
+  		if ($e_trans) {
+  			$table_head = $xml->write_tag('name', 'translation', 3);
+    		$tables = $xml->write_master_tag("table_head", $table_head, 2);
+  
+        $content = '';
+        $res = $db->query("SELECT * FROM {$config["database"]["prefix"]}translation WHERE file = '$mod'");
+  			while ($row = $db->fetch_array($res)) {
+    			$entry = $xml->write_tag('id', $row['id'], 4);
+    			$entry .= $xml->write_tag('tid', $row['tid'], 4);
+    			$entry .= $xml->write_tag('org', $row['org'], 4);
+    			$entry .= $xml->write_tag('en', $row['en'], 4);
+    			$entry .= $xml->write_tag('file', $mod, 4);
+    		  $content .= $xml->write_master_tag("entry", $entry, 3);
+        }  		  
+        $db->free_result($res);
+  
+    		$tables .= $xml->write_master_tag("content", $content, 2);
+    		$this->lansuite .= $xml->write_master_tag("table", $tables, 1);
+    	}
 		}
 	}
 
 
-	function ExportAllTables($e_struct = NULL, $e_cont = NULL){
+	function ExportAllTables($e_struct = NULL, $e_cont = NULL, $e_trans = NULL){
 		global $db, $config;
 
 		$this->LSTableHead();
 
 		$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
-		while ($row = $db->fetch_array($res)) $this->ExportMod($row["name"], $e_struct, $e_cont);
+		while ($row = $db->fetch_array($res)) $this->ExportMod($row["name"], $e_struct, $e_cont, $e_trans);
 		$db->free_result($res);
+
+		// !!TODO: Export general Translations
 
 		$this->LSTableFoot();
 	}

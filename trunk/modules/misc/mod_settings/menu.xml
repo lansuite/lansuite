@@ -22,6 +22,16 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>translation</action>
+		<file>translation</file>
+		<caption>Übersetzungen</caption>
+		<hint></hint>
+		<link>?mod=misc&action=translation</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
 		<action>log</action>
 		<file>log</file>
 		<caption>Logfile</caption>
