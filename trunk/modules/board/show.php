@@ -41,13 +41,11 @@ if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=board&action=a
 if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=2&fid=', $lang['ms2']['delete']);
 $ms2->PrintSearch('index.php?mod=board', 'f.fid');
 
-
 // Statistics
 $total_threads = $db->query_first("SELECT COUNT(tid) as threads FROM {$config['tables']['board_threads']}");
-$dsp->AddSingleRow($lang['board']['topics_total'] .' '. $total_threads['threads']);
- 
 $total_posts = $db->query_first("SELECT COUNT(pid) as posts FROM {$config['tables']['board_posts']}");
-$dsp->AddSingleRow($lang['board']['posts_total'] .' '. $total_posts['posts']);
+$dsp->AddSingleRow(t('Es wurden bereits %1 Beiträge in %2 Threads geschrieben', array($total_posts['posts'], $total_threads['threads'])) .HTML_NEWLINE.
+  '<a href="index.php?mod=board&action=forum&fid=&order_by=LastPost&order_dir=DESC">'. t('Die neusten Beiträge anzeigen') .'</a>');
 
 $dsp->AddContent();
 ?>

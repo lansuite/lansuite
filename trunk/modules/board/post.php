@@ -100,7 +100,7 @@ $sec->unlock("board_post");
   				");
   			while ($post = $db->fetch_array($posts)){
   				$dsp->AddDoubleRow($post["username"] ."<br />". $func->unixstamp2date($post["date"], "daydatetime"),
-            $func->db2text2html($post["comment"]).'<br>'. $dsp->FetchButton("javascript:InsertCode(document.dsp_form1.text, '[quote]". addslashes(str_replace('"', '', $post["comment"])) ."[/quote]')", "quote"));
+            $func->db2text2html($post["comment"]).'<br>'. $dsp->FetchIcon("javascript:InsertCode(document.dsp_form1.text, '[quote]". addslashes(str_replace('"', '', $post["comment"])) ."[/quote]')", "quote"));
   			}
   			$dsp->AddContent();
   		}

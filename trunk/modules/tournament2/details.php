@@ -91,28 +91,30 @@ else {
 						$dsp->AddDoubleRow($lang["tourney"]["details_group"], $lang["tourney"]["details_nogroup"])
 						: $dsp->AddDoubleRow($lang["tourney"]["details_group"], str_replace("%GROUP%", $tournament['groupid'], $lang["tourney"]["details_group_out"]));
 
-					if ($tournament['coins'] == 0) $dsp->AddDoubleRow($lang["tourney"]["details_coins"], $lang["tourney"]["details_nocoins"]);
-					else {
-						$team_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
-							FROM {$config["tables"]["tournament_tournaments"]} AS t
-							INNER JOIN {$config["tables"]["t2_teams"]} AS teams ON t.tournamentid = teams.tournamentid
-							WHERE (teams.leaderid = '{$auth["userid"]}')
-							AND t.party_id='$party->party_id' 
-							GROUP BY teams.leaderid
-							");
-						$member_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
-							FROM {$config["tables"]["tournament_tournaments"]} AS t
-							INNER JOIN {$config["tables"]["t2_teammembers"]} AS members ON t.tournamentid = members.tournamentid
-							WHERE (members.userid = '{$auth["userid"]}')
-							AND t.party_id='$party->party_id' 
-							GROUP BY members.userid
-							");
-						(($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']) < $tournament['coins']) ?
-							$coin_out = $lang["tourney"]["details_tofew_coins"]
-							: $coin_out = $lang["tourney"]["details_enough_coins"];
-						
-						$dsp->AddDoubleRow($lang["tourney"]["details_coins"], "<div class=\"tbl_error\">". str_replace("%IS%", ($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']), str_replace("%COST%", $tournament['coins'], $coin_out)) ."</div>");
-					}
+          if ($auth['userid'] != '') {
+  					if ($tournament['coins'] == 0) $dsp->AddDoubleRow($lang["tourney"]["details_coins"], $lang["tourney"]["details_nocoins"]);
+  					else {
+  						$team_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
+  							FROM {$config["tables"]["tournament_tournaments"]} AS t
+  							INNER JOIN {$config["tables"]["t2_teams"]} AS teams ON t.tournamentid = teams.tournamentid
+  							WHERE (teams.leaderid = '{$auth["userid"]}')
+  							AND t.party_id='$party->party_id' 
+  							GROUP BY teams.leaderid
+  							");
+  						$member_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
+  							FROM {$config["tables"]["tournament_tournaments"]} AS t
+  							INNER JOIN {$config["tables"]["t2_teammembers"]} AS members ON t.tournamentid = members.tournamentid
+  							WHERE (members.userid = '{$auth["userid"]}')
+  							AND t.party_id='$party->party_id' 
+  							GROUP BY members.userid
+  							");
+  						(($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']) < $tournament['coins']) ?
+  							$coin_out = $lang["tourney"]["details_tofew_coins"]
+  							: $coin_out = $lang["tourney"]["details_enough_coins"];
+  						
+  						$dsp->AddDoubleRow($lang["tourney"]["details_coins"], "<div class=\"tbl_error\">". str_replace("%IS%", ($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']), str_replace("%COST%", $tournament['coins'], $coin_out)) ."</div>");
+  					}
+          }
 
 					($tournament['over18']) ?
 						$dsp->AddDoubleRow($lang["tourney"]["details_u18"], $lang["tourney"]["details_u18_limit"])

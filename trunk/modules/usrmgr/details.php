@@ -75,13 +75,13 @@ else {
 		default:
 		case 1: // Main
     	// First name, last name, username, user ID
-    	$name = '';
+    	$name = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
     	if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['userid'] == $_GET['userid']) {
       	if ($user_data['firstname']) $name .= $user_data['firstname'] .' ';
       	if ($user_data['name']) $name .= $user_data['name'] .' ';
       }
     	if ($user_data['username']) $name .= '('. $user_data['username'] .') ';
-    	$name .= '['. $user_data['userid'] .']';
+    	$name .= '['. $user_data['userid'] .']</td><td align="right">&nbsp;';
     	if (IsAuthorizedAdmin())
         $name .= ' '. $dsp->AddIcon('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid='. $_GET['userid'], $lang['button']['switch_user']);
       if ($_GET['userid'] == $auth['userid'])
@@ -92,21 +92,26 @@ else {
         $name .= ' '. $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid='. $_GET['userid'], $lang['button']['edit']);
       if ($auth['type'] >= 3)
         $name .= ' '. $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid='. $_GET['userid'], $lang['button']['delete']);
+      $name .= '</td></tr></table>'; 
     	$dsp->AddDoubleRow('Benutzername', $name);
 
 
 			// Clan
-			$clan = $user_data['clan'];
+    	$clan = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
+			$clan .= $user_data['clan'];
 			if (substr($user_data['clanurl'], 0, 7) != 'http://') $user_data['clanurl'] = 'http://'. $user_data['clanurl'];
 			if ($user_data['clanurl']) $clan .= " [<a href=\"{$user_data['clanurl']}\" target=\"_blank\">{$user_data['clanurl']}</a>]";
+      $clan .= '</td><td align="right">&nbsp;';
 			if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or $user_data['clanid'] == $auth['clanid']))
         $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changeclanpw&clanid='. $user_data['clanid'], $lang['ms2']['change_pw']) .
           $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=clanmgr&step=30&clanid='. $user_data['clanid'], $lang['ms2']['edit']);
+      $clan .= '</td></tr></table>'; 
 			$dsp->AddDoubleRow($lang['usrmgr']['details_clan'], $clan);
 
 
       // Party Checkin, paid, ...
       if ($party->count > 0) {
+      	$clan = '<table width="100%"><tr><td>';
         $party_row = '';
         $link = '';
         ($user_party['user_id'])? $party_row .= $lang['usrmgr']['details_signon'] :  $party_row .= $lang['usrmgr']['details_not_signon'];
@@ -124,12 +129,12 @@ else {
         $link = '';
         if (IsAuthorizedAdmin() and !$user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkin&step=2&userid='. $_GET['userid'];
         if ($user_party['checkin']) $party_row .= ' '. $dsp->AddIcon('in', $link, $lang['usrmgr']['checkin']) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
-        else $party_row .= $dsp->AddIcon('not_in', $link, $lang['usrmgr']['checkin_no']);
+        else $party_row .= ' '.$dsp->AddIcon('not_in', $link, $lang['usrmgr']['checkin_no']);
   
         $link = '';
         if (IsAuthorizedAdmin() and !$user_party['checkout'] and $user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkout&step=2&userid='. $_GET['userid'];
         if ($user_party['checkout']) $party_row .= ' '. $dsp->AddIcon('out', $link, $lang['usrmgr']['checkout']) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
-        else $party_row .= $dsp->AddIcon('not_out', $link, $lang['usrmgr']['checkout_no']);
+        else $party_row .= ' '.$dsp->AddIcon('not_out', $link, $lang['usrmgr']['checkout_no']);
   
         if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) $party_row .= $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=checkout&step=10&userid='. $_GET['userid'], 'Reset Checkin');
   
@@ -173,27 +178,30 @@ else {
 
 
 			// Mail
-			$mail = '';
+    	$mail = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
 			if ((!$cfg['sys_internet'] and $cfg['user_showmail4all']) or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']) {
         $mail .= '<a href="mailto:'. $user_data['email'] .'">'. $user_data['email'] .'</a> ';
       }
-		  if ($auth['login'] and in_array('mail', $ActiveModules)) $mail .= $dsp->AddIcon('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID='. $_GET['userid'], $lang['usrmgr']['details_mail_help']) .' ';
       $mail .= '[Newsletter-Abo:';
       ($user_data['newsletter']) ? $mail .= $dsp->AddIcon('yes') : $mail .= $dsp->AddIcon('no');
       $mail .= ']';
+      $mail .= '</td><td align="right">&nbsp;';
+		  if ($auth['login'] and in_array('mail', $ActiveModules)) $mail .= $dsp->AddIcon('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID='. $_GET['userid'], $lang['usrmgr']['details_mail_help']) .' ';
+      $mail .= '</td></tr></table>';
       $dsp->AddDoubleRow($lang['usrmgr']['add_email'], $mail);
       
 
 			// Messenger
-			$messenger = '';
-      if ($user_data['icq']) {
-        if ($cfg['sys_internet']) $messenger .= '<a href="http://wwp.icq.com/scripts/search.dll?to='. $user_data['icq'] .'" target="_blank"><img src="http://status.icq.com/online.gif?icq='. $user_data['icq'] .'&img=26" alt="ICQ" title="ICQ#'. $user_data['icq'] .'" border="0" /></a> ';
-        else $messenger .= '[ICQ#'. $user_data['icq'] .'] ';
-      }
-      if ($user_data['msn']) $messenger .= '[MSN:'. $user_data['msn'] .'] ';
-      $messenger .= 'Online:';
+    	$messenger = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>Online:';
       ($user_auth['count'] >= '1') ? $messenger .= $dsp->AddIcon('yes') : $messenger .= $dsp->AddIcon('no');
+      if ($user_data['icq']) {
+        if ($cfg['sys_internet']) $messenger .= ' <a href="http://wwp.icq.com/scripts/search.dll?to='. $user_data['icq'] .'" target="_blank"><img src="http://status.icq.com/online.gif?icq='. $user_data['icq'] .'&img=26" alt="ICQ" title="ICQ#'. $user_data['icq'] .'" border="0" /></a> ';
+        else $messenger .= ' [ICQ#'. $user_data['icq'] .'] ';
+      }
+      if ($user_data['msn']) $messenger .= ' [MSN:'. $user_data['msn'] .'] ';
+      $messenger .= '</td><td align="right">&nbsp;';
 		  if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], $lang['usrmgr']['details_buddy_help']) .' ';
+      $messenger .= '</td></tr></table>';
       $dsp->AddDoubleRow('Messenger', $messenger);
       $dsp->AddFieldsetEnd();
       

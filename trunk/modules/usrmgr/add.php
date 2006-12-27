@@ -1,10 +1,12 @@
 <?php
+$LSCurFile = __FILE__;
 
 include_once("modules/usrmgr/class_usrmgr.php");
+include_once("modules/signon/language/signon_lang_de.php");
 $usrmgr = new UsrMgr();
 
 function Update($id) {
-global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func, $lang, $cfg, $signon;
+global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func, $lang, $cfg, $signon, $mail;
 
   // Clan-Management
   include_once("modules/usrmgr/class_clan.php");
@@ -20,25 +22,7 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
   		$db->query("INSERT INTO {$config["tables"]["user_permissions"]} SET module = '$perm', userid = $id");
   	}
   }
-/*
-	// Update Party-Signon
-  // If ID is emplty. When already registered and signing on to a party. Due to no userdata beeing inserted then, no ID is retured
-	if ($id) $PartyUserID = $id;
-  else $PartyUserID = $auth['userid']; 
-  if ($_POST['party_id']) {
-    $party->party_id = $_POST['party_id'];
-    $party->add_user_to_party($PartyUserID, $_POST['price_id'], $_POST['paid'], $checkin);
-  } elseif ($auth['type'] > 1) $party->delete_user_from_party($PartyUserID);
 
-//	if ($id) $PartyUserID = $id;
-//  else $PartyUserID = $auth['userid']; 
-//	if (isset($_POST['signon']) and $_POST['signon'] == "1") $party->add_user_to_party($PartyUserID, $_POST['price_id'], $_POST['paid'], $checkin);
-//	elseif ((!isset($_POST['signon']) or $_POST['signon'] == "0") and $auth["type"] > 1) $party->delete_user_from_party($PartyUserID);
-
-	// Update Seating
-	if ($_POST['paid']) $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($id);
-	else $seat2->MarkSeatIfNotPaidAndSeatReserved($id);
-*/  
   // If new user has been added
   if (!$mf->isChange) {
     if ($id) $add_query2 = $db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid = '$id'");
@@ -236,12 +220,12 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
     if (!$quick_signon) {
       // If Admin, Creating a new user, or Missing fields:
       //   Show Username Field
-      if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) $mf->AddField($lang['usrmgr']['add_username'], 'username');
-      else $mf->AddField($lang['usrmgr']['add_username'], '', IS_TEXT_MESSAGE, $lang["usrmgr"]["add_limitedright_hint"]);
+      if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) $mf->AddField(t('Benutzername'), 'username');
+      else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, $lang["usrmgr"]["add_limitedright_hint"]);
 
-      if (ShowField('firstname')) $mf->AddField($lang['usrmgr']['add_firstname'], 'firstname', '', '', Optional('firstname'));
-      if (ShowField('lastname')) $mf->AddField($lang['usrmgr']['add_lastname'], 'name', '', '', Optional('lastname'));
-      $mf->AddGroup('Namen');
+      if (ShowField('firstname')) $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
+      if (ShowField('lastname')) $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
+      $mf->AddGroup(t('Namen'));
 
       // If Admin: Usertype and Module-Permissions
       if ($auth['type'] >= 2) {
@@ -249,14 +233,14 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $selections['1'] = $lang['usrmgr']['add_type_user'];
         $selections['2'] = $lang['usrmgr']['add_type_admin'];
         if ($auth['type'] >= 3) $selections['3'] = $lang['usrmgr']['add_type_operator'];
-        $mf->AddField($lang['usrmgr']['add_type'], 'type', IS_SELECTION, $selections, '', '', 1, array('2', '3'));
+        $mf->AddField(t('Benutzertyp'), 'type', IS_SELECTION, $selections, '', '', 1, array('2', '3'));
 
         $selections = array();
         $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
         while ($row = $db->fetch_array($res)) {
           $selections[$row['group_id']] = $row['group_name'];
         }
-        $mf->AddField($lang['usrmgr']['group'], 'group_id', IS_SELECTION, $selections, 1);
+        $mf->AddField(t('Gruppe'), 'group_id', IS_SELECTION, $selections, 1);
 
         $selections = array();
         $res = $db->query("SELECT module.name, module.caption FROM {$config["tables"]["modules"]} AS module
@@ -272,7 +256,12 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
           $db->free_result($res);
         }
         
-        $mf->AddField($lang['usrmgr']['add_permission'], 'permissions', IS_MULTI_SELECTION, $selections, FIELD_OPTIONAL);
+        $mf->AddField(t('Zugriffsberechtigung'.
+          HTML_NEWLINE.
+          HTML_NEWLINE.'(Der Benutzertyp muss zusätzlich Admin, oder Operator sein)'.
+          HTML_NEWLINE.
+          HTML_NEWLINE.'(Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen)'),
+          'permissions', IS_MULTI_SELECTION, $selections, FIELD_OPTIONAL);
         $mf->AddGroup('Rechte');
       }
     }
@@ -291,38 +280,6 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
     }
     $mf->AddGroup($lang['usrmgr']['account']);
   }
-/*  
-  // If Admin: Signon and Payed options
-  if ($auth['type'] >= 2 or !$_GET['userid'] or $DoSignon) {
-    ($auth['type'] >= 2) ? $DependOn = 3 : $DependOn = 1;
-    if (!$_GET['userid'] or $DoSignon) {
-      if (ShowField('voll')) $DependOn++;
-      if (ShowField('agb') and !$cfg['signon_alwaysagb']) $DependOn++;
-    }
-
-		#if ($archive = 0) $query = "SELECT * FROM {$config['tables']['partys']} WHERE enddate < " . time();
-		$selections = array();
-    $selections[] = $lang['usrmgr']['add_not_registered_nosignup'];
-		if (!$_POST['party_id']) $_POST['party_id'] = $party->party_id;
-		$row = $db->query("SELECT * FROM {$config['tables']['partys']} WHERE startdate > ". time());
-		while ($res = $db->fetch_array($row))  $selections[$res['party_id']] = $res['name']
-      .' ('. $func->unixstamp2date($res['startdate'], 'date') .' -  '. $func->unixstamp2date($res['enddate'], 'date') .')';
-    $mf->AddField($lang['class_party']['drowpdown_name'], 'party_id', IS_SELECTION, $selections, FIELD_OPTIONAL, '', $DependOn);
-
-#    $mf->AddField($lang['usrmgr']['add_signon'], 'signon', 'tinyint(1)', '', FIELD_OPTIONAL, '', $DependOn);
-    $party->GetPriceDropdown((int)$_POST["group_id"], (int)$_POST["price_id"]);
-
-    if ($auth['type'] >= 2) {
-      $selections = array();
-      $selections['0'] = $lang['usrmgr']['add_paid_no'];
-      $selections['1'] = $lang['usrmgr']['add_paid_vvk'];
-      $selections['2'] = $lang['usrmgr']['add_paid_ak'];
-      $mf->AddField($lang['usrmgr']['add_paid'], 'paid', IS_SELECTION, $selections);
-    }
-
-    $mf->AddGroup('Party "'. $_SESSION['party_info']['name'] .'"');
-  }
-*/
 
   if (!$DoSignon) {
     if (!$quick_signon) {

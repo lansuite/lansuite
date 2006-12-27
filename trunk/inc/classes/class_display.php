@@ -281,11 +281,11 @@ class display {
     if ($optional) $templ['ls']['row']['textarea']['optional'] = "_optional";
     else $templ['ls']['row']['textarea']['optional'] = '';
 
-		$templ['ls']['row']['textarea']['buttons'] = $this->FetchButton("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b][/b]')", "bold");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i][/i]')", "kursiv");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u][/u]')", "underline");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:InsertCode(document.{$this->form_name}.{$name}, '[c][/c]')", "code");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:InsertCode(document.{$this->form_name}.{$name}, '[img][/img]')", "picture");
+		$templ['ls']['row']['textarea']['buttons'] = $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b][/b]')", "bold");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i][/i]')", "italic");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u][/u]')", "underline");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[c][/c]')", "quote");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[img][/img]')", "img");
 
 		$templ['ls']['row']['textarea']['smilies'] = "";
 		$smilie = $db->query("SELECT shortcut, image FROM {$GLOBALS["config"]["tables"]["smilies"]}");
@@ -384,9 +384,11 @@ class display {
   function AddBackButton($back_link, $helplet_id = NULL) {
     global $templ, $gd, $auth;
 
-    $gd->CreateButton("back");
-    $templ['ls']['row']['backbutton']['back_link'] = $back_link;    
-    $this->AddTpl("design/templates/ls_row_backbutton.htm");
+    $this->AddDoubleRow('', $this->FetchIcon($back_link, 'back', 'Back'));
+
+#    $gd->CreateButton("back");
+#    $templ['ls']['row']['backbutton']['back_link'] = $back_link;
+#    $this->AddTpl("design/templates/ls_row_backbutton.htm");
   }
 
     
