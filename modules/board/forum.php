@@ -58,10 +58,13 @@ function NewPosts($last_read) {
 if ($_GET['fid'] != '') {
   $row = $db->query_first("SELECT name, need_type FROM {$config["tables"]["board_forums"]} WHERE fid={$_GET["fid"]}");
   if ($row['need_type'] == 1 and $auth['login'] == 0) $new_thread = $lang['board']['only_loggedin_post'];
-  else $new_thread = $dsp->FetchButton("index.php?mod=board&action=post&fid={$vars["fid"]}", "new_thread");
+  else $new_thread = $dsp->FetchIcon("index.php?mod=board&action=post&fid={$vars["fid"]}", "add");
 
-	$dsp->NewContent($row['name']);
-  $dsp->AddSingleRow($new_thread ." ". $dsp->FetchButton("index.php?mod=board", "back"));
+  // Board Headline
+	$hyperlink = '<a href="%s" class="menu">%s</a>';
+	$overview_capt = sprintf($hyperlink, "index.php?mod=board", $lang['board']['board']);
+	$dsp->NewContent($row['name'], "$overview_capt - {$row['name']}");
+  $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
 }
 
 if ($_POST['search_input'][1] != '' or $_POST['search_input'][2] != '')  $dsp->AddSingleRow($lang['board']['search_hint']);
@@ -95,11 +98,11 @@ $ms2->AddResultField($lang['board']['first_post'], 'MIN(p.date) AS FirstPost', '
 $ms2->AddResultField($lang['board']['last_post'], 'MAX(p.date) AS LastPost', 'LastPostDetails');
 
 $ms2->AddIconField('details', 'index.php?mod=board&action=thread&fid='. $_GET["fid"] .'&tid=', $lang['ms2']['details']);
-$ms2->AddIconField('send_mail', 'index.php?mod=board&action=post&fid='. $_GET["fid"] .'&tid=', $lang['ms2']['reply']);
+$ms2->AddIconField('add', 'index.php?mod=board&action=post&fid='. $_GET["fid"] .'&tid=', $lang['ms2']['reply']);
 if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=edit&mode=delete&tid=', $lang['ms2']['delete']);
 $ms2->PrintSearch('index.php?mod=board&action='. $_GET['action'] .'&fid='. $_GET['fid'], 't.tid');
 
-if ($_GET['fid'] != '') $dsp->AddSingleRow($new_thread ." ". $dsp->FetchButton("index.php?mod=board", "back"));
+if ($_GET['fid'] != '') $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
 $dsp->AddContent();
 
 // Generate Boardlist-Dropdown

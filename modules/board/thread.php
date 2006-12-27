@@ -31,20 +31,21 @@ else {
 
   // Tread Headline
 	$hyperlink = '<a href="%s" class="menu">%s</a>';
-	$overview_capt = sprintf($hyperlink, "index.php?mod=board", $lang['board']['overview_caption']);
+	$overview_capt = sprintf($hyperlink, "index.php?mod=board", $lang['board']['board']);
 	$forum_capt = sprintf($hyperlink, "index.php?mod=board&action=forum&fid=$fid", $thread['ForumName']);
-	$dsp->NewContent($func->db2text($thread["caption"]), "{$lang['board']['board']} - $overview_capt - $forum_capt - ". $func->db2text($thread["caption"]));
+	$dsp->NewContent($func->db2text($thread["caption"]), "$overview_capt - $forum_capt - ". $func->db2text($thread["caption"]));
 
 	// Generate Thread-Buttons
 	$buttons = '';
-	if (($auth["login"] == 1 and $thread['need_type'] >= 1) or $thread['need_type'] == 0 or $auth['type'] > 1) $buttons .= " ". $dsp->FetchButton("index.php?mod=board&action=post&fid=$fid", "new_thread") .' '. $dsp->FetchIcon("index.php?mod=board&action=post&tid=$tid", "send_mail");
+#" ". $dsp->FetchIcon("index.php?mod=board&action=post&fid=$fid", "add") .
+	if (($auth["login"] == 1 and $thread['need_type'] >= 1) or $thread['need_type'] == 0 or $auth['type'] > 1) $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=post&tid=$tid", "add");
 	if ($auth["type"] > 1) {
     if ($thread['closed']) $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=thread&step=11&tid=$tid", "unlocked");
     else $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=thread&step=10&tid=$tid", "locked");
     $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=edit&mode=delete&tid=$tid", "delete");
   }
 
-	$query = $db->query("SELECT pid, comment, userid, date FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date");
+	$query = $db->query("SELECT pid, comment, userid, date, ip FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date");
 	$count_entrys = $db->num_rows($query);
 
   // Page select
@@ -61,7 +62,6 @@ else {
 		$templ['board']['thread']['case']['info']['post']['pid'] 		= $pid;
 		$templ['board']['thread']['case']['info']['post']['text'] 		= $func->db2text2html($row["comment"]);
 		$templ['board']['thread']['case']['info']['post']['date'] 		= $lang['board']['add_at'] . ": " . $func->unixstamp2date($row["date"],"daydatetime");
-		$templ['board']['thread']['case']['info']['thread']['go_top'] 	= $lang['board']['go_top'];
 
 		if ($row['userid'] == 0){
 			preg_match("@<!--(.*)-->@",$row['comment'],$tmp);
@@ -74,8 +74,10 @@ else {
 		} else $userdata = $bfunc->getuserinfo($row["userid"]);
 
 		$templ['board']['thread']['case']['info']['post']['poster']['username'] 	= $userdata["username"] .' '. $dsp->FetchUserIcon($row['userid']);;
-		$templ['board']['thread']['case']['info']['post']['poster']['type'] 		= $userdata["type"];
-		$templ['board']['thread']['case']['info']['post']['poster']['rank'] 		= $lang['board']['rank'] . ": " . $userdata["rank"];
+		$templ['board']['thread']['case']['info']['post']['poster']['type'] = $userdata["type"];
+		if ($auth['type'] >= 2) $templ['board']['thread']['case']['info']['post']['poster']['type'] .= '<br />IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>';
+		if (!$cfg['board_ranking'])$templ['board']['thread']['case']['info']['post']['poster']['rank'] = ''; 
+    else $templ['board']['thread']['case']['info']['post']['poster']['rank'] 		= $lang['board']['rank'] . ": " . $userdata["rank"];
 		$templ['board']['thread']['case']['info']['post']['poster']['posts'] 		= $lang['board']['posts'] . ": " . $userdata["posts"];
 		$templ['board']['thread']['case']['info']['post']['poster']['avatar']		= $userdata["avatar"];
 		$templ['board']['thread']['case']['info']['post']['poster']['signature'] = '';

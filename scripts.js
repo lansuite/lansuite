@@ -2,7 +2,7 @@
 //// Basic ////
 
 function InsertCode(object, code) {
-  object.value += code;
+  if (code != '') object.value += code;
 }
 
 function OpenWindow(url, name) {

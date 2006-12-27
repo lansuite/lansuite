@@ -423,22 +423,22 @@ class func {
 			if($overall_entries > $max_entries_per_page) {
 				$page_output = ("Seiten: ");
 				if( $current_page != "all" && ($current_page + 1) > 1 ) {
-					$page_output .= ("&nbsp; " . "<a class=\"menue\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($current_page - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
+					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($current_page - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
 				}
 				$i = 0;					
 				while($i < ($overall_entries / $max_entries_per_page)) {
 					if($current_page == $i && $current_page != "all") {
 						$page_output .= (" " . ($i + 1));
 					} else {
-						$page_output .= ("&nbsp; " . "<a class=\"menue\" href=\"" . $working_link . "&" . $var_page_name . "=" . $i . "\">" ."<b>" . ($i + 1) . "</b>" . "</a>");
+						$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . $i . "\">" ."<b>" . ($i + 1) . "</b>" . "</a>");
 					}
 					$i++;
 				}
 				if($current_page != "all" && ($current_page + 1) < ($overall_entries/$max_entries_per_page)) {
-					$page_output .= ("&nbsp; " . "<a class=\"menue\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
+					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
 				}
 				if($current_page != "all") {
-					$page_output .= ("&nbsp; " . "<a class=\"menue\" href=\"" . $working_link ."&" . $var_page_name . "=all" . "\">" ."<b>" . "Alle" . "</b>" . "</a>");									
+					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=all" . "\">" ."<b>" . "Alle" . "</b>" . "</a>");									
 				}
 				if ($current_page == "all") {
 					$page_output .= " Alle";
