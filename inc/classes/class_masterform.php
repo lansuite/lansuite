@@ -362,7 +362,7 @@ class masterform {
           if ($group['caption']) $dsp->AddFieldsetEnd();
         }
 
-    		if ($id) $dsp->AddFormSubmitRow('change');
+    		if ($id) $dsp->AddFormSubmitRow('edit');
     		else $dsp->AddFormSubmitRow('add');
         $dsp->AddContent();
       break;

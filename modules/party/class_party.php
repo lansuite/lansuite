@@ -34,7 +34,7 @@ class party{
     		$this->party_id = 0;
       }
 
-			$row = $db->query_first("SELECT name, ort, plz, startdate, enddate, sstartdate, senddate, max_guest FROM {$config['tables']['partys']} WHERE party_id={$this->party_id}");
+			$row = $db->query_first("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM {$config['tables']['partys']} WHERE party_id={$this->party_id}");
 			$this->data = $row;
 
 			$_SESSION['party_info'] = array();
@@ -71,8 +71,8 @@ class party{
 			// Bei leerem String
 			if ($link == '') $link = "index.php?" . $_SERVER['QUERY_STRING'];
 			
-			if ($show_old = 0) $query = "SELECT * FROM {$config['tables']['partys']} WHERE enddate < " . time();
-			else $query = "SELECT * FROM {$config['tables']['partys']}";
+			if ($show_old = 0) $query = "SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']} WHERE enddate < " . time();
+			else $query = "SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']}";
 			
 			// Wenn nur eine Party aufgelistet ist nichts ausgeben
 			$row = $db->query($query);
@@ -90,7 +90,7 @@ class party{
 				}
         $dsp->SetForm($link);
 				$dsp->AddDropDownFieldRow("party_id",$lang['class_party']['drowpdown_name'],$list_array,'');
-        $dsp->AddFormSubmitRow("send");
+        $dsp->AddFormSubmitRow("change");
 			}
 		}
 
@@ -110,9 +110,9 @@ class party{
 			// Wenn die Anzeige auf nur einer party steht dann nichts ausgeben
 			if($cfg['singon_multiparty'] == 1){
 				if($archive = 0){
-					$query = "SELECT * FROM {$config['tables']['partys']} WHERE enddate < " . time();
+					$query = "SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']} WHERE UNIX_TIMESTAMP(enddate) < " . time();
 				}else{
-					$query = "SELECT * FROM {$config['tables']['partys']}";
+					$query = "SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']}";
 				}
 			
 				// Wenn nur eine Party aufgelistet ist nichts ausgeben
@@ -658,7 +658,7 @@ class party{
 			global $db,$config;
 			
 			$time = time();
-			$row = $db->query_first_rows("SELECT * FROM {$config['tables']['partys']} WHERE startdate > $time ORDER BY startdate ASC");	
+			$row = $db->query_first_rows("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']} WHERE startdate > $time ORDER BY startdate ASC");	
 			
 			if($row['number'] > 0){
 				$data['party_id']		= $row['party_id'];
