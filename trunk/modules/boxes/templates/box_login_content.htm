@@ -1,12 +1,20 @@
 <form name="form_loginbox" method="post" action="index.php">
-	<label for="email" class="copyright">E-Mail</label>
-	<input name="email" type="text" class="form" id="email" size="13" />
-  <br />
-	<label for="password" class="copyright">Passwort</label>
-	<input type="password" name="password" class="form" size="13" />
+  <table cellspacing="0" cellpadding="0" width="100%">
+  <tr><td>
+	  <label for="email" class="copyright">E-Mail</label>
+	</td><td colspan="2">
+	  <input name="email" type="text" class="form" id="email" size="13" />
 
-	<div>
-		<input type="image" name="login" src="ext_inc/auto_images/{default_design}/{language}/button_login.png" />
-		<input type="image" name="save" src="ext_inc/auto_images/{default_design}/{language}/button_save.png" />
-	</div>
+	</td></tr><tr><td>
+	  <label for="password" class="copyright">Passwort</label>
+	</td><td colspan="2">
+	  <input type="password" name="password" class="form" size="13" />
+
+  </td></tr><tr><td>
+    &nbsp;
+  </td><td>
+    {$templ['login']['buttons_login']}
+	</td><td align="right">
+    {$templ['login']['buttons_manage']}
+  </td></tr></table>
 </form>

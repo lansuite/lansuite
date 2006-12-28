@@ -365,7 +365,7 @@ class display {
 		if (!$var) $templ['ls']['row']['formsubmit']['buttonname'] = "imageField";
 		else $templ['ls']['row']['formsubmit']['buttonname'] = $var;
 		
-		if ($button == 'edit' or $button == 'change' or $button == 'add' or $button == 'preview' or $button == 'next' or $button == 'delete')
+		if ($button == 'edit' or $button == 'change' or $button == 'add' or $button == 'preview' or $button == 'next' or $button == 'delete' or $button == 'download' or $button == 'save')
       $this->AddDoubleRow('', $this->FetchIcon('', $button));
 
     // for older buttons
@@ -694,13 +694,12 @@ class display {
 	function FetchIcon($link, $picname, $hint = NULL, $target = NULL) {
 		global $templ, $gd;
 
-    $templ['icon']['name'] = $picname;
-    
     // Picname-Mappings
     switch ($picname) {
-      case 'next': $picname = 'forward';
-      case 'preview': $picname = 'search';
+      case 'next': $picname = 'forward'; break;
+      case 'preview': $picname = 'search'; break;
     }
+    $templ['icon']['name'] = $picname;
 
     // Accesskey
     switch ($picname) {
