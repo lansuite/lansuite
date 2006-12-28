@@ -360,24 +360,21 @@ class display {
 	function AddFormSubmitRow($button, $helplet_id = NULL, $var = false, $close = true) {
 		global $templ, $gd;
 
-//		if ($helplet_id) {
-//			$templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
-//			$templ['ls']['row']['helpletbutton']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
-//		} else {
-			$templ['ls']['row']['helpletbutton']['helplet_id'] = "";
-			$templ['ls']['row']['helpletbutton']['help'] = "&nbsp;";
-//		}
-
 		$templ['ls']['row']['formsubmit']['button'] = $button;
 		
 		if (!$var) $templ['ls']['row']['formsubmit']['buttonname'] = "imageField";
 		else $templ['ls']['row']['formsubmit']['buttonname'] = $var;
 		
-		$gd->CreateButton("$button");
+		if ($button == 'edit' or $button == 'change' or $button == 'add' or $button == 'preview' or $button == 'next' or $button == 'delete')
+      $this->AddDoubleRow('', $this->FetchIcon('', $button));
 
-		$this->AddTpl("design/templates/ls_row_formsubmit.htm");
+    // for older buttons
+		else {
+  		$gd->CreateButton("$button");
+    	$this->AddTpl("design/templates/ls_row_formsubmit.htm");
+    }
 
-        if ($this->form_open && $close) $this->CloseForm();
+    if ($this->form_open && $close) $this->CloseForm();
 	}
 	
 
@@ -385,10 +382,6 @@ class display {
     global $templ, $gd, $auth;
 
     $this->AddDoubleRow('', $this->FetchIcon($back_link, 'back', 'Back'));
-
-#    $gd->CreateButton("back");
-#    $templ['ls']['row']['backbutton']['back_link'] = $back_link;
-#    $this->AddTpl("design/templates/ls_row_backbutton.htm");
   }
 
     
@@ -701,9 +694,37 @@ class display {
 	function FetchIcon($link, $picname, $hint = NULL, $target = NULL) {
 		global $templ, $gd;
 
-    $templ['ms2']['icon_name'] = $picname;
-    $templ['ms2']['icon_title'] = $hint;
-    $ret = $this->FetchModTpl('mastersearch2', 'result_icon');
+    $templ['icon']['name'] = $picname;
+    
+    // Picname-Mappings
+    switch ($picname) {
+      case 'next': $picname = 'forward';
+      case 'preview': $picname = 'search';
+    }
+
+    // Accesskey
+    switch ($picname) {
+      default: $templ['icon']['accesskey'] = ''; break;
+      case 'add': $templ['icon']['accesskey'] = 'a'; break;
+      case 'change': $templ['icon']['accesskey'] = 'c'; break;
+      case 'edit': $templ['icon']['accesskey'] = 'e'; break;
+      case 'delete': $templ['icon']['accesskey'] = 'd'; break;
+      case 'send': $templ['icon']['accesskey'] = 's'; break;
+    }
+
+    // Hint
+    $templ['icon']['title'] = $hint;
+    if ($templ['icon']['title'] == '') switch ($picname) {
+      default: $templ['icon']['title'] = ''; break;
+      case 'add': $templ['icon']['title'] = t('hinzufügen'); break;
+      case 'change': $templ['icon']['title'] = t('ändern'); break;
+      case 'edit': $templ['icon']['title'] = t('editieren'); break;
+      case 'delete': $templ['icon']['title'] = t('löschen'); break;
+      case 'send': $templ['icon']['title'] = t('senden'); break;
+    }
+
+    if ($this->form_open) $ret = $this->FetchModTpl('', 'ls_fetch_icon_submit');
+    else $ret = $this->FetchModTpl('', 'ls_fetch_icon');
     
 		if ($target) $target = " target=\"$target\"";
     if ($link) $ret = '<a href="'.$link.'"'.$target.'>'.$ret.'</a>';

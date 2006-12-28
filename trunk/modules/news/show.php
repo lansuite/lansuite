@@ -45,10 +45,10 @@ else {
 		// Buttons
 		$templ['news']['show']['row'][$type]['control']['buttons'] = "";
 		if ($auth["type"] > 1) {
-			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchButton("index.php?mod=news&action=change&step=2&newsid=$newsid", "edit") . " ";
-			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchButton("index.php?mod=news&action=delete&step=2&newsid=$newsid", "delete") . " ";
+			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&action=change&step=2&newsid=$newsid", "edit") . " ";
+			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&action=delete&step=2&newsid=$newsid", "delete") . " ";
 		}
-		$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchButton("index.php?mod=news&action=comment&newsid=$newsid", "comments") . " ";
+		$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&action=comment&newsid=$newsid", "quote") . " ";
 
 		$templ['news']['show']['case']['control']['rows'] .= $dsp->FetchModTpl("news", "show_row_$type");
 	} // CLOSE WHILE
