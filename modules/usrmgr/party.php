@@ -32,7 +32,7 @@ else {
     $UpcommingStartet = 0;
     
     $MFID = 0;
-    $res = $db->query("SELECT * FROM {$config['tables']['partys']} ORDER BY startdate");
+    $res = $db->query("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']} ORDER BY startdate");
     while ($row = $db->fetch_array($res)) {
       if ($_GET['mf_step'] != 2 or $row['party_id'] == $_GET['party_id']) {
         if (!$UpcommingStartet and $row['enddate'] >= time()) {
