@@ -168,9 +168,9 @@ elseif (!$akt_file) {
 
 					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
 
-					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchButton("index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", "open", $lang['picgallery']['show_show_pic']);
+					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", "next", $lang['picgallery']['show_show_pic']);
 					if ($auth["type"] > 1) {
-						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchButton("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
+						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
 					}
 
 					$templ['ls']['row']['gallery']['spalte'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_spalte");
@@ -226,9 +226,9 @@ elseif (!$akt_file) {
 					
 					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
 
-					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchButton("index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", "download", $lang['picgallery']['show_download_pic']);
+					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", "download", $lang['picgallery']['show_download_pic']);
 					if ($auth["type"] > 1) {
-						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchButton("index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
+						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
 					}
 
 					$templ['ls']['row']['gallery']['spalte'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_spalte");
@@ -304,9 +304,9 @@ elseif (!$akt_file) {
 				$dsp->AddDoubleRow("", "<a href=\"$js_full_link\"><img border=\"1\" src=\"$root_file\" width=\"$pic_width\" class=\"img\"></a>");
 
 			// Define Buttons
-			if(!IsPackage($extension)) $dl_button = $dsp->FetchButton($js_full_link, "fullscreen", $lang['picgallery']['show_fullscreen']);
-			$full_button = $dsp->FetchButton("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "download", $lang['picgallery']['show_download_pic']);
-			($auth[type] > "1") ? $del_button = $dsp->FetchButton("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", $lang['picgallery']['show_del_pic']) : $del_button = "";
+			if(!IsPackage($extension)) $dl_button = $dsp->FetchIcon($js_full_link, "fullscreen", $lang['picgallery']['show_fullscreen']);
+			$full_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "download", $lang['picgallery']['show_download_pic']);
+			($auth[type] > "1") ? $del_button = $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", $lang['picgallery']['show_del_pic']) : $del_button = "";
 
 			// Scan Directory
 			$file_list = array();
@@ -320,9 +320,9 @@ elseif (!$akt_file) {
 			$num_files = count($file_list);
 			$akt_file = array_keys($file_list, $akt_file);
 
-			if ($file_list[$akt_file[0] - 1]) $prev_button = $dsp->FetchButton("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] - 1], "back", $lang['picgallery']['show_pic_back']);
+			if ($file_list[$akt_file[0] - 1]) $prev_button = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] - 1], "back", $lang['picgallery']['show_pic_back']);
 			else $prev_button = "";
-			if ($file_list[$akt_file[0] + 1]) $next_button = $dsp->FetchButton("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] + 1], "next", $lang['picgallery']['show_pic_next']);
+			if ($file_list[$akt_file[0] + 1]) $next_button = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] + 1], "next", $lang['picgallery']['show_pic_next']);
 			else $next_button = "";
 			$dsp->AddDoubleRow("", "$prev_button $next_button $full_button $dl_button $del_button");
 
