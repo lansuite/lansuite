@@ -71,6 +71,16 @@ switch($_GET["step"]) {
     if ($AddUserSuccess) {
       $_GET['userid'] = $mf->insert_id;
       $_GET['step']++;
+      
+      $db->query("INSERT INTO {$config['tables']['party_user']} SET
+        user_id = ". (int)$_GET['userid'] .",
+        party_id = ". (int)$party->party_id .",
+        price_id = 0,
+        checkin = ". time() .",
+        paid = 2,
+        seatcontrol = 0,
+        signondate = ". time()
+        );
     }
 
 #		$dsp->SetForm("index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&quick_signon={$_GET['quick_signon']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}", "signon", "", "multipart/form-data");
@@ -81,6 +91,7 @@ switch($_GET["step"]) {
 switch($_GET["step"]) {
 	// Platzpfand prüfen
   case 4:
+/*
 		$cfg["signon_autocheckin"] = 1;
 		#$AddUser->WriteToDB($_GET["umode"], $_GET['quick_signon']);
 
@@ -94,14 +105,15 @@ switch($_GET["step"]) {
 			$func->question(str_replace("%PRICE%", $seatprice . " " . $cfg['sys_currency'] ,$lang['usrmgr']['paid_seatcontrol_quest']),"index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=1&username=$username&priceid={$_POST['price_id']}&pw=$pw","index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}&seatcontrol=0&username=$username&priceid={$_POST['price_id']}&pw=$pw");
     	break;
 		}
+*/
 
 	// Passwort ausgeben
 	case 5:	
-		if ($_GET["umode"] == "change") $func->confirmation(str_replace("%USER%", $_POST["username"], $lang["usrmgr"]["add_editsuccess"]), "");
-		else {
-			(($cfg["signon_autopw"]) || ($cfg["signon_password_view"]))? $pw_text = HTML_NEWLINE . str_replace("%PASSWORD%", $_POST["password"], $lang["usrmgr"]["add_pwshow"]) : $pw_text = "";
-			$func->confirmation(str_replace("%USER%", $_POST["username"], $lang["usrmgr"]["add_success"]) . $pw_text, "");
-		}
+#		if ($_GET["umode"] == "change") $func->confirmation(str_replace("%USER%", $_POST["username"], $lang["usrmgr"]["add_editsuccess"]), "");
+#		else {
+#			(($cfg["signon_autopw"]) || ($cfg["signon_password_view"]))? $pw_text = HTML_NEWLINE . str_replace("%PASSWORD%", $_POST["password"], $lang["usrmgr"]["add_pwshow"]) : $pw_text = "";
+#			$func->confirmation(str_replace("%USER%", $_POST["username"], $lang["usrmgr"]["add_success"]) . $pw_text, "");
+#		}
 
 	// Neuen Sitzplatz auswählen?
 	case 6:

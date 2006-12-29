@@ -32,15 +32,15 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
     if ($_POST['password_original']) $_SESSION['tmp_pass'] = $_POST['password_original'];
 
   	if ($cfg["signon_password_mail"]) {
-  		if ($usrmgr->SendSignonMail()) $func->confirmation($lang['signon']['add_pw_mail_success']);
+  		if ($usrmgr->SendSignonMail()) $func->confirmation(t('Dein Passwort und weitere Informationen wurden an deine eMail-Adresse gesendet', NO_LINK));
   		else {
-  			$func->error($lang['signon']['add_pw_mail_failed'] .'. Error-Text: '. $mail->error);
+  			$func->error(t('Es ist ein Fehler beim Versand der Informations-eMail aufgetreten. Fehlermeldung:'). $mail->error, NO_LINK);
   			$cfg['signon_password_view'] = 1;
   		}
     }
 
     // Show passwort, if wanted, or has mail failed
-    if ($cfg['signon_password_view']) $func->information(str_replace("%PASSWORD%", "<b>". $_SESSION['tmp_pass'] ."</b>", $lang["signon"]["add_pw_text"]));
+    if ($cfg['signon_password_view']) $func->information(str_replace("%PASSWORD%", "<b>". $_SESSION['tmp_pass'] ."</b>", $lang["signon"]["add_pw_text"]), NO_LINK);
     $_SESSION['tmp_pass'] = '';
 	}
 
