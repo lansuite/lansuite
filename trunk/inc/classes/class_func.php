@@ -1,21 +1,5 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*
-*	(c) 2001-2003 by One-Network.Org
-*
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		class_func.php
-*	Module: 		Framework
-*	Main editor:
-*	Last change: 		31.12.2002 18:30
-*	Description: 		All base functions are defined in this file
-*	Remarks:
-*
-**************************************************************************/
+define('NO_LINK', -1);
 
 class func {
 
@@ -161,16 +145,15 @@ class func {
 
 	
 	// #### DIALOG FUNCTIONS ####
-	
 	function error($text, $link_target = '') {
 		global $templ, $auth, $lang, $language, $dsp;
 		
-		if ($link_target == '') $link_target = $this->internal_referer;
-
     // Close Layout table, if opened 
     $dsp->AddContent();
 
-		if ($link_target) $templ['error']['info']['link'] = $dsp->FetchButton($link_target, "back");
+		if ($link_target == '') $link_target = $this->internal_referer;
+		if ($link_target == NO_LINK) $link_target = '';
+		if ($link_target) $templ['error']['info']['link'] = $dsp->FetchIcon($link_target, "back");
 
 		switch($text) {
 			case "ACCESS_DENIED":
@@ -201,8 +184,8 @@ class func {
 		global $templ, $auth, $dsp, $language;
 
 		if ($link_target == '') $link_target = $this->internal_referer;
-
-		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
+		if ($link_target == NO_LINK) $link_target = '';
+		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchIcon($link_target, "back");
 		$templ['confirmation']['info']['confirmationmsg']	= $text;
 
     $dsp->AddContent();
@@ -210,21 +193,19 @@ class func {
     $dsp->AddContent();
 	}
 
-	
 	function information($text, $link_target = '', $button_text = 'back') {
 		global $templ, $auth, $dsp, $language;
 
 		if ($link_target == '') $link_target = $this->internal_referer;
-
-		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, $button_text);
+		if ($link_target == NO_LINK) $link_target = '';
+		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchIcon($link_target, $button_text);
 		$templ['confirmation']['info']['confirmationmsg'] = $text;
 
     $dsp->AddContent();
     $dsp->AddTpl("design/templates/information.htm");
     $dsp->AddContent();
 	}
-	
-	
+
 	function multiquestion($questionarray, $linkarray, $text) {
 		global $templ, $dsp;
 
@@ -266,8 +247,8 @@ class func {
 		if ($link_target_no == '') $link_target_no = $this->internal_referer;
 
 		$templ['question']['info']['questionmsg']	= $text;
-		$templ['question']['control']['link']['yes'] = $dsp->FetchButton($link_target_yes, "yes");
-		$templ['question']['control']['link']['no'] = $dsp->FetchButton($link_target_no, "no");
+		$templ['question']['control']['link']['yes'] = $dsp->FetchIcon($link_target_yes, "yes");
+		$templ['question']['control']['link']['no'] = $dsp->FetchIcon($link_target_no, "no");
 
     $dsp->AddContent();
     $dsp->AddTpl("design/templates/question.htm");
