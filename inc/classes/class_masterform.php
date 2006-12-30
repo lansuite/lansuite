@@ -147,7 +147,7 @@ class masterform {
               and $field['selections'] == HTML_WYSIWYG) $_POST[$field['name']] = $_POST['FCKeditor1'];
 
             // If not in DependOn-Group, or DependOn-Group is active
-            if (!$this->DependOnStarted or $POST_[$this->DependOnField]) {
+            if (!$this->DependOnStarted or $_POST[$this->DependOnField]) {
               // Convert Post-date to unix-timestap
               if ($SQLFieldTypes[$field['name']] == 'datetime')
                 $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
