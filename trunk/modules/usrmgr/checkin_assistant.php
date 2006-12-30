@@ -72,6 +72,7 @@ switch($_GET["step"]) {
       $_GET['userid'] = $mf->insert_id;
       $_GET['step']++;
       
+      // Signon to current party using no Price, but set to paid (evening checkout)
       $db->query("INSERT INTO {$config['tables']['party_user']} SET
         user_id = ". (int)$_GET['userid'] .",
         party_id = ". (int)$party->party_id .",

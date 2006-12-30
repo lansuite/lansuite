@@ -62,11 +62,19 @@ function CheckClanPW ($clanpw) {
 
   if (!$_POST['new_clan_select'] and $auth['type'] <= 1) {
     $clan = $db->query_first("SELECT password FROM {$config['tables']['clan']} WHERE clanid = '{$_POST['clan']}'");
-    if ($clan['password'] and $clan['password'] != md5($clanpw)) return 'Wrong PW!';
+    if ($clan['password'] and $clan['password'] != md5($clanpw)) return t('Passwort falsch!');
   }
   return false;
 }
 
+function CheckClanNotExists ($ClanName) {
+  global $db, $config, $auth;
+
+  $clan = $db->query_first("SELECT 1 AS found FROM {$config['tables']['clan']} WHERE name = '$ClanName'");
+  if ($clan['found']) return t('Dieser Clan existiert bereits!') .HTML_NEWLINE. t(' Wenn du ihm beitreten möchtest, wähle ihn oberhalb aus dem Dropdownmenü aus');
+
+  return false;
+}
 
 function PersoInput($field, $mode, $error = '') {
   global $dsp, $templ, $lang, $auth;
@@ -309,7 +317,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $mf->AddField($lang['usrmgr']['add_existing_clan'], 'clan', IS_SELECTION, $selections, Optional('clan'), '', 1, $PWClans);
         $mf->AddField($lang['usrmgr']['add_password'], 'clanpw', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckClanPW');
         $mf->AddField($lang['usrmgr']['add_create_clan'], 'new_clan_select', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
-        $mf->AddField($lang['usrmgr']['add_create_clan'], 'clan_new', '', '', FIELD_OPTIONAL);
+        $mf->AddField($lang['usrmgr']['add_create_clan'], 'clan_new', '', '', FIELD_OPTIONAL, 'CheckClanNotExists');
         if (ShowField('clanurl')) $mf->AddField($lang['usrmgr']['add_clanurl'], 'clanurl', '', '', FIELD_OPTIONAL);
         $mf->AddField($lang['usrmgr']['chpwd_password'], 'newclanpw', IS_NEW_PASSWORD, '', FIELD_OPTIONAL);
         $mf->AddGroup($lang['usrmgr']['clan']);

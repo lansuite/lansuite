@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.5
 
+- Bugfix: #566 Bestehender Namen beim ertsellen eines Clans wurde nicht abgefangen (KnoX 30.12.2006)
 - Bugfix: SQL-Fehler beim Löschen eines Posts im Board (KnoX 22.12.2006)
 - Bugfix: Statistiken lieferten teilweise unterschiedliche Werte. Ein Hit wurde auf einigen Systemen immer als neuer visit gezählt (KnoX 21.12.2006)
 - Bugfix: #555 SQL-Fehler beim Löschen von Board, durch unsauberes Löschen aus der DB (KnoX 21.12.2006) 
