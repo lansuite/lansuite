@@ -20,7 +20,7 @@
     	<item>
     		<name>board_max_posts</name>
     		<type>integer</type>
-    		<default>5</default>
+    		<default>10</default>
     		<description>Anzahl der angezeigten Einträge</description>
     	</item>
     </items>

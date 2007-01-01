@@ -4,6 +4,7 @@ define('FIELD_OPTIONAL', 1);
 define('HTML_ALLOWED', 1);
 define('LSCODE_ALLOWED', 1);
 define('HTML_WYSIWYG', 2);
+define('LSCODE_BIG', 3);
 define('IS_PASSWORD', 1);
 define('IS_NEW_PASSWORD', 2);
 define('IS_SELECTION', 3);
@@ -243,6 +244,7 @@ class masterform {
               case 'longtext':
                 if (!$maxchar) $maxchar = 4294967295;
                 if ($field['selections'] == HTML_ALLOWED or $field['selections'] == LSCODE_ALLOWED) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
+                elseif ($field['selections'] == LSCODE_BIG) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], 100, 20, $field['optional'], $maxchar);
                 elseif ($field['selections'] == HTML_WYSIWYG) {
                   ob_start();
                   include_once("ext_scripts/FCKeditor/fckeditor.php");
@@ -389,6 +391,8 @@ class masterform {
 
           if ($ChangeError) $func->information($ChangeError);
           else {
+            $addUpdSuccess = true;
+
             // Generate INSERT/UPDATE query
             $db_query = '';
             if ($this->SQLFields) {
@@ -412,11 +416,11 @@ class masterform {
                   $db->query("INSERT INTO {$config['tables'][$table]} SET $DBInsertQuery");
                   $id = $db->insert_id();
                   $this->insert_id = $id;
+                  $addUpdSuccess = $id;
                 }
               }
             }
-  
-            $addUpdSuccess = true;
+
             if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
             if ($addUpdSuccess) {
               if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $StartURL);
@@ -426,6 +430,11 @@ class masterform {
           
           $sec->lock($table);
           return $addUpdSuccess;
+          /* Will be
+           1) return of AdditionalDBPreUpdateFunction if AddChangeCondition returns true
+           2) return of AdditionalDBUpdateFunction if set
+           3) Insert_id
+          */  
         }
       break;
     }

@@ -52,6 +52,9 @@ else {
 			GROUP BY b.tid
 			LIMIT 10
 			");
+	$count_rows = $db->query_first("SELECT COUNT(*) AS count FROM {$config['tables']['board_posts']}
+    WHERE userid = '{$_GET['userid']}'
+    ");
 	
 	// Select from table_seat_seats
 	$party_seatcontrol = $db->query_first("SELECT * FROM {$config[tables][party_prices]}
@@ -287,7 +290,7 @@ else {
 
 		case 3:
 			// forumposts
-			$dsp->AddDoubleRow($lang['usrmgr']['details_posts'], $user_data['posts']);
+			$dsp->AddDoubleRow($lang['usrmgr']['details_posts'], $user_data['posts'].$count_rows['count']);
 
 			// Threads
 			while($row_threads = $db->fetch_array($get_board_threads)) {

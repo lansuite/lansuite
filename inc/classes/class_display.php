@@ -691,7 +691,7 @@ class display {
 		return $this->FetchModTpl("", "ls_linkbutton");
 	}
 
-	function FetchIcon($link, $picname, $hint = NULL, $target = NULL) {
+	function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {
 		global $templ, $gd;
 
     // Picname-Mappings
@@ -721,6 +721,10 @@ class display {
       case 'delete': $templ['icon']['title'] = t('löschen'); break;
       case 'send': $templ['icon']['title'] = t('senden'); break;
     }
+
+    $templ['icon']['additionalhtml'] = '';
+    if ($align == 'right') $templ['icon']['additionalhtml'] = 'align="right" valign="bottom" vspace="2" ';
+#    if ($align == 'right') $templ['icon']['additionalhtml'] = 'style="float:right; margin-right:2px; margin-bottom:2px" ';
 
     if ($this->form_open) $ret = $this->FetchModTpl('', 'ls_fetch_icon_submit');
     else $ret = $this->FetchModTpl('', 'ls_fetch_icon');
