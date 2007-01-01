@@ -132,7 +132,7 @@ $sec->unlock("board_post");
   					");
 
   			// Update user-posts
-  			$db->query("UPDATE {$config["tables"]["user"]} SET posts = posts + 1, changedate = changedate WHERE userid='{$auth['userid']}'");
+#  			$db->query("UPDATE {$config["tables"]["user"]} SET posts = posts + 1, changedate = changedate WHERE userid='{$auth['userid']}'");
 
   			// Send email-notifications to thread-subscribers
   			$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));

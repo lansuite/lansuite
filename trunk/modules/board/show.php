@@ -7,7 +7,7 @@ function NameAndDesc($name) {
 }
 
 function LastPostDetails($date) {
-  global $db, $config, $line, $dsp;
+  global $db, $config, $line, $dsp, $templ;
 
   if ($date) {
     $row = $db->query_first("SELECT t.caption, p.userid, p.tid, p.pid FROM {$config['tables']['board_posts']} AS p

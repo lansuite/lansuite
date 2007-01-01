@@ -17,17 +17,18 @@ class board_func {
 	function getuserinfo($userid) {
 		global $db, $cfg, $lang, $config;
 
-		$row_poster = $db->query_first("SELECT username, posts, type FROM {$config["tables"]["user"]} WHERE userid='$userid'");
+		$row_poster = $db->query_first("SELECT username, type FROM {$config["tables"]["user"]} WHERE userid='$userid'");
 		$row_poster_settings = $db->query_first("SELECT avatar_path, signature FROM {$config["tables"]["usersettings"]} WHERE userid='$userid'");
+  	$count_rows = $db->query_first("SELECT COUNT(*) AS posts FROM {$config['tables']['board_posts']} WHERE userid = '$userid'");
 
 		$html_image= '<img src="ext_inc/avatare/%s" alt="%s" border="0">';
 
 		$user["username"]   =$row_poster["username"];
-		$user["avatar"]     =($row_poster_settings["avatar_path"] != "") ? sprintf($html_image, $row_poster_settings["avatar_path"], "") : "";
+		$user["avatar"]     =($row_poster_settings["avatar_path"] != '' and $row_poster_settings["avatar_path"] != 'none') ? sprintf($html_image, $row_poster_settings["avatar_path"], "") : "";
 		$user["signature"]   = $row_poster_settings["signature"];
 
-		if ($cfg['board_ranking'] == TRUE) $user["rank"] = $this->getboardrank($row_poster["posts"]);
-		$user["posts"] = $row_poster["posts"];
+		if ($cfg['board_ranking'] == TRUE) $user["rank"] = $this->getboardrank($count_rows["posts"]);
+		$user["posts"] = $count_rows["posts"];
 
 		switch($row_poster["type"]) {
 			case 1:	$user["type"] = $lang['board']['user'][0]; 	break;

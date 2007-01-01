@@ -1,18 +1,14 @@
 <tr>
-	<td class="row_key" id="pid{$templ['board']['thread']['case']['info']['post']['pid']}" width="150" height="30" valign="top">
-    <b>{$templ['board']['thread']['case']['info']['post']['poster']['username']}</b> 
+	<td class="row_key" id="pid{$templ['board']['thread']['case']['info']['post']['pid']}" width="150" valign="top">
+    {$templ['board']['thread']['case']['info']['post']['date']}
+    <br /><b>{$templ['board']['thread']['case']['info']['post']['poster']['username']}</b> 
     <br />{$templ['board']['thread']['case']['info']['post']['poster']['type']} 
     <br />{$templ['board']['thread']['case']['info']['post']['poster']['avatar']} 
     <br />{$templ['board']['thread']['case']['info']['post']['poster']['posts']} 
-    <br />{$templ['board']['thread']['case']['info']['post']['poster']['rank']} 
+    <br />{$templ['board']['thread']['case']['info']['post']['poster']['rank']}
   </td>
-	<td class="row_value" width="*" height="30" valign="top">
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="row_value">
-      <tr>
-        <td width="100%">{$templ['board']['thread']['case']['info']['post']['date']}</td>
-        <td align="right" style="white-space:nowrap;">{$templ['board']['thread']['case']['info']['post']['edit']}</td>
-      </tr>
-    </table>
+	<td class="row_value{$templ['board']['highlighted']}" width="*" valign="top">
+    {$templ['board']['thread']['case']['info']['post']['edit']}
     {$templ['board']['thread']['case']['info']['post']['text']}
     {$templ['board']['thread']['case']['info']['post']['poster']['signature']}
   </td>
