@@ -22,9 +22,8 @@ class stats {
 			$find = $db->query_first_rows("SELECT hits FROM {$config["tables"]["stats_usage"]} WHERE DATE_FORMAT(time, '%Y%m%d%H') = DATE_FORMAT(NOW(), '%Y%m%d%H')");
 			if ($find["number"] > 0) $db->query("UPDATE {$config["tables"]["stats_usage"]} SET visits = visits + 1, hits = hits + 1 WHERE DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
 			else $db->query("INSERT INTO {$config["tables"]["stats_usage"]} SET visits = 1, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
-
-      setcookie('last_hit', time(), time() + (30 * 60));
 		}
+    setcookie('last_hit', time(), time() + (30 * 60));
 
 
 		// Update search engine data

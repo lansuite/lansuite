@@ -385,7 +385,7 @@ class func {
 	}
 	
 
-	function page_split($current_page,$max_entries_per_page,$overall_entries,$working_link,$var_page_name) {
+	function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name) {
 		if ($max_entries_per_page > 0 and $overall_entries >= 0 and $working_link != "" and $var_page_name != "") {
 			if($current_page == "") {
 				$page_sql = "LIMIT 0," . $max_entries_per_page;
@@ -424,7 +424,6 @@ class func {
 				if ($current_page == "all") {
 					$page_output .= " Alle";
 				}
-			
 			}
 
 			$output["html"] = $page_output;

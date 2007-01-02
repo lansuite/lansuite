@@ -36,6 +36,10 @@ switch ($_GET['time']) {
 	break;
 }
 
+$dsp->AddSingleRow('', '<object data="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
+  Ihr Browser kann das Objekt leider nicht anzeigen!
+</object>');
+#  <param name="src" value="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'>
 
 $res = $db->query("SELECT DATE_FORMAT(time, '$group_by') AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits, SUM(visits) AS visits FROM {$config["tables"]["stats_usage"]}
   WHERE DATE_FORMAT(time, '$where') = '{$_GET['timeframe']}'
@@ -60,9 +64,5 @@ if ($where_back) {
   $dsp->AddBackButton('index.php?mod=stats&action=usage&time='. $back .'&timeframe='. $row_back['back_time'], "stats/usage");
 }
 
-$dsp->AddSingleRow('', '<object data="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
-  Ihr Browser kann das Objekt leider nicht anzeigen!
-</object>');
-#  <param name="src" value="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'>
 $dsp->AddContent();
 ?>

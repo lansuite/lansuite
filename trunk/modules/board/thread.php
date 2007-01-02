@@ -18,7 +18,6 @@ $thread = $db->query_first("SELECT t.fid, t.caption, t.closed, f.name AS ForumNa
   LEFT JOIN {$config["tables"]["board_forums"]} AS f ON t.fid = f.fid
   WHERE t.tid=$tid AND (f.need_type <= '{$list_type}')");
 
-
 if ($thread['caption'] == '' and $tid) $func->error($lang['board']['no_posts'], '');
 elseif ($thread['caption'] != '') {
 
@@ -47,10 +46,20 @@ elseif ($thread['caption'] != '') {
 
 	$query = $db->query("SELECT pid, comment, userid, date, ip FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date");
 	$count_entrys = $db->num_rows($query);
+	
+	if ($_GET['gotopid']) {
+    $z = 0;
+  	$query2 = $db->query("SELECT pid FROM {$config['tables']['board_posts']} WHERE tid='$tid'");
+  	while ($row2 = $db->fetch_array($query2)) {
+      if ($row2['pid'] == $_GET['gotopid']) break;
+      $z++;
+  	}
+  	$db->free_result($query2);
+  	$_GET['posts_page'] = (string)floor($z / $cfg['board_max_posts']);
+  }
 
   // Page select
 	if ($count_entrys > $cfg['board_max_posts']){
-#		if($_GET['pid'] == "last") $_GET['posts_page'] = ceil(($count_entrys) / $cfg['board_max_posts']) - 1;
 		$pages = $func->page_split($_GET['posts_page'], $cfg['board_max_posts'], $count_entrys, "index.php?mod=board&action=thread&tid=$tid", "posts_page");
 		$query = $db->query("SELECT pid, comment, userid, date FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date {$pages['sql']}");
 	}
@@ -84,11 +93,12 @@ elseif ($thread['caption'] != '') {
 		$templ['board']['thread']['case']['info']['post']['poster']['signature'] = '';
 		if ($userdata["signature"]) $templ['board']['thread']['case']['info']['post']['poster']['signature'] 	= '<hr size="1" width="100%" color="cccccc">'.$func->db2text2html($userdata["signature"]);
 
-		$templ['board']['thread']['case']['info']['post']['edit'] = "";
-		if ($auth['type'] > 1 or $row["userid"] == $auth["userid"])
-			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid", "edit", '', '', 'right');
+		$templ['board']['thread']['case']['info']['post']['edit'] = '';
 		if ($auth['type'] > 1)
 			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=edit&mode=pdelete&pid=$pid", "delete", '', '', 'right');
+		if ($auth['type'] > 1 or $row["userid"] == $auth["userid"])
+			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid", "edit", '', '', 'right');
+		$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("javascript:InsertCode(document.dsp_form1.comment, '[quote]". addslashes(str_replace('"', '', $row["comment"])) ."[/quote]')", "quote", '', '', 'right');;
 
     if ($z % 2 == 0) $templ['board']['highlighted'] = '';
     else $templ['board']['highlighted'] = '_highlighted';

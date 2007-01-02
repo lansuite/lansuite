@@ -1,6 +1,6 @@
 <?php
 
-function LastPostDetails($date, $jump_to_pid = '') {#'last'
+function LastPostDetails($date) {
   global $db, $config, $line, $dsp, $templ;
 
   if ($date) {
@@ -8,7 +8,7 @@ function LastPostDetails($date, $jump_to_pid = '') {#'last'
       LEFT JOIN {$config['tables']['user']} AS u ON p.userid = u.userid
       WHERE p.date = $date AND p.tid = {$line['tid']}");
 
-    $ret = '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&pid='. $jump_to_pid .'#pid'. $row['pid'] .'" class="menu">'. date('d.m.y H:i', $date);
+    $ret = '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&gotopid='. $row['pid'] .'#pid'. $row['pid'] .'" class="menu">'. date('d.m.y H:i', $date);
     if ($row['userid']) $ret .= '<br />'. $row['username'] .'</a> '. $dsp->FetchUserIcon($row['userid']);
     else $ret .= '<br />Gast_';
     return $ret;
@@ -18,10 +18,6 @@ function LastPostDetails($date, $jump_to_pid = '') {#'last'
     $templ['ms2']['icon_title'] = '-';
     return $dsp->FetchModTpl('mastersearch2', 'result_icon');
   }
-}
-
-function FirstPostDetails($date) {
-  return LastPostDetails($date, '');
 }
 
 function FormatTitle($title) {
@@ -98,7 +94,7 @@ else $ms2->AddResultField($lang['board']['subject'], 'CONCAT(\'<b>\', f.name, \'
 $ms2->AddResultField($lang['board']['new'], 'r.last_read', 'NewPosts');
 $ms2->AddResultField($lang['board']['clicks'], 't.views');
 $ms2->AddResultField($lang['board']['replys'], '(COUNT(p.pid) - 1) AS posts');
-$ms2->AddResultField($lang['board']['first_post'], 'MIN(p.date) AS FirstPost', 'FirstPostDetails');
+$ms2->AddResultField($lang['board']['first_post'], 'MIN(p.date) AS FirstPost', 'LastPostDetails');
 $ms2->AddResultField($lang['board']['last_post'], 'MAX(p.date) AS LastPost', 'LastPostDetails');
 
 $ms2->AddIconField('details', 'index.php?mod=board&action=thread&fid='. $_GET["fid"] .'&tid=', $lang['ms2']['details']);

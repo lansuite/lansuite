@@ -15,7 +15,7 @@ function LastPostDetails($date) {
       WHERE p.date = $date AND t.fid = {$line['fid']}");
 
     if (strlen($row['caption']) > 18) $row['caption'] = substr($row['caption'], 0, 16). '...';
-    return '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&pid=last#pid'. $row['pid'] .'" class="menu">'. $row['caption'] .'<br />'. date('d.m.y H:i', $date) .'</a> '. $dsp->FetchUserIcon($row['userid']);
+    return '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&gotopid='. $row['pid'] .'#pid'. $row['pid'] .'" class="menu">'. $row['caption'] .'<br />'. date('d.m.y H:i', $date) .'</a> '. $dsp->FetchUserIcon($row['userid']);
   } else {
     $templ['ms2']['icon_name'] = 'no';
     $templ['ms2']['icon_title'] = '-';
