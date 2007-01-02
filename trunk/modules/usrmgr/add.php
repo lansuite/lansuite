@@ -391,7 +391,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       $_POST['email'] = $_POST['email']; 
       $_POST['password'] = $_POST['password_original'];
       $authentication->login('save');
-  
+
       $_GET['mf_step'] = 1;
       $_GET['user_id'] = $auth['userid'];
       include_once("modules/usrmgr/party.php");
