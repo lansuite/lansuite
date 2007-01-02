@@ -1,8 +1,6 @@
 <?php
 
 $dsp->NewContent($lang["stats"]["user_caption"], $lang["stats"]["user_subcaption"]);
-$dsp->AddDoubleRow("<b>Time</b>", "<b>Visits (Hits)</b>");
-
 
 switch ($_GET['time']) {
   default:
@@ -40,6 +38,8 @@ $dsp->AddSingleRow('', '<object data="index.php?mod=stats&action=usage_grafik&de
   Ihr Browser kann das Objekt leider nicht anzeigen!
 </object>');
 #  <param name="src" value="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'>
+
+$dsp->AddDoubleRow("<b>Time</b>", "<b>Visits (Hits)</b>");
 
 $res = $db->query("SELECT DATE_FORMAT(time, '$group_by') AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits, SUM(visits) AS visits FROM {$config["tables"]["stats_usage"]}
   WHERE DATE_FORMAT(time, '$where') = '{$_GET['timeframe']}'
