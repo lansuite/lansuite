@@ -19,7 +19,7 @@ switch ($_GET["step"]){
 
 		$continue = $install->envcheck();
 
-		if ($continue) $dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=2", "next"));
+		if ($continue) $dsp->AddDoubleRow("", $dsp->FetchIcon("install.php?mod=install&action=wizard&step=2", "next"));
 		$dsp->AddContent();
 	break;
 
@@ -133,7 +133,7 @@ switch ($_GET["step"]){
 		$dsp->NewContent($lang["install"]["wizzard_db_caption"], $lang["install"]["wizzard_db_subcaption"]);
 		$dsp->AddSingleRow($output);
 
-		if ($continue) $dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=4", "next"));
+		if ($continue) $dsp->AddDoubleRow("", $dsp->FetchIcon("install.php?mod=install&action=wizard&step=4", "next"));
 		$dsp->AddBackButton("install.php?mod=install&action=wizard&step=2", "install/db"); 
 		$dsp->AddContent();
 	break;
@@ -161,9 +161,9 @@ switch ($_GET["step"]){
 		$dsp->AddCheckBoxRow("noseat", $lang["install"]["import_noseat"], "", "", 1, "");
 
 		$dsp->AddSingleRow($lang["install"]["import_warning"]);
-		$dsp->AddFormSubmitRow("next");
+		$dsp->AddFormSubmitRow("add");
 
-		$dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=6", "skip"));
+		$dsp->AddDoubleRow("", $dsp->FetchIcon("install.php?mod=install&action=wizard&step=6", "next"));
 		$dsp->AddBackButton("install.php?mod=install&action=wizard&step=3", "install/import"); 
 		$dsp->AddContent();
 	break;
@@ -199,7 +199,7 @@ switch ($_GET["step"]){
 					break;
 				}
 
-				$dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=6", "next"));
+				$dsp->AddDoubleRow("", $dsp->FetchIcon("install.php?mod=install&action=wizard&step=6", "next"));
 				$dsp->AddBackButton("install.php?mod=install&action=wizard&step=4", "install/import"); 
 				$dsp->AddContent();
 			break;
@@ -210,7 +210,7 @@ switch ($_GET["step"]){
 				$dsp->NewContent($lang["install"]["wizard_importupload_caption"], $lang["install"]["wizard_importupload_subcaption"]);
 				$dsp->AddSingleRow(str_replace("%ERROR%", $check["error"], str_replace("%NOTHING%", $check["nothing"], str_replace("%INSERT%", $check["insert"], str_replace("%REPLACE%", $check["replace"], $lang["install"]["import_csv_report"])))));
 
-				$dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=6", "next"));
+				$dsp->AddDoubleRow("", $dsp->FetchIcon("install.php?mod=install&action=wizard&step=6", "next"));
 				$dsp->AddBackButton("install.php?mod=install&action=wizard&step=4", "install/import"); 
 				$dsp->AddContent();
 			break;
@@ -229,9 +229,9 @@ switch ($_GET["step"]){
 		$dsp->AddTextFieldRow("email", $lang["install"]["admin_email"], $user, "");
 		$dsp->AddPasswordRow("password", $lang["install"]["conf_pass"], $pass, "");
 		$dsp->AddPasswordRow("password2", $lang["install"]["admin_pass2"], $pass, "");
-		$dsp->AddFormSubmitRow("next");
+		$dsp->AddFormSubmitRow("add");
 
-		$dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=8", "skip"));
+		$dsp->AddDoubleRow("", $dsp->FetchIcon("install.php?mod=install&action=wizard&step=8", "next"));
 		$dsp->AddBackButton("install.php?mod=install&action=wizard&step=4", "install/admin"); 
 		$dsp->AddContent();
 	break;
@@ -328,7 +328,7 @@ switch ($_GET["step"]){
 		$dsp->AddSingleRow($lang["install"]["wizard_final_text"]);
 		if (!$found_adm) $dsp->AddSingleRow("<font color=red>". $lang["install"]["wizard_warning_noadmin"] ."</font>");
         	
-		$dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install", "close"));
+		$dsp->AddDoubleRow("", $dsp->FetchIcon("install.php?mod=install", "signon"));
 		$dsp->AddBackButton("install.php?mod=install&action=wizard&step=6", "install/admin"); 
 		$dsp->AddContent();
 	break;
