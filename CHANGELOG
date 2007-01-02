@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.5
 
+- Bugfix: #554 Beim Anmelden zur Party wurde keine eigene Mail mehr versendet (KnoX 02.01.2007)
 - Bugfix: #567 Auch Administratoren konnten nur eigene Server löschen (KnoX 02.01.2007)
 - Bugfix: #566 Bestehender Namen beim ertsellen eines Clans wurde nicht abgefangen (KnoX 30.12.2006)
 - Bugfix: SQL-Fehler beim Löschen eines Posts im Board (KnoX 22.12.2006)

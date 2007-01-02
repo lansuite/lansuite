@@ -8,12 +8,12 @@ chmod_dir			= "777"
 chmod_file			= "666"
 
 [environment]
-configured			= "0"
+configured			= "1"
 dir				= ""
 os				= "Win32"
 mq				= "1"
 gd				= "1"
-snmp				= "1"
+snmp				= "0"
 ftp				= "1"
 
 
