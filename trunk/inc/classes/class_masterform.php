@@ -251,7 +251,7 @@ class masterform {
                   $oFCKeditor = new FCKeditor('FCKeditor1') ;
                   $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
                   $oFCKeditor->Value = $_POST[$field['name']];
-                  $oFCKeditor->Height = 380;
+                  $oFCKeditor->Height = 460;
                   $oFCKeditor->Create();
                   $fcke_content = ob_get_contents();
                   ob_end_clean();
