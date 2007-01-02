@@ -58,15 +58,23 @@ class Install {
 		$link_id = mysql_connect($dbserver, $dbuser, $dbpasswd);
 		if ($link_id) {
 
-			// If User wants to rewrite all tables, drop databse. It will be created anew in the next step
-			if ((!$_GET["quest"]) && ($createnew) && ($_GET["step"] == 3)) mysql_query("DROP DATABASE $database");
-
 			// Try to select DB
-			if (@mysql_select_db($database, $link_id)) $ret_val = 1;
-			else {
+			if (@mysql_select_db($database, $link_id)) {
+        $ret_val = 1;
+
+  			// If User wants to rewrite all tables, drop databse. It will be created anew in the next step
+  			if ((!$_GET["quest"]) && ($createnew) && ($_GET["step"] == 3)) {
+          #mysql_query("DROP DATABASE $database");
+
+          $res = mysql_query("SELECT DISTINCT name FROM {$config['database']['prefix']}table_names", $link_id);
+          while ($row = mysql_fetch_array($res)) mysql_query("DROP TABLE {$config['database']['prefix']}{$row['name']}", $link_id);
+          mysql_free_result($res);
+        }
+
+			} else {
 
   			@mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $link_id);
-         
+
 				// Try to create DB
 				$query_id = @mysql_query("CREATE DATABASE $database CHARACTER SET utf8", $link_id);
 				if ($query_id) $ret_val = 3; else $ret_val = 2;
@@ -149,7 +157,7 @@ class Install {
 					foreach ($tables as $table) {
 						$table_head = $xml->get_tag_content("table_head", $table);
 						$table_name = $xml->get_tag_content("name", $table_head);
-						$db->query("INSERT INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
+						$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
 					}
 				}
 			}
@@ -166,7 +174,7 @@ class Install {
 		$tablecreate = Array("anz" => 0, "created" => 0, "exist" => 0, "failed" => "");
 		$dsp->AddSingleRow("<b>". $lang["install"]["db_createtables"] ."</b>");
 
-		$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}table_names (name varchar(80) NOT NULL default '') TYPE = MyISAM CHARACTER SET utf8");
+		$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}table_names (name varchar(80) NOT NULL default '', PRIMARY KEY(name)) TYPE = MyISAM CHARACTER SET utf8");
 		$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = 'table_names'");
 
 		if (is_dir("modules")) {

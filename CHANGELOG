@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.5
 
+- Bugdix: In der Tabelle Table-Names wurden bei jedem Aufruf des DB-Managers viele unnötige einträge erzeugt (KnoX 02.01.2007)
 - Bugfix: #569 Clanlose waren untereinander Clanmates im Sitzplan (DrKarl 02.01.2007)
 - Bugfix: #554 Beim Anmelden zur Party wurde keine eigene Mail mehr versendet (KnoX 02.01.2007)
 - Bugfix: #567 Auch Administratoren konnten nur eigene Server löschen (KnoX 02.01.2007)
@@ -34,6 +35,7 @@ Version 2.1.5
 - Add: Schräge-Wände Icons im Sitzplan (05.10.2006)
 - Add: #513 Maps können nun in den Turnierdetails durchgemischt werden. Außerdem steht nun die Runde dabei (KnoX 04.10.2006)
 
+- Change: #530 Das Zurücksetzen aller Datenbanken setzt nicht mehr die Komplette DB zurück, sondern nur die Tabellen, die von Lansuite erstellt wurden (KnoX 02.01.2007)
 - Change: Kleine Board-Optimierungen (KnoX 22.12.2006)
 - Change: Language-Datei auf Datenbank umgestellt (KnoX 22.12.2006)
 - Change: In den Userdetails wird der Turnierlink nur noch gezeigt, wenn das Modul aktiv ist und Eigene Felder nur noch, wenn welche existieren (KnoX 21.12.2006)
