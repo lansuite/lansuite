@@ -148,7 +148,7 @@
     	<item>
     		<name>signon_signonemail_subject</name>
     		<type>string</type>
-    		<default>Informationsmail zur Anmeldung bei der LANparty</default>
+    		<default>Informationsmail zur Anmeldung einer LanSuite Lan-Party</default>
     		<description>Betreff der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird</description>
     	</item>
     	<item>
@@ -156,25 +156,13 @@
     		<type>text</type>
     		<default>Hallo %USERNAME%!
 
-Sie sind nun registriert und für die kommende LanParty "%PARTYNAME%" vorgemerkt. Ihre Anmeldung ist jedoch erst vollständig, wenn Sie die Teilnahmegebühr überwiesen haben.
-
-Bitte halten Sie diese E-Mail gespeichert, falls Sie Ihr Passwort vergessen sollten.
-Ihre Login-Daten sind die folgenden:
-
---Userdata------------------
-Username: %USERNAME%
-E-Mail: %EMAIL%
-Passwort: %PASSWORD%
-Clan: %CLAN%
-----------------------------
-
+Sie sind nun registriert und für die kommende Lan-Party "%PARTYNAME%" vorgemerkt. Ihre Anmeldung ist jedoch erst vollständig, wenn Sie die Teilnahmegebühr überwiesen haben.
 
 --LANdata-------------------
 Event: %PARTYNAME%
 Webseite: %PARTYURL%
 Teilnehmer: %MAXGUESTS%
 ---------------------------
-
 
 Ihre Orgas</default>
     		<description>Text der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird, wenn er sich auch zur aktuellen Party anmeldet</description>

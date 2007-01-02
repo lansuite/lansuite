@@ -1,5 +1,22 @@
 <?php
 
+include_once("modules/usrmgr/class_usrmgr.php");
+include_once("modules/signon/language/signon_lang_de.php");
+$usrmgr = new UsrMgr();
+
+function PartyMail() {
+  global $cfg, $usrmgr, $func, $mail;
+
+  if ($cfg["signon_password_mail"]) {
+  	if ($usrmgr->SendSignonMail(1)) $func->confirmation(t('Eine Bestätigung der Anmeldung wurde an deine eMail-Adresse gesendet', NO_LINK));
+  	else {
+  		$func->error(t('Es ist ein Fehler beim Versand der Informations-eMail aufgetreten. Fehlermeldung:'). $mail->error, NO_LINK);
+  		$cfg['signon_password_view'] = 1;
+  	}
+  }
+}
+
+
 if ($party->count == 0) $func->error('No partys available!', 'index.php?mod='. $_GET['mod']);
 else {
 
@@ -71,7 +88,8 @@ else {
           $mf->AddField($lang['usrmgr']['checkout'], 'checkout', '', '', FIELD_OPTIONAL);
           $mf->AddField($lang['usrmgr']['signondate'], 'signondate', '', '', FIELD_OPTIONAL);
         }
-      
+
+        $mf->AdditionalDBUpdateFunction = 'PartyMail';
         $mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&party_id='. $row['party_id'], 'party_user', 'user_id', $_GET['user_id']);
         $dsp->AddFieldsetEnd();
       }

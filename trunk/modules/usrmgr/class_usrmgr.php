@@ -19,22 +19,45 @@ class UsrMgr {
 	}
 
 
-	function SendSignonMail(){
-		global $cfg, $func, $templ, $dsp, $mail;
+	function SendSignonMail($type = 0){
+		global $cfg, $func, $templ, $dsp, $mail, $db, $config;
 
-		$anmelde_schluss = "";
-		if ($_SESSION['party_info']['s_enddate'] > 0) $anmelde_schluss = "Anmeldeschluß: ". $func->unixstamp2date($_SESSION['party_info']['s_enddate'], date) .HTML_NEWLINE;
+    switch ($type) {
 
-		if ($_GET["signon"]) $message = $cfg["signon_signonemail_text"];
-		else $message = $cfg["signon_signonemail_text_register"];
+      // Register-Mail
+      default:
+        $message = $cfg["signon_signonemail_text_register"];
 
-		$message = str_replace('%USERNAME%', $_POST['username'], $message);
-		$message = str_replace('%EMAIL%', $_POST['email'], $message);
-		$message = str_replace('%PASSWORD%', $_SESSION['tmp_pass'], $message);
-		$message = str_replace('%CLAN%', $_POST['clan'], $message);
-		$message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
+    		$message = str_replace('%USERNAME%', $_POST['username'], $message);
+    		$message = str_replace('%EMAIL%', $_POST['email'], $message);
+    		$message = str_replace('%PASSWORD%', $_SESSION['tmp_pass'], $message);
+    		if ($_POST['clan']) {
+          $row = $db->query_first("SELECT name FROM {$config["tables"]["clan"]} WHERE clanid = {$_POST['clan']}");
+          $clan = $row['name'];
+        }
+    		else $clan = $_POST['clan_new'];
+    		$message = str_replace('%CLAN%', $clan, $message);
+      break;
+
+      // Signon-Mail
+      case 1:
+        $message = $cfg["signon_signonemail_text"];
+        
+        if ($_GET['user_id']) {
+          $row = $db->query_first("SELECT username, email FROM {$config["tables"]["user"]} WHERE userid = {$_GET['user_id']}");
+      		$message = str_replace('%USERNAME%', $row['username'], $message);
+      		$message = str_replace('%EMAIL%', $row['email'], $message);
+        }
+    		$message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
+    		$message = str_replace('%MAXGUESTS%', $_SESSION['party_info']['max_guest'], $message);
+
+    		$anmelde_schluss = '';
+    		if ($_SESSION['party_info']['s_enddate'] > 0) $anmelde_schluss = "Anmeldeschluss: ". $func->unixstamp2date($_SESSION['party_info']['s_enddate'], date) .HTML_NEWLINE;
+    		$message = str_replace('%SIGNON_DEADLINE%', $anmelde_schluss, $message);
+      break;
+    }
+
 		$message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
-		$message = str_replace('%MAXGUESTS%', $_SESSION['party_info']['max_guest'], $message);
 
 		if ($mail->create_inet_mail($_POST["firstname"]." ".$_POST["lastname"], $_POST["email"], $cfg["signon_signonemail_subject"], $message, $cfg["sys_party_mail"])) return true;
 		else return false;
