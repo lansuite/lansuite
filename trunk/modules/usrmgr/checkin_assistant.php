@@ -2,19 +2,19 @@
 
 $timestamp 	= time();
 
-include_once("modules/usrmgr/class_adduser.php");
-$AddUser = new AddUser();
+#include_once("modules/usrmgr/class_adduser.php");
+#$AddUser = new AddUser();
 
 $user_data = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid='{$_GET["userid"]}'");
-
+/*
 // Error-Switch
 switch($_GET["step"]) {
 	case 3:
-		$AddUser->GetDBData($_GET["umode"]);
+#		$AddUser->GetDBData($_GET["umode"]);
 	break;
 
 	case 4:
-		$AddUser->CheckErrors($_GET["umode"], $_GET['quick_signon']);
+#		$AddUser->CheckErrors($_GET["umode"], $_GET['quick_signon']);
 	break;
 	
 	case 5:
@@ -23,16 +23,15 @@ switch($_GET["step"]) {
 		$_POST['password'] = base64_decode(urldecode($_GET['pw']));
 	break;
 }
-
+*/
 
 // Main-Switch
 switch($_GET["step"]) {
 	// Auswahl: Angemeldet? ja/Nein
 	case '':
 	case 1:
-		if($cfg['sys_barcode_on']){
-			$dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>","","index.php?mod=usrmgr&action=entrance&step=3&umode=change&userid=");
-		}
+		if ($cfg['sys_barcode_on']) $dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>","","index.php?mod=usrmgr&action=entrance&step=3&umode=change&userid=");
+
 		$questionarr[1] = $lang["usrmgr"]["entrance_signedon"];
 		$questionarr[2] = $lang["usrmgr"]["entrance_comunity"];
 		$questionarr[3] = $lang["usrmgr"]["entrance_notsignedon"];
