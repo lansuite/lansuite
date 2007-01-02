@@ -23,28 +23,10 @@ $box->DotRow($lang['boxes']['userdata_username']);
 $box->EngangedRow("<b>$username</b> ". $dsp->FetchUserIcon($auth["userid"]));
 $box->EngangedRow("[".$lang['boxes']['userdata_id']." <i>$userid_formated</i>]");
 
-
-// Show last log in and login count
-$user_lg = $db->query_first("SELECT user.logins, max(auth.logintime) AS logintime
-	FROM {$config['tables']['user']} AS user
-	LEFT JOIN {$config['tables']['stats_auth']} AS auth ON auth.userid = user.userid
-	WHERE user.userid=\"".$auth["userid"]."\"
-	GROUP BY auth.userid");
-
-$box->DotRow($lang['boxes']['userdata_last_login']);
-$box->EngangedRow("<b>". $func->unixstamp2date($user_lg["logintime"], "shortdaytime") ."</b>");
-
-$box->DotRow($lang['boxes']['userdata_logins']);
-$box->EngangedRow("<b>". $user_lg["logins"] ."</b>");
-
-$box->EmptyRow();
-
 // Show other links
 if ($cfg["user_show_ticket"]) $box->DotRow($lang['boxes']['userdata_my_ticket'], "index.php?mod=usrmgr&action=myticket", "", "menu");
-$box->DotRow($lang['boxes']['userdata_priv_details'], "index.php?mod=usrmgr&action=details&userid={$auth["userid"]}", "", "menu");
-$box->DotRow($lang['boxes']['userdata_priv_settings'], "index.php?mod=usrmgr&action=settings", "", "menu");
-$box->DotRow($lang['boxes']['userdata_logout'], "index.php?mod=logout", "", "menu");
 
+$icons = '';
 
 // New-Mail Notice
 if (in_array('mail', $ActiveModules)) {
@@ -54,7 +36,7 @@ if (in_array('mail', $ActiveModules)) {
 		");
 
 	if ($db->num_rows($mails_new) > 0) {
-    $templ['box']['rows'] .= $box->LinkItem("index.php?mod=mail", "<img src=\"design/{$config['lansuite']['default_design']}/images/mail_newmail.gif\" alt=\"{$lang['boxes']['userdata_new_mail']}\" border=\"0\">");
+    $icons .= $dsp->FetchIcon('index.php?mod=mail', 'receive_mail', $lang['boxes']['userdata_new_mail']) .' ';
   
     // Open PopUp
     $found_not_popped_up_mail = false;
@@ -72,6 +54,22 @@ if (in_array('mail', $ActiveModules)) {
   }
   $db->free_result($mails_new);
 }
+
+$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=details&userid='. $auth["userid"], 'details', $lang['boxes']['userdata_priv_details']) .' ';
+$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=settings', 'generate', $lang['boxes']['userdata_priv_settings']) .' ';
+$icons .= $dsp->FetchIcon('index.php?mod=logout', 'no', $lang['boxes']['userdata_logout']) .' ';
+$box->EngangedRow($icons);
+
+// Show last log in and login count
+$user_lg = $db->query_first("SELECT user.logins, max(auth.logintime) AS logintime
+	FROM {$config['tables']['user']} AS user
+	LEFT JOIN {$config['tables']['stats_auth']} AS auth ON auth.userid = user.userid
+	WHERE user.userid=\"".$auth["userid"]."\"
+	GROUP BY auth.userid");
+
+$box->DotRow($lang['boxes']['userdata_logins']. " <b>". $user_lg["logins"] ."</b>");
+$box->DotRow($lang['boxes']['userdata_last_login']);
+$box->EngangedRow("<b>". $func->unixstamp2date($user_lg["logintime"], "shortdaytime") ."</b>");
 
 $boxes['userdata'] .= $box->CreateBox("user",$lang['boxes']['userdata_my_data']);
 ?>
