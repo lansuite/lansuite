@@ -23,7 +23,7 @@ class update{
 	
 	function update_db($file){
 		global $db;
-		
+/*
 		if(file_exists("modules/install/update/" . $file)){
 			$fp2 = fopen("modules/install/update/" . $file, "r");
 			$contents2 = fread ($fp2, 1024*256);
@@ -42,6 +42,6 @@ class update{
 		
 		}	
 	}
-	
+	*/
 }
 ?>

@@ -648,7 +648,7 @@ class Install {
 	
 	function check_updates(){
 		global $db, $config;
-		
+/*
 		include("modules/install/class_update.php");
 		
 		$update = new update();
@@ -657,9 +657,7 @@ class Install {
 			if(file_exists($file)){
 				include($file);
 			}
-			
-			
-		
+*/
 	}
 } // END CLASS
 ?>
