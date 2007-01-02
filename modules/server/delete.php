@@ -19,7 +19,7 @@ switch($_GET["step"]) {
 		WHERE serverid = '{$_GET["serverid"]}'");
 
 		if ($server) {
-			if (($server["owner"] != $auth["userid"]) || ($auth["type"] <= 0)) $func->information($lang["server"]["change_norights"], "index.php?mod=server&action=delete");
+			if ($server["owner"] != $auth["userid"] and $auth["type"] <= 0) $func->information($lang["server"]["change_norights"], "index.php?mod=server&action=delete");
 
 			else {
 				$delete = $db->query("DELETE FROM {$config[tables][server]} WHERE serverid = '{$_GET["serverid"]}'");
