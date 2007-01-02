@@ -111,9 +111,9 @@ switch ($_GET["step"]){
 				$db->connect();
 
 				// Check for Updates
-				if($res == 1){
-					$install->check_updates();
-				}
+#				if($res == 1){
+#					$install->check_updates();
+#				}
 				// Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
 				$install->CreateNewTables(0);
 				// Read table-names from DB an save them in $config['tables']
