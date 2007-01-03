@@ -22,14 +22,14 @@ function t($input, $parameters = NULL) {
     else { 
       if ($language == 'de') $sql_lang_field = 'org';
       else $sql_lang_field = $language;
-      
+
       // Generate Mod-Name from FILE
       $LSCurFile = str_replace('\\','/', $LSCurFile);
-      if (strpos($LSCurFile, 'modules/') > 0) {
+      if (strpos($LSCurFile, 'modules/') !== false) {
         $start = strpos($LSCurFile, 'modules/') + 8;
         $mod = substr($LSCurFile, $start, strrpos($LSCurFile, '/') - $start);
       } else $mod = substr($LSCurFile, strrpos($LSCurFile, '/') + 1, strlen($LSCurFile));
-      
+
       // DB-Query
       $res = $db->query("SELECT id, org, $sql_lang_field FROM {$config['tables']['translation']} WHERE file = '$mod'");
       while ($row = $db->fetch_array($res)) {
@@ -40,9 +40,10 @@ function t($input, $parameters = NULL) {
 
       // Insert into DB
       else {
-        $db->query("REPLACE INTO {$config['tables']['translation']} SET id = '$key', file = '$mod', org = '$input'");
+#        $db->query("REPLACE INTO {$config['tables']['translation']} SET id = '$key', file = '$mod', org = '$input'");
         return ReplaceParameters($input, $parameters);      
       }
+
     }
   }
 }
