@@ -144,14 +144,14 @@ switch($mode) {
 		$tid = $bfunc->get_tid($pid);
 		if ($auth["type"] > 1) switch($step) {
 			default:
-				$func->question($lang['board']['del_post_quest'], "index.php?mod=board&action=edit&mode=pdelete&step=2&pid=$pid", "index.php?mod=board&action=thread&tid=$tid");
+				$func->question($lang['board']['del_post_quest'], "index.php?mod=board&action=edit&mode=pdelete&step=2&pid=$pid&gotopid={$_GET['gotopid']}", "index.php?mod=board&action=thread&tid=$tid&gotopid={$_GET['gotopid']}");
 			break;
 
 			case 2:
 				$db->query("DELETE FROM {$config['tables']['board_posts']} WHERE pid='$pid'");
-				$func->confirmation($lang['board']['post_del_ok'], "index.php?mod=board&action=thread&tid=$tid");
+				$func->confirmation($lang['board']['post_del_ok'], "index.php?mod=board&action=thread&tid=$tid&gotopid={$_GET['gotopid']}");
 			break;
-		} else $func->information($lang['board']['post_del_orga'], "index.php?mod=board&action=thread&tid=$tid");
+		} else $func->information($lang['board']['post_del_orga'], "index.php?mod=board&action=thread&tid=$tid&gotopid={$_GET['gotopid']}");
 	break;
 }
 

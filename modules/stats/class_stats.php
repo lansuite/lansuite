@@ -70,6 +70,8 @@ class stats {
 		global $db, $config, $auth;
 
 		// Update duration and traffic
+    $time = round($time, 0);
+    $size = round($size, 0);
 		$db->query("UPDATE {$config["tables"]["stats"]} SET hits = hits + 1, time = time + '$time', size = size + '$size'");
 	}
 	
