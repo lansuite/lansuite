@@ -38,7 +38,8 @@ function TUpdateFromFiles($BaseDir) {
         if (strpos($CurrentFile, 'modules/') !== false) {
           $start = strpos($CurrentFile, 'modules/') + 8;
           $CurrentFile = substr($CurrentFile, $start, strrpos($CurrentFile, '/') - $start);
-        } else $CurrentFile = substr($CurrentFile, strrpos($CurrentFile, '/') + 1, strlen($CurrentFile));
+        } else $CurrentFile = 'System';
+        #$CurrentFile = substr($CurrentFile, strrpos($CurrentFile, '/') + 1, strlen($CurrentFile));
 
         array_push($FoundTransEntries, $CurrentFile.'+'.$key); // Array later is compared to DB to synchronize
 
@@ -59,31 +60,47 @@ function TUpdateFromFiles($BaseDir) {
 
 switch ($_GET['step']) {
   default:
+    $dsp->AddSingleRow('<a href="index.php?mod=misc&action=translation&step=2">'. t('Alle Einträge auflisten') .'</a>');
+    $dsp->AddSingleRow('<a href="index.php?mod=misc&action=translation&step=10">'. t('Einträge neu auslesen und in die Datenbank schreiben') .'</a>');
+
+    $dsp->AddFieldSetStart(t('Modul übersetzen'));
     include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2('news');
-    
+    $ms2 = new mastersearch2('misc');
+    $ms2->query['from'] = "{$config['tables']['translation']}";
+    $ms2->config['EntriesPerPage'] = 20;
+    $ms2->AddResultField(t('Modul'), 'file');
+    $ms2->AddIconField('edit', 'index.php?mod=misc&action=translation&step=20&file=', t('Edit'));
+    $ms2->AddIconField('download', 'index.php?mod=misc&action=translation&step=30&design=base&file=', t('Download'));
+    $ms2->PrintSearch('index.php?mod=misc&action=translation', 'file');
+    $dsp->AddFieldSetEnd();
+  break;
+
+  case 2:
+    include_once('modules/mastersearch2/class_mastersearch2.php');
+    $ms2 = new mastersearch2('misc');
+
     $ms2->query['from'] = "{$config['tables']['translation']}";
     $ms2->config['EntriesPerPage'] = 50;
-    
+
     $selections = array('' => t('Alle'));
     $res = $db->query("SELECT file FROM {$config['tables']['translation']} GROUP BY file");
     while($row = $db->fetch_array($res)) $selections[$row['file']] = $row['file'];
     $db->free_result($res);
-    $ms2->AddTextSearchDropDown(t('Fundstelle'), 'file', $selections, '');
+    $ms2->AddTextSearchDropDown(t('Fundstelle'), 'file', $selections);
+    $ms2->AddTextSearchDropDown(t('Englisch'), 'en', array('' => t('Egal'), '>0' => t('Vorhanden')));
     $ms2->AddTextSearchField(t('Text'), array('org' => 'like'));
-    
+
     $ms2->AddResultField(t('Text'), 'org');
     $ms2->AddResultField(t('Fundstelle'), 'file');
     $ms2->AddResultField(t('En'), 'en', 'YesNo');
 
-    $ms2->AddIconField('edit', 'index.php?mod=misc&action=translation&step=2&tid=', t('Edit'));
-    
-    $ms2->PrintSearch('index.php?mod=misc&action=translation', 'tid');
-    $dsp->AddSingleRow($dsp->FetchIcon('index.php?mod=misc&action=translation&step=10', 'change'));
+    $ms2->AddIconField('edit', 'index.php?mod=misc&action=translation&step=3&tid=', t('Edit'));
+
+    $ms2->PrintSearch('index.php?mod=misc&action=translation&step=2', 'tid');
     $dsp->AddContent();
   break;
-  
-  case 2:
+
+  case 3:
     include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
     
@@ -92,7 +109,7 @@ switch ($_GET['step']) {
     $mf->AddField(t('Englisch'), 'en');
     $mf->AddField(t('File'), 'file');
     
-    $mf->SendForm('index.php?mod=misc&action=translation&step=2', 'translation', 'tid', $_GET['tid']);
+    $mf->SendForm('index.php?mod=misc&action=translation&step=3', 'translation', 'tid', $_GET['tid']);
     $dsp->AddBackButton('index.php?mod=misc&action=translation');
     $dsp->AddContent();
   break;
@@ -109,7 +126,7 @@ switch ($_GET['step']) {
 
     // Delete entries, which no do no longer exist
     $output = '';
-    $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']}");
+    $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file != 'DB'");
     while($row = $db->fetch_array($res)) {
       if (!in_array($row['file'].'+'.$row['id'], $FoundTransEntries)) {
         $db->query("DELETE FROM {$config['tables']['translation']} WHERE id = '{$row['id']}'");
@@ -121,8 +138,50 @@ switch ($_GET['step']) {
     $dsp->AddSingleRow($output);
     $dsp->AddFieldSetEnd();
 
+    // For info output DB internal
+    $output = '';
+    $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file = 'DB'");
+    while($row = $db->fetch_array($res)) $output .= $row['file'] .': '. $row['org'] .'<br />';
+    $db->free_result($res);
+    $dsp->AddFieldSetStart(t('DB-Internal'));
+    $dsp->AddSingleRow($output);
+    $dsp->AddFieldSetEnd();
+
     $dsp->AddBackButton('index.php?mod=misc&action=translation');
     $dsp->AddContent();
+  break;
+  
+  // Translate Module
+  case 20:
+    $dsp->NewContent('Modul übersetzen', '');
+
+    $dsp->AddDoubleRow('Zielsprache', 'Englisch');
+    $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
+    $res = $db->query("SELECT id, org, file, en FROM {$config['tables']['translation']} WHERE file = '{$_GET['file']}'");
+    while($row = $db->fetch_array($res)) $dsp->AddTextFieldRow("id[{$row['id']}]", $row['org'], $row['en'], '', 80);
+    $db->free_result($res);
+    $dsp->AddFormSubmitRow('edit');
+
+    $dsp->AddBackButton('index.php?mod=misc&action=translation');
+    $dsp->AddContent();
+  break;
+
+  // Translate Module - DB Insert
+  case 21:
+    foreach($_POST['id'] as $key => $value)
+      $db->query("UPDATE {$config['tables']['translation']} SET en = '$value' WHERE file = '{$_GET['file']}' AND id = '$key'");
+
+    $func->confirmation('Module-Übersetzung wurde erfolgreich upgedatet');
+  break;
+
+  // Export Module Translations
+  case 30:
+    include("modules/install/class_export.php");
+    $export = New Export();
+
+    $export->LSTableHead();
+    $export->ExportMod($_GET['file'], 0, 0, 1);
+    $export->LSTableFoot();
   break;
 }
 ?>

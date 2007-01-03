@@ -85,112 +85,112 @@
 		<content>
 			<entry>
 				<id>621198805df73c2536ae624678201b1a</id>
-				<tid>1</tid>
+				<tid>1001</tid>
 				<org>News verwalten</org>
 				<en>Manage News</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>b40270b1794198416acf37a1be27cf01</id>
-				<tid>2</tid>
+				<tid>1002</tid>
 				<org>Mit Hilfe des folgenden Formulars können Sie Neuigkeiten auf Ihrer Seite ergänzen und bearbeiten</org>
 				<en>Using this form, you are able to submit news on your page</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>8eba0c1845d59e877ab09d83d87d0215</id>
-				<tid>3</tid>
+				<tid>1003</tid>
 				<org>Überschrift (Knappe Zusammenfassung für die Startseite)</org>
 				<en>Headline (Short description, displayed on home)</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>5236b0f0fb26d1d73909687ee9195458</id>
-				<tid>4</tid>
+				<tid>1004</tid>
 				<org>Kategorie / Icon</org>
 				<en>Category / Icon</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
-				<tid>5</tid>
+				<tid>1005</tid>
 				<org>Text</org>
 				<en>Text</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>960b44c579bc2f6818d2daaf9e4c16f0</id>
-				<tid>6</tid>
+				<tid>1006</tid>
 				<org>Normal</org>
 				<en>Normal</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>9b924aa7d0c7d0264b2fbb28f666414b</id>
-				<tid>7</tid>
+				<tid>1007</tid>
 				<org>Wichtig</org>
 				<en>Important</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>c30f584de7e81f4232d4d2a5094228f5</id>
-				<tid>8</tid>
+				<tid>1008</tid>
 				<org>Priorität</org>
 				<en>Priority</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
-				<tid>9</tid>
+				<tid>1009</tid>
 				<org>Nein</org>
 				<en>No</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
-				<tid>10</tid>
+				<tid>1010</tid>
 				<org>Ja</org>
 				<en>Yes</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>34357d471a47e12b2bbf2c2c0785952f</id>
-				<tid>11</tid>
+				<tid>1011</tid>
 				<org>Top-Meldung</org>
 				<en>Top-News</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>86d8d0521e5d083b15e7a7ab90327984</id>
-				<tid>12</tid>
+				<tid>1012</tid>
 				<org>Die News "%1" wurde erstellt</org>
 				<en>News "%1" has been created</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>ad497a59cdd8e2b20cddc69d74dfeec4</id>
-				<tid>13</tid>
+				<tid>1013</tid>
 				<org>Newsfeed</org>
 				<en>Newsfeed</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>0ad63c9ca1f63b06c10949141eb9bef4</id>
-				<tid>14</tid>
+				<tid>1014</tid>
 				<org>Newsfeed wurde erfolgreich aktuallisiert</org>
 				<en>Newsfeed has been updated successfully</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>f33ed9a5efc6d8a1249d0e2cd56011db</id>
-				<tid>15</tid>
+				<tid>1015</tid>
 				<org>Neuigkeiten</org>
 				<en>News</en>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>0a9aacd545a433d4d47571c9072fd8e2</id>
-				<tid>16</tid>
+				<tid>1016</tid>
 				<org>Hier sehen Sie aktuelle Informationen</org>
 				<en>See current information</en>
 				<file>news</file>

@@ -190,6 +190,18 @@ class Import {
                   $pri_key_to_add = $name;
   							}
   						}
+
+/*
+!!! TODO: Indizes auslesen umstellen:
+SHOW INDEX FROM lansuite_translation
+
+Table 	Non_unique 	Key_name 	Seq_in_index 	Column_name 	Collation 	Cardinality 	Sub_part 	Packed 	Null 	Index_type 	Comment
+lansuite_translation 	0 	PRIMARY 	1 	tid 	A 	101 	NULL 	NULL 	  	BTREE
+lansuite_translation 	0 	id 	1 	id 	A 	NULL 	NULL 	NULL 	  	BTREE
+lansuite_translation 	0 	id 	2 	file 	A 	101 	NULL 	NULL 	  	BTREE
+http://dev.mysql.com/doc/refman/5.0/en/show-index.html
+*/
+
   /*
   						// Differece-Report
   						if ($db_field["Type"] != $type) echo $db_field["Type"] ."=". $type ." Type in $table_name $name<br>";

@@ -311,7 +311,7 @@ $this->form_open = true;
 
 		$templ['ls']['row']['dropdown']['name'] = $name;
 		$templ['ls']['row']['dropdown']['key'] = $key;
-		if (is_array($option_array)) $templ['ls']['row']['dropdown']['options'] = implode('', $option_array);
+		if ($option_array) $templ['ls']['row']['dropdown']['options'] = implode('', $option_array);
 		else $templ['ls']['row']['dropdown']['options'] = '';
 		$templ['ls']['row']['additionalHTML'] = $additionalHTML;
 
