@@ -95,9 +95,9 @@ elseif ($thread['caption'] != '') {
 
 		$templ['board']['thread']['case']['info']['post']['edit'] = '';
 		if ($auth['type'] > 1)
-			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=edit&mode=pdelete&pid=$pid", "delete", '', '', 'right');
+			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=edit&mode=pdelete&pid=$pid&gotopid=$pid", "delete", '', '', 'right');
 		if ($auth['type'] > 1 or $row["userid"] == $auth["userid"])
-			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid", "edit", '', '', 'right');
+			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&gotopid=$pid", "edit", '', '', 'right');
 		$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("javascript:InsertCode(document.dsp_form1.comment, '[quote]". addslashes(str_replace('"', '', $row["comment"])) ."[/quote]')", "quote", '', '', 'right');;
 
     if ($z % 2 == 0) $templ['board']['highlighted'] = '';
@@ -130,7 +130,7 @@ else {
   $mf->AddFix('userid', $auth['userid']);
   $mf->AddFix('id', $_SERVER['REMOTE_ADDR']);
   
-  if ($pid = $mf->SendForm('index.php?mod=board&action=thread&fid='. $_GET['fid'] .'&tid='. $_GET['tid'], 'board_posts', 'pid', $_GET['pid'])) {
+  if ($pid = $mf->SendForm('index.php?mod=board&action=thread&fid='. $_GET['fid'] .'&tid='. $_GET['tid'].'&gotopid='.$pid, 'board_posts', 'pid', $_GET['pid'])) {
     $tid = (int)$_GET['tid'];
   
     // Update thread-table, if new thread

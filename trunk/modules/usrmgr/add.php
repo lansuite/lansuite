@@ -264,11 +264,9 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
           $db->free_result($res);
         }
         
-        $mf->AddField(t('Zugriffsberechtigung'.
-          HTML_NEWLINE.
-          HTML_NEWLINE.'(Der Benutzertyp muss zusätzlich Admin, oder Operator sein)'.
-          HTML_NEWLINE.
-          HTML_NEWLINE.'(Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen)'),
+        $mf->AddField(t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
+          '('.t('Der Benutzertyp muss zusätzlich Admin, oder Operator sein') .')'.HTML_NEWLINE.HTML_NEWLINE.
+          '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen') .')',
           'permissions', IS_MULTI_SELECTION, $selections, FIELD_OPTIONAL);
         $mf->AddGroup('Rechte');
       }

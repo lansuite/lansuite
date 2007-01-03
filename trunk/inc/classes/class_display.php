@@ -281,11 +281,13 @@ class display {
     if ($optional) $templ['ls']['row']['textarea']['optional'] = "_optional";
     else $templ['ls']['row']['textarea']['optional'] = '';
 
-		$templ['ls']['row']['textarea']['buttons'] = $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b][/b]')", "bold");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i][/i]')", "italic");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u][/u]')", "underline");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[c][/c]')", "quote");
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[img][/img]')", "img");
+$this->form_open = false;
+		$templ['ls']['row']['textarea']['buttons'] = $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b][/b]')", 'bold', t('Fett'));
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i][/i]')", 'italic', t('Kursiv'));
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u][/u]')", 'underline', t('Unterstrichen'));
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[c][/c]')", 'quote', t('Code'));
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[img][/img]')", 'img', t('Bild'));
+$this->form_open = true;
 
 		$templ['ls']['row']['textarea']['smilies'] = "";
 		$smilie = $db->query("SELECT shortcut, image FROM {$GLOBALS["config"]["tables"]["smilies"]}");
@@ -309,7 +311,8 @@ class display {
 
 		$templ['ls']['row']['dropdown']['name'] = $name;
 		$templ['ls']['row']['dropdown']['key'] = $key;
-		$templ['ls']['row']['dropdown']['options'] = implode('', $option_array);
+		if (is_array($option_array)) $templ['ls']['row']['dropdown']['options'] = implode('', $option_array);
+		else $templ['ls']['row']['dropdown']['options'] = '';
 		$templ['ls']['row']['additionalHTML'] = $additionalHTML;
 
     if ($errortext) $templ['ls']['row']['dropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
@@ -721,10 +724,10 @@ class display {
       case 'delete': $templ['icon']['title'] = t('löschen'); break;
       case 'send': $templ['icon']['title'] = t('senden'); break;
     }
+    if ($templ['icon']['accesskey']) $templ['icon']['title'] .= '('. $templ['icon']['accesskey'] .')';
 
     $templ['icon']['additionalhtml'] = '';
     if ($align == 'right') $templ['icon']['additionalhtml'] = 'align="right" valign="bottom" vspace="2" ';
-#    if ($align == 'right') $templ['icon']['additionalhtml'] = 'style="float:right; margin-right:2px; margin-bottom:2px" ';
 
     if ($this->form_open) $ret = $this->FetchModTpl('', 'ls_fetch_icon_submit');
     else $ret = $this->FetchModTpl('', 'ls_fetch_icon');

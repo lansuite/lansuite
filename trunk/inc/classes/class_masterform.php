@@ -117,7 +117,6 @@ class masterform {
     // Error-Switch
     switch ($_GET['mf_step']) {
       default:
-        $sec->unlock($table);
 
         // Read current values, if change
         if ($this->isChange) {
@@ -215,6 +214,7 @@ class masterform {
 
       // Output form
       default:
+        $sec->unlock($table);
     		$dsp->SetForm($StartURL .'&mf_step=2', '', '', $this->FormEncType);
 
         // InsertControll check box - the table entry will only be created, if this check box is checked, otherwise the existing entry will be deleted
