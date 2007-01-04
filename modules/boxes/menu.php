@@ -90,18 +90,18 @@ while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '
 					");
 			if ($find_config["cfg_key"]) {
 				$sub_item["link"] = "index.php?mod=install&action=modules&step=10&module=$module";
-				$sub_item["caption"] = $lang['boxes']['menu_mod_cfg'];
+				$sub_item["caption"] = t('Modul-Konfig');
 				$menu_out .= FetchItem($sub_item);
 			}
 
 			if (file_exists("modules/$module/mod_settings/db.xml")) {
 				$sub_item["link"] = "index.php?mod=install&action=modules&step=30&module=$module";
-				$sub_item["caption"] = $lang['boxes']['menu_mod_db'];
+				$sub_item["caption"] =t('Modul-DB');
 				$menu_out .= FetchItem($sub_item);
 			}
 
 			$sub_item["link"] = "index.php?mod=install&action=modules&step=20&module=$module";
-			$sub_item["caption"] = $lang['boxes']['menu_mod_menu'];
+			$sub_item["caption"] = t('Menü-Einträge');
 			$menu_out .= FetchItem($sub_item);
 		}
 	}
@@ -112,14 +112,14 @@ $templ['box']['rows'] .= $menu_out;
 
 // Add Language select
 $cur_url = parse_url($_SERVER['REQUEST_URI']);
-$res = $db->query("SELECT cfg_value FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language'");
+$res = $db->query("SELECT cfg_value, cfg_display FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language'");
 while ($row = $db->fetch_array($res)) {
-  if ($cur_url['query'] == '') $templ['box']['rows'] .= $dsp->FetchIcon($_SERVER['REQUEST_URI'] .'?language='. $row['cfg_value'], $row['cfg_value']).' ';
-  else $templ['box']['rows'] .= $dsp->FetchIcon($_SERVER['REQUEST_URI'] .'&language='. $row['cfg_value'], $row['cfg_value']).' ';
+  if ($cur_url['query'] == '') $templ['box']['rows'] .= $dsp->FetchIcon($_SERVER['REQUEST_URI'] .'?language='. $row['cfg_value'], $row['cfg_value'], $row['cfg_display']).' ';
+  else $templ['box']['rows'] .= $dsp->FetchIcon($_SERVER['REQUEST_URI'] .'&language='. $row['cfg_value'], $row['cfg_value'], $row['cfg_display']).' ';
 }
 $db->free_result($res);
 
-$boxes['menu'] .= $box->CreateBox("menu", "Menü");
+$boxes['menu'] .= $box->CreateBox("menu", t('Modul-Navigation'));
 
 
 // Callbacks

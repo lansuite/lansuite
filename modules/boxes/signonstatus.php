@@ -21,13 +21,13 @@ $reg = $get_cur["n"];
 
 
 if (!$party_data) {
-	$box->ItemRow("user", "<b>{$lang['boxes']['signonstatus_partyinfos']}</b>");
+	$box->ItemRow("user", '<b>'. t('Partyinfos') .'</b>');
 
 	$box->EmptyRow();
-	$box->EngangedRow("{$lang['boxes']['signonstatus_reg_users']}: $reg");
+	$box->EngangedRow(t('Registrierte User').': '.$reg);
 
 	$box->EmptyRow();
-	$box->EngangedRow($lang['boxes']['signonstatus_no_party_planed']);
+	$box->EngangedRow(t('Momentan ist keine Party geplant'));
 } else {
 	## SignOns w bar
 
@@ -54,13 +54,13 @@ if (!$party_data) {
 	// 2 Pixel werden abgezogen da diese schon links und rechts vorhanden sind.
 	$max_bars = $max_bars - 2;
 
-	// Angemeldet l�nge ausrechnen.
+	// Angemeldet länge ausrechnen.
 	$curuser = round($max_bars / $max * $cur);
 	if ($curuser > $max_bars){
 		$curuser = $max_bars;
 	}
 
-	// Bezahlt l�nge ausrechnen.
+	// Bezahlt länge ausrechnen.
 	$gesamtpaid = round($max_bars / $max * $paid);
 	if ($gesamtpaid > $max_bars){
 		$gesamtpaid = $max_bars;
@@ -76,40 +76,40 @@ if (!$party_data) {
 	$bar = "<img src=\"design/{$auth['design']}/images/userbar_left.gif\" height=\"13\" border=\"0\">";
 
 	// Bezahlt
-	if ($pixelpaid > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_green.gif\" width=\"$pixelpaid\" height=\"13\" border=\"0\" title=\"{$lang['boxes']['signonstatus_paid']}\">";
+	if ($pixelpaid > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_green.gif\" width=\"$pixelpaid\" height=\"13\" border=\"0\" title=\"". t('Bezahlt') ."\">";
 
 	//Angemeldet
-	if ($pixelcuruser > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_yellow.gif\" width=\"$pixelcuruser\" height=\"13\" border=\"0\" title=\"{$lang['boxes']['signonstatus_signed_on']}\">";
+	if ($pixelcuruser > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_yellow.gif\" width=\"$pixelcuruser\" height=\"13\" border=\"0\" title=\"". t('Angemeldet') ."\">";
 
 	//Gesamt
-	if ($pixelges > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_bg.gif\" width=\"$pixelges\" height=\"13\" border=\"0\" title=\"{$lang['boxes']['signonstatus_free']}\">";
+	if ($pixelges > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_bg.gif\" width=\"$pixelges\" height=\"13\" border=\"0\" title=\"". t('Frei') ."\">";
 
 	// rechts
 	$bar .= "<img src=\"design/{$auth['design']}/images/userbar_right.gif\" height=\"13\" border=\"0\">";
 
 	if ($party_next) {
-		$box->ItemRow("user", "<b>{$lang['boxes']['signonstatus_next_party']}<br />{$party_data['name']}</b>");
-		$templ['box']['signonstatus']['case']['info']['party'] = "<b>{$lang['boxes']['signonstatus_next_party']}<br />". $party_data['name'] ."</b>";
+		$box->ItemRow("user", '<b>'. t('Nächste Party') .'<br />'. $party_data['name'] .'</b>');
+		$templ['box']['signonstatus']['case']['info']['party'] = '<b>'. t('Nächste Party') .'<br />'. $party_data['name'] ."</b>";
 	} else {
-		$box->ItemRow("user", "{$lang['boxes']['signonstatus_sign_on_at']}<br /><b>{$party_data['name']}</b>");
-		$templ['box']['signonstatus']['case']['info']['party'] = "{$lang['boxes']['signonstatus_sign_on_at']}<br /><b>". $party_data['name'] ."</b>";
+		$box->ItemRow("user", '<b>'. t('Anmeldungen an') .'<br />'. $party_data['name'] .'</b>');
+		$templ['box']['signonstatus']['case']['info']['party'] = t('Anmeldungen an') ."<br /><b>". $party_data['name'] ."</b>";
 	}
 
 	$box->EngangedRow($bar);
-	$box->EngangedRow("{$lang['boxes']['signonstatus_reg']}: $reg");
-	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/userbox_yellow.gif\" width=\"5\" height=\"13\" border=\"0\"> {$lang['boxes']['signonstatus_signed_on']}: $cur");
-	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/userbox_green.gif\" width=\"5\" height=\"13\" border=\"0\"> {$lang['boxes']['signonstatus_paid']}: $paid");
-	$box->EngangedRow("{$lang['boxes']['signonstatus_free_places']}: ". ($max - $paid));
+	$box->EngangedRow(t('Registriert').': '. $reg);
+	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/userbox_yellow.gif\" width=\"5\" height=\"13\" border=\"0\"> ". t('Angemeldet') .": $cur");
+	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/userbox_green.gif\" width=\"5\" height=\"13\" border=\"0\"> ". t('Bezahlt') .": $paid");
+	$box->EngangedRow(t('Plätze frei'). ": ". ($max - $paid));
 
 	## Counter
 
 	$count = round(($party_data['partybegin'] - time()) / 86400);
-	if ($count <= 0) $count = $lang['boxes']['signonstatus_party_running'];
-	elseif ($count == 1) $count = str_replace("%DAYS%", $count, $lang['boxes']['signonstatus_days_left_sing']);
-	else $count = str_replace("%DAYS%", $count, $lang['boxes']['signonstatus_days_left_plur']);
+	if ($count <= 0) $count = t('Die Party läuft gerade!');
+	elseif ($count == 1) $count = t('noch %1 Tag', $count);
+	else $count = t('noch %1 Tage', $count);
 
 	$box->EmptyRow();
-	$box->ItemRow("data", "<b>{$lang['boxes']['signonstatus_counter']}</b>");
+	$box->ItemRow("data", '<b>'. t('Counter') .'</b>');
 	$box->EngangedRow($count);
 
 	$box->EmptyRow();
@@ -117,5 +117,5 @@ if (!$party_data) {
 	$box->EngangedRow($func->unixstamp2date($party_data['partybegin'],"datetime") . " - " . HTML_NEWLINE . $func->unixstamp2date($party_data['partyend'],"datetime"));
 }
 
-$boxes['signonstatus'] .= $box->CreateBox("signon_state",$lang['boxes']['userdata_signon_state']);
+$boxes['signonstatus'] .= $box->CreateBox("signon_state", t('Anmelde-Status'));
 ?>

@@ -1,6 +1,6 @@
 <?php
 $templ['box']['rows'] = "";
-$box->DotRow($lang['boxes']['sponsor_thanks']);
+$box->DotRow(t('Wir danken').':');
 
 if (!$cfg["sponsor_picwidth"]) $cfg["sponsor_picwidth"] = 120;
 
@@ -40,5 +40,5 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 }
 $db->free_result($sponsoren);
 
-$boxes['sponsor'] .= $box->CreateBox("sponsor", $lang['boxes']['sponsor']);
+$boxes['sponsor'] .= $box->CreateBox("sponsor", t('Sponsoren'));
 ?>

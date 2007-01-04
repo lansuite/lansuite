@@ -8,9 +8,9 @@ if ($_COOKIE["olduserid"] != "") {
 
 	if (strlen($old_user['username']) > 14) $old_user['username'] = substr($old_user['username'], 0, 11) . "...";
 
-	$box->DotRow($lang['boxes']['userdata_admin'], "", "", "admin", 0);
+	$box->DotRow(t('Admin').':', "", "", "admin", 0);
 	$box->EngangedRow("<b>{$old_user["username"]}</b>". $dsp->FetchUserIcon($_COOKIE["olduserid"]), "", "", "admin", 0);
-	$box->EngangedRow($lang['boxes']['userdata_switch_back'], "index.php?mod=usrmgr&action=switch_user&step=11&userid={$_COOKIE["olduserid"]}", "", "admin", 0);
+	$box->EngangedRow(t('Zurück wechseln'), "index.php?mod=usrmgr&action=switch_user&step=11&userid={$_COOKIE["olduserid"]}", "", "admin", 0);
 	$box->EmptyRow();
 }
 
@@ -19,12 +19,12 @@ if (strlen($auth['username']) > 14) $username = substr($auth['username'], 0, 11)
 else $username = $auth['username'];
 $userid_formated = sprintf( "%0".$config['size']['userid_digits']."d", $auth['userid']);
 
-$box->DotRow($lang['boxes']['userdata_username']);
+$box->DotRow(t('Benutzername').':');
 $box->EngangedRow("<b>$username</b> ". $dsp->FetchUserIcon($auth["userid"]));
-$box->EngangedRow("[".$lang['boxes']['userdata_id']." <i>$userid_formated</i>]");
+$box->EngangedRow("[ID <i>$userid_formated</i>]");
 
 // Show other links
-if ($cfg["user_show_ticket"]) $box->DotRow($lang['boxes']['userdata_my_ticket'], "index.php?mod=usrmgr&action=myticket", "", "menu");
+if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php?mod=usrmgr&action=myticket", "", "menu");
 
 $icons = '';
 
@@ -36,7 +36,7 @@ if (in_array('mail', $ActiveModules)) {
 		");
 
 	if ($db->num_rows($mails_new) > 0) {
-    $icons .= $dsp->FetchIcon('index.php?mod=mail', 'receive_mail', $lang['boxes']['userdata_new_mail']) .' ';
+    $icons .= $dsp->FetchIcon('index.php?mod=mail', 'receive_mail', t('Sie haben Post!')) .' ';
   
     // Open PopUp
     $found_not_popped_up_mail = false;
@@ -55,9 +55,9 @@ if (in_array('mail', $ActiveModules)) {
   $db->free_result($mails_new);
 }
 
-$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=details&userid='. $auth["userid"], 'details', $lang['boxes']['userdata_priv_details']) .' ';
-$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=settings', 'generate', $lang['boxes']['userdata_priv_settings']) .' ';
-$icons .= $dsp->FetchIcon('index.php?mod=logout', 'no', $lang['boxes']['userdata_logout']) .' ';
+$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=details&userid='. $auth["userid"], 'details', t('Pers. Details')) .' ';
+$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=settings', 'generate', t('Pers. Einstellungen')) .' ';
+$icons .= $dsp->FetchIcon('index.php?mod=logout', 'no', t('Logout')) .' ';
 $box->EngangedRow($icons);
 
 // Show last log in and login count
@@ -67,9 +67,9 @@ $user_lg = $db->query_first("SELECT user.logins, max(auth.logintime) AS logintim
 	WHERE user.userid=\"".$auth["userid"]."\"
 	GROUP BY auth.userid");
 
-$box->DotRow($lang['boxes']['userdata_logins']. " <b>". $user_lg["logins"] ."</b>");
-$box->DotRow($lang['boxes']['userdata_last_login']);
+$box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] ."</b>");
+$box->DotRow(t('Zuletzt eingeloggt'));
 $box->EngangedRow("<b>". $func->unixstamp2date($user_lg["logintime"], "shortdaytime") ."</b>");
 
-$boxes['userdata'] .= $box->CreateBox("user",$lang['boxes']['userdata_my_data']);
+$boxes['userdata'] .= $box->CreateBox("user", t('Meine Daten'));
 ?>

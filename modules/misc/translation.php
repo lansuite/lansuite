@@ -66,7 +66,20 @@ switch ($_GET['step']) {
     $dsp->AddSingleRow('<a href="index.php?mod=misc&action=translation&step=2">'. t('Alle Einträge auflisten') .'</a>');
     $dsp->AddSingleRow('<a href="index.php?mod=misc&action=translation&step=10">'. t('Einträge neu auslesen und in die Datenbank schreiben') .'</a>');
 
+    if ($_POST['target_language']) $_SESSION['target_language'] = $_POST['target_language'];
+
     $dsp->AddFieldSetStart(t('Modul übersetzen'));
+    $dsp->SetForm('index.php?mod=misc&action=translation');
+    $list = array();
+    $res = $db->query("SELECT cfg_value, cfg_display FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language' AND cfg_value != 'de'");
+    while($row = $db->fetch_array($res)) {
+      ($_SESSION['target_language'] == $row['cfg_value'])? $selected = 'selected' : $selected = '';
+      $list[] = "<option $selected value='{$row['cfg_value']}'>{$row['cfg_display']}</option>";
+    }
+    $dsp->AddDropDownFieldRow('target_language', t('Ziel Sprache'), $list, '');
+    $db->free_result($res);
+    $dsp->AddFormSubmitRow('change');
+    
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('misc');
     $ms2->query['from'] = "{$config['tables']['translation']}";
@@ -120,48 +133,51 @@ switch ($_GET['step']) {
 
   // Search all files for strings in t()-functions and synchronize to DB
   case 10:
-    $dsp->AddFieldSetStart(t('FrameWork'));
-    $dsp->AddSingleRow(TUpdateFromFiles('inc/classes'));
-    $dsp->AddFieldSetEnd();
-    $dsp->AddFieldSetStart(t('Module'));
-    $dsp->AddSingleRow(TUpdateFromFiles('modules'));
-    $dsp->AddFieldSetEnd();
+    if ($auth['type'] >= 3) {
+      $dsp->AddFieldSetStart(t('FrameWork'));
+      $dsp->AddSingleRow(TUpdateFromFiles('inc/classes'));
+      $dsp->AddFieldSetEnd();
+      $dsp->AddFieldSetStart(t('Module'));
+      $dsp->AddSingleRow(TUpdateFromFiles('modules'));
+      $dsp->AddFieldSetEnd();
 
-    // Delete entries, which no do no longer exist
-    $output = '';
-    $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file != 'DB'");
-    while($row = $db->fetch_array($res)) {
-      if (!in_array($row['file'].'+'.$row['id'], $FoundTransEntries)) {
-        $db->query("DELETE FROM {$config['tables']['translation']} WHERE id = '{$row['id']}'");
-        $output .= '<font color="#ff0000">'. $row['file'] .': '. $row['org'] .'</font><br />';
+      // Delete entries, which no do no longer exist
+      $output = '';
+      $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file != 'DB'");
+      while($row = $db->fetch_array($res)) {
+        if (!in_array($row['file'].'+'.$row['id'], $FoundTransEntries)) {
+          $db->query("DELETE FROM {$config['tables']['translation']} WHERE id = '{$row['id']}'");
+          $output .= '<font color="#ff0000">'. $row['file'] .': '. $row['org'] .'</font><br />';
+        }
       }
+      $db->free_result($res);
+      $dsp->AddFieldSetStart(t('Veraltet (wurden nun gelöscht)'));
+      $dsp->AddSingleRow($output);
+      $dsp->AddFieldSetEnd();
+
+      // For info output DB internal
+      $output = '';
+      $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file = 'DB'");
+      while($row = $db->fetch_array($res)) $output .= $row['file'] .': '. $row['org'] .'<br />';
+      $db->free_result($res);
+      $dsp->AddFieldSetStart(t('DB-Internal'));
+      $dsp->AddSingleRow($output);
+      $dsp->AddFieldSetEnd();
+
+      $dsp->AddBackButton('index.php?mod=misc&action=translation');
+      $dsp->AddContent();
     }
-    $db->free_result($res);
-    $dsp->AddFieldSetStart(t('Veraltet (wurden nun gelöscht)'));
-    $dsp->AddSingleRow($output);
-    $dsp->AddFieldSetEnd();
-
-    // For info output DB internal
-    $output = '';
-    $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file = 'DB'");
-    while($row = $db->fetch_array($res)) $output .= $row['file'] .': '. $row['org'] .'<br />';
-    $db->free_result($res);
-    $dsp->AddFieldSetStart(t('DB-Internal'));
-    $dsp->AddSingleRow($output);
-    $dsp->AddFieldSetEnd();
-
-    $dsp->AddBackButton('index.php?mod=misc&action=translation');
-    $dsp->AddContent();
   break;
   
   // Translate Module
   case 20:
     $dsp->NewContent('Modul übersetzen', '');
 
-    $dsp->AddDoubleRow('Zielsprache', 'Englisch');
+    if ($_SESSION['target_language'] == '') $_SESSION['target_language'] = 'en';
+    $dsp->AddDoubleRow('Zielsprache', $dsp->FetchIcon('', $_SESSION['target_language']));
     $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
-    $res = $db->query("SELECT DISTINCT id, org, file, en FROM {$config['tables']['translation']} WHERE file = '{$_GET['file']}'");
-    while($row = $db->fetch_array($res)) $dsp->AddTextFieldRow("id[{$row['id']}]", $row['org'], $row['en'], '', 80);
+    $res = $db->query("SELECT DISTINCT id, org, file, {$_SESSION['target_language']} FROM {$config['tables']['translation']} WHERE file = '{$_GET['file']}'");
+    while($row = $db->fetch_array($res)) $dsp->AddTextFieldRow("id[{$row['id']}]", $row['org'], $row[$_SESSION['target_language']], '', 80);
     $db->free_result($res);
     $dsp->AddFormSubmitRow('edit');
 
@@ -172,7 +188,7 @@ switch ($_GET['step']) {
   // Translate Module - DB Insert
   case 21:
     foreach($_POST['id'] as $key => $value)
-      $db->query("UPDATE {$config['tables']['translation']} SET en = '$value' WHERE file = '{$_GET['file']}' AND id = '$key'");
+      $db->query("UPDATE {$config['tables']['translation']} SET {$_SESSION['target_language']} = '$value' WHERE file = '{$_GET['file']}' AND id = '$key'");
 
     $func->confirmation('Module-Übersetzung wurde erfolgreich upgedatet');
   break;
