@@ -221,6 +221,9 @@ http://dev.mysql.com/doc/refman/5.0/en/show-index.html
   						else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra");
   					}
   				}
+
+  				// Add to installed tables
+          array_push($installed_tables, $config["database"]["prefix"]. $table_name);
   			}
   			
   			$mysql_fields = substr($mysql_fields, 0, strlen($mysql_fields) - 2);
