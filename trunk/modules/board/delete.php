@@ -1,4 +1,5 @@
 <?php
+$LSCurFile = __FILE__;
 
 switch ($_GET['step']) {
 	default:
