@@ -97,4 +97,4 @@ $lang['signon']['allready'] = 'You are allready signed on!';
 $lang['signon']['signon_start'] = 'Sign on starts at';
 $lang['signon']['signon_closed'] = 'Sign on has ended, since';
 
-?>    
+?>
