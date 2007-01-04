@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 2.1.5
 
+- Bugfix: Wenn das Land auf "Sonstige" stand konnten keine Turniere mehr erstellt werden (KnoX 04.01.2007)
 - Bugfix: #543 Kommentrafunktion in der Bildergallery funktionierte nur, wenn das Bild über das Upload formular hochgeladen wurde (KnoX 04.01.2007)
 - Bugfix: In der Tabelle Table-Names wurden bei jedem Aufruf des DB-Managers viele unnötige einträge erzeugt (KnoX 02.01.2007)
 - Bugfix: #569 Clanlose waren untereinander Clanmates im Sitzplan (DrKarl 02.01.2007)
