@@ -1,5 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
 $templ['box']['rows'] = '';
 
 // Number of visits
@@ -11,7 +10,6 @@ $avg = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$
 	");
 $box->DotRow(t('Besucher').': <span title="'. t('insgesammt') .'">'. $total['visits'] .'</span> <span title="'. t('in der letzten Stunde') .'">('. $avg['visits'] .')</span>');
 $box->DotRow(t('Aufrufe').': <span title="'. t('insgesammt') .'">'. $total['hits'] .'</span> <span title="'. t('in der letzten Stunde') .'">('. $avg['hits'] .')</span>');
-#$box->DotRow($lang['boxes']['avg_last_h'] .': '. $avg['visits']);
 
 // Get list of users currently online
 $user_online = $db->query("SELECT SQL_CALC_FOUND_ROWS user.username, user.userid
@@ -27,5 +25,5 @@ $box->DotRow(t('Eingeloggt') .': '. $online['count']);
 while ($user = $db->fetch_array($user_online)) $box->EngangedRow($user["username"] .' '. $dsp->FetchUserIcon($user["userid"]));
 $db->free_result($user_online);
 
-$boxes['stats'] .= $box->CreateBox("stats", $lang['boxes']['stats']);
+$boxes['stats'] .= $box->CreateBox("stats", t('Statistiken'));
 ?>

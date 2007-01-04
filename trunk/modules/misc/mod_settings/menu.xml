@@ -12,16 +12,6 @@
 		<level>0</level>
 	</entry>
 	<entry>
-		<action>whatsup</action>
-		<file>whatsup</file>
-		<caption>Was geht ab?</caption>
-		<hint>Was passiert gerade.. eine komplette &Uuml;bersicht</hint>
-		<link>?mod=misc&action=whatsup</link>
-		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
 		<action>translation</action>
 		<file>translation</file>
 		<caption>Übersetzungen</caption>

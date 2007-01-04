@@ -58,7 +58,7 @@ if ($auth['login']) {
 	}
 
 	// No buddies
-	if ($buddycount < 1) $box->DotRow("<i>{$lang['boxes']['messenger_no_buddies']}</i>");
+	if ($buddycount < 1) $box->DotRow("<i>". t('Noch keine Buddies') ."</i>");
 
 	// Users not in buddylist
 	$querynotinlist = $db->query("SELECT m.senderid, u.username
@@ -104,8 +104,8 @@ if ($auth['login']) {
 	}
 
 	$box->EmptyRow();
-	$box->ItemRow("add", $lang['boxes']['messenger_add_buddy'], "index.php?mod=msgsys&amp;action=addbuddy", "", "menu");
+	$box->ItemRow("add", t('Benutzer hinzufügen'), "index.php?mod=msgsys&amp;action=addbuddy", "", "menu");
 
-	$boxes['messenger'] .= $box->CreateBox("messenger",$lang['boxes']['messenger']);
+	$boxes['messenger'] .= $box->CreateBox("messenger", t('Messenger'));
 }
 ?>

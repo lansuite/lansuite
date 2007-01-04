@@ -28,6 +28,22 @@
   			<value>en</value>
   			<description>English</description>
   		</entry>
+  		<entry>
+  			<value>nl</value>
+  			<description>Nederlands</description>
+  		</entry>
+  		<entry>
+  			<value>es</value>
+  			<description>Español</description>
+  		</entry>
+  		<entry>
+  			<value>fr</value>
+  			<description>Français</description>
+  		</entry>
+  		<entry>
+  			<value>it</value>
+  			<description>Italiano</description>
+  		</entry>
     </entries>
   </typedefinition>
   <typedefinition>

@@ -1,10 +1,11 @@
 <?php 
+$LSCurFile = __FILE__;
 
 // BOXES CONTROLFILE
 include("modules/boxes/class_boxes.php");
 $box = new boxes();
 
-// Navigationsmenü
+// NavigationsmenÃ¼
 include("modules/boxes/menu.php");
 
 // Suche

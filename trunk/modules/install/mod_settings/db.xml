@@ -1328,6 +1328,38 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>es</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>fr</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>nl</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>it</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>file</name>
 				<type>varchar(40)</type>
 				<null></null>
