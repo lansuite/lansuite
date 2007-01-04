@@ -109,6 +109,16 @@ while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '
 $db->free_result($res);
 
 $templ['box']['rows'] .= $menu_out;
+
+// Add Language select
+$cur_url = parse_url($_SERVER['REQUEST_URI']);
+$res = $db->query("SELECT cfg_value FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language'");
+while ($row = $db->fetch_array($res)) {
+  if ($cur_url['query'] == '') $templ['box']['rows'] .= $dsp->FetchIcon($_SERVER['REQUEST_URI'] .'?language='. $row['cfg_value'], $row['cfg_value']).' ';
+  else $templ['box']['rows'] .= $dsp->FetchIcon($_SERVER['REQUEST_URI'] .'&language='. $row['cfg_value'], $row['cfg_value']).' ';
+}
+$db->free_result($res);
+
 $boxes['menu'] .= $box->CreateBox("menu", "Menü");
 
 
