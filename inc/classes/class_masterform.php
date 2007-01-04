@@ -49,6 +49,7 @@ class masterform {
   }
 
   function AddField($caption, $name, $type = '', $selections = '', $optional = 0, $callback = '', $DependOnThis = 0, $DependOnCriteria = '') {
+    if ($type == IS_TEXT_MESSAGE) $optional = 1;
     $arr = array();
     $arr['caption'] = $caption;
     $arr['name'] = $name;

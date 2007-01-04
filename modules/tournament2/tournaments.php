@@ -133,8 +133,8 @@ $selections = array();
 ($_POST["ngl_gamename"] == 0) ? $selected = "selected" : $selected = "";
 $selections[''] = $lang["tourney"]["t_add_no_ngl"];
 
-if ($cfg["sys_country"] != "de" and $cfg["sys_country"] != "at" and $cfg["sys_country"] != "ch")
-  $mf->AddField($lang['tourney']['t_add_ngl_game'], 'ngl_gamename', IS_TEXT_MESSAGE, $lang['tourney']['ngl_in_de_at_ch_only']);
+# and $cfg["sys_country"] != "at" and $cfg["sys_country"] != "ch"
+if ($cfg["sys_country"] != "de") $mf->AddField(t('NGL-Support ist nur für Partys in Deutschland möglich. Das Land deiner Party kannst du auf der Adminseite einstellen'), 'ngl_gamename', IS_TEXT_MESSAGE, $lang['tourney']['ngl_in_de_at_ch_only']);
 else {
 	$country_xml = $xml->get_tag_content("country short=\"{$cfg["sys_country"]}\"", $xml_file);
 	$liga_xml = $xml->get_tag_content_array("league", $xml_file);
