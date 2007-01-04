@@ -1,4 +1,6 @@
 <?php
+$LSCurFile = __FILE__;
+
 include("modules/board/class_board.php");
 $bfunc = new board_func;
 

@@ -39,16 +39,19 @@ function TUpdateFromFiles($BaseDir) {
           $start = strpos($CurrentFile, 'modules/') + 8;
           $CurrentFile = substr($CurrentFile, $start, strrpos($CurrentFile, '/') - $start);
         } else $CurrentFile = 'System';
-        #$CurrentFile = substr($CurrentFile, strrpos($CurrentFile, '/') + 1, strlen($CurrentFile));
 
-        array_push($FoundTransEntries, $CurrentFile.'+'.$key); // Array later is compared to DB to synchronize
+        // Do only add expressions, which are not already in system lang-file
+        $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['translation']} WHERE id = '{$key}' AND (file = 'System')");
+        if (!$row['found'] or $CurrentFile == 'System'){
+          array_push($FoundTransEntries, $CurrentFile.'+'.$key); // Array is compared to DB later for synchronization
 
-        $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['translation']} WHERE id = '{$key}' AND file = '$CurrentFile'");
-        if ($row['found']) $output .= $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'<br />';
-        else {
-          // New -> Insert to DB
-          $db->query("REPLACE INTO {$config['tables']['translation']} SET id = '$key', file = '{$CurrentFile}', org = '{$CurrentTrans}'");
-          $output .= '<font color="#00ff00">'. $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'</font><br />';
+          $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['translation']} WHERE id = '{$key}' AND (file = '$CurrentFile')");
+          if ($row['found']) $output .= $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'<br />';
+          else {
+            // New -> Insert to DB
+            $db->query("REPLACE INTO {$config['tables']['translation']} SET id = '$key', file = '{$CurrentFile}', org = '{$CurrentTrans}'");
+            $output .= '<font color="#00ff00">'. $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'</font><br />';
+          }
         }
       }
     } elseif ($file != '.' and $file != '..' and $file != 'CVS' and is_dir($FilePath)) $output .= TUpdateFromFiles($FilePath);

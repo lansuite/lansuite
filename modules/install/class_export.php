@@ -42,47 +42,73 @@ class Export {
 	}
 
 
+	// Export Translations
+	function ExportTranslation($mod){
+    global $xml, $db, $config;
+
+		$table_head = $xml->write_tag('name', 'translation', 3);
+		$tables = $xml->write_master_tag("table_head", $table_head, 2);
+
+    $content = '';
+    $res = $db->query("SELECT * FROM {$config["database"]["prefix"]}translation WHERE file = '$mod'");
+		while ($row = $db->fetch_array($res)) {
+			$entry = $xml->write_tag('id', $row['id'], 4);
+			$entry .= $xml->write_tag('tid', $row['tid'], 4);
+			$entry .= $xml->write_tag('org', $row['org'], 4);
+			$entry .= $xml->write_tag('en', $row['en'], 4);
+			$entry .= $xml->write_tag('file', $mod, 4);
+		  $content .= $xml->write_master_tag("entry", $entry, 3);
+    }
+    $db->free_result($res);
+
+		$tables .= $xml->write_master_tag("content", $content, 2);
+		$this->lansuite .= $xml->write_master_tag("table", $tables, 1);
+  }
+
+
 	function ExportTable($table, $e_struct = NULL, $e_cont = NULL){
 		global $db, $config, $xml;
 
-		/* Table-Head */
-		$table_head = $xml->write_tag("name", $table, 3);
-		$tables = $xml->write_master_tag("table_head", $table_head, 2);
+    if ($e_struct or $e_cont) {
+  		/* Table-Head */
+  		$table_head = $xml->write_tag("name", $table, 3);
+  		$tables = $xml->write_master_tag("table_head", $table_head, 2);
 
-		/* Structure */
-		if ($e_struct) {
-			$structure = "";
-			$query = $db->query("DESCRIBE {$config["database"]["prefix"]}$table");
-			while ($row = $db->fetch_array($query)) {
-				$field = $xml->write_tag("name", $row["Field"], 4);
-				$field .= $xml->write_tag("type", $row["Type"], 4);
-				$field .= $xml->write_tag("null", $row["Null"], 4);
-				$field .= $xml->write_tag("key", $row["Key"], 4);
-				$field .= $xml->write_tag("default", $row["Default"], 4);
-				$field .= $xml->write_tag("extra", $row["Extra"], 4);
-				$structure .= $xml->write_master_tag("field", $field, 3);
-			}
-			$db->free_result($query);
-			if ($structure) $tables .= $xml->write_master_tag("structure", $structure, 2);
-		}
+  		/* Structure */
+  		if ($e_struct) {
+  			$structure = "";
+  			$query = $db->query("DESCRIBE {$config["database"]["prefix"]}$table");
+  			while ($row = $db->fetch_array($query)) {
+  				$field = $xml->write_tag("name", $row["Field"], 4);
+  				$field .= $xml->write_tag("type", $row["Type"], 4);
+  				$field .= $xml->write_tag("null", $row["Null"], 4);
+  				$field .= $xml->write_tag("key", $row["Key"], 4);
+  				$field .= $xml->write_tag("default", $row["Default"], 4);
+  				$field .= $xml->write_tag("extra", $row["Extra"], 4);
+  				$structure .= $xml->write_master_tag("field", $field, 3);
+  			}
+  			$db->free_result($query);
+  			if ($structure) $tables .= $xml->write_master_tag("structure", $structure, 2);
+  		}
 
-		/* Content */
-		if ($e_cont and $table != "locations") {
-			$content = "";
-			$query = $db->query("SELECT * FROM {$config["database"]["prefix"]}$table");
-			while ($row = $db->fetch_array($query)) {
-				$entry = "";
-				for ($z = 0; $z < $db->num_fields(); $z++) {
-					$field_name = $db->field_name($z);
-					if ($row[$field_name] != "") $entry .= $xml->write_tag($field_name, $row[$field_name], 4);
-				}
-				if ($entry) $content .= $xml->write_master_tag("entry", $entry, 3);
-			}
-			$db->free_result($query);
-			if ($content) $tables .= $xml->write_master_tag("content", $content, 2);
-		}
+  		/* Content */
+  		if ($e_cont and $table != "locations") {
+  			$content = "";
+  			$query = $db->query("SELECT * FROM {$config["database"]["prefix"]}$table");
+  			while ($row = $db->fetch_array($query)) {
+  				$entry = "";
+  				for ($z = 0; $z < $db->num_fields(); $z++) {
+  					$field_name = $db->field_name($z);
+  					if ($row[$field_name] != "") $entry .= $xml->write_tag($field_name, $row[$field_name], 4);
+  				}
+  				if ($entry) $content .= $xml->write_master_tag("entry", $entry, 3);
+  			}
+  			$db->free_result($query);
+  			if ($content) $tables .= $xml->write_master_tag("content", $content, 2);
+  		}
 
-		$this->lansuite .= $xml->write_master_tag("table", $tables, 1);
+  		$this->lansuite .= $xml->write_master_tag("table", $tables, 1);
+    }
 	}
 
 
@@ -107,28 +133,9 @@ class Export {
 					if ($table_structure != '') $this->ExportTable($table_name, $e_struct, $e_cont);
 				}
 			}
-			
-			// Export Translations
-  		if ($e_trans) {
-  			$table_head = $xml->write_tag('name', 'translation', 3);
-    		$tables = $xml->write_master_tag("table_head", $table_head, 2);
-  
-        $content = '';
-        $res = $db->query("SELECT * FROM {$config["database"]["prefix"]}translation WHERE file = '$mod'");
-  			while ($row = $db->fetch_array($res)) {
-    			$entry = $xml->write_tag('id', $row['id'], 4);
-    			$entry .= $xml->write_tag('tid', $row['tid'], 4);
-    			$entry .= $xml->write_tag('org', $row['org'], 4);
-    			$entry .= $xml->write_tag('en', $row['en'], 4);
-    			$entry .= $xml->write_tag('file', $mod, 4);
-    		  $content .= $xml->write_master_tag("entry", $entry, 3);
-        }  		  
-        $db->free_result($res);
-  
-    		$tables .= $xml->write_master_tag("content", $content, 2);
-    		$this->lansuite .= $xml->write_master_tag("table", $tables, 1);
-    	}
 		}
+
+    if ($e_trans) $this->ExportTranslation($mod);
 	}
 
 
@@ -141,7 +148,11 @@ class Export {
 		while ($row = $db->fetch_array($res)) $this->ExportMod($row["name"], $e_struct, $e_cont, $e_trans);
 		$db->free_result($res);
 
-		// !!TODO: Export general Translations
+		// Export non-module-related translations
+    if ($e_trans) {
+      $this->ExportTranslation('System');
+      $this->ExportTranslation('DB');
+    }
 
 		$this->LSTableFoot();
 	}

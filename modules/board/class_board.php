@@ -1,4 +1,5 @@
 <?php
+$LSCurFile = __FILE__;
 
 class board_func {
 

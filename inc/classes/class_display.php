@@ -718,11 +718,11 @@ $this->form_open = true;
     $templ['icon']['title'] = $hint;
     if ($templ['icon']['title'] == '') switch ($picname) {
       default: $templ['icon']['title'] = ''; break;
-      case 'add': $templ['icon']['title'] = t('hinzufügen'); break;
-      case 'change': $templ['icon']['title'] = t('ändern'); break;
-      case 'edit': $templ['icon']['title'] = t('editieren'); break;
-      case 'delete': $templ['icon']['title'] = t('löschen'); break;
-      case 'send': $templ['icon']['title'] = t('senden'); break;
+      case 'add': $templ['icon']['title'] = t('Hinzufügen'); break;
+      case 'change': $templ['icon']['title'] = t('Ändern'); break;
+      case 'edit': $templ['icon']['title'] = t('Editieren'); break;
+      case 'delete': $templ['icon']['title'] = t('Löschen'); break;
+      case 'send': $templ['icon']['title'] = t('Senden'); break;
     }
     if ($templ['icon']['accesskey']) $templ['icon']['title'] .= '('. $templ['icon']['accesskey'] .')';
 

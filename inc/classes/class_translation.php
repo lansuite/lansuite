@@ -12,7 +12,7 @@ function ReplaceParameters($input, $parameters = NULL) {
 }
 
 function t($input, $parameters = NULL) {
-  global $db, $config, $language, $LSCurFile, $lang, $TranslationFirstRun;
+  global $db, $config, $language, $LSCurFile, $lang, $TranslationFirstRun, $func;
 
   if ($input == '') return '';
   else {
@@ -51,7 +51,6 @@ function t($input, $parameters = NULL) {
             $start = strpos($LSCurFile, 'modules/') + 8;
             $mod = substr($LSCurFile, $start, strrpos($LSCurFile, '/') - $start);
           } else $mod = 'System';
-          #$mod = substr($LSCurFile, strrpos($LSCurFile, '/') + 1, strlen($LSCurFile));
         }
 
         // DB-Query
@@ -64,7 +63,7 @@ function t($input, $parameters = NULL) {
 
         // Insert into DB
         else {
-          $db->query("REPLACE INTO {$config['tables']['translation']} SET id = '$key', file = '$mod', org = '$input'");
+          $db->query("REPLACE INTO {$config['tables']['translation']} SET id = '$key', file = '$mod', org = '". $func->escape_sql($input) ."'");
           return ReplaceParameters($input, $parameters);
         }
       }
