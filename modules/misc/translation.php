@@ -160,7 +160,7 @@ switch ($_GET['step']) {
 
     $dsp->AddDoubleRow('Zielsprache', 'Englisch');
     $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
-    $res = $db->query("SELECT id, org, file, en FROM {$config['tables']['translation']} WHERE file = '{$_GET['file']}'");
+    $res = $db->query("SELECT DISTINCT id, org, file, en FROM {$config['tables']['translation']} WHERE file = '{$_GET['file']}'");
     while($row = $db->fetch_array($res)) $dsp->AddTextFieldRow("id[{$row['id']}]", $row['org'], $row['en'], '', 80);
     $db->free_result($res);
     $dsp->AddFormSubmitRow('edit');
