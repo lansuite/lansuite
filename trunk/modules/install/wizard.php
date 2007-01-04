@@ -126,7 +126,7 @@ switch ($_GET["step"]){
 				// Insert menus from mod_settings/menu.xml in DB, if not exist
 				$install->InsertMenus(0);
 				// Insert translations of DB-items
-				$install->InsertTranslations();
+#				$install->InsertTranslations();
 			}
 		}
 

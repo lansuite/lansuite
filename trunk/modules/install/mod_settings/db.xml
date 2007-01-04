@@ -1267,31 +1267,6 @@
 	</table>		
 	<table>		
 		<table_head>
-			<name>translations</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>de</name>
-				<type>varchar(255)</type>
-				<null></null>
-				<key>PRI</key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>en</name>
-				<type>varchar(255)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-		</structure>
-		<content>
-		</content>
-	</table>
-	<table>		
-		<table_head>
 			<name>boxes_closed</name>
 		</table_head>
 		<structure>
