@@ -18,7 +18,8 @@ class Import {
 
 		## Open XML-File
 		$xml_file    = fopen($tmp_file_name, "r");
-		$this->xml_content = utf8_encode(fread($xml_file, filesize($tmp_file_name)));
+#		$this->xml_content = utf8_encode(fread($xml_file, filesize($tmp_file_name)));
+		$this->xml_content = fread($xml_file, filesize($tmp_file_name));
 		fclose($xml_file);
 
 		## Get Header-Tag
@@ -230,7 +231,7 @@ http://dev.mysql.com/doc/refman/5.0/en/show-index.html
   			if ($primary_key) $primary_key = ", PRIMARY KEY (". substr($primary_key, 0, strlen($primary_key) - 2) .")";
   
   			// Create a new table, if it does not exist yet, or has been dropped above, due to rewrite
-  			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}$table_name ($mysql_fields $primary_key $unique_key) TYPE = MyISAM  CHARACTER SET utf8");
+  			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}$table_name ($mysql_fields $primary_key $unique_key) TYPE = MyISAM CHARACTER SET utf8");
   			$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
   
         // Set Table-Charset to UTF-8

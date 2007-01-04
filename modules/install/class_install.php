@@ -439,7 +439,7 @@ class Install {
 
 	function InsertTranslations() {
 		global $db, $config, $xml, $func;
-
+/*
 		$modules_dir = opendir("modules/");
 		while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != "CVS" AND is_dir("modules/$module")) {
 			$file = "modules/$module/mod_settings/translations.xml";
@@ -464,6 +464,7 @@ class Install {
 				}
 			}
 		}
+*/
 	}
 
 
