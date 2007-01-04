@@ -110,14 +110,14 @@ $xml_file = fread ($handle, filesize ($file));
 fclose ($handle);
 
 $selections = array();
-($_POST["tournament_wwcl_gameid"] == 0) ? $selected = "selected" : $selected = "";
+($_POST["wwcl_gameid"] == 0) ? $selected = "selected" : $selected = "";
 $selections['0'] = $lang["tourney"]["t_add_no_wwcl"];
 
 $game_ids = $xml->get_tag_content_array("id", $xml_file);
 $game_namen = $xml->get_tag_content_array("name", $xml_file);
 while ($akt_game_id = array_shift($game_ids)) {
 	$akt_game_name = array_shift($game_namen);
-	($_POST["tournament_wwcl_gameid"] == $akt_game_id) ? $selected = "selected" : $selected = "";
+	($_POST["wwcl_gameid"] == $akt_game_id) ? $selected = "selected" : $selected = "";
 	$selections[$akt_game_id] = $akt_game_name;
 }
 $mf->AddField($lang['tourney']['t_add_wwcl_game'], 'wwcl_gameid', IS_SELECTION, $selections, FIELD_OPTIONAL, 'CheckModeForLeague');
@@ -130,7 +130,7 @@ $xml_file = fread ($handle, filesize ($file));
 fclose ($handle);
 
 $selections = array();
-($_POST["tournament_ngl_gamename"] == 0) ? $selected = "selected" : $selected = "";
+($_POST["ngl_gamename"] == 0) ? $selected = "selected" : $selected = "";
 $selections[''] = $lang["tourney"]["t_add_no_ngl"];
 
 if ($cfg["sys_country"] != "de" and $cfg["sys_country"] != "at" and $cfg["sys_country"] != "ch")
@@ -148,7 +148,7 @@ else {
 			while ($game_xml_id = array_shift($game_xml)) {
 				$akt_game_id = $xml->get_tag_content("short", $game_xml_id);
 				$akt_game_name = $xml->get_tag_content("title", $game_xml_id);
-				($_POST["tournament_ngl_gamename"] == $akt_game_id) ? $selected = "selected" : $selected = "";
+				($_POST["ngl_gamename"] == $akt_game_id) ? $selected = "selected" : $selected = "";
 				$selections[$akt_game_id] = $info_title .' - '. $akt_game_name;
 			}
 		}
@@ -157,18 +157,23 @@ else {
 }
 
 // LGZ-Spiel auswahl
+$xml_file = "";
+$file = "ext_inc/tournament_rules/xml_games.xml";
+$handle = fopen ($file, "rb");
+$xml_file = fread ($handle, filesize ($file));
+fclose ($handle);
+
 $selections = array();
-if ($_POST['mode'] == '') $_POST['mode'] = 'double';
+($_POST["lgz_gamename"] == 0) ? $selected = "selected" : $selected = "";
 $selections[''] = $lang["tourney"]["t_add_no_lgz"];
-$selections['cs_5on5'] = 'Counter-Strike 5on5';
-$selections['wc3tft_1on1'] = 'Warcraft TFT 1on1';
-$selections['proevo4_1on1'] = 'Pro Evolution soccer 4';
-$selections['bf2_6on6'] = 'Battlefield 6on6';
-$selections['cs_2on2'] = 'Counter-Strike 2on2';
-$selections['bv_1on1'] = 'Blobby Volley 1on1';
-$selections['hdr_1on1'] = 'Herr der Ringe S.u.M 1on1';
-$selections['css_5on5'] = 'Counter-Strike:Source 5on5';
-$selections['nfsu2_1on1'] = 'Need For Speed Underground2 1on1';
+
+$games = $xml->get_tag_content_array("game", $xml_file);
+foreach ($games as $game){
+  $akt_game_name = $xml->get_tag_content("contest", $game) .' - '. $xml->get_tag_content("name", $game);
+  $syscode = $xml->get_tag_content("syscode", $game);
+	($_POST["lgz_gamename"] == $syscode) ? $selected = "selected" : $selected = "";
+	$selections[$syscode] = $akt_game_name;
+}
 $mf->AddField($lang['tourney']['t_add_lgz_game'], 'lgz_gamename', IS_SELECTION, $selections, FIELD_OPTIONAL, 'CheckModeForLeague');
 
 // Rules (Extern)
