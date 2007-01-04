@@ -149,6 +149,7 @@ if ($db->success) {
 
 // Set language
 if ($_POST['language']) $_SESSION['language'] = $_POST['language'];
+elseif ($_GET['language']) $_SESSION['language'] = $_GET['language'];
 
 if ($_SESSION['language']) $language = $_SESSION['language'];
 elseif ($cfg["sys_language"]) $language = $cfg["sys_language"];
