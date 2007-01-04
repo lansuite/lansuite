@@ -65,7 +65,7 @@ if ($mf->SendForm('index.php?mod=news&action='. $_GET['action'], 'news', 'newsid
 	if (is_writable("ext_inc/newsfeed/")) {
 		if ($fp = @fopen("ext_inc/newsfeed/news.xml", "w")) {
 			if (@fwrite($fp, $output)) {
-				$func->log_event(t('Newsfeed'), 1, t('Newsfeed wurde erfolgreich aktuallisiert'));
+				$func->log_event(t('Newsfeed wurde erfolgreich aktuallisiert'), 1, t('Newsfeed'));
 			} else $func->log_event(t('Konnte Newsfeed nicht erstellen. Fehler beim Schreiben in der Datei ext_inc/newsfeed/news.xml'), 2, t('Newsfeed wurde erfolgreich aktuallisiert'));
 		@fclose($fp);
 		} else $func->log_event(t('Konnte Newsfeed nicht erstellen. Fehler beim &Ouml;ffnen der Datei ext_inc/newsfeed/news.xml'), 2, t('Newsfeed wurde erfolgreich aktuallisiert'));

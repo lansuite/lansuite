@@ -409,14 +409,17 @@ class masterform {
   
               // Send query
               else {
-                if ($this->isChange) $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $AddKey $idname = ". (int)$id);
-                else {
+                if ($this->isChange) {
+                  $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $AddKey $idname = ". (int)$id);
+                  $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, 'Masterform');
+                } else {
                   $DBInsertQuery = $db_query;
                   if ($this->AdditionalKey != '') $DBInsertQuery .= ', '. $this->AdditionalKey;
                   if ($this->AddInsertControllField) $DBInsertQuery .= ', '. $idname .' = '. (int)$id;
                   $db->query("INSERT INTO {$config['tables'][$table]} SET $DBInsertQuery");
                   $id = $db->insert_id();
                   $this->insert_id = $id;
+                  $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefügt', array($id, $config['tables'][$table])), 1, 'Masterform');
                   $addUpdSuccess = $id;
                 }
               }
