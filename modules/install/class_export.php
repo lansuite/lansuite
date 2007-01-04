@@ -135,7 +135,14 @@ class Export {
 			}
 		}
 
-    if ($e_trans) $this->ExportTranslation($mod);
+    if ($e_trans) {
+      $this->ExportTranslation($mod);
+  		// Export non-module-related translations
+      if ($mod == 'install') {
+        $this->ExportTranslation('System');
+        $this->ExportTranslation('DB');
+      }
+    }
 	}
 
 
@@ -147,12 +154,6 @@ class Export {
 		$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
 		while ($row = $db->fetch_array($res)) $this->ExportMod($row["name"], $e_struct, $e_cont, $e_trans);
 		$db->free_result($res);
-
-		// Export non-module-related translations
-    if ($e_trans) {
-      $this->ExportTranslation('System');
-      $this->ExportTranslation('DB');
-    }
 
 		$this->LSTableFoot();
 	}
