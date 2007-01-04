@@ -113,11 +113,11 @@ class sitetool {
 			$dbquery = "Total DB-Querys: ". $db->count_query;
 
 			// Define Footer-Message
-			$footer = $templ['index']['info']['version']." &copy; 2001-".date("Y")." <a href=\"http://www.One-Network.org\" target=\"_blank\" class=\"menu\">One-Network.org</a>
+			$footer = $templ['index']['info']['version']." &copy; 2001-".date("Y").' <a href="http://www.lansuite.de" target="_blank" class="menu">LanSuite.de</a>
 			| All rights reserved
-			| <a href=\"index.php?mod=about\" class=\"menu\">about Lansuite</a>
-			| <a href=\"".$_SERVER['REQUEST_URI'].$ru_suffix."fullscreen=yes\" class=\"menu\">Vollbild</a>
-			<br/>$dbquery $processed $compressed $uncompressed";
+			| <a href="index.php?mod=about" class="menu">about Lansuite</a>
+			| <a href="'.$_SERVER['REQUEST_URI'].$ru_suffix.'fullscreen=yes" class="menu">Vollbild</a>'.
+			"<br/>$dbquery $processed $compressed $uncompressed";
       if ($_GET['contentonly']) $index .= '<div id="NewLSfooter">'. $footer .'</div>';
 
 			if ($cfg["sys_optional_footer"]) $footer .= $cfg["sys_optional_footer"];
