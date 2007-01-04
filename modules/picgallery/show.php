@@ -49,6 +49,10 @@ $root_file = "ext_inc/picgallery". $_GET["file"];
 $gallery_id = $_GET["galleryid"];
 if (!$_GET["page"]) $_GET["page"] = 0;
 
+// Insert non existing entries
+$row = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["picgallery"]} WHERE name = '$db_dir'");
+if (!$row['found']) $db->query("INSERT INTO {$config["tables"]["picgallery"]} SET userid = '', name = '$db_dir'");
+
 // Upload posted File
 if  (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["file_upload"]) {
 	$extension = substr($_FILES['file_upload']['name'], strrpos($_FILES['file_upload']['name'], ".") + 1, 4);
@@ -359,12 +363,13 @@ elseif (!$akt_file) {
 
 			$dsp->AddBackButton("index.php?mod=picgallery&file=$akt_dir&page={$_GET["page"]}", "picgallery");
 			$dsp->AddContent();
+
 		}
 
 		// Mastercomment
 		if ($_GET['picid']) $pic['picid'] = $_GET['picid'];
 		include("modules/mastercomment/class_mastercomment.php");
-		$comment = new Mastercomment($vars, "index.php?mod=picgallery&file={$_GET["file"]}&page={$_GET["page"]}&picid=" . $pic['picid'], "Picgallery", $pic['picid'], $pic['caption']);				
+		$comment = new Mastercomment($vars, "index.php?mod=picgallery&file={$_GET["file"]}&page={$_GET["page"]}&picid=" . $pic['picid'], "Picgallery", $pic['picid'], $pic['caption']);
 		$comment->action();
 	}
 }
