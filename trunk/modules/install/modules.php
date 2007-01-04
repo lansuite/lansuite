@@ -399,8 +399,8 @@ switch($_GET["step"]) {
 			($row["state"] == "Stable")? $templ['ls']['row']['module']['state'] = $row["state"]
 			: $templ['ls']['row']['module']['state'] = "<font color=\"red\">{$row["state"]}</font>";
 
-			(file_exists("modules/{$row["name"]}/images/admin_icon.gif"))? $templ['ls']['row']['module']['img'] = "modules/{$row["name"]}/images/admin_icon.gif"
-			: $templ['ls']['row']['module']['img'] = "modules/sample/images/admin_icon.gif";
+			(file_exists("modules/{$row["name"]}/icon.gif"))? $templ['ls']['row']['module']['img'] = "modules/{$row["name"]}/icon.gif"
+			: $templ['ls']['row']['module']['img'] = "modules/sample/icon.gif";
 
 			if (FindCfgKeyForMod($row["name"])) $templ['ls']['row']['module']['settings_link'] = " | <a href=\"install.php?mod=install&action=modules&step=10&module={$row["name"]}\">{$lang["install"]["modules_config"]}</a>";
 			else $templ['ls']['row']['module']['settings_link'] = "";

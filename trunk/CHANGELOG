@@ -36,6 +36,7 @@ Version 2.1.5
 - Add: Schräge-Wände Icons im Sitzplan (05.10.2006)
 - Add: #513 Maps können nun in den Turnierdetails durchgemischt werden. Außerdem steht nun die Runde dabei (KnoX 04.10.2006)
 
+- Change: images/admin_icon.gif in den Modulen in icon.gif umbenannt / verschoben, um Verzeichnisse zu sparen (KnoX 04.01.2007)
 - Change: #530 Das Zurücksetzen aller Datenbanken setzt nicht mehr die Komplette DB zurück, sondern nur die Tabellen, die von Lansuite erstellt wurden (KnoX 02.01.2007)
 - Change: Kleine Board-Optimierungen (KnoX 22.12.2006)
 - Change: Language-Datei auf Datenbank umgestellt (KnoX 22.12.2006)
