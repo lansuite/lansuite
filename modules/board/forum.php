@@ -85,9 +85,18 @@ if ($_GET['fid'] != '') $ms2->query['where'] .= ' AND t.fid = '. (int)$_GET['fid
 if ($_GET['action'] == 'bookmark') $ms2->query['where'] .= ' AND b.bid IS NOT NULL';
 $ms2->query['default_order_by'] = 'LastPost DESC';
 
-$ms2->AddTextSearchField($lang['board']['subject'], array('t.caption' => 'like'));
-$ms2->AddTextSearchField($lang['board']['thread_text'], array('p.comment' => 'fulltext'));
-$ms2->AddTextSearchField($lang['board']['author'], array('u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
+if ($_GET['fid'] == '') {
+  $ms2->AddTextSearchField($lang['board']['subject'], array('t.caption' => 'like'));
+  $ms2->AddTextSearchField($lang['board']['thread_text'], array('p.comment' => 'fulltext'));
+  $ms2->AddTextSearchField($lang['board']['author'], array('u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
+
+  $list = array();
+  $list[''] = t('Alle');
+  $res = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]}");
+  while ($row = $db->fetch_array($res)) $list[$row['fid']] = $row['name'];
+  $ms2->AddTextSearchDropDown(t('Board'), 'f.fid', $list);
+  $db->free_result($res);
+}
 
 $ms2->AddSelect('t.closed');
 if ($_GET['fid'] != '') $ms2->AddResultField($lang['board']['subject'], 't.caption', 'FormatTitle');

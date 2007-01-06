@@ -1,69 +1,23 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.1
-*	Filename: 			delete.php
-*	Module: 			Tournamentsystem
-*	Main editor: 		jochen@orgapage.de
-*	Last change: 		24.05.2004 17:58
-*	Description: 		deletes tournaments
-*	Remarks: 			
-*
-**************************************************************************/
 
-$step 		= $vars["step"];
-$tournamentid 	= $vars["tournamentid"];
+include_once('inc/classes/class_masterdelete.php');
+$md = new masterdelete();
 
-switch($step) {
+$md->References['t2_teams'] = '';
+$md->References['t2_teammembers'] = '';
+$md->References['t2_games'] = '';
 
+switch($_GET['step']) {
 	default:
     include_once('modules/tournament2/search.inc.php');
 	break;
 
 	case 2:
-		$row = $db->query_first_rows("SELECT status, name FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
-
-		if($row['number'] == 0) $func->error($lang["tourney"]["t_not_exist"], "");
-		else {
-			$text = str_replace("%T%", $row["name"], $lang["tourney"]["t_del_confirm"]);		
-			$question_text["open"] = $text;
-
-			$question_text["process"] = $text . HTML_NEWLINE . HTML_NEWLINE . HTML_FONT_ERROR . "{$lang["tourney"]["t_del_confirm_process"]}" . HTML_FONT_END;
-
-			$question_text["closed"] = $text . HTML_NEWLINE . HTML_NEWLINE . HTML_FONT_ERROR . "{$lang["tourney"]["t_del_confirm_closed"]}" . HTML_FONT_END;
-
-			$func->question($question_text[$row["status"]], "index.php?mod=tournament2&action=delete&step=3&tournamentid=".$tournamentid , "index.php?mod=tournament2&action=delete");
-		} // else number
-	break;
-
-	case 3:
-		$row = $db->query_first_rows("SELECT name FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
-
-		if($row["number"] == 0) $func->error($lang["tourney"]["t_not_exist"], "index.php?mod=tournament2&action=delete");
-		else {
-			$db->query("DELETE FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
-			$db->query("DELETE FROM {$config["tables"]["t2_teams"]} WHERE tournamentid = '$tournamentid'");
-			$db->query("DELETE FROM {$config["tables"]["t2_teammembers"]} WHERE tournamentid = '$tournamentid'");
-			$db->query("DELETE FROM {$config["tables"]["t2_games"]} WHERE tournamentid = '$tournamentid'");
-	
-			$func->confirmation(str_replace("%T%", $row["name"], $lang["tourney"]["t_del_success"]), "index.php?mod=tournament2&action=delete");
-			$func->log_event(str_replace("%T%", $row["name"], $lang["tourney"]["t_del_log"]), 1, $lang["tourney"]["log_t_manage"]);
-		} // else
-	break;
-	
-	// Multi-Delete
-	case 10:
-  	foreach ($_POST[action] as $key => $val) {
-  		$db->query("DELETE FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$key'");
-  		$db->query("DELETE FROM {$config["tables"]["t2_teams"]} WHERE tournamentid = '$key'");
-  		$db->query("DELETE FROM {$config["tables"]["t2_teammembers"]} WHERE tournamentid = '$key'");
-  		$db->query("DELETE FROM {$config["tables"]["t2_games"]} WHERE tournamentid = '$key'");	
-    }
-  	$func->confirmation(str_replace("%T%", $row["name"], $lang["tourney"]["t_del_success"]), "index.php?mod=tournament2&action=delete");
-  	$func->log_event(str_replace("%T%", $row["name"], $lang["tourney"]["t_del_log"]), 1, $lang["tourney"]["log_t_manage"]);
-	break;
-}//step
+    $md->Delete('tournament_tournaments', 'tournamentid', $_GET['tournamentid']);
+  break;
+  
+  case 10:
+    $md->MultiDelete('tournament_tournaments', 'tournamentid');
+  break;
+}
 ?>

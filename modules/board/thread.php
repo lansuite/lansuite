@@ -122,6 +122,8 @@ if ($thread['closed']) $func->information(t('Dieser Thread wurde geschlossen. Es
 elseif ($thread['need_type'] >= 1 and !$auth['login']) $func->information(t('Um auf diese beiträge zu antworten loggen Sie sich bitte zuerst ein'), NO_LINK);
 elseif ($_GET['pid'] != '' and $auth['type'] <= 1 and $current_post['userid'] != $auth['userid']) $func->error('Sie dürfen nur Ihre eigenen Beiträge editieren!', NO_LINK);
 else {
+  $dsp->AddFieldsetStart(t('Antworten - Der Beitrag kann anschließend noch editiert werden'));
+
   include_once('inc/classes/class_masterform.php');
   $mf = new masterform();
   
@@ -167,6 +169,7 @@ else {
   	}
   	$db->free_result($subscribers);
   }
+  $dsp->AddFieldsetEnd();
 }
 
 
@@ -184,6 +187,7 @@ if ($thread['caption'] != '') {
   	if ($bookmark["sysemail"]) $_POST["check_sysemail"] = 1;
   
   	$dsp->SetForm("index.php?mod=board&action=thread&tid=$tid&fid=$fid&set_bm=1");
+  	$dsp->AddFieldsetStart(t('Monitoring - Das Aufnehmen in die eigenen Lesezeichen ist Vorraussetzung, um per Mail zu aboniert'));
     $additionalHTML = "onclick=\"CheckBoxBoxActivate('email', this.checked)\"";
   	$dsp->AddCheckBoxRow("check_bookmark", $lang["board"]["check_bookmark"], $lang["board"]["check_bookmark2"], "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
   	$dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
@@ -191,6 +195,7 @@ if ($thread['caption'] != '') {
   	$dsp->AddCheckBoxRow("check_sysemail", $lang["board"]["check_sysemail"], $lang["board"]["check_sysemail2"], "", 1, $_POST["check_sysemail"]);
   	$dsp->StopHiddenBox();
   	$dsp->AddFormSubmitRow("edit");
+  	$dsp->AddFieldsetEnd();
   }
   
   // Generate Boardlist-Dropdown

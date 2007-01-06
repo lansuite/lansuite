@@ -26,10 +26,6 @@ if (!$_GET['newsid']) {
 
 if ($mf->SendForm('index.php?mod=news&action='. $_GET['action'], 'news', 'newsid', $_GET['newsid'])){
 
-  // Log
-  if ($_GET['newsid']) $func->log_event(t('Die News "%1" wurde geändert', array($_POST['caption'])), 1, 'News');
-  else $func->log_event(t('Die News "%1" wurde erstellt', array($_POST['caption'])), 1, 'News');
-
 	// News-Feed schreiben
 	$output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
 

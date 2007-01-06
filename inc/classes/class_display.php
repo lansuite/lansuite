@@ -282,11 +282,11 @@ class display {
     else $templ['ls']['row']['textarea']['optional'] = '';
 
 $this->form_open = false;
-		$templ['ls']['row']['textarea']['buttons'] = $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b][/b]')", 'bold', t('Fett'));
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i][/i]')", 'italic', t('Kursiv'));
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u][/u]')", 'underline', t('Unterstrichen'));
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[c][/c]')", 'quote', t('Code'));
-		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[img][/img]')", 'img', t('Bild'));
+		$templ['ls']['row']['textarea']['buttons'] = $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b]', '[/b]')", 'bold', t('Fett'));
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i]', '[/i]')", 'italic', t('Kursiv'));
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u]', '[/u]')", 'underline', t('Unterstrichen'));
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[c]', '[/c]')", 'quote', t('Code'));
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[img]', '[/img]')", 'img', t('Bild'));
 $this->form_open = true;
 
 		$templ['ls']['row']['textarea']['smilies'] = "";
