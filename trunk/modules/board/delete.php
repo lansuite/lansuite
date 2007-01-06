@@ -1,4 +1,31 @@
 <?php
+/*
+include_once('inc/classes/class_masterdelete.php');
+$md = new masterdelete();
+
+		$res = $db->query("SELECT tid FROM {$config["tables"]["board_threads"]} WHERE fid='{$_GET['fid']}'");
+		while ($row = $db->fetch_array($res)) {
+			$db->query("DELETE FROM {$config["tables"]["board_posts"]} WHERE tid='{$row['tid']}'");
+		}
+		
+$md->References['board_threads'] = '';
+#$md->References['board_posts'] = 'tid';
+
+switch($_GET['step']) {
+	default:
+    include_once('modules/board/show.php');
+	break;
+
+	case 2:
+    $md->Delete('board_forums', 'fid', $_GET['fid']);
+  break;
+
+  case 10:
+    $md->MultiDelete('board_forums', 'fid');
+  break;
+}
+*/
+
 $LSCurFile = __FILE__;
 
 switch ($_GET['step']) {
@@ -26,5 +53,4 @@ switch ($_GET['step']) {
 		$func->confirmation($lang['board']['forum_del'], "index.php?mod=board&action=delete"); 
 	break;
 }
-
 ?>

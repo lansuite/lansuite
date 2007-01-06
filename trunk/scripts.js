@@ -1,8 +1,24 @@
 
 //// Basic ////
 
-function InsertCode(object, code) {
-  if (code != '') object.value += code;
+function InsertCode(object, CodeStart, CodeEnd) {
+  if (!CodeEnd) CodeEnd = '';
+  
+  if (CodeStart != '') {
+    object.focus();
+
+    if (document.selection) {
+      sel = document.selection.createRange();
+      selected = sel.text;
+      sel.text = CodeStart + selected + CodeEnd;
+
+    } else if (object.selectionStart || object.selectionStart == '0') {
+      var startPos = object.selectionStart;
+      var endPos = object.selectionEnd;
+      object.value = object.value.substring(0, startPos) + CodeStart + object.value.substring(startPos, endPos) + CodeEnd + object.value.substring(endPos, object.value.length);
+
+    } else object.value += myValue;
+  }
 }
 
 function OpenWindow(url, name) {
