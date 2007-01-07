@@ -176,13 +176,14 @@ class Mail {
 	function delete_old_messages($to_user_id){
 		global $db, $config, $func, $cfg;
 		
-		$count = $db->query("SELECT * FROM {$config["tables"]["mail_messages"]} WHERE `toUserID` = $to_user_id AND `des_status` = 'read' ORDER BY `mail_status`  DESC, `rx_date` ASC");
-		$count_rows = $db->num_rows($count);
+		if ($to_user_id) {
+  		$count = $db->query("SELECT * FROM {$config["tables"]["mail_messages"]} WHERE `toUserID` = $to_user_id AND `des_status` = 'read' ORDER BY `mail_status`  DESC, `rx_date` ASC");
+  		$count_rows = $db->num_rows($count);
 
-		if(isset($cfg['mail_max_msg']) && $count_rows > $cfg['mail_max_msg']){
-			$db->query("DELETE FROM {$config["tables"]["mail_messages"]} WHERE `toUserID` = $to_user_id AND `des_status` = 'read' ORDER BY `mail_status`  DESC, `rx_date` ASC LIMIT " . ($count_rows - $cfg['mail_max_msg']));
-		}
-		
+  		if(isset($cfg['mail_max_msg']) && $count_rows > $cfg['mail_max_msg']){
+  			$db->query("DELETE FROM {$config["tables"]["mail_messages"]} WHERE `toUserID` = $to_user_id AND `des_status` = 'read' ORDER BY `mail_status`  DESC, `rx_date` ASC LIMIT " . ($count_rows - $cfg['mail_max_msg']));
+  		}
+    }
 		
 	}
 } // END CLASS
