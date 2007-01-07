@@ -43,7 +43,7 @@ elseif ($thread['caption'] != '') {
 	if ($auth["type"] > 1) {
     if ($thread['closed']) $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=thread&step=11&tid=$tid", "unlocked");
     else $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=thread&step=10&tid=$tid", "locked");
-    $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=edit&mode=delete&tid=$tid", "delete");
+    $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=delete&step=11&tid=$tid", "delete");
   }
 
 	$query = $db->query("SELECT pid, comment, userid, date, ip FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date");
@@ -97,7 +97,7 @@ elseif ($thread['caption'] != '') {
 
 		$templ['board']['thread']['case']['info']['post']['edit'] = '';
 		if ($auth['type'] > 1)
-			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=edit&mode=pdelete&pid=$pid&gotopid=$pid", "delete", '', '', 'right');
+			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=delete&step=10&pid=$pid&gotopid=$pid", "delete", '', '', 'right');
 		if ($auth['type'] > 1 or $row["userid"] == $auth["userid"])
 			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&gotopid=$pid", "edit", '', '', 'right');
 		$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("javascript:InsertCode(document.dsp_form1.comment, '[quote]". addslashes(str_replace('"', '', $row["comment"])) ."[/quote]')", "quote", '', '', 'right');;
