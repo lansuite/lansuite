@@ -16,7 +16,7 @@
 				<name>id</name>
 				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>PRI</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -131,5 +131,62 @@
 				<extra></extra>
 			</field>
 		</structure>
+	</table>
+	<table>
+		<table_head>
+			<name>stats_localserver</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>loadavg</name>
+				<type>varchar(100)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>mem_free</name>
+				<type>int(15)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>swap_free</name>
+				<type>int(15)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>eth_rx_mbytes</name>
+				<type>int(30)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>eth_tx_mbytes</name>
+				<type>int(30)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>time</name>
+				<type>int(10) unsigned</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
 	</table>
 </lansuite>
