@@ -1,4 +1,5 @@
 <?php
+$LSCurFile = __FILE__;
 
 if ($auth["type"] == 1 or $auth["type"] == 2 or $auth["type"] == 3) $home_page = $cfg["home_login"];
 else $home_page = $cfg["home_logout"];
@@ -6,7 +7,7 @@ else $home_page = $cfg["home_logout"];
 switch ($home_page) {
 	// Show overview
 	default:
-		$dsp->NewContent($lang["home"]["in_caption"], $lang["home"]["in_subcaption"]);
+		$dsp->NewContent(t('Startseite'), t('Willkommen! Hier sehen Sie eine kleine Übersicht der wichtigsten Aktivitäten'));
 
 		$z = 1;
 
@@ -61,7 +62,7 @@ switch ($home_page) {
 	
 	// Show Logout-Text
 	case 2:
-		$dsp->NewContent($lang["home"]["off_caption"], $lang["home"]["off_subcaption"]);
+		$dsp->NewContent(t('Startseite'), t('Willkommen! Zum Einloggen verwenden Sie bitte, die Login-Box auf der rechten Seite'));
 
 		$logout_hometext = file_get_contents("ext_inc/home/logout.txt");
 		$templ['home']['logout']['show']['info']['text']  = $func->text2html($logout_hometext);

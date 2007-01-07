@@ -1,6 +1,6 @@
 <?php
 
-$templ['home']['show']['item']['info']['caption'] = $lang["home"]["board_caption"];
+$templ['home']['show']['item']['info']['caption'] = t('Aktuelles im Board');
 $templ['home']['show']['item']['control']['row'] = "";
 
 $authtyp = $auth['type'] + 1;
@@ -17,7 +17,7 @@ if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $templ['home']['show']['row']['info']['text']		= $row['caption'] .' ('.$row['posts'].')';
   $templ['home']['show']['item']['control']['row']	.= $dsp->FetchModTpl('home', 'show_row');
 } else {
-	$templ['home']['show']['row']['text']['info']['text'] = "<i>{$lang["home"]["board_noentry"]}</i>";
+	$templ['home']['show']['row']['text']['info']['text'] = "<i>". t('Keine Beiträge vorhanden') ."</i>";
 	$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl('home', 'show_row_text');
 }
 

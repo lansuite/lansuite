@@ -202,7 +202,9 @@ class Import {
             }
 
   					// Search for fiels, which exist in the XML-File, but dont exist in the DB yet.
+  					$found_in_db = 0;
   					if ($db_fields) foreach ($db_fields as $db_field) if ($db_field["Field"] == $name) {
+  						$found_in_db = 1;
 
   						// Check wheather the field in the DB differs from the one in the XML-File
   						// Change it
@@ -224,6 +226,13 @@ class Import {
   						break;
   					}
   				}
+
+					// If a key was not found in the DB, but in the XML-File -> Add it!
+					if (!$found_in_db) {
+						// If auto_increment is used for this key, add this key as primary, unique key
+						if ($extra == "auto_increment") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra , ADD PRIMARY KEY ($name), ADD UNIQUE ($name)");
+						else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra");
+					}
 
   				// Add to installed tables
           array_push($installed_tables, $config["database"]["prefix"]. $table_name);

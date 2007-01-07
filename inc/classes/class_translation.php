@@ -20,15 +20,11 @@ function t($input, $parameters = NULL) {
     if (!$db->success) return ReplaceParameters($input, $parameters);
     else {
 
-      // Define current languages SQL-Field
-      if ($language == 'de') $sql_lang_field = 'org';
-      else $sql_lang_field = $language;
-
       // Load System, DB and current Mod on first call
       if ($TranslationFirstRun) {
-        $res = $db->query("SELECT id, org, $sql_lang_field FROM {$config['tables']['translation']} WHERE file = 'System' OR file = 'DB' or file = '$mod'");
+        $res = $db->query("SELECT id, org, $language FROM {$config['tables']['translation']} WHERE file = 'System' OR file = 'DB' or file = '$mod'");
         while ($row = $db->fetch_array($res)) {
-          if ($row[$sql_lang_field]) $lang['initial'][$row['id']] = $row[$sql_lang_field];
+          if ($row[$language]) $lang['initial'][$row['id']] = $row[$language];
           else $lang['initial'][$row['id']] = $row['org'];
         }
 
@@ -54,9 +50,9 @@ function t($input, $parameters = NULL) {
         }
 
         // DB-Query
-        $res = $db->query("SELECT id, org, $sql_lang_field FROM {$config['tables']['translation']} WHERE file = '$mod'");
+        $res = $db->query("SELECT id, org, $language FROM {$config['tables']['translation']} WHERE file = '$mod'");
         while ($row = $db->fetch_array($res)) {
-          if ($row[$sql_lang_field]) $lang[$mod][$row['id']] = $row[$sql_lang_field];
+          if ($row[$language]) $lang[$mod][$row['id']] = $row[$language];
           else $lang[$mod][$row['id']] = $row['org'];
         }
         if ($lang[$mod][$key] != '') return ReplaceParameters($lang[$mod][$key], $parameters);
