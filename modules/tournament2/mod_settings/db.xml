@@ -24,7 +24,7 @@
 				<name>tournamentid</name>
 				<type>tinyint(3) unsigned</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -32,7 +32,7 @@
 				<name>leaderid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -95,7 +95,7 @@
 				<name>tournamentid</name>
 				<type>tinyint(3) unsigned</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -103,7 +103,7 @@
 				<name>userid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -111,7 +111,7 @@
 				<name>teamid</name>
 				<type>smallint(5) unsigned</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -134,7 +134,7 @@
 				<name>tournamentid</name>
 				<type>tinyint(3) unsigned</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -150,7 +150,7 @@
 				<name>leaderid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>

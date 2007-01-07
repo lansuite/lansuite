@@ -32,7 +32,7 @@
 				<name>text</name>
 				<type>text</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>

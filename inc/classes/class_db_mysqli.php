@@ -73,7 +73,7 @@ class db {
 
     // No INTO OUTFILE
     elseif (!strpos($query_test_string, 'into outfile') === false) $query_string = '___INTO OUTFILE_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
-
+#echo $query_string.'<br>';
    	$this->querys[] = $query_string;
 		$this->querys_count++;
 		$this->query_id = @mysqli_query($GLOBALS['db_link_id'], $query_string);

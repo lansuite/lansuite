@@ -156,7 +156,7 @@ switch($_GET["step"]){
 			case "xml_tables":
 				$export->LSTableHead();
 				foreach ($_POST["table"] as $key => $value) {
-					if ($key) $export->ExportTable($key, $_POST["e_struct"], $_POST["e_cont"], $_POST["e_trans"]);
+					if ($key) $export->ExportTable($key, $_POST["e_struct"], $_POST["e_cont"]);
 				}
 				$export->LSTableFoot();
 			break;

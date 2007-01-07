@@ -77,14 +77,34 @@ class Export {
   		/* Structure */
   		if ($e_struct) {
   			$structure = "";
+
+        // Read indizes from DB
+        $DBPrimaryKey = '';
+        $DBUniqueKeys = array();
+        $DBIndizes = array();
+        $DBFulltext = array();
+        $ResIndizes = $db->query("SHOW INDEX FROM {$config["database"]["prefix"]}$table");
+        while ($RowIndizes = $db->fetch_array($ResIndizes)) {
+          if ($RowIndizes['Key_name'] == 'PRIMARY') $DBPrimaryKey = $RowIndizes['Column_name'];
+          elseif ($RowIndizes['Non_unique'] == 0) $DBUniqueKeys[] = $RowIndizes['Column_name'];
+          elseif ($RowIndizes['Non_unique'] == 1) {
+            if ($RowIndizes['Index_type'] == 'FULLTEXT') $DBFulltext[] = $RowIndizes['Column_name'];
+            elseif ($RowIndizes['Index_type'] == 'BTREE') $DBIndizes[] = $RowIndizes['Column_name'];
+          }
+        }
+        $db->free_result($ResIndizes);
+
   			$query = $db->query("DESCRIBE {$config["database"]["prefix"]}$table");
   			while ($row = $db->fetch_array($query)) {
   				$field = $xml->write_tag("name", $row["Field"], 4);
   				$field .= $xml->write_tag("type", $row["Type"], 4);
   				$field .= $xml->write_tag("null", $row["Null"], 4);
-  				$field .= $xml->write_tag("key", $row["Key"], 4);
   				$field .= $xml->write_tag("default", $row["Default"], 4);
   				$field .= $xml->write_tag("extra", $row["Extra"], 4);
+  				if ($row["Field"] == $DBPrimaryKey) $field .= $xml->write_tag("key", 'PRI', 4);
+  				elseif (in_array($row["Field"], $DBUniqueKeys)) $field .= $xml->write_tag("key", 'UNI', 4);
+  				elseif (in_array($row["Field"], $DBIndizes)) $field .= $xml->write_tag("key", 'IND', 4);
+  				elseif (in_array($row["Field"], $DBFulltext)) $field .= $xml->write_tag("key", 'FUL', 4);
   				$structure .= $xml->write_master_tag("field", $field, 3);
   			}
   			$db->free_result($query);
@@ -146,13 +166,13 @@ class Export {
 	}
 
 
-	function ExportAllTables($e_struct = NULL, $e_cont = NULL, $e_trans = NULL){
+	function ExportAllTables($e_struct = NULL, $e_cont = NULL){
 		global $db, $config;
 
 		$this->LSTableHead();
 
 		$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
-		while ($row = $db->fetch_array($res)) $this->ExportMod($row["name"], $e_struct, $e_cont, $e_trans);
+		while ($row = $db->fetch_array($res)) $this->ExportMod($row["name"], $e_struct, $e_cont, 0);
 		$db->free_result($res);
 
 		$this->LSTableFoot();

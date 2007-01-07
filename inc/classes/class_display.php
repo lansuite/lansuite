@@ -368,14 +368,14 @@ $this->form_open = true;
 		if (!$var) $templ['ls']['row']['formsubmit']['buttonname'] = "imageField";
 		else $templ['ls']['row']['formsubmit']['buttonname'] = $var;
 		
-		if ($button == 'edit' or $button == 'change' or $button == 'add' or $button == 'preview' or $button == 'next' or $button == 'delete' or $button == 'download' or $button == 'save')
-      $this->AddDoubleRow('', $this->FetchIcon('', $button));
+#		if ($button == 'edit' or $button == 'change' or $button == 'add' or $button == 'preview' or $button == 'next' or $button == 'delete' or $button == 'download' or $button == 'save')
+#      $this->AddDoubleRow('', $this->FetchIcon('', $button));
 
-    // for older buttons
-		else {
-  		$gd->CreateButton("$button");
+#    // for older buttons
+#		else {
+  		$gd->CreateButton($button);
     	$this->AddTpl("design/templates/ls_row_formsubmit.htm");
-    }
+#    }
 
     if ($this->form_open && $close) $this->CloseForm();
 	}
@@ -384,7 +384,9 @@ $this->form_open = true;
   function AddBackButton($back_link, $helplet_id = NULL) {
     global $templ, $gd, $auth;
 
-    $this->AddDoubleRow('', $this->FetchIcon($back_link, 'back', 'Back'));
+    $gd->CreateButton($button);
+    $this->AddDoubleRow('', $this->FetchButton($back_link, 'back', 'Back'));
+#    $this->AddDoubleRow('', $this->FetchIcon($back_link, 'back', 'Back'));
   }
 
     
