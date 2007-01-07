@@ -897,7 +897,7 @@
 			</field>
 			<field>
 				<name>max_guest</name>
-				<type>int(20)</type>
+				<type>int(11)</type>
 				<null></null>
 				<key></key>
 				<default></default>
@@ -1037,7 +1037,7 @@
 				<name>party_id</name>
 				<type>int(20)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -1045,7 +1045,7 @@
 				<name>user_id</name>
 				<type>int(20)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
 			</field>

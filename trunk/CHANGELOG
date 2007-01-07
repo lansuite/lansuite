@@ -11,6 +11,7 @@ Version 3
 - Add: MasterDelete zum veralgemeinerten Löschen von Datensätzen aus der Datenbank (KnoX 04.01.2007)
 - Add: Weitere Sprachen ergänzt (KnoX 04.01.2007)
 
+- Change: DB-Manager optimiert + verbesserte Index-Verwaltung in der DB (KnoX 07.01.2007)
 - Change: MasterForm loggt nun MySQL-Aktion unter Sonstiges - Log mit (KnoX 04.01.2007)
 
 Version 2.1.5 (04.01.2007)

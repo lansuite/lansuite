@@ -95,7 +95,7 @@
 				<name>userid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>

@@ -32,7 +32,7 @@
 				<name>username</name>
 				<type>varchar(25)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -48,7 +48,7 @@
 				<name>type</name>
 				<type>tinyint(2)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -64,7 +64,7 @@
 				<name>name</name>
 				<type>varchar(50)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -72,7 +72,7 @@
 				<name>firstname</name>
 				<type>varchar(50)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -96,7 +96,7 @@
 				<name>ipaddress</name>
 				<type>varchar(20)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -112,7 +112,7 @@
 				<name>wwclid</name>
 				<type>varchar(15)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -120,7 +120,7 @@
 				<name>wwclclanid</name>
 				<type>varchar(15)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -128,7 +128,7 @@
 				<name>nglid</name>
 				<type>varchar(15)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -136,7 +136,7 @@
 				<name>nglclanid</name>
 				<type>varchar(15)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -144,7 +144,7 @@
 				<name>lgzid</name>
 				<type>varchar(15)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default>14475</default>
 				<extra></extra>
 			</field>
@@ -152,7 +152,7 @@
 				<name>lgzclanid</name>
 				<type>varchar(15)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default>38</default>
 				<extra></extra>
 			</field>
@@ -168,7 +168,7 @@
 				<name>sex</name>
 				<type>tinyint(1)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -192,7 +192,7 @@
 				<name>plz</name>
 				<type>varchar(5)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -248,7 +248,7 @@
 				<name>newsletter</name>
 				<type>tinyint(1)</type>
 				<null></null>
-				<key>MUL</key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>

@@ -174,7 +174,7 @@
 			<field>
 				<name>linkstatus</name>
 				<type>varchar(10)</type>
-				<null>YES</null>
+				<null></null>
 				<key></key>
 				<default>up(1)</default>
 				<extra></extra>
@@ -182,7 +182,7 @@
 			<field>
 				<name>adminstatus</name>
 				<type>varchar(8)</type>
-				<null>YES</null>
+				<null></null>
 				<key></key>
 				<default>up(1)</default>
 				<extra></extra>
