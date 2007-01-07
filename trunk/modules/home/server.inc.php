@@ -2,7 +2,7 @@
 
 // SERVER
 
-	$templ['home']['show']['item']['info']['caption'] = $lang["home"]["server_caption"];
+	$templ['home']['show']['item']['info']['caption'] = t('Neue Server');
 	$templ['home']['show']['item']['control']['row'] = "";
 
 	$query = $db->query("SELECT serverid, caption, type FROM {$config["tables"]["server"]} order by changedate DESC LIMIT 0,5");
@@ -23,7 +23,7 @@
 		} // while - news
 	} // if
 	else {
-		$templ['home']['show']['row']['text']['info']['text'] = "<i>{$lang["home"]["server_noentry"]}</i>";
+		$templ['home']['show']['row']['text']['info']['text'] = "<i>". t('Keine Server vorhanden') ."</i>";
 		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row_text");
 	}
 

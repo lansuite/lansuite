@@ -71,7 +71,7 @@ switch ($_GET['step']) {
     $dsp->AddFieldSetStart(t('Modul übersetzen'));
     $dsp->SetForm('index.php?mod=misc&action=translation');
     $list = array();
-    $res = $db->query("SELECT cfg_value, cfg_display FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language' AND cfg_value != 'de'");
+    $res = $db->query("SELECT cfg_value, cfg_display FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language'");
     while($row = $db->fetch_array($res)) {
       ($_SESSION['target_language'] == $row['cfg_value'])? $selected = 'selected' : $selected = '';
       $list[] = "<option $selected value='{$row['cfg_value']}'>{$row['cfg_display']}</option>";

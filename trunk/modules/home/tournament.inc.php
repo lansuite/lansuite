@@ -2,7 +2,7 @@
 
 // TOURNAMENT
 
-$templ['home']['show']['item']['info']['caption'] = $lang["home"]["tourney_caption"];
+$templ['home']['show']['item']['info']['caption'] = t('Turnier: Spielpaarungen');
 $templ['home']['show']['item']['control']['row'] = "";
 $templ['home']['show']['row']['text']['info']['text'] = "";
 
@@ -26,7 +26,7 @@ if ($auth["userid"]) {
 }
 
 if (($db->num_rows($teams) == 0) && ($db->num_rows($members) == 0)) {
-	$templ['home']['show']['row']['text']['info']['text'] = "<i>{$lang["home"]["tourney_noentry"]}</i>";
+	$templ['home']['show']['row']['text']['info']['text'] = "<i>". t('Es sind keine aktuellen Spielpaarungen vorhanden') ."</i>";
 	$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row_text");
 } else {
 	while($team = $db->fetch_array($teams)) {

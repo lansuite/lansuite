@@ -125,7 +125,7 @@ switch($_GET["step"]) {
             ");
   			while ($row = $db->fetch_array($res)){
   				$row["cfg_desc"] = $func->translate($row["cfg_desc"]);
-  				$row["cfg_value"] = $func->translate($row["cfg_value"]);
+  				if ($row["cfg_type"] == 'string') $row["cfg_value"] = $func->translate($row["cfg_value"]);
   
   				// Get Selections
   				$get_cfg_selection = $db->query("SELECT cfg_display, cfg_value

@@ -1,6 +1,6 @@
 <?php
 
-	$templ['home']['show']['item']['info']['caption'] = $lang["home"]["news_caption"] . ' <span class="small">[<a href="ext_inc/newsfeed/news.xml" class="menu" title="XML Newsfeed">RSS</a>]</span>';
+	$templ['home']['show']['item']['info']['caption'] = t('Aktuelle News') . ' <span class="small">[<a href="ext_inc/newsfeed/news.xml" class="menu" title="XML Newsfeed">RSS</a>]</span>';
 	$templ['home']['show']['item']['control']['row'] = "";
 	
 	
@@ -32,7 +32,7 @@
 		} // while - news
 	} // if
 	else {
-		$templ['home']['show']['row']['text']['info']['text'] = "<i>{$lang["home"]["news_noentry"]}</i>";
+		$templ['home']['show']['row']['text']['info']['text'] = "<i>". t('Keine News bisher vorhanden') ."</i>";
 		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row_text");
 	}
 
