@@ -58,17 +58,17 @@ function NewPosts($last_read) {
 
 if ($_GET['fid'] != '') {
   $row = $db->query_first("SELECT name, need_type FROM {$config["tables"]["board_forums"]} WHERE fid={$_GET["fid"]}");
-  if ($row['need_type'] == 1 and $auth['login'] == 0) $new_thread = $lang['board']['only_loggedin_post'];
+  if ($row['need_type'] == 1 and $auth['login'] == 0) $new_thread = t('Sie müssen sich zuerst einloggen, um einen Thread in diesem Forum starten zu können');
   else $new_thread = $dsp->FetchIcon("index.php?mod=board&action=thread&fid={$vars["fid"]}", "add");
 
   // Board Headline
 	$hyperlink = '<a href="%s" class="menu">%s</a>';
-	$overview_capt = sprintf($hyperlink, "index.php?mod=board", $lang['board']['board']);
+	$overview_capt = sprintf($hyperlink, "index.php?mod=board", t('Forum'));
 	$dsp->NewContent($row['name'], "$overview_capt - {$row['name']}");
   $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
 }
 
-if ($_POST['search_input'][1] != '' or $_POST['search_input'][2] != '')  $dsp->AddSingleRow($lang['board']['search_hint']);
+if ($_POST['search_input'][1] != '' or $_POST['search_input'][2] != '')  $dsp->AddSingleRow(t('Achtung: Sie haben als Suche einen Autor, bzw. Text angegeben. Die Ergebnis-Felder Antworten, sowie erster und letzter Beitrag beziehen sich daher nur noch auf Posts, in denen diese Eingaben gefunden wurden, nicht mehr auf den ganzen Thread!'));
 
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
@@ -86,30 +86,29 @@ if ($_GET['action'] == 'bookmark') $ms2->query['where'] .= ' AND b.bid IS NOT NU
 $ms2->query['default_order_by'] = 'LastPost DESC';
 
 if ($_GET['fid'] == '') {
-  $ms2->AddTextSearchField($lang['board']['subject'], array('t.caption' => 'like'));
-  $ms2->AddTextSearchField($lang['board']['thread_text'], array('p.comment' => 'fulltext'));
-  $ms2->AddTextSearchField($lang['board']['author'], array('u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
+  $ms2->AddTextSearchField(t('Titel'), array('t.caption' => 'like'));
+  $ms2->AddTextSearchField(t('Text'), array('p.comment' => 'fulltext'));
+  $ms2->AddTextSearchField(t('Autor'), array('u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
 
   $list = array();
   $list[''] = t('Alle');
   $res = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]}");
   while ($row = $db->fetch_array($res)) $list[$row['fid']] = $row['name'];
-  $ms2->AddTextSearchDropDown(t('Board'), 'f.fid', $list);
+  $ms2->AddTextSearchDropDown(t('Forum'), 'f.fid', $list);
   $db->free_result($res);
 }
 
 $ms2->AddSelect('t.closed');
-if ($_GET['fid'] != '') $ms2->AddResultField($lang['board']['subject'], 't.caption', 'FormatTitle');
-else $ms2->AddResultField($lang['board']['subject'], 'CONCAT(\'<b>\', f.name, \'</b><br />\', t.caption) AS ThreadName', 'FormatTitle');
-$ms2->AddResultField($lang['board']['new'], 'r.last_read', 'NewPosts');
-$ms2->AddResultField($lang['board']['clicks'], 't.views');
-$ms2->AddResultField($lang['board']['replys'], '(COUNT(p.pid) - 1) AS posts');
-$ms2->AddResultField($lang['board']['first_post'], 'MIN(p.date) AS FirstPost', 'LastPostDetails');
-$ms2->AddResultField($lang['board']['last_post'], 'MAX(p.date) AS LastPost', 'LastPostDetails');
+if ($_GET['fid'] != '') $ms2->AddResultField(t('Thread'), 't.caption', 'FormatTitle');
+else $ms2->AddResultField(t('Thread'), 'CONCAT(\'<b>\', f.name, \'</b><br />\', t.caption) AS ThreadName', 'FormatTitle');
+$ms2->AddResultField(t('Neu'), 'r.last_read', 'NewPosts');
+$ms2->AddResultField(t('Abrufe'), 't.views');
+$ms2->AddResultField(t('Antworten'), '(COUNT(p.pid) - 1) AS posts');
+$ms2->AddResultField(t('Erster Beitrag'), 'MIN(p.date) AS FirstPost', 'LastPostDetails');
+$ms2->AddResultField(t('Letzter Beitrag'), 'MAX(p.date) AS LastPost', 'LastPostDetails');
 
-$ms2->AddIconField('details', 'index.php?mod=board&action=thread&fid='. $_GET["fid"] .'&tid=', $lang['ms2']['details']);
-#$ms2->AddIconField('add', 'index.php?mod=board&action=post&fid='. $_GET["fid"] .'&tid=', $lang['ms2']['reply']);
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=11&tid=', $lang['ms2']['delete']);
+$ms2->AddIconField('details', 'index.php?mod=board&action=thread&fid='. $_GET["fid"] .'&tid=', t('Details'));
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=11&tid=', t('Löschen'));
 $ms2->PrintSearch('index.php?mod=board&action='. $_GET['action'] .'&fid='. $_GET['fid'], 't.tid');
 
 if ($_GET['fid'] != '') $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
@@ -119,8 +118,8 @@ $dsp->AddContent();
 $foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]} WHERE need_type <= ". (int)($auth['type'] + 1));
 while ($forum = $db->fetch_array($foren_liste))
   $templ['board']['thread']['case']['control']['goto'] .= "<option value=\"index.php?mod=board&action=forum&fid={$forum["fid"]}\">{$forum["name"]}</option>";
-$templ['board']['forum']['case']['info']['forum_choise'] = $lang['board']['forum_choise'];
-$dsp->AddDoubleRow($lang['board']['goto_forum'], $dsp->FetchModTpl('board', 'forum_dropdown'));
+$templ['board']['forum']['case']['info']['forum_choise'] = t('Bitte auswählen');
+$dsp->AddDoubleRow(t('Gehe zu Forum'), $dsp->FetchModTpl('board', 'forum_dropdown'));
 $dsp->AddContent();
 
 ?>
