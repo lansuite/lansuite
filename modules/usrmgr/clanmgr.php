@@ -1,5 +1,13 @@
 <?php
 
+function CheckClanPW ($clanpw) {
+  global $db, $config, $auth;
+
+  $clan = $db->query_first("SELECT password FROM {$config['tables']['clan']} WHERE clanid = '{$_GET['clanid']}'");
+  if ($clan['password'] and $clan['password'] != md5($clanpw)) return t('Passwort falsch!');
+  return false;
+}
+
 switch ($_GET['step']) {
   default:
     include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -25,35 +33,31 @@ switch ($_GET['step']) {
 
     $ms2->PrintSearch('index.php?mod=usrmgr&action=clanmgr', 'c.clanid');
   break;
-  
-  // Change Password
+
+  // Change clan password
   case 10:
-    if ($auth['type'] >= 2) {
-		 $dsp->SetForm("index.php?mod=usrmgr&action=clanmgr&step=11&clanid={$_GET['clanid']}");
-		 $dsp->AddTextFieldRow('newclanpw', $lang["usrmgr"]["chpwd_password"], '', '');
-		 $dsp->AddFormSubmitRow('change');
-		 $dsp->AddBackButton('index.php?mod=usrmgr&action=clanmgr');
-		 $dsp->AddContent();
+    if($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
+    elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) $func->information(t('Sie sind nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
+    else {
+      include_once('inc/classes/class_masterform.php');
+      $mf = new masterform();
+
+      if ($auth['type'] < 2) $mf->AddField(t('Dezeitiges Passwort'), 'old_password', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckClanPW');
+      $mf->AddField(t('Neues Passwort'), 'password', IS_NEW_PASSWORD);
+
+      if ($mf->SendForm('index.php?mod=usrmgr&action=clanmgr&step=10', 'clan', 'clanid', $_GET['clanid'])) {
+
+        // Send information mail to all clan members
+      	$clanuser = $db->query("SELECT userid, username, email FROM {$config['tables']['user']} WHERE clanid='{$_GET['clanid']}'");
+      	while ($data = $db->fetch_array($clanuser)) {
+      		$mail->create_mail($auth['userid'], $data['userid'], t('Clanpasswort geändert'), t('Das Clanpasswort wurde durch den Benutzer %1 in "%2" geändert', array($auth['username'], $_POST['password_original'])));
+      		$mail->create_inet_mail($data['username'], $data['email'], t('Clanpasswort geändert'), t('Das Clanpasswort wurde durch den Benutzer %1 in "%2" geändert', array($auth['username'], $_POST['password_original'])), $cfg["sys_party_mail"]);
+      	}
+      	$func->log_event(t('Das Clanpasswort wurde durch den Benutzer %1 geändert', array($auth['username'])), 1, t('Clanmanager'));
+      }
     }
   break;
-  
-  case 11:
-    if ($auth['type'] >= 2) {
-  		$newclanpw = md5($_POST['newclanpw']);	
-  		$db->query_first("UPDATE {$config['tables']['clan']} SET password='$newclanpw' WHERE clanid='{$_GET['clanid']}'");
 
-			$clanuser = $db->query("SELECT userid, username, email FROM {$config['tables']['user']} WHERE clanid='{$_GET['clanid']}'");
-
-			while ($data = $db->fetch_array($clanuser)) {
-				$mail->create_mail($auth['userid'], $data['userid'], $lang['usrmgr']['clanpw_haschange_sub'], str_replace("%USER%", $auth['username'], str_replace("%PASSWORD%", $_POST['newclanpw'], $lang['usrmgr']['clanpw_haschange'])));
-				$mail->create_inet_mail($data['username'], $data['email'], $lang['usrmgr']['clanpw_haschange_sub'], str_replace("%USER%", $auth['username'], str_replace("%PASSWORD%", $_POST['newclanpw'], $lang['usrmgr']['clanpw_haschange'])), $cfg["sys_party_mail"]);
-			}
-
-			$func->log_event(str_replace("%%USER%%", $auth['username'], $lang['usrmgr']['clanpw_haschange']),1);
-			$func->confirmation($lang['usrmgr']['clanpw_haschange_sub'], 'index.php?mod=usrmgr&action=clanmgr');
-    }
-  break;
-  
   // Delete
   case 20:
     if ($auth['type'] >= 3) {

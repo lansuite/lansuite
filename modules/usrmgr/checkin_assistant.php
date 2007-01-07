@@ -2,29 +2,6 @@
 
 $timestamp 	= time();
 
-#include_once("modules/usrmgr/class_adduser.php");
-#$AddUser = new AddUser();
-
-$user_data = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid='{$_GET["userid"]}'");
-/*
-// Error-Switch
-switch($_GET["step"]) {
-	case 3:
-#		$AddUser->GetDBData($_GET["umode"]);
-	break;
-
-	case 4:
-#		$AddUser->CheckErrors($_GET["umode"], $_GET['quick_signon']);
-	break;
-	
-	case 5:
-		$party->set_seatcontrol($_GET['userid'],$_GET['seatcontrol']);
-		$_POST['username'] = urldecode($_GET['username']);
-		$_POST['password'] = base64_decode(urldecode($_GET['pw']));
-	break;
-}
-*/
-
 // Main-Switch
 switch($_GET["step"]) {
 	// Auswahl: Angemeldet? ja/Nein
@@ -82,9 +59,6 @@ switch($_GET["step"]) {
         signondate = ". time()
         );
     }
-
-#		$dsp->SetForm("index.php?mod=usrmgr&action={$_GET["action"]}&umode={$_GET['umode']}&quick_signon={$_GET['quick_signon']}&step=". ($_GET["step"] + 1) ."&userid={$_GET["userid"]}", "signon", "", "multipart/form-data");
-#		$AddUser->ShowForm($_GET["umode"], $_GET['quick_signon']);
 	break;
 }
 

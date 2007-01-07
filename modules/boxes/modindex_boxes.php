@@ -46,17 +46,17 @@ if ($cfg['home_recent_news_box']) {
   $templ['box']['rows'] = $templ['home']['show']['item']['control']['row'];
   $boxes['recent_news'] = $box->CreateBox('recent_news', t('Die letzten News'));
 }
-if ($cfg['home_recent_board_box']) {
+if ($cfg['home_recent_board_box'] and in_array('board', $ActiveModules)) {
   include('modules/home/board.inc.php');
   $templ['box']['rows'] = $templ['home']['show']['item']['control']['row'];
   $boxes['recent_board'] = $box->CreateBox('recent_board', t('Neu im Board'));
 }
-if ($cfg['home_recent_server_box']) {
+if ($cfg['home_recent_server_box'] and in_array('server', $ActiveModules)) {
   include('modules/home/server.inc.php');
   $templ['box']['rows'] = $templ['home']['show']['item']['control']['row'];
   $boxes['recent_server'] = $box->CreateBox('recent_server', t('Neue Server'));
 }
-if ($cfg['home_recent_poll_box']) {
+if ($cfg['home_recent_poll_box'] and in_array('poll', $ActiveModules)) {
   include('modules/home/poll.inc.php');
   $templ['box']['rows'] = $templ['home']['show']['item']['control']['row'];
   $boxes['recent_poll'] = $box->CreateBox('recent_poll', t('Neue Umfragen'));

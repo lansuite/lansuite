@@ -6,8 +6,9 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 3
 
-- Bugfix:
+- Bugfix: #577 #579 Mail und Log beim Clanpasswort wechsel korrigiert (KnoX 07.01.2007)
 
+- Add: Logfile um weitere Suchoptionen erweitert und in MasterSearch und Masterdelete und weiteren stellen eingebaut. (KnoX 07.01.2007)
 - Add: Im Board kann man nun Dateien in seinem Post hochladen (KnoX 07.01.2007)
 - Add: Neue Boxen: Neuste Board-beiträge, Neuste News, Neuste Polls, Neuste Server (KnoX 07.01.2007)
 - Add: Jedem Board kann man nun eine Position zuordnen, nach der sie sortiert werden (KnoX 07.01.2007)
