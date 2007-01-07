@@ -22,69 +22,6 @@ var $perso;
 	}
 
 
-	function CheckPerso($code){
-		$perso_block = explode("<", $code);
-		$perso_citycode = substr($perso_block[0], 0, 4);
-		$perso_id = substr($perso_block[0], 4, 5);
-		$perso_cs1 = substr($perso_block[0], 9, 1);
-		$perso_country = substr($perso_block[0], 10, 1);
-		$perso_birth = substr($perso_block[2], 0, 6);
-		$perso_cs2 = substr($perso_block[2], 6, 1);
-		$perso_expiration = substr($perso_block[3], 0, 6);
-		$perso_cs3 = substr($perso_block[3], 6, 1);
-		$perso_cs4 = substr($perso_block[10], 0, 1);
-
-		// Length Check
-		if ((strlen($code) != 36) || 
-			(strlen($perso_block[0]) != 11) || (strlen($perso_block[2]) != 7) || (strlen($perso_block[3]) != 7) || (strlen($perso_block[10]) != 1)) return 2;
-		
-		// Chechsum Check
-		else {
-			$multiplier = array ("7", "3", "1");
-
-			$cs1 = 0;
-			for ($z = 0; $z <= 8; $z ++) {
-				$cs1 += (substr($perso_block[0], $z, 1) * $multiplier[$z % 3]);
-			}
-			$cs1 = $cs1 % 10;
-
-			$cs2 = 0;
-			for ($z = 0; $z <= 5; $z ++) {
-				$cs2 += (substr($perso_block[2], $z, 1) * $multiplier[$z % 3]);
-			}
-			$cs2 = $cs2 % 10;
-
-			$cs3 = 0;
-			for ($z = 0; $z <= 5; $z ++) {
-				$cs3 += (substr($perso_block[3], $z, 1) * $multiplier[$z % 3]);
-			}
-			$cs3 = $cs3 % 10;
-
-			$cs4 = 0;
-			$perso_all = substr($perso_block[0], 0, 10) . $perso_block[2] . $perso_block[3]; 
-			for ($z = 0; $z <= 24; $z ++) { 
-				 $cs4 += (substr($perso_all, $z, 1) * $multiplier[$z % 3]); 
-			}
-			$cs4 = $cs4 % 10;
-
-			if (($cs1 != $perso_cs1) || ($cs2 != $perso_cs2) || ($cs3 != $perso_cs3) || ($cs4 != $perso_cs4)){
-				return 3;
-
-			// Expiration Check
-			} else {
-				$perso_expir_timestamp = mktime(0, 0, 0, substr($perso_expiration, 2, 2), substr($perso_expiration, 4, 2), substr($perso_expiration, 0, 2));
-				if (time() > $perso_expir_timestamp) return 4;
-			}
-		}
-		return 1;
-		// Return Values:
-		// 1 = OK
-		// 2 = Wrong length
-		// 3 = Checksum error
-		// 4 = Expired
-	}
-
-
 	function GetLansurfer($username, $password) {
 		if (!function_exists("socket_create")) return false;
 		else {

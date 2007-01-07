@@ -2,11 +2,10 @@
 $LSCurFile = __FILE__;
 
 include_once("modules/usrmgr/class_usrmgr.php");
-include_once("modules/signon/language/signon_lang_de.php");
 $usrmgr = new UsrMgr();
 
 function Update($id) {
-global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func, $lang, $cfg, $signon, $mail;
+global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func, $cfg, $signon, $mail;
 
   // Clan-Management
   include_once("modules/usrmgr/class_clan.php");
@@ -40,7 +39,7 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
     }
 
     // Show passwort, if wanted, or has mail failed
-    if ($cfg['signon_password_view']) $func->information(str_replace("%PASSWORD%", "<b>". $_SESSION['tmp_pass'] ."</b>", $lang["signon"]["add_pw_text"]), NO_LINK);
+    if ($cfg['signon_password_view']) $func->information(t('Dein Passwort lautet: %1', array($_SESSION['tmp_pass'])), NO_LINK);
     $_SESSION['tmp_pass'] = '';
 	}
 
@@ -77,7 +76,7 @@ function CheckClanNotExists ($ClanName) {
 }
 
 function PersoInput($field, $mode, $error = '') {
-  global $dsp, $templ, $lang, $auth;
+  global $dsp, $templ, $auth, $usrmgr;
 
   switch ($mode) {
     case OUTPUT_PROC:
@@ -107,27 +106,27 @@ function PersoInput($field, $mode, $error = '') {
   		$_POST[$field] = $_POST["perso_1"] . "<<" . $_POST["perso_2"] . "<". $_POST["perso_3"] . "<<<<<<<" . $_POST["perso_4"];
   		if ($_POST[$field] == "aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d") $_POST[$field] = "";
   		if ($_POST[$field] == "<<<<<<<<<<") $_POST[$field] = "";
-#  		if (($auth["type"] >= 2 or $missing_fields) and (($_POST[$field] != '') or (Needed($_POST[$field])))){
-#  			$perso_res = $signon->CheckPerso($perso);
-#  			switch ($perso_res) {
-#  				case 2: return str_replace("<", "&lt;", $lang["usrmgr"]["add_err_perso_format"]); break;
-#  				case 3: return $lang["usrmgr"]["add_err_perso_cs"]; break;
-#  				case 4: return $lang["usrmgr"]["add_err_perso_expired"]; break;
-#  			}
-#  		}
+      if ($_POST[$field] != '') {
+  			$perso_res = $usrmgr->CheckPerso($_POST[$field]);
+    		switch ($perso_res) {
+  				case 2: return str_replace("<", "&lt;", t('Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: \'aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d\'')); break;
+  				case 3: return t('Pr&uuml;fsummenfehler. Bitte &uuml;berpr&uuml;fen Sie Ihre Angabe. Sehr wahrscheinlich haben sie eine, oder mehrere Zahlen falsch abgeschrieben.'); break;
+  				case 4: return t('Dieser Personalausweis ist leider bereits abgelaufen.'); break;
+  			}
+  		}
 			return false; // -> Means no error
     break;
   }
 }
 
 function BirthdayInput($field, $mode, $error = '') {
-  global $dsp, $templ, $lang, $auth, $func;
+  global $dsp, $templ, $auth, $func;
 
   switch ($mode) {
     case OUTPUT_PROC:
 			if ($_POST['birthday'] == 0) $_POST['birthday'] = 1;
-  		$dsp->AddDateTimeRow("birthday", $lang["usrmgr"]["add_birthday"], $_POST['birthday'], $error["birthday"], "", "", (1970 - date("Y")), -5, 1, Optional("birthday"), " onChange=\"WriteAge();\"");
-  		$dsp->AddDoubleRow($lang["usrmgr"]["add_u18check"], $dsp->FetchModTPL("usrmgr", "u18check") . " Jahre");
+  		$dsp->AddDateTimeRow("birthday", t('Geburtstag'), $_POST['birthday'], $error["birthday"], "", "", (1970 - date("Y")), -5, 1, Optional("birthday"), " onChange=\"WriteAge();\"");
+  		$dsp->AddDoubleRow(t('U18-Prüfung'), $dsp->FetchModTPL("usrmgr", "u18check") . t(' Jahre'));
     	return false;
     break;
 
@@ -135,7 +134,6 @@ function BirthdayInput($field, $mode, $error = '') {
   		// GetBirthdayTimestamp
   		if (($_POST["birthday_value_year"] == (date("Y") - 34)) && ($_POST["birthday_value_month"] == "1") && ($_POST["birthday_value_day"] == "1")) $_POST['birthday'] = 0;
   		else $_POST['birthday'] = $func->date2unixstamp($_POST["birthday_value_year"], $_POST["birthday_value_month"], $_POST["birthday_value_day"], 0, 0, 0);
-#  		if (($auth["type"] >= 2 or $missing_fields) and $this->Needed("birthday") and $birthday == 0) $error["birthday"] = $lang["usrmgr"]["add_err_no_birthday"];
 			return false; // -> Means no error
     break;
   }
@@ -143,12 +141,12 @@ function BirthdayInput($field, $mode, $error = '') {
 
 
 function Addr1Input($field, $mode, $error = '') {
-  global $dsp, $templ, $lang, $auth, $func;
+  global $dsp, $templ, $auth, $func;
 
   switch ($mode) {
     case OUTPUT_PROC:
 			if ($_POST['street|hnr'] == '' and $_POST['street'] and $_POST['hnr']) $_POST['street|hnr'] = $_POST['street'] .' '. $_POST['hnr'];
-  		$dsp->AddTextFieldRow('street|hnr', $lang['usrmgr']['add_street'], $_POST['street|hnr'], $error, '', Optional('street'));
+  		$dsp->AddTextFieldRow('street|hnr', t('Straße und Hausnummer'), $_POST['street|hnr'], $error, '', Optional('street'));
     	return false;
     break;
 
@@ -158,8 +156,8 @@ function Addr1Input($field, $mode, $error = '') {
         $_POST['hnr'] = (int)array_pop($pieces);
         $_POST['street'] = implode(' ', $pieces);
 
-  			if ($_POST['street'] == '') return $lang['usrmgr']['add_err_invalid_street'];
-  			elseif ($_POST['hnr'] == 0) return $lang['usrmgr']['add_err_invalid_nr'];
+  			if ($_POST['street'] == '') return t('Bitte geben Sie Straße und Hausnummer in folgendem Format ein: "Straßenname 12"');
+  			elseif ($_POST['hnr'] == 0) return t('Die Hausnummer muss numerisch sein');
   		}
 			return false; // -> Means no error
     break;
@@ -167,12 +165,12 @@ function Addr1Input($field, $mode, $error = '') {
 }
 
 function Addr2Input($field, $mode, $error = '') {
-  global $dsp, $templ, $lang, $auth, $func;
+  global $dsp, $templ, $auth, $func;
 
   switch ($mode) {
     case OUTPUT_PROC:
 			if ($_POST['plz|city'] == '' and $_POST['plz'] and $_POST['city']) $_POST['plz|city'] = $_POST['plz'] .' '. $_POST['city'];
-  		$dsp->AddTextFieldRow('plz|city', $lang['usrmgr']['add_city'], $_POST['plz|city'], $error, '', Optional('city'));
+  		$dsp->AddTextFieldRow('plz|city', t('PLZ und Ort'), $_POST['plz|city'], $error, '', Optional('city'));
     	return false;
     break;
 
@@ -182,8 +180,8 @@ function Addr2Input($field, $mode, $error = '') {
         $_POST['plz'] = array_shift($pieces);
         $_POST['city'] = implode(' ', $pieces);
 
-  			if ($_POST['plz'] == 0 or $_POST['city'] == '') return $lang['usrmgr']['add_err_invalid_city'];
-  			elseif (strlen($_POST['plz']) < 4) return $lang['usrmgr']['add_err_invalid_plz'];
+  			if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: "12345 Stadt"');
+  			elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen. PLZ mit weniger Ziffern, bitte mit führenden Nullen schreiben (z.B. 00123)');
   		}
 			return false; // -> Means no error
     break;
@@ -229,7 +227,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       // If Admin, Creating a new user, or Missing fields:
       //   Show Username Field
       if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) $mf->AddField(t('Benutzername'), 'username');
-      else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, $lang["usrmgr"]["add_limitedright_hint"]);
+      else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, t('Als Benutzer kannst du deinen Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wende dich dazu bitte an einen Administrator.'));
 
       if (ShowField('firstname')) $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
       if (ShowField('lastname')) $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
@@ -238,9 +236,9 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       // If Admin: Usertype and Module-Permissions
       if ($auth['type'] >= 2) {
         $selections = array();
-        $selections['1'] = $lang['usrmgr']['add_type_user'];
-        $selections['2'] = $lang['usrmgr']['add_type_admin'];
-        if ($auth['type'] >= 3) $selections['3'] = $lang['usrmgr']['add_type_operator'];
+        $selections['1'] = t('Benutzer');
+        $selections['2'] = t('Administrator');
+        if ($auth['type'] >= 3) $selections['3'] = t('Operator');
         $mf->AddField(t('Benutzertyp'), 'type', IS_SELECTION, $selections, '', '', 1, array('2', '3'));
 
         $selections = array();
@@ -274,17 +272,17 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
     // If not admin and user is created (not changed)
     if ($auth['type'] < 2 and !$_GET['userid']) $mf->AddFix('type', 1);
 
-    $mf->AddField($lang['usrmgr']['add_email'], 'email');
+    $mf->AddField(t('Email'), 'email');
     if ($_GET['action'] != 'change') {
       if ($cfg['signon_autopw']) {
         $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
         $mf->AddFix('password', md5($_SESSION['tmp_pass']));
       }
-      else $mf->AddField($lang['usrmgr']['add_password'], 'password', IS_NEW_PASSWORD);
+      else $mf->AddField(t('Passwort'), 'password', IS_NEW_PASSWORD);
 
       if ($cfg['signon_captcha'] and !$_GET['userid']) $mf->AddField('', 'captcha', IS_CAPTCHA);
     }
-    $mf->AddGroup($lang['usrmgr']['account']);
+    $mf->AddGroup(t('Zugangsdaten'));
   }
 
   if (!$DoSignon) {
@@ -312,63 +310,65 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         }
         $db->free_result($clans_query);
 
-        $mf->AddField($lang['usrmgr']['add_existing_clan'], 'clan', IS_SELECTION, $selections, Optional('clan'), '', 1, $PWClans);
-        $mf->AddField($lang['usrmgr']['add_password'], 'clanpw', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckClanPW');
-        $mf->AddField($lang['usrmgr']['add_create_clan'], 'new_clan_select', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
-        $mf->AddField($lang['usrmgr']['add_create_clan'], 'clan_new', '', '', FIELD_OPTIONAL, 'CheckClanNotExists');
-        if (ShowField('clanurl')) $mf->AddField($lang['usrmgr']['add_clanurl'], 'clanurl', '', '', FIELD_OPTIONAL);
-        $mf->AddField($lang['usrmgr']['chpwd_password'], 'newclanpw', IS_NEW_PASSWORD, '', FIELD_OPTIONAL);
-        $mf->AddGroup($lang['usrmgr']['clan']);
+        $mf->AddField(t('Vorhandener Clan'), 'clan', IS_SELECTION, $selections, Optional('clan'), '', 1, $PWClans);
+        $mf->AddField(t('Passwort'), 'clanpw', IS_PASSWORD, '', FIELD_OPTIONAL, 'CheckClanPW');
+        $mf->AddField(t('Neuer Clan'), 'new_clan_select', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+        $mf->AddField(t('Name'), 'clan_new', '', '', FIELD_OPTIONAL, 'CheckClanNotExists');
+        if (ShowField('clanurl')) $mf->AddField(t('Webseite'), 'clanurl', '', '', FIELD_OPTIONAL);
+        $mf->AddField(t('Passwort festlegen'), 'newclanpw', IS_NEW_PASSWORD, '', FIELD_OPTIONAL);
+        $mf->AddGroup(t('Clan'));
       }
 
       // Leagues
-      if (ShowField('wwcl_id')) $mf->AddField($lang['usrmgr']['add_wwcl_id'], 'wwclid', '', '', Optional('wwclid'));
-      if (ShowField('ngl_id')) $mf->AddField($lang['usrmgr']['add_ngl_id'], 'nglid', '', '', Optional('nglid'));
-      $mf->AddGroup($lang['usrmgr']['leagues']);
+      if (in_array('tournament2', $ActiveModules)) {
+        if (ShowField('wwcl_id')) $mf->AddField(t('WWCL ID'), 'wwclid', '', '', Optional('wwclid'));
+        if (ShowField('ngl_id')) $mf->AddField(t('NGL ID'), 'nglid', '', '', Optional('nglid'));
+        if (ShowField('lgz_id')) $mf->AddField(t('LGZ ID'), 'lgzid', '', '', Optional('lgzid'));
+        $mf->AddGroup(t('Liegen'));
+      }
 
       // Address
-      if (ShowField('street')) $mf->AddField($lang['usrmgr']['add_street'], 'street|hnr', IS_CALLBACK, 'Addr1Input', Optional('street'));
-      if (ShowField('city')) $mf->AddField($lang['usrmgr']['add_city'], 'plz|city', IS_CALLBACK, 'Addr2Input', Optional('city'));
-      $mf->AddGroup($lang['usrmgr']['address']);
+      if (ShowField('street')) $mf->AddField('', 'street|hnr', IS_CALLBACK, 'Addr1Input', Optional('street'));
+      if (ShowField('city')) $mf->AddField('', 'plz|city', IS_CALLBACK, 'Addr2Input', Optional('city'));
+      $mf->AddGroup(t('Adresse'));
 
       // Contact
-      if (ShowField('telefon')) $mf->AddField($lang['usrmgr']['telefon'], 'telefon', '', '', Optional('telefon'));
-      if (ShowField('handy')) $mf->AddField($lang['usrmgr']['handy'], 'handy', '', '', Optional('telefon'));
+      if (ShowField('telefon')) $mf->AddField(t('Telefon'), 'telefon', '', '', Optional('telefon'));
+      if (ShowField('handy')) $mf->AddField(t('Handy'), 'handy', '', '', Optional('telefon'));
       if (ShowField('icq')) $mf->AddField('ICQ', 'icq', '', '', Optional('icq'));
       if (ShowField('msn')) $mf->AddField('MSN', 'msn', '', '', Optional('msn'));
       if (ShowField('skype')) $mf->AddField('Skype', 'skype', '', '', Optional('skype'));
-      $mf->AddGroup($lang['usrmgr']['contact']);
+      $mf->AddGroup(t('Kontakt'));
 
       // Misc (Perso + Birthday + Gender + Newsletter)
       if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) {
-        if (ShowField('perso')) $mf->AddField($lang['usrmgr']['add_perso'], 'perso', IS_CALLBACK, 'PersoInput', Optional('perso'));
-        if (ShowField('birthday')) $mf->AddField($lang['usrmgr']['add_birthday'], 'birthday', IS_CALLBACK, 'BirthdayInput', Optional('birthday'));
+        if (ShowField('perso')) $mf->AddField(t('Personalausweis'), 'perso', IS_CALLBACK, 'PersoInput', Optional('perso'));
+        if (ShowField('birthday')) $mf->AddField('', 'birthday', IS_CALLBACK, 'BirthdayInput', Optional('birthday'));
       }
       if (ShowField('gender')) {
         $selections = array();
-        $selections['0'] = $lang['usrmgr']['add_gender_no'];
-        $selections['1'] = $lang['usrmgr']['add_gender_m'];
-        $selections['2'] = $lang['usrmgr']['add_gender_f'];
-        $mf->AddField($lang['usrmgr']['add_gender'], 'sex', IS_SELECTION, $selections, Optional('gender'));
+        $selections['0'] = t('Keine Angabe');
+        $selections['1'] = t('Männlich');
+        $selections['2'] = t('Weblich');
+        $mf->AddField(t('Geschlecht'), 'sex', IS_SELECTION, $selections, Optional('gender'));
       }
-      if (ShowField('newsletter')) $mf->AddField($lang['usrmgr']['add_newsletter'], 'newsletter', '', '', Optional('newsletter'));
+      if (ShowField('newsletter')) $mf->AddField(t('Newsletter'), 'newsletter', '', '', Optional('newsletter'));
 
       // If Admin: Picture and Comment
       if (($auth['type'] >= 2)) {
-        $mf->AddField($lang['usrmgr']['add_picture'], 'picture', IS_FILE_UPLOAD, 'ext_inc/user_pics/', Optional('picture'));
-        $mf->AddField($lang['usrmgr']['add_comment'], 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
+        $mf->AddField(t('Buntzerbild hochladen'), 'picture', IS_FILE_UPLOAD, 'ext_inc/user_pics/', Optional('picture'));
+        $mf->AddField(t('Kommentar'), 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
       }
 
       // AGB and Vollmacht, if new user
       if ((!$_GET['userid'] or $DoSignon) and $auth['type'] <= 1) {
-      	if (ShowField('voll')) $mf->AddField($lang["signon"]["add_vollmacht"] .'|'. str_replace("%LINK%", "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">U18 Vollmacht</a>", str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_vollmacht_detail"])), 'vollmacht', 'tinyint(1)');
-    
+      	if (ShowField('voll')) $mf->AddField(t('U18-Vollmacht') .'|'. t('Hiermit bestätige ich die %1 der Veranstaltung "%2" gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen', array("<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">". t('U18 Vollmacht') .'</a>', $_SESSION['party_info']['name'])), 'vollmacht', 'tinyint(1)');
         if (ShowField('agb')) {
         	($cfg['signon_agb_targetblank']) ? $target = 'target="_blank"' : $target = '';
-          $mf->AddField($lang["signon"]["add_agb"] .'|'. str_replace("%LINK%", "<a href=\"". $cfg["signon_agblink"] ."\"$target>AGB</a>", str_replace("%NAME%", $_SESSION['party_info']['name'], $lang["signon"]["add_agb_detail"])), 'agb', 'tinyint(1)');
+          $mf->AddField(t('AGB bestätigen') .'|'. t('Hiermit bestätige ich die %1 der Veranstaltung "%2" gelesen zu haben und stimme ihnen zu', array("<a href=\"". $cfg["signon_agblink"] ."\"$target>". t('AGB') ."</a>", $_SESSION['party_info']['name'])), 'agb', 'tinyint(1)');
         }
       }
-      $mf->AddGroup($lang['usrmgr']['misc']);
+      $mf->AddGroup(t('Verschiedenes'));
 
 
       // Add extra admin-defined fields    
