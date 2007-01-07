@@ -31,6 +31,7 @@ $ms2->query['from'] = "{$config['tables']['board_forums']} AS f
     LEFT JOIN {$config['tables']['board_threads']} AS t ON f.fid = t.fid
     LEFT JOIN {$config['tables']['board_posts']} AS p ON t.tid = p.tid";
 $ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1);
+$ms2->query['default_order_by'] = 'f.pos';
 
 $ms2->AddSelect('f.description');
 $ms2->AddResultField($lang['board']['board'], 'f.name', 'NameAndDesc');
