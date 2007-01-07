@@ -109,7 +109,7 @@ $ms2->AddResultField($lang['board']['last_post'], 'MAX(p.date) AS LastPost', 'La
 
 $ms2->AddIconField('details', 'index.php?mod=board&action=thread&fid='. $_GET["fid"] .'&tid=', $lang['ms2']['details']);
 #$ms2->AddIconField('add', 'index.php?mod=board&action=post&fid='. $_GET["fid"] .'&tid=', $lang['ms2']['reply']);
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=edit&mode=delete&tid=', $lang['ms2']['delete']);
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=11&tid=', $lang['ms2']['delete']);
 $ms2->PrintSearch('index.php?mod=board&action='. $_GET['action'] .'&fid='. $_GET['fid'], 't.tid');
 
 if ($_GET['fid'] != '') $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));

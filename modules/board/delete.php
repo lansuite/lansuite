@@ -52,5 +52,22 @@ switch ($_GET['step']) {
 
 		$func->confirmation($lang['board']['forum_del'], "index.php?mod=board&action=delete"); 
 	break;
+
+  // Post delete
+	case 10:
+    include_once('inc/classes/class_masterdelete.php');
+    $md = new masterdelete();
+    $md->Delete('board_posts', 'pid', $_GET['pid']);
+
+    // TODO: Check if last post in thread -> Delete thread!
+	break;
+
+  // Thread delete
+	case 11:
+    include_once('inc/classes/class_masterdelete.php');
+    $md = new masterdelete();
+    $md->References['board_posts'] = '';
+    $md->Delete('board_threads', 'tid', $_GET['tid']);
+	break;
 }
 ?>
