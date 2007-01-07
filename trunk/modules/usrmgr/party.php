@@ -17,7 +17,7 @@ function PartyMail() {
 }
 
 
-if ($party->count == 0) $func->error('No partys available!', 'index.php?mod='. $_GET['mod']);
+if ($party->count == 0) $func->information(t('Aktuell sind keine Partys geplant'), 'index.php?mod='. $_GET['mod']);
 else {
 
   if ($_GET['user_id'] == $auth['userid'] or $auth['type'] >= 2) {
