@@ -37,6 +37,14 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>pos</name>
+				<type>int(3)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>changedate</name>
 				<type>timestamp</type>
 				<null>YES</null>
