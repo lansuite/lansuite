@@ -40,9 +40,34 @@ if (in_array('stats', $ActiveModules)) include("modules/boxes/stats.php");
 $t_wwcl = $db->query_first("SELECT name FROM {$config["tables"]["tournament_tournaments"]} WHERE wwcl_gameid > 0 AND party_id = '{$party->party_id}'");
 if ($t_wwcl['name'] != '' and $_GET['mod'] == 'tournament2') include("modules/boxes/wwcl.php");
 
+// Home module boxes
+if ($cfg['home_recent_news_box']) {
+  include('modules/home/news.inc.php');
+  $templ['box']['rows'] = $templ['home']['show']['item']['control']['row'];
+  $boxes['recent_news'] = $box->CreateBox('recent_news', t('Die letzten News'));
+}
+if ($cfg['home_recent_board_box']) {
+  include('modules/home/board.inc.php');
+  $templ['box']['rows'] = $templ['home']['show']['item']['control']['row'];
+  $boxes['recent_board'] = $box->CreateBox('recent_board', t('Neu im Board'));
+}
+if ($cfg['home_recent_server_box']) {
+  include('modules/home/server.inc.php');
+  $templ['box']['rows'] = $templ['home']['show']['item']['control']['row'];
+  $boxes['recent_server'] = $box->CreateBox('recent_server', t('Neue Server'));
+}
+if ($cfg['home_recent_poll_box']) {
+  include('modules/home/poll.inc.php');
+  $templ['box']['rows'] = $templ['home']['show']['item']['control']['row'];
+  $boxes['recent_poll'] = $box->CreateBox('recent_poll', t('Neue Umfragen'));
+}
 
-// Define a Box to the left or right site 
+// Define a Box to the left or right site
 $templ['index']['control']['boxes_letfside']	.= $boxes['menu'];
+$templ['index']['control']['boxes_letfside']	.= $boxes['recent_news'];
+$templ['index']['control']['boxes_letfside']	.= $boxes['recent_board'];
+$templ['index']['control']['boxes_letfside']	.= $boxes['recent_server'];
+$templ['index']['control']['boxes_letfside']	.= $boxes['recent_poll'];
 $templ['index']['control']['boxes_letfside']	.= $boxes['wwcl'];
 $templ['index']['control']['boxes_letfside']	.= $boxes['search'];
 
