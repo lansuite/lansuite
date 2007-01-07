@@ -1,16 +1,52 @@
 <?php
 $LSCurFile = __FILE__;
 
-include("modules/board/class_board.php");
-$bfunc = new board_func;
+function getboardrank($posts) {
+	switch (true){
+		case ($posts < 10): return t('Junior Member'); break;
+		case ($posts >= 10 and $posts < 20): return t('Trial Member'); break;
+		case ($posts >= 20 and $posts < 50): return t('Member'); break;
+		case ($posts >= 50 and $posts < 100): return t('Senior'); break;
+		case ($posts >= 100): return t('Gott'); break;
+	}
+}
+
+function getuserinfo($userid) {
+	global $db, $cfg, $config;
+
+	$row_poster = $db->query_first("SELECT username, type FROM {$config["tables"]["user"]} WHERE userid='$userid'");
+	$row_poster_settings = $db->query_first("SELECT avatar_path, signature FROM {$config["tables"]["usersettings"]} WHERE userid='$userid'");
+	$count_rows = $db->query_first("SELECT COUNT(*) AS posts FROM {$config['tables']['board_posts']} WHERE userid = '$userid'");
+
+	$html_image= '<img src="ext_inc/avatare/%s" alt="%s" border="0">';
+
+	$user["username"]   =$row_poster["username"];
+	$user["avatar"]     =($row_poster_settings["avatar_path"] != '' and $row_poster_settings["avatar_path"] != 'none') ? sprintf($html_image, $row_poster_settings["avatar_path"], "") : "";
+	$user["signature"]   = $row_poster_settings["signature"];
+
+	if ($cfg['board_ranking'] == TRUE) $user["rank"] = getboardrank($count_rows["posts"]);
+	$user["posts"] = $count_rows["posts"];
+
+	switch($row_poster["type"]) {
+		case 1:	$user["type"] = t('Benutzer'); break;
+		case 2: $user["type"] = t('Organisator'); break;
+		case 3: $user["type"] = t('Operator'); break;
+	}
+
+	return $user;
+}
+
 
 // Exec Admin-Functions
 if ($auth['type'] >= 2) switch ($_GET['step']) {
+  // Close Thread
   case 10:
-    $bfunc->CloseThread($_GET['tid']);
+    $db->query("UPDATE {$config['tables']['board_threads']} SET closed = 1 WHERE tid = ". (int)$_GET['tid']);
   break;
+
+  // Open Thread
   case 11:
-    $bfunc->OpenThread($_GET['tid']);
+    $db->query("UPDATE {$config['tables']['board_threads']} SET closed = 0 WHERE tid = ". (int)$_GET['tid']);
   break;
 }
 
@@ -20,7 +56,7 @@ $thread = $db->query_first("SELECT t.fid, t.caption, t.closed, f.name AS ForumNa
   LEFT JOIN {$config["tables"]["board_forums"]} AS f ON t.fid = f.fid
   WHERE t.tid=$tid AND (f.need_type <= '{$list_type}')");
 
-if ($thread['caption'] == '' and $tid) $func->error($lang['board']['no_posts'], '');
+if ($thread['caption'] == '' and $tid) $func->information(t('Keine Beiträge vorhanden'), '');
 elseif ($thread['caption'] != '') {
 
 	$fid = $thread["fid"];
@@ -32,7 +68,7 @@ elseif ($thread['caption'] != '') {
 
   // Tread Headline
 	$hyperlink = '<a href="%s" class="menu">%s</a>';
-	$overview_capt = sprintf($hyperlink, "index.php?mod=board", $lang['board']['board']);
+	$overview_capt = sprintf($hyperlink, "index.php?mod=board", t('Forum'));
 	$forum_capt = sprintf($hyperlink, "index.php?mod=board&action=forum&fid=$fid", $thread['ForumName']);
 	$dsp->NewContent($func->db2text($thread["caption"]), "$overview_capt - $forum_capt - ". $func->db2text($thread["caption"]));
 
@@ -77,20 +113,20 @@ elseif ($thread['caption'] != '') {
 
 		if ($row['userid'] == 0){
 			preg_match("@<!--(.*)-->@",$row['comment'],$tmp);
-			$userdata['username'] = $lang['board']['guest_prefix'] . "_" . trim($tmp[1]);
-			$userdata['type'] = $lang['board']['guest_prefix'];
+			$userdata['username'] = t('Gast') . "_" . trim($tmp[1]);
+			$userdata['type'] = t('Gast');
 			$userdata["avatar"] = "";
-			$userdata["rank"] =  $lang['board']['guest_prefix'];
+			$userdata["rank"] =  t('Gast');
 			$userdata["posts"] = "";
 			$userdata["signature"] = "";
-		} else $userdata = $bfunc->getuserinfo($row["userid"]);
+		} else $userdata = getuserinfo($row["userid"]);
 
 		$templ['board']['thread']['case']['info']['post']['poster']['username'] 	= $userdata["username"] .' '. $dsp->FetchUserIcon($row['userid']);;
 		$templ['board']['thread']['case']['info']['post']['poster']['type'] = $userdata["type"];
 		if ($auth['type'] >= 2) $templ['board']['thread']['case']['info']['post']['poster']['type'] .= '<br />IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>';
 		if (!$cfg['board_ranking'])$templ['board']['thread']['case']['info']['post']['poster']['rank'] = ''; 
-    else $templ['board']['thread']['case']['info']['post']['poster']['rank'] 		= $lang['board']['rank'] . ": " . $userdata["rank"];
-		$templ['board']['thread']['case']['info']['post']['poster']['posts'] 		= $lang['board']['posts'] . ": " . $userdata["posts"];
+    else $templ['board']['thread']['case']['info']['post']['poster']['rank'] 		= t('Rang') . ": " . $userdata["rank"];
+		$templ['board']['thread']['case']['info']['post']['poster']['posts'] 		= t('Beiträge') . ": " . $userdata["posts"];
 		$templ['board']['thread']['case']['info']['post']['poster']['avatar']		= $userdata["avatar"];
 		$templ['board']['thread']['case']['info']['post']['poster']['signature'] = '';
 		if ($userdata["signature"]) $templ['board']['thread']['case']['info']['post']['poster']['signature'] 	= '<hr size="1" width="100%" color="cccccc">'.$func->db2text2html($userdata["signature"]);
@@ -189,10 +225,10 @@ if ($thread['caption'] != '') {
   	$dsp->SetForm("index.php?mod=board&action=thread&tid=$tid&fid=$fid&set_bm=1");
   	$dsp->AddFieldsetStart(t('Monitoring - Das Aufnehmen in die eigenen Lesezeichen ist Vorraussetzung, um per Mail zu aboniert'));
     $additionalHTML = "onclick=\"CheckBoxBoxActivate('email', this.checked)\"";
-  	$dsp->AddCheckBoxRow("check_bookmark", $lang["board"]["check_bookmark"], $lang["board"]["check_bookmark2"], "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
+  	$dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Diesen Beitrag in meine Lesezeichen aufnehmen'), "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
   	$dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
-  	$dsp->AddCheckBoxRow("check_email", $lang["board"]["check_email"], $lang["board"]["check_email2"], "", 1, $_POST["check_email"]);
-  	$dsp->AddCheckBoxRow("check_sysemail", $lang["board"]["check_sysemail"], $lang["board"]["check_sysemail2"], "", 1, $_POST["check_sysemail"]);
+  	$dsp->AddCheckBoxRow("check_email", t('E-Mail Benachrichtigung'), t('Bei Antworten auf diesen Beitrag eine Internet-Mail an mich senden'), "", 1, $_POST["check_email"]);
+  	$dsp->AddCheckBoxRow("check_sysemail", t('System-E-Mail'), t('Bei Antworten auf diesen Beitrag eine System-Mail an mich senden'), "", 1, $_POST["check_sysemail"]);
   	$dsp->StopHiddenBox();
   	$dsp->AddFormSubmitRow("edit");
   	$dsp->AddFieldsetEnd();
@@ -202,8 +238,8 @@ if ($thread['caption'] != '') {
   $foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]} WHERE (need_type <= '{$list_type}')");
   while ($forum = $db->fetch_array($foren_liste))
     $templ['board']['thread']['case']['control']['goto'] .= "<option value=\"index.php?mod=board&action=forum&fid={$forum["fid"]}\">{$forum["name"]}</option>";
-  $templ['board']['forum']['case']['info']['forum_choise'] = $lang['board']['forum_choise'];
-  $dsp->AddDoubleRow($lang['board']['goto_forum'], $dsp->FetchModTpl('board', 'forum_dropdown'));
+  $templ['board']['forum']['case']['info']['forum_choise'] = t('Bitte auswählen');
+  $dsp->AddDoubleRow(t('Gehe zu Forum'), $dsp->FetchModTpl('board', 'forum_dropdown'));
 }
 
 $dsp->AddBackButton("index.php?mod=board&action=forum&fid=$fid", "board/show_post"); 

@@ -34,13 +34,13 @@ $ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1);
 $ms2->query['default_order_by'] = 'f.pos';
 
 $ms2->AddSelect('f.description');
-$ms2->AddResultField($lang['board']['board'], 'f.name', 'NameAndDesc');
-$ms2->AddResultField($lang['board']['posts'], 'COUNT(p.pid) AS posts');
-$ms2->AddResultField($lang['board']['last_post'], 'MAX(p.date) AS LastPost', 'LastPostDetails');
+$ms2->AddResultField(t('Forum'), 'f.name', 'NameAndDesc');
+$ms2->AddResultField(t('Beiträge'), 'COUNT(p.pid) AS posts');
+$ms2->AddResultField(t('Letzter Beitrag'), 'MAX(p.date) AS LastPost', 'LastPostDetails');
 
-$ms2->AddIconField('details', 'index.php?mod=board&action=forum&fid=', $lang['ms2']['details']);
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=board&action=add&var=change&fid=', $lang['ms2']['edit']);
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=2&fid=', $lang['ms2']['delete']);
+$ms2->AddIconField('details', 'index.php?mod=board&action=forum&fid=', t('Details'));
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=board&action=add&var=change&fid=', t('Editieren'));
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=2&fid=', t('Löschen'));
 $ms2->PrintSearch('index.php?mod=board', 'f.fid');
 
 // Statistics

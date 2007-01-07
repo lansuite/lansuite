@@ -34,7 +34,7 @@ switch ($_GET['step']) {
 	break;
 
 	case 2:
-		$text = $lang['board']['del_forum_quest'];
+		$text = t('Wollen Sie dieses Forum wirklich löschen?');
 
 		$link_target_yes = "index.php?mod=board&action=delete&step=3&fid={$_GET['fid']}";
 		$link_target_no = "index.php?mod=board&action=delete";
@@ -50,7 +50,7 @@ switch ($_GET['step']) {
 		$db->query("DELETE FROM {$config["tables"]["board_threads"]} WHERE fid='{$_GET['fid']}'");
 		$db->query("DELETE FROM {$config["tables"]["board_forums"]} WHERE fid='{$_GET['fid']}'");
 
-		$func->confirmation($lang['board']['forum_del'], "index.php?mod=board&action=delete"); 
+		$func->confirmation(t('Das Forum wurde erfolgreich gelöscht'), "index.php?mod=board&action=delete");
 	break;
 
   // Post delete
