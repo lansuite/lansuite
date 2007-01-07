@@ -82,7 +82,7 @@ elseif ($thread['caption'] != '') {
     $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=delete&step=11&tid=$tid", "delete");
   }
 
-	$query = $db->query("SELECT pid, comment, userid, date, ip FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date");
+	$query = $db->query("SELECT pid, comment, userid, date, ip, file FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date");
 	$count_entrys = $db->num_rows($query);
 	
 	if ($_GET['gotopid']) {
@@ -99,7 +99,7 @@ elseif ($thread['caption'] != '') {
   // Page select
 	if ($count_entrys > $cfg['board_max_posts']){
 		$pages = $func->page_split($_GET['posts_page'], $cfg['board_max_posts'], $count_entrys, "index.php?mod=board&action=thread&tid=$tid", "posts_page");
-		$query = $db->query("SELECT pid, comment, userid, date FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date {$pages['sql']}");
+		$query = $db->query("SELECT pid, comment, userid, date, ip, file FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date {$pages['sql']}");
 	}
   $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
 
@@ -110,6 +110,12 @@ elseif ($thread['caption'] != '') {
 		$templ['board']['thread']['case']['info']['post']['pid'] 		= $pid;
 		$templ['board']['thread']['case']['info']['post']['text'] 		= $func->db2text2html($row["comment"]);
 		$templ['board']['thread']['case']['info']['post']['date'] 		= $func->unixstamp2date($row["date"], "datetime");
+
+    if ($row['file']) {
+      $FileEnding = strtolower(substr($row['file'], strrpos($row['file'], '.'), 5));
+      if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') $templ['board']['thread']['case']['info']['post']['text'] .= HTML_NEWLINE . HTML_NEWLINE. '<img src="'. $row['file'] .'" />';
+      else $templ['board']['thread']['case']['info']['post']['text'] .= HTML_NEWLINE . HTML_NEWLINE. $dsp->FetchIcon($row['file'], 'download') .' ('. t('Angehängte Datei herunterladen').')';
+    }
 
 		if ($row['userid'] == 0){
 			preg_match("@<!--(.*)-->@",$row['comment'],$tmp);
@@ -165,6 +171,8 @@ else {
   
   if ($thread['caption'] == '') $mf->AddField(t('Überschrift'), 'caption', 'varchar(255)');
   $mf->AddField(t('Text'), 'comment', '', LSCODE_BIG);
+  $mf->AddField(t('Bild / Datei anhängen'), 'file', IS_FILE_UPLOAD, 'ext_inc/board_upload/', FIELD_OPTIONAL);
+  
   $mf->AddFix('tid', $_GET['tid']);
   if ($_GET['pid'] == '') $mf->AddFix('date', time());
   $mf->AddFix('userid', $auth['userid']);

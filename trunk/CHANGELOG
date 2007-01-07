@@ -8,6 +8,7 @@ Version 3
 
 - Bugfix:
 
+- Add: Im Board kann man nun Dateien in seinem Post hochladen (KnoX 07.01.2007)
 - Add: Neue Boxen: Neuste Board-beiträge, Neuste News, Neuste Polls, Neuste Server (KnoX 07.01.2007)
 - Add: Jedem Board kann man nun eine Position zuordnen, nach der sie sortiert werden (KnoX 07.01.2007)
 - Add: MasterDelete zum veralgemeinerten Löschen von Datensätzen aus der Datenbank (KnoX 04.01.2007)
