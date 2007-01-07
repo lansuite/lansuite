@@ -212,11 +212,11 @@ function ShowField($key){
 	else return 0;
 }
 
-if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and $cfg['user_self_details_change'])) {
+if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and ($cfg['user_self_details_change'] or $missing_fields))) {
   $party_user = $db->query_first("SELECT * FROM {$config['tables']['party_user']} WHERE user_id = ". (int)$_GET["userid"] ." AND party_id={$party->party_id}");
   include_once('inc/classes/class_masterform.php');
   $mf = new masterform();
-  
+
   if ($cfg['signon_def_locked']) $mf->AddFix('locked', 1);
   
 /*

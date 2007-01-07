@@ -106,7 +106,7 @@ else {
 			if ($user_data['clanurl']) $clan .= " [<a href=\"{$user_data['clanurl']}\" target=\"_blank\">{$user_data['clanurl']}</a>]";
       $clan .= '</td><td align="right">&nbsp;';
 			if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or $user_data['clanid'] == $auth['clanid']))
-        $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changeclanpw&clanid='. $user_data['clanid'], $lang['ms2']['change_pw']) .
+        $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=clanmgr&step=10&clanid='. $user_data['clanid'], $lang['ms2']['change_pw']) .
           $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=clanmgr&step=30&clanid='. $user_data['clanid'], $lang['ms2']['edit']);
       $clan .= '</td></tr></table>'; 
 			$dsp->AddDoubleRow($lang['usrmgr']['details_clan'], $clan);
