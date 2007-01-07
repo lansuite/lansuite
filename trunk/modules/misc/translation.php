@@ -61,6 +61,8 @@ function TUpdateFromFiles($BaseDir) {
 }
 
 
+$dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
+
 switch ($_GET['step']) {
   default:
     $dsp->AddSingleRow('<a href="index.php?mod=misc&action=translation&step=2">'. t('Alle Einträge auflisten') .'</a>');
@@ -108,12 +110,16 @@ switch ($_GET['step']) {
 
     $ms2->AddResultField(t('Text'), 'org');
     $ms2->AddResultField(t('Fundstelle'), 'file');
+    $ms2->AddResultField(t('De'), 'de', 'YesNo');
     $ms2->AddResultField(t('En'), 'en', 'YesNo');
+    $ms2->AddResultField(t('Es'), 'es', 'YesNo');
+    $ms2->AddResultField(t('Nl'), 'nl', 'YesNo');
+    $ms2->AddResultField(t('Fr'), 'fr', 'YesNo');
+    $ms2->AddResultField(t('It'), 'it', 'YesNo');
 
     $ms2->AddIconField('edit', 'index.php?mod=misc&action=translation&step=3&tid=', t('Edit'));
 
     $ms2->PrintSearch('index.php?mod=misc&action=translation&step=2', 'tid');
-    $dsp->AddContent();
   break;
 
   case 3:
@@ -122,12 +128,15 @@ switch ($_GET['step']) {
     
     // Name
     $mf->AddField(t('Orginal-Text'), 'org');
-    $mf->AddField(t('Englisch'), 'en');
-    $mf->AddField(t('File'), 'file');
+    $mf->AddField($dsp->FetchIcon('', 'de'), 'de', '', '', FIELD_OPTIONAL);
+    $mf->AddField($dsp->FetchIcon('', 'en'), 'en', '', '', FIELD_OPTIONAL);
+    $mf->AddField($dsp->FetchIcon('', 'es'), 'es', '', '', FIELD_OPTIONAL);
+    $mf->AddField($dsp->FetchIcon('', 'nl'), 'nl', '', '', FIELD_OPTIONAL);
+    $mf->AddField($dsp->FetchIcon('', 'fr'), 'fr', '', '', FIELD_OPTIONAL);
+    $mf->AddField($dsp->FetchIcon('', 'it'), 'it', '', '', FIELD_OPTIONAL);
     
     $mf->SendForm('index.php?mod=misc&action=translation&step=3', 'translation', 'tid', $_GET['tid']);
     $dsp->AddBackButton('index.php?mod=misc&action=translation');
-    $dsp->AddContent();
   break;
 
 
@@ -165,7 +174,6 @@ switch ($_GET['step']) {
       $dsp->AddFieldSetEnd();
 
       $dsp->AddBackButton('index.php?mod=misc&action=translation');
-      $dsp->AddContent();
     }
   break;
   
@@ -182,7 +190,6 @@ switch ($_GET['step']) {
     $dsp->AddFormSubmitRow('edit');
 
     $dsp->AddBackButton('index.php?mod=misc&action=translation');
-    $dsp->AddContent();
   break;
 
   // Translate Module - DB Insert
@@ -203,4 +210,5 @@ switch ($_GET['step']) {
     $export->LSTableFoot();
   break;
 }
+$dsp->AddContent();
 ?>
