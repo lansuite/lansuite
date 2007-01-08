@@ -63,7 +63,8 @@ if  (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["fi
 }
 
 // Set Changed Name
-if ($_POST["file_name"]) $db->query("UPDATE {$config["tables"]["picgallery"]} SET caption = '{$_POST["file_name"]}' WHERE name = '$db_dir'");
+if ($_POST["file_name"] and ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming']))
+  $db->query("UPDATE {$config["tables"]["picgallery"]} SET caption = '{$_POST["file_name"]}' WHERE name = '$db_dir'");
 
 // GD-Check
 if (!$gd->available) $func->error($lang['picgallery']['no_gd'], "");
@@ -331,10 +332,11 @@ elseif (!$akt_file) {
 			$dsp->AddDoubleRow("", "$prev_button $next_button $full_button $dl_button $del_button");
 
 			// Change Pic-Name
-			$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}");
-			$dsp->AddTextFieldRow("file_name", $lang['picgallery']['pic_name'], $pic['caption'], "");
-			$dsp->AddFormSubmitRow("edit");
-
+			if ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming']) {
+  			$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}");
+  			$dsp->AddTextFieldRow("file_name", $lang['picgallery']['pic_name'], $pic['caption'], "");
+  			$dsp->AddFormSubmitRow("edit");
+      }
 
 			// Show Picname
 			$dsp->AddDoubleRow($lang['picgallery']['show_file_name'], $db_dir);
