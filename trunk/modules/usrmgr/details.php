@@ -221,7 +221,7 @@ else {
 
 			// Birthday
 			if ($cfg['sys_internet'] == 0 OR $auth['type'] >= 2 OR $auth['userid'] == $_GET['userid'])
-        $dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? $func->unixstamp2date($user_data['birthday'], "date") : $lang['usrmgr']['details_not_entered']);
+        $dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? $func->unixstamp2date($user_data['birthday'], "date") .' ('. (date('Y') - date("Y", $user_data['birthday']))  .')' : $lang['usrmgr']['details_not_entered']);
 
 
 			// Gender
@@ -337,7 +337,13 @@ else {
 
   $db->free_result($user_fields);
 
-	$dsp->AddBackButton('index.php?mod='. $_GET['mod'] .'&action=search');
+  $buttons = $dsp->FetchButton('index.php?mod='. $_GET['mod'] .'&action=search', 'back').' ';
+  $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['user']} WHERE userid = ". ($_GET['userid'] - 1));
+  if ($row['found']) $buttons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=details&userid='. ($_GET['userid'] - 1), 'back').' ';
+  $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['user']} WHERE userid = ". ($_GET['userid'] + 1));
+  if ($row['found']) $buttons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=details&userid='. ($_GET['userid'] + 1), 'next');
+
+  $dsp->AddDoubleRow('', $buttons);
 	$dsp->AddContent();
 }
 ?>
