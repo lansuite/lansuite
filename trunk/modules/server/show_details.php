@@ -55,6 +55,7 @@ else {
 		}
 
 		$dsp->AddDoubleRow($lang["server"]["details_ipaddr"], $server["ip"]);
+		$dsp->AddDoubleRow(t('MAC Adresse'), $server["mac"]);
 		$dsp->AddDoubleRow($lang["server"]["details_port"], $server["port"]);
 
 		if ($server["os"] == "") $server["os"] = "<i>". $lang["server"]["details_no_statement"] ."</i>";

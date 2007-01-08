@@ -17,6 +17,18 @@
     		<default>60</default>
     		<description>Nach wie vielen Sekunden soll die Erreichbarkeit eines Servers neu getestet werden?</description>
     	</item>
+    	<item>
+    		<name>server_ip_auto_assign</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>In welchem Bereich sollen ServerIPs automatisch vergeben werden (Leer für freie Auswahl durch Benutzer). Format: 192.168.0.200-240</description>
+    	</item>
+    	<item>
+    		<name>server_ip_next</name>
+    		<type>int</type>
+    		<default></default>
+    		<description>Die nächste IP, die vergeben wird (Wert wird automatisch angepasst)</description>
+    	</item>
     </items>
   </group>
 </config>
