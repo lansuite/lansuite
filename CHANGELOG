@@ -8,6 +8,7 @@ Version 3
 
 - Bugfix: #577 #579 Mail und Log beim Clanpasswort wechsel korrigiert (KnoX 07.01.2007)
 
+- Add: #568 Server-IPs können nun automatisch generiert werden und es gibt ein Feld zum Eintragen der MAC Adresse (KnoX 08.01.2007)
 - Add: LGZ ID in die Benutzeranmeldung aufgenommen. Liegen IDs werden nur noch angezeigt, wenn Turniermodul aktiv ist (KnoX 07.01.2007)
 - Add: Logfile um weitere Suchoptionen erweitert und in MasterSearch und Masterdelete und weiteren stellen eingebaut. (KnoX 07.01.2007)
 - Add: Im Board kann man nun Dateien in seinem Post hochladen (KnoX 07.01.2007)

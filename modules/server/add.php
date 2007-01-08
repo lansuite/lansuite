@@ -1,214 +1,89 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	 2.0
-*	File Version:		 2.0
-*	Filename: 			add.php
-*	Module: 			Servermangement
-*	Main editor: 		bennjamin@one-network.org
-*	Last change: 		01-01-2003
-*	Description: 		Adds a server to the system
-*	Remarks: 			
-*
-**************************************************************************/
 
-if (($_GET["action"] == "add") && ($_GET["step"] == ""))$_GET["step"] = 2;
+function CheckIP($ip) {
+  global $cfg;
 
+  if ($cfg['sys_internet'] == 0) $ip_address = gethostbyname($ip);
+  else $ip_address = $ip;
 
-if($auth["type"] == 1) {
-	$get_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']}");
+	$explode = explode('.', $ip_address);
+	$count = count($explode);
+	if ($count != 4) return t('Bitte geben Sie eine gültige IP Adresse ein');
+	elseif ($explode[0] > 255 or $explode[1] > 255 or $explode[2] > 255 or $explode[3] > 255) return t('Bitte geben Sie eine gültige IP Adresse ein');
+
+  return false;
 }
 
-if((!$cfg["server_admin_only"] AND $get_paid["paid"] == 1) OR ($auth["type"] > 1)) {
+function CheckMAC($mac) {
+  if ($mac) {
+  	$explode = explode('-', $mac);
+  	$count = count($explode);
+  	if ($count != 6) return t('Bitte geben Sie eine gültige MAC Adresse ein');
+  }
+  return false;
+}
 
-	switch($_GET["step"]) {
-	case 3:
-		//  ERRORS
-		if(strlen($_POST["server_text"]) > 5000) {
-			$server_text_error = $lang["server"]["add_commenterror"];
-			$_GET["step"] = 2;
-		}
+function CheckPort($port) {
+  if ($port < 1 or $port > 65535) return t('Der Port muss zwischen 1 und 65535 liegen');
+  return false;
+}
 
-		if($_POST["server_caption"] == "") {		
-			$caption_error = $lang["server"]["add_captionerror"];
-			$_GET["step"] = 2;
-		}
+if ($auth['type'] <= 1) $get_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
+if ($cfg['server_ip_auto_assign']) {
+  $IPBase = substr($cfg['server_ip_auto_assign'], 0, strrpos($cfg['server_ip_auto_assign'], '.'));
+  $IPArea = substr($cfg['server_ip_auto_assign'], strrpos($cfg['server_ip_auto_assign'], '.') + 1, strlen($cfg['server_ip_auto_assign']));
+  $IPStart = substr($IPArea, 0, strrpos($IPArea, '-'));
+  if (!$cfg['server_ip_next']) $cfg['server_ip_next'] = $IPStart;
+  $IPEnd = substr($IPArea, strrpos($IPArea, '-') + 1, strlen($IPArea));
+}
 
-		if($_POST["server_ipaddress"] == "") {
-			$ipaddress_error = $lang["server"]["add_iperror"];
-			$_GET["step"] = 2;
-		} elseif($cfg["sys_internet"] == 0){
-			$ip_address = gethostbyname($_POST["server_ipaddress"]);
-			$explode = explode(".",$ip_address);
-			$count = count($explode);
-			if($count == 4) {
-				if($explode[0] > 255 || $explode[1] > 255 || $explode[2] > 255 || $explode[3] > 255) {
-					$ipaddress_error = $lang["server"]["add_ipvaliderror"];
-					$_GET["step"] = 2;
-				}			
-			} else {
-				$ipaddress_error = $lang["server"]["add_ipvaliderror"];
-				$_GET["step"] = 2;
-			}
-		}
+if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) $func->information(t('Es sind keine freien IPs mehr vorhanden. Bitten Sie einen Administrator darum den vorgesehenen Bereich zu erhöhren'), "index.php?mod=server");
+elseif ($cfg["server_admin_only"] and $auth['type'] <= 1) $func->information(t('Nur Adminsitratoren dürfen Server hinzufügen'), "index.php?mod=server");
+elseif (!$get_paid['paid'] and $auth["type"] <= 1) $func->information(t('Sie müssen zuerst bezahlen, um Server hinzufügen zu dürfen'), "index.php?mod=server");
+else {
 
-		if($_POST["server_port"] == "") {
-			$port_error = $lang["server"]["add_porterror"];
-			$_GET["step"] = 2;
-		} elseif($_POST["server_port"] < 1 || $_POST["server_port"] > 65535) {
-			$port_error = $lang["server"]["add_portvaliderror"];
-			$_GET["step"] = 2;
-		}
-/*
-		if($_POST["server_mhz"] != "") if(!is_numeric($_POST["server_mhz"])) {
-			$mhz_error = $lang["server"]["add_integererror"];
-			$_GET["step"] = 2;
-		}
+  include_once('inc/classes/class_masterform.php');
+  $mf = new masterform();
 
-		if($_POST["server_ram"] != "") if(!is_numeric($_POST["server_ram"])) {
-			$ram_error = $lang["server"]["add_integererror"];
-			$_GET["step"] = 2;
-		}
+  if (!$_GET['serverid']) {
+    if ($auth['type'] > 1) {
+      $selections = array();
+      $query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user WHERE user.type > 0 ORDER BY username");
+      while($row = $db->fetch_array($query)) {
+        $selections[$row['userid']] = $row['username'];
+      }
+      $db->free_Result();
+      $mf->AddField(t('Besitzer'), 'owner', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
-		if($_POST["server_hdd"] != "") if(!is_numeric($_POST["server_hdd"])) {
-			$ram_error = $lang["server"]["add_integererror"];
-			$_GET["step"] = 2;
-		}
-*/
-	break;
-	} // close switch
+    } else $mf->AddFix('owner', $auth['userid']);
+  }
 
+  $mf->AddField(t('Name'), 'caption');
 
-	switch($_GET["step"]) {
-		default:
-      include_once('modules/server/search.inc.php');
-		break;
+  $selections = array();
+  $selections['gameserver'] = t('Gameserver');
+  $selections['ftp'] = t('FTP Server');
+  $selections['irc'] = t('IRC Server');
+  $selections['web'] = t('Web Server');
+  $selections['proxy'] = t('Proxy Server');
+  $selections['misc'] = t('Sonstiger Server');
+  $mf->AddField(t('Servertyp'), 'type', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
-		case 2:
-			session_unregister("add_blocker_server");
+  if ($cfg['server_ip_auto_assign']) $mf->AddFix('ip', $IPBase .'.'. $cfg['server_ip_next']);
+  else $mf->AddField(t('IP / Domain'), 'ip', '', '', '', 'CheckIP');
+  
+  $mf->AddField(t('Port'), 'port', '', '', '', 'CheckPort');
+  $mf->AddField(t('MAC-Adresse'), 'mac', '', '', FIELD_OPTIONAL, 'CheckMAC');
+  $mf->AddField(t('Betriebssystem'), 'os', '', '', FIELD_OPTIONAL);
+  $mf->AddField(t('CPU (MHz)'), 'cpu', '', '', FIELD_OPTIONAL);
+  $mf->AddField(t('RAM (MB)'), 'ram', '', '', FIELD_OPTIONA);
+  $mf->AddField(t('HDD (GB)'), 'hdd', '', '', FIELD_OPTIONA);
+  $mf->AddField(t('Passwort geschützt'), 'pw', '', '', FIELD_OPTIONA);
+  $mf->AddField(t('Beschreibung'), 'text', '', LSCODE_ALLOWED, FIELD_OPTIONA);
 
-			$server = $db->query_first("SELECT * from {$config["tables"]["server"]} WHERE serverid = '{$_GET["serverid"]}'");
-
-			if($_POST["server_caption"] == "")		$_POST["server_caption"] = $server["caption"];
-			if($_POST["server_type"] == "")			$_POST["server_type"] = $server["type"];
-			if($_POST["server_text"] == "")			$_POST["server_text"] = $server["text"];
-			if($_POST["server_ipaddress"] == "")	$_POST["server_ipaddress"] = $server["ip"];
-			if($_POST["server_port"] == "") 		$_POST["server_port"] = $server["port"];
-			if($_POST["server_os"] == "") 			$_POST["server_os"] = $server["os"];
-			if($_POST["server_mhz"] == "") 			$_POST["server_mhz"] = $server["cpu"];
-			if($_POST["server_ram"] == "") 			$_POST["server_ram"] = $server["ram"];
-			if($_POST["server_hdd"] == "") 			$_POST["server_hdd"] = $server["hdd"];
-			if($_POST["server_password"] == "")		$_POST["server_password"] = $server["pw"];
-			if($_POST["owner"] == "")				$_POST["owner"] = $server["owner"];
-			if($_POST["owner"] == "")				$_POST["owner"] = $auth['userid'];
-			
-			$dsp->NewContent($lang["server"]["add_caption"], $lang["server"]["add_subcaption"]);
-			$dsp->SetForm("index.php?mod=server&action={$_GET["action"]}&step=3&serverid={$_GET["serverid"]}");
-
-			if($auth['type'] > 1){
-				$t_array = array();
-				$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user WHERE user.type > 0 ORDER BY username");
-				while($row = $db->fetch_array($query)) {
-					if($_POST["owner"] == $row['userid']) $selected ="selected"; else $selected = "";
-					if($row['item_id'] == ""){
-						array_push ($t_array, "<option $selected value=\"" . $row['userid'] . "\">" . $row['username'] . "</option>");
-					}else{
-						array_push ($t_array, "<option $selected value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>");	
-					}
-				}
-				$dsp->AddDropDownFieldRow("owner", $lang["server"]["details_owner"], $t_array, "", 1);
-
-			}
-			$dsp->AddTextFieldRow("server_caption", $lang["server"]["details_name"], $_POST["server_caption"], $caption_error);
-
-			$server_typen = array("gameserver" => $lang["server"]["details_gameserver"],
-					"ftp" => $lang["server"]["details_ftpserver"],
-					"irc" => $lang["server"]["details_ircserver"],
-					"web" => $lang["server"]["details_webserver"],
-					"proxy" => $lang["server"]["details_proxyserver"],
-					"misc" => $lang["server"]["details_miscserver"]
-					);
-			$dd_array = array();
-			while (list($key, $val) = each($server_typen)) {
-				if($_POST["server_type"] == $key) $selected = "selected";
-				else $selected = "";
-				array_push ($dd_array, "<option $selected value=\"$key\">$val</option>");
-			}	
-			$dsp->AddDropDownFieldRow("server_type", $lang["server"]["details_servertype"], $dd_array, $type_error);
-
-			$dsp->AddTextFieldRow("server_ipaddress", $lang["server"]["details_ipaddr"], $_POST["server_ipaddress"], $ipaddress_error);
-			$dsp->AddTextFieldRow("server_port", $lang["server"]["details_port"], $_POST["server_port"], $port_error);
-			$dsp->AddTextFieldRow("server_os", $lang["server"]["details_os"], $_POST["server_os"], $os_error, "", 1);
-			$dsp->AddTextFieldRow("server_mhz", "CPU (MHz)", $_POST["server_mhz"], $mhz_error, "", 1);
-			$dsp->AddTextFieldRow("server_ram", "RAM (MB)", $_POST["server_ram"], $ram_error, "", 1);
-			$dsp->AddTextFieldRow("server_hdd", "HDD (GB)", $_POST["server_hdd"], $hdd_error, "", 1);
-
-			if ($_POST["server_password"]) $checked = 1;
-			else $checked = 0;
-			$dsp->AddCheckBoxRow("server_password", $lang["server"]["details_password"], "", "", 1, $checked);
-
-			$dsp->AddTextAreaPlusRow("server_text", $lang["server"]["details_description"], $_POST["server_text"], $server_text_error, "", "", 1);
-
-			$dsp->AddFormSubmitRow("add");
-			$dsp->AddBackButton("index.php?mod=server", "server/form"); 
-			$dsp->AddContent();
-		break; // BREAK CASE 2
-		
-		case 3:
-			if($_POST['owner'] == "") $user_id = $_SESSION["auth"]["userid"];
-			else $user_id = $_POST['owner'];
-			if($_SESSION["add_blocker_server"] == TRUE) $func->error("NO_REFRESH", "index.php?mod=server&action={$_GET["action"]}");
-			else {
-				switch ($_GET["action"]) {
-					case "add":
-						$add_it = $db->query("INSERT INTO {$config["tables"]["server"]} SET
-							caption = '{$_POST["server_caption"]}',
-							owner = '{$user_id}',
-							text = '{$_POST["server_text"]}',
-							ip = '{$_POST["server_ipaddress"]}',
-							port = '{$_POST["server_port"]}',
-							os = '{$_POST["server_os"]}',
-							cpu = '{$_POST["server_mhz"]}',
-							ram = '{$_POST["server_ram"]}',
-							hdd = '{$_POST["server_hdd"]}',
-							type = '{$_POST["server_type"]}',
-							pw = '{$_POST["server_password"]}'
-							");
-
-						$func->confirmation($lang["server"]["add_success"], "index.php?mod=server&action=show");
-					break;
-
-					case "change":
-						$server = $db->query_first("SELECT caption, owner FROM {$config[tables][server]} WHERE serverid = '{$_GET["serverid"]}'");
-
-						if (($server["owner"] == $_SESSION["auth"]["userid"]) || ($_SESSION["auth"]["type"] > 1)) {
-							$change_it = $db->query("UPDATE {$config[tables][server]} SET
-								caption = '{$_POST["server_caption"]}',
-								owner = '{$user_id}',
-								text = '{$_POST["server_text"]}',
-								ip = '{$_POST["server_ipaddress"]}',
-								port = '{$_POST["server_port"]}',
-								os = '{$_POST["server_os"]}',
-								cpu = '{$_POST["server_mhz"]}',
-								ram = '{$_POST["server_ram"]}',
-								hdd = '{$_POST["server_hdd"]}',
-								type = '{$_POST["server_type"]}',
-								pw = '{$_POST["server_password"]}'
-								WHERE serverid = '{$_GET["serverid"]}'
-								");
-
-							$func->confirmation($lang["server"]["change_success"], "index.php?mod=server&action=show");
-						} else $func->information($lang["server"]["change_norights"], "index.php?mod=server&action=change");
-					break;
-				}
-
-				$_SESSION["add_blocker_server"] = TRUE;
-			}
-		break; // BREAK CASE 3
-			
-	} // close switch step
-
-} else $func->information($lang["server"]["add_paiderror"], "index.php?mod=server");
+  if ($mf->SendForm('index.php?mod=server&action=add', 'server', 'serverid', $_GET['serverid'])) {
+    // Increase auto IP
+    if ($cfg['server_ip_auto_assign']) $db->query("UPDATE {$config["tables"]["config"]} SET cfg_value = ". ($cfg['server_ip_next'] + 1) ." WHERE cfg_key = 'server_ip_next'");
+  };
+}
 ?>
