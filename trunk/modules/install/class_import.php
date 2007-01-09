@@ -145,6 +145,31 @@ class Import {
   				// If table exists, compare XML-File with DB and check weather the DB has to be updated
   				if ($table_found) {
 
+  					// Search for fiels, which exist in the XML-File, but dont exist in the DB yet.
+  					$found_in_db = 0;
+  					if ($db_fields) foreach ($db_fields as $db_field) if ($db_field["Field"] == $name) {
+  						$found_in_db = 1;
+
+  						// Check wheather the field in the DB differs from the one in the XML-File
+  						// Change it
+  						if ($null_xml == '' and $db_field['Null'] = 'NO') $null_xml = $db_field['Null']; // Some MySQL-Versions return 'NO' instead of ''
+  						if ($db_field["Type"] != $type
+                or $db_field["Null"] != $null_xml
+                or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
+                or $db_field["Extra"] != $extra) {
+  						    $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name CHANGE $name $name $type $null $default $extra");
+
+/*
+    						// Differece-Report
+    						if ($db_field["Type"] != $type) echo $db_field["Type"] ."=". $type ." Type in $table_name $name<br>";
+    						if ($db_field["Null"] != $null_xml) echo $db_field["Null"] ."=". $null_xml ." Null in $table_name $name<br>";
+    						if ($db_field["Default"] != $default_xml) echo $db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>";
+    						if ($db_field["Extra"] != $extra) echo $db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>";
+*/
+              }
+  						break;
+  					}
+
             //// Index-Check
             // Drop keys, which no longer exist in XML
             if ($key == '') {
@@ -200,31 +225,6 @@ class Import {
               ## TODO: if ($type == 'text' or $type == 'longtext' or substr($type, 0, 7) == 'varchar')
               $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD FULLTEXT ($name)");
             }
-
-  					// Search for fiels, which exist in the XML-File, but dont exist in the DB yet.
-  					$found_in_db = 0;
-  					if ($db_fields) foreach ($db_fields as $db_field) if ($db_field["Field"] == $name) {
-  						$found_in_db = 1;
-
-  						// Check wheather the field in the DB differs from the one in the XML-File
-  						// Change it
-  						if ($null_xml == '' and $db_field['Null'] = 'NO') $null_xml = $db_field['Null']; // Some MySQL-Versions return 'NO' instead of ''
-  						if ($db_field["Type"] != $type
-                or $db_field["Null"] != $null_xml
-                or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
-                or $db_field["Extra"] != $extra) {
-  						    $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name CHANGE $name $name $type $null $default $extra");
-
-/*
-    						// Differece-Report
-    						if ($db_field["Type"] != $type) echo $db_field["Type"] ."=". $type ." Type in $table_name $name<br>";
-    						if ($db_field["Null"] != $null_xml) echo $db_field["Null"] ."=". $null_xml ." Null in $table_name $name<br>";
-    						if ($db_field["Default"] != $default_xml) echo $db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>";
-    						if ($db_field["Extra"] != $extra) echo $db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>";
-*/
-              }
-  						break;
-  					}
   				}
 
 					// If a key was not found in the DB, but in the XML-File -> Add it!

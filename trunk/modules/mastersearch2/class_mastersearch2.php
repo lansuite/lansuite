@@ -7,6 +7,8 @@ class MasterSearch2 {
 	var $icon_field = array();
 	var $multi_select_action = array();
   var $config = array();
+  var $bgcolors = array();
+  var $bgcolor_attr = '';
   var $sql_select_field_list = array();
   var $post_in_get = '';
   var $NoItemsText = '';
@@ -43,7 +45,13 @@ class MasterSearch2 {
   function AddSelect($sql_field){
     if ($sql_field and !in_array($sql_field, $this->sql_select_field_list)) array_push($this->sql_select_field_list, $sql_field);
   }
- 
+
+  function AddBGColor($sql_field, $color_list){
+    $this->AddSelect($sql_field);
+    $this->bgcolors = $color_list;
+    $this->bgcolor_attr = $sql_field;
+  }
+
   function AddTextSearchField($caption, $sql_fields) {
     $arr = array();
     $arr['caption'] = $caption;
@@ -359,6 +367,9 @@ class MasterSearch2 {
 
         // cut of 'table.', befor field name
         if (strpos($select_id_field, '.') > 0) $select_id_field = substr($select_id_field, strpos($select_id_field, '.') + 1, strlen($select_id_field));
+
+        $templ['ms2']['table_entrys_row_field_bgcolor'] = '';
+        if ($this->bgcolor_attr) $templ['ms2']['table_entrys_row_field_bgcolor'] = 'style="background-color:'. $this->bgcolors[$line[$this->bgcolor_attr]] .'"';
 
         // Checkbox
         if (count($this->multi_select_action) > 0) {

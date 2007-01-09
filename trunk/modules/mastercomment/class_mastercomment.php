@@ -148,7 +148,6 @@ class Mastercomment{
 				$dsp->AddTextAreaPlusRow("comment_comment", $this->lang['mastercomment']['comment'], $this->vars["comment_comment"], $error_text);
 				$dsp->AddFormSubmitRow("add");
 				$dsp->AddFieldsetEnd();
-				$dsp->AddBackButton($this->config['working_link']);
 				$dsp->AddContent();
 			break;
 			
