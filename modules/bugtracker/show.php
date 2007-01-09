@@ -35,6 +35,13 @@ $stati[3] = t('Feedback benötigt');
 $stati[4] = t('Behoben');
 $stati[5] = t('Aufgeschoben');
 
+$types = array();
+$types['1'] = t('Feature Wunsch');
+$types['2'] = t('Schreibfehler');
+$types['3'] = t('Kleiner Fehler');
+$types['4'] = t('Schwerer Fehler');
+$types['5'] = t('Absturz');
+
 $colors = array();
 $colors[0] = '#bc851b';
 $colors[1] = '#dc5656';
@@ -46,6 +53,11 @@ $colors[5] = '#aaaaaa';
 function FetchState($state) {
   global $stati;
   return $stati[$state];
+}
+
+function FetchType($type) {
+  global $types;
+  return $types[$type];
 }
 
 if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
@@ -66,9 +78,11 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 
   $ms2->AddResultField(t('Titel'), 'b.caption');
   $ms2->AddSelect('r.userid');
+  $ms2->AddResultField(t('Typ'), 'b.type', 'FetchType');
+  $ms2->AddResultField(t('Prio'), 'b.priority');
+  $ms2->AddResultField(t('Status'), 'b.state', 'FetchState');
   $ms2->AddResultField(t('Reporter'), 'r.username AS reporter', 'UserNameAndIcon');
   $ms2->AddResultField(t('Bearbeiter'), 'a.username AS agent');
-  $ms2->AddResultField(t('Status'), 'b.state', 'FetchState');
   $ms2->AddResultField(t('Datum'), 'UNIX_TIMESTAMP(b.date) AS date', 'MS2GetDate');
 
   $ms2->AddIconField('details', 'index.php?mod=bugtracker&bugid=', t('Details'));
@@ -96,12 +110,6 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     WHERE bugid=". (int)$_GET['bugid']
     );
 
-  $types = array();
-  $types['1'] = t('Feature Wunsch');
-  $types['2'] = t('Schreibfehler');
-  $types['3'] = t('Kleiner Fehler');
-  $types['4'] = t('Schwerer Fehler');
-  $types['5'] = t('Absturz');
   $dsp->NewContent($row['caption'], $types[$row['type']] .', '. t('Priorität') .': '. $row['priority']);
 
 	$dsp->AddDoubleRow(t('Herkunft'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> Version('. $row['version'] .')');

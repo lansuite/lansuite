@@ -35,6 +35,12 @@ switch ($home_page) {
       $z++;
 		}
 
+		if (in_array('bugtracker', $ActiveModules)) {
+      include('modules/home/bugtracker.inc.php');
+      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+      $z++;
+		}
+
     if (in_array('tournament2', $ActiveModules)) {
       include('modules/home/tournament.inc.php');
       $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
