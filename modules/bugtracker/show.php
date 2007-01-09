@@ -1,32 +1,6 @@
 <?php
 $LSCurFile = __FILE__;
 
-if ($auth['type'] >= 2 and $_POST['action']) foreach ($_POST['action'] as $key => $val) {
-
-  // Change state
-  if ($_GET['state'] != '') $db->query("UPDATE {$config['tables']['bugtracker']} SET state = ". (int)$_GET['state'] .' WHERE bugid = '. (int)$key);
-
-  // Assign to new user
-  if ($_GET['userid'] != '') {
-    if ($_GET['userid'] == 0) $db->query("UPDATE {$config['tables']['bugtracker']} SET state = 0 WHERE bugid = ". (int)$key);
-    else $db->query("UPDATE {$config['tables']['bugtracker']} SET state = 2 WHERE bugid = ". (int)$key);
-    $db->query("UPDATE {$config['tables']['bugtracker']} SET agent = ". (int)$_GET['userid'] .' WHERE bugid = '. (int)$key);
-  }
-}
-
-if ($_GET['action'] == 'delete' and $auth['type'] >= 2) {
-  if ($_GET['bugid'] != '') {
-    include_once('inc/classes/class_masterdelete.php');
-    $md = new masterdelete();
-    $md->Delete('bugtracker', 'bugid', $_GET['bugid']);
-  } else {
-    include_once('inc/classes/class_masterdelete.php');
-    $md = new masterdelete();
-    $md->MultiDelete('bugtracker', 'bugid');
-  }
-}
-
-
 $stati = array();
 $stati[0] = t('Neu');
 $stati[1] = t('Bestätigt');
@@ -50,6 +24,39 @@ $colors[3] = '#019ae1';
 $colors[4] = '#67a900';
 $colors[5] = '#aaaaaa';
 
+if ($auth['type'] >= 2 and $_POST['action']) foreach ($_POST['action'] as $key => $val) {
+
+  // Change state
+  if ($_GET['state'] != '') {
+    $db->query("UPDATE {$config['tables']['bugtracker']} SET state = ". (int)$_GET['state'] .' WHERE bugid = '. (int)$key);
+    $func->log_event(t('Problem auf Status %1 geändert', array($stati[$_GET['state']])), 1, t('Bugtracker'), $key);
+  }
+
+  // Assign to new user
+  if ($_GET['userid'] != '') {
+    if ($_GET['userid'] == 0) {
+      $db->query("UPDATE {$config['tables']['bugtracker']} SET state = 0 WHERE bugid = ". (int)$key);
+      $func->log_event(t('Benutzerzuordnung gelöscht'), 1, t('Bugtracker'), $key);
+    } else {
+      $db->query("UPDATE {$config['tables']['bugtracker']} SET state = 2 WHERE bugid = ". (int)$key);
+      $func->log_event(t('Problem Benutzer "%1" zugeordnet', array($_GET['userid'])), 1, t('Bugtracker'), $key);
+    }
+    $db->query("UPDATE {$config['tables']['bugtracker']} SET agent = ". (int)$_GET['userid'] .' WHERE bugid = '. (int)$key);
+  }
+}
+
+if ($_GET['action'] == 'delete' and $auth['type'] >= 2) {
+  if ($_GET['bugid'] != '') {
+    include_once('inc/classes/class_masterdelete.php');
+    $md = new masterdelete();
+    $md->Delete('bugtracker', 'bugid', $_GET['bugid']);
+  } else {
+    include_once('inc/classes/class_masterdelete.php');
+    $md = new masterdelete();
+    $md->MultiDelete('bugtracker', 'bugid');
+  }
+}
+
 function FetchState($state) {
   global $stati;
   return $stati[$state];
@@ -64,7 +71,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $dsp->NewContent(t('Bugtracker'), t('Hier können Sie Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.'));
 
   include_once('modules/mastersearch2/class_mastersearch2.php');
-  $ms2 = new mastersearch2('news');
+  $ms2 = new mastersearch2('bugtracker');
 
   $ms2->query['from'] = "{$config["tables"]["bugtracker"]} AS b
     LEFT JOIN {$config["tables"]["user"]} AS r ON b.reporter = r.userid
@@ -120,7 +127,6 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 	$dsp->AddDoubleRow(t('Status'), $stati[$row['state']]);
 	if ($row['agent']) $dsp->AddDoubleRow(t('Bearbeiter'), $row['agent_name'] .' '. $dsp->FetchUserIcon($row['agent']));
 	else $dsp->AddDoubleRow(t('Bearbeiter'), t('Noch nicht zugeordnet'));
-	$dsp->AddDoubleRow(t('Behoben am'), $row['fixdate']);
 
 	$dsp->AddDoubleRow(t('Text'), $func->text2html($row['text']));
 	$dsp->AddBackButton('index.php?mod=bugtracker');
@@ -128,6 +134,20 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 	include('modules/mastercomment/class_mastercomment.php');
 	$comment = new Mastercomment($vars, 'index.php?mod=bugtracker&bugid='. $_GET['bugid'], 'BugEintrag', $_GET['bugid'], $row['caption']);
 	$comment->action();
+	
+	$dsp->AddFieldsetStart('Log');
+  include_once('modules/mastersearch2/class_mastersearch2.php');
+  $ms2 = new mastersearch2('bugtracker');
+
+  $ms2->query['from'] = "{$config["tables"]["log"]} AS l LEFT JOIN {$config["tables"]["user"]} AS u ON l.userid = u.userid";
+  $ms2->query['where'] = "(sort_tag = 'Bugtracker' AND target_id = ". (int)$_GET['bugid'] .')';
+
+  $ms2->AddResultField(t('Nachricht'), 'l.description');
+  $ms2->AddSelect('u.userid');
+  $ms2->AddResultField(t('Auslöser'), 'u.username', 'UserNameAndIcon');
+  $ms2->AddResultField(t('Datum'), 'l.date', 'MS2GetDate');
+  $ms2->PrintSearch('index.php?mod=bugtracker', 'logid');
+	$dsp->AddFieldsetEnd('Log');
 }
 
 $dsp->AddContent();

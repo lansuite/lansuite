@@ -366,7 +366,7 @@ class func {
 		return ($to_return);
 	}		
 
-	function log_event($message, $type, $sort_tag = NULL) {
+	function log_event($message, $type, $sort_tag = NULL, $target_id = '') {
 		global $db, $config, $auth;
 
 		if ($message == "" or $type == "") echo("Function log_event needs message and type defined! - Invalid arguments supplied!");
@@ -377,7 +377,14 @@ class func {
 			$atuser = $auth["userid"];
 			if($atuser == "") $atuser = "0";
 			$timestamp = date("U");
-			$entry = $db->query("INSERT INTO {$config["tables"]["log"]} SET userid='$atuser', description='". $this->escape_sql($message) ."', type='$type', date='$timestamp', sort_tag = '$sort_tag'");
+			$entry = $db->query("INSERT INTO {$config["tables"]["log"]} SET
+        userid='$atuser',
+        description='". $this->escape_sql($message) ."',
+        type='$type',
+        date='$timestamp',
+        sort_tag = '$sort_tag',
+        target_id = '$target_id'
+        ");
 
 			if ($entry == 1) return(1); else return(0);
 		}

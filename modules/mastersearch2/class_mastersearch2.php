@@ -213,7 +213,6 @@ class MasterSearch2 {
     if ($this->query['order_by'] == '') $this->query['order_by'] = $select_id_field .' ASC';
     if ($this->query['order_by_end']) $this->query['order_by'] .= ', '. $this->query['order_by_end'];
 
-    
     ###### Generate Limit
     if ($_GET['page'] == 'all') $this->query['limit'] = '';
     else {
@@ -246,7 +245,8 @@ class MasterSearch2 {
     ###### Generate Page-Links
     $count_rows = $db->query_first('SELECT FOUND_ROWS() AS count');
     $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
-    
+    #if ($_GET['page'] >= $count_pages) $_GET['page'] = $count_pages - 1;
+
 		if ($count_rows['count'] > $this->config['EntriesPerPage']) {
 		  $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&page=";
 			$templ['ms2']['pages'] = ("Seiten: ");
@@ -275,7 +275,8 @@ class MasterSearch2 {
 
     ###### Output Search
     ($_GET['page'] == 'all')? $add_page = '&page=all' : $add_page = '';
-    $templ['ms2']['action'] = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}$add_page";
+
+    $templ['ms2']['action'] = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}";#$add_page
     $templ['ms2']['inputs'] = '';
     // Text Inputs
     $z = 0; $x = 0;
