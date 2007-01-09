@@ -51,14 +51,15 @@ class masterdelete {
   global $func;
 
     $failed = '';
-    foreach ($_POST['action'] as $key => $val) {
-      $res = $this->DoDelete($table, $idname, $key);
-      if (!$res) $failed .= HTML_NEWLINE . '#'. $key;
-    }
+    if ($_POST['action']) {
+      foreach ($_POST['action'] as $key => $val) {
+        $res = $this->DoDelete($table, $idname, $key);
+        if (!$res) $failed .= HTML_NEWLINE . '#'. $key;
+      }
 
-    if ($failed != '') $func->error(t('Die folgenden Einträge konnte nicht gelöscht werden').':'.$failed, $func->internal_referer);
-    else $func->confirmation(t('Die Einträge wurde erfolgreich gelöscht'), $func->internal_referer);
-    
+      if ($failed != '') $func->error(t('Die folgenden Einträge konnte nicht gelöscht werden').':'.$failed, $func->internal_referer);
+      else $func->confirmation(t('Die Einträge wurde erfolgreich gelöscht'), $func->internal_referer);
+    }
     return !$failed;
   }
 }
