@@ -433,6 +433,14 @@
 				<default></default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>target_id</name>
+				<type>varchar(16)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
 		</structure>
 		<content>
 		</content>
