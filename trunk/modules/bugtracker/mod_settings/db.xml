@@ -22,7 +22,7 @@
 			</field>
 			<field>
 				<name>caption</name>
-				<type>varchar(50)</type>
+				<type>varchar(100)</type>
 				<null></null>
 				<key></key>
 				<default></default>
