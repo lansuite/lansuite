@@ -58,6 +58,7 @@ if (!$_GET['bugid']) {
   $selections['3'] = t('Reporter-Antwort erforderlich');
   $selections['4'] = t('Behoben');
   $selections['5'] = t('Aufgeschoben');
+  $selections['6'] = t('Geschlossen');
   $mf->AddField(t('Status'), 'state', IS_SELECTION, $selections);
 }
 

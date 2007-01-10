@@ -1,13 +1,8 @@
 <?php
 $LSCurFile = __FILE__;
 
-$stati = array();
-$stati[0] = t('Neu');
-$stati[1] = t('Bestätigt');
-$stati[2] = t('In Bearbeitung');
-$stati[3] = t('Feedback benötigt');
-$stati[4] = t('Behoben');
-$stati[5] = t('Aufgeschoben');
+include_once('modules/bugtracker/class_bugtracker.php');
+$bugtracker = new Bugtracker();
 
 $types = array();
 $types['1'] = t('Feature Wunsch');
@@ -23,38 +18,20 @@ $colors[2] = '#e19501';
 $colors[3] = '#019ae1';
 $colors[4] = '#67a900';
 $colors[5] = '#aaaaaa';
+$colors[6] = '#999999';
 
 if ($_POST['action']) foreach ($_POST['action'] as $key => $val) {
 
   if ($auth['login']) {
     // Change state
-    if ($_GET['state'] != '' and $_GET['state'] < 2) {
-      $db->query("UPDATE {$config['tables']['bugtracker']} SET state = ". (int)$_GET['state'] .' WHERE bugid = '. (int)$key);
-      $func->log_event(t('Problem auf Status %1 geändert', array($stati[$_GET['state']])), 1, t('Bugtracker'), $key);
-    }
+    if ($_GET['state'] != '' and $_GET['state'] < 2) $bugtracker->SetBugState($key, $_GET['state']);
   }
   if ($auth['type'] >= 2) {
     // Change state
-    if ($_GET['state'] != '' and $_GET['state'] >= 2) {
-      $db->query("UPDATE {$config['tables']['bugtracker']} SET state = ". (int)$_GET['state'] .' WHERE bugid = '. (int)$key);
-      $func->log_event(t('Problem auf Status %1 geändert', array($stati[$_GET['state']])), 1, t('Bugtracker'), $key);
-      if ($_GET['state'] == 2 or $_GET['state'] == 3 or $_GET['state'] == 4) {
-        $db->query("UPDATE {$config['tables']['bugtracker']} SET agent = ". (int)$auth['userid'] .' WHERE bugid = '. (int)$key);
-        $func->log_event(t('Problem Benutzer "%1" zugeordnet', array($_GET['userid'])), 1, t('Bugtracker'), $key);
-      }
-    }
+    if ($_GET['state'] != '' and $_GET['state'] >= 2) $bugtracker->SetBugState($key, $_GET['state']);
 
     // Assign to new user
-    if ($_GET['userid'] != '') {
-      if ($_GET['userid'] == 0) {
-        $db->query("UPDATE {$config['tables']['bugtracker']} SET state = 0 WHERE bugid = ". (int)$key);
-        $func->log_event(t('Benutzerzuordnung gelöscht'), 1, t('Bugtracker'), $key);
-      } else {
-        $db->query("UPDATE {$config['tables']['bugtracker']} SET state = 2 WHERE bugid = ". (int)$key);
-        $func->log_event(t('Problem Benutzer "%1" zugeordnet', array($_GET['userid'])), 1, t('Bugtracker'), $key);
-      }
-      $db->query("UPDATE {$config['tables']['bugtracker']} SET agent = ". (int)$_GET['userid'] .' WHERE bugid = '. (int)$key);
-    }
+    if ($_GET['userid'] != '') $bugtracker->AssignBugToUser($key, $_GET['userid']);
   }
 }
 
@@ -71,8 +48,8 @@ if ($_GET['action'] == 'delete' and $auth['type'] >= 2) {
 }
 
 function FetchState($state) {
-  global $stati;
-  return $stati[$state];
+  global $bugtracker;
+  return $bugtracker->stati[$state];
 }
 
 function FetchType($type) {
@@ -111,10 +88,10 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=bugtracker&action=delete&bugid=', t('Löschen'));
 
   if ($auth['login']) {
-    foreach($stati as $key => $val) if ($key < 2) $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
+    foreach($bugtracker->stati as $key => $val) if ($key < 2) $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
   }
   if ($auth['type'] >= 2) {
-    foreach($stati as $key => $val) if ($key >= 2) $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
+    foreach($bugtracker->stati as $key => $val) if ($key >= 2) $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
 
     $ms2->AddMultiSelectAction(t('Bearbeiter löschen'), 'index.php?mod=bugtracker&userid=0');
     $res = $db->query("SELECT userid, username FROM {$config['tables']['user']} WHERE type >= 2");
@@ -141,7 +118,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 	$dsp->AddDoubleRow(t('Betrifft Modul'), $row['module']);
 	$dsp->AddDoubleRow(t('Meldezeitpunkt'), $row['date']);
 
-	$dsp->AddDoubleRow(t('Status'), $stati[$row['state']]);
+	$dsp->AddDoubleRow(t('Status'), $bugtracker->stati[$row['state']]);
 	if ($row['agent']) $dsp->AddDoubleRow(t('Bearbeiter'), $row['agent_name'] .' '. $dsp->FetchUserIcon($row['agent']));
 	else $dsp->AddDoubleRow(t('Bearbeiter'), t('Noch nicht zugeordnet'));
 
