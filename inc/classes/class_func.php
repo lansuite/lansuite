@@ -305,11 +305,11 @@ class func {
 		$string = eregi_replace('\[url_www.([^\[]*)\]([^\[]*)\[/url\]', '<a href="http://www.\1" target="_self">\2</a>', $string); 
 		$string = eregi_replace('\[url_([^\[]*)\]([^\[]*)\[/url\]', '<a href="\1" target="_self">\2</a>', $string);
 
- 		$string = eregi_replace('\[c\]([^\[]*)\[/c\]', '<blockquote><div class="tbl_small">Code:</div><table width="100%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>\1</td></tr></table></blockquote>', $string);
- 		$string = eregi_replace('\[quote\]([^\[]*)\[/quote\]', '<blockquote><div class="tbl_small">Zitat:</div><table width="70%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>\1</td></tr></table></blockquote>', $string);
+ 		$string = preg_replace('#\[c\]([^\[]*[^/]*[^c]*[^\]]*)\[/c\]#', '<blockquote><div class="tbl_small">Code:</div><table width="100%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>\\1</td></tr></table></blockquote>', $string);
+ 		$string = preg_replace('#\[quote\]([^\[]*[^/]*[^q]*[^u]*[^o]*[^t]*[^e]*[^\]]*)\[/quote\]#', '<blockquote><div class="tbl_small">Zitat:</div><table width="70%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>\\1</td></tr></table></blockquote>', $string);
 
-		$string = str_replace("\n", "<br/>", $string);
-// 		$string = nl2br($string);
+		$string = str_replace("\n", '<br />', $string);
+		$string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
 
 		$string = str_replace('[b]', '<b>', $string);
 		$string = str_replace('[/b]', '</b>', $string);
@@ -317,37 +317,13 @@ class func {
 		$string = str_replace('[/i]', '</i>', $string);
 		$string = str_replace('[u]', '<u>', $string);
 		$string = str_replace('[/u]', '</u>', $string);
-		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><table width="100%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>', $string);
-		$string = str_replace('[/c]', '</td></tr></table></blockquote>', $string);
-#		$string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><table width="70%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>', $string);
-#		$string = str_replace('[/quote]', '</td></tr></table></blockquote>', $string);
 
-		$get_smilie = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
-		while ($row=$db->fetch_array($get_smilie))
-		{
-			$string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
-		}
+		$res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
+		while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
+    $db->free_result($res);
 
-		$string = str_replace('[color=darkred]', '<font color="darkred">', $string);
-		$string = str_replace('[color=red]', '<font color="red">', $string);
-		$string = str_replace('[color=orange]', '<font color="orange">', $string);
-		$string = str_replace('[color=brown]', '<font color="brown">', $string);
-		$string = str_replace('[color=yellow]', '<font color="yellow">', $string);
-		$string = str_replace('[color=green]', '<font color="green">', $string);
-		$string = str_replace('[color=olive]', '<font color="olive">', $string);
-		$string = str_replace('[color=cyan]', '<font color="cyan">', $string);
-		$string = str_replace('[color=blue]', '<font color="blue">', $string);
-		$string = str_replace('[color=darkblue]', '<font color="darkblue">', $string);
-		$string = str_replace('[color=indigo]', '<font color="indigo">', $string);
-		$string = str_replace('[color=violet]', '<font color="violet">', $string);
-		$string = str_replace('[color=black]', '<font color="black">', $string);
-		$string = str_replace('[/color]', '</font>', $string);
-		$string = str_replace('[size=7]', '<font style="font-size:7px">', $string);
-		$string = str_replace('[size=9]', '<font style="font-size:9px">', $string);
-		$string = str_replace('[size=12]', '<font style="font-size:12px">', $string);
-		$string = str_replace('[size=18]', '<font style="font-size:18px">', $string);
-		$string = str_replace('[size=24]', '<font style="font-size:24px">', $string);
-		$string = str_replace('[/size]', '</font>', $string);
+ 		$string = preg_replace('#\[size=([0-9]+)\]([^\[]*[^/]*[^s]*[^i]*[^z]*[^e]*[^\]]*)\[/size\]#', '<font style="font-size:\1px">\2</font>', $string);
+ 		$string = preg_replace('#\[color=([a-z]+)\]([^\[]*[^/]*[^c]*[^o]*[^l]*[^o]*[^r]*[^\]]*)\[/color\]#', '<font color="\1">\2</font>', $string);
 
 		return $string;
 	}
