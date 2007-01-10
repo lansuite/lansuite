@@ -33,7 +33,7 @@ switch($_GET["step"]) {
 	case 3:
 		if (($_POST["paid"] == "") || ($_POST["paid"] == 0)) {
 			if ($_GET["umode"] != "add") {
-			  $_GET['quick_signon'] = 1;
+			  $_GET['quick_signon'] = 0;
         $error["paid"] = $lang["usrmgr"]["entrance_notpaid_warning"];
       }
 			$_POST["paid"] = 2;
@@ -45,7 +45,7 @@ switch($_GET["step"]) {
     $quick_signon = $_GET['quick_signon'];
     include_once("modules/usrmgr/add.php");
     if ($AddUserSuccess) {
-      $_GET['userid'] = $mf->insert_id;
+      if (!$_GET['userid']) $_GET['userid'] = $mf->insert_id;
       $_GET['step']++;
       
       // Signon to current party using no Price, but set to paid (evening checkout)
