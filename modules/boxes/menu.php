@@ -139,4 +139,11 @@ function ShowGuestMap() {
   else return false;
 }
 
+function sys_internet() {
+  global $cfg;
+
+  if ($cfg['sys_internet']) return true;
+  else return false;
+}
+
 ?>
