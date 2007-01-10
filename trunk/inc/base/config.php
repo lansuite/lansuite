@@ -8,12 +8,12 @@ chmod_dir			= "777"
 chmod_file			= "666"
 
 [environment]
-configured			= "1"
+configured			= "0"
 dir				= ""
 os				= "Win32"
 mq				= "1"
 gd				= "1"
-snmp				= "0"
+snmp				= "1"
 ftp				= "1"
 
 
@@ -37,7 +37,7 @@ guestbook			= "15"
 server				= "localhost"
 user				= "root"
 passwd				= ""
-database			= "lan100"
+database			= "lansuite"
 prefix				= "lansuite_"
 db_admin_userid			= "0"
 display_debug_errors		= "1"
