@@ -318,9 +318,8 @@ else {
 
     	// Including comment-engine
     	if($auth["login"] == 1) {
-    		include_once("modules/mastercomment/class_mastercomment.php");
-    		$comment = new Mastercomment($vars, "index.php?mod=usrmgr&action=details&userid=". $_GET["userid"], "User", $_GET["userid"], $user_data['username']);
-    		$comment->action();
+      	include('inc/classes/class_mastercomment.php');
+      	new Mastercomment('User', $_GET['userid']);
     	}
 		break;
 

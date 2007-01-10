@@ -3,6 +3,7 @@
 class masterdelete {
 
   var $References = array();
+  var $LogID = 0;
 
   // Internal function, used to delete
   function DoDelete($table, $idname, $id) {
@@ -14,9 +15,9 @@ class masterdelete {
         if ($val == '') $val = $idname;
         $db->query("DELETE FROM {$config['tables'][$key]} WHERE $val = '$id'");
       }
-      $func->log_event(t('Eintrag #%1 aus Tabelle "%2" gelöscht', array($id, $config['tables'][$table])), 1, 'Masterdelete');
+      $func->log_event(t('Eintrag #%1 aus Tabelle "%2" gelöscht', array($id, $config['tables'][$table])), 1, '', $this->LogID);
 		} else {
-      $func->log_event(t('Fehler beim Löschen von #%1 aus Tabelle "%2"', array($id, $config['tables'][$table])), 3, 'Masterdelete');
+      $func->log_event(t('Fehler beim Löschen von #%1 aus Tabelle "%2"', array($id, $config['tables'][$table])), 3, '', $this->LogID);
     }
     
     return $res;

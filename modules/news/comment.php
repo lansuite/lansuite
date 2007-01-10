@@ -37,11 +37,9 @@ if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $n
 		$dsp->AddBackButton("index.php?mod=news&action=show", "");
 		$dsp->AddContent();
 	}
-		
-	// SET MASTERCOMMENT VARS
-	include("modules/mastercomment/class_mastercomment.php");
-	$comment = new Mastercomment($vars,"index.php?mod=news&action=comment&newsid=" . $vars["newsid"],"news",$vars["newsid"],$templ['news']['show']['single']['row'][$news_type]['info']['caption']);
-	$comment->action();
+
+	include('inc/classes/class_mastercomment.php');
+	new Mastercomment('news', $_GET['newsid']);
 
 } else $func->error(t('Diese Newsmeldung existiert nicht'), '');
 ?>

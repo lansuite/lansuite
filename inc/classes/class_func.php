@@ -341,14 +341,14 @@ class func {
 		return ($to_return);
 	}		
 
-	function log_event($message, $type, $sort_tag = NULL, $target_id = '') {
-		global $db, $config, $auth;
+	function log_event($message, $type, $sort_tag = '', $target_id = '') {
+		global $db, $config, $auth, $CurentURLMod;
 
-		if ($message == "" or $type == "") echo("Function log_event needs message and type defined! - Invalid arguments supplied!");
+		if ($message == '' or $type == '') echo("Function log_event needs message and type defined! - Invalid arguments supplied!");
 
 		// Types:  1 = Info, 2 = Warning, 3 = Error (be careful with 3)
 		else {
-			if ($sort_tag == NULL) $sort_tag = "";
+			if ($sort_tag == '') $sort_tag = $CurentURLMod;
 			$atuser = $auth["userid"];
 			if($atuser == "") $atuser = "0";
 			$timestamp = date("U");

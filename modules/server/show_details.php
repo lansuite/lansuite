@@ -89,9 +89,8 @@ else {
 
 	// Including comment-engine     
 	if($_SESSION["auth"]["login"] == 1) {
-		include("modules/mastercomment/class_mastercomment.php");
-		$comment = new Mastercomment($vars,"index.php?mod=server&action=show_details&serverid=" . $_GET["serverid"],"server",$_GET["serverid"],$server["caption"]);
-		$comment->action();
+  	include('inc/classes/class_mastercomment.php');
+  	new Mastercomment('server', $_GET['serverid']);
 	}
 	//End comment-engine	
 }
