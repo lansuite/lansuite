@@ -66,6 +66,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $ms2->query['from'] = "{$config["tables"]["bugtracker"]} AS b
     LEFT JOIN {$config["tables"]["user"]} AS r ON b.reporter = r.userid
     LEFT JOIN {$config["tables"]["user"]} AS a ON b.agent = a.userid
+    LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
     ";
   $ms2->query['default_order_by'] = 'state ASC, date DESC';
 
@@ -77,10 +78,11 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $ms2->AddResultField(t('Titel'), 'b.caption');
   $ms2->AddSelect('r.userid');
   $ms2->AddResultField(t('Typ'), 'b.type', 'FetchType');
-  $ms2->AddResultField(t('Prio'), 'b.priority');
+  $ms2->AddResultField(t('Prio.'), 'b.priority');
   $ms2->AddResultField(t('Status'), 'b.state', 'FetchState');
   $ms2->AddResultField(t('Reporter'), 'r.username AS reporter', 'UserNameAndIcon');
   $ms2->AddResultField(t('Bearbeiter'), 'a.username AS agent');
+  $ms2->AddResultField(t('Antw.'), 'COUNT(c.relatedto_id) AS comments');
   $ms2->AddResultField(t('Datum'), 'UNIX_TIMESTAMP(b.date) AS date', 'MS2GetDate');
 
   $ms2->AddIconField('details', 'index.php?mod=bugtracker&bugid=', t('Details'));

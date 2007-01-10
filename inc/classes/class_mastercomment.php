@@ -1,16 +1,28 @@
 <?php
 
 function FetchDataRow($username) {
-  global $func, $line;
+  global $func, $dsp, $line;
 
   $html_image= '<img src="ext_inc/avatare/%s" alt="%s" border="0">';
 	$avatar = ($line['avatar_path'] != '' and $line['avatar_path'] != 'none') ? sprintf($html_image, $line['avatar_path'], t('Avatar')) : '';
 
-  $ret = $username . HTML_NEWLINE;
+  $ret = '<b>'. $username .'</b> '. $dsp->FetchUserIcon($line['userid']) . HTML_NEWLINE;
   $ret .= $func->unixstamp2date($line['date'], datetime) . HTML_NEWLINE;
   $ret .= $avatar . HTML_NEWLINE;
   return $ret;
 }
+
+function FetchPostRow($text) {
+  global $func, $line;
+
+  $ret = $func->text2html($text);
+  if ($line['signature']) {
+    $ret .= '<hr size="1" width="100%" color="cccccc">';
+    $ret .= $func->text2html($line['signature']);
+  }
+  return $ret;
+}
+
 
 class Mastercomment{
 
@@ -42,8 +54,10 @@ class Mastercomment{
 
     $ms2->AddSelect('UNIX_TIMESTAMP(c.date) AS date');
     $ms2->AddSelect('s.avatar_path');
+    $ms2->AddSelect('s.signature');
+    $ms2->AddSelect('u.userid');
     $ms2->AddResultField('', 'u.username', 'FetchDataRow');
-    $ms2->AddResultField('', 'c.text');
+    $ms2->AddResultField('', 'c.text', 'FetchPostRow');
     if ($auth['type'] >= 2) $ms2->AddIconField('edit', $CurentURLBase.'&commentid=', t('Editieren'));
     if ($auth['type'] >= 3) $ms2->AddIconField('delete', $CurentURLBase.'&mc_step=10&commentid=', t('Löschen'));
 

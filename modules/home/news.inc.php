@@ -3,23 +3,21 @@
 	$templ['home']['show']['item']['info']['caption'] = t('Aktuelle News') . ' <span class="small">[<a href="ext_inc/newsfeed/news.xml" class="menu" title="XML Newsfeed">RSS</a>]</span>';
 	$templ['home']['show']['item']['control']['row'] = "";
 	
-	
-	$query = $db->query("SELECT newsid, caption, priority FROM {$config["tables"]["news"]} order by top DESC, date DESC LIMIT 0,5");
+  $query = $db->query("SELECT n.newsid, n.caption, n.priority, COUNT(c.relatedto_id) AS comments FROM {$config["tables"]["news"]} AS n
+    LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = n.newsid AND c.relatedto_item = 'news')
+    GROUP BY c.relatedto_id
+    ORDER BY n.top DESC, n.date DESC
+    LIMIT 0,8
+    ");
 	if($db->num_rows($query) > 0) {
 		while($row = $db->fetch_array($query)) {
-
-    $comments = $db->query_first("SELECT COUNT(*) AS n FROM {$config["tables"]["comments"]}
-      WHERE relatedto_item = 'news' AND relatedto_id = {$row["newsid"]}
-      GROUP BY relatedto_id
-      ");
-    
 
 				$newsid 	= $row["newsid"];
 				$caption	= $row["caption"];
 				$prio		= $row["priority"];
 				
 				$templ['home']['show']['row']['control']['link']	= "index.php?mod=news&action=comment&newsid=$newsid";
-				$templ['home']['show']['row']['info']['text']		= $caption.' ('.$comments['n'].')';
+				$templ['home']['show']['row']['info']['text']		= $caption.' ['.$row['comments'].']';
 
 				if ($prio == 1) { 
 					$templ['home']['show']['row']['info']['text2']		= "<strong>!!!</strong>";
