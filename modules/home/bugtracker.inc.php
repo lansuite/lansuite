@@ -3,7 +3,7 @@
 $templ['home']['show']['item']['info']['caption'] = t('Neue Bugs und Feature Wünsche');
 $templ['home']['show']['item']['control']['row'] = "";
 
-$query = $db->query("SELECT * FROM {$config["tables"]["bugtracker"]} ORDER BY date LIMIT 0,8");
+$query = $db->query("SELECT * FROM {$config["tables"]["bugtracker"]} WHERE state <= 3 ORDER BY date LIMIT 0,8");
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $templ['home']['show']['row']['control']['link'] = "index.php?mod=bugtracker&bugid={$row['bugid']}";
   if (strlen($row['caption']) > 40) $row['caption'] = substr($row['caption'], 0, 37).'...';

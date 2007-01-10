@@ -324,7 +324,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         if (ShowField('wwcl_id')) $mf->AddField(t('WWCL ID'), 'wwclid', '', '', Optional('wwclid'));
         if (ShowField('ngl_id')) $mf->AddField(t('NGL ID'), 'nglid', '', '', Optional('nglid'));
         if (ShowField('lgz_id')) $mf->AddField(t('LGZ ID'), 'lgzid', '', '', Optional('lgzid'));
-        $mf->AddGroup(t('Liegen'));
+        $mf->AddGroup(t('Ligen'));
       }
 
       // Address
