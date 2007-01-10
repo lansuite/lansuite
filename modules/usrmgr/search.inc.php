@@ -52,7 +52,7 @@ $party_list = array('' => 'Alle');
 $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
 while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
 $db->free_result($row);
-$ms2->AddTextSearchDropDown('Party', 'p.party_id', $party_list, $party->party_id);
+$ms2->AddTextSearchDropDown('Party', 'p.party_id', $party_list);#, $party->party_id
 
 $ms2->AddTextSearchDropDown(t('Zahlstatus'), 'p.paid', array('' => t('Alle'), '0' => t('Nicht bezahlt'), '>1' => t('Bezahlt'), '1' => t('Bezahlt per Vorverkauf'), '2' => t('Bezahlt per Abendkasse')));
 $ms2->AddTextSearchDropDown(t('Eingecheckt'), 'p.checkin', array('' => t('Alle'), '0' => t('Nicht eingecheckt'), '>1' => t('Eingecheckt')));
