@@ -38,6 +38,7 @@ class masterform {
   var $AddChangeCondition = '';
   var $NumFields = 0;
   var $insert_id = -1;
+  var $LogID = 0;
   
   function masterform($MFID = 0) {
     $this->MFID = $MFID;
@@ -78,12 +79,15 @@ class masterform {
 
 
   // Print form
-	function SendForm($BaseURL, $table, $idname = '', $id = 0) {
-    global $dsp, $db, $config, $func, $sec, $lang, $templ;
+	function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer in use!
+    global $dsp, $db, $config, $func, $sec, $lang, $templ, $CurentURLBase;
 
 		$this->AddGroup(); // Adds non-group-fields to fake group
 
-    $StartURL = $BaseURL .'&'. $idname .'='. $id;
+    $StartURL = $CurentURLBase;
+    $StartURL = str_replace('&mf_step=2', '', $StartURL);
+    if (strpos($StartURL, '&'. $idname .'='. $id) == 0) $StartURL .= '&'. $idname .'='. $id;
+
     if ($id) $this->isChange = true;
 
     $AddKey = '';
@@ -118,6 +122,8 @@ class masterform {
     // Error-Switch
     switch ($_GET['mf_step']) {
       default:
+
+        $_SESSION['mf_referrer'] = $func->internal_referer;
 
         // Read current values, if change
         if ($this->isChange) {
@@ -411,7 +417,7 @@ class masterform {
               else {
                 if ($this->isChange) {
                   $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $AddKey $idname = ". (int)$id);
-                  $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, 'Masterform');
+                  $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
                 } else {
                   $DBInsertQuery = $db_query;
                   if ($this->AdditionalKey != '') $DBInsertQuery .= ', '. $this->AdditionalKey;
@@ -419,7 +425,7 @@ class masterform {
                   $db->query("INSERT INTO {$config['tables'][$table]} SET $DBInsertQuery");
                   $id = $db->insert_id();
                   $this->insert_id = $id;
-                  $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefügt', array($id, $config['tables'][$table])), 1, 'Masterform');
+                  $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefügt', array($id, $config['tables'][$table])), 1, '', $this->LogID);
                   $addUpdSuccess = $id;
                 }
               }
@@ -427,11 +433,12 @@ class masterform {
 
             if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
             if ($addUpdSuccess) {
-              if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $StartURL);
-              else $func->confirmation($lang['mf']['add_success'], $StartURL);
+              if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $_SESSION['mf_referrer']);
+              else $func->confirmation($lang['mf']['add_success'], $_SESSION['mf_referrer']);
             }
           }
           
+          unset($_SESSION['mf_referrer']);
           $sec->lock($table);
           return $addUpdSuccess;
           /* Will be

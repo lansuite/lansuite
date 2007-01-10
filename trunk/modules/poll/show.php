@@ -186,9 +186,8 @@ default:
 
 				// Including comment-engine       
 				if($_SESSION["auth"]["login"] == 1) {
-					include("modules/mastercomment/class_mastercomment.php");
-					$comment = new Mastercomment($vars,"index.php?mod=poll&action=show&step=2&pollid=$HANDLE[POLLID]","Poll",$HANDLE[POLLID],$POLL[caption]);
-					$comment->action();
+        	include('inc/classes/class_mastercomment.php');
+        	new Mastercomment('Poll', $HANDLE[POLLID]);
 				}
 				//End comment-engine	
 

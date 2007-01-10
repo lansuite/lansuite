@@ -31,7 +31,7 @@ class Bugtracker {
     $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['bugtracker']} WHERE state = ". (int)$state ." AND bugid = ". (int)$bugid);
     if (!$row['found']) {
       $db->query("UPDATE {$config['tables']['bugtracker']} SET state = ". (int)$state .' WHERE bugid = '. (int)$bugid);
-      $func->log_event(t('Problem auf Status "%1" geändert', array($this->stati[$state])), 1, t('Bugtracker'), $bugid);
+      $func->log_event(t('Problem auf Status "%1" geändert', array($this->stati[$state])), 1, '', $bugid);
     }
   }
 
@@ -42,10 +42,10 @@ class Bugtracker {
     if (!$row['found']) {
       $db->query("UPDATE {$config['tables']['bugtracker']} SET agent = ". (int)$userid .' WHERE bugid = '. (int)$bugid);
 
-      if ($userid == 0) $func->log_event(t('Benutzerzuordnung gelöscht'), 1, t('Bugtracker'), $bugid);
+      if ($userid == 0) $func->log_event(t('Benutzerzuordnung gelöscht'), 1, '', $bugid);
       else {
         $row = $db->query_first("SELECT username FROM {$config['tables']['user']} WHERE userid = ". (int)$userid);
-        $func->log_event(t('Problem Benutzer "%1" zugeordnet', array($row['username'])), 1, t('Bugtracker'), $bugid);
+        $func->log_event(t('Problem Benutzer "%1" zugeordnet', array($row['username'])), 1, '', $bugid);
       }
     }
   }

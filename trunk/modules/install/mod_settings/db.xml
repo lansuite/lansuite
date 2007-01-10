@@ -46,18 +46,10 @@
 			</field>
 			<field>
 				<name>date</name>
-				<type>int(20)</type>
+				<type>datetime</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>caption</name>
-				<type>varchar(80)</type>
-				<null></null>
-				<key></key>
-				<default></default>
 				<extra></extra>
 			</field>
 			<field>

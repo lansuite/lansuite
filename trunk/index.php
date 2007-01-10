@@ -13,6 +13,8 @@ session_start();
 // Analyze current URL
 $CurentURL = parse_url($_SERVER['REQUEST_URI']);
 $CurentURLBase = str_replace('&contentonly=1', '', $CurentURL['path'].'?'.$CurentURL['query']);
+preg_match('#mod=([a-zA-z0-9]*)[&]*#', $CurentURLBase, $treffer);
+$CurentURLMod = $treffer[1];
 
 // load $_POST and $_GET variables
 if (!is_array($_POST)) $_POST = $HTTP_POST_VARS;

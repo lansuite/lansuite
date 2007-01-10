@@ -370,9 +370,8 @@ elseif (!$akt_file) {
 
 		// Mastercomment
 		if ($_GET['picid']) $pic['picid'] = $_GET['picid'];
-		include("modules/mastercomment/class_mastercomment.php");
-		$comment = new Mastercomment($vars, "index.php?mod=picgallery&file={$_GET["file"]}&page={$_GET["page"]}&picid=" . $pic['picid'], "Picgallery", $pic['picid'], $pic['caption']);
-		$comment->action();
+  	include('inc/classes/class_mastercomment.php');
+  	new Mastercomment('Picgallery', $pic['picid']);
 	}
 }
 ?>

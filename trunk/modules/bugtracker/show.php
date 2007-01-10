@@ -131,16 +131,15 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   }
 	$dsp->AddBackButton('index.php?mod=bugtracker');
 
-	include('modules/mastercomment/class_mastercomment.php');
-	$comment = new Mastercomment($vars, 'index.php?mod=bugtracker&bugid='. $_GET['bugid'], 'BugEintrag', $_GET['bugid'], $row['caption']);
-	$comment->action();
+	include('inc/classes/class_mastercomment.php');
+	new Mastercomment('BugEintrag', $_GET['bugid']);
 	
 	$dsp->AddFieldsetStart('Log');
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('bugtracker');
 
   $ms2->query['from'] = "{$config["tables"]["log"]} AS l LEFT JOIN {$config["tables"]["user"]} AS u ON l.userid = u.userid";
-  $ms2->query['where'] = "(sort_tag = 'Bugtracker' AND target_id = ". (int)$_GET['bugid'] .')';
+  $ms2->query['where'] = "(sort_tag = 'bugtracker' AND target_id = ". (int)$_GET['bugid'] .')';
 
   $ms2->AddResultField(t('Nachricht'), 'l.description');
   $ms2->AddSelect('u.userid');
