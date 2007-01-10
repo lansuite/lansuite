@@ -909,7 +909,15 @@
 				<key></key>
 				<default></default>
 				<extra></extra>
-			</field>									
+			</field>
+			<field>
+				<name>checked</name>
+				<type>int(15)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
 		</structure>
 		<content>
 		</content>

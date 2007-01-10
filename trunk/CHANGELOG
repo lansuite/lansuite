@@ -8,6 +8,7 @@ Version 3
 
 - Bugfix: #577 #579 Mail und Log beim Clanpasswort wechsel korrigiert (KnoX 07.01.2007)
 
+- Add: Letzter Kontocheck in Anmelde-Status-Box (Mag!c 10.01.2007)
 - Add: Modul Bugtracker (KnoX 09.01.2007)
 - Add: Mastersearch kann nun einzellne Zeilen entsprechend eines DB-Feldes einfärben (KnoX 09.01.2007)
 - Add: #568 Server-IPs können nun automatisch generiert werden und es gibt ein Feld zum Eintragen der MAC Adresse (KnoX 08.01.2007)

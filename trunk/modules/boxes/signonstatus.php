@@ -115,6 +115,12 @@ if (!$party_data) {
 	$box->EmptyRow();
 	$box->ItemRow("data", "<b>". $party_data['name'] . "</b>");
 	$box->EngangedRow($func->unixstamp2date($party_data['partybegin'],"datetime") . " - " . HTML_NEWLINE . $func->unixstamp2date($party_data['partyend'],"datetime"));
+
+  $checked = $db->query_first("SELECT checked as n FROM lansuite_partys" );
+  $box->EmptyRow();
+  $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>" );
+  $box->EngangedRow($func->unixstamp2date($checked['n'],"datetime" ));
+  $box->EmptyRow();
 }
 
 $boxes['signonstatus'] .= $box->CreateBox("signon_state", t('Anmelde-Status'));
