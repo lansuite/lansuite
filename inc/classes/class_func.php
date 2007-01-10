@@ -629,6 +629,21 @@ class func {
 					$target = $path . $name;
 				} else $target = $path . $_FILES[$source_var]['name'];
 
+        // Change .php to .php.txt
+        switch (substr($target, strrpos($target, "."), strlen($target))) {
+          case '.php':
+          case '.php3':
+          case '.php4':
+          case '.asp':
+          case '.cgi':
+          case '.pl':
+          case '.shtml':
+          case '.html':
+          case '.htm':
+            $target .= '.txt';
+          break;
+        }
+
 				if (file_exists($target)) unlink($target);
 				if (move_uploaded_file($_FILES[$source_var]['tmp_name'], $target)) {
 					chmod ($target, octdec($config["lansuite"]["chmod_file"]));
