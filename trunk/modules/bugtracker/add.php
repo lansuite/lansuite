@@ -24,6 +24,8 @@ while ($row = $db->fetch_array($res)) $selections[$row['name']] = $row['name'];
 $db->free_result($res);
 $mf->AddField(t('Betrifft Modul'), 'module', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
+if ($_SERVER['SERVER_NAME'] == 'lansuite.orgapage.de') $mf->AddField(t('Betrifft Version'), 'version');
+
 $selections = array();
 for ($z = -5; $z <= 5; $z++) {
   $selections[$z] = $z;
@@ -44,8 +46,8 @@ if ($auth['type'] >= 2) {
 
 if (!$_GET['bugid']) {
   $mf->AddFix('date', time());
-  $mf->AddFix('version', $config['lansuite']['version']);
-  $mf->AddFix('url', $cfg['sys_partyurl']);
+  if ($_SERVER['SERVER_NAME'] != 'lansuite.orgapage.de') $mf->AddFix('version', $config['lansuite']['version']);
+  $mf->AddFix('url', $_SERVER['SERVER_NAME']);
   $mf->AddFix('reporter', $auth['userid']);
   $mf->AddFix('state', 0);
 } else {
@@ -60,6 +62,7 @@ if (!$_GET['bugid']) {
 }
 
 $mf->AddField(t('Text'), 'text', '', LSCODE_BIG);
+if ($_SERVER['SERVER_NAME'] == 'lansuite.orgapage.de') $mf->AddField(t('Bild / Datei anhängen'), 'file', IS_FILE_UPLOAD, 'ext_inc/bugtracker_upload/', FIELD_OPTIONAL);
 
 $mf->SendForm('index.php?mod=bugtracker&action=add', 'bugtracker', 'bugid', $_GET['bugid']);
 

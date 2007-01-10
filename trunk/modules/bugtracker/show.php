@@ -24,24 +24,37 @@ $colors[3] = '#019ae1';
 $colors[4] = '#67a900';
 $colors[5] = '#aaaaaa';
 
-if ($auth['type'] >= 2 and $_POST['action']) foreach ($_POST['action'] as $key => $val) {
+if ($_POST['action']) foreach ($_POST['action'] as $key => $val) {
 
-  // Change state
-  if ($_GET['state'] != '') {
-    $db->query("UPDATE {$config['tables']['bugtracker']} SET state = ". (int)$_GET['state'] .' WHERE bugid = '. (int)$key);
-    $func->log_event(t('Problem auf Status %1 geändert', array($stati[$_GET['state']])), 1, t('Bugtracker'), $key);
-  }
-
-  // Assign to new user
-  if ($_GET['userid'] != '') {
-    if ($_GET['userid'] == 0) {
-      $db->query("UPDATE {$config['tables']['bugtracker']} SET state = 0 WHERE bugid = ". (int)$key);
-      $func->log_event(t('Benutzerzuordnung gelöscht'), 1, t('Bugtracker'), $key);
-    } else {
-      $db->query("UPDATE {$config['tables']['bugtracker']} SET state = 2 WHERE bugid = ". (int)$key);
-      $func->log_event(t('Problem Benutzer "%1" zugeordnet', array($_GET['userid'])), 1, t('Bugtracker'), $key);
+  if ($auth['login']) {
+    // Change state
+    if ($_GET['state'] != '' and $_GET['state'] < 2) {
+      $db->query("UPDATE {$config['tables']['bugtracker']} SET state = ". (int)$_GET['state'] .' WHERE bugid = '. (int)$key);
+      $func->log_event(t('Problem auf Status %1 geändert', array($stati[$_GET['state']])), 1, t('Bugtracker'), $key);
     }
-    $db->query("UPDATE {$config['tables']['bugtracker']} SET agent = ". (int)$_GET['userid'] .' WHERE bugid = '. (int)$key);
+  }
+  if ($auth['type'] >= 2) {
+    // Change state
+    if ($_GET['state'] != '' and $_GET['state'] >= 2) {
+      $db->query("UPDATE {$config['tables']['bugtracker']} SET state = ". (int)$_GET['state'] .' WHERE bugid = '. (int)$key);
+      $func->log_event(t('Problem auf Status %1 geändert', array($stati[$_GET['state']])), 1, t('Bugtracker'), $key);
+      if ($_GET['state'] == 2 or $_GET['state'] == 3 or $_GET['state'] == 4) {
+        $db->query("UPDATE {$config['tables']['bugtracker']} SET agent = ". (int)$auth['userid'] .' WHERE bugid = '. (int)$key);
+        $func->log_event(t('Problem Benutzer "%1" zugeordnet', array($_GET['userid'])), 1, t('Bugtracker'), $key);
+      }
+    }
+
+    // Assign to new user
+    if ($_GET['userid'] != '') {
+      if ($_GET['userid'] == 0) {
+        $db->query("UPDATE {$config['tables']['bugtracker']} SET state = 0 WHERE bugid = ". (int)$key);
+        $func->log_event(t('Benutzerzuordnung gelöscht'), 1, t('Bugtracker'), $key);
+      } else {
+        $db->query("UPDATE {$config['tables']['bugtracker']} SET state = 2 WHERE bugid = ". (int)$key);
+        $func->log_event(t('Problem Benutzer "%1" zugeordnet', array($_GET['userid'])), 1, t('Bugtracker'), $key);
+      }
+      $db->query("UPDATE {$config['tables']['bugtracker']} SET agent = ". (int)$_GET['userid'] .' WHERE bugid = '. (int)$key);
+    }
   }
 }
 
@@ -97,8 +110,11 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=bugtracker&action=add&bugid=', t('Editieren'));
   if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=bugtracker&action=delete&bugid=', t('Löschen'));
 
+  if ($auth['login']) {
+    foreach($stati as $key => $val) if ($key < 2) $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
+  }
   if ($auth['type'] >= 2) {
-    foreach($stati as $key => $val) $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
+    foreach($stati as $key => $val) if ($key >= 2) $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
 
     $ms2->AddMultiSelectAction(t('Bearbeiter löschen'), 'index.php?mod=bugtracker&userid=0');
     $res = $db->query("SELECT userid, username FROM {$config['tables']['user']} WHERE type >= 2");
@@ -130,6 +146,12 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 	else $dsp->AddDoubleRow(t('Bearbeiter'), t('Noch nicht zugeordnet'));
 
 	$dsp->AddDoubleRow(t('Text'), $func->text2html($row['text']));
+  if ($row['file']) {
+    $FileEnding = strtolower(substr($row['file'], strrpos($row['file'], '.'), 5));
+    if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') $attachment = '<img src="'. $row['file'] .'" />';
+    else $templ['board']['thread']['case']['info']['post']['text'] .= $attachment = $dsp->FetchIcon($row['file'], 'download') .' ('. t('Angehängte Datei herunterladen').')';
+    $dsp->AddDoubleRow(t('Anhang'), $attachment);
+  }
 	$dsp->AddBackButton('index.php?mod=bugtracker');
 
 	include('modules/mastercomment/class_mastercomment.php');
