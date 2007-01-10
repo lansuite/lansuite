@@ -114,7 +114,7 @@ if (!$party_data) {
 
 	$box->EmptyRow();
 	$box->ItemRow("data", "<b>". $party_data['name'] . "</b>");
-	$box->EngangedRow($func->unixstamp2date($party_data['partybegin'],"datetime") . " - " . HTML_NEWLINE . $func->unixstamp2date($party_data['partyend'],"datetime"));
+	$box->EngangedRow(date("d.m", $party_data['partybegin']) .' - '. date("d.m.y", $party_data['partyend']));
 
   $checked = $db->query_first("SELECT checked as n FROM lansuite_partys" );
   $box->EmptyRow();
