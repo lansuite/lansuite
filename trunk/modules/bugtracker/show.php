@@ -77,6 +77,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     LEFT JOIN {$config["tables"]["user"]} AS r ON b.reporter = r.userid
     LEFT JOIN {$config["tables"]["user"]} AS a ON b.agent = a.userid
     ";
+  $ms2->query['default_order_by'] = 'state ASC, date DESC';
 
   $ms2->AddBGColor('state', $colors);
 

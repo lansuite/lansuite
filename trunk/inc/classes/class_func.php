@@ -631,16 +631,32 @@ class func {
 
         // Change .php to .php.txt
         switch (substr($target, strrpos($target, "."), strlen($target))) {
+          // Script extentions
           case '.php':
+          case '.php2':
           case '.php3':
           case '.php4':
           case '.php5':
+          case '.phtml':
+          case '.pwml':
+          case '.inc':
           case '.asp':
-          case '.cgi':
+          case '.aspx':
+          case '.ascx':
+          case '.jsp':
+          case '.cfm':
+          case '.cfc':
           case '.pl':
+          case '.bat':
+          case '.vbs':
+          case '.reg':
+          case '.cgi':
           case '.shtml':
+          // Harmless extentions, but better to view with .txt
           case '.html':
           case '.htm':
+          case '.js':
+          case '.css':
             $target .= '.txt';
           break;
         }
