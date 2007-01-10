@@ -14,7 +14,7 @@ $query = $db->query("SELECT f.fid, t.tid, MAX(p.pid) AS pid, t.caption, MAX(p.da
 	LIMIT 0,8");
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $templ['home']['show']['row']['control']['link']	= "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&gotopid={$row['pid']}#pid{$row['pid']}";
-  $templ['home']['show']['row']['info']['text']		= $row['caption'] .' ('.$row['posts'].')';
+  $templ['home']['show']['row']['info']['text']		= $row['caption'] .' ['.$row['posts'].']';
   $templ['home']['show']['item']['control']['row']	.= $dsp->FetchModTpl('home', 'show_row');
 } else {
 	$templ['home']['show']['row']['text']['info']['text'] = "<i>". t('Keine Beiträge vorhanden') ."</i>";
