@@ -634,6 +634,7 @@ class func {
           case '.php':
           case '.php3':
           case '.php4':
+          case '.php5':
           case '.asp':
           case '.cgi':
           case '.pl':
