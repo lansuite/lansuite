@@ -25,10 +25,9 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 		#elseif (file_exists($old_file_name)) $file_name = $old_file_name;
     #else
     $file_name = $sponsor['pic_path_button'];
-  		
 		if ($file_name != '') {
-			$ImgSize = @GetImageSize($file_name);
-			if (!$ImgSize[0]) $ImgSize[0] = 60;
+			if (is_file($file_name)) $ImgSize = GetImageSize($file_name);
+			if (!$ImgSize[0]) $ImgSize[0] = $cfg["sponsor_picwidth_small"];
 			if ($ImgSize[0] > $cfg["sponsor_picwidth_small"]) $ImgSize[0] = $cfg["sponsor_picwidth_small"];
 			$out = "<img src=\"$file_name\" width=\"{$ImgSize[0]}\" border=\"0\" title=\"{$sponsor["name"]}\">";
 		} elseif ($sponsor["name"] != '') $out = "<b>{$sponsor["name"]}</b>";
