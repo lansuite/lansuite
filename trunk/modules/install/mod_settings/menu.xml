@@ -72,6 +72,11 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>design</action>
+		<file>design</file>
+		<requirement>3</requirement>
+	</entry>
+	<entry>
 		<action>settings</action>
 		<file>modules</file>
 		<caption>Konfiguration</caption>

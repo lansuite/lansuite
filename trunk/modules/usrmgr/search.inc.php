@@ -1,4 +1,6 @@
 <?php
+$LSCurFile = __FILE__;
+
 include_once('modules/usrmgr/search_main.inc.php');
 
 function PaidIconLink($paid){
