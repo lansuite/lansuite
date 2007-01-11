@@ -132,7 +132,7 @@ class display {
 	function AddSingleRow($text, $parm = NULL) {
 		global $templ;
 
-		$templ['ls']['row']['single']['text'] = stripslashes($text);
+		$templ['ls']['row']['single']['text'] = $text;
 
 		if ($parm != "") $templ['ls']['row']['single']['align'] = $parm;
 
@@ -145,8 +145,8 @@ class display {
 		if ($key == "") $key = "&nbsp;";
 		if ($value == "") $value = "&nbsp;";
 		if ($id == "") $id = "DoubleRowVal";
-		$templ['ls']['row']['double']['key'] = stripslashes($key);
-		$templ['ls']['row']['double']['value'] = stripslashes($value);
+		$templ['ls']['row']['double']['key'] = $key;
+		$templ['ls']['row']['double']['value'] = $value;
 		$templ['ls']['row']['double']['id'] = $id;
 
 		$this->AddTpl("design/templates/ls_row_double.htm");
@@ -208,7 +208,7 @@ class display {
 
 		$templ['ls']['row']['textfield']['name'] = $name;
 		$templ['ls']['row']['textfield']['key'] = $key;
-		$templ['ls']['row']['textfield']['value'] = stripslashes($value);
+		$templ['ls']['row']['textfield']['value'] = $value;
 		$templ['ls']['row']['textfield']['size'] = $size;
 
     if ($errortext) $templ['ls']['row']['textfield']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
@@ -227,7 +227,7 @@ class display {
 
 		$templ['ls']['row']['textfield']['name'] = $name;
 		$templ['ls']['row']['textfield']['key'] = $key;
-		$templ['ls']['row']['textfield']['value'] = stripslashes($value);
+		$templ['ls']['row']['textfield']['value'] = $value;
 		$templ['ls']['row']['textfield']['size'] = $size;
 
     if ($errortext) $templ['ls']['row']['textfield']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
@@ -249,7 +249,7 @@ class display {
 
 		$templ['ls']['row']['textarea']['name'] = $name;
 		$templ['ls']['row']['textarea']['key'] = $key;
-		$templ['ls']['row']['textarea']['value'] = stripslashes($value);
+		$templ['ls']['row']['textarea']['value'] = $value;
 		$templ['ls']['row']['textarea']['cols'] = $cols;
 		$templ['ls']['row']['textarea']['rows'] = $rows;
 
@@ -271,7 +271,7 @@ class display {
 		$templ['ls']['row']['textarea']['name'] = $name;
         $templ['ls']['row']['textarea']['formname'] = $this->form_name;
         $templ['ls']['row']['textarea']['key'] = $key;
-        $templ['ls']['row']['textarea']['value'] = stripslashes($value);
+        $templ['ls']['row']['textarea']['value'] = $value;
         $templ['ls']['row']['textarea']['cols'] = $cols;
         $templ['ls']['row']['textarea']['rows'] = $rows;
 		$templ['ls']['row']['textarea']['maxchar'] = $maxchar;
