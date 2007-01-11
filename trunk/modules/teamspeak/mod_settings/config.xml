@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>teamspeak_sitetitle</name>
+    		<type>string</type>
+    		<default>LanSuite - TeamSpeak</default>
+    		<description>SeitenTitle und Scriptversion</description>
+    	</item>
+    	<item>
+    		<name>teamspeak_serverAddress</name>
+    		<type>string</type>
+    		<default>localhost</default>
+    		<description>Hier die TeamSpeak IP Adresse eintragen !!wichtig!! (Beispiel: 192.168.7.1)</description>
+    	</item>
+    	<item>
+    		<name>teamspeak_serverQueryPort</name>
+    		<type>integer</type>
+    		<default>51234</default>
+    		<description>TeamSpeak QueryPort.. Schau in die server.ini von TeamSpeak (Standard 51234)</description>
+    	</item>
+    	<item>
+    		<name>teamspeak_serverUDPPort</name>
+    		<type>integer</type>
+    		<default>8767</default>
+    		<description>UDP Port für Teamspeak der auch hinter der IP Adresse genutzt wird (Standard 8767)</description>
+    	</item>
+    	<item>
+    		<name>teamspeak_tabellenbreite</name>
+    		<type>integer</type>
+    		<default>150</default>
+    		<description>Mindestbreite der Teamspeaktabelle (die einbindung mit einem IFRAME sollte 20px mehr betragen)</description>
+    	</item>
+    	<item>
+    		<name>teamspeak_refreshtime</name>
+    		<type>integer</type>
+    		<default>10</default>
+    		<description>Zeit in Sekunden nach der die Anzeige aktualisiert wird, wenn "auto on" aktiv ist</description>
+    	</item>
+    	<item>
+    		<name>teamspeak_serverPasswort</name>
+    		<type>password</type>
+    		<default></default>
+    		<description>Serverpasswort das bei Serversettings eingestellt wird (wenn kein Passwort erteilt, dann leer lassen)</description>
+    	</item>
+    </items>
+  </group>
+</config>

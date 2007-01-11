@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<menu>
+	<pos>19</pos>
+	<entry>
+		<caption>TeamSpeak</caption>
+		<hint>In welchen Channels wird gerade über TS gechattet?</hint>
+		<link>?mod=teamspeak</link>
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<needed_config></needed_config>
+		<level>0</level>
+	</entry>
+</menu>
