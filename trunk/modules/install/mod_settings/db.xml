@@ -1218,31 +1218,6 @@
 	</table>		
 	<table>		
 		<table_head>
-			<name>boxes_closed</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>userid</name>
-				<type>int(6)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>box</name>
-				<type>varchar(20)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-		</structure>
-		<content>
-		</content>
-	</table>
-	<table>		
-		<table_head>
 			<name>translation</name>
 		</table_head>
 		<structure>

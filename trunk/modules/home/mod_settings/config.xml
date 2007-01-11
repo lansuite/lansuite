@@ -38,35 +38,4 @@
     	</item>
     </items>
   </group>
-  <group>
-    <head>
-      <name>Boxen</name>
-    </head>
-    <items>
-    	<item>
-    		<name>home_recent_news_box</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Sollen die letzten News in einer Box gezeigt werden?</description>
-    	</item>
-    	<item>
-    		<name>home_recent_board_box</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Sollen die letzten Boardbeiträge in einer Box gezeigt werden?</description>
-    	</item>
-    	<item>
-    		<name>home_recent_server_box</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Sollen die neusten Server in einer Box gezeigt werden?</description>
-    	</item>
-    	<item>
-    		<name>home_recent_poll_box</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Sollen die letzten Umfragen in einer Box gezeigt werden?</description>
-    	</item>
-    </items>
-  </group>
 </config>

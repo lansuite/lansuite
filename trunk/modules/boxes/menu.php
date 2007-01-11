@@ -119,8 +119,6 @@ while ($row = $db->fetch_array($res)) {
 }
 $db->free_result($res);
 
-$boxes['menu'] .= $box->CreateBox("menu", t('Modul-Navigation'));
-
 
 // Callbacks
 $MenuCallbacks = Array('ShowSignon', 'ShowGuestMap');

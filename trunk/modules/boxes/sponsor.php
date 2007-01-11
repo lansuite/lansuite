@@ -40,5 +40,4 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 }
 $db->free_result($sponsoren);
 
-$boxes['sponsor'] .= $box->CreateBox("sponsor", t('Sponsoren'));
 ?>

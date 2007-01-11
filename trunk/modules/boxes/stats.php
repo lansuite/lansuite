@@ -25,5 +25,4 @@ $box->DotRow(t('Eingeloggt') .': '. $online['count']);
 while ($user = $db->fetch_array($user_online)) $box->EngangedRow($user["username"] .' '. $dsp->FetchUserIcon($user["userid"]));
 $db->free_result($user_online);
 
-$boxes['stats'] .= $box->CreateBox("stats", t('Statistiken'));
 ?>

@@ -70,6 +70,4 @@ $user_lg = $db->query_first("SELECT user.logins, max(auth.logintime) AS logintim
 $box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] ."</b>");
 $box->DotRow(t('Zuletzt eingeloggt'));
 $box->EngangedRow("<b>". $func->unixstamp2date($user_lg["logintime"], "shortdaytime") ."</b>");
-
-$boxes['userdata'] .= $box->CreateBox("user", t('Meine Daten'));
 ?>
