@@ -45,7 +45,6 @@ switch($_GET['step']) {
       $comments = $xml->get_tag_content_array("comments", $entry_val);
       $comment = $xml->get_tag_content_array("comment", $comments[0]);
       if ($comment) foreach ($comment as $comment_val) {
-        $caption = $xml->get_tag_content("caption", $comment_val);
         $text = $xml->get_tag_content("text", $comment_val);
         $date = $xml->get_tag_content("date", $comment_val);
         $db->query("INSERT INTO {$config['tables']['comments']} SET

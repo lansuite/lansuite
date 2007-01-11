@@ -35,10 +35,9 @@ switch($_GET['step']) {
       $entry .= $xml->write_master_tag('main', $data, 3);
 
       $comments = '';
-      $res2 = $db->query("SELECT date, caption, text FROM {$config['tables']['comments']} WHERE relatedto_item = 'BugEintrag' AND relatedto_id = {$row['bugid']}");
+      $res2 = $db->query("SELECT date, text FROM {$config['tables']['comments']} WHERE relatedto_item = 'BugEintrag' AND relatedto_id = {$row['bugid']}");
       while ($row2 = $db->fetch_array($res2)) {
         $comment = '';
-        $comment .= $xml->write_tag('caption', $row2['caption'], 5);
         $comment .= $xml->write_tag('text', $row2['text'], 5);
         $comment .= $xml->write_tag('date', $row2['date'], 5);
         $comments .= $xml->write_master_tag('comment', $comment, 4);
