@@ -2,7 +2,7 @@
 $templ['box']['rows'] = "";
 
 function FetchItem ($item) {
-	global $auth, $dsp, $templ, $box, $func;
+	global $auth, $dsp, $templ, $box, $func, $cfg;
 
 	$item["caption"] = $func->translate($item["caption"]);
 	$item["hint"] = $func->translate($item["hint"]);
@@ -17,7 +17,7 @@ function FetchItem ($item) {
 		if ($submod_pos > 7) $submod = substr($item["link"], $submod_pos, strlen($item["link"]) - $submod_pos);
 		else $submod = "";
 
-		if ($item["module"] == $_GET["mod"] and ($_GET["mod"] != "info2" or ($_GET["mod"] == "info2" and $submod == $_GET["submod"]))) $highlighted = 1;
+		if ($item["module"] == $_GET["mod"] and ($_GET["mod"] != "info2" or $cfg['info2_use_submenus'] or ($_GET["mod"] == "info2" and $submod == $_GET["submod"]))) $highlighted = 1;
 		else $highlighted = 0;
 
 		// Set Item-Class
