@@ -21,7 +21,7 @@
     		<name>mail_popup_on_new_mails</name>
     		<type>boolean</type>
     		<default>1</default>
-    		<description>Sollen sich bei neuen Meils ein PopUp öffnen?</description>
+    		<description>Soll sich bei neuen Mails ein PopUp öffnen?</description>
     	</item>
     </items>
   </group>
