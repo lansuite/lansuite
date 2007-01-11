@@ -1,23 +1,13 @@
 <?php
 
 class boxes {
-	var $box_status;
 
-	// Constructor (fteches box states and opens/closes the clicked box
+	// Constructor (opens/closes the clicked box
 	function boxes() {
 		global $auth, $db, $config;
 
 		// In LogOff state all boxes are visible (no ability to minimize them)
 		if ($auth['login'] == "1") {
-
-			// Fetch box state
-			$res = $db->query("SELECT box
-					FROM {$config['tables']['boxes_closed']}
-					WHERE userid = '{$auth['userid']}'
-					");
-			while ($row = $db->fetch_array($res)) {
-				$this->box_status[$row["box"]] = 1;		// 1 = Closed
-			}
 
 			// Change state, when Item is clicked
 			if ($_GET['box_action'] == 'change' and $_GET['boxid'] != "") {
@@ -134,8 +124,6 @@ function IsWWCLT() {
     else return 0;
   }
 }
-
-
 
 $box = new boxes();
 

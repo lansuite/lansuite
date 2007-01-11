@@ -183,7 +183,7 @@ class Install {
 				// Try to find DB-XML-File
 				if (file_exists("modules/install/mod_settings/db.xml")){
 					$this->WriteTableFromXMLFile('install');
-					if ($display_to_screen) $dsp->AddDoubleRow("Modul 'install'", "[<a href=\"install.php?mod=install&action=db&step=7&module=install&quest=1\">{$lang["install"]["db_rewrite"]}</a>]");
+					if ($display_to_screen) $dsp->AddDoubleRow("Modul 'install'", "[<a href=\"index.php?mod=install&action=db&step=7&module=install&quest=1\">{$lang["install"]["db_rewrite"]}</a>]");
 				}
 			}
 
@@ -194,14 +194,14 @@ class Install {
 					// Try to find DB-XML-File
 					if (file_exists("modules/$module/mod_settings/db.xml")){
 						$this->WriteTableFromXMLFile($module);
-						if ($display_to_screen) $dsp->AddDoubleRow("Modul '$module'", "[<a href=\"install.php?mod=install&action=db&step=7&module=$module&quest=1\">{$lang["install"]["db_rewrite"]}</a>]");
+						if ($display_to_screen) $dsp->AddDoubleRow("Modul '$module'", "[<a href=\"index.php?mod=install&action=db&step=7&module=$module&quest=1\">{$lang["install"]["db_rewrite"]}</a>]");
 					}
 				}
 			}
 			closedir($modules_dir);
 		}
 
-		if ($display_to_screen) $dsp->AddDoubleRow("<b>". $lang["install"]["db_alltables"] ."</b>", "[<a href=\"install.php?mod=install&action=db&step=3&quest=1\">{$lang["install"]["db_rewrite"]}</a>]");
+		if ($display_to_screen) $dsp->AddDoubleRow("<b>". $lang["install"]["db_alltables"] ."</b>", "[<a href=\"index.php?mod=install&action=db&step=3&quest=1\">{$lang["install"]["db_rewrite"]}</a>]");
 
 		return $tablecreate;
 	}
@@ -647,7 +647,7 @@ class Install {
 		$config["environment"]["os"] = $environment_os;
 
 		// Get Directory
-		$config["environment"]["dir"] = substr($_SERVER['REQUEST_URI'], 1, strpos($_SERVER['REQUEST_URI'] - 1, "install.php"));
+		$config["environment"]["dir"] = substr($_SERVER['REQUEST_URI'], 1, strpos($_SERVER['REQUEST_URI'] - 1, "index.php"));
 
 		// Set Configs
 		$this->WriteConfig();

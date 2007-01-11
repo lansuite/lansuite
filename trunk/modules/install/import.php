@@ -6,7 +6,7 @@ $import = New Import();
 switch($_GET["step"]){
 	default:
 		$dsp->NewContent($lang["install"]["import_caption"], $lang["install"]["import_subcaption"]);
-		$dsp->SetForm("install.php?mod=install&action=import&step=2", "", "", "multipart/form-data");
+		$dsp->SetForm("index.php?mod=install&action=import&step=2", "", "", "multipart/form-data");
 
 		$dsp->AddSingleRow("<b>{$lang["install"]["import_file"]}</b>");
 		$dsp->AddFileSelectRow("importdata", $lang["install"]["import_import"], "");
@@ -24,7 +24,7 @@ switch($_GET["step"]){
  		$dsp->AddFieldsetEnd();
 
 		$dsp->AddFormSubmitRow("next");
-		$dsp->AddBackButton("install.php?mod=install", "install/import"); 
+		$dsp->AddBackButton("index.php?mod=install", "install/import");
 		$dsp->AddContent();
 	break;
 
@@ -46,16 +46,16 @@ switch($_GET["step"]){
 							. $lang["install"]["wizard_importupload_source"] . ": " . $header["source"] . HTML_NEWLINE
 							. $lang["install"]["wizard_importupload_event"] . ": " . $header["event"] . HTML_NEWLINE
 							. $lang["install"]["wizard_importupload_version"] . ": " . $header["version"] . HTML_NEWLINE
-							, "install.php?mod=install&action=import");
+							, "index.php?mod=install&action=import");
 					break;
 
 					case "LanSuite":
 						$import->ImportXML($_POST["rewrite"]);
-						$func->confirmation($lang["install"]["import_success"], "install.php?mod=install&action=import");
+						$func->confirmation($lang["install"]["import_success"], "index.php?mod=install&action=import");
 					break;
 
 					default:
-						$func->Information(str_replace("%FILETYPE%", $header["filetype"], $lang["install"]["import_err_filetype"]), "install.php?mod=install&action=import");
+						$func->Information(str_replace("%FILETYPE%", $header["filetype"], $lang["install"]["import_err_filetype"]), "index.php?mod=install&action=import");
 					break;
 				}
 			break;
@@ -64,13 +64,13 @@ switch($_GET["step"]){
 				if ($_GET["filename"] == "") $_GET["filename"] = $func->FileUpload("importdata", "ext_inc/import/");
 				$dsp->NewContent($lang["install"]["import_caption"], $lang["install"]["import_subcaption"]);
 
-				$dsp->SetForm("install.php?mod=install&action=import&step=2&filename={$_GET["filename"]}", "", "", "multipart/form-data");
+				$dsp->SetForm("index.php?mod=install&action=import&step=2&filename={$_GET["filename"]}", "", "", "multipart/form-data");
 				if ($_POST["seperator"] == "") $_POST["seperator"] = ";";
 				$dsp->AddTextFieldRow("seperator", "<b>Trennzeichen</b>", $_POST["seperator"], "");
 				$dsp->AddFormSubmitRow("change"); 
 
 				$dsp->AddHRuleRow();
-				$dsp->SetForm("install.php?mod=install&action=import&step=3&filename={$_GET["filename"]}&seperator={$_POST["seperator"]}", "", "", "multipart/form-data");
+				$dsp->SetForm("index.php?mod=install&action=import&step=3&filename={$_GET["filename"]}&seperator={$_POST["seperator"]}", "", "", "multipart/form-data");
 				$dsp->AddDoubleRow("<b>Datenbank Feld</b>", "<b>CSV-Datei Eintrag</b>");
 
 				// Read fields in CVS-file
@@ -97,18 +97,18 @@ switch($_GET["step"]){
         }
         
 				$dsp->AddFormSubmitRow("next"); 
-				$dsp->AddBackButton("install.php?mod=install&action=import", "install/import"); 
+				$dsp->AddBackButton("index.php?mod=install&action=import", "install/import");
 				$dsp->AddContent();
 			break;
 
 			case 'tgz':
-			  $func->information($lang['install']['import_err_tgz'], 'install.php?mod=install&action=import');
+			  $func->information($lang['install']['import_err_tgz'], 'index.php?mod=install&action=import');
 //			  $import->ImportExtInc($_FILES['importdata']['tmp_name']);
-//				$func->confirmation($lang["install"]["import_success"], "install.php?mod=install&action=import");
+//				$func->confirmation($lang["install"]["import_success"], "index.php?mod=install&action=import");
 			break;
 
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "install.php?mod=install&action=import");
+				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=import");
 			break;
 		}
 	break;
@@ -156,11 +156,11 @@ switch($_GET["step"]){
 					$z++;
 				}
 
-				$func->confirmation("CVS Import erfolgreich", "install.php?mod=install&action=import");
+				$func->confirmation("CVS Import erfolgreich", "index.php?mod=install&action=import");
 			break;
 
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "install.php?mod=install&action=import");
+				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=import");
 			break;
 		}
 	break;

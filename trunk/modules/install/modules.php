@@ -67,17 +67,17 @@ switch($_GET["step"]) {
 		$db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 1 WHERE name = 'banner'");
 		$db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 1 WHERE name = 'about'");
 
-		$func->confirmation($lang['install']['modules_settings_success'], "install.php?mod=install&action=modules");
+		$func->confirmation($lang['install']['modules_settings_success'], "index.php?mod=install&action=modules");
 	break;
 
 	// Question: Reset all Modules
 	case 3:
-		$func->question($lang["install"]["mod_reset_quest"], "install.php?mod=install&action=modules&rewrite=all", "install.php?mod=install&action=modules");
+		$func->question($lang["install"]["mod_reset_quest"], "index.php?mod=install&action=modules&rewrite=all", "index.php?mod=install&action=modules");
 	break;
 
 	// Question: Reset this Module
 	case 4:
-		$func->question(str_replace("%NAME%", $_GET["module"], $lang["install"]["mod_reset_mod_quest"]), "install.php?mod=install&action=modules&rewrite={$_GET["module"]}", "install.php?mod=install&action=modules");
+		$func->question(str_replace("%NAME%", $_GET["module"], $lang["install"]["mod_reset_mod_quest"]), "index.php?mod=install&action=modules&rewrite={$_GET["module"]}", "index.php?mod=install&action=modules");
 	break;
 
 	// Settings
@@ -93,13 +93,11 @@ switch($_GET["step"]) {
 		$dsp->NewContent($lang["install"]["mod_set_caption"], $lang["install"]["mod_set_subcaption"]);
 
     // Add select row for other module configs
-    if ($script_filename != 'install.php') {
-      $menunames = array();
-  		$res2 = $db->query("SELECT name, caption FROM {$config["tables"]["modules"]} ORDER BY caption");
-  		while ($row2 = $db->fetch_array($res2)) if (FindCfgKeyForMod($row2["name"])) $menunames[$row2['name']] = $row2['caption'];
-    	$db->free_result($res2);
-    	$dsp->AddHeaderMenu2($menunames, "index.php?mod=install&action=modules&step=10&module=", $_GET['headermenuitem']);
-    }
+    $menunames = array();
+		$res2 = $db->query("SELECT name, caption FROM {$config["tables"]["modules"]} ORDER BY caption");
+		while ($row2 = $db->fetch_array($res2)) if (FindCfgKeyForMod($row2["name"])) $menunames[$row2['name']] = $row2['caption'];
+  	$db->free_result($res2);
+  	$dsp->AddHeaderMenu2($menunames, "index.php?mod=install&action=modules&step=10&module=", $_GET['headermenuitem']);
 
     // Get groups
 		$resGroup = $db->query("SELECT cfg_group
@@ -108,11 +106,9 @@ switch($_GET["step"]) {
 				GROUP BY cfg_group
 				ORDER BY cfg_group
         ");
-		if ($db->num_rows($resGroup) == 0) $func->error($lang["install"]["mod_set_err_nosettings"], "install.php?mod=install&action=modules");
+		if ($db->num_rows($resGroup) == 0) $func->error($lang["install"]["mod_set_err_nosettings"], "index.php?mod=install&action=modules");
 		else {
-  		if ($script_filename == "install.php") $formlink = "install.php?mod=install&action=modules&step=11&module={$_GET["module"]}";
-      else $formlink = "index.php?mod=install&action=modules&step=11&module={$_GET["module"]}";
-			$dsp->SetForm($formlink);
+			$dsp->SetForm("index.php?mod=install&action=modules&step=11&module={$_GET["module"]}");
 		
       while ($rowGroup = $db->fetch_array($resGroup)){
     		$dsp->AddFieldsetStart($rowGroup['cfg_group']);
@@ -177,10 +173,6 @@ switch($_GET["step"]) {
 
 			$dsp->AddFormSubmitRow("next");
 		}
-		if ($script_filename == "install.php") {
-		  if ($_GET["module"] == "install") $dsp->AddBackButton("install.php?mod=install", "install/modules"); 
-		  else $dsp->AddBackButton("install.php?mod=install&action=modules", "install/modules");
-    } 
 		$dsp->AddContent();
 	break;
 
@@ -202,11 +194,7 @@ switch($_GET["step"]) {
 			} else $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '$val' WHERE cfg_key = '$key'");
 		}
 
-		if ($script_filename == "install.php") { 
-      if ($_GET["module"] == "install") $backlink = 'install.php?mod=install'; 
-		  else $backlink = 'install.php?mod=install&action=modules';
-		} else $backlink = 'index.php?mod=install&action=modules&step=10&module='. $_GET["module"];
-		$func->confirmation($lang["install"]["modules_settings_success"], $backlink);
+		$func->confirmation($lang["install"]["modules_settings_success"], 'index.php?mod=install&action=modules&step=10&module='. $_GET["module"]);
 	break;
 
 	// Add Menuentry
@@ -242,10 +230,9 @@ switch($_GET["step"]) {
 		WriteMenuEntries();
  		$dsp->AddFieldsetEnd();
 
-		$dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=modules&module={$_GET["module"]}&step=22\">{$lang["install"]["modules_menu_new"]}</a>");
+		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&module={$_GET["module"]}&step=22\">{$lang["install"]["modules_menu_new"]}</a>");
 
 		$dsp->AddFormSubmitRow("next");
-		if ($script_filename == "install.php") $dsp->AddBackButton("install.php?mod=install&action=modules", "install/modules"); 
 		$dsp->AddContent();
 	break;
 
@@ -270,11 +257,11 @@ switch($_GET["step"]) {
 	// Delete Menuentry
 	case 23:
 	  $row = $db->query_first("SELECT requirement FROM {$config["tables"]["menu"]} WHERE id='{$_GET["id"]}'");
-	  if ($row['requirement'] > 0) $func->information($lang['install']['warning_del_menuitem'], "install.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
+	  if ($row['requirement'] > 0) $func->information($lang['install']['warning_del_menuitem'], "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
 	  
 	  else {
   		$db->query("DELETE FROM {$config["tables"]["menu"]} WHERE id='{$_GET["id"]}'");
-  		$func->confirmation($lang["install"]["modules_del_success"], "install.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
+  		$func->confirmation($lang["install"]["modules_del_success"], "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
   	}
 	break;
 
@@ -305,7 +292,7 @@ switch($_GET["step"]) {
 			$dsp->AddHRuleRow();
 
 			$dsp->AddSingleRow("<b>{$lang["install"]["modules_actions"]}</b>");
-			$dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=modules&step=31&module={$_GET["module"]}\">{$lang["install"]["modules_reset_moddb"]}</a>");
+			$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&step=31&module={$_GET["module"]}\">{$lang["install"]["modules_reset_moddb"]}</a>");
 			$dsp->AddHRuleRow();
 
 			$dsp->AddSingleRow("<b>{$lang["install"]["modules_export_moddb"]}</b>");
@@ -314,20 +301,19 @@ switch($_GET["step"]) {
 			$dsp->AddCheckBoxRow("e_cont", $lang["install"]["export_content"], "", "", 1, 1);
 			$dsp->AddFormSubmitRow("download");
 
-			if ($script_filename == "install.php") $dsp->AddBackButton("install.php?mod=install&action=modules", "install/modules"); 
 			$dsp->AddContent();
 		}
 	break;
 
 	// Rewrite specific Module-DB - Question
 	case 31:
-		$func->question(str_replace("%NAME%", $_GET["module"], $lang["install"]["db_rewrite_quest"]), "install.php?mod=install&action=modules&step=32&module={$_GET["module"]}", "install.php?mod=install&action=modules&step=30&module={$_GET["module"]}");
+		$func->question(str_replace("%NAME%", $_GET["module"], $lang["install"]["db_rewrite_quest"]), "index.php?mod=install&action=modules&step=32&module={$_GET["module"]}", "index.php?mod=install&action=modules&step=30&module={$_GET["module"]}");
 	break;
 
 	// Rewrite specific Module-DB
 	case 32:
 		$install->WriteTableFromXMLFile($_GET["module"], 1);
-		$func->confirmation($lang["install"]["modules_rewritedb_success"], "install.php?mod=install&action=modules&step=30&module={$_GET["module"]}");
+		$func->confirmation($lang["install"]["modules_rewritedb_success"], "index.php?mod=install&action=modules&step=30&module={$_GET["module"]}");
 	break;
 
 	// Export Module-DB
@@ -373,10 +359,10 @@ switch($_GET["step"]) {
 		// Output Module-List
 		$dsp->NewContent($lang["install"]["mod_caption"], $lang["install"]["mod_subcaption"]);
 
-		$dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=modules&step=3\">{$lang["install"]["modules_reset_modules"]}</a>");
+		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&step=3\">{$lang["install"]["modules_reset_modules"]}</a>");
 
 		$dsp->AddHRuleRow();
-		$dsp->SetForm("install.php?mod=install&action=modules&step=2");
+		$dsp->SetForm("index.php?mod=install&action=modules&step=2");
 
 		$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
 		while ($row = $db->fetch_array($res)){
@@ -402,17 +388,17 @@ switch($_GET["step"]) {
 			(file_exists("modules/{$row["name"]}/icon.gif"))? $templ['ls']['row']['module']['img'] = "modules/{$row["name"]}/icon.gif"
 			: $templ['ls']['row']['module']['img'] = "modules/sample/icon.gif";
 
-			if (FindCfgKeyForMod($row["name"])) $templ['ls']['row']['module']['settings_link'] = " | <a href=\"install.php?mod=install&action=modules&step=10&module={$row["name"]}\">{$lang["install"]["modules_config"]}</a>";
+			if (FindCfgKeyForMod($row["name"])) $templ['ls']['row']['module']['settings_link'] = " | <a href=\"index.php?mod=install&action=modules&step=10&module={$row["name"]}\">{$lang["install"]["modules_config"]}</a>";
 			else $templ['ls']['row']['module']['settings_link'] = "";
 
 			$find_mod = $db->query_first("SELECT module
 					FROM {$config["tables"]["menu"]}
 					WHERE module='{$row["name"]}'
 					");
-			if ($find_mod["module"]) $templ['ls']['row']['module']['menu_link'] = " | <a href=\"install.php?mod=install&action=modules&step=20&module={$row["name"]}\">{$lang["install"]["modules_menu"]}</a>";
+			if ($find_mod["module"]) $templ['ls']['row']['module']['menu_link'] = " | <a href=\"index.php?mod=install&action=modules&step=20&module={$row["name"]}\">{$lang["install"]["modules_menu"]}</a>";
 			else $templ['ls']['row']['module']['menu_link'] = "";
 
-			if (file_exists("modules/{$row["name"]}/mod_settings/db.xml")) $templ['ls']['row']['module']['db_link'] = " | <a href=\"install.php?mod=install&action=modules&step=30&module={$row["name"]}\">{$lang["install"]["modules_db"]}</a>";
+			if (file_exists("modules/{$row["name"]}/mod_settings/db.xml")) $templ['ls']['row']['module']['db_link'] = " | <a href=\"index.php?mod=install&action=modules&step=30&module={$row["name"]}\">{$lang["install"]["modules_db"]}</a>";
 			else $templ['ls']['row']['module']['db_link'] = "";
 
 			if (file_exists("modules/{$row["name"]}/docu/{$language}_help.php")) {
@@ -426,7 +412,7 @@ switch($_GET["step"]) {
 		$db->free_result($res);
 
 		$dsp->AddFormSubmitRow("next");
-		$dsp->AddBackButton("install.php?mod=install", "install/modules"); 
+		$dsp->AddBackButton("index.php?mod=install", "install/modules");
 		$dsp->AddContent();
 	break;
 } // Switch Action

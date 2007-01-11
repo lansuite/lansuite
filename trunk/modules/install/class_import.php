@@ -268,7 +268,7 @@ class Import {
 				// Update Content only, if no row exists, or table has PrimKey set
 				$EntriesFound = array();
 				$qry = $db->query("SELECT * FROM {$config["database"]["prefix"]}$table_name");
-        if ($DBPrimaryKey or $db->num_rows($qry) > 0) {
+        if ($DBPrimaryKey or $db->num_rows($qry) == 0) {
           if ($DBPrimaryKey) while ($row = $db->fetch_array($qry)) $EntriesFound[] = $row[$DBPrimaryKey];
 
   				foreach ($entrys as $entry) {

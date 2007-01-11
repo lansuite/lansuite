@@ -10,11 +10,13 @@ function authorized($mod, $action) {
 		break;
 		case 2:
 			if ($auth["type"] > 1) return 1;
-			else $func->error("ACCESS_DENIED", "");
+			elseif (!$auth['login']) $func->error('NO_LOGIN', '');
+      else $func->error('ACCESS_DENIED', '');
 		break;
 		case 3:
 			if ($auth["type"] > 2) return 1;
-			else $func->error("ACCESS_DENIED", "");
+			elseif (!$auth['login']) $func->error('NO_LOGIN', '');
+      else $func->error('ACCESS_DENIED', '');
 		break;
 		case 4:
 			if ($auth["type"] < 2) return 1;
@@ -33,7 +35,7 @@ function authorized($mod, $action) {
 
 
 // Set Mod = "Home", if none selected
-if (($_GET['mod'] == "") || (!$func->check_var($_GET['mod'], "string", 0, 50))) {
+if ($_GET['mod'] == "" or !$func->check_var($_GET['mod'], "string", 0, 50)) {
 	($_GET["templ"] == "install")? $mod = "install" : $mod = "home";
 } else $mod = $_GET['mod'];
 
@@ -59,15 +61,14 @@ if ($found_adm and $auth["type"] > 1) {
 }
 
 switch ($mod) {
-	case "logout": $func->confirmation('Sie wurden erfolgreich aus dem Intranet ausgeloggt', "");
-	break;
-
-	case "datalost": $func->confirmation('Bitte wenden Sie sich an die Organisatoren. Und seien Sie nett und geduldig :)', "");
+	case "logout": $func->confirmation(t('Sie wurden erfolgreich ausgeloggt'), '');
 	break;
 
 	case "install":
-		include("modules/install/modindex_install.php");
-	break;
+		if ($IsAboutToInstall) {
+      include_once("modules/install/wizard.php");
+    	break;
+    }
 
 	default:
 		// If module is deactivated display error message
@@ -75,7 +76,7 @@ switch ($mod) {
 		else {
 			//// Load Mod-Config
 			// 1) Search $_GET["action"] in DB
-			// 2) Try to find modindex_$mod.php (will be removed in the future)
+#			// 2) Try to find modindex_$mod.php (will be removed in the future)
 			// 3) Search file named $_GET["action"] in the Mod-Directory
 			// 4) Search "default"-Entry in DB
 			// 5) Error: "Not Found"
@@ -83,7 +84,7 @@ switch ($mod) {
 			$menu = $db->query_first("SELECT * FROM {$config["tables"]["menu"]} WHERE (module = '$mod') and (action = '{$_GET['action']}')");
 			if ($menu["file"] != "") {
 				if (authorized($mod, $menu["file"])) include_once("modules/{$mod}/{$menu["file"]}.php");
-			} elseif (file_exists("modules/$mod/modindex_$mod.php")) include_once("modules/$mod/modindex_$mod.php");
+			} #elseif (file_exists("modules/$mod/modindex_$mod.php")) include_once("modules/$mod/modindex_$mod.php");
 			elseif (file_exists("modules/$mod/{$_GET["action"]}.php")) {
 #  			$menu = $db->query_first("SELECT * FROM {$config["tables"]["menu"]} WHERE (module = '$mod') and (action = 'default')");
 				if (authorized($mod, $_GET["action"])) include_once("modules/{$mod}/{$_GET["action"]}.php");
@@ -94,7 +95,7 @@ switch ($mod) {
 				} else $func->error("NOT_FOUND", "");
 			}
 
-			if ($mod == "info") $modindex_info = New modindex_info();
+#			if ($mod == "info") $modindex_info = New modindex_info();
 		}
 	break;
 }

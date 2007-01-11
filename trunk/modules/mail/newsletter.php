@@ -62,7 +62,6 @@ switch($_GET["step"]) {
 		$dsp->AddTextAreaRow("text", $lang["mail"]["newsletter_text"], $_POST["text"], $text_error);
 
 		$dsp->AddFormSubmitRow("send");
-		$dsp->AddBackButton("install.php?mod=install", "install/db"); 
 		$dsp->AddContent();
 	break;
 
