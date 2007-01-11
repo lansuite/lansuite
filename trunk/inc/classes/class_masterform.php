@@ -443,7 +443,7 @@ class masterform {
             if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
             if ($addUpdSuccess) {
               if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $_SESSION['mf_referrer']);
-              else $func->confirmation($lang['mf']['add_success'], $_SESSION['mf_referrer']);
+              else $func->confirmation($lang['mf']['add_success'], $StartURL);
             }
           }
           
