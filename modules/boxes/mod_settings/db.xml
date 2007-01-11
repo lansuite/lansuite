@@ -135,7 +135,7 @@
 				<name>Info</name>
 				<place>1</place>
 				<pos>2</pos>
-				<active>1</active>
+				<active>0</active>
 				<internet>1</internet>
 				<login>2</login>
 				<module></module>

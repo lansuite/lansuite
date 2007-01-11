@@ -6,7 +6,7 @@ $export = New Export();
 switch($_GET["step"]){
 	default:
 		$dsp->NewContent($lang["install"]["export_caption"], $lang["install"]["export_subcaption"]);
-		$dsp->SetForm("install.php?mod=install&action=export&step=2", "", "", "");
+		$dsp->SetForm("index.php?mod=install&action=export&step=2", "", "", "");
 
 		$type_array = array("xml" => $lang["install"]["export_xml_complete"],
 			"xml_modules" => $lang["install"]["export_xml_module"],
@@ -23,7 +23,7 @@ switch($_GET["step"]){
 		$dsp->AddDropDownFieldRow("type", $lang["tourney"]["t_add_ngl_game"], $t_array, "", 1);
 
 		$dsp->AddFormSubmitRow("next");
-		$dsp->AddBackButton("install.php?mod=install", "install/export"); 
+		$dsp->AddBackButton("index.php?mod=install", "install/export");
 		$dsp->AddContent();
 	break;
 
@@ -129,11 +129,11 @@ switch($_GET["step"]){
       break;
 
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "install.php?mod=install&action=import");
+				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=import");
 			break;
 		}
 
-		$dsp->AddBackButton("install.php?mod=install&action=export", "install/export"); 
+		$dsp->AddBackButton("index.php?mod=install&action=export", "install/export");
 		$dsp->AddContent();
 	break;
 
@@ -182,7 +182,7 @@ switch($_GET["step"]){
 			break;
 
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "install.php?mod=install&action=import");
+				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=import");
 			break;
 		}
 	break;

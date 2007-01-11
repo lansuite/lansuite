@@ -2,9 +2,9 @@
 
 // HTTP-Headers
 header('Content-Type: text/html; charset=utf-8');
-header("Cache-Control: no-cache, must-revalidate");
+#header("Cache-Control: no-cache, must-revalidate");
 
-// Error Reporting auf "Alles außer Hinweise" setzen
+// Error Reporting auf "Alles auÃŸer Hinweise" setzen
 error_reporting(E_ALL ^ E_NOTICE);
 
 // Start session-management
@@ -66,23 +66,22 @@ include_once("inc/base/define.php");
 $lang = array();
 
 if (!$config) {
-	echo HTML_FONT_ERROR. "&Ouml;ffnen oder Lesen der Konfigurations-Datei nicht m&ouml;glich. Lansuite wird beendet." .HTML_NEWLINE . "
-	&Uuml;berpr&uuml;fen Sie die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
+	echo HTML_FONT_ERROR. "Ã–ffnen oder Lesen der Konfigurations-Datei nicht mÃ¶glich. Lansuite wird beendet." .HTML_NEWLINE . "
+	ÃœberprÃ¼fen Sie die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
 	exit(); 
 }
 
 // Wenn configured = 0: Setup aufrufen
 if ($config['environment']['configured'] == 0) {
-	$_GET["action"] = "wizard";
-	$_GET["mod"] = "install";
-	$script_filename = "install.php";
+	$_GET['action'] = 'wizard';
+	$_GET['mod'] = 'install';
 }
+($_GET['mod'] == 'install' and $_GET['action'] == 'wizard')? $IsAboutToInstall = 1 : $IsAboutToInstall = 0;
 
 //// Load Base-Lang-File
 // 1) Include "de"
 if (file_exists("inc/language/language_de.php")) include_once("inc/language/language_de.php");
 if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) include_once("modules/mastersearch/language/mastersearch_lang_de.php");
-if (file_exists("modules/boxes/language/boxes_lang_de.php")) include_once("modules/boxes/language/boxes_lang_de.php");
 
 // Include base classes
 if (extension_loaded("mysqli")) include_once("inc/classes/class_db_mysqli.php");
@@ -122,7 +121,7 @@ $seat2 = new seat2();   // Load Seat-Controll Class
 
 
 // Wenn Install: Connect ohne Abbruch bei Fehler, sonst mit Abbruch
-if ($_GET["mod"] == "install") {
+if ($IsAboutToInstall) {
 	$db->success = $db->connect(1);
 } else $db->success = $db->connect(0);
 
@@ -181,10 +180,10 @@ if ($found_adm) {
 	$auth = $authentication->GetAuthData();
 
 	// Check, if all required user data fields, are known and force user to add them, if not.
-	if ($auth['login'] and $auth['userid'] and $_GET["mod"] != "install") include_once('modules/usrmgr/missing_fields.php');
+	if ($auth['login'] and $auth['userid'] and $_GET["mod"] != 'install') include_once('modules/usrmgr/missing_fields.php');
 	// If not logged in as Administrator on Admin-Page
-	if ($_GET["mod"] == "install" and $auth["type"] < 2) {
-		$dsp->NewContent("Bitte mit einem der angelegten LanSuite-Administrator-Accounts einloggen, um fortzufahren", "Die Installation und Administration von LanSuite dürfen nur Benutzer mit Operator-Rechten durchführen");
+/*	if ($_GET["mod"] == "install" and $auth["type"] < 2) {
+		$dsp->NewContent("Bitte mit einem der angelegten LanSuite-Administrator-Accounts einloggen, um fortzufahren", "Die Installation und Administration von LanSuite dÃ¼rfen nur Benutzer mit Operator-Rechten durchfÃ¼hren");
 		$dsp->SetForm("");
 
 		$dsp->AddTextFieldRow("email", "E-Mail", "", "", "");
@@ -199,7 +198,7 @@ if ($found_adm) {
 		eval("\$index = \"". $func->gettemplate("setup_index")."\";");
 		if ($_GET['design'] != 'base') $sitetool->out_optimizer();
 		exit;
-	}
+	}*/
 } else {
 	$auth["type"] = 3;
 	$auth["login"] = 1;
@@ -209,8 +208,8 @@ if ($found_adm) {
 if($cfg['sys_blocksite'] == 1 && $auth['type'] < 2) $siteblock = true;
 
 // Set Default-Design, if non is set
-if (!$auth["design"]) $auth["design"] = "standard";
-if (!file_exists("design/{$auth["design"]}/templates/index_login.htm")) $auth["design"] = "standard";
+if (!$auth["design"]) $auth["design"] = "osX";
+if (!file_exists("design/{$auth["design"]}/templates/index_login.htm")) $auth["design"] = "osX";
 $_SESSION["auth"]["design"] = $auth["design"];
 
 if ($db->success) {
@@ -220,14 +219,14 @@ if ($db->success) {
 	include_once("modules/sponsor/banner.php");
 }
 
-if ($script_filename != "install.php" and !$_GET['contentonly'] and $_GET['design'] != 'base' and $siteblock == false) {
-	// Boxes (die Defenierung ob linke oder rechte Seite befindet sich jetzt in der modindex_boxes.php)
+if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base' and $siteblock == false) {
+	// Boxes
 	include_once("modules/boxes/class_boxes.php");
 }
 
 // Info Seite blockiert
 if ($cfg['sys_blocksite'] == 1){
-	$func->error($cfg['sys_blocksite_text'],"install.php?mod=install");
+	$func->error($cfg['sys_blocksite_text'], "index.php?mod=install");
 }
 
 // Include Module $_GET["mod"]
@@ -251,12 +250,11 @@ else {
   	if ($CurentURL['query'] == '') $templ['index']['control']['current_url'] = str_replace('?', '', $_SERVER['REQUEST_URI']) .'?fullscreen=no';
   	else $templ['index']['control']['current_url'] = $_SERVER['REQUEST_URI'] .'&fullscreen=no';
   	eval("\$index = \"". $func->gettemplate('index_fullscreen')."\";");
-  } elseif ($script_filename == 'install.php') eval("\$index = \"". $func->gettemplate("setup_index")."\";");
-  else eval("\$index = \"". $func->gettemplate('index_login')."\";");
+  } else eval("\$index = \"". $func->gettemplate('index_login')."\";");
 }
 if ($_GET['design'] != 'base') $sitetool->out_optimizer();
 
-// Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
+// Aktualisierung der Statistik wird erst am Schluss durchgefÃ¼hrt, damit SeitengrÃ¶sse und Berechnungsdauer eingetragen werden kÃ¶nnen.
 if ($db->success) {
   if ($_GET['design'] != 'base') $stats->update($sitetool->out_work(), $sitetool->get_send_size());
   // Check Cronjobs

@@ -21,6 +21,7 @@ Version 3
 - Add: MasterDelete zum veralgemeinerten Löschen von Datensätzen aus der Datenbank (KnoX 04.01.2007)
 - Add: Weitere Sprachen ergänzt (KnoX 04.01.2007)
 
+- Change: Admin-Seite wird nun im Design angezeigt (KnoX 11.01.2007)
 - Change: Zurück-Buttons der Masterform sind nun nicht mehr Modulabhängig, sondern werden automatisch aus URL und Referrer generiert (KnoX 10.01.2007)
 - Change: Logeinträge werden nun nicht mehr der Masterform und Masterdelete, sondern dem jeweiligen Modul zugeordnet (KnoX 10.01.2007)
 - Change: Neue Mastercomment (KnoX 10.01.2007)
