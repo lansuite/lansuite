@@ -8,7 +8,7 @@ chmod_dir			= "777"
 chmod_file			= "666"
 
 [environment]
-configured			= "1"
+configured			= "0"
 dir				= ""
 os				= "Win32"
 mq				= "1"
