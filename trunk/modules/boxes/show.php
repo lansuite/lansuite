@@ -18,9 +18,12 @@ switch ($_GET['step']) {
     $mf = new masterform();
 
     $mf->AddField(t('Titel'), 'name');
-    $mf->AddField(t('Seite'), 'place');
+    $selections = array();
+    $selections['0'] = t('Links');
+    $selections['1'] = t('Rechts');
+    $mf->AddField(t('Seite'), 'place', IS_SELECTION, $selections, FIELD_OPTIONAL);
     $mf->AddField(t('Position'), 'pos');
-    $mf->AddField(t('Aktiv'), 'active');
+    $mf->AddField(t('Aktiv'), 'active', '', '', FIELD_OPTIONAL);
     $selections = array();
     $selections['0'] = t('Egal');
     $selections['1'] = t('Nur in Intranet Version');
@@ -31,16 +34,19 @@ switch ($_GET['step']) {
     $selections['1'] = t('Nur für ausgeloggte');
     $selections['2'] = t('Nur für eingeloggte');
     $mf->AddField(t('Login benötigt'), 'login', IS_SELECTION, $selections, FIELD_OPTIONAL);
-    $mf->AddField(t('Modul benötigt'), 'module');
+    $mf->AddField(t('Modul benötigt'), 'module', '', '', FIELD_OPTIONAL);
     $mf->AddField(t('Quelldatei'), 'source');
-    $mf->AddField(t('Callback'), 'callback');
+    $mf->AddField(t('Callback'), 'callback', '', '', FIELD_OPTIONAL);
 
     $mf->SendForm('index.php?mod=boxes&step=20', 'boxes', 'boxid', $_GET['boxid']);
   break;
   
   // Delete
-#  case 30:
-#  break;
+  case 30:
+    include_once('inc/classes/class_masterdelete.php');
+    $md = new masterdelete();
+    $md->Delete('boxes', 'boxid', $_GET['boxid']);
+  break;
 }
 
 $dsp->NewContent(t('Box-Manager'), t('Hier können Sie die Anzeige und Position der Boxen verwalten'));
@@ -66,11 +72,12 @@ $ms2->AddResultField(t('Aktive'), 'b.active', 'TrueFalse');
 $ms2->AddResultField(t('Quelldatei'), 'b.source');
 
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=boxes&step=20&boxid=', t('Editieren'));
-#if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=boxes&step=30&boxid=', t('Löschen'));
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=boxes&step=30&boxid=', t('Löschen'));
 
 $ms2->AddMultiSelectAction(t('Aktivieren'), 'index.php?mod=boxes&step=10');
 $ms2->AddMultiSelectAction(t('Deaktivieren'), 'index.php?mod=boxes&step=11');
 
 $ms2->PrintSearch('index.php?mod=boxes', 'b.boxid');
+$dsp->AddSingleRow($dsp->FetchButton('index.php?mod=boxes&step=20', 'add'));
 $dsp->AddContent();
 ?>
