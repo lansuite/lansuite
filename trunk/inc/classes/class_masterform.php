@@ -84,10 +84,12 @@ class masterform {
 
 		$this->AddGroup(); // Adds non-group-fields to fake group
 
-    $StartURL = $CurentURLBase;
-    $StartURL = str_replace('&mf_step=2', '', $StartURL);
-    if (strpos($StartURL, '&'. $idname .'='. $id) == 0) $StartURL .= '&'. $idname .'='. $id;
-
+    if ($BaseURL) $StartURL = $BaseURL .'&'. $idname .'='. $id;
+    else {
+      $StartURL = $CurentURLBase;
+      $StartURL = str_replace('&mf_step=2', '', $StartURL);
+      if (strpos($StartURL, '&'. $idname .'='. $id) == 0) $StartURL .= '&'. $idname .'='. $id;
+    }
     if ($id) $this->isChange = true;
 
     $AddKey = '';
