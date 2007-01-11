@@ -332,10 +332,15 @@ class masterform {
               break;
 
               case IS_FILE_UPLOAD: // File Upload to path
-                if (is_dir($field['selections']))
+                if (is_dir($field['selections'])) {
                   $dsp->AddFileSelectRow($field['name'], $field['caption'], $this->error[$field['name']], '', '', $field['optional']);
-                  // Todo: Show current picture (if picture)
-                  // Todo: Possibility to keep curent picture, when only changing other data
+                  if ($_POST[$field['name']]) {
+                    $FileEnding = strtolower(substr($_POST[$field['name']], strrpos($_POST[$field['name']], '.'), 5));
+                    if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') $img = HTML_NEWLINE.'<img src="'. $_POST[$field['name']] .'" />';
+                    else $img = '';
+                    $dsp->AddCheckBoxRow($field['name'].'_keep', t('Aktuelle Datei beibehalten'), $_POST[$field['name']] . $img, '', $field['optional'], 1);
+                  }
+                }
               break;
 
               case IS_PICTURE_SELECT: // Picture Dropdown from path
@@ -389,7 +394,9 @@ class masterform {
             }
 
             // Upload submitted file
-            if ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
+            if ($_POST[$field['name'].'_keep']) {
+              foreach ($this->SQLFields as $key => $val) if ($val == $field['name']) unset($this->SQLFields[$key]);
+            } elseif ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
           }
 
           if ($this->AdditionalDBPreUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBPreUpdateFunction, $id);
