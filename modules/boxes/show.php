@@ -68,7 +68,7 @@ function PlaceName($place) {
 $ms2->AddResultField(t('Titel'), 'b.name');
 $ms2->AddResultField(t('Seite'), 'b.place', 'PlaceName');
 $ms2->AddResultField(t('Position'), 'b.pos');
-$ms2->AddResultField(t('Aktive'), 'b.active', 'TrueFalse');
+$ms2->AddResultField(t('Aktiv'), 'b.active', 'TrueFalse');
 $ms2->AddResultField(t('Quelldatei'), 'b.source');
 
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=boxes&step=20&boxid=', t('Editieren'));
