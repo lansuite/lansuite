@@ -143,10 +143,10 @@ class Import {
   				$field_names[] = $name;
 
   				// If table exists, compare XML-File with DB and check weather the DB has to be updated
+					$found_in_db = 0;
   				if ($table_found) {
 
   					// Search for fiels, which exist in the XML-File, but dont exist in the DB yet.
-  					$found_in_db = 0;
   					if ($db_fields) foreach ($db_fields as $db_field) if ($db_field["Field"] == $name) {
   						$found_in_db = 1;
 
@@ -225,17 +225,15 @@ class Import {
               ## TODO: if ($type == 'text' or $type == 'longtext' or substr($type, 0, 7) == 'varchar')
               $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD FULLTEXT ($name)");
             }
+
+
+  					// If a key was not found in the DB, but in the XML-File -> Add it!
+  					if (!$found_in_db) {
+  						// If auto_increment is used for this key, add this key as primary, unique key
+  						if ($extra == "auto_increment") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra , ADD PRIMARY KEY ($name), ADD UNIQUE ($name)");
+  						else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra");
+  					}
   				}
-
-					// If a key was not found in the DB, but in the XML-File -> Add it!
-					if (!$found_in_db) {
-						// If auto_increment is used for this key, add this key as primary, unique key
-						if ($extra == "auto_increment") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra , ADD PRIMARY KEY ($name), ADD UNIQUE ($name)");
-						else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra");
-					}
-
-  				// Add to installed tables
-          array_push($installed_tables, $config["database"]["prefix"]. $table_name);
   			}
 
   			// Search for fields, which exist in the XML-File no more, but still in DB.
@@ -252,11 +250,16 @@ class Import {
     			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}$table_name ($mysql_fields $primary_key $unique_key) TYPE = MyISAM CHARACTER SET utf8");
     			$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
 
+          # Needed??
           // Set Table-Charset to UTF-8
           $db->query_first("ALTER TABLE {$config["database"]["prefix"]}$table_name DEFAULT CHARACTER SET utf8");
+
+  				// Add to installed tables
+  				# Maybe no longer needed??
+          array_push($installed_tables, $config["database"]["prefix"]. $table_name);
         }
       }
-      
+
 			// Import Table-Content
 			$content = $xml->get_tag_content("content", $table, 0);
 			$entrys = $xml->get_tag_content_array("entry", $content);
