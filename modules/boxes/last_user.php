@@ -10,6 +10,4 @@ while ($row = $db->fetch_array($qry)) {
 	$box->EngangedRow("<b>{$row["username"]}</b> ". $dsp->FetchUserIcon($row["userid"]));
 }
 $db->free_result($qry);
-
-$boxes['last_user'] .= $box->CreateBox("last_user", t('Zuletzt angemeldet'));
 ?>

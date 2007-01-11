@@ -9,5 +9,4 @@ $dsp->form_open = 0;
 $templ['login']['buttons_manage'] = $dsp->FetchIcon('index.php?mod=signon', 'add_user') . $dsp->FetchIcon('index.php?mod=usrmgr&action=pwrecover', 'change_pw');
 $box->AddTemplate("box_login_content");
 
-$boxes['login'] .= $box->CreateBox("login", t('Login'));
 ?>

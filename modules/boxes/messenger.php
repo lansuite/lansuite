@@ -105,7 +105,5 @@ if ($auth['login']) {
 
 	$box->EmptyRow();
 	$box->ItemRow("add", t('Benutzer hinzufügen'), "index.php?mod=msgsys&amp;action=addbuddy", "", "menu");
-
-	$boxes['messenger'] .= $box->CreateBox("messenger", t('Messenger'));
 }
 ?>

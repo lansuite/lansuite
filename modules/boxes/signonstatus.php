@@ -122,6 +122,4 @@ if (!$party_data) {
   $box->EngangedRow($func->unixstamp2date($checked['n'],"datetime" ));
   $box->EmptyRow();
 }
-
-$boxes['signonstatus'] .= $box->CreateBox("signon_state", t('Anmelde-Status'));
 ?>

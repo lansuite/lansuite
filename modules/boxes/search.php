@@ -24,5 +24,4 @@ if (in_array("troubleticket", $ActiveModules)){
 
 $gd->CreateButton('search');
 $box->AddTemplate("box_search_content");
-$boxes['search'] .= $box->CreateBox("search",t('Suche'));
 ?>

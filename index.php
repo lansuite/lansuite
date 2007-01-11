@@ -222,7 +222,7 @@ if ($db->success) {
 
 if ($script_filename != "install.php" and !$_GET['contentonly'] and $_GET['design'] != 'base' and $siteblock == false) {
 	// Boxes (die Defenierung ob linke oder rechte Seite befindet sich jetzt in der modindex_boxes.php)
-	include_once("modules/boxes/modindex_boxes.php");
+	include_once("modules/boxes/class_boxes.php");
 }
 
 // Info Seite blockiert
