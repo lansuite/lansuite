@@ -21,8 +21,16 @@ switch ($_GET['step']) {
     $mf->AddField(t('Seite'), 'place');
     $mf->AddField(t('Position'), 'pos');
     $mf->AddField(t('Aktiv'), 'active');
-    $mf->AddField(t('Nur in Internet Version'), 'internet');
-    $mf->AddField(t('Login benötigt'), 'login');
+    $selections = array();
+    $selections['0'] = t('Egal');
+    $selections['1'] = t('Nur in Intranet Version');
+    $selections['2'] = t('Nur in Internet Verrsion');
+    $mf->AddField(t('Nur online / offline'), 'internet', IS_SELECTION, $selections, FIELD_OPTIONAL);
+    $selections = array();
+    $selections['0'] = t('Egal');
+    $selections['1'] = t('Nur für ausgeloggte');
+    $selections['2'] = t('Nur für eingeloggte');
+    $mf->AddField(t('Login benötigt'), 'login', IS_SELECTION, $selections, FIELD_OPTIONAL);
     $mf->AddField(t('Modul benötigt'), 'module');
     $mf->AddField(t('Quelldatei'), 'source');
     $mf->AddField(t('Callback'), 'callback');
