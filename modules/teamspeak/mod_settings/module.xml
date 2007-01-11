@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<lansuite-module>
+	<name>teamspeak</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
+	<caption>TeamSpeak</caption>		<!-- The modulname displayed to the user -->
+	<description>Zeigt die Channels und Gäste eines TeamSpeak-Servers auf der Webseite an</description>		<!-- A short description of the module -->
+	<active>0</active>				<!-- Is the module activated by default? 0/1 -->
+	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
+	<author>Jochen (KnoX)</author>				<!-- The author of this module -->
+	<email>knox@orgapage.net</email>					<!-- The E-Mail-Adress of the modules author -->
+	<version>0.5</version>			<!-- The version of this module -->
+	<state>Beta</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
+</lansuite-module>
