@@ -314,9 +314,13 @@ class func {
 		$string = str_replace('[/i]', '</i>', $string);
 		$string = str_replace('[u]', '<u>', $string);
 		$string = str_replace('[/u]', '</u>', $string);
+		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">', $string);
+		$string = str_replace('[/c]', '</div></blockquote>', $string);
+		$string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">', $string);
+		$string = str_replace('[/quote]', '</div></blockquote>', $string);
 
- 		$string = preg_replace('#\[c\](.*)\[/c\]#sUi', '<blockquote><div class="tbl_small">Code:</div><table width="100%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>\\1</td></tr></table></blockquote>', $string);
- 		$string = preg_replace('#\[quote\](.*)\[/quote\]#sUi', '<blockquote><div class="tbl_small">Zitat:</div><table width="70%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>\\1</td></tr></table></blockquote>', $string);
+# 		$string = preg_replace('#\[c\](.*)\[/c\]#sUi', '<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\1</div></blockquote>', $string);
+# 		$string = preg_replace('#\[quote\](.*)\[/quote\]#sUi', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">\1</div></blockquote>', $string);
  		$string = preg_replace('#\[size=([0-9]+)\](.*)\[/size\]#sUi', '<font style="font-size:\1px">\2</font>', $string);
  		$string = preg_replace('#\[color=([a-z]+)\](.*)\[/color\]#sUi', '<font color="\1">\2</font>', $string);
 
