@@ -226,9 +226,9 @@ switch ($_GET["step"]){
 	case 6:
 		$dsp->NewContent($lang["install"]["wizard_admin_caption"], $lang["install"]["wizard_admin_subcaption"]);
 		$dsp->SetForm("index.php?mod=install&action=wizard&step=7");
-		$dsp->AddTextFieldRow("email", $lang["install"]["admin_email"], $user, "");
-		$dsp->AddPasswordRow("password", $lang["install"]["conf_pass"], $pass, "");
-		$dsp->AddPasswordRow("password2", $lang["install"]["admin_pass2"], $pass, "");
+		$dsp->AddTextFieldRow("email", $lang["install"]["admin_email"], 'admin@admin.de', '');
+		$dsp->AddPasswordRow("password", $lang["install"]["conf_pass"], '', '');
+		$dsp->AddPasswordRow("password2", $lang["install"]["admin_pass2"], '', '');
 		$dsp->AddFormSubmitRow("add");
 
 		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=8", "next"));
@@ -257,12 +257,21 @@ switch ($_GET["step"]){
 			else {
 				$db->query("INSERT INTO {$config["tables"]["user"]} SET
 						username = 'ADMIN',
+						firstname = 'ADMIN',
+						name = 'ADMIN',
 						email='{$_POST["email"]}',
 						password = '". md5($_POST["password"]) ."',
 						type = '3'
 						");
 				$userid = $db->insert_id();
 				$db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid = '$userid'");
+
+				// Log in
+        if (!$auth['login']) {
+          $_POST['email'] = $_POST['email'];
+          $_POST['password'] = $_POST['password_original'];
+          $authentication->login('save');
+        }
 			}
 			$found_adm = 1;
 		}

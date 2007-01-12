@@ -144,4 +144,11 @@ function sys_internet() {
   else return false;
 }
 
+function snmp() {
+  global $config;
+
+  if ($config['snmp']) return true;
+  else return false;
+}
+
 ?>
