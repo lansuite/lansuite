@@ -27,10 +27,10 @@ $mf->AddField(t('Betrifft Modul'), 'module', IS_SELECTION, $selections, FIELD_OP
 if ($_SERVER['SERVER_NAME'] == 'lansuite.orgapage.de') $mf->AddField(t('Betrifft Version'), 'version');
 
 $selections = array();
-for ($z = -5; $z <= 5; $z++) {
+for ($z = 5; $z >= -5; $z--) {
   $selections[$z] = $z;
-  if ($z == -5) $selections[$z] .= ' ('. t('Sehr gering') .')';
   if ($z == 5) $selections[$z] .= ' ('. t('Sehr hoch') .')';
+  if ($z == -5) $selections[$z] .= ' ('. t('Sehr gering') .')';
 }
 $mf->AddField(t('Priorität'), 'priority', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
