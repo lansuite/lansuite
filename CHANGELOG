@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 3
 
+- Bugfix: Upload des Sponsorbox-Buttons ging nicht (KnoX 12.01.2007)
 - Bugfix: #577 #579 Mail und Log beim Clanpasswort wechsel korrigiert (KnoX 07.01.2007)
 
 - Add: Boxmanager zum verwalten der Boxen (KnoX 11.01.2007)

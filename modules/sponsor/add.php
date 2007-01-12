@@ -63,7 +63,7 @@ global $func, $gd;
 		// --- Box Button ---
     // 1) Was a picture uploaded?
     if ($_FILES['pic_upload_button']['name']) {
-			$_POST['pic_path_button'] = $func->FileUpload('pic_upload_button', 'ext_inc/banner/');
+			$_POST['pic_path_button'] = $_POST['pic_upload_button'];
 
 		// 2) Was an external URL given?
 		} elseif ($_POST['pic_path_button'] != 'http://' and $_POST['pic_path_button'] != '') $_POST['pic_path_button'] = $_POST['pic_path_button'];
