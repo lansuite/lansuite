@@ -11,7 +11,7 @@ $query = $db->query("SELECT f.fid, t.tid, MAX(p.pid) AS pid, t.caption, MAX(p.da
 	WHERE (f.need_type <= '{$authtyp}')
 	GROUP BY t.tid
 	ORDER BY LastPost DESC
-	LIMIT 0,8");
+	LIMIT 0,{$cfg['home_item_count']}");
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $templ['home']['show']['row']['control']['link']	= "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&gotopid={$row['pid']}#pid{$row['pid']}";
   $templ['home']['show']['row']['info']['text']		= $row['caption'] .' ['.$row['posts'].']';

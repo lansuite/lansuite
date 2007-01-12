@@ -36,6 +36,12 @@
     		<default>0</default>
     		<description>Welche Startseite soll im ausgeloggten Zustand angezeigt werden?</description>
     	</item>
+    	<item>
+    		<name>home_item_count</name>
+    		<type>integer</type>
+    		<default>8</default>
+    		<description>Wie viele neue Einträge sollen jeweils angezeigt werden?</description>
+    	</item>
     </items>
   </group>
 </config>

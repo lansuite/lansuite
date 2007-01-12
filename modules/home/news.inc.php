@@ -7,7 +7,7 @@
     LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = n.newsid AND c.relatedto_item = 'news')
     GROUP BY c.relatedto_id
     ORDER BY n.top DESC, n.date DESC
-    LIMIT 0,8
+    LIMIT 0,{$cfg['home_item_count']}
     ");
 	if($db->num_rows($query) > 0) {
 		while($row = $db->fetch_array($query)) {
