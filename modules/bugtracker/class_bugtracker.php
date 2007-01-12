@@ -15,7 +15,7 @@ class Bugtracker {
   }
 
   function SetBugStateInternal($bugid, $state) {
-    global $db, $config, $func, $auth;
+    global $db, $config, $func, $auth, $mail;
 
     if ($auth['type'] <= 1) {
       $row = $db->query_first("SELECT caption, state FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
@@ -32,6 +32,11 @@ class Bugtracker {
     if (!$row['found']) {
       $db->query("UPDATE {$config['tables']['bugtracker']} SET state = ". (int)$state .' WHERE bugid = '. (int)$bugid);
       $func->log_event(t('Problem auf Status "%1" geändert', array($this->stati[$state])), 1, '', $bugid);
+      if ($state == 3) {
+        $row = $db->query_first("SELECT reporter, caption FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
+        $mail->create_sys_mail($row['reporter'], t('Feedback zu deinem Bugreport benötigt'), t('Der Status deines Bugreports %1 wurd auf Feedback benötigt gesetzt. Bitte schau dir den Report noch einmal an und helfe deine Angaben zu vervollständigen', array($row['caption'])));
+        $func->log_event(t('Benachrichtigungsmail an Reporter versandt'), 1, '', $bugid);
+      }
     }
   }
 
