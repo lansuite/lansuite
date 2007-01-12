@@ -15,7 +15,7 @@
 		<file>show</file>
 		<caption>Installieren</caption>
 		<hint>Installiere Sie das Wiki um Benutzer festlegen zu können</hint>
-		<link>?mod=news&action=install</link>
+		<link>?mod=wiki&action=install</link>
 		<requirement>2</requirement>
 		<level>1</level>
     <needed_config>DokuWikiNotInstalled</needed_config>
