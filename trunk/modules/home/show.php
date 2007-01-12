@@ -1,6 +1,8 @@
 <?php
 $LSCurFile = __FILE__;
 
+if (!$cfg['home_item_count']) $cfg['home_item_count'] = 8;
+
 if ($auth["type"] == 1 or $auth["type"] == 2 or $auth["type"] == 3) $home_page = $cfg["home_login"];
 else $home_page = $cfg["home_logout"];
 

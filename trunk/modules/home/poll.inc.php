@@ -6,7 +6,7 @@ $query = $db->query("SELECT p.pollid, p.caption, COUNT(v.pollid) AS votes FROM {
   LEFT JOIN {$config["tables"]["pollvotes"]} AS v on p.pollid = v.pollid
   GROUP BY p.pollid
   ORDER BY p.changedate DESC
-  LIMIT 0,5
+  LIMIT 0,{$cfg['home_item_count']}
   ");
 if ($db->num_rows($query) > 0) {
 	while($row = $db->fetch_array($query)) {
