@@ -152,4 +152,9 @@ function snmp() {
   else return false;
 }
 
+function DokuWikiNotInstalled() {
+  if (!file_exists('ext_scripts/dokuwiki/conf/local.php')) return true;
+  else return false;
+}
+
 ?>
