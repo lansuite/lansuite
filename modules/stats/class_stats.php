@@ -25,16 +25,18 @@ class stats {
 		}
     setcookie('last_hit', time(), time() + (30 * 60));
 
+    // Beispiel: Suche bei Google nach lansuite.orgapage.de führt zu folgendem Referrer:
+    #$_SERVER['HTTP_REFERER'] = "http://www.google.de/search?hl=de&q=lansuite.orgapage.de&btnG=Google-Suche&meta=";
 
 		// Update search engine data
 		$search_engine = '';
-		if (strpos($_SERVER['http_referer'], 'ttp://www.google.') > 0) $search_engine = 'google';
-		elseif (strpos($_SERVER['http_referer'], '.yahoo.com/search') > 0) $search_engine = 'yahoo';
-		elseif (strpos($_SERVER['http_referer'], '.altavista.com') > 0) $search_engine = 'altavista';
-		elseif (strpos($_SERVER['http_referer'], 'ttp://search.msn.') > 0) $search_engine = 'msn';
-		elseif (strpos($_SERVER['http_referer'], '.aol.de/suche') > 0) $search_engine = 'aol_de';
-		elseif (strpos($_SERVER['http_referer'], 'search.aol.com/') > 0) $search_engine = 'aol_com';
-		elseif (strpos($_SERVER['http_referer'], '.web.de/') > 0) $search_engine = 'web_de';
+		if (strpos($_SERVER['HTTP_REFERER'], 'ttp://www.google.') > 0) $search_engine = 'google';
+		elseif (strpos($_SERVER['HTTP_REFERER'], '.yahoo.com/search') > 0) $search_engine = 'yahoo';
+		elseif (strpos($_SERVER['HTTP_REFERER'], '.altavista.com') > 0) $search_engine = 'altavista';
+		elseif (strpos($_SERVER['HTTP_REFERER'], 'ttp://search.msn.') > 0) $search_engine = 'msn';
+		elseif (strpos($_SERVER['HTTP_REFERER'], '.aol.de/suche') > 0) $search_engine = 'aol_de';
+		elseif (strpos($_SERVER['HTTP_REFERER'], 'search.aol.com/') > 0) $search_engine = 'aol_com';
+		elseif (strpos($_SERVER['HTTP_REFERER'], '.web.de/') > 0) $search_engine = 'web_de';
 
 		if ($search_engine != '') {
   		$query_var = array(
@@ -48,7 +50,7 @@ class stats {
   			);
 
 			// Read URL parameters into an array
-			$url_paras = explode ("?", $_SERVER["http_referer"]); // URL part behind ? -> $url_paras[1]
+			$url_paras = explode ("?", $_SERVER["HTTP_REFERER"]); // URL part behind ? -> $url_paras[1]
 			$url_paras = explode ("&", $url_paras[1]);
 
 			foreach($url_paras as $akt_para){
