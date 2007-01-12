@@ -13,6 +13,7 @@ if ($_GET['step'] == 10 and is_numeric($_GET['party_id'])) {
   $cfg['signon_partyid'] = $_GET['party_id'];
 }
 
+$dsp->NewContent($lang['signon']['show_party_caption'],$lang['signon']['show_party_subcaption']);
 switch($_GET['step']){
 	default:
     include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -38,13 +39,11 @@ switch($_GET['step']){
     $ms2->PrintSearch('index.php?mod=party', 'p.party_id');
 
     $dsp->AddSingleRow($dsp->FetchButton('index.php?mod=party&action=edit', 'add'));
-    $dsp->AddContent();
 	break;
 
 	case 1:
 		$row = $db->query_first("SELECT p.*, UNIX_TIMESTAMP(p.startdate) AS startdate, UNIX_TIMESTAMP(p.enddate) AS enddate, UNIX_TIMESTAMP(p.sstartdate) AS sstartdate, UNIX_TIMESTAMP(p.senddate) AS senddate FROM {$config['tables']['partys']} AS p WHERE party_id={$party->party_id}");
 
-		$dsp->NewContent($lang['signon']['show_party_caption'],$lang['signon']['show_party_subcaption']);
 		$dsp->AddDoubleRow($lang['signon']['partyname'],$row['name']);
 		$dsp->AddDoubleRow($lang['signon']['max_guest'],$row['max_guest']);
 		$dsp->AddDoubleRow($lang['signon']['plz'],$row['plz']);
@@ -56,7 +55,7 @@ switch($_GET['step']){
 		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=party&action=edit&party_id={$_GET['party_id']}","edit"));
 
     $dsp->AddBackButton('index.php?mod=party');
-		$dsp->AddContent();
 	break;
 }
+$dsp->AddContent();
 ?>
