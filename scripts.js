@@ -53,6 +53,10 @@ if (!xmlHttp && typeof XMLHttpRequest != 'undefined') xmlHttp = new XMLHttpReque
 
 // aktuelle Daten laden
 function loadPage(url) {
+  location.href = url;
+
+// AJAX deactivated
+/*
   LoadingToolTip('<b>Loading...</b>');
   if (xmlHttp) {
     xmlHttp.open('GET', url +'&contentonly=1');
@@ -70,6 +74,7 @@ function loadPage(url) {
     }
     xmlHttp.send(null);
   }
+*/
 }
 
 function LoadingToolTip(text) {
