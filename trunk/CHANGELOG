@@ -6,10 +6,12 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 3
 
+- Bugfix: Im SE-Modus wurde in Turnieren teilweise eine etwas kleinere Startzeit angezeigt (KnoX 13.01.2007)
 - Bugfix: Suchmaschienen-Statistik hatte nicht funktioniert. (KnoX 12.01.2007)
 - Bugfix: Upload des Sponsorbox-Buttons ging nicht (KnoX 12.01.2007)
 - Bugfix: #577 #579 Mail und Log beim Clanpasswort wechsel korrigiert (KnoX 07.01.2007)
 
+- Add: Mails können nun aus dem Papierkorb gelöscht werden (KnoX 13.01.2007)
 - Add: DokuWiki eingebaut (KnoX 12.01.2007)
 - Add: Boxmanager zum verwalten der Boxen (KnoX 11.01.2007)
 - Add: Letzter Kontocheck in Anmelde-Status-Box (Mag!c 10.01.2007)
@@ -24,6 +26,9 @@ Version 3
 - Add: MasterDelete zum veralgemeinerten Löschen von Datensätzen aus der Datenbank (KnoX 04.01.2007)
 - Add: Weitere Sprachen ergänzt (KnoX 04.01.2007)
 
+- Change: Avatar-Pfad in der DB wird nun komplett angegeben, daher müssen Avatare neu hinzugefügt werden (KnoX 13.01.2007)
+- Change: Ajax-Loading wieder raus genommen (KnoX 13.01.2007)
+- Change: Footer-Zeile neu gestaltet (KnoX 13.01.2007)
 - Change: Bei der Installation werden nun alle benötigten Benutzerfelder ausgefüllt und der Benutzer wird automatisch eingeloggt (KnoX 12.01.2007)
 - Change: Admin-Seite wird nun im Design angezeigt (KnoX 11.01.2007)
 - Change: Zurück-Buttons der Masterform sind nun nicht mehr Modulabhängig, sondern werden automatisch aus URL und Referrer generiert (KnoX 10.01.2007)
