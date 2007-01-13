@@ -4,7 +4,7 @@
 	$templ['home']['show']['item']['control']['row'] = "";
 	
   $query = $db->query("SELECT n.newsid, n.caption, n.priority, COUNT(c.relatedto_id) AS comments FROM {$config["tables"]["news"]} AS n
-    LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = n.newsid AND c.relatedto_item = 'news')
+    LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = n.newsid AND (c.relatedto_item = 'news' OR c.relatedto_item IS NULL))
     GROUP BY c.relatedto_id
     ORDER BY n.top DESC, n.date DESC
     LIMIT 0,{$cfg['home_item_count']}
