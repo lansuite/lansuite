@@ -33,6 +33,8 @@ switch ($_GET['step']) {
     $selections['0'] = t('Egal');
     $selections['1'] = t('Nur für ausgeloggte');
     $selections['2'] = t('Nur für eingeloggte');
+    $selections['3'] = t('Nur für Admins + Operatoren');
+    $selections['4'] = t('Nur für Operatoren');
     $mf->AddField(t('Login benötigt'), 'login', IS_SELECTION, $selections, FIELD_OPTIONAL);
     $mf->AddField(t('Modul benötigt'), 'module', '', '', FIELD_OPTIONAL);
     $mf->AddField(t('Quelldatei'), 'source');
@@ -58,7 +60,7 @@ $ms2->query['from'] = "{$config["tables"]["boxes"]} AS b";
 $ms2->query['default_order_by'] = 'place ASC, pos ASC, name ASC';
 
 $ms2->AddTextSearchDropDown(t('Internet-Modus'), 'p.internet', array('' => t('Egal'), '1' => t('Nur im Intranet-Modus'), '2' => t('Nur im Internet-Modus')));
-$ms2->AddTextSearchDropDown(t('Login'), 'b.login', array('' => t('Egal'), '1' => t('Nur für ausgeloggte'), '2' => t('Nur für eingeloggte')));
+$ms2->AddTextSearchDropDown(t('Login'), 'b.login', array('' => t('Egal'), '1' => t('Nur für ausgeloggte'), '2' => t('Nur für eingeloggte'), '3' => t('Nur für Admins + Operatoren'), '4' => t('Nur für Operatoren')));
 
 function PlaceName($place) {
   if ($place == 0) return t('Linke Seite');
