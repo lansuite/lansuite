@@ -132,7 +132,7 @@ $box = new boxes();
 $BoxRes = $db->query("SELECT boxid, name, place, source, module, callback FROM {$config["tables"]["boxes"]}
   WHERE active = 1
     AND (internet = 0 OR internet = {$cfg['sys_internet']} + 1)
-    AND (login = 0 OR login = {$auth['login']} + 1)
+    AND (login = 0 OR login = {$auth['login']} + 1 OR (login > 2 AND login >= {$auth['type']} - 1))
   ORDER BY pos
   ");
 while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or in_array($BoxRow['module'], $ActiveModules))
