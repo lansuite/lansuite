@@ -157,6 +157,8 @@ class masterform {
 
             // If not in DependOn-Group, or DependOn-Group is active
             if (!$this->DependOnStarted or $_POST[$this->DependOnField]) {
+
+              // -- Convertions --
               // Convert Post-date to unix-timestap
               if ($SQLFieldTypes[$field['name']] == 'datetime')
                 $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
@@ -166,6 +168,14 @@ class masterform {
                 $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
                 $_POST[$field['name'].'_value_day'], 0, 0, 0);
 
+              // Upload submitted file
+              if ($_POST[$field['name'].'_keep']) {
+                foreach ($this->SQLFields as $key => $val) if ($val == $field['name']) unset($this->SQLFields[$key]);
+              } elseif ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
+
+
+              // -- Checks --
+              // Exec callback
               if ($field['type'] == IS_CALLBACK) $err = call_user_func($field['selections'], $field['name'], CHECK_ERROR_PROC);
               if ($err) $this->error[$field['name']] = $err;
 
@@ -394,11 +404,6 @@ class masterform {
               $_POST[$field['name'] .'_original'] = $_POST[$field['name']];
               $_POST[$field['name']] = md5($_POST[$field['name']]);
             }
-
-            // Upload submitted file
-            if ($_POST[$field['name'].'_keep']) {
-              foreach ($this->SQLFields as $key => $val) if ($val == $field['name']) unset($this->SQLFields[$key]);
-            } elseif ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
           }
 
           if ($this->AdditionalDBPreUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBPreUpdateFunction, $id);

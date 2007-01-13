@@ -3,22 +3,47 @@
 class masterdelete {
 
   var $References = array();
+  var $SubReferences = array();
+  var $DeleteIfEmpty = array();
   var $LogID = 0;
 
   // Internal function, used to delete
   function DoDelete($table, $idname, $id) {
   global $func, $db, $config;
 
+    // Get key to master table
+    foreach ($this->DeleteIfEmpty as $key => $val) {
+      $row = $db->query_first("SELECT $val FROM {$config['tables'][$table]} WHERE $idname = '$id'");
+      $MasterKey[$key] = $row[$val];
+    }
+
+    // Delete main table
     $res = $db->query("DELETE FROM {$config['tables'][$table]} WHERE $idname = '$id'");
 		if ($res) {
+
+      // Delete master tables, if content is now missing
+      foreach ($this->DeleteIfEmpty as $key => $val) {
+        if ($val == '') $val = $idname;
+        $row = $db->query_first("SELECT 1 AS found FROM {$config['tables'][$table]} WHERE $val = '{$MasterKey[$key]}'");
+        if (!$row['found']) $db->query("DELETE FROM {$config['tables'][$key]} WHERE $val = '{$MasterKey[$key]}'");
+      }
+
+      // Delete all attached tables
       foreach ($this->References as $key => $val) {
         if ($val == '') $val = $idname;
+
+        // If a table is attached, to the attached table, fetch all keys from the first and delete them in the second
+        if ($this->SubReferences) foreach ($this->SubReferences as $key2 => $val2) if ($val2) {
+          $res2 = $db->query("SELECT $val2 FROM {$config['tables'][$key]} WHERE $val = '$id'");
+          while ($row2 = $db->fetch_array($res2)) $db->query("DELETE FROM {$config['tables'][$key2]} WHERE $val2 = '{$row2[$val2]}'");
+          $db->free_result($res2);
+        }
+
         $db->query("DELETE FROM {$config['tables'][$key]} WHERE $val = '$id'");
       }
+
       $func->log_event(t('Eintrag #%1 aus Tabelle "%2" gelöscht', array($id, $config['tables'][$table])), 1, '', $this->LogID);
-		} else {
-      $func->log_event(t('Fehler beim Löschen von #%1 aus Tabelle "%2"', array($id, $config['tables'][$table])), 3, '', $this->LogID);
-    }
+		} else $func->log_event(t('Fehler beim Löschen von #%1 aus Tabelle "%2"', array($id, $config['tables'][$table])), 3, '', $this->LogID);
     
     return $res;
   }
