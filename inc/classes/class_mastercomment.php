@@ -3,7 +3,7 @@
 function FetchDataRow($username) {
   global $func, $dsp, $line;
 
-  $html_image= '<img src="ext_inc/avatare/%s" alt="%s" border="0">';
+  $html_image= '<img src="%s" alt="%s" border="0">';
 	$avatar = ($line['avatar_path'] != '' and $line['avatar_path'] != 'none') ? sprintf($html_image, $line['avatar_path'], t('Avatar')) : '';
 
   $ret = '<b>'. $username .'</b> '. $dsp->FetchUserIcon($line['userid']) . HTML_NEWLINE;
