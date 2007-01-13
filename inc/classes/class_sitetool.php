@@ -105,22 +105,52 @@ class sitetool {
 			// Erweiterung für Statisktik
 			if ($compression_mode and $cfg['sys_compress_level']){
 				$this->send_size = sprintf("%01.2f",((strlen(gzcompress($index, $cfg['sys_compress_level'])))/1024));
-				$compressed = " | Compressed: ". $this->send_size ." kBytes";		
-			} else $this->send_size = sprintf("%01.2f", (strlen($index)) / 1024);
+	   		$site_size = ' | Size: '. $this->send_size .' KB | Uncompressed: '. sprintf("%01.2f", ((strlen($index))/1024))." KB";
+			} else {
+        $this->send_size = sprintf("%01.2f", (strlen($index)) / 1024);
+  			$site_size = " | Size: ". $this->send_size ." KB";
+      }
 
-			$uncompressed = " | Uncompressed: ".sprintf ("%01.2f", ((strlen($index))/1024))." KBytes";
-			$processed = " | Processed in: ". $this->out_work() ." Sec";
-			$dbquery = "Total DB-Querys: ". $db->count_query;
+$footer = '
+<a  href="ext_inc/newsfeed/news.xml" title="Latest news feed"><img src="ext_inc/footer_buttons/button-rss.png" width="80" height="15" alt="Latest news feed" border="0" /></a>
+<a  href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="license" title="Creative Commons License"><img src="ext_inc/footer_buttons/button-cc.gif" width="80" height="15" alt="Creative Commons License" border="0" /></a>
+<a  href="https://www.paypal.com/xclick/business=jochen.jung%40gmx.de&amp;item_name=Lansuite&amp;no_shipping=2&amp;no_note=1&amp;tax=0&amp;currency_code=EUR&amp;lc=DE" title="Donate"><img src="ext_inc/footer_buttons/button-donate.gif" alt="Donate" width="80" height="15" border="0" /></a>
+<a  href="http://www.php.net" title="Powered by PHP"><img src="ext_inc/footer_buttons/button-php.gif" width="80" height="15" alt="Powered by PHP" border="0" /></a>
+<a  href="http://www.mysql.com" title="MySQL Database"><img src="ext_inc/footer_buttons/mysql.gif" width="80" height="15" alt="MySQL Database" border="0" /></a>
+<!--
+<a  href="http://validator.w3.org/check/referer" title="Valid XHTML 1.0"><img src="ext_inc/footer_buttons/button-xhtml.png" width="80" height="15" alt="Valid XHTML 1.0" border="0" /></a>
+<a  href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS"><img src="ext_inc/footer_buttons/button-css.png" width="80" height="15" alt="Valid CSS" border="0" /></a>
+-->
+<a  href="http://www.lansuite.de" title="Lansuite"><img src="ext_inc/footer_buttons/button_lansuite.png" width="80" height="15" alt="Lansuite" border="0" /></a>
+
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <Work rdf:about="">
+    <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" />
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/InteractiveResource" />
+  </Work>
+  <License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.0/de/">
+    <permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
+    <permits rdf:resource="http://web.resource.org/cc/Distribution"/>
+    <requires rdf:resource="http://web.resource.org/cc/Notice"/>
+    <requires rdf:resource="http://web.resource.org/cc/Attribution"/>
+    <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse"/>
+    <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
+    <requires rdf:resource="http://web.resource.org/cc/ShareAlike"/>
+  </License>
+</rdf:RDF>
+-->
+';
 
 			// Define Footer-Message
-			$footer = $templ['index']['info']['version']." &copy; 2001-".date("Y").' <a href="http://www.lansuite.de" target="_blank" class="menu">LanSuite.de</a>
-			| All rights reserved
-			| <a href="index.php?mod=about" class="menu">about Lansuite</a>
-			| <a href="'.$_SERVER['REQUEST_URI'].$ru_suffix.'fullscreen=yes" class="menu">Vollbild</a>'.
-			"<br/>$dbquery $processed $compressed $uncompressed";
-      if ($_GET['contentonly']) $index .= '<div id="NewLSfooter">'. $footer .'</div>';
+			$footer .= HTML_NEWLINE .'<a href="index.php?mod=about" class="menu">'. $templ['index']['info']['version'].' &copy;2001-'.date('y').'</a>'
+      .' | DB-Querys: '. $db->count_query
+      .' | Processed in: '. round($this->out_work(), 2) .' Sec'. $site_size
+			.' | <a href="'. $_SERVER['REQUEST_URI'].$ru_suffix .'fullscreen=yes" class="menu">Fullscreen</a>';
 
-			if ($cfg["sys_optional_footer"]) $footer .= $cfg["sys_optional_footer"];
+      if ($_GET['contentonly']) $index .= '<div id="NewLSfooter">'. $footer .'</div>';
+			if ($cfg["sys_optional_footer"]) $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
+
 			$index = str_replace("{footer}", $footer, $index);
 
 			// change & to &amp;
