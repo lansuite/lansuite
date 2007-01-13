@@ -253,7 +253,7 @@ class masterform {
               case 'longtext':
                 if (!$maxchar) $maxchar = 4294967295;
                 if ($field['selections'] == HTML_ALLOWED or $field['selections'] == LSCODE_ALLOWED) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
-                elseif ($field['selections'] == LSCODE_BIG) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], 90, 20, $field['optional'], $maxchar);
+                elseif ($field['selections'] == LSCODE_BIG) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], 70, 20, $field['optional'], $maxchar);
                 elseif ($field['selections'] == HTML_WYSIWYG) {
                   ob_start();
                   include_once("ext_scripts/FCKeditor/fckeditor.php");
