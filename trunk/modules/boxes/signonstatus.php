@@ -116,7 +116,7 @@ if (!$party_data) {
 	$box->ItemRow("data", "<b>". $party_data['name'] . "</b>");
 	$box->EngangedRow(date("d.m", $party_data['partybegin']) .' - '. date("d.m.y", $party_data['partyend']));
 
-  $checked = $db->query_first("SELECT checked as n FROM lansuite_partys" );
+  $checked = $db->query_first("SELECT checked as n FROM {$config["tables"]["partys"]} WHERE party_id = ".(int)$party->party_id);
   $box->EmptyRow();
   $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>" );
   $box->EngangedRow($func->unixstamp2date($checked['n'],"datetime" ));

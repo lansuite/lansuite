@@ -148,8 +148,8 @@ $footer = '
       .' | Processed in: '. round($this->out_work(), 2) .' Sec'. $site_size
 			.' | <a href="'. $_SERVER['REQUEST_URI'].$ru_suffix .'fullscreen=yes" class="menu">Fullscreen</a>';
 
-      if ($_GET['contentonly']) $index .= '<div id="NewLSfooter">'. $footer .'</div>';
 			if ($cfg["sys_optional_footer"]) $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
+      if ($_GET['contentonly']) $index .= '<div id="NewLSfooter">'. $footer .'</div>';
 
 			$index = str_replace("{footer}", $footer, $index);
 
