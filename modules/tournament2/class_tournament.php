@@ -110,11 +110,15 @@ class tfunc {
 					");
 			$team_anz = $get_team_anz["anz"];
 
-			$tournament["starttime"] += $round_duration * ($team_anz - 1 - $correction) * $faktor;
+			$tournament["starttime"] += $round_duration * ($team_anz - 1) * $faktor;
 		}
 
-		if ($round > 0) return $tournament["starttime"] + $round_duration * ($round - 0.5) * $faktor;
-		else return $tournament["starttime"] + $round_duration * abs($round) * $faktor;
+    if ($tournament["mode"] == 'single') {
+  		return $tournament["starttime"] + $round_duration * (abs($round));
+    } else {
+  		if ($round > 0) return $tournament["starttime"] + $round_duration * ($round - 0.5) * $faktor;
+  		else return $tournament["starttime"] + $round_duration * abs($round) * $faktor;
+    }
 	}
 
 
@@ -136,11 +140,15 @@ class tfunc {
 					");
 			$team_anz = $get_team_anz["anz"];
 
-			$tournament["starttime"] += $round_duration * ($team_anz - 1 - $correction) * $faktor;
+			$tournament["starttime"] += $round_duration * ($team_anz - 1) * $faktor;
 		}
 
-		if ($round > 0) return $tournament["starttime"] + $round_duration * ($round + 1 - 0.5) * $faktor - $break_duration;
-		else return $tournament["starttime"] + $round_duration * (abs($round) + 0.5) * $faktor  - $break_duration;
+    if ($tournament["mode"] == 'single') {
+  		return $tournament["starttime"] + $round_duration * (abs($round + 1)) - $break_duration;
+    } else {
+  		if ($round > 0) return $tournament["starttime"] + $round_duration * ($round + 1 - 0.5) * $faktor - $break_duration;
+  		else return $tournament["starttime"] + $round_duration * (abs($round) + 0.5) * $faktor  - $break_duration;
+    }
 	}
 
 

@@ -127,8 +127,6 @@ class Mail {
 
 
 	function create_sys_mail($to_userid, $subject_text, $msgbody_text ) {
-		global $cfg;
-
 		if ($this->create_mail("0", $to_userid, $subject_text, $msgbody_text)) return true;
 		else return false;
 	}
@@ -136,6 +134,9 @@ class Mail {
 	
 	function create_inet_mail($to_user_name, $to_user_email, $subject_text, $msgbody_text, $from) {
 		global $cfg, $board_config;
+		
+    // Do not send, when in intranet mode
+		if (!$cfg['sys_internet']) return true;
 
 		// Set default Sender-Mail, if non is set
 		if ($this->inet_from_mail == "") $this->inet_from_mail = $cfg["sys_party_mail"];
