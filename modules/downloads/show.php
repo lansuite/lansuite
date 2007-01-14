@@ -1,46 +1,28 @@
 <?php
 
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*
-*	(c) 2001-2003 by One-Network.Org
-*
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		showphp
-*	Module: 		Downloads
-*	Main editor: 		johannes@one-network.org
-*	Last change: 		03.01.2003 13:35
-*	Description: 		This script can connect to a FTP-Server
-*				and displays the contents for our
-*				users
-*	Remarks: 		
-*
-**************************************************************************/
+// Use /ext_inc/downloads
+if (!$cfg['download_use_ftp']) {
+  $dsp->NewContent(t('Downloads'), t('Folgende Dateien werden hier angeboten'));
+  
+  $DLDesign = opendir('ext_inc/downloads');
+  while ($file = readdir($DLDesign)) if ($file != 'info.txt' and !is_dir("ext_inc/downloads/$file")) {
+    $dsp->AddSingleRow('<a href="ext_inc/downloads/'. $file .'" target="_base">'. $file .'</a>');
+  }
+  closedir($DLDesign);
+  $dsp->AddContent();
 
-//
-// Register Session
-//
-session_register("downloads_dir");
 
-//
-// FTP-Support is avaiable and FTP-Server IP = Webserver IP 
-//
-//
-// FTP-Support isn't avaiable
-//
+// Try to connect to FTP-Server
+} elseif (!extension_loaded(ftp)) $func->error($lang["downloads"]["no_ftp_extension"], "");
+else {
 
-$server 		= $cfg['download_server'];
-$port 			= $cfg['download_port'];
-$loginuser 		= $cfg['download_username'];
-$loginpassword 	= $cfg['download_password'];
-$subdir			= $cfg['download_subdir'];
+  session_register("downloads_dir");
 
-if (!extension_loaded(ftp)) $func->error($lang["downloads"]["no_ftp_extension"], "");
-elseif ($server == "" OR $cfg['download_disabled'] == 1) $func->error($lang["downloads"]["show_noftpsupport"], "");
-elseif(!$server == "") {
+  $server 		= $cfg['download_server'];
+  $port 			= $cfg['download_port'];
+  $loginuser 		= $cfg['download_username'];
+  $loginpassword 	= $cfg['download_password'];
+  $subdir			= $cfg['download_subdir'];
 
 	//
 	// Connect to FTP-Server and log in with data from config file

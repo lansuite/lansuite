@@ -6,10 +6,10 @@
     </head>
     <items>
     	<item>
-    		<name>download_disabled</name>
+    		<name>download_use_ftp</name>
     		<type>boolean</type>
     		<default>0</default>
-    		<description>Download deaktiveren</description>
+    		<description>FTP-Server verwenden? Alternativ werden die Dateien aus /ext_inc/downloads/ aufgelistet</description>
     	</item>
     </items>
   </group>
