@@ -174,9 +174,11 @@ else {
   $mf->AddField(t('Bild / Datei anhängen'), 'file', IS_FILE_UPLOAD, 'ext_inc/board_upload/', FIELD_OPTIONAL);
   
   $mf->AddFix('tid', $_GET['tid']);
-  if ($_GET['pid'] == '') $mf->AddFix('date', time());
-  $mf->AddFix('userid', $auth['userid']);
-  $mf->AddFix('id', $_SERVER['REMOTE_ADDR']);
+  if ($_GET['pid'] == '') {
+    $mf->AddFix('date', time());
+    $mf->AddFix('userid', $auth['userid']);
+    $mf->AddFix('ip', $_SERVER['REMOTE_ADDR']);
+  }
   
   if ($pid = $mf->SendForm('index.php?mod=board&action=thread&fid='. $_GET['fid'] .'&tid='. $_GET['tid'].'&gotopid='.$pid, 'board_posts', 'pid', $_GET['pid'])) {
     $tid = (int)$_GET['tid'];
