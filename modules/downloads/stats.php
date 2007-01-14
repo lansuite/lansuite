@@ -53,12 +53,12 @@ if (!$_GET['file']) {
   	break;
   }
 
-#  $dsp->AddSingleRow('', '<object data="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
-#    Ihr Browser kann das Objekt leider nicht anzeigen!
-#  </object>');
+  $dsp->AddSingleRow('<object data="index.php?mod=downloads&action=stats_grafik&design=base&file='. $_GET['file'] .'&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
+    Ihr Browser kann das Objekt leider nicht anzeigen!
+  </object>');
 #  #  <param name="src" value="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'>
 
-  $dsp->AddDoubleRow("<b>Time</b>", "<b>Visits (Hits)</b>");
+  $dsp->AddDoubleRow("<b>Time</b>", "<b>Hits</b>");
 
   $res = $db->query("SELECT DATE_FORMAT(time, '$group_by') AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits FROM {$config["tables"]["download_stats"]}
     WHERE file = '{$_GET['file']}' AND DATE_FORMAT(time, '$where') = '{$_GET['timeframe']}'
@@ -73,7 +73,7 @@ if (!$_GET['file']) {
       case 'd': $out = $func->unixstamp2date($row['display_time'], 'daydatetime'); break;
     }
     if ($link) $out = '<a href="index.php?mod=downloads&action=stats&file='.$_GET['file'].'&time='. $link .'&timeframe='. $row['group_by_time'] .'">'. $out .'</a>';
-    $dsp->AddDoubleRow($out, $row['visits'] .' ('. $row['hits'] .')');
+    $dsp->AddDoubleRow($out, $row['hits']);
   }
   $db->free_result($res);
 

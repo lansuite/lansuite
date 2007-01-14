@@ -12,13 +12,13 @@ if (!$cfg['download_use_ftp']) {
   $LinkUp = '<a href="index.php?mod=downloads" class="menu">Downloads</a>';
   $LinkUpDir = '';
   $FileName = '';
-  foreach ($Dirs as $val) {
+  foreach ($Dirs as $val) if ($val != '') {
     $LinkUpDir .= $val;
     $LinkUp .= ' - <a href="index.php?mod=downloads&dir='. $LinkUpDir .'" class="menu">'. $val .'</a>';
     $LinkUpDir .= '/';
     $FileName = $val;
   }
-  $dsp->NewContent(t('Downloads'), $LinkUp);
+  $dsp->NewContent(t('Downloads'), '');
 
   // Download dialoge, if file is selected
   if (is_file($BaseDir.$_GET['dir'])  ) {
@@ -28,6 +28,7 @@ if (!$cfg['download_use_ftp']) {
 
     header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
     header('Content-Disposition: attachment; filename="'. $FileName .'"');
+    header("Content-Length: " .(string)(filesize($BaseDir.$_GET['dir'])));
     readfile($BaseDir.$_GET['dir']);
 #    header('Location: http://'. $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF']) . $BaseDir . $_GET['dir']);
     exit;
@@ -35,13 +36,23 @@ if (!$cfg['download_use_ftp']) {
 
   // Display directory
   } else {
+      
     // Display Dir-Info-Text from DB
     $row = $db->query_first("SELECT dirid, text, allow_upload FROM {$config['tables']['download_dirs']} WHERE name = '{$_GET['dir']}'");
-    if ($row['text']) $dsp->AddSingleRow($func->text2html($row['text']));
+    if (!$row['dirid']) {
+      $db->query("INSERT INTO {$config['tables']['download_dirs']} SET name = '{$_GET['dir']}'");
+      $row['dirid'] = $db->insert_id();
+    }
+    if ($row['text']) {
+      $dsp->AddFieldSetStart(t('Ordner-Information'));
+      $dsp->AddSingleRow($func->text2html($row['text']));
+      $dsp->AddFieldSetEnd();
+    }
 
+    $dsp->AddFieldSetStart(t('Navigation: ') . $LinkUp);
     $DLDesign = opendir($BaseDir.$_GET['dir']);
     while ($CurFile = readdir($DLDesign)) if ($CurFile != '.' and $CurFile != '..') {
-      #$CreateTime = filectime($BaseDir.'/'.$CurFilePath);
+      $CreateTime = filectime($BaseDir.'/'.$CurFilePath);
 
       if ($_GET['dir']) $CurFilePath = $_GET['dir'] .'/'. $CurFile;
       else $CurFilePath = $CurFile;
@@ -54,18 +65,25 @@ if (!$cfg['download_use_ftp']) {
 
         // File
         } else {
-          $dsp->AddSingleRow('<a href="index.php?mod=downloads&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $CurFile .'</a>');
+          $Size = filesize($BaseDir.'/'.$CurFilePath);
+          $dsp->AddSingleRow('<a href="index.php?mod=downloads&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $CurFile .' ['. $func->FormatFileSize($Size) .']'.'</a>');
         }
       }
     }
     closedir($DLDesign);
+    $dsp->AddFieldSetEnd();
 
     // TODO: File Upload
     if ($auth['type' >= 2] or $row['allow_upload']) {
     }
 
+    // Comments
+    include('inc/classes/class_mastercomment.php');
+    new Mastercomment('downloads', $row['dirid']);
+
     // Admin functions for dir
     if ($auth['type'] >= 2) {
+      $dsp->AddFieldSetStart(t('Ordner Text und Einstellungen editieren'));
       include_once('inc/classes/class_masterform.php');
       $mf = new masterform();
 
@@ -77,6 +95,7 @@ if (!$cfg['download_use_ftp']) {
       }
 
       $mf->SendForm('index.php?mod=downloads&dir='. $_GET['dir'], 'download_dirs', 'dirid', $row['dirid']);
+      $dsp->AddFieldSetEnd();
     }
   }
   $dsp->AddContent();
