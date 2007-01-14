@@ -6,7 +6,7 @@ $templ['home']['show']['item']['control']['row'] = "";
 $query = $db->query("SELECT b.*, COUNT(c.relatedto_id) AS comments FROM {$config["tables"]["bugtracker"]} AS b
   LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
   WHERE b.state <= 3
-  GROUP BY c.relatedto_id
+  GROUP BY b.bugid
   ORDER BY b.date DESC
   LIMIT 0,{$cfg['home_item_count']}
   ");

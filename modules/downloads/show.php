@@ -2,13 +2,83 @@
 
 // Use /ext_inc/downloads
 if (!$cfg['download_use_ftp']) {
-  $dsp->NewContent(t('Downloads'), t('Folgende Dateien werden hier angeboten'));
-  
-  $DLDesign = opendir('ext_inc/downloads');
-  while ($file = readdir($DLDesign)) if ($file != 'info.txt' and !is_dir("ext_inc/downloads/$file")) {
-    $dsp->AddSingleRow('<a href="ext_inc/downloads/'. $file .'" target="_base">'. $file .'</a>');
+  $BaseDir = 'ext_inc/auto_images/';
+
+  // Don't allow directories above base!
+  $_GET['dir'] = str_replace('/..', '', $_GET['dir']);
+
+  // Generate up-links
+  $Dirs = split('/',$_GET['dir']);
+  $LinkUp = '<a href="index.php?mod=downloads" class="menu">Downloads</a>';
+  $LinkUpDir = '';
+  $FileName = '';
+  foreach ($Dirs as $val) {
+    $LinkUpDir .= $val;
+    $LinkUp .= ' - <a href="index.php?mod=downloads&dir='. $LinkUpDir .'" class="menu">'. $val .'</a>';
+    $LinkUpDir .= '/';
+    $FileName = $val;
   }
-  closedir($DLDesign);
+  $dsp->NewContent(t('Downloads'), $LinkUp);
+
+  // Download dialoge, if file is selected
+  if (is_file($BaseDir.$_GET['dir'])  ) {
+  	$row = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["download_stats"]} WHERE file = '{$_GET['dir']}' AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
+  	if ($row['found']) $db->query("UPDATE {$config["tables"]["download_stats"]} SET hits = hits + 1 WHERE file = '{$_GET['dir']}' AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
+  	else $db->query("INSERT INTO {$config["tables"]["download_stats"]} SET file = '{$_GET['dir']}', hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
+
+    header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
+    header('Content-Disposition: attachment; filename="'. $FileName .'"');
+    readfile($BaseDir.$_GET['dir']);
+#    header('Location: http://'. $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF']) . $BaseDir . $_GET['dir']);
+    exit;
+
+
+  // Display directory
+  } else {
+    // Display Dir-Info-Text from DB
+    $row = $db->query_first("SELECT dirid, text, allow_upload FROM {$config['tables']['download_dirs']} WHERE name = '{$_GET['dir']}'");
+    if ($row['text']) $dsp->AddSingleRow($func->text2html($row['text']));
+
+    $DLDesign = opendir($BaseDir.$_GET['dir']);
+    while ($CurFile = readdir($DLDesign)) if ($CurFile != '.' and $CurFile != '..') {
+      #$CreateTime = filectime($BaseDir.'/'.$CurFilePath);
+
+      if ($_GET['dir']) $CurFilePath = $_GET['dir'] .'/'. $CurFile;
+      else $CurFilePath = $CurFile;
+
+      if ($CurFilePath != 'info.txt' and $CurFilePath != 'CVS') {
+
+        // Dir
+        if (is_dir($BaseDir.'/'.$CurFilePath)) {
+          $dsp->AddSingleRow('<a href="index.php?mod=downloads&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_folder.gif" border="0" /> '. $CurFile .'</a>');
+
+        // File
+        } else {
+          $dsp->AddSingleRow('<a href="index.php?mod=downloads&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $CurFile .'</a>');
+        }
+      }
+    }
+    closedir($DLDesign);
+
+    // TODO: File Upload
+    if ($auth['type' >= 2] or $row['allow_upload']) {
+    }
+
+    // Admin functions for dir
+    if ($auth['type'] >= 2) {
+      include_once('inc/classes/class_masterform.php');
+      $mf = new masterform();
+
+      $mf->AddField(t('Text'), 'text', '', LSCODE_BIG);
+      $mf->AddField(t('Benutzer-Upload erlauben?'), 'allow_upload', '', '', FIELD_OPTIONAL);
+      if (!$_GET['dirid']) {
+        $mf->AddFix('name', $_GET['dir']);
+        $mf->AddFix('userid', $auth['userid']);
+      }
+
+      $mf->SendForm('index.php?mod=downloads&dir='. $_GET['dir'], 'download_dirs', 'dirid', $row['dirid']);
+    }
+  }
   $dsp->AddContent();
 
 
