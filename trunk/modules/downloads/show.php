@@ -2,7 +2,7 @@
 
 // Use /ext_inc/downloads
 if (!$cfg['download_use_ftp']) {
-  $BaseDir = 'ext_inc/auto_images/';
+  $BaseDir = 'ext_inc/downloads/';
 
   // Don't allow directories above base!
   $_GET['dir'] = str_replace('/..', '', $_GET['dir']);
