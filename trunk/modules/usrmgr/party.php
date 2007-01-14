@@ -58,7 +58,7 @@ else {
           $UpcommingStartet = 1;
         }
         
-        $dsp->AddFieldsetStart($row['name'] .' ('. $func->unixstamp2date($row['startdate'], 'date') .' - '. $func->unixstamp2date($row['enddate'], 'date') .')');
+        $dsp->AddFieldsetStart($row['name'] .' ('. $func->unixstamp2date($row['startdate'], 'datetime') .' - '. $func->unixstamp2date($row['enddate'], 'datetime') .')');
         $mf = new masterform($MFID);
         $mf->AdditionalKey = 'party_id = '. $row['party_id'];
     

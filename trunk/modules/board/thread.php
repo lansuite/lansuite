@@ -197,7 +197,7 @@ else {
   	$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
   
   	// Internet-Mail
-  	$subscribers = $db->query("SELECT b.userid u.firstname, u.name, u.email FROM {$config["tables"]["board_bookmark"]} AS b
+  	$subscribers = $db->query("SELECT b.userid, u.firstname, u.name, u.email FROM {$config["tables"]["board_bookmark"]} AS b
   		LEFT JOIN {$config["tables"]["user"]} AS u ON b.userid = u.userid
   		WHERE b.email = 1 and (b.tid = '$tid' or b.fid = ". (int)$_GET['fid'] .")
   		");
