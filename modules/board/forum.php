@@ -78,7 +78,7 @@ $ms2->query['from'] = "{$config['tables']['board_threads']} AS t
     LEFT JOIN {$config['tables']['board_posts']} AS p ON t.tid = p.tid
     LEFT JOIN {$config["tables"]["board_read_state"]} AS r ON t.tid = r.tid AND r.userid = ". (int)$auth['userid'] ."
     LEFT JOIN {$config["tables"]["user"]} AS u ON p.userid = u.userid
-    LEFT JOIN {$config["tables"]["board_bookmark"]} AS b ON b.tid = t.tid AND b.userid = ". (int)$auth['userid'] ."
+    LEFT JOIN {$config["tables"]["board_bookmark"]} AS b ON (b.fid = t.fid OR b.tid = t.tid) AND b.userid = ". (int)$auth['userid'] ."
     ";
 $ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1);
 if ($_GET['fid'] != '') $ms2->query['where'] .= ' AND t.fid = '. (int)$_GET['fid'];
@@ -112,7 +112,30 @@ if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action
 $ms2->PrintSearch('index.php?mod=board&action='. $_GET['action'] .'&fid='. $_GET['fid'], 't.tid');
 
 if ($_GET['fid'] != '') $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
-$dsp->AddContent();
+
+// Bookmarks and Auto-Mail
+if ($_GET['fid'] and $auth['login']) {
+	if ($_GET["set_bm"]) {
+		$db->query_first("DELETE FROM {$config["tables"]["board_bookmark"]} WHERE fid = '{$_GET['fid']}' AND userid = '{$auth['userid']}'");
+		if ($_POST["check_bookmark"]) $db->query_first("INSERT INTO {$config["tables"]["board_bookmark"]} SET fid = '{$_GET['fid']}', userid = '{$auth['userid']}', email = '{$_POST["check_email"]}', sysemail = '{$_POST["check_sysemail"]}'");
+	}
+
+	$bookmark = $db->query_first("SELECT 1 AS found, email, sysemail FROM {$config["tables"]["board_bookmark"]} WHERE fid = '". (int)$_GET['fid'] ."' AND userid = '{$auth['userid']}'");
+	if ($bookmark["found"]) $_POST["check_bookmark"] = 1;
+	if ($bookmark["email"]) $_POST["check_email"] = 1;
+	if ($bookmark["sysemail"]) $_POST["check_sysemail"] = 1;
+
+	$dsp->SetForm("index.php?mod=board&action=forum&fid={$_GET['fid']}&set_bm=1");
+	$dsp->AddFieldsetStart(t('Monitoring - Das Aufnehmen in die eigenen Lesezeichen ist Vorraussetzung, um per Mail zu aboniert'));
+  $additionalHTML = "onclick=\"CheckBoxBoxActivate('email', this.checked)\"";
+	$dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Alle Beiträge in diesem Forum in meine Lesezeichen aufnehmen'), "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
+	$dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
+	$dsp->AddCheckBoxRow("check_email", t('E-Mail Benachrichtigung'), t('Bei Antworten auf Beiträge in Threads dieses Forums eine Internet-Mail an mich senden'), "", 1, $_POST["check_email"]);
+	$dsp->AddCheckBoxRow("check_sysemail", t('System-E-Mail'), t('Bei Antworten auf Beiträge in Threads dieses Forums eine System-Mail an mich senden'), "", 1, $_POST["check_sysemail"]);
+	$dsp->StopHiddenBox();
+	$dsp->AddFormSubmitRow("edit");
+	$dsp->AddFieldsetEnd();
+}
 
 // Generate Boardlist-Dropdown
 $foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]} WHERE need_type <= ". (int)($auth['type'] + 1));

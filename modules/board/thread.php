@@ -197,20 +197,20 @@ else {
   	$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
   
   	// Internet-Mail
-  	$subscribers = $db->query("SELECT u.firstname, u.name, u.email FROM {$config["tables"]["board_bookmark"]} AS b
+  	$subscribers = $db->query("SELECT b.userid u.firstname, u.name, u.email FROM {$config["tables"]["board_bookmark"]} AS b
   		LEFT JOIN {$config["tables"]["user"]} AS u ON b.userid = u.userid
-  		WHERE b.email = 1 and b.tid = '$tid'
+  		WHERE b.email = 1 and (b.tid = '$tid' or b.fid = ". (int)$_GET['fid'] .")
   		");
-  	while ($subscriber = $db->fetch_array($subscribers)){
+  	while ($subscriber = $db->fetch_array($subscribers)) if ($subscriber['userid'] != $auth['userid'])
   		$mail->create_inet_mail($subscriber["firstname"]." ".$subscriber["name"], $subscriber["email"], $cfg["board_subscribe_subject"], str_replace("%URL%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=board&action=thread&tid=$tid", $cfg["board_subscribe_text"]), $cfg["sys_party_mail"]);
-  	}
   	$db->free_result($subscribers);
   
   	// Sys-Mail
-  	$subscribers = $db->query("SELECT userid FROM {$config["tables"]["board_bookmark"]} AS b WHERE b.sysemail = 1 and b.tid = '$tid'");
-  	while ($subscriber = $db->fetch_array($subscribers)) {
+  	$subscribers = $db->query("SELECT userid FROM {$config["tables"]["board_bookmark"]} AS b
+      WHERE b.sysemail = 1 and (b.tid = '$tid' or b.fid = ". (int)$_GET['fid'] .")
+      ");
+  	while ($subscriber = $db->fetch_array($subscribers)) if ($subscriber['userid'] != $auth['userid'])
   		$mail->create_sys_mail($subscriber["userid"], $cfg["board_subscribe_subject"], str_replace("%URL%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=board&action=thread&tid=$tid", $cfg["board_subscribe_text"]));
-  	}
   	$db->free_result($subscribers);
   }
   $dsp->AddFieldsetEnd();
