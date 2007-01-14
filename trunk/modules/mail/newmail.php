@@ -68,8 +68,8 @@ switch($_GET["step"]) {
 
         $dsp->NewContent($lang["mail"]["new_caption"], str_replace("%USERNAME%", $get_username["username"], $lang["mail"]["new_subcaption"]));
         $dsp->SetForm("index.php?mod=mail&action=newmail&step=3&userID=$user_id&to_userid=$user_id&replyto=".$_GET["replyto"], "newmail");
-        $dsp->AddTextFieldRow("subject_text", $lang["mail"]["new_subject"], $_POST["subject_text"], $subject_error,51);
-        $dsp->AddTextAreaPlusRow("msgbody_text", $lang["mail"]["new_text"], $_POST["msgbody_text"], $msgbody_error);
+        $dsp->AddTextFieldRow("subject_text", $lang["mail"]["new_subject"], $_POST["subject_text"], $subject_error, 72);
+        $dsp->AddTextAreaPlusRow("msgbody_text", $lang["mail"]["new_text"], $_POST["msgbody_text"], $msgbody_error, 70, 20);
         $dsp->AddFormSubmitRow("next");
         $dsp->AddContent();
 	break;

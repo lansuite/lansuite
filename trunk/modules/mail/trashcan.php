@@ -24,5 +24,7 @@ $ms2->AddResultField($lang['mail']['showmail_mail_read'], 'm.rx_date', 'MS2GetDa
 
 $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=trash&mailID=', $lang['ms2']['details']);
 
+$ms2->AddMultiSelectAction('Löschen', 'index.php?mod=mail&action=delete&mailid=', 1);
+
 $ms2->PrintSearch('index.php?mod=mail&action=trash', 'm.mailid');
 ?>

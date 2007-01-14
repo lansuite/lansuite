@@ -179,9 +179,11 @@ $mf->AddField($lang['tourney']['t_add_lgz_game'], 'lgz_gamename', IS_SELECTION, 
 // Rules (Extern)
 $selections = array();
 $selections[] = $lang['tourney']['t_add_none'];
-$verz = @opendir('ext_inc/tournament_rules/');
-while ($file_name = @readdir($verz)) if (!is_dir($file_name)) $selections[$file_name] = $file_name;
-@closedir($verz);
+$verz = opendir('ext_inc/tournament_rules/');
+while ($file_name = readdir($verz)) if (!is_dir('ext_inc/tournament_rules/'.$file_name) and $file_name != 'gameini.xml'
+  and $file_name != 'games.xml' and $file_name != 'info.txt' and $file_name != 'xml_games.xml')
+  $selections[$file_name] = $file_name;
+closedir($verz);
 $mf->AddField($lang['tourney']['t_add_ext_rules'], 'rules_ext', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
 $mf->AddField($lang['tourney']['t_add_comment'], 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
