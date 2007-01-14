@@ -48,10 +48,10 @@ switch($_GET['step']){
 		$dsp->AddDoubleRow($lang['signon']['max_guest'],$row['max_guest']);
 		$dsp->AddDoubleRow($lang['signon']['plz'],$row['plz']);
 		$dsp->AddDoubleRow($lang['signon']['ort'],$row['ort']);
-		$dsp->AddDoubleRow($lang['signon']['stime'],$func->unixstamp2date($row['startdate'],"date"));
-		$dsp->AddDoubleRow($lang['signon']['etime'],$func->unixstamp2date($row['enddate'],"date"));
-		$dsp->AddDoubleRow($lang['signon']['sstime'],$func->unixstamp2date($row['sstartdate'],"date"));
-		$dsp->AddDoubleRow($lang['signon']['setime'],$func->unixstamp2date($row['senddate'],"date"));
+		$dsp->AddDoubleRow($lang['signon']['stime'],$func->unixstamp2date($row['startdate'],"datetime"));
+		$dsp->AddDoubleRow($lang['signon']['etime'],$func->unixstamp2date($row['enddate'],"datetime"));
+		$dsp->AddDoubleRow($lang['signon']['sstime'],$func->unixstamp2date($row['sstartdate'],"datetime"));
+		$dsp->AddDoubleRow($lang['signon']['setime'],$func->unixstamp2date($row['senddate'],"datetime"));
 		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=party&action=edit&party_id={$_GET['party_id']}","edit"));
 
     $dsp->AddBackButton('index.php?mod=party');
