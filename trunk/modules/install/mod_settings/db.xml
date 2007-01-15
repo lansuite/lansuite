@@ -538,6 +538,14 @@
 				<default></default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>boxid</name>
+				<type>int(2)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
 		</structure>
 		<content>
 		</content>
