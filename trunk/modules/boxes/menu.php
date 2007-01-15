@@ -122,10 +122,10 @@ if ($cfg['sys_show_langselect']) {
 }
 */
 
-foreach ($BoxContent as $val) {
+foreach ($BoxContent as $key => $val) {
   $templ['box']['rows'] = $val;
-  if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
-  elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
+  if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'].'_'.$key, t($BoxRow['name']));
+  elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'].'_'.$key, t($BoxRow['name']));
   $templ['box']['rows'] = '';
 }
 
