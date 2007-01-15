@@ -8,7 +8,7 @@ function PartyMail() {
   global $cfg, $usrmgr, $func, $mail;
 
   if ($cfg["signon_password_mail"]) {
-  	if ($usrmgr->SendSignonMail(1)) $func->confirmation(t('Eine Bestätigung der Anmeldung wurde an deine eMail-Adresse gesendet', NO_LINK));
+  	if ($usrmgr->SendSignonMail(1)) $func->confirmation(t('Eine Bestätigung der Anmeldung wurde an deine eMail-Adresse gesendet'), NO_LINK);
   	else {
   		$func->error(t('Es ist ein Fehler beim Versand der Informations-eMail aufgetreten. Fehlermeldung:'). $mail->error, NO_LINK);
   		$cfg['signon_password_view'] = 1;
