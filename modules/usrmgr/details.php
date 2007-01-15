@@ -46,7 +46,7 @@ else {
 	$user_auth = $db->query_first("SELECT count(*) as count FROM {$config['tables']['stats_auth']} WHERE userid = '{$_GET['userid']}' AND login = '1' AND lasthit > " . (time() - $config['lansuite']['user_timeout']) );
 
 	// Select from table_board_posts/threads
-	$get_board_threads = $db->query("SELECT b.tid, b.date, t.caption FROM {$config[tables][board_posts]} AS b
+	$get_board_threads = $db->query("SELECT b.tid, b.date, t.caption FROM {$config['tables']['board_posts']} AS b
 			LEFT JOIN {$config[tables][board_threads]} AS t ON b.tid = t.tid
 			WHERE b.userid = '{$_GET['userid']}'
 			GROUP BY b.tid

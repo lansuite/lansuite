@@ -194,10 +194,11 @@ else {
       // Assign just created post to this new thread
   		$db->query("UPDATE {$config['tables']['board_posts']} SET tid = $tid WHERE pid = $pid");
     }
-  
+
   	// Send email-notifications to thread-subscribers
   	$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
-  
+
+    if (!$_GET['fid']) $_GET['fid'] = $thread['fid'];
   	// Internet-Mail
   	$subscribers = $db->query("SELECT b.userid, u.firstname, u.name, u.email FROM {$config["tables"]["board_bookmark"]} AS b
   		LEFT JOIN {$config["tables"]["user"]} AS u ON b.userid = u.userid
