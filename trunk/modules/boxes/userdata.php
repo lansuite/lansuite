@@ -19,14 +19,9 @@ if (strlen($auth['username']) > 14) $username = substr($auth['username'], 0, 11)
 else $username = $auth['username'];
 $userid_formated = sprintf( "%0".$config['size']['userid_digits']."d", $auth['userid']);
 
-$box->DotRow(t('Benutzername').':');
+$box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]");
 $box->EngangedRow("<b>$username</b> ". $dsp->FetchUserIcon($auth["userid"]));
-$box->EngangedRow("[ID <i>$userid_formated</i>]");
-
-// Show other links
-if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php?mod=usrmgr&action=myticket", "", "menu");
-
-$icons = '';
+#$box->EngangedRow("");
 
 // New-Mail Notice
 if (in_array('mail', $ActiveModules)) {
@@ -36,7 +31,7 @@ if (in_array('mail', $ActiveModules)) {
 		");
 
 	if ($db->num_rows($mails_new) > 0) {
-    $icons .= $dsp->FetchIcon('index.php?mod=mail', 'receive_mail', t('Sie haben Post!')) .' ';
+    $box->EngangedRow($dsp->FetchIcon('index.php?mod=mail', 'receive_mail', t('Sie haben Post!')));
   
     // Open PopUp
     $found_not_popped_up_mail = false;
@@ -55,10 +50,10 @@ if (in_array('mail', $ActiveModules)) {
   $db->free_result($mails_new);
 }
 
-$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=details&userid='. $auth["userid"], 'details', t('Pers. Details')) .' ';
-$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=settings', 'generate', t('Pers. Einstellungen')) .' ';
-$icons .= $dsp->FetchIcon('index.php?mod=logout', 'no', t('Logout')) .' ';
-$box->EngangedRow($icons);
+#$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=details&userid='. $auth["userid"], 'details', t('Pers. Details')) .' ';
+#$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=settings', 'generate', t('Pers. Einstellungen')) .' ';
+#$icons .= $dsp->FetchIcon('index.php?mod=logout', 'no', t('Logout')) .' ';
+#$box->EngangedRow($icons);
 
 // Show last log in and login count
 $user_lg = $db->query_first("SELECT user.logins, max(auth.logintime) AS logintime
@@ -67,7 +62,12 @@ $user_lg = $db->query_first("SELECT user.logins, max(auth.logintime) AS logintim
 	WHERE user.userid=\"".$auth["userid"]."\"
 	GROUP BY auth.userid");
 
-$box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] ."</b>");
+$box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] .'</b> <a href="index.php?mod=logout"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" alt="Logout" title="Logout" /></a>');
 $box->DotRow(t('Zuletzt eingeloggt'));
-$box->EngangedRow("<b>". $func->unixstamp2date($user_lg["logintime"], "shortdaytime") ."</b>");
+$box->EngangedRow("<b>". date('d.m H:i', $user_lg["logintime"]) ."</b>");
+
+// Show other links
+if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php?mod=usrmgr&action=myticket", "", "menu");
+$box->DotRow(t('Meine Einstellungen'), "index.php?mod=usrmgr&action=settings", '', "menu");
+
 ?>

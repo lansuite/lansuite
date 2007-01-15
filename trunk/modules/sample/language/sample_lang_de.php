@@ -27,7 +27,7 @@
  $lang['sample']['subheadline'] = 'Erweiterte &Uuml;berschrift';
  $lang['sample']['single_row']	= 'Eine einfache Zeile';
  $lang['sample']['name']	= 'Texteingabe';
- $lang['sample']['user_insg']	= 'Benutzer insgesammt';
+ $lang['sample']['user_insg']	= 'Benutzer insgesamt';
 
 
  //

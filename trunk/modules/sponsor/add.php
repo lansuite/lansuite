@@ -90,16 +90,22 @@ else {
   $mf->AddField($lang['sponsor']['add_url'], 'url', '', '', FIELD_OPTIONAL);
   $mf->AddGroup('General');
 
-  $code_popup_link = '<ul>
+  $code_popup_link_banner = '<ul>
     <li><a href="javascript:OpenHelplet(\'sponsor\', \'ngl\');">NGL-Button</a></li>
     <li><a href="javascript:OpenHelplet(\'sponsor\', \'wwcl\');">WWCL-Banner</a></li>
     <li><a href="javascript:OpenHelplet(\'sponsor\', \'adsense\');">Google Anzeigen</a></li>
     </ul>';
 
+  $code_popup_link_box = '<ul>
+    <li><a href="javascript:OpenHelplet(\'sponsor\', \'ngl\');">NGL-Button</a></li>
+    <li><a href="javascript:OpenHelplet(\'sponsor\', \'wwcl\');">WWCL-Banner</a></li>
+    <li><a href="javascript:OpenHelplet(\'sponsor\', \'adsense_box\');">Google Anzeigen</a></li>
+    </ul>';
+
   $mf->AddField($lang['sponsor']['add_sponsor'].'|'.$lang['sponsor']['add_sponsor2'], 'sponsor', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
   $mf->AddField($lang['sponsor']['add_pic_upload'], 'pic_upload', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
   $mf->AddField($lang['sponsor']['add_pic'], 'pic_path', 'varchar(255)', '', FIELD_OPTIONAL);
-  $mf->AddField($lang['sponsor']['add_pic_code'] . $code_popup_link, 'pic_code', 'text', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic_code'] . $code_popup_link_banner, 'pic_code', 'text', '', FIELD_OPTIONAL);
   $mf->AddGroup('Sponsorenseite');
 
   $mf->AddField('', '', IS_TEXT_MESSAGE, $lang['sponsor']['add_other_sizes']);
@@ -108,13 +114,13 @@ else {
   $mf->AddField($lang['sponsor']['add_banner'].'|'.$lang['sponsor']['add_banner2'], 'rotation', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
   $mf->AddField($lang['sponsor']['add_pic_upload'], 'pic_upload_banner', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
   $mf->AddField($lang['sponsor']['add_pic'], 'pic_path_banner', 'varchar(255)', '', FIELD_OPTIONAL);
-  $mf->AddField($lang['sponsor']['add_pic_code'] . $code_popup_link, 'pic_code_banner', 'text', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic_code'] . $code_popup_link_banner, 'pic_code_banner', 'text', '', FIELD_OPTIONAL);
   $mf->AddGroup('Rotation Banner');
 
   $mf->AddField($lang['sponsor']['add_active'].'|'.$lang['sponsor']['add_active2'], 'active', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
   $mf->AddField($lang['sponsor']['add_pic_upload'], 'pic_upload_button', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
   $mf->AddField($lang['sponsor']['add_pic'], 'pic_path_button', 'varchar(255)', '', FIELD_OPTIONAL);
-  $mf->AddField($lang['sponsor']['add_pic_code'] . $code_popup_link, 'pic_code_button', 'text', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic_code'] . $code_popup_link_box, 'pic_code_button', 'text', '', FIELD_OPTIONAL);
   $mf->AddGroup('Sponsoren Box');
 
   $t = $db->query("SELECT tournamentid, name FROM {$config['tables']['tournament_tournaments']} WHERE party_id = ". (int)$party->party_id);

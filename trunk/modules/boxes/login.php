@@ -2,11 +2,12 @@
 
 $templ['box']['rows'] = '';
 
-$dsp->form_open = 1;
-$templ['login']['buttons_login'] = $dsp->FetchIcon('', 'save');
-$dsp->form_open = 0;
+$templ['login']['buttons_add'] = $dsp->FetchIcon('index.php?mod=signon', 'add_user');
+$templ['login']['buttons_pw'] = $dsp->FetchIcon('index.php?mod=usrmgr&action=pwrecover', 'change_pw');
 
-$templ['login']['buttons_manage'] = $dsp->FetchIcon('index.php?mod=signon', 'add_user') . $dsp->FetchIcon('index.php?mod=usrmgr&action=pwrecover', 'change_pw');
+$gd->CreateButton('login');
+$templ['login']['buttons_login'] = '<input type="image" name="login" src="ext_inc/auto_images/'. $auth['design'] .'/'. $language .'/button_login.png" border="0" alt="Login" title="Login" />';
+
 $box->AddTemplate("box_login_content");
 
 ?>

@@ -9,9 +9,9 @@ $avg = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$
   WHERE DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 HOUR), '%Y-%m-%d %H:00:00')
 	");
 $box->DotRow(t('Besucher').':');
-$box->EngangedRow('<span title="'. t('insgesammt') .'">'. $total['visits'] .'</span> <span title="'. t('in der letzten Stunde') .'">('. $avg['visits'] .')</span>');
+$box->EngangedRow('<span title="'. t('insgesamt') .'">'. $total['visits'] .'</span> <span title="'. t('in der letzten Stunde') .'">('. $avg['visits'] .')</span>');
 $box->DotRow(t('Aufrufe').':');
-$box->EngangedRow('<span title="'. t('insgesammt') .'">'. $total['hits'] .'</span> <span title="'. t('in der letzten Stunde') .'">('. $avg['hits'] .')</span>');
+$box->EngangedRow('<span title="'. t('insgesamt') .'">'. $total['hits'] .'</span> <span title="'. t('in der letzten Stunde') .'">('. $avg['hits'] .')</span>');
 
 // Get list of users currently online
 $user_online = $db->query("SELECT SQL_CALC_FOUND_ROWS user.username, user.userid
