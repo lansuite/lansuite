@@ -110,7 +110,7 @@
 				<boxid>2</boxid>
 				<name>Suche</name>
 				<place>0</place>
-				<pos>1</pos>
+				<pos>2</pos>
 				<active>0</active>
 				<internet>0</internet>
 				<login>0</login>
@@ -272,6 +272,18 @@
 				<login>0</login>
 				<module>poll</module>
 				<source>recent_poll</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>16</boxid>
+				<name>Sprachauswahl</name>
+				<place>0</place>
+				<pos>1</pos>
+				<active>1</active>
+				<internet>0</internet>
+				<login>0</login>
+				<module></module>
+				<source>language</source>
 				<callback></callback>
 			</entry>
 		</content>

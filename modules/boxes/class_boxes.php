@@ -85,6 +85,7 @@ class boxes {
 		global $func, $auth, $dsp, $templ;
 
 		if (!$_SESSION['box_'. $boxid .'_active']) {
+      if ($templ['box']['rows'] == '') return;
 			$box_content = file("design/{$auth["design"]}/templates/box_case.htm");
 			$content = $dsp->FetchModTpl("boxes", "box");
 		} else $box_content = file("design/{$auth["design"]}/templates/box_case_closed.htm");

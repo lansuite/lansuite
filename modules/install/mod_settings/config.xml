@@ -166,12 +166,6 @@
     		<default>Euro</default>
     		<description>Währung des Systems</description>
     	</item>
-    	<item>
-    		<name>sys_show_langselect</name>
-    		<type>boolean</type>
-    		<default>1</default>
-    		<description>Sprachauswahl in der Navigation anzeigen?</description>
-    	</item>
     </items>
   </group>
   <group>

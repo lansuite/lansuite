@@ -1,8 +1,9 @@
 <?php
-$templ['box']['rows'] = "";
+
+$BoxContent = array();
 
 function FetchItem ($item) {
-	global $auth, $dsp, $templ, $box, $func, $cfg;
+	global $box, $func, $cfg;
 
 	$item["caption"] = $func->translate($item["caption"]);
 	$item["hint"] = $func->translate($item["hint"]);
@@ -37,7 +38,6 @@ function FetchItem ($item) {
 }
 
 
-$menu_out = "";
 if (!$_GET["menu_group"]) $_GET["menu_group"] = 0;
 
 // Get Main-Items
@@ -53,9 +53,10 @@ $res = $db->query("SELECT menu.*
 	OR (menu.requirement = 4 AND ". (int)$auth['type'] ." = 1)
 	OR (menu.requirement = 5 AND ". (int)$auth['login'] ." = 0))
 	ORDER BY menu.pos");
-#or $cfg[$main_item["needed_config"]] or $config['environment'][$main_item["needed_config"]]
+
 while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '' or call_user_func($main_item['needed_config'], '')) {
-	$menu_out .= FetchItem($main_item);
+  $templ['box']['rows'] = '';
+	FetchItem($main_item);
 
 	// If selected Module: Get Sub-Items
 	if (isset($_GET["module"])) $module = $_GET["module"]; else $module = $_GET["mod"];
@@ -71,9 +72,8 @@ while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '
 			OR (menu.requirement = 5 AND ". (int)$auth['login'] ." = 0))
 			ORDER BY menu.requirement, menu.pos");
 
-    #or $cfg[$sub_item["needed_config"]] or $config['environment'][$sub_item["needed_config"]]
 		while ($sub_item = $db->fetch_array($res2)) if ($sub_item['needed_config'] == '' or call_user_func($sub_item['needed_config'], ''))
-			$menu_out .= FetchItem($sub_item);
+			FetchItem($sub_item);
 		$db->free_result($res2);
 
 		// If Admin add general Management-Links
@@ -82,7 +82,7 @@ while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '
 			$sub_item["link"] = "";
 			$sub_item["caption"] = "--hr--";
 			$sub_item['requirement'] = 2;
-			$menu_out .= FetchItem($sub_item);
+			FetchItem($sub_item);
 
 			$find_config = $db->query_first("SELECT cfg_key
 					FROM {$config["tables"]["config"]}
@@ -91,25 +91,25 @@ while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '
 			if ($find_config["cfg_key"]) {
 				$sub_item["link"] = "index.php?mod=install&action=modules&step=10&module=$module";
 				$sub_item["caption"] = t('Modul-Konfig');
-				$menu_out .= FetchItem($sub_item);
+				FetchItem($sub_item);
 			}
 
 			if (file_exists("modules/$module/mod_settings/db.xml")) {
 				$sub_item["link"] = "index.php?mod=install&action=modules&step=30&module=$module";
 				$sub_item["caption"] =t('Modul-DB');
-				$menu_out .= FetchItem($sub_item);
+				FetchItem($sub_item);
 			}
 
 			$sub_item["link"] = "index.php?mod=install&action=modules&step=20&module=$module";
 			$sub_item["caption"] = t('Menü-Einträge');
-			$menu_out .= FetchItem($sub_item);
+			FetchItem($sub_item);
 		}
 	}
+	$BoxContent[$main_item['boxid']] .= $templ['box']['rows'];
 }
 $db->free_result($res);
 
-$templ['box']['rows'] .= $menu_out;
-
+/*
 // Add Language select
 if ($cfg['sys_show_langselect']) {
   $cur_url = parse_url($_SERVER['REQUEST_URI']);
@@ -120,10 +120,17 @@ if ($cfg['sys_show_langselect']) {
   }
   $db->free_result($res);
 }
+*/
+
+foreach ($BoxContent as $val) {
+  $templ['box']['rows'] = $val;
+  if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
+  elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
+  $templ['box']['rows'] = '';
+}
+
 
 // Callbacks
-$MenuCallbacks = Array('ShowSignon', 'ShowGuestMap');
-
 function ShowSignon() {
   global $cfg, $auth;
 

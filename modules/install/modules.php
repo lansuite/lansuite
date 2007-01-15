@@ -20,6 +20,8 @@ function WriteMenuEntries() {
 		$templ['ls']['row']['menuitem']['link'] = $row["link"];
 		$templ['ls']['row']['menuitem']['link'] = $row["link"];
 		$templ['ls']['row']['menuitem']['pos'] = $row["pos"];
+    if ($row['level'] == 0) $templ['ls']['row']['menuitem']['boxid'] = 'Boxid: <input type="text" name="boxid['.$row['id'].']" value="" size="3" />';
+    else $templ['ls']['row']['menuitem']['boxid'] = '';
 
 		$templ['ls']['row']['menuitem']['needed_config'] = "<option value=\"\">-{$lang["install"]["none"]}-</option>";
 
@@ -247,6 +249,7 @@ switch($_GET["step"]) {
 					link = '{$_POST["link"][$key]}',
 					file = '{$_POST["file"][$key]}',
 					pos = '{$_POST["pos"][$key]}',
+					boxid = '{$_POST["boxid"][$key]}',
 					needed_config = '{$_POST["needed_config"][$key]}'
 					WHERE id = '$key'");
 		}
