@@ -270,7 +270,16 @@ class func {
     $dsp->AddTpl("design/templates/no_item.htm");
     $dsp->AddContent();
 	}
-	
+
+  // When text should be displayed within a textarea
+  function db2edit($string) {
+		$string = str_replace("<", "&lt;", $string);
+		$string = str_replace(">", "&gt;", $string);
+		
+		return $string;
+  }
+
+  // If ls-code should be displayed
 	function text2html($string) {
 		global $db, $config;
 
@@ -283,10 +292,10 @@ class func {
 		$string = str_replace("<", "&lt;", $string);
 		$string = str_replace(">", "&gt;", $string);
 		
-		$string = str_replace("&lt;!--", "<!--", $string);
-		$string = str_replace("--&gt;", "-->", $string);
-		$string = str_replace("&lt;?", "<?", $string);
-		$string = str_replace("?&gt;", '?'.'>', $string);
+#		$string = str_replace("&lt;!--", "<!--", $string);
+#		$string = str_replace("--&gt;", "-->", $string);
+#		$string = str_replace("&lt;?", "<?", $string);
+#		$string = str_replace("?&gt;", '?'.'>', $string);
 		$string = strip_tags($string);
 
 		$string = eregi_replace('\[img\]([^\[]*)\[/img\]', '<img src="\1" border="1" class="img" alt="" />', $string);
@@ -314,19 +323,39 @@ class func {
 		$string = str_replace('[/i]', '</i>', $string);
 		$string = str_replace('[u]', '<u>', $string);
 		$string = str_replace('[/u]', '</u>', $string);
-		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">', $string);
-		$string = str_replace('[/c]', '</div></blockquote>', $string);
+		$string = str_replace('[s]', '<strike>', $string);
+		$string = str_replace('[/s]', '</strike>', $string);
+		$string = str_replace('[sub]', '<sub>', $string);
+		$string = str_replace('[/sub]', '</sub>', $string);
+		$string = str_replace('[sup]', '<sup>', $string);
+		$string = str_replace('[/sup]', '</sup>', $string);
+#		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">', $string);
+#		$string = str_replace('[/c]', '</div></blockquote>', $string);
 		$string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">', $string);
 		$string = str_replace('[/quote]', '</div></blockquote>', $string);
 
-# 		$string = preg_replace('#\[c\](.*)\[/c\]#sUi', '<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\1</div></blockquote>', $string);
-# 		$string = preg_replace('#\[quote\](.*)\[/quote\]#sUi', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">\1</div></blockquote>', $string);
- 		$string = preg_replace('#\[size=([0-9]+)\](.*)\[/size\]#sUi', '<font style="font-size:\1px">\2</font>', $string);
- 		$string = preg_replace('#\[color=([a-z]+)\](.*)\[/color\]#sUi', '<font color="\1">\2</font>', $string);
+ 		$string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
+		$string = str_replace('[/size]', '</font>', $string);
+ 		$string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
+		$string = str_replace('[/color]', '</font>', $string);
+
+#		$res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
+#		while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
+#    $db->free_result($res);
+
+		$string = str_replace('[c]', '[c][c]', $string);
+		$string = str_replace('[/c]', '[/c][/c]', $string);
+		$str_arr = preg_split('#\[c\](.*)\[/c\]#i', $string, -1, PREG_SPLIT_DELIM_CAPTURE);
 
 		$res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
-		while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
-    $db->free_result($res);
+		while ($row = $db->fetch_array($res)) for ($i = 0; $i < sizeof($str_arr); $i++) if (preg_match('#\[c\](.*)\[/c\]#i', $str_arr[$i]) == false)
+			$str_arr[$i] = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $str_arr[$i]);
+		$db->free_result($res);
+
+		$string = '';
+		foreach ($str_arr as $str) $string .= $str;
+		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code</div><div class="tbl_7">', $string);
+		$string = str_replace('[/c]', '</div></blockquote>', $string);
 
 		return $string;
 	}
