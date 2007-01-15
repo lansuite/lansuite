@@ -136,7 +136,10 @@ class Mail {
 		global $cfg, $board_config;
 		
     // Do not send, when in intranet mode
-		if (!$cfg['sys_internet']) return true;
+		if (!$cfg['sys_internet']) {
+      $this->error = t('Um Internet-Mails zu versenden, muss sich Lansuite im Internet-Modus befinden');
+      return false;
+    }
 
 		// Set default Sender-Mail, if non is set
 		if ($this->inet_from_mail == "") $this->inet_from_mail = $cfg["sys_party_mail"];

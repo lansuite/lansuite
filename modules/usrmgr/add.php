@@ -33,7 +33,7 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
   	if ($cfg["signon_password_mail"]) {
   		if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Dein Passwort und weitere Informationen wurden an deine eMail-Adresse gesendet'), NO_LINK);
   		else {
-  			$func->error(t('Es ist ein Fehler beim Versand der Informations-eMail aufgetreten. Fehlermeldung:'). $mail->error, NO_LINK);
+  			if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-eMail aufgetreten. Fehlermeldung:'). $mail->error, NO_LINK);
   			$cfg['signon_password_view'] = 1;
   		}
     }
