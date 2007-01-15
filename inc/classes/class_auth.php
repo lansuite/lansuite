@@ -51,9 +51,9 @@ class auth {
 
 		// If Login / Logout
 		if ($_GET['mod'] == "logout") $this->logout();
-		elseif (isset($_POST['login_x'])) $this->login("normal"); # Normal Login
-		elseif (isset($_POST['save_x'])) $this->login("save"); # Login + Save
-		elseif ($_COOKIE['auth']['email'] != "" and (!$this->auth['login'])) $this->login("cookie"); # Login via Coockie
+		elseif (isset($_POST['login_x'])) $this->login('save'); # Normal Login
+#		elseif (isset($_POST['save_x'])) $this->login("save"); # Login + Save
+		elseif ($_COOKIE['auth']['email'] != "" and (!$this->auth['login'])) $this->login('cookie'); # Login via Coockie
 
     // Reset Coockie-Timeout
     if ($_COOKIE['auth']['email'] != "" and $this->auth['login']) {
@@ -106,7 +106,7 @@ class auth {
 
 
 	// When user logs in
-	function login($loginart) {
+	function login($loginart = 'save') {
 		global $db, $func, $cfg, $config, $party, $lang, $auth, $board_config, $ActiveModules;
 
 		$auth['design'] = $config['lansuite']['default_design'];

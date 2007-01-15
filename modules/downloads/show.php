@@ -18,7 +18,7 @@ if (!$cfg['download_use_ftp']) {
     $LinkUpDir .= '/';
     $FileName = $val;
   }
-  $dsp->NewContent(t('Downloads'), '');
+  $dsp->NewContent(t('Downloads'), $LinkUp);
 
   // Download dialoge, if file is selected
   if (is_file($BaseDir.$_GET['dir'])  ) {
@@ -36,7 +36,7 @@ if (!$cfg['download_use_ftp']) {
 
   // Display directory
   } else {
-      
+
     // Display Dir-Info-Text from DB
     $row = $db->query_first("SELECT dirid, text, allow_upload FROM {$config['tables']['download_dirs']} WHERE name = '{$_GET['dir']}'");
     if (!$row['dirid']) {
@@ -47,6 +47,11 @@ if (!$cfg['download_use_ftp']) {
       $dsp->AddFieldSetStart(t('Ordner-Information'));
       $dsp->AddSingleRow($func->text2html($row['text']));
       $dsp->AddFieldSetEnd();
+    }
+
+    // Upload submittet file
+    if ($_GET['step'] == 20 and $auth['type'] >= 2 or ($auth['login'] and $row['allow_upload'])) {
+      $func->FileUpload('upload', $BaseDir.$_GET['dir']);
     }
 
     $dsp->AddFieldSetStart(t('Navigation: ') . $LinkUp);
@@ -73,28 +78,35 @@ if (!$cfg['download_use_ftp']) {
     closedir($DLDesign);
     $dsp->AddFieldSetEnd();
 
-    // TODO: File Upload
-    if ($auth['type' >= 2] or $row['allow_upload']) {
+    // File Upload Box
+    if ($auth['type'] >= 2 or ($auth['login'] and $row['allow_upload'])) {
+      $dsp->AddFieldSetStart(t('Datei hochladen'));
+      $dsp->SetForm('index.php?mod=downloads&step=20', '', '', 'multipart/form-data');
+      $dsp->AddFileSelectRow('upload', t('Datei'), '', '', '', 1);
+      $dsp->AddFormSubmitRow('add');
+      $dsp->AddFieldSetEnd();
     }
 
     // Comments
-    include('inc/classes/class_mastercomment.php');
-    new Mastercomment('downloads', $row['dirid']);
+    if ($_GET['mf_step'] != 2 or $_GET['step'] != 10){
+      include('inc/classes/class_mastercomment.php');
+      new Mastercomment('downloads', $row['dirid']);
+    }
 
     // Admin functions for dir
-    if ($auth['type'] >= 2) {
+    if ($auth['type'] >= 2 and ($_GET['mf_step'] != 2 or $_GET['step'] == 10)) {
       $dsp->AddFieldSetStart(t('Ordner Text und Einstellungen editieren'));
       include_once('inc/classes/class_masterform.php');
       $mf = new masterform();
 
-      $mf->AddField(t('Text'), 'text', '', LSCODE_BIG);
+      $mf->AddField(t('Text'), 'text', '', LSCODE_BIG, FIELD_OPTIONAL);
       $mf->AddField(t('Benutzer-Upload erlauben?'), 'allow_upload', '', '', FIELD_OPTIONAL);
       if (!$_GET['dirid']) {
         $mf->AddFix('name', $_GET['dir']);
         $mf->AddFix('userid', $auth['userid']);
       }
 
-      $mf->SendForm('index.php?mod=downloads&dir='. $_GET['dir'], 'download_dirs', 'dirid', $row['dirid']);
+      $mf->SendForm('index.php?mod=downloads&step=10&dir='. $_GET['dir'], 'download_dirs', 'dirid', $row['dirid']);
       $dsp->AddFieldSetEnd();
     }
   }
