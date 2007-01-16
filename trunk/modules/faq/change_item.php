@@ -163,7 +163,7 @@ switch($_GET["step"]) {
 				}
 
 				$dsp->AddTextFieldRow("question_caption",$lang['faq']['add_quest'],$_POST['question_caption'],$faq_error['question_caption']);
-				$dsp->AddTextAreaPlusRow("question_text",$lang['faq']['add_text'],$_POST['question_text'],$faq_error['question_text']);
+				$dsp->AddTextAreaPlusRow("question_text",$lang['faq']['add_text'],$_POST['question_text'],$faq_error['question_text'], 70, 20);
 				$dsp->AddDropDownFieldRow("question_cat",$lang['faq']['choise_cat'],$faq_cats,"");
 				$dsp->AddTextFieldRow("question_new_cat",$lang['faq']['new_cat'],$_POST['question_new_cat'],$faq_error['question_cat']);
 				$dsp->AddFormSubmitRow("add");
