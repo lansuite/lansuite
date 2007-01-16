@@ -70,6 +70,7 @@ class Mastercomment{
     $mf->LogID = $id;
 
     $mf->AddField(t('Kommentar'), 'text', '', LSCODE_BIG);
+    if (!$auth['login']) $mf->AddField('', 'captcha', IS_CAPTCHA);
     $mf->AddFix('relatedto_item', $mod);
     $mf->AddFix('relatedto_id', $id);
     $mf->AddFix('date', time());
