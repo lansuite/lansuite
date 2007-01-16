@@ -233,21 +233,16 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       if (ShowField('lastname')) $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
       $mf->AddGroup(t('Namen'));
 
-      // If Admin: Usertype and Module-Permissions
+      // If Admin: Usertype, Group and Module-Permissions
       if ($auth['type'] >= 2) {
+        // Usertype
         $selections = array();
         $selections['1'] = t('Benutzer');
         $selections['2'] = t('Administrator');
         if ($auth['type'] >= 3) $selections['3'] = t('Operator');
         $mf->AddField(t('Benutzertyp'), 'type', IS_SELECTION, $selections, '', '', 1, array('2', '3'));
 
-        $selections = array();
-        $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
-        while ($row = $db->fetch_array($res)) {
-          $selections[$row['group_id']] = $row['group_name'];
-        }
-        $mf->AddField(t('Gruppe'), 'group_id', IS_SELECTION, $selections, 1);
-
+        // Module-Permissions
         $selections = array();
         $res = $db->query("SELECT module.name, module.caption FROM {$config["tables"]["modules"]} AS module
         	LEFT JOIN {$config["tables"]["menu"]} AS menu ON menu.module = module.name
@@ -261,11 +256,19 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
           while($row = $db->fetch_array($res)) $_POST["permissions"][] = $row["module"];
           $db->free_result($res);
         }
-        
+
         $mf->AddField(t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
           '('.t('Der Benutzertyp muss zusätzlich Admin, oder Operator sein') .')'.HTML_NEWLINE.HTML_NEWLINE.
           '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen') .')',
           'permissions', IS_MULTI_SELECTION, $selections, FIELD_OPTIONAL);
+
+        // Group
+        $selections = array();
+        $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
+        while ($row = $db->fetch_array($res)) {
+          $selections[$row['group_id']] = $row['group_name'];
+        }
+        $mf->AddField(t('Gruppe'), 'group_id', IS_SELECTION, $selections, 1);
         $mf->AddGroup('Rechte');
       }
     }
