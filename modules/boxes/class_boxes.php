@@ -139,14 +139,16 @@ $BoxRes = $db->query("SELECT boxid, name, place, source, module, callback FROM {
 while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or in_array($BoxRow['module'], $ActiveModules))
 and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
 
-  $templ['box']['rows'] = '';
-  
-  // Load file
-  if (!$_SESSION['box_'. $BoxRow['boxid'] .'_active']) include_once('modules/boxes/'. $BoxRow['source'] .'.php');
+  if (!$siteblock or $BoxRow['source'] == 'login') {
+    $templ['box']['rows'] = '';
 
-  // Write content to template var
-  if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
-  elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
+    // Load file
+    if (!$_SESSION['box_'. $BoxRow['boxid'] .'_active']) include_once('modules/boxes/'. $BoxRow['source'] .'.php');
+
+    // Write content to template var
+    if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
+    elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
+  }
 }
 $db->free_result($BoxRes);
 

@@ -205,7 +205,7 @@ if ($found_adm) {
 }
 
 // Show Blocked Site
-if($cfg['sys_blocksite'] == 1 && $auth['type'] < 2) $siteblock = true;
+if($cfg['sys_blocksite'] == 1 and $auth['type'] < 2) $siteblock = true;
 
 // Set Default-Design, if non is set
 if (!$auth["design"]) $auth["design"] = "osX";
@@ -219,7 +219,7 @@ if ($db->success) {
 	include_once("modules/sponsor/banner.php");
 }
 
-if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base' and $siteblock == false) {
+if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') {
 	// Boxes
 	include_once("modules/boxes/class_boxes.php");
 }
@@ -230,7 +230,7 @@ if ($cfg['sys_blocksite'] == 1){
 }
 
 // Include Module $_GET["mod"]
-if (!$missing_fields && !$siteblock) include_once("index_module.inc.php");
+if (!$missing_fields and !$siteblock) include_once("index_module.inc.php");
 
 // Define general index variables
 $templ['index']['info']['current_date'] = $func->unixstamp2date(time(),'daydatetime');

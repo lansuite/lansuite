@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+  <typedefinition>
+    <head>
+      <name>guestmap_selection</name>
+    </head>
+    <entries>
+  		<entry>
+  			<value>0</value>
+  			<description>Keine Karte anzeigen</description>
+  		</entry>
+  		<entry>
+  			<value>1</value>
+  			<description>Ja - Mit Lansuite-eigener DB</description>
+  		</entry>
+  		<entry>
+  			<value>2</value>
+  			<description>Ja - Mit Google Maps</description>
+  		</entry>
+    </entries>
+  </typedefinition>
   <group>
     <head>
       <name>Allgemein</name>
@@ -7,9 +26,15 @@
     <items>
     	<item>
     		<name>guestlist_guestmap</name>
-    		<type>boolean</type>
+    		<type>guestmap_selection</type>
     		<default>1</default>
     		<description>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der Gäste) anzeigen?</description>
+    	</item>
+    	<item>
+    		<name>google_maps_api_key</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Google-Api-Key</description>
     	</item>
     	<item>
     		<name>guestlist_showorga</name>

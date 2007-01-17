@@ -345,7 +345,7 @@ class func {
 
 		$string = str_replace('[c]', '[c][c]', $string);
 		$string = str_replace('[/c]', '[/c][/c]', $string);
-		$str_arr = preg_split('#\[c\](.*)\[/c\]#i', $string, -1, PREG_SPLIT_DELIM_CAPTURE);
+		$str_arr = preg_split('#\[c\](.*)\[/c\]#iU', $string, -1, PREG_SPLIT_DELIM_CAPTURE);
 
 		$res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
 		while ($row = $db->fetch_array($res)) for ($i = 0; $i < sizeof($str_arr); $i++) if (preg_match('#\[c\](.*)\[/c\]#i', $str_arr[$i]) == false)

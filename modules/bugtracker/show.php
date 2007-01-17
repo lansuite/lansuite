@@ -131,7 +131,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     else $templ['board']['thread']['case']['info']['post']['text'] .= $attachment = $dsp->FetchIcon($row['file'], 'download') .' ('. t('Angehängte Datei herunterladen').')';
     $dsp->AddDoubleRow(t('Anhang'), $attachment);
   }
-	$dsp->AddBackButton('index.php?mod=bugtracker');
+	$dsp->AddDoubleRow('', $dsp->FetchButton('index.php?mod=bugtracker&action=add&bugid='.$row['bugid'], 'edit') . $dsp->FetchButton('index.php?mod=bugtracker', 'back'));
 
 	include('inc/classes/class_mastercomment.php');
 	new Mastercomment('BugEintrag', $_GET['bugid']);
