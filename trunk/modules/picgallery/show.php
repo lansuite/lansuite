@@ -116,7 +116,11 @@ elseif (!$akt_file) {
 		$dir_up = substr($dir_up, 0, strrpos($dir_up, '/') + 1);
 		$directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$dir_up\">..</a>] ";
 	}
-	if ($dir_list) foreach($dir_list as $dir) $directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$akt_dir$dir/\">$dir</a>] ";
+	if ($dir_list) foreach($dir_list as $dir) {
+	  $DelDirLink = '';
+    if ($auth['type'] > 2) $DelDirLink = ' <a href="index.php?mod=picgallery&action=delete&step=10&file='.$akt_dir.$dir.'"><img src="design/'.$auth['design'].'/images/arrows_delete.gif" border="0" /></a>';
+    $directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$akt_dir$dir/\">$dir$DelDirLink</a>] ";
+  }
 	if ($directory_selection) $dsp->AddDoubleRow($lang['picgallery']['show_dir'], $directory_selection);
 
 	// Show Page-Selection

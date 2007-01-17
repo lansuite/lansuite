@@ -11,6 +11,7 @@ Version 3
 - Bugfix: Upload des Sponsorbox-Buttons ging nicht (KnoX 12.01.2007)
 - Bugfix: #577 #579 Mail und Log beim Clanpasswort wechsel korrigiert (KnoX 07.01.2007)
 
+- Add: Verzeichnisse in der Bildergalerie lassen sich nun löschen (KnoX 17.01.2007)
 - Add: Googlemaps unter Gästeliste (KnoX 17.01.2007)
 - Add: Menueinträge können nun auf mehrere Boxen verteilt werden (KnoX 15.01.2007)
 - Add: Das Download-Modul kann nun alternativ zum FTP Server das Verzeichnis ext_inc/downloads für Downloads verwenden. (KnoX 14.01.2007)
