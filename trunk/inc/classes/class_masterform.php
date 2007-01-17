@@ -137,8 +137,7 @@ class masterform {
 
           $row = $db->query_first("SELECT 1 AS found $db_query FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
           if ($row['found']) {
-            foreach ($this->SQLFields as $key => $val) if ($field['type'] != IS_NEW_PASSWORD and $field['type'] != IS_PASSWORD)
-              $_POST[$val] = $func->db2edit($row[$val]);
+            foreach ($this->SQLFields as $key => $val) $_POST[$val] = $func->db2edit($row[$val]);
           } else {
             $func->error($lang['mf']['err_invalid_id']);
             return false;
@@ -299,10 +298,12 @@ class masterform {
               break;
 
               case IS_PASSWORD: // Password-Row
+                if (strlen($_POST[$field['name']]) == 32) $_POST[$field['name']] = ''; // Dont show MD5-sum, read from DB on change
                 $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
               break;
 
               case IS_NEW_PASSWORD: // New-Password-Row
+                if (strlen($_POST[$field['name']]) == 32) $_POST[$field['name']] = ''; // Dont show MD5-sum, read from DB on change
                 $PWSecID++;
                 $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel{$PWSecID})\"");
                 $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.$lang['mf']['pw2_caption'], $_POST[$field['name'].'2'], $this->error[$field['name'].'2'], '', $field['optional'], 0);
