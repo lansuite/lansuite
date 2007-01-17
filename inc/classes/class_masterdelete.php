@@ -83,9 +83,10 @@ class masterdelete {
         if (!$res) $failed .= HTML_NEWLINE . '#'. $key;
       }
 
-      if ($failed != '') $func->error(t('Die folgenden Einträge konnte nicht gelöscht werden').':'.$failed, $func->internal_referer);
+      if ($failed != '') $func->information(t('Die folgenden Einträge konnte nicht gelöscht werden').':'.$failed, $func->internal_referer);
       else $func->confirmation(t('Die Einträge wurde erfolgreich gelöscht'), $func->internal_referer);
-    }
+    } else $func->information(t('Es wurden keine Einträge selektiert'));
+    
     return !$failed;
   }
 }
