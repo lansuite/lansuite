@@ -73,19 +73,19 @@ if (!$party_data) {
 
 	// Bar erzeugen
 	// links
-	$bar = "<img src=\"design/{$auth['design']}/images/userbar_left.gif\" height=\"13\" border=\"0\">";
+	$bar = "<img src=\"design/{$auth['design']}/images/userbar_left.gif\" height=\"13\" border=\"0\" alt =\"\" />";
 
 	// Bezahlt
-	if ($pixelpaid > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_green.gif\" width=\"$pixelpaid\" height=\"13\" border=\"0\" title=\"". t('Bezahlt') ."\">";
+	if ($pixelpaid > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_green.gif\" width=\"$pixelpaid\" height=\"13\" border=\"0\" title=\"". t('Bezahlt') ."\" alt =\"\" />";
 
 	//Angemeldet
-	if ($pixelcuruser > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_yellow.gif\" width=\"$pixelcuruser\" height=\"13\" border=\"0\" title=\"". t('Angemeldet') ."\">";
+	if ($pixelcuruser > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_yellow.gif\" width=\"$pixelcuruser\" height=\"13\" border=\"0\" title=\"". t('Angemeldet') ."\" alt =\"\" />";
 
 	//Gesamt
-	if ($pixelges > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_bg.gif\" width=\"$pixelges\" height=\"13\" border=\"0\" title=\"". t('Frei') ."\">";
+	if ($pixelges > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_bg.gif\" width=\"$pixelges\" height=\"13\" border=\"0\" title=\"". t('Frei') ."\" alt =\"\" />";
 
 	// rechts
-	$bar .= "<img src=\"design/{$auth['design']}/images/userbar_right.gif\" height=\"13\" border=\"0\">";
+	$bar .= "<img src=\"design/{$auth['design']}/images/userbar_right.gif\" height=\"13\" border=\"0\" alt =\"\" />";
 
 	if ($party_next) {
 		$box->ItemRow("user", '<b>'. t('Nächste Party') .'<br />'. $party_data['name'] .'</b>');
@@ -97,8 +97,8 @@ if (!$party_data) {
 
 	$box->EngangedRow($bar);
 	$box->EngangedRow(t('Registriert').': '. $reg);
-	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/userbox_yellow.gif\" width=\"5\" height=\"13\" border=\"0\"> ". t('Angemeldet') .": $cur");
-	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/userbox_green.gif\" width=\"5\" height=\"13\" border=\"0\"> ". t('Bezahlt') .": $paid");
+	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/userbox_yellow.gif\" width=\"5\" height=\"13\" border=\"0\" alt =\"\"/>". t('Angemeldet') .": $cur");
+	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/userbox_green.gif\" width=\"5\" height=\"13\" border=\"0\" alt =\"\"/>". t('Bezahlt') .": $paid");
 	$box->EngangedRow(t('Plätze frei'). ": ". ($max - $paid));
 
 	## Counter
