@@ -57,6 +57,8 @@ switch($_GET['step']) {
           ");
       }
     }
+    
+    $func->confirmation(('Import erfolgreich'));
   break;
 }
 ?>
