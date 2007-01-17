@@ -58,7 +58,7 @@ if ($party->party_id) {
 }
 
 $ms2->AddResultField('Benutzername', 'u.username');
-if ($auth['type'] >= 2 or (!$cfg['sys_internet'])) {
+if ($auth['type'] >= 2 or !$cfg['sys_internet'] or $cfg['guestlist_shownames']) {
   $ms2->AddResultField('Vorname', 'u.firstname');
   $ms2->AddResultField('Nachname', 'u.name');
 }

@@ -17,11 +17,14 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
     $templ['addresses'] = '';
     while ($row = $db->fetch_array($res)) {
-      $text = "<b>{$row['username']}</b><br>{$row['plz']} {$row['city']}";
+      $text = "<b>{$row['username']}</b>";
+      if ($cfg['guestlist_shownames']) $text .= "<br>{$row['firstname']} {$row['name']}";
+      $text .= "<br>{$row['plz']} {$row['city']}";
+
       if ($row['avatar_path']) $text .= '<br>'. sprintf('<img src=\\"%s\\" alt=\\"%s\\" border=\\"0\\">', $row["avatar_path"], '');
 
       if ($row['street']) $templ['guestmap']['adresses'] .= "showAddress('{$row['street']}, {$row['plz']}, Germany', \"$text\");\r\n";
-      elseif ($row['plz']) $templ['guestmap']['adresses'] .= "showAddress('{$row['street']}, {$row['plz']}, Germany', \"$text\");\r\n";
+      elseif ($row['plz']) $templ['guestmap']['adresses'] .= "showAddress('{$row['plz']}, Germany', \"$text\");\r\n";
     }
     $db->free_result($haus_data);
 
