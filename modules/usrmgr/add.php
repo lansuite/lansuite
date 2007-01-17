@@ -72,6 +72,8 @@ function CheckClanNotExists ($ClanName) {
   $clan = $db->query_first("SELECT 1 AS found FROM {$config['tables']['clan']} WHERE name = '$ClanName'");
   if ($clan['found']) return t('Dieser Clan existiert bereits!') .HTML_NEWLINE. t(' Wenn du ihm beitreten möchtest, wähle ihn oberhalb aus dem Dropdownmenü aus');
 
+	if (preg_match("/([.^\"\'`´]+)/", $ClanName)) return t('Sie verwenden nicht zugelassene Sonderzeichen in Ihrem Clannamen');
+
   return false;
 }
 
