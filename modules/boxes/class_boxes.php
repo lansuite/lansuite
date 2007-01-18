@@ -134,9 +134,12 @@ $BoxRes = $db->query("SELECT boxid, name, place, source, module, callback FROM {
     AND (login = 0 OR login = {$auth['login']} + 1 OR (login > 2 AND login >= {$auth['type']} - 1))
   ORDER BY pos
   ");
+$MenuActive = 0;
 while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or in_array($BoxRow['module'], $ActiveModules))
 and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
 
+  if ($BoxRow['source'] == 'menu') $MenuActive = 1;
+  
   if (!$siteblock or $BoxRow['source'] == 'login') {
     $templ['box']['rows'] = '';
 
@@ -149,5 +152,17 @@ and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
   }
 }
 $db->free_result($BoxRes);
+
+// Add Link to boxmanager, if menu is missing and loginbox, if not logged in
+if (!$siteblock and !$MenuActive) {
+  if ($auth['type'] >= 2) {
+    $templ['box']['rows'] = '<a href="index.php?mod=boxes">Boxmanager</a>';
+    $templ['index']['control']['boxes_letfside'] .= $box->CreateBox(0, t('Temporär'));
+  } else {
+    $templ['box']['rows'] = '';
+    include_once('modules/boxes/login.php');
+    $templ['index']['control']['boxes_rightside'] .= $box->CreateBox(1, t('Temporär'));
+  }
+}
 
 ?>
