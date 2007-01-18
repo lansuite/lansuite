@@ -103,10 +103,10 @@ if (!$party_data) {
 
 	## Counter
 
-	$count = round(($party_data['partybegin'] - time()) / 86400);
+	$count = ceil(($party_data['partybegin'] - time()) / 86400);
 	if ($count <= 0) $count = t('Die Party läuft gerade!');
-	elseif ($count == 1) $count = t('noch %1 Tag', array($count));
-	else $count = t('noch %1 Tage', array($count));
+	elseif ($count == 1) $count = t('Noch ein paar Stunden.');
+	else $count = t('Noch %1 Tage.', array($count));
 
 	$box->EmptyRow();
 	$box->ItemRow("data", '<b>'. t('Counter') .'</b>');
