@@ -6,6 +6,7 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 3
 
+- Bugfix: Im Boxmanager bekommt man nun ein Tempräres menü zum Boxmanager, wenn man das Menü deaktiviert (KnoX 18.01.2007)
 - Bugfix: Im SE-Modus wurde in Turnieren teilweise eine etwas kleinere Startzeit angezeigt (KnoX 13.01.2007)
 - Bugfix: Suchmaschienen-Statistik hatte nicht funktioniert. (KnoX 12.01.2007)
 - Bugfix: Upload des Sponsorbox-Buttons ging nicht (KnoX 12.01.2007)
