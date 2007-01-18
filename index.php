@@ -249,8 +249,8 @@ else {
   	$_SERVER['REQUEST_URI'] = str_replace('fullscreen=yes', '', $_SERVER['REQUEST_URI']);
   	if ($CurentURL['query'] == '') $templ['index']['control']['current_url'] = str_replace('?', '', $_SERVER['REQUEST_URI']) .'?fullscreen=no';
   	else $templ['index']['control']['current_url'] = $_SERVER['REQUEST_URI'] .'&fullscreen=no';
-  	eval("\$index = \"". $func->gettemplate('index_fullscreen')."\";");
-  } else eval("\$index = \"". $func->gettemplate('index_login')."\";");
+  	$index = $func->gettemplate('index_fullscreen');
+  } else $index = $func->gettemplate('index_login');
 }
 if ($_GET['design'] != 'base') $sitetool->out_optimizer();
 

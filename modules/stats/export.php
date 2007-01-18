@@ -20,7 +20,8 @@ switch($action) {
 		if($templ['stats_data']['mail'] == '') 	$templ['stats_data']['mail'] = '<font color="red"><i>{$lang["stats"]["export_not_entered"]}</i></font>';
 
     $gd->CreateButton('send');
-		$dsp->AddTpl('design/templates/stats_export.htm');
+		$dsp->AddSingleRow($dsp->FetchModTpl('misc', 'stats_export'));
+		$dsp->AddContent();
 	break;
 
 	default:
