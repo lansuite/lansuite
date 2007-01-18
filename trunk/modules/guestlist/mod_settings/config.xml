@@ -2,7 +2,7 @@
 <config>
   <typedefinition>
     <head>
-      <name>guestmap_selection</name>
+      <name>guestmap_sel</name>
     </head>
     <entries>
   		<entry>
@@ -26,7 +26,7 @@
     <items>
     	<item>
     		<name>guestlist_guestmap</name>
-    		<type>guestmap_selection</type>
+    		<type>guestmap_sel</type>
     		<default>1</default>
     		<description>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der Gäste) anzeigen?</description>
     	</item>

@@ -42,17 +42,40 @@ class func {
 		if ($target == "new") $target = 'target="_blank"';
 		return ' <a href="index.php?mod=usrmgr&action=details&userid='.$userid.'" '.$target.'><img src="design/'. $auth["design"] .'/images/arrows_user.gif" border="0"/></a>';
 	}
-	
+
+  function FetchMasterTmpl($file) {
+	global $auth, $templ;
+
+    if (!is_file($file)) return false;
+    else {
+  		$handle = fopen ($file, "rb");
+  		$tpl_str = fread ($handle, filesize ($file));
+  		fclose ($handle);
+
+  		$tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'js\']}', $templ['index']['control']['js'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'body\'][\'js\']}', $templ['index']['body']['js'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'lanparty_name\']}', $templ['index']['info']['lanparty_name'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'version\']}', $templ['index']['info']['version'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'current_date\']}', $templ['index']['info']['current_date'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', $templ['index']['info']['logout_link'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'banner_code\']}', $templ['index']['banner_code'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'boxes_letfside\']}', $templ['index']['control']['boxes_letfside'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'boxes_rightside\']}', $templ['index']['control']['boxes_rightside'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'content\']}', $templ['index']['info']['content'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'debug\'][\'content\']}', $templ['index']['debug']['content'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'current_url\']}', $templ['index']['control']['current_url'], $tpl_str);
+
+      return $tpl_str;
+    }
+  }
+
 	function gettemplate($template) {
-	global $auth, $lang;
+	global $auth, $templ;
 
-		if (is_file("design/".$auth["design"]."/templates/". $template. ".htm" ) ) {
-			return str_replace("{default_design}", $auth["design"], str_replace("\"", "\\\"", implode("", file("design/".$auth["design"]."/templates/".$template.".htm"))));
-
-		} elseif (is_file("design/templates/". $template. ".htm") ) {
-			return str_replace("{default_design}", $auth["design"], str_replace("\"", "\\\"", implode("", file("design/templates/".$template.".htm"))));
-
-		} else echo(HTML_FONT_ERROR. str_replace("%TEMPL%", "design/templates/$template.htm", $lang['class_func']['no_templ']) . HTML_FONT_END);
+    if ($tpl_str = $this->FetchMasterTmpl("design/{$auth['design']}/templates/$template.htm")) return $tpl_str;
+    elseif ($tpl_str = $this->FetchMasterTmpl("design/templates/$template.htm")) return $tpl_str;
+    else echo t('Das Template "%1" existiert nicht!', array("dessign/{$auth['design']}/templates/$template.htm"));
 	}
 
 	function templ_output($template) {
