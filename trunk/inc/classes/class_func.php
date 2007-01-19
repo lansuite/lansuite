@@ -308,7 +308,7 @@ class func {
 
 		$img_start = "<img src=\"design/".$_SESSION["auth"]["design"]."/images/";
 		$img_start2 = "<img src=\"ext_inc/smilies/";
-		$img_end   = "\" border=\"0\" />";
+		$img_end   = "\" border=\"0\" alt=\"\"/>";
 
 		$string = str_replace("&", "&amp;", $string);
 		$string = str_replace("\"", "&quot;", $string);
