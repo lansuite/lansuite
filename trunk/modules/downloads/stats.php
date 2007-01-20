@@ -3,6 +3,15 @@ $LSCurFile = __FILE__;
 
 $dsp->NewContent(t('Statistiken'), $_GET['file']);
 
+// Delete
+if ($_GET['delfile'] and $auth['type'] >= 3) {
+  include_once('inc/classes/class_masterdelete.php');
+  $md = new masterdelete();
+  $md->Delete('download_stats', 'file', $_GET['delfile']);
+}
+
+
+// List
 if (!$_GET['file']) {
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('news');
@@ -14,13 +23,13 @@ if (!$_GET['file']) {
   $ms2->AddResultField(t('Downloads'), 'SUM(s.hits) AS hits');
 
   $ms2->AddIconField('details', 'index.php?mod=downloads&action=stats&file=', t('Details'));
-  #if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
-  #if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
+  if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=downloads&action=stats&delfile=', t('Löschen'));
 
   $ms2->PrintSearch('index.php?mod=downloads&action=stats', 's.file');
 
-} else {
 
+// Details
+} else {
   switch ($_GET['time']) {
     default:
       $link = 'y';

@@ -5,7 +5,7 @@ if (!$cfg['download_use_ftp']) {
   $BaseDir = 'ext_inc/downloads/';
 
   // Don't allow directories above base!
-  $_GET['dir'] = str_replace('/..', '', $_GET['dir']);
+  $_GET['dir'] = str_replace('..', '', $_GET['dir']);
 
   // Generate up-links
   $Dirs = split('/',$_GET['dir']);
