@@ -490,7 +490,7 @@ class Install {
 			."<tr><td class=\"row_value\">Max. Data-Input-Zeit:</td><td class=\"row_value\">". ini_get('max_input_time') ." Sec.</td></tr>"
 			."<tr><td class=\"row_value\">Memory Limit:</td><td class=\"row_value\">". ini_get('memory_limit') ." MB</td></tr>"
 			."<tr><td class=\"row_value\">Max. Post-Form Size:</td><td class=\"row_value\">". (int)ini_get('post_max_size') ." MB</td></tr>"
-			."<tr><td class=\"row_value\">Free space:</td><td class=\"row_value\">". $func->FormatSize(disk_free_space('.')) .' / '. $func->FormatSize(disk_total_space('.')) .'</td></tr>'
+			."<tr><td class=\"row_value\">Free space:</td><td class=\"row_value\">". $func->FormatFileSize(disk_free_space('.')) .' / '. $func->FormatFileSize(disk_total_space('.')) .'</td></tr>'
 			."</table>"
 			);
 

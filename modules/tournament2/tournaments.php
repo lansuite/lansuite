@@ -78,8 +78,7 @@ $mf->AddField($lang["tourney"]["details_startat"], 'starttime', '', '', '', Chec
 
 $selections = array();
 if($_POST['game_duration'] == '') { $_POST['game_duration'] = '30';}
-for($i = 10; $i <= 120; $i+=5) $selections[$i] = $i .' Min';
-$mf->AddField($lang['tourney']['details_game_duration'], 'game_duration', IS_SELECTION, $selections, '', '');
+$mf->AddField(t('Dauer eines Spieles (Min.)'), 'game_duration');
 
 $selections = array();
 if ($_POST['mode'] == '') $_POST['mode'] = 'double';
@@ -92,8 +91,7 @@ $mf->AddField($lang['tourney']['details_max_games'], 'max_games', IS_SELECTION, 
 
 $selections = array();
 if($_POST['break_duration'] == '') { $_POST['break_duration'] = '30';}
-for($i = 0; $i <= 30; $i+=5) $selections[$i] = $i .' Min';
-$mf->AddField($lang['tourney']['details_break_duration'], 'break_duration', IS_SELECTION, $selections);
+$mf->AddField(t('Pause nach jeder Runde (Min.)'), 'break_duration');
 
 $mf->AddField($lang['tourney']['t_add_defwin_on_time_exceed'].'|'.$lang['tourney']['t_add_defwin_on_time_exceed_detail'], 'defwin_on_time_exceed', '', 1, FIELD_OPTIONAL);
 $mf->AddGroup($lang['tourney']['details_times']);

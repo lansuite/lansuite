@@ -72,11 +72,12 @@ if (!$config) {
 }
 
 // Wenn configured = 0: Setup aufrufen
+$IsAboutToInstall = 0;
 if ($config['environment']['configured'] == 0) {
-	$_GET['action'] = 'wizard';
 	$_GET['mod'] = 'install';
+	$_GET['action'] = 'wizard';
+	$IsAboutToInstall = 1;
 }
-($_GET['mod'] == 'install' and $_GET['action'] == 'wizard')? $IsAboutToInstall = 1 : $IsAboutToInstall = 0;
 
 //// Load Base-Lang-File
 // 1) Include "de"
@@ -121,9 +122,8 @@ $seat2 = new seat2();   // Load Seat-Controll Class
 
 
 // Wenn Install: Connect ohne Abbruch bei Fehler, sonst mit Abbruch
-if ($IsAboutToInstall) {
-	$db->success = $db->connect(1);
-} else $db->success = $db->connect(0);
+if ($IsAboutToInstall) $db->success = $db->connect(1);
+else $db->success = $db->connect(0);
 
 
 $found_adm = 0;
@@ -181,24 +181,7 @@ if ($found_adm) {
 
 	// Check, if all required user data fields, are known and force user to add them, if not.
 	if ($auth['login'] and $auth['userid'] and $_GET["mod"] != 'install') include_once('modules/usrmgr/missing_fields.php');
-	// If not logged in as Administrator on Admin-Page
-/*	if ($_GET["mod"] == "install" and $auth["type"] < 2) {
-		$dsp->NewContent("Bitte mit einem der angelegten LanSuite-Administrator-Accounts einloggen, um fortzufahren", "Die Installation und Administration von LanSuite dürfen nur Benutzer mit Operator-Rechten durchführen");
-		$dsp->SetForm("");
 
-		$dsp->AddTextFieldRow("email", "E-Mail", "", "", "");
-		$dsp->AddPasswordRow("password", "Passwort", "", "", "");
-
-    $gd->CreateButton('login');
-    $gd->CreateButton('save');
-		$dsp->AddDoubleRow('', $dsp->FetchModTpl("install", "login"));
-		$dsp->AddDoubleRow('', $dsp->FetchButton("index.php?mod=usrmgr&action=pwrecover", "lost_pw"));
-
-		$dsp->AddContent();
-		eval("\$index = \"". $func->gettemplate("setup_index")."\";");
-		if ($_GET['design'] != 'base') $sitetool->out_optimizer();
-		exit;
-	}*/
 } else {
 	$auth["type"] = 3;
 	$auth["login"] = 1;
@@ -219,44 +202,28 @@ if ($db->success) {
 	include_once("modules/sponsor/banner.php");
 }
 
-if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') {
-	// Boxes
-	include_once("modules/boxes/class_boxes.php");
-}
+// Boxes
+if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') include_once("modules/boxes/class_boxes.php");
 
 // Info Seite blockiert
-if ($cfg['sys_blocksite'] == 1){
-	$func->error($cfg['sys_blocksite_text'], "index.php?mod=install");
-}
+if ($cfg['sys_blocksite'] == 1) $func->error($cfg['sys_blocksite_text'], "index.php?mod=install");
 
 // Include Module $_GET["mod"]
 if (!$missing_fields and !$siteblock) include_once("index_module.inc.php");
 
-// Define general index variables
-$templ['index']['info']['current_date'] = $func->unixstamp2date(time(),'daydatetime');
-$templ['index']['info']['lanparty_name'] = $_SESSION['party_info']['name'];
-$templ['index']['info']['version'] = $config['lansuite']['version'];
-if ($auth['login']) $templ['index']['info']['logout_link']	= " | <a href=\"index.php?mod=logout\" class=\"menu\">Logout</a>";
-else $templ['index']['info']['logout_link'] = "";
-
-// Out Debug info, if present
-$func->show_debug();
-
 // Output HTML
 if ($_GET['contentonly'] or $_GET['design'] == 'base') $index = $templ['index']['info']['content'];
 else {
-  if (($_SESSION['lansuite']['fullscreen'] == 1) and file_exists("design/{$auth["design"]}/templates/index_fullscreen.htm")) {
-  	$_SERVER['REQUEST_URI'] = str_replace('fullscreen=yes', '', $_SERVER['REQUEST_URI']);
-  	if ($CurentURL['query'] == '') $templ['index']['control']['current_url'] = str_replace('?', '', $_SERVER['REQUEST_URI']) .'?fullscreen=no';
-  	else $templ['index']['control']['current_url'] = $_SERVER['REQUEST_URI'] .'&fullscreen=no';
-  	$index = $func->gettemplate('index_fullscreen');
-  } else $index = $func->gettemplate('index_login');
+  if ($_SESSION['lansuite']['fullscreen'] and file_exists('design/'. $auth['design'] .'/templates/index_fullscreen.htm')) $index = $func->gettemplate('index_fullscreen');
+  else $index = $func->gettemplate('index_login');
 }
+
 if ($_GET['design'] != 'base') $sitetool->out_optimizer();
 
 // Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
 if ($db->success) {
   if ($_GET['design'] != 'base') $stats->update($sitetool->out_work(), $sitetool->get_send_size());
+
   // Check Cronjobs
   $cronjob->check_jobs();
   $db->disconnect();

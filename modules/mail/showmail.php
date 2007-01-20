@@ -9,7 +9,7 @@ if ($mail_id) {
 
 	if ($auth["userid"] == $mail->mail_header["from_userid"] OR $auth["userid"] == $mail->mail_header["to_userid"]){
 
-        $dsp->NewContent($lang["mail"]["showmail_title"], $lang["mail"]["showmail_mail_from"] ." <b>". $mail->mail_header["from_username"] ."</b>". $lang["mail"]["showmail_mail_send"].": <b>". $mail->mail_header["sendtime_text"] ."</b>");
+        $dsp->NewContent($lang["mail"]["showmail_title"], $lang["mail"]["showmail_mail_from"] ." <b>". $mail->mail_header["from_username"] ."</b> ". $lang["mail"]["showmail_mail_send"].": <b>". $mail->mail_header["sendtime_text"] ."</b>");
 
 		$dsp->AddDoubleRow($lang["mail"]["subject"], $mail->mail_subject["text"]);
 		$dsp->AddSingleRow($func->text2html($mail->mail_body["text"]));

@@ -2,6 +2,8 @@
 <menu>
 	<pos>20</pos>
 	<entry>
+		<action>default</action>
+		<file>show</file>
 		<caption>Anfahrt</caption>
 		<hint>Anfahrtsbeschreibung</hint>
 		<link>?mod=map</link>

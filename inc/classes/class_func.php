@@ -44,7 +44,7 @@ class func {
 	}
 
   function FetchMasterTmpl($file) {
-	global $auth, $templ;
+	global $auth, $templ, $config, $CurentURL;
 
     if (!is_file($file)) return false;
     else {
@@ -55,16 +55,23 @@ class func {
   		$tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'js\']}', $templ['index']['control']['js'], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'body\'][\'js\']}', $templ['index']['body']['js'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'lanparty_name\']}', $templ['index']['info']['lanparty_name'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'version\']}', $templ['index']['info']['version'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'current_date\']}', $templ['index']['info']['current_date'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', $templ['index']['info']['logout_link'], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'banner_code\']}', $templ['index']['banner_code'], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'boxes_letfside\']}', $templ['index']['control']['boxes_letfside'], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'boxes_rightside\']}', $templ['index']['control']['boxes_rightside'], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'content\']}', $templ['index']['info']['content'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'debug\'][\'content\']}', $templ['index']['debug']['content'], $tpl_str);
+
+      $URLQuery = preg_replace('#[&]?fullscreen=yes#sUi', '', $CurentURL['query']);
+    	$templ['index']['control']['current_url'] = 'index.php?'. $URLQuery .'&fullscreen=no';
   		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'current_url\']}', $templ['index']['control']['current_url'], $tpl_str);
+
+      if ($auth['login']) $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', ' | <a href="index.php?mod=logout" class="menu">Logout</a>', $tpl_str);
+      else $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', '', $tpl_str);
+
+  		$tpl_str = str_replace('{$templ[\'index\'][\'debug\'][\'content\']}', $this->ShowDebug(), $tpl_str);
+
+  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'lanparty_name\']}', $_SESSION['party_info']['name'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'version\']}', $config['lansuite']['version'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'current_date\']}', $this->unixstamp2date(time(),'daydatetime'), $tpl_str);
 
       return $tpl_str;
     }
@@ -307,8 +314,8 @@ class func {
 		global $db, $config;
 
 		$img_start = "<img src=\"design/".$_SESSION["auth"]["design"]."/images/";
-		$img_start2 = "<img src=\"ext_inc/smilies/";
-		$img_end   = "\" border=\"0\" alt=\"\"/>";
+		$img_start2 = '<img src="ext_inc/smilies/';
+		$img_end   = '" border="0" alt="" />';
 
 		$string = str_replace("&", "&amp;", $string);
 		$string = str_replace("\"", "&quot;", $string);
@@ -352,8 +359,8 @@ class func {
 		$string = str_replace('[/sub]', '</sub>', $string);
 		$string = str_replace('[sup]', '<sup>', $string);
 		$string = str_replace('[/sup]', '</sup>', $string);
-#		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">', $string);
-#		$string = str_replace('[/c]', '</div></blockquote>', $string);
+		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">', $string);
+		$string = str_replace('[/c]', '</div></blockquote>', $string);
 		$string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">', $string);
 		$string = str_replace('[/quote]', '</div></blockquote>', $string);
 
@@ -362,10 +369,10 @@ class func {
  		$string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
 		$string = str_replace('[/color]', '</font>', $string);
 
-#		$res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
-#		while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
-#    $db->free_result($res);
-
+		$res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
+		while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
+    $db->free_result($res);
+/*
 		$string = str_replace('[c]', '[c][c]', $string);
 		$string = str_replace('[/c]', '[/c][/c]', $string);
 		$str_arr = preg_split('#\[c\](.*)\[/c\]#iU', $string, -1, PREG_SPLIT_DELIM_CAPTURE);
@@ -379,7 +386,7 @@ class func {
 		foreach ($str_arr as $str) $string .= $str;
 		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code</div><div class="tbl_7">', $string);
 		$string = str_replace('[/c]', '</div></blockquote>', $string);
-
+*/
 		return $string;
 	}
 			
@@ -484,34 +491,30 @@ class func {
 		} else echo "Error: Function check_var needs defined: var, datatype (may be integer, double, string, boolean, object or array), [optionally: min_length], [optionally: max_length] <br/> For more information please visit the lansuite programmers docu";
 	}
 
-	// Old. Use $func->text2html instead
-	function db2text2html($text) {
-//			$text = $this->db2text($text);
-			$text = $this->text2html($text);
-			return $text;
-	}
-
-	// Old. Do not use any more
-	function text2db($text) {
-			$text = trim($text);
-//			$text = addslashes($text);
-			return $text;
-	}
-
 	// Add slashes at any non GPC-variable
 	// This function musst be used, if ' come from other sources, than $_GET, or $_POST
 	// for example language-files
 	function escape_sql($text) {
-		#if (!get_magic_quotes_gpc())
 		$text = addslashes(stripslashes($text));
 		return $text;
-	} 
+	}
+
+	// Old. Use $func->text2html instead
+	function db2text2html($text) {
+  	$text = $this->text2html($text);
+  	return $text;
+	}
+
+	// Old. Do not use any more
+	function text2db($text) {
+    $text = trim($text);
+    return $text;
+	}
 
 	// Old. Do not use any more
 	function db2text($text) {
-//			$text = stripslashes($text);
-			return $text;
-	} 
+    return $text;
+	}
 
 	function check_exist($checktype, $id) {
 		global $db, $config;
@@ -536,74 +539,42 @@ class func {
 		else return FALSE;
 	}
 
-	function show_debug() {
-		global $debug, $cfg, $config, $vars, $templ, $auth, $func, $db;
+	function ShowDebug() {
+		global $cfg, $auth;
 
-		if ($cfg["sys_debug_allinfo"]) {
-			$this->debug_parse_array($vars, '$vars');
-			$this->debug_parse_array($auth, '$auth');
-			$this->debug_parse_array($cfg, '$cfg');
-			$this->debug_parse_array($_ENV, '$_ENV');
-			$this->debug_parse_array($_COOKIE, '$_COOKIE');
-			$this->debug_parse_array($_SESSION, '$_SESSION');
-			$this->debug_parse_array($_SERVER, '$_SERVER');
-			$this->debug_parse_array($_FILES["importdata"], '$_FILES[importdata]');
-			$debug[] = "<br/>MySQL-Server Info: ".$db->get_host_info();
-			$debug[] = "<br/>Benötigte Abfragen für diese Seite: ".$db->querys_count;
-		}
+		if ($auth['type'] >= 2 and $cfg['sys_showdebug']) {
+			$debug = $this->debug_parse_array($_GET, '$_GET');
+			$debug .= $this->debug_parse_array($_POST, '$_POST');
+			$debug .= $this->debug_parse_array($auth, '$auth');
+			$debug .= $this->debug_parse_array($cfg, '$cfg');
+			$debug .= $this->debug_parse_array($_ENV, '$_ENV');
+			$debug .= $this->debug_parse_array($_COOKIE, '$_COOKIE');
+			$debug .= $this->debug_parse_array($_SESSION, '$_SESSION');
+			$debug .= $this->debug_parse_array($_SERVER, '$_SERVER');
+			$debug .= $this->debug_parse_array($_FILES["importdata"], '$_FILES[importdata]');
 
-		if ($debug and $cfg["sys_showdebug"] and ($auth["type"] >= 2 or $cfg["sys_showdebug_alluser"])) {
-			$debug_content = implode("", $debug);
-			eval("\$templ['index']['debug']['content'] .= \"". $this->gettemplate("debug_case")."\";");
-			return true;
+      $debug = '<div class="content" align="left">'. $debug .'</div>';
+  		return $debug;
 		}
+		return '';
 	}
 
-	function debug_parse_array($array, $caption = NULL) {
-		global $debug;
+	function debug_parse_array($array, $caption = NULL, $level = 0) {
+    $spaces = '';
+    for ($z = 0; $z < $level; $z++) $spaces .= '&nbsp;&nbsp;&nbsp;&nbsp;';
 
-		if ($caption) $debug[] = HTML_NEWLINE . "<b>$caption</b>";
+		if ($caption) $debug .= HTML_NEWLINE . "<b>$caption</b>";
 		if ($array) foreach($array as $key => $value) {
-			if(is_array($value)){
-				$this->debug_parse_array($value,"Array => $key");
-			}else{
+			if (is_array($value)) $debug .= $this->debug_parse_array($value, "Array => $key", $level++);
+			else {
 				if (strlen($value) > 80) $value = $this->wrap($value, 80);
-				$debug[] = HTML_NEWLINE . "$key = $value";
+				$debug .= HTML_NEWLINE .$spaces. "$key = $value";
 			}
 		}
-		$debug[] = HTML_NEWLINE . "------------------------------";
+		$debug .= HTML_NEWLINE . "------------------------------";
+		return $debug;
 	}
 
-    function set_change_log($modul, $value1, $value2 = NULL, $value3 = NULL, $value4 = NULL, $value5 = NULL) {
-     	global $db;
-
-        // TODO: MODUL-Kürzel prüfen !
-
-        if ($modul == "" or $value1 == "") {
-			$this->set_change_log_error = "modul OR first value empty";
-			return false;
-		}
-
-        $insert = $db->query("INSERT INTO {$db->tables['change_log']} SET modul = '$modul',
-                                                                          value1 = '$value1',
-                                                                          value2 = '$value2',
-                                                                          value3 = '$value3',
-                                                                          value4 = '$value4',
-                                                                          value5 = '$value5'");
-        if ($insert) {
-         	echo "OK:".$insert;
-            $i =  $db->insert_id();
-         	return $i;
-        } else return false;
-
-    }
-
-    // Läd den Log-Eintrag zur übergebenen ID
-    function get_change_log($clogid) {
-    }
-
-    function get_last_change_log($modul) {
-    }
 
 	// Gibt das aktuelle Alter zurück
 	function age($gebtimestamp) {
@@ -766,16 +737,6 @@ class func {
 		else return $in;
 */
 	}
-	
-	function FormatSize($size) {
-		if ($size < 1024) return $size . ' B';
-		$units = array("kB", "MiB", "GB", "TB");
-		foreach ($units as $unit) {
-			$size = round($size / 1024, 1);
-			if ($size < 1024) break;
-		}
-		return $size .' '. $unit;
-	}
 
   function wrap($text, $maxlength, $spacer = "<br />\n") {
     $textarr = explode(' ', $text);
@@ -795,7 +756,6 @@ class func {
       $i++;
     }
     return round($size, 2) .' '. $iec[$i];
-    #substr($size, 0, strpos($size, '.') + 4) . $iec[$i];
   }
 }
 ?>
