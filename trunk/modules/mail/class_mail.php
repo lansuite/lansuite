@@ -144,14 +144,11 @@ class Mail {
 		// Set default Sender-Mail, if non is set
 		if ($this->inet_from_mail == "") $this->inet_from_mail = $cfg["sys_party_mail"];
 
-		$this->inet_headers   = "MIME-Version: 1.0\r\n";
-		$this->inet_headers  .= "Content-Type: text/plain; charset=utf-8\r\n";
-		$this->inet_headers  .= "To: $to_user_name <$to_user_email>\r\n";
-		$this->inet_headers  .= "From: $from\r\n";
-		$this->inet_headers  .= "Date: ". date(r) ."\r\n";
-		$this->inet_headers  .= "X-Mailer: PHP/". phpversion();
-
-#		$to = "$to_user_name <$to_user_email>";
+    $this->inet_headers = "MIME-Version: 1.0\n";
+    $this->inet_headers .= "Content-type: text/plain; charset=utf-8\n";
+    $this->inet_headers .= "To: $to_user_name <$to_user_email>\n";
+    $this->inet_headers .= "From: $from\n";
+    $this->inet_headers .= "Reply-To: $from\n";
 
 		// SNMP-Mail
 		if ($cfg["mail_use_smtp"]) {
@@ -166,13 +163,12 @@ class Mail {
       }
 
 			include_once("modules/mail/smtp.php");
-
 			if (smtpmail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) return true;
 			else return false;
 
 		// PHP-Mail
 		} else {
-			if (@mail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) return true;
+			if (mail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) return true;
 			else return false;
 		}
 	}
