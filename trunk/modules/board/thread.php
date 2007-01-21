@@ -161,7 +161,7 @@ elseif ($thread['caption'] != '') {
 if ($_GET['pid'] != '') $current_post = $db->query_first("SELECT userid FROM {$config['tables']['board_posts']} WHERE pid = {$_GET['pid']}");
 
 if ($thread['closed']) $func->information(t('Dieser Thread wurde geschlossen. Es können keine Antworten mehr geschrieben werden'), NO_LINK);
-elseif ($thread['need_type'] >= 1 and !$auth['login']) $func->information(t('Um auf diese beiträge zu antworten loggen Sie sich bitte zuerst ein'), NO_LINK);
+elseif ($thread['need_type'] >= 1 and !$auth['login']) $func->information(t('Um auf diese Beiträge zu antworten, loggen Sie sich bitte zuerst ein.'), NO_LINK);
 elseif ($_GET['pid'] != '' and $auth['type'] <= 1 and $current_post['userid'] != $auth['userid']) $func->error('Sie dürfen nur Ihre eigenen Beiträge editieren!', NO_LINK);
 else {
   $dsp->AddFieldsetStart(t('Antworten - Der Beitrag kann anschließend noch editiert werden'));
