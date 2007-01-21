@@ -41,21 +41,23 @@ switch($_GET["step"]) {
 		$dsp->AddCheckBoxRow("tosys", $lang["mail"]["newsletter_tosys"], $lang["mail"]["newsletter_tosys2"], "", 1, $_POST["tosys"]);
 
 		$dsp->AddHRuleRow();
-
-		$dsp->AddDoubleRow("Variablen", "%NACHNAME%" . HTML_NEWLINE ."
-			%VORNAME%" . HTML_NEWLINE ."
-			%NICK%" . HTML_NEWLINE ."
-			%EMAIL%" . HTML_NEWLINE ."
-			%WWCLID%" . HTML_NEWLINE ."
-			%WWCLCLANID%" . HTML_NEWLINE ."
-			%NGLID%" . HTML_NEWLINE ."
-			%NGLCLANID%" . HTML_NEWLINE ."
-			%IP%" . HTML_NEWLINE ."
-			%CLAN%" . HTML_NEWLINE ."
-			%CLANURL%" . HTML_NEWLINE ."
-			%BEZAHLT% ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
-			%EINGECHECKT% ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
-			%ANGEMELDET% ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
+		$dsp->AddDoubleRow("Variablen", " 
+			<b>%USERNAME%</b>" . HTML_NEWLINE ."
+			<b>%VORNAME%</b>" . HTML_NEWLINE ."
+			<b>%NACHNAME%</b>" . HTML_NEWLINE ."
+			<b>%EMAIL%</b>" . HTML_NEWLINE ."
+			<b>%CLAN%</b>" . HTML_NEWLINE ."
+			<b>%CLANURL%</b>" . HTML_NEWLINE ."
+			<b>%PARTYNAME%</b>" . HTML_NEWLINE ."
+			<b>%MAXGUESTS%</b>" . HTML_NEWLINE ."
+			<b>%WWCLID%</b>" . HTML_NEWLINE ."
+			<b>%WWCLCLANID%</b>" . HTML_NEWLINE ."
+			<b>%NGLID%</b>" . HTML_NEWLINE ."
+			<b>%NGLCLANID%</b>" . HTML_NEWLINE ."
+			<b>%IP%</b>" . HTML_NEWLINE ."
+			<b>%BEZAHLT%</b> ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
+			<b>%EINGECHECKT%</b> ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
+			<b>%ANGEMELDET%</b> ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
 			");
 
 		$dsp->AddTextFieldRow("subject", $lang["mail"]["newsletter_subject"], $_POST["subject"], $subject_error);
@@ -84,17 +86,21 @@ switch($_GET["step"]) {
 			$text = $_POST["text"];
 
 			// Variablen ersetzen
-			$text = str_replace("%NACHNAME%", $user["name"], $text);
+			$text = str_replace("%USERNAME%", $user["username"], $text);
 			$text = str_replace("%VORNAME%", $user["firstname"], $text);
-			$text = str_replace("%NICK%", $user["username"], $text);
+			$text = str_replace("%NACHNAME%", $user["name"], $text);
 			$text = str_replace("%EMAIL%", $user["email"], $text);
+			$text = str_replace("%CLAN%", $user["clan"], $text);
+			$text = str_replace("%CLANURL%", $user["clanurl"], $text);
+			
+			$text = str_replace("%PARTYNAME%", $party_data["name"], $text);
+			$text = str_replace("%MAXGUESTS%", $party_data['max_guest'], $text);
+			
 			$text = str_replace("%WWCLID%", $user["wwclid"], $text);
 			$text = str_replace("%WWCLCLANID%", $user["wwclclanid"], $text);
 			$text = str_replace("%NGLID%", $user["nglid"], $text);
 			$text = str_replace("%NGLCLANID%", $user["nglclanid"], $text);
 			$text = str_replace("%IP%", $user["ipaddress"], $text);
-			$text = str_replace("%CLAN%", $user["clan"], $text);
-			$text = str_replace("%CLANURL%", $user["clanurl"], $text);
 
 			($user["paid"]) ? $text = str_replace("%BEZAHLT%", $lang["sys"]["yes"], $text)
 				: $text = str_replace("%BEZAHLT%", $lang["sys"]["no"], $text);
