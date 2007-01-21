@@ -146,7 +146,6 @@ class Mail {
 
     $this->inet_headers = "MIME-Version: 1.0\n";
     $this->inet_headers .= "Content-type: text/plain; charset=utf-8\n";
-    $this->inet_headers .= "To: $to_user_name <$to_user_email>\n";
     $this->inet_headers .= "From: $from\n";
     $this->inet_headers .= "Reply-To: $from\n";
 
@@ -163,12 +162,12 @@ class Mail {
       }
 
 			include_once("modules/mail/smtp.php");
-			if (smtpmail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) return true;
+			if (smtpmail("$to_user_name <$to_user_email>", $subject_text, $msgbody_text, $this->inet_headers)) return true;
 			else return false;
 
 		// PHP-Mail
 		} else {
-			if (mail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) return true;
+			if (mail("$to_user_name <$to_user_email>", $subject_text, $msgbody_text, $this->inet_headers)) return true;
 			else return false;
 		}
 	}
