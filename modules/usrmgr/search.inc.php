@@ -50,7 +50,7 @@ $ms2->AddTextSearchField('NGL/WWCL/LGZ-ID', array('u.nglid' => 'exact', 'u.nglcl
 
 $ms2->AddTextSearchDropDown(t('Benutzertyp'), 'u.type', array('' => t('Alle'), '1' => t('Gast'), '!1' => t('Nicht Gast'), '<0' => t('Deaktiviert'), '2' => t('Admin'), '3' => t('Operator'), '2,3' => t('Admin, oder Operator')));
 	
-$party_list = array('' => 'Alle');
+$party_list = array('' => 'Alle', 'NULL' => 'Zu keiner Party angemeldet');
 $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
 while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
 $db->free_result($row);
@@ -66,7 +66,7 @@ $ms2->AddSelect('c.url AS clanurl');
 $ms2->AddSelect('u.type');
 $ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLink');
 // If Party selected
-if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
+if (($_POST["search_dd_input"][1] != '' and $_POST["search_dd_input"][1] != 'NULL') or ($_GET["search_dd_input"][1] != '' and $_GET["search_dd_input"][1] != 'NULL')) {
   $ms2->AddResultField(t('Bezahlt'), 'p.paid', 'PaidIconLink');
   $ms2->AddResultField(t('In'), 'p.checkin', 'MS2GetDate');
   $ms2->AddResultField(t('Out'), 'p.checkout', 'MS2GetDate');

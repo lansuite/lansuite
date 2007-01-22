@@ -174,7 +174,10 @@ class MasterSearch2 {
               $value = substr($value, 1, strlen($value) - 1);
             }
             
-            if ($value != '') $sql_one_search_field .= "({$current_field_list['sql_field']} $pre_eq= '$value')";
+            if ($value != '') {
+              if ($value == 'NULL') $sql_one_search_field .= "({$current_field_list['sql_field']} IS NULL)";
+              else $sql_one_search_field .= "({$current_field_list['sql_field']} $pre_eq= '$value')";
+            }
             $x++;
           }
           // If COUNT function is used in select, write this variable in the having statement, otherwise in the where statement
