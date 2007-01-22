@@ -3,6 +3,23 @@
 include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
+function CheckEndDate($enddate) {
+  if ($enddate < $_POST['startdate']) return t('Der Endzeitpunkt muss nach dem Startzeitpunkt liegen');
+  else return false;
+}
+
+function CheckSignonStartDate($sstartdate) {
+  if ($sstartdate > $_POST['startdate']) return t('Der Anmeldestart muss vor dem Partystart liegen');
+  else return false;
+}
+
+function CheckSignonEndDate($senddate) {
+  if ($senddate < $_POST['sstartdate']) return t('Der Anmeldeschluss muss nach dem Anmeldestart liegen');
+  if ($senddate > $_POST['startdate']) return t('Der Anmeldeschluss muss vor dem Partystart liegen');
+  else return false;
+}
+
+
 function UpdatePartyID($id) {
   global $db, $config, $lang, $func;
   
@@ -16,9 +33,9 @@ $mf->AddField($lang['signon']['plz'], 'plz');
 $mf->AddField($lang['signon']['ort'], 'ort');
 
 $mf->AddField($lang['signon']['stime'], 'startdate');
-$mf->AddField($lang['signon']['etime'], 'enddate');
-$mf->AddField($lang['signon']['sstime'], 'sstartdate');
-$mf->AddField($lang['signon']['setime'], 'senddate');
+$mf->AddField($lang['signon']['etime'], 'enddate', '', '', '', 'CheckEndDate');
+$mf->AddField($lang['signon']['sstime'], 'sstartdate', '', '', '', 'CheckSignonStartDate');
+$mf->AddField($lang['signon']['setime'], 'senddate', '', '', '', 'CheckSignonEndDate');
 
 /*
 		// erster Preis einfügen

@@ -44,7 +44,7 @@ class func {
 	}
 
   function FetchMasterTmpl($file) {
-	global $auth, $templ, $config, $CurentURL;
+	global $auth, $templ, $config, $CurentURL, $dsp;
 
     if (!is_file($file)) return false;
     else {
@@ -53,12 +53,14 @@ class func {
   		fclose ($handle);
 
   		$tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'js\']}', $templ['index']['control']['js'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'js\']}', '<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>', $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'body\'][\'js\']}', $templ['index']['body']['js'], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'banner_code\']}', $templ['index']['banner_code'], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'boxes_letfside\']}', $templ['index']['control']['boxes_letfside'], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'boxes_rightside\']}', $templ['index']['control']['boxes_rightside'], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'content\']}', $templ['index']['info']['content'], $tpl_str);
+  		
+  		$tpl_str = str_replace('{$templ[\'index\'][\'html_header\']}', $dsp->FetchModTpl('', 'html_header'), $tpl_str);
 
       $URLQuery = preg_replace('#[&]?fullscreen=yes#sUi', '', $CurentURL['query']);
     	$templ['index']['control']['current_url'] = 'index.php?'. $URLQuery .'&fullscreen=no';

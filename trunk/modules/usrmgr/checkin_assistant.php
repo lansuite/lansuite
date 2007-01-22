@@ -9,7 +9,12 @@ switch($_GET["step"]) {
 	case 1:
     unset($_SESSION['quick_signon']);
 
+    $dsp->AddFieldsetStart('Dierekt zu folgendem Benutzer springen');
 		if ($cfg['sys_barcode_on']) $dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>", "", "index.php?mod=usrmgr&action=entrance&step=3&userid=");
+    $dsp->SetForm('index.php?mod=usrmgr&action=entrance&step=3');
+    $dsp->AddTextFieldRow('userid', t('UserID'), '', '');
+    $dsp->AddFormSubmitRow('next');
+    $dsp->AddFieldsetEnd();
 
 		$questionarr[1] = $lang["usrmgr"]["entrance_signedon"];
 		$questionarr[2] = $lang["usrmgr"]["entrance_comunity"];
@@ -36,6 +41,7 @@ switch($_GET["step"]) {
     $cfg['signon_autopw'] = 1;
     $cfg['signon_captcha'] = 0;
 
+		if (!$_GET['userid']) $_GET['userid'] = $_POST['userid'];
 		if (!$_POST['paid']) $_POST['paid'] = 2;
 
     if ($_GET['quick_signon']) $_SESSION['quick_signon'] = $_GET['quick_signon'];

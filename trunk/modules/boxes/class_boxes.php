@@ -21,9 +21,9 @@ class boxes {
 
 	function LinkItem($link, $caption, $class = "", $hint='') {
 		global $templ, $dsp;
-
 		if ($link != "") {
-  		$templ['box']['row']['hint'] = $hint;
+		  $templ['box']['row']['hint'] = '';
+		  if ($hint) $templ['box']['row']['hint'] = ' onmouseover="return overlib(\''. $hint .'\');" onmouseout="return nd();"'; # title="'. $hint .'"
 			$templ['box']['row']['link'] = $link;
 			$templ['box']['row']['class'] = $class;
 
