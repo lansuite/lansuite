@@ -234,7 +234,7 @@ if ($thread['caption'] != '') {
   	if ($bookmark["sysemail"]) $_POST["check_sysemail"] = 1;
   
   	$dsp->SetForm("index.php?mod=board&action=thread&tid=$tid&fid=$fid&set_bm=1");
-  	$dsp->AddFieldsetStart(t('Monitoring - Das Aufnehmen in die eigenen Lesezeichen ist Vorraussetzung, um per Mail zu aboniert'));
+  	$dsp->AddFieldsetStart(t('Monitoring - Aufnahme in Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren'));
     $additionalHTML = "onclick=\"CheckBoxBoxActivate('email', this.checked)\"";
   	$dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Diesen Beitrag in meine Lesezeichen aufnehmen'), "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
   	$dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
