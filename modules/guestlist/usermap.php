@@ -7,7 +7,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
   if (!$cfg['google_maps_api_key']) $func->information('Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen in der Modulkonfiguration eingeben');
   else {
     $where_pid = '';
-    if ($party->party_id) $where_pid = 'AND (p.party_id = {$party->party_id})';
+    if ($party->party_id) $where_pid = "AND (p.party_id = {$party->party_id})";
 
     $res = $db->query("SELECT u.*, s.avatar_path FROM {$config["tables"]["user"]} AS u
   		LEFT JOIN {$config["tables"]["party_user"]} AS p ON u.userid = p.user_id
