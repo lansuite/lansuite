@@ -21,16 +21,12 @@ $reg = $get_cur["n"];
 
 
 if (!$party_data) {
-	$box->ItemRow("user", '<b>'. t('Partyinfos') .'</b>');
+	$box->EngangedRow(t('Registrierte Benutzer').': '.$reg);
 
-	$box->EmptyRow();
-	$box->EngangedRow(t('Registrierte User').': '.$reg);
+} elseif ($party_data['partyend'] < time()) {
+  $box->EngangedRow(t('Momentan ist keine Party geplant'));
 
-	$box->EmptyRow();
-	$box->EngangedRow(t('Momentan ist keine Party geplant'));
 } else {
-	## SignOns w bar
-
 
     // Ermittle die Anzahl der derzeit angemeldeten Usern
 	$get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user LEFT JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id WHERE party_id='{$party_data['party_id']}' AND ($querytype)");
@@ -76,33 +72,24 @@ if (!$party_data) {
 	$bar = "<img src=\"design/{$auth['design']}/images/userbar_left.gif\" height=\"13\" border=\"0\" alt =\"\" />";
 
 	// Bezahlt
-	if ($pixelpaid > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_green.gif\" width=\"$pixelpaid\" height=\"13\" border=\"0\" title=\"". t('Bezahlt') ."\" alt =\"\" />";
+	if ($pixelpaid > 0) $bar .= '<img src="design/'. $auth['design'] .'/images/userbar_center_green.gif" width="'. $pixelpaid .'" height="13" border="0" onmouseover="return overlib(\''. t('Bezahlt') .': '. $paid  .'\');" onmouseout="return nd();" alt="'. t('Bezahlt') .'" />';
 
 	//Angemeldet
-	if ($pixelcuruser > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_yellow.gif\" width=\"$pixelcuruser\" height=\"13\" border=\"0\" title=\"". t('Angemeldet') ."\" alt =\"\" />";
+	if ($pixelcuruser > 0) $bar .= '<img src="design/'. $auth['design'] .'/images/userbar_center_yellow.gif" width="'. $pixelcuruser .'" height="13" border="0" onmouseover="return overlib(\''. t('Angemeldet') .': '. $cur  .'\');" onmouseout="return nd();" alt="'. t('Angemeldet') .'" />';
 
 	//Gesamt
-	if ($pixelges > 0) $bar .= "<img src=\"design/{$auth['design']}/images/userbar_center_bg.gif\" width=\"$pixelges\" height=\"13\" border=\"0\" title=\"". t('Frei') ."\" alt =\"\" />";
+	if ($pixelges > 0) $bar .= '<img src="design/'. $auth['design'] .'/images/userbar_center_bg.gif" width="'. $pixelges .'" height="13" border="0" onmouseover="return overlib(\''. t('Frei') .': '. ($max - $paid)  .'\');" onmouseout="return nd();" alt="'. t('Frei') .'" />';
 
 	// rechts
 	$bar .= "<img src=\"design/{$auth['design']}/images/userbar_right.gif\" height=\"13\" border=\"0\" alt =\"\" />";
 
-	if ($party_next) {
-		$box->ItemRow("user", '<b>'. t('Nächste Party') .'<br />'. $party_data['name'] .'</b>');
-		$templ['box']['signonstatus']['case']['info']['party'] = '<b>'. t('Nächste Party') .'<br />'. $party_data['name'] ."</b>";
-	} else {
-		$box->ItemRow("user", '<b>'. t('Anmeldungen an') .'<br />'. $party_data['name'] .'</b>');
-		$templ['box']['signonstatus']['case']['info']['party'] = t('Anmeldungen an') ."<br /><b>". $party_data['name'] ."</b>";
-	}
+	$box->ItemRow("user", '<b>'. $party_data['name'] .'</b>');
+	$box->EngangedRow(date("d.m", $party_data['partybegin']) .' - '. date("d.m.y", $party_data['partyend']));
 
 	$box->EngangedRow($bar);
 	$box->EngangedRow(t('Registriert').': '. $reg);
-	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/userbox_yellow.gif\" width=\"5\" height=\"13\" border=\"0\" alt =\"\"/>". t('Angemeldet') .": $cur");
-	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/userbox_green.gif\" width=\"5\" height=\"13\" border=\"0\" alt =\"\"/>". t('Bezahlt') .": $paid");
-	$box->EngangedRow(t('Plätze frei'). ": ". ($max - $paid));
 
 	## Counter
-
 	$count = ceil(($party_data['partybegin'] - time()) / 60);
 	if ($count <= 1) $count = t('Die Party läuft gerade!');
 	elseif ($count <= 120) $count = t('Noch %1 Minuten.', array($count));
@@ -112,10 +99,6 @@ if (!$party_data) {
 	$box->EmptyRow();
 	$box->ItemRow("data", '<b>'. t('Counter') .'</b>');
 	$box->EngangedRow($count);
-
-	$box->EmptyRow();
-	$box->ItemRow("data", "<b>". $party_data['name'] . "</b>");
-	$box->EngangedRow(date("d.m", $party_data['partybegin']) .' - '. date("d.m.y", $party_data['partyend']));
 
   $checked = $db->query_first("SELECT checked as n FROM {$config["tables"]["partys"]} WHERE party_id = ".(int)$party->party_id);
   $box->EmptyRow();
