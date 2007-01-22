@@ -721,16 +721,17 @@ $this->form_open = true;
     }
 
     // Hint
-    $templ['icon']['title'] = $hint;
-    if ($templ['icon']['title'] == '') switch ($picname) {
-      default: $templ['icon']['title'] = ''; break;
-      case 'add': $templ['icon']['title'] = t('Hinzufügen'); break;
-      case 'change': $templ['icon']['title'] = t('Ändern'); break;
-      case 'edit': $templ['icon']['title'] = t('Editieren'); break;
-      case 'delete': $templ['icon']['title'] = t('Löschen'); break;
-      case 'send': $templ['icon']['title'] = t('Senden'); break;
+    $templ['icon']['title'] = '';
+    if ($hint == '') switch ($picname) {
+      default: $hint = ''; break;
+      case 'add': $hint = t('Hinzufügen'); break;
+      case 'change': $hint = t('Ändern'); break;
+      case 'edit': $hint = t('Editieren'); break;
+      case 'delete': $hint = t('Löschen'); break;
+      case 'send': $hint = t('Senden'); break;
     }
-    if ($templ['icon']['accesskey']) $templ['icon']['title'] .= '('. $templ['icon']['accesskey'] .')';
+    if ($templ['icon']['accesskey']) $hint .= '('. $templ['icon']['accesskey'] .')';
+    if ($hint) $templ['icon']['title'] = ' onmouseover="return overlib(\''. $hint .'\');" onmouseout="return nd();"';
 
     $templ['icon']['additionalhtml'] = '';
     if ($align == 'right') $templ['icon']['additionalhtml'] = 'align="right" valign="bottom" vspace="2" ';
@@ -747,6 +748,7 @@ $this->form_open = true;
 		global $templ;
 
 		$templ['usericon']['userid'] = $userid;
+		$templ['usericon']['hint'] = t('Benutzerdetails aufrufen');
 		return $this->FetchModTpl("", "ls_usericon");
 	}
 

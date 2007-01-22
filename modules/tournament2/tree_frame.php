@@ -1,18 +1,5 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.1
-*	Filename: 			tree.php
-*	Module: 			Tournamentsystem
-*	Main editor: 		jochen@one-network.org
-*	Last change: 		20.04.2004
-*	Description: 		show tournament tree
-*	Remarks: 		
-*
-**************************************************************************/
+
 include_once("modules/tournament2/tree.class.php");
 include_once("modules/tournament2/sp_tree.class.php");
 
@@ -220,6 +207,7 @@ if ($_SESSION["lansuite"]["fullscreen"]) {
 	$templ['index']['info']['content'] .= "</script>\r\n";
 }
 
-eval("\$index .= \"". $func->gettemplate("base_index")."\";");
-$func->templ_output($index);
+$dsp->AddSingleRow($index);
+$dsp->AddContent();
+
 ?>

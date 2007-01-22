@@ -239,7 +239,7 @@ class Import {
   			// Search for fields, which exist in the XML-File no more, but still in DB.
   			// Delete them from the DB
   			if ($table_found and $db_fields) foreach ($db_fields as $db_field) {
-    			if (!in_array($db_field['Field'], $field_names)) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP {$db_field["Field"]}");
+    			if (!in_array($db_field['Field'], $field_names)) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP `{$db_field["Field"]}`");
   			}
 
         if (!$table_found) {
