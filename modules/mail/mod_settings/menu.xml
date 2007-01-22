@@ -42,6 +42,16 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>formular</action>
+		<file>formular</file>
+		<caption>Kontakt Formular</caption>
+		<hint>Hier können Sie kontakt mit uns aufnehmen</hint>
+		<link>?mod=mail&action=formular</link>
+		<requirement>1</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
 		<action>newsletter</action>
 		<file>newsletter</file>
 		<caption>Rundmail</caption>
