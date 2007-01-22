@@ -11,8 +11,8 @@ $dsp->AddDoubleRow('Party', $party->data['name']);
 
 $mf->AddField($lang['signon']['price_text'], 'price_text');
 $mf->AddField($lang['signon']['price'], 'price');
-$mf->AddField($lang['signon']['depot_desc'], 'depot_desc');
-$mf->AddField($lang['signon']['depot_price'], 'depot_price');
+#$mf->AddField($lang['signon']['depot_desc'], 'depot_desc');
+#$mf->AddField($lang['signon']['depot_price'], 'depot_price');
 
 $selections = array();
 $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
