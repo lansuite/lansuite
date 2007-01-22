@@ -265,12 +265,15 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
           'permissions', IS_MULTI_SELECTION, $selections, FIELD_OPTIONAL);
 
         // Group
-        $selections = array();
         $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
-        while ($row = $db->fetch_array($res)) {
-          $selections[$row['group_id']] = $row['group_name'];
+        if ($db->num_rows($res) > 0) {
+          $selections = array('' => t('Keine'));
+          while ($row = $db->fetch_array($res)) {
+            $selections[$row['group_id']] = $row['group_name'];
+          }
+          $mf->AddField(t('Gruppe'), 'group_id', IS_SELECTION, $selections, 1);
         }
-        $mf->AddField(t('Gruppe'), 'group_id', IS_SELECTION, $selections, 1);
+        $db->free_result($res);
         $mf->AddGroup('Rechte');
       }
     }

@@ -250,9 +250,10 @@ class Import {
     			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}$table_name ($mysql_fields $primary_key $unique_key) TYPE = MyISAM CHARACTER SET utf8");
     			$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
 
-          # Needed??
           // Set Table-Charset to UTF-8
-          $db->query_first("ALTER TABLE {$config["database"]["prefix"]}$table_name DEFAULT CHARACTER SET utf8");
+          # Needed??
+          // Do not use, for some old MySQL-Versions are causing trouble, with that statement.
+#          $db->query_first("ALTER TABLE {$config["database"]["prefix"]}$table_name DEFAULT CHARACTER SET utf8");
 
   				// Add to installed tables
   				# Maybe no longer needed??
