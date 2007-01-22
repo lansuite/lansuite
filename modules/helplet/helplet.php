@@ -1,6 +1,6 @@
 <?php 
 
-eval("\$index .= \"". $func->gettemplate("helplet_show_index")."\";");
+#eval("\$index .= \"". $func->gettemplate("helplet_show_index")."\";");
 
 include("modules/{$_GET['module']}/docu/{$language}_{$_GET['helpletid']}.php");
 
@@ -12,7 +12,6 @@ if ($helplet['key']) foreach ($helplet['key'] as $key) {
 	if ($key) $dsp->AddDoubleRow($key, $value);
 }
 $dsp->AddContent();
-$index .= $templ['index']['info']['content'];
-$func->templ_output($index);
 
+echo $func->FetchMasterTmpl("design/templates/helplet_show_index.htm", $templ);
 ?>
