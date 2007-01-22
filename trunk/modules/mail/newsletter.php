@@ -49,6 +49,7 @@ switch($_GET["step"]) {
 			<b>%CLAN%</b>" . HTML_NEWLINE ."
 			<b>%CLANURL%</b>" . HTML_NEWLINE ."
 			<b>%PARTYNAME%</b>" . HTML_NEWLINE ."
+			<b>%PARTYURL%</b>" . HTML_NEWLINE ."
 			<b>%MAXGUESTS%</b>" . HTML_NEWLINE ."
 			<b>%WWCLID%</b>" . HTML_NEWLINE ."
 			<b>%WWCLCLANID%</b>" . HTML_NEWLINE ."
@@ -94,6 +95,7 @@ switch($_GET["step"]) {
 			$text = str_replace("%CLANURL%", $user["clanurl"], $text);
 			
 			$text = str_replace("%PARTYNAME%", $party_data["name"], $text);
+			$text = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $text);
 			$text = str_replace("%MAXGUESTS%", $party_data['max_guest'], $text);
 			
 			$text = str_replace("%WWCLID%", $user["wwclid"], $text);
