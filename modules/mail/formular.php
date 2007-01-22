@@ -20,6 +20,10 @@ switch($_GET["step"]) {
 			$adress_error = $lang["mail"]["formular_err_noadress"];
 			$_GET["step"] = 1;
 		}
+  	if ($_POST['captcha'] == '' or $_COOKIE['image_auth_code'] != md5(strtoupper($_POST['captcha']))) {
+			$captcha_error = t('Captcha falsch wiedergegeben');
+			$_GET["step"] = 1;
+		}
 		break;
 }
 
@@ -30,6 +34,7 @@ switch($_GET["step"]) {
 
 		$dsp->AddHRuleRow();
 
+    if (!$auth['login']) $dsp->AddTextFieldRow('captcha', 'Captcha <img src="ext_scripts/captcha.php">', $_POST['captcha'], $captcha_error);
 		$dsp->AddTextFieldRow("adress", $lang["mail"]["formular_adress"], $senderemail, $adress_error);
 		$dsp->AddTextFieldRow("subject", $lang["mail"]["newsletter_subject"], $_POST["subject"], $subject_error);
 		$dsp->AddTextAreaRow("text", $lang["mail"]["newsletter_text"], $_POST["text"], $text_error);
