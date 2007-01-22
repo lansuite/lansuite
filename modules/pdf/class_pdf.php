@@ -433,14 +433,14 @@ class pdf {
 				}else{
 					$pdf_sqlstring = $pdf_sqlstring ." AND";
 				}
-				$pdf_sqlstring = $pdf_sqlstring . " user.paid='1'";
+				$pdf_sqlstring = $pdf_sqlstring . " party.paid='1'";
 			}elseif ($pdf_paid == "0"){
 				if ($pdf_sqlstring == ""){
 					$pdf_sqlstring = "WHERE";
 				}else{
 					$pdf_sqlstring = $pdf_sqlstring ." AND";
 				}
-				$pdf_sqlstring = $pdf_sqlstring . " user.paid='0'";
+				$pdf_sqlstring = $pdf_sqlstring . " party.paid='0'";
 			}
 
 			if ($pdf_normal == "1"){
