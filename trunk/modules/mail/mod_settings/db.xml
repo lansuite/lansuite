@@ -86,7 +86,7 @@
 			</field>
 			<field>
 				<name>tx_date</name>
-				<type>int(11)</type>
+				<type>datetime</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
@@ -94,7 +94,7 @@
 			</field>
 			<field>
 				<name>rx_date</name>
-				<type>int(11)</type>
+				<type>datetime</type>
 				<null></null>
 				<key></key>
 				<default>0</default>

@@ -25,6 +25,23 @@ function SendOnlineMail() {
 include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
+if ($_GET['userID']) $_POST['toUserID'] = $_GET['userID'];
+if ($_GET['replyto']) {
+  $row = $db->query_first("SELECT m.Subject, m.msgbody, UNIX_TIMESTAMP(m.tx_date) AS tx_date, u.username FROM {$config['tables']['mail_messages']} AS m
+    LEFT JOIN {$config['tables']['user']} AS u ON m.fromUserID = u.userid
+    WHERE m.mailID = ".(int)$_GET['replyto']);
+  if (substr($row['Subject'], 0, 4) == 'Re: ') $_POST['Subject'] = $row['Subject'];
+  else $_POST['Subject'] = 'Re: '.$row['Subject'];
+  $_POST['msgbody'] = '
+
+
+-----Ursprüngliche Nachricht-----
+Von: '. $row['username'] .' ('. $func->unixstamp2date($row['tx_date'], 'datetime') .' Uhr)
+Betreff: '. $row['Subject'] .'
+
+'.$row['msgbody'];
+}
+
 $selections = array();
 $res = $db->query("SELECT userid, username FROM {$config['tables']['user']} WHERE type > 0");
 while ($row = $db->fetch_array($res)) $selections[$row['userid']] = $row['username'];
@@ -42,7 +59,7 @@ if ($auth['userid']) {
 }
 
 $mf->AddField(t('Betreff'), 'Subject');
-$mf->AddField(t('Nachricht'), 'msgbody');
+$mf->AddField(t('Nachricht'), 'msgbody', '', LSCODE_BIG);
 
 $mf->AddFix('mail_status', 'active');
 $mf->AddFix('src_status', 'send');

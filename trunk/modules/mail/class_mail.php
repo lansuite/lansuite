@@ -22,9 +22,9 @@ class Mail {
 
 	function set_status_read ($mailID) {
 		global $db, $config;
+
 		if ($mailid != '0' OR $mailid != '') {
-			$zeit = time();
-			$read_mail = $db->query("UPDATE {$config["tables"]["mail_messages"]} SET src_status = 'read', des_status = 'read', rx_date = '$zeit' WHERE mailID = '$mailID'");
+			$read_mail = $db->query("UPDATE {$config["tables"]["mail_messages"]} SET src_status = 'read', des_status = 'read', rx_date = NOW() WHERE mailID = '$mailID'");
 			if ($read_mail) return true;
 			else return false;
 		} else return false;
@@ -44,7 +44,7 @@ class Mail {
 		global $db, $config, $func, $cfg;
 
 		if ($mailID != ""){
-			$g_mail = $db->query_first("SELECT mm.*, u1.username AS fromUsername, u2.username AS ToUsername
+			$g_mail = $db->query_first("SELECT mm.*, UNIX_TIMESTAMP(mm.tx_date) AS tx_date, UNIX_TIMESTAMP(mm.rx_date) AS rx_date, u1.username AS fromUsername, u2.username AS ToUsername
 				FROM {$config["tables"]["mail_messages"]} AS mm 
 				LEFT JOIN {$config["tables"]["user"]} AS u1 ON mm.FromUserID = u1.userid 
 				LEFT JOIN {$config["tables"]["user"]} AS u2 ON mm.ToUserID = u2.userid 

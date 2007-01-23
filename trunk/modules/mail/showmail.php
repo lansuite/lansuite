@@ -42,13 +42,10 @@ if ($mail_id) {
         $dsp->AddContent();
 
 		// set Mail to "READ"
-		if ($mail->mail_header['to_userid'] == $auth['userid']	
-				AND	($mail->mail_header['readtime_stamp']=='' 
-					OR $mail->mail_header['src_status']=='send' 
-					OR $mail->mail_header['des_status']=='new'
-				)
-			) $mail->set_status_read($mail_id);
-		
+		if ($mail->mail_header['to_userid'] == $auth['userid']
+      and (!$mail->mail_header['readtime_stamp'] or $mail->mail_header['src_status'] == 'send' or $mail->mail_header['des_status'] == 'new'))
+      $mail->set_status_read($mail_id);
+
 	} else $func->information($lang["mail"]["showmail_error"], "");
 } else $func->error($lang["mail"]["showmail_nomailid"], "");
 ?>
