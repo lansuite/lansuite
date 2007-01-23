@@ -27,7 +27,7 @@ $box->EngangedRow("<b>$username</b> ". $dsp->FetchUserIcon($auth["userid"]));
 if (in_array('mail', $ActiveModules)) {
 	$mails_new = $db->query("SELECT mailID
 		FROM {$config["tables"]["mail_messages"]}
-		WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active' AND rx_date = '0'
+		WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active' AND rx_date IS NULL
 		");
 
 	if ($db->num_rows($mails_new) > 0) {
