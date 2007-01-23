@@ -3,7 +3,7 @@
 
 function InsertCode(object, CodeStart, CodeEnd) {
   if (!CodeEnd) CodeEnd = '';
-  
+
   if (CodeStart != '') {
     object.focus();
 
@@ -17,7 +17,7 @@ function InsertCode(object, CodeStart, CodeEnd) {
       var endPos = object.selectionEnd;
       object.value = object.value.substring(0, startPos) + CodeStart + object.value.substring(startPos, endPos) + CodeEnd + object.value.substring(endPos, object.value.length);
 
-    } else object.value += myValue;
+    } else object.value += CodeStart + CodeEnd;
   }
 }
 

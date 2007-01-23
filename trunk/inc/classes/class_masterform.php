@@ -294,7 +294,10 @@ class masterform {
               break;
 
               case 'date': // Date-Select
-                $dsp->AddDateTimeRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', '', '', 1, $field['optional']);
+                if ($field['selections']) $area = split('/', $field['selections']);
+                $start = $area[0];
+                $end = $area[1];
+                $dsp->AddDateTimeRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $start, $end, 1, $field['optional']);
               break;
 
               case IS_PASSWORD: // Password-Row

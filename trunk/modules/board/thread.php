@@ -142,7 +142,7 @@ elseif ($thread['caption'] != '') {
 			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=delete&pid=$pid&gotopid=$pid", "delete", '', '', 'right');
 		if ($auth['type'] > 1 or $row["userid"] == $auth["userid"])
 			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&gotopid=$pid", "edit", '', '', 'right');
-		$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("javascript:InsertCode(document.dsp_form1.comment, '[quote]". addslashes(str_replace('"', '', $row["comment"])) ."[/quote]')", "quote", '', '', 'right');;
+		$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("javascript:InsertCode(document.dsp_form1.comment, '[quote]". str_replace("\n", "\\n", addslashes(str_replace('"', '', $row["comment"]))) ."[/quote]')", "quote", '', '', 'right');;
 
     if ($z % 2 == 0) $templ['board']['highlighted'] = '';
     else $templ['board']['highlighted'] = '_highlighted';

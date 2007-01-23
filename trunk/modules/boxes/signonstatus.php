@@ -87,6 +87,9 @@ if (!$party_data) {
 	$box->EngangedRow(date("d.m", $party_data['partybegin']) .' - '. date("d.m.y", $party_data['partyend']));
 
 	$box->EngangedRow($bar);
+	$box->EngangedRow(t('Bezahlt').': '. $paid);
+	$box->EngangedRow(t('Angemeldet').': '. $cur);
+	$box->EngangedRow(t('Frei').': '. ($max - $paid));
 	$box->EngangedRow(t('Registriert').': '. $reg);
 
 	## Counter
