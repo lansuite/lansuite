@@ -207,7 +207,5 @@ if ($_SESSION["lansuite"]["fullscreen"]) {
 	$templ['index']['info']['content'] .= "</script>\r\n";
 }
 
-$dsp->AddSingleRow($index);
-$dsp->AddContent();
-
+echo $func->FetchMasterTmpl("design/templates/base_index.htm", $templ);
 ?>
