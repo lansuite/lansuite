@@ -219,7 +219,7 @@ else {
 }
 
 if ($_GET['design'] != 'base') $sitetool->out_optimizer();
-else echo $index;
+#else echo $index;
 
 // Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
 if ($db->success) {
