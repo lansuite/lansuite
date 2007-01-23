@@ -4,7 +4,7 @@ $dsp->NewContent(t('Neue Mail verfassen'), '');
 $dsp->AddContent();
 
 function SendOnlineMail() {
-  global $db, $config, $mail;
+  global $db, $config, $mail, $func;
 
   // System-Mail: Insert will be done, by MF
   if ($_POST['fromUserID'] and $_POST['type'] == 0) return true;
@@ -18,6 +18,7 @@ function SendOnlineMail() {
     }
 
     $mail->create_inet_mail($row['firstname'].' '.$row['name'], $row['email'], $_POST['Subject'], $_POST['msgbody'], $_POST['SenderMail']);
+    $func->confirmation('Die Mail wurde versendet', '');
     return false;
   }
 }
@@ -55,7 +56,7 @@ if ($auth['userid']) {
   $mf->AddField(t('Mail-Typ'), 'type', IS_SELECTION, $selections, FIELD_OPTIONAL);
 } else {
   $mf->AddField('', 'captcha', IS_CAPTCHA);
-	$mf->AddField(t('Absender'), 'SenderMail');
+	$mf->AddField(t('Absender'), 'SenderMail', '', '', '', CheckValidEmail);
 }
 
 $mf->AddField(t('Betreff'), 'Subject');
