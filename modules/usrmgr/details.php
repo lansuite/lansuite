@@ -25,10 +25,9 @@ function GetTypeDescription($type) {
 	}
 }
 
-
 // Select from table_user
 // username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment
-$user_data = $db->query_first("SELECT u.*, u.clanid, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
+$user_data = $db->query_first("SELECT u.*, UNIX_TIMESTAMP(u.birthday) AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
 	FROM {$config['tables']['user']} AS u
 	LEFT JOIN {$config['tables']['usersettings']} AS c ON u.userid = c.userid
 	LEFT JOIN {$config['tables']['clan']} AS clan ON u.clanid = clan.clanid
@@ -214,7 +213,7 @@ else {
 
 			// Birthday
 			if ($cfg['sys_internet'] == 0 OR $auth['type'] >= 2 OR $auth['userid'] == $_GET['userid'])
-        $dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? $func->unixstamp2date($user_data['birthday'], "date") .' ('. (date('Y') - date("Y", $user_data['birthday']))  .')' : $lang['usrmgr']['details_not_entered']);
+        $dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? $func->unixstamp2date($user_data['birthday'], "date") .' ('. $user_data['age']  .')' : $lang['usrmgr']['details_not_entered']);
 
 
 			// Gender

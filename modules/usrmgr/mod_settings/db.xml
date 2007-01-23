@@ -238,7 +238,7 @@
 			</field>
 			<field>
 				<name>birthday</name>
-				<type>int(15)</type>
+				<type>date</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
