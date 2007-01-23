@@ -46,10 +46,11 @@ $ms2->PrintSearch('index.php?mod=board', 'f.fid');
 // Statistics
 $total_threads = $db->query_first("SELECT COUNT(tid) as threads FROM {$config['tables']['board_threads']}");
 $total_posts = $db->query_first("SELECT COUNT(pid) as posts FROM {$config['tables']['board_posts']}");
-$dsp->AddSingleRow(t('Es wurden bereits %1 Beiträge in %2 Threads geschrieben', array($total_posts['posts'], $total_threads['threads'])) .HTML_NEWLINE.
-  '<a href="index.php?mod=board&action=forum&fid=&order_by=LastPost&order_dir=DESC">'. t('Die neusten Beiträge anzeigen') .'</a>' .HTML_NEWLINE.
-  '<a href="index.php?mod=board&action=forum&fid=&search_input[2]='. $auth['username'] .'&order_by=LastPost&order_dir=DESC">'. t('Threads, in denen ich mitgeschrieben habe, anzeigen') .'</a>'
-  );
+
+$info_line = t('Es wurden bereits %1 Beiträge in %2 Threads geschrieben', array($total_posts['posts'], $total_threads['threads'])) .HTML_NEWLINE.
+  '<a href="index.php?mod=board&action=forum&fid=&order_by=LastPost&order_dir=DESC">'. t('Die neusten Beiträge anzeigen') .'</a>';
+if ($auth['login']) $info_line .= HTML_NEWLINE . '<a href="index.php?mod=board&action=forum&fid=&search_input[2]='. $auth['username'] .'&order_by=LastPost&order_dir=DESC">'. t('Threads, in denen ich mitgeschrieben habe, anzeigen') .'</a>';
+$dsp->AddSingleRow($info_line);
 
 $dsp->AddContent();
 ?>
