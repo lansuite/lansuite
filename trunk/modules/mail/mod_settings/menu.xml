@@ -6,20 +6,10 @@
 		<file>inbox</file>
 		<caption>Mail</caption>
 		<hint>Ihr Posteingangs-Ordner</hint>
-		<link>?mod=mail&action=formular</link>
+		<link>?mod=mail</link>
 		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>0</level>
-	</entry>
-	<entry>
-		<action>formular</action>
-		<file>formular</file>
-		<caption>Kontakt Formular</caption>
-		<hint>Hier können Sie kontakt mit uns aufnehmen</hint>
-		<link>?mod=mail&action=formular</link>
-		<requirement>0</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>newmail</action>
@@ -27,7 +17,7 @@
 		<caption>Mail Senden</caption>
 		<hint>Hier versenden Sie eine Mail</hint>
 		<link>?mod=mail&action=newmail</link>
-		<requirement>1</requirement>
+		<requirement>0</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
