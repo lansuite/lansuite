@@ -1,7 +1,16 @@
 <?php
 
-if (!$auth['userid']) $func->information(t('Sie müssen sich zuerst einloggen, um Zugriff auf Ihren Posteingang zu erhalten'));
-else {
+$mail_new_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active' AND rx_date = '0'");
+$mail_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active'");
+$dsp->NewContent(t('Posteingang'), t('Sie haben %1 ungelesene Nachrichten (%2 Nachrichten insgesammt)', array($mail_new_total['n'], $mail_total['n'])));
+
+// if logged out
+if (!$auth['userid']) $dsp->AddSingleRow(t('Um Ihren Posteingang sehen zu können, müssen Sie sich zuerst einloggen').HTML_NEWLINE.
+  t('Nutzen Sie das <a href="index.php?mod=mail&action=newmail">Kontaktformular</a> um Mails zu versenen. Dies ist auch im Ausgeloggten Zustand möglich'));
+$dsp->AddContent();
+
+// If logged in
+if ($auth['userid']) {
   switch($_GET["step"]) {
   	// Delete Mail
   	case 99:
@@ -9,14 +18,6 @@ else {
   		$_GET["STEP"] = "";
   	break;
   }
-
-  $mail->delete_old_messages($auth['userid']);
-
-  $mail_new_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active' AND rx_date = '0'");
-  $mail_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active'");
-
-  $dsp->NewContent($lang["mail"]["in_inbox"], str_replace("%MAXMSG%", $cfg['mail_max_msg'] , str_replace("%UNREAD%", $mail_new_total["n"], str_replace("%TOTAL%", $mail_total["n"], $lang["mail"]["in_hint"]))));
-  $dsp->AddContent();
 
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2();

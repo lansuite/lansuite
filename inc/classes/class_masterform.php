@@ -29,6 +29,7 @@ class masterform {
 	var $AdditionalDBAfterSelectFunction = '';
 	var $AdditionalDBPreUpdateFunction = '';
 	var $AdditionalDBUpdateFunction = '';
+	var $CheckBeforeInserFunction = '';
 	var $DependOnStarted = 0;
 	var $isChange = false;
 	var $FormEncType = '';
@@ -410,6 +411,10 @@ class masterform {
               $_POST[$field['name'] .'_original'] = $_POST[$field['name']];
               $_POST[$field['name']] = md5($_POST[$field['name']]);
             }
+          }
+
+          if ($this->CheckBeforeInserFunction) {
+            if (!call_user_func($this->CheckBeforeInserFunction, $id)) return false;
           }
 
           if ($this->AdditionalDBPreUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBPreUpdateFunction, $id);
