@@ -78,8 +78,9 @@ switch($_GET["step"]) {
 
 		$success = "";
 		$fail = "";
-		$users = $db->query("SELECT * FROM {$config["tables"]["user"]} AS u
+		$users = $db->query("SELECT u.*, p.*, c.name AS clan, c.url AS clanurl FROM {$config["tables"]["user"]} AS u
       LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id=u.userid
+      LEFT JOIN {$config["tables"]["clan"]} AS c ON c.clanid=u.clanid
       WHERE $where
       GROUP BY u.email");
 
