@@ -88,7 +88,7 @@ elseif (!$akt_file) {
 	$dir_size = 0;
 	$last_modified = 0;
 	if (is_dir($root_dir)) $handle = opendir($root_dir);
-	while ($file = readdir ($handle)) if (($file != ".") and ($file != "..") and ($file != "CVS")) {
+	while ($file = readdir ($handle)) if ($file != "." and $file != ".." and $file != "CVS" and substr($file, 0, 1) != '.') {
 		if (is_dir($root_dir . $file)) array_push($dir_list, $file);
 		elseif (substr($file, 0, 8) != "lsthumb_") {
 			$extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
@@ -108,6 +108,10 @@ elseif (!$akt_file) {
 	closedir($handle);
 	$num_files = count($file_list);
 	$num_files += count($package_list);
+
+  // Sort by Name
+  sort($dir_list);
+  sort($file_list);
 
 	// Show Directory Navigation
 	$directory_selection = "";
