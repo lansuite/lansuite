@@ -6,12 +6,6 @@
     </head>
     <items>
     	<item>
-    		<name>mail_max_msg</name>
-    		<type>int</type>
-    		<default>20</default>
-    		<description>Maximale anzahl der gespeicherten Mails (gelöscht und gelesen)</description>
-    	</item>
-    	<item>
     		<name>mail_utf8</name>
     		<type>boolean</type>
     		<default>0</default>

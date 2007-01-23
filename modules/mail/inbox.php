@@ -12,6 +12,21 @@ $dsp->AddContent();
 // If logged in
 if ($auth['userid']) {
   switch($_GET["step"]) {
+
+    // Mark read
+    case 10:
+      foreach ($_POST['action'] as $key => $val) {
+        $db->query("UPDATE {$config['tables']['mail_messages']} SET src_status = 'read', des_status = 'read', rx_date = NOW() WHERE mailID = ".(int)$key);
+      }
+    break;
+
+    // Mark unread
+    case 11:
+      foreach ($_POST['action'] as $key => $val) {
+        $db->query("UPDATE {$config['tables']['mail_messages']} SET src_status = 'send', rx_date = 0 WHERE mailID = ".(int)$key);
+      }
+    break;
+
   	// Delete Mail
   	case 99:
   		if($_GET["mailid"]) $mail->set_status_delete($_GET["mailid"]);
@@ -40,6 +55,9 @@ if ($auth['userid']) {
 
   $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=in&mailID=', $lang['ms2']['details']);
   $ms2->AddIconField('delete', 'index.php?mod=mail&action=inbox&step=99&mailid=', $lang['ms2']['delete']);
+
+  $ms2->AddMultiSelectAction(t('Als gelesen markieren'), 'index.php?mod=mail&step=10', 1);
+  $ms2->AddMultiSelectAction(t('Als ungelesen markieren'), 'index.php?mod=mail&step=11', 1);
 
   $ms2->PrintSearch('index.php?mod=mail', 'm.mailid');
 }
