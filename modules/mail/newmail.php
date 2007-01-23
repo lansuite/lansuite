@@ -44,8 +44,12 @@ Betreff: '. $row['Subject'] .'
 }
 
 $selections = array();
-$res = $db->query("SELECT userid, username FROM {$config['tables']['user']} WHERE type > 0");
-while ($row = $db->fetch_array($res)) $selections[$row['userid']] = $row['username'];
+$res = $db->query("SELECT type, userid, username, firstname, name FROM {$config['tables']['user']} WHERE type > 0 ORDER BY type DESC, username");
+while ($row = $db->fetch_array($res)) {
+  if ($row['type'] > 1) $type = t('Admin');
+  else $type = t('Benutzer');
+  $selections[$row['userid']] = $type .': '. $row['username'] .' ('. $row['firstname'] .' '. $row['name'] .')';
+}
 $db->free_result($res);
 $mf->AddField(t('Empfänger'), 'toUserID', IS_SELECTION, $selections, FIELD_OPTIONAL);
 

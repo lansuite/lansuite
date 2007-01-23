@@ -142,10 +142,10 @@ else {
   			else {
   			  $seat = $seat2->SeatOfUser($_GET['userid'], 0, 2);
   			  if (IsAuthorizedAdmin()) {
-    			  $seat .= ' '. $dsp->AddIcon('edit', 'index.php?mod=seating&action=seatadmin&step=2&userid='. $_GET['userid'], $lang['button']['edit']);
-    			  $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=free_seat&step=3&blockid={$user_data['blockid']}&row={$user_data['row']}&col={$user_data['col']}", $lang['button']['delete']);
+            $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=free_seat&step=3&blockid={$user_data['blockid']}&row={$user_data['row']}&col={$user_data['col']}", $lang['button']['delete']);
           }
   			}
+			  if (IsAuthorizedAdmin()) $seat .= ' '. $dsp->AddIcon('edit', 'index.php?mod=seating&action=seatadmin&step=2&userid='. $_GET['userid'], $lang['button']['edit']);
   			if ($cfg['sys_internet'] == 0 and $user_data['ip']) $seat .= ' IP:'. $user_data['ip'];
         $dsp->AddDoubleRow($lang['usrmgr']['details_seat'], $seat);
       }
