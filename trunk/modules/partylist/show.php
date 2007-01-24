@@ -45,51 +45,54 @@ function AddSignonStatus($lsurl, $history = 0) {
   if (substr($lsurl, strlen($lsurl) - 1, 1) != '/') $lsurl .= '/';
   if (substr($lsurl, 0, 7) != 'http://') $lsurl = 'http://'. $lsurl;
   $lsurl .= 'ext_inc/party_infos/infos.xml';
+  $lines = @file($lsurl);
 
-  $lines = file ($lsurl);
-  $content = '';
-  foreach ($lines as $line_num => $line) $content .= $line;
+  if (!$lines) return t('infos.xml fehlt');
+  else {
+    $content = '';
+    foreach ($lines as $line_num => $line) $content .= $line;
 
-  $system = $xml->get_tag_content_array('system', $content);
-  // Version 3.0 XML-File
-  if ($system) {
-#    $name = $xml->get_tag_content('name', $system[0]);
-#    $link = $xml->get_tag_content('link', $system[0]);
-#    $language = $xml->get_tag_content('language', $system[0]);
-    $current_party = $xml->get_tag_content('current_party', $system[0]);
-#    $users = $xml->get_tag_content('users', $system[0]);
+    $system = $xml->get_tag_content_array('system', $content);
+    // Version 3.0 XML-File
+    if ($system) {
+  #    $name = $xml->get_tag_content('name', $system[0]);
+  #    $link = $xml->get_tag_content('link', $system[0]);
+  #    $language = $xml->get_tag_content('language', $system[0]);
+      $current_party = $xml->get_tag_content('current_party', $system[0]);
+  #    $users = $xml->get_tag_content('users', $system[0]);
 
-    $partys = $xml->get_tag_content_array('party', $content);
-    $ret = '';
-    foreach ($partys as $party) {
-      $partyid = $xml->get_tag_content('partyid', $party);
-      $partyname = $xml->get_tag_content('name', $party);
-      $max_guest = $xml->get_tag_content('max_guest', $party);
-      $ort = $xml->get_tag_content('ort', $party);
-      $plz = $xml->get_tag_content('plz', $party);
-#     $startdate = $xml->get_tag_content('startdate', $party);
-#     $enddate = $xml->get_tag_content('enddate', $party);
-#     $sstartdate = $xml->get_tag_content('sstartdate', $party);
-#     $senddate = $xml->get_tag_content('senddate', $party);
-      $registered = $xml->get_tag_content('registered', $party);
-      $paid = $xml->get_tag_content('paid', $party);
+      $partys = $xml->get_tag_content_array('party', $content);
+      $ret = '';
+      foreach ($partys as $party) {
+        $partyid = $xml->get_tag_content('partyid', $party);
+        $partyname = $xml->get_tag_content('name', $party);
+        $max_guest = $xml->get_tag_content('max_guest', $party);
+        $ort = $xml->get_tag_content('ort', $party);
+        $plz = $xml->get_tag_content('plz', $party);
+  #     $startdate = $xml->get_tag_content('startdate', $party);
+  #     $enddate = $xml->get_tag_content('enddate', $party);
+  #     $sstartdate = $xml->get_tag_content('sstartdate', $party);
+  #     $senddate = $xml->get_tag_content('senddate', $party);
+        $registered = $xml->get_tag_content('registered', $party);
+        $paid = $xml->get_tag_content('paid', $party);
 
-      if (!$history and $current_party == $partyid) $ret .= CreateSignonBar($registered, $paid, $max_guest);
-      elseif ($history and $current_party != $partyid) {
-        $dsp->AddDoubleRow($partyname .HTML_NEWLINE. $plz .' '. $ort, CreateSignonBar($registered, $paid, $max_guest));
+        if (!$history and $current_party == $partyid) $ret .= CreateSignonBar($registered, $paid, $max_guest);
+        elseif ($history and $current_party != $partyid) {
+          $dsp->AddDoubleRow($partyname .HTML_NEWLINE. $plz .' '. $ort, CreateSignonBar($registered, $paid, $max_guest));
+        }
       }
+      return $ret;
+
+    // Old version
+    } else {
+      $guests = $xml->get_tag_content('guests', $content);
+      $paid_guests = $xml->get_tag_content('paid_guests', $content);
+      $max_guests = $xml->get_tag_content('max_guests', $content);
+      $signon_start = $xml->get_tag_content('signon_start', $content);
+      $signon_end = $xml->get_tag_content('signon_end', $content);
+
+    	return CreateSignonBar($guests, $paid_guests, $max_guests);
     }
-    return $ret;
-
-  // Old version
-  } else {
-    $guests = $xml->get_tag_content('guests', $content);
-    $paid_guests = $xml->get_tag_content('paid_guests', $content);
-    $max_guests = $xml->get_tag_content('max_guests', $content);
-    $signon_start = $xml->get_tag_content('signon_start', $content);
-    $signon_end = $xml->get_tag_content('signon_end', $content);
-
-  	return CreateSignonBar($guests, $paid_guests, $max_guests);
   }
 }
 
