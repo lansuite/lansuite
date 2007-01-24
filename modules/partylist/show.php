@@ -121,7 +121,7 @@ if (!$_GET['partyid']) {
 
   $ms2->query['from'] = "{$config['tables']['partylist']} AS p";
   $ms2->query['where'] = $where;
-  $ms2->query['default_order_by'] = 'p.start DESC';
+  $ms2->query['default_order_by'] = 'p.start ASC';
 
   $ms2->config['EntriesPerPage'] = 20;
 
