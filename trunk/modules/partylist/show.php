@@ -39,18 +39,49 @@ function CreateSignonBar($guests, $paid_guests, $max_guests) {
 	return $bar;
 }
 
+
+
+function GetSite($url) {
+  global $HTTPHeader;
+
+  $url = parse_url($url);
+  if (!$url['port']) $url['port'] = 80;
+
+  $ip = gethostbyname($url['host']);
+  $fp = fsockopen($ip, $url['port'], $errno, $errstr, 1);
+
+  if (!$fp) return '';
+  else {
+    $cont = '';
+
+    fputs ($fp, "GET {$url['path']} HTTP/1.0\r\nHost: {$url['host']}\r\n\r\n");
+    while (!feof($fp)) $cont .= fgets($fp,128);
+    fclose($fp);
+
+    $HTTPHeader = substr($cont, 0, strpos($cont, "\r\n\r\n"));
+
+    $StatusCode = substr($HTTPHeader, strpos($HTTPHeader, ' ') + 1, 3);
+    if ($StatusCode != 200) return '';
+
+    return substr($cont, strpos($cont, "\r\n\r\n") + 4);
+  }
+}
+
+
 function AddSignonStatus($lsurl, $history = 0) {
-  global $xml, $dsp;
+  global $xml, $dsp, $HTTPHeader;
   
   if (substr($lsurl, strlen($lsurl) - 1, 1) != '/') $lsurl .= '/';
   if (substr($lsurl, 0, 7) != 'http://') $lsurl = 'http://'. $lsurl;
   $lsurl .= 'ext_inc/party_infos/infos.xml';
-  $lines = @file($lsurl);
+#  $lines = @file($lsurl);
+  $content = GetSite($lsurl);
 
-  if (!$lines) return t('infos.xml fehlt');
+#  if (!$lines) return t('infos.xml fehlt');
+  if (!$content) return '<span onmouseover="return overlib(\''. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace("\r\n", HTML_NEWLINE, $HTTPHeader) .'\');" onmouseout="return nd();">'. t('infos.xml fehlt') .'</span>';
   else {
-    $content = '';
-    foreach ($lines as $line_num => $line) $content .= $line;
+#    $content = '';
+#    foreach ($lines as $line_num => $line) $content .= $line;
 
     $system = $xml->get_tag_content_array('system', $content);
     // Version 3.0 XML-File
@@ -121,7 +152,7 @@ if (!$_GET['partyid']) {
 
   $ms2->query['from'] = "{$config['tables']['partylist']} AS p";
   $ms2->query['where'] = $where;
-  $ms2->query['default_order_by'] = 'p.start ASC';
+  $ms2->query['default_order_by'] = 'p.start DESC';
 
   $ms2->config['EntriesPerPage'] = 20;
 
