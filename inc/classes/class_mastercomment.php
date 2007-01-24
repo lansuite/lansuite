@@ -23,12 +23,19 @@ function FetchPostRow($text) {
   return $ret;
 }
 
+function EditAllowed() {
+  global $line, $auth;
+
+  if ($line['creatorid'] == $auth['userid'] or $auth['type'] >= 2) return true;
+  else return false;
+}
+
 
 class Mastercomment{
 
 	// Construktor
 	function Mastercomment($mod, $id) {
-		global $CurentURLBase, $dsp, $config, $auth;
+		global $CurentURLBase, $dsp, $config, $auth, $db, $config, $func;
 
     $dsp->AddFieldsetStart(t('Kommentare'));
 
@@ -53,31 +60,36 @@ class Mastercomment{
     $ms2->icon_field[0]['link'] = ''; // Do not link first line
 
     $ms2->AddSelect('UNIX_TIMESTAMP(c.date) AS date');
+    $ms2->AddSelect('c.creatorid');
     $ms2->AddSelect('s.avatar_path');
     $ms2->AddSelect('s.signature');
     $ms2->AddSelect('u.userid');
     $ms2->AddResultField('', 'u.username', 'FetchDataRow');
     $ms2->AddResultField('', 'c.text', 'FetchPostRow');
-    if ($auth['type'] >= 2) $ms2->AddIconField('edit', $CurentURLBase.'&commentid=', t('Editieren'));
+#   $ms2->AddIconField('quote', "javascript:InsertCode(document.dsp_form1.text, '[quote]". str_replace("\n", "\\n", addslashes(str_replace('"', '', $row["text"]))) ."[/quote]')", t('Zitieren'), 'EditAllowed');
+    $ms2->AddIconField('edit', $CurentURLBase.'&commentid=', t('Editieren'), 'EditAllowed');
     if ($auth['type'] >= 3) $ms2->AddIconField('delete', $CurentURLBase.'&mc_step=10&commentid=', t('Löschen'));
 
     $ms2->PrintSearch($CurentURLBase, 'c.commentid');
 
 
     // Add new comments
-    include_once('inc/classes/class_masterform.php');
-    $mf = new masterform();
-    $mf->LogID = $id;
+    if ($_GET['commentid']) $row = $db->query_first("SELECT creatorid FROM {$config['tables']['comments']} WHERE commentid = ".(int)$_GET['commentid']);
+    if (!$_GET['commentid'] or ($row['creatorid'] and $row['creatorid'] == $auth['userid']) or $auth['type'] >= 2) {
+      include_once('inc/classes/class_masterform.php');
+      $mf = new masterform();
+      $mf->LogID = $id;
 
-    $mf->AddField(t('Kommentar'), 'text', '', LSCODE_BIG);
-    if (!$auth['login']) $mf->AddField('', 'captcha', IS_CAPTCHA);
-    $mf->AddFix('relatedto_item', $mod);
-    $mf->AddFix('relatedto_id', $id);
-    $mf->AddFix('date', time());
-    $mf->AddFix('creatorid', $auth['userid']);
-    $mf->SendForm('', 'comments', 'commentid', $_GET['commentid']);
+      $mf->AddField(t('Kommentar'), 'text', '', LSCODE_BIG);
+      if (!$auth['login']) $mf->AddField('', 'captcha', IS_CAPTCHA);
+      $mf->AddFix('relatedto_item', $mod);
+      $mf->AddFix('relatedto_id', $id);
+      $mf->AddFix('date', time());
+      $mf->AddFix('creatorid', $auth['userid']);
+      $mf->SendForm('', 'comments', 'commentid', $_GET['commentid']);
 
-    $dsp->AddFieldsetEnd(t('Kommentare'));
+      $dsp->AddFieldsetEnd(t('Kommentare'));
+    } else $func->error(t('Sie sind nicht berechtigt, diesen Kommentar zu editieren'));
 	}
 }
 ?>
