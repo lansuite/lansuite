@@ -130,33 +130,52 @@ class UsrMgr {
     }
 	}
 
-
 	function WriteXMLStatFile() {
-		global $cfg, $db, $config,$party;
+		global $cfg, $db, $config, $party;
 
-		include_once ("inc/classes/class_xml.php");
+		include_once ('inc/classes/class_xml.php');
 		$xml = new xml;
 		$output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
 
-		$part_infos = $xml->write_tag("name", $cfg["feed_partyname"], 2);
-		$part_infos .= $xml->write_tag("link", $cfg["sys_partyurl"], 2);
-		$part_infos .= $xml->write_tag("language", "de-de", 2);
-		$lansuite = $xml->write_master_tag("part_infos", $part_infos, 1);
+		$system = $xml->write_tag('version', $config['lansuite']['version'], 2);
+		$system = $xml->write_tag('name', $cfg['feed_partyname'], 2);
+		$system .= $xml->write_tag('link', $cfg['sys_partyurl'], 2);
+		$system .= $xml->write_tag('language', 'de-de', 2);
+		$system .= $xml->write_tag('current_party', $cfg['signon_partyid'], 2);
 
-		$registered = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["party_user"]} WHERE party_id = {$party->party_id}");
-		$paid = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["party_user"]} WHERE (paid = 1) AND party_id = {$party->party_id}");
+  	$row = $db->query_first("SELECT COUNT(*) AS anz FROM {$config['tables']['user']} WHERE type > 0");
+		$system .= $xml->write_tag('users', $row['anz'], 2);
 
-		$stats = $xml->write_tag("guests", ($registered["anz"] - 1), 2);
-		$stats .= $xml->write_tag("paid_guests", $paid["anz"], 2);
-		$stats .= $xml->write_tag("max_guests", $_SESSION['party_info']['max_guest'] , 2);
-		$stats .= $xml->write_tag("signon_start", $_SESSION['party_info']['s_startdate'], 2);
-		$stats .= $xml->write_tag("signon_end", $_SESSION['party_info']['s_enddate'], 2);
-		$lansuite .= $xml->write_master_tag("stats", $stats, 1);
+		$lansuite = $xml->write_master_tag('system', $system, 1);
 
-		$output .= $xml->write_master_tag("lansuite version=\"1.0\"", $lansuite, 0);
+		$res = $db->query("SELECT party_id, name, max_guest, ort, plz, startdate, enddate FROM {$config['tables']['partys']}");
+		$partys = '';
+		while ($row = $db->fetch_array($res)) {
+  		$party = $xml->write_tag('partyid', $row['party_id'], 3);
+  		$party .= $xml->write_tag('name', $row['name'], 3);
+  		$party .= $xml->write_tag('max_guest', $row['max_guest'], 3);
+  		$party .= $xml->write_tag('ort', $row['ort'], 3);
+  		$party .= $xml->write_tag('plz', $row['plz'], 3);
+  		$party .= $xml->write_tag('startdate', $row['startdate'], 3);
+  		$party .= $xml->write_tag('enddate', $row['enddate'], 3);
+  		$party .= $xml->write_tag('sstartdate', $row['sstartdate'], 3);
+  		$party .= $xml->write_tag('senddate', $row['senddate'], 3);
 
-		if (is_writable("ext_inc/party_infos/")) {
-			if ($fp = @fopen("ext_inc/party_infos/infos.xml", "w")) {
+    	$row2 = $db->query_first("SELECT COUNT(*) AS anz FROM {$config['tables']['party_user']} WHERE party_id = {$row['party_id']}");
+  		$party .= $xml->write_tag('registered', $row2['anz'], 3);
+
+    	$row2 = $db->query_first("SELECT COUNT(*) AS anz FROM {$config['tables']['party_user']} WHERE (paid >= 1) AND party_id = {$row['party_id']}");
+  		$party .= $xml->write_tag('paid', $row2['anz'], 3);
+  		
+  		$partys .= $xml->write_master_tag('party', $party, 2);
+      }
+    $db->free_result($res);
+		$lansuite .= $xml->write_master_tag('partys', $partys, 1);
+
+		$output .= $xml->write_master_tag('lansuite', $lansuite, 0);
+
+		if (is_writable('ext_inc/party_infos/')) {
+			if ($fp = @fopen('ext_inc/party_infos/infos.xml', 'w')) {
 				if (!@fwrite($fp, $output)) return false;
 			@fclose($fp);
 			} else return false;

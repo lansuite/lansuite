@@ -7,6 +7,8 @@ $usrmgr = new UsrMgr();
 function PartyMail() {
   global $cfg, $usrmgr, $func, $mail;
 
+  $usrmgr->WriteXMLStatFile();
+
   if ($cfg["signon_password_mail"]) {
   	if ($usrmgr->SendSignonMail(1)) $func->confirmation(t('Eine Bestätigung der Anmeldung wurde an deine eMail-Adresse gesendet'), NO_LINK);
   	else {

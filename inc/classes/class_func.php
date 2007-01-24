@@ -73,6 +73,7 @@ class func {
 
   		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'lanparty_name\']}', $_SESSION['party_info']['name'], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'version\']}', $config['lansuite']['version'], $tpl_str);
+  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'lansuite_version\']}', $config['lansuite']['version'], $tpl_str);
   		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'current_date\']}', $this->unixstamp2date(time(),'daydatetime'), $tpl_str);
 
       return $tpl_str;
