@@ -752,6 +752,103 @@
 			</entry>
 		</content>
 	</table>
+		<table>
+		<table_head>
+			<name>variables</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>shortcut</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>title</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+			<entry>
+				<shortcut>%USERNAME%</shortcut>
+				<title>Benutzername</title>
+			</entry>
+			<entry>
+				<shortcut>%VORNAME%</shortcut>
+				<title>Vorname</title>
+			</entry>
+			<entry>
+				<shortcut>%NACHNAME%</shortcut>
+				<title>Nachname</title>
+			</entry>
+			<entry>
+				<shortcut>%PASSWORD%</shortcut>
+				<title>Passwort (Nur bei SignOn Mail!)</title>
+			</entry>
+			<entry>
+				<shortcut>%EMAIL%</shortcut>
+				<title>eMail Adresse</title>
+			</entry>
+			<entry>
+				<shortcut>%CLAN%</shortcut>
+				<title>Name des Clan</title>
+			</entry>
+			<entry>
+				<shortcut>%CLANURL%</shortcut>
+				<title>URL des Clan</title>
+			</entry>
+			<entry>
+				<shortcut>%PARTYNAME%</shortcut>
+				<title>Name der Lanparty</title>
+			</entry>
+			<entry>
+				<shortcut>%PARTYURL%</shortcut>
+				<title>URL der Lanparty</title>
+			</entry>
+			<entry>
+				<shortcut>%MAXGUESTS%</shortcut>
+				<title>Anzahl der Teilnhemer</title>
+			</entry>
+			<entry>
+				<shortcut>%WWCLID%</shortcut>
+				<title>WWCL ID</title>
+			</entry>
+			<entry>
+				<shortcut>%WWCLCLANID%</shortcut>
+				<title>WWCL Clan ID</title>
+			</entry>
+			<entry>
+				<shortcut>%NGLID%</shortcut>
+				<title>NGL ID</title>
+			</entry>
+			<entry>
+				<shortcut>%NGLCLANID%</shortcut>
+				<title>NGL Clan ID</title>
+			</entry>
+			<entry>
+				<shortcut>%IP%</shortcut>
+				<title>IP Adresse (Aus Sitzplan)</title>
+			</entry>
+			<entry>
+				<shortcut>%ANGEMELDET%</shortcut>
+				<title>Angemeldet?</title>
+			</entry>
+			<entry>
+				<shortcut>%BEZAHLT%</shortcut>
+				<title>Bezahlt?</title>
+			</entry>
+			<entry>
+				<shortcut>%EINGECHECKT%</shortcut>
+				<title>Eingecheckt?</title>
+			</entry>
+		</content>
+	</table>	
 	<table>
 		<table_head>
 			<name>stats_auth</name>
