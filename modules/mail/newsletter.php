@@ -41,28 +41,9 @@ switch($_GET["step"]) {
 		$dsp->AddCheckBoxRow("tosys", $lang["mail"]["newsletter_tosys"], $lang["mail"]["newsletter_tosys2"], "", 1, $_POST["tosys"]);
 
 		$dsp->AddHRuleRow();
-		$dsp->AddDoubleRow("Variablen", " 
-			<b>%USERNAME%</b>" . HTML_NEWLINE ."
-			<b>%VORNAME%</b>" . HTML_NEWLINE ."
-			<b>%NACHNAME%</b>" . HTML_NEWLINE ."
-			<b>%EMAIL%</b>" . HTML_NEWLINE ."
-			<b>%CLAN%</b>" . HTML_NEWLINE ."
-			<b>%CLANURL%</b>" . HTML_NEWLINE ."
-			<b>%PARTYNAME%</b>" . HTML_NEWLINE ."
-			<b>%PARTYURL%</b>" . HTML_NEWLINE ."
-			<b>%MAXGUESTS%</b>" . HTML_NEWLINE ."
-			<b>%WWCLID%</b>" . HTML_NEWLINE ."
-			<b>%WWCLCLANID%</b>" . HTML_NEWLINE ."
-			<b>%NGLID%</b>" . HTML_NEWLINE ."
-			<b>%NGLCLANID%</b>" . HTML_NEWLINE ."
-			<b>%IP%</b>" . HTML_NEWLINE ."
-			<b>%BEZAHLT%</b> ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
-			<b>%EINGECHECKT%</b> ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
-			<b>%ANGEMELDET%</b> ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
-			");
 
 		$dsp->AddTextFieldRow("subject", $lang["mail"]["newsletter_subject"], $_POST["subject"], $subject_error);
-		$dsp->AddTextAreaRow("text", $lang["mail"]["newsletter_text"], $_POST["text"], $text_error);
+		$dsp->AddTextAreaMailRow("text", $lang["mail"]["newsletter_text"], $_POST["text"], $text_error);
 
 		$dsp->AddFormSubmitRow("send");
 		$dsp->AddContent();

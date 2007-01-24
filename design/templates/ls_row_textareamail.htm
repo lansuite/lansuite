@@ -1,0 +1,16 @@
+<tr>
+	<td class="row_key" width="30%" height="30" valign="top">
+		<label for="{$templ['ls']['row']['textarea']['name']}">{$templ['ls']['row']['textarea']['key']}</label>
+		<br />
+		<span class="small">
+			<br />
+		<br />
+			<a href="index.php?mod=popups&action=ls_row_textareamail_popup&design=base&form={$templ['ls']['row']['textarea']['formname']}&textarea={$templ['ls']['row']['textarea']['name']}" onclick="OpenWindow(this.href, 'TextFormatSelect'); return false">Variablen einf&uuml;gen</a>
+		</span>
+	</td>
+
+  <td width="70%" height="30" class="row_value">
+			<textarea name="{$templ['ls']['row']['textarea']['name']}" id="{$templ['ls']['row']['textarea']['name']}" class="form{$templ['ls']['row']['textarea']['optional']}" cols="{$templ['ls']['row']['textarea']['cols']}" rows="{$templ['ls']['row']['textarea']['rows']}" onKeyUp="TextAreaPlusCharsLeft(this, document.{$templ['ls']['row']['textarea']['formname']}.{$templ['ls']['row']['textarea']['name']}_chr, {$templ['ls']['row']['textarea']['maxchar']})">{$templ['ls']['row']['textarea']['value']}</textarea>
+			{$templ['ls']['row']['textarea']['errortext']}
+    <br /></td>
+</tr>

@@ -240,6 +240,30 @@ class display {
 		$this->AddTpl("design/templates/ls_row_password.htm");
 	}
 
+function AddTextAreaMailRow($name, $key, $value, $errortext, $cols = NULL, $rows = NULL, $optional = NULL, $maxchar = NULL) {
+	global $templ, $db;
+
+		if ($cols == "") $cols = "50";
+        if ($rows == "") $rows = "7";
+        if ($maxchar == "") $maxchar = "5000";
+
+		$templ['ls']['row']['textarea']['name'] = $name;
+        $templ['ls']['row']['textarea']['formname'] = $this->form_name;
+        $templ['ls']['row']['textarea']['key'] = $key;
+        $templ['ls']['row']['textarea']['value'] = $value;
+        $templ['ls']['row']['textarea']['cols'] = $cols;
+        $templ['ls']['row']['textarea']['rows'] = $rows;
+		$templ['ls']['row']['textarea']['maxchar'] = $maxchar;
+
+    if ($errortext) $templ['ls']['row']['textarea']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['textarea']['errortext'] = '';
+    if ($optional) $templ['ls']['row']['textarea']['optional'] = "_optional";
+    else $templ['ls']['row']['textarea']['optional'] = '';
+
+
+
+		$this->AddTpl("design/templates/ls_row_textareamail.htm");
+    }
 
 	function AddTextAreaRow($name, $key, $value, $errortext, $cols = NULL, $rows = NULL, $optional = NULL) {
 		global $templ;
