@@ -92,7 +92,20 @@ class boxes {
 
 		$box_content = @implode("\n", $box_content);
 		$box_content = str_replace("{default_design}", $auth["design"], $box_content);
-		$box_content = str_replace("{title}", $boxid, $box_content);
+		switch((int)$boxid) {
+		  case 1: $title = 'menu'; break;
+		  case 2: $title = 'search'; break;
+		  case 3: $title = 'sponsor'; break;
+		  case 4: $title = 'info'; break;
+		  case 5: $title = 'last_user'; break;
+		  case 6: $title = 'user'; break;
+		  case 7: $title = 'login'; break;
+		  case 8: $title = 'stats'; break;
+		  case 9: $title = 'signon_state'; break;
+		  case 10: $title = 'messenger'; break;
+		  case 11: $title = 'wwcl'; break;
+    }
+		$box_content = str_replace("{title}", $title, $box_content);
 		$box_content = str_replace("{caption}", $caption, $box_content);
 		$box_content = str_replace("{content}", $content, $box_content);
 		$box_content = str_replace("{link_open_close}", "index.php?box_action=change&boxid=$boxid", $box_content);
