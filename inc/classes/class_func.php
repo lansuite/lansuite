@@ -608,7 +608,6 @@ class func {
 	function FileUpload($source_var, $path, $name = NULL) {
 		global $config;
 
-    if ($_FILES[$source_var]['tmp_name'] == '') return false;
 		switch ($_FILES[$source_var]['error']) {
 			case 1:
 				echo "Fehler: Die hochgeladene Datei überschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte Größe";
@@ -627,6 +626,8 @@ class func {
 				return 0;
 			break;
 			default:
+        if ($_FILES[$source_var]['tmp_name'] == '') return false;
+
 				if (strrpos($path, '/') + 1 != strlen($path)) $path .= "/";
 				if ($name) {
 					// Auto-Add File-Extension

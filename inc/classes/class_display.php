@@ -627,7 +627,7 @@ $this->form_open = true;
 
 
 	function AddFileSelectRow($name, $key, $errortext, $size = NULL, $maxlength = NULL, $optional = NULL) {
-		global $templ;
+		global $templ, $func;
 
 		if($size == "") { $size = "30"; }
 
@@ -640,6 +640,16 @@ $this->form_open = true;
     else $templ['ls']['row']['file']['errortext'] = '';
 		if ($optional) $templ['ls']['row']['file']['optional'] = "_optional";
 		else $templ['ls']['row']['file']['optional'] = '';
+
+    $maxfilesize = ini_get('upload_max_filesize');
+    if (strpos($maxfilesize, 'M') > 0) $maxfilesize = (int)$maxfilesize * 1024 * 1024;
+    elseif (strpos($maxfilesize, 'K') > 0) $maxfilesize = (int)$maxfilesize * 1024;
+    else $maxfilesize = (int)$maxfilesize;
+
+    // If value is too low (most likely because of errors in above statement), set it to 100M
+    if ($maxfilesize < 1000) $maxfilesize = 1024 * 1024 * 100;
+    $templ['ls']['row']['file']['maxfilesize'] = $maxfilesize;
+    $templ['ls']['row']['file']['maxfilesize_formated'] = '(Max: '. $func->FormatFileSize($maxfilesize) .')';
 
 		$this->AddTpl("design/templates/ls_row_fileselect.htm");
 	}
