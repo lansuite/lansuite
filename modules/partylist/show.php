@@ -13,7 +13,7 @@ switch ($_GET['step']) {
 
 function CreateSignonBar($guests, $paid_guests, $max_guests) {
   global $auth;
-  
+
 	$max_bars = 100;
 
 	// Angemeldet länge ausrechnen.
@@ -35,7 +35,7 @@ function CreateSignonBar($guests, $paid_guests, $max_guests) {
 	if ($pixelcuruser > 0) $bar .= '<img src="design/'. $auth['design'] .'/images/userbar_center_yellow.gif" width="'. $pixelcuruser .'" height="13" border="0" onmouseover="return overlib(\''. t('Angemeldet') .': '. $guests  .'\');" onmouseout="return nd();" alt="'. t('Angemeldet') .'" />';
 	if ($pixelges > 0) $bar .= '<img src="design/'. $auth['design'] .'/images/userbar_center_bg.gif" width="'. $pixelges .'" height="13" border="0" onmouseover="return overlib(\''. t('Frei') .': '. ($max_guests - $paid_guests)  .'\');" onmouseout="return nd();" alt="'. t('Frei') .'" />';
 	$bar .= "<img src=\"design/{$auth['design']}/images/userbar_right.gif\" height=\"13\" border=\"0\" alt =\"\" />";
-	
+
 	return $bar;
 }
 
@@ -55,14 +55,18 @@ function GetSite($url) {
 
 #  $ip = gethostbyname($url['host']);
   $fp = fsockopen($url['host'], $url['port'], $errno, $errstr, 1);
-  $fp = stream_set_timeout($fp, 1);
+#  $fp = stream_set_timeout($fp, 1);
 
   if (!$fp) return '';
   else {
     $cont = '';
 
-    fputs ($fp, "GET {$url['path']} HTTP/1.0\r\nHost: {$url['host']}\r\n\r\n");
-    while (!feof($fp)) $cont .= fgets($fp,128);
+    fputs($fp, "GET {$url['path']} HTTP/1.0\r\nHost: {$url['host']}\r\n\r\n");
+    while (!feof($fp)) {
+      $line = fgets($fp, 128);
+      if ($line == '') break;
+      $cont .= $line;
+    }
     fclose($fp);
 
     $HTTPHeader = substr($cont, 0, strpos($cont, "\r\n\r\n"));
@@ -77,19 +81,18 @@ function GetSite($url) {
 
 function AddSignonStatus($lsurl, $history = 0) {
   global $xml, $dsp, $HTTPHeader;
-  
+
   if (substr($lsurl, strlen($lsurl) - 1, 1) != '/') $lsurl .= '/';
   if (substr($lsurl, 0, 7) != 'http://') $lsurl = 'http://'. $lsurl;
   $lsurl .= 'ext_inc/party_infos/infos.xml';
 #  $lines = @file($lsurl);
-  $lines = '';
-#  $content = GetSite($lsurl);
+  $content = GetSite($lsurl);
 
-  if (!$lines) return t('infos.xml fehlt');
-#  if (!$content) return '<span onmouseover="return overlib(\''. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace('"', '\'', str_replace("\r\n", HTML_NEWLINE, $HTTPHeader)) .'\');" onmouseout="return nd();">'. t('infos.xml fehlt') .'</span>';
+#  if (!$lines) return t('infos.xml fehlt');
+  if (!$content) return '<span onmouseover="return overlib(\''. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace('"', '\'', str_replace("\r\n", HTML_NEWLINE, $HTTPHeader)) .'\');" onmouseout="return nd();">'. t('infos.xml fehlt') .'</span>';
   else {
-    $content = '';
-    foreach ($lines as $line_num => $line) $content .= $line;
+#    $content = '';
+#    foreach ($lines as $line_num => $line) $content .= $line;
 
     $system = $xml->get_tag_content_array('system', $content);
     // Version 3.0 XML-File

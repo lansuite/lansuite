@@ -622,7 +622,7 @@ class func {
 				return 0;
 			break;
 			case 4:
-				echo "Fehler: Es wurde keine Datei hochgeladen";
+				#echo "Fehler: Es wurde keine Datei hochgeladen";
 				return 0;
 			break;
 			default:

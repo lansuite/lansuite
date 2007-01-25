@@ -69,6 +69,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
     ";
   $ms2->query['default_order_by'] = 'state ASC, date DESC';
+  $ms2->config['EntriesPerPage'] = 50;
 
   $ms2->AddBGColor('state', $colors);
 
