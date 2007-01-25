@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="0.91">
+	<channel>
+		<title>Lansuite</title>
+		<link>http://www.lansuite.de</link>
+		<description></description>
+		<language>de-de</language>
+		<copyright></copyright>
+		<image>
+			<url>http://lansuite.orgapage.de/index.php</url>
+			<title>Lansuite</title>
+			<link>http://www.lansuite.de</link>
+		</image>
+		<item>
+			<title>Noch keine News</title>
+			<description>Es wurden noch keine News verfasst</description>
+			<author>knox@orgapage.de (KnoX)</author>
+			<pubDate>Thu, 25 Jan 2007 13:32:19 +0100</pubDate>
+			<link>http://www.lansuite.de</link>
+		</item>
+	</channel>
+</rss>
