@@ -12,7 +12,7 @@ else {
   $templ['addresses'] = '';
   while ($row = $db->fetch_array($res)) {
     $text = "<b>{$row['name']}</b><br />- {$row['motto']} -<br>". $func->unixstamp2date($row['start'], 'datetime') .' - '. $func->unixstamp2date($row['end'], 'datetime') ."<br>{$row['street']} {$row['hnr']}, {$row['plz']} {$row['city']}";
-    $templ['guestmap']['adresses'] .= "showAddress('{$row['street']}, {$row['plz']}, Germany', '$text');\r\n";
+    $templ['guestmap']['adresses'] .= "showAddress('Germany', '{$row['city']}', '{$row['plz']}', '{$row['street']}', '{$row['hnr']}', '$text');\r\n";
   }
   $db->free_result($haus_data);
 

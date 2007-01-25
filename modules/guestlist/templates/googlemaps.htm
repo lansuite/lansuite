@@ -13,15 +13,42 @@ if (GBrowserIsCompatible()) {
 
   var geocoder = new GClientGeocoder();
 
-  function showAddress(address, text) {
-    geocoder.getLatLng(address, function(point) {
+  function showAddress(country, city, plz, street, hnr, text) {
+    if (country == '') country = 'Germany';
+    if (city == '' && plz == '') return;
+
+    geocoder.getLatLng(street+' '+hnr+', '+plz+' '+city+', '+country, function(point) {
       if (point) {
         var marker = new GMarker(point, 'text');
         map.addOverlay(marker);
         GEvent.addListener(marker, "click", function() {
           marker.openInfoWindowHtml(text);
         });
-      }
+      } else geocoder.getLatLng(street+', '+plz+' '+city+', '+country, function(point) {
+        if (point) {
+          var marker = new GMarker(point, 'text');
+          map.addOverlay(marker);
+          GEvent.addListener(marker, "click", function() {
+            marker.openInfoWindowHtml(text);
+          });
+        } else geocoder.getLatLng(street+', '+plz+', '+country, function(point) {
+          if (point) {
+            var marker = new GMarker(point, 'text');
+            map.addOverlay(marker);
+            GEvent.addListener(marker, "click", function() {
+              marker.openInfoWindowHtml(text);
+            });
+          } else geocoder.getLatLng(street+', '+city+', '+country, function(point) {
+            if (point) {
+              var marker = new GMarker(point, 'text');
+              map.addOverlay(marker);
+              GEvent.addListener(marker, "click", function() {
+                marker.openInfoWindowHtml(text);
+              });
+            }
+          });
+        });
+      });
     });
   }
 
