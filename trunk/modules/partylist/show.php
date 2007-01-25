@@ -46,9 +46,16 @@ function GetSite($url) {
 
   $url = parse_url($url);
   if (!$url['port']) $url['port'] = 80;
+  $url['host'] = trim($url['host']);
+  $url['path'] = trim($url['path']);
+  if (!$url['host'] or !$url['path']) {
+    $HTTPHeader = t('Hostname, oder Pfad fehlt');
+    return '';
+  }
 
-  $ip = gethostbyname($url['host']);
-  $fp = fsockopen($ip, $url['port'], $errno, $errstr, 1);
+#  $ip = gethostbyname($url['host']);
+  $fp = fsockopen($url['host'], $url['port'], $errno, $errstr, 1);
+  $fp = stream_set_timeout($fp, 1);
 
   if (!$fp) return '';
   else {
@@ -75,13 +82,14 @@ function AddSignonStatus($lsurl, $history = 0) {
   if (substr($lsurl, 0, 7) != 'http://') $lsurl = 'http://'. $lsurl;
   $lsurl .= 'ext_inc/party_infos/infos.xml';
 #  $lines = @file($lsurl);
-  $content = GetSite($lsurl);
+  $lines = '';
+#  $content = GetSite($lsurl);
 
-#  if (!$lines) return t('infos.xml fehlt');
-  if (!$content) return '<span onmouseover="return overlib(\''. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace("\r\n", HTML_NEWLINE, $HTTPHeader) .'\');" onmouseout="return nd();">'. t('infos.xml fehlt') .'</span>';
+  if (!$lines) return t('infos.xml fehlt');
+#  if (!$content) return '<span onmouseover="return overlib(\''. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace('"', '\'', str_replace("\r\n", HTML_NEWLINE, $HTTPHeader)) .'\');" onmouseout="return nd();">'. t('infos.xml fehlt') .'</span>';
   else {
-#    $content = '';
-#    foreach ($lines as $line_num => $line) $content .= $line;
+    $content = '';
+    foreach ($lines as $line_num => $line) $content .= $line;
 
     $system = $xml->get_tag_content_array('system', $content);
     // Version 3.0 XML-File
