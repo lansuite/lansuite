@@ -68,6 +68,7 @@ function PlaceName($place) {
 }
 
 $ms2->AddResultField(t('Titel'), 'b.name');
+$ms2->AddResultField(t('Boxid'), 'boxid');
 $ms2->AddResultField(t('Seite'), 'b.place', 'PlaceName');
 $ms2->AddResultField(t('Position'), 'b.pos');
 $ms2->AddResultField(t('Aktiv'), 'b.active', 'TrueFalse');
