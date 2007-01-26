@@ -3,7 +3,7 @@
 $templ['box']['rows'] = '';
 
 ($_GET['mod'] == 'usrmgr')? $s = 'selected' : $s = '';
-$templ['searchbox']['module'] = "<option value=\"index.php?mod=guestlist&action=guestlist\" $s>".t('Benuter')."</option>\n";
+$templ['searchbox']['module'] = "<option value=\"index.php?mod=guestlist&action=guestlist\" $s>".t('Benutzer')."</option>\n";
 
 if (in_array("news", $ActiveModules)){
 	($_GET['mod'] == 'news')? $s = 'selected' : $s = '';

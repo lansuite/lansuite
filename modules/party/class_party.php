@@ -628,7 +628,7 @@ class party{
 		}
 				
 		/**
-		 * Preise löschen, dabei werden alle Benuter die diesen Preis haben auf einen neuen Preis gesetzt
+		 * Preise löschen, dabei werden alle Benutzer die diesen Preis haben auf einen neuen Preis gesetzt
 		 *
 		 * @param int $del_price
 		 * @param int $set_price
