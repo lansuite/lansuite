@@ -44,8 +44,8 @@ if (!$party_data) {
 		$paid = $cur;
 	}
 
-	// Max werden 100 Pixel(Bars) angezeigt
-	$max_bars = 100;
+	// Max werden 112 Pixel(Bars) angezeigt
+	$max_bars = 112;
 
 	// 2 Pixel werden abgezogen da diese schon links und rechts vorhanden sind.
 	$max_bars = $max_bars - 2;
@@ -84,13 +84,12 @@ if (!$party_data) {
 	$bar .= "<img src=\"design/{$auth['design']}/images/userbar_right.gif\" height=\"13\" border=\"0\" alt =\"\" />";
 
 	$box->ItemRow("user", '<b>'. $party_data['name'] .'</b>');
-	$box->EngangedRow(date("d.m", $party_data['partybegin']) .' - '. date("d.m.y", $party_data['partyend']));
+	$box->EngangedRow(date("d.m.y", $party_data['partybegin']) .' - '. date("d.m.y", $party_data['partyend']));
 
 	$box->EngangedRow($bar);
+  $box->EngangedRow(t('Angemeldet').': '. $cur);
 	$box->EngangedRow(t('Bezahlt').': '. $paid);
-	$box->EngangedRow(t('Angemeldet').': '. $cur);
 	$box->EngangedRow(t('Frei').': '. ($max - $paid));
-	$box->EngangedRow(t('Registriert').': '. $reg);
 
 	## Counter
 	$count = ceil(($party_data['partybegin'] - time()) / 60);
@@ -107,6 +106,5 @@ if (!$party_data) {
   $box->EmptyRow();
   $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>" );
   $box->EngangedRow($func->unixstamp2date($checked['n'],"datetime" ));
-  $box->EmptyRow();
 }
 ?>
