@@ -54,11 +54,13 @@ function GetSite($url) {
   }
 
 #  $ip = gethostbyname($url['host']);
-  $fp = fsockopen($url['host'], $url['port'], $errno, $errstr, 1);
+  $fp = @fsockopen($url['host'], $url['port'], $errno, $errstr, 1);
 #  $fp = stream_set_timeout($fp, 1);
 
-  if (!$fp) return '';
-  else {
+  if (!$fp) {
+    $HTTPHeader = $errno.': '.$errstr;
+    return '';
+  } else {
     $cont = '';
 
     fputs($fp, "GET {$url['path']} HTTP/1.0\r\nHost: {$url['host']}\r\n\r\n");
@@ -163,8 +165,7 @@ if (!$_GET['partyid']) {
 
   $ms2->query['from'] = "{$config['tables']['partylist']} AS p";
   $ms2->query['where'] = $where;
-  $ms2->query['default_order_by'] = 'p.start DESC';
-
+  $ms2->query['default_order_by'] = 'p.start ASC';
   $ms2->config['EntriesPerPage'] = 20;
 
   $ms2->AddSelect('p.motto');

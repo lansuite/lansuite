@@ -128,19 +128,22 @@ class stats {
 	
 	
 	function load_avg(){
-		$loadavg = file ("/proc/loadavg");
-		$loadavg = split(" ",$loadavg[0]);
-		
+	  $loadavg = '';
+	  if (@file_exists("/proc/loadavg")) {
+  		$loadavg = file ("/proc/loadavg");
+  		$loadavg = split(" ",$loadavg[0]);
+    }
 		return $loadavg;
 	}
 	
 	// Auslesen der Uptime
 	function uptime() {
-		//uptime 
-		$uptime = file("/proc/uptime");
-		$uptime = explode(" ",$uptime[0]);
-		$uptime = round($uptime[0],"0");
-
+	  $uptime = '';
+		if (@file_exists("/proc/uptime")) {
+  		$uptime = file("/proc/uptime");
+  		$uptime = explode(" ",$uptime[0]);
+  		$uptime = round($uptime[0],"0");
+    }
 		return $uptime;
 	}
 	
