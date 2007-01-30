@@ -27,7 +27,7 @@ if ($cfg['user_design_change']) {
     $XMLFile = fread ($ResFile, filesize ($file));
     fclose ($ResFile);
     $DesignName = $xml->get_tag_content('name', $XMLFile);
-    $selections[$DesignName] = $DesignName;
+    $selections[$dir] = $DesignName;
   }
   closedir($ResDesign);
 
@@ -38,4 +38,8 @@ if ($cfg['user_avatarupload']) $mf->AddField(t('Avatar'), 'avatar_path', IS_FILE
 $mf->AddField(t('Signatur'), 'signature', '', LSCODE_BIG, FIELD_OPTIONAL);
 
 $mf->SendForm('', 'usersettings', 'userid', $auth['userid']);
+
+$row = $db->query_first("SELECT signature FROM {$config['tables']['usersettings']} WHERE userid = '{$auth['userid']}'");
+$dsp->AddDoubleRow(t('Aktuelle Signatur'), $func->text2html($row['signature']));
+$dsp->AddContent();
 ?>
