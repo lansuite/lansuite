@@ -93,14 +93,6 @@
 				<extra></extra>
 			</field>
 			<field>
-				<name>ipaddress</name>
-				<type>varchar(20)</type>
-				<null></null>
-				<key>FUL</key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
 				<name>portnumber</name>
 				<type>int(3)</type>
 				<null></null>

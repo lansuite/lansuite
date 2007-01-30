@@ -43,8 +43,10 @@ Betreff: '. $row['Subject'] .'
 '.$row['msgbody'];
 }
 
+if ($auth['userid']) $WhereMinType = 1;
+else $WhereMinType = 2;
 $selections = array();
-$res = $db->query("SELECT type, userid, username, firstname, name FROM {$config['tables']['user']} WHERE type > 0 ORDER BY type DESC, username");
+$res = $db->query("SELECT type, userid, username, firstname, name FROM {$config['tables']['user']} WHERE type >= $WhereMinType ORDER BY type DESC, username");
 while ($row = $db->fetch_array($res)) {
   if ($row['type'] > 1) $type = t('Admin');
   else $type = t('Benutzer');
