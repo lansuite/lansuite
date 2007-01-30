@@ -210,7 +210,7 @@ class team {
 
 				if (!$name) {
 					$user = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = $leaderid");
-					$name = $user["username"];
+					$name = $func->escape_sql($user["username"]);
 				}
 				$query = $db->query("INSERT INTO {$config["tables"]["t2_teams"]} 
 					SET tournamentid = $tournamentid,
