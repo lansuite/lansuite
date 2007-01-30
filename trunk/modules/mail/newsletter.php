@@ -59,9 +59,10 @@ switch($_GET["step"]) {
 
 		$success = "";
 		$fail = "";
-		$users = $db->query("SELECT u.*, p.*, c.name AS clan, c.url AS clanurl FROM {$config["tables"]["user"]} AS u
+		$users = $db->query("SELECT s.ip, u.*, p.*, c.name AS clan, c.url AS clanurl FROM {$config["tables"]["user"]} AS u
       LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id=u.userid
       LEFT JOIN {$config["tables"]["clan"]} AS c ON c.clanid=u.clanid
+      LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid=u.userid
       WHERE $where
       GROUP BY u.email");
 
@@ -84,7 +85,7 @@ switch($_GET["step"]) {
 			$text = str_replace("%WWCLCLANID%", $user["wwclclanid"], $text);
 			$text = str_replace("%NGLID%", $user["nglid"], $text);
 			$text = str_replace("%NGLCLANID%", $user["nglclanid"], $text);
-			$text = str_replace("%IP%", $user["ipaddress"], $text);
+			$text = str_replace("%IP%", $user["ip"], $text);
 
 			($user["paid"]) ? $text = str_replace("%BEZAHLT%", $lang["sys"]["yes"], $text)
 				: $text = str_replace("%BEZAHLT%", $lang["sys"]["no"], $text);

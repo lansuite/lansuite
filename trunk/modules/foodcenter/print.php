@@ -115,7 +115,9 @@ class foodcenter_print{
 		if($userid == 'all'){
 			return $lang['foodcenter']['different'];	
 		}else {
-			$get_username = $db->query_first("SELECT * FROM {$config["tables"]["user"]} WHERE userid = '$userid'");
+			$get_username = $db->query_first("SELECT u.*, s.ip FROM {$config["tables"]["user"]} AS u,
+      LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid=u.userid
+      WHERE u.userid = '$userid'");
 			return $get_username;
 		}
 	}
@@ -203,7 +205,7 @@ class foodcenter_print{
 			$row_temp['supp_info'] 			= $data['s_desc'];
 			$row_temp['product_caption'] 	= $data['caption']; 
 			$row_temp['username'] 			= $userdata['username'];
-			$row_temp['userip'] 			= $userdata['ipaddress'];
+			$row_temp['userip'] 			= $userdata['ip'];
 			$row_temp['usercomment']		= $userdata['comment'];
 			$row_temp['product_option'] 	= $this->GetFoodoption($data['opts']);
 			$row_temp['order_count']		= $data['pice'];
