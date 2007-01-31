@@ -89,8 +89,8 @@ if ($auth['type'] >= 2) {
   }
   $db->free_result($res);
 }
-if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Freigeben'), "index.php?mod=usrmgr&action=account_lock&step=11", 1);
-if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Sperren'), "index.php?mod=usrmgr&action=account_lock&step=10", 1);
+if ($auth['type'] >= 2) $ms2->AddMultiSelectAction(t('Freigeben'), "index.php?mod=usrmgr&action=account_lock&step=11", 1);
+if ($auth['type'] >= 2) $ms2->AddMultiSelectAction(t('Sperren'), "index.php?mod=usrmgr&action=account_lock&step=10", 1);
 if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), "index.php?mod=usrmgr&action=delete&step=10", 1);
 
 $ms2->PrintSearch('index.php?mod=usrmgr&action=search', 'u.userid');

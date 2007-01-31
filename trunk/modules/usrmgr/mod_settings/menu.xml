@@ -120,4 +120,9 @@
 		<file>changepaid</file>
 		<requirement>2</requirement>
 	</entry>
+	<entry>
+		<action>account_lock</action>
+		<file>account_lock</file>
+		<requirement>2</requirement>
+	</entry>
 </menu>
