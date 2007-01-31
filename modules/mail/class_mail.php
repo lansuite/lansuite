@@ -102,8 +102,6 @@ class Mail {
         $subject_text = $func->escape_sql($subject_text);
         $msgbody_text = $func->escape_sql($msgbody_text);
 
-		$zeit = time();
-
 		$c_mail = $db->query("INSERT INTO {$config["tables"]["mail_messages"]} SET
 				mail_status = 'active',
 				src_status 	= 'send',
@@ -113,7 +111,7 @@ class Mail {
 				Subject		= '$subject_text',
 				msgbody		= '$msgbody_text',
 				priority	= 'normal',
-				tx_date		= '$zeit'
+				tx_date		= NOW()
 				");
 
 		if ($c_mail) {
