@@ -18,7 +18,7 @@ class seat2 {
     if (!$userid) return '';
     else $row = $db->query_first("SELECT b.blockid, b.name, b.orientation, s.col, s.row FROM {$config['tables']['seat_block']} AS b
       LEFT JOIN {$config['tables']['seat_seats']} AS s ON b.blockid = s.blockid
-      WHERE b.party_id = {$party->party_id} AND s.userid = $userid");
+      WHERE b.party_id = ". (int)$party->party_id ." AND s.userid = $userid");
   
     if (!$row['blockid']) return '';
     else {

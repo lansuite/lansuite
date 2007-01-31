@@ -67,7 +67,7 @@ switch($_GET["step"]) {
       GROUP BY u.email");
 
 		while ($user = $db->fetch_array($users)){
-			$text = $_POST["text"];
+			$text = $__POST["text"];
 
 			// Variablen ersetzen
 			$text = str_replace("%USERNAME%", $user["username"], $text);
@@ -101,7 +101,7 @@ switch($_GET["step"]) {
 				if ($mail->create_inet_mail($user["firstname"] ." ". $user["name"], $user["email"], $_POST["subject"], $text, $cfg["sys_party_mail"])) $success .= $user["firstname"] ." ". $user["name"] ."[". $user["email"] ."]" . HTML_NEWLINE;
 				else $fail .= $user["firstname"] ." ". $user["name"] ."[". $user["email"] ."]" . HTML_NEWLINE;
 			}
-			if ($_POST["tosys"]) $mail->create_sys_mail($user["userid"], $_POST["subject"], $text);
+			if ($_POST["tosys"]) $mail->create_sys_mail($user["userid"], $__POST["subject"], $text);
 		}
 		$db->free_result($users);
 
