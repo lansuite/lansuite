@@ -242,7 +242,7 @@ class func {
 	function multiquestion($questionarray, $linkarray, $text) {
 		global $templ, $dsp;
 
-		if (!$text) $templ['multiquestion']['info']['text'] = "Bitte w&auml;hlen Sie eine M&ouml;glichkeit aus";
+		if (!$text) $templ['multiquestion']['info']['text'] = "Bitte wÃ¤hlen Sie eine MÃ¶glichkeit aus:";
 		else $templ['multiquestion']['info']['text']	= $text;
 
 		if (is_array($questionarray)) foreach($questionarray as $ind => $question) {
@@ -579,7 +579,7 @@ class func {
 	}
 
 
-	// Gibt das aktuelle Alter zurück
+	// Gibt das aktuelle Alter zurÃ¼ck
 	function age($gebtimestamp) {
 		$yeardiff = date("Y") - date("Y", $gebtimestamp);
 		$monthdiff = date("m") - date("m", $gebtimestamp);
@@ -591,7 +591,7 @@ class func {
 		return $age;
 	}
 
-	// Gibt das Alter bei der LanParty zurück
+	// Gibt das Alter bei der LanParty zurÃ¼ck
 	function age_at_lan($gebtimestamp) {
 /*	Funktioniert so leider noch nicht
 		$yeardiff = date("Y", mktime($cfg["signon_partybegin"])) - date("Y", $gebtimestamp);
@@ -610,11 +610,11 @@ class func {
 
 		switch ($_FILES[$source_var]['error']) {
 			case 1:
-				echo "Fehler: Die hochgeladene Datei überschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte Größe";
+				echo "Fehler: Die hochgeladene Datei Ã¼berschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte GrÃ¶ÃŸe";
 				return 0;
 			break;
 			case 2:
-				echo "Fehler: Die hochgeladene Datei überschreitet die in dem HTML Formular mittels der Anweisung MAX_FILE_SIZE angegebene maximale Dateigröße";
+				echo "Fehler: Die hochgeladene Datei Ã¼berschreitet die in dem HTML Formular mittels der Anweisung MAX_FILE_SIZE angegebene maximale DateigrÃ¶ÃŸe";
 				return 0;
 			break;
 			case 3:
@@ -672,7 +672,7 @@ class func {
 					chmod ($target, octdec($config["lansuite"]["chmod_file"]));
 					return $target;
 				} else {
-					echo "Fehler: Datei konnte nicht hoch geladen werden." . HTML_NEWLINE;
+					echo "Fehler: Datei konnte nicht hochgeladen werden." . HTML_NEWLINE;
 					print_r($_FILES);
 					return 0;
 				}
@@ -690,7 +690,7 @@ class func {
 	}
 
 	function ping($host, $timeout = 200000){
-		// Öffne Socket zum Server
+		// Ã–ffne Socket zum Server
 		$handle=fsockopen('udp://'.$host, 7, $errno, $errstr);
 		if (!$handle){
      		return false;
