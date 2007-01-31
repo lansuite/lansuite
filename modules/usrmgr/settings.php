@@ -36,10 +36,7 @@ if ($cfg['user_design_change']) {
 
 if ($cfg['user_avatarupload']) $mf->AddField(t('Avatar'), 'avatar_path', IS_FILE_UPLOAD, 'ext_inc/avatare/', FIELD_OPTIONAL, CheckAndResizeUploadPic);
 $mf->AddField(t('Signatur'), 'signature', '', LSCODE_BIG, FIELD_OPTIONAL);
+$mf->AddField(t('Meine Adresse in der Besucherkarte anzeigen?'), 'show_me_in_map', '', '', FIELD_OPTIONAL);
 
 $mf->SendForm('', 'usersettings', 'userid', $auth['userid']);
-
-$row = $db->query_first("SELECT signature FROM {$config['tables']['usersettings']} WHERE userid = '{$auth['userid']}'");
-$dsp->AddDoubleRow(t('Aktuelle Signatur'), $func->text2html($row['signature']));
-$dsp->AddContent();
 ?>
