@@ -12,7 +12,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
     $res = $db->query("SELECT u.*, s.avatar_path FROM {$config["tables"]["user"]} AS u
   		LEFT JOIN {$config["tables"]["party_user"]} AS p ON u.userid = p.user_id
   		LEFT JOIN {$config["tables"]["usersettings"]} AS s ON u.userid = s.userid
-  		WHERE (u.plz > 0) AND u.type > 0 $where_pid
+  		WHERE u.plz > 0 AND u.type > 0 AND s.show_me_in_map = 1 $where_pid
       ");
 
     $templ['addresses'] = '';
