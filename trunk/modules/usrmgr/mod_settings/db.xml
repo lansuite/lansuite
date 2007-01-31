@@ -379,6 +379,14 @@
 				<default></default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>show_me_in_map</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
 		</structure>
 	</table>
 	<table>

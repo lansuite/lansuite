@@ -27,6 +27,12 @@ function OpenWindow(url, name) {
   Win1.focus();
 }
 
+function OpenPreviewWindow(url, obj) {
+  text = obj.value.replace(/\n/g, "--NEWLINE--");
+  url += '&text=' + text;
+  OpenWindow(url, 'Vorschau');
+}
+
 function OpenHelplet(module, helpletid) {
   w = window.open('index.php?mod=helplet&action=helplet&design=base&module='+ module +'&helpletid='+ helpletid, 'neu', 'width=800, height=500, resizable=yes, scrollbars=yes');
 }
