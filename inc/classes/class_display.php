@@ -306,7 +306,8 @@ function AddTextAreaMailRow($name, $key, $value, $errortext, $cols = NULL, $rows
     else $templ['ls']['row']['textarea']['optional'] = '';
 
 $this->form_open = false;
-		$templ['ls']['row']['textarea']['buttons'] = $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b]', '[/b]')", 'bold', t('Fett'));
+		$templ['ls']['row']['textarea']['buttons'] = $this->FetchButton('index.php?mod=popups&action=textareaplus_preview&design=base" onclick="javascript:OpenPreviewWindow(this.href, document.'. $this->form_name .'.'. $name .'); return false;', 'preview', t('Vorschau'));
+    $templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b]', '[/b]')", 'bold', t('Fett'));
 		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i]', '[/i]')", 'italic', t('Kursiv'));
 		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u]', '[/u]')", 'underline', t('Unterstrichen'));
 		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[s]', '[/s]')", 'strike', t('Durchstreichen'));
@@ -315,18 +316,6 @@ $this->form_open = false;
 		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[c]', '[/c]')", 'quote', t('Code'));
 		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[img]', '[/img]')", 'img', t('Bild'));
 $this->form_open = true;
-
-		$templ['ls']['row']['textarea']['smilies'] = "";
-		$smilie = $db->query("SELECT shortcut, image FROM {$GLOBALS["config"]["tables"]["smilies"]}");
-
-		$z = 0;
-		while($smilies = $db->fetch_array($smilie)){
-			if (file_exists("ext_inc/smilies/" . $smilies["image"])) {
-				$templ['ls']['row']['textarea']['smilies'] .= "<a href=\"#\" onclick=\"javascript:code_".$templ['ls']['row']['textarea']['name']."('" . $smilies["shortcut"] . " ')\"><img src=\"ext_inc/smilies/" . $smilies["image"] . "\" border=\"0\" alt=\"". $smilies["image"] . "\" /></a>\n";
-				$z++;
-				if ($z % 12 == 0) $templ['ls']['row']['textarea']['smilies'] .= "<br />";
-			}
-		}
 
 		$this->AddTpl("design/templates/ls_row_textareaplus.htm");
     }
