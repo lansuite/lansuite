@@ -2,7 +2,7 @@
 
 $mail_new_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active' AND rx_date = '0'");
 $mail_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active'");
-$dsp->NewContent(t('Posteingang'), t('Sie haben %1 ungelesene Nachrichten (%2 Nachrichten insgesammt)', array($mail_new_total['n'], $mail_total['n'])));
+$dsp->NewContent(t('Posteingang'), t('Sie haben %1 ungelesene Nachrichten (%2 Nachrichten insgesamt)', array($mail_new_total['n'], $mail_total['n'])));
 
 // if logged out
 if (!$auth['userid']) $dsp->AddSingleRow(t('Um Ihren Posteingang sehen zu können, müssen Sie sich zuerst einloggen').HTML_NEWLINE.
