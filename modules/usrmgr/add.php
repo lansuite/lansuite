@@ -59,7 +59,7 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
 function CheckClanPW ($clanpw) {
   global $db, $config, $auth;
 
-  if (!$_POST['new_clan_select'] and $auth['type'] <= 1) {
+  if (!$_POST['new_clan_select'] and $auth['type'] <= 1 and $auth['clanid'] != $_POST['clan']) {
     $clan = $db->query_first("SELECT password FROM {$config['tables']['clan']} WHERE clanid = '{$_POST['clan']}'");
     if ($clan['password'] and $clan['password'] != md5($clanpw)) return t('Passwort falsch!');
   }
