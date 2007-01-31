@@ -31,15 +31,15 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
     if ($_POST['password_original']) $_SESSION['tmp_pass'] = $_POST['password_original'];
 
   	if ($cfg["signon_password_mail"]) {
-  		if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Dein Passwort und weitere Informationen wurden an deine eMail-Adresse gesendet'), NO_LINK);
+  		if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Ihr Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.'), NO_LINK);
   		else {
-  			if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-eMail aufgetreten.'), NO_LINK);
+  			if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.'), NO_LINK);
   			$cfg['signon_password_view'] = 1;
   		}
     }
 
     // Show passwort, if wanted, or has mail failed
-    if ($cfg['signon_password_view']) $func->information(t('Dein Passwort lautet: %1', array($_SESSION['tmp_pass'])), NO_LINK);
+    if ($cfg['signon_password_view']) $func->information(t('Ihr Passwort lautet: <b>%1</b>', array($_SESSION['tmp_pass'])), NO_LINK);
     $_SESSION['tmp_pass'] = '';
 	}
 
@@ -70,9 +70,9 @@ function CheckClanNotExists ($ClanName) {
   global $db, $config, $auth;
 
   $clan = $db->query_first("SELECT 1 AS found FROM {$config['tables']['clan']} WHERE name = '$ClanName'");
-  if ($clan['found']) return t('Dieser Clan existiert bereits!') .HTML_NEWLINE. t(' Wenn du ihm beitreten möchtest, wähle ihn oberhalb aus dem Dropdownmenü aus');
+  if ($clan['found']) return t('Dieser Clan existiert bereits!') .HTML_NEWLINE. t(' Wenn Sie diesem beitreten möchten, wählen Sie ihn oberhalb aus dem Dropdownmenü aus.');
 
-	if (preg_match("/([.^\"\'`´]+)/", $ClanName)) return t('Sie verwenden nicht zugelassene Sonderzeichen in Ihrem Clannamen');
+	if (preg_match("/([.^\"\'`´]+)/", $ClanName)) return t('Sie verwenden nicht zugelassene Sonderzeichen in Ihrem Clannamen.');
 
   return false;
 }
@@ -112,7 +112,7 @@ function PersoInput($field, $mode, $error = '') {
   			$perso_res = $usrmgr->CheckPerso($_POST[$field]);
     		switch ($perso_res) {
   				case 2: return str_replace("<", "&lt;", t('Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: \'aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d\'')); break;
-  				case 3: return t('Pr&uuml;fsummenfehler. Bitte &uuml;berpr&uuml;fen Sie Ihre Angabe. Sehr wahrscheinlich haben sie eine, oder mehrere Zahlen falsch abgeschrieben.'); break;
+  				case 3: return t('Prüfsummenfehler. Bitte überprüfen Sie Ihre Angabe. Sehr wahrscheinlich haben Sie eine oder mehrere Zahlen falsch abgeschrieben.'); break;
   				case 4: return t('Dieser Personalausweis ist leider bereits abgelaufen.'); break;
   			}
   		}
@@ -158,8 +158,8 @@ function Addr1Input($field, $mode, $error = '') {
         $_POST['hnr'] = (int)array_pop($pieces);
         $_POST['street'] = implode(' ', $pieces);
 
-  			if ($_POST['street'] == '') return t('Bitte geben Sie Straße und Hausnummer in folgendem Format ein: "Straßenname 12"');
-  			elseif ($_POST['hnr'] == 0) return t('Die Hausnummer muss numerisch sein');
+  			if ($_POST['street'] == '') return t('Bitte geben Sie Straße und Hausnummer in folgendem Format ein: "Straßenname 12".');
+  			elseif ($_POST['hnr'] == 0) return t('Die Hausnummer muss numerisch sein.');
   		}
 			return false; // -> Means no error
     break;
@@ -182,8 +182,8 @@ function Addr2Input($field, $mode, $error = '') {
         $_POST['plz'] = array_shift($pieces);
         $_POST['city'] = implode(' ', $pieces);
 
-  			if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: "12345 Stadt"');
-  			elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen. PLZ mit weniger Ziffern, bitte mit führenden Nullen schreiben (z.B. 00123)');
+  			if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".');
+  			elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen. Postleitzahlen mit weniger Ziffern bitte mit führenden Nullen schreiben (z.B. 00123).');
   		}
 			return false; // -> Means no error
     break;
@@ -229,7 +229,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       // If Admin, Creating a new user, or Missing fields:
       //   Show Username Field
       if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) $mf->AddField(t('Benutzername'), 'username');
-      else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, t('Als Benutzer kannst du deinen Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wende dich dazu bitte an einen Administrator.'));
+      else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, t('Als Benutzer können Sie Ihren Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden Sie sich dazu bitte an einen Administrator.'));
 
       if (ShowField('firstname')) $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
       if (ShowField('lastname')) $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
@@ -260,8 +260,8 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         }
 
         $mf->AddField(t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
-          '('.t('Der Benutzertyp muss zusätzlich Admin, oder Operator sein') .')'.HTML_NEWLINE.HTML_NEWLINE.
-          '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen') .')',
+          '('.t('Der Benutzertyp muss zusätzlich Admin, oder Operator sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
+          '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
           'permissions', IS_MULTI_SELECTION, $selections, FIELD_OPTIONAL);
 
         // Group
@@ -280,7 +280,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
     // If not admin and user is created (not changed)
     if ($auth['type'] < 2 and !$_GET['userid']) $mf->AddFix('type', 1);
 
-    $mf->AddField(t('Email'), 'email', '', '', '', CheckValidEmail);
+    $mf->AddField(t('E-Mail'), 'email', '', '', '', CheckValidEmail);
     if ($_GET['action'] != 'change') {
       if ($cfg['signon_autopw']) {
         $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
@@ -323,7 +323,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $mf->AddField(t('Neuer Clan'), 'new_clan_select', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
         $mf->AddField(t('Name'), 'clan_new', '', '', FIELD_OPTIONAL, 'CheckClanNotExists');
         if (ShowField('clanurl')) $mf->AddField(t('Webseite'), 'clanurl', '', '', FIELD_OPTIONAL);
-        $mf->AddField(t('Passwort festlegen'), 'newclanpw', IS_NEW_PASSWORD, '', FIELD_OPTIONAL);
+        $mf->AddField(t('Passwort'), 'newclanpw', IS_NEW_PASSWORD, '', FIELD_OPTIONAL);
         $mf->AddGroup(t('Clan'));
       }
 
@@ -358,23 +358,23 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $selections = array();
         $selections['0'] = t('Keine Angabe');
         $selections['1'] = t('Männlich');
-        $selections['2'] = t('Weblich');
+        $selections['2'] = t('Weiblich');
         $mf->AddField(t('Geschlecht'), 'sex', IS_SELECTION, $selections, Optional('gender'));
       }
-      if (ShowField('newsletter')) $mf->AddField(t('Newsletter'), 'newsletter', '', '', Optional('newsletter'));
+      if (ShowField('newsletter')) $mf->AddField(t('Newsletter abonnieren'), 'newsletter', '', '', Optional('newsletter'));
 
       // If Admin: Picture and Comment
       if (($auth['type'] >= 2)) {
-        $mf->AddField(t('Buntzerbild hochladen'), 'picture', IS_FILE_UPLOAD, 'ext_inc/user_pics/', Optional('picture'));
+        $mf->AddField(t('Benutzerbild hochladen'), 'picture', IS_FILE_UPLOAD, 'ext_inc/user_pics/', Optional('picture'));
         $mf->AddField(t('Kommentar'), 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
       }
 
       // AGB and Vollmacht, if new user
       if ((!$_GET['userid'] or $DoSignon) and $auth['type'] <= 1) {
-      	if (ShowField('voll')) $mf->AddField(t('U18-Vollmacht') .'|'. t('Hiermit bestätige ich die %1 der Veranstaltung "%2" gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen', array("<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">". t('U18 Vollmacht') .'</a>', $_SESSION['party_info']['name'])), 'vollmacht', 'tinyint(1)');
+      	if (ShowField('voll')) $mf->AddField(t('U18-Vollmacht') .'|'. t('Hiermit bestätige ich, die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.', array("<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">". t('U18 Vollmacht') .'</a>', $_SESSION['party_info']['name'])), 'vollmacht', 'tinyint(1)');
         if (ShowField('agb')) {
         	($cfg['signon_agb_targetblank']) ? $target = 'target="_blank"' : $target = '';
-          $mf->AddField(t('AGB bestätigen') .'|'. t('Hiermit bestätige ich die %1 der Veranstaltung "%2" gelesen zu haben und stimme ihnen zu', array("<a href=\"". $cfg["signon_agblink"] ."\"$target>". t('AGB') ."</a>", $_SESSION['party_info']['name'])), 'agb', 'tinyint(1)');
+          $mf->AddField(t('AGB bestätigen') .'|'. t('Hiermit bestätige ich die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und stimme ihnen zu.', array("<a href=\"". $cfg["signon_agblink"] ."\"$target>". t('AGB') ."</a>", $_SESSION['party_info']['name'])), 'agb', 'tinyint(1)');
         }
       }
       $mf->AddGroup(t('Verschiedenes'));
