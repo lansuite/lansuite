@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lansuite-module>
-	<name>cron</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
+	<name>cron2</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
 	<caption>Cronjob</caption>		<!-- The modulname displayed to the user -->
 	<description>Dieses Modul verwaltet zyklische Aufgaben wie das aufräumen der Datenbank</description>		<!-- A short description of the module -->
 	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
