@@ -50,7 +50,7 @@ class basket{
 			$dsp->NewContent($lang['foodcenter']['basket_caption'],$lang['foodcenter']['basket_sub_caption']);
 			if($this->product->count_products() > 0){
 				$dsp->SetForm("?mod=foodcenter&action={$_GET['action']}&mode=change");
-				$dsp->AddDoubleRow($lang['foodcenter']['basket_item'],$lang['foodcenter']['basket_count']);
+				$dsp->AddDoubleRow("<b>" . $lang['foodcenter']['basket_item'] . "</b> ","<b>" . $lang['foodcenter']['basket_count'] . "</b> ");
 
 				$this->product->get_basket_form();			
 				$dsp->AddDoubleRow("<b>" . $lang['foodcenter']['basket_price_tot'] . "</b> " . $this->product->count_products_price() . " " . $cfg['sys_currency'],"<b>" . $lang['foodcenter']['basket_count_tot'] . "</b> " . $this->product->count_products());

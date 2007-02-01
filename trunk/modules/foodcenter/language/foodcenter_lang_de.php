@@ -87,8 +87,8 @@ $lang['foodcenter']['show_product_subproduct'] = 'Produkt hat Unterprodukte';
 
 // Basket
 $lang['foodcenter']['basket_caption']			= 'Warenkorb';
-$lang['foodcenter']['basket_sub_caption']		= 'Um einen Artikel zu löschen setze ihn auf 0';
-$lang['foodcenter']['basket_price_tot']			= 'Total Preis: ';
+$lang['foodcenter']['basket_sub_caption']		= 'Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf \'Neu berechnen\'.';
+$lang['foodcenter']['basket_price_tot']			= 'Gesamtpreis: ';
 $lang['foodcenter']['basket_no_item']			= 'Keine Artikel im Warenkorb';
 $lang['foodcenter']['basket_count_tot']			= 'Anzahl Artikel: ';
 $lang['foodcenter']['basket_item']				= 'Artikel / Preis';
