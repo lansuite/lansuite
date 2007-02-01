@@ -31,6 +31,7 @@ Version 3
 - Add: MasterDelete zum veralgemeinerten Löschen von Datensätzen aus der Datenbank (KnoX 04.01.2007)
 - Add: Weitere Sprachen ergänzt (KnoX 04.01.2007)
 
+- Change: Neues Modul cron2 ersetzt cron (KnoX 01.02.2007)
 - Change: Sample-Modul wieder auf den aktuellen Stand gebracht (KnoX 18.01.2007)
 - Change: Box- und Template-Verwaltung optimiert (KnoX 18.01.2007)
 - Change: Avatar-Pfad in der DB wird nun komplett angegeben, daher müssen Avatare neu hinzugefügt werden (KnoX 13.01.2007)

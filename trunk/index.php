@@ -103,7 +103,7 @@ if (file_exists("modules/mastersearch/class_mastersearch.php")) include_once("mo
 include_once("modules/mail/class_mail.php");
 include_once("modules/stats/class_stats.php");
 include_once("modules/seating/class_seat.php");
-include_once("modules/cron/class_cronjob.php");
+include_once("modules/cron2/class_cron2.php");
 
 // Initialize base classes
 $func		= new func;			// Base Functions (anything that doesnt belong elsewere)
@@ -117,7 +117,7 @@ $xml		= new xml;			// XML Functions (to maintain XML-Ex-/Imports)
 $install	= new Install();		// Install Functions (Some basic Setup-Routines)
 $db			= new db;			// DB Functions (to work with the databse)
 $sec		= new sec;			// Security Functions (to lock pages)
-$cronjob	= new cronjob();	// Load Cronjob
+$cron2	= new cron2();	// Load Cronjob
 $seat2 = new seat2();   // Load Seat-Controll Class
 
 
@@ -226,7 +226,7 @@ if ($db->success) {
   if ($_GET['design'] != 'base') $stats->update($sitetool->out_work(), $sitetool->get_send_size());
 
   // Check Cronjobs
-  $cronjob->check_jobs();
+  $cron2->CheckJobs();
   $db->disconnect();
 }
 ?>
