@@ -55,8 +55,13 @@ if (!$cfg['download_use_ftp']) {
     }
 
     $dsp->AddFieldSetStart(t('Navigation: ') . $LinkUp);
+    $FileList = array();
     $DLDesign = opendir($BaseDir.$_GET['dir']);
-    while ($CurFile = readdir($DLDesign)) if ($CurFile != '.' and $CurFile != '..') {
+    while ($CurFile = readdir($DLDesign)) if ($CurFile != '.' and $CurFile != '..') $FileList[] = $CurFile;
+    closedir($DLDesign);
+    sort($FileList);
+
+    foreach ($FileList as $CurFile) {
       $CreateTime = filectime($BaseDir.'/'.$CurFilePath);
 
       if ($_GET['dir']) $CurFilePath = $_GET['dir'] .'/'. $CurFile;
@@ -75,7 +80,6 @@ if (!$cfg['download_use_ftp']) {
         }
       }
     }
-    closedir($DLDesign);
     $dsp->AddFieldSetEnd();
 
     // File Upload Box

@@ -200,7 +200,7 @@
 				<login>0</login>
 				<module>stats</module>
 				<source>signonstatus</source>
-				<callback>PartyAvailible</callback>
+				<callback></callback>
 			</entry>
 			<entry>
 				<boxid>10</boxid>

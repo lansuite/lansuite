@@ -312,7 +312,7 @@ else {
 
 			// avatar
 			($user_data['avatar_path'] != "" AND $user_data['avatar_path'] != "0") ?
-				$avatar	= "<img border=\"0\" src=\"ext_inc/avatare/" . $user_data['avatar_path'] . "\">"
+				$avatar	= "<img border=\"0\" src=\"". $user_data['avatar_path'] . "\">"
 				: $avatar = $lang['usrmgr']['details_no_avatar'];
 			$dsp->AddDoubleRow($lang['usrmgr']['details_avatar'], $avatar);
 
