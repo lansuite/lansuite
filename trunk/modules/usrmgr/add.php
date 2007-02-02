@@ -352,7 +352,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) {
         if (ShowField('perso')) $mf->AddField(t('Personalausweis'), 'perso', IS_CALLBACK, 'PersoInput', Optional('perso'));
 #        if (ShowField('birthday')) $mf->AddField('', 'birthday', IS_CALLBACK, 'BirthdayInput', Optional('birthday'));
-        if (ShowField('birthday')) $mf->AddField('', 'birthday', '', '-80/-8', Optional('birthday'));
+        if (ShowField('birthday')) $mf->AddField(t('Geburtstag'), 'birthday', '', '-80/-8', Optional('birthday'));
       }
       if (ShowField('gender')) {
         $selections = array();
