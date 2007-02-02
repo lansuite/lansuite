@@ -4,7 +4,7 @@ $dsp->NewContent(t('Neue Mail verfassen'), '');
 $dsp->AddContent();
 
 function SendOnlineMail() {
-  global $db, $config, $mail, $func;
+  global $db, $config, $mail, $func, $__POST;
 
   // System-Mail: Insert will be done, by MF
   if ($_POST['fromUserID'] and $_POST['type'] == 0) return true;
@@ -17,7 +17,7 @@ function SendOnlineMail() {
       $_POST['SenderMail'] = $row2['email'];
     }
 
-    $mail->create_inet_mail($row['firstname'].' '.$row['name'], $row['email'], $_POST['Subject'], $_POST['msgbody'], $_POST['SenderMail']);
+    $mail->create_inet_mail($row['firstname'].' '.$row['name'], $row['email'], $__POST['Subject'], $__POST['msgbody'], $_POST['SenderMail']);
     $func->confirmation('Die Mail wurde versendet', '');
     return false;
   }
