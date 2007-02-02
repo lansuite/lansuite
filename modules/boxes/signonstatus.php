@@ -1,17 +1,6 @@
 <?php
 $templ['box']['rows'] = "";
 
-
-// Check Date for LAN
-if(time() > $_SESSION['party_info']['partyend']){
-	$party_data = $party->get_next_party();
-	$party_next = true;
-}else {
-	$party_data = $_SESSION['party_info'];
-	$party_data['party_id'] = $party->party_id;
-	$party_next = false;
-}
-
 // mit oder ohne orgas
 if($cfg["guestlist_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
 
@@ -20,15 +9,16 @@ $get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["
 $reg = $get_cur["n"];
 
 
-if (!$party_data) {
-	$box->EngangedRow(t('Registrierte Benutzer').': '.$reg);
+if (!$_SESSION['party_info']['partyend']) {
+	$box->EngangedRow(t('Benutzer').': '.$reg);
 
-} elseif ($party_data['partyend'] < time()) {
+} elseif ($_SESSION['party_info']['partyend'] < time()) {
   $box->EngangedRow(t('Momentan ist keine Party geplant'));
 
 } else {
+  $party_data = $party->get_next_party();
 
-    // Ermittle die Anzahl der derzeit angemeldeten Usern
+  // Ermittle die Anzahl der derzeit angemeldeten Usern
 	$get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user LEFT JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id WHERE party_id='{$party_data['party_id']}' AND ($querytype)");
 	$cur = $get_cur["n"];
 
