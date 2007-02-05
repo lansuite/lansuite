@@ -137,7 +137,7 @@
 				<type>varchar(15)</type>
 				<null></null>
 				<key>FUL</key>
-				<default>14475</default>
+				<default></default>
 				<extra></extra>
 			</field>
 			<field>
@@ -145,7 +145,7 @@
 				<type>varchar(15)</type>
 				<null></null>
 				<key>FUL</key>
-				<default>38</default>
+				<default></default>
 				<extra></extra>
 			</field>
 			<field>
