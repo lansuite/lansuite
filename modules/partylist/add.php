@@ -19,7 +19,7 @@ $mf->AddField(t('Webseite'), 'url');
 $mf->AddField(t('Url zum Lansuite-Hauptordner') .HTML_NEWLINE. t('Bsp.: http://deineurl.de/unterordner/'), 'ls_url');
 $mf->AddGroup(t('Webseite'));
 
-$mf->AddField(t('Stadt'), 'city');
+$mf->AddField(t('Ort'), 'city');
 $mf->AddField(t('PLZ'), 'plz');
 $mf->AddField(t('Straße'), 'street');
 $mf->AddField(t('Hausnummer'), 'hnr');
