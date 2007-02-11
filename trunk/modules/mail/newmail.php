@@ -60,7 +60,7 @@ $mf->AddField(t('Empfänger'), 'toUserID', IS_SELECTION, $selections, FIELD_OPTI
 if ($auth['userid']) {
   $selections = array();
   $selections[0] = t('Als System-Mail');
-  $selections[1] = t('An die Email-Adresse');
+  $selections[1] = t('An die Email-Adresse. Hinweis: Kein LS-Code möglich!');
   $mf->AddField(t('Mail-Typ'), 'type', IS_SELECTION, $selections, FIELD_OPTIONAL);
 } else {
   $mf->AddField('', 'captcha', IS_CAPTCHA);
