@@ -6,9 +6,12 @@ function FetchDataRow($username) {
   $html_image= '<img src="%s" alt="%s" border="0">';
 	$avatar = ($line['avatar_path'] != '' and $line['avatar_path'] != 'none') ? sprintf($html_image, $line['avatar_path'], t('Avatar')) : '';
 
-  $ret = '<b>'. $username .'</b> '. $dsp->FetchUserIcon($line['userid']) . HTML_NEWLINE;
+  if (!$username) $username = '<i>'. t('Gast') .'</i>';
+  $ret = '<b>'. $username .'</b> ';
+  if ($line['userid']) $ret .= $dsp->FetchUserIcon($line['userid']);
+  $ret .= HTML_NEWLINE;
   $ret .= $func->unixstamp2date($line['date'], datetime) . HTML_NEWLINE;
-  $ret .= $avatar . HTML_NEWLINE;
+  if ($avatar) $ret .= $avatar . HTML_NEWLINE;
   return $ret;
 }
 
