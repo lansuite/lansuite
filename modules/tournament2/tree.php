@@ -61,14 +61,14 @@ else {
   			
   			if ($tournament["mode"] == "groups"){
   				if(!file_exists("ext_inc/tournament_trees/tournament_" . $tournamentid . "_" . $group . ".png")){
-  					$cronjob->load_job("cron_tmod");
-  					$cronjob->loaded_class->add_job($_GET["tournamentid"],$group);
+#  					$cronjob->load_job("cron_tmod");
+#  					$cronjob->loaded_class->add_job($_GET["tournamentid"],$group);
   				}
   				$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_" . $tournamentid . "_" . $group . ".png\">{$lang["tourney"]["tree_download"]}</a>");
   			}else{
   				if(!file_exists("ext_inc/tournament_trees/tournament_" . $tournamentid . ".png")){
-  					$cronjob->load_job("cron_tmod");
-  					$cronjob->loaded_class->add_job($_GET["tournamentid"],"");
+#  					$cronjob->load_job("cron_tmod");
+#  					$cronjob->loaded_class->add_job($_GET["tournamentid"],"");
   				}
   				if (!$cfg['t_text_tree']) $dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_$tournamentid.png\">{$lang["tourney"]["tree_download"]}</a>");
   			}
