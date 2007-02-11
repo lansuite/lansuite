@@ -50,7 +50,9 @@ $res = $db->query("SELECT type, userid, username, firstname, name FROM {$config[
 while ($row = $db->fetch_array($res)) {
   if ($row['type'] > 1) $type = t('Admin');
   else $type = t('Benutzer');
-  $selections[$row['userid']] = $type .': '. $row['username'] .' ('. $row['firstname'] .' '. $row['name'] .')';
+  if ($auth['type'] >= 2 or !$cfg['sys_internet'] or $cfg['guestlist_shownames'])
+    $selections[$row['userid']] = $type .': '. $row['username'] .' ('. $row['firstname'] .' '. $row['name'] .')';
+  else $selections[$row['userid']] = $type .': '. $row['username'];
 }
 $db->free_result($res);
 $mf->AddField(t('Empfänger'), 'toUserID', IS_SELECTION, $selections, FIELD_OPTIONAL);
