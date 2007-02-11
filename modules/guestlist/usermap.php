@@ -31,6 +31,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
     $templ['guestmap']['apikey'] = $cfg['google_maps_api_key'];
     $dsp->AddSingleRow($dsp->FetchModTpl('guestlist', 'googlemaps'));
+    $templ['index']['body']['js'] = 'onload="ShowMap();"';
   }
 
 
