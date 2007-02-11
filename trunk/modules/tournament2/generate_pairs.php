@@ -306,6 +306,7 @@ if ($team_anz < 4) {
 
 		$func->confirmation(str_replace("%NAME%", $tournament["name"], $lang["tourney"]["g_pairs_success"]), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}");
 		$func->log_event(str_replace("%NAME%", $tournament["name"], $lang["tourney"]["g_pairs_log_success"]), 1, $lang["tourney"]["log_t_manage"]);
+/*
 		$cronjob->load_job("cron_tmod");
 		if($tournament['mode'] == "groups"){
 			for ($i = 0; $i <= $group_anz; $i++){
@@ -314,7 +315,7 @@ if ($team_anz < 4) {
 		}else{
 			$cronjob->loaded_class->add_job($_GET["tournamentid"],"");
 		}
-		
+*/
 	} // Step = 3
 }
 ?>
