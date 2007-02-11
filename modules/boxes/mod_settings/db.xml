@@ -210,7 +210,7 @@
 				<active>1</active>
 				<internet>0</internet>
 				<login>2</login>
-				<module>messenger</module>
+				<module>msgsys</module>
 				<source>messenger</source>
 				<callback>MsgInIntMode</callback>
 			</entry>
