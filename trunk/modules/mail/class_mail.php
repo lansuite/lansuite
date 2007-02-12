@@ -7,8 +7,6 @@ class Mail {
 	var $mail_body;
 	var $mail_fromuserid;
 	var $error;
-	var $inet_from_mail;
-
 
 	function set_status_delete ($mailID) {
 		global $db, $config;
@@ -140,24 +138,23 @@ class Mail {
     }
 
 		// Set default Sender-Mail, if non is set
-		if ($this->inet_from_mail == "") $this->inet_from_mail = $cfg["sys_party_mail"];
+		if ($from == '') $from = $cfg["sys_party_mail"];
 
     $this->inet_headers = "MIME-Version: 1.0\n";
     $this->inet_headers .= "Content-type: text/plain; charset=utf-8\n";
     $this->inet_headers .= "From: $from\n";
-    $this->inet_headers .= "Reply-To: $from\n";
 
-		// SNMP-Mail
+    if (!$cfg['mail_utf8']) {
+      $subject_text = utf8_decode($subject_text);
+      $msgbody_text = utf8_decode($msgbody_text);
+    }
+
+		// SMTP-Mail
 		if ($cfg["mail_use_smtp"]) {
 			$board_config["smtp_host"] = $cfg["mail_smtp_host"];
 			$board_config["smtp_username"] = $cfg["mail_smtp_user"];
 			$board_config["smtp_password"] = $cfg["mail_smtp_pass"];
-			$board_config["board_email"] = $this->inet_from_mail;
-
-      if (!$cfg['mail_utf8']) {
-        $subject_text = utf8_decode($subject_text);
-        $msgbody_text = utf8_decode($msgbody_text);
-      }
+			$board_config["board_email"] = $from;
 
 			include_once("modules/mail/smtp.php");
 			if (smtpmail("$to_user_name <$to_user_email>", $subject_text, $msgbody_text, $this->inet_headers)) return true;
