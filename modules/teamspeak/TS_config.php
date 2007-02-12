@@ -160,7 +160,7 @@ if($this->socket == false) {
   // read player info
   $this->playerList = array();
   do {
-    $playerinfo = fscanf($this->socket, "%s %d %d %d %d %d %d %d %d %d %d %d %d %s %s");
+    $playerinfo = fscanf($this->socket, "%s %d %d %d %d %d %d %d %d %d %d %d %d %s %[^\t]");
     list($playerid, $channelid, $receivedpackets, $receivedbytes, $sentpackets, $sentbytes, $paketlost, $pingtime, $totaltime, $idletime, $privileg, $userstatus, $attribute, $s, $playername) = $playerinfo;
     if($playerid != "OK") {
       $this->playerList[$playerid] = array("playerid" => $playerid,

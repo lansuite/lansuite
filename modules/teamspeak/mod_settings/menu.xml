@@ -9,4 +9,9 @@
 		<needed_config></needed_config>
 		<level>0</level>
 	</entry>
+	<entry>
+		<action>list</action>
+		<file>list</file>
+		<requirement>0</requirement>
+	</entry>
 </menu>
