@@ -132,8 +132,9 @@ class masterform {
         if ($this->isChange) {
           $db_query = '';
           if ($this->SQLFields) foreach ($this->SQLFields as $val) {
-            if ($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') $db_query .= ", UNIX_TIMESTAMP($val) AS $val";
-            else $db_query .= ", $val";
+#            if ($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') $db_query .= ", UNIX_TIMESTAMP($val) AS $val";
+#            else $db_query .= ", $val";
+            $db_query .= ", $val";
           }
 
           $row = $db->query_first("SELECT 1 AS found $db_query FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
@@ -163,12 +164,18 @@ class masterform {
               // -- Convertions --
               // Convert Post-date to unix-timestap
               if ($SQLFieldTypes[$field['name']] == 'datetime')
-                $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
-                $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_hours'], $_POST[$field['name'].'_value_minutes'], 0);
+#                $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
+#                $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_hours'], $_POST[$field['name'].'_value_minutes'], 0);
+
+                //1997-12-31 23:59:59
+                $_POST[$field['name']] = $_POST[$field['name'].'_value_year'] .'-'. $_POST[$field['name'].'_value_month'] .'-'.
+                $_POST[$field['name'].'_value_day'] .' '. $_POST[$field['name'].'_value_hours'] .':'. $_POST[$field['name'].'_value_minutes'] .':00';
 
               if ($SQLFieldTypes[$field['name']] == 'date')
-                $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
-                $_POST[$field['name'].'_value_day'], 0, 0, 0);
+#                $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
+#                $_POST[$field['name'].'_value_day'], 0, 0, 0);
+
+                $_POST[$field['name']] = $_POST[$field['name'].'_value_year'] .'-'. $_POST[$field['name'].'_value_month'] .'-'. $_POST[$field['name'].'_value_day'];
 
               // Upload submitted file
               if ($_POST[$field['name'].'_keep']) {
@@ -291,14 +298,24 @@ class masterform {
               break;
 
               case 'datetime': // Date-Select
-                $dsp->AddDateTimeRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', '', '', '', $field['optional']);
+                $values = array();
+                list($date, $time) = split(' ', $_POST[$field['name']]);
+                list($values['year'], $values['month'], $values['day']) = split('-', $date);
+                list($values['hour'], $values['min'], $values['sec']) = split('-', $time);
+
+                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $this->error[$field['name']], $values, '', '', '', '', $field['optional']);
               break;
 
               case 'date': // Date-Select
+                $values = array();
+                list($date, $time) = split(' ', $_POST[$field['name']]);
+                list($values['year'], $values['month'], $values['day']) = split('-', $date);
+                list($values['hour'], $values['min'], $values['sec']) = split('-', $time);
+
                 if ($field['selections']) $area = split('/', $field['selections']);
                 $start = $area[0];
                 $end = $area[1];
-                $dsp->AddDateTimeRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $start, $end, 1, $field['optional']);
+                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $this->error[$field['name']], $values, '', $start, $end, 1, $field['optional']);
               break;
 
               case IS_PASSWORD: // Password-Row
@@ -429,8 +446,9 @@ class masterform {
             $db_query = '';
             if ($this->SQLFields) {
               foreach ($this->SQLFields as $key => $val) {
-                if ($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
-                else $db_query .= "$val = '{$_POST[$val]}', ";
+#                if ($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
+#                else $db_query .= "$val = '{$_POST[$val]}', ";
+                $db_query .= "$val = '{$_POST[$val]}', ";
               }
               $db_query = substr($db_query, 0, strlen($db_query) - 2);
   
