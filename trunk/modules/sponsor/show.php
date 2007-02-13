@@ -17,7 +17,7 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 	// Else add Image-Tag
 	} else if ($sponsor["pic_path"] != "" and $sponsor["pic_path"] != "http://") {
 		$ImgSize = @GetImageSize($sponsor["pic_path"]);
-		if (!$ImgSize[0]) $ImgSize[0] = 200;
+		if (!$ImgSize[0]) $ImgSize[0] = 468;
 
 		if ($ImgSize[0] > $cfg["sponsor_picwidth"]) $ImgSize[0] = $cfg["sponsor_picwidth"];
 		$templ['sponsor']['row']['col1'] = "<img src=\"". $sponsor["pic_path"] ."\" width=\"{$ImgSize[0]}\" border=\"0\" title=\"{$sponsor["name"]}\">";

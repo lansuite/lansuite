@@ -6,9 +6,9 @@ function CheckModeForLeague($league) {
 }
 
 function CheckDateInFuture($date) {
-  global $lang;
+  global $lang, $func;
 
-  if (!$_GET['mf_id'] and $date < time()) return $lang['tourney']['t_add_err_date_past'];
+  if (!$_GET['mf_id'] and $func->MysqlDateToTimestamp($date) < time()) return $lang['tourney']['t_add_err_date_past'];
   else return false;
 }
 

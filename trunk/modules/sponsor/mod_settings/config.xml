@@ -8,7 +8,7 @@
     	<item>
     		<name>sponsor_picwidth</name>
     		<type>int</type>
-    		<default>400</default>
+    		<default>468</default>
     		<description>Maximale Breite eines Bildes auf der Sponsorenseite</description>
     	</item>
     	<item>
