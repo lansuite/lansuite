@@ -4,12 +4,11 @@ $templ['box']['rows'] = '';
 // Number of visits
 $total = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$config['tables']['stats_usage']}");
 
-// Ermittle die Anzahl der derzeit angemeldeten Usern
-if ($party_data['party_id']) {
-  $get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user LEFT JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id WHERE party_id='{$party_data['party_id']}' AND ($querytype)");
-  $cur = $get_cur["n"];
-  $box->DotRow(t('Registriert').': '. $reg);
-}
+// Ermittle die Anzahl der registrierten Usern
+$get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user");
+$reg = $get_cur["n"];
+  $box->DotRow(t('Benutzer').': '. $reg);
+
 
 // Avgerage online, this hour
 $avg = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$config["tables"]["stats_usage"]}
