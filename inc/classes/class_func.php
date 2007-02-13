@@ -92,6 +92,14 @@ class func {
 		echo $template;
 	}
 
+  function MysqlDateToTimestamp($datetime) {
+    list($date, $time) = split(' ', $datetime);
+    list($year, $month, $day) = split('-', $date);
+    list($hour, $min, $sec) = split(':', $time);
+
+    return mktime($hour, $min, $sec, $month, $day, $year);
+  }
+
 	function date2unixstamp($year,$month,$day,$hour,$minute,$second) {	
 		$func_timestamp = @mktime($hour,$minute,$second,$month,$day,$year);
 		return $func_timestamp;		

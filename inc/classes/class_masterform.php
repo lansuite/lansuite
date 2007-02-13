@@ -301,7 +301,7 @@ class masterform {
                 $values = array();
                 list($date, $time) = split(' ', $_POST[$field['name']]);
                 list($values['year'], $values['month'], $values['day']) = split('-', $date);
-                list($values['hour'], $values['min'], $values['sec']) = split('-', $time);
+                list($values['hour'], $values['min'], $values['sec']) = split(':', $time);
 
                 $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $this->error[$field['name']], $values, '', '', '', '', $field['optional']);
               break;
@@ -310,7 +310,7 @@ class masterform {
                 $values = array();
                 list($date, $time) = split(' ', $_POST[$field['name']]);
                 list($values['year'], $values['month'], $values['day']) = split('-', $date);
-                list($values['hour'], $values['min'], $values['sec']) = split('-', $time);
+                list($values['hour'], $values['min'], $values['sec']) = split(':', $time);
 
                 if ($field['selections']) $area = split('/', $field['selections']);
                 $start = $area[0];

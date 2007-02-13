@@ -54,7 +54,7 @@
 			</field>
 			<field>
 				<name>text</name>
-				<type>longtext</type>
+				<type>text</type>
 				<null></null>
 				<key></key>
 				<default></default>
@@ -395,7 +395,7 @@
 			</field>
 			<field>
 				<name>description</name>
-				<type>longtext</type>
+				<type>text</type>
 				<null></null>
 				<key></key>
 				<default></default>
