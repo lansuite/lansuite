@@ -34,7 +34,7 @@ class Bugtracker {
       $func->log_event(t('Bugreport auf Status <b>"%1"</b> geändert', array($this->stati[$state])), 1, '', $bugid);
       if ($state == 3) {
         $row = $db->query_first("SELECT reporter, caption FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
-        $mail->create_sys_mail($row['reporter'], t('Feedback zu Ihrem Bugreport benötigt'), t('Der Status Ihres Bugreports <b>"%1"</b> wurde auf <b>"Feedback benötigt"</b> gesetzt. Bitte schauen Sie sich den Bugreport noch einmal an und helfen Sie, Ihre Angaben zu vervollständigen', array($row['caption'])));
+        $mail->create_sys_mail($row['reporter'], t('Feedback zu Ihrem Bugreport benötigt'), t('Der Status Ihres Bugreports "%1" wurde auf "Feedback benötigt" gesetzt. Bitte schauen Sie sich den Bugreport noch einmal an und helfen Sie, Ihre Angaben zu vervollständigen', array($row['caption'])));
         $func->log_event(t('Benachrichtigungsmail an Reporter versandt'), 1, '', $bugid);
       }
     }
