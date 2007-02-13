@@ -8,11 +8,7 @@ if($cfg["guestlist_showorga"] == 0) { $querytype = "type = 1"; } else { $queryty
 $get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user WHERE ($querytype)");
 $reg = $get_cur["n"];
 
-
-if (!$_SESSION['party_info']['partyend']) {
-	$box->EngangedRow(t('Benutzer').': '.$reg);
-
-} elseif ($_SESSION['party_info']['partyend'] < time()) {
+if ($_SESSION['party_info']['partyend'] < time()) {
   $box->EngangedRow(t('Momentan ist keine Party geplant'));
 
 } else {
