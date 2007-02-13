@@ -19,8 +19,8 @@ $ms2->AddTextSearchField($lang['mail']['showmail_mail_from'], array('u.userid' =
 $ms2->AddSelect('u.userid');
 $ms2->AddResultField($lang['mail']['newsletter_subject'], 'm.subject', '', 80);
 $ms2->AddResultField($lang['mail']['showmail_mail_from'], 'u.username', 'UserNameAndIcon');
-$ms2->AddResultField($lang['mail']['showmail_mail_send'], 'm.tx_date', 'MS2GetDate');
-$ms2->AddResultField($lang['mail']['showmail_mail_read'], 'm.rx_date', 'MS2GetDate');
+$ms2->AddResultField($lang['mail']['showmail_mail_send'], 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate');
+$ms2->AddResultField($lang['mail']['showmail_mail_read'], 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate');
 
 $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=trash&mailID=', $lang['ms2']['details']);
 

@@ -448,7 +448,8 @@ class masterform {
               foreach ($this->SQLFields as $key => $val) {
 #                if ($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
 #                else $db_query .= "$val = '{$_POST[$val]}', ";
-                $db_query .= "$val = '{$_POST[$val]}', ";
+                if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') $db_query .= "$val = NOW(), ";
+                else $db_query .= "$val = '{$_POST[$val]}', ";
               }
               $db_query = substr($db_query, 0, strlen($db_query) - 2);
   
