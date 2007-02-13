@@ -75,7 +75,7 @@ $mf->AddFix('src_status', 'send');
 $mf->AddFix('des_status', 'new');
 $mf->AddFix('fromUserID', $auth['userid']);
 $mf->AddFix('priority', 'normal');
-$mf->AddFix('tx_date', time());
+$mf->AddFix('tx_date', 'NOW()');
 
 $mf->CheckBeforeInserFunction = 'SendOnlineMail';
 if ($mf->SendForm('index.php?mod=mail&action=newmail', 'mail_messages', 'mailID', '')) {
