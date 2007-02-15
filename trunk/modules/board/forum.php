@@ -127,9 +127,9 @@ if ($_GET['fid'] and $auth['login']) {
 	if ($bookmark["sysemail"]) $_POST["check_sysemail"] = 1;
 
 	$dsp->SetForm("index.php?mod=board&action=forum&fid={$_GET['fid']}&set_bm=1");
-	$dsp->AddFieldsetStart(t('Monitoring - Aufnahme in Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren'));
+	$dsp->AddFieldsetStart(t('Monitoring'));
   $additionalHTML = "onclick=\"CheckBoxBoxActivate('email', this.checked)\"";
-	$dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Alle Beiträge in diesem Forum in meine Lesezeichen aufnehmen'), "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
+	$dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Alle Beiträge in diesem Forum in meine Lesezeichen aufnehmen<br><i>(Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren)</i>'), "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
 	$dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
 	$dsp->AddCheckBoxRow("check_email", t('E-Mail Benachrichtigung'), t('Bei Antworten auf Beiträge in Threads dieses Forums eine Internet-Mail an mich senden'), "", 1, $_POST["check_email"]);
 	$dsp->AddCheckBoxRow("check_sysemail", t('System-E-Mail'), t('Bei Antworten auf Beiträge in Threads dieses Forums eine System-Mail an mich senden'), "", 1, $_POST["check_sysemail"]);
