@@ -41,7 +41,7 @@ if ($auth['type'] >= 2) {
   $res = $db->query("SELECT userid, username FROM {$config['tables']['user']} WHERE type >= 2");
   while ($row = $db->fetch_array($res)) $selections[$row['userid']] = $row['username'];
   $db->free_result($res);
-  $mf->AddField(t('Bearbeiter'), 'agend', IS_SELECTION, $selections, FIELD_OPTIONAL);
+  $mf->AddField(t('Bearbeiter'), 'agent', IS_SELECTION, $selections, FIELD_OPTIONAL);
 }
 
 if (!$_GET['bugid']) {

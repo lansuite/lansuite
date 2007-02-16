@@ -11,7 +11,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 session_start();
 
 // Analyze current URL
-$CurentURL = parse_url($_SERVER['REQUEST_URI']);
+$CurentURL = @parse_url($_SERVER['REQUEST_URI']);
 $CurentURLBase = str_replace('&contentonly=1', '', $CurentURL['path'].'?'.$CurentURL['query']);
 preg_match('#mod=([a-zA-z0-9]*)[&]*#', $CurentURLBase, $treffer);
 $CurentURLMod = $treffer[1];
