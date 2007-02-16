@@ -2,13 +2,13 @@
 
 [lansuite]
 version				= "LanSuite v3 CVS"
-default_design			= "osX"
+default_design			= "standard"
 user_timeout			= "300"
 chmod_dir			= "777"
 chmod_file			= "666"
 
 [environment]
-configured			= "0"
+configured			= "1"
 dir				= ""
 os				= "Win32"
 mq				= "1"
@@ -36,8 +36,8 @@ guestbook			= "15"
 [database]
 server				= "localhost"
 user				= "root"
-passwd				= ""
-database			= "lansuite"
+passwd				= "vortex123"
+database			= "lansuite_entwicklung"
 prefix				= "lansuite_"
 db_admin_userid			= "0"
 display_debug_errors		= "1"
