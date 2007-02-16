@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="0.91">
 	<channel>
-		<title>Lansuite</title>
-		<link>http://www.lansuite.de</link>
+		<title>Testparty</title>
+		<link>http://localhost</link>
 		<description></description>
 		<language>de-de</language>
 		<copyright></copyright>
 		<image>
-			<url>http://lansuite.orgapage.de/index.php</url>
-			<title>Lansuite</title>
-			<link>http://www.lansuite.de</link>
+			<url></url>
+			<title>Testparty - Logo</title>
+			<link>http://localhost</link>
 		</image>
 		<item>
-			<title>Noch keine News</title>
-			<description>Es wurden noch keine News verfasst</description>
-			<author>knox@orgapage.de (KnoX)</author>
-			<pubDate>Thu, 25 Jan 2007 13:32:19 +0100</pubDate>
-			<link>http://www.lansuite.de</link>
+			<title>Testnews</title>
+			<description>Testnews mit WYSIWYG und dann noch Kommentare schreiben und Datum beachten.</description>
+			<author>vortexxx@web.de (ADMIN)</author>
+			<pubDate>Fri, 16 Feb 2007 21:19:58 +0100</pubDate>
+			<link>http://localhost:80/lansuite_entwicklung/index.php?mod=news&amp;action=comment&amp;newsid=1</link>
 		</item>
 	</channel>
 </rss>
