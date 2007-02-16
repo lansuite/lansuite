@@ -339,26 +339,12 @@ class func {
 #		$string = str_replace("?&gt;", '?'.'>', $string);
 		$string = strip_tags($string);
 
-		$string = eregi_replace('\[img\]([^\[]*)\[/img\]', '<img src="\1" border="1" class="img" alt="" />', $string);
-/*
-		$string = eregi_replace("([ \n])http://([^ ,\n]*)", "\\1[url]http://\\2[/url]", $string);
-		$string = eregi_replace("([ \n])ftp://([^ ,\n]*)", "\\1[url]ftp://\\2[/url]", $string);
-		$string = eregi_replace("([ \n])www\\.([^ ,\n]*)", "\\1[url]http://www.\\2[/url]", $string);
-		$string = eregi_replace("^http://([^ ,\n]*)", "[url]http://\\1[/url]", $string);
-		$string = eregi_replace("^ftp://([^ ,\n]*)", "[url]ftp://\\1[/url]", $string);
-		$string = eregi_replace("^www\\.([^ ,\n]*)", "[url]http://www.\\1[/url]", $string);
- 		$string = eregi_replace('\[url\]www.([^\[]*)\[/url\]', '<a href="http://www.\1" target="_blank">\1</a>', $string);
-		$string = eregi_replace('\[url\]([^\[]*)\[/url\]', '<a href="\1" target="_blank">\1</a>', $string);
-		$string = eregi_replace('\[mailurl\]([^\[]*)\[/mailurl\]', '<a href="\1">Link</a>', $string);
-		$string = eregi_replace('\[url=www.([^\[]*)\]([^\[]*)\[/url\]', '<a href="http://www.\1" target="_blank">\2</a>', $string); 
-		$string = eregi_replace('\[url=([^\[]*)\]([^\[]*)\[/url\]', '<a href="\1" target="_blank">\2</a>', $string);
-		$string = eregi_replace('\[url_www.([^\[]*)\]([^\[]*)\[/url\]', '<a href="http://www.\1" target="_self">\2</a>', $string); 
-		$string = eregi_replace('\[url_([^\[]*)\]([^\[]*)\[/url\]', '<a href="\1" target="_self">\2</a>', $string);
-*/
-    $string = eregi_replace("[url=([-_./a-zA-Z0-9!&%#?,'=:~]+)]([-_./a-zA-Z0-9!&%#?,'=:~]+)[/url]", '<a target="_blank" href="\\1">\\2</a>', $string);
-    $string = ereg_replace('([a-zA-Z]+://(([.]?[a-zA-Z0-9_/-])*))', '<a target="_blank" href="\\1">\\1</a>', $string);
-    $string = ereg_replace('(mailto:(([.]?[a-zA-Z0-9@_-])*))', '<a target="_blank" href="\\1">\\2</a>', $string);
-    $string = ereg_replace('(www\\.([.]?[a-zA-Z0-9_/-])*)', '<a target="_blank" href="http://\\1">\\1</a>', $string);
+		$string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="1" class="img" alt="" />', $string);
+		$string = preg_replace('#\\[url=([a-zA-Z]+://[^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1">\\2</a>', $string);
+
+    $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\2</a>\\4', $string);
+    $string = preg_replace('#(\\s|^)(mailto:(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\3</a>\\4', $string);
+    $string = preg_replace('#(\\s|^)(www\\.(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="http://\\2">\\2</a>\\4', $string);
 
 		$string = str_replace("\n", '<br />', $string);
 		$string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
@@ -388,21 +374,7 @@ class func {
 		$res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
 		while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
     $db->free_result($res);
-/*
-		$string = str_replace('[c]', '[c][c]', $string);
-		$string = str_replace('[/c]', '[/c][/c]', $string);
-		$str_arr = preg_split('#\[c\](.*)\[/c\]#iU', $string, -1, PREG_SPLIT_DELIM_CAPTURE);
 
-		$res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
-		while ($row = $db->fetch_array($res)) for ($i = 0; $i < sizeof($str_arr); $i++) if (preg_match('#\[c\](.*)\[/c\]#i', $str_arr[$i]) == false)
-			$str_arr[$i] = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $str_arr[$i]);
-		$db->free_result($res);
-
-		$string = '';
-		foreach ($str_arr as $str) $string .= $str;
-		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code</div><div class="tbl_7">', $string);
-		$string = str_replace('[/c]', '</div></blockquote>', $string);
-*/
 		return $string;
 	}
 			

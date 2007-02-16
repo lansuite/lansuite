@@ -130,7 +130,7 @@ class auth {
 				WHERE ('". (int)$tmp_login_email."' = '".$tmp_login_email."' AND userid = '$tmp_login_email')
 					OR LOWER(email) = '$tmp_login_email'");
 
-			$party_query = $db->query("SELECT p.checkin, p.checkout FROM {$config["tables"]["party_user"]} AS p WHERE p.party_id={$party->party_id} AND user_id='{$user['userid']}'");
+			$party_query = $db->query("SELECT p.checkin, p.checkout FROM {$config["tables"]["party_user"]} AS p WHERE p.party_id=". (int)$party->party_id ." AND user_id='{$user['userid']}'");
 
 			// Check Checkin
 			if ($db->num_rows($party_query) > 0){

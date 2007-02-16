@@ -14,7 +14,7 @@
   			<description>Optionale Angabe</description>
   		</entry>
   		<entry>
-  			<value>2</value>
+  			<value>2</value>SELECT p.checkin, p.checkout FROM
   			<description>Pflichtfeld</description>
   		</entry>
     </entries>
@@ -291,19 +291,6 @@ Ihre Orgas</default>
     		<type>boolean</type>
     		<default>0</default>
     		<description>Sind neue Accounts automatisch gesperrt?</description>
-    	</item>
-    </items>
-  </group>
-  <group>
-    <head>
-      <name>Info-Boxen</name>
-    </head>
-    <items>
-    	<item>
-    		<name>signon_last_user_box</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Soll eine Box mit den zuletzt angemeldeten Benutzern angezeigt werden?</description>
     	</item>
     </items>
   </group>
