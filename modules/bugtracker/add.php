@@ -45,7 +45,7 @@ if ($auth['type'] >= 2) {
 }
 
 if (!$_GET['bugid']) {
-  $mf->AddFix('date', time());
+  $mf->AddFix('date', 'NOW()');
   if ($_SERVER['SERVER_NAME'] != 'lansuite.orgapage.de') $mf->AddFix('version', $config['lansuite']['version']);
   $mf->AddFix('url', $_SERVER['SERVER_NAME']);
   $mf->AddFix('reporter', $auth['userid']);

@@ -87,7 +87,7 @@ class Mastercomment{
       if (!$auth['login']) $mf->AddField('', 'captcha', IS_CAPTCHA);
       $mf->AddFix('relatedto_item', $mod);
       $mf->AddFix('relatedto_id', $id);
-      $mf->AddFix('date', time());
+      $mf->AddFix('date', 'NOW()');
       $mf->AddFix('creatorid', $auth['userid']);
       $mf->SendForm('', 'comments', 'commentid', $_GET['commentid']);
 

@@ -340,7 +340,7 @@ class func {
 		$string = strip_tags($string);
 
 		$string = eregi_replace('\[img\]([^\[]*)\[/img\]', '<img src="\1" border="1" class="img" alt="" />', $string);
-
+/*
 		$string = eregi_replace("([ \n])http://([^ ,\n]*)", "\\1[url]http://\\2[/url]", $string);
 		$string = eregi_replace("([ \n])ftp://([^ ,\n]*)", "\\1[url]ftp://\\2[/url]", $string);
 		$string = eregi_replace("([ \n])www\\.([^ ,\n]*)", "\\1[url]http://www.\\2[/url]", $string);
@@ -354,6 +354,11 @@ class func {
 		$string = eregi_replace('\[url=([^\[]*)\]([^\[]*)\[/url\]', '<a href="\1" target="_blank">\2</a>', $string);
 		$string = eregi_replace('\[url_www.([^\[]*)\]([^\[]*)\[/url\]', '<a href="http://www.\1" target="_self">\2</a>', $string); 
 		$string = eregi_replace('\[url_([^\[]*)\]([^\[]*)\[/url\]', '<a href="\1" target="_self">\2</a>', $string);
+*/
+    $string = eregi_replace("[url=([-_./a-zA-Z0-9!&%#?,'=:~]+)]([-_./a-zA-Z0-9!&%#?,'=:~]+)[/url]", '<a target="_blank" href="\\1">\\2</a>', $string);
+    $string = ereg_replace('([a-zA-Z]+://(([.]?[a-zA-Z0-9_/-])*))', '<a target="_blank" href="\\1">\\1</a>', $string);
+    $string = ereg_replace('(mailto:(([.]?[a-zA-Z0-9@_-])*))', '<a target="_blank" href="\\1">\\2</a>', $string);
+    $string = ereg_replace('(www\\.([.]?[a-zA-Z0-9_/-])*)', '<a target="_blank" href="http://\\1">\\1</a>', $string);
 
 		$string = str_replace("\n", '<br />', $string);
 		$string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
