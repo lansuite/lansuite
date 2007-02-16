@@ -12,7 +12,7 @@ else {
   	case 1:
       unset($_SESSION['quick_signon']);
 
-      $dsp->AddFieldsetStart('Dierekt zu folgendem Benutzer springen');
+      $dsp->AddFieldsetStart('Direkt zu folgendem Benutzer springen');
   		if ($cfg['sys_barcode_on']) $dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>", "", "index.php?mod=usrmgr&action=entrance&step=3&userid=");
       $dsp->SetForm('index.php?mod=usrmgr&action=entrance&step=3');
       $dsp->AddTextFieldRow('userid', t('UserID'), '', '');
@@ -98,7 +98,7 @@ else {
 
   	// Sitzplatz auswählen
   	case 8:
-  		$dsp->NewContent('Sitzplatz - Informationen', 'Fahren Sie mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.');
+  		$dsp->NewContent('Sitzplatz - Informationen', 'Fahren Sie mit der Maus über einen Sitzplatz um weitere Informationen zu erhalten.');
 
   		$dsp->AddDoubleRow('Sitzplatz', '', 'seating');
   		$dsp->AddDoubleRow('Benutzer', '', 'name');
