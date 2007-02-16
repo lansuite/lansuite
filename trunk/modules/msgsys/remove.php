@@ -57,9 +57,9 @@ if($_GET[queryid])
 				// Question
 				//
 				if($cfg['sys_internet'] == 0){
-					$func->question(str_replace('%NAME%',$row[name],str_replace('%FIRSTNAME%',$row[firstname],str_replace('%USERNAME%',$row[username],$lang['msgsys']['confirm_delete']))),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php?mod=news");
+					$func->question(str_replace('%NAME%',$row[name],str_replace('%FIRSTNAME%',$row[firstname],str_replace('%USERNAME%',$row[username],$lang['msgsys']['confirm_delete']))),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php");
 				}else {
-					$func->question(str_replace('%USERNAME%',$row[username],$lang['msgsys']['confirm_delete2']),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php?mod=news");
+					$func->question(str_replace('%USERNAME%',$row[username],$lang['msgsys']['confirm_delete2']),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php");
 				}
 			} // if
 			else
