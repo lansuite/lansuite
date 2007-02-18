@@ -48,6 +48,7 @@ class Mastercomment{
       $md = new masterdelete();
       $md->LogID = $id;
       $md->Delete('comments', 'commentid', $_GET['commentid']);
+      unset($_GET['commentid']);
     }
 
 
