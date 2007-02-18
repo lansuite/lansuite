@@ -279,7 +279,8 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       }
     }
     // If not admin and user is created (not changed)
-    if ($auth['type'] < 2 and !$_GET['userid']) $mf->AddFix('type', 1);
+    // or if quick sign on is enabled
+    if ($quick_signon or ($auth['type'] < 2 and !$_GET['userid'])) $mf->AddFix('type', 1);
 
     $mf->AddField(t('E-Mail'), 'email', '', '', '', CheckValidEmail);
     if (($_GET['action'] != 'change' and $_GET['action'] != 'entrance') or ($_GET['action'] == 'entrance' and !$_GET['userid'])) {
