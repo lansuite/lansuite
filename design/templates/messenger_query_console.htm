@@ -58,23 +58,24 @@ function x()
     <tr> 
       <td class="tbl_6" height="30"> 
         <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
-          <tr> 
-            <td> <a href="javascript:code(':angel:')"><img src="ext_inc/smilies/smilie_angel.gif" border="0"></a> 
-              <a href="javascript:code(':angry:')"><img src="ext_inc/smilies/smilie_angry.gif" border="0"></a> 
-              <a href="javascript:code(':P')"><img src="ext_inc/smilies/smilie_cheeky.gif" border="0"></a> 
-              <a href="javascript:code(':confused:')"><img src="ext_inc/smilies/smilie_confused.gif" border="0"></a> 
-              <a href="javascript:code(':finger:')"><img src="ext_inc/smilies/smilie_finger.gif" border="0"></a> 
-              <a href="javascript:code(':karate:')"><img src="ext_inc/smilies/smilie_karate.gif" border="0"></a> 
-              <a href="javascript:code('=)');"><img src="ext_inc/smilies/smilie_lol.gif" border="0"></a> 
-              <a href="javascript:code(':rolleyes:')"><img src="ext_inc/smilies/smilie_rolleyes.gif" border="0"></a> 
-              <a href="javascript:code(':sleep:')"><img src="ext_inc/smilies/smilie_sleep.gif" border="0"></a> 
-              <a href="javascript:code(':)')"><img src="ext_inc/smilies/smilie_smile.gif" border="0"></a> 
-              <a href="javascript:code(':ugh:')"><img src="ext_inc/smilies/smilie_ugh.gif" border="0"></a> 
-              <a href="javascript:code(';)')"><img src="ext_inc/smilies/smilie_wink.gif" border="0"></a> 
+          <tr>
+          
+            <td> <a href="javascript:InsertCode(document.form.text, ':angel:')"><img src="ext_inc/smilies/smilie_angel.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':angry:')"><img src="ext_inc/smilies/smilie_angry.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':P')"><img src="ext_inc/smilies/smilie_cheeky.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':confused:')"><img src="ext_inc/smilies/smilie_confused.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':finger:')"><img src="ext_inc/smilies/smilie_finger.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':karate:')"><img src="ext_inc/smilies/smilie_karate.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '=)');"><img src="ext_inc/smilies/smilie_lol.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':rolleyes:')"><img src="ext_inc/smilies/smilie_rolleyes.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':sleep:')"><img src="ext_inc/smilies/smilie_sleep.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':)')"><img src="ext_inc/smilies/smilie_smile.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':ugh:')"><img src="ext_inc/smilies/smilie_ugh.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ';)')"><img src="ext_inc/smilies/smilie_wink.gif" border="0"></a>
             </td>
             <td> 
               <div align="right">Farbe: 
-                <select name="select" onChange="javascript:code('[color=' + this.options[this.selectedIndex].value + '][/color]')" class="form">
+                <select name="select" onChange="javascript:InsertCode(document.form.text, '[color=' + this.options[this.selectedIndex].value + ']', '[/color]')" class="form">
                   <option style="color:black;" value="black" >Standard</option>
                   <option style="color:darkred;" value="darkred" >Dunkelrot</option>
                   <option style="color:red;" value="red" >Rot</option>
@@ -91,7 +92,7 @@ function x()
                   <option style="color:black;" value="black" >Schwarz</option>
                 </select>
                 Gr&ouml;&szlig;e: 
-                <select name="color" onChange="javascript:code('[size=' + this.options[this.selectedIndex].value + '][/size]')" class="form">
+                <select name="color" onChange="javascript:InsertCode(document.form.text, '[size=' + this.options[this.selectedIndex].value + ']', '[/size]')" class="form">
                   <option value="12" selected>Standard</option>
                   <option value="7"  >Winzig</option>
                   <option value="9"  >Klein</option>
@@ -112,11 +113,11 @@ function x()
       <td class="tbl_6" height="30"> 
         <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
           <tr> 
-            <td> <a href="javascript:code('[b][/b]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_bold.png" border="0"></a> 
-              <a href="javascript:code('[i][/i]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_kursiv.png" border="0"></a> 
-              <a href="javascript:code('[u][/u]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_underline.png" border="0"></a> 
-              <a href="javascript:code('[c][/c]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_code.png" border="0"></a> 
-              <a href="javascript:code('[img][/img]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_picture.png" border="0"></a> 
+            <td> <a href="javascript:InsertCode(document.form.text, '[b]', '[/b]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_bold.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[i]', '[/i]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_kursiv.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[u]', '[/u]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_underline.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[c]', '[/c]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_code.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[img]', '[/img]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_picture.png" border="0"></a>
             </td>
             <td> 
               <div align="right">Zeichen: 
