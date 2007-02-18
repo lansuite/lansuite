@@ -153,12 +153,12 @@ class auth {
 
 			// Not checked in?
 			} elseif(!$user["checkin"] AND $user["type"] < 2 AND !$cfg["sys_internet"]){
-				$func->information($lang['class_auth']['not_checkedin'], ""); 	
+				$func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bitte bei der Organisation.'), "");
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['not_checkedin_log']), "2", "Authentifikation");
 
 			// Already checked out?
 			} elseif ($user["checkout"] AND $user["type"] < 2 AND !$cfg["sys_internet"]){
-				$func->information($lang['class_auth']['checkedout'], "");
+				$func->information(t('Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bitte bei der Organisation.'), "");
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['checkedout_log']), "2", "Authentifikation");
 
 			// Account locked?
@@ -183,13 +183,13 @@ class auth {
 
 	 			$this->LoadAuthData();
 
-				if ($loginart == 'save'){
+				if ($loginart == 'save') {
 					setcookie("auth[email]", $this->auth['email'], time() + (3600*24*365));
 					setcookie("auth[userpassword]", $_POST['password'], time() + (3600*24*365));
 				}
 				
 				$this->auth['userid'] = $user['userid'];
-				
+
 				// The User will be logged in on the phpBB Board if the modul is available, configured and active.
 		    if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
 					include_once ('./modules/board2/class_board2.php');

@@ -212,6 +212,7 @@ function ShowField($key){
 	else return 0;
 }
 
+if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
 if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and ($cfg['user_self_details_change'] or $missing_fields))) {
   $party_user = $db->query_first("SELECT * FROM {$config['tables']['party_user']} WHERE user_id = ". (int)$_GET["userid"] ." AND party_id={$party->party_id}");
   include_once('inc/classes/class_masterform.php');
@@ -388,24 +389,27 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       $db->free_result($user_fields);
     }
   }
-  
 
   $AddUserSuccess = 0;
   $mf->AdditionalDBUpdateFunction = 'Update';
   if ($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $_GET['step'] .'&signon='. $_GET['signon'], 'user', 'userid', $_GET['userid'])) {
     // Log in new user
     if (!$auth['login']) {
-      $_POST['email'] = $_POST['email']; 
+      $_POST['email'] = $_POST['email'];
       $_POST['password'] = $_POST['password_original'];
       $authentication->login('save');
-
-      $_GET['mf_step'] = 1;
-      $_GET['user_id'] = $auth['userid'];
-      include_once("modules/usrmgr/party.php");
+      $auth = $authentication->GetAuthData();
     }
     
     $AddUserSuccess = 1;
   }
+}
+}
+
+if ($_GET['mod'] == 'signon' and $auth['login']) {
+  $_GET['mf_step'] = 1;
+  $_GET['user_id'] = $auth['userid'];
+  include_once("modules/usrmgr/party.php");
 }
 
 ?>

@@ -16,6 +16,8 @@ function PartyMail() {
   		$cfg['signon_password_view'] = 1;
   	}
   }
+  
+  return true;
 }
 
 

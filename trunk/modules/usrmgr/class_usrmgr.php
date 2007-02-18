@@ -131,7 +131,7 @@ class UsrMgr {
 	}
 
 	function WriteXMLStatFile() {
-		global $cfg, $db, $config, $party;
+		global $cfg, $db, $config;
 
 		include_once ('inc/classes/class_xml.php');
 		$xml = new xml;
