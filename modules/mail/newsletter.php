@@ -53,7 +53,7 @@ switch($_GET["step"]) {
 		$where = "(u.username != 'LS_SYSTEM')";
 		if ($_POST["onlynewsletter"]) $where .= " AND (u.newsletter = 1) ";
 		if ($_POST["onlysignon"]) $where .= " AND p.party_id={$party->party_id}";
-		if ($_POST["onlypaid"] == 1) $where .= " AND p.party_id={$party->party_id} AND (p.paid = 1)";
+		if ($_POST["onlypaid"] == 1) $where .= " AND p.party_id={$party->party_id} AND (p.paid > 0)";
 		elseif ($_POST["onlypaid"] == 2) $where .= " AND p.party_id={$party->party_id} AND (p.paid = 0)";
 		$where .= " AND (u.type > 0)";
 
