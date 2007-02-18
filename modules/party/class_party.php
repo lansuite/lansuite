@@ -15,7 +15,7 @@ class party{
 		elseif (is_numeric($cfg['signon_partyid'])) $this->party_id = $cfg['signon_partyid'];
 
     $this->UpdatePartyArray();
-    
+
 		$_SESSION['party_id'] = $this->party_id;
 	}
 
