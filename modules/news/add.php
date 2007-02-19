@@ -45,7 +45,7 @@ if ($mf->SendForm('index.php?mod=news&action='. $_GET['action'], 'news', 'newsid
 			ORDER BY n.date DESC");
 	while($news = $db->fetch_array($get_news)) {
 		$item = $xml->write_tag("title", $news["caption"], 3);
-		$item .= $xml->write_tag("description", substr(strip_tags($news["text"]), 0, 150), 3);
+		$item .= $xml->write_tag("description", substr($func->Entity2Uml(strip_tags($news["text"])), 0, 150), 3);
 		$item .= $xml->write_tag("author", "{$news['email']} ({$news['username']})", 3);
 		$item .= $xml->write_tag("pubDate", date("D, j M Y H:i:s O", $news['date']), 3);
 
