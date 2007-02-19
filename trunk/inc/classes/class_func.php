@@ -377,6 +377,18 @@ class func {
 
 		return $string;
 	}
+
+	function Entity2Uml($string) {
+		$string = str_replace('&uuml;', 'ü', $string);
+		$string = str_replace('&Uuml;', 'Ü', $string);
+		$string = str_replace('&auml;', 'ä', $string);
+		$string = str_replace('&Auml;', 'Ä', $string);
+		$string = str_replace('&ouml;', 'ö', $string);
+		$string = str_replace('&Ouml;', 'Ö', $string);
+		$string = str_replace('&szlig;', 'ß', $string);
+
+		return $string;
+  }
 			
 	function generate_error_template($template_name,$formfield_name,$error_text) {
 		// THIS CODE FITS THE NEW TEMPL VARS
