@@ -5,8 +5,8 @@ $mail_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["ma
 $dsp->NewContent(t('Posteingang'), t('Sie haben %1 ungelesene Nachrichten (%2 Nachrichten insgesamt)', array($mail_new_total['n'], $mail_total['n'])));
 
 // if logged out
-if (!$auth['userid']) $dsp->AddSingleRow(t('Um Ihren Posteingang sehen zu können, müssen Sie sich zuerst einloggen').HTML_NEWLINE.
-  t('Nutzen Sie das <a href="index.php?mod=mail&action=newmail">Kontaktformular</a> um Mails zu versenen. Dies ist auch im Ausgeloggten Zustand möglich'));
+if (!$auth['userid']) $dsp->AddSingleRow(t('Um Ihren Posteingang sehen zu können, müssen Sie sich zuerst einloggen.').HTML_NEWLINE.
+  t('Nutzen Sie das <a href="index.php?mod=mail&action=newmail">Kontaktformular</a> um Mails zu versenden. Dies ist auch im ausgeloggten Zustand möglich.'));
 $dsp->AddContent();
 
 // If logged in
