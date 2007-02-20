@@ -2,6 +2,8 @@
 <menu>
 	<pos>19</pos>
 	<entry>
+		<action>default</action>
+		<file>list</file>
 		<caption>TeamSpeak</caption>
 		<hint>In welchen Channels wird gerade über TS gechattet?</hint>
 		<link>?mod=teamspeak</link>
