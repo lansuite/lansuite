@@ -2,13 +2,15 @@
 $LSCurFile = __FILE__;
 
 function getboardrank($posts) {
-	switch (true){
-		case ($posts < 10): return t('Junior Member'); break;
-		case ($posts >= 10 and $posts < 20): return t('Trial Member'); break;
-		case ($posts >= 20 and $posts < 50): return t('Member'); break;
-		case ($posts >= 50 and $posts < 100): return t('Senior'); break;
-		case ($posts >= 100): return t('Gott'); break;
-	}
+  global $cfg;
+  
+  $lines = split("\n", $cfg['board_rank']);
+  foreach ($lines as $line) {
+    list($num, $name) = split("->", $line);
+    if ($num > $posts) break;
+    $rank = $name;
+  }
+  return $rank;
 }
 
 function getuserinfo($userid) {
