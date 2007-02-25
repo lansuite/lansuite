@@ -134,6 +134,18 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   }
 	$dsp->AddDoubleRow('', $dsp->FetchButton('index.php?mod=bugtracker&action=add&bugid='.$row['bugid'], 'edit') . $dsp->FetchButton('index.php?mod=bugtracker', 'back'));
 
+  if ($auth['type'] >= 2) {
+    include_once('inc/classes/class_masterform.php');
+    $mf = new masterform();
+    $mf->ManualUpdate = 1;
+    $mf->AddField(t('Status'), 'state', IS_SELECTION, $bugtracker->stati);
+
+    if ($mf->SendForm('', 'bugtracker', 'bugid', $_GET['bugid'])) {
+      $bugtracker->SetBugState($_GET['bugid'], $_POST['state']);
+      $func->confirmation(t('Geändert'));
+    }
+  }
+
 	include('inc/classes/class_mastercomment.php');
 	new Mastercomment('BugEintrag', $_GET['bugid']);
 	

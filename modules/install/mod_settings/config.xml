@@ -185,6 +185,12 @@
     		<default></default>
     		<description>Kontaktemail der Lanparty (Webmaster)</description>
     	</item>
+    	<item>
+    		<name>google_maps_api_key</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Google-Maps-Api-Key (Für die Besucher-Karte) Siehe: http://www.google.com/apis/maps/signup.html</description>
+    	</item>
     </items>
   </group>
   <group>

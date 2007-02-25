@@ -17,6 +17,7 @@ define('IS_CAPTCHA', 8);
 define('READ_DB_PROC', 0);
 define('CHECK_ERROR_PROC', 1);
 
+
 class masterform {
 
 	var $FormFields = array();
@@ -26,6 +27,7 @@ class masterform {
 	var $SQLFieldUnique = array();
 	var $DependOn = array();
 	var $error = array();
+	var $ManualUpdate = '';
 	var $AdditionalDBAfterSelectFunction = '';
 	var $AdditionalDBPreUpdateFunction = '';
 	var $AdditionalDBUpdateFunction = '';
@@ -421,6 +423,9 @@ class masterform {
       case 2:
 #        if (!$this->SQLFields) $func->error('No Fields!');
         if (!$sec->locked($table, $StartURL)) {
+
+          // Return for manual update, if set
+          if ($this->ManualUpdate) return true;
 
           if ($this->Groups) foreach ($this->Groups as $group) if ($group['fields']) foreach ($group['fields'] as $field) {
             // Convert Passwords
