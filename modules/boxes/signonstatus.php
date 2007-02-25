@@ -33,15 +33,17 @@ $max_bars = 112;
 $max_bars = $max_bars - 2;
 
 // Angemeldet länge ausrechnen.
-$curuser = round($max_bars / $max * $cur);
-if ($curuser > $max_bars){
-	$curuser = $max_bars;
+if ($max * $cur == 0) $curuser = 0;
+else {
+  $curuser = round($max_bars / $max * $cur);
+  if ($curuser > $max_bars) $curuser = $max_bars;
 }
 
 // Bezahlt länge ausrechnen.
-$gesamtpaid = round($max_bars / $max * $paid);
-if ($gesamtpaid > $max_bars){
-	$gesamtpaid = $max_bars;
+if ($max * $paid == 0) $gesamtpaid = 0;
+else {
+  $gesamtpaid = round($max_bars / $max * $paid);
+  if ($gesamtpaid > $max_bars) $gesamtpaid = $max_bars;
 }
 
 // Wirkliche Bildanzahl ausrechenn
