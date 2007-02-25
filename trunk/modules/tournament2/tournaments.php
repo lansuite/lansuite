@@ -26,6 +26,11 @@ global $mf, $lang;
 }
 
 
+#$dsp->SetForm('index.php?mod=tournament2&action=add&step=10');
+#$dsp->AddDropDownFieldRow('template', t('Von Vorlage laden'), $selections, '');
+#$dsp->AddFormSubmitRow('next');
+
+
 include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
@@ -108,14 +113,12 @@ $xml_file = fread ($handle, filesize ($file));
 fclose ($handle);
 
 $selections = array();
-($_POST["wwcl_gameid"] == 0) ? $selected = "selected" : $selected = "";
 $selections['0'] = $lang["tourney"]["t_add_no_wwcl"];
 
 $game_ids = $xml->get_tag_content_array("id", $xml_file);
 $game_namen = $xml->get_tag_content_array("name", $xml_file);
 while ($akt_game_id = array_shift($game_ids)) {
 	$akt_game_name = array_shift($game_namen);
-	($_POST["wwcl_gameid"] == $akt_game_id) ? $selected = "selected" : $selected = "";
 	$selections[$akt_game_id] = $akt_game_name;
 }
 $mf->AddField($lang['tourney']['t_add_wwcl_game'], 'wwcl_gameid', IS_SELECTION, $selections, FIELD_OPTIONAL, 'CheckModeForLeague');
@@ -128,7 +131,6 @@ $xml_file = fread ($handle, filesize ($file));
 fclose ($handle);
 
 $selections = array();
-($_POST["ngl_gamename"] == 0) ? $selected = "selected" : $selected = "";
 $selections[''] = $lang["tourney"]["t_add_no_ngl"];
 
 # and $cfg["sys_country"] != "at" and $cfg["sys_country"] != "ch"
@@ -146,7 +148,6 @@ else {
 			while ($game_xml_id = array_shift($game_xml)) {
 				$akt_game_id = $xml->get_tag_content("short", $game_xml_id);
 				$akt_game_name = $xml->get_tag_content("title", $game_xml_id);
-				($_POST["ngl_gamename"] == $akt_game_id) ? $selected = "selected" : $selected = "";
 				$selections[$akt_game_id] = $info_title .' - '. $akt_game_name;
 			}
 		}
@@ -162,14 +163,12 @@ $xml_file = fread ($handle, filesize ($file));
 fclose ($handle);
 
 $selections = array();
-($_POST["lgz_gamename"] == 0) ? $selected = "selected" : $selected = "";
 $selections[''] = $lang["tourney"]["t_add_no_lgz"];
 
 $games = $xml->get_tag_content_array("game", $xml_file);
 foreach ($games as $game){
   $akt_game_name = $xml->get_tag_content("contest", $game) .' - '. $xml->get_tag_content("name", $game);
   $syscode = $xml->get_tag_content("syscode", $game);
-	($_POST["lgz_gamename"] == $syscode) ? $selected = "selected" : $selected = "";
 	$selections[$syscode] = $akt_game_name;
 }
 $mf->AddField($lang['tourney']['t_add_lgz_game'], 'lgz_gamename', IS_SELECTION, $selections, FIELD_OPTIONAL, 'CheckModeForLeague');

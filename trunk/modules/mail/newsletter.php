@@ -25,37 +25,50 @@ switch($_GET["step"]) {
 		if ($_POST["onlynewsletter"] == "") $_POST["onlynewsletter"] = 1;
 		if ($_POST["toinet"] == "") $_POST["toinet"] = 1;
 
+		$dsp->AddFieldSetStart('Zielgruppen-Einschränkung');
 		$dsp->AddCheckBoxRow("onlynewsletter", $lang["mail"]["newsletter_onlynewsletter"], $lang["mail"]["newsletter_onlynewsletter2"], "", 1, $_POST["onlynewsletter"]);
-		$dsp->AddCheckBoxRow("onlysignon", $lang["mail"]["newsletter_onlysignon"], $lang["mail"]["newsletter_onlysignon2"], "", 1, $_POST["onlysignon"]);
-		
+#		$dsp->AddCheckBoxRow("onlysignon", $lang["mail"]["newsletter_onlysignon"], $lang["mail"]["newsletter_onlysignon2"], "", 1, $_POST["onlysignon"]);
+
+		$t_array = array();
+		array_push($t_array, '<option $selected value="0">'. t('An alle Benutzer') .'</option>');
+		array_push($t_array, '<option $selected value="-1">'. t('Nirgends angemeldet') .'</option>');
+    $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+    while($res = $db->fetch_array($row)) array_push($t_array, '<option $selected value="'. $res['party_id'] .'">'. $res['name'] .'</option>');
+    $db->free_result($row);
+		$dsp->AddDropDownFieldRow("onlysignon", t('Nur Angemeldete an folgender Party'), $t_array, '');
+
 		$t_array = array();
 		array_push ($t_array, "<option $selected value=\"0\">{$lang['mail']['newsletter_onlypaid_all']}</option>");
 		array_push ($t_array, "<option $selected value=\"1\">{$lang['mail']['newsletter_onlypaid2']}</option>");
 		array_push ($t_array, "<option $selected value=\"2\">{$lang['mail']['newsletter_onlypaid_not']}</option>");
-		$dsp->AddDropDownFieldRow("onlypaid", $lang["mail"]["newsletter_onlypaid"], $t_array, '');
-		
+		$dsp->AddDropDownFieldRow("onlypaid", t('Nur Benutzer die zu oben ausgewählter Party bezahlt haben'), $t_array, '');
+		$dsp->AddFieldSetEnd();
 
-		$dsp->AddHRuleRow();
+		$dsp->AddFieldSetStart('An');
+		$dsp->AddCheckBoxRow("toinet", t('E-Mail-Adresse'), t('An die bei der Anmeldung angegebene E-Mail-Adresse'), $inet_error, 1, $_POST["toinet"]);
+		$dsp->AddCheckBoxRow("tosys", t('System-Mailbox'), t('An die System-Mailbox des Benutzers'), "", 1, $_POST["tosys"]);
+		$dsp->AddFieldSetEnd();
 
-		$dsp->AddCheckBoxRow("toinet", $lang["mail"]["newsletter_toinet"], $lang["mail"]["newsletter_toinet2"], $inet_error, 1, $_POST["toinet"]);
-		$dsp->AddCheckBoxRow("tosys", $lang["mail"]["newsletter_tosys"], $lang["mail"]["newsletter_tosys2"], "", 1, $_POST["tosys"]);
-
-		$dsp->AddHRuleRow();
-
+		$dsp->AddFieldSetStart('Nachricht');
 		$dsp->AddTextFieldRow("subject", $lang["mail"]["newsletter_subject"], $_POST["subject"], $subject_error);
 		$dsp->AddTextAreaMailRow("text", $lang["mail"]["newsletter_text"], $_POST["text"], $text_error);
+		$dsp->AddFieldSetEnd();
 
 		$dsp->AddFormSubmitRow("send");
 		$dsp->AddContent();
 	break;
 
 	case 2:
-		$where = "(u.username != 'LS_SYSTEM')";
-		if ($_POST["onlynewsletter"]) $where .= " AND (u.newsletter = 1) ";
-		if ($_POST["onlysignon"]) $where .= " AND p.party_id={$party->party_id}";
-		if ($_POST["onlypaid"] == 1) $where .= " AND p.party_id={$party->party_id} AND (p.paid > 0)";
-		elseif ($_POST["onlypaid"] == 2) $where .= " AND p.party_id={$party->party_id} AND (p.paid = 0)";
-		$where .= " AND (u.type > 0)";
+		$where = "u.username != 'LS_SYSTEM'";
+		if ($_POST["onlynewsletter"]) $where .= ' AND u.newsletter = 1 ';
+
+		if ($_POST['onlysignon'] == -1) $where .= ' AND p.party_id IS NULL';
+		elseif ($_POST['onlysignon']) $where .= " AND p.party_id=". (int)$_POST['onlysignon'];
+
+		if ($_POST["onlypaid"] == 1) $where .= " AND p.paid > 0";
+		elseif ($_POST["onlypaid"] == 2) $where .= " AND p.paid = 0";
+
+		$where .= " AND u.type > 0";
 
 		$success = "";
 		$fail = "";
