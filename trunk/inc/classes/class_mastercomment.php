@@ -38,7 +38,7 @@ class Mastercomment{
 
 	// Construktor
 	function Mastercomment($mod, $id) {
-		global $CurentURLBase, $dsp, $config, $auth, $db, $config, $func;
+		global $CurentURLBase, $dsp, $config, $auth, $db, $config, $func, $cfg;
 
     $dsp->AddFieldsetStart(t('Kommentare'));
 
@@ -76,6 +76,10 @@ class Mastercomment{
 
     $ms2->PrintSearch($CurentURLBase, 'c.commentid');
 
+    if ($cfg['mc_only_logged_in'] and !$auth['login']) {
+      $func->information(t('Bitte loggen Sie sich ein, bevor Sie einen Kommentar verfassen'), NO_LINK);
+      return;
+    }
 
     // Add new comments
     if ($_GET['commentid']) $row = $db->query_first("SELECT creatorid FROM {$config['tables']['comments']} WHERE commentid = ".(int)$_GET['commentid']);
