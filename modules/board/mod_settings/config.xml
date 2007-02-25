@@ -25,23 +25,4 @@
     	</item>
     </items>
   </group>
-  <group>
-    <head>
-      <name>Thread abonieren</name>
-    </head>
-    <items>
-    	<item>
-    		<name>board_subscribe_subject</name>
-    		<type>string</type>
-    		<default>Es ist ein neuer Beitrag vorhanden</default>
-    		<description>Betreff der Hinweismail auf neue Beiträge</description>
-    	</item>
-    	<item>
-    		<name>board_subscribe_text</name>
-    		<type>text</type>
-    		<default>Im Forum gibt es einen neuen Beitrag. Du kannst ihn dir unter %URL% ansehen</default>
-    		<description>Text der Hinweismail auf neue Beiträge</description>
-    	</item>
-    </items>
-  </group>
 </config>

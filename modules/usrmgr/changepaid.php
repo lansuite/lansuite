@@ -130,13 +130,13 @@ switch($_GET["step"]) {
 
 			$signonmail = New Mail();
 			if ($_GET['sysmail']) {
-				if ($signonmail->create_sys_mail($userid, $lang["usrmgr"]["chpaid_mail_subj"], $msgtext)) 
+				if ($signonmail->create_sys_mail($userid, $cfg['signon_paid_email_subject'], $msgtext))
 					$confirmation .= "{$user_data["username"]} (System-Mail)" . HTML_NEWLINE;
 				else $error .= "{$user_data["username"]} (System-Mail)" . HTML_NEWLINE;
 			}
 
 			if ($_GET['inetmail']) {
-				if ($signonmail->create_inet_mail($user_data["username"], $user_data["email"], $lang["usrmgr"]["chpaid_mail_subj"], $msgtext, $auth["email"])) $confirmation .= "{$user_data["username"]} (Internet-Mail)" . HTML_NEWLINE;
+				if ($signonmail->create_inet_mail($user_data["username"], $user_data["email"], $cfg['signon_paid_email_subject'], $msgtext, $auth["email"])) $confirmation .= "{$user_data["username"]} (Internet-Mail)" . HTML_NEWLINE;
 				else $error .= "{$user_data["username"]} (Internet-Mail)" . HTML_NEWLINE;
 			}
 		}
