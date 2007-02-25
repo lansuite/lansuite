@@ -34,7 +34,9 @@ class Bugtracker {
       $func->log_event(t('Bugreport auf Status <b>"%1"</b> geändert', array($this->stati[$state])), 1, '', $bugid);
       if ($state == 3) {
         $row = $db->query_first("SELECT reporter, caption FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
-        $mail->create_sys_mail($row['reporter'], t('Feedback zu Ihrem Bugreport benötigt'), t('Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Feedback benötigt"[/b] gesetzt. Bitte schauen Sie sich den Bugreport noch einmal an und helfen Sie, Ihre Angaben zu vervollständigen.', array($row['caption'])));
+        $mail->create_sys_mail($row['reporter'], t('Feedback zu Ihrem Bugreport benötigt'), t('Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Feedback benötigt"[/b] gesetzt. Bitte schauen Sie sich den Bugreport noch einmal an und helfen Sie, Ihre Angaben zu vervollständigen.
+
+        [url=index.php?mod=bugtracker&bugid=%2]Zum Bug-Eintrag[/url]', array($row['caption'], $bugid)));
         $func->log_event(t('Benachrichtigungsmail an Reporter versandt'), 1, '', $bugid);
       }
     }
@@ -57,6 +59,8 @@ class Bugtracker {
 
   function AssignBugToUser($bugid, $userid) {
 
+    if (!$bugid) return false;
+
     $this->AssignBugToUserInternal($bugid, $userid);
 
     if ($userid == 0) $this->SetBugStateInternal($bugid, 0);
@@ -65,6 +69,9 @@ class Bugtracker {
 
   function SetBugState($bugid, $state) {
     global $auth;
+
+    if (!$bugid) return false;
+    if ($state == '') return false;
 
     $this->SetBugStateInternal($bugid, $state);
     if ($state == 2 or $state == 3 or $state == 4) $this->AssignBugToUserInternal($bugid, $auth['userid']);

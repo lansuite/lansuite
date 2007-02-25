@@ -22,6 +22,16 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>map</action>
+		<file>map</file>
+		<caption>Benutzerkarte</caption>
+		<hint></hint>
+		<link>?mod=usrmgr&action=map</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
 		<action>group</action>
 		<file>group</file>
 		<caption>Benutzergruppen</caption>

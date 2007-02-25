@@ -31,12 +31,6 @@
     		<description>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der Gäste) anzeigen?</description>
     	</item>
     	<item>
-    		<name>google_maps_api_key</name>
-    		<type>string</type>
-    		<default></default>
-    		<description>Google-Api-Key</description>
-    	</item>
-    	<item>
     		<name>guestlist_showorga</name>
     		<type>boolean</type>
     		<default>0</default>
