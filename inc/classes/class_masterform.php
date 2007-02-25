@@ -17,6 +17,7 @@ define('IS_CAPTCHA', 8);
 define('READ_DB_PROC', 0);
 define('CHECK_ERROR_PROC', 1);
 
+$mf_id = 0;
 
 class masterform {
 
@@ -42,9 +43,12 @@ class masterform {
   var $NumFields = 0;
   var $insert_id = -1;
   var $LogID = 0;
-  
+
   function masterform($MFID = 0) {
+    global $mf_id;
+    
     $this->MFID = $MFID;
+    $mf_id++;
   }
 	
   function AddFix($name, $value){
@@ -83,7 +87,11 @@ class masterform {
 
   // Print form
 	function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer in use!
-    global $dsp, $db, $config, $func, $sec, $lang, $templ, $CurentURLBase;
+    global $dsp, $db, $config, $func, $sec, $lang, $templ, $CurentURLBase, $mf_id;
+
+    // Break, if in wrong form
+    $Step_Tmp = $_GET['mf_step'];
+    if ($_GET['mf_id'] == 2 and $_GET['mf_id'] != $mf_id) $Step_Tmp = 1;
 
 		$this->AddGroup(); // Adds non-group-fields to fake group
 
@@ -91,6 +99,8 @@ class masterform {
     else {
       $StartURL = $CurentURLBase;
       $StartURL = str_replace('&mf_step=2', '', $StartURL);
+      $StartURL = preg_replace('#&mf_id=[0-9]#sUi', '', $StartURL);
+
       if (strpos($StartURL, '&'. $idname .'='. $id) == 0) $StartURL .= '&'. $idname .'='. $id;
     }
     if ($id) $this->isChange = true;
@@ -125,7 +135,7 @@ class masterform {
     if ($this->SQLFields) foreach ($this->SQLFields as $key => $val) if (!$SQLFieldTypes[$val]) unset($this->SQLFields[$key]);
 
     // Error-Switch
-    switch ($_GET['mf_step']) {
+    switch ($Step_Tmp) {
       default:
 
         $_SESSION['mf_referrer'] = $func->internal_referer;
@@ -234,18 +244,18 @@ class masterform {
           }
         }
 
-        if (count($this->error) > 0) $_GET['mf_step']--;
+        if (count($this->error) > 0) $Step_Tmp--;
       break;
     }
 
 
     // Form-Switch
-    switch ($_GET['mf_step']) {
+    switch ($Step_Tmp) {
 
       // Output form
       default:
         $sec->unlock($table);
-    		$dsp->SetForm($StartURL .'&mf_step=2', '', '', $this->FormEncType);
+    		$dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $mf_id, '', '', $this->FormEncType);
 
         // InsertControll check box - the table entry will only be created, if this check box is checked, otherwise the existing entry will be deleted
         if ($this->AddInsertControllField != '') {
@@ -421,7 +431,7 @@ class masterform {
 
       // Update DB
       case 2:
-#        if (!$this->SQLFields) $func->error('No Fields!');
+#       if (!$this->SQLFields) $func->error('No Fields!');
         if (!$sec->locked($table, $StartURL)) {
 
           // Return for manual update, if set
@@ -451,8 +461,6 @@ class masterform {
             $db_query = '';
             if ($this->SQLFields) {
               foreach ($this->SQLFields as $key => $val) {
-#                if ($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') $db_query .= "$val = FROM_UNIXTIME(". $_POST[$val]. "), ";
-#                else $db_query .= "$val = '{$_POST[$val]}', ";
                 if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') $db_query .= "$val = NOW(), ";
                 else $db_query .= "$val = '{$_POST[$val]}', ";
               }
