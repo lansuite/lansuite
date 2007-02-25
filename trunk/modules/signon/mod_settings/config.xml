@@ -148,54 +148,6 @@
   </group>
   <group>
     <head>
-      <name>Anmelde-Mail</name>
-    </head>
-    <items>
-    	<item>
-    		<name>signon_signonemail_subject</name>
-    		<type>string</type>
-    		<default>Informationsmail zur Anmeldung einer LanSuite Lan-Party</default>
-    		<description>Betreff der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird</description>
-    	</item>
-    	<item>
-    		<name>signon_signonemail_text</name>
-    		<type>text</type>
-    		<default>Hallo %USERNAME%!
-
-Sie sind nun registriert und für die kommende Lan-Party "%PARTYNAME%" vorgemerkt. Ihre Anmeldung ist jedoch erst vollständig, wenn Sie die Teilnahmegebühr überwiesen haben.
-
---LANdata-------------------
-Event: %PARTYNAME%
-Webseite: %PARTYURL%
-Teilnehmer: %MAXGUESTS%
----------------------------
-
-Ihre Orgas</default>
-    		<description>Text der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird, wenn er sich auch zur aktuellen Party anmeldet</description>
-    	</item>
-    	<item>
-    		<name>signon_signonemail_text_register</name>
-    		<type>text</type>
-    		<default>Hallo %USERNAME%!
-
-Sie haben sich erfolgreich auf %PARTYURL% angemeldet.
-
-Hier nochmal Ihre Daten, die Sie angegeben haben:
-
---Userdata------------------
-Username: %USERNAME%
-E-Mail: %EMAIL%
-Passwort: %PASSWORD%
-Clan: %CLAN%
-----------------------------
-
-Ihre Orgas</default>
-    		<description>Text der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird, wenn er nur einen Account erstellt</description>
-    	</item>
-    </items>
-  </group>
-  <group>
-    <head>
       <name>AGB und U18-Vollmach</name>
     </head>
     <items>

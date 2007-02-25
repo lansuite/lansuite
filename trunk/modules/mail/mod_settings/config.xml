@@ -50,4 +50,94 @@
     	</item>
     </items>
   </group>
+  <group>
+    <head>
+      <name>Auto-Mails</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_signonemail_subject</name>
+    		<type>string</type>
+    		<default>Informationsmail zur Anmeldung einer LanSuite Lan-Party</default>
+    		<description>Betreff bei Registrierung und Anmeldung</description>
+    	</item>
+    	<item>
+    		<name>signon_signonemail_text</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%!
+
+Sie sind nun registriert und für die kommende Lan-Party "%PARTYNAME%" vorgemerkt. Ihre Anmeldung ist jedoch erst vollständig, wenn Sie die Teilnahmegebühr überwiesen haben.
+
+--LANdata-------------------
+Event: %PARTYNAME%
+Webseite: %PARTYURL%
+Teilnehmer: %MAXGUESTS%
+---------------------------
+
+Ihre Orgas</default>
+    		<description>Text bei Anmeldung zur aktuellen Party</description>
+    	</item>
+    	<item>
+    		<name>signon_signonemail_text_register</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%!
+
+Sie haben sich erfolgreich auf %PARTYURL% angemeldet.
+
+Hier nochmal Ihre Daten, die Sie angegeben haben:
+
+--Userdata------------------
+Username: %USERNAME%
+E-Mail: %EMAIL%
+Passwort: %PASSWORD%
+Clan: %CLAN%
+----------------------------
+
+Ihre Orgas</default>
+    		<description>Text bei Registrierung im System</description>
+    	</item>
+    	<item>
+    		<name>board_subscribe_subject</name>
+    		<type>string</type>
+    		<default>Es ist ein neuer Beitrag vorhanden</default>
+    		<description>Betreff bei neue Beiträge im Thread</description>
+    	</item>
+    	<item>
+    		<name>board_subscribe_text</name>
+    		<type>text</type>
+    		<default>Im Forum gibt es einen neuen Beitrag. Du kannst ihn dir unter %URL% ansehen</default>
+    		<description>Text bei neue Beiträge im Thread</description>
+    	</item>
+    	<item>
+    		<name>signon_paid_email_subject</name>
+    		<type>string</type>
+    		<default>Ihr Zahlungsstatus wurde geändert</default>
+    		<description>Betreff bei Zahlstatus-Änderung</description>
+    	</item>
+    	<item>
+    		<name>signon_paid_email_text</name>
+    		<type>text</type>
+    		<default>Ihre Zahlung ist bei uns eingegangen</default>
+    		<description>Text bei Zahlstatus-Änderung zu Bezahlt</description>
+    	</item>
+    	<item>
+    		<name>signon_not_paid_email_text</name>
+    		<type>text</type>
+    		<default>Ihre Zahlung ist bei uns wieder gestrichen worden</default>
+    		<description>Text bei Zahlstatus-Änderung zu nicht Bezahlt</description>
+    	</item>
+    	<item>
+    		<name>usrmgr_pwrecovery_subject</name>
+    		<type>string</type>
+    		<default>LanSuite-Passwortrecovery</default>
+    		<description>Betreff bei Passwort Recovery</description>
+    	</item>
+    	<item>
+    		<name>usrmgr_pwrecovery_text</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%\r\n\r\nSie haben ein neues LanSuite Passwort angefordert\r\nDamit das neue Passwort generiert wird, gehen Sie bitte auf folgende Webseite: %PATH%\r\n</default>
+    		<description>Text bei Passwort Recovery</description>
+    	</item>
+    </items>
+  </group>
 </config>
