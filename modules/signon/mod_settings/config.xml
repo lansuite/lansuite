@@ -40,13 +40,13 @@
     		<name>signon_show_street</name>
     		<type>signon</type>
     		<default>1</default>
-    		<description>Straße</description>
+    		<description>Straße und Hausnummer</description>
     	</item>
     	<item>
     		<name>signon_show_city</name>
     		<type>signon</type>
     		<default>1</default>
-    		<description>Stadt</description>
+    		<description>PLZ und Ort</description>
     	</item>
     	<item>
     		<name>signon_show_perso</name>
@@ -70,13 +70,13 @@
     		<name>signon_show_agb</name>
     		<type>signon</type>
     		<default>2</default>
-    		<description>AGB Zustimmung</description>
+    		<description>AGB bestätigen</description>
     	</item>
     	<item>
     		<name>signon_show_voll</name>
     		<type>signon</type>
     		<default>0</default>
-    		<description>U18 Zustimmung</description>
+    		<description>U18-Vollmacht</description>
     	</item>
     	<item>
     		<name>signon_show_clan</name>
@@ -112,7 +112,7 @@
     		<name>signon_show_newsletter</name>
     		<type>signon</type>
     		<default>1</default>
-    		<description>Newsletter Anforderung</description>
+    		<description>Newsletter abonnieren</description>
     	</item>
     	<item>
     		<name>signon_show_telefon</name>

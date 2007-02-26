@@ -2,6 +2,7 @@
 
 $templ['box']['rows'] = '';
 
+$templ['login']['action'] = $CurentURLBase;
 $templ['login']['buttons_add'] = $dsp->FetchIcon('index.php?mod=signon', 'add_user');
 $templ['login']['buttons_pw'] = $dsp->FetchIcon('index.php?mod=usrmgr&action=pwrecover', 'pw_forgot');
 

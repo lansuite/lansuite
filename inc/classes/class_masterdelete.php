@@ -51,12 +51,15 @@ class masterdelete {
   function Delete($table, $idname, $id) {
   global $CurentURLBase, $func;
   
+    $CurentURLBase = str_replace('&md_step=2', '', $CurentURLBase);
+    $CurentURLBase = preg_replace('#&'. $idname .'=[0-9]*#si', '', $CurentURLBase);
+
     switch ($_GET['md_step']) {
       // Question
       default:
 
         $_SESSION['md_referrer'] = $func->internal_referer;
-        $func->question(t('Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?'), $CurentURLBase.'&md_step=2', $_SESSION['md_referrer']);
+        $func->question(t('Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?'), $CurentURLBase. '&md_step=2&'. $idname .'='. $id, $_SESSION['md_referrer']);
         
         return false;
       break;
