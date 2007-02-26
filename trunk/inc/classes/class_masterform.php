@@ -86,7 +86,7 @@ class masterform {
 
 
   // Print form
-	function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer in use!
+	function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer needed!
     global $dsp, $db, $config, $func, $sec, $lang, $templ, $CurentURLBase, $mf_id;
 
     // Break, if in wrong form
@@ -99,7 +99,7 @@ class masterform {
     else {
       $StartURL = $CurentURLBase;
       $StartURL = str_replace('&mf_step=2', '', $StartURL);
-      $StartURL = preg_replace('#&mf_id=[0-9]#sUi', '', $StartURL);
+      $StartURL = preg_replace('#&mf_id=[0-9]*#si', '', $StartURL);
 
       if (strpos($StartURL, '&'. $idname .'='. $id) == 0) $StartURL .= '&'. $idname .'='. $id;
     }
@@ -248,6 +248,7 @@ class masterform {
       break;
     }
 
+    $dsp->AddJumpToMark('MF'.$mf_id);
 
     // Form-Switch
     switch ($Step_Tmp) {
@@ -255,7 +256,7 @@ class masterform {
       // Output form
       default:
         $sec->unlock($table);
-    		$dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $mf_id, '', '', $this->FormEncType);
+    		$dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $mf_id .'#MF'.$mf_id, '', '', $this->FormEncType);
 
         // InsertControll check box - the table entry will only be created, if this check box is checked, otherwise the existing entry will be deleted
         if ($this->AddInsertControllField != '') {
@@ -491,10 +492,10 @@ class masterform {
             if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
             if ($addUpdSuccess) {
               if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $_SESSION['mf_referrer']);
-              else $func->confirmation($lang['mf']['add_success'], $StartURL);
+              else $func->confirmation($lang['mf']['add_success'], $StartURL .'#MF'.$mf_id);
             }
           }
-          
+
           unset($_SESSION['mf_referrer']);
           $sec->lock($table);
           return $addUpdSuccess;

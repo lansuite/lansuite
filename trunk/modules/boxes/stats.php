@@ -5,7 +5,7 @@ $templ['box']['rows'] = '';
 $total = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$config['tables']['stats_usage']}");
 
 // Ermittle die Anzahl der registrierten Usern
-$get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user");
+$get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user WHERE user.type > 0");
 $reg = $get_cur["n"];
   $box->DotRow(t('Benutzer').': '. $reg);
 
@@ -23,7 +23,7 @@ $box->EngangedRow('<span onmouseover="return overlib(\''. t('Seitenzugriffe insg
 $user_online = $db->query("SELECT SQL_CALC_FOUND_ROWS user.username, user.userid
 	FROM {$config['tables']['stats_auth']} AS auth
 	LEFT JOIN {$config['tables']['user']} AS user ON user.userid = auth.userid
-	WHERE (auth.lasthit > ". (time() - 60 * 10) .") AND auth.login = '1' AND user.userid > 0
+	WHERE (auth.lasthit > ". (time() - 60 * 10) .") AND auth.login = '1' AND user.userid > 0 AND user.type > 0
 	GROUP BY user.userid
 	ORDER BY auth.lasthit
 	LIMIT 10

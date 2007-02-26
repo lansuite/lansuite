@@ -51,6 +51,10 @@ class Mastercomment{
       unset($_GET['commentid']);
     }
 
+    $CurentURLBase = str_replace('&mc_step=10', '', $CurentURLBase);
+    $CurentURLBase = str_replace('&mf_step=2', '', $CurentURLBase);
+    $CurentURLBase = preg_replace('#&mf_id=[0-9]*#si', '', $CurentURLBase);
+    $CurentURLBase = preg_replace('#&commentid=[0-9]*#si', '', $CurentURLBase);
 
     // List current comments
     include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -76,28 +80,28 @@ class Mastercomment{
 
     $ms2->PrintSearch($CurentURLBase, 'c.commentid');
 
-    if ($cfg['mc_only_logged_in'] and !$auth['login']) {
-      $func->information(t('Bitte loggen Sie sich ein, bevor Sie einen Kommentar verfassen'), NO_LINK);
-      return;
-    }
 
     // Add new comments
-    if ($_GET['commentid']) $row = $db->query_first("SELECT creatorid FROM {$config['tables']['comments']} WHERE commentid = ".(int)$_GET['commentid']);
-    if (!$_GET['commentid'] or ($row['creatorid'] and $row['creatorid'] == $auth['userid']) or $auth['type'] >= 2) {
-      include_once('inc/classes/class_masterform.php');
-      $mf = new masterform();
-      $mf->LogID = $id;
+    if ($cfg['mc_only_logged_in'] and !$auth['login']) $func->information(t('Bitte loggen Sie sich ein, bevor Sie einen Kommentar verfassen'), NO_LINK);
+    else {
+      if ($_GET['commentid']) $row = $db->query_first("SELECT creatorid FROM {$config['tables']['comments']} WHERE commentid = ".(int)$_GET['commentid']);
+      if (!$_GET['commentid'] or ($row['creatorid'] and $row['creatorid'] == $auth['userid']) or $auth['type'] >= 2) {
+        include_once('inc/classes/class_masterform.php');
+        $mf = new masterform();
+        $mf->LogID = $id;
 
-      $mf->AddField(t('Kommentar'), 'text', '', LSCODE_BIG);
-      if (!$auth['login']) $mf->AddField('', 'captcha', IS_CAPTCHA);
-      $mf->AddFix('relatedto_item', $mod);
-      $mf->AddFix('relatedto_id', $id);
-      $mf->AddFix('date', 'NOW()');
-      $mf->AddFix('creatorid', $auth['userid']);
-      $mf->SendForm('', 'comments', 'commentid', $_GET['commentid']);
+        $mf->AddField(t('Kommentar'), 'text', '', LSCODE_BIG);
+        if (!$auth['login']) $mf->AddField('', 'captcha', IS_CAPTCHA);
+        $mf->AddFix('relatedto_item', $mod);
+        $mf->AddFix('relatedto_id', $id);
+        $mf->AddFix('date', 'NOW()');
+        $mf->AddFix('creatorid', $auth['userid']);
+        $mf->SendForm('', 'comments', 'commentid', $_GET['commentid']);
 
-      $dsp->AddFieldsetEnd(t('Kommentare'));
-    } else $func->error(t('Sie sind nicht berechtigt, diesen Kommentar zu editieren'));
+      } else $func->error(t('Sie sind nicht berechtigt, diesen Kommentar zu editieren'));
+    }
+
+    $dsp->AddFieldsetEnd();
 	}
 }
 ?>

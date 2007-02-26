@@ -666,7 +666,15 @@ $this->form_open = true;
 
 		$this->AddTpl("design/templates/ls_row_fileselect.htm");
 	}
-	
+
+  function AddJumpToMark($name) {
+    global $templ;
+    
+		$templ['jumpto']['name'] = $name;
+		$this->AddTpl("design/templates/ls_row_jump_to.htm");
+  }
+
+
 	/*
 	 * This function shows any URL in an Frame in the MoudleContent.
 	 */

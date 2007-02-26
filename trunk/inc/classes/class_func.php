@@ -115,7 +115,65 @@ class func {
 			$db->query("INSERT INTO {$config["tables"]["infobox"]} SET userid='$userid', class='$item', id_in_class = '$itemid', text='$text', date='$date', priority='$priority'");
 		}
 	}
-	
+
+  function str2time($strStr, $strPattern = 'Y-m-d H:i:s') {
+     // an array of the valide date characters, see: http://php.net/date#AEN21898
+     $arrCharacters = array(
+         'd', // day
+         'm', // month
+         'y', // year, 2 digits
+         'Y', // year, 4 digits
+         'H', // hours
+         'i', // minutes
+         's'  // seconds
+     );
+     // transform the characters array to a string
+     $strCharacters = implode('', $arrCharacters);
+
+     // splits up the pattern by the date characters to get an array of the delimiters between the date characters
+     $arrDelimiters = preg_split('~['.$strCharacters.']~', $strPattern);
+     // transform the delimiters array to a string
+     $strDelimiters = quotemeta(implode('', array_unique($arrDelimiters)));
+
+     // splits up the date by the delimiters to get an array of the declaration
+     $arrStr    = preg_split('~['.$strDelimiters.']~', $strStr);
+     // splits up the pattern by the delimiters to get an array of the used characters
+     $arrPattern = preg_split('~['.$strDelimiters.']~', $strPattern);
+
+     // if the numbers of the two array are not the same, return false, because the cannot belong together
+     if (count($arrStr) !== count($arrPattern)) {
+         return false;
+     }
+
+     // creates a new array which has the keys from the $arrPattern array and the values from the $arrStr array
+     $arrTime = array();
+     for ($i = 0;$i < count($arrStr);$i++) {
+         $arrTime[$arrPattern[$i]] = $arrStr[$i];
+     }
+
+     // gernerates a 4 digit year declaration of a 2 digit one by using the current year
+     if (isset($arrTime['y']) && !isset($arrTime['Y'])) {
+         $arrTime['Y'] = substr(date('Y'), 0, 2) . $arrTime['y'];
+     }
+
+     // if a declaration is empty, it will be filled with the current date declaration
+     foreach ($arrCharacters as $strCharacter) {
+         if (empty($arrTime[$strCharacter])) {
+             $arrTime[$strCharacter] = date($strCharacter);
+         }
+     }
+
+     // checks if the date is a valide date
+     if (!checkdate($arrTime['m'], $arrTime['d'], $arrTime['Y'])) {
+         return false;
+     }
+
+     // generates the timestamp
+     $intTime = mktime($arrTime['H'], $arrTime['i'], $arrTime['s'], $arrTime['m'], $arrTime['d'], $arrTime['Y']);
+     // returns the timestamp
+     return $intTime;
+  }
+
 	function unixstamp2date($func_timestamp,$func_art) {
 		global $lang;
 

@@ -4,18 +4,23 @@ include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
 function CheckEndDate($enddate) {
-  if ($enddate < $_POST['startdate']) return t('Der Endzeitpunkt muss nach dem Startzeitpunkt liegen');
+  global $func;
+
+  if ($func->str2time($enddate) < $func->str2time($_POST['startdate'])) return t('Der Endzeitpunkt muss nach dem Startzeitpunkt liegen');
   else return false;
 }
 
 function CheckSignonStartDate($sstartdate) {
-  if ($sstartdate > $_POST['startdate']) return t('Der Anmeldestart muss vor dem Partystart liegen');
+  global $func;
+  
+  if ($func->str2time($sstartdate) > $func->str2time($_POST['startdate'])) return t('Der Anmeldestart muss vor dem Partystart liegen');
   else return false;
 }
 
 function CheckSignonEndDate($senddate) {
-  if ($senddate < $_POST['sstartdate']) return t('Der Anmeldeschluss muss nach dem Anmeldestart liegen');
-  if ($senddate > $_POST['startdate']) return t('Der Anmeldeschluss muss vor dem Partystart liegen');
+  global $func;
+  if ($func->str2time($senddate) < $func->str2time($_POST['sstartdate'])) return t('Der Anmeldeschluss muss nach dem Anmeldestart liegen');
+  if ($func->str2time($senddate) > $func->str2time($_POST['startdate'])) return t('Der Anmeldeschluss muss vor dem Partystart liegen');
   else return false;
 }
 

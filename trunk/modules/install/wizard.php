@@ -227,8 +227,10 @@ switch ($_GET["step"]){
 		$dsp->NewContent($lang["install"]["wizard_admin_caption"], $lang["install"]["wizard_admin_subcaption"]);
 		$dsp->SetForm("index.php?mod=install&action=wizard&step=7");
 		$dsp->AddTextFieldRow("email", $lang["install"]["admin_email"], 'admin@admin.de', '');
-		$dsp->AddPasswordRow("password", $lang["install"]["conf_pass"], '', '');
+		$dsp->AddPasswordRow("password", $lang["install"]["conf_pass"], '', '', '', '', "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel1)\"");
 		$dsp->AddPasswordRow("password2", $lang["install"]["admin_pass2"], '', '');
+    $templ['pw_security']['id'] = 1;
+    $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
 		$dsp->AddFormSubmitRow("add");
 
 		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=8", "next"));
