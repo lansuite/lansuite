@@ -627,6 +627,12 @@ class display {
 		return $this->FetchModTpl("", "ls_linkbutton");
 	}
 
+	function FetchCssButton($title, $link, $hint = NULL, $target = NULL) {
+    ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
+    ($target)? $target = ' target="_blank"' : $target = '';
+    return '<ul class="Button"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></ul>';
+	}
+
 	function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {
 		global $templ, $gd;
 

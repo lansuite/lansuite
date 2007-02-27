@@ -1,12 +1,8 @@
-<tr> 
-	<td class="row_value_important" width="45" valign="top">
-    <img src="design/{default_design}/images/icon_warning.gif" alt="warning"/>
-  </td>
-	<td class="row_value_important">
-    <b>FEHLER</b><br />
-    Beim Bearbeiten Ihrer Anfrage trat folgender Fehler auf:<br /><br />
-    {$templ['error']['info']['errormsg']}<br />
-	  <br />
-	  {$templ['error']['info']['link']}
-  </td>
-</tr>
+<ul class="Line">
+  <li class="Error">
+    <b>Fehler:</b>
+    <br />{$templ['error']['info']['errormsg']}
+    <br />
+    <br />{$templ['error']['info']['link']}
+  </li>
+</ul>
