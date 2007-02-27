@@ -1,0 +1,268 @@
+/*
+Lansuite Style-Definitions
+
+For detailed Information see:
+http://lansuite-docu.orgapage.de/index.php?title=Stylesheets
+*/
+
+
+
+/* Main-Template */
+
+body {
+  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  padding:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
+
+  background:   #ffffff;
+  color:        #000000;
+
+  font-family:  verdana, helvetica, sans-serif;
+  font-size:    11px;
+  font-weight:  normal;
+  text-align:   left;
+}
+
+div#DateLogout {
+  position:     absolute;
+  top:          2px;
+  right:        4px;
+  width:        300px;
+  height:       20px;
+  z-index:      1;
+
+  font-size:    11px;
+  text-align:   right;
+}
+
+div#Logo {
+  position:     absolute;
+  top:          10px;
+  left:         10px;
+
+  z-index:      1;
+}
+
+div#Banner {
+  position:     absolute;
+  top:          20px;
+  right:        4px;
+  z-index:      0;
+}
+
+div#BoxesLeft {
+  position:     absolute;
+  top:          100px;
+  left:         4px;
+  width:        180px;
+  z-index:      1;
+}
+
+div#Content {
+  position:     absolute;
+  top:          100px;
+  left:         190px;
+  right:        190px;
+  z-index:      1;
+
+  background:   #eee6e6;
+  margin:       0px 2px 10px 2px;  /*Top Right Bottom Left*/
+  padding:      8px 4px 10px 8px;  /*Top Right Bottom Left*/
+}
+
+div#ContentFullscreen {
+  position:     absolute;
+  top:          40px;
+  left:         10px;
+  right:        10px;
+  z-index:      1;
+
+  background:   #eee6e6;
+  margin:       0px 2px 10px 2px;  /*Top Right Bottom Left*/
+  padding:      8px 4px 10px 8px;  /*Top Right Bottom Left*/
+}
+
+div#BoxesRight {
+  position:     absolute;
+  top:          100px;
+  right:        4px;
+  width:        180px;
+  z-index:      1;
+}
+
+div#Footer {
+  position:     relative;
+  width:        100%;
+  z-index:      1;
+
+  text-align:   center;
+  margin:       8px 0px 0px 0px;  /*Top Right Bottom Left*/
+}
+
+
+/* Boxes */
+
+ul.Box {
+  position:     relative;
+
+  margin:       0px 4px 8px 4px;  /*Top Right Bottom Left*/
+  padding:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
+}
+
+ul.BoxHeadline {
+  font-weight:  bold;
+
+  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  padding:      4px 4px 4px 8px;  /*Top Right Bottom Left*/
+  border-bottom:1px solid #9c9d9c;
+  background:   #eee6e6;
+
+  list-style:   none;
+}
+
+li.BoxCaption {
+  font-weight:  bold;
+  width:        140px;
+  float:        left;
+
+  background:   #eee6e6;
+  list-style:   none;
+}
+
+li.BoxHelpClose {
+  width:        20px;
+
+  font-size:    10px;
+  list-style:   none;
+}
+
+ul.BoxContent {
+  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  padding:      4px 4px 4px 8px;  /*Top Right Bottom Left*/
+  background:   #dee2e6;
+
+  list-style:   none;
+}
+
+li.engaged {
+  padding:      0px 0px 0px 16px;  /*Top Right Bottom Left*/
+}
+
+.box_entry {
+  padding:      0px 0px 2px 16px;  /*Top Right Bottom Left*/
+	white-space:	nowrap;
+	background-image: url(images/arrows_menurow.gif);
+  background-repeat: no-repeat;
+}
+
+.box_entry_active {
+  padding:      0px 0px 2px 16px;  /*Top Right Bottom Left*/
+	white-space:	nowrap;
+	background-image: url(images/arrows_menurow_close.gif);
+  background-repeat: no-repeat;
+}
+
+
+/* Content */
+
+ul.Line {
+  position:     relative;
+
+  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  padding:      0px 0px 2px 0px;  /*Top Right Bottom Left*/
+  border-bottom:1px solid #9c9d9c;
+}
+
+li.LineLeft {
+  width:        280px;
+  min-height:   16px;
+  float:        left;
+
+  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  padding:      4px 4px 4px 4px;  /*Top Right Bottom Left*/
+
+  vertical-align: middle;
+  background:   #eee6e6;
+  list-style:   none;
+
+  z-index:      10;
+}
+
+li.LineRight {
+  min-height:   16px;
+
+  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  padding:      4px 4px 4px 4px;  /*Top Right Bottom Left*/
+
+  vertical-align: middle;
+  background:   #eeeeee;
+  list-style:   none;
+
+  z-index:      11;
+}
+
+div.Headline {
+  position:     relative;
+  font-weight:  bold;
+}
+
+div.HeadlineSub {
+}
+
+div.HeadlineHelp {
+  position:     absolute;
+  top:          0px;
+  right:        8px;
+
+  font-size:    10px;
+}
+
+.row_key {
+	background:		#E8E7E7;
+  font-weight:  bold;
+
+  border-bottom:1px solid #9c9d9c;
+  padding:      2px 0px 2px 0px;  /*Top Right Bottom Left*/
+}
+
+.row_value {
+	background:		#EFEFEF;
+
+  border-bottom:1px solid #9c9d9c;
+  padding:      2px 0px 2px 0px;  /*Top Right Bottom Left*/
+}
+
+.row_value_highlighted {
+	background:		#E2F2E2;
+
+  border-bottom:1px solid #9c9d9c;
+  padding:      2px 0px 2px 0px;  /*Top Right Bottom Left*/
+}
+
+.row_value_important {
+	background:		#EEE6BD;
+
+  border-bottom:1px solid #9c9d9c;
+  padding:      2px 0px 2px 0px;  /*Top Right Bottom Left*/
+}
+
+
+/* Links */
+a:link, a:visited, a.link:link, a.link:visited {
+	color:			#000000;
+	text-decoration:none;
+}
+a:hover {
+	color:			#ff9000;
+	text-decoration:underline;
+}
+
+/* Admin-Links */
+a.admin:link, a.admin:visited {
+	color:			#ff0000;
+	text-decoration:none;
+}
+
+a.admin:hover {
+	color:			#ff0000;
+	text-decoration:underline;
+}

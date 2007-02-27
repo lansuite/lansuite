@@ -1,15 +1,15 @@
-<tr>
-	<td class="row_key" id="pid{$templ['board']['thread']['case']['info']['post']['pid']}" width="150" valign="top">
+<ul class="Line">
+  <li class="LineLeft">
     {$templ['board']['thread']['case']['info']['post']['date']}
-    <br /><b>{$templ['board']['thread']['case']['info']['post']['poster']['username']}</b> 
-    <br />{$templ['board']['thread']['case']['info']['post']['poster']['type']} 
-    <br />{$templ['board']['thread']['case']['info']['post']['poster']['avatar']} 
-    <br />{$templ['board']['thread']['case']['info']['post']['poster']['posts']} 
+    <br /><b>{$templ['board']['thread']['case']['info']['post']['poster']['username']}</b>
+    <br />{$templ['board']['thread']['case']['info']['post']['poster']['type']}
+    <br />{$templ['board']['thread']['case']['info']['post']['poster']['avatar']}
+    <br />{$templ['board']['thread']['case']['info']['post']['poster']['posts']}
     <br />{$templ['board']['thread']['case']['info']['post']['poster']['rank']}
-  </td>
-	<td class="row_value{$templ['board']['highlighted']}" width="*" valign="top">
+  </li>
+  <li class="LineRight" id="{$templ['AddDoubleRow']['id']}">
     {$templ['board']['thread']['case']['info']['post']['edit']}
     {$templ['board']['thread']['case']['info']['post']['text']}
     {$templ['board']['thread']['case']['info']['post']['poster']['signature']}
-  </td>
-</tr>
+  </li>
+</ul>

@@ -100,6 +100,11 @@ function LoadingToolTip(text) {
 
 //// Class Display ////
 
+function changepic(picname, obj) {
+  if (picname == "none" || picname == "") obj.src = "design/standard/images/index_transparency.gif";
+  else obj.src = picname;
+}
+
 function TextAreaPlusCharsLeft(textarea, counter, maxchar){
 	if (textarea.value.length > maxchar) {
 		textarea.value = textarea.value.substr(0, maxchar);

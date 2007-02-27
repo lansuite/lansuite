@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<!-- COPYRIGHT 2001-2003 "http://www.One-Network.Org" - ALL RIGHTS RESERVED -->
+<!-- TEMPLATE - STANDARD - MESSENGER QUERY CONSOLE -->
+<head>
+<link rel="STYLESHEET" href="design/{default_design}/style.css">
+<script language="JavaScript">
+<!--
+// Insert smilies and style tags
+function code(sign) 
+{
+	document.form.text.value = document.form.text.value + sign;
+	checklength();
+}
+//-->
+<!--
+// Check textlenght and writes in the box
+function checklength()
+{
+	with (document.form)
+	{
+		chars=text.value
+ 		chr.value=text.value.length;
+	}
+}
+//-->
+<!--
+// Reload message-window
+function loadwindow()
+{
+	top.location.href='index.php?mod=msgsys&action=query&design=base&queryid={$_GET[queryid]}';
+}
+//-->
+<!--
+// Close window
+function x()
+{
+	top.close();
+}
+//-->
+</script>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form name="form" method="post" action="index.php?mod=msgsys&action=query_console&design=base&queryid={$_GET['queryid']}&step=2">
+  <table width="100%" cellspacing="0" cellpadding="0">
+    <tr class="tbl_4"> 
+      <td><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6"> 
+        <div align="center"> 
+          <textarea name="text" cols="96" class="form" rows="5" onKeyUp="checklength()" wrap="PHYSICAL"></textarea>
+        </div>
+      </td>
+    </tr>
+    <tr class="tbl_4"> 
+      <td><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr>
+          
+            <td> <a href="javascript:InsertCode(document.form.text, ':angel:')"><img src="ext_inc/smilies/smilie_angel.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':angry:')"><img src="ext_inc/smilies/smilie_angry.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':P')"><img src="ext_inc/smilies/smilie_cheeky.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':confused:')"><img src="ext_inc/smilies/smilie_confused.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':finger:')"><img src="ext_inc/smilies/smilie_finger.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':karate:')"><img src="ext_inc/smilies/smilie_karate.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '=)');"><img src="ext_inc/smilies/smilie_lol.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':rolleyes:')"><img src="ext_inc/smilies/smilie_rolleyes.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':sleep:')"><img src="ext_inc/smilies/smilie_sleep.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':)')"><img src="ext_inc/smilies/smilie_smile.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ':ugh:')"><img src="ext_inc/smilies/smilie_ugh.gif" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, ';)')"><img src="ext_inc/smilies/smilie_wink.gif" border="0"></a>
+            </td>
+            <td> 
+              <div align="right">Farbe: 
+                <select name="select" onChange="javascript:InsertCode(document.form.text, '[color=' + this.options[this.selectedIndex].value + ']', '[/color]')" class="form">
+                  <option style="color:black;" value="black" >Standard</option>
+                  <option style="color:darkred;" value="darkred" >Dunkelrot</option>
+                  <option style="color:red;" value="red" >Rot</option>
+                  <option style="color:orange;" value="orange" >Orange</option>
+                  <option style="color:brown;" value="brown" >Braun</option>
+                  <option style="color:yellow;" value="yellow" >Gelb</option>
+                  <option style="color:green;" value="green" >Grün</option>
+                  <option style="color:olive;" value="olive" >Oliv</option>
+                  <option style="color:cyan;" value="cyan" >Cyan</option>
+                  <option style="color:blue;" value="blue" >Blau</option>
+                  <option style="color:darkblue;" value="darkblue" >Dunkelblau</option>
+                  <option style="color:indigo;" value="indigo" >Indigo</option>
+                  <option style="color:violet;" value="violet" >Violett</option>
+                  <option style="color:black;" value="black" >Schwarz</option>
+                </select>
+                Gr&ouml;&szlig;e: 
+                <select name="color" onChange="javascript:InsertCode(document.form.text, '[size=' + this.options[this.selectedIndex].value + ']', '[/size]')" class="form">
+                  <option value="12" selected>Standard</option>
+                  <option value="7"  >Winzig</option>
+                  <option value="9"  >Klein</option>
+                  <option value="12" >Normal</option>
+                  <option value="18" >Groß</option>
+                  <option value="24" >Riesig</option>
+                </select>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr class="tbl_4"> 
+      <td><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td> <a href="javascript:InsertCode(document.form.text, '[b]', '[/b]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_bold.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[i]', '[/i]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_kursiv.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[u]', '[/u]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_underline.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[c]', '[/c]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_code.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[img]', '[/img]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_picture.png" border="0"></a>
+            </td>
+            <td> 
+              <div align="right">Zeichen: 
+                <input type="text" name="chr" class="form" maxlength="6" size="6" onFocus="this.blur()" value="0">
+              </div>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr class="tbl_4"> 
+      <td height="1"><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td> <input type="image" border="0" name="imageField" src="ext_inc/auto_images/{default_design}/{language}/button_send.png" width="61" height="17" onClick="loadwindow()"> 
+            </td>
+            <td><div align="right"><a href="javascript:var r=loadwindow()" class="menu"><img src="design/{default_design}/images/arrows_info.gif" width="12" height="13" border="0"> 
+                Aktualisieren</a></div></td>
+            <td width="50"><a href="javascript:var w=window.open('index.php?mod=helplet&action=helplet&design=base&helpletid=msgsys/query','_blank','width=320,height=400,resizable=no');" class="menu"><img src="design/{default_design}/images/arrows_help.gif" width="12" height="13" border="0">
+              Hilfe</a></td>
+            <td width="80"><a href="javascript:x();" class="menu"><img src="design/{default_design}/images/arrows_delete.gif" width="12" height="13" border="0"> 
+              Schliessen</a></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30">&nbsp;</td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
