@@ -191,8 +191,8 @@ if ($found_adm) {
 if($cfg['sys_blocksite'] == 1 and $auth['type'] < 2) $siteblock = true;
 
 // Set Default-Design, if non is set
-if (!$auth["design"]) $auth["design"] = "osX";
-if (!file_exists("design/{$auth["design"]}/templates/index_login.htm")) $auth["design"] = "osX";
+if (!$auth["design"]) $auth["design"] = "simple";
+if (!file_exists("design/{$auth["design"]}/templates/index_login.htm")) $auth["design"] = "simple";
 $_SESSION["auth"]["design"] = $auth["design"];
 
 if ($db->success) {
