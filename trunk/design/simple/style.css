@@ -170,6 +170,8 @@ ul.Line {
   margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
   padding:      0px 0px 2px 0px;  /*Top Right Bottom Left*/
   border-bottom:1px solid #9c9d9c;
+
+  clear:        left;
 }
 
 li.LineLeft {
@@ -200,6 +202,34 @@ li.LineRight {
   z-index:      11;
 }
 
+li.Confirmation {
+	background:		#00ff00;
+  font-weight:  bold;
+
+  padding:      4px 2px 0px 2px;  /*Top Right Bottom Left*/
+}
+
+li.Error {
+	background:		#f33737;
+  margin:       0px 2px 10px 2px;  /*Top Right Bottom Left*/
+  padding:      8px 4px 10px 8px;  /*Top Right Bottom Left*/
+  list-style:   none;
+}
+
+li.Information {
+	background:		#f8ae38;
+  margin:       0px 2px 10px 2px;  /*Top Right Bottom Left*/
+  padding:      8px 4px 10px 8px;  /*Top Right Bottom Left*/
+  list-style:   none;
+}
+
+li.Confirmation {
+	background:		#84cd82;
+  margin:       0px 2px 10px 2px;  /*Top Right Bottom Left*/
+  padding:      8px 4px 10px 8px;  /*Top Right Bottom Left*/
+  list-style:   none;
+}
+
 div.Headline {
   position:     relative;
   font-weight:  bold;
@@ -221,33 +251,60 @@ div.HeadlineHelp {
   font-weight:  bold;
 
   border-bottom:1px solid #9c9d9c;
-  padding:      2px 0px 2px 0px;  /*Top Right Bottom Left*/
+  padding:      4px 2px 0px 2px;  /*Top Right Bottom Left*/
 }
 
 .row_value {
 	background:		#EFEFEF;
 
   border-bottom:1px solid #9c9d9c;
-  padding:      2px 0px 2px 0px;  /*Top Right Bottom Left*/
+  padding:      4px 2px 0px 2px;  /*Top Right Bottom Left*/
 }
 
 .row_value_highlighted {
 	background:		#E2F2E2;
 
   border-bottom:1px solid #9c9d9c;
-  padding:      2px 0px 2px 0px;  /*Top Right Bottom Left*/
+  padding:      4px 2px 0px 2px;  /*Top Right Bottom Left*/
 }
 
 .row_value_important {
 	background:		#EEE6BD;
 
   border-bottom:1px solid #9c9d9c;
-  padding:      2px 0px 2px 0px;  /*Top Right Bottom Left*/
+  padding:      4px 2px 0px 2px;  /*Top Right Bottom Left*/
+}
+
+ul.Button {
+  margin:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  padding:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
+}
+
+ul.Button a {
+  display:      block;
+  margin:       2px 2px 2px 2px;  /*Top Right Bottom Left*/
+  padding:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  width:        80px;
+
+  font-weight:  bold;
+	background:		#eeeeee;
+  text-align:   center;
+}
+
+ul.Button a:hover {
+  display:      block;
+  margin:       2px 2px 2px 2px;  /*Top Right Bottom Left*/
+  padding:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  width:        80px;
+
+  font-weight:  bold;
+	background:		#aaaaaa;
+  text-align:   center;
 }
 
 
 /* Links */
-a:link, a:visited, a.link:link, a.link:visited {
+a:link, a:visited {
 	color:			#000000;
 	text-decoration:none;
 }

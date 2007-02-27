@@ -247,12 +247,9 @@ class func {
 	function error($text, $link_target = '') {
 		global $templ, $auth, $lang, $language, $dsp;
 		
-    // Close Layout table, if opened 
-    $dsp->AddContent();
-
 		if ($link_target == '') $link_target = $this->internal_referer;
 		if ($link_target == NO_LINK) $link_target = '';
-		if ($link_target) $templ['error']['info']['link'] = $dsp->FetchIcon($link_target, "back");
+    if ($link_target) $templ['error']['info']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
 
 		switch($text) {
 			case "ACCESS_DENIED":
@@ -274,9 +271,7 @@ class func {
 				$templ['error']['info']['errormsg'] = $text;
 			break;
 		}
-    $dsp->AddContent();
     $dsp->AddTpl("design/templates/error.htm");
-    $dsp->AddContent();
 	}
 
 	function confirmation($text, $link_target = '') {
@@ -284,12 +279,10 @@ class func {
 
 		if ($link_target == '') $link_target = $this->internal_referer;
 		if ($link_target == NO_LINK) $link_target = '';
-		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchIcon($link_target, "back");
+		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
 		$templ['confirmation']['info']['confirmationmsg']	= $text;
 
-    $dsp->AddContent();
-    $dsp->AddTpl("design/templates/confirmation.htm");
-    $dsp->AddContent();
+    $dsp->AddLineTpl("design/templates/confirmation.htm");
 	}
 
 	function information($text, $link_target = '', $button_text = 'back') {
@@ -297,29 +290,20 @@ class func {
 
 		if ($link_target == '') $link_target = $this->internal_referer;
 		if ($link_target == NO_LINK) $link_target = '';
-		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchIcon($link_target, $button_text);
+		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
 		$templ['confirmation']['info']['confirmationmsg'] = $text;
 
-    $dsp->AddContent();
     $dsp->AddTpl("design/templates/information.htm");
-    $dsp->AddContent();
 	}
 
 	function multiquestion($questionarray, $linkarray, $text) {
 		global $templ, $dsp;
 
-		if (!$text) $templ['multiquestion']['info']['text'] = "Bitte wählen Sie eine Möglichkeit aus:";
-		else $templ['multiquestion']['info']['text']	= $text;
+		($text)? $templ['multiquestion']['info']['text'] = $text : $templ['multiquestion']['info']['text'] = t('Bitte wählen Sie eine Möglichkeit aus:');
+		if (is_array($questionarray)) foreach($questionarray as $ind => $question)
+      $templ['multiquestion']['control']['row'] .= '<br /><br /><a href="'. $linkarray[$ind] .'">'. $question .'</a>"';
 
-		if (is_array($questionarray)) foreach($questionarray as $ind => $question) {
-			$templ['multiquestion']['row']['text']	= $question;
-			$templ['multiquestion']['row']['link']	= $linkarray[$ind];
-
-      $templ['multiquestion']['control']['row'] .= $dsp->FetchTpl("design/templates/multiquestion_row.htm", $templ);
-		}
-    $dsp->AddContent();
     $dsp->AddTpl("design/templates/multiquestion.htm");
-    $dsp->AddContent();
 	}
 
 	function dialog($dialogarray, $linkarray, $picarray) {
@@ -335,9 +319,7 @@ class func {
 		if (is_array($linkarray)) foreach ($linkarray as $ind => $link)
       $templ['dialog']['control']['row'] .= $dsp->FetchButton($link, $picarray[$ind]);
 
-    $dsp->AddContent();
     $dsp->AddTpl("design/templates/dialog.htm");
-    $dsp->AddContent();
 	}
 
 	function question($text, $link_target_yes, $link_target_no = '') {
@@ -349,25 +331,18 @@ class func {
 		$templ['question']['control']['link']['yes'] = $dsp->FetchIcon($link_target_yes, "yes");
 		$templ['question']['control']['link']['no'] = $dsp->FetchIcon($link_target_no, "no");
 
-    $dsp->AddContent();
     $dsp->AddTpl("design/templates/question.htm");
-    $dsp->AddContent();
 	}
 
-	function no_items($object,$link_target,$type) {
+	function no_items($object, $link_target, $type) {
 		global $templ, $auth, $lang, $dsp, $language;
 
 		switch($type) {
-			case "rlist":	$templ['no_item']['info']['no_itemmsg']	= str_replace("%OBJECT%",$object,$lang['class_func']['no_item_rlist']); break;
-			case "search":	$templ['no_item']['info']['no_itemmsg']	= str_replace("%OBJECT%",$object,$lang['class_func']['no_item_search']); break;
-			case "free":	$templ['no_item']['info']['no_itemmsg']	= $object; break;
+			case "rlist":	$text	= str_replace("%OBJECT%", $object, $lang['class_func']['no_item_rlist']); break;
+			case "search":	$text	= str_replace("%OBJECT%", $object, $lang['class_func']['no_item_search']); break;
+			case "free":	$text	= $object; break;
 		}
-
-		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
-
-    $dsp->AddContent();
-    $dsp->AddTpl("design/templates/no_item.htm");
-    $dsp->AddContent();
+    $this->information($text, $link_target);
 	}
 
   // When text should be displayed within a textarea
