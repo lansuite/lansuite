@@ -30,11 +30,18 @@ function CreateSignonBar($guests, $paid_guests, $max_guests) {
 	$pixelpaid = $gesamtpaid;
 
 	// Bar erzeugen
+/*
 	$bar = "<img src=\"design/{$auth['design']}/images/userbar_left.gif\" height=\"13\" border=\"0\" alt =\"\" />";
 	if ($pixelpaid > 0) $bar .= '<img src="design/'. $auth['design'] .'/images/userbar_center_green.gif" width="'. $pixelpaid .'" height="13" border="0" onmouseover="return overlib(\''. t('Bezahlt') .': '. $paid_guests  .'\');" onmouseout="return nd();" alt="'. t('Bezahlt') .'" />';
 	if ($pixelcuruser > 0) $bar .= '<img src="design/'. $auth['design'] .'/images/userbar_center_yellow.gif" width="'. $pixelcuruser .'" height="13" border="0" onmouseover="return overlib(\''. t('Angemeldet') .': '. $guests  .'\');" onmouseout="return nd();" alt="'. t('Angemeldet') .'" />';
 	if ($pixelges > 0) $bar .= '<img src="design/'. $auth['design'] .'/images/userbar_center_bg.gif" width="'. $pixelges .'" height="13" border="0" onmouseover="return overlib(\''. t('Frei') .': '. ($max_guests - $paid_guests)  .'\');" onmouseout="return nd();" alt="'. t('Frei') .'" />';
 	$bar .= "<img src=\"design/{$auth['design']}/images/userbar_right.gif\" height=\"13\" border=\"0\" alt =\"\" />";
+*/
+	$bar = '<div class="BarBorder"></div>';
+	if ($pixelpaid > 0) $bar .= '<div class="BarOccupied" style="padding:6px 0px 6px '. $pixelpaid .'px;" onmouseover="return overlib(\''. t('Bezahlt') .': '. $paid_guests  .'\');" onmouseout="return nd();"></div>';
+	if ($pixelcuruser > 0) $bar .= '<div class="BarMarked" style="padding:6px 0px 6px '. $pixelcuruser .'px;" onmouseover="return overlib(\''. t('Angemeldet') .': '. $guests  .'\');" onmouseout="return nd();"></div>';
+	if ($pixelges > 0) $bar .= '<div class="BarFree" style="padding:6px 0px 6px '. $pixelges .'px;" onmouseover="return overlib(\''. t('Frei') .': '. ($max_guests - $paid_guests)  .'\');" onmouseout="return nd();"></div>';
+	$bar .= '<div class="BarBorder"></div>';
 
 	return $bar;
 }

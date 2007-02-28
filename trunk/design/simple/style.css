@@ -303,6 +303,40 @@ ul.Button a:hover {
 }
 
 
+/* Bars*/
+div.BarBorder {
+  position:     static;
+  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  padding:      6px 1px 6px 1px;  /*Top Right Bottom Left*/
+	background:		#000000;
+	float:        left;
+}
+
+/* Bars*/
+div.BarFree {
+  position:     static;
+  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
+	background:		#b0b0b0;
+	float:        left;
+}
+
+/* Bars*/
+div.BarMarked {
+  position:     static;
+  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
+	background:		#fff500;
+	float:        left;
+}
+
+/* Bars*/
+div.BarOccupied {
+  position:     static;
+  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
+	background:		#2bb800;
+	float:        left;
+}
+
+
 /* Links */
 a:link, a:visited {
 	color:			#000000;
