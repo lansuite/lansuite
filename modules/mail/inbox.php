@@ -27,7 +27,12 @@ if ($auth['userid']) {
       }
     break;
 
-  	// Delete Mail
+    // Multi: Move to trashcan
+    case 20:
+      foreach ($_POST['action'] as $key => $val) $mail->set_status_delete($key);
+    break;
+
+  	// Move to trashcan
   	case 99:
   		if($_GET["mailid"]) $mail->set_status_delete($_GET["mailid"]);
   		$_GET["STEP"] = "";
@@ -58,6 +63,7 @@ if ($auth['userid']) {
 
   $ms2->AddMultiSelectAction(t('Als gelesen markieren'), 'index.php?mod=mail&step=10', 1);
   $ms2->AddMultiSelectAction(t('Als ungelesen markieren'), 'index.php?mod=mail&step=11', 1);
+  $ms2->AddMultiSelectAction(t('In den Papierkorb'), 'index.php?mod=mail&step=20', 1);
 
   $ms2->PrintSearch('index.php?mod=mail', 'm.mailid');
 }

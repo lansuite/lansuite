@@ -1,6 +1,6 @@
 <?php
 $mail_send_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE FromUserID = '{$auth['userid']}' AND mail_status != 'disabled'");
-$mail_read_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE FromUserID = '{$auth['userid']}' AND mail_status != 'disabled' AND src_status = 'read'");	
+$mail_read_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE FromUserID = '{$auth['userid']}' AND mail_status != 'disabled' AND des_status = 'read'");
 
 $dsp->NewContent($lang["mail"]["out_outbox"], str_replace("%TOTAL%", $mail_send_total["n"], str_replace("%READ%", $mail_read_total["n"], $lang["mail"]["out_hint"])));
 $dsp->AddContent();
