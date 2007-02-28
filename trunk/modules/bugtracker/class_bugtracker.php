@@ -36,7 +36,7 @@ class Bugtracker {
         $row = $db->query_first("SELECT reporter, caption FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
         $mail->create_sys_mail($row['reporter'], t('Feedback zu Ihrem Bugreport benötigt'), t('Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Feedback benötigt"[/b] gesetzt. Bitte schauen Sie sich den Bugreport noch einmal an und helfen Sie, Ihre Angaben zu vervollständigen.
 
-        [url=index.php?mod=bugtracker&bugid=%2]Zum Bug-Eintrag[/url]', array($row['caption'], $bugid)));
+[url=index.php?mod=bugtracker&bugid=%2]Zum Bug-Eintrag[/url]', array($row['caption'], $bugid)));
         $func->log_event(t('Benachrichtigungsmail an Reporter versandt'), 1, '', $bugid);
       }
     }
