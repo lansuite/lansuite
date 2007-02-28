@@ -1,6 +1,6 @@
 <?php
 
-$dsp->NewContent($lang["guestlist"]["map_caption"], $lang["guestlist"]["map_subcaption"]);
+$dsp->NewContent(t('Benutzerkarte'), t('Auf dieser Karte finden Sie alle Benutzer, die eine PLZ eingegeben haben'));
 
 if (!$cfg['google_maps_api_key']) $func->information('Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen in der Modulkonfiguration eingeben');
 else {
@@ -26,7 +26,6 @@ else {
 
   $templ['guestmap']['apikey'] = $cfg['google_maps_api_key'];
   $dsp->AddSingleRow($dsp->FetchModTpl('guestlist', 'googlemaps'));
-  $templ['index']['body']['js'] = 'onload="ShowMap();"';
 }
 $dsp->AddContent();
 ?>

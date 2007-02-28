@@ -1,3 +1,18 @@
+//// Basic Events ////
+function BodyOnload() {
+  // Load Google-Maps, if map-element is found
+  if (document.getElementById("GoogleMaps")) ShowMap();
+
+  // Load nifty-corners
+  Nifty("ul.BoxHeadline", "top");
+  Nifty("li.BoxContent", "bottom");
+  Nifty("div#Content", "big");
+  Nifty("li.Confirmation", "big");
+  Nifty("li.Information", "big");
+  Nifty("li.Error", "big");
+  Nifty("ul.Button a", "transparent fixed-height");
+}
+
 
 //// Basic ////
 
@@ -523,4 +538,4 @@ function TX_showToolTip(e,id) {
 function TX_hideToolTip() { 
         document.getElementById("tooltip").style.visibility = "hidden"; 
         document.getElementById("tooltip").innerHTML = "false"; 
-} 
+}
