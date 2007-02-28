@@ -31,7 +31,6 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
     $templ['guestmap']['apikey'] = $cfg['google_maps_api_key'];
     $dsp->AddSingleRow($dsp->FetchModTpl('guestlist', 'googlemaps'));
-    $templ['index']['body']['js'] = 'onload="ShowMap();"';
   }
 
 
@@ -58,9 +57,10 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
   	$res = $db->query("SELECT user.userid, user.username, user.city, user.plz, COUNT(*) AS anz, locations.laenge, locations.breite
   		FROM {$config["tables"]["user"]} AS user
+  		LEFT JOIN {$config["tables"]["usersettings"]} AS s ON user.userid = s.userid
   		INNER JOIN {$config["tables"]["locations"]} AS locations ON user.plz = locations.plz
   		INNER JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id
-  		WHERE (user.plz > 0) AND (party.party_id = {$party->party_id}) AND user.type > 0
+  		WHERE (user.plz > 0) AND s.show_me_in_map = 1 AND (party.party_id = {$party->party_id}) AND user.type > 0
   		GROUP BY user.plz
   		");
   	$z = 0;
@@ -76,8 +76,9 @@ if ($cfg['guestlist_guestmap'] == 2) {
   		// Get list of all users with current plz
       $res2 = $db->query("SELECT u.username, u.firstname, u.name
   		FROM {$config["tables"]["user"]} AS u
+  		LEFT JOIN {$config["tables"]["usersettings"]} AS s ON u.userid = s.userid
   		INNER JOIN {$config["tables"]["party_user"]} AS p ON u.userid = p.user_id
-  		WHERE (u.plz = {$user["plz"]}) AND (p.party_id = {$party->party_id}) AND u.type > 0
+  		WHERE (u.plz = {$user["plz"]}) AND s.show_me_in_map = 1 AND (p.party_id = {$party->party_id}) AND u.type > 0
   		");
   		$users2jsarray = '';
   		while ($current_user = $db->fetch_array($res2)) {
