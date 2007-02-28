@@ -2,7 +2,7 @@
 
 $dsp->NewContent(t('Benutzerkarte'), t('Auf dieser Karte finden Sie alle Benutzer, die eine PLZ eingegeben haben'));
 
-if (!$cfg['google_maps_api_key']) $func->information('Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen in der Modulkonfiguration eingeben');
+if (!$cfg['google_maps_api_key']) $func->information(t('Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben', array('<a href="index.php?mod=install&action=modules&step=10&module=install">'. t('AdminSeite in den Allgemeinen Einstellungen') .'</a>')));
 else {
   $res = $db->query("SELECT u.*, s.avatar_path FROM {$config["tables"]["user"]} AS u
 		LEFT JOIN {$config["tables"]["usersettings"]} AS s ON u.userid = s.userid

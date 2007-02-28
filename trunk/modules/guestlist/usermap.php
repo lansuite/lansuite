@@ -4,7 +4,7 @@ $dsp->NewContent($lang["guestlist"]["map_caption"], $lang["guestlist"]["map_subc
 
 // Use Googlemaps
 if ($cfg['guestlist_guestmap'] == 2) {
-  if (!$cfg['google_maps_api_key']) $func->information('Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen in der Modulkonfiguration eingeben');
+  if (!$cfg['google_maps_api_key']) $func->information(t('Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben', array('<a href="index.php?mod=install&action=modules&step=10&module=install">'. t('AdminSeite in den Allgemeinen Einstellungen') .'</a>')));
   else {
     $where_pid = '';
     if ($party->party_id) $where_pid = "AND (p.party_id = {$party->party_id})";
