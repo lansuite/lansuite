@@ -194,7 +194,7 @@
     	<item>
     		<name>google_maps_api_key</name>
     		<type>string</type>
-    		<default></default>
+    		<default>ABQIAAAAFnydSIy1XA1P5Slzu5fFDxT2yXp_ZAY8_ufC3CFXhHIE1NvwkxRzY3oInByih4geCBnOx8S76ko8Mg</default>
     		<description>Google-Maps-Api-Key (Für die Besucher-Karte) Siehe: http://www.google.com/apis/maps/signup.html</description>
     	</item>
     </items>
