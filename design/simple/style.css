@@ -302,6 +302,34 @@ ul.Button a:hover {
   text-align:   center;
 }
 
+.tbl_7 { /* used for quotes */
+  background:   #C7C6C4;
+  font-family:  Courier New, Courier, mono;
+  font-size:    11px;
+  font-weight:  normal;
+  color:        #000000;
+  text-align:   left;
+}
+
+/* Message-Highlighting */
+.error {
+	color:			#FF0000;
+	font-weight:	bold;
+	text-align:		left;
+}
+
+.warning {
+	color:			#EE6600;
+	font-weight:	bold;
+	text-align:		left;
+}
+
+.okay {
+	color:			#008000;
+	font-weight:	bold;
+	text-align:		left;
+}
+
 
 /* Bars*/
 div.BarBorder {
@@ -312,7 +340,6 @@ div.BarBorder {
 	float:        left;
 }
 
-/* Bars*/
 div.BarFree {
   position:     static;
   margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
@@ -320,7 +347,6 @@ div.BarFree {
 	float:        left;
 }
 
-/* Bars*/
 div.BarMarked {
   position:     static;
   margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
@@ -328,7 +354,6 @@ div.BarMarked {
 	float:        left;
 }
 
-/* Bars*/
 div.BarOccupied {
   position:     static;
   margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
