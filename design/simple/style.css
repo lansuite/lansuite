@@ -174,14 +174,14 @@ ul.Button {
   margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
 }
 ul.Button a {
-  display: block;   width: 80px;
+  display: block;   width: 120px;
   margin: 2px 2px 2px 2px;    padding: 2px 6px 2px 6px;
   text-align: center;
 	background: #bbbbbb;
   font-weight: bold;
 }
 ul.Button a:hover {
-  display: block;   width: 80px;
+  display: block;   width: 120px;
   margin: 2px 2px 2px 2px;    padding: 2px 6px 2px 6px;
   text-align: center;
 	background: #999999;

@@ -1,14 +1,11 @@
-<div id="map" style="width: 800px; height: 600px"></div>
-
+<div id="GoogleMaps" style="width: 800px; height: 600px"></div>
 <div id="mapcode">
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={$templ['guestmap']['apikey']}"
-  type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={$templ['guestmap']['apikey']}" type="text/javascript"></script>
 <script type="text/javascript">
-
 function ShowMap() {
   if (GBrowserIsCompatible()) {
 
-    var map = new GMap2(document.getElementById("map"));
+    var map = new GMap2(document.getElementById("GoogleMaps"));
     map.addControl(new GSmallMapControl());
     map.addControl(new GMapTypeControl());
     map.setCenter(new GLatLng(51.17689812200107, 9.84375), 6);

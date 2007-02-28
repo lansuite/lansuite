@@ -9,7 +9,7 @@
 </head>
 
 
-<body {$templ['index']['body']['js']}>
+<body onload="BodyOnload()" {$templ['index']['body']['js']}>
 {$templ['index']['control']['js']}
 <a name="top"></a>
 <span id="LSloading" class="loading"></span>
@@ -32,18 +32,6 @@
 <div id="BoxesRight">
 {$templ['index']['control']['boxes_rightside']}
 </div>
-
-<script type="text/javascript">
-window.onload=function() {
-  Nifty("ul.BoxHeadline", "top");
-  Nifty("li.BoxContent", "bottom");
-  Nifty("div#Content", "big");
-  Nifty("li.Confirmation", "big");
-  Nifty("li.Information", "big");
-  Nifty("li.Error", "big");
-  Nifty("ul.Button a", "transparent fixed-height");
-}
-</script>
 
 </body>
 </html>
