@@ -148,11 +148,27 @@ default:
 					//
 					// Bar
 					//
-					if ($templ['poll']['show']['details']['row']['control']['percent']=="") $templ['poll']['show']['details']['row']['control']['percent']=0;
-					else $templ['poll']['show']['details']['row']['control']['percent'].="%";
+#					if ($templ['poll']['show']['details']['row']['control']['percent']=="") $templ['poll']['show']['details']['row']['control']['percent']=0;
+#					else $templ['poll']['show']['details']['row']['control']['percent'].="%";
+#					$templ['poll']['show']['details']['case']['control']['rows'] .= $dsp->FetchModTpl("poll", "show_details_row");
 
-//					$templ['poll']['show']['details']['case']['control']['rows'] .= $dsp->FetchModTpl("poll", "show_details_row");
-					$dsp->AddDoubleRow($POLL_OPTION["caption"], $dsp->FetchModTpl("poll", "show_option_row"));
+if ($templ['poll']['show']['details']['row']['control']['percent'] == '') $templ['poll']['show']['details']['row']['control']['percent'] = 0;
+$bar = '<ul class="BarOccupied" style="width:'. $templ['poll']['show']['details']['row']['control']['percent'] .'%;" '. $templ['poll']['show']['details']['row']['control']['link'] .'>'. $templ['poll']['show']['details']['row']['info']['votes'] .' ('. $templ['poll']['show']['details']['row']['info']['percent'] .'%) </ul>';
+$bar .= '<ul class="BarClear">&nbsp;</ul>';
+
+/*
+<!-- TEMPLATE - STANDARD - POLL SHOW DETAILS ROW -->
+	<table width="{$templ['poll']['show']['details']['row']['control']['percent']}" cellpadding="0" cellspacing="0" border="0">
+	<tr {$templ['poll']['show']['details']['row']['control']['link']}>
+		<td width="5" background="design/{default_design}/images/bar_left.gif" height="13" align="top"><img src="design/{default_design}/images/px.gif" width="5"  height="13" align="top"></td>
+		<td background="design/{default_design}/images/bar_center.gif"  height="13" align="top"><img src="design/{default_design}/images/px.gif" height="13" align="top"></td>
+		<td width="5" background="design/{default_design}/images/bar_right.gif" height="13" align="top"><img src="design/{default_design}/images/px.gif" width="5"  height="13" align="top"></td>
+	</tr>
+	</table>
+	{$templ['poll']['show']['details']['row']['info']['percent']}% ({$templ['poll']['show']['details']['row']['info']['votes']})
+<!-- TEMPLATE - STANDARD - POLL SHOW DETAILS ROW -->
+*/
+					$dsp->AddDoubleRow($POLL_OPTION["caption"], $bar);
 					unset($templ['poll']['show']['details']['row']['control']['percent']);
 
 					$array_index++;

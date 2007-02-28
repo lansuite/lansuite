@@ -95,11 +95,22 @@ li.engaged {
 
 /* Content */
 ul.Line {
-  position: relative;   margin: 0px 0px 0px 0px;    border-bottom: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
+  position: relative;   margin: 0px 0px 0px 0px;    border-top: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
+  clear: left;
+}
+ul.LineFirst {
+  position: relative;   margin: 0px 0px 0px 0px;    padding: 0px 0px 2px 0px;
   clear: left;
 }
 li.LineLeft {
   width: 280px;   min-height: 16px;   z-index: 10;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  float: left;    vertical-align: middle;
+  background: #eee6e6;
+  list-style: none;
+}
+li.LineLeftBoard {
+  width: 120px;   min-height: 16px;   z-index: 10;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
   float: left;    vertical-align: middle;
   background: #eee6e6;
@@ -164,16 +175,16 @@ ul.Button {
 }
 ul.Button a {
   display: block;   width: 80px;
-  margin: 2px 2px 2px 2px;    padding: 0px 0px 0px 0px;
+  margin: 2px 2px 2px 2px;    padding: 2px 6px 2px 6px;
   text-align: center;
-	background: #eeeeee;
+	background: #bbbbbb;
   font-weight: bold;
 }
 ul.Button a:hover {
   display: block;   width: 80px;
-  margin: 2px 2px 2px 2px;    padding: 0px 0px 0px 0px;
+  margin: 2px 2px 2px 2px;    padding: 2px 6px 2px 6px;
   text-align: center;
-	background: #aaaaaa;
+	background: #999999;
   font-weight: bold;
 }
 .tbl_7 { /* used for quotes */

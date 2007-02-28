@@ -10,6 +10,7 @@ class display {
   var $TplCache = array();
   var $errortext_prefix = '';
   var $errortext_suffix = '';
+  var $FirstLine = 1;
 
   // Constructor
   function display() {
@@ -53,7 +54,10 @@ class display {
 	function AddLineTpl($file, $OpenTable = 1){
 		global $templ;
 
-    $templ['index']['info']['content'] .= '<ul class="Line">'. $this->FetchTpl($file, $templ) .'</ul>';
+    if ($this->FirstLine) {
+      $templ['index']['info']['content'] .= '<ul class="LineFirst">'. $this->FetchTpl($file, $templ) .'</ul>';
+      $this->FirstLine = 0;
+    } else $templ['index']['info']['content'] .= '<ul class="Line">'. $this->FetchTpl($file, $templ) .'</ul>';
 	}
 
 
@@ -282,10 +286,12 @@ class display {
 
     $templ['FieldsetStart']['name'] = $name;
 		$this->AddTpl("design/templates/ls_row_fieldset_start.htm", 0);
+		$this->FirstLine = 1;
 	}
 
 	function AddFieldsetEnd() {
 		$this->AddTpl("design/templates/ls_row_fieldset_end.htm", 0);
+		$this->FirstLine = 1;
 	}
 
 	function AddSelectFieldRow($name, $key, $option_array, $errortext, $optional = NULL, $size = NULL) {
@@ -611,7 +617,26 @@ class display {
 		else $return = $this->AddTpl("modules/".$mod."/templates/".$name.".htm");
 	}
 
+  function FetchAttachmentRow($file) {
+    global $gd;
+    
+    $FileEnding = strtolower(substr($file, strrpos($file, '.'), 5));
+
+    if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') {
+      $FileNamePath = strtolower(substr($file, 0, strrpos($file, '.') - 1));
+      $FileThumb = $FileNamePath. '_thumb' .$FileEnding;
+
+      $gd->CreateThumb($file, $FileThumb, '300', '300');
+      return HTML_NEWLINE . HTML_NEWLINE. '<a href="'. $file .'" target="_blank"><img src="'. $FileThumb .'" border="0" /></a>';
+
+    } else return HTML_NEWLINE . HTML_NEWLINE. $this->FetchIcon($file, 'download') .' ('. t('Angehängte Datei herunterladen').')';
+  }
+
 	function FetchButton($link, $picname, $hint = NULL, $target = NULL) {
+/*    global $lang;
+
+    return $this->FetchCssButton($lang['button'][$picname], $link, $hint = NULL, $target = NULL);
+*/
 		global $templ, $gd;
 
 		if (!$hint) $hint = 'Pic: '. $picname;
