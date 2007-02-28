@@ -17,7 +17,7 @@ define('IS_CAPTCHA', 8);
 define('READ_DB_PROC', 0);
 define('CHECK_ERROR_PROC', 1);
 
-$mf_id = 0;
+$mf_number = 0;
 
 class masterform {
 
@@ -45,10 +45,10 @@ class masterform {
   var $LogID = 0;
 
   function masterform($MFID = 0) {
-    global $mf_id;
+    global $mf_number;
     
     $this->MFID = $MFID;
-    $mf_id++;
+    $mf_number++;
   }
 	
   function AddFix($name, $value){
@@ -87,11 +87,11 @@ class masterform {
 
   // Print form
 	function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer needed!
-    global $dsp, $db, $config, $func, $sec, $lang, $templ, $CurentURLBase, $mf_id;
+    global $dsp, $db, $config, $func, $sec, $lang, $templ, $CurentURLBase, $mf_number;
 
     // Break, if in wrong form
     $Step_Tmp = $_GET['mf_step'];
-    if ($_GET['mf_id'] == 2 and $_GET['mf_id'] != $mf_id) $Step_Tmp = 1;
+    if ($_GET['mf_id'] == 2 and $_GET['mf_id'] != $mf_number) $Step_Tmp = 1;
 
 		$this->AddGroup(); // Adds non-group-fields to fake group
 
@@ -248,7 +248,7 @@ class masterform {
       break;
     }
 
-    $dsp->AddJumpToMark('MF'.$mf_id);
+    $dsp->AddJumpToMark('MF'.$mf_number);
 
     // Form-Switch
     switch ($Step_Tmp) {
@@ -256,7 +256,7 @@ class masterform {
       // Output form
       default:
         $sec->unlock($table);
-    		$dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $mf_id .'#MF'.$mf_id, '', '', $this->FormEncType);
+    		$dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $_GET['mf_id'] .'#MF'.$mf_number, '', '', $this->FormEncType);
 
         // InsertControll check box - the table entry will only be created, if this check box is checked, otherwise the existing entry will be deleted
         if ($this->AddInsertControllField != '') {
@@ -492,7 +492,7 @@ class masterform {
             if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
             if ($addUpdSuccess) {
               if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $_SESSION['mf_referrer']);
-              else $func->confirmation($lang['mf']['add_success'], $StartURL .'#MF'.$mf_id);
+              else $func->confirmation($lang['mf']['add_success'], $StartURL .'#MF'.$mf_number);
             }
           }
 

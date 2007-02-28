@@ -52,20 +52,10 @@ $pixelcuruser = $curuser - $gesamtpaid;
 $pixelpaid = $gesamtpaid;
 
 // Bar erzeugen
-// links
-$bar = "<img src=\"design/{$auth['design']}/images/userbar_left.gif\" height=\"13\" border=\"0\" alt =\"\" />";
-
-// Bezahlt
-if ($pixelpaid > 0) $bar .= '<img src="design/'. $auth['design'] .'/images/userbar_center_green.gif" width="'. $pixelpaid .'" height="13" border="0" onmouseover="return overlib(\''. t('Bezahlt') .': '. $paid  .'\');" onmouseout="return nd();" alt="'. t('Bezahlt') .'" />';
-
-//Angemeldet
-if ($pixelcuruser > 0) $bar .= '<img src="design/'. $auth['design'] .'/images/userbar_center_yellow.gif" width="'. $pixelcuruser .'" height="13" border="0" onmouseover="return overlib(\''. t('Angemeldet') .': '. $cur  .'\');" onmouseout="return nd();" alt="'. t('Angemeldet') .'" />';
-
-//Gesamt
-if ($pixelges > 0) $bar .= '<img src="design/'. $auth['design'] .'/images/userbar_center_bg.gif" width="'. $pixelges .'" height="13" border="0" onmouseover="return overlib(\''. t('Frei') .': '. ($max - $paid)  .'\');" onmouseout="return nd();" alt="'. t('Frei') .'" />';
-
-// rechts
-$bar .= "<img src=\"design/{$auth['design']}/images/userbar_right.gif\" height=\"13\" border=\"0\" alt =\"\" />";
+if ($pixelpaid > 0) $bar = '<ul class="BarOccupied" style="width:'. $pixelpaid .'px;" onmouseover="return overlib(\''. t('Angemeldet und Bezahlt') .': '. $paid  .'\');" onmouseout="return nd();">&nbsp;</ul>';
+if ($pixelcuruser > 0) $bar .= '<ul class="BarMarked" style="width:'. $pixelcuruser .'px;" onmouseover="return overlib(\''. t('Nur Angemeldet') .': '. ($cur - $paid) .'\');" onmouseout="return nd();">&nbsp;</ul>';
+if ($pixelges > 0) $bar .= '<ul class="BarFree" style="width:'. $pixelges .'px;" onmouseover="return overlib(\''. t('Frei') .': '. ($max - $cur)  .'\');" onmouseout="return nd();">&nbsp;</ul>';
+$bar .= '<ul class="BarClear">&nbsp;</ul>';
 
 $box->ItemRow("user", '<b>'. $_SESSION['party_info']['name'] .'</b>');
 $box->EngangedRow(date("d.m.y", $_SESSION['party_info']['partybegin']) .' - '. date("d.m.y", $_SESSION['party_info']['partyend']));

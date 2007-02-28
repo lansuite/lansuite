@@ -141,11 +141,11 @@ class display {
 	function AddCheckBoxRow($name, $key, $text, $errortext, $optional = NULL, $checked = NULL, $disabled = NULL, $val = NULL, $additionalHTML = NULL) {
 		global $templ;
 
-		($checked)? $checked = 'selected' : $checked = '';
+		($checked)? $checked = 'checked' : $checked = '';
 		($disabled)? $disabled = 'disabled' : $disabled = '';
 		($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
 		($optional)? $optional = "_optional" : $optional = '';
-		if ($val) $val = '1';
+		if ($val == '') $val = '1';
 
 		$value = '<input id="'. $name .'" name="'. $name .'" type="checkbox" class="form'. $optional .'" value="'. $val .'" '. $checked .' '. $disabled .' '. $additionalHTML .' />';
     $value .= '<label for="'. $name .'">'. $text .'</label>'. $errortext;

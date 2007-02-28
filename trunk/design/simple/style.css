@@ -3,382 +3,241 @@ Lansuite Style-Definitions
 
 For detailed Information see:
 http://lansuite-docu.orgapage.de/index.php?title=Stylesheets
+
+Format:
+name {
+  Possitioning, Width, Height
+  Margin, Border, Padding
+  Float, Clear, Allign, White-space
+  Colors, Background, Backgroundimages
+  Font-size, -weight and -family
+}
 */
 
-
-
 /* Main-Template */
-
 body {
-  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
-  padding:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
-
-  background:   #ffffff;
-  color:        #000000;
-
-  font-family:  verdana, helvetica, sans-serif;
-  font-size:    11px;
-  font-weight:  normal;
-  text-align:   left;
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
+  text-align: left;
+  background: #ffffff;    color: #000000;
+  font-size: 11px;    font-weight: normal;   font-family: verdana, helvetica, sans-serif;
 }
-
 div#DateLogout {
-  position:     absolute;
-  top:          2px;
-  right:        4px;
-  width:        300px;
-  height:       20px;
-  z-index:      1;
-
-  font-size:    11px;
-  text-align:   right;
+  position: absolute;   top: 2px;   right: 4px;   width: 300px;   height: 20px;   z-index: 1;
+  text-align: right;
+  font-size: 11px;
 }
-
 div#Logo {
-  position:     absolute;
-  top:          10px;
-  left:         10px;
-
-  z-index:      1;
+  position: absolute;   top: 10px;    left: 10px;   z-index: 1;
 }
-
 div#Banner {
-  position:     absolute;
-  top:          20px;
-  right:        4px;
-  z-index:      0;
+  position: absolute;   top: 20px;    right: 4px;   z-index: 0;
 }
-
 div#BoxesLeft {
-  position:     absolute;
-  top:          100px;
-  left:         4px;
-  width:        180px;
-  z-index:      1;
+  position: absolute;   top: 100px;   left: 4px;    width: 180px;   z-index: 1;
 }
-
 div#Content {
-  position:     absolute;
-  top:          100px;
-  left:         190px;
-  right:        190px;
-  z-index:      1;
-
-  background:   #eee6e6;
-  margin:       0px 2px 10px 2px;  /*Top Right Bottom Left*/
-  padding:      8px 4px 10px 8px;  /*Top Right Bottom Left*/
+  position: absolute;   top: 100px;   right: 190px;   left: 190px;    z-index: 1;
+  margin: 0px 2px 10px 2px;   padding: 8px 4px 10px 8px;
+  background: #eee6e6;
 }
-
 div#ContentFullscreen {
-  position:     absolute;
-  top:          40px;
-  left:         10px;
-  right:        10px;
-  z-index:      1;
-
-  background:   #eee6e6;
-  margin:       0px 2px 10px 2px;  /*Top Right Bottom Left*/
-  padding:      8px 4px 10px 8px;  /*Top Right Bottom Left*/
+  position: absolute;   top: 40px;    right: 10px;    left: 10px;   z-index: 1;
+  margin: 0px 2px 10px 2px;   padding: 8px 4px 10px 8px;
+  background: #eee6e6;
 }
-
 div#BoxesRight {
-  position:     absolute;
-  top:          100px;
-  right:        4px;
-  width:        180px;
-  z-index:      1;
+  position: absolute;   top: 100px;   right: 4px;   width: 180px;   z-index: 1;
 }
-
 div#Footer {
-  position:     relative;
-  width:        100%;
-  z-index:      1;
-
-  text-align:   center;
-  margin:       8px 0px 0px 0px;  /*Top Right Bottom Left*/
+  position: relative;   width: 100%;    z-index: 1;
+  margin: 8px 0px 0px 0px;
+  text-align: center;
 }
-
 
 /* Boxes */
-
 ul.Box {
-  position:     relative;
-
-  margin:       0px 4px 8px 4px;  /*Top Right Bottom Left*/
-  padding:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  position: relative;
+  margin: 0px 4px 8px 4px;    padding: 0px 0px 0px 0px;
 }
-
 ul.BoxHeadline {
-  font-weight:  bold;
-
-  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
-  padding:      4px 4px 4px 8px;  /*Top Right Bottom Left*/
-  border-bottom:1px solid #9c9d9c;
-  background:   #eee6e6;
-
-  list-style:   none;
+  margin: 0px 0px 0px 0px;    border-bottom:1px solid #9c9d9c;    padding: 4px 4px 4px 8px;
+  background: #eee6e6;
+  font-weight: bold;    list-style: none;
 }
-
 li.BoxCaption {
-  font-weight:  bold;
-  width:        140px;
-  float:        left;
-
-  background:   #eee6e6;
-  list-style:   none;
+  width: 140px;
+  float: left;
+  background: #eee6e6;
+  font-weight: bold;    list-style: none;
 }
-
 li.BoxHelpClose {
-  width:        20px;
-
-  font-size:    10px;
-  list-style:   none;
+  width: 20px;
+  font-size: 10px;   list-style: none;
 }
-
 ul.BoxContent {
-  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
-  padding:      4px 4px 4px 8px;  /*Top Right Bottom Left*/
-  background:   #dee2e6;
-
-  list-style:   none;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 8px;
+  background: #dee2e6;
+  list-style: none;
 }
-
 li.engaged {
-  padding:      0px 0px 0px 16px;  /*Top Right Bottom Left*/
+  padding: 0px 0px 0px 16px;
 }
-
 .box_entry {
-  padding:      0px 0px 2px 16px;  /*Top Right Bottom Left*/
-	white-space:	nowrap;
-	background-image: url(images/arrows_menurow.gif);
-  background-repeat: no-repeat;
+  padding: 0px 0px 2px 16px;
+	white-space: nowrap;
+  background-image: url(images/arrows_menurow.gif);   background-repeat: no-repeat;
 }
-
 .box_entry_active {
-  padding:      0px 0px 2px 16px;  /*Top Right Bottom Left*/
-	white-space:	nowrap;
-	background-image: url(images/arrows_menurow_close.gif);
-  background-repeat: no-repeat;
+  padding: 0px 0px 2px 16px;
+	white-space: nowrap;
+	background-image: url(images/arrows_menurow_close.gif);    background-repeat: no-repeat;
 }
-
 
 /* Content */
-
 ul.Line {
-  position:     relative;
-
-  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
-  padding:      0px 0px 2px 0px;  /*Top Right Bottom Left*/
-  border-bottom:1px solid #9c9d9c;
-
-  clear:        left;
+  position: relative;   margin: 0px 0px 0px 0px;    border-bottom: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
+  clear: left;
 }
-
 li.LineLeft {
-  width:        280px;
-  min-height:   16px;
-  float:        left;
-
-  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
-  padding:      4px 4px 4px 4px;  /*Top Right Bottom Left*/
-
-  vertical-align: middle;
-  background:   #eee6e6;
-  list-style:   none;
-
-  z-index:      10;
+  width: 280px;   min-height: 16px;   z-index: 10;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  float: left;    vertical-align: middle;
+  background: #eee6e6;
+  list-style: none;
 }
-
 li.LineRight {
-  min-height:   16px;
-
-  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
-  padding:      4px 4px 4px 4px;  /*Top Right Bottom Left*/
-
+  min-height: 16px;   z-index: 11;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
   vertical-align: middle;
-  background:   #eeeeee;
-  list-style:   none;
-
-  z-index:      11;
+  background: #eeeeee;
+  list-style: none;
 }
-
 li.Confirmation {
-	background:		#00ff00;
-  font-weight:  bold;
-
-  padding:      4px 2px 0px 2px;  /*Top Right Bottom Left*/
+  padding: 4px 2px 0px 2px;
+	background: #00ff00;
+  font-weight: bold;
 }
-
 li.Error {
-	background:		#f33737;
-  margin:       0px 2px 10px 2px;  /*Top Right Bottom Left*/
-  padding:      8px 4px 10px 8px;  /*Top Right Bottom Left*/
-  list-style:   none;
+  margin: 0px 2px 10px 2px;   padding: 8px 4px 10px 8px;
+	background: #f33737;
+  list-style: none;
 }
-
 li.Information {
-	background:		#f8ae38;
-  margin:       0px 2px 10px 2px;  /*Top Right Bottom Left*/
-  padding:      8px 4px 10px 8px;  /*Top Right Bottom Left*/
-  list-style:   none;
+  margin: 0px 2px 10px 2px;   padding: 8px 4px 10px 8px;
+	background: #f8ae38;
+  list-style: none;
 }
-
 li.Confirmation {
-	background:		#84cd82;
-  margin:       0px 2px 10px 2px;  /*Top Right Bottom Left*/
-  padding:      8px 4px 10px 8px;  /*Top Right Bottom Left*/
-  list-style:   none;
+  margin: 0px 2px 10px 2px;   padding: 8px 4px 10px 8px;
+	background: #84cd82;
+  list-style: none;
 }
-
 div.Headline {
-  position:     relative;
-  font-weight:  bold;
+  position: relative;
+  font-weight: bold;
 }
-
 div.HeadlineSub {
 }
-
 div.HeadlineHelp {
-  position:     absolute;
-  top:          0px;
-  right:        8px;
-
-  font-size:    10px;
+  position: absolute;   top: 0px;   right: 8px;
+  font-size: 10px;
 }
-
 .row_key {
-	background:		#E8E7E7;
-  font-weight:  bold;
-
-  border-bottom:1px solid #9c9d9c;
-  padding:      4px 2px 0px 2px;  /*Top Right Bottom Left*/
+  border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
+	background: #E8E7E7;
+  font-weight: bold;
 }
-
 .row_value {
-	background:		#EFEFEF;
-
-  border-bottom:1px solid #9c9d9c;
-  padding:      4px 2px 0px 2px;  /*Top Right Bottom Left*/
+  border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
+	background: #EFEFEF;
 }
-
 .row_value_highlighted {
+  border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
 	background:		#E2F2E2;
-
-  border-bottom:1px solid #9c9d9c;
-  padding:      4px 2px 0px 2px;  /*Top Right Bottom Left*/
 }
-
 .row_value_important {
-	background:		#EEE6BD;
-
-  border-bottom:1px solid #9c9d9c;
-  padding:      4px 2px 0px 2px;  /*Top Right Bottom Left*/
+  border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
+	background: #EEE6BD;
 }
-
 ul.Button {
-  margin:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
-  padding:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
 }
-
 ul.Button a {
-  display:      block;
-  margin:       2px 2px 2px 2px;  /*Top Right Bottom Left*/
-  padding:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
-  width:        80px;
-
-  font-weight:  bold;
-	background:		#eeeeee;
-  text-align:   center;
+  display: block;   width: 80px;
+  margin: 2px 2px 2px 2px;    padding: 0px 0px 0px 0px;
+  text-align: center;
+	background: #eeeeee;
+  font-weight: bold;
 }
-
 ul.Button a:hover {
-  display:      block;
-  margin:       2px 2px 2px 2px;  /*Top Right Bottom Left*/
-  padding:      0px 0px 0px 0px;  /*Top Right Bottom Left*/
-  width:        80px;
-
-  font-weight:  bold;
-	background:		#aaaaaa;
-  text-align:   center;
+  display: block;   width: 80px;
+  margin: 2px 2px 2px 2px;    padding: 0px 0px 0px 0px;
+  text-align: center;
+	background: #aaaaaa;
+  font-weight: bold;
 }
-
 .tbl_7 { /* used for quotes */
-  background:   #C7C6C4;
-  font-family:  Courier New, Courier, mono;
-  font-size:    11px;
-  font-weight:  normal;
-  color:        #000000;
-  text-align:   left;
+  text-align: left;
+  background: #C7C6C4;    color: #000000;
+  font-family: Courier New, Courier, mono;
 }
 
 /* Message-Highlighting */
 .error {
-	color:			#FF0000;
-	font-weight:	bold;
-	text-align:		left;
+	text-align: left;
+	color: #FF0000;
+	font-weight: bold;
 }
-
 .warning {
-	color:			#EE6600;
-	font-weight:	bold;
-	text-align:		left;
+	text-align: left;
+	color: #EE6600;
+	font-weight: bold;
 }
-
 .okay {
-	color:			#008000;
-	font-weight:	bold;
-	text-align:		left;
+	text-align: left;
+	color: #008000;
+	font-weight: bold;
 }
-
 
 /* Bars*/
-div.BarBorder {
-  position:     static;
-  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
-  padding:      6px 1px 6px 1px;  /*Top Right Bottom Left*/
-	background:		#000000;
-	float:        left;
+ul.BarOccupied {
+  position: static;   height: 12px;
+  margin: 0px 0px 0px 0px;        padding: 0px 0px 0px 0px;
+  float: left;
+	background: #2bb800;
 }
-
-div.BarFree {
-  position:     static;
-  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
-	background:		#b0b0b0;
-	float:        left;
+ul.BarMarked {
+  position: static;   height: 12px;
+  margin: 0px 0px 0px 0px;    border: 2px 0px 2px 0px solid #9c9d9c;    padding: 0px 0px 0px 0px;
+  float: left;
+	background: #fff500;
 }
-
-div.BarMarked {
-  position:     static;
-  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
-	background:		#fff500;
-	float:        left;
+ul.BarFree {
+  position: static;   height: 12px;
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
+  float: left;
+	background: #b0b0b0;
 }
-
-div.BarOccupied {
-  position:     static;
-  margin:       0px 0px 0px 0px;  /*Top Right Bottom Left*/
-	background:		#2bb800;
-	float:        left;
+ul.BarClear {
+  position: static;   width: 0px;   height: 0px;
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
+  clear: left;
 }
-
 
 /* Links */
 a:link, a:visited {
-	color:			#000000;
+	color: #000000;
 	text-decoration:none;
 }
 a:hover {
-	color:			#ff9000;
+	color: #ff9000;
 	text-decoration:underline;
 }
-
-/* Admin-Links */
 a.admin:link, a.admin:visited {
-	color:			#ff0000;
+	color: #ff0000;
 	text-decoration:none;
 }
-
 a.admin:hover {
-	color:			#ff0000;
+	color: #ff0000;
 	text-decoration:underline;
 }
