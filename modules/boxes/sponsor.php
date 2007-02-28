@@ -35,7 +35,7 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 		if ($out and $sponsor["url"] != '' and $sponsor["url"] != "http://") $out = "<a href=\"index.php?mod=sponsor&action=bannerclick&design=base&type=box&sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">$out</a>";
 	}
 
-	if ($out != '') $templ['box']['rows'] .= $out . "<br /><br />";
+	if ($out != '') $templ['box']['rows'] .= '<li>'. $out . "<br /><br /></li>";
 }
 $db->free_result($sponsoren);
 

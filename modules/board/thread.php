@@ -113,11 +113,7 @@ elseif ($thread['caption'] != '') {
 		$templ['board']['thread']['case']['info']['post']['text'] 		= $func->db2text2html($row["comment"]);
 		$templ['board']['thread']['case']['info']['post']['date'] 		= $func->unixstamp2date($row["date"], "datetime");
 
-    if ($row['file']) {
-      $FileEnding = strtolower(substr($row['file'], strrpos($row['file'], '.'), 5));
-      if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') $templ['board']['thread']['case']['info']['post']['text'] .= HTML_NEWLINE . HTML_NEWLINE. '<img src="'. $row['file'] .'" />';
-      else $templ['board']['thread']['case']['info']['post']['text'] .= HTML_NEWLINE . HTML_NEWLINE. $dsp->FetchIcon($row['file'], 'download') .' ('. t('Angehängte Datei herunterladen').')';
-    }
+    if ($row['file']) $templ['board']['thread']['case']['info']['post']['text'] .= $dsp->FetchAttachmentRow($row['file']);
 
 		if ($row['userid'] == 0){
 			preg_match("@<!--(.*)-->@",$row['comment'],$tmp);
