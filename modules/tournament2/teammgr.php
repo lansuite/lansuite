@@ -28,7 +28,7 @@ switch($step) {
     include_once('modules/usrmgr/search_main.inc.php');      
 
     $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
-    if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr&step=41&teamid='. $_GET["teamid"] .'&tournamentid='. $tournamentid .'&userid=', 'Assign');
+    $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr&step=41&teamid='. $_GET["teamid"] .'&tournamentid='. $tournamentid .'&userid=', 'Assign');
 
     $ms2->PrintSearch('index.php?mod=tournament2&action=teammgr&step=40&teamid='. $_GET["teamid"] .'&tournamentid='. $tournamentid, 'u.userid');
 	break;
