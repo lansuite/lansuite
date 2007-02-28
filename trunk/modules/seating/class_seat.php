@@ -258,18 +258,6 @@ class seat2 {
 			$templ['seat']['cols'] = "";
 			for ($x = 0; $x <= $block['cols']; $x++) {
 
-				// Generate JavaScript
-				if ($seat_state[$y][$x] == 2 and $seat_userid[$y][$x] == $auth['userid']) $s_state = 8;
-				elseif ($seat_state[$y][$x] == 2 and in_array($seat_userid[$y][$x], $my_clanmates)) $s_state = 9;
-				else $s_state = $seat_state[$y][$x];
-        
-				if (!$cfg['sys_internet'] OR $auth['type'] > 1 OR ($auth['userid'] == $selected_user && $selected_user != false)){
-					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},{$user_info[$y][$x]['firstname']},{$user_info[$y][$x]['name']},{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
-				} else {
-					$templ['seat']['seat_data_array'] .= "seat['x$cell_nr'] = '{$user_info[$y][$x]['username']},,,{$user_info[$y][$x]['clan']},". $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .",0,{$s_state},{$seat_ip[$y][$x]},{$user_info[$y][$x]['clanurl']}';\r\n";
-				}
-
-
 				switch ($mode) {
           // Show plan				
 					default:
@@ -338,6 +326,10 @@ class seat2 {
 						if ($templ['seat']['img_name']) {
 
               // Generate popup
+      				if ($seat_state[$y][$x] == 2 and $seat_userid[$y][$x] == $auth['userid']) $s_state = 8;
+      				elseif ($seat_state[$y][$x] == 2 and in_array($seat_userid[$y][$x], $my_clanmates)) $s_state = 9;
+      				else $s_state = $seat_state[$y][$x];
+
               $templ['seat']['tooltip'] = '';
               switch ($s_state) {
                 case "2":
@@ -345,18 +337,19 @@ class seat2 {
                 case "8":
                 case "9":
   							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('Benutzername') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('Name') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('Clan') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('IP') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
+  							  if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))
+                    $templ['seat']['tooltip'] .= t('Name') .': '. $user_info[$y][$x]['firstname'] .' '. $user_info[$y][$x]['name'] . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
                 break;
                 case "1":
   							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('IP') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
                 break;
                 case "7":
   							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Gesperrt'). HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('IP') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
                 break;
                 case "80":
                 case "81":
