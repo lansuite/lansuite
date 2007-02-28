@@ -336,6 +336,43 @@ class seat2 {
 
 						$templ['seat']['cell_content'] = '';
 						if ($templ['seat']['img_name']) {
+
+              // Generate popup
+              $templ['seat']['tooltip'] = '';
+              switch ($s_state) {
+                case "2":
+                case "3":
+                case "8":
+                case "9":
+  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('Benutzername') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('Name') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('Clan') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('IP') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+                break;
+                case "1":
+  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('IP') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+                break;
+                case "7":
+  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Gesperrt'). HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('IP') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+                break;
+                case "80":
+                case "81":
+  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('Beschreibung') .': '. t('WC') . HTML_NEWLINE;
+                break;
+                case "82":
+  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('Beschreibung') .': '. t('Notausgang') . HTML_NEWLINE;
+                break;
+                case "83":
+  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $templ['seat']['tooltip'] .= t('Beschreibung') .': '. t('Catering') . HTML_NEWLINE;
+                break;
+              }
+
 							if ($templ['seat']['link_href']) {
 								$templ['seat']['link_content'] = $dsp->FetchModTpl('seating', 'plan_cell_img');
 								$templ['seat']['cell_content'] = $dsp->FetchModTpl('seating', 'plan_cell_link');

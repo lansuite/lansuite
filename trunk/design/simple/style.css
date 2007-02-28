@@ -192,6 +192,11 @@ ul.Button a:hover {
   background: #C7C6C4;    color: #000000;
   font-family: Courier New, Courier, mono;
 }
+.frame_box { /* used for seating descriptions */
+	border: 1px solid #9D9D9D;   padding: 4px 4px 4px 4px;
+	text-align: center;   vertical-align: middle;
+	background: #D6D6D6;
+}
 
 /* Message-Highlighting */
 .error {
