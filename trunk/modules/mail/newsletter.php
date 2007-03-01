@@ -31,7 +31,7 @@ switch($_GET["step"]) {
 
 		$t_array = array();
 		array_push($t_array, '<option $selected value="0">'. t('An alle Benutzer') .'</option>');
-		array_push($t_array, '<option $selected value="-1">'. t('Nirgends angemeldet') .'</option>');
+		array_push($t_array, '<option $selected value="-1">'. t('Zu keiner Party angemeldet') .'</option>');
     $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
     while($res = $db->fetch_array($row)) array_push($t_array, '<option $selected value="'. $res['party_id'] .'">'. $res['name'] .'</option>');
     $db->free_result($row);
