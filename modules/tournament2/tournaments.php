@@ -38,7 +38,7 @@ $mf = new masterform();
 $mf->AddField($lang['tourney']['details_name'], 'name');
 $mf->AddField($lang['tourney']['details_game'], 'game');
 $mf->AddField($lang['tourney']['details_version'], 'version', '', '', FIELD_OPTIONAL);
-$mf->AddGroup('Alg.');
+$mf->AddGroup('Allgemein');
 
 
 // Mode
