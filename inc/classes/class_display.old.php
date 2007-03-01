@@ -741,16 +741,6 @@ $this->form_open = true;
     }
     $templ['icon']['name'] = $picname;
 
-    // Accesskey
-    switch ($picname) {
-      default: $templ['icon']['accesskey'] = ''; break;
-      case 'add': $templ['icon']['accesskey'] = 'a'; break;
-      case 'change': $templ['icon']['accesskey'] = 'c'; break;
-      case 'edit': $templ['icon']['accesskey'] = 'e'; break;
-      case 'delete': $templ['icon']['accesskey'] = 'd'; break;
-      case 'send': $templ['icon']['accesskey'] = 's'; break;
-    }
-
     // Hint
     $templ['icon']['title'] = '';
     if ($hint == '') switch ($picname) {
@@ -761,7 +751,6 @@ $this->form_open = true;
       case 'delete': $hint = t('Löschen'); break;
       case 'send': $hint = t('Senden'); break;
     }
-    if ($templ['icon']['accesskey']) $hint .= '('. $templ['icon']['accesskey'] .')';
     if ($hint) $templ['icon']['title'] = ' onmouseover="return overlib(\''. $hint .'\');" onmouseout="return nd();"';
 
     $templ['icon']['additionalhtml'] = '';

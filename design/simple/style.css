@@ -55,7 +55,7 @@ div#Footer {
 }
 
 /* Boxes */
-ul.Box {
+div.Box {
   position: relative;
   margin: 0px 4px 8px 4px;    padding: 0px 0px 0px 0px;
 }
@@ -95,25 +95,27 @@ li.engaged {
 
 /* Content */
 ul.Line {
-  position: relative;   margin: 0px 0px 0px 0px;    border-top: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
+  position: relative;   height: 100%;
+  margin: 0px 0px 0px 0px;    border-top: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
   clear: left;
+  background: #eee6e6;
 }
 ul.LineFirst {
-  position: relative;   margin: 0px 0px 0px 0px;    padding: 0px 0px 2px 0px;
+  position: relative;   height: 100%;
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 2px 0px;
   clear: left;
+  background: #eee6e6;
 }
 li.LineLeft {
   width: 280px;   min-height: 16px;   z-index: 10;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
   float: left;    vertical-align: middle;
-  background: #eee6e6;
   list-style: none;
 }
 li.LineLeftBoard {
   width: 120px;   min-height: 16px;   z-index: 10;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
   float: left;    vertical-align: middle;
-  background: #eee6e6;
   list-style: none;
 }
 li.LineRight {
@@ -126,9 +128,9 @@ li.LineRight {
 li.Confirmation {
   padding: 4px 2px 0px 2px;
 	background: #00ff00;
-  font-weight: bold;
+  list-style: none;
 }
-li.Error {
+li.Err {
   margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
 	background: #f33737;
   list-style: none;
@@ -170,17 +172,17 @@ div.HeadlineHelp {
   border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
 	background: #EEE6BD;
 }
-ul.Button {
+div.Button {
   margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
 }
-ul.Button a {
+div.Button a {
   display: block;   width: 120px;
   margin: 2px 2px 2px 2px;    padding: 2px 6px 2px 6px;
   text-align: center;
 	background: #bbbbbb;
   font-weight: bold;
 }
-ul.Button a:hover {
+div.Button a:hover {
   display: block;   width: 120px;
   margin: 2px 2px 2px 2px;    padding: 2px 6px 2px 6px;
   text-align: center;
@@ -195,6 +197,9 @@ ul.Button a:hover {
   background-image: url(images/arrows_data.gif);   background-repeat: no-repeat;
   font-size: 10px;
 }
+.form_optional { /* used for optional form fields */
+  background: rgb(191,255,255);
+}
 .tbl_7 { /* used for quotes */
   text-align: left;
   background: #C7C6C4;    color: #000000;
@@ -204,6 +209,36 @@ ul.Button a:hover {
 	border: 1px solid #9D9D9D;   padding: 4px 4px 4px 4px;
 	text-align: center;   vertical-align: middle;
 	background: #D6D6D6;
+}
+
+/* Forms */
+
+fieldset {
+  margin: 0px 0px 0px 0px;   padding: 0px 0px 0px 0px;
+}
+label {
+  margin: 0px 0px 0px 0px;   padding: 0px 0px 0px 0px;
+}
+input {
+  margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 0px 0px 0px 0px;
+  background: #D7E5F2;   color: #102132;
+}
+select {
+  margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 0px 0px 0px 0px;
+  background: #D7E5F2;   color: #102132;
+  font-size: 11px;
+}
+textarea {
+  margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 0px 0px 0px 0px;
+  background: #D7E5F2;   color: #102132;
+}
+input.Button {
+  margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
+  background: #D7E5F2;   color: #102132;
+}
+input.Button:hover {
+  margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
+  background: #284279;   color: #ffffff;
 }
 
 /* Message-Highlighting */
