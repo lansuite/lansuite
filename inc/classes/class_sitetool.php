@@ -1,18 +1,13 @@
 <?php
 	/*
-	#
-	#
 	#	HINWEISE BITTE LESEN !!!
 	#	PLEASE READ THIS INSTRUCTIONS
-	#
-	#
-	#
-	#
+  #
 	#	IMPORTANT !!!
 	#	
 	#	We request you retain the full copyright notice below including the link to www.one-network.org.
 	#	This not only gives respect to the large amount of time given freely by the developers
-	#	but also helps build interest, traffic and use of Lansuite 2.0.
+	#	but also helps build interest, traffic and use of Lansuite.
 	#	Consequently many bugs can be reported and get fixed quickly.	
 	#
 	#	WICHTIG !!!
@@ -21,37 +16,28 @@
 	#	zu www.one-network.org nicht zu entfernen.
 	#	Dies zeigt nicht nur den Entwicklern, die eine Menge unbezahlte Zeit in dieses Projekt 
 	#	gesteckt haben, Respekt, sondern trägt auch der Beteiligung am Support, 
-	#	der Verbreitung und der Anzahl der Nutzer von Lansuite 2.0 bei.
+	#	der Verbreitung und der Anzahl der Nutzer von Lansuite bei.
 	#	Somit können viele Fehler schnell gemeldet und behoben werden.
 	#		
 	#		
 	*/
 
 class sitetool {
-
-	var $dir = "";
 	var $timer = "";
 	var $timer2 = "";
 	var $send_size = "0";
-	
 	var $content = "";			// Content
 	var $content_crc = "";		// Checksum of Content
 	var $content_size = "";		// Size of Content
 
-
 ################# Script-Start (Output-Init)
 
 	// Constructor
-	function sitetool($dir) {	// dir = "" (called in index.php)
-		// Still used??? Dont think so... [By KnoX]
-		$this->dir = $dir;
-
+	function sitetool() {
 		// Set Script-Start-Time, to calculate the scripts runtime
-		// Should be called earlyer...
 		$this->timer = time();
 		$this->timer2 = explode(' ', microtime());
 	}
-
 
 ################# Script-End (Output-Compress & Send)
 
@@ -113,7 +99,7 @@ class sitetool {
 
 $footer = '
 <a  href="ext_inc/newsfeed/news.xml" title="Latest news feed"><img src="ext_inc/footer_buttons/button-rss.png" width="80" height="15" alt="Latest news feed" border="0" /></a>
-<a  href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="license" title="Creative Commons License"><img src="ext_inc/footer_buttons/button-cc.gif" width="80" height="15" alt="Creative Commons License" border="0" /></a>
+<a  href="index.php?mod=about&action=license" rel="license" title="GNU General Public License"><img src="ext_inc/footer_buttons/button_gpl.png" width="80" height="15" alt="GNU General Public License" border="0" /></a>
 <a  href="https://www.paypal.com/xclick/business=jochen.jung%40gmx.de&amp;item_name=Lansuite&amp;no_shipping=2&amp;no_note=1&amp;tax=0&amp;currency_code=EUR&amp;lc=DE" title="Donate"><img src="ext_inc/footer_buttons/button-donate.gif" alt="Donate" width="80" height="15" border="0" /></a>
 <a  href="http://www.php.net" title="Powered by PHP"><img src="ext_inc/footer_buttons/button-php.gif" width="80" height="15" alt="Powered by PHP" border="0" /></a>
 <a  href="http://www.mysql.com" title="MySQL Database"><img src="ext_inc/footer_buttons/mysql.gif" width="80" height="15" alt="MySQL Database" border="0" /></a>
@@ -122,24 +108,6 @@ $footer = '
 <a  href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS"><img src="ext_inc/footer_buttons/button-css.png" width="80" height="15" alt="Valid CSS" border="0" /></a>
 -->
 <a  href="http://www.lansuite.de" title="Lansuite"><img src="ext_inc/footer_buttons/button_lansuite.png" width="80" height="15" alt="Lansuite" border="0" /></a>
-
-<!--
-<rdf:RDF xmlns="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-  <Work rdf:about="">
-    <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" />
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/InteractiveResource" />
-  </Work>
-  <License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.0/de/">
-    <permits rdf:resource="http://web.resource.org/cc/Reproduction"/>
-    <permits rdf:resource="http://web.resource.org/cc/Distribution"/>
-    <requires rdf:resource="http://web.resource.org/cc/Notice"/>
-    <requires rdf:resource="http://web.resource.org/cc/Attribution"/>
-    <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse"/>
-    <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks"/>
-    <requires rdf:resource="http://web.resource.org/cc/ShareAlike"/>
-  </License>
-</rdf:RDF>
--->
 ';
 
 			// Define Footer-Message
@@ -155,8 +123,9 @@ $footer = '
 
 			// change & to &amp;
 			$index = preg_replace("~&(?=(\w+|[a-f0-9]+)=)~i", "&amp;", $index);
-			// $index = preg_replace("~&(?!(\w+|#\d+|#x[a-f0-9]+);)~i", "&amp;", $index);
-			$index = preg_replace("~<img src=\"/\"((\w|\s|\"|\=)+)>~i", "", $index);
+			#$index = preg_replace("~&(?!(\w+|#\d+|#x[a-f0-9]+);)~i", "&amp;", $index);
+      // Delete empty images
+      #$index = preg_replace("~<img src=\"/\"((\w|\s|\"|\=)+)>~i", "", $index);
 
 			if ($compression_mode and $cfg['sys_compress_level']) {
 				Header("Content-Encoding: $compression_mode");

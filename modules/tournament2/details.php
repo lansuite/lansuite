@@ -18,10 +18,13 @@ else {
 	switch ($step){
     // Shuffle maps
     case 20:
-      $maps = explode("\n", $tournament["mapcycle"]);
-      shuffle($maps);
-      $tournament["mapcycle"] = implode("\n", $maps);
-      $db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET mapcycle = '{$tournament['mapcycle']}' WHERE tournamentid = '$tournamentid'");
+      if ($auth['type'] <= 1) $func->error('ACCESS_DENIED');
+      else {
+        $maps = explode("\n", $tournament["mapcycle"]);
+        shuffle($maps);
+        $tournament["mapcycle"] = implode("\n", $maps);
+        $db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET mapcycle = '{$tournament['mapcycle']}' WHERE tournamentid = '$tournamentid'");
+      }
     break;
   }
   
@@ -138,9 +141,9 @@ else {
           $maps = explode("\n", $tournament["mapcycle"]);
           $map_str = '';
           foreach ($maps as $key => $val) $map_str .= "{$lang['tourney']['games_round']} $key: $val \n";
-					$dsp->AddDoubleRow($lang["tourney"]["details_mapcycle"]
-            .'<br /><br /><a href="index.php?mod=tournament2&action=details&tournamentid='. $_GET['tournamentid'] .'&step=20">'. $lang["tourney"]["details_mapcycle_shuffle"] .'</a>',
-            $func->db2text2html($map_str));
+          $mapcycle = $lang["tourney"]["details_mapcycle"]. HTML_NEWLINE . HTML_NEWLINE;
+          if ($auth['type'] > 1) $mapcycle .= '<a href="index.php?mod=tournament2&action=details&tournamentid='. $_GET['tournamentid'] .'&step=20">'. $lang["tourney"]["details_mapcycle_shuffle"] .'</a>';
+					$dsp->AddDoubleRow($mapcycle, $func->db2text2html($map_str));
           $dsp->AddFieldsetEnd();
 				break;
 

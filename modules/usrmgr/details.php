@@ -165,10 +165,6 @@ else {
 			$phone = '';
       if ($user_data['telefon'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= $dsp->AddIcon('phone', '', 'Phone'). ' '. $user_data['telefon'] . ' ';
       if ($user_data['handy'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= $dsp->AddIcon('cellphone', '', 'Handy'). ' '. $user_data['handy'] . ' ';
-      if ($user_data['skype']) {
-        if ($cfg['sys_internet']) $phone .= '<a href="skype:'. $user_data['skype'] .'?call"><img src="http://download.skype.com/share/skypebuttons/buttons/call_blue_transparent_34x34.png" style="border: none;" width="20" height="20" alt="Skype" title="Skype:'. $user_data['skype'] .'" /></a>';
-        else $phone .= '[Skype:'. $user_data['skype'] .']';
-      }
       $dsp->AddDoubleRow($lang['usrmgr']['telefon'], $phone);
 
 
@@ -187,14 +183,18 @@ else {
       
 
 			// Messenger
-    	$messenger = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>Online:';
-      ($user_auth['count'] >= '1') ? $messenger .= $dsp->AddIcon('yes') : $messenger .= $dsp->AddIcon('no');
+    	$messenger = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
       if ($user_data['icq']) {
-        if ($cfg['sys_internet']) $messenger .= ' <a href="http://wwp.icq.com/scripts/search.dll?to='. $user_data['icq'] .'" target="_blank"><img src="http://status.icq.com/online.gif?icq='. $user_data['icq'] .'&img=26" alt="ICQ" title="ICQ#'. $user_data['icq'] .'" border="0" /></a> ';
-        else $messenger .= ' [ICQ#'. $user_data['icq'] .'] ';
+        if ($cfg['sys_internet']) $messenger .= ' <a href="http://wwp.icq.com/scripts/search.dll?to='. $user_data['icq'] .'" target="_blank"><img src="ext_inc/footer_buttons/icq.gif" alt="ICQ" title="ICQ#'. $user_data['icq'] .'" border="0" /></a> ';
+        else $messenger .= ' <img src="ext_inc/footer_buttons/icq.gif" alt="ICQ" title="ICQ: #'. $user_data['icq'] .'" border="0" /> ';
       }
-      if ($user_data['msn']) $messenger .= ' [MSN:'. $user_data['msn'] .'] ';
+      if ($user_data['msn']) $messenger .= ' <img src="ext_inc/footer_buttons/msn.gif" alt="MSN" title="MSN: '. $user_data['msn'] .'" border="0" />';
+      if ($user_data['skype']) {
+        if ($cfg['sys_internet']) $messenger .= '<a href="skype:'. $user_data['skype'] .'?call"><img src="ext_inc/footer_buttons/skype.gif" alt="Skype" title="Skype: '. $user_data['skype'] .'" border="0" /></a>';
+        else $messenger .= ' <img src="ext_inc/footer_buttons/skype.gif" alt="Skype" title="Skype: '. $user_data['skype'] .'" border="0" />';
+      }
       $messenger .= '</td><td align="right">&nbsp;';
+      ($user_auth['count'] >= '1') ? $messenger .= $dsp->AddIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->AddIcon('no', '', t('Benutzer ist Offline'));
 		  if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], $lang['usrmgr']['details_buddy_help']) .' ';
       $messenger .= '</td></tr></table>';
       $dsp->AddDoubleRow('Messenger', $messenger);

@@ -129,17 +129,17 @@ li.Confirmation {
   font-weight: bold;
 }
 li.Error {
-  margin: 0px 2px 10px 2px;   padding: 8px 4px 10px 8px;
+  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
 	background: #f33737;
   list-style: none;
 }
 li.Information {
-  margin: 0px 2px 10px 2px;   padding: 8px 4px 10px 8px;
+  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
 	background: #f8ae38;
   list-style: none;
 }
 li.Confirmation {
-  margin: 0px 2px 10px 2px;   padding: 8px 4px 10px 8px;
+  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
 	background: #84cd82;
   list-style: none;
 }
@@ -186,6 +186,14 @@ ul.Button a:hover {
   text-align: center;
 	background: #999999;
   font-weight: bold;
+}
+.Help {
+  color: #aaaaaa;
+}
+.AdminIcons {
+  padding: 0px 0px 2px 16px;
+  background-image: url(images/arrows_data.gif);   background-repeat: no-repeat;
+  font-size: 10px;
 }
 .tbl_7 { /* used for quotes */
   text-align: left;
