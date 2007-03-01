@@ -301,7 +301,7 @@ $lang['usrmgr']['remind_pw_generated'] = 'Das neue Kennwort wurde erfolgreich ge
 $lang['usrmgr']['remind_wrong_fcode'] = 'Der von Ihnen übermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prüfen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.';
 $lang['usrmgr']['remind_email_hint'] = 'Bitte geben Sie die Email-Adresse ein, mit der Sie sich am System angemeldet haben';
 $lang['usrmgr']['remind_email'] = 'Ihre Email';
-$lang['usrmgr']['switch_success'] = 'Benutzer wechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam';
+$lang['usrmgr']['switch_success'] = 'Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.';
 $lang['usrmgr']['switch_wrong_sbc'] = 'Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.';
 $lang['usrmgr']['switch_wrong_level'] = 'Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt';
 
