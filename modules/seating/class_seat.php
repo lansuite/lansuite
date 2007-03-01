@@ -342,6 +342,8 @@ class seat2 {
                     $templ['seat']['tooltip'] .= t('Name') .': '. $user_info[$y][$x]['firstname'] .' '. $user_info[$y][$x]['name'] . HTML_NEWLINE;
   							  $templ['seat']['tooltip'] .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
   							  $templ['seat']['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
+  							  if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))
+  							    if ($user_info[$y][$x]['picture'] != '') $templ['seat']['tooltip'] .= '<img src=&quot;'. $user_info[$y][$x]['picture'] .'&quot; />' . HTML_NEWLINE;
                 break;
                 case "1":
   							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
