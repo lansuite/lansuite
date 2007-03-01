@@ -6,11 +6,11 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:ev="http://www.w3.org/2001/xml-events"
     version="1.1" baseProfile="full"
-    width="600" height="300" viewBox="0 0 700 300">
+    width="700" height="300" viewBox="0 0 700 300">
 
-  <polyline points="40 278  660 278" fill="none" stroke="black" stroke-width="3px" />
-  <polyline points="40 0  40 280" fill="none" stroke="black" stroke-width="3px" />
-  <polyline points="660 0  660 280" fill="none" stroke="black" stroke-width="3px" />
+  <polyline points="50 278  650 278" fill="none" stroke="black" stroke-width="3px" />
+  <polyline points="50 0  50 280" fill="none" stroke="black" stroke-width="3px" />
+  <polyline points="650 0  650 280" fill="none" stroke="black" stroke-width="3px" />
 <?
 
 switch ($_GET['time']) {
@@ -65,7 +65,7 @@ while ($row = $db->fetch_array($res)) {
 $db->free_result($res);
 
 $z = 1;
-for ($x = 40 + ((700 - 80) / $XSteps); $x < 660; $x += ((700 - 80) / $XSteps)) {
+for ($x = 50 + ((700 - 100) / $XSteps); $x < 650; $x += ((700 - 100) / $XSteps)) {
   echo '<polyline points="'. $x .' 278  '. $x .' 270" fill="none" stroke="black" stroke-width="3px" />';
   echo '<text y="295" x="'. ($x - 8) .'" fill="blue">'. $z .'</text>';
   if ($z % 5 == 0)
@@ -76,11 +76,11 @@ for ($x = 40 + ((700 - 80) / $XSteps); $x < 660; $x += ((700 - 80) / $XSteps)) {
 $z = $row_max['visits'];
 $z2 = $row_max['hits'];
 for ($y = 0; $y < 280; $y+= (280 / 14)) {
-  echo '<polyline points="40 '. $y .' 48  '. $y .'" fill="none" stroke="black" stroke-width="3px" />';
-  echo '<polyline points="652 '. $y .' 660  '. $y .'" fill="none" stroke="black" stroke-width="3px" />';
+  echo '<polyline points="50 '. $y .' 58  '. $y .'" fill="none" stroke="black" stroke-width="3px" />';
+  echo '<polyline points="642 '. $y .' 650  '. $y .'" fill="none" stroke="black" stroke-width="3px" />';
   echo '<text x="0" y="'. $y .'" fill="#990000">'. round($z, 0) .'</text>';
   $z -= $row_max['visits'] / 14;
-  echo '<text x="662" y="'. $y .'" fill="#009900">'. round($z2, 0) .'</text>';
+  echo '<text x="652" y="'. $y .'" fill="#009900">'. round($z2, 0) .'</text>';
   $z2 -= $row_max['hits'] / 14;
 }
 
@@ -91,14 +91,14 @@ $res = $db->query("SELECT DATE_FORMAT(time, '$group_by') AS group_by_time, UNIX_
   GROUP BY DATE_FORMAT(time, '$group_by')
   ORDER BY DATE_FORMAT(time, '$group_by')
 ");
-$X = 40;
+$X = 50;
 $Y = 280;
 $Y2 = 280;
 while ($row = $db->fetch_array($res)) {
   $lastX = $X;
   $lastY = $Y;
   $lastY2 = $Y2;
-  $X = (40 + ((700 - 80) / $XSteps) * date($multiply, $row['display_time']));
+  $X = (50 + ((700 - 100) / $XSteps) * date($multiply, $row['display_time']));
   $Y = 280 - (($row["visits"] / $row_max['visits']) * 280);
   $Y2 = 280 - (($row["hits"] / $row_max['hits']) * 280);
   echo '<polyline points="'. $lastX .' '. $lastY .'  '. $X .' '. $Y .'" stroke="#990000" stroke-width="3px"/>';
