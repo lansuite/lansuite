@@ -47,21 +47,15 @@ else {
       return false;
     }
     
+
+    // Show Upcomming
     include_once('inc/classes/class_masterform.php');
-    
-    $dsp->AddFieldsetStart($lang['usrmgr']['history']);
-    $UpcommingStartet = 0;
-    
     $MFID = 0;
-    $res = $db->query("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']} ORDER BY startdate");
+
+    $res = $db->query("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']} WHERE UNIX_TIMESTAMP(enddate) >= UNIX_TIMESTAMP(NOW()) ORDER BY startdate");
     while ($row = $db->fetch_array($res)) {
       if ($_GET['mf_step'] != 2 or $row['party_id'] == $_GET['party_id']) {
-        if (!$UpcommingStartet and $row['enddate'] >= time()) {
-          $dsp->AddFieldsetEnd();
-          $dsp->AddFieldsetStart($lang['usrmgr']['upcomming']);
-          $UpcommingStartet = 1;
-        }
-        
+
         $dsp->AddFieldsetStart($row['name'] .' ('. $func->unixstamp2date($row['startdate'], 'datetime') .' - '. $func->unixstamp2date($row['enddate'], 'datetime') .')');
         $mf = new masterform($MFID);
         $mf->AdditionalKey = 'party_id = '. $row['party_id'];
@@ -100,9 +94,36 @@ else {
       $MFID++;
     }
     $db->free_result($res);
+
+
+    // ShowHistory
+    $dsp->AddFieldsetStart(t('Vergangene Partys'));
+    $res = $db->query("SELECT p.*, pu.user_id, pu.paid, pu.checkin, pu.checkout, UNIX_TIMESTAMP(p.enddate) AS enddate, UNIX_TIMESTAMP(p.sstartdate) AS sstartdate, UNIX_TIMESTAMP(p.senddate) AS senddate, UNIX_TIMESTAMP(p.startdate) AS startdate FROM {$config['tables']['partys']} AS p
+      LEFT JOIN {$config['tables']['party_user']} AS pu ON p.party_id = pu.party_id
+      WHERE UNIX_TIMESTAMP(p.enddate) < UNIX_TIMESTAMP(NOW()) AND (pu.user_id = ". (int)$_GET['user_id'] ." OR pu.user_id IS NULL)
+      ORDER BY p.startdate");
+    while ($row = $db->fetch_array($res)) {
+      $text = '';
+      if ($row['user_id']) {
+        $text .= t('Du warst angemeldet');
+        if ($row['paid'] == 0) $text .= t(', aber hattest nicht bezahlt');
+        if ($row['paid'] == 1) $text .= t('und hattest per Vorkasse gezahlt');
+        if ($row['paid'] == 2) $text .= t('und hattest per Abendkasse gezahlt');
+
+        if ($row['price_id']) $text .= '('. $row['price_id'] .')';
+        $text .= '.'. HTML_NEWLINE;
+
+        if ($row['checkin']) $text .= t('Eingecheckt: '). $func->unixstamp2date($row['checkin'], 'datetime') .' ';
+        if ($row['checkout']) $text .= t('Ausgecheckt: ').$func->unixstamp2date($row['checkout'], 'datetime');
+
+      } else $text .= t('Du warst nicht angemeldet');
+      $dsp->AddDoubleRow($row['name'] .' ('. $func->unixstamp2date($row['startdate'], 'datetime') .' - '. $func->unixstamp2date($row['enddate'], 'datetime') .')', $text);
+    }
+    $db->free_result($res);
     $dsp->AddFieldsetEnd();
+
   } else $func->error('ACCESS_DENIED', ''); 
-  
+
   $dsp->AddBackButton('index.php?mod='. $_GET['mod']);
   $dsp->AddContent();
 }
