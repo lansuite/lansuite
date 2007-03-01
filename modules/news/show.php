@@ -7,7 +7,7 @@ $overall_news = $get_amount["number"];
 
 if($overall_news == 0) $func->no_items("Newsmeldungen", "", "rlist");
 else {
-	$dsp->NewContent(t('Neuigkeiten'), t('Hier sehen Sie aktuelle Informationen'));
+	$dsp->NewContent(t('Neuigkeiten'), t('Hier sehen Sie aktuelle Neuigkeiten.'));
 
 	// SET PAGE SPLIT
 	if ($cfg["news_count"] == "") $cfg["news_count"] = 5;

@@ -9,7 +9,7 @@ else $home_page = $cfg["home_logout"];
 switch ($home_page) {
 	// Show overview
 	default:
-		$dsp->NewContent(t('Startseite'), t('Willkommen! Hier sehen Sie eine kleine Übersicht der wichtigsten Aktivitäten'));
+		$dsp->NewContent(t('Startseite'), t('Willkommen! Hier sehen Sie eine kleine Übersicht der wichtigsten Aktivitäten.'));
 
 		$z = 1;
 
