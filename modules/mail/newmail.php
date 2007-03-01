@@ -64,7 +64,7 @@ if ($auth['userid']) {
   $mf->AddField(t('Mail-Typ'), 'type', IS_SELECTION, $selections, FIELD_OPTIONAL);
 } else {
   $mf->AddField('', 'captcha', IS_CAPTCHA);
-	$mf->AddField(t('Absender'), 'SenderMail', '', '', '', CheckValidEmail);
+	$mf->AddField(t('Absender E-Mail'), 'SenderMail', '', '', '', CheckValidEmail);
 }
 
 $mf->AddField(t('Betreff'), 'Subject');
