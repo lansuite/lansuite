@@ -1,11 +1,21 @@
 <?php
 
+// Sitetool (for compressing the content send to the browser)
+if ($_GET['design'] != 'base') {
+  include_once("inc/classes/class_sitetool.php");
+  $sitetool	= new sitetool('');
+}
+
 // HTTP-Headers
 header('Content-Type: text/html; charset=utf-8');
+#header('Content-Type: application/xhtml+xml; charset=utf-8');
 #header("Cache-Control: no-cache, must-revalidate");
 
 // Error Reporting auf "Alles außer Hinweise" setzen
 error_reporting(E_ALL ^ E_NOTICE);
+
+// For XHTML compatibility
+@ini_set('arg_separator.output','&amp;');
 
 // Start session-management
 session_start();
@@ -90,7 +100,6 @@ else include_once("inc/classes/class_db_mysql.php");
 include_once("inc/classes/class_func.php");
 include_once("inc/classes/class_auth.php");
 include_once("inc/classes/class_xml.php");
-if ($_GET['design'] != 'base') include_once("inc/classes/class_sitetool.php");
 include_once("inc/classes/class_display.php");
 include_once("inc/classes/class_gd.php");
 include_once("inc/classes/class_sec.php");
@@ -108,9 +117,6 @@ include_once("modules/cron2/class_cron2.php");
 // Initialize base classes
 $func		= new func;			// Base Functions (anything that doesnt belong elsewere)
 $gd		= new gd;			// GD Functions (for graphical outputs)
-
-if ($_GET['design'] != 'base') $sitetool	= new sitetool("");		// Sitetool (for compressing the content send to the browser)
-
 $dsp		= new display();		// Display Functions (to load the lansuite-templates)
 $mail		= new mail();			// Mail Functions (for sending mails to lansuite-users)
 $xml		= new xml;			// XML Functions (to maintain XML-Ex-/Imports)
