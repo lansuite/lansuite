@@ -41,6 +41,13 @@ class boxes {
 		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", "item_row");
 	}
 
+	function Row($row) {
+		global $templ, $dsp;
+
+		$templ['box']['row']['cont'] = $row;
+		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", "row");
+	}
+
 	function HRuleRow() {
 		global $templ, $dsp;
 
@@ -78,7 +85,7 @@ class boxes {
 	function AddTemplate($template) {
 		global $templ, $dsp;
 
-		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", $template);
+		$templ['box']['rows'] .= $this->Row($dsp->FetchModTpl("boxes", $template));
 	}
 
 	function CreateBox($boxid, $caption = "") {
@@ -86,11 +93,14 @@ class boxes {
 
 		if (!$_SESSION['box_'. $boxid .'_active']) {
       if ($templ['box']['rows'] == '') return;
-			$box_content = file("design/{$auth["design"]}/templates/box_case.htm");
+      $file = 'design/'. $auth['design'] .'/templates/box_case.htm';
 			$content = $dsp->FetchModTpl("boxes", "box");
-		} else $box_content = file("design/{$auth["design"]}/templates/box_case_closed.htm");
+		} else $file = 'design/'. $auth['design'] .'/templates/box_case_closed.htm';
 
-		$box_content = @implode("\n", $box_content);
+		$handle = fopen($file, 'rb');
+		$box_content = fread($handle, filesize($file));
+		fclose($handle);
+
 		$box_content = str_replace("{default_design}", $auth["design"], $box_content);
 		switch((int)$boxid) {
 		  case 1: $title = 'menu'; break;

@@ -313,14 +313,15 @@ class display {
 	}
 
 	function AddFormSubmitRow($button, $helplet_id = NULL, $var = false, $close = true) {
-		global $templ, $gd, $auth, $language;
+		global $templ, $gd, $auth, $language, $lang;
 
 		($var)? $ButtonName = $var : $ButtonName = 'imageField';
     $hint = $button;
 		$gd->CreateButton($button);
 
   	$key = '&nbsp;';
-  	$value = '<input type="image" name="'. $ButtonName .'" src="ext_inc/auto_images/'. $auth['design'] .'/'. $language .'/button_'. $button .'.png" alt="'. $hint .'" title="'. $hint .'" accesskey="s" />';
+  	#$value = '<input type="image" name="'. $ButtonName .'" src="ext_inc/auto_images/'. $auth['design'] .'/'. $language .'/button_'. $button .'.png" alt="'. $hint .'" title="'. $hint .'" />';
+  	$value = '<input type="submit" class="Button" name="'. $ButtonName .'" value="'. $lang['button'][$button] .'" />';
     $this->AddDoubleRow($key, $value);
 
     if ($this->form_open && $close) $this->CloseForm();
@@ -653,7 +654,7 @@ class display {
 	function FetchCssButton($title, $link, $hint = NULL, $target = NULL) {
     ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
     ($target)? $target = ' target="_blank"' : $target = '';
-    return '<ul class="Button"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></ul>';
+    return '<div class="Button"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></div>';
 	}
 
 	function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {
@@ -666,16 +667,6 @@ class display {
     }
     $templ['icon']['name'] = $picname;
 
-    // Accesskey
-    switch ($picname) {
-      default: $templ['icon']['accesskey'] = ''; break;
-      case 'add': $templ['icon']['accesskey'] = 'a'; break;
-      case 'change': $templ['icon']['accesskey'] = 'c'; break;
-      case 'edit': $templ['icon']['accesskey'] = 'e'; break;
-      case 'delete': $templ['icon']['accesskey'] = 'd'; break;
-      case 'send': $templ['icon']['accesskey'] = 's'; break;
-    }
-
     // Hint
     $templ['icon']['title'] = '';
     if ($hint == '') switch ($picname) {
@@ -686,7 +677,6 @@ class display {
       case 'delete': $hint = t('Löschen'); break;
       case 'send': $hint = t('Senden'); break;
     }
-    if ($templ['icon']['accesskey']) $hint .= '('. $templ['icon']['accesskey'] .')';
     if ($hint) $templ['icon']['title'] = ' onmouseover="return overlib(\''. $hint .'\');" onmouseout="return nd();"';
 
     $templ['icon']['additionalhtml'] = '';

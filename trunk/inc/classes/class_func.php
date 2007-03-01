@@ -301,7 +301,7 @@ class func {
 
 		($text)? $templ['multiquestion']['info']['text'] = $text : $templ['multiquestion']['info']['text'] = t('Bitte wählen Sie eine Möglichkeit aus:');
 		if (is_array($questionarray)) foreach($questionarray as $ind => $question)
-      $templ['multiquestion']['control']['row'] .= '<br /><br /><a href="'. $linkarray[$ind] .'">'. $question .'</a>"';
+      $templ['multiquestion']['control']['row'] .= '<br /><br /><a href="'. $linkarray[$ind] .'">'. $question .'</a>';
 
     $dsp->AddTpl("design/templates/multiquestion.htm");
 	}

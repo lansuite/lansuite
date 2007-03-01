@@ -65,7 +65,6 @@ switch ($home_page) {
 
 		$dsp->AddSingleRow($dsp->FetchModTpl("home", "show_case"));
 		if ($party->count > 1) $party->get_party_dropdown_form();
-		$dsp->AddContent();
 	break;
 
 	// Show News
@@ -95,7 +94,6 @@ switch ($home_page) {
 		$db->free_result($get_news_caption);
 
 		if ($party->count > 1) $party->get_party_dropdown_form();
-		$dsp->AddContent();
   break;
 }
 ?>

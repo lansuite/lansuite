@@ -5,12 +5,12 @@ function BodyOnload() {
 
   // Load nifty-corners
   Nifty("ul.BoxHeadline", "top");
-  Nifty("li.BoxContent", "bottom");
+  Nifty("ul.BoxContent", "bottom");
   Nifty("div#Content", "big");
   Nifty("li.Confirmation", "big");
   Nifty("li.Information", "big");
-  Nifty("li.Error", "big");
-  Nifty("ul.Button a", "transparent fixed-height");
+  Nifty("li.Err", "big");
+  Nifty("div.Button a", "transparent fixed-height");
 }
 
 
