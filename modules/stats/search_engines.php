@@ -21,11 +21,10 @@ elseif ($se_name[$_GET["headermenuitem"]] != "") $where = "WHERE se = '{$se_name
 else $where = ""; // Wrong selection
 
 $query = $db->query("SELECT * FROM {$config["tables"]["stats_se"]} $where ORDER BY hits DESC, term ASC");
-$table = "<table><tr><th>{$lang["stats"]["se_term"]}</th><th>{$lang["stats"]["se_se"]}</th><th>{$lang["stats"]["se_hits"]}</th><th>{$lang["stats"]["se_first"]}</th><th>{$lang["stats"]["se_last"]}</th></tr>";
 while ($row = $db->fetch_array($query)) {
-	$table .= "<tr><td>{$row["term"]}</td><td>{$row["se"]}</td><td>{$row["hits"]}</td><td>". $func->unixstamp2date($row["first"], "datetime") ."</td><td>". $func->unixstamp2date($row["last"], "datetime") ."</td></tr>";
+  if (strlen($row['term']) > 30) $row['term'] = '<span onmouseover="return overlib(\''. $row['term'] .'\');" onmouseout="return nd();">'. substr($row['term'], 0, 28) .'...</span>';
+  $dsp->AddDoubleRow($row["term"], $row["hits"] .' Hits bei '. $row["se"] .' ('. $func->unixstamp2date($row["first"], "datetime") .' - '. $func->unixstamp2date($row["last"], "datetime") .')');
 }
-$table .= "</table>";
 $db->free_result($res);
 
 $dsp->AddSingleRow($table);

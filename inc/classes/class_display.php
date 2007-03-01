@@ -454,20 +454,18 @@ class display {
   }
 
   function AddPictureDropDownRow($name, $key, $path, $errortext, $optional = NULL, $selected = NULL) {
-    global $templ;
+    global $templ, $func;
 
+    $dir = $func->GetDirList($path);
+    $file_out = array();
     $file_out[] = "<option value=\"none\">None</option>";
-    $handle = @opendir($path);
-    while ($file = @readdir ($handle)) {
-      if( ($file != ".") AND ($file != "..")) {
-        $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
-        if (($extension == "jpeg") || ($extension == "jpg") || ($extension == "png") || ($extension == "gif")) {
-          ($file == $selected)? $file_out[] = "<option value=\"".$file."\" selected>".$file."</option>"
-            : $file_out[] = "<option value=\"".$file."\">".$file."</option>";
-        }
+    if ($dir) foreach($dir as $file) {
+      $extension = substr($file, strpos($file, '.') + 1, 4);
+      if ($extension == "jpeg" or $extension == "jpg" or $extension == "png" or $extension == "gif") {
+        ($file == $selected)? $file_out[] = "<option value=\"".$file."\" selected>".$file."</option>"
+          : $file_out[] = "<option value=\"".$file."\">".$file."</option>";
       }
     }
-    @closedir($handle);
 
   	($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
   	($optional)? $optional = "_optional" : $optional = '';

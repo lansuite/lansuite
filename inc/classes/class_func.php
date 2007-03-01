@@ -791,5 +791,19 @@ class func {
     }
     return round($size, 2) .' '. $iec[$i];
   }
+
+  function GetDirList($dir) {
+    if (!is_dir($dir)) return false;
+
+    $ret = array();
+    $handle = opendir($dir);
+    while ($file = readdir ($handle)) {
+      if ((substr($file, 0, 1)  != '.') and ($file != 'CVS')) $ret[] = strtolower($file);
+    }
+    closedir($handle);
+
+    sort($ret);
+    return $ret;
+  }
 }
 ?>
