@@ -143,12 +143,14 @@ if ($auth['type'] <= 1) {
   				// Set active and write menuitem
           ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
 
+          $link = str_replace('<', '&lt;', $menu_intem["caption"]);
+          $link = str_replace('>', '&gt;', $link);
   				$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
   				$db->query("INSERT INTO {$config['tables']['menu']}
   					SET module = 'info2',
   					caption = '{$menu_intem["caption"]}',
   					hint = '{$menu_intem["shorttext"]}',
-  					link = '?mod=info2&action=show_info2&submod={$menu_intem["caption"]}',
+  					link = '?mod=info2&action=show_info2&submod=$link',
   					requirement = 0,
   					level = $level,
   					pos = {$info_menu["pos"]},

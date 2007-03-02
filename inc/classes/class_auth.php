@@ -51,8 +51,7 @@ class auth {
 
 		// If Login / Logout
 		if ($_GET['mod'] == "logout") $this->logout();
-		elseif (isset($_POST['login_x'])) $this->login('save'); # Normal Login
-#		elseif (isset($_POST['save_x'])) $this->login("save"); # Login + Save
+		elseif (isset($_POST['login'])) $this->login('save'); # Normal Login
 		elseif ($_COOKIE['auth']['email'] != "" and (!$this->auth['login'])) $this->login('cookie'); # Login via Coockie
 
     // Reset Coockie-Timeout
