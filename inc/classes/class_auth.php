@@ -140,9 +140,8 @@ class auth {
 
 			// Wrong Password?
 			if ($tmp_login_pass != $user["password"]){
-				if ($cfg["sys_internet"]) $remindtext = $lang['class_auth']['wrong_pw_inet'];
-				else $remindtext = $lang['class_auth']['wrong_pw_lan'];
-				$func->information(HTML_FONT_ERROR . $lang['class_auth']['wrong_pw'] . HTML_FONT_END . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "");
+				($cfg["sys_internet"])? $remindtext = $lang['class_auth']['wrong_pw_inet'] : $remindtext = $lang['class_auth']['wrong_pw_lan'];
+				$func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "");
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['wrong_pw_log']), "2", "Authentifikation");
 
 			// Account disabled?
