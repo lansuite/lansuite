@@ -68,6 +68,27 @@ if ($_GET['fid'] != '') {
   $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
 }
 
+
+switch($_GET['step']) {
+  // Edit headline
+  case 10:
+    if ($auth['type'] >= 2) {
+      $dsp->AddFieldsetStart(t('Thread bearbeiten'));
+      include_once('inc/classes/class_masterform.php');
+      $mf = new masterform();
+      $mf->AddField(t('Überschrift'), 'caption', 'varchar(255)');
+      $pid = $mf->SendForm('index.php?mod=board&action=forum&step=10&fid='. $_GET['fid'] .'&tid='. $_GET['tid'], 'board_threads', 'tid', $_GET['tid']);
+      $dsp->AddFieldsetEnd();
+    }
+  break;
+  case 20:
+    if ($auth['type'] >= 2) foreach ($_POST['action'] as $key => $val) {
+      $db->query_first("UPDATE {$config["tables"]["board_threads"]} SET fid = ". (int)$_GET['to_fid'] ." WHERE tid = ". (int)$key);
+    }
+  break;
+}
+
+
 if ($_POST['search_input'][1] != '' or $_POST['search_input'][2] != '' or $_GET['search_input'][1] != '' or $_GET['search_input'][2] != '')
   $dsp->AddSingleRow('<b>'.t('Achtung: Sie haben als Suche einen Autor, bzw. Text angegeben. Die Ergebnis-Felder Antworten, sowie erster und letzter Beitrag beziehen sich daher nur noch auf Posts, in denen diese Eingaben gefunden wurden, nicht mehr auf den ganzen Thread!').'</b>');
 
@@ -109,7 +130,16 @@ $ms2->AddResultField(t('Erster Beitrag'), 'MIN(p.date) AS FirstPost', 'LastPostD
 $ms2->AddResultField(t('Letzter Beitrag'), 'MAX(p.date) AS LastPost', 'LastPostDetails');
 
 $ms2->AddIconField('details', 'index.php?mod=board&action=thread&fid='. $_GET["fid"] .'&tid=', t('Details'));
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=board&action=forum&step=10&fid='. $_GET['fid'] .'&tid=', t('Überschrift editieren'));
 if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=11&tid=', t('Löschen'));
+
+if ($auth['type'] >= 2) {
+  $res = $db->query("SELECT fid, name FROM {$config['tables']['board_forums']}");
+  while ($row = $db->fetch_array($res))
+    $ms2->AddMultiSelectAction(t('Verschieben nach '. $row['name']), 'index.php?mod=board&action=forum&step=20&to_fid='. $row['fid'] .'&fid='. $_GET['fid'], 1);
+  $db->free_result($res);
+}
+
 $ms2->PrintSearch('index.php?mod=board&action='. $_GET['action'] .'&fid='. $_GET['fid'], 't.tid');
 
 if ($_GET['fid'] != '') $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
