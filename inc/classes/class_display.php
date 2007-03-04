@@ -151,7 +151,7 @@ class display {
 		($optional)? $optional = "_optional" : $optional = '';
 		if ($val == '') $val = '1';
 
-		$value = '<input id="'. $name .'" name="'. $name .'" type="checkbox" class="form'. $optional .'" value="'. $val .'" '. $checked .' '. $disabled .' '. $additionalHTML .' />';
+		$value = '<input id="'. $name .'" name="'. $name .'" type="checkbox" class="checkbox" value="'. $val .'" '. $checked .' '. $disabled .' '. $additionalHTML .' />';
     $value .= '<label for="'. $name .'">'. $text .'</label>'. $errortext;
     $key = '<label for="'. $name .'">'. $key .'</label>';
     $this->AddDoubleRow($key, $value);

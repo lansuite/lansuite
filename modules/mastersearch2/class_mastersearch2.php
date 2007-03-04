@@ -128,6 +128,13 @@ class MasterSearch2 {
             break;
             case '1337':
       				$key_1337 = $_POST["search_input"][$z];
+      				$key_1337 = str_replace ('?', '[?]', $key_1337);
+      				$key_1337 = str_replace ('+', '[+]', $key_1337);
+      				$key_1337 = str_replace ('*', '[*]', $key_1337);
+      				$key_1337 = str_replace ('.', '[.]', $key_1337);
+      				$key_1337 = str_replace ('|', '[|]', $key_1337);
+      				$key_1337 = str_replace ('[', '[[]', $key_1337);
+
       				$key_1337 = str_replace ("o", "(o|0)", $key_1337);
       				$key_1337 = str_replace ("O", "(O|0)", $key_1337);
       				$key_1337 = str_replace ("l", "(l|1|\\\\||!)", $key_1337);
@@ -144,6 +151,8 @@ class MasterSearch2 {
       				$key_1337 = str_replace ("S", "(S|5|$)", $key_1337);
       				$key_1337 = str_replace ("z", "(z|2)", $key_1337);
       				$key_1337 = str_replace ("Z", "(Z|2)", $key_1337);
+
+      				$key_1337 = str_replace (']', '[[.right-square-bracket.]]', $key_1337);
               $sql_one_search_field .= "($sql_field REGEXP '$key_1337')";
             break;
             default:
@@ -378,7 +387,7 @@ class MasterSearch2 {
 
         // Checkbox
         if (count($this->multi_select_action) > 0) {
-          $templ['ms2']['table_entrys_row_field_entry'] = '<input type="checkbox" name="action['. $line[$select_id_field] .']">';
+          $templ['ms2']['table_entrys_row_field_entry'] = '<input type="checkbox" class="checkbox" name="action['. $line[$select_id_field] .']">';
           $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');
         }
 
@@ -452,7 +461,7 @@ class MasterSearch2 {
           else $templ['ms2']['multi_select_actions'] .= ', "'. $current_action['action'] .'"';
           if ($z == 0) $templ['ms2']['security_questions'] = '"'. $current_action['security_question'] .'"';
           else $templ['ms2']['security_questions'] .= ', "'. $current_action['security_question'] .'"';
-          ($current_action['icon'])? $BGIcon = ' style="background-image: url(design/images/icon_'. $current_action['icon'] .'.png); background-repeat: no-repeat;"' : $BGIcon = '';
+          ($current_action['icon'])? $BGIcon = ' style="background-image: url(design/images/icon_'. $current_action['icon'] .'.png); background-repeat: no-repeat; height:20px;"' : $BGIcon = '';
           $templ['ms2']['select_options'] .= "<option value=\"$z\"$BGIcon>{$current_action['caption']}</option>";
           $z++;
         }
