@@ -91,11 +91,12 @@ class MasterSearch2 {
     array_push($this->icon_field, $arr);
   }
 
-  function AddMultiSelectAction($caption, $action, $security_question = 0) {
+  function AddMultiSelectAction($caption, $action, $security_question = 0, $icon = '') {
     $arr = array();
     $arr['caption'] = $caption;
     $arr['action'] = $action;
     $arr['security_question'] = $security_question;
+    $arr['icon'] = $icon;
     array_push($this->multi_select_action, $arr);
   }
 
@@ -451,7 +452,8 @@ class MasterSearch2 {
           else $templ['ms2']['multi_select_actions'] .= ', "'. $current_action['action'] .'"';
           if ($z == 0) $templ['ms2']['security_questions'] = '"'. $current_action['security_question'] .'"';
           else $templ['ms2']['security_questions'] .= ', "'. $current_action['security_question'] .'"';
-          $templ['ms2']['select_options'] .= "<option value=\"$z\">{$current_action['caption']}</option>";
+          ($current_action['icon'])? $BGIcon = ' style="background-image: url(design/images/icon_'. $current_action['icon'] .'.png); background-repeat: no-repeat;"' : $BGIcon = '';
+          $templ['ms2']['select_options'] .= "<option value=\"$z\"$BGIcon>{$current_action['caption']}</option>";
           $z++;
         }
         $templ['ms2']['multi_select_dropdown'] = $dsp->FetchModTpl('mastersearch2', 'result_multi_dropdown');

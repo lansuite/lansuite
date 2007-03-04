@@ -110,7 +110,8 @@ else {
         $party_row = '';
         $link = '';
         ($user_party['user_id'])? $party_row .= $lang['usrmgr']['details_signon'] :  $party_row .= $lang['usrmgr']['details_not_signon'];
-        if (IsAuthorizedAdmin()) $link = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $_GET['userid'];
+        if (IsAuthorizedAdmin()) ($user_party['paid'])? $link = 'index.php?mod=guestlist&step=11&userid='. $_GET['userid']
+          : $link = 'index.php?mod=guestlist&step=10&userid='. $_GET['userid'];
         // Paid
         ($user_party['paid'])? $party_row .= ', '. $dsp->AddIcon('paid', $link) : $party_row .= ', '. $dsp->AddIcon('not_paid', $link);
         if ($user_party['paid'] == 1) $party_row .= ' ['. $lang['usrmgr']['details_paid_vvk'] .']';
@@ -122,16 +123,16 @@ else {
         }
         // CheckIn CheckOut
         $link = '';
-        if (IsAuthorizedAdmin() and !$user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkin&step=2&userid='. $_GET['userid'];
+        if (IsAuthorizedAdmin() and !$user_party['checkin']) $link = 'index.php?mod=guestlist&step=20&userid='. $_GET['userid'];
         if ($user_party['checkin']) $party_row .= ' '. $dsp->AddIcon('in', $link, $lang['usrmgr']['checkin']) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
         else $party_row .= ' '.$dsp->AddIcon('not_in', $link, $lang['usrmgr']['checkin_no']);
   
         $link = '';
-        if (IsAuthorizedAdmin() and !$user_party['checkout'] and $user_party['checkin']) $link = 'index.php?mod=usrmgr&action=checkout&step=2&userid='. $_GET['userid'];
+        if (IsAuthorizedAdmin() and !$user_party['checkout'] and $user_party['checkin']) $link = 'index.php?mod=guestlist&step=21&userid='. $_GET['userid'];
         if ($user_party['checkout']) $party_row .= ' '. $dsp->AddIcon('out', $link, $lang['usrmgr']['checkout']) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
         else $party_row .= ' '.$dsp->AddIcon('not_out', $link, $lang['usrmgr']['checkout_no']);
   
-        if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) $party_row .= $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=checkout&step=10&userid='. $_GET['userid'], 'Reset Checkin');
+        if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) $party_row .= $dsp->AddIcon('delete', 'index.php?mod=guestlist&step=22&userid='. $_GET['userid'], 'Reset Checkin');
   
         $dsp->AddDoubleRow("Party '<i>". $_SESSION['party_info']['name'] ."</i>'", $party_row);
       }

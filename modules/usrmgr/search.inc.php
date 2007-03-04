@@ -3,25 +3,6 @@ $LSCurFile = __FILE__;
 
 include_once('modules/usrmgr/search_main.inc.php');
 
-function PaidIconLink($paid){
-  global $dsp, $templ, $line, $party;
-  
-  // Only link, if selected party = current party
-  if ($_POST["search_dd_input"][1] == $party->party_id) $templ['ms2']['link'] = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
-  else $templ['ms2']['link'] = '';
-  
-  if ($paid) {
-    $templ['ms2']['icon_name'] = 'paid';
-    $templ['ms2']['icon_title'] = t('Bezahlt');
-  } else {
-    $templ['ms2']['icon_name'] = 'not_paid';
-    $templ['ms2']['icon_title'] = t('Nicht bezahlt');
-  }
-  $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
-  if ($templ['ms2']['link']) $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
-  return $templ['ms2']['link_item'];
-}
-
 function ClanURLLink($clan_name) {
   global $line;
 
@@ -65,12 +46,6 @@ $ms2->AddTextSearchDropDown(t('Accounts'), 'u.locked', array('' => t('Alle'), '0
 $ms2->AddSelect('c.url AS clanurl');
 $ms2->AddSelect('u.type');
 $ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLink');
-// If Party selected
-if (($_POST["search_dd_input"][1] != '' and $_POST["search_dd_input"][1] != 'NULL') or ($_GET["search_dd_input"][1] != '' and $_GET["search_dd_input"][1] != 'NULL')) {
-  $ms2->AddResultField(t('Bezahlt'), 'p.paid', 'PaidIconLink');
-  $ms2->AddResultField(t('In'), 'p.checkin', 'MS2GetDate');
-  $ms2->AddResultField(t('Out'), 'p.checkout', 'MS2GetDate');
-}
 
 $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Details'));
 if ($party->count > 0) $ms2->AddIconField('signon', 'index.php?mod=usrmgr&action=party&user_id=', t('Partyanmeldung'));
@@ -89,9 +64,10 @@ if ($auth['type'] >= 2) {
   }
   $db->free_result($res);
 }
-if ($auth['type'] >= 2) $ms2->AddMultiSelectAction(t('Freigeben'), "index.php?mod=usrmgr&action=account_lock&step=11", 1);
-if ($auth['type'] >= 2) $ms2->AddMultiSelectAction(t('Sperren'), "index.php?mod=usrmgr&action=account_lock&step=10", 1);
-if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), "index.php?mod=usrmgr&action=delete&step=10", 1);
+
+if ($auth['type'] >= 2) $ms2->AddMultiSelectAction(t('Freigeben'), "index.php?mod=usrmgr&action=account_lock&step=11", 1, 'unlocked');
+if ($auth['type'] >= 2) $ms2->AddMultiSelectAction(t('Sperren'), "index.php?mod=usrmgr&action=account_lock&step=10", 1, 'locked');
+if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), "index.php?mod=usrmgr&action=delete&step=10", 1, 'delete');
 
 $ms2->PrintSearch('index.php?mod=usrmgr&action=search', 'u.userid');
 ?>

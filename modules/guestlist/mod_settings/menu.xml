@@ -22,14 +22,6 @@
 		<level>1</level>
 	</entry>
 	<entry>
-		<caption>Zahlstatus ändern</caption>
-		<hint></hint>
-		<link>?mod=usrmgr&action=changepaid</link>
-		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
 		<caption>Kontocheck updaten</caption>
 		<hint></hint>
 		<link>?mod=guestlist&action=checking</link>

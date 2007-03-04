@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+  <typedefinition>
+    <head>
+      <name>mailselect</name>
+    </head>
+    <entries>
+  		<entry>
+  			<value>0</value>
+  			<description>Nein</description>
+  		</entry>
+  		<entry>
+  			<value>1</value>
+  			<description>Ja, als System-Mail</description>
+  		</entry>
+  		<entry>
+  			<value>2</value>
+  			<description>Ja, an seine Mail-Adresse</description>
+  		</entry>
+  		<entry>
+  			<value>3</value>
+  			<description>Ja, beides</description>
+  		</entry>
+    </entries>
+  </typedefinition>
   <group>
     <head>
       <name>Userdetails-Anzeige</name>
@@ -87,31 +110,10 @@
     </head>
     <items>
     	<item>
-    		<name>signon_ask_paid_email</name>
-    		<type>boolean</type>
-    		<default>1</default>
-    		<description>Soll nach der Bezahltstatusänderung die Option geboten werden, dem Benutzer eine Mail zu senden?</description>
-    	</item>
-    	<item>
-    		<name>signon_paid_email_text</name>
-    		<type>text</type>
-    		<default>Hallo %USERNAME%!
-
-Sie sind nun auf den Status bezahlt gesetzt und können
-für die kommende LanParty "%PARTYNAME%" Ihren Sitzplatz reservieren.
-
-Ihre Orgas</default>
-    		<description>Text der Mail, die ein Benutzer bekommt, wenn er auf 'Bezahlt' gesetzt wird</description>
-    	</item>
-    	<item>
-    		<name>signon_not_paid_email_text</name>
-    		<type>text</type>
-    		<default>Hallo %USERNAME%,
-
-Ihr Bezahltstatus der LanParty "%PARTYNAME%" wurde zurück auf "NICHT bezahlt" gesetzt.
-
-Ihre Orgas</default>
-    		<description>Text der Mail, die ein Benutzer bekommt, wenn er auf 'Nicht Bezahlt' gesetzt wird</description>
+    		<name>signon_send_paid_email</name>
+    		<type>mailselect</type>
+    		<default>3</default>
+    		<description>Soll nach Zahlstatusänderung dem Benutzer eine Mail gesendet werden?</description>
     	</item>
     </items>
   </group>  
