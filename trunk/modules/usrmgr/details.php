@@ -77,6 +77,10 @@ else {
       }
     	if ($user_data['username']) $name .= '('. $user_data['username'] .') ';
     	$name .= '['. $user_data['userid'] .']</td><td align="right">&nbsp;';
+    	if (IsAuthorizedAdmin()) {
+        ($user_data['locked'])? $name .= ' '. $dsp->AddIcon('locked', 'index.php?mod=usrmgr&step=11&userid='. $_GET['userid'], t('Account freigeben'))
+        : $name .= ' '. $dsp->AddIcon('unlocked', 'index.php?mod=usrmgr&step=10&userid='. $_GET['userid'], t('Account sperren'));
+      }
     	if (IsAuthorizedAdmin())
         $name .= ' '. $dsp->AddIcon('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid='. $_GET['userid'], $lang['button']['switch_user']);
       if ($_GET['userid'] == $auth['userid'])

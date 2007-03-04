@@ -21,8 +21,22 @@ function IfLowerUserlevel($userid) {
 
 function IfLowerOrEqualUserlevel($userid) {
   global $line, $auth;
-  
+
   if ($line['type'] <= $auth['type']) return true;
+  else return false;
+}
+
+function IfLocked($userid) {
+  global $line;
+
+  if ($line['locked']) return true;
+  else return false;
+}
+
+function IfUnlocked($userid) {
+  global $line;
+
+  if (!$line['locked']) return true;
   else return false;
 }
 
@@ -45,6 +59,7 @@ $ms2->AddTextSearchDropDown(t('Accounts'), 'u.locked', array('' => t('Alle'), '0
 
 $ms2->AddSelect('c.url AS clanurl');
 $ms2->AddSelect('u.type');
+$ms2->AddSelect('u.locked');
 $ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLink');
 
 $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Details'));
@@ -52,21 +67,23 @@ if ($party->count > 0) $ms2->AddIconField('signon', 'index.php?mod=usrmgr&action
 $ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', t('Mail senden'));
 $ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=', t('Passwort ändern'), 'IfLowerOrEqualUserlevel');
 if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid=', t('Benutzer wechseln'), 'IfLowerUserlevel');
+$ms2->AddIconField('locked', 'index.php?mod=usrmgr&step=10&userid=', t('Account freigeben'), 'IfLocked');
+$ms2->AddIconField('unlocked', 'index.php?mod=usrmgr&step=10&userid=', t('Account sperren'), 'IfUnlocked');
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=', t('Editieren'));
 if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=', t('Löschen'));
 
 
 if ($auth['type'] >= 2) {
   $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
-  $ms2->AddMultiSelectAction("Gruppenzuordung aufheben", "index.php?mod=usrmgr&action=group&step=30&group_id=0", 0);
+  $ms2->AddMultiSelectAction("Gruppenzuordung aufheben", "index.php?mod=usrmgr&action=group&step=30&group_id=0", 0, 'delete_group');
   while ($row = $db->fetch_array($res)) {
-    $ms2->AddMultiSelectAction("Der Gruppe '{$row['group_name']}' zuordnen", "index.php?mod=usrmgr&action=group&step=30&group_id={$row['group_id']}", 0);
+    $ms2->AddMultiSelectAction("Der Gruppe '{$row['group_name']}' zuordnen", "index.php?mod=usrmgr&action=group&step=30&group_id={$row['group_id']}", 0, 'assign_group');
   }
   $db->free_result($res);
 }
 
-if ($auth['type'] >= 2) $ms2->AddMultiSelectAction(t('Freigeben'), "index.php?mod=usrmgr&action=account_lock&step=11", 1, 'unlocked');
-if ($auth['type'] >= 2) $ms2->AddMultiSelectAction(t('Sperren'), "index.php?mod=usrmgr&action=account_lock&step=10", 1, 'locked');
+if ($auth['type'] >= 2) $ms2->AddMultiSelectAction(t('Freigeben'), "index.php?mod=usrmgr&step=11", 1, 'unlocked');
+if ($auth['type'] >= 2) $ms2->AddMultiSelectAction(t('Sperren'), "index.php?mod=usrmgr&step=10", 1, 'locked');
 if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), "index.php?mod=usrmgr&action=delete&step=10", 1, 'delete');
 
 $ms2->PrintSearch('index.php?mod=usrmgr&action=search', 'u.userid');
