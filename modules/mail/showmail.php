@@ -1,51 +1,51 @@
 <?php
 
-$mail_id = $_GET["mailID"];
+if (!$_GET['mailID']) $func->error(t('Keine Mail ausgewählt'), '');
+else {
+  $row = $db->query_first("SELECT mm.*, UNIX_TIMESTAMP(mm.tx_date) AS tx_date, UNIX_TIMESTAMP(mm.rx_date) AS rx_date, u1.username AS fromUsername, u2.username AS ToUsername
+  	FROM {$config["tables"]["mail_messages"]} AS mm
+  	LEFT JOIN {$config["tables"]["user"]} AS u1 ON mm.FromUserID = u1.userid
+  	LEFT JOIN {$config["tables"]["user"]} AS u2 ON mm.ToUserID = u2.userid
+  	WHERE mailID = ". (int)$_GET['mailID']
+  	);
 
-if ($mail_id) {
+  if (!($auth['userid'] == $row['fromUserID'] or $auth['userid'] == $row['toUserID'])) $func->information(t('Zugriff verweigert'), '');
+  else {
 
-	// get the mail, load mail-data to class-variables
-	$mail->get_mail($mail_id);
+    $dsp->NewContent(t('Nachricht'), '');
+		($row['fromUserID'])? $dsp->AddDoubleRow(t('Von'), $row['fromUsername'])
+		: $dsp->AddDoubleRow(t('Von'), '<i>'. t('System') .'</i>');
+		$dsp->AddDoubleRow(t('Gesendet'), $func->unixstamp2date($row['tx_date'], 'daydatetime'));
+		$dsp->AddDoubleRow(t('Betreff'), $row['Subject']);
+		$dsp->AddSingleRow($func->text2html($row['msgbody']));
 
-	if ($auth["userid"] == $mail->mail_header["from_userid"] OR $auth["userid"] == $mail->mail_header["to_userid"]){
-
-        $dsp->NewContent($lang["mail"]["showmail_title"], $lang["mail"]["showmail_mail_from"] ." <b>". $mail->mail_header["from_username"] ."</b> ". $lang["mail"]["showmail_mail_send"].": <b>". $mail->mail_header["sendtime_text"] ."</b>");
-
-		$dsp->AddDoubleRow($lang["mail"]["subject"], $mail->mail_subject["text"]);
-		$dsp->AddSingleRow($func->text2html($mail->mail_body["text"]));
-
-		// parse REFERER-Action and set buttons
-		$buttons = "";
-		switch($_GET["ref"]) {
+		$buttons = '';
+		switch($_GET['ref']) {
 			default:
-				$back_link = "index.php?mod=mail&action=inbox";
+				$back_link = 'index.php?mod=mail&action=inbox';
 			break;
 
-			case "in":
-				$back_link = "index.php?mod=mail&action=inbox";
-				$buttons .= $dsp->FetchButton("index.php?mod=mail&action=inbox&step=99&mailid=$mail_id", "delete");
-				$buttons .= $dsp->FetchButton("index.php?mod=mail&action=newmail&step=2&userID={$mail->mail_header["from_userid"]}&replyto=$mail_id", "new_post");
+			case 'in':
+				$back_link = 'index.php?mod=mail&action=inbox';
+				$buttons .= $dsp->FetchButton("index.php?mod=mail&action=inbox&step=20&mailid=". (int)$_GET['mailID'], "delete");
+				if ($row['fromUserID']) $buttons .= $dsp->FetchButton("index.php?mod=mail&action=newmail&step=2&userID=". $row['fromUserID'] ."&replyto=". (int)$_GET['mailID'], "new_post");
 			break;
 
-			case "out":
-				$back_link = "index.php?mod=mail&action=outbox";
-			break;	
+			case 'out':
+				$back_link = 'index.php?mod=mail&action=outbox';
+			break;
 
-			case "trash":
-				$back_link = "index.php?mod=mail&action=trash";
-				$buttons .= $dsp->FetchButton("index.php?mod=mail&action=newmail&step=2&userID={$mail->mail_header["from_userid"]}&replyto=$mail_id", "new_post");
-			break;	
+			case 'trash':
+				$back_link = 'index.php?mod=mail&action=trash';
+				if ($row['fromUserID']) $buttons .= $dsp->FetchButton("index.php?mod=mail&action=newmail&step=2&userID=". $row['fromUserID'] ."&replyto=". (int)$_GET['mailID'], "new_post");
+			break;
 		}
 
-		if ($buttons) $dsp->AddDoubleRow("", $buttons);
-		$dsp->AddBackButton($back_link, "showmail");
-        $dsp->AddContent();
+		if ($buttons) $dsp->AddDoubleRow('', $buttons);
+		$dsp->AddBackButton($back_link);
 
-		// set Mail to "READ"
-		if ($mail->mail_header['to_userid'] == $auth['userid']
-      and (!$mail->mail_header['readtime_stamp'] or $mail->mail_header['src_status'] == 'send' or $mail->mail_header['des_status'] == 'new'))
-      $mail->set_status_read($mail_id);
-
-	} else $func->information($lang["mail"]["showmail_error"], "");
-} else $func->error($lang["mail"]["showmail_nomailid"], "");
+		if ($auth['userid'] == $row['toUserID'] and !$row['rx_date'])
+		  $db->query("UPDATE {$config['tables']['mail_messages']} SET des_status = 'read', rx_date = NOW() WHERE mailID = ". (int)$_GET['mailID']);
+  }
+}
 ?>

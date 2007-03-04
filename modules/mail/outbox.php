@@ -5,7 +5,6 @@ $mail_read_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"
 $dsp->NewContent($lang["mail"]["out_outbox"], str_replace("%TOTAL%", $mail_send_total["n"], str_replace("%READ%", $mail_read_total["n"], $lang["mail"]["out_hint"])));
 $dsp->AddContent();
 
-
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 

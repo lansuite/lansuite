@@ -71,10 +71,8 @@ $mf->AddField(t('Betreff'), 'Subject');
 $mf->AddField(t('Nachricht'), 'msgbody', '', LSCODE_BIG);
 
 $mf->AddFix('mail_status', 'active');
-$mf->AddFix('src_status', 'send');
 $mf->AddFix('des_status', 'new');
 $mf->AddFix('fromUserID', $auth['userid']);
-$mf->AddFix('priority', 'normal');
 $mf->AddFix('tx_date', 'NOW()');
 
 $mf->CheckBeforeInserFunction = 'SendOnlineMail';

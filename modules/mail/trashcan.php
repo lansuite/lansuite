@@ -2,7 +2,6 @@
 $mail_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'delete'");
 $mail_unread_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'delete' AND des_status = 'new'");
 
-
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
@@ -23,8 +22,6 @@ $ms2->AddResultField($lang['mail']['showmail_mail_send'], 'UNIX_TIMESTAMP(m.tx_d
 $ms2->AddResultField($lang['mail']['showmail_mail_read'], 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate');
 
 $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=trash&mailID=', $lang['ms2']['details']);
-
-$ms2->AddMultiSelectAction('Löschen', 'index.php?mod=mail&action=delete&mailid=', 1);
 
 $ms2->PrintSearch('index.php?mod=mail&action=trash', 'm.mailid');
 ?>
