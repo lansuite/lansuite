@@ -14,12 +14,13 @@ function PaidIconLink($paid){
   if ($paid) {
     $templ['ms2']['icon_name'] = 'paid';
     $templ['ms2']['icon_title'] = 'Paid';
+    $templ['ms2']['link'] = 'index.php?mod=guestlist&step=11&userid='. $line['userid'];
   } else {
     $templ['ms2']['icon_name'] = 'not_paid';
     $templ['ms2']['icon_title'] = 'Not Paid';
+    $templ['ms2']['link'] = 'index.php?mod=guestlist&step=10&userid='. $line['userid'];
   }
   $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
-  $templ['ms2']['link'] = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
   if ($auth['type'] > 1) $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
   
   return $templ['ms2']['link_item'];
@@ -77,5 +78,12 @@ if ($party->party_id) {
 $ms2->AddIconField('details', 'index.php?mod=guestlist&action=details&userid=', $lang['ms2']['details']);
 $ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', $lang['ms2']['send_mail']);
 
+if ($auth['type'] >= 2) {
+  $ms2->AddMultiSelectAction(t('Auf "Bezahlt" setzen'), "index.php?mod=guestlist&step=10", 1, 'paid');
+  $ms2->AddMultiSelectAction(t('Auf "Nicht Bezahlt" setzen'), "index.php?mod=guestlist&step=11", 1, 'not_paid');
+  $ms2->AddMultiSelectAction(t('Einchecken'), "index.php?mod=guestlist&step=20", 1, 'in');
+  $ms2->AddMultiSelectAction(t('Auschecken'), "index.php?mod=guestlist&step=21", 1, 'out');
+  $ms2->AddMultiSelectAction(t('Ein- und Auschecken rückgängig'), "index.php?mod=guestlist&step=22", 1, 'not_out');
+}
 $ms2->PrintSearch('index.php?mod=guestlist', 'u.userid');
 ?>

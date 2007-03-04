@@ -132,20 +132,39 @@ Variablen:
     	<item>
     		<name>signon_paid_email_subject</name>
     		<type>string</type>
-    		<default>Ihr Zahlungsstatus wurde geändert</default>
+    		<default>Ihre Zahlung ist bei uns eingegangen</default>
     		<description>Betreff bei Zahlstatus-Änderung</description>
     	</item>
     	<item>
     		<name>signon_paid_email_text</name>
     		<type>text</type>
-    		<default>Ihre Zahlung ist bei uns eingegangen</default>
-    		<description>Text bei Zahlstatus-Änderung zu Bezahlt</description>
+    		<default>Hallo %USERNAME%!
+
+Sie sind nun auf den Status bezahlt gesetzt und können
+für die kommende LanParty "%PARTYNAME%" Ihren Sitzplatz reservieren.
+
+Ihre Orgas</default>
+    		<description>Text bei Zahlstatus-Änderung zu Bezahlt
+
+Variablen:
+%USERNAME%
+%PARTYNAME%
+        </description>
     	</item>
     	<item>
     		<name>signon_not_paid_email_text</name>
     		<type>text</type>
-    		<default>Ihre Zahlung ist bei uns wieder gestrichen worden</default>
-    		<description>Text bei Zahlstatus-Änderung zu nicht Bezahlt</description>
+    		<default>Hallo %USERNAME%,
+
+Ihr Bezahltstatus der LanParty "%PARTYNAME%" wurde zurück auf "NICHT bezahlt" gesetzt.
+
+Ihre Orgas</default>
+    		<description>Text bei Zahlstatus-Änderung zu nicht Bezahlt
+
+Variablen:
+%USERNAME%
+%PARTYNAME%
+        </description>
     	</item>
     	<item>
     		<name>usrmgr_pwrecovery_subject</name>
