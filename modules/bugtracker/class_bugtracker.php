@@ -12,6 +12,7 @@ class Bugtracker {
     $this->stati[4] = t('Behoben');
     $this->stati[5] = t('Aufgeschoben');
     $this->stati[6] = t('Geschlossen');
+    $this->stati[7] = t('Wiedereröffnet');
   }
 
   function SetBugStateInternal($bugid, $state) {
@@ -19,11 +20,8 @@ class Bugtracker {
 
     if ($auth['type'] <= 1) {
       $row = $db->query_first("SELECT caption, state FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
-      if ($state > 2) {
-        $func->information(t('Der Status des Bugreports <b>"%1"</b> konnte nicht geändert werden, da Sie nur auf die Stati <b>"Neu"</b> und <b>"Bestätigt"</b> wechseln dürfen', array($row['caption'])));
-        return;
-      } elseif ($row['state'] == 6) {
-        $func->information(t('Der Status des Bugreports <b>"%1"</b> konnte nicht geändert werden, da er bereits auf <b>"Geschlossen"</b> steht', array($row['caption'])));
+      if (!(($row['state'] == 0 and $state == 1) or ($row['state'] == 4 and $state == 7) or ($row['state'] == 3 and $state == 2))) {
+        $func->information(t('Der Status des Bugreports <b>"%1"</b> konnte nicht geändert werden, da Sie nur von <b>"Neu" auf "Bestätigt"</b>, von <b>"Feedback benötigt" auf "In Bearbeitung"</b> und von <b>"Behoben" auf "Wiedereröffnet"</b> wechseln dürfen', array($row['caption'])));
         return;
       }
     }

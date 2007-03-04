@@ -75,7 +75,16 @@ Teilnehmer: %MAXGUESTS%
 ---------------------------
 
 Ihre Orgas</default>
-    		<description>Text bei Anmeldung zur aktuellen Party</description>
+    		<description>Text bei Anmeldung zur aktuellen Party
+
+Variablen:
+%USERNAME%
+%EMAIL%
+%PARTYNAME%
+%PARTYURL%
+%SIGNON_DEADLINE%
+%MAXGUESTS%
+        </description>
     	</item>
     	<item>
     		<name>signon_signonemail_text_register</name>
@@ -94,7 +103,15 @@ Clan: %CLAN%
 ----------------------------
 
 Ihre Orgas</default>
-    		<description>Text bei Registrierung im System</description>
+    		<description>Text bei Registrierung im System
+
+Variablen:
+%USERNAME%
+%PARTYURL%
+%EMAIL%
+%PASSWORD%
+%CLAN%
+        </description>
     	</item>
     	<item>
     		<name>board_subscribe_subject</name>
@@ -106,7 +123,11 @@ Ihre Orgas</default>
     		<name>board_subscribe_text</name>
     		<type>text</type>
     		<default>Im Forum gibt es einen neuen Beitrag. Du kannst ihn dir unter %URL% ansehen</default>
-    		<description>Text bei neue Beiträge im Thread</description>
+    		<description>Text bei neue Beiträge im Thread
+
+Variablen:
+%URL%
+        </description>
     	</item>
     	<item>
     		<name>signon_paid_email_subject</name>
@@ -135,8 +156,15 @@ Ihre Orgas</default>
     	<item>
     		<name>usrmgr_pwrecovery_text</name>
     		<type>text</type>
-    		<default>Hallo %USERNAME%\r\n\r\nSie haben ein neues LanSuite Passwort angefordert\r\nDamit das neue Passwort generiert wird, gehen Sie bitte auf folgende Webseite: %PATH%\r\n</default>
-    		<description>Text bei Passwort Recovery</description>
+    		<default>Hallo %USERNAME%,
+
+Sie haben ein neues LanSuite Passwort angefordert\r\nDamit das neue Passwort generiert wird, gehen Sie bitte auf folgende Webseite: %PATH%\r\n</default>
+    		<description>Text bei Passwort Recovery
+
+Variablen:
+%USERNAME%
+%PATH%
+        </description>
     	</item>
     </items>
   </group>

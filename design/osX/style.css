@@ -6,12 +6,98 @@ http://lansuite-docu.orgapage.de/index.php?title=Stylesheets
 */
 
 
+/* Content */
+ul.Line {
+  position: relative;   height: 100%;
+  margin: 0px 0px 0px 0px;    border-top: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
+  clear: left;
+  background: #eee6e6;
+}
+ul.LineFirst {
+  position: relative;   height: 100%;
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 2px 0px;
+  clear: left;
+  background: #eee6e6;
+}
+li.LineLeft {
+  width: 280px;   min-height: 16px;   z-index: 10;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  float: left;    vertical-align: middle;
+  list-style: none;
+}
+li.LineLeftBoard {
+  width: 120px;   min-height: 16px;   z-index: 10;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  float: left;    vertical-align: middle;
+  list-style: none;
+}
+li.LineRight {
+  min-height: 16px;   z-index: 11;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  vertical-align: middle;
+  background: #eeeeee;
+  list-style: none;
+}
+li.Confirmation {
+  padding: 4px 2px 0px 2px;
+	background: #00ff00;
+  list-style: none;
+}
+li.Err {
+  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
+	background: #f33737;
+  list-style: none;
+}
+li.Information {
+  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
+	background: #f8ae38;
+  list-style: none;
+}
+li.Confirmation {
+  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
+	background: #84cd82;
+  list-style: none;
+}
+
+/* Bars*/
+ul.BarOccupied {
+  position: static;   height: 12px;
+  margin: 0px 0px 0px 0px;        padding: 0px 0px 0px 0px;
+  float: left;
+	background: #2bb800;
+}
+ul.BarMarked {
+  position: static;   height: 12px;
+  margin: 0px 0px 0px 0px;    border: 2px 0px 2px 0px solid #9c9d9c;    padding: 0px 0px 0px 0px;
+  float: left;
+	background: #fff500;
+}
+ul.BarFree {
+  position: static;   height: 12px;
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
+  float: left;
+	background: #b0b0b0;
+}
+ul.BarClear {
+  position: static;   width: 0px;   height: 0px;
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
+  clear: left;
+}
+
+/* Forms */
+textarea {
+  width: 100%;
+}
+
+
+
+
 
 /* Basic HTML-Elements-Rewrite */
 body {
 	background:		#FFFFFF;
 	font-family:	verdana, helvetica, sans-serif;
-	font-size:		11px; 
+	font-size:		11px;
 	font-weight:	normal;
 	text-align:		left;
 	color:			#000000;
@@ -21,7 +107,7 @@ body {
 
 /* Size */
 .small {
-	font-size:		10px; 
+	font-size:		10px;
 }
 
 
@@ -29,25 +115,25 @@ body {
 .error {
 	color:			#FF0000;
 	font-weight:	bold;
-	text-align:		left;	
+	text-align:		left;
 }
 
 .warning {
 	color:			#EE6600;
 	font-weight:	bold;
-	text-align:		left;	
+	text-align:		left;
 }
 
 .okay {
 	color:			#008000;
 	font-weight:	bold;
-	text-align:		left;	
+	text-align:		left;
 }
 
 
 /* Main */
 .copyright {		/* old name: tbl_small2 */
-	font-size:		10px; 
+	font-size:		10px;
 	color:			#666666;
 }
 
@@ -59,22 +145,22 @@ body {
 .content {			/* old name: tbl_5 */
 	background:		#DEE3E7;
 	padding:		0px;
-	font-size:		11px; 
-	text-align:		left;	
+	font-size:		11px;
+	text-align:		left;
 }
 
 .content_head {		/* old name: tbl_5 */
 	background:		#DEE3E7;
 	padding:		4px;
-	font-size:		11px; 
+	font-size:		11px;
 	border-bottom:	1px solid #9D9D9D;
-	text-align:		left;	
+	text-align:		left;
 }
 
 .row_key {			/* old name: tbl_6 */
 	background:		#E8E7E7;
 	padding:		4px;
-	font-size:		11px; 
+	font-size:		11px;
 	border-bottom:	1px solid #9D9D9D;
 	text-align:		left;
 }
@@ -82,25 +168,25 @@ body {
 .row_value {		/* old name: tbl_1 */
 	background:		#EFEFEF;
 	padding:		4px;
-	font-size:		11px; 
+	font-size:		11px;
 	border-bottom:	1px solid #9D9D9D;
-	text-align:		left;	
+	text-align:		left;
 }
 
 .row_value_highlighted {		/* old name: tbl_2 */
 	background:		#E2F2E2;
 	padding:		4px;
-	font-size:		11px; 
+	font-size:		11px;
 	border-bottom:	1px solid #9D9D9D;
-	text-align:		left;	
+	text-align:		left;
 }
 
 .row_value_important {		/* old name: tbl_important */
 	background:		#EEE6BD;
 	padding:		4px;
-	font-size:		11px; 
+	font-size:		11px;
 	border-bottom:	1px solid #9D9D9D;
-	text-align:		left;	
+	text-align:		left;
 }
 
 .row_value_code {		/* old name: tbl_7 */
@@ -110,7 +196,7 @@ body {
   font-size:		11px;
 	border-bottom:	1px solid #9D9D9D;
 }
-	
+
 .hrule {			/* old name: tbl_4 */
 	background:		#9D9D9D;
 	border-bottom:	1px solid #9D9D9D;
@@ -131,13 +217,13 @@ body {
 .box_caption {
 	color:			#EFEFEF;
 	padding:		0px;
-	font-size:		9px; 
+	font-size:		9px;
 }
 
 .box_content {
 	background:		#EFEFEF;
 	padding:		4px;
-	font-size:		11px; 
+	font-size:		11px;
 }
 
 .box_entry {
@@ -149,6 +235,7 @@ body {
 	white-space:	nowrap;
 	background-image: url(images/arrows_menurow.gif);
   background-repeat: no-repeat;
+  list-style: none;
 }
 
 .box_entry_active {
@@ -162,6 +249,9 @@ body {
   background-repeat: no-repeat;
 }
 
+.box_entry, .box_entryuser, .box_entry_active, .engaged, .box_entrydata {
+  list-style: none;
+}
 
 /* Form fields */
 .form {				/* Form fields, which must be supplied */
@@ -186,33 +276,33 @@ body {
 
 /* Links */
 a:link, a:visited, a.link:link, a.link:visited {
-	color:			#000000; 
+	color:			#000000;
 	text-decoration:underline;
 }
 a:hover, a.link:hover {
-	color:			#FF9000; 
-	text-decoration:none; 
+	color:			#FF9000;
+	text-decoration:none;
 }
 
 /* Link, undelined only, when mouse is over it */
-a.underline_on_hover:link, a.underline_on_hover:visited, a.menu:link, a.menu:visited { 
-	color:			#000000; 
+a.underline_on_hover:link, a.underline_on_hover:visited, a.menu:link, a.menu:visited {
+	color:			#000000;
 	text-decoration:none;
 }
 a.underline_on_hover:hover, a.menu:hover {
-	color:			#FF9000; 
+	color:			#FF9000;
 	text-decoration:underline;
 }
 
 /* Admin-Links */
 a.admin:link, a.admin:visited {
-	color:			#FF0000; 
+	color:			#FF0000;
 	text-decoration:none;
 }
 
 a.admin:hover {
-	color:			#FF0000; 
-	text-decoration:underline; 
+	color:			#FF0000;
+	text-decoration:underline;
 }
 
 
@@ -255,18 +345,18 @@ option[value=it]:before { content:url("../images/icon_it.png"); }
 
 
 
-/* OSX STYLE */ 
+/* OSX STYLE */
 body {
 	background:  	 #FFFFFF;
 	font-family:	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;}
 
 /*  */
 .tbl_0 {
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:  	 11px; 
+	font-size:  	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
@@ -275,17 +365,17 @@ body {
 .tbl_1 {
 	background:  	 #EEEEEE;
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:  	 11px; 
+	font-size:  	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
 
 /* HIGHLITED FIELDS */
-.tbl_2 		
+.tbl_2
 {
 	background:  	 #E2F2E2;
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:      	 #000000;
 	text-align:      left;}
@@ -294,7 +384,7 @@ body {
 .tbl_4 {
 	background:  	 #B0B0B0;
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
@@ -303,7 +393,7 @@ body {
 .tbl_5 {
 	background:  	 #EEEEEE;
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 10px; 
+	font-size:   	 10px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
@@ -312,7 +402,7 @@ body {
 .tbl_6 {
 	background:  	 #E4E4E4;
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
@@ -321,7 +411,7 @@ body {
 .tbl_7 {
 	background:  	 #C7C6C4;
 	font-family: 	 Courier New, Courier, mono;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
@@ -335,7 +425,7 @@ body {
 	background:  	 #D6D6D6;
 	font-family: 	 verdana, helvetica, sans-serif;
 	border:		     1px solid #000000;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
@@ -344,7 +434,7 @@ body {
 .tbl_helplet {
 	background:  	 #EFEFEF;
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
@@ -353,7 +443,7 @@ body {
 .tbl_helplet_left {
 	background:  	 #CBE0FA;
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
@@ -362,7 +452,7 @@ body {
 .tbl_helplet_right {
 	background:  	 #E4E4E4;
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
@@ -371,7 +461,7 @@ body {
 .tbl_important {
 	background:  	 #EEE6BD;
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:  	 11px; 
+	font-size:  	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
@@ -379,14 +469,14 @@ body {
 /* SMALL TEXT */
 .tbl_small {
 	font-family: 	 verdana, Helvetica, sans-serif;
-	font-size:   	 10px; 
+	font-size:   	 10px;
 	font-weight: 	 normal;
 	color:       	 #000000;}
 
 /* COPYRIGHT */
 .tbl_small2	{
 	font-family: 	 verdana, Helvetica, sans-serif;
-	font-size:   	 10px; 
+	font-size:   	 10px;
 	font-weight: 	 normal;
 	color:       	 #666666;}
 
@@ -394,7 +484,7 @@ body {
 .tbl_1_error {
 	background:  	 #EEE6BD;
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:  	 11px; 
+	font-size:  	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;
@@ -404,7 +494,7 @@ body {
 .tbl_1_off {
 	background:  	 #CBE0FA;
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:  	 11px; 
+	font-size:  	 11px;
 	font-weight: 	 normal;
 	color:       	 #000000;
 	text-align:      left;}
@@ -412,7 +502,7 @@ body {
 /* RED ERROR MESSAGE'S */
 .tbl_error {
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:      	 #E54600;
 	text-align:      left;}
@@ -420,7 +510,7 @@ body {
 /* BLACK FONT */
 .tbl_black {
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:      	 #000000;
 	text-align:      left;}
@@ -436,7 +526,7 @@ body {
 /* GREEN FONT */
 .tbl_green {
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:      	 #00A800;
 	text-align:      left;}
@@ -444,7 +534,7 @@ body {
 /* BLUE FONT */
 .tbl_blue {
 	font-family: 	 verdana, helvetica, sans-serif;
-	font-size:   	 11px; 
+	font-size:   	 11px;
 	font-weight: 	 normal;
 	color:      	 #2264DD;
 	text-align:      left;}
@@ -455,21 +545,21 @@ acronym {
 	cursor: 	     help;}
 
 /* NORMAL LINK */
-a:link, a:visited, a.link:link, a.link:visited { 
-	color: 		     #000000; 
+a:link, a:visited, a.link:link, a.link:visited {
+	color: 		     #000000;
 	text-decoration: underline;}
-	
-a:hover { 
-	color:		     #666666; 
+
+a:hover {
+	color:		     #666666;
 	text-decoration: none;}
 
 /* menu LINK */
-a.menu:link, a.menu:visited { 
-	color: 		     #000000; 
+a.menu:link, a.menu:visited {
+	color: 		     #000000;
 	text-decoration: none;}
-	
-a.menu:hover { 
-	color:		     #666666; 
+
+a.menu:hover {
+	color:		     #666666;
 	text-decoration: underline;}
 
 /* ADMIN LINK */
@@ -495,10 +585,10 @@ a.admin:hover {
 
 /* TOOLTIP STYLE in Seatplan and Guestmap*/
 .tooltip {
-	background-color:#FFFF99; 
-	border-width:1px; 
+	background-color:#FFFF99;
+	border-width:1px;
 	border-style:solid;
 }
 
-form { 
+form {
 display: inline }

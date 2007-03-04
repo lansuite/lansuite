@@ -157,7 +157,7 @@ switch($_GET["step"]) {
   					break;
   
   					case "text":
-  						$dsp->AddTextAreaRow($row["cfg_key"], $row["cfg_desc"], $row["cfg_value"], '');
+  						$dsp->AddTextAreaRow($row["cfg_key"], '<div style=white-space:pre;>'. $row["cfg_desc"] .'</div>', $row["cfg_value"], '');
   					break;
   
   					default:
