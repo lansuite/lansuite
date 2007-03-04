@@ -29,11 +29,11 @@
 				<extra></extra>
 			</field>
 			<field>
-				<name>src_status</name>
-				<type>enum('send','read')</type>
+				<name>label</name>
+				<type>int(1)</type>
 				<null></null>
 				<key></key>
-				<default>send</default>
+				<default>0</default>
 				<extra></extra>
 			</field>
 			<field>
@@ -74,14 +74,6 @@
 				<null></null>
 				<key></key>
 				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>priority</name>
-				<type>enum('normal','low','high')</type>
-				<null></null>
-				<key></key>
-				<default>normal</default>
 				<extra></extra>
 			</field>
 			<field>
