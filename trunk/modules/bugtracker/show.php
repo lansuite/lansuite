@@ -19,6 +19,7 @@ $colors[3] = '#019ae1';
 $colors[4] = '#67a900';
 $colors[5] = '#aaaaaa';
 $colors[6] = '#999999';
+$colors[7] = '#bc851b';
 
 if ($_POST['action']) foreach ($_POST['action'] as $key => $val) {
 
@@ -90,11 +91,8 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=bugtracker&action=add&bugid=', t('Editieren'));
   if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=bugtracker&action=delete&bugid=', t('Löschen'));
 
-  if ($auth['login']) {
-    foreach($bugtracker->stati as $key => $val) if ($key < 2) $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
-  }
   if ($auth['type'] >= 2) {
-    foreach($bugtracker->stati as $key => $val) if ($key >= 2) $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
+    foreach($bugtracker->stati as $key => $val) $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
 
     $ms2->AddMultiSelectAction(t('Bearbeiter löschen'), 'index.php?mod=bugtracker&userid=0');
     $res = $db->query("SELECT userid, username FROM {$config['tables']['user']} WHERE type >= 2");
@@ -102,6 +100,11 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     $db->free_result($res);
 
     $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=bugtracker&action=delete');
+
+  } elseif ($auth['login']) {
+    $ms2->AddMultiSelectAction(t('Status') .' -> '. $bugtracker->stati[1], 'index.php?mod=bugtracker&state=1');
+    $ms2->AddMultiSelectAction(t('Status') .' -> '. $bugtracker->stati[2], 'index.php?mod=bugtracker&state=2');
+    $ms2->AddMultiSelectAction(t('Status') .' -> '. $bugtracker->stati[7], 'index.php?mod=bugtracker&state=7');
   }
 
   $ms2->PrintSearch('index.php?mod=bugtracker', 'b.bugid');
@@ -134,11 +137,14 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   }
 	$dsp->AddDoubleRow('', $dsp->FetchButton('index.php?mod=bugtracker&action=add&bugid='.$row['bugid'], 'edit') . $dsp->FetchButton('index.php?mod=bugtracker', 'back'));
 
-  if ($auth['type'] >= 2) {
+  if ($auth['login']) {
     include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
     $mf->ManualUpdate = 1;
-    $mf->AddField(t('Status'), 'state', IS_SELECTION, $bugtracker->stati);
+    if ($auth['type'] >= 2) $mf->AddField(t('Status'), 'state', IS_SELECTION, $bugtracker->stati);
+    elseif ($row['state'] == 0) $mf->AddField(t('Status'), 'state', IS_SELECTION, array('1' => $bugtracker->stati['1']));
+    elseif ($row['state'] == 4) $mf->AddField(t('Status'), 'state', IS_SELECTION, array('7' => $bugtracker->stati['7']));
+    elseif ($row['state'] == 3) $mf->AddField(t('Status'), 'state', IS_SELECTION, array('2' => $bugtracker->stati['2']));
 
     if ($mf->SendForm('', 'bugtracker', 'bugid', $_GET['bugid'])) {
       $bugtracker->SetBugState($_GET['bugid'], $_POST['state']);

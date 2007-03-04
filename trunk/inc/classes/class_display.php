@@ -234,7 +234,7 @@ class display {
   function AddTextAreaPlusRow($name, $key, $value, $errortext, $cols = NULL, $rows = NULL, $optional = NULL, $maxchar = NULL) {
     global $templ, $db;
 
-    if ($cols == "") $cols = "50";
+    #if ($cols == "") $cols = "50"; // Now dynamicaly
     if ($rows == "") $rows = "7";
     if ($maxchar == "") $maxchar = "5000";
 
@@ -242,7 +242,7 @@ class display {
     $templ['TextAreaPlusRow']['formname'] = $this->form_name;
     $templ['TextAreaPlusRow']['key'] = $key;
     $templ['TextAreaPlusRow']['value'] = $value;
-    $templ['TextAreaPlusRow']['cols'] = $cols;
+    #$templ['TextAreaPlusRow']['cols'] = $cols;
     $templ['TextAreaPlusRow']['rows'] = $rows;
     $templ['TextAreaPlusRow']['maxchar'] = $maxchar;
 
