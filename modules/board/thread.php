@@ -129,8 +129,8 @@ elseif ($thread['caption'] != '') {
 		$templ['board']['thread']['case']['info']['post']['poster']['type'] = $userdata["type"];
 		if ($auth['type'] >= 2) $templ['board']['thread']['case']['info']['post']['poster']['type'] .= '<br />IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>';
 		if (!$cfg['board_ranking'])$templ['board']['thread']['case']['info']['post']['poster']['rank'] = ''; 
-    else $templ['board']['thread']['case']['info']['post']['poster']['rank'] 		= t('Rang') . ": " . $userdata["rank"];
-		$templ['board']['thread']['case']['info']['post']['poster']['posts'] 		= t('Beiträge') . ": " . $userdata["posts"];
+    else $templ['board']['thread']['case']['info']['post']['poster']['rank'] 		= t('Rang') . ': <a href="index.php?mod=board&action=ranking">'. $userdata['rank'] .'</a>';
+		$templ['board']['thread']['case']['info']['post']['poster']['posts'] 		= t('Beiträge') . ': <a href="index.php?mod=board&action=ranking">'. $userdata['posts'] .'</a>';;
 		$templ['board']['thread']['case']['info']['post']['poster']['avatar']		= $userdata["avatar"];
 		$templ['board']['thread']['case']['info']['post']['poster']['signature'] = '';
 		if ($userdata["signature"]) $templ['board']['thread']['case']['info']['post']['poster']['signature'] 	= '<hr size="1" width="100%" color="cccccc">'.$func->db2text2html($userdata["signature"]);
