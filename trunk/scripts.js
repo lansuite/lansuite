@@ -5,7 +5,7 @@ function BodyOnload() {
 
   // Load nifty-corners
   Nifty("ul.BoxHeadline", "top");
-  Nifty("ul.BoxContent", "bottom");
+  Nifty("ul.BoxContent", "transparent bottom");
   Nifty("div#Content", "big");
   Nifty("li.Confirmation", "big");
   Nifty("li.Information", "big");
