@@ -49,16 +49,24 @@ class auth {
 
     $this->LoadAuthData();
 
+    // Set Coockie from session
+    if ($_SESSION['email'] and $_SESSION['password']) {
+    	setcookie("auth[email]", $_SESSION['email'], time() + (3600*24*365));
+    	setcookie("auth[userpassword]", $_SESSION['password'], time() + (3600*24*365));
+    	unset($_SESSION['email']);
+    	unset($_SESSION['password']);
+    }
+
 		// If Login / Logout
 		if ($_GET['mod'] == "logout") $this->logout();
 		elseif (isset($_POST['login'])) $this->login('save'); # Normal Login
 		elseif ($_COOKIE['auth']['email'] != "" and (!$this->auth['login'])) $this->login('cookie'); # Login via Coockie
 
     // Reset Coockie-Timeout
-    if ($_COOKIE['auth']['email'] != "" and $this->auth['login']) {
-			setcookie("auth[email]", $_COOKIE['auth']['email'], time() + (3600*24*365));
-			setcookie("auth[userpassword]", $_COOKIE['auth']['userpassword'], time() + (3600*24*365));
-		}
+    if ($_COOKIE['auth']['email'] != '' and $this->auth['login']) {
+    	setcookie("auth[email]", $_COOKIE['auth']['email'], time() + (3600*24*365));
+    	setcookie("auth[userpassword]", $_COOKIE['auth']['userpassword'], time() + (3600*24*365));
+    }
 
 		// If not logged in, delete the sessions userdata
 		if ($this->auth['login'] == "" or $this->auth['login'] == "0"){
@@ -181,11 +189,11 @@ class auth {
 
 	 			$this->LoadAuthData();
 
-				if ($loginart == 'save') {
-					setcookie("auth[email]", $this->auth['email'], time() + (3600*24*365));
-					setcookie("auth[userpassword]", $_POST['password'], time() + (3600*24*365));
-				}
-				
+        if ($loginart = 'save') {
+          $_SESSION['email'] = $this->auth['email'];
+          $_SESSION['password'] = $_POST['password'];
+        }
+
 				$this->auth['userid'] = $user['userid'];
 
 				// The User will be logged in on the phpBB Board if the modul is available, configured and active.

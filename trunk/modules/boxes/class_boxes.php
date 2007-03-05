@@ -170,6 +170,7 @@ and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
     if (!$_SESSION['box_'. $BoxRow['boxid'] .'_active']) include_once('modules/boxes/'. $BoxRow['source'] .'.php');
 
     // Write content to template var
+#    echo $sitetool->out_work().HTML_NEWLINE;
     if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
     elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
   }

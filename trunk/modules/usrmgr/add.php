@@ -396,9 +396,9 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
   if ($mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&step='. $_GET['step'] .'&signon='. $_GET['signon'], 'user', 'userid', $_GET['userid'])) {
     // Log in new user
     if (!$auth['login']) {
+      $_POST['login'] = 1;
       $_POST['email'] = $_POST['email'];
       $_POST['password'] = $_POST['password_original'];
-      $authentication->login('save');
       $auth = $authentication->GetAuthData();
     }
     

@@ -89,6 +89,11 @@ textarea {
   width: 100%;
 }
 
+.box_entry, .box_entryuser, .box_entry_active, .engaged, .box_entrydata, .box_entrymessage, .box_entryadd {
+  list-style: none;
+}
+
+
 
 
 
@@ -247,10 +252,6 @@ body {
 	white-space:	nowrap;
 	background-image: url(images/arrows_menurow_close.gif);
   background-repeat: no-repeat;
-}
-
-.box_entry, .box_entryuser, .box_entry_active, .engaged, .box_entrydata {
-  list-style: none;
 }
 
 /* Form fields */
