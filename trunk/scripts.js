@@ -10,7 +10,7 @@ function BodyOnload() {
   Nifty("li.Confirmation", "big");
   Nifty("li.Information", "big");
   Nifty("li.Err", "big");
-  Nifty("div.Button a", "transparent fixed-height");
+  Nifty("div.Button a", "transparent same-height");
 }
 
 
