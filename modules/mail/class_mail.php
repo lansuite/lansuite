@@ -21,8 +21,8 @@ class Mail {
 				des_status 	= 'new',
 				fromUserID 	= ". (int)$from_userid .",
 				toUserID 	= ". (int)$to_userid .",
-				Subject		= ". $func->escape_sql($subject_text) .",
-				msgbody		= ". $func->escape_sql($msgbody_text) .",
+				Subject		= '". $func->escape_sql($subject_text) ."',
+				msgbody		= '". $func->escape_sql($msgbody_text) ."',
 				tx_date		= NOW()
 				");
 		$this->error = 'OK';

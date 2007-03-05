@@ -198,15 +198,11 @@ if($cfg['sys_blocksite'] == 1 and $auth['type'] < 2) $siteblock = true;
 
 // Set Default-Design, if non is set
 if (!$auth["design"]) $auth["design"] = "simple";
-if (!file_exists("design/{$auth["design"]}/templates/index_login.htm")) $auth["design"] = "simple";
+if (!file_exists("design/{$auth["design"]}/templates/index.php")) $auth["design"] = "simple";
 $_SESSION["auth"]["design"] = $auth["design"];
 
-if ($db->success) {
-	$stats = new stats(); // Statistic Functions (for generating server- and usage-statistics)
-
-	// Include base-files
-	include_once("modules/sponsor/banner.php");
-}
+// Statistic Functions (for generating server- and usage-statistics)
+if ($db->success)	$stats = new stats();
 
 // Boxes
 if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') include_once("modules/boxes/class_boxes.php");
@@ -214,22 +210,11 @@ if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') 
 // Info Seite blockiert
 if ($cfg['sys_blocksite'] == 1) $func->error($cfg['sys_blocksite_text'], "index.php?mod=install");
 
-// Include Module $_GET["mod"]
-if (!$missing_fields and !$siteblock) include_once("index_module.inc.php");
-
-// Output HTML
-if ($_GET['contentonly'] or $_GET['design'] == 'base') $index = $templ['index']['info']['content'];
-else {
-  if ($_SESSION['lansuite']['fullscreen'] and file_exists('design/'. $auth['design'] .'/templates/index_fullscreen.htm')) $index = $func->gettemplate('index_fullscreen');
-  else $index = $func->gettemplate('index_login');
-}
-
-if ($_GET['design'] != 'base') $sitetool->out_optimizer();
-#else echo $index;
+include_once('design/'. $auth['design'] .'/templates/index.php');
 
 // Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
 if ($db->success) {
-  if ($_GET['design'] != 'base') $stats->update($sitetool->out_work(), $sitetool->get_send_size());
+  if ($_GET['design'] != 'base') $stats->update($sitetool->out_work(), 0);
 
   // Check Cronjobs
   $cron2->CheckJobs();

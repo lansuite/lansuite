@@ -11,11 +11,35 @@ class display {
   var $errortext_prefix = '';
   var $errortext_suffix = '';
   var $FirstLine = 1;
+  var $TplVars = array();
 
   // Constructor
   function display() {
     $this->errortext_prefix = HTML_NEWLINE . HTML_FONT_ERROR;
     $this->errortext_suffix = HTML_FONT_END;
+  }
+
+  function EchoTpl($file, $mod = '') {
+    global $auth, $language;
+    
+    $file = 'design/templates/'. $file .'.htm';
+    
+		$handle = fopen ($file, 'rb');
+		$tpl_str = fread($handle, filesize($file));
+		fclose ($handle);
+
+		$tpl_str = str_replace('{language}', $language, $tpl_str );
+		$tpl_str = str_replace('{default_design}', $auth['design'], $tpl_str);
+
+		echo $tpl_str;
+  }
+
+  function SetVar($name, $value){
+    $this->TplVars[$name] = $value;
+  }
+
+  function EchoVar($name){
+    echo $this->TplVars[$name];
   }
 
 	// Returns the template $file

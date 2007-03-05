@@ -37,7 +37,7 @@ switch ($_GET['step']) {
 
   // List designs templates
   case 10:
-    $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=index_login\">index_login.htm</a>");
+    $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=index\">index.php</a>");
     $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=index_fullscreen\">index_fullscreen.htm</a>");
     $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=box_case\">box_case.htm</a>");
     $dsp->AddSingleRow("<a href=\"index.php?mod=install&action=design&step=11&des={$_GET['des']}&file=box_case_closed\">box_case_closed.htm</a>");
@@ -47,7 +47,7 @@ switch ($_GET['step']) {
   case 11:
     if (!$_POST['content']) {
       switch($_GET['file']) {
-        case 'index_login': $file = "design/{$_GET['des']}/templates/index_login.htm"; break;
+        case 'index': $file = "design/{$_GET['des']}/templates/index.php"; break;
         case 'index_fullscreen': $file = "design/{$_GET['des']}/templates/index_fullscreen.htm"; break;
         case 'box_case': $file = "design/{$_GET['des']}/templates/box_case.htm"; break;
         case 'box_case_closed': $file = "design/{$_GET['des']}/templates/box_case_closed.htm"; break;
@@ -60,16 +60,7 @@ switch ($_GET['step']) {
       $_POST['content'] = $FileCont;
     }
 
-    ob_start();
-    include_once("ext_scripts/FCKeditor/fckeditor.php");
-    $oFCKeditor = new FCKeditor('FCKeditor1') ;
-    $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
-    $oFCKeditor->Value = $_POST['content'];
-    $oFCKeditor->Height = 380;
-    $oFCKeditor->Create();
-    $fcke_content = ob_get_contents();
-    ob_end_clean();
-    $dsp->AddSingleRow($fcke_content);
+    $dsp->AddTextAreaRow('content', 'index.php', $FileCont, '', '', 40);
   break;
 }
 

@@ -66,42 +66,45 @@ if ($found_adm and $auth['type'] > 1) {
 	}
 }
 
+if (!$missing_fields and !$siteblock) {
+  switch ($mod) {
+  	case 'logout': $func->confirmation(t('Sie wurden erfolgreich ausgeloggt'), '');
+  	break;
 
-switch ($mod) {
-	case 'logout': $func->confirmation(t('Sie wurden erfolgreich ausgeloggt'), '');
-	break;
+  	case 'install':
+  		if ($IsAboutToInstall) {
+        include_once('modules/install/wizard.php');
+      	break;
+      }
 
-	case 'install':
-		if ($IsAboutToInstall) {
-      include_once('modules/install/wizard.php');
-    	break;
-    }
+  	default:
+  		// If module is deactivated display error message
+  		if (!in_array($mod, $ActiveModules)) $func->error('DEACTIVATED', '');
 
-	default:
-		// If module is deactivated display error message
-		if (!in_array($mod, $ActiveModules)) $func->error('DEACTIVATED', '');
+  		//// Load Mod-Config
+  		else {
+  			// 1) Search $_GET['action'] in DB
+  			$menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (action = '{$_GET['action']}')");
+  			if ($menu['file'] != '') {
+  				if (authorized($mod, $menu['file'], $menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
 
-		//// Load Mod-Config
-		else {
-			// 1) Search $_GET['action'] in DB
-			$menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (action = '{$_GET['action']}')");
-			if ($menu['file'] != '') {
-				if (authorized($mod, $menu['file'], $menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
+  			// 2) Search file named $_GET['action'] in the Mod-Directory
+  			} elseif (file_exists("modules/$mod/{$_GET['action']}.php")) {
+  				if (authorized($mod, $_GET['action'], $menu['requirement'])) include_once("modules/{$mod}/{$_GET['action']}.php");
 
-			// 2) Search file named $_GET['action'] in the Mod-Directory
-			} elseif (file_exists("modules/$mod/{$_GET['action']}.php")) {
-				if (authorized($mod, $_GET['action'], $menu['requirement'])) include_once("modules/{$mod}/{$_GET['action']}.php");
+  			// 3) Search 'default'-Entry in DB
+  			} else {
+  				$menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (action = 'default')");
+  				if ($menu['file'] != '') {
+  					if (authorized($mod, $menu['file'], $menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
 
-			// 3) Search 'default'-Entry in DB
-			} else {
-				$menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (action = 'default')");
-				if ($menu['file'] != '') {
-					if (authorized($mod, $menu['file'], $menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
+    			// 4) Error: 'Not Found'
+  				} else $func->error('NOT_FOUND', '');
+  			}
+  		}
+  	break;
+  }
 
-  			// 4) Error: 'Not Found'
-				} else $func->error('NOT_FOUND', '');
-			}
-		}
-	break;
+  echo $templ['index']['info']['content'];
 }
 ?>
