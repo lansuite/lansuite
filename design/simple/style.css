@@ -155,11 +155,17 @@ div.HeadlineHelp {
   position: absolute;   top: 0px;   right: 8px;
   font-size: 10px;
 }
+.login {
+	background: #dee2e6;
+  font-size: 11px;
+  text-align: left;
+}
 .row_key {
   border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
 	background: #E8E7E7;
   font-weight: bold;
   font-size: 11px;
+  text-align: left;
 }
 .row_value {
   border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
@@ -169,10 +175,12 @@ div.HeadlineHelp {
 .row_value_highlighted {
   border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
 	background:		#E2F2E2;
+  font-size: 11px;
 }
 .row_value_important {
   border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
 	background: #EEE6BD;
+  font-size: 11px;
 }
 div.Button {
   margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
