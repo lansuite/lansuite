@@ -71,7 +71,7 @@ li.BoxCaption {
   font-weight: bold;    list-style: none;
 }
 li.BoxHelpClose {
-  width: 20px;
+  width: 17px;
   font-size: 10px;   list-style: none;
 }
 ul.BoxContent {
@@ -159,10 +159,12 @@ div.HeadlineHelp {
   border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
 	background: #E8E7E7;
   font-weight: bold;
+  font-size: 11px;
 }
 .row_value {
   border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
 	background: #EFEFEF;
+  font-size: 11px;
 }
 .row_value_highlighted {
   border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
