@@ -36,7 +36,7 @@
  $lang['faq']['del_cat_ok']	 		 = 'Die Kategorie wurde erfolgreich gelöscht';
  $lang['faq']['del_item_quest'] 		 = 'Sind Sie sicher, dass Sie die Frage <b> %ITEMNAME% </b> löschen wollen ?';
  $lang['faq']['del_item_ok']			 = 'Die Frage wurde erfolgreich gelöscht';
- $lang['faq']['no_itenm']			 = 'Keine Einträge vorhanden';
+ $lang['faq']['no_itenm']			 = 'Keine Einträge vorhanden.';
  $lang['faq']['cat_exists']			 = 'Dieser Kategoriename existiert bereits';
  $lang['faq']['cat_not_exists']		 = 'Diese Kategorie existiert nicht';
  $lang['faq']['quest_not_exists']	 = 'Diese Frage existiert nicht';
