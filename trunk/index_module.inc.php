@@ -68,7 +68,7 @@ if ($found_adm and $auth['type'] > 1) {
 
 if (!$missing_fields and !$siteblock) {
   switch ($mod) {
-  	case 'logout': $func->confirmation(t('Sie wurden erfolgreich ausgeloggt'), '');
+  	case 'logout': $func->confirmation(t('Sie wurden erfolgreich ausgeloggt.'), '');
   	break;
 
   	case 'install':
