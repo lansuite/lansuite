@@ -10,9 +10,9 @@ function PartyMail() {
   $usrmgr->WriteXMLStatFile();
 
   if ($cfg["signon_password_mail"]) {
-  	if ($usrmgr->SendSignonMail(1)) $func->confirmation(t('Eine Bestätigung der Anmeldung wurde an deine eMail-Adresse gesendet'), NO_LINK);
+  	if ($usrmgr->SendSignonMail(1)) $func->confirmation(t('Eine Bestätigung der Anmeldung wurde an Ihre E-Mail-Adresse gesendet.'), NO_LINK);
   	else {
-  		$func->error(t('Es ist ein Fehler beim Versand der Informations-eMail aufgetreten. Fehlermeldung:'). $mail->error, NO_LINK);
+  		$func->error(t('Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.'). $mail->error, NO_LINK);
   		$cfg['signon_password_view'] = 1;
   	}
   }
@@ -21,7 +21,7 @@ function PartyMail() {
 }
 
 
-if ($party->count == 0) $func->information(t('Aktuell sind keine Partys geplant'), 'index.php?mod='. $_GET['mod']);
+if ($party->count == 0) $func->information(t('Aktuell sind keine Partys geplant.'), 'index.php?mod='. $_GET['mod']);
 else {
 
   if ($_GET['user_id'] == $auth['userid'] or $auth['type'] >= 2) {
@@ -105,10 +105,10 @@ else {
     while ($row = $db->fetch_array($res)) {
       $text = '';
       if ($row['user_id']) {
-        $text .= t('Du warst angemeldet');
-        if ($row['paid'] == 0) $text .= t(', aber hattest nicht bezahlt');
-        if ($row['paid'] == 1) $text .= t('und hattest per Vorkasse gezahlt');
-        if ($row['paid'] == 2) $text .= t('und hattest per Abendkasse gezahlt');
+        $text .= t('Sie waren angemeldet');
+        if ($row['paid'] == 0) $text .= t(', aber hatten nicht bezahlt.');
+        if ($row['paid'] == 1) $text .= t('und hatten per Vorkasse gezahlt.');
+        if ($row['paid'] == 2) $text .= t('und hatten per Abendkasse gezahlt.');
 
         if ($row['price_id']) $text .= '('. $row['price_id'] .')';
         $text .= '.'. HTML_NEWLINE;
