@@ -18,7 +18,7 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
 <head>
 	<title><?$dsp->EchoVar('title')?></title>
-	<?$dsp->EchoTpl('html_header')?>
+	<?$dsp->EchoTpl('design/templates/html_header.htm')?>
   <link rel="stylesheet" type="text/css" href="ext_scripts/niftycube/niftyCorners.css" />
   <script type="text/javascript" src="ext_scripts/niftycube/niftycube.js"></script>
 </head>

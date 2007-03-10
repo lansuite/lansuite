@@ -16,8 +16,5 @@ if ($db->num_rows($query) > 0) {
 		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row");
 		$templ['home']['show']['row']['info']['text2']		= "";	// set var to NULL
 	}
-} else {
-	$templ['home']['show']['row']['text']['info']['text'] = "<i>". t('Keine Umfragen vorhanden') ."</i>";
-	$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row_text");
-}
+} else $templ['home']['show']['item']['control']['row'] = "<i>". t('Keine Umfragen vorhanden') ."</i>";
 ?>

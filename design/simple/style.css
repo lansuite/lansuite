@@ -118,6 +118,12 @@ li.LineLeftBoard {
   float: left;    vertical-align: middle;
   list-style: none;
 }
+li.LineLeftHalf {
+  width: 50%;   min-height: 16px;   z-index: 10;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  float: left;    vertical-align: middle;
+  list-style: none;
+}
 li.LineRight {
   min-height: 16px;   z-index: 11;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
