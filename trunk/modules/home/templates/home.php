@@ -1,8 +1,11 @@
 <?php
 $z = 0;
 foreach($ModOverviews as $ModOverview) {
-  if ($z % 2 == 0) echo '<ul class="Line"><li class="LineLeftHalf">';
-  else echo '<li class="LineRight">';
+  if ($z % 2 == 0) {
+    echo '<ul class="Line">';
+    if ($z != (count($ModOverviews) - 1)) echo '<li class="LineLeftHalf">';
+    else echo '<li class="LineRight">';
+  } else echo '<li class="LineRight">';
   include('modules/home/'. $ModOverview .'.inc.php');
   echo $dsp->FetchModTpl('home', 'show_item');
   echo '</li>';
