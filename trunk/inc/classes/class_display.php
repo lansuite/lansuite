@@ -19,11 +19,9 @@ class display {
     $this->errortext_suffix = HTML_FONT_END;
   }
 
-  function EchoTpl($file, $mod = '') {
+  function EchoTpl($file) {
     global $auth, $language;
-    
-    $file = 'design/templates/'. $file .'.htm';
-    
+
 		$handle = fopen ($file, 'rb');
 		$tpl_str = fread($handle, filesize($file));
 		fclose ($handle);
@@ -71,7 +69,7 @@ class display {
 	function AddTpl($file, $OpenTable = 1){
 		global $templ;
 
-    $templ['index']['info']['content'] .= $this->FetchTpl($file, $templ);
+    echo $this->FetchTpl($file, $templ);
 	}
 
 	// Output the template $file
@@ -79,9 +77,9 @@ class display {
 		global $templ;
 
     if ($this->FirstLine) {
-      $templ['index']['info']['content'] .= '<ul class="LineFirst">'. $this->FetchTpl($file, $templ) .'</ul>';
+      echo '<ul class="LineFirst">'. $this->FetchTpl($file) .'</ul>';
       $this->FirstLine = 0;
-    } else $templ['index']['info']['content'] .= '<ul class="Line">'. $this->FetchTpl($file, $templ) .'</ul>';
+    } else echo '<ul class="Line">'. $this->FetchTpl($file) .'</ul>';
 	}
 
 

@@ -11,59 +11,21 @@ switch ($home_page) {
 	default:
 		$dsp->NewContent(t('Startseite'), t('Willkommen! Hier sehen Sie eine kleine Übersicht der wichtigsten Aktivitäten.'));
 
-		$z = 1;
-
-    if (in_array('news', $ActiveModules)) {
-      include('modules/home/news.inc.php');
-      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-      $z++;
-		}
-
-		if (in_array('board', $ActiveModules)) {
-      include('modules/home/board.inc.php');
-      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-      $z++;
-		}
-
-		if (in_array('server', $ActiveModules)) {
-      include('modules/home/server.inc.php');
-      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-      $z++;
-		}
-
-		if (in_array('poll', $ActiveModules)) {
-      include('modules/home/poll.inc.php');
-      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-      $z++;
-		}
-
-		if (in_array('bugtracker', $ActiveModules)) {
-      include('modules/home/bugtracker.inc.php');
-      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-      $z++;
-		}
-
-    if (in_array('tournament2', $ActiveModules)) {
-      include('modules/home/tournament.inc.php');
-      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-      $z++;
-		}
-
-    if (in_array('partylist', $ActiveModules)) {
-      include('modules/home/partylist.inc.php');
-      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-      $z++;
-		}
-
+    $ModOverviews = array();
+    if (in_array('news', $ActiveModules)) $ModOverviews[] = 'news';
+    if (in_array('board', $ActiveModules)) $ModOverviews[] = 'board';
+    if (in_array('server', $ActiveModules)) $ModOverviews[] = 'server';
+    if (in_array('poll', $ActiveModules)) $ModOverviews[] = 'poll';
+    if (in_array('bugtracker', $ActiveModules)) $ModOverviews[] = 'bugtracker';
+    if (in_array('tournament2', $ActiveModules)) $ModOverviews[] = 'tournament';
+    if (in_array('partylist', $ActiveModules)) $ModOverviews[] = 'partylist';
 		if (in_array('stats', $ActiveModules)
-      and ($party->count > 0 or
-      ($auth['type'] >= 2) and (in_array('troubleticket', $ActiveModules) or in_array('rent', $ActiveModules)))) {
-      include('modules/home/stats.inc.php');
-      $templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
-      $z++;
-		}
+      and ($party->count > 0 or $auth['type'] >= 2)
+      and (in_array('troubleticket', $ActiveModules) or in_array('rent', $ActiveModules)))
+      $ModOverviews[] = 'stats';
 
-		$dsp->AddSingleRow($dsp->FetchModTpl("home", "show_case"));
+    include_once('modules/home/templates/home.php');
+
 		if ($party->count > 1) $party->get_party_dropdown_form();
 	break;
 

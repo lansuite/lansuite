@@ -25,10 +25,8 @@ if ($auth["userid"]) {
 		");
 }
 
-if (($db->num_rows($teams) == 0) && ($db->num_rows($members) == 0)) {
-	$templ['home']['show']['row']['text']['info']['text'] = "<i>". t('Es sind keine aktuellen Spielpaarungen vorhanden') ."</i>";
-	$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row_text");
-} else {
+if (($db->num_rows($teams) == 0) && ($db->num_rows($members) == 0)) $templ['home']['show']['item']['control']['row'] = "<i>". t('Es sind keine aktuellen Spielpaarungen vorhanden') ."</i>";
+else {
 	while($team = $db->fetch_array($teams)) {
 		$templ['home']['show']['row']['control']['link']	= "index.php?mod=tournament2&action=submit_result&step=1&tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}";
 		$templ['home']['show']['row']['info']['text']		= "{$team["name1"]} vs {$team["name2"]}";

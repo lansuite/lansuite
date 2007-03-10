@@ -16,9 +16,5 @@ if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $templ['home']['show']['row']['control']['link']	= "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&gotopid={$row['pid']}#pid{$row['pid']}";
   $templ['home']['show']['row']['info']['text']		= $row['caption'] .' ['.$row['posts'].']';
   $templ['home']['show']['item']['control']['row']	.= $dsp->FetchModTpl('home', 'show_row');
-} else {
-	$templ['home']['show']['row']['text']['info']['text'] = "<i>". t('Keine Beiträge vorhanden') ."</i>";
-	$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl('home', 'show_row_text');
-}
-
+} else $templ['home']['show']['item']['control']['row'] = "<i>". t('Keine Beiträge vorhanden') ."</i>";
 ?>

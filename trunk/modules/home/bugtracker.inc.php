@@ -16,9 +16,6 @@ if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   if (strlen($row['caption']) > 40) $row['caption'] = substr($row['caption'], 0, 37).'...';
   $templ['home']['show']['row']['info']['text']		= $row['caption'] .' ['. $row['comments'] .']';
   $templ['home']['show']['item']['control']['row']	.= $dsp->FetchModTpl('home', 'show_row');
-} else {
-	$templ['home']['show']['row']['text']['info']['text'] = "<i>". t('Keine Einträge vorhanden') ."</i>";
-	$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl('home', 'show_row_text');
-}
+} else $templ['home']['show']['item']['control']['row'] = "<i>". t('Keine Einträge vorhanden') ."</i>";
 
 ?>
