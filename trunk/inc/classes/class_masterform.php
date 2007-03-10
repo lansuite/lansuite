@@ -43,6 +43,7 @@ class masterform {
   var $NumFields = 0;
   var $insert_id = -1;
   var $LogID = 0;
+  var $LinkBack = '';
 
   function masterform($MFID = 0) {
     global $mf_number;
@@ -91,10 +92,9 @@ class masterform {
 
     // Break, if in wrong form
     $Step_Tmp = $_GET['mf_step'];
-    if ($_GET['mf_id'] == 2 and $_GET['mf_id'] != $mf_number) $Step_Tmp = 1;
+    if ($_GET['mf_step'] == 2 and $_GET['mf_id'] != $mf_number) $Step_Tmp = 1;
 
 		$this->AddGroup(); // Adds non-group-fields to fake group
-
     if ($BaseURL) $StartURL = $BaseURL .'&'. $idname .'='. $id;
     else {
       $StartURL = $CurentURLBase;
@@ -103,6 +103,7 @@ class masterform {
 
       if (strpos($StartURL, '&'. $idname .'='. $id) == 0) $StartURL .= '&'. $idname .'='. $id;
     }
+    $this->LinkBack = $StartURL .'#MF'.$mf_number;
     if ($id) $this->isChange = true;
 
     $AddKey = '';
@@ -256,7 +257,7 @@ class masterform {
       // Output form
       default:
         $sec->unlock($table);
-    		$dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $_GET['mf_id'] .'#MF'.$mf_number, '', '', $this->FormEncType);
+    		$dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $mf_number .'#MF'. $mf_number, '', '', $this->FormEncType);
 
         // InsertControll check box - the table entry will only be created, if this check box is checked, otherwise the existing entry will be deleted
         if ($this->AddInsertControllField != '') {
@@ -433,7 +434,7 @@ class masterform {
       // Update DB
       case 2:
 #       if (!$this->SQLFields) $func->error('No Fields!');
-        if (!$sec->locked($table, $StartURL)) {
+        if (!$sec->locked($table, $this->LinkBack)) {
 
           // Return for manual update, if set
           if ($this->ManualUpdate) return true;
@@ -493,7 +494,7 @@ class masterform {
             if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
             if ($addUpdSuccess) {
               if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $_SESSION['mf_referrer']);
-              else $func->confirmation($lang['mf']['add_success'], $StartURL .'#MF'.$mf_number);
+              else $func->confirmation($lang['mf']['add_success'], $this->LinkBack);
             }
           }
 
