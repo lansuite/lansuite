@@ -64,19 +64,19 @@ $script_filename = substr($script_filename, 0, strpos($script_filename, "?"));
 
 
 // Vollbild per GET Parameter ein/ausschalten
-if ($_GET["fullscreen"] == "yes") 	$_SESSION["lansuite"]["fullscreen"] = true;
-elseif ($_GET["fullscreen"] == "no") 	$_SESSION["lansuite"]["fullscreen"] = false;
+if ($_GET['fullscreen'] == 'yes') 	$_SESSION['lansuite']['fullscreen'] = true;
+elseif ($_GET['fullscreen'] == 'no') 	$_SESSION['lansuite']['fullscreen'] = false;
 
 // Read config-file
-$config	= parse_ini_file("inc/base/config.php", 1);
+$config	= parse_ini_file('inc/base/config.php', 1);
 
 // Read definition file 
-include_once("inc/base/define.php");
+include_once('inc/base/define.php');
 
 $lang = array();
 
 if (!$config) {
-	echo HTML_FONT_ERROR. "Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet." .HTML_NEWLINE . "
+	echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
 	Überprüfen Sie die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
 	exit(); 
 }

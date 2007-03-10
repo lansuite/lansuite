@@ -1,5 +1,5 @@
 <?php
-if ($db->success) {
+if ($_GET['design'] != 'base' and $db->success and !$_SESSION['lansuite']['fullscreen']) {
   $banner = $db->query_first("SELECT sponsorid, pic_path_banner, url, name
     FROM {$config['tables']['sponsor']}
     WHERE rotation AND ((pic_path != '' AND pic_path != 'http://') OR pic_path_banner != '')

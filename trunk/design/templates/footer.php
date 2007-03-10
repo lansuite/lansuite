@@ -2,7 +2,7 @@
 $dsp->SetVar('version', $templ['index']['info']['version']);
 $dsp->SetVar('year', date('y'));
 $dsp->SetVar('db-querys', $db->count_query);
-$dsp->SetVar('processed-in', round($sitetool->out_work(), 2));
+if ($_GET['design'] != 'base') $dsp->SetVar('processed-in', round($sitetool->out_work(), 2));
 $dsp->SetVar('url-base', $CurentURLBase);
 if ($cfg['sys_optional_footer']) $dsp->SetVar('footer-line', HTML_NEWLINE . $cfg['sys_optional_footer']);
 

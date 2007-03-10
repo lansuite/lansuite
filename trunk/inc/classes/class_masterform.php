@@ -463,6 +463,7 @@ class masterform {
             if ($this->SQLFields) {
               foreach ($this->SQLFields as $key => $val) {
                 if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') $db_query .= "$val = NOW(), ";
+                elseif ($SQLFieldTypes[$val] == 'tinyint(1)') $db_query .= $val .' = '. (int)$_POST[$val] .', ';
                 else $db_query .= "$val = '{$_POST[$val]}', ";
               }
               $db_query = substr($db_query, 0, strlen($db_query) - 2);

@@ -12,7 +12,4 @@ while($smilies = $db->fetch_array($smilie)) if (file_exists('ext_inc/smilies/'. 
   if ($z % 12 == 0) $out .= '<br />';
 }
 $dsp->AddSingleRow($out);
-$dsp->AddContent();
-
-echo $func->FetchMasterTmpl("design/templates/base_index.htm", $templ);
 ?>
