@@ -148,7 +148,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 
     if ($mf->SendForm('', 'bugtracker', 'bugid', $_GET['bugid'])) {
       $bugtracker->SetBugState($_GET['bugid'], $_POST['state']);
-      $func->confirmation(t('Geändert'));
+      $func->confirmation(t('Geändert'), $mf->LinkBack);
     }
   }
 
