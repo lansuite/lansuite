@@ -11,7 +11,4 @@ while($variables = $db->fetch_array($variable)){
 }
 $dsp->AddSingleRow($out);
 $dsp->AddSingleRow("ACHTUNG:" . HTML_NEWLINE . "Angemeldet?, Bezahlt?, Eingecheckt? damit diese Variablen korrekt funtkionieren muss *Nur Angemeldete* ausgewählt sein");
-$dsp->AddContent();
-
-echo $func->FetchMasterTmpl("design/templates/mail_index.htm", $templ);
 ?>

@@ -3,8 +3,13 @@ $dsp->SetVar('title', $_SESSION['party_info']['name'] .' - lansuite '. $config['
 $dsp->SetVar('body_atr', $templ['index']['body']['js']);
 $dsp->SetVar('js', $templ['index']['control']['js']);
 $dsp->SetVar('DateLogout', $templ['index']['info']['current_date'] .' '. $templ['index']['info']['logout_link']);
-$dsp->SetVar('BoxesLeft', $templ['index']['control']['boxes_letfside']);
-$dsp->SetVar('BoxesRight', $templ['index']['control']['boxes_rightside']);
+if ($_SESSION['lansuite']['fullscreen'] or $_GET['design'] == 'base') $dsp->SetVar('ContentStyle', 'ContentFullscreen');
+else $dsp->SetVar('ContentStyle', 'Content');
+if (!$_SESSION['lansuite']['fullscreen']) {
+  $dsp->SetVar('BoxesLeft', $templ['index']['control']['boxes_letfside']);
+  $dsp->SetVar('BoxesRight', $templ['index']['control']['boxes_rightside']);
+  if ($_GET['design'] != 'base') $dsp->SetVar('Logo', '<img src="design/simple/images/logo.gif" alt="Logo" title="Lansuite" />');
+} else $dsp->SetVar('Logo', '<a href="index.php?'. $URLQuery .'&fullscreen=no" class="menu"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="" /></a> Lansuite - Vollbildmodus');
 
 
 ?>
@@ -24,14 +29,14 @@ $dsp->SetVar('BoxesRight', $templ['index']['control']['boxes_rightside']);
 <a name="top"></a>
 <span id="LSloading" class="loading"></span>
 
-<div id="Logo"><img src="design/simple/images/logo.gif" alt="Logo" title="Lansuite" /></div>
+<div id="Logo"><?$dsp->EchoVar('Logo')?></div>
 <div id="DateLogout"><?$dsp->EchoVar('DateLogout')?></div>
 <div id="Banner"><?include_once('modules/sponsor/banner.php')?></div>
 
 <div id="BoxesLeft"><?$dsp->EchoVar('BoxesLeft')?></div>
-<div id="Content">
+<div id="<?$dsp->EchoVar('ContentStyle')?>">
   <?include_once('index_module.inc.php')?>
-  <div id="Footer"><?include_once('design/templates/footer.php')?></div>
+  <div id="Footer"><?if ($_GET['design'] != 'base') include_once('design/templates/footer.php')?></div>
 </div>
 <div id="BoxesRight"><?$dsp->EchoVar('BoxesRight')?></div>
 
