@@ -8,7 +8,10 @@ else $dsp->SetVar('ContentStyle', 'Content');
 if (!$_SESSION['lansuite']['fullscreen']) {
   $dsp->SetVar('BoxesLeft', $templ['index']['control']['boxes_letfside']);
   $dsp->SetVar('BoxesRight', $templ['index']['control']['boxes_rightside']);
-  if ($_GET['design'] != 'base') $dsp->SetVar('Logo', '<img src="design/simple/images/logo.gif" alt="Logo" title="Lansuite" />');
+  if ($_GET['design'] != 'base') {
+    $dsp->SetVar('Logo', '<img src="design/simple/images/logo.gif" alt="Logo" title="Lansuite" />');
+    $dsp->SetVar('Debug', $func->ShowDebug());
+  }
 } else $dsp->SetVar('Logo', '<a href="index.php?'. $URLQuery .'&fullscreen=no" class="menu"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="" /></a> Lansuite - Vollbildmodus');
 
 
@@ -37,6 +40,7 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 <div id="<?$dsp->EchoVar('ContentStyle')?>">
   <?include_once('index_module.inc.php')?>
   <div id="Footer"><?if ($_GET['design'] != 'base') include_once('design/templates/footer.php')?></div>
+  <?$dsp->EchoVar('Debug')?>
 </div>
 <div id="BoxesRight"><?$dsp->EchoVar('BoxesRight')?></div>
 
