@@ -654,10 +654,10 @@ class display {
   }
 
 	function FetchButton($link, $picname, $hint = NULL, $target = NULL) {
-/*    global $lang;
+    global $lang;
 
-    return $this->FetchCssButton($lang['button'][$picname], $link, $hint = NULL, $target = NULL);
-*/
+    return $this->FetchSpanButton($lang['button'][$picname], $link, $hint = NULL, $target = NULL);
+/*
 		global $templ, $gd;
 
 		if (!$hint) $hint = 'Pic: '. $picname;
@@ -671,12 +671,18 @@ class display {
 		$gd->CreateButton($picname);
 
 		return $this->FetchModTpl("", "ls_linkbutton");
-	}
+*/	}
 
 	function FetchCssButton($title, $link, $hint = NULL, $target = NULL) {
     ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
     ($target)? $target = ' target="_blank"' : $target = '';
     return '<div class="Button"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></div>';
+	}
+
+	function FetchSpanButton($title, $link, $hint = NULL, $target = NULL) {
+    ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
+    ($target)? $target = ' target="_blank"' : $target = '';
+    return '<a href="'. $link .'"'. $hint .''. $target .'><span class="Button">'. $title .'</span></a> ';
 	}
 
 	function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {

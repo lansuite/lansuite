@@ -168,6 +168,7 @@ if (!$_GET['partyid']) {
   $ms2->config['EntriesPerPage'] = 20;
 
   $ms2->AddSelect('p.motto');
+  $ms2->AddSelect('p.userid');
   $ms2->AddResultField(t('Partyname'), 'p.name', 'NameAndMotto');
   $ms2->AddResultField(t('Begin'), 'UNIX_TIMESTAMP(p.start) as start', 'MS2GetDate');
   $ms2->AddResultField(t('Ende'), 'UNIX_TIMESTAMP(p.end) as end', 'MS2GetDate');

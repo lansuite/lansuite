@@ -109,25 +109,24 @@ ul.LineFirst {
 li.LineLeft {
   width: 280px;   min-height: 16px;   z-index: 10;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
-  float: left;    vertical-align: middle;
+  float: left;
   list-style: none;
 }
 li.LineLeftBoard {
   width: 120px;   min-height: 16px;   z-index: 10;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
-  float: left;    vertical-align: middle;
+  float: left;
   list-style: none;
 }
 li.LineLeftHalf {
   width: 50%;   min-height: 16px;   z-index: 10;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
-  float: left;    vertical-align: middle;
+  float: left;
   list-style: none;
 }
 li.LineRight {
   min-height: 16px;   z-index: 11;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
-  vertical-align: middle;
   background: #eeeeee;
   list-style: none;
 }
@@ -202,7 +201,7 @@ div.Button a:hover {
   display: block;   width: 120px;
   margin: 2px 2px 2px 2px;    padding: 2px 6px 2px 6px;
   text-align: center;
-	background: #999999;
+	background: #999999;	color: #ffffff;
   font-weight: bold;
 }
 .Help {
@@ -253,13 +252,14 @@ textarea {
   margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 0px 0px 0px 0px;
   background: #D7E5F2;   color: #102132;
 }
-input.Button {
+input.Button, span.Button {
   margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
   background: #D7E5F2;   color: #102132;
 }
-input.Button:hover {
+input.Button:hover, span.Button:hover {
   margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
   background: #284279;   color: #ffffff;
+	text-decoration:none;
 }
 
 /* Dropdown Images */
@@ -321,7 +321,7 @@ a:link, a:visited {
 	text-decoration:none;
 }
 a:hover {
-	color: #ff9000;
+	color: #888888;
 	text-decoration:underline;
 }
 a.admin:link, a.admin:visited {
