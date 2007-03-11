@@ -79,7 +79,7 @@
 				<name>fid</name>
 				<type>int(3)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -134,7 +134,7 @@
 				<name>tid</name>
 				<type>int(7)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -142,7 +142,7 @@
 				<name>userid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -150,7 +150,7 @@
 				<name>comment</name>
 				<type>text</type>
 				<null></null>
-				<key></key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -197,7 +197,7 @@
 				<name>fid</name>
 				<type>int(7)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -205,7 +205,7 @@
 				<name>tid</name>
 				<type>int(7)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -213,7 +213,7 @@
 				<name>userid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -252,7 +252,7 @@
 				<name>tid</name>
 				<type>int(7)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -260,7 +260,7 @@
 				<name>userid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
