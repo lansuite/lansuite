@@ -31,6 +31,12 @@ li.LineLeftBoard {
   float: left;    vertical-align: middle;
   list-style: none;
 }
+li.LineLeftHalf {
+  width: 50%;   min-height: 16px;   z-index: 10;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  float: left;    vertical-align: middle;
+  list-style: none;
+}
 li.LineRight {
   min-height: 16px;   z-index: 11;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
@@ -56,6 +62,11 @@ li.Information {
 li.Confirmation {
   margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
 	background: #84cd82;
+  list-style: none;
+}
+
+ul.BoxContent {
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 8px;
   list-style: none;
 }
 
@@ -92,8 +103,6 @@ textarea {
 .box_entry, .box_entryuser, .box_entry_active, .engaged, .box_entrydata, .box_entrymessage, .box_entryadd {
   list-style: none;
 }
-
-
 
 
 
