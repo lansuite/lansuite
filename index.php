@@ -6,6 +6,16 @@ if ($_GET['design'] != 'base') {
   $sitetool	= new sitetool('');
 }
 
+if ($_GET['load_file']) {
+  if (strpos($_GET['load_file'], 'ext_inc/') === false) exit;
+  $_GET['load_file'] = str_replace('..', '', $_GET['load_file']);
+  
+  header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
+  header('Content-Disposition: attachment; filename="'. substr($_GET['load_file'], strrpos($_GET['load_file'], '/') + 1, strlen($_GET['load_file'])) .'"');
+  header("Content-Length: " .(string)(filesize($_GET['load_file'])));
+  readfile($_GET['load_file']);
+  exit;
+}
 // HTTP-Headers
 header('Content-Type: text/html; charset=utf-8');
 #header('Content-Type: application/xhtml+xml; charset=utf-8');
