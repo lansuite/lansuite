@@ -150,7 +150,7 @@ function IsWWCLT() {
 
 $box = new boxes();
 
-// Fetach Boxes
+// Fetch Boxes
 $BoxRes = $db->query("SELECT boxid, name, place, source, module, callback FROM {$config["tables"]["boxes"]}
   WHERE active = 1
     AND (internet = 0 OR internet = {$cfg['sys_internet']} + 1)
