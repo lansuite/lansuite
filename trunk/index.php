@@ -5,7 +5,7 @@ if ($_GET['design'] != 'base') {
   include_once("inc/classes/class_sitetool.php");
   $sitetool	= new sitetool('');
 }
-
+/*
 if ($_GET['load_file']) {
   if (strpos($_GET['load_file'], 'ext_inc/') === false) exit;
   $_GET['load_file'] = str_replace('..', '', $_GET['load_file']);
@@ -16,6 +16,7 @@ if ($_GET['load_file']) {
   readfile($_GET['load_file']);
   exit;
 }
+*/
 // HTTP-Headers
 header('Content-Type: text/html; charset=utf-8');
 #header('Content-Type: application/xhtml+xml; charset=utf-8');

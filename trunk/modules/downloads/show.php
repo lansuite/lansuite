@@ -7,27 +7,34 @@ if (!$cfg['download_use_ftp']) {
   // Don't allow directories above base!
   $_GET['dir'] = str_replace('..', '', $_GET['dir']);
 
-  // Generate up-links
-  $Dirs = split('/',$_GET['dir']);
-  $LinkUp = '<a href="index.php?mod=downloads" class="menu">Downloads</a>';
-  $LinkUpDir = '';
-  $FileName = '';
-  foreach ($Dirs as $val) if ($val != '') {
-    $LinkUpDir .= $val;
-    $LinkUp .= ' - <a href="index.php?mod=downloads&dir='. $LinkUpDir .'" class="menu">'. $val .'</a>';
-    $LinkUpDir .= '/';
-    $FileName = $val;
-  }
-  $dsp->NewContent(t('Downloads'), $LinkUp);
-
   // Download dialoge, if file is selected
   if (is_file($BaseDir.$_GET['dir'])  ) {
   	$row = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["download_stats"]} WHERE file = '{$_GET['dir']}' AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
   	if ($row['found']) $db->query("UPDATE {$config["tables"]["download_stats"]} SET hits = hits + 1 WHERE file = '{$_GET['dir']}' AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
   	else $db->query("INSERT INTO {$config["tables"]["download_stats"]} SET file = '{$_GET['dir']}', hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
 
+    header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
+    header('Content-Disposition: attachment; filename="'. substr($_GET['dir'], strrpos($_GET['dir'], '/') + 1, strlen($_GET['dir'])) .'"');
+    header("Content-Length: " .(string)(filesize($BaseDir.$_GET['dir'])));
+    readfile($BaseDir.$_GET['dir']);
+#    header('Location: http://'. $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF']) . $BaseDir . $_GET['dir']);
+    exit;
+
   // Display directory
   } else {
+
+    // Generate up-links
+    $Dirs = split('/',$_GET['dir']);
+    $LinkUp = '<a href="index.php?mod=downloads" class="menu">Downloads</a>';
+    $LinkUpDir = '';
+    $FileName = '';
+    foreach ($Dirs as $val) if ($val != '') {
+      $LinkUpDir .= $val;
+      $LinkUp .= ' - <a href="index.php?mod=downloads&dir='. $LinkUpDir .'" class="menu">'. $val .'</a>';
+      $LinkUpDir .= '/';
+      $FileName = $val;
+    }
+    $dsp->NewContent(t('Downloads'), $LinkUp);
 
     // Display Dir-Info-Text from DB
     $row = $db->query_first("SELECT dirid, text, allow_upload FROM {$config['tables']['download_dirs']} WHERE name = '{$_GET['dir']}'");
@@ -68,7 +75,7 @@ if (!$cfg['download_use_ftp']) {
         // File
         } else {
           $Size = filesize($BaseDir.'/'.$CurFilePath);
-          $dsp->AddSingleRow('<a href="index.php?load_file='. $BaseDir.'/'.$CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $CurFile .' ['. $func->FormatFileSize($Size) .']'.'</a>');
+          $dsp->AddSingleRow('<a href="index.php?mod=downloads&design=base&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $CurFile .' ['. $func->FormatFileSize($Size) .']'.'</a>');
         }
       }
     }
