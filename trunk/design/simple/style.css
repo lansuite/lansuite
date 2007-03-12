@@ -92,6 +92,21 @@ li.engaged {
 	white-space: nowrap;
 	background-image: url(images/arrows_menurow_close.gif);    background-repeat: no-repeat;
 }
+.box_entrymessage {
+  padding: 0px 0px 2px 16px;
+	white-space: nowrap;
+	background-image: url(images/arrows_message.gif);    background-repeat: no-repeat;
+}
+.box_entrymessage_blink {
+  padding: 0px 0px 2px 16px;
+	white-space: nowrap;
+	background-image: url(images/arrows_message_blink.gif);    background-repeat: no-repeat;
+}
+.box_entrydata {
+  padding: 0px 0px 2px 16px;
+	white-space: nowrap;
+	background-image: url(images/arrows_data.gif);    background-repeat: no-repeat;
+}
 
 /* Content */
 ul.Line {

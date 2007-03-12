@@ -13,7 +13,4 @@ else {
   	if ($key) $dsp->AddDoubleRow($key, $value);
   }
 }
-$dsp->AddContent();
-
-echo $func->FetchMasterTmpl("design/templates/helplet_show_index.htm", $templ);
 ?>
