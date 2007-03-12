@@ -220,7 +220,8 @@ if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') 
 // Info Seite blockiert
 if ($cfg['sys_blocksite'] == 1) $func->error($cfg['sys_blocksite_text'], "index.php?mod=install");
 
-include_once('design/'. $auth['design'] .'/templates/index.php');
+if ($_GET['design'] != 'base') include_once('design/'. $auth['design'] .'/templates/index.php');
+else include_once('index_module.inc.php');
 
 // Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
 if ($db->success) {

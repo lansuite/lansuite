@@ -43,7 +43,7 @@ if (in_array('mail', $ActiveModules)) {
     }
     if ($cfg['mail_popup_on_new_mails'] and $found_not_popped_up_mail) {
       $templ['box']['rows'] .= '<script language="JavaScript">
-      OpenWindow("index.php?mod=mail&action=mail_popup&design=base", "new_mail");
+      OpenWindow("index.php?mod=mail&action=mail_popup&design=popup", "new_mail");
       </script>';
     }
   }

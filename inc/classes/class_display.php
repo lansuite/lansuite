@@ -231,7 +231,7 @@ class display {
       <br />
       <br />
       <br />
-      <a href="index.php?mod=popups&action=ls_row_textareamail_popup&design=base&form='. $this->form_name .'&textarea='. $name .'" onclick="OpenWindow(this.href, \'TextFormatSelect\'); return false">Variablen einfügen</a>';
+      <a href="index.php?mod=popups&action=ls_row_textareamail_popup&design=popup&form='. $this->form_name .'&textarea='. $name .'" onclick="OpenWindow(this.href, \'TextFormatSelect\'); return false">Variablen einfügen</a>';
   	$value = '<textarea name="'. $name .'" id="'. $name .'" class="form'. $name .'" cols="'. $cols .'" rows="'. $rows .'" onKeyUp="TextAreaPlusCharsLeft(this, document.'. $this->form_name .'.'. $name .'_chr, '. $maxchar .')">'. $value .'</textarea>';
   	$value .= $errortext;
     $this->AddDoubleRow($key, $value);
@@ -272,7 +272,7 @@ class display {
   	($optional)? $templ['TextAreaPlusRow']['optional'] = "_optional" : $templ['TextAreaPlusRow']['optional'] = '';
 
     $this->form_open = false;
-    $templ['TextAreaPlusRow']['buttons'] = $this->FetchButton('index.php?mod=popups&action=textareaplus_preview&design=base" onclick="javascript:OpenPreviewWindow(this.href, document.'. $this->form_name .'.'. $name .'); return false;', 'preview', t('Vorschau'));
+    $templ['TextAreaPlusRow']['buttons'] = $this->FetchButton('index.php?mod=popups&action=textareaplus_preview&design=popup" onclick="javascript:OpenPreviewWindow(this.href, document.'. $this->form_name .'.'. $name .'); return false;', 'preview', t('Vorschau'));
     $templ['TextAreaPlusRow']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b]', '[/b]')", 'bold', t('Fett'));
     $templ['TextAreaPlusRow']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i]', '[/i]')", 'italic', t('Kursiv'));
     $templ['TextAreaPlusRow']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u]', '[/u]')", 'underline', t('Unterstrichen'));
