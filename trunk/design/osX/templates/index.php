@@ -42,7 +42,7 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 		<strong><a href="index.php"><?$dsp->EchoVar('Logo')?></a></strong>
 	</td>
 	<td align="right">
-		<img src="design/{default_design}/images/index_top_advertisement.gif" width="7" height="60" alt="" />
+		<img src="design/osX/images/index_top_advertisement.gif" width="7" height="60" alt="" />
 		<?include_once('modules/sponsor/banner.php')?>
 	</td>
 </tr>
@@ -57,25 +57,25 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 	<td valign="top" style="padding-right:8px;text-align:center;">
 		<table border="0" cellpadding="0" cellspacing="0" align="center" width="100%">
 		<tr>
-			<td valign="middle" width="8" height="18" style="background:url(design/{default_design}/images/menu_content_tl.gif) no-repeat">&nbsp;</td>
-			<td valign="middle" height="18" style="background:url(design/{default_design}/images/menu_content_top.gif) repeat-x">&nbsp;</td>
-			<td valign="middle" width="8" height="18" style="background:url(design/{default_design}/images/menu_content_tr.gif) no-repeat">&nbsp;</td>
+			<td valign="middle" width="8" height="18" style="background:url(design/osX/images/menu_content_tl.gif) no-repeat">&nbsp;</td>
+			<td valign="middle" height="18" style="background:url(design/osX/images/menu_content_top.gif) repeat-x">&nbsp;</td>
+			<td valign="middle" width="8" height="18" style="background:url(design/osX/images/menu_content_tr.gif) no-repeat">&nbsp;</td>
 		</tr>
 		<tr>
-			<td valign="top" width="8" style="background:url(design/{default_design}/images/menu_content_ml.gif) repeat-y"></td>
+			<td valign="top" width="8" style="background:url(design/osX/images/menu_content_ml.gif) repeat-y"></td>
 			<td valign="top" align="left" id="LScontent">
         <div id="<?$dsp->EchoVar('ContentStyle')?>">
           <?include_once('index_module.inc.php')?>
         </div>
       </td>
-			<td valign="top" width="8" style="background:url(design/{default_design}/images/menu_content_mr.gif) repeat-y"></td>
+			<td valign="top" width="8" style="background:url(design/osX/images/menu_content_mr.gif) repeat-y"></td>
 		</tr>
 		<tr>
-			<td valign="bottom" width="8" height="20" style="background:url(design/{default_design}/images/menu_content_bl.gif) no-repeat">&nbsp;</td>
-			<td valign="bottom" align="right" height="20" style="background:url(design/{default_design}/images/menu_content_bottom_.gif) repeat-x">
-				<a href="#top"><img src="design/{default_design}/images/index_bottom_2top.gif" width="78" height="7" border="0" alt="" /></a>
+			<td valign="bottom" width="8" height="20" style="background:url(design/osX/images/menu_content_bl.gif) no-repeat">&nbsp;</td>
+			<td valign="bottom" align="right" height="20" style="background:url(design/osX/images/menu_content_bottom_.gif) repeat-x">
+				<a href="#top"><img src="design/osX/images/index_bottom_2top.gif" width="78" height="7" border="0" alt="" /></a>
 			</td>
-			<td valign="bottom" width="8" height="20"  style="background:url(design/{default_design}/images/menu_content_br.gif) no-repeat"></td>
+			<td valign="bottom" width="8" height="20"  style="background:url(design/osX/images/menu_content_br.gif) no-repeat"></td>
 		</tr>
 		<tr>
 			<td></td>
