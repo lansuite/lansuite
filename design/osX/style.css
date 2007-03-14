@@ -11,13 +11,15 @@ div.Headline {
   position: relative;
   font-weight: bold;
   background: #DEE3E7;
+  font-size: 11px;
 }
 div.HeadlineSub {
   background: #DEE3E7;
+  font-size: 11px;
 }
 div.HeadlineHelp {
   position: absolute;   top: 0px;   right: 8px;
-  font-size: 10px;
+  font-size: 11px;
 }
 div.Button {
   margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
@@ -37,6 +39,9 @@ div.Button a:hover {
   font-weight: bold;
   text-decoration: none;
 }
+fieldset {
+  margin: 0px 0px 0px 0px;   padding: 2px;
+}
 /* ---- ENDE neuer Elemente ----*/
 
 /* Content */
@@ -45,12 +50,14 @@ ul.Line {
   margin: 0px 0px 0px 0px;    border-top: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
   clear: left;
   background: #E8E7E7;
+  font-size: 11px;
 }
 ul.LineFirst {
   position: relative;   height: 100%;
   margin: 0px 0px 0px 0px;    padding: 0px 0px 2px 0px;
   clear: left;
   background: #E8E7E7;
+  font-size: 11px;
 }
 li.LineLeft {
   width: 280px;   min-height: 16px;   z-index: 10;
@@ -99,7 +106,7 @@ li.Confirmation {
 }
 
 ul.BoxContent {
-  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 8px;
+  margin: 0px 0px 0px 0px;    padding: 1px;
   list-style: none;
 }
 
@@ -141,7 +148,7 @@ textarea {
 
 
 /* Basic HTML-Elements-Rewrite */
-body {
+/*body {
 	background:		#FFFFFF;
 	font-family:	verdana, helvetica, sans-serif;
 	font-size:		11px;
@@ -150,7 +157,7 @@ body {
 	color:			#000000;
 	margin-left:	8px;
 	margin-right:	8px;
-}
+}*/
 
 /* Size */
 .small {
@@ -208,6 +215,7 @@ body {
 	background:		#E8E7E7;
 	padding:		4px;
 	font-size:		11px;
+	font-weight: bold;
 	border-bottom:	1px solid #9D9D9D;
 	text-align:		left;
 }
@@ -259,6 +267,7 @@ body {
 /* Boxes */
 .box_frame {		/* old name: tbl_1 */
 	background:		#EFEFEF;
+	font-size: 11px;
 }
 
 .box_caption {
