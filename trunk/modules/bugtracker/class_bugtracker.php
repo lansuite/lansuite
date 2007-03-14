@@ -59,7 +59,7 @@ class Bugtracker {
         $row = $db->query_first("SELECT agent, caption FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
         if ($row['agent'] != $auth['userid']) {
           switch ($state) {
-            case 2: $mail->create_sys_mail($row['agent'], t('Ein Ihnen zugewiesener Bugreport wartet auf seine Bearbeitung'), t('Der Status des Bugreports [b]"%1"[/b] wurde auf [b]"In Bearbeitung"[/b] gesetzt. Entweder hat ein Administrator Ihnen den Eintrag zugewiesen, oder ein Benutzer hat das von Ihnen erwartete Feedback übermittelt und den Status anschließend geändert. Nähres erfahren Sie eventuell in den Kommentaren dieses Bug-Reports.'. $AddLink, array($row['caption'], $bugid)));
+            case 2: $mail->create_sys_mail($row['agent'], t('Ein Ihnen zugewiesener Bugreport wartet auf seine Bearbeitung'), t('Der Status des Bugreports [b]"%1"[/b] wurde auf [b]"In Bearbeitung"[/b] gesetzt. Entweder hat ein Administrator Ihnen den Eintrag zugewiesen, oder ein Benutzer hat das von Ihnen erwartete Feedback übermittelt und den Status anschließend geändert. Näheres erfahren Sie eventuell in den Kommentaren dieses Bug-Reports.'. $AddLink, array($row['caption'], $bugid)));
             break;
             case 7: $mail->create_sys_mail($row['agent'], t('Ein Ihnen zugewiesener Bugreport wurde wiedereröffnet'), t('Der Status des Bugreports [b]"%1"[/b] wurde auf [b]"Wiedereröffnet"[/b] gesetzt. Bitte schauen Sie sich den Bugreport noch einmal an und beheben Sie die weiteren Probleme.'. $AddLink, array($row['caption'], $bugid)));
             break;

@@ -62,7 +62,7 @@ $user_lg = $db->query_first("SELECT user.logins, max(auth.logintime) AS logintim
 	WHERE user.userid=\"".$auth["userid"]."\"
 	GROUP BY auth.userid");
 
-$box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] .'</b> <a href="index.php?mod=logout"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" alt="Logout" title="Logout" /></a>');
+$box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] .'</b> <a href="index.php?mod=logout" onmouseover="return overlib(\''. t('Logout') .'\');" onmouseout="return nd();"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" alt="Logout" title="Logout" /></a>');
 $box->DotRow(t('Zuletzt eingeloggt'));
 $box->EngangedRow("<b>". date('d.m H:i', $user_lg["logintime"]) ."</b>");
 

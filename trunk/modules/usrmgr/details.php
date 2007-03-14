@@ -25,33 +25,25 @@ function GetTypeDescription($type) {
 	}
 }
 
+#$db->qry('SELECT * FROM %prefix%user WHERE name = %string% and id = %int%', 'jo\'ch\en', 1);
+
 // Select from table_user
 // username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment
-$user_data = $db->query_first("SELECT u.*, UNIX_TIMESTAMP(u.birthday) AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
-	FROM {$config['tables']['user']} AS u
-	LEFT JOIN {$config['tables']['usersettings']} AS c ON u.userid = c.userid
-	LEFT JOIN {$config['tables']['clan']} AS clan ON u.clanid = clan.clanid
-	LEFT JOIN {$config['tables']['seat_seats']} AS s ON u.userid = s.userid
-	WHERE u.userid='{$_GET['userid']}'
-	");
+$user_data = $db->qry_first("SELECT u.*, UNIX_TIMESTAMP(u.birthday) AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
+	FROM %prefix%user AS u
+	LEFT JOIN %prefix%usersettings AS c ON u.userid = c.userid
+	LEFT JOIN %prefix%clan AS clan ON u.clanid = clan.clanid
+	LEFT JOIN %prefix%seat_seats AS s ON u.userid = s.userid
+	WHERE u.userid = %int%",
+  $_GET['userid']);
 
 // If exists
 if (!$user_data['userid']) $func->error($lang['usrmgr']['checkin_nouser'], '');
 else {
-	// Select party-related user details
-	$user_party = $db->query_first("SELECT * FROM {$config['tables']['party_user']} WHERE user_id = {$_GET['userid']} AND party_id = {$party->party_id}");
-
-	// Select from table_stats_auth
-	$user_auth = $db->query_first("SELECT count(*) as count FROM {$config['tables']['stats_auth']} WHERE userid = '{$_GET['userid']}' AND login = '1' AND lasthit > " . (time() - $config['lansuite']['user_timeout']) );
-
-	$count_rows = $db->query_first("SELECT COUNT(*) AS count FROM {$config['tables']['board_posts']}
-    WHERE userid = '{$_GET['userid']}'
-    ");
-	
-	// Select from table_seat_seats
-	$party_seatcontrol = $db->query_first("SELECT * FROM {$config[tables][party_prices]}
-			WHERE price_id = '{$user_party['price_id']}'
-			");
+	$user_party = $db->qry_first('SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%', $_GET['userid'], $party->party_id);
+	$user_auth = $db->qry_first('SELECT COUNT(*) as count FROM %prefix%stats_auth WHERE userid = %int% AND login = 1 AND lasthit > %int%', $_GET['userid'], time() - $config['lansuite']['user_timeout']);
+	$count_rows = $db->qry_first('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = %int%', $_GET['userid']);
+	$party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %INT%', $user_party['price_id']);
 
 	$menunames[1] = $lang['usrmgr']['details_playerinfos'];
 	if (in_array('tournament2', $ActiveModules)) $menunames[2] = $lang['usrmgr']['details_tournament'];
@@ -193,7 +185,7 @@ else {
         if ($cfg['sys_internet']) $messenger .= ' <a href="http://wwp.icq.com/scripts/search.dll?to='. $user_data['icq'] .'" target="_blank"><img src="ext_inc/footer_buttons/icq.gif" alt="ICQ" title="ICQ#'. $user_data['icq'] .'" border="0" /></a> ';
         else $messenger .= ' <img src="ext_inc/footer_buttons/icq.gif" alt="ICQ" title="ICQ: #'. $user_data['icq'] .'" border="0" /> ';
       }
-      if ($user_data['msn']) $messenger .= ' <img src="ext_inc/footer_buttons/msn.gif" alt="MSN" title="MSN: '. $user_data['msn'] .'" border="0" />';
+      if ($user_data['msn']) $messenger .= ' <img src="ext_inc/footer_buttons/msn.gif" alt="MSN" title="MSN: '. $user_data['msn'] .'" border="0" /> ';
       if ($user_data['skype']) {
         if ($cfg['sys_internet']) $messenger .= '<a href="skype:'. $user_data['skype'] .'?call"><img src="ext_inc/footer_buttons/skype.gif" alt="Skype" title="Skype: '. $user_data['skype'] .'" border="0" /></a>';
         else $messenger .= ' <img src="ext_inc/footer_buttons/skype.gif" alt="Skype" title="Skype: '. $user_data['skype'] .'" border="0" />';
