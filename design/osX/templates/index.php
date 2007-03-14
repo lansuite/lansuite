@@ -23,7 +23,7 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 	<title><?$dsp->EchoVar('title')?></title>
 	<?$dsp->EchoTpl('design/templates/html_header.htm')?>
   <link rel="stylesheet" type="text/css" href="ext_scripts/niftycube/niftyCorners.css" />
-  <script type="text/javascript" src="ext_scripts/niftycube/niftycube.js"></script>
+  <!-- <script type="text/javascript" src="ext_scripts/niftycube/niftycube.js"></script> -->
 </head>
 
 
@@ -54,7 +54,7 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 	<td valign="top" width="155" style="padding-right:8px;text-align:left;"><?$dsp->EchoVar('BoxesLeft')?></td>
 
 	<!-- MiddleBlock //-->
-	<td valign="top" style="padding-right:8px;text-align:center;">
+	<td valign="top" style="text-align:center;">
 		<table border="0" cellpadding="0" cellspacing="0" align="center" width="100%">
 		<tr>
 			<td valign="middle" width="8" height="18" style="background:url(design/osX/images/menu_content_tl.gif) no-repeat">&nbsp;</td>
