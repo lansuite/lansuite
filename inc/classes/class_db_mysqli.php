@@ -1,21 +1,4 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*
-*	(c) 2001-2003 by One-Network.Org
-*
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 			class_db_mysql.php
-*	Module: 			Framework
-*	Main editor: 		raphael@lansuite.de
-*	Last change: 		22.09.2002 19:39
-*	Description: 		
-*	Remarks: 		
-*
-**************************************************************************/
 
 class db {
 	var $link_id = 0;
@@ -24,6 +7,7 @@ class db {
 	var $print_sql_error;
 	var $success = false;
 	var $count_query = 0;
+	var $CurrentArg = string;
 
     // Konstruktor
 	function db() {
@@ -73,15 +57,31 @@ class db {
 
     // No INTO OUTFILE
     elseif (!strpos($query_test_string, 'into outfile') === false) $query_string = '___INTO OUTFILE_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
-#echo $query_string.'<br>';
    	$this->querys[] = $query_string;
 		$this->querys_count++;
-		$this->query_id = @mysqli_query($GLOBALS['db_link_id'], $query_string);
+		$this->query_id = mysqli_query($GLOBALS['db_link_id'], $query_string);
 		$this->sql_error = @mysqli_error($GLOBALS['db_link_id']);
 		$this->count_query++;
 		if (!$this->query_id) $this->print_error($this->sql_error, $query_string);
 		return $this->query_id;
 	}
+
+  function escape($match) {
+    if ($match[0] == '%int%') return (int)$this->Args[$this->ArgId];
+    elseif ($match[0] == '%string%') return "'". mysqli_real_escape_string($GLOBALS['db_link_id'], (string)$this->Args[$this->ArgId]) ."'";
+    $this->ArgId++;
+  }
+
+  function qry() {
+    global $config;
+
+    $this->Args = func_get_args();
+    (string)$query = array_shift($this->Args);
+    (string)$query = str_replace('%prefix%', $config['database']['prefix'], $query);
+    $this->ArgId = 0;
+    (string)$query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query);
+    return $this->query($query);
+  }
 
 	function disconnect() {
     mysqli_close($this->link_id);
@@ -114,6 +114,22 @@ class db {
 
    		return $row;
   	}
+
+	function qry_first() {
+    global $config, $sitetool;
+    
+    $this->Args = func_get_args();
+    (string)$query = array_shift($this->Args);
+    (string)$query = str_replace('%prefix%', $config['database']['prefix'], $query);
+    $this->ArgId = 0;
+
+    (string)$query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query);
+    $this->query($query);
+
+ 		$row = $this->fetch_array($this->query_id);
+ 		$this->free_result($this->query_id);
+ 		return $row;
+  }
 
 
   	function query_first_rows($query_string) { // fieldname "number" is reserved

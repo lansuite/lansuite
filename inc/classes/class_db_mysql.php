@@ -79,13 +79,27 @@ class db {
 
     $this->querys[] = $query_string;
 		$this->querys_count++;
-		$this->query_id = @mysql_query($query_string, $GLOBALS['db_link_id']);
+		$this->query_id = mysql_query($query_string, $GLOBALS['db_link_id']);
 		$this->sql_error = @mysql_error($GLOBALS['db_link_id']);
 		$this->count_query++;
 		if (!$this->query_id) $this->print_error($this->sql_error, $query_string);
 		return $this->query_id;
 	}
 
+  function escape($match) {
+    if ($match[0] == '%int%') return (int)$this->CurrentArg;
+    elseif ($match[0] == '%string%') return "'". mysql_real_escape_string((string)$this->CurrentArg, $GLOBALS['db_link_id']) ."'";
+  }
+
+  function qry() {
+    global $config;
+
+    $args = func_get_args();
+    $query = array_shift($args);
+    $query = str_replace('%prefix%', $config['database']['prefix'], $query);
+    foreach ($args as $this->CurrentArg) $query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query, 1);
+    return $this->query($query);
+  }
 
 	function get_affected_rows() {
 		return @mysql_affected_rows($GLOBALS['db_link_id']);
@@ -115,6 +129,19 @@ class db {
    		return $row;
   	}
 
+	function qry_first() {
+    global $config;
+
+    $args = func_get_args();
+    $query = array_shift($args);
+    $query = str_replace('%prefix%', $config['database']['prefix'], $query);
+    foreach ($args as $this->CurrentArg) $query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query, 1);
+ 		$this->query($query_string);
+
+ 		$row = $this->fetch_array($this->query_id);
+ 		$this->free_result($this->query_id);
+    return $row;
+ 	}
 
   	function query_first_rows($query_string) { // fieldname "number" is reserved
    		$this->query($query_string);

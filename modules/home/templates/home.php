@@ -9,7 +9,7 @@ foreach($ModOverviews as $ModOverview) {
 #  $st = round($sitetool->out_work(), 2);
   include('modules/home/'. $ModOverview .'.inc.php');
   echo $dsp->FetchModTpl('home', 'show_item');
-#  echo round($sitetool->out_work() - $st, 2).'</li>';
+#  echo round($sitetool->out_work() - $st, 2);
   if ($z % 2 == 1) echo '</ul>';
   $z++;
 }

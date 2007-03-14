@@ -1321,7 +1321,7 @@
 		<content>
 		</content>
 	</table>		
-	<table>		
+	<table>
 		<table_head>
 			<name>translation</name>
 		</table_head>
@@ -1393,6 +1393,95 @@
 			<field>
 				<name>it</name>
 				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>file</name>
+				<type>varchar(40)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>translation_long</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>tid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>id</name>
+				<type>varchar(32)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>org</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>de</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>en</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>es</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>fr</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>nl</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>it</name>
+				<type>text</type>
 				<null></null>
 				<key></key>
 				<default></default>
