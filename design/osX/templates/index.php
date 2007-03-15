@@ -78,7 +78,11 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 			<td valign="bottom" width="8" height="20"  style="background:url(design/osX/images/menu_content_br.gif) no-repeat"></td>
 		</tr>
 		<tr>
-      <td colspan="3" align="center" class="copyright" id="LSfooter"><br><?if ($_GET['design'] != 'base') include_once('design/templates/footer.php')?>
+      <td>&nbsp
+      </td>
+      <td align="center" class="copyright" id="LSfooter"><br><?if ($_GET['design'] != 'base') include_once('design/templates/footer.php')?>
+      </td>
+      <td>&nbsp
       </td>
     </tr>
 		<tr>
