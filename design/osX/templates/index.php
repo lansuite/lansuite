@@ -63,7 +63,7 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 		</tr>
 		<tr>
 			<td valign="top" width="8" style="background:url(design/osX/images/menu_content_ml.gif) repeat-y"></td>
-			<td valign="top" align="left" id="LScontent">
+			<td valign="top" align="left" id="LScontent" bgcolor="#E8E7E7">
         <div id="<?$dsp->EchoVar('ContentStyle')?>">
           <?include_once('index_module.inc.php')?>
         </div>
