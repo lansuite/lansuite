@@ -17,7 +17,7 @@ else {
 		: $dsp->AddDoubleRow(t('Von'), '<i>'. t('System') .'</i>');
 		$dsp->AddDoubleRow(t('Gesendet'), $func->unixstamp2date($row['tx_date'], 'daydatetime'));
 		$dsp->AddDoubleRow(t('Betreff'), $row['Subject']);
-		$dsp->AddSingleRow($func->text2html($row['msgbody']));
+		$dsp->AddDoubleRow(t('Nachricht'), $func->text2html($row['msgbody']));
 
 		$buttons = '';
 		switch($_GET['ref']) {
