@@ -122,7 +122,7 @@ ul.LineFirst {
   background: #eee6e6;
 }
 li.LineLeft {
-  width: 280px;   min-height: 16px;   z-index: 10;
+  width: 200px;   min-height: 16px;   z-index: 10;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
   float: left;
   list-style: none;
