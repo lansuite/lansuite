@@ -21,6 +21,9 @@ body {
   background: #ffffff;    color: #000000;
   font-size: 11px;    font-weight: normal;   font-family: verdana, helvetica, sans-serif;
 }
+td {
+  font-size: 11px;
+}
 div#DateLogout {
   position: absolute;   top: 2px;   right: 4px;   width: 300px;   height: 20px;   z-index: 90;
   text-align: right;
@@ -218,6 +221,7 @@ div.Button a:hover {
   text-align: center;
 	background: #999999;	color: #ffffff;
   font-weight: bold;
+  text-decoration: none;
 }
 .Help {
   color: #aaaaaa;
