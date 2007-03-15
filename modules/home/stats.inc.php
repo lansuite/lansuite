@@ -33,7 +33,7 @@ if ($party->count > 0) {
       ");
 		$visits = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$config['tables']['stats_usage']}");
 
-    $templ['home']['show']['item']['control']['row'] .= t('Besucher gesammt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. $user_online['n'] . HTML_NEWLINE;
+    $templ['home']['show']['item']['control']['row'] .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. $user_online['n'] . HTML_NEWLINE;
   }
 }
 
