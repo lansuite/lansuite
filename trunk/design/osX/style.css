@@ -42,6 +42,9 @@ div.Button a:hover {
 fieldset {
   margin: 0px 0px 0px 0px;   padding: 2px;
 }
+td {
+  font-size: 11px;
+}
 /* ---- ENDE neuer Elemente ----*/
 
 /* Content */
