@@ -45,6 +45,20 @@ fieldset {
 td {
   font-size: 11px;
 }
+input.Button, span.Button {
+  margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 0px 0px 0px;
+  background: #D7E5F2;   color: #102132;
+  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+input.Button:hover, span.Button:hover {
+  margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 0px 0px 0px;
+  background: #284279;   color: #ffffff;
+  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
 /* ---- ENDE neuer Elemente ----*/
 
 /* Content */
@@ -63,7 +77,7 @@ ul.LineFirst {
   font-size: 11px;
 }
 li.LineLeft {
-  width: 280px;   min-height: 16px;   z-index: 10;
+  width: 180px;   min-height: 16px;   z-index: 10;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
   float: left;    vertical-align: middle;
   list-style: none;
