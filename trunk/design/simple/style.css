@@ -125,7 +125,7 @@ ul.LineFirst {
   background: #eee6e6;
 }
 li.LineLeft {
-  width: 200px;   min-height: 16px;   z-index: 10;
+  width: 180px;   min-height: 16px;   z-index: 10;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
   float: left;
   list-style: none;
@@ -208,6 +208,7 @@ div.HeadlineHelp {
 div.Button {
   margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
 }
+
 div.Button a {
   display: block;   width: 120px;
   margin: 2px 2px 2px 2px;    padding: 2px 6px 2px 6px;
@@ -223,6 +224,18 @@ div.Button a:hover {
   font-weight: bold;
   text-decoration: none;
 }
+input.Button, span.Button {
+  margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
+  background: #D7E5F2;   color: #102132;
+  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+}
+input.Button:hover, span.Button:hover {
+  margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
+  background: #284279;   color: #ffffff;
+  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+  text-decoration: none;
+}
+
 .Help {
   color: #aaaaaa;
 }
@@ -255,7 +268,7 @@ label {
 }
 input {
   margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 0px 0px 0px 0px;
-  background: #D7E5F2;   color: #102132;
+  background: #D7E5F2;   color: #102132; cursor:pointer;
 }
 input.checkbox {
   margin: 0px 4px 0px 0px;   border: 0px 0px 0px 0px;   padding: 0px 0px 0px 0px;
@@ -271,16 +284,6 @@ textarea {
   margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 0px 0px 0px 0px;
   background: #D7E5F2;   color: #102132;
 }
-input.Button, span.Button {
-  margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
-  background: #D7E5F2;   color: #102132;
-}
-input.Button:hover, span.Button:hover {
-  margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
-  background: #284279;   color: #ffffff;
-	text-decoration:none;
-}
-
 /* Dropdown Images */
 option[value=de]:before { content:url("../images/icon_de.png"); }
 option[value=en]:before { content:url("../images/icon_en.png"); }
