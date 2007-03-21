@@ -229,8 +229,9 @@ class masterform {
               }
 
               // Check double uniques
-              if (!$this->isChange and $SQLFieldUnique[$field['name']]) {
-                $row = $db->query_first("SELECT 1 AS found FROM {$config['tables'][$table]} WHERE {$field['name']} = '{$_POST[$field['name']]}'");
+              if ($SQLFieldUnique[$field['name']]) {
+                if ($this->isChange) $check_double_where = ' AND '. $idname .' != '. (int)$id;
+                $row = $db->query_first("SELECT 1 AS found FROM {$config['tables'][$table]} WHERE {$field['name']} = '{$_POST[$field['name']]}'$check_double_where");
                 if ($row['found']) $this->error[$field['name']] = $lang['mf']['err_double_on_unique'];
               }
             }
