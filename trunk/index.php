@@ -212,9 +212,6 @@ if ($db->success)	$stats = new stats();
 // Boxes
 if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') include_once("modules/boxes/class_boxes.php");
 
-// Info Seite blockiert
-if ($cfg['sys_blocksite'] == 1) $func->error($cfg['sys_blocksite_text'], "index.php?mod=install");
-
 if ($_GET['design'] != 'base') include_once('design/'. $auth['design'] .'/templates/index.php');
 else include_once('index_module.inc.php');
 
