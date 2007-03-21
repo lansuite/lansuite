@@ -133,13 +133,13 @@ class display {
 		global $templ;
 
     ($vissible)? $vissible = '' : $vissible = 'none';
-    $templ['index']['info']['content'] .= '<div id="'. $name .'" style="display:'. $vissible .'">';
+    echo '<div id="'. $name .'" style="display:'. $vissible .'">';
 	}
 
 	function StopHiddenBox() {
 		global $templ;
 		
-    $templ['index']['info']['content'] .= '</div>';
+    echo '</div>';
 	}
 
 	function AddSingleRow($text, $parm = NULL) {
