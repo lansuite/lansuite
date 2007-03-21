@@ -46,8 +46,8 @@
 	$db->query( "SELECT time FROM {$config['tables']['stats_localserver']}" );
 	$rows = $db->num_rows( );
 	
-
-	$db->query( "SELECT time, {$_GET['act']} FROM {$config['tables']['stats_localserver']}  ORDER BY time ASC LIMIT ". ($rows - 11) ."," . ($rows + 1) );
+  (($rows - 11) < 0)? $st = 0 : $st = $rows - 11;
+	$db->query( "SELECT time, {$_GET['act']} FROM {$config['tables']['stats_localserver']} ORDER BY time ASC LIMIT ". $st ."," . ($rows + 1) );
 
 	$i = 0;
 
