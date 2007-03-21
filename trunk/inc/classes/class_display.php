@@ -682,9 +682,10 @@ class display {
 	function FetchSpanButton($title, $link, $hint = NULL, $target = NULL) {
     ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
     ($target)? $target = ' target="_blank"' : $target = '';
-    return '<a href="'. $link .'"'. $hint .''. $target .'><span class="Button">'. $title .'</span></a> ';
+#    return '<a href="'. $link .'"'. $hint .''. $target .'><span class="Button">'. $title .'</span></a> ';
+    return '<div class="Buttons"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></div>';
 	}
-
+  
 	function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {
 		global $templ, $gd;
 
