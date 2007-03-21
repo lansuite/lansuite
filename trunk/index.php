@@ -189,16 +189,10 @@ if ($language != "de" and file_exists("modules/boxes/language/boxes_lang_$langua
 // Initialize party
 $party = new party();
 
-// Set Missingfields to false
-$missing_fields = 0;
+// Startup authentication
 if ($found_adm) {
-	// Startup authentication
 	$authentication = new auth();
 	$auth = $authentication->GetAuthData();
-
-	// Check, if all required user data fields, are known and force user to add them, if not.
-	if ($auth['login'] and $auth['userid'] and $_GET["mod"] != 'install') include_once('modules/usrmgr/missing_fields.php');
-
 } else {
 	$auth["type"] = 3;
 	$auth["login"] = 1;

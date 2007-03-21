@@ -37,6 +37,9 @@ function authorized($mod, $action, $requirement) {
 	}
 }
 
+// Check, if all required user data fields, are known and force user to add them, if not.
+$missing_fields = 0;
+if ($found_adm and $auth['login'] and $auth['userid'] and $_GET["mod"] != 'install') include_once('modules/usrmgr/missing_fields.php');
 
 // Set Mod = 'Home', if none selected
 if ($_GET['mod'] == '' or !$func->check_var($_GET['mod'], 'string', 0, 50)) $mod = 'home'; #($_GET['templ'] == 'install')? $mod = 'install' : $mod = 'home';
