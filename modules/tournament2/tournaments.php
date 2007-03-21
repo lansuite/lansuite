@@ -6,21 +6,20 @@ function CheckModeForLeague($league) {
 }
 
 function CheckDateInFuture($date) {
-  global $lang, $func;
+  global $lang, $func, $mf;
 
-  if (!$_GET['mf_id'] and $func->MysqlDateToTimestamp($date) < time()) return $lang['tourney']['t_add_err_date_past'];
+  if (!$mf->isChange and $func->MysqlDateToTimestamp($date) < time()) return $lang['tourney']['t_add_err_date_past'];
   else return false;
 }
 
 function CheckModeChangeAllowed($mode) {
-global $mf, $lang;
+global $mf, $db, $lang;
 
-  if ($_GET['mf_id'] and $mf->CurrentDBFields['status'] != 'open' and $mf->CurrentDBFields['mode'] != $mode) {
-    if ($mf->CurrentDBFields['mode'] == 'single' or $mf->CurrentDBFields['mode'] == 'double') {
+  $t = $db->qry_first('SELECT mode, status FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $_GET['tournamentid']);
+  if ($mf->isChange and $t['status'] != 'open' and $t['mode'] != $mode) {
+    if ($t['mode'] == 'single' or $t['mode'] == 'double') {
       if ($mode != 'single' and $mode != 'double') return $lang['tourney']['t_add_err_chgsedeonly'];
-    } else {
-      return $lang['tourney']['t_add_err_chgsedeonly2'];
-    }
+    } else return $lang['tourney']['t_add_err_chgsedeonly2'];
   }
   return false;
 }
