@@ -37,6 +37,9 @@ function authorized($mod, $action, $requirement) {
 	}
 }
 
+// Info Seite blockiert
+if ($cfg['sys_blocksite'] == 1) $func->information($cfg['sys_blocksite_text'], "index.php?mod=install");
+
 // Check, if all required user data fields, are known and force user to add them, if not.
 $missing_fields = 0;
 if ($found_adm and $auth['login'] and $auth['userid'] and $_GET["mod"] != 'install') include_once('modules/usrmgr/missing_fields.php');
