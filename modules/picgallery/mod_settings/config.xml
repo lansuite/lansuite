@@ -8,13 +8,13 @@
     	<item>
     		<name>picgallery_allow_user_upload</name>
     		<type>boolean</type>
-    		<default>1</default>
+    		<default>0</default>
     		<description>Darf jeder Bilder hochladen</description>
     	</item>
     	<item>
     		<name>picgallery_allow_user_naming</name>
     		<type>boolean</type>
-    		<default>1</default>
+    		<default>0</default>
     		<description>Darf jeder Bilder mit Beschriftungen versehen?</description>
     	</item>
     </items>
