@@ -43,7 +43,7 @@ else {
 	$user_party = $db->qry_first('SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%', $_GET['userid'], $party->party_id);
 	$user_auth = $db->qry_first('SELECT COUNT(*) as count FROM %prefix%stats_auth WHERE userid = %int% AND login = 1 AND lasthit > %int%', $_GET['userid'], time() - $config['lansuite']['user_timeout']);
 	$count_rows = $db->qry_first('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = %int%', $_GET['userid']);
-	$party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %INT%', $user_party['price_id']);
+	$party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $user_party['price_id']);
 
 	$menunames[1] = $lang['usrmgr']['details_playerinfos'];
 	if (in_array('tournament2', $ActiveModules)) $menunames[2] = $lang['usrmgr']['details_tournament'];
