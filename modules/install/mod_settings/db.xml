@@ -1338,7 +1338,7 @@
 				<name>id</name>
 				<type>varchar(32)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -1402,7 +1402,7 @@
 				<name>file</name>
 				<type>varchar(40)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
 			</field>
