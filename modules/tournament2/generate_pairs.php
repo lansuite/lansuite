@@ -33,7 +33,7 @@ if ($team_anz < 4) {
 } elseif ($tournament['mode'] == "groups" and $team_anz < 6) {
 	$func->information($lang["tourney"]["g_pairs_tofew_teams6"], "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
 
-## Satus noch Offen
+## Status noch Offen
 } elseif ($tournament['status'] != "open") {
 	$func->information($lang["tourney"]["g_pairs_started_error"], "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=1");
 
