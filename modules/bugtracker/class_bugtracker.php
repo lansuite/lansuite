@@ -21,7 +21,7 @@ class Bugtracker {
     if ($auth['type'] <= 1) {
       $row = $db->query_first("SELECT caption, state FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
       if (!(($row['state'] == 0 and $state == 1) or ($row['state'] == 4 and $state == 7) or ($row['state'] == 3 and $state == 2))) {
-        $func->information(t('Der Status des Bugreports <b>"%1"</b> konnte nicht geändert werden, da Sie nur von <b>"Neu" auf "Bestätigt"</b>, von <b>"Feedback benötigt" auf "In Bearbeitung"</b> und von <b>"Behoben" auf "Wiedereröffnet"</b> wechseln dürfen', array($row['caption'])));
+        $func->information(t('Der Status des Bugreports <b>"%1"</b> konnte nicht geändert werden, da Sie nur von <b>"Neu" auf "Bestätigt"</b>, von <b>"Feedback benötigt" auf "In Bearbeitung"</b> und von <b>"Behoben" auf "Wiedereröffnet"</b> wechseln dürfen.', array($row['caption'])));
         return;
       }
     }
@@ -39,17 +39,17 @@ class Bugtracker {
         $row = $db->query_first("SELECT reporter, caption FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
         if ($row['reporter'] != $auth['userid']) {
           switch ($state) {
-            case 1: $mail->create_sys_mail($row['reporter'], t('Ihr Bugreport wurde bestätigt'), t('Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Bestätigt"[/b] gesetzt. Dies bedeutet, dass der Fehler bekannt ist (bzw. der Feature-Wunsch anerkannt wurde), sich jedoch noch keinen Bearbeiter gefunden hat.'. $AddLink, array($row['caption'], $bugid)));
+            case 1: $mail->create_sys_mail($row['reporter'], t('Ihr Bugreport wurde bestätigt'), t('Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Bestätigt"[/b] gesetzt. Dies bedeutet, dass der Fehler bekannt ist (bzw. der Feature-Wunsch anerkannt wurde), sich jedoch noch kein Bearbeiter gefunden hat.'. $AddLink, array($row['caption'], $bugid)));
             break;
             case 2: $mail->create_sys_mail($row['reporter'], t('Ihr Bugreport wird nun bearbeitet'), t('Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"In Bearbeitung"[/b] gesetzt. Dies bedeutet, dass jemand an dem Problem arbeitet und es vorraussichtlich in Kürze behoben sein wird.'. $AddLink, array($row['caption'], $bugid)));
             break;
             case 3: $mail->create_sys_mail($row['reporter'], t('Feedback zu Ihrem Bugreport benötigt'), t('Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Feedback benötigt"[/b] gesetzt. Bitte schauen Sie sich den Bugreport noch einmal an und helfen Sie, Ihre Angaben zu vervollständigen.'. $AddLink, array($row['caption'], $bugid)));
             break;
-            case 4: $mail->create_sys_mail($row['reporter'], t('Das Problem aus Ihrem Bugreport wurde behoben'), t('Gute Nachrichten: Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Behoben"[/b] gesetzt. Bitte prüfen Sie nochmals, ob nun auch wirklich alles korrekt funktioniert und setzen Sie den Satus auf "Wiedereröffnet", fals weiterhin noch Probleme bestehen.'. $AddLink, array($row['caption'], $bugid)));
+            case 4: $mail->create_sys_mail($row['reporter'], t('Das Problem aus Ihrem Bugreport wurde behoben'), t('Gute Nachrichten: Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Behoben"[/b] gesetzt. Bitte prüfen Sie nochmals, ob nun auch wirklich alles korrekt funktioniert und setzen Sie den Status auf "Wiedereröffnet", falls weiterhin noch Probleme bestehen.'. $AddLink, array($row['caption'], $bugid)));
             break;
             case 5: $mail->create_sys_mail($row['reporter'], t('Ihr Bugreport wurde aufgeschoben'), t('Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Aufgeschoben"[/b] gesetzt. Dies ist in aller Regel dann der Fall, wenn der Aufwand unverhältnismäßig hoch gegenüber dem Nutzen eines Fixes sein würde, oder der Wunsch mit aktuellen Boardmitteln von Lansuite nur sehr schwer realisierbar ist. Näheres erfahren Sie eventuell in den Kommentaren dieses Bug-Reports.'. $AddLink, array($row['caption'], $bugid)));
             break;
-            case 6: $mail->create_sys_mail($row['reporter'], t('Ihr Bugreport wurde geschlossen'), t('Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Geschlossen"[/b] gesetzt. Dies bedeutet in den meisten Fällen, dass sich das Problem auf Grund eines Irrtums von selbst behoben hat und kein Fix für dieses Problem notwendig, bzw. vorgesehen ist. Näheres erfahren Sie eventuell in den Kommentaren dieses Bug-Reports.'. $AddLink, array($row['caption'], $bugid)));
+            case 6: $mail->create_sys_mail($row['reporter'], t('Ihr Bugreport wurde geschlossen'), t('Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Geschlossen"[/b] gesetzt. Dies bedeutet in den meisten Fällen, dass sich das Problem auf Grund eines Irrtums von selbst behoben hat und kein Fix für dieses Problem notwendig bzw. vorgesehen ist. Näheres erfahren Sie eventuell in den Kommentaren dieses Bug-Reports.'. $AddLink, array($row['caption'], $bugid)));
             break;
           }
           $func->log_event(t('Benachrichtigungsmail an Reporter versandt'), 1, '', $bugid);
@@ -59,9 +59,9 @@ class Bugtracker {
         $row = $db->query_first("SELECT agent, caption FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
         if ($row['agent'] != $auth['userid']) {
           switch ($state) {
-            case 2: $mail->create_sys_mail($row['agent'], t('Ein Ihnen zugewiesener Bugreport wartet auf seine Bearbeitung'), t('Der Status des Bugreports [b]"%1"[/b] wurde auf [b]"In Bearbeitung"[/b] gesetzt. Entweder hat ein Administrator Ihnen den Eintrag zugewiesen, oder ein Benutzer hat das von Ihnen erwartete Feedback übermittelt und den Status anschließend geändert. Näheres erfahren Sie eventuell in den Kommentaren dieses Bug-Reports.'. $AddLink, array($row['caption'], $bugid)));
+            case 2: $mail->create_sys_mail($row['agent'], t('Ein Ihnen zugewiesener Bugreport wartet auf seine Bearbeitung'), t('Der Status des Bugreports [b]"%1"[/b] wurde auf [b]"In Bearbeitung"[/b] gesetzt. Entweder hat ein Administrator Ihnen den Eintrag zugewiesen oder ein Benutzer hat das von Ihnen erwartete Feedback übermittelt und den Status anschließend geändert. Näheres erfahren Sie eventuell in den Kommentaren dieses Bug-Reports.'. $AddLink, array($row['caption'], $bugid)));
             break;
-            case 7: $mail->create_sys_mail($row['agent'], t('Ein Ihnen zugewiesener Bugreport wurde wiedereröffnet'), t('Der Status des Bugreports [b]"%1"[/b] wurde auf [b]"Wiedereröffnet"[/b] gesetzt. Bitte schauen Sie sich den Bugreport noch einmal an und beheben Sie die weiteren Probleme.'. $AddLink, array($row['caption'], $bugid)));
+            case 7: $mail->create_sys_mail($row['agent'], t('Ein Ihnen zugewiesener Bugreport wurde wiedereröffnet'), t('Der Status des Bugreports [b]"%1"[/b] wurde auf [b]"Wiedereröffnet"[/b] gesetzt. Bitte schauen Sie sich den Bugreport noch einmal an und beheben Sie nach Möglichkeit die weiteren Probleme.'. $AddLink, array($row['caption'], $bugid)));
             break;
           }
           $func->log_event(t('Benachrichtigungsmail an Bearbeiter versandt'), 1, '', $bugid);
