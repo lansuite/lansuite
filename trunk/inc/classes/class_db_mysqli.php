@@ -67,19 +67,17 @@ class db {
 	}
 
   function escape($match) {
-    if ($match[0] == '%int%') return (int)$this->Args[$this->ArgId];
-    elseif ($match[0] == '%string%') return "'". mysqli_real_escape_string($GLOBALS['db_link_id'], (string)$this->Args[$this->ArgId]) ."'";
-    $this->ArgId++;
+    if ($match[0] == '%int%') return (int)$this->CurrentArg;
+    elseif ($match[0] == '%string%') return "'". mysqli_real_escape_string($GLOBALS['db_link_id'], (string)$this->CurrentArg) ."'";
   }
 
   function qry() {
     global $config;
 
-    $this->Args = func_get_args();
-    (string)$query = array_shift($this->Args);
-    (string)$query = str_replace('%prefix%', $config['database']['prefix'], $query);
-    $this->ArgId = 0;
-    (string)$query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query);
+    $args = func_get_args();
+    $query = array_shift($args);
+    $query = str_replace('%prefix%', $config['database']['prefix'], $query);
+    foreach ($args as $this->CurrentArg) $query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query, 1);
     return $this->query($query);
   }
 

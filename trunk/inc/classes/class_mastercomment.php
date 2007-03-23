@@ -40,6 +40,7 @@ class Mastercomment{
 	function Mastercomment($mod, $id) {
 		global $CurentURLBase, $dsp, $config, $auth, $db, $config, $func, $cfg;
 
+    echo '<ul class="Line">';
     $dsp->AddFieldsetStart(t('Kommentare'));
 
     // Delete comments
@@ -102,6 +103,7 @@ class Mastercomment{
     }
 
     $dsp->AddFieldsetEnd();
+    echo '</ul>';
 	}
 }
 ?>
