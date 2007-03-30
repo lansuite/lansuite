@@ -200,9 +200,10 @@ class Export {
 
 		$user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;passnr/misc;md5pwd;usertype;paid;seatcontrol;clan;clanurl;wwclid;nglid;checkin;checkout;signondate;seatblock;seat;ip;comment\r\n";
 
-		$query = $db->query("SELECT u.*, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
+		$query = $db->query("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
 			FROM {$config["tables"]["user"]} AS u
 			LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id = u.userid
+			LEFT JOIN {$config["tables"]["clan"]} AS c ON u.clanid = c.clanid
 			WHERE p.party_id = {$party->party_id}
 			");
 		while($row = $db->fetch_array($query)) {
@@ -265,9 +266,10 @@ class Export {
 		$user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(),'daydatetime')."\r\n\r\n";
 
 		$user_export .= "username;name;firstname;clan;seatblock;seat;ip\r\n";
-		$query = $db->query("SELECT u.*, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
+		$query = $db->query("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
 			FROM {$config["tables"]["user"]} AS u
 			LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id = u.userid
+			LEFT JOIN {$config["tables"]["clan"]} AS c ON u.clanid = c.clanid
 			WHERE p.party_id = {$party->party_id}
 			");
 
@@ -315,9 +317,10 @@ class Export {
     while ($row_seat = $db->fetch_array($query)) {
       $userid = $row_seat["userid"];
 
-      $row = $db->query_first("SELECT u.*, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
+      $row = $db->query_first("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
         FROM {$config["tables"]["user"]} AS u
         LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id = u.userid
+  			LEFT JOIN {$config["tables"]["clan"]} AS c ON u.clanid = c.clanid
         WHERE u.userid='$userid'
         ");
       
