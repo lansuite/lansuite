@@ -1,21 +1,4 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*
-*	(c) 2001-2003 by One-Network.Org
-*
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 			class_db_mysql.php
-*	Module: 			Framework
-*	Main editor: 		raphael@lansuite.de
-*	Last change: 		22.09.2002 19:39
-*	Description: 		
-*	Remarks: 		
-*
-**************************************************************************/
 
 class db {
 	var $link_id = 0;
@@ -136,7 +119,7 @@ class db {
     $query = array_shift($args);
     $query = str_replace('%prefix%', $config['database']['prefix'], $query);
     foreach ($args as $this->CurrentArg) $query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query, 1);
- 		$this->query($query_string);
+ 		$this->query($query);
 
  		$row = $this->fetch_array($this->query_id);
  		$this->free_result($this->query_id);
