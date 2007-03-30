@@ -603,9 +603,9 @@ class product{
 		$this->supp->supp_form();
 		
 		// Picecontrol ?
-		$dsp->AddCheckBoxRow("mat",$lang['foodcenter']['add_product_prod_mat_text'],$lang['foodcenter']['add_product_prod_mat_quest'],"",NULL,$_POST['mat']);
+		$dsp->AddCheckBoxRow("mat",$lang['foodcenter']['add_product_prod_mat_text'],$lang['foodcenter']['add_product_prod_mat_quest'],"",NULL,$this->mat);
 		// Orderproduct ?
-		$dsp->AddCheckBoxRow("wait",$lang['foodcenter']['add_product_prod_order'],$lang['foodcenter']['add_product_prod_order_text'],"",NULL,$_POST['wait']);
+		$dsp->AddCheckBoxRow("wait",$lang['foodcenter']['add_product_prod_order'],$lang['foodcenter']['add_product_prod_order_text'],"",NULL,$this->wait);
 
 		// Hiden not Selected Option an List Product Options
 		foreach ($lang['foodcenter']['add_product_prod_opt'] as $key => $value){
