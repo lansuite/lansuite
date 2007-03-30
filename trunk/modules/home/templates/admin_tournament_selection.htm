@@ -9,7 +9,7 @@ function change_selection() {
 </script>
 <br />
 <form action="act" name="t_select" method="post">
-<select name="game_select" onChange="javascript:change_selection();" />
+<select name="game_select" onchange="change_selection();">
   <option value="select_all">- Spiel auswählen -</option>
   {$templ['home']['t_select_options']}
 </select>
