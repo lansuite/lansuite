@@ -66,7 +66,7 @@ class Mastercomment{
       LEFT JOIN {$config["tables"]["usersettings"]} AS s ON c.creatorid = s.userid
       ";
     $ms2->query['where'] = "c.relatedto_item = '$mod' AND c.relatedto_id = '$id'";
-    $ms2->icon_field[0]['link'] = ''; // Do not link first line
+    $config['dont_link_first_line'] = 1;
 
     $ms2->AddSelect('UNIX_TIMESTAMP(c.date) AS date');
     $ms2->AddSelect('c.creatorid');

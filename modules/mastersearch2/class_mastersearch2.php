@@ -410,7 +410,7 @@ class MasterSearch2 {
             $templ['ms2']['table_entrys_row_field_entry'] = substr($templ['ms2']['table_entrys_row_field_entry'], 0, $current_field['max_char'] - 2) .'...';
 
           // Link first row to same target as first icon
-          if ($z == 0 and $this->icon_field[0]['link']) {
+          if ($z == 0 and !$config['dont_link_first_line'] and $this->icon_field[0]['link']) {
             $templ['ms2']['link'] = $this->icon_field[0]['link'] . $line[$select_id_field];
             $templ['ms2']['link_item'] = $templ['ms2']['table_entrys_row_field_entry'];
             $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
