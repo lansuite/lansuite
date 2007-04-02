@@ -55,6 +55,9 @@ if ($auth['type'] > 1) {
     if ($x == 0) $templ['home']['multi_select_actions'] = '"'. "tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}" .'"';
     else $templ['home']['multi_select_actions'] .= ', "'. "tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}" .'"';	
     
+    if (strlen($team['tuname']) > 16) $team['tuname'] = substr($team['tuname'], 0, 14) . '...';
+    if (strlen($team['name1']) > 16) $team['name1'] = substr($team['name1'], 0, 14) . '...';
+    if (strlen($team['name2']) > 16) $team['name2'] = substr($team['name2'], 0, 14) . '...';
     $templ['home']['t_select_options'] .= "<option value=\"$x\">{$team["tuname"]} - {$team["name1"]} vs {$team["name2"]}</option>";
 		$x++;
 	}

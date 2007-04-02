@@ -333,11 +333,11 @@ else {
 
   $db->free_result($user_fields);
 
-  $buttons = $dsp->FetchButton('index.php?mod='. $_GET['mod'] .'&action=search', 'back').' ';
+  $buttons = $dsp->FetchSpanButton(t('Benutzerübersicht'), 'index.php?mod='. $_GET['mod'] .'&action=search').' ';
   $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['user']} WHERE userid = ". ($_GET['userid'] - 1));
-  if ($row['found']) $buttons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=details&userid='. ($_GET['userid'] - 1), 'back').' ';
+  if ($row['found']) $buttons .= $dsp->FetchSpanButton(t('Vorheriger Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. ($_GET['userid'] - 1)).' ';
   $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['user']} WHERE userid = ". ($_GET['userid'] + 1));
-  if ($row['found']) $buttons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=details&userid='. ($_GET['userid'] + 1), 'next');
+  if ($row['found']) $buttons .= $dsp->FetchSpanButton(t('Nächster Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. ($_GET['userid'] + 1));
 
   $dsp->AddDoubleRow('', $buttons);
 	$dsp->AddContent();
