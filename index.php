@@ -55,6 +55,11 @@ if (!get_magic_quotes_gpc()) {	 // and !get_magic_quotes_runtime()
 	foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $_GET[$key] = addslashes($_GET[$key]);
 	foreach ($_POST as $key => $val) if (!is_array($_POST[$key])) $_POST[$key] = addslashes($_POST[$key]);
 }
+
+// Protect from XSS
+#foreach ($_GET as $key => $val) $_GET[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_GET[$key]);
+#foreach ($_POST as $key => $val) $_POST[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_POST[$key]);
+
 /*
 // Delete Statements from URL, which could manipulate an SQL-WHERE-Clause
 foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) {
