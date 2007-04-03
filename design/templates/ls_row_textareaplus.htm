@@ -9,7 +9,9 @@
 <li class="LineRight">
 	<textarea name="{$templ['TextAreaPlusRow']['name']}" id="{$templ['TextAreaPlusRow']['name']}" class="form{$templ['TextAreaPlusRow']['optional']}" rows="{$templ['TextAreaPlusRow']['rows']}" onKeyUp="TextAreaPlusCharsLeft(this, document.{$templ['TextAreaPlusRow']['formname']}.{$templ['TextAreaPlusRow']['name']}_chr, {$templ['TextAreaPlusRow']['maxchar']})">{$templ['TextAreaPlusRow']['value']}</textarea>
 	{$templ['TextAreaPlusRow']['errortext']}
-  <br />{$templ['TextAreaPlusRow']['buttons']}
+  </li>
+  <li class="LineLeft">&nbsp;</li>
+  <li class="LineRight">{$templ['TextAreaPlusRow']['buttons']}
 
 	<select name="color" onChange="javascript:if (this.options[this.selectedIndex].value != '') InsertCode(document.{$this->form_name}.{$templ['TextAreaPlusRow']['name']}, '[color=' + this.options[this.selectedIndex].value + ']', '[/color]')" class="form">
   	<option style="color:black;" value="" >Schriftfarbe</option>

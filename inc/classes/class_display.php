@@ -683,7 +683,7 @@ class display {
     ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
     ($target)? $target = ' target="_blank"' : $target = '';
 #    return '<a href="'. $link .'"'. $hint .''. $target .'><span class="Button">'. $title .'</span></a> ';
-    return '<div class="Buttons"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></div>';
+    return '<div class="Buttons" style="display:inline"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></div>';
 	}
   
 	function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {
