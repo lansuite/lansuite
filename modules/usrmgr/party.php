@@ -1,4 +1,4 @@
-b<?php
+<?php
 
 include_once("modules/usrmgr/class_usrmgr.php");
 include_once("modules/signon/language/signon_lang_de.php");
@@ -19,7 +19,6 @@ function PartyMail() {
   
   return true;
 }
-
 
 if ($party->count == 0) $func->information(t('Aktuell sind keine Partys geplant.'), 'index.php?mod='. $_GET['mod']);
 else {
@@ -86,6 +85,7 @@ else {
           $mf->AddField($lang['usrmgr']['checkout'], 'checkout', '', '', FIELD_OPTIONAL);
           $mf->AddField($lang['usrmgr']['signondate'], 'signondate', '', '', FIELD_OPTIONAL);
         }
+        $mf->SendButtonText = 'An-/Abmelden';
 
         $mf->AdditionalDBUpdateFunction = 'PartyMail';
         $mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&party_id='. $row['party_id'], 'party_user', 'user_id', $_GET['user_id']);
