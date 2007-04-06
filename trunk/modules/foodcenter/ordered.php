@@ -1,24 +1,38 @@
 <?php
 include_once("modules/foodcenter/class_product.php");
+include_once('modules/mastersearch2/class_mastersearch2.php');
 $product_list = new product_list();
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
+$dsp->NewContent(t('Bestellungen'), t('Auflistung deiner aktiven und abgeschlossenen Catering-Bestellungen'));
+
 $ms2 = new mastersearch2('news');
 
 $ms2->query['from'] = "{$config['tables']['food_ordering']} AS a
-  LEFT JOIN {$config['tables']['food_product']} AS p ON a.productid = p.id";
+			LEFT JOIN {$config['tables']['food_status']} AS s ON a.status = s.id 
+			LEFT JOIN {$config['tables']['food_product']} AS p ON a.productid = p.id 
+			LEFT JOIN {$config['tables']['food_option']} AS o ON a.opts = o.id";
 $ms2->query['where'] = 'userid='. (int)$auth['userid'];
 
 $ms2->AddTextSearchField('Titel', array('p.caption' => 'like'));
-$ms2->AddTextSearchDropDown('Status', 'a.status', array('1' => 'Wird bestellt', '2' => 'Lieferung erwartet', '3' => 'Abholbereit', '4' => 'abgeholt'), 3);
+
+  	$status = $db->query("SELECT * FROM lansuite_food_status");
+  	$status_array[''] = $lang['ms']['select_all'];
+  	while ($statusrows = $db->fetch_array($status)) {
+  		$status_array[$statusrows['id']] = $statusrows['statusname'];
+  	}
+    $ms2->AddTextSearchDropDown('Status', 'a.status', $status_array);
 
 $ms2->AddResultField('Titel', 'p.caption');
-$ms2->AddResultField('Beschreibung', 'a.opts');
-$ms2->AddResultField('Bestellt', 'a.ordertime', 'MS2GetDate');
-$ms2->AddResultField('Geliefert', 'a.supplytime', 'MS2GetDate');
+$ms2->AddResultField('Einheit', 'o.unit');
 $ms2->AddResultField('Anzahl', 'a.pice');
+$ms2->AddResultField('Preis', 'o.price');
+$ms2->AddResultField('Bestellt', 'a.ordertime', 'MS2GetDate');
+$ms2->AddResultField('Letzte änderung', 'a.lastchange', 'MS2GetDate');
+$ms2->AddResultField('Geliefert', 'a.supplytime', 'MS2GetDate');
+$ms2->AddResultField('Status', 's.statusname');
 
-#$ms2->AddIconField('details', 'index.php?mod=foodcenter&action=ordered&step=2&id=', $lang['ms2']['details']);
+
+//$ms2->AddIconField('details', 'index.php?mod=foodcenter&action=ordered&step=2&id=', $lang['ms2']['details']);
 
 switch ($_POST['search_dd_input'][0]){
 	case 1:
