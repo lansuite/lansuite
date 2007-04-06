@@ -5,7 +5,7 @@ $product_list = new product_list();
 
 $dsp->NewContent(t('Bestellungen'), t('Auflistung deiner aktiven und abgeschlossenen Catering-Bestellungen'));
 
-$ms2 = new mastersearch2('news');
+$ms2 = new mastersearch2();
 
 $ms2->query['from'] = "{$config['tables']['food_ordering']} AS a
 			LEFT JOIN {$config['tables']['food_status']} AS s ON a.status = s.id 
@@ -13,24 +13,27 @@ $ms2->query['from'] = "{$config['tables']['food_ordering']} AS a
 			LEFT JOIN {$config['tables']['food_option']} AS o ON a.opts = o.id";
 $ms2->query['where'] = 'userid='. (int)$auth['userid'];
 
-$ms2->AddTextSearchField('Titel', array('p.caption' => 'like'));
+	$status_list = array('' => 'Alle');
+	$row = $db->query("SELECT * FROM {$config['tables']['food_status']}");
+	while($res = $db->fetch_array($row)) $status_list[$res['id']] = $res['statusname'];
+	$db->free_result($row);
+	
+	$party_list = array('' => 'Alle');
+	$row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+	while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
+	$db->free_result($row);
 
-  	$status = $db->query("SELECT * FROM lansuite_food_status");
-  	$status_array[''] = $lang['ms']['select_all'];
-  	while ($statusrows = $db->fetch_array($status)) {
-  		$status_array[$statusrows['id']] = $statusrows['statusname'];
-  	}
-    $ms2->AddTextSearchDropDown('Status', 'a.status', $status_array);
+    $ms2->AddTextSearchDropDown('Status', 'a.status', $status_list);
+    $ms2->AddTextSearchDropDown('Party', 'a.partyid', $party_list, $party->party_id);
 
-$ms2->AddResultField('Titel', 'p.caption');
-$ms2->AddResultField('Einheit', 'o.unit');
-$ms2->AddResultField('Anzahl', 'a.pice');
-$ms2->AddResultField('Preis', 'o.price');
-$ms2->AddResultField('Bestellt', 'a.ordertime', 'MS2GetDate');
-$ms2->AddResultField('Letzte änderung', 'a.lastchange', 'MS2GetDate');
-$ms2->AddResultField('Geliefert', 'a.supplytime', 'MS2GetDate');
-$ms2->AddResultField('Status', 's.statusname');
-
+	$ms2->AddResultField('Titel', 'p.caption');
+	$ms2->AddResultField('Einheit', 'o.unit');
+	$ms2->AddResultField('Anzahl', 'a.pice');
+	$ms2->AddResultField('Preis', 'o.price');
+	$ms2->AddResultField('Bestellt', 'a.ordertime', 'MS2GetDate');
+	$ms2->AddResultField('Letzte änderung', 'a.lastchange', 'MS2GetDate');
+	$ms2->AddResultField('Geliefert', 'a.supplytime', 'MS2GetDate');
+	$ms2->AddResultField('Status', 's.statusname');
 
 //$ms2->AddIconField('details', 'index.php?mod=foodcenter&action=ordered&step=2&id=', $lang['ms2']['details']);
 

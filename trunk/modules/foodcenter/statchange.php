@@ -81,21 +81,26 @@ switch ($_GET['step']){
 $ms2->query['where'] = "a.supplytime = 0";
 
     //$ms2->AddTextSearchField('Titel', array('p.caption' => 'like'));
-    // Statussuchfeld
-
- 	$status = $db->query("SELECT * FROM {$config['tables']['food_status']}");
-  	$status_array[''] = $lang['ms']['select_all'];
-  	while ($statusrows = $db->fetch_array($status)) {
-  		$status_array[$statusrows['id']] = $statusrows['statusname'];
-  	}
-	$ms2->AddTextSearchDropDown('Status', 'a.status', $status_array);
-
-  	$supp = $db->query("SELECT * FROM {$config['tables']['food_supp']}");
-  	$supp_array[''] = $lang['ms']['select_all'];
-  	while ($supprows = $db->fetch_array($supp)) {
-  		$supp_array[$supprows['supp_id']] = $supprows['name'];
-  	}
-    $ms2->AddTextSearchDropDown('Lieferant', 's.supp_id', $supp_array);
+	
+	// Array Abfragen für DropDowns
+	$status_list = array('' => 'Alle');
+	$row = $db->query("SELECT * FROM {$config['tables']['food_status']}");
+	while($res = $db->fetch_array($row)) $status_list[$res['id']] = $res['statusname'];
+	$db->free_result($row); 
+	
+	$supp_list = array('' => 'Alle');
+	$row = $db->query("SELECT * FROM {$config['tables']['food_supp']}");
+	while($res = $db->fetch_array($row)) $supp_list[$res['supp_id']] = $res['name'];
+	$db->free_result($row); 
+  	
+    $party_list = array('' => 'Alle');
+	$row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+	while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
+	$db->free_result($row);
+	
+	$ms2->AddTextSearchDropDown('Status', 'a.status', $status_list);
+    $ms2->AddTextSearchDropDown('Lieferant', 's.supp_id', $supp_list);
+	$ms2->AddTextSearchDropDown('Party', 'a.partyid', $party_list, $party->party_id);
 /*
   	$userquery = $db->query("SELECT * FROM {$config['tables']['food_ordering']} AS a LEFT JOIN {$config['tables']['user']} AS u ON a.userid=u.userid");
   	$user_array[''] = $lang['ms']['select_all'];
