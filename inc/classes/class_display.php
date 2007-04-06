@@ -343,7 +343,9 @@ class display {
 
   	$key = '&nbsp;';
   	#$value = '<input type="image" name="'. $ButtonName .'" src="ext_inc/auto_images/'. $auth['design'] .'/'. $language .'/button_'. $button .'.png" alt="'. $hint .'" title="'. $hint .'" />';
-  	$value = '<input type="submit" class="Button" name="'. $ButtonName .'" value="'. $lang['button'][$button] .'" />';
+    // For old compatibility
+    if ($lang['button'][$button]) $value = '<input type="submit" class="Button" name="'. $ButtonName .'" value="'. $lang['button'][$button] .'" />';
+  	else $value = '<input type="submit" class="Button" name="'. $ButtonName .'" value="'. t($button) .'" />';
     $this->AddDoubleRow($key, $value);
 
     if ($this->form_open && $close) $this->CloseForm();

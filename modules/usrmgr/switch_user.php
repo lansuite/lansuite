@@ -8,22 +8,15 @@ switch ($_GET["step"]){
 
 		if ($auth["type"] > $target_user["type"]) {
 
-			// Generate switch back code
-			for ($x = 0; $x <= 24; $x++) $sb_code .= chr(mt_rand(65, 90));
-
 			// Store switch back code in current (admin) user data
-			$db->query("UPDATE {$config["tables"]["user"]} SET switch_back = '$sb_code' WHERE userid = {$auth["userid"]}");
-
-			// Save old user ID
-			setcookie("olduserid", $auth["userid"], time() + (3600*24*365));
-			setcookie("sb_code", $sb_code, time() + (3600*24*365));
+			$db->query("UPDATE {$config["tables"]["user"]} SET switch_back = '". $SwitchUser->Code ."' WHERE userid = {$auth["userid"]}");
 
 			// Link session ID to new user ID
 			$db->query("UPDATE {$config["tables"]["stats_auth"]} SET
 							userid='{$_GET["userid"]}',
 							login='1'
 							WHERE sessid='{$auth["sessid"]}'");
-			
+
 			$func->information($lang['usrmgr']['switch_success'], $func->internal_referer);
 		} else $func->error($lang['usrmgr']['switch_wrong_level'], $func->internal_referer);
 	break;
@@ -46,10 +39,6 @@ switch ($_GET["step"]){
 
 			$func->information($lang['usrmgr']['switch_success'], $func->internal_referer);	
 		} else $func->error($lang['usrmgr']['switch_wrong_sbc'], $func->internal_referer);
-
-		// Delete old user ID from cookie
-		setcookie("olduserid", "", 0);
-		setcookie("sb_code", "", 0);
 	break;
 }
 ?>

@@ -9,7 +9,7 @@ if ($_GET['design'] != 'base') {
 if ($_GET['load_file']) {
   if (strpos($_GET['load_file'], 'ext_inc/') === false) exit;
   $_GET['load_file'] = str_replace('..', '', $_GET['load_file']);
-  
+
   header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
   header('Content-Disposition: attachment; filename="'. substr($_GET['load_file'], strrpos($_GET['load_file'], '/') + 1, strlen($_GET['load_file'])) .'"');
   header("Content-Length: " .(string)(filesize($_GET['load_file'])));
@@ -86,7 +86,7 @@ elseif ($_GET['fullscreen'] == 'no') 	$_SESSION['lansuite']['fullscreen'] = fals
 // Read config-file
 $config	= parse_ini_file('inc/base/config.php', 1);
 
-// Read definition file 
+// Read definition file
 include_once('inc/base/define.php');
 
 $lang = array();
@@ -94,7 +94,7 @@ $lang = array();
 if (!$config) {
 	echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
 	Überprüfen Sie die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
-	exit(); 
+	exit();
 }
 
 // Wenn configured = 0: Setup aufrufen
@@ -201,6 +201,14 @@ if ($found_adm) {
 } else {
 	$auth["type"] = 3;
 	$auth["login"] = 1;
+}
+
+// Set/Delete Cockie for user switch
+if ($_GET['mod'] == 'usrmgr' and $_GET['action'] == 'switch_user'){
+  include_once("modules/usrmgr/class_switch_user.php");
+  $SwitchUser = new SwitchUser;
+  if ($_GET['step'] == '10') $SwitchUser->SaveOldID($auth['userid']);
+  elseif ($_GET['step'] == '11') $SwitchUser->DeleteOldID();
 }
 
 // Show Blocked Site
