@@ -29,7 +29,7 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 			if (is_file($file_name)) $ImgSize = GetImageSize($file_name);
 			if (!$ImgSize[0]) $ImgSize[0] = $cfg["sponsor_picwidth_small"];
 			if ($ImgSize[0] > $cfg["sponsor_picwidth_small"]) $ImgSize[0] = $cfg["sponsor_picwidth_small"];
-			$out = "<img src=\"$file_name\" width=\"{$ImgSize[0]}\" border=\"0\" alt=\"{$sponsor["name"]}\" title=\"{$sponsor["name"]}\" />";
+			$out = "<img src=\"$file_name\" width=\"{$ImgSize[0]}\" style=\"max-width:{$cfg['sponsor_picwidth_small']}px;\" border=\"0\" alt=\"{$sponsor["name"]}\" title=\"{$sponsor["name"]}\" />";
 		} elseif ($sponsor["name"] != '') $out = "<b>{$sponsor["name"]}</b>";
 
 		if ($out and $sponsor["url"] != '' and $sponsor["url"] != "http://") $out = "<a href=\"index.php?mod=sponsor&action=bannerclick&design=base&type=box&sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">$out</a>";
