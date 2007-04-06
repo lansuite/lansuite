@@ -1501,6 +1501,47 @@
 	</table>
 	<table>
 		<table_head>
+			<name>login_errors</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>errorid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>userid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>ip</name>
+				<type>varchar(15)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>time</name>
+				<type>datetime</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
 			<name>translation</name>
 		</table_head>
 		<content>

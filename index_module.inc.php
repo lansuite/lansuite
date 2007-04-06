@@ -1,5 +1,7 @@
 <?php
 
+echo $FrameworkMessages;
+
 function authorized($mod, $action, $requirement) {
 	global $auth, $func;
 
