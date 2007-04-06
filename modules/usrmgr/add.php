@@ -390,7 +390,8 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       $db->free_result($user_fields);
     }
   }
-  $mf->SendButtonText = 'Benutzer anlegen';
+  if ($_GET['mod'] == 'signon') $mf->SendButtonText = 'Benutzer anlegen';
+  elseif ($_GET['mod'] == 'usrmgr' and $_GET['action'] == 'entrance' and $_GET['step'] == 3) $mf->SendButtonText = 'Edit. + Einchecken';
 
   $AddUserSuccess = 0;
   $mf->AdditionalDBUpdateFunction = 'Update';
