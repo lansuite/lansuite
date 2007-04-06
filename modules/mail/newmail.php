@@ -6,8 +6,13 @@ $dsp->AddContent();
 function SendOnlineMail() {
   global $db, $config, $mail, $func, $__POST;
 
+  if (substr($_POST['toUserID'], 1, 7) != '-mail-'){
+    $to = substr($_POST['toUserID'], 8, strlen($_POST['toUserID']));
+    $mail->create_inet_mail('', $to, $__POST['Subject'], $__POST['msgbody'], $_POST['SenderMail']);
+    $func->confirmation('Die Mail wurde and '. $to .' versendet', '');
+
   // System-Mail: Insert will be done, by MF
-  if ($_POST['fromUserID'] and $_POST['type'] == 0) return true;
+  } elseif ($_POST['fromUserID'] and $_POST['type'] == 0) return true;
 
   // Inet-Mail
   else {
@@ -43,18 +48,39 @@ Betreff: '. $row['Subject'] .'
 '.$row['msgbody'];
 }
 
+
+$selections = array();
+if ($cfg['sys_internet'] and $cfg['mail_additional_mails']) {
+  $AdditionalMails = split("\n", $cfg['mail_additional_mails']);
+  $z = 0;
+  $selections['-OptGroup-0'] = t('Info-Adressen');
+  foreach ($AdditionalMails as $AdditionalMail) if ($AdditionalMail){
+    $selections["1-mail-$AdditionalMail"] = $AdditionalMail;
+    $z++;
+  }
+}
+
+$AdminFound = 0;
+$UserFound = 0;
 if ($auth['userid']) $WhereMinType = 1;
 else $WhereMinType = 2;
-$selections = array();
 $res = $db->query("SELECT type, userid, username, firstname, name FROM {$config['tables']['user']} WHERE type >= $WhereMinType ORDER BY type DESC, username");
 while ($row = $db->fetch_array($res)) {
-  if ($row['type'] > 1) $type = t('Admin');
-  else $type = t('Benutzer');
+  if (!$AdminFound and $row['type'] > 1) {
+    $selections['-OptGroup-1'] = t('Admins');
+    $AdminFound = 1;
+  }
+  if (!$UserFound and $row['type'] <= 1) {
+    $selections['-OptGroup-2'] = t('Benutzer');
+    $UserFound = 1;
+  }
+
   if ($auth['type'] >= 2 or !$cfg['sys_internet'] or $cfg['guestlist_shownames'])
-    $selections[$row['userid']] = $type .': '. $row['username'] .' ('. $row['firstname'] .' '. $row['name'] .')';
-  else $selections[$row['userid']] = $type .': '. $row['username'];
+    $selections[$row['userid']] = $row['username'] .' ('. $row['firstname'] .' '. $row['name'] .')';
+  else $selections[$row['userid']] = $row['username'];
 }
 $db->free_result($res);
+
 $mf->AddField(t('Empfänger'), 'toUserID', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
 if ($auth['userid']) {
