@@ -5,6 +5,8 @@ if ($_GET['design'] != 'base') {
   include_once("inc/classes/class_sitetool.php");
   $sitetool	= new sitetool('');
 }
+$FrameworkMessages = '';
+
 /*
 if ($_GET['load_file']) {
   if (strpos($_GET['load_file'], 'ext_inc/') === false) exit;

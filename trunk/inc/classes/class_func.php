@@ -244,8 +244,8 @@ class func {
 
 	
 	// #### DIALOG FUNCTIONS ####
-	function error($text, $link_target = '') {
-		global $templ, $auth, $lang, $language, $dsp;
+	function error($text, $link_target = '', $JustReturn = 0) {
+		global $templ, $auth, $lang, $language, $dsp, $FrameworkMessages;
 		
 		if ($link_target == '') $link_target = $this->internal_referer;
 		if ($link_target == NO_LINK) $link_target = '';
@@ -271,29 +271,32 @@ class func {
 				$templ['error']['info']['errormsg'] = $text;
 			break;
 		}
-    $dsp->AddTpl("design/templates/error.htm");
+    if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/error.htm');
+    else $dsp->AddTpl("design/templates/error.htm");
 	}
 
-	function confirmation($text, $link_target = '') {
-		global $templ, $auth, $dsp, $language;
+	function confirmation($text, $link_target = '', $JustReturn = 0) {
+		global $templ, $auth, $dsp, $language, $FrameworkMessages;
 
 		if ($link_target == '') $link_target = $this->internal_referer;
 		if ($link_target == NO_LINK) $link_target = '';
 		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
 		$templ['confirmation']['info']['confirmationmsg']	= $text;
 
-    $dsp->AddLineTpl("design/templates/confirmation.htm");
+    if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/confirmation.htm');
+    else $dsp->AddLineTpl("design/templates/confirmation.htm");
 	}
 
-	function information($text, $link_target = '', $button_text = 'back') {
-		global $templ, $auth, $dsp, $language;
+	function information($text, $link_target = '', $button_text = 'back', $JustReturn = 0) {
+		global $templ, $auth, $dsp, $language, $FrameworkMessages;
 
 		if ($link_target == '') $link_target = $this->internal_referer;
 		if ($link_target == NO_LINK) $link_target = '';
 		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
 		$templ['confirmation']['info']['confirmationmsg'] = $text;
 
-    $dsp->AddTpl("design/templates/information.htm");
+    if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/information.htm');
+    else $dsp->AddTpl("design/templates/information.htm");
 	}
 
 	function multiquestion($questionarray, $linkarray, $text) {

@@ -25,4 +25,17 @@
     	</item>
     </items>
   </group>
+  <group>
+    <head>
+      <name>Verschiedenes</name>
+    </head>
+    <items>
+    	<item>
+    		<name>seating_show_user_pics</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Sollen Benutzerbilder im Sitzplan auch im Internet für jeden gezeigt werden?</description>
+    	</item>
+    </items>
+  </group>
 </config>

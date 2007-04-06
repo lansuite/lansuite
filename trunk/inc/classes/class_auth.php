@@ -149,27 +149,28 @@ class auth {
 			// Wrong Password?
 			if ($tmp_login_pass != $user["password"]){
 				($cfg["sys_internet"])? $remindtext = $lang['class_auth']['wrong_pw_inet'] : $remindtext = $lang['class_auth']['wrong_pw_lan'];
-				$func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "");
+				$func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['wrong_pw_log']), "2", "Authentifikation");
+				$db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = %string%, time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
 
 			// Account disabled?
 			} elseif ($user["type"] <= -1) {
-				$func->information($lang['class_auth']['closed'], "");
+				$func->information($lang['class_auth']['closed'], "", '', 1);
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['closed_log']), "2", "Authentifikation");
 
 			// Not checked in?
 			} elseif(!$user["checkin"] AND $user["type"] < 2 AND !$cfg["sys_internet"]){
-				$func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "");
+				$func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['not_checkedin_log']), "2", "Authentifikation");
 
 			// Already checked out?
 			} elseif ($user["checkout"] AND $user["type"] < 2 AND !$cfg["sys_internet"]){
-				$func->information(t('Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "");
+				$func->information(t('Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['checkedout_log']), "2", "Authentifikation");
 
 			// Account locked?
 			} elseif ($user['locked']){
-				$func->information($lang['class_auth']['locked'], '');
+				$func->information($lang['class_auth']['locked'], '', '', 1);
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['locked_log']), "2", "Authentifikation");
 
 			// Everything fine!
@@ -195,6 +196,14 @@ class auth {
         }
 
 				$this->auth['userid'] = $user['userid'];
+
+        // Show error logins
+				$msg = '';
+				$res = $db->qry('SELECT ip, time FROM %prefix%login_errors WHERE userid = %int%', $user['userid']);
+				while ($row = $db->fetch_array($res)) $msg .= t('Am') .' '. $row['time'] .' von der IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>'. HTML_NEWLINE;
+        $db->free_result($res);
+        if ($msg != '') $func->information('<b>'. t('Fehlerhafte Logins') .'</b>'. HTML_NEWLINE .t('Es wurden fehlerhafte Logins seit Ihrem letzten erfolgreichen Login durchgeführt.'). HTML_NEWLINE . HTML_NEWLINE . $msg, NO_LINK, '', 1);
+				$db->qry('DELETE FROM %prefix%login_errors WHERE userid = %int%', $user['userid']);
 
 				// The User will be logged in on the phpBB Board if the modul is available, configured and active.
 		    if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
