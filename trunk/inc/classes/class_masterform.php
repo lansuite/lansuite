@@ -430,7 +430,7 @@ class masterform {
 
         if ($this->SendButtonText) $dsp->AddFormSubmitRow($this->SendButtonText);
     		elseif ($id) $dsp->AddFormSubmitRow('Editieren');
-    		else $dsp->AddFormSubmitRow('Hinzufügen');
+    		else $dsp->AddFormSubmitRow('Erstellen');
         $dsp->AddContent();
       break;
 
