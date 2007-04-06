@@ -17,6 +17,12 @@
     		<default>1</default>
     		<description>Soll sich bei neuen Mails ein PopUp öffnen?</description>
     	</item>
+    	<item>
+    		<name>mail_additional_mails</name>
+    		<type>text</type>
+    		<default></default>
+    		<description>Geben Sie hier weitere E-Mail Adressen an, an die - neben den Benutzern - Mails gesendet werden können</description>
+    	</item>
     </items>
   </group>
   <group>

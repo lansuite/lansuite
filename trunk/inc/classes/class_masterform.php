@@ -45,6 +45,7 @@ class masterform {
   var $LogID = 0;
   var $LinkBack = '';
   var $SendButtonText = '';
+  var $OptGroupOpen = 0;
 
   function masterform($MFID = 0) {
     global $mf_number;
@@ -359,9 +360,17 @@ class masterform {
                 if (is_array($field['selections'])) {
               		$selections = array();
               		foreach($field['selections'] as $key => $val) {
-              			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
-              			$selections[] = "<option$selected value=\"$key\">$val</option>";
+              			if (substr($key, 0, 10) == '-OptGroup-') {
+                      if ($this->OptGroupOpen) $selections[] = '</optgroup>';
+                      $selections[] = '<optgroup label="'. $val .'">';
+                      $this->OptGroupOpen = 1;
+                    } else {
+                			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
+                			$selections[] = "<option$selected value=\"$key\">$val</option>";
+                    }
               		}
+                  if ($this->OptGroupOpen) $selections[] = '</optgroup>';
+                  $this->OptGroupOpen = 0;
                   $dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], $additionalHTML);
                 }
               break;
