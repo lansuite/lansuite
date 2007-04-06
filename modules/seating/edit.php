@@ -126,10 +126,15 @@ switch($_GET['step']) {
 		$dsp->AddDropDownFieldRow('orientation', $lang['seating']['orientation'], $selections, '');
 
 		$dsp->AddCheckBoxRow('u18', $lang['seating']['u18_block'], '', '', 0, $_POST['u18']);
-
 		$dsp->AddTextAreaPlusRow('remark', $lang['seating']['remark'], $_POST['remark'], $error['remark'], '', 4, 1);
-
 		$dsp->AddDoubleRow($lang['seating']['block_caption'], $dsp->FetchModTpl('seating', 'plan_labels'));
+
+		// Partys
+		$selections = array();
+    $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+    while($res = $db->fetch_array($row)) array_push ($selections, "<option $selected value=\"". $res['party_id'] ."\">". $res['name'] .'</option>');
+    $db->free_result($row);
+		$dsp->AddDropDownFieldRow('party_id', t('Party'), $selections, '');
 
 		$dsp->AddFormSubmitRow('next');
 		$dsp->AddBackButton('index.php?mod=seating', 'seating/add');

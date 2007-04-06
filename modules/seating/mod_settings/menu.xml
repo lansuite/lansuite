@@ -32,6 +32,16 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>copy</action>
+		<file>copy</file>
+		<caption>Plan kopieren</caption>
+		<hint>Hier können Sie einen vorhanden Sitzplan kopieren</hint>
+		<link>?mod=seating&action=copy</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
 		<action>ipgen</action>
 		<file>ipgen</file>
 		<caption>IPs generieren</caption>
