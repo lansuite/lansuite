@@ -44,7 +44,7 @@ function OpenWindow(url, name) {
 
 function OpenPreviewWindow(url, obj) {
   text = obj.value.replace(/\n/g, "--NEWLINE--");
-  url += '&text=' + text;
+  document.cookie = "Preview=" + text;
   OpenWindow(url, 'Vorschau');
 }
 
