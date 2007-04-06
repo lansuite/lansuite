@@ -74,6 +74,7 @@ $mf->AddFix('mail_status', 'active');
 $mf->AddFix('des_status', 'new');
 $mf->AddFix('fromUserID', $auth['userid']);
 $mf->AddFix('tx_date', 'NOW()');
+$mf->SendButtonText = 'Mail abschicken';
 
 $mf->CheckBeforeInserFunction = 'SendOnlineMail';
 if ($mf->SendForm('index.php?mod=mail&action=newmail', 'mail_messages', 'mailID', '')) {

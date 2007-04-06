@@ -390,6 +390,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       $db->free_result($user_fields);
     }
   }
+  $mf->SendButtonText = 'Benutzer anlegen';
 
   $AddUserSuccess = 0;
   $mf->AdditionalDBUpdateFunction = 'Update';

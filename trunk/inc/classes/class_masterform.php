@@ -44,6 +44,7 @@ class masterform {
   var $insert_id = -1;
   var $LogID = 0;
   var $LinkBack = '';
+  var $SendButtonText = '';
 
   function masterform($MFID = 0) {
     global $mf_number;
@@ -427,8 +428,9 @@ class masterform {
           if ($group['caption']) $dsp->AddFieldsetEnd();
         }
 
-    		if ($id) $dsp->AddFormSubmitRow('edit');
-    		else $dsp->AddFormSubmitRow('add');
+        if ($this->SendButtonText) $dsp->AddFormSubmitRow($this->SendButtonText);
+    		elseif ($id) $dsp->AddFormSubmitRow('Editieren');
+    		else $dsp->AddFormSubmitRow('Hinzufügen');
         $dsp->AddContent();
       break;
 
