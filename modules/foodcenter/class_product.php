@@ -877,7 +877,7 @@ class product{
 	 * @return int
 	 */
 	function order($userid,$delivered){
-		global $db,$config;
+		global $db,$config, $party;
 		$time = time();
 		$price = 0;
 		if($this->type == 2){
@@ -902,6 +902,7 @@ class product{
 			if($db->query("INSERT INTO {$config['tables']['food_ordering']} SET 
 					userid = '$userid',
 					productid = '{$this->id}',
+					partyid = '{$party->party_id}',
 					opts = '$opt_string',
 					pice = '{$this->ordered}',
 					status = '$status',
@@ -923,6 +924,7 @@ class product{
 					if($db->query("INSERT INTO {$config['tables']['food_ordering']} SET 
 									userid = '$userid',
 									productid = '{$this->id}',
+									partyid = '{$party->party_id}',
 									opts = '{$this->option[$key]->id}',
 									pice = '{$this->option[$key]->ordered}',
 									status = '$status',
@@ -930,7 +932,7 @@ class product{
 									lastchange = '$time',
 									supplytime = '0'")){
 						$price += $this->option[$key]->price * $this->option[$key]->ordered;
-					} // - $this->option[$key]->ordered
+					} 
 					if($this->mat == 1){
 					$tmp_rest2 = $this->option[$key]->pice - $this->option[$key]->ordered;
 						$db->query("UPDATE {$config['tables']['food_option']} SET pice = '$tmp_rest2' WHERE id = {$this->option[$key]->id}");

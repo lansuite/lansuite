@@ -295,7 +295,15 @@
 				<key></key>
 				<default>0</default>
 				<extra></extra>
-			</field>			
+			</field>	
+			<field>
+				<name>partyid</name>
+				<type>int(6)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>					
 			<field>
 				<name>productid</name>
 				<type>int(6)</type>
