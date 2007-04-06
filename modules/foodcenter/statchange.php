@@ -10,9 +10,9 @@ if($auth['type'] < 2){
 switch ($_GET['step']) {
 	case 3:
 		$time = time();
-		if($_GET['status'] == 4){
+		if($_GET['status'] == 6 | $_GET['status'] == 7){
 			$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET['status']}, lastchange = '$time', supplytime = '$time'  WHERE id = {$_GET['id']}");
-		}elseif ($_GET['status'] == 5){
+		}elseif ($_GET['status'] == 8){
 			$prodrow = $db->query_first("SELECT * FROM {$config['tables']['food_ordering']} WHERE id = {$_GET['id']}");				
 			
 			if($prodrow['pice'] > 1 && !isset($_POST['delcount'])){
@@ -73,13 +73,22 @@ switch ($_GET['step']){
     $ms2 = new mastersearch2('news');
 
     $ms2->query['from'] = "{$config['tables']['food_ordering']} AS a
+    	  LEFT JOIN {$config['tables']['food_option']} AS o ON a.opts = o.id
 		  LEFT JOIN {$config['tables']['food_product']} AS p ON a.productid = p.id
 		  LEFT JOIN {$config['tables']['food_supp']} AS s ON p.supp_id = s.supp_id
-		  LEFT JOIN {$config['tables']['user']} AS u ON u.userid = a.userid
-      ";
+		  LEFT JOIN {$config['tables']['user']} AS u ON u.userid = a.userid";
 
-    $ms2->AddTextSearchField('Titel', array('p.caption' => 'like'));
-    $ms2->AddTextSearchDropDown('Status', 'a.status', array('1' => 'Wird bestellt', '2' => 'Lieferung erwartet', '3' => 'Abholbereit', '4' => 'abgeholt'), 3);
+$ms2->query['where'] = "a.supplytime = 0";
+
+    //$ms2->AddTextSearchField('Titel', array('p.caption' => 'like'));
+    // Statussuchfeld
+
+ 	$status = $db->query("SELECT * FROM {$config['tables']['food_status']}");
+  	$status_array[''] = $lang['ms']['select_all'];
+  	while ($statusrows = $db->fetch_array($status)) {
+  		$status_array[$statusrows['id']] = $statusrows['statusname'];
+  	}
+	$ms2->AddTextSearchDropDown('Status', 'a.status', $status_array);
 
   	$supp = $db->query("SELECT * FROM {$config['tables']['food_supp']}");
   	$supp_array[''] = $lang['ms']['select_all'];
@@ -87,30 +96,30 @@ switch ($_GET['step']){
   		$supp_array[$supprows['supp_id']] = $supprows['name'];
   	}
     $ms2->AddTextSearchDropDown('Lieferant', 's.supp_id', $supp_array);
-
+/*
   	$userquery = $db->query("SELECT * FROM {$config['tables']['food_ordering']} AS a LEFT JOIN {$config['tables']['user']} AS u ON a.userid=u.userid");
   	$user_array[''] = $lang['ms']['select_all'];
   	while ($userrows = $db->fetch_array($userquery)) {
   		$user_array[$userrows['userid']] = $userrows['username'];
   	}
     $ms2->AddTextSearchDropDown('Besteller', 'a.userid', $user_array);
-
+*/
     $ms2->AddSelect('u.userid');
     $ms2->AddResultField('Titel', 'p.caption');
-    $ms2->AddResultField('Beschreibung', 'a.opts');
+    $ms2->AddResultField('Einheit', 'o.unit');
+    $ms2->AddResultField('Anzahl', 'a.pice');
+    $ms2->AddResultField('Lieferant', 's.name');
     $ms2->AddResultField('Besteller', 'u.username', 'UserNameAndIcon');
     $ms2->AddResultField('Bestellt', 'a.ordertime', 'MS2GetDate');
-    $ms2->AddResultField('Lieferant', 's.name');
     $ms2->AddResultField('Geliefert', 'a.supplytime', 'MS2GetDate');
-    $ms2->AddResultField('Anzahl', 'a.pice');
 
     $ms2->AddIconField('details', 'index.php?mod=foodcenter&action=statchange&step=2&id=', $lang['ms2']['details']);
 	
-	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][0], 'index.php?mod=foodcenter&action=statchange&step=2&status=4', 1);
-	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][1], 'index.php?mod=foodcenter&action=statchange&step=2&status=3', 1);
-	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][2], 'index.php?mod=foodcenter&action=statchange&step=2&status=2', 1);
-	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][3], 'index.php?mod=foodcenter&action=statchange&step=2&status=1', 1);
-	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][4], 'index.php?mod=foodcenter&action=statchange&step=2&status=5', 1);
+	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][0], 'index.php?mod=foodcenter&action=statchange&step=2&status=6', 1);
+	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][1], 'index.php?mod=foodcenter&action=statchange&step=2&status=5', 1);
+	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][2], 'index.php?mod=foodcenter&action=statchange&step=2&status=3', 1);
+	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][3], 'index.php?mod=foodcenter&action=statchange&step=2&status=7', 1);
+	  $ms2->AddMultiSelectAction($lang['foodcenter']['ordered_status_quest'][4], 'index.php?mod=foodcenter&action=statchange&step=2&status=8', 1);
 
     switch ($_POST['search_dd_input'][0]){
     	case 1:
@@ -159,9 +168,9 @@ switch ($_GET['step']){
 		$time = time();
 		$totprice = 0;
 		foreach($_POST["action"] AS $item => $val) {
-			if($_GET["status"] == 4){
+			if($_GET["status"] == 6 | $_GET["status"] == 7){
 				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET["status"]}, lastchange = '$time', supplytime = '$time'  WHERE id = {$item}");
-			}elseif ($_GET["status"] == 5){
+			}elseif ($_GET["status"] == 8){
 				$prodrow = $db->query_first("SELECT * FROM {$config['tables']['food_ordering']} WHERE id = {$item}");				
 				
 				unset($account);
@@ -196,11 +205,11 @@ switch ($_GET['step']){
 		$func->confirmation($lang['foodcenter']['ordered_status_ask'][$_GET["status"]],"index.php?mod=foodcenter&action=statchange");
 	}else{
 	
-		$link_array[0] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=4";
-		$link_array[1] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=3";
-		$link_array[2] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=2";
-		$link_array[3] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=1";
-		$link_array[4] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=5";
+		$link_array[0] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=6";
+		$link_array[1] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=5";
+		$link_array[2] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=3";
+		$link_array[3] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=7";
+		$link_array[4] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=8";
 		$link_array[5] = "index.php?mod=foodcenter&action=statchange";
 		$func->multiquestion($lang['foodcenter']['ordered_status_quest'],$link_array,$lang['foodcenter']['ordered_status_question']);
 	}

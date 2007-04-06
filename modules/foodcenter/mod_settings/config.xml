@@ -72,4 +72,17 @@
     	</item>
     </items>
   </group>
+  <group>
+    <head>
+      <name>Küche</name>
+    </head>
+    <items>
+    	<item>
+    		<name>foodcenter_kitchen</name>
+    		<type>integer</type>
+    		<default></default>
+    		<description>Küchen-ID (Lieferanten ID für Küche angeben - muss vorhanden sein)</description>
+    	</item>
+    </items>
+  </group>
 </config>

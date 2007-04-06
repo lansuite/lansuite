@@ -354,7 +354,7 @@ class product{
 		$this->mat		=	$_POST['mat'];
 		$this->type		=	$_POST['product_type'];
 		$this->choise	=	$_POST['chois'];
-		(isset($_POST['wait'])) ? $this->wait = 2 : $this->wait = 1 ;
+		$this->wait 	= 	$_POST['wait'];
 		$this->pic		= 	$_POST['pic'];
 				
 		$this->cat->read_post();
@@ -603,9 +603,9 @@ class product{
 		$this->supp->supp_form();
 		
 		// Picecontrol ?
-		$dsp->AddCheckBoxRow("mat",$lang['foodcenter']['add_product_prod_mat_text'],$lang['foodcenter']['add_product_prod_mat_quest'],"",NULL,$this->mat);
+		$dsp->AddCheckBoxRow("mat",$lang['foodcenter']['add_product_prod_mat_text'],$lang['foodcenter']['add_product_prod_mat_quest'],"",NULL,$this->mat,NULL,NULL);
 		// Orderproduct ?
-		$dsp->AddCheckBoxRow("wait",$lang['foodcenter']['add_product_prod_order'],$lang['foodcenter']['add_product_prod_order_text'],"",NULL,$this->wait);
+		$dsp->AddCheckBoxRow("wait",$lang['foodcenter']['add_product_prod_order'],$lang['foodcenter']['add_product_prod_order_text'],"",NULL,$this->wait,NULL,NULL);
 
 		// Hiden not Selected Option an List Product Options
 		foreach ($lang['foodcenter']['add_product_prod_opt'] as $key => $value){
@@ -853,9 +853,9 @@ class product{
 		global $lang;
 		$error = -1;
 		foreach ($this->option as $key => $value){
-			if(($val * $this->option[$key]->ordered) <  $this->option[$key]->piece){
-				if($error == -1 || $error > $this->option[$key]->piece){
-					$error = $this->option[$key]->piece;
+			if(($val * $this->option[$key]->ordered) <  $this->option[$key]->pice){
+				if($error == -1 || $error > $this->option[$key]->pice){
+					$error = $this->option[$key]->pice;
 				}
 			}
 		}
@@ -886,13 +886,18 @@ class product{
 					$opt_array[] .= $this->option[$key]->id;
 					$price += $this->option[$key]->price;
 					if($this->mat == 1){
-						$db->query("UPDATE {$config['tables']['food_option']} SET pice = 'pice - {$this->option[$key]->ordered}' WHERE id = {$this->option[$key]->id}");
+					$tmp_rest1 = $this->option[$key]->pice - $this->option[$key]->ordered;
+						$db->query("UPDATE {$config['tables']['food_option']} SET pice = '$tmp_rest1' WHERE id = {$this->option[$key]->id}");
 					}
 				}
 			}
-			if($this->wait == 1) $status = 3 ;
-			else $status = 1;
-			if($delivered == 1 || $delivered == 2 && $this->wait == 1) $status = 4;
+			// Status setzen
+			if($this->wait == 1)
+				$status = 2 ;
+			else 
+				$status = 1;
+				
+			//if($delivered == 1 || $delivered == 2 && $this->wait == 1) $status = 4;
 			$opt_string = implode("/",$opt_array);
 			if($db->query("INSERT INTO {$config['tables']['food_ordering']} SET 
 					userid = '$userid',
@@ -910,9 +915,11 @@ class product{
 		}else{
 			foreach ($this->option as $key => $value){
 				if($this->option[$key]->ordered > 0 || $this->option[$key]->fix == 1){
-					if($this->wait == 1) $status = 3 ;
-					else $status = 1;
-					if($delivered == 1 || $delivered == 2 && $this->wait == 1) $status = 4;
+					if($this->wait == 1) 
+						$status = 2;
+					else 
+						$status = 1;
+					//if($delivered == 1 || $delivered == 2 && $this->wait == 1) $status = 4;
 					if($db->query("INSERT INTO {$config['tables']['food_ordering']} SET 
 									userid = '$userid',
 									productid = '{$this->id}',
@@ -923,9 +930,10 @@ class product{
 									lastchange = '$time',
 									supplytime = '0'")){
 						$price += $this->option[$key]->price * $this->option[$key]->ordered;
-					}
+					} // - $this->option[$key]->ordered
 					if($this->mat == 1){
-						$db->query("UPDATE {$config['tables']['food_option']} SET pice = 'pice - {$this->option[$key]->ordered}' WHERE id = {$this->option[$key]->id}");
+					$tmp_rest2 = $this->option[$key]->pice - $this->option[$key]->ordered;
+						$db->query("UPDATE {$config['tables']['food_option']} SET pice = '$tmp_rest2' WHERE id = {$this->option[$key]->id}");
 					}
 				}	
 			}
@@ -947,25 +955,26 @@ class product_option{
 
 	/**
 	 * Produktoptionsid
-	 *
 	 * @var int
 	 */
 	var $id;
 	/**
 	 * Id des Elternproduktes
-	 *
 	 * @var int
 	 */
 	var $parentid;
 	/**
 	 * Typ des Elternproduktes
-	 *
 	 * @var int
 	 */
 	var $parenttyp;
 	/**
+	 * Barcode
+	 * @barcode string
+	 */
+	var $barcode;
+	/**
 	 * Produktoptionsname
-	 *
 	 * @var string
 	 */
 	var $caption;
@@ -1044,6 +1053,7 @@ class product_option{
 		}
 		$this->parentid	= $parentid;
 		$this->parenttyp = $type;
+		$this->barcode  = $_POST['barcode'][$nr];
 		$this->caption	= $_POST['caption'][$nr];
 		$this->unit		= $_POST['unit'][$nr];
 		$this->price	= $_POST['price'][$nr];
@@ -1054,7 +1064,6 @@ class product_option{
 	
 	/**
 	 * Produktoption aus der DB lesen
-	 *
 	 */
 	function read(){
 		global $db,$config;
@@ -1063,6 +1072,7 @@ class product_option{
 
 		$this->parentid	= $row['parentid'];
 		$this->caption	= $row['caption'];
+		$this->barcode	= $row['barcode'];		
 		$this->unit		= $row['unit'];
 		$this->price	= $row['price'];
 		$this->eprice	= $row['eprice'];
@@ -1073,7 +1083,6 @@ class product_option{
 	
 	/**
 	 * Produktoption hinzufügen
-	 *
 	 * @param int $id
 	 */
 	function write($id = 0){
@@ -1083,6 +1092,7 @@ class product_option{
 			
 			$db->query("INSERT INTO {$config['tables']['food_option']}  SET 
 									parentid 	= '{$this->parentid}',
+									barcode 	= '{$this->barcode}',
 									caption		= '{$this->caption}',
 									unit		= '{$this->unit}',
 									price		= '{$this->price}',
@@ -1093,6 +1103,7 @@ class product_option{
 		}else{
 			$db->query("UPDATE {$config['tables']['food_option']}  SET 
 									parentid 	= '{$this->parentid}',
+									barcode 	= '{$this->barcode}',
 									caption		= '{$this->caption}',
 									unit		= '{$this->unit}',
 									price		= '{$this->price}',
@@ -1106,7 +1117,6 @@ class product_option{
 	
 	/**
 	 * Eingabedaten prüfen
-	 *
 	 * @return boolean
 	 */
 	function check(){
@@ -1130,7 +1140,6 @@ class product_option{
 	
 	/**
 	 * Produkte zählen
-	 *
 	 * @return unknown
 	 */
 	function count_unit(){
@@ -1139,7 +1148,6 @@ class product_option{
 	
 	/**
 	 * Preiszusammenzählen
-	 *
 	 * @return int
 	 */
 	function count_price(){
@@ -1170,7 +1178,7 @@ class product_option{
 			$dsp->AddModTpl("foodcenter","hiddenbox_stop");
 			$dsp->AddTextFieldRow("caption[$nr]",$lang['foodcenter']['add_product_prod_opt_capt'],$this->caption,$this->error['caption'],null,$optional);
 		}
-		$this->_Add_Option_Row($lang['foodcenter']['add_product_option_text'],$lang['foodcenter']['add_product_option_unit'],$lang['foodcenter']['add_product_option_pricetext'],$lang['foodcenter']['add_product_option_epricetext'],$lang['foodcenter']['add_product_option_piecetext'],"unit[$nr]","price[$nr]","eprice[$nr]","piece[$nr]",$this->unit,$this->price,$this->eprice,$this->pice,"hidden[$nr]",$this->id,$this->error['price'],$optional);
+		$this->_Add_Option_Row($lang['foodcenter']['add_product_option_text'],$lang['foodcenter']['add_product_option_unit'],$lang['foodcenter']['add_product_option_pricetext'],$lang['foodcenter']['add_product_option_epricetext'],$lang['foodcenter']['add_product_option_piecetext'],$lang['foodcenter']['add_product_option_barcodetext'],"unit[$nr]","price[$nr]","eprice[$nr]","piece[$nr]","barcode[$nr]",$this->unit,$this->price,$this->eprice,$this->pice,$this->barcode,"hidden[$nr]",$this->id,$this->error['price'],$optional);
 		$dsp->AddHRuleRow();
 		
 	}
@@ -1208,21 +1216,24 @@ class product_option{
 	 * @param string $text_price
 	 * @param string $text_eprice
 	 * @param string $text_piece
+	 * @param string $text_barcode
 	 * @param string $name_product
 	 * @param string $name_price
 	 * @param string $name_eprice
 	 * @param string $name_piece
+	 * @param string $name_barcode
 	 * @param int $value_product
 	 * @param int $value_price
 	 * @param int $value_eprice
 	 * @param int $value_piece
+	 * @param int $value_barcode
 	 * @param string $hidden_name
 	 * @param int $hidden_id
 	 * @param string $errortext
 	 * @param string $optional
 	 * @return template
 	 */
-	function _Add_Option_Row($text,$text_product,$text_price,$text_eprice,$text_piece,$name_product,$name_price,$name_eprice,$name_piece,$value_product,$value_price,$value_eprice,$value_piece,$hidden_name,$hidden_id,$errortext,$optional = false) {
+	function _Add_Option_Row($text,$text_product,$text_price,$text_eprice,$text_piece,$text_barcode,$name_product,$name_price,$name_eprice,$name_piece,$name_barcode,$value_product,$value_price,$value_eprice,$value_piece,$value_barcode,$hidden_name,$hidden_id,$errortext,$optional = false) {
 		global $dsp,$templ;
 				
 		$templ['foodcenter']['productcontrol']['pricerow']['text_row'] = $text;
@@ -1238,6 +1249,9 @@ class product_option{
 		$templ['foodcenter']['productcontrol']['pricerow']['text_piece'] = $text_piece;
 		$templ['foodcenter']['productcontrol']['pricerow']['name_piece'] = $name_piece;
 		$templ['foodcenter']['productcontrol']['pricerow']['value_piece'] = $value_piece;
+		$templ['foodcenter']['productcontrol']['pricerow']['text_barcode'] = $text_barcode;
+		$templ['foodcenter']['productcontrol']['pricerow']['name_barcode'] = $name_barcode;
+		$templ['foodcenter']['productcontrol']['pricerow']['value_barcode'] = $value_barcode;
 		$templ['foodcenter']['productcontrol']['pricerow']['hidden_name'] = $hidden_name;
 		$templ['foodcenter']['productcontrol']['pricerow']['hidden_id']	= $hidden_id;
 		
@@ -1410,7 +1424,7 @@ class supp{
 			$dsp->AddDropDownFieldRow("supp_id",$lang['foodcenter']['add_product_prod_supp'],$supp_array,"");
 		}
 		$dsp->AddTextFieldRow("supp_name",$lang['foodcenter']['add_product_prod_supp_new'],$_POST['supp_name'],$this->error['supp_name']);
-		$dsp->AddTextFieldRow("supp_desc",$lang['foodcenter']['add_product_prod_supp_desc'],$_POST['supp_desc'],"",null,true);
+		$dsp->AddTextFieldRow("",$lang['foodcenter']['add_product_prod_supp_desc'],$_POST['supp_desc'],"",null,true);
 	}
 	
 }

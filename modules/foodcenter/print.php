@@ -115,10 +115,17 @@ class foodcenter_print{
 		if($userid == 'all'){
 			return $lang['foodcenter']['different'];	
 		}else {
-			$get_username = $db->query_first("SELECT u.*, s.ip FROM {$config["tables"]["user"]} AS u,
-      LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid=u.userid
+	$get_userdata = $db->query_first("SELECT u.*, s.ip FROM {$config["tables"]["user"]} AS u
+      LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid = u.userid
       WHERE u.userid = '$userid'");
-			return $get_username;
+			return $get_userdata;
+
+/*
+	$get_userdata = $db->query_first("SELECT u.*, s.* FROM {$config["tables"]["user"]} AS u
+      LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid = u.userid
+	LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid
+      WHERE u.userid = '$userid' AND b.party_id = '{$_SESSION["party_id"]}'");
+*/
 		}
 	}
 		
