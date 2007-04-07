@@ -78,7 +78,7 @@ switch ($_GET['step']){
 		  LEFT JOIN {$config['tables']['food_supp']} AS s ON p.supp_id = s.supp_id
 		  LEFT JOIN {$config['tables']['user']} AS u ON u.userid = a.userid";
 
-$ms2->query['where'] = "a.supplytime = 0";
+//$ms2->query['where'] = "a.supplytime = 0";
 
     //$ms2->AddTextSearchField('Titel', array('p.caption' => 'like'));
 	
@@ -98,7 +98,7 @@ $ms2->query['where'] = "a.supplytime = 0";
 	while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
 	$db->free_result($row);
 	
-	$ms2->AddTextSearchDropDown('Status', 'a.status', $status_list);
+	$ms2->AddTextSearchDropDown('Status', 'a.status', $status_list, '1');
     $ms2->AddTextSearchDropDown('Lieferant', 's.supp_id', $supp_list);
 	$ms2->AddTextSearchDropDown('Party', 'a.partyid', $party_list, $party->party_id);
 /*
@@ -128,25 +128,30 @@ $ms2->query['where'] = "a.supplytime = 0";
 
     switch ($_POST['search_dd_input'][0]){
     	case 1:
+        $dsp->NewContent($lang['foodcenter']['list_ordered'], '');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_offer'];
+    	break;
+
+    	case 2:
         $dsp->NewContent($lang['foodcenter']['list_order'], '');
     		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_stop'];
     	break;
 
-    	case 2:
-        $dsp->NewContent($lang['foodcenter']['list_ordered'], '');
+    	case 3:
+        $dsp->NewContent($lang['foodcenter']['list_ordered_subcap'], '');
     		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_supplied'];
     	break;
 
-    	case 3:
-        $dsp->NewContent($lang['foodcenter']['list_fetch'], '');
-    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_wait'];
-    	break;
-
     	case 4:
-        $dsp->NewContent($lang['foodcenter']['list_fetched'], '');
-    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_supply'];
+        $dsp->NewContent($lang['foodcenter']['list_kitchen'], '');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_kitchen'];
     	break;
-    }
+    	
+     	case 5:
+        $dsp->NewContent($lang['foodcenter']['list_fetched'], '');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_wait'];
+    	break;  
+       }
 
     $ms2->PrintSearch('index.php?mod=foodcenter&action=statchange', 'a.id');
 
