@@ -21,7 +21,7 @@ else switch ($step) {
 
 			$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
-			$mail->create_inet_mail($user_data['username'], $pwr_mail, $cfg['usrmgr_pwrecovery_subject'], str_replace("%USERNAME%", $user_data['username'], str_replace("%PATH%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode", $cfg['usrmgr_pwrecovery_subject'])), $cfg['sys_party_mail']);
+			$mail->create_inet_mail($user_data['username'], $pwr_mail, $cfg['usrmgr_pwrecovery_subject'], str_replace("%USERNAME%", $user_data['username'], str_replace("%PATH%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode", $cfg['usrmgr_pwrecovery_text'])), $cfg['sys_party_mail']);
 
 			$func->confirmation($lang['usrmgr']['remind_success'], "index.php");
 		} else $func->information($lang['usrmgr']['remind_err_email'], "index.php?mod=usrmgr&action=pwrecover&step=1");

@@ -89,7 +89,9 @@ switch($_GET['step']) {
   
   // Delete Bookmark
   case 30:
-    $db->qry('DELETE FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%', $_GET['tid'], $auth['userid']);
+    $GetFid = $db->qry_first('SELECT fid FROM %prefix%board_threads WHERE tid = %int%', $_GET['tid']);
+    $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = 0 AND tid = %int% AND userid = %int%', $_GET['tid'], $auth['userid']);
+    $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = %int% AND tid = 0 AND userid = %int%', $GetFid['fid'], $auth['userid']);
   break;
 }
 
