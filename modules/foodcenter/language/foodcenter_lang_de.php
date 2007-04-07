@@ -116,8 +116,10 @@ $lang['foodcenter']['account_err_amount']		= 'Bitte einen Korrekten Betrag angeb
 $lang['foodcenter']['account_err_comm']			= 'Kommentar zu lange bitte kürzen.';
 
 // Ordered
+$lang['foodcenter']['ordered_no_kitchen']		= 'Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.';
 $lang['foodcenter']['ordered_err_amount']		= 'Nicht genügend Geld auf dem Konto.';
 $lang['foodcenter']['ordered_no_supply']		= 'Bis jetzt wurden keine Produkte abgeholt.';
+$lang['foodcenter']['ordered_no_offer']			= 'Keine aktuellen Bestellungen vorhanden.';
 $lang['foodcenter']['ordered_no_supplied']		= 'Es wird auf keine Lieferung gewartet.';
 $lang['foodcenter']['ordered_no_wait']			= 'Sie haben alle Produkte abgeholt.';
 $lang['foodcenter']['ordered_no_stop']			= 'Es müssen keine Produkte bestellt werden.';
@@ -152,8 +154,10 @@ $lang['foodcenter']['list_order_subcap']		= 'Diese Produkte werden von den Organ
 $lang['foodcenter']['list_fetched'] 			= 'Abgeholt';
 $lang['foodcenter']['list_fetched_subcap']		= 'Diese Produkte hast du Bereits abgeholt';
 $lang['foodcenter']['list_fetch'] 				= 'Abholbereit';
+$lang['foodcenter']['list_kitchen'] 			= 'Fertiggestellte Küchengerichte zur Abholung/Lieferung';
 $lang['foodcenter']['list_fetch_subcap']		= 'Diese Produkte kannst du abholen.';
 $lang['foodcenter']['statchange_fetch']			= 'Deine bestellten Produkte sind abholbereit';
+
 
 
 // Theke

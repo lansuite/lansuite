@@ -38,25 +38,30 @@ $ms2->query['where'] = 'userid='. (int)$auth['userid'];
 //$ms2->AddIconField('details', 'index.php?mod=foodcenter&action=ordered&step=2&id=', $lang['ms2']['details']);
 
 switch ($_POST['search_dd_input'][0]){
-	case 1:
-    $dsp->NewContent($lang['foodcenter']['list_order'], '');
-		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_stop'];
-	break;
-	
-	case 2:
-    $dsp->NewContent($lang['foodcenter']['list_ordered'], '');
-		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_supplied'];
-	break;
-		
-	case 3:
-    $dsp->NewContent($lang['foodcenter']['list_fetch'], '');
-		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_wait'];
-	break;
-		
-	case 4:
-    $dsp->NewContent($lang['foodcenter']['list_fetched'], '');
-		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_supply'];
-	break;
+   		case 1:
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_offer'];
+    	break;
+
+    	case 2:
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_stop'];
+    	break;
+
+    	case 3:
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_supplied'];
+    	break;
+
+    	case 4:
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_kitchen'];
+    	break;
+    	
+     	case 5:
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_wait'];
+    	break;  
+    	
+    	default:
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_offer'];
+    	break;  
+
 }
 
 $ms2->PrintSearch('index.php?mod=foodcenter&action=ordered', 'a.id');
