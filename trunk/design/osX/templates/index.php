@@ -3,12 +3,12 @@ $dsp->SetVar('title', $_SESSION['party_info']['name'] .' - lansuite '. $config['
 $dsp->SetVar('body_atr', $templ['index']['body']['js']);
 $dsp->SetVar('js', $templ['index']['control']['js']);
 $dsp->SetVar('DateLogout', $templ['index']['info']['current_date'] .' '. $templ['index']['info']['logout_link']);
-if ($_SESSION['lansuite']['fullscreen'] or $_GET['design'] == 'base') $dsp->SetVar('ContentStyle', 'ContentFullscreen');
+if ($_SESSION['lansuite']['fullscreen'] or $_GET['design'] == 'popup') $dsp->SetVar('ContentStyle', 'ContentFullscreen');
 else $dsp->SetVar('ContentStyle', 'Content');
 if (!$_SESSION['lansuite']['fullscreen']) {
-  $dsp->SetVar('BoxesLeft', $templ['index']['control']['boxes_letfside']);
-  $dsp->SetVar('BoxesRight', $templ['index']['control']['boxes_rightside']);
-  if ($_GET['design'] != 'base') {
+  if ($_GET['design'] != 'popupb') {
+    $dsp->SetVar('BoxesLeft', $templ['index']['control']['boxes_letfside']);
+    $dsp->SetVar('BoxesRight', $templ['index']['control']['boxes_rightside']);
     $dsp->SetVar('Logo', '<img src="design/osX/images/index_top_lansuite.gif" alt="Logo" title="Lansuite" border="0" />');
     $dsp->SetVar('Debug', $func->ShowDebug());
   }

@@ -183,7 +183,8 @@ Variablen:
     		<type>text</type>
     		<default>Hallo %USERNAME%,
 
-Sie haben ein neues LanSuite Passwort angefordert\r\nDamit das neue Passwort generiert wird, gehen Sie bitte auf folgende Webseite: %PATH%\r\n</default>
+Sie haben ein neues LanSuite Passwort angefordert
+Damit das neue Passwort generiert wird, gehen Sie bitte auf folgende Webseite: %PATH%</default>
     		<description>Text bei Passwort Recovery
 
 Variablen:
