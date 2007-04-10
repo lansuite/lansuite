@@ -73,7 +73,7 @@ class Mastercomment{
     $ms2->AddSelect('s.avatar_path');
     $ms2->AddSelect('s.signature');
     $ms2->AddSelect('u.userid');
-    $ms2->AddResultField('', 'u.username', 'FetchDataRow');
+    $ms2->AddResultField('', 'u.username', 'FetchDataRow', '', 180);
     $ms2->AddResultField('', 'c.text', 'FetchPostRow');
 #   $ms2->AddIconField('quote', "javascript:InsertCode(document.dsp_form1.text, '[quote]". str_replace("\n", "\\n", addslashes(str_replace('"', '', $row["text"]))) ."[/quote]')", t('Zitieren'), 'EditAllowed');
     $ms2->AddIconField('edit', $CurentURLBase.'&commentid=', t('Editieren'), 'EditAllowed');

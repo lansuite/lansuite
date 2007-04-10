@@ -2,7 +2,7 @@
 
 $helplet['modul'] = 'Lansuite-Suchfunktion';
 $helplet['action'] = 'Volltext Suche';
-$helplet['info'] = 'In diesem Suchfeld wird mit Volltextsuche gesucht. Dies bedeutet, dass nach mehreren Woten gesucht werden kann, unabhängig von deren Reihenfolge im Text. Dabei können die folgenden Modifikatoren angewandt werden, um das Suchergebnis zu optimieren';
+$helplet['info'] = 'In diesem Suchfeld wird mit Volltextsuche gesucht. Dies bedeutet, dass nach mehreren Worten gesucht werden kann, unabhängig von deren Reihenfolge im Text. Dabei können die folgenden Modifikatoren angewandt werden, um das Suchergebnis zu optimieren';
 
 $helplet['key'][1] = '+';
 $helplet['value'][1] = 'Das Wort unmittelbar hinter einem + MUSS im Ergebnis vorkommen';
