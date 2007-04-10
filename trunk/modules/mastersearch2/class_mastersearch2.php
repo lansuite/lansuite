@@ -71,12 +71,13 @@ class MasterSearch2 {
     array_push($this->search_dropdown, $arr);
   }
 
-  function AddResultField($caption, $sql_field, $callback = '', $max_char = 0) {
+  function AddResultField($caption, $sql_field, $callback = '', $max_char = 0, $width = 0) {
     $arr = array();
     $arr['caption'] = $caption;
     $arr['sql_field'] = $sql_field;
     $arr['callback'] = $callback;
     $arr['max_char'] = $max_char;
+    $arr['width'] = $width;
     array_push($this->result_field, $arr);
 
     $this->AddSelect($sql_field); 
@@ -415,6 +416,10 @@ class MasterSearch2 {
             $templ['ms2']['link_item'] = $templ['ms2']['table_entrys_row_field_entry'];
             $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
           }
+
+          // Width?
+          $templ['ms2']['table_entrys_row_field_width'] = '';
+          if ($current_field['width']) $templ['ms2']['table_entrys_row_field_width'] = ' width="'. $current_field['width'] .'px"';
 
           // Output fro template
           if ($templ['ms2']['table_entrys_row_field_entry'] == '') $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
