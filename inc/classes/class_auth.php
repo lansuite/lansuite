@@ -132,6 +132,7 @@ class auth {
 		if ($tmp_login_email == "") $func->information($lang['class_auth']['get_email_or_id'], "");
 		elseif ($tmp_login_pass == "") $func->information($lang['class_auth']['get_pw'], "");
 		else {
+
 			$user = $db->query_first("SELECT userid, username, email, password, type, locked
 				FROM {$config["tables"]["user"]}
 				WHERE ('". (int)$tmp_login_email."' = '".$tmp_login_email."' AND userid = '$tmp_login_email')
@@ -146,17 +147,28 @@ class auth {
 				$user["checkout"] = $party_data['checkout'];
 			}
 
-			// Wrong Password?
-			if ($tmp_login_pass != $user["password"]){
-				($cfg["sys_internet"])? $remindtext = $lang['class_auth']['wrong_pw_inet'] : $remindtext = $lang['class_auth']['wrong_pw_lan'];
-				$func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
-				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['wrong_pw_log']), "2", "Authentifikation");
-				$db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = %string%, time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
+			$row = $db->qry_first('SELECT COUNT(*) AS anz FROM %prefix%login_errors WHERE userid = %int% AND (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(time) < 60) GROUP BY userid', $user['userid']);
+
+      // Too many login trys
+      if ($row['anz'] >= 5) {
+        $func->information(t('Sie haben in der letzten Minute bereits 5 mal Ihr Passwort falsch eingegeben. Bitte waren Sei einen Moment, bevor Sie es erneut versuchen dürfen'), '', '', 1);
 
 			// Account disabled?
 			} elseif ($user["type"] <= -1) {
 				$func->information($lang['class_auth']['closed'], "", '', 1);
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['closed_log']), "2", "Authentifikation");
+
+			// Account locked?
+			} elseif ($user['locked']){
+				$func->information($lang['class_auth']['locked'], '', '', 1);
+				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['locked_log']), "2", "Authentifikation");
+
+			// Wrong Password?
+			} elseif ($tmp_login_pass != $user["password"]){
+				($cfg["sys_internet"])? $remindtext = $lang['class_auth']['wrong_pw_inet'] : $remindtext = $lang['class_auth']['wrong_pw_lan'];
+				$func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
+				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['wrong_pw_log']), "2", "Authentifikation");
+				$db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = %string%, time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
 
 			// Not checked in?
 			} elseif(!$user["checkin"] AND $user["type"] < 2 AND !$cfg["sys_internet"]){
@@ -167,11 +179,6 @@ class auth {
 			} elseif ($user["checkout"] AND $user["type"] < 2 AND !$cfg["sys_internet"]){
 				$func->information(t('Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['checkedout_log']), "2", "Authentifikation");
-
-			// Account locked?
-			} elseif ($user['locked']){
-				$func->information($lang['class_auth']['locked'], '', '', 1);
-				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['locked_log']), "2", "Authentifikation");
 
 			// Everything fine!
 			} else {
