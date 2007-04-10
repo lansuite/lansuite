@@ -31,6 +31,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 @ini_set('arg_separator.output','&amp;');
 
 // Start session-management
+session_save_path('ext_inc/session');
 session_start();
 
 // Analyze current URL
