@@ -17,8 +17,8 @@ function FetchItem ($item) {
 		$submod_pos = strpos($item['link'], 'submod=') + 7;
 		if ($submod_pos > 7) $submod = substr($item['link'], $submod_pos, strlen($item['link']) - $submod_pos);
 		else $submod = '';
-
-		if ($item['module'] == $_GET['mod'] and ($_GET['mod'] != 'info2' or $cfg['info2_use_submenus'] or ($_GET['mod'] == 'info2' and $submod == $_GET['submod']))) $highlighted = 1;
+echo $submod.HTML_NEWLINE;
+		if ($item['module'] == $_GET['mod'] and ($_GET['mod'] != 'info2' or ($_GET['mod'] == 'info2' and $submod == $_GET['submod']))) $highlighted = 1;
 		else $highlighted = 0;
 
 		// Set Item-Class
