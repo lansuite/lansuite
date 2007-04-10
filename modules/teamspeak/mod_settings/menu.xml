@@ -5,7 +5,7 @@
 		<action>default</action>
 		<file>list</file>
 		<caption>TeamSpeak</caption>
-		<hint>In welchen Channels wird gerade über TS gechattet?</hint>
+		<hint>In welchen Channels wird gerade Ã¼ber TS gechattet?</hint>
 		<link>?mod=teamspeak</link>
 		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<needed_config></needed_config>
