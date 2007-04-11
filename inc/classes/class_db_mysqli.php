@@ -7,7 +7,6 @@ class db {
 	var $print_sql_error;
 	var $success = false;
 	var $count_query = 0;
-	var $CurrentArg = string;
 
     // Konstruktor
 	function db() {
@@ -67,17 +66,19 @@ class db {
 	}
 
   function escape($match) {
-    if ($match[0] == '%int%') return (int)$this->CurrentArg;
-    elseif ($match[0] == '%string%') return "'". mysqli_real_escape_string($GLOBALS['db_link_id'], (string)$this->CurrentArg) ."'";
+    global $CurrentArg;
+    
+    if ($match[0] == '%int%') return (int)$CurrentArg;
+    elseif ($match[0] == '%string%') return "'". mysqli_real_escape_string($GLOBALS['db_link_id'], (string)$CurrentArg) ."'";
   }
 
   function qry() {
-    global $config;
+    global $config, $CurrentArg;
 
     $args = func_get_args();
     $query = array_shift($args);
     $query = str_replace('%prefix%', $config['database']['prefix'], $query);
-    foreach ($args as $this->CurrentArg) $query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query, 1);
+    foreach ($args as $CurrentArg) $query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query, 1);
     return $this->query($query);
   }
 
@@ -114,13 +115,13 @@ class db {
   	}
 
 	function qry_first() {
-    global $config, $sitetool;
+    global $config, $CurrentArg;
 
     $args = func_get_args();
     (string)$query = array_shift($args);
     (string)$query = str_replace('%prefix%', $config['database']['prefix'], $query);
 
-    foreach ($args as $this->CurrentArg) $query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query, 1);
+    foreach ($args as $CurrentArg) $query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query, 1);
     $this->query($query);
 
  		$row = $this->fetch_array($this->query_id);
