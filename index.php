@@ -27,6 +27,10 @@ header('Content-Type: text/html; charset=utf-8');
 // Error Reporting auf "Alles außer Hinweise" setzen
 error_reporting(E_ALL ^ E_NOTICE);
 
+#ini_set('display_errors', 0);
+#ini_set('log_errors', 1);
+#ini_set('error_log', 'log/php/');
+
 // For XHTML compatibility
 @ini_set('arg_separator.output','&amp;');
 
