@@ -6,7 +6,7 @@ $dsp->SetVar('DateLogout', $templ['index']['info']['current_date'] .' '. $templ[
 if ($_SESSION['lansuite']['fullscreen'] or $_GET['design'] == 'popup') $dsp->SetVar('ContentStyle', 'ContentFullscreen');
 else $dsp->SetVar('ContentStyle', 'Content');
 if (!$_SESSION['lansuite']['fullscreen']) {
-  if ($_GET['design'] != 'popupb') {
+  if ($_GET['design'] != 'popup') {
     $dsp->SetVar('BoxesLeft', $templ['index']['control']['boxes_letfside']);
     $dsp->SetVar('BoxesRight', $templ['index']['control']['boxes_rightside']);
     $dsp->SetVar('Logo', '<img src="design/osX/images/index_top_lansuite.gif" alt="Logo" title="Lansuite" border="0" />');
@@ -31,6 +31,7 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 <?$dsp->EchoVar('js')?>
 <a name="top"></a>
 <span id="LSloading" class="loading"></span>
+<? if ($_GET['design'] != 'popup') { ?>
 <table border="0" cellpadding="0" cellspacing="0" align="center" width="100%">
 <tr>
 	<td colspan="2" align="right">
@@ -64,9 +65,11 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 		<tr>
 			<td valign="top" width="8" style="background:url(design/osX/images/menu_content_ml.gif) repeat-y"></td>
 			<td valign="top" align="left" id="LScontent" bgcolor="#E8E7E7">
+<? } ?>
         <div id="<?$dsp->EchoVar('ContentStyle')?>">
           <?include_once('index_module.inc.php')?>
         </div>
+<? if ($_GET['design'] != 'popup') { ?>
       </td>
 			<td valign="top" width="8" style="background:url(design/osX/images/menu_content_mr.gif) repeat-y"></td>
 		</tr>
@@ -97,5 +100,6 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 	<td valign="top" width="155" style="padding-left:8px;text-align:right"><?$dsp->EchoVar('BoxesRight')?></td>
 </tr>
 </table>
+<?php } ?>
 </body>
 </html>
