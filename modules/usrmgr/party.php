@@ -35,7 +35,7 @@ else {
       if ($row['sstartdate'] > time()) return $lang['signon']['signon_start']. HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['sstartdate'], 'daydatetime'). '</strong>';
     
       // Signon ended?
-      if ($row['senddate'] < time()) return $lang['signon']['signon_closed']. HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['senddate'], 'daydatetime'). '</strong>';
+      if ($row['senddate'] < time() and $auth['type'] < 2) return $lang['signon']['signon_closed']. HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['senddate'], 'daydatetime'). '</strong>';
     
       // Do not allow changes, if user has paid
       if ($auth['type'] <= 1) {

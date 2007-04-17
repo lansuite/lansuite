@@ -295,6 +295,7 @@ class masterform {
                   include_once("ext_scripts/FCKeditor/fckeditor.php");
                   $oFCKeditor = new FCKeditor('FCKeditor1') ;
                   $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
+                  $oFCKeditor->Config["CustomConfigurationsPath"] = "../myconfig.js"  ;
                   $oFCKeditor->Value = $_POST[$field['name']];
                   $oFCKeditor->Height = 460;
                   $oFCKeditor->Create();

@@ -6,7 +6,214 @@ http://lansuite-docu.orgapage.de/index.php?title=Stylesheets
 */
 
 
+/* ---- BEGINN neuer Elemente ----*/
+
+div.Headline {
+  position: relative;
+  font-weight: bold;
+  background: #DEE3E7;
+  font-size: 11px;
+}
+div.HeadlineSub {
+  background: #DEE3E7;
+  font-size: 11px;
+}
+div.HeadlineHelp {
+  position: absolute;   top: 0px;   right: 8px;
+  font-size: 11px;
+}
+div.Button {
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
+}
+
+div.Button a {
+  width: 140px;
+  margin: 2px 0px 2px 0px;    padding: 2px 6px 2px 6px;
+  text-align: center;
+  background: #bbbbbb;
+  font-weight: bold;
+  display: block;
+}
+div.Button a:hover {
+  width: 140px;
+  margin: 2px 0px 2px 0px;    padding: 2px 6px 2px 6px;
+  text-align: center;
+  background: #999999;	color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
+}
+div.Buttons a {
+  width: 125px;  height: 100%;
+  margin: 2px 2px 2px 0px;   border: 2px solid #6882b9;   padding: 1px;
+  float: left;
+  background: #D7E5F2;   color: #102132;
+  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+  text-align: center;
+}
+div.Buttons a:hover {
+  width: 125px;  height: 100%;
+  margin: 2px 2px 2px 0px;   border: 2px solid #6882b9;   padding: 1px;
+  float: left;
+  background: #284279;   color: #ffffff;
+  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+  text-align: center;
+  text-decoration: none;
+}
+input.Button {
+  width: 125px;  height: 100%;
+  margin: 2px 0px 2px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
+  background: #D7E5F2;   color: #102132;
+  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+}
+input.Button:hover {
+  width: 125px;  height: 100%;
+  margin: 2px 0px 2px 0px;   border: 2px solid #6882b9;   padding: 0px 2px 0px 2px;
+  background: #284279;   color: #ffffff;
+  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+  text-decoration: none;
+}
+fieldset {
+  margin: 0px 0px 0px 0px;   padding: 2px;
+}
+td {
+  font-size: 11px;
+}
+input.Button, span.Button {
+  margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 0px 0px 0px;
+  background: #D7E5F2;   color: #102132;
+  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+input.Button:hover, span.Button:hover {
+  margin: 0px 0px 0px 0px;   border: 2px solid #6882b9;   padding: 0px 0px 0px 0px;
+  background: #284279;   color: #ffffff;
+  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* ---- ENDE neuer Elemente ----*/
+
+/* Content */
+ul.Line {
+  position: relative;   height: 100%;
+  margin: 0px 0px 0px 0px;    border-top: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
+  clear: left;
+  background: #E8E7E7;
+  font-size: 11px;
+}
+ul.LineFirst {
+  position: relative;   height: 100%;
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 2px 0px;
+  clear: left;
+  background: #E8E7E7;
+  font-size: 11px;
+}
+li.LineLeft {
+  width: 180px;   min-height: 16px;   z-index: 10;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  float: left;    vertical-align: middle;
+  list-style: none;
+}
+li.LineLeftBoard {
+  width: 120px;   min-height: 16px;   z-index: 10;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  float: left;    vertical-align: middle;
+  list-style: none;
+}
+li.LineLeftHalf {
+  width: 50%;   min-height: 16px;   z-index: 10;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  float: left;    vertical-align: middle;
+  list-style: none;
+}
+li.LineRight {
+  min-height: 16px;   z-index: 11;
+  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  background: #eeeeee;
+  list-style: none;
+}
+li.Confirmation {
+  padding: 4px 2px 0px 2px;
+	background: #00ff00;
+  list-style: none;
+}
+li.Err {
+  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
+  background: #f33737;
+  list-style: none;
+}
+li.Information {
+  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
+  background: #f8ae38;
+  list-style: none;
+}
+li.Confirmation {
+  margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
+  background: #84cd82;
+  list-style: none;
+}
+
+ul.BoxContent {
+  margin: 0px 0px 0px 0px;    padding: 1px;
+  list-style: none;
+}
+
+/* Bars*/
+ul.BarOccupied {
+  position: static;   height: 12px;
+  margin: 0px 0px 0px 0px;        padding: 0px 0px 0px 0px;
+  float: left;
+  background: #2bb800;
+}
+ul.BarMarked {
+  position: static;   height: 12px;
+  margin: 0px 0px 0px 0px;    border: 2px 0px 2px 0px solid #9c9d9c;    padding: 0px 0px 0px 0px;
+  float: left;
+  background: #fff500;
+}
+ul.BarFree {
+  position: static;   height: 12px;
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
+  float: left;
+  background: #b0b0b0;
+}
+ul.BarClear {
+  position: static;   width: 0px;   height: 0px;
+  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
+  clear: left;
+}
+
+/* Forms */
+textarea {
+  width: 100%;
+}
+
+.box_entry, .box_entryuser, .box_entry_active, .engaged, .box_entryadd {
+  list-style: none;
+}
+/* ---- BEGINN Änderung .box ----*/
+
+.box_entrymessage {
+  padding: 0px 0px 2px 16px;
+  white-space: nowrap;
+  background-image: url(images/arrows_message.gif);    background-repeat: no-repeat;
+}
+.box_entrymessage_blink {
+  padding: 0px 0px 2px 16px;
+  white-space: nowrap;
+  background-image: url(images/arrows_message_blink.gif);    background-repeat: no-repeat;
+}
+.box_entrydata {
+  padding: 0px 0px 2px 16px;
+  white-space: nowrap;
+  background-image: url(images/arrows_data.gif);    background-repeat: no-repeat;
+}
+/* ---- ENDE Änderung .box ----*/
+
 /* Basic HTML-Elements-Rewrite */
+/*
 body {
 	background:		#FFFFFF;
 	font-family:	verdana, helvetica, sans-serif;
@@ -17,7 +224,7 @@ body {
 	margin-left:	8px;
 	margin-right:	8px;
 }
-
+*/
 
 /* Size */
 .small {
