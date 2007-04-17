@@ -1,6 +1,6 @@
 <?php
 
-// Sitetool (for compressing the content send to the browser)
+// Sitetool (for compressing the content sending it to the browser)
 if ($_GET['design'] != 'base') {
   include_once("inc/classes/class_sitetool.php");
   $sitetool	= new sitetool('');
@@ -24,15 +24,14 @@ header('Content-Type: text/html; charset=utf-8');
 #header('Content-Type: application/xhtml+xml; charset=utf-8');
 #header("Cache-Control: no-cache, must-revalidate");
 
-// Error Reporting auf "Alles außer Hinweise" setzen
+// Set Error Reporting to "all, but notices"
 error_reporting(E_ALL ^ E_NOTICE);
-
 #ini_set('display_errors', 0);
 #ini_set('log_errors', 1);
 #ini_set('error_log', 'log/php/');
 
 // For XHTML compatibility
-@ini_set('arg_separator.output','&amp;');
+@ini_set('arg_separator.output', '&amp;');
 
 // Start session-management
 session_save_path('ext_inc/session');
@@ -47,20 +46,24 @@ $CurentURLMod = $treffer[1];
 // load $_POST and $_GET variables
 if (!is_array($_POST)) $_POST = $HTTP_POST_VARS;
 if (!is_array($_GET)) $_GET = $HTTP_GET_VARS;
+if (!is_array($_COOKIE)) $_COOKIE = $HTTP_COOKIE_VARS;
 
 // Save original Array
 if (get_magic_quotes_gpc()) {
   foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $__GET[$key] = stripslashes($_GET[$key]);
   foreach ($_POST as $key => $val) if (!is_array($_POST[$key])) $__POST[$key] = stripslashes($_POST[$key]);
+  foreach ($_COOKIE as $key => $val) if (!is_array($_COOKIE[$key])) $__COOKIE[$key] = stripslashes($_COOKIE[$key]);
 } else {
   $__GET = $_GET;
   $__POST = $_POST;
+  $__COOKIE = $_COOKIE;
 }
 
 // Emulate MQ, if disabled
 if (!get_magic_quotes_gpc()) {	 // and !get_magic_quotes_runtime()
 	foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $_GET[$key] = addslashes($_GET[$key]);
 	foreach ($_POST as $key => $val) if (!is_array($_POST[$key])) $_POST[$key] = addslashes($_POST[$key]);
+	foreach ($_COOKIE as $key => $val) if (!is_array($_COOKIE[$key])) $_COOKIE[$key] = addslashes($_COOKIE[$key]);
 }
 
 // Protect from XSS
@@ -76,8 +79,9 @@ foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) {
   $_GET[$key] = eregi_replace(' or\(', '', $_GET[$key]);
 }
 */
-$vars = array_merge((array)$_GET, (array)$_POST);
 
+// For compatibilty of old LS-Modules
+$vars = array_merge((array)$_GET, (array)$_POST);
 
 // Save Path
 #$script_filename = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1, strlen($_SERVER["SCRIPT_NAME"]));
