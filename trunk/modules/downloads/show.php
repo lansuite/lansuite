@@ -13,11 +13,11 @@ if (!$cfg['download_use_ftp']) {
   	if ($row['found']) $db->query("UPDATE {$config["tables"]["download_stats"]} SET hits = hits + 1 WHERE file = '{$_GET['dir']}' AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
   	else $db->query("INSERT INTO {$config["tables"]["download_stats"]} SET file = '{$_GET['dir']}', hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
 
-    header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
-    header('Content-Disposition: attachment; filename="'. substr($_GET['dir'], strrpos($_GET['dir'], '/') + 1, strlen($_GET['dir'])) .'"');
-    header("Content-Length: " .(string)(filesize($BaseDir.$_GET['dir'])));
-    readfile($BaseDir.$_GET['dir']);
-#    header('Location: http://'. $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF']) . $BaseDir . $_GET['dir']);
+#    header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
+#    header('Content-Disposition: attachment; filename="'. substr($_GET['dir'], strrpos($_GET['dir'], '/') + 1, strlen($_GET['dir'])) .'"');
+#    header("Content-Length: " .(string)(filesize($BaseDir.$_GET['dir'])));
+#    readfile($BaseDir.$_GET['dir']);
+    header('Location: http://'. $_SERVER['HTTP_HOST'] . str_replace('index.php', '', $_SERVER['PHP_SELF']) . $BaseDir . $_GET['dir']);
     exit;
 
   // Display directory
