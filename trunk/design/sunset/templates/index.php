@@ -33,6 +33,7 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 <?$dsp->EchoVar('js')?>
 <a name="top"></a>
 <span id="LSloading" class="loading"></span>
+<? if ($_GET['design'] != 'popup') { ?>
 <table width="100%" cellspacing="0" cellpadding="0" style="leftmargin: 4px; topmargin: 4px; marginwidth: 4px;marginheight: 4px; background:url(./design/sunset/images/index_top_background.gif)">
 <tr>
 	<td colspan="5">
@@ -72,9 +73,11 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 		</tr>
 		<tr class="content">
 			<td colspan="2" id="LScontent">
+<? } ?>
         <div id="<?$dsp->EchoVar('ContentStyle')?>">
           <?include_once('index_module.inc.php')?>
         </div>
+<? if ($_GET['design'] != 'popup') { ?>
       </td>
 		</tr>
 		<tr class="content">
@@ -105,6 +108,7 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 </tr>
 </table>
 <br />
+<? } ?>
 
 </body>
 </html>
