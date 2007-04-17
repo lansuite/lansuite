@@ -7,7 +7,7 @@
   <br /><a href="index.php?mod=popups&action=ls_row_textareaplus_popup&design=popup&form={$templ['TextAreaPlusRow']['formname']}&textarea={$templ['TextAreaPlusRow']['name']}" onclick="OpenWindow(this.href, 'TextFormatSelect'); return false">Smilies einfügen</a>
 </li>
 <li class="LineRight">
-	<textarea name="{$templ['TextAreaPlusRow']['name']}" id="{$templ['TextAreaPlusRow']['name']}" class="form{$templ['TextAreaPlusRow']['optional']}" rows="{$templ['TextAreaPlusRow']['rows']}" onKeyUp="TextAreaPlusCharsLeft(this, document.{$templ['TextAreaPlusRow']['formname']}.{$templ['TextAreaPlusRow']['name']}_chr, {$templ['TextAreaPlusRow']['maxchar']})">{$templ['TextAreaPlusRow']['value']}</textarea>
+	<textarea name="{$templ['TextAreaPlusRow']['name']}" id="{$templ['TextAreaPlusRow']['name']}" class="form{$templ['TextAreaPlusRow']['optional']}" rows="{$templ['TextAreaPlusRow']['rows']}" onKeyUp="TextAreaPlusCharsLeft(this, document.{$templ['TextAreaPlusRow']['formname']}.{$templ['TextAreaPlusRow']['name']}_chr, {$templ['TextAreaPlusRow']['maxchar']})" onmouseover="this.focus();">{$templ['TextAreaPlusRow']['value']}</textarea>
 	{$templ['TextAreaPlusRow']['errortext']}
   </li>
   <li class="LineLeft">&nbsp;</li>
