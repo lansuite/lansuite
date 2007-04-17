@@ -14,7 +14,7 @@ else {
 
       $dsp->AddFieldsetStart('Direkt zu folgendem Benutzer springen');
   		if ($cfg['sys_barcode_on']) $dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>", "", "index.php?mod=usrmgr&action=entrance&step=3&userid=");
-      $dsp->SetForm('index.php?mod=usrmgr&action=entrance&step=3');
+      $dsp->SetForm('index.php?mod=usrmgr&action=entrance&step=3', 'CheckinAssistantUseridForm');
       $dsp->AddTextFieldRow('userid', t('UserID'), '', '');
       $dsp->AddFormSubmitRow('next');
       $dsp->AddFieldsetEnd();

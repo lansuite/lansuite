@@ -11,6 +11,9 @@ function BodyOnload() {
   Nifty("li.Information", "big");
   Nifty("li.Err", "big");
   Nifty("div.Button a", "transparent");
+  
+  // Focus on userid field in checkin assistant
+  document.CheckinAssistantUseridForm.userid.focus();
 }
 
 
