@@ -129,8 +129,8 @@ class auth {
 			if ($_POST['password'] != "") $tmp_login_pass = md5($_POST['password']);
 		}
 
-		if ($tmp_login_email == "") $func->information($lang['class_auth']['get_email_or_id'], "");
-		elseif ($tmp_login_pass == "") $func->information($lang['class_auth']['get_pw'], "");
+		if ($tmp_login_email == "") $func->information($lang['class_auth']['get_email_or_id'], "", '', 1);
+		elseif ($tmp_login_pass == "") $func->information($lang['class_auth']['get_pw'], "", '', 1);
 		else {
 
 			$user = $db->query_first("SELECT userid, username, email, password, type, locked

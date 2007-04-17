@@ -80,21 +80,19 @@ if ($cfg['guestlist_guestmap'] == 2) {
   		INNER JOIN {$config["tables"]["party_user"]} AS p ON u.userid = p.user_id
   		WHERE (u.plz = {$user["plz"]}) AND s.show_me_in_map = 1 AND (p.party_id = {$party->party_id}) AND u.type > 0
   		");
-  		$users2jsarray = '';
+  		$UsersOut = '';
   		while ($current_user = $db->fetch_array($res2)) {
   		  if ($auth['type'] < 2 and ($cfg['sys_internet'])) {
   		    $current_user['firstname'] = '---';
   		    $current_user['name'] = '---';
         }
-        $users2jsarray .= "'{$current_user['username']}', '{$current_user['firstname']}', '{$current_user['name']}', ";
+        $UsersOut .= HTML_NEWLINE . $current_user['username'] .' ('. $current_user['firstname'] .' '. $current_user['name'] .')';
   		}
   		$db->free_result($res2);
-      $users2jsarray = substr($users2jsarray, 0, strlen($users2jsarray) - 2);
 
-  		$mouse_over_text = "javascript:user_data = new Array('{$user['plz']}', '{$user['city']}', '{$user['anz']}', $users2jsarray); TX_showToolTip(event, user_data);";
+  		$hint = $user['plz'] .' '. $user['city'] .' ('. $user['anz'] . ' Gäste)' . $UsersOut;
 
-  		$map_out .= "<area name=\"point$z\" shape=\"rect\" coords=\"". ($kx-$size) .", ". ($ky-$size) .", ". ($kx+$size) .", ". ($ky+$size) ."\" onMouseOver=\"$mouse_over_text\" onMouseOut=\"javascript:TX_hideToolTip();\" />";
-  		# href=\"index.php?mod=usrmgr&action=details&userid={$user["userid"]}\"
+  		$map_out .= "<area name=\"point$z\" shape=\"rect\" coords=\"". ($kx-$size) .", ". ($ky-$size) .", ". ($kx+$size) .", ". ($ky+$size) ."\" onmouseover=\"return overlib('". $hint ."');\" onmouseout=\"return nd();\"' />";
   	}
   	$db->free_result($res);
   	$map_out .= "</map>";
