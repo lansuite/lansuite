@@ -27,7 +27,7 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 </head>
 
 
-<body onload="BodyOnload()" <?$dsp->EchoVar('body_atr')?>>
+<body onload="BodyOnload(1)" <?$dsp->EchoVar('body_atr')?>>
 <?$dsp->EchoVar('js')?>
 <a name="top"></a>
 <span id="LSloading" class="loading"></span>

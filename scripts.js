@@ -1,17 +1,22 @@
+//function silentErrorHandler() {return true;}
+//window.onerror=silentErrorHandler;
+
 //// Basic Events ////
-function BodyOnload() {
+function BodyOnload(nifty) {
   // Load Google-Maps, if map-element is found
   if (document.getElementById("GoogleMaps")) ShowMap();
 
   // Load nifty-corners
-  Nifty("ul.BoxHeadline", "top");
-  Nifty("ul.BoxContent", "transparent bottom");
-  Nifty("div#Content", "big");
-  Nifty("li.Confirmation", "big");
-  Nifty("li.Information", "big");
-  Nifty("li.Err", "big");
-  Nifty("div.Button a", "transparent");
-  
+  if (nifty) {
+    Nifty("ul.BoxHeadline", "top");
+    Nifty("ul.BoxContent", "transparent bottom");
+    Nifty("div#Content", "big");
+    Nifty("li.Confirmation", "big");
+    Nifty("li.Information", "big");
+    Nifty("li.Err", "big");
+    Nifty("div.Button a", "transparent");
+  }
+
   // Focus on userid field in checkin assistant
   document.CheckinAssistantUseridForm.userid.focus();
 }
@@ -25,7 +30,7 @@ function InsertCode(object, CodeStart, CodeEnd) {
   if (CodeStart != '') {
     object.focus();
 
-    if (document.selection) {
+    if (CodeEnd && document.selection) {
       sel = document.selection.createRange();
       selected = sel.text;
       sel.text = CodeStart + selected + CodeEnd;
