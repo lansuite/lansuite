@@ -6,7 +6,7 @@ $dsp->AddContent();
 function SendOnlineMail() {
   global $db, $config, $mail, $func, $__POST;
 
-  if (substr($_POST['toUserID'], 1, 7) != '-mail-'){
+  if (substr($_POST['toUserID'], 1, 7) == '-mail-'){
     $to = substr($_POST['toUserID'], 8, strlen($_POST['toUserID']));
     $mail->create_inet_mail('', $to, $__POST['Subject'], $__POST['msgbody'], $_POST['SenderMail']);
     $func->confirmation('Die Mail wurde and '. $to .' versendet', '');
