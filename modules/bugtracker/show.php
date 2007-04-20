@@ -75,7 +75,31 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $ms2->AddBGColor('state', $colors);
 
   $ms2->AddTextSearchField(t('Überschrift'), array('b.caption' => 'like'));
-  $ms2->AddTextSearchField(t('Text'), array('b.text' => 'fulltext'));
+  $ms2->AddTextSearchField(t('Text'), array('b.text' => 'fulltext', 'c.text' => 'fulltext'));
+
+  $list = array('' => 'Alle');
+  $row = $db->qry('SELECT b.reporter, u.username FROM %prefix%bugtracker AS b LEFT JOIN %prefix%user AS u ON b.reporter = u.userid WHERE b.reporter > 0 ORDER BY u.username');
+  while($res = $db->fetch_array($row)) $list[$res['reporter']] = $res['username'];
+  $db->free_result($row);
+  $ms2->AddTextSearchDropDown('Reporter', 'b.reporter', $list);
+
+  $list = array('' => 'Alle');
+  $row = $db->qry('SELECT b.agent, u.username FROM %prefix%bugtracker AS b LEFT JOIN %prefix%user AS u ON b.agent = u.userid WHERE b.agent > 0 ORDER BY u.username');
+  while($res = $db->fetch_array($row)) $list[$res['agent']] = $res['username'];
+  $db->free_result($row);
+  $ms2->AddTextSearchDropDown('Bearbeiter', 'b.agent', $list);
+
+  $list = array('' => 'Alle');
+  $row = $db->qry('SELECT c.creatorid, u.username FROM %prefix%comments AS c LEFT JOIN %prefix%user AS u ON c.creatorid = u.userid WHERE c.creatorid > 0 AND c.relatedto_item = \'BugEintrag\' ORDER BY u.username');
+  while($res = $db->fetch_array($row)) $list[$res['creatorid']] = $res['username'];
+  $db->free_result($row);
+  $ms2->AddTextSearchDropDown('Kommentator', 'c.creatorid', $list);
+
+  $list = array_merge(array('' => 'Alle'), $bugtracker->stati);
+  $ms2->AddTextSearchDropDown('Status', 'b.state', $list);
+
+#  $list = array_merge(array('' => 'Alle'), $types);
+#  $ms2->AddTextSearchDropDown('Fehlertyp', 'b.type', $list);
 
   $ms2->AddResultField(t('Titel'), 'b.caption');
   $ms2->AddSelect('r.userid');
