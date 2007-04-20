@@ -51,9 +51,15 @@ function OpenWindow(url, name) {
 }
 
 function OpenPreviewWindow(url, obj) {
-  text = obj.value.replace(/\n/g, "--NEWLINE--");
-  document.cookie = "Preview=" + text;
-  OpenWindow(url, 'Vorschau');
+  var tmp = obj.action;
+  obj.action = url;
+  Preview = window.open('_blank', 'Preview', "width=600,height=200,left=100,top=100");
+  obj.target = 'Preview';
+  obj.submit();
+  Preview.focus();
+
+  obj.action = tmp;
+  obj.target = '_self';
 }
 
 function OpenHelplet(module, helpletid) {

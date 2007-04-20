@@ -316,6 +316,7 @@ class MasterSearch2 {
       $current = $x % 2;
       $templ['ms2']['input_field_name'] = "search_dd_input[$z]";
       $templ['ms2']['input_field_options'] = '';
+      $templ['ms2']['search_help'][$current] = '';
       foreach ($current_field['selections'] as $key => $value) {
         ((string)$_POST['search_dd_input'][$z] == (string)$key)? $selected = ' selected' : $selected = '';
         $templ['ms2']['input_field_options'] .= '<option value="'.$key.'"'.$selected.'>'.$value.'</option>';
