@@ -153,12 +153,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 	else $dsp->AddDoubleRow(t('Bearbeiter'), t('Noch nicht zugeordnet'));
 
 	$dsp->AddDoubleRow(t('Text'), $func->text2html($row['text']));
-  if ($row['file']) {
-    $FileEnding = strtolower(substr($row['file'], strrpos($row['file'], '.'), 5));
-    if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') $attachment = '<img src="'. $row['file'] .'" />';
-    else $templ['board']['thread']['case']['info']['post']['text'] .= $attachment = $dsp->FetchIcon($row['file'], 'download') .' ('. t('Angehängte Datei herunterladen').')';
-    $dsp->AddDoubleRow(t('Anhang'), $attachment);
-  }
+  if ($row['file']) $dsp->AddDoubleRow(t('Anhang'), $dsp->FetchAttachmentRow($row['file']));
 	$dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Editieren'), 'index.php?mod=bugtracker&action=add&bugid='.$row['bugid']) . $dsp->FetchSpanButton(t('Zurück zur Übersicht'), 'index.php?mod=bugtracker'));
 
   if ($auth['login']) {
