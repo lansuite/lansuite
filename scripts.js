@@ -18,7 +18,7 @@ function BodyOnload(nifty) {
   }
 
   // Focus on userid field in checkin assistant
-  document.CheckinAssistantUseridForm.userid.focus();
+  if (document.CheckinAssistantUseridForm.userid) document.CheckinAssistantUseridForm.userid.focus();
 }
 
 
