@@ -44,8 +44,8 @@
 		}
 	}
 	
-	$filecontents = file( "modules/about/credits.htm" );
-	$fo = fopen( "modules/about/credits.htm", "w" );
+	$filecontents = file( "modules/about/credits.php" );
+	$fo = fopen( "modules/about/credits.php", "w" );
 	foreach ( $filecontents as $filecontent ) {
 		$filecontent = eregi_replace( "<!--PHP-LINES-START-->(.*)<!--PHP-LINES-STOP-->", "<!--PHP-LINES-START-->$php_lines<!--PHP-LINES-STOP-->", $filecontent );
 		$filecontent = eregi_replace( "<!--PHP-CHARS-START-->(.*)<!--PHP-CHARS-STOP-->", "<!--PHP-CHARS-START-->$php_chars<!--PHP-CHARS-STOP-->", $filecontent );
