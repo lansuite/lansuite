@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 switch($_GET['step']) {
   default:
     $dsp->NewContent(t('Bugtracker Export'), t('Nutzen Sie diese Funktion um einen Export der Bugtracker-Einträge zu erstellen, den sie auf lansuite.de importieren können'));

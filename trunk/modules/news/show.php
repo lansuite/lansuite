@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 // COUNT NEWS
 $get_amount = $db->query_first("SELECT count(*) as number FROM {$config["tables"]["news"]}");
 $overall_news = $get_amount["number"];

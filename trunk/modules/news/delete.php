@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 switch($vars["step"]) {
 	default:
     include_once('modules/news/search.inc.php');

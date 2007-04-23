@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 function NameAndDesc($name) {
   global $line, $auth, $func;
 

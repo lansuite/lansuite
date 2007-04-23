@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 $dsp->NewContent(t('Design Manager'), t('Editieren Sie Design-Templates und setzen Sie das aktive Design'));
 
 switch ($_GET['step']) {

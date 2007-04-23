@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 if ($_POST['action']) {
 	foreach ($_POST['action'] as $key => $val) {
 	  switch ($_GET['mode']) {

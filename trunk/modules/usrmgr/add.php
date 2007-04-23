@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 include_once("modules/usrmgr/class_usrmgr.php");
 $usrmgr = new UsrMgr();
 

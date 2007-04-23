@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2('news');
 

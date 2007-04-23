@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 switch ($_GET['step']) {
   // Activate
   case 10:

@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 

@@ -12,18 +12,27 @@ function ReplaceParameters($input, $parameters = NULL) {
 }
 
 function t($input, $parameters = NULL) {
-  global $db, $config, $language, $LSCurFile, $lang, $TranslationFirstRun, $func;
+  global $db, $config, $language, $lang, $TranslationFirstRun, $func;
 
   if ($input == '') return '';
   if (!$db->success) return ReplaceParameters($input, $parameters);
 
-  // Generate Mod-Name from FILE
-  if ($LSCurFile == 'DB') $mod = 'DB';
+  // Get CallingFile
+  $bt = debug_backtrace();
+  if ($bt[1]['function'] == 'translate') $CallingFile = 'DB';
   else {
-    $LSCurFile = str_replace('\\','/', $LSCurFile);
-    if (strpos($LSCurFile, 'modules/') !== false) {
-      $start = strpos($LSCurFile, 'modules/') + 8;
-      $mod = substr($LSCurFile, $start, strrpos($LSCurFile, '/') - $start);
+    $CallingFile = $bt[0]['file'];
+    $BasePath = substr(__FILE__, 0, strpos(__FILE__, 'inc\classes\class_translation.php'));
+    $CallingFile = str_replace($BasePath, '', $CallingFile);
+  }
+
+  // Generate Mod-Name from FILE
+  if ($CallingFile == 'DB') $mod = 'DB';
+  else {
+    $CallingFile = str_replace('\\','/', $CallingFile);
+    if (strpos($CallingFile, 'modules/') !== false) {
+      $start = strpos($CallingFile, 'modules/') + 8;
+      $mod = substr($CallingFile, $start, strrpos($CallingFile, '/') - $start);
     } else $mod = 'System';
   }
 

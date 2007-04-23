@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 function YesNo($TargetLang) {
 	global $dsp;
 

@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 switch($_GET['step']) {
   default:
     include_once('modules/rent/search.inc.php');

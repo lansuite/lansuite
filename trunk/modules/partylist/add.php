@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 $dsp->NewContent(t('Party eintragen'), t('Hier können Sie Ihre Party der Liste hinzufügen'));
 
 include_once('inc/classes/class_masterform.php');

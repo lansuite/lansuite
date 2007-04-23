@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 $dsp->NewContent(t('Bugtracker'), t('Hier können Sie Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.'));
 
 include_once('inc/classes/class_masterform.php');
