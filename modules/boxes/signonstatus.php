@@ -57,8 +57,9 @@ if ($pixelcuruser > 0) $bar .= '<ul class="BarMarked" style="width:'. $pixelcuru
 if ($pixelges > 0) $bar .= '<ul class="BarFree" style="width:'. $pixelges .'px;" onmouseover="return overlib(\''. t('Frei') .': '. ($max - $cur)  .'\');" onmouseout="return nd();">&nbsp;</ul>';
 $bar .= '<ul class="BarClear">&nbsp;</ul>';
 
-if (strlen($_SESSION['party_info']['name']) > 16) $party_name = substr($_SESSION['party_info']['name'], 0, 14) .'...';
-else $party_name = $_SESSION['party_info']['name'];
+#if (strlen($_SESSION['party_info']['name']) > 16) $party_name = substr($_SESSION['party_info']['name'], 0, 14) .'...';
+#else
+$party_name = $_SESSION['party_info']['name'];
 $box->ItemRow("data", '<b>'. $party_name .'</b>');
 $box->EngangedRow(date("d.m.y", $_SESSION['party_info']['partybegin']) .' - '. date("d.m.y", $_SESSION['party_info']['partyend']));
 
