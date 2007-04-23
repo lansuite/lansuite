@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 switch ($_GET['step']) {
   case 10:
     $row = $db->query_first("SELECT ls_url FROM {$config['tables']['partylist']} WHERE partyid = ".(int)$_GET['partyid']);

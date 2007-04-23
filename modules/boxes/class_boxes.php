@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 class boxes {
 
 	// Constructor (opens/closes the clicked box

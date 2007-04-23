@@ -758,21 +758,8 @@ class func {
 	}
 
 	function translate($in) {
-		global $LSCurFile; #, $db, $config, $language;
-
-    $buffer = $LSCurFile;
-    $LSCurFile = 'DB';
     $return = t($in);
-    $LSCurFile = $buffer;
-
     return $return;
-/*
-    if ($language == 'de') return $in;
-		else $out = $db->query_first("SELECT $language FROM {$config["tables"]["translations"]} WHERE de = '". $this->escape_sql($in) ."'");
-
-		if ($out) return $out[$language];
-		else return $in;
-*/
 	}
 
   function wrap($text, $maxlength, $spacer = "<br />\n") {

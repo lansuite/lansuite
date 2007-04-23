@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 include_once('modules/bugtracker/class_bugtracker.php');
 $bugtracker = new Bugtracker();
 

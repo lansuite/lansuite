@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 $dsp->NewContent(t('News verwalten'), t('Mit Hilfe des folgenden Formulars können Sie Neuigkeiten auf Ihrer Seite ergänzen und bearbeiten'));
 
 include_once('inc/classes/class_masterform.php');

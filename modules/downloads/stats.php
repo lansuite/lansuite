@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 $dsp->NewContent(t('Statistiken'), $_GET['file']);
 
 // Delete

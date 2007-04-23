@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 switch($_GET['step']) {
   default:
     $dsp->NewContent(t('Bugtracker Import'), t('Hier können Sie die bugs.xml-Datei Importieren, die Sie auf Ihrer Webseite exportiert haben'));

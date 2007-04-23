@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 $dsp->NewContent(t('Cronjob hinzufügen'), '');
 
 include_once('inc/classes/class_masterform.php');

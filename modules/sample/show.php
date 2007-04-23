@@ -1,8 +1,4 @@
 <?php
-  // Add this line to the beginning of each file, where you use the t-function described bellow
-  $LSCurFile = __FILE__;
-
-
 
   ### Translation and Textoutput
 	// This is how you start a new output

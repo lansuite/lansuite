@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 // CHECK IF NEWSID IS VALID
 $check = $db->query_first("SELECT caption FROM {$config["tables"]["news"]} WHERE newsid = '{$vars["newsid"]}'");
 if($check["caption"] != "") { 

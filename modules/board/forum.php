@@ -1,6 +1,4 @@
 <?php
-$LSCurFile = __FILE__;
-
 function LastPostDetails($date) {
   global $db, $config, $line, $dsp, $templ;
 
