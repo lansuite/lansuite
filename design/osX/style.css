@@ -3,26 +3,33 @@ Lansuite Style-Definitions
 
 For detailed Information see:
 http://lansuite-docu.orgapage.de/index.php?title=Stylesheets
+
+Format:
+name {
+  position: ;  width: ;  height: ;
+  margin: ;  border: ;  padding: ;
+  float: ;  clear: ;  text-align: ;  vertical-align: ;  white-space: ;
+  color: ;  background: ;  background-image: ;  background-repeat: ;
+  font-size: ;  font-weight: ;  font-family: ;
+  text-decoration: ;  display: ;  list-style: ;
+}
 */
-
 /* ---- BEGINN neuer Elemente ----*/
-
 div.Headline {
   position: relative;
-  font-weight: bold;
   background: #DEE3E7;
-  font-size: 11px;
+  font-size: 11px;  font-weight: bold;
 }
 div.HeadlineSub {
   background: #DEE3E7;
   font-size: 11px;
 }
 div.HeadlineHelp {
-  position: absolute;   top: 0px;   right: 8px;
+  position: absolute;  top: 0px; right: 8px;
   font-size: 11px;
 }
 div.Button {
-  margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;  padding: 0px 0px 0px 0px;
 }
 
 div.Button a {
@@ -92,6 +99,47 @@ input.Button:hover, span.Button:hover {
   text-decoration: none;
   cursor: pointer;
 }
+/* ---- Teamspeak2 Display BEGINN ----*/
+#teamspeakdisplay img {
+  border: 0px;
+}
+#teamspeakdisplay table {
+  border-collapse: collapse;  border-spacing: 0px;
+}
+#teamspeakdisplay td {
+  padding: 0px;
+  vertical-align: top;  white-space: nowrap;
+  font-size: 11px;  font-family: verdana, helvetica, sans-serif;
+}
+#teamspeakdisplay td.teamspeakserver {
+  padding-left: 3px;
+  font-weight: bold;
+}
+#teamspeakdisplay td.teamspeakchannel {
+  padding-left: 3px;
+}
+#teamspeakdisplay td.teamspeaksubchannel {
+  padding-left: 3px;
+}
+#teamspeakdisplay td.teamspeakplayer {
+	padding-left: 3px;
+	font-weight: bold;
+}
+#teamspeakdisplay a.teamspeakserver {
+  font-size: 11px;  font-weight: bold;  font-family: verdana, helvetica, sans-serif;
+  text-decoration: none;
+  color: #000000;
+}
+#teamspeakdisplay a.teamspeakchannel, a.teamspeaksubchannel {
+  font-size: 11px;  font-weight: ;  font-family: verdana, helvetica, sans-serif;
+  text-decoration: none;
+  color: #000000;
+}
+#teamspeakdisplay a.teamspeakserver:hover, a.teamspeakchannel:hover, a.teamspeaksubchannel:hover {
+  color: #000066;
+  text-decoration: none;
+}
+/* ---- Teamspeak2 Display ENDE ----*/
 /* ---- ENDE neuer Elemente ----*/
 
 /* Content */
@@ -678,15 +726,6 @@ a.admin:link, a.admin:visited {
 
 a.admin:hover {
   text-decoration: underline;}
-
-/* OPTIONAL FORM FIELD'S */
-.form_optional {
-  font-family:     Verdana,Arial,Helvetica;
-  font-size:	     11px;
-  font-weight:     normal;
-  color:           #000000;
-  border:		     1px solid #999999;
-  background-color:#CBE0FA;}
 
 /* IMAGE STYLE */
 .img {
