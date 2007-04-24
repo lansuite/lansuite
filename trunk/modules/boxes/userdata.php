@@ -66,8 +66,37 @@ $box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] .'</b> <a href="index.php?
 $box->DotRow(t('Zuletzt eingeloggt'));
 $box->EngangedRow("<b>". date('d.m H:i', $user_lg["logintime"]) ."</b>");
 
+
 // Show other links
 if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php?mod=usrmgr&action=myticket", "", "menu");
 $box->DotRow(t('Meine Einstellungen'), "index.php?mod=usrmgr&action=settings", '', "menu");
+
+//Zeige Anmeldestatus
+
+$query_signstat = $db->query_first("SELECT * FROM {$config["tables"]["party_user"]} AS pu
+				WHERE pu.user_id = '{$auth["userid"]}' AND pu.party_id = '{$_SESSION["party_id"]}'");
+				
+				if($query_signstat == null) 
+				{
+					$signstat = '<font color="red">Nein!</font>';
+					$signstat_info = '<a href="index.php?mod=signon"><i> Hier Anmelden</i></a>';
+					$paidstat = '<font color="red">Nein!</font>';
+				}
+				else
+				{
+					$signstat = '<font color="green">Ja!</font>';
+					
+					if($query_signstat["paid"] != 1)
+						$paidstat = '<font color="red">Nein!</font>';
+					else
+						$paidstat = '<font color="green">Ja!</font>';
+					}
+
+$query_partys = $db->query_first("SELECT * FROM {$config["tables"]["partys"]} AS p
+				WHERE p.party_id = '{$_SESSION["party_id"]}'");	
+					
+$box->DotRow($query_partys["name"]." Status:");
+$box->EngangedRow('Angemeldet: <b>'. $signstat .'</b><br> '. $signstat_info);
+$box->EngangedRow('Bezahlt: <b>'. $paidstat .'</b>');
 
 ?>
