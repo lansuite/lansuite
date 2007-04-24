@@ -55,7 +55,12 @@ class Export {
 			$entry = $xml->write_tag('id', $row['id'], 4);
 			$entry .= $xml->write_tag('tid', $row['tid'], 4);
 			$entry .= $xml->write_tag('org', $row['org'], 4);
-			$entry .= $xml->write_tag('en', $row['en'], 4);
+			if ($row['de']) $entry .= $xml->write_tag('de', $row['de'], 4);
+			if ($row['en']) $entry .= $xml->write_tag('en', $row['en'], 4);
+			if ($row['es']) $entry .= $xml->write_tag('es', $row['es'], 4);
+			if ($row['fr']) $entry .= $xml->write_tag('fr', $row['fr'], 4);
+			if ($row['nl']) $entry .= $xml->write_tag('nl', $row['nl'], 4);
+			if ($row['it']) $entry .= $xml->write_tag('it', $row['it'], 4);
 			$entry .= $xml->write_tag('file', $mod, 4);
 		  $content .= $xml->write_master_tag("entry", $entry, 3);
     }

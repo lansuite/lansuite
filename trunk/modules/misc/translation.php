@@ -59,10 +59,10 @@ function TUpdateFromFiles($BaseDir) {
 }
 
 
-$dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
-
 switch ($_GET['step']) {
   default:
+    $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
+
     $dsp->AddSingleRow('<a href="index.php?mod=misc&action=translation&step=2">'. t('Alle Einträge auflisten') .'</a>');
     $dsp->AddSingleRow('<a href="index.php?mod=misc&action=translation&step=10">'. t('Einträge neu auslesen und in die Datenbank schreiben') .'</a>');
 
@@ -92,6 +92,8 @@ switch ($_GET['step']) {
   break;
 
   case 2:
+    $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
+
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('misc');
 
@@ -121,6 +123,8 @@ switch ($_GET['step']) {
   break;
 
   case 3:
+    $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
+
     include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
     
@@ -140,6 +144,8 @@ switch ($_GET['step']) {
 
   // Search all files for strings in t()-functions and synchronize to DB
   case 10:
+    $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
+
     if ($auth['type'] >= 3) {
       $dsp->AddFieldSetStart(t('FrameWork'));
       $dsp->AddSingleRow(TUpdateFromFiles('inc/classes'));
@@ -177,7 +183,7 @@ switch ($_GET['step']) {
   
   // Translate Module
   case 20:
-    $dsp->NewContent('Modul übersetzen', '');
+    $dsp->NewContent(t('Modul übersetzen'), '');
 
     if ($_SESSION['target_language'] == '') $_SESSION['target_language'] = 'en';
     $dsp->AddDoubleRow('Zielsprache', $dsp->FetchIcon('', $_SESSION['target_language']));
