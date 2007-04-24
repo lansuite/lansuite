@@ -66,9 +66,9 @@
 	
 	//================== END OF CONFIGURATION CODE ========================
 	// Is the script improperly configured?
-  if ($settings["serveraddress"] == "*.*.*.*") { $func->information("Kein Teamspeak Server konfiguriert."); }
+  if ($settings["serveraddress"] == "*.*.*.*") { $func->information(t('Kein Teamspeak Server konfiguriert.')); }
 else {
-$dsp->NewContent("TeamSpeak", "Übersicht der Channels und User auf dem TeamSpeak Server. Um auf den Server zu connecten, einfach auf einen Channel klicken und den Anweisungen folgen.");
+$dsp->NewContent("TeamSpeak", t('Übersicht der Channels und User auf dem TeamSpeak Server. Um auf den Server zu connecten, einfach auf einen Channel klicken und den Anweisungen folgen.'));
 $dsp->AddSingleRow("&nbsp");
 ?>
 <table border="0" width="<? echo $cfg['tabellenbreite'] ?>" bgcolor = "<? echo $cfg['hintergrund'] ?>">
@@ -81,9 +81,9 @@ $dsp->AddSingleRow("&nbsp");
 	// Display autorefresh status and control link:
 	echo("<br>\n");
 	if ($autorefresh == 0) {
-		echo("Autorefresh: <font color=\"#FF0000\"><b>Deaktiviert</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=1\">Aktivieren</a>)<br>\n");
+		echo("Autorefresh: <font color=\"#FF0000\"><b>". t('Deaktiviert') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=1\">". t('Aktivieren') ."</a>)<br>\n");
 	} else if ($autorefresh == 1) {
-		echo("Autorefresh: <font color=\"#00FF00\"><b>Aktiviert</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=0\">Deaktivieren</a>)<br>\n");
+		echo("Autorefresh: <font color=\"#00FF00\"><b>". t('Aktiviert') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=0\">". t('Deaktivieren') ."</a>)<br>\n");
 	}
 ?>
   </td>
