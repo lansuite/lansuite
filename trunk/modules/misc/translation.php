@@ -189,7 +189,7 @@ switch ($_GET['step']) {
     $dsp->AddDoubleRow('Zielsprache', $dsp->FetchIcon('', $_SESSION['target_language']));
     $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
     $res = $db->query("SELECT DISTINCT id, org, file, {$_SESSION['target_language']} FROM {$config['tables']['translation']} WHERE file = '{$_GET['file']}'");
-    while($row = $db->fetch_array($res)) $dsp->AddTextFieldRow("id[{$row['id']}]", $row['org'], $row[$_SESSION['target_language']], '', 80);
+    while($row = $db->fetch_array($res)) $dsp->AddTextFieldRow("id[{$row['id']}]", $row['org'], $row[$_SESSION['target_language']], '', 65);
     $db->free_result($res);
     $dsp->AddFormSubmitRow('edit');
 
