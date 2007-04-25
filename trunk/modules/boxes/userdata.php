@@ -72,7 +72,8 @@ if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php
 $box->DotRow(t('Meine Einstellungen'), "index.php?mod=usrmgr&action=settings", '', "menu");
 
 //Zeige Anmeldestatus
-
+if($party->count != 0 & $_SESSION['party_info']['partyend'] > time())
+{
 $query_signstat = $db->query_first("SELECT * FROM {$config["tables"]["party_user"]} AS pu
 				WHERE pu.user_id = '{$auth["userid"]}' AND pu.party_id = '{$_SESSION["party_id"]}'");
 				
@@ -95,8 +96,9 @@ $query_signstat = $db->query_first("SELECT * FROM {$config["tables"]["party_user
 $query_partys = $db->query_first("SELECT * FROM {$config["tables"]["partys"]} AS p
 				WHERE p.party_id = '{$_SESSION["party_id"]}'");	
 					
-$box->DotRow($query_partys["name"]." Status:");
+$box->DotRow($query_partys["name"]." Status:".$party->count);
 $box->EngangedRow('Angemeldet: <b>'. $signstat .'</b><br> '. $signstat_info);
 $box->EngangedRow('Bezahlt: <b>'. $paidstat .'</b>');
+}
 
 ?>
