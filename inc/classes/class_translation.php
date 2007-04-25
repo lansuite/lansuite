@@ -18,12 +18,14 @@ function t($input, $parameters = NULL) {
   if (!$db->success) return ReplaceParameters($input, $parameters);
 
   // Get CallingFile
-  $bt = debug_backtrace();
-  if ($bt[1]['function'] == 'translate') $CallingFile = 'DB';
-  else {
-    $CallingFile = $bt[0]['file'];
-    $BasePath = substr(__FILE__, 0, strpos(__FILE__, 'inc\classes\class_translation.php'));
-    $CallingFile = str_replace($BasePath, '', $CallingFile);
+  if (function_exists('debug_backtrace')) {
+    $bt = debug_backtrace();
+    if ($bt[1]['function'] == 'translate') $CallingFile = 'DB';
+    else {
+      $CallingFile = $bt[0]['file'];
+      $BasePath = substr(__FILE__, 0, strpos(__FILE__, 'inc\classes\class_translation.php'));
+      $CallingFile = str_replace($BasePath, '', $CallingFile);
+    }
   }
 
   // Generate Mod-Name from FILE
