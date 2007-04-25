@@ -636,6 +636,11 @@ class Install {
 		else $ext_inc_check = $ok;
 		$dsp->AddDoubleRow($lang["install"]["env_ext_inc_key"], $ext_inc_check);
 
+		// Debug Backtrace
+		if (function_exists('debug_backtrace')) $debug_bt_check = $ok;
+		else $debug_bt_check = $warning . t('Die Funktion "Debug Backtrace" ist auf deinem System nicht vorhanden. Diese wird jedoch benötigt, um Übersetzungs-Texte einem bestimmten Modul zuzuordnen. Solange du lansuite nur in Deutsch verwenden willst, sollte dies keine Auswirkung haben');
+		$dsp->AddDoubleRow('Debug Backtrace', $debug_bt_check);
+
 		// Error Reporting
 		if (error_reporting() <= (E_ALL ^ E_NOTICE)) $errreport_check = $ok;
 		else $errreport_check = $warning . $lang["install"]["env_errreport"];
