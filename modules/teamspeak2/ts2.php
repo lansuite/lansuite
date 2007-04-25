@@ -81,9 +81,9 @@ $dsp->AddSingleRow("&nbsp");
 	// Display autorefresh status and control link:
 	echo("<br>\n");
 	if ($autorefresh == 0) {
-		echo("Autorefresh: <font color=red><b>". t('Deaktiviert') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=1\">". t('Aktivieren') ."</a>)<br>\n");
+		echo("Autorefresh: <font color=red><b>". t('AUS') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=1\">". t('Aktivieren') ."</a>)<br>\n");
 	} else if ($autorefresh == 1) {
-		echo("Autorefresh: <font color=green><b>". t('Aktiviert') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=0\">". t('Deaktivieren') ."</a>)<br>\n");
+		echo("Autorefresh: <font color=green><b>". t('AN') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=0\">". t('Deaktivieren') ."</a>)<br>\n");
 	}
 ?>
   </td>
