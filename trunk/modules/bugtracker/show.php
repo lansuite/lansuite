@@ -179,10 +179,10 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $ms2->query['from'] = "{$config["tables"]["log"]} AS l LEFT JOIN {$config["tables"]["user"]} AS u ON l.userid = u.userid";
   $ms2->query['where'] = "(sort_tag = 'bugtracker' AND target_id = ". (int)$_GET['bugid'] .')';
 
-  $ms2->AddResultField(t('Nachricht'), 'l.description');
+  $ms2->AddResultField('', 'l.description');
   $ms2->AddSelect('u.userid');
-  $ms2->AddResultField(t('Auslöser'), 'u.username', 'UserNameAndIcon');
-  $ms2->AddResultField(t('Datum'), 'l.date', 'MS2GetDate');
+  $ms2->AddResultField('', 'u.username', 'UserNameAndIcon');
+  $ms2->AddResultField('', 'l.date', 'MS2GetDate');
   $ms2->PrintSearch('index.php?mod=bugtracker', 'logid');
 	$dsp->AddFieldsetEnd('Log');
 }

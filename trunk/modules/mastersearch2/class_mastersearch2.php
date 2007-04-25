@@ -357,22 +357,24 @@ class MasterSearch2 {
       // Normal headline
       foreach ($this->result_field as $current_field) {
         $templ['ms2']['table_head_width'] = '*';
-        $templ['ms2']['link_item'] = $current_field['caption'];
+        if ($current_field['caption']) {
+          $templ['ms2']['link_item'] = $current_field['caption'];
 
-        $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
-        if ($first_as > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
+          $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
+          if ($first_as > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
 
-        // Order Link and Image
-        ($_GET['page'] == 'all')? $add_page = '&page=all' : $add_page = '';
-        ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC')? $order_dir = 'DESC' : $order_dir = 'ASC';
-        $templ['ms2']['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
+          // Order Link and Image
+          ($_GET['page'] == 'all')? $add_page = '&page=all' : $add_page = '';
+          ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC')? $order_dir = 'DESC' : $order_dir = 'ASC';
+          $templ['ms2']['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
 
-        if ($_GET['order_by'] == $current_field['sql_field']) {
-          if ($_GET['order_dir'] == 'DESC') $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
-          else $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_asc_active.gif\" border=\"0\" />";
-        } else $templ['ms2']['link_item'] .= '';
+          if ($_GET['order_by'] == $current_field['sql_field']) {
+            if ($_GET['order_dir'] == 'DESC') $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
+            else $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_asc_active.gif\" border=\"0\" />";
+          } else $templ['ms2']['link_item'] .= '';
 
-        $templ['ms2']['table_head_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+          $templ['ms2']['table_head_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
+        } else $templ['ms2']['table_head_entry'] = '';
         $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');
       }
 
