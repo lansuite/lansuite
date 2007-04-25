@@ -96,7 +96,7 @@ $query_signstat = $db->query_first("SELECT * FROM {$config["tables"]["party_user
 $query_partys = $db->query_first("SELECT * FROM {$config["tables"]["partys"]} AS p
 				WHERE p.party_id = '{$_SESSION["party_id"]}'");	
 					
-$box->DotRow($query_partys["name"]." Status:".$party->count);
+$box->DotRow("<b>".$query_partys["name"]."</b> Status:");
 $box->EngangedRow('Angemeldet: <b>'. $signstat .'</b><br> '. $signstat_info);
 $box->EngangedRow('Bezahlt: <b>'. $paidstat .'</b>');
 }
