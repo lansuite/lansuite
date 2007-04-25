@@ -3,14 +3,14 @@ switch($_GET["step"]) {
 	default:
 		$sec->unlock("ip_block");
 
-		$dsp->NewContent("Blacklist-Verwaltung", "Hier kˆnnen Sie IPs die Verwendung von LanSuite verweigern");
+		$dsp->NewContent("Blacklist-Verwaltung", "Hier k√∂nnen Sie IPs die Verwendung von LanSuite verweigern");
 		$dsp->SetForm("index.php?mod=misc&action={$_GET["action"]}&step=2");
 
 		$blacklist = "";
 		$res = $db->query("SELECT ip FROM {$config["tables"]["ip_blacklist"]}");
 		while ($ip = $db->fetch_array($res)) $blacklist .= $ip["ip"] ."\n";
 		$db->free_result($res);
-		$dsp->AddTextAreaRow("blacklist", "<b>Blacklist</b>" . HTML_NEWLINE ."<i>Eintr‰ge durch Zeilenumbruch trennen</i>", $blacklist, $error["blacklist"]);
+		$dsp->AddTextAreaRow("blacklist", "<b>Blacklist</b>" . HTML_NEWLINE ."<i>Eintr√§ge durch Zeilenumbruch trennen</i>", $blacklist, $error["blacklist"]);
 
 		$dsp->AddFormSubmitRow("add");
 		$dsp->AddBackButton("index.php?mod=misc", "misc/ip_block"); 
