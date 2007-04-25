@@ -12,6 +12,7 @@ switch ($home_page) {
     $ModOverviews = array();
     if (in_array('news', $ActiveModules)) $ModOverviews[] = 'news';
     if (in_array('board', $ActiveModules)) $ModOverviews[] = 'board';
+    if (in_array('mail', $ActiveModules)) $ModOverviews[] = 'mail';
     if (in_array('server', $ActiveModules)) $ModOverviews[] = 'server';
     if (in_array('poll', $ActiveModules)) $ModOverviews[] = 'poll';
     if (in_array('bugtracker', $ActiveModules)) $ModOverviews[] = 'bugtracker';
