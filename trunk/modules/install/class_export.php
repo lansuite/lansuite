@@ -203,7 +203,7 @@ class Export {
 
 		$user_export = $config['lansuite']['version']." CSV Export\r\nParty: ". $_SESSION['party_info']['name'] ."\r\nExportdate: ".$func->unixstamp2date(time(),'daydatetime')."\r\n\r\n";
 
-		$user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;passnr/misc;md5pwd;usertype;paid;seatcontrol;clan;clanurl;wwclid;nglid;checkin;checkout;signondate;seatblock;seat;ip;comment\r\n";
+		$user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;passnr/misc;md5pwd;usertype;paid;seatcontrol;clan;clanurl;wwclid;nglid;checkin;checkout;signondate;seatblock;seat;ip;comment;birthday\r\n";
 
 		$query = $db->query("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
 			FROM {$config["tables"]["user"]} AS u
@@ -244,6 +244,7 @@ class Export {
 			$user_export .= ($row["checkin"] > "0") ? $func->unixstamp2date($row["checkin"],"datetime").$sep : $sep;
 			$user_export .= ($row["checkout"] > "0") ? $func->unixstamp2date($row["checkout"],"datetime").$sep : $sep;
 			$user_export .= ($row["signondate"] > "0") ? $func->unixstamp2date($row["signondate"],"datetime").$sep : $sep;
+			$user_export .= $row["birthday"].$sep;
 
 			// seat
 			$row_seat = $db->query_first("SELECT blockid, col, row, ip FROM {$config['tables']['seat_seats']} WHERE userid='{$row["userid"]}' AND status = 2");
