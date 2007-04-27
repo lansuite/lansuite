@@ -468,7 +468,7 @@ class Install {
 	}
 
 
-	// System prüfen
+	// System prÃ¼fen
 	function envcheck(){
 		global $lang, $dsp, $config, $func;
 
@@ -638,7 +638,7 @@ class Install {
 
 		// Debug Backtrace
 		if (function_exists('debug_backtrace')) $debug_bt_check = $ok;
-		else $debug_bt_check = $warning . t('Die Funktion "Debug Backtrace" ist auf deinem System nicht vorhanden. Diese wird jedoch benötigt, um Übersetzungs-Texte einem bestimmten Modul zuzuordnen. Solange du lansuite nur in Deutsch verwenden willst, sollte dies keine Auswirkung haben');
+		else $debug_bt_check = $warning . t('Die Funktion "Debug Backtrace" ist auf deinem System nicht vorhanden. Diese wird jedoch benÃ¶tigt, um Ãœbersetzungs-Texte einem bestimmten Modul zuzuordnen. Solange du lansuite nur in Deutsch verwenden willst, sollte dies keine Auswirkung haben');
 		$dsp->AddDoubleRow('Debug Backtrace', $debug_bt_check);
 
 		// Error Reporting
