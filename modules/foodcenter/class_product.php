@@ -570,7 +570,7 @@ class product{
 	 */
 	function form_add_product($step){
 		global $dsp,$gd,$lang,$templ;
-		
+
 		$nextstep = $step + 1;
 		// Change or New ?
 		if($this->id != null){
@@ -585,23 +585,22 @@ class product{
 		$dsp->AddModTpl("foodcenter","javascript");
 		$dsp->AddTextFieldRow("p_caption",$lang['foodcenter']['add_product_prod_cap'],$this->caption,$this->error_food['caption']);
 		$dsp->AddTextAreaRow("desc",$lang['foodcenter']['add_product_prod_desc'],$this->desc,$this->error_food['desc'],NULL,NULL,true);
-		
+
 		// Not functional now
 		// Pic is only active with gd-Libary
 		if ($gd->available){
 			$dsp->AddFileSelectRow("file",$lang['foodcenter']['add_product_prod_pic'],$this->error_food['file'],NULL,NULL,true);
 			$dsp->AddPictureDropDownRow("pic",$lang['foodcenter']['add_product_prod_pic'],"ext_inc/foodcenter",$this->error_food['file'],true,basename($this->pic));
-		}	
-		
+		}
 
 		// Select Cat
 		if(!is_object($this->cat)) $this->cat = new cat();
 		$this->cat->cat_form();
-		
+
 		// Select Supplier
 		if(!is_object($this->supp)) $this->supp = new supp();
 		$this->supp->supp_form();
-		
+
 		// Picecontrol ?
 		$dsp->AddCheckBoxRow("mat",$lang['foodcenter']['add_product_prod_mat_text'],$lang['foodcenter']['add_product_prod_mat_quest'],"",NULL,$this->mat,NULL,NULL);
 		// Orderproduct ?
@@ -617,34 +616,33 @@ class product{
 				$display[$key] = "none";
 			}
 			$opts[] .= "<option $selected value=\"$key\">$value</option>";
-			
+
 		}
 		if($_POST['product_opts'] == ""){
 			$display[1] = "";
 		}
-		
+
 		if($this->type != null){
-			$dsp->AddDropDownFieldRow("product_type\" disabled onchange=\"change_option(this.options[this.options.selectedIndex].value)\"","<input type=\"hidden\" name=\"product_type\" value=\"{$this->type}\" />" . $lang['foodcenter']['add_product_prod_opt_text'],$opts,$this->error_food['product_opts']);		
+			$dsp->AddDropDownFieldRow("product_type\" disabled onchange=\"change_option(this.options[this.options.selectedIndex].value)\"","<input type=\"hidden\" name=\"product_type\" value=\"{$this->type}\" />" . $lang['foodcenter']['add_product_prod_opt_text'],$opts,$this->error_food['product_opts']);
 		}else {
 			$dsp->AddDropDownFieldRow("product_type\" onchange=\"change_option(this.options[this.options.selectedIndex].value)\"",$lang['foodcenter']['add_product_prod_opt_text'],$opts,$this->error_food['product_opts']);
 		}
-		
-		
+
+
 		if($this->type == null || $this->type == 1){
 			// display HTML for option 1
 			$templ['ls']['row']['hidden_row']['id'] = "food_1";
 			$templ['ls']['row']['hidden_row']['display'] = $display[1];
 			$dsp->AddModTpl("foodcenter","hiddenbox_start");
-		
+
 			for($i = 0;$i < 3;$i++){
 				($i == 0) ? $optional = null : $optional = true;
 				if(!is_object($this->option[$i])) $this->option[$i] = new product_option();
 				$this->option[$i]->option_form($i,$optional);
 			}
 			$dsp->AddModTpl("foodcenter","hiddenbox_stop");
-
 		}
-		
+
 		if($this->type == null || $this->type == 2){
 			// display HTML for option 2
 			$templ['ls']['row']['hidden_row']['id'] = "food_2";
@@ -656,7 +654,7 @@ class product{
 				($i == $q) ? $optional = null : $optional = true;
 				if(!is_object($this->option[$i])) $this->option[$i] = new product_option();
 				$this->option[$i]->option_form($i,$optional,true,$this->choise);
-			}		
+			}
 			$dsp->AddModTpl("foodcenter","hiddenbox_stop");
 		}
 		if($this->id != null){
@@ -698,7 +696,7 @@ class product{
 					$templ['foodcenter']['product']['pricerow']["price_1"] = "<b>" . $this->option[2]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[2]->price . " " . $cfg['sys_currency'] . "</a>";
 					$templ['foodcenter']['product']['pricerow']["price_1"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>";
 				}
-				$dsp->AddModTpl("foodcenter","product_price_row");
+				$dsp->AddDoubleRow($templ['foodcenter']['product']['pricerow']['name'], $dsp->FetchModTpl('foodcenter', 'product_price_row'));
 				break;
 			case 2:
 				if($this->choise == 1){
@@ -1262,7 +1260,8 @@ class product_option{
 		if($optional) $templ['foodcenter']['productcontrol']['pricerow']['optional'] = "_optional";
 		if(!$optional) $templ['foodcenter']['productcontrol']['pricerow']['optional'] = "";
 
-		return $dsp->AddModTpl("foodcenter","productcontrol_price_row");
+		return $dsp->AddDoubleRow($templ['foodcenter']['productcontrol']['pricerow']['text_row'], $dsp->FetchModTpl('foodcenter', 'productcontrol_price_row'));
+    #$dsp->AddModTpl("foodcenter","productcontrol_price_row");
 	}
 	
 }
