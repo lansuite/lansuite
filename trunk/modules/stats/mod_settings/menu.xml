@@ -62,6 +62,16 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>age</action>
+		<file>age</file>
+		<caption>Benutzer-Alter</caption>
+		<hint></hint>
+		<link>?mod=stats&action=age</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
 		<action>export</action>
 		<file>export</file>
 		<requirement>2</requirement>
