@@ -117,7 +117,7 @@ if (!$cfg['download_use_ftp']) {
 
 
 // Try to connect to FTP-Server
-} elseif (!extension_loaded(ftp)) $func->error($lang["downloads"]["no_ftp_extension"], "");
+} elseif (!extension_loaded(ftp)) $func->error(t('Die PHP-Erweiterung <b>FTP</b> konnte nicht geladen werden. &Uuml;berpr&uuml;fen Sie, ob diese in PHP einkompiliert bzw. aktiviert ist'), '');
 else {
 
   session_register("downloads_dir");
@@ -391,7 +391,7 @@ else {
 		//
 		// Output template
 		//
-		$dsp->NewContent($lang["downloads"]["show_caption"], $lang["downloads"]["show_subcaption"]);
+		$dsp->NewContent(t('Downloads'), t('Hier können Sie zum Download bereitgestellte Dateien downloaden. Ordner sind durch ein Ordner-Symbol gekennzeichnet und können per Klick auf dieses oder den Namen ge&ouml;ffnet werden. Bei &ouml;ffnen eines Unterverzeichnisses wird das aktuelle Verzeichnis am oberen Rand angezeigt. Ebenfalls angezeigt wird ein Symbol mit dem Sie zum nächst höhergelegenen Verzeichnis gelangen'));
 		$dsp->AddSingleRow($dsp->FetchModTpl("downloads", "show_case"));
 		$dsp->AddContent();
 		
@@ -419,12 +419,12 @@ else {
 		//
 		// Error
 		//
-		$func->error($lang["downloads"]["show_err_noconnection"], "");
+		$func->error(t('Konnte Verbindung zum Downloadserver nicht herstellen'), "");
 		
 		//
 		// Log event
 		//
-		$func->log_event(str_replace("%SERVER%", $server, str_replace("%PORT%", $port, $lang["downloads"]["show_noconnection_log"])), "2");
+		$func->log_event(t('Konnte Verbindung zu FTP-Server "%1" auf Port %2 nicht herstellen.', $server, $port), "2");
 			
 	} // No connection
 	
