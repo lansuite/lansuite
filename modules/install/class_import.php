@@ -129,7 +129,8 @@ class Import {
               or substr($type, 0, 8) == 'smallint' or substr($type, 0, 6) == 'bigint'
               or substr($type, 0, 7) == 'decimal' or substr($type, 0, 5) == 'float' or substr($type, 0, 6) == 'double')
               $default = 'default '. (int)$default_xml;
-            elseif ($type == 'timestamp' or $type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext' or $type == 'blob') $default = '';
+            elseif ($type == 'timestamp' or $type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'blob') $default = '';
+            elseif ($type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext') $default = "default ''";
             else $default = "default '$default_xml'";
           } else $default = '';
 
