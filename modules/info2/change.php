@@ -12,7 +12,7 @@ if ($auth['type'] <= 1) {
   $ms2->AddResultField($lang['info']['title'], 'i.caption');
   $ms2->AddResultField($lang['info']['subtitle'], 'i.shorttext', '', 140);
 
-  $ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&submod=', $lang['ms2']['edit']);
+  $ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&submod=', $lang['ms2']['details']);
   $ms2->PrintSearch('index.php?mod=info2', 'i.caption');
 
 } else {
