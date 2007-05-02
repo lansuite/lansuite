@@ -483,16 +483,16 @@ class Install {
 		// Display System-Variables
 		$mysql_version = @mysql_get_server_info();
 		if (!$mysql_version) $mysql_version = $lang["install"]["unknown"];
-		$dsp->AddDoubleRow("System-Info", "<table width=\"99%\">"
+    $SysInfo = "<table width=\"99%\">"
 			."<tr><td class=\"row_value\">PHP-Version:</td><td class=\"row_value\">". phpversion() ."</td></tr>"
 			."<tr><td class=\"row_value\">MySQL-Version:</td><td class=\"row_value\">$mysql_version</td></tr>"
 			."<tr><td class=\"row_value\">Max. Script-Execution-Time:</td><td class=\"row_value\">". ini_get('max_execution_time') ." Sec.</td></tr>"
 			."<tr><td class=\"row_value\">Max. Data-Input-Zeit:</td><td class=\"row_value\">". ini_get('max_input_time') ." Sec.</td></tr>"
 			."<tr><td class=\"row_value\">Memory Limit:</td><td class=\"row_value\">". ini_get('memory_limit') ." MB</td></tr>"
-			."<tr><td class=\"row_value\">Max. Post-Form Size:</td><td class=\"row_value\">". (int)ini_get('post_max_size') ." MB</td></tr>"
-			."<tr><td class=\"row_value\">Free space:</td><td class=\"row_value\">". $func->FormatFileSize(disk_free_space('.')) .' / '. $func->FormatFileSize(disk_total_space('.')) .'</td></tr>'
-			."</table>"
-			);
+			."<tr><td class=\"row_value\">Max. Post-Form Size:</td><td class=\"row_value\">". (float)ini_get('post_max_size') ." MB</td></tr>";
+    if (function_exists('disk_total_space') and function_exists('disk_free_space')) $SysInfo .= "<tr><td class=\"row_value\">Free space:</td><td class=\"row_value\">". $func->FormatFileSize(disk_free_space('.')) .' / '. $func->FormatFileSize(disk_total_space('.')) .'</td></tr>';
+		$SysInfo .= "</table>";
+		$dsp->AddDoubleRow("System-Info", $SysInfo);
 
 		// PHP-Version
 		if (version_compare(phpversion(), "4.1.2") >= 0) $phpv_check = $ok;
