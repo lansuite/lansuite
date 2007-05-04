@@ -22,6 +22,6 @@ if (in_array("troubleticket", $ActiveModules)){
 	$templ['searchbox']['module'] .= "<option value=\"index.php?mod=troubleticket\" $s>".t('Troubletickets')."</option>\n";
 }
 
-$gd->CreateButton('search');
+$templ['searchbox']['button'] = '<input type="submit" class="Button" name="suchen" value="Suchen" />';
 $box->AddTemplate("box_search_content");
 ?>
