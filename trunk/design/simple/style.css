@@ -339,6 +339,9 @@ input.checkbox {
   margin: 0px 4px 0px 0px;   border: 0px 0px 0px 0px;   padding: 0px 0px 0px 0px;
   background: #eeeeee;   color: #eeeeee;
 }
+input[type=text] {
+  width: 100%;
+}
 select {
   margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 0px 0px 0px 0px;
   background: #D7E5F2;   color: #102132;
