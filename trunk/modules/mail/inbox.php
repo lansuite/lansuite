@@ -40,6 +40,16 @@ if ($auth['userid']) {
   $colors[4] = 'yellow';
   $colors[5] = 'purple';
 
+  
+  function MailStatus ( $status ) {
+	 global $lang;
+	 echo $status;
+	 if ( $status == "new" ) return $lang['mail']['unread'];
+	 if ( $status == "read" ) return $lang['mail']['read'];
+ 	 if ( $status == "reply" ) return $lang['mail']['answered']; 
+  }
+
+  
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2();
 
@@ -56,13 +66,15 @@ if ($auth['userid']) {
   $ms2->AddTextSearchField($lang['mail']['showmail_mail_from'], array('u.userid' => 'exact', 'u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
 
   $ms2->AddSelect('u.userid');
-  $ms2->AddResultField($lang['mail']['newsletter_subject'], 'm.subject', '', 80);
-  $ms2->AddResultField($lang['mail']['showmail_mail_from'], 'u.username', 'UserNameAndIcon');
-  $ms2->AddResultField($lang['mail']['showmail_mail_send'], 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate');
-  $ms2->AddResultField($lang['mail']['showmail_mail_read'], 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate');
 
-  $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=in&mailID=', $lang['ms2']['details']);
-  $ms2->AddIconField('delete', 'index.php?mod=mail&action=inbox&step=20&mailid=', $lang['ms2']['delete']);
+  $ms2->AddResultField('Status', 'm.des_status', 'MailStatus', '',80);
+  $ms2->AddResultField($lang['mail']['showmail_mail_from'], 'u.username', 'UserNameAndIcon','',100);
+  $ms2->AddResultField($lang['mail']['newsletter_subject'], 'm.subject', '', 160);
+  $ms2->AddResultField($lang['mail']['showmail_mail_send'], 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate','',70);
+  $ms2->AddResultField($lang['mail']['showmail_mail_read'], 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate','',20);
+    
+  $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=in&mailID=', $lang['ms2']['details'],'',10);
+  $ms2->AddIconField('delete', 'index.php?mod=mail&action=inbox&step=20&mailid=', $lang['ms2']['delete'],'',10);
 
   $ms2->AddMultiSelectAction(t('Markierung entfernen'), 'index.php?mod=mail&step=10', 0);
   $ms2->AddMultiSelectAction(t('Markieren: Rot'), 'index.php?mod=mail&step=11', 0);
