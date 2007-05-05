@@ -76,6 +76,7 @@ while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '
 
 		// If Admin add general Management-Links
 		if ($auth['type'] > 2) {
+/*
       $AdminIcons = '';
 			$find_config = $db->query_first("SELECT cfg_key
 					FROM {$config['tables']['config']}
@@ -89,6 +90,8 @@ while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '
 
 			$AdminIcons .= $box->LinkItem('index.php?mod=install&action=modules&step=20&module='. $module, t('Menü'), 'admin', t('Menüeinträge verwalten')) .' | ';
 			$AdminIcons .= $box->LinkItem('index.php?mod=misc&action=translation&step=20&file='. $module, t('Ü'), 'admin', t('Übersetzungen zu diesem Modul'));
+*/
+			$AdminIcons .= $box->LinkItem('index.php?mod=install&action=mod_cfg&module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
       $box->EngangedRow('<span class="AdminIcons">'. $AdminIcons .'</span>');
 		}
 	}
@@ -103,6 +106,12 @@ foreach ($BoxContent as $key => $val) {
   $templ['box']['rows'] = '';
 }
 
+$MenuCallbacks = array();
+$MenuCallbacks[] = 'ShowSignon';
+$MenuCallbacks[] = 'ShowGuestMap';
+$MenuCallbacks[] = 'sys_internet';
+$MenuCallbacks[] = 'snmp';
+$MenuCallbacks[] = 'DokuWikiNotInstalled';
 
 // Callbacks
 function ShowSignon() {

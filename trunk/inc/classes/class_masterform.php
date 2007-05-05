@@ -46,6 +46,8 @@ class masterform {
   var $LinkBack = '';
   var $SendButtonText = '';
   var $OptGroupOpen = 0;
+  var $MultiLineID = 0;
+  var $MultiLineIDs = array();
 
   function masterform($MFID = 0) {
     global $mf_number;
@@ -53,9 +55,13 @@ class masterform {
     $this->MFID = $MFID;
     $mf_number++;
   }
+
+  function AddToSQLFields($name) {
+    if (!in_array($name, $this->SQLFields)) $this->SQLFields[] = $name;
+  }
 	
   function AddFix($name, $value){
-    $this->SQLFields[] = $name;
+    $this->AddToSQLFields($name);
     $_POST[$name] = $value;
   }
 
@@ -66,14 +72,13 @@ class masterform {
     $arr['name'] = $name;
     $arr['type'] = $type;
     if ($type == IS_FILE_UPLOAD) $this->FormEncType = 'multipart/form-data';
-    $arr['optional'] = 0;
     $arr['optional'] = $optional;
     if ($DependOnThis) $this->DependOn[$name] = $DependOnThis;
     $arr['callback'] = $callback;
     $arr['selections'] = $selections;
     $arr['DependOnCriteria'] = $DependOnCriteria;
     $this->FormFields[] = $arr;
-    $this->SQLFields[] = $name;
+    $this->AddToSQLFields($name);
     $this->NumFields++;
   }
   
@@ -87,6 +92,10 @@ class masterform {
     }
   }
 
+  function AddDBLineID($id) {
+    $this->MultiLineIDs[] = $id;
+  }
+  
 
   // Print form
 	function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer needed!
@@ -95,6 +104,12 @@ class masterform {
     // Break, if in wrong form
     $Step_Tmp = $_GET['mf_step'];
     if ($_GET['mf_step'] == 2 and $_GET['mf_id'] != $mf_number) $Step_Tmp = 1;
+
+    // If more then one row in a table should be edited
+    if (strpos($id, ' ') > 0) {
+      $this->MultiLineID = $id;
+      $id = '';
+    }
 
 		$this->AddGroup(); // Adds non-group-fields to fake group
     if ($BaseURL) $StartURL = $BaseURL .'&'. $idname .'='. $id;
@@ -106,7 +121,7 @@ class masterform {
       if (strpos($StartURL, '&'. $idname .'='. $id) == 0) $StartURL .= '&'. $idname .'='. $id;
     }
     $this->LinkBack = $StartURL .'#MF'.$mf_number;
-    if ($id) $this->isChange = true;
+    if ($id or $this->MultiLineID) $this->isChange = true;
 
     $AddKey = '';
     if ($this->AdditionalKey != '') $AddKey = $this->AdditionalKey .' AND ';
@@ -114,7 +129,8 @@ class masterform {
 
     // If the table entry should be created, or deleted wheter the control field is checked
     if ($this->AddInsertControllField != '') {
-      $find_entry = $db->query("SELECT * FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
+      if ($this->MultiLineID) $find_entry = $db->qry("SELECT * FROM %prefix%$table WHERE ". $this->MultiLineID);
+      else $find_entry = $db->qry("SELECT * FROM %prefix%$table WHERE $AddKey $idname = %int%", $id);
       ($db->num_rows($find_entry))? $this->isChange = 1 : $this->isChange = 0;
       $db->free_result($find_entry);
     }
@@ -152,12 +168,24 @@ class masterform {
             $db_query .= ", $val";
           }
 
-          $row = $db->query_first("SELECT 1 AS found $db_query FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
-          if ($row['found']) {
-            foreach ($this->SQLFields as $key => $val) $_POST[$val] = $row[$val]; # str_replace('"', '&quot;', $row[$val]); #$func->db2edit($row[$val])
+          // Select current values for Multi-Line-Edit
+          if ($this->MultiLineID) {
+            $z = 0;
+            $res = $db->query("SELECT $idname $db_query FROM {$config['tables'][$table]} WHERE ". $this->MultiLineID);
+            while ($row = $db->fetch_array($res)) {
+              foreach ($this->SQLFields as $key => $val) $_POST[$val .'['. $row[$idname]. ']'] = $row[$val];
+              $z++;
+            }
+            $db->free_result($res);
+          // Select current values for normal edit
           } else {
-            $func->error($lang['mf']['err_invalid_id']);
-            return false;
+            $row = $db->query_first("SELECT 1 AS found $db_query FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
+            if ($row['found']) {
+              foreach ($this->SQLFields as $key => $val) $_POST[$val] = $row[$val]; # str_replace('"', '&quot;', $row[$val]); #$func->db2edit($row[$val])
+            } else {
+              $func->error($lang['mf']['err_invalid_id']);
+              return false;
+            }
           }
         }
         if ($this->AdditionalDBAfterSelectFunction) $addUpdSuccess = call_user_func($this->AdditionalDBAfterSelectFunction, '');
@@ -231,6 +259,7 @@ class masterform {
               }
 
               // Check double uniques
+              # Neccessary in Multi Line Edit Mode? If so: Still to do
               if ($SQLFieldUnique[$field['name']]) {
                 if ($this->isChange) $check_double_where = ' AND '. $idname .' != '. (int)$id;
                 $row = $db->query_first("SELECT 1 AS found FROM {$config['tables'][$table]} WHERE {$field['name']} = '{$_POST[$field['name']]}'$check_double_where");
@@ -274,9 +303,19 @@ class masterform {
         }
 
         // Output fields
+        $z = 0;
+        $y = 0;
         if ($this->Groups) foreach ($this->Groups as $GroupKey => $group) {
           if ($group['caption']) $dsp->AddFieldsetStart($group['caption']);
           if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) {
+
+            // Rename fields to arrays, if in Multi-Line-Edit-Mode
+            if ($this->MultiLineID) $field['name'] = $field['name'] .'['. $this->MultiLineIDs[$y] .']';
+            $z++;
+            if ($z >= count($this->SQLFields)) {
+              $z = 0;
+              $y++;
+            }
 
             $additionalHTML = '';
             if (!$field['type']) $field['type'] = $SQLFieldTypes[$field['name']];
@@ -439,7 +478,7 @@ class masterform {
         }
 
         if ($this->SendButtonText) $dsp->AddFormSubmitRow($this->SendButtonText);
-    		elseif ($id) $dsp->AddFormSubmitRow('Editieren');
+    		elseif ($id or $this->MultiLineID) $dsp->AddFormSubmitRow('Editieren');
     		else $dsp->AddFormSubmitRow('Erstellen');
         $dsp->AddContent();
       break;
@@ -475,31 +514,41 @@ class masterform {
             // Generate INSERT/UPDATE query
             $db_query = '';
             if ($this->SQLFields) {
-              foreach ($this->SQLFields as $key => $val) {
-                if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') $db_query .= "$val = NOW(), ";
-                elseif ($SQLFieldTypes[$val] == 'tinyint(1)') $db_query .= $val .' = '. (int)$_POST[$val] .', ';
-                else $db_query .= "$val = '{$_POST[$val]}', ";
-              }
-              $db_query = substr($db_query, 0, strlen($db_query) - 2);
-  
-              // If the table entry should be created, or deleted wheter the control field is checked
-              if ($this->AddInsertControllField != '' and !$_POST[$InsContName])
-                $db->query("DELETE FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
-  
-              // Send query
-              else {
-                if ($this->isChange) {
-                  $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $AddKey $idname = ". (int)$id);
-                  $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
-                } else {
-                  $DBInsertQuery = $db_query;
-                  if ($this->AdditionalKey != '') $DBInsertQuery .= ', '. $this->AdditionalKey;
-                  if ($this->AddInsertControllField) $DBInsertQuery .= ', '. $idname .' = '. (int)$id;
-                  $db->query("INSERT INTO {$config['tables'][$table]} SET $DBInsertQuery");
-                  $id = $db->insert_id();
-                  $this->insert_id = $id;
-                  $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefügt', array($id, $config['tables'][$table])), 1, '', $this->LogID);
-                  $addUpdSuccess = $id;
+
+              if ($this->MultiLineID) foreach ($this->MultiLineIDs as $key2 => $value2) {
+                $db_query = '';
+                foreach ($this->SQLFields as $key => $val) $db_query .= "$val = '". $_POST[$val][$value2] ."', ";
+                $db_query = substr($db_query, 0, strlen($db_query) - 2);
+                $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $idname = ". (int)$value2);
+                $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($value2, $config['tables'][$table])), 1, '', $this->LogID);
+
+              } else {
+                foreach ($this->SQLFields as $key => $val) {
+                  if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') $db_query .= "$val = NOW(), ";
+                  elseif ($SQLFieldTypes[$val] == 'tinyint(1)') $db_query .= $val .' = '. (int)$_POST[$val] .', ';
+                  else $db_query .= "$val = '{$_POST[$val]}', ";
+                }
+                $db_query = substr($db_query, 0, strlen($db_query) - 2);
+
+                // If the table entry should be created, or deleted wheter the control field is checked
+                if ($this->AddInsertControllField != '' and !$_POST[$InsContName])
+                  $db->query("DELETE FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
+
+                // Send query
+                else {
+                  if ($this->isChange) {
+                    $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $AddKey $idname = ". (int)$id);
+                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+                  } else {
+                    $DBInsertQuery = $db_query;
+                    if ($this->AdditionalKey != '') $DBInsertQuery .= ', '. $this->AdditionalKey;
+                    if ($this->AddInsertControllField) $DBInsertQuery .= ', '. $idname .' = '. (int)$id;
+                    $db->query("INSERT INTO {$config['tables'][$table]} SET $DBInsertQuery");
+                    $id = $db->insert_id();
+                    $this->insert_id = $id;
+                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefügt', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+                    $addUpdSuccess = $id;
+                  }
                 }
               }
             }
