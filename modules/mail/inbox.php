@@ -43,7 +43,6 @@ if ($auth['userid']) {
   
   function MailStatus ( $status ) {
 	 global $lang;
-	 echo $status;
 	 if ( $status == "new" ) return $lang['mail']['unread'];
 	 if ( $status == "read" ) return $lang['mail']['read'];
  	 if ( $status == "reply" ) return $lang['mail']['answered']; 
