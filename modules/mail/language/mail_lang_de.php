@@ -62,5 +62,9 @@ $lang['mail']['out_hint']	= 'Sie haben <b>%TOTAL%</b> Mail(s) versendet. Davon w
 $lang['mail']['subject']	= 'Betreff';
 $lang['mail']['in_inbox']	= 'Posteingang';
 $lang['mail']['in_hint']	= 'Sie haben <b>%UNREAD%</b> neue Mail(s) von insgesamt <b>%TOTAL%</b>. <br/><strong> Achtung! Sie dürfen maximal %MAXMSG% gelesene Nachrichten speichern. Überzählige werden automatisch gelöscht. </strong>';
+$lang['mail']['unread'] = "Ungelesen";
+$lang['mail']['read'] = "Gelesen";
+$lang['mail']['answered'] = "Beantwortet";
+
 
 ?>

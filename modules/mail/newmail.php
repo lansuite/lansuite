@@ -1,5 +1,7 @@
 <?php
 
+$reply_message = '';
+
 $dsp->NewContent(t('Neue Mail verfassen'), '');
 $dsp->AddContent();
 
@@ -33,9 +35,10 @@ $mf = new masterform();
 
 if ($_GET['userID']) $_POST['toUserID'] = $_GET['userID'];
 if ($_GET['replyto']) {
-  $row = $db->query_first("SELECT m.Subject, m.msgbody, UNIX_TIMESTAMP(m.tx_date) AS tx_date, u.username FROM {$config['tables']['mail_messages']} AS m
+  $row = $db->query_first("SELECT m.mailID, m.Subject, m.msgbody, UNIX_TIMESTAMP(m.tx_date) AS tx_date, u.username FROM {$config['tables']['mail_messages']} AS m
     LEFT JOIN {$config['tables']['user']} AS u ON m.fromUserID = u.userid
     WHERE m.mailID = ".(int)$_GET['replyto']);
+  $reply_message = $row[mailID];
   if (substr($row['Subject'], 0, 4) == 'Re: ') $_POST['Subject'] = $row['Subject'];
   else $_POST['Subject'] = 'Re: '.$row['Subject'];
   $_POST['msgbody'] = '
@@ -103,6 +106,14 @@ $mf->AddFix('tx_date', 'NOW()');
 $mf->SendButtonText = 'Mail abschicken';
 
 $mf->CheckBeforeInserFunction = 'SendOnlineMail';
-if ($mf->SendForm('index.php?mod=mail&action=newmail', 'mail_messages', 'mailID', '')) {
+if ( $mf->SendForm('index.php?mod=mail&action=newmail&reply_message', 'mail_messages', 'mailID', '')) {
+
+$reply_to = strrchr ( parse_url($func->internal_referer, PHP_URL_QUERY ) , 'replyto' );
+
+	if ( $reply_to ) {
+		$reply_to_id = substr( strrchr ( $reply_to , '=' ) , 1);
+		$setreply = $db->query("UPDATE {$config['tables']['mail_messages']} SET des_status = 'reply' WHERE mailID = '$reply_to_id' ");
+	}
+
 }
 ?>
