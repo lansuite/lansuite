@@ -43,8 +43,14 @@ switch($_GET["step"]) {
 
 	// Set Possition
 	case 10:
-		if ($_POST["pos"]) foreach ($_POST["pos"] as $entry_id => $new_pos) {
-			$db->query("UPDATE {$config["tables"]["menu"]} SET pos = $new_pos WHERE id = $entry_id");
+		if ($_POST['pos']) foreach ($_POST['pos'] as $key => $val) {
+			$db->qry('UPDATE %prefix%menu SET pos = %int% WHERE id = %int%', $val, $key);
+		}
+		if ($_POST['group']) foreach ($_POST['group'] as $key => $val) {
+			$db->qry('UPDATE %prefix%menu SET group_nr = %int% WHERE id = %int%', $val, $key);
+		}
+		if ($_POST['box']) foreach ($_POST['box'] as $key => $val) {
+			$db->qry('UPDATE %prefix%menu SET boxid = %int% WHERE id = %int%', $val, $key);
 		}
 	break;
 
@@ -68,7 +74,7 @@ switch($_GET["step"]) {
 
 
 	default:
-		$dsp->NewContent($lang["install"]["menu_navi_caption"], $lang["install"]["menu_navi_subcaption"]);
+		$dsp->NewContent(t('Navigationsmenü verwalten'), t('Hinweis: Verwenden Sie die BoxID um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box'). HTML_NEWLINE .t('Hinweis2: Verwenden sie die Gruppen um in der URL mit dem Parameter &menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design'));
 		$dsp->SetForm("index.php?mod=install&action=menu&step=10&onlyactive={$_GET["onlyactive"]}");
 
 		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&step=6&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["menu_navi_reset"]}</a>");
@@ -92,10 +98,12 @@ switch($_GET["step"]) {
 					$link .= "[<a href=\"index.php?mod=install&action=modules&step=20&module={$menu["module"]}&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["edit"]}</a>] ";
 					if ($z < $db->num_rows($menus)) $link .= "[<a href=\"index.php?mod=install&action=menu&step=4&pos=$z&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["hr"]}</a>] ";
 				}
-				$link .= "[<a href=\"index.php?mod=install&action=menu&step=8&pos=$z&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["group"]} ({$menu["group_nr"]})</a>] ";
+#				$link .= "[<a href=\"index.php?mod=install&action=menu&step=8&pos=$z&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["group"]} ({$menu["group_nr"]})</a>] ";
 				if ($z > 1)  $link .= "[<a href=\"index.php?mod=install&action=menu&step=2&pos=$z&onlyactive={$_GET["onlyactive"]}\">^</a>] ";
 				if ($z < $db->num_rows($menus)) $link .= "[<a href=\"index.php?mod=install&action=menu&step=3&pos=$z&onlyactive={$_GET["onlyactive"]}\">v</a>]";
 				$link .= " {$lang["install"]["pos"]}: <input type=\"text\" name=\"pos[{$menu["id"]}]\" value=\"$z\" size=\"2\">";
+				$link .= " Gruppe: <input type=\"text\" name=\"group[{$menu["id"]}]\" value=\"{$menu['group_nr']}\" size=\"2\">";
+				$link .= " BoxID: <input type=\"text\" name=\"box[{$menu["id"]}]\" value=\"{$menu['boxid']}\" size=\"2\">";
 
 				$dsp->AddDoubleRow("$z) ". $menu["caption"], $link);
 			}
