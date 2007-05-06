@@ -151,7 +151,7 @@ $box = new boxes();
 // Fetch Boxes
 $BoxRes = $db->query("SELECT boxid, name, place, source, module, callback FROM {$config["tables"]["boxes"]}
   WHERE active = 1
-    AND (internet = 0 OR internet = {$cfg['sys_internet']} + 1)
+    AND (internet = 0 OR internet = ". (int)$cfg['sys_internet'] ." + 1)
     AND (login = 0 OR (login = 1 AND ". (int)$auth['login'] ." = 0) OR (login = 2 AND ". (int)$auth['login'] ." = 1) OR (login > 2 AND login >= {$auth['type']} - 1))
   ORDER BY pos
   ");
