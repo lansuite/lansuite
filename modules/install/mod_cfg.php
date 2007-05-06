@@ -63,7 +63,7 @@ switch ($_GET['step']) {
   					$t_array = array();
   					while ($selection = $db->fetch_array($get_cfg_selection)){
   						($row['cfg_value'] == $selection['cfg_value']) ? $selected = 'selected' : $selected = '';
-  						array_push ($t_array, '<option $selected value="{$selection["cfg_value"]}">'. $func->translate($selection['cfg_display']) .'</option>');
+  						array_push ($t_array, "<option $selected value=\"{$selection["cfg_value"]}\">". $func->translate($selection['cfg_display']) .'</option>');
   					}
   					$dsp->AddDropDownFieldRow($row['cfg_key'], $row['cfg_desc'], $t_array, '', 1);
 
