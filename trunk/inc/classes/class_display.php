@@ -364,22 +364,22 @@ class display {
   	($optional)? $optional = "_optional" : $optional = '';
 
   	$key = '<label for="barcode">'. $key .'</label>';
-  	$value = '<form name="barcode" method="'. $method .'" action="'. $action .'">';
-  	$value .= '<input onkeyup="checkfield(this)" type="text" name="barcodefield" class="form'. $optional .'" size="'. $size .'" value="'. $value .'" />';
-  	$value .= $errortext;
-  	$value .= '</form>';
-  	$value .= '<script type="text/javascript">';
-    $value .= 'function selectfield(){';
-  	$value .= 'document.forms["barcode"].elements["barcodefield"].focus();';
-  	$value .= '}';
-  	$value .= 'function checkfield(id){';
-  	$value .= 'if(id.value.length == 12){';
-  	$value .= 'document.barcode.submit();';
-  	$value .= '}';
-  	$value .= '}';
-  	$value .= 'selectfield();';
-  	$value .= '</script>';
-    $this->AddDoubleRow($key, $value);
+  	$val= '<form name="barcode" method="'. $method .'" action="'. $action .'">';
+  	$val .= '<input onkeyup="checkfield(this)" type="text" name="barcodefield" class="form'. $optional .'" size="'. $size .'" value="'. $value .'" />';
+  	$val .= $errortext;
+  	$val .= '</form>';
+  	$val .= '<script type="text/javascript">';
+    $val .= 'function selectfield(){';
+  	$val .= 'document.forms["barcode"].elements["barcodefield"].focus();';
+  	$val .= '}';
+  	$val .= 'function checkfield(id){';
+  	$val .= 'if(id.value.length == 12){';
+  	$val .= 'document.barcode.submit();';
+  	$val .= '}';
+  	$val .= '}';
+  	$val .= 'selectfield();';
+  	$val .= '</script>';
+    $this->AddDoubleRow($key, $val);
   }
 
   function AddDateTimeRow($name, $key, $time, $errortext, $values = NULL, $disableds = NULL, $start_year = NULL, $end_year = NULL, $hidetime = NULL, $optional = NULL, $additional = NULL) {

@@ -62,13 +62,13 @@ if(!isset($_SESSION['foodcenter']['theke_userid'])){
 
 
 
-	if($_POST['calculate_x']){
+	if($_POST['calculate']){
 		$basket->change_basket($_SESSION['foodcenter']['theke_userid']);
 	}
 
 
 
-	if($_POST['imageField_x'] && !isset($_GET['add'])){
+	if($_POST['imageField'] && !isset($_GET['add'])){
 		if($basket->change_basket($_SESSION['foodcenter']['theke_userid'])){
 			$basket->order_basket($_SESSION['foodcenter']['theke_userid'],$_POST['delivered']);
 			$func->information($lang['foodcenter']['basket_ordered'],"?mod=foodcenter&action=theke");
