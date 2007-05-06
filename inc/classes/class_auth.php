@@ -133,7 +133,7 @@ class auth {
 		elseif ($tmp_login_pass == "") $func->information($lang['class_auth']['get_pw'], "", '', 1);
 		else {
 
-			$user = $db->query_first("SELECT userid, username, email, password, type, locked
+			$user = $db->query_first("SELECT 1 AS found, userid, username, email, password, type, locked
 				FROM {$config["tables"]["user"]}
 				WHERE ('". (int)$tmp_login_email."' = '".$tmp_login_email."' AND userid = '$tmp_login_email')
 					OR LOWER(email) = '$tmp_login_email'");
@@ -152,6 +152,11 @@ class auth {
       // Too many login trys
       if ($row['anz'] >= 5) {
         $func->information(t('Sie haben in der letzten Minute bereits 5 mal Ihr Passwort falsch eingegeben. Bitte waren Sei einen Moment, bevor Sie es erneut versuchen dürfen'), '', '', 1);
+
+			// Email not found?
+			} elseif (!$user["found"]) {
+				$func->information(t('Dieser Benutzer existiert nicht in unserer Datenbank. Bitte prüfen Sie die eingegebene Email/ID'), '', '', 1);
+				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, t('Falsche Email angegeben')), '2', 'Authentifikation');
 
 			// Account disabled?
 			} elseif ($user["type"] <= -1) {
