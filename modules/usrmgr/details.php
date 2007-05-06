@@ -41,7 +41,7 @@ $user_data = $db->qry_first("SELECT u.*, UNIX_TIMESTAMP(u.birthday) AS birthday,
 if (!$user_data['userid']) $func->error($lang['usrmgr']['checkin_nouser'], '');
 else {
 	$user_party = $db->qry_first('SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%', $_GET['userid'], $party->party_id);
-	$user_auth = $db->qry_first('SELECT COUNT(*) as count FROM %prefix%stats_auth WHERE userid = %int% AND login = 1 AND lasthit > %int%', $_GET['userid'], time() - $config['lansuite']['user_timeout']);
+	$user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = \'1\' AND lasthit > %int%', $_GET['userid'], time() - 60*10);
 	$count_rows = $db->qry_first('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = %int%', $_GET['userid']);
 	$party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $user_party['price_id']);
 
@@ -191,7 +191,7 @@ else {
         else $messenger .= ' <img src="ext_inc/footer_buttons/skype.gif" alt="Skype" title="Skype: '. $user_data['skype'] .'" border="0" />';
       }
       $messenger .= '</td><td align="right">&nbsp;';
-      ($user_auth['count'] >= '1') ? $messenger .= $dsp->AddIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->AddIcon('no', '', t('Benutzer ist Offline'));
+      ($user_online['found']) ? $messenger .= $dsp->AddIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->AddIcon('no', '', t('Benutzer ist Offline'));
 		  if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], $lang['usrmgr']['details_buddy_help']) .' ';
       $messenger .= '</td></tr></table>';
       $dsp->AddDoubleRow('Messenger', $messenger);
