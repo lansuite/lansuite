@@ -44,13 +44,11 @@ if($open == false && ($cfg['foodcenter_foodtime'] == 3 || $cfg['foodcenter_foodt
 		$errormessage .= $timemessage;
 		$func->error($errormessage,"index.php?mod=home");
 	}
-	if($_POST['calculate_x']){
+	if($_POST['calculate'] != ''){
 		$basket->change_basket($auth['userid']);
 	}
 
-
-
-	if($_POST['imageField_x']){
+	if($_POST['imageField'] != ''){
 		if($basket->change_basket($auth['userid'])){
 			$basket->order_basket($auth['userid']);
 			$func->information($lang['foodcenter']['basket_ordered'],"?mod=foodcenter");
