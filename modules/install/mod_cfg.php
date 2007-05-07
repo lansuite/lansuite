@@ -7,7 +7,6 @@ $menunames = array();
 $res = $db->qry('SELECT name, caption FROM %prefix%modules WHERE active = 1 ORDER BY caption');
 while ($row = $db->fetch_array($res)) $menunames[$row['name']] = $row['caption'];
 $db->free_result($res);
-$dsp->AddHeaderMenu2($menunames, 'index.php?mod=install&action=mod_cfg&module=', $_GET['headermenuitem']);
 
 // First switch
 switch ($_GET['step']) {
@@ -32,7 +31,7 @@ switch ($_GET['step']) {
     $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=20&module='. $_GET['module'] .'"><img src="design/images/icon_delete_group.png" border="0"> '. t('Berechtigungen') .'</a>', t('Legen Sie fest, welche Benutzer Berechtigungen zu welchem Menüpunkt erhalten'));
     $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=30&module='. $_GET['module'] .'"><img src="design/images/icon_tree.png" border="0"> '. t('Menü') .'</a>', t('Definieren Sie eigene Menüpunkte'));
     $dsp->AddDoubleRow('<a href="index.php?mod=misc&action=translation&step=20&file='. $_GET['module'] .'"><img src="design/images/icon_translate.png" border="0"> '. t('Übersetzung') .'</a>', t('Übersetzen Sie Texte dieses Moduls in andere Sprachen, oder definieren Sie einen deutschen Text, um einen Text umzuformulieren'));
-    if (file_exists('modules/'. $_GET['module'] .'/mod_settings/db.xml')) $dsp->AddDoubleRow('<a href="index.php?mod=install&action=modules&step=30&module='. $_GET['module'] .'"><img src="design/images/icon_database.png" border="0"> '. t('Datenbank') .'</a>', t('Verwalten Sie die Datenbanktabellen, die diesem Modul zugeordnet sind'));
+    if (file_exists('modules/'. $_GET['module'] .'/mod_settings/db.xml')) $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=40&module='. $_GET['module'] .'"><img src="design/images/icon_database.png" border="0"> '. t('Datenbank') .'</a>', t('Verwalten Sie die Datenbanktabellen, die diesem Modul zugeordnet sind'));
     if (file_exists('modules/'. $_GET['module'] .'/docu/'. $language .'_help.php')) $dsp->AddDoubleRow('<a href="#" onclick="javascript:var w=window.open(\'index.php?mod=helplet&action=helplet&design=base&module='. $_GET['module'] .'&helpletid=help\',\'_blank\',\'width=700,height=500,resizable=no,scrollbars=yes\');"><img src="design/images/icon_help.png" border="0"> '. t('Modul-Info') .'</a>', t('Hilfe und Informationen zu diesem Modul aufrufen'));
     $dsp->AddFieldsetEnd();
   break;
@@ -178,6 +177,84 @@ switch ($_GET['step']) {
 
   // Database
   case 40:
+		if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) $func->error(t('Modul "%1" wurde nicht gefunden', array($_GET['module'])), '');
+		else {
+#			$dsp->NewContent($lang["install"]["modules_db_caption"] .": ". $_GET["module"], $lang["install"]["modules_db_subcaption"]);
+
+      $mod_tables = '';
+			if (is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
+				$file = 'modules/'. $_GET['module'] .'/mod_settings/db.xml';
+				if (file_exists($file)) {
+					$xml_file = fopen($file, 'r');
+					$xml_content = fread($xml_file, filesize($file));
+					fclose($xml_file);
+
+					$lansuite = $xml->get_tag_content('lansuite', $xml_content);
+					$tables = $xml->get_tag_content_array('table', $lansuite);
+					foreach ($tables as $table) {
+						$table_head = $xml->get_tag_content('table_head', $table);
+						$table_name = $xml->get_tag_content('name', $table_head);
+
+            if ($table_name != 'translation') {
+  						$row = $db->qry_first('SHOW TABLE STATUS FROM '. $config['database']['database'] ." LIKE '". $config['database']['prefix'] . $table_name ."'");
+  						$TableInfo = ' ['. $row['Rows'] .' Zeilen, '. $func->FormatFileSize($row['Data_length']) .' Daten, '. $func->FormatFileSize($row['Index_length']) .' Indizes]'; #Name, Engine, Version, Row_format, Rows, Avg_row_length, Data_length, Max_data_length, Index_length, Data_free, Auto_increment, Create_time, Update_time, Check_time, Collation, Checksum, Create_options, Comment
+  						$mod_tables .= '<b>'. $config['database']['prefix'] . $table_name .'</b>'. $TableInfo . HTML_NEWLINE;
+
+  						$res = $db->qry('DESCRIBE %prefix%'. $table_name);
+  						while ($row = $db->fetch_array($res)) {
+    						$mod_tables .= '&nbsp;&nbsp;&nbsp;&nbsp;'. $row['Field'] .' ['. $row['Type'] .']'. HTML_NEWLINE; # Null, Key, Default, Extra
+  						}
+  						$db->free_result($res);
+
+  						$mod_tables .= HTML_NEWLINE;
+            }
+					}
+				}
+			}
+			$mod_tables = substr($mod_tables, 0, strlen($mod_tables) - 5);
+			$dsp->AddDoubleRow(t('DB-Tabellen dieses Moduls'), $mod_tables);
+
+			$dsp->AddFieldsetStart(t('Modul-Datenbank exportieren'));
+			$dsp->SetForm('index.php?mod=install&action=mod_cfg&design=base&step=43&module='. $_GET['module'], '', '', '');
+			$dsp->AddCheckBoxRow('e_struct', t('Struktur exportieren'), '', '', 1, 1);
+			$dsp->AddCheckBoxRow('e_cont', t('Inhalt exportieren'), '', '', 1, 1);
+			$dsp->AddFormSubmitRow('DB exportieren');
+			$dsp->AddFieldsetEnd();
+
+			$dsp->AddFieldsetStart(t('Weitere Aktionen'));
+			$dsp->AddDoubleRow('', $dsp->FetchSpanButton('Modul-Datenbank zurücksetzen', 'index.php?mod=install&action=mod_cfg&step=41&module='. $_GET['module']));
+			$dsp->AddFieldsetEnd();
+		}
+
+    $dsp->AddBackButton('index.php?mod=install&action=mod_cfg&module='. $_GET['module']);
   break;
+
+	// Rewrite specific Module-DB - Question
+	case 41:
+		$func->question(t('Sind Sie sicher, dass Sie die Datenbank des Moduls "%1" zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!', array($_GET['module'])),
+      'index.php?mod=install&action=mod_cfg&step=42&module='. $_GET['module'],
+      'index.php?mod=install&action=mod_cfg&step=40&module='. $_GET['module']);
+	break;
+
+	// Rewrite specific Module-DB
+	case 42:
+		$install->WriteTableFromXMLFile($_GET['module'], 1);
+		$func->confirmation(t('Tabelle wurde erfolgreich neu geschrieben'), 'index.php?mod=install&action=mod_cfg&step=40&module='. $_GET['module']);
+	break;
+
+	// Export Module-DB
+	case 43:
+		include_once('modules/install/class_export.php');
+		$export = New Export();
+
+		if ($_GET['module']) {
+			$export->LSTableHead('lansuite_'. $_GET['module'] .'_'. date('ymd') .'.xml');
+			$export->ExportMod($_GET['module'], $_POST['e_struct'], $_POST['e_cont']);
+			$export->LSTableFoot();
+		}
+	break;
 }
+
+$dsp->AddHeaderMenu2($menunames, 'index.php?mod=install&action=mod_cfg&module=', $_GET['headermenuitem']);
+
 ?>
