@@ -1,18 +1,4 @@
 <?php
-/*************************************************************************
-* 
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 		newpwd.php
-*	Module: 		usermanager
-*	Main editor: 		Michael@one-network.org (previous version), raphael@one-network.org (class design)
-*	Last change: 		07.02.2003 16:34
-*	Description: 		Generate new password. Only accessible by admins.
-*	Remarks: 		
-*
-**************************************************************************/
 
 $user_data = $db->query_first("SELECT name, firstname, username, type FROM {$config["tables"]["user"]} WHERE userid = '{$_GET['userid']}'");
 

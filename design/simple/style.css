@@ -321,6 +321,9 @@ input.Button:hover {
 	text-align: center;   vertical-align: middle;
 	background: #D6D6D6;
 }
+.small {
+  font-size: 10px;
+}
 
 /* Forms */
 

@@ -27,13 +27,13 @@ else switch ($step) {
 		} else $func->information($lang['usrmgr']['remind_err_email'], "index.php?mod=usrmgr&action=pwrecover&step=1");
 	break;
 
-	case 3: // Freischaltecode prüfen, Passwort generieren
+	case 3: // Freischaltecode prüfen, Passwort generieren, Freischaltcode zurücksetzen
 		$user_data = $db->query_first("SELECT fcode FROM {$config["tables"]["user"]} WHERE fcode = '$fcode'");
 		if (($user_data['fcode']) && ($fcode != "")){
 			$new_pwd = "";
 			for ($x=0; $x<=8; $x++) $new_pwd .= chr(mt_rand(65,90));
 		
-			$db->query("UPDATE {$config["tables"]["user"]} SET password = '". md5($new_pwd) ."' WHERE fcode = '$fcode'");
+			$db->query("UPDATE {$config["tables"]["user"]} SET password = '". md5($new_pwd) ."', fcode = '' WHERE fcode = '$fcode'");
 
 			$func->confirmation($lang['usrmgr']['remind_pw_generated'] ." <b>$new_pwd</b>", "index.php");
 		} else $func->error($lang['usrmgr']['remind_wrong_fcode'], "index.php?mod=usrmgr&action=pwrecover&step=1");
