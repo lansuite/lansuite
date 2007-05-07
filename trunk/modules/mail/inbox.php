@@ -59,7 +59,7 @@ if ($auth['userid']) {
 
   $ms2->AddBGColor('label', $colors);
 
-  $ms2->config['EntriesPerPage'] = 30;
+  $ms2->config['EntriesPerPage'] = 20;
 
   $ms2->AddTextSearchField('Mail', array('m.subject' => 'fulltext', 'm.msgbody' => 'fulltext'));
   $ms2->AddTextSearchField($lang['mail']['showmail_mail_from'], array('u.userid' => 'exact', 'u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
