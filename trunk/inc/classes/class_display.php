@@ -76,10 +76,12 @@ class display {
 	function AddLineTpl($file, $OpenTable = 1){
 		global $templ;
 
-    if ($this->FirstLine) {
-      echo '<ul class="LineFirst">'. $this->FetchTpl($file) .'</ul>';
-      $this->FirstLine = 0;
-    } else echo '<ul class="Line">'. $this->FetchTpl($file) .'</ul>';
+    if ($_GET['design'] != 'base') {
+      if ($this->FirstLine) {
+        echo '<ul class="LineFirst">'. $this->FetchTpl($file) .'</ul>';
+        $this->FirstLine = 0;
+      } else echo '<ul class="Line">'. $this->FetchTpl($file) .'</ul>';
+    }
 	}
 
 
@@ -656,7 +658,7 @@ class display {
 	function FetchButton($link, $picname, $hint = NULL, $target = NULL) {
     global $lang;
 
-    return $this->FetchSpanButton($lang['button'][$picname], $link, $hint = NULL, $target = NULL);
+    return $this->FetchSpanButton($lang['button'][$picname], $link, $hint, $target);
 /*
 		global $templ, $gd;
 
