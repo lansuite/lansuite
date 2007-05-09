@@ -99,6 +99,11 @@ input.Button:hover, span.Button:hover {
   text-decoration: none;
   cursor: pointer;
 }
+.AdminIcons {
+  padding: 0px 0px 2px 16px;
+  background-image: url(images/arrows_data.gif);   background-repeat: no-repeat;
+  font-size: 10px;
+}
 /* ---- Teamspeak2 Display BEGINN ----*/
 #teamspeakdisplay img {
   border: 0px;
