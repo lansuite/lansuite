@@ -406,7 +406,7 @@ class MasterSearch2 {
           elseif ($first_dot > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_dot + 1, strlen($current_field['sql_field']));
 
           // Exec Callback
-          if ($current_field['callback']) $templ['ms2']['table_entrys_row_field_entry'] = call_user_func($current_field['callback'], $line[$current_field['sql_field']]);
+          if ($current_field['callback']) $templ['ms2']['table_entrys_row_field_entry'] = call_user_func($current_field['callback'], $line[$current_field['sql_field']], $line[$select_id_field]);
           else $templ['ms2']['table_entrys_row_field_entry'] = $line[$current_field['sql_field']];
 
           // Cut of oversize chars
