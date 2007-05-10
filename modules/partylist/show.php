@@ -104,7 +104,8 @@ function AddSignonStatus($lsurl, $history = 0) {
 
       $partys = $xml->get_tag_content_array('party', $content);
       $ret = '';
-      foreach ($partys as $party) {
+      if (!$partys) return t('Noch keine Party angelegt');
+      else foreach ($partys as $party) {
         $partyid = $xml->get_tag_content('partyid', $party);
         $partyname = $xml->get_tag_content('name', $party);
         $max_guest = $xml->get_tag_content('max_guest', $party);

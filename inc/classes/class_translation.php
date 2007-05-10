@@ -17,6 +17,30 @@ function t($input, $parameters = NULL) {
   if ($input == '') return '';
   if (!$db->success) return ReplaceParameters($input, $parameters);
 
+  (strlen($input) > 255)? $long = '_long' : $long = '';
+
+  // Load System, DB and current Mod on first call
+  if ($TranslationFirstRun) {
+    $res = $db->qry('SELECT id, org, '. $language .' FROM %prefix%translation WHERE file = \'System\' OR file = \'DB\' OR file = %string%', $_GET['mod']);
+    while ($row = $db->fetch_array($res)) {
+      ($row[$language])? $lang[$row['id']] = $row[$language] : $lang[$row['id']] = $row['org'];
+    }
+    $TranslationFirstRun = 0;
+  }
+
+  // Already in $lang?
+  $key = md5($input);
+  if ($lang[$key] != '') return ReplaceParameters($lang[$key], $parameters);
+
+  // Read from DB
+  else {
+    $row = $db->qry_first('SELECT id, org, '. $language .' FROM %prefix%translation'. $long .' WHERE id = %string%', $key);
+    ($row[$language])? $lang[$row['id']] = $row[$language] : $lang[$row['id']] = $row['org'];
+    if ($lang[$key] != '') return ReplaceParameters($lang[$key], $parameters);
+    else return ReplaceParameters($input, $parameters);
+  }
+
+/*
   // Get CallingFile
   if (function_exists('debug_backtrace')) {
     $bt = debug_backtrace();
@@ -70,5 +94,6 @@ function t($input, $parameters = NULL) {
       return ReplaceParameters($input, $parameters);
     }
   }
+*/
 }
 ?>
