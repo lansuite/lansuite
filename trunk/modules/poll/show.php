@@ -91,7 +91,7 @@ switch($_GET['action']) {
   				// Including comment-engine
   				if($_SESSION["auth"]["login"] == 1) {
           	include('inc/classes/class_mastercomment.php');
-          	new Mastercomment('Poll', $HANDLE[POLLID]);
+          	new Mastercomment('Poll', $_GET['pollid']);
   				}
   				//End comment-engine
 
