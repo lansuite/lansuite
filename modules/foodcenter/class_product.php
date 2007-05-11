@@ -266,6 +266,12 @@ class product{
 	 */
 	var $supp;
 	/**
+	 * Lieferanten Infos
+	 *
+	 * @var string
+	 */
+	var $supp_infos;
+	/**
 	 * Produktebild
 	 *
 	 * @var string
@@ -351,6 +357,7 @@ class product{
 		$this->desc		=	$_POST['desc'];
 		$this->cat		=	new cat($_POST['cat_id']);
 		$this->supp		=	new supp($_POST['supp_id']);
+		$this->supp_infos	=	$_POST['supp_infos'];
 		$this->mat		=	$_POST['mat'];
 		$this->type		=	$_POST['product_type'];
 		$this->choise	=	$_POST['chois'];
@@ -433,6 +440,7 @@ class product{
 			$this->desc		=	$row['p_desc'];
 			$this->cat		=	new cat($row['cat_id']);
 			$this->supp		=	new supp($row['supp_id']);
+			$this->supp_infos	=	$row['supp_infos'];
 			$this->mat		=	$row['mat'];
 			$this->type		=	$row['p_type'];
 			$this->choise	=	$row['chois'];
@@ -466,6 +474,7 @@ class product{
 						p_desc = '{$this->desc}',
 						cat_id = '{$this->cat->cat_id}',
 						supp_id = '{$this->supp->supp_id}',
+						supp_infos = '{$this->supp_infos}',
 						p_file = '{$this->pic}',
 						mat = '{$this->mat}',
 						p_type = '{$this->type}',
@@ -478,6 +487,7 @@ class product{
 						p_desc = '{$this->desc}',
 						cat_id = '{$this->cat->cat_id}',
 						supp_id = '{$this->supp->supp_id}',
+						supp_infos = '{$this->supp_infos}',
 						p_file = '{$this->pic}',
 						mat = '{$this->mat}',
 						p_type = '{$this->type}',
@@ -600,6 +610,9 @@ class product{
 		// Select Supplier
 		if(!is_object($this->supp)) $this->supp = new supp();
 		$this->supp->supp_form();
+
+			$dsp->AddTextFieldRow("supp_infos",$lang['foodcenter']['add_product_prod_supp_desc'],$this->supp_infos,"",null,true);
+
 
 		// Picecontrol ?
 		$dsp->AddCheckBoxRow("mat",$lang['foodcenter']['add_product_prod_mat_text'],$lang['foodcenter']['add_product_prod_mat_quest'],"",NULL,$this->mat,NULL,NULL);
@@ -1424,9 +1437,7 @@ class supp{
 		if($supp_array){
 			$dsp->AddDropDownFieldRow("supp_id",$lang['foodcenter']['add_product_prod_supp'],$supp_array,"");
 		}
-		$dsp->AddTextFieldRow("supp_name",$lang['foodcenter']['add_product_prod_supp_new'],$_POST['supp_name'],$this->error['supp_name']);
-		$dsp->AddTextFieldRow("",$lang['foodcenter']['add_product_prod_supp_desc'],$_POST['supp_desc'],"",null,true);
-	}
+		$dsp->AddTextFieldRow("supp_name",$lang['foodcenter']['add_product_prod_supp_new'],$_POST['supp_name'],$this->error['supp_name']);	}
 	
 }
 
