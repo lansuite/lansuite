@@ -66,7 +66,7 @@ if($open == false && $cfg['foodcenter_foodtime'] == 3){
 	$product_list = new product_list();
 	
 	if($basket->count > 0){
-		$dsp->AddSingleRow("<a href='index.php?mod=foodcenter&action=basket'>" . $basket->count . $lang['foodcenter']['basket_product_item'] . "</a>"," align=\"right\"");
+		$dsp->AddSingleRow("<b><a href='index.php?mod=foodcenter&action=basket'>" . $basket->count . $lang['foodcenter']['basket_product_item'] . "</a></b>"," align=\"right\"");
 	}
 	if($_GET['info']){
 		$product_list->load_cat($cat[$_GET['headermenuitem']]);

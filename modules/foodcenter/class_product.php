@@ -686,15 +686,15 @@ class product{
 				$templ['foodcenter']['product']['pricerow']['name'] = "<a href='$worklink&info={$this->id}'>" . $this->caption . "</a>";
 				if(is_object($this->option[0])){
 					$templ['foodcenter']['product']['pricerow']["price_3"] = "<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a>";
-					$templ['foodcenter']['product']['pricerow']["price_3"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>";
+					$templ['foodcenter']['product']['pricerow']["price_3"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/images/basket.gif\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
 				}
 				if(is_object($this->option[1])){
 					$templ['foodcenter']['product']['pricerow']["price_2"] = "<b>" . $this->option[1]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'>" . $this->option[1]->price . " " . $cfg['sys_currency'] . "</a>";
-					$templ['foodcenter']['product']['pricerow']["price_2"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>";
+					$templ['foodcenter']['product']['pricerow']["price_2"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/images/basket.gif\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
 				}
 				if(is_object($this->option[2])){
 					$templ['foodcenter']['product']['pricerow']["price_1"] = "<b>" . $this->option[2]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[2]->price . " " . $cfg['sys_currency'] . "</a>";
-					$templ['foodcenter']['product']['pricerow']["price_1"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>";
+					$templ['foodcenter']['product']['pricerow']["price_1"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/images/basket.gif\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
 				}
 				$dsp->AddDoubleRow($templ['foodcenter']['product']['pricerow']['name'], $dsp->FetchModTpl('foodcenter', 'product_price_row'));
 				break;
