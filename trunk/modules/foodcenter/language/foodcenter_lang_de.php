@@ -35,7 +35,7 @@ $lang['foodcenter']['add_product_prod_order']	= 'Bestelllistenartikel';
 $lang['foodcenter']['add_product_prod_order_text']	= 'Muss der Arktikel angefordert werden (Pizza)';
 $lang['foodcenter']['add_product_prod_cat_new']	= 'Neue Produktkategorie';
 $lang['foodcenter']['add_product_prod_supp_new']	= 'Neuer Lieferant';
-$lang['foodcenter']['add_product_prod_supp_desc']	= 'Infos für Lieferant (zb. Best.Nr.)';
+$lang['foodcenter']['add_product_prod_supp_desc']	= 'Infos für Lieferant (zb. seine Artikelnummer)';
 $lang['foodcenter']['add_product_prod_opt'][1]	= 'Normales Produkt';
 $lang['foodcenter']['add_product_prod_opt'][2]	= 'Erweitertes Produkt';
 

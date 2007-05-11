@@ -160,6 +160,14 @@
 				<key></key>
 				<default>0</default>
 				<extra></extra>
+			</field>
+			<field>
+				<name>supp_infos</name>
+				<type>varchar(80)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
 			</field>		
 			<field>
 				<name>p_type</name>
