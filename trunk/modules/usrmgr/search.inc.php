@@ -55,11 +55,12 @@ $ms2->AddTextSearchDropDown(t('Ausgecheckt'), 'p.checkout', array('' => t('Alle'
 $ms2->AddTextSearchDropDown(t('Geschlecht'), 'u.sex', array('' => t('Alle'), '0' => t('Unbekannt'), '1' => t('Männlich'), '2' => t('Weblich')));
 $ms2->AddTextSearchDropDown(t('Accounts'), 'u.locked', array('' => t('Alle'), '0' => t('Nur freigegebene'), '1' => t('Nur gesperrte')));
 
-$ms2->AddSelect('c.url AS clanurl');
 $ms2->AddSelect('u.type');
 $ms2->AddSelect('u.locked');
-$ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLink');
-
+if ($cfg['signon_show_clan']) {
+  $ms2->AddSelect('c.url AS clanurl');
+  $ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLink');
+}
 $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Details'));
 if ($party->count > 0) $ms2->AddIconField('signon', 'index.php?mod=usrmgr&action=party&user_id=', t('Partyanmeldung'));
 $ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', t('Mail senden'));

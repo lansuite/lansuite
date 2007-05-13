@@ -25,6 +25,7 @@ switch ($_GET['step']) {
     $ms2->AddResultField($lang['usrmgr']['clan_url'], 'c.url');
     $ms2->AddResultField($lang['usrmgr']['clan_members'], 'COUNT(u.clanid) AS members');
 
+#    $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=clanmgr&step=30&clanid=', $lang['ms2']['edit']);
     if ($auth['type'] >= 2) $ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=clanmgr&step=10&clanid=', $lang['ms2']['change_pw']);
     if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=clanmgr&step=30&clanid=', $lang['ms2']['edit']);
     if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=clanmgr&step=20&clanid=', $lang['ms2']['delete']);
@@ -72,37 +73,46 @@ switch ($_GET['step']) {
   
   // Edit
   case 30:
-    include_once('inc/classes/class_masterform.php');
-    $mf = new masterform();
+    if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
+    elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) $func->information(t('Sie sind nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
+    else {
+      include_once('inc/classes/class_masterform.php');
+      $mf = new masterform();
 
-    $mf->AddField($lang['usrmgr']['clan'], 'name');
-    $mf->AddField($lang['usrmgr']['add_clanurl'], 'url', '', '', FIELD_OPTIONAL);
-    $mf->SendForm('index.php?mod=usrmgr&action=clanmgr&step='. $_GET['step'], 'clan', 'clanid', $_GET['clanid']);
+      $dsp->AddFieldsetStart(t('Clan-Daten'));
+      $mf->AddField($lang['usrmgr']['clan'], 'name');
+      $mf->AddField($lang['usrmgr']['add_clanurl'], 'url', '', '', FIELD_OPTIONAL);
+      $mf->SendForm('index.php?mod=usrmgr&action=clanmgr&step='. $_GET['step'], 'clan', 'clanid', $_GET['clanid']);
+      $dsp->AddFieldsetEnd();
 
-    $dsp->AddFieldsetStart($lang['usrmgr']['clan_members']);
-    include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2('usrmgr');
+      $dsp->AddFieldsetStart(t('Mitglieder'));
+      include_once('modules/mastersearch2/class_mastersearch2.php');
+      $ms2 = new mastersearch2('usrmgr');
 
-    $ms2->query['from'] = "{$config["tables"]["user"]} AS u";
-    $ms2->query['where'] = 'u.clanid = '. (int)$_GET['clanid'];
-    $ms2->config['EntriesPerPage'] = 20;
+      $ms2->query['from'] = "{$config["tables"]["user"]} AS u";
+      $ms2->query['where'] = 'u.clanid = '. (int)$_GET['clanid'];
+      $ms2->config['EntriesPerPage'] = 20;
 
-    $ms2->AddResultField($lang['usrmgr']['add_firstname'], 'u.firstname');
-    $ms2->AddResultField($lang['usrmgr']['add_lastname'], 'u.name');
-    $ms2->AddResultField($lang['usrmgr']['add_username'], 'u.username');
+      $ms2->AddResultField($lang['usrmgr']['add_firstname'], 'u.firstname');
+      $ms2->AddResultField($lang['usrmgr']['add_lastname'], 'u.name');
+      $ms2->AddResultField($lang['usrmgr']['add_username'], 'u.username');
 
-    if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', $lang['ms2']['delete']);
-    $ms2->PrintSearch('index.php?mod=usrmgr&action=clanmgr&step=30&clanid='. $_GET['clanid'], 'u.userid');
-    $dsp->AddFieldsetEnd();
+      $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', $lang['ms2']['delete']);
+      $ms2->PrintSearch('index.php?mod=usrmgr&action=clanmgr&step=30&clanid='. $_GET['clanid'], 'u.userid');
+      $dsp->AddFieldsetEnd();
 
-    $dsp->AddBackButton('index.php?mod=usrmgr&action=clanmgr');
-    $dsp->AddContent();
+      $dsp->AddBackButton('index.php?mod=usrmgr&action=clanmgr');
+    }
   break;
   
   // Delete Member
   case 40:
-    $db->query("UPDATE {$config["tables"]["user"]} SET clanid = 0 WHERE userid = ". (int)$_GET['userid']);
-    $func->confirmation($lang['usrmgr']['del_success'], 'index.php?mod=usrmgr&action=clanmgr&step=30&clanid='. $_GET['clanid']);
+    if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
+    elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) $func->information(t('Sie sind nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
+    else {
+      $db->query("UPDATE {$config["tables"]["user"]} SET clanid = 0 WHERE userid = ". (int)$_GET['userid']);
+      $func->confirmation($lang['usrmgr']['del_success'], 'index.php?mod=usrmgr&action=clanmgr&step=30&clanid='. $_GET['clanid']);
+    }
   break;
 }
 
