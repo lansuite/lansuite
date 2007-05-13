@@ -184,7 +184,7 @@ class display {
 	function AddRadioRow($name, $key, $val, $errortext = NULL, $optional = NULL, $checked = NULL, $disabled = NULL) {
 		global $templ;
 
-		($checked)? $checked = 'selected' : $checked = '';
+		($checked)? $checked = 'checked="checked"' : $checked = '';
 		($disabled)? $disabled = 'disabled' : $disabled = '';
 		($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
 		($optional)? $optional = "_optional" : $optional = '';
@@ -351,9 +351,10 @@ class display {
     if ($this->form_open && $close) $this->CloseForm();
 	}
 
-  function AddBackButton($back_link, $helplet_id = NULL) {
-    global $templ, $gd, $auth;
+  function AddBackButton($back_link = NULL, $helplet_id = NULL) {
+    global $templ, $gd, $auth, $func;
 
+	if ( !$back_link ) $back_link = $func->internal_referer;
     $gd->CreateButton($button);
     $this->AddDoubleRow('', $this->FetchButton($back_link, 'back', t('Zurück')));
   }
