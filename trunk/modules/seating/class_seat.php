@@ -502,5 +502,12 @@ class seat2 {
 		$db->query("UPDATE {$config["tables"]["seat_seats"]} SET userid = $userid, status = 3
 			WHERE blockid = '$blockid' AND row = '$row' AND col = '$col'");
 	}
+
+	function FreeSeat($blockid, $row, $col) {
+		global $db, $config, $party;
+
+		$db->query("UPDATE {$config["tables"]["seat_seats"]} SET userid = 0, status = 1
+			WHERE blockid = '$blockid' AND row = '$row' AND col = '$col'");
+	}
 }
 ?>

@@ -6,6 +6,9 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 3
 
+- Bugfix: #383 Beim editieren eines Sitzplanes war per Default immer die erste Party ausgewählt (KnoX 13.05.2007)
+
+- Add: Sitzplätze können nun auch vom Admin wieder freigegeben werden (KnoX 13.05.2007)
 - Add: Modul-Konfigurations-Übersicht (KnoX 05.05.2007)
 - Add: Mastersearch erweitert, so dass nun auch mehrere Zeilen in einer Tabelle editiert werden können (KnoX 05.05.2007)
 

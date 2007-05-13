@@ -95,6 +95,7 @@ switch($_GET['step']) {
 			if ($_POST['rows'] == "") $_POST['rows'] = $block['rows'] + 1;
 			if ($_POST['orientation'] == "") $_POST['orientation'] = $block['orientation'];
 			if ($_POST['u18'] == "") $_POST['u18'] = $block['u18'];
+			if ($_POST['party_id'] == "") $_POST['party_id'] = $block['party_id'];
 			if ($_POST['remark'] == "") $_POST['remark'] = $block['remark'];
 			if ($_POST['text_tl'] == "") $_POST['text_tl'] = $block['text_tl'];
 			if ($_POST['text_tc'] == "") $_POST['text_tc'] = $block['text_tc'];
@@ -132,7 +133,10 @@ switch($_GET['step']) {
 		// Partys
 		$selections = array();
     $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
-    while($res = $db->fetch_array($row)) array_push ($selections, "<option $selected value=\"". $res['party_id'] ."\">". $res['name'] .'</option>');
+    while($res = $db->fetch_array($row)) {
+  		($_POST['party_id'] == $party->party_id) ? $selected = 'selected' : $selected = '';
+      array_push ($selections, "<option $selected value=\"". $res['party_id'] ."\">". $res['name'] .'</option>');
+    }
     $db->free_result($row);
 		$dsp->AddDropDownFieldRow('party_id', t('Party'), $selections, '');
 
