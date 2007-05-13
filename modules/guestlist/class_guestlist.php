@@ -27,7 +27,7 @@ class guestlist {
         $Messages['success'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE
         : $Messages['error'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE;
 
-    // Reserver Seat
+    // Reserve Seat
     $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
 
     $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "bezahlt" gesetzt', array($row['username'], $row2['name'])), 1, '', 'Zahlstatus');
@@ -56,6 +56,9 @@ class guestlist {
 			($signonmail->create_inet_mail($row['username'], $row['email'], $cfg['signon_paid_email_subject'], $msgtext, $auth['email']))?
         $Messages['success'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE
         : $Messages['error'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE;
+
+    // Switch seat back to "marked"
+    $seat2->MarkSeatIfNotPaidAndSeatReserved($userid);
 
     $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "nicht bezahlt" gesetzt', array($row['username'], $row2['name'])), 1, '', 'Zahlstatus');
     return $Messages;
