@@ -82,19 +82,25 @@ switch($_GET['step']) {
 
 			case 2:	// Seat occupied -> show action selection
 				if (!$_GET['quest']) {
-					$questionarray = array();
-					$linkarray = array();
+          // Selected users own seat
+          if ($seat['userid'] == $_GET['userid']) {
+            $func->question(t('Dies ist der Sitzplatz des aktuell ausgewählten Benutzers. Soll der Platz freigegeben werden?'), 'index.php?mod=seating&action=seatadmin&step=20&userid='. $_GET['userid'] .'&blockid='. $_GET['blockid'] .'&row='. $_GET['row'] .'&col='. $_GET['col'], 'index.php?mod=seating&action=seatadmin&step=3&userid='. $_GET['userid'] .'&blockid='. $_GET['blockid']);
 
-					array_push($questionarray, str_replace("%USERNAME%", $seat['username'], $lang['seating']['q_res_however']));
-					array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&quest=1");
+          } else {
+  					$questionarray = array();
+  					$linkarray = array();
 
-					array_push($questionarray, str_replace("%USERNAME%", $seat['username'], $lang['seating']['q_res_howev_2']));
-					array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&quest=2&next_userid={$seat['userid']}");
+  					array_push($questionarray, str_replace("%USERNAME%", $seat['username'], $lang['seating']['q_res_however']));
+  					array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&quest=1");
 
-					array_push($questionarray, $lang['seating']['q_cancel']);
-					array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid={$_GET['blockid']}");
+  					array_push($questionarray, str_replace("%USERNAME%", $seat['username'], $lang['seating']['q_res_howev_2']));
+  					array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&quest=2&next_userid={$seat['userid']}");
 
-					$func->multiquestion($questionarray, $linkarray, str_replace("%USERNAME%", $seat['username'], str_replace("%FIRSTNAME%", $seat['firstname'], str_replace("%NAME%", $seat['name'], $lang['seating']['q_reserved_by']))));
+  					array_push($questionarray, $lang['seating']['q_cancel']);
+  					array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid={$_GET['blockid']}");
+
+  					$func->multiquestion($questionarray, $linkarray, str_replace("%USERNAME%", $seat['username'], str_replace("%FIRSTNAME%", $seat['firstname'], str_replace("%NAME%", $seat['name'], $lang['seating']['q_reserved_by']))));
+          }
 				}
 			break;
 		}
@@ -110,6 +116,12 @@ switch($_GET['step']) {
 	case 12:
 		$seat2->MarkSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
 		$func->confirmation(str_replace("%USERNAME%", $new_user['username'], $lang['seating']['c_seat_mark2']), "index.php?mod=seating&action=seatadmin");
+	break;
+
+	// Free seat
+	case 20:
+		$seat2->FreeSeat($_GET['blockid'], $_GET['row'], $_GET['col']);
+		$func->confirmation(t('Der Sitzplatz wurde wieder freigegeben'), 'index.php?mod=seating&action=seatadmin');
 	break;
 }
 
