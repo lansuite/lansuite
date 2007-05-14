@@ -75,13 +75,13 @@ class beamer_display {
 		$ms2->AddResultField('B.3', 'b3', 'formatBeamer3Status','',25);
 		$ms2->AddResultField('B.4', 'b4', 'formatBeamer4Status','',25);
 		$ms2->AddResultField('B.5', 'b5', 'formatBeamer5Status','',25);				
-		$ms2->AddIconField('arrow_rightup','?mod=beamer&action=set2first&bcid=','An den Anfang der Spielliste setzen');
+		$ms2->AddIconField('reset_timestamp','?mod=beamer&action=set2first&bcid=','An den Anfang der Spielliste setzen');
 		$ms2->AddIconField('edit','?mod=beamer&action=editcontent&bcid=','Bearbeiten');
 		$ms2->AddIconField('delete','?mod=beamer&action=askfordelete&bcid=','L&ouml;schen');
 		$ms2->PrintSearch('index.php?mod=beamer&action=content', 'bcID');		
 
 		$dsp->AddSingleRow("<br/><div align=\"middle\">".
-						   "Das Beamermodul zeigt immer den &auml;ltesten Eintrag von \"Zuletzt angezeigt\". Durch Klick auf das Icon <img src=\"design/images/icon_arrow_rightup.png\" alt=\"Set2First\" border=\"0\"> setzt man den Zeitstempel, wann das Element zuletzt angezeigt wurde, auf Null.</div>");
+						   "Das Beamermodul zeigt immer den &auml;ltesten Eintrag von \"Zuletzt angezeigt\". Durch Klick auf das Icon <img src=\"design/images/icon_reset_timestamp.png\" alt=\"Set2First\" border=\"0\"> setzt man den Zeitstempel, wann das Element zuletzt angezeigt wurde, auf Null.</div>");
 		$dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton( $lang['beamer']['newcontent'] ,'?mod=beamer&action=newcontent','Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));		
 		$dsp->AddContent();
   	
