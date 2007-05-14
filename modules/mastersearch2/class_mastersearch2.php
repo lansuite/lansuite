@@ -216,6 +216,7 @@ class MasterSearch2 {
     $this->query['group_by'] .= $select_id_field;
 
     ###### Generate Order By
+    if (strpos($_GET['order_by'], "\'") > 0) $_GET['order_by'] = ''; # Important for FIND_IN_SET ranking
     if (!$_GET['order_by'] and $this->query['default_order_by']) {
       $_GET['order_by'] = $this->query['default_order_by'];
       if ($this->query['default_order_dir']) $_GET['order_dir'] = $this->query['default_order_dir'];

@@ -49,7 +49,6 @@ function GetSite($url) {
     $HTTPHeader = t('Hostname, oder Pfad fehlt');
     return '';
   }
-
 #  $ip = gethostbyname($url['host']);
   $fp = @fsockopen($url['host'], $url['port'], $errno, $errstr, 1);
 #  $fp = stream_set_timeout($fp, 1);
@@ -78,7 +77,7 @@ function GetSite($url) {
 }
 
 
-function AddSignonStatus($lsurl, $history = 0) {
+function AddSignonStatus($lsurl, $show_history = 0) {
   global $xml, $dsp, $HTTPHeader;
 
   if (substr($lsurl, strlen($lsurl) - 1, 1) != '/') $lsurl .= '/';
@@ -118,9 +117,14 @@ function AddSignonStatus($lsurl, $history = 0) {
         $registered = $xml->get_tag_content('registered', $party);
         $paid = $xml->get_tag_content('paid', $party);
 
-        if (!$history and $current_party == $partyid) $ret .= CreateSignonBar($registered, $paid, $max_guest);
-        elseif ($history and $current_party != $partyid) {
-          $dsp->AddDoubleRow($partyname .HTML_NEWLINE. $plz .' '. $ort, CreateSignonBar($registered, $paid, $max_guest));
+        # Overview
+        if (!$_GET['partyid'] and $current_party == $partyid) $ret .= CreateSignonBar($registered, $paid, $max_guest);
+        
+        # Details
+        if ($_GET['partyid']) {
+          if (!$show_history and $current_party == $partyid) $ret .= CreateSignonBar($registered, $paid, $max_guest);
+          elseif ($show_history and $current_party != $partyid)
+            $dsp->AddDoubleRow($partyname .HTML_NEWLINE. $plz .' '. $ort, CreateSignonBar($registered, $paid, $max_guest));
         }
       }
       return $ret;
