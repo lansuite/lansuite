@@ -24,8 +24,8 @@
 	
 	case 'newcontent2'	:	$beamerdisplay->viewAddNewContent2(); break;
 	
-	case 'newcontent3'	:	
-							$newContent['new'] = TRUE;
+	case 'savecontent'	:	
+							if ( $bcid ) { $newContent['bcid'] = $bcid; }
 							$newContent['type'] = $_GET['ctype'];
 							$newContent['caption'] = $_POST['ccaption'];
 							$newContent['maxrepeats'] = $_POST['cmaxrepeats'];
@@ -36,7 +36,9 @@
 						break;
  
 
-	case 'editcontent'			:	$beamerdisplay->editContent(); break;
+	case 'set2first'			:	$beamermodul->set2first( $bcid ); $beamerdisplay->viewContent();	break;
+						
+	case 'editcontent'			:	$beamerdisplay->viewEditContent(); break;
 						
 	case 'askfordelete'			:   $func->question(HTML_NEWLINE."Wirklich L&ouml;schen?", "?mod=beamer&action=deletecontent&bcid=".$bcid, $link_target_no = ''); break;
 						
