@@ -30,12 +30,14 @@
 							$newContent['caption'] = $_POST['ccaption'];
 							$newContent['maxrepeats'] = $_POST['cmaxrepeats'];
 							$newContent['playnow'] = $_POST['cplaynow'];
-							$newContent['text'] = $_POST['ctext'];								
+							$newContent['text'] = $_POST['FCKeditor1'];							
 							$beamermodul->saveContent( $newContent );
 							$beamerdisplay->viewContent();
 						break;
  
 
+	case 'editcontent'			:	$beamerdisplay->editContent(); break;
+						
 	case 'askfordelete'			:   $func->question(HTML_NEWLINE."Wirklich L&ouml;schen?", "?mod=beamer&action=deletecontent&bcid=".$bcid, $link_target_no = ''); break;
 						
 	case 'deletecontent'		:	$beamermodul->deleteContent( $bcid ); $beamerdisplay->viewContent();		break;

@@ -72,7 +72,7 @@ class beamer {
 	
 	  	$insert = $db->query( 	"INSERT INTO {$config['tables']['beamer_content']} SET ".
 								"caption = '{$c['caption']}', maxRepeats = '{$c['maxrepeats']}', ".
-								"contentType = '{$c['type']}', lastView = '$lastview' , htmlContent = '{$c['text']}' "
+								"contentType = '{$c['type']}', lastView = '$lastview' , contentData = '{$c['text']}' "
 								);
 
 	
@@ -94,7 +94,7 @@ class beamer {
   	$row = $db->query_first('SELECT * FROM ' . $config["tables"]["beamer_content"] . ' WHERE active = 1 AND b'.$beamerid.' = 1  '.
 							'ORDER BY lastView ASC');
 	$update = $db->query('UPDATE ' . $config["tables"]["beamer_content"].' SET lastView = '.time().' WHERE bcID = '.$row['bcID'].' LIMIT 1');
-	return $func->text2html($row['htmlContent']);
+	return $row['contentData'];
   
   
   }  
