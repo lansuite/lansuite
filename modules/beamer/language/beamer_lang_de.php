@@ -16,7 +16,8 @@
  $lang['beamer']['viewcontent']		= "Beamerfenster ";
  $lang['beamer']['listcontent']		= "Auflistung der Inhalte";
  $lang['beamer']['newcontent']      = "Inhalte hinzuf&uuml;gen";
-
+ $lang['beamer']['editcontent']     = "Inhalt bearbeiten";
+ 
  $lang['beamer']['introtext']	= "Mit diesem Modul k&ouml;nnen Sie Texte und anderen Daten f&uuml;r eine Beamerpr&auml;sentation aufbereiten.";
 
  $lang['beamer']['activecontent'] = "Aktive Inhalte: ";

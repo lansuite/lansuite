@@ -38,14 +38,14 @@ class beamer_display {
 
 		// private ms2 funktionen
 		function formatContentType ( $var ) {
-			if ( $var == "text" ) { return '<img src="modules/beamer/images/text.jpg" alt="Text" border="0">'; }
-			if ( $var == "image" ) { return '<img src="modules/beamer/images/image.jpg" alt="Bild" border="0">'; }	
+			if ( $var == "text" ) { return '<img src="design/images/icon_text.png" alt="Text" border="0">'; }
+			if ( $var == "image" ) { return '<img src="design/images/icon_image.png" alt="Bild" border="0">'; }	
 		}
 
 
 		function formatBStatus ( $var, $bcid , $beamerid ) {
-			if ( $var == "1" ) { return '<a href="?mod=beamer&action=togglebeameractive&bcid='.$bcid.'&beamerid='.$beamerid.'"><img src="modules/beamer/images/active_sm.gif" alt="Aktiv" border="0"></a>'; }
-			if ( $var == "0" ) { return '<a href="?mod=beamer&action=togglebeameractive&bcid='.$bcid.'&beamerid='.$beamerid.'"><img src="modules/beamer/images/deactive_sm.gif" alt="Deaktiv" border="0"></a>'; }	
+			if ( $var == "1" ) { return '<a href="?mod=beamer&action=togglebeameractive&bcid='.$bcid.'&beamerid='.$beamerid.'"><img src="design/images/icon_active_sm.png" alt="Aktiv" border="0"></a>'; }
+			if ( $var == "0" ) { return '<a href="?mod=beamer&action=togglebeameractive&bcid='.$bcid.'&beamerid='.$beamerid.'"><img src="design/images/icon_deactive_sm.png" alt="Deaktiv" border="0"></a>'; }	
 		}
 	
 		function formatBeamer1Status ( $var , $bcid ) { return formatBStatus( $var , $bcid, "1");	}
@@ -55,13 +55,13 @@ class beamer_display {
 		function formatBeamer5Status ( $var , $bcid ) { return formatBStatus( $var , $bcid, "5");	}			
 
 		function formatActiveStatus ( $var, $var2 ) {
-			if ( $var == "1" ) { return '<a href="?mod=beamer&action=toggleactive&bcid='.$var2.'"><img src="modules/beamer/images/active.gif" alt="Aktiv" border="0"></a>'; }
-			if ( $var == "0" ) { return '<a href="?mod=beamer&action=toggleactive&bcid='.$var2.'"><img src="modules/beamer/images/deactive.gif" alt="Deaktiv" border="0"></a>'; }
+			if ( $var == "1" ) { return '<a href="?mod=beamer&action=toggleactive&bcid='.$var2.'"><img src="design/images/icon_active.png" alt="Aktiv" border="0"></a>'; }
+			if ( $var == "0" ) { return '<a href="?mod=beamer&action=toggleactive&bcid='.$var2.'"><img src="design/images/icon_deactive.png" alt="Deaktiv" border="0"></a>'; }
 		}
 	
 		$dsp->NewContent( $lang['beamer']['listcontent'] );
 		$dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton( $lang['beamer']['newcontent'] ,'?mod=beamer&action=newcontent','Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));
-		$dsp->AddContent();
+
   
   	  	include_once('modules/mastersearch2/class_mastersearch2.php');
 		$ms2 = new mastersearch2('beamer');
@@ -69,15 +69,22 @@ class beamer_display {
 		$ms2->AddResultField('-A-', 'active', 'formatActiveStatus','',35);
 		$ms2->AddResultField('Typ', 'contentType', 'formatContentType',"",35);
 		$ms2->AddResultField('Titel', 'caption');
+		$ms2->AddResultField('Zuletzt angezeigt', 'lastView' , 'MS2GetTime');
 		$ms2->AddResultField('B.1', 'b1', 'formatBeamer1Status','',25);
 		$ms2->AddResultField('B.2', 'b2', 'formatBeamer2Status','',25);
 		$ms2->AddResultField('B.3', 'b3', 'formatBeamer3Status','',25);
 		$ms2->AddResultField('B.4', 'b4', 'formatBeamer4Status','',25);
 		$ms2->AddResultField('B.5', 'b5', 'formatBeamer5Status','',25);				
-		// $ms2->AddIconField('edit','?mod=beamer&action=content&bcid=','Bearbeiten');
+		$ms2->AddIconField('arrow_rightup','?mod=beamer&action=set2first&bcid=','An den Anfang der Spielliste setzen');
+		$ms2->AddIconField('edit','?mod=beamer&action=editcontent&bcid=','Bearbeiten');
 		$ms2->AddIconField('delete','?mod=beamer&action=askfordelete&bcid=','L&ouml;schen');
 		$ms2->PrintSearch('index.php?mod=beamer&action=content', 'bcID');		
-	
+
+		$dsp->AddSingleRow("<br/><div align=\"middle\">".
+						   "Das Beamermodul zeigt immer den &auml;ltesten Eintrag von \"Zuletzt angezeigt\". Durch Klick auf das Icon <img src=\"design/images/icon_arrow_rightup.png\" alt=\"Set2First\" border=\"0\"> setzt man den Zeitstempel, wann das Element zuletzt angezeigt wurde, auf Null.</div>");
+		$dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton( $lang['beamer']['newcontent'] ,'?mod=beamer&action=newcontent','Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));		
+		$dsp->AddContent();
+  	
 	}
 
 
@@ -114,11 +121,10 @@ class beamer_display {
 	global $dsp, $lang, $beamermodul, $bcid, $beamerid, $ctype;		
 
 		$dsp->NewContent( $lang['beamer']['newcontent'] . " - 2" );
-		$dsp->SetForm("?mod=beamer&action=newcontent3&ctype=".$ctype);
+		$dsp->SetForm("?mod=beamer&action=savecontent&ctype=".$ctype);
 		$dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", "", "", '50');
-		$dsp->AddTextFieldRow("cmaxrepeats","Wiederholungen: <br/>(0 = Unlimitiert) ","0","","22");
-		$dsp->AddCheckBoxRow("cplaynow","Sofort Anzeigen: <br /><br />An den Anfang der Spielliste. Der Eintrag muss noch aktivieren werden!","","", TRUE);
-//		$dsp->AddTextAreaPlusRow("ctext", '','','' );
+//		$dsp->AddTextFieldRow("cmaxrepeats","Wiederholungen: <br/>(0 = Unlimitiert) ","0","","3");
+//		$dsp->AddCheckBoxRow("cplaynow","Sofort Anzeigen: <br /><br />An den Anfang der Spielliste. Der Eintrag muss noch aktivieren werden!","","", TRUE);
 
         ob_start();
         include_once("ext_scripts/FCKeditor/fckeditor.php");
@@ -135,29 +141,27 @@ class beamer_display {
 //		$dsp->AddBackButton();
 		$dsp->AddFormSubmitRow("save");							
 		$dsp->AddContent();
-
-
-		
-/*		
-		include_once('inc/classes/class_masterform.php');
-		$mf = new masterform();		
-		$mf->AddField("Bezeichnung" , 'caption');
-		$mf->AddField("Wiederholungen: <br/>(0 = Unlimitiert) " , 'maxRepeats','','',FIELD_OPTIONAL );		
-		switch ($ctype) {
-		
-			case 'text' : 		$mf->AddField("Text" , 'contentData','',HTML_WYSIWYG); break;
-		
-		}
-
-		if ($mf->SendForm('?mod=beamer&action=newcontent2', 'beamer_content', 'bcID')){
-			$dsp->NewContent("");
-			$dsp->AddBackButton("?mod=beamer&action=content","back");
-			$dsp->AddContent;
-		}
-		*/
 	}
 
-
+	function viewEditContent () {
+	global $dsp, $lang, $beamermodul, $bcid, $beamerid, $ctype;		
+		$contentData = $beamermodul->getContent( $bcid );
+		$dsp->NewContent( $lang['beamer']['editcontent'] );	
+		$dsp->SetForm("?mod=beamer&action=savecontent&bcid=".$bcid);	
+        ob_start();
+        include_once("ext_scripts/FCKeditor/fckeditor.php");
+        $oFCKeditor = new FCKeditor('FCKeditor1') ;
+        $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
+        $oFCKeditor->Value = $contentData['contentData'];
+        $oFCKeditor->Height = 380;
+        $oFCKeditor->Create();
+        $fcke_content = ob_get_contents();
+        ob_end_clean();
+        $dsp->AddSingleRow($fcke_content);
+		$dsp->AddFormSubmitRow("save");							
+		$dsp->AddContent();
+	}
+		
 }
 
 
