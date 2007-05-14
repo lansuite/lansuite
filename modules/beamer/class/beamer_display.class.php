@@ -82,14 +82,13 @@ class beamer_display {
 
 
 	function viewStartSite() {
-	global $dsp, $lang, $beamermodul, $bcid, $beamerid;
-
+	global $dsp, $lang, $beamermodul, $bcid, $beamerid,$cfg;
 		$dsp->NewContent( $lang['beamer']['beamerstart'] ,"");
-	    $btn1 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=1&fullscreen=yes&sitereload=30", "open", 'Beamerfenster starten');
-	    $btn2 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=2&fullscreen=yes&sitereload=30", "open", 'Beamerfenster starten');
-	    $btn3 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=3&fullscreen=yes&sitereload=30", "open", 'Beamerfenster starten');											
-	    $btn4 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=4&fullscreen=yes&sitereload=30", "open", 'Beamerfenster starten');
-	    $btn5 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=5&fullscreen=yes&sitereload=30", "open", 'Beamerfenster starten');							
+	    $btn1 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=1&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');
+	    $btn2 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=2&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');
+	    $btn3 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=3&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');											
+	    $btn4 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=4&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');
+	    $btn5 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=5&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');							
 		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">1.</font> ".$lang['beamer']['viewcontent'].$btn1." - ".$lang['beamer']['activecontent'].$beamermodul->countContent("1","1")."<p/><br/>");
 		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">2.</font> ".$lang['beamer']['viewcontent'].$btn2." - ".$lang['beamer']['activecontent'].$beamermodul->countContent("1","2")."<p/><br/>");
 		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">3.</font> ".$lang['beamer']['viewcontent'].$btn3." - ".$lang['beamer']['activecontent'].$beamermodul->countContent("1","3")."<p/><br/>");
@@ -106,22 +105,56 @@ class beamer_display {
 		$dsp->NewContent( $lang['beamer']['newcontent'] );
 		$dsp->AddSingleRow( HTML_NEWLINE."Bitte w&auml;hlen Sie einen Inhaltstyp aus:".HTML_NEWLINE.HTML_NEWLINE);
 		$dsp->SetForm("?mod=beamer&action=newcontent2");
-		$dsp->AddRadioRow("ctype", "Text mit Ls-Code" , 'text' , $errortext = NULL, $optional = NULL, $checked = TRUE, $disabled = NULL);
+		$dsp->AddRadioRow("ctype", "Text (FCKeditor)" , 'text' , $errortext = NULL, $optional = NULL, $checked = TRUE, $disabled = NULL);
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddContent();
 	}
 
 	function viewAddNewContent2() {
 	global $dsp, $lang, $beamermodul, $bcid, $beamerid, $ctype;		
+
 		$dsp->NewContent( $lang['beamer']['newcontent'] . " - 2" );
 		$dsp->SetForm("?mod=beamer&action=newcontent3&ctype=".$ctype);
 		$dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", "", "", '50');
 		$dsp->AddTextFieldRow("cmaxrepeats","Wiederholungen: <br/>(0 = Unlimitiert) ","0","","22");
 		$dsp->AddCheckBoxRow("cplaynow","Sofort Anzeigen: <br /><br />An den Anfang der Spielliste. Der Eintrag muss noch aktivieren werden!","","", TRUE);
-		$dsp->AddTextAreaPlusRow("ctext", '','','' );
-		$dsp->AddBackButton();
-		$dsp->AddFormSubmitRow("next");								
+//		$dsp->AddTextAreaPlusRow("ctext", '','','' );
+
+        ob_start();
+        include_once("ext_scripts/FCKeditor/fckeditor.php");
+        $oFCKeditor = new FCKeditor('FCKeditor1') ;
+        $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
+        $oFCKeditor->Value = "";
+        $oFCKeditor->Height = 380;
+        $oFCKeditor->Create();
+        $fcke_content = ob_get_contents();
+        ob_end_clean();
+        $dsp->AddSingleRow($fcke_content);
+
+
+//		$dsp->AddBackButton();
+		$dsp->AddFormSubmitRow("save");							
 		$dsp->AddContent();
+
+
+		
+/*		
+		include_once('inc/classes/class_masterform.php');
+		$mf = new masterform();		
+		$mf->AddField("Bezeichnung" , 'caption');
+		$mf->AddField("Wiederholungen: <br/>(0 = Unlimitiert) " , 'maxRepeats','','',FIELD_OPTIONAL );		
+		switch ($ctype) {
+		
+			case 'text' : 		$mf->AddField("Text" , 'contentData','',HTML_WYSIWYG); break;
+		
+		}
+
+		if ($mf->SendForm('?mod=beamer&action=newcontent2', 'beamer_content', 'bcID')){
+			$dsp->NewContent("");
+			$dsp->AddBackButton("?mod=beamer&action=content","back");
+			$dsp->AddContent;
+		}
+		*/
 	}
 
 
