@@ -1,10 +1,18 @@
 <?php
 
+// Set Error Reporting to "all, but notices"
+error_reporting(E_ALL ^ E_NOTICE);
+#ini_set('display_errors', 0);
+#ini_set('log_errors', 1);
+#ini_set('error_log', 'log/php/');
+
+
 // Sitetool (for compressing the content sending it to the browser)
-if ($_GET['design'] != 'base') {
+if ($_GET["design"] != 'base') {
   include_once("inc/classes/class_sitetool.php");
   $sitetool	= new sitetool('');
 }
+
 $FrameworkMessages = '';
 
 /*
@@ -23,12 +31,6 @@ if ($_GET['load_file']) {
 header('Content-Type: text/html; charset=utf-8');
 #header('Content-Type: application/xhtml+xml; charset=utf-8');
 #header("Cache-Control: no-cache, must-revalidate");
-
-// Set Error Reporting to "all, but notices"
-error_reporting(E_ALL ^ E_NOTICE);
-#ini_set('display_errors', 0);
-#ini_set('log_errors', 1);
-#ini_set('error_log', 'log/php/');
 
 // For XHTML compatibility
 @ini_set('arg_separator.output', '&amp;');
