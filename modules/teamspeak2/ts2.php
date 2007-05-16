@@ -68,7 +68,7 @@
 	// Is the script improperly configured?
   if ($settings["serveraddress"] == "*.*.*.*") { $func->information(t('Kein Teamspeak Server konfiguriert.')); }
 else {
-$dsp->NewContent("TeamSpeak", t('Übersicht der Channels und User auf dem TeamSpeak Server. Um auf den Server zu connecten, einfach auf einen Channel klicken und den Anweisungen folgen.'));
+$dsp->NewContent("TeamSpeak2", t('Übersicht der Channels und User auf dem TeamSpeak Server. Um auf den Server zu connecten, einfach auf einen Channel klicken und den Anweisungen folgen.'));
 $dsp->AddSingleRow("&nbsp");
 ?>
 <table border="0" width="<? echo $cfg['tabellenbreite'] ?>" bgcolor = "<? echo $cfg['hintergrund'] ?>">
