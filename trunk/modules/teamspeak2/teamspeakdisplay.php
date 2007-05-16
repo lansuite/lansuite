@@ -1,4 +1,3 @@
-<link href="modules/teamspeak2/teamspeakdisplay.css" rel="stylesheet" type="text/css">
 <?php
 // Teamspeak Display Preview Release 3
 // Copyright (C) 2005  Guido van Biemen (aka MrGuide@NL)
@@ -287,9 +286,10 @@ class teamspeakDisplayClass {
 	}
 	
 	function _formatTime($totaltime) {
-		$hours = floor($totaltime / 3600);
+		$days = floor($totaltime / 86400);
+		$hours = floor(($totaltime % 86400) / 3600);
 		$minutes = floor(($totaltime % 3600) / 60);
-		return (($hours < 10) ? "0" : "") . $hours . ":" . (($minutes < 10) ? "0" : "") . $minutes;
+		return ($days . "D " . (($hours < 10 ) ? "0" : "") . $hours . "h:" . (($minutes < 10) ? "0" : "") . $minutes . "min");
 	}
 	
 	// Returns the codec name
@@ -324,6 +324,7 @@ class teamspeakDisplayClass {
 	// very readable... well what shall I say about it... it was hard to write so it should
 	// be hard to read >:)
 	function displayTeamspeakEx($settings) {
+		global $cfg;
 		$serverInfo = $this->queryTeamspeakServerEx($settings);
 		
 		echo("<div id=\"teamspeakdisplay\">\n");
@@ -372,12 +373,19 @@ class teamspeakDisplayClass {
 			echo("		return;\n");
 			echo("	}\n");
 			echo("	serveraddress = serveraddress + \"/nickname=\" + escape(nickname);\n");
-			if ($serverInfo["serverinfo"]["server_password"] == "1") {
+			if (($serverInfo["serverinfo"]["server_password"] == "1") and ($cfg['serverpassword'] == null )) {
 				echo("	var password=window.prompt('".t('Teamspeak Server Passwort eintragen für')." " . $serverInfo["serverinfo"]["server_name"] . "', '');\n");
 				echo("	if (password == null) {\n");
 				echo("		return;\n");
 				echo("	} else if (password == \"\") {\n");
 				echo("		window.alert('".t('Konnte nicht zum Server verbinden, da Sie kein Teamspeak Server Passwort eingetragen haben')."');\n");
+				echo("		return;\n");
+				echo("	}\n");
+				echo("	serveraddress = serveraddress + \"?password=\" + escape(password);\n");
+			}
+			if (($serverInfo["serverinfo"]["server_password"] == "1") and ($cfg['serverpassword'] != null )) {
+				echo("	var password=('". $cfg['serverpassword'] ."');\n");
+				echo("	if (password == null) {\n");
 				echo("		return;\n");
 				echo("	}\n");
 				echo("	serveraddress = serveraddress + \"?password=\" + escape(password);\n");
@@ -447,6 +455,7 @@ class teamspeakDisplayClass {
 				echo("</td><td class=\"teamspeakchannel\" title=\"" . $popupInfo . "\">");
 				echo("<a class=\"teamspeakchannel\" href=\"javascript:enterChannel_" . $jsTeamspeakId . "('" . str_replace("'", "\'", $channelInfo["channelname"]) . "', " . (($channelInfo["password"]) == "1" ? "true" : "false") . ");\">");
 				echo(str_replace(" ", "&nbsp;", htmlspecialchars($channelInfo["displayname"])));
+				echo(" - (" .$currentplayers ."/" . $channelInfo["maxplayers"]) .")";
 				echo("</a>");
 				echo("</td></tr></table>\n");
 				
@@ -494,6 +503,7 @@ class teamspeakDisplayClass {
 					echo("</td><td class=\"teamspeaksubchannel\" title=\"" . $popupInfo . "\">");
 					echo("<a class=\"teamspeaksubchannel\" href=\"javascript:enterSubChannel_" . $jsTeamspeakId . "('" . str_replace("'", "\'", $channelInfo["channelname"]) . "', " . (($channelInfo["password"]) == "1" ? "true" : "false") . ", '" . str_replace("'", "\'", $subchannelInfo["channelname"]) . "');\">");
 					echo(str_replace(" ", "&nbsp;", htmlspecialchars($subchannelInfo["displayname"])));
+					echo(" - (" .$currentplayers ."/" .$channelInfo["maxplayers"]) .")";
 					echo("</a>");
 					echo("</td></tr></table>\n");
 					
@@ -531,6 +541,12 @@ class teamspeakDisplayClass {
 				$counter++;
 			} }
 		}
+		echo("<br>");
+		echo("<table><tr><td><img src=\"ext_inc/teamspeak2/teamspeak_online.png\"></td><td class=\"teamspeakserver\">Server-Infos</td></table>");
+		echo("<table><tr><td><img src=\"ext_inc/teamspeak2/treeimage2.png\"><img src=\"ext_inc/teamspeak2/channel.png\"></td><td class=\"teamspeakchannel\">Traffic:</td><td class=\"teamspeakserver\">" . number_format(((($serverInfo["serverinfo"]["server_bytessend"])+($serverInfo["serverinfo"]["server_bytesreceived"]))/1048576),2 , ',' , '.') . " MB</td>");
+		echo("<tr><td><img src=\"ext_inc/teamspeak2/treeimage2.png\"><img src=\"ext_inc/teamspeak2/channel.png\"></td><td class=\"teamspeakchannel\">Uptime:</td><td class=\"teamspeakserver\">" . $this->_formatTime($serverInfo["serverinfo"]["server_uptime"]) . "</td>");
+		echo("<tr><td><img src=\"ext_inc/teamspeak2/treeimage3.png\"><img src=\"ext_inc/teamspeak2/player_normal.png\"></td><td class=\"teamspeakchannel\">User online: </td><td class=\"teamspeakserver\">" . $serverInfo["serverinfo"]["server_currentusers"] . "/" . $serverInfo["serverinfo"]["server_maxusers"] . "</td>");
+		echo("</td></tr></table>");
 		echo("</div>\n");
 	}
 	
