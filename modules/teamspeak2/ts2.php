@@ -77,13 +77,12 @@ $dsp->AddSingleRow("&nbsp");
 <?php
 	// Display the Teamspeak server
 	$teamspeakDisplay->displayTeamspeakEx($settings);
-	
+			echo("<br>");
 	// Display autorefresh status and control link:
-	echo("<br>\n");
 	if ($autorefresh == 0) {
-		echo("Autorefresh: <font color=red><b>". t('AUS') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=1\">". t('Aktivieren') ."</a>)<br>\n");
+    echo("<img src=\"ext_inc/teamspeak2/refresh_off.gif\"> <b>Autorefresh:</b> <font color=red><b>". t('AUS') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=1\">". t('Aktivieren') ."</a>)<br>\n");
 	} else if ($autorefresh == 1) {
-		echo("Autorefresh: <font color=green><b>". t('AN') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=0\">". t('Deaktivieren') ."</a>)<br>\n");
+		echo("<img src=\"ext_inc/teamspeak2/refresh_on.gif\"> <b>Autorefresh:</b> <font color=green><b>". t('AN') ."</b></font> (<a href=\"" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=0\">". t('Deaktivieren') ."</a>)<br>\n");
 	}
 ?>
   </td>
