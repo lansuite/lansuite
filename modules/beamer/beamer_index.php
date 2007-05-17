@@ -36,7 +36,7 @@
 							switch ($ctype) {
 								case 'text'		: $newContent['text'] = $_POST['FCKeditor1'];	break;
 								case 'wrapper'	: 
-													$newContent['text'] = $_POST['curl'] ."||".	$_POST['choehe'] ."||".	$_POST['cbreite'];
+													$newContent['text'] = $_POST['curl'] ."*".	$_POST['choehe'] ."*".	$_POST['cbreite'];
 												break;							
 							}
 							$beamermodul->saveContent( $newContent );
