@@ -83,6 +83,8 @@ class beamer {
 
   function saveContent ( $c ) {
   global $config, $db;
+  
+  echo $c['type'];
 
 	$lastview = time();
   	if ( !$c['bcid'] ) 
@@ -118,7 +120,22 @@ class beamer {
   	$row = $db->query_first('SELECT * FROM ' . $config["tables"]["beamer_content"] . ' WHERE active = 1 AND b'.$beamerid.' = 1  '.
 							'ORDER BY lastView ASC');
 	$update = $db->query('UPDATE ' . $config["tables"]["beamer_content"].' SET lastView = '.time().' WHERE bcID = '.$row['bcID'].' LIMIT 1');
-	return $row['contentData'];
+	
+	
+	switch ( $row['contentType'] ) {
+	
+		case 'text': 	return $row['contentData']; break;
+		case 'wrapper':
+							
+							$arr = explode( "*" , $row['contentData'] );
+							$iframe = "<center><iframe src={$arr[0]} frameborder=\"0\" width=\"{$arr[1]}\" height=\"{$arr[2]}\"></iframe></center>";
+							echo $iframe;
+		
+					break;
+
+	
+	
+	}
   
   
   }  

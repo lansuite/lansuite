@@ -6,7 +6,7 @@
  // die wichtigsten GET Übergaben sammeln und prüfen
  if( $_GET['beamerid'] ) {  $beamerid = substr( $_GET['beamerid'], 0, 3 );	 }	// SQL Injection Vorbeugen   
  if( $_GET['bcid'] ) {  $bcid = substr( $_GET['bcid'], 0, 3 );	 }	// SQL Injection Vorbeugen   
- if( $_POST['ctype'] ) {  $ctype = substr( $_POST['ctype'], 0, 6 );	 }	// SQL Injection Vorbeugen   
+ if( $_REQUEST['ctype'] ) {  $ctype = substr( $_REQUEST['ctype'], 0, 7 );	 }	// SQL Injection Vorbeugen   
  $action = $_GET['action'];
  
  
@@ -25,12 +25,20 @@
 	case 'newcontent2'	:	$beamerdisplay->viewAddNewContent2(); break;
 	
 	case 'savecontent'	:	
+							echo $ctype;
+	
+	
 							if ( $bcid ) { $newContent['bcid'] = $bcid; }
-							$newContent['type'] = $_GET['ctype'];
+							$newContent['type'] = $ctype;
 							$newContent['caption'] = $_POST['ccaption'];
 							$newContent['maxrepeats'] = $_POST['cmaxrepeats'];
 							$newContent['playnow'] = $_POST['cplaynow'];
-							$newContent['text'] = $_POST['FCKeditor1'];							
+							switch ($ctype) {
+								case 'text'		: $newContent['text'] = $_POST['FCKeditor1'];	break;
+								case 'wrapper'	: 
+													$newContent['text'] = $_POST['curl'] ."||".	$_POST['choehe'] ."||".	$_POST['cbreite'];
+												break;							
+							}
 							$beamermodul->saveContent( $newContent );
 							$beamerdisplay->viewContent();
 						break;

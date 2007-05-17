@@ -23,7 +23,7 @@
 			</field>
 			<field>
 				<name>contentType</name>
-				<type>enum('text', 'video', 'audio', 'image', 'turnier')</type>
+				<type>enum('text', 'wrapper', 'video', 'audio', 'image', 'turnier')</type>
 				<null></null>
 				<key></key>
 				<default>text</default>
