@@ -19,8 +19,8 @@ $ms2->AddTextSearchField('Mail', array('m.subject' => 'fulltext', 'm.msgbody' =>
 $ms2->AddTextSearchField($lang['mail']['showmail_mail_to'], array('u.userid' => 'exact', 'u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
 
 $ms2->AddSelect('u.userid');
-$ms2->AddResultField($lang['mail']['showmail_mail_to'], 'u.username', 'UserNameAndIcon','',100);
 $ms2->AddResultField($lang['mail']['newsletter_subject'], 'm.subject', '', 160);
+$ms2->AddResultField($lang['mail']['showmail_mail_to'], 'u.username', 'UserNameAndIcon','',100);
 $ms2->AddResultField($lang['mail']['showmail_mail_send'], 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate','',75);
 $ms2->AddResultField($lang['mail']['showmail_mail_read'], 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate','',45);
 

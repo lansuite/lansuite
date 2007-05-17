@@ -66,9 +66,9 @@ if ($auth['userid']) {
 
   $ms2->AddSelect('u.userid');
 
-  $ms2->AddResultField('Status', 'm.des_status', 'MailStatus', '',80);
-  $ms2->AddResultField($lang['mail']['showmail_mail_from'], 'u.username', 'UserNameAndIcon','',100);
   $ms2->AddResultField($lang['mail']['newsletter_subject'], 'm.subject', '', 160);
+  $ms2->AddResultField($lang['mail']['showmail_mail_from'], 'u.username', 'UserNameAndIcon','',100);
+  $ms2->AddResultField('Status', 'm.des_status', 'MailStatus', '',80);
   $ms2->AddResultField($lang['mail']['showmail_mail_send'], 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate','',70);
   $ms2->AddResultField($lang['mail']['showmail_mail_read'], 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate','',20);
     
