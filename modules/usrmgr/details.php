@@ -336,10 +336,10 @@ else {
 
   if ($auth['type'] >= 2) $buttons = $dsp->FetchSpanButton(t('Benutzerübersicht'), 'index.php?mod='. $_GET['mod'] .'&action=search').' ';
   else $buttons = $dsp->FetchSpanButton(t('Benutzerübersicht'), 'index.php?mod=guestlist&action=guestlist').' ';
-  $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['user']} WHERE userid = ". ($_GET['userid'] - 1));
-  if ($row['found']) $buttons .= $dsp->FetchSpanButton(t('Vorheriger Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. ($_GET['userid'] - 1)).' ';
-  $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['user']} WHERE userid = ". ($_GET['userid'] + 1));
-  if ($row['found']) $buttons .= $dsp->FetchSpanButton(t('Nächster Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. ($_GET['userid'] + 1));
+  $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE type > 0 AND userid < %int%', $_GET['userid']);
+  if ($row['userid']) $buttons .= $dsp->FetchSpanButton(t('Vorheriger Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. $row['userid']).' ';
+  $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE type > 0 AND userid > %int%', $_GET['userid']);
+  if ($row['userid']) $buttons .= $dsp->FetchSpanButton(t('Nächster Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. $row['userid']);
 
   $dsp->AddDoubleRow('', $buttons);
 	$dsp->AddContent();
