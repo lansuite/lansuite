@@ -213,6 +213,25 @@ switch ($_GET['step']) {
     $export->ExportMod($_GET['file'], 0, 0, 1);
     $export->LSTableFoot();
   break;
+
+
+  // Translate Item
+  case 40:
+    $dsp->NewContent(t('Modul übersetzen'), '');
+
+    include_once('inc/classes/class_masterform.php');
+    $mf = new masterform();
+    $mf->AddField(t('Orginal-Text'), 'org', IS_NOT_CHANGEABLE);
+    $mf->AddField(t('Deutsch'), 'de', '', '', FIELD_OPTIONAL);
+    $mf->AddField(t('Englisch'), 'en', '', '', FIELD_OPTIONAL);
+    $mf->AddField(t('Spanisch'), 'es', '', '', FIELD_OPTIONAL);
+    $mf->AddField(t('Französisch'), 'fr', '', '', FIELD_OPTIONAL);
+    $mf->AddField(t('Holländisch'), 'nl', '', '', FIELD_OPTIONAL);
+    $mf->AddField(t('Italienisch'), 'it', '', '', FIELD_OPTIONAL);
+    $mf->SendForm('index.php?mod=misc&action=translation&step=40', 'translation', 'id', $_GET['id']);
+
+    $dsp->AddBackButton('index.php?mod=misc&action=translation');
+  break;
 }
 $dsp->AddContent();
 ?>

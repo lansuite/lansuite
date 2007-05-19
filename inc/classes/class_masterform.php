@@ -13,6 +13,7 @@ define('IS_FILE_UPLOAD', 5);
 define('IS_PICTURE_SELECT', 6);
 define('IS_TEXT_MESSAGE', 7);
 define('IS_CAPTCHA', 8);
+define('IS_NOT_CHANGEABLE', 9);
 
 define('READ_DB_PROC', 0);
 define('CHECK_ERROR_PROC', 1);
@@ -66,7 +67,7 @@ class masterform {
   }
 
   function AddField($caption, $name, $type = '', $selections = '', $optional = 0, $callback = '', $DependOnThis = 0, $DependOnCriteria = '') {
-    if ($type == IS_TEXT_MESSAGE) $optional = 1;
+    if ($type == IS_TEXT_MESSAGE or $type == IS_NOT_CHANGEABLE) $optional = 1;
     $arr = array();
     $arr['caption'] = $caption;
     $arr['name'] = $name;
@@ -459,7 +460,8 @@ class masterform {
               break;
 
               default: // Normal Textfield
-                $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
+                ($field['type'] == IS_NOT_CHANGEABLE)? $not_changeable = 1 : $not_changeable = 0;
+                $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], $not_changeable);
               break;
             }
 

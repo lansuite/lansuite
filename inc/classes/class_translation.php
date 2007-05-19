@@ -2,12 +2,17 @@
 
 $TranslationFirstRun = 1;
 
-function ReplaceParameters($input, $parameters = NULL) {
+function ReplaceParameters($input, $parameters = NULL, $key = NULL) {
+  global $cfg, $auth;
+  
   $z = 1;
   if ($parameters) foreach ($parameters as $parameter) {
     $input = str_replace('%'.$z, $parameter, $input);
     $z++;
   }
+  
+  if ($key and $auth['type'] >= 2 and $cfg['show_translation_links']) $input .= ' <a href=index.php?mod=misc&action=translation&step=40&id='. $key .'><img src=design/images/icon_translate.png height=10 width=10 border=0></a>';
+  
   return $input;
 }
 
@@ -30,14 +35,14 @@ function t($input, $parameters = NULL) {
 
   // Already in $lang?
   $key = md5($input);
-  if ($lang[$key] != '') return ReplaceParameters($lang[$key], $parameters);
+  if ($lang[$key] != '') return ReplaceParameters($lang[$key], $parameters, $key);
 
   // Read from DB
   else {
     $row = $db->qry_first('SELECT id, org, '. $language .' FROM %prefix%translation'. $long .' WHERE id = %string%', $key);
     ($row[$language])? $lang[$row['id']] = $row[$language] : $lang[$row['id']] = $row['org'];
     if ($lang[$key] != '') return ReplaceParameters($lang[$key], $parameters);
-    else return ReplaceParameters($input, $parameters);
+    else return ReplaceParameters($input, $parameters, $key);
   }
 
 /*
