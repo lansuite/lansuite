@@ -44,22 +44,12 @@
 	<entry>
 		<action>ipgen</action>
 		<file>ipgen</file>
-		<caption>IPs generieren</caption>
-		<hint></hint>
-		<link>?mod=seating&action=ipgen</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>ip</action>
 		<file>ip</file>
-		<caption>IPs ändern</caption>
-		<hint>Hier können Sie die IP eines Sitzplatzes &auml;ndern</hint>
-		<link>?mod=seating&action=ip</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>ipprint</action>

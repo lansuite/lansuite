@@ -210,17 +210,17 @@ switch($_GET["step"]) {
 			(file_exists("modules/{$row["name"]}/icon.gif"))? $templ['ls']['row']['module']['img'] = "modules/{$row["name"]}/icon.gif"
 			: $templ['ls']['row']['module']['img'] = "modules/sample/icon.gif";
 
-			if (FindCfgKeyForMod($row["name"])) $templ['ls']['row']['module']['settings_link'] = " | <a href=\"index.php?mod=install&action=modules&step=10&module={$row["name"]}\">{$lang["install"]["modules_config"]}</a>";
+			if (FindCfgKeyForMod($row["name"])) $templ['ls']['row']['module']['settings_link'] = " | <a href=\"http://localhost/lansuite/ls_cvs/index.php?mod=install&action=mod_cfg&step=10&module={$row["name"]}\">". t('Konfig.') ."</a>";
 			else $templ['ls']['row']['module']['settings_link'] = "";
 
 			$find_mod = $db->query_first("SELECT module
 					FROM {$config["tables"]["menu"]}
 					WHERE module='{$row["name"]}'
 					");
-			if ($find_mod["module"]) $templ['ls']['row']['module']['menu_link'] = " | <a href=\"index.php?mod=install&action=modules&step=20&module={$row["name"]}\">{$lang["install"]["modules_menu"]}</a>";
+			if ($find_mod["module"]) $templ['ls']['row']['module']['menu_link'] = " | <a href=\"http://localhost/lansuite/ls_cvs/index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}\">". t('Menü') ."</a>";
 			else $templ['ls']['row']['module']['menu_link'] = "";
 
-			if (file_exists("modules/{$row["name"]}/mod_settings/db.xml")) $templ['ls']['row']['module']['db_link'] = " | <a href=\"index.php?mod=install&action=modules&step=30&module={$row["name"]}\">{$lang["install"]["modules_db"]}</a>";
+			if (file_exists("modules/{$row["name"]}/mod_settings/db.xml")) $templ['ls']['row']['module']['db_link'] = " | <a href=\"http://localhost/lansuite/ls_cvs/index.php?mod=install&action=mod_cfg&step=40&module={$row["name"]}\">". t('DB') ."</a>";
 			else $templ['ls']['row']['module']['db_link'] = "";
 
 			if (file_exists("modules/{$row["name"]}/docu/{$language}_help.php")) {

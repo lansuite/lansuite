@@ -330,6 +330,7 @@ class seat2 {
       				elseif ($seat_state[$y][$x] == 2 and in_array($seat_userid[$y][$x], $my_clanmates)) $s_state = 9;
       				else $s_state = $seat_state[$y][$x];
 
+              if ($seat_ip[$y][$x] == '') $seat_ip[$y][$x] = '<i>'. t('Keine zugeordnet') .'</i>';
               $templ['seat']['tooltip'] = '';
               switch ($s_state) {
                 case "2":

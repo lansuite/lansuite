@@ -78,6 +78,7 @@ $mf->AddGroup($lang['tourney']['details_reg_limits']);
 
 
 // Times
+if (!$_POST['starttime']) $_POST['starttime'] = date('Y-m-d H:i', $_SESSION['party_info']['partybegin']);
 $mf->AddField($lang["tourney"]["details_startat"], 'starttime', '', '', '', CheckDateInFuture);
 
 $selections = array();
