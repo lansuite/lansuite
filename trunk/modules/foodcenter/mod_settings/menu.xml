@@ -11,6 +11,15 @@
 		<file>show</file>
 	</entry>
 	<entry>
+		<caption>Produktsuche</caption>
+		<hint>Einfacher bestimmte Produkte finden</hint>
+		<link>?mod=foodcenter&action=findproduct</link>
+		<requirement>0</requirement>
+		<level>1</level>
+		<action>findproduct</action>
+		<file>findproduct</file>
+	</entry>
+	<entry>
 		<caption>Bestellungen</caption>
 		<hint>Bestellte Produkte</hint>
 		<link>?mod=foodcenter&action=ordered</link>
