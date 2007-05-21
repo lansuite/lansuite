@@ -84,8 +84,6 @@ class beamer {
   function saveContent ( $c ) {
   global $config, $db;
   
-  echo $c['type'];
-
 	$lastview = time();
   	if ( !$c['bcid'] ) 
 	{
@@ -93,8 +91,7 @@ class beamer {
 								"caption = '{$c['caption']}', maxRepeats = '{$c['maxrepeats']}', ".
 								"contentType = '{$c['type']}', lastView = '$lastview' , contentData = '{$c['text']}' ");
 	} else {
-	  	$update = $db->query( 	"UPDATE {$config['tables']['beamer_content']} SET contentData = '{$c['text']}' WHERE bcid = '$bcid' ");
-	
+	  	$update = $db->query( 	"UPDATE {$config['tables']['beamer_content']} SET contentData = '{$c['text']}' WHERE bcid = '{$c['bcid']}' ");
 	
 	}
   
@@ -128,12 +125,17 @@ class beamer {
 		case 'wrapper':
 							
 							$arr = explode( "*" , $row['contentData'] );
-							$iframe = "<center><iframe src={$arr[0]} frameborder=\"0\" width=\"{$arr[1]}\" height=\"{$arr[2]}\"></iframe></center>";
-							echo $iframe;
+							// $oframe = "<center><object data=\"{$arr[0]}\" type=\"application/x-shockwave-flash\"></center>"; // type="image/svg+xml" width="200" height="200"
+							$iframe = "<center><iframe src=\"{$arr[0]}\" frameborder=\"0\" width=\"{$arr[2]}\" height=\"{$arr[1]}\"></iframe></center>";
+							// $eframe = "<embed src=\"{$arr[0]}\" swLiveConnect=\"false\" type=\"application/x-shockwave-flash\" ".
+							//		  "pluginspage=\"http://www.macromedia.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash\"></embed>";
+							return $iframe;
 		
-					break;
+						break;
 
-	
+		case 'turnier':		$t = "<center><h2>" . $row['caption'] . "</h2><img src=\"ext_inc/tournament_trees/tournament_{$row['contentData']}.png\" border=\"0\"><p />";
+							return $t;
+						break;
 	
 	}
   
@@ -141,6 +143,22 @@ class beamer {
   }  
   
   
+  function getAllTournamentsAsOptionList() {
+  global $db, $config, $func;
+    
+  	$result = $db->query('SELECT tournamentid, name FROM ' . $config["tables"]["tournament_tournaments"] );
+	while ($row = $result->fetch_array(MYSQLI_ASSOC))
+	{
+		$tournaments[] = "<option value=\"{$row['tournamentid']}\">{$row['name']}</option>";
+	}
+	return $tournaments;
+  }
+  
+  function getTournamentNamebyID( $ctid ) {
+  global $db, $config, $func;  
+   	$result = $db->query_first('SELECT name FROM ' . $config["tables"]["tournament_tournaments"] . " WHERE tournamentid ='$ctid'" );
+    return $result['name'];
+  }
   
 }
 

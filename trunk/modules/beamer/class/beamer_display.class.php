@@ -40,6 +40,7 @@ class beamer_display {
 		function formatContentType ( $var ) {
 			if ( $var == "text" ) { return '<img src="design/images/icon_text.png" alt="Text" border="0">'; }
 			if ( $var == "wrapper" ) { return '<img src="design/images/icon_url.png" alt="Bild" border="0">'; }	
+			if ( $var == "turnier" ) { return '<img src="design/images/icon_tree.png" alt="Bild" border="0">'; }				
 		}
 
 
@@ -118,25 +119,21 @@ class beamer_display {
 		$dsp->NewContent( $lang['beamer']['newcontent'] );
 		$dsp->AddSingleRow( HTML_NEWLINE."Bitte w&auml;hlen Sie einen Inhaltstyp aus:".HTML_NEWLINE.HTML_NEWLINE);
 		$dsp->SetForm("?mod=beamer&action=newcontent2");
-		$dsp->AddRadioRow("ctype", "<strong>Text</strong><br /> (FCKeditor, auch Bilder/Flash m&ouml;glich)" , 'text' , $errortext = NULL, $optional = NULL, $checked = TRUE, $disabled = NULL);
+		$dsp->AddRadioRow("ctype", "<strong>Text</strong><br /> (FCKeditor, HTML/Bilder/Flash m&ouml;glich)" , 'text' , $errortext = NULL, $optional = NULL, $checked = TRUE, $disabled = NULL);
 		$dsp->AddRadioRow("ctype", "<strong>Wrapper</strong><br /> (IFrame f&uuml;r Webseiten oder sonstigen Content)" , 'wrapper' , $errortext = NULL, $optional = NULL, $checked = FALSE, $disabled = NULL);
+		$dsp->AddRadioRow("ctype", "<strong>Turnierbaum</strong><br />" , 'turnier' , $errortext = NULL, $optional = NULL, $checked = FALSE, $disabled = NULL);
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddContent();
 	}
 
 	function viewAddNewContent2() {
 	global $dsp, $lang, $beamermodul, $bcid, $beamerid, $ctype;		
-
-//		echo $ctype;
 	
 		$dsp->NewContent( $lang['beamer']['newcontent'] . " - 2" );
 		$dsp->SetForm("?mod=beamer&action=savecontent&ctype=".$ctype);
-		$dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", "", "", '50');
-
-//		$dsp->AddTextFieldRow("cmaxrepeats","Wiederholungen: <br/>(0 = Unlimitiert) ","0","","3");
-//		$dsp->AddCheckBoxRow("cplaynow","Sofort Anzeigen: <br /><br />An den Anfang der Spielliste. Der Eintrag muss noch aktivieren werden!","","", TRUE);
 
 		if($ctype=='text') {
+			$dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", "", "", '50');
 	        ob_start();
 	        include_once("ext_scripts/FCKeditor/fckeditor.php");
 	        $oFCKeditor = new FCKeditor('FCKeditor1') ;
@@ -150,10 +147,19 @@ class beamer_display {
 		}
 		
 		if($ctype=='wrapper') {
+			$dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", "", "", '50');
 			$dsp->AddTextFieldRow("curl", "IFrame URL: ", "", "", '80');
-			$dsp->AddTextFieldRow("choehe", "IFrame H&ouml;he: ", "800", "", '4');			
-			$dsp->AddTextFieldRow("cbreite", "IFrame Breite: ", "720", "", '4');			
+			$dsp->AddTextFieldRow("choehe", "IFrame H&ouml;he: ", "550", "", '4');			
+			$dsp->AddTextFieldRow("cbreite", "IFrame Breite: ", "980", "", '4');			
 		}
+		
+		if($ctype=='turnier') {
+
+			$dsp->AddDropDownFieldRow("ctid", "Turnier: ", $beamermodul->getAllTournamentsAsOptionList() , $errortext, $optional = NULL);
+		
+		
+		}
+		
 		
 		$dsp->AddBackButton();
 		$dsp->AddFormSubmitRow("save");							
@@ -162,18 +168,28 @@ class beamer_display {
 
 	function viewEditContent () {
 	global $dsp, $lang, $beamermodul, $bcid, $beamerid, $ctype;		
-		$contentData = $beamermodul->getContent( $bcid );
+		$content = $beamermodul->getContent( $bcid );
 		$dsp->NewContent( $lang['beamer']['editcontent'] );	
-		$dsp->SetForm("?mod=beamer&action=savecontent&bcid=".$bcid);	
-        ob_start();
-        include_once("ext_scripts/FCKeditor/fckeditor.php");
-        $oFCKeditor = new FCKeditor('FCKeditor1') ;
-        $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
-        $oFCKeditor->Value = $contentData['contentData'];
-        $oFCKeditor->Height = 380;
-        $oFCKeditor->Create();
-        $fcke_content = ob_get_contents();
-        ob_end_clean();
+		$dsp->SetForm("?mod=beamer&action=savecontent&ctype={$content['contentType']}&bcid=".$bcid);	
+
+		if($content['contentType']=='text') {
+	        ob_start();
+	        include_once("ext_scripts/FCKeditor/fckeditor.php");
+	        $oFCKeditor = new FCKeditor('FCKeditor1') ;
+	        $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
+	        $oFCKeditor->Value = $content['contentData'];
+	        $oFCKeditor->Height = 380;
+	        $oFCKeditor->Create();
+	        $fcke_content = ob_get_contents();
+	        ob_end_clean();
+		}
+		if($content['contentType']=='wrapper') {
+			$arr = explode( "*" , $content['contentData'] );
+			$dsp->AddTextFieldRow("curl", "IFrame URL: ", $arr[0] , "", '80');
+			$dsp->AddTextFieldRow("choehe", "IFrame H&ouml;he: ", $arr[1], "", '4');			
+			$dsp->AddTextFieldRow("cbreite", "IFrame Breite: ", $arr[2], "", '4');			
+		}
+			
         $dsp->AddSingleRow($fcke_content);
 		$dsp->AddFormSubmitRow("save");							
 		$dsp->AddContent();
