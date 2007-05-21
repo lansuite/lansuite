@@ -170,8 +170,8 @@ class TourneyTree {
 
                     if ($x == 0) {
                         if ((count($this->wb_teams[$x]) % 2) == 1) {
-                            $this->generateBar($x+1, $y, &$this->wb_tbl);
-                            $this->generateBar($x+1, $y-1, &$this->wb_tbl);
+                            $this->generateBar($x+1, $y, $this->wb_tbl);
+                            $this->generateBar($x+1, $y-1, $this->wb_tbl);
                         }
 
                         if (($row % 2) == 1) {
@@ -187,8 +187,8 @@ class TourneyTree {
                     if ($x > 0 && $x < $this->wb_num_cols && ($x % 2) == 0) {
 
                         if ((count($this->wb_teams[$x/2]) % 2) == 1) {
-                            $this->generateBar($x+1, $y, &$this->wb_tbl);
-                            $this->generateBar($x+1, $y-1, &$this->wb_tbl);
+                            $this->generateBar($x+1, $y, $this->wb_tbl);
+                            $this->generateBar($x+1, $y-1, $this->wb_tbl);
                         }
 
                         $tmp = $this->getPrevCoords($round, $this->wb_indexes);
@@ -223,8 +223,8 @@ class TourneyTree {
                     // first round
                     if ($x == 0) {
                         if ((count($this->lb_teams[$x]) % 2) == 1) {
-                            $this->generateBar($x+1, $y, &$this->lb_tbl);
-                            $this->generateBar($x+1, $y-1, &$this->lb_tbl);
+                            $this->generateBar($x+1, $y, $this->lb_tbl);
+                            $this->generateBar($x+1, $y-1, $this->lb_tbl);
                         }
                         if (($row % 2) == 1 && count($this->lb_teams[$x]) > 0) {
                             $this->lb_tbl[$x][$y] = array_shift($this->lb_teams[$x]);        // insert team
@@ -243,8 +243,8 @@ class TourneyTree {
                     if ($x > 0 && $x < ($this->lb_num_cols-2) && ($x % 2) == 0) {
 
                         if ((count($this->lb_teams[$x/2]) % 2) == 1) {
-                            $this->generateBar($x+1, $y, &$this->lb_tbl);
-                            $this->generateBar($x+1, $y-1, &$this->lb_tbl);
+                            $this->generateBar($x+1, $y, $this->lb_tbl);
+                            $this->generateBar($x+1, $y-1, $this->lb_tbl);
                         }
 
                         $tmp = $this->getPrevCoords($round, $this->lb_indexes);
