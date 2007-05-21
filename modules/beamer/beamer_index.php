@@ -9,6 +9,13 @@
  if( $_REQUEST['ctype'] ) {  $ctype = substr( $_REQUEST['ctype'], 0, 7 );	 }	// SQL Injection Vorbeugen   
  $action = $_GET['action'];
  
+ // debug
+ if( $debug ) {
+	echo "<br/>Ctype: ".$ctype;
+ 	echo "<br/>bcID: ".$bcid;
+	echo "<br/>FCKeditor1-Data: ".$_POST['FCKeditor1'];	
+ }
+ 
  
  // Klasse einbinden und starten
  include_once ('class/beamer.class.php');
@@ -25,19 +32,16 @@
 	case 'newcontent2'	:	$beamerdisplay->viewAddNewContent2(); break;
 	
 	case 'savecontent'	:	
-							echo $ctype;
-	
 	
 							if ( $bcid ) { $newContent['bcid'] = $bcid; }
 							$newContent['type'] = $ctype;
 							$newContent['caption'] = $_POST['ccaption'];
 							$newContent['maxrepeats'] = $_POST['cmaxrepeats'];
-							$newContent['playnow'] = $_POST['cplaynow'];
+
 							switch ($ctype) {
-								case 'text'		: $newContent['text'] = $_POST['FCKeditor1'];	break;
-								case 'wrapper'	: 
-													$newContent['text'] = $_POST['curl'] ."*".	$_POST['choehe'] ."*".	$_POST['cbreite'];
-												break;							
+								case 'text'		: $newContent['text'] = $_POST['FCKeditor1'];  break;
+								case 'wrapper'	: $newContent['text'] = $_POST['curl'] ."*".	$_POST['choehe'] ."*".	$_POST['cbreite'];	break;							
+								case 'turnier'	: $newContent['text'] = $_POST['ctid']; $newContent['caption'] = "Turnierbaum: ".$beamermodul->getTournamentNamebyID($_POST['ctid']); break;							
 							}
 							$beamermodul->saveContent( $newContent );
 							$beamerdisplay->viewContent();
