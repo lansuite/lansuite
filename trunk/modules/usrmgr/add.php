@@ -216,7 +216,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
   include_once('inc/classes/class_masterform.php');
   $mf = new masterform();
 
-  if ($cfg['signon_def_locked']) $mf->AddFix('locked', 1);
+  if ($cfg['signon_def_locked'] and !$_GET['userid']) $mf->AddFix('locked', 1);
   
 /*
   if (count($_POST) == 0) $_POST['signon'] = $party_user['party_id'];
