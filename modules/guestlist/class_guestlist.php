@@ -35,7 +35,7 @@ class guestlist {
   }
 
   function SetNotPaid($userid, $partyid) {
-    global $db, $config, $cfg, $func, $mail, $auth;
+    global $db, $config, $cfg, $func, $mail, $auth, $seat2;
 
     $Messages = array('success' => '', 'error' => '');
 		$db->query('UPDATE '. $config['tables']['party_user'] .' SET paid = 0 WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
