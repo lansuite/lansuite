@@ -17,6 +17,10 @@
  $lang['beamer']['listcontent']		= "Auflistung der Inhalte";
  $lang['beamer']['newcontent']      = "Inhalte hinzuf&uuml;gen";
  $lang['beamer']['editcontent']     = "Inhalt bearbeiten";
+
+ $lang['beamer']['viewModulMainPage_text'] = "Das Modul arbeitet derzeit nur mit dem Template 'simple' und 'beamer' zusammen. F&uuml;r eine schnelle L&ouml;sung erstellen Sie einen zus&auml;tzlichen Account der das Beamer-Template verwendet. Damit haben Sie die besten Ergebnisse im Fullscreen Mode. ".
+ 											 "<p/>Damit es mit jedem anderen Template funktioniert, m&uuml;ssen Sie in ihrem Template im Bereich der Meta-Angaben folgende Codezeilen hinzuf&uuml;gen:<p/> if( \$_GET['sitereload'] ) { echo ... (Restlichen Anweisungsblock bitte as der Design-index.php entnehmen.)  } ";
+
  
  $lang['beamer']['introtext']	= "Mit diesem Modul k&ouml;nnen Sie Texte und anderen Daten f&uuml;r eine Beamerpr&auml;sentation aufbereiten.";
 

@@ -91,7 +91,7 @@ class beamer {
 								"caption = '{$c['caption']}', maxRepeats = '{$c['maxrepeats']}', ".
 								"contentType = '{$c['type']}', lastView = '$lastview' , contentData = '{$c['text']}' ");
 	} else {
-	  	$update = $db->query( 	"UPDATE {$config['tables']['beamer_content']} SET contentData = '{$c['text']}' WHERE bcid = '{$c['bcid']}' ");
+	  	$update = $db->query( 	"UPDATE {$config['tables']['beamer_content']} SET contentData = '{$c['text']}' , caption = '{$c['caption']}' WHERE bcid = '{$c['bcid']}' ");
 	
 	}
   
