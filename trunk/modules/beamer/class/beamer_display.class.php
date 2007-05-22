@@ -16,9 +16,9 @@ class beamer_display {
 		$dsp->AddSingleRow('<br/>'.$lang['beamer']['introtext'].'<br/><br/>'.
 						   $lang['beamer']['activecontent'].$beamermodul->countContent("1").'<br/>'.
 						   $lang['beamer']['totalcontent'].$beamermodul->countContent().
-						   '<br/><br/>'
-							);
-		$dsp->AddSingleRow("<br/>");
+						   '<p />' );
+		$dsp->AddSingleRow('<br />' . $lang['beamer']['viewModulMainPage_text']	);				
+		$dsp->AddSingleRow("<br />");
 		$dsp->AddContent();
 	}
 	
@@ -182,6 +182,7 @@ class beamer_display {
 	        $oFCKeditor->Create();
 	        $fcke_content = ob_get_contents();
 	        ob_end_clean();
+	        $dsp->AddSingleRow($fcke_content);
 		}
 		if($content['contentType']=='wrapper') {
 			$arr = explode( "*" , $content['contentData'] );
@@ -189,8 +190,14 @@ class beamer_display {
 			$dsp->AddTextFieldRow("choehe", "IFrame H&ouml;he: ", $arr[1], "", '4');			
 			$dsp->AddTextFieldRow("cbreite", "IFrame Breite: ", $arr[2], "", '4');			
 		}
-			
-        $dsp->AddSingleRow($fcke_content);
+
+		if($content['contentType']=='turnier') {
+
+			$dsp->AddDropDownFieldRow("ctid", "Turnier: ", $beamermodul->getAllTournamentsAsOptionList() , $errortext, $optional = NULL);
+		
+		
+		}		
+
 		$dsp->AddFormSubmitRow("save");							
 		$dsp->AddContent();
 	}
