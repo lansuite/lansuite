@@ -53,7 +53,7 @@ function OpenWindow(url, name) {
 function OpenPreviewWindow(url, obj) {
   var tmp = obj.action;
   obj.action = url;
-  Preview = window.open('_blank', 'Preview', "width=600,height=200,left=100,top=100");
+  Preview = window.open('_blank', 'Preview', "width=600,height=400,left=100,top=100,resizable=yes,scrollbars=yes");
   obj.target = 'Preview';
   obj.submit();
   Preview.focus();

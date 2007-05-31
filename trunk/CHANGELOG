@@ -6,6 +6,8 @@ Hier bitte die wichtigen Änderungen einfügen :
 
 Version 3
 
+- Bugfix: #397 Vorschau-Popup war nicht großgenug und nicht Scrollbar (KnoX 31.05.2007)
+- Bugfix: #398 ' Im usernamen hatten im Sitzplan zu Problemen geführt (KnoX 31.05.2007)
 - Bugfix: #387 Vorheringer / Nächster Benutzer springt nicht mehr auf gelöschte User (KnoX 19.05.2007)
 - Bugfix: #381 Sitzplätze wurden beim Ändern des Bezhaltstatus auf "nicht bezahlt", nicht wieder freigegeben (KnoX 13.05.2007)
 - Bugfix: #383 Beim editieren eines Sitzplanes war per Default immer die erste Party ausgewählt (KnoX 13.05.2007)
