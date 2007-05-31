@@ -590,7 +590,7 @@ class Install {
 					$config["server_stats"]["uptime"] = 0;
 				} else $config["server_stats"]["uptime"] = 1;
 
-				if (@shell_exec("ifconfig") == ""){
+				if (@shell_exec("/sbin/ifconfig") == "" and @shell_exec("/usr/sbin/ifconfig") == ""){
 					$env_stats .= "<strong>ifconfig</strong>" . HTML_NEWLINE;
 					$config["server_stats"]["ifconfig"] = 0;
 				} else $config["server_stats"]["ifconfig"] = 1;
