@@ -149,7 +149,7 @@ class stats {
 	
 	// Netzwerkdaten 
 	function ifconfig(){
-		exec("/sbin/ifconfig", $ifconfig_output);
+		if (!@exec("/sbin/ifconfig", $ifconfig_output)) exec("/usr/sbin/ifconfig", $ifconfig_output);
 		foreach ($ifconfig_output AS $line) { $network_info .= $line; }
 
 		$RX_bytes = explode("RX bytes:",$network_info);

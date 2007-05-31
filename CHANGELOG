@@ -10,6 +10,7 @@ Version 3
 - Bugfix: #381 Sitzplätze wurden beim Ändern des Bezhaltstatus auf "nicht bezahlt", nicht wieder freigegeben (KnoX 13.05.2007)
 - Bugfix: #383 Beim editieren eines Sitzplanes war per Default immer die erste Party ausgewählt (KnoX 13.05.2007)
 
+- Add: Ifconfig für die Statistiken wird alternativ im /usr Verzeichnis gesucht (KnoX 31.05.2007)
 - Add: #82 Beim erstellen eines Turniers ist nun als Startzeit standardmäßig der Partybegin ausgewählt (KnoX 19.05.2007)
 - Add: IPs im Sitzplan können nun auch für einen Block komplett wieder gelöscht werden (KnoX 19.05.2007)
 - Add: #348 Im Sonstiges-Modul gibt es nun eine Option um hinter jedem übersetzbaren Text einen-Editieren-Link anzuzeigen (KnoX 19.05.2007)
