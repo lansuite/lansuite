@@ -75,7 +75,7 @@ class basket{
 	
 	
 	function change_basket($userid){
-		global $func,$lang;
+		global $func,$lang, $cfg;
 		$ok = true;
 		$this->count = 0;
 		foreach ($_POST as $key => $value){
@@ -92,12 +92,20 @@ class basket{
 		$_SESSION['basket_count'] = $this->count;
 		
 		$this->account = new accounting($userid);
-		if($this->product->count_products_price() <= $this->account->balance){
-			return $ok;
+		
+		// Wird nur ausgeführt wenn Credit-System an
+		if( $cfg['foodcenter_credit'] == 1)
+		{
+			if($this->product->count_products_price() <= $this->account->balance){
+				return $ok;
+			}else{
+				$func->error($lang['foodcenter']['ordered_err_amount'],"index.php?mod=foodcenter&action={$_GET['action']}");
+				return false;
+			}
 		}else{
-			$func->error($lang['foodcenter']['ordered_err_amount'],"index.php?mod=foodcenter&action={$_GET['action']}");
-			return false;
+		return $ok;
 		}
+		
 	}
 	
 	function order_basket($userid, $delivered = 0){

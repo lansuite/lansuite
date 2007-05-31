@@ -23,6 +23,21 @@
   		</entry>
     </entries>
   </typedefinition>
+  <typedefinition>
+    <head>
+      <name>food_credit</name>    
+    </head>
+    <entries>
+  		<entry>
+  			<value>1</value>
+  			<description>AN</description>
+  		</entry>
+  		<entry>
+  			<value>0</value>
+  			<description>AUS</description>
+  		</entry>
+    </entries>
+  </typedefinition>
   <group>
     <head>
       <name>Öffnungszeiten</name>
@@ -82,6 +97,19 @@
     		<type>integer</type>
     		<default></default>
     		<description>Küchen-ID (Lieferanten ID für Küche angeben - muss vorhanden sein)</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Allgemeine Konfiguration</name>
+    </head>
+    <items>
+    	<item>
+    		<name>foodcenter_credit</name>
+    		<type>food_credit</type>
+    		<default>1</default>
+    		<description>Sollen Bestellungen auch ohne Guthaben m�glich sein?</description>
     	</item>
     </items>
   </group>
