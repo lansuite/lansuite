@@ -369,6 +369,7 @@ class seat2 {
   							  $templ['seat']['tooltip'] .= t('Beschreibung') .': '. t('Catering') . HTML_NEWLINE;
                 break;
               }
+              $templ['seat']['tooltip'] = addslashes($templ['seat']['tooltip']);
 
 							if ($templ['seat']['link_href']) {
 								$templ['seat']['link_content'] = $dsp->FetchModTpl('seating', 'plan_cell_img');
