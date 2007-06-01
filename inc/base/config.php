@@ -1,17 +1,17 @@
 ;<? /*
 
 [lansuite]
-version				= "LanSuite v3 CVS"
-default_design			= "simple"
+version				= "LanSuite v3 Beta2"
+default_design			= "osX"
 user_timeout			= "300"
 chmod_dir			= "777"
 chmod_file			= "666"
 
 [environment]
-configured			= "1"
+configured			= "0"
 dir				= ""
 os				= "Win32"
-mq				= "0"
+mq				= "1"
 gd				= "1"
 snmp				= "0"
 ftp				= "1"
