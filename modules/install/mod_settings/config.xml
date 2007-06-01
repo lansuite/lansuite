@@ -121,7 +121,7 @@
     		<name>sys_optional_footer</name>
     		<type>string</type>
     		<default></default>
-    		<description>Fügt den Text als weitere Fooderzeile unter dem bestehendem hinzu. (html-code)</description>
+    		<description>Fügt den Text als weitere Footerzeile unter dem bestehendem hinzu. (html-code)</description>
     	</item>
     	<item>
     		<name>sys_internet</name>
