@@ -35,12 +35,12 @@ $team2 = $db->query_first("SELECT games.round, games.score, games.comment, teams
 		");
 
 
-########## Einschränkungen prüfen
+########## EinschrÃ¤nkungen prÃ¼fen
 if ($tournament["name"] == "") { 
 	$func->error($lang["tourney"]["s_res_err_no_t"], "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
 
 
-########## Keine Einschränkungen gefunden
+########## Keine EinschrÃ¤nkungen gefunden
 } else {
 	switch ($_GET["step"]) {
 		default:
@@ -55,7 +55,7 @@ if ($tournament["name"] == "") {
 
 			$dsp->AddHRuleRow();
 			$dsp->AddSingleRow("<b>{$lang["tourney"]["s_res_submit_score"]}</b>");
-			$dsp->SetForm("index.php?mod=tournament2&action=submit_result&step=2&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
+			$dsp->SetForm("index.php?mod=tournament2&action=submit_result&step=2&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2", '', '', 'multipart/form-data');
 
 			// Write Team 1
 			$disqualify_link = "";
@@ -65,12 +65,12 @@ if ($tournament["name"] == "") {
 				else $disqualify_link = $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team1['teamid']}", "disqualify");
 			}
 */
-			$dsp->AddDoubleRow("<b>{$lang["tourney"]["team"]} 1</b>", "<b>'". $team1['name'] ."'</b>" . $tfunc->button_team_details($team1['teamid'], $tournamentid) . " ". $disqualify_link);
+			$dsp->AddFieldSetStart(t('Team'). ' 1'. $tfunc->button_team_details($team1['teamid'], $tournamentid) . " ". $disqualify_link);
 			$dsp->AddDoubleRow($lang["tourney"]["s_res_teamleader"], $team1['username'] . $func->button_userdetails($team1['userid'], "") . " ({$lang["tourney"]["position"]}: ". $seat2->SeatNameLink($team1['userid'], '', '') .")");
 			$dsp->AddTextFieldRow("score_team1", $lang["tourney"]["s_res_score"], (int) $team1["score"], "");
+			$dsp->AddFieldSetEnd();
 
 			// Write Team 2
-			$dsp->AddHRuleRow();
 			$disqualify_link = "";
 /*  // Disquallifiy droped, due to errors
 			if ($auth["type"] > 1 and $tournament['status'] == "process") {
@@ -78,28 +78,31 @@ if ($tournament["name"] == "") {
 				else $disqualify_link = $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team2['teamid']}", "disqualify");
 			}
 */
-			$dsp->AddDoubleRow("<b>{$lang["tourney"]["team"]} 2</b>", "<b>'". $team2['name'] ."'</b>" . $tfunc->button_team_details($team2['teamid'], $tournamentid) . " ". $disqualify_link);
+			$dsp->AddFieldSetStart(t('Team'). ' 2'. $tfunc->button_team_details($team2['teamid'], $tournamentid) . " ". $disqualify_link);
 			$dsp->AddDoubleRow($lang["tourney"]["s_res_teamleader"], $team2['username'] . $func->button_userdetails($team2['userid'], "") . " ({$lang["tourney"]["position"]}: ". $seat2->SeatNameLink($team2['userid'], '', '') .")");
 			$dsp->AddTextFieldRow("score_team2", $lang["tourney"]["s_res_score"], (int) $team2["score"], "");
+			$dsp->AddFieldSetEnd();
 
 			// Write Comment
-			$dsp->AddHRuleRow();
-			if ($team1['comment'] != "") $dsp->AddDoubleRow("<b>{$lang["tourney"]["s_res_comment"]}</b>", $team1['comment']);
+			$dsp->AddFieldSetStart(t('Anmerkungen'));
+      $dsp->AddFileSelectRow('screenshot', t('Screenshot anhÃ¤ngen'), '', '', '', 1);
+      if (file_exists('ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png'))
+        $dsp->AddDoubleRow(t('Aktuelles Bild'), '<img src="ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png" />');
 
-			// Formular ausgeben
+			if ($team1['comment'] != "") $score_comment = $team1['comment'];
 			$dsp->AddTextAreaPlusRow("score_comment", $lang["tourney"]["s_res_comment"], $score_comment, "", "", "", 1);
 			$dsp->AddFormSubmitRow("result");
-			
+			$dsp->AddFieldSetEnd();
+
 			$buttons = "";
 			$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid", "games");
 			$buttons .= " ". $dsp->FetchButton("index.php?mod=tournament2&action=tree&step=2&tournamentid=$tournamentid", "tree");
 			$dsp->AddDoubleRow("", $buttons);
-			$dsp->AddContent();
 		break;
 
 		// Formular in Datenbank eintragen
 		case 2:
-			## Berechtigungsprüfung
+			## BerechtigungsprÃ¼fung
 			$berechtigt = 0;
 			if ($auth["type"] > 1) $berechtigt = 1;
 			if (($team1['userid'] == $auth["userid"]) && ($score_team1 < $score_team2)) $berechtigt = 1;
@@ -138,6 +141,13 @@ if ($tournament["name"] == "") {
 				$func->information($lang["tourney"]["s_res_err_noresubmit"], "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 
 			} else {
+        // Upload Screenshot
+        $old_file = $func->FileUpload('screenshot', 'ext_inc/tournament_screenshots/');
+        if ($old_file) {
+          unlink('ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png');
+          $gd->CreateThumb($old_file, 'ext_inc/tournament_screenshots/'. $_GET['gameid1'] .'.png', 800, 600);
+        }
+        
 				if (($not_new) && ($qacc != 1)){
 					$func->question($lang["tourney"]["s_res_question_score_submitted"], "index.php?mod=tournament2&action=submit_result&step=2&gameid1=$gameid1&gameid2=$gameid2&tournamentid=$tournamentid&qacc=1&score_team1=$score_team1&score_team2=$score_team2&score_comment=$score_comment", "index.php?mod=tournament2&action=submit_result&step=1&gameid1=$gameid1&gameid2=$gameid2&tournamentid=$tournamentid");
 				} else {
