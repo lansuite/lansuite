@@ -5,6 +5,12 @@ $product_list = new product_list();
 
 $dsp->NewContent(t('Bestellungen'), t('Auflistung deiner aktiven und abgeschlossenen Catering-Bestellungen'));
 
+function GetPriceFormat($price)
+{
+	return number_format($price, 2, ",", ".") . " EUR";
+}
+
+
 $ms2 = new mastersearch2();
 
 $ms2->query['from'] = "{$config['tables']['food_ordering']} AS a
@@ -29,7 +35,7 @@ $ms2->query['where'] = 'userid='. (int)$auth['userid'];
 	$ms2->AddResultField('Titel', 'p.caption');
 	$ms2->AddResultField('Einheit', 'o.unit');
 	$ms2->AddResultField('Anzahl', 'a.pice');
-	$ms2->AddResultField('Preis', 'o.price');
+	$ms2->AddResultField('Preis', 'o.price', 'GetPriceFormat');
 	$ms2->AddResultField('Bestellt', 'a.ordertime', 'MS2GetDate');
 	$ms2->AddResultField('Letzte änderung', 'a.lastchange', 'MS2GetDate');
 	$ms2->AddResultField('Geliefert', 'a.supplytime', 'MS2GetDate');
