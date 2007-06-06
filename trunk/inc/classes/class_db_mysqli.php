@@ -152,8 +152,12 @@ class db {
   	}
 
 
+	function stat() {
+    return @mysqli_stat($GLOBALS['db_link_id']);
+  }
+
 	function get_host_info() {
-		return @mysqli_get_host_info();
+		return @mysqli_get_host_info($GLOBALS['db_link_id']);
 	}
 
 

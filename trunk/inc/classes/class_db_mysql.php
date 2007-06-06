@@ -149,9 +149,12 @@ class db {
 		return @mysql_insert_id($GLOBALS['db_link_id']);
   	}
 
+  function stat() {
+    return @mysql_stat($GLOBALS['db_link_id']);
+  }
 
 	function get_host_info() {
-		return @mysql_get_host_info();
+		return @mysql_get_host_info($GLOBALS['db_link_id']);
 	}
 
 

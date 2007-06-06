@@ -14,8 +14,8 @@
 *
 **************************************************************************/
 
-$status = explode(' ', mysql_stat());
-$hostname = explode(' ', mysql_get_host_info());
+$status = explode(' ', $db->stat());
+$hostname = explode(' ', $db->get_host_info());
 $uptime = explode(".", round($status[1] / 60 / 60, 2));
 
 $dsp->NewContent($lang["stats"]["db_caption"], $lang["stats"]["db_subcaption"]);
