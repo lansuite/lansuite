@@ -8,7 +8,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 
 
 // Sitetool (for compressing the content sending it to the browser)
-if ($_GET["design"] != 'base') {
+if (!isset($_GET['design']) or $_GET['design'] != 'base') {
   include_once("inc/classes/class_sitetool.php");
   $sitetool	= new sitetool('');
 }
@@ -40,10 +40,15 @@ session_save_path('ext_inc/session');
 session_start();
 
 // Analyze current URL
-$CurentURL = @parse_url($_SERVER['REQUEST_URI']);
-$CurentURLBase = str_replace('&contentonly=1', '', $CurentURL['path'].'?'.$CurentURL['query']);
-preg_match('#mod=([a-zA-z0-9]*)[&]*#', $CurentURLBase, $treffer);
-$CurentURLMod = $treffer[1];
+$CurentURL = '';
+$CurentURLBase = '';
+$CurentURLMod = '';
+if (isset($_SERVER['REQUEST_URI'])) {
+	$CurentURL = @parse_url($_SERVER['REQUEST_URI']);
+	$CurentURLBase = str_replace('&contentonly=1', '', $CurentURL['path'].'?'.$CurentURL['query']);
+	preg_match('#mod=([a-zA-z0-9]*)[&]*#', $CurentURLBase, $treffer);
+	$CurentURLMod = $treffer[1];
+}
 
 // load $_POST and $_GET variables
 if (!is_array($_POST)) $_POST = $HTTP_POST_VARS;
@@ -86,15 +91,18 @@ foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) {
 $vars = array_merge((array)$_GET, (array)$_POST);
 
 // Save Path
+$script_filename = '';
 #$script_filename = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1, strlen($_SERVER["SCRIPT_NAME"]));
 #$script_filename = substr($_SERVER["PATH_TRANSLATED"], strrpos($_SERVER["PATH_TRANSLATED"], "/") + 1, strlen($_SERVER["PATH_TRANSLATED"]));
-$script_filename = substr($_SERVER["REQUEST_URI"], strrpos($_SERVER["REQUEST_URI"], "/") + 1, strlen($_SERVER["REQUEST_URI"]));
+if (isset($_SERVER['REQUEST_URI'])) $script_filename = substr($_SERVER["REQUEST_URI"], strrpos($_SERVER["REQUEST_URI"], "/") + 1, strlen($_SERVER["REQUEST_URI"]));
 $script_filename = substr($script_filename, 0, strpos($script_filename, "?"));
 
 
 // Vollbild per GET Parameter ein/ausschalten
-if ($_GET['fullscreen'] == 'yes') 	$_SESSION['lansuite']['fullscreen'] = true;
-elseif ($_GET['fullscreen'] == 'no') 	$_SESSION['lansuite']['fullscreen'] = false;
+if (isset($_GET['fullscreen'])) {
+	if ($_GET['fullscreen'] == 'yes') 	$_SESSION['lansuite']['fullscreen'] = true;
+	elseif ($_GET['fullscreen'] == 'no') 	$_SESSION['lansuite']['fullscreen'] = false;
+}
 
 // Read config-file
 $config	= parse_ini_file('inc/base/config.php', 1);
