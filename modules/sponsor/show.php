@@ -38,6 +38,4 @@ $out .= "</table>";
 $dsp->AddSingleRow($out);
 $dsp->AddBackButton("index.php?mod=sponsor", "sponsor/show");
 $dsp->AddContent();
-
-$sponsoren = $db->query("UPDATE {$config['tables']['sponsor']} SET views=views+1");
 ?>
