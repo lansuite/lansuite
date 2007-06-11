@@ -224,12 +224,14 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
   if (!isset($_POST['paid'])) $_POST['paid'] = $party_user['paid'];
 */
   if (!$DoSignon) {
-    if (!$quick_signon) {
-      // If Admin, Creating a new user, or Missing fields:
-      //   Show Username Field
-      if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) $mf->AddField(t('Benutzername'), 'username');
-      else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, t('Als Benutzer können Sie Ihren Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden Sie sich dazu bitte an einen Administrator.'));
 
+    // If Admin, Creating a new user, or Missing fields:
+    //   Show Username Field
+    ($quick_signon)? $optional = 1 : $optional = 0;
+    if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) $mf->AddField(t('Benutzername'), 'username', '', '', $optional);
+    else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, t('Als Benutzer können Sie Ihren Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden Sie sich dazu bitte an einen Administrator.'));
+
+    if (!$quick_signon) {
       if (ShowField('firstname')) $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
       if (ShowField('lastname')) $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
       $mf->AddGroup(t('Namen'));
