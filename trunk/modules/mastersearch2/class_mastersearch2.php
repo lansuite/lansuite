@@ -1,4 +1,7 @@
 <?php
+
+$ms_number = 0;
+
 class MasterSearch2 {
 	var $query;
 	var $result_field = array();
@@ -15,8 +18,10 @@ class MasterSearch2 {
 
   // Constructor
   function MasterSearch2($module = '') {
-    global $language, $lang;
-    
+    global $language, $lang, $ms_number;
+
+    $ms_number++;
+
     $this->config['EntriesPerPage'] = 20;
     
     $this->query['from'] = '';
@@ -102,9 +107,10 @@ class MasterSearch2 {
   }
 
 	function PrintSearch($working_link, $select_id_field, $multiaction = '') {
-    global $db, $config, $dsp, $templ, $func, $auth, $line, $gd, $lang;
+    global $db, $config, $dsp, $templ, $func, $auth, $line, $gd, $lang, $ms_number;
 
     $working_link .= $this->post_in_get;
+    $working_link .= '&ms_number='. $ms_number;
     $this->AddSelect($select_id_field); 
     $min_skipped_items = 99;
     
@@ -231,7 +237,7 @@ class MasterSearch2 {
     ###### Generate Limit
     if ($_GET['page'] == 'all') $this->query['limit'] = '';
     else {
-      if ($_GET['page'] != '') $page_start = (int)$_GET['page'] * (int)$this->config['EntriesPerPage'];
+      if ($_GET['page'] != '' and (!$_GET['ms_number'] or $_GET['ms_number'] == $ms_number)) $page_start = (int)$_GET['page'] * (int)$this->config['EntriesPerPage'];
       else $page_start = 0;
       $this->query['limit'] = "LIMIT $page_start, ". $this->config['EntriesPerPage'];
     }

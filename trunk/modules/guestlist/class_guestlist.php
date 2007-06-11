@@ -8,7 +8,7 @@ class guestlist {
     if (!$partyid) $func->error(t('Keine Party ausgewählt'));
 
     $Messages = array('success' => '', 'error' => '');
-		$db->query('UPDATE '. $config['tables']['party_user'] .' SET paid = 1 WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
+		$db->query('UPDATE '. $config['tables']['party_user'] .' SET paid = 1, paiddate=NOW() WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
 
 		$row = $db->query_first('SELECT username, email from '. $config['tables']['user'] .' WHERE userid = '. (int)$userid);
 		$row2 = $db->query_first('SELECT name from '. $config['tables']['partys'] .' WHERE party_id = '. (int)$partyid);
@@ -71,7 +71,7 @@ class guestlist {
 		$row = $db->query_first('SELECT paid FROM '. $config['tables']['party_user'] .' WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
 		if (!$row['paid']) return 1;
 
-		$db->query('UPDATE '. $config['tables']['party_user'] .' SET checkin = '. time() .' WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
+		$db->query('UPDATE '. $config['tables']['party_user'] .' SET checkin = NOW() WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
 
     // Log
 		$row = $db->query_first('SELECT username, email from '. $config['tables']['user'] .' WHERE userid = '. (int)$userid);
@@ -86,7 +86,7 @@ class guestlist {
 		$row = $db->query_first('SELECT checkin FROM '. $config['tables']['party_user'] .' WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
 		if (!$row['checkin']) return 1;
 
-		$db->query('UPDATE '. $config['tables']['party_user'] .' SET checkout = '. time() .' WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
+		$db->query('UPDATE '. $config['tables']['party_user'] .' SET checkout = NOW() WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
 
     // Log
 		$row = $db->query_first('SELECT username, email from '. $config['tables']['user'] .' WHERE userid = '. (int)$userid);
