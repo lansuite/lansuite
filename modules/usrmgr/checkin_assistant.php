@@ -32,7 +32,8 @@ else {
 
   	// Wenn Angemeldet: Benutzerauswahl
   	case 2:
-      if ($_GET['signon']) $additional_where = "(p.checkin = '0' OR p.checkout != '0') AND u.type > 0 AND p.party_id = {$party->party_id}";
+#      if ($_GET['signon']) $additional_where = "(p.checkin = '0' OR p.checkout != '0') AND u.type > 0 AND p.party_id = {$party->party_id}";
+      if ($_GET['signon']) $additional_where = "(!p.checkin OR p.checkout) AND u.type > 0 AND p.party_id = {$party->party_id}";
       else $additional_where = "u.type > 0 AND (p.party_id != {$party->party_id} OR p.party_id IS NULL)";
       $current_url = 'index.php?mod=usrmgr&action=entrance&step=2&signon='. $_GET['signon'];
       $target_url = 'index.php?mod=usrmgr&action=entrance&step=3&userid=';
@@ -62,10 +63,11 @@ else {
           user_id = ". (int)$_GET['userid'] .",
           party_id = ". (int)$party->party_id .",
           price_id = 0,
-          checkin = ". time() .",
+          checkin = NOW(),
           paid = 2,
+          paiddate = NOW(),
           seatcontrol = 0,
-          signondate = ". time()
+          signondate = NOW()"
           );
       }
   	break;

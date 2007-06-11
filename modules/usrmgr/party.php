@@ -81,6 +81,7 @@ else {
     
         if ($auth['type'] >= 2) {
           //$mf->AddField('Seatcontrol', 'seatcontrol', '', '', FIELD_OPTIONAL);
+          $mf->AddField(t('Bezahltdatum'), 'paiddate', '', '', FIELD_OPTIONAL);
           $mf->AddField($lang['usrmgr']['checkin'], 'checkin', '', '', FIELD_OPTIONAL);
           $mf->AddField($lang['usrmgr']['checkout'], 'checkout', '', '', FIELD_OPTIONAL);
           $mf->AddField($lang['usrmgr']['signondate'], 'signondate', '', '', FIELD_OPTIONAL);

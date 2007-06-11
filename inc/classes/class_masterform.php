@@ -14,6 +14,7 @@ define('IS_PICTURE_SELECT', 6);
 define('IS_TEXT_MESSAGE', 7);
 define('IS_CAPTCHA', 8);
 define('IS_NOT_CHANGEABLE', 9);
+define('IS_CALLBACK', 10);
 
 define('READ_DB_PROC', 0);
 define('CHECK_ERROR_PROC', 1);

@@ -38,7 +38,7 @@ if (!$cfg['download_use_ftp']) {
 
     // Display Dir-Info-Text from DB
     $row = $db->query_first("SELECT dirid, text, allow_upload FROM {$config['tables']['download_dirs']} WHERE name = '{$_GET['dir']}'");
-    if (!$row['dirid']) {
+    if (!$row['dirid'] and is_dir($BaseDir.$_GET['dir'])) {
       $db->query("INSERT INTO {$config['tables']['download_dirs']} SET name = '{$_GET['dir']}'");
       $row['dirid'] = $db->insert_id();
     }

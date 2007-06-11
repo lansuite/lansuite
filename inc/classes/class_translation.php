@@ -26,7 +26,7 @@ function t($input, $parameters = NULL) {
 
   // Load System, DB and current Mod on first call
   if ($TranslationFirstRun) {
-    $res = $db->qry('SELECT id, org, '. $language .' FROM %prefix%translation WHERE file = \'System\' OR file = \'DB\' OR file = %string%', $_GET['mod']);
+    $res = $db->qry('SELECT id, org, '. addslashes($language) .' FROM %prefix%translation WHERE file = \'System\' OR file = \'DB\' OR file = %string%', $_GET['mod']);
     while ($row = $db->fetch_array($res)) {
       ($row[$language])? $lang[$row['id']] = $row[$language] : $lang[$row['id']] = $row['org'];
     }
@@ -39,7 +39,7 @@ function t($input, $parameters = NULL) {
 
   // Read from DB
   else {
-    $row = $db->qry_first('SELECT id, org, '. $language .' FROM %prefix%translation'. $long .' WHERE id = %string%', $key);
+    $row = $db->qry_first('SELECT id, org, '. addslashes($language) .' FROM %prefix%translation'. $long .' WHERE id = %string%', $key);
     ($row[$language])? $lang[$row['id']] = $row[$language] : $lang[$row['id']] = $row['org'];
     if ($lang[$key] != '') return ReplaceParameters($lang[$key], $parameters);
     else return ReplaceParameters($input, $parameters, $key);
@@ -71,7 +71,7 @@ function t($input, $parameters = NULL) {
 
   // Load System, DB and current Mod on first call
   if ($TranslationFirstRun) {
-    $res = $db->qry('SELECT file, id, org, '. $language .' FROM %prefix%translation WHERE file = \'System\' OR file = \'DB\' OR file = %string%', $mod);
+    $res = $db->qry('SELECT file, id, org, '. addslshes($language) .' FROM %prefix%translation WHERE file = \'System\' OR file = \'DB\' OR file = %string%', $mod);
     while ($row = $db->fetch_array($res)) {
       if ($row['file'] == 'System' or $row['file'] == 'DB') $db_mod = 'initial';
       ($row[$language])? $lang[$db_mod][$row['id']] = $row[$language] : $lang[$db_mod][$row['id']] = $row['org'];
@@ -87,7 +87,7 @@ function t($input, $parameters = NULL) {
   // Read from DB
   else {
     // DB-Query
-    $res = $db->qry('SELECT id, org, '. $language .' FROM %prefix%translation'. $long .' WHERE file = %string%', $mod);
+    $res = $db->qry('SELECT id, org, '. addslashes($language) .' FROM %prefix%translation'. $long .' WHERE file = %string%', $mod);
     while ($row = $db->fetch_array($res)) {
       ($row[$language])? $lang[$mod][$row['id']] = $row[$language] : $lang[$mod][$row['id']] = $row['org'];
     }

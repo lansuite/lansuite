@@ -202,6 +202,7 @@ elseif ($_GET['language']) $_SESSION['language'] = $_GET['language'];
 if ($_SESSION['language']) $language = $_SESSION['language'];
 elseif ($cfg["sys_language"]) $language = $cfg["sys_language"];
 else $language = "de";
+if (strlen($language > 3)) $language = "de"; # For avoiding bad Code-Injections
 
 // Load Barcode System
 $barcode	= new barcode_system();	// Barcode System

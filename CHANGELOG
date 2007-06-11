@@ -6,12 +6,14 @@ Hier bitte die wichtigen Anderungen einfügen :
 
 Version 3.2
 
+- Bugfix: SQL-Fehler, wenn 2 Mastersearchs auf einer Seite eingabeut waren, wie im Bugtracker (KnoX 11.06.2007)
 - Bugfix: #397 Vorschau-Popup war nicht groÃŸgenug und nicht Scrollbar (KnoX 31.05.2007)
 - Bugfix: #398 ' Im usernamen hatten im Sitzplan zu Problemen gefÃ¼hrt (KnoX 31.05.2007)
 - Bugfix: #387 Vorheringer / NÃ¤chster Benutzer springt nicht mehr auf gelÃ¶schte User (KnoX 19.05.2007)
 - Bugfix: #381 SitzplÃ¤tze wurden beim Ã„ndern des Bezhaltstatus auf "nicht bezahlt", nicht wieder freigegeben (KnoX 13.05.2007)
 - Bugfix: #383 Beim editieren eines Sitzplanes war per Default immer die erste Party ausgewÃ¤hlt (KnoX 13.05.2007)
 
+- Add: #372 Feld paiddate, das speichert, wann ein Benutzer auf Bezahlt gesetzt wurde (KnoX 11.06.2007)
 - Add: #401 Beim eintragen eines Turnierergebnises kann nun ein Screenshot mit hochgeladen werden (KnoX 02.06.2007)
 - Add: Ifconfig fÃ¼r die Statistiken wird alternativ im /usr Verzeichnis gesucht (KnoX 31.05.2007)
 - Add: #82 Beim erstellen eines Turniers ist nun als Startzeit standardmÃ¤ÃŸig der Partybegin ausgewÃ¤hlt (KnoX 19.05.2007)
@@ -19,6 +21,9 @@ Version 3.2
 - Add: #348 Im Sonstiges-Modul gibt es nun eine Option um hinter jedem Ã¼bersetzbaren Text einen-Editieren-Link anzuzeigen (KnoX 19.05.2007)
 - Add: Modul-Konfigurations-Ãœbersicht (KnoX 05.05.2007)
 - Add: Mastersearch erweitert, so dass nun auch mehrere Zeilen in einer Tabelle editiert werden kÃ¶nnen (KnoX 05.05.2007)
+
+- Change: rel="nofollow" in BB-Code-Links eingebaut, damit Suchmaschienen User-Links nicht mehr folgen (KnoX 11.06.2007)
+- Change: #372 Felder checkin und checkout sind nun vom Typ datetime, nicht mehr int. (KnoX 11.06.2007)
 
 
 Version 3.1
