@@ -79,14 +79,32 @@ if (!$cfg['download_use_ftp']) {
         }
       }
     }
+
+    // Links
+    $res = $db->qry('SELECT link FROM %prefix%download_urls WHERE dir = %string%', $_GET['dir']);
+    while ($row = $db->fetch_array($res)) {
+      $LinkName = substr($row['link'], strrpos($row['link'], '/') + 1, strlen($row['link']));
+      $dsp->AddSingleRow('<a href="'. $row['link'] .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $LinkName .'</a>');
+    }
+    $db->free_result($res);
+
     $dsp->AddFieldSetEnd();
 
-    // File Upload Box
     if ($auth['type'] >= 2 or ($auth['login'] and $row['allow_upload'])) {
+      // File Upload Box
       $dsp->AddFieldSetStart(t('Datei hochladen'));
       $dsp->SetForm('index.php?mod=downloads&step=20', '', '', 'multipart/form-data');
       $dsp->AddFileSelectRow('upload', t('Datei'), '', '', '', 1);
       $dsp->AddFormSubmitRow('add');
+      $dsp->AddFieldSetEnd();
+
+      // URL Upload Box
+      $dsp->AddFieldSetStart(t('URL verlinken'));
+      include_once('inc/classes/class_masterform.php');
+      $mf = new masterform();
+      $mf->AddField(t('URL'), 'link');
+      $mf->AddFix('dir', $_GET['dir']);
+      $mf->SendForm('index.php?mod=downloads&dir='. $_GET['dir'], 'download_urls', 'urlid', $row['urlid']);
       $dsp->AddFieldSetEnd();
     }
 

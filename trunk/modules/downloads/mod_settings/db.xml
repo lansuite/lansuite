@@ -56,6 +56,37 @@
 	</table>
 	<table>
 		<table_head>
+			<name>download_urls</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>urlid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>dir</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>link</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+	</table>
+	<table>
+		<table_head>
 			<name>download_stats</name>
 		</table_head>
 		<structure>

@@ -13,6 +13,7 @@ Version 3.2
 - Bugfix: #381 SitzplÃ¤tze wurden beim Ã„ndern des Bezhaltstatus auf "nicht bezahlt", nicht wieder freigegeben (KnoX 13.05.2007)
 - Bugfix: #383 Beim editieren eines Sitzplanes war per Default immer die erste Party ausgewÃ¤hlt (KnoX 13.05.2007)
 
+- Add: #315 Im Download-Modul können nun auch URLs als Downloads hinzugefügt werden (KnoX 11.06.2007)
 - Add: #362 Im Einlass-Assistent (Schnell-Modus) kann man nun optional auch einen Benutzernamen eingaben (KnoX 11.06.2007)
 - Add: #362 Im Benutzermanager kann man nun Geld fürs Foodcenter gutschreiben (KnoX 11.06.2007)
 - Add: #372 Feld paiddate, das speichert, wann ein Benutzer auf Bezahlt gesetzt wurde (KnoX 11.06.2007)
