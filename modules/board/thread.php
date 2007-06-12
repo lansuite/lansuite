@@ -82,7 +82,7 @@ elseif ($thread['caption'] != '') {
     $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=delete&tid=$tid", "delete");
   }
 
-	$query = $db->query("SELECT pid, comment, userid, date, ip, file FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date");
+	$query = $db->query("SELECT pid, comment, userid, date, ip, file FROM {$config['tables']['board_posts']} WHERE tid='$tid' ORDER BY date");
 	$count_entrys = $db->num_rows($query);
 	
 	if ($_GET['gotopid']) {
@@ -99,7 +99,7 @@ elseif ($thread['caption'] != '') {
   // Page select
 	if ($count_entrys > $cfg['board_max_posts']){
 		$pages = $func->page_split($_GET['posts_page'], $cfg['board_max_posts'], $count_entrys, "index.php?mod=board&action=thread&tid=$tid", "posts_page");
-		$query = $db->query("SELECT pid, comment, userid, date, ip, file FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date {$pages['sql']}");
+		$query = $db->query("SELECT pid, comment, userid, date, UNIX_TIMESTAMP(changedate) AS changedate, changecount, ip, file FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date {$pages['sql']}");
 	}
   $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
 
@@ -110,6 +110,10 @@ elseif ($thread['caption'] != '') {
 		$templ['board']['thread']['case']['info']['post']['pid'] 		= $pid;
 		$templ['board']['thread']['case']['info']['post']['text'] 		= $func->db2text2html($row["comment"]);
 		$templ['board']['thread']['case']['info']['post']['date'] 		= $func->unixstamp2date($row["date"], "datetime");
+		if ($row['changecount'] > 0) {
+      $templ['board']['thread']['case']['info']['post']['date'] .= '<br />'. t('Geändert') .': '. $row['changecount'] .'x';
+  		$templ['board']['thread']['case']['info']['post']['date'] .= '<br />'. $func->unixstamp2date($row['changedate'], 'datetime');
+    }
 
     if ($row['file']) $templ['board']['thread']['case']['info']['post']['text'] .= $dsp->FetchAttachmentRow($row['file']);
 
@@ -126,7 +130,7 @@ elseif ($thread['caption'] != '') {
 		$templ['board']['thread']['case']['info']['post']['poster']['username'] 	= $userdata["username"] .' '. $dsp->FetchUserIcon($row['userid']);;
 		$templ['board']['thread']['case']['info']['post']['poster']['type'] = $userdata["type"];
 		if ($auth['type'] >= 2) $templ['board']['thread']['case']['info']['post']['poster']['type'] .= '<br />IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>';
-		if (!$cfg['board_ranking'])$templ['board']['thread']['case']['info']['post']['poster']['rank'] = ''; 
+		if (!$cfg['board_ranking'])$templ['board']['thread']['case']['info']['post']['poster']['rank'] = '';
     else $templ['board']['thread']['case']['info']['post']['poster']['rank'] 		= t('Rang') . ': <a href="index.php?mod=board&action=ranking">'. $userdata['rank'] .'</a>';
 		$templ['board']['thread']['case']['info']['post']['poster']['posts'] 		= t('Beiträge') . ': <a href="index.php?mod=board&action=ranking">'. $userdata['posts'] .'</a>';;
 		$templ['board']['thread']['case']['info']['post']['poster']['avatar']		= $userdata["avatar"];
@@ -174,6 +178,9 @@ else {
     $mf->AddFix('date', time());
     $mf->AddFix('userid', $auth['userid']);
     $mf->AddFix('ip', $_SERVER['REMOTE_ADDR']);
+  } else {
+    $mf->AddFix('changedate', 'NOW()');
+    $mf->AddFix('changecount', '++');
   }
   
   if ($pid = $mf->SendForm('index.php?mod=board&action=thread&fid='. $_GET['fid'] .'&tid='. $_GET['tid'].'&gotopid='.$pid, 'board_posts', 'pid', $_GET['pid'])) {

@@ -34,9 +34,11 @@ if ($cfg['user_design_change']) {
   $mf->AddField(t('Design'), 'design', IS_SELECTION, $selections, FIELD_OPTIONAL);
 }
 
+$mf->AddField(t('Mich auf der Karte zeigen') .'|'. t('Meine Adresse in der Besucherkarte anzeigen?'), 'show_me_in_map', '', '', FIELD_OPTIONAL);
+$mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist'), 'lsmail_alert', '', '', FIELD_OPTIONAL);
+
 if ($cfg['user_avatarupload']) $mf->AddField(t('Avatar'), 'avatar_path', IS_FILE_UPLOAD, 'ext_inc/avatare/', FIELD_OPTIONAL, CheckAndResizeUploadPic);
-$mf->AddField(t('Signatur'), 'signature', '', LSCODE_BIG, FIELD_OPTIONAL);
-$mf->AddField(t('Meine Adresse in der Besucherkarte anzeigen?'), 'show_me_in_map', '', '', FIELD_OPTIONAL);
+$mf->AddField(t('Signatur'), 'signature', '', LSCODE_ALLOWED, FIELD_OPTIONAL);
 
 $mf->SendForm('', 'usersettings', 'userid', $auth['userid']);
 ?>

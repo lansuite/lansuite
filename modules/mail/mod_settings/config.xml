@@ -34,7 +34,7 @@
     		<name>mail_use_smtp</name>
     		<type>boolean</type>
     		<default>0</default>
-    		<description>Sollen Internet-Mails per SMTP-versendet werden (Nicht empfohlen)</description>
+    		<description>Sollen Internet-Mails per SMTP-versendet werden (Auf Linux Servern nicht empfohlen)</description>
     	</item>
     	<item>
     		<name>mail_smtp_host</name>

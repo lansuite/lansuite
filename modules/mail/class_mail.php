@@ -26,6 +26,13 @@ class Mail {
 				tx_date		= NOW()
 				");
 		$this->error = 'OK';
+		
+		// Send Info-Mail to receiver
+    if ($cfg['sys_internet']) {
+      $row = $db->qry_first('SELECT u.username, u.email, s.lsmail_alert FROM %prefix%user AS u LEFT JOIN %prefix%usersettings AS s ON u.userid = s.userid WHERE u.userid = %int%', $to_userid);
+  		if ($row['lsmail_alert']) $this->create_inet_mail($row['username'], $row['email'], t('Benachrichtigung: Neue LS-Mail'), t('Sie haben eine neue Lansuite-Mail erhalten. Diese Benachrichtigung können Sie im System unter "Meine Einstellungen" deaktivieren'));
+    }
+
 		return true;
 	}
 
@@ -34,7 +41,7 @@ class Mail {
 		else return false;
 	}
 
-	function create_inet_mail($to_user_name, $to_user_email, $subject_text, $msgbody_text, $from) {
+	function create_inet_mail($to_user_name, $to_user_email, $subject_text, $msgbody_text, $from = '') {
 		global $cfg, $board_config;
 
     // Do not send, when in intranet mode
