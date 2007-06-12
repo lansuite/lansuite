@@ -163,6 +163,22 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>changedate</name>
+				<type>datetime</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>changecount</name>
+				<type>int(6)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>ip</name>
 				<type>varchar(15)</type>
 				<null></null>
