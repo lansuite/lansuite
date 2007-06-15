@@ -10,7 +10,7 @@ class foodcenter_print{
 	var $row_temp = "";
 
 	function foodcenter_print(){
-		global $func;
+		global $func, $auth;
 		if(!file_exists($this->path . $_POST['file']) || $_POST['file'] == ""){
 			header("HTTP/1.0 404 Not Found");
 			exit();
@@ -34,8 +34,8 @@ class foodcenter_print{
 		$time = time();
 		$this->sql();
 		$temp['content'] = $this->row_temp;		
-		$temp['supp'] = $this->GetSupp($_POST['search_dd_input'][2]);
-		$temp['user'] = $this->GetUsername($_POST['search_dd_input'][1]);
+		$temp['supp'] = $this->GetSupp($_POST['search_dd_input'][1]);
+		$temp['user'] = $this->GetUsername((int)$auth['userid']);
 		$temp['time'] = $func->unixstamp2date( $time , "datetime");
 		
 		eval("\$this->output .= \"" .$temp_file. "\";");		
@@ -111,21 +111,15 @@ class foodcenter_print{
 	}
 	
 	function GetUserdata( $userid )	{
-		global $db, $config, $lang;
+		global $db, $config, $lang, $party;
 		if($userid == 'all'){
 			return $lang['foodcenter']['different'];	
 		}else {
 	$get_userdata = $db->query_first("SELECT u.*, s.ip FROM {$config["tables"]["user"]} AS u
-      LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid = u.userid
-      WHERE u.userid = '$userid'");
-			return $get_userdata;
-
-/*
-	$get_userdata = $db->query_first("SELECT u.*, s.* FROM {$config["tables"]["user"]} AS u
-      LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid = u.userid
-	LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid
-      WHERE u.userid = '$userid' AND b.party_id = '{$_SESSION["party_id"]}'");
-*/
+      								LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid = u.userid
+      								LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid
+      WHERE u.userid = '$userid' AND b.party_id = '$party->party_id'");
+	return $get_userdata;
 		}
 	}
 		
@@ -182,25 +176,25 @@ class foodcenter_print{
 		}
 
 
-		if (strtolower($_POST['search_dd_input'][1]) != ""){
-			$search .= "a.status = " . $_POST['search_dd_input'][1] . " AND ";
+		if (strtolower($_POST['search_dd_input'][0]) != ""){
+			$search .= "a.status = " . $_POST['search_dd_input'][0] . " AND ";
 		}
 		
-		if (strtolower($_POST['search_dd_input'][2]) != ""){
-			$search .= "s.supp_id = " . $_POST['search_dd_input'][2] . " AND ";
+		if (strtolower($_POST['search_dd_input'][1]) != ""){
+			$search .= "s.supp_id = " . $_POST['search_dd_input'][1] . " AND ";
 		}
 
-		if (strtolower($_POST['search_dd_input'][3]) != ""){
-			$search .= "a.userid = " . $_POST['search_dd_input'][3] . " AND ";
+		if (strtolower($_POST['search_dd_input'][2]) != ""){
+			$search .= "a.partyid = " . $_POST['search_dd_input'][2] . " AND ";
 		}
 
 		$search .= "1";
 
-		$sql = "SELECT a.*, p.caption, s.* FROM {$config['tables']['food_ordering']} AS a
-		LEFT JOIN {$config['tables']['food_product']} AS p ON a.productid = p.id
-		LEFT JOIN {$config['tables']['food_supp']} AS s ON p.supp_id = s.supp_id
-		WHERE $search
-		ORDER BY p.caption ASC";
+		$sql = "SELECT a.*, p.*, s.* FROM {$config['tables']['food_ordering']} AS a
+								LEFT JOIN {$config['tables']['food_product']} AS p ON a.productid = p.id
+								LEFT JOIN {$config['tables']['food_supp']} AS s ON p.supp_id = s.supp_id
+				WHERE $search
+				ORDER BY p.caption ASC";
 
 		$result = $db->query($sql);
 
@@ -209,7 +203,7 @@ class foodcenter_print{
 			unset($userdata);
 			$userdata = $this->GetUserdata($data['userid']);
 			$row_temp['supp_name'] 			= $data['name'];
-			$row_temp['supp_info'] 			= $data['s_desc'];
+			$row_temp['supp_info'] 			= $data['supp_infos'];
 			$row_temp['product_caption'] 	= $data['caption']; 
 			$row_temp['username'] 			= $userdata['username'];
 			$row_temp['userip'] 			= $userdata['ip'];

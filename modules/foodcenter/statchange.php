@@ -78,10 +78,6 @@ switch ($_GET['step']){
 		  LEFT JOIN {$config['tables']['food_supp']} AS s ON p.supp_id = s.supp_id
 		  LEFT JOIN {$config['tables']['user']} AS u ON u.userid = a.userid";
 
-//$ms2->query['where'] = "a.supplytime = 0";
-
-    //$ms2->AddTextSearchField('Titel', array('p.caption' => 'like'));
-	
 	// Array Abfragen für DropDowns
 	$status_list = array('' => 'Alle');
 	$row = $db->query("SELECT * FROM {$config['tables']['food_status']}");
@@ -111,6 +107,7 @@ switch ($_GET['step']){
 */
     $ms2->AddSelect('u.userid');
     $ms2->AddResultField('Titel', 'p.caption');
+    //$ms2->AddResultField('Option', 'o.caption');
     $ms2->AddResultField('Einheit', 'o.unit');
     $ms2->AddResultField('Anzahl', 'a.pice');
     $ms2->AddResultField('Lieferant', 's.name');
@@ -165,10 +162,13 @@ switch ($_GET['step']){
 		$dsp->SetForm("index.php?mod=foodcenter&action=print&design=base\" target=\"_blank\"","print");
 		$dsp->AddDropDownFieldRow("file",$lang['foodcenter']['template'],$file_array,"");
 		
-		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_input[0]\" value=\"{$_POST['search_input'][0]}\">";
-		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_dd_input[1]\" value=\"{$_POST['search_dd_input'][0]}\">";
-		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_dd_input[2]\" value=\"{$_POST['search_dd_input'][1]}\">";
-		$templ['index']['info']['content'] .= "<input type=\"hidden\" name=\"search_dd_input[3]\" value=\"{$_POST['search_dd_input'][2]}\">";
+		
+
+		echo "<input type=\"hidden\" name=\"search_input[0]\" value=\"{$_POST['search_input'][0]}\">";
+		echo "<input type=\"hidden\" name=\"search_dd_input[0]\" value=\"{$_POST['search_dd_input'][0]}\">";
+		echo "<input type=\"hidden\" name=\"search_dd_input[1]\" value=\"{$_POST['search_dd_input'][1]}\">";
+		echo "<input type=\"hidden\" name=\"search_dd_input[2]\" value=\"{$_POST['search_dd_input'][2]}\">";
+		
 		$dsp->AddFormSubmitRow("print");
 		$dsp->AddContent();
 		break;
