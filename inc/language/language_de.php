@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 	// Global
 	$lang['sys']['yes'] = 'Ja';
@@ -54,7 +54,7 @@
 	$lang['class_func']['sunday'] = 'Sonntag';
 	$lang['class_func']['monday'] = 'Montag';
 	$lang['class_func']['tuesday'] = 'Dienstag';
-	$lang['class_func']['wednesdey'] = 'Mittwoch';
+	$lang['class_func']['wednesday'] = 'Mittwoch';
 	$lang['class_func']['thursday'] = 'Donnerstag';
 	$lang['class_func']['friday'] = 'Freitag';
 	$lang['class_func']['saturday'] = 'Samstag';

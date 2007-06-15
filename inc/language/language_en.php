@@ -53,7 +53,7 @@
 	$lang['class_func']['sunday'] = 'Sunday';
 	$lang['class_func']['monday'] = 'Monday';
 	$lang['class_func']['tuesday'] = 'Tuesday';
-	$lang['class_func']['wednesdey'] = 'Wednesday';
+	$lang['class_func']['wednesday'] = 'Wednesday';
 	$lang['class_func']['thursday'] = 'Thursday';
 	$lang['class_func']['friday'] = 'Friday';
 	$lang['class_func']['saturday'] = 'Saturday';
