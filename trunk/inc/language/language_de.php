@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 	// Global
 	$lang['sys']['yes'] = 'Ja';

@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 define('NO_LINK', -1);
 
 class func {
