@@ -37,7 +37,7 @@ else {
   	// SET TEMPLATE CASE VARS
   	$templ['news']['case']['number'] = $overall_news;
   	$templ_news_case_number_per_site = $howmany;
-  	$templ['news']['show']['case']['control']['pages'] = $pages["html"] ." | <strong><a href=\"index.php?mod=news\">" .t('Zur&uuml;ck') ."</a></strong>";
+  	$templ['news']['show']['case']['control']['pages'] = $pages["html"] ."<strong><a href=\"index.php?mod=news\">" .t('Zur&uuml;ck') ."</a></strong>";
   
   	$dsp->AddSingleRow($dsp->FetchModTpl("news", "show_case"));
   	$dsp->AddContent();
@@ -226,6 +226,10 @@ function page_split_archiv($current_page, $max_entries_per_page, $overall_entrie
 					$page_output .= "&nbsp; Alle";
 				}
 			}
+			
+			if ($page_output != "") {
+   	    $page_output .= " | ";
+      }
 
 			$output["html"] = $page_output;
 			$output["sql"] = $page_sql;
