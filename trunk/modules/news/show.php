@@ -168,7 +168,7 @@ else {
         $tmpSNCode .= "<tr><td colspan=\"2\">&nbsp;</td></tr>";
       }
       $tmpSNCode .= "</table>";
-      $templ['news']['show']['row']['shorted']['title'] = "<strong>" .t('&Auml;tere Mitteilungen') ."</strong>";
+      $templ['news']['show']['row']['shorted']['title'] = "<strong>" .t('&Auml;ltere Mitteilungen') ."</strong>";
       $templ['news']['show']['row']['shorted']['text'] = $tmpSNCode;
       $templ['news']['show']['case']['control']['rows'] .= $dsp->FetchModTpl("news", "show_row_shorted");
       if ($cfg['news_shorted_archiv'] != 0) {
