@@ -20,6 +20,15 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>archive</action>
+		<file>show</file>
+		<caption>Archiv</caption>
+		<hint>Hier k&ouml;nnen Sie &auml;ltere News-Meldungen anschauen</hint>
+		<link>?mod=news&action=show&subaction=archive</link>
+		<requirement>0</requirement>
+		<level>1</level>
+	</entry>
+	<entry>
 		<action>add</action>
 		<file>add</file>
 		<caption>Hinzufügen</caption>
