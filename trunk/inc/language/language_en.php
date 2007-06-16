@@ -60,7 +60,7 @@
 	$lang['class_func']['sunday_short'] = 'So';
 	$lang['class_func']['monday_short'] = 'Mo';
 	$lang['class_func']['tuesday_short'] = 'Tu';
-	$lang['class_func']['wednesday_short'] = 'We';
+	$lang['class_func']['wednesdey_short'] = 'We';
 	$lang['class_func']['thursday_short'] = 'Th';
 	$lang['class_func']['friday_short'] = 'Fr';
 	$lang['class_func']['saturday_short'] = 'Sa';

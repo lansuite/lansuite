@@ -188,7 +188,7 @@ class func {
 				$day[0] = $lang['class_func']['sunday'];
 				$day[1] = $lang['class_func']['monday'];
 				$day[2] = $lang['class_func']['tuesday'];
-				$day[3] = $lang['class_func']['wednesday'];
+				$day[3] = $lang['class_func']['wednesdey'];
 				$day[4] = $lang['class_func']['thursday'];
 				$day[5] = $lang['class_func']['friday'];
 				$day[6] = $lang['class_func']['saturday'];
@@ -202,7 +202,7 @@ class func {
 				$day[0] = $lang['class_func']['sunday'];
 				$day[1] = $lang['class_func']['monday'];
 				$day[2] = $lang['class_func']['tuesday'];
-				$day[3] = $lang['class_func']['wednesday'];
+				$day[3] = $lang['class_func']['wednesdey'];
 				$day[4] = $lang['class_func']['thursday'];
 				$day[5] = $lang['class_func']['friday'];
 				$day[6] = $lang['class_func']['saturday'];
@@ -213,7 +213,7 @@ class func {
 				$day[0] = $lang['class_func']['sunday_short'];
 				$day[1] = $lang['class_func']['monday_short'];
 				$day[2] = $lang['class_func']['tuesday_short'];
-				$day[3] = $lang['class_func']['wednesday_short'];
+				$day[3] = $lang['class_func']['wednesdey_short'];
 				$day[4] = $lang['class_func']['thursday_short'];
 				$day[5] = $lang['class_func']['friday_short'];
 				$day[6] = $lang['class_func']['saturday_short'];
