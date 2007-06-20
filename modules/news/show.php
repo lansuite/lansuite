@@ -85,7 +85,7 @@ else {
     		$get_comments = $db->query_first("SELECT count(*) as number FROM {$config["tables"]["comments"]} WHERE relatedto_id=$newsid AND relatedto_item='news'");
     		
     		if ($get_comments["number"] >= 0) { 
-          $templ['news']['show']['row'][$type]['info']['comments'] = $get_comments["number"]." Kommentar(e)"; 
+          $templ['news']['show']['row'][$type]['info']['comments'] = "<a href=\"index.php?mod=news&action=comment&newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>"; 
         }
     
     		// Buttons
@@ -136,7 +136,7 @@ else {
     		$get_comments = $db->query_first("SELECT count(*) as number FROM {$config["tables"]["comments"]} WHERE relatedto_id=$newsid AND relatedto_item='news'");
     		
     		if ($get_comments["number"] >= 0) { 
-          $templ['news']['show']['row'][$type]['info']['comments'] = $get_comments["number"]." Kommentar(e)"; 
+          $templ['news']['show']['row'][$type]['info']['comments'] = "<a href=\"index.php?mod=news&action=comment&newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>"; 
         }
     
     		// Buttons
