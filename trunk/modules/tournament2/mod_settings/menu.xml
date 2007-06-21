@@ -16,7 +16,7 @@
 		<file>timetable</file>
 		<caption>Zeitplan</caption>
 		<hint>Eine Übersicht über die Zeiten zu denen welches Turnier stattfindet</hint>
-		<link>?mod=tournament2&action=timetable</link>
+		<link>?mod=tournament2&amp;action=timetable</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -41,7 +41,7 @@
 		<file>teammgr</file>
 		<caption>Teammanager</caption>
 		<hint>Hier k&ouml;nnen Sie Ihre Teams verwalten</hint>
-		<link>?mod=tournament2&action=teammgr</link>
+		<link>?mod=tournament2&amp;action=teammgr</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -51,7 +51,7 @@
 		<file>tournaments</file>
 		<caption>Hinzuf&uuml;gen</caption>
 		<hint>Hier k&ouml;nnen Sie ein neues Turnier erstellen</hint>
-		<link>?mod=tournament2&action=add</link>
+		<link>?mod=tournament2&amp;action=add</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -71,7 +71,7 @@
 		<file>teammgr_admin</file>
 		<caption>Teammanager</caption>
 		<hint>Hier k&ouml;nnen Sie Teams verwalten</hint>
-		<link>?mod=tournament2&action=teammgr_admin</link>
+		<link>?mod=tournament2&amp;action=teammgr_admin</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -81,7 +81,7 @@
 		<file>export</file>
 		<caption>Export</caption>
 		<hint>Hier k&ouml;nnen Sie Ergebnisse exportieren</hint>
-		<link>?mod=tournament2&action=export</link>
+		<link>?mod=tournament2&amp;action=export</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

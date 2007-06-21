@@ -16,7 +16,7 @@
 		<file>add</file>
 		<caption>Hinzufügen</caption>
 		<hint>Sponsor hinzufügen</hint>
-		<link>?mod=sponsor&action=add</link>
+		<link>?mod=sponsor&amp;action=add</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -26,7 +26,7 @@
 		<file>add</file>
 		<caption>Verwalten</caption>
 		<hint>Sponsor editieren</hint>
-		<link>?mod=sponsor&action=change</link>
+		<link>?mod=sponsor&amp;action=change</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -36,7 +36,7 @@
 		<file>stats</file>
 		<caption>Statistik</caption>
 		<hint>Statistik</hint>
-		<link>?mod=sponsor&action=stats</link>
+		<link>?mod=sponsor&amp;action=stats</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

@@ -14,7 +14,7 @@
 	<entry>
 		<caption>Suchen</caption>
 		<hint>Durchsuchen Sie die FAQ um schnell zu einer Antwort auf Ihre Frage zu gelangen</hint>
-		<link>?mod=faq&action=search</link>
+		<link>?mod=faq&amp;action=search</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -24,7 +24,7 @@
 		<file>add_item</file>
 		<caption>Frage Hinzuf&uuml;gen</caption>
 		<hint>Eine neue Frage mit Lösung in die FAQ einstellen</hint>
-		<link>?mod=faq&object=item&action=add_item</link>
+		<link>?mod=faq&amp;object=item&action=add_item</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -34,7 +34,7 @@
 		<file>add_cat</file>
 		<caption>Kategorie Hinzuf&uuml;gen</caption>
 		<hint>Eine neue Kategorie definieren, um die Fragen ordnen zu können</hint>
-		<link>?mod=faq&object=cat&action=add_cat</link>
+		<link>?mod=faq&amp;object=cat&amp;action=add_cat</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -44,7 +44,7 @@
 		<file>change_item</file>
 		<caption>Frage/Kategorie &auml;ndern</caption>
 		<hint>Eine Frage oder Kategorie abändern</hint>
-		<link>?mod=faq&object=item&action=change_item</link>
+		<link>?mod=faq&amp;object=item&amp;action=change_item</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -54,7 +54,7 @@
 		<file>delete_cat</file>
 		<caption>Frage/Kategorie l&ouml;schen</caption>
 		<hint>Eine Frage oder Kategorie entfernen</hint>
-		<link>?mod=faq&object=cat&action=delete_cat</link>
+		<link>?mod=faq&amp;object=cat&amp;action=delete_cat</link>
 		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

@@ -16,7 +16,7 @@
 		<file>add</file>
 		<caption>Hinzuf&uuml;gen</caption>
 		<hint></hint>
-		<link>?mod=server&action=add</link>
+		<link>?mod=server&amp;action=add</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

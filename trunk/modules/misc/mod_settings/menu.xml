@@ -6,7 +6,7 @@
 		<file>translation</file>
 		<caption>Sonstiges</caption>
 		<hint></hint>
-		<link>?mod=misc&action=translation</link>
+		<link>?mod=misc&amp;action=translation</link>
 		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>0</level>
@@ -16,7 +16,7 @@
 		<file>translation</file>
 		<caption>Übersetzungen</caption>
 		<hint></hint>
-		<link>?mod=misc&action=translation</link>
+		<link>?mod=misc&amp;action=translation</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -26,7 +26,7 @@
 		<file>log</file>
 		<caption>Logfile</caption>
 		<hint></hint>
-		<link>?mod=misc&action=log</link>
+		<link>?mod=misc&amp;action=log</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -36,7 +36,7 @@
 		<file>ip_block</file>
 		<caption>IP-Blacklist</caption>
 		<hint>Hier k&ouml;nnen Sie IP blocken</hint>
-		<link>?mod=misc&action=ip_block</link>
+		<link>?mod=misc&amp;action=ip_block</link>
 		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

@@ -16,7 +16,7 @@
 		<file>newmail</file>
 		<caption>Mail Senden</caption>
 		<hint>Hier versenden Sie eine Mail</hint>
-		<link>?mod=mail&action=newmail</link>
+		<link>?mod=mail&amp;action=newmail</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -26,7 +26,7 @@
 		<file>outbox</file>
 		<caption>Postausgang</caption>
 		<hint>Ihr Postausgang</hint>
-		<link>?mod=mail&action=outbox</link>
+		<link>?mod=mail&amp;action=outbox</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -36,7 +36,7 @@
 		<file>trashcan</file>
 		<caption>Papierkorb</caption>
 		<hint>Hier finden sie Ihre gel&ouml;schten Mails</hint>
-		<link>?mod=mail&action=trash</link>
+		<link>?mod=mail&amp;action=trash</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -46,7 +46,7 @@
 		<file>newsletter</file>
 		<caption>Rundmail</caption>
 		<hint>Hier können Sie allen Ihren Gästen eine Mail schreiben</hint>
-		<link>?mod=mail&action=newsletter</link>
+		<link>?mod=mail&amp;action=newsletter</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

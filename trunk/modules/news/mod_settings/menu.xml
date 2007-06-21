@@ -15,7 +15,7 @@
 		<file>search</file>
 		<caption>Suchen</caption>
 		<hint>Hier k&ouml;nnen Sie nach News-Meldungen suchen</hint>
-		<link>?mod=news&action=search</link>
+		<link>?mod=news&amp;action=search</link>
 		<requirement>0</requirement>
 		<level>1</level>
 	</entry>
@@ -24,7 +24,7 @@
 		<file>show</file>
 		<caption>Archiv</caption>
 		<hint>Hier k&ouml;nnen Sie &auml;ltere News-Meldungen anschauen</hint>
-		<link>?mod=news&action=show&subaction=archive</link>
+		<link>?mod=news&amp;action=show&amp;subaction=archive</link>
 		<requirement>0</requirement>
 		<level>1</level>
 	</entry>
@@ -33,7 +33,7 @@
 		<file>add</file>
 		<caption>Hinzufügen</caption>
 		<hint>Hier können Sie News-Meldungen hinzufügen</hint>
-		<link>?mod=news&action=add</link>
+		<link>?mod=news&amp;action=add</link>
 		<requirement>2</requirement>
 		<level>1</level>
 	</entry>

@@ -12,7 +12,7 @@
 	<entry>
 		<caption>Bestellen</caption>
 		<hint></hint>
-		<link>?mod=equipment&action=order</link>
+		<link>?mod=equipment&amp;action=order</link>
 		<requirement>0</requirement>
 		<needed_config>sys_internet</needed_config>
 		<level>1</level>
@@ -20,7 +20,7 @@
 	<entry>
 		<caption>Terminliste</caption>
 		<hint></hint>
-		<link>?mod=equipment&action=calendar</link>
+		<link>?mod=equipment&amp;action=calendar</link>
 		<requirement>0</requirement>
 		<needed_config>sys_internet</needed_config>
 		<level>1</level>
@@ -28,7 +28,7 @@
 	<entry>
 		<caption>Terminhistory</caption>
 		<hint></hint>
-		<link>?mod=equipment&action=history</link>
+		<link>?mod=equipment&amp;action=history</link>
 		<requirement>0</requirement>
 		<needed_config>sys_internet</needed_config>
 		<level>1</level>
@@ -36,7 +36,7 @@
 	<entry>
 		<caption>Administration</caption>
 		<hint></hint>
-		<link>?mod=equipment&action=admin</link>
+		<link>?mod=equipment&amp;action=admin</link>
 		<requirement>2</requirement>
 		<needed_config>sys_internet</needed_config>
 		<level>1</level>

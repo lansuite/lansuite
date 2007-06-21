@@ -16,7 +16,7 @@
 		<file>envcheck</file>
 		<caption>System-Test</caption>
 		<hint>Ist ihr System geeignet für Lansuite?</hint>
-		<link>index.php?mod=install&action=envcheck</link>
+		<link>index.php?mod=install&amp;action=envcheck</link>
 		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -41,7 +41,7 @@
 		<file>db</file>
 		<caption>DB-Manager</caption>
 		<hint>Datenbank updaten und verwalten</hint>
-		<link>index.php?mod=install&action=db</link>
+		<link>index.php?mod=install&amp;action=db</link>
 		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -56,7 +56,7 @@
 		<file>modules</file>
 		<caption>Modul-Manager</caption>
 		<hint>Module de/aktivieren und konfigurieren</hint>
-		<link>index.php?mod=install&action=modules</link>
+		<link>index.php?mod=install&amp;action=modules</link>
 		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -66,7 +66,7 @@
 		<file>menu</file>
 		<caption>Menü-Manager</caption>
 		<hint>Menüeinträge verwalten</hint>
-		<link>index.php?mod=install&action=menu</link>
+		<link>index.php?mod=install&amp;action=menu</link>
 		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -81,7 +81,7 @@
 		<file>modules</file>
 		<caption>Konfiguration</caption>
 		<hint>Konfiguration der Module</hint>
-		<link>index.php?mod=install&action=modules&step=10&module=install</link>
+		<link>index.php?mod=install&amp;action=modules&amp;step=10&amp;module=install</link>
 		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -91,7 +91,7 @@
 		<file>import</file>
 		<caption>Import</caption>
 		<hint></hint>
-		<link>index.php?mod=install&action=import</link>
+		<link>index.php?mod=install&amp;action=import</link>
 		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -101,7 +101,7 @@
 		<file>export</file>
 		<caption>Export</caption>
 		<hint></hint>
-		<link>index.php?mod=install&action=export</link>
+		<link>index.php?mod=install&amp;action=export</link>
 		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

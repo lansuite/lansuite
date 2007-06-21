@@ -15,7 +15,7 @@
 		<file>stats</file>
 		<caption>Statistik</caption>
 		<hint>Download-Statistik der einzellnen Dateien</hint>
-		<link>?mod=downloads&action=stats</link>
+		<link>?mod=downloads&amp;action=stats</link>
 		<requirement>0</requirement>
 		<level>1</level>
 	</entry>

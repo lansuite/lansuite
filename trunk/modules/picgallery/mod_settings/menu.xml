@@ -16,7 +16,7 @@
 		<file>hitlist</file>
 		<caption>Hitlist</caption>
 		<hint></hint>
-		<link>?mod=picgallery&action=hitlist</link>
+		<link>?mod=picgallery&amp;action=hitlist</link>
 		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>1</level>

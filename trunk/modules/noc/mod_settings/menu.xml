@@ -16,7 +16,7 @@
 		<file>device_add</file>
 		<caption>Device Hinzuf&uuml;gen</caption>
 		<hint></hint>
-		<link>?mod=noc&action=add_device</link>
+		<link>?mod=noc&amp;action=add_device</link>
 		<requirement>2</requirement>
 		<needed_config>snmp</needed_config>
 		<level>1</level>
@@ -44,7 +44,7 @@
 		<file>find_ip</file>
 		<caption>User finden</caption>
 		<hint></hint>
-		<link>?mod=noc&action=find</link>
+		<link>?mod=noc&amp;action=find</link>
 		<requirement>2</requirement>
 		<needed_config>snmp</needed_config>
 		<level>1</level>
