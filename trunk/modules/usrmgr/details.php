@@ -29,9 +29,10 @@ function GetTypeDescription($type) {
 
 // Select from table_user
 // username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment
-$user_data = $db->qry_first("SELECT u.*, UNIX_TIMESTAMP(u.birthday) AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
+$user_data = $db->qry_first("SELECT u.*, g.*, UNIX_TIMESTAMP(u.birthday) AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
 	FROM %prefix%user AS u
 	LEFT JOIN %prefix%usersettings AS c ON u.userid = c.userid
+	LEFT JOIN %prefix%party_usergroups AS g ON u.group_id = g.group_id
 	LEFT JOIN %prefix%clan AS clan ON u.clanid = clan.clanid
 	LEFT JOIN %prefix%seat_seats AS s ON u.userid = s.userid
 	WHERE u.userid = %int%",
@@ -86,6 +87,11 @@ else {
       $name .= '</td></tr></table>'; 
     	$dsp->AddDoubleRow('Benutzername', $name);
 
+
+      // User group
+      if (!$user_data['group_name']) $dsp->AddDoubleRow(t('Benutzergruppe'), t('Keiner Gruppe zugeordnet'));
+      else $dsp->AddDoubleRow(t('Benutzergruppe'), $user_data['group_name'] .' ['. $user_data['group_id'] .']');
+      
 
 			// Clan
       if ($cfg['signon_show_clan']) {
