@@ -83,15 +83,15 @@ while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '
 					WHERE cfg_module = '$module'
 					");
 			if ($find_config['cfg_key'])
-				$AdminIcons .= $box->LinkItem('index.php?mod=install&action=modules&step=10&module='. $module, t('Konf.'), 'admin', t('Modul-Konfiguration')) .' | ';
+				$AdminIcons .= $box->LinkItem('index.php?mod=install&amp;action=modules&amp;step=10&amp;module='. $module, t('Konf.'), 'admin', t('Modul-Konfiguration')) .' | ';
 
 			if (file_exists("modules/$module/mod_settings/db.xml"))
-				$AdminIcons .= $box->LinkItem('index.php?mod=install&action=modules&step=30&module='. $module, t('DB'), 'admin', t('Datenbank Tabellen dieses Moduls verwalten')) .' | ';
+				$AdminIcons .= $box->LinkItem('index.php?mod=install&amp;action=modules&amp;step=30&amp;module='. $module, t('DB'), 'admin', t('Datenbank Tabellen dieses Moduls verwalten')) .' | ';
 
-			$AdminIcons .= $box->LinkItem('index.php?mod=install&action=modules&step=20&module='. $module, t('Menü'), 'admin', t('Menüeinträge verwalten')) .' | ';
-			$AdminIcons .= $box->LinkItem('index.php?mod=misc&action=translation&step=20&file='. $module, t('Ü'), 'admin', t('Übersetzungen zu diesem Modul'));
+			$AdminIcons .= $box->LinkItem('index.php?mod=install&amp;action=modules&amp;step=20&amp;module='. $module, t('Menü'), 'admin', t('Menüeinträge verwalten')) .' | ';
+			$AdminIcons .= $box->LinkItem('index.php?mod=misc&amp;action=translation&amp;step=20&amp;file='. $module, t('Ü'), 'admin', t('Übersetzungen zu diesem Modul'));
 */
-			$AdminIcons .= $box->LinkItem('index.php?mod=install&action=mod_cfg&module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
+			$AdminIcons .= $box->LinkItem('index.php?mod=install&amp;action=mod_cfg&amp;module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
       $box->EngangedRow('<span class="AdminIcons">'. $AdminIcons .'</span>');
 		}
 	}

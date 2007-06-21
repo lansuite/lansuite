@@ -116,7 +116,7 @@ class boxes {
 		$box_content = str_replace("{title}", $title, $box_content);
 		$box_content = str_replace("{caption}", $caption, $box_content);
 		$box_content = str_replace("{content}", $content, $box_content);
-		$box_content = str_replace("{link_open_close}", "index.php?box_action=change&boxid=$boxid", $box_content);
+		$box_content = str_replace("{link_open_close}", "index.php?box_action=change&amp;boxid=$boxid", $box_content);
 
 		return $box_content;
 	}
