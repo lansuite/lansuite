@@ -9,7 +9,7 @@ if ($cfg['sys_optional_footer']) $dsp->SetVar('footer-line', HTML_NEWLINE . $cfg
 
 ?>
 <a  href="ext_inc/newsfeed/news.xml" title="Latest news feed"><img src="ext_inc/footer_buttons/grey_button-rss.png" onmouseover="this.src='ext_inc/footer_buttons/button-rss.png'" onmouseout="this.src='ext_inc/footer_buttons/grey_button-rss.png'" width="80" height="15" alt="Latest news feed" border="0" /></a>
-<a  href="index.php?mod=about&action=license" rel="license" title="GNU General Public License"><img src="ext_inc/footer_buttons/grey_button_gpl.png" onmouseover="this.src='ext_inc/footer_buttons/button_gpl.png'" onmouseout="this.src='ext_inc/footer_buttons/grey_button_gpl.png'" width="80" height="15" alt="GNU General Public License" border="0" /></a>
+<a  href="index.php?mod=about&amp;action=license" rel="license" title="GNU General Public License"><img src="ext_inc/footer_buttons/grey_button_gpl.png" onmouseover="this.src='ext_inc/footer_buttons/button_gpl.png'" onmouseout="this.src='ext_inc/footer_buttons/grey_button_gpl.png'" width="80" height="15" alt="GNU General Public License" border="0" /></a>
 <a  href="https://www.paypal.com/xclick/business=jochen.jung%40gmx.de&amp;item_name=Lansuite&amp;no_shipping=2&amp;no_note=1&amp;tax=0&amp;currency_code=EUR&amp;lc=DE" title="Donate"><img src="ext_inc/footer_buttons/grey_button-donate.gif" onmouseover="this.src='ext_inc/footer_buttons/button-donate.gif'" onmouseout="this.src='ext_inc/footer_buttons/grey_button-donate.gif'" alt="Donate" width="80" height="15" border="0" /></a>
 <a  href="http://www.php.net" title="Powered by PHP"><img src="ext_inc/footer_buttons/grey_button-php.gif" onmouseover="this.src='ext_inc/footer_buttons/button-php.gif'" onmouseout="this.src='ext_inc/footer_buttons/grey_button-php.gif'" width="80" height="15" alt="Powered by PHP" border="0" /></a>
 <a  href="http://www.mysql.com" title="MySQL Database"><img src="ext_inc/footer_buttons/grey_mysql.gif" onmouseover="this.src='ext_inc/footer_buttons/mysql.gif'" onmouseout="this.src='ext_inc/footer_buttons/grey_mysql.gif'" width="80" height="15" alt="MySQL Database" border="0" /></a>
@@ -22,5 +22,5 @@ if ($cfg['sys_optional_footer']) $dsp->SetVar('footer-line', HTML_NEWLINE . $cfg
 <span class="footer"><a href="index.php?mod=about" class="menu"><?$dsp->EchoVar('version')?> &copy;2001-<?$dsp->EchoVar('year')?></a>
  | DB-Querys: <?$dsp->EchoVar('db-querys')?>
  | Processed in: <?$dsp->EchoVar('processed-in')?> Sec
- | <a href="<?$dsp->EchoVar('url-base')?>&fullscreen=yes" class="menu">Fullscreen</a>
+ | <a href="<?$dsp->EchoVar('url-base')?>&amp;fullscreen=yes" class="menu">Fullscreen</a>
  <?$dsp->EchoVar('footer-line')?></span>
