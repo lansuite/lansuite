@@ -18,7 +18,7 @@ else {
   	$get_newsshorted = $db->query("SELECT from_unixtime(n.date,'%W, %d.%m.%Y'),from_unixtime(n.date,'%H:%i'), n.caption, n.text, u.username, n.newsid FROM	{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC {$pages["sql"]}");
    	while($row=$db->fetch_array($get_newsshorted)) {
       $tmpDate = $func->translate_weekdayname(substr($row[0],0,strpos($row[0],","))) . substr($row[0],strpos($row[0],","));
-      $shortnews[$tmpDate][$row[1]]['caption'] = "<a href=\"index.php?mod=news&action=comment&newsid=" .$row[5] ."\">" .$row[2] ."</a>";
+      $shortnews[$tmpDate][$row[1]]['caption'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=" .$row[5] ."\">" .$row[2] ."</a>";
       $shortnews[$tmpDate][$row[1]]['text'] = substr(strip_tags($row[3]),0,$cfg["news_shorted_length"]) ."...";
       $shortnews[$tmpDate][$row[1]]['username'] = $row[4];
     }
@@ -50,7 +50,7 @@ else {
       //DO PAGED NEWS SHOW
     	// SET PAGE SPLIT
     	if ($cfg["news_count"] == "") $cfg["news_count"] = 5;
-    	$pages = $func->page_split($vars["news_page"], $cfg["news_count"], $overall_news, "index.php?mod=news&action=show", "news_page");
+    	$pages = $func->page_split($vars["news_page"], $cfg["news_count"], $overall_news, "index.php?mod=news&amp;action=show", "news_page");
     
     	//GET NEWS DATA AND ORDER NEWS
     	$get_news = $db->query("SELECT n.*, u.username FROM	{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC {$pages["sql"]}");
@@ -85,16 +85,16 @@ else {
     		$get_comments = $db->query_first("SELECT count(*) as number FROM {$config["tables"]["comments"]} WHERE relatedto_id=$newsid AND relatedto_item='news'");
     		
     		if ($get_comments["number"] >= 0) { 
-          $templ['news']['show']['row'][$type]['info']['comments'] = "<a href=\"index.php?mod=news&action=comment&newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>"; 
+          $templ['news']['show']['row'][$type]['info']['comments'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>"; 
         }
     
     		// Buttons
     		$templ['news']['show']['row'][$type]['control']['buttons'] = "";
     		if ($auth["type"] > 1) {
-    			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&action=change&step=2&newsid=$newsid", "edit") . " ";
-    			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&action=delete&step=2&newsid=$newsid", "delete") . " ";
+    			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid", "edit") . " ";
+    			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid", "delete") . " ";
     		}
-    		$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&action=comment&newsid=$newsid", "quote") . " ";
+    		$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&amp;action=comment&amp;newsid=$newsid", "quote") . " ";
     
     		$templ['news']['show']['case']['control']['rows'] .= $dsp->FetchModTpl("news", "show_row_$type");
     	} // CLOSE WHILE
@@ -136,16 +136,16 @@ else {
     		$get_comments = $db->query_first("SELECT count(*) as number FROM {$config["tables"]["comments"]} WHERE relatedto_id=$newsid AND relatedto_item='news'");
     		
     		if ($get_comments["number"] >= 0) { 
-          $templ['news']['show']['row'][$type]['info']['comments'] = "<a href=\"index.php?mod=news&action=comment&newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>"; 
+          $templ['news']['show']['row'][$type]['info']['comments'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>"; 
         }
     
     		// Buttons
     		$templ['news']['show']['row'][$type]['control']['buttons'] = "";
     		if ($auth["type"] > 1) {
-    			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&action=change&step=2&newsid=$newsid", "edit") . " ";
-    			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&action=delete&step=2&newsid=$newsid", "delete") . " ";
+    			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid", "edit") . " ";
+    			$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid", "delete") . " ";
     		}
-    		$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&action=comment&newsid=$newsid", "quote") . " ";
+    		$templ['news']['show']['row'][$type]['control']['buttons'] .= $dsp->FetchIcon("index.php?mod=news&amp;action=comment&amp;newsid=$newsid", "quote") . " ";
     
     		$templ['news']['show']['case']['control']['rows'] .= $dsp->FetchModTpl("news", "show_row_$type");
     	} // CLOSE WHILE
@@ -154,7 +154,7 @@ else {
     	$get_newsshorted = $db->query("SELECT from_unixtime(n.date,'%W, %d.%m.%Y'),from_unixtime(n.date,'%H:%i'), n.caption, n.text, u.username, n.newsid FROM	{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT " .$cfg["news_complete"] ."," .$cfg["news_shorted"]);
     	while($row=$db->fetch_array($get_newsshorted)) {
     	  $tmpDate = $func->translate_weekdayname(substr($row[0],0,strpos($row[0],","))) . substr($row[0],strpos($row[0],","));
-    	  $shortnews[$tmpDate][$row[1]]['caption'] = "<a href=\"index.php?mod=news&action=comment&newsid=" .$row[5] ."\">" .$row[2] ."</a>";
+    	  $shortnews[$tmpDate][$row[1]]['caption'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=" .$row[5] ."\">" .$row[2] ."</a>";
     	  $shortnews[$tmpDate][$row[1]]['text'] = substr(strip_tags($row[3]),0,$cfg["news_shorted_length"]) ."...";
     	  $shortnews[$tmpDate][$row[1]]['username'] = $row[4];
       }
@@ -172,7 +172,7 @@ else {
       $templ['news']['show']['row']['shorted']['text'] = $tmpSNCode;
       $templ['news']['show']['case']['control']['rows'] .= $dsp->FetchModTpl("news", "show_row_shorted");
       if ($cfg['news_shorted_archiv'] != 0) {
-        $pages["html"] = "<strong><a href=\"index.php?mod=news&action=show&subaction=archive\">" .t('News Archiv') ."</a></strong>";
+        $pages["html"] = "<strong><a href=\"index.php?mod=news&amp;action=show&amp;subaction=archive\">" .t('News Archiv') ."</a></strong>";
       }
     }
   
@@ -205,22 +205,22 @@ function page_split_archiv($current_page, $max_entries_per_page, $overall_entrie
 			if($overall_entries > $max_entries_per_page) {
 				$page_output = ("Seiten: ");
 				if( $current_page != "all" && ($current_page + 1) > 1 ) {
-					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($current_page - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
+					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&amp;" . $var_page_name . "=" . ($current_page - 1) . "&amp;orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
 				}
 				$i = 0;					
 				while($i < ($overall_entries / $max_entries_per_page)) {
 					if($current_page == $i && $current_page != "all") {
 						$page_output .= (" " . ($i + 1));
 					} else {
-						$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . $i . "\">" ."<b>" . ($i + 1) . "</b>" . "</a>");
+						$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&amp;" . $var_page_name . "=" . $i . "\">" ."<b>" . ($i + 1) . "</b>" . "</a>");
 					}
 					$i++;
 				}
 				if($current_page != "all" && ($current_page + 1) < ($overall_entries/$max_entries_per_page)) {
-					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
+					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&amp;" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
 				}
 				if($current_page != "all") {
-					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=all" . "\">" ."<b>" . "Alle" . "</b>" . "</a>");									
+					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&amp;" . $var_page_name . "=all" . "\">" ."<b>" . "Alle" . "</b>" . "</a>");									
 				}
 				if ($current_page == "all") {
 					$page_output .= "&nbsp; Alle";
