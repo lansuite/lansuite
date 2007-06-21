@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>info2_toolbar</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Erweiterte Toolbar</description>
+    	</item>
+    	<item>
+    		<name>info2_use_fckedit</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Eingabe über den WYSIWYG-Editor FCKedit?</description>
+    	</item>
+    	<item>
+    		<name>info2_use_submenus</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Sollen neue Menüpunkte Unterpunkte des Info2-Modules sein?</description>
+    	</item>
+    </items>
+  </group>
+</config>

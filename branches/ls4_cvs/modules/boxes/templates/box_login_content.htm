@@ -1,0 +1,19 @@
+<form name="form_loginbox" method="post" action="{$templ['login']['action']}">
+  <table cellspacing="0" cellpadding="0" width="100%" class="login">
+  <tr><td>
+	  <label for="email" class="copyright">E-Mail</label>
+	  <br /><input name="email" type="text" class="form" id="email" size="18" tabindex="1" />
+	</td><td valign="bottom" align="right">
+	  {$templ['login']['buttons_add']}
+
+	</td></tr><tr><td>
+	  <label for="password" class="copyright">Passwort</label>
+	  <br /><input type="password" name="password" id="password" class="form" size="18" tabindex="2" />
+	</td><td valign="bottom" align="right">
+	  {$templ['login']['buttons_pw']}
+
+  </td></tr><tr><td colspan="2">
+    {$templ['login']['buttons_login']}
+  </td></tr></table>
+</form>
+ 

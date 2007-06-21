@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>t_only_loser_submit</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Nur Verlierer dürfen das Ergebnis eintragen</description>
+    	</item>
+    	<item>
+    		<name>t_coins</name>
+    		<type>int</type>
+    		<default>10</default>
+    		<description>Die Anzahl an Coins, die jedem Turnierteilnehmer von Beginn an zur Verfügung stehen</description>
+    	</item>
+    	<item>
+    		<name>t_text_tree</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Soll der Turnierbaum in Textform, statt in einer Grafik dargestellt werden?</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Sieg-Wertungen</name>
+    </head>
+    <items>
+    	<item>
+    		<name>t_league_points</name>
+    		<type>int</type>
+    		<default>2</default>
+    		<description>Sieg-Punkte bei einem Sieg in einem Liga-Turnier (Verlierer bekommen 0, Unentschieden gibt einen Punkt für beide)</description>
+    	</item>
+    	<item>
+    		<name>t_default_win</name>
+    		<type>int</type>
+    		<default>2</default>
+    		<description>Punkte, die dem Sieger vergeben werden, bei Zeitüberschreitung, oder Disqualifizierung des Gegners</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Schriftart in Turnierbaumgrafik</name>
+    </head>
+    <items>
+    	<item>
+    		<name>t_font_path</name>
+    		<type>string</type>
+    		<default>ext_inc/fonts/verdana.ttf</default>
+    		<description>Der Pfad zu der zu verwendenen Schriftart für den Turnierbaum</description>
+    	</item>
+    	<item>
+    		<name>t_font_size</name>
+    		<type>int</type>
+    		<default>8</default>
+    		<description>Die Schriftgröße der zu verwendenen Schriftart für den Turnierbaum</description>
+    	</item>
+    </items>
+  </group>
+</config>

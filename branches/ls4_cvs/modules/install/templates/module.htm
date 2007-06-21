@@ -1,0 +1,18 @@
+<!-- SINGLE ROW BEGIN -->
+		<table width="100%" cellspacing="0" cellpadding="3" class="row_value">
+		<tr>
+			<td rowspan="2" width="48"><img src="{$templ['ls']['row']['module']['img']}" width="48" height="48" alt="Modul-Icon"></td>
+			<td width="140" valign="top"><input type="checkbox" name="{$templ['ls']['row']['module']['name']}"{$templ['ls']['row']['module']['active']}{$templ['ls']['row']['module']['readonly']}> <b>{$templ['ls']['row']['module']['caption']}</b></td>
+			<td colspan="2" valign="top"><small>{$templ['ls']['row']['module']['description']}</small></td>
+			<!-- COLSPAN -->
+		</tr>
+		<tr>
+			<!-- ROWSPAN -->
+			<td width="140"> V: {$templ['ls']['row']['module']['version']} (<i>{$templ['ls']['row']['module']['state']}</i>)</td>
+
+			<td nowrap><small><a href="?mod=install&action=modules&step=4&module={$templ['ls']['row']['module']['name']}">Reset</a>{$templ['ls']['row']['module']['db_link']}{$templ['ls']['row']['module']['menu_link']}{$templ['ls']['row']['module']['settings_link']}{$templ['ls']['row']['module']['help_link']}</small></td>
+
+			<td align="right"><small><i>By: {$templ['ls']['row']['module']['author']}</i></small></td>
+		</tr>
+		</table>
+<!-- SINGLE ROW END -->

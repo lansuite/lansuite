@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite-module>
+	<name>cron2</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
+	<caption>Cronjob</caption>		<!-- The modulname displayed to the user -->
+	<description>Dieses Modul verwaltet zyklische Aufgaben wie das aufräumen der Datenbank</description>		<!-- A short description of the module -->
+	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
+	<changeable>0</changeable>		<!-- May the user de-/activate the module? 0/1 -->
+	<author>Marco Müller</author>				<!-- The author of this module -->
+	<email>marco@chuchi.tv</email>					<!-- The E-Mail-Adress of the modules author -->
+	<version>0.1</version>			<!-- The version of this module -->
+	<state>Beta</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
+</lansuite-module>

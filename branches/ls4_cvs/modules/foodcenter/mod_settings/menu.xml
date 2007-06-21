@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<pos>8</pos>
+	<entry>
+		<caption>Foodcenter</caption>
+		<hint>Hier können Sie komfortabel Speisen und Getränke bestellen</hint>
+		<link>?mod=foodcenter</link>
+		<requirement>1</requirement>
+		<level>0</level>
+		<pos>8</pos>
+		<file>show</file>
+	</entry>
+	<entry>
+		<caption>Produktsuche</caption>
+		<hint>Einfacher bestimmte Produkte finden</hint>
+		<link>?mod=foodcenter&amp;action=findproduct</link>
+		<requirement>0</requirement>
+		<level>1</level>
+		<action>findproduct</action>
+		<file>findproduct</file>
+	</entry>
+	<entry>
+		<caption>Bestellungen</caption>
+		<hint>Bestellte Produkte</hint>
+		<link>?mod=foodcenter&amp;action=ordered</link>
+		<requirement>0</requirement>
+		<level>1</level>
+		<action>ordered</action>
+		<file>ordered</file>
+	</entry>	
+	<entry>
+		<caption>Warenkorb</caption>
+		<hint>Den Warenkorb anzeigen</hint>
+		<link>index.php?mod=foodcenter&amp;action=basket</link>
+		<requirement>0</requirement>
+		<level>1</level>
+		<action>basket</action>
+		<file>basket</file>
+	</entry>
+	<entry>
+		<caption>Kontostand</caption>
+		<caption>Momentaner Kontostand</caption>
+		<link>index.php?mod=foodcenter&amp;action=account</link>
+		<requirement>1</requirement>
+		<level>1</level>
+		<action>account</action>
+		<file>account</file>	
+	</entry>
+	<entry>
+		<caption>Theke</caption>
+		<hint>Thekenmodus</hint>
+		<link>?mod=foodcenter&amp;action=theke</link>
+		<file>theke</file>
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<level>1</level>
+		<action>theke</action>
+	</entry>
+	<entry>
+		<caption>Küche</caption>
+		<hint>eigene Küche</hint>
+		<link>?mod=foodcenter&amp;action=kitchen</link>
+		<file>kitchen</file>
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<level>1</level>
+		<action>kitchen</action>
+	</entry>		
+	<entry>
+		<caption>Status ändern</caption>
+		<hint>Status der Produkte ändern</hint>
+		<link>?mod=foodcenter&amp;action=statchange</link>
+		<file>statchange</file>
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<level>1</level>
+		<action>statchange</action>
+	</entry>	
+	<entry>
+		<caption>Produkt hinzufügen</caption>
+		<hint>Neue Produkte hinzufügen</hint>
+		<link>?mod=foodcenter&amp;action=addproduct</link>
+		<file>addproduct</file>
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<level>1</level>
+		<action>addproduct</action>
+	</entry>	
+	<entry>
+		<caption>Münzzähler</caption>
+		<hint>Hier können Sie den Kassenstand prüfen</hint>
+		<link>?mod=foodcenter&amp;action=coincounter</link>
+		<file>coincounter</file>
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<needed_config></needed_config>
+		<level>1</level>
+		<action>coincounter</action>
+	</entry>	
+	<entry>
+		<requirement>0</requirement>
+		<level>1</level>
+		<pos>0</pos>
+		<action>showfood</action>
+		<file>show</file>
+	</entry>	
+
+
+	
+</menu>

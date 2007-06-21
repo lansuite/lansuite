@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <typedefinition>
+    <head>
+      <name>food_time</name>    
+    </head>
+    <entries>
+  		<entry>
+  			<value>1</value>
+  			<description>Hinweis Bestellung möglich</description>
+  		</entry>
+  		<entry>
+  			<value>2</value>
+  			<description>Keine Bestellungen aber Ansicht</description>
+  		</entry>
+  		<entry>
+  			<value>3</value>
+  			<description>Modul komplett gesperrt</description>
+  		</entry>
+  		<entry>
+  			<value>4</value>
+  			<description>Öffnungszeiten deaktiviert</description>
+  		</entry>
+    </entries>
+  </typedefinition>
+  <typedefinition>
+    <head>
+      <name>food_credit</name>    
+    </head>
+    <entries>
+  		<entry>
+  			<value>1</value>
+  			<description>AN</description>
+  		</entry>
+  		<entry>
+  			<value>0</value>
+  			<description>AUS</description>
+  		</entry>
+    </entries>
+  </typedefinition>
+  <group>
+    <head>
+      <name>Öffnungszeiten</name>
+    </head>
+    <items>
+    	<item>
+    		<name>foodcenter_foodtime</name>
+    		<type>food_time</type>
+    		<default>4</default>
+    		<description>Wie soll sich das Modul ausserhalb der Öffnungszeiten verhalten.</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_s_time_1</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Start der Öffungszeit 1</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_e_time_1</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Ende der Öffungszeit 1</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_s_time_2</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Start der Öffungszeit 2</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_e_time_2</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Ende der Öffungszeit 2</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_s_time_3</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Start der Öffungszeit 3</description>
+    	</item>
+    	<item>
+    		<name>foodcenter_e_time_3</name>
+    		<type>datetime</type>
+    		<default>4</default>
+    		<description>Ende der Öffungszeit 3</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Küche</name>
+    </head>
+    <items>
+    	<item>
+    		<name>foodcenter_kitchen</name>
+    		<type>integer</type>
+    		<default></default>
+    		<description>Küchen-ID (Lieferanten ID für Küche angeben - muss vorhanden sein)</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Allgemeine Konfiguration</name>
+    </head>
+    <items>
+    	<item>
+    		<name>foodcenter_credit</name>
+    		<type>food_credit</type>
+    		<default>1</default>
+    		<description>Sollen Bestellungen auch ohne Guthaben m�glich sein?</description>
+    	</item>
+    </items>
+  </group>
+</config>

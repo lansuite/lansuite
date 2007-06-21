@@ -1,0 +1,87 @@
+<?php
+
+class Mail {
+  var $inet_headers;
+	var $error;
+
+	function create_mail($from_userid, $to_userid, $subject_text, $msgbody_text) {
+		global $db, $config, $func;
+
+		if ($from_userid == "") {
+			$this->error = t('Sys-Mail Fehler: Kein Absender angegeben');
+			return false;
+		}
+		if ($to_userid == "") {
+			$this->error = t('Sys-Mail Fehler: Kein Empfänger angegeben');
+			return false;
+		}
+
+		$c_mail = $db->query("INSERT INTO {$config["tables"]["mail_messages"]} SET
+				mail_status = 'active',
+				des_status 	= 'new',
+				fromUserID 	= ". (int)$from_userid .",
+				toUserID 	= ". (int)$to_userid .",
+				Subject		= '". $func->escape_sql($subject_text) ."',
+				msgbody		= '". $func->escape_sql($msgbody_text) ."',
+				tx_date		= NOW()
+				");
+		$this->error = 'OK';
+		
+		// Send Info-Mail to receiver
+    if ($cfg['sys_internet']) {
+      $row = $db->qry_first('SELECT u.username, u.email, s.lsmail_alert FROM %prefix%user AS u LEFT JOIN %prefix%usersettings AS s ON u.userid = s.userid WHERE u.userid = %int%', $to_userid);
+  		if ($row['lsmail_alert']) $this->create_inet_mail($row['username'], $row['email'], t('Benachrichtigung: Neue LS-Mail'), t('Sie haben eine neue Lansuite-Mail erhalten. Diese Benachrichtigung können Sie im System unter "Meine Einstellungen" deaktivieren'));
+    }
+
+		return true;
+	}
+
+	function create_sys_mail($to_userid, $subject_text, $msgbody_text ) {
+		if ($this->create_mail("0", $to_userid, $subject_text, $msgbody_text)) return true;
+		else return false;
+	}
+
+	function create_inet_mail($to_user_name, $to_user_email, $subject_text, $msgbody_text, $from = '') {
+		global $cfg, $board_config;
+
+    // Do not send, when in intranet mode
+		if (!$cfg['sys_internet']) {
+      $this->error = t('Um Internet-Mails zu versenden, muss sich Lansuite im Internet-Modus befinden');
+      return false;
+    }
+
+		// Set default Sender-Mail, if non is set
+		if ($from == '') $from = $cfg['sys_party_mail'];
+
+    // Set Charset
+    if ($cfg['mail_utf8']) {
+      $CharsetStr = ' charset=utf-8';
+    } else {
+      $CharsetStr = '';
+      $subject_text = utf8_decode($subject_text);
+      $msgbody_text = utf8_decode($msgbody_text);
+    }
+
+    $this->inet_headers = "MIME-Version: 1.0\n";
+    $this->inet_headers .= "Content-type: text/plain;$CharsetStr\n";
+    $this->inet_headers .= "From: $from\n";
+
+		// SMTP-Mail
+		if ($cfg["mail_use_smtp"]) {
+			$board_config["smtp_host"] = $cfg["mail_smtp_host"];
+			$board_config["smtp_username"] = $cfg["mail_smtp_user"];
+			$board_config["smtp_password"] = $cfg["mail_smtp_pass"];
+			$board_config["board_email"] = $from;
+
+			include_once("modules/mail/smtp.php");
+			if (smtpmail($to_user_email, $subject_text, $msgbody_text, $this->inet_headers)) return true;
+			else return false;
+
+		// PHP-Mail
+		} else {
+			if (mail("$to_user_name <$to_user_email>", $subject_text, $msgbody_text, $this->inet_headers)) return true;
+			else return false;
+		}
+	}
+}
+?>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Banner-Ausmaße</name>
+    </head>
+    <items>
+    	<item>
+    		<name>sponsor_picwidth</name>
+    		<type>int</type>
+    		<default>468</default>
+    		<description>Maximale Breite eines Bildes auf der Sponsorenseite</description>
+    	</item>
+    	<item>
+    		<name>sponsor_picwidth_small</name>
+    		<type>int</type>
+    		<default>120</default>
+    		<description>Maximale Breite eines Bildes in der Sponsorenbox</description>
+    	</item>
+    </items>
+  </group>
+</config>

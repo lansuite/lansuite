@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<pos>7</pos>
+	<entry>
+		<action>default</action>
+		<file>show</file>
+		<caption>Sitzplan</caption>
+		<hint>Hier k&ouml;nnen Sie alle Sitzbl&ouml;cke anzeigen</hint>
+		<link>?mod=seating</link>
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<needed_config></needed_config>
+		<level>0</level>
+	</entry>
+	<entry>
+		<action>add</action>
+		<file>edit</file>
+		<caption>Hinzuf&uuml;gen</caption>
+		<hint>Hier k&ouml;nnen Sie einen Sitzblock hinzuf&uuml;gen</hint>
+		<link>?mod=seating&amp;action=add</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>seatadmin</action>
+		<file>seatadmin</file>
+		<caption>Platzverwaltung</caption>
+		<hint>Hier k&ouml;nnen Sie einzelnen Benutzern neue Sitzpl&auml;tze zuweisen</hint>
+		<link>?mod=seating&amp;action=seatadmin</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>copy</action>
+		<file>copy</file>
+		<caption>Plan kopieren</caption>
+		<hint>Hier können Sie einen vorhanden Sitzplan kopieren</hint>
+		<link>?mod=seating&amp;action=copy</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>ipgen</action>
+		<file>ipgen</file>
+		<requirement>3</requirement>
+	</entry>
+	<entry>
+		<action>ip</action>
+		<file>ip</file>
+		<requirement>3</requirement>
+	</entry>
+	<entry>
+		<action>ipprint</action>
+		<file>ipprint</file>
+		<requirement>2</requirement>
+	</entry>
+	<entry>
+		<action>edit</action>
+		<file>edit</file>
+		<requirement>2</requirement>
+	</entry>
+	<entry>
+		<action>delete</action>
+		<file>delete</file>
+		<requirement>3</requirement>
+	</entry>
+	<entry>
+		<action>free_seat</action>
+		<file>show</file>
+		<requirement>2</requirement>
+	</entry>
+</menu>

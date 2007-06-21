@@ -1,0 +1,816 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2005-02-26 01:28</date>
+	</header>
+	<table>
+		<table_head>
+			<name>boxes</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>boxid</name>
+				<type>int(6)</type>
+				<null></null>
+				<key>PRI</key>
+				<default>0</default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>name</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>place</name>
+				<type>int(2)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>pos</name>
+				<type>int(6)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>active</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>internet</name>
+				<type>int(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>login</name>
+				<type>int(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>module</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>source</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>callback</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+			<entry>
+				<boxid>1</boxid>
+				<name>Menu</name>
+				<place>0</place>
+				<pos>0</pos>
+				<active>1</active>
+				<internet>0</internet>
+				<login>0</login>
+				<module></module>
+				<source>menu</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>2</boxid>
+				<name>Suche</name>
+				<place>0</place>
+				<pos>2</pos>
+				<active>0</active>
+				<internet>0</internet>
+				<login>0</login>
+				<module></module>
+				<source>search</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>3</boxid>
+				<name>Sponsor</name>
+				<place>1</place>
+				<pos>10</pos>
+				<active>1</active>
+				<internet>0</internet>
+				<login>0</login>
+				<module>sponsor</module>
+				<source>sponsor</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>4</boxid>
+				<name>Info</name>
+				<place>1</place>
+				<pos>2</pos>
+				<active>0</active>
+				<internet>1</internet>
+				<login>2</login>
+				<module></module>
+				<source>infobox</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>5</boxid>
+				<name>Zuletzt angemeldet</name>
+				<place>1</place>
+				<pos>11</pos>
+				<active>1</active>
+				<internet>2</internet>
+				<login>0</login>
+				<module></module>
+				<source>last_user</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>6</boxid>
+				<name>Meine Daten</name>
+				<place>1</place>
+				<pos>3</pos>
+				<active>1</active>
+				<internet>0</internet>
+				<login>2</login>
+				<module></module>
+				<source>userdata</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>7</boxid>
+				<name>Login</name>
+				<place>1</place>
+				<pos>1</pos>
+				<active>1</active>
+				<internet>0</internet>
+				<login>1</login>
+				<module></module>
+				<source>login</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>8</boxid>
+				<name>Statistiken</name>
+				<place>1</place>
+				<pos>7</pos>
+				<active>1</active>
+				<internet>0</internet>
+				<login>0</login>
+				<module>stats</module>
+				<source>stats</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>9</boxid>
+				<name>Anmelde-Status</name>
+				<place>1</place>
+				<pos>5</pos>
+				<active>1</active>
+				<internet>2</internet>
+				<login>0</login>
+				<module>stats</module>
+				<source>signonstatus</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>10</boxid>
+				<name>Messenger</name>
+				<place>1</place>
+				<pos>6</pos>
+				<active>1</active>
+				<internet>0</internet>
+				<login>2</login>
+				<module>msgsys</module>
+				<source>messenger</source>
+				<callback>MsgInIntMode</callback>
+			</entry>
+			<entry>
+				<boxid>11</boxid>
+				<name>Turnier-Support by</name>
+				<place>1</place>
+				<pos>20</pos>
+				<active>1</active>
+				<internet>0</internet>
+				<login>0</login>
+				<module>tournament2</module>
+				<source>wwcl</source>
+				<callback>IsWWCLT</callback>
+			</entry>
+			<entry>
+				<boxid>12</boxid>
+				<name>Die letzten News</name>
+				<place>0</place>
+				<pos>5</pos>
+				<active>0</active>
+				<internet>0</internet>
+				<login>0</login>
+				<module>news</module>
+				<source>recent_news</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>13</boxid>
+				<name>Neu im Board</name>
+				<place>0</place>
+				<pos>6</pos>
+				<active>0</active>
+				<internet>0</internet>
+				<login>0</login>
+				<module>board</module>
+				<source>recent_board</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>14</boxid>
+				<name>Neue Server</name>
+				<place>0</place>
+				<pos>7</pos>
+				<active>0</active>
+				<internet>0</internet>
+				<login>0</login>
+				<module>server</module>
+				<source>recent_server</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>15</boxid>
+				<name>Neue Umfragen</name>
+				<place>0</place>
+				<pos>8</pos>
+				<active>0</active>
+				<internet>0</internet>
+				<login>0</login>
+				<module>poll</module>
+				<source>recent_poll</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>16</boxid>
+				<name>Sprachauswahl</name>
+				<place>0</place>
+				<pos>1</pos>
+				<active>1</active>
+				<internet>0</internet>
+				<login>0</login>
+				<module></module>
+				<source>language</source>
+				<callback></callback>
+			</entry>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<id>80545ef9178fc406a52cb1a9fdb040eb</id>
+				<tid>529</tid>
+				<org>Keine Einträge in den </org>
+				<en>No Entries in the</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>2fbba2aa21264d81881619d5fd6dbb7e</id>
+				<tid>530</tid>
+				<org>letzten 30 Minuten</org>
+				<en>last 30 minutes</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>a8ba21dc86d335aec9bea94f0fe6e368</id>
+				<tid>532</tid>
+				<org>Modul-Konfig</org>
+				<en>Modul-Config</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>ddffbc94082d07139ccbd98efcf748ed</id>
+				<tid>533</tid>
+				<org>Modul-DB</org>
+				<en>Modul-Database</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>8c2a4a403cb32858b69ce02945854fa0</id>
+				<tid>534</tid>
+				<org>Menü-Einträge</org>
+				<en>Modul-Entries</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>34034107b5c56b5114fc3f25cc812377</id>
+				<tid>535</tid>
+				<org>Noch keine Buddies</org>
+				<en>No Buddies</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>78b02c8ee4330aae24c314a1855aa475</id>
+				<tid>536</tid>
+				<org>Benutzer hinzufügen</org>
+				<en>Add User</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>4ef6e5de09fc4da0a7aad1a0b7e730f1</id>
+				<tid>538</tid>
+				<org>Benuter</org>
+				<en>User</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>dd1ba1872df91985ed1ca4cde2dfe669</id>
+				<tid>539</tid>
+				<org>News</org>
+				<en>News</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>cf1e8c14e54505f60aa10ceb8d5d8ab3</id>
+				<tid>540</tid>
+				<org>server</org>
+				<en>server</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>d97477d6d8a838ead9348185bb5b6742</id>
+				<tid>541</tid>
+				<org>Thread</org>
+				<en>Thread</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>b2e255e5cfd29133935ae00468406e2e</id>
+				<tid>542</tid>
+				<org>Troubletickets</org>
+				<en>Troubletickets</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>6870d716a3ba2737b6e9618790a1da65</id>
+				<tid>544</tid>
+				<org>Partyinfos</org>
+				<en>Partyinformations</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>8f996d05647e052f3c463d20502535e5</id>
+				<tid>545</tid>
+				<org>Registrierte User</org>
+				<en>Registered Users</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>d4a8b196a2b948d2cae780bda4fc5e09</id>
+				<tid>546</tid>
+				<org>Momentan ist keine Party geplant</org>
+				<en>Currently no party</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>31493eab02656fe21f6ba7b29293bf5e</id>
+				<tid>548</tid>
+				<org>Angemeldet</org>
+				<en>Signed on</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>69566353ee20bf15bbfab86db1146ed6</id>
+				<tid>549</tid>
+				<org>Frei</org>
+				<en>Free</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>08b4b5fed8b2a45f9af9016ceb993823</id>
+				<tid>550</tid>
+				<org>Nächste Party</org>
+				<en>Next party</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>4a50c60de68c41037555d9effab62deb</id>
+				<tid>551</tid>
+				<org>Anmeldungen an</org>
+				<en>Signed on to</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>469b924a2309f0ca4fb9c638ca7ff49f</id>
+				<tid>552</tid>
+				<org>Registriert</org>
+				<en>Registrated</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>57573f3697f7ba672868ffd3c4a09bd2</id>
+				<tid>553</tid>
+				<org>Plätze frei</org>
+				<en>free seats</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>4d89dd5f9cb6886d2b0074c20c8f0a25</id>
+				<tid>554</tid>
+				<org>Die Party läuft gerade!</org>
+				<en>Party runs</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>7aab33c6df25300322d32d7e6f1a919d</id>
+				<tid>555</tid>
+				<org>noch %1 Tag</org>
+				<en>still %1 day</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>f82cdd6a8848d030bfc32a6f4523ec16</id>
+				<tid>556</tid>
+				<org>noch %1 Tage</org>
+				<en>still %1 days</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>64d129224a5377b63e9727479ec987d9</id>
+				<tid>557</tid>
+				<org>Counter</org>
+				<en>counter</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>452a73be664e385ee55980d6a7b53ab8</id>
+				<tid>562</tid>
+				<org>Zurück wechseln</org>
+				<en>Switch back</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>11996162440d1846771669d9ec6e919d</id>
+				<tid>563</tid>
+				<org>Meine Eintrittskarte</org>
+				<en>My Ticket</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>ad60cf5dd813abd16900c25dc1069c84</id>
+				<tid>1277</tid>
+				<org>Bezahlt</org>
+				<en>Paid</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>e3afed0047b08059d0fada10f400c1e5</id>
+				<tid>1278</tid>
+				<org>Admin</org>
+				<en></en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>bd908db5ccb07777ced8023dffc802f4</id>
+				<tid>1275</tid>
+				<org>Links</org>
+				<en></en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>429bdf7fb1ab9dd6ff5f8f5b6d380968</id>
+				<tid>1340</tid>
+				<org>Zurück</org>
+				<en>Back</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>6a47abc6d7f5b29a94128466b6375896</id>
+				<tid>1276</tid>
+				<org>Rechts</org>
+				<en>Right</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>b61541208db7fa7dba42c85224405911</id>
+				<tid>1320</tid>
+				<org>Menu</org>
+				<en></en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>b34a94ed6c29e661d98a252e34fa390e</id>
+				<tid>1326</tid>
+				<org>Eingeloggt</org>
+				<en>Logged in</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>715380d7bcc0b403482990fa332214cc</id>
+				<tid>1327</tid>
+				<org>Statistiken</org>
+				<en>Statistics</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>a9fb96c1ae5d25a84580c4b7c987143d</id>
+				<tid>1328</tid>
+				<org>Wir danken</org>
+				<en>Thanks to</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>5915d4c5183979ccb3e37a6c2a861583</id>
+				<tid>1329</tid>
+				<org>Sponsor</org>
+				<en></en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>4c13a0f237fca3cba3a7d63d2a7c165d</id>
+				<tid>1330</tid>
+				<org>Zuletzt angemeldet</org>
+				<en>Recently signed on</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>cca8493f6f1bd794b75879a6d8a7bbc7</id>
+				<tid>1332</tid>
+				<org>Benutzername</org>
+				<en>Username</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>51a8cf58189641aa8eb7e6e61e35712e</id>
+				<tid>1333</tid>
+				<org>Pers. Details</org>
+				<en>Own details</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>194231a81cf56730eac805e131b9cd25</id>
+				<tid>1334</tid>
+				<org>Pers. Einstellungen</org>
+				<en>Own settings</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>0323de4f66a1700e2173e9bcdce02715</id>
+				<tid>1335</tid>
+				<org>Logout</org>
+				<en></en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>da2fcb1e3070b3d66f50bca40147ebf6</id>
+				<tid>1336</tid>
+				<org>Logins</org>
+				<en></en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>cfb02c9f943ba5136e21a9c5f9219d01</id>
+				<tid>1337</tid>
+				<org>Zuletzt eingeloggt</org>
+				<en>Recently logged in</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>e0652a499debfb07d11658bc097ccaad</id>
+				<tid>1338</tid>
+				<org>Meine Daten</org>
+				<en>My data</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>2b05e72b4279097adbc4951dd2539640</id>
+				<tid>1154</tid>
+				<org>Hier können Sie die Anzeige und Position der Boxen verwalten</org>
+				<en>Manage the display and position of the boxes</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>fda7c275e20f4bf7336b1832d60eebee</id>
+				<tid>1155</tid>
+				<org>Internet-Modus</org>
+				<en>Internet mode</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>e142ae51c1d959fcf6fbc4ca1b425964</id>
+				<tid>1156</tid>
+				<org>Egal</org>
+				<en>Whatever</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>4ea4483369e246d0606948ec0e430e87</id>
+				<tid>1157</tid>
+				<org>Nur im Intranet-Modus</org>
+				<en>Intranet mode only</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>9e90ec766d6c6a39d35eba7f30828716</id>
+				<tid>1158</tid>
+				<org>Nur im Internet-Modus</org>
+				<en>Interner mode only</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>92dc08ada6b2852edaa722c5e07fe07f</id>
+				<tid>1159</tid>
+				<org>Nur für ausgeloggte</org>
+				<en>Logged off only</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>27812b42f390f01f4a696b09e5163d60</id>
+				<tid>1160</tid>
+				<org>Nur für eingeloggte</org>
+				<en>Logged in only</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>18a8022569d6ced829f833aa855530ce</id>
+				<tid>1161</tid>
+				<org>Titel</org>
+				<en>Title</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>4789ac07952deecf2a4ae4276ef5caad</id>
+				<tid>1162</tid>
+				<org>Seite</org>
+				<en>Page</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>52f5e0bc3859bc5f5e25130b6c7e8881</id>
+				<tid>1163</tid>
+				<org>Position</org>
+				<en></en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>c1e949c74c82d88410af27e490d554e9</id>
+				<tid>1325</tid>
+				<org>Aufrufe</org>
+				<en>Hits</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>c3115f8fab662703fc7d99c96a23d0ed</id>
+				<tid>1165</tid>
+				<org>Quelldatei</org>
+				<en>Source file</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>2958e457c4bceb5786345e5e2d7817fe</id>
+				<tid>1166</tid>
+				<org>Aktivieren</org>
+				<en>Activate</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>5e3e07837e609be93787d022ed8c52ab</id>
+				<tid>1167</tid>
+				<org>Deaktivieren</org>
+				<en>Deactivate</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>a5fdf80d5ba1b59827be45b5ed581ddc</id>
+				<tid>1168</tid>
+				<org>Linke Seite</org>
+				<en>Left side</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>b2132d34c640be7d20ed06cbc87393ea</id>
+				<tid>1169</tid>
+				<org>Rechte Seite</org>
+				<en>Right side</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>c44e07cffb5cd991f28e866e8854b548</id>
+				<tid>1170</tid>
+				<org>Aktiv</org>
+				<en>Active</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>4d07ee9f8385ba723029fc12d7aa4a9e</id>
+				<tid>1324</tid>
+				<org>in der letzten Stunde</org>
+				<en>Within the last hour</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>5a6aabb7eb4f04e4aec540c5c9795ffc</id>
+				<tid>1172</tid>
+				<org>Login benötigt</org>
+				<en>Login required</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>48e72bab46b22bf29000cf640d5826a9</id>
+				<tid>1173</tid>
+				<org>Modul benötigt</org>
+				<en>Module required</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>406c70d61a3eefd08d468bd8a7b1b77f</id>
+				<tid>1174</tid>
+				<org>Callback</org>
+				<en></en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>0555bf2d4c67c7c9cf6f38be6a29d510</id>
+				<tid>1176</tid>
+				<org>Nur in Intranet Version</org>
+				<en>Intranet version only</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>e9818f941f4917df5ded073d48302f3a</id>
+				<tid>1177</tid>
+				<org>Nur in Internet Verrsion</org>
+				<en>Internet version only</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>a62c508dcc809a66a95bc75c2fed3f00</id>
+				<tid>1178</tid>
+				<org>Nur online / offline</org>
+				<en>Only online / offline</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>bc07152613add1220e6061894bd0b446</id>
+				<tid>1323</tid>
+				<org>insgesamt</org>
+				<en>Overall</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>30878e181e2ff822d97bf7999a9f87fe</id>
+				<tid>1322</tid>
+				<org>Besucher</org>
+				<en>Visitors</en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>99dea78007133396a7b8ed70578ac6ae</id>
+				<tid>1321</tid>
+				<org>Login</org>
+				<en></en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>1d4325d6842abf3f6227bff3cf256ed9</id>
+				<tid>1188</tid>
+				<org>Box-Manager</org>
+				<en></en>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>a2b4f8a78b76d51d6090fd54efbf1adb</id>
+				<tid>1189</tid>
+				<org>Letzter Kontocheck</org>
+				<en>Last account check</en>
+				<file>boxes</file>
+			</entry>
+		</content>
+	</table>
+</lansuite>
