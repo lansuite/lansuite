@@ -7,8 +7,8 @@ $ms2->query['from'] = "{$config["tables"]["sponsor"]} AS s";
 $ms2->AddResultField('Titel', 's.name');
 $ms2->AddResultField('Autor', 's.url');
 
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=sponsor&action=change&sponsorid=', $lang['ms2']['edit']);
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=sponsor&action=delete&step=2&sponsorid=', $lang['ms2']['delete']);
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=sponsor&amp;action=change&amp;sponsorid=', $lang['ms2']['edit']);
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=sponsor&amp;action=delete&amp;step=2&sponsorid=', $lang['ms2']['delete']);
 
-$ms2->PrintSearch('index.php?mod=sponsor&action=change', 's.sponsorid');
+$ms2->PrintSearch('index.php?mod=sponsor&amp;action=change', 's.sponsorid');
 ?>
