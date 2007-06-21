@@ -10,7 +10,7 @@ if ($_COOKIE["olduserid"] != "") {
 
 	$box->DotRow(t('Admin').':', "", "", "admin", 0);
 	$box->EngangedRow("<b>{$old_user["username"]}</b>". $dsp->FetchUserIcon($_COOKIE["olduserid"]), "", "", "admin", 0);
-	$box->EngangedRow(t('Zurück wechseln'), "index.php?mod=usrmgr&action=switch_user&step=11&userid={$_COOKIE["olduserid"]}", "", "admin", 0);
+	$box->EngangedRow(t('Zurück wechseln'), "index.php?mod=usrmgr&amp;action=switch_user&amp;step=11&amp;userid={$_COOKIE["olduserid"]}", "", "admin", 0);
 	$box->EmptyRow();
 }
 
@@ -43,15 +43,15 @@ if (in_array('mail', $ActiveModules)) {
     }
     if ($cfg['mail_popup_on_new_mails'] and $found_not_popped_up_mail) {
       $templ['box']['rows'] .= '<script language="JavaScript">
-      OpenWindow("index.php?mod=mail&action=mail_popup&design=popup", "new_mail");
+      OpenWindow("index.php?mod=mail&amp;action=mail_popup&amp;design=popup", "new_mail");
       </script>';
     }
   }
   $db->free_result($mails_new);
 }
 
-#$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=details&userid='. $auth["userid"], 'details', t('Pers. Details')) .' ';
-#$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&action=settings', 'generate', t('Pers. Einstellungen')) .' ';
+#$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=details&amp;userid='. $auth["userid"], 'details', t('Pers. Details')) .' ';
+#$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=settings', 'generate', t('Pers. Einstellungen')) .' ';
 #$icons .= $dsp->FetchIcon('index.php?mod=logout', 'no', t('Logout')) .' ';
 #$box->EngangedRow($icons);
 
@@ -68,8 +68,8 @@ $box->EngangedRow("<b>". date('d.m H:i', $user_lg["logintime"]) ."</b>");
 
 
 // Show other links
-if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php?mod=usrmgr&action=myticket", "", "menu");
-$box->DotRow(t('Meine Einstellungen'), "index.php?mod=usrmgr&action=settings", '', "menu");
+if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php?mod=usrmgr&amp;action=myticket", "", "menu");
+$box->DotRow(t('Meine Einstellungen'), "index.php?mod=usrmgr&amp;action=settings", '', "menu");
 
 //Zeige Anmeldestatus
 if($party->count != 0 & $_SESSION['party_info']['partyend'] > time())

@@ -3,11 +3,11 @@
 $templ['box']['rows'] = '';
 
 ($_GET['mod'] == 'usrmgr')? $s = 'selected' : $s = '';
-$templ['searchbox']['module'] = "<option value=\"index.php?mod=guestlist&action=guestlist\" $s>".t('Benutzer')."</option>\n";
+$templ['searchbox']['module'] = "<option value=\"index.php?mod=guestlist&amp;action=guestlist\" $s>".t('Benutzer')."</option>\n";
 
 if (in_array("news", $ActiveModules)){
 	($_GET['mod'] == 'news')? $s = 'selected' : $s = '';
-	$templ['searchbox']['module'] .= "<option value=\"index.php?mod=news&action=search\" $s>".t('News')."</option>\n";
+	$templ['searchbox']['module'] .= "<option value=\"index.php?mod=news&amp;action=search\" $s>".t('News')."</option>\n";
 }
 if (in_array("server", $ActiveModules)){
 	($_GET['mod'] == 'server')? $s = 'selected' : $s = '';
@@ -15,7 +15,7 @@ if (in_array("server", $ActiveModules)){
 }
 if (in_array("board", $ActiveModules)){
 	($_GET['mod'] == 'board')? $s = 'selected' : $s = '';
-	$templ['searchbox']['module'] .= "<option value=\"index.php?mod=board&action=forum\" $s>".t('Thread')."</option>\n";
+	$templ['searchbox']['module'] .= "<option value=\"index.php?mod=board&amp;action=forum\" $s>".t('Thread')."</option>\n";
 }
 if (in_array("troubleticket", $ActiveModules)){
 	($_GET['mod'] == 'troubleticket')? $s = 'selected' : $s = '';
