@@ -6,7 +6,7 @@
 		<file>guestlist</file>
 		<caption>G&auml;steliste</caption>
 		<hint></hint>
-		<link>?mod=guestlist&action=guestlist</link>
+		<link>?mod=guestlist&amp;action=guestlist</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>
 		<level>0</level>
@@ -16,7 +16,7 @@
 		<file>usermap</file>
 		<caption>Besucherkarte</caption>
 		<hint>Hier sehen Sie aus welchen Gegenden die Besucher kommen</hint>
-		<link>?mod=guestlist&action=usermap</link>
+		<link>?mod=guestlist&amp;action=usermap</link>
 		<requirement>0</requirement>
 		<needed_config>ShowGuestMap</needed_config>
 		<level>1</level>
@@ -24,7 +24,7 @@
 	<entry>
 		<caption>Kontocheck updaten</caption>
 		<hint></hint>
-		<link>?mod=guestlist&action=checking</link>
+		<link>?mod=guestlist&amp;action=checking</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

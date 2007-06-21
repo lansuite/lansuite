@@ -16,7 +16,7 @@
 		<file>add</file>
 		<caption>Hinzuf&uuml;gen</caption>
 		<hint></hint>
-		<link>?mod=usrmgr&action=add</link>
+		<link>?mod=usrmgr&amp;action=add</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -26,7 +26,7 @@
 		<file>map</file>
 		<caption>Benutzerkarte</caption>
 		<hint></hint>
-		<link>?mod=usrmgr&action=map</link>
+		<link>?mod=usrmgr&amp;action=map</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -36,7 +36,7 @@
 		<file>group</file>
 		<caption>Benutzergruppen</caption>
 		<hint></hint>
-		<link>?mod=usrmgr&action=group</link>
+		<link>?mod=usrmgr&amp;action=group</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -46,7 +46,7 @@
 		<file>clanmgr</file>
 		<caption>Clanmanager</caption>
 		<hint></hint>
-		<link>?mod=usrmgr&action=clanmgr</link>
+		<link>?mod=usrmgr&amp;action=clanmgr</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -56,7 +56,7 @@
 		<file>user_fields</file>
 		<caption>Felder ergänzen</caption>
 		<hint></hint>
-		<link>?mod=usrmgr&action=user_fields</link>
+		<link>?mod=usrmgr&amp;action=user_fields</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -66,7 +66,7 @@
 		<file>checkin_assistant</file>
 		<caption>Einlass-Assistent</caption>
 		<hint></hint>
-		<link>?mod=usrmgr&action=entrance</link>
+		<link>?mod=usrmgr&amp;action=entrance</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

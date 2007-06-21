@@ -15,7 +15,7 @@
 		<file>add</file>
 		<caption>Hinzufügen</caption>
 		<hint></hint>
-		<link>?mod=bugtracker&action=add</link>
+		<link>?mod=bugtracker&amp;action=add</link>
 		<requirement>1</requirement>
 		<level>1</level>
 	</entry>
@@ -24,7 +24,7 @@
 		<file>import</file>
 		<caption>Importieren</caption>
 		<hint></hint>
-		<link>?mod=bugtracker&action=import</link>
+		<link>?mod=bugtracker&amp;action=import</link>
 		<requirement>1</requirement>
 		<level>1</level>
 	</entry>
@@ -33,7 +33,7 @@
 		<file>export</file>
 		<caption>Exportieren</caption>
 		<hint></hint>
-		<link>?mod=bugtracker&action=export</link>
+		<link>?mod=bugtracker&amp;action=export</link>
 		<requirement>2</requirement>
 		<level>1</level>
 	</entry>

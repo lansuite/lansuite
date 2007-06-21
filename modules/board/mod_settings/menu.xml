@@ -15,7 +15,7 @@
 		<file>forum</file>
 		<caption>Thread-Suche</caption>
 		<hint></hint>
-		<link>index.php?mod=board&action=forum</link>
+		<link>index.php?mod=board&amp;action=forum</link>
 		<requirement>0</requirement>
 		<level>1</level>
 	</entry>
@@ -24,7 +24,7 @@
 		<file>forum</file>
 		<caption>Lesezeichen</caption>
 		<hint>Hier siehst du die von dir marieren Threads</hint>
-		<link>index.php?mod=board&action=bookmark</link>
+		<link>index.php?mod=board&amp;action=bookmark</link>
 		<requirement>1</requirement>
 		<level>1</level>
 	</entry>
@@ -33,7 +33,7 @@
 		<file>add</file>
 		<caption>Hinzufügen</caption>
 		<hint></hint>
-		<link>?mod=board&action=add</link>
+		<link>?mod=board&amp;action=add</link>
 		<requirement>2</requirement>
 		<level>1</level>
 	</entry>
@@ -42,7 +42,7 @@
 		<file>admin_search</file>
 		<caption>Post-Suche</caption>
 		<hint></hint>
-		<link>?mod=board&action=admin_search</link>
+		<link>?mod=board&amp;action=admin_search</link>
 		<level>1</level>
 		<requirement>2</requirement>
 	</entry>	

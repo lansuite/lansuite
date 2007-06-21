@@ -16,7 +16,7 @@
 		<file>show</file>
 		<caption>Party-History</caption>
 		<hint></hint>
-		<link>?mod=partylist&action=history</link>
+		<link>?mod=partylist&amp;action=history</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -26,7 +26,7 @@
 		<file>map</file>
 		<caption>Karte</caption>
 		<hint></hint>
-		<link>?mod=partylist&action=map</link>
+		<link>?mod=partylist&amp;action=map</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -36,7 +36,7 @@
 		<file>add</file>
 		<caption>Hinzufügen</caption>
 		<hint></hint>
-		<link>?mod=partylist&action=add</link>
+		<link>?mod=partylist&amp;action=add</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

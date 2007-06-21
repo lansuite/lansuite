@@ -21,7 +21,7 @@
 		<file>add</file>
 		<caption>Hinzuf&uuml;gen</caption>
 		<hint>Hier k&ouml;nnen Sie Polls hinzuf&uuml;gen</hint>
-		<link>?mod=poll&action=add</link>
+		<link>?mod=poll&amp;action=add</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

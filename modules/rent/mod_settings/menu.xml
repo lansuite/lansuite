@@ -15,7 +15,7 @@
 		<action>back</action>
 		<caption>Rücknahme</caption>
 		<hint>&Uuml;bersicht des verliehenen Equipments mit der M&ouml;glichkeit der R&uuml;cknahme</hint>
-		<link>?mod=rent&action=back</link>
+		<link>?mod=rent&amp;action=back</link>
 		<file>back</file>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
@@ -25,7 +25,7 @@
 		<action>add</action>
 		<caption>Hinzufügen</caption>
 		<hint>Equipment zum Verleih hinzuf&uuml;gen.</hint>
-		<link>?mod=rent&action=add</link>
+		<link>?mod=rent&amp;action=add</link>
 		<file>add</file>
 		<requirement>2</requirement>
 		<needed_config></needed_config>

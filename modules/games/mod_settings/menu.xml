@@ -16,7 +16,7 @@
 		<file>minesweeper</file>
 		<caption>Minesweeper</caption>
 		<hint></hint>
-		<link>?mod=games&action=minesweeper&headermenuitem=1</link>
+		<link>?mod=games&amp;action=minesweeper&amp;headermenuitem=1</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -26,7 +26,7 @@
 		<file>hangman</file>
 		<caption>Hangman</caption>
 		<hint></hint>
-		<link>?mod=games&action=hangman&headermenuitem=1</link>
+		<link>?mod=games&amp;action=hangman&amp;headermenuitem=1</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -36,7 +36,7 @@
 		<file>number</file>
 		<caption>Number</caption>
 		<hint></hint>
-		<link>?mod=games&action=number&headermenuitem=1</link>
+		<link>?mod=games&amp;action=number&amp;headermenuitem=1</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
