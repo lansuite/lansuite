@@ -23,7 +23,7 @@ if ($_GET['design'] != 'popup' and $db->success and !$_SESSION['lansuite']['full
   	$code = '<img src="'. $file_name .'" border="1" width="468" height="60" class="img_border" title="'. $banner['name'] .'" alt="Sponsor Banner"/>';
 
   	// Link banner, if in online mode
-  	if ($cfg['sys_internet']) $code = '<a href="index.php?mod=sponsor&action=bannerclick&design=base&type=banner&sponsorid='. $banner["sponsorid"] .'" target="_blank">'. $code .'</a>';
+  	if ($cfg['sys_internet']) $code = '<a href="index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=banner&amp;sponsorid='. $banner["sponsorid"] .'" target="_blank">'. $code .'</a>';
   	
   	echo $code;
   }

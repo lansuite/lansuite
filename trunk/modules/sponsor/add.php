@@ -137,6 +137,6 @@ else {
 
   $mf->AdditionalDBAfterSelectFunction = 'RewriteFields';
   $mf->AdditionalDBPreUpdateFunction = 'UploadFiles';
-  $mf->SendForm('index.php?mod=sponsor&action='. $_GET['action'], 'sponsor', 'sponsorid', $_GET['sponsorid']);
+  $mf->SendForm('index.php?mod=sponsor&amp;action='. $_GET['action'], 'sponsor', 'sponsorid', $_GET['sponsorid']);
 }
 ?>
