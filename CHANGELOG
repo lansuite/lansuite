@@ -6,6 +6,7 @@ Hier bitte die wichtigen Anderungen einfügen :
 
 Version 3.2
 
+- Bugfix: Beim Sperren eines Accounts, wird nun auch die Session des betreffende Benutzer gelöscht (KnoX 19.06.2007)
 - Bugfix: SQL-Fehler, wenn 2 Mastersearchs auf einer Seite eingabeut waren, wie im Bugtracker (KnoX 11.06.2007)
 - Bugfix: #397 Vorschau-Popup war nicht groÃŸgenug und nicht Scrollbar (KnoX 31.05.2007)
 - Bugfix: #398 ' Im usernamen hatten im Sitzplan zu Problemen gefÃ¼hrt (KnoX 31.05.2007)

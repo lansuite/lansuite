@@ -54,7 +54,11 @@ div#BoxesRight {
 div#Footer {
   position: relative;   width: 100%;    z-index: 20;
   margin: 8px 0px 0px 0px;
+  color: #bbbbbb;
   text-align: center;
+}
+div#Footer a {
+  color: #bbbbbb;
 }
 
 /* Boxes */
