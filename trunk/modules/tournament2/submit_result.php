@@ -13,7 +13,7 @@ $score_comment 		= $vars["score_comment"];
 
 
 ########## Infos holen
-$tournament = $db->query_first("SELECT name, teamplayer, over18, status, mode, mapcycle, starttime, max_games, game_duration, break_duration, tournamentid FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+$tournament = $db->query_first("SELECT name, teamplayer, over18, status, mode, mapcycle, UNIX_TIMESTAMP(starttime) AS starttime, max_games, game_duration, break_duration, tournamentid FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
 $map = explode("\n", $func->db2text($tournament["mapcycle"]));
 if ($map[0] == "") $map[0] = $lang["tourney"]["unknown"];
 
