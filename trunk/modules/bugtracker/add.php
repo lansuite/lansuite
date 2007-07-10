@@ -51,7 +51,7 @@ else {
     $mf->AddFix('url', $_SERVER['SERVER_NAME']);
     $mf->AddFix('reporter', $auth['userid']);
     $mf->AddFix('state', 0);
-  } else {
+  } elseif ($auth['type'] >= 2) {
     $selections = array();
     $selections['0'] = t('Neu');
     $selections['1'] = t('Bestätigt');
