@@ -71,11 +71,11 @@ class Bugtracker {
   }
 
   function AssignBugToUserInternal($bugid, $userid) {
-    global $db, $config, $func;
+    global $db, $config, $func, $auth;
 
     $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['bugtracker']} WHERE agent = ". (int)$userid ." AND bugid = ". (int)$bugid);
     if (!$row['found']) {
-      $db->query("UPDATE {$config['tables']['bugtracker']} SET agent = ". (int)$userid .' WHERE bugid = '. (int)$bugid);
+      if ($auth['type'] > 1) $db->query("UPDATE {$config['tables']['bugtracker']} SET agent = ". (int)$userid .' WHERE bugid = '. (int)$bugid);
 
       if ($userid == 0) $func->log_event(t('Benutzerzuordnung gelöscht'), 1, '', $bugid);
       else {
