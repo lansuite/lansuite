@@ -8,15 +8,15 @@ if ($cfg['guestlist_guestmap'] == 2) {
   else {
 
     switch($cfg['country']) {
-      case 'de': $GCountry = 'Germany' break;
-      case 'at': $GCountry = 'Austria' break;
-      case 'ch': $GCountry = 'Swiss' break;
-      case 'en': $GCountry = 'England' break;
-      case 'nl': $GCountry = 'Netherlands' break;
-      case 'es': $GCountry = 'Spain' break;
-      case 'it': $GCountry = 'Italy' break;
-      case 'fr': $GCountry = 'France' break;
-      default: $GCountry = 'Germany' break;
+      case 'de': $GCountry = 'Germany'; break;
+      case 'at': $GCountry = 'Austria'; break;
+      case 'ch': $GCountry = 'Swiss'; break;
+      case 'en': $GCountry = 'England'; break;
+      case 'nl': $GCountry = 'Netherlands'; break;
+      case 'es': $GCountry = 'Spain'; break;
+      case 'it': $GCountry = 'Italy'; break;
+      case 'fr': $GCountry = 'France'; break;
+      default: $GCountry = 'Germany'; break;
     }
 
     $where_pid = '';
