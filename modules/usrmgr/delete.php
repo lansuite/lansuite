@@ -14,6 +14,7 @@ function DeleteUser($userid) {
 	else {						
 		$db->query("UPDATE {$config["tables"]["user"]} SET type = '-4', username = CONCAT(username,' (Deleted)'), comment = CONCAT('{$lang["usrmgr"]["del_sql_mark"]} email: ',email), email = CONCAT(userid,'_deleted') WHERE userid = '$userid'");
 		$db->query("UPDATE {$config["tables"]["seat_seats"]} SET status = '1', userid='0' WHERE userid = '$userid'");
+		$db->qry('DELETE FROM %prefix%stats_auth WHERE userid=%int%', $userid);
 		return true;
 	}
 	
