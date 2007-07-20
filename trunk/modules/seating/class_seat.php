@@ -23,7 +23,7 @@ class seat2 {
     if (!$row['blockid']) return '';
     else {
       $LinkText = $row['name'] .' '. $break . $this->CoordinateToName($row['col'] + 1, $row['row'], $row['orientation'], $MaxBlockLength);
-  	  return "<a href=\"#\" onclick=\"javascript:var w=window.open('index.php?mod=seating&action=popup&design=base&function=usrmgr&id={$row['blockid']}&userarray[]=$userid&l=1','_blank','width=596,height=638,resizable=yes');\" class=\"small\">$LinkText</a>";
+  	  return "<a href=\"#\" onclick=\"javascript:var w=window.open('index.php?mod=seating&action=popup&design=popup&function=usrmgr&id={$row['blockid']}&userarray[]=$userid&l=1','_blank','width=596,height=678,resizable=yes');\" class=\"small\">$LinkText</a>";
   	}
   }
 
