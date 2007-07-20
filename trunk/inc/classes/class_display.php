@@ -771,6 +771,10 @@ class display {
 	function AddContent($target = NULL) {
 	}
 
+	function HelpText($text, $help) {
+    return '<span onmouseover="return overlib(\''. t($help) .'\');" onmouseout="return nd();">'. t($text) .'</span>';
+	}
+
   function AddIcon($name, $link = '', $title = '') {
     global $templ;
     
