@@ -42,9 +42,9 @@ class masterdelete {
         $db->query("DELETE FROM {$config['tables'][$key]} WHERE $val = '$id'");
       }
 
-      $func->log_event(t('Eintrag #%1 aus Tabelle "%2" gelöscht', array($id, $config['tables'][$table])), 1, '', $this->LogID);
-		} else $func->log_event(t('Fehler beim Löschen von #%1 aus Tabelle "%2"', array($id, $config['tables'][$table])), 3, '', $this->LogID);
-    
+      if ($table != 'log') $func->log_event(t('Eintrag #%1 aus Tabelle "%2" gelöscht', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+		} elseif ($table != 'log') $func->log_event(t('Fehler beim Löschen von #%1 aus Tabelle "%2"', array($id, $config['tables'][$table])), 3, '', $this->LogID);
+
     return $res;
   }
 
