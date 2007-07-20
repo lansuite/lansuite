@@ -174,10 +174,14 @@ elseif (!$akt_file) {
 					if (strlen($file) > 22) $templ['ls']['row']['gallery']['file_name'] = substr(strtolower($file), 0, 16) ."..". substr(strtolower($file), strrpos($file, "."), 5);
 					else $templ['ls']['row']['gallery']['file_name'] = strtolower($file);
 
-					$pic = $db->query_first("SELECT picid, caption, clicks FROM {$config["tables"]["picgallery"]} WHERE name = '$db_dir$file'");
+					$pic = $db->query_first("SELECT p.picid, p.caption, p.clicks, COUNT(*) AS comments FROM {$config["tables"]["picgallery"]} AS p
+					  LEFT JOIN {$config["tables"]["comments"]} AS c ON p.picid = c.relatedto_id
+            WHERE p.name = '$db_dir$file' AND c.relatedto_item = 'Picgallery'
+					  GROUP BY p.picid
+            ");
 					($pic['caption']) ? $templ['ls']['row']['gallery']['caption'] = $pic['caption']
 					: $templ['ls']['row']['gallery']['caption'] = "<i>Unbenannt</i>";
-					$templ['ls']['row']['gallery']['clicks'] = $pic['clicks'];
+					$templ['ls']['row']['gallery']['clicks'] = $dsp->HelpText($pic['clicks'], 'Angesehen') .'/'. $dsp->HelpText($pic['comments'], 'Kommentare');
 
 					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
 
