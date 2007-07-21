@@ -60,7 +60,7 @@ else {
         $mf->AdditionalKey = 'party_id = '. $row['party_id'];
     
         // Signon
-        $mf->AddInsertControllField = $lang['usrmgr']['signon'];
+        $mf->AddInsertControllField = t('Angemeldet').'|'.t('Wenn dieses Häckchen gesetzt ist, sind Sie zu dieser Party angemeldet');
         $mf->AddChangeCondition = 'ChangeAllowed';
     
         // Paid
@@ -76,9 +76,10 @@ else {
         $selections = array();  
         $res2 = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$row['party_id']}");
         while ($row2 = $db->fetch_array($res2)) $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']';
-        $mf->AddField($lang['usrmgr']['prince_id'], 'price_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
+        if ($selections) $mf->AddField(t('Eintrittspreis'), 'price_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
+        else $mf->AddField(t('Eintrittspreis'), 'price_id', IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
         $db->free_result($res2);
-    
+
         if ($auth['type'] >= 2) {
           //$mf->AddField('Seatcontrol', 'seatcontrol', '', '', FIELD_OPTIONAL);
           $mf->AddField(t('Bezahltdatum'), 'paiddate', '', '', FIELD_OPTIONAL);

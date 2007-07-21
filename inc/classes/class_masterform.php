@@ -300,7 +300,8 @@ class masterform {
 
           $this->DependOnStarted = $this->NumFields;
           $additionalHTML = "onclick=\"CheckBoxBoxActivate('box_$InsContName', this.checked)\"";
-          $dsp->AddCheckBoxRow($InsContName, $this->AddInsertControllField, '', '', $field['optional'], $_POST[$InsContName], '', '', $additionalHTML);
+          list($text1, $text2) = split('\|', $this->AddInsertControllField);
+          $dsp->AddCheckBoxRow($InsContName, $text1, $text2, '', $field['optional'], $_POST[$InsContName], '', '', $additionalHTML);
           $dsp->StartHiddenBox('box_'.$InsContName, $_POST[$InsContName]);
         }
 
