@@ -240,6 +240,7 @@ if($cfg['sys_blocksite'] == 1 and $auth['type'] < 2) $siteblock = true;
 if (!$auth["design"]) $auth["design"] = "simple";
 if (!file_exists("design/{$auth["design"]}/templates/index.php")) $auth["design"] = "simple";
 $_SESSION["auth"]["design"] = $auth["design"];
+if ($_GET['design']) $auth['design'] = $_GET['design'];
 
 // Statistic Functions (for generating server- and usage-statistics)
 if ($db->success)	$stats = new stats();
