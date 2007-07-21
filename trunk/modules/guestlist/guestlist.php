@@ -15,9 +15,13 @@ switch($_GET['step']) {
         if ($Msg['success']) $Messages['success'] .= $Msg['success'] . HTML_NEWLINE;
         if ($Msg['error']) $Messages['error'] .= $Msg['error'] . HTML_NEWLINE;
       }
-      $func->confirmation(t('Der Zahlstatus wurde erfolgreich gesetzt'));
-      if ($Messages['success']) $func->confirmation(t('Die Mails wurden erfolgreich an die folgenden Benutzer versandt:') . HTML_NEWLINE . $Messages['success'], NO_LINK);
-      if ($Messages['error']) $func->information(t('Fehler beim Versenden der Mails an folgende Benutzer:') . HTML_NEWLINE . $Messages['error'], NO_LINK);
+      if ($Messages['error'] == '') $func->confirmation(t('Der Zahlstatus wurde erfolgreich gesetzt'). HTML_NEWLINE . HTML_NEWLINE .
+      t('Die Mails wurden erfolgreich an alle Benutzer versandt:'). HTML_NEWLINE . $Messages['success']);
+
+      else $func->confirmation(t('Der Zahlstatus wurde erfolgreich gesetzt'). HTML_NEWLINE . HTML_NEWLINE .
+      t('Jedoch konnte die Benachrichtigungsmail nicht an alle Benutzer gesendet werden.'). HTML_NEWLINE .
+      t('Erfolgreich:'). HTML_NEWLINE . $Messages['success'] . HTML_NEWLINE .
+      t('Fehlgeschlagen:'). HTML_NEWLINE . $Messages['error']);
     }
   break;
 
@@ -32,9 +36,13 @@ switch($_GET['step']) {
         if ($Msg['success']) $Messages['success'] .= $Msg['success'] . HTML_NEWLINE;
         if ($Msg['error']) $Messages['error'] .= $Msg['error'] . HTML_NEWLINE;
       }
-      $func->confirmation(t('Der Zahlstatus wurde erfolgreich entfernt'));
-      if ($Messages['success']) $func->confirmation(t('Die Mails wurden erfolgreich an die folgenden Benutzer versandt:') . HTML_NEWLINE . $Messages['success'], NO_LINK);
-      if ($Messages['error']) $func->information(t('Fehler beim Versenden der Mails an folgende Benutzer:') . HTML_NEWLINE . $Messages['error'], NO_LINK);
+      if ($Messages['error'] == '') $func->confirmation(t('Der Zahlstatus wurde erfolgreich entfernt'). HTML_NEWLINE . HTML_NEWLINE .
+      t('Die Mails wurden erfolgreich an alle Benutzer versandt:'). HTML_NEWLINE . $Messages['success']);
+
+      else $func->confirmation(t('Der Zahlstatus wurde erfolgreich entfernt'). HTML_NEWLINE . HTML_NEWLINE .
+      t('Jedoch konnte die Benachrichtigungsmail nicht an alle Benutzer gesendet werden.'). HTML_NEWLINE .
+      t('Erfolgreich:'). HTML_NEWLINE . $Messages['success'] . HTML_NEWLINE .
+      t('Fehlgeschlagen:'). HTML_NEWLINE . $Messages['error']);
     }
   break;
 
