@@ -98,11 +98,11 @@ class beamer_display {
 		$a5 = $beamermodul->countContent("1","5");				
 		$dsp->NewContent( $lang['beamer']['beamerstart'] ,"");
 		$dsp->AddDoubleRow('Seiteninterval in Sekunden: ',$cfg['beamer_duration_default'] );
-	    if ( $a1 > 0 ) { $btn1 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=1&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
-	    if ( $a2 > 0 ) { $btn2 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=2&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
-	    if ( $a3 > 0 ) { $btn3 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=3&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}									
-	    if ( $a4 > 0 ) { $btn4 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=4&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
-	    if ( $a5 > 0 ) { $btn5 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=5&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
+	    if ( $a1 > 0 ) { $btn1 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=1&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
+	    if ( $a2 > 0 ) { $btn2 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=2&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
+	    if ( $a3 > 0 ) { $btn3 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=3&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
+	    if ( $a4 > 0 ) { $btn4 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=4&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
+	    if ( $a5 > 0 ) { $btn5 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=5&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
 		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">1.</font> ".$lang['beamer']['viewcontent'].$btn1." - ".$lang['beamer']['activecontent'].$a1."<p/><br/>");
 		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">2.</font> ".$lang['beamer']['viewcontent'].$btn2." - ".$lang['beamer']['activecontent'].$a2."<p/><br/>");
 		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">3.</font> ".$lang['beamer']['viewcontent'].$btn3." - ".$lang['beamer']['activecontent'].$a3."<p/><br/>");

@@ -21,7 +21,7 @@ if ($cfg['user_design_change']) {
   #$selections[''] = t('Standard Design');
 
   $ResDesign = opendir('design/');
-  while ($dir = readdir($ResDesign)) if (is_dir("design/$dir") and file_exists("design/$dir/design.xml")) {
+  while ($dir = readdir($ResDesign)) if (is_dir("design/$dir") and file_exists("design/$dir/design.xml") and ($dir != 'beamer')) {
     $file = "design/$dir/design.xml";
     $ResFile = fopen ($file, "rb");
     $XMLFile = fread ($ResFile, filesize ($file));
