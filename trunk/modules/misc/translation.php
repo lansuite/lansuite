@@ -58,6 +58,18 @@ function TUpdateFromFiles($BaseDir) {
   return $output;
 }
 
+function TUpdateFromDB($table, $field) {
+  global $db;
+
+  $res = $db->qry('SELECT '. $field .' FROM %prefix%'. $table);
+  while ($row = $db->fetch_array($res)) if ($row[$field] != '') {
+    $key = md5($row[$field]);
+    $row2 = $db->qry_first('SELECT 1 AS found FROM %prefix%translation WHERE id = %string%', $key);
+    if (!$row2['found']) $db->qry('REPLACE INTO %prefix%translation SET id = %string%, file = \'DB\', org = %string%', $key, $row[$field]);
+  }
+  $db->free_result($res);
+}
+
 
 switch ($_GET['step']) {
   default:
@@ -167,6 +179,13 @@ switch ($_GET['step']) {
       $dsp->AddFieldSetStart(t('Veraltet (wurden nun gelöscht)'));
       $dsp->AddSingleRow($output);
       $dsp->AddFieldSetEnd();
+
+      // Scan DB
+      TUpdateFromDB('menu', 'caption');
+      TUpdateFromDB('menu', 'hint');
+      TUpdateFromDB('modules', 'description');
+      TUpdateFromDB('config', 'cfg_desc');
+      TUpdateFromDB('config_selections', 'cfg_display');
 
       // For info output DB internal
       $output = '';
