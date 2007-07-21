@@ -173,6 +173,7 @@ class beamer_display {
 		$dsp->SetForm("?mod=beamer&action=savecontent&ctype={$content['contentType']}&bcid=".$bcid);	
 
 		if($content['contentType']=='text') {
+			$dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", $content['caption'], "", '50');
 	        ob_start();
 	        include_once("ext_scripts/FCKeditor/fckeditor.php");
 	        $oFCKeditor = new FCKeditor('FCKeditor1') ;
@@ -186,6 +187,7 @@ class beamer_display {
 		}
 		if($content['contentType']=='wrapper') {
 			$arr = explode( "*" , $content['contentData'] );
+			$dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", $content['caption'], "", '50');
 			$dsp->AddTextFieldRow("curl", "IFrame URL: ", $arr[0] , "", '80');
 			$dsp->AddTextFieldRow("choehe", "IFrame H&ouml;he: ", $arr[1], "", '4');			
 			$dsp->AddTextFieldRow("cbreite", "IFrame Breite: ", $arr[2], "", '4');			
