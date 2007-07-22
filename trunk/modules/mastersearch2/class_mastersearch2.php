@@ -235,9 +235,9 @@ class MasterSearch2 {
     if ($this->query['order_by_end']) $this->query['order_by'] .= ', '. $this->query['order_by_end'];
 
     ###### Generate Limit
-    if ($_GET['page'] == 'all') $this->query['limit'] = '';
+    if ($_GET['ms_page'] == 'all') $this->query['limit'] = '';
     else {
-      if ($_GET['page'] != '' and (!$_GET['ms_number'] or $_GET['ms_number'] == $ms_number)) $page_start = (int)$_GET['page'] * (int)$this->config['EntriesPerPage'];
+      if ($_GET['ms_page'] != '' and (!$_GET['ms_number'] or $_GET['ms_number'] == $ms_number)) $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
       else $page_start = 0;
       $this->query['limit'] = "LIMIT $page_start, ". $this->config['EntriesPerPage'];
     }
@@ -266,36 +266,36 @@ class MasterSearch2 {
     ###### Generate Page-Links
     $count_rows = $db->query_first('SELECT FOUND_ROWS() AS count');
     $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
-    #if ($_GET['page'] >= $count_pages) $_GET['page'] = $count_pages - 1;
+    #if ($_GET['ms_page'] >= $count_pages) $_GET['ms_page'] = $count_pages - 1;
 
 		if ($count_rows['count'] > $this->config['EntriesPerPage']) {
-		  $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&page=";
+		  $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&ms_page=";
 			$templ['ms2']['pages'] = ("Seiten: ");
       $link_start = ' <a href="';
       $link_end = '" onclick="loadPage(this.href); return false" class="menu">';
 			// Previous page link
-			if ($_GET['page'] != "all" and (int)$_GET['page'] > 0) {
-				$templ['ms2']['pages'] .= $link_start . $link . ($_GET['page'] - 1) . $link_end .'<b>&lt;</b></a>';
+			if ($_GET['ms_page'] != "all" and (int)$_GET['ms_page'] > 0) {
+				$templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] - 1) . $link_end .'<b>&lt;</b></a>';
 			}
 			// Direct page link
 			$i = 0;
 			while($i < $count_pages) {
-				if ($_GET['page'] != "all" and $_GET['page'] == $i) $templ['ms2']['pages'] .= (" " . ($i + 1));
+				if ($_GET['ms_page'] != "all" and $_GET['ms_page'] == $i) $templ['ms2']['pages'] .= (" " . ($i + 1));
 				else $templ['ms2']['pages'] .= $link_start . $link . $i . $link_end .'<b>'. ($i + 1) .'</b></a>';
 				$i++;
 			}
 			// Next page link
-			if ($_GET['page'] != "all" and ($_GET['page'] + 1) < $count_pages) {
-				$templ['ms2']['pages'] .= $link_start . $link . ($_GET['page'] + 1) . $link_end .'<b>&gt;</b></a>';
+			if ($_GET['ms_page'] != "all" and ($_GET['ms_page'] + 1) < $count_pages) {
+				$templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
 			}
 			// All link
-			if ($_GET['page'] == "all") $templ['ms2']['pages'] .= " Alle";
+			if ($_GET['ms_page'] == "all") $templ['ms2']['pages'] .= " Alle";
 			else $templ['ms2']['pages'] .= ' <a href="' . $link . 'all' . '" class="menu"><b>Alle</b></a>';
     }
 
 
     ###### Output Search
-    ($_GET['page'] == 'all')? $add_page = '&page=all' : $add_page = '';
+    ($_GET['ms_page'] == 'all')? $add_page = '&ms_page=all' : $add_page = '';
 
     $templ['ms2']['action'] = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}";#$add_page
     $templ['ms2']['inputs'] = '';
@@ -371,7 +371,7 @@ class MasterSearch2 {
           if ($first_as > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
 
           // Order Link and Image
-          ($_GET['page'] == 'all')? $add_page = '&page=all' : $add_page = '';
+          ($_GET['ms_page'] == 'all')? $add_page = '&ms_page=all' : $add_page = '';
           ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC')? $order_dir = 'DESC' : $order_dir = 'ASC';
           $templ['ms2']['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
 
