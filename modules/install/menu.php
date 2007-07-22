@@ -74,7 +74,7 @@ switch($_GET["step"]) {
 
 
 	default:
-		$dsp->NewContent(t('Navigationsmenü verwalten'), t('Hinweis: Verwenden Sie die BoxID um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box'). HTML_NEWLINE .t('Hinweis2: Verwenden sie die Gruppen um in der URL mit dem Parameter &menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design'));
+		$dsp->NewContent(t('Navigationsmenü verwalten'), '<font color="red">'. t('Hinweis: Verwenden Sie die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box'). HTML_NEWLINE .t('Hinweis2: Verwenden sie die Gruppen um in der URL mit dem Parameter &menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design') .'</font>');
 		$dsp->SetForm("index.php?mod=install&action=menu&step=10&onlyactive={$_GET["onlyactive"]}");
 
 		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&step=6&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["menu_navi_reset"]}</a>");
@@ -103,7 +103,7 @@ switch($_GET["step"]) {
 				if ($z < $db->num_rows($menus)) $link .= "[<a href=\"index.php?mod=install&action=menu&step=3&pos=$z&onlyactive={$_GET["onlyactive"]}\">v</a>]";
 				$link .= " {$lang["install"]["pos"]}: <input type=\"text\" name=\"pos[{$menu["id"]}]\" value=\"$z\" size=\"2\">";
 				$link .= " Gruppe: <input type=\"text\" name=\"group[{$menu["id"]}]\" value=\"{$menu['group_nr']}\" size=\"2\">";
-				$link .= " BoxID: <input type=\"text\" name=\"box[{$menu["id"]}]\" value=\"{$menu['boxid']}\" size=\"2\">";
+				$link .= " MenüBox-Nr: <input type=\"text\" name=\"box[{$menu["id"]}]\" value=\"{$menu['boxid']}\" size=\"2\">";
 
 				$dsp->AddDoubleRow("$z) ". $menu["caption"], $link);
 			}
