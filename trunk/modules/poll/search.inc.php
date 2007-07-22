@@ -10,6 +10,7 @@ $ms2 = new mastersearch2('news');
 
 $ms2->query['from'] = "{$config["tables"]["polls"]} AS p
   LEFT JOIN {$config["tables"]["pollvotes"]} AS v ON p.pollid = v.pollid";
+$ms2->query['default_order_by'] = 'p.changedate ASC';
 
 $ms2->AddTextSearchField(t('Titel'), array('p.caption' => 'like'));
 
