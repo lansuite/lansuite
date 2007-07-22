@@ -524,7 +524,9 @@ class tfunc {
 					    SET score = '". $score2 ."'
 						WHERE gameid = $gameid2
 						");
-		$func->log_event(str_replace("%SCORE1%", $score1, str_replace("%SCORE2%", $score2, str_replace("%ID1%", $gameid1, str_replace("%ID2%", $gameid2, $lang["tourney"]["s_res_log_scoresubmit"])))), 1, $lang["tourney"]["log_t_score"]);
+		$func->log_event(str_replace("%SCORE1%", $score1, str_replace("%SCORE2%", $score2, str_replace("%ID1%", $gameid1, str_replace("%ID2%", $gameid2, $lang["tourney"]["s_res_log_scoresubmit"])))), 1, t('Turnier Ergebnise'), $gameid1);
+
+		# Zusätzlich eine Mail an beide Teamleiter senden?
 
 
 		// Groups + KO

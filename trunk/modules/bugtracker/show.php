@@ -184,7 +184,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $ms2->AddResultField('', 'u.username', 'UserNameAndIcon');
   $ms2->AddResultField('', 'l.date', 'MS2GetDate');
   $ms2->PrintSearch('index.php?mod=bugtracker&bugid='. $_GET['bugid'], 'logid');
-	$dsp->AddFieldsetEnd('Log');
+	$dsp->AddFieldsetEnd();
 }
 
 $dsp->AddContent();
