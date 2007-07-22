@@ -115,6 +115,22 @@
 				<default>0</default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>sticky</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>label</name>
+				<type>int(4)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
 		</structure>
 	</table>
 	<table>

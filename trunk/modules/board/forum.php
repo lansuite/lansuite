@@ -28,6 +28,11 @@ function FormatTitle($title) {
     $templ['ms2']['icon_title'] = 'Not Paid';
     $icon = $dsp->FetchModTpl('mastersearch2', 'result_icon'). ' ';
   }
+  if ($line['sticky']) {
+    $templ['ms2']['icon_name'] = 'important';
+    $templ['ms2']['icon_title'] = 'Wichtig!';
+    $icon = $dsp->FetchModTpl('mastersearch2', 'result_icon'). ' ';
+  }
   return $icon . $title;
 }
 
@@ -79,6 +84,7 @@ switch($_GET['step']) {
       $dsp->AddFieldsetEnd();
     }
   break;
+
   case 20:
     if ($auth['type'] >= 2) foreach ($_POST['action'] as $key => $val) {
       $db->query_first("UPDATE {$config["tables"]["board_threads"]} SET fid = ". (int)$_GET['to_fid'] ." WHERE tid = ". (int)$key);
@@ -91,7 +97,39 @@ switch($_GET['step']) {
     $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = 0 AND tid = %int% AND userid = %int%', $_GET['tid'], $auth['userid']);
     $db->qry('DELETE FROM %prefix%board_bookmark WHERE fid = %int% AND tid = 0 AND userid = %int%', $GetFid['fid'], $auth['userid']);
   break;
+
+  // Lable
+  case 40:  // None
+  case 41:
+  case 42:
+  case 43:
+  case 44:
+  case 45:
+    if ($auth['type'] >= 2) foreach ($_POST['action'] as $key => $val) {
+      $db->qry('UPDATE %prefix%board_threads SET label = %int% WHERE tid = %int%', $_GET['step'] - 40, $key);
+    }
+  break;
+
+  // Sticky
+  case 50: // Add
+    if ($auth['type'] >= 2) foreach ($_POST['action'] as $key => $val) {
+      $db->qry('UPDATE %prefix%board_threads SET sticky = 1 WHERE tid = %int%', $key);
+    }
+  break;
+  case 51: // Remove
+    if ($auth['type'] >= 2) foreach ($_POST['action'] as $key => $val) {
+      $db->qry('UPDATE %prefix%board_threads SET sticky = 0 WHERE tid = %int%', $key);
+    }
+  break;
 }
+
+$colors = array();
+$colors[0] = '';
+$colors[1] = 'red';
+$colors[2] = 'blue';
+$colors[3] = 'green';
+$colors[4] = 'yellow';
+$colors[5] = 'purple';
 
 
 if ($_POST['search_input'][1] != '' or $_POST['search_input'][2] != '' or $_GET['search_input'][1] != '' or $_GET['search_input'][2] != '')
@@ -110,7 +148,10 @@ $ms2->query['from'] = "{$config['tables']['board_threads']} AS t
 $ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1);
 if ($_GET['fid'] != '') $ms2->query['where'] .= ' AND t.fid = '. (int)$_GET['fid'];
 if ($_GET['action'] == 'bookmark') $ms2->query['where'] .= ' AND b.bid IS NOT NULL';
-$ms2->query['default_order_by'] = 'LastPost DESC';
+$ms2->query['default_order_by'] = 't.sticky DESC, LastPost DESC';
+
+$ms2->AddBGColor('label', $colors);
+#$ms2->AddBGColor('sticky', array('', 'red'));
 
 if ($_GET['fid'] == '') {
   $ms2->AddTextSearchField(t('Titel'), array('t.caption' => 'like'));
@@ -126,6 +167,7 @@ if ($_GET['fid'] == '') {
 }
 
 $ms2->AddSelect('t.closed');
+$ms2->AddSelect('t.sticky');
 if ($_GET['fid'] != '') $ms2->AddResultField(t('Thread'), 't.caption', 'FormatTitle');
 else $ms2->AddResultField(t('Thread'), 'CONCAT(\'<b>\', f.name, \'</b><br />\', t.caption) AS ThreadName', 'FormatTitle');
 $ms2->AddResultField(t('Neu'), 'r.last_read', 'NewPosts');
@@ -147,8 +189,18 @@ if ($_GET['action'] != 'bookmark') {
   if ($auth['type'] >= 2) {
     $res = $db->query("SELECT fid, name FROM {$config['tables']['board_forums']}");
     while ($row = $db->fetch_array($res))
-      $ms2->AddMultiSelectAction(t('Verschieben nach '. $row['name']), 'index.php?mod=board&action=forum&step=20&to_fid='. $row['fid'] .'&fid='. $_GET['fid'], 1);
+      $ms2->AddMultiSelectAction(t('Verschieben nach '. $row['name']), 'index.php?mod=board&action=forum&step=20&to_fid='. $row['fid'] .'&fid='. $_GET['fid'], 1, 'in');
     $db->free_result($res);
+
+    $ms2->AddMultiSelectAction(t('Markierung entfernen'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=40', 0, 'selection_none');
+    $ms2->AddMultiSelectAction(t('Markieren: Rot'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=41', 0, 'selection_all');
+    $ms2->AddMultiSelectAction(t('Markieren: Blau'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=42', 0, 'selection_all');
+    $ms2->AddMultiSelectAction(t('Markieren: Grün'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=43', 0, 'selection_all');
+    $ms2->AddMultiSelectAction(t('Markieren: Gelb'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=44', 0, 'selection_all');
+    $ms2->AddMultiSelectAction(t('Markieren: Lila'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=45', 0, 'selection_all');
+
+    $ms2->AddMultiSelectAction(t('Als Top Thread setzen'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=50', 0, 'important');
+    $ms2->AddMultiSelectAction(t('Top Thread Marker entfernen'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=51', 0, 'del_important');
   }
 } else {
   $ms2->AddIconField('delete', 'index.php?mod=board&action=bookmark&step=30&tid=', t('Löschen'));
