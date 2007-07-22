@@ -183,8 +183,14 @@ Variablen:
     		<type>text</type>
     		<default>Hallo %USERNAME%,
 
-Sie haben ein neues LanSuite Passwort angefordert
-Damit das neue Passwort generiert wird, gehen Sie bitte auf folgende Webseite: %PATH%</default>
+Sie haben ein neues LanSuite Passwort angefordert.
+Damit das neue Passwort generiert wird, gehen Sie bitte auf folgende Webseite: %PATH%
+
+Dieser zusätzliche Schritt ist notwendig, um zu verifizieren, dass dies Ihre Email-Adresse ist
+und Sie somit der legitime Besitzer des Lansuite Accounts sind.
+
+Sollte Sie diese Email erreichen, ohne dass Sie ein neues Passwort angefordert haben, so hat wahrscheinlich jemand anderes versucht Ihr Passwort zu erhalten.
+In diesem Fall reagieren Sie einfach überhaupt nicht auf diese Email. Es wird dann kein neues Passwort generiert und Sie verwenden wie bisher gewohnt ihr bestehendes.</default>
     		<description>Text bei Passwort Recovery
 
 Variablen:
