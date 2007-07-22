@@ -204,9 +204,21 @@
 			</entry>
 			<entry>
 				<boxid>10</boxid>
-				<name>Messenger</name>
+				<name>Umfrage</name>
 				<place>1</place>
 				<pos>6</pos>
+				<active>0</active>
+				<internet>0</internet>
+				<login>2</login>
+				<module>poll</module>
+				<source>poll</source>
+				<callback></callback>
+			</entry>
+			<entry>
+				<boxid>11</boxid>
+				<name>Messenger</name>
+				<place>1</place>
+				<pos>7</pos>
 				<active>1</active>
 				<internet>0</internet>
 				<login>2</login>
@@ -215,7 +227,7 @@
 				<callback>MsgInIntMode</callback>
 			</entry>
 			<entry>
-				<boxid>11</boxid>
+				<boxid>12</boxid>
 				<name>Turnier-Support by</name>
 				<place>1</place>
 				<pos>20</pos>
@@ -227,7 +239,7 @@
 				<callback>IsWWCLT</callback>
 			</entry>
 			<entry>
-				<boxid>12</boxid>
+				<boxid>13</boxid>
 				<name>Die letzten News</name>
 				<place>0</place>
 				<pos>5</pos>
@@ -239,7 +251,7 @@
 				<callback></callback>
 			</entry>
 			<entry>
-				<boxid>13</boxid>
+				<boxid>14</boxid>
 				<name>Neu im Board</name>
 				<place>0</place>
 				<pos>6</pos>
@@ -251,7 +263,7 @@
 				<callback></callback>
 			</entry>
 			<entry>
-				<boxid>14</boxid>
+				<boxid>15</boxid>
 				<name>Neue Server</name>
 				<place>0</place>
 				<pos>7</pos>
@@ -263,7 +275,7 @@
 				<callback></callback>
 			</entry>
 			<entry>
-				<boxid>15</boxid>
+				<boxid>16</boxid>
 				<name>Neue Umfragen</name>
 				<place>0</place>
 				<pos>8</pos>
@@ -275,7 +287,7 @@
 				<callback></callback>
 			</entry>
 			<entry>
-				<boxid>16</boxid>
+				<boxid>17</boxid>
 				<name>Sprachauswahl</name>
 				<place>0</place>
 				<pos>1</pos>
