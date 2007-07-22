@@ -94,6 +94,20 @@ if ($tournament["name"] == "") {
 			$dsp->AddFormSubmitRow("result");
 			$dsp->AddFieldSetEnd();
 
+    	$dsp->AddFieldsetStart('Log');
+      include_once('modules/mastersearch2/class_mastersearch2.php');
+      $ms2 = new mastersearch2('t2_games');
+
+      $ms2->query['from'] = "{$config["tables"]["log"]} AS l LEFT JOIN {$config["tables"]["user"]} AS u ON l.userid = u.userid";
+      $ms2->query['where'] = "(sort_tag = 'Turnier Ergebnise' AND target_id = ". (int)$_GET['gameid1'] .')';
+
+      $ms2->AddResultField('', 'l.description');
+      $ms2->AddSelect('u.userid');
+      $ms2->AddResultField('', 'u.username', 'UserNameAndIcon');
+      $ms2->AddResultField('', 'l.date', 'MS2GetDate');
+      $ms2->PrintSearch('index.php?mod=tournament2&action=submit_result&step=1&tournamentid='. $_GET['tournamentid'] .'&gameid1='. $_GET['gameid1'] .'&gameid2='. $_GET['gameid2'], 'logid');
+    	$dsp->AddFieldsetEnd();
+
 			$buttons = "";
 			$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid", "games");
 			$buttons .= " ". $dsp->FetchButton("index.php?mod=tournament2&action=tree&step=2&tournamentid=$tournamentid", "tree");
