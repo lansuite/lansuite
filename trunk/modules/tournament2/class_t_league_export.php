@@ -199,8 +199,8 @@ class t_league_export {
 						else $winner = $tmpid1;
 						$match = $xml->write_tag("tmpid1", $tmpid1, 5);
 						$match .= $xml->write_tag("tmpid2", $db_teamid['teamid'], 5);
-						$match .= $xml->write_tag("score1", $score1, 5);
-						$match .= $xml->write_tag("score2", $db_match['score'], 5);
+						$match .= $xml->write_tag("score1", (int)$score1, 5);
+						$match .= $xml->write_tag("score2", (int)$db_match['score'], 5);
 						$match .= $xml->write_tag("winner", $winner, 5);
 						$round .= $xml->write_master_tag("match", $match, 4);
 						$tmpid1 = "";
