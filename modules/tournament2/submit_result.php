@@ -139,6 +139,9 @@ if ($tournament["name"] == "") {
 			} elseif (($vars['score_team1'] == "") && ($vars['score_team2'] == "")) { 
 				$func->information($lang["tourney"]["s_res_err_noscore"], "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 
+			} elseif (($vars['score_team1'] < 0) || ($vars['score_team2'] < 0)) {
+			                                $func->information(t('Das Ergebnis muss eine possitive Zahl sein'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
+							
 			} elseif (($vars['score_team1'] == $vars['score_team2']) && (
 				($tournament["mode"] == "single") || ($tournament["mode"] == "double")
 				|| (($tournament["mode"] == "groups") && ($team1["group_nr"] == 0))
