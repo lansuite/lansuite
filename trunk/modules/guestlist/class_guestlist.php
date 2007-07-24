@@ -1,8 +1,10 @@
 <?
+include_once("modules/usrmgr/class_usrmgr.php");
+
 class guestlist {
 
   function SetPaid($userid, $partyid) {
-    global $db, $config, $cfg, $func, $mail, $auth, $seat2;
+    global $db, $config, $cfg, $func, $mail, $auth, $seat2, $usrmgr;
 
     if (!$userid) $func->error(t('Keinen Benutzer ausgewählt'));
     if (!$partyid) $func->error(t('Keine Party ausgewählt'));
@@ -30,12 +32,14 @@ class guestlist {
     // Reserve Seat
     $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
 
+    $usrmgr->WriteXMLStatFile();
+
     $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "bezahlt" gesetzt', array($row['username'], $row2['name'])), 1, '', 'Zahlstatus');
     return $Messages;
   }
 
   function SetNotPaid($userid, $partyid) {
-    global $db, $config, $cfg, $func, $mail, $auth, $seat2;
+    global $db, $config, $cfg, $func, $mail, $auth, $seat2, $usrmgr;
 
     $Messages = array('success' => '', 'error' => '');
 		$db->query('UPDATE '. $config['tables']['party_user'] .' SET paid = 0 WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
@@ -59,6 +63,8 @@ class guestlist {
 
     // Switch seat back to "marked"
     $seat2->MarkSeatIfNotPaidAndSeatReserved($userid);
+
+    $usrmgr->WriteXMLStatFile();
 
     $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "nicht bezahlt" gesetzt', array($row['username'], $row2['name'])), 1, '', 'Zahlstatus');
     return $Messages;
