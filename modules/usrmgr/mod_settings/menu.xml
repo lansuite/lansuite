@@ -42,16 +42,6 @@
 		<level>1</level>
 	</entry>	
 	<entry>
-		<action>clanmgr</action>
-		<file>clanmgr</file>
-		<caption>Clanmanager</caption>
-		<hint></hint>
-		<link>?mod=usrmgr&amp;action=clanmgr</link>
-		<requirement>1</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>	
-	<entry>
 		<action>user_fields</action>
 		<file>user_fields</file>
 		<caption>Felder ergänzen</caption>

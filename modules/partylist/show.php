@@ -177,12 +177,12 @@ if (!$_GET['partyid']) {
   $ms2->AddResultField(t('Ende'), 'UNIX_TIMESTAMP(p.end) as end', 'MS2GetDate');
   $ms2->AddResultField(t('Anmelde-Status'), 'ls_url', 'AddSignonStatus');
 
-  $ms2->AddIconField('details', 'index.php?mod=partylist&partyid=', t('Details'));
+  $ms2->AddIconField('details', 'index.php?mod=partylist&action='. $_GET['action'] .'&partyid=', t('Details'));
   if ($_GET['action'] != 'history') $ms2->AddIconField('signon', 'index.php?mod=partylist&step=10&design=base&partyid=', t('Anmelden'));
   $ms2->AddIconField('edit', 'index.php?mod=partylist&action=add&partyid=', t('Editieren'), 'EditAllowed');
   if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=partylist&action=delete&partyid=', t('Löschen'));
 
-  $ms2->PrintSearch('index.php?mod=partylist', 'p.partyid');
+  $ms2->PrintSearch('index.php?mod=partylist&action='. $_GET['action'], 'p.partyid');
 
 
 } else {
@@ -199,7 +199,7 @@ if (!$_GET['partyid']) {
   $history = AddSignonStatus($row['ls_url'], 1);
   $dsp->AddFieldsetEnd();
 
-  $dsp->AddBackButton('index.php?mod=partylist');
+  $dsp->AddBackButton('index.php?mod=partylist&action='. $_GET['action']);
 }
 $dsp->AddContent();
 ?>
