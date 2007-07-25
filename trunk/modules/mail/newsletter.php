@@ -42,6 +42,21 @@ switch($_GET["step"]) {
 		array_push ($t_array, "<option $selected value=\"1\">{$lang['mail']['newsletter_onlypaid2']}</option>");
 		array_push ($t_array, "<option $selected value=\"2\">{$lang['mail']['newsletter_onlypaid_not']}</option>");
 		$dsp->AddDropDownFieldRow("onlypaid", t('Nur Benutzer die zu oben ausgewählter Party bezahlt haben'), $t_array, '');
+
+		$t_array = array();
+		array_push ($t_array, "<option $selected value=\"0\">". t('An alle Benutzer') ."</option>");
+		array_push ($t_array, "<option $selected value=\"1\">". t('Nur an Gäste') ."</option>");
+		array_push ($t_array, "<option $selected value=\"2\">". t('Nur an Admins und Oprtatoren') ."</option>");
+		array_push ($t_array, "<option $selected value=\"3\">". t('Nur an Oprtatoren') ."</option>");
+		$dsp->AddDropDownFieldRow("type", t('Nur an folgende Benutzertypen'), $t_array, '');
+
+		$t_array = array();
+		array_push($t_array, '<option $selected value="0">'. t('An alle Gruppen') .'</option>');
+		array_push($t_array, '<option $selected value="-1">'. t('Nur an Benutzer ohne Gruppe') .'</option>');
+    $row = $db->query("SELECT group_id, group_name FROM {$config['tables']['party_usergroups']}");
+    while($res = $db->fetch_array($row)) array_push($t_array, '<option $selected value="'. $res['group_id'] .'">'. $res['group_name'] .'</option>');
+    $db->free_result($row);
+		$dsp->AddDropDownFieldRow("group_id", t('Nur an folgende Gruppen'), $t_array, '');
 		$dsp->AddFieldSetEnd();
 
 		$dsp->AddFieldSetStart('An');
@@ -68,7 +83,13 @@ switch($_GET["step"]) {
 		if ($_POST["onlypaid"] == 1) $where .= " AND p.paid > 0";
 		elseif ($_POST["onlypaid"] == 2) $where .= " AND p.paid = 0";
 
-		$where .= " AND u.type > 0";
+		if ($_POST["type"] == 1) $where .= " AND u.type = 1";
+		elseif ($_POST["type"] == 2) $where .= " AND (u.type = 2 OR u.type = 3)";
+		elseif ($_POST["type"] == 3) $where .= " AND u.type = 3";
+		else $where .= " AND u.type > 0";
+
+		if ($_POST['group_id'] == -1) $where .= ' AND u.group_id = 0';
+		elseif ($_POST['group_id']) $where .= " AND u.group_id=". (int)$_POST['group_id'];
 
 		$success = "";
 		$fail = "";

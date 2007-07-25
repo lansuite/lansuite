@@ -81,12 +81,12 @@ if (!$cfg['download_use_ftp']) {
     }
 
     // Links
-    $res = $db->qry('SELECT link FROM %prefix%download_urls WHERE dir = %string%', $_GET['dir']);
-    while ($row = $db->fetch_array($res)) {
-      $LinkName = substr($row['link'], strrpos($row['link'], '/') + 1, strlen($row['link']));
-      $dsp->AddSingleRow('<a href="'. $row['link'] .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $LinkName .'</a>');
+    $res2 = $db->qry('SELECT link FROM %prefix%download_urls WHERE dir = %string%', $_GET['dir']);
+    while ($row2 = $db->fetch_array($res2)) {
+      $LinkName = substr($row2['link'], strrpos($row2['link'], '/') + 1, strlen($row2['link']));
+      $dsp->AddSingleRow('<a href="'. $row2['link'] .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $LinkName .'</a>');
     }
-    $db->free_result($res);
+    $db->free_result($res2);
 
     $dsp->AddFieldSetEnd();
 
