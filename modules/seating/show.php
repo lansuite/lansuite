@@ -75,7 +75,9 @@ switch($_GET['step']) {
 
 	// Reserve seat for me
 	case 11:
-		$user_data = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
+		$user_data = $db->query_first("SELECT paid, price_id FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
+
+		$block_data = $db->query_first("SELECT group_id, price_id FROM {$config['tables']['seat_block']} WHERE blockid = {$_GET['blockid']}");
 
 		$seat_user = $db->query_first("SELECT status FROM {$config["tables"]["seat_seats"]}
             WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}'");
@@ -83,6 +85,12 @@ switch($_GET['step']) {
 		// Check paid
 		if (!$user_data['paid'] and $cfg['seating_paid_only']) $func->information($lang['seating']['i_not_paid2'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
+		// Check Group ID
+		elseif ($block_data['group_id'] and $auth['group_id'] != $block_data['group_id']) $func->information(t('Sie gehören nicht der richtigen Gruppe an, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+
+		// Check Price ID
+                elseif ($block_data['price_id'] and $user_data['price_id'] != $block_data['price_id']) $func->information(t('Sie sind nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+		
 		// Check seat availability
     elseif ($seat_user['status'] == 2)  $func->error($lang['seating']['e_assigned'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
