@@ -27,7 +27,23 @@
 				<key></key>
 				<default>0</default>
 				<extra></extra>
-			</field>			
+			</field>
+                        <field>
+                                <name>group_id</name>
+                                <type>int(20)</type>
+                                <null></null>
+                                <key></key>
+                                <default>0</default>
+                                <extra></extra>
+                        </field>
+			<field>
+				<name>price_id</name>
+				<type>int(20)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
 			<field>
 				<name>rows</name>
 				<type>int(3)</type>

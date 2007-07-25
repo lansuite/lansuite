@@ -96,6 +96,8 @@ switch($_GET['step']) {
 			if ($_POST['orientation'] == "") $_POST['orientation'] = $block['orientation'];
 			if ($_POST['u18'] == "") $_POST['u18'] = $block['u18'];
 			if ($_POST['party_id'] == "") $_POST['party_id'] = $block['party_id'];
+			if ($_POST['group_id'] == "") $_POST['group_id'] = $block['group_id'];
+			if ($_POST['price_id'] == "") $_POST['price_id'] = $block['price_id'];
 			if ($_POST['remark'] == "") $_POST['remark'] = $block['remark'];
 			if ($_POST['text_tl'] == "") $_POST['text_tl'] = $block['text_tl'];
 			if ($_POST['text_tc'] == "") $_POST['text_tc'] = $block['text_tc'];
@@ -127,6 +129,27 @@ switch($_GET['step']) {
 		$dsp->AddDropDownFieldRow('orientation', $lang['seating']['orientation'], $selections, '');
 
 		$dsp->AddCheckBoxRow('u18', $lang['seating']['u18_block'], '', '', 0, $_POST['u18']);
+
+                $t_array = array();
+		array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
+		$res = $db->query("SELECT group_id, group_name FROM {$config['tables']['party_usergroups']}");
+		while($row = $db->fetch_array($res)) {
+			($_POST['group_id'] == $row['group_id'])? $selected = 'selected' : $selected = '';
+			array_push($t_array, '<option '. $selected .' value="'. $row['group_id'] .'">'. $row['group_name'] .'</option>');
+		}
+		$db->free_result($res);
+		$dsp->AddDropDownFieldRow("group_id", t('Nur für Benutzer dieser Gruppe'), $t_array, '');
+
+		$t_array = array();
+                array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
+                $res = $db->query("SELECT price_id, price_text FROM {$config['tables']['party_prices']} WHERE party_id = '{$party->party_id}'");
+                while($row = $db->fetch_array($res)) {
+        	        ($_POST['price_id'] == $row['price_id'])? $selected = 'selected' : $selected = '';
+	                array_push($t_array, '<option '. $selected .' value="'. $row['price_id'] .'">'. $row['price_text'] .'</option>');
+		}
+		$db->free_result($res);
+                $dsp->AddDropDownFieldRow("price_id", t('Nur für diesen Eintrittspreis'), $t_array, '');
+
 		$dsp->AddTextAreaPlusRow('remark', $lang['seating']['remark'], $_POST['remark'], $error['remark'], '', 4, 1);
 		$dsp->AddDoubleRow($lang['seating']['block_caption'], $dsp->FetchModTpl('seating', 'plan_labels'));
 
@@ -150,6 +173,8 @@ switch($_GET['step']) {
 		if ($_GET['action'] == 'add') {
 			$db->query("INSERT INTO {$config['tables']['seat_block']} SET
 				party_id = '{$party->party_id}',
+				group_id = '{$_POST['group_id']}',
+				price_id = '{$_POST['price_id']}',
 				name = '{$_POST['name']}',
 				rows = '". ($_POST['rows'] - 1) ."',
 				cols = '". ($_POST['cols'] - 1) ."',
@@ -173,6 +198,8 @@ switch($_GET['step']) {
 		} else {
 			$db->query("UPDATE {$config["tables"]["seat_block"]} SET
 				party_id = '{$party->party_id}',
+				group_id = '{$_POST['group_id']}',
+				price_id = '{$_POST['price_id']}',
 				name = '{$_POST['name']}',
 				rows = '". ($_POST['rows'] - 1) ."',
 				cols = '". ($_POST['cols'] - 1) ."',
