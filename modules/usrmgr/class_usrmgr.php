@@ -1,4 +1,7 @@
 <?
+
+$usrmgr = new UsrMgr();
+
 class UsrMgr {
 
   function LockAccount($userid) {
