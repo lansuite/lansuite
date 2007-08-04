@@ -148,7 +148,7 @@ class beamer {
   global $db, $config, $func;
     
   	$result = $db->query('SELECT tournamentid, name FROM ' . $config["tables"]["tournament_tournaments"] );
-	while ($row = $result->fetch_array(MYSQLI_ASSOC))
+	while ($row = $db->fetch_array($result))
 	{
 		$tournaments[] = "<option value=\"{$row['tournamentid']}\">{$row['name']}</option>";
 	}

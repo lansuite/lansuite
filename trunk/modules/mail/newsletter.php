@@ -46,8 +46,8 @@ switch($_GET["step"]) {
 		$t_array = array();
 		array_push ($t_array, "<option $selected value=\"0\">". t('An alle Benutzer') ."</option>");
 		array_push ($t_array, "<option $selected value=\"1\">". t('Nur an Gäste') ."</option>");
-		array_push ($t_array, "<option $selected value=\"2\">". t('Nur an Admins und Oprtatoren') ."</option>");
-		array_push ($t_array, "<option $selected value=\"3\">". t('Nur an Oprtatoren') ."</option>");
+		array_push ($t_array, "<option $selected value=\"2\">". t('Nur an Admins und Operatoren') ."</option>");
+		array_push ($t_array, "<option $selected value=\"3\">". t('Nur an Operatoren') ."</option>");
 		$dsp->AddDropDownFieldRow("type", t('Nur an folgende Benutzertypen'), $t_array, '');
 
 		$t_array = array();
