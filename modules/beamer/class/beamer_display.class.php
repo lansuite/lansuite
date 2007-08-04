@@ -34,7 +34,7 @@ class beamer_display {
 
 	
 	function viewContent () {
-	global $dsp, $lang, $beamermodul, $bcid, $beamerid;
+	global $dsp, $lang, $beamermodul, $bcid, $beamerid, $config;
 
 		// private ms2 funktionen
 		function formatContentType ( $var ) {
@@ -66,7 +66,7 @@ class beamer_display {
   
   	  	include_once('modules/mastersearch2/class_mastersearch2.php');
 		$ms2 = new mastersearch2('beamer');
-		$ms2->query['from'] = "lansuite_beamer_content";	// "{$config["tables"]["beamer_content"]}";
+		$ms2->query['from'] = $config["tables"]["beamer_content"];
 		$ms2->AddResultField('-A-', 'active', 'formatActiveStatus','',35);
 		$ms2->AddResultField('Typ', 'contentType', 'formatContentType',"",35);
 		$ms2->AddResultField('Titel', 'caption');
