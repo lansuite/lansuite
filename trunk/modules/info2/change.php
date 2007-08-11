@@ -1,5 +1,18 @@
 <?php
 
+function ShowActiveState($val){
+  global $dsp, $templ, $lang, $line;
+
+  if ($val) {
+    $templ['ms2']['icon_name'] = 'yes';
+    $templ['ms2']['icon_title'] = $lang['sys']['yes'];
+  } else {
+    $templ['ms2']['icon_name'] = 'no';
+    $templ['ms2']['icon_title'] = $lang['sys']['no'];
+  }
+  return '<a href="index.php?mod=info2&action=change&step=20&infoID='. $line['infoID'] .'">'. $dsp->FetchModTpl('mastersearch2', 'result_icon') .'</a>';
+}
+
 if ($auth['type'] <= 1) {
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2();
@@ -34,7 +47,7 @@ if ($auth['type'] <= 1) {
 
       $ms2->AddResultField($lang['info']['title'], 'i.caption');
       $ms2->AddResultField($lang['info']['subtitle'], 'i.shorttext', '', 140);
-      $ms2->AddResultField($lang['info']['active'], 'i.active', 'TrueFalse');
+      $ms2->AddResultField($lang['info']['active'], 'i.active', 'ShowActiveState');
 
       if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=info2&action=change&step=2&id=', $lang['ms2']['edit']);
 
@@ -132,7 +145,8 @@ if ($auth['type'] <= 1) {
 
   	// Change active state
   	case 20:
-  		foreach($_POST["action"] AS $item => $val) {
+		if ($_GET['infoID']) $_POST["action"][$_GET['infoID']] = '1';
+		foreach($_POST["action"] AS $item => $val) {
   			$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
   			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
   			if ($menu_intem["active"]) {
