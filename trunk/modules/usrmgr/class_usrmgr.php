@@ -111,7 +111,8 @@ class UsrMgr {
 
       // Signon-Mail
       case 1:
-        $message = $cfg["signon_signonemail_text"];
+        if ($_POST['InsertControll0']) $message = $cfg["signon_signonemail_text"];
+	else $message = $cfg["signon_signoffemail_text"];
 
         if (!$_GET['user_id']) $_GET['user_id'] = $auth['userid'];
         if ($_GET['user_id']) {
@@ -126,7 +127,7 @@ class UsrMgr {
       		$message = str_replace('%SIGNON_DEADLINE%', $anmelde_schluss, $message);
 
       		$message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
-      		if ($mail->create_inet_mail($row["firstname"]." ".$row["name"], $row["email"], $cfg["signon_signonemail_subject"], $message, $cfg["sys_party_mail"])) return true;
+      		if ($mail->create_inet_mail($row["firstname"]." ".$row["name"], $row["email"], $cfg["signon_signoffemail_subject"], $message, $cfg["sys_party_mail"])) return true;
       		else return false;
         } else return false;
       break;

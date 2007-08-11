@@ -92,7 +92,23 @@ Variablen:
 %MAXGUESTS%
         </description>
     	</item>
-    	<item>
+  
+	<item>
+		<name>signon_signoffemail_subject</name>
+		<type>string</type>
+		<default>Abmeldung von einer LanSuite Lan-Party</default>
+		<description>Betreff bei Abmeldungs-Mail</description>
+	</item>
+	<item>
+		<name>signon_signoffemail_text</name>
+		<type>text</type>
+		<default>Hallo %USERNAME%!
+		
+		Schade, dass du doch nicht zu unserer Party kommen kannst/möchtest.
+		Wir würden uns jedoch freuen, wenn du auf einer unserer zukünftigen Partys wieder mit dabei wärst</default>
+  		<description>Text bei Abmeldungs-Mail</description>
+	</item>
+  	<item>
     		<name>signon_signonemail_text_register</name>
     		<type>text</type>
     		<default>Hallo %USERNAME%!
