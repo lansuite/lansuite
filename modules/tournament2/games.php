@@ -142,8 +142,16 @@ else {
   		}
   
   		// Finish tournament
-  		if ($_GET['step'] == 11) $db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET status='closed' WHERE tournamentid = $tournamentid");
-  
+  		if ($_GET['step'] == 11) {
+			$db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET status='closed' WHERE tournamentid = $tournamentid");
+			$func->confirmation(t('Turnier wurde beendet'), '');
+		}
+		// Unfinish tournament
+		if ($_GET['step'] == 12) {
+			$db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET status='process' WHERE tournamentid = $tournamentid");
+			$func->confirmation(t('Turnier wurde wiedereröffnet'), '');
+		}
+		
   		// Show players and scores
   		$games = $db->query("SELECT teams.name, teams.teamid, games.leaderid, games.score, games.gameid
   				FROM {$config["tables"]["t2_games"]} AS games
@@ -157,7 +165,8 @@ else {
   		}
   		$db->free_result($games);
   		$dsp->AddFormSubmitRow("save");
-  		$dsp->AddDoubleRow('', $dsp->FetchButton("index.php?mod=tournament2&action=games&step=11&tournamentid=$tournamentid", 'finish'));
+  		if ($tournament['status'] == 'process') $dsp->AddDoubleRow('', $dsp->FetchButton("index.php?mod=tournament2&action=games&step=11&tournamentid=$tournamentid", 'finish'));
+		elseif ($tournament['status'] == 'closed') $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Beenden rückgängig'), "index.php?mod=tournament2&action=games&step=12&tournamentid=$tournamentid"));
   	break;
   	case "liga":
   	case "groups":
