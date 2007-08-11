@@ -234,6 +234,32 @@ else {
 			// Comment
 			$dsp->AddDoubleRow($lang['usrmgr']['details_comment'], ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));
       $dsp->AddFieldsetEnd();
+
+			//hardwareliste 
+			$hardware=$db->query_first("SELECT * FROM {$config['tables']['hardware']} WHERE userid='{$_GET['userid']}'"); 
+			$dsp->AddFieldsetStart('Hardware'); 
+			if ($hardware['cpu']) $dsp->AddDoubleRow('CPU', $dsp->AddIcon('cpu','',$lang['button']['edit']).' '.$hardware['cpu']); 
+			if ($hardware['ram']) $dsp->AddDoubleRow('Ram',$dsp->AddIcon('ram','',$lang['button']['edit']).' '.$hardware['ram'].' MB'); 
+			if ($hardware['graka']) $dsp->AddDoubleRow('Grafikkarte',$dsp->AddIcon('graka','',$lang['button']['edit']).' '.$hardware['graka']); 
+			if ($hardware['hdd1']) $dsp->AddDoubleRow('Festplatte 1',$dsp->AddIcon('hdd','',$lang['button']['edit']).' '.$hardware['hdd1']); 
+			if ($hardware['hdd2']) $dsp->AddDoubleRow('Festplatte 2',$dsp->AddIcon('hdd','',$lang['button']['edit']).' '.$hardware['hdd2']); 
+			if ($hardware['cd1']) $dsp->AddDoubleRow('Optisches Laufwerk 1',$dsp->AddIcon('cd','',$lang['button']['edit']).' '.$hardware['cd1']); 
+			if ($hardware['cd2']) $dsp->AddDoubleRow('Optisches Laufwerk 2',$dsp->AddIcon('cd','',$lang['button']['edit']).' '.$hardware['cd2']); 
+			if ($hardware['maus']) $dsp->AddDoubleRow('Maus',$dsp->AddIcon('maus','',$lang['button']['edit']).' '.$hardware['maus']); 
+			if ($hardware['tasta']) $dsp->AddDoubleRow('Tastatur',$dsp->AddIcon('tasta','',$lang['button']['edit']).' '.$hardware['tasta']); 
+			if ($hardware['monitor']) $dsp->AddDoubleRow('Monitor',$dsp->AddIcon('screen','',$lang['button']['edit']).' '.$hardware['monitor']); 
+			if ($hardware['os']) $dsp->AddDoubleRow('Betriebssystem',$dsp->AddIcon('xp','',$lang['button']['edit']).' '.$hardware['os']); 
+			if ($hardware['name']) $dsp->AddDoubleRow('Computername',$dsp->AddIcon('pc','',$lang['button']['edit']).' '.$hardware['name']); 
+			//if($hardware['sonstiges']) $dsp->AddDoubleRow('Sonstiges',$hardware['sonstiges']); 
+
+			if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change'])) { 
+				$name = '<center>'; 
+				if ($hardware['hardwareid']) $name .= $dsp->FetchButton('index.php?mod=usrmgr&action=hardware&userid='. $_GET['userid'].'&hardwareid='.$hardware['hardwareid'], 'edit'); 
+				else $name .= $dsp->FetchButton('index.php?mod=usrmgr&action=hardware&userid='. $_GET['userid'].'&hardwareid='.$hardware['hardwareid'],'add'); 
+				$name .= '</center>'; 
+				$dsp->AddSingleRow($name);
+			}
+			$dsp->AddFieldsetEnd();
 		break;
 
 
