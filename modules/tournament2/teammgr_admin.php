@@ -53,7 +53,10 @@ switch($_GET["step"]) {
 		$sec->unlock("t_admteam_create");
 
 		$t = $db->query_first("SELECT teamplayer FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
-		if ($t['teamplayer'] == 1) $_POST["team_name"] = $auth["username"];
+		if ($t['teamplayer'] == 1) {
+			$leader = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = '{$_GET['userid']}'");
+			$_POST["team_name"] = $leader["username"];
+		}
 
 		if ($tteam->SignonCheckUser($_GET["tournamentid"], $_GET["userid"])) {
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=42&tournamentid=$tournamentid&userid=$userid");
