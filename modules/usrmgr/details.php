@@ -52,7 +52,7 @@ else {
   $user_fields = $db->query("SELECT name, caption, optional FROM {$config['tables']['user_fields']}");
   if ($db->num_rows($user_fields) > 0) $menunames[4] = $lang['usrmgr']['details_own_fields'];
 	if(!$vars['headermenuitem']) { $vars['headermenuitem'] = 1; }
-
+	if ($auth['type'] >= 3) $menunames[5] = t('Sessions');
 
 
 	$dsp->NewContent(str_replace("%USER%", $user_data['username'], $lang['usrmgr']['details_caption']), $lang['usrmgr']['details_subcaption']);
@@ -234,32 +234,6 @@ else {
 			// Comment
 			$dsp->AddDoubleRow($lang['usrmgr']['details_comment'], ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));
       $dsp->AddFieldsetEnd();
-
-			//hardwareliste 
-			$hardware=$db->query_first("SELECT * FROM {$config['tables']['hardware']} WHERE userid='{$_GET['userid']}'"); 
-			$dsp->AddFieldsetStart('Hardware'); 
-			if ($hardware['cpu']) $dsp->AddDoubleRow('CPU', $dsp->AddIcon('cpu','',$lang['button']['edit']).' '.$hardware['cpu']); 
-			if ($hardware['ram']) $dsp->AddDoubleRow('Ram',$dsp->AddIcon('ram','',$lang['button']['edit']).' '.$hardware['ram'].' MB'); 
-			if ($hardware['graka']) $dsp->AddDoubleRow('Grafikkarte',$dsp->AddIcon('graka','',$lang['button']['edit']).' '.$hardware['graka']); 
-			if ($hardware['hdd1']) $dsp->AddDoubleRow('Festplatte 1',$dsp->AddIcon('hdd','',$lang['button']['edit']).' '.$hardware['hdd1']); 
-			if ($hardware['hdd2']) $dsp->AddDoubleRow('Festplatte 2',$dsp->AddIcon('hdd','',$lang['button']['edit']).' '.$hardware['hdd2']); 
-			if ($hardware['cd1']) $dsp->AddDoubleRow('Optisches Laufwerk 1',$dsp->AddIcon('cd','',$lang['button']['edit']).' '.$hardware['cd1']); 
-			if ($hardware['cd2']) $dsp->AddDoubleRow('Optisches Laufwerk 2',$dsp->AddIcon('cd','',$lang['button']['edit']).' '.$hardware['cd2']); 
-			if ($hardware['maus']) $dsp->AddDoubleRow('Maus',$dsp->AddIcon('maus','',$lang['button']['edit']).' '.$hardware['maus']); 
-			if ($hardware['tasta']) $dsp->AddDoubleRow('Tastatur',$dsp->AddIcon('tasta','',$lang['button']['edit']).' '.$hardware['tasta']); 
-			if ($hardware['monitor']) $dsp->AddDoubleRow('Monitor',$dsp->AddIcon('screen','',$lang['button']['edit']).' '.$hardware['monitor']); 
-			if ($hardware['os']) $dsp->AddDoubleRow('Betriebssystem',$dsp->AddIcon('xp','',$lang['button']['edit']).' '.$hardware['os']); 
-			if ($hardware['name']) $dsp->AddDoubleRow('Computername',$dsp->AddIcon('pc','',$lang['button']['edit']).' '.$hardware['name']); 
-			//if($hardware['sonstiges']) $dsp->AddDoubleRow('Sonstiges',$hardware['sonstiges']); 
-
-			if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change'])) { 
-				$name = '<center>'; 
-				if ($hardware['hardwareid']) $name .= $dsp->FetchButton('index.php?mod=usrmgr&action=hardware&userid='. $_GET['userid'].'&hardwareid='.$hardware['hardwareid'], 'edit'); 
-				else $name .= $dsp->FetchButton('index.php?mod=usrmgr&action=hardware&userid='. $_GET['userid'].'&hardwareid='.$hardware['hardwareid'],'add'); 
-				$name .= '</center>'; 
-				$dsp->AddSingleRow($name);
-			}
-			$dsp->AddFieldsetEnd();
 		break;
 
 
@@ -361,6 +335,29 @@ else {
     			$dsp->AddDoubleRow($user_field['caption'], $user_data[$user_field['name']]);
         }
       }
+		break;
+
+		case 5:
+			if ($auth['type'] >= 3) {
+				include_once('modules/mastersearch2/class_mastersearch2.php');
+				$ms2 = new mastersearch2('usrmgr');
+
+				$ms2->query['from'] = "{$config["tables"]["stats_auth"]} a";
+				$ms2->query['where'] = "a.userid = ". (int)$_GET['userid'];
+
+				$ms2->config['EntriesPerPage'] = 50;
+
+				$ms2->AddResultField(t('Session-ID'), 'a.sessid');
+				$ms2->AddResultField(t('IP'), 'a.ip');
+				#$ms2->AddResultField(t('Login?'), 'a.login');
+				$ms2->AddResultField(t('Hits'), 'a.hits');
+				$ms2->AddResultField(t('Visits'), 'a.visits');
+				#$ms2->AddResultField(t('Letzter Aufruf'), 'a.logtime', 'MS2GetDate');
+				$ms2->AddResultField(t('Eingeloggt'), 'a.logintime', 'MS2GetDate');
+				$ms2->AddResultField(t('Letzter Aufruf'), 'a.lasthit', 'MS2GetDate');
+
+				$ms2->PrintSearch('index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&headermenuitem=5', 'a.sessid');
+			}
 		break;
 	} // end switch
 
