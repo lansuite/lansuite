@@ -25,7 +25,7 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 			$templ['sponsor']['row']['col1'] = "<a href=\"index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=page&amp;sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $templ['sponsor']['row']['col1'] ."</a>";
 	}
 
-	$templ['sponsor']['row']['col2'] = $sponsor["name"];
+	$templ['sponsor']['row']['col2'] = '<b>'. $sponsor["name"] .'</b>';
 	if ($sponsor["url"] != "" && $sponsor["url"] != "http://")
 		$templ['sponsor']['row']['col2'] = "<a href=\"index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=page&amp;sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $templ['sponsor']['row']['col2'] ."</a>";
 	$templ['sponsor']['row']['col2'] .= HTML_NEWLINE. $func->db2text2html($sponsor["text"]);
