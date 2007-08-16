@@ -142,6 +142,7 @@ switch($step) {
 									anonym = '{$_POST["poll_anonym"]}',
 									multi = '{$_POST["poll_multi"]}',
 									endtime = '$poll_endtime',
+									changedate = NOW()
 									group_id = '{$_POST['group_id']}'
 									WHERE pollid = '{$_GET["pollid"]}'");
 				$func->confirmation(str_replace("%NAME%", $_POST["poll_caption"], $lang["poll"]["change_success"]), "index.php?mod=poll&action=change");
@@ -154,6 +155,7 @@ switch($step) {
 							anonym='{$_POST["poll_anonym"]}',
 							multi='{$_POST["poll_multi"]}',
 							endtime='$poll_endtime',
+							changedate = NOW()
 							group_id = '{$_POST['group_id']}'
 							");
 				$_GET["pollid"] = $db->insert_id();
