@@ -342,12 +342,12 @@ class team {
 	function UpdateLeagueIDs($userid, $wwclid = NULL, $wwclclanid = NULL, $nglid = NULL, $nglclanid = NULL, $lgzid = NULL, $lgzclanid = NULL) {
 		global $db, $config, $auth;
 
-		if ($wwclid != "") $db->query("UPDATE {$config["tables"]["user"]} SET wwclid = $wwclid WHERE userid = $userid");
-		if ($wwclclanid != "") $db->query("UPDATE {$config["tables"]["user"]} SET wwclclanid = $wwclclanid WHERE userid = $userid");
-		if ($nglid != "") $db->query("UPDATE {$config["tables"]["user"]} SET nglid = $nglid WHERE userid = $userid");
-		if ($nglclanid != "") $db->query("UPDATE {$config["tables"]["user"]} SET nglclanid = $nglclanid WHERE userid = $userid");
-		if ($lgzid != "") $db->query("UPDATE {$config["tables"]["user"]} SET lgzid = $lgzid WHERE userid = $userid");
-		if ($lgzclanid != "") $db->query("UPDATE {$config["tables"]["user"]} SET lgzclanid = $lgzclanid WHERE userid = $userid");
+		if ($wwclid != "") $db->qry('UPDATE %prefix%user SET wwclid = %string%$ WHERE userid = %int%', $wwclid, $userid);
+		if ($wwclclanid != "") $db->qry('UPDATE %prefix%user SET wwclclanid = %string%$ WHERE userid = %int%', $wwclclanid, $userid);
+		if ($nglid != "") $db->qry('UPDATE %prefix%user SET nglid = %string%$ WHERE userid = %int%', $nglid, $userid);
+		if ($nglclanid != "") $db->qry('UPDATE %prefix%user SET nglclanid = %string%$ WHERE userid = %int%', $nglclanid, $userid);
+		if ($lgzid != "") $db->qry('UPDATE %prefix%user SET lgzid = %string%$ WHERE userid = %int%', $lgzid, $userid);
+		if ($lgzclanid != "") $db->qry('UPDATE %prefix%user SET lgzclanid = %string%$ WHERE userid = %int%', $lgzclanid, $userid);
 	}
 
 }
