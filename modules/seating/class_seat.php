@@ -299,9 +299,9 @@ class seat2 {
 								// Clanmate
 								elseif (in_array($seat_userid[$y][$x], $my_clanmates)) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_clanmate.png";
                 // Checked out
-								elseif ($seat_user_checkout[$y][$x]) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_out.png";
+								elseif ($seat_user_checkout[$y][$x] and $seat_user_checkout[$y][$x] != '0000-00-00 00:00:00') $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_out.png";
                 // Checked in
-								elseif ($seat_user_checkin[$y][$x]) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_in.png";
+								elseif ($seat_user_checkin[$y][$x] and $seat_user_checkin[$y][$x] != '0000-00-00 00:00:00') $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_in.png";
 								// Normal occupied seat
 								else $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png";
 							break;
