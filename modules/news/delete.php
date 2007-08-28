@@ -8,6 +8,9 @@ switch($vars["step"]) {
     include_once('inc/classes/class_masterdelete.php');
     $md = new masterdelete();
     $md->Delete('news', 'newsid', $_GET['newsid']);
-	break;
+
+    include_once('modules/news/class_news.php');
+    $news->GenerateNewsfeed();
+  break;
 }
 ?>
