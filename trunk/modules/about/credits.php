@@ -60,7 +60,7 @@ and all other friends', 'align="center"');
 
 $dsp->AddSingleRow('<b>&quot; Life is like a Trainstation &quot;</b>', 'align="center"');
 $dsp->AddSingleRow('Written on PSPad, Kate, UltraEdit and ZendStudio', 'align="center"');
-$dsp->AddSingleRow('Lansuite has been written and tested using<br />PHP 4.3.11 / 5.0.5 and MySQL 4.0.15 / 5.0', 'align="center"');
+$dsp->AddSingleRow('Lansuite has been written and tested using<br />PHP 4.3.11 / 5.0.5 and MySQL 4.1.1 / 5.0', 'align="center"');
 
 $dsp->AddSingleRow('<b>Lansuite consists of:</b>', 'align="center"');
 $dsp->AddSingleRow('PHP: <!--PHP-LINES-START-->51268<!--PHP-LINES-STOP--> php-code lines and <!--PHP-CHARS-START-->2149482<!--PHP-CHARS-STOP--> chars<br />
