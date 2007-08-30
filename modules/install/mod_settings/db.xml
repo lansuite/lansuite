@@ -24,7 +24,7 @@
 				<name>relatedto_id</name>
 				<type>int(10)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -40,7 +40,7 @@
 				<name>creatorid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -56,7 +56,7 @@
 				<name>text</name>
 				<type>text</type>
 				<null></null>
-				<key></key>
+				<key>FUL</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -291,7 +291,7 @@
 				<name>userid</name>
 				<type>int(5)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -405,7 +405,7 @@
 				<name>userid</name>
 				<type>int(10)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -454,7 +454,7 @@
 				<name>module</name>
 				<type>varchar(20)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -542,7 +542,7 @@
 				<name>boxid</name>
 				<type>int(2)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -858,7 +858,7 @@
 				<name>userid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -955,7 +955,7 @@
 				<name>module</name>
 				<type>varchar(20)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -980,7 +980,7 @@
 				<name>module</name>
 				<type>varchar(20)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -1005,7 +1005,7 @@
 				<name>module</name>
 				<type>varchar(20)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -1232,7 +1232,7 @@
 				<name>userid</name>
 				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
 			</field>
