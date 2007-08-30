@@ -7,21 +7,21 @@ $helplet['info'] = 'Informationen zum Einfügen des WWCl-Codes';
 $helplet['key'][1] = 'WWCL';
 $helplet['value'][1] = 'Falls Sie WWCL-Turniere auf Ihrer Party spielen, sollten Sie unten stehenden Banner-Code auf Ihrer Sponsoren-Seite hinzufügen. Das Einfügen eines Buttons ist nicht notwendig, da in LanSuite automatisch eine WWCL-Box mit dem Button auf allen Turnier-Seiten erscheint, die WWCL-Spiele enthalten';
 $helplet['key'][2] = 'Code';
-$helplet['value'][2] = '&lt;!-- WWCL Banner CODE v3.0 --&gt;<br>
-&lt;SCRIPT LANGUAGE="JavaScript"&gt;<br>
-&lt;!--<br>
-now = new Date();<br>
-random = now.getTime();<br>
-document.write(\'&lt;A HREF="http://advertise.planetlan.net/oc.php?s=1&amp;c=83&amp;w=468&amp;h=60&amp;cb=\' + random + \'" TARGET="_blank"&gt;\');<br>
-document.write(\'&lt;IMG SRC="http://advertise.planetlan.net/oi.php?s=1&amp;c=83&amp;w=468&amp;h=60&amp;l=1&amp;cb=\' + random + \'"\');<br>
-document.write(\' WIDTH=468 HEIGHT=60 BORDER=0&gt;&lt;/A&gt;\');<br>
-//--><br>
-&lt;/SCRIPT&gt;<br>
-&lt;NOSCRIPT&gt;<br>
-&lt;A HREF="http://advertise.planetlan.net/oc.php?s=1&amp;c=83&amp;w=468&amp;h=60" TARGET="_blank"&gt;&lt;IMG<br>
-SRC="http://advertise.planetlan.net/oi.php?s=1&amp;c=83&amp;w=468&amp;h=60&amp;l=1"<br>
-WIDTH=468 HEIGHT=60 BORDER=0&gt;&lt;/A&gt;<br>
-&lt;/NOSCRIPT&gt;<br>
-&lt;!-- END OF WWCL BANNER CODE --&gt;';
+$helplet['value'][2] = '&lt;!-- START OF WWCL BUTTON CODE 3.0-->
+&lt;script language="JavaScript" type="text/javascript" src="http://dico.planetlan-gmbh.de/adx.js">&lt;/script>
+&lt;script language="JavaScript" type="text/javascript">
+&lt;!--
+if (!document.phpAds_used) document.phpAds_used = ",";
+phpAds_random = new String (Math.random()); phpAds_random = phpAds_random.substring(2,11);
+document.write ("&lt;" + "script language=\'JavaScript\' type=\'text/javascript\' src=\'");
+document.write ("http://dico.planetlan-gmbh.de/adjs.php?n=" + phpAds_random);
+document.write ("&amp;what=zone:13&amp;target=_blank");
+document.write ("&amp;exclude=" + document.phpAds_used);
+if (document.referrer)
+  document.write ("&amp;referer=" + escape(document.referrer));
+document.write ("\'>&lt;" + "/script>");
+//-->
+&lt;/script>&lt;noscript>&lt;a href="http://dico.planetlan-gmbh.de/adclick.php?n=af5ab174" target="_blank">&lt;img src="http://dico.planetlan-gmbh.de/adview.php?what=zone:13&n=af5ab174" border="0" alt="">&lt;/a>&lt;/noscript>
+&lt;!-- END OF WWCL BUTTON CODE -->';
 
 ?>
