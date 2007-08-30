@@ -44,7 +44,7 @@ switch($_GET['step']) {
 
     $res = $db->qry('SELECT * FROM %prefix%seat_seats WHERE blockid = %int%', $_GET['blockid']);
     while ($row = $db->fetch_array($res)){
-      if ($row['status'] > 1 and $row['status'] < 10) $row['status'] = 1; // Mark all seats free
+      if ($row['status'] > 1 and $row['status'] < 5) $row['status'] = 1; // Mark all seats free
       $db->qry('INSERT INTO %prefix%seat_seats SET
         blockid = %int%,
         col = %int%,
