@@ -208,6 +208,7 @@ $lang['usrmgr']['del_sql_mark'] = 'This user has been deleted';
 $lang['usrmgr']['del_success'] = 'This user has been deleted successfully';
 $lang['usrmgr']['details_state'] = 'State';
 $lang['usrmgr']['details_playerinfos'] = 'Playerinfos';
+$lang['usrmgr']['details_onLan'] = 'Attendances';
 $lang['usrmgr']['details_private'] = 'Private';
 $lang['usrmgr']['details_misc'] = 'Miscallanous';
 $lang['usrmgr']['details_own_fields'] = 'Own fields';

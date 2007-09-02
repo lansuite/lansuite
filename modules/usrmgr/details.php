@@ -64,7 +64,7 @@ else {
   if ($db->num_rows($user_fields) > 0) $menunames[4] = $lang['usrmgr']['details_own_fields'];
 	if(!$vars['headermenuitem']) { $vars['headermenuitem'] = 1; }
 	if ($auth['type'] >= 3) $menunames[5] = t('Sessions');
-	$menunames[6] = 'LAN Teilnahme';
+	$menunames[6] = $lang['usrmgr']['details_onLan'];
 
 
 	$dsp->NewContent(str_replace("%USER%", $user_data['username'], $lang['usrmgr']['details_caption']), $lang['usrmgr']['details_subcaption']);
