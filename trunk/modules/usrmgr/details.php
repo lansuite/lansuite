@@ -11,6 +11,17 @@ function IsAuthorizedAdmin() {
   else return false;
 }
 
+function getCheckin($checkin) {
+  global $dsp;
+  
+  if($checkin)
+  	return "<img src='design/images/icon_yes.png' border='0' alt='Ja' />";
+  else
+  	return "<img src='design/images/icon_no.png' border='0' alt='Ja' />";
+
+}
+
+
 
 function GetTypeDescription($type) {
 	global $lang;
@@ -53,6 +64,7 @@ else {
   if ($db->num_rows($user_fields) > 0) $menunames[4] = $lang['usrmgr']['details_own_fields'];
 	if(!$vars['headermenuitem']) { $vars['headermenuitem'] = 1; }
 	if ($auth['type'] >= 3) $menunames[5] = t('Sessions');
+	$menunames[6] = 'LAN Teilnahme';
 
 
 	$dsp->NewContent(str_replace("%USER%", $user_data['username'], $lang['usrmgr']['details_caption']), $lang['usrmgr']['details_subcaption']);
@@ -386,6 +398,23 @@ break;
 				$ms2->AddResultField(t('Letzter Aufruf'), 'a.lasthit', 'MS2GetDate');
 
 				$ms2->PrintSearch('index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&headermenuitem=5', 'a.sessid');
+			}
+		break;
+		
+		case 6: //LAN-Teilnahme
+			if ($auth['type'] >= 1) {
+				include_once('modules/mastersearch2/class_mastersearch2.php');
+				$ms2 = new mastersearch2('usrmgr');
+
+				$ms2->query['from'] = "{$config["tables"]["partys"]} p LEFT JOIN {$config["tables"]["party_user"]} u ON p.party_id = u.party_id";
+				$ms2->query['where'] = "u.user_id = ". (int)$_GET['userid'];
+
+				$ms2->config['EntriesPerPage'] = 50;
+
+				$ms2->AddResultField(t('Party'), 'p.name');
+				$ms2->AddResultField(t('Teilnahme'), 'u.checkin', 'getCheckin');
+
+				$ms2->PrintSearch('index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&headermenuitem=6', 'p.party_id');
 			}
 		break;
 	} // end switch
