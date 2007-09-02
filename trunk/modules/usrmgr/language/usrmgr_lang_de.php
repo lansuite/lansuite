@@ -203,6 +203,7 @@ $lang['usrmgr']['del_sql_mark'] = 'Dieser User wurde gelöscht!';
 $lang['usrmgr']['del_success'] = 'Der Benutzer wurde erfolgreich gelöscht';
 $lang['usrmgr']['details_state'] = 'Status';
 $lang['usrmgr']['details_playerinfos'] = 'Spielerinfos';
+$lang['usrmgr']['details_onLan'] = 'LAN Teilnahme';
 $lang['usrmgr']['details_private'] = 'Persönlich';
 $lang['usrmgr']['details_misc'] = 'Sonstiges';
 $lang['usrmgr']['details_own_fields'] = 'Eigene Felder';
