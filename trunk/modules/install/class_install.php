@@ -4,6 +4,18 @@ $import = New Import();
 
 class Install {
 
+  function IsWriteableRec($dir) {
+    $ret = '';
+    if ($dh = opendir($dir)) {
+      while (($file = readdir($dh)) !== false) if ($file != '.' and $file != '..' and $file != 'CVS') {
+        if (!is_writable($dir .'/'. $file)) $ret .= $dir .'/'. $file .'<br>';
+        if (is_dir($dir .'/'. $file)) $ret .= $this->IsWriteableRec($dir .'/'. $file);
+      }
+      closedir($dh);
+    }
+    return $ret;
+  }
+
 	// Get Config (/inc/base/config.php) an change it
 	function WriteConfig($values = NULL) {
 		global $config;
@@ -629,12 +641,15 @@ class Install {
 			$dsp->AddDoubleRow("Server Stats", $server_stats);
 		}
 
-		// Ext_inc Rights
+// Ext_inc Rights
 		$ext_inc = "ext_inc";
-		if (!file_exists($ext_inc)) $ext_inc_check = $failed . $lang["install"]["env_no_ext_inc"];
-		elseif (!is_writable($ext_inc)) $ext_inc_check = $failed . $lang["install"]["env_ext_inc"];
-		else $ext_inc_check = $ok;
-		$dsp->AddDoubleRow($lang["install"]["env_ext_inc_key"], $ext_inc_check);
+		if (!file_exists($ext_inc)) $ext_inc_check = $failed . t('Der Ordner <b>ext_inc</b> existiert <b>nicht</b> im Lansuite-Verzeichnis. Bitte überprüfen Sie den Pfad auf korrekte Groß- und Kleinschreibung. Legen Sie den Ordner gegebenfalls bitte selbst an.');
+    else {
+      $ret = $this->IsWriteableRec($ext_inc);
+      if ($ret != '') $ext_inc_check = $failed . t('In den Ordner <b>ext_inc</b> und alle seine Unterordner muss geschrieben werden können. Ändern Sie bitte die Zugriffsrechte entsprechend. Dies können Sie mit den meisten guten FTP-Clients erledigen. Die Datei muss mindestens die Schreibrechte (chmod) 666 besitzen. Die folgenden Dateien besitzten noch keinen Schreibzugriff:'). '<br><b>'. $ret .'<b>';
+      else $ext_inc_check = $ok;
+    }
+		$dsp->AddDoubleRow(t('Schreibrechte im Ordner \'ext_inc\''), $ext_inc_check);
 
 		// Debug Backtrace
 		if (function_exists('debug_backtrace')) $debug_bt_check = $ok;
