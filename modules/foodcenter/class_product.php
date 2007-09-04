@@ -479,7 +479,7 @@ class product{
 						mat = '{$this->mat}',
 						p_type = '{$this->type}',
 						wait = '{$this->wait}',
-						chois = '{$this->choise}'");	
+						chois = '". (int)$this->choise ."'");	
 			$this->id = $db->insert_id();
 		}else{
 			$db->query("UPDATE {$config['tables']['food_product']} SET
@@ -491,7 +491,7 @@ class product{
 						p_file = '{$this->pic}',
 						mat = '{$this->mat}',
 						p_type = '{$this->type}',
-						chois = '{$this->choise}',
+						chois = '". (int)$this->choise ."',
 						wait = '{$this->wait}'
 						WHERE id={$this->id}");		
 		}
