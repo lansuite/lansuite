@@ -19,9 +19,13 @@ class Bugtracker {
     global $db, $config, $func, $auth, $mail;
 
     if ($auth['type'] <= 1) {
-      $row = $db->query_first("SELECT caption, state FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
+      $row = $db->query_first("SELECT reporter, caption, state FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
       if (!(($row['state'] == 0 and $state == 1) or ($row['state'] == 4 and $state == 7) or ($row['state'] == 3 and $state == 2))) {
         $func->information(t('Der Status des Bugreports <b>"%1"</b> konnte nicht geändert werden, da Sie nur von <b>"Neu" auf "Bestätigt"</b>, von <b>"Feedback benötigt" auf "In Bearbeitung"</b> und von <b>"Behoben" auf "Wiedereröffnet"</b> wechseln dürfen.', array($row['caption'])));
+        return;
+      }
+      if ($state == 1 and $row['reporter'] == $auth['userid']) {
+        $func->information(t('Sie dürfen nicht Ihren eigenen Bugreport bestätigen'), '');
         return;
       }
     }
