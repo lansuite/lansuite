@@ -118,7 +118,7 @@ function AddSignonStatus($lsurl, $show_history = 0) {
         $paid = $xml->get_tag_content('paid', $party);
 
         # Overview
-        if (!$_GET['partyid'] and $current_party == $partyid) $ret .= CreateSignonBar($registered, $paid, $max_guest);
+        if (!$_GET['partyid'] and $current_party == $partyid) $ret .= CreateSignonBar($registered, $paid, $max_guest).'Max.: '.$max_guest;
         
         # Details
         if ($_GET['partyid']) {
