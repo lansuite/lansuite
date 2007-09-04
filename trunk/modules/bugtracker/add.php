@@ -50,7 +50,7 @@ else {
     if ($_SERVER['SERVER_NAME'] != 'lansuite.orgapage.de') $mf->AddFix('version', $config['lansuite']['version']);
     $mf->AddFix('url', $_SERVER['SERVER_NAME']);
     $mf->AddFix('reporter', $auth['userid']);
-    $mf->AddFix('state', 0);
+    $mf->AddFix('state', '0');
   } elseif ($auth['type'] >= 2) {
     $selections = array();
     $selections['0'] = t('Neu');

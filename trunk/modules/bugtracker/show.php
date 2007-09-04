@@ -20,17 +20,16 @@ $colors[6] = '#999999';
 $colors[7] = '#bc851b';
 
 if ($_POST['action']) foreach ($_POST['action'] as $key => $val) {
-
-  if ($auth['login']) {
-    // Change state
-    if ($_GET['state'] != '' and $_GET['state'] < 2) $bugtracker->SetBugState($key, $_GET['state']);
-  }
   if ($auth['type'] >= 2) {
     // Change state
     if ($_GET['state'] != '' and $_GET['state'] >= 2) $bugtracker->SetBugState($key, $_GET['state']);
 
     // Assign to new user
     if ($_GET['userid'] != '') $bugtracker->AssignBugToUser($key, $_GET['userid']);
+
+  } elseif ($auth['login']) {
+    // Change state
+    if ($_GET['state'] != '' and ($_GET['state'] == 1 or $_GET['state'] == 2 or $_GET['state'] == 7)) $bugtracker->SetBugState($key, $_GET['state']);
   }
 }
 
