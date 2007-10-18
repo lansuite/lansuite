@@ -1,6 +1,6 @@
 <?php
 
-$dsp->AddSingleRow($dsp->FetchButton('index.php?mod=guestbook&action=add', 'add'));
+$dsp->AddSingleRow($dsp->FetchButton('index.php?mod=guestbook&action=add', 'add') .HTML_NEWLINE);
 
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
