@@ -154,6 +154,18 @@ switch ($_GET['step']) {
   break;
 
 
+	// Add Menuentry
+	case 31:
+		$db->query("INSERT INTO {$config["tables"]["menu"]}
+				SET caption = 'Neuer Eintrag',
+					requirement = '0',
+					hint = '',
+					link = 'index.php?mod=',
+					needed_config = '',
+					module='{$_GET["module"]}',
+					level = 1");
+  # No Break!
+
   // Menu
   case 30:
     include_once('inc/classes/class_masterform.php');
@@ -170,7 +182,7 @@ switch ($_GET['step']) {
     $db->free_result($res);
 
     $mf->SendForm('', 'menu', 'id', "module = '". $_GET['module'] ."' AND caption != ''");
-#    $dsp->AddDoubleRow('', $dsp->FetchSpanButton('Link hinzufügen', 'index.php?mod=install&action=mod_cfg&step=31&module='. $_GET['module']));
+    $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Link hinzufügen'), 'index.php?mod=install&action=mod_cfg&step=31&module='. $_GET['module']));
     $dsp->AddBackButton('index.php?mod=install&action=mod_cfg&module='. $_GET['module']);
   break;
 
