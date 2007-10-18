@@ -81,14 +81,14 @@ class team {
 		$team_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
 			FROM {$config["tables"]["tournament_tournaments"]} AS t
 			LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON t.tournamentid = teams.tournamentid
-			WHERE (teams.leaderid = $userid)
+			WHERE teams.leaderid = $userid AND t.party_id = ". (int)$party->party_id ."
 			GROUP BY teams.leaderid
 			");
 
 		$member_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
 			FROM {$config["tables"]["tournament_tournaments"]} AS t
 			LEFT JOIN {$config["tables"]["t2_teammembers"]} AS members ON t.tournamentid = members.tournamentid
-			WHERE (members.userid = $userid)
+			WHERE members.userid = $userid AND t.party_id = ". (int)$party->party_id ."
 			GROUP BY members.userid
 			");
 
