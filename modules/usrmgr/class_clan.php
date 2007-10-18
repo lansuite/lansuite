@@ -12,6 +12,8 @@ class Clan {
       $func->information('Clan:'. $lang['usrmgr']['add_err_user_chars']);
       return false;
     }
+    
+    if (substr($url, 0, 7) != 'http://') $url = 'http://'. $url;
 		
     $db->query("INSERT INTO {$config['tables']['clan']} SET
       name = '$name',
