@@ -175,7 +175,7 @@ class display {
 		($optional)? $optional = "_optional" : $optional = '';
 		if ($val == '') $val = '1';
 
-		$value = '<input id="'. $name .'" name="'. $name .'" type="checkbox" class="checkbox" value="'. $val .'" '. $checked .' '. $disabled .' '. $additionalHTML .' onmouseover="this.focus();" />';
+		$value = '<input id="'. $name .'" name="'. $name .'" type="checkbox" class="checkbox" value="'. $val .'" '. $checked .' '. $disabled .' '. $additionalHTML .' />';
     $value .= '<label for="'. $name .'">'. $text .'</label>'. $errortext;
     $key = '<label for="'. $name .'">'. $key .'</label>';
     $this->AddDoubleRow($key, $value);
@@ -202,7 +202,7 @@ class display {
 		($not_changeable)? $not_changeable = ' readonly="readonly"' : $not_changeable = '';
 		if ($size == '') $size = '30';
 
-		$value = '<input type="text" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'"'. $not_changeable .' value="'. $value .'" onmouseover="this.focus();" />'. $errortext;
+		$value = '<input type="text" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'"'. $not_changeable .' value="'. $value .'" />'. $errortext;
     $key = '<label for="'. $name .'">'. $key .'</label>';
     $this->AddDoubleRow($key, $value);
 	}
@@ -215,7 +215,7 @@ class display {
 		($optional)? $optional = "_optional" : $optional = '';
 		if ($size == '') $size = '30';
 
-		$value = '<input type="password" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'" value="'. $value .'" '. $additional .' onmouseover="this.focus();" />'. $errortext;
+		$value = '<input type="password" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'" value="'. $value .'" '. $additional .' />'. $errortext;
     $key = '<label for="'. $name .'">'. $key .'</label>';
     $this->AddDoubleRow($key, $value);
 	}
@@ -299,7 +299,7 @@ class display {
 		// TODO: If no <option> in $options generate from array
 
   	$key = '<label for="'. $name .'">'. $key .'</label>';
-  	$value = '<select name="'. $name .'" class="form'. $optional .'" '. $additionalHTML .' onmouseover="this.focus();">';
+  	$value = '<select name="'. $name .'" class="form'. $optional .'" '. $additionalHTML .'>';
   	$value .= $options;
   	$value .= '</select>';
   	$value .= $errortext;
@@ -598,7 +598,7 @@ class display {
 
   	$key = '<label for="'. $name .'">'. $key .'</label>';
   	$value = '<input type="hidden" name="MAX_FILE_SIZE" value="'. $maxfilesize .'" />';
-  	$value .= '<input type="file" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" value="" size="'. $size .'" enctype="multipart/form-data" maxlength="'. $maxlength .'" onmouseover="this.focus();" /> '. $maxfilesize_formated;
+  	$value .= '<input type="file" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" value="" size="'. $size .'" enctype="multipart/form-data" maxlength="'. $maxlength .'" /> '. $maxfilesize_formated;
   	$value .= $errortext;
     $this->AddDoubleRow($key, $value);
 	}
