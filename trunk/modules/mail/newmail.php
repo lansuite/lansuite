@@ -115,13 +115,11 @@ $mf->SendButtonText = 'Mail abschicken';
 
 $mf->CheckBeforeInserFunction = 'SendOnlineMail';
 if ( $mf->SendForm('index.php?mod=mail&action=newmail&reply_message', 'mail_messages', 'mailID', '')) {
-
-$reply_to = strrchr ( parse_url($func->internal_referer, PHP_URL_QUERY ) , 'replyto' );
-
-	if ( $reply_to ) {
-		$reply_to_id = substr( strrchr ( $reply_to , '=' ) , 1);
-		$setreply = $db->query("UPDATE {$config['tables']['mail_messages']} SET des_status = 'reply' WHERE mailID = '$reply_to_id' ");
-	}
-
+  $url_parts = parse_url($profile_url);
+  $reply_to = strrchr($url_parts['query'], 'replyto');
+  if ( $reply_to ) {
+  	$reply_to_id = substr( strrchr ( $reply_to , '=' ) , 1);
+  	$setreply = $db->query("UPDATE {$config['tables']['mail_messages']} SET des_status = 'reply' WHERE mailID = '$reply_to_id' ");
+  }
 }
 ?>
