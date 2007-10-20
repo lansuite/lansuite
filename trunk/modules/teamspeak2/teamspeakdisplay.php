@@ -92,7 +92,7 @@ class teamspeakDisplayClass {
 	
 	function _setPlayerDisplayName(&$playerInfo) {
 		// Determine the player status (U = Unregistered, R = Registered, SA = Server Admin,
-		// CA = Channel Admin, AO = Auto-Operator, AV = Auto-Voice, O = Operator, V = Voice)
+		// CA = Channel Admin, AO = Auto-Superadmin, AV = Auto-Voice, O = Superadmin, V = Voice)
 		if (($playerInfo["userstatus"] & 4) == 4) { $playerstatus = "R"; } else { $playerstatus = 'U'; }
 		if (($playerInfo["userstatus"] & 1) == 1) { $playerstatus .= " SA"; }
 		if (($playerInfo["privileg"] & 1) == 1) { $playerstatus .= " CA"; }

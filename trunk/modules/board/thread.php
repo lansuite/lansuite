@@ -30,7 +30,7 @@ function getuserinfo($userid) {
 	switch($row_poster["type"]) {
 		case 1:	$user["type"] = t('Benutzer'); break;
 		case 2: $user["type"] = t('Organisator'); break;
-		case 3: $user["type"] = t('Operator'); break;
+		case 3: $user["type"] = t('Superadmin'); break;
 	}
 
 	return $user;

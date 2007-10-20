@@ -21,7 +21,7 @@ $lang['pdf']['seat_error']		= 'Keine Sitzpl&auml;tze vorhanden';
 $lang['pdf']['all']					= 'Alle';
 $lang['pdf']['guest']					= 'Gast';
 $lang['pdf']['admin']					= 'Administrator';
-$lang['pdf']['opera']					= 'Operator';
+$lang['pdf']['opera']					= 'Superadmin';
 $lang['pdf']['party']					= 'Nur ausgew&auml;hlte Party';
 
 // Mögliche Objekte
@@ -95,7 +95,7 @@ $lang['pdf']['guestcard_subcaption']	= 'Hier k&ouml;nnen Karten erstellt werden 
 $lang['pdf']['rules'] = 'Die Bl&auml;tter werden nach folgenden Kriterien erstellt:';
 $lang['pdf']['guest']	= 'Besucher ist normaler Gast';
 $lang['pdf']['paid']	= 'Besucher hat bezahlt';
-$lang['pdf']['op']	= 'Besucher ist Operator';
+$lang['pdf']['op']	= 'Besucher ist Superadmin';
 $lang['pdf']['orga']	= 'Besucher ist Orga';
 $lang['pdf']['user']	= 'Bestimmter Besucher';
 $lang['pdf']['date']	= 'Datum der Ausdrucke';

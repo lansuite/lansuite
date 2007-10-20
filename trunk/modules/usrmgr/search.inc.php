@@ -45,7 +45,7 @@ function IfUnlocked($userid) {
 
 $ms2->AddTextSearchField('NGL/WWCL/LGZ-ID', array('u.nglid' => 'exact', 'u.nglclanid' => 'exact', 'u.wwclid' => 'exact', 'u.wwclclanid' => 'exact', 'u.lgzid' => 'exact', 'u.lgzclanid' => 'exact',));
 
-$ms2->AddTextSearchDropDown(t('Benutzertyp'), 'u.type', array('' => t('Alle'), '1' => t('Gast'), '!1' => t('Nicht Gast'), '<0' => t('Deaktiviert'), '2' => t('Admin'), '3' => t('Operator'), '2,3' => t('Admin, oder Operator')));
+$ms2->AddTextSearchDropDown(t('Benutzertyp'), 'u.type', array('' => t('Alle'), '1' => t('Gast'), '!1' => t('Nicht Gast'), '<0' => t('Deaktiviert'), '2' => t('Admin'), '3' => t('Superadmin'), '2,3' => t('Admin, oder Superadmin')));
 	
 $party_list = array('' => 'Alle', 'NULL' => 'Zu keiner Party angemeldet');
 $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");

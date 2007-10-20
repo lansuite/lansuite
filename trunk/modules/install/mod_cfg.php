@@ -135,7 +135,7 @@ switch ($_GET['step']) {
       $selections['0'] = t('Jeder');
       $selections['1'] = t('Nur Eingeloggte');
       $selections['2'] = t('Nur Admins');
-      $selections['3'] = t('Nur Operatoren');
+      $selections['3'] = t('Nur Superadminen');
       $selections['4'] = t('Keine Admins');
       $selections['5'] = t('Nur Ausgeloggte');
       $mf->AddField(t('Zugriff'), 'requirement', IS_SELECTION, $selections, FIELD_OPTIONAL);

@@ -5,7 +5,7 @@
 		<caption>Equipmentshop</caption>
 		<hint>Folgende Artikel vermieten wir an andere Partys</hint>
 		<link>?mod=equipment</link>
-		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config>sys_internet</needed_config>
 		<level>0</level>
 	</entry>

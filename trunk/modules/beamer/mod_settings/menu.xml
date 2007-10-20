@@ -7,7 +7,7 @@
 		<file>beamer_index</file>
 		<hint>Beamerverwaltung</hint>
 		<link>?mod=beamer</link>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>0</level>
 	</entry>
@@ -18,7 +18,7 @@
 		<file>beamer_index</file>
 		<hint>Beamerinhalte hinzufügen, bearbeiten und löschen</hint>
 		<link>?mod=beamer&amp;action=content</link>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
@@ -29,7 +29,7 @@
 		<file>beamer_index</file>
 		<hint>Startet den Beamermodus</hint>
 		<link>?mod=beamer&amp;action=start</link>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>

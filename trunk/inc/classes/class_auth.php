@@ -227,17 +227,17 @@ class auth {
 		}
 	}
 	
-	function isCurrentUserOperator($module) {
+	function isCurrentUserSuperadmin($module) {
 		global $db, $config, $func;
 		if ($this->auth['type'] != 2)
 			return 0;
 		
 		$count = $db->num_rows($db->query('SELECT userid FROM ' . $config['database']['prefix'] . 'user_permissions WHERE module = \'' . $module . '\' AND userid = \'' . $this->auth['userid'] . '\''));
-		if ($count > 0) //If the user is operator of the module.
+		if ($count > 0) //If the user is superadmin of the module.
 			return 1;
 		
 		$count2 = $db->num_rows($db->query('SELECT userid FROM ' . $config['database']['prefix'] . 'user_permissions WHERE module = \'' . $module . '\''));
-		if ($count2 == 0) //when no user is operator of this module, every user is operator of the module.
+		if ($count2 == 0) //when no user is superadmin of this module, every user is superadmin of the module.
 			return 1;
 
 		return 0;

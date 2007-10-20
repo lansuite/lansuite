@@ -7,7 +7,7 @@
 		<caption>Sponsoren</caption>
 		<hint>Hier finden Sie eine Liste der Sponsoren dieser Veranstaltung</hint>
 		<link>?mod=sponsor</link>
-		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>0</level>
 	</entry>

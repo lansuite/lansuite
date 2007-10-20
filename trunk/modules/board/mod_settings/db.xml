@@ -699,8 +699,8 @@
 			<entry>
 				<id>e1b3ec89ead7f83a9245ed5c9cacfdbf</id>
 				<tid>1237</tid>
-				<org>Operator</org>
-				<en>Operator</en>
+				<org>Superadmin</org>
+				<en>Superadmin</en>
 				<file>board</file>
 			</entry>
 		</content>
