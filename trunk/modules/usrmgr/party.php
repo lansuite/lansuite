@@ -115,8 +115,8 @@ else {
         if ($row['price_id']) $text .= '('. $row['price_id'] .')';
         $text .= '.'. HTML_NEWLINE;
 
-        if ($row['checkin']) $text .= t('Eingecheckt: '). $func->unixstamp2date($row['checkin'], 'datetime') .' ';
-        if ($row['checkout']) $text .= t('Ausgecheckt: ').$func->unixstamp2date($row['checkout'], 'datetime');
+        if ($row['checkin'] and $row['checkin'] != '0000-00-00 00:00:00') $text .= t('Eingecheckt: '). $func->unixstamp2date($row['checkin'], 'datetime') .' ';
+        if ($row['checkout'] and $row['checkout'] != '0000-00-00 00:00:00') $text .= t('Ausgecheckt: ').$func->unixstamp2date($row['checkout'], 'datetime');
 
       } else $text .= t('Du warst nicht angemeldet');
       $dsp->AddDoubleRow($row['name'] .' ('. $func->unixstamp2date($row['startdate'], 'datetime') .' - '. $func->unixstamp2date($row['enddate'], 'datetime') .')', $text);

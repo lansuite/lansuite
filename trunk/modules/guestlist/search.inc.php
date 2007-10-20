@@ -50,34 +50,34 @@ else $ms2->query['where'] = '1 = 1';
 
 $ms2->config['EntriesPerPage'] = 20;
 
-$ms2->AddTextSearchField('Benutzername', array('u.username' => '1337'));
-$ms2->AddTextSearchField('Userid', array('u.userid' => 'exact'));
-$ms2->AddTextSearchField('Name', array('u.name' => 'like', 'u.firstname' => 'like'));
+$ms2->AddTextSearchField(t('Benutzername'), array('u.username' => '1337'));
+$ms2->AddTextSearchField(t('Userid'), array('u.userid' => 'exact'));
+$ms2->AddTextSearchField(t('Name'), array('u.name' => 'like', 'u.firstname' => 'like'));
 
 if ($party->party_id) {
-  $ms2->AddTextSearchDropDown('Bezahlt', 'p.paid', array('' => 'Alle', '0' => 'Nicht bezahlt', '>1' => 'Bezahlt'));
+  $ms2->AddTextSearchDropDown(t('Bezahlt'), 'p.paid', array('' => 'Alle', '0' => 'Nicht bezahlt', '>1' => 'Bezahlt'));
   if (!$cfg['sys_internet']) {
-    $ms2->AddTextSearchDropDown('Eingecheckt', 'p.checkin', array('' => 'Alle', '0' => 'Nicht Eingecheckt', '>1' => 'Eingecheckt'));
-    $ms2->AddTextSearchDropDown('Ausgecheckt', 'p.checkout', array('' => 'Alle', '0' => 'Nicht Ausgecheckt', '>1' => 'Ausgecheckt'));
+    $ms2->AddTextSearchDropDown(t('Eingecheckt'), 'p.checkin', array('' => t('Alle'), '0' => t('Nicht Eingecheckt'), '>1' => t('Eingecheckt')));
+    $ms2->AddTextSearchDropDown(t('Ausgecheckt'), 'p.checkout', array('' => t('Alle'), '0' => t('Nicht Ausgecheckt'), '>1' => t('Ausgecheckt')));
   }
 }
 
-$ms2->AddResultField('Benutzername', 'u.username');
+$ms2->AddResultField(t('Benutzername'), 'u.username');
 if ($auth['type'] >= 2 or !$cfg['sys_internet'] or $cfg['guestlist_shownames']) {
-  $ms2->AddResultField('Vorname', 'u.firstname');
-  $ms2->AddResultField('Nachname', 'u.name');
+  $ms2->AddResultField(t('Vorname'), 'u.firstname');
+  $ms2->AddResultField(t('Nachname'), 'u.name');
 }
 $ms2->AddSelect('c.url AS clanurl');
 $ms2->AddSelect('c.clanid AS clanid');
 $ms2->AddResultField('Clan', 'c.name AS clan', 'ClanURLLink');
 
 if ($party->party_id) {
-  $ms2->AddResultField('Bez.', 'p.paid', 'PaidIconLink');
-  $ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLink');
+  $ms2->AddResultField(t('Bez.'), 'p.paid', 'PaidIconLink');
+  $ms2->AddResultField(t('Sitz'), 'u.userid', 'SeatNameLink');
 
   if (!$cfg['sys_internet']) {
-    $ms2->AddResultField('In', 'p.checkin', 'MS2GetDate');
-    $ms2->AddResultField('Out', 'p.checkout', 'MS2GetDate');
+    $ms2->AddResultField(t('In'), 'p.checkin', 'MS2GetDate');
+    $ms2->AddResultField(t('Out'), 'p.checkout', 'MS2GetDate');
   }
 }
 $ms2->AddIconField('details', 'index.php?mod=guestlist&action=details&userid=', $lang['ms2']['details']);
