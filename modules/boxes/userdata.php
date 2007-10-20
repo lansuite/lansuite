@@ -79,26 +79,26 @@ $query_signstat = $db->query_first("SELECT * FROM {$config["tables"]["party_user
 				
 				if($query_signstat == null) 
 				{
-					$signstat = '<font color="red">Nein!</font>';
-					$signstat_info = '<a href="index.php?mod=signon"><i> Hier Anmelden</i></a>';
-					$paidstat = '<font color="red">Nein!</font>';
+					$signstat = '<font color="red">'. t('Nein') .'!</font>';
+					$signstat_info = '<a href="index.php?mod=signon"><i> '. t('Hier anmelden') .'</i></a>';
+					$paidstat = '<font color="red">'. t('Nein') .'!</font>';
 				}
 				else
 				{
-					$signstat = '<font color="green">Ja!</font>';
+					$signstat = '<font color="green">'. t('Ja') .'!</font>';
 					
 					if($query_signstat["paid"] != 1)
-						$paidstat = '<font color="red">Nein!</font>';
+						$paidstat = '<font color="red">'. t('Nein') .'!</font>';
 					else
-						$paidstat = '<font color="green">Ja!</font>';
+						$paidstat = '<font color="green">'. t('Ja') .'!</font>';
 					}
 
 $query_partys = $db->query_first("SELECT * FROM {$config["tables"]["partys"]} AS p
 				WHERE p.party_id = '{$_SESSION["party_id"]}'");	
 					
-$box->DotRow("<b>".$query_partys["name"]."</b> Status:");
-$box->EngangedRow('Angemeldet: <b>'. $signstat .'</b><br> '. $signstat_info);
-$box->EngangedRow('Bezahlt: <b>'. $paidstat .'</b>');
+$box->DotRow("<b>".$query_partys["name"]."</b> ". t('Status') .':');
+$box->EngangedRow(t('Angemeldet') .': <b>'. $signstat .'</b><br> '. $signstat_info);
+$box->EngangedRow(t('Bezahlt') .': <b>'. $paidstat .'</b>');
 }
 
 ?>

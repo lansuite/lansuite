@@ -4,7 +4,7 @@ $get_amount = $db->query_first("SELECT count(*) as number FROM {$config["tables"
 $overall_news = $get_amount["number"];
 
 if($overall_news == 0) {
-  $func->no_items("Newsmeldungen", "", "rlist");
+  $func->no_items(t("Newsmeldungen"), "", "rlist");
 }
 else {
   //ARCHIVE PAGES
@@ -85,7 +85,7 @@ else {
     		$get_comments = $db->query_first("SELECT count(*) as number FROM {$config["tables"]["comments"]} WHERE relatedto_id=$newsid AND relatedto_item='news'");
     		
     		if ($get_comments["number"] >= 0) { 
-          $templ['news']['show']['row'][$type]['info']['comments'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>"; 
+          $templ['news']['show']['row'][$type]['info']['comments'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." ". t('Kommentar(e)') ."</a>"; 
         }
     
     		// Buttons
