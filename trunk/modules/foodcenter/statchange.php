@@ -51,7 +51,7 @@ switch ($_GET['step']) {
 					$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $_GET['id']);
 				}else{
 					$pice = $prodrow['pice'] - $_POST['delcount'];
-					$db->query_first("UPDATE {$config['tables']['food_ordering']} SET pice = {$pice} WHERE id = " . $_GET['id']);
+					$db->query_first("UPDATE {$config['tables']['food_ordering']} SET pice = ". (int)$pice ." WHERE id = " . $_GET['id']);
 				}
 			}
 		}else{
