@@ -7,7 +7,7 @@
 		<caption>FAQ</caption>
 		<hint>FAQ ist englisch und bedeutet Frequently-Asked-Questions was soviel hei&szlig;t wie h&auml;ufig gestellte Fragen</hint>
 		<link>?mod=faq</link>
-		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>0</level>
 	</entry>

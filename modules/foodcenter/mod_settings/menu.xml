@@ -51,7 +51,7 @@
 		<hint>Thekenmodus</hint>
 		<link>?mod=foodcenter&amp;action=theke</link>
 		<file>theke</file>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<level>1</level>
 		<action>theke</action>
 	</entry>
@@ -60,7 +60,7 @@
 		<hint>eigene Küche</hint>
 		<link>?mod=foodcenter&amp;action=kitchen</link>
 		<file>kitchen</file>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<level>1</level>
 		<action>kitchen</action>
 	</entry>		
@@ -69,7 +69,7 @@
 		<hint>Status der Produkte ändern</hint>
 		<link>?mod=foodcenter&amp;action=statchange</link>
 		<file>statchange</file>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<level>1</level>
 		<action>statchange</action>
 	</entry>	
@@ -78,7 +78,7 @@
 		<hint>Neue Produkte hinzufügen</hint>
 		<link>?mod=foodcenter&amp;action=addproduct</link>
 		<file>addproduct</file>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<level>1</level>
 		<action>addproduct</action>
 	</entry>	
@@ -87,7 +87,7 @@
 		<hint>Hier können Sie den Kassenstand prüfen</hint>
 		<link>?mod=foodcenter&amp;action=coincounter</link>
 		<file>coincounter</file>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>1</level>
 		<action>coincounter</action>

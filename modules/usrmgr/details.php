@@ -32,7 +32,7 @@ function GetTypeDescription($type) {
 		default:	return $lang['usrmgr']['details_guest_deactivated'];	break;
 		case 1:		return $lang['usrmgr']['details_guest'];				break;
 		case 2:		return $lang['usrmgr']['details_orga'];					break;
-		case 3:		return $lang['usrmgr']['details_operator'];				break;
+		case 3:		return $lang['usrmgr']['details_superadmin'];				break;
 	}
 }
 

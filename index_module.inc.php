@@ -11,13 +11,13 @@ function authorized($mod, $action, $requirement) {
       else $func->error('NO_LOGIN', '');
     break;
 
-		case 2: // Type is Admin, or Operator
+		case 2: // Type is Admin, or Superadmin
 			if ($auth['type'] > 1) return 1;
 			elseif (!$auth['login']) $func->error('NO_LOGIN', '');
       else $func->error('ACCESS_DENIED', '');
 		break;
 
-		case 3: // Type is Operator
+		case 3: // Type is Superadmin
 			if ($auth['type'] > 2) return 1;
 			elseif (!$auth['login']) $func->error('NO_LOGIN', '');
       else $func->error('ACCESS_DENIED', '');

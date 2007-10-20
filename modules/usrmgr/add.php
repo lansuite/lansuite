@@ -242,7 +242,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $selections = array();
         $selections['1'] = t('Benutzer');
         $selections['2'] = t('Administrator');
-        if ($auth['type'] >= 3) $selections['3'] = t('Operator');
+        if ($auth['type'] >= 3) $selections['3'] = t('Superadmin');
         $mf->AddField(t('Benutzertyp'), 'type', IS_SELECTION, $selections, '', '', 1, array('2', '3'));
 
         // Module-Permissions
@@ -261,7 +261,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         }
 
         $mf->AddField(t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
-          '('.t('Der Benutzertyp muss zusätzlich Admin, oder Operator sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
+          '('.t('Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
           '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
           'permissions', IS_MULTI_SELECTION, $selections, FIELD_OPTIONAL);
 

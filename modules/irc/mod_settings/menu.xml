@@ -7,7 +7,7 @@
 		<caption>Chat</caption>
 		<hint></hint>
 		<link>?mod=irc</link>
-		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>0</level>
 	</entry>
