@@ -358,7 +358,7 @@ class product{
 		$this->cat		=	new cat($_POST['cat_id']);
 		$this->supp		=	new supp($_POST['supp_id']);
 		$this->supp_infos	=	$_POST['supp_infos'];
-		$this->mat		=	$_POST['mat'];
+		$this->mat		=	(int)$_POST['mat'];
 		$this->type		=	$_POST['product_type'];
 		$this->choise	=	$_POST['chois'];
 		$this->wait 	= 	$_POST['wait'];
@@ -441,7 +441,7 @@ class product{
 			$this->cat		=	new cat($row['cat_id']);
 			$this->supp		=	new supp($row['supp_id']);
 			$this->supp_infos	=	$row['supp_infos'];
-			$this->mat		=	$row['mat'];
+			$this->mat		=	(int)$row['mat'];
 			$this->type		=	$row['p_type'];
 			$this->choise	=	$row['chois'];
 			$this->wait		= 	$row['wait'];
@@ -476,9 +476,9 @@ class product{
 						supp_id = '{$this->supp->supp_id}',
 						supp_infos = '{$this->supp_infos}',
 						p_file = '{$this->pic}',
-						mat = '{$this->mat}',
+						mat = '". (int)$this->mat ."',
 						p_type = '{$this->type}',
-						wait = '{$this->wait}',
+						wait = '". (int)$this->wait ."',
 						chois = '". (int)$this->choise ."'");	
 			$this->id = $db->insert_id();
 		}else{
@@ -489,10 +489,10 @@ class product{
 						supp_id = '{$this->supp->supp_id}',
 						supp_infos = '{$this->supp_infos}',
 						p_file = '{$this->pic}',
-						mat = '{$this->mat}',
+						mat = '". (int)$this->mat ."',
 						p_type = '{$this->type}',
 						chois = '". (int)$this->choise ."',
-						wait = '{$this->wait}'
+						wait = '". (int)$this->wait ."'
 						WHERE id={$this->id}");		
 		}
 		// Save Productsoption
@@ -898,7 +898,7 @@ class product{
 					$price += $this->option[$key]->price;
 					if($this->mat == 1){
 					$tmp_rest1 = $this->option[$key]->pice - $this->option[$key]->ordered;
-						$db->query("UPDATE {$config['tables']['food_option']} SET pice = '$tmp_rest1' WHERE id = {$this->option[$key]->id}");
+						$db->query("UPDATE {$config['tables']['food_option']} SET pice = '". (int)$tmp_rest1 ."' WHERE id = {$this->option[$key]->id}");
 					}
 				}
 			}
@@ -915,7 +915,7 @@ class product{
 					productid = '{$this->id}',
 					partyid = '{$party->party_id}',
 					opts = '$opt_string',
-					pice = '{$this->ordered}',
+					pice = '". (int)$this->ordered ."',
 					status = '$status',
 					ordertime = '$time',
 					lastchange = '$time',
@@ -937,7 +937,7 @@ class product{
 									productid = '{$this->id}',
 									partyid = '{$party->party_id}',
 									opts = '{$this->option[$key]->id}',
-									pice = '{$this->option[$key]->ordered}',
+									pice = '". (int)$this->option[$key]->ordered ."',
 									status = '$status',
 									ordertime = '$time',
 									lastchange = '$time',
@@ -946,7 +946,7 @@ class product{
 					} 
 					if($this->mat == 1){
 					$tmp_rest2 = $this->option[$key]->pice - $this->option[$key]->ordered;
-						$db->query("UPDATE {$config['tables']['food_option']} SET pice = '$tmp_rest2' WHERE id = {$this->option[$key]->id}");
+						$db->query("UPDATE {$config['tables']['food_option']} SET pice = '". (int)$tmp_rest2 ."' WHERE id = {$this->option[$key]->id}");
 					}
 				}	
 			}
