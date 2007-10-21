@@ -13,6 +13,7 @@ class MasterSearch2 {
   var $bgcolors = array();
   var $bgcolor_attr = '';
   var $sql_select_field_list = array();
+  var $sql_select_field_alias_list = array();
   var $post_in_get = '';
   var $NoItemsText = '';
 
@@ -49,6 +50,13 @@ class MasterSearch2 {
 
   function AddSelect($sql_field){
     if ($sql_field and !in_array($sql_field, $this->sql_select_field_list)) array_push($this->sql_select_field_list, $sql_field);
+
+    // cut of 'table.', in front of field name
+    $first_as = strpos(strtolower($sql_field), ' as ');
+#    $first_dot = strpos($sql_field, '.');
+    if ($first_as > 0) $sql_field = substr($sql_field, $first_as + 4, strlen($sql_field));
+#    elseif ($first_dot > 0) $sql_field = substr($sql_field, $first_dot + 1, strlen($sql_field));
+    if ($sql_field and !in_array($sql_field, $this->sql_select_field_alias_list)) array_push($this->sql_select_field_alias_list, $sql_field);
   }
 
   function AddBGColor($sql_field, $color_list){
@@ -228,8 +236,12 @@ class MasterSearch2 {
       if ($this->query['default_order_dir']) $_GET['order_dir'] = $this->query['default_order_dir'];
     }
     if ($_GET['order_by']) {
-      $this->query['order_by'] .= $_GET['order_by'];
-      if ($_GET['order_dir']) $this->query['order_by'] .= ' '. $_GET['order_dir'];
+      if (!in_array($_GET['order_by'], $this->sql_select_field_alias_list)) $func->error(t('Sortieren nach "%1" nicht möglich. Feld ist nicht im Select-Teil definiert', array($_GET['order_by'])), $func->internal_referer);
+      else $this->query['order_by'] .= $_GET['order_by'];
+      if ($_GET['order_dir']) {
+        if ($_GET['order_dir'] != 'ASC' and $_GET['order_dir'] != 'DESC') $func->error(t('Sortieren-Ordnung, darf nur ASC, oder DESC sein'), $func->internal_referer); 
+        else $this->query['order_by'] .= ' '. $_GET['order_dir'];
+      }
     }
     if ($this->query['order_by'] == '') $this->query['order_by'] = $select_id_field .' ASC';
     if ($this->query['order_by_end']) $this->query['order_by'] .= ', '. $this->query['order_by_end'];
