@@ -231,10 +231,6 @@ class MasterSearch2 {
 
     ###### Generate Order By
     if (strpos($_GET['order_by'], "\'") > 0) $_GET['order_by'] = ''; # Important for FIND_IN_SET ranking
-    if (!$_GET['order_by'] and $this->query['default_order_by']) {
-      $_GET['order_by'] = $this->query['default_order_by'];
-      if ($this->query['default_order_dir']) $_GET['order_dir'] = $this->query['default_order_dir'];
-    }
     if ($_GET['order_by']) {
       if (!in_array($_GET['order_by'], $this->sql_select_field_alias_list)) $func->error(t('Sortieren nach "%1" nicht möglich. Feld ist nicht im Select-Teil definiert', array($_GET['order_by'])), $func->internal_referer);
       else $this->query['order_by'] .= $_GET['order_by'];
@@ -242,7 +238,12 @@ class MasterSearch2 {
         if ($_GET['order_dir'] != 'ASC' and $_GET['order_dir'] != 'DESC') $func->error(t('Sortieren-Ordnung, darf nur ASC, oder DESC sein'), $func->internal_referer); 
         else $this->query['order_by'] .= ' '. $_GET['order_dir'];
       }
+
+    } elseif ($this->query['default_order_by']) {
+      $_GET['order_by'] = $this->query['default_order_by'];
+      if ($this->query['default_order_dir']) $_GET['order_dir'] = $this->query['default_order_dir'];
     }
+
     if ($this->query['order_by'] == '') $this->query['order_by'] = $select_id_field .' ASC';
     if ($this->query['order_by_end']) $this->query['order_by'] .= ', '. $this->query['order_by_end'];
 
