@@ -240,8 +240,8 @@ class MasterSearch2 {
       }
 
     } elseif ($this->query['default_order_by']) {
-      $_GET['order_by'] = $this->query['default_order_by'];
-      if ($this->query['default_order_dir']) $_GET['order_dir'] = $this->query['default_order_dir'];
+      $this->query['order_by'] = $this->query['default_order_by'];
+      if ($this->query['default_order_dir']) $this->query['order_by'] .= ' '. $this->query['default_order_dir'];
     }
 
     if ($this->query['order_by'] == '') $this->query['order_by'] = $select_id_field .' ASC';
