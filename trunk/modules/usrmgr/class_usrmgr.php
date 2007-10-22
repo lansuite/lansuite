@@ -165,10 +165,14 @@ class UsrMgr {
   		$party .= $xml->write_tag('sstartdate', $row['sstartdate'], 3);
   		$party .= $xml->write_tag('senddate', $row['senddate'], 3);
 
-    	$row2 = $db->query_first("SELECT COUNT(*) AS anz FROM {$config['tables']['party_user']} WHERE party_id = {$row['party_id']}");
+    	$row2 = $db->query_first("SELECT count(userid) as anz FROM {$config["tables"]["user"]} AS user
+        LEFT JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id
+        WHERE party_id='{$row['party_id']}' AND (type >= 1)");
   		$party .= $xml->write_tag('registered', $row2['anz'], 3);
 
-    	$row2 = $db->query_first("SELECT COUNT(*) AS anz FROM {$config['tables']['party_user']} WHERE (paid >= 1) AND party_id = {$row['party_id']}");
+    	$row2 = $db->query_first("SELECT count(userid) as anz FROM {$config["tables"]["user"]} AS user
+        LEFT JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id
+        WHERE (party.paid > 0) AND party_id='{$row['party_id']}' AND (type >= 1)");
   		$party .= $xml->write_tag('paid', $row2['anz'], 3);
   		
   		$partys .= $xml->write_master_tag('party', $party, 2);
