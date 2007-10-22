@@ -205,7 +205,7 @@ class Export {
 
 		$user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;passnr/misc;md5pwd;usertype;paid;seatcontrol;clan;clanurl;wwclid;nglid;checkin;checkout;signondate;seatblock;seat;ip;comment;birthday\r\n";
 
-		$query = $db->query("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
+		$query = $db->query("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol, p.paiddate
 			FROM {$config["tables"]["user"]} AS u
 			LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id = u.userid
 			LEFT JOIN {$config["tables"]["clan"]} AS c ON u.clanid = c.clanid
@@ -244,6 +244,7 @@ class Export {
 			$user_export .= ($row["checkin"] > "0") ? $func->unixstamp2date($row["checkin"],"datetime").$sep : $sep;
 			$user_export .= ($row["checkout"] > "0") ? $func->unixstamp2date($row["checkout"],"datetime").$sep : $sep;
 			$user_export .= ($row["signondate"] > "0") ? $func->unixstamp2date($row["signondate"],"datetime").$sep : $sep;
+			$user_export .= ($row["paiddate"] > "0") ? $func->unixstamp2date($row["paiddate"],"datetime").$sep : $sep;
 			$user_export .= $row["birthday"].$sep;
 
 			// seat
