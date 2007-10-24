@@ -72,6 +72,16 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>age</action>
+		<file>age</file>
+		<caption>Anmeldestatistik</caption>
+		<hint></hint>
+		<link>?mod=stats&amp;action=signonstats</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
 		<action>export</action>
 		<file>export</file>
 		<requirement>2</requirement>

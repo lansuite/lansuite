@@ -54,6 +54,10 @@ $lang['stats']['user_time']			= 'Required work time, yet';
 $lang['stats']['user_user_online']	= 'User logged in (last houre)';
 $lang['stats']['user_known']		= 'Out of those known';
 
+// Signonstatus
+$lang['stats']['signon_caption']	= 'Signon Stats';
+$lang['stats']['signon_subcaption']	= 'stats per tag and needed signons per day';
+
 
 // Graphic Data
 $lang['stats']['gd_error']			= 'The statistic view requires the GD-Library';
