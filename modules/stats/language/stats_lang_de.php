@@ -53,6 +53,11 @@ $lang['stats']['user_time']			= 'Bis jetzt ben&ouml;tigte Zeit f&uuml;r Skript';
 $lang['stats']['user_user_online']	= 'Benutzer eingeloggt (letzte Stunde)';
 $lang['stats']['user_known']		= 'Davon bekannt';
 
+// Signonstatus
+$lang['stats']['signon_caption']	= 'Anmeldestatistiken';
+$lang['stats']['signon_subcaption']	= 'Tagesstatistiken der Anmeldezahlen und gebrauchten Anmeldungen';
+
+
 
 // Graphic Data
 $lang['stats']['gd_error']			= 'Die Statistikanzeige ben&ouml;tigt ddie GD Bibliothek';
