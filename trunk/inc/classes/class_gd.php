@@ -202,7 +202,7 @@ class gd {
 
 	function CreateThumb($old_file, $new_file, $max_width, $max_height) {
 
-    if (file_exists($new_file)) return;
+    if (($old_file != $new_file) and file_exists($new_file)) return;
 
 		$imgsrc_old = $this->OpenImage($old_file);
     if (!$imgsrc_old) {
