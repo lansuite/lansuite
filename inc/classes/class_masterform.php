@@ -225,7 +225,11 @@ class masterform {
               // Upload submitted file
               if ($_POST[$field['name'].'_keep']) {
                 foreach ($this->SQLFields as $key => $val) if ($val == $field['name']) unset($this->SQLFields[$key]);
-              } elseif ($field['type'] == IS_FILE_UPLOAD) $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
+              } elseif ($field['type'] == IS_FILE_UPLOAD) {
+                if (substr($field['selections'], strlen($field['selections']) - 1, 1) == '_')
+                  $_POST[$field['name']] = $func->FileUpload($field['name'], substr($field['selections'], 0, strrpos($field['selections'], '/')), substr($field['selections'], strrpos($field['selections'], '/') + 1, strlen($field['selections'])));
+                else $_POST[$field['name']] = $func->FileUpload($field['name'], $field['selections']);
+              }
 
 
               // -- Checks --
@@ -436,7 +440,7 @@ class masterform {
               break;
 
               case IS_FILE_UPLOAD: // File Upload to path
-                if (is_dir($field['selections'])) {
+                #if (is_dir($field['selections'])) {
                   $dsp->AddFileSelectRow($field['name'], $field['caption'], $this->error[$field['name']], '', '', $field['optional']);
                   if ($_POST[$field['name']]) {
                     $FileEnding = strtolower(substr($_POST[$field['name']], strrpos($_POST[$field['name']], '.'), 5));
@@ -444,7 +448,7 @@ class masterform {
                     else $img = '';
                     $dsp->AddCheckBoxRow($field['name'].'_keep', t('Aktuelle Datei beibehalten'), $_POST[$field['name']] . $img, '', $field['optional'], 1);
                   }
-                }
+                #}
               break;
 
               case IS_PICTURE_SELECT: // Picture Dropdown from path
