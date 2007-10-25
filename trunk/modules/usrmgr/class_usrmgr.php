@@ -176,7 +176,7 @@ class UsrMgr {
   		$party .= $xml->write_tag('paid', $row2['anz'], 3);
   		
   		$partys .= $xml->write_master_tag('party', $party, 2);
-      }
+    }
     $db->free_result($res);
 		$lansuite .= $xml->write_master_tag('partys', $partys, 1);
 
