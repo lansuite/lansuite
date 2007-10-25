@@ -41,7 +41,7 @@ if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $templ['home']['show']['row']['control']['link']	= "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&gotopid={$row['pid']}#pid{$row['pid']}";
   $templ['home']['show']['row']['info']['text']		= $row['caption'] .' ['. $row['posts'] .']';
   if (CheckPostNew($row['LastPost'], $row['last_read'])) $templ['home']['show']['row']['info']['text'] = '<b>'. $templ['home']['show']['row']['info']['text'] .'</b>';
-  if ($row['closed']) $templ['home']['show']['row']['info']['text'] = '<span onmouseover="return overlib(\''. t('Thread wurde geschlossen') .'\');" onmouseout="return nd();">[X]</span> '. $templ['home']['show']['row']['info']['text'];
+  if ($row['closed']) $templ['home']['show']['row']['info']['text'] .= ' <span onmouseover="return overlib(\''. t('Thread wurde geschlossen') .'\');" onmouseout="return nd();"><img src="design/images/icon_locked.png" border="0" width="12" /></span>';
   $templ['home']['show']['item']['control']['row']	.= $dsp->FetchModTpl('home', 'show_row');
 } else $templ['home']['show']['item']['control']['row'] = "<i>". t('Keine Beiträge vorhanden') ."</i>";
 ?>
