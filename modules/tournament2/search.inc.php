@@ -82,7 +82,7 @@ if ($auth['type'] >= 2) $ms2->AddIconField('generate', 'index.php?mod=tournament
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=tournament2&action=change&step=1&tournamentid=', $lang['ms2']['edit']);
 if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=tournament2&action=delete&step=2&tournamentid=', $lang['ms2']['delete']);
 
-if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('Löschen', 'index.php?mod=tournament2&action=delete&step=10', 1);
+if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('L&ouml;schen', 'index.php?mod=tournament2&action=delete&step=10', 1);
 
 $ms2->PrintSearch('index.php?mod=tournament2', 't.tournamentid');
 ?>
