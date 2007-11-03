@@ -49,8 +49,8 @@ if ($auth['type'] <= 1) {
       $ms2->AddResultField($lang['info']['subtitle'], 'i.shorttext', '', 140);
       $ms2->AddResultField($lang['info']['active'], 'i.active', 'ShowActiveState');
 
+	$ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', $lang['ms2']['details']);
       if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=info2&action=change&step=2&id=', $lang['ms2']['edit']);
-
       if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Aktiv-Status ändern', 'index.php?mod=info2&action=change&step=20', 1);
       if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('Löschen', 'index.php?mod=info2&action=change&step=10', 1);
 
