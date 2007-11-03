@@ -111,8 +111,13 @@ class UsrMgr {
 
       // Signon-Mail
       case 1:
-        if ($_POST['InsertControll0']) $message = $cfg["signon_signonemail_text"];
-	else $message = $cfg["signon_signoffemail_text"];
+        if ($_POST['InsertControll0']) {
+           $message = $cfg["signon_signonemail_text"];
+           $subject = $cfg["signon_signonemail_subject"];
+	  } else {
+           $message = $cfg["signon_signoffemail_text"];
+           $subject = $cfg["signon_signoffemail_subject"]; 
+        }
 
         if (!$_GET['user_id']) $_GET['user_id'] = $auth['userid'];
         if ($_GET['user_id']) {
@@ -121,13 +126,11 @@ class UsrMgr {
       		$message = str_replace('%EMAIL%', $row['email'], $message);
       		$message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
       		$message = str_replace('%MAXGUESTS%', $_SESSION['party_info']['max_guest'], $message);
-
       		$anmelde_schluss = '';
       		if ($_SESSION['party_info']['s_enddate'] > 0) $anmelde_schluss = "Anmeldeschluss: ". $func->unixstamp2date($_SESSION['party_info']['s_enddate'], date) .HTML_NEWLINE;
       		$message = str_replace('%SIGNON_DEADLINE%', $anmelde_schluss, $message);
-
       		$message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
-      		if ($mail->create_inet_mail($row["firstname"]." ".$row["name"], $row["email"], $cfg["signon_signoffemail_subject"], $message, $cfg["sys_party_mail"])) return true;
+      		if ($mail->create_inet_mail($row["firstname"]." ".$row["name"], $row["email"], $subject, $message, $cfg["sys_party_mail"])) return true;
       		else return false;
         } else return false;
       break;
