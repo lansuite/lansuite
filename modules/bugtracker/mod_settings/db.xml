@@ -87,7 +87,7 @@
 			<field>
 				<name>fixdate</name>
 				<type>datetime</type>
-				<null></null>
+				<null>YES</null>
 				<key></key>
 				<default></default>
 				<extra></extra>
