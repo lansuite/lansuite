@@ -87,10 +87,10 @@ $query_signstat = $db->query_first("SELECT * FROM {$config["tables"]["party_user
 				{
 					$signstat = '<font color="green">'. t('Ja') .'!</font>';
 					
-					if($query_signstat["paid"] != 1)
-						$paidstat = '<font color="red">'. t('Nein') .'!</font>';
-					else
+					if(($query_signstat["paid"] == 1)||($query_signstat["paid"] == 2))
 						$paidstat = '<font color="green">'. t('Ja') .'!</font>';
+					else
+						$paidstat = '<font color="red">'. t('Nein') .'!</font>';
 					}
 
 $query_partys = $db->query_first("SELECT * FROM {$config["tables"]["partys"]} AS p
