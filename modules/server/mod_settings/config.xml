@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+  <typedefinition>
+    <head>
+      <name>server_sort</name>
+    </head>
+    <entries>
+  		<entry>
+  			<value>serverid</value>
+  			<description>ID</description>
+  		</entry>
+  		<entry>
+  			<value>changedate</value>
+  			<description>Change Date</description>
+  		</entry>
+    </entries>
+  </typedefinition>
   <group>
     <head>
       <name>Allgemein</name>
@@ -30,5 +45,15 @@
     		<description>Die nächste IP, die vergeben wird (Wert wird automatisch angepasst)</description>
     	</item>
     </items>
+  </group>
+  <group>
+    <head>
+      <name>Startseite</name>
+    <item>
+    		<name>server_sortmethod</name>
+    		<type>server_sort</type>
+    		<default>changedate</default>
+    		<description>Nach was soll sortiert werden</description>
+    	</item>
   </group>
 </config>
