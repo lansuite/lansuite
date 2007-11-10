@@ -15,10 +15,15 @@ class seat2 {
   function SeatNameLink($userid, $MaxBlockLength = 0, $break = '<br />'){
     global $db, $config, $party;
   
+    // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
+    $seat_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']}
+                                   WHERE  party_id=$party->party_id AND user_id=$userid");
+    if ($seat_paid['paid']>0) {$seat_status = 2;} else {$seat_status = 3;};
+
     if (!$userid) return '';
     else $row = $db->query_first("SELECT b.blockid, b.name, b.orientation, s.col, s.row FROM {$config['tables']['seat_block']} AS b
       LEFT JOIN {$config['tables']['seat_seats']} AS s ON b.blockid = s.blockid
-      WHERE b.party_id = ". (int)$party->party_id ." AND s.userid = $userid AND s.status = 2");
+      WHERE b.party_id = ". (int)$party->party_id ." AND s.userid = $userid AND s.status = $seat_status");
   
     if (!$row['blockid']) return '';
     else {
@@ -29,10 +34,14 @@ class seat2 {
 
 	function SeatOfUser($userid, $MaxBlockLength = 0, $LinkIt = 0) {
 	  global $db, $config, $party; 
+      // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
+      $seat_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']}
+                                     WHERE  party_id=$party->party_id AND user_id=$userid");
+      if ($seat_paid['paid']>0) {$seat_status = 2;} else {$seat_status = 3;};
 
 		$row = $db->query_first("SELECT s.row, s.col, b.blockid, b.name FROM {$config['tables']['seat_seats']} AS s
 			LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b.blockid
-			WHERE s.userid='$userid' AND s.status = 2 AND b.party_id = ". (int)$party->party_id);
+			WHERE s.userid='$userid' AND s.status = $seat_status AND b.party_id = ". (int)$party->party_id);
 
     if ($row['blockid']) return $this->CoordinateToBlockAndName($row['col'] + 1, $row['row'], $row['blockid'], $MaxBlockLength, $LinkIt, $userid);
     else return false;
