@@ -159,7 +159,7 @@
 			<field>
 				<name>special_info</name>
 				<type>text</type>
-				<null></null>
+				<null>YES</null>
 				<key></key>
 				<default></default>
 				<extra></extra>
