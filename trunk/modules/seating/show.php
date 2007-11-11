@@ -60,6 +60,11 @@ switch($_GET['step']) {
 						array_push($questionarray, $lang['seating']['mark_seat']);
 						array_push($linkarray, "index.php?mod=seating&action=show&step=12&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
 					}
+					// Delete mark, if Admin
+					if ($auth['type'] > 1) {
+						array_push($questionarray, t('Möchten Sie als Admin diese Vormerkung entfernen?'));
+						array_push($linkarray, "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+					}
 				// Mark seat for myselfe (if not paid)
 				} else {
 					array_push($questionarray, $lang['seating']['mark_my_seat']);
