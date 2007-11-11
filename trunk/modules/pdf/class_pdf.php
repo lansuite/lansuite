@@ -201,7 +201,7 @@ class pdf {
 			break;
 			case 'ticket':
 				if($auth["userid"] == $_GET['userid'] || $auth["type"] > 2){
-					$this->_makeUserCard(1,0,1,1,$_GET['userid']);
+					$this->_makeUserCard(1,1,1,1,$_GET['userid']);
 				}
 			break;				
 		}
@@ -422,6 +422,9 @@ class pdf {
 		if ($pdf_orga == '1') $pdf_sqlstring .= ' OR user.type = 2';
 		if ($pdf_op == '1') $pdf_sqlstring .= ' OR user.type = 3';
 		if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') $pdf_sqlstring .= ')';
+		
+    //Userabfragen
+    if($pdf_guestid > 0) $pdf_sqlstring .= ' AND user.userid = '.$pdf_guestid.'';
 
 		$query = $db->query("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM {$config["tables"]["user"]} AS user
       LEFT JOIN {$config['tables']['clan']} AS clan ON user.clanid = clan.clanid ".
