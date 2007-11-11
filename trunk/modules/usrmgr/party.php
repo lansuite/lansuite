@@ -70,7 +70,7 @@ else {
           $selections['1'] = $lang['usrmgr']['add_paid_vvk'];
           $selections['2'] = $lang['usrmgr']['add_paid_ak'];
           $mf->AddField($lang['usrmgr']['add_paid'], 'paid', IS_SELECTION, $selections);
-        }
+        } elseif ($cfg['signon_autopaid']) $mf->AddFix('paid', '1');
     
         // Prices
         $selections = array();  
