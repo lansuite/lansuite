@@ -188,7 +188,7 @@ $mf->AddField($lang['tourney']['t_add_mapcycle'], 'mapcycle', '', '', FIELD_OPTI
 $mf->AddGroup($lang['tourney']['t_add_league_rules']);
 
 if (!$_GET['tournamentid']) {
-  $mf->AddFix('party_id', $party->party_id);
+  $mf->AddFix('party_id', (int)$party->party_id);
 }
 
 if ($mf->SendForm('index.php?mod=tournament2&action='. $_GET['action'], 'tournament_tournaments', 'tournamentid', $_GET['tournamentid'])) {
