@@ -3,7 +3,7 @@
 if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
 	
 	if ($_GET["submod"]) { 
-		$info = $db->query_first("SELECT text, caption FROM {$config['tables']['info']} WHERE caption = '{$_GET["submod"]}'");
+		$info = $db->query_first("SELECT text, caption FROM {$config['tables']['info']} WHERE infoID = '{$_GET["submod"]}'");
 	} else {
 		$info = $db->query_first("SELECT text, caption FROM {$config['tables']['info']} WHERE infoID = '{$_GET["id"]}'");
 	}
