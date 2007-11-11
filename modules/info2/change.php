@@ -117,7 +117,7 @@ if ($auth['type'] <= 1) {
   						caption = '{$_POST["title"]}',
   						hint = '{$_POST["subtitle"]}',
   						level = $level,
-  						link = '?mod=info2&action=show_info2&submod=". urlencode($_POST["title"]) ."'
+  						link = '?mod=info2&action=show_info2&submod=". $_GET["infoid"] ."'
   						WHERE id = '{$_GET["menuid"]}'");
   				}
 
@@ -164,7 +164,7 @@ if ($auth['type'] <= 1) {
   					SET module = 'info2',
   					caption = '{$menu_intem["caption"]}',
   					hint = '{$menu_intem["shorttext"]}',
-  					link = '?mod=info2&action=show_info2&submod=". urlencode($link) ."',
+  					link = '?mod=info2&action=show_info2&submod=". $item ."',
   					requirement = 0,
   					level = $level,
   					pos = {$info_menu["pos"]},
