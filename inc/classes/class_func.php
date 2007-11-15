@@ -360,6 +360,15 @@ class func {
 	function text2html($string) {
 		global $db, $config;
 
+    preg_replace_callback(
+      '#\[c\]((.)*)\[\/c\]#sUi',
+      create_function(
+        '$treffer',
+        'global $HighlightCode, $HighlightCount; $HighlightCount++; $HighlightCode[$HighlightCount] = $treffer[1];'
+      ),
+      $string
+    );
+
 		$img_start = "<img src=\"design/".$_SESSION["auth"]["design"]."/images/";
 		$img_start2 = '<img src="ext_inc/smilies/';
 		$img_end   = '" border="0" alt="" />';
@@ -397,8 +406,9 @@ class func {
 		$string = str_replace('[/sub]', '</sub>', $string);
 		$string = str_replace('[sup]', '<sup>', $string);
 		$string = str_replace('[/sup]', '</sup>', $string);
-		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">', $string);
-		$string = str_replace('[/c]', '</div></blockquote>', $string);
+
+//		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">', $string);
+//		$string = str_replace('[/c]', '</div></blockquote>', $string);
 		$string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">', $string);
 		$string = str_replace('[/quote]', '</div></blockquote>', $string);
 
@@ -410,6 +420,15 @@ class func {
 		$res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
 		while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
     $db->free_result($res);
+
+    $string = preg_replace_callback(
+      '#\[c\](.)*\[\/c\]#sUi',
+      create_function(
+        '$treffer',
+        'global $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true) .\'</div></blockquote>\';'
+      ),
+      $string
+    );
 
 		return $string;
 	}
