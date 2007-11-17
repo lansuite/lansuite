@@ -2,7 +2,8 @@
 $templ['home']['show']['item']['info']['caption'] = t('Neue Server');
 $templ['home']['show']['item']['control']['row'] = "";
 
-$query = $db->query("SELECT serverid, caption, type FROM {$config["tables"]["server"]} order by {$cfg['server_sortmethod']} DESC LIMIT 0,{$cfg['home_item_count']}");
+if (!$cfg['server_sortmethod']) $cfg['server_sortmethod'] = 'changedate';
+$query = $db->query("SELECT serverid, caption, type FROM {$config["tables"]["server"]} ORDER BY {$cfg['server_sortmethod']} DESC LIMIT 0,{$cfg['home_item_count']}");
 if($db->num_rows($query) > 0) {
 	while($row = $db->fetch_array($query)) {
 
