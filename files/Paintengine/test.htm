@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Unbenanntes Dokument</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<form action="" method="post" name="sitzplan" id="sitzplan">
+  <p>
+<script language="JavaScript" type="text/JavaScript">
+aa = new Image();
+aa.value = "aa";
+aa.src = "icons/wall_crl.gif";
+
+bb = new Image();
+bb.value = "bb";
+bb.src = "icons/grey.gif";
+
+cc = new Image();
+cc.value = "cc";
+cc.src = "icons/wall_crb.gif";
+
+pinsel = aa;
+
+function change_object(p)
+  {
+    pinsel = p;
+    document.aktob.src = p.src;
+  }
+  
+function paint(s)
+  {
+  	seatimg = "s" + s;
+  	seat = "seat[" + s + "]";
+	document.sitzplan[seat].value = pinsel.value;
+	document[seatimg].src = pinsel.src
+  }
+  
+</script>
+  </p>
+  <table border="0" cellspacing="10" cellpadding="0">
+    <tr> 
+      <td width="150" valign="top">
+<table width="150" border="0" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td width="15"><img src="icons/wall_crl.gif" width="15" height="15" border="1" onClick="change_object(aa)"></td>
+            <td width="15"><img src="icons/grey.gif" width="15" height="15" border="1" onClick="change_object(bb)"></td>
+            <td width="15"><img src="icons/wall_crb.gif" width="15" height="15" border="1" onClick="change_object(cc)"></td>
+            <td width="15">&nbsp;</td>
+            <td width="15">&nbsp;</td>
+            <td width="15">&nbsp;</td>
+          </tr>
+          <tr> 
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr> 
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr> 
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+          <tr> 
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <p align="center"><img src="icons/green.gif" name="aktob" width="15" height="15" border="1" id="aktob"></p>
+        <p align="center">&nbsp;</p></td>
+      <td width="500"> <p><img onClick="paint(1)" src="icons/green.gif" name="s1" width="15" height="15" border="1" id="s1"><img onClick="paint(2)" src="icons/green.gif" name="s2" width="15" height="15" border="1" id="s2"><img onClick="paint(3)" src="icons/green.gif" name="s3" width="15" height="15" border="1" id="s3"><img onClick="paint(4)" src="icons/green.gif" name="s4" width="15" height="15" border="1" id="s4"><br>
+          <img onClick="paint(5)" src="icons/green.gif" name="s5" width="15" height="15" border="1" id="s5"><img onClick="paint(6)" src="icons/green.gif" name="s6" width="15" height="15" border="1" id="s6"><img onClick="paint(7)" src="icons/green.gif" name="s7" width="15" height="15" border="1" id="s7"><img onClick="paint(8)" src="icons/green.gif" name="s8" width="15" height="15" border="1" id="s8"> 
+          <br>
+          <input name="seat[1]" type="text" id="seat[1]">
+        </p>
+        <p> 
+          <input name="seat[2]" type="text" id="seat[2]">
+        </p>
+        <p> 
+          <input name="seat[3]" type="text" id="seat[1]32">
+        </p>
+        <p> 
+          <input name="seat[4]" type="text" id="seat[4]">
+        </p>
+        <p> 
+          <input name="seat[5]" type="text" id="seat[5]">
+        </p>
+        <p> 
+          <input name="seat[6]" type="text" id="seat[6]">
+        </p>
+        <p> 
+          <input name="seat[7]" type="text" id="seat[7]">
+        </p>
+        <p>
+          <input name="seat[8]" type="text" id="seat[8]">
+        </p></td>
+    </tr>
+  </table>
+  </form>
+</body>
+</html>
