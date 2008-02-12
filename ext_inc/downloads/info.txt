@@ -1,1 +1,0 @@
-This directory contains files, which will be distributet using the download-module

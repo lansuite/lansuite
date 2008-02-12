@@ -1,2 +1,0 @@
-this is the default folder, where movies are uploaded to play them with lansintv.
-Therefor this folder needs write-access.

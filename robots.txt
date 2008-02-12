@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: design/templates/
-Disallow: inc/
-Disallow: modules/
-Disallow: install.php

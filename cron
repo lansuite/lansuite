@@ -1,0 +1,11 @@
+# Datei die als Cronjob ausgefürt werden muss
+# in der Datei /etc/crontab folgene Zeile angeben
+# */5   *  * * *  root    /var/www/localhost/htdocs/ls2_1/cron
+# Danach diese Datei mit ausführrechten versehen am besten 770
+
+# Verzeichnis in dem Lansuite liegt
+cd /var/www/localhost/htdocs/ls2_1 
+
+# Start des Lansuite Modul
+php modules/suitebeat/suitebeat.php
+

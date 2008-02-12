@@ -1,0 +1,249 @@
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+
+
+<script language="JavaScript">
+
+
+
+var Sel = new Array();
+var Belag = new Array();
+var radios = new Array();
+var rid = new Array();
+var Boden;
+var sel_preis;
+var master_size="x";
+
+var foodid={$templ['catering']['show']['js']['var']['foodid']};
+var wizzard ={$templ['catering']['show']['js']['var']['wizzard']};
+var suppl ={$templ['catering']['show']['js']['var']['suppl']};
+var grp ={$templ['catering']['show']['js']['var']['grp']};
+var addarrow ="{$templ['catering']['show']['js']['var']['addarrow']}";
+var title ="{$templ['catering']['show']['js']['var']['title']}";
+
+var addids='';
+
+function calcPreis(a){
+	
+	if(master_size=="x"){
+		alert("Bitte erst die größe wählen");
+		a.checked=false;
+	} else {
+	
+		if(master_size=="s"){sel_preis=a.price_s;}
+		if(master_size=="m"){sel_preis=a.price_m;}
+		if(master_size=="l"){sel_preis=a.price_l;}
+		if(master_size=="p"){sel_preis=a.price_p;}
+
+		var input_typ = a.name.split("_");
+		if(input_typ[1]=="c"){
+
+			if(Sel[a.id]==1){
+				Sel[a.id]=0;
+				var wert = parseFloat(Belag[a.block]);
+				sel_preis=parseFloat(sel_preis);
+				Belag[a.block]=wert-parseFloat(sel_preis);
+			}
+			else if(Sel[a.id]==0){
+				Sel[a.id]=1;
+				var wert = parseFloat(Belag[a.block]);
+				sel_preis=parseFloat(sel_preis);
+				Belag[a.block]=wert+parseFloat(sel_preis);
+			}
+			else {
+				Sel[a.id]=1;
+				var wert = parseFloat(Belag[a.block]);
+				if(isNaN(wert)==true){wert=0;}
+				sel_preis=parseFloat(sel_preis);
+				Belag[a.block]=wert+parseFloat(sel_preis);
+			}
+		}
+		else {
+			
+			if(radios[a.block]>0){
+				var wert = parseFloat(Belag[a.block]);
+				sel_preis=parseFloat(radios[a.block]);
+				Belag[a.block]=wert-parseFloat(sel_preis);
+				var wert = parseFloat(Belag[a.block]);
+				if(isNaN(wert)==true){wert=0;}
+	
+				if(master_size=="s"){sel_preis=a.price_s;}
+				if(master_size=="m"){sel_preis=a.price_m;}
+				if(master_size=="l"){sel_preis=a.price_l;}
+				if(master_size=="p"){sel_preis=a.price_p;}
+	
+				sel_preis=parseFloat(sel_preis);
+				Belag[a.block]=wert+parseFloat(sel_preis);
+				radios[a.block]=sel_preis;
+				rid[a.block]=a.id;
+			}					
+			else {
+				var wert = parseFloat(Belag[a.block]);
+				if(isNaN(wert)==true){wert=0;}
+				sel_preis=parseFloat(sel_preis);
+				Belag[a.block]=wert+parseFloat(sel_preis);
+
+				radios[a.block]=sel_preis;
+				rid[a.block]=a.id;
+			}
+		}
+
+		setBlockPrice(a);
+		setPrice(a);
+	}
+}
+
+function setSize(a){
+	if(master_size=="x"){
+		master_size=a.art_size;
+		if(master_size=="s"){sel_preis=a.price_s;}
+		if(master_size=="m"){sel_preis=a.price_m;}
+		if(master_size=="l"){sel_preis=a.price_l;}
+		if(master_size=="p"){sel_preis=a.price_p;}
+		document.all["price_master"].innerText=nummer_format(parseFloat(sel_preis));
+		Boden=nummer_format(parseFloat(sel_preis));
+		setPrice(a);
+	}
+	else {
+		master_size=a.art_size;
+		if(master_size=="s"){sel_preis=a.price_s;}
+		if(master_size=="m"){sel_preis=a.price_m;}
+		if(master_size=="l"){sel_preis=a.price_l;}
+		if(master_size=="p"){sel_preis=a.price_p;}
+
+
+		document.all["price_master"].innerText=nummer_format(parseFloat(sel_preis));
+		Boden=nummer_format(parseFloat(sel_preis));
+
+		reCalc();
+		setPrice(a);
+	
+	}
+}
+
+function setBlockPrice(a){
+
+	document.all["price_" + a.block].innerText=nummer_format(parseFloat(Belag[a.block]));
+}
+
+function reCalc(){
+	var wert;
+	var tmp_block;
+
+	for (var got_Belag_ID in Belag){
+		Belag[got_Belag_ID]=0;
+		if (typeof document.all["adds_c_" + got_Belag_ID] != 'undefined'){
+			for (i=0; i<document.all["adds_c_" + got_Belag_ID].length;i++){
+				if(Sel[document.all["adds_c_" + got_Belag_ID][i].id]==1){
+					wert=parseFloat(Belag[document.all["adds_c_" + got_Belag_ID][i].block]);
+					if(isNaN(wert)==true){wert=0;}
+					if(master_size=="s"){sel_preis=document.all["adds_c_" + got_Belag_ID][i].price_s;}
+					if(master_size=="m"){sel_preis=document.all["adds_c_" + got_Belag_ID][i].price_m;}
+					if(master_size=="l"){sel_preis=document.all["adds_c_" + got_Belag_ID][i].price_l;}
+					if(master_size=="p"){sel_preis=document.all["adds_c_" + got_Belag_ID][i].price_p;}
+					sel_preis=parseFloat(sel_preis);
+					Belag[document.all["adds_c_" + got_Belag_ID][i].block]=wert+parseFloat(sel_preis);
+				}
+			}
+		}
+
+		if (typeof document.all["adds_r_" + got_Belag_ID] != 'undefined'){
+			for (i=0; i<document.all["adds_r_" + got_Belag_ID].length;i++){
+				if(rid[got_Belag_ID]==document.all["adds_r_" + got_Belag_ID][i].id){
+
+					if(master_size=="s"){sel_preis=document.all["adds_r_" + got_Belag_ID][i].price_s;}
+					if(master_size=="m"){sel_preis=document.all["adds_r_" + got_Belag_ID][i].price_m;}
+					if(master_size=="l"){sel_preis=document.all["adds_r_" + got_Belag_ID][i].price_l;}
+					if(master_size=="p"){sel_preis=document.all["adds_r_" + got_Belag_ID][i].price_p;}
+
+					var wert = parseFloat(Belag[got_Belag_ID]);
+					if(isNaN(wert)==true){wert=0;}
+					Belag[got_Belag_ID]=wert+parseFloat(sel_preis);
+
+					radios[got_Belag_ID]=sel_preis;
+
+				}
+			}
+		}
+	}
+
+	for (var got_Belag_ID in Belag){
+		document.all["price_" + got_Belag_ID].innerText=nummer_format(parseFloat(Belag[got_Belag_ID]));
+	}
+}
+
+function setPrice(a){
+
+
+	var price_add=0;
+	var price_base=0;
+	var price_all=0;
+
+	for (var got_Belag_ID in Belag)
+		price_add = parseFloat(Belag[got_Belag_ID]) + parseFloat(price_add);
+	
+	price_base=Boden;
+	price_all=parseFloat(price_base) + parseFloat(price_add);
+	
+
+	document.all["price_base"].innerText=nummer_format(parseFloat(price_base));
+	document.all["price_add"].innerText=nummer_format(parseFloat(price_add));
+	document.all["price_all"].innerText=nummer_format(parseFloat(price_all));
+	
+	 addToCart();
+}
+
+function nummer_format(nummer) {
+
+  var laenge=2;
+  var sep=".";
+  var th_sep="";
+  
+  nummer = Math.round( nummer * Math.pow(10, laenge) ) / Math.pow(10, laenge);
+  str_number = nummer+"";
+  arr_int = str_number.split(".");
+  if(!arr_int[0]) arr_int[0] = "0";
+  if(!arr_int[1]) arr_int[1] = "";
+  if(arr_int[1].length < laenge){
+    nachkomma = arr_int[1];
+    for(i=arr_int[1].length+1; i <= laenge; i++){  nachkomma += "0";  }
+    arr_int[1] = nachkomma;
+  }
+  if(th_sep != "" && arr_int[0].length > 3){
+    Begriff = arr_int[0];
+    arr_int[0] = "";
+    for(j = 3; j < Begriff.length ; j+=3){
+      Extrakt = Begriff.slice(Begriff.length - j, Begriff.length - j + 3);
+      arr_int[0] = th_sep + Extrakt +  arr_int[0] + "";
+    }
+    str_first = Begriff.substr(0, (Begriff.length % 3 == 0)?3:(Begriff.length % 3));
+    arr_int[0] = str_first + arr_int[0];
+  }
+  return arr_int[0]+sep+arr_int[1];
+}
+
+function addToCart(){
+
+	addids='';
+	for (var got_Belag_ID in Belag){
+		if (typeof document.all["adds_c_" + got_Belag_ID] != 'undefined'){
+			for (i=0; i<document.all["adds_c_" + got_Belag_ID].length;i++){
+				if(Sel[document.all["adds_c_" + got_Belag_ID][i].id]==1){
+					addids+=document.all["adds_c_" + got_Belag_ID][i].id + "/";
+				}
+			}
+		}
+	
+		if (typeof document.all["adds_r_" + got_Belag_ID] != 'undefined'){
+			for (i=0; i<document.all["adds_r_" + got_Belag_ID].length;i++){
+				if(rid[got_Belag_ID]==document.all["adds_r_" + got_Belag_ID][i].id){
+					addids+=document.all["adds_r_" + got_Belag_ID][i].id + "/";
+				}
+			}
+		}
+	}
+	
+	document.all["cartlink"].innerHTML='<a href="?mod=catering&action=addtocart&foodid='+foodid+'&suppl='+suppl+'&wizzard='+wizzard+'&grp='+grp+'&addids='+addids+'&selsize='+master_size+'" title="'+title+'"><img border="0" src="' + addarrow +'" vspace="2" align="top"></a>';
+}
+	
+</script>
