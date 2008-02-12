@@ -1,0 +1,63 @@
+Ueber Phgstats 0.6.2:
+-------------------
+
+Funktion von Phgstats 0.6.2:
+--------------------------
+
+Phgstats ist ein Game Server Status Skript, welches Daten von Spieleservern
+abfragt, diese sortiert und als HTML Code darstellt. So koennen Spieler
+und Clans Server auf ihrer Webseite beobachten und auswerten. Es koennen
+ein aber auch mehrere Server dargestellt werden.
+
+Folgende Spiele und deren Modifikationen werden zur Zeit unterstuetzt:
+
+     Game:                           Gamename Variable:
+    - American's Army               aa
+    - Armagetronad                  atron
+    - Battlefield 1942              bf
+    - Battlefield Vietnam           bfv
+    - Battlefield 2                 bf2
+    - Call of Duty                  cod
+    - Call of Duty 2                cod2
+    - Descent 3 (without gamespy)   descent3
+    - Descent 3 (gamespy)           des3gs
+    - Doom 3                        d3
+    - Enemy Territory               et
+    - FEAR                          fear
+    - HALO                          halo
+    - Half-Life / CS OLD            hl_old
+    - Half-Life / CS                hl
+    - Half-Life 2 / CS:S            hl2
+    - Hidden & Dangerous 2          hd2
+    - Jedi Knight: Jedi Academy     jedi
+    - Jedi Knight II                jedi2
+    - Medal of Honor                mohaa
+    - No One Lives Forever          nolf
+    - Painkiller                    pk
+    - Red Orchestra                 ro
+    - Return to Castle Wolfenstein  rtcw
+    - Rune                          rune
+    - Soldier of Fortune 2          sof2
+    - SWAT4                         swat
+    - Teamspeak                     ts
+    - Unreal Tournament             ut
+    - Unreal Torunament 2003        ut2003
+    - Unreal Tournament 2004        ut2004
+    - Quakeworld                    qw
+    - Quake 1                       q1
+    - Quake 2                       q2
+    - Quake 3                       q3
+    - Quake 4                       q4
+    - Warsow                        warsow
+
+Support:
+--------
+
+Für Tipps, Spielkarten, Grafiken, Verbesserungsvorschlaege oder andere Wuensche:
+
+Web: 
+http://woah-projekt.de
+
+IRC: 
+Quakenet 
+#woah-projekt												 

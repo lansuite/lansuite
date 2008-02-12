@@ -1,0 +1,1635 @@
+<?php
+/*
+* Copyright (c) 2004-2005, woah-projekt.de
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions
+* are met:
+*
+* * Redistributions of source code must retain the above copyright
+*   notice, this list of conditions and the following disclaimer.
+* * Redistributions in binary form must reproduce the above copyright
+*   notice, this list of conditions and the following disclaimer
+*   in the documentation and/or other materials provided with the
+*   distribution.
+* * Neither the name of the phgstats project (woah-projekt.de)
+*   nor the names of its contributors may be used to endorse or
+*   promote products derived from this software without specific
+*   prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+* FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+* COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+* INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+* BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+* LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+* ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+* POSSIBILITY OF SUCH DAMAGE.
+*/
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>phgstats - game server status</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+    <style type="text/css">
+    body {
+        background: #4E5F71; 
+	font-family: verdana, arial, sans-serif;
+	font-size: 11pt;
+    }
+    A:link, A:visited, A:active {
+	text-decoration: underline;
+	color: #ccc;
+    }
+    A:hover {
+        text-decoration: underline;
+	color: #ff0000;
+    }
+    table {
+        font-family: verdana, arial, sans-serif;
+	font-size: 10pt;
+	color: #ccc;
+	background-color: #4E5F71;
+	width: 400px;
+    }
+    td {
+        color: #ccc;
+	background-color: #4B5B6E;
+    }
+    td.auth {
+        color: #ccc;
+	background-color: #4E5F71;
+    }
+    th {
+	color: #ffffff;
+        background-color: #3B4C5C;
+    }
+    .arrow:link, .arrow:visited, .arrow:active {
+	text-decoration: none;
+        color: #4E5F71;
+    }
+    .arrow:hover {
+        text-decoration: none;
+        color: #ff0000;
+    }
+    </style>
+<?php 
+if (isset($_GET['edit_ip']))
+{
+?>
+    <script type="text/javascript">
+    function select () {
+        document.game.gametype.options[0].value = "<?php echo $_GET['edit_gametype']; ?>";
+	document.game.gametype.options[0].text = "<?php echo $_GET['edit_gametype']; ?>";
+	document.game.country.options[0].value = "<?php echo $_GET['edit_country']; ?>";
+	document.game.country.options[0].text = "<?php echo $_GET['edit_country']; ?>";
+    }
+    </script>
+<?php
+}
+?>
+  </head>
+  <body onload="select()">
+<?php
+// language selection
+if (!isset ($_GET['lang']))
+{
+?>
+  <table align="center">
+    <tr>
+      <th align="center">
+      phgstats install tool / phgstats Installations-Tool
+      </th>
+    </tr>
+    <tr>
+      <td align="center">
+      Please select your language / Bitte w&auml;hlen sie ihre Sprache:
+      <br><br>
+        <a href="index.php?page=2&amp;lang=en">
+          <img src="../images/england.jpg" alt="English">
+	</a>
+	<a href="index.php?page=2&amp;lang=de">
+	  <img src="../images/germany.jpg" alt="Deutsch">
+	</a>
+      <br><br>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+      Step <b>1</b> of <b>5</b> / Stufe <b>1</b> von <b>5</b> 
+      </td>
+    </tr>
+  </table>
+<?php
+}
+// install information german
+elseif ($_GET['page'] == 2 AND $_GET['lang'] == 'de')
+{
+?>
+  <table align="center">
+    <tr>
+      <th align="center">
+      phgstats Installations-Tool
+      </th>
+    </tr>
+    <tr>
+      <td align="center">
+      Dieses Installationstool hilft ihnen phgstats auf ihrer Internetseite einzurichten. In den n&auml;chsten Seiten werden sie durch ein Men&uuml; gef&uuml;hrt und nach Abschluss der Installation muss das "install" Verzeichnis gel&ouml;scht werden um Zugriff von Ausserhalb zu vermeiden.
+      <br><br>
+      Zun&auml;chst wird ihr Webspace auf Kompatiblit&auml;t gepr&uuml;ft...
+      <br><br>
+      <form action="index.php?page=3&amp;lang=<?php echo $_GET['lang']; ?>" method="POST">
+        <input type="submit" value="Weiter">
+      </form>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+      Stufe <b>2</b> von <b>5</b>
+      </td>
+    </tr>
+  </table>
+<?php
+}
+// install information english
+elseif ($_GET['page'] == 2 AND $_GET['lang'] == 'en')
+{
+?>
+  <table align="center">
+    <tr>
+      <th align="center">
+      phgstats install tool
+      </th>
+    </tr>
+    <tr>
+      <td align="center">
+      This installation tool will help you to configure phgstats. On the next pages you have to follow the menu and at the end you have to remove the install directory to prevent actions from outside.
+      <br><br>
+      At the following step your webspace gets checked if it is compatible...
+      <br><br>
+        <form action="index.php?page=3&amp;lang=<?php echo $_GET['lang']; ?>" method="POST">
+          <input type="submit" value="Next">
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+      Step <b>2</b> of <b>5</b>
+      </td>
+    </tr>
+  </table>
+<?php
+}
+// server check german
+elseif ($_GET['page'] == 3 AND $_GET['lang'] == 'de')
+{
+    // get php version
+    $check['php'] = phpversion();
+    $error = array();
+
+    // check php version
+    if (4.3 <= substr($check['php'], 0, 3))
+    {
+        $check['php_status'] = '<font color="lightgreen">OK</font>';
+    }
+    elseif (4 <= substr($check['php'], 0, 3) OR empty ($check['php']))
+    {
+        $check['php_status'] = '<font color="orange">M&ouml;glich</font>';
+    }
+    else
+    {
+        $check['php_status'] = '<font color="red">Nicht m&ouml;glich</font>';
+        array_push($error,'Die PHP-Version ist zu alt!');
+    }
+
+    // check fsockopen
+    if (@fsockopen("udp://127.0.0.1", 1))
+    { 
+        $check['fsockopen'] = 'Aktiviert';
+        $check['fsockopen_status'] = '<font color="lightgreen">OK</font>';
+    }
+    else
+    {
+        $check['fsockopen'] = 'Deaktiviert';
+        $check['fsockopen_status'] = '<font color="red">Nicht m&ouml;glich</font>';
+        array_push($error,'Die Funktion fsockopen() muss aktiviert sein damit phgstats funktioniert!');
+    }
+
+    // check write rights
+    if (is_writeable('./config.tmp'))
+    {
+        $check['config.tmp'] = 'Schreibbar';
+        $check['config.tmp_status'] = '<font color="lightgreen">OK</font>';
+    }
+    else
+    {
+        $check['config.tmp'] = 'Nicht schreibbar';
+        $check['config.tmp_status'] = '<font color="red">Nicht m&ouml;glich</font>';
+        array_push($error,'Die Datei /install/config.tmp muss schreibbar sein. Setze diese Rechte z.B. mit chmod 777');
+    }
+    if (is_writeable('../settings/config.inc.php'))
+    {
+        $check['config.inc.php'] = 'Schreibbar';
+        $check['config.inc.php_status'] = '<font color="lightgreen">OK</font>';
+    }
+    else
+    {
+        $check['config.inc.php'] = 'Nicht schreibbar';
+        $check['config.inc.php_status'] = '<font color="red">Nicht m&ouml;glich</font>';
+        array_push($error,'Die Datei /settings/config.inc.php muss schreibbar sein. Setze diese Rechte z.B. mit chmod 777');
+    }
+    if (is_writeable('../settings/access.inc.php'))
+    {
+        $check['access.inc.php'] = 'Schreibbar';
+        $check['access.inc.php_status'] = '<font color="lightgreen">OK</font>';
+    }
+    else
+    {
+        $check['access.inc.php'] = 'Nicht schreibbar';
+        $check['access.inc.php_status'] = '<font color="red">Nicht m&ouml;glich</font>';
+	array_push($error,'Die Datei /settings/access.inc.php muss schreibbar sein. Setze diese Rechte z.B. mit chmod 777');
+    }	
+    if (is_writeable('../settings/style.inc.php'))
+    {
+        $check['style.inc.php'] = 'Schreibbar';
+        $check['style.inc.php_status'] = '<font color="lightgreen">OK</font>';
+    }
+    else
+    {
+        $check['style.inc.php'] = 'Nicht schreibbar';
+        $check['style.inc.php_status'] = '<font color="red">Nicht m&ouml;glich</font>';
+	array_push($error,'Die Datei /settings/style.inc.php muss schreibbar sein. Setze diese Rechte z.B. mit chmod 777');
+    }
+?>
+  <table align="center">
+    <tr>
+      <th align="center">
+      phgstats Installations-Tool
+      </th>
+    </tr>
+    <tr>
+      <td align="center">
+        <table>
+	  <tr>
+	    <th>Name</th>
+	    <th>Typ</th>
+	    <th>Status</th>
+	  </tr>
+	  <tr>
+	    <td align="center">PHP</td>
+	    <td align="center"><?php echo $check['php']; ?></td>
+	    <td align="center"><?php echo $check['php_status']; ?></td>
+	  </tr>
+	  <tr>
+            <td align="center">fsockopen()</td>
+	    <td align="center"><?php echo $check['fsockopen']; ?></td>
+	    <td align="center"><?php echo $check['fsockopen_status']; ?></td>
+	  </tr>
+	  <tr>
+	    <td align="center">config.tmp</td>
+	    <td align="center"><?php echo $check['config.tmp']; ?></td>
+	    <td align="center"><?php echo $check['config.tmp_status']; ?></td>
+	  </tr>
+          <tr>
+	    <td align="center">config.inc.php</td>
+	    <td align="center"><?php echo $check['config.inc.php']; ?></td>
+	    <td align="center"><?php echo $check['config.inc.php_status']; ?></td>
+	  </tr>
+	  <tr>
+	    <td align="center">access.inc.php</td>
+	    <td align="center"><?php echo $check['access.inc.php']; ?></td>
+	    <td align="center"><?php echo $check['access.inc.php_status']; ?></td>
+	  </tr>	
+			  <tr>
+	    <td align="center">style.inc.php</td>
+	    <td align="center"><?php echo $check['style.inc.php']; ?></td>
+	    <td align="center"><?php echo $check['style.inc.php_status']; ?></td>
+	  </tr>				
+	</table>
+<?php
+if (count($error) == 0)
+{
+    echo '<br>Ihr Webspace ist kompatibel!';
+?>
+        <br><br>
+        <form action="index.php?page=4&amp;lang=<?php echo $_GET['lang']; ?>&amp;new=1" method="POST">
+	  <input type="submit" value="Weiter">
+        </form>
+<?php			
+}
+else
+{
+    echo '<br>Ihr Webspace ist nicht kompatibel:<br>';
+    foreach ($error as $info)
+    {
+	echo '<br><font color="red">' . $info . '</font>';
+    }
+?>
+      <br><br>
+      <form action="index.php?page=3&amp;lang=<?php echo $_GET['lang']; ?>" method="POST">
+        <input type="submit" value="Aktualisieren">
+      </form>
+<?php
+}
+?>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+      Stufe <b>3</b> von <b>5</b>
+      </td>
+    </tr>
+<?php
+}
+// server check english
+elseif ($_GET['page'] == 3 AND $_GET['lang'] == 'en')
+{
+    // get php version
+    $check['php'] = phpversion();
+    $error = array();
+
+    // check php version
+    if (4.3 <= substr($check['php'], 0, 3))
+    {
+        $check['php_status'] = '<font color="lightgreen">OK</font>';
+    }
+    elseif (4 <= substr($check['php'], 0, 3) OR empty ($check['php']))
+    {
+        $check['php_status'] = '<font color="orange">Possible</font>';
+    }
+    else
+    {
+        $check['php_status'] = '<font color="red">Impossible</font>';
+        array_push($error,'Your PHP version is too old!');
+    }
+
+    // check fsockopen
+    if (@fsockopen("udp://127.0.0.1", 1))
+    { 
+        $check['fsockopen'] = 'Enabled';
+        $check['fsockopen_status'] = '<font color="lightgreen">OK</font>';
+    }
+    else
+    {
+        $check['fsockopen'] = 'Disabled';
+        $check['fsockopen_status'] = '<font color="red">Impossible</font>';
+        array_push($error,'The function fsockopen() must be enabled to get phgstats working!');
+    }
+
+    // check write rights
+    if (is_writeable('./config.tmp'))
+    {
+        $check['config.tmp'] = 'Writeable';
+        $check['config.tmp_status'] = '<font color="lightgreen">OK</font>';
+    }
+    else
+    {
+        $check['config.tmp'] = 'Not writeable';
+        $check['config.tmp_status'] = '<font color="red">Impossible</font>';
+        array_push($error,'File /install/config.tmp must be writable. Set write rights with chmod 777 for example');
+    }
+    if (is_writeable('../settings/config.inc.php'))
+    {
+        $check['config.inc.php'] = 'Writeable';
+        $check['config.inc.php_status'] = '<font color="lightgreen">OK</font>';
+    }
+    else
+    {
+        $check['config.inc.php'] = 'Not writeable';
+        $check['config.inc.php_status'] = '<font color="red">Impossible</font>';
+        array_push($error,'File /settings/config.inc.php must be writebale. Set write rights with chmod 777 for example');
+    }
+    if (is_writeable('../settings/access.inc.php'))
+    {
+        $check['access.inc.php'] = 'Writeable';
+	$check['access.inc.php_status'] = '<font color="lightgreen">OK</font>';
+    }
+    else
+    {
+        $check['access.inc.php'] = 'Not writeable';
+	$check['access.inc.php_status'] = '<font color="red">Impossible</font>';
+	array_push($error,'File /settings/access.inc.php must be writebale. Set write rights with chmod 777 for example');
+    }
+    if (is_writeable('../settings/style.inc.php'))
+    {
+        $check['style.inc.php'] = 'Writeable';
+	$check['style.inc.php_status'] = '<font color="lightgreen">OK</font>';
+    }
+    else
+    {
+        $check['style.inc.php'] = 'Not writeable';
+	$check['style.inc.php_status'] = '<font color="red">Impossible</font>';
+	array_push($error,'File /settings/style.inc.php must be writebale. Set write rights with chmod 777 for example');
+    }
+?>
+  <table align="center">
+    <tr>
+      <th align="center">
+      phgstats install tool
+      </th>
+    </tr>
+    <tr>
+      <td align="center">
+        <table>
+	  <tr>
+	    <th>Name</th>
+	    <th>Type</th>
+	    <th>Status</th>
+	  </tr>
+	  <tr>
+	    <td align="center">PHP</td>
+	    <td align="center"><?php echo $check['php']; ?></td>
+	    <td align="center"><?php echo $check['php_status']; ?></td>
+	  </tr>
+	  <tr>
+            <td align="center">fsockopen()</td>
+	    <td align="center"><?php echo $check['fsockopen']; ?></td>
+	    <td align="center"><?php echo $check['fsockopen_status']; ?></td>
+	  </tr>
+	  <tr>
+	    <td align="center">config.tmp</td>
+	    <td align="center"><?php echo $check['config.tmp']; ?></td>
+	    <td align="center"><?php echo $check['config.tmp_status']; ?></td>
+	  </tr>
+	  <tr>
+	    <td align="center">config.inc.php</td>
+	    <td align="center"><?php echo $check['config.inc.php']; ?></td>
+	    <td align="center"><?php echo $check['config.inc.php_status']; ?></td>
+	  </tr>	
+	  <tr>
+	    <td align="center">access.inc.php</td>
+	    <td align="center"><?php echo $check['access.inc.php']; ?></td>
+	    <td align="center"><?php echo $check['access.inc.php_status']; ?></td>
+	  </tr>	
+	  <tr>
+	    <td align="center">style.inc.php</td>
+	    <td align="center"><?php echo $check['style.inc.php']; ?></td>
+	    <td align="center"><?php echo $check['style.inc.php_status']; ?></td>
+	  </tr>
+	</table>
+<?php
+if (count($error) == 0)
+{
+    echo '<br>Your webspace is compatible!';
+?>
+        <br><br>
+        <form action="index.php?page=4&amp;lang=<?php echo $_GET['lang']; ?>&amp;new=1" method="POST">
+	  <input type="submit" value="Next">
+        </form>
+<?php			
+}
+else
+{
+    echo '<br>Your webspace is incompatible:<br>';
+    foreach ($error as $info)
+    {
+	echo '<br><font color="red">' . $info . '</font>';
+    }
+?>
+      <br><br>
+      <form action="index.php?page=3&amp;lang=<?php echo $_GET['lang']; ?>" method="POST">
+        <input type="submit" value="Refresh">
+      </form>
+<?php
+}
+?>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+      Step <b>3</b> of <b>5</b>
+      </td>
+    </tr>
+<?php
+}
+// server menu german
+elseif ($_GET['page'] == 4 AND $_GET['lang'] == 'de')
+{
+    if (isset($_POST['add']))
+    {
+        $write = $_POST['gametype'] . ':' .
+	         $_POST['server_ip'] . ':' .
+		 $_POST['server_port'] . ':' .
+		 $_POST['server_query'] . ':' .
+		 $_POST['country'] . "\n";
+	fwrite(fopen ('./config.tmp', "a+"), $write);
+    }
+    elseif ($_GET['new'] == 1)
+    {
+        $write = '';
+	fwrite(fopen ('./config.tmp', "w+"), $write);
+    }
+    elseif (isset($_GET['id']))
+    {
+	$servers = file('./config.tmp');
+
+	for ($srv_count = 0; $srv_count < count($servers); $srv_count++)
+	{
+	    if ($srv_count == $_GET['id'])
+	    {
+		$servers[$srv_count] = '';	
+	    }
+
+	    $serverstring = $serverstring . $servers[$srv_count];
+	}
+        fwrite(fopen ('./config.tmp', "w+"), $serverstring);
+
+        unset($servers);
+    }
+    elseif (isset($_GET['up']))
+    {
+        $servers = file('./config.tmp');
+
+        for ($srv_count = 0; $srv_count < count($servers); $srv_count++)
+        {
+            if ($srv_count == $_GET['up'] - 1)
+	    {
+                $changesrv = $servers[$srv_count];
+
+                $servers[$srv_count] = $servers[$srv_count + 1];
+	    }
+            if ($srv_count == $_GET['up'])
+	    {
+	        $servers[$srv_count] = $changesrv;
+	    }
+	
+            $serverstring = $serverstring . $servers[$srv_count];
+        }
+	fwrite(fopen ('./config.tmp', "w+"), $serverstring);
+        unset ($servers);
+    }
+    elseif (isset($_GET['down']))
+    {
+        $servers = file('./config.tmp');
+
+        for ($srv_count = 0; $srv_count < count($servers); $srv_count++)
+        {
+            if ($srv_count == $_GET['down'])
+	    {
+                $changesrv = $servers[$srv_count];
+
+                $servers[$srv_count] = $servers[$srv_count + 1];
+	    }
+            if ($srv_count == $_GET['down'] + 1)
+	    {
+	        $servers[$srv_count] = $changesrv;
+	    }
+	
+            $serverstring = $serverstring . $servers[$srv_count];
+        }
+	fwrite(fopen ('./config.tmp', "w+"), $serverstring);
+
+	unset($servers);
+    }
+
+    $servers = file('./config.tmp');
+?>
+  <table align="center">
+    <tr>
+      <th align="center">
+      phgstats Installations-Tool
+      </th>
+    </tr>
+    <tr>
+      <td align="center">
+          <table>
+            <tr>
+              <th></th>
+              <th>Gametyp</th>
+	      <th>IP</th>
+	      <th>Port</th>
+	      <th>Query- Port</th>
+	      <th>Land</th>
+	    </tr>
+<?php
+// show servers
+for ($srv_count = 0; $srv_count < count($servers); $srv_count++)
+{
+        $server = $servers[$srv_count];
+	$server = explode(':', $server);
+?>
+            <tr>
+              <td>
+<?php 
+if ($srv_count != 0)
+{
+?>
+              <a class="arrow" href="index.php?up=<?php echo $srv_count; ?>&amp;page=4&amp;lang=<?php echo $_GET['lang']; ?>"><img src="../images/up.png" alt="up"></a>
+<?php
+}
+?>
+              <img src="../images/spacer.png" alt="spacer">
+<?php
+if ($srv_count != count($servers) - 1)
+{
+?>
+              <a class="arrow" href="index.php?down=<?php echo $srv_count; ?>&amp;page=4&amp;lang=<?php echo $_GET['lang']; ?>"><img src="../images/down.png" alt="down"></a>
+<?php
+}
+?> 
+              </td>
+	      <td><?php echo $server[0]; ?></td>
+	      <td><?php echo $server[1]; ?></td>
+	      <td><?php echo $server[2]; ?></td>
+	      <td><?php echo $server[3]; ?></td>
+	      <td><?php echo $server[4]; ?></td>
+	      <td><a href="index.php?id=<?php echo $srv_count; ?>&amp;password=<?php echo $_GET['password']; ?>&amp;edit_ip=<?php echo $server[1]; ?>&amp;edit_port=<?php echo $server[2]; ?>&amp;edit_qport=<?php echo $server[3]; ?>&amp;edit_gametype=<?php echo $server[0]; ?>&amp;edit_country=<?php echo $server[4]; ?>&amp;page=4&amp;lang=<?php echo $_GET['lang']; ?>"><font color="lightgreen">Editieren</font></a><br><a href="index.php?id=<?php echo $srv_count; ?>&amp;page=4&amp;lang=<?php echo $_GET['lang']; ?>">L&ouml;schen</a>
+	    </tr>
+<?php
+}
+?>
+          <form method="POST" action="index.php?page=4&amp;lang=<?php echo $_GET['lang']; ?>" name="game">
+            <tr>
+	      <td>
+	      </td>
+	      <td>
+	        <select name="gametype" <?php if (isset($_GET['edit_ip'])){ echo 'style="background-color: green"'; } ?>>
+                  <option value="">[Selektieren Sie ein Spiel]</option>
+		  <?php
+		  require '../settings/gametypes.inc.php';
+		  
+		  foreach ($gametypes as $type => $game)
+		  {
+		      echo '<option value="' . $type . '">' . $game . '</option>';
+		  }
+		  ?>
+		</select>
+	      </td>
+	      <td>
+	        <input type="text" size="15" name="server_ip" value="<?php echo $_GET['edit_ip']; ?>" <?php if (isset($_GET['edit_ip'])){ echo 'style="background-color: green"'; } ?>>
+	      </td>
+	      <td>
+	        <input type="text" size="5" name="server_port" value="<?php echo $_GET['edit_port']; ?>" <?php if (isset($_GET['edit_ip'])){ echo 'style="background-color: green"'; } ?>>
+	      </td>
+	      <td>
+	        <input type="text" size="5" name="server_query" value="<?php echo $_GET['edit_qport']; ?>" <?php if (isset($_GET['edit_ip'])){ echo 'style="background-color: green"'; } ?>>
+	      </td>
+	      <td>
+                <select name="country" <?php if (isset($_GET['edit_ip'])){ echo 'style="background-color: green"'; } ?>>
+		<option value="">[Selektieren Sie ein Land]</option>
+		<option>Afghanistan</option>
+                <option>Albania</option>
+                <option>Algeria</option>
+                <option>American Samoa</option>
+                <option>Andorra</option>
+                <option>Angola</option>
+
+                <option>Anguilla</option>
+                <option>Antarctica</option>
+                <option>Antigua and Barbuda</option>
+                <option>Argentina</option>
+                <option>Armenia</option>
+                <option>Aruba</option>
+
+                <option>Australia</option>
+                <option>Austria</option>
+                <option>Azerbaijan</option>
+                <option>Bahamas</option>
+                <option>Bahrain</option>
+                <option>Bangladesh</option>
+
+                <option>Barbados</option>
+                <option>Belarus</option>
+                <option>Belgium</option>
+                <option>Belize</option>
+                <option>Benin</option>
+                <option>Bermuda</option>
+
+                <option>Bhutan</option>
+                <option>Bolivia</option>
+                <option>Bosnia and Herzegowina</option>
+                <option>Botswana</option>
+                <option>Bouvet Island</option>
+                <option>Brazil</option>
+
+                <option>British Indian Ocean Territory</option>
+                <option>Brunei Darussalam</option>
+                <option>Bulgaria</option>
+                <option>Burkina Faso</option>
+                <option>Burundi</option>
+                <option>Cambodia</option>
+
+                <option>Cameroon</option>
+                <option>Canada</option>
+                <option>Cape Verde</option>
+                <option>Cayman Islands</option>
+                <option>Central African Republic</option>
+                <option>Chad</option>
+
+                <option>Chile</option>
+                <option>China</option>
+                <option>Christmas Island</option>
+                <option>Cocos (Keeling) Islands</option>
+                <option>Colombia</option>
+                <option>Comoros</option>
+
+                <option>Congo</option>
+                <option>Cook Islands</option>
+                <option>Costa Rica</option>
+                <option>Cote D&#039;Ivoire</option>
+                <option>Croatia</option>
+                <option>Cuba</option>
+
+                <option>Cyprus</option>
+                <option>Czech Republic</option>
+                <option>Denmark</option>
+                <option>Djibouti</option>
+                <option>Dominica</option>
+                <option>Dominican Republic</option>
+
+                <option>East Timor</option>
+                <option>Ecuador</option>
+                <option>Egypt</option>
+                <option>El Salvador</option>
+                <option>Equatorial Guinea</option>
+                <option>Eritrea</option>
+
+                <option>Estonia</option>
+                <option>Ethiopia</option>
+                <option>Falkland Islands (Malvinas)</option>
+                <option>Faroe Islands</option>
+                <option>Fiji</option>
+                <option>Finland</option>
+
+                <option>France</option>
+                <option>France, Metropolitan</option>
+                <option>French Guiana</option>
+                <option>French Polynesia</option>
+                <option>French Southern Territories</option>
+                <option>Gabon</option>
+
+                <option>Gambia</option>
+                <option>Georgia</option>
+                <option>Germany</option>
+                <option>Ghana</option>
+                <option>Gibraltar</option>
+                <option>Greece</option>
+
+                <option>Greenland</option>
+                <option>Grenada</option>
+                <option>Guadeloupe</option>
+                <option>Guam</option>
+                <option>Guatemala</option>
+                <option>Guinea</option>
+
+                <option>Guinea-bissau</option>
+                <option>Guyana</option>
+                <option>Haiti</option>
+                <option>Heard and Mc Donald Islands</option>
+                <option>Honduras</option>
+                <option>Hong Kong</option>
+
+                <option>Hungary</option>
+                <option>Iceland</option>
+                <option>India</option>
+                <option>Indonesia</option>
+                <option>Iran (Islamic Republic of)</option>
+                <option>Iraq</option>
+
+                <option>Ireland</option>
+                <option>Israel</option>
+                <option>Italy</option>
+                <option>Jamaica</option>
+                <option>Japan</option>
+                <option>Jordan</option>
+
+                <option>Kazakhstan</option>
+                <option>Kenya</option>
+                <option>Kiribati</option>
+                <option>Korea, Democratic People&#039;s Republic of</option>
+                <option>Korea, Republic of</option>
+                <option>Kuwait</option>
+
+                <option>Kyrgyzstan</option>
+                <option>Lao People&#039;s Democratic Republic</option>
+                <option>Latvia</option>
+                <option>Lebanon</option>
+                <option>Lesotho</option>
+                <option>Liberia</option>
+
+                <option>Libyan Arab Jamahiriya</option>
+                <option>Liechtenstein</option>
+                <option>Lithuania</option>
+                <option>Luxembourg</option>
+                <option>Macau</option>
+                <option>Macedonia, The Former Yugoslav Republic of</option>
+
+                <option>Madagascar</option>
+                <option>Malawi</option>
+                <option>Malaysia</option>
+                <option>Maldives</option>
+                <option>Mali</option>
+                <option>Malta</option>
+
+                <option>Marshall Islands</option>
+                <option>Martinique</option>
+                <option>Mauritania</option>
+                <option>Mauritius</option>
+                <option>Mayotte</option>
+                <option>Mexico</option>
+
+                <option>Micronesia, Federated States of</option>
+                <option>Moldova, Republic of</option>
+                <option>Monaco</option>
+                <option>Mongolia</option>
+                <option>Montserrat</option>
+                <option>Morocco</option>
+
+                <option>Mozambique</option>
+                <option>Myanmar</option>
+                <option>Namibia</option>
+                <option>Nauru</option>
+                <option>Nepal</option>
+                <option>Netherlands</option>
+
+                <option>Netherlands Antilles</option>
+                <option>New Caledonia</option>
+                <option>New Zealand</option>
+                <option>Nicaragua</option>
+                <option>Niger</option>
+                <option>Nigeria</option>
+
+                <option>Niue</option>
+                <option>Norfolk Island</option>
+                <option>Northern Mariana Islands</option>
+                <option>Norway</option>
+                <option>Oman</option>
+                <option>Pakistan</option>
+
+                <option>Palau</option>
+                <option>Panama</option>
+                <option>Papua New Guinea</option>
+                <option>Paraguay</option>
+                <option>Peru</option>
+                <option>Philippines</option>
+
+                <option>Pitcairn</option>
+                <option>Poland</option>
+                <option>Portugal</option>
+                <option>Puerto Rico</option>
+                <option>Qatar</option>
+                <option>Reunion</option>
+
+                <option>Romania</option>
+                <option>Russian Federation</option>
+                <option>Rwanda</option>
+                <option>Saint Kitts and Nevis</option>
+                <option>Saint Lucia</option>
+                <option>Saint Vincent and the Grenadines</option>
+
+                <option>Samoa</option>
+                <option>San Marino</option>
+                <option>Sao Tome and Principe</option>
+                <option>Saudi Arabia</option>
+                <option>Senegal</option>
+                <option>Seychelles</option>
+
+                <option>Sierra Leone</option>
+                <option>Singapore</option>
+                <option>Slovakia (Slovak Republic)</option>
+                <option>Slovenia</option>
+                <option>Solomon Islands</option>
+                <option>Somalia</option>
+
+                <option>South Africa</option>
+                <option>South Georgia and the South Sandwich Islands</option>
+                <option>Spain</option>
+                <option>Sri Lanka</option>
+                <option>St. Helena</option>
+                <option>St. Pierre and Miquelon</option>
+
+                <option>Sudan</option>
+                <option>Suriname</option>
+                <option>Svalbard and Jan Mayen Islands</option>
+                <option>Swaziland</option>
+                <option>Sweden</option>
+                <option>Switzerland</option>
+
+                <option>Syrian Arab Republic</option>
+                <option>Taiwan</option>
+                <option>Tajikistan</option>
+                <option>Tanzania, United Republic of</option>
+                <option>Thailand</option>
+                <option>Togo</option>
+
+                <option>Tokelau</option>
+                <option>Tonga</option>
+                <option>Trinidad and Tobago</option>
+                <option>Tunisia</option>
+                <option>Turkey</option>
+                <option>Turkmenistan</option>
+
+                <option>Turks and Caicos Islands</option>
+                <option>Tuvalu</option>
+                <option>Uganda</option>
+                <option>Ukraine</option>
+                <option>United Arab Emirates</option>
+                <option>United Kingdom</option>
+
+                <option>United States</option>
+                <option>United States Minor Outlying Islands</option>
+                <option>Uruguay</option>
+                <option>Uzbekistan</option>
+                <option>Vanuatu</option>
+                <option>Vatican City State (Holy See)</option>
+
+                <option>Venezuela</option>
+                <option>Viet Nam</option>
+                <option>Virgin Islands (British)</option>
+                <option>Virgin Islands (U.S.)</option>
+                <option>Wallis and Futuna Islands</option>
+                <option>Western Sahara</option>
+
+                <option>Yemen</option>
+                <option>Yugoslavia</option>
+                <option>Zaire</option>
+                <option>Zambia</option>
+                <option>Zimbabwe</option>
+              </select>
+              </td>
+	      <td>
+                <input type="submit" name="add" value="Hinzuf&uuml;gen">
+	      </td>
+	    </tr>
+	    </form>
+	    <tr>
+              <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td>
+	        <form method="POST" action="index.php?page=4&amp;lang=<?php echo $_GET['lang']; ?>&amp;new=1">
+		  <input type="submit" value="Alle l&ouml;schen" name="submit">
+		</form>
+	      </td>
+	    </tr>
+	  </table>
+	  <br><br>
+	  <form method="POST" action="index.php?page=5&amp;lang=<?php echo $_GET['lang']; ?>">
+	    Passwort f&uuml;r das Admintool:<br><br>
+	    <input type="password" name="password"><br><br>
+	    <input type="submit" value="Weiter" name="submit">
+	  </form>
+     </td>
+    </tr>
+    <tr>
+      <td align="center">
+      Stufe <b>4</b> von <b>5</b>
+      </td>
+    </tr>
+  </table>
+<?php
+}
+// server menu english
+elseif ($_GET['page'] == 4 AND $_GET['lang'] == 'en')
+{
+    // add servers
+    if (isset($_POST['add']))
+    {
+        $write = $_POST['gametype'] . ':'.
+	         $_POST['server_ip'] . ':'.
+		 $_POST['server_port'] . ':' .
+		 $_POST['server_query'] . ':' .
+		 $_POST['country'] . "\n";
+	fwrite(fopen ('./config.tmp', "a+"), $write);
+    }
+    elseif ($_GET['new'] == 1)
+    {
+        $write = '';
+	fwrite(fopen ('./config.tmp', "w+"), $write);
+    }
+    elseif (isset($_GET['id']))
+    {
+	$servers = file('./config.tmp');
+
+	for ($srv_count = 0; $srv_count < count($servers); $srv_count++)
+	{
+	    if ($srv_count == $_GET['id'])
+	    {
+		$servers[$srv_count] = '';	
+	    }
+
+	    $serverstring = $serverstring . $servers[$srv_count];
+	}
+        fwrite(fopen ('./config.tmp', "w+"), $serverstring);
+
+        unset($servers);
+    }
+    elseif (isset($_GET['up']))
+    {
+        $servers = file('./config.tmp');
+
+        for ($srv_count = 0; $srv_count < count($servers); $srv_count++)
+        {
+            if ($srv_count == $_GET['up'] - 1)
+	    {
+                $changesrv = $servers[$srv_count];
+
+                $servers[$srv_count] = $servers[$srv_count + 1];
+	    }
+            if ($srv_count == $_GET['up'])
+	    {
+	        $servers[$srv_count] = $changesrv;
+	    }
+	
+            $serverstring = $serverstring . $servers[$srv_count];
+        }
+	fwrite(fopen ('./config.tmp', "w+"), $serverstring);
+        unset ($servers);
+    }
+    elseif (isset($_GET['down']))
+    {
+        $servers = file('./config.tmp');
+
+        for ($srv_count = 0; $srv_count < count($servers); $srv_count++)
+        {
+            if ($srv_count == $_GET['down'])
+	    {
+                $changesrv = $servers[$srv_count];
+
+                $servers[$srv_count] = $servers[$srv_count + 1];
+	    }
+            if ($srv_count == $_GET['down'] + 1)
+	    {
+	        $servers[$srv_count] = $changesrv;
+	    }
+	
+            $serverstring = $serverstring . $servers[$srv_count];
+        }
+	fwrite(fopen ('./config.tmp', "w+"), $serverstring);
+
+	unset($servers);
+    }
+
+    $servers = file('./config.tmp');
+?>
+  <table align="center">
+    <tr>
+      <th align="center">
+      phgstats install tool
+      </th>
+    </tr>
+    <tr>
+      <td align="center">
+          <table>
+            <tr>
+	      <th></th>
+              <th>Gamytype</th>
+	      <th>IP</th>
+	      <th>Port</th>
+	      <th>Query- Port</th>
+	      <th>Country</th>
+	    </tr>
+<?php
+// show servers
+for ($srv_count = 0; $srv_count < count($servers); $srv_count++)
+{
+        $server = $servers[$srv_count];
+	$server = explode(':', $server);
+?>
+            <tr>
+              <td>
+<?php 
+if ($srv_count != 0)
+{
+?>
+              <a class="arrow" href="index.php?up=<?php echo $srv_count; ?>&amp;page=4&amp;lang=<?php echo $_GET['lang']; ?>"><img src="../images/up.png" alt="up"></a>
+<?php
+}
+?>
+              <img src="../images/spacer.png" alt="spacer">
+<?php
+if ($srv_count != count($servers) - 1)
+{
+?>
+              <a class="arrow" href="index.php?down=<?php echo $srv_count; ?>&amp;page=4&amp;lang=<?php echo $_GET['lang']; ?>"><img src="../images/down.png" alt="down"></a>
+<?php
+}
+?> 
+              </td>
+	      <td><?php echo $server[0]; ?></td>
+	      <td><?php echo $server[1]; ?></td>
+	      <td><?php echo $server[2]; ?></td>
+	      <td><?php echo $server[3]; ?></td>
+	      <td><?php echo $server[4]; ?></td>
+              <td><a href="index.php?id=<?php echo $srv_count; ?>&amp;password=<?php echo $_GET['password']; ?>&amp;edit_ip=<?php echo $server[1]; ?>&amp;edit_port=<?php echo $server[2]; ?>&amp;edit_qport=<?php echo $server[3]; ?>&amp;edit_gametype=<?php echo $server[0]; ?>&amp;edit_country=<?php echo $server[4]; ?>&amp;page=4&amp;lang=<?php echo $_GET['lang']; ?>"><font color="lightgreen">Edit</font></a><br><a href="index.php?id=<?php echo $srv_count; ?>&amp;page=4&amp;lang=<?php echo $_GET['lang']; ?>">Delete</a>
+	    </tr>
+<?php
+}
+?>
+          <form method="POST" action="index.php?page=4&amp;lang=<?php echo $_GET['lang']; ?>" name="game">
+            <tr>
+	      <td>
+	      </td>
+	      <td>
+	        <select name="gametype" <?php if (isset($_GET['edit_ip'])){ echo 'style="background-color: green"'; } ?>>
+		  <option value="">[Select a game]</option>
+		  <?php
+		  require '../settings/gametypes.inc.php';
+		  
+		  foreach ($gametypes as $type => $game)
+		  {
+		      echo '<option value="' . $type . '">' . $game . '</option>';
+		  }
+		  ?>																      
+		</select>
+	      </td>
+	      <td>
+	        <input type="text" size="15" name="server_ip" value="<?php echo $_GET['edit_ip']; ?>" <?php if (isset($_GET['edit_ip'])){ echo 'style="background-color: green"'; } ?>>
+	      </td>
+	      <td>
+	        <input type="text" size="5" name="server_port" value="<?php echo $_GET['edit_port']; ?>" <?php if (isset($_GET['edit_ip'])){ echo 'style="background-color: green"'; } ?>>
+	      </td>
+	      <td>
+	        <input type="text" size="5" name="server_query" value="<?php echo $_GET['edit_qport']; ?>" <?php if (isset($_GET['edit_ip'])){ echo 'style="background-color: green"'; } ?>>
+	      </td>
+	      <td>
+                <select name="country" <?php if (isset($_GET['edit_ip'])){ echo 'style="background-color: green"'; } ?>>
+		<option value="">[Select a country]</option>
+		<option>Afghanistan</option>
+                <option>Albania</option>
+                <option>Algeria</option>
+                <option>American Samoa</option>
+                <option>Andorra</option>
+                <option>Angola</option>
+
+                <option>Anguilla</option>
+                <option>Antarctica</option>
+                <option>Antigua and Barbuda</option>
+                <option>Argentina</option>
+                <option>Armenia</option>
+                <option>Aruba</option>
+
+                <option>Australia</option>
+                <option>Austria</option>
+                <option>Azerbaijan</option>
+                <option>Bahamas</option>
+                <option>Bahrain</option>
+                <option>Bangladesh</option>
+
+                <option>Barbados</option>
+                <option>Belarus</option>
+                <option>Belgium</option>
+                <option>Belize</option>
+                <option>Benin</option>
+                <option>Bermuda</option>
+
+                <option>Bhutan</option>
+                <option>Bolivia</option>
+                <option>Bosnia and Herzegowina</option>
+                <option>Botswana</option>
+                <option>Bouvet Island</option>
+                <option>Brazil</option>
+
+                <option>British Indian Ocean Territory</option>
+                <option>Brunei Darussalam</option>
+                <option>Bulgaria</option>
+                <option>Burkina Faso</option>
+                <option>Burundi</option>
+                <option>Cambodia</option>
+
+                <option>Cameroon</option>
+                <option>Canada</option>
+                <option>Cape Verde</option>
+                <option>Cayman Islands</option>
+                <option>Central African Republic</option>
+                <option>Chad</option>
+
+                <option>Chile</option>
+                <option>China</option>
+                <option>Christmas Island</option>
+                <option>Cocos (Keeling) Islands</option>
+                <option>Colombia</option>
+                <option>Comoros</option>
+
+                <option>Congo</option>
+                <option>Cook Islands</option>
+                <option>Costa Rica</option>
+                <option>Cote D&#039;Ivoire</option>
+                <option>Croatia</option>
+                <option>Cuba</option>
+
+                <option>Cyprus</option>
+                <option>Czech Republic</option>
+                <option>Denmark</option>
+                <option>Djibouti</option>
+                <option>Dominica</option>
+                <option>Dominican Republic</option>
+
+                <option>East Timor</option>
+                <option>Ecuador</option>
+                <option>Egypt</option>
+                <option>El Salvador</option>
+                <option>Equatorial Guinea</option>
+                <option>Eritrea</option>
+
+                <option>Estonia</option>
+                <option>Ethiopia</option>
+                <option>Falkland Islands (Malvinas)</option>
+                <option>Faroe Islands</option>
+                <option>Fiji</option>
+                <option>Finland</option>
+
+                <option>France</option>
+                <option>France, Metropolitan</option>
+                <option>French Guiana</option>
+                <option>French Polynesia</option>
+                <option>French Southern Territories</option>
+                <option>Gabon</option>
+
+                <option>Gambia</option>
+                <option>Georgia</option>
+                <option>Germany</option>
+                <option>Ghana</option>
+                <option>Gibraltar</option>
+                <option>Greece</option>
+
+                <option>Greenland</option>
+                <option>Grenada</option>
+                <option>Guadeloupe</option>
+                <option>Guam</option>
+                <option>Guatemala</option>
+                <option>Guinea</option>
+
+                <option>Guinea-bissau</option>
+                <option>Guyana</option>
+                <option>Haiti</option>
+                <option>Heard and Mc Donald Islands</option>
+                <option>Honduras</option>
+                <option>Hong Kong</option>
+
+                <option>Hungary</option>
+                <option>Iceland</option>
+                <option>India</option>
+                <option>Indonesia</option>
+                <option>Iran (Islamic Republic of)</option>
+                <option>Iraq</option>
+
+                <option>Ireland</option>
+                <option>Israel</option>
+                <option>Italy</option>
+                <option>Jamaica</option>
+                <option>Japan</option>
+                <option>Jordan</option>
+
+                <option>Kazakhstan</option>
+                <option>Kenya</option>
+                <option>Kiribati</option>
+                <option>Korea, Democratic People&#039;s Republic of</option>
+                <option>Korea, Republic of</option>
+                <option>Kuwait</option>
+
+                <option>Kyrgyzstan</option>
+                <option>Lao People&#039;s Democratic Republic</option>
+                <option>Latvia</option>
+                <option>Lebanon</option>
+                <option>Lesotho</option>
+                <option>Liberia</option>
+
+                <option>Libyan Arab Jamahiriya</option>
+                <option>Liechtenstein</option>
+                <option>Lithuania</option>
+                <option>Luxembourg</option>
+                <option>Macau</option>
+                <option>Macedonia, The Former Yugoslav Republic of</option>
+
+                <option>Madagascar</option>
+                <option>Malawi</option>
+                <option>Malaysia</option>
+                <option>Maldives</option>
+                <option>Mali</option>
+                <option>Malta</option>
+
+                <option>Marshall Islands</option>
+                <option>Martinique</option>
+                <option>Mauritania</option>
+                <option>Mauritius</option>
+                <option>Mayotte</option>
+                <option>Mexico</option>
+
+                <option>Micronesia, Federated States of</option>
+                <option>Moldova, Republic of</option>
+                <option>Monaco</option>
+                <option>Mongolia</option>
+                <option>Montserrat</option>
+                <option>Morocco</option>
+
+                <option>Mozambique</option>
+                <option>Myanmar</option>
+                <option>Namibia</option>
+                <option>Nauru</option>
+                <option>Nepal</option>
+                <option>Netherlands</option>
+
+                <option>Netherlands Antilles</option>
+                <option>New Caledonia</option>
+                <option>New Zealand</option>
+                <option>Nicaragua</option>
+                <option>Niger</option>
+                <option>Nigeria</option>
+
+                <option>Niue</option>
+                <option>Norfolk Island</option>
+                <option>Northern Mariana Islands</option>
+                <option>Norway</option>
+                <option>Oman</option>
+                <option>Pakistan</option>
+
+                <option>Palau</option>
+                <option>Panama</option>
+                <option>Papua New Guinea</option>
+                <option>Paraguay</option>
+                <option>Peru</option>
+                <option>Philippines</option>
+
+                <option>Pitcairn</option>
+                <option>Poland</option>
+                <option>Portugal</option>
+                <option>Puerto Rico</option>
+                <option>Qatar</option>
+                <option>Reunion</option>
+
+                <option>Romania</option>
+                <option>Russian Federation</option>
+                <option>Rwanda</option>
+                <option>Saint Kitts and Nevis</option>
+                <option>Saint Lucia</option>
+                <option>Saint Vincent and the Grenadines</option>
+
+                <option>Samoa</option>
+                <option>San Marino</option>
+                <option>Sao Tome and Principe</option>
+                <option>Saudi Arabia</option>
+                <option>Senegal</option>
+                <option>Seychelles</option>
+
+                <option>Sierra Leone</option>
+                <option>Singapore</option>
+                <option>Slovakia (Slovak Republic)</option>
+                <option>Slovenia</option>
+                <option>Solomon Islands</option>
+                <option>Somalia</option>
+
+                <option>South Africa</option>
+                <option>South Georgia and the South Sandwich Islands</option>
+                <option>Spain</option>
+                <option>Sri Lanka</option>
+                <option>St. Helena</option>
+                <option>St. Pierre and Miquelon</option>
+
+                <option>Sudan</option>
+                <option>Suriname</option>
+                <option>Svalbard and Jan Mayen Islands</option>
+                <option>Swaziland</option>
+                <option>Sweden</option>
+                <option>Switzerland</option>
+
+                <option>Syrian Arab Republic</option>
+                <option>Taiwan</option>
+                <option>Tajikistan</option>
+                <option>Tanzania, United Republic of</option>
+                <option>Thailand</option>
+                <option>Togo</option>
+
+                <option>Tokelau</option>
+                <option>Tonga</option>
+                <option>Trinidad and Tobago</option>
+                <option>Tunisia</option>
+                <option>Turkey</option>
+                <option>Turkmenistan</option>
+
+                <option>Turks and Caicos Islands</option>
+                <option>Tuvalu</option>
+                <option>Uganda</option>
+                <option>Ukraine</option>
+                <option>United Arab Emirates</option>
+                <option>United Kingdom</option>
+
+                <option>United States</option>
+                <option>United States Minor Outlying Islands</option>
+                <option>Uruguay</option>
+                <option>Uzbekistan</option>
+                <option>Vanuatu</option>
+                <option>Vatican City State (Holy See)</option>
+
+                <option>Venezuela</option>
+                <option>Viet Nam</option>
+                <option>Virgin Islands (British)</option>
+                <option>Virgin Islands (U.S.)</option>
+                <option>Wallis and Futuna Islands</option>
+                <option>Western Sahara</option>
+
+                <option>Yemen</option>
+                <option>Yugoslavia</option>
+                <option>Zaire</option>
+                <option>Zambia</option>
+                <option>Zimbabwe</option>
+              </select>
+              </td>
+	      <td>
+                <input type="submit" name="add" value="Add">
+	      </td>
+	    </tr>
+	    </form>
+	    <tr>
+              <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td>&nbsp;</td>
+	      <td>
+	        <form method="POST" action="index.php?page=4&amp;lang=<?php echo $_GET['lang']; ?>&amp;new=1">
+		  <input type="submit" value="Delete all" name="submit">
+		</form>
+	      </td>
+	    </tr>
+	  </table>
+	  <br><br>
+	  <form method="POST" action="index.php?page=5&amp;lang=<?php echo $_GET['lang']; ?>">
+	    Password for admin tool:<br><br>
+	    <input type="password" name="password"><br><br>
+	    <input type="submit" value="Next" name="submit">
+	  </form>
+     </td>
+    </tr>
+    <tr>
+      <td align="center">
+      Step <b>4</b> of <b>5</b>
+      </td>
+    </tr>
+  </table>
+<?php
+}
+// create config german
+elseif ($_GET['page'] == 5 AND $_GET['lang'] == 'de')
+{
+    $config = '<?php' . "\n" .
+              '// width of phgstats table' . "\n" .
+	      '$phgtable =' . "'" . '500' . "'" . ';' . "\n\n" .
+	      '/* game server variables:' . "\n" .
+	      ' * aa, atron, bf, bfv, bf2, cod, cod2, d3, et, fear, halo, hl_old, hl, hl2, mohaa,' . "\n" .
+	      ' * pk, qw, q1. q2, q3, q4, ro, rtcw, rune, sof2, swat, ut, ut2003, ut2004, warsow' . "\n" .
+	      ' */' . "\n\n" .
+	      '// server settings  ( ' . "'" . 'game:ip.ip.ip.ip:port:(queryport)' . "'\n" .
+	      '// Read the INSTALL file for more Informations' . "\n" .
+	      '$gameserver = array(' . "\n";
+	      
+    $servers = file('./config.tmp');
+    
+    foreach ($servers as $server)
+    {
+        $server = explode(':', $server);
+	$serverarray = $serverarray . "'" .
+	               $server[0] . ':' .
+		       $server[1] . ':' .
+		       $server[2] . ':' .
+		       $server[3] . "',\n";
+	$server[4] = str_replace("\n",'',$server[4]);
+	$country = $country . "'" .
+	           $server[4] . "',\n";
+    }
+    $config = $config . $serverarray . '); ' . "\n\n";
+    $config = $config . '// server country' . "\n" .
+                        '$country = array(' . "\n";
+    $config = $config . $country . '); ' . "\n\n" . '?>';
+    $pw = '<?php' . "\n" .
+          '// password to access admin.php' . "\n" .
+          '$password = ' . "'" . $_POST['password']  . "';\n";
+	  '?>';
+    fwrite(fopen ('../settings/access.inc.php', "w+"), $pw);
+?>
+  <table align="center">
+    <tr>
+      <th align="center">
+      phgstats Installations-Tool
+      </th>
+    </tr>
+    <tr>
+      <td align="center">
+<?php
+if (fwrite(fopen ('../settings/config.inc.php', "w+"), $config))
+{
+?>
+      Die Config wurde erfolgreich erstellt und gespeichert.
+      <br><br>
+      Nun <b>m&uuml;ssen</b> sie unbedingt den Ordner <b>"install"</b> l&ouml;schen!
+      <br><br>
+      Um weitere Informationen und Support zu bekommen besucht <a target="_blank" href="http://woah-projekt.de">woah-projekt.de</a>
+      <br>
+      Bei Registrierung eines Accounts k&ouml;nnen sie von uns &uuml;ber Updates infomiert werden.
+      <br>
+      <br>
+      Euer woah-projekt Team
+<?php
+}
+else
+{
+?>
+      Fehler beim Speichern der Config!
+<?php
+}
+?>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+      Stufe <b>5</b> von <b>5</b>
+      </td>
+    </tr>
+  </table>
+<?php
+}
+// create config english
+elseif ($_GET['page'] == 5 AND $_GET['lang'] == 'en')
+{
+    $config = '<?php' . "\n" .
+              '// width of phgstats table' . "\n" .
+	      '$phgtable =' . "'" . '500' . "'" . ';' . "\n\n" .
+	      '/* game server variables:' . "\n" .
+	      ' * aa, atron, bf, bfv, bf2, cod, cod2, d3, et, fear, halo, hl_old, hl, hl2, mohaa,' . "\n" .
+	      ' * pk, qw, q1. q2, q3, q4, ro, rtcw, rune, sof2, swat, ut, ut2003, ut2004, warsow' . "\n" .
+	      '	*/' . "\n\n" .
+	      '// server settings  ( ' . "'" . 'game:ip.ip.ip.ip:port:(queryport)' . "'\n" .
+	      '// Read the INSTALL file for more Informations' . "\n" .
+	      '$gameserver = array(' . "\n";
+	      
+    $servers = file('./config.tmp');
+    foreach ($servers as $server)
+    {
+        $server = explode(':', $server);
+	$serverarray = $serverarray . "'" .
+	               $server[0] . ':' .
+		       $server[1] . ':' .
+		       $server[2] . ':' .
+		       $server[3] . "',\n";
+		       
+	$server[4] = str_replace("\n",'',$server[4]);
+	$country = $country . "'" .
+	           $server[4] . "',\n";
+    }
+    $config = $config . $serverarray . '); ' . "\n\n";
+    $config = $config . '// server country' . "\n" .
+                        '$country = array(' . "\n";
+    $config = $config . $country . '); ' . "\n\n" . '?>';
+        
+    $pw = '<?php' . "\n" .
+          '// password to access admin.php' . "\n" .
+          '$password = ' . "'" . $_POST['password']  . "';\n";
+          '?>';
+    fwrite(fopen ('../settings/access.inc.php', "w+"), $pw);
+?>
+  <table align="center">
+    <tr>
+      <th align="center">
+      phgstats install tool
+      </th>
+    </tr>
+    <tr>
+      <td align="center">
+<?php
+if (fwrite(fopen ('../settings/config.inc.php', "w+"), $config))
+{
+?>
+      The config is successfully created and saved.
+      <br><br>
+      Now you <b>have to</b> delete the directory <b>"install"</b>!
+      <br><br>
+      If you want to get more information or support visit <a target="_blank" href="http://woah-projekt.de">woah-projekt.de</a>
+      <br>
+      When you register an account we can send you an e-mail when a new version gets released.
+      <br>
+      <br>
+      Your woah-projekt team
+<?php
+}
+else
+{
+?>
+      Error while saving the config!
+<?php
+}
+?>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+      Step <b>5</b> von <b>5</b>
+      </td>
+    </tr>
+  </table>
+<?php
+}
+?>													
+  </body>
+</html>

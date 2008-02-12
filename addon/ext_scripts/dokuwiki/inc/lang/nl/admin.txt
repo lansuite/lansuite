@@ -1,0 +1,3 @@
+====== Beheer ======
+
+Hieronder is een lijst van beheertaken beschikbaar in DokuWiki.

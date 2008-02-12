@@ -1,0 +1,335 @@
+
+/* STANDARD STYLE */
+body
+{
+	background:  	 #666666;
+	font-family:	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:       	 #99CC99;
+}
+
+/* BOXES */
+.tbl_0  		
+{
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:  	 11px; 
+	font-weight: 	 normal;
+	color:       	 #99CC99;
+	text-align:      left;
+}
+
+/* MAIN FIELDS. FOR EXAMPLE THE RIGHT SIDE IN A FORM */
+.tbl_1  		
+{
+	
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:  	 11px; 
+	font-weight: 	 normal;
+	color:       	 #99CC99;
+	text-align:      left;
+}
+
+/* HIGHLITED FIELDS */
+.tbl_2 		
+{
+	background:  	 #E2F2E2;
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:      	 #99CC99;
+	text-align:      left;
+}
+
+/* HOR. LINES BETWEEN THE ROW'S */
+.tbl_4		
+{
+	background:  	 #9D9D9D;
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:       	 #99CC99;
+	text-align:      left;
+}
+
+/* THE BACKGROUND IN THE CONENT TABLE */
+.tbl_5		
+{
+	background:  	 #000000;
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:       	 #99CC99;
+	text-align:      left;
+}
+
+/* CAPTION FIELDS. FOR EXAMPLE THE LEFT SIDE IN A FORM */
+.tbl_6		
+{
+	background:  	 #000000;
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:       	 #00FF33;
+	text-align:      left;
+}
+
+/* CODE STYLE */
+.tbl_7		
+{
+	background:  	 #99CC99;
+	font-family: 	 Courier New, Courier, mono;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:       	 #000000;
+	text-align:      left;
+}
+
+/* BORDER */
+.tbl_8	
+{
+	background:  	 #00FF33;
+}
+
+/* SPECIAL BG. FOR EXAMPLE THE DESCRAPTION AT THE SEAT PLAN */
+.tbl_9		
+{
+	background:  	 #99CC99;
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:       	 #000000;
+	text-align:      left;
+}
+
+/* HELPLET STYLE NORMAL */
+.tbl_helplet		
+{
+	background:  	 #000000;
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:       	 #99CC99;
+	text-align:      left;
+}
+
+/* HELPLET STYLE LEFT SIDE IN THE TABLE */
+.tbl_helplet_left		
+{
+	background:  	 #333333;
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:       	 #00FF33;
+	text-align:      left;
+}
+
+/* HELPLET STYLE RIGTH SIDE IN THE TABLE */
+.tbl_helplet_right		
+{
+	background:  	 #99CC99;
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:       	 #000000;
+	text-align:      left;
+}
+
+/* IMPORTANT FIELDS. FOR EXAMPLE IMPORTANT NEWS */
+.tbl_important	
+{
+	background:  	 #CCFFCC;
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:  	 11px; 
+	font-weight: 	 normal;
+	color:       	 #000000;
+	text-align:      left;
+}
+
+/* SMALL TEXT */
+.tbl_small		
+{
+	font-family: 	 verdana, Helvetica, sans-serif;
+	font-size:   	 10px; 
+	font-weight: 	 normal;
+	color:       	 #99CC99;
+}
+
+/* COPYRIGHT */
+.tbl_small2		
+{
+	font-family: 	 verdana, Helvetica, sans-serif;
+	font-size:   	 10px; 
+	font-weight: 	 normal;
+	color:       	 #99CC99;
+}
+
+/* ERROR FIELDS IN FORM'S */
+.tbl_1_error  		
+{
+	background:  	 #FF0000;
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:  	 11px; 
+	font-weight: 	 normal;
+	color:       	 #000000;
+	text-align:      left;
+}
+
+/* INACTIVE ROW'S IN SEARCH RESULTS */
+.tbl_1_off 		
+{
+	background:  	 #000000;
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:  	 11px; 
+	font-weight: 	 normal;
+	color:       	 #99CC99;
+	text-align:      left;
+}
+
+/* RED ERROR MESSAGE'S */
+.tbl_error	  		
+{
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:      	 #FF0000;
+	text-align:      left;
+}
+
+/* BLACK FONT */
+.tbl_black	  		
+{
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:      	 #000000;
+	text-align:      left;
+}
+
+/* RED FONT */
+.tbl_red	  		
+{
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:      	 #FF0000;
+	text-align:      left;
+}
+
+/* GREEN FONT */
+.tbl_green	  		
+{
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:      	 #00A800;
+	text-align:      left;
+}
+
+/* BLUE FONT */
+.tbl_blue	  		
+{
+	font-family: 	 verdana, helvetica, sans-serif;
+	font-size:   	 11px; 
+	font-weight: 	 normal;
+	color:      	 #2264DD;
+	text-align:      left;
+}
+
+/* KEYWORD DESCREPTIONS */
+acronym 
+{
+        border-bottom:	 1px dashed #FF0000;
+        cursor: 	 help;
+}
+
+/* NORMAL LINK */
+a:link, a:visited, a.link:link, a.link:visited 
+{ 
+	color: 		 #99CC99; 
+	text-decoration: underline;
+}
+a:hover 
+{ 
+	color:		 #00FF33; 
+	text-decoration: none; 
+}
+
+/* menu LINK */
+a.menu:link, a.menu:visited 
+{ 
+	color: 		 #99CC99; 
+	text-decoration: none;
+	font-family: 	Verdana,Arial,Helvetica;
+	font-size:	11px;
+	font-weight: 	normal;
+}
+a.menu:hover 
+{ 
+	color:		 #00FF33; 
+	text-decoration: underline;
+	font-family: 	Verdana,Arial,Helvetica;
+	font-size:	11px;
+	font-weight: 	normal;
+}
+
+/* ADMIN LINK */
+a.admin:link, a.admin:visited 
+{ 
+	color: 		 #FF0000; 
+	text-decoration: none;
+	font-family: 	Verdana,Arial,Helvetica;
+	font-size:	11px;
+	font-weight: 	normal;
+}
+a.admin:hover 
+{ 
+	color:		 #FF0000; 
+	text-decoration: underline; 
+	font-family: 	Verdana,Arial,Helvetica;
+	font-size:	11px;
+	font-weight: 	normal;
+}
+
+/* FORM FIELD'S */
+.form
+{
+	font-family: 	Verdana,Arial,Helvetica;
+	font-size:	11px;
+	font-weight: 	normal;
+	color: 		#000000;
+	border:		1px solid #000000;
+	background-color:#99CC99;
+
+}
+
+/* OPTIONAL FORM FIELD'S */
+.form_optional
+{
+	font-family: 	Verdana,Arial,Helvetica;
+	font-size:	11px;
+	font-weight: 	normal;
+	color: 		#000000;
+	border:		1px solid #000000;
+	background-color:#99CC99;
+}
+
+/* ERROR FORM FIELD'S */
+.form_error
+{
+	font-family: 	Verdana,Arial,Helvetica;
+	font-size:	11px;
+	font-weight: 	normal;
+	color: 		#000000;
+	border:		1px solid #FF0000;
+	background-color:#FF0000;
+}
+
+/* IMAGE STYLE */
+.img		
+{
+	border-color:	#99CC99;
+}
+
+form { 
+display: inline }

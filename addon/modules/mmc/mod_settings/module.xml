@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<lansuite-module>
+	<name>mmc</name>
+	<caption>Multimediacenter</caption>
+	<description>Ermöglicht das Fernsteuern eines kompatibelen Beamertools.</description>
+	<active>1</active>
+	<changeable>1</changeable>
+	<author>Cewigo (Jan)</author>
+	<email>jfm@upb.de</email>
+	<version>1.0</version>
+	<state>in Development</state>
+</lansuite-module>

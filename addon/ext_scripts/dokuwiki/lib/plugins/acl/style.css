@@ -1,0 +1,9 @@
+#acl__manager label {
+  text-align: left;
+  font-weight: normal;
+  display: inline;
+}
+#acl__manager table {
+  margin-left: 10%;
+  width: 80%;
+}

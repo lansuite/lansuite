@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<menu>
+	<pos>13</pos>
+	<entry>
+		<caption>LansinTV</caption>
+		<hint></hint>
+		<link>?mod=lansintv</link>
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<needed_config></needed_config>
+		<level>0</level>
+	</entry>
+	<entry>
+		<caption>LansinTV</caption>
+		<hint></hint>
+		<link>?mod=lansintv&action=vote</link>
+		<requirement>1</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>Suchen</caption>
+		<hint></hint>
+		<link>?mod=lansintv&action=search</link>
+		<requirement>1</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>Uploaden</caption>
+		<hint></hint>
+		<link>?mod=lansintv&action=upload</link>
+		<requirement>1</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>History</caption>
+		<hint>Hier k&ouml;nnt ihr die Abgespielten Clips downloaden!</hint>
+		<link>?mod=lansintv&action=history</link>
+		<requirement>1</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>Stats</caption>
+		<hint>Statistiken von LansinTV</hint>
+		<link>?mod=lansintv&action=stats</link>
+		<requirement>1</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>Best of</caption>
+		<hint>Admin Menu</hint>
+		<link>?mod=lansintv&action=best_of</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>Setup</caption>
+		<hint>Admin Menu</hint>
+		<link>?mod=lansintv&action=setup</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>Fernbedienung</caption>
+		<hint>Admin Menu</hint>
+		<link>?mod=lansintv&action=remote</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>Blacklist</caption>
+		<hint>Admin Menu</hint>
+		<link>?mod=lansintv&action=blacklist</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+</menu>

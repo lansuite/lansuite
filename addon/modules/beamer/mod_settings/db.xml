@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2006-03-14 08:30</date>
+	</header>
+
+	<table>
+		<table_head>
+			<name>beamer_beamer</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>bID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>bezeichnung</name>
+				<type>varchar(120)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>aufloesung_x</name>
+				<type>float</type>
+				<null></null>
+				<key></key>
+				<default>1024</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>aufloesung_y</name>
+				<type>float</type>
+				<null></null>
+				<key></key>
+				<default>768</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>current_view</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>nodata_pfad</name>
+				<type>varchar(200)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>show_msg</name>
+				<type>ENUM('1','0')<type>
+				<null></null>
+				<key></key>
+				<default>1</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>usertxt</name>
+				<type>ENUM('1','0')<type>
+				<null></null>
+				<key></key>
+				<default>1</default>
+				<extra></extra>
+			</field>
+		</structure>
+	</table>
+
+
+	<table>
+		<table_head>
+			<name>beamer_content</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>cID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>uID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>beamerID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>caption</name>
+				<type>varchar(200)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>pfad</name>
+				<type>varchar(200)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>content_type</name>
+				<type>enum('html', 'video', 'audio', 'image', 't2_paarung')</type>
+				<null></null>
+				<key></key>
+				<default>html</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>anzeigedauer</name>
+				<type>float</type>
+				<null></null>
+				<key></key>
+				<default>30</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>wiederholungen_soll</name>
+				<type>float</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>wiederholungen_ist</name>
+				<type>float</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>active</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>sortkey</name>
+				<type>int</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+		</structure>
+	</table>
+	<table>
+		<table_head>
+			<name>beamer_history</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>mID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>uID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>bID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>zeit</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>text</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+	</table>
+	<table>
+		<table_head>
+			<name>beamer_msg</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>mID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>uID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>bID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>zeit</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>text</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>msgtyp</name>
+				<type>ENUM('once','loop')<type>
+				<null></null>
+				<key></key>
+				<default>once</default>
+				<extra></extra>
+			</field>
+		</structure>
+	</table>
+	<table>
+		<table_head>
+			<name>beamer_blacklist</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>bID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>uID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+	</table>
+	<table>
+		<table_head>
+			<name>beamer_badword</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>wordID</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>badword</name>
+				<type>varchar(30)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+<entry><badword>hodensohn</entry></badword>
+<entry><badword>smegmafresser</entry></badword>
+<entry><badword>hurensohn</entry></badword>
+<entry><badword>nutte</entry></badword>
+<entry><badword>untermensch</entry></badword>
+<entry><badword>fettsack</entry></badword>
+<entry><badword>arschloch</entry></badword>
+<entry><badword>dreckschlitz</entry></badword>
+<entry><badword>volldepp</entry></badword>
+<entry><badword>fettarsch</entry></badword>
+<entry><badword>arschbackenschänder</entry></badword>
+<entry><badword>analnegerdildo</entry></badword>
+<entry><badword>roseten putzer</entry></badword>
+<entry><badword>fotzenfresse</entry></badword>
+<entry><badword>heil hitler</entry></badword>
+<entry><badword>hitler</entry></badword>
+<entry><badword>wixer</entry></badword>
+<entry><badword>bohnenfresser</entry></badword>
+<entry><badword>ficken</entry></badword>
+<entry><badword>behindi</entry></badword>
+<entry><badword>diplomarschloch</entry></badword>
+<entry><badword>niggerschlampe</entry></badword>
+<entry><badword>judensau</entry></badword>
+<entry><badword>dreckvotze</entry></badword>
+<entry><badword>penissalat</entry></badword>
+<entry><badword>arsch</entry></badword>
+<entry><badword>pisser</entry></badword>
+<entry><badword>arschlöcher</entry></badword>
+<entry><badword>scheisse</entry></badword>
+<entry><badword>wichser</entry></badword>
+<entry><badword>bummsen</entry></badword>
+<entry><badword>pissflitsche</entry></badword>
+<entry><badword>drecksnigger</entry></badword>
+<entry><badword>roseten schlemmer</entry></badword>
+<entry><badword>fucker</entry></badword>
+<entry><badword>fotze</entry></badword>
+<entry><badword>kanaken</entry></badword>
+<entry><badword>mongo</entry></badword>
+<entry><badword>bückvieh</entry></badword>
+<entry><badword>fäkalerotiker</entry></badword>
+<entry><badword>vollhorst</entry></badword>
+<entry><badword>nigger</entry></badword>
+<entry><badword>asso</entry></badword>
+<entry><badword>itakker</entry></badword>
+<entry><badword>arschgesicht</entry></badword>
+<entry><badword>arschhaarfetischist</entry></badword>
+<entry><badword>bettspaltenficker</entry></badword>
+<entry><badword>frisösenficker</entry></badword>
+<entry><badword>froschfotzenficker</entry></badword>
+<entry><badword>pferdearsch</entry></badword>
+<entry><badword>depp</entry></badword>
+<entry><badword>spaghettifresser</entry></badword>
+<entry><badword>weichei</entry></badword>
+<entry><badword>deppen</entry></badword>
+<entry><badword>kümmeltürke</entry></badword>
+<entry><badword>ittaker</entry></badword>
+<entry><badword>drecksack</entry></badword>
+<entry><badword>analbohrer</entry></badword>
+<entry><badword>arschgeburt</entry></badword>
+<entry><badword>arschhaarrasierer</entry></badword>
+<entry><badword>arschkrampe</entry></badword>
+<entry><badword>bastard</entry></badword>
+<entry><badword>fickdreck</entry></badword>
+<entry><badword>schleimmöse</entry></badword>
+<entry><badword>affenkotze</entry></badword>
+<entry><badword>pimmel</entry></badword>
+<entry><badword>idiot</entry></badword>
+<entry><badword>analratte</entry></badword>
+<entry><badword>arschentjungferer</entry></badword>
+<entry><badword>arschzapfen</entry></badword>
+<entry><badword>buschnutte</entry></badword>
+<entry><badword>fickfucker</entry></badword>
+<entry><badword>schlampe</entry></badword>
+<entry><badword>schweineschwanzlutscher</entry></badword>
+<entry><badword>blödmann</entry></badword>
+<entry><badword>bullshit</entry></badword>
+<entry><badword>schwanzlurch</entry></badword>
+<entry><badword>knoblauchfresser</entry></badword>
+<entry><badword>zyclon b</entry></badword>
+<entry><badword>penner</entry></badword>
+<entry><badword>möse</entry></badword>
+<entry><badword>nuttenstecher</entry></badword>
+<entry><badword>sackgesicht</entry></badword>
+<entry><badword>behindis</entry></badword>
+<entry><badword>drecksau</entry></badword>
+<entry><badword>randsteinwichser</entry></badword>
+<entry><badword>nippelsauger</entry></badword>
+<entry><badword>abspritzer</entry></badword>
+<entry><badword>afterlecker</entry></badword>
+<entry><badword>bitch</entry></badword>
+<entry><badword>dackelficker</entry></badword>
+<entry><badword>fickfehler</entry></badword>
+<entry><badword>fickmatratze</entry></badword>
+<entry><badword>froschfotze</entry></badword>
+<entry><badword>hartgeldhure</entry></badword>
+<entry><badword>kotgeburt</entry></badword>
+<entry><badword>ochsenpimmel</entry></badword>
+<entry><badword>pissnelke</entry></badword>
+<entry><badword>ritzenfummler</entry></badword>
+<entry><badword>sackratte</entry></badword>
+<entry><badword>bekloppter</entry></badword>
+<entry><badword>fick</entry></badword>
+<entry><badword>penislutscher</entry></badword>
+<entry><badword>cock</entry></badword>
+<entry><badword>rollbrooden</entry></badword>
+<entry><badword>kinderficken</entry></badword>
+<entry><badword>arschficker</entry></badword>
+<entry><badword>missgeburt</entry></badword>
+<entry><badword>epilepi</entry></badword>
+<entry><badword>ficker</entry></badword>
+<entry><badword>kacke</entry></badword>
+<entry><badword>konzentrationslager</entry></badword>
+<entry><badword>hafensau</entry></badword>
+<entry><badword>am-sperma-riecher</entry></badword>
+<entry><badword>anal-frosch</entry></badword>
+<entry><badword>analadmiral</entry></badword>
+<entry><badword>arschaufreißer</entry></badword>
+<entry><badword>arschbesamer</entry></badword>
+<entry><badword>arschhöhlenforscher</entry></badword>
+<entry><badword>astlochficker</entry></badword>
+<entry><badword>bettpisser</entry></badword>
+<entry><badword>fickgelegenheit</entry></badword>
+<entry><badword>kackfass</entry></badword>
+<entry><badword>pimmelpirat</entry></badword>
+<entry><badword>popellfresser</entry></badword>
+<entry><badword>schwuchtel</entry></badword>
+<entry><badword>tittenficker</entry></badword>
+<entry><badword>zecke</entry></badword>
+<entry><badword>pimmelschimmel</entry></badword>
+<entry><badword>zyklon b</entry></badword>
+<entry><badword>votze</entry></badword>
+<entry><badword>spastis</entry></badword>
+<entry><badword>aok-chopper</entry></badword>
+<entry><badword>lebensunwert</entry></badword>
+<entry><badword>schwanzlutscher</entry></badword>
+<entry><badword>kanake</entry></badword>
+<entry><badword>almosenarsch</entry></badword>
+<entry><badword>analbesamer</entry></badword>
+<entry><badword>arschkratzer</entry></badword>
+<entry><badword>badenutte</entry></badword>
+<entry><badword>bückstück</entry></badword>
+<entry><badword>fickfrosch</entry></badword>
+<entry><badword>fotzenknecht</entry></badword>
+<entry><badword>frisösenfotze</entry></badword>
+<entry><badword>gesichtsfotze</entry></badword>
+<entry><badword>magerschwanz</entry></badword>
+<entry><badword>schandmaul</entry></badword>
+<entry><badword>spermafresse</entry></badword>
+<entry><badword>wichsbart</entry></badword>
+<entry><badword>spasti</entry></badword>
+<entry><badword>bumsen</entry></badword>
+<entry><badword>mösenlecker</entry></badword>
+<entry><badword>idioten</entry></badword>
+<entry><badword>volldeppen</entry></badword>
+<entry><badword>stricher</entry></badword>
+<entry><badword>analförster</entry></badword>
+<entry><badword>blechfotze</entry></badword>
+<entry><badword>eichellecker</entry></badword>
+<entry><badword>fickfresse</entry></badword>
+<entry><badword>fickschnitzel</entry></badword>
+<entry><badword>pissbirne</entry></badword>
+<entry><badword>rosettenlecker</entry></badword>
+<entry><badword>bauernschlampe</entry></badword>
+<entry><badword>mistsau</entry></badword>
+<entry><badword>cunt</entry></badword>
+<entry><badword>doofi</entry></badword>
+<entry><badword>hinterlader</entry></badword>
+<entry><badword>mösenficker</entry></badword>
+<entry><badword>großdeutschland</entry></badword>
+<entry><badword>vergasen</entry></badword>
+<entry><badword>ärsche</entry></badword>
+<entry><badword>fickschlitz</entry></badword>
+<entry><badword>fotzenschmuser</entry></badword>
+<entry><badword>kartoffelficker</entry></badword>
+<entry><badword>klötenlutscher</entry></badword>
+<entry><badword>popunterlage</entry></badword>
+<entry><badword>schlammfotze</entry></badword>
+<entry><badword>stinkschlitz</entry></badword>
+<entry><badword>auspufflutscher</entry></badword>
+<entry><badword>lackaffe</entry></badword>
+<entry><badword>funse</entry></badword>
+<entry><badword>vorhaut</entry></badword>
+<entry><badword>vollidiot</entry></badword>
+<entry><badword>wichsgriffel</entry></badword>
+<entry><badword>dreckschüppengesicht</entry></badword>
+<entry><badword>rindsriemen</entry></badword>
+<entry><badword>göring</entry></badword>
+<entry><badword>dreckspack</entry></badword>
+<entry><badword>kacknoob</entry></badword>
+<entry><badword>arschlecker</entry></badword>
+<entry><badword>fotzenlecker</entry></badword>
+<entry><badword>mißgeburt</entry></badword>
+<entry><badword>epilepis</entry></badword>
+<entry><badword>mohrenkopf</entry></badword>
+<entry><badword>epileppis</entry></badword>
+<entry><badword>zappler</entry></badword>
+<entry><badword>spritzer</entry></badword>
+<entry><badword>scheisser</entry></badword>
+<entry><badword>kacken</entry></badword>
+<entry><badword>scheisshaufen</entry></badword>
+<entry><badword>scheißhaufen</entry></badword>
+<entry><badword>kz</entry></badword>
+<entry><badword>polacke</entry></badword>
+<entry><badword>polacken</entry></badword>
+<entry><badword>kümmeltürken</entry></badword>
+<entry><badword>kanacke</entry></badword>
+<entry><badword>futtgesicht</entry></badword>
+<entry><badword>bumsklumpen</entry></badword>
+<entry><badword>drecksfotze</entry></badword>
+<entry><badword>drecksnutte</entry></badword>
+<entry><badword>dünnpfifftrinker</entry></badword>
+<entry><badword>eierlutscher</entry></badword>
+<entry><badword>eiswürfelpisser</entry></badword>
+<entry><badword>entenfisterer</entry></badword>
+<entry><badword>faltenficker</entry></badword>
+<entry><badword>ferkel-ficker</entry></badword>
+<entry><badword>ferkelficker</entry></badword>
+<entry><badword>feuchtwichser</entry></badword>
+<entry><badword>fickfetzen</entry></badword>
+<entry><badword>fickgesicht</entry></badword>
+<entry><badword>ficknudel</entry></badword>
+<entry><badword>ficksau</entry></badword>
+<entry><badword>fickschnitte</entry></badword>
+<entry><badword>flussfotze</entry></badword>
+<entry><badword>fotzenforscher</entry></badword>
+<entry><badword>fotzenkruste</entry></badword>
+<entry><badword>fotzenkuchen</entry></badword>
+<entry><badword>fotzenlöckchen</entry></badword>
+<entry><badword>fotzenpisser</entry></badword>
+<entry><badword>fotzhobel</entry></badword>
+<entry><badword>geilriemen</entry></badword>
+<entry><badword>gummifotzenficker</entry></badword>
+<entry><badword>gummipuppenbumser</entry></badword>
+<entry><badword>hodenbeißer</entry></badword>
+<entry><badword>hosenpisser</entry></badword>
+<entry><badword>hundeficker</entry></badword>
+<entry><badword>hundesohn</entry></badword>
+<entry><badword>hurenlecker</entry></badword>
+<entry><badword>hurenpeter</entry></badword>
+<entry><badword>hühnerficker</entry></badword>
+<entry><badword>kackarsch</entry></badword>
+<entry><badword>kaktusficker</entry></badword>
+<entry><badword>kanaldeckelbefruchter</entry></badword>
+<entry><badword>lustbolzen</entry></badword>
+<entry><badword>mitternachtsficker</entry></badword>
+<entry><badword>muschilecker</entry></badword>
+<entry><badword>mutterficker</entry></badword>
+<entry><badword>mösenputzer</entry></badword>
+<entry><badword>peniskopf</entry></badword>
+<entry><badword>pimmellutscher</entry></badword>
+<entry><badword>pimmelprinz</entry></badword>
+<entry><badword>pissbotte</entry></badword>
+<entry><badword>pissetrinker</entry></badword>
+<entry><badword>pissfisch</entry></badword>
+<entry><badword>rosettenhengst</entry></badword>
+<entry><badword>popostecker</entry></badword>
+<entry><badword>prärieficker</entry></badword>
+<entry><badword>rosettenkönig</entry></badword>
+<entry><badword>rosettentester</entry></badword>
+<entry><badword>sacklutscher</entry></badword>
+<entry><badword>saftarsch</entry></badword>
+<entry><badword>schamhaarlecker</entry></badword>
+<entry><badword>schamhaarschädel</entry></badword>
+<entry><badword>schlitzpisser</entry></badword>
+<entry><badword>schmalspurficker</entry></badword>
+<entry><badword>schrumpelfotze</entry></badword>
+<entry><badword>schweinepriester</entry></badword>
+<entry><badword>spermarutsche</entry></badword>
+<entry><badword>tittenspritzer</entry></badword>
+<entry><badword>wichsbirne</entry></badword>
+<entry><badword>wichsfrosch</entry></badword>
+<entry><badword>wichsvorlage</entry></badword>
+<entry><badword>ackerfresse</entry></badword>
+<entry><badword>affenarsch</entry></badword>
+<entry><badword>affenhirn</entry></badword>
+<entry><badword>armleuchter</entry></badword>
+<entry><badword>arschgeige</entry></badword>
+<entry><badword>arschmade</entry></badword>
+<entry><badword>arschratte</entry></badword>
+<entry><badword>brechfurz</entry></badword>
+<entry><badword>sitzpisser</entry></badword>
+<entry><badword>homo</entry></badword>
+<entry><badword>sakfalter</entry></badword>
+<entry><badword>sackfalter</entry></badword>
+<entry><badword>honk</entry></badword>
+<entry><badword>hirni</entry></badword>
+<entry><badword>vollspack</entry></badword>
+<entry><badword>nuttensohn</entry></badword>
+<entry><badword>wixxer</entry></badword>
+<entry><badword>beklopptes muttergeficktes als kind immer nur in a</entry></badword>
+<entry><badword>anal*</entry></badword>
+<entry><badword>assi</entry></badword>
+<entry><badword>bettnässer</entry></badword>
+<entry><badword>chaot</entry></badword>
+<entry><badword>dumpfbacke</entry></badword>
+<entry><badword>fettsau</entry></badword>
+<entry><badword>tunte</entry></badword>
+<entry><badword>yankee</entry></badword>
+<entry><badword>hurentocher</entry></badword>
+<entry><badword>klolecker</entry></badword>
+<entry><badword>spastard</entry></badword>
+<entry><badword>miststück</entry></badword>
+<entry><badword>pottsau</entry></badword>
+<entry><badword>pisse</entry></badword>
+<entry><badword>dreckstürke</entry></badword>
+<entry><badword>gummisklave</entry></badword>
+<entry><badword>vollspasti</entry></badword>
+<entry><badword>bullensohn</entry></badword>
+<entry><badword>assel</entry></badword>
+<entry><badword>hackfresse</entry></badword>
+<entry><badword>hosenscheißer</entry></badword>
+<entry><badword>aasgeier</entry></badword>
+<entry><badword>noob</entry></badword>
+<entry><badword>kackfresse</entry></badword>
+<entry><badword>schmeue</entry></badword>
+<entry><badword>kotnascher</entry></badword>
+<entry><badword>muschischlitz</entry></badword>
+<entry><badword>spack</entry></badword>
+<entry><badword>nuttentochter</entry></badword>
+<entry><badword>wixxxer</entry></badword>
+<entry><badword>asshole</entry></badword>
+<entry><badword>dummschwätzer</entry></badword>
+<entry><badword>fut</entry></badword>
+<entry><badword>großmaul</entry></badword>
+<entry><badword>irrer</entry></badword>
+<entry><badword>kinderficker</entry></badword>
+<entry><badword>lutscher</entry></badword>
+<entry><badword>spacko</entry></badword>
+<entry><badword>drecksmösendagmar</entry></badword>
+<entry><badword>vollspacken</entry></badword>
+<entry><badword>flachtitte</entry></badword>
+<entry><badword>schnuddelfresser</entry></badword>
+<entry><badword>bot</entry></badword>
+<entry><badword>eierkopf</entry></badword>
+<entry><badword>analentjungferer</entry></badword>
+<entry><badword>vollpfosten</entry></badword>
+<entry><badword>bananenstecker</entry></badword>
+<entry><badword>schnurbeltatz</entry></badword>
+<entry><badword>scheissgesicht</entry></badword>
+<entry><badword>dachlattengesicht</entry></badword>
+<entry><badword>wurstsemmelfresser</entry></badword>
+<entry><badword>beklopter</entry></badword>
+<entry><badword>dumbo</entry></badword>
+<entry><badword>bimbo</entry></badword>
+<entry><badword>fickarsch</entry></badword>
+<entry><badword>fick*</entry></badword>
+<entry><badword>huhrensohn</entry></badword>
+<entry><badword>sieg heil</entry></badword>
+<entry><badword>penislecker</entry></badword>
+<entry><badword>nigga</entry></badword>
+<entry><badword>wickspickel</entry></badword>
+<entry><badword>mokkastübchenveredler</entry></badword>
+<entry><badword>froschfotzenleder</entry></badword>
+<entry><badword>analritter</entry></badword>
+<entry><badword>pornoprengel</entry></badword>
+<entry><badword>pimmelkopf</entry></badword>
+<entry><badword>schwutte</entry></badword>
+<entry><badword>beeeehindert</entry></badword>
+<entry><badword>bitsch</entry></badword>
+<entry><badword>fritzfink</entry></badword>
+<entry><badword>schmuckbert</entry></badword>
+<entry><badword>uhrensohn</entry></badword>
+<entry><badword>wxa</entry></badword>
+<entry><badword>hi hoper</entry></badword>
+<entry><badword>pimmelvinni</entry></badword>
+<entry><badword>porn</entry></badword>
+<entry><badword>bückfleisch</entry></badword>
+<entry><badword>bitchnutte</entry></badword>
+<entry><badword>klapposkop</entry></badword>
+<entry><badword>rasierte votzen</entry></badword>
+<entry><badword>douglette</entry></badword>
+<entry><badword>votzenkopf</entry></badword>
+<entry><badword>kinderporno</entry></badword>
+<entry><badword>sex</entry></badword>
+<entry><badword>motherfucker</entry></badword>
+<entry><badword>chausohn</entry></badword>
+<entry><badword>xxx</entry></badword>
+<entry><badword>porno</entry></badword>
+<entry><badword>nazi</entry></badword>
+		</content>
+	</table>
+</lansuite>

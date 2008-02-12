@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<menu>
+	<pos>8</pos>	<!-- The position in the navigation, where this entry should be located. 1 = top; 100 = botom -->
+
+	<entry>
+		<action>index</action>  <!-- This is the trigger standing in the URL behin the "action=" -->
+		<file>index</file>   <!-- This ist the file, which is executed, when the trigger above was caled -->
+		<caption>Board phpBB</caption>	<!-- The Text displayed in the menubar -->
+		<hint>Board phpBB</hint>	<!-- This hint is shown, when the mouse resides over this menu item -->
+		<link>?mod=board2&action=index</link>  <!-- This is the link-target of the current menu item -->
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins -->
+		<level>0</level> <!-- 0 for Top level entry; 1 for sub entry -->
+	</entry>
+	<entry>
+		<action>update</action>  <!-- This is the trigger standing in the URL behin the "action=" -->
+		<file>update</file>   <!-- This ist the file, which is executed, when the trigger above was caled -->
+		<caption>update phpBB</caption>	<!-- The Text displayed in the menubar -->
+		<hint>Do this before you update phpBB</hint>	<!-- This hint is shown, when the mouse resides over this menu item -->
+		<link>?mod=board2&action=update</link>  <!-- This is the link-target of the current menu item -->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins -->
+		<level>1</level> <!-- 0 for Top level entry; 1 for sub entry -->
+	</entry>
+	<entry>
+		<action>disintegrate</action>  <!-- This is the trigger standing in the URL behin the "action=" -->
+		<file>disintegrate</file>   <!-- This ist the file, which is executed, when the trigger above was caled -->
+		<caption>deintegrieren</caption>	<!-- The Text displayed in the menubar -->
+		<hint>Seperates the phpBB and lansuite</hint>	<!-- This hint is shown, when the mouse resides over this menu item -->
+		<link>?mod=board2&action=disintegrate</link>  <!-- This is the link-target of the current menu item -->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins -->
+		<level>1</level> <!-- 0 for Top level entry; 1 for sub entry -->
+	</entry>
+</menu>

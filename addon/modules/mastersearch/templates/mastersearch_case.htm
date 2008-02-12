@@ -1,0 +1,48 @@
+<script type="text/javascript">
+	function change_selection() {
+		if (document.ms_case.action_select.value == "select_all"){
+			for (z=0; z<=document.ms_case.length-1; z++){
+				document.ms_case.elements[z].checked = 1;
+			}
+		}
+		if (document.ms_case.action_select.value == "select_none"){
+			for (z=0; z<=document.ms_case.length-1; z++){
+				document.ms_case.elements[z].checked = 0;
+			}
+		}
+		if (document.ms_case.action_select.value == "select_invert"){
+			for (z=0; z<=document.ms_case.length-1; z++){
+				if (document.ms_case.elements[z].checked) {
+					document.ms_case.elements[z].checked = 0;
+				} else {
+					document.ms_case.elements[z].checked = 1;
+				}
+			}
+		}
+	}
+
+	function chkFormular() {
+		{$templ['ms']['js_secure']}
+	}
+</script>
+
+<form action="{$templ['ms']['target']}" method="post" name="ms_case" onSubmit="return chkFormular()">
+<div class="content_head" align="left">
+		<br /><b>{$templ['ms']['title']}&nbsp;</b>
+		<br />{$templ['ms']['sort_hint']}
+		<br />{$templ['ms']['ms_optional_header_code']}
+		<div align="right">&nbsp;{$templ['ms']['pages']}</div>
+</div>
+
+<table width="100%" cellspacing="0" cellpadding="3">
+<tr>
+	{$templ['ms']['table_head']}
+</tr>
+	{$templ['ms']['table_entrys']}
+</table>
+
+<div class="content_head" align="left">
+		{$templ['ms']['form']}
+		<div align="right">{$templ['ms']['pages']}</div>
+</div>
+</form>

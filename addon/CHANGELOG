@@ -1,0 +1,64 @@
+Hier bitte die wichtigen Änderungen einfügen :
+
+-----
+(Auch Name,Datum und falls vorhanden BugID für die Änderung angeben!)
+Orientiert euch bitte an dem Changelog der Mainversion
+-----
+
+Version 2.1.4
+
+- Bugfix: In den Addon-Designs wurde der Banner noch falsch eingebunden (KnoX 04.09.2006)
+
+- Add: phgstats zur Übersicht über aktuell laufende Gameserver, mit Mapdetails, etc. (KnoX 28.08.2006)
+- Add: Mutimediacenter zum testen. Noch ohne Interaktion mit dem Beamertool (Cewigo 02.08.2006)
+
+
+Version 2.1.3
+
+- Bugfix: #433 Sonderzeichen im TS-Modul wurden nicht korrekt dargestellt (KnoX 21.05.2006)
+- Bugfix: #420 Bei den Addon-Modulen wurde die Umstellung auf config.xml nicht vorgenommen (KnoX 25.04.2006)
+
+- Add: Newsfeed-Link in HTML-Head eingefügt (KnoX 21.05.2006)
+
+- Change: base.php entfernt, statt dessen nun über index.php?design=base (KnoX 21.05.2006)
+
+
+Version 2.1.0
+
+- Add: Beamer Modul (MeisterM 18.03.2006)
+
+- Change: Fehlende Grafiken in den Designs ergänzt und style.css des standard_se upgedated (KnoX 18.03.2006)
+- Change: Games und Map Modul vom Addon ins Main-Package verschoben und auf Englisch übersetzt (KnoX 07.03.2006)
+- Change: WWCL und LGZ Regelwerke geupdatet. NGL ins Main Package verlagert (KnoX 06.03.2006)
+
+
+Version 2.0.6
+
+- Bugfix: MAP Modul funktionierte nicht mehr. (Genesis 31.1.06)
+
+- Change: MAP Modul funktioniert nun auch außerhalb von Deutschland (KnoX 13.02.2006)
+
+
+Version 2.0.5
+
+- Bugfix: In den Ordnern \design\coldstyle-black\images und \design\LCD-blue metal\images waren "thumbs.db"-Dateien => entfernt (Poschi 12.10.05)
+- Bugfix: Fehler in der Konfig von Teamspeak behoben. (Genesis 10.10.05)
+
+- Change: Große Smielies ins Addon-Modul verlagert (KnoX 27.10.2005)
+
+
+Version 2.0.4
+
+- Add:	LGZ-Turnierregeln hinzugefügt
+
+
+Version 2.0.3
+
+- Change: WWCL-Turnierregeln upgedatet (KnoX 23.05.2005)
+
+- Bugfix: Fehler im Mapmodul behoben (Genesis 22.05.05)
+
+
+Version 2.0.2
+
+- Changelog noch nicht vorhanden

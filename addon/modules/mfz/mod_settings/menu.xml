@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<menu>
+	<pos>24</pos>
+	<entry>
+		<caption>Mitfahrerzentrale</caption>
+		<hint>Hier könnt ihr mit anderen Gästen Fahrgemeinschaften bilden</hint>
+		<link>?mod=mfz</link>
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
+		<needed_config>sys_internet</needed_config>
+		<level>0</level>
+	</entry>
+</menu>

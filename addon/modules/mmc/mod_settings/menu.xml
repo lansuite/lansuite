@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<pos>31</pos>
+	<entry>
+		<action>default</action>
+		<file>show</file>
+		<caption>Multimediacenter</caption>
+		<hint></hint>
+		<link>?mod=mmc</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>0</level>
+	</entry>
+	<entry>
+		<action>playlist</action>
+		<file>playlist</file>
+		<caption>Playliste</caption>
+		<hint></hint>
+		<link>?mod=mmc&action=playlist</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>addmedia</action>
+		<file>addmedia</file>
+		<caption>Datei hinzufügen</caption>
+		<hint></hint>
+		<link>?mod=mmc&action=addmedia</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>medialist</action>
+		<file>medialist</file>
+		<caption>Medienliste</caption>
+		<hint></hint>
+		<link>?mod=mmc&action=medialist</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+</menu>

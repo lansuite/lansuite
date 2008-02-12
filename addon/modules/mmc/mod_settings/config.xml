@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Multimediacenter</name>
+    </head>
+    <items>
+    	<item>
+    		<name>mmc_ip</name>
+    		<type>string</type>
+    		<default>localhost</default>
+    		<description>IP oder Rechnername</description>
+    	</item>
+    	<item>
+    		<name>mmc_port</name>
+    		<type>int</type>
+    		<default>999</default>
+    		<description>Port</description>
+    	</item>
+    	<item>
+    		<name>mmc_timeout</name>
+    		<type>int</type>
+    		<default>3</default>
+    		<description>max. Antwortzeit (Sek.)</description>
+    	</item>
+		<item>
+    		<name>mmc_intranet</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Externe URL zum Lansuiteverzeichnis <br />(ohne /index.php)</description>
+    	</item>
+    </items>
+  </group>
+</config>

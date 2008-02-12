@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<!-- COPYRIGHT 2001-2003 "http://www.One-Network.Org" - ALL RIGHTS RESERVED -->
+<html>
+<head>
+<title>{$templ['index']['info']['lanparty_name']} - lansuite {$templ['index']['info']['version']} - www.lansuite.de</title>
+<link rel="STYLESHEET" href="design/{default_design}/style.css">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/rss+xml" title="RDF-Datei" href="ext_inc/newsfeed/news.xml">
+<script src="scripts.js" type="text/javascript"></script>
+</head>
+<body  {$templ['index']['body']['js']} leftmargin="2" topmargin="2" marginwidth="2" marginheight="2">
+<table width="100%" border="0" cellpadding="0" cellspacing="10">
+  <tr>
+    <td height="215">{$templ['index']['control']['js']} 
+      <table width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr> 
+          <td colspan="5"> <table width="100%" cellspacing="0" cellpadding="0" class="small">
+              <tr> 
+                <td align="right" class="tbl_small">{$templ['index']['info']['current_date']} 
+                  | <a href="?mod=logout" class="menu">Logout</a>&nbsp;</td>
+              </tr>
+            </table>
+            <table width="100%" cellspacing="0" cellpadding="0" height="64" background="design/{default_design}/images/index_top_background.gif">
+              <tr> 
+                <td><a href="index.php"><img src="design/{default_design}/images/index_top_lansuite.gif" border="0"></a></td>
+                <td align="right" ><img src="design/{default_design}/images/index_top_advertisement.gif" width="7" height="60">{$templ['index']['banner_code']}</td>
+                <td align="right" valign="bottom">&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+        <!-- 20er Space  //-->
+        <tr> 
+          <td colspan="5">&nbsp;</td>
+        </tr>
+        <tr> 
+          <!-- LeftBlock //-->
+          <td class="tbl_1" valign="top">{$templ['index']['control']['boxes_letfside']}</td>
+          <!-- 10er Space //-->
+          <td><img src="design/{default_design}/images/px.gif" width="10" height="1"></td>
+          <!-- MiddleBlock //-->
+          <td valign="top" width="75%"> <table width="100%" cellspacing="0" cellpadding="0" align="center">
+              <tr> 
+                <td background="design/{default_design}/images/menu_topic_bg.gif" height="15" valign="top" width="1%"><img src="design/{default_design}/images/arrows_content.gif" width="15" height="12" hspace="1" vspace="0"></td>
+                <td background="design/{default_design}/images/menu_topic_bg.gif" height="15"><img src="design/{default_design}/images/index_topic_lansuite.gif" width="78" height="7"></td>
+              </tr>
+              <tr class="tbl_5"> 
+                <td colspan="2"> {$templ['index']['info']['content']} </td>
+              </tr>
+              <tr class="tbl_5"> 
+                <td colspan="2" align="right" valign="bottom"><a href="#top"><img src="design/{default_design}/images/index_bottom_2top.gif" width="78" height="7" border="0"></a></td>
+              </tr>
+              <tr> 
+                <td colspan="2" class="tbl_4"><img height="1" width="1" src="/"></td>
+              </tr>
+            </table>
+			<table width="100%" cellspacing="0" cellpadding="0" align="center">
+			 <tr><td>{$templ['index']['debug']['content']}</td></tr>
+			</table>
+			</td>
+          <!-- 10er Space //-->
+          <td valign="top"><img src="design/{default_design}/images/px.gif" width="10" height="1"></td>
+          <!-- RightBlock //-->
+          <td class="tbl_1" valign="top">{$templ['index']['control']['boxes_rightside']} 
+          </td>
+        </tr>
+        <tr> 
+          <td valign="bottom" class="tbl_1" height="1"></td>
+          <td colspan="3"><div align="center" class="tbl_small2">{footer}</div></td>
+          <td valign="bottom" class="tbl_1" height="1"></td>
+        </tr>
+        <tr> 
+          <td height="10" colspan="5"><img src="design/{default_design}/images/px.gif" width="1" height="10"></td>
+        </tr>
+      </table>
+      </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Board phpBB</de>
+		<en>Board phpBB</en>
+	</entry>
+	<entry>
+		<de>Dieses Modul fügt lansuite ein phpBB Board hinzu.</de>
+		<en>This module includes a phpBB Board in lansuite.</en>
+	</entry>
+	<entry>
+		<de>Installation</de>
+		<en>Installation</en>
+	</entry>
+	<entry>
+		<de>Installation und Integration von phpBB.</de>
+		<en>Installation and Integration of phpBB.</en>
+	</entry>
+	<entry>
+		<de>Administration</de>
+		<en>Administration</en>
+	</entry>
+	<entry>
+		<de>Öffnet das Administrationspanel von phpBB.</de>
+		<en>Opens the Administrationspanel of phpBB.</en>
+	</entry>	
+	<entry>
+		<de>ReadMe</de>
+		<en>ReadMe</en>
+	</entry>	
+	<entry>
+		<de>Informationen über die Handhabung.</de>
+		<en>Information about the management.</en>
+	</entry>
+	<entry>
+		<de>Diese Option wird wahr gesetzt, wenn das Board installiert wurde. Bitte NICHT MANUEL setzten.</de>
+		<en>This option is true when the board has already been installed. Please DON'T CHANGE the value MANUALY.</en>
+	</entry>
+	<entry>
+		<de>Setzen sie diese Option auf wahr, damit das Board in einem neuen Fenster angezeigt wird.</de>
+		<en>Set this option true, to open the board in a new window.</en>
+	</entry
+	</translations>

@@ -1,0 +1,20 @@
+<tr onMouseOver="markieren(this);" onMouseOut="unmarkieren(this);">
+	<td class="row_value" style="border: 1px solid #000; border-left: 0px;">
+		{$templ['mmc']['t_row_id']}
+		<a href="javascript:hoch({$templ['mmc']['t_row_id']})"><img src="ext_inc/mmc/up.png" title="hoch" alt="hoch" border="0" /></a>
+		<a href="javascript:runter({$templ['mmc']['t_row_id']})"><img src="ext_inc/mmc/down.png" title="runter" alt="runter" border="0" /></a>
+	</td>
+	<td class="row_value" style="border: 1px solid #000;">
+		<span id="tname{$templ['mmc']['t_row_id']}">{$templ['mmc']['t_row_name']}</span>&nbsp;
+	</td>
+	<td class="row_value" style="border: 1px solid #000;">
+		<span id="tloops{$templ['mmc']['t_row_id']}">{$templ['mmc']['t_row_loops']}</span>&nbsp;
+		<a href="javascript:plus({$templ['mmc']['t_row_id']})"><img src="ext_inc/mmc/up.png" title="mehr" alt="mehr" border="0" /></a>
+		<a href="javascript:minus({$templ['mmc']['t_row_id']})"><img src="ext_inc/mmc/down.png" title="weniger" alt="weniger" border="0" /></a>
+	</td>
+	<td class="row_value" style="border: 1px solid #000; border-right: 0px;">
+		&nbsp;<a href="javascript:remove({$templ['mmc']['t_row_id']})"><img src="ext_inc/mmc/del.png" title="l&ouml;schen" alt="l&ouml;schen" border="0" /> l&ouml;schen</a>
+		<input name="id{$templ['mmc']['t_row_id']}" id="id{$templ['mmc']['t_row_id']}" type="hidden" value="{$templ['mmc']['t_row_mediaid']}">
+		<input name="loops{$templ['mmc']['t_row_id']}" id="loops{$templ['mmc']['t_row_id']}" type="hidden" value="{$templ['mmc']['t_row_loops']}">
+	</td>
+</tr>

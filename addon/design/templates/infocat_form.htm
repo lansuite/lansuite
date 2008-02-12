@@ -1,0 +1,223 @@
+
+<!-- TEMPLATE - STANDARD - infocat FORM -->
+<script language="JavaScript">
+<!--
+function code(sign) 
+{
+	document.form.infocat_text.value = document.form.infocat_text.value + sign;
+	checklength();
+}
+//-->
+
+<!--
+function checklength()
+{
+var maxchars=5000;
+	with (document.form)
+	{
+		chars=infocat_text1.value
+		if (chars.length > maxchars)
+      		{
+      			infocat_text1.value=chars.substr(0,maxchars);
+      			infocat_text1.blur();
+      		}
+    		chr.value=maxchars-infocat_text1.value.length;
+	}
+}
+//-->
+</script>
+<form name="form" method="post" enctype="multipart/form-data" action="{$templ['infocat']['form']['control']['form_action']}">
+  <input type="hidden" name="infocat_id" value="{$_GET['infoID']}">
+  {$templ['infocat']['form']['control']['infocat_pid']}
+  <table width="100%" cellspacing="0" cellpadding="0">
+    <tr class="tbl_5"> 
+      <td colspan="2"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_5">
+          <tr> 
+            <td><b>{$templ['infocat']['form']['info']['page_title']}</b><br>
+              <br>
+              {$templ['infocat']['form']['info']['page_description']}
+			  <br>
+              <br>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+<!-- Titel -->
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Titel</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['infocat']['form']['error']['title']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3">
+          <tr> 
+            <td> 
+              <input type="text" name="infocat_title" size="50" maxlength="200" class="form" value="{$_POST['infocat_title']}">
+              {$templ['infocat']['form']['error']['title']['msg']}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+<!-- Titel ENDE -->
+
+<!-- Pic -->
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Bilddatei</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['infocat']['form']['error']['picture']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3">
+          <tr> 
+            <td> 
+              <input type="file" name="infocat_picture" size="50" maxlength="200" class="form" {$templ['infocat']['form']['control']['infocat_picture']}>
+              <input type="hidden" name="infocat_oldpicture" value="{$_POST['infocat_oldpicture']}" {$templ['infocat']['form']['control']['infocat_picture']}>
+              {$templ['infocat']['form']['error']['picture']['msg']}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+<!-- Pic ENDE -->
+
+<!-- Gruppe -->    
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Gruppe</td>
+          </tr>
+          <tr>
+            <td>
+               oder neue Gruppe:&nbsp;
+            </td>
+          </tR>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['infocat']['form']['error']['gruppe']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3">
+          <tr> 
+            <td> 
+              <input type="hidden" name="infocat_oldinfogroup" value="{$_POST['infocat_oldinfogroup']}">
+              <select name="infocat_gruppe" class="form">
+              {$_POST['infocat_gruppe']}
+              </select>
+            </td>
+         </tr>
+         <tr>
+           <td>
+              <input type="text" class="form" name="infocat_new_group" value="{$_POST['infocat_new_group']}" size="20" maxlength="100">
+              {$templ['infocat']['form']['error']['gruppe']['msg']}</td>
+          </tr>
+        </table>
+      </td>
+    </tr> 
+<!-- Gruppe ENDE -->
+    
+<!-- Beschreibung -->
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Beschreibung</td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['infocat']['form']['error']['descr']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3">
+          <tr> 
+            <td> 
+              <input type="text" name="infocat_descr" size="50" maxlength="200" class="form" value="{$_POST['infocat_descr']}">
+              {$templ['infocat']['form']['error']['descr']['msg']}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+
+<!-- Beschreibung ENDE-->
+
+<!-- Text1 -->
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30" width="30%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td>Text 1</td>
+          </tr>
+          <tr> 
+            <td class="tbl_small">HTML ist <b> an<br>
+              </b>LS-Code ist<b>aus</b></td>
+          </tr>
+          <tr> 
+            <td class="tbl_small"> verbl. Zeichen: 
+              <input type="text" name="chr" class="form" maxlength="4" size="4" onFocus="this.blur()" value="0">
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td class="tbl_1{$templ['infocat']['form']['error']['text1']['bgrd']}" width="70%" height="30"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1{$templ['infocat']['form']['error']['text1']['bgrd']}">
+          <tr> 
+            <td> 
+              <textarea name="infocat_text1" cols="50" class="form" rows="7" wrap="PHYSICAL" onKeyUp="checklength()" {$templ['infocat']['form']['control']['infocat_text1']}>{$_POST['infocat_text1']}</textarea>
+              <br>
+              {$templ['infocat']['form']['error']['text1']['msg']}</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+<!-- Text1 ENDE-->
+       
+    <tr> 
+      <td class="tbl_6"><img src="/" width="1" height="1"></td>
+      <td class="tbl_4"><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr> 
+      <td class="tbl_6" height="30" width="30%">&nbsp;</td>
+      <td class="tbl_6" height="30" width="70%"> 
+        <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+          <tr> 
+            <td> 
+              <input type="image" border="0" name="imageField" src="design/{default_design}/images/buttons_add.gif" width="61" height="17">
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr class="tbl_4"> 
+      <td colspan="2"><img src="/" width="1" height="1"></td>
+    </tr>
+    <tr class="tbl_5"> 
+      <td colspan="2"> 
+        <p><br>
+        </p>
+      </td>
+    </tr>
+  </table>
+</form>
+<!-- TEMPLATE - STANDARD - infocat FORM -->

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>board2_new_window</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Setzen sie diese Option auf wahr, damit das Board in einem neuen Fenster angezeigt wird.</description>
+    	</item>
+    </items>
+  </group>
+</config>

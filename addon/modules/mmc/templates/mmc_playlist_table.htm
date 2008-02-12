@@ -1,0 +1,63 @@
+<script type="text/javascript">
+<!--
+	var temp=0;
+
+	function hoch(rowid){
+		temp                                                  = document.getElementById("tname"+(rowid-1)).innerHTML;
+		document.getElementById("tname"+(rowid-1)).innerHTML  = document.getElementById("tname"+rowid).innerHTML;
+		document.getElementById("tname"+(rowid)).innerHTML    = temp;
+		temp                                                  = document.getElementById("tloops"+(rowid-1)).innerHTML;
+		document.getElementById("tloops"+(rowid-1)).innerHTML = document.getElementById("tloops"+rowid).innerHTML;
+		document.getElementById("tloops"+(rowid)).innerHTML   = temp;
+		temp                                                  = document.getElementById("id"+(rowid-1)).value;
+		document.getElementById("id"+(rowid-1)).value         = document.getElementById("id"+(rowid)).value;
+		document.getElementById("id"+(rowid)).value           = temp;
+		temp                                                  = document.getElementById("loops"+(rowid-1)).value;
+		document.getElementById("loops"+(rowid-1)).value      = document.getElementById("loops"+(rowid)).value;
+		document.getElementById("loops"+(rowid)).value        = temp;
+	}
+	
+	function runter(rowid){
+		temp                                                  = document.getElementById("tname"+(rowid+1)).innerHTML;
+		document.getElementById("tname"+(rowid+1)).innerHTML  = document.getElementById("tname"+rowid).innerHTML;
+		document.getElementById("tname"+(rowid)).innerHTML    = temp;
+		temp                                                  = document.getElementById("tloops"+(rowid+1)).innerHTML;
+		document.getElementById("tloops"+(rowid+1)).innerHTML = document.getElementById("tloops"+rowid).innerHTML;
+		document.getElementById("tloops"+(rowid)).innerHTML   = temp;
+		temp                                                  = document.getElementById("id"+(rowid+1)).value;
+		document.getElementById("id"+(rowid+1)).value         = document.getElementById("id"+(rowid)).value;
+		document.getElementById("id"+(rowid)).value           = temp;
+		temp                                                  = document.getElementById("loops"+(rowid+1)).value;
+		document.getElementById("loops"+(rowid+1)).value      = document.getElementById("loops"+(rowid)).value;
+		document.getElementById("loops"+(rowid)).value        = temp;
+		}
+	
+	function plus(rowid){
+		document.getElementById("tloops"+rowid).innerHTML++;
+		document.getElementById("loops"+(rowid)).value = document.getElementById("tloops"+rowid).innerHTML;
+	}
+	
+	function minus(rowid){
+		if (document.getElementById("tloops"+rowid).innerHTML > 0) {
+			document.getElementById("tloops"+rowid).innerHTML--;
+			document.getElementById("loops"+rowid).value = document.getElementById("tloops"+rowid).innerHTML;
+		}
+	}
+	
+	function remove(mediaid){
+		document.getElementById("delete").value = mediaid;
+		document.Playliste.submit();
+	}
+//-->
+</script>
+
+<table width="100%" align="center" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+	<tr>
+		<td class="row_key" style="border: 1px solid #000; border-left: 0px; border-top: 0px;"><b>{$templ['mmc']['th_nr']}</b></td>
+		<td class="row_key" style="border: 1px solid #000; border-top: 0px;"><b>{$templ['mmc']['th_name']}</b></td>
+		<td class="row_key" style="border: 1px solid #000; border-top: 0px;"><b>{$templ['mmc']['th_loop']}</b></td>
+		<td class="row_key" style="border: 1px solid #000; border-right: 0px; border-top: 0px;">
+		<input name="delete" id="delete" type="hidden" value="nothing"></td>
+	</tr>
+	{$templ['mmc']['t_rows']}
+</table><br />

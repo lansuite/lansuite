@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>beamer_msg_refresh</name>
+    		<type>integer</type>
+    		<default>15</default>
+    		<description>Anzeigedauer der Nachrichten</description>
+    	</item>
+    	<item>
+    		<name>beamer_bgcolor</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Standard-Hintergrundfarbe</description>
+    	</item>
+    </items>
+  </group>
+</config>
