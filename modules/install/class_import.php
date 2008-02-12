@@ -18,7 +18,6 @@ class Import {
 
 		## Open XML-File
 		$xml_file    = fopen($tmp_file_name, "r");
-#		$this->xml_content = utf8_encode(fread($xml_file, filesize($tmp_file_name)));
 		$this->xml_content = fread($xml_file, filesize($tmp_file_name));
 		fclose($xml_file);
 
@@ -61,239 +60,172 @@ class Import {
 			$table_name = $xml->get_tag_content("name", $table_head);
 			$this->table_names[] = $table_name;
 
-			$table_found = false;
+			// Search current XML-Table in installed tables
+			$table_found = in_array($config['database']['prefix'] . $table_name, $installed_tables);
+
+			// Just temporary becauso of errors in the update 2.0.1 -> 2.0.2
+			if ($table_name == "config_selections") {
+        $table_found = 0;
+        $db->query_first("DROP TABLE IF EXISTS {$config["database"]["prefix"]}$table_name");
+      }
+
+			if ($table_found) $this->table_state[] = "exist";
 
 			// If Rewrite: Drop current table
 			if ($rewrite){
 				$db->query_first("DROP TABLE IF EXISTS {$config["database"]["prefix"]}$table_name");
-			} else {
-
-  			// Search current XML-Table in installed tables
-  			$table_found = in_array($config['database']['prefix'] . $table_name, $installed_tables);
-  			if ($table_found) $this->table_state[] = "exist";
-      }
+				$table_found = false;
+			}
 
 			// Get current table-structure from DB, to compare with XML-File
+			$pri_key_count = 0;
 			$db_fields = array();
-			$FieldsForContent = array();
 			if ($table_found) {
-        // Read fields from DB
 				$query = $db->query("DESCRIBE {$config["database"]["prefix"]}$table_name");
 				while ($row = $db->fetch_array($query)) {
           $db_fields[] = $row;
-          $FieldsForContent[] = $row['Field'];
+					if ($row["Key"] == "PRI") $pri_key_count++;  // If primary key in DB, increase counter
 				}
 				$db->free_result($query);
-
-        // Read indizes from DB
-        $DBPrimaryKey = '';
-        $DBUniqueKeys = array();
-        $DBIndizes = array();
-        $DBFulltext = array();
-        $ResIndizes = $db->query("SHOW INDEX FROM {$config["database"]["prefix"]}$table_name");
-        while ($RowIndizes = $db->fetch_array($ResIndizes)) {
-          if ($RowIndizes['Key_name'] == 'PRIMARY') $DBPrimaryKey = $RowIndizes['Column_name'];
-          elseif ($RowIndizes['Non_unique'] == 0) $DBUniqueKeys[] = $RowIndizes['Column_name'];
-          elseif ($RowIndizes['Non_unique'] == 1) {
-            if ($RowIndizes['Index_type'] == 'FULLTEXT') $DBFulltext[] = $RowIndizes['Column_name'];
-            elseif ($RowIndizes['Index_type'] == 'BTREE') $DBIndizes[] = $RowIndizes['Column_name'];
-          }
-        }
-        $db->free_result($ResIndizes);
 			}
 
-
 			// Import Table-Structure
-			$field_names = array();
 			$structure = $xml->get_tag_content("structure", $table, 0);
-			if ($structure) {
-        $fields = $xml->get_tag_content_array("field", $structure);
-  			$mysql_fields = "";
-  			$primary_key = "";
-  			$unique_key = "";
-  
-  			// Read the DB-Structure form XML-File
-  			if ($fields) foreach ($fields as $field) {
+			$fields = $xml->get_tag_content_array("field", $structure);
+			$mysql_fields = "";
+			$primary_key = "";
+			$unique_key = "";
+			$field_names = array();
 
-  				// Read XML-Entries
-  				$name = $xml->get_tag_content("name", $field);
-  				$type = $xml->get_tag_content("type", $field);
-  				$null_xml = $xml->get_tag_content("null", $field);
-  				$key = $xml->get_tag_content("key", $field);
-  				$default_xml = $xml->get_tag_content("default", $field);
-  				$extra = $xml->get_tag_content("extra", $field);
+			// Search for fields, which exist in the XML-File no more, but still in DB.
+			// Delete them from the DB
+			if ($table_found and $db_fields) foreach ($db_fields as $db_field) if ($fields) {
+				$found_in_xml = 0;
+				foreach ($fields as $field) {
+					if ($db_field["Field"] == $xml->get_tag_content("name", $field)) {
+						$found_in_xml = 1;
+						break;
+					}
+				}
+				if (!$found_in_xml and $db_field["Field"] != "") {
+					$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP {$db_field["Field"]}");
+				}
+			}
 
-          // Set default value to 0 or '', if NOT NULL and not autoincrement
-          if ($null_xml == '' and $extra == '') {
-            if (substr($type, 0, 3) == 'int' or substr($type, 0, 7) == 'tinyint' or substr($type, 0, 9) == 'mediumint'
-              or substr($type, 0, 8) == 'smallint' or substr($type, 0, 6) == 'bigint'
-              or substr($type, 0, 7) == 'decimal' or substr($type, 0, 5) == 'float' or substr($type, 0, 6) == 'double')
-              $default = 'default '. (int)$default_xml;
-            elseif ($type == 'timestamp' or $type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'blob') $default = '';
-            elseif ($type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext') $default = '';
-            else $default = "default '$default_xml'";
-          } else $default = '';
+			// Read the DB-Structure form XML-File
+			if ($fields) foreach ($fields as $field) {
 
-  				// Create MySQL-String to import
-  				($null_xml == '')? $null = "NOT NULL" : $null = "NULL";
-  				if ($key == "PRI") $primary_key .= "$name, ";
-  				if ($key == "UNI") $unique_key .= ", UNIQUE KEY $name ($name)";
-  				$mysql_fields .= "$name $type $null $default $extra, ";
+				// Read XML-Entries
+				$name = $xml->get_tag_content("name", $field);
+				$type = $xml->get_tag_content("type", $field);
+				$null_xml = $xml->get_tag_content("null", $field);
+				$key = $xml->get_tag_content("key", $field);
+				$default_xml = $xml->get_tag_content("default", $field);
+				$extra = $xml->get_tag_content("extra", $field);
 
-  				// Safe Field-Names to know which fields to import content for, in the next step.
-  				$field_names[] = $name;
+				// Create MySQL-String to import
+				($null_xml == "")? $null = "NOT NULL" : $null = "NULL";
+				($default_xml != "")? $default = "default '$default_xml'" : $default = "";
+				if ($key == "PRI") $primary_key .= "$name, ";
+				if ($key == "UNI" or $key == "PRI") $unique_key .= ", UNIQUE KEY $name ($name)";
+				$mysql_fields .= "$name $type $null $default $extra, ";
 
-  				// If table exists, compare XML-File with DB and check weather the DB has to be updated
+				// Safe Field-Names to know which fields to import content for, in the next step.
+				$field_names[] = $name;
+
+				// If table exists, compare XML-File with DB and check weather the DB has to be updated
+				if ($table_found) {
+
+					// Search for fiels, which exist in the XML-File, but dont exist in the DB yet.
 					$found_in_db = 0;
-  				if ($table_found) {
+					if ($db_fields) foreach ($db_fields as $db_field) if ($db_field["Field"] == $name) {
 
-  					// Search for fiels, which exist in the XML-File, but dont exist in the DB yet.
-  					if ($db_fields) foreach ($db_fields as $db_field) if ($db_field["Field"] == $name) {
-  						$found_in_db = 1;
+						// Check wheather the field in the DB differs from the one in the XML-File
+						// Change it
+						if ($null_xml == '' and $db_field['Null'] = 'NO') $null_xml = $db_field['Null']; // Some MySQL-Versions return 'NO' instead of ''
+						if ($db_field["Type"] != $type or $db_field["Null"] != $null_xml or $db_field["Default"] != $default_xml or $db_field["Extra"] != $extra) {
+							$db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name CHANGE $name $name $type $null $default $extra");
+						}
 
-  						// Check wheather the field in the DB differs from the one in the XML-File
-  						// Change it
-  						if ($null_xml == '' and $db_field['Null'] = 'NO') $null_xml = $db_field['Null']; // Some MySQL-Versions return 'NO' instead of ''
-  						if ($db_field["Type"] != $type
-                or $db_field["Null"] != $null_xml
-                or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
-                or $db_field["Extra"] != $extra) {
-  						    $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name CHANGE $name $name $type $null $default $extra");
+						// Has an Index been removed / added?
+						if ($db_field["Key"] != $key) {
 
+							// Index in DB, but not in XML -> Drop it!
+							if ($db_field["Key"] == "PRI") {
+							  $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
+							  $pri_key_count = 0;
+							} elseif ($db_field["Key"] == "UNI") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+							elseif ($db_field["Key"] == "MUL") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+
+
+							// Index in XML, but not in DB -> Add it!
+							if ($key == "MUL") {
+							
+                // If type is string, or text use FULLTEXT as index, otherwise use simple INDEX							
+                if ($type == 'text' or substr($type, 0, 7) == 'varchar')
+                  $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD FULLTEXT ($name)"); 							
+								else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD INDEX ($name)");
+
+							} elseif ($key == "UNI") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD UNIQUE ($name)");
+							elseif ($key == "PRI") {
+							
+                // If primary key is in DB, drop it first, otherwise just add the new one							
+                if ($pri_key_count == 0) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD PRIMARY KEY ($name)");
+                else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY, ADD PRIMARY KEY ($name)");
+                $pri_key_to_add = $name;
+							}
+						}
 /*
-    						// Differece-Report
-    						if ($db_field["Type"] != $type) echo $db_field["Type"] ."=". $type ." Type in $table_name $name<br>";
-    						if ($db_field["Null"] != $null_xml) echo $db_field["Null"] ."=". $null_xml ." Null in $table_name $name<br>";
-    						if ($db_field["Default"] != $default_xml) echo $db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>";
-    						if ($db_field["Extra"] != $extra) echo $db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>";
+						// Differece-Report
+						if ($db_field["Type"] != $type) echo $db_field["Type"] ."=". $type ." Type in $table_name $name<br>";
+						if ($db_field["Null"] != $null_xml) echo $db_field["Null"] ."=". $null_xml ." Null in $table_name $name<br>";
+						if ($db_field["Key"] != $key) echo $db_field["Key"] ."=". $key ." Key in $table_name $name<br>";
+						if ($db_field["Default"] != $default_xml) echo $db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>";
+						if ($db_field["Extra"] != $extra) echo $db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>";
 */
-              }
-  						break;
-  					}
+						$found_in_db = 1;
+						break;
+					}
 
-            //// Index-Check
-            // Drop keys, which no longer exist in XML
-            if ($key == '') {
-              if ($DBPrimaryKey == $name) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
-              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
-                $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+					// If a key was not found in the DB, but in the XML-File -> Add it!
+					if (!$found_in_db) {
+						// If auto_increment is used for this key, add this key as primary, unique key
+						if ($extra == "auto_increment") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra , ADD PRIMARY KEY ($name), ADD UNIQUE ($name)");
+						else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra");
+					}
+				}
+			}
+			
+			$mysql_fields = substr($mysql_fields, 0, strlen($mysql_fields) - 2);
+			if ($primary_key) $primary_key = ", PRIMARY KEY (". substr($primary_key, 0, strlen($primary_key) - 2) .")";
 
-            } elseif ($key == 'PRI') {
-              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
-                $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
-
-            } elseif ($key == 'UNI') {
-              if ($DBPrimaryKey == $name) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
-              if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
-                $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
-
-            } elseif ($key == 'IND') {
-              if ($DBPrimaryKey == $name) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
-              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext))
-                $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
-
-            } elseif ($key == 'FUL') {
-              if ($DBPrimaryKey == $name) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
-              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes))
-                $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
-            }
-
-            // Primary Key in XML but not in DB
-            if ($key == 'PRI' and $DBPrimaryKey != $name) {
-              // No key in DB, yet
-              // IGNORE is to drop non-uniqe lines
-              if ($DBPrimaryKey == '') $db->query("ALTER IGNORE TABLE {$config["database"]["prefix"]}$table_name ADD PRIMARY KEY ($name)");
-              // Key in DB replaced
-              else $db->query("ALTER IGNORE TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY, ADD PRIMARY KEY ($name)");
-            }
-
-            // Unique keys in XML but not in DB
-            if ($key == 'UNI' and !in_array($name, $DBUniqueKeys)) {
-              if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
-              // IGNORE is to drop non-uniqe lines
-              $db->query("ALTER IGNORE TABLE {$config["database"]["prefix"]}$table_name ADD UNIQUE ($name)");
-            }
-
-            // Index in XML but not in DB
-            if ($key == 'IND' and !in_array($name, $DBIndizes)) {
-              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext)) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
-              $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD INDEX ($name)");
-            }
-
-            // Fulltext in XML but not in DB
-            if ($key == 'FUL' and !in_array($name, $DBFulltext)) {
-              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes)) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
-              ## TODO: if ($type == 'text' or $type == 'longtext' or substr($type, 0, 7) == 'varchar')
-              $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD FULLTEXT ($name)");
-            }
-
-
-  					// If a key was not found in the DB, but in the XML-File -> Add it!
-  					if (!$found_in_db) {
-  						// If auto_increment is used for this key, add this key as primary, unique key
-  						if ($extra == "auto_increment") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra , ADD PRIMARY KEY ($name), ADD UNIQUE ($name)");
-  						else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra");
-  					}
-  				}
-  			}
-
-  			// Search for fields, which exist in the XML-File no more, but still in DB.
-  			// Delete them from the DB
-  			if ($table_found and $db_fields) foreach ($db_fields as $db_field) {
-    			if (!in_array($db_field['Field'], $field_names)) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP `{$db_field["Field"]}`");
-  			}
-
-        if (!$table_found) {
-    			$mysql_fields = substr($mysql_fields, 0, strlen($mysql_fields) - 2);
-    			if ($primary_key) $primary_key = ", PRIMARY KEY (". substr($primary_key, 0, strlen($primary_key) - 2) .")";
-
-    			// Create a new table, if it does not exist yet, or has been dropped above, due to rewrite
-    			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}$table_name ($mysql_fields $primary_key $unique_key) TYPE = MyISAM CHARACTER SET utf8");
-    			$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
-
-          // Set Table-Charset to UTF-8
-          # Needed??
-          // Do not use, for some old MySQL-Versions are causing trouble, with that statement.
-#          $db->query_first("ALTER TABLE {$config["database"]["prefix"]}$table_name DEFAULT CHARACTER SET utf8");
-
-  				// Add to installed tables
-  				# Maybe no longer needed??
-          array_push($installed_tables, $config["database"]["prefix"]. $table_name);
-        }
-      }
+			// Create a new table, if it does not exist yet, or has been dropped above, due to rewrite
+			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}$table_name ($mysql_fields $primary_key $unique_key) TYPE=MyISAM");
+			$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
 
 			// Import Table-Content
 			$content = $xml->get_tag_content("content", $table, 0);
 			$entrys = $xml->get_tag_content_array("entry", $content);
 
 			if ($entrys) {
-				// Update Content only, if no row exists, or table has PrimKey set
-				$EntriesFound = array();
-				$qry = $db->query("SELECT * FROM {$config["database"]["prefix"]}$table_name");
-        if ($DBPrimaryKey or $db->num_rows($qry) == 0) {
-          if ($DBPrimaryKey) while ($row = $db->fetch_array($qry)) $EntriesFound[] = $row[$DBPrimaryKey];
-
-  				foreach ($entrys as $entry) {
-  				  $mysql_entries = '';
-  				  $FoundValueInDB = 0;
-  					if (!$field_names) $field_names = $FieldsForContent; // Get names from DB, if not in XML-Structure
-  					if ($field_names) foreach ($field_names as $field_name) {
-  						$value = $xml->get_tag_content($field_name, $entry);
-  						if ($value != '') $mysql_entries .= "$field_name = '". $func->escape_sql($value) ."', ";
-  						if ($field_name == $DBPrimaryKey and in_array($value, $EntriesFound)) $FoundValueInDB = 1;
-  					}
-
-            if (!$FoundValueInDB) {
-    					$mysql_entries = substr($mysql_entries, 0, strlen($mysql_entries) - 2);
-              $db->query_first("REPLACE INTO {$config["database"]["prefix"]}$table_name SET $mysql_entries");
-            }
-          }
-        }
+				// Update Content only, if no row exists
+				$qry = $db->query("SELECT * FROM {$config["database"]["prefix"]}$table_name LIMIT 1");
+				$num_rows = $db->num_rows($qry);
 				$db->free_result($qry);
+
+				foreach ($entrys as $entry) {
+					$mysql_entries = "";
+					if ($field_names) foreach ($field_names as $field_name) {
+						$value = $xml->get_tag_content($field_name, $entry);
+						$mysql_entries .= "$field_name = '". $func->escape_sql($value) ."', ";
+					}
+					$mysql_entries = substr($mysql_entries, 0, strlen($mysql_entries) - 2);
+					if ($num_rows == 0) $db->query_first("REPLACE INTO {$config["database"]["prefix"]}$table_name SET $mysql_entries");
+				}
 			}
 
 			if ($rewrite) $this->table_state[] = "rewrite";
-
+			
 			// Optimize table
 			$db->query_first("OPTIMIZE TABLE $table_name");
 		}
@@ -406,28 +338,14 @@ class Import {
 				if (($db->num_rows($res) > 0) && (!$replace)) $skip = 1;
 
 				if (!$skip){
-				  $clan_id = 0;
-				  if ($clan != '') {
-				    // Search clan
-   					$search_clan = $db->query_first("SELECT clanid FROM {$config["tables"]["clan"]} WHERE name = '$clan'");
-   					if ($search_clan['clanid'] != '') $clan_id = $search_clan['clanid'];
-   					
-   					// Insert new clan
-            else {
-    					$db->query("INSERT INTO {$config["tables"]["clan"]} SET
-    							name = '$clan',
-    							url = '$clanurl'
-    							");
-    					$clan_id = $db->insert_id();
-    				}
-          }
 					$db->query("REPLACE INTO {$config["tables"]["user"]} SET
 							email = '$email',
 							name = '$name',
 							username = '$username',
 							firstname = '$firstname',
+							clan = '$clan',
+							clanurl = '$clanurl',
 							type = '$type',
-							clanid = ". (int)$clan_id .",
 							password = '$password',
 							wwclid = '$wwclid',
 							wwclclanid = '$wwclclanid',
@@ -584,14 +502,5 @@ class Import {
 
 		return $import;
 	}
-	
-	function ImportExtInc($filename) {
-    include_once('ext_scripts/archive.php');
-
-    $zip = new gzip_file($filename);
-    $zip->set_options(array('basedir' => '.', 'overwrite' => 1));
-    $zip->extract_files();
-  }
-	
 }
 ?>

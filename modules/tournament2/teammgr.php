@@ -25,12 +25,16 @@ switch($step) {
 
 	// Spieler zum eigenen Team hinzufügen - Suchen
 	case 40:
-    include_once('modules/usrmgr/search_main.inc.php');      
+		$mastersearch = new MasterSearch($vars, 
+			"index.php?mod=tournament2&action=teammgr&step=40&teamid={$_GET["teamid"]}&tournamentid=$tournamentid", 
+			"index.php?mod=tournament2&action=teammgr&step=41&teamid={$_GET["teamid"]}&tournamentid=$tournamentid&userid=", 
+			" AND p.party_id={$party->party_id} AND (p.paid) GROUP BY u.email");
+		$mastersearch->LoadConfig("users", $lang["tourney"]["teammgr_ms_caption"], $lang["tourney"]["teammgr_ms_subcaption"]);
+		$mastersearch->PrintForm();
+		$mastersearch->Search();
+		$mastersearch->PrintResult();
 
-    $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
-    $ms2->AddIconField('assign', 'index.php?mod=tournament2&action=teammgr&step=41&teamid='. $_GET["teamid"] .'&tournamentid='. $tournamentid .'&userid=', 'Assign');
-
-    $ms2->PrintSearch('index.php?mod=tournament2&action=teammgr&step=40&teamid='. $_GET["teamid"] .'&tournamentid='. $tournamentid, 'u.userid');
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
 	break;
 
 	// Spieler zum eigenen Team hinzufügen - In DB schreiben
@@ -141,7 +145,7 @@ switch($step) {
 			$anz_memb = 0;
 			while($member = $db->fetch_array($members)) {
 				$anz_memb++;
-				$member_liste .= HTML_NEWLINE . "- ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a> ". $dsp->FetchButton("index.php?mod=tournament2&action=teammgr&step=20&teamid={$member['teamid']}&userid={$member['userid']}", "kick");
+				$member_liste .= HTML_NEWLINE . "- ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"/design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a> ". $dsp->FetchButton("index.php?mod=tournament2&action=teammgr&step=20&teamid={$member['teamid']}&userid={$member['userid']}", "kick");
 			}
 			$db->free_result($members);
 			
@@ -176,11 +180,11 @@ switch($step) {
 			$anz_memb = 0;
 			while($member2 = $db->fetch_array($members2)) {
 				$anz_memb++;
-				$member_liste .= HTML_NEWLINE . "- ". $member2["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member2['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>";
+				$member_liste .= HTML_NEWLINE . "- ". $member2["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member2['userid']}\"><img src=\"/design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>";
 			}
 			$db->free_result($members2);
 
-			$dsp->AddDoubleRow($lang["tourney"]["teammgr_team"] ." ". $i, "{$member["name"]} ({$member["tname"]}) ({$lang["tourney"]["teammgr_teamsize"]}: ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . "{$lang["tourney"]["teammgr_leader"]}: ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>$member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">{$lang["tourney"]["teammgr_signoff_team"]}</a>");
+			$dsp->AddDoubleRow($lang["tourney"]["teammgr_team"] ." ". $i, "{$member["name"]} ({$member["tname"]}) ({$lang["tourney"]["teammgr_teamsize"]}: ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . "{$lang["tourney"]["teammgr_leader"]}: ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"/design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>$member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">{$lang["tourney"]["teammgr_signoff_team"]}</a>");
 		}
 		$db->free_result($members);
 

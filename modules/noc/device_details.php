@@ -123,14 +123,14 @@ if( !$row = $db->fetch_array() ) {
 					if(file_exists($filepath . "port_" . $row["type"] . "_failed_" . $row["portnr"] . ".png")){
 						$port_pic = $filepath . "port_" . $row["type"] . "_failed_" . $row["portnr"] . ".png";
 					}else{
-						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
+						$port_pic = "base.php?mod=noc_port_picture&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}
 						$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";
 				} else {
 					if(file_exists($filepath . "port_" . $row["type"] . "_on_" . $row["portnr"] . ".png")){
 						$port_pic = $filepath . "port_" . $row["type"] . "_on_" . $row["portnr"] . ".png";
 					}else{
-						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=on&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
+						$port_pic = "base.php?mod=noc_port_picture&type=" . $row["type"] . "&status=on&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}
 						$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";				
 				}
@@ -146,14 +146,14 @@ if( !$row = $db->fetch_array() ) {
 					if(file_exists($filepath . "port_" . $row["type"] . "_failed_" . $row["portnr"] . ".png")){
 						$port_pic = $filepath . "port_" . $row["type"] . "_failed_" . $row["portnr"] . ".png";
 					}else{
-						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
+						$port_pic = "base.php?mod=noc_port_picture&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}
 						$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";
 				} else {
 					if(file_exists($filepath . "port_" . $row["type"] . "_off_" . $row["portnr"] . ".png")){
 						$port_pic = $filepath . "port_" . $row["type"] . "_off_" . $row["portnr"] . ".png";
 					}else{
-						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
+						$port_pic = "base.php?mod=noc_port_picture&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}					
 						$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";						
 				}
@@ -161,7 +161,7 @@ if( !$row = $db->fetch_array() ) {
 				break;
 
 				default:
-				//$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "<td colspan=\"" . $colspan . "\"><img border=0 src=\"index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=off&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\"></td>";
+				//$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "<td colspan=\"" . $colspan . "\"><img border=0 src=\"base.php?mod=noc_port_picture&type=" . $row["type"] . "&status=off&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\"></td>";
 				break;
 
 			} // END SWITCH($row["linkstatus"])
@@ -207,14 +207,14 @@ if( !$row = $db->fetch_array() ) {
 					if(file_exists($filepath . "port_" . $row["type"] . "_failed_" . $row["portnr"] . ".png")){
 						$port_pic = $filepath . "port_" . $row["type"] . "_failed_" . $row["portnr"] . ".png";
 					}else{
-						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
+						$port_pic = "base.php?mod=noc_port_picture&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}
 					$tmp_noc .= "<td colspan=\"" . $colspan . "\" ><input name='noc[]' type='checkbox' value='". $row["portnr"] ."'/><img alt='' border=0 src=\"$port_pic\"/></td>\n";
 				} else {
 					if(file_exists($filepath . "port_" . $row["type"] . "_on_" . $row["portnr"] . ".png")){
 						$port_pic = $filepath . "port_" . $row["type"] . "_on_" . $row["portnr"] . ".png";
 					}else{
-						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=on&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
+						$port_pic = "base.php?mod=noc_port_picture&type=" . $row["type"] . "&status=on&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}					
 					$tmp_noc .= "<td colspan=\"" . $colspan . "\"><input name='noc[]' type='checkbox' value='". $row["portnr"] ."'/><img alt='' border=0 src=\"$port_pic\"/></td>\n";
 				}				
@@ -229,14 +229,14 @@ if( !$row = $db->fetch_array() ) {
 					if(file_exists($filepath . "port_" . $row["type"] . "_failed_" . $row["portnr"] . ".png")){
 						$port_pic = $filepath . "port_" . $row["type"] . "_failed_" . $row["portnr"] . ".png";
 					}else{
-						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
+						$port_pic = "base.php?mod=noc_port_picture&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}
 					$tmp_noc .= "<td colspan=\"" . $colspan . "\" ><input name='noc[]' type='checkbox' value='". $row["portnr"] ."'/><img alt='' border=0 src=\"$port_pic\"/></td>\n";
 				} else {
 					if(file_exists($filepath . "port_" . $row["type"] . "_off_" . $row["portnr"] . ".png")){
 						$port_pic = $filepath . "port_" . $row["type"] . "_off_" . $row["portnr"] . ".png";
 					}else{
-						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=off&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
+						$port_pic = "base.php?mod=noc_port_picture&type=" . $row["type"] . "&status=off&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}
 
 					$tmp_noc .= "<td colspan=\"" . $colspan . "\"><input name='noc[]' type='checkbox' value='". $row["portnr"] ."'/><img alt='' border=0 src=\"$port_pic\"/></td>\n";

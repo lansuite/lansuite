@@ -24,10 +24,10 @@ if($count_cat == 0) { $func->information($lang['faq']['no_itenm'],"index.php?mod
 	else {
 			
 		$dsp->NewContent($lang['faq']['show_caption'],$lang['faq']['show_subcaption']);
-		if ($_SESSION['menu_status']['faq'][$_GET['faqcatid']] == "closed") {
-			$_SESSION['menu_status']['faq'][$_GET['faqcatid']] = "open";
-		} else {
+		if($_SESSION['menu_status']['faq'][$_GET['faqcatid']] == "open") {
 			$_SESSION['menu_status']['faq'][$_GET['faqcatid']] = "closed";
+		}else {
+			$_SESSION['menu_status']['faq'][$_GET['faqcatid']] = "open";
 		}	
 		
 		while($row=$db->fetch_array($get_cat)) {
@@ -37,7 +37,7 @@ if($count_cat == 0) { $func->information($lang['faq']['no_itenm'],"index.php?mod
 		
 			$faq_content .= $dsp->FetchModTpl("faq","faq_overview_row_cat");
 		
-				if($_SESSION['menu_status']['faq'][$row['catid']] == '' or $_SESSION['menu_status']['faq'][$row['catid']] == "open") {
+				if($_SESSION['menu_status']['faq'][$row['catid']] == "open") {
 		
 					$get_item = $db->query("SELECT caption,itemid FROM {$config["tables"]["faq_item"]}
 													WHERE catid = '{$row['catid']}'");

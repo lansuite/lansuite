@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 
 <lansuite>
 	<header>
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2007-08-11 03:29</date>
+		<date>2005-02-26 11:16</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,189 +15,232 @@
 			<field>
 				<name>userid</name>
 				<type>int(6)</type>
-				<null>NO</null>
+				<null></null>
+				<key>PRI</key>
 				<default></default>
 				<extra>auto_increment</extra>
-				<key>PRI</key>
 			</field>
 			<field>
 				<name>email</name>
 				<type>varchar(120)</type>
-				<null>NO</null>
+				<null></null>
+				<key>UNI</key>
 				<default></default>
 				<extra></extra>
-				<key>UNI</key>
 			</field>
 			<field>
 				<name>username</name>
 				<type>varchar(25)</type>
-				<null>NO</null>
+				<null></null>
+				<key>MUL</key>
 				<default></default>
 				<extra></extra>
-				<key>FUL</key>
 			</field>
 			<field>
 				<name>password</name>
 				<type>varchar(60)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>type</name>
-				<type>tinyint(2)</type>
-				<null>NO</null>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key>MUL</key>
 				<default>0</default>
 				<extra></extra>
-				<key>IND</key>
 			</field>
 			<field>
 				<name>rights</name>
 				<type>varchar(200)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>name</name>
 				<type>varchar(50)</type>
-				<null>NO</null>
+				<null></null>
+				<key>MUL</key>
 				<default></default>
 				<extra></extra>
-				<key>FUL</key>
 			</field>
 			<field>
 				<name>firstname</name>
 				<type>varchar(50)</type>
-				<null>NO</null>
+				<null></null>
+				<key>MUL</key>
 				<default></default>
 				<extra></extra>
-				<key>FUL</key>
 			</field>
 			<field>
-				<name>clanid</name>
-				<type>int(11)</type>
-				<null>NO</null>
-				<default>0</default>
+				<name>clan</name>
+				<type>varchar(50)</type>
+				<null></null>
+				<key>MUL</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>clanpass</name>
+				<type>varchar(60)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>			
+			<field>
+				<name>clanurl</name>
+				<type>varchar(200)</type>
+				<null></null>
+				<key></key>
+				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>logins</name>
 				<type>int(5)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>ipaddress</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key>MUL</key>
+				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>portnumber</name>
 				<type>int(3)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>posts</name>
+				<type>int(5)</type>
+				<null></null>
+				<key></key>
 				<default>0</default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>wwclid</name>
 				<type>varchar(15)</type>
-				<null>NO</null>
+				<null></null>
+				<key>MUL</key>
 				<default></default>
 				<extra></extra>
-				<key>FUL</key>
 			</field>
 			<field>
 				<name>wwclclanid</name>
 				<type>varchar(15)</type>
-				<null>NO</null>
+				<null></null>
+				<key>MUL</key>
 				<default></default>
 				<extra></extra>
-				<key>FUL</key>
 			</field>
 			<field>
 				<name>nglid</name>
 				<type>varchar(15)</type>
-				<null>NO</null>
+				<null></null>
+				<key>MUL</key>
 				<default></default>
 				<extra></extra>
-				<key>FUL</key>
 			</field>
 			<field>
 				<name>nglclanid</name>
 				<type>varchar(15)</type>
-				<null>NO</null>
+				<null></null>
+				<key>MUL</key>
 				<default></default>
 				<extra></extra>
-				<key>FUL</key>
 			</field>
 			<field>
 				<name>lgzid</name>
 				<type>varchar(15)</type>
-				<null>NO</null>
-				<default></default>
+				<null></null>
+				<key>MUL</key>
+				<default>14475</default>
 				<extra></extra>
-				<key>FUL</key>
 			</field>
 			<field>
 				<name>lgzclanid</name>
 				<type>varchar(15)</type>
-				<null>NO</null>
-				<default></default>
+				<null></null>
+				<key>MUL</key>
+				<default>38</default>
 				<extra></extra>
-				<key>FUL</key>
 			</field>
 			<field>
 				<name>comment</name>
 				<type>text</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>sex</name>
 				<type>tinyint(1)</type>
-				<null>NO</null>
+				<null></null>
+				<key>MUL</key>
 				<default>0</default>
 				<extra></extra>
-				<key>IND</key>
 			</field>
 			<field>
 				<name>street</name>
 				<type>varchar(50)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>hnr</name>
 				<type>varchar(5)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>plz</name>
 				<type>varchar(5)</type>
-				<null>NO</null>
+				<null></null>
+				<key>MUL</key>
 				<default></default>
 				<extra></extra>
-				<key>FUL</key>
 			</field>
 			<field>
 				<name>city</name>
 				<type>varchar(50)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>passnr</name>
 				<type>varchar(15)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>catering_discount</name>
 				<type>float</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -205,42 +248,47 @@
 				<name>changedate</name>
 				<type>timestamp</type>
 				<null>YES</null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>fcode</name>
 				<type>varchar(25)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>birthday</name>
-				<type>date</type>
-				<null>NO</null>
-				<default></default>
+				<type>int(15)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>newsletter</name>
 				<type>tinyint(1)</type>
-				<null>NO</null>
+				<null></null>
+				<key>MUL</key>
 				<default>0</default>
 				<extra></extra>
-				<key>IND</key>
 			</field>
 			<field>
 				<name>perso</name>
 				<type>varchar(36)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>group_id</name>
 				<type>int(10)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -248,72 +296,370 @@
 				<name>votes_left</name>
 				<type>tinyint(32)</type>
 				<null>YES</null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>switch_back</name>
 				<type>varchar(25)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>barcode</name>
 				<type>bigint(20)</type>
-				<null>NO</null>
-				<default>0</default>
+				<null></null>
+				<key></key>
+				<default></default>
 				<extra></extra>
 			</field>
 			<field>
-				<name>locked</name>
+				<name>user_active</name>
+				<type>tinyint(1)</type>
+				<null>YES</null>
+				<key></key>
+				<default>1</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_session_time</name>
+				<type>int(11)</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_session_page</name>
+				<type>smallint(5)</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_lastvisit</name>
+				<type>int(11)</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_regdate</name>
+				<type>int(11)</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_level</name>
+				<type>tinyint(4)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_posts</name>
+				<type>mediumint(8) unsigned</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_timezone</name>
+				<type>decimal(5,2)</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_style</name>
+				<type>tinyint(4)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_lang</name>
+				<type>varchar(255)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_dateformat</name>
+				<type>varchar(14)</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_new_privmsg</name>
+				<type>smallint(5) unsigned</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_unread_privmsg</name>
+				<type>smallint(5) unsigned</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_last_privmsg</name>
+				<type>int(11)</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_login_tries</name>
+				<type>smallint(5) unsigned</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_last_login_try</name>
+				<type>int(11)</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_emailtime</name>
+				<type>int(11)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_viewemail</name>
+				<type>tinyint(1)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_attachsig</name>
+				<type>tinyint(1)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_allowhtml</name>
+				<type>tinyint(1)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_allowbbcode</name>
+				<type>tinyint(1)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_allowsmile</name>
+				<type>tinyint(1)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_allowavatar</name>
 				<type>tinyint(1)</type>
 				<null>NO</null>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>picture</name>
-				<type>varchar(80)</type>
-				<null>NO</null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
-				<name>icq</name>
-				<type>varchar(12)</type>
+				<name>user_allow_pm</name>
+				<type>tinyint(1)</type>
 				<null>NO</null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
-				<name>msn</name>
-				<type>varchar(120)</type>
+				<name>user_allow_viewonline</name>
+				<type>tinyint(1)</type>
 				<null>NO</null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
-				<name>skype</name>
-				<type>varchar(20)</type>
+				<name>user_notify</name>
+				<type>tinyint(1)</type>
 				<null>NO</null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
-				<name>telefon</name>
-				<type>varchar(20)</type>
+				<name>user_notify_pm</name>
+				<type>tinyint(1)</type>
 				<null>NO</null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
-				<name>handy</name>
-				<type>varchar(20)</type>
+				<name>user_popup_pm</name>
+				<type>tinyint(1)</type>
 				<null>NO</null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>user_rank</name>
+				<type>int(11)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_avatar</name>
+				<type>varchar(100)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_avatar_type</name>
+				<type>tinyint(4)</type>
+				<null>NO</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_icq</name>
+				<type>varchar(15)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_website</name>
+				<type>varchar(100)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_from</name>
+				<type>varchar(100)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_sig</name>
+				<type>text</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_sig_bbcode_uid</name>
+				<type>varchar(10)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_aim</name>
+				<type>varchar(255)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_yim</name>
+				<type>varchar(255)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_msnm</name>
+				<type>varchar(255)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_occ</name>
+				<type>varchar(100)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_interests</name>
+				<type>varchar(255)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_actkey</name>
+				<type>varchar(32)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>user_newpasswd</name>
+				<type>varchar(32)</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>	
 		</structure>
 	</table>
 	<table>
@@ -324,44 +670,33 @@
 			<field>
 				<name>userid</name>
 				<type>int(6)</type>
-				<null>NO</null>
+				<null></null>
+				<key>PRI</key>
 				<default>0</default>
 				<extra></extra>
-				<key>PRI</key>
 			</field>
 			<field>
 				<name>design</name>
 				<type>varchar(255)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>avatar_path</name>
 				<type>varchar(255)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>signature</name>
 				<type>text</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>show_me_in_map</name>
-				<type>tinyint(1)</type>
-				<null>NO</null>
-				<default>1</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>lsmail_alert</name>
-				<type>tinyint(1)</type>
-				<null>NO</null>
-				<default>0</default>
 				<extra></extra>
 			</field>
 		</structure>
@@ -374,221 +709,16 @@
 			<field>
 				<name>userid</name>
 				<type>int(6)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default>0</default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>module</name>
 				<type>varchar(20)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-		</structure>
-	</table>
-	<table>
-		<table_head>
-			<name>user_fields</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>fieldid</name>
-				<type>int(6)</type>
-				<null>NO</null>
-				<default></default>
-				<extra>auto_increment</extra>
-				<key>PRI</key>
-			</field>
-			<field>
-				<name>name</name>
-				<type>varchar(50)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-				<key>UNI</key>
-			</field>
-			<field>
-				<name>caption</name>
-				<type>varchar(255)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>optional</name>
-				<type>int(6)</type>
-				<null>NO</null>
-				<default>0</default>
-				<extra></extra>
-			</field>
-		</structure>
-	</table>
-	<table>
-		<table_head>
-			<name>party_usergroups</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>group_id</name>
-				<type>int(20)</type>
-				<null>NO</null>
-				<default></default>
-				<extra>auto_increment</extra>
-				<key>PRI</key>
-			</field>
-			<field>
-				<name>group_name</name>
-				<type>varchar(30)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>description</name>
-				<type>varchar(50)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>selection</name>
-				<type>int(10)</type>
-				<null>NO</null>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>select_opts</name>
-				<type>varchar(50)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>pos</name>
-				<type>int(15)</type>
-				<null>NO</null>
-				<default>0</default>
-				<extra></extra>
-			</field>
-		</structure>
-	</table>
-	<table>
-		<table_head>
-			<name>hardware</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>hardwareid</name>
-				<type>int(6)</type>
-				<null>NO</null>
-				<default></default>
-				<extra>auto_increment</extra>
-				<key>PRI</key>
-			</field>
-			<field>
-				<name>userid</name>
-				<type>int(6)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>cpu</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>ram</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>graka</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>hdd1</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>hdd2</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>cd1</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>cd2</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>maus</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>tasta</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>monitor</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>picurl</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>sonstiges</name>
-				<type>text</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>os</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>name</name>
-				<type>varchar(200)</type>
-				<null>NO</null>
+				<null></null>
+				<key></key>
 				<default></default>
 				<extra></extra>
 			</field>

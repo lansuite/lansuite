@@ -17,7 +17,6 @@ $lang['info']['change_caption_2'] = 'Change this informationpage';
 $lang['info']['change_subcaption_2'] = 'This is where you can edit the content of this infopage';
 $lang['info']['title'] = 'Pagecaption';
 $lang['info']['subtitle'] = 'Subcaption';
-$lang['info']['active'] = 'Activ';
 $lang['info']['err_missing_fields'] = 'Please fill in all the requested fields!';
 $lang['info']['add_success'] = 'The entry was created successfully';
 $lang['info']['change_success'] = 'The entry was changed successfully';

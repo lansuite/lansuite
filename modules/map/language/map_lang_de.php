@@ -5,11 +5,11 @@
 
 
  $lang['map']['headline']	= 'Anfahrt';
- $lang['map']['subheadline'] = 'Hier kÃ¶nnt ihr euch von Map24.de eure Route zur LAN berechnen lassen.';
- $lang['map']['single_row']	= 'Der Routenplaner kommt in einem neuem Fenster. Wenn nicht, Ã¼berprÃ¼ft doch mal, ob euer Pop-Up Blocker im Weg ist.';
+ $lang['map']['subheadline'] = 'Hier könnt ihr euch von Map24.de eure Route zur LAN berechnen lassen.';
+ $lang['map']['single_row']	= 'Der Routenplaner kommt in einem neuem Fenster. Wenn nicht, überprüft doch mal, ob euer Pop-Up Blocker im Weg ist.';
  $lang['map']['name']	= 'Texteingabe';
- $lang['map']['user_insg']	= 'Benutzer insgesamt';
- $lang['map']['street']	= 'StraÃŸe: ';
+ $lang['map']['user_insg']	= 'Benutzer insgesammt';
+ $lang['map']['street']	= 'Straße: ';
  $lang['map']['plz']	= 'Postleitzahl: ';
  $lang['map']['city']	= 'Ort: ';
 ?>

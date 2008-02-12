@@ -9,7 +9,7 @@ $dsp->NewContent($lang["tourney"]["timetable_caption"], $lang["tourney"]["timeta
 // Generate Table-head
 $mintime = 9999999999;
 $maxtime = 0;
-$tournaments = $db->query("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM {$config["tables"]["tournament_tournaments"]} WHERE party_id = ". (int)$party->party_id);
+$tournaments = $db->query("SELECT * FROM {$config["tables"]["tournament_tournaments"]}");
 while ($tournament = $db->fetch_array($tournaments)) {
 	// Calc Min-Time
 	if ($tournament["starttime"] < $mintime) $mintime = $tournament["starttime"];
@@ -31,7 +31,7 @@ for ($z = $mintime; $z <= $maxtime; $z+= (60 * 60 * 2)) $templ['timetable']['hea
 
 // Generate Table-foot
 $templ['timetable']['zeilen'] = "";
-$tournaments = $db->query("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM {$config["tables"]["tournament_tournaments"]} WHERE party_id = ". (int)$party->party_id);
+$tournaments = $db->query("SELECT * FROM {$config["tables"]["tournament_tournaments"]}");
 while ($tournament = $db->fetch_array($tournaments)) {
 #	echo "Zeit {$tournament["starttime"]}<br>";
 

@@ -2,56 +2,46 @@
 
 class display {
 
-	var $form_line = '';
+	var $form_line = "";
 	var $content_need_form = 0;
 	var $form_ok = 0;
 	var $form_open = 0;
 	var $formcount = 1;
-  var $TplCache = array();
-  var $errortext_prefix = '';
-  var $errortext_suffix = '';
-  var $FirstLine = 1;
-  var $TplVars = array();
+	var $TableOpen = false;
+	var $HiddenBoxJSLoaded = false;
 
-  // Constructor
-  function display() {
-    $this->errortext_prefix = HTML_NEWLINE . HTML_FONT_ERROR;
-    $this->errortext_suffix = HTML_FONT_END;
-  }
+/* Class-Internal Functions*/
 
-  function EchoTpl($file) {
-    global $auth, $language;
+	// Output the template $file
+	function AddTpl($file){
+		global $auth, $language, $templ, $cfg;
 
-		$handle = fopen ($file, 'rb');
-		$tpl_str = fread($handle, filesize($file));
+		if (!$this->TableOpen) {
+			$templ['index']['info']['content'] .= '<table width="100%" cellspacing="0" cellpadding="0">';
+			$this->TableOpen = true;
+		}
+
+		$handle = fopen ($file, "rb");
+		$tpl_str = fread ($handle, filesize ($file));
 		fclose ($handle);
 
-		$tpl_str = str_replace('{language}', $language, $tpl_str );
-		$tpl_str = str_replace('{default_design}', $auth['design'], $tpl_str);
+		$tpl_str = str_replace("\"","\\\"", $tpl_str );
+		$tpl_str = str_replace("{language}", $language, $tpl_str );
+		$tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str);
 
-		echo $tpl_str;
-  }
+		if ($cfg['sys_showdebug']) $templ['index']['info']['content'] .= "\r\n<!-- Start of template '$file' -->\r\n";
+		eval("\$templ['index']['info']['content'] .= \"".$tpl_str."\";");
+		if ($cfg['sys_showdebug']) $templ['index']['info']['content'] .= "\r\n<!-- End of template '$file' -->\r\n";
+	}
 
-  function SetVar($name, $value){
-    $this->TplVars[$name] = $value;
-  }
-
-  function EchoVar($name){
-    echo $this->TplVars[$name];
-  }
 
 	// Returns the template $file
-	function FetchTpl($file, $templx = ''){
-		global $auth, $language, $cfg, $TplCache, $templ;
-		
-    #echo "Loading $file<br>";
-    if ($this->TplCache[$file] != '') $tpl_str = $this->TplCache[$file];
-    else {
-  		$handle = fopen ($file, 'rb');
-  		$tpl_str = fread ($handle, filesize ($file));
-  		fclose ($handle);
-  		$this->TplCache[$file] = $tpl_str;
-    }
+	function FetchTpl($file, $templ){
+		global $auth, $language, $cfg;
+
+		$handle = fopen ($file, "rb");
+		$tpl_str = fread ($handle, filesize ($file));
+		fclose ($handle);
 
 		$tpl_str = str_replace("\"","\\\"", $tpl_str );
 		$tpl_str = str_replace("{language}", $language, $tpl_str );
@@ -65,92 +55,83 @@ class display {
 		return $tpl;
 	}
 
-	// Output the template $file
-	function AddTpl($file, $OpenTable = 1){
-		global $templ;
 
-    echo $this->FetchTpl($file, $templ);
-	}
-
-	// Output the template $file
-	function AddLineTpl($file, $OpenTable = 1){
-		global $templ;
-
-    if ($_GET['design'] != 'base') {
-      if ($this->FirstLine) {
-        echo '<ul class="LineFirst">'. $this->FetchTpl($file) .'</ul>';
-        $this->FirstLine = 0;
-      } else echo '<ul class="Line">'. $this->FetchTpl($file) .'</ul>';
-    }
-	}
-
+/* External-Functions */
 
 	// Writes the headline of a page
-  function NewContent($caption, $header = NULL, $helplet_id = 'help') {
+    function NewContent($caption, $header = NULL, $helplet_id = 'help') {
 		global $templ, $language;
 
     if (file_exists("modules/{$_GET['mod']}/docu/{$language}_{$helplet_id}.php")) {
       $templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
-      $templ['NewContent']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
+      $templ['ls']['row']['helpletbutton']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
     }
-		$templ['NewContent']['caption'] = $caption;
-		$templ['NewContent']['header_text'] = $header;
+
+		$templ['ls']['case']['caption'] = $caption;
+		$templ['ls']['case']['header_text'] = $header;
 
 		unset($this->content_need_form);
 		$this->form_ok = false;
 
-		$this->AddLineTpl("design/templates/ls_row_headline.htm");
+        $this->errortext_prefix = HTML_NEWLINE . HTML_FONT_ERROR;
+        $this->errortext_suffix = HTML_FONT_END;
+
+		$this->AddTpl("design/templates/ls_row_headline.htm");
 	}
+
 
 	function AddHeaderButtons() {
+
 	}
 
-  function AddHeaderMenu($names, $link, $active = NULL) {
-   	global $templ;
 
-    foreach ($names as $key => $name) {
-			if ($key == $active and $active != NULL) $am = '';
-      else $am = 'class="menu"';
-			$templ['AddHeaderMenu']['items'] .= "<a href=\"".$link."&headermenuitem=$key\"".$am."><b>".$name."</b></a> - ";
+    function AddHeaderMenu($names, $link, $active = NULL) {
+     	global $templ;
+
+        $i = 1;
+        foreach($names as $name) {
+			if($i == $active AND $active != NULL) { $am = ""; } else { $am = "class=\"menu\""; }
+			$templ['ls']['row']['headermenu']['items'] .= "<a href=\"".$link."&headermenuitem=$i\"".$am."><strong>".$name."</strong></a> - ";
+			$i++;
+        }
+
+		// Letztes Minus rausschneiden
+		$templ['ls']['row']['headermenu']['items'] = substr($templ['ls']['row']['headermenu']['items'], 0, -3);
+
+		$this->AddTpl("design/templates/ls_row_headermenu.htm");
     }
-  	// Letztes Minus rausschneiden
-  	$templ['AddHeaderMenu']['items'] = substr($templ['AddHeaderMenu']['items'], 0, -3);
-
-		$this->AddLineTpl("design/templates/ls_row_headermenu.htm");
-  }
-    
-  function AddHeaderMenu2($names, $link, $active = NULL) {
-   	global $templ;
-
-    foreach($names as $key => $name) {
-      ($key == $active and $active != '')? $am = '' : $am = 'class="menu"';
-      $templ['AddHeaderMenu']['items'] .= '<a href="'. $link . $key .'"'. $am .'><b>'. $name .'</b></a> - ';
-    }
-    $templ['AddHeaderMenu']['items'] = substr($templ['AddHeaderMenu']['items'], 0, -3);
-    
-    $this->AddLineTpl("design/templates/ls_row_headermenu.htm");
-  }
 
 	function StartHiddenBox($name, $vissible = false) {
 		global $templ;
 
-    ($vissible)? $vissible = '' : $vissible = 'none';
-    echo '<div id="'. $name .'" style="display:'. $vissible .'">';
+    $templ['ls']['row']['hidden_row']['id'] = $name;
+
+    if (!$this->HiddenBoxJSLoaded) {
+      $this->HiddenBoxJSLoaded = true;
+      $this->AddTpl("design/templates/ls_row_hiddenbox_js.htm");
+    }
+    
+    if ($vissible) $templ['ls']['row']['hidden_row']['display'] = '';
+    else $templ['ls']['row']['hidden_row']['display'] = 'none';
+
+		$this->AddTpl("design/templates/ls_row_hiddenbox_start.htm");
 	}
 
 	function StopHiddenBox() {
 		global $templ;
 		
-    echo '</div>';
+		$this->AddTpl("design/templates/ls_row_hiddenbox_stop.htm");
 	}
+
 
 	function AddSingleRow($text, $parm = NULL) {
 		global $templ;
 
-		$templ['SingleRow']['text'] = $text;
-		if ($parm != "") $templ['SingleRow']['align'] = $parm;
+		$templ['ls']['row']['single']['text'] = stripslashes($text);
 
-		$this->AddLineTpl("design/templates/ls_row_single.htm");
+		if ($parm != "") $templ['ls']['row']['single']['align'] = $parm;
+
+		$this->AddTpl("design/templates/ls_row_single.htm");
 	}
 
 	function AddDoubleRow($key, $value, $id = NULL) {
@@ -159,479 +140,490 @@ class display {
 		if ($key == "") $key = "&nbsp;";
 		if ($value == "") $value = "&nbsp;";
 		if ($id == "") $id = "DoubleRowVal";
-		$templ['AddDoubleRow']['key'] = $key;
-		$templ['AddDoubleRow']['value'] = $value;
-		$templ['AddDoubleRow']['id'] = $id;
+		$templ['ls']['row']['double']['key'] = stripslashes($key);
+		$templ['ls']['row']['double']['value'] = stripslashes($value);
+		$templ['ls']['row']['double']['id'] = $id;
 
-		$this->AddLineTpl("design/templates/ls_row_double.htm");
+		$this->AddTpl("design/templates/ls_row_double.htm");
 	}
 
-	function AddCheckBoxRow($name, $key, $text, $errortext, $optional = NULL, $checked = NULL, $disabled = NULL, $val = NULL, $additionalHTML = NULL) {
+
+	function AddCheckBoxRow($name, $key, $text, $errortext, $optional = NULL, $checked = NULL, $disabled = NULL, $val = NULL) {
 		global $templ;
 
-		($checked)? $checked = 'checked' : $checked = '';
-		($disabled)? $disabled = 'disabled' : $disabled = '';
-		($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
-		($optional)? $optional = "_optional" : $optional = '';
-		if ($val == '') $val = '1';
+		$templ['ls']['row']['checkbox']['name'] = $name;
+		$templ['ls']['row']['checkbox']['key'] = $key;
+		$templ['ls']['row']['checkbox']['text'] = $text;
 
-		$value = '<input id="'. $name .'" name="'. $name .'" type="checkbox" class="checkbox" value="'. $val .'" '. $checked .' '. $disabled .' '. $additionalHTML .' />';
-    $value .= '<label for="'. $name .'">'. $text .'</label>'. $errortext;
-    $key = '<label for="'. $name .'">'. $key .'</label>';
-    $this->AddDoubleRow($key, $value);
+		if($checked) $templ['ls']['row']['checkbox']['checked'] = "checked";
+		else $templ['ls']['row']['checkbox']['checked'] = "";
+		if($disabled) $templ['ls']['row']['checkbox']['disabled'] = "disabled";
+		else $templ['ls']['row']['checkbox']['disabled'] = "";
+
+		if($val == "") $templ['ls']['row']['checkbox']['val'] = "1";
+		else $templ['ls']['row']['checkbox']['val'] = $val;
+
+		if ($errortext) $templ['ls']['row']['checkbox']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+		else $templ['ls']['row']['checkbox']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['checkbox']['optional'] = "_optional";
+		else $templ['ls']['row']['checkbox']['optional'] = '';
+
+		$this->AddTpl("design/templates/ls_row_checkbox.htm");
 	}
+
 
 	function AddRadioRow($name, $key, $val, $errortext = NULL, $optional = NULL, $checked = NULL, $disabled = NULL) {
 		global $templ;
 
-		($checked)? $checked = 'checked="checked"' : $checked = '';
-		($disabled)? $disabled = 'disabled' : $disabled = '';
-		($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
-		($optional)? $optional = "_optional" : $optional = '';
+		$templ['ls']['row']['radio']['name'] = $name;
+		$templ['ls']['row']['radio']['key'] = $key;
+		$templ['ls']['row']['radio']['val'] = $val;
 
-		$value = '<input name="'. $name .'" type="radio" class="form'. $optional .'" value="'. $val .'" '. $checked .' '. $disabled .' />'. $errortext;
-    $key = '<label for="'. $name .'">'. $key .'</label>';
-    $this->AddDoubleRow($key, $value);
+		if($checked) $templ['ls']['row']['radio']['checked'] = "selected";
+		else $templ['ls']['row']['radio']['checked'] = "";
+		if($disabled) $templ['ls']['row']['radio']['disabled'] = "disabled";
+		else $templ['ls']['row']['radio']['disabled'] = "";
+
+		if ($errortext) $templ['ls']['row']['radio']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+		else $templ['ls']['row']['radio']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['radio']['optional'] = "_optional";
+		else $templ['ls']['row']['radio']['optional'] = '';
+
+		$this->AddTpl("design/templates/ls_row_radio.htm");
 	}
 
-	function AddTextFieldRow($name, $key, $value, $errortext, $size = NULL, $optional = NULL, $not_changeable = NULL) {
+
+	function AddTextFieldRow($name, $key, $value, $errortext, $size = NULL, $optional = NULL) {
 		global $templ;
 
-		($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
-		($optional)? $optional = "_optional" : $optional = '';
-		($not_changeable)? $not_changeable = ' readonly="readonly"' : $not_changeable = '';
-		if ($size == '') $size = '30';
+		if($size == "") $size = "30";
 
-		$value = '<input type="text" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'"'. $not_changeable .' value="'. $value .'" />'. $errortext;
-    $key = '<label for="'. $name .'">'. $key .'</label>';
-    $this->AddDoubleRow($key, $value);
+		$templ['ls']['row']['textfield']['errortext'] = '';
+
+		$templ['ls']['row']['textfield']['name'] = $name;
+		$templ['ls']['row']['textfield']['key'] = $key;
+		$templ['ls']['row']['textfield']['value'] = stripslashes($value);
+		$templ['ls']['row']['textfield']['size'] = $size;
+
+    if ($errortext) $templ['ls']['row']['textfield']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['textfield']['errortext'] = ''; 
+		if ($optional) $templ['ls']['row']['textfield']['optional'] = "_optional";
+		else $templ['ls']['row']['textfield']['optional'] = '';
+
+		$this->AddTpl("design/templates/ls_row_textfield.htm");
 	}
 
 
 	function AddPasswordRow($name, $key, $value, $errortext, $size = NULL, $optional = NULL, $additional = NULL) {
 		global $templ;
 
-		($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
-		($optional)? $optional = "_optional" : $optional = '';
-		if ($size == '') $size = '30';
+		if($size == "") $size = "30";
 
-		$value = '<input type="password" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'" value="'. $value .'" '. $additional .' />'. $errortext;
-    $key = '<label for="'. $name .'">'. $key .'</label>';
-    $this->AddDoubleRow($key, $value);
+		$templ['ls']['row']['textfield']['name'] = $name;
+		$templ['ls']['row']['textfield']['key'] = $key;
+		$templ['ls']['row']['textfield']['value'] = stripslashes($value);
+		$templ['ls']['row']['textfield']['size'] = $size;
+
+    if ($errortext) $templ['ls']['row']['textfield']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['textfield']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['textfield']['optional'] = "_optional";
+		else $templ['ls']['row']['textfield']['optional'] = '';
+		
+		$templ['ls']['row']['textfield']['additional'] = $additional;
+
+		$this->AddTpl("design/templates/ls_row_password.htm");
 	}
 
-  function AddTextAreaMailRow($name, $key, $value, $errortext, $cols = NULL, $rows = NULL, $optional = NULL, $maxchar = NULL) {
-    global $templ;
-
-    if ($cols == "") $cols = "50";
-    if ($rows == "") $rows = "7";
-    if ($maxchar == "") $maxchar = "5000";
-
-  	($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
-  	($optional)? $optional = "_optional" : $optional = '';
-
-  	$key = '<label for="'. $name .'">'. $key .'</label>
-      <br />
-      <br />
-      <br />
-      <a href="index.php?mod=popups&action=ls_row_textareamail_popup&design=popup&form='. $this->form_name .'&textarea='. $name .'" onclick="OpenWindow(this.href, \'TextFormatSelect\'); return false">Variablen einfügen</a>';
-  	$value = '<textarea name="'. $name .'" id="'. $name .'" class="form'. $name .'" cols="'. $cols .'" rows="'. $rows .'" onKeyUp="TextAreaPlusCharsLeft(this, document.'. $this->form_name .'.'. $name .'_chr, '. $maxchar .')">'. $value .'</textarea>';
-  	$value .= $errortext;
-    $this->AddDoubleRow($key, $value);
-  }
 
 	function AddTextAreaRow($name, $key, $value, $errortext, $cols = NULL, $rows = NULL, $optional = NULL) {
 		global $templ;
 
-    if ($cols == "") $cols = "50";
-    if ($rows == "") $rows = "7";
-    if ($maxchar == "") $maxchar = "5000";
+		if($cols == "") $cols = "50";
+		if($rows == "") $rows = "7";
 
-  	($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
-  	($optional)? $optional = "_optional" : $optional = '';
+		$templ['ls']['row']['textarea']['name'] = $name;
+		$templ['ls']['row']['textarea']['key'] = $key;
+		$templ['ls']['row']['textarea']['value'] = stripslashes($value);
+		$templ['ls']['row']['textarea']['cols'] = $cols;
+		$templ['ls']['row']['textarea']['rows'] = $rows;
 
-  	$key = '<label for="'. $name .'">'. $key .'</label>';
-  	$value = '<textarea name="'. $name .'" id="'. $name .'" class="form'. $name .'" cols="'. $cols .'" rows="'. $rows .'" onKeyUp="TextAreaPlusCharsLeft(this, document.'. $this->form_name .'.'. $name .'_chr, '. $maxchar .')">'. $value .'</textarea>';
-  	$value .= $errortext;
-    $this->AddDoubleRow($key, $value);
+    if ($errortext) $templ['ls']['row']['textarea']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['textarea']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['textarea']['optional'] = "_optional";
+		else $templ['ls']['row']['textarea']['optional'] = '';
+
+		$this->AddTpl("design/templates/ls_row_textarea.htm");
 	}
 
-  function AddTextAreaPlusRow($name, $key, $value, $errortext, $cols = NULL, $rows = NULL, $optional = NULL, $maxchar = NULL) {
-    global $templ, $db;
+    function AddTextAreaPlusRow($name, $key, $value, $errortext, $cols = NULL, $rows = NULL, $optional = NULL, $maxchar = NULL) {
+	global $templ, $db;
 
-    #if ($cols == "") $cols = "50"; // Now dynamicaly
-    if ($rows == "") $rows = "7";
-    if ($maxchar == "") $maxchar = "5000";
+		if ($cols == "") $cols = "50";
+        if ($rows == "") $rows = "7";
+        if ($maxchar == "") $maxchar = "5000";
 
-    $templ['TextAreaPlusRow']['name'] = $name;
-    $templ['TextAreaPlusRow']['formname'] = $this->form_name;
-    $templ['TextAreaPlusRow']['key'] = $key;
-    $templ['TextAreaPlusRow']['value'] = $value;
-    #$templ['TextAreaPlusRow']['cols'] = $cols;
-    $templ['TextAreaPlusRow']['rows'] = $rows;
-    $templ['TextAreaPlusRow']['maxchar'] = $maxchar;
+		$templ['ls']['row']['textarea']['name'] = $name;
+        $templ['ls']['row']['textarea']['formname'] = $this->form_name;
+        $templ['ls']['row']['textarea']['key'] = $key;
+        $templ['ls']['row']['textarea']['value'] = stripslashes($value);
+        $templ['ls']['row']['textarea']['cols'] = $cols;
+        $templ['ls']['row']['textarea']['rows'] = $rows;
+		$templ['ls']['row']['textarea']['maxchar'] = $maxchar;
 
-  	($errortext)? $templ['TextAreaPlusRow']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix : $templ['TextAreaPlusRow']['errortext'] = '';
-  	($optional)? $templ['TextAreaPlusRow']['optional'] = "_optional" : $templ['TextAreaPlusRow']['optional'] = '';
+    if ($errortext) $templ['ls']['row']['textarea']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['textarea']['errortext'] = '';
+    if ($optional) $templ['ls']['row']['textarea']['optional'] = "_optional";
+    else $templ['ls']['row']['textarea']['optional'] = '';
 
-    $this->form_open = false;
-    $templ['TextAreaPlusRow']['buttons'] = $this->FetchButton('index.php?mod=popups&action=textareaplus_preview&design=popup&textareaname='. $name .'" onclick="javascript:OpenPreviewWindow(this.href, document.'. $this->form_name .'); return false;', 'preview', t('Vorschau'));
-    $templ['TextAreaPlusRow']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b]', '[/b]')", 'bold', t('Fett'));
-    $templ['TextAreaPlusRow']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i]', '[/i]')", 'italic', t('Kursiv'));
-    $templ['TextAreaPlusRow']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u]', '[/u]')", 'underline', t('Unterstrichen'));
-    $templ['TextAreaPlusRow']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[s]', '[/s]')", 'strike', t('Durchstreichen'));
-    $templ['TextAreaPlusRow']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[sub]', '[/sub]')", 'sub', t('Tiefstellen'));
-    $templ['TextAreaPlusRow']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[sup]', '[/sup]')", 'sup', t('Hochstellen'));
-    $templ['TextAreaPlusRow']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[c]', '[/c]')", 'quote', t('Code'));
-    $templ['TextAreaPlusRowa']['buttons'] .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[img]', '[/img]')", 'img', t('Bild'));
-    $this->form_open = true;
+		$templ['ls']['row']['textarea']['buttons'] = $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[b][/b]')", "bold");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[i][/i]')", "kursiv");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[u][/u]')", "underline");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[c][/c]')", "code");
+		$templ['ls']['row']['textarea']['buttons'] .= " ". $this->FetchButton("javascript:code_{$templ['ls']['row']['textarea']['name']}('[img][/img]')", "picture");
 
-    $this->AddLineTpl("design/templates/ls_row_textareaplus.htm");
-  }
+		$templ['ls']['row']['textarea']['smilies'] = "";
+		$smilie = $db->query("SELECT shortcut, image FROM {$GLOBALS["config"]["tables"]["smilies"]}");
 
-	function AddDropDownFieldRow($name, $key, $option_array, $errortext, $optional = NULL, $additionalHTML = NULL) {
+		$z = 0;
+		while($smilies = $db->fetch_array($smilie)){
+			if (file_exists("ext_inc/smilies/" . $smilies["image"])) {
+				$templ['ls']['row']['textarea']['smilies'] .= "<a href=\"#\" onclick=\"javascript:code_".$templ['ls']['row']['textarea']['name']."('" . $smilies["shortcut"] . " ')\"><img src=\"ext_inc/smilies/" . $smilies["image"] . "\" border=\"0\" alt=\"". $smilies["image"] . "\" /></a>\n";
+				$z++;
+				if ($z % 12 == 0) $templ['ls']['row']['textarea']['smilies'] .= "<br />";
+			}
+		}
+
+		$this->AddTpl("design/templates/ls_row_textareaplus.htm");
+    }
+
+
+
+	function AddDropDownFieldRow($name, $key, $option_array, $errortext, $optional = NULL) {
 		global $templ;
 
-  	($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
-  	($optional)? $optional = "_optional" : $optional = '';
-		($option_array)? $options = implode('', $option_array) : $options = '';
-		
-		// TODO: If no <option> in $options generate from array
+		$templ['ls']['row']['dropdown']['name'] = $name;
+		$templ['ls']['row']['dropdown']['key'] = $key;
+		$templ['ls']['row']['dropdown']['options'] = implode("", $option_array);
 
-  	$key = '<label for="'. $name .'">'. $key .'</label>';
-  	$value = '<select name="'. $name .'" class="form'. $optional .'" '. $additionalHTML .'>';
-  	$value .= $options;
-  	$value .= '</select>';
-  	$value .= $errortext;
-    $this->AddDoubleRow($key, $value);
+    if ($errortext) $templ['ls']['row']['dropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['dropdown']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['dropdown']['optional'] = "_optional";
+		else $templ['ls']['row']['dropdown']['optional'] = '';
+
+		$this->AddTpl("design/templates/ls_row_dropdown.htm");
 	}
 
-	function AddFieldsetStart($name) {
-		global $templ;
 
-    $templ['FieldsetStart']['name'] = $name;
-		$this->AddTpl("design/templates/ls_row_fieldset_start.htm", 0);
-		$this->FirstLine = 1;
-	}
-
-	function AddFieldsetEnd() {
-		$this->AddTpl("design/templates/ls_row_fieldset_end.htm", 0);
-		$this->FirstLine = 1;
-	}
 
 	function AddSelectFieldRow($name, $key, $option_array, $errortext, $optional = NULL, $size = NULL) {
 		global $templ;
 
-  	($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
-  	($optional)? $optional = "_optional" : $optional = '';
-		($option_array)? $options = implode('', $option_array) : $options = '';
-		if (!$size) $size = 4;
+		$templ['ls']['row']['dropdown']['name'] = $name;
+		$templ['ls']['row']['dropdown']['key'] = $key;
+		$templ['ls']['row']['dropdown']['options'] = implode("", $option_array);
 
-		// TODO: If no <option> in $options generate from array
+    if ($errortext) $templ['ls']['row']['dropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['dropdown']['errortext'] = ''; 
+		if ($optional) $templ['ls']['row']['dropdown']['optional'] = "_optional";
+		else $templ['ls']['row']['dropdown']['optional'] = '';
+		
+		($size) ? $templ['ls']['row']['dropdown']['size'] = $size : $templ['ls']['row']['dropdown']['size'] = 4;
 
-  	$key = '<label for="'. $name .'">'. $key .'</label>';
-  	$value = '<select name="'. $name .'[]" class="form'. $optional .'" size="'. $size .'" multiple>';
-  	$value .= $options;
-  	$value .= '</select>';
-  	$value .= $errortext;
-    $this->AddDoubleRow($key, $value);
+		$this->AddTpl("design/templates/ls_row_select.htm");
 	}
+
+
 
 	function AddFormSubmitRow($button, $helplet_id = NULL, $var = false, $close = true) {
-		global $templ, $gd, $auth, $language, $lang;
+		global $templ, $gd;
 
-		($var)? $ButtonName = $var : $ButtonName = 'imageField';
-    $hint = $button;
+//		if ($helplet_id) {
+//			$templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
+//			$templ['ls']['row']['helpletbutton']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
+//		} else {
+			$templ['ls']['row']['helpletbutton']['helplet_id'] = "";
+			$templ['ls']['row']['helpletbutton']['help'] = "&nbsp;";
+//		}
 
-  	$key = '&nbsp;';
-    // For old compatibility
-    if ($lang['button'][$button]) $value = '<input type="submit" class="Button" name="'. $ButtonName .'" value="'. $lang['button'][$button] .'" />';
-  	else $value = '<input type="submit" class="Button" name="'. $ButtonName .'" value="'. t($button) .'" />';
-    $this->AddDoubleRow($key, $value);
+		$templ['ls']['row']['formsubmit']['button'] = $button;
+		
+		if (!$var) $templ['ls']['row']['formsubmit']['buttonname'] = "imageField";
+		else $templ['ls']['row']['formsubmit']['buttonname'] = $var;
+		
+		$gd->CreateButton("$button");
 
-    if ($this->form_open && $close) $this->CloseForm();
+		$this->AddTpl("design/templates/ls_row_formsubmit.htm");
+
+        if ($this->form_open && $close) $this->CloseForm();
+	}
+	
+
+    function AddBackButton($back_link, $helplet_id = NULL) {
+        global $templ, $gd, $auth;
+
+		$gd->CreateButton("back");
+
+//        if ($helplet_id) {
+//            $templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
+//            $templ['ls']['row']['helpletbutton']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
+//		} else {
+			$templ['ls']['row']['helpletbutton']['helplet_id'] = "";
+			$templ['ls']['row']['helpletbutton']['help'] = "";
+//		}
+
+        $templ['ls']['row']['backbutton']['back_link'] = $back_link;
+
+		$this->AddTpl("design/templates/ls_row_backbutton.htm");
+    }
+
+    
+    function AddBarcodeForm($key, $value, $action, $methode = "post", $errortext = NULL,  $size = NULL, $optional = NULL){
+		global $templ;
+
+		if($size == "") $size = "30";
+
+		$templ['ls']['row']['textfield']['key'] = $key;
+		$templ['ls']['row']['textfield']['value'] = $value;
+		$templ['ls']['row']['textfield']['size'] = $size;
+		
+		$templ['ls']['row']['formbegin']['action'] = $action;
+		$templ['ls']['row']['formbegin']['method'] = $methode;
+
+    if ($errortext) $templ['ls']['row']['textfield']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['textfield']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['textfield']['optional'] = "_optional";
+		else $templ['ls']['row']['textfield']['optional'] = '';
+
+		$this->AddTpl("design/templates/ls_row_barcode.htm");
+		$this->AddContent();
 	}
 
-  function AddBackButton($back_link = NULL, $helplet_id = NULL) {
-    global $templ, $gd, $auth, $func;
+    function AddDateTimeRow($name, $key, $time, $errortext, $values = NULL, $disableds = NULL, $start_year = NULL, $end_year = NULL, $hidetime = NULL, $optional = NULL, $additional = NULL) {
+		global $templ;
 
-	if ( !$back_link ) $back_link = $func->internal_referer;
-    $gd->CreateButton($button);
-    $this->AddDoubleRow('', $this->FetchButton($back_link, 'back', t('Zurück')));
-  }
+        $templ['ls']['row']['datetime']['name'] = $name;
+        $templ['ls']['row']['datetime']['key'] = $key;
 
-  function AddBarcodeForm($key, $value, $action, $methode = "post", $errortext = NULL,  $size = NULL, $optional = NULL){
-    global $templ;
+		// IF timestamp
+        if($time > 0) {
+			$day = date("d", $time);
+			$month = date("m", $time);
+			$year = date("Y", $time);
+			$hour = date("H", $time);
+			$min = date("i", $time);
+		// IF values
+        } else if (($values['day'] != "") && ($values['month'] != "") && ($values['year'] != "")){
+			$day = $values['day'];
+			$month = $values['month'];
+			$year = $values['year'];
+			$hour = $values['hour'];
+			$min = $values['min'];
+		// ELSE current date
+		} else {
+			$day = date("d");
+			$month = date("m");
+			$year = date("Y");
+			$hour = date("H");
+			$min = round(date("i") / 5) * 5;
+		}
 
-    if ($size == '') $size = '30';
-  	($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
-  	($optional)? $optional = "_optional" : $optional = '';
+		if ($start_year == "") $start_year = -1;
+		if ($end_year == "") $end_year = 5;
+		$start_year = date("Y") + $start_year;
+		$end_year = date("Y") + $end_year;
 
-  	$key = '<label for="barcode">'. $key .'</label>';
-  	$val= '<form name="barcode" method="'. $method .'" action="'. $action .'">';
-  	$val .= '<input onkeyup="checkfield(this)" type="text" name="barcodefield" class="form'. $optional .'" size="'. $size .'" value="'. $value .'" />';
-  	$val .= $errortext;
-  	$val .= '</form>';
-  	$val .= '<script type="text/javascript">';
-    $val .= 'function selectfield(){';
-  	$val .= 'document.forms["barcode"].elements["barcodefield"].focus();';
-  	$val .= '}';
-  	$val .= 'function checkfield(id){';
-  	$val .= 'if(id.value.length == 12){';
-  	$val .= 'document.barcode.submit();';
-  	$val .= '}';
-  	$val .= '}';
-  	$val .= 'selectfield();';
-  	$val .= '</script>';
-    $this->AddDoubleRow($key, $val);
-  }
+		$templ['ls']['row']['datetime']['value']['day'] = "";
+		$templ['ls']['row']['datetime']['value']['month'] = "";
+		$templ['ls']['row']['datetime']['value']['year'] = "";
+		$templ['ls']['row']['datetime']['value']['hour'] = "";
+		$templ['ls']['row']['datetime']['value']['min'] = "";
+		$templ['ls']['row']['datetime']['additional'] = $additional;
+		if ($optional) $templ['ls']['row']['datetime']['optional'] = "_optional";
 
-  function AddDateTimeRow($name, $key, $time, $errortext, $values = NULL, $disableds = NULL, $start_year = NULL, $end_year = NULL, $hidetime = NULL, $optional = NULL, $additional = NULL) {
-    global $templ;
+		for ($x = 1; $x <= 31; $x++) {
+			($x < 10) ? $y = "0".$x : $y = $x;
+			($day == $x)? $selected = "selected" : $selected = "";
+			$templ['ls']['row']['datetime']['value']['day'] .= "<option value=\"$x\" $selected>$y</option>";
+		}
+		for ($x = 1; $x <= 12; $x++) {
+			($x < 10) ? $y = "0".$x : $y = $x;
+			($month == $x)? $selected = "selected" : $selected = "";
+			$templ['ls']['row']['datetime']['value']['month'] .= "<option value=\"$x\" $selected>$y</option>";
+		}
+		for ($x = $start_year; $x <= $end_year; $x++) {
+			($year == $x)? $selected = "selected" : $selected = "";
+			$templ['ls']['row']['datetime']['value']['year'] .= "<option value=\"$x\" $selected>$x</option>";
+		}
+		for ($x = 0; $x <= 23; $x++) {
+			($x < 10) ? $y = "0".$x : $y = $x;
+			($hour == $x)? $selected = "selected" : $selected = "";
+			$templ['ls']['row']['datetime']['value']['hour'] .= "<option value=\"$x\" $selected>$y</option>";
+		}
+		for ($x = 0; $x <= 55; $x +=5) {
+			($x < 10) ? $y = "0".$x : $y = $x;
+			($min == $x)? $selected = "selected" :$selected = "";
+			$templ['ls']['row']['datetime']['value']['min'] .= "<option value=\"$x\" $selected>$y</option>";
+		}
 
-    $templ['ls']['row']['datetime']['name'] = $name;
-    $templ['ls']['row']['datetime']['key'] = $key;
-
-    // IF timestamp
-    if($time > 0) {
-      $day = date("d", $time);
-      $month = date("m", $time);
-      $year = date("Y", $time);
-      $hour = date("H", $time);
-      $min = date("i", $time);
-    // IF values
-    } else if (($values['day'] != "") && ($values['month'] != "") && ($values['year'] != "")){
-      $day = $values['day'];
-      $month = $values['month'];
-      $year = $values['year'];
-      $hour = $values['hour'];
-      $min = $values['min'];
-    // ELSE current date
-    } else {
-      $day = date("d");
-      $month = date("m");
-      $year = date("Y");
-      $hour = date("H");
-      $min = round(date("i") / 5) * 5;
-    }
-
-    if ($start_year == "") $start_year = -1;
-    if ($end_year == "") $end_year = 5;
-    $start_year = date("Y") + $start_year;
-    $end_year = date("Y") + $end_year;
-
-    $templ['ls']['row']['datetime']['value']['day'] = "";
-    $templ['ls']['row']['datetime']['value']['month'] = "";
-    $templ['ls']['row']['datetime']['value']['year'] = "";
-    $templ['ls']['row']['datetime']['value']['hour'] = "";
-    $templ['ls']['row']['datetime']['value']['min'] = "";
-    $templ['ls']['row']['datetime']['additional'] = $additional;
-    if ($optional) $templ['ls']['row']['datetime']['optional'] = "_optional";
-
-    for ($x = 1; $x <= 31; $x++) {
-      ($x < 10) ? $y = "0".$x : $y = $x;
-      ($day == $x)? $selected = "selected" : $selected = "";
-      $templ['ls']['row']['datetime']['value']['day'] .= "<option value=\"$x\" $selected>$y</option>";
-    }
-    for ($x = 1; $x <= 12; $x++) {
-      ($x < 10) ? $y = "0".$x : $y = $x;
-      ($month == $x)? $selected = "selected" : $selected = "";
-      $templ['ls']['row']['datetime']['value']['month'] .= "<option value=\"$x\" $selected>$y</option>";
-    }
-      for ($x = $start_year; $x <= $end_year; $x++) {
-      ($year == $x)? $selected = "selected" : $selected = "";
-      $templ['ls']['row']['datetime']['value']['year'] .= "<option value=\"$x\" $selected>$x</option>";
-    }
-    for ($x = 0; $x <= 23; $x++) {
-      ($x < 10) ? $y = "0".$x : $y = $x;
-      ($hour == $x)? $selected = "selected" : $selected = "";
-      $templ['ls']['row']['datetime']['value']['hour'] .= "<option value=\"$x\" $selected>$y</option>";
-    }
-    for ($x = 0; $x <= 55; $x +=5) {
-      ($x < 10) ? $y = "0".$x : $y = $x;
-      ($min == $x)? $selected = "selected" :$selected = "";
-      $templ['ls']['row']['datetime']['value']['min'] .= "<option value=\"$x\" $selected>$y</option>";
-    }
-
-    if($disableds['day'])  { $templ['ls']['row']['datetime']['disabled']['day'] = "disabled"; }
-    else                   { $templ['ls']['row']['datetime']['disabled']['day'] = ""; }
-    if($disableds['month']){ $templ['ls']['row']['datetime']['disabled']['month'] = "disabled"; }
-    else                   { $templ['ls']['row']['datetime']['disabled']['month'] = ""; }
-    if($disableds['year']) { $templ['ls']['row']['datetime']['disabled']['year'] = "disabled"; }
-    else                   { $templ['ls']['row']['datetime']['disabled']['year'] = ""; }
-    if($disableds['hour']) { $templ['ls']['row']['datetime']['disabled']['hour'] = "disabled"; }
-    else                   { $templ['ls']['row']['datetime']['disabled']['hour'] = ""; }
-    if($disableds['min'])  { $templ['ls']['row']['datetime']['disabled']['min'] = "disabled"; }
-    else                   { $templ['ls']['row']['datetime']['disabled']['min'] = ""; }
+        if($disableds['day'])  { $templ['ls']['row']['datetime']['disabled']['day'] = "disabled"; }
+        else                   { $templ['ls']['row']['datetime']['disabled']['day'] = ""; }
+        if($disableds['month']){ $templ['ls']['row']['datetime']['disabled']['month'] = "disabled"; }
+        else                   { $templ['ls']['row']['datetime']['disabled']['month'] = ""; }
+        if($disableds['year']) { $templ['ls']['row']['datetime']['disabled']['year'] = "disabled"; }
+        else                   { $templ['ls']['row']['datetime']['disabled']['year'] = ""; }
+        if($disableds['hour']) { $templ['ls']['row']['datetime']['disabled']['hour'] = "disabled"; }
+        else                   { $templ['ls']['row']['datetime']['disabled']['hour'] = ""; }
+        if($disableds['min'])  { $templ['ls']['row']['datetime']['disabled']['min'] = "disabled"; }
+		else                   { $templ['ls']['row']['datetime']['disabled']['min'] = ""; }
 
     if ($errortext) $templ['ls']['row']['datetime']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
     else $templ['ls']['row']['datetime']['errortext'] = '';
 
-    // 0 =  All visible / 1 = Hide Time / 2 = Hide Date
-    ($hidetime == 2)? $templ['ls']['row']['datetime']['show_date'] = ""
-    : $templ['ls']['row']['datetime']['show_date'] = $this->FetchModTpl("", "ls_row_datetime_date");
-    ($hidetime == 1)? $templ['ls']['row']['datetime']['show_time'] = ""
-    : $templ['ls']['row']['datetime']['show_time'] = $this->FetchModTpl("", "ls_row_datetime_time");
+		// 0 =  All visible / 1 = Hide Time / 2 = Hide Date
+		($hidetime == 2)? $templ['ls']['row']['datetime']['show_date'] = ""
+		: $templ['ls']['row']['datetime']['show_date'] = $this->FetchModTpl("", "ls_row_datetime_date");
+		($hidetime == 1)? $templ['ls']['row']['datetime']['show_time'] = ""
+		: $templ['ls']['row']['datetime']['show_time'] = $this->FetchModTpl("", "ls_row_datetime_time");
 
-    $this->AddLineTpl("design/templates/ls_row_datetime.htm");
-  }
-
-  function AddHRuleRow() {
-    $this->AddTpl("design/templates/ls_row_hrule.htm");
-  }
-
-  function AddPictureDropDownRow($name, $key, $path, $errortext, $optional = NULL, $selected = NULL) {
-    global $templ, $func;
-
-    $dir = $func->GetDirList($path);
-    $file_out = array();
-    $file_out[] = "<option value=\"none\">None</option>";
-    if ($dir) foreach($dir as $file) {
-      $extension = substr($file, strpos($file, '.') + 1, 4);
-      if ($extension == "jpeg" or $extension == "jpg" or $extension == "png" or $extension == "gif") {
-        ($file == $selected)? $file_out[] = "<option value=\"".$file."\" selected>".$file."</option>"
-          : $file_out[] = "<option value=\"".$file."\">".$file."</option>";
-      }
+		$this->AddTpl("design/templates/ls_row_datetime.htm");
     }
 
-  	($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
-  	($optional)? $optional = "_optional" : $optional = '';
-    ($selected and $selected != "none")? $picpreview_init = $path."/".$selected :$picpreview_init = 'design/standard/images/index_transparency.gif';
-    $options = implode("", $file_out);
 
-  	$key = '<label for="'. $name .'">'. $key .'</label>';
-  	$value .= '<select name="'. $name .'" id="'. $name .'" class="form'. $optional .'" onChange="javascript:changepic(\''. $path .'/\'+ this.value, window.document.'. $name .'_picpreview)" > '. $options .'';
-  	$value .= '</select>';
-  	$value .= $errortext;
-  	$value .= '<br /><img src="'. $picpreview_init .'" name="'. $name .'_picpreview" alt="pic" />';
-    $this->AddDoubleRow($key, $value);
-  }
+    function AddHRuleRow() {
+		$this->AddTpl("design/templates/ls_row_hrule.htm");
+    }
 
-  // TODO: Review!
-  function AddPictureSelectRow($key, $path, $pics_per_row = NULL, $max_rows = NULL, $optional = NULL, $checked = NULL, $max_width = NULL, $max_height = NULL, $JS = false) {
-	global $templ, $gd;
 
-	if ($max_width == "") $max_width = 150;
-	if ($max_height == "") $max_height = 120;
-	if ($max_rows == "") $max_rows = 100;
-	if ($pics_per_row == "") $pics_per_row = 3;
+    function AddPictureDropDownRow($name, $key, $path, $errortext, $optional = NULL, $selected = NULL) {
+        global $templ;
 
-	$templ['ls']['row']['pictureselect']['zeile'] = "";
-	$templ['ls']['row']['pictureselect']['spalte'] = "";
+        $file_out[] = "<option value=\"none\">None</option>";
 
-  if ($optional) $optional = '_optional';
+        $handle = @opendir($path);
+        while($file = @readdir ($handle))
+        {
 
-	$handle = @opendir($path);
-	$z = 0;
-	// Filter and sort files in directory
-	$file_list = array();
-	while (($z < $max_rows * $pics_per_row) && ($file = @readdir($handle))) {
-		if (($file != ".") && ($file != "..") && (!is_dir($file)) && (substr($file, 0, 8) != "lsthumb_")) {
-   	  array_push($file_list, $file);
-	  	$z++;
-	  }
-	}
-	@closedir($handle);
-	sort($file_list, SORT_NUMERIC);
-	
-	// For each file in directory
-	$z = 0;
-	foreach ($file_list as $file) {
-		$extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
-		if (($extension == "jpeg") or ($extension == "jpg") or ($extension == "png") or ($extension == "gif")){
+        	if( ($file != ".") AND ($file != ".."))
+            {
+             	$extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
+                if (($extension == "jpeg") || ($extension == "jpg") || ($extension == "png") || ($extension == "gif"))
+                {
+                   	if($file == $selected) { $file_out[] = "<option value=\"".$file."\" selected>".$file."</option>"; }
+					else { $file_out[] = "<option value=\"".$file."\">".$file."</option>"; }
+                }
+            }
 
-			$file_out = "$path/lsthumb_$file";
+		 }
+         @closedir($handle);
 
-			// Wenn Thumb noch nicht generiert wurde, generieren versuchen
-			if (!file_exists($file_out)) $gd->CreateThumb("$path/$file", $file_out, $max_width, $max_height);
 
-			$pic_dimensions = GetImageSize($file_out);
-			if (!$pic_dimensions[0] or $pic_dimensions[0] > $max_width) $pic_dimensions[0] = $max_width;
-			if (!$pic_dimensions[1] or $pic_dimensions[1] > $max_height) $pic_dimensions[1] = $max_height;
-			$templ['ls']['row']['pictureselect']['pic_width'] = $pic_dimensions[0];
-			$templ['ls']['row']['pictureselect']['pic_height'] = $pic_dimensions[1];
+        $templ['ls']['row']['picdropdown']['name'] = $name;
+        $templ['ls']['row']['picdropdown']['key'] = $key;
+        $templ['ls']['row']['picdropdown']['options'] = implode("", $file_out);
+		$templ['ls']['row']['picdropdown']['path'] = $path."/";
 
-			$templ['ls']['row']['pictureselect']['pic_src'] = $file_out;
-			$caption = strtolower(substr($file, 0, strrpos($file, ".")));
-			if (($z == $checked) || ($file == $checked)) $check = 'checked';
-			else $check = '';
+        if ($errortext) $templ['ls']['row']['picdropdown']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+        else $templ['ls']['row']['picdropdown']['errortext'] = '';
+        if ($optional) $templ['ls']['row']['picdropdown']['optional'] = "_optional";
+        else $templ['ls']['row']['picdropdown']['optional'] = '';
+        if ($selected AND $selected != "none") $templ['ls']['row']['picdropdown']['picpreview_init'] = $path."/".$selected;
+        else $templ['ls']['row']['picdropdown']['picpreview_init'] = "design/standard/images/index_transparency.gif";
 
-      if ($JS) {
-        $templ['pictureselect']['IconClick'] = " onClick=\"javascript:UpdateCurrentPicture('$file_out');\"";
-        $templ['pictureselect']['InputForm'] = '<input type="hidden" name="'. $key .'" value="'. $file .'" />';
-      }
-      else $templ['pictureselect']['InputForm'] = '<input type="radio" name="'. $key .'" class="form'. $optional .'" value="'. $file .'" '. $check .' />'. $caption;
-			$templ['ls']['row']['pictureselect']['spalte'] .= $this->FetchModTpl("", "ls_row_pictureselect_spalte");
-			$z++;
+		$this->AddTpl("design/templates/ls_row_picdropdown.htm");
+    }
 
-			if ($z % $pics_per_row == 0) {
-				$templ['ls']['row']['pictureselect']['zeile'] .= $this->FetchModTpl("", "ls_row_pictureselect_zeile");
-				$templ['ls']['row']['pictureselect']['spalte'] = "";
+
+
+
+
+
+    function AddPictureSelectRow($key, $path, $pics_per_row = NULL, $max_rows = NULL, $optional = NULL, $checked = NULL, $max_width = NULL, $max_height = NULL) {
+		global $templ, $gd;
+
+		if ($max_width == "") $max_width = 150;
+		if ($max_height == "") $max_height = 120;
+		if ($max_rows == "") $max_rows = 100;
+		if ($pics_per_row == "") $pics_per_row = 3;
+
+		$templ['ls']['row']['pictureselect']['zeile'] = "";
+		$templ['ls']['row']['pictureselect']['spalte'] = "";
+
+		$templ['ls']['row']['pictureselect']['name'] = $key;
+    if($optional) $templ['ls']['row']['pictureselect']['optional'] = "_optional";
+
+		$handle = @opendir($path);
+		$z = 0;
+		// Filter and sort files in directory
+		$file_list = array();
+		while (($z < $max_rows * $pics_per_row) && ($file = @readdir($handle))) {
+  		if (($file != ".") && ($file != "..") && (!is_dir($file)) && (substr($file, 0, 8) != "lsthumb_")) {
+	   	  array_push($file_list, $file);
+		  	$z++;
+		  }
+		}
+		@closedir($handle);
+		sort($file_list, SORT_NUMERIC);
+		
+		// For each file in directory
+		$z = 0;
+		foreach ($file_list as $file) {
+			$extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
+			if (($extension == "jpeg") or ($extension == "jpg") or ($extension == "png") or ($extension == "gif")){
+
+				$file_out = "$path/lsthumb_$file";
+
+				// Wenn Thumb noch nicht generiert wurde, generieren versuchen
+				if (!file_exists($file_out)) $gd->CreateThumb("$path/$file", $file_out, $max_width, $max_height);
+
+				$pic_dimensions = GetImageSize($file_out);
+				if (!$pic_dimensions[0] or $pic_dimensions[0] > $max_width) $pic_dimensions[0] = $max_width;
+				if (!$pic_dimensions[1] or $pic_dimensions[1] > $max_height) $pic_dimensions[1] = $max_height;
+				$templ['ls']['row']['pictureselect']['pic_width'] = $pic_dimensions[0];
+				$templ['ls']['row']['pictureselect']['pic_height'] = $pic_dimensions[1];
+
+				$templ['ls']['row']['pictureselect']['pic_src'] = $file_out;
+				$templ['ls']['row']['pictureselect']['value'] = $file;
+				$templ['ls']['row']['pictureselect']['caption'] = strtolower(substr($file, 0, strrpos($file, ".")));
+				if (($z == $checked) || ($file == $checked)) $templ['ls']['row']['pictureselect']['checked'] = "checked";
+				else $templ['ls']['row']['pictureselect']['checked'] = "";
+
+				$templ['ls']['row']['pictureselect']['spalte'] .= $this->FetchModTpl("", "ls_row_pictureselect_spalte");
+				$z++;
+
+				if ($z % $pics_per_row == 0) {
+					$templ['ls']['row']['pictureselect']['zeile'] .= $this->FetchModTpl("", "ls_row_pictureselect_zeile");
+					$templ['ls']['row']['pictureselect']['spalte'] = "";
+				}
 			}
 		}
-	}
 
-	if ($z % $pics_per_row != 0) {
-		$templ['ls']['row']['pictureselect']['zeile'] .= $this->FetchModTpl("", "ls_row_pictureselect_zeile");
-		$templ['ls']['row']['pictureselect']['spalte'] = "";
-	}
+		if ($z % $pics_per_row != 0) {
+			$templ['ls']['row']['pictureselect']['zeile'] .= $this->FetchModTpl("", "ls_row_pictureselect_zeile");
+			$templ['ls']['row']['pictureselect']['spalte'] = "";
+		}
 
-	$this->AddTpl("design/templates/ls_row_pictureselect.htm");
-  }
+		$this->AddTpl("design/templates/ls_row_pictureselect.htm");
+    }
+
 
 	function AddFileSelectRow($name, $key, $errortext, $size = NULL, $maxlength = NULL, $optional = NULL) {
-		global $templ, $func;
+		global $templ;
 
-    $maxfilesize = ini_get('upload_max_filesize');
-    if (strpos($maxfilesize, 'M') > 0) $maxfilesize = (int)$maxfilesize * 1024 * 1024;
-    elseif (strpos($maxfilesize, 'K') > 0) $maxfilesize = (int)$maxfilesize * 1024;
-    else $maxfilesize = (int)$maxfilesize;
+		if($size == "") { $size = "30"; }
 
-    // If value is too low (most likely because of errors in above statement), set it to 100M
-    if ($maxfilesize < 1000) $maxfilesize = 1024 * 1024 * 100;
-    $maxfilesize_formated = '(Max: '. $func->FormatFileSize($maxfilesize) .')';
+		$templ['ls']['row']['file']['name'] = $name;
+		$templ['ls']['row']['file']['key'] = $key;
+		$templ['ls']['row']['file']['size'] = $size;
+		$templ['ls']['row']['file']['maxlength'] = $maxlength;
 
-		if ($size == '') $size = '30';
-  	($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
-  	($optional)? $optional = "_optional" : $optional = '';
-    ($selected and $selected != "none")? $picpreview_init = $path."/".$selected :$picpreview_init = 'design/standard/images/index_transparency.gif';
+    if ($errortext) $templ['ls']['row']['file']['errortext'] = $this->errortext_prefix . $errortext . $this->errortext_suffix;
+    else $templ['ls']['row']['file']['errortext'] = '';
+		if ($optional) $templ['ls']['row']['file']['optional'] = "_optional";
+		else $templ['ls']['row']['file']['optional'] = '';
 
-  	$key = '<label for="'. $name .'">'. $key .'</label>';
-  	$value = '<input type="hidden" name="MAX_FILE_SIZE" value="'. $maxfilesize .'" />';
-  	$value .= '<input type="file" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" value="" size="'. $size .'" enctype="multipart/form-data" maxlength="'. $maxlength .'" /> '. $maxfilesize_formated;
-  	$value .= $errortext;
-    $this->AddDoubleRow($key, $value);
+		$this->AddTpl("design/templates/ls_row_fileselect.htm");
 	}
 
-  function AddJumpToMark($name) {
-    global $templ;
-
-		$templ['jumpto']['name'] = $name;
-		$this->AddTpl("design/templates/ls_row_jump_to.htm");
-  }
-
-  // Still used?
-  function AddIFrame($url, $width=795, $height=600) {
-    global $lang, $templ, $func;
-
-    $templ["class_display"]["IFrame"]["noIFrame"] .= $lang['class_display']['IFrame']['noIFrame'];
-    $templ["class_display"]["IFrame"]["clickhere"] .= $lang['class_display']['clickhere'];
-    $templ["class_display"]["IFrame"]["url"] = 'http://' . $url;
-    $templ["class_display"]["IFrame"]["width"] = $width;
-    $templ["class_display"]["IFrame"]["height"] = $height;
-
-    $this->AddSingleRow($this->FetchModTpl("", "ls_row_IFrame"));
-  }
-
-  // Still used?
-  function ShowNewWindow($url) {
-    global $lang, $templ;
-
-    $templ["class_display"]["NewWindow"]["popupBlocked"] .= $lang['class_display']['newWindow']['popupBlocked'];
-    $templ["class_display"]["NewWindow"]["clickhere"] .= $lang['class_display']['clickhere'];
-    $templ["class_display"]["NewWindow"]["url"] = 'http://' . $url;
-    $this->AddSingleRow($this->FetchModTpl("", "ls_row_newWindow"));
-  }
 
 	// ################################################################################################################# //
 
@@ -642,26 +634,8 @@ class display {
 		else $return = $this->AddTpl("modules/".$mod."/templates/".$name.".htm");
 	}
 
-  function FetchAttachmentRow($file) {
-    global $gd;
-    
-    $FileEnding = strtolower(substr($file, strrpos($file, '.'), 5));
-
-    if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') {
-      $FileNamePath = strtolower(substr($file, 0, strrpos($file, '.') - 1));
-      $FileThumb = $FileNamePath. '_thumb' .$FileEnding;
-
-      $gd->CreateThumb($file, $FileThumb, '300', '300');
-      return HTML_NEWLINE . HTML_NEWLINE. '<a href="'. $file .'" target="_blank"><img src="'. $FileThumb .'" border="0" /></a>';
-
-    } else return HTML_NEWLINE . HTML_NEWLINE. $this->FetchIcon($file, 'download') .' ('. t('Angehängte Datei herunterladen').')';
-  }
 
 	function FetchButton($link, $picname, $hint = NULL, $target = NULL) {
-    global $lang;
-
-    return $this->FetchSpanButton($lang['button'][$picname], $link, $hint, $target);
-/*
 		global $templ, $gd;
 
 		if (!$hint) $hint = 'Pic: '. $picname;
@@ -675,59 +649,12 @@ class display {
 		$gd->CreateButton($picname);
 
 		return $this->FetchModTpl("", "ls_linkbutton");
-*/	}
-
-	function FetchCssButton($title, $link, $hint = NULL, $target = NULL) {
-    ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
-    ($target)? $target = ' target="_blank"' : $target = '';
-    return '<div class="Button"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></div>';
-	}
-
-	function FetchSpanButton($title, $link, $hint = NULL, $target = NULL) {
-    ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
-    ($target)? $target = ' target="_blank"' : $target = '';
-#    return '<a href="'. $link .'"'. $hint .''. $target .'><span class="Button">'. $title .'</span></a> ';
-    return '<div class="Buttons" style="display:inline"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></div>';
-	}
-  
-	function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {
-		global $templ, $gd;
-
-    // Picname-Mappings
-    switch ($picname) {
-      case 'next': $picname = 'forward'; break;
-      case 'preview': $picname = 'search'; break;
-    }
-    $templ['icon']['name'] = $picname;
-
-    // Hint
-    $templ['icon']['title'] = '';
-    if ($hint == '') switch ($picname) {
-      default: $hint = ''; break;
-      case 'add': $hint = t('Hinzufügen'); break;
-      case 'change': $hint = t('Ändern'); break;
-      case 'edit': $hint = t('Editieren'); break;
-      case 'delete': $hint = t('Löschen'); break;
-      case 'send': $hint = t('Senden'); break;
-    }
-    if ($hint) $templ['icon']['title'] = ' onmouseover="return overlib(\''. $hint .'\');" onmouseout="return nd();"';
-
-    $templ['icon']['additionalhtml'] = '';
-    if ($align == 'right') $templ['icon']['additionalhtml'] = 'align="right" valign="bottom" vspace="2" ';
-
-    if ($this->form_open) $ret = $this->FetchModTpl('', 'ls_fetch_icon_submit');
-    else $ret = $this->FetchModTpl('', 'ls_fetch_icon');
-    
-		if ($target) $target = " target=\"$target\"";
-    if ($link) $ret = '<a href="'.$link.'"'.$target.'>'.$ret.'</a>';
-    return $ret;  
 	}
 
 	function FetchUserIcon($userid) {
 		global $templ;
 
 		$templ['usericon']['userid'] = $userid;
-		$templ['usericon']['hint'] = t('Benutzerdetails aufrufen');
 		return $this->FetchModTpl("", "ls_usericon");
 	}
 
@@ -739,6 +666,7 @@ class display {
 
 		return $return;
 	}
+
 
 	function SetForm($f_url, $f_name = NULL, $f_method = NULL, $f_enctype = NULL) {
 		global $templ;
@@ -761,6 +689,7 @@ class display {
 		$this->AddTpl("design/templates/ls_row_formbegin.htm");
 	}
 
+
 	function CloseForm() {
 		global $templ;
 
@@ -768,23 +697,15 @@ class display {
 		$this->AddTpl("design/templates/ls_row_formend.htm");
 	}
 
+
 	function AddContent($target = NULL) {
+		global $templ, $auth, $language;
+
+		if ($this->TableOpen) {
+      $templ['index']['info']['content'] .= '</table>';
+  		$this->TableOpen = false;
+  	}
 	}
 
-	function HelpText($text, $help) {
-    return '<span onmouseover="return overlib(\''. t($help) .'\');" onmouseout="return nd();">'. t($text) .'</span>';
-	}
-
-  function AddIcon($name, $link = '', $title = '') {
-    global $templ;
-    
-	  $templ['ms2']['icon_name'] = $name;
-    $templ['ms2']['icon_title'] = $title;
-    $templ['ms2']['link_item'] = $this->FetchModTpl('mastersearch2', 'result_icon');
-    if ($link) {
-      $templ['ms2']['link'] = $link;
-      return $this->FetchModTpl('mastersearch2', 'result_link');
-    } else return $templ['ms2']['link_item'];
-  }
 }
 ?>

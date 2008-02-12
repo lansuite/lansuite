@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Misc</de>
+		<en>Misc</en>
+	</entry>
+	<entry>
+		<de>Verschiedene Admin-Optionen</de>
+		<en>Several admin options</en>
+	</entry>
+	<entry>
+		<de>Sonstiges</de>
+		<en>Miscallanous</en>
+	</entry>
+	<entry>
+		<de>Logfile</de>
+		<en>Logfile</en>
+	</entry>
+	<entry>
+		<de>Was geht ab ?!</de>
+		<en>What's going on?</en>
+	</entry>
+	<entry>
+		<de>Was passiert gerade.. eine komplette &Uuml;bersicht</de>
+		<en>What's happening at the moment. A complete overview</en>
+	</entry>
+	<entry>
+		<de>IPs generieren</de>
+		<en>Generate IPs</en>
+	</entry>
+	<entry>
+		<de>IPs &auml;ndern</de>
+		<en>Change IPs</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie die IP eines Sitzplatzes &auml;ndern</de>
+		<en>This is where you can change the IP of a seat place</en>
+	</entry>
+	<entry>
+		<de>IP-Blacklist</de>
+		<en>IP-Blacklist</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie IP blocken</de>
+		<en>Here you can block IPs</en>
+	</entry>
+	<entry>
+		<de>Aufzeichnungszeitraum für IP-Reload in Sekunden</de>
+		<en>Log rotate for IP-reload blocking in secounds</en>
+	</entry>
+	<entry>
+		<de>Nach wie vielen Hits im Zeitraum soll eine IP gesperrt werden?</de>
+		<en>After how many hits within this time should an IP be blocked?</en>
+	</entry>
+</translations>

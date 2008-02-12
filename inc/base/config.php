@@ -1,7 +1,7 @@
 ;<? /*
 
 [lansuite]
-version				= "v3 CVS"
+version				= "LANsuite V2.1.1 CVS"
 default_design			= "osX"
 user_timeout			= "300"
 chmod_dir			= "777"
@@ -13,7 +13,7 @@ dir				= ""
 os				= "Win32"
 mq				= "1"
 gd				= "1"
-snmp				= "0"
+snmp				= "1"
 ftp				= "1"
 
 
@@ -53,8 +53,5 @@ ls_getinfo			= "1"
 
 [board2]
 configured			= "0"
-prefix				= "lansuite_phpbb_"
-path				= "ext_scripts/phpBB/"
-version				= "2.0.20"
 
 ;*/ ?>

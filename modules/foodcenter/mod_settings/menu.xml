@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 <menu>
 	<pos>8</pos>
 	<entry>
 		<caption>Foodcenter</caption>
-		<hint>Hier kÃ¶nnen Sie komfortabel Speisen und GetrÃ¤nke bestellen</hint>
+		<hint>Hier können Sie komfortabel Speisen und Getränke bestellen</hint>
 		<link>?mod=foodcenter</link>
 		<requirement>1</requirement>
 		<level>0</level>
@@ -11,18 +11,9 @@
 		<file>show</file>
 	</entry>
 	<entry>
-		<caption>Produktsuche</caption>
-		<hint>Einfacher bestimmte Produkte finden</hint>
-		<link>?mod=foodcenter&amp;action=findproduct</link>
-		<requirement>0</requirement>
-		<level>1</level>
-		<action>findproduct</action>
-		<file>findproduct</file>
-	</entry>
-	<entry>
 		<caption>Bestellungen</caption>
 		<hint>Bestellte Produkte</hint>
-		<link>?mod=foodcenter&amp;action=ordered</link>
+		<link>?mod=foodcenter&action=ordered</link>
 		<requirement>0</requirement>
 		<level>1</level>
 		<action>ordered</action>
@@ -31,7 +22,7 @@
 	<entry>
 		<caption>Warenkorb</caption>
 		<hint>Den Warenkorb anzeigen</hint>
-		<link>index.php?mod=foodcenter&amp;action=basket</link>
+		<link>index.php?mod=foodcenter&action=basket</link>
 		<requirement>0</requirement>
 		<level>1</level>
 		<action>basket</action>
@@ -40,7 +31,7 @@
 	<entry>
 		<caption>Kontostand</caption>
 		<caption>Momentaner Kontostand</caption>
-		<link>index.php?mod=foodcenter&amp;action=account</link>
+		<link>index.php?mod=foodcenter&action=account</link>
 		<requirement>1</requirement>
 		<level>1</level>
 		<action>account</action>
@@ -49,45 +40,36 @@
 	<entry>
 		<caption>Theke</caption>
 		<hint>Thekenmodus</hint>
-		<link>?mod=foodcenter&amp;action=theke</link>
+		<link>?mod=foodcenter&action=theke</link>
 		<file>theke</file>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<level>1</level>
 		<action>theke</action>
-	</entry>
-	<entry>
-		<caption>KÃ¼che</caption>
-		<hint>eigene KÃ¼che</hint>
-		<link>?mod=foodcenter&amp;action=kitchen</link>
-		<file>kitchen</file>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
-		<level>1</level>
-		<action>kitchen</action>
 	</entry>		
 	<entry>
-		<caption>Status Ã¤ndern</caption>
-		<hint>Status der Produkte Ã¤ndern</hint>
-		<link>?mod=foodcenter&amp;action=statchange</link>
+		<caption>Status ändern</caption>
+		<hint>Status der Produkte ändern</hint>
+		<link>?mod=foodcenter&action=statchange</link>
 		<file>statchange</file>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<level>1</level>
 		<action>statchange</action>
 	</entry>	
 	<entry>
-		<caption>Produkt hinzufÃ¼gen</caption>
-		<hint>Neue Produkte hinzufÃ¼gen</hint>
-		<link>?mod=foodcenter&amp;action=addproduct</link>
+		<caption>Produkt hinzufügen</caption>
+		<hint>Neue Produkte hinzufügen</hint>
+		<link>?mod=foodcenter&action=addproduct</link>
 		<file>addproduct</file>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<level>1</level>
 		<action>addproduct</action>
 	</entry>	
 	<entry>
-		<caption>MÃ¼nzzÃ¤hler</caption>
-		<hint>Hier kÃ¶nnen Sie den Kassenstand prÃ¼fen</hint>
-		<link>?mod=foodcenter&amp;action=coincounter</link>
+		<caption>Münzzähler</caption>
+		<hint>Hier können Sie den Kassenstand prüfen</hint>
+		<link>?mod=foodcenter&action=coincounter</link>
 		<file>coincounter</file>
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>1</level>
 		<action>coincounter</action>

@@ -14,13 +14,13 @@ switch($_GET["step"]) {
 		if(!$install->WriteConfig()) {
 			$func->error($lang["install"]["conf_err_write"]);
 		} else {
-			$func->confirmation($lang["install"]["conf_success"], "index.php?mod=install&action=ls_conf");
+			$func->confirmation($lang["install"]["conf_success"], "install.php?mod=install&action=ls_conf");
 		}
 	break;
 	
 	default:
 		$dsp->NewContent($lang["install"]["conf_caption"], $lang["install"]["conf_subcaption"]);
-		$dsp->SetForm("index.php?mod=install&action=ls_conf&step=2");
+		$dsp->SetForm("install.php?mod=install&action=ls_conf&step=2");
 
 		if ($_POST["host"] == "") $_POST["host"] = $config['database']['server'];
 		if ($_POST["user"] == "") $_POST["user"] = $config['database']['user'];
@@ -67,7 +67,7 @@ switch($_GET["step"]) {
 		$dsp->AddDropDownFieldRow("design", $lang["install"]["conf_design"], $t_array, "");
 
 		$dsp->AddFormSubmitRow("next");
-		$dsp->AddBackButton("index.php?mod=install", "install/ls_conf");
+		$dsp->AddBackButton("install.php?mod=install", "install/ls_conf"); 
 		$dsp->AddContent();
 	break;
 }

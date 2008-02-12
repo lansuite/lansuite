@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 
 <lansuite>
 	<header>
@@ -685,7 +685,7 @@
 			<entry>
 				<template_id>9</template_id>
 				<template_type>userlist</template_type>
-				<name>Benutzerliste</name>
+				<name>Benuzerliste</name>
 			</entry>
 		</content>
 	</table>

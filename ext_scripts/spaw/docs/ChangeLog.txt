@@ -1,0 +1,193 @@
+2004-04-24 v.1.1 RC1
+--------------------
+- FEATURE ADDED (GECKO): implemented active toolbar on Gecko
+- CHANGE: changed the way initial value is passed to the editor. 
+  Now large html fragments should load much faster
+- BUGFIX: fixed problem with failed initialization on Gecko (hopefully)
+- BUGFIX: fixed issue with cursor not showing on first load in Gecko
+- BUGFIX: fixed issue with relative urls workaround 
+  (stripAbsoluteUrls) working incorrectly
+- LANGUAGE FILE ADDED: Vietnamese (Nguyen Viet Son)
+- LANGUAGE FILE ADDED: Croatian (dragan@pfri.hr)
+- LANGUAGE FILE ADDED: Ukrainian (Alexandr Kaplun)
+- LANGUAGE FILE ADDED: Korean (zionweb@hotmail.com)
+- LANGUAGE FILE UPDATED: Brazilian (Fernando José Karl)
+- LANGUAGE FILE UPDATED: German (Matthias Höschele)
+- LANGUAGE FILE UPDATED: Hebrew (Boris Aranovich)
+- LANGUAGE FILE UPDATED: Italian (Stefano Luchetta)
+- LANGUAGE FILE UPDATED: Dutch (Alex Timmermans)
+- LANGUAGE FILE UPDATED: Polish (Slawomir Jasinski)
+- LANGUAGE FILE UPDATED: Turkish (Zeki Erkmen)
+
+2004-12-30 v.1.1 Beta
+---------------------
+- Gecko compatibility implemented
+- BUGFIX: non-image files were shown in image library
+
+2004-09-03 v.1.0.7
+------------------
+- FEATURE: added subscript/superscript feature
+- FIX: now it's possible to name control with square brackets
+  (like spaw3[] or spaw3[5])
+- CHANGE: setting empty values for both href and name in link
+  dialog removes anchor tag
+- BUGFIX: internal link images had red dots in the corners
+  instead of transparent
+- LANGUAGE ADDED: Thai (Chanon Mee-iam)
+- LANGUAGES UPDATED: Czech, German, Danish, Hebrew, Hungarian
+
+2004-08-02 v.1.0.6
+------------------
+- FEATURE: added css class selection to table properties dialog
+- FEATURE: added specific css classes for table cells, selecting
+  css class in table cell dialog disables other style related
+  options (optional, controled by $spaw_disable_style_controls in
+  config file)
+- FEATURE: added background image feature to table and table cell dialogs
+- FEATURE: improved link dialog: added linking to anchors on page,
+  grouped attributes by type
+- FEATURE: host part removed from local image src attribute
+- BUGFIX: hyperlink, internal link and popup didn't work when
+  control (not text range) was selected
+- BUGFIX: removed empty line from the end of the files
+- BUGFIX: added 2 new config variables as globals to getCssScript() method
+- BUGFIX: changed table create function and cell properties
+  function to remove non-set attributes, modified removeAttribute 
+  calls to be case insensitive
+- BUGFIX: changed table property editing function to remove non
+  set attributes
+- BUGFIX: fixed a typo in img_library.php, was request_ur where
+  request_uri was expected (thanks to Alain D'EURVEILHER)
+- BUGFIX: fixed problem with SPAW_editor_registered
+  
+
+2004-07-23 v.1.0.5
+------------------
+- FEATURE: added justify alignment
+- FEATURE: added internal link feature
+- FEATURE: added image popup feature
+- FEATURE: added custom hyperlink/anchor dialog
+- FEATURE: added workaround code to preserve relative links
+- FEATURE: added file delete feature to image library
+- FEATURE: added feature allowing to include any php file into
+  img_library.php and dynamically set $spaw_imglibs array, full
+  uri of the "parent" page is set in $request_uri variable
+- BUGFIX: changed the way of checking for external file inclusion
+- BUGFIX: fixed problems when used with error_reporting = E_ALL
+- BUGFIX: replaced textarea 100% width with specified width value
+- BUGFIX: it wasn't possible to set 100% height for the control
+- BUGFIX: typo fixed in table.php ("width" where "height" was supposed to be)
+- BUGFIX: backslashes are now properly escaped
+- BUGFIX: fixed incorrect comment replacement algorithm (if there
+  were more than 1 comment all except the first one were changed
+  to @@START_COMMENT/@@END_COMMENT)
+- BUGFIX: linebreaks were removed from the html snippet on load
+- LANGUAGE FILE ADDED: Greek language file added (Saxinidis B. 
+Konstantinos)
+- LANGUAGE FILE ADDED: Slovenian language file added (Vladimir Ota)
+- LANGUAGE FILE ADDED: Portuguese language file added (Ricardo Vidal)
+- LANGUAGE FILE ADDED: Catalan language file added (Jordi Catà)
+		
+2003-12-16 v.1.0.4
+------------------
+- BUGFIX: File inclusion vulnerability security breach was fixed
+  (thanks to Ashtarot, www.zone-h.org)
+- BUGFIX: textarea content on non-IE browsers wasn't properly
+  escaped (thanks to Stuart Gallemore)
+-	BUGFIX: Now when you use getHtml method control returns
+  everything including main javascript code (echoed this part in
+  previous versions). Works only if $spaw_inline_js = false
+- BUGFIX: fixed bug with window scrolling down to the last spaw
+  control on load
+-	BUGFIX: color picker was responding incorrectly when you enter
+  color and hit enter
+- BUGFIX:	Fixed bug with HTML comments in javascript
+- LANGUAGE FILE ADDED: Japanese (DigiPower, http://pwr.jp/)
+- LANGUAGE FILE ADDED: Galego (Pedro Telmo, p.telmo@valminor.info)
+- LANGUAGE FILE ADDED: Norwegian (Torkil Johnsen, torkil@torkiljohnsen.com)
+- LANGUAGE FILE ADDED: Slovak (Pavel Koutny, pavel.koutny@inetix.sk)
+- LANGUAGE FILE UPDATED: German
+- LANGUAGE FILE UPDATED: Danish (Tommy Ipsen)
+
+2003-07-16 v.1.0.3
+------------------
+- BUGFIX: only text was submitted when submitting from html view
+- BUGFIX: Added missing images to default theme
+- BUGFIX: fixed back/forward bug (740674)
+- LANGUAGE FILE ADDED: Bulgarian (Atanas Tchobanov, atanas@webdressy.com)
+- LANGUAGE FILE ADDED: Polish (Jacek Czekala jacek_czekala@post.pl)
+- LANGUAGE FILE ADDED: Finish (Teemu Joensuu teemu.joensuusaunalahti.fi)
+- LANGUAGE FILE ADDED: Estonian (Maku, maktak@phpnuke-est.net)
+- LANGUAGE FILE UPDATED: Corrected Spanish translation (Antonio Paez, antonio@pentaedro.com)
+- LANGUAGE FILE UPDATED: Fixed typo in Dutch lanugage file (Patrick Vanden Driessche, pvdd@devbrains.be)
+
+2003-05-20 v.1.0.2
+------------------
+- FEATURE: Added active toolbar feature 
+- CHANGE: Switched HTML code editing to TEXTAREA
+- BUGFIX: Fixed "sidetable" toolbar
+- LANGUAGE FILE ADDED: Brazilian Portuguese (Fernando José Karl, fernandokarl@superig.com.br)
+- LANGUAGE FILE ADDED: Swedish (Tomas Jogin, tomas@jogin.com)
+- LANGUAGE FILE ADDED: Danish (Morten Skyt Eriksen, xgd_bitnissen@hotmail.com)
+- LANGUAGE FILE ADDED: Hungarian (Bagoly Sándor Zsigmond, sasa@networldtrading.com)
+
+2003-04-29 v.1.0.1
+------------------
+- FEATURE: show borders on borderless tables
+- FEATURE: HTML [MS Word] cleanup
+- BUGFIX: fixed problem with non-windows (unix or mac) newline
+	characters in passed value
+- BUGFIX: table cell properties didn't work on TH cells
+- BUGFIX: Textarea for non-IE5.5+ browsers was named incorrectly
+- LANGUAGE FILE ADDED: Chinese (Traditional and Simplified) (aman@wealthgrp.com.tw)
+- LANGUAGE FILE ADDED: Czech (BrM, BrM@bridlicna.cz)
+- LANGUAGE FILES UPDATED: Spanish, French, Hebrew, Lithuanian, Dutch, Russian, Turkish
+- THEMES: "blue" and "green" themes are no longer supported
+
+2003-04-22 v.1.0
+----------------
+- Changed short php tags (<?) to full (<?php)
+- Implemented feature to allow using inline javascript instead of	external file
+  (use this if you get ocasional javascript errors)
+- Added no-cache meta tags in dialogs where missing
+- Added support for right-to-left languages (like Hebrew, Arabic etc.)
+- Added French translation (Laurent Fasnacht, lf@o-t.ch)
+- Added Hebrew translation (Yaron Gonen, lord_gino@yahoo.com)
+- Added Turkish translation (Zeki Erkmen, erkmen@t-online.de)
+- Corrected German translation (Matthias Höschele, matthias.hoeschele@gmx.net)
+- Updated Italian translation
+
+2003-04-14 v.1.0 Release Candidate 2
+------------------------------------
+General:
+- Basic documentation added
+- Moved demo to the scripts subdir of spaw directory and updated it to reflect 
+  latest changes
+- Included config file spaw_control.config.php renamed to 
+  spaw_control.default.config.php to prevent accidental overwriting
+- New (modified default theme) "blue" and "green" themes added
+- Default stylesheet file is now configurable through config file 
+  (default stylesheet setting)
+
+Image library:
+- bug fixed: error on non-existent library directories solved
+- Added an abillity to disable image upload functionality 
+  (upload allowed setting)
+- Image library: browse images with keyboard and select by doubleclick added
+
+Color picker:
+- Color picker: fixed bug: returned undefined when Cancel was clicked
+
+Multilanguage:
+- Some static text leftovers fixed
+- Lithuanian translation added 
+  (thanks to Martynas Majeris, martynas@solmetra.com)
+- Russian translation added
+-	German translation added (thanks to Simon Schmitz, schmitz@unitedfuor.com)
+- Dutch translation added (thanks to Koen Koppens, k.koppens@home.nl)
+- Italian translation added (thanks to Omar Di Marzio, omar@networking.it)
+- Error message for non-existent image library added
+
+2003-04-04 v.1.0 Release Candidate 1
+------------------------------------
+This is the first public release.

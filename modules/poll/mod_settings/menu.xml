@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 <menu>
 	<pos>8</pos>
 	<entry>
@@ -7,21 +7,26 @@
 		<caption>Poll</caption>
 		<hint>Hier k&ouml;nnen Sie alle eingetragenen Polls anzeigen</hint>
 		<link>?mod=poll</link>
-		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>0</level>
 	</entry>
 	<entry>
 		<action>search</action>
 		<file>show</file>
+		<caption>Suchen</caption>
+		<hint>Hier k&ouml;nnen Sie nach einzelnen Polls suchen</hint>
+		<link>?mod=poll&action=search</link>
 		<requirement>0</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
 	</entry>
 	<entry>
 		<action>add</action>
 		<file>add</file>
 		<caption>Hinzuf&uuml;gen</caption>
 		<hint>Hier k&ouml;nnen Sie Polls hinzuf&uuml;gen</hint>
-		<link>?mod=poll&amp;action=add</link>
+		<link>?mod=poll&action=add</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -29,12 +34,22 @@
 	<entry>
 		<action>change</action>
 		<file>add</file>
+		<caption>&Auml;ndern</caption>
+		<hint>Hier k&ouml;nnen Sie Polls &auml;ndern</hint>
+		<link>?mod=poll&action=change</link>
 		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
 	</entry>
 	<entry>
 		<action>delete</action>
 		<file>delete</file>
+		<caption>L&ouml;schen</caption>
+		<hint>Hier k&ouml;nnen Sie einen Poll samt Stimmen l&ouml;schen</hint>
+		<link>?mod=poll&action=delete</link>
 		<requirement>3</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
 	</entry>
 	<entry>
 		<action>vote</action>

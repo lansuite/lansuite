@@ -1,34 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 <menu>
 	<pos>32</pos>
 	<entry>
 		<action>default</action>
 		<file>index</file>
 		<caption>Admin-Seite</caption>
-		<hint>Hier können Sie Änderungen an der Konfiguration von LanSuite vornehmen</hint>
-		<link>index.php?mod=install</link>
-		<requirement>3</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+		<hint>Hier k�nnen Sie �nderungen an der Konfiguration von LanSuite vornehmen</hint>
+		<link>install.php?mod=install</link>
+		<requirement>3</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>0</level>
 	</entry>
 	<entry>
-		<action>envcheck</action>
+		<action>env_check</action>
 		<file>envcheck</file>
-		<caption>System-Test</caption>
-		<hint>Ist ihr System geeignet für Lansuite?</hint>
-		<link>index.php?mod=install&amp;action=envcheck</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>dbmenu</action>
 		<file>dbmenu</file>
-		<requirement>3</requirement>
-	</entry>	
-	<entry>
-		<action>mod_cfg</action>
-		<file>mod_cfg</file>
 		<requirement>3</requirement>
 	</entry>	
 	<entry>
@@ -44,12 +34,7 @@
 	<entry>
 		<action>db</action>
 		<file>db</file>
-		<caption>DB-Manager</caption>
-		<hint>Datenbank updaten und verwalten</hint>
-		<link>index.php?mod=install&amp;action=db</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>adminaccount</action>
@@ -59,56 +44,26 @@
 	<entry>
 		<action>modules</action>
 		<file>modules</file>
-		<caption>Modul-Manager</caption>
-		<hint>Module de/aktivieren und konfigurieren</hint>
-		<link>index.php?mod=install&amp;action=modules</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>menu</action>
 		<file>menu</file>
-		<caption>Menü-Manager</caption>
-		<hint>Menüeinträge verwalten</hint>
-		<link>index.php?mod=install&amp;action=menu</link>
-		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
-		<action>design</action>
-		<file>design</file>
 		<requirement>3</requirement>
 	</entry>
 	<entry>
 		<action>settings</action>
-		<file>modules</file>
-		<caption>Konfiguration</caption>
-		<hint>Konfiguration der Module</hint>
-		<link>index.php?mod=install&amp;action=modules&amp;step=10&amp;module=install</link>
+		<file>settings</file>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>import</action>
 		<file>import</file>
-		<caption>Import</caption>
-		<hint></hint>
-		<link>index.php?mod=install&amp;action=import</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>export</action>
 		<file>export</file>
-		<caption>Export</caption>
-		<hint></hint>
-		<link>index.php?mod=install&amp;action=export</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 </menu>

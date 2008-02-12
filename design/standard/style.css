@@ -115,13 +115,13 @@ body {
 
 /* Boxes */
 .box_frame {		/* old name: tbl_1 */
+	background:		#EFEFEF;
 }
 
 .box_caption {
 	color:			#EFEFEF;
 	padding:		0px;
-	font-size:		9px;
-	max-width:		140px; 
+	font-size:		9px; 
 }
 
 .box_content {
@@ -131,25 +131,10 @@ body {
 }
 
 .box_entry {
-	text-align:		left;
 	background:		#EFEFEF;
 	padding:		2px;
-	padding-left: 16px;
-	font-size:		11px;
+	font-size:		11px; 
 	white-space:	nowrap;
-	background-image: url(images/arrows_menurow.gif);
-  background-repeat: no-repeat;
-}
-
-.box_entry_active {
-	text-align:		left;
-	background:		#EFEFEF;
-	padding:		2px;
-	padding-left: 16px;
-	font-size:		11px;
-	white-space:	nowrap;
-	background-image: url(images/arrows_menurow_close.gif);
-  background-repeat: no-repeat;
 }
 
 
@@ -219,10 +204,10 @@ a.admin:hover {
 	padding:		4px;
 }
 
-option[value=de]:before { content:url("../../ext_inc/country_flags/de.gif"); }
-option[value=en]:before { content:url("../../ext_inc/country_flags/en.gif"); }
-option[value=at]:before { content:url("../../ext_inc/country_flags/at.gif"); }
-option[value=ch]:before { content:url("../../ext_inc/country_flags/ch.gif"); }
+option[value=de]:before { content:url("/ext_inc/country_flags/de.gif"); }
+option[value=en]:before { content:url("/ext_inc/country_flags/en.gif"); }
+option[value=at]:before { content:url("/ext_inc/country_flags/at.gif"); }
+option[value=ch]:before { content:url("/ext_inc/country_flags/ch.gif"); }
 
 
 

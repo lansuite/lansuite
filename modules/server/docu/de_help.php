@@ -2,11 +2,11 @@
 
 $helplet['modul'] = 'Server';
 $helplet['action'] = 'Hilfe';
-$helplet['info'] = 'Hier kÃ¶nnen Organisatoren und Besucher Informationen Ã¼ber Ihre Server eintragen. Die Ã¼brigen Nutzer kÃ¶nnen sich so informieren, welche Server auf der LAN vorhanden sind, und wie diese erreicht werden kÃ¶nnen.';
+$helplet['info'] = 'Hier können Organisatoren und Besucher Informationen über Ihre Server eintragen. Die übrigen Nutzer können sich so informieren, welche Server auf der LAN vorhanden sind, und wie diese erreicht werden können.';
 
 $helplet['key'][1] = 'Erreichbarkeitstest';
-$helplet['value'][1] = 'Ein Erreichbarkeistest ist integriert und informiert Ã¼ber den jeweiligen Status der Server. Hier wird zunÃ¤chst per Ping die Erreichbarkeit der IP getestet (das hierfÃ¼r verwendete Intervall liegt bei 60 Sekunden und lÃ¤sst sich in der Modul Konfig definieren) und anschlieÃŸend bei speziellen Services, wie FTP, HTTP, oder IRC versucht eine Verbindung zum Port aufzubauen. Entsprechend kann man aus der Liste auslesen, ob der komplette Serverrechner aus ist, oder nur der betreffende Service zur Zeit auf dem Server nicht lÃ¤uft';
+$helplet['value'][1] = 'Ein Erreichbarkeistest ist integriert und informiert über den jeweiligen Status der Server. Hier wird zunächst per Ping die Erreichbarkeit der IP getestet (das hierfür verwendete Intervall liegt bei 60 Sekunden und lässt sich in der Modul Konfig definieren) und anschließend bei speziellen Services, wie FTP, HTTP, oder IRC versucht eine Verbindung zum Port aufzubauen. Entsprechend kann man aus der Liste auslesen, ob der komplette Serverrechner aus ist, oder nur der betreffende Service zur Zeit auf dem Server nicht läuft';
 $helplet['key'][2] = 'FTP-Debug';
-$helplet['value'][2] = 'Auf FTP-Servern erhÃ¤lt man weitere Informationen, falls der Erreichbarkeitstest fehlschlÃ¤gt (z.B. ob es daran liegt, dass auf dem Server kein Home-Verzeichnis festgelegt ist, oder daran, dass das Downoad-Limit erreicht ist, etc.).';
+$helplet['value'][2] = 'Auf FTP-Servern erhält man weitere Informationen, falls der Erreichbarkeitstest fehlschlägt (z.B. ob es daran liegt, dass auf dem Server kein Home-Verzeichnis festgelegt ist, oder daran, dass das Downoad-Limit erreicht ist, etc.).';
 
 ?>

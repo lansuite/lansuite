@@ -20,8 +20,8 @@
 
 $dsp->NewContent($lang["games"]["hm_caption"], $lang["games"]["hm_subcaption"]);
 
-$menunames[1] = $lang["games"]["ms_navi_start"];
-$menunames[2] = $lang["games"]["ms_navi_highscore"];
+$menunames[] = $lang["games"]["ms_navi_start"];
+$menunames[] = $lang["games"]["ms_navi_highscore"];
 $dsp->AddHeaderMenu($menunames, "?mod=games&action=hangman", $_GET["headermenuitem"]);
 
 if ($_GET["headermenuitem"] == 1) $_GET["step"] = 0;
@@ -31,7 +31,7 @@ if ($_GET["headermenuitem"] == 2) $_GET["step"] = 5;
 if (!$_GET["sieg"]) {
 	$_POST["buchstabe"] = strtoupper($_POST["buchstabe"]);
 
-	// Bei Spiel-Start Variablen zurÃ¼cksetzen
+	// Bei Spiel-Start Variablen zurücksetzen
 	if ($_GET["ratewort"] == "") {
 		$_SESSION["do_highscore"] = 0;
 		if ($_POST["word"]) $_SESSION["losungswort"] = $_POST["word"];
@@ -59,22 +59,18 @@ if (!$_GET["sieg"]) {
 	}
 
 	// Richtige Buchstaben ersetzen
-	$BuchstabeError = '';
 	if ($_POST["buchstabe"] != ""){
-    if (strlen($_POST["buchstabe"]) > 1) $BuchstabeError = t('Bitte geben Sie nur einen Buchstaben ein');
-    else {
-  		$_SESSION["used_letters"] .= $_POST["buchstabe"];
+		$_SESSION["used_letters"] .= $_POST["buchstabe"];
 
-  		$pos = 0;
-  		$found = 0;
-  		while (!(strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) === false)) {
-  			$pos = strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) + 1;
-  			$_GET["ratewort"] = substr_replace($_GET["ratewort"], $_POST["buchstabe"], $pos - 1, 1);
-  			$found = 1;
-  		}
+		$pos = 0;
+		$found = 0;
+		while (!(strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) === false)) {
+			$pos = strpos($_SESSION["losungswort"], $_POST["buchstabe"], $pos) + 1;
+			$_GET["ratewort"] = substr_replace($_GET["ratewort"], $_POST["buchstabe"], $pos - 1, 1);			
+			$found = 1;
+		}
 
-  		if (!$found) $_SESSION["versuche"] ++;
-    }
+		if (!$found) $_SESSION["versuche"] ++;
 	}
 
 	// Sieg-Check
@@ -88,17 +84,17 @@ switch ($_GET["step"]) {
 	case 1:
 		$dsp->SetForm("?mod=games&action=hangman&step=1&ratewort={$_GET["ratewort"]}");
 
-		$dsp->AddDoubleRow("LÃ¶sung", "<b>{$_GET["ratewort"]}</b>");
+		$dsp->AddDoubleRow("Lösung", "<b>{$_GET["ratewort"]}</b>");
 		$dsp->AddDoubleRow("Fehlversuche", $_SESSION["versuche"]);
 		$dsp->AddDoubleRow("Versuchte Buchstaben", $_SESSION["used_letters"]);
 
-		$dsp->AddTextFieldRow("buchstabe", $lang["games"]["hm_buchstabe"], "", $BuchstabeError);
+		$dsp->AddTextFieldRow("buchstabe", $lang["games"]["hm_buchstabe"], "", "");
 		$dsp->AddFormSubmitRow("next");
 	break;
 
 	// Sieg
 	case 2:
-		$dsp->AddDoubleRow("", "Herzlichen GlÃ¼ckwunsch! Sie haben das Wort '{$_SESSION["losungswort"]}' mit {$_SESSION["versuche"]} Fehlversuchen erraten");
+		$dsp->AddDoubleRow("", "Herzlichen Glückwunsch! Sie haben das Wort '{$_SESSION["losungswort"]}' mit {$_SESSION["versuche"]} Fehlversuchen erraten");
 		$dsp->AddHRuleRow();
 
 		if ($_SESSION["do_highscore"]) {
@@ -110,7 +106,7 @@ switch ($_GET["step"]) {
 		}
 	break;
 
-	// Highscoreeintrag hinzufÃ¼gen
+	// Highscoreeintrag hinzufügen
 	case 4:
 		$add_it = $db->query("INSERT INTO {$config["tables"]["game_hs"]} SET
 								game = 'hm',
@@ -137,7 +133,7 @@ switch ($_GET["step"]) {
 	// Startscreen
 	default:
 		$dsp->SetForm("?mod=games&action=hangman&step=1");
-		$dsp->AddDoubleRow("", "Um ein zufÃ¤lliges Wort zu erhalten, bitte kein Wort eingeben.<br>Nur bei zufÃ¤lligen WÃ¶rtern gibt es einen Highscoreeintrag");
+		$dsp->AddDoubleRow("", "Um ein zufälliges Wort zu erhalten, bitte kein Wort eingeben.<br>Nur bei zufälligen Wörtern gibt es einen Highscoreeintrag");
 		$dsp->AddTextFieldRow("word", $lang["games"]["hm_word"], "", "");
 		$dsp->AddFormSubmitRow("next");
 

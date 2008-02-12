@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 <lansuite-module>
 	<name>sponsor</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
 	<caption>Sponsoren</caption>		<!-- The modulname displayed to the user -->

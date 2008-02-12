@@ -46,14 +46,16 @@ class tfunc {
 
 	// Generates a string to output a memberlist of one team
 	function GetMemberList($teamid){
-		global $db, $config, $func, $seat2, $lang;
+		global $db, $config, $func, $seat, $lang;
+
+		$seat = new seat;
 
 		$member_liste = "";
 		$team_memb = $db->query("SELECT user.username, user.userid
 				FROM {$config["tables"]["t2_teammembers"]} AS teammember
 				LEFT JOIN {$config["tables"]["user"]} AS user ON teammember.userid = user.userid
 				WHERE teammember.teamid = $teamid");
-		while ($member = $db->fetch_array($team_memb)) $member_liste .= $member['username'] . $func->button_userdetails($member['userid'], "") . " (Platz: ". $seat2->SeatNameLink($member['userid'], '', '') .")" . HTML_NEWLINE;
+		while ($member = $db->fetch_array($team_memb)) $member_liste .= $member['username'] . $func->button_userdetails($member['userid'], "") . " (Platz: ". $seat->display_seat_link("usrmgr", $member['userid']) .")" . HTML_NEWLINE;
 		$db->free_result($team_memb);
 
 		if ($member_liste == "") return "<i>{$lang["tourney"]["s_res_none"]}</i>";
@@ -110,15 +112,11 @@ class tfunc {
 					");
 			$team_anz = $get_team_anz["anz"];
 
-			$tournament["starttime"] += $round_duration * ($team_anz - 1) * $faktor;
+			$tournament["starttime"] += $round_duration * ($team_anz - 1 - $correction) * $faktor;
 		}
 
-    if ($tournament["mode"] == 'single') {
-  		return $tournament["starttime"] + $round_duration * (abs($round));
-    } else {
-  		if ($round > 0) return $tournament["starttime"] + $round_duration * ($round - 0.5) * $faktor;
-  		else return $tournament["starttime"] + $round_duration * abs($round) * $faktor;
-    }
+		if ($round > 0) return $tournament["starttime"] + $round_duration * ($round - 0.5) * $faktor;
+		else return $tournament["starttime"] + $round_duration * abs($round) * $faktor;
 	}
 
 
@@ -140,15 +138,11 @@ class tfunc {
 					");
 			$team_anz = $get_team_anz["anz"];
 
-			$tournament["starttime"] += $round_duration * ($team_anz - 1) * $faktor;
+			$tournament["starttime"] += $round_duration * ($team_anz - 1 - $correction) * $faktor;
 		}
 
-    if ($tournament["mode"] == 'single') {
-  		return $tournament["starttime"] + $round_duration * (abs($round + 1)) - $break_duration;
-    } else {
-  		if ($round > 0) return $tournament["starttime"] + $round_duration * ($round + 1 - 0.5) * $faktor - $break_duration;
-  		else return $tournament["starttime"] + $round_duration * (abs($round) + 0.5) * $faktor  - $break_duration;
-    }
+		if ($round > 0) return $tournament["starttime"] + $round_duration * ($round + 1 - 0.5) * $faktor - $break_duration;
+		else return $tournament["starttime"] + $round_duration * (abs($round) + 0.5) * $faktor  - $break_duration;
 	}
 
 
@@ -305,7 +299,7 @@ class tfunc {
 					");
 
 				while ($score = $db->fetch_array($scores)){
-					if ($tournament['mode'] == "groups" and $group_nr == 0){
+					if ($tournament['mode'] == "groups" and $scores["groupnr"] == 0){
 						$ranking_data->reached_finales[array_search($score['tid1'], $ranking_data->tid)] = 1;
 						$ranking_data->reached_finales[array_search($score['tid2'], $ranking_data->tid)] = 1;
 					}
@@ -524,9 +518,7 @@ class tfunc {
 					    SET score = '". $score2 ."'
 						WHERE gameid = $gameid2
 						");
-		$func->log_event(str_replace("%SCORE1%", $score1, str_replace("%SCORE2%", $score2, str_replace("%ID1%", $gameid1, str_replace("%ID2%", $gameid2, $lang["tourney"]["s_res_log_scoresubmit"])))), 1, t('Turnier Ergebnise'), $gameid1);
-
-		# Zusätzlich eine Mail an beide Teamleiter senden?
+		$func->log_event(str_replace("%SCORE1%", $score1, str_replace("%SCORE2%", $score2, str_replace("%ID1%", $gameid1, str_replace("%ID2%", $gameid2, $lang["tourney"]["s_res_log_scoresubmit"])))), 1, $lang["tourney"]["log_t_score"]);
 
 
 		// Groups + KO
@@ -711,7 +703,7 @@ class tfunc {
 		global $team_anz, $akt_round, $tournament, $db, $config, $lang, $mail, $func, $game, $mail, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
 
 		$tournament = $db->query_first("SELECT mode, defwin_on_time_exceed, name,
-			break_duration, max_games, game_duration, UNIX_TIMESTAMP(starttime) AS starttime, tournamentid
+			break_duration, max_games, game_duration, starttime, tournamentid
 			FROM {$config["tables"]["tournament_tournaments"]}
 			WHERE tournamentid = $tournamentid
 			");

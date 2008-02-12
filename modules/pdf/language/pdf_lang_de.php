@@ -1,6 +1,6 @@
 <?php
 
-// Allgemeinge Ã¼bersetzungen
+// Allgemeinge übersetzungen
 $lang['pdf']['pdf_caption'] 	= 'PDF aus Daten erstellen';
 $lang['pdf']['pdf_subcaption'] 	= 'Bitte geben sie an was sie ben&ouml;tigen';
 
@@ -17,14 +17,14 @@ $lang['pdf']['input_ok']			= 'Die Daten wurden hinzugef&uuml;gt';
 $lang['pdf']['input_error']		= 'Die Daten konnten nicht hinzugef&uuml;gt werden';
 $lang['pdf']['seat_error']		= 'Keine Sitzpl&auml;tze vorhanden';
 
-// MÃ¶gliche Benutzer
+// Mögliche Benutzer
 $lang['pdf']['all']					= 'Alle';
 $lang['pdf']['guest']					= 'Gast';
 $lang['pdf']['admin']					= 'Administrator';
-$lang['pdf']['opera']					= 'Superadmin';
+$lang['pdf']['opera']					= 'Operator';
 $lang['pdf']['party']					= 'Nur ausgew&auml;hlte Party';
 
-// MÃ¶gliche Objekte
+// Mögliche Objekte
 $lang['pdf']['rect']					= 'Rechteck';
 $lang['pdf']['line']					= 'Linie';
 $lang['pdf']['text']					= 'Text';
@@ -49,7 +49,7 @@ $lang['pdf']['landscape'] 			= 'Querformat';
 
 
 
-// Vorlage Ã¤ndern
+// Vorlage ändern
 $lang['pdf']['object_caption']		= 'Objekt';
 $lang['pdf']['object_new_subcaption']	= 'Neues Objekt erstellen';
 $lang['pdf']['object_change_subcaption']	= 'Objekt &auml;ndern';
@@ -57,7 +57,7 @@ $lang['pdf']['change_caption']		= 'Vorlagen';
 $lang['pdf']['change_subcaption'] 	= 'Vorlage &auml;ndern';
 $lang['pdf']['change_vorlage'] 		= 'Vorlagenname';
 $lang['pdf']['new_item'] 				= 'Erstelle ';
-$lang['pdf']['change_item']			= 'Ã„ndere ';
+$lang['pdf']['change_item']			= 'Ändere ';
 $lang['pdf']['Infos'] 				= 'Art/Datei/Text';
 $lang['pdf']['visible'] 				= 'Sichtbar';
 $lang['pdf']['user_type'] 			= 'Angezeigt bei:';
@@ -82,7 +82,7 @@ $lang['pdf']['file'] 					= 'Datei (relativ zu ext_inc/pdf_templates/';
 $lang['pdf']['orient']					= 'Rechtsb&uuml;ndig';
 
 
-// Auswahl fÃ¼r Besucherausweise
+// Auswahl für Besucherausweise
 $lang['pdf']['yes']	= 'Ja';
 $lang['pdf']['no']	= 'Nein';
 $lang['pdf']['egal']	= 'Egal';
@@ -95,7 +95,7 @@ $lang['pdf']['guestcard_subcaption']	= 'Hier k&ouml;nnen Karten erstellt werden 
 $lang['pdf']['rules'] = 'Die Bl&auml;tter werden nach folgenden Kriterien erstellt:';
 $lang['pdf']['guest']	= 'Besucher ist normaler Gast';
 $lang['pdf']['paid']	= 'Besucher hat bezahlt';
-$lang['pdf']['op']	= 'Besucher ist Superadmin';
+$lang['pdf']['op']	= 'Besucher ist Operator';
 $lang['pdf']['orga']	= 'Besucher ist Orga';
 $lang['pdf']['user']	= 'Bestimmter Besucher';
 $lang['pdf']['date']	= 'Datum der Ausdrucke';
@@ -112,7 +112,7 @@ $lang['pdf']['seat']	= 'Bestimmter Sitzplatz';
 $lang['pdf']['seatrowcard']	=	'Sitzplatzreihe Karten';
 $lang['pdf']['seatnumbercard']	=	'Sitzplatznummer Karten';
 
-// Auswahl fÃ¼r Sitzkarten
+// Auswahl für Sitzkarten
 $lang['pdf']['seatcard_caption']		= 'Sitzplatzkarten erstellen.';
 $lang['pdf']['seatcard_subcaption']	= 'Hier k&ouml;nnen sie Karten f&uuml;r die Sitzpl&auml;tze erstellen.';
 
@@ -122,7 +122,7 @@ $lang['pdf']['order']	= 'Sortierung';
 $lang['pdf']['block']	= 'Block';
 
 
-// Auswahlt fÃ¼r Besucherlist
+// Auswahlt für Besucherlist
 $lang['pdf']['guestlist_caption']		= 'Besucherlist erstellen.';
 $lang['pdf']['guestlist_subcaption']	= 'Hier k&ouml;nnen sie Listen mit allen Besuchern erstellen';
 

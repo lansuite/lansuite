@@ -58,7 +58,17 @@ switch($step) {
 //
 switch($step) {
 	default:
-	  include_once('modules/poll/search.inc.php');
+		//
+		// -----[ SELECT POLLS FOR OVERVIEW ]-----
+		//
+		$mastersearch = new MasterSearch( $vars, "index.php?mod=poll&action=change", "index.php?mod=poll&action=change&step=2&pollid=", "");
+		$mastersearch->LoadConfig("polls", $lang["poll"]["ms_search"], $lang["poll"]["ms_result"]);
+		$mastersearch->PrintForm();
+		$mastersearch->Search();
+		$mastersearch->PrintResult();
+
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+
 	break;
 
 	case 2:
@@ -142,7 +152,6 @@ switch($step) {
 									anonym = '{$_POST["poll_anonym"]}',
 									multi = '{$_POST["poll_multi"]}',
 									endtime = '$poll_endtime',
-									changedate = NOW(),
 									group_id = '{$_POST['group_id']}'
 									WHERE pollid = '{$_GET["pollid"]}'");
 				$func->confirmation(str_replace("%NAME%", $_POST["poll_caption"], $lang["poll"]["change_success"]), "index.php?mod=poll&action=change");
@@ -155,7 +164,6 @@ switch($step) {
 							anonym='{$_POST["poll_anonym"]}',
 							multi='{$_POST["poll_multi"]}',
 							endtime='$poll_endtime',
-							changedate = NOW(),
 							group_id = '{$_POST['group_id']}'
 							");
 				$_GET["pollid"] = $db->insert_id();

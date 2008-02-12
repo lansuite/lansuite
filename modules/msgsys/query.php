@@ -30,7 +30,7 @@ if($_SESSION[auth][login] == "1")
 	//
 	// Output HTML
 	//
-	$index .= $dsp->FetchTpl("design/templates/messenger_query_index.htm");
+	eval("\$index .= \"". $func->gettemplate("messenger_query_index")."\";");
 	$func->templ_output($index);
 }
 else

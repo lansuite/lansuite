@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 
 <lansuite>
 	<header>
@@ -29,11 +29,11 @@
 				<extra></extra>
 			</field>
 			<field>
-				<name>label</name>
-				<type>int(1)</type>
+				<name>src_status</name>
+				<type>enum('send','read')</type>
 				<null></null>
 				<key></key>
-				<default>0</default>
+				<default>send</default>
 				<extra></extra>
 			</field>
 			<field>
@@ -77,8 +77,16 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>priority</name>
+				<type>enum('normal','low','high')</type>
+				<null></null>
+				<key></key>
+				<default>normal</default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>tx_date</name>
-				<type>datetime</type>
+				<type>int(11)</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
@@ -86,7 +94,7 @@
 			</field>
 			<field>
 				<name>rx_date</name>
-				<type>datetime</type>
+				<type>int(11)</type>
 				<null></null>
 				<key></key>
 				<default>0</default>

@@ -20,13 +20,16 @@ if(!isset($_SESSION['foodcenter']['theke_userid'])){
 	if($cfg['sys_barcode_on']){
 		$dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>","","index.php?mod=foodcenter&action=theke&userid=");
 	}
+	$mastersearch = new MasterSearch($vars, "index.php?mod=foodcenter&action=theke", "index.php?mod=foodcenter&action=theke&userid=", "GROUP BY email");
+	$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
+	$mastersearch->PrintForm();
+	$mastersearch->Search();
+	$mastersearch->PrintResult();
+
+	$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+
 	
-  if(!isset($_POST['search_dd_input'][2])) $_POST['search_dd_input'][2] = ">1";
-  if(!isset($_POST['search_dd_input'][3])) $_POST['search_dd_input'][3] = "0";
-  $current_url = 'index.php?mod=foodcenter&action=theke';
-  $target_url = 'index.php?mod=foodcenter&action=theke&userid=';
-  include_once('modules/foodcenter/search.inc.php');
-} else {
+}else{
 	
 	
 	// Productgroups
@@ -62,13 +65,13 @@ if(!isset($_SESSION['foodcenter']['theke_userid'])){
 
 
 
-	if($_POST['calculate']){
+	if($_POST['calculate_x']){
 		$basket->change_basket($_SESSION['foodcenter']['theke_userid']);
 	}
 
 
 
-	if($_POST['imageField'] && !isset($_GET['add'])){
+	if($_POST['imageField_x'] && !isset($_GET['add'])){
 		if($basket->change_basket($_SESSION['foodcenter']['theke_userid'])){
 			$basket->order_basket($_SESSION['foodcenter']['theke_userid'],$_POST['delivered']);
 			$func->information($lang['foodcenter']['basket_ordered'],"?mod=foodcenter&action=theke");

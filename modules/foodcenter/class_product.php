@@ -266,12 +266,6 @@ class product{
 	 */
 	var $supp;
 	/**
-	 * Lieferanten Infos
-	 *
-	 * @var string
-	 */
-	var $supp_infos;
-	/**
 	 * Produktebild
 	 *
 	 * @var string
@@ -357,11 +351,10 @@ class product{
 		$this->desc		=	$_POST['desc'];
 		$this->cat		=	new cat($_POST['cat_id']);
 		$this->supp		=	new supp($_POST['supp_id']);
-		$this->supp_infos	=	$_POST['supp_infos'];
-		$this->mat		=	(int)$_POST['mat'];
+		$this->mat		=	$_POST['mat'];
 		$this->type		=	$_POST['product_type'];
 		$this->choise	=	$_POST['chois'];
-		$this->wait 	= 	$_POST['wait'];
+		(isset($_POST['wait'])) ? $this->wait = 2 : $this->wait = 1 ;
 		$this->pic		= 	$_POST['pic'];
 				
 		$this->cat->read_post();
@@ -440,8 +433,7 @@ class product{
 			$this->desc		=	$row['p_desc'];
 			$this->cat		=	new cat($row['cat_id']);
 			$this->supp		=	new supp($row['supp_id']);
-			$this->supp_infos	=	$row['supp_infos'];
-			$this->mat		=	(int)$row['mat'];
+			$this->mat		=	$row['mat'];
 			$this->type		=	$row['p_type'];
 			$this->choise	=	$row['chois'];
 			$this->wait		= 	$row['wait'];
@@ -474,12 +466,11 @@ class product{
 						p_desc = '{$this->desc}',
 						cat_id = '{$this->cat->cat_id}',
 						supp_id = '{$this->supp->supp_id}',
-						supp_infos = '{$this->supp_infos}',
 						p_file = '{$this->pic}',
-						mat = '". (int)$this->mat ."',
+						mat = '{$this->mat}',
 						p_type = '{$this->type}',
-						wait = '". (int)$this->wait ."',
-						chois = '". (int)$this->choise ."'");	
+						wait = '{$this->wait}',
+						chois = '{$this->choise}'");	
 			$this->id = $db->insert_id();
 		}else{
 			$db->query("UPDATE {$config['tables']['food_product']} SET
@@ -487,12 +478,11 @@ class product{
 						p_desc = '{$this->desc}',
 						cat_id = '{$this->cat->cat_id}',
 						supp_id = '{$this->supp->supp_id}',
-						supp_infos = '{$this->supp_infos}',
 						p_file = '{$this->pic}',
-						mat = '". (int)$this->mat ."',
+						mat = '{$this->mat}',
 						p_type = '{$this->type}',
-						chois = '". (int)$this->choise ."',
-						wait = '". (int)$this->wait ."'
+						chois = '{$this->choise}',
+						wait = '{$this->wait}'
 						WHERE id={$this->id}");		
 		}
 		// Save Productsoption
@@ -580,7 +570,7 @@ class product{
 	 */
 	function form_add_product($step){
 		global $dsp,$gd,$lang,$templ;
-
+		
 		$nextstep = $step + 1;
 		// Change or New ?
 		if($this->id != null){
@@ -595,29 +585,27 @@ class product{
 		$dsp->AddModTpl("foodcenter","javascript");
 		$dsp->AddTextFieldRow("p_caption",$lang['foodcenter']['add_product_prod_cap'],$this->caption,$this->error_food['caption']);
 		$dsp->AddTextAreaRow("desc",$lang['foodcenter']['add_product_prod_desc'],$this->desc,$this->error_food['desc'],NULL,NULL,true);
-
+		
 		// Not functional now
 		// Pic is only active with gd-Libary
 		if ($gd->available){
 			$dsp->AddFileSelectRow("file",$lang['foodcenter']['add_product_prod_pic'],$this->error_food['file'],NULL,NULL,true);
 			$dsp->AddPictureDropDownRow("pic",$lang['foodcenter']['add_product_prod_pic'],"ext_inc/foodcenter",$this->error_food['file'],true,basename($this->pic));
-		}
+		}	
+		
 
 		// Select Cat
 		if(!is_object($this->cat)) $this->cat = new cat();
 		$this->cat->cat_form();
-
+		
 		// Select Supplier
 		if(!is_object($this->supp)) $this->supp = new supp();
 		$this->supp->supp_form();
-
-			$dsp->AddTextFieldRow("supp_infos",$lang['foodcenter']['add_product_prod_supp_desc'],$this->supp_infos,"",null,true);
-
-
+		
 		// Picecontrol ?
-		$dsp->AddCheckBoxRow("mat",$lang['foodcenter']['add_product_prod_mat_text'],$lang['foodcenter']['add_product_prod_mat_quest'],"",NULL,$this->mat,NULL,NULL);
+		$dsp->AddCheckBoxRow("mat",$lang['foodcenter']['add_product_prod_mat_text'],$lang['foodcenter']['add_product_prod_mat_quest'],"",NULL,$_POST['mat']);
 		// Orderproduct ?
-		$dsp->AddCheckBoxRow("wait",$lang['foodcenter']['add_product_prod_order'],$lang['foodcenter']['add_product_prod_order_text'],"",NULL,$this->wait,NULL,NULL);
+		$dsp->AddCheckBoxRow("wait",$lang['foodcenter']['add_product_prod_order'],$lang['foodcenter']['add_product_prod_order_text'],"",NULL,$_POST['wait']);
 
 		// Hiden not Selected Option an List Product Options
 		foreach ($lang['foodcenter']['add_product_prod_opt'] as $key => $value){
@@ -629,33 +617,34 @@ class product{
 				$display[$key] = "none";
 			}
 			$opts[] .= "<option $selected value=\"$key\">$value</option>";
-
+			
 		}
 		if($_POST['product_opts'] == ""){
 			$display[1] = "";
 		}
-
+		
 		if($this->type != null){
-			$dsp->AddDropDownFieldRow("product_type\" disabled onchange=\"change_option(this.options[this.options.selectedIndex].value)\"","<input type=\"hidden\" name=\"product_type\" value=\"{$this->type}\" />" . $lang['foodcenter']['add_product_prod_opt_text'],$opts,$this->error_food['product_opts']);
+			$dsp->AddDropDownFieldRow("product_type\" disabled onchange=\"change_option(this.options[this.options.selectedIndex].value)\"","<input type=\"hidden\" name=\"product_type\" value=\"{$this->type}\" />" . $lang['foodcenter']['add_product_prod_opt_text'],$opts,$this->error_food['product_opts']);		
 		}else {
 			$dsp->AddDropDownFieldRow("product_type\" onchange=\"change_option(this.options[this.options.selectedIndex].value)\"",$lang['foodcenter']['add_product_prod_opt_text'],$opts,$this->error_food['product_opts']);
 		}
-
-
+		
+		
 		if($this->type == null || $this->type == 1){
 			// display HTML for option 1
 			$templ['ls']['row']['hidden_row']['id'] = "food_1";
 			$templ['ls']['row']['hidden_row']['display'] = $display[1];
 			$dsp->AddModTpl("foodcenter","hiddenbox_start");
-
+		
 			for($i = 0;$i < 3;$i++){
 				($i == 0) ? $optional = null : $optional = true;
 				if(!is_object($this->option[$i])) $this->option[$i] = new product_option();
 				$this->option[$i]->option_form($i,$optional);
 			}
 			$dsp->AddModTpl("foodcenter","hiddenbox_stop");
-		}
 
+		}
+		
 		if($this->type == null || $this->type == 2){
 			// display HTML for option 2
 			$templ['ls']['row']['hidden_row']['id'] = "food_2";
@@ -667,7 +656,7 @@ class product{
 				($i == $q) ? $optional = null : $optional = true;
 				if(!is_object($this->option[$i])) $this->option[$i] = new product_option();
 				$this->option[$i]->option_form($i,$optional,true,$this->choise);
-			}
+			}		
 			$dsp->AddModTpl("foodcenter","hiddenbox_stop");
 		}
 		if($this->id != null){
@@ -696,20 +685,20 @@ class product{
 				unset($templ['foodcenter']['product']['pricerow']["price_2"]);
 				unset($templ['foodcenter']['product']['pricerow']["price_3"]);
 				
-				$templ['foodcenter']['product']['pricerow']['name'] = "<a href='$worklink&info={$this->id}'><b>" . $this->caption . "</b><br />" . $this->desc . "</a>";
+				$templ['foodcenter']['product']['pricerow']['name'] = "<a href='$worklink&info={$this->id}'>" . $this->caption . "</a>";
 				if(is_object($this->option[0])){
 					$templ['foodcenter']['product']['pricerow']["price_3"] = "<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a>";
-					$templ['foodcenter']['product']['pricerow']["price_3"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
+					$templ['foodcenter']['product']['pricerow']["price_3"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>";
 				}
 				if(is_object($this->option[1])){
 					$templ['foodcenter']['product']['pricerow']["price_2"] = "<b>" . $this->option[1]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'>" . $this->option[1]->price . " " . $cfg['sys_currency'] . "</a>";
-					$templ['foodcenter']['product']['pricerow']["price_2"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
+					$templ['foodcenter']['product']['pricerow']["price_2"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>";
 				}
 				if(is_object($this->option[2])){
 					$templ['foodcenter']['product']['pricerow']["price_1"] = "<b>" . $this->option[2]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[2]->price . " " . $cfg['sys_currency'] . "</a>";
-					$templ['foodcenter']['product']['pricerow']["price_1"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" align=\"right\" /></a>";
+					$templ['foodcenter']['product']['pricerow']["price_1"] .= "<a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>";
 				}
-				$dsp->AddDoubleRow($templ['foodcenter']['product']['pricerow']['name'], $dsp->FetchModTpl('foodcenter', 'product_price_row'));
+				$dsp->AddModTpl("foodcenter","product_price_row");
 				break;
 			case 2:
 				if($this->choise == 1){
@@ -786,13 +775,13 @@ class product{
 				case 1:
 				
 				if(is_object($this->option[0])){
-					$dsp->AddDoubleRow("","<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" /></a>");
+					$dsp->AddDoubleRow("","<b>" . $this->option[0]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'>" . $this->option[0]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[0]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>");
 				}
 				if(is_object($this->option[1])){
-					$dsp->AddDoubleRow("","<b>" . $this->option[1]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'>" . $this->option[1]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" /></a>");
+					$dsp->AddDoubleRow("","<b>" . $this->option[1]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'>" . $this->option[1]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[1]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>");
 				}
 				if(is_object($this->option[2])){
-					$dsp->AddDoubleRow("","<b>" . $this->option[2]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[2]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/images/icon_basket.png\" border=\"0\" alt=\"basket\" /></a>");
+					$dsp->AddDoubleRow("","<b>" . $this->option[2]->unit . "</b>  <a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'>" . $this->option[2]->price . " " . $cfg['sys_currency'] . "</a><a href='$worklink&add={$this->id}&opt={$this->option[2]->id}'><img src=\"design/{$auth["design"]}/images/basket.gif\" border=\"0\" alt=\"basket\" /></a>");
 				}
 
 				break;
@@ -864,13 +853,13 @@ class product{
 		global $lang;
 		$error = -1;
 		foreach ($this->option as $key => $value){
-			if(($val * $this->option[$key]->ordered) <  $this->option[$key]->pice){
-				if($error == -1 || $error > $this->option[$key]->pice){
-					$error = $this->option[$key]->pice;
+			if(($val * $this->option[$key]->ordered) <  $this->option[$key]->piece){
+				if($error == -1 || $error > $this->option[$key]->piece){
+					$error = $this->option[$key]->piece;
 				}
 			}
 		}
-		if($error = -1){
+		if($error != -1){
 			$this->error_food['order_error'] = $lang['foodcenter']['add_product_err_pice_count'];
 			$this->ordered = $error;	
 			return false;
@@ -888,7 +877,7 @@ class product{
 	 * @return int
 	 */
 	function order($userid,$delivered){
-		global $db,$config, $party;
+		global $db,$config;
 		$time = time();
 		$price = 0;
 		if($this->type == 2){
@@ -897,25 +886,19 @@ class product{
 					$opt_array[] .= $this->option[$key]->id;
 					$price += $this->option[$key]->price;
 					if($this->mat == 1){
-					$tmp_rest1 = $this->option[$key]->pice - $this->option[$key]->ordered;
-						$db->query("UPDATE {$config['tables']['food_option']} SET pice = '". (int)$tmp_rest1 ."' WHERE id = {$this->option[$key]->id}");
+						$db->query("UPDATE {$config['tables']['food_option']} SET pice = 'pice - {$this->option[$key]->ordered}' WHERE id = {$this->option[$key]->id}");
 					}
 				}
 			}
-			// Status setzen
-			if($this->wait == 1)
-				$status = 2 ;
-			else 
-				$status = 1;
-				
-			//if($delivered == 1 || $delivered == 2 && $this->wait == 1) $status = 4;
+			if($this->wait == 1) $status = 3 ;
+			else $status = 1;
+			if($delivered == 1 || $delivered == 2 && $this->wait == 1) $status = 4;
 			$opt_string = implode("/",$opt_array);
 			if($db->query("INSERT INTO {$config['tables']['food_ordering']} SET 
 					userid = '$userid',
 					productid = '{$this->id}',
-					partyid = '{$party->party_id}',
 					opts = '$opt_string',
-					pice = '". (int)$this->ordered ."',
+					pice = '{$this->ordered}',
 					status = '$status',
 					ordertime = '$time',
 					lastchange = '$time',
@@ -927,26 +910,22 @@ class product{
 		}else{
 			foreach ($this->option as $key => $value){
 				if($this->option[$key]->ordered > 0 || $this->option[$key]->fix == 1){
-					if($this->wait == 1) 
-						$status = 2;
-					else 
-						$status = 1;
-					//if($delivered == 1 || $delivered == 2 && $this->wait == 1) $status = 4;
+					if($this->wait == 1) $status = 3 ;
+					else $status = 1;
+					if($delivered == 1 || $delivered == 2 && $this->wait == 1) $status = 4;
 					if($db->query("INSERT INTO {$config['tables']['food_ordering']} SET 
 									userid = '$userid',
 									productid = '{$this->id}',
-									partyid = '{$party->party_id}',
 									opts = '{$this->option[$key]->id}',
-									pice = '". (int)$this->option[$key]->ordered ."',
+									pice = '{$this->option[$key]->ordered}',
 									status = '$status',
 									ordertime = '$time',
 									lastchange = '$time',
 									supplytime = '0'")){
 						$price += $this->option[$key]->price * $this->option[$key]->ordered;
-					} 
+					}
 					if($this->mat == 1){
-					$tmp_rest2 = $this->option[$key]->pice - $this->option[$key]->ordered;
-						$db->query("UPDATE {$config['tables']['food_option']} SET pice = '". (int)$tmp_rest2 ."' WHERE id = {$this->option[$key]->id}");
+						$db->query("UPDATE {$config['tables']['food_option']} SET pice = 'pice - {$this->option[$key]->ordered}' WHERE id = {$this->option[$key]->id}");
 					}
 				}	
 			}
@@ -968,26 +947,25 @@ class product_option{
 
 	/**
 	 * Produktoptionsid
+	 *
 	 * @var int
 	 */
 	var $id;
 	/**
 	 * Id des Elternproduktes
+	 *
 	 * @var int
 	 */
 	var $parentid;
 	/**
 	 * Typ des Elternproduktes
+	 *
 	 * @var int
 	 */
 	var $parenttyp;
 	/**
-	 * Barcode
-	 * @barcode string
-	 */
-	var $barcode;
-	/**
 	 * Produktoptionsname
+	 *
 	 * @var string
 	 */
 	var $caption;
@@ -1066,17 +1044,17 @@ class product_option{
 		}
 		$this->parentid	= $parentid;
 		$this->parenttyp = $type;
-		$this->barcode  = $_POST['barcode'][$nr];
 		$this->caption	= $_POST['caption'][$nr];
 		$this->unit		= $_POST['unit'][$nr];
 		$this->price	= $_POST['price'][$nr];
 		$this->eprice	= $_POST['eprice'][$nr];
-		$this->pice		= $_POST['piece'][$nr];
+		$this->pice		= $_POST['pice'][$nr];
 		$this->fix		= isset($_POST['fix'][$nr]) ? 1 : 0;
 	}
 	
 	/**
 	 * Produktoption aus der DB lesen
+	 *
 	 */
 	function read(){
 		global $db,$config;
@@ -1085,7 +1063,6 @@ class product_option{
 
 		$this->parentid	= $row['parentid'];
 		$this->caption	= $row['caption'];
-		$this->barcode	= $row['barcode'];		
 		$this->unit		= $row['unit'];
 		$this->price	= $row['price'];
 		$this->eprice	= $row['eprice'];
@@ -1096,6 +1073,7 @@ class product_option{
 	
 	/**
 	 * Produktoption hinzufügen
+	 *
 	 * @param int $id
 	 */
 	function write($id = 0){
@@ -1105,7 +1083,6 @@ class product_option{
 			
 			$db->query("INSERT INTO {$config['tables']['food_option']}  SET 
 									parentid 	= '{$this->parentid}',
-									barcode 	= '{$this->barcode}',
 									caption		= '{$this->caption}',
 									unit		= '{$this->unit}',
 									price		= '{$this->price}',
@@ -1116,7 +1093,6 @@ class product_option{
 		}else{
 			$db->query("UPDATE {$config['tables']['food_option']}  SET 
 									parentid 	= '{$this->parentid}',
-									barcode 	= '{$this->barcode}',
 									caption		= '{$this->caption}',
 									unit		= '{$this->unit}',
 									price		= '{$this->price}',
@@ -1130,6 +1106,7 @@ class product_option{
 	
 	/**
 	 * Eingabedaten prüfen
+	 *
 	 * @return boolean
 	 */
 	function check(){
@@ -1153,6 +1130,7 @@ class product_option{
 	
 	/**
 	 * Produkte zählen
+	 *
 	 * @return unknown
 	 */
 	function count_unit(){
@@ -1161,6 +1139,7 @@ class product_option{
 	
 	/**
 	 * Preiszusammenzählen
+	 *
 	 * @return int
 	 */
 	function count_price(){
@@ -1191,7 +1170,7 @@ class product_option{
 			$dsp->AddModTpl("foodcenter","hiddenbox_stop");
 			$dsp->AddTextFieldRow("caption[$nr]",$lang['foodcenter']['add_product_prod_opt_capt'],$this->caption,$this->error['caption'],null,$optional);
 		}
-		$this->_Add_Option_Row($lang['foodcenter']['add_product_option_text'],$lang['foodcenter']['add_product_option_unit'],$lang['foodcenter']['add_product_option_pricetext'],$lang['foodcenter']['add_product_option_epricetext'],$lang['foodcenter']['add_product_option_piecetext'],$lang['foodcenter']['add_product_option_barcodetext'],"unit[$nr]","price[$nr]","eprice[$nr]","piece[$nr]","barcode[$nr]",$this->unit,$this->price,$this->eprice,$this->pice,$this->barcode,"hidden[$nr]",$this->id,$this->error['price'],$optional);
+		$this->_Add_Option_Row($lang['foodcenter']['add_product_option_text'],$lang['foodcenter']['add_product_option_unit'],$lang['foodcenter']['add_product_option_pricetext'],$lang['foodcenter']['add_product_option_epricetext'],$lang['foodcenter']['add_product_option_piecetext'],"unit[$nr]","price[$nr]","eprice[$nr]","piece[$nr]",$this->unit,$this->price,$this->eprice,$this->pice,"hidden[$nr]",$this->id,$this->error['price'],$optional);
 		$dsp->AddHRuleRow();
 		
 	}
@@ -1229,24 +1208,21 @@ class product_option{
 	 * @param string $text_price
 	 * @param string $text_eprice
 	 * @param string $text_piece
-	 * @param string $text_barcode
 	 * @param string $name_product
 	 * @param string $name_price
 	 * @param string $name_eprice
 	 * @param string $name_piece
-	 * @param string $name_barcode
 	 * @param int $value_product
 	 * @param int $value_price
 	 * @param int $value_eprice
 	 * @param int $value_piece
-	 * @param int $value_barcode
 	 * @param string $hidden_name
 	 * @param int $hidden_id
 	 * @param string $errortext
 	 * @param string $optional
 	 * @return template
 	 */
-	function _Add_Option_Row($text,$text_product,$text_price,$text_eprice,$text_piece,$text_barcode,$name_product,$name_price,$name_eprice,$name_piece,$name_barcode,$value_product,$value_price,$value_eprice,$value_piece,$value_barcode,$hidden_name,$hidden_id,$errortext,$optional = false) {
+	function _Add_Option_Row($text,$text_product,$text_price,$text_eprice,$text_piece,$name_product,$name_price,$name_eprice,$name_piece,$value_product,$value_price,$value_eprice,$value_piece,$hidden_name,$hidden_id,$errortext,$optional = false) {
 		global $dsp,$templ;
 				
 		$templ['foodcenter']['productcontrol']['pricerow']['text_row'] = $text;
@@ -1262,9 +1238,6 @@ class product_option{
 		$templ['foodcenter']['productcontrol']['pricerow']['text_piece'] = $text_piece;
 		$templ['foodcenter']['productcontrol']['pricerow']['name_piece'] = $name_piece;
 		$templ['foodcenter']['productcontrol']['pricerow']['value_piece'] = $value_piece;
-		$templ['foodcenter']['productcontrol']['pricerow']['text_barcode'] = $text_barcode;
-		$templ['foodcenter']['productcontrol']['pricerow']['name_barcode'] = $name_barcode;
-		$templ['foodcenter']['productcontrol']['pricerow']['value_barcode'] = $value_barcode;
 		$templ['foodcenter']['productcontrol']['pricerow']['hidden_name'] = $hidden_name;
 		$templ['foodcenter']['productcontrol']['pricerow']['hidden_id']	= $hidden_id;
 		
@@ -1273,8 +1246,7 @@ class product_option{
 		if($optional) $templ['foodcenter']['productcontrol']['pricerow']['optional'] = "_optional";
 		if(!$optional) $templ['foodcenter']['productcontrol']['pricerow']['optional'] = "";
 
-		return $dsp->AddDoubleRow($templ['foodcenter']['productcontrol']['pricerow']['text_row'], $dsp->FetchModTpl('foodcenter', 'productcontrol_price_row'));
-    #$dsp->AddModTpl("foodcenter","productcontrol_price_row");
+		return $dsp->AddModTpl("foodcenter","productcontrol_price_row");
 	}
 	
 }
@@ -1437,7 +1409,9 @@ class supp{
 		if($supp_array){
 			$dsp->AddDropDownFieldRow("supp_id",$lang['foodcenter']['add_product_prod_supp'],$supp_array,"");
 		}
-		$dsp->AddTextFieldRow("supp_name",$lang['foodcenter']['add_product_prod_supp_new'],$_POST['supp_name'],$this->error['supp_name']);	}
+		$dsp->AddTextFieldRow("supp_name",$lang['foodcenter']['add_product_prod_supp_new'],$_POST['supp_name'],$this->error['supp_name']);
+		$dsp->AddTextFieldRow("supp_desc",$lang['foodcenter']['add_product_prod_supp_desc'],$_POST['supp_desc'],"",null,true);
+	}
 	
 }
 

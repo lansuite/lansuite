@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+
+<translations>
+	<entry>
+		<de>Sitzplan</de>
+		<en>Seating</en>
+	</entry>
+	<entry>
+		<de>Bezahlte Benutzer können sich hier Sitzplätze reservieren. So kann jeder nachschauen, wo eine gesuchte Person sitzt</de>
+		<en>Paid users could reserver their seat here. So each user can look where another could be found</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie alle Sitzbl&ouml;cke anzeigen</de>
+		<en>Here you can see all seat blocks</en>
+	</entry>
+	<entry>
+		<de>Sitzplatz &auml;ndern</de>
+		<en>Change seat</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie ihren Sitzplatz &auml;ndern</de>
+		<en>Here you can change your place</en>
+	</entry>
+	<entry>
+		<de>Hinzuf&uuml;gen</de>
+		<en>Add</en>
+	</entry>
+	<entry>
+		<de>&Auml;ndern</de>
+		<en>Change</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie einen Sitzblock &Auml;nern</de>
+		<en>Here you can change a seat block</en>
+	</entry>
+	<entry>
+		<de>L&ouml;schen</de>
+		<en>Delete</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie einen Sitzblock l&ouml;schen</de>
+		<en>Here you can delete a seat block</en>
+	</entry>
+	<entry>
+		<de>Platzverwaltung</de>
+		<en>Manage seats</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie einzelnen Benutzern neue Sitzpl&auml;tze zuweisen</de>
+		<en>Here you can assign seats to speciffic users</en>
+	</entry>
+	<entry>
+		<de>Platzfreigabe</de>
+		<en>Release seat</en>
+	</entry>
+	<entry>
+		<de>Hier k&ouml;nnen Sie einzelne Pl&auml;tze freigeben</de>
+		<en>Here you can release speciffic seats</en>
+	</entry>
+</translations>

@@ -12,7 +12,6 @@
 	$lang['sys']['seconds'] = 'seconds';
 	$lang['sys']['language'] = 'Language';
 	$lang['sys']['none'] = 'None';
-	$lang['sys']['all'] = 'All';
 
 	// Index Module
 	$lang['index_module']['logout'] = 'You hav been logged out from the intranet successfully';
@@ -31,8 +30,6 @@
 	$lang['class_auth']['checkedout_log'] = 'loggin error for %EMAIL% (checked out)';
 	$lang['class_auth']['get_email_or_id'] = 'Please get your email or your Lansuite-id';
 	$lang['class_auth']['get_pw'] = 'Please get your password';
-	$lang['class_auth']['locked'] = 'This account has not been unlocked, yet. Wait for an organisator to unlock your account, please';
-	$lang['class_auth']['locked_log'] = 'Account of %EMAIL% is not unlocked, yet. Therefore his login failed';
 
 
 	// Class db_mysql
@@ -43,17 +40,15 @@
 	$lang['class_db_mysql']['sql_error_log'] = 'SQL-Failure in PHP-Script \'%SCRIPT%\' (Referrer: \'%REFERRER%\')<br />SQL-Error-Message: %ERROR%<br />Query: %QUERY%';
 
 	// Class Display
-	$lang['class_display']['clickhere'] = 'please click here!';
-	$lang['class_display']['IFrame']['noIFrame'] = 'If your browser doesn\'t support IFrames, ';
-	$lang['class_display']['newWindow']['popupBlocked'] ='If the PupUp was blocked, ';
-	
+	# No Language
+
 	// Class func
 	$lang['class_func']['no_templ'] = 'The template <b>%TEMPL%</b> could not be opened';
 	$lang['class_func']['seatinfo_priority'] = 'Function setainfo needs Priority defined as integer: 0 low (grey), 1 middle (green), 2 high (orange)';
 	$lang['class_func']['sunday'] = 'Sunday';
 	$lang['class_func']['monday'] = 'Monday';
 	$lang['class_func']['tuesday'] = 'Tuesday';
-	$lang['class_func']['wednesday'] = 'Wednesday';
+	$lang['class_func']['wednesdey'] = 'Wednesday';
 	$lang['class_func']['thursday'] = 'Thursday';
 	$lang['class_func']['friday'] = 'Friday';
 	$lang['class_func']['saturday'] = 'Saturday';
@@ -115,7 +110,6 @@
 	$lang['button']['bold'] = 'Bold';
 	$lang['button']['checkin'] = 'Check in';
 	$lang['button']['checkout'] = 'Check out';
-	$lang['button']['checkin_reset'] = 'Reset Check in';
 	$lang['button']['close'] = 'Close';
 	$lang['button']['code'] = 'Code';
 	$lang['button']['comments'] = 'Comments';
@@ -176,36 +170,9 @@
 	$lang['button']['changeclanpw'] = 'Change Clanpw';
 	$lang['button']['register'] = 'Register';
 	$lang['button']['lost_pw'] = 'Lost password?';
-	$lang['button']['Quote'] = 'Quote';
 
 	// Missing-Fields dialog
 	$lang['missing_fields']['caption'] = 'There are missing fields';
 	$lang['missing_fields']['subcaption'] = 'Please enter your data first, to complete your signon to the system';
   $lang['missing_fields']['success'] = 'Thanks, for submitting your data';	
-  
-  // MS2
-  $lang['ms2']['score'] = 'Score';
-  $lang['ms2']['details'] = 'Details';
-  $lang['ms2']['edit'] = 'Edit';
-  $lang['ms2']['delete'] = 'Delete';
-  $lang['ms2']['send_mail'] = 'Send mail';
-  $lang['ms2']['change_pw'] = 'Change password';
-  $lang['ms2']['switch_user'] = 'Switch user';  
-  $lang['ms2']['game_tree'] = 'Game tree';  
-  $lang['ms2']['game_pairs'] = 'Pairs';  
-  $lang['ms2']['ranking'] = 'Ranking';  
-  $lang['ms2']['assign'] = 'Assign';  
-  $lang['ms2']['generate'] = 'Generate';  
-  $lang['ms2']['reply'] = 'Reply';  
-
-  $lang['mf']['add_success'] = 'The data has been submitted';
-  $lang['mf']['change_success'] = 'The data has been changed';
-  $lang['mf']['err_no_value'] = 'Fill out this mandatory field, please';
-  $lang['mf']['err_no_integer'] = 'Submit a numeric value, please';
-  $lang['mf']['err_invalid_date'] = 'Invalid date submitted';
-  $lang['mf']['err_invalid_id'] = 'Invalid ID given';
-  $lang['mf']['pw2_caption'] = 'verfication';
-  $lang['mf']['err_pw2'] = 'The passwords do not match';
-  $lang['mf']['err_double_on_unique'] = 'This entry exists already in our database';
-  $lang['mf']['err_captcha'] = 'Captcha does not match';
 ?>

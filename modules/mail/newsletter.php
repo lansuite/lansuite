@@ -25,101 +25,68 @@ switch($_GET["step"]) {
 		if ($_POST["onlynewsletter"] == "") $_POST["onlynewsletter"] = 1;
 		if ($_POST["toinet"] == "") $_POST["toinet"] = 1;
 
-		$dsp->AddFieldSetStart('Zielgruppen-Einschränkung');
 		$dsp->AddCheckBoxRow("onlynewsletter", $lang["mail"]["newsletter_onlynewsletter"], $lang["mail"]["newsletter_onlynewsletter2"], "", 1, $_POST["onlynewsletter"]);
-#		$dsp->AddCheckBoxRow("onlysignon", $lang["mail"]["newsletter_onlysignon"], $lang["mail"]["newsletter_onlysignon2"], "", 1, $_POST["onlysignon"]);
+		$dsp->AddCheckBoxRow("onlysignon", $lang["mail"]["newsletter_onlysignon"], $lang["mail"]["newsletter_onlysignon2"], "", 1, $_POST["onlysignon"]);
+		$dsp->AddCheckBoxRow("onlypaid", $lang["mail"]["newsletter_onlypaid"], $lang["mail"]["newsletter_onlypaid2"], "", 1, $_POST["onlypaid"]);
 
-		$t_array = array();
-		array_push($t_array, '<option $selected value="0">'. t('An alle Benutzer') .'</option>');
-		array_push($t_array, '<option $selected value="-1">'. t('Zu keiner Party angemeldet') .'</option>');
-    $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
-    while($res = $db->fetch_array($row)) array_push($t_array, '<option $selected value="'. $res['party_id'] .'">'. $res['name'] .'</option>');
-    $db->free_result($row);
-		$dsp->AddDropDownFieldRow("onlysignon", t('Nur Angemeldete an folgender Party'), $t_array, '');
+		$dsp->AddHRuleRow();
 
-		$t_array = array();
-		array_push ($t_array, "<option $selected value=\"0\">{$lang['mail']['newsletter_onlypaid_all']}</option>");
-		array_push ($t_array, "<option $selected value=\"1\">{$lang['mail']['newsletter_onlypaid2']}</option>");
-		array_push ($t_array, "<option $selected value=\"2\">{$lang['mail']['newsletter_onlypaid_not']}</option>");
-		$dsp->AddDropDownFieldRow("onlypaid", t('Nur Benutzer die zu oben ausgewählter Party bezahlt haben'), $t_array, '');
+		$dsp->AddCheckBoxRow("toinet", $lang["mail"]["newsletter_toinet"], $lang["mail"]["newsletter_toinet2"], $inet_error, 1, $_POST["toinet"]);
+		$dsp->AddCheckBoxRow("tosys", $lang["mail"]["newsletter_tosys"], $lang["mail"]["newsletter_tosys2"], "", 1, $_POST["tosys"]);
 
-		$t_array = array();
-		array_push ($t_array, "<option $selected value=\"0\">". t('An alle Benutzer') ."</option>");
-		array_push ($t_array, "<option $selected value=\"1\">". t('Nur an Gäste') ."</option>");
-		array_push ($t_array, "<option $selected value=\"2\">". t('Nur an Admins und Superadminen') ."</option>");
-		array_push ($t_array, "<option $selected value=\"3\">". t('Nur an Superadminen') ."</option>");
-		$dsp->AddDropDownFieldRow("type", t('Nur an folgende Benutzertypen'), $t_array, '');
+		$dsp->AddHRuleRow();
 
-		$t_array = array();
-		array_push($t_array, '<option $selected value="0">'. t('An alle Gruppen') .'</option>');
-		array_push($t_array, '<option $selected value="-1">'. t('Nur an Benutzer ohne Gruppe') .'</option>');
-    $row = $db->query("SELECT group_id, group_name FROM {$config['tables']['party_usergroups']}");
-    while($res = $db->fetch_array($row)) array_push($t_array, '<option $selected value="'. $res['group_id'] .'">'. $res['group_name'] .'</option>');
-    $db->free_result($row);
-		$dsp->AddDropDownFieldRow("group_id", t('Nur an folgende Gruppen'), $t_array, '');
-		$dsp->AddFieldSetEnd();
+		$dsp->AddDoubleRow("Variablen", "%NACHNAME%" . HTML_NEWLINE ."
+			%VORNAME%" . HTML_NEWLINE ."
+			%NICK%" . HTML_NEWLINE ."
+			%EMAIL%" . HTML_NEWLINE ."
+			%WWCLID%" . HTML_NEWLINE ."
+			%WWCLCLANID%" . HTML_NEWLINE ."
+			%NGLID%" . HTML_NEWLINE ."
+			%NGLCLANID%" . HTML_NEWLINE ."
+			%IP%" . HTML_NEWLINE ."
+			%CLAN%" . HTML_NEWLINE ."
+			%CLANURL%" . HTML_NEWLINE ."
+			%BEZAHLT% ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
+			%EINGECHECKT% ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
+			%ANGEMELDET% ({$lang["mail"]["newsletter_yes_no"]})" . HTML_NEWLINE ."
+			");
 
-		$dsp->AddFieldSetStart('An');
-		$dsp->AddCheckBoxRow("toinet", t('E-Mail-Adresse'), t('An die bei der Anmeldung angegebene E-Mail-Adresse'), $inet_error, 1, $_POST["toinet"]);
-		$dsp->AddCheckBoxRow("tosys", t('System-Mailbox'), t('An die System-Mailbox des Benutzers'), "", 1, $_POST["tosys"]);
-		$dsp->AddFieldSetEnd();
-
-		$dsp->AddFieldSetStart('Nachricht');
 		$dsp->AddTextFieldRow("subject", $lang["mail"]["newsletter_subject"], $_POST["subject"], $subject_error);
-		$dsp->AddTextAreaMailRow("text", $lang["mail"]["newsletter_text"], $_POST["text"], $text_error);
-		$dsp->AddFieldSetEnd();
+		$dsp->AddTextAreaRow("text", $lang["mail"]["newsletter_text"], $_POST["text"], $text_error);
 
 		$dsp->AddFormSubmitRow("send");
+		$dsp->AddBackButton("install.php?mod=install", "install/db"); 
 		$dsp->AddContent();
 	break;
 
 	case 2:
-		$where = "u.username != 'LS_SYSTEM'";
-		if ($_POST["onlynewsletter"]) $where .= ' AND u.newsletter = 1 ';
-
-		if ($_POST['onlysignon'] == -1) $where .= ' AND p.party_id IS NULL';
-		elseif ($_POST['onlysignon']) $where .= " AND p.party_id=". (int)$_POST['onlysignon'];
-
-		if ($_POST["onlypaid"] == 1) $where .= " AND p.paid > 0";
-		elseif ($_POST["onlypaid"] == 2) $where .= " AND p.paid = 0";
-
-		if ($_POST["type"] == 1) $where .= " AND u.type = 1";
-		elseif ($_POST["type"] == 2) $where .= " AND (u.type = 2 OR u.type = 3)";
-		elseif ($_POST["type"] == 3) $where .= " AND u.type = 3";
-		else $where .= " AND u.type > 0";
-
-		if ($_POST['group_id'] == -1) $where .= ' AND u.group_id = 0';
-		elseif ($_POST['group_id']) $where .= " AND u.group_id=". (int)$_POST['group_id'];
+		$where = "(u.username != 'LS_SYSTEM')";
+		if ($_POST["onlynewsletter"]) $where .= " AND (u.newsletter = 1) ";
+		if ($_POST["onlysignon"]) $where .= " AND p.party_id={$party->party_id}";
+		if ($_POST["onlypaid"]) $where .= " AND p.party_id={$party->party_id} AND (p.paid = 1)";
+		$where .= " AND (u.type > 0) GROUP BY email";
 
 		$success = "";
 		$fail = "";
-		$users = $db->query("SELECT s.ip, u.*, p.*, c.name AS clan, c.url AS clanurl FROM {$config["tables"]["user"]} AS u
-      LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id=u.userid
-      LEFT JOIN {$config["tables"]["clan"]} AS c ON c.clanid=u.clanid
-      LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid=u.userid
-      WHERE $where
-      GROUP BY u.email");
+		$users = $db->query("SELECT * FROM {$config["tables"]["user"]} AS u
+      LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id=u.userid WHERE $where");
 
 		while ($user = $db->fetch_array($users)){
-			$text = $__POST["text"];
+			$text = $_POST["text"];
 
 			// Variablen ersetzen
-			$text = str_replace("%USERNAME%", $user["username"], $text);
-			$text = str_replace("%VORNAME%", $user["firstname"], $text);
 			$text = str_replace("%NACHNAME%", $user["name"], $text);
+			$text = str_replace("%VORNAME%", $user["firstname"], $text);
+			$text = str_replace("%NICK%", $user["username"], $text);
 			$text = str_replace("%EMAIL%", $user["email"], $text);
-			$text = str_replace("%CLAN%", $user["clan"], $text);
-			$text = str_replace("%CLANURL%", $user["clanurl"], $text);
-			
-			$text = str_replace("%PARTYNAME%", $party_data["name"], $text);
-			$text = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $text);
-			$text = str_replace("%MAXGUESTS%", $party_data['max_guest'], $text);
-			
 			$text = str_replace("%WWCLID%", $user["wwclid"], $text);
 			$text = str_replace("%WWCLCLANID%", $user["wwclclanid"], $text);
 			$text = str_replace("%NGLID%", $user["nglid"], $text);
 			$text = str_replace("%NGLCLANID%", $user["nglclanid"], $text);
-			$text = str_replace("%IP%", $user["ip"], $text);
+			$text = str_replace("%IP%", $user["ipaddress"], $text);
+			$text = str_replace("%CLAN%", $user["clan"], $text);
+			$text = str_replace("%CLANURL%", $user["clanurl"], $text);
 
 			($user["paid"]) ? $text = str_replace("%BEZAHLT%", $lang["sys"]["yes"], $text)
 				: $text = str_replace("%BEZAHLT%", $lang["sys"]["no"], $text);
@@ -135,12 +102,12 @@ switch($_GET["step"]) {
 				if ($mail->create_inet_mail($user["firstname"] ." ". $user["name"], $user["email"], $_POST["subject"], $text, $cfg["sys_party_mail"])) $success .= $user["firstname"] ." ". $user["name"] ."[". $user["email"] ."]" . HTML_NEWLINE;
 				else $fail .= $user["firstname"] ." ". $user["name"] ."[". $user["email"] ."]" . HTML_NEWLINE;
 			}
-			if ($_POST["tosys"]) $mail->create_sys_mail($user["userid"], $__POST["subject"], $text);
+			if ($_POST["tosys"]) $mail->create_sys_mail($user["userid"], $_POST["subject"], $text);
 		}
 		$db->free_result($users);
 
 		if ($_POST["toinet"]) $inet_success = $lang["mail"]["newsletter_success"] .HTML_NEWLINE. $success .HTML_NEWLINE . HTML_NEWLINE . $lang["mail"]["newsletter_fail"] .HTML_NEWLINE. $fail . HTML_NEWLINE . HTML_NEWLINE;
-		if ($_POST["tosys"]) $sys_success = $lang["mail"]["newsletter_system_success"];
+		if ($_POST["tosys"]) $sys_success = $lang["mail"]["newsletter_success"];
 
 		$func->confirmation($inet_success . $sys_success, "index.php?mod=mail&action=newsletter&step=1");
 	break;

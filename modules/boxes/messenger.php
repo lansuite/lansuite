@@ -5,7 +5,7 @@ $templ['box']['rows'] = "";
 if ($auth['login']) {
 
 	// Buddylist
-	$box->EngangedRow('<span class="copyright">-- Buddy List --</span>');
+	$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/messenger_topic_buddylist.gif\" border=\"0\"/>");
 
 	$query = $db->query("SELECT b.buddyid, u.username
 		FROM {$config["tables"]["buddys"]} b
@@ -36,7 +36,7 @@ if ($auth['login']) {
 			$item = "message_blink";
 			if($cfg['msgsys_popup']){
 				$caption = "<script type=\"text/javascript\" language=\"JavaScript\"> 
-								var link = \"index.php?mod=msgsys&amp;action=query&amp;design=base&amp;queryid={$row["buddyid"]}$msg_sid\";
+								var link = \"base.php?mod=query&amp;queryid={$row["buddyid"]}$msg_sid\";
 								var suche = /&amp;/;
 
 								while(suche.exec(link)){
@@ -51,14 +51,14 @@ if ($auth['login']) {
 		}
 
 		// Output
-		$caption .= "<a href= \"#\" onclick=\"javascript:var w=window.open('index.php?mod=msgsys&amp;action=query&amp;design=base&amp;queryid={$row["buddyid"]}$msg_sid','_blank','width=600,height=400,resizable=no');\" class=\"$class\" \" onmouseover=\"return overlib('Messenger mit {$row["username"]} starten');\" onmouseout=\"return nd();\">". $username . "</a> ". $dsp->FetchUserIcon($row["buddyid"]) ." <a href=\"index.php?mod=msgsys&amp;action=removebuddy&amp;queryid={$row["buddyid"]}\" onmouseover=\"return overlib('Benutzer {$row["username"]} aus Buddy-Liste entfernen');\" onmouseout=\"return nd();\"><img src=\"design/{$auth["design"]}/images/arrows_delete.gif\" width=\"12\" height=\"13\" hspace=\"1\" vspace=\"0\" border=\"0\"></a>";
+		$caption .= "<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=query&amp;queryid={$row["buddyid"]}$msg_sid','_blank','width=600,height=400,resizable=no');\" class=\"$class\">". $username . "</a> ". $dsp->FetchUserIcon($row["buddyid"]) ." <a href=\"index.php?mod=msgsys&amp;action=removebuddy&amp;queryid={$row["buddyid"]}\"><img src=\"design/{$auth["design"]}/images/arrows_delete.gif\" width=\"12\" height=\"13\" hspace=\"1\" vspace=\"0\" border=\"0\"></a>";
 		$box->ItemRow($item,$caption);
 
 		$buddycount++;
 	}
 
 	// No buddies
-	if ($buddycount < 1) $box->DotRow("<i>". t('Noch keine Buddies') ."</i>");
+	if ($buddycount < 1) $box->DotRow("<i>{$lang['boxes']['messenger_no_buddies']}</i>");
 
 	// Users not in buddylist
 	$querynotinlist = $db->query("SELECT m.senderid, u.username
@@ -79,7 +79,7 @@ if ($auth['login']) {
 			if ($notinlist != "1") {
 				$notinlist = "1";
 				$box->EmptyRow();
-      	$box->EngangedRow('<span class="copyright">-- Not in list --</span>');
+				$box->EngangedRow("<img src=\"design/{$auth["design"]}/images/messenger_topic_notinlist.gif\" border=\"0\">");
 			}
 
 			// Is user online, or offline?
@@ -92,11 +92,11 @@ if ($auth['login']) {
 			if (strlen($row["username"]) > 12) {
 				$usertemp = substr( $row["username"], 0, 10) . "...";
 				$username = "<span title=\"{$row["username"]}\" class = \"$class\">$usertemp</span>";
-			} else $username = "<span class = \"$class\"  \" onmouseover=\"return overlib('Messenger mit {$row["username"]} starten');\" onmouseout=\"return nd();\">{$row["username"]}</span>";
+			} else $username = "<span title=\"{$row["username"]}\" class = \"$class\">{$row["username"]}</span>";
 
 			// Output
 			$box->ItemRow("message_blink",
-				"<a href=\"#\" onclick=\"javascript:var w=window.open('index.php?mod=msgsys&amp;action=query&amp;design=base&amp;queryid={$row["senderid"]}$msg_sid','_blank','width=600,height=400,resizable=no');\" class=\"$class\">$username</a> ". $dsp->FetchUserIcon($row["senderid"]) ." <a href=\"index.php?mod=msgsys&amp;action=addbuddy&amp;step=2&amp;userid={$row["senderid"]}\" onmouseover=\"return overlib('Benutzer {$row["username"]} in Buddy-Liste aufnehmen');\" onmouseout=\"return nd();\"><img src=\"design/{$auth["design"]}/images/arrows_add.gif\" width=\"12\" height=\"13\" hspace=\"1\" vspace=\"0\" border=\"0\"></a>"
+				"<a href=\"#\" onclick=\"javascript:var w=window.open('base.php?mod=query&amp;queryid={$row["senderid"]}$msg_sid','_blank','width=600,height=400,resizable=no');\" class=\"$class\">$username</a> ". $dsp->FetchUserIcon($row["senderid"]) ." <a href=\"index.php?mod=msgsys&amp;action=addbuddy&amp;step=2&amp;checkbox[]={$row["senderid"]}\"><img src=\"design/{$auth["design"]}/images/arrows_add.gif\" width=\"12\" height=\"13\" hspace=\"1\" vspace=\"0\" border=\"0\"></a>"
 				);
 
 			$notinlist_peoples[$row["senderid"]] = 1;
@@ -104,6 +104,8 @@ if ($auth['login']) {
 	}
 
 	$box->EmptyRow();
-	$box->ItemRow("add", t('Benutzer hinzufügen'), "index.php?mod=msgsys&amp;action=addbuddy", "", "menu");
+	$box->ItemRow("add", $lang['boxes']['messenger_add_buddy'], "index.php?mod=msgsys&amp;action=addbuddy", "", "menu");
+
+	$boxes['messenger'] .= $box->CreateBox("messenger",$lang['boxes']['messenger']);
 }
 ?>

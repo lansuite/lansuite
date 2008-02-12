@@ -1,5 +1,6 @@
 <script language="javascript">
 <!--
+
 // Define Seatdata
 var seat	= new Array();
 {$templ['seat']['seat_data_array']}
@@ -7,12 +8,13 @@ var seat	= new Array();
 var image = new Array();
 {$templ['seat']['seat_data_image']}
 
+
 var rows = {$templ['seat']['row_count']};
 var cols = {$templ['seat']['col_count']};
 
-InitSeating();
 -->
 </script>
+<script src="modules/seating/templates/seating.js" type="text/javascript"></script>
 
 {$templ['seat']['input_hidden']}
 

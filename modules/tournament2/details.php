@@ -1,4 +1,18 @@
 <?php
+/*************************************************************************
+*
+*	Lansuite - Webbased LAN-Party Management System
+*	-------------------------------------------------------------------
+*	Lansuite Version:	2.0
+*	File Version:		2.1
+*	Filename: 			details.php
+*	Module: 			Tournamentsystem
+*	Main editor: 		jochen@orgapage.net
+*	Last change: 		30.04.2004
+*	Description: 		show tournament details
+*	Remarks: 		
+*
+**************************************************************************/
 
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
@@ -10,24 +24,11 @@ $headermenuitem	= $vars["headermenuitem"];
 
 if ($headermenuitem == "") $headermenuitem = 1;
 
-$tournament = $db->query_first_rows("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+$tournament = $db->query_first_rows("SELECT * FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'"); 
 
 if($tournament["number"] == 0) $func->error($lang["tourney"]["t_not_exist"], "index.php?mod=tournament2");
 else {
 
-	switch ($step){
-    // Shuffle maps
-    case 20:
-      if ($auth['type'] <= 1) $func->error('ACCESS_DENIED');
-      else {
-        $maps = explode("\n", $tournament["mapcycle"]);
-        shuffle($maps);
-        $tournament["mapcycle"] = implode("\n", $maps);
-        $db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET mapcycle = '{$tournament['mapcycle']}' WHERE tournamentid = '$tournamentid'");
-      }
-    break;
-  }
-  
 	switch ($step){
 		case 10:	// Activate Seeding
 			$seeded = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = '$tournamentid') AND (seeding_mark = '1') GROUP BY tournamentid");
@@ -49,8 +50,8 @@ else {
 		default:	// Show details
 			$dsp->NewContent(str_replace("%NAME%", $tournament['name'], $lang["tourney"]["details_caption"]), $lang["tourney"]["details_subcaption"]);
 
-			$menunames[1] = $lang["tourney"]["details_navi_info"];
-			$menunames[2] = $lang["tourney"]["details_navi_regteams"];
+			$menunames[] = $lang["tourney"]["details_navi_info"];
+			$menunames[] = $lang["tourney"]["details_navi_regteams"];
 			$dsp->AddHeaderMenu($menunames, "index.php?mod=tournament2&action=details&tournamentid=$tournamentid", $headermenuitem);
 
 			switch ($headermenuitem) {
@@ -73,17 +74,7 @@ else {
 					else $blind_draw = "";
 					$dsp->AddDoubleRow($lang["tourney"]["details_mode"], $modus .", ". $tournament['teamplayer'] ." {$lang["tourney"]["details_vs"]} ". $tournament['teamplayer'] . $blind_draw . $league);
 
-          $sponsor_banners = '';
-          $sponsor = $db->query("SELECT * FROM {$config['tables']['sponsor']} WHERE tournamentid = ". (int)$tournamentid);
-      		while($sponsor_row = $db->fetch_array($sponsor)) {
-            $sponsor_banner = '<img src="'. $sponsor_row['pic_path'] .'" border="1" class="img_border" title="'. $sponsor_row['name'] .'" alt="Sponsor Banner"/>';
-            if ($cfg['sys_internet']) $sponsor_banner = '<a href="index.php?mod=sponsor&action=bannerclick&design=base&type=banner&sponsorid='. $sponsor_row["sponsorid"] .'" target="_blank">'. $sponsor_banner .'</a><br>';
-            $sponsor_banners .= $sponsor_banner;
-          }
-          $db->free_result($sponsor);
-					if ($sponsor_banners) $dsp->AddDoubleRow('Sponsored by', $sponsor_banners);
-
-          $dsp->AddFieldsetStart($lang["tourney"]["details_reg_limits"]);
+					$dsp->AddSingleRow("<b>". $lang["tourney"]["details_reg_limits"] ."</b>");
 					if ($tournament['status'] == "invisible") $status = $lang["tourney"]["details_state_invisible"];
 					if ($tournament['status'] == "open") $status = $lang["tourney"]["details_state_open"];
 					if ($tournament['status'] == "closed") $status = "<div class=\"tbl_error\">{$lang["tourney"]["details_state_closed"]}</div>";
@@ -94,57 +85,46 @@ else {
 						$dsp->AddDoubleRow($lang["tourney"]["details_group"], $lang["tourney"]["details_nogroup"])
 						: $dsp->AddDoubleRow($lang["tourney"]["details_group"], str_replace("%GROUP%", $tournament['groupid'], $lang["tourney"]["details_group_out"]));
 
-          if ($auth['userid'] != '') {
-  					if ($tournament['coins'] == 0) $dsp->AddDoubleRow($lang["tourney"]["details_coins"], $lang["tourney"]["details_nocoins"]);
-  					else {
-  						$team_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
-  							FROM {$config["tables"]["tournament_tournaments"]} AS t
-  							INNER JOIN {$config["tables"]["t2_teams"]} AS teams ON t.tournamentid = teams.tournamentid
-  							WHERE (teams.leaderid = '{$auth["userid"]}')
-  							AND t.party_id='$party->party_id' 
-  							GROUP BY teams.leaderid
-  							");
-  						$member_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
-  							FROM {$config["tables"]["tournament_tournaments"]} AS t
-  							INNER JOIN {$config["tables"]["t2_teammembers"]} AS members ON t.tournamentid = members.tournamentid
-  							WHERE (members.userid = '{$auth["userid"]}')
-  							AND t.party_id='$party->party_id' 
-  							GROUP BY members.userid
-  							");
-  						(($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']) < $tournament['coins']) ?
-  							$coin_out = $lang["tourney"]["details_tofew_coins"]
-  							: $coin_out = $lang["tourney"]["details_enough_coins"];
-  						
-  						$dsp->AddDoubleRow($lang["tourney"]["details_coins"], "<div class=\"tbl_error\">". str_replace("%IS%", ($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']), str_replace("%COST%", $tournament['coins'], $coin_out)) ."</div>");
-  					}
-          }
+					if ($tournament['coins'] == 0) $dsp->AddDoubleRow($lang["tourney"]["details_coins"], $lang["tourney"]["details_nocoins"]);
+					else {
+						$team_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
+							FROM {$config["tables"]["tournament_tournaments"]} AS t
+							INNER JOIN {$config["tables"]["t2_teams"]} AS teams ON t.tournamentid = teams.tournamentid
+							WHERE (teams.leaderid = '{$auth["userid"]}')
+							AND t.party_id='$party->party_id' 
+							GROUP BY teams.leaderid
+							");
+						$member_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
+							FROM {$config["tables"]["tournament_tournaments"]} AS t
+							INNER JOIN {$config["tables"]["t2_teammembers"]} AS members ON t.tournamentid = members.tournamentid
+							WHERE (members.userid = '{$auth["userid"]}')
+							AND t.party_id='$party->party_id' 
+							GROUP BY members.userid
+							");
+						(($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']) < $tournament['coins']) ?
+							$coin_out = $lang["tourney"]["details_tofew_coins"]
+							: $coin_out = $lang["tourney"]["details_enough_coins"];
+						
+						$dsp->AddDoubleRow($lang["tourney"]["details_coins"], "<div class=\"tbl_error\">". str_replace("%IS%", ($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']), str_replace("%COST%", $tournament['coins'], $coin_out)) ."</div>");
+					}
 
 					($tournament['over18']) ?
 						$dsp->AddDoubleRow($lang["tourney"]["details_u18"], $lang["tourney"]["details_u18_limit"])
 						: $dsp->AddDoubleRow($lang["tourney"]["details_u18"], $lang["tourney"]["details_u18_nolimit"]);
-          $dsp->AddFieldsetEnd();
-
 
 					($tournament["defwin_on_time_exceed"] == "1")? $defwin_warning = "<div class=\"tbl_error\">{$lang["tourney"]["details_defwin_warning"]}</div> {$lang["tourney"]["details_defwin_warning2"]}" : $defwin_warning = "";
-          $dsp->AddFieldsetStart($lang["tourney"]["details_times"] . $defwin_warning);
+					$dsp->AddSingleRow("<b>". $lang["tourney"]["details_times"] ."</b> $defwin_warning");
 					$dsp->AddDoubleRow($lang["tourney"]["details_startat"], $func->unixstamp2date($tournament["starttime"], "datetime"));
 
 					$dsp->AddDoubleRow($lang["tourney"]["details_round_duration"], str_replace("%MAX_GAMES%", $tournament["max_games"], str_replace("%GAME_DURATION%", $tournament["game_duration"] ."min", str_replace("%BREAK_DURATION%", $tournament["break_duration"] ."min", str_replace("%SUM%", ($tournament["max_games"] * $tournament["game_duration"] + $tournament["break_duration"]) ."min", $lang["tourney"]["details_round_duration_val"])))));
-          $dsp->AddFieldsetEnd();
 
+					$dsp->AddSingleRow("<b>". $lang["tourney"]["details_rules_misc"] ."</b>");
 
-          $dsp->AddFieldsetStart($lang["tourney"]["details_rules_misc"]);
-					if ($tournament['rules_ext']) $dsp->AddDoubleRow($lang["tourney"]["details_rules"], "<a href=\"./ext_inc/tournament_rules/{$tournament['rules_ext']}\" target=\"_blank\">{$lang["tourney"]["details_openrules"]}({$tournament['rules_ext']})</a>");
+					if ($tournament["rules_ext"] != "") $dsp->AddDoubleRow($lang["tourney"]["details_rules"], "<a href=\"./ext_inc/tournament_rules/{$tournament['rules_ext']}\" target=\"_blank\">{$lang["tourney"]["details_openrules"]}({$tournament['rules_ext']})</a>");
 
 					$dsp->AddDoubleRow($lang["tourney"]["details_comment"], $func->db2text2html($tournament["comment"]));
 
-          $maps = explode("\n", $tournament["mapcycle"]);
-          $map_str = '';
-          foreach ($maps as $key => $val) $map_str .= "{$lang['tourney']['games_round']} $key: $val \n";
-          $mapcycle = $lang["tourney"]["details_mapcycle"]. HTML_NEWLINE . HTML_NEWLINE;
-          if ($auth['type'] > 1) $mapcycle .= '<a href="index.php?mod=tournament2&action=details&tournamentid='. $_GET['tournamentid'] .'&step=20">'. $lang["tourney"]["details_mapcycle_shuffle"] .'</a>';
-					$dsp->AddDoubleRow($mapcycle, $func->db2text2html($map_str));
-          $dsp->AddFieldsetEnd();
+					$dsp->AddDoubleRow($lang["tourney"]["details_mapcycle"], $func->db2text2html($tournament["mapcycle"]));
 				break;
 
 				case 2:

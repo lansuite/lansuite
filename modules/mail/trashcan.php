@@ -2,35 +2,17 @@
 $mail_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'delete'");
 $mail_unread_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'delete' AND des_status = 'new'");
 
-function MailStatus ( $status ) {
- global $lang;
- if ( $status == "new" ) return $lang['mail']['unread'];
- if ( $status == "read" ) return $lang['mail']['read'];
- if ( $status == "reply" ) return $lang['mail']['answered']; 
-}
+//$templ['mail']['case']['info']['page_title'] = $lang["mail"]["del_trashcan"];
+//$templ['mail']['case']['info']['mail'] = str_replace("%TOTAL%", $mail_total["n"], str_replace("%UNREAD%", $mail_unread_total["n"], $lang["mail"]["del_confirm"]));
 
-include_once('modules/mastersearch2/class_mastersearch2.php');
-$ms2 = new mastersearch2();
+// eval("\$templ['index']['info']['content'] .= \"". $func->gettemplate("mail_case_boxheader")."\";");
 
-$ms2->query['from'] = "{$config["tables"]["mail_messages"]} AS m LEFT JOIN {$config["tables"]["user"]} AS u ON m.FromUserID = u.userid";
-$ms2->query['where'] = "m.toUserID = '{$auth['userid']}' AND m.mail_status = 'delete'";
-$ms2->query['default_order_by'] = 'm.tx_date';
-$ms2->query['default_order_dir'] = 'DESC';
+$dsp->NewContent($lang['mail']['del_trashcan'],str_replace("%TOTAL%", $mail_total["n"], str_replace("%UNREAD%", $mail_unread_total["n"], $lang["mail"]["del_confirm"])));
+$mastersearch = new MasterSearch( $vars, "index.php?mod=mail&action=trash", "index.php?mod=mail&action=showmail&ref=trash&mailID=", "");
+$mastersearch->LoadConfig("mail_trashcan", $lang["mail"]["del_ms_search"], "");
+$mastersearch->Search();
+$mastersearch->PrintResult();
+$mastersearch->PrintForm();
 
-$ms2->config['EntriesPerPage'] = 30;
-
-$ms2->AddTextSearchField('Mail', array('m.subject' => 'fulltext', 'm.msgbody' => 'fulltext'));
-$ms2->AddTextSearchField($lang['mail']['showmail_mail_from'], array('u.userid' => 'exact', 'u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
-
-$ms2->AddSelect('u.userid');
-
-$ms2->AddResultField($lang['mail']['newsletter_subject'], 'm.subject', '', 160);
-$ms2->AddResultField($lang['mail']['showmail_mail_from'], 'u.username', 'UserNameAndIcon','',100);
-$ms2->AddResultField('Status', 'm.des_status', 'MailStatus', '',80);
-$ms2->AddResultField($lang['mail']['showmail_mail_send'], 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate','',70);
-$ms2->AddResultField($lang['mail']['showmail_mail_read'], 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate','',60);
-
-$ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=trash&mailID=', $lang['ms2']['details']);
-
-$ms2->PrintSearch('index.php?mod=mail&action=trash', 'm.mailid');
+$templ['index']['info']['content'] .= $mastersearch->GetReturn();
 ?>

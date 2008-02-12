@@ -1,0 +1,63 @@
+
+<!-- TEMPLATE - STANDARD - LOG SHOW CASE -->
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr class="tbl_5"> 
+<td colspan="2"> 
+<table width="100%" cellspacing="0" cellpadding="3" class="tbl_5">
+<tr> 
+<td><b>Log</b><br/>
+<br/>
+</td>
+</tr>
+<tr>
+<td>
+<div align="right">{$templ['log']['show']['case']['control']['pages']}</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tbl_4"> 
+<td colspan="2" height="1"></td>
+</tr>
+<tr> 
+<td class="tbl_6" height="30" colspan="2"> 
+<table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
+<tr> 
+<td width="60%">Beschreibung <a href="{$templ['log']['show']['case']['control']['working_link']}&orderby=l.description,asc"><img src="design/{default_design}/images/arrows_orderby_asc{$templ['log']['show']['case']['control']['order']['l.description']['asc']}.gif" width="12" height="13" border="0" alt=""/></a>
+<a href="{$templ['log']['show']['case']['control']['working_link']}&orderby=l.description,desc"><img src="design/{default_design}/images/arrows_orderby_desc{$templ['log']['show']['case']['control']['order']['l.description']['desc']}.gif" width="12" height="13" border="0" alt=""/></a></td>
+<td width="20%">Zeit <a href="{$templ['log']['show']['case']['control']['working_link']}&orderby=l.date,asc"><img src="design/{default_design}/images/arrows_orderby_asc{$templ['log']['show']['case']['control']['order']['l.date']['asc']}.gif" width="12" height="13" border="0" alt=""/></a>
+<a href="{$templ['log']['show']['case']['control']['working_link']}&orderby=l.date,desc"><img src="design/{default_design}/images/arrows_orderby_desc{$templ['log']['show']['case']['control']['order']['l.date']['desc']}.gif" width="12" height="13" border="0" alt=""/></a>
+</td>
+<td width="20%">Benutzer <a href="{$templ['log']['show']['case']['control']['working_link']}&orderby=u.username,asc"><img src="design/{default_design}/images/arrows_orderby_asc{$templ['log']['show']['case']['control']['order']['u.username']['asc']}.gif" width="12" height="13" border="0" alt=""/></a>
+<a href="{$templ['log']['show']['case']['control']['working_link']}&orderby=u.username,desc"><img src="design/{default_design}/images/arrows_orderby_desc{$templ['log']['show']['case']['control']['order']['u.username']['desc']}.gif" width="12" height="13" border="0" alt=""/></a>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tbl_4"> 
+<td colspan="2" height="1"></td>
+</tr>
+{$templ['log']['show']['case']['control']['rows']} 
+<tr class="tbl_5"> 
+<td colspan="2"> 
+<div align="right">
+<table width="100%" cellspacing="0" cellpadding="3" class="tbl_5">
+<tr> 
+<td> 
+<div align="right">{$templ['log']['show']['case']['control']['pages']}</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr class="tbl_5"> 
+<td colspan="2"> 
+<p><br/>
+</p>
+</td>
+</tr>
+</table>
+<!-- TEMPLATE - STANDARD - LOG SHOW CASE -->

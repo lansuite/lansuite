@@ -58,7 +58,6 @@ switch($_GET['step']) {
 		if ($_POST['cell']) foreach($_POST['cell'] as $cur_cell => $value) {
 			$col = floor($cur_cell / 100);
 			$row = $cur_cell % 100;
-      $value = (int)$value;
 
 			$seats_qry = $db->query_first("SELECT seatid FROM {$config["tables"]["seat_seats"]}
 			WHERE blockid = '{$_GET['blockid']}' AND row = '$row' AND col = '$col'");
@@ -76,6 +75,32 @@ switch($_GET['step']) {
 					WHERE seatid = {$seats_qry['seatid']}
 					");
 		}
+			
+		
+/*
+		if (is_array($_POST['cell'])) {
+			$block = $db->query_first("SELECT cols, rows FROM {$config["tables"]["seat_block"]} WHERE blockid = '{$_GET['blockid']}'");
+			for ($y = 0; $y <= $block['rows']; $y++) for ($x = 0; $x <= $block['cols']; $x++) {
+				$cur_cell = $x * 100 + $y;
+
+				if ($_POST['cell'][$cur_cell] != '') {
+					$seats_qry = $db->query_first("SELECT seatid FROM {$config["tables"]["seat_seats"]}
+						WHERE blockid = '{$_GET['blockid']}' AND row = '$y' AND col = '$x'");
+
+					if (!$seats_qry['seatid'])
+						$db->query("INSERT INTO {$config["tables"]["seat_seats"]} SET
+							blockid = '{$_GET['blockid']}',
+							row = '$y',
+							col = '$x',
+							status = '1'
+							");
+				} else $db->query("DELETE FROM {$config["tables"]["seat_seats"]} WHERE blockid = '{$_GET['blockid']}' AND row = '$y' AND col = '$x'");
+			}
+		} else {
+			$func->information($lang['seating']['i_choose_seat'], '');
+			$_GET['step']--;
+		}
+*/
 	break;
 }
 
@@ -83,7 +108,12 @@ switch($_GET['step']) {
 // Form-Switch
 switch($_GET['step']) {
 	default:
-    include_once('modules/seating/search.inc.php');
+		$mastersearch = new MasterSearch( $vars, 'index.php?mod=seating&action=edit', 'index.php?mod=seating&action=edit&step=2&blockid=', '');
+		$mastersearch->LoadConfig('seat_blocks', $lang['seat']['ms_search'], $lang['seat']['ms_result']);       // <- Da, schon wieder !
+		$mastersearch->PrintForm();
+		$mastersearch->Search();
+		$mastersearch->PrintResult();
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
 	break;
 
 	case 2:
@@ -95,9 +125,6 @@ switch($_GET['step']) {
 			if ($_POST['rows'] == "") $_POST['rows'] = $block['rows'] + 1;
 			if ($_POST['orientation'] == "") $_POST['orientation'] = $block['orientation'];
 			if ($_POST['u18'] == "") $_POST['u18'] = $block['u18'];
-			if ($_POST['party_id'] == "") $_POST['party_id'] = $block['party_id'];
-			if ($_POST['group_id'] == "") $_POST['group_id'] = $block['group_id'];
-			if ($_POST['price_id'] == "") $_POST['price_id'] = $block['price_id'];
 			if ($_POST['remark'] == "") $_POST['remark'] = $block['remark'];
 			if ($_POST['text_tl'] == "") $_POST['text_tl'] = $block['text_tl'];
 			if ($_POST['text_tc'] == "") $_POST['text_tc'] = $block['text_tc'];
@@ -130,38 +157,9 @@ switch($_GET['step']) {
 
 		$dsp->AddCheckBoxRow('u18', $lang['seating']['u18_block'], '', '', 0, $_POST['u18']);
 
-                $t_array = array();
-		array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
-		$res = $db->query("SELECT group_id, group_name FROM {$config['tables']['party_usergroups']}");
-		while($row = $db->fetch_array($res)) {
-			($_POST['group_id'] == $row['group_id'])? $selected = 'selected' : $selected = '';
-			array_push($t_array, '<option '. $selected .' value="'. $row['group_id'] .'">'. $row['group_name'] .'</option>');
-		}
-		$db->free_result($res);
-		$dsp->AddDropDownFieldRow("group_id", t('Nur für Benutzer dieser Gruppe'), $t_array, '');
-
-		$t_array = array();
-                array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
-                $res = $db->query("SELECT price_id, price_text FROM {$config['tables']['party_prices']} WHERE party_id = '{$party->party_id}'");
-                while($row = $db->fetch_array($res)) {
-        	        ($_POST['price_id'] == $row['price_id'])? $selected = 'selected' : $selected = '';
-	                array_push($t_array, '<option '. $selected .' value="'. $row['price_id'] .'">'. $row['price_text'] .'</option>');
-		}
-		$db->free_result($res);
-                $dsp->AddDropDownFieldRow("price_id", t('Nur für diesen Eintrittspreis'), $t_array, '');
-
 		$dsp->AddTextAreaPlusRow('remark', $lang['seating']['remark'], $_POST['remark'], $error['remark'], '', 4, 1);
-		$dsp->AddDoubleRow($lang['seating']['block_caption'], $dsp->FetchModTpl('seating', 'plan_labels'));
 
-		// Partys
-		$selections = array();
-    $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
-    while($res = $db->fetch_array($row)) {
-  		($_POST['party_id'] == $party->party_id) ? $selected = 'selected' : $selected = '';
-      array_push ($selections, "<option $selected value=\"". $res['party_id'] ."\">". $res['name'] .'</option>');
-    }
-    $db->free_result($row);
-		$dsp->AddDropDownFieldRow('party_id', t('Party'), $selections, '');
+		$dsp->AddDoubleRow($lang['seating']['block_caption'], $dsp->FetchModTpl('seating', 'plan_labels'));
 
 		$dsp->AddFormSubmitRow('next');
 		$dsp->AddBackButton('index.php?mod=seating', 'seating/add');
@@ -173,8 +171,6 @@ switch($_GET['step']) {
 		if ($_GET['action'] == 'add') {
 			$db->query("INSERT INTO {$config['tables']['seat_block']} SET
 				party_id = '{$party->party_id}',
-				group_id = '{$_POST['group_id']}',
-				price_id = '{$_POST['price_id']}',
 				name = '{$_POST['name']}',
 				rows = '". ($_POST['rows'] - 1) ."',
 				cols = '". ($_POST['cols'] - 1) ."',
@@ -198,8 +194,6 @@ switch($_GET['step']) {
 		} else {
 			$db->query("UPDATE {$config["tables"]["seat_block"]} SET
 				party_id = '{$party->party_id}',
-				group_id = '{$_POST['group_id']}',
-				price_id = '{$_POST['price_id']}',
 				name = '{$_POST['name']}',
 				rows = '". ($_POST['rows'] - 1) ."',
 				cols = '". ($_POST['cols'] - 1) ."',
@@ -240,8 +234,7 @@ switch($_GET['step']) {
 		$dsp->NewContent($lang['seating']['define_seat'], $lang['seating']['def_seat_sub']);
 		$dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=6&blockid={$_GET['blockid']}", "block");
 
-    $dsp->AddSingleRow($dsp->FetchModTpl('seating', 'plan_symbols'));
-		$dsp->AddPictureSelectRow('icon', 'ext_inc/seating_symbols', 20, 15, 0, $_POST["icon"], 14, 14, true);
+		$dsp->AddPictureSelectRow('icon', 'ext_inc/seating_symbols', 15, 15, 0, $_POST["icon"], 14, 14);
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 2));
 
 		$dsp->AddFormSubmitRow('save');

@@ -35,8 +35,8 @@
 					  - Es sind bereits zuviele Benutzer in Ihrer Buddy-Liste ' . HTML_NEWLINE .'
 					  - Sie versuchen sich selbst in die Buddy-Liste hinzuzuf&uuml;gen ' . HTML_NEWLINE;
  //Questions
- $lang['msgsys']['confirm_delete']      = 'Wollen Sie den Benutzer <b>%USERNAME% (%FIRSTNAME% %NAME%)</b> wirklich aus Ihrer Buddy-Liste entfernen?';
- $lang['msgsys']['confirm_delete2']     = 'Wollen Sie den Benutzer <b>%USERNAME%</b> wirklich aus Ihrer Buddy-Liste entfernen?';
+ $lang['msgsys']['confirm_delete']      = 'Wollen sie den Benutzer <b>%USERNAME% (%FIRSTNAME% %NAME%)</b> wirklich aus Ihrer Buddy-Liste entfernen?';
+ $lang['msgsys']['confirm_delete2']     = 'Wollen sie den Benutzer <b>%USERNAME%</b> wirklich aus Ihrer Buddy-Liste entfernen?';
 
 
 ?>

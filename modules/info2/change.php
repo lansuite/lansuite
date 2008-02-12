@@ -1,182 +1,143 @@
 <?php
 
-function ShowActiveState($val){
-  global $dsp, $templ, $lang, $line;
+if ($_POST["checkbox"]) {
+	switch ($_POST["action_select"]) {
 
-  if ($val) {
-    $templ['ms2']['icon_name'] = 'yes';
-    $templ['ms2']['icon_title'] = $lang['sys']['yes'];
-  } else {
-    $templ['ms2']['icon_name'] = 'no';
-    $templ['ms2']['icon_title'] = $lang['sys']['no'];
-  }
-  return '<a href="index.php?mod=info2&action=change&step=20&infoID='. $line['infoID'] .'">'. $dsp->FetchModTpl('mastersearch2', 'result_icon') .'</a>';
-}
+		// Delete entry
+		case "del":
+			foreach($_POST["checkbox"] AS $item) {
+				$menu_intem = $db->query_first("SELECT caption FROM {$config['tables']['info']} WHERE infoID = $item");
+				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
+				$db->query("DELETE FROM {$config['tables']['info']} WHERE infoID = $item");
+			}
 
-if ($auth['type'] <= 1) {
-  include_once('modules/mastersearch2/class_mastersearch2.php');
-  $ms2 = new mastersearch2();
+			$func->confirmation($lang["info"]["del_success"], "index.php?mod=info2&action=change");
+		break;
 
-  $ms2->query['from'] = "{$config['tables']['info']} AS i";
-  $ms2->query['where'] = "i.active";
+		// Change active state
+		case "active":
+			foreach($_POST["checkbox"] AS $item) {
+				$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
+				$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
+				if ($menu_intem["active"]) {
+					// Set not active and delete menuitem
+					$db->query("UPDATE {$config['tables']['info']} SET active = 0 WHERE infoID = $item");
+					$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
+				} else {
+					// Set active and write menuitem
+					$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
+					$db->query("INSERT INTO {$config['tables']['menu']}
+						SET module = 'info2',
+						caption = '{$menu_intem["caption"]}',
+						hint = '{$menu_intem["shorttext"]}',
+						link = '?mod=info2&action=show_info2&submod={$menu_intem["caption"]}',
+						requirement = 0,
+						level = 0,
+						pos = {$info_menu["pos"]},
+						action = 'show_info2',
+						file = 'show'
+						");
+				}
+			}
 
-  $ms2->config['EntriesPerPage'] = 50;
+			$func->confirmation($lang["info"]["change_active_success"], "index.php?mod=info2&action=change");
+		break;
+	}
 
-  $ms2->AddResultField($lang['info']['title'], 'i.caption');
-  $ms2->AddResultField($lang['info']['subtitle'], 'i.shorttext', '', 140);
 
-  $ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&submod=', $lang['ms2']['details']);
-  $ms2->PrintSearch('index.php?mod=info2', 'i.caption');
+} else switch($_GET["step"]){
+	default:
+		$dsp->NewContent($lang["info"]["change_caption"], $lang["info"]["change_subcaption"]);
+		$dsp->SetForm("index.php?mod=info2&action=change&step=2");
+		$dsp->AddFormSubmitRow("add");
+		$dsp->AddContent();
 
-} else {
-  $_POST['content'] = $_POST['FCKeditor1'];
+		$mastersearch = new MasterSearch($vars, "index.php?mod=info2&action=change", "index.php?mod=info2&action=change&step=2&id=", "");
+		$mastersearch->LoadConfig("info2", "", $lang["info2"]["change_ms"]);
+		$mastersearch->PrintForm();
+		$mastersearch->Search();
+		$mastersearch->PrintResult();
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+	break;
 
-  switch($_GET["step"]){
-  	default:
-  		$dsp->NewContent($lang["info"]["change_caption"], $lang["info"]["change_subcaption"]);
-  		$dsp->SetForm("index.php?mod=info2&action=change&step=2");
-  		$dsp->AddFormSubmitRow("add");
-  		$dsp->AddContent();
+	case 2:
+		if ($_POST["content"] == "" and $_POST["title"] == "" and $_GET["id"] != ""){
+			$module = $db->query_first("SELECT info.text, info.caption, info.shorttext, menu.id FROM {$config['tables']['info']} AS info
+						LEFT JOIN {$config['tables']['menu']} AS menu ON info.caption = menu.caption AND action = 'show_info2'
+						WHERE info.infoID = '{$_GET["id"]}'");
+			$_POST["content"] = $module["text"];
+			$_POST["title"] = $module["caption"];
+			$_POST["subtitle"] = $module["shorttext"];
+		}
 
-      include_once('modules/mastersearch2/class_mastersearch2.php');
-      $ms2 = new mastersearch2();
+		$dsp->NewContent($lang["info"]["change_caption_2"], $lang["info"]["change_subcaption_2"]);
+		$dsp->SetForm("index.php?mod=info2&action=change&step=3&infoid={$_GET["id"]}&menuid={$module["id"]}");
 
-      $ms2->query['from'] = "{$config['tables']['info']} AS i";
+		$dsp->AddTextFieldRow("title", $lang["info"]["title"], $_POST["title"], $title_error);
+		$dsp->AddTextFieldRow("subtitle", $lang["info"]["subtitle"], $_POST["subtitle"], $title_error);
 
-      $ms2->config['EntriesPerPage'] = 50;
+		if ($cfg["info2_use_spaw"]) {
+			include "ext_scripts/spaw/spaw_control.class.php";
 
-      $ms2->AddResultField($lang['info']['title'], 'i.caption');
-      $ms2->AddResultField($lang['info']['subtitle'], 'i.shorttext', '', 140);
-      $ms2->AddResultField($lang['info']['active'], 'i.active', 'ShowActiveState');
+			if ($cfg["info2_toolbar"] == 1) $tmp_spaw_type = "default";
+			else $tmp_spaw_type = "mini";
 
-	$ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', $lang['ms2']['details']);
-      if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=info2&action=change&step=2&id=', $lang['ms2']['edit']);
-      if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Aktiv-Status ändern', 'index.php?mod=info2&action=change&step=20', 1);
-      if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('Löschen', 'index.php?mod=info2&action=change&step=10', 1);
+			$sw = new SPAW_Wysiwyg('content', $_POST["content"], $language, $tmp_spaw_type, 'default', $cfg["info2_width"], $cfg["info2_height"]);
+			$dsp->AddSingleRow($sw->show());
+		} else $dsp->AddTextAreaRow("content", "", $_POST["content"], "", 80, 25, 0);
 
-      $ms2->PrintSearch('index.php?mod=info2', 'i.infoID');
-  	break;
+		$dsp->AddFormSubmitRow("add");
+		$dsp->AddBackButton("index.php?mod=info2&action=change", "info2/form"); 
+		$dsp->AddContent();
+	break;
 
-  	case 2:
-  		if ($_POST["content"] == "" and $_POST["title"] == "" and $_GET["id"] != ""){
-  			$module = $db->query_first("SELECT info.text, info.caption, info.shorttext, menu.id FROM {$config['tables']['info']} AS info
-  						LEFT JOIN {$config['tables']['menu']} AS menu ON info.caption = menu.caption AND action = 'show_info2'
-  						WHERE info.infoID = '{$_GET["id"]}'");
-  			$_POST["content"] = $module["text"];
-  			$_POST["title"] = $module["caption"];
-  			$_POST["subtitle"] = $module["shorttext"];
-  		}
+	case 3:
+		if ($_POST["title"] == "" or $_POST["content"] == "") $func->information($lang["info"]["err_missing_fields"], "index.php?mod=info2&action=change&step=2&id={$_GET["id"]}");
+		else {
+			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
 
-  		$dsp->NewContent($lang["info"]["change_caption_2"], $lang["info"]["change_subcaption_2"]);
-  		$dsp->SetForm("index.php?mod=info2&action=change&step=3&infoid={$_GET["id"]}&menuid={$module["id"]}");
+			if ($_GET["infoid"] == "") {
+				/*
+				$db->query("INSERT INTO {$config['tables']['menu']}
+					SET module = 'info2',
+					caption = '{$_POST["title"]}',
+					hint = '{$_POST["subtitle"]}',
+					link = '?mod=info2&action=show_info2&submod={$_POST["title"]}',
+					requirement = 0,
+					level = 0,
+					pos = {$info_menu["pos"]},
+					action = 'show_info2',
+					file = 'show'
+					");
+				*/
+				$db->query("INSERT INTO {$config['tables']['info']}
+					SET caption = '{$_POST["title"]}',
+					shorttext = '{$_POST["subtitle"]}',
+					text = '{$_POST["content"]}'");
 
-  		$dsp->AddTextFieldRow("title", $lang["info"]["title"], $_POST["title"], $title_error);
-  		$dsp->AddTextFieldRow("subtitle", $lang["info"]["subtitle"], $_POST["subtitle"], $title_error);
+				$func->confirmation($lang["info"]["add_success"], "index.php?mod=info2&action=change");
 
-  		if ($cfg["info2_use_fckedit"]) {
+			} else {
+				$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = {$_GET["infoid"]}");
+				
+				if($menu_intem['active'] == 1){
+					$db->query("UPDATE {$config['tables']['menu']}
+						SET module = 'info2',
+						caption = '{$_POST["title"]}',
+						hint = '{$_POST["subtitle"]}',
+						link = '?mod=info2&action=show_info2&submod={$_POST["title"]}'
+						WHERE id = '{$_GET["menuid"]}'");
+				}
 
-        ob_start();
-        include_once("ext_scripts/FCKeditor/fckeditor.php");
-        $oFCKeditor = new FCKeditor('FCKeditor1') ;
-        $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
-        $oFCKeditor->Value = $_POST['content'];
-        $oFCKeditor->Height = 380;
-        $oFCKeditor->Create();
-        $fcke_content = ob_get_contents();
-        ob_end_clean();
-        $dsp->AddSingleRow($fcke_content);
+				$db->query("UPDATE {$config['tables']['info']}
+					SET caption = '{$_POST["title"]}',
+					shorttext = '{$_POST["subtitle"]}',
+					text = '{$_POST["content"]}'
+					WHERE infoID = '{$_GET["infoid"]}'");
 
-  		} else $dsp->AddTextAreaRow("content", "", $_POST["content"], "", 80, 25, 0);
-
-  		$dsp->AddFormSubmitRow("add");
-  		$dsp->AddBackButton("index.php?mod=info2&action=change", "info2/form");
-  		$dsp->AddContent();
-  	break;
-
-  	case 3:
-  		if ($_POST["title"] == "" or $_POST["content"] == "") $func->information($lang["info"]["err_missing_fields"], "index.php?mod=info2&action=change&step=2&id={$_GET["id"]}");
-  		else {
-  			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
-
-  			if ($_GET["infoid"] == "") {
-  				$db->query("INSERT INTO {$config['tables']['info']}
-  					SET caption = '{$_POST["title"]}',
-  					shorttext = '{$_POST["subtitle"]}',
-  					text = '{$_POST["content"]}'");
-
-  				$func->confirmation($lang["info"]["add_success"], "index.php?mod=info2&action=change");
-
-  			} else {
-  				$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = {$_GET["infoid"]}");
-
-  				if ($menu_intem['active'] == 1){
-            ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
-
-  					$db->query("UPDATE {$config['tables']['menu']}
-  						SET module = 'info2',
-  						caption = '{$_POST["title"]}',
-  						hint = '{$_POST["subtitle"]}',
-  						level = $level,
-  						link = '?mod=info2&action=show_info2&submod=". $_GET["infoid"] ."'
-  						WHERE id = '{$_GET["menuid"]}'");
-  				}
-
-  				$db->query("UPDATE {$config['tables']['info']}
-  					SET caption = '{$_POST["title"]}',
-  					shorttext = '{$_POST["subtitle"]}',
-  					text = '{$_POST["content"]}'
-  					WHERE infoID = '{$_GET["infoid"]}'");
-
-  				$func->confirmation($lang["info"]["change_success"], "index.php?mod=info2&action=change");
-  			}
-  		}
-  	break;
-
-  	// Delete entry
-  	case 10:
-  		foreach($_POST["action"] AS $item => $val) {
-  			$menu_intem = $db->query_first("SELECT caption FROM {$config['tables']['info']} WHERE infoID = $item");
-  			$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
-  			$db->query("DELETE FROM {$config['tables']['info']} WHERE infoID = $item");
-  		}
-
-  		$func->confirmation($lang["info"]["del_success"], "index.php?mod=info2&action=change");
-  	break;
-
-  	// Change active state
-  	case 20:
-		if ($_GET['infoID']) $_POST["action"][$_GET['infoID']] = '1';
-		foreach($_POST["action"] AS $item => $val) {
-  			$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
-  			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
-  			if ($menu_intem["active"]) {
-  				// Set not active and delete menuitem
-  				$db->query("UPDATE {$config['tables']['info']} SET active = 0 WHERE infoID = $item");
-  				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
-  			} else {
-  				// Set active and write menuitem
-          ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
-
-          $link = str_replace('<', '&lt;', $menu_intem["caption"]);
-          $link = str_replace('>', '&gt;', $link);
-  				$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
-  				$db->query("INSERT INTO {$config['tables']['menu']}
-  					SET module = 'info2',
-  					caption = '{$menu_intem["caption"]}',
-  					hint = '{$menu_intem["shorttext"]}',
-  					link = '?mod=info2&action=show_info2&submod=". $item ."',
-  					requirement = 0,
-  					level = $level,
-  					pos = {$info_menu["pos"]},
-  					action = 'show_info2',
-  					file = 'show'
-  					");
-  			}
-  		}
-
-  		$func->confirmation($lang["info"]["change_active_success"], "index.php?mod=info2&action=change");
-  	break;
-
-  }
+				$func->confirmation($lang["info"]["change_success"], "index.php?mod=info2&action=change");
+			}
+		}
+	break;
 }
 ?>

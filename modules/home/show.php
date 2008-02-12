@@ -1,5 +1,4 @@
 <?php
-if (!$cfg['home_item_count']) $cfg['home_item_count'] = 8;
 
 if ($auth["type"] == 1 or $auth["type"] == 2 or $auth["type"] == 3) $home_page = $cfg["home_login"];
 else $home_page = $cfg["home_logout"];
@@ -7,36 +6,66 @@ else $home_page = $cfg["home_logout"];
 switch ($home_page) {
 	// Show overview
 	default:
-		$dsp->NewContent(t('Startseite'), t('Willkommen! Hier sehen Sie eine kleine Übersicht der wichtigsten Aktivitäten.'));
+		$dsp->NewContent($lang["home"]["in_caption"], $lang["home"]["in_subcaption"]);
 
-    $ModOverviews = array();
-    if (in_array('news', $ActiveModules)) $ModOverviews[] = 'news';
-    if (in_array('board', $ActiveModules)) $ModOverviews[] = 'board';
-    if (in_array('mail', $ActiveModules) and $auth['login']) $ModOverviews[] = 'mail';
-    if (in_array('server', $ActiveModules)) $ModOverviews[] = 'server';
-    if (in_array('poll', $ActiveModules)) $ModOverviews[] = 'poll';
-    if (in_array('bugtracker', $ActiveModules)) $ModOverviews[] = 'bugtracker';
-    if (in_array('tournament2', $ActiveModules)) $ModOverviews[] = 'tournament';
-    if (in_array('partylist', $ActiveModules)) $ModOverviews[] = 'partylist';
-		if (in_array('stats', $ActiveModules)
-      and ($party->count > 0 or $auth['type'] >= 2)
-      and (in_array('troubleticket', $ActiveModules) or in_array('rent', $ActiveModules)))
-      $ModOverviews[] = 'stats';
+		$z = 1;
 
-    include_once('modules/home/templates/home.php');
+		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'news'");
+		if ($module["active"]) {
+		    include('modules/home/news.inc.php');
+			$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+		    $z++;
+		}
 
-		if ($party->count > 1) $party->get_party_dropdown_form();
+		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'board'");
+		if ($module["active"]) {
+		    include('modules/home/board.inc.php');
+			$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+		    $z++;
+		}
+
+		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'server'");
+		if ($module["active"]) {
+		    include('modules/home/server.inc.php');
+		 	$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+		   $z++;
+		}
+
+		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'poll'");
+		if ($module["active"]) {
+		    include('modules/home/poll.inc.php');
+		 	$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+		   $z++;
+		}
+
+		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'tournament2'");
+		if ($module["active"]) {
+		    include('modules/home/tournament.inc.php');
+		 	$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+		   $z++;
+		}
+
+		$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'stats'");
+		if ($module["active"]) {
+		    include('modules/home/stats.inc.php');
+		 	$templ['home']['show']['case']['control']['item_'.$z] .= $dsp->FetchModTpl("home", "show_item");
+		   $z++;
+		}
+
+		$dsp->AddSingleRow($dsp->FetchModTpl("home", "show_case"));
+		$party->get_party_dropdown_form();
+		$dsp->AddContent();
 	break;
 
 	// Show News
 	case 1:
-		if ($party->count > 1) $party->get_party_dropdown_form();
+		$party->get_party_dropdown_form();
 		include ("modules/news/show.php");
 	break;
 	
 	// Show Logout-Text
 	case 2:
-		$dsp->NewContent(t('Startseite'), t('Willkommen! Zum Einloggen verwenden Sie bitte, die Login-Box auf der rechten Seite'));
+		$dsp->NewContent($lang["home"]["off_caption"], $lang["home"]["off_subcaption"]);
 
 		$logout_hometext = file_get_contents("ext_inc/home/logout.txt");
 		$templ['home']['logout']['show']['info']['text']  = $func->text2html($logout_hometext);
@@ -54,7 +83,8 @@ switch ($home_page) {
 		}
 		$db->free_result($get_news_caption);
 
-		if ($party->count > 1) $party->get_party_dropdown_form();
+		$party->get_party_dropdown_form();
+		$dsp->AddContent();
   break;
 }
 ?>

@@ -7,6 +7,8 @@
  $lang['misc']['translator']    = 'Cewigo (Jan)';
 
  //Confirms
+ $lang['misc']['cf_add_ips']    = 'Die IPs wurden erfolgreich eingetragen';
+ $lang['misc']['cf_add_ip']     = 'Die IP Adressen wurden erfolgreich eingetragen.';
  $lang['misc']['print_paper']   = 'IP-Zettel drucken f&uuml;r ...';
 
  $lang['misc']['ch_print_bl']   = 'Hier k&ouml;nnen Sie einen Block ausw&auml;hlen, f&uuml;r den Sie die IP-Zettel drucken m&ouml;chten.';
@@ -30,9 +32,12 @@
  $lang['misc']['err_dbl']       = 'doppelt';
  $lang['misc']['err_invalid']   = 'ung&uuml;ltig';
  $lang['misc']['err_no_block']  = 'Dieser Block existiert nicht.';
+ $lang['misc']['err_double_ip'] = 'Mindestens eine IP wurde bereits vergeben';
+ $lang['misc']['err_ip_format'] = 'Das Format mindestens einer IP ist ungültig. Format: 192.168.123.12';
 
  //Contend
  $lang['misc']['this_plan']     = 'diesen Plan';
+ $lang['misc']['ip_gen']        = 'IP-Generierung';
  $lang['misc']['occupied']      = 'besetzt';
  $lang['misc']['free']          = 'frei';
  $lang['misc']['log_unknown']   = 'unbekannt';

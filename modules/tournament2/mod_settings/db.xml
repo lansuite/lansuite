@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 
 <lansuite>
 	<header>
@@ -24,7 +24,7 @@
 				<name>tournamentid</name>
 				<type>tinyint(3) unsigned</type>
 				<null></null>
-				<key>IND</key>
+				<key>MUL</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -32,7 +32,7 @@
 				<name>leaderid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key>IND</key>
+				<key>MUL</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -95,7 +95,7 @@
 				<name>tournamentid</name>
 				<type>tinyint(3) unsigned</type>
 				<null></null>
-				<key>IND</key>
+				<key>MUL</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -103,7 +103,7 @@
 				<name>userid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key>IND</key>
+				<key>MUL</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -111,7 +111,7 @@
 				<name>teamid</name>
 				<type>smallint(5) unsigned</type>
 				<null></null>
-				<key>IND</key>
+				<key>MUL</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -134,7 +134,7 @@
 				<name>tournamentid</name>
 				<type>tinyint(3) unsigned</type>
 				<null></null>
-				<key>IND</key>
+				<key>MUL</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -150,7 +150,7 @@
 				<name>leaderid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key>IND</key>
+				<key>MUL</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -212,9 +212,9 @@
 			<field>
 				<name>party_id</name>
 				<type>int(20)</type>
-				<null>NO</null>
-				<key>IND</key>
-				<default>0</default>
+				<null></null>
+				<key></key>
+				<default></default>
 				<extra></extra>
 			</field>			
 			<field>
@@ -259,18 +259,18 @@
 			</field>
 			<field>
 				<name>starttime</name>
-				<type>datetime</type>
+				<type>int(15)</type>
 				<null></null>
 				<key></key>
-				<default></default>
+				<default>0</default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>endtime</name>
-				<type>datetime</type>
+				<type>int(15)</type>
 				<null></null>
 				<key></key>
-				<default></default>
+				<default>0</default>
 				<extra></extra>
 			</field>
 			<field>

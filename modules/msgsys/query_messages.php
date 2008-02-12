@@ -15,7 +15,7 @@
 **************************************************************************/
 
 
-$templ['messenger']['query']['messages']['refreshtime'] = $config["size"]["msgrefreshtime"];
+$refreshtime = $config["size"]["msgrefreshtime"];
 
 // 
 // Set all msgs to status 0
@@ -76,6 +76,6 @@ $templ['messenger']['query']['messages']['info']['msgs'] .= "<a name=\"end\"></a
 // 
 // Output HTML
 //
-$index .= $dsp->FetchTpl("design/templates/messenger_query_messages.htm");
+eval("\$index .= \"". $func->gettemplate("messenger_query_messages")."\";");
 $func->templ_output($index);
 ?>

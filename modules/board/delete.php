@@ -1,39 +1,30 @@
 <?php
 
-include_once('inc/classes/class_masterdelete.php');
-$md = new masterdelete();
+switch ($_GET['step']) {
+	default:
+		$mastersearch = new MasterSearch( $vars, "index.php?mod=board&action=delete", "index.php?mod=board&action=delete&step=2&fid=", "");
+		$mastersearch->LoadConfig("board_forums", $lang['board']['ms_board_search'], $lang['board']['ms_board_result']);
+	//	$mastersearch->PrintForm();
+		$mastersearch->Search();
+		$mastersearch->PrintResult();
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+	break;
 
-// Delete post
-if ($_GET['pid']) {
-  $md->DeleteIfEmpty['board_threads'] = 'tid';
-  $md->Delete('board_posts', 'pid', $_GET['pid']);
+	case 2:
+		$text = $lang['board']['del_forum_quest'];
 
-// Delete thread
-} elseif ($_GET['tid']) {
-  $md->References['board_posts'] = '';
-  $md->References['board_read_state'] = '';
-  $md->References['board_bookmark'] = '';
-  $md->Delete('board_threads', 'tid', $_GET['tid']);
+		$link_target_yes = "index.php?mod=board&action=delete&step=3&fid={$_GET['fid']}";
+		$link_target_no = "index.php?mod=board&action=delete";
+		$func->question($text, $link_target_yes, $link_target_no);
+	break;
 
-// Delete board
-} else {
-  $md->References['board_threads'] = '';
-  $md->SubReferences['board_posts'] = 'tid';
-  $md->SubReferences['board_read_state'] = 'tid';
-  $md->SubReferences['board_bookmark'] = 'tid';
+	case 3:
+		$db->query("DELETE FROM {$config["tables"]["board_forums"]} WHERE fid='{$_GET['fid']}'");
+		$db->query("DELETE FROM {$config["tables"]["board_threads"]} WHERE fid='{$_GET['fid']}'");
+		$db->query("DELETE FROM {$config["tables"]["board_posts"]} WHERE fid='{$_GET['fid']}'");
 
-  switch($_GET['step']) {
-  	default:
-      include_once('modules/board/show.php');
-  	break;
-
-  	case 2:
-      $md->Delete('board_forums', 'fid', $_GET['fid']);
-    break;
-
-    case 10:
-      $md->MultiDelete('board_forums', 'fid');
-    break;
-  }
+		$func->confirmation($lang['board']['forum_del'], "index.php?mod=board&action=delete"); 
+	break;
 }
+
 ?>

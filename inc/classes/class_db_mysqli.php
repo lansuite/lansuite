@@ -1,4 +1,21 @@
 <?php
+/*************************************************************************
+* 
+*	Lansuite - Webbased LAN-Party Management System
+*	-----------------------------------------------
+*
+*	(c) 2001-2003 by One-Network.Org
+*
+*	Lansuite Version:	2.0
+*	File Version:		2.0
+*	Filename: 			class_db_mysql.php
+*	Module: 			Framework
+*	Main editor: 		raphael@lansuite.de
+*	Last change: 		22.09.2002 19:39
+*	Description: 		
+*	Remarks: 		
+*
+**************************************************************************/
 
 class db {
 	var $link_id = 0;
@@ -41,7 +58,7 @@ class db {
 			}
 		} else $GLOBALS['db_link_id'] = $this->link_id;
 
-		@mysqli_query($GLOBALS['db_link_id'], "/*!40101 SET NAMES utf8_general_ci */;");
+		@mysqli_query($GLOBALS['db_link_id'], "/*!40101 SET NAMES latin1 */;");
 
 		return true;
 	}
@@ -56,31 +73,15 @@ class db {
 
     // No INTO OUTFILE
     elseif (!strpos($query_test_string, 'into outfile') === false) $query_string = '___INTO OUTFILE_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
+
    	$this->querys[] = $query_string;
 		$this->querys_count++;
-		$this->query_id = mysqli_query($GLOBALS['db_link_id'], $query_string);
+		$this->query_id = @mysqli_query($GLOBALS['db_link_id'], $query_string);
 		$this->sql_error = @mysqli_error($GLOBALS['db_link_id']);
 		$this->count_query++;
 		if (!$this->query_id) $this->print_error($this->sql_error, $query_string);
 		return $this->query_id;
 	}
-
-  function escape($match) {
-    global $CurrentArg;
-    
-    if ($match[0] == '%int%') return (int)$CurrentArg;
-    elseif ($match[0] == '%string%') return "'". mysqli_real_escape_string($GLOBALS['db_link_id'], (string)$CurrentArg) ."'";
-  }
-
-  function qry() {
-    global $config, $CurrentArg;
-
-    $args = func_get_args();
-    $query = array_shift($args);
-    $query = str_replace('%prefix%', $config['database']['prefix'], $query);
-    foreach ($args as $CurrentArg) $query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query, 1);
-    return $this->query($query);
-  }
 
 	function disconnect() {
     mysqli_close($this->link_id);
@@ -114,21 +115,6 @@ class db {
    		return $row;
   	}
 
-	function qry_first() {
-    global $config, $CurrentArg;
-
-    $args = func_get_args();
-    (string)$query = array_shift($args);
-    (string)$query = str_replace('%prefix%', $config['database']['prefix'], $query);
-
-    foreach ($args as $CurrentArg) $query = preg_replace_callback('#(%string%|%int%)#sUi', array('db', 'escape'), $query, 1);
-    $this->query($query);
-
- 		$row = $this->fetch_array($this->query_id);
- 		$this->free_result($this->query_id);
- 		return $row;
-  }
-
 
   	function query_first_rows($query_string) { // fieldname "number" is reserved
    		$this->query($query_string);
@@ -152,12 +138,8 @@ class db {
   	}
 
 
-	function stat() {
-    return @mysqli_stat($GLOBALS['db_link_id']);
-  }
-
 	function get_host_info() {
-		return @mysqli_get_host_info($GLOBALS['db_link_id']);
+		return @mysqli_get_host_info();
 	}
 
 
@@ -185,20 +167,5 @@ class db {
       	}
        return $found;
 	} 
-
-
-	function num_fields() {
-    return mysqli_num_fields($this->query_id);
-  }
-
-	function field_name($pos) {
-    $finfo = mysqli_fetch_field_direct($this->query_id, $pos);
-    return $finfo->name;
-  }
-  
-	function get_mysqli_stmt() {
-		$prep = $link_id->stmt_init();
-		return $prep;
-	}
 }
 ?>

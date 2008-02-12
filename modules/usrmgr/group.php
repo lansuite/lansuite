@@ -84,13 +84,13 @@ switch ($_GET['step']){
 		$dsp->AddTextFieldRow("group_name",$lang['usrmgr']['group'],$_POST['group_name'],$error_usrmgr['group']);
 		$dsp->AddTextFieldRow("description",$lang['usrmgr']['group_desc'],$_POST['description'],$error_usrmgr['group_desc']);
 		// Dropdown für auswahl der Automatischen einstufung
-#		$selection_array = array();
-#		foreach ($selection_data as $key => $value){
-#			($key == $_POST['selection']) ? $selected = "selected" : $selected = "";
-#			array_push($selection_array,"<option $selected value='$key'>" . $value . "</option>");
-#		}
-#		$dsp->AddDropDownFieldRow("selection",$lang['usrmgr']['selection_choise'],$selection_array,$error_usrmgr['selection']);
-#		$dsp->AddTextFieldRow("select_opts",$lang['usrmgr']['select_opts'],$_POST['select_opts'],$error_usrmgr['select_opts']);
+		$selection_array = array();
+		foreach ($selection_data as $key => $value){
+			($key == $_POST['selection']) ? $selected = "selected" : $selected = "";
+			array_push($selection_array,"<option $selected value='$key'>" . $value . "</option>");
+		}
+		$dsp->AddDropDownFieldRow("selection",$lang['usrmgr']['selection_choise'],$selection_array,$error_usrmgr['selection']);
+		$dsp->AddTextFieldRow("select_opts",$lang['usrmgr']['select_opts'],$_POST['select_opts'],$error_usrmgr['select_opts']);
 		
 		$dsp->AddFormSubmitRow("add","usrmgr/group");
 		
@@ -141,9 +141,17 @@ switch ($_GET['step']){
 	
 	case 10:
 		if(isset($_POST['group_id'])) $_GET['group_id'] = $_POST['group_id'];
-    $current_url = "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}";
-    $target_url = "index.php?mod=usrmgr&action=group&step=11&group_id={$_GET['group_id']}&userid=";
-    include_once('modules/usrmgr/search_basic_userselect.inc.php');
+    include_once('modules/usrmgr/search.inc.php');
+/*
+		$mastersearch = new MasterSearch($vars, "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=11&group_id={$_GET['group_id']}&userid=", "GROUP BY email");
+		$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
+		$mastersearch->config['result_fields'][0]['checkbox']   = "checkbox";
+		$mastersearch->PrintForm();
+		$mastersearch->Search();
+		$mastersearch->PrintResult();
+		
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+*/
 	break;
 
 	case 11:
@@ -165,7 +173,7 @@ switch ($_GET['step']){
 			$func->question($text, "index.php?mod=usrmgr&action=group&step=12&userids=$userids&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}");
 
 		} elseif ($_GET["userid"]) {
-			$user_data = $db->query_first("SELECT user.username, g.group_name FROM {$config["tables"]["user"]} AS user LEFT JOIN {$config["tables"]["party_usergroups"]} AS g ON user.group_id = g.group_id WHERE userid = '{$_GET["userid"]}'");
+			$user_data = $db->query_first("SELECT user.username, g.group_name FROM {$config["tables"]["user"]} AS user LEFT JOIN {$config["tables"]["party_usergroups"]} AS g ON user.group_id = g.group_id WHERE userid = '$userid'");
 					
 			if ($user_data["username"]) {
 				$func->question(str_replace("%USER%", $user_data["username"],str_replace("%GROUP%", $user_data["group_name"],$lang['usrmgr']['change_user_in_group'])),"index.php?mod=usrmgr&action=group&step=12&userid={$_GET["userid"]}&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}");
@@ -180,9 +188,9 @@ switch ($_GET['step']){
 		if ($_GET["userids"]) {
 			$userids = split(",", $_GET["userids"]);
 			foreach ($userids as $userid) {
-				$db->query("UPDATE {$config["tables"]["user"]} SET group_id = '{$_GET['group_id']}' WHERE userid = {$_GET["userid"]} LIMIT 1");
+				$db->query("UPDATE {$config["tables"]["user"]} SET group_id = '{$_GET['group_id']}' WHERE userid = $userid LIMIT 1");
 			}
-		} else $db->query("UPDATE {$config["tables"]["user"]} SET group_id = '{$_GET['group_id']}' WHERE userid = {$_GET["userid"]} LIMIT 1");
+		} else $db->query("UPDATE {$config["tables"]["user"]} SET group_id = '{$_GET['group_id']}' WHERE userid = $userid LIMIT 1");
 
 		$func->confirmation($lang['usrmgr']['change_usergroup_ok'], "index.php?mod=usrmgr&action=group&group_id={$_GET['group_id']}");
 	break;
@@ -230,14 +238,10 @@ switch ($_GET['step']){
 		$party->delete_usergroups($_GET['group_id'],$_POST['group_id']);
 		$func->confirmation($lang['usrmgr']['delete_group_ok'],"index.php?mod=usrmgr&action=group");
 	break;
-	
-	// Multi-User-Assign
-  case 30;
-  	foreach ($_POST['action'] as $key => $val) {
-      $db->query("UPDATE {$config["tables"]["user"]} SET group_id = '{$_GET['group_id']}' WHERE userid = ". (int)$key);
-    }
-		$func->confirmation($lang['usrmgr']['change_usergroup_ok'], "index.php?mod=usrmgr");
-  break;
+		
 }
+
+
+
 
 ?>

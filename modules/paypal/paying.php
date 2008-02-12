@@ -122,13 +122,13 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 }
 
 
-	switch ($_GET['step']){
+	switch ($_GET['action']){
 		case 2:
 			if($_POST['firstname'] == "") 	$error_pay['firstname'] = $lang['paypal']['error_firstname'];
 			if($_POST['lastname'] == "") 	$error_pay['lastname'] = $lang['paypal']['error_lastname'];
 			if($_POST['email'] == "") 		$error_pay['email'] = $lang['paypal']['error_email'];
 					
-			if(isset($error_pay)) $_GET['step'] = 1;
+			if(isset($error_pay)) $_GET['action'] = 1;
 			
 		break;	
 		
@@ -136,7 +136,7 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 
 
 
-	switch ($_GET['step']){
+	switch ($_GET['action']){
 		case 1:
 			$_POST['price'] = unserialize(urldecode($_POST['price']));
 			$_POST['depot'] = unserialize(urldecode($_POST['depot']));
@@ -169,13 +169,13 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 			// Donation
 			$price = $price + $_POST['donation'];
 			
-			if($price <= 0){
+			if($price == 0){
 				$func->error($lang["paypal"]["no_price_error"],"\" OnClick=\"javascript: refreshParent()");
 			}else{
 				
 				$dsp->NewContent($lang["paypal"]["data_caption"],$lang["paypal"]["data_subcaption"]);
 				$dsp->AddModTpl("paypal","javascript");
-				$dsp->SetForm("index.php?mod=paypal&action=paying&design=base&step=2");
+				$dsp->SetForm("base.php?mod=paypal&action=2");
 				$dsp->AddTextFieldRow("firstname",$lang["paypal"]["firstname"],$_POST['firstname'],$error_pay['firstname']);
 				$dsp->AddTextFieldRow("lastname",$lang["paypal"]["lastname"],$_POST['lastname'],$error_pay['lastname']);
 				$dsp->AddTextFieldRow("street",$lang["paypal"]["street"],$_POST['street'],$error_pay['street']);
@@ -213,9 +213,9 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 					<input type=\"hidden\" name=\"business\" value=\"{$cfg['paypal_business']}\"> 
 					<input type=\"hidden\" name=\"cmd\" value=\"_xclick\"> 
 					<input type=\"hidden\" name=\"image_url\" value=\"\">
-					<input type=\"hidden\" name=\"return\" value=\"{$cfg['paypal_site_url']}/index.php?mod=paypal&action=paying&design=base&step=3\">
-					<input type=\"hidden\" name=\"cancel_return\" value=\"{$cfg['paypal_site_url']}/index.php?mod=paypal&action=paying&design=base&step=10\">
-					<input type=\"hidden\" name=\"notify_url\" value=\"{$cfg['paypal_site_url']}/index.php?mod=paypal&action=paying&design=base&step=5\">
+					<input type=\"hidden\" name=\"return\" value=\"{$cfg['paypal_site_url']}/base.php?mod=paypal&action=3\">
+					<input type=\"hidden\" name=\"cancel_return\" value=\"{$cfg['paypal_site_url']}/base.php?mod=paypal&action=10\">
+					<input type=\"hidden\" name=\"notify_url\" value=\"{$cfg['paypal_site_url']}/base.php?mod=paypal&action=5\">
 					<input type=\"hidden\" name=\"rm\" value=\"0\">
 					<input type=\"hidden\" name=\"currency_code\" value=\"{$cfg['paypal_currency_code']}\">
 					<input type=\"hidden\" name=\"lc\" value=\"DE\">

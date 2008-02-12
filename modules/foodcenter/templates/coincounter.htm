@@ -41,9 +41,7 @@ function doOnchange() {
 	
 	hardeurototal	= c1t + c2t + c5t + c10t + c20t + c50t + e1t + e2t;
 	softeurototal	= e5t + e10t + e20t + e50t + e100t + e200t + e500t;
-	eurototal 		= (hardeurototal + softeurototal) *1000;
-	eurototal 		= Math.round(eurototal);
-	eurototal		= eurototal /1000;
+	eurototal 		= hardeurototal + softeurototal;
 	
 	document.getElementById('onecenttotal').value=c1t;
 	document.getElementById('twocenttotal').value=c2t;
@@ -63,7 +61,7 @@ function doOnchange() {
 
 	document.getElementById('hardeurototal').value=hardeurototal;
 	document.getElementById('softeurototal').value=softeurototal;
- 	document.getElementById('eurototal').value= eurototal;		
+ 	document.getElementById('eurototal').value=eurototal;		
 }
 
 </script>

@@ -10,7 +10,7 @@ class foodcenter_print{
 	var $row_temp = "";
 
 	function foodcenter_print(){
-		global $func, $auth;
+		global $func;
 		if(!file_exists($this->path . $_POST['file']) || $_POST['file'] == ""){
 			header("HTTP/1.0 404 Not Found");
 			exit();
@@ -34,8 +34,8 @@ class foodcenter_print{
 		$time = time();
 		$this->sql();
 		$temp['content'] = $this->row_temp;		
-		$temp['supp'] = $this->GetSupp($_POST['search_dd_input'][1]);
-		$temp['user'] = $this->GetUsername((int)$auth['userid']);
+		$temp['supp'] = $this->GetSupp($_POST['search_select2']);
+		$temp['user'] = $this->GetUsername($_POST['search_select3']);
 		$temp['time'] = $func->unixstamp2date( $time , "datetime");
 		
 		eval("\$this->output .= \"" .$temp_file. "\";");		
@@ -59,10 +59,10 @@ class foodcenter_print{
 	function GetSupp($value){
 		global $lang, $db, $config;
 		
-		if($value == ""){
+		if($value == "all"){
 			return $lang['foodcenter']['different'];		
 		}else{
-			$supp = $db->query_first("SELECT name FROM {$config['tables']['food_supp']} WHERE supp_id = " . $value);
+			$supp = $db->query_first("SELECT name FROM {$config['tables']['food_supp']} WHERE id = " . $value);
 			return $supp['name'];
 		}
 		
@@ -111,15 +111,12 @@ class foodcenter_print{
 	}
 	
 	function GetUserdata( $userid )	{
-		global $db, $config, $lang, $party;
+		global $db, $config, $lang;
 		if($userid == 'all'){
 			return $lang['foodcenter']['different'];	
 		}else {
-	$get_userdata = $db->query_first("SELECT u.*, s.ip FROM {$config["tables"]["user"]} AS u
-      								LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid = u.userid
-      								LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid
-      WHERE u.userid = '$userid' AND b.party_id = '$party->party_id'");
-	return $get_userdata;
+			$get_username = $db->query_first("SELECT * FROM {$config["tables"]["user"]} WHERE userid = '$userid'");
+			return $get_username;
 		}
 	}
 		
@@ -133,7 +130,7 @@ class foodcenter_print{
 	function sql(){
 		global $db, $config;
 		// Suchstring erstellen
-		if($_POST['search_input'][0] != ""){
+		if($_POST['search_keywords'] != ""){
 			$config['search_fields'][]  = "p.caption";
 			$config['search_type'][]    = "like";
 			$config['search_fields'][]  = "s.supp_id";
@@ -176,25 +173,26 @@ class foodcenter_print{
 		}
 
 
-		if (strtolower($_POST['search_dd_input'][0]) != ""){
-			$search .= "a.status = " . $_POST['search_dd_input'][0] . " AND ";
+		if (strtolower($_POST['search_select1']) != "all"){
+			$search .= "a.status = " . $_POST['search_select1'] . " AND ";
 		}
 		
-		if (strtolower($_POST['search_dd_input'][1]) != ""){
-			$search .= "s.supp_id = " . $_POST['search_dd_input'][1] . " AND ";
+		if (strtolower($_POST['search_select2']) != "all"){
+			$search .= "s.suppid = " . $_POST['search_select2'] . " AND ";
 		}
 
-		if (strtolower($_POST['search_dd_input'][2]) != ""){
-			$search .= "a.partyid = " . $_POST['search_dd_input'][2] . " AND ";
+		if (strtolower($_POST['search_select3']) != "all"){
+			$search .= "a.userid = " . $_POST['search_select3'] . " AND ";
 		}
 
 		$search .= "1";
 
-		$sql = "SELECT a.*, p.*, s.* FROM {$config['tables']['food_ordering']} AS a
-								LEFT JOIN {$config['tables']['food_product']} AS p ON a.productid = p.id
-								LEFT JOIN {$config['tables']['food_supp']} AS s ON p.supp_id = s.supp_id
-				WHERE $search
-				ORDER BY p.caption ASC";
+		$sql = "SELECT a.*, p.caption, s.* FROM {$config['tables']['food_ordering']} AS a
+		LEFT JOIN {$config['tables']['food_product']} AS p ON a.productid = p.id
+		LEFT JOIN {$config['tables']['food_supp']} AS s ON p.supp_id = s.supp_id
+		WHERE $search
+		ORDER BY p.caption ASC";
+
 
 		$result = $db->query($sql);
 
@@ -203,10 +201,10 @@ class foodcenter_print{
 			unset($userdata);
 			$userdata = $this->GetUserdata($data['userid']);
 			$row_temp['supp_name'] 			= $data['name'];
-			$row_temp['supp_info'] 			= $data['supp_infos'];
+			$row_temp['supp_info'] 			= $data['s_desc'];
 			$row_temp['product_caption'] 	= $data['caption']; 
 			$row_temp['username'] 			= $userdata['username'];
-			$row_temp['userip'] 			= $userdata['ip'];
+			$row_temp['userip'] 			= $userdata['ipaddress'];
 			$row_temp['usercomment']		= $userdata['comment'];
 			$row_temp['product_option'] 	= $this->GetFoodoption($data['opts']);
 			$row_temp['order_count']		= $data['pice'];

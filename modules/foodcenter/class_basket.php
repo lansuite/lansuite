@@ -50,7 +50,7 @@ class basket{
 			$dsp->NewContent($lang['foodcenter']['basket_caption'],$lang['foodcenter']['basket_sub_caption']);
 			if($this->product->count_products() > 0){
 				$dsp->SetForm("?mod=foodcenter&action={$_GET['action']}&mode=change");
-				$dsp->AddDoubleRow("<b>" . $lang['foodcenter']['basket_item'] . "</b> ","<b>" . $lang['foodcenter']['basket_count'] . "</b> ");
+				$dsp->AddDoubleRow($lang['foodcenter']['basket_item'],$lang['foodcenter']['basket_count']);
 
 				$this->product->get_basket_form();			
 				$dsp->AddDoubleRow("<b>" . $lang['foodcenter']['basket_price_tot'] . "</b> " . $this->product->count_products_price() . " " . $cfg['sys_currency'],"<b>" . $lang['foodcenter']['basket_count_tot'] . "</b> " . $this->product->count_products());
@@ -75,7 +75,7 @@ class basket{
 	
 	
 	function change_basket($userid){
-		global $func,$lang, $cfg;
+		global $func,$lang;
 		$ok = true;
 		$this->count = 0;
 		foreach ($_POST as $key => $value){
@@ -92,20 +92,12 @@ class basket{
 		$_SESSION['basket_count'] = $this->count;
 		
 		$this->account = new accounting($userid);
-		
-		// Wird nur ausgeführt wenn Credit-System an
-		if( $cfg['foodcenter_credit'] == 1)
-		{
-			if($this->product->count_products_price() <= $this->account->balance){
-				return $ok;
-			}else{
-				$func->error($lang['foodcenter']['ordered_err_amount'],"index.php?mod=foodcenter&action={$_GET['action']}");
-				return false;
-			}
+		if($this->product->count_products_price() <= $this->account->balance){
+			return $ok;
 		}else{
-		return $ok;
+			$func->error($lang['foodcenter']['ordered_err_amount'],"index.php?mod=foodcenter&action={$_GET['action']}");
+			return false;
 		}
-		
 	}
 	
 	function order_basket($userid, $delivered = 0){

@@ -7,7 +7,7 @@ class t_league_export {
 	function wwcl_export($pid, $pvdid) {
 		global $config, $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
 
-		$output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
+		$output = '<?xml version="1.0" encoding="UTF-8"?>'."\r\n";
 
 		// Allgemeine Party-Daten
 		$submit = $xml->write_tag("tool", "LanSuite Turnier Modul", 2);
@@ -95,7 +95,7 @@ class t_league_export {
 	function ngl_export($eventid) {
 		global $cfg, $config, $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
 
-		$output = '<?xml version="1.0" encoding="ISO-8859-15"?'.'>'."\r\n";
+		$output = '<?xml version="1.0" encoding="ISO-8859-15"?>'."\r\n";
 
 		// Allgemeine Party-Daten
 		$laninfo = $xml->write_tag("eventid", $eventid, 2);
@@ -199,8 +199,8 @@ class t_league_export {
 						else $winner = $tmpid1;
 						$match = $xml->write_tag("tmpid1", $tmpid1, 5);
 						$match .= $xml->write_tag("tmpid2", $db_teamid['teamid'], 5);
-						$match .= $xml->write_tag("score1", (int)$score1, 5);
-						$match .= $xml->write_tag("score2", (int)$db_match['score'], 5);
+						$match .= $xml->write_tag("score1", $score1, 5);
+						$match .= $xml->write_tag("score2", $db_match['score'], 5);
 						$match .= $xml->write_tag("winner", $winner, 5);
 						$round .= $xml->write_master_tag("match", $match, 4);
 						$tmpid1 = "";
@@ -232,7 +232,7 @@ class t_league_export {
 	function lgz_export($eventid) {
 		global $cfg, $config, $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
 
-		$output = '<?xml version="1.0"?'.'>'."\r\n";
+		$output = '<?xml version="1.0"?>'."\r\n";
 
 		// Allgemeine Party-Daten
 		$laninfo = $xml->write_tag("eventid", $eventid, 2);

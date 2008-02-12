@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 <menu>
 	<pos>4</pos>
 	<entry>
@@ -7,13 +7,63 @@
 		<caption>Anmelden</caption>
 		<hint></hint>
 		<link>?mod=signon</link>
-		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins, 5 = Logged Off-->
-		<needed_config>ShowSignon</needed_config>
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins, 5 = Logged Off-->
+		<needed_config></needed_config>
 		<level>0</level>
+	</entry>
+	<entry>
+		<action>edit_party</action>
+		<file>edit_party</file>
+		<caption>Party ändern</caption>
+		<hint>Hier kann die Party geändert werden</hint>
+		<link>?mod=signon&action=edit_party</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>price</action>
+		<file>price</file>
+		<caption>Preise ändern</caption>
+		<hint>Hier können Preise geändert werden</hint>
+		<link>?mod=signon&action=price</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>guestlist</action>
+		<file>guestlist</file>
+		<requirement>0</requirement>
+	</entry>
+	<entry>
+		<action>show_party</action>
+		<file>show_party</file>
+		<requirement>0</requirement>
+	</entry>	
+	<entry>
+		<action>add</action>
+		<file>add</file>
+		<requirement>0</requirement>
+	</entry>	
+	<entry>
+		<action>usermap</action>
+		<file>usermap</file>
+		<requirement>0</requirement>
+	</entry>
+	<entry>
+		<action>httpinforequest</action>
+		<file>httpinforequest</file>
+		<requirement>0</requirement>
 	</entry>
 	<entry>
 		<action>config</action>
 		<file>config</file>
+		<requirement>2</requirement>
+	</entry>
+	<entry>
+		<action>add_party</action>
+		<file>add_party</file>
 		<requirement>2</requirement>
 	</entry>
 </menu>

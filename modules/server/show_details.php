@@ -16,7 +16,7 @@ else {
 		$dsp->NewContent($lang["server"]["details_caption"], str_replace("%CAPTION%", $server["caption"], $lang["server"]["details_subcaption"]));
 
 		$dsp->AddDoubleRow($lang["server"]["details_name"], $server["caption"]);
-		$dsp->AddDoubleRow($lang["server"]["details_owner"], $server["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$server['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>");
+		$dsp->AddDoubleRow($lang["server"]["details_owner"], $server["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$server['userid']}\"><img src=\"/design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>");
 
 		$type_descriptor["gameserver"] = $lang["server"]["details_gameserver"];	
 		$type_descriptor["ftp"] = $lang["server"]["details_ftpserver"];
@@ -55,7 +55,6 @@ else {
 		}
 
 		$dsp->AddDoubleRow($lang["server"]["details_ipaddr"], $server["ip"]);
-		$dsp->AddDoubleRow(t('MAC Adresse'), $server["mac"]);
 		$dsp->AddDoubleRow($lang["server"]["details_port"], $server["port"]);
 
 		if ($server["os"] == "") $server["os"] = "<i>". $lang["server"]["details_no_statement"] ."</i>";
@@ -89,8 +88,9 @@ else {
 
 	// Including comment-engine     
 	if($_SESSION["auth"]["login"] == 1) {
-  	include('inc/classes/class_mastercomment.php');
-  	new Mastercomment('server', $_GET['serverid']);
+		include("modules/mastercomment/class_mastercomment.php");
+		$comment = new Mastercomment($vars,"index.php?mod=server&action=show_details&serverid=" . $_GET["serverid"],"server",$_GET["serverid"],$server["caption"]);
+		$comment->action();
 	}
 	//End comment-engine	
 }

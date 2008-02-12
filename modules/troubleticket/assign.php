@@ -1,17 +1,37 @@
 <?php
 switch($_GET["step"]) {
 	default:
-    include_once('modules/troubleticket/search.inc.php');	
+	default:
+		switch ($auth["type"]) {
+			default:
+				$sql = "AND (status = '0')";
+			break;
+			case 2:
+				$sql = "AND (status > '0' AND target_userid = '0')";
+			break;
+			case 3:
+				 $sql = "AND (status > '0')";
+			break;
+		}
+
+		$mastersearch = new MasterSearch($vars, "index.php?mod=troubleticket&action=assign", "index.php?mod=troubleticket&action=assign&step=2&ttid=", $sql);
+		$mastersearch->LoadConfig($lang['troubleticket']['modulname'],$lang['troubleticket']['ms_search_ticket'],$lang['troubleticket']['ms_ticket_result']);
+		$mastersearch->PrintForm();
+		$mastersearch->Search();
+		$mastersearch->PrintResult();
+
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
 	break;
 
 
 	case 2:
-    include_once('modules/usrmgr/search_main.inc.php');
-    
-    $ms2->query['where'] .= "u.type > 1";
-    if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=troubleticket&action=assign&step=3&ttid='.$_GET['ttid'] .'&userid=', 'Assign');
-    
-    $ms2->PrintSearch('index.php?mod=troubleticket&action=assign&step=2&ttid='. $_GET['ttid'], 'u.userid');
+		$mastersearch = new MasterSearch($vars, "index.php?mod=troubleticket&action=assign&step=2&ttid={$_GET["ttid"]}", "index.php?mod=troubleticket&action=assign&step=3&ttid={$_GET["ttid"]}&userid=", " AND type > 1 GROUP BY u.userid");
+		$mastersearch->LoadConfig("users",$lang['troubleticket']['ms_search_user'],$lang['troubleticket']['ms_user_result']);
+		$mastersearch->PrintForm();
+		$mastersearch->Search();
+		$mastersearch->PrintResult();
+
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
 	break;
 
 	case 3:

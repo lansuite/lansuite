@@ -46,9 +46,14 @@ switch($_GET['act']){
 	case "payment":
 		switch ($step){
 			default:
-        $current_url = 'index.php?mod=foodcenter&action=account&act=payment';
-        $target_url = 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid=';
-        include_once('modules/usrmgr/search_basic_userselect.inc.php');
+				$mastersearch = new MasterSearch($vars, "index.php?mod=foodcenter&action=account&act=payment", "index.php?mod=foodcenter&action=account&act=payment&step=2&userid=","");
+				$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
+				$mastersearch->PrintForm();
+				$mastersearch->Search();
+				$mastersearch->PrintResult();
+
+				$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+			
 			break;
 			
 			
@@ -78,9 +83,14 @@ switch($_GET['act']){
 	case "himbalance":
 		switch ($step){
 			default:
-        $current_url = 'index.php?mod=foodcenter&action=account&act=himbalance';
-        $target_url = 'index.php?mod=foodcenter&action=account&act=himbalance&step=2&userid=';
-        include_once('modules/usrmgr/search_basic_userselect.inc.php');
+				$mastersearch = new MasterSearch($vars, "index.php?mod=foodcenter&action=account&act=payment", "index.php?mod=foodcenter&action=account&act=payment&step=2&userid=","");
+				$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
+				$mastersearch->PrintForm();
+				$mastersearch->Search();
+				$mastersearch->PrintResult();
+
+				$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+			
 			break;
 			
 			

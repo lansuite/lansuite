@@ -1,13 +1,18 @@
 <?php
 	/*
+	#
+	#
 	#	HINWEISE BITTE LESEN !!!
 	#	PLEASE READ THIS INSTRUCTIONS
-  #
+	#
+	#
+	#
+	#
 	#	IMPORTANT !!!
 	#	
 	#	We request you retain the full copyright notice below including the link to www.one-network.org.
 	#	This not only gives respect to the large amount of time given freely by the developers
-	#	but also helps build interest, traffic and use of Lansuite.
+	#	but also helps build interest, traffic and use of Lansuite 2.0.
 	#	Consequently many bugs can be reported and get fixed quickly.	
 	#
 	#	WICHTIG !!!
@@ -16,28 +21,37 @@
 	#	zu www.one-network.org nicht zu entfernen.
 	#	Dies zeigt nicht nur den Entwicklern, die eine Menge unbezahlte Zeit in dieses Projekt 
 	#	gesteckt haben, Respekt, sondern trägt auch der Beteiligung am Support, 
-	#	der Verbreitung und der Anzahl der Nutzer von Lansuite bei.
+	#	der Verbreitung und der Anzahl der Nutzer von Lansuite 2.0 bei.
 	#	Somit können viele Fehler schnell gemeldet und behoben werden.
 	#		
 	#		
 	*/
 
 class sitetool {
+
+	var $dir = "";
 	var $timer = "";
 	var $timer2 = "";
 	var $send_size = "0";
+	
 	var $content = "";			// Content
 	var $content_crc = "";		// Checksum of Content
 	var $content_size = "";		// Size of Content
 
+
 ################# Script-Start (Output-Init)
 
 	// Constructor
-	function sitetool() {
+	function sitetool($dir) {	// dir = "" (called in index.php)
+		// Still used??? Dont think so... [By KnoX]
+		$this->dir = $dir;
+
 		// Set Script-Start-Time, to calculate the scripts runtime
+		// Should be called earlyer...
 		$this->timer = time();
 		$this->timer2 = explode(' ', microtime());
 	}
+
 
 ################# Script-End (Output-Compress & Send)
 
@@ -73,7 +87,7 @@ class sitetool {
 		$compression_mode = $this->check_optimizer();
 
 		// Check for {footer}-String in Design
-		if (!$_GET['contentonly'] and strpos($index, "{footer}") === false) echo "<font face=\"Verdana\" color=\"#ff0000\" site=\"6\">{$lang['class_sitetool']['footer_violation']}</font>";
+		if (strpos($index, "{footer}") === false) echo "<font face=\"Verdana\" color=\"#ff0000\" site=\"6\">{$lang['class_sitetool']['footer_violation']}</font>";
 		else {
 
 			$ru_suffix = "";
@@ -91,41 +105,27 @@ class sitetool {
 			// Erweiterung für Statisktik
 			if ($compression_mode and $cfg['sys_compress_level']){
 				$this->send_size = sprintf("%01.2f",((strlen(gzcompress($index, $cfg['sys_compress_level'])))/1024));
-	   		$site_size = ' | Size: '. $this->send_size .' KB | Uncompressed: '. sprintf("%01.2f", ((strlen($index))/1024))." KB";
-			} else {
-        $this->send_size = sprintf("%01.2f", (strlen($index)) / 1024);
-  			$site_size = " | Size: ". $this->send_size ." KB";
-      }
+				$compressed = " | Compressed: ". $this->send_size ." kBytes";		
+			} else $this->send_size = sprintf("%01.2f", (strlen($index)) / 1024);
 
-$footer = '
-<a  href="ext_inc/newsfeed/news.xml" title="Latest news feed"><img src="ext_inc/footer_buttons/button-rss.png" width="80" height="15" alt="Latest news feed" border="0" /></a>
-<a  href="index.php?mod=about&action=license" rel="license" title="GNU General Public License"><img src="ext_inc/footer_buttons/button_gpl.png" width="80" height="15" alt="GNU General Public License" border="0" /></a>
-<a  href="https://www.paypal.com/xclick/business=jochen.jung%40gmx.de&amp;item_name=Lansuite&amp;no_shipping=2&amp;no_note=1&amp;tax=0&amp;currency_code=EUR&amp;lc=DE" title="Donate"><img src="ext_inc/footer_buttons/button-donate.gif" alt="Donate" width="80" height="15" border="0" /></a>
-<a  href="http://www.php.net" title="Powered by PHP"><img src="ext_inc/footer_buttons/button-php.gif" width="80" height="15" alt="Powered by PHP" border="0" /></a>
-<a  href="http://www.mysql.com" title="MySQL Database"><img src="ext_inc/footer_buttons/mysql.gif" width="80" height="15" alt="MySQL Database" border="0" /></a>
-<!--
-<a  href="http://validator.w3.org/check/referer" title="Valid XHTML 1.0"><img src="ext_inc/footer_buttons/button-xhtml.png" width="80" height="15" alt="Valid XHTML 1.0" border="0" /></a>
-<a  href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS"><img src="ext_inc/footer_buttons/button-css.png" width="80" height="15" alt="Valid CSS" border="0" /></a>
--->
-<a  href="http://www.lansuite.de" title="Lansuite"><img src="ext_inc/footer_buttons/button_lansuite.png" width="80" height="15" alt="Lansuite" border="0" /></a>
-';
+			$uncompressed = " | Uncompressed: ".sprintf ("%01.2f", ((strlen($index))/1024))." KBytes";
+			$processed = " | Processed in: ". $this->out_work() ." Sec";
+			$dbquery = "Total DB-Querys: ". $db->count_query;
 
 			// Define Footer-Message
-			$footer .= HTML_NEWLINE .'<a href="index.php?mod=about" class="menu">'. $templ['index']['info']['version'].' &copy;2001-'.date('y').'</a>'
-      .' | DB-Querys: '. $db->count_query
-      .' | Processed in: '. round($this->out_work(), 2) .' Sec'. $site_size
-			.' | <a href="'. $_SERVER['REQUEST_URI'].$ru_suffix .'fullscreen=yes" class="menu">Fullscreen</a>';
+			$footer = $templ['index']['info']['version']." &copy; 2001-".date("Y")." <a href=\"http://www.One-Network.org\" target=\"_blank\" class=\"menu\">One-Network.org</a>
+			| All rights reserved
+			| <a href=\"index.php?mod=about\" class=\"menu\">about Lansuite</a>
+			| <a href=\"".$_SERVER['REQUEST_URI'].$ru_suffix."fullscreen=yes\" class=\"menu\">Vollbild</a>
+			<br/>$dbquery $processed $compressed $uncompressed";
 
-			if ($cfg["sys_optional_footer"]) $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
-      if ($_GET['contentonly']) $index .= '<div id="NewLSfooter">'. $footer .'</div>';
-
+			if ($cfg["sys_optional_footer"]) $footer .= $cfg["sys_optional_footer"];
 			$index = str_replace("{footer}", $footer, $index);
 
 			// change & to &amp;
 			$index = preg_replace("~&(?=(\w+|[a-f0-9]+)=)~i", "&amp;", $index);
-			#$index = preg_replace("~&(?!(\w+|#\d+|#x[a-f0-9]+);)~i", "&amp;", $index);
-      // Delete empty images
-      #$index = preg_replace("~<img src=\"/\"((\w|\s|\"|\=)+)>~i", "", $index);
+			// $index = preg_replace("~&(?!(\w+|#\d+|#x[a-f0-9]+);)~i", "&amp;", $index);
+			$index = preg_replace("~<img src=\"/\"((\w|\s|\"|\=)+)>~i", "", $index);
 
 			if ($compression_mode and $cfg['sys_compress_level']) {
 				Header("Content-Encoding: $compression_mode");

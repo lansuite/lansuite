@@ -8,9 +8,9 @@ if ($_COOKIE["olduserid"] != "") {
 
 	if (strlen($old_user['username']) > 14) $old_user['username'] = substr($old_user['username'], 0, 11) . "...";
 
-	$box->DotRow(t('Admin').':', "", "", "admin", 0);
+	$box->DotRow($lang['boxes']['userdata_admin'], "", "", "admin", 0);
 	$box->EngangedRow("<b>{$old_user["username"]}</b>". $dsp->FetchUserIcon($_COOKIE["olduserid"]), "", "", "admin", 0);
-	$box->EngangedRow(t('Zurück wechseln'), "index.php?mod=usrmgr&amp;action=switch_user&amp;step=11&amp;userid={$_COOKIE["olduserid"]}", "", "admin", 0);
+	$box->EngangedRow($lang['boxes']['userdata_switch_back'], "index.php?mod=usrmgr&action=switch_user&step=11&userid={$_COOKIE["olduserid"]}", "", "admin", 0);
 	$box->EmptyRow();
 }
 
@@ -19,41 +19,10 @@ if (strlen($auth['username']) > 14) $username = substr($auth['username'], 0, 11)
 else $username = $auth['username'];
 $userid_formated = sprintf( "%0".$config['size']['userid_digits']."d", $auth['userid']);
 
-$box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]");
+$box->DotRow($lang['boxes']['userdata_username']);
 $box->EngangedRow("<b>$username</b> ". $dsp->FetchUserIcon($auth["userid"]));
-#$box->EngangedRow("");
+$box->EngangedRow("[".$lang['boxes']['userdata_id']." <i>$userid_formated</i>]");
 
-// New-Mail Notice
-if (in_array('mail', $ActiveModules)) {
-	$mails_new = $db->query("SELECT mailID
-		FROM {$config["tables"]["mail_messages"]}
-		WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active' AND rx_date IS NULL
-		");
-
-	if ($db->num_rows($mails_new) > 0) {
-    $box->EngangedRow($dsp->FetchIcon('index.php?mod=mail', 'receive_mail', t('Sie haben Post!')));
-  
-    // Open PopUp
-    $found_not_popped_up_mail = false;
-    while ($mail_new = $db->fetch_array($mails_new)) {
-      if (!isset($_SESSION['mail_popup'][$mail_new['mailID']])) {
-        $_SESSION['mail_popup'][$mail_new['mailID']] = 1;
-        $found_not_popped_up_mail = true;
-      }
-    }
-    if ($cfg['mail_popup_on_new_mails'] and $found_not_popped_up_mail) {
-      $templ['box']['rows'] .= '<script language="JavaScript">
-      OpenWindow("index.php?mod=mail&amp;action=mail_popup&amp;design=popup", "new_mail");
-      </script>';
-    }
-  }
-  $db->free_result($mails_new);
-}
-
-#$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=details&amp;userid='. $auth["userid"], 'details', t('Pers. Details')) .' ';
-#$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=settings', 'generate', t('Pers. Einstellungen')) .' ';
-#$icons .= $dsp->FetchIcon('index.php?mod=logout', 'no', t('Logout')) .' ';
-#$box->EngangedRow($icons);
 
 // Show last log in and login count
 $user_lg = $db->query_first("SELECT user.logins, max(auth.logintime) AS logintime
@@ -62,43 +31,47 @@ $user_lg = $db->query_first("SELECT user.logins, max(auth.logintime) AS logintim
 	WHERE user.userid=\"".$auth["userid"]."\"
 	GROUP BY auth.userid");
 
-$box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] .'</b> <a href="index.php?mod=logout" onmouseover="return overlib(\''. t('Logout') .'\');" onmouseout="return nd();"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" /></a>');
-$box->DotRow(t('Zuletzt eingeloggt'));
-$box->EngangedRow("<b>". date('d.m H:i', $user_lg["logintime"]) ."</b>");
+$box->DotRow($lang['boxes']['userdata_last_login']);
+$box->EngangedRow("<b>". $func->unixstamp2date($user_lg["logintime"], "shortdaytime") ."</b>");
 
+$box->DotRow($lang['boxes']['userdata_logins']);
+$box->EngangedRow("<b>". $user_lg["logins"] ."</b>");
+
+$box->EmptyRow();
+
+/*
+// Show Link to seat details
+$seat = new seat();
+$row_seat = $db->query_first("SELECT s.blockid, s.col, s.row
+	FROM {$config['tables']['seat_seats']} AS s
+	LEFT JOIN {$config['tables']['seat_block']} AS b USING(blockid)
+	WHERE s.userid='{$auth['userid']}' AND b.party_id={$party->party_id}
+	");
+$blockid  = $row_seat["blockid"];
+if(is_numeric($blockid) && $blockid > 0) $seat_item = $seat->convert_js_string("home", $blockid, $auth['userid'], $lang['boxes']['userdata_my_seat'], 0);
+else $seat_item = "<a href=\"index.php?mod=seating&action=seatuser\" class=\"menu\">{$lang['boxes']['userdata_my_seat']}</a>";
+unset($seat);
+$box->ItemRow("data", $seat_item, "", "", "menu");
+*/
 
 // Show other links
-if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php?mod=usrmgr&amp;action=myticket", "", "menu");
-$box->DotRow(t('Meine Einstellungen'), "index.php?mod=usrmgr&amp;action=settings", '', "menu");
+if ($cfg["user_show_ticket"]) $box->ItemRow("data", $lang['boxes']['userdata_my_ticket'], "index.php?mod=usrmgr&action=myticket", "", "menu");
+$box->ItemRow("data", $lang['boxes']['userdata_change_pw'], "index.php?mod=usrmgr&action=changepw", "", "menu");
+$box->ItemRow("data", $lang['boxes']['userdata_priv_settings'], "index.php?mod=usrmgr&action=settings", "", "menu");
+$box->ItemRow("data", $lang['boxes']['userdata_priv_details'], "index.php?mod=usrmgr&action=details&userid={$auth["userid"]}", "", "menu");
+$box->ItemRow("delete", $lang['boxes']['userdata_logout'], "index.php?mod=logout", "", "menu");
 
-//Zeige Anmeldestatus
-if($party->count != 0 & $_SESSION['party_info']['partyend'] > time())
-{
-$query_signstat = $db->query_first("SELECT * FROM {$config["tables"]["party_user"]} AS pu
-				WHERE pu.user_id = '{$auth["userid"]}' AND pu.party_id = '{$_SESSION["party_id"]}'");
-				
-				if($query_signstat == null) 
-				{
-					$signstat = '<font color="red">'. t('Nein') .'!</font>';
-					$signstat_info = '<a href="index.php?mod=signon"><i> '. t('Hier anmelden') .'</i></a>';
-					$paidstat = '<font color="red">'. t('Nein') .'!</font>';
-				}
-				else
-				{
-					$signstat = '<font color="green">'. t('Ja') .'!</font>';
-					
-					if(($query_signstat["paid"] == 1)||($query_signstat["paid"] == 2))
-						$paidstat = '<font color="green">'. t('Ja') .'!</font>';
-					else
-						$paidstat = '<font color="red">'. t('Nein') .'!</font>';
-					}
 
-$query_partys = $db->query_first("SELECT * FROM {$config["tables"]["partys"]} AS p
-				WHERE p.party_id = '{$_SESSION["party_id"]}'");	
-					
-$box->DotRow("<b>".$query_partys["name"]."</b> ". t('Status') .':');
-$box->EngangedRow(t('Angemeldet') .': <b>'. $signstat .'</b><br> '. $signstat_info);
-$box->EngangedRow(t('Bezahlt') .': <b>'. $paidstat .'</b>');
+// New-Mail Notice
+$module = $db->query_first("SELECT active FROM {$config["tables"]["modules"]} WHERE name = 'mail'");
+if ($module["active"]) {
+	$mail_new_total = $db->query_first("SELECT count(*) as n
+			FROM {$config["tables"]["mail_messages"]}
+			WHERE ToUserID = '{$_SESSION['auth']['userid']}' AND mail_status = 'active' AND rx_date = '0'
+			");
+
+	if ($mail_new_total["n"] > 0) $templ['box']['rows'] .= $box->LinkItem("index.php?mod=mail", "<img src=\"design/{$config['lansuite']['default_design']}/images/mail_newmail.gif\" alt=\"{$lang['boxes']['userdata_new_mail']}\" border=\"0\">");
 }
 
+$boxes['userdata'] .= $box->CreateBox("user",$lang['boxes']['userdata_my_data']);
 ?>

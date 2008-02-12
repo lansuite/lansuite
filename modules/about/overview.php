@@ -1,9 +1,23 @@
 <?php
-$dsp->NewContent($config['lansuite']['version'], 'A web based lanparty administration tool');
+	
+	/*************************************************************************
+	* 
+	*	Lansuite - Webbased LAN-Party Management System
+	*	-----------------------------------------------
+	*
+	*	(c) 2001-2003 by One-Network.Org
+	*
+	*	Lansuite Version:	2.0
+	*	File Version:			2.0
+	*	Filename: 				overview.php
+	*	Module: 					About
+	*	Main editor: 			marco-scholl@one-network.org
+	*	Last change: 			06.06.2003
+	*	Description: 		
+	*	Remarks: 		
+	*
+	**************************************************************************/
+	
+	$templ['index']['info']['content'] = implode("",file("modules/about/overview.htm"));
 
-$dsp->AddFieldsetStart(t('Information'));
-$dsp->AddDoubleRow('', '<a href="?mod=about&action=credits">credits</a>');
-$dsp->AddDoubleRow('', '<a href="?mod=about&action=design_info">design</a>');
-$dsp->AddDoubleRow('', '<a href="?mod=about&action=license">license</a>');
-$dsp->AddFieldsetEnd();
 ?>

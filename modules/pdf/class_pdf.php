@@ -105,7 +105,6 @@ class pdf {
 		$this->data_type_array['guestcards']['user_nickname'] 	= "Nickname";
 		$this->data_type_array['guestcards']['name'] 			= "Name";
 		$this->data_type_array['guestcards']['firstname'] 		= "Vorname";
-		$this->data_type_array['guestcards']['userid'] 		= "Benutzer-ID";
 		$this->data_type_array['guestcards']['fullname']		= "Vorname Name";
 		$this->data_type_array['guestcards']['clan'] 			= "Clan";
 		$this->data_type_array['guestcards']['orientation'] 	= "Orientierung";
@@ -115,14 +114,10 @@ class pdf {
 		$this->data_type_array['guestcards']['user_block']		= "Sitzblock";
 		$this->data_type_array['guestcards']['user_ip']			= "IP-Adresse";
 		$this->data_type_array['guestcards']['party_name']		= "Lanparty-Name";
-		$this->data_type_array['guestcards']['plz']		= "PLZ";
-		$this->data_type_array['guestcards']['city']		= "Ort";
-		$this->data_type_array['guestcards']['birthday']		= "Geburtstag";
 		$this->data_type_array['seatcards']['user_nickname'] 	= "Nickname";
 		$this->data_type_array['seatcards']['name'] 			= "Name";
 		$this->data_type_array['seatcards']['firstname'] 		= "Vorname";
 		$this->data_type_array['seatcards']['fullname']			= "Vorname Name";
-		$this->data_type_array['seatcards']['userid'] 		= "Benutzer-ID";
 		$this->data_type_array['seatcards']['clan'] 			= "Clan";
 		$this->data_type_array['seatcards']['col']				= "Sitzkolonne";
 		$this->data_type_array['seatcards']['row'] 				= "Sitzreihe";
@@ -130,14 +125,10 @@ class pdf {
 		$this->data_type_array['seatcards']['seat_block']		= "Sitzblock";
 		$this->data_type_array['seatcards']['seat_ip']			= "IP-Adresse";
 		$this->data_type_array['seatcards']['party_name']		= "Lanparty-Name";
-		$this->data_type_array['seatcards']['plz']		= "PLZ";
-		$this->data_type_array['seatcards']['city']		= "Ort";
-		$this->data_type_array['seatcards']['birthday']		= "Geburtstag";
 		$this->data_type_array['userlist']['user_nickname'] 	= "Nickname";
 		$this->data_type_array['userlist']['lastname'] 			= "Name";
 		$this->data_type_array['userlist']['firstname'] 		= "Vorname";
 		$this->data_type_array['userlist']['fullname']			= "Vorname Name";
-		$this->data_type_array['userlist']['userid'] 		= "Benutzer-ID";
 		$this->data_type_array['userlist']['clan'] 				= "Clan";
 		$this->data_type_array['userlist']['col']				= "Sitzkolonne";
 		$this->data_type_array['userlist']['row'] 				= "Sitzreihe";
@@ -146,9 +137,6 @@ class pdf {
 		$this->data_type_array['userlist']['user_ip']			= "IP-Adresse";
 		$this->data_type_array['userlist']['party_name']		= "Lanparty-Name";
 		$this->data_type_array['userlist']['nr']				= "fortlaufende Nummer";
-		$this->data_type_array['userlist']['plz']		= "PLZ";
-		$this->data_type_array['userlist']['city']		= "Ort";
-		$this->data_type_array['userlist']['birthday']		= "Geburtstag";
 	}
 
 	
@@ -185,7 +173,7 @@ class pdf {
 	 * @param string $action
 	 */
 	function pdf_make($action){
-		global $lang,$auth;
+		global $lang;
 		switch ($action){
 			case 'guestcards':
 				$this->_makeUserCard($_POST['paid'],$_POST['guest'],$_POST['op'],$_POST['orga'],$_POST['user']);
@@ -199,11 +187,6 @@ class pdf {
 			default:
 				$func->error($lang['pdf']['action_error'],"index.php?mod=pdf&action=" . $action);
 			break;
-			case 'ticket':
-				if($auth["userid"] == $_GET['userid'] || $auth["type"] > 2){
-					$this->_makeUserCard(1,1,1,1,$_GET['userid']);
-				}
-			break;				
 		}
 
 		
@@ -242,7 +225,7 @@ class pdf {
 		
 		
 		$dsp->NewContent($lang["pdf"]["guestcard_caption"], $lang["pdf"]["guestcard_subcaption"]);
-		$dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
+		$dsp->SetForm("base.php?mod=pdf&action=" .$action . "&act=print&id=" .  $this->templ_id, "", "", "");
 		$dsp->AddSingleRow($lang["pdf"]["rules"]);
 		
 		// Array für Zahlungsstatus
@@ -307,20 +290,23 @@ class pdf {
 		global $lang,$dsp,$db,$config,$party,$func;
 		
 		$dsp->NewContent($lang["pdf"]["seatcard_caption"], $lang["pdf"]["seatcard_subcaption"]);
-		$dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
+		$dsp->SetForm("base.php?mod=pdf&action=" .$action . "&act=print&id=" .  $this->templ_id, "", "", "");
 		$dsp->AddSingleRow($lang["pdf"]["rules"]);
 
 		// Array mit Sitzen
 		$block = array();
 		array_push ($block, "<option $selected value=\"null\"></option>");
-		$query = $db->qry('SELECT * FROM %prefix%seat_block WHERE party_id=%int% ORDER BY blockid', $party->party_id);
+		$query = $db->query("SELECT * FROM {$config["tables"]["seat_block"]} WHERE party_id={$party->party_id} ORDER BY 'blockid'");
 		
-		if($db->num_rows($query) == 0) $func->error($lang["pdf"]["seat_error"],"index.php?mod=pdf&action=$action");
-		else {
-
-			while($row = $db->fetch_array($query)) if ($row['name'])
+		if($db->num_rows($query) == 0){
+			$func->error($lang["pdf"]["seat_error"],"index.php?mod=pdf&action=$action");
+		}else{
+		
+			while($row = $db->fetch_array($query)) {
 				array_push ($block, "<option $selected value=\"" . $row['blockid'] . "\">" . $row['name'] . "</option>");
-
+			}
+		
+	
 			// Dropdown für Blöcke		
 			$dsp->AddDropDownFieldRow("block", $lang["pdf"]["block"], $block, "", 1);
 
@@ -346,7 +332,7 @@ class pdf {
 		global $lang,$dsp,$db,$config;
 		
 		$dsp->NewContent($lang["pdf"]["guestlist_caption"], $lang["pdf"]["guestlist_subcaption"]);
-		$dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
+		$dsp->SetForm("base.php?mod=pdf&action=" .$action . "&act=print&id=" .  $this->templ_id, "", "", "");
 		$dsp->AddSingleRow($lang["pdf"]["rules"]);
 		
 		// Array für Zahlungsstatus
@@ -401,34 +387,125 @@ class pdf {
 	 */
 	function _makeUserCard($pdf_paid,$pdf_normal,$pdf_op,$pdf_orga,$pdf_guestid){
 		define('IMAGE_PATH','ext_inc/pdf_templates/');
-		global $db, $config, $func, $party, $seat2;
+		global $db, $config, $func, $party;
 				
+		include_once("inc/classes/class_seat.php");
+		$seat = new seat;
+		
 		$date = date('U');
 				
 		// abfrage String erstellen
 		$pdf_sqlstring = "";
-
+	
 		// Auf Party Prüfen
-		if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= "LEFT JOIN {$config['tables']['party_user']} AS party ON user.userid=party.user_id";
-    $pdf_sqlstring .= ' WHERE user.type > -1';
-    if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
-
-		// Bezahlstatus abfragen
-		if ($pdf_paid == '0') $pdf_sqlstring .= ' AND party.paid = 0';
-		elseif ($pdf_paid == '1') $pdf_sqlstring .= ' AND party.paid = 1';
-
-		if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') $pdf_sqlstring .= ' AND (1 = 0';
-		if ($pdf_normal == '1') $pdf_sqlstring .= ' OR user.type = 1';
-		if ($pdf_orga == '1') $pdf_sqlstring .= ' OR user.type = 2';
-		if ($pdf_op == '1') $pdf_sqlstring .= ' OR user.type = 3';
-		if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') $pdf_sqlstring .= ')';
+		if ($_POST['party'] == "1"){
+				$pdf_sqlstring .= "LEFT JOIN {$config['tables']['party_user']} AS party ON user.userid=party.user_id ";
+		}			
 		
-    //Userabfragen
-    if($pdf_guestid > 0) $pdf_sqlstring .= ' AND user.userid = '.$pdf_guestid.'';
+		// Auf Datum prüfen
+		if ($_POST['date'] != "null" && $_POST['date'] != ""){
+			if($_POST['only'] == 1){
+				$pdf_sqlstring .= "LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id WHERE printed.time = '" . $_POST['date'] . "' AND (printed.template_id='{$this->templ_id}')";
+			}else{
+				$pdf_sqlstring .= "LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id WHERE (ISNULL(printed.item_id) AND NOT(ISNULL(user.userid))) OR  user.userid=printed.item_id AND (printed.time > '" . $_POST['date'] . "' OR printed.time is NULL) AND (printed.template_id='{$this->templ_id}' OR printed.template_id is NULL)";
+			}
+		}else{
+				// $pdf_sqlstring .= "LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id OR printed.item_id is NULL WHERE (printed.template_id='{$this->templ_id}' OR printed.template_id is NULL)";
+				$pdf_sqlstring .= "WHERE 1";
+		}
 
-		$query = $db->query("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM {$config["tables"]["user"]} AS user
-      LEFT JOIN {$config['tables']['clan']} AS clan ON user.clanid = clan.clanid ".
-      $pdf_sqlstring);
+		if ($pdf_guestid == "null"){
+
+			if ($pdf_paid == "1"){
+				if ($pdf_sqlstring == ""){
+					$pdf_sqlstring = "WHERE";
+				}else{
+					$pdf_sqlstring = $pdf_sqlstring ." AND";
+				}
+				$pdf_sqlstring = $pdf_sqlstring . " user.paid='1'";
+			}elseif ($pdf_paid == "0"){
+				if ($pdf_sqlstring == ""){
+					$pdf_sqlstring = "WHERE";
+				}else{
+					$pdf_sqlstring = $pdf_sqlstring ." AND";
+				}
+				$pdf_sqlstring = $pdf_sqlstring . " user.paid='0'";
+			}
+
+			if ($pdf_normal == "1"){
+				if ($pdf_sqlstring == ""){
+					$pdf_sqlstring = "WHERE";
+				}elseif($pdf_op == "1" || $pdf_orga == "1"){
+					$pdf_sqlstring = $pdf_sqlstring . " AND (";
+				}else{
+					$pdf_sqlstring = $pdf_sqlstring . " AND";
+				}
+				
+				$pdf_sqlstring = $pdf_sqlstring . " user.type='1'";
+			}
+
+			if ($pdf_op == "1"){
+				if ($pdf_sqlstring == ""){
+					$pdf_sqlstring = "WHERE";
+				}elseif($pdf_orga == "1" && $pdf_normal != "1"){
+					$pdf_sqlstring = $pdf_sqlstring . " AND (";
+				}elseif($pdf_normal != "1"){
+					$pdf_sqlstring = $pdf_sqlstring . " AND";
+				}else{
+					$pdf_sqlstring = $pdf_sqlstring . " OR";
+				}
+				
+				$pdf_sqlstring = $pdf_sqlstring . " user.type='3'";
+
+				if($pdf_orga != "1" && $pdf_normal == "1"){
+						$pdf_sqlstring = $pdf_sqlstring . ")";
+				}
+			}
+
+			if ($pdf_orga == "1"){
+				if ($pdf_sqlstring == ""){
+					$pdf_sqlstring = "WHERE";
+				}elseif($pdf_op != "1" && $pdf_normal != "1"){
+					$pdf_sqlstring = $pdf_sqlstring . " AND";
+				}else{
+					$pdf_sqlstring = $pdf_sqlstring . " OR";
+				}	
+					
+				$pdf_sqlstring = $pdf_sqlstring . " user.type='2'";
+					
+
+				if($pdf_op == "1" || $pdf_normal == "1"){
+						$pdf_sqlstring = $pdf_sqlstring . ")";
+				}
+			}
+
+			if ($_POST['party'] == "1"){
+				if ($pdf_sqlstring == ""){
+					$pdf_sqlstring = "WHERE";
+				}else{
+					$pdf_sqlstring = $pdf_sqlstring . " AND";
+				}
+				$pdf_sqlstring = $pdf_sqlstring . " party.party_id='{$party->party_id}'";
+			}
+
+		}else{
+			if ($pdf_sqlstring == ""){
+				$pdf_sqlstring = "WHERE";
+			}else{
+				$pdf_sqlstring = $pdf_sqlstring . " AND";
+			}
+			$pdf_sqlstring = $pdf_sqlstring . " user.userid='" . $pdf_guestid . "'";
+		}
+
+		if ($pdf_sqlstring == ""){
+			$pdf_sqlstring = "WHERE";
+		}else{
+			
+			$pdf_sqlstring = $pdf_sqlstring . " AND";
+		}
+		$pdf_sqlstring = $pdf_sqlstring . " user.type != '-1'";
+
+		$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user "  . $pdf_sqlstring);
 
 		$user_numusers = $db->num_rows($query);
 		// erste Seite erstellen
@@ -458,16 +535,12 @@ class pdf {
 			$data['user_nickname'] = trim($data['user_nickname']);
 			$data['party_name']    = $_SESSION['party_info']['name']; 	
 			
-			$data['userid'] 		= $row["userid"];
 			$data['name'] = $row["name"];
 			$data['firstname'] = $row["firstname"];
 			$data['clan'] = $row["clan"];
 			$data['fullname'] = $row["firstname"] . " " . $row["name"];
 			$data['userid'] = $row['userid'];
-			$data['plz'] = $row['plz'];
-			$data['city'] = $row['city'];
-			$data['birthday'] = $row['birthday'];
-
+			
 			// seat
 			$row_seat = $db->query_first("SELECT s.blockid, col, row, ip FROM {$config["tables"]["seat_seats"]} AS s LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid WHERE b.party_id={$party->party_id} AND s.userid='{$row["userid"]}'");
 			$blockid  = $row_seat["blockid"];
@@ -476,8 +549,9 @@ class pdf {
 				$data['orientation']  = $row_block["orientation"];
 				$data['col']          = $row_seat["col"];
 				$data['row']          = $row_seat["row"];
-				$data['user_seat']    = $seat2->CoordinateToName($row_seat['col'] + 1, $row_seat['row'], $row_block['orientation']);
+				$data['user_seat']    = $seat->display_seat_index($row_block['orientation'], $row_seat['col'], $row_seat['row']);
 				$data['user_block']	  = $row_block["name"];
+				
 			}
 
 			$data['user_ip'] = $row_seat["ip"];
@@ -529,7 +603,10 @@ class pdf {
 	 */
 	function _makeSeatCard($block,$order){
 		define('IMAGE_PATH','ext_inc/pdf_templates/');
-		global $db, $config, $func,$party, $seat2;
+		global $db, $config, $func,$party;
+				
+		include_once("inc/classes/class_seat.php");
+		$seat = new seat;
 		
 		if($order == "row"){
 			$sql_order = ", 'row', 'col'";
@@ -538,12 +615,9 @@ class pdf {
 		}
 		//Daten der Sitzreihen auslesen
 		if($block == "null"){
-			$query = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]} AS s
-        LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid
-        WHERE b.party_id={$party->party_id} ORDER BY 's.blockid'$sql_order");
+			$query = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]} AS s LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid WHERE b.party_id={$party->party_id} ORDER BY 's.blockid'$sql_order");
 		}else{
-			$query = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]}
-      WHERE blockid='$block' ORDER BY 'blockid'$sql_order");
+			$query = $db->query("SELECT * FROM {$config["tables"]["seat_seats"]} WHERE blockid='$block' ORDER BY 'blockid'$sql_order");
 		}
 		
 		$seat_numusers = $db->num_rows($query);
@@ -572,28 +646,22 @@ class pdf {
 			$data['col']  		  = $row["col"];
 			$data['row']  		  = $row["row"];
 			$data['seat_block']   = $row_block['name'];
-			$data['seat']    	  = $seat2->CoordinateToName($data['col'] + 1, $data['row'], $row_block['orientation']);
+			$data['seat']    	  = $seat->display_seat_index($row_block['orientation'], $data['col'], $data['row']);
 			$data['party_name']    = $_SESSION['party_info']['name']; 	
 			
-			$row_user = $db->query_first("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM {$config["tables"]["user"]} AS user
-        LEFT JOIN {$config['tables']['clan']} AS clan ON user.clanid = clan.clanid
-        WHERE userid='$userid'");
-
+			$row_user = $db->query_first("SELECT * FROM {$config["tables"]["user"]} WHERE userid='$userid'");
+				
 			$data['user_nickname'] = str_replace("&gt;","",$row_user["username"]);
 			$data['user_nickname'] = str_replace("&lt;","",$data['user_nickname']);
 			$data['user_nickname'] = str_replace("&gt","",$data['user_nickname']);
 			$data['user_nickname'] = str_replace("&lt","",$data['user_nickname']);
 			$data['user_nickname'] = trim($data['user_nickname']);
 
-			$data['userid'] 		= $row_user["userid"];
 			$data['name'] 		= $row_user["name"];
 			$data['firstname'] = $row_user["firstname"];
 			$data['clan'] 		= $row_user["clan"];
 			$data['fullname'] = $row["firstname"] . " " . $row["name"];
-			$data['plz'] = $row['plz'];
-			$data['city'] = $row['city'];
-			$data['birthday'] = $row['birthday'];
-
+			
 			$data['seat_ip'] 		= $row["ip"];
 	
 			// Neue Seite Anlegen wenn die letze voll ist
@@ -640,26 +708,92 @@ class pdf {
 	 */
 	function _makeUserlist($pdf_paid,$pdf_normal,$pdf_op,$pdf_orga,$order){
 		define('IMAGE_PATH','ext_inc/pdf_templates/');
-		global $db, $config, $func,$party, $seat2;
+		global $db, $config, $func,$party;
 				
+		include_once("inc/classes/class_seat.php");
+		$seat = new seat;
+		
 		// abfrage String erstellen
 		$pdf_sqlstring = "";
 
-		// Auf Party Prüfen
-		if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= "LEFT JOIN {$config['tables']['party_user']} AS party ON user.userid=party.user_id";
-    $pdf_sqlstring .= ' WHERE user.type > -1';
-    if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
+				// Auf Party Prüfen
+		if ($_POST['party'] == "1"){
+				$pdf_sqlstring = "LEFT JOIN {$config['tables']['party_user']} AS party ON user.userid=party.user_id WHERE party.party_id={$party->party_id} ";
+		}			
 
 		// Bezahlstatus abfragen
-		if ($pdf_paid == '0') $pdf_sqlstring .= ' AND party.paid = 0';
-		elseif ($pdf_paid == '1') $pdf_sqlstring .= ' AND party.paid = 1';
+		if ($pdf_paid == "1"){
+			if ($pdf_sqlstring == ""){
+				$pdf_sqlstring = "WHERE";
+			}else{
+				$pdf_sqlstring = $pdf_sqlstring ." AND";
+			}
+			$pdf_sqlstring = $pdf_sqlstring . " paid='1'";
+		}elseif ($pdf_paid == "0"){
+			if ($pdf_sqlstring == ""){
+				$pdf_sqlstring = "WHERE";
+			}else{
+				$pdf_sqlstring = $pdf_sqlstring ." AND";
+			}
+			$pdf_sqlstring = $pdf_sqlstring . " paid='0'";
+		}
+		// Normale Nutzer abfragen
+		if ($pdf_normal == "1"){
+			if ($pdf_sqlstring == ""){
+				$pdf_sqlstring = "WHERE";
+			}elseif($pdf_op == "1" || $pdf_orga == "1"){
+				$pdf_sqlstring = $pdf_sqlstring . " AND (";
+			}else{
+				$pdf_sqlstring = $pdf_sqlstring . " AND";
+			}
 
-		if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') $pdf_sqlstring .= ' AND (1 = 0';
-		if ($pdf_normal == '1') $pdf_sqlstring .= ' OR user.type = 1';
-		if ($pdf_orga == '1') $pdf_sqlstring .= ' OR user.type = 2';
-		if ($pdf_op == '1') $pdf_sqlstring .= ' OR user.type = 3';
-		if ($pdf_normal == '1' or $pdf_op == '1' or $pdf_orga == '1') $pdf_sqlstring .= ')';
+			$pdf_sqlstring = $pdf_sqlstring . " user.type='1'";
+		}
 
+		if ($pdf_op == "1"){
+			if ($pdf_sqlstring == ""){
+				$pdf_sqlstring = "WHERE";
+			}elseif($pdf_orga == "1" && $pdf_normal != "1"){
+				$pdf_sqlstring = $pdf_sqlstring . " AND (";
+			}elseif($pdf_normal != "1"){
+				$pdf_sqlstring = $pdf_sqlstring . " AND";
+			}else{
+				$pdf_sqlstring = $pdf_sqlstring . " OR";
+			}
+
+			$pdf_sqlstring = $pdf_sqlstring . " user.type='3'";
+
+			if($pdf_orga != "1" && $pdf_normal == "1"){
+				$pdf_sqlstring = $pdf_sqlstring . ")";
+			}
+		}
+
+		if ($pdf_orga == "1"){
+			if ($pdf_sqlstring == ""){
+				$pdf_sqlstring = "WHERE";
+			}elseif($pdf_op != "1" && $pdf_normal != "1"){
+				$pdf_sqlstring = $pdf_sqlstring . " AND";
+			}else{
+				$pdf_sqlstring = $pdf_sqlstring . " OR";
+			}
+
+			$pdf_sqlstring = $pdf_sqlstring . " user.type='2'";
+
+
+			if($pdf_op == "1" || $pdf_normal == "1"){
+				$pdf_sqlstring = $pdf_sqlstring . ")";
+			}
+		}
+
+		
+		if ($pdf_sqlstring == ""){
+			$pdf_sqlstring = "WHERE";
+		}else{
+			
+			$pdf_sqlstring = $pdf_sqlstring . " AND";
+		}
+		$pdf_sqlstring = $pdf_sqlstring . " type != '-1'";
+		
 		// Sortierung einstellen
 		switch ($order){
 			case 'username':
@@ -683,11 +817,9 @@ class pdf {
 			default:
 			break;
 		}
-
-		$query = $db->query("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM {$config["tables"]["user"]} AS user
-      LEFT JOIN {$config['tables']['clan']} AS clan ON user.clanid = clan.clanid "
-      .$pdf_sqlstring);
-
+		
+		
+		$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user " . $pdf_sqlstring);
 		$user_numusers = $db->num_rows($query);
 		// erste Seite erstellen
 		$this->_make_page();
@@ -719,15 +851,13 @@ class pdf {
 			$data['party_name']    = $_SESSION['party_info']['name']; 	
 			$data['nr'] = $nr;
 			
-			$data['userid'] 		= $row["userid"];
 			$data['lastname'] 		= $row["name"];
 			$data['firstname'] 	= $row["firstname"];
 			$data['fullname'] = $row["firstname"] . " " . $row["name"];
 			$data['clan'] 		= $row["clan"];
-			$data['plz'] = $row['plz'];
-			$data['city'] = $row['city'];
-			$data['birthday'] = $row['birthday'];
-
+			$data['city'] 		= $row["city"];
+			$data['plz'] 		= $row["plz"];
+			
 			// seat
 			$row_seat = $db->query_first("SELECT s.blockid, col, row, ip FROM {$config["tables"]["seat_seats"]} AS s LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid WHERE b.party_id={$party->party_id} AND s.userid='{$row["userid"]}'");
 			$blockid  = $row_seat["blockid"];
@@ -736,8 +866,9 @@ class pdf {
 				$data['orientation']  = $row_block["orientation"];
 				$data['col']          = $row_seat["col"];
 				$data['row']          = $row_seat["row"];
-				$data['user_seat']    = $seat2->CoordinateToName($data['col'] + 1, $data['row'], $data['orientation']);
+				$data['user_seat']    = $seat->display_seat_index($data['orientation'], $data['col'], $data['row']);
 				$data['user_block']	  = $row_block["name"];
+				
 			}
 
 			$data['user_ip'] = $row_seat["ip"];

@@ -12,14 +12,40 @@ $auth['lastname'] = $auth['name'];
 $auth['gender'] = $auth['sex'];
 $auth['wwcl_id'] = $auth['wwclid'];
 $auth['ngl_id'] = $auth['nglid'];
-foreach ($auth as $key => $val) if (!is_int($key) and Needed($key) and $val == '') $missing_fields ++;
+foreach ($auth as $key => $val) if (!is_int($key) and Needed($key) and $val == '') {
+  $missing_fields ++;
+}
 
 if ($missing_fields) {
-  $dsp->NewContent(t('Unvollständiges Benutzerprofil'), t('Es gibt noch unausgefüllte Pflichtfelder in Ihrem Benutzerprofil. Bitte pflegen Sie diese nach'));
-  $dsp->AddContent();
-
+  include_once("modules/usrmgr/language/usrmgr_lang_$language.php");
+  include_once('modules/usrmgr/class_adduser.php');
+  $AddUser = new AddUser();
   $_GET['userid'] = $auth['userid'];
 
-  include_once('modules/usrmgr/add.php');
+  // Error-Switch
+  switch ($_GET['step']) {
+    default:
+      $AddUser->GetDBData('change');
+    break;
+    
+    case 2:
+  		$AddUser->CheckErrors('change');
+  	break;
+  }
+
+  // Form- & DB-Switch  
+  switch ($_GET['step']) {
+    default:       
+      $dsp->NewContent($lang['missing_fields']['caption'], $lang['missing_fields']['subcaption']);
+      $dsp->SetForm("index.php?mod=home&step=2");
+      
+      $AddUser->ShowForm('change');
+    break;
+    
+    case 2:
+    	$AddUser->WriteToDB('change');
+		  $func->confirmation($lang["missing_fields"]["success"], '');
+    break;
+  }
 }
 ?>

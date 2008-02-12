@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 
 <lansuite>
 	<header>
@@ -7,53 +7,6 @@
 		<source>http://www.lansuite.de</source>
 		<date>2005-02-24 07:18</date>
 	</header>
-	<table>
-		<table_head>
-			<name>stats</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>id</name>
-				<type>int(11)</type>
-				<null></null>
-				<key>PRI</key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>size</name>
-				<type>int(11)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>time</name>
-				<type>int(11)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>hits</name>
-				<type>int(11)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-		</structure>
-		<content>
-		  <entry>
-		    <id>0</id>
-		    <size>0</size>
-		    <time>0</time>
-		    <hits>0</hits>
-		  </entry>
-		</content>
-	</table>
 	<table>
 		<table_head>
 			<name>stats_se</name>
@@ -100,6 +53,8 @@
 				<extra></extra>
 			</field>
 		</structure>
+		<content>
+		</content>
 	</table>
 	<table>
 		<table_head>
@@ -108,7 +63,7 @@
 		<structure>
 			<field>
 				<name>time</name>
-				<type>datetime</type>
+				<type>int(15)</type>
 				<null></null>
 				<key>PRI</key>
 				<default></default>
@@ -125,61 +80,6 @@
 			<field>
 				<name>hits</name>
 				<type>int(10)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-		</structure>
-	</table>
-	<table>
-		<table_head>
-			<name>stats_localserver</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>loadavg</name>
-				<type>varchar(100)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>mem_free</name>
-				<type>int(15)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>swap_free</name>
-				<type>int(15)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>eth_rx_mbytes</name>
-				<type>int(30)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>eth_tx_mbytes</name>
-				<type>int(30)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>time</name>
-				<type>int(10) unsigned</type>
 				<null></null>
 				<key></key>
 				<default>0</default>

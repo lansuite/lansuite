@@ -605,7 +605,7 @@ function Link($x,$y,$w,$h,$link)
 function Text($x,$y,$txt)
 {
 	//Output a string
-	$s=utf8_decode(sprintf('BT %.2f %.2f Td (%s) Tj ET',$x*$this->k,($this->h-$y)*$this->k,$this->_escape($txt)));
+	$s=sprintf('BT %.2f %.2f Td (%s) Tj ET',$x*$this->k,($this->h-$y)*$this->k,$this->_escape($txt));
 	if($this->underline and $txt!='')
 		$s.=' '.$this->_dounderline($x,$y,$txt);
 	if($this->ColorFlag)

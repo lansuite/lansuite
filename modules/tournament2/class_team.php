@@ -51,7 +51,7 @@ class team {
 
 	// To Check if a user may signon to a tournament
 	function SignonCheckUser($tid, $userid) {
-		global $db, $config, $lang, $func, $party, $cfg, $seat2;
+		global $db, $config, $lang, $func, $party, $cfg;
 
 		$t = $db->query_first("SELECT groupid, maxteams, over18, status, coins FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = $tid");
 		$user = $db->query_first("SELECT p.paid, u.username
@@ -76,19 +76,23 @@ class team {
 			");
 
 		$over_18_error = 0;
-		if ($t["over18"] == 1 and $seat2->U18Block($userid, "u")) $over_18_error = 1;
+		if ($t["over18"] == 1) {
+			require_once("inc/classes/class_seat.php");
+			$seat = new seat;
+			if ($seat->check_u18_block($userid, "u")) $over_18_error = 1;
+		}
 
 		$team_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
 			FROM {$config["tables"]["tournament_tournaments"]} AS t
 			LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON t.tournamentid = teams.tournamentid
-			WHERE teams.leaderid = $userid AND t.party_id = ". (int)$party->party_id ."
+			WHERE (teams.leaderid = $userid)
 			GROUP BY teams.leaderid
 			");
 
 		$member_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
 			FROM {$config["tables"]["tournament_tournaments"]} AS t
 			LEFT JOIN {$config["tables"]["t2_teammembers"]} AS members ON t.tournamentid = members.tournamentid
-			WHERE members.userid = $userid AND t.party_id = ". (int)$party->party_id ."
+			WHERE (members.userid = $userid)
 			GROUP BY members.userid
 			");
 
@@ -210,7 +214,7 @@ class team {
 
 				if (!$name) {
 					$user = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = $leaderid");
-					$name = $func->escape_sql($user["username"]);
+					$name = $user["username"];
 				}
 				$query = $db->query("INSERT INTO {$config["tables"]["t2_teams"]} 
 					SET tournamentid = $tournamentid,
@@ -332,7 +336,7 @@ class team {
 
 		// Create Outputs
 		$mail->create_sys_mail($userid, str_replace("%NAME%", $t["name"], $lang["tourney"]["teammgr_deluser_mail_subj"]), str_replace("%NAME%", $t["name"], $lang["tourney"]["teammgr_deluser_mail"]));
-		$func->log_event(str_replace("%NAME%", $user["username"], str_replace("%TEAM%", $team['name'], $lang["tourney"]["teammgr_deluser_log"])), 1, $lang["tourney"]["log_t_teammanage"]);
+		$func->log_event(str_replace("%NAME%", $user["username"], str_replace("%TEAM%", $team, $lang["tourney"]["teammgr_deluser_log"])), 1, $lang["tourney"]["log_t_teammanage"]);
 
 		return true;
 	}
@@ -342,12 +346,12 @@ class team {
 	function UpdateLeagueIDs($userid, $wwclid = NULL, $wwclclanid = NULL, $nglid = NULL, $nglclanid = NULL, $lgzid = NULL, $lgzclanid = NULL) {
 		global $db, $config, $auth;
 
-		if ($wwclid != "") $db->qry('UPDATE %prefix%user SET wwclid = %string% WHERE userid = %int%', $wwclid, $userid);
-		if ($wwclclanid != "") $db->qry('UPDATE %prefix%user SET wwclclanid = %string% WHERE userid = %int%', $wwclclanid, $userid);
-		if ($nglid != "") $db->qry('UPDATE %prefix%user SET nglid = %string% WHERE userid = %int%', $nglid, $userid);
-		if ($nglclanid != "") $db->qry('UPDATE %prefix%user SET nglclanid = %string% WHERE userid = %int%', $nglclanid, $userid);
-		if ($lgzid != "") $db->qry('UPDATE %prefix%user SET lgzid = %string% WHERE userid = %int%', $lgzid, $userid);
-		if ($lgzclanid != "") $db->qry('UPDATE %prefix%user SET lgzclanid = %string% WHERE userid = %int%', $lgzclanid, $userid);
+		if ($wwclid != "") $db->query("UPDATE {$config["tables"]["user"]} SET wwclid = $wwclid WHERE userid = $userid");
+		if ($wwclclanid != "") $db->query("UPDATE {$config["tables"]["user"]} SET wwclclanid = $wwclclanid WHERE userid = $userid");
+		if ($nglid != "") $db->query("UPDATE {$config["tables"]["user"]} SET nglid = $nglid WHERE userid = $userid");
+		if ($nglclanid != "") $db->query("UPDATE {$config["tables"]["user"]} SET nglclanid = $nglclanid WHERE userid = $userid");
+		if ($lgzid != "") $db->query("UPDATE {$config["tables"]["user"]} SET lgzid = $lgzid WHERE userid = $userid");
+		if ($lgzclanid != "") $db->query("UPDATE {$config["tables"]["user"]} SET lgzclanid = $lgzclanid WHERE userid = $userid");
 	}
 
 }

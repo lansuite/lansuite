@@ -23,7 +23,9 @@ if($auth['login'] == 1) {
 	}
 
 	if($db->num_rows() < "1") {
-		$box->EngangedRow("<i>". t('Keine Einträge in den '). HTML_NEWLINE .t('letzten 30 Minuten'). "</i>", "", "");
+		$box->EngangedRow("<i>{$lang['boxes']['infobox_no_entries']}</i>", "", "");
 	}
+
+	$boxes['infobox'] .= $box->CreateBox("info",$lang['boxes']['infobox_headline']);
 }
 ?>

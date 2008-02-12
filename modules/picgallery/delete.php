@@ -1,21 +1,4 @@
 <?php
-
-function recursiveRemoveDirectory($dir) {
-  $dir = str_replace('\\', '/', $dir);
-  $dir = str_replace('/..', '', $dir);
-
-  if (is_dir($dir)) {
-    $ResDir = opendir($dir);
-    while ($file = readdir($ResDir)) if ($file != '.' and $file != '..') {
-      if (is_dir("$dir/$file")) recursiveRemoveDirectory("$dir/$file");
-      elseif (file_exists("$dir/$file")) unlink("$dir/$file");
-    }
-    closedir($ResDir);
-  }
-  rmdir($dir);
-}
-
-
 if (!$_GET["file"]) $_GET["file"] = "/";
 $akt_dir = substr($_GET["file"], 0, strrpos($_GET["file"], '/') + 1);
 $db_dir = substr($_GET["file"], 1, strlen($_GET["file"]));
@@ -39,19 +22,6 @@ switch ($_GET["step"]) {
 		if(file_exists($root_dir ."lsthumb_". $akt_file)) unlink($root_dir ."lsthumb_". $akt_file);
 
 		$func->confirmation(str_replace("%NAME%", $_GET["file"], str_replace("%CAPTION%", $pic['caption'], $lang['picgallery']['del_pic_success'])), "index.php?mod=picgallery&file=$akt_dir");
-	break;
-	
-  // Delete directory
-	case 10:
-		$func->question(t('Möchten Sie dieses Verzeichnis wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!'),
-      "index.php?mod=picgallery&action=delete&step=11&file={$_GET["file"]}",
-      "index.php?mod=picgallery&file=$akt_dir"
-      );
-  break;
-
-  case 11:
-    recursiveRemoveDirectory("ext_inc/picgallery".$_GET["file"]);
-    $func->confirmation(t('Das Verzeichnis wurde erfolgreich gelöscht'), 'index.php?mod=picgallery');
 	break;
 }
 ?>

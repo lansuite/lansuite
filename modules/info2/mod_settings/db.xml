@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 
 <lansuite>
 	<header>
@@ -84,14 +84,14 @@
 				<caption>Location</caption>
 				<shorttext>Hier wird die Party stattfinden</shorttext>
 				<text>Gemeindehalle--lt--br--gt--
-BeispielstraÃŸe 12--lt--br--gt--
+Beispielstraße 12--lt--br--gt--
 12345 Beispielshausen--lt--br--gt--
 --lt--br--gt--
 --lt--br--gt--
 --lt--span style="font-weight: bold;"--gt--Bilder der Halle--lt--/span--gt--:--lt--br--gt--
 --lt--br--gt--
 --lt--br--gt--
---lt--span style="font-style: italic;"--gt--Wie ihr zu uns findet, kÃ¶nnt ihr unter dem Link "Anfahrt" links in der Navigation nachschauen.--lt--/span--gt----lt--br--gt--
+--lt--span style="font-style: italic;"--gt--Wie ihr zu uns findet, könnt ihr unter dem Link "Anfahrt" links in der Navigation nachschauen.--lt--/span--gt----lt--br--gt--
 </text>
 				<sortorder>0</sortorder>
 				<partyid>0</partyid>
@@ -101,7 +101,7 @@ BeispielstraÃŸe 12--lt--br--gt--
 				<active>0</active>
 				<caption>Anfahrt</caption>
 				<shorttext>Anfahrtsbeschreibung zur Lan-Party</shorttext>
-				<text>--lt--P--gt--Hier kÃ¶nnt ihr euch den Weg zu uns Ã¼ber den Web.de-Routen-Planer berechnen lassen. --lt--/P--gt--
+				<text>--lt--P--gt--Hier könnt ihr euch den Weg zu uns über den Web.de-Routen-Planer berechnen lassen. --lt--/P--gt--
 --lt--P--gt--Eine detailierte Anfahrtbeschreibung, folgt unterhalb. --lt--!-- WEB.DE Routenplanung Beginn ----gt----lt--/P--gt--
 --lt--DIV--gt----lt--/DIV--gt--
 --lt--FORM action=http://route.web.de/start.sql method=get target=_blank--gt--
@@ -139,9 +139,9 @@ BeispielstraÃŸe 12--lt--br--gt--
 				<caption>Impressum_ev</caption>
 				<shorttext>Die Urheber dieser Webseite</shorttext>
 				<text>
-KleingÃ¤rtnerverein Musterstadt e. V.--lt--br--gt--
+Kleingärtnerverein Musterstadt e. V.--lt--br--gt--
 
-MusterstraÃŸe 1--lt--br--gt--
+Musterstraße 1--lt--br--gt--
 
 00000 Musterstadt--lt--br--gt--
 
@@ -163,13 +163,13 @@ Registernummer: VR 000--lt--br--gt--
 
 --lt--br--gt--
 
-Inhaltlich Verantwortlicher gemÃ¤ÃŸ Â§ 10 Absatz 3 MDStV: Fred Friedlich (Anschrift wie oben)--lt--br--gt--
+Inhaltlich Verantwortlicher gemäß § 10 Absatz 3 MDStV: Fred Friedlich (Anschrift wie oben)--lt--br--gt--
 
 --lt--br--gt--
 
-Haftungshinweis: Trotz sorgfÃ¤ltiger inhaltlicher Kontrolle Ã¼bernehmen
-wir keine Haftung fÃ¼r die Inhalte externer Links. FÃ¼r den Inhalt der
-verlinkten Seiten sind ausschlieÃŸlich deren Betreiber verantwortlich.
+Haftungshinweis: Trotz sorgfältiger inhaltlicher Kontrolle übernehmen
+wir keine Haftung für die Inhalte externer Links. Für den Inhalt der
+verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
 </text>
 				<sortorder>0</sortorder>
 				<partyid>0</partyid>
@@ -178,100 +178,100 @@ verlinkten Seiten sind ausschlieÃŸlich deren Betreiber verantwortlich.
 				<infoID>4</infoID>
 				<active>0</active>
 				<caption>Regeln (AGB)</caption>
-				<shorttext>Regeln fÃ¼r eine erfolgreiche Lan-Party</shorttext>
+				<shorttext>Regeln für eine erfolgreiche Lan-Party</shorttext>
 				<text>Liebe Teilnehmerin, lieber Teilnehmer,--lt--br--gt----lt--br--gt--
 
-die folgenden Bedingungen regeln das vertragliche VerhÃ¤ltnis zwischen Euch (nachfolgend Teilnehmer) und der %PARTYNAME% (nachfolgend Veranstalter genannt). Mit dem Abschicken der Anmeldung bzw. dem Betreten der RÃ¤umlichkeiten werden diese Regeln anerkannt. --lt--br--gt--Vielen Dank fÃ¼r eurer VerstÃ¤ndnis !
+die folgenden Bedingungen regeln das vertragliche Verhältnis zwischen Euch (nachfolgend Teilnehmer) und der %PARTYNAME% (nachfolgend Veranstalter genannt). Mit dem Abschicken der Anmeldung bzw. dem Betreten der Räumlichkeiten werden diese Regeln anerkannt. --lt--br--gt--Vielen Dank für eurer Verständnis !
 
 --lt--br--gt--
 --lt--br--gt--
 
---lt--li--gt----lt--b--gt--Â§1 Bezahlung und Warteliste--lt--/b--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§1 Bezahlung und Warteliste--lt--/b--gt----lt--br--gt--
 --lt--ul--gt--Die Anmeldung wird am %ANMELDESTART_DATUM% ab ca. %ANMELDESTART_ZEIT% Uhr freigeschaltet.--lt--br--gt--
 
-Alle persÃ¶nlichen Angaben sind wahrheitsgemÃ¤ÃŸ auszufÃ¼llen. --lt--br--gt--
+Alle persönlichen Angaben sind wahrheitsgemäß auszufüllen. --lt--br--gt--
 Mit der Anmeldung ist ein Eintrag auf der Teilnehmerliste verbunden.--lt--br--gt--
-Bis zur Ãœberweisung (spÃ¤testens bis eine Woche vor der Lanparty) des Unkostenbeitrags von %EINTRITT%.-- EUR ist noch kein Platz reserviert.--lt--br--gt-- 
-Erst nach Bezahlung erhÃ¤lt man den Status "Bezahlt" und hat Anspruch auf einen Sitzplatz.--lt--br--gt----lt--br--gt--
+Bis zur Überweisung (spätestens bis eine Woche vor der Lanparty) des Unkostenbeitrags von %EINTRITT%.-- EUR ist noch kein Platz reserviert.--lt--br--gt-- 
+Erst nach Bezahlung erhält man den Status "Bezahlt" und hat Anspruch auf einen Sitzplatz.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§2 Teilnahme minderjÃ¤hriger Personen--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Das Mindestalter, um an der Party teilnehmen zu kÃ¶nnen, betrÃ¤gt %MIND_ALTER% Jahre--lt--br--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§2 Teilnahme minderjähriger Personen--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Das Mindestalter, um an der Party teilnehmen zu können, beträgt %MIND_ALTER% Jahre--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§3 RÃ¼cktritt und KÃ¼ndigung durch den Veranstalter--lt--/b--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§3 Rücktritt und Kündigung durch den Veranstalter--lt--/b--gt----lt--br--gt--
 
---lt--ul--gt--Der Veranstalter behÃ¤lt sich das Recht vor, die Veranstaltung bei zu geringer Teilnehmerzahl oder aus anderen GrÃ¼nden, die ein stattfinden der Veranstaltung unmÃ¶glich machen, ohne Einhaltung einer Frist abzusagen. In einem solchen Fall werden bereits gezahlte BeitrÃ¤ge zurÃ¼ckerstattet. Der Veranstalter kann Teilnehmer vor und wÃ¤hrend der Veranstaltung ausschlieÃŸen, wenn die DurchfÃ¼hrung der Veranstaltung trotz Mahnung des entsprechenden Teilnehmers nachhaltig gestÃ¶rt wird. Jeglicher Anspruch auf RÃ¼ckerstattung und EntschÃ¤digung erlischt hierdurch. Gegebenenfalls fÃ¼r den Veranstalter entstehende Kosten, durch den Ausschluss des Teilnehmers, sind vom Teilnehmer zu tragen.--lt--br--gt----lt--br--gt--
+--lt--ul--gt--Der Veranstalter behält sich das Recht vor, die Veranstaltung bei zu geringer Teilnehmerzahl oder aus anderen Gründen, die ein stattfinden der Veranstaltung unmöglich machen, ohne Einhaltung einer Frist abzusagen. In einem solchen Fall werden bereits gezahlte Beiträge zurückerstattet. Der Veranstalter kann Teilnehmer vor und während der Veranstaltung ausschließen, wenn die Durchführung der Veranstaltung trotz Mahnung des entsprechenden Teilnehmers nachhaltig gestört wird. Jeglicher Anspruch auf Rückerstattung und Entschädigung erlischt hierdurch. Gegebenenfalls für den Veranstalter entstehende Kosten, durch den Ausschluss des Teilnehmers, sind vom Teilnehmer zu tragen.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§4 RÃ¼cktritt durch den Teilnehmer--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Nur Teilnehmer, die uns den Eintritt bis zum festgesetzten ÃœberweisungsschluÃŸ Ã¼berwiesen haben, bekommen einen Platz reserviert. Jegliche Reservierungen, kÃ¶nnen bis zum festgesetzten AbmeldeschluÃŸ schriftlich (z. B. per Email) rÃ¼ckgÃ¤ngig gemacht werden. Der RÃ¼cktritt gilt als anerkannt, wenn seitens des Veranstalters eine BestÃ¤tigung des RÃ¼cktritts erfolgt. Nur dann besteht RÃ¼ckerstattungsrecht auf den gezahlten Eintritt. Erscheint ein Teilnehmer nicht zur Party oder meldet sich nicht fristgerecht bis eine Woche vor der Lanparty ab, behÃ¤lt sich der Veranstalter das Recht vor, den bezahlten Unkostenbeitrag zur Kostendeckung einzubehalten.--lt--br--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§4 Rücktritt durch den Teilnehmer--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Nur Teilnehmer, die uns den Eintritt bis zum festgesetzten Überweisungsschluß überwiesen haben, bekommen einen Platz reserviert. Jegliche Reservierungen, können bis zum festgesetzten Abmeldeschluß schriftlich (z. B. per Email) rückgängig gemacht werden. Der Rücktritt gilt als anerkannt, wenn seitens des Veranstalters eine Bestätigung des Rücktritts erfolgt. Nur dann besteht Rückerstattungsrecht auf den gezahlten Eintritt. Erscheint ein Teilnehmer nicht zur Party oder meldet sich nicht fristgerecht bis eine Woche vor der Lanparty ab, behält sich der Veranstalter das Recht vor, den bezahlten Unkostenbeitrag zur Kostendeckung einzubehalten.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§5 Haftung der Teilnehmer--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Falls es zur SachbeschÃ¤digung durch einen Teilnehmer im Bereich der Veranstaltung kommt, dabei seien sowohl das Inventar des Veranstaltungsortes als auch eingebrachte Sachen der Veranstalter, Sponsoren und Teilnehmer genannt, haftet der Verursacher unbeschrÃ¤nkt und in voller HÃ¶he und kann sofort von der Veranstaltung ausgeschlossen werden. Dabei erlÃ¶schen jegliche RÃ¼ckerstattungsansprÃ¼che des Verursachers.--lt--br--gt--
-Jeder Teilnehmer haftet fÃ¼r selbst eingebrachte GegenstÃ¤nde (Computer, ZubehÃ¶r, Kleidung ...). Bei Abhandenkommen (Diebstahl) oder BeschÃ¤digung von Eigentum eines Teilnehmers Ã¼bernimmt der Veranstalter weder Haftung noch leistet er Schadensersatz.--lt--br--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§5 Haftung der Teilnehmer--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Falls es zur Sachbeschädigung durch einen Teilnehmer im Bereich der Veranstaltung kommt, dabei seien sowohl das Inventar des Veranstaltungsortes als auch eingebrachte Sachen der Veranstalter, Sponsoren und Teilnehmer genannt, haftet der Verursacher unbeschränkt und in voller Höhe und kann sofort von der Veranstaltung ausgeschlossen werden. Dabei erlöschen jegliche Rückerstattungsansprüche des Verursachers.--lt--br--gt--
+Jeder Teilnehmer haftet für selbst eingebrachte Gegenstände (Computer, Zubehör, Kleidung ...). Bei Abhandenkommen (Diebstahl) oder Beschädigung von Eigentum eines Teilnehmers übernimmt der Veranstalter weder Haftung noch leistet er Schadensersatz.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§6 Nutzung von Software--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Jeglicher Einsatz und Besitz nicht lizenzierter Software ist verboten, es gelten die gesetzlichen Grundlagen in vollem Umfang. Der Veranstalter spricht sich davon frei, fÃ¼r die Daten auf den von Teilnehmern mitgebrachten DatentrÃ¤gern (Festplatten, Zip-Drives, Disketten, CD's etc.) verantwortlich zu sein. Gleiches gilt fÃ¼r im Netzwerk transferierte, nicht vom Veranstalter bereitgestellte Dateien. --lt--br--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§6 Nutzung von Software--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Jeglicher Einsatz und Besitz nicht lizenzierter Software ist verboten, es gelten die gesetzlichen Grundlagen in vollem Umfang. Der Veranstalter spricht sich davon frei, für die Daten auf den von Teilnehmern mitgebrachten Datenträgern (Festplatten, Zip-Drives, Disketten, CD's etc.) verantwortlich zu sein. Gleiches gilt für im Netzwerk transferierte, nicht vom Veranstalter bereitgestellte Dateien. --lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§7 Allgemeines Verhalten--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Jeder Teilnehmer verpflichtet sich zu gesitteten Verhalten. Falls ein Teilnehmer von der Veranstaltung ausgeschlossen werden sollte, so geschieht dies nur im Interesse der anderen Teilnehmer. Jegliche Versuche einen reibungslosen Ablauf der Veranstaltung zu be-, verhindern werden mit sofortigem Ausschluss geahndet. Unfug ist zu unterlassen, kÃ¶rperliche Auseinandersetzungen sind strengstens untersagt.
+--lt--li--gt----lt--b--gt--§7 Allgemeines Verhalten--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Jeder Teilnehmer verpflichtet sich zu gesitteten Verhalten. Falls ein Teilnehmer von der Veranstaltung ausgeschlossen werden sollte, so geschieht dies nur im Interesse der anderen Teilnehmer. Jegliche Versuche einen reibungslosen Ablauf der Veranstaltung zu be-, verhindern werden mit sofortigem Ausschluss geahndet. Unfug ist zu unterlassen, körperliche Auseinandersetzungen sind strengstens untersagt.
 Den Weisungen des Veranstalters, sowie durch den Veranstalter legitimierten Personen ist Folge zu leisten.--lt--br--gt--
 Der Veranstalter hat das Hausrecht.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§8 Verhalten im Netzwerk--lt--/b--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§8 Verhalten im Netzwerk--lt--/b--gt----lt--br--gt--
 
---lt--ul--gt--Jegliche Versuche, andere Teilnehmer, Game-/Fileserver oder andere Netzdienste zu stÃ¶ren, sind strengstens untersagt und werden mit einem Verweis von der Veranstaltung bestraft. Es ist aussschliesslich die vom Veranstalter zugeteilte Netzwerkkonfiguration zu verwenden. Abweichungen oder Ã„nderungen sind nur auf Weisung gestattet. --lt--br--gt--
-Absichtliche StÃ¶rungen des Netzwerkbetriebs werden mit sofortigem AusschluÃŸ ohne RÃ¼ckerstattung der AnmeldegebÃ¼hr geahndet.--lt--br--gt----lt--br--gt--
+--lt--ul--gt--Jegliche Versuche, andere Teilnehmer, Game-/Fileserver oder andere Netzdienste zu stören, sind strengstens untersagt und werden mit einem Verweis von der Veranstaltung bestraft. Es ist aussschliesslich die vom Veranstalter zugeteilte Netzwerkkonfiguration zu verwenden. Abweichungen oder Änderungen sind nur auf Weisung gestattet. --lt--br--gt--
+Absichtliche Störungen des Netzwerkbetriebs werden mit sofortigem Ausschluß ohne Rückerstattung der Anmeldegebühr geahndet.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§9 Mitgebrachte GebrauchsgegenstÃ¤nde / VerÃ¤nderung des Netzwerks--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Der Veranstalter stellt einen Raum, einen Netzwerkzugang sowie Server zur VerfÃ¼gung. Anderes Equipment (Computer mit Netzwerkkarte, RJ45 Netzwerkkabel (Twisted Pair), etc.) sind vom Teilnehmer mitzubringen. Das Benutzen von Lautsprechern ist untersagt. Es besteht KopfhÃ¶rerpflicht. Das Mitbringen von Ã¼berflÃ¼ssiger Hardware (Drucker, Scanner etc.) sowie anderer GebrauchsgegenstÃ¤nde wie Toastern, Mikrowellen, Backofen, Wasserkochern, Lavalampen, VerstÃ¤rkern oder Video-Projektoren o.Ã¤. sind aus Platz-, Strom- und SicherheitsgrÃ¼nden nur nach Absprache mit den Veranstaltern erlaubt. EigenmÃ¤chtige VerÃ¤nderungen am Netzwerk (das Einbringen von Erweiterungen, z.B. durch Hubs etc.) ist ohne Absprache mit dem Veranstalter nicht gestattet.--lt--br--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§9 Mitgebrachte Gebrauchsgegenstände / Veränderung des Netzwerks--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Der Veranstalter stellt einen Raum, einen Netzwerkzugang sowie Server zur Verfügung. Anderes Equipment (Computer mit Netzwerkkarte, RJ45 Netzwerkkabel (Twisted Pair), etc.) sind vom Teilnehmer mitzubringen. Das Benutzen von Lautsprechern ist untersagt. Es besteht Kopfhörerpflicht. Das Mitbringen von überflüssiger Hardware (Drucker, Scanner etc.) sowie anderer Gebrauchsgegenstände wie Toastern, Mikrowellen, Backofen, Wasserkochern, Lavalampen, Verstärkern oder Video-Projektoren o.ä. sind aus Platz-, Strom- und Sicherheitsgründen nur nach Absprache mit den Veranstaltern erlaubt. Eigenmächtige Veränderungen am Netzwerk (das Einbringen von Erweiterungen, z.B. durch Hubs etc.) ist ohne Absprache mit dem Veranstalter nicht gestattet.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§10 Rauschmittel--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Das Mitbringen und Trinken von stark alkoholischen GetrÃ¤nken ist wÃ¤hrend der Veranstaltung  nicht gestattet. Auch Drogenkonsum jeglicher Art ist strengstens untersagt.--lt--br--gt--
+--lt--li--gt----lt--b--gt--§10 Rauschmittel--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Das Mitbringen und Trinken von stark alkoholischen Getränken ist während der Veranstaltung  nicht gestattet. Auch Drogenkonsum jeglicher Art ist strengstens untersagt.--lt--br--gt--
 Es gelten gesetzliche Vorschriften--lt--br--gt----lt--br--gt--
 
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§11 Gesundheitliche SchÃ¤den--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Die fÃ¼r Videospiele geltenden Sicherheits- und Warnhinweise gelten ausnahmslos. FÃ¼r gesundheitliche SchÃ¤den wird keine Haftung Ã¼bernommen.--lt--br--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§11 Gesundheitliche Schäden--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Die für Videospiele geltenden Sicherheits- und Warnhinweise gelten ausnahmslos. Für gesundheitliche Schäden wird keine Haftung übernommen.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§12 Werbung / Handel--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Den Teilnehmern ist es nicht gestattet, in irgendeiner Form fÃ¼r politische oder gewerbliche 
-Vereine zu werben, sondern nur den offiziellen Sponsoren der Veranstaltung. Diese werden beizeiten Ã¶ffentlich bekannt gegeben.--lt--br--gt--
+--lt--li--gt----lt--b--gt--§12 Werbung / Handel--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Den Teilnehmern ist es nicht gestattet, in irgendeiner Form für politische oder gewerbliche 
+Vereine zu werben, sondern nur den offiziellen Sponsoren der Veranstaltung. Diese werden beizeiten öffentlich bekannt gegeben.--lt--br--gt--
 Es darf auf der Party ohne Zustimmung des Veranstalters nichts an- oder verkauft werden.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§13 Turniere und Preisvergabe--lt--/b--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§13 Turniere und Preisvergabe--lt--/b--gt----lt--br--gt--
 
---lt--ul--gt--Jeder Turnierteilnehmer ist verpflichtet die vor dem Turnier bekanntgegebenen Regeln einzuhalten. Die Veranstalter behalten sich das Recht vor, bei VerstÃ¶ÃŸen die Turnierteilnahmeberechtigung zu widerrufen. Teilnahme und Preisverleihung erfolgt ohne GewÃ¤hr und unter AusschluÃŸ des Rechtsweges.--lt--br--gt----lt--br--gt--
+--lt--ul--gt--Jeder Turnierteilnehmer ist verpflichtet die vor dem Turnier bekanntgegebenen Regeln einzuhalten. Die Veranstalter behalten sich das Recht vor, bei Verstößen die Turnierteilnahmeberechtigung zu widerrufen. Teilnahme und Preisverleihung erfolgt ohne Gewähr und unter Ausschluß des Rechtsweges.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§14 Abfall--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Anfallender MÃ¼ll ist in die vorgesehenen BehÃ¤ltnisse zu befÃ¶rdern. Jeder Teilnehmer hat seinen Platz so zu verlassen, wie er aufgefunden wurde, d. h. sauber und ordentlich. Der Veranstalter wird sich bemÃ¼hen, MÃ¶glichkeiten zur MÃ¼llentsorgung und -trennung anzubieten, weist die Teilnehmer jedoch an, den selbst verursachten Abfall auch selbst zu entsorgen.--lt--br--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§14 Abfall--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Anfallender Müll ist in die vorgesehenen Behältnisse zu befördern. Jeder Teilnehmer hat seinen Platz so zu verlassen, wie er aufgefunden wurde, d. h. sauber und ordentlich. Der Veranstalter wird sich bemühen, Möglichkeiten zur Müllentsorgung und -trennung anzubieten, weist die Teilnehmer jedoch an, den selbst verursachten Abfall auch selbst zu entsorgen.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§15 Haftung durch den Veranstalter--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Die Veranstalter kÃ¶nnen bei Sach- und PersonenschÃ¤den nicht zur Verantwortung gezogen werden. Sie sind auÃŸerdem nicht haftbar fÃ¼r die Daten, in dessen Besitz ein Teilnehmer steht oder fÃ¼r den Datentransfer zwischen den Teilnehmern im Netzwerk.
-Der Veranstalter Ã¼bernimmt ebenso keine Haftung fÃ¼r SchÃ¤den, die an der Soft- oder Hardware des Rechners durch eventuelle Viren, das Aufspielen von Programmen, Umkonfiguration des Betriebssystems, etc. entstehen.
---lt--br--gt--Der Veranstalter haftet auch nicht fÃ¼r durch 3. bereitgestellte Technik.
+--lt--li--gt----lt--b--gt--§15 Haftung durch den Veranstalter--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Die Veranstalter können bei Sach- und Personenschäden nicht zur Verantwortung gezogen werden. Sie sind außerdem nicht haftbar für die Daten, in dessen Besitz ein Teilnehmer steht oder für den Datentransfer zwischen den Teilnehmern im Netzwerk.
+Der Veranstalter übernimmt ebenso keine Haftung für Schäden, die an der Soft- oder Hardware des Rechners durch eventuelle Viren, das Aufspielen von Programmen, Umkonfiguration des Betriebssystems, etc. entstehen.
+--lt--br--gt--Der Veranstalter haftet auch nicht für durch 3. bereitgestellte Technik.
 --lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§16 Ã„nderungen der AGBs--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Sollte der Veranstalter Ã„nderungen an den AGBs vornehmen mÃ¼ssen, werden alle angemeldeten Teilnehmer unverzÃ¼glich davon in Kenntnis gesetzt. Sollten diese nicht mit den neuen AGBs einverstanden sein, wird ihnen auf wunsch der Teilnahmebetrag zurÃ¼ck erstattet.--lt--br--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§16 Änderungen der AGBs--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Sollte der Veranstalter Änderungen an den AGBs vornehmen müssen, werden alle angemeldeten Teilnehmer unverzüglich davon in Kenntnis gesetzt. Sollten diese nicht mit den neuen AGBs einverstanden sein, wird ihnen auf wunsch der Teilnahmebetrag zurück erstattet.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
---lt--li--gt----lt--b--gt--Â§17 GÃ¼ltigkeit der AGBs--lt--/b--gt----lt--br--gt--
---lt--ul--gt--Die hier aufgefÃ¼hrten Regeln sind ausnahmslos zu akzeptieren. Sollte es der Verlauf der Vorbereitung und/oder der Veranstaltung notwendig machen, so behÃ¤lt sich der Veranstalter eine Ã„nderung vor. Eine MiÃŸachtung kann den Verweis von der Veranstaltung und u. U. eine Anzeige zur Folge haben.--lt--br--gt--
-Sollte einer der hier aufgefÃ¼hrten Punkte durch bestimmte UmstÃ¤nde seine GÃ¼ltigkeit verlieren, so gelten trotzdem weiterhin alle anderen Punkte.--lt--br--gt----lt--br--gt--
+--lt--li--gt----lt--b--gt--§17 Gültigkeit der AGBs--lt--/b--gt----lt--br--gt--
+--lt--ul--gt--Die hier aufgeführten Regeln sind ausnahmslos zu akzeptieren. Sollte es der Verlauf der Vorbereitung und/oder der Veranstaltung notwendig machen, so behält sich der Veranstalter eine Änderung vor. Eine Mißachtung kann den Verweis von der Veranstaltung und u. U. eine Anzeige zur Folge haben.--lt--br--gt--
+Sollte einer der hier aufgeführten Punkte durch bestimmte Umstände seine Gültigkeit verlieren, so gelten trotzdem weiterhin alle anderen Punkte.--lt--br--gt----lt--br--gt--
 --lt--/ul--gt--
 
 --lt--br--gt--%VERNSTALTER_NAME%</text>
@@ -282,15 +282,15 @@ Sollte einer der hier aufgefÃ¼hrten Punkte durch bestimmte UmstÃ¤nde seine GÃ¼lt
 				<infoID>5</infoID>
 				<active>0</active>
 				<caption>Party-Infos</caption>
-				<shorttext>Alle Fakten der LAN im Ãœberblick</shorttext>
-				<text>Auf dieser Seite findet ihr alle Fakten der Party im Ãœberblick.--lt--BR--gt--
+				<shorttext>Alle Fakten der LAN im Überblick</shorttext>
+				<text>Auf dieser Seite findet ihr alle Fakten der Party im Überblick.--lt--BR--gt--
 --lt--UL--gt--
 --lt--LI--gt--Einlass: xx.yy.zzzz aa:bb Uhr--lt--/LI--gt--
 --lt--LI--gt--Ende: xx.yy.zzzz aa:bb Uhr--lt--/LI--gt--
 --lt--LI--gt--Ort: --lt--/LI--gt--
 --lt--LI--gt--Teilnehmerzahl: xxx--lt--/LI--gt--
 --lt--LI--gt--Mindestalter: 18 Jahre--lt--/LI--gt--
---lt--LI--gt--Unkostenbeitrag: xxâ‚¬--lt--/LI--gt----lt--/UL--gt----lt--BR--gt----lt--STRONG--gt--Kontodaten fÃ¼r die Ãœberweisung--lt--/STRONG--gt--:--lt--BR--gt--
+--lt--LI--gt--Unkostenbeitrag: xx€--lt--/LI--gt----lt--/UL--gt----lt--BR--gt----lt--STRONG--gt--Kontodaten für die Überweisung--lt--/STRONG--gt--:--lt--BR--gt--
 --lt--UL--gt--
 --lt--LI--gt--Inhaber:--lt--/LI--gt--
 --lt--LI--gt--Nr.:--lt--/LI--gt--
@@ -311,7 +311,7 @@ Sollte einer der hier aufgefÃ¼hrten Punkte durch bestimmte UmstÃ¤nde seine GÃ¼lt
 				<text>
 Max Mustermann--lt--br--gt--
 
-MusterstraÃŸe 1--lt--br--gt--
+Musterstraße 1--lt--br--gt--
 
 00000 Musterstadt--lt--br--gt--
 
@@ -325,13 +325,13 @@ Internet: www.example.com--lt--br--gt--
 
 --lt--br--gt--
 
-Inhaltlich Verantwortlicher gemÃ¤ÃŸ Â§ 10 Absatz 3 MDStV: Fred Friedlich (Anschrift wie oben)--lt--br--gt--
+Inhaltlich Verantwortlicher gemäß § 10 Absatz 3 MDStV: Fred Friedlich (Anschrift wie oben)--lt--br--gt--
 
 --lt--br--gt--
 
-Haftungshinweis: Trotz sorgfÃ¤ltiger inhaltlicher Kontrolle Ã¼bernehmen
-wir keine Haftung fÃ¼r die Inhalte externer Links. FÃ¼r den Inhalt der
-verlinkten Seiten sind ausschlieÃŸlich deren Betreiber verantwortlich.
+Haftungshinweis: Trotz sorgfältiger inhaltlicher Kontrolle übernehmen
+wir keine Haftung für die Inhalte externer Links. Für den Inhalt der
+verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
 
 </text>
 				<sortorder>0</sortorder>

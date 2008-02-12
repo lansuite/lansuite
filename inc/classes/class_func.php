@@ -1,5 +1,21 @@
 <?php
-define('NO_LINK', -1);
+/*************************************************************************
+*
+*	Lansuite - Webbased LAN-Party Management System
+*	-----------------------------------------------
+*
+*	(c) 2001-2003 by One-Network.Org
+*
+*	Lansuite Version:	2.0
+*	File Version:		2.0
+*	Filename: 		class_func.php
+*	Module: 		Framework
+*	Main editor:
+*	Last change: 		31.12.2002 18:30
+*	Description: 		All base functions are defined in this file
+*	Remarks:
+*
+**************************************************************************/
 
 class func {
 
@@ -42,63 +58,22 @@ class func {
 		if ($target == "new") $target = 'target="_blank"';
 		return ' <a href="index.php?mod=usrmgr&action=details&userid='.$userid.'" '.$target.'><img src="design/'. $auth["design"] .'/images/arrows_user.gif" border="0"/></a>';
 	}
-
-  function FetchMasterTmpl($file) {
-	global $auth, $templ, $config, $CurentURL, $dsp;
-
-    if (!is_file($file)) return false;
-    else {
-  		$handle = fopen ($file, "rb");
-  		$tpl_str = fread ($handle, filesize ($file));
-  		fclose ($handle);
-
-  		$tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'js\']}', '<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>', $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'body\'][\'js\']}', $templ['index']['body']['js'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'banner_code\']}', $templ['index']['banner_code'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'boxes_letfside\']}', $templ['index']['control']['boxes_letfside'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'boxes_rightside\']}', $templ['index']['control']['boxes_rightside'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'content\']}', $templ['index']['info']['content'], $tpl_str);
-  		
-  		$tpl_str = str_replace('{$templ[\'index\'][\'html_header\']}', $dsp->FetchModTpl('', 'html_header'), $tpl_str);
-
-      $URLQuery = preg_replace('#[&]?fullscreen=yes#sUi', '', $CurentURL['query']);
-    	$templ['index']['control']['current_url'] = 'index.php?'. $URLQuery .'&fullscreen=no';
-  		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'current_url\']}', $templ['index']['control']['current_url'], $tpl_str);
-
-      if ($auth['login']) $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', ' | <a href="index.php?mod=logout" class="menu">Logout</a>', $tpl_str);
-      else $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', '', $tpl_str);
-
-  		$tpl_str = str_replace('{$templ[\'index\'][\'debug\'][\'content\']}', $this->ShowDebug(), $tpl_str);
-
-  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'lanparty_name\']}', $_SESSION['party_info']['name'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'version\']}', $config['lansuite']['version'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'lansuite_version\']}', $config['lansuite']['version'], $tpl_str);
-  		$tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'current_date\']}', $this->unixstamp2date(time(),'daydatetime'), $tpl_str);
-
-      return $tpl_str;
-    }
-  }
-
+	
 	function gettemplate($template) {
-	global $auth, $templ;
+	global $auth, $lang;
 
-    if ($tpl_str = $this->FetchMasterTmpl("design/{$auth['design']}/templates/$template.htm")) return $tpl_str;
-    elseif ($tpl_str = $this->FetchMasterTmpl("design/templates/$template.htm")) return $tpl_str;
-    else echo t('Das Template "%1" existiert nicht!', array("dessign/{$auth['design']}/templates/$template.htm"));
+		if (is_file("design/".$auth["design"]."/templates/". $template. ".htm" ) ) {
+			return str_replace("{default_design}", $auth["design"], str_replace("\"", "\\\"", implode("", file("design/".$auth["design"]."/templates/".$template.".htm"))));
+
+		} elseif (is_file("design/templates/". $template. ".htm") ) {
+			return str_replace("{default_design}", $auth["design"], str_replace("\"", "\\\"", implode("", file("design/templates/".$template.".htm"))));
+
+		} else echo(HTML_FONT_ERROR. str_replace("%TEMPL%", "design/templates/$template.htm", $lang['class_func']['no_templ']) . HTML_FONT_END);
 	}
 
 	function templ_output($template) {
 		echo $template;
 	}
-
-  function MysqlDateToTimestamp($datetime) {
-    list($date, $time) = split(' ', $datetime);
-    list($year, $month, $day) = split('-', $date);
-    list($hour, $min, $sec) = split(':', $time);
-
-    return mktime($hour, $min, $sec, $month, $day, $year);
-  }
 
 	function date2unixstamp($year,$month,$day,$hour,$minute,$second) {	
 		$func_timestamp = @mktime($hour,$minute,$second,$month,$day,$year);
@@ -115,65 +90,7 @@ class func {
 			$db->query("INSERT INTO {$config["tables"]["infobox"]} SET userid='$userid', class='$item', id_in_class = '$itemid', text='$text', date='$date', priority='$priority'");
 		}
 	}
-
-  function str2time($strStr, $strPattern = 'Y-m-d H:i:s') {
-     // an array of the valide date characters, see: http://php.net/date#AEN21898
-     $arrCharacters = array(
-         'd', // day
-         'm', // month
-         'y', // year, 2 digits
-         'Y', // year, 4 digits
-         'H', // hours
-         'i', // minutes
-         's'  // seconds
-     );
-     // transform the characters array to a string
-     $strCharacters = implode('', $arrCharacters);
-
-     // splits up the pattern by the date characters to get an array of the delimiters between the date characters
-     $arrDelimiters = preg_split('~['.$strCharacters.']~', $strPattern);
-     // transform the delimiters array to a string
-     $strDelimiters = quotemeta(implode('', array_unique($arrDelimiters)));
-
-     // splits up the date by the delimiters to get an array of the declaration
-     $arrStr    = preg_split('~['.$strDelimiters.']~', $strStr);
-     // splits up the pattern by the delimiters to get an array of the used characters
-     $arrPattern = preg_split('~['.$strDelimiters.']~', $strPattern);
-
-     // if the numbers of the two array are not the same, return false, because the cannot belong together
-     if (count($arrStr) !== count($arrPattern)) {
-         return false;
-     }
-
-     // creates a new array which has the keys from the $arrPattern array and the values from the $arrStr array
-     $arrTime = array();
-     for ($i = 0;$i < count($arrStr);$i++) {
-         $arrTime[$arrPattern[$i]] = $arrStr[$i];
-     }
-
-     // gernerates a 4 digit year declaration of a 2 digit one by using the current year
-     if (isset($arrTime['y']) && !isset($arrTime['Y'])) {
-         $arrTime['Y'] = substr(date('Y'), 0, 2) . $arrTime['y'];
-     }
-
-     // if a declaration is empty, it will be filled with the current date declaration
-     foreach ($arrCharacters as $strCharacter) {
-         if (empty($arrTime[$strCharacter])) {
-             $arrTime[$strCharacter] = date($strCharacter);
-         }
-     }
-
-     // checks if the date is a valide date
-     if (!checkdate($arrTime['m'], $arrTime['d'], $arrTime['Y'])) {
-         return false;
-     }
-
-     // generates the timestamp
-     $intTime = mktime($arrTime['H'], $arrTime['i'], $arrTime['s'], $arrTime['m'], $arrTime['d'], $arrTime['Y']);
-     // returns the timestamp
-     return $intTime;
-  }
-
+	
 	function unixstamp2date($func_timestamp,$func_art) {
 		global $lang;
 
@@ -188,7 +105,7 @@ class func {
 				$day[0] = $lang['class_func']['sunday'];
 				$day[1] = $lang['class_func']['monday'];
 				$day[2] = $lang['class_func']['tuesday'];
-				$day[3] = $lang['class_func']['wednesday'];
+				$day[3] = $lang['class_func']['wednesdey'];
 				$day[4] = $lang['class_func']['thursday'];
 				$day[5] = $lang['class_func']['friday'];
 				$day[6] = $lang['class_func']['saturday'];
@@ -202,7 +119,7 @@ class func {
 				$day[0] = $lang['class_func']['sunday'];
 				$day[1] = $lang['class_func']['monday'];
 				$day[2] = $lang['class_func']['tuesday'];
-				$day[3] = $lang['class_func']['wednesday'];
+				$day[3] = $lang['class_func']['wednesdey'];
 				$day[4] = $lang['class_func']['thursday'];
 				$day[5] = $lang['class_func']['friday'];
 				$day[6] = $lang['class_func']['saturday'];
@@ -213,7 +130,7 @@ class func {
 				$day[0] = $lang['class_func']['sunday_short'];
 				$day[1] = $lang['class_func']['monday_short'];
 				$day[2] = $lang['class_func']['tuesday_short'];
-				$day[3] = $lang['class_func']['wednesday_short'];
+				$day[3] = $lang['class_func']['wednesdey_short'];
 				$day[4] = $lang['class_func']['thursday_short'];
 				$day[5] = $lang['class_func']['friday_short'];
 				$day[6] = $lang['class_func']['saturday_short'];
@@ -244,12 +161,11 @@ class func {
 
 	
 	// #### DIALOG FUNCTIONS ####
-	function error($text, $link_target = '', $JustReturn = 0) {
-		global $templ, $auth, $lang, $language, $dsp, $FrameworkMessages;
-		
-		if ($link_target == '') $link_target = $this->internal_referer;
-		if ($link_target == NO_LINK) $link_target = '';
-    if ($link_target) $templ['error']['info']['link'] = $dsp->FetchCssButton('ZurÃ¼ck', $link_target, 'ZurÃ¼ck zur vorherigen Seite');
+	
+	function error($text, $link_target) {
+		global $templ, $auth, $lang, $language, $dsp;
+
+		if ($link_target) $templ['error']['info']['link'] = $dsp->FetchButton($link_target, "back");
 
 		switch($text) {
 			case "ACCESS_DENIED":
@@ -271,46 +187,44 @@ class func {
 				$templ['error']['info']['errormsg'] = $text;
 			break;
 		}
-    if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/error.htm');
-    else $dsp->AddTpl("design/templates/error.htm");
+		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("error")."\";");
 	}
 
-	function confirmation($text, $link_target = '', $JustReturn = 0) {
-		global $templ, $auth, $dsp, $language, $FrameworkMessages;
+	function confirmation($text, $link_target) {
+		global $templ, $auth, $dsp, $language;
 
-		if ($link_target == '') $link_target = $this->internal_referer;
-		if ($link_target == NO_LINK) $link_target = '';
-		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('ZurÃ¼ck', $link_target, 'ZurÃ¼ck zur vorherigen Seite');
+		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
 		$templ['confirmation']['info']['confirmationmsg']	= $text;
-
-    if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/confirmation.htm');
-    else $dsp->AddLineTpl("design/templates/confirmation.htm");
+		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("confirmation")."\";");
 	}
 
-	function information($text, $link_target = '', $button_text = 'back', $JustReturn = 0) {
-		global $templ, $auth, $dsp, $language, $FrameworkMessages;
+	
+	function information($text, $link_target) {
+		global $templ, $auth, $dsp, $language;
 
-		if ($link_target == '') $link_target = $this->internal_referer;
-		if ($link_target == NO_LINK) $link_target = '';
-		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('ZurÃ¼ck', $link_target, 'ZurÃ¼ck zur vorherigen Seite');
+		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
 		$templ['confirmation']['info']['confirmationmsg'] = $text;
-
-    if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/information.htm');
-    else $dsp->AddTpl("design/templates/information.htm");
+		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("information")."\";");
 	}
-
+	
+	
 	function multiquestion($questionarray, $linkarray, $text) {
-		global $templ, $dsp;
+		global $templ;
 
-		($text)? $templ['multiquestion']['info']['text'] = $text : $templ['multiquestion']['info']['text'] = t('Bitte wÃ¤hlen Sie eine MÃ¶glichkeit aus:');
-		if (is_array($questionarray)) foreach($questionarray as $ind => $question)
-      $templ['multiquestion']['control']['row'] .= '<br /><br /><a href="'. $linkarray[$ind] .'">'. $question .'</a>';
+		if (!$text) $templ['multiquestion']['info']['text'] = "Bitte w&auml;hlen Sie eine M&ouml;glichkeit aus";
+		else $templ['multiquestion']['info']['text']	= $text;
 
-    $dsp->AddTpl("design/templates/multiquestion.htm");
+		if (is_array($questionarray)) foreach($questionarray as $ind => $question) {
+			$templ['multiquestion']['row']['text']	= $question;
+			$templ['multiquestion']['row']['link']	= $linkarray[$ind];
+
+			eval("\$templ['multiquestion']['control']['row'] .= \"".$this->gettemplate("multiquestion_row")."\";");
+		}
+		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("multiquestion")."\";");
 	}
 
 	function dialog($dialogarray, $linkarray, $picarray) {
-		global $templ, $gd, $dsp;
+		global $templ;
 
 		if ($dialogarray[0]=="") $dialogarray[0]="question";
 		if ($dialogarray[1]=="") $dialogarray[1]="Frage";
@@ -319,80 +233,77 @@ class func {
 		$templ['dialog']['info']['caption']		= $dialogarray[1];
 		$templ['dialog']['info']['questionmsg']	= $dialogarray[2];
 
-		if (is_array($linkarray)) foreach ($linkarray as $ind => $link)
-      $templ['dialog']['control']['row'] .= $dsp->FetchButton($link, $picarray[$ind]);
+		if (is_array($linkarray)) foreach ($linkarray as $ind => $link) {
+			$templ['dialog']['row']['link']	= $link;
+			$templ['dialog']['row']['pic']		= $picarray[$ind];  // using the pic filename w/o "button_" & ".gif" !
 
-    $dsp->AddTpl("design/templates/dialog.htm");
+			eval ("\$templ['dialog']['control']['row'] .= \"".$this->gettemplate("dialog_row")."\";");			
+		}
+
+		eval ("\$templ['index']['info']['content'] .= \"".$this->gettemplate("dialog")."\";");
 	}
 
-	function question($text, $link_target_yes, $link_target_no = '') {
+	function question($text, $link_target_yes, $link_target_no) {
 		global $templ, $auth, $dsp, $language;
 
-		if ($link_target_no == '') $link_target_no = $this->internal_referer;
-
 		$templ['question']['info']['questionmsg']	= $text;
-		$templ['question']['control']['link']['yes'] = $dsp->FetchIcon($link_target_yes, "yes");
-		$templ['question']['control']['link']['no'] = $dsp->FetchIcon($link_target_no, "no");
+		$templ['question']['control']['link']['yes'] = $dsp->FetchButton($link_target_yes, "yes");
+		$templ['question']['control']['link']['no'] = $dsp->FetchButton($link_target_no, "no");
 
-    $dsp->AddTpl("design/templates/question.htm");
+		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("question")."\";");
 	}
 
-	function no_items($object, $link_target, $type) {
+	function no_items($object,$link_target,$type) {
 		global $templ, $auth, $lang, $dsp, $language;
 
 		switch($type) {
-			case "rlist":	$text	= str_replace("%OBJECT%", $object, $lang['class_func']['no_item_rlist']); break;
-			case "search":	$text	= str_replace("%OBJECT%", $object, $lang['class_func']['no_item_search']); break;
-			case "free":	$text	= $object; break;
+			case "rlist":	$templ['no_item']['info']['no_itemmsg']	= str_replace("%OBJECT%",$object,$lang['class_func']['no_item_rlist']); break;
+			case "search":	$templ['no_item']['info']['no_itemmsg']	= str_replace("%OBJECT%",$object,$lang['class_func']['no_item_search']); break;
+			case "free":	$templ['no_item']['info']['no_itemmsg']	= $object; break;
 		}
-    $this->information($text, $link_target);
+
+		if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchButton($link_target, "back");
+
+		eval("\$templ['index']['info']['content'] .= \"".$this->gettemplate("no_item")."\";");
 	}
-
-  // When text should be displayed within a textarea
-  function db2edit($string) {
-		$string = str_replace("<", "&lt;", $string);
-		$string = str_replace(">", "&gt;", $string);
-		
-		return $string;
-  }
-
-  // If ls-code should be displayed
+	
 	function text2html($string) {
 		global $db, $config;
-
-    preg_replace_callback(
-      '#\[c\]((.)*)\[\/c\]#sUi',
-      create_function(
-        '$treffer',
-        'global $HighlightCode, $HighlightCount; $HighlightCount++; $HighlightCode[$HighlightCount] = $treffer[1];'
-      ),
-      $string
-    );
+		
 
 		$img_start = "<img src=\"design/".$_SESSION["auth"]["design"]."/images/";
-		$img_start2 = '<img src="ext_inc/smilies/';
-		$img_end   = '" border="0" alt="" />';
-
+		$img_start2 = "<img src=\"ext_inc/smilies/";
+		$img_end   = "\" border=\"0\" />";
+				
 		$string = str_replace("&", "&amp;", $string);
 		$string = str_replace("\"", "&quot;", $string);
 		$string = str_replace("<", "&lt;", $string);
 		$string = str_replace(">", "&gt;", $string);
 		
-#		$string = str_replace("&lt;!--", "<!--", $string);
-#		$string = str_replace("--&gt;", "-->", $string);
-#		$string = str_replace("&lt;?", "<?", $string);
-#		$string = str_replace("?&gt;", '?'.'>', $string);
+		$string = str_replace("&lt;!--", "<!--", $string);
+		$string = str_replace("--&gt;", "-->", $string);
+		$string = str_replace("&lt;?", "<?", $string);
+		$string = str_replace("?&gt;", "?>", $string);
 		$string = strip_tags($string);
 
-		$string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="1" class="img" alt="" />', $string);
-		$string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
+		$string = eregi_replace('\[img\]([^\[]*)\[/img\]', '<img src="\1" border="1" class="img" alt="" />', $string);
 
-    $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
-    $string = preg_replace('#(\\s|^)(mailto:(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\3</a>\\4', $string);
-    $string = preg_replace('#(\\s|^)(www\\.(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="http://\\2" rel="nofollow">\\2</a>\\4', $string);
+		$string = eregi_replace("([ \n])http://([^ ,\n]*)", "\\1[url]http://\\2[/url]", $string);
+		$string = eregi_replace("([ \n])ftp://([^ ,\n]*)", "\\1[url]ftp://\\2[/url]", $string);
+		$string = eregi_replace("([ \n])www\\.([^ ,\n]*)", "\\1[url]http://www.\\2[/url]", $string);
+		$string = eregi_replace("^http://([^ ,\n]*)", "[url]http://\\1[/url]", $string);
+		$string = eregi_replace("^ftp://([^ ,\n]*)", "[url]ftp://\\1[/url]", $string);
+		$string = eregi_replace("^www\\.([^ ,\n]*)", "[url]http://www.\\1[/url]", $string);
+ 		$string = eregi_replace('\[url\]www.([^\[]*)\[/url\]', '<a href="http://www.\1" target="_blank">\1</a>', $string);
+		$string = eregi_replace('\[url\]([^\[]*)\[/url\]', '<a href="\1" target="_blank">\1</a>', $string);
+		$string = eregi_replace('\[mailurl\]([^\[]*)\[/mailurl\]', '<a href="\1">Link</a>', $string);
+		$string = eregi_replace('\[url=www.([^\[]*)\]([^\[]*)\[/url\]', '<a href="http://www.\1" target="_blank">\2</a>', $string); 
+		$string = eregi_replace('\[url=([^\[]*)\]([^\[]*)\[/url\]', '<a href="\1" target="_blank">\2</a>', $string);
+		$string = eregi_replace('\[url_www.([^\[]*)\]([^\[]*)\[/url\]', '<a href="http://www.\1" target="_self">\2</a>', $string); 
+		$string = eregi_replace('\[url_([^\[]*)\]([^\[]*)\[/url\]', '<a href="\1" target="_self">\2</a>', $string);
 
-		$string = str_replace("\n", '<br />', $string);
-		$string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
+		$string = str_replace("\n", "<br/>", $string);
+// 		$string = nl2br($string);
 
 		$string = str_replace('[b]', '<b>', $string);
 		$string = str_replace('[/b]', '</b>', $string);
@@ -400,50 +311,40 @@ class func {
 		$string = str_replace('[/i]', '</i>', $string);
 		$string = str_replace('[u]', '<u>', $string);
 		$string = str_replace('[/u]', '</u>', $string);
-		$string = str_replace('[s]', '<strike>', $string);
-		$string = str_replace('[/s]', '</strike>', $string);
-		$string = str_replace('[sub]', '<sub>', $string);
-		$string = str_replace('[/sub]', '</sub>', $string);
-		$string = str_replace('[sup]', '<sup>', $string);
-		$string = str_replace('[/sup]', '</sup>', $string);
+		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><table width="100%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>', $string);
+		$string = str_replace('[/c]', '</td></tr></table></blockquote>', $string);
+		$string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><table width="70%" cellspacing="1" cellpadding="2" class="tbl_4"><tr class="tbl_7"><td>', $string);
+		$string = str_replace('[/quote]', '</td></tr></table></blockquote>', $string);
 
-//		$string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">', $string);
-//		$string = str_replace('[/c]', '</div></blockquote>', $string);
-		$string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">', $string);
-		$string = str_replace('[/quote]', '</div></blockquote>', $string);
+		$get_smilie = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
+		while ($row=$db->fetch_array($get_smilie))
+		{
+			$string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
+		}
 
- 		$string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
-		$string = str_replace('[/size]', '</font>', $string);
- 		$string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
+		$string = str_replace('[color=darkred]', '<font color="darkred">', $string);
+		$string = str_replace('[color=red]', '<font color="red">', $string);
+		$string = str_replace('[color=orange]', '<font color="orange">', $string);
+		$string = str_replace('[color=brown]', '<font color="brown">', $string);
+		$string = str_replace('[color=yellow]', '<font color="yellow">', $string);
+		$string = str_replace('[color=green]', '<font color="green">', $string);
+		$string = str_replace('[color=olive]', '<font color="olive">', $string);
+		$string = str_replace('[color=cyan]', '<font color="cyan">', $string);
+		$string = str_replace('[color=blue]', '<font color="blue">', $string);
+		$string = str_replace('[color=darkblue]', '<font color="darkblue">', $string);
+		$string = str_replace('[color=indigo]', '<font color="indigo">', $string);
+		$string = str_replace('[color=violet]', '<font color="violet">', $string);
+		$string = str_replace('[color=black]', '<font color="black">', $string);
 		$string = str_replace('[/color]', '</font>', $string);
-
-		$res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
-		while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
-    $db->free_result($res);
-
-    $string = preg_replace_callback(
-      '#\[c\](.)*\[\/c\]#sUi',
-      create_function(
-        '$treffer',
-        'global $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true) .\'</div></blockquote>\';'
-      ),
-      $string
-    );
+		$string = str_replace('[size=7]', '<font style="font-size:7px">', $string);
+		$string = str_replace('[size=9]', '<font style="font-size:9px">', $string);
+		$string = str_replace('[size=12]', '<font style="font-size:12px">', $string);
+		$string = str_replace('[size=18]', '<font style="font-size:18px">', $string);
+		$string = str_replace('[size=24]', '<font style="font-size:24px">', $string);
+		$string = str_replace('[/size]', '</font>', $string);
 
 		return $string;
 	}
-
-	function Entity2Uml($string) {
-		$string = str_replace('&uuml;', 'Ã¼', $string);
-		$string = str_replace('&Uuml;', 'Ãœ', $string);
-		$string = str_replace('&auml;', 'Ã¤', $string);
-		$string = str_replace('&Auml;', 'Ã„', $string);
-		$string = str_replace('&ouml;', 'Ã¶', $string);
-		$string = str_replace('&Ouml;', 'Ã–', $string);
-		$string = str_replace('&szlig;', 'ÃŸ', $string);
-
-		return $string;
-  }
 			
 	function generate_error_template($template_name,$formfield_name,$error_text) {
 		// THIS CODE FITS THE NEW TEMPL VARS
@@ -459,25 +360,18 @@ class func {
 		return ($to_return);
 	}		
 
-	function log_event($message, $type, $sort_tag = '', $target_id = '') {
-		global $db, $config, $auth, $CurentURLMod;
+	function log_event($message, $type, $sort_tag = NULL) {
+		global $db, $config, $auth;
 
-		if ($message == '' or $type == '') echo("Function log_event needs message and type defined! - Invalid arguments supplied!");
+		if ($message == "" or $type == "") echo("Function log_event needs message and type defined! - Invalid arguments supplied!");
 
 		// Types:  1 = Info, 2 = Warning, 3 = Error (be careful with 3)
 		else {
-			if ($sort_tag == '') $sort_tag = $CurentURLMod;
+			if ($sort_tag == NULL) $sort_tag = "";
 			$atuser = $auth["userid"];
 			if($atuser == "") $atuser = "0";
 			$timestamp = date("U");
-			$entry = $db->query("INSERT INTO {$config["tables"]["log"]} SET
-        userid='$atuser',
-        description='". $this->escape_sql($message) ."',
-        type='$type',
-        date='$timestamp',
-        sort_tag = '$sort_tag',
-        target_id = '$target_id'
-        ");
+			$entry = $db->query("INSERT INTO {$config["tables"]["log"]} SET userid='$atuser', description='". $this->escape_sql($message) ."', type='$type', date='$timestamp', sort_tag = '$sort_tag'");
 
 			if ($entry == 1) return(1); else return(0);
 		}
@@ -485,7 +379,7 @@ class func {
 	}
 	
 
-	function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name) {
+	function page_split($current_page,$max_entries_per_page,$overall_entries,$working_link,$var_page_name) {
 		if ($max_entries_per_page > 0 and $overall_entries >= 0 and $working_link != "" and $var_page_name != "") {
 			if($current_page == "") {
 				$page_sql = "LIMIT 0," . $max_entries_per_page;
@@ -504,26 +398,27 @@ class func {
 			if($overall_entries > $max_entries_per_page) {
 				$page_output = ("Seiten: ");
 				if( $current_page != "all" && ($current_page + 1) > 1 ) {
-					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($current_page - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
+					$page_output .= ("&nbsp; " . "<a class=\"menue\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($current_page - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
 				}
 				$i = 0;					
 				while($i < ($overall_entries / $max_entries_per_page)) {
 					if($current_page == $i && $current_page != "all") {
 						$page_output .= (" " . ($i + 1));
 					} else {
-						$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . $i . "\">" ."<b>" . ($i + 1) . "</b>" . "</a>");
+						$page_output .= ("&nbsp; " . "<a class=\"menue\" href=\"" . $working_link . "&" . $var_page_name . "=" . $i . "\">" ."<b>" . ($i + 1) . "</b>" . "</a>");
 					}
 					$i++;
 				}
 				if($current_page != "all" && ($current_page + 1) < ($overall_entries/$max_entries_per_page)) {
-					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
+					$page_output .= ("&nbsp; " . "<a class=\"menue\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
 				}
 				if($current_page != "all") {
-					$page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=all" . "\">" ."<b>" . "Alle" . "</b>" . "</a>");									
+					$page_output .= ("&nbsp; " . "<a class=\"menue\" href=\"" . $working_link ."&" . $var_page_name . "=all" . "\">" ."<b>" . "Alle" . "</b>" . "</a>");									
 				}
 				if ($current_page == "all") {
 					$page_output .= " Alle";
 				}
+			
 			}
 
 			$output["html"] = $page_output;
@@ -546,30 +441,34 @@ class func {
 		} else echo "Error: Function check_var needs defined: var, datatype (may be integer, double, string, boolean, object or array), [optionally: min_length], [optionally: max_length] <br/> For more information please visit the lansuite programmers docu";
 	}
 
-	// Add slashes at any non GPC-variable
-	// This function musst be used, if ' come from other sources, than $_GET, or $_POST
-	// for example language-files
-	function escape_sql($text) {
-		$text = addslashes(stripslashes($text));
-		return $text;
-	}
-
 	// Old. Use $func->text2html instead
 	function db2text2html($text) {
-  	$text = $this->text2html($text);
-  	return $text;
+//			$text = $this->db2text($text);
+			$text = $this->text2html($text);
+			return $text;
 	}
 
 	// Old. Do not use any more
 	function text2db($text) {
-    $text = trim($text);
-    return $text;
+			$text = trim($text);
+//			$text = addslashes($text);
+			return $text;
 	}
+
+	// Add slashes at any non GPC-variable
+	// This function musst be used, if ' come from other sources, than $_GET, or $_POST
+	// for example language-files
+	function escape_sql($text) {
+		#if (!get_magic_quotes_gpc())
+		$text = addslashes(stripslashes($text));
+		return $text;
+	} 
 
 	// Old. Do not use any more
 	function db2text($text) {
-    return $text;
-	}
+//			$text = stripslashes($text);
+			return $text;
+	} 
 
 	function check_exist($checktype, $id) {
 		global $db, $config;
@@ -594,44 +493,76 @@ class func {
 		else return FALSE;
 	}
 
-	function ShowDebug() {
-		global $cfg, $auth;
+	function show_debug() {
+		global $debug, $cfg, $config, $vars, $templ, $auth, $func, $db;
 
-		if ($auth['type'] >= 2 and $cfg['sys_showdebug']) {
-			$debug = $this->debug_parse_array($_GET, '$_GET');
-			$debug .= $this->debug_parse_array($_POST, '$_POST');
-			$debug .= $this->debug_parse_array($auth, '$auth');
-			$debug .= $this->debug_parse_array($cfg, '$cfg');
-			$debug .= $this->debug_parse_array($_ENV, '$_ENV');
-			$debug .= $this->debug_parse_array($_COOKIE, '$_COOKIE');
-			$debug .= $this->debug_parse_array($_SESSION, '$_SESSION');
-			$debug .= $this->debug_parse_array($_SERVER, '$_SERVER');
-			$debug .= $this->debug_parse_array($_FILES["importdata"], '$_FILES[importdata]');
-
-      $debug = '<div class="content" align="left">'. $debug .'</div>';
-  		return $debug;
+		if ($cfg["sys_debug_allinfo"]) {
+			$this->debug_parse_array($vars, '$vars');
+			$this->debug_parse_array($auth, '$auth');
+			$this->debug_parse_array($cfg, '$cfg');
+			$this->debug_parse_array($_ENV, '$_ENV');
+			$this->debug_parse_array($_COOKIE, '$_COOKIE');
+			$this->debug_parse_array($_SESSION, '$_SESSION');
+			$this->debug_parse_array($_SERVER, '$_SERVER');
+			$this->debug_parse_array($_FILES["importdata"], '$_FILES[importdata]');
+			$debug[] = "<br/>MySQL-Server Info: ".$db->get_host_info();
+			$debug[] = "<br/>Benötigte Abfragen für diese Seite: ".$db->querys_count;
 		}
-		return '';
+
+		if ($debug and $cfg["sys_showdebug"] and ($auth["type"] >= 2 or $cfg["sys_showdebug_alluser"])) {
+			$debug_content = implode("", $debug);
+			eval("\$templ['index']['debug']['content'] .= \"". $this->gettemplate("debug_case")."\";");
+			return true;
+		}
 	}
 
-	function debug_parse_array($array, $caption = NULL, $level = 0) {
-    $spaces = '';
-    for ($z = 0; $z < $level; $z++) $spaces .= '&nbsp;&nbsp;&nbsp;&nbsp;';
+	function debug_parse_array($array, $caption = NULL) {
+		global $debug;
 
-		if ($caption) $debug .= HTML_NEWLINE . "<b>$caption</b>";
+		if ($caption) $debug[] = HTML_NEWLINE . "<b>$caption</b>";
 		if ($array) foreach($array as $key => $value) {
-			if (is_array($value)) $debug .= $this->debug_parse_array($value, "Array => $key", $level++);
-			else {
-				if (strlen($value) > 80) $value = $this->wrap($value, 80);
-				$debug .= HTML_NEWLINE .$spaces. "$key = $value";
+			if(is_array($value)){
+				$this->debug_parse_array($value,"Array => $key");
+			}else{
+				if (strlen($value) > 80) $value = wordwrap($value, 80, HTML_NEWLINE, 1);
+				$debug[] = HTML_NEWLINE . "$key = $value";
 			}
 		}
-		$debug .= HTML_NEWLINE . "------------------------------";
-		return $debug;
+		$debug[] = HTML_NEWLINE . "------------------------------";
 	}
 
+    function set_change_log($modul, $value1, $value2 = NULL, $value3 = NULL, $value4 = NULL, $value5 = NULL) {
+     	global $db;
 
-	// Gibt das aktuelle Alter zurÃ¼ck
+        // TODO: MODUL-Kürzel prüfen !
+
+        if ($modul == "" or $value1 == "") {
+			$this->set_change_log_error = "modul OR first value empty";
+			return false;
+		}
+
+        $insert = $db->query("INSERT INTO {$db->tables['change_log']} SET modul = '$modul',
+                                                                          value1 = '$value1',
+                                                                          value2 = '$value2',
+                                                                          value3 = '$value3',
+                                                                          value4 = '$value4',
+                                                                          value5 = '$value5'");
+        if ($insert) {
+         	echo "OK:".$insert;
+            $i =  $db->insert_id();
+         	return $i;
+        } else return false;
+
+    }
+
+    // Läd den Log-Eintrag zur übergebenen ID
+    function get_change_log($clogid) {
+    }
+
+    function get_last_change_log($modul) {
+    }
+
+	// Gibt das aktuelle Alter zurück
 	function age($gebtimestamp) {
 		$yeardiff = date("Y") - date("Y", $gebtimestamp);
 		$monthdiff = date("m") - date("m", $gebtimestamp);
@@ -643,7 +574,7 @@ class func {
 		return $age;
 	}
 
-	// Gibt das Alter bei der LanParty zurÃ¼ck
+	// Gibt das Alter bei der LanParty zurück
 	function age_at_lan($gebtimestamp) {
 /*	Funktioniert so leider noch nicht
 		$yeardiff = date("Y", mktime($cfg["signon_partybegin"])) - date("Y", $gebtimestamp);
@@ -662,11 +593,11 @@ class func {
 
 		switch ($_FILES[$source_var]['error']) {
 			case 1:
-				echo "Fehler: Die hochgeladene Datei Ã¼berschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte GrÃ¶ÃŸe";
+				echo "Fehler: Die hochgeladene Datei überschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte Größe";
 				return 0;
 			break;
 			case 2:
-				echo "Fehler: Die hochgeladene Datei Ã¼berschreitet die in dem HTML Formular mittels der Anweisung MAX_FILE_SIZE angegebene maximale DateigrÃ¶ÃŸe";
+				echo "Fehler: Die hochgeladene Datei überschreitet die in dem HTML Formular mittels der Anweisung MAX_FILE_SIZE angegebene maximale Dateigröße";
 				return 0;
 			break;
 			case 3:
@@ -674,12 +605,10 @@ class func {
 				return 0;
 			break;
 			case 4:
-				#echo "Fehler: Es wurde keine Datei hochgeladen";
+				echo "Fehler: Es wurde keine Datei hochgeladen";
 				return 0;
 			break;
 			default:
-        if ($_FILES[$source_var]['tmp_name'] == '') return false;
-
 				if (strrpos($path, '/') + 1 != strlen($path)) $path .= "/";
 				if ($name) {
 					// Auto-Add File-Extension
@@ -687,44 +616,12 @@ class func {
 					$target = $path . $name;
 				} else $target = $path . $_FILES[$source_var]['name'];
 
-        // Change .php to .php.txt
-        switch (substr($target, strrpos($target, "."), strlen($target))) {
-          // Script extentions
-          case '.php':
-          case '.php2':
-          case '.php3':
-          case '.php4':
-          case '.php5':
-          case '.phtml':
-          case '.pwml':
-          case '.inc':
-          case '.asp':
-          case '.aspx':
-          case '.ascx':
-          case '.jsp':
-          case '.cfm':
-          case '.cfc':
-          case '.pl':
-          case '.bat':
-          case '.vbs':
-          case '.reg':
-          case '.cgi':
-          case '.shtml':
-          // Harmless extentions, but better to view with .txt
-          case '.html':
-          case '.htm':
-          case '.js':
-          case '.css':
-            $target .= '.txt';
-          break;
-        }
-
 				if (file_exists($target)) unlink($target);
 				if (move_uploaded_file($_FILES[$source_var]['tmp_name'], $target)) {
 					chmod ($target, octdec($config["lansuite"]["chmod_file"]));
 					return $target;
 				} else {
-					echo "Fehler: Datei konnte nicht hochgeladen werden." . HTML_NEWLINE;
+					echo "Fehler: Datei konnte nicht hoch geladen werden." . HTML_NEWLINE;
 					print_r($_FILES);
 					return 0;
 				}
@@ -742,7 +639,7 @@ class func {
 	}
 
 	function ping($host, $timeout = 200000){
-		// Ã–ffne Socket zum Server
+		// Öffne Socket zum Server
 		$handle=fsockopen('udp://'.$host, 7, $errno, $errstr);
 		if (!$handle){
      		return false;
@@ -777,42 +674,23 @@ class func {
 	}
 
 	function translate($in) {
-    $return = t($in);
-    return $return;
+		global $db, $config, $cfg;
+
+    if ($cfg["sys_language"] == 'de') return $in;
+		else $out = $db->query_first("SELECT {$cfg["sys_language"]} FROM {$config["tables"]["translations"]} WHERE de = '". $this->escape_sql($in) ."'");
+
+		if ($out) return $out[$cfg["sys_language"]];
+		else return $in;
 	}
-
-  function wrap($text, $maxlength, $spacer = "<br />\n") {
-    $textarr = explode(' ', $text);
-    $i = 0;
-    foreach($textarr as $textpart) {
-      if (strlen($textpart) > $maxlength) $textarr[$i] = chunk_split($textpart, $maxlength, $spacer);
-      $i++;
-    }
-    return implode (' ', $textarr);
-  }
-  
-  function FormatFileSize($size){
-    $i = 0;
-    $iec = array("Byte", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB");
-    while (($size / 1024) > 1) {
-      $size = $size / 1024;
-      $i++;
-    }
-    return round($size, 2) .' '. $iec[$i];
-  }
-
-  function GetDirList($dir) {
-    if (!is_dir($dir)) return false;
-
-    $ret = array();
-    $handle = opendir($dir);
-    while ($file = readdir ($handle)) {
-      if ((substr($file, 0, 1)  != '.') and ($file != 'CVS')) $ret[] = strtolower($file);
-    }
-    closedir($handle);
-
-    sort($ret);
-    return $ret;
-  }
+	
+	function FormatSize($size) {
+		if ($size < 1024) return $size . ' B';
+		$units = array("kB", "MiB", "GB", "TB");
+		foreach ($units as $unit) {
+			$size = round($size / 1024, 1);
+			if ($size < 1024) break;
+		}
+		return $size .' '. $unit;
+	}
 }
 ?>

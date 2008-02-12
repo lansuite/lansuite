@@ -202,43 +202,32 @@ class gd {
 
 	function CreateThumb($old_file, $new_file, $max_width, $max_height) {
 
-    if (($old_file != $new_file) and file_exists($new_file)) return;
-
 		$imgsrc_old = $this->OpenImage($old_file);
-    if (!$imgsrc_old) {
-      echo "Could not open source file '$old_file'<br />";
-      return false;
-    } else {
-  		// Calculate new size
-  		$old_width = imagesx($imgsrc_old);
-  		$old_height = imagesy($imgsrc_old);
-  
-  		$ratio_x = $old_width / $max_width;
-  		$ratio_y = $old_height / $max_height;
 
-      if ($old_width <= $max_width and $old_height <= $max_height) {
-        $new_width = $old_width;
-        $new_height = $old_height;
-      } elseif ($ratio_x > $ratio_y and $ratio_x > 0) {
-  			$new_width = $max_width;
-  			$new_height = $old_height / $ratio_x;
-  		} elseif ($ratio_y > 0) {
-  			$new_width = $old_width / $ratio_y;
-  			$new_height = $max_height;
-  		} else {
-        echo "Source file has 0x0 pixel<br />";
-        return false;
-      }
-  
-  		$this->NewImage($new_width, $new_height);
-  		ImageCopyResized($this->img, $imgsrc_old, 0, 0, 0, 0, $new_width, $new_height, $old_width, $old_height);
-  
-      imagecolortransparent($this->img, imagecolorallocate($this->img, 255, 255, 255));
-  
-  		$this->PutImage($new_file);
-  		ImageDestroy($imgsrc_old);
-    }
-		return true;
+		// Calculate new size
+		$old_width = imagesx($imgsrc_old);
+		$old_height = imagesy($imgsrc_old);
+
+		$ratio_x = $old_width / $max_width;
+		$ratio_y = $old_height / $max_height;
+
+		if ($ratio_x > $ratio_y) {
+			$new_width = $max_width;
+			$new_height = $old_height / $ratio_x;
+		} else {
+			$new_width = $old_width / $ratio_y;
+			$new_height = $max_height;
+		}
+
+		$this->NewImage($new_width, $new_height);
+		ImageCopyResized($this->img, $imgsrc_old, 0, 0, 0, 0, $new_width, $new_height, $old_width, $old_height);
+
+    imagecolortransparent($this->img, imagecolorallocate($this->img, 255, 255, 255));
+
+		$this->PutImage($new_file);
+		ImageDestroy($imgsrc_old);
+
+		return 1;
 	}
 
 

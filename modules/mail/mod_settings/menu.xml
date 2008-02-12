@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 <menu>
 	<pos>5</pos>
 	<entry>
@@ -7,7 +7,7 @@
 		<caption>Mail</caption>
 		<hint>Ihr Posteingangs-Ordner</hint>
 		<link>?mod=mail</link>
-		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+		<requirement>1</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Operator; 4 = No Admins-->
 		<needed_config></needed_config>
 		<level>0</level>
 	</entry>
@@ -16,8 +16,8 @@
 		<file>newmail</file>
 		<caption>Mail Senden</caption>
 		<hint>Hier versenden Sie eine Mail</hint>
-		<link>?mod=mail&amp;action=newmail</link>
-		<requirement>0</requirement>
+		<link>?mod=mail&action=newmail</link>
+		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
@@ -26,7 +26,7 @@
 		<file>outbox</file>
 		<caption>Postausgang</caption>
 		<hint>Ihr Postausgang</hint>
-		<link>?mod=mail&amp;action=outbox</link>
+		<link>?mod=mail&action=outbox</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -36,7 +36,7 @@
 		<file>trashcan</file>
 		<caption>Papierkorb</caption>
 		<hint>Hier finden sie Ihre gel&ouml;schten Mails</hint>
-		<link>?mod=mail&amp;action=trash</link>
+		<link>?mod=mail&action=trash</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -45,8 +45,8 @@
 		<action>newsletter</action>
 		<file>newsletter</file>
 		<caption>Rundmail</caption>
-		<hint>Hier kÃ¶nnen Sie allen Ihren GÃ¤sten eine Mail schreiben</hint>
-		<link>?mod=mail&amp;action=newsletter</link>
+		<hint>Hier können Sie allen Ihren Gästen eine Mail schreiben</hint>
+		<link>?mod=mail&action=newsletter</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

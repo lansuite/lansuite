@@ -1,53 +1,152 @@
 <?php
+/*************************************************************************
+* 
+*	Lansuite - Webbased LAN-Party Management System
+*	-----------------------------------------------
+*	Lansuite Version:	2.0
+*	File Version:		2.0
+*	Filename: 			vote.php
+*	Module: 			Poll
+*	Main editor: 		johannes@one-network.org
+*	Last change: 		15.03.03 12:00 
+*	Description: 		 
+*	Remarks: 		
+*
+**************************************************************************/
 
-switch($_GET['step']) {
+//
+// Define standard vars
+//
+$HANDLE[POLLID]	= $_GET[pollid];
+$HANDLE[STEP]	= $_GET[step];
+$HANDLE[OPTION]	= $_POST[option];
+
+//
+// Error - switch
+//
+switch($HANDLE[STEP]) {
 	case 2:
-		$POLL = $db->qry_first('SELECT multi FROM %prefix%polls WHERE	pollid = %int%', $_GET['pollid']);
-		if ($POLL['multi']) {
-			if ($_POST['option'] == '') {
+		//
+		// Check if property multi is set
+		//
+
+		$POLL = $db->query_first("
+		SELECT	multi
+		FROM	{$config[tables][polls]}
+		WHERE	pollid = $HANDLE[POLLID]
+		");
+
+		if($POLL[multi] == TRUE) {
+			if($HANDLE[OPTION] == "") {
 				$func->information($lang["poll"]["vote_err_nooption"], "");
-				$_GET['step'] = "1";
+				$HANDLE[STEP] = "1";
 			}
 		} else {
-			if($_POST['option'] == "") {
+			if($HANDLE[OPTION] == "") {
 				$func->information($lang["poll"]["vote_err_nooption"], "");
-				$_GET['step'] = "1";
+				$HANDLE[STEP] = "1";	
 			}	
 		}
 	break;	
-}
+}	
 
-switch ($_GET['step']) {
+//
+// Switch 
+//
+switch($HANDLE[STEP]) {
 	default:
-		$POLL = $db->qry_first('SELECT pollid, caption, endtime, multi FROM %prefix%polls WHERE	pollid = %int%', $_GET['pollid']);
-		$VOTE = $db->qry_first('SELECT pollvoteid FROM %prefix%pollvotes WHERE pollid = %int% AND userid = %int%', $_GET['pollid'], $auth['userid']);
+		//
+		// Get poll
+		//
+		$POLL = $db->query_first("
+		SELECT	pollid, caption, endtime, multi
+		FROM	{$config[tables][polls]}
+		WHERE	pollid = $HANDLE[POLLID]
+		");
 
-		if ((isset($POLL['pollid'])) AND ($poll['endtime'] > time() OR ($poll['endtime'] == "0" OR $poll['endtime'] == "")) AND (!$VOTE['pollvoteid'])) {
-			$OPTIONS = $db->qry('SELECT	polloptionid, caption FROM %prefix%polloptions WHERE pollid = %int%', $_GET['pollid']);
+		//
+		// Check if the user has already voted
+		//
+		$VOTE = $db->query_first("
+		SELECT	pollvoteid
+		FROM	{$config[tables][pollvotes]}
+		WHERE	pollid = $HANDLE[POLLID]
+		AND		userid = {$_SESSION[auth][userid]}
+		");
+
+		//
+		// Checks
+		//
+		if(
+		// Check pollid
+		(isset($POLL[pollid])) AND 
+		// Check if the poll is open
+		($poll[endtime] > time() OR ($poll[endtime] == "0" OR $poll[endtime] == "")) AND
+		// Check if the user has already voted
+		($VOTE[pollvoteid] != TRUE)) {
+			//
+			// Get options
+			//
+			$OPTIONS = $db->query("
+			SELECT	polloptionid, caption
+			FROM	{$config[tables][polloptions]}
+			WHERE	pollid = $HANDLE[POLLID]
+			");
 
 			$dsp->NewContent(str_replace("%NAME%", $POLL["caption"], $lang["poll"]["vote_caption"]), $lang["poll"]["vote_subcaption"]);
-			$dsp->SetForm("index.php?mod=poll&action=vote&step=2&pollid=". $_GET['pollid']);
+			$dsp->SetForm("index.php?mod=poll&action=vote&step=2&pollid=". $HANDLE[POLLID]);
 
 			while($OPTIONS = $db->fetch_array()) {
-				if ($POLL['multi']) $dsp->AddCheckBoxRow("option[]", $OPTIONS['caption'], '', '', '', '', '', $OPTIONS['polloptionid']);
-				else $dsp->AddRadioRow("option", $OPTIONS["caption"], $OPTIONS["polloptionid"]);
+				if($POLL[multi] == TRUE) {
+					$dsp->AddCheckBoxRow("option[]", $OPTIONS[caption], "", "", "", "", "", $OPTIONS[polloptionid]);
+				} else {
+					$dsp->AddRadioRow("option", $OPTIONS["caption"], $OPTIONS["polloptionid"]);
+				}
 			}
 
 			$dsp->AddFormSubmitRow("vote");
 			$dsp->AddBackButton("index.php?mod=poll", "poll/vote");
 			$dsp->AddContent();
 
-		} else $func->information($lang["poll"]["vote_err_common"], "index.php?mod=poll&action=show");
+		} else  $func->information($lang["poll"]["vote_err_common"], "index.php?mod=poll&action=show");
 	break;
 
 	case 2:
-		$POLL = $db->qry_first('SELECT multi FROM %prefix%polls WHERE	pollid = %int%', $_GET['pollid']);
-		$VOTE = $db->qry_first('SELECT pollvoteid FROM %prefix%pollvotes WHERE pollid = %int% AND userid = %int%', $_GET['pollid'], $auth['userid']);
-		if (!$VOTE[pollvoteid]) {
-			if ($POLL[multi]) foreach($_POST['option'] as $option) $db->qry('INSERT INTO %prefix%pollvotes SET pollid = %int%, userid = %int%, polloptionid = %int%', $_GET['pollid'], $auth['userid'], $option);
-			else $db->qry('INSERT INTO %prefix%pollvotes SET pollid = %int%, userid = %int%, polloptionid = %int%', $_GET['pollid'], $auth['userid'], $_POST['option']);
-			$func->confirmation($lang["poll"]["vote_success"], 'index.php?mod=poll&action=show&step=2&pollid='. $_GET['pollid']);
+		//
+		// Get poll
+		//
+		$POLL = $db->query_first("
+		SELECT	multi
+		FROM	{$config[tables][polls]}
+		WHERE	pollid = $HANDLE[POLLID]
+		");
+
+		//
+		// Check if the user has already voted
+		//
+		$VOTE = $db->query_first("
+		SELECT	pollvoteid
+		FROM	{$config[tables][pollvotes]}
+		WHERE	pollid = $HANDLE[POLLID]
+		AND		userid = {$_SESSION[auth][userid]}
+		");
+
+		if($VOTE[pollvoteid] != TRUE) {
+			if($POLL[multi] == TRUE) {
+				foreach($HANDLE[OPTION] as $option) {
+					$db->query("
+					INSERT INTO {$config[tables][pollvotes]}
+					SET	pollid = $HANDLE[POLLID], userid = {$_SESSION[auth][userid]}, polloptionid = $option
+					");
+				}
+			} else {
+				$db->query("
+				INSERT INTO {$config[tables][pollvotes]}
+				SET	pollid = $HANDLE[POLLID], userid = {$_SESSION[auth][userid]}, polloptionid = $HANDLE[OPTION]
+				");
+			} // else
+			$func->confirmation($lang["poll"]["vote_success"], "index.php?mod=poll&action=show&step=2&pollid=$HANDLE[POLLID]");	
 		} else $func->information($lang["poll"]["vote_err_allready"], "");
 	break;
-}
+} // switch
 ?>

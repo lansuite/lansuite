@@ -49,10 +49,6 @@ $root_file = "ext_inc/picgallery". $_GET["file"];
 $gallery_id = $_GET["galleryid"];
 if (!$_GET["page"]) $_GET["page"] = 0;
 
-// Insert non existing entries
-$row = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["picgallery"]} WHERE name = '$db_dir'");
-if (!$row['found']) $db->query("INSERT INTO {$config["tables"]["picgallery"]} SET userid = '', name = '$db_dir'");
-
 // Upload posted File
 if  (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["file_upload"]) {
 	$extension = substr($_FILES['file_upload']['name'], strrpos($_FILES['file_upload']['name'], ".") + 1, 4);
@@ -63,8 +59,7 @@ if  (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["fi
 }
 
 // Set Changed Name
-if ($_POST["file_name"] and ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming']))
-  $db->query("UPDATE {$config["tables"]["picgallery"]} SET caption = '{$_POST["file_name"]}' WHERE name = '$db_dir'");
+if ($_POST["file_name"]) $db->query("UPDATE {$config["tables"]["picgallery"]} SET caption = '{$_POST["file_name"]}' WHERE name = '$db_dir'");
 
 // GD-Check
 if (!$gd->available) $func->error($lang['picgallery']['no_gd'], "");
@@ -88,7 +83,7 @@ elseif (!$akt_file) {
 	$dir_size = 0;
 	$last_modified = 0;
 	if (is_dir($root_dir)) $handle = opendir($root_dir);
-	while ($file = readdir ($handle)) if ($file != "." and $file != ".." and $file != "CVS" and substr($file, 0, 1) != '.') {
+	while ($file = readdir ($handle)) if (($file != ".") and ($file != "..") and ($file != "CVS")) {
 		if (is_dir($root_dir . $file)) array_push($dir_list, $file);
 		elseif (substr($file, 0, 8) != "lsthumb_") {
 			$extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
@@ -109,10 +104,6 @@ elseif (!$akt_file) {
 	$num_files = count($file_list);
 	$num_files += count($package_list);
 
-  // Sort by Name
-  sort($dir_list);
-  sort($file_list);
-
 	// Show Directory Navigation
 	$directory_selection = "";
 	if ($_GET["file"] != "" and $_GET["file"] != "/" and $_GET["file"] != ".") {
@@ -120,11 +111,7 @@ elseif (!$akt_file) {
 		$dir_up = substr($dir_up, 0, strrpos($dir_up, '/') + 1);
 		$directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$dir_up\">..</a>] ";
 	}
-	if ($dir_list) foreach($dir_list as $dir) {
-	  $DelDirLink = '';
-    if ($auth['type'] > 2) $DelDirLink = ' <a href="index.php?mod=picgallery&action=delete&step=10&file='.$akt_dir.$dir.'"><img src="design/'.$auth['design'].'/images/arrows_delete.gif" border="0" /></a>';
-    $directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$akt_dir$dir/\">$dir$DelDirLink</a>] ";
-  }
+	if ($dir_list) foreach($dir_list as $dir) $directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$akt_dir$dir/\">$dir</a>] ";
 	if ($directory_selection) $dsp->AddDoubleRow($lang['picgallery']['show_dir'], $directory_selection);
 
 	// Show Page-Selection
@@ -174,20 +161,16 @@ elseif (!$akt_file) {
 					if (strlen($file) > 22) $templ['ls']['row']['gallery']['file_name'] = substr(strtolower($file), 0, 16) ."..". substr(strtolower($file), strrpos($file, "."), 5);
 					else $templ['ls']['row']['gallery']['file_name'] = strtolower($file);
 
-					$pic = $db->query_first("SELECT p.picid, p.caption, p.clicks, COUNT(*) AS comments FROM {$config["tables"]["picgallery"]} AS p
-					  LEFT JOIN {$config["tables"]["comments"]} AS c ON p.picid = c.relatedto_id
-            WHERE p.name = '$db_dir$file' AND c.relatedto_item = 'Picgallery'
-					  GROUP BY p.picid
-            ");
+					$pic = $db->query_first("SELECT picid, caption, clicks FROM {$config["tables"]["picgallery"]} WHERE name = '$db_dir$file'");
 					($pic['caption']) ? $templ['ls']['row']['gallery']['caption'] = $pic['caption']
 					: $templ['ls']['row']['gallery']['caption'] = "<i>Unbenannt</i>";
-					$templ['ls']['row']['gallery']['clicks'] = $dsp->HelpText($pic['clicks'], 'Angesehen') .'/'. $dsp->HelpText($pic['comments'], 'Kommentare');
+					$templ['ls']['row']['gallery']['clicks'] = $pic['clicks'];
 
 					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
 
-					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", "next", $lang['picgallery']['show_show_pic']);
+					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchButton("index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", "open", $lang['picgallery']['show_show_pic']);
 					if ($auth["type"] > 1) {
-						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
+						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchButton("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
 					}
 
 					$templ['ls']['row']['gallery']['spalte'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_spalte");
@@ -243,9 +226,9 @@ elseif (!$akt_file) {
 					
 					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
 
-					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", "download", $lang['picgallery']['show_download_pic']);
+					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchButton("base.php?mod=pic_download&picurl=$akt_dir$package", "download", $lang['picgallery']['show_download_pic']);
 					if ($auth["type"] > 1) {
-						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
+						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchButton("index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
 					}
 
 					$templ['ls']['row']['gallery']['spalte'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_spalte");
@@ -321,9 +304,9 @@ elseif (!$akt_file) {
 				$dsp->AddDoubleRow("", "<a href=\"$js_full_link\"><img border=\"1\" src=\"$root_file\" width=\"$pic_width\" class=\"img\"></a>");
 
 			// Define Buttons
-			if(!IsPackage($extension)) $dl_button = $dsp->FetchIcon($js_full_link, "fullscreen", $lang['picgallery']['show_fullscreen']);
-			$full_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "download", $lang['picgallery']['show_download_pic']);
-			($auth[type] > "1") ? $del_button = $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", $lang['picgallery']['show_del_pic']) : $del_button = "";
+			if(!IsPackage($extension)) $dl_button = $dsp->FetchButton($js_full_link, "fullscreen", $lang['picgallery']['show_fullscreen']);
+			$full_button = $dsp->FetchButton("base.php?mod=pic_download&picurl={$_GET["file"]}", "download", $lang['picgallery']['show_download_pic']);
+			($auth[type] > "1") ? $del_button = $dsp->FetchButton("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", $lang['picgallery']['show_del_pic']) : $del_button = "";
 
 			// Scan Directory
 			$file_list = array();
@@ -337,18 +320,17 @@ elseif (!$akt_file) {
 			$num_files = count($file_list);
 			$akt_file = array_keys($file_list, $akt_file);
 
-			if ($file_list[$akt_file[0] - 1]) $prev_button = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] - 1], "back", $lang['picgallery']['show_pic_back']);
+			if ($file_list[$akt_file[0] - 1]) $prev_button = $dsp->FetchButton("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] - 1], "back", $lang['picgallery']['show_pic_back']);
 			else $prev_button = "";
-			if ($file_list[$akt_file[0] + 1]) $next_button = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] + 1], "next", $lang['picgallery']['show_pic_next']);
+			if ($file_list[$akt_file[0] + 1]) $next_button = $dsp->FetchButton("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] + 1], "next", $lang['picgallery']['show_pic_next']);
 			else $next_button = "";
 			$dsp->AddDoubleRow("", "$prev_button $next_button $full_button $dl_button $del_button");
 
 			// Change Pic-Name
-			if ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming']) {
-  			$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}");
-  			$dsp->AddTextFieldRow("file_name", $lang['picgallery']['pic_name'], $pic['caption'], "");
-  			$dsp->AddFormSubmitRow("edit");
-      }
+			$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}");
+			$dsp->AddTextFieldRow("file_name", $lang['picgallery']['pic_name'], $pic['caption'], "");
+			$dsp->AddFormSubmitRow("edit");
+
 
 			// Show Picname
 			$dsp->AddDoubleRow($lang['picgallery']['show_file_name'], $db_dir);
@@ -377,13 +359,13 @@ elseif (!$akt_file) {
 
 			$dsp->AddBackButton("index.php?mod=picgallery&file=$akt_dir&page={$_GET["page"]}", "picgallery");
 			$dsp->AddContent();
-
 		}
 
 		// Mastercomment
 		if ($_GET['picid']) $pic['picid'] = $_GET['picid'];
-  	include('inc/classes/class_mastercomment.php');
-  	new Mastercomment('Picgallery', $pic['picid']);
+		include("modules/mastercomment/class_mastercomment.php");
+		$comment = new Mastercomment($vars, "index.php?mod=picgallery&file={$_GET["file"]}&page={$_GET["page"]}&picid=" . $pic['picid'], "Picgallery", $pic['picid'], $pic['caption']);				
+		$comment->action();
 	}
 }
 ?>

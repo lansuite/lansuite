@@ -59,7 +59,7 @@ class pdf_tmpl{
 	
 	// Daten auslesen
 	function display_data(){
-		global $config,$db,$dsp,$lang,$templ,$gd;
+		global $config,$db,$dsp,$lang,$templ;
 				  
 		// Name ausgeben
 		$template = $db->query_first("SELECT * FROM " . $config['tables']['pdf_list'] . " WHERE template_id='" . $this->tmpl_id . "'");
@@ -118,8 +118,6 @@ class pdf_tmpl{
 				$templ['pdf']['description'] .= $lang['pdf']['pos_y'] . " : " . $data_array['pos_y']. " , "; ;
 				$templ['pdf']['description'] .= $lang['pdf']['visible'] . " : " . $data_array['visible'] . " , ";
 			}
-      $gd->CreateButton('edit');
-      $gd->CreateButton('delete');
 			$out .= $dsp->FetchModTpl("pdf","edit_liste");
 		}
 		$dsp->AddSingleRow($out);

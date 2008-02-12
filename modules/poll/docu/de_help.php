@@ -2,7 +2,7 @@
 
 $helplet['modul'] = 'Poll';
 $helplet['action'] = 'Hilfe';
-$helplet['info'] = 'Hier kÃ¶nnen von den organisatoren Abstimmungen angelegt werden, zu denen die Besucher dann ihre Meinung Ã¤uÃŸern kÃ¶nnen';
+$helplet['info'] = 'Hier können von den organisatoren Abstimmungen angelegt werden, zu denen die Besucher dann ihre Meinung äußern können';
 
 $helplet['key'][1] = '';
 $helplet['value'][1] = '';

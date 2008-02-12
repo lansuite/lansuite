@@ -2,8 +2,6 @@
 include_once("modules/pdf/class_templ_pdf.php");
 include_once("modules/pdf/class_pdf.php");
 
-if(isset($_GET['userid'])) $_POST['user'] = $_GET['userid'];
-
 //Template ID Laden
 if(isset($_POST['id'])) $templ_id = $_POST['id'];
 if(isset($_GET['id'])) $templ_id = $_GET['id'];
@@ -13,6 +11,8 @@ $pdf_tmpl = new pdf_tmpl($_GET['action'],$templ_id);
 $pdf_export = new pdf($templ_id);
 
 switch ($_GET['act']){
+	
+
 	default:
 		// Eintrag löschen
 		if(isset($_GET['delete'])){
@@ -41,6 +41,7 @@ switch ($_GET['act']){
 		
 		// Einträge anzeigen			    
 		$pdf_tmpl->display_data();
+		
 	break;
 	
 	// Neues Feld anlegen
@@ -71,4 +72,10 @@ switch ($_GET['act']){
 		$pdf_export->pdf_make($_GET['action']);
 	break;
 }
+
+
+
+
+
+
 ?>

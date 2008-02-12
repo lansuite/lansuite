@@ -1,19 +1,12 @@
-<form name="form_loginbox" method="post" action="{$templ['login']['action']}">
-  <table cellspacing="0" cellpadding="0" width="100%" class="login">
-  <tr><td>
-	  <label for="email" class="copyright">E-Mail</label>
-	  <br /><input name="email" type="text" class="form" id="email" size="18" tabindex="1" />
-	</td><td valign="bottom" align="right">
-	  {$templ['login']['buttons_add']}
+<form name="form_loginbox" method="post" action="index.php">
+	<img src="design/{default_design}/images/login_topic_email.gif" width="85" height="7" alt="email"/>
+	<input name="email" type="text" class="form" id="email" size="18" />
 
-	</td></tr><tr><td>
-	  <label for="password" class="copyright">Passwort</label>
-	  <br /><input type="password" name="password" id="password" class="form" size="18" tabindex="2" />
-	</td><td valign="bottom" align="right">
-	  {$templ['login']['buttons_pw']}
+	<img src="design/{default_design}/images/login_topic_password.gif" width="85" height="7" alt="passwort"/>
+	<input type="password" name="password" class="form" size="18" />
 
-  </td></tr><tr><td colspan="2">
-    {$templ['login']['buttons_login']}
-  </td></tr></table>
+	<div>
+		<input type="image" name="login" src="ext_inc/auto_images/{default_design}/{language}/button_login.png" />
+		<input type="image" name="save" src="ext_inc/auto_images/{default_design}/{language}/button_save.png" />
+	</div>
 </form>
- 

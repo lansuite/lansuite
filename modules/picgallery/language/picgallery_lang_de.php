@@ -15,7 +15,7 @@ $lang['picgallery']['owner']					= 'Ersteller';
 $lang['picgallery']['clicks']					= 'Aufrufe';
 
 $lang['picgallery']['pic_show_caption']			= 'Bildergalerie';
-$lang['picgallery']['pic_show_subcaption']		= 'Klicken Sie auf ein Bild oder auf \'Ã¶ffnen\' um das Bild anzuzeigen.';
+$lang['picgallery']['pic_show_subcaption']		= 'Klicken Sie auf ein Bild oder auf \'öffnen\' um das Bild anzuzeigen.';
 $lang['picgallery']['del_gallery']			    = 'Die Galerie wurde gel&ouml;scht.';
 $lang['picgallery']['del_gallery_get']			= 'Galerie zum L&ouml;schen ausw&auml;hlen:';
 $lang['picgallery']['gallery_search']			= 'Galeriesuche';
@@ -40,7 +40,7 @@ $lang['picgallery']['show_show_pic']			= 'Bild anzeigen';
 $lang['picgallery']['show_del_pic']				= 'Bild l&ouml;schen';
 $lang['picgallery']['show_stats']				= 'Statistiken';
 $lang['picgallery']['show_files']				= 'Dateien';
-$lang['picgallery']['show_last_change']			= 'Letzte Ã„nderung';
+$lang['picgallery']['show_last_change']			= 'Letzte Änderung';
 $lang['picgallery']['show_upload_file']			= 'Datei hochladen';
 $lang['picgallery']['show_fullscreen']			= 'Vollbild';
 $lang['picgallery']['show_download_pic']		= 'Bild herrunterladen';

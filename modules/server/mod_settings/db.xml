@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 
 <lansuite>
 	<header>
@@ -46,14 +46,6 @@
 			</field>
 			<field>
 				<name>ip</name>
-				<type>varchar(50)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>mac</name>
 				<type>varchar(50)</type>
 				<null></null>
 				<key></key>
@@ -110,7 +102,7 @@
 			</field>
 			<field>
 				<name>pw</name>
-				<type>tinyint(1)</type>
+				<type>int(1)</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
@@ -159,7 +151,7 @@
 			<field>
 				<name>special_info</name>
 				<type>text</type>
-				<null>YES</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>

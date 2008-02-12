@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 
 <lansuite>
 	<header>
@@ -24,7 +24,7 @@
 				<name>userID</name>
 				<type>int(6)</type>
 				<null></null>
-				<key>IND</key>
+				<key>MUL</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -160,14 +160,6 @@
 				<key></key>
 				<default>0</default>
 				<extra></extra>
-			</field>
-			<field>
-				<name>supp_infos</name>
-				<type>varchar(80)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
 			</field>		
 			<field>
 				<name>p_type</name>
@@ -216,14 +208,6 @@
 				<key>PRI</key>
 				<default></default>
 				<extra>auto_increment</extra>
-			</field>
-			<field>
-				<name>barcode</name>
-				<type>varchar(40)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
 			</field>
 			<field>
 				<name>parentid</name>
@@ -303,15 +287,7 @@
 				<key></key>
 				<default>0</default>
 				<extra></extra>
-			</field>	
-			<field>
-				<name>partyid</name>
-				<type>int(6)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>					
+			</field>			
 			<field>
 				<name>productid</name>
 				<type>int(6)</type>
@@ -370,59 +346,4 @@
 			</field>	
 		</structure>
 	</table>
-	
-	<table>
-		<table_head>
-			<name>food_status</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>id</name>
-				<type>int(2)</type>
-				<null></null>
-				<key>PRI</key>
-				<default></default>
-				<extra>auto_increment</extra>
-			</field>
-			<field>
-				<name>statusname</name>
-				<type>varchar(30)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>			
-		</structure>
-			<content>
-			<entry>
-				<id>7</id>
-				<statusname>Geliefert</statusname>
-			</entry>			
-			<entry>
-				<id>6</id>
-				<statusname>Abgeholt</statusname>
-			</entry>				
-			<entry>
-				<id>5</id>
-				<statusname>Abholbereit</statusname>
-			</entry>				
-			<entry>
-				<id>4</id>
-				<statusname>Fertiggestellt</statusname>
-			</entry>				
-			<entry>
-				<id>3</id>
-				<statusname>Lieferung erwartet</statusname>
-			</entry>			
-			<entry>
-				<id>2</id>
-				<statusname>Bestellen</statusname>
-			</entry>
-			<entry>
-				<id>1</id>
-				<statusname>Bestellt</statusname>
-			</entry>
-	</content>
-	</table>
-
 </lansuite>

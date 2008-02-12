@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 <menu>
 	<pos>4</pos>
 	<entry>
@@ -6,7 +6,7 @@
 		<file>guestlist</file>
 		<caption>G&auml;steliste</caption>
 		<hint></hint>
-		<link>?mod=guestlist&amp;action=guestlist</link>
+		<link>?mod=guestlist&action=guestlist</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>
 		<level>0</level>
@@ -16,15 +16,15 @@
 		<file>usermap</file>
 		<caption>Besucherkarte</caption>
 		<hint>Hier sehen Sie aus welchen Gegenden die Besucher kommen</hint>
-		<link>?mod=guestlist&amp;action=usermap</link>
+		<link>?mod=guestlist&action=usermap</link>
 		<requirement>0</requirement>
-		<needed_config>ShowGuestMap</needed_config>
+		<needed_config>guestlist_guestmap</needed_config>
 		<level>1</level>
 	</entry>
 	<entry>
-		<caption>Kontocheck updaten</caption>
+		<caption>Zahlstatus ändern</caption>
 		<hint></hint>
-		<link>?mod=guestlist&amp;action=checking</link>
+		<link>?mod=usrmgr&action=changepaid</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

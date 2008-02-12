@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 
 <lansuite>
 	<header>
@@ -27,23 +27,7 @@
 				<key></key>
 				<default>0</default>
 				<extra></extra>
-			</field>
-                        <field>
-                                <name>group_id</name>
-                                <type>int(20)</type>
-                                <null></null>
-                                <key></key>
-                                <default>0</default>
-                                <extra></extra>
-                        </field>
-			<field>
-				<name>price_id</name>
-				<type>int(20)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
+			</field>			
 			<field>
 				<name>rows</name>
 				<type>int(3)</type>

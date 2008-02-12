@@ -2,12 +2,23 @@
 
 switch($_GET['step']) {
 	default:
-    include_once('modules/seating/search.inc.php');
+		$mastersearch = new MasterSearch($vars, 'index.php?mod=seating&action=show', 'index.php?mod=seating&action=show&step=2&blockid=', '');
+		$mastersearch->LoadConfig('seat_blocks', $lang['seat']['ms_search'], $lang['seat']['ms_result']);
+		$mastersearch->PrintForm();
+		$mastersearch->Search();
+		$mastersearch->PrintResult();
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
 	break;
 
 	// Show seatplan
 	case 2:
 		$dsp->NewContent($lang['seating']['seat_info'], $lang['seating']['seat_info_sub']);
+/*
+		$dsp->AddDoubleRow($lang['seating']['seating'] . HTML_SPACE, '', 'seating');
+		$dsp->AddDoubleRow($lang['seating']['user'] . HTML_SPACE,    '', 'name');
+		$dsp->AddDoubleRow($lang['seating']['clan'] . HTML_SPACE,    '', 'clan');
+		$dsp->AddDoubleRow($lang['seating']['ip'] . HTML_SPACE,      '', 'ip');
+*/		
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0));
 
 		$dsp->AddBackButton('index.php?mod=seating', 'seating/show');
@@ -60,11 +71,6 @@ switch($_GET['step']) {
 						array_push($questionarray, $lang['seating']['mark_seat']);
 						array_push($linkarray, "index.php?mod=seating&action=show&step=12&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
 					}
-					// Delete mark, if Admin
-					if ($auth['type'] > 1) {
-						array_push($questionarray, t('Möchten Sie als Admin diese Vormerkung entfernen?'));
-						array_push($linkarray, "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
-					}
 				// Mark seat for myselfe (if not paid)
 				} else {
 					array_push($questionarray, $lang['seating']['mark_my_seat']);
@@ -80,9 +86,7 @@ switch($_GET['step']) {
 
 	// Reserve seat for me
 	case 11:
-		$user_data = $db->query_first("SELECT paid, price_id FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
-
-		$block_data = $db->query_first("SELECT group_id, price_id FROM {$config['tables']['seat_block']} WHERE blockid = {$_GET['blockid']}");
+		$user_data = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
 
 		$seat_user = $db->query_first("SELECT status FROM {$config["tables"]["seat_seats"]}
             WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}'");
@@ -90,12 +94,6 @@ switch($_GET['step']) {
 		// Check paid
 		if (!$user_data['paid'] and $cfg['seating_paid_only']) $func->information($lang['seating']['i_not_paid2'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
-		// Check Group ID
-		elseif ($block_data['group_id'] and $auth['group_id'] != $block_data['group_id']) $func->information(t('Sie gehören nicht der richtigen Gruppe an, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-
-		// Check Price ID
-                elseif ($block_data['price_id'] and $user_data['price_id'] != $block_data['price_id']) $func->information(t('Sie sind nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-		
 		// Check seat availability
     elseif ($seat_user['status'] == 2)  $func->error($lang['seating']['e_assigned'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
@@ -120,13 +118,8 @@ switch($_GET['step']) {
 		$seat_user = $db->query_first("SELECT userid FROM {$config["tables"]["seat_seats"]}
 			WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}'");
 
-    $user_party = $db->query_first("SELECT user_id FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
-
-		// Check Signed on
-		if (!$user_party['user_id']) $func->information($lang['seating']['i_signon_only'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-
 		// Check paid
-		elseif (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) $func->information($lang['seating']['i_not_paid2'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+		if (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) $func->information($lang['seating']['i_not_paid2'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check seat availability
 		elseif ($seat_user['userid']) $func->error($lang['seating']['e_assigned'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
@@ -172,24 +165,6 @@ switch($_GET['step']) {
 
 	// Change reserved to mark
 	case 22:
-	break;
-
-
-	// Free seat as admin (question)
-	case 30:
-    if ($auth['type'] > 1) {
-      $func->question($lang['seating']['q_rel_seat'], "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}", "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-    }
-	break;
-	
-	// Free seat as admin
-	case 31:
-    if ($auth['type'] > 1) {
-			$db->query("UPDATE {$config["tables"]["seat_seats"]} SET userid = 0, status = 1
-			WHERE blockid = {$_GET['blockid']} AND row = {$_GET['row']} AND col = {$_GET['col']}");
-
-		$func->confirmation($lang['seating']['i_rel_seat'], "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
-    }
 	break;
 }
 ?>

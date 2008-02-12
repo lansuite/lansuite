@@ -4,8 +4,6 @@
 // Definiere HTML Tags
 /* XHTML Tags*/
 
-define('VALID_LS', TRUE );
-
 define('HTML_NEWLINE', '<br/>');
 define('HTML_SPACE', '&nbsp;');
 define('HTML_FONT_ERROR', '<font class="error">');

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 
 <lansuite>
 	<header>
@@ -46,38 +46,6 @@
 			</field>
 			<field>
 				<name>views</name>
-				<type>int(11)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>hits_banner</name>
-				<type>int(11)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>views_banner</name>
-				<type>int(11)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>hits_box</name>
-				<type>int(11)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>views_box</name>
 				<type>int(11)</type>
 				<null></null>
 				<key></key>
@@ -156,37 +124,6 @@
 				<default>0</default>
 				<extra></extra>
 			</field>
-			<field>
-				<name>tournamentid</name>
-				<type>tinyint(3) unsigned</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
 		</structure>
-		<content>
-			<entry>
-				<sponsorid>1</sponsorid>
-				<name>LanSuite</name>
-				<url>http://lansuite.de</url>
-				<hits>0</hits>
-				<views>0</views>
-				<views_box>0</views_box>
-				<hits_box>0</hits_box>
-				<views_banner>0</views_banner>
-				<hits_banner>0</hits_banner>
-				<text>LanSuite stellt uns dieses LanParty-Verwaltungs System zur Verfügung, durch das du dich gerade bewegst</text>
-				<date></date>
-				<pic_path>ext_inc/banner/one_network_banner.jpg</pic_path>
-				<pic_path_banner>ext_inc/banner/one_network_banner.jpg</pic_path_banner>
-				<pic_path_button></pic_path_button>
-				<active>0</active>
-				<rotation>1</rotation>
-				<sponsor>1</sponsor>
-				<pos>0</pos>
-				<tournamentid>0</tournamentid>
-			</entry>
-		</content>
 	</table>
 </lansuite>

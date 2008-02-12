@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 <lansuite-module>
 	<name>guestlist</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
-	<caption>GÃ¤steliste</caption>		<!-- The modulname displayed to the user -->
-	<description>Dies ist eine Liste aller angemeldeter GÃ¤ste</description>		<!-- A short description of the module -->
+	<caption>Gästeliste</caption>		<!-- The modulname displayed to the user -->
+	<description>Dies ist eine Liste aller angemeldeter Gäste</description>		<!-- A short description of the module -->
 	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
 	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>Unbekannt, Jochen (KnoX)</author>				<!-- The author of this module -->

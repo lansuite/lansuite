@@ -1,10 +1,33 @@
 <?php
+/*************************************************************************
+* 
+*	Lansuite - Webbased LAN-Party Management System
+*	-------------------------------------------------------------------
+*	Lansuite Version:	2.0
+*	File Version:		2.0
+*	Filename: 		newpwd.php
+*	Module: 		usermanager
+*	Main editor: 		Michael@one-network.org (previous version), raphael@one-network.org (class design)
+*	Last change: 		07.02.2003 16:34
+*	Description: 		Generate new password. Only accessible by admins.
+*	Remarks: 		
+*
+**************************************************************************/
 
 $user_data = $db->query_first("SELECT name, firstname, username, type FROM {$config["tables"]["user"]} WHERE userid = '{$_GET['userid']}'");
 
 switch($_GET['step']) {	
 	default:
     include_once('modules/usrmgr/search.inc.php');
+/*
+		$mastersearch = new MasterSearch($vars, "index.php?mod=usrmgr&action=newpwd", "index.php?mod=usrmgr&action=newpwd&step=2&userid=", " AND (u.type > 0)");
+		$mastersearch->LoadConfig("users", $lang['usrmgr']['ms_search'], $lang['usrmgr']['ms_result']);
+		$mastersearch->PrintForm();
+		$mastersearch->Search();
+		$mastersearch->PrintResult();
+
+		$templ['index']['info']['content'] .= $mastersearch->GetReturn();
+*/		
 	break;
 
 	case 2:

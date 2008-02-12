@@ -2,7 +2,7 @@ Order deny,allow
 Deny from all
 
 # Entschützt eine einzelne Datei
-<Files icon.gif>
+<Files admin_icon.gif>
    Allow from all 
 </Files>
 

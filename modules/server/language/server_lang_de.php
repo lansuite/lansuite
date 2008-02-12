@@ -8,7 +8,7 @@ $lang['server']['translator'] = 'Jochen';
 
 $lang['server']['no_server_error']	= 'Der von Ihnen aufgerufene Server existiert nicht';
 $lang['server']['details_caption']	= 'Serverdetails';
-$lang['server']['details_subcaption']	= 'Auf dieser Seite sehen Sie alle Details zum Server \'%CAPTION%\'. Durch eine Klick auf den Zur&uuml;ck-Button gelangen Sie zur Ãœbersicht zur&uuml;ck';
+$lang['server']['details_subcaption']	= 'Auf dieser Seite sehen Sie alle Details zum Server \'%CAPTION%\'. Durch eine Klick auf den Zur&uuml;ck-Button gelangen Sie zur Übersicht zur&uuml;ck';
 $lang['server']['details_name']	= 'Name';
 $lang['server']['details_owner']	= 'Besitzer';
 $lang['server']['details_gameserver']	= 'Gameserver';

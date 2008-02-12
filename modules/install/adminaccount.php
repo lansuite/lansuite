@@ -11,9 +11,9 @@ $db->free_result($find);
 
 switch($_GET["step"]) {
 	case 2:
-		if ($_POST["email"] == "") $func->error($lang["install"]["admin_err_noemail"], "index.php?mod=install&action=adminaccount");
-		elseif ($_POST["password"] == "") $func->error($lang["install"]["admin_err_nopw"], "index.php?mod=install&action=adminaccount");
-		elseif ($_POST["password"] != $_POST["password2"]) $func->error($lang["install"]["admin_err_pwnotequal"], "index.php?mod=install&action=adminaccount");
+		if ($_POST["email"] == "") $func->error($lang["install"]["admin_err_noemail"], "install.php?mod=install&action=adminaccount");
+		elseif ($_POST["password"] == "") $func->error($lang["install"]["admin_err_nopw"], "install.php?mod=install&action=adminaccount");
+		elseif ($_POST["password"] != $_POST["password2"]) $func->error($lang["install"]["admin_err_pwnotequal"], "install.php?mod=install&action=adminaccount");
 		else {
 			$db->query("INSERT INTO {$config["tables"]["user"]} SET
 					username = 'ADMIN',
@@ -26,18 +26,18 @@ switch($_GET["step"]) {
 			$party->add_user_to_party($userid, 1, "1", "1");
 			$db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid = '$userid'");
 
-			$func->confirmation($lang["install"]["admin_success"], "index.php?mod=install&action=adminaccount");
+			$func->confirmation($lang["install"]["admin_success"], "install.php?mod=install&action=adminaccount");
 		}
 	break;
 	
 	default:
-		$dsp->SetForm("index.php?mod=install&action=adminaccount&step=2");
+		$dsp->SetForm("install.php?mod=install&action=adminaccount&step=2");
 		$dsp->AddTextFieldRow("email", $lang["install"]["admin_email"], $user, "");
 		$dsp->AddPasswordRow("password", $lang["install"]["conf_pass"], $pass, "");
 		$dsp->AddPasswordRow("password2", $lang["install"]["admin_pass2"], $pass, "");
 		$dsp->AddFormSubmitRow("next");
 
-		$dsp->AddBackButton("index.php?mod=install", "install/admin");
+		$dsp->AddBackButton("install.php?mod=install", "install/admin"); 
 		$dsp->AddContent();
 	break;
 }

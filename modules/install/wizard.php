@@ -8,7 +8,7 @@ switch ($_GET["step"]){
 	default:
 		$dsp->NewContent($lang["install"]["wizard_caption"], $lang["install"]["wizard_subcaption"]);
 
-		$dsp->SetForm("index.php?mod=install&action=wizard&step=1");
+		$dsp->SetForm("install.php?mod=install&action=wizard&step=1");
 		$lang_array = array();
 		if ($language == "de") $selected = 'selected'; else $selected = '';
 		array_push ($lang_array, "<option $selected value=\"de\">Deutsch</option>");
@@ -19,7 +19,7 @@ switch ($_GET["step"]){
 
 		$continue = $install->envcheck();
 
-		if ($continue) $dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=2", "next"));
+		if ($continue) $dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=2", "next"));
 		$dsp->AddContent();
 	break;
 
@@ -27,7 +27,7 @@ switch ($_GET["step"]){
 	// Setting up ls_conf
 	case 2:
 		$dsp->NewContent($lang["install"]["conf_caption"], $lang["install"]["conf_subcaption"]);
-		$dsp->SetForm("index.php?mod=install&action=wizard&step=3");
+		$dsp->SetForm("install.php?mod=install&action=wizard&step=3");
 
 		// Set default settings from Config-File
 		if ($_POST["host"] == "") $_POST["host"] = $config['database']['server'];
@@ -70,7 +70,7 @@ switch ($_GET["step"]){
 		$dsp->AddSingleRow($lang["install"]["wizard_loadwarning"]);
 
 		$dsp->AddFormSubmitRow("next");
-		$dsp->AddBackButton("index.php?mod=install&action=wizard&step=1", "install/ls_conf");
+		$dsp->AddBackButton("install.php?mod=install&action=wizard&step=1", "install/ls_conf"); 
 		$dsp->AddContent();
 	break;
 
@@ -111,9 +111,9 @@ switch ($_GET["step"]){
 				$db->connect();
 
 				// Check for Updates
-#				if($res == 1){
-#					$install->check_updates();
-#				}
+				if($res == 1){
+					$install->check_updates();
+				}
 				// Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
 				$install->CreateNewTables(0);
 				// Read table-names from DB an save them in $config['tables']
@@ -126,15 +126,15 @@ switch ($_GET["step"]){
 				// Insert menus from mod_settings/menu.xml in DB, if not exist
 				$install->InsertMenus(0);
 				// Insert translations of DB-items
-#				$install->InsertTranslations();
+				$install->InsertTranslations();
 			}
 		}
 
 		$dsp->NewContent($lang["install"]["wizzard_db_caption"], $lang["install"]["wizzard_db_subcaption"]);
 		$dsp->AddSingleRow($output);
 
-		if ($continue) $dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=4", "next"));
-		$dsp->AddBackButton("index.php?mod=install&action=wizard&step=2", "install/db");
+		if ($continue) $dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=4", "next"));
+		$dsp->AddBackButton("install.php?mod=install&action=wizard&step=2", "install/db"); 
 		$dsp->AddContent();
 	break;
 
@@ -143,7 +143,7 @@ switch ($_GET["step"]){
 	case 4:
 		$dsp->NewContent($lang["install"]["wizard_import_caption"], $lang["install"]["wizard_import_subcaption"]);
 
-		$dsp->SetForm("index.php?mod=install&action=wizard&step=5", "", "", "multipart/form-data");
+		$dsp->SetForm("install.php?mod=install&action=wizard&step=5", "", "", "multipart/form-data");
 
 		$dsp->AddSingleRow("<b>{$lang["install"]["import_file"]}</b>");
 		$dsp->AddFileSelectRow("importdata", $lang["install"]["import_import"], "");
@@ -161,10 +161,10 @@ switch ($_GET["step"]){
 		$dsp->AddCheckBoxRow("noseat", $lang["install"]["import_noseat"], "", "", 1, "");
 
 		$dsp->AddSingleRow($lang["install"]["import_warning"]);
-		$dsp->AddFormSubmitRow("add");
+		$dsp->AddFormSubmitRow("next");
 
-		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=6", "next"));
-		$dsp->AddBackButton("index.php?mod=install&action=wizard&step=3", "install/import");
+		$dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=6", "skip"));
+		$dsp->AddBackButton("install.php?mod=install&action=wizard&step=3", "install/import"); 
 		$dsp->AddContent();
 	break;
 
@@ -195,12 +195,12 @@ switch ($_GET["step"]){
 					break;
 
 					default:
-						$func->Information(str_replace("%FILETYPE%", $header["filetype"], $lang["install"]["import_err_filetype"]), "index.php?mod=install&action=wizard&step=4");
+						$func->Information(str_replace("%FILETYPE%", $header["filetype"], $lang["install"]["import_err_filetype"]), "install.php?mod=install&action=wizard&step=4");
 					break;
 				}
 
-				$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=6", "next"));
-				$dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/import");
+				$dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=6", "next"));
+				$dsp->AddBackButton("install.php?mod=install&action=wizard&step=4", "install/import"); 
 				$dsp->AddContent();
 			break;
 
@@ -210,13 +210,13 @@ switch ($_GET["step"]){
 				$dsp->NewContent($lang["install"]["wizard_importupload_caption"], $lang["install"]["wizard_importupload_subcaption"]);
 				$dsp->AddSingleRow(str_replace("%ERROR%", $check["error"], str_replace("%NOTHING%", $check["nothing"], str_replace("%INSERT%", $check["insert"], str_replace("%REPLACE%", $check["replace"], $lang["install"]["import_csv_report"])))));
 
-				$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=6", "next"));
-				$dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/import");
+				$dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=6", "next"));
+				$dsp->AddBackButton("install.php?mod=install&action=wizard&step=4", "install/import"); 
 				$dsp->AddContent();
 			break;
 
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=wizard&step=4");
+				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "install.php?mod=install&action=wizard&step=4");
 			break;
 		}
 	break;
@@ -225,25 +225,23 @@ switch ($_GET["step"]){
 	// Display form to create Adminaccount
 	case 6:
 		$dsp->NewContent($lang["install"]["wizard_admin_caption"], $lang["install"]["wizard_admin_subcaption"]);
-		$dsp->SetForm("index.php?mod=install&action=wizard&step=7");
-		$dsp->AddTextFieldRow("email", $lang["install"]["admin_email"], 'admin@admin.de', '');
-		$dsp->AddPasswordRow("password", $lang["install"]["conf_pass"], '', '', '', '', "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel1)\"");
-		$dsp->AddPasswordRow("password2", $lang["install"]["admin_pass2"], '', '');
-    $templ['pw_security']['id'] = 1;
-    $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
-		$dsp->AddFormSubmitRow("add");
+		$dsp->SetForm("install.php?mod=install&action=wizard&step=7");
+		$dsp->AddTextFieldRow("email", $lang["install"]["admin_email"], $user, "");
+		$dsp->AddPasswordRow("password", $lang["install"]["conf_pass"], $pass, "");
+		$dsp->AddPasswordRow("password2", $lang["install"]["admin_pass2"], $pass, "");
+		$dsp->AddFormSubmitRow("next");
 
-		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=8", "next"));
-		$dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/admin");
+		$dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install&action=wizard&step=8", "skip"));
+		$dsp->AddBackButton("install.php?mod=install&action=wizard&step=4", "install/admin"); 
 		$dsp->AddContent();
 	break;
 
 
 	// Create Adminaccount
 	case 7:
-		if ($_POST["email"] == "") $func->error($lang["install"]["admin_err_noemail"], "index.php?mod=install&action=wizard&step=6");
-		elseif ($_POST["password"] == "") $func->error($lang["install"]["admin_err_nopw"], "index.php?mod=install&action=wizard&step=6");
-		elseif ($_POST["password"] != $_POST["password2"]) $func->error($lang["install"]["admin_err_pwnotequal"], "index.php?mod=install&action=wizard&step=6");
+		if ($_POST["email"] == "") $func->error($lang["install"]["admin_err_noemail"], "install.php?mod=install&action=wizard&step=6");
+		elseif ($_POST["password"] == "") $func->error($lang["install"]["admin_err_nopw"], "install.php?mod=install&action=wizard&step=6");
+		elseif ($_POST["password"] != $_POST["password2"]) $func->error($lang["install"]["admin_err_pwnotequal"], "install.php?mod=install&action=wizard&step=6");
 		else {
 			// Check for existing Admin-Account.
 			$row = $db->query_first("SELECT email FROM {$config["tables"]["user"]} WHERE email='{$_POST["email"]}'");
@@ -259,21 +257,12 @@ switch ($_GET["step"]){
 			else {
 				$db->query("INSERT INTO {$config["tables"]["user"]} SET
 						username = 'ADMIN',
-						firstname = 'ADMIN',
-						name = 'ADMIN',
 						email='{$_POST["email"]}',
 						password = '". md5($_POST["password"]) ."',
 						type = '3'
 						");
 				$userid = $db->insert_id();
 				$db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid = '$userid'");
-
-				// Log in
-        if (!$auth['login']) {
-          $_POST['email'] = $_POST['email'];
-          $_POST['password'] = $_POST['password_original'];
-          $authentication->login('save');
-        }
 			}
 			$found_adm = 1;
 		}
@@ -284,7 +273,7 @@ switch ($_GET["step"]){
 	case 8:
 		$dsp->NewContent($lang["install"]["wizard_vars_caption"], $lang["install"]["wizard_vars_subcaption"]);
 
-		$dsp->SetForm("index.php?mod=install&action=wizard&step=9");
+		$dsp->SetForm("install.php?mod=install&action=wizard&step=9");
 
 		// Country
 		// Get Selections
@@ -307,15 +296,15 @@ switch ($_GET["step"]){
 		// Online, or offline mode?
 		$dsp->AddHRuleRow();
 		$mode_array = array();
-		if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') $selected = ""; else $selected = "selected";
+		if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') $selected = 0; else $selected = 1;
 		array_push ($mode_array, '<option $selected value="1">'. $lang['install']['vars_system_mode_internet'] .'</option>');
-		if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') $selected = "selected"; else $selected = "";
+		if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') $selected = 1; else $selected = 0;
 		array_push ($mode_array, '<option $selected value="0">'. $lang['install']['vars_system_mode_intranet'] .'</option>');
 		$dsp->AddDropDownFieldRow("mode", $lang["install"]["vars_system_mode"], $mode_array, "");
 
 		$dsp->AddFormSubmitRow("next");
 
-		$dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/vars");
+		$dsp->AddBackButton("install.php?mod=install&action=wizard&step=6", "install/vars"); 
 		$dsp->AddContent();
 	break;
 
@@ -338,9 +327,9 @@ switch ($_GET["step"]){
         	
 		$dsp->AddSingleRow($lang["install"]["wizard_final_text"]);
 		if (!$found_adm) $dsp->AddSingleRow("<font color=red>". $lang["install"]["wizard_warning_noadmin"] ."</font>");
-
-		$dsp->AddDoubleRow("", $dsp->FetchIcon("index.php?mod=install", "signon"));
-		$dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/admin");
+        	
+		$dsp->AddDoubleRow("", $dsp->FetchButton("install.php?mod=install", "close"));
+		$dsp->AddBackButton("install.php?mod=install&action=wizard&step=6", "install/admin"); 
 		$dsp->AddContent();
 	break;
 }

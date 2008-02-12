@@ -21,19 +21,19 @@ else switch ($step) {
 
 			$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
-			$mail->create_inet_mail($user_data['username'], $pwr_mail, $cfg['usrmgr_pwrecovery_subject'], str_replace("%USERNAME%", $user_data['username'], str_replace("%PATH%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode", $cfg['usrmgr_pwrecovery_text'])), $cfg['sys_party_mail']);
+			$mail->create_inet_mail($user_data['username'], $pwr_mail, $lang['usrmgr']['remind_mail_head'], str_replace("%USERNAME%", $user_data['username'], str_replace("%PATH%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode", $lang['usrmgr']['remind_mail'])), $cfg['sys_party_mail']);
 
 			$func->confirmation($lang['usrmgr']['remind_success'], "index.php");
 		} else $func->information($lang['usrmgr']['remind_err_email'], "index.php?mod=usrmgr&action=pwrecover&step=1");
 	break;
 
-	case 3: // Freischaltecode prüfen, Passwort generieren, Freischaltcode zurücksetzen
+	case 3: // Freischaltecode prüfen, Passwort generieren
 		$user_data = $db->query_first("SELECT fcode FROM {$config["tables"]["user"]} WHERE fcode = '$fcode'");
 		if (($user_data['fcode']) && ($fcode != "")){
 			$new_pwd = "";
 			for ($x=0; $x<=8; $x++) $new_pwd .= chr(mt_rand(65,90));
 		
-			$db->query("UPDATE {$config["tables"]["user"]} SET password = '". md5($new_pwd) ."', fcode = '' WHERE fcode = '$fcode'");
+			$db->query("UPDATE {$config["tables"]["user"]} SET password = '". md5($new_pwd) ."' WHERE fcode = '$fcode'");
 
 			$func->confirmation($lang['usrmgr']['remind_pw_generated'] ." <b>$new_pwd</b>", "index.php");
 		} else $func->error($lang['usrmgr']['remind_wrong_fcode'], "index.php?mod=usrmgr&action=pwrecover&step=1");

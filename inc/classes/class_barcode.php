@@ -120,8 +120,6 @@ class barcode{
 
 	function error($asimg=false)
 	{
-    global $func;
-    
 		if(empty($this->_error))
 		return "";
 		if(!$asimg)
@@ -132,7 +130,7 @@ class barcode{
 		$im=@imagecreate(250,100);
 		$color = @imagecolorallocate($im,255,255,255);
 		$color = @imagecolorallocate($im,0,0,0);
-		@imagettftext($im,10,0,5,50,$color,$this->_font , $func->wrap($this->_error, 40, "\n"));
+		@imagettftext($im,10,0,5,50,$color,$this->_font , wordwrap($this->_error, 40, "\n"));
 		@imagepng($im);
 		@imagedestroy($im);
 	}

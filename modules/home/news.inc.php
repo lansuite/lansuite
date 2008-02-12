@@ -1,30 +1,33 @@
 <?php
 
-$templ['home']['show']['item']['info']['caption'] = t('Aktuelle News') . ' <span class="small">[<a href="ext_inc/newsfeed/news.xml" class="menu" title="XML Newsfeed">RSS</a>]</span>';
-$templ['home']['show']['item']['control']['row'] = "";
+	$templ['home']['show']['item']['info']['caption'] = $lang["home"]["news_caption"];
+	$templ['home']['show']['item']['control']['row'] = "";
+	
+	
+	$query = $db->query("SELECT newsid, caption, priority FROM {$config["tables"]["news"]} order by date DESC LIMIT 0,5");
+	if($db->num_rows($query) > 0) {
+		while($row = $db->fetch_array($query)) {
 
-$query = $db->query("SELECT n.newsid, n.caption, n.priority, COUNT(c.relatedto_id) AS comments FROM {$config["tables"]["news"]} AS n
-  LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = n.newsid AND (c.relatedto_item = 'news' OR c.relatedto_item IS NULL))
-  GROUP BY n.newsid
-  ORDER BY n.top DESC, n.date DESC
-  LIMIT 0,{$cfg['home_item_count']}
-  ");
-if ($db->num_rows($query) > 0) {
-	while ($row = $db->fetch_array($query)) {
+				$newsid 	= $row["newsid"];
+				$caption	= $row["caption"];
+				$prio		= $row["priority"];
+				
+				$templ['home']['show']['row']['control']['link']	= "index.php?mod=news&action=comment&newsid=$newsid";
+				$templ['home']['show']['row']['info']['text']		= $caption;
 
-    $newsid 	= $row["newsid"];
-    $caption	= $row["caption"];
-    $prio		= $row["priority"];
+				if ($prio == 1) { 
+					$templ['home']['show']['row']['info']['text2']		= "<strong>!!!</strong>";
+				 }				
 
-    $templ['home']['show']['row']['control']['link']	= "index.php?mod=news&action=comment&newsid=$newsid";
-    $templ['home']['show']['row']['info']['text']		= $caption.' ['.$row['comments'].']';
+			$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row");
 
-    if ($prio == 1) $templ['home']['show']['row']['info']['text2']		= "<strong>!!!</strong>";
-		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row");
-
-		$templ['home']['show']['row']['info']['text'] = '';
-		$templ['home']['show']['row']['info']['text2'] = '';
+			$templ['home']['show']['row']['info']['text']		= "";	// set var to NULL
+			$templ['home']['show']['row']['info']['text2']		= "";	// set var to NULL
+		} // while - news
+	} // if
+	else {
+		$templ['home']['show']['row']['text']['info']['text'] = "<i>{$lang["home"]["news_noentry"]}</i>";
+		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row_text");
 	}
-}
-else $templ['home']['show']['item']['control']['row'] = "<i>". t('Keine News bisher vorhanden') ."</i>";
+
 ?>

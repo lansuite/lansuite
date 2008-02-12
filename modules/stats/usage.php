@@ -1,68 +1,61 @@
 <?php
 
 $dsp->NewContent($lang["stats"]["user_caption"], $lang["stats"]["user_subcaption"]);
+$dsp->AddDoubleRow("<b>Time</b>", "<b>Visits (Hits)</b>");
 
-switch ($_GET['time']) {
-  default:
-    $link = 'y';
-    $back = '';
-    $group_by = '%Y-00-00-00-00-00';
-    $where = '0000-00-00-00-00-00';
-    $where_back = '';
-    $_GET['timeframe'] = '0000-00-00-00-00-00';
-  break;
-	case 'y':
-    $link = 'm';
-    $back = '';
-    $group_by = '%Y-%m-00-00-00-00';
-    $where = '%Y-00-00-00-00-00';
-    $where_back = '00-00-00-00-00-00';
+if ($_GET["time"] == "") $_GET["time"] = "year";
+if ($_GET["start"] == "") $_GET["start"] = 1;
+
+switch ($_GET["time"]) {
+	case "year":
+		$multiplier = 24 * 30.4375 * 12;
+		$end = 24 * 30.4375 * 12 * 100;
+		$format = "year";
+		$link = "<a href=\"index.php?mod=stats&action=usage&time=month&start=%TIME%\">%TIME_FORMATED%</a>";
 	break;
-	case 'm':
-    $link = 'd';
-    $back = 'y';
-    $group_by = '%Y-%m-%d-00-00-00';
-    $where = '%Y-%m-00-00-00-00';
-    $where_back = '%Y-00-00-00-00-00';
+	case "month":
+		$multiplier = 24 * 30.4375;
+		$end = 24 * 30.4375 * 12;
+		$format = "month";
+		$link = "<a href=\"index.php?mod=stats&action=usage&time=day&start=%TIME%\">%TIME_FORMATED%</a>";
 	break;
-	case 'd':
-    $link = '';
-    $back = 'm';
-    $group_by = '%Y-%m-%d-%H-00-00';
-    $where = '%Y-%m-%d-00-00-00';
-    $where_back = '%Y-%m-00-00-00-00';
+	case "day":
+		$multiplier = 24;
+		$end = 24 * 30.4375;
+		$format = "daydate";
+		$link = "<a href=\"index.php?mod=stats&action=usage&time=houre&start=%TIME%\">%TIME_FORMATED%</a>";
+	break;
+	default:
+		$multiplier = 1;
+		$end = 24;
+		$format = "datetime";
+		$link = "%TIME_FORMATED%";
 	break;
 }
 
-$dsp->AddSingleRow('<object data="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
-  Ihr Browser kann das Objekt leider nicht anzeigen!
-</object>');
-#  <param name="src" value="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'>
-
-$dsp->AddDoubleRow("<b>Time</b>", "<b>Visits (Hits)</b>");
-
-$res = $db->query("SELECT DATE_FORMAT(time, '$group_by') AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits, SUM(visits) AS visits FROM {$config["tables"]["stats_usage"]}
-  WHERE DATE_FORMAT(time, '$where') = '{$_GET['timeframe']}'
-  GROUP BY DATE_FORMAT(time, '$group_by')
-  ORDER BY DATE_FORMAT(time, '$group_by')
-");
+$res = $db->query("SELECT SUM(hits) AS hits, SUM(visits) AS visits, MIN(time) AS time FROM {$config["tables"]["stats_usage"]}
+	WHERE time > {$_GET["start"]} AND time < {$_GET["start"]} + $end
+	GROUP BY floor(time / ($multiplier))
+	ORDER BY time
+	");
 while ($row = $db->fetch_array($res)) {
-  switch ($_GET['time']) {
-    default: $out = $func->unixstamp2date($row['display_time'], 'year'); break;
-    case 'y': $out = $func->unixstamp2date($row['display_time'], 'month'); break;
-    case 'm': $out = $func->unixstamp2date($row['display_time'], 'daydate'); break;
-    case 'd': $out = $func->unixstamp2date($row['display_time'], 'daydatetime'); break;
-  }
-  if ($link) $out = '<a href="index.php?mod=stats&action=usage&time='. $link .'&timeframe='. $row['group_by_time'] .'">'. $out .'</a>';
-  $dsp->AddDoubleRow($out, $row['visits'] .' ('. $row['hits'] .')');
+	$dsp->AddDoubleRow(str_replace("%TIME%", $row["time"] - 1, str_replace("%TIME_FORMATED%", $func->unixstamp2date($row["time"] * 60 * 60, $format), $link)),
+		"{$row["visits"]} ({$row["hits"]})");
 }
 $db->free_result($res);
 
-if ($where_back) {
-  $row_back = $db->query_first("SELECT DATE_FORMAT(time, '$where_back') AS back_time FROM {$config["tables"]["stats_usage"]}
-    WHERE DATE_FORMAT(time, '$where') = '{$_GET['timeframe']}'");
-  $dsp->AddBackButton('index.php?mod=stats&action=usage&time='. $back .'&timeframe='. $row_back['back_time'], "stats/usage");
+$buttons = "";
+switch ($_GET["time"]) {
+	case "houre":
+		$buttons .= $dsp->FetchButton("index.php?mod=stats&action=usage&time=day&start=". floor(floor($_GET["start"] / (24 * 30.4375)) * (24 * 30.4375)), "day") . " ";
+	case "day":
+		$buttons .= $dsp->FetchButton("index.php?mod=stats&action=usage&time=month&start=". floor(floor($_GET["start"] / (24 * 30.4375 * 12)) * (24 * 30.4375 * 12)), "month") . " ";
+	case "month":
+		$buttons .= $dsp->FetchButton("index.php?mod=stats&action=usage&time=year&start=1", "year") . " ";
+	break;
 }
+if ($buttons) $dsp->AddDoubleRow("", $buttons);
+$dsp->AddBackButton("index.php?mod=stats", "stats/usage");
 
 $dsp->AddContent();
 ?>

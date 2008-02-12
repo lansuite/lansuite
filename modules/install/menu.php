@@ -16,8 +16,7 @@ switch($_GET["step"]) {
 
 	// Add HRule Row
 	case 4:
-		$db->query("UPDATE {$config["tables"]["menu"]} SET pos = pos + 1 WHERE pos > {$_GET["pos"]}");
-		$db->query("INSERT INTO {$config["tables"]["menu"]} SET caption = '--hr--', pos = ". ($_GET["pos"] + 1));
+		$db->query("INSERT INTO {$config["tables"]["menu"]} SET caption = '--hr--', pos = {$_GET["pos"]}");
 	break;
 
 	// Delete
@@ -27,7 +26,7 @@ switch($_GET["step"]) {
 
 	// Rewrite Menu Question
 	case 6:
-		$func->question($lang["install"]["menu_reset_navi_quest"], "index.php?mod=install&action=menu&step=7&onlyactive={$_GET["onlyactive"]}", "index.php?mod=install&action=menu&onlyactive={$_GET["onlyactive"]}");
+		$func->question($lang["install"]["menu_reset_navi_quest"], "install.php?mod=install&action=menu&step=7&onlyactive={$_GET["onlyactive"]}", "install.php?mod=install&action=menu&onlyactive={$_GET["onlyactive"]}");
 	break;
 
 	// Rewrite Menu Action
@@ -43,14 +42,8 @@ switch($_GET["step"]) {
 
 	// Set Possition
 	case 10:
-		if ($_POST['pos']) foreach ($_POST['pos'] as $key => $val) {
-			$db->qry('UPDATE %prefix%menu SET pos = %int% WHERE id = %int%', $val, $key);
-		}
-		if ($_POST['group']) foreach ($_POST['group'] as $key => $val) {
-			$db->qry('UPDATE %prefix%menu SET group_nr = %int% WHERE id = %int%', $val, $key);
-		}
-		if ($_POST['box']) foreach ($_POST['box'] as $key => $val) {
-			$db->qry('UPDATE %prefix%menu SET boxid = %int% WHERE id = %int%', $val, $key);
+		if ($_POST["pos"]) foreach ($_POST["pos"] as $entry_id => $new_pos) {
+			$db->query("UPDATE {$config["tables"]["menu"]} SET pos = $new_pos WHERE id = $entry_id");
 		}
 	break;
 
@@ -62,24 +55,24 @@ switch($_GET["step"]) {
 	// Change Group Choice
 	case 8:
 		$dsp->NewContent($lang["install"]["menu_group_change"], $lang["install"]["menu_group_change2"]);
-		$dsp->SetForm("index.php?mod=install&action=menu&step=9&pos={$_GET["pos"]}&onlyactive={$_GET["onlyactive"]}");
+		$dsp->SetForm("install.php?mod=install&action=menu&step=9&pos={$_GET["pos"]}&onlyactive={$_GET["onlyactive"]}");
 
 		$menu = $db->query_first("SELECT group_nr FROM {$config["tables"]["menu"]} WHERE pos = {$_GET["pos"]}");
 		$dsp->AddTextFieldRow("group", "Gruppe", (int)$menu["group_nr"], "");
 
 		$dsp->AddFormSubmitRow("next");
-		$dsp->AddBackButton("index.php?mod=install&action=menu&onlyactive={$_GET["onlyactive"]}", "install/modules");
+		$dsp->AddBackButton("install.php?mod=install&action=menu&onlyactive={$_GET["onlyactive"]}", "install/modules"); 
 		$dsp->AddContent();
 	break;
 
 
 	default:
-		$dsp->NewContent(t('Navigationsmenü verwalten'), '<font color="red">'. t('Hinweis: Verwenden Sie die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box'). HTML_NEWLINE .t('Hinweis2: Verwenden sie die Gruppen um in der URL mit dem Parameter &menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design') .'</font>');
-		$dsp->SetForm("index.php?mod=install&action=menu&step=10&onlyactive={$_GET["onlyactive"]}");
+		$dsp->NewContent($lang["install"]["menu_navi_caption"], $lang["install"]["menu_navi_subcaption"]);
+		$dsp->SetForm("install.php?mod=install&action=menu&step=10&onlyactive={$_GET["onlyactive"]}");
 
-		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&step=6&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["menu_navi_reset"]}</a>");
-		if ($_GET["onlyactive"]) $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&onlyactive=0\">{$lang["install"]["menu_navi_showall"]}</a>");
-		else  $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&onlyactive=1\">{$lang["install"]["menu_navi_showactive"]}</a>");
+		$dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=menu&step=6&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["menu_navi_reset"]}</a>");
+		if ($_GET["onlyactive"]) $dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=menu&onlyactive=0\">{$lang["install"]["menu_navi_showall"]}</a>");
+		else  $dsp->AddDoubleRow("", "<a href=\"install.php?mod=install&action=menu&onlyactive=1\">{$lang["install"]["menu_navi_showactive"]}</a>");
 
 		$menus = $db->query("SELECT module.active, menu.* FROM {$config["tables"]["menu"]} AS menu
 			LEFT JOIN {$config["tables"]["modules"]} AS module ON (menu.module = module.name)
@@ -93,17 +86,15 @@ switch($_GET["step"]) {
 				$link = "";
 				if ($menu["caption"] == "--hr--") {
 					$menu["caption"] = "<i>Trennzeile</i>";
-					$link .= "[<a href=\"index.php?mod=install&action=menu&step=5&pos=$z&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["del"]}</a>] ";
+					$link .= "[<a href=\"install.php?mod=install&action=menu&step=5&pos=$z&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["del"]}</a>] ";
 				} else {
-					$link .= "[<a href=\"index.php?mod=install&action=modules&step=20&module={$menu["module"]}&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["edit"]}</a>] ";
-					if ($z < $db->num_rows($menus)) $link .= "[<a href=\"index.php?mod=install&action=menu&step=4&pos=$z&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["hr"]}</a>] ";
+					$link .= "[<a href=\"install.php?mod=install&action=modules&step=20&module={$menu["module"]}&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["edit"]}</a>] ";
+					if ($z < $db->num_rows($menus)) $link .= "[<a href=\"install.php?mod=install&action=menu&step=4&pos=$z&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["hr"]}</a>] ";
 				}
-#				$link .= "[<a href=\"index.php?mod=install&action=menu&step=8&pos=$z&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["group"]} ({$menu["group_nr"]})</a>] ";
-				if ($z > 1)  $link .= "[<a href=\"index.php?mod=install&action=menu&step=2&pos=$z&onlyactive={$_GET["onlyactive"]}\">^</a>] ";
-				if ($z < $db->num_rows($menus)) $link .= "[<a href=\"index.php?mod=install&action=menu&step=3&pos=$z&onlyactive={$_GET["onlyactive"]}\">v</a>]";
+				$link .= "[<a href=\"install.php?mod=install&action=menu&step=8&pos=$z&onlyactive={$_GET["onlyactive"]}\">{$lang["install"]["group"]} ({$menu["group_nr"]})</a>] ";
+				if ($z > 1)  $link .= "[<a href=\"install.php?mod=install&action=menu&step=2&pos=$z&onlyactive={$_GET["onlyactive"]}\">^</a>] ";
+				if ($z < $db->num_rows($menus)) $link .= "[<a href=\"install.php?mod=install&action=menu&step=3&pos=$z&onlyactive={$_GET["onlyactive"]}\">v</a>]";
 				$link .= " {$lang["install"]["pos"]}: <input type=\"text\" name=\"pos[{$menu["id"]}]\" value=\"$z\" size=\"2\">";
-				$link .= " Gruppe: <input type=\"text\" name=\"group[{$menu["id"]}]\" value=\"{$menu['group_nr']}\" size=\"2\">";
-				$link .= " MenüBox-Nr: <input type=\"text\" name=\"box[{$menu["id"]}]\" value=\"{$menu['boxid']}\" size=\"2\">";
 
 				$dsp->AddDoubleRow("$z) ". $menu["caption"], $link);
 			}
@@ -111,7 +102,7 @@ switch($_GET["step"]) {
 		$db->free_result($menus);
 
 		$dsp->AddFormSubmitRow("next");
-		$dsp->AddBackButton("index.php?mod=install", "install/modules");
+		$dsp->AddBackButton("install.php?mod=install", "install/modules"); 
 		$dsp->AddContent();
 	break;
 }

@@ -6,15 +6,14 @@ $export = New Export();
 switch($_GET["step"]){
 	default:
 		$dsp->NewContent($lang["install"]["export_caption"], $lang["install"]["export_subcaption"]);
-		$dsp->SetForm("index.php?mod=install&action=export&step=2", "", "", "");
+		$dsp->SetForm("install.php?mod=install&action=export&step=2", "", "", "");
 
 		$type_array = array("xml" => $lang["install"]["export_xml_complete"],
 			"xml_modules" => $lang["install"]["export_xml_module"],
 			"xml_tables" => $lang["install"]["export_xml_tables"],
 			"csv_complete" => $lang["install"]["export_cvs_complete"],
 			"csv_sticker" => $lang["install"]["export_cvs_sticker"],
-			"csv_card" => $lang["install"]["export_cvs_card"],
-			"ext_inc_data" => $lang['install']['export_data_ext_inc']
+			"csv_card" => $lang["install"]["export_cvs_card"]
 			);
 		$t_array = array();
 		while (list ($key, $val) = each ($type_array)) {
@@ -23,7 +22,7 @@ switch($_GET["step"]){
 		$dsp->AddDropDownFieldRow("type", $lang["tourney"]["t_add_ngl_game"], $t_array, "", 1);
 
 		$dsp->AddFormSubmitRow("next");
-		$dsp->AddBackButton("index.php?mod=install", "install/export");
+		$dsp->AddBackButton("install.php?mod=install", "install/export"); 
 		$dsp->AddContent();
 	break;
 
@@ -33,7 +32,7 @@ switch($_GET["step"]){
 
 		switch ($_POST["type"]){
 			case "xml":	
-				$dsp->SetForm("index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3", "", "", "");
+				$dsp->SetForm("base.php?mod=export_data&type={$_POST["type"]}&step=3", "", "", "");
 
 				$dsp->AddCheckBoxRow("e_struct", $lang["install"]["export_structure"], "", "", 1, 1);
 				$dsp->AddCheckBoxRow("e_cont", $lang["install"]["export_content"], "", "", 1, 1);
@@ -42,11 +41,10 @@ switch($_GET["step"]){
 			break;
 
 			case "xml_modules":
-				$dsp->SetForm("index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3", "", "", "");
+				$dsp->SetForm("base.php?mod=export_data&type={$_POST["type"]}&step=3", "", "", "");
 
 				$dsp->AddCheckBoxRow("e_struct", $lang["install"]["export_structure"], "", "", 1, 1);
 				$dsp->AddCheckBoxRow("e_cont", $lang["install"]["export_content"], "", "", 1, 1);
-				$dsp->AddCheckBoxRow("e_trans", 'Übersetzungsdaten exportieren', "", "", 1, 1);
 				$dsp->AddHRuleRow();
 
 				$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
@@ -79,11 +77,10 @@ switch($_GET["step"]){
 			break;
 
 			case "xml_tables":
-				$dsp->SetForm("index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3", "", "", "");
+				$dsp->SetForm("base.php?mod=export_data&type={$_POST["type"]}&step=3", "", "", "");
 
 				$dsp->AddCheckBoxRow("e_struct", $lang["install"]["export_structure"], "", "", 1, 1);
 				$dsp->AddCheckBoxRow("e_cont", $lang["install"]["export_content"], "", "", 1, 1);
-				$dsp->AddCheckBoxRow("e_trans", 'Übersetzungsdaten exportieren', "", "", 1, 1);
 				$dsp->AddHRuleRow();
 
 				$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
@@ -113,27 +110,23 @@ switch($_GET["step"]){
 			break;
 
 			case "csv_complete":
-				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_cvs_complete_save"]}</a>", "", "", "");
+				$dsp->AddDoubleRow("", "<a href=\"base.php?mod=export_data&type={$_POST["type"]}&step=3\">{$lang["install"]["export_cvs_complete_save"]}</a>", "", "", "");
 			break;
 
 			case "csv_sticker":
-				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_cvs_sticker_save"]}</a>", "", "", "");
+				$dsp->AddDoubleRow("", "<a href=\"base.php?mod=export_data&type={$_POST["type"]}&step=3\">{$lang["install"]["export_cvs_sticker_save"]}</a>", "", "", "");
 			break;
 
 			case "csv_card":
-				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_cvs_card_save"]}</a>", "", "", "");
+				$dsp->AddDoubleRow("", "<a href=\"base.php?mod=export_data&type={$_POST["type"]}&step=3\">{$lang["install"]["export_cvs_card_save"]}</a>", "", "", "");
 			break;
 
-      case 'ext_inc_data':
-				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang['install']['export_ext_inc']}</a>", "", "", "");
-      break;
-
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=import");
+				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "install.php?mod=install&action=import");
 			break;
 		}
 
-		$dsp->AddBackButton("index.php?mod=install&action=export", "install/export");
+		$dsp->AddBackButton("install.php?mod=install&action=export", "install/export"); 
 		$dsp->AddContent();
 	break;
 
@@ -142,13 +135,15 @@ switch($_GET["step"]){
 
 		switch ($_GET["type"]){
 			case "xml":	
+				$export->LSTableHead();
 				$export->ExportAllTables($_POST["e_struct"], $_POST["e_cont"]);
+				$export->LSTableFoot();
 			break;
 
 			case "xml_modules":
 				$export->LSTableHead();
 				foreach ($_POST["table"] as $key => $value) {
-					if ($key) $export->ExportMod($key, $_POST["e_struct"], $_POST["e_cont"], $_POST["e_trans"]);
+					if ($key) $export->ExportMod($key, $_POST["e_struct"], $_POST["e_cont"]);
 				}
 				$export->LSTableFoot();
 			break;
@@ -177,12 +172,8 @@ switch($_GET["step"]){
 				$export->SendExport($output, "lansuite_card.csv");
 			break;
 
-			case "ext_inc_data":
-				$export->ExportExtInc('lansuite_data.tgz');
-			break;
-
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=import");
+				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "install.php?mod=install&action=import");
 			break;
 		}
 	break;

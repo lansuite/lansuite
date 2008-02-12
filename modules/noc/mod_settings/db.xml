@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-15"?>
 
 <lansuite>
 	<header>
@@ -174,7 +174,7 @@
 			<field>
 				<name>linkstatus</name>
 				<type>varchar(10)</type>
-				<null></null>
+				<null>YES</null>
 				<key></key>
 				<default>up(1)</default>
 				<extra></extra>
@@ -182,7 +182,7 @@
 			<field>
 				<name>adminstatus</name>
 				<type>varchar(8)</type>
-				<null></null>
+				<null>YES</null>
 				<key></key>
 				<default>up(1)</default>
 				<extra></extra>
