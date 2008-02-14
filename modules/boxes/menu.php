@@ -14,11 +14,17 @@ function FetchItem ($item) {
 		case 1: return $box->HRuleEngagedRow(); break;
 
 	} else {
-		$submod_pos = strpos($item['link'], 'submod=') + 7;
-		if ($submod_pos > 7) $submod = substr($item['link'], $submod_pos, strlen($item['link']) - $submod_pos);
-		else $submod = '';
-
-		if ($item['module'] == $_GET['mod'] and ($_GET['mod'] != 'info2' or ($_GET['mod'] == 'info2' and $submod == $_GET['submod']))) $highlighted = 1;
+		if (!$_GET['mod'] == 'info2') {
+			$submod_pos = strpos($item['link'], 'submod=') + 7;
+			if ($submod_pos > 7) $submod = substr($item['link'], $submod_pos, strlen($item['link']) - $submod_pos);
+			else $submod = '';
+        } else {
+			// Modul info2 uses ID as submod
+			$submod_pos = strpos($item['link'], 'id=') + 3;
+			if ($submod_pos > 3) $submod = substr($item['link'], $submod_pos, strlen($item['link']) - $submod_pos);
+			else $submod = '';
+		}
+		if ($item['module'] == $_GET['mod'] and ($_GET['mod'] != 'info2' or ($_GET['mod'] == 'info2' and $submod == $_GET['id']))) $highlighted = 1;
 		else $highlighted = 0;
 
 		// Set Item-Class

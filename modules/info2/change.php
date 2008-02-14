@@ -10,7 +10,7 @@ function ShowActiveState($val){
     $templ['ms2']['icon_name'] = 'no';
     $templ['ms2']['icon_title'] = $lang['sys']['no'];
   }
-  return '<a href="index.php?mod=info2&action=change&step=20&infoID='. $line['infoID'] .'">'. $dsp->FetchModTpl('mastersearch2', 'result_icon') .'</a>';
+  return '<a href="index.php?mod=info2&action=change&step=20&id='. $line['infoID'] .'">'. $dsp->FetchModTpl('mastersearch2', 'result_icon') .'</a>';
 }
 
 if ($auth['type'] <= 1) {
@@ -25,8 +25,8 @@ if ($auth['type'] <= 1) {
   $ms2->AddResultField($lang['info']['title'], 'i.caption');
   $ms2->AddResultField($lang['info']['subtitle'], 'i.shorttext', '', 140);
 
-  $ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&submod=', $lang['ms2']['details']);
-  $ms2->PrintSearch('index.php?mod=info2', 'i.caption');
+  $ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', $lang['ms2']['details']);
+  $ms2->PrintSearch('index.php?mod=info2', 'i.infoID');
 
 } else {
   $_POST['content'] = $_POST['FCKeditor1'];
@@ -56,7 +56,8 @@ if ($auth['type'] <= 1) {
 
       $ms2->PrintSearch('index.php?mod=info2', 'i.infoID');
   	break;
-
+	
+	// Generate Editform
   	case 2:
   		if ($_POST["content"] == "" and $_POST["title"] == "" and $_GET["id"] != ""){
   			$module = $db->query_first("SELECT info.text, info.caption, info.shorttext, menu.id FROM {$config['tables']['info']} AS info
@@ -68,23 +69,23 @@ if ($auth['type'] <= 1) {
   		}
 
   		$dsp->NewContent($lang["info"]["change_caption_2"], $lang["info"]["change_subcaption_2"]);
-  		$dsp->SetForm("index.php?mod=info2&action=change&step=3&infoid={$_GET["id"]}&menuid={$module["id"]}");
+  		$dsp->SetForm("index.php?mod=info2&action=change&step=3&id={$_GET["id"]}&menuid={$module["id"]}");
 
   		$dsp->AddTextFieldRow("title", $lang["info"]["title"], $_POST["title"], $title_error);
   		$dsp->AddTextFieldRow("subtitle", $lang["info"]["subtitle"], $_POST["subtitle"], $title_error);
 
   		if ($cfg["info2_use_fckedit"]) {
 
-        ob_start();
-        include_once("ext_scripts/FCKeditor/fckeditor.php");
-        $oFCKeditor = new FCKeditor('FCKeditor1') ;
-        $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
-        $oFCKeditor->Value = $_POST['content'];
-        $oFCKeditor->Height = 380;
-        $oFCKeditor->Create();
-        $fcke_content = ob_get_contents();
-        ob_end_clean();
-        $dsp->AddSingleRow($fcke_content);
+	        ob_start();
+	        include_once("ext_scripts/FCKeditor/fckeditor.php");
+	        $oFCKeditor = new FCKeditor('FCKeditor1') ;
+	        $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
+	        $oFCKeditor->Value = $_POST['content'];
+	        $oFCKeditor->Height = 380;
+	        $oFCKeditor->Create();
+	        $fcke_content = ob_get_contents();
+	        ob_end_clean();
+	        $dsp->AddSingleRow($fcke_content);
 
   		} else $dsp->AddTextAreaRow("content", "", $_POST["content"], "", 80, 25, 0);
 
@@ -92,13 +93,14 @@ if ($auth['type'] <= 1) {
   		$dsp->AddBackButton("index.php?mod=info2&action=change", "info2/form");
   		$dsp->AddContent();
   	break;
-
+	
+	// Write Content to DB
   	case 3:
   		if ($_POST["title"] == "" or $_POST["content"] == "") $func->information($lang["info"]["err_missing_fields"], "index.php?mod=info2&action=change&step=2&id={$_GET["id"]}");
   		else {
   			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
 
-  			if ($_GET["infoid"] == "") {
+  			if ($_GET["id"] == "") {
   				$db->query("INSERT INTO {$config['tables']['info']}
   					SET caption = '{$_POST["title"]}',
   					shorttext = '{$_POST["subtitle"]}',
@@ -107,7 +109,7 @@ if ($auth['type'] <= 1) {
   				$func->confirmation($lang["info"]["add_success"], "index.php?mod=info2&action=change");
 
   			} else {
-  				$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = {$_GET["infoid"]}");
+  				$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = {$_GET["id"]}");
 
   				if ($menu_intem['active'] == 1){
             ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
@@ -117,7 +119,7 @@ if ($auth['type'] <= 1) {
   						caption = '{$_POST["title"]}',
   						hint = '{$_POST["subtitle"]}',
   						level = $level,
-  						link = '?mod=info2&action=show_info2&submod=". $_GET["infoid"] ."'
+  						link = '?mod=info2&action=show_info2&id=". $_GET["id"] ."'
   						WHERE id = '{$_GET["menuid"]}'");
   				}
 
@@ -125,7 +127,7 @@ if ($auth['type'] <= 1) {
   					SET caption = '{$_POST["title"]}',
   					shorttext = '{$_POST["subtitle"]}',
   					text = '{$_POST["content"]}'
-  					WHERE infoID = '{$_GET["infoid"]}'");
+  					WHERE infoID = '{$_GET["id"]}'");
 
   				$func->confirmation($lang["info"]["change_success"], "index.php?mod=info2&action=change");
   			}
@@ -145,7 +147,7 @@ if ($auth['type'] <= 1) {
 
   	// Change active state
   	case 20:
-		if ($_GET['infoID']) $_POST["action"][$_GET['infoID']] = '1';
+		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
 		foreach($_POST["action"] AS $item => $val) {
   			$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
   			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
@@ -164,7 +166,7 @@ if ($auth['type'] <= 1) {
   					SET module = 'info2',
   					caption = '{$menu_intem["caption"]}',
   					hint = '{$menu_intem["shorttext"]}',
-  					link = '?mod=info2&action=show_info2&submod=". $item ."',
+  					link = '?mod=info2&action=show_info2&id=". $item ."',
   					requirement = 0,
   					level = $level,
   					pos = {$info_menu["pos"]},
