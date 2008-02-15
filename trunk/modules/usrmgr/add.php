@@ -412,7 +412,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
 if ($_GET['mod'] == 'signon' and $auth['login']) {
   $_GET['mf_step'] = 1;
   $_GET['user_id'] = $auth['userid'];
-  include_once("modules/usrmgr/party.php");
+  $func->question(t("Wollen sie auch gleich zur Lan-Anmeldung weitergeleitet werden?"), "index.php?mod=signon", "index.php?mod=home");
 }
 
 ?>
