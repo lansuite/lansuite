@@ -72,7 +72,7 @@ $box->EngangedRow(t('Frei').': '. ($max - $paid));
 $box->EmptyRow();
 $box->ItemRow("data", '<b>'. t('Counter') .'</b>');
 
-if ($_SESSION['party_info']['partyend'] < time()) $box->EngangedRow(t('Diese Party ist bereits vorrüber'));
+if ($_SESSION['party_info']['partyend'] < time()) $box->EngangedRow(t('Diese Party ist bereits vorüber'));
 else {
   $count = ceil(($_SESSION['party_info']['partybegin'] - time()) / 60);
   if ($count <= 1) $count = t('Die Party läuft gerade!');
