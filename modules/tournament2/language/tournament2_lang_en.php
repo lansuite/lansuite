@@ -111,7 +111,6 @@ $lang['tourney']['join_comment']	= 'Comment';
 $lang['tourney']['join_err_no_name']	= 'Enter a teamname, or select an existing one, please.';
 $lang['tourney']['join_err_team_full']	= 'The choosen team is allready full!';
 $lang['tourney']['log_t_teammanage']	= 'Tournament teammanagement';
-
 $lang['tourney']['join_log_success_team']	= 'The user \'%USER%\' has joined the team \'%TEAM%\' (tournamanet: \'%T%\')';
 $lang['tourney']['join_log_success']	= 'The user \'%USER%\' has signed on the the tournament \'%T%\'';
 $lang['tourney']['join_success']	= 'You were successfully added to the tournament \'%NAME%\'';
@@ -131,7 +130,8 @@ $lang['tourney']['s_res_err_finished']	= 'This tournament has allready finished,
 $lang['tourney']['s_res_err_noscore']	= 'Please submit a score';
 $lang['tourney']['s_res_err_nodraw']	= 'A game must have a winner!';
 $lang['tourney']['s_res_err_nozero']	= 'A game may not end 0:0. This means it has not been played. For a draw game submit at least 1:1.';
-$lang['tourney']['s_res_err_noright']	= 'Only leaders of the loosing team may submit the result';
+$lang['tourney']['s_res_err_noright']	= 'Only leaders of the loosing team and Tournament-Admins may submit the result';
+$lang['tourney']['s_res_err_noright_player']	= 'Only Members of the current game and Tournament-Admins allowed to submit the result';
 $lang['tourney']['s_res_err_noresubmit']	= 'A result has allready been submitted. Only tournament-admins may change this now. Please ask them to do the change.';
 $lang['tourney']['s_res_question_score_submitted']	= 'ATTENTION: A result has allready been submitted for this tournament. If none of the following games has been played, you can proceede without expecting troubles. But if so, you should be aware of the effect, that all the games following this one have to be submitted again, because the score of the games directly following the changed one were reset to 0:0!';
 $lang['tourney']['s_res_log_scoresubmit']	= 'The result (%SCORE1%:%SCORE2%) of the game #%ID1% vs. #%ID2% was submitted.';

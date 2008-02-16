@@ -131,6 +131,7 @@ $lang['tourney']['s_res_err_noscore']	= 'Bitte geben Sie ein Ergebnis ein';
 $lang['tourney']['s_res_err_nodraw']	= 'Ein Spiel darf nicht unentschieden enden! Es muss ein Sieger ausgemacht werden.';
 $lang['tourney']['s_res_err_nozero']	= 'Ein Spiel darf nicht 0:0 enden! Das würde bedeuten, es wäre nicht gespielt worden. Für Unentschieden bitte mindestens 1:1 eintragen.';
 $lang['tourney']['s_res_err_noright']	= 'Nur der Teamleiter des Verliererteams und Turnieradmins dürfen ein Ergebnis eintragen';
+$lang['tourney']['s_res_err_noright_player']	= 'Nur Teilnehmer des Aktuellen Spiels und Turnieradmins dürfen ein Ergebnis eintragen';
 $lang['tourney']['s_res_err_noresubmit']	= 'Es wurde bereits ein Ergebnis für diese Partie eingetragen. Das Ergebnis kann nur noch von Turnieradmins editiert werden. Melden Sie sich daher für Änderungen bei diesen.';
 $lang['tourney']['s_res_question_score_submitted']	= 'ACHTUNG: Zu diesem Turnier wurde bereits ein Ergebnis eingetragen. Wurde noch keine der Folgepartien dieses Spieles gespielt, so kann ohne Probleme fortgefahren werden. Wurden diese hingegen bereits gespielt, so sollten Sie sich im Klaren darüber sein, dass die beiden Folgepartien dadurch teilweise überschrieben werden und das Ergebnis dort auf 0 (noch nicht gespielt) gesetzt wird, sodass Sie alle aus dieser Partie resultierenden Partien erneut eintragen müssen!';
 $lang['tourney']['s_res_log_scoresubmit']	= 'Das Ergebnis (%SCORE1%:%SCORE2%) des Spieles #%ID1% vs. #%ID2% wurde eingetragen.';
