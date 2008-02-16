@@ -118,10 +118,16 @@ if ($tournament["name"] == "") {
 		case 2:
 			## Berechtigungsprüfung
 			$berechtigt = 0;
-			if ($auth["type"] > 1) $berechtigt = 1;
-			if (($team1['userid'] == $auth["userid"]) && ($score_team1 < $score_team2)) $berechtigt = 1;
-			if (($team2['userid'] == $auth["userid"]) && ($score_team1 > $score_team2)) $berechtigt = 1;
-			if (!$cfg["t_only_loser_submit"]) $berechtigt = 1;
+			if ($auth["type"] > 1) $berechtigt = 1; // Admin always
+			if ($cfg["t_only_loser_submit"]) {
+				// Check only Looser
+				if (($team1['userid'] == $auth["userid"]) && ($score_team1 < $score_team2)) $berechtigt = 1;
+				if (($team2['userid'] == $auth["userid"]) && ($score_team1 > $score_team2)) $berechtigt = 1;
+			} else {
+				// Only Playing Team
+				if ($team1['userid'] == $auth["userid"]) $berechtigt = 1;
+				if ($team2['userid'] == $auth["userid"]) $berechtigt = 1;				
+			}
 
 			## Wurde Ergebnis schon eingetragen?
 			$not_new = 0;
@@ -152,8 +158,11 @@ if ($tournament["name"] == "") {
 				$func->information($lang["tourney"]["s_res_err_nozero"], "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 
 			} elseif (!$berechtigt) { 
-				$func->information($lang["tourney"]["s_res_err_noright"], "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
-
+				if ($cfg["t_only_loser_submit"]) {
+					$func->information($lang["tourney"]["s_res_err_noright"], "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
+				} else {
+					$func->information($lang["tourney"]["s_res_err_noright_player"], "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
+				}
 			} elseif (($not_new) && ($auth["type"] <= 1)) { 
 				$func->information($lang["tourney"]["s_res_err_noresubmit"], "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 
