@@ -52,7 +52,36 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
 	return true;
 }
 
+/**
+ * Check for optional gender selection
+ *
+ * @param int Gender from Inputfield 0=None, 1=Male, 2=Female
+ * @return mixed Returns Message on error else false
+ */
+function check_opt_gender($gender) {
+	global $cfg;
+	if ($cfg["signon_show_gender"] == 2) {
+		if ($gender == 0) return t("Bitte wählen sie ein Geschlecht aus.");
+		else return false;
+	}
+}
 
+/**
+ * Check for optional birthday selection
+ * If Date is (DateNow - 80 Jears) the Date is the presetet Value
+ * from the display::AddDateTimeRow() function. Not the perfect way.
+ *
+ * @param string Birthday from Inputfield like 2000-01-02
+ * @return mixed Returns Message on error else false
+ */
+function check_birthday($date) {
+	global $cfg;
+	if ($cfg["signon_show_birthday"] == 2) {
+		$ref_date = (date("Y")-80)."-".date("n")."-".date("d");
+		if ($date == $ref_date) return t("Bitte das korrekte Geburtsdatum eingeben.");
+		else return false;
+	}	
+}
 
 function CheckClanPW ($clanpw) {
   global $db, $config, $auth;
@@ -354,14 +383,14 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) {
         if (ShowField('perso')) $mf->AddField(t('Personalausweis'), 'perso', IS_CALLBACK, 'PersoInput', Optional('perso'));
 #        if (ShowField('birthday')) $mf->AddField('', 'birthday', IS_CALLBACK, 'BirthdayInput', Optional('birthday'));
-        if (ShowField('birthday')) $mf->AddField(t('Geburtstag'), 'birthday', '', '-80/-8', Optional('birthday'));
+        if (ShowField('birthday')) $mf->AddField(t('Geburtstag'), 'birthday', '', '-80/-8', Optional('birthday'),'check_birthday');
       }
       if (ShowField('gender')) {
-        $selections = array();
+		$selections = array();
         $selections['0'] = t('Keine Angabe');
         $selections['1'] = t('Männlich');
         $selections['2'] = t('Weiblich');
-        $mf->AddField(t('Geschlecht'), 'sex', IS_SELECTION, $selections, Optional('gender'));
+        $mf->AddField(t('Geschlecht'), 'sex', IS_SELECTION, $selections, Optional('gender'),'check_opt_gender');
       }
       if (ShowField('newsletter')) $mf->AddField(t('Newsletter abonnieren'), 'newsletter', '', '', Optional('newsletter'));
 
