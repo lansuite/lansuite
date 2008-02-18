@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+ï»¿<?xml version="1.0" encoding="UTF-8"?>
 <config>
   <typedefinition>
     <head>
@@ -30,11 +30,11 @@
     <entries>
   		<entry>
   			<value>1</value>
-  			<description>AN</description>
+  			<description>aktiviert</description>
   		</entry>
   		<entry>
   			<value>0</value>
-  			<description>AUS</description>
+  			<description>deaktiviert</description>
   		</entry>
     </entries>
   </typedefinition>
@@ -109,7 +109,7 @@
     		<name>foodcenter_credit</name>
     		<type>food_credit</type>
     		<default>1</default>
-    		<description>Sollen Bestellungen auch ohne Guthaben möglich sein?</description>
+    		<description>Guthabensystem</description>
     	</item>
     </items>
   </group>
