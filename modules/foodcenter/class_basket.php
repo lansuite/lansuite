@@ -94,7 +94,7 @@ class basket{
 		$this->account = new accounting($userid);
 		
 		// Wird nur ausgeführt wenn Credit-System an
-		if( $cfg['foodcenter_credit'] == 1)
+		if( $cfg['foodcenter_credit'] == 0)
 		{
 			if($this->product->count_products_price() <= $this->account->balance){
 				return $ok;
