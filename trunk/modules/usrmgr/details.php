@@ -128,7 +128,7 @@ else {
         if (IsAuthorizedAdmin()) ($user_party['paid'])? $link = 'index.php?mod=guestlist&step=11&userid='. $_GET['userid']
           : $link = 'index.php?mod=guestlist&step=10&userid='. $_GET['userid'];
         // Paid
-        ($user_party['paid'])? $party_row .= ', '. $dsp->AddIcon('paid', $link) : $party_row .= ', '. $dsp->AddIcon('not_paid', $link);
+        ($user_party['paid'])? $party_row .= ', '. $dsp->AddIcon('paid', $link, $lang['usrmgr']['paid_yes']) : $party_row .= ', '. $dsp->AddIcon('not_paid', $link, $lang['usrmgr']['paid_no']);
         if ($user_party['paid'] == 1) $party_row .= ' ['. $lang['usrmgr']['details_paid_vvk'] .']';
       	elseif ($user_party['paid'] == 2) $party_row .= ' ['. $lang['usrmgr']['details_paid_ak'] .']';
         // Platzpfand
