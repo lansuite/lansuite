@@ -53,4 +53,10 @@ $mf->AddField($lang['signon']['setime'], 'senddate', '', '', '', 'CheckSignonEnd
 $mf->AdditionalDBUpdateFunction = 'UpdatePartyID';
 $mf->SendForm('index.php?mod=party&action=edit', 'partys', 'party_id', $_GET['party_id']);
 
+// Write ext_inc/party_infos/infos.xml on Change
+if ($_GET['mf_step'] == '2') {
+	include_once("modules/usrmgr/class_usrmgr.php");
+	$usrmgr->WriteXMLStatFile();	
+}
+
 ?>
