@@ -441,6 +441,8 @@ class func {
 		$string = str_replace('&ouml;', 'ö', $string);
 		$string = str_replace('&Ouml;', 'Ö', $string);
 		$string = str_replace('&szlig;', 'ß', $string);
+    $string = str_replace('&nbsp;', '', $string);
+    $string = str_replace('&quot;', '"', $string);
 
 		return $string;
   }
