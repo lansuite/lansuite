@@ -41,7 +41,6 @@ $query = $db->query("SELECT f.fid, t.tid, MAX(p.pid) AS pid, t.caption, MAX(p.da
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $templ['home']['show']['row']['control']['link']	= "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&gotopid={$row['pid']}#pid{$row['pid']}";
   $templ['home']['show']['row']['info']['text']		= $row['caption'] .' ['. $row['posts'] .']';
-  //if (CheckPostNew($row['LastPost'], $row['last_read'])) $templ['home']['show']['row']['info']['text'] = '<b>'. $templ['home']['show']['row']['info']['text'] .'</b>';
   if ($row['closed']) $templ['home']['show']['row']['info']['text'] .= ' <span onmouseover="return overlib(\''. t('Thread wurde geschlossen') .'\');" onmouseout="return nd();"><img src="design/images/icon_locked.png" border="0" width="12" /></span>';
   
   if (CheckPostNew($row['LastPost'], $row['last_read']))
