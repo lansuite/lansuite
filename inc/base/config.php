@@ -1,7 +1,7 @@
 ;<? /*
 
 [lansuite]
-version				= "v3 CVS"
+version				= "v3 SVN $Rev$"
 default_design			= "osX"
 user_timeout			= "300"
 chmod_dir			= "777"
