@@ -69,6 +69,9 @@ class Mail {
     $this->inet_headers .= "Content-type: text/plain;$CharsetStr\n";
     $this->inet_headers .= "From: $from\n";
 
+    // Cut out double line breaks
+    $msgbody_text = str_replace("\r", '', $msgbody_text);
+
 		// SMTP-Mail
 		if ($cfg["mail_use_smtp"]) {
 			$board_config["smtp_host"] = $cfg["mail_smtp_host"];
