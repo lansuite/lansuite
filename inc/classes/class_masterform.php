@@ -183,7 +183,7 @@ class masterform {
           } else {
             $row = $db->query_first("SELECT 1 AS found $db_query FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
             if ($row['found']) {
-              foreach ($this->SQLFields as $key => $val) $_POST[$val] = $row[$val]; # str_replace('"', '&quot;', $row[$val]); #$func->db2edit($row[$val])
+              foreach ($this->SQLFields as $key => $val) $_POST[$val] = $func->db2edit($row[$val]);
             } else {
               $func->error($lang['mf']['err_invalid_id']);
               return false;
