@@ -190,6 +190,8 @@ if (!$_GET['partyid']) {
   	LEFT JOIN {$config['tables']['user']} AS u on p.userid = u.userid
 	WHERE p.partyid = ".(int)$_GET['partyid']);
 
+  if (substr($row['url'], 0, 7) != 'http://') $row['url'] = 'http://'. $row['url'];
+
   $dsp->NewContent($row['name'], $row['motto']);
   $dsp->AddDoubleRow(t('Datum'), $func->unixstamp2date($row['start'], 'datetime') .' bis '. $func->unixstamp2date($row['end'], 'datetime'));
   $dsp->AddDoubleRow(t('Adresse'), $row['street'] .' '. $row['hnr'] .', '. $row['plz'] .' '. $row['city']);
