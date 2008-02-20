@@ -350,8 +350,10 @@ class func {
 
   // When text should be displayed within a textarea
   function db2edit($string) {
-		$string = str_replace("<", "&lt;", $string);
-		$string = str_replace(">", "&gt;", $string);
+		$string = str_replace('&', '&amp;', $string);
+		$string = str_replace('<', '&lt;', $string);
+		$string = str_replace('>', '&gt;', $string);
+		$string = str_replace('"', '&quot;', $string);
 		
 		return $string;
   }
