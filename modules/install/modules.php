@@ -61,7 +61,7 @@ switch($_GET["step"]) {
 		$res = $db->query("SELECT name FROM {$config["tables"]["modules"]} WHERE changeable");
 		while ($row = $db->fetch_array($res)){
 			if ($_POST[$row["name"]]) $db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 1 WHERE name = '{$row["name"]}'");
-			else $db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 0 WHERE name = '{$row["name"]}'");
+			elseif (count($_POST)) $db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 0 WHERE name = '{$row["name"]}'");
 		}
 		$db->free_result($res);
 
