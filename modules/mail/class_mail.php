@@ -44,6 +44,9 @@ class Mail {
 	function create_inet_mail($to_user_name, $to_user_email, $subject_text, $msgbody_text, $from = '') {
 		global $cfg, $board_config;
 
+    // No special charachters in Username!
+    $to_user_name = ereg_replace('[^a-zA-Z ]', '', $to_user_name);
+
     // Do not send, when in intranet mode
 		if (!$cfg['sys_internet']) {
       $this->error = t('Um Internet-Mails zu versenden, muss sich Lansuite im Internet-Modus befinden');
