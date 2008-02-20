@@ -21,7 +21,7 @@ if ($auth["userid"]) {
         OR (memb1.userid = ". $auth["userid"] .") OR (memb2.userid = ". $auth["userid"] ."))
 			AND (teams1.disqualified = '0')
 			AND (teams2.disqualified = '0')
-			AND (t.party_id = ". (int)$party->party_id .")
+			AND (t.party_id = ". (int)$party->party_id .") AND (t.status = 'process')
 		GROUP BY games1.gameid, games2.gameid
 		");
 }
@@ -49,7 +49,7 @@ if ($auth['type'] > 1) {
 			AND ((games1.position + 1) = games2.position) AND (games2.score = 0) AND (games2.leaderid != 0)
 			AND (teams1.disqualified = '0')
 			AND (teams2.disqualified = '0')
-			AND (t.party_id = ". (int)$party->party_id .")
+			AND (t.party_id = ". (int)$party->party_id .") AND (t.status = 'process')
 		ORDER BY t.tournamentid, teams1.name
 		");
 	$x = 0;
