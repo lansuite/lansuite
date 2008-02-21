@@ -65,7 +65,7 @@ if (!$cfg['download_use_ftp']) {
       if ($_GET['dir']) $CurFilePath = $_GET['dir'] .'/'. $CurFile;
       else $CurFilePath = $CurFile;
 
-      if ($CurFilePath != 'info.txt' and $CurFilePath != 'CVS') {
+      if ($CurFilePath != 'info.txt' and $CurFilePath != '.svn') {
 
         // Dir
         if (is_dir($BaseDir.'/'.$CurFilePath)) {

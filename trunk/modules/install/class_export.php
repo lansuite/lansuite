@@ -362,7 +362,7 @@ class Export {
     $zip = new gzip_file($filename);
     $zip->set_options(array('basedir' => '.', 'overwrite' => 1, 'level' => 1, 'inmemory' => 1));
     $zip->add_files(array('ext_inc'));
-    #$zip->exclude_files("ext_inc/CVS/*");
+    #$zip->exclude_files("ext_inc/.svn/*");
     $zip->create_archive();
 
     header('Content-Type: application/octetstream; charset=utf-8');
