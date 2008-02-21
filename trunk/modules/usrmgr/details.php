@@ -40,7 +40,7 @@ function GetTypeDescription($type) {
 
 // Select from table_user
 // username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment
-$user_data = $db->qry_first("SELECT u.*, g.*, UNIX_TIMESTAMP(u.birthday) AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
+$user_data = $db->qry_first("SELECT u.*, g.*, u.birthday AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
 	FROM %prefix%user AS u
 	LEFT JOIN %prefix%usersettings AS c ON u.userid = c.userid
 	LEFT JOIN %prefix%party_usergroups AS g ON u.group_id = g.group_id
@@ -226,11 +226,10 @@ else {
 			if ($user_data['perso'] and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1')))
 				$dsp->AddDoubleRow($lang['usrmgr']['details_passport_misc'], $user_data['perso'] .'<br>'. $lang['usrmgr']['details_hint']);
 
-
 			// Birthday
 			if ($cfg['sys_internet'] == 0 OR $auth['type'] >= 2 OR $auth['userid'] == $_GET['userid'])
-        $dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? $func->unixstamp2date($user_data['birthday'], "date") .' ('. $user_data['age']  .')' : $lang['usrmgr']['details_not_entered']);
-
+    		list($tyear,$tmonth,$tday) = explode("-", $user_data['birthday']);
+    		$dsp->AddDoubleRow("Geburtstag", ((int) $user_data['birthday'])? "$tday.$tmonth.$tyear" .' ('. $user_data['age']  .')' : $lang['usrmgr']['details_not_entered']);
 
 			// Gender
 			$geschlecht[0] = $lang['usrmgr']['details_not_entered'];
