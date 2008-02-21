@@ -40,7 +40,7 @@ MySQL-Crew<br />
 PHP-Crew<br />
 php.net (Funktionsreferenz)<br />
 Apache-Crew<br />
-TortoiseCVS (http://www.tortoisecvs.org)<br />
+TortoiseSVN (http://tortoisesvn.net/)<br />
 phpBB.com (http://www.phpbb.com)<br />
 Adobe (Photoshop)<br />
 Fraunhofer Institut (MPEG 1 Layer 3)<br />

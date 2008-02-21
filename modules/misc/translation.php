@@ -52,7 +52,7 @@ function TUpdateFromFiles($BaseDir) {
           }
         }
       }
-    } elseif ($file != '.' and $file != '..' and $file != 'CVS' and is_dir($FilePath)) $output .= TUpdateFromFiles($FilePath);
+    } elseif ($file != '.' and $file != '..' and $file != '.svn' and is_dir($FilePath)) $output .= TUpdateFromFiles($FilePath);
   }
   closedir($ResDir);
   return $output;

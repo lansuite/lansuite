@@ -811,7 +811,7 @@ class func {
     $ret = array();
     $handle = opendir($dir);
     while ($file = readdir ($handle)) {
-      if ((substr($file, 0, 1)  != '.') and ($file != 'CVS')) $ret[] = strtolower($file);
+      if ((substr($file, 0, 1)  != '.') and ($file != '.svn')) $ret[] = strtolower($file);
     }
     closedir($handle);
 

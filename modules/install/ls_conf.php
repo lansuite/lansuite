@@ -49,7 +49,7 @@ switch($_GET["step"]) {
 
 		// Check all Subdirs of $design_dir fpr valid design-xml-files
 		$t_array = array();
-		while ($akt_design = readdir($design_dir)) if ($akt_design != "." AND $akt_design != ".." AND $akt_design != "CVS" AND $akt_design != "templates") {
+		while ($akt_design = readdir($design_dir)) if ($akt_design != "." AND $akt_design != ".." AND $akt_design != ".svn" AND $akt_design != "templates") {
 
 			$file = "design/$akt_design/design.xml";
 			if (file_exists($file)) {
