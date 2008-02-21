@@ -7,7 +7,7 @@ class Install {
   function IsWriteableRec($dir) {
     $ret = '';
     if ($dh = opendir($dir)) {
-      while (($file = readdir($dh)) !== false) if ($file != '.' and $file != '..' and $file != 'CVS') {
+      while (($file = readdir($dh)) !== false) if ($file != '.' and $file != '..' and $file != '.svn') {
         if (!is_writable($dir .'/'. $file)) $ret .= $dir .'/'. $file .'<br>';
         if (is_dir($dir .'/'. $file)) $ret .= $this->IsWriteableRec($dir .'/'. $file);
       }
