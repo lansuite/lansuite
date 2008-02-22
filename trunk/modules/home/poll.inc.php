@@ -11,6 +11,7 @@ $query = $db->query("SELECT p.pollid, p.caption, COUNT(v.pollid) AS votes FROM {
 if ($db->num_rows($query) > 0) {
 	while($row = $db->fetch_array($query)) {
 		$templ['home']['show']['row']['control']['link']	= 'index.php?mod=poll&action=show&step=2&pollid='. $row['pollid'];
+  if (strlen($row['caption']) > 42) $row['caption'] = substr($row['caption'], 0, 40) . '...';  
 		$templ['home']['show']['row']['info']['text']		= $row['caption'];
 		$templ['home']['show']['row']['info']['text2']		= '(Votes: '. $row['votes'] .')';
 		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row");
