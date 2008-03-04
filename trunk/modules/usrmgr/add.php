@@ -78,8 +78,9 @@ function check_birthday($date) {
 	global $cfg;
 	if ($cfg["signon_show_birthday"] == 2) {
 		$ref_date = (date("Y")-80)."-".date("n")."-".date("d");
-		if ($date == $ref_date) return t("Bitte das korrekte Geburtsdatum eingeben.");
-		else return false;
+		if ($date == $ref_date OR ($date=="0000-00-00")) {
+            return t("Bitte das korrekte Geburtsdatum eingeben.");
+        } else return false;
 	}	
 }
 
