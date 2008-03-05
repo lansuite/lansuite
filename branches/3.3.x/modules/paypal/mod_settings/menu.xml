@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<pos>40</pos>
+	<entry>
+		<caption>PayPal</caption>
+		<hint>Bezahlen mit Paypal</hint>
+		<link>?mod=paypal</link>
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+		<file>paypal</file>
+		<needed_config></needed_config>
+		<level>0</level>
+	</entry>
+</menu>

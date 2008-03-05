@@ -1,0 +1,3 @@
+This folder will contain pictures and thumbnails of the module picturegallery.
+
+If you like, you could also drag (upload) image-files to this directory and lansuite will automatically display them.

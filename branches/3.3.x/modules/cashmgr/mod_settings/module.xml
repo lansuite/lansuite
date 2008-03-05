@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<lansuite-module>
+	<name>cashmgr</name>
+	<caption>Buchhaltung</caption>
+	<description>Verwaltung aller Finanzen in LS</description>
+	<active>0</active>
+	<changeable>1</changeable>
+	<author>Martin Roehling</author>
+	<email>info@woh-lan.de</email>
+	<version>0.1</version>
+	<state>in development</state>
+</lansuite-module>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<pos>22</pos>
+	<entry>
+		<action>default</action>
+		<file>show</file>
+		<caption>PDF Modul</caption>
+		<hint>PDF aus Daten erstellen</hint>
+		<link>?mod=pdf</link>
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+		<needed_config></needed_config>
+		<level>0</level>
+	</entry>
+	<entry>
+		<action>ticket</action>
+		<file>pdf_act</file>
+		<requirement>1</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+	</entry>
+	<entry>
+		<action>guestcards</action>
+		<file>pdf_act</file>
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+	</entry>
+	<entry>
+		<action>seatcards</action>
+		<file>pdf_act</file>
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+	</entry>
+	<entry>
+		<action>userlist</action>
+		<file>pdf_act</file>
+		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+	</entry>
+	<entry>
+		<requirement>1</requirement>
+		<needed_config>user_show_ticket</needed_config>
+		<action>ticket</action>
+		<file>pdf_act</file>
+	</entry>	
+</menu>

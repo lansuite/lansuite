@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<pos>100</pos>
+	<entry>
+		<action>default</action>
+		<file>overview</file>
+		<requirement>0</requirement>
+	</entry>
+	<entry>
+		<action>design_info</action>
+		<file>design_info</file>
+		<requirement>0</requirement>
+	</entry>
+	<entry>
+		<action>hall_of_fame</action>
+		<file>hall_of_fame</file>
+		<requirement>0</requirement>
+	</entry>
+	<entry>
+		<action>credits</action>
+		<file>credits</file>
+		<requirement>0</requirement>
+	</entry>
+	<entry>
+		<action>license</action>
+		<file>license</file>
+		<requirement>0</requirement>
+	</entry>
+	<entry>
+		<action>generate_file_stats</action>
+		<file>generate_file_stats</file>
+		<requirement>2</requirement>
+	</entry>
+</menu>

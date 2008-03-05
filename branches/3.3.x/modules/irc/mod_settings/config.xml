@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Verbindungsdaten</name>
+    </head>
+    <items>
+    	<item>
+    		<name>irc_server</name>
+    		<type>string</type>
+    		<default>null</default>
+    		<description>IRC Server auf dem der Chat läuft?</description>
+    	</item>
+    	<item>
+    		<name>irc_channel</name>
+    		<type>string</type>
+    		<default>null</default>
+    		<description>IRC Channel der Party</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Ausmaße</name>
+    </head>
+    <items>
+    	<item>
+    		<name>irc_width</name>
+    		<type>int</type>
+    		<default>640</default>
+    		<description>Breite des Chatfensters</description>
+    	</item>
+    	<item>
+    		<name>irc_height</name>
+    		<type>int</type>
+    		<default>480</default>
+    		<description>Höhe des Chatfensters</description>
+    	</item>
+    </items>
+  </group>
+</config>
