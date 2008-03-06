@@ -58,7 +58,6 @@ else {
     $party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $user_party['price_id']);
 
     $menunames[1] = $lang['usrmgr']['details_playerinfos'];
-    if (in_array('tournament2', $ActiveModules)) $menunames[2] = $lang['usrmgr']['details_tournament'];
     $menunames[3] = $lang['usrmgr']['details_misc'];
   $user_fields = $db->query("SELECT name, caption, optional FROM {$config['tables']['user_fields']}");
   if ($db->num_rows($user_fields) > 0) $menunames[4] = $lang['usrmgr']['details_own_fields'];
@@ -259,7 +258,7 @@ else {
             $dsp->AddDoubleRow($lang['usrmgr']['details_comment'], ($user_data['comment'] == "") ? "" : $func->text2html($user_data['comment']));
       $dsp->AddFieldsetEnd();
 
-// BEGIN Pluginsystem for Usermanager
+    // BEGIN Pluginsystem for Usermanager
     include_once("inc/classes/class_plugin.php");
     $plug_main = new plugin($ActiveModules,'usrmgr_main');
     foreach ($plug_main->get_list() as $plug_main_set) {
@@ -272,55 +271,7 @@ else {
     // END Pluginsystem for Usermanager
 
 break;
-
-
-    // Tournament list
-        case 2:
-          if (in_array('tournament2', $ActiveModules)) { 
-            // League IDs
-        $dsp->AddFieldsetStart($lang['usrmgr']['leagues']);
-            $wwcl = '';
-            if ($user_data['wwclid']) $wwcl .= $user_data['wwclid'] .' ';
-            if ($user_data['wwclclanid']) $wwcl .= '('. $user_data['wwclclanid'] .')';
-            $dsp->AddDoubleRow($lang['usrmgr']['details_wwcl_id']. ' (Clan-ID)', $wwcl);
-            $ngl = '';
-            if ($user_data['nglid']) $ngl .= $user_data['nglid'] .' ';
-            if ($user_data['nglclanid']) $ngl .= '('. $user_data['nglclanid'] .')';
-            $dsp->AddDoubleRow($lang['usrmgr']['details_ngl_id']. ' (Clan-ID)', $ngl);
-            $lgz = '';
-            if ($user_data['lgzid']) $lgz .= $user_data['lgzid'] .' ';
-            if ($user_data['lgzclanid']) $lgz .= '('. $user_data['lgzclanid'] .')';
-            $dsp->AddDoubleRow('LGZ-ID (Clan-ID)', $lgz);
-        $dsp->AddFieldsetEnd();
-  
-  
-        include_once("modules/tournament2/class_tournament.php");
-        $tfunc = new tfunc;
-  
-        $dsp->AddFieldsetStart($lang['usrmgr']['details_leader_teams']);
-            $leader_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
-            LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
-          WHERE team.leaderid = '{$_GET['userid']}'");
-        if ($db->num_rows($leader_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
-        else while ($leader_team = $db->fetch_array($leader_teams)) {
-          $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $leader_team['tid']. '">'. $leader_team['name'] .'</a>', $leader_team['teamname'] .' '. $tfunc->button_team_details($leader_team['teamid'], $leader_team['tid']));
-        }
-        $dsp->AddFieldsetEnd();
-  
-        $dsp->AddFieldsetStart($lang['usrmgr']['details_member_teams']);
-            $member_teams = $db->query("SELECT t.name, t.tournamentid AS tid, team.name AS teamname, team.teamid FROM {$config['tables']['t2_teams']} AS team
-            LEFT JOIN {$config['tables']['tournament_tournaments']} AS t ON t.tournamentid = team.tournamentid
-            LEFT JOIN {$config['tables']['t2_teammembers']} AS m ON team.teamid = m.teamid
-          WHERE m.userid = '{$_GET['userid']}'");
-        if ($db->num_rows($member_teams) == 0) $dsp->AddSingleRow('<i>-'. $lang["sys"]["none"] .'-</i>');
-        else while ($member_team = $db->fetch_array($member_teams)) {
-          $dsp->AddDoubleRow('<a href="index.php?mod=tournament2&action=details&tournamentid='. $member_team['tid']. '">'. $member_team['name'] .'</a>', $member_team['teamname'] .' '. $tfunc->button_team_details($member_team['teamid'], $member_team['tid']));
-        }
-        $dsp->AddFieldsetEnd();
-      }
-        break;
-
-
+        // Sonstiges
         case 3:
             // forumposts
             $dsp->AddDoubleRow($lang['usrmgr']['details_posts'], $user_data['posts'].$count_rows['count']);
