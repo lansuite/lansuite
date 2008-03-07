@@ -49,7 +49,7 @@ else {
 
     // Show Upcomming
     include_once('inc/classes/class_masterform.php');
-    $MFID = 0;
+    $MFID = 1;
 
     $res = $db->query("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']} WHERE UNIX_TIMESTAMP(enddate) >= UNIX_TIMESTAMP(NOW()) ORDER BY startdate");
     while ($row = $db->fetch_array($res)) {
@@ -95,6 +95,9 @@ else {
         $mf->AdditionalDBUpdateFunction = 'PartyMail';
         $mf->SendForm('index.php?mod='. $_GET['mod'] .'&action='. $_GET['action'] .'&party_id='. $row['party_id'], 'party_user', 'user_id', $_GET['user_id']);
         $dsp->AddFieldsetEnd();
+      } else {
+          // Fucking bad Bugfix. $mf_number is a Globalvar in Masterform
+          $mf_number++;      
       }
       $MFID++;
     }
