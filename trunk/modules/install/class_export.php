@@ -203,7 +203,7 @@ class Export {
 
 		$user_export = $config['lansuite']['version']." CSV Export\r\nParty: ". $_SESSION['party_info']['name'] ."\r\nExportdate: ".$func->unixstamp2date(time(),'daydatetime')."\r\n\r\n";
 
-		$user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;passnr/misc;md5pwd;usertype;paid;seatcontrol;clan;clanurl;wwclid;nglid;checkin;checkout;signondate;seatblock;seat;ip;comment;birthday\r\n";
+		$user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;passnr/misc;md5pwd;usertype;paid;seatcontrol;clan;clanurl;wwclid;nglid;checkin;checkout;signondate;paiddate;birthday;seatblock;seat;ip;comment\r\n";
 
 		$query = $db->query("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol, p.paiddate
 			FROM {$config["tables"]["user"]} AS u

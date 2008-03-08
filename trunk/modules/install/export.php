@@ -11,9 +11,9 @@ switch($_GET["step"]){
 		$type_array = array("xml" => $lang["install"]["export_xml_complete"],
 			"xml_modules" => $lang["install"]["export_xml_module"],
 			"xml_tables" => $lang["install"]["export_xml_tables"],
-			"csv_complete" => $lang["install"]["export_cvs_complete"],
-			"csv_sticker" => $lang["install"]["export_cvs_sticker"],
-			"csv_card" => $lang["install"]["export_cvs_card"],
+			"csv_complete" => $lang["install"]["export_csv_complete"],
+			"csv_sticker" => $lang["install"]["export_csv_sticker"],
+			"csv_card" => $lang["install"]["export_csv_card"],
 			"ext_inc_data" => $lang['install']['export_data_ext_inc']
 			);
 		$t_array = array();
@@ -113,15 +113,15 @@ switch($_GET["step"]){
 			break;
 
 			case "csv_complete":
-				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_cvs_complete_save"]}</a>", "", "", "");
+				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_csv_complete_save"]}</a>", "", "", "");
 			break;
 
 			case "csv_sticker":
-				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_cvs_sticker_save"]}</a>", "", "", "");
+				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_csv_sticker_save"]}</a>", "", "", "");
 			break;
 
 			case "csv_card":
-				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_cvs_card_save"]}</a>", "", "", "");
+				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_csv_card_save"]}</a>", "", "", "");
 			break;
 
       case 'ext_inc_data':

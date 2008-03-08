@@ -73,7 +73,7 @@ switch($_GET["step"]){
 				$dsp->SetForm("index.php?mod=install&action=import&step=3&filename={$_GET["filename"]}&seperator={$_POST["seperator"]}", "", "", "multipart/form-data");
 				$dsp->AddDoubleRow("<b>Datenbank Feld</b>", "<b>CSV-Datei Eintrag</b>");
 
-				// Read fields in CVS-file
+				// Read fields in CSV-file
 				$csv_file = file($_GET["filename"]);
 				$items = explode($_POST["seperator"], $csv_file[0]);
 
@@ -156,7 +156,7 @@ switch($_GET["step"]){
 					$z++;
 				}
 
-				$func->confirmation("CVS Import erfolgreich", "index.php?mod=install&action=import");
+				$func->confirmation(t("CSV Import erfolgreich"), "index.php?mod=install&action=import");
 			break;
 
 			default:
