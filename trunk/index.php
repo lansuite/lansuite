@@ -217,7 +217,7 @@ if ($language != "de" and file_exists("modules/boxes/language/boxes_lang_$langua
 $party = new party();
 
 // Startup authentication
-if ($found_adm) {
+if ($found_adm OR $config['environment']['configured'] == 1) {
 	$authentication = new auth();
 	$auth = $authentication->GetAuthData();
 } else {
