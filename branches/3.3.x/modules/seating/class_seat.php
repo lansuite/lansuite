@@ -352,7 +352,7 @@ class seat2 {
                     $templ['seat']['tooltip'] .= t('Name') .': '. $user_info[$y][$x]['firstname'] .' '. $user_info[$y][$x]['name'] . HTML_NEWLINE;
   							  $templ['seat']['tooltip'] .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
   							  $templ['seat']['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-  							  if ($user_info[$y][$x]['picture'] != '' and $user_info[$y][$x]['picture'] != '0' and
+  							  if (func::chk_img_path($user_info[$y][$x]['picture']) and
                     ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)))
     							  $templ['seat']['tooltip'] .= '<img src=&quot;'. $user_info[$y][$x]['picture'] .'&quot; style=&quot;max-width:100%;&quot; />' . HTML_NEWLINE;
                 break;

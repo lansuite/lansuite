@@ -818,5 +818,22 @@ class func {
     sort($ret);
     return $ret;
   }
+
+  /**
+   * func::chk_img_path() Check for a valid Picturepath
+   *
+   * @param  mixed    Path to test for validity
+   * @return boolean  Path OK an Picture exists
+   */
+    function chk_img_path($imgpath) {
+        if ($imgpath != '' and $imgpath != 'none' and $imgpath != '0') {
+            if (is_file($imgpath)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }  
+
 }
 ?>

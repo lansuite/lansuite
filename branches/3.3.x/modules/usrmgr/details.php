@@ -239,7 +239,7 @@ else {
 
 
       // Picture
-			if ($user_data['picture'] != '' AND $user_data['picture'] != '0') $dsp->AddDoubleRow($lang['usrmgr']['picture'], '<img src="'. $user_data['picture'] .'">');
+            if (func::chk_img_path($user_data['picture'])) $dsp->AddDoubleRow($lang['usrmgr']['picture'], '<img src="'. $user_data['picture'] .'">');
 
 
 			// Comment

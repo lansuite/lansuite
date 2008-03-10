@@ -21,7 +21,7 @@ function getuserinfo($userid) {
 	$html_image= '<img src="%s" alt="%s" border="0">';
 
 	$user["username"]   =$row_poster["username"];
-	$user["avatar"]     =($row_poster_settings["avatar_path"] != '' and $row_poster_settings["avatar_path"] != 'none' and $row_poster_settings["avatar_path"] != '0') ? sprintf($html_image, $row_poster_settings["avatar_path"], "") : "";
+	$user["avatar"]     =(func::chk_img_path($row_poster_settings["avatar_path"])) ? sprintf($html_image, $row_poster_settings["avatar_path"], "") : "";
 	$user["signature"]   = $row_poster_settings["signature"];
 
 	if ($cfg['board_ranking'] == TRUE) $user["rank"] = getboardrank($count_rows["posts"]);
