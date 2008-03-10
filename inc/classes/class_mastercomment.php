@@ -4,7 +4,7 @@ function FetchDataRow($username) {
   global $func, $dsp, $line;
 
   $html_image= '<img src="%s" alt="%s" border="0">';
-	$avatar = ($line['avatar_path'] != '' and $line['avatar_path'] != 'none' and $line['avatar_path'] != '0') ? sprintf($html_image, $line['avatar_path'], t('Avatar')) : '';
+    $avatar = (func::chk_img_path($line['avatar_path'])) ? sprintf($html_image, $line['avatar_path'], t('Avatar')) : '';
 
   if (!$username) $username = '<i>'. t('Gast') .'</i>';
   $ret = '<b>'. $username .'</b> ';
