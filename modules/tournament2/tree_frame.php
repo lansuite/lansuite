@@ -43,7 +43,7 @@ if (($tournament['mode'] == "groups") && ($group > 0)) {
 
 
 if ($team_anz == 0) {
-	$func->information($lang["tourney"]["games_pairs_unknown"], "index.php?mod=tournament2&action=tree&step=1");
+	$func->information(t('Dieses Turnier wurde noch nicht generiert. Die Paarungen sind noch nicht bekannt.'), "index.php?mod=tournament2&action=tree&step=1");
 } else {
 
 	function write_pairs ($bracket, $max_pos) {

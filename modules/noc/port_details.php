@@ -12,7 +12,7 @@ switch( $_GET["step"] ) {
 		// Get all the Port data
 		$row = $db->query_first( "SELECT * FROM {$config["tables"]["noc_ports"]} WHERE portid=" . $_GET["portid"] );
 		
-		if($row["portid"] == "") $func->error($lang['noc']['port_not_exist'],"");
+		if($row["portid"] == "") $func->error(t('Dieser Port existiert nicht'),"");
 		
 		else {
 				
@@ -23,9 +23,9 @@ switch( $_GET["step"] ) {
 			case "up":
 			case "up(1)":
 				If( $row["adminstatus"] == "down(2)" || $row["adminstatus"] == "down" || $row["adminstatus"] == "2") {
-					$linkstatus = "<font color=\"red\">" . $lang['noc']['port_off'] . "</font>"; 
+					$linkstatus = "<font color=\"red\">" . t('Ausgeschaltet') . "</font>"; 
 				} else { 
-					$linkstatus = "<font color=\"green\">" . $lang['noc']['port_active'] . "</font>";
+					$linkstatus = "<font color=\"green\">" . t('Aktiv') . "</font>";
 				}
 			break;
 			
@@ -33,9 +33,9 @@ switch( $_GET["step"] ) {
 			case "down":
 			case "down(2)":
 				If( $row["adminstatus"] == "down(2)" || $row["adminstatus"] == "down" || $row["adminstatus"] == "2") {
-					$linkstatus = "<font color=\"red\">" . $lang['noc']['port_off'] . "</font>"; 
+					$linkstatus = "<font color=\"red\">" . t('Ausgeschaltet') . "</font>"; 
 				} else { 
-					$linkstatus = "<font color=\"red\">" . $lang['noc']['port_inactive'] . "</font>"; 
+					$linkstatus = "<font color=\"red\">" . t('Inaktiv') . "</font>"; 
 				}
 			break;
 			
@@ -47,18 +47,18 @@ switch( $_GET["step"] ) {
 		$bytesOut = round( $row["bytesOut"] / ( 1024 * 1024 ), 2 ) . " MBytes";
 		
 		
-		$dsp->NewContent($lang['noc']['port_caption'],$lang['noc']['port_subcaption']);
+		$dsp->NewContent(t('Port &auml;ndern'),t('Um den Status des Ports zu &auml;ndern auf &Auml;ndern dr&uuml;cken.'));
 		$dsp->SetForm("index.php?mod=noc&action=port_details&step=2&portid=" . $_GET['portid'],"noc");
 
 		// Template Variables
-		$dsp->AddDoubleRow($lang['noc']['portnr'], $row["portnr"]);
-		$dsp->AddDoubleRow($lang['noc']['mac'], nl2br($row["mac"]));
-		$dsp->AddDoubleRow($lang['noc']['ip'], $row["ip"]);
-		$dsp->AddDoubleRow($lang['noc']['linkstatus'], $linkstatus);
+		$dsp->AddDoubleRow(t('Portnummer'), $row["portnr"]);
+		$dsp->AddDoubleRow(t('MAC-Adresse'), nl2br($row["mac"]));
+		$dsp->AddDoubleRow(t('IP-Adresse'), $row["ip"]);
+		$dsp->AddDoubleRow(t('Portstatus'), $linkstatus);
 		$dsp->AddFormSubmitRow("edit");
-		$dsp->AddDoubleRow($lang['noc']['speed'],$row["speed"]. " MBit/s (entspricht ~ " . round($row["speed"] / 8,2) . " MBytes/s)");
-		$dsp->AddDoubleRow($lang['noc']['bytesIn'],$bytesIn);
-		$dsp->AddDoubleRow($lang['noc']['bytesOut'],$bytesOut);
+		$dsp->AddDoubleRow(t('Geschwindigkeit'),$row["speed"]. " MBit/s (entspricht ~ " . round($row["speed"] / 8,2) . " MBytes/s)");
+		$dsp->AddDoubleRow(t('Empfangene Bytes'),$bytesIn);
+		$dsp->AddDoubleRow(t('Gesendete Bytes'),$bytesOut);
 		$dsp->AddBackButton("index.php?mod=noc&action=details_device&deviceid=" . $row["deviceid"]);
 		$dsp->AddContent();
 	}//port exists
@@ -67,7 +67,7 @@ switch( $_GET["step"] ) {
 	
 	case 2:
 	
-	$func->question($lang['noc']['change_port'],
+	$func->question(t('Sind Sie sicher, dass Sie den Status dieses Ports &auml;ndern wollen?'),
 				"index.php?mod=noc&action=port_details&portid={$_GET["portid"]}&step=3",
 			  	"index.php?mod=noc&action=port_details&portid={$_GET["portid"]}");
 	
@@ -79,7 +79,7 @@ switch( $_GET["step"] ) {
 	
 		$port = $db->query_first( "SELECT portid, deviceid, portnr, adminstatus FROM {$config["tables"]["noc_ports"]} WHERE portid=" . $_GET["portid"] );
 		
-		if($port["portid"] == "") $func->error($lang['noc']['port_not_exist']	,""); 
+		if($port["portid"] == "") $func->error(t('Dieser Port existiert nicht')	,""); 
 		
 		else {
 
@@ -93,12 +93,12 @@ switch( $_GET["step"] ) {
 				
 				case "1":
 				case "up":
-				case "up(1)":	$newstatus = "2"; $statusdescr = "<font color=\"red\">" . $lang['noc']['port_inactived'] . "</font>"; $statusdb = "down(2)";
+				case "up(1)":	$newstatus = "2"; $statusdescr = "<font color=\"red\">" . t('deaktiviert') . "</font>"; $statusdb = "down(2)";
 				break;
 
 				case "2":
 				case "down":
-				case "down(2)":	$newstatus = "1"; $statusdescr = "<font color=\"green\">" . $lang['noc']['port_actived'] . "</font>"; $statusdb = "up(1)"; 
+				case "down(2)":	$newstatus = "1"; $statusdescr = "<font color=\"green\">" . t('aktiviert') . "</font>"; $statusdb = "up(1)"; 
 				break;
 
 			}
@@ -107,9 +107,10 @@ switch( $_GET["step"] ) {
 				
 				$db->query_first("UPDATE {$config["tables"]["noc_ports"]} SET adminstatus='$statusdb' WHERE portid=" . $_GET["portid"]);
 			
-				$func->confirmation($lang['noc']['port_changed'], "index.php?mod=noc&action=port_details&portid={$_GET["portid"]}");
+				$func->confirmation(t('Der Portstatus wurde ge&auml;ndert'), "index.php?mod=noc&action=port_details&portid={$_GET["portid"]}");
 			}else{
-				$func->error($lang['noc']['change_port_error'],"index.php?mod=noc&action=port_details&portid={$_GET["portid"]}");
+				$func->error(t('Der Port auf konnte nicht ge&auml;ndert werden.HTML_NEWLINE
+											 Pr&uuml;fen sie die Einstellung der Write-Community'),"index.php?mod=noc&action=port_details&portid={$_GET["portid"]}");
 			}
 		}//port exists
 		

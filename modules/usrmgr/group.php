@@ -15,28 +15,28 @@
 *
 **************************************************************************/
 
-$selection_data[0]	=	$lang['usrmgr']['selection'][0];
-$selection_data[1]	=	$lang['usrmgr']['selection'][1];
-$selection_data[2]	=	$lang['usrmgr']['selection'][2];
-$selection_data[3]	=	$lang['usrmgr']['selection'][3];
-$selection_data[4]	=	$lang['usrmgr']['selection'][4];
+$selection_data[0]	=	t('Keine zuweisung');
+$selection_data[1]	=	t('Alter');
+$selection_data[2]	=	t('Weiblich');
+$selection_data[3]	=	t('M�nnlich');
+$selection_data[4]	=	t('Ortschaft');
 
 switch ($_GET['step']){
 	case 3:
 		if(isset($_GET['group_id'])) $_POST['group_id'] = $_GET['group_id'];
 		if($_POST['group_name'] == ""){
-			$error_usrmgr['group'] = $lang['usrmgr']['error_group'];
+			$error_usrmgr['group'] = t('Geben Sie einen Gruppennamen ein');
 			$_GET['step'] = 2;
 		}
 		
 		if($_POST['selection'] == 1){
 			if(!(preg_match("/^[0-9]+-[0-9]+$/i",trim($_POST['select_opts'])) || preg_match("/^-[0-9]+$/i",trim($_POST['select_opts'])) || preg_match("/^[0-9]+\+$/i",trim($_POST['select_opts'])))){
-				$error_usrmgr['select_opts'] = $lang['usrmgr']['error_select_age'];
+				$error_usrmgr['select_opts'] = t('Alter wurde falsch angegeben bitte in der Form 14+ , -18 oder 15-17 angeben.');
 				$_GET['step'] = 2;
 			}
 		}
 		if($_POST['selection'] == 4 && trim($_POST['select_opts']) == ""){
-			$error_usrmgr['select_opts'] = $lang['usrmgr']['error_select_city'];
+			$error_usrmgr['select_opts'] = t('Bitte eine Stadt angeben');
 			$_GET['step'] = 2;
 		}
 	break;
@@ -66,8 +66,8 @@ switch ($_GET['step']){
 switch ($_GET['step']){
 	
 	default :
-		$dsp->NewContent($lang['usrmgr']['edit_user_group_caption'],$lang['usrmgr']['edit_user_group_subcaption']);
-		$dsp->AddSingleRow("<a href='?mod=usrmgr&action=group&step=9'>{$lang['usrmgr']['users_to_group']}</a>");
+		$dsp->NewContent(t('Gruppenverwaltung'),t('Erstellen Sie Benutzergruppen um unterschiedliche Preise zu verlangen.'));
+		$dsp->AddSingleRow("<a href='?mod=usrmgr&action=group&step=9'>".t('Benutzer einer Gruppe zuweisen')."</a>");
 
 		if($_GET['var'] == "update"){
 			$dsp->AddDoubleRow('',$dsp->FetchButton("index.php?mod=usrmgr&action=group&step=2&var=new","add"));
@@ -81,16 +81,16 @@ switch ($_GET['step']){
 			
 		}
 					
-		$dsp->AddTextFieldRow("group_name",$lang['usrmgr']['group'],$_POST['group_name'],$error_usrmgr['group']);
-		$dsp->AddTextFieldRow("description",$lang['usrmgr']['group_desc'],$_POST['description'],$error_usrmgr['group_desc']);
+		$dsp->AddTextFieldRow("group_name",t('Gruppenname'),$_POST['group_name'],$error_usrmgr['group']);
+		$dsp->AddTextFieldRow("description",t('Benutzergruppenbeschreibung'),$_POST['description'],$error_usrmgr['group_desc']);
 		// Dropdown f�r auswahl der Automatischen einstufung
 #		$selection_array = array();
 #		foreach ($selection_data as $key => $value){
 #			($key == $_POST['selection']) ? $selected = "selected" : $selected = "";
 #			array_push($selection_array,"<option $selected value='$key'>" . $value . "</option>");
 #		}
-#		$dsp->AddDropDownFieldRow("selection",$lang['usrmgr']['selection_choise'],$selection_array,$error_usrmgr['selection']);
-#		$dsp->AddTextFieldRow("select_opts",$lang['usrmgr']['select_opts'],$_POST['select_opts'],$error_usrmgr['select_opts']);
+#		$dsp->AddDropDownFieldRow("selection",t('Automatische Zuweisung'),$selection_array,$error_usrmgr['selection']);
+#		$dsp->AddTextFieldRow("select_opts",t('Zuweisungsbegriff (für Alter z.b. 18+, 16-18, -18)'),$_POST['select_opts'],$error_usrmgr['select_opts']);
 		
 		$dsp->AddFormSubmitRow("add","usrmgr/group");
 		
@@ -98,7 +98,7 @@ switch ($_GET['step']){
 			$count = $db->query_first("SELECT count(group_id) as n FROM {$config['tables']['party_usergroups']} WHERE selection != 0");
 			if($count['n'] > 1){
 				$dsp->AddHRuleRow();
-				$dsp->AddDoubleRow("","<a href='?mod=usrmgr&action=group&step=15'>{$lang['usrmgr']['group_sort_list']}</a>");
+				$dsp->AddDoubleRow("","<a href='?mod=usrmgr&action=group&step=15'>".t('Automatisch Zuordnung sortieren')."</a>");
 			}
 			$dsp->AddHRuleRow();
 			$dsp->SetForm("index.php?mod=usrmgr&action=group&step=2&var=update");
@@ -121,18 +121,18 @@ switch ($_GET['step']){
 	case 3:
 		if($_GET['var'] == "new"){
 			$party->add_user_group($_POST['group_name'],$_POST['description'],$_POST['selection'],$_POST['select_opts']);
-			$func->confirmation($lang['usrmgr']['add_group_ok'],'?mod=usrmgr&action=group&step=2');
+			$func->confirmation(t('Benutzergruppe wurde hinzugefügt'),'?mod=usrmgr&action=group&step=2');
 		}elseif ($_GET['var'] == "update"){
 			$party->update_user_group($_GET['group_id'],$_POST['group_name'],$_POST['description'],$_POST['selection'],$_POST['select_opts']);
-			$func->confirmation($lang['usrmgr']['edit_group_ok'],'?mod=usrmgr&action=group&step=2');
+			$func->confirmation(t('Benutzergruppe wurde erfolgreich editiert.'),'?mod=usrmgr&action=group&step=2');
 		}else{
-			$func->error($lang['usrmgr']['entry_error'],'?mod=usrmgr&action=group&step=2');
+			$func->error(t('Die Benutzergruppe konnte nicht angelegt werden.'),'?mod=usrmgr&action=group&step=2');
 		}
 		
 	break;
 	
 	case 9:
-		$dsp->NewContent($lang['usrmgr']['select_group_caption'],$lang['usrmgr']['select_group_caption']);
+		$dsp->NewContent(t('Gruppe auswählen'),t('Gruppe auswählen'));
 		$dsp->SetForm("index.php?mod=usrmgr&action=group&step=10");		
 		$party->get_user_group_dropdown();
 		$dsp->AddFormSubmitRow("next");
@@ -153,14 +153,14 @@ switch ($_GET['step']){
 			foreach ($_POST['checkbox'] AS $userid) {
 				$user_data = $db->query_first("SELECT user.username, g.group_name FROM {$config["tables"]["user"]} AS user LEFT JOIN {$config["tables"]["party_usergroups"]} AS g ON user.group_id = g.group_id WHERE userid = '$userid'");
 				if($user_data["group_name"] != ""){
-					$text .=  "<b>{$user_data["username"]}</b> " . $lang['usrmgr']['is_in_group'] . " <b>" . $user_data["group_name"] . "</b>" . HTML_NEWLINE;
+					$text .=  "<b>{$user_data["username"]}</b> " . t('ist in der Gruppe') . " <b>" . $user_data["group_name"] . "</b>" . HTML_NEWLINE;
 				}else{
-					$text .=  "<b>{$user_data["username"]}</b> " . $lang['usrmgr']['is_in_nogroup'] . HTML_NEWLINE;
+					$text .=  "<b>{$user_data["username"]}</b> " . t('ist in keiner Gruppe') . HTML_NEWLINE;
 				}
 				$userids .= "$userid,";
 			}
 			$row = $db->query_first("SELECT group_name FROM {$config["tables"]["party_usergroups"]} WHERE group_id={$_GET['group_id']}");
-			$text .= HTML_NEWLINE . str_replace("%GROUP%","\"<b>" .$row['group_name'] . "</b>\"",$lang['usrmgr']['change_users_in_group']);
+			$text .= HTML_NEWLINE . t('Wollen Sie diese Benutzer der Gruppe %1 zuweisen?',"\"<b>" .$row['group_name'] . "</b>\"");
 			$userids = substr($userids, 0, strlen($userids) - 1);
 			$func->question($text, "index.php?mod=usrmgr&action=group&step=12&userids=$userids&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}");
 
@@ -168,11 +168,11 @@ switch ($_GET['step']){
 			$user_data = $db->query_first("SELECT user.username, g.group_name FROM {$config["tables"]["user"]} AS user LEFT JOIN {$config["tables"]["party_usergroups"]} AS g ON user.group_id = g.group_id WHERE userid = '{$_GET["userid"]}'");
 					
 			if ($user_data["username"]) {
-				$func->question(str_replace("%USER%", $user_data["username"],str_replace("%GROUP%", $user_data["group_name"],$lang['usrmgr']['change_user_in_group'])),"index.php?mod=usrmgr&action=group&step=12&userid={$_GET["userid"]}&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}");
+				$func->question(t('Wollen Sie den Benutzer %1 der Gruppe %2 zuweisen?', $user_data["username"],$user_data["group_name"]),"index.php?mod=usrmgr&action=group&step=12&userid={$_GET["userid"]}&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}");
 			}else{
-				$func->error($lang["usrmgr"]["chpaid_error_nouser"], "index.php?mod=usrmgr&action=group&step=10");	
+				$func->error(t('Dieser Benutzer existiert nicht'), "index.php?mod=usrmgr&action=group&step=10");	
 			}
-		} else $func->error($lang["usrmgr"]["chpaid_error_nouser"], "index.php?mod=usrmgr&action=group&step=10");	
+		} else $func->error(t('Dieser Benutzer existiert nicht'), "index.php?mod=usrmgr&action=group&step=10");	
 	
 	break;
 	
@@ -184,16 +184,23 @@ switch ($_GET['step']){
 			}
 		} else $db->query("UPDATE {$config["tables"]["user"]} SET group_id = '{$_GET['group_id']}' WHERE userid = {$_GET["userid"]} LIMIT 1");
 
-		$func->confirmation($lang['usrmgr']['change_usergroup_ok'], "index.php?mod=usrmgr&action=group&group_id={$_GET['group_id']}");
+		$func->confirmation(t('Die Gruppenzuweisung wurde erfolgreich durchgeführt'), "index.php?mod=usrmgr&action=group&group_id={$_GET['group_id']}");
 	break;
 	
 	
 	// Sort Groups
 	case 15:
-		$dsp->NewContent($lang['usrmgr']['sort_group_caption'], $lang['usrmgr']['sort_group_subcaption']);
+		$dsp->NewContent(t('Gruppen sortieren'), t('Hier können Sie die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die höchste Priorität'));
 
 		$groups = $db->query("SELECT * FROM {$config["tables"]["party_usergroups"]} WHERE selection != 0 ORDER BY pos");
 		$z = 0;
+		
+		$usrmgr_selection[0] = t('Keine zuweisung');
+		$usrmgr_selection[1] = t('Alter');
+		$usrmgr_selection[2] = t('Weiblich');
+		$usrmgr_selection[3] = t('M�nnlich');
+		$usrmgr_selection[4] = t('Ortschaft');
+		
 		while ($group = $db->fetch_array($groups)){
 			$z++;
 			$db->query("UPDATE {$config["tables"]["party_usergroups"]} SET pos = $z WHERE group_id = {$group["group_id"]}");
@@ -201,7 +208,7 @@ switch ($_GET['step']){
 			$link = "";
 			if ($z > 1)  $link .= "[<a href=\"index.php?mod=usrmgr&action=group&step=16&pos=$z\">^</a>] ";
 			if ($z < $db->num_rows($groups)) $link .= "[<a href=\"index.php?mod=usrmgr&action=group&step=17&pos=$z\">v</a>]";
-			$link .= " " . $lang['usrmgr']['selection'][$group['selection']] . " " . $group['select_opts'];
+			$link .= " " . $usrmgr_selection[$group['selection']] . " " . $group['select_opts'];
 			
 			$dsp->AddDoubleRow("$z) ". $group["group_name"], $link);
 			
@@ -215,11 +222,11 @@ switch ($_GET['step']){
 	// Delete Group
 	case 20:
 		$row = $db->query_first("SELECT * FROM {$config['tables']['party_usergroups']} WHERE group_id={$_POST['group_id']}");
-		$func->question(str_replace("%GROUP%",$row['group_name'],$lang['usrmgr']['delete_group']),"index.php?mod=usrmgr&action=group&step=21&group_id={$_POST['group_id']}","index.php?mod=usrmgr&action=group");
+		$func->question(t('Wollen sie die Gruppe %1 wirklich löschen?',$row['group_name']),"index.php?mod=usrmgr&action=group&step=21&group_id={$_POST['group_id']}","index.php?mod=usrmgr&action=group");
 	break;
 	
 	case 21:
-		$dsp->NewContent($lang['usrmgr']['delete_group_capt'],$lang['usrmgr']['delete_group_subcapt']);
+		$dsp->NewContent(t('Gruppe zuweisen'),t('Welche Gruppe möchten Sie den Benutzern die in der gelöschten Gruppe sind zuweisen?'));
 		$dsp->SetForm("index.php?mod=usrmgr&action=group&step=22&group_id={$_GET['group_id']}");
 		$party->get_user_group_dropdown("NULL",1);
 		$dsp->AddFormSubmitRow("next");
@@ -228,7 +235,7 @@ switch ($_GET['step']){
 	
 	case 22:
 		$party->delete_usergroups($_GET['group_id'],$_POST['group_id']);
-		$func->confirmation($lang['usrmgr']['delete_group_ok'],"index.php?mod=usrmgr&action=group");
+		$func->confirmation(t('Gruppe erfolgreich gelöscht.'),"index.php?mod=usrmgr&action=group");
 	break;
 	
 	// Multi-User-Assign
@@ -236,7 +243,7 @@ switch ($_GET['step']){
   	foreach ($_POST['action'] as $key => $val) {
       $db->query("UPDATE {$config["tables"]["user"]} SET group_id = '{$_GET['group_id']}' WHERE userid = ". (int)$key);
     }
-		$func->confirmation($lang['usrmgr']['change_usergroup_ok'], "index.php?mod=usrmgr");
+		$func->confirmation(t('Die Gruppenzuweisung wurde erfolgreich durchgeführt'), "index.php?mod=usrmgr");
   break;
 }
 

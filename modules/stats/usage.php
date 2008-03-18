@@ -1,6 +1,6 @@
 <?php
 
-$dsp->NewContent($lang["stats"]["user_caption"], $lang["stats"]["user_subcaption"]);
+$dsp->NewContent(t('Benutzerstatistiken'), t('Hier sehen sie wie viele Benutzer ihre Seite besuchen'));
 
 switch ($_GET['time']) {
   default:

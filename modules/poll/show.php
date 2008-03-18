@@ -16,7 +16,7 @@ switch($_GET['action']) {
   				$CHECK["totalvotes"] = $db->qry('SELECT pollvoteid FROM %prefix%pollvotes WHERE pollid = %int%', $_GET['pollid']);
   				$POLL_OPTION_QUERY = $db->qry('SELECT caption, polloptionid FROM %prefix%polloptions WHERE pollid = %int%', $_GET['pollid']);
 
-  				$dsp->NewContent(str_replace("%NAME%", $POLL["caption"], $lang["poll"]["show_caption"]), "");
+  				$dsp->NewContent(t('Poll anzeigen: %1', $POLL["caption"]), "");
 
   				$array_index = "0";
   				while($POLL_OPTION = $db->fetch_array($query_id = $POLL_OPTION_QUERY)) {
@@ -28,7 +28,7 @@ switch($_GET['action']) {
 
   						while($POLL_VOTES = $db->fetch_array($query_id = $POLL_VOTES_QUERY)) {
   							if($first_entry == FALSE) {
-  								$templ['poll']['show']['details']['case']['control']['javascript'] .= $lang["poll"]["show_js_voted"] .": ";
+  								$templ['poll']['show']['details']['case']['control']['javascript'] .= t('Folgende Benutzer haben für diese Option gevotet') .": ";
 
   								$USER = $db->qry_first('SELECT username, name, firstname FROM %prefix%user WHERE userid = %int%', $POLL_VOTES['userid']);
   								$templ['poll']['show']['details']['case']['control']['javascript'] .= " " . addslashes($USER["username"]);
@@ -39,9 +39,9 @@ switch($_GET['action']) {
   								$templ['poll']['show']['details']['case']['control']['javascript'] .= ", " . addslashes($USER["username"]);
   							}
   						}
-  						if ($first_entry == FALSE) $templ['poll']['show']['details']['case']['control']['javascript'] .= $lang["poll"]["show_novote"];
+  						if ($first_entry == FALSE) $templ['poll']['show']['details']['case']['control']['javascript'] .= t('Für diese Option hat niemand gevotet');
   						$templ['poll']['show']['details']['case']['control']['javascript'] .= "';";
-  						$templ['poll']['show']['details']['case']['control']['javascript_title']	= $lang["poll"]["show_js_default"];
+  						$templ['poll']['show']['details']['case']['control']['javascript_title']	= t('Bewegen Sie den Mauszeiger über einen der Balken, um zu sehen wer für diese Option abgestimmt hat.');
   					}
 
   					$totalvotes	= $db->num_rows($query_id = $CHECK["totalvotes"]);
@@ -66,15 +66,15 @@ switch($_GET['action']) {
   					$array_index++;
   				}
 
-  				$dsp->AddDoubleRow($lang["poll"]["show_votecount"], $db->num_rows($query_id = $CHECK["totalvotes"]));
+  				$dsp->AddDoubleRow(t('Stimmen gesamt'), $db->num_rows($query_id = $CHECK["totalvotes"]));
   				if($POLL["anonym"] == FALSE) $dsp->AddDoubleRow("", $dsp->FetchModTpl("poll", "show_voters"));
-  				($POLL["endtime"] < "1" OR $POLL["endtime"] > time())? $endtime = $lang["poll"]["show_open"] : $endtime = $lang["poll"]["show_closed"];
-  				$dsp->AddDoubleRow($lang["poll"]["show_state"], $endtime);
-  				($POLL["anonym"] == "1")? $anonym = $lang["poll"]["show_yes"] : $anonym = $lang["poll"]["show_no"];
-  				$dsp->AddDoubleRow($lang["poll"]["show_anonym"], $anonym);
-  				($POLL["multi"] == "1")? $multi = $lang["poll"]["show_yes"] : $multi = $lang["poll"]["show_no"];
-  				$dsp->AddDoubleRow($lang["poll"]["show_multiple"], $multi);
-  				$dsp->AddDoubleRow($lang["poll"]["show_comment"], $POLL["comment"]);
+  				($POLL["endtime"] < "1" OR $POLL["endtime"] > time())? $endtime = t('Offen') : $endtime = t('Beendet');
+  				$dsp->AddDoubleRow(t('Status'), $endtime);
+  				($POLL["anonym"] == "1")? $anonym = t('Ja') : $anonym = t('Nein');
+  				$dsp->AddDoubleRow(t('Anonym'), $anonym);
+  				($POLL["multi"] == "1")? $multi = t('Ja') : $multi = t('Nein');
+  				$dsp->AddDoubleRow(t('Mehrfachauswahl'), $multi);
+  				$dsp->AddDoubleRow(t('Bemerkung'), $POLL["comment"]);
 
   				if($_SESSION["auth"]["type"] > 1) {
   					$buttons .= $dsp->FetchButton("index.php?mod=poll&action=change&step=2&pollid={$_GET['pollid']}", "edit");
@@ -96,7 +96,7 @@ switch($_GET['action']) {
   				//End comment-engine
 
   			} // Pollcheck
-  			else $func->error($lang["poll"]["add_err_noexist"],"index.php?mod=poll");
+  			else $func->error(t('Dieser Poll existiert nicht'),"index.php?mod=poll");
   		break;
   	} // switch step
   break;

@@ -38,17 +38,17 @@
 switch($_GET["step"]) {
 	case 2:
 		if (strlen($_POST["tticket_text"]) > 5000) {
-			$func->information($lang['troubleticket']['err_max_size'], "index.php?mod=troubleticket&action=add");
+			$func->information(t('Der Text darf nicht mehr als 5000 Zeichen enthalten'), "index.php?mod=troubleticket&action=add");
 			$_GET["step"] = 1;
 		}
 
 		if ($_POST["tticket_desc"] == "") {
-			$func->information($lang['troubleticket']['err_no_head'], "index.php?mod=troubleticket&action=add");
+			$func->information(t('Bitte geben Sie eine kurze Beschreibung / Überschrift ein'), "index.php?mod=troubleticket&action=add");
 			$_GET["step"] = 1;
 		}
 		
 		if(isset($_POST['tticket_cat']) && $_POST['tticket_cat'] == 0){
-			$error['tticket_cat'] = $lang['troubleticket']['err_no_cat'];
+			$error['tticket_cat'] = t('Bitte wählen Sie eine Kategorie');
 			$_GET['step'] = 1;
 		}
 	break;
@@ -57,28 +57,28 @@ switch($_GET["step"]) {
 
 switch ($_GET["step"]) {
 	default:
-		$dsp->NewContent($lang['troubleticket']['headline'],$lang['troubleticket']['subline']);
+		$dsp->NewContent(t('Troubleticket hinzufügen'),t(' Mit diesem Formular können Sie ein Troubleticket hinzufügen, falls Sie ein Problem haben'));
 		$dsp->SetForm("index.php?mod=troubleticket&action=add&step=2");
 
-		$dsp->AddTextFieldRow("tticket_desc",$lang['troubleticket']['description'], $_POST['tticket_desc'], $error["tticket_desc"]);
+		$dsp->AddTextFieldRow("tticket_desc",t('Beschreibung'), $_POST['tticket_desc'], $error["tticket_desc"]);
 
 		$t_cat = $db->query("SELECT *FROM {$config["tables"]["troubleticket_cat"]}");
 		
 		if($db->num_rows($t_cat) > 0){
 
-			$t_cat_array[] = "<option value=\"0\">{$lang['troubleticket']['no_cat']}</option>";
+			$t_cat_array[] = "<option value=\"0\">".t('Bitte Auswählen')."</option>";
 			
 			while ($row = $db->fetch_array($t_cat)){
 				$t_cat_array[] .= "<option value=\"{$row['cat_id']}\">{$row['cat_text']}</option>";
 			}
 			
-			$dsp->AddDropDownFieldRow("tticket_cat",$lang['troubleticket']['cat'],$t_cat_array,$error['tticket_cat']);
+			$dsp->AddDropDownFieldRow("tticket_cat",t('Kategorie'),$t_cat_array,$error['tticket_cat']);
 		}
 			
-		$options = array("10" => $lang['troubleticket']['state_0'],
-			"20" => $lang['troubleticket']['state_1'],
-			"30" => $lang['troubleticket']['state_2'],
-			"40" => $lang['troubleticket']['state_3']
+		$options = array("10" => t('Niedrig'),
+			"20" => t('Normal'),
+			"30" => t('Hoch'),
+			"40" => t('Kritisch')
 			);
 		$t_array = array();
 		if ($_POST["tticket_priority"] == "") $_POST["tticket_priority"] = "20";
@@ -87,11 +87,11 @@ switch ($_GET["step"]) {
 			($_POST["tticket_priority"] == $key) ? $selected = "selected" : $selected = "";
 			array_push ($t_array, "<option $selected value=\"$key\">$val</option>");
 		}
-		$dsp->AddDropDownFieldRow("tticket_priority",$lang['troubleticket']['priority'], $t_array, $error["tticket_priority"], 1);
+		$dsp->AddDropDownFieldRow("tticket_priority",t('Priorität'), $t_array, $error["tticket_priority"], 1);
 
 		if ($auth["type"] > 1) {
-			$dsp->AddRadioRow("orgaonly",$lang['troubleticket']['visible_4all'], "0", $error["orgaonly"], 0, 1);
-			$dsp->AddRadioRow("orgaonly",$lang['troubleticket']['visible_4orga'], "1", "", 0, 0);
+			$dsp->AddRadioRow("orgaonly",t('Sichtbar für Alle'), "0", $error["orgaonly"], 0, 1);
+			$dsp->AddRadioRow("orgaonly",t('Sichtbar nur für Orgas'), "1", "", 0, 0);
 		}
 
 		$dsp->AddTextAreaPlusRow("tticket_text", "Text", $_POST["tticket_text"], $error["tticket_text"], "", "", 1);
@@ -112,7 +112,7 @@ switch ($_GET["step"]) {
 			$vzeit = $czeit;
 		}
 
-		if (!$_POST["tticket_text"]) $_POST["tticket_text"] = $lang['troubleticket']['no_contend'];
+		if (!$_POST["tticket_text"]) $_POST["tticket_text"] = t('Keine weiteren Informationen angegeben.');
 
 		$target_userid = 0;
 		if (!isset($_POST["tticket_cat"]) || $_POST["tticket_cat"] == 0){
@@ -145,13 +145,12 @@ switch ($_GET["step"]) {
 
 		
 		if($cat_data['orga'] > 0 && isset($_POST["tticket_cat"]) && $_POST["tticket_cat"] > 0){
-			$func->setainfo(str_replace("%TTCaption%",$_POST["tticket_desc"],$lang['troubleticket']['user_assign']),$cat_data['orga'],1,"troubleticket",$db->insert_id());
+			$func->setainfo(t('Ihnen wurde das Troubleticket "<b>%1</b>"zugewiesen. ',$_POST["tticket_desc"]),$cat_data['orga'],1,"troubleticket",$db->insert_id());
 		}
 		
-		$func->confirmation($lang['troubleticket']['add_confirm'], "index.php?mod=troubleticket&action=add");
+		$func->confirmation(t('Das Troubleticket wurde erfolgreich eingetragen'), "index.php?mod=troubleticket&action=add");
 	break;
 }
 
 
 ?>
-

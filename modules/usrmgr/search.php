@@ -8,19 +8,19 @@ switch ($_GET['step']) {
     if (!$_POST['action'] and $_GET['userid']) $_POST['action'][$_GET['userid']] = 1;
 
     foreach ($_POST['action'] as $key => $val) $UsrMgr->LockAccount($key);
-    $func->confirmation($lang['usrmgr']['accounts_locked']);
+    $func->confirmation(t('Accounts wurden gesperrt'));
 	break;
 
 	case 11:
     if (!$_POST['action'] and $_GET['userid']) $_POST['action'][$_GET['userid']] = 1;
 
     foreach ($_POST['action'] as $key => $val) $UsrMgr->UnlockAccount($key);
-    $func->confirmation($lang['usrmgr']['accounts_unlocked']);
+    $func->confirmation(t('Accounts wurden freigegeben'));
 	break;
 }
 
 if($cfg['sys_barcode_on']){
-	$dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>","","index.php?mod=usrmgr&action=details&userid=");
+	$dsp->AddBarcodeForm("<strong>" . t('Strichcode') . "</strong>","","index.php?mod=usrmgr&action=details&userid=");
 }
 include_once('modules/usrmgr/search.inc.php');
 ?>

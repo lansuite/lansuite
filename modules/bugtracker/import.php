@@ -3,7 +3,7 @@ switch($_GET['step']) {
   default:
     $dsp->NewContent(t('Bugtracker Import'), t('Hier können Sie die bugs.xml-Datei Importieren, die Sie auf Ihrer Webseite exportiert haben'));
     $dsp->SetForm('index.php?mod=bugtracker&action=import&step=2', '', '', 'multipart/form-data');
-		$dsp->AddFileSelectRow("importdata", $lang["install"]["import_import"], "");
+		$dsp->AddFileSelectRow("importdata", t('Import (.xml, .csv, .tgz)'), "");
     $dsp->AddFormSubmitRow('next');
     $dsp->AddContent();
   break;

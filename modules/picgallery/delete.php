@@ -25,11 +25,11 @@ $root_file = "ext_inc/picgallery". $_GET["file"];
 
 
 $pic = $db->query_first("SELECT caption FROM {$config[tables][picgallery]} WHERE name = '$db_dir'");
-if (!$pic['caption']) $pic['caption'] = "<i>{$lang['picgallery']['del_unknown']}</i>";
+if (!$pic['caption']) $pic['caption'] = "<i>".t('Unbekannt')."</i>";
 
 switch ($_GET["step"]) {
 	default:
-		$func->question(str_replace("%NAME%", $_GET["file"], str_replace("%CAPTION%", $pic['caption'], $lang['picgallery']['del_pic_quest'])), "index.php?mod=picgallery&action=delete&step=2&file={$_GET["file"]}", "index.php?mod=picgallery&file=$akt_dir");
+		$func->question(t('Wollen sie das Bild <b>%1 (%2)</b> wirklich l&ouml;schen?', $pic['caption'], $_GET["file"]), "index.php?mod=picgallery&action=delete&step=2&file={$_GET["file"]}", "index.php?mod=picgallery&file=$akt_dir");
 	break;
 	
 	case 2:
@@ -38,7 +38,7 @@ switch ($_GET["step"]) {
 		unlink($root_file);
 		if(file_exists($root_dir ."lsthumb_". $akt_file)) unlink($root_dir ."lsthumb_". $akt_file);
 
-		$func->confirmation(str_replace("%NAME%", $_GET["file"], str_replace("%CAPTION%", $pic['caption'], $lang['picgallery']['del_pic_success'])), "index.php?mod=picgallery&file=$akt_dir");
+		$func->confirmation(t('Das Bild <b>%1 (%2)</b> wurde gel&ouml;scht', $pic['caption'], $_GET["file"]), "index.php?mod=picgallery&file=$akt_dir");
 	break;
 	
   // Delete directory

@@ -8,17 +8,17 @@ function optionrow($name, $text) {
 switch ($_GET["step"]) {
 	case 3:
 		if (strlen($_POST["tticket_orgatext"]) > 5000) {
-			$func->information($lang['troubleticket']['err_max_size'], "index.php?mod=troubleticket&action=change&step=2&ttid={$_GET["ttid"]}");
+			$func->information(t('Der Text darf nicht mehr als 5000 Zeichen enthalten'), "index.php?mod=troubleticket&action=change&step=2&ttid={$_GET["ttid"]}");
 			$_GET["step"] = 2;
 		}
 
 		if (strlen($_POST["tticket_publictext"]) > 5000) {       // QO: mit vorheriger if zusammenfassen ?
-			$func->information($lang['troubleticket']['err_max_size'], "index.php?mod=troubleticket&action=change&step=2&ttid={$_GET["ttid"]}");
+			$func->information(t('Der Text darf nicht mehr als 5000 Zeichen enthalten'), "index.php?mod=troubleticket&action=change&step=2&ttid={$_GET["ttid"]}");
 			$_GET["step"] = 2;
 		}
 
 		if (!$_POST["tticket_publictext"] and $_POST["tticket_status"] == 5) {
-			$func->information($lang['troubleticket']['err_no_reason'], "index.php?mod=troubleticket&action=change&step=2&ttid={$_GET["ttid"]}");
+			$func->information(t('Bei einer direkten Ablehnung ist die Angabe eines Grundes notwendig.'), "index.php?mod=troubleticket&action=change&step=2&ttid={$_GET["ttid"]}");
 			$_GET["step"] = 2;
 		}
 	break;
@@ -37,13 +37,13 @@ switch($_GET["step"]) {
 		$numrows = $rowtest["n"];
 
 		// Pr�fen ob ticketid leer ist
-		if ($tt_id == "") $func->information($lang['troubleticket']['err_no_tt_id'], "");
+		if ($tt_id == "") $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'), "");
 
 		// Pr�fen ob ticketid g�ltig ist
-		elseif ($numrows == "") { $func->information($lang['troubleticket']['err_no_tt_id'],""); }
+		elseif ($numrows == "") { $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'),""); }
 
 		else {
-			$dsp->NewContent($lang['troubleticket']['headl_edit'], "");
+			$dsp->NewContent(t('Troubleticket bearbeiten'), "");
 
 			// Ticket aus DB laden und ausgeben
 			$row = $db->query_first("SELECT * FROM {$config["tables"]["troubleticket"]} WHERE ttid = '$tt_id'");
@@ -53,92 +53,92 @@ switch($_GET["step"]) {
 			$target_user_id = $row["target_userid"];
 			$get_targetuser = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = '$target_user_id' ");
 
-			$dsp->AddDoubleRow($lang['troubleticket']['head'], $row["caption"]);
-			$dsp->AddDoubleRow($lang['troubleticket']['prob_descr'], $func->text2html($row["text"]));
-			$dsp->AddDoubleRow($lang['troubleticket']['set_up_on'], $func->unixstamp2date($row["created"], "daydatetime"));
-			$dsp->AddDoubleRow($lang['troubleticket']['from_user'], $get_originuser["username"]);
+			$dsp->AddDoubleRow(t('Überschrift'), $row["caption"]);
+			$dsp->AddDoubleRow(t('Problembeschreibung'), $func->text2html($row["text"]));
+			$dsp->AddDoubleRow(t('Eingetragen am/um'), $func->unixstamp2date($row["created"], "daydatetime"));
+			$dsp->AddDoubleRow(t('Von Benutzer'), $get_originuser["username"]);
 
 			// priorit�t zahl -> text
 			switch ($row["priority"]) {
 				default:
-					$priority = $lang['troubleticket']['state_0'];
+					$priority = t('Niedrig');
 				break;
 				case 20:
-					$priority = $lang['troubleticket']['state_1'];
+					$priority = t('Normal');
 				break;
 				case 30:
-					$priority = $lang['troubleticket']['state_2'];
+					$priority = t('Hoch');
 				break;
 				case 40:
-					$priority = $lang['troubleticket']['state_3'];
+					$priority = t('Kritisch');
 				break;
 			}
-			$dsp->AddDoubleRow($lang['troubleticket']['priority'], $priority);
+			$dsp->AddDoubleRow(t('Priorität'), $priority);
 
 			// entsprechend des ticketstatuses passende zeilen ausgeben
 			$status_wahl = array();
 			switch ($row["status"]) {
 				default:
-					$status	= $lang['troubleticket']['st_default'];
+					$status	= t('default: Scriptfehler!');
 				break;
 
 				// status: NEU EINGETRAGEN / NICHT GEPR�FT
 				case 1:
-					$status	= $lang['troubleticket']['st_new'];
-					array_push($status_wahl, optionrow(4, $lang['troubleticket']['option_finished']));
-					array_push($status_wahl, optionrow(5, $lang['troubleticket']['option_refuse']));
+					$status	= t('Neu / Ungeprüft');
+					array_push($status_wahl, optionrow(4, t(' Auf Erledigt setzen ')));
+					array_push($status_wahl, optionrow(5, t(' Bearbeitung ablehnen ')));
 					$time_text = "";
 					$time_val = "";
 				break;
 
 				// status: GEPR�FT / ggf. VON EINEM ORGA NEU EINGETRAGEN
 				case 2:
-					$status	= $lang['troubleticket']['st_acc'];
-					array_push($status_wahl, optionrow(0, $lang['troubleticket']['option_nochange']));
-					array_push($status_wahl, optionrow(2, $lang['troubleticket']['option_back2poll']));
-					array_push($status_wahl, optionrow(3, $lang['troubleticket']['option_startwork']));
-					array_push($status_wahl, optionrow(4, $lang['troubleticket']['option_finished']));
-					array_push($status_wahl, optionrow(5, $lang['troubleticket']['option_refuse']));
-					$time_text = $lang['troubleticket']['st_checked'];
+					$status	= t('Überprüft / Akzeptiert');
+					array_push($status_wahl, optionrow(0, t(' Keine Änderung ')));
+					array_push($status_wahl, optionrow(2, t(' Problem nicht übernehmen und zurückgeben ')));
+					array_push($status_wahl, optionrow(3, t(' Problem übernehmen und Bearbeitung beginnen ')));
+					array_push($status_wahl, optionrow(4, t(' Auf Erledigt setzen ')));
+					array_push($status_wahl, optionrow(5, t(' Bearbeitung ablehnen ')));
+					$time_text = t('Überprüft am/um');
 					$time_val = $func->unixstamp2date($row["verified"], "daydatetime");
 				break;
 
 				// status: ORGA HAT ARBEIT BEGONNEN
 				case 3:
-					$status	= $lang['troubleticket']['st_in_work'];
-					array_push($status_wahl, optionrow(0, $lang['troubleticket']['option_nochange']));
-					array_push($status_wahl, optionrow(4, $lang['troubleticket']['option_finished']));
-					$time_text = $lang['troubleticket']['st_in_work_since'];
+					$status	= t('In Arbeit');
+					array_push($status_wahl, optionrow(0, t(' Keine Änderung ')));
+					array_push($status_wahl, optionrow(4, t(' Auf Erledigt setzen ')));
+					$time_text = t('In Bearbeitung seit');
 					$time_val = $func->unixstamp2date($row["process"], "daydatetime");
 				break;
 
 				// status: BEARBEITUNG ABGESCHLOSSEN
 				case 4:
-					$status	= $lang['troubleticket']['st_finished'];
-					array_push($status_wahl, optionrow(0, $lang['troubleticket']['option_nochange']));
-					array_push($status_wahl, optionrow(3, $lang['troubleticket']['option_startwork']));
-					$time_text = $lang['troubleticket']['st_finish_since'];
+					$status	= t('Abgeschlossen');
+					array_push($status_wahl, optionrow(0, t(' Keine Änderung ')));
+					array_push($status_wahl, optionrow(3, t(' Problem übernehmen und Bearbeitung beginnen ')));
+					$time_text = t('Beendet am/um');
 					$time_val = $func->unixstamp2date($row["finished"],"daydatetime");
 				break;
 
 				// status: BEARBEITUNG ABGELEHNT
 				case 5:
-					$status	= $lang['troubleticket']['st_denied'];
-					array_push($status_wahl, optionrow(0, $lang['troubleticket']['option_nochange']));
-					$time_text = $lang['troubleticket']['st_denied_since'];
+					$status	= t('Abgelehnt');
+					array_push($status_wahl, optionrow(0, t(' Keine Änderung ')));
+					$time_text = t('Bearbeitung abgelehnt am/um');
 					$time_val = $func->unixstamp2date($row["finished"], "daydatetime");
 				break;
 			}
-			$dsp->AddDoubleRow($lang['troubleticket']['status'], $status);
+			$dsp->AddDoubleRow(t('Ticketstatus'), $status);
 			if ($time_text and $time_val) $dsp->AddDoubleRow($time_text, $time_val);
-			$dsp->AddDoubleRow($lang['troubleticket']['assign_orga'], $get_targetuser["username"]);
+			$dsp->AddDoubleRow(t('Bearbeitender Orga'), $get_targetuser["username"]);
 
 			$dsp->SetForm("index.php?mod=troubleticket&action=change&step=3&ttid=$tt_id");
 
-			$dsp->AddDropDownFieldRow("tticket_status",$lang['troubleticket']['status_choose'], $status_wahl, $error["tticket_status"], 1);
+			$dsp->AddDropDownFieldRow("tticket_status",t('Status auswählen'), $status_wahl, $error["tticket_status"], 1);
 
-			$dsp->AddTextAreaPlusRow("tticket_publictext", $lang['troubleticket']['com_4user'], $_POST['tticket_publictext'], $error["tticket_publictext"]);
-			$dsp->AddTextAreaPlusRow("tticket_orgatext", $lang['troubleticket']['com_4orga'], $_POST['tticket_orgatext'], $error["tticket_orgatext"]);
+			$dsp->AddTextAreaPlusRow("tticket_publictext", t('Kommentar für Benutzer'), $_POST['tticket_publictext'], $error["tticket_publictext"]);
+			$dsp->AddTextAreaPlusRow("tticket_orgatext", t('Kommentar für Orgas'), $_POST['tticket_orgatext'], $error["tticket_orgatext"]);
 
 			$dsp->AddFormSubmitRow("add");
 			$dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/change");
@@ -194,7 +194,7 @@ switch($_GET["step"]) {
 			break;
 		}
 
-		$func->confirmation($lang['troubleticket']['change_confirm'], "index.php?mod=troubleticket&action=change");
+		$func->confirmation(t('Das Troubleticket wurde erfolgreich geändert'), "index.php?mod=troubleticket&action=change");
 	break;
 }
 ?>

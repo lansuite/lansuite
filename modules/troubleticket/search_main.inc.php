@@ -6,12 +6,12 @@ function TTStatus($status) {
 	global $lang;
 
 	switch ($status) {
-		default: return $lang['troubleticket']['st_checked']; break;
-		case 1: return $lang['troubleticket']['st_new']; break;
-		case 2: return $lang['troubleticket']['st_acc']; break;
-		case 3: return $lang['troubleticket']['st_in_work']; break;
-		case 4: return $lang['troubleticket']['st_finished']; break;
-		case 5: return $lang['troubleticket']['st_denied']; break;
+		default: return t('Überprüft am/um')/* TRANS */; break;
+		case 1: return t('Neu / Ungeprüft')/* TRANS */; break;
+		case 2: return t('Überprüft / Akzeptiert')/* TRANS */; break;
+		case 3: return t('In Arbeit')/* TRANS */; break;
+		case 4: return t('Abgeschlossen')/* TRANS */; break;
+		case 5: return t('Abgelehnt')/* TRANS */; break;
 	}
 }  
 

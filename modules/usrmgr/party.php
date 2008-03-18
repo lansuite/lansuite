@@ -29,18 +29,18 @@ else {
       global $db, $config, $row, $lang, $func, $auth;
     
       // Do not allow changes, if party is over
-      if ($row['enddate'] < time()) return $lang['usrmgr']['err_party_over'];
+      if ($row['enddate'] < time()) return t('Sie können Sich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist');
       
       // Signon started?
-      if ($row['sstartdate'] > time()) return $lang['signon']['signon_start']. HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['sstartdate'], 'daydatetime'). '</strong>';
+      if ($row['sstartdate'] > time()) return t('Die Anmeldung öffnet am'). HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['sstartdate'], 'daydatetime'). '</strong>';
     
       // Signon ended?
-      if ($row['senddate'] < time() and $auth['type'] < 2) return $lang['signon']['signon_closed']. HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['senddate'], 'daydatetime'). '</strong>';
+      if ($row['senddate'] < time() and $auth['type'] < 2) return t('Die Anmeldung ist beendet seit'). HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['senddate'], 'daydatetime'). '</strong>';
     
       // Do not allow changes, if user has paid
       if ($auth['type'] <= 1) {
         $row2 = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE party_id = ". (int)$_GET['party_id'] ." AND user_id = ". (int)$id);
-        if ($row2['paid']) return $lang['usrmgr']['err_paid_no_change'];
+        if ($row2['paid']) return t('Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden');
       }
       
       return false;
@@ -66,10 +66,10 @@ else {
         // Paid
         if ($auth['type'] >= 2) {
           $selections = array();
-          $selections['0'] = $lang['usrmgr']['add_paid_no'];
-          $selections['1'] = $lang['usrmgr']['add_paid_vvk'];
-          $selections['2'] = $lang['usrmgr']['add_paid_ak'];
-          $mf->AddField($lang['usrmgr']['add_paid'], 'paid', IS_SELECTION, $selections);
+          $selections['0'] = t('Nicht bezahlt');
+          $selections['1'] = t('Bezahlt - Vorverkauf');
+          $selections['2'] = t('Bezahlt - Abendkasse');
+          $mf->AddField(t('Bezahltstatus'), 'paid', IS_SELECTION, $selections);
         } elseif ($cfg['signon_autopaid']) $mf->AddFix('paid', '1');
     
         // Prices
@@ -85,9 +85,9 @@ else {
         if ($auth['type'] >= 2) {
           //$mf->AddField('Seatcontrol', 'seatcontrol', '', '', FIELD_OPTIONAL);
           $mf->AddField(t('Bezahltdatum'), 'paiddate', '', '', FIELD_OPTIONAL);
-          $mf->AddField($lang['usrmgr']['checkin'], 'checkin', '', '', FIELD_OPTIONAL);
-          $mf->AddField($lang['usrmgr']['checkout'], 'checkout', '', '', FIELD_OPTIONAL);
-          $mf->AddField($lang['usrmgr']['signondate'], 'signondate', '', '', FIELD_OPTIONAL);
+          $mf->AddField(t('Eingecheckt'), 'checkin', '', '', FIELD_OPTIONAL);
+          $mf->AddField(t('Ausgecheckt'), 'checkout', '', '', FIELD_OPTIONAL);
+          $mf->AddField(t('Anmeldedatum'), 'signondate', '', '', FIELD_OPTIONAL);
         }
 
         $mf->SendButtonText = 'An-/Abmelden';

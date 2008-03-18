@@ -124,9 +124,9 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 
 	switch ($_GET['step']){
 		case 2:
-			if($_POST['firstname'] == "") 	$error_pay['firstname'] = $lang['paypal']['error_firstname'];
-			if($_POST['lastname'] == "") 	$error_pay['lastname'] = $lang['paypal']['error_lastname'];
-			if($_POST['email'] == "") 		$error_pay['email'] = $lang['paypal']['error_email'];
+			if($_POST['firstname'] == "") 	$error_pay['firstname'] = t('Bitte geben sie einen Vornamen ein');
+			if($_POST['lastname'] == "") 	$error_pay['lastname'] = t('Bitte geben sie einen Namen ein');
+			if($_POST['email'] == "") 		$error_pay['email'] = t('Bitte geben sie eine Email ein');
 					
 			if(isset($error_pay)) $_GET['step'] = 1;
 			
@@ -170,20 +170,20 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 			$price = $price + $_POST['donation'];
 			
 			if($price <= 0){
-				$func->error($lang["paypal"]["no_price_error"],"\" OnClick=\"javascript: refreshParent()");
+				$func->error(t('Kein Preis ausgew&auml;hlt'),"\" OnClick=\"javascript: refreshParent()");
 			}else{
 				
-				$dsp->NewContent($lang["paypal"]["data_caption"],$lang["paypal"]["data_subcaption"]);
+				$dsp->NewContent(t('Daten eingeben'),t('Bitte geben sie ihre Zahlungsdaten ein.'));
 				$dsp->AddModTpl("paypal","javascript");
 				$dsp->SetForm("index.php?mod=paypal&action=paying&design=base&step=2");
-				$dsp->AddTextFieldRow("firstname",$lang["paypal"]["firstname"],$_POST['firstname'],$error_pay['firstname']);
-				$dsp->AddTextFieldRow("lastname",$lang["paypal"]["lastname"],$_POST['lastname'],$error_pay['lastname']);
-				$dsp->AddTextFieldRow("street",$lang["paypal"]["street"],$_POST['street'],$error_pay['street']);
-				$dsp->AddTextFieldRow("city",$lang["paypal"]["city"],$_POST['city'],$error_pay['city']);
-				$dsp->AddTextFieldRow("zip",$lang["paypal"]["zip"],$_POST['zip'],$error_pay['zip']);	
-				$dsp->AddTextFieldRow("email",$lang["paypal"]["email"],$_POST['email'],$error_pay['email']);
-				$dsp->AddDoubleRow($lang["paypal"]["price"],$price . " " . $cfg['paypal_currency_code']);
-				$dsp->AddSingleRow("<font color=\"red\">" .$lang["paypal"]["send_warning"]	.
+				$dsp->AddTextFieldRow("firstname",t('Vorname'),$_POST['firstname'],$error_pay['firstname']);
+				$dsp->AddTextFieldRow("lastname",t('Nachname'),$_POST['lastname'],$error_pay['lastname']);
+				$dsp->AddTextFieldRow("street",t('Strasse'),$_POST['street'],$error_pay['street']);
+				$dsp->AddTextFieldRow("city",t('Stadt'),$_POST['city'],$error_pay['city']);
+				$dsp->AddTextFieldRow("zip",t('PLZ'),$_POST['zip'],$error_pay['zip']);	
+				$dsp->AddTextFieldRow("email",t('E-Mail'),$_POST['email'],$error_pay['email']);
+				$dsp->AddDoubleRow(t('Zu &uuml;berweisender Betrag'),$price . " " . $cfg['paypal_currency_code']);
+				$dsp->AddSingleRow("<font color=\"red\">" .t('Achtung mit dem klicken auf weiter wird die Zahlung durchgef&uuml;hrt')	.
 									"</font><input type=\"hidden\" name=\"price_text\" value=\"$price\">
 									<input type=\"hidden\" name=\"price\" value=\"" . urlencode(serialize($_POST['price'])) . "\">
 									<input type=\"hidden\" name=\"depot\" value=\"" . urlencode(serialize($_POST['depot'])) . "\">
@@ -205,9 +205,9 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 			
 			
 			$templ['index']['info']['action'] = "document.paypal_form.submit();";
-			$dsp->NewContent($lang["paypal"]["send_caption"],$lang["paypal"]["send_subcaption"]);
+			$dsp->NewContent(t('Senden der Daten'),t('Die Daten werden gesendet einen Moment bitte'));
 			$dsp->SetForm($cfg['paypal_url'],"paypal_form");
-			$dsp->AddSingleRow("<font color=\"red\">" . $lang["paypal"]["on_moment"] . "</font>");
+			$dsp->AddSingleRow("<font color=\"red\">" . t('Einen Moment Bitte die Daten werden gesendet') . "</font>");
 			$dsp->AddSingleRow("
 			<!-- PayPal Configuration --> 
 					<input type=\"hidden\" name=\"business\" value=\"{$cfg['paypal_business']}\"> 
@@ -224,7 +224,7 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 					<!-- Payment Page Information --> 
 					<input type=\"hidden\" name=\"no_shipping\" value=\"1\">
 					<input type=\"hidden\" name=\"no_note\" value=\"1\">
-					<input type=\"hidden\" name=\"cn\" value=\"{$lang['paypal']['comment']}\">
+					<input type=\"hidden\" name=\"cn\" value=\"".t('Kommentar')."\">
 					<!-- Customer Information --> 
 					<input type=\"hidden\" name=\"first_name\" value=\"{$_POST['firstname']}\">
 					<input type=\"hidden\" name=\"last_name\" value=\"{$_POST['lastname']}\">
@@ -260,25 +260,25 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 					$db->query("INSERT INTO {$config["tables"]["catering_accounting"]} SET userID='".$auth["userid"]."', actiontime=NOW(), comment=\"PAYPAL:  {$_POST['payment_date']} {$_POST['txn_id']}\", movement='".$_SESSION['paypal']['catering']."'");
 				}
 				
-				$dsp->NewContent($lang["paypal"]["success_caption"]);
+				$dsp->NewContent(t('Zahlung erfolgreich'));
 				$dsp->AddModTpl("paypal","javascript");
-				$dsp->AddSingleRow($lang["paypal"]["success_text"]);
-				$dsp->AddDoubleRow($lang["paypal"]["firstname"],$_POST['first_name']);
-				$dsp->AddDoubleRow($lang["paypal"]["lastname"],$_POST['last_name']);
-				$dsp->AddDoubleRow($lang["paypal"]["email"],$_POST['payer_email']);
-				$dsp->AddDoubleRow($lang["paypal"]["ordernr"],$_POST['txn_id']);
-				$dsp->AddDoubleRow($lang["paypal"]["date"],$_POST['payment_date']);
+				$dsp->AddSingleRow(t('Die Zahlung war erfolgreich. Wir danken f&uuml;r die Einzahlung.'));
+				$dsp->AddDoubleRow(t('Vorname'),$_POST['first_name']);
+				$dsp->AddDoubleRow(t('Nachname'),$_POST['last_name']);
+				$dsp->AddDoubleRow(t('E-Mail'),$_POST['payer_email']);
+				$dsp->AddDoubleRow(t('Zahlungsnummer'),$_POST['txn_id']);
+				$dsp->AddDoubleRow(t('Zahlungsdatum'),$_POST['payment_date']);
 				$dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
 				$dsp->AddContent();
 			}else{
-				$dsp->NewContent($lang["paypal"]["admin_caption"]);
+				$dsp->NewContent(t('Transaktionsfehler oder unerlaubter Zugriff'));
 				$dsp->AddModTpl("paypal","javascript");
-				$dsp->AddSingleRow("<font color=\"red\">" . $lang["paypal"]["admin_text"] . "</font>");
-				$dsp->AddDoubleRow($lang["paypal"]["firstname"],$_POST['first_name']);
-				$dsp->AddDoubleRow($lang["paypal"]["lastname"],$_POST['last_name']);
-				$dsp->AddDoubleRow($lang["paypal"]["email"],$_POST['payer_email']);
-				$dsp->AddDoubleRow($lang["paypal"]["ordernr"],$_POST['txn_id']);
-				$dsp->AddDoubleRow($lang["paypal"]["date"],$_POST['payment_date']);
+				$dsp->AddSingleRow("<font color=\"red\">" . t('Bitte melden sie sich beim einem Admin damit der die Zahlung pr&uuml;fen kann.') . "</font>");
+				$dsp->AddDoubleRow(t('Vorname'),$_POST['first_name']);
+				$dsp->AddDoubleRow(t('Nachname'),$_POST['last_name']);
+				$dsp->AddDoubleRow(t('E-Mail'),$_POST['payer_email']);
+				$dsp->AddDoubleRow(t('Zahlungsnummer'),$_POST['txn_id']);
+				$dsp->AddDoubleRow(t('Zahlungsdatum'),$_POST['payment_date']);
 				$dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
 				$dsp->AddContent();
 			}
@@ -296,8 +296,8 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 		break;
 		
 		case 10:
-			$dsp->NewContent($lang["paypal"]["error_caption"]);
-			$dsp->AddSingleRow($lang["paypal"]["error_text"] );
+			$dsp->NewContent(t('Fehler'));
+			$dsp->AddSingleRow(t('Die Transaktion konnte nicht durchgef&uuml;hrt werden.') );
 			$dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
 			$dsp->AddContent();
 		
@@ -308,4 +308,3 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 	
 $func->templ_output($dsp->FetchModTpl("paypal","sendbox"));
 ?>
-

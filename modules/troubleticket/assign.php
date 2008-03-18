@@ -38,11 +38,11 @@ switch($_GET["step"]) {
 		if ($assign_ticket) {
 			// Infobox Messages erstellen bzw. ggf. löschen
 			$db->query("DELETE FROM {$config["tables"]["infobox"]} WHERE id_in_class = '$tt_id' AND class = 'troubleticket'");
-			$func->setainfo(str_replace("%TTCaption%",$tt_caption,$lang['troubleticket']['user_assign']),$t_userid,1,"troubleticket",$tt_id);
+			$func->setainfo(t('Ihnen wurde das Troubleticket "<b>%1</b>"zugewiesen. ',$tt_caption),$t_userid,1,"troubleticket",$tt_id);
 			// Bestätigung ausgeben
-			$func->confirmation($lang['troubleticket']['assign_confirm'], "index.php?mod=troubleticket&action=assign");
+			$func->confirmation(t('Das ausgewÃ¤hlte Ticket wurde dem Orga zugewiesen.'), "index.php?mod=troubleticket&action=assign");
 
-		} else $func->error($lang['troubleticket']['err_assign'],"index.php?mod=troubleticket&action=assign");
+		} else $func->error(t('Das Troubleticket konnte nicht zugewiesen werden! Problem mit der Datenbank !'),"index.php?mod=troubleticket&action=assign");
 	break;
 }
 ?>

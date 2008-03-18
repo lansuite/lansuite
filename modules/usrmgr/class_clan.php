@@ -9,7 +9,7 @@ class Clan {
     
     // Invalid chars in clan name
 		if (preg_match("/([.^\"\'`´]+)/", $name)) {
-      $func->information('Clan:'. $lang['usrmgr']['add_err_user_chars']);
+      $func->information('Clan:'. t('Sie verwenden nicht zugelassene Sonderzeichen'));
       return false;
     }
     

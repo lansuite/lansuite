@@ -168,7 +168,7 @@ class pdf {
 				$this->_menuSeatcards($action);
 			break;				
 			default:
-				$func->error($lang['pdf']['action_error'],"index.php?mod=pdf&action=" . $action);
+				$func->error(t('Die von Ihnen gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'),"index.php?mod=pdf&action=" . $action);
 			break;
 			case 'userlist':
 				$this->_menuUserlist($action);
@@ -197,7 +197,7 @@ class pdf {
 				$this->_makeUserlist($_POST['paid'],$_POST['guest'],$_POST['op'],$_POST['orga'],$_POST['order']);
 			break;	
 			default:
-				$func->error($lang['pdf']['action_error'],"index.php?mod=pdf&action=" . $action);
+				$func->error(t('Die von Ihnen gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'),"index.php?mod=pdf&action=" . $action);
 			break;
 			case 'ticket':
 				if($auth["userid"] == $_GET['userid'] || $auth["type"] > 2){
@@ -241,14 +241,14 @@ class pdf {
 		global $lang,$dsp,$db,$config;
 		
 		
-		$dsp->NewContent($lang["pdf"]["guestcard_caption"], $lang["pdf"]["guestcard_subcaption"]);
+		$dsp->NewContent(t('Besucherausweise erstellen.'), t('Hier k&ouml;nnen Karten erstellt werden die beim Einlass an die G&auml;ste ausgeh&auml;ndigt werden.'));
 		$dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
-		$dsp->AddSingleRow($lang["pdf"]["rules"]);
+		$dsp->AddSingleRow(t('Die Bl&auml;tter werden nach folgenden Kriterien erstellt:'));
 		
 		// Array für Zahlungsstatus
-		$type_array = array("null" => $lang["pdf"]["egal"],
-								"1" => $lang["pdf"]["yes"],
-								"0" => $lang["pdf"]["no"]
+		$type_array = array("null" => t('Egal'),
+								"1" => t('Ja'),
+								"0" => t('Nein')
 							);
 		$t_array = array();
 		
@@ -256,11 +256,11 @@ class pdf {
 			array_push ($t_array, "<option $selected value=\"$key\">$val</option>");
 		}
 		// Checkboken für Benutzer
-		$dsp->AddDropDownFieldRow("paid", $lang["pdf"]["paid"], $t_array, "", 1);
-		$dsp->AddCheckBoxRow("guest", $lang["pdf"]["guest"], "", "", "1", "1", "0");
-		$dsp->AddCheckBoxRow("op", $lang["pdf"]["op"], "", "", "1", "0", "0");
-		$dsp->AddCheckBoxRow("orga", $lang["pdf"]["orga"], "", "", "1", "0", "0");
-		$dsp->AddCheckBoxRow("party", $lang["pdf"]["party"],"", "", "1", "1", "0");
+		$dsp->AddDropDownFieldRow("paid", t('Besucher hat bezahlt'), $t_array, "", 1);
+		$dsp->AddCheckBoxRow("guest", t('Besucher ist normaler Gast'), "", "", "1", "1", "0");
+		$dsp->AddCheckBoxRow("op", t('Besucher ist Superadmin'), "", "", "1", "0", "0");
+		$dsp->AddCheckBoxRow("orga", t('Besucher ist Orga'), "", "", "1", "0", "0");
+		$dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'),"", "", "1", "1", "0");
 		
 		
 		// Array mit Benutzern
@@ -277,8 +277,8 @@ class pdf {
 				array_push ($t_array, "<option $selected value=\"" . $row['userid'] . "\">" . $row['username'] . " *</option>");	
 			}
 		}
-		$dsp->AddSingleRow($lang["pdf"]["user_caption"]);				
-		$dsp->AddDropDownFieldRow("user", $lang["pdf"]["user"], $t_array, "", 1);
+		$dsp->AddSingleRow(t('Benutzer mit Stern wurden schon gedruckt'));				
+		$dsp->AddDropDownFieldRow("user", t('Bestimmter Besucher'), $t_array, "", 1);
 /*		
 		// Array für Datum
 		$d_array = array("<option selected value=\"null\">Alle</option>");
@@ -287,9 +287,9 @@ class pdf {
 		while ($d_row_data = $db->fetch_array($d_row)){
 			array_push ($d_array, "<option  value=\"" . $d_row_data['time'] . "\">" . date("m.d.y G:i",$d_row_data['time']) . "</option>");
 		}
-		$dsp->AddSingleRow($lang["pdf"]["date_caption"]);				
-		$dsp->AddDropDownFieldRow("date", $lang["pdf"]["date"], $d_array, "", 1);
-		$dsp->AddCheckBoxRow("only", $lang["pdf"]["only"], "", "", "1", "0", "0");
+		$dsp->AddSingleRow(t('Es werden alle Benutzer ausgedruck die <b>neuer</b> als das eingestellte Datum sind.HTML_NEWLINE Ausser er wurde nur dieses Datum angew&auml;hlt.'));				
+		$dsp->AddDropDownFieldRow("date", t('Datum der Ausdrucke'), $d_array, "", 1);
+		$dsp->AddCheckBoxRow("only", t('Nur dieses Datum drucken'), "", "", "1", "0", "0");
 */		
 		// Knopf für erzeugen der PDF
 		$dsp->AddFormSubmitRow("next");
@@ -306,30 +306,30 @@ class pdf {
 	function _menuSeatcards($action){
 		global $lang,$dsp,$db,$config,$party,$func;
 		
-		$dsp->NewContent($lang["pdf"]["seatcard_caption"], $lang["pdf"]["seatcard_subcaption"]);
+		$dsp->NewContent(t('Sitzplatzkarten erstellen.'), t('Hier k&ouml;nnen sie Karten f&uuml;r die Sitzpl&auml;tze erstellen.'));
 		$dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
-		$dsp->AddSingleRow($lang["pdf"]["rules"]);
+		$dsp->AddSingleRow(t('Die Bl&auml;tter werden nach folgenden Kriterien erstellt:'));
 
 		// Array mit Sitzen
 		$block = array();
 		array_push ($block, "<option $selected value=\"null\"></option>");
 		$query = $db->qry('SELECT * FROM %prefix%seat_block WHERE party_id=%int% ORDER BY blockid', $party->party_id);
 		
-		if($db->num_rows($query) == 0) $func->error($lang["pdf"]["seat_error"],"index.php?mod=pdf&action=$action");
+		if($db->num_rows($query) == 0) $func->error(t('Keine Sitzpl&auml;tze vorhanden'),"index.php?mod=pdf&action=$action");
 		else {
 
 			while($row = $db->fetch_array($query)) if ($row['name'])
 				array_push ($block, "<option $selected value=\"" . $row['blockid'] . "\">" . $row['name'] . "</option>");
 
 			// Dropdown für Blöcke		
-			$dsp->AddDropDownFieldRow("block", $lang["pdf"]["block"], $block, "", 1);
+			$dsp->AddDropDownFieldRow("block", t('Block'), $block, "", 1);
 
 			// Array für Sortierung	
-			$order = array("<option selected value=\"row\">". $lang["pdf"]["row"] . "</option>",
-							 "<option value=\"col\">". $lang["pdf"]["col"] . "</option>");
+			$order = array("<option selected value=\"row\">". t('Reihen') . "</option>",
+							 "<option value=\"col\">". t('Spalten') . "</option>");
 		
 			// Dropdown für Sortierung		
-			$dsp->AddDropDownFieldRow("order", $lang["pdf"]["order"], $order, "", 1);
+			$dsp->AddDropDownFieldRow("order", t('Sortierung'), $order, "", 1);
 			// Knopf für erzeugen der PDF
 			$dsp->AddFormSubmitRow("next");
 			$dsp->AddBackButton("index.php?mod=pdf&action=$action","pdf/seatcards"); 
@@ -345,14 +345,14 @@ class pdf {
 	function _menuUserlist($action){
 		global $lang,$dsp,$db,$config;
 		
-		$dsp->NewContent($lang["pdf"]["guestlist_caption"], $lang["pdf"]["guestlist_subcaption"]);
+		$dsp->NewContent(t('Besucherlist erstellen.'), t('Hier k&ouml;nnen sie Listen mit allen Besuchern erstellen'));
 		$dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
-		$dsp->AddSingleRow($lang["pdf"]["rules"]);
+		$dsp->AddSingleRow(t('Die Bl&auml;tter werden nach folgenden Kriterien erstellt:'));
 		
 		// Array für Zahlungsstatus
-		$type_array = array("null" => $lang["pdf"]["egal"],
-								"1" => $lang["pdf"]["yes"],
-								"0" => $lang["pdf"]["no"]
+		$type_array = array("null" => t('Egal'),
+								"1" => t('Ja'),
+								"0" => t('Nein')
 							);
 		$t_array = array();
 		
@@ -360,19 +360,19 @@ class pdf {
 			array_push ($t_array, "<option $selected value=\"$key\">$val</option>");
 		}
 		// Checkboken für Benutzer
-		$dsp->AddDropDownFieldRow("paid", $lang["pdf"]["paid"], $t_array, "", 1);
-		$dsp->AddCheckBoxRow("guest", $lang["pdf"]["guest"], "", "", "1", "1", "0");
-		$dsp->AddCheckBoxRow("op", $lang["pdf"]["op"], "", "", "1", "0", "0");
-		$dsp->AddCheckBoxRow("orga", $lang["pdf"]["orga"], "", "", "1", "0", "0");
-		$dsp->AddCheckBoxRow("party", $lang["pdf"]["party"],"", "", "1", "1", "0");
+		$dsp->AddDropDownFieldRow("paid", t('Besucher hat bezahlt'), $t_array, "", 1);
+		$dsp->AddCheckBoxRow("guest", t('Besucher ist normaler Gast'), "", "", "1", "1", "0");
+		$dsp->AddCheckBoxRow("op", t('Besucher ist Superadmin'), "", "", "1", "0", "0");
+		$dsp->AddCheckBoxRow("orga", t('Besucher ist Orga'), "", "", "1", "0", "0");
+		$dsp->AddCheckBoxRow("party", t('Nur ausgew&auml;hlte Party'),"", "", "1", "1", "0");
 		
 		// Array für Sortierung
-		$sort_array = array("username" => 	$lang["pdf"]["username"],
-								"name" => 	$lang["pdf"]["name"],
-							"firstname" => 	$lang["pdf"]["firstame"],
-								"clan" => 	$lang["pdf"]["clan"],
-								"plz" => 	$lang["pdf"]["plz"],
-								"city" => 	$lang["pdf"]["city"]
+		$sort_array = array("username" => 	t('Nickname'),
+								"name" => 	t('Nachname'),
+							"firstname" => 	t('Vorname'),
+								"clan" => 	t('Clan'),
+								"plz" => 	t('PLZ'),
+								"city" => 	t('Ortschaft')
 							);
 		$s_array = array();
 		
@@ -381,7 +381,7 @@ class pdf {
 		}
 		
 		// Knopf für erzeugen der PDF
-		$dsp->AddDropDownFieldRow("order", $lang["pdf"]["order"], $s_array, "", 1);
+		$dsp->AddDropDownFieldRow("order", t('Sortierung'), $s_array, "", 1);
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddBackButton("index.php?mod=pdf&action=$action","pdf/userlist"); 
 		$dsp->AddContent();

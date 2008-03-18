@@ -12,12 +12,12 @@ class beamer_display {
 	function viewModulMainPage() {
 	global $dsp, $lang, $beamermodul, $bcid, $beamerid;	
 	
-		$dsp->NewContent( $lang['beamer']['beamer'] ,"");
-		$dsp->AddSingleRow('<br/>'.$lang['beamer']['introtext'].'<br/><br/>'.
-						   $lang['beamer']['activecontent'].$beamermodul->countContent("1").'<br/>'.
-						   $lang['beamer']['totalcontent'].$beamermodul->countContent().
+		$dsp->NewContent( t('Beamer&uuml;bersicht') ,"");
+		$dsp->AddSingleRow('<br/>'.t('Mit diesem Modul k&ouml;nnen Sie Texte und anderen Daten f&uuml;r eine Beamerpr&auml;sentation aufbereiten.').'<br/><br/>'.
+						   t('Aktive Inhalte: ').$beamermodul->countContent("1").'<br/>'.
+						   t('Inhalte gesamt: ').$beamermodul->countContent().
 						   '<p />' );
-		$dsp->AddSingleRow('<br />' . $lang['beamer']['viewModulMainPage_text']	);				
+		$dsp->AddSingleRow('<br />' . t('Das Modul arbeitet derzeit nur mit dem Template /\'/simple/\'/ und /\'/beamer/\'/ zusammen. F&uuml;r eine schnelle L&ouml;sung erstellen Sie einen zus&auml;tzlichen Account der das Beamer-Template verwendet. Damit haben Sie die besten Ergebnisse im Fullscreen Mode. <p/>Damit es mit jedem anderen Template funktioniert, m&uuml;ssen Sie in ihrem Template im Bereich der Meta-Angaben folgende Codezeilen hinzuf&uuml;gen:<p/> if( $_GET[/\'/sitereload/\'/] ) { echo ... (Restlichen Anweisungsblock bitte as der Design-index.php entnehmen.)  } ')	);				
 		$dsp->AddSingleRow("<br />");
 		$dsp->AddContent();
 	}
@@ -60,8 +60,8 @@ class beamer_display {
 			if ( $var == "0" ) { return '<a href="?mod=beamer&action=toggleactive&bcid='.$var2.'"><img src="design/images/icon_deactive.png" alt="Deaktiv" border="0"></a>'; }
 		}
 	
-		$dsp->NewContent( $lang['beamer']['listcontent'] );
-		$dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton( $lang['beamer']['newcontent'] ,'?mod=beamer&action=newcontent','Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));
+		$dsp->NewContent( t('Auflistung der Inhalte') );
+		$dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton( t('Inhalte hinzuf&uuml;gen') ,'?mod=beamer&action=newcontent','Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));
 
   
   	  	include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -83,7 +83,7 @@ class beamer_display {
 
 		$dsp->AddSingleRow("<br/><div align=\"middle\">".
 						   "Das Beamermodul zeigt immer den &auml;ltesten Eintrag von \"Zuletzt angezeigt\". Durch Klick auf das Icon <img src=\"design/images/icon_reset_timestamp.png\" alt=\"Set2First\" border=\"0\"> setzt man den Zeitstempel, wann das Element zuletzt angezeigt wurde, auf Null.</div>");
-		$dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton( $lang['beamer']['newcontent'] ,'?mod=beamer&action=newcontent','Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));		
+		$dsp->AddSingleRow("<br/><div align=\"middle\">". $dsp->FetchCssButton( t('Inhalte hinzuf&uuml;gen') ,'?mod=beamer&action=newcontent','Ein neues Inhaltselement hinzuf&uuml;gen.'."</div>"));		
 		$dsp->AddContent();
   	
 	}
@@ -96,18 +96,18 @@ class beamer_display {
 		$a3 = $beamermodul->countContent("1","3");
 		$a4 = $beamermodul->countContent("1","4");
 		$a5 = $beamermodul->countContent("1","5");				
-		$dsp->NewContent( $lang['beamer']['beamerstart'] ,"");
+		$dsp->NewContent( t('Beamerinhalte pr&auml;sentieren') ,"");
 		$dsp->AddDoubleRow('Seiteninterval in Sekunden: ',$cfg['beamer_duration_default'] );
 	    if ( $a1 > 0 ) { $btn1 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=1&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
 	    if ( $a2 > 0 ) { $btn2 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=2&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
 	    if ( $a3 > 0 ) { $btn3 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=3&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
 	    if ( $a4 > 0 ) { $btn4 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=4&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
 	    if ( $a5 > 0 ) { $btn5 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=5&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'], "open", 'Beamerfenster starten');	}
-		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">1.</font> ".$lang['beamer']['viewcontent'].$btn1." - ".$lang['beamer']['activecontent'].$a1."<p/><br/>");
-		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">2.</font> ".$lang['beamer']['viewcontent'].$btn2." - ".$lang['beamer']['activecontent'].$a2."<p/><br/>");
-		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">3.</font> ".$lang['beamer']['viewcontent'].$btn3." - ".$lang['beamer']['activecontent'].$a3."<p/><br/>");
-		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">4.</font> ".$lang['beamer']['viewcontent'].$btn4." - ".$lang['beamer']['activecontent'].$a4."<p/><br/>");
-		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">5.</font> ".$lang['beamer']['viewcontent'].$btn5." - ".$lang['beamer']['activecontent'].$a5."<p/><br/>");
+		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">1.</font> ".t('Beamerfenster ').$btn1." - ".t('Aktive Inhalte: ').$a1."<p/><br/>");
+		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">2.</font> ".t('Beamerfenster ').$btn2." - ".t('Aktive Inhalte: ').$a2."<p/><br/>");
+		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">3.</font> ".t('Beamerfenster ').$btn3." - ".t('Aktive Inhalte: ').$a3."<p/><br/>");
+		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">4.</font> ".t('Beamerfenster ').$btn4." - ".t('Aktive Inhalte: ').$a4."<p/><br/>");
+		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">5.</font> ".t('Beamerfenster ').$btn5." - ".t('Aktive Inhalte: ').$a5."<p/><br/>");
 		$dsp->AddSingleRow( HTML_NEWLINE );
 		$dsp->AddContent();
 	}
@@ -116,7 +116,7 @@ class beamer_display {
 	
 	function viewAddNewContent1() {
 	global $dsp, $lang, $beamermodul, $bcid, $beamerid;	
-		$dsp->NewContent( $lang['beamer']['newcontent'] );
+		$dsp->NewContent( t('Inhalte hinzuf&uuml;gen') );
 		$dsp->AddSingleRow( HTML_NEWLINE."Bitte w&auml;hlen Sie einen Inhaltstyp aus:".HTML_NEWLINE.HTML_NEWLINE);
 		$dsp->SetForm("?mod=beamer&action=newcontent2");
 		$dsp->AddRadioRow("ctype", "<strong>Text</strong><br /> (FCKeditor, HTML/Bilder/Flash m&ouml;glich)" , 'text' , $errortext = NULL, $optional = NULL, $checked = TRUE, $disabled = NULL);
@@ -129,7 +129,7 @@ class beamer_display {
 	function viewAddNewContent2() {
 	global $dsp, $lang, $beamermodul, $bcid, $beamerid, $ctype;		
 	
-		$dsp->NewContent( $lang['beamer']['newcontent'] . " - 2" );
+		$dsp->NewContent( t('Inhalte hinzuf&uuml;gen') . " - 2" );
 		$dsp->SetForm("?mod=beamer&action=savecontent&ctype=".$ctype);
 
 		if($ctype=='text') {
@@ -169,7 +169,7 @@ class beamer_display {
 	function viewEditContent () {
 	global $dsp, $lang, $beamermodul, $bcid, $beamerid, $ctype;		
 		$content = $beamermodul->getContent( $bcid );
-		$dsp->NewContent( $lang['beamer']['editcontent'] );	
+		$dsp->NewContent( t('Inhalt bearbeiten') );	
 		$dsp->SetForm("?mod=beamer&action=savecontent&ctype={$content['contentType']}&bcid=".$bcid);	
 
 		if($content['contentType']=='text') {

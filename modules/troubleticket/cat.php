@@ -19,13 +19,13 @@
 switch($_GET['step']){
 	case 2:
 		if($_POST['tticket_cat'] == 0 && $_GET['act'] == "change"){
-			$error['tticket_cat'] = $lang['troubleticket']['cat_no_err'];
+			$error['tticket_cat'] = t('Sie haben keine Kategorie zum ändern ausgewählt');
 			$_GET['step'] = 1;
 		}
 		break;
 	case 3:
 		if(trim($_POST['name']) == "" || strlen($_POST['name']) > 30){
-			$error_cat['name'] = $lang['troubleticket']['cat_err_name'];
+			$error_cat['name'] = t('Name zu lang oder leer');
 			$_POST['tticket_cat'] = $_GET['cat_id'];
 			$_GET['step'] = 2;
 		}
@@ -34,22 +34,22 @@ switch($_GET['step']){
 switch($_GET['step']){
 	
 	default:
-		$dsp->NewContent($lang['troubleticket']['cat']);
+		$dsp->NewContent(t('Kategorie'));
 		
 		$t_cat = $db->query("SELECT * FROM {$config["tables"]["troubleticket_cat"]}");
 		if($db->num_rows($t_cat) > 0){
 
-			$t_cat_array[] = "<option value=\"0\">{$lang['troubleticket']['no_cat']}</option>";
+			$t_cat_array[] = "<option value=\"0\">".t('Bitte Auswählen')."</option>";
 			
 			while ($row = $db->fetch_array($t_cat)){
 				$t_cat_array[] .= "<option value=\"{$row['cat_id']}\">{$row['cat_text']}</option>";
 			}
 
 			$dsp->SetForm("index.php?mod=troubleticket&action=cat&act=change&step=2");
-			$dsp->AddDropDownFieldRow("tticket_cat",$lang['troubleticket']['cat'],$t_cat_array,$error['tticket_cat']);
+			$dsp->AddDropDownFieldRow("tticket_cat",t('Kategorie'),$t_cat_array,$error['tticket_cat']);
 			$dsp->AddFormSubmitRow("change");
 		}else{
-			$dsp->AddSingleRow($lang['troubleticket']['cat_empty']);
+			$dsp->AddSingleRow(t('Keine Kategorien vorhanden'));
 			
 		}
 	
@@ -60,13 +60,13 @@ switch($_GET['step']){
 	
 	
 	case 2:
-		$dsp->NewContent($lang['troubleticket']['cat']);
+		$dsp->NewContent(t('Kategorie'));
 		$user_row = $db->query("SELECT * FROM {$config["tables"]["user"]} WHERE type > 1");
 	
 		if(isset($_POST["tticket_cat"]) && $_POST["tticket_cat"] > 0){
-			$user_row_option[] .= "<option value=\"0\">{$lang['troubleticket']['cat_nouser']}</option>";
+			$user_row_option[] .= "<option value=\"0\">".t('Kein zuständiger Admin')."</option>";
 		}else{
-			$user_row_option[] .= "<option selected value=\"0\">{$lang['troubleticket']['cat_nouser']}</option>";
+			$user_row_option[] .= "<option selected value=\"0\">".t('Kein zuständiger Admin')."</option>";
 		}
 		
 		while ($user_data = $db->fetch_array($user_row)){
@@ -79,15 +79,15 @@ switch($_GET['step']){
 		
 		if($_GET['act'] == "add"){
 			$dsp->SetForm("index.php?mod=troubleticket&action=cat&act=add&step=3");
-			$dsp->AddTextFieldRow("name",$lang['troubleticket']['cat'],"",$error_cat['name']);
-			$dsp->AddDropDownFieldRow("orga",$lang['troubleticket']['cat_user'],$user_row_option,"");
+			$dsp->AddTextFieldRow("name",t('Kategorie'),"",$error_cat['name']);
+			$dsp->AddDropDownFieldRow("orga",t('Zuständiger Admin'),$user_row_option,"");
 			$dsp->AddFormSubmitRow("add");
 		}else{
 			$cat_data = $db->query_first("SELECT * FROM {$config["tables"]["troubleticket_cat"]} WHERE cat_id = {$_POST["tticket_cat"]}");
 			
 			$dsp->SetForm("index.php?mod=troubleticket&action=cat&act=change&step=3&cat_id={$_POST['tticket_cat']}");
-			$dsp->AddTextFieldRow("name",$lang['troubleticket']['cat'],$cat_data['cat_text'],$error_cat['name']);
-			$dsp->AddDropDownFieldRow("orga",$lang['troubleticket']['cat_user'],$user_row_option,"");
+			$dsp->AddTextFieldRow("name",t('Kategorie'),$cat_data['cat_text'],$error_cat['name']);
+			$dsp->AddDropDownFieldRow("orga",t('Zuständiger Admin'),$user_row_option,"");
 			$dsp->AddFormSubmitRow("change");
 		}
 		$dsp->AddContent();
@@ -99,9 +99,9 @@ switch($_GET['step']){
 			if($db->query("INSERT INTO {$config["tables"]["troubleticket_cat"]} SET
 					cat_text = '{$_POST['name']}',
 					orga = '{$_POST['orga']}'")){
-				$func->confirmation($lang['troubleticket']['cat_ok'],"index.php?mod=troubleticket&action=cat");
+				$func->confirmation(t('Kategorie erfolgreich hinzugefügt/geändert'),"index.php?mod=troubleticket&action=cat");
 			}else{
-				$func->error($lang['troubleticket']['cat_err'],"index.php?mod=troubleticket&action=cat");
+				$func->error(t('Kategorie konnte nicht hinzugefügt/geändert werden'),"index.php?mod=troubleticket&action=cat");
 			}
 			
 		}else{
@@ -110,9 +110,9 @@ switch($_GET['step']){
 					orga = '{$_POST['orga']}'
 					WHERE cat_id = {$_GET['cat_id']}
 			")){			
-				$func->confirmation($lang['troubleticket']['cat_ok'],"index.php?mod=troubleticket&action=cat");
+				$func->confirmation(t('Kategorie erfolgreich hinzugefügt/geändert'),"index.php?mod=troubleticket&action=cat");
 			}else{
-				$func->error($lang['troubleticket']['cat_err'],"index.php?mod=troubleticket&action=cat");
+				$func->error(t('Kategorie konnte nicht hinzugefügt/geändert werden'),"index.php?mod=troubleticket&action=cat");
 			}
 		}
 	

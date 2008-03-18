@@ -2,9 +2,9 @@
 	// GET FORM TO SEE WHAT YOU MUS PAY
 	
 if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
-	$func->error($lang['paypal']['error'],"index.php?mod=home");
+	$func->error(t('Sie k&ouml;nnen nichts einzahlen wenn Sie nicht eingeloggt sind.'),"index.php?mod=home");
 }else{
-	$dsp->NewContent($lang["paypal"]["caption"], $lang["paypal"]["subcaption"]);
+	$dsp->NewContent(t('Einzahlen'), t('Hier sehen sie was f&uuml;r Betr&auml;ge noch ausstehend sind. W&auml;hlen sie was sie bezahlen m&ouml;chten.'));
 	$dsp->AddModTpl("paypal","javascript");
 	$dsp->SetForm("index.php?mod=paypal&action=paying&design=base\" target=\"PopWnd\" onsubmit=\"submitpaypal(); return false;","paypal");
 
@@ -20,16 +20,16 @@ if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
 				}
 			}
 		}else{
-			$dsp->AddSingleRow($lang['paypal']['no_not_paid_party']);
+			$dsp->AddSingleRow(t('Alle Eintrittspreise bezahlt.'));
 		}
 		
 			if($cfg['paypal_catering']){
-				$dsp->AddTextFieldRow("catering",$lang["paypal"]["catering"],0,"");
+				$dsp->AddTextFieldRow("catering",t('Einzahlung f&uuml;r Catering'),0,"");
 			}
 	}
 	
 	if($cfg['paypal_donation']){
-		$dsp->AddTextFieldRow("donation",$lang["paypal"]["donation"],0,"");
+		$dsp->AddTextFieldRow("donation",t('Spende f&uuml;r die Organisatoren'),0,"");
 	}
 	
 	$dsp->AddFormSubmitRow("next");

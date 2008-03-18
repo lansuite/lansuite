@@ -10,17 +10,17 @@ $userid 	= $vars["userid"];
 switch($step) {
 	// Team verlassen
 	case 10:
-		if ($tteam->kick($_GET["teamid"], $auth["userid"])) $func->confirmation($lang["tourney"]["teammgr_del_success"], "index.php?mod=tournament2&action=teammgr");
+		if ($tteam->kick($_GET["teamid"], $auth["userid"])) $func->confirmation(t('Sie wurden aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
 	// Spieler aus Team entfernen
 	case 20:
-		if ($tteam->kick($_GET["teamid"], $userid)) $func->confirmation($lang["tourney"]["teammgr_deluser_success"], "index.php?mod=tournament2&action=teammgr");
+		if ($tteam->kick($_GET["teamid"], $userid)) $func->confirmation(t('Der Spieler wurde aus Ihrem Team entfernt'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
 	// Team abmelden (l�schen) / Mich abmelden
 	case 30:
-		if ($tteam->delete($_GET["teamid"])) $func->confirmation($lang["tourney"]["teammgr_signoff_success"], "index.php?mod=tournament2&action=teammgr");
+		if ($tteam->delete($_GET["teamid"])) $func->confirmation(t('Ihr Team wurde vom Turnier abgemeldet'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
 	// Spieler zum eigenen Team hinzuf�gen - Suchen
@@ -35,7 +35,7 @@ switch($step) {
 
 	// Spieler zum eigenen Team hinzuf�gen - In DB schreiben
 	case 41:
-		if ($tteam->join($_GET["teamid"], $userid)) $func->confirmation($lang["tourney"]["teammgr_join_success"], "index.php?mod=tournament2&action=teammgr");
+		if ($tteam->join($_GET["teamid"], $userid)) $func->confirmation(t('Der Spieler wurde Ihrem Team hinzugefügt'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
 	// Edit Teamdetails (Form)
@@ -49,29 +49,29 @@ switch($step) {
 				LEFT JOIN {$config["tables"]["user"]} AS user ON user.userid = team.leaderid
 				WHERE teamid = '{$_GET["teamid"]}'");
 
-		$dsp->NewContent($lang["tourney"]["teammgr_caption"], $lang["tourney"]["teammgr_subcaption"]);
+		$dsp->NewContent(t('Teammanager'), t('Hier können Sie Ihre Teams verwalten'));
 
 		$dsp->SetForm("index.php?mod=tournament2&action=teammgr&step=51&teamid={$_GET["teamid"]}&tournamentid=$tournamentid", "", "", "multipart/form-data");
 
 		if ($tournament['teamplayer'] == 1) {
-			$dsp->AddDoubleRow($lang["tourney"]["join_teamname"], $auth["username"]);
+			$dsp->AddDoubleRow(t('Teamname'), $auth["username"]);
 			$team['name'] = $auth["username"];
-		} else $dsp->AddTextFieldRow("team_name", $lang["tourney"]["join_teamname"], $team['name'], "");
+		} else $dsp->AddTextFieldRow("team_name", t('Teamname'), $team['name'], "");
 
-		$dsp->AddPasswordRow("set_password", $lang["tourney"]["join_team_pw1"], $_POST["set_password"], $error["set_password"]);
-		$dsp->AddPasswordRow("set_password2", $lang["tourney"]["join_team_pw2"], $_POST["set_password2"], $error["set_password2"]);
+		$dsp->AddPasswordRow("set_password", t('Team-Passwort festlegen'), $_POST["set_password"], $error["set_password"]);
+		$dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $_POST["set_password2"], $error["set_password2"]);
 
-		$dsp->AddTextAreaPlusRow("team_comment", $lang["tourney"]["join_comment"], $team['comment'], "", "", "", 1);
+		$dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $team['comment'], "", "", "", 1);
 		if ($team["banner"]) $dsp->AddSingleRow("<img src=\"ext_inc/team_banners/{$team['banner']}\" alt=\"{$team['banner']}\">");
-		$dsp->AddFileSelectRow("team_banner", $lang["tourney"]["join_banner"], "", "", 1000000, 1);
+		$dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1000000, 1);
 
 		if ($tournament['wwcl_gameid'] > 0){
-			$dsp->AddTextFieldRow("wwclid", $lang["tourney"]["join_wwcl_id"], $team['wwclid'], "");
-			if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("wwclclanid", $lang["tourney"]["join_wwcl_clan_id"], $team['wwclclanid'], "");
+			$dsp->AddTextFieldRow("wwclid", t('WWCL ID'), $team['wwclid'], "");
+			if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("wwclclanid", t('WWCL Clan'), $team['wwclclanid'], "");
 		}
 		if ($tournament['ngl_gamename'] != ""){
-			$dsp->AddTextFieldRow("nglid", $lang["tourney"]["join_ngl_id"], $team['nglid'], "");
-			if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("nglclanid", $lang["tourney"]["join_ngl_clan_id"], $team['nglclanid'], "");
+			$dsp->AddTextFieldRow("nglid", t('NGL ID'), $team['nglid'], "");
+			if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("nglclanid", t('NGL Clan ID'), $team['nglclanid'], "");
 		}
 
 		$dsp->AddFormSubmitRow("edit");
@@ -86,13 +86,13 @@ switch($step) {
 			$tournament = $db->query_first("SELECT name FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
 
 			if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1){
-				$func->information($lang["tourney"]["join_err_no_name"], "index.php?mod=tournament2&action=teammgr&tournamentid=$tournamentid&teamid={$_GET["teamid"]}&step=50");
+				$func->information(t('Bitte geben Sie einen Teamnamen ein, oder wählen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr&tournamentid=$tournamentid&teamid={$_GET["teamid"]}&step=50");
 				break;
 			}
 
 			if ($_POST["set_password"] and $_POST["set_password"] != $_POST["set_password2"]) $error["set_password2"] = "Die Passworteingaben stimmen nicht �berein";
 
-			if ($tteam->edit($_GET["teamid"], $_POST['team_name'], $_POST["set_password"], $_POST['team_comment'], "team_banner")) $func->confirmation($lang["tourney"]["teammgr_edit_team_success"], "index.php?mod=tournament2&action=teammgr");
+			if ($tteam->edit($_GET["teamid"], $_POST['team_name'], $_POST["set_password"], $_POST['team_comment'], "team_banner")) $func->confirmation(t('Die Daten wurden erfolgreich editiert'), "index.php?mod=tournament2&action=teammgr");
 
 			$sec->lock("t_team_edit");
 		}
@@ -100,25 +100,25 @@ switch($step) {
 
 
 	default:
-		$dsp->NewContent($lang["tourney"]["teammgr_caption"], $lang["tourney"]["teammgr_subcaption"]);
+		$dsp->NewContent(t('Teammanager'), t('Hier können Sie Ihre Teams verwalten'));
 
-		$dsp->AddSingleRow($lang["tourney"]["teammgr_sp_caption"]);
+		$dsp->AddSingleRow(t('Einzelspieler-Turniere, an denen Sie teilnehmen'));
 		// Teamname und Turniername auslesen
 		$i=0;
 		$teams = $db->query("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer, t.tournamentid
 			FROM {$config["tables"]["t2_teams"]} AS teams
 			LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS t ON (t.tournamentid = teams.tournamentid)
 			WHERE (teams.leaderid = ". $auth["userid"] .") AND (t.teamplayer = 1) AND t.party_id='$party->party_id'");
-		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow($lang["tourney"]["teammgr_tourney"], $lang["tourney"]["teammgr_no_sp"]);
+		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Turnier'), t('Sie haben sich zu noch keinem Einzelspieler-Turnier angemeldet'));
 		else while($team = $db->fetch_array($teams)) {
 			$i++;
 			
-			$dsp->AddDoubleRow($lang["tourney"]["teammgr_tourney"] ." ". $i, "{$team["tname"]}" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=50&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">{$lang["tourney"]["teammgr_edit_team"]}</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=30&teamid={$team['teamid']}\">{$lang["tourney"]["teammgr_signoff"]}</a>");
+			$dsp->AddDoubleRow(t('Turnier') ." ". $i, "{$team["tname"]}" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=50&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">".t('Teamdetails editieren')."</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=30&teamid={$team['teamid']}\">".t('Mich abmelden')."</a>");
 		}
 		$db->free_result($teams);
 
 
-		$dsp->AddSingleRow($lang["tourney"]["teammgr_created_caption"]);
+		$dsp->AddSingleRow(t('Teams, die Sie erstellt haben'));
 		// Teamname und Turniername auslesen
 		$i=0;
 		$teams = $db->query("SELECT teams.teamid, teams.name, t.name AS tname, t.tournamentid, t.teamplayer
@@ -126,7 +126,7 @@ switch($step) {
 			LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS t ON t.tournamentid = teams.tournamentid
 			WHERE (teams.leaderid = ". $auth["userid"] .") AND (t.teamplayer > 1) AND t.party_id='$party->party_id'
 			");
-		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow($lang["tourney"]["teammgr_team"], $lang["tourney"]["teammgr_no_create"]);
+		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Team'), t('Sie haben noch keine Teams erstellt'));
 		else while($team = $db->fetch_array($teams)) {
 			$i++;
 
@@ -145,12 +145,12 @@ switch($step) {
 			}
 			$db->free_result($members);
 			
-			$dsp->AddDoubleRow($lang["tourney"]["teammgr_team"] ." ". $i, "{$team["name"]} ({$team["tname"]}) ({$lang["tourney"]["teammgr_teamsize"]}: ". ($anz_memb+1) ."/{$team["teamplayer"]}) $member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=40&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">{$lang["tourney"]["teammgr_add_player"]}</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=50&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">{$lang["tourney"]["teammgr_edit_team"]}</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=30&teamid={$team['teamid']}\">{$lang["tourney"]["teammgr_signoff_team2"]}</a>");
+			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$team["name"]} ({$team["tname"]}) (".t('Teamgröße').": ". ($anz_memb+1) ."/{$team["teamplayer"]}) $member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=40&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">".t('Spieler hinzufügen')."</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=50&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">".t('Teamdetails editieren')."</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=30&teamid={$team['teamid']}\">".t('Team abmelden')."</a>");
 		}
 		$db->free_result($teams);
 
 
-		$dsp->AddSingleRow($lang["tourney"]["teammgr_memb_caption"]);
+		$dsp->AddSingleRow(t('Teams, in denen Sie Mitglied sind'));
 		$members = $db->query("SELECT users.username, users.userid, teams.name, teams.teamid, t.name AS tname, t.teamplayer
 			FROM {$config["tables"]["t2_teammembers"]} AS members
 			LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON members.teamid = teams.teamid
@@ -161,7 +161,7 @@ switch($step) {
 		$member_liste = "";
 		$anz_memb = 0;
 		$i = 0;
-		if ($db->num_rows($members) == 0) $dsp->AddDoubleRow($lang["tourney"]["teammgr_team"], $lang["tourney"]["teammgr_no_memb"]);
+		if ($db->num_rows($members) == 0) $dsp->AddDoubleRow(t('Team'), t('Sie sind noch in keinem Team Mitglied'));
 		else while($member = $db->fetch_array($members)) {
 			$i++;
 
@@ -180,12 +180,12 @@ switch($step) {
 			}
 			$db->free_result($members2);
 
-			$dsp->AddDoubleRow($lang["tourney"]["teammgr_team"] ." ". $i, "{$member["name"]} ({$member["tname"]}) ({$lang["tourney"]["teammgr_teamsize"]}: ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . "{$lang["tourney"]["teammgr_leader"]}: ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>$member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">{$lang["tourney"]["teammgr_signoff_team"]}</a>");
+			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$member["name"]} ({$member["tname"]}) (".t('Teamgröße').": ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . "".t('Leiter').": ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>$member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">".t('Team verlassen')."</a>");
 		}
 		$db->free_result($members);
 
 
-		$dsp->AddSingleRow($lang["tourney"]["teammgr_add_hint"]);
+		$dsp->AddSingleRow(t('Um ein neues Team zu erstellen / Sich zu einem Turnier anzumelden, wählen Sie bitte in der Turnierübersicht das entsprechende Turnier aus und klicken am Ende der erscheinenden Detailansicht auf den Anmelde-Button.'));
 
 		$dsp->AddBackButton("index.php?mod=tournament2", "tournament2/teammgr"); 
 		$dsp->AddContent();

@@ -60,7 +60,7 @@ class foodcenter_print{
 		global $lang, $db, $config;
 		
 		if($value == ""){
-			return $lang['foodcenter']['different'];		
+			return t('Verschiedene');		
 		}else{
 			$supp = $db->query_first("SELECT name FROM {$config['tables']['food_supp']} WHERE supp_id = " . $value);
 			return $supp['name'];
@@ -103,7 +103,7 @@ class foodcenter_print{
 	function GetUsername( $userid )	{
 		global $db, $config, $lang;
 		if($userid == 'all'){
-			return $lang['foodcenter']['different'];	
+			return t('Verschiedene');	
 		}else {
 			$get_username = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = '$userid'");
 			return $get_username["username"];
@@ -113,7 +113,7 @@ class foodcenter_print{
 	function GetUserdata( $userid )	{
 		global $db, $config, $lang, $party;
 		if($userid == 'all'){
-			return $lang['foodcenter']['different'];	
+			return t('Verschiedene');	
 		}else {
 	$get_userdata = $db->query_first("SELECT u.*, s.ip FROM {$config["tables"]["user"]} AS u
       								LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid = u.userid

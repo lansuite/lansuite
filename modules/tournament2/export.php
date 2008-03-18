@@ -5,7 +5,7 @@ include_once("modules/tournament2/class_t_league_export.php");
 $t_league_export = new t_league_export;
 
 
-$dsp->NewContent($lang["tourney"]["export_caption"], $lang["tourney"]["export_subcaption"]);
+$dsp->NewContent(t('Exporte'), t('Hier stehen die Turnier-Exports der verschiedenen Ligen zum download bereit.'));
 
 switch ($_GET["step"]) {
 	case 2:
@@ -13,22 +13,22 @@ switch ($_GET["step"]) {
 		$dsp->AddSingleRow("WWCL");
 		if (($_POST["pvd_id"] != "") && ($_POST["plp_id"] != "")){
 			$dsp->AddSingleRow("<textarea cols=70 rows=25>". $t_league_export->wwcl_export($_POST["plp_id"], $_POST["pvd_id"]) ."</textarea>");
-			$func->log_event($lang["tourney"]["export_wwcl_success"], 1, $lang["tourney"]["log_t_manage"]);
-		} else $dsp->AddSingleRow($lang["tourney"]["export_no_wwcl"]);
+			$func->log_event(t('WWCL-Export wurde erstellt'), 1, t('Turnier Verwaltung'));
+		} else $dsp->AddSingleRow(t('Nicht verfügbar. Bitte PVD-ID und PlanetLan-Party-ID angeben!'));
 
 		// NGL
 		$dsp->AddSingleRow("NGL");
 		if ($_POST["ngl_event_id"] != ""){
 			$dsp->AddSingleRow("<textarea cols=70 rows=25>". $t_league_export->ngl_export($_POST["ngl_event_id"]) ."</textarea>");
-			$func->log_event($lang["tourney"]["export_ngl_success"], 1, $lang["tourney"]["log_t_manage"]);
-		} else  $dsp->AddSingleRow($lang["tourney"]["export_no_ngl"]);
+			$func->log_event(t('NGL-Export wurde erstellt'), 1, t('Turnier Verwaltung'));
+		} else  $dsp->AddSingleRow(t('Nicht verfügbar. Bitte NGL-Event-ID angeben!'));
 
 		// LGZ
 		$dsp->AddSingleRow("LGZ");
 		if ($_POST["lgz_event_id"] != ""){
 			$dsp->AddSingleRow("<textarea cols=70 rows=25>". $t_league_export->lgz_export($_POST["lgz_event_id"]) ."</textarea>");
-			$func->log_event($lang["tourney"]["export_lgz_success"], 1, $lang["tourney"]["log_t_manage"]);
-		} else  $dsp->AddSingleRow($lang["tourney"]["export_no_lgz"]);
+			$func->log_event(t('LGZ-Export wurde erstellt'), 1, t('Turnier Verwaltung'));
+		} else  $dsp->AddSingleRow(t('Nicht verfügbar. Bitte LGZ-Event-ID angeben!'));
 
 		$dsp->AddBackButton("index.php?mod=tournament2&action=export", "tournament2/export"); 
 	break;

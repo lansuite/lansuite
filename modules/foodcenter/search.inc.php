@@ -17,10 +17,10 @@ function PaidIconLink($paid){
   
   if ($paid) {
     $templ['ms2']['icon_name'] = 'paid';
-    $templ['ms2']['icon_title'] = $lang['usrmgr']['paid_yes'];
+    $templ['ms2']['icon_title'] = t('Bezahlt');
   } else {
     $templ['ms2']['icon_name'] = 'not_paid';
-    $templ['ms2']['icon_title'] = $lang['usrmgr']['paid_no'];
+    $templ['ms2']['icon_title'] = t('Nicht bezahlt');
   }
   $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
   if ($templ['ms2']['link']) $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
@@ -28,7 +28,7 @@ function PaidIconLink($paid){
 }
 
 
-$ms2->AddTextSearchDropDown($lang['usrmgr']['add_type'], 'u.type', array('' => $lang['usrmgr']['all'], '1' => $lang['usrmgr']['details_guest'], '!1' => 'Nicht Gast', '<0' => $lang['usrmgr']['search_deactivated'], '2' => $lang['usrmgr']['add_type_admin'], '3' => $lang['usrmgr']['add_type_superadmin'], '2,3' => $lang['usrmgr']['search_orga']));
+$ms2->AddTextSearchDropDown(t('Benutzertyp'), 'u.type', array('' => t('Alle'), '1' => t('Gast'), '!1' => 'Nicht Gast', '<0' => t('Gelöschte User'), '2' => t('Administrator'), '3' => t('Superadmin'), '2,3' => t('Orgas')));
 	
 $party_list = array('' => 'Alle');
 $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
@@ -36,18 +36,18 @@ while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'
 $db->free_result($row);
 $ms2->AddTextSearchDropDown('Party', 'p.party_id', $party_list, $party->party_id);
 
-$ms2->AddTextSearchDropDown($lang['usrmgr']['checkin'], 'p.checkin', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkin_no'], '>1' => $lang['usrmgr']['checkin']));
-$ms2->AddTextSearchDropDown($lang['usrmgr']['checkout'], 'p.checkout', array('' => $lang['usrmgr']['all'], '0' => $lang['usrmgr']['checkout_no'], '>1' => $lang['usrmgr']['checkout']));
+$ms2->AddTextSearchDropDown(t('Eingecheckt'), 'p.checkin', array('' => t('Alle'), '0' => t('Nicht eingecheckt'), '>1' => t('Eingecheckt')));
+$ms2->AddTextSearchDropDown(t('Ausgecheckt'), 'p.checkout', array('' => t('Alle'), '0' => t('Nicht ausgecheckt'), '>1' => t('Ausgecheckt')));
 
 $ms2->AddSelect('u.type');
 // If Party selected
 if ($_POST["search_dd_input"][1] != '' or $_GET["search_dd_input"][1] != '') {
-  $ms2->AddResultField($lang['usrmgr']['paid'], 'p.paid', 'PaidIconLink');
+  $ms2->AddResultField(t('Bez.'), 'p.paid', 'PaidIconLink');
   $ms2->AddResultField('In', 'p.checkin', 'MS2GetDate');
   $ms2->AddResultField('Out', 'p.checkout', 'MS2GetDate');
 }
 
 $ms2->AddResultField('Sitz', 'u.userid', 'SeatNameLink');
-$ms2->AddIconField('assign', $target_url, $lang['ms2']['assign']);
+$ms2->AddIconField('assign', $target_url, t('Zuweisen'));
 $ms2->PrintSearch($current_url, 'u.userid');
 ?>

@@ -13,16 +13,16 @@ else {
       unset($_SESSION['quick_signon']);
 
       $dsp->AddFieldsetStart('Direkt zu folgendem Benutzer springen');
-  		if ($cfg['sys_barcode_on']) $dsp->AddBarcodeForm("<strong>" . $lang['barcode']['barcode'] . "</strong>", "", "index.php?mod=usrmgr&action=entrance&step=3&userid=");
+  		if ($cfg['sys_barcode_on']) $dsp->AddBarcodeForm("<strong>" . t('Strichcode') . "</strong>", "", "index.php?mod=usrmgr&action=entrance&step=3&userid=");
       $dsp->SetForm('index.php?mod=usrmgr&action=entrance&step=3', 'CheckinAssistantUseridForm');
       $dsp->AddTextFieldRow('userid', t('UserID'), '', '');
       $dsp->AddFormSubmitRow('next');
       $dsp->AddFieldsetEnd();
 
-  		$questionarr[1] = $lang["usrmgr"]["entrance_signedon"];
-  		$questionarr[2] = $lang["usrmgr"]["entrance_comunity"];
-  		$questionarr[3] = $lang["usrmgr"]["entrance_notsignedon"];
-  		$questionarr[4] = $lang["usrmgr"]["entrance_notsignedon_advanced"];
+  		$questionarr[1] = t('Bereits <b>angemeldeten Gast einchecken</b>');
+  		$questionarr[2] = t('Bereits <b>zu einer vergangenen Party angemeldeten Gast einchecken</b>');
+  		$questionarr[3] = t('Neuer Gast. Einen <b>Account erstellen</b>HTML_NEWLINE<i>Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.</i>');
+  		$questionarr[4] = t('Neuer Gast. Einen <b>erweiterten Account erstellen</b>HTML_NEWLINE<i>Hier legen Sie direkt am Einlass alle Benutzerdaten fest.</i>');
   		$linkarr[1]	= "index.php?mod=usrmgr&action=entrance&step=2&signon=1";
   		$linkarr[2]	= "index.php?mod=usrmgr&action=entrance&step=2&signon=0";
   		$linkarr[3]	= "index.php?mod=usrmgr&action=entrance&step=3&quick_signon=1";
@@ -51,7 +51,7 @@ else {
       if ($_GET['quick_signon']) $_SESSION['quick_signon'] = $_GET['quick_signon'];
       if ($_SESSION['quick_signon']) $quick_signon = $_SESSION['quick_signon'];
 
-  		$dsp->NewContent($lang["usrmgr"]["add_caption"], $lang["usrmgr"]["add_subcaption"]);
+  		$dsp->NewContent(t('Benutzer hinzufügen'), t('Um einen Benutzer hinzuzufügen, füllen Sie bitte das folgende Formular vollständig aus.'));
       include_once("modules/usrmgr/add.php");
       if ($AddUserSuccess) {
         if (!$_GET['userid']) $_GET['userid'] = $mf->insert_id;
@@ -82,7 +82,7 @@ else {
 
   	// Neuen Sitzplatz ausw�hlen?
   	case 6:
-  		$func->question(str_replace("%SEAT%", $seat2->SeatNameLink($_GET["userid"]), $lang["usrmgr"]["entrance_seat_user"]), "index.php?mod=usrmgr&action=entrance&step=7&umode=". $_GET["umode"] ."&userid=". $_GET["userid"], "index.php?mod=usrmgr&action=entrance&step=11&umode=". $_GET["umode"] ."&userid=". $_GET["userid"]);
+  		$func->question(t('Wollen Sie diesem Benutzer einen Sitzplatz zuweisen?HTML_NEWLINEEr sitzt aktuell auf:HTML_NEWLINE%1', $seat2->SeatNameLink($_GET["userid"])), "index.php?mod=usrmgr&action=entrance&step=7&umode=". $_GET["umode"] ."&userid=". $_GET["userid"], "index.php?mod=usrmgr&action=entrance&step=11&umode=". $_GET["umode"] ."&userid=". $_GET["userid"]);
   	break;
 
   	// Sitzblock ausw�hlen
@@ -147,7 +147,7 @@ else {
 
   	// Erfolgsmeldung zeigen
   	case 11:
-  		$func->confirmation(str_replace("%USER%", $user_data["username"], $lang["usrmgr"]["checkin_success"]), "index.php?mod=usrmgr&action=entrance");
+  		$func->confirmation(t('Der Benutzer <b>%1</b> wurde erfolgreich eingecheckt', $user_data["username"]), "index.php?mod=usrmgr&action=entrance");
   	break;
   }
 }

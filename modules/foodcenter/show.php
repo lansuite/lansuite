@@ -29,7 +29,7 @@ if ($cfg['foodcenter_foodtime'] == 4){
 }
 // Modul gesperrt
 if($open == false && $cfg['foodcenter_foodtime'] == 3){
-	$errormessage = $lang['foodcenter']['time_closed_block']. HTML_NEWLINE; 
+	$errormessage = t('Das Foodcenter ist geschlossen. Die Öffnungszeigen sind:'). HTML_NEWLINE; 
 	$errormessage .= $timemessage;
 	
 	$func->error($errormessage,"index.php?mod=home");
@@ -38,13 +38,13 @@ if($open == false && $cfg['foodcenter_foodtime'] == 3){
 	$basket = new basket();
 	// InfoMeldung
 	if($open == false && $cfg['foodcenter_foodtime'] == 1) {
-		$errormessage = $lang['foodcenter']['time_closed_info']. HTML_NEWLINE;
+		$errormessage = t('Das Foodcenter ist geschlossen Bestellungen sind möglich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:'). HTML_NEWLINE;
 		$errormessage .= $timemessage;
 		$func->error($errormessage,"index.php?mod=home");
 	}
 	// Bestellungen sperren
 	if($open == false && $cfg['foodcenter_foodtime'] == 2){
-		$errormessage = $lang['foodcenter']['time_closed_onlyshow']. HTML_NEWLINE;
+		$errormessage = t('Das Foodcenter ist geschlossen. Die Produkte werden nicht im Warenkorb abgelegt. Die Öffnungszeigen sind:'). HTML_NEWLINE;
 		$errormessage .= $timemessage;
 		$func->error($errormessage,"index.php?mod=home");
 	}else{
@@ -60,13 +60,13 @@ if($open == false && $cfg['foodcenter_foodtime'] == 3){
 	}
 	
 	if(!isset($_GET['headermenuitem'])) $_GET['headermenuitem'] = 1;
-	$dsp->NewContent($lang['foodcenter']['show_product_catpion']);
+	$dsp->NewContent(t('Speiseliste'));
 
 
 	$product_list = new product_list();
 	
 	if($basket->count > 0){
-		$dsp->AddSingleRow("<b><a href='index.php?mod=foodcenter&action=basket'>" . $basket->count . $lang['foodcenter']['basket_product_item'] . "</a></b>"," align=\"right\"");
+		$dsp->AddSingleRow("<b><a href='index.php?mod=foodcenter&action=basket'>" . $basket->count . t(' Produkt(e) im Warenkorb') . "</a></b>"," align=\"right\"");
 	}
 	if($_GET['info']){
 		$product_list->load_cat($cat[$_GET['headermenuitem']]);
@@ -77,7 +77,7 @@ if($open == false && $cfg['foodcenter_foodtime'] == 3){
 			$product_list->load_cat($cat[$_GET['headermenuitem']]);
 			$product_list->get_list("?mod=foodcenter&action=showfood&headermenuitem={$_GET['headermenuitem']}");
 		}else{
-			$dsp->AddSingleRow($lang['foodcenter']['show_product_noproducts']);
+			$dsp->AddSingleRow(t('In dieser Kategorie sind keine Produkte vorhanden'));
 		}
 	}
 	$dsp->AddContent();
