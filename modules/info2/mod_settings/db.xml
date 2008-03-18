@@ -337,6 +337,20 @@ verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
 				<sortorder>0</sortorder>
 				<partyid>0</partyid>
 			</entry>
+                        <entry>
+                                <infoID>7</infoID>
+                                <active>0</active>
+                                <caption>Kontakt</caption>
+                                <shorttext>Kontakt zu den Organisatoren</shorttext>
+                                <text>
+Webmaster: Max Mustermann - --lt--a href="mailto:%20info@example.com" target="_new"--gt--max@mustermann.de--lt--/a--gt-- --lt--br--gt--
+--lt--br--gt--
+--lt--br--gt--
+Bei Fragen zur Veranstaltung scheut euch nicht uns anzuschreiben!
+</text>
+                                <sortorder>0</sortorder>
+                                <partyid>0</partyid>
+                        </entry>
 		</content>
 	</table>
 	<table>
