@@ -12,12 +12,12 @@ $ms2->query['default_order_dir'] = 'DESC';
 $ms2->config['EntriesPerPage'] = 50;
 
 $ms2->AddSelect('g.userid');
-$ms2->AddResultField($lang['guestbook']['author'], 'g.poster', 'UserNameAndIcon');
-$ms2->AddResultField($lang['guestbook']['entry'], 'g.text', 'Text2LSCode');
-$ms2->AddResultField($lang['guestbook']['date'], 'g.date', 'MS2GetDate');
+$ms2->AddResultField(t('Autor'), 'g.poster', 'UserNameAndIcon');
+$ms2->AddResultField(t('Eintrag'), 'g.text', 'Text2LSCode');
+$ms2->AddResultField(t('Datum'), 'g.date', 'MS2GetDate');
 
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=guestbook&action=add&guestbookid=', $lang['ms2']['edit']);
-if ($auth['type'] >= 3) $ms2->AddMultiSelectAction($lang['ms2']['delete'], 'index.php?mod=guestbook&action=delete&guestbookid=', 1);
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=guestbook&action=add&guestbookid=', t('Editieren'));
+if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=guestbook&action=delete&guestbookid=', 1);
 $ms2->PrintSearch('index.php?mod=guestbook', 'g.guestbookid');
 
 $dsp->AddSingleRow($dsp->FetchButton('index.php?mod=guestbook&action=add', 'add'));

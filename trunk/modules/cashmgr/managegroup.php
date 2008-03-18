@@ -14,8 +14,8 @@ switch($_GET['step'])
 		
 		$ms2->AddResultField(t('Name'), 'g.caption');
 		
-		$ms2->AddIconField('edit', 'index.php?mod=cashmgr&action=managegroup&step=1&id=', $lang['ms2']['edit']);
-		$ms2->AddIconField('delete', 'index.php?mod=cashmgr&action=managegroup&step=2&id=', $lang['ms2']['delete']);
+		$ms2->AddIconField('edit', 'index.php?mod=cashmgr&action=managegroup&step=1&id=', t('Editieren'));
+		$ms2->AddIconField('delete', 'index.php?mod=cashmgr&action=managegroup&step=2&id=', t('Löschen'));
 
 		$ms2->PrintSearch('index.php?mod=cashmgr&action=managegroup', 'g.id');
 		

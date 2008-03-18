@@ -20,14 +20,14 @@ $step 		= $_GET['step'];
 
 switch($step) {
 	default:
-		$dsp->NewContent(str_replace("%NAME%", $cfg["sys_lanpartyname"], $lang["signon"]["add_caption"]), str_replace("%NAME%", $cfg["sys_lanpartyname"], $lang["signon"]["add_subcaption"]));
+		$dsp->NewContent(t('Zur LAN-Party <b>%1</b> anmelden', $cfg["sys_lanpartyname"]), str_replace("%NAME%", $cfg["sys_lanpartyname"], t('Bitte füllen Sie die folgenden Felder sorgfälltig aus')));
 		$dsp->SetForm("index.php?mod=signon&action=config&step=2");
 		$dsp->AddDoubleRow("username", "Pflichteingabe");
 		$dsp->AddDoubleRow("email", "Pflichteingabe");
 
 		$rows = $db->query("SELECT * FROM {$config["tables"]["config"]} WHERE cfg_group = 'Anmeldungsfelder' ORDER BY cfg_value DESC");
 		while($row = $db->fetch_array($rows)) {
-			$option_array = array($lang["signon"]["config_option_hide"], $lang["signon"]["config_option_optional"], $lang["signon"]["config_option_duty"]);
+			$option_array = array(t('Nicht anzeigen'), t('Optionale Eingabe'), t('Pflichteingabe'));
 			$t_array = array();
 			while (list ($key, $val) = each ($option_array)) {
 				($key == $row["cfg_value"]) ? $selected = "selected" : $selected = "";
@@ -45,7 +45,7 @@ switch($step) {
 		while (list($key, $val) = each($_POST)) {
 			$db->query("UPDATE {$GLOBALS["config"]["tables"]["config"]} SET cfg_value = $val WHERE cfg_key = '$key'");
 		}
-		$func->confirmation($lang["signon"]["config_success"], "index.php?mod=signon&action=config");
+		$func->confirmation(t('Einstellungen wurden erfolgreich geändert'), "index.php?mod=signon&action=config");
 	break;
 }
 ?>

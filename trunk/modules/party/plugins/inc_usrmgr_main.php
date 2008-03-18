@@ -13,28 +13,28 @@ if ($party->count > 0) {
     $clan = '<table width="100%"><tr><td>';
     $party_row = '';
     $link = '';
-    ($user_party['user_id'])? $party_row .= $lang['usrmgr']['details_signon'] :  $party_row .= $lang['usrmgr']['details_not_signon'];
+    ($user_party['user_id'])? $party_row .= t('Angemeldet') :  $party_row .= t('Nicht Angemeldet');
     if (IsAuthorizedAdmin()) ($user_party['paid'])? $link = 'index.php?mod=guestlist&step=11&userid='. $_GET['userid']
       : $link = 'index.php?mod=guestlist&step=10&userid='. $_GET['userid'];
     // Paid
-    ($user_party['paid'])? $party_row .= ', '. $dsp->AddIcon('paid', $link, $lang['usrmgr']['paid_yes']) : $party_row .= ', '. $dsp->AddIcon('not_paid', $link, $lang['usrmgr']['paid_no']);
-    if ($user_party['paid'] == 1) $party_row .= ' ['. $lang['usrmgr']['details_paid_vvk'] .']';
-    elseif ($user_party['paid'] == 2) $party_row .= ' ['. $lang['usrmgr']['details_paid_ak'] .']';
+    ($user_party['paid'])? $party_row .= ', '. $dsp->AddIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->AddIcon('not_paid', $link, t('Nicht bezahlt'));
+    if ($user_party['paid'] == 1) $party_row .= ' ['. t('Vorverkauf') .']';
+    elseif ($user_party['paid'] == 2) $party_row .= ' ['. t('Abendkasse') .']';
     // Platzpfand
     if ($party_seatcontrol['depot_price'] > 0){
         $party_row .= ', '. $party_seatcontrol['depot_desc'];
-        $party_row .= ($user_party['seatcontrol']) ? $lang['usrmgr']['details_seat_paid'] : $lang['usrmgr']['details_seat_not_paid'];
+        $party_row .= ($user_party['seatcontrol']) ? t(' gezahlt') : t(' NICHT gezahlt');
     }
     // CheckIn CheckOut
     $link = '';
     if (IsAuthorizedAdmin() and !$user_party['checkin']) $link = 'index.php?mod=guestlist&step=20&userid='. $_GET['userid'];
-    if ($user_party['checkin']) $party_row .= ' '. $dsp->AddIcon('in', $link, $lang['usrmgr']['checkin']) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
-    else $party_row .= ' '.$dsp->AddIcon('not_in', $link, $lang['usrmgr']['checkin_no']);
+    if ($user_party['checkin']) $party_row .= ' '. $dsp->AddIcon('in', $link, t('Eingecheckt')) .'['. $func->unixstamp2date($user_party['checkin'], 'datetime') .']';
+    else $party_row .= ' '.$dsp->AddIcon('not_in', $link, t('Nicht eingecheckt'));
     
     $link = '';
     if (IsAuthorizedAdmin() and !$user_party['checkout'] and $user_party['checkin']) $link = 'index.php?mod=guestlist&step=21&userid='. $_GET['userid'];
-    if ($user_party['checkout']) $party_row .= ' '. $dsp->AddIcon('out', $link, $lang['usrmgr']['checkout']) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
-    else $party_row .= ' '.$dsp->AddIcon('not_out', $link, $lang['usrmgr']['checkout_no']);
+    if ($user_party['checkout']) $party_row .= ' '. $dsp->AddIcon('out', $link, t('Ausgecheckt')) .'['. $func->unixstamp2date($user_party['checkout'], 'datetime') .']';
+    else $party_row .= ' '.$dsp->AddIcon('not_out', $link, t('Nicht ausgecheckt'));
     
     if (IsAuthorizedAdmin() and $user_party['checkin'] > 0 and $user_party['checkout'] > 0) $party_row .= $dsp->AddIcon('delete', 'index.php?mod=guestlist&step=22&userid='. $_GET['userid'], 'Reset Checkin');
     

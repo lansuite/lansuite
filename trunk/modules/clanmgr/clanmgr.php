@@ -26,11 +26,11 @@ switch ($_GET['step']) {
     $ms2->AddResultField(t('Mitglieder'), 'COUNT(u.clanid) AS members');
 
     $ms2->AddIconField('details', 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid=', t('Clan-Details'));
-    if ($auth['type'] >= 2) $ms2->AddIconField('change_pw', 'index.php?mod=clanmgr&action=clanmgr&step=10&clanid=', $lang['ms2']['change_pw']);
-    if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid=', $lang['ms2']['edit']);
-    if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=20&clanid=', $lang['ms2']['delete']);
+    if ($auth['type'] >= 2) $ms2->AddIconField('change_pw', 'index.php?mod=clanmgr&action=clanmgr&step=10&clanid=', t('Passwort ändern'));
+    if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid=', t('Editieren'));
+    if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=20&clanid=', t('Löschen'));
 
-    if ($auth['type'] >= 3) $ms2->AddMultiSelectAction($lang['ms2']['delete'], 'index.php?mod=clanmgr&action=clanmgr&step=20', 1);
+    if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=clanmgr&action=clanmgr&step=20', 1);
 
     $ms2->PrintSearch('index.php?mod=clanmgr&action=clanmgr', 'c.clanid');
   break;
@@ -71,7 +71,7 @@ switch ($_GET['step']) {
       		$mail->create_mail($auth['userid'], $data['userid'], t('Clanpasswort geändert'), t('Das Clanpasswort wurde durch den Benutzer %1 in "%2" geändert', array($auth['username'], $_POST['password_original'])));
       		$mail->create_inet_mail($data['username'], $data['email'], t('Clanpasswort geändert'), t('Das Clanpasswort wurde durch den Benutzer %1 in "%2" geändert', array($auth['username'], $_POST['password_original'])), $cfg["sys_party_mail"]);
       	}
-      	$func->log_event(t('Das Clanpasswort wurde durch den Benutzer %1 geändert', array($auth['username'])), 1, t('Clanmanager'));
+      	$func->log_event(t('Das Clanpasswort wurde durch den Benutzer %1 geändert', $auth['username']), 1, t('Clanmanager'));
       }
     }
   break;
@@ -114,7 +114,7 @@ switch ($_GET['step']) {
       $ms2->AddResultField(t('Nachname'), 'u.name');
       $ms2->AddResultField(t('Benutzername'), 'u.username');
 
-      $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', $lang['ms2']['delete']);
+      $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', t('Löschen'));
       $ms2->PrintSearch('index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid'], 'u.userid');
       $dsp->AddFieldsetEnd();
 

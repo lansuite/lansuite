@@ -41,31 +41,31 @@ $ms2->query['where'] = 'userid='. (int)$auth['userid'];
 	$ms2->AddResultField('Geliefert', 'a.supplytime', 'MS2GetDate');
 	$ms2->AddResultField('Status', 's.statusname');
 
-//$ms2->AddIconField('details', 'index.php?mod=foodcenter&action=ordered&step=2&id=', $lang['ms2']['details']);
+//$ms2->AddIconField('details', 'index.php?mod=foodcenter&action=ordered&step=2&id=', t('Details'));
 
 switch ($_POST['search_dd_input'][0]){
    		case 1:
-    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_offer'];
+    		$ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
     	break;
 
     	case 2:
-    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_stop'];
+    		$ms2->NoItemsText = t('Es müssen keine Produkte bestellt werden.');
     	break;
 
     	case 3:
-    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_supplied'];
+    		$ms2->NoItemsText = t('Es wird auf keine Lieferung gewartet.');
     	break;
 
     	case 4:
-    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_kitchen'];
+    		$ms2->NoItemsText = t('Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.');
     	break;
     	
      	case 5:
-    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_wait'];
+    		$ms2->NoItemsText = t('Sie haben alle Produkte abgeholt.');
     	break;  
     	
     	default:
-    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_offer'];
+    		$ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
     	break;  
 
 }

@@ -8,18 +8,18 @@ switch($_GET['step']) {
 	break;
 
 	case 2:
-		$func->question(str_replace("%FIRSTNAME%", $user_data["firstname"], str_replace("%LASTNAME%", $user_data["name"], str_replace("%USERNAME%", $user_data["username"], $lang["usrmgr"]["newpw_quest"]))), "index.php?mod=usrmgr&action=newpwd&step=3&userid=". $_GET['userid'], $func->internal_referer);
+		$func->question(t('Sind Sie sicher, dass Sie dem Benutzer <b>%1% %2% (%3%)</b> ein neues Passwort zuweisen wollen?', $user_data["firstname"], $user_data["name"], $user_data["username"]), "index.php?mod=usrmgr&action=newpwd&step=3&userid=". $_GET['userid'], $func->internal_referer);
 	break;
 
 	case 3:
 		$password = rand(1000, 9999);
 		$md5_password = md5($password);
 
-		if ($_SESSION["auth"]["type"] < $userdata["type"]) $func->information($lang["usrmgr"]["newpw_few_rights"], "");
+		if ($_SESSION["auth"]["type"] < $userdata["type"]) $func->information(t('Sie verfügen über ein geringeres Benutzerlevel, als derjenige, auf den Sie diese Funktion anwenden möchten. Es wurde kein neues Passwort generiert'), "");
 		else {
 			$db->query("UPDATE {$config["tables"]["user"]} SET password = '$md5_password' WHERE userid = '{$_GET['userid']}'");
 
-			$func->confirmation(str_replace("%PASSWORD%", $password, str_replace("%FIRSTNAME%", $user_data["firstname"], str_replace("%LASTNAME%", $user_data["name"], str_replace("%USERNAME%", $user_data["username"], $lang["usrmgr"]["newpw_success"])))), "index.php?mod=usrmgr&action=details&userid=". $_GET['userid']);
+			$func->confirmation(t('Das Passwort von <b>%2 %3 (%4)</b> wurde erfolgreich geändert.HTML_NEWLINEDas neue Passwort lautet <b>%1</b>.', $password, $user_data["firstname"], $user_data["name"], $user_data["username"]), "index.php?mod=usrmgr&action=details&userid=". $_GET['userid']);
 		}
 	break;
 }

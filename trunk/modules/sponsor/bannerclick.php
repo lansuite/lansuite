@@ -6,5 +6,5 @@ if ($get_banner) {
   elseif ($_GET['type'] == 'box') $db->query("UPDATE {$config['tables']['sponsor']} SET hits_box = hits_box + 1 WHERE sponsorid = '{$_GET['sponsorid']}'");
   else $db->query("UPDATE {$config['tables']['sponsor']} SET hits = hits + 1 WHERE sponsorid = '{$_GET['sponsorid']}'");
 	Header("Location: ". $get_banner["url"]);
-} else die("<strong>{$lang["sponsor"]["err_no_banner_id"]}</strong>");
+} else die("<strong>".t('Diese Banner-ID existiert nicht! Manipulationsversuch oder Datenbankfehler. Bitte ZURÜCK anklicken.')."</strong>");
 ?>

@@ -7,27 +7,27 @@ $error = array();
 switch($_GET['step']) {
 	case 3:
 		// Error Columns
-		if ($_POST['cols'] == "") $error['cols'] = $lang['seating']['e_hori_lenght'];
-		elseif ($_POST['cols'] <= 0) $error['cols'] = $lang['seating']['e_gt_zero'];
-		elseif ($_POST['cols'] >= 60) $error['cols'] = $lang['seating']['e_lt_sixty'];
+		if ($_POST['cols'] == "") $error['cols'] = t('Bitte geben Sie die horizontale Länge ein');
+		elseif ($_POST['cols'] <= 0) $error['cols'] = t('Bitte geben Sie eine Zahl, die größer als 0 ist ein');
+		elseif ($_POST['cols'] >= 60) $error['cols'] = t('Bitte geben Sie eine kleinere Zahl als 60 ein');
 		else {
 			$row = $db->query_first("SELECT count(*) AS number FROM {$config['tables']['seat_seats']}
 				WHERE blockid = '{$_GET['blockid']}' AND status = 2 AND col >= '{$_POST['cols']}'");
-			if ($row["number"] != 0) $error['cols'] = $lang['seating']['e_gt_seats'];
+			if ($row["number"] != 0) $error['cols'] = t('Bitte geben Sie eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entfernen Sie bitte die betroffenen Benutzer.');
 		}
 
 		// Error Rows
-		if ($_POST['rows'] == "") $error['rows'] = $lang['seating']['e_vert_lenght'];
-		elseif ($_POST['rows'] <= 0) $error['rows'] = $lang['seating']['e_gt_zero'];
-		elseif ($_POST['rows'] >= 100) $error['rows'] = $lang['seating']['e_lt_hundred'];
+		if ($_POST['rows'] == "") $error['rows'] = t('Bitte geben Sie die vertikale Länge ein');
+		elseif ($_POST['rows'] <= 0) $error['rows'] = t('Bitte geben Sie eine Zahl, die größer als 0 ist ein');
+		elseif ($_POST['rows'] >= 100) $error['rows'] = t('Bitte geben Sie eine kleinere Zahl als 100 ein');
 		else {
 			$row = $db->query_first("SELECT count(*) AS number FROM {$config['tables']['seat_seats']}
 				WHERE blockid = '{$_GET['blockid']}' AND status = 2 AND row >= '{$_POST['rows']}'");
-    		if ($row["number"] != 0) $error['rows'] = $lang['seating']['e_gt_seats'];
+    		if ($row["number"] != 0) $error['rows'] = t('Bitte geben Sie eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entfernen Sie bitte die betroffenen Benutzer.');
     	}
 
 		// Remark
-		if (strlen($_POST['remark']) > 1500) $error['remark'] = $lang['seating']['e_max_chars'];
+		if (strlen($_POST['remark']) > 1500) $error['remark'] = t('Bitte geben Sie weniger als 1500 Zeichen ein');
 
 		foreach ($error as $key => $val) if ($val) {
 			$_GET['step']--;
@@ -113,22 +113,22 @@ switch($_GET['step']) {
 			if ($_POST['text_br'] == "") $_POST['text_br'] = $block['text_br'];
 		}
 
-		$dsp->NewContent($lang['seating']['create_block'], $lang['seating']['cr_block_sub']);
+		$dsp->NewContent(t('Sitzblock erstellen'), t(' Mit Hilfe des folgenden Formulars können Sie einen neuen Sitzblock erstellen. In einem folgenden zweiten Schritt können Sie dann Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bedürfnissen anzupassen.'));
 		$dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=3&blockid={$_GET['blockid']}");
 
-		$dsp->AddTextFieldRow('name', $lang['seating']['block_name'],  $_POST['name'], $error['name']);
-		$dsp->AddTextFieldRow('cols', $lang['seating']['lenght_hori'], $_POST['cols'], $error['cols']);
-		$dsp->AddTextFieldRow('rows', $lang['seating']['lenght_vert'], $_POST['rows'], $error['rows']);
+		$dsp->AddTextFieldRow('name', t('Sitzblockname'),  $_POST['name'], $error['name']);
+		$dsp->AddTextFieldRow('cols', t('Länge horizontal'), $_POST['cols'], $error['cols']);
+		$dsp->AddTextFieldRow('rows', t('Länge vertikal'), $_POST['rows'], $error['rows']);
 
 		// Orientation
 		$selections = array();
 		($_POST['orientation'] == 0) ? $selected = 'selected' : $selected = '';
-		array_push ($selections, "<option $selected value=\"0\">".$lang['seating']['vertical'].'</option>');
+		array_push ($selections, "<option $selected value=\"0\">".t('Vertikal').'</option>');
 		($_POST['orientation'] == 1) ? $selected = 'selected' : $selected = '';
-		array_push ($selections, "<option $selected value=\"1\">".$lang['seating']['horizontal'].'</option>');
-		$dsp->AddDropDownFieldRow('orientation', $lang['seating']['orientation'], $selections, '');
+		array_push ($selections, "<option $selected value=\"1\">".t('Horizontal').'</option>');
+		$dsp->AddDropDownFieldRow('orientation', t('Orientierung'), $selections, '');
 
-		$dsp->AddCheckBoxRow('u18', $lang['seating']['u18_block'], '', '', 0, $_POST['u18']);
+		$dsp->AddCheckBoxRow('u18', t('U18 Block'), '', '', 0, $_POST['u18']);
 
                 $t_array = array();
 		array_push($t_array, '<option value="0">'. t('Für alle Benutzer offen') .'</option>');
@@ -150,8 +150,8 @@ switch($_GET['step']) {
 		$db->free_result($res);
                 $dsp->AddDropDownFieldRow("price_id", t('Nur für diesen Eintrittspreis'), $t_array, '');
 
-		$dsp->AddTextAreaPlusRow('remark', $lang['seating']['remark'], $_POST['remark'], $error['remark'], '', 4, 1);
-		$dsp->AddDoubleRow($lang['seating']['block_caption'], $dsp->FetchModTpl('seating', 'plan_labels'));
+		$dsp->AddTextAreaPlusRow('remark', t('Bemerkung'), $_POST['remark'], $error['remark'], '', 4, 1);
+		$dsp->AddDoubleRow(t('Sitzblockbeschriftung'), $dsp->FetchModTpl('seating', 'plan_labels'));
 
 		// Partys
 		$selections = array();
@@ -224,7 +224,7 @@ switch($_GET['step']) {
 	// No Break!
 	case 4:
 		// Continue with seperator definition
-		$dsp->NewContent($lang['seating']['block_spacing'], $lang['seating']['spacing_sub']);
+		$dsp->NewContent(t('Sitzblock Zwischengänge definieren'), t(' Abstände zwischen einzelnen Zeilen bzw. Reihen können mit den außen angezeigten Pfeilen eingefügt bzw. wieder gelöscht werden.'));
 
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 1));
 
@@ -237,7 +237,7 @@ switch($_GET['step']) {
 	// Seat-Selection
 	case 5:
 	case 6:
-		$dsp->NewContent($lang['seating']['define_seat'], $lang['seating']['def_seat_sub']);
+		$dsp->NewContent(t('Sitzblock Sitze definieren'), t('Nun können Sie Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bedürfnissen anzupassen.<br /><br />Ganze Reihen bzw. Spalten von Plätzen können aktiviert bzw. deaktiviert werden, indem Sie auf die Spalten- bzw. Reihen-Beschriftung  klicken.'));
 		$dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=6&blockid={$_GET['blockid']}", "block");
 
     $dsp->AddSingleRow($dsp->FetchModTpl('seating', 'plan_symbols'));
@@ -252,7 +252,7 @@ switch($_GET['step']) {
 
 	// Finished
 	case 7:
-		$func->confirmation($lang['seating']['c_plan_edit'], 'index.php?mod=seating');
+		$func->confirmation(t('Der Sitzplan wurde erfolgreich bearbeitet'), 'index.php?mod=seating');
 	break;
 }
 ?>

@@ -13,13 +13,13 @@ switch ($_GET["step"]) {
 		$numrows = $rowtest["n"];
 
 		// Prüfen ob ticketid leer ist
-		if ($tt_id == "") $func->information($lang['troubleticket']['err_no_tt_id'], "");
+		if ($tt_id == "") $func->information(t('Es wurde keine Troubleticket-ID Ã¼bergeben. Aufruf inkorrekt.'), "");
 
 		// Prüfen ob ticketid gültig ist
-		elseif ($numrows == "") { $func->information($lang['troubleticket']['err_no_tt_id'],""); }
+		elseif ($numrows == "") { $func->information(t('Es wurde keine Troubleticket-ID Ã¼bergeben. Aufruf inkorrekt.'),""); }
 
 		else {
-			$dsp->NewContent($lang['troubleticket']['show'],$lang['troubleticket']['show_info']);
+			$dsp->NewContent(t('Troubleticket anzeigen'),t('Hier sehen Sie alle Informationen zu diesem Ticket'));
 
 			// Ticket aus DB laden und ausgeben
 			$row = $db->query_first("SELECT * FROM {$config["tables"]["troubleticket"]} WHERE ttid = '$tt_id'");
@@ -29,79 +29,79 @@ switch ($_GET["step"]) {
 			$target_user_id = $row["target_userid"];
 			$get_targetuser = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = '$target_user_id' ");
 
-			$dsp->AddDoubleRow($lang['troubleticket']['head'], $row["caption"]);
-			$dsp->AddDoubleRow($lang['troubleticket']['prob_descr'], $func->text2html($row["text"]));
-			$dsp->AddDoubleRow($lang['troubleticket']['set_up_on'], $func->unixstamp2date($row["created"], "daydatetime"));
-			$dsp->AddDoubleRow($lang['troubleticket']['from_user'], $get_originuser["username"]);
+			$dsp->AddDoubleRow(t('Ãœberschrift'), $row["caption"]);
+			$dsp->AddDoubleRow(t('Problembeschreibung'), $func->text2html($row["text"]));
+			$dsp->AddDoubleRow(t('Eingetragen am/um'), $func->unixstamp2date($row["created"], "daydatetime"));
+			$dsp->AddDoubleRow(t('Von Benutzer'), $get_originuser["username"]);
 
 			// priorität zahl -> text
 			switch ($row["priority"]) {
 				default:
-					$priority = $lang['troubleticket']['state_0'];
+					$priority = t('Niedrig');
 				break;
 				case 20:
-					$priority = $lang['troubleticket']['state_1'];
+					$priority = t('Normal');
 				break;
 				case 30:
-					$priority = $lang['troubleticket']['state_2'];
+					$priority = t('Hoch');
 				break;
 				case 40:
-					$priority = $lang['troubleticket']['state_3'];
+					$priority = t('Kritisch');
 				break;
 			}
-			$dsp->AddDoubleRow($lang['troubleticket']['priority'], $priority);
+			$dsp->AddDoubleRow(t('PrioritÃ¤t'), $priority);
 
 			// entsprechend des ticketstatuses passende zeilen ausgeben
 			$status_wahl = array();
 			switch ($row["status"]) {
 				default:
-					$status	= $lang['troubleticket']['st_default'];
+					$status	= t('default: Scriptfehler!');
 				break;
 
 				// status: NEU EINGETRAGEN / NICHT GEPRÜFT
 				case 1:
-					$status	= $lang['troubleticket']['st_new'];
+					$status	= t('Neu / UngeprÃ¼ft');
 					$time_text = "";
 					$time_val = "";
 				break;
 
 				// status: GEPRÜFT / ggf. VON EINEM ORGA NEU EINGETRAGEN
 				case 2:
-					$status	= $lang['troubleticket']['st_acc'];
-					$time_text = $lang['troubleticket']['st_checked'];
+					$status	= t('ÃœberprÃ¼ft / Akzeptiert');
+					$time_text = t('ÃœberprÃ¼ft am/um');
 					$time_val = $func->unixstamp2date($row["verified"], "daydatetime");
 				break;
 
 				// status: ORGA HAT ARBEIT BEGONNEN
 				case 3:
-					$status	= $lang['troubleticket']['st_in_work'];
-					$time_text = $lang['troubleticket']['st_in_work_since'];
+					$status	= t('In Arbeit');
+					$time_text = t('In Bearbeitung seit');
 					$time_val = $func->unixstamp2date($row["process"], "daydatetime");
 				break;
 
 				// status: BEARBEITUNG ABGESCHLOSSEN
 				case 4:
-					$status	= $lang['troubleticket']['st_finished'];
-					$time_text = $lang['troubleticket']['st_finish_since'];
+					$status	= t('Abgeschlossen');
+					$time_text = t('Beendet am/um');
 					$time_val = $func->unixstamp2date($row["finished"],"daydatetime");
 				break;
 
 				// status: BEARBEITUNG ABGELEHNT
 				case 5:
-					$status	= $lang['troubleticket']['st_denied'];
-					$time_text = $lang['troubleticket']['st_denied_since'];
+					$status	= t('Abgelehnt');
+					$time_text = t('Bearbeitung abgelehnt am/um');
 					$time_val = $func->unixstamp2date($row["finished"], "daydatetime");
 				break;
 			}
-			$dsp->AddDoubleRow($lang['troubleticket']['status'], $status);
+			$dsp->AddDoubleRow(t('Ticketstatus'), $status);
 			if ($time_text and $time_val) $dsp->AddDoubleRow($time_text, $time_val);
-			$dsp->AddDoubleRow($lang['troubleticket']['assign_orga'], $get_targetuser["username"]);
+			$dsp->AddDoubleRow(t('Bearbeitender Orga'), $get_targetuser["username"]);
 
-			if (!$row["publiccomment"]) $row["publiccomment"] = $lang['troubleticket']['no_hint'];
-			$dsp->AddDoubleRow($lang['troubleticket']['com'], $row["publiccomment"]);
+			if (!$row["publiccomment"]) $row["publiccomment"] = t(' Kein Hinweis eingetragen');
+			$dsp->AddDoubleRow(t('Kommentar'), $row["publiccomment"]);
 			if($auth['type'] > 1){
-				if (!$row["orgacomment"]) $row["orgacomment"] = $lang['troubleticket']['no_hint'];
-				$dsp->AddDoubleRow($lang['troubleticket']['com_fa4orga'], $row["orgacomment"]);
+				if (!$row["orgacomment"]) $row["orgacomment"] = t(' Kein Hinweis eingetragen');
+				$dsp->AddDoubleRow(t('Kommentar von und fÃ¼r Orgas'), $row["orgacomment"]);
 			}
 
 			$dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/change");

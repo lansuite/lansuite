@@ -10,7 +10,7 @@ $db->query("SELECT * from {$config["tables"]["noc_devices"]} WHERE id=" . $_GET[
 
 if( !$row = $db->fetch_array() ) { 
 
-	$func->error( $lang['noc']['device_not_exist'],"" ); 
+	$func->error( t('Das gew&auml;hlte Device existiert nicht'),"" ); 
 	
 } else {
 	switch ($_GET['step']){
@@ -22,16 +22,16 @@ if( !$row = $db->fetch_array() ) {
 		$readcommunity  = $row["readcommunity"];
 		
 		// DISPLAYED TEXT
-		$templ['noc']['show']['device']['details']['text']['caption'] 		= $lang['noc']['device_caption'];
-		$templ['noc']['show']['device']['details']['text']['ip'] 			= $lang['noc']['ip'];
-		$templ['noc']['show']['device']['details']['text']['descr']			= $lang['noc']['description'];
-		$templ['noc']['show']['device']['details']['text']['contact'] 		= $lang['noc']['contact'];
-		$templ['noc']['show']['device']['details']['text']['uptime']		= $lang['noc']['uptime'];
-		$templ['noc']['show']['device']['details']['text']['location']		= $lang['noc']['location'];
-		$templ['noc']['show']['device']['details']['text']['context']		= $lang['noc']['context'];
-		$templ['noc']['show']['device']['details']['text']['active']		= $lang['noc']['port_active'];
-		$templ['noc']['show']['device']['details']['text']['inactive']		= $lang['noc']['port_inactive'];
-		$templ['noc']['show']['device']['details']['text']['off']			= $lang['noc']['port_off'];
+		$templ['noc']['show']['device']['details']['text']['caption'] 		= t('Name');
+		$templ['noc']['show']['device']['details']['text']['ip'] 			= t('IP-Adresse');
+		$templ['noc']['show']['device']['details']['text']['descr']			= t('Beschreibung');
+		$templ['noc']['show']['device']['details']['text']['contact'] 		= t('Kontaktadresse');
+		$templ['noc']['show']['device']['details']['text']['uptime']		= t('Laufzeit');
+		$templ['noc']['show']['device']['details']['text']['location']		= t('Standort');
+		$templ['noc']['show']['device']['details']['text']['context']		= t('Lengende');
+		$templ['noc']['show']['device']['details']['text']['active']		= t('Aktiv');
+		$templ['noc']['show']['device']['details']['text']['inactive']		= t('Inaktiv');
+		$templ['noc']['show']['device']['details']['text']['off']			= t('Ausgeschaltet');
 
 
 		// DISPLAYED VALUES
@@ -183,7 +183,7 @@ if( !$row = $db->fetch_array() ) {
 		
 		
 		case 2:
-		$dsp->NewContent($lang['noc']['ports_caption'],$lang['noc']['ports_subcaption']);
+		$dsp->NewContent(t('Portstatus &auml;ndern'),t('Geben sie bitte alle Ports an die Sie &auml;ndern wollen'));
 		$dsp->SetForm("index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=3");
 
 		$db->query("SELECT portnr, portid, linkstatus, adminstatus, speed, type, indexname FROM {$config["tables"]["noc_ports"]} WHERE deviceid=" . $_GET["deviceid"] . " AND type != 'system' ORDER BY portnr ASC");
@@ -261,12 +261,12 @@ if( !$row = $db->fetch_array() ) {
 				foreach ($_POST['noc'] as $noc_data){
 					$ports .= $noc_data . HTML_NEWLINE;	
 				}
-				$func->question($lang['noc']['activate_ports'] . HTML_NEWLINE . $ports,"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=4","index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]. "&step=2");
+				$func->question(t('Wollen Sie folgende Ports &auml;ndern?') . HTML_NEWLINE . $ports,"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=4","index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]. "&step=2");
 			}elseif (isset($_POST['noc'])){
 				$ports = $_POST['noc'];
-				$func->question($lang['noc']['activate_ports'] . HTML_NEWLINE . $ports,"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=4","index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]. "&step=2");
+				$func->question(t('Wollen Sie folgende Ports &auml;ndern?') . HTML_NEWLINE . $ports,"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=4","index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]. "&step=2");
 			}else{
-				$func->error($lang['noc']['no_ports'],"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=2");
+				$func->error(t('Keine Ports ausgew&auml;hlt'),"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=2");
 			}
 			$_SESSION['noc_ports'] = $_POST['noc'];
 		break;
@@ -285,12 +285,12 @@ if( !$row = $db->fetch_array() ) {
 
 					case "1":
 					case "up":
-					case "up(1)":	$newstatus = "2"; $statusdescr = "<font color=\"red\">" . $lang['noc']['port_inactived'] . "</font>"; $statusdb = "down(2)";
+					case "up(1)":	$newstatus = "2"; $statusdescr = "<font color=\"red\">" . t('deaktiviert') . "</font>"; $statusdb = "down(2)";
 					break;
 
 					case "2":
 					case "down":
-					case "down(2)":	$newstatus = "1"; $statusdescr = "<font color=\"green\">" . $lang['noc']['port_actived'] . "</font>"; $statusdb = "up(1)"; 
+					case "down(2)":	$newstatus = "1"; $statusdescr = "<font color=\"green\">" . t('aktiviert') . "</font>"; $statusdb = "up(1)"; 
 					break;
 
 				}
@@ -299,9 +299,10 @@ if( !$row = $db->fetch_array() ) {
 
 					$db->query_first("UPDATE {$config["tables"]["noc_ports"]} SET adminstatus='$statusdb' WHERE portnr=" . $noc_data . " AND deviceid=" . $_GET['deviceid']);
 
-					$text .= $noc_data . $lang['noc']['port_changed'] . HTML_NEWLINE;
+					$text .= $noc_data . t('Der Portstatus wurde ge&auml;ndert') . HTML_NEWLINE;
 				}else{
-					$text .= $noc_data . $lang['noc']['change_port_error'] . HTML_NEWLINE;
+					$text .= $noc_data . t('Der Port auf konnte nicht ge&auml;ndert werden.HTML_NEWLINE
+											 Pr&uuml;fen sie die Einstellung der Write-Community') . HTML_NEWLINE;
 				}
 			}
 				
@@ -321,12 +322,12 @@ if( !$row = $db->fetch_array() ) {
 				switch( $status ) {
 					case "1":
 					case "up":
-					case "up(1)":	$newstatus = "2"; $statusdescr = "<font color=\"red\">" . $lang['noc']['port_inactived'] . "</font>"; $statusdb = "down(2)";
+					case "up(1)":	$newstatus = "2"; $statusdescr = "<font color=\"red\">" . t('deaktiviert') . "</font>"; $statusdb = "down(2)";
 					break;
 
 					case "2":
 					case "down":
-					case "down(2)":	$newstatus = "1"; $statusdescr = "<font color=\"green\">" . $lang['noc']['port_actived'] . "</font>"; $statusdb = "up(1)"; 
+					case "down(2)":	$newstatus = "1"; $statusdescr = "<font color=\"green\">" . t('aktiviert') . "</font>"; $statusdb = "up(1)"; 
 					break;
 
 				}
@@ -335,9 +336,10 @@ if( !$row = $db->fetch_array() ) {
 
 					$db->query_first("UPDATE {$config["tables"]["noc_ports"]} SET adminstatus='$statusdb' WHERE portnr=" . $noc_data . " AND deviceid=" . $_GET['deviceid']);
 
-					$text .= $noc_data . $lang['noc']['port_changed'] . HTML_NEWLINE;
+					$text .= $noc_data . t('Der Portstatus wurde ge&auml;ndert') . HTML_NEWLINE;
 				}else{
-					$text .= $noc_data . $lang['noc']['change_port_error'] . HTML_NEWLINE;
+					$text .= $noc_data . t('Der Port auf konnte nicht ge&auml;ndert werden.HTML_NEWLINE
+											 Pr&uuml;fen sie die Einstellung der Write-Community') . HTML_NEWLINE;
 					$noc_error = 1;
 				}
 			
@@ -347,7 +349,7 @@ if( !$row = $db->fetch_array() ) {
 					$func->confirmation($text, "index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]);
 				}
 			}else{
-				$func->error($lang['noc']['no_ports'],"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=2");
+				$func->error(t('Keine Ports ausgew&auml;hlt'),"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=2");
 			}
 		break;
 	

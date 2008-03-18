@@ -27,7 +27,7 @@ if ($tteam->SignonCheck($tournamentid)) {
 					if ($tournament['teamplayer'] == 1) $_POST['team_name'] = "";
 
 					if ($_POST["set_password"] and $_POST["set_password"] != $_POST["set_password2"]) $error["set_password2"] = "Die Passworteingaben stimmen nicht �berein";
-					if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1) $error["team_name"] = $lang["tourney"]["join_err_no_name"];
+					if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1) $error["team_name"] = t('Bitte geben Sie einen Teamnamen ein, oder wählen Sie ein vorhandenes Team aus');
 					if (count($error) == 0) $success = $tteam->create($_GET["tournamentid"], $auth["userid"], $_POST['team_name'], $_POST["set_password"], $_POST['team_comment'], "team_banner");
 				}
 
@@ -35,7 +35,7 @@ if ($tteam->SignonCheck($tournamentid)) {
 					// Update-League-IDs
 					$tteam->UpdateLeagueIDs($auth["userid"], $_POST["wwclid"], $_POST["wwclclanid"], $_POST["nglid"], $_POST["nglclanid"], $_POST["lgzid"], $_POST["lgzclanid"]);
 
-					$func->confirmation(str_replace("%NAME%", $tournament["name"], $lang["tourney"]["join_success"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
+					$func->confirmation(t('Sie wurden zum Turnier %1 erfolgreich hinzugefügt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
 				}
 				$sec->lock("t_join");
 			}
@@ -48,47 +48,47 @@ if ($tteam->SignonCheck($tournamentid)) {
 		case 2:
 			$sec->unlock("t_join");
 
-			$dsp->NewContent(str_replace("%NAME%", $tournament['name'], $lang["tourney"]["join_caption"]), $lang["tourney"]["join_subcaption"]);
+			$dsp->NewContent(t('Zum Turnier %1 anmelden', $tournament['name']), t('Mit Hilfe des folgenden Formulars können Sie ein Team zu einem Turnier anmelden.'));
 
 			$dsp->SetForm("index.php?mod=tournament2&action=join&step=3&tournamentid=$tournamentid", "", "", "multipart/form-data");
 
-			if ($tournament['teamplayer'] == 1 or $tournament['blind_draw'] == 1) $dsp->AddDoubleRow($lang["tourney"]["join_teamname"], $auth["username"]);
+			if ($tournament['teamplayer'] == 1 or $tournament['blind_draw'] == 1) $dsp->AddDoubleRow(t('Teamname'), $auth["username"]);
 			else {
-				$dsp->AddSingleRow("<b>". $lang["tourney"]["join_j_existing"] ."</b>");
+				$dsp->AddSingleRow("<b>". t('Vorhandenem Team beitreten') ."</b>");
 
 				// Vorhandene Teams
-				$t_array = array("<option $selected value=\"\">-{$lang["tourney"]["join_create_new_team"]}-</option>");
+				$t_array = array("<option $selected value=\"\">-".t('Neues Team erstellen')."-</option>");
 				$teams = $db->query("SELECT teamid, name FROM {$config["tables"]["t2_teams"]} WHERE tournamentid = $tournamentid");
 				while ($team = $db->fetch_array($teams)) {
 					if ($_POST["existing_team_name"] == $team['teamid']) $selected = "selected";
 					array_push ($t_array, "<option $selected value=\"{$team['teamid']}\">{$team['name']}</option>");
 				}
 				$db->free_result($teams);
-				$dsp->AddDropDownFieldRow("existing_team_name", $lang["tourney"]["join_j_team"], $t_array, "");
-				$dsp->AddPasswordRow("password", $lang["tourney"]["join_team_pw"], $_POST["password"], $error["password"]);
+				$dsp->AddDropDownFieldRow("existing_team_name", t('Team beitreten'), $t_array, "");
+				$dsp->AddPasswordRow("password", t('Team-Passwort'), $_POST["password"], $error["password"]);
 
 				// Neues Team
-				$dsp->AddSingleRow("<b>". $lang["tourney"]["join_or_new"] ."</b>");
-				$dsp->AddTextFieldRow("team_name", $lang["tourney"]["join_teamname"], $_POST["team_name"], $error["team_name"]);
-				$dsp->AddPasswordRow("set_password", $lang["tourney"]["join_team_pw1"], $_POST["set_password"], $error["set_password"]);
-				$dsp->AddPasswordRow("set_password2", $lang["tourney"]["join_team_pw2"], $_POST["set_password2"], $error["set_password2"]);
+				$dsp->AddSingleRow("<b>". t('ODER: Neues Team anlegen') ."</b>");
+				$dsp->AddTextFieldRow("team_name", t('Teamname'), $_POST["team_name"], $error["team_name"]);
+				$dsp->AddPasswordRow("set_password", t('Team-Passwort festlegen'), $_POST["set_password"], $error["set_password"]);
+				$dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $_POST["set_password2"], $error["set_password2"]);
 			}
 
-			$dsp->AddTextAreaPlusRow("team_comment", $lang["tourney"]["join_comment"], $_POST["team_comment"], "", "", "", 1);
-			$dsp->AddFileSelectRow("team_banner", $lang["tourney"]["join_banner"], "", "", 1000000, 1);
+			$dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $_POST["team_comment"], "", "", "", 1);
+			$dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1000000, 1);
 
 			if ($tournament['wwcl_gameid'] > 0){
-				$dsp->AddTextFieldRow("wwclid", $lang["tourney"]["join_wwcl_id"], $user['wwclid'], "");
-				if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("wwclclanid", $lang["tourney"]["join_wwcl_clan_id"], $user['wwclclanid'], "");
+				$dsp->AddTextFieldRow("wwclid", t('WWCL ID'), $user['wwclid'], "");
+				if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("wwclclanid", t('WWCL Clan'), $user['wwclclanid'], "");
 			}
 			if ($tournament['ngl_gamename'] != ""){
-				$dsp->AddTextFieldRow("nglid", $lang["tourney"]["join_ngl_id"], $user['nglid'], "");
-				if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("nglclanid", $lang["tourney"]["join_ngl_clan_id"], $user['nglclanid'], "");
+				$dsp->AddTextFieldRow("nglid", t('NGL ID'), $user['nglid'], "");
+				if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("nglclanid", t('NGL Clan ID'), $user['nglclanid'], "");
 			}
 			if ($tournament['lgz_gamename'] != ""){
-				$dsp->AddDoubleRow($lang["tourney"]["join_lgz_id"], $lang["tourney"]["join_lgz_info"]);
+				$dsp->AddDoubleRow(t('LGZ ID'), t('Falls temoräre ID gewünscht, bitte <b>0</b> eingeben und nach der Party die Verifizierungsmail bestätigen. Ein leeres Feld bedeutet, dass man außer Konkurenz teilnimt (John Doe)'));
 				$dsp->AddTextFieldRow("lgzid", "", $user['lgzid'], "");
-				if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("lgzclanid", $lang["tourney"]["join_lgz_clan_id"], $user['lgzclanid'], "");
+				if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("lgzclanid", t('LGZ Clan ID'), $user['lgzclanid'], "");
 			}
 
 			$dsp->AddFormSubmitRow("join");

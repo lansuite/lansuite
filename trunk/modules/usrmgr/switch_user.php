@@ -17,8 +17,8 @@ switch ($_GET["step"]){
 							login='1'
 							WHERE sessid='{$auth["sessid"]}'");
 
-			$func->information($lang['usrmgr']['switch_success'], $func->internal_referer);
-		} else $func->error($lang['usrmgr']['switch_wrong_level'], $func->internal_referer);
+			$func->information(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer);
+		} else $func->error(t('Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), $func->internal_referer);
 	break;
 
 	case 11: // Switch back
@@ -37,8 +37,8 @@ switch ($_GET["step"]){
 			// Delete switch back code in admins user data
 			$db->query("UPDATE {$config["tables"]["user"]} SET switch_back = '' WHERE userid = {$_COOKIE["olduserid"]}");
 
-			$func->information($lang['usrmgr']['switch_success'], $func->internal_referer);	
-		} else $func->error($lang['usrmgr']['switch_wrong_sbc'], $func->internal_referer);
+			$func->information(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer);	
+		} else $func->error(t('Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), $func->internal_referer);
 	break;
 }
 ?>

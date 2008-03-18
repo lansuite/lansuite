@@ -47,7 +47,7 @@ function WriteGame() {
 			$score_output .= $dsp->FetchButton("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2", "details");
 		}
 
-		$dsp->AddDoubleRow("{$lang["tourney"]["games_pair"]} $i", "$spieler1 vs $spieler2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$score_output");
+		$dsp->AddDoubleRow(t('Paarung')." $i", "$spieler1 vs $spieler2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$score_output");
 		$spieler1 = "";
 	}
 }
@@ -59,9 +59,9 @@ function WriteRoundHeadline($headline, $akt_round){
 	$round_start = $func->unixstamp2date($tfunc->GetGameStart($tournament, $akt_round), "time");
 	$round_end = $func->unixstamp2date($tfunc->GetGameEnd($tournament, $akt_round), "time");
 
-	$dsp->AddSingleRow("<b>$headline {$lang["tourney"]["games_round"]} ". abs($akt_round) ."</b>"
-		.HTML_NEWLINE. $lang["tourney"]["tree_time"] .": ". $round_start ." - ". $round_end
-		.HTML_NEWLINE. $lang["tourney"]["tree_map"] .": ". $map[(abs(floor($akt_round)) % count($map))]
+	$dsp->AddSingleRow("<b>$headline ".t('Runde')." ". abs($akt_round) ."</b>"
+		.HTML_NEWLINE. t('Zeit') .": ". $round_start ." - ". $round_end
+		.HTML_NEWLINE. t('Map') .": ". $map[(abs(floor($akt_round)) % count($map))]
 		);
 }
 
@@ -84,8 +84,8 @@ function WritePairs ($bracket, $max_pos) {
 				");
 
 		// Set Playernames
-		if ($game == 0) $game['name'] = "<i>{$lang["tourney"]["games_unknown"]}</i>";
-		elseif ($game['leaderid'] == 0) $game['name'] = "<i><font color=\"#000088\">{$lang["tourney"]["games_gamefree"]}</font></i>";
+		if ($game == 0) $game['name'] = "<i>".t('Noch Unbekannt')."</i>";
+		elseif ($game['leaderid'] == 0) $game['name'] = "<i><font color=\"#000088\">".t('Freilos')."</font></i>";
 		else $game['name'] .= $tfunc->button_team_details($game['teamid'], $tournamentid);
 
 		WriteGame();
@@ -93,7 +93,7 @@ function WritePairs ($bracket, $max_pos) {
 }
 
 
-if (!$tournamentid) $func->error($lang['tourney']['teammgr_err_not'], '');
+if (!$tournamentid) $func->error(t('Sie haben kein Turnier ausgewählt!'), '');
 else {
   switch($_GET["step"]) {
   case 1:
@@ -109,23 +109,23 @@ else {
   
   	// Get Maparray
   	$map = explode("\r\n", $func->db2text($tournament["mapcycle"]));
-  	if ($map[0] == "") $map[0] = $lang["tourney"]["unknown"];
+  	if ($map[0] == "") $map[0] = t('unbekannt');
   
   	// Check Errors
   	if ($tournament["mode"] == "open") {
-  		$func->error($lang["tourney"]["games_pairs_unknown"], "index.php?mod=tournament2&action=games&step=1]");
+  		$func->error(t('Dieses Turnier wurde noch nicht generiert. Die Paarungen sind noch nicht bekannt.'), "index.php?mod=tournament2&action=games&step=1]");
   		break;
   	}
   
   	// Set Modename
-  	if ($tournament['mode'] == "single") $modus = $lang["tourney"]["se"];
-  	if ($tournament['mode'] == "double") $modus = $lang["tourney"]["de"];
-  	if ($tournament['mode'] == "liga") $modus = $lang["tourney"]["league"];
-  	if ($tournament['mode'] == "groups") $modus = $lang["tourney"]["groups"];
-  	if ($tournament['mode'] == "all") $modus = $lang["tourney"]["all"];
+  	if ($tournament['mode'] == "single") $modus = t('Single-Elimination');
+  	if ($tournament['mode'] == "double") $modus = t('Double-Elimination');
+  	if ($tournament['mode'] == "liga") $modus = t('Liga');
+  	if ($tournament['mode'] == "groups") $modus = t('Gruppenspiele + KO');
+  	if ($tournament['mode'] == "all") $modus = t('Alle in einem');
   
   	// Start Output
-  	$dsp->NewContent(str_replace("%NAME%", $tournament['name'], str_replace("%MODE%", $modus, $lang["tourney"]["games_caption"])), $lang["tourney"]["games_subcaption"]);
+  	$dsp->NewContent(t('Turnier %1 (%2) - Paarungen', $tournament['name'], $modus), t('Hier sehen Sie eine Liste aller Paarungen dieses Turniers'));
   
   
   
@@ -134,7 +134,7 @@ else {
   		// Update score, if submitted
   		if ($_GET['step'] == 10) {
   			foreach ($_POST['team_score'] as $gameid => $team_score) if ($gameid) {
-  				if (!is_numeric($team_score)) $team_score_error[$gameid] = $lang["tourney"]["games_no_int"];
+  				if (!is_numeric($team_score)) $team_score_error[$gameid] = t('Bitte geben Sie eine Zahl ein');
   				else $db->query("UPDATE {$config["tables"]["t2_games"]}
   					SET score = {$team_score}
   					WHERE gameid = $gameid");
@@ -182,7 +182,7 @@ else {
   
   			// Write Round Headline
   			if ($last_round != $game['round']) {
-  				($tournament['mode'] == "groups")? $group_out = "{$lang["tourney"]["games_group"]} {$game['group_nr']},"
+  				($tournament['mode'] == "groups")? $group_out = t('Gruppe')." {$game['group_nr']},"
   					: $group_out = "";
   
   				WriteRoundHeadline("$group_out", $game['round']);
@@ -193,7 +193,7 @@ else {
   			$last_round = $game['round'];
   
   			// Set Playernames
-  			if ($game['leaderid'] == 0) $game['name'] = "<i>{$lang["tourney"]["games_gamefree_league"]}</i>";
+  			if ($game['leaderid'] == 0) $game['name'] = "<i>".t('Spielfrei')."</i>";
   			else $game['name'] .= $tfunc->button_team_details($game['teamid'], $tournamentid);
   
   			WriteGame();
@@ -249,16 +249,16 @@ else {
   
   		// Write Winner
   		$akt_round++;
-  		$dsp->AddSingleRow("<b>". $lang["tourney"]["games_winner"] ."</b>");
+  		$dsp->AddSingleRow("<b>". t('Turnier-Sieger') ."</b>");
   		$game = $db->query_first("SELECT teams.name, teams.teamid
   				FROM {$config["tables"]["t2_games"]} AS games
   				LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
   				WHERE (games.tournamentid = '$tournamentid') AND (games.round = $akt_round) AND (games.position = 0) AND (games.group_nr = 0)
   				GROUP BY games.gameid
   				");
-  		if ($game == 0) $game['name'] = "<i>{$lang["tourney"]["games_unknown"]}</i>";
+  		if ($game == 0) $game['name'] = "<i>".t('Noch Unbekannt')."</i>";
   		else $game['name'] .= $tfunc->button_team_details($game['teamid'], $tournamentid);
-  		$dsp->AddDoubleRow($lang["tourney"]["games_winner2"], $game['name']);
+  		$dsp->AddDoubleRow(t('Sieger'), $game['name']);
   	break;
   	} // END: Switch $tournament['mode']
   

@@ -42,25 +42,25 @@
 				//Antwort auswerten
 				if ((strpos($res, "logged in") != 0) && (strpos($res, "230") != 0))
 				{
-					$special_info .= "<div class=\"tbl_green\">{$lang["server"]["ping_login_ano_success"]}</div>";
+					$special_info .= "<div class=\"tbl_green\">".t('Login als Anonymous erfolgreich')."</div>";
 				} else {
-					$special_info .= "<div class=\"tbl_error\">{$lang["server"]["ping_login_ano_failed"]}</div>";
+					$special_info .= "<div class=\"tbl_error\">".t('Login als Anonymous fehlgeschlagen')."</div>";
 				}
 				if ((strpos($res, "Ratio") != 0) && (strpos($res, "426") != 0))
 				{
-					$special_info .= "<div class=\"tbl_error\">{$lang["server"]["ping_ratio"]}</div>";
+					$special_info .= "<div class=\"tbl_error\">".t('Ratio-FTP (Es muss zuerst etwas hochgeladen werden)')."</div>";
 				}
 				if ((strpos($res, "Quota") != 0) && (strpos($res, "426") != 0))
 				{
-					$special_info .= "<div class=\"tbl_error\">{$lang["server"]["ping_quota"]}</div>";
+					$special_info .= "<div class=\"tbl_error\">".t('Quota-FTP (Es darf nur eine gewisse Menge gezogen werden)')."</div>";
 				}
 				if ((strpos($res, "Too many") != 0) && (strpos($res, "21") != 0))
 				{
-					$special_info .= "<div class=\"tbl_error\">{$lang["server"]["ping_to_many"]}</div>";
+					$special_info .= "<div class=\"tbl_error\">".t('<u>Hinweis</u>: Zu viele User momentan')."</div>";
 				}
 				if ((strpos($res, "home directory") != 0) && (strpos($res, "530") != 0))
 				{
-					$special_info .= "<div class=\"tbl_error\">{$lang["server"]["ping_no_home"]}</div>";
+					$special_info .= "<div class=\"tbl_error\">".t('<u>Fehler</u>: Server hat kein Home-Directory gesetzt')."</div>";
 				}
 				if ((strpos($res, "220") === 0))
 				{
@@ -68,12 +68,12 @@
 				}
 				if ((strpos($res, "215") != 0))
 				{
-					$special_info .= "<div class=\"tbl_black\">{$lang["server"]["ping_system"]}: ".substr(substr($res, strpos($res, "215"), 99), 4, strpos(substr($res, strpos($res, "215"), 99), "\r\n")-2)  ."</div>";
+					$special_info .= "<div class=\"tbl_black\">".t('System').": ".substr(substr($res, strpos($res, "215"), 99), 4, strpos(substr($res, strpos($res, "215"), 99), "\r\n")-2)  ."</div>";
 				}
 				$error_stri=$res;
 				for ($error_stri_num=0; $error_stri_num<10; $error_stri_num++) if (strpos($error_stri, "530 ") != 0)
 				{
-					if ($error_stri_num == 0) { $special_info .= HTML_NEWLINE . "<div class=\"tbl_black\"><u>{$lang["server"]["ping_error_messages"]}:</u></div>"; }
+					if ($error_stri_num == 0) { $special_info .= HTML_NEWLINE . "<div class=\"tbl_black\"><u>".t('Fehlermeldungen').":</u></div>"; }
 					$error_stri=substr($error_stri, strpos($error_stri, "530 ")+4, 9999);
 					$special_info .= "<div class=\"tbl_black\">". substr($error_stri, 0, strpos($error_stri, "\r\n")) ."</div>";
 				}
@@ -105,7 +105,7 @@
 				$res = fread($fp, 1000);
 
 				// Channel ausgeben
-				$special_info .= "<div class=\"tbl_black\"><u>{$lang["server"]["ping_channels"]}:</u></div>";
+				$special_info .= "<div class=\"tbl_black\"><u>".t('Channels').":</u></div>";
 				$channel=$res;
 				for ($channel_num=0;$channel_num<10;$channel_num++) if (strpos($channel, "322 ") != 0)
 				{

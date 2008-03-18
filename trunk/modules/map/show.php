@@ -1,6 +1,6 @@
 <?php
 
-	$dsp->NewContent($lang['map']['headline'], $lang['map']['subheadline']);
+	$dsp->NewContent(t('Anfahrt'), t('Hier könnt ihr euch von Map24.de eure Route zur LAN berechnen lassen.'));
 
 	if ($auth['login'] == 1) {
 		$res = $db->query("SELECT street, hnr, plz, city FROM {$config["tables"]["user"]} WHERE userid = {$auth['userid']}");

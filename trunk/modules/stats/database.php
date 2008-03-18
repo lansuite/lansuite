@@ -18,15 +18,15 @@ $status = explode(' ', $db->stat());
 $hostname = explode(' ', $db->get_host_info());
 $uptime = explode(".", round($status[1] / 60 / 60, 2));
 
-$dsp->NewContent($lang["stats"]["db_caption"], $lang["stats"]["db_subcaption"]);
+$dsp->NewContent(t('Datenbank Statistik'), t('Auf dieser Seite erhalten Sie Informationen &uuml;ber die Datenbank und aktuelle Leistungsdaten.'));
 
-$dsp->AddDoubleRow($lang["stats"]["db_servername"], $hostname[0]);
-$dsp->AddDoubleRow($lang["stats"]["db_contype"], $hostname[2]);
-$dsp->AddDoubleRow($lang["stats"]["db_uptime"], $uptime[0] . " " . $lang["stats"]["hour"] . " " . round($uptime[1]*0.6) . " " . $lang["stats"]["min"]);
-$dsp->AddDoubleRow($lang["stats"]["db_querys"], $status[7]);
-$dsp->AddDoubleRow($lang["stats"]["db_querys_ps"], round($status[7] / $status[1], 3)); // $status[27]
-$dsp->AddDoubleRow($lang["stats"]["db_open_tables"], $status[22]);
-$dsp->AddDoubleRow($lang["stats"]["db_threads"], $status[4]);
+$dsp->AddDoubleRow(t('Servername'), $hostname[0]);
+$dsp->AddDoubleRow(t('Verbindungstyp'), $hostname[2]);
+$dsp->AddDoubleRow(t('L&auml;uft seit'), $uptime[0] . " " . t('Stunde(n)') . " " . round($uptime[1]*0.6) . " " . t('Minute(n)'));
+$dsp->AddDoubleRow(t('Abfragen Insg.'), $status[7]);
+$dsp->AddDoubleRow(t('Abfragen / Sekunde'), round($status[7] / $status[1], 3)); // $status[27]
+$dsp->AddDoubleRow(t('Offene Tabellen'), $status[22]);
+$dsp->AddDoubleRow(t('Threads'), $status[4]);
 
 $dsp->AddBackButton("index.php?mod=stats", "stats/db");
 $dsp->AddContent();

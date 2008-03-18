@@ -18,10 +18,10 @@
 *
 **************************************************************************/
 
-$dsp->NewContent($lang["games"]["hm_caption"], $lang["games"]["hm_subcaption"]);
+$dsp->NewContent(t('Hangman'), t('Versuchen Sie durch Buchstaben tippen ein Wort zu erraten'));
 
-$menunames[1] = $lang["games"]["ms_navi_start"];
-$menunames[2] = $lang["games"]["ms_navi_highscore"];
+$menunames[1] = t('Start');
+$menunames[2] = t('Highscore');
 $dsp->AddHeaderMenu($menunames, "?mod=games&action=hangman", $_GET["headermenuitem"]);
 
 if ($_GET["headermenuitem"] == 1) $_GET["step"] = 0;
@@ -92,7 +92,7 @@ switch ($_GET["step"]) {
 		$dsp->AddDoubleRow("Fehlversuche", $_SESSION["versuche"]);
 		$dsp->AddDoubleRow("Versuchte Buchstaben", $_SESSION["used_letters"]);
 
-		$dsp->AddTextFieldRow("buchstabe", $lang["games"]["hm_buchstabe"], "", $BuchstabeError);
+		$dsp->AddTextFieldRow("buchstabe", t('Bitte einen Buchstaben raten'), "", $BuchstabeError);
 		$dsp->AddFormSubmitRow("next");
 	break;
 
@@ -103,9 +103,9 @@ switch ($_GET["step"]) {
 
 		if ($_SESSION["do_highscore"]) {
 			$dsp->SetForm("?mod=games&action=hangman&step=4&sieg=1");
-			$dsp->AddSingleRow($lang["games"]["ms_go_highscore"]);
+			$dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
 			$dsp->AddDoubleRow("Fehlversuche", $_SESSION["versuche"]);
-			$dsp->AddTextFieldRow("nick", $lang["games"]["ms_nick"], $auth["username"], "");
+			$dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "");
 			$dsp->AddFormSubmitRow("next");
 		}
 	break;
@@ -118,12 +118,12 @@ switch ($_GET["step"]) {
 								score = {$_SESSION["versuche"]}
 								");
 
-		$func->confirmation($lang["games"]["ms_hs_success"], "?mod=games&action=hangman&headermenuitem=2");
+		$func->confirmation(t('Highscore wurde eingetragen'), "?mod=games&action=hangman&headermenuitem=2");
 	break;
 	
 	// Highscoreliste
 	case 5:
-		$dsp->AddSingleRow($lang["games"]["ms_hs_list"]);
+		$dsp->AddSingleRow(t('Highscoreliste'));
 
 		$hs_liste = $db->query("SELECT nick, score from {$config["tables"]["game_hs"]} WHERE game='hm' ORDER BY score;");
 		while($entry = $db->fetch_array($hs_liste)){
@@ -138,7 +138,7 @@ switch ($_GET["step"]) {
 	default:
 		$dsp->SetForm("?mod=games&action=hangman&step=1");
 		$dsp->AddDoubleRow("", "Um ein zufälliges Wort zu erhalten, bitte kein Wort eingeben.<br>Nur bei zufälligen Wörtern gibt es einen Highscoreeintrag");
-		$dsp->AddTextFieldRow("word", $lang["games"]["hm_word"], "", "");
+		$dsp->AddTextFieldRow("word", t('Folgendes Wort erraten'), "", "");
 		$dsp->AddFormSubmitRow("next");
 
 		$dsp->AddBackButton("?mod=games", "games/hangman");

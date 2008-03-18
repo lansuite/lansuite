@@ -1,9 +1,9 @@
 <?php
 
-$dsp->NewContent($lang["pdf"]["pdf_caption"], $lang["pdf"]["pdf_subcaption"]);
-$dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=guestcards\">{$lang["pdf"]["pdf_guestcard"]}</a>");
-$dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=seatcards\">{$lang["pdf"]["pdf_seatcard"]}</a>");
-$dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=userlist\">{$lang["pdf"]["pdf_liste"]}</a>");
+$dsp->NewContent(t('PDF aus Daten erstellen'), t('Bitte geben sie an was sie ben&ouml;tigen'));
+$dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=guestcards\">".t('Ausweise erstellen')."</a>");
+$dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=seatcards\">".t('Sitzplatzkarten erstellen')."</a>");
+$dsp->AddSingleRow("<a href=\"index.php?mod=pdf&action=userlist\">".t('Besucherliste erstellen')."</a>");
 $party->get_party_dropdown_form(1,"index.php?mod=pdf");
 $dsp->AddContent();
 

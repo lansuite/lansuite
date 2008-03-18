@@ -6,7 +6,7 @@ switch($_GET['step']) {
 	break;
 
 	case 2:
-		$func->question($lang['seating']['q_del_block'],
+		$func->question(t('Wollen Sie diesen Sitzblock wirklich löschen?'),
 			"index.php?mod=seating&action=delete&step=3&blockid={$_GET['blockid']}",
 			'index.php?mod=seating&action=delete');
 	break;
@@ -16,7 +16,7 @@ switch($_GET['step']) {
 		$db->query("DELETE FROM {$config["tables"]["seat_sep"]} WHERE blockid='{$_GET['blockid']}'");
 		$db->query("DELETE FROM {$config["tables"]["seat_seats"]} WHERE blockid='{$_GET['blockid']}'");
 
-		$func->confirmation($lang['seating']['c_del_block'], 'index.php?mod=seating&action=delete');
+		$func->confirmation(t('Der Sitzblock wurde erfolgreich gelöscht'), 'index.php?mod=seating&action=delete');
 	break;
 }
 

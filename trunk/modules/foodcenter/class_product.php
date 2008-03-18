@@ -50,7 +50,7 @@ class product_list{
 				$this->product[$i]->order_form($worklink);
 			}
 		}else{
-			$dsp->AddSingleRow($lang['foodcenter']['show_product_noproducts']);	
+			$dsp->AddSingleRow(t('In dieser Kategorie sind keine Produkte vorhanden'));	
 		}
 	}
 	
@@ -399,12 +399,12 @@ class product{
 	function check(){
 		global $lang,$func;
 		if($this->caption == ""){
-			$this->error_food['caption'] = $lang['foodcenter']['add_product_err_caption'];
+			$this->error_food['caption'] = t('Bitte geben sie einen Produknamen an.');
 			$this->noerror = false;
 		}
 		
 		if($_FILES['file']['error'] != 0 && $_FILES['file']['name'] != ""){
-			$this->error_food['file']	= $lang['foodcenter']['add_product_err_file'];
+			$this->error_food['file']	= t('Datei konnte nicht hochgeladen werden');
 			$this->noerror = false;
 		}elseif($_FILES['file']['name'] != ""){
 			$func->FileUpload("file","ext_inc/foodcenter/",$_FILES['file']['name']);
@@ -546,7 +546,7 @@ class product{
 						$this->option[$i]->ordered = $value;
 					}else{
 						$this->option[$i]->ordered = $this->option[$i]->pice;
-						$this->option[$i]->error['pice_error'] = $lang['foodcenter']['add_product_err_pice_count'];
+						$this->option[$i]->error['pice_error'] = t('Das Produkt ist nicht in dieser Menge vorhanden.');
 						$ok = false;
 					}
 				}
@@ -584,23 +584,23 @@ class product{
 		$nextstep = $step + 1;
 		// Change or New ?
 		if($this->id != null){
-			$dsp->NewContent($lang['foodcenter']['add_product_add_cap'],$lang['foodcenter']['add_product_add_subcap']);
+			$dsp->NewContent(t('Produkt hinzufügen'),t('Hier können sie ein Produkt hinzuf&uuml;gen'));
 			$dsp->SetForm("?mod=foodcenter&action=addproduct&step=$nextstep&id={$this->id}","food_add", "", "multipart/form-data");	
 		}else{
-			$dsp->NewContent($lang['foodcenter']['add_product_edit_cap'],$lang['foodcenter']['add_product_edit_cap']);
+			$dsp->NewContent(t('Produkt ändern'),t('Produkt ändern'));
 			$dsp->SetForm("?mod=foodcenter&action=addproduct&step=$nextstep","food_add","", "multipart/form-data");
 		}		
 		
 		// Add Javascript Code
 		$dsp->AddModTpl("foodcenter","javascript");
-		$dsp->AddTextFieldRow("p_caption",$lang['foodcenter']['add_product_prod_cap'],$this->caption,$this->error_food['caption']);
-		$dsp->AddTextAreaRow("desc",$lang['foodcenter']['add_product_prod_desc'],$this->desc,$this->error_food['desc'],NULL,NULL,true);
+		$dsp->AddTextFieldRow("p_caption",t('Produktname'),$this->caption,$this->error_food['caption']);
+		$dsp->AddTextAreaRow("desc",t('Produktbeschreibung'),$this->desc,$this->error_food['desc'],NULL,NULL,true);
 
 		// Not functional now
 		// Pic is only active with gd-Libary
 		if ($gd->available){
-			$dsp->AddFileSelectRow("file",$lang['foodcenter']['add_product_prod_pic'],$this->error_food['file'],NULL,NULL,true);
-			$dsp->AddPictureDropDownRow("pic",$lang['foodcenter']['add_product_prod_pic'],"ext_inc/foodcenter",$this->error_food['file'],true,basename($this->pic));
+			$dsp->AddFileSelectRow("file",t('Bild hochladen'),$this->error_food['file'],NULL,NULL,true);
+			$dsp->AddPictureDropDownRow("pic",t('Bild hochladen'),"ext_inc/foodcenter",$this->error_food['file'],true,basename($this->pic));
 		}
 
 		// Select Cat
@@ -611,16 +611,18 @@ class product{
 		if(!is_object($this->supp)) $this->supp = new supp();
 		$this->supp->supp_form();
 
-			$dsp->AddTextFieldRow("supp_infos",$lang['foodcenter']['add_product_prod_supp_desc'],$this->supp_infos,"",null,true);
+			$dsp->AddTextFieldRow("supp_infos",t('Infos für Lieferant (zb. seine Artikelnummer)'),$this->supp_infos,"",null,true);
 
 
 		// Picecontrol ?
-		$dsp->AddCheckBoxRow("mat",$lang['foodcenter']['add_product_prod_mat_text'],$lang['foodcenter']['add_product_prod_mat_quest'],"",NULL,$this->mat,NULL,NULL);
+		$dsp->AddCheckBoxRow("mat",t('Materialverwaltung'),t('Materialverwaltung aktivieren'),"",NULL,$this->mat,NULL,NULL);
 		// Orderproduct ?
-		$dsp->AddCheckBoxRow("wait",$lang['foodcenter']['add_product_prod_order'],$lang['foodcenter']['add_product_prod_order_text'],"",NULL,$this->wait,NULL,NULL);
+		$dsp->AddCheckBoxRow("wait",t('Bestelllistenartikel'),t('Muss der Arktikel angefordert werden (Pizza)'),"",NULL,$this->wait,NULL,NULL);
 
 		// Hiden not Selected Option an List Product Options
-		foreach ($lang['foodcenter']['add_product_prod_opt'] as $key => $value){
+		$add_product_prod_opt[1] = t('Normales Produkt');
+		$add_product_prod_opt[2] = t('Erweitertes Produkt');
+		foreach ($add_product_prod_opt as $key => $value){
 			if($key == $this->type){
 				$selected = "selected";
 				$display[$key] = "";
@@ -636,9 +638,9 @@ class product{
 		}
 
 		if($this->type != null){
-			$dsp->AddDropDownFieldRow("product_type\" disabled onchange=\"change_option(this.options[this.options.selectedIndex].value)\"","<input type=\"hidden\" name=\"product_type\" value=\"{$this->type}\" />" . $lang['foodcenter']['add_product_prod_opt_text'],$opts,$this->error_food['product_opts']);
+			$dsp->AddDropDownFieldRow("product_type\" disabled onchange=\"change_option(this.options[this.options.selectedIndex].value)\"","<input type=\"hidden\" name=\"product_type\" value=\"{$this->type}\" />" . t('Produktart'),$opts,$this->error_food['product_opts']);
 		}else {
-			$dsp->AddDropDownFieldRow("product_type\" onchange=\"change_option(this.options[this.options.selectedIndex].value)\"",$lang['foodcenter']['add_product_prod_opt_text'],$opts,$this->error_food['product_opts']);
+			$dsp->AddDropDownFieldRow("product_type\" onchange=\"change_option(this.options[this.options.selectedIndex].value)\"",t('Produktart'),$opts,$this->error_food['product_opts']);
 		}
 
 
@@ -661,7 +663,7 @@ class product{
 			$templ['ls']['row']['hidden_row']['id'] = "food_2";
 			$templ['ls']['row']['hidden_row']['display'] = $display[2];
 			$dsp->AddModTpl("foodcenter","hiddenbox_start");
-			$dsp->AddCheckBoxRow("chois\" onclick=\"change_optionelem(this.checked)",$lang['foodcenter']['add_product_option_choise'],"","",null,$this->choise);
+			$dsp->AddCheckBoxRow("chois\" onclick=\"change_optionelem(this.checked)",t('Mehrfachauswahl möglich'),"","",null,$this->choise);
 			($this->type == null) ? $q = 3 : $q = 0;
 			for($i = $q;$i < ($q+8);$i++){
 				($i == $q) ? $optional = null : $optional = true;
@@ -775,11 +777,11 @@ class product{
 	function get_info($worklink){
 		global $dsp,$lang,$auth,$cfg;
 				
-			$dsp->NewContent($lang['foodcenter']['product_desc']);
-			$dsp->AddDoubleRow($lang['foodcenter']['add_product_prod_cap'],"<b>" . $this->caption . "</b>");
-			if($this->desc != "") $dsp->AddDoubleRow($lang['foodcenter']['add_product_prod_desc'],$this->desc);
+			$dsp->NewContent(t('Produktebeschreibung'));
+			$dsp->AddDoubleRow(t('Produktname'),"<b>" . $this->caption . "</b>");
+			if($this->desc != "") $dsp->AddDoubleRow(t('Produktbeschreibung'),$this->desc);
 			if($this->pic != "" && file_exists("ext_inc/foodcenter/" . $this->pic)) $dsp->AddDoubleRow("","<img src=\"ext_inc/foodcenter/{$this->pic}\" border=\"0\" alt=\"{$this->caption}\" />");
-			$dsp->AddSingleRow($lang['foodcenter']['product_choise']);
+			$dsp->AddSingleRow(t('Auswahlmöglichkeiten'));
 			
 			switch ($this->type){
 
@@ -871,7 +873,7 @@ class product{
 			}
 		}
 		if($error = -1){
-			$this->error_food['order_error'] = $lang['foodcenter']['add_product_err_pice_count'];
+			$this->error_food['order_error'] = t('Das Produkt ist nicht in dieser Menge vorhanden.');
 			$this->ordered = $error;	
 			return false;
 		}else{
@@ -1134,14 +1136,14 @@ class product_option{
 	 */
 	function check(){
 		global $lang;
-		if($this->caption == "" && $this->parenttyp == 2) $this->error['caption'] = $lang['foodcenter']['add_product_err_opt_cap'];
+		if($this->caption == "" && $this->parenttyp == 2) $this->error['caption'] = t('Bitte geben sie einen Artikelnamen ein');
 		
 		if($this->unit == ""){
-			$this->error['price'] .= $lang['foodcenter']['add_product_err_unit'];
+			$this->error['price'] .= t('Bitte geben sie eine einheit an (Stk./dl/kg)');
 		}
 		if(!is_numeric($this->price) || $this->price == ""){
 			if($this->error['price'] != "") $this->error['price'] .= HTML_NEWLINE;
-						$this->error['price'] .= $lang['foodcenter']['add_product_err_price'];
+						$this->error['price'] .= t('Bitte geben sie einen Preis an');
 		}
 		if(count($this->error) > 0){
 			return false;
@@ -1187,11 +1189,11 @@ class product_option{
 			$templ['ls']['row']['hidden_row']['id'] = "opt_big_$nr";
 			$templ['ls']['row']['hidden_row']['display'] = $display;
 			$dsp->AddModTpl("foodcenter","hiddenbox_start");
-			$dsp->AddCheckBoxRow("fix[$nr]",$lang['foodcenter']['add_product_prod_fix'],$lang['foodcenter']['add_product_prod_fix_quest'],"",$optional,$this->fix);
+			$dsp->AddCheckBoxRow("fix[$nr]",t('Option fixieren'),t('Dies ist ein Pflichtartikel'),"",$optional,$this->fix);
 			$dsp->AddModTpl("foodcenter","hiddenbox_stop");
-			$dsp->AddTextFieldRow("caption[$nr]",$lang['foodcenter']['add_product_prod_opt_capt'],$this->caption,$this->error['caption'],null,$optional);
+			$dsp->AddTextFieldRow("caption[$nr]",t('Artikelname'),$this->caption,$this->error['caption'],null,$optional);
 		}
-		$this->_Add_Option_Row($lang['foodcenter']['add_product_option_text'],$lang['foodcenter']['add_product_option_unit'],$lang['foodcenter']['add_product_option_pricetext'],$lang['foodcenter']['add_product_option_epricetext'],$lang['foodcenter']['add_product_option_piecetext'],$lang['foodcenter']['add_product_option_barcodetext'],"unit[$nr]","price[$nr]","eprice[$nr]","piece[$nr]","barcode[$nr]",$this->unit,$this->price,$this->eprice,$this->pice,$this->barcode,"hidden[$nr]",$this->id,$this->error['price'],$optional);
+		$this->_Add_Option_Row(t('Produktoption'),t('Einheit'),t('Preis'),t('Einkaufspreis'),t('Anzahl'),t('Barcode'),"unit[$nr]","price[$nr]","eprice[$nr]","piece[$nr]","barcode[$nr]",$this->unit,$this->price,$this->eprice,$this->pice,$this->barcode,"hidden[$nr]",$this->id,$this->error['price'],$optional);
 		$dsp->AddHRuleRow();
 		
 	}
@@ -1342,7 +1344,7 @@ class supp{
 		
 			if($new != null){
 				($select_id == 0) ? $selected = "selected" : $selected = "";
-				array_push($tmp,"<option $selected value='0'>{$lang['foodcenter']['add_product_new_supp']}</option>");	
+				array_push($tmp,"<option $selected value='0'>".t('Neuer Lieferant')."</option>");	
 			}
 			
 			while ($data = $db->fetch_array($row)){
@@ -1420,7 +1422,7 @@ class supp{
 	function check(){
 		global $lang;
 		if($this->supp_caption == "" && $this->supp_id == null){
-			$this->error['supp_name']	= $lang['foodcenter']['add_product_err_supp'];
+			$this->error['supp_name']	= t('Bitte geben sie einen Lieferant an');
 			return false;
 		}
 		return true;
@@ -1435,9 +1437,9 @@ class supp{
 		// Get Supplier
 		$supp_array = $this->get_supp_array($this->supp_id,1);
 		if($supp_array){
-			$dsp->AddDropDownFieldRow("supp_id",$lang['foodcenter']['add_product_prod_supp'],$supp_array,"");
+			$dsp->AddDropDownFieldRow("supp_id",t('Lieferant'),$supp_array,"");
 		}
-		$dsp->AddTextFieldRow("supp_name",$lang['foodcenter']['add_product_prod_supp_new'],$_POST['supp_name'],$this->error['supp_name']);	}
+		$dsp->AddTextFieldRow("supp_name",t('Neuer Lieferant'),$_POST['supp_name'],$this->error['supp_name']);	}
 	
 }
 
@@ -1531,7 +1533,7 @@ class cat{
 		
 			if($new != null){
 				($select_id == 0) ? $selected = "selected" : $selected = "";
-				array_push($tmp,"<option $selected value='0'>{$lang['foodcenter']['add_product_new_cat']}</option>");	
+				array_push($tmp,"<option $selected value='0'>".t('Neue Kategorie')."</option>");	
 			}
 			
 			while ($data = $db->fetch_array($row)){
@@ -1582,7 +1584,7 @@ class cat{
 	function check(){
 		global $lang;
 		if($this->name == "" && $this->cat_id == null){
-			$this->error['cat_name'] = $lang['foodcenter']['add_product_err_cat'];
+			$this->error['cat_name'] = t('Bitte geben sie eine Kategorie an');
 			return false;
 		}else {
 			return true;
@@ -1598,9 +1600,9 @@ class cat{
 		// Check for existing categories
 		$cat_array = $this->get_cat_array($this->cat_id,1);
 		if($cat_array){
-			$dsp->AddDropDownFieldRow("cat_id",$lang['foodcenter']['add_product_prod_cat'],$cat_array,"");
+			$dsp->AddDropDownFieldRow("cat_id",t('Produktkategorie'),$cat_array,"");
 		}
-		$dsp->AddTextFieldRow("cat_name",$lang['foodcenter']['add_product_prod_cat_new'],$_POST['cat_name'],$this->error['cat_name']);
+		$dsp->AddTextFieldRow("cat_name",t('Neue Produktkategorie'),$_POST['cat_name'],$this->error['cat_name']);
 	}
 	
 }

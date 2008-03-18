@@ -24,7 +24,7 @@ if (($_GET["action"] == "add") && ($step == "")) $step = 2;
 switch($step) {
 	case 3:
 		if($_POST['poll_caption'] == "")	{
-			$caption_err = $lang["poll"]["add_err_nopoll"];
+			$caption_err = t('Bitte geben Sie einen Pollnamen ein');
 			$step = 2;
 		}
 
@@ -35,7 +35,7 @@ switch($step) {
 				$options++;
 
 				if (in_array($option, $check_values)) {
-					$poll_option_err[$options] = $lang["poll"]["add_err_noequal"];
+					$poll_option_err[$options] = t('Sie d&uuml;rfen 2 Optionen nicht gleich benennen.');
 					$step = 2;
 				}
 				$check_values[] = $option;
@@ -43,11 +43,11 @@ switch($step) {
 		}
 
 		if ($options < 1) {
-			$poll_option_err[1] = $lang["poll"]["add_err_leasttwo"];
+			$poll_option_err[1] = t('Sie m&uuml;ssen mindestens 2 Optionen eingeben');
 			$step = 2;
 		}
 		if ($options < 2) {
-			$poll_option_err[2] = $lang["poll"]["add_err_leasttwo"];
+			$poll_option_err[2] = t('Sie m&uuml;ssen mindestens 2 Optionen eingeben');
 			$step = 2;
 		}
 	break;
@@ -66,7 +66,7 @@ switch($step) {
 
 		if ($_GET["action"] == "change") {
 			if (!$func->check_exist("pollid", $_GET["pollid"])) {
-				$func->error($lang["poll"]["add_err_noexist"], "index.php?mod=poll&action=change");
+				$func->error(t('Dieser Poll existiert nicht'), "index.php?mod=poll&action=change");
 				break;
 			}
 
@@ -90,22 +90,22 @@ switch($step) {
 		($_POST['poll_time'])? $poll_time = "checked" : $poll_time = "";
 		($_POST['poll_reset'])? $poll_reset = "checked" : $poll_reset = "";
 
-		$dsp->NewContent($lang["poll"]["add_caption"], $lang["poll"]["add_subcaption"]);
+		$dsp->NewContent(t('Poll hinzuf&uuml;gen / &auml;ndern'), t('Um den Poll hinzuzuf&uuml;gen / zu &auml;ndern, f&uuml;llen Sie bitte das folgende Formular vollst&auml;ndig aus. F&uuml;r das Feld Überschrift stehen 30 Zeichen, f&uuml;r das Feld Text 5000 Zeichen zur Verf&uuml;gung.'));
 		$dsp->SetForm("index.php?mod=poll&action={$_GET["action"]}&step=3&pollid={$_GET["pollid"]}");
-		$dsp->AddTextFieldRow("poll_caption", $lang["poll"]["add_title"], $_POST['poll_caption'], $caption_err);
-		$dsp->AddTextAreaPlusRow("poll_comment", $lang["poll"]["add_comment"], $_POST['poll_comment'], "", "", "", 1);
-		$dsp->AddCheckBoxRow("poll_anonym", $lang["poll"]["add_anonym"], "", "", 1, $poll_anonym);
-		$dsp->AddCheckBoxRow("poll_multi", $lang["poll"]["add_multi"], "", "", 1, $poll_multi);
-		$dsp->AddCheckBoxRow("poll_time", $lang["poll"]["add_time"], "", "", 1, $poll_time);
+		$dsp->AddTextFieldRow("poll_caption", t('Name'), $_POST['poll_caption'], $caption_err);
+		$dsp->AddTextAreaPlusRow("poll_comment", t('Bemerkung'), $_POST['poll_comment'], "", "", "", 1);
+		$dsp->AddCheckBoxRow("poll_anonym", t('Anonym'), "", "", 1, $poll_anonym);
+		$dsp->AddCheckBoxRow("poll_multi", t('Mehrfachauswahl m&ouml;glich'), "", "", 1, $poll_multi);
+		$dsp->AddCheckBoxRow("poll_time", t('Zeitlich begrenzen'), "", "", 1, $poll_time);
 		$dsp->AddDateTimeRow("poll_endtime", "", $_POST['poll_endtime'], "");
 		$party->get_user_group_dropdown("NULL",1,$_POST['group_id']);
 
 		if ($_GET["action"] == "change") {
-			$dsp->AddCheckBoxRow("poll_reset", $lang["poll"]["add_reset"], $lang["poll"]["add_reset2"], "", 1, $poll_reset);
+			$dsp->AddCheckBoxRow("poll_reset", t('Abstimmung zur&uuml;cksetzen'), t('Optionen unterhalb werden nur ge&auml;ndert, wenn dieses H&auml;ckchen aktiv ist!'), "", 1, $poll_reset);
 		}
 
 		$dsp->AddHRuleRow();
-		$dsp->AddSingleRow($lang["poll"]["add_subcaption2"]);
+		$dsp->AddSingleRow(t('Unterhalb legen Sie die Poll-Optionen f&uuml;r diesen Poll fest. F&uuml;llen Sie dazu beliebig viele Formularfelder aus. Es m&uuml;ssen mindestens 2 Felder ausgef&uuml;llt werden. Pro Feld stehen Ihnen 30 Zeichen zur Verf&uuml;gung.'));
 		// Poll-Optionen ausgeben
 		$polloptions = $db->query("SELECT caption
 			FROM {$config["tables"]["polloptions"]}
@@ -115,7 +115,7 @@ switch($step) {
 		for ($z = 1; $row = $db->fetch_array($polloptions); $z++)
 			if ($poll_option[$z] == "") $poll_option[$z] = $row["caption"];
 		for ($z = 1; $z <= 10; $z++)
-			$dsp->AddTextFieldRow("poll_option[$z]", $lang["poll"]["add_option"] ." $z", $poll_option[$z], $poll_option_err[$z]);
+			$dsp->AddTextFieldRow("poll_option[$z]", t('Option') ." $z", $poll_option[$z], $poll_option_err[$z]);
 
 		$dsp->AddFormSubmitRow("add");
 		$dsp->AddBackButton("index.php?mod=poll", "poll/form1");
@@ -145,7 +145,7 @@ switch($step) {
 									changedate = NOW(),
 									group_id = '{$_POST['group_id']}'
 									WHERE pollid = '{$_GET["pollid"]}'");
-				$func->confirmation(str_replace("%NAME%", $_POST["poll_caption"], $lang["poll"]["change_success"]), "index.php?mod=poll&action=change");
+				$func->confirmation(t('Der Poll <b>%1</b> wurde erfolgreich ge&auml;ndert', $_POST["poll_caption"]), "index.php?mod=poll&action=change");
 			}
 
 			if ($_GET["action"] == "add") {
@@ -159,7 +159,7 @@ switch($step) {
 							group_id = '{$_POST['group_id']}'
 							");
 				$_GET["pollid"] = $db->insert_id();
-				$func->confirmation(str_replace("%NAME%", $_POST["poll_caption"], $lang["poll"]["add_success"]), "index.php?mod=poll&action=show&step=2&pollid={$_GET["pollid"]}");
+				$func->confirmation(t('Der Poll <b>%1</b> wurde erfolgreich hinzugef&uuml;gt.', $_POST["poll_caption"]), "index.php?mod=poll&action=show&step=2&pollid={$_GET["pollid"]}");
 			}
 
 			// Auswahloptionen in DB schreiben

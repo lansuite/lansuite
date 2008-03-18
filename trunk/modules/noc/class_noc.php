@@ -195,7 +195,7 @@ class noc {
 		$func->ping($ip);
 		if (stristr(strtolower($_SERVER['SERVER_SOFTWARE']) , "win") == ""){
 			if(shell_exec("/sbin/arp -n") == ""){
-				$dsp->AddSingleRow($lang['noc']['arp_error']);
+				$dsp->AddSingleRow(t('Kann den Befehl arp nicht ausf&uuml;hren'));
 			}
 			@exec("/sbin/arp -n $ip | grep $ip", $arp_output);
 			$result = array();
@@ -203,7 +203,7 @@ class noc {
 			
 		}else{
 			if(shell_exec("arp -a") == ""){
-				$dsp->AddSingleRow($lang['noc']['arp_error']);
+				$dsp->AddSingleRow(t('Kann den Befehl arp nicht ausf&uuml;hren'));
 			}			
 			@exec("arp -a $ip", $arp_output);
 			$result = array();
@@ -216,24 +216,24 @@ class noc {
 		// Jede gefundene MAC-Adresse zuordnen und im Netzwerk suchen
 		if($result[0] != ''){
 			for($i = 0;$i < count($result);$i++){
-				$dsp->AddDoubleRow($lang['noc']['mac_address'],$result[$i]);
+				$dsp->AddDoubleRow(t('MAC-Addresse'),$result[$i]);
 				$dsp->AddHRuleRow();
 				$string = str_replace(":","%",$result[$i]);
 				$query = $db->query("SELECT * FROM {$config["tables"]["noc_ports"]} WHERE mac LIKE '%{$string}%'");
 				if($db->num_rows($query) > 0){
 					while ($row = $db->fetch_array($query)){
 						$device = $db->query_first("SELECT name,ip,id FROM {$config["tables"]["noc_devices"]} WHERE id = {$row['deviceid']}");	
-						$dsp->AddDoubleRow($lang['noc']['device_and_ip'],"<a href='index.php?mod=noc&action=details_device&deviceid={$device['id']}'>" . $device['name'] . " " . $device['ip'] . "</a>");
-						$dsp->AddDoubleRow($lang['noc']['portnr'],"<a href='index.php?mod=noc&action=port_details&portid={$row['portid']}'>{$row['portnr']}</a>");
+						$dsp->AddDoubleRow(t('Device und IP'),"<a href='index.php?mod=noc&action=details_device&deviceid={$device['id']}'>" . $device['name'] . " " . $device['ip'] . "</a>");
+						$dsp->AddDoubleRow(t('Portnummer'),"<a href='index.php?mod=noc&action=port_details&portid={$row['portid']}'>{$row['portnr']}</a>");
 						$dsp->AddHRuleRow();
 					}
 				}else{
-					$dsp->AddSingleRow($lang['noc']['ip_not_found']);
+					$dsp->AddSingleRow(t('Die Adresse konnte nicht gefunden werden.HTML_NEWLINEDie Adressen werden bei der Ansicht des Device aktuallisiert.'));
 				}
 					
 			}
 		}else{
-					$dsp->AddSingleRow($lang['noc']['ip_not_found']);
+					$dsp->AddSingleRow(t('Die Adresse konnte nicht gefunden werden.HTML_NEWLINEDie Adressen werden bei der Ansicht des Device aktuallisiert.'));
 		}
 	}
 		

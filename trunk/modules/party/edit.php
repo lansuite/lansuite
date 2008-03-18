@@ -29,24 +29,24 @@ function UpdatePartyID($id) {
   global $db, $config, $lang, $func;
   
   $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '$id' WHERE cfg_key = 'signon_partyid'");
-  $func->confirmation($lang['mf']['change_success']);  
+  $func->confirmation(t('Die Daten wurden erfolgreich geändert.')/* TRANS */);  
 }
 
-$mf->AddField($lang['signon']['partyname'], 'name');
-$mf->AddField($lang['signon']['max_guest'], 'max_guest');
-$mf->AddField($lang['signon']['plz'], 'plz');
-$mf->AddField($lang['signon']['ort'], 'ort');
+$mf->AddField(t('Partyname')/* TRANS */, 'name');
+$mf->AddField(t('Anzahl Plätze')/* TRANS */, 'max_guest');
+$mf->AddField(t('PLZ')/* TRANS */, 'plz');
+$mf->AddField(t('Ort')/* TRANS */, 'ort');
 
-$mf->AddField($lang['signon']['stime'], 'startdate');
-$mf->AddField($lang['signon']['etime'], 'enddate', '', '', '', 'CheckEndDate');
-$mf->AddField($lang['signon']['sstime'], 'sstartdate', '', '', '', 'CheckSignonStartDate');
-$mf->AddField($lang['signon']['setime'], 'senddate', '', '', '', 'CheckSignonEndDate');
+$mf->AddField(t('Party startet am')/* TRANS */, 'startdate');
+$mf->AddField(t('Party endet am')/* TRANS */, 'enddate', '', '', '', 'CheckEndDate');
+$mf->AddField(t('Anmeldung startet am')/* TRANS */, 'sstartdate', '', '', '', 'CheckSignonStartDate');
+$mf->AddField(t('Anmeldung endet am')/* TRANS */, 'senddate', '', '', '', 'CheckSignonEndDate');
 
 /*
 		// erster Preis einf�gen
 		if($_GET['var'] == "new"){
-			$dsp->AddTextFieldRow("price_text",$lang['signon']['price_text'],$_POST['price_text'],$signon_error['price_text']);
-			$dsp->AddTextFieldRow("price",$lang['signon']['price'],$_POST['price'],$signon_error['price']);
+			$dsp->AddTextFieldRow("price_text",t('Text für Eintrittspreis')/* TRANS */,$_POST['price_text'],$signon_error['price_text']);
+			$dsp->AddTextFieldRow("price",t('Preis')/* TRANS */,$_POST['price'],$signon_error['price']);
 		}
 */
 

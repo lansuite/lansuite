@@ -5,7 +5,7 @@ $get_data = $db->query_first("SELECT caption,text FROM {$config["tables"]["faq_i
 $templ["faq"]["show"]["caption"] 	= $func->text2html($get_data["caption"]);
 $templ["faq"]["show"]["text"] 		= $func->text2html($get_data["text"]);
 
-$dsp->NewContent($lang['faq']['show_longcaption']);
+$dsp->NewContent(t('<b>F</b>requently <b>A</b>sked <b>Q</b>uestions'));
 $buttons = $dsp->FetchButton("index.php?mod=faq","back");
 
 if($_SESSION["auth"]["type"] > 1){

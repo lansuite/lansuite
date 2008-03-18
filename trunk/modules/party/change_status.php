@@ -26,7 +26,7 @@ $user_data = $db->qry_first("SELECT * FROM %prefix%user AS u WHERE u.userid = %i
         global $db, $lang, $auth;
       // Do not allow changes, if user has paid
         $row = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'],  $id);
-        // if ($row['paid']) return $lang['usrmgr']['err_paid_no_change'];
+        // if ($row['paid']) return t('Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden');
       return false;
     }
 
@@ -48,10 +48,10 @@ $user_data = $db->qry_first("SELECT * FROM %prefix%user AS u WHERE u.userid = %i
     
         // Paid
           $selections = array();
-          $selections['0'] = $lang['usrmgr']['add_paid_no'];
-          $selections['1'] = $lang['usrmgr']['add_paid_vvk'];
-          $selections['2'] = $lang['usrmgr']['add_paid_ak'];
-          $mf->AddField($lang['usrmgr']['add_paid'], 'paid', IS_SELECTION, $selections);
+          $selections['0'] = t('Nicht bezahlt');
+          $selections['1'] = t('Bezahlt - Vorverkauf');
+          $selections['2'] = t('Bezahlt - Abendkasse');
+          $mf->AddField(t('Bezahltstatus'), 'paid', IS_SELECTION, $selections);
     
         // Prices
         $selections = array();  
@@ -62,9 +62,9 @@ $user_data = $db->qry_first("SELECT * FROM %prefix%user AS u WHERE u.userid = %i
         $db->free_result($res2);
 
           $mf->AddField(t('Bezahltdatum'), 'paiddate', '', '', FIELD_OPTIONAL);
-          $mf->AddField($lang['usrmgr']['checkin'], 'checkin', '', '', FIELD_OPTIONAL);
-          $mf->AddField($lang['usrmgr']['checkout'], 'checkout', '', '', FIELD_OPTIONAL);
-          $mf->AddField($lang['usrmgr']['signondate'], 'signondate', '', '', FIELD_OPTIONAL);
+          $mf->AddField(t('Eingecheckt'), 'checkin', '', '', FIELD_OPTIONAL);
+          $mf->AddField(t('Ausgecheckt'), 'checkout', '', '', FIELD_OPTIONAL);
+          $mf->AddField(t('Anmeldedatum'), 'signondate', '', '', FIELD_OPTIONAL);
 
         $mf->SendButtonText = 'An-/Abmelden';
 

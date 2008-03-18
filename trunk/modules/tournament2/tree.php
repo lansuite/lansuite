@@ -3,7 +3,7 @@ $step = (int)$vars["step"];
 $tournamentid = (int)$vars["tournamentid"];
 $group = (int)$vars["group"];
 
-if (!$tournamentid) $func->error($lang['tourney']['teammgr_err_not'], '');
+if (!$tournamentid) $func->error(t('Sie haben kein Turnier ausgewählt!'), '');
 else {
   
   switch($step) {
@@ -15,11 +15,11 @@ else {
   case 2:
   	$tournament = $db->query_first("SELECT name, mode FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
   
-  	if ($tournament['mode'] == "single") $modus = $lang["tourney"]["se"];
-  	if ($tournament['mode'] == "double") $modus = $lang["tourney"]["de"];
-  	if ($tournament['mode'] == "liga") $modus = $lang["tourney"]["league"];
-  	if ($tournament['mode'] == "groups") $modus = $lang["tourney"]["groups"];
-  	if ($tournament['mode'] == "all") $modus = $lang["tourney"]["all"];
+  	if ($tournament['mode'] == "single") $modus = t('Single-Elimination');
+  	if ($tournament['mode'] == "double") $modus = t('Double-Elimination');
+  	if ($tournament['mode'] == "liga") $modus = t('Liga');
+  	if ($tournament['mode'] == "groups") $modus = t('Gruppenspiele + KO');
+  	if ($tournament['mode'] == "all") $modus = t('Alle in einem');
   
   /*	$games = $db->query("SELECT gameid FROM {$config["tables"]["t2_games"]} WHERE (tournamentid = '$tournamentid') AND (round=0)");
   	$team_anz = $db->num_rows($games);
@@ -28,13 +28,13 @@ else {
   	$tfunc = new tfunc; 
   	$team_anz = $tfunc->GetTeamAnz($tournamentid, $tournament['mode'], $vars["group"]);  
   
-  	$dsp->NewContent(str_replace("%NAME%", $tournament['name'], str_replace("%MODE%", $modus, $lang["tourney"]["tree_caption"])), $lang["tourney"]["tree_subcaption"]);
+  	$dsp->NewContent(t('Turnierbaum zum Turnier %1 (%2)', $tournament['name'], $modus), t('Hier sehen Sie grafisch dargestellt, wer gegen wen spielt und können Ergebnisse melden'));
   
   	if ($team_anz == 0) {
-  		$func->information($lang["tourney"]["games_pairs_unknown"], "index.php?mod=tournament2&action=tree&step=1");
+  		$func->information(t('Dieses Turnier wurde noch nicht generiert. Die Paarungen sind noch nicht bekannt.'), "index.php?mod=tournament2&action=tree&step=1");
   		break;
   	} elseif ($tournament['mode'] == "all") {
-  		$func->information($lang["tourney"]["tree_wrong_mode"], "index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid");
+  		$func->information(t('Ein Turnierbaum ist für diesen Spiel-Modus nicht vorgesehen. Schauen Sie bitte unter Paarungen nach'), "index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid");
   		break;
   	} else {
   		if ($tournament['mode'] == "liga") {
@@ -49,11 +49,11 @@ else {
   				WHERE (tournamentid = '$tournamentid') AND (round = 0)
   				");
   
-  			$t_array = array("<option value=\"0\">{$lang["tourney"]["tree_group_select_final"]}</option>");
-  			for ($i = 1; $i <= $teams["max_group_nr"]; $i++) array_push ($t_array, "<option value=\"$i\">{$lang["tourney"]["tree_group_select_group"]} $i</option>");
+  			$t_array = array("<option value=\"0\">".t('Finalspiele')."</option>");
+  			for ($i = 1; $i <= $teams["max_group_nr"]; $i++) array_push ($t_array, "<option value=\"$i\">".t('Spiele der Gruppe')." $i</option>");
   
   			$dsp->SetForm("index.php?mod=tournament2&action=tree&step=2&tournamentid=$tournamentid");
-  			$dsp->AddDropDownFieldRow("group", $lang["tourney"]["tree_group_select"], $t_array, "");
+  			$dsp->AddDropDownFieldRow("group", t('Gruppenauswahl'), $t_array, "");
   			$dsp->AddFormSubmitRow("next");
   
   		} else {
@@ -64,13 +64,13 @@ else {
 #  					$cronjob->load_job("cron_tmod");
 #  					$cronjob->loaded_class->add_job($_GET["tournamentid"],$group);
   				}
-  				$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_" . $tournamentid . "_" . $group . ".png\">{$lang["tourney"]["tree_download"]}</a>");
+  				$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_" . $tournamentid . "_" . $group . ".png\">".t('Hier können Sie die Grafik herunterladen')."</a>");
   			}else{
   				if(!file_exists("ext_inc/tournament_trees/tournament_" . $tournamentid . ".png")){
 #  					$cronjob->load_job("cron_tmod");
 #  					$cronjob->loaded_class->add_job($_GET["tournamentid"],"");
   				}
-  				if (!$cfg['t_text_tree']) $dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_$tournamentid.png\">{$lang["tourney"]["tree_download"]}</a>");
+  				if (!$cfg['t_text_tree']) $dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_$tournamentid.png\">".t('Hier können Sie die Grafik herunterladen')."</a>");
   			}
   		}
   

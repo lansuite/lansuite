@@ -14,12 +14,12 @@ $step = $_GET['step'];
 
 if($action == "payment" && $step == 3){
 	if(!is_numeric($_POST['amount'])){
-			$error['amount'] = $lang['foodcenter']['account_err_amount'];
+			$error['amount'] = t('Bitte einen Korrekten Betrag angeben');
 			$step = 2;
 	}
 	
 	if(strlen($_POST['comment'] . " (" . $auth['username'] . ")") > 255){
-		$error['comment'] = $lang['foodcenter']['account_err_comm'];
+		$error['comment'] = t('Kommentar zu lange bitte kürzen.');
 		$step = 2;
 	}
 }
@@ -33,10 +33,10 @@ switch($_GET['act']){
 
 
 	case "menu":
-		$dsp->NewContent($lang['foodcenter']['account_management'],$lang['foodcenter']['account_management_cap']);
-		$dia_quest[] .= $lang['foodcenter']['account_payment']	;
-		$dia_quest[] .= $lang['foodcenter']['account_him_balance'];
-		$dia_quest[] .= $lang['foodcenter']['account_self_balance'];
+		$dsp->NewContent(t('Kontoverwaltung'),t('Hier können Sie Einzahlungen, Auszahlungen verwalten und Kontostände einsehen.'));
+		$dia_quest[] .= t('Zahlungen')	;
+		$dia_quest[] .= t('Fremder Kontoauszug');
+		$dia_quest[] .= t('Eigener Kontoauszug');
 		$dia_link[]	 .= "index.php?mod=foodcenter&action=account&act=payment";		
 		$dia_link[]	 .= "index.php?mod=foodcenter&action=account&act=himbalance";		
 		$dia_link[]	 .= "index.php?mod=foodcenter&action=account&act=list";		
@@ -53,10 +53,10 @@ switch($_GET['act']){
 			
 			
 			case "2":
-				$dsp->NewContent($lang['foodcenter']['account_payment']);
+				$dsp->NewContent(t('Zahlungen'));
 				$dsp->SetForm("index.php?mod=foodcenter&action=account&act=payment&step=3&userid=".$_GET['userid']);
-				$dsp->AddTextFieldRow("amount",$lang['foodcenter']['account_amount'],$_POST['amount'],$error['amount']);
-				$dsp->AddTextFieldRow("comment",$lang['foodcenter']['account_comment'],$_POST['comment'],$error['comment']);
+				$dsp->AddTextFieldRow("amount",t('Betrag'),$_POST['amount'],$error['amount']);
+				$dsp->AddTextFieldRow("comment",t('Kommentar (Dein Name wird in Klammer angefügt)'),$_POST['comment'],$error['comment']);
 				$dsp->AddFormSubmitRow("send");
 				$dsp->AddContent();
 				$account = new accounting($_GET['userid']);

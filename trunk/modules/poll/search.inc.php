@@ -18,9 +18,9 @@ $ms2->AddResultField(t('Titel'), 'p.caption');
 $ms2->AddResultField(t('Status'), 'p.endtime', 'GetPollStatus');
 $ms2->AddResultField(t('Stimmen'), 'COUNT(v.pollid) AS Votes');
 
-$ms2->AddIconField('details', 'index.php?mod=poll&action=show&step=2&pollid=', $lang['ms2']['details']);
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=poll&action=change&step=2&pollid=', $lang['ms2']['edit']);
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=poll&action=delete&step=2&pollid=', $lang['ms2']['delete']);
+$ms2->AddIconField('details', 'index.php?mod=poll&action=show&step=2&pollid=', t('Details'));
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=poll&action=change&step=2&pollid=', t('Editieren'));
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=poll&action=delete&step=2&pollid=', t('Löschen'));
 
 $ms2->PrintSearch('index.php?mod=poll', 'p.pollid');
 ?>
