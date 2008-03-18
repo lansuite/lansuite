@@ -212,6 +212,7 @@ $barcode	= new barcode_system();	// Barcode System
 if ($language != "de" and file_exists("inc/language/language_$language.php")) include_once("inc/language/language_$language.php");
 if ($language != "de" and file_exists("modules/mastersearch/language/mastersearch_lang_$language.php")) include_once("modules/mastersearch/language/mastersearch_lang_$language.php");
 if ($language != "de" and file_exists("modules/boxes/language/boxes_lang_$language.php")) include_once("modules/boxes/language/boxes_lang_$language.php");
+if ($language != "de" and file_exists("modules/install/language/install_lang_$language.php")) include_once("modules/install/language/install_lang_$language.php");
 
 // Initialize party
 $party = new party();
