@@ -68,17 +68,17 @@ class beamer_display {
 		$ms2 = new mastersearch2('beamer');
 		$ms2->query['from'] = $config["tables"]["beamer_content"];
 		$ms2->AddResultField('-A-', 'active', 'formatActiveStatus','',35);
-		$ms2->AddResultField('Typ', 'contentType', 'formatContentType',"",35);
-		$ms2->AddResultField('Titel', 'caption');
-		$ms2->AddResultField('Zuletzt angezeigt', 'lastView' , 'MS2GetTime','',80);
+		$ms2->AddResultField(t('Typ'), 'contentType', 'formatContentType',"",35);
+		$ms2->AddResultField(t('Titel'), 'caption');
+		$ms2->AddResultField(t('Zuletzt angezeigt'), 'lastView' , 'MS2GetTime','',80);
 		$ms2->AddResultField('B.1', 'b1', 'formatBeamer1Status','',25);
 		$ms2->AddResultField('B.2', 'b2', 'formatBeamer2Status','',25);
 		$ms2->AddResultField('B.3', 'b3', 'formatBeamer3Status','',25);
 		$ms2->AddResultField('B.4', 'b4', 'formatBeamer4Status','',25);
 		$ms2->AddResultField('B.5', 'b5', 'formatBeamer5Status','',25);				
-		$ms2->AddIconField('reset_timestamp','?mod=beamer&action=set2first&bcid=','An den Anfang der Spielliste setzen');
-		$ms2->AddIconField('edit','?mod=beamer&action=editcontent&bcid=','Bearbeiten');
-		$ms2->AddIconField('delete','?mod=beamer&action=askfordelete&bcid=','L&ouml;schen');
+		$ms2->AddIconField('reset_timestamp','?mod=beamer&action=set2first&bcid=',t('An den Anfang der Spielliste setzen'));
+		$ms2->AddIconField('edit','?mod=beamer&action=editcontent&bcid=',t('Bearbeiten'));
+		$ms2->AddIconField('delete','?mod=beamer&action=askfordelete&bcid=',t('L&ouml;schen'));
 		$ms2->PrintSearch('index.php?mod=beamer&action=content', 'bcID');		
 
 		$dsp->AddSingleRow("<br/><div align=\"middle\">".
@@ -117,11 +117,11 @@ class beamer_display {
 	function viewAddNewContent1() {
 	global $dsp, $lang, $beamermodul, $bcid, $beamerid;	
 		$dsp->NewContent( t('Inhalte hinzuf&uuml;gen') );
-		$dsp->AddSingleRow( HTML_NEWLINE."Bitte w&auml;hlen Sie einen Inhaltstyp aus:".HTML_NEWLINE.HTML_NEWLINE);
+		$dsp->AddSingleRow( HTML_NEWLINE.t("Bitte w&auml;hlen Sie einen Inhaltstyp aus:").HTML_NEWLINE.HTML_NEWLINE);
 		$dsp->SetForm("?mod=beamer&action=newcontent2");
-		$dsp->AddRadioRow("ctype", "<strong>Text</strong><br /> (FCKeditor, HTML/Bilder/Flash m&ouml;glich)" , 'text' , $errortext = NULL, $optional = NULL, $checked = TRUE, $disabled = NULL);
-		$dsp->AddRadioRow("ctype", "<strong>Wrapper</strong><br /> (IFrame f&uuml;r Webseiten oder sonstigen Content)" , 'wrapper' , $errortext = NULL, $optional = NULL, $checked = FALSE, $disabled = NULL);
-		$dsp->AddRadioRow("ctype", "<strong>Turnierbaum</strong><br />" , 'turnier' , $errortext = NULL, $optional = NULL, $checked = FALSE, $disabled = NULL);
+		$dsp->AddRadioRow("ctype", t("<strong>Text</strong><br /> (FCKeditor, HTML/Bilder/Flash m&ouml;glich)") , 'text' , $errortext = NULL, $optional = NULL, $checked = TRUE, $disabled = NULL);
+		$dsp->AddRadioRow("ctype", t("<strong>Wrapper</strong><br /> (IFrame f&uuml;r Webseiten oder sonstigen Content)") , 'wrapper' , $errortext = NULL, $optional = NULL, $checked = FALSE, $disabled = NULL);
+		$dsp->AddRadioRow("ctype", t("<strong>Turnierbaum</strong><br />") , 'turnier' , $errortext = NULL, $optional = NULL, $checked = FALSE, $disabled = NULL);
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddContent();
 	}
@@ -133,7 +133,7 @@ class beamer_display {
 		$dsp->SetForm("?mod=beamer&action=savecontent&ctype=".$ctype);
 
 		if($ctype=='text') {
-			$dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", "", "", '50');
+			$dsp->AddTextFieldRow("ccaption", t("Bezeichnung: "), "", "", '50');
 	        ob_start();
 	        include_once("ext_scripts/FCKeditor/fckeditor.php");
 	        $oFCKeditor = new FCKeditor('FCKeditor1') ;
@@ -147,15 +147,15 @@ class beamer_display {
 		}
 		
 		if($ctype=='wrapper') {
-			$dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", "", "", '50');
-			$dsp->AddTextFieldRow("curl", "IFrame URL: ", "", "", '80');
-			$dsp->AddTextFieldRow("choehe", "IFrame H&ouml;he: ", "550", "", '4');			
-			$dsp->AddTextFieldRow("cbreite", "IFrame Breite: ", "980", "", '4');			
+			$dsp->AddTextFieldRow("ccaption", t("Bezeichnung: "), "", "", '50');
+			$dsp->AddTextFieldRow("curl", t("IFrame URL: "), "", "", '80');
+			$dsp->AddTextFieldRow("choehe", t("IFrame H&ouml;he: "), "550", "", '4');			
+			$dsp->AddTextFieldRow("cbreite", t("IFrame Breite: "), "980", "", '4');			
 		}
 		
 		if($ctype=='turnier') {
 
-			$dsp->AddDropDownFieldRow("ctid", "Turnier: ", $beamermodul->getAllTournamentsAsOptionList() , $errortext, $optional = NULL);
+			$dsp->AddDropDownFieldRow("ctid", t("Turnier: "), $beamermodul->getAllTournamentsAsOptionList() , $errortext, $optional = NULL);
 		
 		
 		}
@@ -187,15 +187,15 @@ class beamer_display {
 		}
 		if($content['contentType']=='wrapper') {
 			$arr = explode( "*" , $content['contentData'] );
-			$dsp->AddTextFieldRow("ccaption", "Bezeichnung: ", $content['caption'], "", '50');
-			$dsp->AddTextFieldRow("curl", "IFrame URL: ", $arr[0] , "", '80');
-			$dsp->AddTextFieldRow("choehe", "IFrame H&ouml;he: ", $arr[1], "", '4');			
-			$dsp->AddTextFieldRow("cbreite", "IFrame Breite: ", $arr[2], "", '4');			
+			$dsp->AddTextFieldRow("ccaption", t("Bezeichnung: "), $content['caption'], "", '50');
+			$dsp->AddTextFieldRow("curl", t("IFrame URL: "), $arr[0] , "", '80');
+			$dsp->AddTextFieldRow("choehe", t("IFrame H&ouml;he: "), $arr[1], "", '4');			
+			$dsp->AddTextFieldRow("cbreite", t("IFrame Breite: "), $arr[2], "", '4');			
 		}
 
 		if($content['contentType']=='turnier') {
 
-			$dsp->AddDropDownFieldRow("ctid", "Turnier: ", $beamermodul->getAllTournamentsAsOptionList() , $errortext, $optional = NULL);
+			$dsp->AddDropDownFieldRow("ctid", t("Turnier: "), $beamermodul->getAllTournamentsAsOptionList() , $errortext, $optional = NULL);
 		
 		
 		}		
