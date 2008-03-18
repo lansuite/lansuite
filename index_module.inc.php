@@ -50,6 +50,12 @@ if ($found_adm and $auth['login'] and $auth['userid'] and $_GET["mod"] != 'insta
 if ($_GET['mod'] == '' or !$func->check_var($_GET['mod'], 'string', 0, 50)) $mod = 'home'; #($_GET['templ'] == 'install')? $mod = 'install' : $mod = 'home';
 else $mod = $_GET['mod'];
 
+//// Load Lang-File
+// 1) Include 'de'
+// 2) Overwrite with $language
+if (file_exists("modules/install/language/install_lang_de.php")) include_once("modules/install/language/install_lang_de.php");
+if ($language != 'de' and file_exists("modules/install/language/install_lang_{$language}.php")) include_once("modules/install/language/install_lang_{$language}.php");
+
 // Reset $auth['type'], if no permission to Mod
 if ($found_adm and $auth['type'] > 1) {
 
