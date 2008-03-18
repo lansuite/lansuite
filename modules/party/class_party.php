@@ -89,7 +89,7 @@ class party{
 					else $list_array = array("<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
 				}
         $dsp->SetForm($link);
-				$dsp->AddDropDownFieldRow("party_id",t('Party auswählen')/* TRANS */,$list_array,'');
+				$dsp->AddDropDownFieldRow("party_id",t('Party auswählen'),$list_array,'');
         $dsp->AddFormSubmitRow("change");
 			}
 		}
@@ -133,7 +133,7 @@ class party{
 							$list_array = array("<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
 						}
 					}
-		        	$dsp->AddDropDownFieldRow("party_id",t('Party auswählen')/* TRANS */,$list_array);
+		        	$dsp->AddDropDownFieldRow("party_id",t('Party auswählen'),$list_array);
 		        }
 			
 			}
@@ -264,10 +264,10 @@ class party{
 						 $data = array("<option $selected value='{$res['price_id']}'>{$res['price_text']} / {$res['price']} {$cfg['sys_currency']}</option>");
 						}
 				}
-				$dsp->AddDropDownFieldRow("price_id",t('Preis auswählen')/* TRANS */,$data,'');
+				$dsp->AddDropDownFieldRow("price_id",t('Preis auswählen'),$data,'');
 			}else{
 				$res = $db->fetch_array($row);
-				$dsp->AddDoubleRow(t('Preis auswählen')/* TRANS */,$res['price_text'] . "  / {$res['price']} {$cfg['sys_currency']}<input name='price_id' type='hidden' value='{$res['price_id']}' />");
+				$dsp->AddDoubleRow(t('Preis auswählen'),$res['price_text'] . "  / {$res['price']} {$cfg['sys_currency']}<input name='price_id' type='hidden' value='{$res['price_id']}' />");
 			}
 
 		}
@@ -286,7 +286,7 @@ class party{
 			if($anzahl == 0) $row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} AND group_id='0'");
 
 			while ($res = $db->fetch_array($row)) $selections[$res['price_id']] = $res['price_text'] .' / '. $res['price'] .' '. $cfg['sys_currency'];
-			$mf->AddField(t('Preis auswählen')/* TRANS */, 'price_id', IS_SELECTION, $selections);
+			$mf->AddField(t('Preis auswählen'), 'price_id', IS_SELECTION, $selections);
 			$res = $db->free_result($res);
 		}
 
@@ -500,10 +500,10 @@ class party{
 			else $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']} WHERE group_id = {$group_id}");
 
 			$selections = array();
-      $selections[] = t('Ohne Gruppe')/* TRANS */;
+      $selections[] = t('Ohne Gruppe');
 
 			if ($res) while ($row = $db->fetch_array($res)) $selections[$row['group_id']] = $row['group_name'];
-      $mf->AddField(t('Benutzergruppe')/* TRANS */, 'group_id', IS_SELECTION, $selections);
+      $mf->AddField(t('Benutzergruppe'), 'group_id', IS_SELECTION, $selections);
 			return true;
 		}
 
@@ -528,11 +528,11 @@ class party{
 			$anzahl = $db->num_rows($row);
 			
 			if($anzahl == 0){
-				$dsp->AddDoubleRow(t('Benutzergruppe')/* TRANS */,t('Keine Benutzergruppe vorhanden')/* TRANS */ . "<input name='group_id' value='0' type='hidden' />");		
+				$dsp->AddDoubleRow(t('Benutzergruppe'),t('Keine Benutzergruppe vorhanden') . "<input name='group_id' value='0' type='hidden' />");		
 				return false;
 			}elseif($nogroub == 0 && $anzahl == 1){
 				$res = $db->fetch_array($row);
-				$dsp->AddDoubleRow(t('Benutzergruppe')/* TRANS */,$res['group_name'] . "<input name='group_id' value='{$res['group_id']}' type='hidden' />");		
+				$dsp->AddDoubleRow(t('Benutzergruppe'),$res['group_name'] . "<input name='group_id' value='{$res['group_id']}' type='hidden' />");		
 			}else{
 				while ($res = $db->fetch_array($row)){
 						if($res['group_id'] == $select_id){
@@ -550,7 +550,7 @@ class party{
 				if($javascript){
 					$dsp->AddDropDownFieldRow("group_id\" onchange=\"change_group(this.options[this.options.selectedIndex].value)",t('Benutzergruppe')/* TRANS */,$data,'');
 				}else {
-					$dsp->AddDropDownFieldRow("group_id",t('Benutzergruppe')/* TRANS */,$data,'');
+					$dsp->AddDropDownFieldRow("group_id",t('Benutzergruppe'),$data,'');
 				}
 			}
 			return true;
