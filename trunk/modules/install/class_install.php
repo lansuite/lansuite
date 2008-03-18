@@ -661,6 +661,11 @@ class Install {
 		else $errreport_check = $warning . $lang["install"]["env_errreport"];
 		$dsp->AddDoubleRow("Error Reporting", $errreport_check);
 
+                // Session Use Only Cookies
+                if (ini_get('session.use_only_cookies')) $only_cookies_check = $ok;
+                else $only_cookies_check = $warning . t('Es wird empfohlen session.use_only_cookies in der php.ini auf 1 zu setzen! Dies verhindert, dass Session-IDs in der URL angezeigt werden. Wenn dies nicht verhindert wird, können unvorsichtige Benutzer, deren Browser keine Cookies zulassen, durch weiterleiten der URL an Dritte ihre Session preisgeben, was einer weitergabe des Passwortes gleichkommt.');
+                $dsp->AddDoubleRow("Sesssion.use_only_cookies", $only_cookies_check);
+
 		// Get Operating System
 		$software_arr =  preg_split('/\s/', $_SERVER['SERVER_SOFTWARE'], 0);
 		$environment_os =  preg_replace('/\(|\)/', "", $software_arr[1]);
