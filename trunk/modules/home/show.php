@@ -44,7 +44,7 @@ switch ($home_page) {
 		$dsp->AddSingleRow($func->text2html($logout_hometext));
 
 		$dsp->AddHRuleRow($func->text2html($logout_hometext));
-		$dsp->AddSingleRow("Die letzten News:");
+		$dsp->AddSingleRow(t("Die letzten News:"));
 
 		$get_news_caption = $db->query("SELECT newsid, caption FROM	{$config["tables"]["news"]} ORDER BY date DESC LIMIT 3");
 		$i = 1;
