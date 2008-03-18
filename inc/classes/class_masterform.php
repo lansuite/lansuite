@@ -26,6 +26,7 @@ class masterform {
     var $FormFields = array();
     var $Groups = array();
     var $SQLFields = array();
+    var $WYSIWYGFields = array();
     var $SQLFieldTypes = array();
     var $SQLFieldUnique = array();
     var $DependOn = array();
@@ -81,6 +82,7 @@ class masterform {
     $arr['DependOnCriteria'] = $DependOnCriteria;
     $this->FormFields[] = $arr;
     $this->AddToSQLFields($name);
+    if ($selections == HTML_WYSIWYG) $this->WYSIWYGFields[] = $name;
     $this->NumFields++;
   }
   
@@ -183,7 +185,7 @@ class masterform {
           } else {
             $row = $db->query_first("SELECT 1 AS found $db_query FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
             if ($row['found']) {
-              foreach ($this->SQLFields as $key => $val) $_POST[$val] = $func->db2edit($row[$val]);
+              foreach ($this->SQLFields as $key => $val) if (!in_array($key, $this->WYSIWYGFields)) $_POST[$val] = $row[$val]; else $_POST[$val] = $func->db2edit($row[$val]);
             } else {
               $func->error($lang['mf']['err_invalid_id']);
               return false;
