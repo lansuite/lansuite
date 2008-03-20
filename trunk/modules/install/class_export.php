@@ -241,10 +241,10 @@ class Export {
 			$user_export .= $row["clanurl"].$sep;
 			$user_export .= $row["wwclid"].$sep;
 			$user_export .= $row["nglid"].$sep;
-			$user_export .= ($row["checkin"] > "0") ? $func->unixstamp2date($row["checkin"],"datetime").$sep : $sep;
-			$user_export .= ($row["checkout"] > "0") ? $func->unixstamp2date($row["checkout"],"datetime").$sep : $sep;
-			$user_export .= ($row["signondate"] > "0") ? $func->unixstamp2date($row["signondate"],"datetime").$sep : $sep;
-			$user_export .= ($row["paiddate"] > "0") ? $func->unixstamp2date($row["paiddate"],"datetime").$sep : $sep;
+			$user_export .= $row["checkin"].$sep;
+			$user_export .= $row["checkout"].$sep;
+			$user_export .= $row["signondate"].$sep;
+			$user_export .= $row["paiddate"].$sep;
 			$user_export .= $row["birthday"].$sep;
 
 			// seat
