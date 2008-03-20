@@ -11,7 +11,7 @@ $tfunc = new tfunc;
 $tfunc->CheckTimeExceed($tournamentid);
 
 
-$tournament = $db->query_first("SELECT name, mode, UNIX_TIMESTAMP(starttime) AS starttime, break_duration, game_duration, max_games, status, mapcycle
+$tournament = $db->query_first("SELECT tournamentid, name, mode, UNIX_TIMESTAMP(starttime) AS starttime, break_duration, game_duration, max_games, status, mapcycle
 		FROM {$config["tables"]["tournament_tournaments"]}
 		WHERE tournamentid = '$tournamentid'
 		");
@@ -21,7 +21,6 @@ if ($map[0] == "") $map[0] = t('unbekannt');
 
 ######## Get number of teams
 $team_anz = $tfunc->GetTeamAnz($tournamentid, $tournament["mode"], $_GET["group"]);
-
 
 #### If at least one team is present, and the tounrmanet is started
 if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['status'] == "closed")) {
