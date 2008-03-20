@@ -533,7 +533,7 @@ class tfunc {
 		if ($tournament["mode"] == "groups") {
 			$game = $db->query("SELECT gameid
 					FROM {$config["tables"]["t2_games"]}
-					WHERE (group_nr > 0)
+					WHERE tournamentid = ". (int)$tournamentid ." and group_nr > 0
 					GROUP BY group_nr
 					");
 			$num_groups = $db->num_rows($game);
@@ -589,7 +589,7 @@ class tfunc {
 							SET tournamentid = $tournamentid,
 							leaderid = {$leader['leaderid']},
 							round = 0,
-							position = ". ($num_groups - ($akt_group - 1) * 2 + 1) .",
+							position = ". (($num_groups - ($akt_group - 1)) * 2 - 1) .",
 							group_nr = 0,
 							score = 0
 							");
