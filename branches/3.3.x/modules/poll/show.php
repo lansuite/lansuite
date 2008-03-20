@@ -74,7 +74,7 @@ switch($_GET['action']) {
   				$dsp->AddDoubleRow($lang["poll"]["show_anonym"], $anonym);
   				($POLL["multi"] == "1")? $multi = $lang["poll"]["show_yes"] : $multi = $lang["poll"]["show_no"];
   				$dsp->AddDoubleRow($lang["poll"]["show_multiple"], $multi);
-  				$dsp->AddDoubleRow($lang["poll"]["show_comment"], $POLL["comment"]);
+  				$dsp->AddDoubleRow($lang["poll"]["show_comment"], $func->text2html($POLL["comment"]));
 
   				if($_SESSION["auth"]["type"] > 1) {
   					$buttons .= $dsp->FetchButton("index.php?mod=poll&action=change&step=2&pollid={$_GET['pollid']}", "edit");

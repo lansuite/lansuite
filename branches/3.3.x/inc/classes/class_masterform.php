@@ -103,7 +103,7 @@ class masterform {
 
   // Print form
 	function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer needed!
-    global $dsp, $db, $config, $func, $sec, $lang, $templ, $CurentURLBase, $mf_number;
+    global $dsp, $db, $config, $func, $sec, $lang, $templ, $CurentURLBase, $mf_number, $__POST;
 
     // Break, if in wrong form
     $Step_Tmp = $_GET['mf_step'];
@@ -285,7 +285,10 @@ class masterform {
           }
         }
 
-        if (count($this->error) > 0) $Step_Tmp--;
+        if (count($this->error) > 0) {
+          $_POST = $__POST;
+          $Step_Tmp--;
+        }
       break;
     }
 
