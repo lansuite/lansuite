@@ -43,7 +43,7 @@ else {
   			$height = (($team_anz/2) * 50) + 60;
   		}
   
-  		if (($tournament["mode"] == "groups") && ($group == "")) {
+  		if (($tournament["mode"] == "groups") && ($_POST['group'] == '')) {
   			$teams = $db->query_first("SELECT MAX(group_nr) AS max_group_nr
   				FROM {$config["tables"]["t2_games"]}
   				WHERE (tournamentid = '$tournamentid') AND (round = 0)
@@ -57,7 +57,7 @@ else {
   			$dsp->AddFormSubmitRow("next");
   
   		} else {
-  			$dsp->AddSingleRow("<iframe src=\"index.php?mod=tournament2&action=tree_frame&design=base&tournamentid=$tournamentid&group=$group\" width=\"99%\" height=\"$height\"><a href=\"index.php?mod=tournament2&action=tree_frame&design=base&tournamentid=$tournamentid&group=$group\">Tree</a></iframe>");
+  			$dsp->AddSingleRow('<iframe src="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$tournamentid .'&group='. (int)$_POST['group'] .'" width="99%" height="'. (int)$height .'"><a href="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$tournamentid .'&group='. (int)$_POST['group'] .'">Tree</a></iframe>');
   			
   			if ($tournament["mode"] == "groups"){
   				if(!file_exists("ext_inc/tournament_trees/tournament_" . $tournamentid . "_" . $group . ".png")){

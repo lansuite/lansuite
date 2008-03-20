@@ -3,10 +3,10 @@
 include_once("modules/tournament2/tree.class.php");
 include_once("modules/tournament2/sp_tree.class.php");
 
-$tournamentid 		= $vars["tournamentid"];
-$fullscreen 		= $vars["fullscreen"];
-$group		= $vars["group"];
-if ($group == "") $group = 1;
+$tournamentid 		= $_GET["tournamentid"];
+$fullscreen 		= $_GET["fullscreen"];
+$group		= $_GET['group'];
+if ($group == '') $group = 1;
 
 $tournament = $db->query_first("SELECT name, mode FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
 

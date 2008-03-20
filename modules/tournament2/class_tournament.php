@@ -214,11 +214,12 @@ class tfunc {
 
 			case "single":
 			case "double":
+			case "groups":
 				// Array für Teams auslesen
 				$teams = $db->query("SELECT teams.teamid, teams.name, teams.disqualified, MAX(games.round) AS rounds
 					FROM {$config["tables"]["t2_games"]} AS games
 					LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
-					WHERE games.tournamentid = $tournamentid AND NOT ISNULL( teams.name )
+					WHERE games.tournamentid = $tournamentid AND games.group_nr = 0 AND NOT ISNULL( teams.name )
 					GROUP BY teams.teamid
 					ORDER BY teams.disqualified ASC, rounds DESC, games.score DESC
 					");
@@ -242,7 +243,7 @@ class tfunc {
 					$teams = $db->query("SELECT teams.teamid, teams.name, teams.disqualified, MIN(games.round) AS rounds
 					FROM {$config["tables"]["t2_games"]} AS games
 					LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
-					WHERE games.tournamentid = $tournamentid
+					WHERE games.tournamentid = $tournamentid AND games.group_nr = 0
 					GROUP BY teams.teamid
 					ORDER BY teams.disqualified ASC, rounds ASC, games.score DESC
 					");
@@ -267,7 +268,6 @@ class tfunc {
 			break;
 
 			case "liga":
-			case "groups":
 	 			if ($group_nr == '') $group_nr = 1;
 	 			
 				// Beteiligte Teams in Array einlesen
