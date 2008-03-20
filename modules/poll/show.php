@@ -74,7 +74,7 @@ switch($_GET['action']) {
   				$dsp->AddDoubleRow(t('Anonym'), $anonym);
   				($POLL["multi"] == "1")? $multi = t('Ja') : $multi = t('Nein');
   				$dsp->AddDoubleRow(t('Mehrfachauswahl'), $multi);
-  				$dsp->AddDoubleRow(t('Bemerkung'), $POLL["comment"]);
+  				$dsp->AddDoubleRow(t('Bemerkung'), $func->text2html($POLL["comment"]));
 
   				if($_SESSION["auth"]["type"] > 1) {
   					$buttons .= $dsp->FetchButton("index.php?mod=poll&action=change&step=2&pollid={$_GET['pollid']}", "edit");
