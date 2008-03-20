@@ -183,9 +183,9 @@ else {
   			// Write Round Headline
   			if ($last_round != $game['round']) {
   				($tournament['mode'] == "groups")? $group_out = t('Gruppe')." {$game['group_nr']},"
-  					: $group_out = "";
+  					: $group_out = '';
   
-  				WriteRoundHeadline("$group_out", $game['round']);
+  				WriteRoundHeadline($group_out, $game['round']);
   
   				$spieler1 = "";
   				$i = 0;
