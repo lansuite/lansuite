@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2008-03-21 12:11</date>
+	</header>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<id>fb1f271be4c8ba886014243495742271</id>
+				<tid>1922</tid>
+				<org>Neue Mails</org>
+				<en>New Mails</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>00efd72dcc6976257ca0fee13c0eaf6c</id>
+				<tid>1923</tid>
+				<org>Keine Mails bisher vorhanden</org>
+				<en>No emails yet available</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>b1bf9f9099721388913d60e905660264</id>
+				<tid>1924</tid>
+				<org>Aktuelle Umfragen</org>
+				<en>Current polls</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>8b855067fd97a4bf3b96532a7cbeaeae</id>
+				<tid>1925</tid>
+				<org>Keine Umfragen vorhanden</org>
+				<en>No existing polls</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>9131a1b7c0a2a326a04b71f2dc6d5b67</id>
+				<tid>1926</tid>
+				<org>Neue Server</org>
+				<en>New Server</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>b6c68b8a968f5e598492ec09332686f0</id>
+				<tid>1927</tid>
+				<org>Keine Server vorhanden</org>
+				<en>No Server there</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>6e84fd6f756da2194cc569f0cb114dea</id>
+				<tid>1928</tid>
+				<org>Aktuelles im Board</org>
+				<en>Current postings</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>dba464b5a401fe7f6609aa0d44061059</id>
+				<tid>1929</tid>
+				<org>Thread wurde geschlossen</org>
+				<en>Thread was closed</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>eee3d44600327c43cc220e6a1ddf7f24</id>
+				<tid>1930</tid>
+				<org>Keine Beiträge vorhanden</org>
+				<en>No postings</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>c84369cb124912750ac1c1982a7b7e05</id>
+				<tid>1931</tid>
+				<org>Startseite</org>
+				<en>Home Page</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>14544db096fe4b7f02cac8e3de843fd0</id>
+				<tid>1932</tid>
+				<org>Willkommen! Hier sehen Sie eine kleine Übersicht der wichtigsten Aktivitäten.</org>
+				<en>Welcome! Here is a brief overview of the main activities.</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>c577d157c52b9895941b3c23fdfaa03f</id>
+				<tid>1933</tid>
+				<org>Willkommen! Zum Einloggen verwenden Sie bitte, die Login-Box auf der rechten Seite</org>
+				<en>Weclom! To login, please use the Loginbutton on the right side</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>6a05707c807162a10d325e27983f9a09</id>
+				<tid>1934</tid>
+				<org>Neue Bugs und Feature Wünsche</org>
+				<en>New Bugs and Feature wishes</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>ec587aecd4a4830ab84f0c3ae0c6a2dd</id>
+				<tid>1935</tid>
+				<org>Keine Einträge vorhanden</org>
+				<en>No new entrys</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>e97674e077ea2015b443c70e51d6a433</id>
+				<tid>1936</tid>
+				<org>Die nächsten Partys</org>
+				<en>Next Partys</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>3c38d55f15fd77de020451cd1826a550</id>
+				<tid>1937</tid>
+				<org>Aktuelle News</org>
+				<de>Aktuelle News</de>
+				<en>Latest News</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>b3363a26e8336410177b9ba3d509e8e1</id>
+				<tid>1938</tid>
+				<org>Keine News bisher vorhanden</org>
+				<en>No News</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>a7895bd53b30eb23b71fa4287fc4982d</id>
+				<tid>1939</tid>
+				<org>Turnier: Spielpaarungen</org>
+				<en>Tournament: Fixtures</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>c23182c930ec83dbd96b943ebce81745</id>
+				<tid>1940</tid>
+				<org>Es sind keine aktuellen Spielpaarungen vorhanden</org>
+				<en>There are no current fixtures available</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>827ebef78fd80e4cd6af55afce7fa40c</id>
+				<tid>1942</tid>
+				<org>Gäste bezahlt / eingecheckt / ausgecheckt</org>
+				<en>Guests payed / checkin / checkout</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>00dcb99942ed6de2085035d5f3704093</id>
+				<tid>1943</tid>
+				<org>Besucher gesamt / Gerade eingeloggt</org>
+				<en>Total visitors / Still logged in</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>b2e255e5cfd29133935ae00468406e2e</id>
+				<tid>1944</tid>
+				<org>Troubletickets</org>
+				<en>Troubletickets </en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>a377bf984e816b7da45903df0c39cfea</id>
+				<tid>1945</tid>
+				<org>Verleih</org>
+				<en>Rental</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>715380d7bcc0b403482990fa332214cc</id>
+				<tid>4170</tid>
+				<org>Statistiken</org>
+				<en>Statistics</en>
+				<file>home</file>
+			</entry>
+			<entry>
+				<id>e1598f2e5fba4bffbb79af4ebfca6b40</id>
+				<tid>4354</tid>
+				<org>Abstimmung wurde geschlossen</org>
+				<en>Vote has been closed</en>
+				<file>home</file>
+			</entry>
+		</content>
+	</table>
+</lansuite>

@@ -445,4 +445,130 @@ Bei Fragen zur Veranstaltung scheut euch nicht uns anzuschreiben!
 			</entry>
 		</content>
 	</table>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<id>4789ac07952deecf2a4ae4276ef5caad</id>
+				<tid>4141</tid>
+				<org>Seite</org>
+				<en>Page</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>0b48b4f7b6f8aab43cb47a4c840ef2f9</id>
+				<tid>4142</tid>
+				<org>Diese Seite enthält selbst definierten Text. Sie können ihn ändern, indem Sie den Informationen-Link in der Navigations-Box auswählen.</org>
+				<en>This Page contains self defined Text. You can change them wenn you use the Information-Link in the Navigationbox.</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>728cd87695ab19ce5fa501d230e8e19e</id>
+				<tid>4143</tid>
+				<org>Sie haben keine Seite ausgewählt.</org>
+				<en>You have no Page selected</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>8bfc6dfc150abba3ddc987551c0a03f9</id>
+				<tid>4146</tid>
+				<org>Seitentitel</org>
+				<en>Lemma</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>b5b672c9d2e6836588978c12d9b534d5</id>
+				<tid>4147</tid>
+				<org>Untertitel</org>
+				<en>Subtitel</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
+				<tid>4148</tid>
+				<org>Details</org>
+				<en>Details</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>9363ece6cc72bbab27121d73c142ee61</id>
+				<tid>4149</tid>
+				<org>Informationsseite - Bearbeiten</org>
+				<en>Information page - Edit</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>98e2dafaad8f3300a4612790ffca5a2e</id>
+				<tid>4150</tid>
+				<org>Hier können Sie den Inhalt der Info-Seiten editieren.</org>
+				<en>Here you can edit the content of the information Pages.</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>c44e07cffb5cd991f28e866e8854b548</id>
+				<tid>4151</tid>
+				<org>Aktiv</org>
+				<en>Active</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>60bbccc81058c0a02ef3bc32bcab4115</id>
+				<tid>4152</tid>
+				<org>Hier können Sie den Inhalt der Seite editieren.</org>
+				<en>Here you can edit the Pagecontent</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>967986841ae5935a30001d9e6ceae7aa</id>
+				<tid>4153</tid>
+				<org>Bitte füllen Sie alle Felder aus!</org>
+				<en>Please fill in all fields!</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>4ca5953cced64feb37101fff3ea2f04c</id>
+				<tid>4154</tid>
+				<org>Der Eintrag wurde erfolgreich erstellt.</org>
+				<en>The entry has been successfully created.</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>9b56afbfe38c58945d2e0f34dc793ffd</id>
+				<tid>4155</tid>
+				<org>Der Eintrag wurde erfolgreich geändert.</org>
+				<en>The entry has been successfully changed.</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>3a0ca56f99c4ab93b8793e5e8993d43b</id>
+				<tid>4156</tid>
+				<org>Der Eintrag wurde gelöscht.</org>
+				<en>The entry has been deleted.</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>e5d71bd8bf30e401a28e747c9aa66130</id>
+				<tid>4157</tid>
+				<org>Der Aktiv-Status wurde erfolgreich geändert.</org>
+				<en>The activestate has been changed.</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>375ee26098b46e23bcb854331f0ad8c5</id>
+				<tid>4352</tid>
+				<org>Ja</org>
+				<en>Yes</en>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
+				<tid>4353</tid>
+				<org>Nein</org>
+				<en>No</en>
+				<file>info2</file>
+			</entry>
+		</content>
+	</table>
 </lansuite>
