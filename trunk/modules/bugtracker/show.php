@@ -92,14 +92,14 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $db->free_result($row);
   $ms2->AddTextSearchDropDown('Bearbeiter', 'b.agent', $list);
 
-  $list = array_merge(array('' => 'Alle'), $bugtracker->stati);
-  $ms2->AddTextSearchDropDown('Status', 'b.state', $list);
-
   $list = array('' => 'Alle');
   $row = $db->qry('SELECT c.creatorid, u.username FROM %prefix%comments AS c LEFT JOIN %prefix%user AS u ON c.creatorid = u.userid WHERE c.creatorid > 0 AND c.relatedto_item = \'BugEintrag\' ORDER BY u.username');
   while($res = $db->fetch_array($row)) $list[$res['creatorid']] = $res['username'];
   $db->free_result($row);
   $ms2->AddTextSearchDropDown('Kommentator', 'c.creatorid', $list);
+
+  $ms2->AddTextSearchDropDown('Status', 'b.state', $bugtracker->stati, '', 8);
+  $ms2->AddTextSearchDropDown('Typ', 'b.type', $types, '', 5);
 
 /*
   $list = array('' => 'Alle'));

@@ -72,11 +72,12 @@ class MasterSearch2 {
     array_push($this->search_fields, $arr);
   }
 
-  function AddTextSearchDropDown($caption, $sql_field, $selections, $default = '') {
+  function AddTextSearchDropDown($caption, $sql_field, $selections, $default = '', $multiple = 0) {
     $arr = array();
     $arr['caption'] = $caption;
     $arr['sql_field'] = $sql_field;
     $arr['selections'] = $selections;
+    $arr['multiple'] = $multiple;
 
     $curr_pos = count($this->search_dropdown);
     if ($default != '' and !isset($_POST["search_dd_input"][$curr_pos])) $_POST["search_dd_input"][$curr_pos] = $default;
@@ -185,8 +186,10 @@ class MasterSearch2 {
     $z = 0;
     if ($this->search_dropdown) foreach ($this->search_dropdown as $current_field_list) {
       if ($_POST["search_dd_input"][$z] != '') {
-        if ($current_field_list['sql_field'] != '') { 
-          $values = explode(',', $_POST["search_dd_input"][$z]);
+        if ($current_field_list['sql_field'] != '') {
+          if (is_array($_POST["search_dd_input"][$z])) $values = $_POST["search_dd_input"][$z];
+          else $values = explode(',', $_POST["search_dd_input"][$z]);
+          
           $x = 0;
           $sql_one_search_field = '';
           foreach ($values as $value) {
@@ -335,10 +338,17 @@ class MasterSearch2 {
     if ($this->search_dropdown) foreach ($this->search_dropdown as $current_field) {
       $current = $x % 2;
       $templ['ms2']['input_field_name'] = "search_dd_input[$z]";
+      $templ['ms2']['input_field_multiple'] = '';
+      if ($current_field['multiple']) {
+        $templ['ms2']['input_field_multiple'] = ' multiple="multiple" rows="'. $current_field['multiple'] .'"';
+        $templ['ms2']['input_field_name'] .= '[]';
+      }
       $templ['ms2']['input_field_options'] = '';
       $templ['ms2']['search_help'][$current] = '';
       foreach ($current_field['selections'] as $key => $value) {
-        ((string)$_POST['search_dd_input'][$z] == (string)$key)? $selected = ' selected' : $selected = '';
+        $selected = '';
+        if (is_array($_POST['search_dd_input'][$z]) and in_array($key, $_POST['search_dd_input'][$z])) $selected = ' selected';
+        elseif ((string)$_POST['search_dd_input'][$z] == (string)$key) $selected = ' selected';
         $templ['ms2']['input_field_options'] .= '<option value="'.$key.'"'.$selected.'>'.$value.'</option>';
       }
       $templ['ms2']['input_field_caption'][$current] = $current_field['caption'];
