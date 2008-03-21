@@ -8,9 +8,9 @@ class party{
   // Constructor
 	function party(){
 		global $cfg, $db, $config;
-		
-		if (is_numeric($_GET['party_id'])) $this->party_id = $_GET['party_id'];
-		elseif (is_numeric($_POST['party_id'])) $this->party_id = $_POST['party_id'];
+
+		if (is_numeric($_GET['set_party_id'])) $this->party_id = $_GET['set_party_id'];
+		elseif (is_numeric($_POST['set_party_id'])) $this->party_id = $_POST['set_party_id'];
 		elseif (is_numeric($_SESSION['party_id'])) $this->party_id = $_SESSION['party_id'];
 		elseif (is_numeric($cfg['signon_partyid'])) $this->party_id = $cfg['signon_partyid'];
 
@@ -89,7 +89,7 @@ class party{
 					else $list_array = array("<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
 				}
         $dsp->SetForm($link);
-				$dsp->AddDropDownFieldRow("party_id",t('Party auswählen'),$list_array,'');
+				$dsp->AddDropDownFieldRow("set_party_id",t('Party auswählen'),$list_array,'');
         $dsp->AddFormSubmitRow("change");
 			}
 		}
