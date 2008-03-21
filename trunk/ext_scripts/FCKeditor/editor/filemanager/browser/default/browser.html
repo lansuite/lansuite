@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <!--
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -67,6 +67,9 @@ oConnector.SendCommand = function( command, params, callBackFunction )
 	sUrl += '&CurrentFolder=' + encodeURIComponent( this.CurrentFolder ) ;
 
 	if ( params ) sUrl += '&' + params ;
+
+	// Add a random salt to avoid getting a cached version of the command execution
+	sUrl += '&uuid=' + new Date().getTime() ;
 
 	var oXML = new FCKXml() ;
 
@@ -134,6 +137,15 @@ oIcons.GetIcon = function( fileName )
 	else
 		return 'default.icon' ;
 }
+
+function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
+{
+	if (errorNumber == "1")
+		window.frames['frmUpload'].OnUploadCompleted( errorNumber, customMsg ) ;
+	else
+		window.frames['frmUpload'].OnUploadCompleted( errorNumber, fileName ) ;
+}
+
 		</script>
 	</head>
 	<frameset cols="150,*" class="Frame" framespacing="3" bordercolor="#f1f1e3" frameborder="1">

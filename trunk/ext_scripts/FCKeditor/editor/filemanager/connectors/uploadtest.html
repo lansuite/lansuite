@@ -1,6 +1,6 @@
 <!--
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -23,7 +23,7 @@
 <html>
 	<head>
 		<title>FCKeditor - Uploaders Tests</title>
-		<script language="javascript">
+		<script type="text/javascript">
 
 function SendFile()
 {
@@ -41,7 +41,10 @@ function SendFile()
 	eURL.innerHTML = sUploaderUrl ;
 	txtUrl.value = '' ;
 
-	frmUpload.action = sUploaderUrl ;
+	frmUpload.action = sUploaderUrl;
+	if (document.getElementById('cmbType').value) {
+		frmUpload.action = frmUpload.action + '?Type='+document.getElementById('cmbType').value;
+	}
 	frmUpload.submit() ;
 }
 
@@ -91,10 +94,23 @@ function OnUploadCompleted( errorNumber, fileUrl, fileName, customMsg )
 									<option value="aspx/upload.aspx">ASP.Net</option>
 									<option value="cfm/upload.cfm">ColdFusion</option>
 									<option value="lasso/upload.lasso">Lasso</option>
+									<option value="perl/upload.cgi">Perl</option>
 									<option value="php/upload.php">PHP</option>
+									<option value="py/upload.py">Python</option>
 									<option value="">(Custom)</option>
 								</select>
 							</td>
+						<td>
+							Resource Type<br />
+							<select id="cmbType" name="cmbType">
+								<option value="">None</option>
+								<option value="File">File</option>
+								<option value="Image">Image</option>
+								<option value="Flash">Flash</option>
+								<option value="Media">Media</option>
+								<option value="Invalid">Invalid Type (for testing)</option>
+							</select>
+						</td>
 							<td nowrap>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 							<td width="100%">
 								Custom Uploader URL:<BR>

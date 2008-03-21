@@ -1,6 +1,6 @@
 <!--
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -32,17 +32,14 @@ function BuildBaseUrl( command )
 		document.getElementById('cmbConnector').value +
 		'?Command=' + command +
 		'&Type=' + document.getElementById('cmbType').value +
-		'&CurrentFolder=' + document.getElementById('txtFolder').value ;
+		'&CurrentFolder=' + encodeURIComponent(document.getElementById('txtFolder').value) ;
 
 	return sUrl ;
 }
 
 function SetFrameUrl( url )
 {
-	if ( document.all )
-		eRunningFrame.document.location = url ;
-	else
-		document.getElementById('eRunningFrame').src = url ;
+	document.getElementById('eRunningFrame').src = url ;
 
 	document.getElementById('eUrl').innerHTML = url ;
 }
