@@ -6,7 +6,7 @@ switch ($_GET["step"]){
 		// Get target user type
 		$target_user = $db->query_first("SELECT type FROM {$config["tables"]["user"]} WHERE userid = {$_GET["userid"]}");
 
-		if ($auth["type"] >= $target_user["type"]) {
+		if ($auth["type"] > $target_user["type"]) {
 
 			// Store switch back code in current (admin) user data
 			$db->query("UPDATE {$config["tables"]["user"]} SET switch_back = '". $SwitchUser->Code ."' WHERE userid = {$auth["userid"]}");

@@ -8,8 +8,10 @@ class SwitchUser {
 		for ($x = 0; $x <= 24; $x++) $this->Code .= chr(mt_rand(65, 90));
 
 		// Save old user ID
-		setcookie("olduserid", $userid, time() + (3600*24*365));
-		setcookie("sb_code", $this->Code, time() + (3600*24*365));
+		if (!$_COOKIE["sb_code"]) {
+      setcookie("olduserid", $userid, time() + (3600*24*365));
+		  setcookie("sb_code", $this->Code, time() + (3600*24*365));
+		}
   }
   
   function DeleteOldID() {
