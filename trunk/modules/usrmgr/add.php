@@ -31,9 +31,23 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
   	if ($cfg["signon_password_mail"]) {
   		if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Ihr Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.'), NO_LINK);
   		else {
-  			if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.'), NO_LINK);
+  			if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-Email aufgetreten.'), NO_LINK);
   			$cfg['signon_password_view'] = 1;
   		}
+    }
+
+    // Send email-verification link
+  	if ($cfg['sys_login_verified_mail_only']) {
+			$verification_code = '';
+			for ($x=0; $x<=24; $x++) $verification_code .= chr(mt_rand(65,90));
+			$db->qry('UPDATE %prefix%user SET fcode=%string% WHERE userid = %int%', $verification_code, $id);
+			
+			$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
+			$verification_link = "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
+
+      if (!$mail->create_inet_mail($_POST['firstname'].' '.$_POST['name'], $_POST['email'], t('Ihre Anmeldung bei %1', $CurentURL['host']), t('Sie haben sich soeben bei uns auf %1 angemeldet. Damit Sie sich bei uns Einloggen können, müssen wir jedoch zuerst sicherstellen, dass Ihre Email korrekt ist. Klicken Sie zum Verifizieren Ihrer Email-Adresse bitte auf den folgenden Link %2', $CurentURL['host'], $verification_link), $cfg["sys_party_mail"])) {
+        $func->error(t('Es ist ein Fehler beim Versand der Verifikations-Email aufgetreten.'));
+      }
     }
 
     // Show passwort, if wanted, or has mail failed
