@@ -37,10 +37,12 @@ class func {
 	}
 
 	function button_userdetails($userid, $target) {
-		global $auth;
+		global $db;
 
 		if ($target == "new") $target = 'target="_blank"';
-		return ' <a href="index.php?mod=usrmgr&action=details&userid='.$userid.'" '.$target.'><img src="design/'. $auth["design"] .'/images/arrows_user.gif" border="0"/></a>';
+    $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = "1" AND lasthit > %int%', $userid, time() - 60*10);
+		($user_online['found'])? $state ='online' : $state ='offline';
+		return ' <a href="index.php?mod=usrmgr&action=details&userid='.$userid.'" '.$target.'><img src="design/images/arrows_user_'. $state .'.png" border="0"/></a>';
 	}
 
   function FetchMasterTmpl($file) {

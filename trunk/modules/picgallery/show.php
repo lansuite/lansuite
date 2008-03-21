@@ -303,7 +303,7 @@ elseif (!$akt_file) {
 			$js_full_link = "javascript:var w=window.open('$root_file','_blank','width=". ($picinfo['0'] + 10) .",height=". ($picinfo['1'] + 10) .",resizable=yes,scrollbars=yes')";
 
 			// Select pic data
-			$pic = $db->query_first("SELECT	p.picid, p.userid, p.caption, p.clicks, u.username
+			$pic = $db->query_first("SELECT	p.picid, p.userid, p.caption, p.clicks, u.userid, u.username
 				FROM {$config["tables"]["picgallery"]} AS p
 				LEFT JOIN {$config["tables"]["user"]} AS u ON p.userid = u.userid
 				WHERE p.name = '$db_dir'
@@ -372,7 +372,7 @@ elseif (!$akt_file) {
 			$dsp->AddDoubleRow(t('Letzte Änderung'), $func->unixstamp2date(filemtime($root_file), "datetime"));
 
 			// Show DB-Data to Pic
-			if ($pic['username']) $dsp->AddDoubleRow(t('Ersteller'), "{$pic['username']} <a href=\"index.php?mod=usrmgr&action=details&userid={$pic['userid']}\"><img src=\"design/{$auth["design"]}/images/arrows_user.gif\" width=\"12\" height=\"13\" hspace=\"1\" vspace=\"0\" border=\"0\"></a>");
+			if ($pic['username']) $dsp->AddDoubleRow(t('Ersteller'), $pic['username'] .' '. $dsp->FetchUserIcon($pic['userid']));
 			if ($pic['clicks']) $dsp->AddDoubleRow(t('Aufrufe'), $pic['clicks']);
 
 			$dsp->AddBackButton("index.php?mod=picgallery&file=$akt_dir&page={$_GET["page"]}", "picgallery");

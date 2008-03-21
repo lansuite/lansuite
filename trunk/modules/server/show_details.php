@@ -16,7 +16,7 @@ else {
 		$dsp->NewContent(t('Serverdetails'), t('Auf dieser Seite sehen Sie alle Details zum Server <b>%1</b>. Durch eine Klick auf den Zur&uuml;ck-Button gelangen Sie zur Übersicht zur&uuml;ck', $server["caption"]));
 
 		$dsp->AddDoubleRow(t('Name'), $server["caption"]);
-		$dsp->AddDoubleRow(t('Besitzer'), $server["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$server['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>");
+		$dsp->AddDoubleRow(t('Besitzer'), $server["username"] .' '. $dsp->FetchUserIcon($server['userid']));
 
 		$type_descriptor["gameserver"] = t('Gameserver');	
 		$type_descriptor["ftp"] = t('FTP-Server');

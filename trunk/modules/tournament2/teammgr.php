@@ -141,7 +141,7 @@ switch($step) {
 			$anz_memb = 0;
 			while($member = $db->fetch_array($members)) {
 				$anz_memb++;
-				$member_liste .= HTML_NEWLINE . "- ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a> ". $dsp->FetchButton("index.php?mod=tournament2&action=teammgr&step=20&teamid={$member['teamid']}&userid={$member['userid']}", "kick");
+				$member_liste .= HTML_NEWLINE . "- ". $member["username"] .' '. $dsp->FetchUserIcon($member['userid']) .' '. $dsp->FetchButton("index.php?mod=tournament2&action=teammgr&step=20&teamid={$member['teamid']}&userid={$member['userid']}", "kick");
 			}
 			$db->free_result($members);
 			
@@ -176,16 +176,16 @@ switch($step) {
 			$anz_memb = 0;
 			while($member2 = $db->fetch_array($members2)) {
 				$anz_memb++;
-				$member_liste .= HTML_NEWLINE . "- ". $member2["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member2['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>";
+				$member_liste .= HTML_NEWLINE . "- ". $member2["username"] .' '. $dsp->FetchUserIcon($member2['userid']);
 			}
 			$db->free_result($members2);
 
-			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$member["name"]} ({$member["tname"]}) (".t('Teamgr√∂√üe').": ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . "".t('Leiter').": ". $member["username"] ." <a href=\"index.php?mod=usrmgr&action=details&userid={$member['userid']}\"><img src=\"design/". $_SESSION["auth"]["design"] ."/images/arrows_user.gif\" border=\"0\"></a>$member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">".t('Team verlassen')."</a>");
+			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$member["name"]} ({$member["tname"]}) (".t('Teamgrˆﬂe').": ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . t('Leiter').": ". $member["username"] .' '. $dsp->FetchUserIcon($member['userid']) ." $member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">".t('Team verlassen')."</a>");
 		}
 		$db->free_result($members);
 
 
-		$dsp->AddSingleRow(t('Um ein neues Team zu erstellen / Sich zu einem Turnier anzumelden, w√§hlen Sie bitte in der Turnier√ºbersicht das entsprechende Turnier aus und klicken am Ende der erscheinenden Detailansicht auf den Anmelde-Button.'));
+		$dsp->AddSingleRow(t('Um ein neues Team zu erstellen / Sich zu einem Turnier anzumelden, w‰hlen Sie bitte in der Turnier¸bersicht das entsprechende Turnier aus und klicken am Ende der erscheinenden Detailansicht auf den Anmelde-Button.'));
 
 		$dsp->AddBackButton("index.php?mod=tournament2", "tournament2/teammgr"); 
 		$dsp->AddContent();
