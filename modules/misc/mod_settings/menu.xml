@@ -41,4 +41,24 @@
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
+	<entry>
+		<action>mc_search</action>
+		<file>mc_search</file>
+		<caption>Kommentar-Suche</caption>
+		<hint>Überblick über die Kommentare in den verschiedenen Modulen</hint>
+		<link>?mod=misc&amp;action=mc_search</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>mc_bookmark</action>
+		<file>mc_bookmark</file>
+		<caption>Kom.-Lesezeichen</caption>
+		<hint>Verwaltung der Bookmarks, die in den Kommentaren gesetzt wurden</hint>
+		<link>?mod=misc&amp;action=mc_bookmark</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
 </menu>

@@ -38,7 +38,7 @@ class Mastercomment{
 
 	// Construktor
 	function Mastercomment($mod, $id) {
-		global $CurentURLBase, $dsp, $config, $auth, $db, $config, $func, $cfg;
+		global $CurentURLBase, $dsp, $config, $auth, $db, $config, $func, $cfg, $mail;
 
     echo '<ul class="Line">';
     $dsp->AddFieldsetStart(t('Kommentare'));
@@ -97,13 +97,59 @@ class Mastercomment{
         $mf->AddFix('relatedto_id', $id);
         if(!$_GET['commentid']){$mf->AddFix('date', 'NOW()');}
         if(!$_GET['commentid']){$mf->AddFix('creatorid', $auth['userid']);}
-        $mf->SendForm('', 'comments', 'commentid', $_GET['commentid']);
+        if ($mf->SendForm('', 'comments', 'commentid', $_GET['commentid'])) {
+
+        	// Send email-notifications to thread-subscribers
+        	$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
+      
+          if (!$_GET['fid']) $_GET['fid'] = $thread['fid'];
+        	// Internet-Mail
+        	$subscribers = $db->qry('SELECT b.userid, u.firstname, u.name, u.email FROM %prefix%comments_bookmark AS b
+        		LEFT JOIN %prefix%user AS u ON b.userid = u.userid
+        		WHERE b.email = 1 AND b.relatedto_item = %string% AND b.relatedto_id = %int%', $mod, $id);
+        	while ($subscriber = $db->fetch_array($subscribers))# if ($subscriber['userid'] != $auth['userid'])
+        		$mail->create_inet_mail($subscriber["firstname"]." ".$subscriber["name"], $subscriber["email"], t('Es gibt einen neuen Kommentar'), str_replace('%URL%', $_SERVER['HTTP_REFERER'], t('Es wurde ein neuer Kommentar in einem Lansuite-Modul geschrieben: %URL%')), $cfg["sys_party_mail"]);
+        	$db->free_result($subscribers);
+        
+        	// Sys-Mail
+        	$subscribers = $db->qry('SELECT userid FROM %prefix%comments_bookmark AS b
+            WHERE b.sysemail = 1 AND b.relatedto_item = %string% AND b.relatedto_id = %int%', $mod, $id);
+        	while ($subscriber = $db->fetch_array($subscribers)) #if ($subscriber['userid'] != $auth['userid'])
+        		$mail->create_sys_mail($subscriber["userid"], t('Es gibt einen neuen Kommentar'), str_replace('%URL%', $_SERVER['HTTP_REFERER'], t('Es wurde ein neuer Kommentar in einem Lansuite-Modul geschrieben: %URL%')));
+        	$db->free_result($subscribers);
+        }
 
       } else $func->error(t('Sie sind nicht berechtigt, diesen Kommentar zu editieren'));
     }
 
     $dsp->AddFieldsetEnd();
     echo '</ul>';
+
+    // Bookmarks and Auto-Mail
+    if ($auth['login'] and $auth['type'] > 1) {
+    	if ($_GET['set_bm']) {
+    		$db->qry_first('DELETE FROM %prefix%comments_bookmark WHERE relatedto_id = %int% AND relatedto_item = %string%', $id, $mod);
+    		if ($_POST["check_bookmark"]) $db->qry('INSERT INTO %prefix%comments_bookmark
+          SET relatedto_id = %int%, relatedto_item = %string%, userid = %int%, email = %int%, sysemail = %int%',
+          $id, $mod, $auth['userid'], $_POST['check_email'], $_POST['check_sysemail']);
+    	}
+    
+    	$bookmark = $db->qry_first('SELECT 1 AS found, email, sysemail FROM %prefix%comments_bookmark WHERE relatedto_id = %int% AND relatedto_item = %string% AND userid = %int%', $id, $mod, $auth['userid']);
+    	if ($bookmark['found']) $_POST['check_bookmark'] = 1;
+    	if ($bookmark['email']) $_POST['check_email'] = 1;
+    	if ($bookmark['sysemail']) $_POST['check_sysemail'] = 1;
+
+    	$dsp->SetForm($_SERVER['REQUEST_URI'] . '&set_bm=1');
+    	$dsp->AddFieldsetStart(t('Monitoring'));
+      $additionalHTML = "onclick=\"CheckBoxBoxActivate('email', this.checked)\"";
+    	$dsp->AddCheckBoxRow("check_bookmark", t('Lesezeichen'), t('Diesen Beitrag in meine Lesezeichen aufnehmen<br><i>(Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren)</i>'), "", 1, $_POST["check_bookmark"], '', '', $additionalHTML);
+    	$dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
+    	$dsp->AddCheckBoxRow("check_email", t('E-Mail Benachrichtigung'), t('Bei Antworten auf diesen Beitrag eine Internet-Mail an mich senden'), "", 1, $_POST["check_email"]);
+    	$dsp->AddCheckBoxRow("check_sysemail", t('System-E-Mail'), t('Bei Antworten auf diesen Beitrag eine System-Mail an mich senden'), "", 1, $_POST["check_sysemail"]);
+    	$dsp->StopHiddenBox();
+    	$dsp->AddFormSubmitRow("edit");
+    	$dsp->AddFieldsetEnd();
+    }
 	}
 }
 ?>
