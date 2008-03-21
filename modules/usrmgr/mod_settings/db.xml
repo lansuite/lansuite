@@ -29,6 +29,14 @@
                 <key>UNI</key>
             </field>
             <field>
+                <name>email_verified</name>
+                <type>tinyint(1)</type>
+                <null></null>
+                <default></default>
+                <extra></extra>
+                <key></key>
+            </field>
+            <field>
                 <name>username</name>
                 <type>varchar(25)</type>
                 <null>NO</null>

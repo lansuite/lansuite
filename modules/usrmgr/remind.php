@@ -4,12 +4,12 @@ $step 	= $vars["step"];
 $fcode 	= $vars["fcode"];
 $pwr_mail 	= $vars["pwr_mail"];
 
-$dsp->NewContent(t('Passwort vergessen')/* TRANS */, t('Mit diesem Modul können Sie sich ein neues Passwort generieren lassen')/* TRANS */);
+$dsp->NewContent(t('Passwort vergessen')/* TRANS */, t('Mit diesem Modul kÃ¶nnen Sie sich ein neues Passwort generieren lassen')/* TRANS */);
 
-if (!$cfg['sys_internet']) $func->information(t('Diese Funktion ist nur im Internetmodus verfügbar')/* TRANS */, "");
+if (!$cfg['sys_internet']) $func->information(t('Diese Funktion ist nur im Internetmodus verfÃ¼gbar')/* TRANS */, "");
 
 else switch ($step) {
-	case 2: // Email pr�fen, Freischaltecode generieren, Email senden
+	case 2: // Email prüfen, Freischaltecode generieren, Email senden
 		$user_data = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE email = '$pwr_mail'");
 		if ($user_data['username'] == "LS_SYSTEM"){
 			$func->information(t('Für den System-Account darf kein neues Passwort generiert werden')/* TRANS */, "index.php?mod=usrmgr&action=pwrecover&step=1");
@@ -27,7 +27,7 @@ else switch ($step) {
 		} else $func->information(t('Die von Ihnen eigegebene Email existiert nicht in der Datenbank')/* TRANS */, "index.php?mod=usrmgr&action=pwrecover&step=1");
 	break;
 
-	case 3: // Freischaltecode pr�fen, Passwort generieren, Freischaltcode zur�cksetzen
+	case 3: // Freischaltecode prüfen, Passwort generieren, Freischaltcode zurücksetzen
 		$user_data = $db->query_first("SELECT fcode FROM {$config["tables"]["user"]} WHERE fcode = '$fcode'");
 		if (($user_data['fcode']) && ($fcode != "")){
 			$new_pwd = "";
@@ -36,7 +36,7 @@ else switch ($step) {
 			$db->query("UPDATE {$config["tables"]["user"]} SET password = '". md5($new_pwd) ."', fcode = '' WHERE fcode = '$fcode'");
 
 			$func->confirmation(t('Das neue Kennwort wurde erfolgreich generiert.HTML_NEWLINEEs lautet:')/* TRANS */ ." <b>$new_pwd</b>", "index.php");
-		} else $func->error(t('Der von Ihnen übermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prüfen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.')/* TRANS */, "index.php?mod=usrmgr&action=pwrecover&step=1");
+		} else $func->error(t('Der von Ihnen Ã¼bermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prÃ¼fen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.')/* TRANS */, "index.php?mod=usrmgr&action=pwrecover&step=1");
 	break;
 
 	default:

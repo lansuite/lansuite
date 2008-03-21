@@ -57,7 +57,7 @@ switch ($_GET['step']) {
   				if ($row['cfg_type'] == 'string') $row['cfg_value'] = $func->translate($row['cfg_value']);
 
   				// Get Selections
-  				$get_cfg_selection = $db->qry('SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = %string%', $row['cfg_type']);
+  				$get_cfg_selection = $db->qry('SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = %string% ORDER BY cfg_value', $row['cfg_type']);
   				if ($db->num_rows($get_cfg_selection) > 0) {
   					$t_array = array();
   					while ($selection = $db->fetch_array($get_cfg_selection)){
