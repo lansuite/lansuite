@@ -478,7 +478,7 @@ class func {
         userid='$atuser',
         description='". $this->escape_sql($message) ."',
         type='$type',
-        date='$timestamp',
+        date=NOW(),
         sort_tag = '$sort_tag',
         target_id = '$target_id'
         ");
