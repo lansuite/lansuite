@@ -45,8 +45,8 @@ $mf->AddField(t('Anmeldung endet am')/* TRANS */, 'senddate', '', '', '', 'Check
 /*
 		// erster Preis einfügen
 		if($_GET['var'] == "new"){
-			$dsp->AddTextFieldRow("price_text",t('Text fÃ¼r Eintrittspreis')/* TRANS */,$_POST['price_text'],$signon_error['price_text']);
-			$dsp->AddTextFieldRow("price",t('Preis')/* TRANS */,$_POST['price'],$signon_error['price']);
+			$dsp->AddTextFieldRow("price_text",t('Text für Eintrittspreis'),$_POST['price_text'],$signon_error['price_text']);
+			$dsp->AddTextFieldRow("price",t('Preis'),$_POST['price'],$signon_error['price']);
 		}
 */
 
