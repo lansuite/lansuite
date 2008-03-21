@@ -39,6 +39,8 @@ switch($_GET['step']){
     $ms2->PrintSearch('index.php?mod=party', 'p.party_id');
 
     $dsp->AddSingleRow($dsp->FetchButton('index.php?mod=party&action=edit', 'add'));
+    
+    if (isset($_SESSION['party_id'])) $func->information(t('Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite, oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persöhnlich die aktivie ist, kannst du auf der Startseite, oder in der Party-Box einstellen', $_SESSION['party_id']));
 	break;
 
 	case 1:
