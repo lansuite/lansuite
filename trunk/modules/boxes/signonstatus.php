@@ -59,8 +59,20 @@ $bar .= '<ul class="BarClear">&nbsp;</ul>';
 
 #if (strlen($_SESSION['party_info']['name']) > 16) $party_name = substr($_SESSION['party_info']['name'], 0, 14) .'...';
 #else
-$party_name = $_SESSION['party_info']['name'];
-$box->ItemRow("data", '<b>'. $party_name .'</b>');
+$options = '';
+$res = $db->qry('SELECT party_id, name FROM %prefix%partys');
+if ($db->num_rows($res) > 1) {
+  while ($row = $db->fetch_array($res)){
+  	($row['party_id'] == $party->party_id)? $selected = 'selected="selected"' : $selected = '';
+  	if (strlen($row['name']) > 20) $row['name'] = substr($row['name'], 0, 18) .'...';
+  	$options .= '<option '. $selected .' value="'. $row['party_id'] .'">'. $row['name'] .'</option>';
+  }
+  $box->ItemRow('data', '<form action=""><select name="set_party_id">'. $options .'</select><br /><input type="submit" value="Party wechseln" /></form>');
+} else {
+  $box->ItemRow("data", '<b>'. $_SESSION['party_info']['name'] .'</b>');
+}
+$db->free_result($res);
+
 $box->EngangedRow(date("d.m.y", $_SESSION['party_info']['partybegin']) .' - '. date("d.m.y", $_SESSION['party_info']['partyend']));
 
 $box->EngangedRow($bar);
