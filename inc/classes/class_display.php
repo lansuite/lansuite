@@ -731,10 +731,14 @@ class display {
     }
 
     function FetchUserIcon($userid) {
-        global $templ;
+        global $templ, $db;
 
         $templ['usericon']['userid'] = $userid;
         $templ['usericon']['hint'] = t('Benutzerdetails aufrufen');
+
+        $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = "1" AND lasthit > %int%', $userid, time() - 60*10);
+    		($user_online['found'])? $templ['usericon']['state'] ='online' : $templ['usericon']['state'] ='offline';
+
         return $this->FetchModTpl("", "ls_usericon");
     }
 
