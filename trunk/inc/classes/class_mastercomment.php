@@ -107,14 +107,14 @@ class Mastercomment{
         	$subscribers = $db->qry('SELECT b.userid, u.firstname, u.name, u.email FROM %prefix%comments_bookmark AS b
         		LEFT JOIN %prefix%user AS u ON b.userid = u.userid
         		WHERE b.email = 1 AND b.relatedto_item = %string% AND b.relatedto_id = %int%', $mod, $id);
-        	while ($subscriber = $db->fetch_array($subscribers))# if ($subscriber['userid'] != $auth['userid'])
+        	while ($subscriber = $db->fetch_array($subscribers)) if ($subscriber['userid'] != $auth['userid'])
         		$mail->create_inet_mail($subscriber["firstname"]." ".$subscriber["name"], $subscriber["email"], t('Es gibt einen neuen Kommentar'), str_replace('%URL%', $_SERVER['HTTP_REFERER'], t('Es wurde ein neuer Kommentar in einem Lansuite-Modul geschrieben: %URL%')), $cfg["sys_party_mail"]);
         	$db->free_result($subscribers);
         
         	// Sys-Mail
         	$subscribers = $db->qry('SELECT userid FROM %prefix%comments_bookmark AS b
             WHERE b.sysemail = 1 AND b.relatedto_item = %string% AND b.relatedto_id = %int%', $mod, $id);
-        	while ($subscriber = $db->fetch_array($subscribers)) #if ($subscriber['userid'] != $auth['userid'])
+        	while ($subscriber = $db->fetch_array($subscribers)) if ($subscriber['userid'] != $auth['userid'])
         		$mail->create_sys_mail($subscriber["userid"], t('Es gibt einen neuen Kommentar'), str_replace('%URL%', $_SERVER['HTTP_REFERER'], t('Es wurde ein neuer Kommentar in einem Lansuite-Modul geschrieben: %URL%')));
         	$db->free_result($subscribers);
         }
