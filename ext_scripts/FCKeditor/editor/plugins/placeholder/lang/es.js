@@ -1,7 +1,6 @@
-<?php
-/*
+﻿/*
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
- * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ * Copyright (C) 2003-2008 Frederico Caldeira Knabben
  *
  * == BEGIN LICENSE ==
  *
@@ -19,23 +18,10 @@
  *
  * == END LICENSE ==
  *
- * Utility functions for the File Manager Connector for PHP.
+ * Placholder Spanish language file.
  */
-
-function RemoveFromStart( $sourceString, $charToRemove )
-{
-	$sPattern = '|^' . $charToRemove . '+|' ;
-	return preg_replace( $sPattern, '', $sourceString ) ;
-}
-
-function RemoveFromEnd( $sourceString, $charToRemove )
-{
-	$sPattern = '|' . $charToRemove . '+$|' ;
-	return preg_replace( $sPattern, '', $sourceString ) ;
-}
-
-function ConvertToXmlAttribute( $value )
-{
-	return utf8_encode( htmlspecialchars( $value ) ) ;
-}
-?>
+FCKLang.PlaceholderBtn			= 'Insertar/Editar contenedor' ;
+FCKLang.PlaceholderDlgTitle		= 'Propiedades del contenedor ' ;
+FCKLang.PlaceholderDlgName		= 'Nombre de contenedor' ;
+FCKLang.PlaceholderErrNoName	= 'Por favor escriba el nombre de contenedor' ;
+FCKLang.PlaceholderErrNameInUse	= 'El nombre especificado ya esta en uso' ;
