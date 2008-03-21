@@ -37,7 +37,7 @@ function EditAllowed() {
 class Mastercomment{
 
 	// Construktor
-	function Mastercomment($mod, $id) {
+	function Mastercomment($mod, $id, $update_table = array()) {
 		global $CurentURLBase, $dsp, $config, $auth, $db, $config, $func, $cfg, $mail;
 
     echo '<ul class="Line">';
@@ -117,6 +117,12 @@ class Mastercomment{
         	while ($subscriber = $db->fetch_array($subscribers)) if ($subscriber['userid'] != $auth['userid'])
         		$mail->create_sys_mail($subscriber["userid"], t('Es gibt einen neuen Kommentar'), str_replace('%URL%', $_SERVER['HTTP_REFERER'], t('Es wurde ein neuer Kommentar in einem Lansuite-Modul geschrieben: %URL%')));
         	$db->free_result($subscribers);
+        	
+        	// Update LastChange in $update_table, if $update_table is set
+        	if ($update_table) {
+        	  list($key, $val) = each($update_table);
+            $db->qry('UPDATE %prefix%'. $key .' SET changedate=NOW() WHERE '. $val .' = %int%', $id);
+          }
         }
 
       } else $func->error(t('Sie sind nicht berechtigt, diesen Kommentar zu editieren'));
