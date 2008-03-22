@@ -44,7 +44,9 @@ switch ($_GET['step']) {
     $dsp->AddFieldSetStart(t('Mitglieder'));
     $res2 = $db->qry('SELECT firstname, name, username FROM %prefix%user WHERE clanid = %int%', $_GET['clanid']);
     while ($row2 = $db->fetch_array($res2)) {
-      $dsp->AddDoubleRow($row2['username'], $row2['firstname'] .' '. $row2['name']);
+      if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['userid'] == $_GET['userid']) $realname = $row2['firstname'] .' '. $row2['name'];
+      else $realname = ''; 
+      $dsp->AddDoubleRow($row2['username'] .' '. $dsp->FetchUserIcon($row2['userid']), $realname);
     }
     $db->free_result($res2);
     $dsp->AddFieldSetEnd();
