@@ -133,7 +133,7 @@ class auth {
 		elseif ($tmp_login_pass == "") $func->information($lang['class_auth']['get_pw'], "", '', 1);
 		else {
 
-			$user = $db->query_first("SELECT 1 AS found, userid, username, email, password, type, locked, email_verified
+			$user = $db->query_first("SELECT 1 AS found, userid, username, email, password, type, locked
 				FROM {$config["tables"]["user"]}
 				WHERE ('". (int)$tmp_login_email."' = '".$tmp_login_email."' AND userid = '$tmp_login_email')
 					OR LOWER(email) = '$tmp_login_email'");
