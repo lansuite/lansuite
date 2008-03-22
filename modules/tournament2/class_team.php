@@ -34,18 +34,15 @@ class team {
 		if ($t["blind_draw"]) $completed_teams = floor($completed_teams / $t["teamplayer"]);
 
 		// Is the tournament finished?
-		if ($t["status"] != "open") {
-			$func->information(t('Dieses Turnier läuft bereits!'), $func->internal_referer);
-			return false;
-		}
+		if ($t["status"] != "open") $func->information(t('Dieses Turnier befindet sich momentan nicht in der Anmeldephase!'), $func->internal_referer);
 
 		// Is the tournament allready full?
-		if ($completed_teams >= $t["maxteams"]){
-			$func->information(t('Es haben sich bereits %1 von %2 Teams zu diesem Turnier angemeldet. Das Turnier ist damit ausgebucht.', $completed_teams, $t["maxteams"]), $func->internal_referer);
-			return false;
-		}
+		elseif ($completed_teams >= $t["maxteams"]) $func->information(t('Es haben sich bereits %1 von %2 Teams zu diesem Turnier angemeldet. Das Turnier ist damit ausgebucht.', $completed_teams, $t["maxteams"]), $func->internal_referer);
 
-		return true;
+    // Everything fine
+		else return true;
+
+		return false;
 	}
 
 
@@ -93,11 +90,8 @@ class team {
 			");
 
 
-		// Has the tournament started?
-		if ($t["status"] == "closed") $func->information(t('Dieses Turnier läuft bereits!'), $func->internal_referer);
-
 		// Is the user allready signed on to this tournament?
-		elseif ($team["found"]) $func->information(t('%1 ist bereits zu diesem Turnier angemeldet!', $user["username"]), $func->internal_referer);
+		if ($team["found"]) $func->information(t('%1 ist bereits zu diesem Turnier angemeldet!', $user["username"]), $func->internal_referer);
 
 		// Is the user member of a team, allready signed on to this tournament?
 		elseif ($teammember["found"] != "") $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu diesem Turnier angemeldet hat!', $user["username"]), $func->internal_referer);
@@ -117,6 +111,7 @@ class team {
 		// Are enough coins left to afford this tournament
 		elseif (($cfg["t_coins"] - $team_coin["t_coins"] - $member_coin["t_coins"] - $t["coins"]) < 0) $func->information(t('%1 besitzt nicht genügend Coins um an diesem Turnier teilnehmen zu können!', $user["username"]), $func->internal_referer);
 
+    // Everything fine
 		else return true;
 
 		return false;

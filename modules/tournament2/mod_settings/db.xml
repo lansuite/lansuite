@@ -331,7 +331,7 @@
 			</field>
 			<field>
 				<name>status</name>
-				<type>enum('invisible','open','process','closed')</type>
+				<type>enum('invisible','open','process','closed','locked')</type>
 				<null></null>
 				<key></key>
 				<default>open</default>

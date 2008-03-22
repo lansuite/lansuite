@@ -26,8 +26,8 @@ if ($tteam->SignonCheck($tournamentid)) {
 				} else {
 					if ($tournament['teamplayer'] == 1) $_POST['team_name'] = "";
 
-					if ($_POST["set_password"] and $_POST["set_password"] != $_POST["set_password2"]) $error["set_password2"] = "Die Passworteingaben stimmen nicht überein";
-					if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1) $error["team_name"] = t('Bitte geben Sie einen Teamnamen ein, oder wÃ¤hlen Sie ein vorhandenes Team aus');
+					if ($_POST["set_password"] and $_POST["set_password"] != $_POST["set_password2"]) $error["set_password2"] = t('Die Passworteingaben stimmen nicht überein');
+					if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1) $error["team_name"] = t('Bitte geben Sie einen Teamnamen ein, oder wählen Sie ein vorhandenes Team aus');
 					if (count($error) == 0) $success = $tteam->create($_GET["tournamentid"], $auth["userid"], $_POST['team_name'], $_POST["set_password"], $_POST['team_comment'], "team_banner");
 				}
 
@@ -35,7 +35,7 @@ if ($tteam->SignonCheck($tournamentid)) {
 					// Update-League-IDs
 					$tteam->UpdateLeagueIDs($auth["userid"], $_POST["wwclid"], $_POST["wwclclanid"], $_POST["nglid"], $_POST["nglclanid"], $_POST["lgzid"], $_POST["lgzclanid"]);
 
-					$func->confirmation(t('Sie wurden zum Turnier %1 erfolgreich hinzugefÃ¼gt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
+					$func->confirmation(t('Sie wurden zum Turnier %1 erfolgreich hinzugefügt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
 				}
 				$sec->lock("t_join");
 			}

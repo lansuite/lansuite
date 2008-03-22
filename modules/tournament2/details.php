@@ -84,8 +84,9 @@ else {
 					if ($sponsor_banners) $dsp->AddDoubleRow('Sponsored by', $sponsor_banners);
 
           $dsp->AddFieldsetStart(t('Anmeldeeinschränkungen'));
-					if ($tournament['status'] == "invisible") $status = t('Nicht sichtbar');
+					if ($tournament['status'] == "invisible") $status = t('Unsichtbar');
 					if ($tournament['status'] == "open") $status = t('Anmeldung offen');
+					if ($tournament['status'] == "locked") $status = t('Anmeldung geschlossen');
 					if ($tournament['status'] == "closed") $status = "<div class=\"tbl_error\">".t('Turnier beendet')."</div>";
 					if ($tournament['status'] == "process") $status = "<div class=\"tbl_error\">".t('Partien werden gespielt')."</div>";
 					$dsp->AddDoubleRow(t('Status'), $status);

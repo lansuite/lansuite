@@ -24,6 +24,11 @@ global $mf, $db, $lang;
   return false;
 }
 
+function CheckStateChangeAllowed($state) {
+  if ($state == 'process') return t('Dieser Status kann nicht manuell gesetzt werden. Zum setzen, bitte "Generieren" verwenden');
+  if ($state == 'closed') return t('Dieser Status kann nicht manuell gesetzt werden. Er wird automatisch gesetzt, sobald das letzte Ergebnis im Turnier eingetragen wurde');
+  return false;
+}
 
 #$dsp->SetForm('index.php?mod=tournament2&action=add&step=10');
 #$dsp->AddDropDownFieldRow('template', t('Von Vorlage laden'), $selections, '');
@@ -37,6 +42,21 @@ $mf = new masterform();
 $mf->AddField(t('Turniername'), 'name');
 $mf->AddField(t('Spiel'), 'game');
 $mf->AddField(t('Version'), 'version', '', '', FIELD_OPTIONAL);
+
+$t_state = $db->qry_first('SELECT status FROM %prefix%tournament_tournaments WHERE tournamentid=%int%', $_GET['tournamentid']);
+
+if ($t_state['status'] == 'process') $mf->AddField(t('Status'), '', IS_TEXT_MESSAGE, t('Turnier wird gerade gespielt'));
+elseif ($t_state['status'] == 'closed') $mf->AddField(t('Status'), '', IS_TEXT_MESSAGE, t('Turnier wurde beendet'));
+else {
+  $selections = array();
+  if ($_POST['status'] == '') $_POST['status'] = 'open';
+  $selections['invisible'] = t('Unsichtbar (nur Admins können das Turnier sehen)');
+  $selections['locked'] = t('Anmeldung geschlossen (Turnier ist sichtbar, jedoch kann sich keiner anmelden)');
+  $selections['open'] = t('Anmeldung geöffnet');
+  $selections['process'] = t('Turnier wird gerade gespielt (Status wird automatisch durch Klick auf "Generieren" gesetzt)');
+  $selections['closed'] = t('Turnier beendet (Diese Option schaltet die Rangliste frei)');
+  $mf->AddField(t('Status'), 'status', IS_SELECTION, $selections, '', 'CheckStateChangeAllowed');
+}
 $mf->AddGroup('Allgemein');
 
 
