@@ -40,7 +40,7 @@ else {
       include_once('modules/usrmgr/search_basic_userselect.inc.php');
   	break;
 
-  	// Benutzerdaten eingeben / ändern
+  	// Benutzerdaten eingeben / Ã¤ndern
   	case 3:
       $cfg['signon_autopw'] = 1;
       $cfg['signon_captcha'] = 0;
@@ -51,7 +51,7 @@ else {
       if ($_GET['quick_signon']) $_SESSION['quick_signon'] = $_GET['quick_signon'];
       if ($_SESSION['quick_signon']) $quick_signon = $_SESSION['quick_signon'];
 
-  		$dsp->NewContent(t('Benutzer hinzufügen'), t('Um einen Benutzer hinzuzufügen, füllen Sie bitte das folgende Formular vollständig aus.'));
+  		$dsp->NewContent(t('Benutzer hinzufÃ¼gen'), t('Um einen Benutzer hinzuzufÃ¼gen, fÃ¼llen Sie bitte das folgende Formular vollstÃ¤ndig aus.'));
       include_once("modules/usrmgr/add.php");
       if ($AddUserSuccess) {
         if (!$_GET['userid']) $_GET['userid'] = $mf->insert_id;
@@ -74,18 +74,18 @@ else {
   }
 
   switch($_GET["step"]) {
-  	// Platzpfand prüfen
+  	// Platzpfand prÃ¼fen
     case 4:
 
   	// Passwort ausgeben
   	case 5:
 
-  	// Neuen Sitzplatz auswählen?
+  	// Neuen Sitzplatz auswÃ¤hlen?
   	case 6:
   		$func->question(t('Wollen Sie diesem Benutzer einen Sitzplatz zuweisen?HTML_NEWLINEEr sitzt aktuell auf:HTML_NEWLINE%1', $seat2->SeatNameLink($_GET["userid"])), "index.php?mod=usrmgr&action=entrance&step=7&umode=". $_GET["umode"] ."&userid=". $_GET["userid"], "index.php?mod=usrmgr&action=entrance&step=11&umode=". $_GET["umode"] ."&userid=". $_GET["userid"]);
   	break;
 
-  	// Sitzblock auswählen
+  	// Sitzblock auswÃ¤hlen
   	case 7:
   		if ($_GET['next_userid']) {
   			$seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
@@ -98,9 +98,9 @@ else {
       include_once('modules/seating/search_basic_blockselect.inc.php');
   	break;
 
-  	// Sitzplatz auswählen
+  	// Sitzplatz auswÃ¤hlen
   	case 8:
-  		$dsp->NewContent('Sitzplatz - Informationen', 'Fahren Sie mit der Maus über einen Sitzplatz um weitere Informationen zu erhalten.');
+  		$dsp->NewContent('Sitzplatz - Informationen', 'Fahren Sie mit der Maus Ã¼ber einen Sitzplatz um weitere Informationen zu erhalten.');
 
   		$dsp->AddDoubleRow('Sitzplatz', '', 'seating');
   		$dsp->AddDoubleRow('Benutzer', '', 'name');
@@ -112,7 +112,7 @@ else {
   		$dsp->AddContent();
   	break;
 
-  	// Belegten Sitzplatz tauschen / löschen?
+  	// Belegten Sitzplatz tauschen / lÃ¶schen?
   	case 9:
   		$seat = $db->query_first("SELECT s.userid, s.status, u.username, u.firstname, u.name FROM {$config["tables"]["seat_seats"]} AS s
   			LEFT JOIN {$config["tables"]["user"]} AS u ON s.userid = u.userid
@@ -123,13 +123,13 @@ else {
   			$questionarray = array();
   			$linkarray = array();
 
-  			array_push($questionarray, "Dennoch reservieren. {$seat['username']} hat dadurch anschließend keinen Sitzplatz mehr");
+  			array_push($questionarray, "Dennoch reservieren. {$seat['username']} hat dadurch anschlieÃŸend keinen Sitzplatz mehr");
   			array_push($linkarray, "index.php?mod=usrmgr&action=entrance&step=10&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid={$_GET["blockid"]}&row={$_GET['row']}&col={$_GET['col']}");
 
-  			array_push($questionarray, "Dennoch reservieren und {$seat['username']} anschließend einen neuen Sitzplatz aussuchen");
+  			array_push($questionarray, "Dennoch reservieren und {$seat['username']} anschlieÃŸend einen neuen Sitzplatz aussuchen");
   			array_push($linkarray, "index.php?mod=usrmgr&action=entrance&step=7&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid={$_GET["blockid"]}&next_userid={$seat['userid']}&row={$_GET['row']}&col={$_GET['col']}");
 
-  			array_push($questionarray, 'Aktion abbrechen. Zurück zum Sitzplan');
+  			array_push($questionarray, 'Aktion abbrechen. ZurÃ¼ck zum Sitzplan');
   			array_push($linkarray, "index.php?mod=usrmgr&action=entrance&step=7&umode={$_GET["umode"]}&userid={$_GET["userid"]}&blockid={$_GET["blockid"]}");
 
   			$func->multiquestion($questionarray, $linkarray, "Dieser Sitzplatz ist aktuell belegt durch {$seat['username']} ({$seat['firstname']} {$seat['name']})");
