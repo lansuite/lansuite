@@ -30,6 +30,8 @@ function GetTournamentTeamAnz($maxteams) {
 function GetTournamentStatus($status) {
 	global $lang;
 	$status_descriptor["open"] 	= t('Anmeldung offen');
+	$status_descriptor["locked"] 	= t('Anmeldung geschlossen');
+	$status_descriptor["invisible"] 	= t('Unsichtbar');
 	$status_descriptor["process"] 	= t('Wird gespielt');
 	$status_descriptor["closed"] 	= t('Beendet');
 	
@@ -39,14 +41,14 @@ function GetTournamentStatus($status) {
 function IfGenerated($tid) {
   global $line;
 
-  if ($line['status'] == 'open') return false;
-  else return true;
+  if ($line['status'] == 'process' or $line['status'] == 'closed') return true;
+  else return false;
 }
 
 function IfNotGenerated($tid) {
   global $line;
 
-  if ($line['status'] == 'open') return true;
+  if ($line['status'] == 'open' or $line['status'] == 'locked' or $line['status'] == 'invisible') return true;
   else return false;
 }
 
@@ -59,7 +61,7 @@ function IfFinished($tid) {
 
 
 $ms2->query['from'] = "{$config["tables"]["tournament_tournaments"]} AS t LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON t.tournamentid = teams.tournamentid";
-$ms2->query['where'] = 't.party_id = '. (int)$party->party_id;
+$ms2->query['where'] = "(t.status != 'invisible' OR {$auth['type']} > 1) AND t.party_id = ". (int)$party->party_id;
 
 $ms2->config['EntriesPerPage'] = 50;
 
