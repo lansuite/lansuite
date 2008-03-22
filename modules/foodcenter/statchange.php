@@ -45,7 +45,7 @@ switch ($_GET['step']) {
 				}else{
 					$price = $price * $prodrow['pice'];
 				}
-				$account->change($price,t('RÃ¼ckzahlung bei abbestellten Produkten')/* TRANS */ . " (" . $auth['username'] . ")");
+				$account->change($price,t('Rückzahlung bei abbestellten Produkten')/* TRANS */ . " (" . $auth['username'] . ")");
 				
 				if(!isset($_POST['delcount']) || $_POST['delcount'] == $prodrow['pice']){
 					$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $_GET['id']);
@@ -131,7 +131,7 @@ switch ($_GET['step']){
 
     	case 2:
         $dsp->NewContent(t('Produkte die bestellt werden')/* TRANS */, '');
-    		$ms2->NoItemsText = t('Es mÃ¼ssen keine Produkte bestellt werden.')/* TRANS */;
+    		$ms2->NoItemsText = t('Es müssen keine Produkte bestellt werden.')/* TRANS */;
     	break;
 
     	case 3:
@@ -140,8 +140,8 @@ switch ($_GET['step']){
     	break;
 
     	case 4:
-        $dsp->NewContent(t('Fertiggestellte KÃ¼chengerichte zur Abholung/Lieferung')/* TRANS */, '');
-    		$ms2->NoItemsText = t('Derzeit gibt es keine fertiggestellten Gerichte aus der KÃ¼che.')/* TRANS */;
+        $dsp->NewContent(t('Fertiggestellte Küchengerichte zur Abholung/Lieferung')/* TRANS */, '');
+    		$ms2->NoItemsText = t('Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.')/* TRANS */;
     	break;
     	
      	case 5:
@@ -160,7 +160,7 @@ switch ($_GET['step']){
 			}
 		}
 		$dsp->SetForm("index.php?mod=foodcenter&action=print&design=base\" target=\"_blank\"","print");
-		$dsp->AddDropDownFieldRow("file",t('Bitte Template auswÃ¤hlen:')/* TRANS */,$file_array,"");
+		$dsp->AddDropDownFieldRow("file",t('Bitte Template auswählen:')/* TRANS */,$file_array,"");
 		
 		
 
@@ -201,7 +201,7 @@ switch ($_GET['step']){
 					$price += $optrow['price'];
 				}
 				$totprice += $price * $prodrow['pice'];
-				$account->change($totprice,t('RÃ¼ckzahlung bei abbestellten Produkten')/* TRANS */ . " (" . $auth['username'] . ")");
+				$account->change($totprice,t('Rückzahlung bei abbestellten Produkten')/* TRANS */ . " (" . $auth['username'] . ")");
 				$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $item);
 			}else{
 				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET["status"]}, lastchange = '$time'  WHERE id = {$item}");
@@ -226,7 +226,7 @@ switch ($_GET['step']){
 	break;
 	
 	case 10:
-		$dsp->NewContent(t('Produkt abbestellen')/* TRANS */,t('Bitte wÃ¤hlen sie die Produktanzahl die abbestellt werden soll.')/* TRANS */);
+		$dsp->NewContent(t('Produkt abbestellen')/* TRANS */,t('Bitte wählen sie die Produktanzahl die abbestellt werden soll.')/* TRANS */);
 		$dsp->SetForm("index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=4");
 		$dsp->AddDropDownFieldRow("delcount",t('Anzahl')/* TRANS */,$count_array,"");
 		$dsp->AddFormSubmitRow("next");

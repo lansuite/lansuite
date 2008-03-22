@@ -48,7 +48,7 @@ if ($tteam->SignonCheck($tournamentid)) {
 		case 2:
 			$sec->unlock("t_join");
 
-			$dsp->NewContent(t('Zum Turnier %1 anmelden', $tournament['name']), t('Mit Hilfe des folgenden Formulars kÃ¶nnen Sie ein Team zu einem Turnier anmelden.'));
+			$dsp->NewContent(t('Zum Turnier %1 anmelden', $tournament['name']), t('Mit Hilfe des folgenden Formulars können Sie ein Team zu einem Turnier anmelden.'));
 
 			$dsp->SetForm("index.php?mod=tournament2&action=join&step=3&tournamentid=$tournamentid", "", "", "multipart/form-data");
 
@@ -86,7 +86,7 @@ if ($tteam->SignonCheck($tournamentid)) {
 				if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("nglclanid", t('NGL Clan ID'), $user['nglclanid'], "");
 			}
 			if ($tournament['lgz_gamename'] != ""){
-				$dsp->AddDoubleRow(t('LGZ ID'), t('Falls temorÃ¤re ID gewÃ¼nscht, bitte <b>0</b> eingeben und nach der Party die Verifizierungsmail bestÃ¤tigen. Ein leeres Feld bedeutet, dass man auÃŸer Konkurenz teilnimt (John Doe)'));
+				$dsp->AddDoubleRow(t('LGZ ID'), t('Falls temoräre ID gewünscht, bitte <b>0</b> eingeben und nach der Party die Verifizierungsmail bestätigen. Ein leeres Feld bedeutet, dass man außer Konkurenz teilnimt (John Doe)'));
 				$dsp->AddTextFieldRow("lgzid", "", $user['lgzid'], "");
 				if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("lgzclanid", t('LGZ Clan ID'), $user['lgzclanid'], "");
 			}

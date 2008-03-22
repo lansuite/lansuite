@@ -51,7 +51,7 @@ else {
       if ($_GET['quick_signon']) $_SESSION['quick_signon'] = $_GET['quick_signon'];
       if ($_SESSION['quick_signon']) $quick_signon = $_SESSION['quick_signon'];
 
-  		$dsp->NewContent(t('Benutzer hinzufÃ¼gen'), t('Um einen Benutzer hinzuzufÃ¼gen, fÃ¼llen Sie bitte das folgende Formular vollstÃ¤ndig aus.'));
+  		$dsp->NewContent(t('Benutzer hinzufügen'), t('Um einen Benutzer hinzuzufügen, füllen Sie bitte das folgende Formular vollständig aus.'));
       include_once("modules/usrmgr/add.php");
       if ($AddUserSuccess) {
         if (!$_GET['userid']) $_GET['userid'] = $mf->insert_id;

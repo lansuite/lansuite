@@ -89,7 +89,7 @@ class party{
 					else $list_array = array("<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
 				}
         $dsp->SetForm($link);
-				$dsp->AddDropDownFieldRow("set_party_id",t('Party ausw√§hlen'),$list_array,'');
+				$dsp->AddDropDownFieldRow("set_party_id",t('Party ausw‰hlen'),$list_array,'');
         $dsp->AddFormSubmitRow("change");
 			}
 		}
@@ -133,7 +133,7 @@ class party{
 							$list_array = array("<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
 						}
 					}
-		        	$dsp->AddDropDownFieldRow("party_id",t('Party ausw√§hlen'),$list_array);
+		        	$dsp->AddDropDownFieldRow("party_id",t('Party ausw‰hlen'),$list_array);
 		        }
 			
 			}
@@ -264,10 +264,10 @@ class party{
 						 $data = array("<option $selected value='{$res['price_id']}'>{$res['price_text']} / {$res['price']} {$cfg['sys_currency']}</option>");
 						}
 				}
-				$dsp->AddDropDownFieldRow("price_id",t('Preis ausw√§hlen'),$data,'');
+				$dsp->AddDropDownFieldRow("price_id",t('Preis ausw‰hlen'),$data,'');
 			}else{
 				$res = $db->fetch_array($row);
-				$dsp->AddDoubleRow(t('Preis ausw√§hlen'),$res['price_text'] . "  / {$res['price']} {$cfg['sys_currency']}<input name='price_id' type='hidden' value='{$res['price_id']}' />");
+				$dsp->AddDoubleRow(t('Preis ausw‰hlen'),$res['price_text'] . "  / {$res['price']} {$cfg['sys_currency']}<input name='price_id' type='hidden' value='{$res['price_id']}' />");
 			}
 
 		}
@@ -286,7 +286,7 @@ class party{
 			if($anzahl == 0) $row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} AND group_id='0'");
 
 			while ($res = $db->fetch_array($row)) $selections[$res['price_id']] = $res['price_text'] .' / '. $res['price'] .' '. $cfg['sys_currency'];
-			$mf->AddField(t('Preis ausw√§hlen'), 'price_id', IS_SELECTION, $selections);
+			$mf->AddField(t('Preis ausw‰hlen'), 'price_id', IS_SELECTION, $selections);
 			$res = $db->free_result($res);
 		}
 
@@ -458,7 +458,7 @@ class party{
 						WHERE user_id = {$user_id} AND
 						party_id = {$this->party_id}
 						";
-			$msg = str_replace("%PARTY%",$this->party_id,str_replace("%ID%",$user_id,str_replace("%PIRCEID%",$price_id,str_replace("%SEATCONTROL%",$seatcontrol,str_replace("%CHECKOUT%",$checkout,str_replace("%CHECKIN%",$checkin,str_replace("%PAID%",$paid,t('Die Anmeldung von %ID% bei der Party %PARTY% wurde ge√§ndert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%')/* TRANS */)))))));
+			$msg = str_replace("%PARTY%",$this->party_id,str_replace("%ID%",$user_id,str_replace("%PIRCEID%",$price_id,str_replace("%SEATCONTROL%",$seatcontrol,str_replace("%CHECKOUT%",$checkout,str_replace("%CHECKIN%",$checkin,str_replace("%PAID%",$paid,t('Die Anmeldung von %ID% bei der Party %PARTY% wurde ge‰ndert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%')/* TRANS */)))))));
 			$func->log_event($msg,1);
 			$db->query($query);
 

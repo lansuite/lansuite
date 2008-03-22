@@ -461,7 +461,7 @@ class seat2 {
 		$templ['seating']['legend']['checked_in']	= t('Besetzt (Eingecheckt)');
 		$templ['seating']['legend']['checked_out']	= t('Frei (Ausgecheckt)');    		
 		
-		if ($selected_user) $templ['seating']['legend']['me'] = t('AusgewÃ¤hlter User');
+		if ($selected_user) $templ['seating']['legend']['me'] = t('Ausgewählter User');
 		else	$templ['seating']['legend']['me']			 = t('Ihr Platz');
 				
 		if ($mode == 0) $plan .= $dsp->FetchModTpl('seating', 'plan_legend');

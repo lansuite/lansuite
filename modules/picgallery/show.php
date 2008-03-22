@@ -74,7 +74,7 @@ elseif (!$akt_file) {
 	session_unregister("klick_reload");
 	unset($klick_reload);
 
-	$dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicken Sie auf ein Bild oder auf /\'/Ã¶ffnen/\'/ um das Bild anzuzeigen.'));
+	$dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicken Sie auf ein Bild oder auf /\'/öffnen/\'/ um das Bild anzuzeigen.'));
 
 	if (!$cfg["picgallery_items_per_row"]) $cfg["picgallery_items_per_row"] = 3;
 	if (!$cfg["picgallery_rows"]) $cfg["picgallery_rows"] = 4;

@@ -29,11 +29,11 @@ function UpdatePartyID($id) {
   global $db, $config, $lang, $func;
   
   $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '$id' WHERE cfg_key = 'signon_partyid'");
-  $func->confirmation(t('Die Daten wurden erfolgreich geÃ¤ndert.')/* TRANS */);  
+  $func->confirmation(t('Die Daten wurden erfolgreich geändert.')/* TRANS */);  
 }
 
 $mf->AddField(t('Partyname')/* TRANS */, 'name');
-$mf->AddField(t('Anzahl PlÃ¤tze')/* TRANS */, 'max_guest');
+$mf->AddField(t('Anzahl Plätze')/* TRANS */, 'max_guest');
 $mf->AddField(t('PLZ')/* TRANS */, 'plz');
 $mf->AddField(t('Ort')/* TRANS */, 'ort');
 

@@ -47,7 +47,7 @@ class basket{
 	function show_basket(){
 			global $dsp,$config,$db,$lang,$cfg;
 			
-			$dsp->NewContent(t('Warenkorb')/* TRANS */,t('Um einen Artikel zu lÃ¶schen, setzen Sie ihn auf 0 und klicken anschlieÃŸend auf /\'/Neu berechnen/\'/.')/* TRANS */);
+			$dsp->NewContent(t('Warenkorb')/* TRANS */,t('Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf /\'/Neu berechnen/\'/.')/* TRANS */);
 			if($this->product->count_products() > 0){
 				$dsp->SetForm("?mod=foodcenter&action={$_GET['action']}&mode=change");
 				$dsp->AddDoubleRow("<b>" . t('Artikel / Preis')/* TRANS */ . "</b> ","<b>" . t('Anzahl')/* TRANS */ . "</b> ");
@@ -99,7 +99,7 @@ class basket{
 			if($this->product->count_products_price() <= $this->account->balance){
 				return $ok;
 			}else{
-				$func->error(t('Nicht genÃ¼gend Geld auf dem Konto.')/* TRANS */,"index.php?mod=foodcenter&action={$_GET['action']}");
+				$func->error(t('Nicht genügend Geld auf dem Konto.')/* TRANS */,"index.php?mod=foodcenter&action={$_GET['action']}");
 				return false;
 			}
 		}else{

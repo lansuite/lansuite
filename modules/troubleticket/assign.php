@@ -40,7 +40,7 @@ switch($_GET["step"]) {
 			$db->query("DELETE FROM {$config["tables"]["infobox"]} WHERE id_in_class = '$tt_id' AND class = 'troubleticket'");
 			$func->setainfo(t('Ihnen wurde das Troubleticket "<b>%1</b>"zugewiesen. ',$tt_caption),$t_userid,1,"troubleticket",$tt_id);
 			// Bestätigung ausgeben
-			$func->confirmation(t('Das ausgewÃ¤hlte Ticket wurde dem Orga zugewiesen.'), "index.php?mod=troubleticket&action=assign");
+			$func->confirmation(t('Das ausgewählte Ticket wurde dem Orga zugewiesen.'), "index.php?mod=troubleticket&action=assign");
 
 		} else $func->error(t('Das Troubleticket konnte nicht zugewiesen werden! Problem mit der Datenbank !'),"index.php?mod=troubleticket&action=assign");
 	break;
