@@ -79,7 +79,7 @@ else {
 // END Pluginsystem for Usermanager
 
 
-    $dsp->NewContent(t('Userdetails von %1', $user_data['username']), t('Hier finden Sie alle Details zu diesem User. Am Ende der Seite finden Sie alle Funktionen, die Sie auf den User anwenden dÃ¼rfen.'));
+    $dsp->NewContent(t('Userdetails von %1', $user_data['username']), t('Hier finden Sie alle Details zu diesem User. Am Ende der Seite finden Sie alle Funktionen, die Sie auf den User anwenden dürfen.'));
     $dsp->AddHeaderMenu($menunames,"index.php?mod=usrmgr&action=details&userid=".$_GET['userid'],$vars['headermenuitem']);
 
     // < menu details (step/headermenuitem)
@@ -101,13 +101,13 @@ else {
         if (IsAuthorizedAdmin())
         $name .= ' '. $dsp->AddIcon('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid='. $_GET['userid'], t('Benutzer wechseln'));
       if ($_GET['userid'] == $auth['userid'])
-        $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changepw', t('Passwort Ã¤ndern'));
+        $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changepw', t('Passwort ändern'));
       elseif (IsAuthorizedAdmin())
-        $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid='. $_GET['userid'], t('Passwort Ã¤ndern'));
+        $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid='. $_GET['userid'], t('Passwort ändern'));
       if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change']))
         $name .= ' '. $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid='. $_GET['userid'], t('Editieren'));
       if ($auth['type'] >= 3)
-        $name .= ' '. $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid='. $_GET['userid'], t('LÃ¶schen'));
+        $name .= ' '. $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid='. $_GET['userid'], t('Löschen'));
       $name .= '</td></tr></table>'; 
         $dsp->AddDoubleRow('Benutzername', $name);
 
@@ -125,7 +125,7 @@ else {
             if ($user_data['clanurl']) $clan .= " [<a href=\"{$user_data['clanurl']}\" target=\"_blank\">{$user_data['clanurl']}</a>]";
         $clan .= '</td><td align="right">&nbsp;';
             if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or $user_data['clanid'] == $auth['clanid']))
-          $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=clanmgr&action=clanmgr&step=10&clanid='. $user_data['clanid'], t('Passwort Ã¤ndern')) .
+          $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=clanmgr&action=clanmgr&step=10&clanid='. $user_data['clanid'], t('Passwort ändern')) .
             $dsp->AddIcon('edit', 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $user_data['clanid'], t('Editieren'));
         $clan .= '</td></tr></table>';
             $dsp->AddDoubleRow(t('Clan'), $clan);
@@ -166,11 +166,11 @@ else {
 
             // Seating
             if (in_array('seating', $ActiveModules)) { 
-            if ($user_data['blockid'] == '') $seat = t('Kein Sitzplatz ausgewÃ¤hlt / zugeteilt.');
+            if ($user_data['blockid'] == '') $seat = t('Kein Sitzplatz ausgewählt / zugeteilt.');
             else {
               $seat = $seat2->SeatOfUser($_GET['userid'], 0, 2);
               if (IsAuthorizedAdmin()) {
-            $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=free_seat&step=3&blockid={$user_data['blockid']}&row={$user_data['row']}&col={$user_data['col']}", t('LÃ¶schen'));
+            $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=free_seat&step=3&blockid={$user_data['blockid']}&row={$user_data['row']}&col={$user_data['col']}", t('Löschen'));
           }
             }
               if (IsAuthorizedAdmin()) $seat .= ' '. $dsp->AddIcon('edit', 'index.php?mod=seating&action=seatadmin&step=2&userid='. $_GET['userid'], t('Editieren'));
@@ -223,7 +223,7 @@ else {
       }
       $messenger .= '</td><td align="right">&nbsp;';
       ($user_online['found']) ? $messenger .= $dsp->AddIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->AddIcon('no', '', t('Benutzer ist Offline'));
-          if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], t('Den User zu Ihrer Buddyliste hinzufÃ¼gen')) .' ';
+          if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], t('Den User zu Ihrer Buddyliste hinzufügen')) .' ';
       $messenger .= '</td></tr></table>';
       $dsp->AddDoubleRow('Messenger', $messenger);
       $dsp->AddFieldsetEnd();
@@ -236,7 +236,7 @@ else {
 
       // Perso
             if ($user_data['perso'] and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1')))
-                $dsp->AddDoubleRow(t('Passnummer / Sonstiges'), $user_data['perso'] .'<br>'. t('Hinweis: Die Angaben zu StraÃŸe und Passnummer sind nur fÃ¼r Sie und die Organisatoren sichtbar.'));
+                $dsp->AddDoubleRow(t('Passnummer / Sonstiges'), $user_data['perso'] .'<br>'. t('Hinweis: Die Angaben zu Straße und Passnummer sind nur für Sie und die Organisatoren sichtbar.'));
 
             // Birthday
             if ($cfg['sys_internet'] == 0 OR $auth['type'] >= 2 OR $auth['userid'] == $_GET['userid'])
@@ -245,7 +245,7 @@ else {
 
             // Gender
             $geschlecht[0] = t('Nicht angegeben');
-            $geschlecht[1] = t('MÃ¤nnlich');
+            $geschlecht[1] = t('Männlich');
             $geschlecht[2] = t('Weiblich');
             $dsp->AddDoubleRow(t('Geschlecht'), $geschlecht[$user_data['sex']]);
 
@@ -305,7 +305,7 @@ break;
             // avatar
             ($user_data['avatar_path'] != "" AND $user_data['avatar_path'] != "0") ?
                 $avatar = "<img border=\"0\" src=\"". $user_data['avatar_path'] . "\">"
-                : $avatar = t('Dieser Benutzer hat keinen Avatar ausgewÃ¤hlt.');
+                : $avatar = t('Dieser Benutzer hat keinen Avatar ausgewählt.');
             $dsp->AddDoubleRow(t('Avatar'), $avatar);
 
         // Including comment-engine
@@ -361,12 +361,12 @@ break;
 
   $db->free_result($user_fields);
 
-  if ($auth['type'] >= 2) $buttons = $dsp->FetchSpanButton(t('BenutzerÃ¼bersicht'), 'index.php?mod='. $_GET['mod'] .'&action=search').' ';
-  else $buttons = $dsp->FetchSpanButton(t('BenutzerÃ¼bersicht'), 'index.php?mod=guestlist&action=guestlist').' ';
+  if ($auth['type'] >= 2) $buttons = $dsp->FetchSpanButton(t('Benutzerübersicht'), 'index.php?mod='. $_GET['mod'] .'&action=search').' ';
+  else $buttons = $dsp->FetchSpanButton(t('Benutzerübersicht'), 'index.php?mod=guestlist&action=guestlist').' ';
   $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE type > 0 AND userid < %int% order by userid desc', $_GET['userid']);
   if ($row['userid']) $buttons .= $dsp->FetchSpanButton(t('Vorheriger Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. $row['userid']).' ';
   $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE type > 0 AND userid > %int%', $_GET['userid']);
-  if ($row['userid']) $buttons .= $dsp->FetchSpanButton(t('NÃ¤chster Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. $row['userid']);
+  if ($row['userid']) $buttons .= $dsp->FetchSpanButton(t('Nächster Benutzer'), 'index.php?mod=usrmgr&action=details&userid='. $row['userid']);
 
   $dsp->AddDoubleRow('', $buttons);
     $dsp->AddContent();

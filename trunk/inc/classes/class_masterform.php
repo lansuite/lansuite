@@ -547,7 +547,7 @@ class masterform {
                 foreach ($this->SQLFields as $key => $val) $db_query .= "$val = '". $_POST[$val][$value2] ."', ";
                 $db_query = substr($db_query, 0, strlen($db_query) - 2);
                 $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $idname = ". (int)$value2);
-                $func->log_event(t('Eintrag #%1 in Tabelle "%2" geÃ¤ndert', array($value2, $config['tables'][$table])), 1, '', $this->LogID);
+                $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($value2, $config['tables'][$table])), 1, '', $this->LogID);
 
               } else {
                 foreach ($this->SQLFields as $key => $val) {
@@ -567,7 +567,7 @@ class masterform {
                 else {
                   if ($this->isChange) {
                     $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $AddKey $idname = ". (int)$id);
-                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" geÃ¤ndert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
                   } else {
                     $DBInsertQuery = $db_query;
                     if ($this->AdditionalKey != '') $DBInsertQuery .= ', '. $this->AdditionalKey;
@@ -575,7 +575,7 @@ class masterform {
                     $db->query("INSERT INTO {$config['tables'][$table]} SET $DBInsertQuery");
                     $id = $db->insert_id();
                     $this->insert_id = $id;
-                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefÃ¼gt', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefügt', array($id, $config['tables'][$table])), 1, '', $this->LogID);
                     $addUpdSuccess = $id;
                   }
                 }
@@ -618,12 +618,12 @@ function CheckValidEmail($email){
     $allTLD = array_merge($TLD, $newTLD);
 
     list($userName, $hostName) = explode('@', $email);
-    if (!preg_match("/^[a-z0-9\_\-\.\%]+$/i", $userName)) return t('Diese Email ist ungÃ¼ltig (Falscher Benutzer-Teil)');
-    if (!preg_match("/^([a-z0-9]+[\-\.]{0,1})+\.[a-z]+$/i", $hostName)) return t('Diese Email ist ungÃ¼ltig (Falscher Host-Teil)');
+    if (!preg_match("/^[a-z0-9\_\-\.\%]+$/i", $userName)) return t('Diese Email ist ungültig (Falscher Benutzer-Teil)');
+    if (!preg_match("/^([a-z0-9]+[\-\.]{0,1})+\.[a-z]+$/i", $hostName)) return t('Diese Email ist ungültig (Falscher Host-Teil)');
 
     $subdomains = explode('.', $hostName);
     $tld = $subdomains[count($subdomains) - 1];
-    if (!in_array($tld, $allTLD)) return t('Diese Email ist ungÃ¼ltig (Nicht exitsierende Domain)');
+    if (!in_array($tld, $allTLD)) return t('Diese Email ist ungültig (Nicht exitsierende Domain)');
   }
   return false;
 }

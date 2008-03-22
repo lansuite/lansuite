@@ -1319,7 +1319,7 @@
 			<entry>
 				<id>5f4110486d00f1ceafd93d33f82c55a8</id>
 				<tid>504</tid>
-				<org>HinzufÃ¼gen</org>
+				<org>Hinzufügen</org>
 				<en>Add</en>
 				<file>System</file>
 			</entry>
@@ -1375,7 +1375,7 @@
 			<entry>
 				<id>1010b01ca33474b21dfca7411a13552c</id>
 				<tid>510</tid>
-				<org>LÃ¶schen</org>
+				<org>Löschen</org>
 				<en>Delete</en>
 				<file>System</file>
 			</entry>
@@ -1473,7 +1473,7 @@
 			<entry>
 				<id>85a11bb2e93f64b7feb3bb92b35ed786</id>
 				<tid>12</tid>
-				<org>Wir unterstÃ¼tzen euch, auf eurer LAN!</org>
+				<org>Wir unterstützen euch, auf eurer LAN!</org>
 				<en>We'll support you at your LAN</en>
 				<file>DB</file>
 			</entry>
@@ -1487,14 +1487,14 @@
 			<entry>
 				<id>bcf75a0b7bf0386fe66a4bd65bc32426</id>
 				<tid>14</tid>
-				<org>UnterstÃ¼tze uns!</org>
+				<org>Unterstütze uns!</org>
 				<en>Support us!</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>abab398dabec18670ba6eb3ad0ba7055</id>
 				<tid>15</tid>
-				<org>Das Projekt unterstÃ¼tzen...</org>
+				<org>Das Projekt unterstützen...</org>
 				<en>Support the project</en>
 				<file>DB</file>
 			</entry>
@@ -1620,7 +1620,7 @@
 			<entry>
 				<id>6aae337b22546ff3009783b262160868</id>
 				<tid>52</tid>
-				<org>Modul fÃ¼r zyklische Aufgaben</org>
+				<org>Modul für zyklische Aufgaben</org>
 				<en>Define repetitive tasks</en>
 				<file>DB</file>
 			</entry>
@@ -1634,7 +1634,7 @@
 			<entry>
 				<id>ef818c0bea000f676296672d295b9af2</id>
 				<tid>54</tid>
-				<org>Hier kÃ¶nnen Sie Ã„nderungen an der Konfiguration von LanSuite vornehmen</org>
+				<org>Hier können Sie Ã„nderungen an der Konfiguration von LanSuite vornehmen</org>
 				<en>Configure Lansuite</en>
 				<file>DB</file>
 			</entry>
@@ -1690,7 +1690,7 @@
 			<entry>
 				<id>8c2a4a403cb32858b69ce02945854fa0</id>
 				<tid>62</tid>
-				<org>MenÃ¼-EintrÃ¤ge</org>
+				<org>Menü-Einträge</org>
 				<en>Menue-Entries</en>
 				<file>DB</file>
 			</entry>
@@ -1725,7 +1725,7 @@
 			<entry>
 				<id>849d2eafe1f6cff9caf01d3b107dc78b</id>
 				<tid>140</tid>
-				<org>Seite bei zu hÃ¤ufigen Zugriffen von einer IP sperren?</org>
+				<org>Seite bei zu häufigen Zugriffen von einer IP sperren?</org>
 				<en>Lock page on too many hits of one IP?</en>
 				<file>DB</file>
 			</entry>
@@ -1753,7 +1753,7 @@
 			<entry>
 				<id>efe9133a6e4283b6b3875f059ea1499c</id>
 				<tid>144</tid>
-				<org>Aufzeichnungszeitraum fÃ¼r IP-Reload in Sekunden</org>
+				<org>Aufzeichnungszeitraum für IP-Reload in Sekunden</org>
 				<en>Record timeframe for IP-Reload in secounds</en>
 				<file>DB</file>
 			</entry>
@@ -1788,7 +1788,7 @@
 			<entry>
 				<id>64375b675a6efda3d492a826ff11ccc3</id>
 				<tid>149</tid>
-				<org>Dieses Modul ist nur fÃ¼r Entwickler gedacht und demonstriert an einem Beispiel den Aufbau eines Modules</org>
+				<org>Dieses Modul ist nur für Entwickler gedacht und demonstriert an einem Beispiel den Aufbau eines Modules</org>
 				<en>This module was created for developers only. It demonstrates them the sample framework of a module</en>
 				<file>DB</file>
 			</entry>
@@ -1802,7 +1802,7 @@
 			<entry>
 				<id>b1d2c17b07b47064138d811957571117</id>
 				<tid>151</tid>
-				<org>Bietete die MÃ¶glichkeit Bilder hochzuladen und stellt diese in Kleinansicht in einer Liste dar</org>
+				<org>Bietete die Möglichkeit Bilder hochzuladen und stellt diese in Kleinansicht in einer Liste dar</org>
 				<en>Upload pictures and display them as thumbnails</en>
 				<file>DB</file>
 			</entry>
@@ -1816,7 +1816,7 @@
 			<entry>
 				<id>6832bf18533148cd4bae0ec1d6329fdf</id>
 				<tid>153</tid>
-				<org>Ein Forum - GÃ¤ste kÃ¶nnen hier Nachrichten hinterlassen, worauf andere antworten kÃ¶nnen</org>
+				<org>Ein Forum - Gäste können hier Nachrichten hinterlassen, worauf andere antworten können</org>
 				<en>Guests can leave messages and others can answer them</en>
 				<file>DB</file>
 			</entry>
@@ -1858,7 +1858,7 @@
 			<entry>
 				<id>2334d86e2e461297fb20f35a16df6469</id>
 				<tid>159</tid>
-				<org>Orgas kÃ¶nnen hÃ¤ufig gestellte Fragen mit ihren Antworten niederschreiben</org>
+				<org>Orgas können häufig gestellte Fragen mit ihren Antworten niederschreiben</org>
 				<en>Admins are able to write down frequently asked questions in combination with their solutions</en>
 				<file>DB</file>
 			</entry>
@@ -1879,28 +1879,28 @@
 			<entry>
 				<id>3d062d12592f7268a0a3403c2e17a832</id>
 				<tid>162</tid>
-				<org>GÃ¤stebuch</org>
+				<org>Gästebuch</org>
 				<en>Guestbook</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>f18fe87ad4413405a9405571fee207af</id>
 				<tid>163</tid>
-				<org>Besucher kÃ¶nnen hier eine kurze Nachricht hinterlassen</org>
+				<org>Besucher können hier eine kurze Nachricht hinterlassen</org>
 				<en>Guests can leave short messages</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>a929e3ec667b05709ba32ba05ab883a8</id>
 				<tid>164</tid>
-				<org>GÃ¤steliste</org>
+				<org>Gästeliste</org>
 				<en>Guestlist</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>8034185fceb7ab80c47f5b38bdd82358</id>
 				<tid>165</tid>
-				<org>Dies ist eine Liste aller angemeldeter GÃ¤ste</org>
+				<org>Dies ist eine Liste aller angemeldeter Gäste</org>
 				<en>A list of all guests signed on to the current party</en>
 				<file>DB</file>
 			</entry>
@@ -1914,7 +1914,7 @@
 			<entry>
 				<id>69d331f7b647baa44b0be347ff1c4ed3</id>
 				<tid>167</tid>
-				<org>ErmÃ¶glicht das einfache hinzufÃ¼gen weiterer statischer Webseiten</org>
+				<org>Ermöglicht das einfache hinzufügen weiterer statischer Webseiten</org>
 				<en>Simply add further content to your website</en>
 				<file>DB</file>
 			</entry>
@@ -1942,7 +1942,7 @@
 			<entry>
 				<id>e53cf59e273b6fb847364439572e0d67</id>
 				<tid>171</tid>
-				<org>Benutzer kÃ¶nnen andere zu ihren Kontakten hinzufÃ¼gen, sehen ob diese online sind und kÃ¶nnen ihnen Nachrichten schreiben</org>
+				<org>Benutzer können andere zu ihren Kontakten hinzufügen, sehen ob diese online sind und können ihnen Nachrichten schreiben</org>
 				<en>Users could add others contacts, see their online state and send them messages</en>
 				<file>DB</file>
 			</entry>
@@ -1977,7 +1977,7 @@
 			<entry>
 				<id>4bf6db09e17e24a97496fec83c80ae32</id>
 				<tid>176</tid>
-				<org>PrÃ¤sentiert Bekanntmachungen der Orgas</org>
+				<org>Präsentiert Bekanntmachungen der Orgas</org>
 				<en>Displays admins anouncements</en>
 				<file>DB</file>
 			</entry>
@@ -1991,7 +1991,7 @@
 			<entry>
 				<id>1eccc4c0d2ee7f13c6c0865dfcd8a355</id>
 				<tid>178</tid>
-				<org>Mit diesem Modul kÃ¶nnen die Benutzer einzahlungen machen</org>
+				<org>Mit diesem Modul können die Benutzer einzahlungen machen</org>
 				<en>Users may perform PayPal payments</en>
 				<file>DB</file>
 			</entry>
@@ -2033,7 +2033,7 @@
 			<entry>
 				<id>1fbcf243b478ad4077161822ee9b4b7c</id>
 				<tid>184</tid>
-				<org>Eine Ã¶ffentliche Liste aller Server auf der Lan, in der jeder eingeloggt Benutzer seinen Server eintragen kann</org>
+				<org>Eine öffentliche Liste aller Server auf der Lan, in der jeder eingeloggt Benutzer seinen Server eintragen kann</org>
 				<en>A public list of all servers located at the LAN. Each logged in user may add his own server</en>
 				<file>DB</file>
 			</entry>
@@ -2047,7 +2047,7 @@
 			<entry>
 				<id>cae30fe4ab98f6b42924750996b397b2</id>
 				<tid>186</tid>
-				<org>Bezahlte Benutzer kÃ¶nnen sich hier SitzplÃ¤tze reservieren. So kann jeder nachschauen, wo eine gesuchte Person sitzt</org>
+				<org>Bezahlte Benutzer können sich hier Sitzplätze reservieren. So kann jeder nachschauen, wo eine gesuchte Person sitzt</org>
 				<en>Users having paid may reserve a seat. All others will be able to locate this person</en>
 				<file>DB</file>
 			</entry>
@@ -2075,7 +2075,7 @@
 			<entry>
 				<id>e74287b54449bafb5329e5e7fe0dbddb</id>
 				<tid>190</tid>
-				<org>Benutzer kÃ¶nnen hier ihre Probleme posten, Orgas kÃ¶nnen sie beheben, oder anderen Orgas zuweisen</org>
+				<org>Benutzer können hier ihre Probleme posten, Orgas können sie beheben, oder anderen Orgas zuweisen</org>
 				<en>Users may post their problems and admins could fix them or assign them to other admins</en>
 				<file>DB</file>
 			</entry>
@@ -2103,7 +2103,7 @@
 			<entry>
 				<id>266c668392f9553a52dca152a803022c</id>
 				<tid>194</tid>
-				<org>Orgas kÃ¶nnen hier eintragen, welche GegenstÃ¤ndig sie welchen Benutzer fÃ¼r die LAN geliehen haben</org>
+				<org>Orgas können hier eintragen, welche Gegenständig sie welchen Benutzer für die LAN geliehen haben</org>
 				<en>Admins could enter which stuff they lend to wich person</en>
 				<file>DB</file>
 			</entry>
@@ -2145,7 +2145,7 @@
 			<entry>
 				<id>58b82757c0a4851c35a6337881ce21ff</id>
 				<tid>200</tid>
-				<org>Durch dieses Modul kÃ¶nnen sich Benutzer zu der Party anmelden und Partys kÃ¶nnen verwaltet werden.</org>
+				<org>Durch dieses Modul können sich Benutzer zu der Party anmelden und Partys können verwaltet werden.</org>
 				<en>Users may register within the system</en>
 				<file>DB</file>
 			</entry>
@@ -2159,7 +2159,7 @@
 			<entry>
 				<id>20658233a3d594f3f6ca5925b0cb5fc3</id>
 				<tid>202</tid>
-				<org>Dieses Modul verwaltet zyklische Aufgaben wie das aufrÃ¤umen der Datenbank</org>
+				<org>Dieses Modul verwaltet zyklische Aufgaben wie das aufräumen der Datenbank</org>
 				<en>This manages repetetive tasks, like optimizing the database</en>
 				<file>DB</file>
 			</entry>
@@ -2173,7 +2173,7 @@
 			<entry>
 				<id>1a800d88b2df0d6b5c3d0aa9d9d6e62d</id>
 				<tid>204</tid>
-				<org>ErmÃ¶glicht das Installieren und Administrieren von LanSuite</org>
+				<org>Ermöglicht das Installieren und Administrieren von LanSuite</org>
 				<en>Allows the installation and adminsitration of Lansuite</en>
 				<file>DB</file>
 			</entry>
@@ -2194,14 +2194,14 @@
 			<entry>
 				<id>05cbbec74e25d7a759854b4177eb9e64</id>
 				<tid>207</tid>
-				<org>In diesem Modul kÃ¶nnen Partys erstellt und bearbeitet werden</org>
+				<org>In diesem Modul können Partys erstellt und bearbeitet werden</org>
 				<en>Partys could be created within this module</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>b38bdb739eea52c9ed201650611b7b55</id>
 				<tid>208</tid>
-				<org>Dieses Modul gibt eine Ãœbersicht Ã¼ber aktuelle AktivitÃ¤ten in LanSuite</org>
+				<org>Dieses Modul gibt eine Ãœbersicht über aktuelle Aktivitäten in LanSuite</org>
 				<en>Provides an overview over current activities within Lansuite</en>
 				<file>DB</file>
 			</entry>
@@ -2229,7 +2229,7 @@
 			<entry>
 				<id>5f4110486d00f1ceafd93d33f82c55a8</id>
 				<tid>226</tid>
-				<org>HinzufÃ¼gen</org>
+				<org>Hinzufügen</org>
 				<en>Add</en>
 				<file>DB</file>
 			</entry>
@@ -2264,7 +2264,7 @@
 			<entry>
 				<id>99514e9c53f7ebe8dcf54f842fb0e703</id>
 				<tid>231</tid>
-				<org>Felder ergÃ¤nzen</org>
+				<org>Felder ergänzen</org>
 				<en>Add fields</en>
 				<file>DB</file>
 			</entry>
@@ -2348,7 +2348,7 @@
 			<entry>
 				<id>a763ca073cfda1fce8a14f2f0cc84591</id>
 				<tid>246</tid>
-				<org>StraÃŸe</org>
+				<org>Straße</org>
 				<en>Street</en>
 				<file>DB</file>
 			</entry>
@@ -2420,7 +2420,7 @@
 				<tid>256</tid>
 				<org>Hallo %USERNAME%!
 
-Sie sind nun registriert und fÃ¼r die kommende LanParty "%PARTYNAME%" vorgemerkt. Ihre Anmeldung ist jedoch erst vollstÃ¤ndig, wenn Sie die TeilnahmegebÃ¼hr Ã¼berwiesen haben.
+Sie sind nun registriert und für die kommende LanParty "%PARTYNAME%" vorgemerkt. Ihre Anmeldung ist jedoch erst vollständig, wenn Sie die Teilnahmegebühr überwiesen haben.
 
 Bitte halten Sie diese E-Mail gespeichert, falls Sie Ih</org>
 				<en></en>
@@ -2468,7 +2468,7 @@ Clan: %CLAN%
 			<entry>
 				<id>24d83773a4423f4387fb87071cb08548</id>
 				<tid>261</tid>
-				<org>MÃ¼ssen neu erstellte Accounts erst freigeschaltet werden?</org>
+				<org>Müssen neu erstellte Accounts erst freigeschaltet werden?</org>
 				<en>Have new accounts to be activated first?</en>
 				<file>DB</file>
 			</entry>
@@ -2678,14 +2678,14 @@ Clan: %CLAN%
 			<entry>
 				<id>230082279c9c871d7063205ce940c113</id>
 				<tid>291</tid>
-				<org>Darf der Benutzer das Design auswÃ¤hlen?</org>
+				<org>Darf der Benutzer das Design auswählen?</org>
 				<en>May the user change his design?</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>c87947d49777538e858f9c01a12a3286</id>
 				<tid>292</tid>
-				<org>Sollen die User ihre Details im Nachhinein selbst Ã¤ndern dÃ¼rfen?</org>
+				<org>Sollen die User ihre Details im Nachhinein selbst ändern dürfen?</org>
 				<en>May users edit their details after signing on</en>
 				<file>DB</file>
 			</entry>
@@ -2699,7 +2699,7 @@ Clan: %CLAN%
 			<entry>
 				<id>606098030a326f0ad2cae6ade42d6958</id>
 				<tid>294</tid>
-				<org>Name des PDF-Templates fÃ¼r Eintrittskarte</org>
+				<org>Name des PDF-Templates für Eintrittskarte</org>
 				<en>Name of PDF-Teamplate for ticket</en>
 				<file>DB</file>
 			</entry>
@@ -2741,14 +2741,14 @@ Clan: %CLAN%
 			<entry>
 				<id>655cb6a8e9ecdb07db139689a2085c29</id>
 				<tid>300</tid>
-				<org>Sollen dem Benutzer SEINE StraÃŸe/Passnummer/Sonstiges angezeigt werden? (Orga sieht diese Felder immer)</org>
+				<org>Sollen dem Benutzer SEINE Straße/Passnummer/Sonstiges angezeigt werden? (Orga sieht diese Felder immer)</org>
 				<en>Should a user see HIS Street/ID/Misc?</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>db45dff4be7dd4cf3b92eab48aae75af</id>
 				<tid>301</tid>
-				<org>Soll nach der BezahltstatusÃ¤nderung die Option geboten werden, dem Benutzer eine Mail zu senden?</org>
+				<org>Soll nach der Bezahltstatusänderung die Option geboten werden, dem Benutzer eine Mail zu senden?</org>
 				<en>Display choice to send an email to the user, after changing his paid state</en>
 				<file>DB</file>
 			</entry>
@@ -2757,7 +2757,7 @@ Clan: %CLAN%
 				<tid>302</tid>
 				<org>Hallo %USERNAME%,
 
-Ihr Bezahltstatus der LanParty "%PARTYNAME%" wurde zurÃ¼ck auf "NICHT bezahlt" gesetzt.
+Ihr Bezahltstatus der LanParty "%PARTYNAME%" wurde zurück auf "NICHT bezahlt" gesetzt.
 
 Ihre Orgas</org>
 				<en>Hallo, %USERNAME%, your paid state has been resetted to NOT PAID.</en>
@@ -2768,8 +2768,8 @@ Ihre Orgas</org>
 				<tid>303</tid>
 				<org>Hallo %USERNAME%!
 
-Sie sind nun auf den Status bezahlt gesetzt und kÃ¶nnen
-fÃ¼r die kommende LanParty "%PARTYNAME%" Ihren Sitzplatz reservieren.
+Sie sind nun auf den Status bezahlt gesetzt und können
+für die kommende LanParty "%PARTYNAME%" Ihren Sitzplatz reservieren.
 
 Ihre Orgas</org>
 				<en>Hallo, %USERNAME%, your paid state has just been set PAID. You could now continue choosing your seat</en>
@@ -2799,7 +2799,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>0518f9b9885cd68114d5944da6c65f6a</id>
 				<tid>307</tid>
-				<org>MaximalhÃ¶he eines Thumbnails</org>
+				<org>Maximalhöhe eines Thumbnails</org>
 				<en>Maximum hight of thumbnails</en>
 				<file>DB</file>
 			</entry>
@@ -2848,7 +2848,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>49876115de20118d5c40ff05b4545066</id>
 				<tid>314</tid>
-				<org>Anzahl der angezeigten EintrÃ¤ge</org>
+				<org>Anzahl der angezeigten Einträge</org>
 				<en>Amount of entries</en>
 				<file>DB</file>
 			</entry>
@@ -2862,7 +2862,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>d01f7840e6163fbb385536c441cad170</id>
 				<tid>316</tid>
-				<org>Gast PrÃ¤fix</org>
+				<org>Gast Präfix</org>
 				<en>Guest prefix</en>
 				<file>DB</file>
 			</entry>
@@ -2883,7 +2883,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>43554e604864674a15ec11826322c267</id>
 				<tid>319</tid>
-				<org>Betreff der Hinweismail auf neue BeitrÃ¤ge</org>
+				<org>Betreff der Hinweismail auf neue Beiträge</org>
 				<en>Subject of notification mail on new posts</en>
 				<file>DB</file>
 			</entry>
@@ -2897,7 +2897,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>2f8b3e300e4c9a74adc92a2836524945</id>
 				<tid>321</tid>
-				<org>Text der Hinweismail auf neue BeitrÃ¤ge</org>
+				<org>Text der Hinweismail auf neue Beiträge</org>
 				<en>Text of notification mail on new posts</en>
 				<file>DB</file>
 			</entry>
@@ -2911,7 +2911,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>a8795c6565bad48a7430cf9abeb57b2c</id>
 				<tid>323</tid>
-				<org>HÃ¶he des Chatfensters</org>
+				<org>Höhe des Chatfensters</org>
 				<en>Hight of chat window</en>
 				<file>DB</file>
 			</entry>
@@ -2953,7 +2953,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>9a08219bf2cd7ea3eb48096d297d9f4b</id>
 				<tid>329</tid>
-				<org>IRC Server auf dem der Chat lÃ¤uft?</org>
+				<org>IRC Server auf dem der Chat läuft?</org>
 				<en>IRC server</en>
 				<file>DB</file>
 			</entry>
@@ -3079,7 +3079,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>e7713eaf44cff0990d934c62bcf0853b</id>
 				<tid>347</tid>
-				<org>Hinweis Bestellung mÃ¶glich</org>
+				<org>Hinweis Bestellung möglich</org>
 				<en>Notification order possible</en>
 				<file>DB</file>
 			</entry>
@@ -3107,14 +3107,14 @@ Ihre Orgas</org>
 			<entry>
 				<id>5a36de68bddb6a57fc3db69caf37d0d6</id>
 				<tid>351</tid>
-				<org>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der GÃ¤ste) anzeigen?</org>
+				<org>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der Gäste) anzeigen?</org>
 				<en>Guest map (Map of germay marking the origin of the guests)</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>98dc6ad21532bbc6da3525a5c6eef6ef</id>
 				<tid>352</tid>
-				<org>Sollen Orgas mit in der GÃ¤steliste angezeigt werden.</org>
+				<org>Sollen Orgas mit in der Gästeliste angezeigt werden.</org>
 				<en>Should admins be displayed on the guest list</en>
 				<file>DB</file>
 			</entry>
@@ -3128,28 +3128,28 @@ Ihre Orgas</org>
 			<entry>
 				<id>8db5054470eb7c8f3dd9e96c00307fcc</id>
 				<tid>354</tid>
-				<org>Eingabe Ã¼ber den WYSIWYG-Editor FCKedit?</org>
+				<org>Eingabe über den WYSIWYG-Editor FCKedit?</org>
 				<en>Use WYSIWYG editor FCKedit?</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>ff9cd5dbf01c3bdee931f0ba67b7cdc3</id>
 				<tid>355</tid>
-				<org>Sollen neue MenÃ¼punkte Unterpunkte des Info2-Modules sein?</org>
+				<org>Sollen neue Menüpunkte Unterpunkte des Info2-Modules sein?</org>
 				<en>Should new menu items be created as subitems of Info2?</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>d931b7a993213c024074001c862dc4f1</id>
 				<tid>356</tid>
-				<org>StÃ¤rke der Seitenkompression: 0 = Kompression deaktiviert, 1 = schwach, 9 = stark</org>
+				<org>Stärke der Seitenkompression: 0 = Kompression deaktiviert, 1 = schwach, 9 = stark</org>
 				<en>Strength of site compression: (0 = none, 1 = weak, 9 = strong)</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>9b748c096042c2c2fc0d66c2d57df592</id>
 				<tid>357</tid>
-				<org>LÃ¤uft diese Version im Internet (Anmeldesystem)?</org>
+				<org>Läuft diese Version im Internet (Anmeldesystem)?</org>
 				<en>Does this versio run in the internet (sign on system)?</en>
 				<file>DB</file>
 			</entry>
@@ -3163,14 +3163,14 @@ Ihre Orgas</org>
 			<entry>
 				<id>a5ab32c301490bc67981cda091464675</id>
 				<tid>359</tid>
-				<org>FÃ¼gt den Text als weitere Fooderzeile unter dem bestehendem hinzu. (html-code)</org>
+				<org>Fügt den Text als weitere Fooderzeile unter dem bestehendem hinzu. (html-code)</org>
 				<en>Add this tex as an additional fooder line</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>41b1710aed5ca9a5b8943ff623660972</id>
 				<tid>360</tid>
-				<org>Sollen PasswÃ¶rter in DIESER Ãœbersicht in Klartext angezeigt werden?</org>
+				<org>Sollen Passwörter in DIESER Ãœbersicht in Klartext angezeigt werden?</org>
 				<en>Should passwords be displayed in THIS overview</en>
 				<file>DB</file>
 			</entry>
@@ -3219,7 +3219,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>a145abf0f8a5f387864185ea97821fa8</id>
 				<tid>367</tid>
-				<org>Zeigt zusÃ¤tzliche Debug-Informationen.</org>
+				<org>Zeigt zusätzliche Debug-Informationen.</org>
 				<en>Show additional debug information</en>
 				<file>DB</file>
 			</entry>
@@ -3268,7 +3268,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>17962479e8d1c07c0f5b84db55160cfd</id>
 				<tid>374</tid>
-				<org>WÃ¤hrung des Systems</org>
+				<org>Währung des Systems</org>
 				<en>Systems currency</en>
 				<file>DB</file>
 			</entry>
@@ -3352,7 +3352,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>e1325f3b41f3996670c6075db77576c5</id>
 				<tid>386</tid>
-				<org>Maximale anzahl der gespeicherten Mails (gelÃ¶scht und gelesen)</org>
+				<org>Maximale anzahl der gespeicherten Mails (gelöscht und gelesen)</org>
 				<en>Maximum number of stored mails (read + deleted)</en>
 				<file>DB</file>
 			</entry>
@@ -3366,7 +3366,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>c4cd6fbcdce50b0595938abcb8ab442d</id>
 				<tid>388</tid>
-				<org>Sollen sich bei neuen Meils ein PopUp Ã¶ffnen?</org>
+				<org>Sollen sich bei neuen Meils ein PopUp öffnen?</org>
 				<en>Should a new popup appear on new mails?</en>
 				<file>DB</file>
 			</entry>
@@ -3422,14 +3422,14 @@ Ihre Orgas</org>
 			<entry>
 				<id>acffd5f14e74d690493cf69b38a9ebbf</id>
 				<tid>396</tid>
-				<org>Soll ein POPUP geÃ¶ffnet werden bei einer neuen Nachricht?</org>
+				<org>Soll ein POPUP geöffnet werden bei einer neuen Nachricht?</org>
 				<en>Should a popup appear on a new message?</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>54e14a4fded6412b9a754f252cd38901</id>
 				<tid>397</tid>
-				<org>Hier kÃ¶nnen Sie News-Meldungen hinzufÃ¼gen</org>
+				<org>Hier können Sie News-Meldungen hinzufügen</org>
 				<en>Add news messages</en>
 				<file>DB</file>
 			</entry>
@@ -3506,7 +3506,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>2f9fa1d99cb6b0fd0cfa95d3266b15a6</id>
 				<tid>408</tid>
-				<org>Hier kÃ¶nnen Preise geÃ¤ndert werden</org>
+				<org>Hier können Preise geändert werden</org>
 				<en>Change prices</en>
 				<file>DB</file>
 			</entry>
@@ -3520,21 +3520,21 @@ Ihre Orgas</org>
 			<entry>
 				<id>de1c19e4e7b36a9149cca733f8abb613</id>
 				<tid>410</tid>
-				<org>Sollen die Besucher Geld fÃ¼r das Catering einzahlen kÃ¶nnen?'</org>
+				<org>Sollen die Besucher Geld für das Catering einzahlen können?'</org>
 				<en>Should users be able to transfer money for catering?</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>555556d3a6abf53e4747c086e3d8b948</id>
 				<tid>411</tid>
-				<org>Soll der Besucher auch gleich das Depot zahlen kÃ¶nnen?</org>
+				<org>Soll der Besucher auch gleich das Depot zahlen können?</org>
 				<en>Should user be ablte to pay depot?</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>ab19039303497e16df79cbdfa5148f17</id>
 				<tid>412</tid>
-				<org>Sollen die Besucher Spenden einzahlen kÃ¶nnen?</org>
+				<org>Sollen die Besucher Spenden einzahlen können?</org>
 				<en>Should users be able to transfer donations?</en>
 				<file>DB</file>
 			</entry>
@@ -3555,7 +3555,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>13b48218c1f2c64a399eef53124d0669</id>
 				<tid>415</tid>
-				<org>WÃ¤hrung (USD,GBP,JPY,CAD,EUR)</org>
+				<org>Währung (USD,GBP,JPY,CAD,EUR)</org>
 				<en>Currency (USD,GBP,JPY,CAD,EUR)</en>
 				<file>DB</file>
 			</entry>
@@ -3611,7 +3611,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>c138af5a6f5f7107eaa72b1be67da87f</id>
 				<tid>423</tid>
-				<org>Nur Admins dÃ¼rfen Server hinzufÃ¼gen</org>
+				<org>Nur Admins dürfen Server hinzufügen</org>
 				<en>Only admins may add servers</en>
 				<file>DB</file>
 			</entry>
@@ -3632,28 +3632,28 @@ Ihre Orgas</org>
 			<entry>
 				<id>b38affdc7b6cfe94145f147e912aa418</id>
 				<tid>426</tid>
-				<org>Anzahl an PlÃ¤tzen, die jeder Benutzer fÃ¼r Freunde vormerken darf</org>
+				<org>Anzahl an Plätzen, die jeder Benutzer für Freunde vormerken darf</org>
 				<en>Amount of seats a user may mark for friends</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>491e1924cad1b382478dcf7346a741cf</id>
 				<tid>427</tid>
-				<org>DÃ¼rfen NICHT bezahlte GÃ¤ste EINEN Sitzplatz vormerken?</org>
+				<org>Dürfen NICHT bezahlte Gäste EINEN Sitzplatz vormerken?</org>
 				<en>May guests, having NOT PAID, mark ONE seat?</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>c9bb699f47127655a2ddbe7b078d9fbe</id>
 				<tid>428</tid>
-				<org>DÃ¼rfen nur als bezahlt markierte GÃ¤ste einen Sitzplatz auswÃ¤hlen?</org>
+				<org>Dürfen nur als bezahlt markierte Gäste einen Sitzplatz auswählen?</org>
 				<en>May only guests having paid choose a seat?</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>7bea475018499db7e1c84058bf9915ad</id>
 				<tid>429</tid>
-				<org>Sponsor hinzufÃ¼gen</org>
+				<org>Sponsor hinzufügen</org>
 				<en>Add sponsor</en>
 				<file>DB</file>
 			</entry>
@@ -3709,14 +3709,14 @@ Ihre Orgas</org>
 			<entry>
 				<id>2f04b69213b69167c8e7da0fcf2b9239</id>
 				<tid>437</tid>
-				<org>Die Anzahl an Coins, die jedem Turnierteilnehmer von Beginn an zur VerfÃ¼gung stehen</org>
+				<org>Die Anzahl an Coins, die jedem Turnierteilnehmer von Beginn an zur Verfügung stehen</org>
 				<en>Number of coins a player has</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>7377e683a5717ac11813de54cf28df88</id>
 				<tid>438</tid>
-				<org>Nur Verlierer dÃ¼rfen das Ergebnis eintragen</org>
+				<org>Nur Verlierer dürfen das Ergebnis eintragen</org>
 				<en>Only loosers may submit results</en>
 				<file>DB</file>
 			</entry>
@@ -3730,7 +3730,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>fb2011836a697a7bb5acfa670ea666f5</id>
 				<tid>440</tid>
-				<org>Der Pfad zu der zu verwendenen Schriftart fÃ¼r den Turnierbaum</org>
+				<org>Der Pfad zu der zu verwendenen Schriftart für den Turnierbaum</org>
 				<en>Path to font file, used in the tournament tree</en>
 				<file>DB</file>
 			</entry>
@@ -3744,7 +3744,7 @@ Ihre Orgas</org>
 			<entry>
 				<id>3e170d3d921d1adcb14e85707e510522</id>
 				<tid>442</tid>
-				<org>Die SchriftgrÃ¶ÃŸe der zu verwendenen Schriftart fÃ¼r den Turnierbaum</org>
+				<org>Die Schriftgröße der zu verwendenen Schriftart für den Turnierbaum</org>
 				<en>Font size, used in the tournament tree</en>
 				<file>DB</file>
 			</entry>
@@ -3758,14 +3758,14 @@ Ihre Orgas</org>
 			<entry>
 				<id>d4540b5bb2fe31a1b71d22f11a128fbc</id>
 				<tid>444</tid>
-				<org>Punkte, die dem Sieger vergeben werden, bei ZeitÃ¼berschreitung, oder Disqualifizierung des Gegners</org>
+				<org>Punkte, die dem Sieger vergeben werden, bei Zeitüberschreitung, oder Disqualifizierung des Gegners</org>
 				<en>Points, given to the winner, after time has exceeded or opponent has been disqualified</en>
 				<file>DB</file>
 			</entry>
 			<entry>
 				<id>46330ec03c4907f6a3759e340581c84a</id>
 				<tid>445</tid>
-				<org>Sieg-Punkte bei einem Sieg in einem Liga-Turnier (Verlierer bekommen 0, Unentschieden gibt einen Punkt fÃ¼r beide)</org>
+				<org>Sieg-Punkte bei einem Sieg in einem Liga-Turnier (Verlierer bekommen 0, Unentschieden gibt einen Punkt für beide)</org>
 				<en>Points for winning a league game (looser gets 0, draw gives each 1)</en>
 				<file>DB</file>
 			</entry>

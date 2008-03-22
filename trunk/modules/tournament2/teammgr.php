@@ -35,7 +35,7 @@ switch($step) {
 
 	// Spieler zum eigenen Team hinzufügen - In DB schreiben
 	case 41:
-		if ($tteam->join($_GET["teamid"], $userid)) $func->confirmation(t('Der Spieler wurde Ihrem Team hinzugefÃ¼gt'), "index.php?mod=tournament2&action=teammgr");
+		if ($tteam->join($_GET["teamid"], $userid)) $func->confirmation(t('Der Spieler wurde Ihrem Team hinzugefügt'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
 	// Edit Teamdetails (Form)
@@ -49,7 +49,7 @@ switch($step) {
 				LEFT JOIN {$config["tables"]["user"]} AS user ON user.userid = team.leaderid
 				WHERE teamid = '{$_GET["teamid"]}'");
 
-		$dsp->NewContent(t('Teammanager'), t('Hier kÃ¶nnen Sie Ihre Teams verwalten'));
+		$dsp->NewContent(t('Teammanager'), t('Hier können Sie Ihre Teams verwalten'));
 
 		$dsp->SetForm("index.php?mod=tournament2&action=teammgr&step=51&teamid={$_GET["teamid"]}&tournamentid=$tournamentid", "", "", "multipart/form-data");
 
@@ -86,7 +86,7 @@ switch($step) {
 			$tournament = $db->query_first("SELECT name FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
 
 			if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1){
-				$func->information(t('Bitte geben Sie einen Teamnamen ein, oder wÃ¤hlen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr&tournamentid=$tournamentid&teamid={$_GET["teamid"]}&step=50");
+				$func->information(t('Bitte geben Sie einen Teamnamen ein, oder wählen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr&tournamentid=$tournamentid&teamid={$_GET["teamid"]}&step=50");
 				break;
 			}
 
@@ -100,7 +100,7 @@ switch($step) {
 
 
 	default:
-		$dsp->NewContent(t('Teammanager'), t('Hier kÃ¶nnen Sie Ihre Teams verwalten'));
+		$dsp->NewContent(t('Teammanager'), t('Hier können Sie Ihre Teams verwalten'));
 
 		$dsp->AddSingleRow(t('Einzelspieler-Turniere, an denen Sie teilnehmen'));
 		// Teamname und Turniername auslesen
@@ -145,7 +145,7 @@ switch($step) {
 			}
 			$db->free_result($members);
 			
-			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$team["name"]} ({$team["tname"]}) (".t('TeamgrÃ¶ÃŸe').": ". ($anz_memb+1) ."/{$team["teamplayer"]}) $member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=40&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">".t('Spieler hinzufÃ¼gen')."</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=50&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">".t('Teamdetails editieren')."</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=30&teamid={$team['teamid']}\">".t('Team abmelden')."</a>");
+			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$team["name"]} ({$team["tname"]}) (".t('Teamgröße').": ". ($anz_memb+1) ."/{$team["teamplayer"]}) $member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=40&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">".t('Spieler hinzufügen')."</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=50&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">".t('Teamdetails editieren')."</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=30&teamid={$team['teamid']}\">".t('Team abmelden')."</a>");
 		}
 		$db->free_result($teams);
 

@@ -13,10 +13,10 @@ switch ($_GET["step"]) {
 		$numrows = $rowtest["n"];
 
 		// Prüfen ob ticketid leer ist
-		if ($tt_id == "") $func->information(t('Es wurde keine Troubleticket-ID Ã¼bergeben. Aufruf inkorrekt.'), "");
+		if ($tt_id == "") $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'), "");
 
 		// Prüfen ob ticketid gültig ist
-		elseif ($numrows == "") { $func->information(t('Es wurde keine Troubleticket-ID Ã¼bergeben. Aufruf inkorrekt.'),""); }
+		elseif ($numrows == "") { $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'),""); }
 
 		else {
 			$dsp->NewContent(t('Troubleticket anzeigen'),t('Hier sehen Sie alle Informationen zu diesem Ticket'));
@@ -49,7 +49,7 @@ switch ($_GET["step"]) {
 					$priority = t('Kritisch');
 				break;
 			}
-			$dsp->AddDoubleRow(t('PrioritÃ¤t'), $priority);
+			$dsp->AddDoubleRow(t('Priorität'), $priority);
 
 			// entsprechend des ticketstatuses passende zeilen ausgeben
 			$status_wahl = array();
@@ -60,15 +60,15 @@ switch ($_GET["step"]) {
 
 				// status: NEU EINGETRAGEN / NICHT GEPRÜFT
 				case 1:
-					$status	= t('Neu / UngeprÃ¼ft');
+					$status	= t('Neu / Ungeprüft');
 					$time_text = "";
 					$time_val = "";
 				break;
 
 				// status: GEPRÜFT / ggf. VON EINEM ORGA NEU EINGETRAGEN
 				case 2:
-					$status	= t('ÃœberprÃ¼ft / Akzeptiert');
-					$time_text = t('ÃœberprÃ¼ft am/um');
+					$status	= t('Ãœberprüft / Akzeptiert');
+					$time_text = t('Ãœberprüft am/um');
 					$time_val = $func->unixstamp2date($row["verified"], "daydatetime");
 				break;
 
@@ -101,7 +101,7 @@ switch ($_GET["step"]) {
 			$dsp->AddDoubleRow(t('Kommentar'), $row["publiccomment"]);
 			if($auth['type'] > 1){
 				if (!$row["orgacomment"]) $row["orgacomment"] = t(' Kein Hinweis eingetragen');
-				$dsp->AddDoubleRow(t('Kommentar von und fÃ¼r Orgas'), $row["orgacomment"]);
+				$dsp->AddDoubleRow(t('Kommentar von und für Orgas'), $row["orgacomment"]);
 			}
 
 			$dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/change");

@@ -584,10 +584,10 @@ class product{
 		$nextstep = $step + 1;
 		// Change or New ?
 		if($this->id != null){
-			$dsp->NewContent(t('Produkt hinzufÃ¼gen'),t('Hier kÃ¶nnen sie ein Produkt hinzuf&uuml;gen'));
+			$dsp->NewContent(t('Produkt hinzufügen'),t('Hier können sie ein Produkt hinzuf&uuml;gen'));
 			$dsp->SetForm("?mod=foodcenter&action=addproduct&step=$nextstep&id={$this->id}","food_add", "", "multipart/form-data");	
 		}else{
-			$dsp->NewContent(t('Produkt Ã¤ndern'),t('Produkt Ã¤ndern'));
+			$dsp->NewContent(t('Produkt ändern'),t('Produkt ändern'));
 			$dsp->SetForm("?mod=foodcenter&action=addproduct&step=$nextstep","food_add","", "multipart/form-data");
 		}		
 		
@@ -611,7 +611,7 @@ class product{
 		if(!is_object($this->supp)) $this->supp = new supp();
 		$this->supp->supp_form();
 
-			$dsp->AddTextFieldRow("supp_infos",t('Infos fÃ¼r Lieferant (zb. seine Artikelnummer)'),$this->supp_infos,"",null,true);
+			$dsp->AddTextFieldRow("supp_infos",t('Infos für Lieferant (zb. seine Artikelnummer)'),$this->supp_infos,"",null,true);
 
 
 		// Picecontrol ?
@@ -663,7 +663,7 @@ class product{
 			$templ['ls']['row']['hidden_row']['id'] = "food_2";
 			$templ['ls']['row']['hidden_row']['display'] = $display[2];
 			$dsp->AddModTpl("foodcenter","hiddenbox_start");
-			$dsp->AddCheckBoxRow("chois\" onclick=\"change_optionelem(this.checked)",t('Mehrfachauswahl mÃ¶glich'),"","",null,$this->choise);
+			$dsp->AddCheckBoxRow("chois\" onclick=\"change_optionelem(this.checked)",t('Mehrfachauswahl möglich'),"","",null,$this->choise);
 			($this->type == null) ? $q = 3 : $q = 0;
 			for($i = $q;$i < ($q+8);$i++){
 				($i == $q) ? $optional = null : $optional = true;
@@ -781,7 +781,7 @@ class product{
 			$dsp->AddDoubleRow(t('Produktname'),"<b>" . $this->caption . "</b>");
 			if($this->desc != "") $dsp->AddDoubleRow(t('Produktbeschreibung'),$this->desc);
 			if($this->pic != "" && file_exists("ext_inc/foodcenter/" . $this->pic)) $dsp->AddDoubleRow("","<img src=\"ext_inc/foodcenter/{$this->pic}\" border=\"0\" alt=\"{$this->caption}\" />");
-			$dsp->AddSingleRow(t('AuswahlmÃ¶glichkeiten'));
+			$dsp->AddSingleRow(t('Auswahlmöglichkeiten'));
 			
 			switch ($this->type){
 
