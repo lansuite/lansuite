@@ -165,9 +165,11 @@ $seat2 = new seat2();   // Load Seat-Controll Class
 
 
 // Wenn Install: Connect ohne Abbruch bei Fehler, sonst mit Abbruch
-if ($IsAboutToInstall) $db->success = $db->connect(1);
+if ($IsAboutToInstall) {
+  $db->connect(1);
+  $db->success = false;
+} 
 else $db->success = $db->connect(0);
-
 
 $found_adm = 0;
 if ($db->success) {
