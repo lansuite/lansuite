@@ -24,7 +24,7 @@ function CheckPostNew($last_post, $last_read) {
 }
                                                                     
 
-$templ['home']['show']['item']['info']['caption'] = t('Aktuelles im Board');
+$templ['home']['show']['item']['info']['caption'] = t('Aktuelles im Board') . ' <span class="small">[<a href="index.php?mod=board&action=forum&fid=&order_by=LastPost&order_dir=DESC" title="Neusten Beiträge">mehr</a>]</span>';
 $templ['home']['show']['item']['control']['row'] = "";
 
 $authtyp = $auth['type'] + 1;
