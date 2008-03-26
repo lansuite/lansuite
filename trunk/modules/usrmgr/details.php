@@ -109,7 +109,7 @@ else {
       if ($auth['type'] >= 3)
         $name .= ' '. $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid='. $_GET['userid'], t('Löschen'));
       $name .= '</td></tr></table>'; 
-        $dsp->AddDoubleRow('Benutzername', $name);
+        $dsp->AddDoubleRow(t('Benutzername'), $name);
 
 
       // User group
