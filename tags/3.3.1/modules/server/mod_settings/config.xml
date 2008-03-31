@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <typedefinition>
+    <head>
+      <name>server_sort</name>
+    </head>
+    <entries>
+  		<entry>
+  			<value>serverid</value>
+  			<description>ID</description>
+  		</entry>
+  		<entry>
+  			<value>changedate</value>
+  			<description>Change Date</description>
+  		</entry>
+    </entries>
+  </typedefinition>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>server_admin_only</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Nur Admins dürfen Server hinzufügen</description>
+    	</item>
+    	<item>
+    		<name>server_ping_refresh</name>
+    		<type>int</type>
+    		<default>60</default>
+    		<description>Nach wie vielen Sekunden soll die Erreichbarkeit eines Servers neu getestet werden?</description>
+    	</item>
+    	<item>
+    		<name>server_ip_auto_assign</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>In welchem Bereich sollen ServerIPs automatisch vergeben werden (Leer für freie Auswahl durch Benutzer). Format: 192.168.0.200-240</description>
+    	</item>
+    	<item>
+    		<name>server_ip_next</name>
+    		<type>int</type>
+    		<default></default>
+    		<description>Die nächste IP, die vergeben wird (Wert wird automatisch angepasst)</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Startseite</name>
+    <item>
+    		<name>server_sortmethod</name>
+    		<type>server_sort</type>
+    		<default>changedate</default>
+    		<description>Nach was soll sortiert werden</description>
+    	</item>
+  </group>
+</config>

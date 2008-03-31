@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<pos>15</pos>
+	<entry>
+		<action>removebuddy</action>
+		<file>remove</file>
+		<requirement>1</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+	</entry>
+	<entry>
+		<action>addbuddy</action>
+		<file>add</file>
+		<requirement>1</requirement>
+	</entry>
+</menu>

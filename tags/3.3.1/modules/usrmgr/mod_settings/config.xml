@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <typedefinition>
+    <head>
+      <name>mailselect</name>
+    </head>
+    <entries>
+  		<entry>
+  			<value>0</value>
+  			<description>Nein</description>
+  		</entry>
+  		<entry>
+  			<value>1</value>
+  			<description>Ja, als System-Mail</description>
+  		</entry>
+  		<entry>
+  			<value>2</value>
+  			<description>Ja, an seine Mail-Adresse</description>
+  		</entry>
+  		<entry>
+  			<value>3</value>
+  			<description>Ja, beides</description>
+  		</entry>
+    </entries>
+  </typedefinition>
+  <group>
+    <head>
+      <name>Userdetails-Anzeige</name>
+    </head>
+    <items>
+    	<item>
+    		<name>orga_showcheck</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Sollen bei einem Orga die Felder "CheckIN/Out" angezeigt werden?</description>
+    	</item>
+    	<item>
+    		<name>orga_showpaid</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Sollen bei einem Orga die Felder "Bezahlt/PlatzpfandCheckIN/Out" angzeigt werden?</description>
+    	</item>
+    	<item>
+    		<name>user_showownstreet</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Sollen dem Benutzer SEINE Straße/Passnummer/Sonstiges angezeigt werden? (Orga sieht diese Felder immer)</description>
+    	</item>
+    	<item>
+    		<name>user_showcity4all</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Sollen die PLZ und Stadt eines Benutzers JEDEM angezeigt werden? (Orga sieht diese Felder immer)</description>
+    	</item>
+    	<item>
+    		<name>user_showmail4all</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Soll die eMail eines Benutzers JEDEM angezeigt werden? (Orga sieht diese Felder immer, im Internetmodus wird sie nie angezeigt)</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Berechtigungen: Eigene Daten ändern</name>
+    </head>
+    <items>
+    	<item>
+    		<name>user_avatarupload</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Darf der Benutzer ein Avatarbild uploaden?</description>
+    	</item>
+    	<item>
+    		<name>user_design_change</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Darf der Benutzer das Design auswählen?</description>
+    	</item>
+    	<item>
+    		<name>user_self_details_change</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Sollen die User ihre Details im Nachhinein selbst ändern dürfen?</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>PDF-Eintrittskarte</name>
+    </head>
+    <items>
+    	<item>
+    		<name>user_show_ticket</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Soll in der Benutzerdaten-Box der Link zur Eintrittskarte gezeigt werden?</description>
+    	</item>
+    	<item>
+    		<name>user_ticket_template</name>
+    		<type>string</type>
+    		<default>Ausweise</default>
+    		<description>Name des PDF-Templates für Eintrittskarte</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Zahlstatus Mail</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_send_paid_email</name>
+    		<type>mailselect</type>
+    		<default>3</default>
+    		<description>Soll nach Zahlstatusänderung dem Benutzer eine Mail gesendet werden?</description>
+    	</item>
+    </items>
+  </group>  
+</config>

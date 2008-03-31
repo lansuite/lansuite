@@ -1,0 +1,55 @@
+<script language="javascript">
+<!--
+// Define Seatdata
+var seat	= new Array();
+{$templ['seat']['seat_data_array']}
+
+var image = new Array();
+{$templ['seat']['seat_data_image']}
+
+var rows = {$templ['seat']['row_count']};
+var cols = {$templ['seat']['col_count']};
+
+InitSeating();
+-->
+</script>
+
+{$templ['seat']['input_hidden']}
+
+<table cellspacing="4" cellpadding="0" class="content" align="center" onMousedown="setFlag()" onMouseup="resetFlag()" onmouseout="resetFlag()">
+	<tr>
+		<td class="frame_box" width="33%" colspan="2">{$templ['seat']['text_tl']}&nbsp;</td>
+		<td class="frame_box" width="34%">{$templ['seat']['text_tc']}&nbsp;</td>
+		<td class="frame_box" width="33%" colspan="2">{$templ['seat']['text_tr']}&nbsp;</td>
+	</tr>
+
+	<tr>
+		<td class="frame_box" width="5%">{$templ['seat']['text_lt']}&nbsp;</td>
+		<td rowspan="3" colspan="3" class="frame_box">
+			<table cellspacing="0" cellpadding="0" class="content" align="center">
+			{$templ['seat']['plan_extra_top']}
+			<tr><td class="content"></td>{$templ['seat']['plan_sep_row_desc_x']}</tr>
+			{$templ['seat']['rows']}
+			{$templ['seat']['plan_extra_botom']}
+			</table>
+		</td>
+		<td class="frame_box" width="5%">{$templ['seat']['text_rt']}&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="frame_box">{$templ['seat']['text_lc']}&nbsp;</td>
+		<!-- RowSpan #2 + ColSpan 3-->
+		<td class="frame_box">{$templ['seat']['text_rc']}&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="frame_box">{$templ['seat']['text_lb']}&nbsp;</td>
+		<!-- RowSpan #3 + ColSpan 3 -->
+		<td class="frame_box">{$templ['seat']['text_rb']}&nbsp;</td>
+	</tr>
+
+	<tr>
+		<td class="frame_box" colspan="2">{$templ['seat']['text_bl']}&nbsp;</td>
+		<td class="frame_box">{$templ['seat']['text_bc']}&nbsp;</td>
+		<td class="frame_box" colspan="2">{$templ['seat']['text_br']}&nbsp;</td>
+	</tr>
+</table>
+<div id="tooltip" class="tooltip" style="position: absolute; width: auto; height: auto; z-index: 100; visibility: hidden; left: 0; top: 0;"></div>

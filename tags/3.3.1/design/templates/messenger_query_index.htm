@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<HEAD>
+<LINK rel="STYLESHEET" href="design/{default_design}/style.css">
+<TITLE>LS Messenger mit Benutzer: {$templ['messenger']['query']['info']['username']}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</TITLE>
+</HEAD>
+<frameset rows="*,190" frameborder="NO" border="0" framespacing="0"> 
+  <frame name="mainFrame"  scrolling="YES" src="index.php?mod=msgsys&amp;action=query_messages&amp;design=base&amp;queryid=$_GET[queryid]#end">
+  <frame name="bottomFrame" scrolling="NO" noresize src="index.php?mod=msgsys&amp;action=query_console&amp;design=base&amp;queryid=$_GET[queryid]">
+</frameset>
+<noframes>
+</body>
+</noframes> 
+</html>

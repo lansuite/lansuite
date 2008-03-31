@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>beamer_duration_default</name>
+    		<type>int(5)</type>
+    		<default>30</default>
+    		<description>Standard Anzeigedauer in Sekunden</description>
+    	</item>
+    </items>
+  </group>
+</config>

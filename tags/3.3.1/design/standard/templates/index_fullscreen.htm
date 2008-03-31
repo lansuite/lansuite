@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- COPYRIGHT 2001-2003 "http://www.One-Network.Org" - ALL RIGHTS RESERVED -->
+<html>
+<head>
+<title>LANSuite (Vollbildmodus)</title>
+	{$templ['index']['html_header']}
+</head>
+<body  {$templ['index']['body']['js']}>
+{$templ['index']['control']['js']}
+<table width="100%" border="0" cellpadding="0" cellspacing="10">
+  <tr>
+    <td>
+      <table width="100%" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+          <td colspan="5">
+            <table  width="100%" cellspacing="0" cellpadding="0" style="background:url(design/{default_design}/images/index_top_background.gif)">
+              <tr><td></td></tr>
+              <tr>
+                <td>&nbsp;<a href="{$templ['index']['control']['current_url']}" class="menu"><img src="design/{default_design}/images/arrows_delete.gif" border="0" alt="" />x
+                <strong>LANSuite / Vollbildmodus</strong></a>
+               </td>
+              </tr>
+              <tr><td></td></tr>
+            </table>
+           </td>
+        </tr>
+        <!-- 20er Space  //-->
+        <tr>
+          <td colspan="5">&nbsp;</td>
+        </tr>
+
+        <!-- MiddleBlock //-->
+        <tr>
+          <td valign="top" width="100%" align="center">
+             <table width="100%" cellspacing="0" cellpadding="0" align="center">
+              <tr>
+                <td style="background:url(design/{default_design}/images/menu_topic_bg.gif)" height="15" valign="top" width="1%"><img src="design/{default_design}/images/arrows_content.gif" width="15" height="12" hspace="1" vspace="0" alt="content" /></td>
+                <td style="background:url(design/{default_design}/images/menu_topic_bg.gif)" height="15"><img src="design/{default_design}/images/index_topic_lansuite.gif" width="78" height="7" alt="" /></td>
+              </tr>
+              <tr class="tbl_5">
+                <td colspan="2"> {$templ['index']['info']['content']} </td>
+              </tr>
+              <tr class="tbl_5">
+                <td colspan="2" align="right" valign="bottom"><a href="#top"><img src="design/{default_design}/images/index_bottom_2top.gif" width="78" height="7" border="0" alt="" /></a></td>
+              </tr>
+              <tr>
+                <td colspan="2" class="tbl_4">&nbsp;</td>
+              </tr>
+             </table>
+		  </td>
+        </tr>
+
+    <!--- Fooder
+        <tr>
+           <td colspan="3"><div align="center" class="tbl_small2">{footer}</div></td>
+        </tr>
+        //-->
+
+      </table>
+      </td>
+  </tr>
+</table>
+</body>
+</html>

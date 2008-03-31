@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>picgallery_allow_user_upload</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Darf jeder Bilder hochladen</description>
+    	</item>
+    	<item>
+    		<name>picgallery_allow_user_naming</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Darf jeder Bilder mit Beschriftungen versehen?</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Thumbnail Ausmaße</name>
+    </head>
+    <items>
+    	<item>
+    		<name>picgallery_max_width</name>
+    		<type>int</type>
+    		<default>150</default>
+    		<description>Maximalbreite eines Thumbnails</description>
+    	</item>
+    	<item>
+    		<name>picgallery_max_height</name>
+    		<type>int</type>
+    		<default>120</default>
+    		<description>Maximalhöhe eines Thumbnails</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Thumbnailübersicht Design</name>
+    </head>
+    <items>
+    	<item>
+    		<name>picgallery_items_per_row</name>
+    		<type>int</type>
+    		<default>3</default>
+    		<description>Bilder in der Übersicht pro Reihe</description>
+    	</item>
+    	<item>
+    		<name>picgallery_rows</name>
+    		<type>int</type>
+    		<default>4</default>
+    		<description>Reihen mit Bildern in der Übersicht</description>
+    	</item>
+    </items>
+  </group>
+</config>

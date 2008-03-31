@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>mail_utf8</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Sollen Mails in UTF-8 kodiert werden?</description>
+    	</item>
+    	<item>
+    		<name>mail_popup_on_new_mails</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Soll sich bei neuen Mails ein PopUp öffnen?</description>
+    	</item>
+    	<item>
+    		<name>mail_additional_mails</name>
+    		<type>text</type>
+    		<default></default>
+    		<description>Geben Sie hier weitere E-Mail Adressen an, an die - neben den Benutzern - Mails gesendet werden können</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Verbindungsdaten SMTP</name>
+    </head>
+    <items>
+    	<item>
+    		<name>mail_use_smtp</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Sollen Internet-Mails per SMTP-versendet werden (Auf Linux Servern nicht empfohlen)</description>
+    	</item>
+    	<item>
+    		<name>mail_smtp_host</name>
+    		<type>string</type>
+    		<default>localhost</default>
+    		<description>Hostname des SMTP-Servers</description>
+    	</item>
+    	<item>
+    		<name>mail_smtp_user</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Benutzername des SMTP-Servers</description>
+    	</item>
+    	<item>
+    		<name>mail_smtp_pass</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Passwort des SMTP-Servers</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Auto-Mails</name>
+    </head>
+    <items>
+    	<item>
+    		<name>signon_signonemail_subject</name>
+    		<type>string</type>
+    		<default>Informationsmail zur Anmeldung einer LanSuite Lan-Party</default>
+    		<description>Betreff bei Registrierung und Anmeldung</description>
+    	</item>
+    	<item>
+    		<name>signon_signonemail_text</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%!
+
+Sie sind nun registriert und für die kommende Lan-Party "%PARTYNAME%" vorgemerkt. Ihre Anmeldung ist jedoch erst vollständig, wenn Sie die Teilnahmegebühr überwiesen haben.
+
+--LANdata-------------------
+Event: %PARTYNAME%
+Webseite: %PARTYURL%
+Teilnehmer: %MAXGUESTS%
+---------------------------
+
+Ihre Orgas</default>
+    		<description>Text bei Anmeldung zur aktuellen Party
+
+Variablen:
+%USERNAME%
+%EMAIL%
+%PARTYNAME%
+%PARTYURL%
+%SIGNON_DEADLINE%
+%MAXGUESTS%
+        </description>
+    	</item>
+  
+	<item>
+		<name>signon_signoffemail_subject</name>
+		<type>string</type>
+		<default>Abmeldung von einer LanSuite Lan-Party</default>
+		<description>Betreff bei Abmeldungs-Mail</description>
+	</item>
+	<item>
+		<name>signon_signoffemail_text</name>
+		<type>text</type>
+		<default>Hallo %USERNAME%!
+		
+		Schade, dass du doch nicht zu unserer Party kommen kannst/möchtest.
+		Wir würden uns jedoch freuen, wenn du auf einer unserer zukünftigen Partys wieder mit dabei wärst</default>
+  		<description>Text bei Abmeldungs-Mail</description>
+	</item>
+  	<item>
+    		<name>signon_signonemail_text_register</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%!
+
+Sie haben sich erfolgreich auf %PARTYURL% angemeldet.
+
+Hier nochmal Ihre Daten, die Sie angegeben haben:
+
+--Userdata------------------
+Username: %USERNAME%
+E-Mail: %EMAIL%
+Passwort: %PASSWORD%
+Clan: %CLAN%
+----------------------------
+
+Ihre Orgas</default>
+    		<description>Text bei Registrierung im System
+
+Variablen:
+%USERNAME%
+%PARTYURL%
+%EMAIL%
+%PASSWORD%
+%CLAN%
+        </description>
+    	</item>
+    	<item>
+    		<name>board_subscribe_subject</name>
+    		<type>string</type>
+    		<default>Es ist ein neuer Beitrag vorhanden</default>
+    		<description>Betreff bei neue Beiträge im Thread</description>
+    	</item>
+    	<item>
+    		<name>board_subscribe_text</name>
+    		<type>text</type>
+    		<default>Im Forum gibt es einen neuen Beitrag. Du kannst ihn dir unter %URL% ansehen</default>
+    		<description>Text bei neue Beiträge im Thread
+
+Variablen:
+%URL%
+        </description>
+    	</item>
+    	<item>
+    		<name>signon_paid_email_subject</name>
+    		<type>string</type>
+    		<default>Ihre Zahlung ist bei uns eingegangen</default>
+    		<description>Betreff bei Zahlstatus-Änderung</description>
+    	</item>
+    	<item>
+    		<name>signon_paid_email_text</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%!
+
+Sie sind nun auf den Status bezahlt gesetzt und können
+für die kommende LanParty "%PARTYNAME%" Ihren Sitzplatz reservieren.
+
+Ihre Orgas</default>
+    		<description>Text bei Zahlstatus-Änderung zu Bezahlt
+
+Variablen:
+%USERNAME%
+%PARTYNAME%
+        </description>
+    	</item>
+    	<item>
+    		<name>signon_not_paid_email_text</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%,
+
+Ihr Bezahltstatus der LanParty "%PARTYNAME%" wurde zurück auf "NICHT bezahlt" gesetzt.
+
+Ihre Orgas</default>
+    		<description>Text bei Zahlstatus-Änderung zu nicht Bezahlt
+
+Variablen:
+%USERNAME%
+%PARTYNAME%
+        </description>
+    	</item>
+    	<item>
+    		<name>usrmgr_pwrecovery_subject</name>
+    		<type>string</type>
+    		<default>LanSuite-Passwortrecovery</default>
+    		<description>Betreff bei Passwort Recovery</description>
+    	</item>
+    	<item>
+    		<name>usrmgr_pwrecovery_text</name>
+    		<type>text</type>
+    		<default>Hallo %USERNAME%,
+
+Sie haben ein neues LanSuite Passwort angefordert.
+Damit das neue Passwort generiert wird, gehen Sie bitte auf folgende Webseite: %PATH%
+
+Dieser zusätzliche Schritt ist notwendig, um zu verifizieren, dass dies Ihre Email-Adresse ist
+und Sie somit der legitime Besitzer des Lansuite Accounts sind.
+
+Sollte Sie diese Email erreichen, ohne dass Sie ein neues Passwort angefordert haben, so hat wahrscheinlich jemand anderes versucht Ihr Passwort zu erhalten.
+In diesem Fall reagieren Sie einfach überhaupt nicht auf diese Email. Es wird dann kein neues Passwort generiert und Sie verwenden wie bisher gewohnt ihr bestehendes.</default>
+    		<description>Text bei Passwort Recovery
+
+Variablen:
+%USERNAME%
+%PATH%
+        </description>
+    	</item>
+    </items>
+  </group>
+</config>

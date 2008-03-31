@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite-module>
+	<name>mastersearch2</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
+	<caption>MasterSearch</caption>		<!-- The modulname displayed to the user -->
+	<description>LanSuite Such-Engine</description>		<!-- A short description of the module -->
+	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
+	<changeable>0</changeable>		<!-- May the user de-/activate the module? 0/1 -->
+	<author>Jochen (KnoX)</author>				<!-- The author of this module -->
+	<email>knox@orgapage.de</email>					<!-- The E-Mail-Adress of the modules author -->
+	<version>2.0</version>			<!-- The version of this module -->
+	<state>Stable</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
+</lansuite-module>
