@@ -5,10 +5,10 @@ function ShowActiveState($val){
 
   if ($val) {
     $templ['ms2']['icon_name'] = 'yes';
-    $templ['ms2']['icon_title'] = t('Ja');
+    $templ['ms2']['icon_title'] = $lang['sys']['yes'];
   } else {
     $templ['ms2']['icon_name'] = 'no';
-    $templ['ms2']['icon_title'] = t('Nein');
+    $templ['ms2']['icon_title'] = $lang['sys']['no'];
   }
   return '<a href="index.php?mod=info2&action=change&step=20&id='. $line['infoID'] .'">'. $dsp->FetchModTpl('mastersearch2', 'result_icon') .'</a>';
 }
@@ -22,10 +22,10 @@ if ($auth['type'] <= 1) {
 
   $ms2->config['EntriesPerPage'] = 50;
 
-  $ms2->AddResultField(t('Seitentitel'), 'i.caption');
-  $ms2->AddResultField(t('Untertitel'), 'i.shorttext', '', 140);
+  $ms2->AddResultField($lang['info']['title'], 'i.caption');
+  $ms2->AddResultField($lang['info']['subtitle'], 'i.shorttext', '', 140);
 
-  $ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', t('Details'));
+  $ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', $lang['ms2']['details']);
   $ms2->PrintSearch('index.php?mod=info2', 'i.infoID');
 
 } else {
@@ -33,7 +33,7 @@ if ($auth['type'] <= 1) {
 
   switch($_GET["step"]){
   	default:
-  		$dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier können Sie den Inhalt der Info-Seiten editieren.'));
+  		$dsp->NewContent($lang["info"]["change_caption"], $lang["info"]["change_subcaption"]);
   		$dsp->SetForm("index.php?mod=info2&action=change&step=2");
   		$dsp->AddFormSubmitRow("add");
   		$dsp->AddContent();
@@ -45,12 +45,12 @@ if ($auth['type'] <= 1) {
 
       $ms2->config['EntriesPerPage'] = 50;
 
-      $ms2->AddResultField(t('Seitentitel'), 'i.caption');
-      $ms2->AddResultField(t('Untertitel'), 'i.shorttext', '', 140);
-      $ms2->AddResultField(t('Aktiv'), 'i.active', 'ShowActiveState');
+      $ms2->AddResultField($lang['info']['title'], 'i.caption');
+      $ms2->AddResultField($lang['info']['subtitle'], 'i.shorttext', '', 140);
+      $ms2->AddResultField($lang['info']['active'], 'i.active', 'ShowActiveState');
 
-	$ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', t('Details'));
-      if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=info2&action=change&step=2&id=', t('Editieren'));
+	$ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', $lang['ms2']['details']);
+      if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=info2&action=change&step=2&id=', $lang['ms2']['edit']);
       if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Aktiv-Status ändern', 'index.php?mod=info2&action=change&step=20', 1);
       if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('Löschen', 'index.php?mod=info2&action=change&step=10', 1);
 
@@ -68,11 +68,11 @@ if ($auth['type'] <= 1) {
   			$_POST["subtitle"] = $module["shorttext"];
   		}
 
-  		$dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier können Sie den Inhalt der Seite editieren.'));
+  		$dsp->NewContent($lang["info"]["change_caption_2"], $lang["info"]["change_subcaption_2"]);
   		$dsp->SetForm("index.php?mod=info2&action=change&step=3&id={$_GET["id"]}&menuid={$module["id"]}");
 
-  		$dsp->AddTextFieldRow("title", t('Seitentitel'), $_POST["title"], $title_error);
-  		$dsp->AddTextFieldRow("subtitle", t('Untertitel'), $_POST["subtitle"], $title_error);
+  		$dsp->AddTextFieldRow("title", $lang["info"]["title"], $_POST["title"], $title_error);
+  		$dsp->AddTextFieldRow("subtitle", $lang["info"]["subtitle"], $_POST["subtitle"], $title_error);
 
   		if ($cfg["info2_use_fckedit"]) {
 
@@ -96,7 +96,7 @@ if ($auth['type'] <= 1) {
 	
 	// Write Content to DB
   	case 3:
-  		if ($_POST["title"] == "" or $_POST["content"] == "") $func->information(t('Bitte füllen Sie alle Felder aus!'), "index.php?mod=info2&action=change&step=2&id={$_GET["id"]}");
+  		if ($_POST["title"] == "" or $_POST["content"] == "") $func->information($lang["info"]["err_missing_fields"], "index.php?mod=info2&action=change&step=2&id={$_GET["id"]}");
   		else {
   			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
 
@@ -106,7 +106,7 @@ if ($auth['type'] <= 1) {
   					shorttext = '{$_POST["subtitle"]}',
   					text = '{$_POST["content"]}'");
 
-  				$func->confirmation(t('Der Eintrag wurde erfolgreich erstellt.'), "index.php?mod=info2&action=change");
+  				$func->confirmation($lang["info"]["add_success"], "index.php?mod=info2&action=change");
 
   			} else {
   				$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = {$_GET["id"]}");
@@ -129,7 +129,7 @@ if ($auth['type'] <= 1) {
   					text = '{$_POST["content"]}'
   					WHERE infoID = '{$_GET["id"]}'");
 
-  				$func->confirmation(t('Der Eintrag wurde erfolgreich geändert.'), "index.php?mod=info2&action=change");
+  				$func->confirmation($lang["info"]["change_success"], "index.php?mod=info2&action=change");
   			}
   		}
   	break;
@@ -142,7 +142,7 @@ if ($auth['type'] <= 1) {
   			$db->query("DELETE FROM {$config['tables']['info']} WHERE infoID = $item");
   		}
 
-  		$func->confirmation(t('Der Eintrag wurde gelöscht.'), "index.php?mod=info2&action=change");
+  		$func->confirmation($lang["info"]["del_success"], "index.php?mod=info2&action=change");
   	break;
 
   	// Change active state
@@ -176,7 +176,7 @@ if ($auth['type'] <= 1) {
   			}
   		}
 
-  		$func->confirmation(t('Der Aktiv-Status wurde erfolgreich geändert.'), "index.php?mod=info2&action=change");
+  		$func->confirmation($lang["info"]["change_active_success"], "index.php?mod=info2&action=change");
   	break;
 
   }

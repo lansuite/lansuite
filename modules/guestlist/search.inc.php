@@ -80,8 +80,8 @@ if ($party->party_id) {
     $ms2->AddResultField(t('Out'), 'p.checkout', 'MS2GetDate');
   }
 }
-$ms2->AddIconField('details', 'index.php?mod=guestlist&action=details&userid=', t('Details'));
-$ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', t('Mail senden'));
+$ms2->AddIconField('details', 'index.php?mod=guestlist&action=details&userid=', $lang['ms2']['details']);
+$ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', $lang['ms2']['send_mail']);
 
 if ($auth['type'] >= 2) {
   $ms2->AddMultiSelectAction(t('Auf "Bezahlt" setzen'), "index.php?mod=guestlist&step=10", 1, 'paid');

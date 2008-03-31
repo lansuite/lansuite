@@ -138,11 +138,6 @@ class auth {
 				WHERE ('". (int)$tmp_login_email."' = '".$tmp_login_email."' AND userid = '$tmp_login_email')
 					OR LOWER(email) = '$tmp_login_email'");
 
-			$user2 = $db->query_first("SELECT email_verified
-				FROM {$config["tables"]["user"]}
-				WHERE ('". (int)$tmp_login_email."' = '".$tmp_login_email."' AND userid = '$tmp_login_email')
-					OR LOWER(email) = '$tmp_login_email'");
-
 			$party_query = $db->query("SELECT p.checkin, p.checkout FROM {$config["tables"]["party_user"]} AS p WHERE p.party_id=". (int)$party->party_id ." AND user_id='{$user['userid']}'");
 
 			// Check Checkin
@@ -172,11 +167,6 @@ class auth {
 			} elseif ($user['locked']){
 				$func->information($lang['class_auth']['locked'], '', '', 1);
 				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['locked_log']), "2", "Authentifikation");
-
-			// Mail not verified
-			} elseif ($cfg['sys_login_verified_mail_only'] == 2 and !$user2['email_verified'] and $user["type"] < 2) {
-				$func->information(t('Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email', $user['email']), '', '', 1);
-				$func->log_event(str_replace("%EMAIL%", $tmp_login_email, t('Login fehlgeschlagen. Email (%1) nicht verifiziert', $user['email'])), "2", "Authentifikation");
 
 			// Wrong Password?
 			} elseif ($tmp_login_pass != $user["password"]){

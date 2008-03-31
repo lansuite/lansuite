@@ -13,7 +13,7 @@ switch($_GET['step']) {
 
 			// Check IP format
 			if (!$func->checkIP($value)) {
-		    $func->error(t('Das Format mindestens einer IP ist ungültig. Format: 192.168.123.12'), '');
+		    $func->error($lang['seating']['err_ip_format'], '');
 				$_GET['step'] = 2;
 				break;
 			}
@@ -22,7 +22,7 @@ switch($_GET['step']) {
 			/*
 			$current_ip = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["seat_seats"]} WHERE ip = '$value'");
 			if ($current_ip['found']) {
-				$func->error(t('Mindestens eine IP wurde bereits vergeben'), '');
+				$func->error($lang['seating']['err_double_ip'], '');
 				$_GET['step'] = 2;
 				break;
 			}*/
@@ -39,7 +39,7 @@ switch($_GET['step']) {
 	break;
 
 	case 2:
-		$dsp->NewContent(t('Sitzplatz - Informationen'), t('Fahren Sie mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.'));
+		$dsp->NewContent($lang['seating']['seat_info'], $lang['seating']['seat_info_sub']);
 
 		$dsp->SetForm("index.php?mod=seating&action=ip&step=3&blockid={$_GET['blockid']}");
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 3));
@@ -57,7 +57,7 @@ switch($_GET['step']) {
 			$db->query_first("UPDATE {$config["tables"]["seat_seats"]} SET ip='$value'
 				WHERE blockid = '{$_GET['blockid']}' AND row = '$row' AND col = '$col'");
 		}
-		$func->confirmation(t('Die IPs wurden erfolgreich eingetragen'), 'index.php?mod=seating&action=ip');
+		$func->confirmation($lang['seating']['cf_add_ips'], 'index.php?mod=seating&action=ip');
 	break;
 }
 ?>

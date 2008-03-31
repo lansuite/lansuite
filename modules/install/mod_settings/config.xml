@@ -91,25 +91,6 @@
   </typedefinition>
   <typedefinition>
     <head>
-      <name>mail_verifiy</name>    
-    </head>
-    <entries>
-  		<entry>
-  			<value>0</value>
-  			<description>Nein</description>
-  		</entry>
-  		<entry>
-  			<value>1</value>
-  			<description>Verifizierungscode verschicken und Antwort in DB speichern, jedoch nicht am Login hindern</description>
-  		</entry>
-  		<entry>
-  			<value>2</value>
-  			<description>Nur Benutzer mit verifizierten Mail-Adressen düfen sich einloggen (Betrifft keine Admins)</description>
-  		</entry>
-    </entries>
-  </typedefinition>
-  <typedefinition>
-    <head>
       <name>barcode</name>    
     </head>
     <entries>
@@ -149,29 +130,16 @@
     		<description>Läuft diese Version im Internet (Anmeldesystem)?</description>
     	</item>
     	<item>
-    		<name>sys_compress_level</name>
-    		<type>int</type>
-    		<default>0</default>
-    		<description>Stärke der Seitenkompression: 0 = Kompression deaktiviert, 1 = schwach, 9 = stark</description>
-    	</item>
-    </items>
-  </group>
-  <group>
-    <head>
-      <name>Sicherheit und Anti-Spam</name>
-    </head>
-    <items>
-    	<item>
     		<name>sys_logoffdoubleusers</name>
     		<type>boolean</type>
     		<default>0</default>
     		<description>Soll ein eingeloggter User ausgeloggt werden, wenn sich ein zweiter (er selbst an einem anderen PC) mit seinem Account anmeldet?</description>
     	</item>
     	<item>
-    		<name>sys_login_verified_mail_only</name>
-    		<type>mail_verifiy</type>
+    		<name>sys_compress_level</name>
+    		<type>int</type>
     		<default>0</default>
-    		<description>Müssen Benutzer ihre Email-Adresse verifizieren</description>
+    		<description>Stärke der Seitenkompression: 0 = Kompression deaktiviert, 1 = schwach, 9 = stark</description>
     	</item>
     	<item>
     		<name>mc_only_logged_in</name>

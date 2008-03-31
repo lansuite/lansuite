@@ -53,8 +53,8 @@ else $mod = $_GET['mod'];
 //// Load Lang-File
 // 1) Include 'de'
 // 2) Overwrite with $language
-if (file_exists("modules/install/language/install_lang_de.php")) include_once("modules/install/language/install_lang_de.php");
-if ($language != 'de' and file_exists("modules/install/language/install_lang_{$language}.php")) include_once("modules/install/language/install_lang_{$language}.php");
+if (file_exists("modules/{$mod}/language/{$mod}_lang_de.php")) include_once("modules/{$mod}/language/{$mod}_lang_de.php");
+if ($language != 'de' and file_exists("modules/{$mod}/language/{$mod}_lang_{$language}.php")) include_once("modules/{$mod}/language/{$mod}_lang_{$language}.php");
 
 // Reset $auth['type'], if no permission to Mod
 if ($found_adm and $auth['type'] > 1) {

@@ -37,12 +37,10 @@ class func {
 	}
 
 	function button_userdetails($userid, $target) {
-		global $db;
+		global $auth;
 
 		if ($target == "new") $target = 'target="_blank"';
-    $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = "1" AND lasthit > %int%', $userid, time() - 60*10);
-		($user_online['found'])? $state ='online' : $state ='offline';
-		return ' <a href="index.php?mod=usrmgr&action=details&userid='.$userid.'" '.$target.'><img src="design/images/arrows_user_'. $state .'.png" border="0"/></a>';
+		return ' <a href="index.php?mod=usrmgr&action=details&userid='.$userid.'" '.$target.'><img src="design/'. $auth["design"] .'/images/arrows_user.gif" border="0"/></a>';
 	}
 
   function FetchMasterTmpl($file) {
@@ -388,7 +386,7 @@ class func {
 #		$string = str_replace("?&gt;", '?'.'>', $string);
 		$string = strip_tags($string);
 
-		$string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" />', $string);
+		$string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="1" class="img" alt="" />', $string);
 		$string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
 
     $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
@@ -480,7 +478,7 @@ class func {
         userid='$atuser',
         description='". $this->escape_sql($message) ."',
         type='$type',
-        date=NOW(),
+        date='$timestamp',
         sort_tag = '$sort_tag',
         target_id = '$target_id'
         ");

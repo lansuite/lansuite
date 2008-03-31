@@ -43,9 +43,9 @@ if ($auth['userid']) {
   
   function MailStatus ( $status ) {
 	 global $lang;
-	 if ( $status == "new" ) return t('Ungelesen');
-	 if ( $status == "read" ) return t('Gelesen');
- 	 if ( $status == "reply" ) return t('Beantwortet'); 
+	 if ( $status == "new" ) return $lang['mail']['unread'];
+	 if ( $status == "read" ) return $lang['mail']['read'];
+ 	 if ( $status == "reply" ) return $lang['mail']['answered']; 
   }
 
   
@@ -62,18 +62,18 @@ if ($auth['userid']) {
   $ms2->config['EntriesPerPage'] = 20;
 
   $ms2->AddTextSearchField('Mail', array('m.subject' => 'fulltext', 'm.msgbody' => 'fulltext'));
-  $ms2->AddTextSearchField(t('Nachricht von'), array('u.userid' => 'exact', 'u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
+  $ms2->AddTextSearchField($lang['mail']['showmail_mail_from'], array('u.userid' => 'exact', 'u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
 
   $ms2->AddSelect('u.userid');
 
-  $ms2->AddResultField(t('Betreff'), 'm.subject', '', 160);
-  $ms2->AddResultField(t('Nachricht von'), 'u.username', 'UserNameAndIcon','',100);
+  $ms2->AddResultField($lang['mail']['newsletter_subject'], 'm.subject', '', 160);
+  $ms2->AddResultField($lang['mail']['showmail_mail_from'], 'u.username', 'UserNameAndIcon','',100);
   $ms2->AddResultField('Status', 'm.des_status', 'MailStatus', '',80);
-  $ms2->AddResultField(t('Gesendet'), 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate','',70);
-  $ms2->AddResultField(t('Gelesen'), 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate','',20);
+  $ms2->AddResultField($lang['mail']['showmail_mail_send'], 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate','',70);
+  $ms2->AddResultField($lang['mail']['showmail_mail_read'], 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate','',20);
     
-  $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=in&mailID=', t('Details'),'',10);
-  $ms2->AddIconField('delete', 'index.php?mod=mail&action=inbox&step=20&mailid=', t('Löschen'),'',10);
+  $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=in&mailID=', $lang['ms2']['details'],'',10);
+  $ms2->AddIconField('delete', 'index.php?mod=mail&action=inbox&step=20&mailid=', $lang['ms2']['delete'],'',10);
 
   $ms2->AddMultiSelectAction(t('Markierung entfernen'), 'index.php?mod=mail&step=10', 0);
   $ms2->AddMultiSelectAction(t('Markieren: Rot'), 'index.php?mod=mail&step=11', 0);

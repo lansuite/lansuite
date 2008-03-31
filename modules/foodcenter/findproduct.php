@@ -38,31 +38,31 @@ $ms2->query['from'] = "{$config['tables']['food_product']} AS p
 	$ms2->AddSelect('p.cat_id');
 	$ms2->AddResultField('Titel', 'p.id', 'GetTitelName');
 
-	//$ms2->AddIconField('basket', 'index.php?mod=foodcenter&headermenuitem='=', t('Details'));
+	//$ms2->AddIconField('basket', 'index.php?mod=foodcenter&headermenuitem='=', $lang['ms2']['details']);
 
 switch ($_POST['search_dd_input'][0]){
    		case 1:
-    		$ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_offer'];
     	break;
 
     	case 2:
-    		$ms2->NoItemsText = t('Es müssen keine Produkte bestellt werden.');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_stop'];
     	break;
 
     	case 3:
-    		$ms2->NoItemsText = t('Es wird auf keine Lieferung gewartet.');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_supplied'];
     	break;
 
     	case 4:
-    		$ms2->NoItemsText = t('Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_kitchen'];
     	break;
     	
      	case 5:
-    		$ms2->NoItemsText = t('Sie haben alle Produkte abgeholt.');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_wait'];
     	break;  
     	
     	default:
-    		$ms2->NoItemsText = t('Keine aktuellen Bestellungen vorhanden.');
+    		$ms2->NoItemsText = $lang['foodcenter']['ordered_no_offer'];
     	break;  
 
 }

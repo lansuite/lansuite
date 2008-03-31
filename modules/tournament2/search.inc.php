@@ -17,7 +17,7 @@ function GetTournamentName($name) {
 	// LGZ Icon
 	if ($line['lgz_gamename']) $return .= ' <img src="ext_inc/tournament_icons/leagues/lgz.png" title="LGZ Game" border="0" />';
 	// Over 18 Icon
-	if ($line['over18']) $return .= " <img src='design/".$auth["design"]."/images/fsk_18.gif' title=\"".t('cb_t_over18')."\" border=\"0\" />";
+	if ($line['over18']) $return .= " <img src='design/".$auth["design"]."/images/fsk_18.gif' title=\"{$lang['ms']['cb_t_over18']}\" border=\"0\" />";
 
 	return $return;
 }
@@ -29,11 +29,9 @@ function GetTournamentTeamAnz($maxteams) {
 
 function GetTournamentStatus($status) {
 	global $lang;
-	$status_descriptor["open"] 	= t('Anmeldung offen');
-	$status_descriptor["locked"] 	= t('Anmeldung geschlossen');
-	$status_descriptor["invisible"] 	= t('Unsichtbar');
-	$status_descriptor["process"] 	= t('Wird gespielt');
-	$status_descriptor["closed"] 	= t('Beendet');
+	$status_descriptor["open"] 	= $lang['tourney']['cb_ts_open'];
+	$status_descriptor["process"] 	= $lang['tourney']['cb_ts_progress'];
+	$status_descriptor["closed"] 	= $lang['tourney']['cb_ts_closed'];
 	
 	return $status_descriptor[$status];
 }
@@ -41,14 +39,14 @@ function GetTournamentStatus($status) {
 function IfGenerated($tid) {
   global $line;
 
-  if ($line['status'] == 'process' or $line['status'] == 'closed') return true;
-  else return false;
+  if ($line['status'] == 'open') return false;
+  else return true;
 }
 
 function IfNotGenerated($tid) {
   global $line;
 
-  if ($line['status'] == 'open' or $line['status'] == 'locked' or $line['status'] == 'invisible') return true;
+  if ($line['status'] == 'open') return true;
   else return false;
 }
 
@@ -61,7 +59,7 @@ function IfFinished($tid) {
 
 
 $ms2->query['from'] = "{$config["tables"]["tournament_tournaments"]} AS t LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON t.tournamentid = teams.tournamentid";
-$ms2->query['where'] = "(t.status != 'invisible' OR {$auth['type']} > 1) AND t.party_id = ". (int)$party->party_id;
+$ms2->query['where'] = 't.party_id = '. (int)$party->party_id;
 
 $ms2->config['EntriesPerPage'] = 50;
 
@@ -71,18 +69,18 @@ $ms2->AddSelect('t.wwcl_gameid');
 $ms2->AddSelect('t.ngl_gamename');
 $ms2->AddSelect('t.lgz_gamename');
 $ms2->AddSelect('COUNT(teams.tournamentid) AS teamanz');
-$ms2->AddResultField(t('Turniername'), 't.name', 'GetTournamentName');
-$ms2->AddResultField(t('Turnier beginnt um'), 'UNIX_TIMESTAMP(t.starttime) AS starttime', 'MS2GetDate');
-$ms2->AddResultField(t('Team'), 't.maxteams', 'GetTournamentTeamAnz');
-$ms2->AddResultField(t('Status'), 't.status', 'GetTournamentStatus');
+$ms2->AddResultField($lang['tourney']['details_name'], 't.name', 'GetTournamentName');
+$ms2->AddResultField($lang['tourney']['details_startat'], 'UNIX_TIMESTAMP(t.starttime) AS starttime', 'MS2GetDate');
+$ms2->AddResultField($lang['tourney']['team'], 't.maxteams', 'GetTournamentTeamAnz');
+$ms2->AddResultField($lang['tourney']['details_state'], 't.status', 'GetTournamentStatus');
 
-$ms2->AddIconField('details', 'index.php?mod=tournament2&action=details&tournamentid=', t('Details'));
-$ms2->AddIconField('tree', 'index.php?mod=tournament2&action=tree&step=2&tournamentid=', t('Spielbaum'), 'IfGenerated');
-$ms2->AddIconField('play', 'index.php?mod=tournament2&action=games&step=2&tournamentid=', t('Paarungen'), 'IfGenerated');
-$ms2->AddIconField('ranking', 'index.php?mod=tournament2&action=rangliste&step=2&tournamentid=', t('Rangliste'), 'IfFinished');
-if ($auth['type'] >= 2) $ms2->AddIconField('generate', 'index.php?mod=tournament2&action=generate_pairs&step=2&tournamentid=', t('Generieren'), 'IfNotGenerated');
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=tournament2&action=change&step=1&tournamentid=', t('Editieren'));
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=tournament2&action=delete&step=2&tournamentid=', t('Löschen'));
+$ms2->AddIconField('details', 'index.php?mod=tournament2&action=details&tournamentid=', $lang['ms2']['details']);
+$ms2->AddIconField('tree', 'index.php?mod=tournament2&action=tree&step=2&tournamentid=', $lang['ms2']['game_tree'], 'IfGenerated');
+$ms2->AddIconField('play', 'index.php?mod=tournament2&action=games&step=2&tournamentid=', $lang['ms2']['game_pairs'], 'IfGenerated');
+$ms2->AddIconField('ranking', 'index.php?mod=tournament2&action=rangliste&step=2&tournamentid=', $lang['ms2']['ranking'], 'IfFinished');
+if ($auth['type'] >= 2) $ms2->AddIconField('generate', 'index.php?mod=tournament2&action=generate_pairs&step=2&tournamentid=', $lang['ms2']['generate'], 'IfNotGenerated');
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=tournament2&action=change&step=1&tournamentid=', $lang['ms2']['edit']);
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=tournament2&action=delete&step=2&tournamentid=', $lang['ms2']['delete']);
 
 if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('L&ouml;schen', 'index.php?mod=tournament2&action=delete&step=10', 1);
 

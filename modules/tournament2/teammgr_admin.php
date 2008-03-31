@@ -12,7 +12,7 @@ $member_user 	= $vars["member_user"];
 switch($_GET["step"]) {
 	// Team löschen
 	case 10:
-		if ($tteam->delete($_POST["teamid"])) $func->confirmation(t('Das Team wurde erfolgreich gelöscht'), "index.php?mod=tournament2&action=teammgr_admin");
+		if ($tteam->delete($_POST["teamid"])) $func->confirmation($lang["tourney"]["admteammgr_del_success"], "index.php?mod=tournament2&action=teammgr_admin");
 	break;
 
 	// Spieler einem Team hinzufügen - Suchen
@@ -27,13 +27,13 @@ switch($_GET["step"]) {
 
 	// Spieler einem Team hinzufügen - Ausführen
 	case 21:
-		if ($tteam->join($_GET["teamid"], $_GET["userid"])) $func->confirmation(t('Der Spieler wurde dem Team hinzugefügt'), "index.php?mod=tournament2&action=teammgr_admin");
+		if ($tteam->join($_GET["teamid"], $_GET["userid"])) $func->confirmation($lang["tourney"]["teammgr_adm_join_success"], "index.php?mod=tournament2&action=teammgr_admin");
 	break;
 
 	// Member aus Team löschen
 	case 30:
 		list($team_id, $user_id) = split("-", $_POST["member_user"], 2);
-		if ($tteam->kick($team_id, $user_id)) $func->confirmation(t('Der Spieler wurde erfolgreich aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr_admin");
+		if ($tteam->kick($team_id, $user_id)) $func->confirmation($lang["tourney"]["teammgr_adm_delmemb_success"], "index.php?mod=tournament2&action=teammgr_admin");
 	break;
 
 	// Neues Team eröffnen - Teamleiter auswählen
@@ -60,11 +60,11 @@ switch($_GET["step"]) {
 
 		if ($tteam->SignonCheckUser($_GET["tournamentid"], $_GET["userid"])) {
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=42&tournamentid=$tournamentid&userid=$userid");
-			$dsp->AddTextFieldRow("team_name", t('Teamname'), $_POST["team_name"], "");
-			$dsp->AddPasswordRow("set_password", t('Team-Passwort festlegen'), $_POST["set_password"], $error["set_password"]);
-			$dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $_POST["set_password2"], $error["set_password2"]);
-			$dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $team_comment, "", "", "", 1);
-			$dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1000000, 1);
+			$dsp->AddTextFieldRow("team_name", $lang["tourney"]["join_teamname"], $_POST["team_name"], "");
+			$dsp->AddPasswordRow("set_password", $lang["tourney"]["join_team_pw1"], $_POST["set_password"], $error["set_password"]);
+			$dsp->AddPasswordRow("set_password2", $lang["tourney"]["join_team_pw2"], $_POST["set_password2"], $error["set_password2"]);
+			$dsp->AddTextAreaPlusRow("team_comment", $lang["tourney"]["join_comment"], $team_comment, "", "", "", 1);
+			$dsp->AddFileSelectRow("team_banner", $lang["tourney"]["join_banner"], "", "", 1000000, 1);
 			$dsp->AddFormSubmitRow("add");
 			$dsp->AddBackButton("index.php?mod=tournament2&action=teammgr_admin", ""); 
 		}
@@ -73,12 +73,12 @@ switch($_GET["step"]) {
 	// Neues Team eröffnen - In DB schreiben
 	case 42:
 		if ($_POST["set_password"] and $_POST["set_password"] != $_POST["set_password2"]) $func->information("Die Passworteingaben stimmen nicht überein", "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
-		elseif ($_POST['team_name'] == "") $func->information(t('Bitte geben Sie einen Teamnamen ein, oder wählen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
+		elseif ($_POST['team_name'] == "") $func->information($lang["tourney"]["join_err_no_name"], "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
 
 		elseif (!$sec->locked("t_admteam_create")) {
 			$t = $db->query_first("SELECT name FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = {$_GET["tournamentid"]}");
 
-			if ($tteam->create($_GET["tournamentid"], $_GET["userid"], $_POST["team_name"], $_POST["set_password"], $_POST["team_comment"], "team_banner")) $func->confirmation(t('Der Spieler / Das Team wurden zum Turnier %1 erfolgreich angemeldet', $t["name"]), "index.php?mod=tournament2&action=teammgr_admin");
+			if ($tteam->create($_GET["tournamentid"], $_GET["userid"], $_POST["team_name"], $_POST["set_password"], $_POST["team_comment"], "team_banner")) $func->confirmation(str_replace("%T%", $t["name"], $lang["tourney"]["teammgr_adm_add_success"]), "index.php?mod=tournament2&action=teammgr_admin");
 
 			$sec->lock("t_admteam_create");
 		}
@@ -86,18 +86,18 @@ switch($_GET["step"]) {
 
 
 	default:
-		$dsp->NewContent(t('Admin-Teammanager'), t('Hier können Sie Teams löschen oder ihnen weitere Spieler zuweisen.'));
+		$dsp->NewContent($lang["tourney"]["teammgr_adm_caption"], $lang["tourney"]["teammgr_adm_subcaption"]);
 
 		// Neues Team anmelden
 		$tourneys = $db->query("SELECT tournamentid, name FROM {$config["tables"]["tournament_tournaments"]} WHERE (status = 'open')  AND party_id='$party->party_id' ORDER BY name");
-		if ($db->num_rows($tourneys) == 0) $dsp->AddDoubleRow(t('Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase möglich)'), t('Es sind keine Turniere vorhanden, welche sich noch in der Anmeldephase befinden'));
+		if ($db->num_rows($tourneys) == 0) $dsp->AddDoubleRow($lang["tourney"]["teammgr_adm_new_team"], $lang["tourney"]["teammgr_adm_no_new_team"]);
 		else {
-			$t_array = array("<option value=\"\">".t('Bitte Turnier auswählen')."</option>");
+			$t_array = array("<option value=\"\">{$lang["tourney"]["teammgr_adm_select_t"]}</option>");
 			while($tourney = $db->fetch_array($tourneys)) {
 				array_push ($t_array, "<option value=\"{$tourney['tournamentid']}\">{$tourney['name']}</option>");
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=40");
-			$dsp->AddDropDownFieldRow("tournamentid", t('Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase möglich)'), $t_array, "");
+			$dsp->AddDropDownFieldRow("tournamentid", $lang["tourney"]["teammgr_adm_new_team"], $t_array, "");
 			$dsp->AddFormSubmitRow("send");
 		}
 		$db->free_result($teams);
@@ -109,14 +109,14 @@ switch($_GET["step"]) {
 			WHERE t.status = 'open' AND t.party_id = '$party->party_id'
 			ORDER BY t.name, teams.name
 			");
-		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Komplettes Team löschenHTML_NEWLINE(Nur in Anmeldephase möglich)'), t('Es haben sich noch keine Spieler zu Turnieren angemeldet, welche noch nicht bereits laufen'));
+		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow($lang["tourney"]["teammgr_adm_del_team"], $lang["tourney"]["teammgr_adm_no_teams"]);
 		else {
-			$t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");
+			$t_array = array("<option value=\"\">{$lang["tourney"]["teammgr_adm_select_team"]}</option>");
 			while($team = $db->fetch_array($teams)) {
 				array_push ($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']}</option>");
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=10");
-			$dsp->AddDropDownFieldRow("teamid", t('Komplettes Team löschenHTML_NEWLINE(Nur in Anmeldephase möglich)'), $t_array, "");
+			$dsp->AddDropDownFieldRow("teamid", $lang["tourney"]["teammgr_adm_del_team"], $t_array, "");
 			$dsp->AddFormSubmitRow("delete");
 		}
 		$db->free_result($teams);
@@ -128,18 +128,18 @@ switch($_GET["step"]) {
 			WHERE t.teamplayer > 1 AND t.status != 'closed' AND t.party_id = '$party->party_id'
 			ORDER BY t.name, teams.name
 			");
-		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Spieler einem Team hinzufügen'), t('Es existieren keine Teams, die noch auf weitere Spieler warten'));
+		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow($lang["tourney"]["teammgr_adm_addtoteam"], $lang["tourney"]["teammgr_adm_no_waiting"]);
 		else {
-			$t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");
+			$t_array = array("<option value=\"\">{$lang["tourney"]["teammgr_adm_select_team"]}</option>");
 			while($team = $db->fetch_array($teams)) {
 				$member = $db->query_first("SELECT COUNT(*) AS members FROM {$config["tables"]["t2_teammembers"]} WHERE teamid = {$team['teamid']} GROUP BY teamid");
 
 				$freie_platze = $team['teamplayer'] - ($member['members'] + 1);
 				if ($freie_platze > 0) 
-					array_push ($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']} (". t('Noch %FREE% frei', $freie_platze) .")</option>");
+					array_push ($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']} (". str_replace("%FREE%", $freie_platze,  $lang["tourney"]["admteammgr_free_slots"]) .")</option>");
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=20");
-			$dsp->AddDropDownFieldRow("teamid", t('Spieler einem Team hinzufügen'), $t_array, "");
+			$dsp->AddDropDownFieldRow("teamid", $lang["tourney"]["teammgr_adm_addtoteam"], $t_array, "");
 			$dsp->AddFormSubmitRow("send");
 		}
 		$db->free_result($teams);
@@ -153,14 +153,14 @@ switch($_GET["step"]) {
 			WHERE t.teamplayer > 1 AND t.party_id = '$party->party_id'
 			ORDER BY t.name, teams.name
 			");
-		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Spieler aus einem Team löschen'), t('Es haben sich noch keine Mitglieder zu Teams angemeldet'));
+		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow($lang["tourney"]["teammgr_adm_delfromteam"], $lang["tourney"]["teammgr_adm_no_memb"]);
 		else {
-			$t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");
+			$t_array = array("<option value=\"\">{$lang["tourney"]["teammgr_adm_select_team"]}</option>");
 			while($team = $db->fetch_array($teams)) {
 				array_push ($t_array, "<option value=\"{$team['teamid']}-{$team['userid']}\">{$team['tname']} - {$team['name']} - {$team['mname']}</option>");
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=30");
-			$dsp->AddDropDownFieldRow("member_user", t('Spieler aus einem Team löschen'), $t_array, "");
+			$dsp->AddDropDownFieldRow("member_user", $lang["tourney"]["teammgr_adm_delfromteam"], $t_array, "");
 			$dsp->AddFormSubmitRow("delete");
 		}
 		$db->free_result($teams);

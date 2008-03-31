@@ -189,7 +189,7 @@ if ($_GET['action'] != 'bookmark') {
   if ($auth['type'] >= 2) {
     $res = $db->query("SELECT fid, name FROM {$config['tables']['board_forums']}");
     while ($row = $db->fetch_array($res))
-      $ms2->AddMultiSelectAction(t('Verschieben nach '). $row['name'], 'index.php?mod=board&action=forum&step=20&to_fid='. $row['fid'] .'&fid='. $_GET['fid'], 1, 'in');
+      $ms2->AddMultiSelectAction(t('Verschieben nach '. $row['name']), 'index.php?mod=board&action=forum&step=20&to_fid='. $row['fid'] .'&fid='. $_GET['fid'], 1, 'in');
     $db->free_result($res);
 
     $ms2->AddMultiSelectAction(t('Markierung entfernen'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=40', 0, 'selection_none');

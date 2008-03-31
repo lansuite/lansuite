@@ -21,7 +21,7 @@ switch ($_GET['step']) {
     $ms2->AddResultField('Bezeichnung', 'f.caption');
     $ms2->AddResultField('Optional', 'f.optional');
     
-    if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=user_fields&step=20&fieldid=', t('Löschen'));
+    if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=user_fields&step=20&fieldid=', $lang['ms2']['delete']);
     $ms2->PrintSearch('index.php?mod=usrmgr&action=user_fields', 'f.fieldid');
     
     $dsp->AddSingleRow($dsp->FetchButton("index.php?mod=usrmgr&action=user_fields&step=10", 'add'));

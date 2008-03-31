@@ -154,21 +154,12 @@ class Import {
   						// Check wheather the field in the DB differs from the one in the XML-File
   						// Change it
   						if ($null_xml == '' and $db_field['Null'] = 'NO') $null_xml = $db_field['Null']; // Some MySQL-Versions return 'NO' instead of ''
-  						
-  						// Handle special type changes
-  						// Changing int() to datetime
-  						if (substr($db_field["Type"], 0, 3) == 'int' and $type == 'datetime') {
-  						  $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name CHANGE $name {$name}_lstmp INT");
-  						  $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name DATETIME");
-  						  $db->query("UPDATE {$config["database"]["prefix"]}$table_name SET $name = FROM_UNIXTIME({$name}_lstmp)");
-  						  $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP {$name}_lstmp");
-
-              // Handle structure changes in general
-  						} elseif ($db_field["Type"] != $type
+  						if ($db_field["Type"] != $type
                 or $db_field["Null"] != $null_xml
                 or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
                 or $db_field["Extra"] != $extra) {
   						    $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name CHANGE $name $name $type $null $default $extra");
+
 /*
     						// Differece-Report
     						if ($db_field["Type"] != $type) echo $db_field["Type"] ."=". $type ." Type in $table_name $name<br>";

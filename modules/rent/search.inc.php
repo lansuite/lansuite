@@ -22,9 +22,9 @@ $ms2->AddResultField('Titel', 's.caption');
 $ms2->AddResultField('Verliehen', 's.quantity', 'RentCount');
 $ms2->AddResultField('Besitzer', 'o.username', 'UserNameAndIcon');
 
-if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=rent&action=show&step=10&stuffid=', t('Zuweisen'));
-if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=rent&action=add&stuffid=', t('Editieren'));
-if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=rent&action=delete&stuffid=', t('Löschen'));
+if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=rent&action=show&step=10&stuffid=', $lang['ms2']['assign']);
+if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=rent&action=add&stuffid=', $lang['ms2']['edit']);
+if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=rent&action=delete&stuffid=', $lang['ms2']['delete']);
 
 $ms2->PrintSearch('index.php?mod=rent&action=show', 's.stuffid');
 ?>

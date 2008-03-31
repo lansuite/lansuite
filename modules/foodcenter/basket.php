@@ -31,7 +31,7 @@ if ($cfg['foodcenter_foodtime'] == 4){
 
 // Modul gesperrt
 if($open == false && ($cfg['foodcenter_foodtime'] == 3 || $cfg['foodcenter_foodtime'] == 2)){
-	$errormessage = t('Das Foodcenter ist geschlossen. Die Öffnungszeigen sind:'). HTML_NEWLINE; 
+	$errormessage = $lang['foodcenter']['time_closed_block']. HTML_NEWLINE; 
 	$errormessage .= $timemessage;
 	
 	$func->error($errormessage,"index.php?mod=home");
@@ -40,7 +40,7 @@ if($open == false && ($cfg['foodcenter_foodtime'] == 3 || $cfg['foodcenter_foodt
 	$basket = new basket();
 	// InfoMeldung
 	if($open == false && $cfg['foodcenter_foodtime'] == 1) {
-		$errormessage = t('Das Foodcenter ist geschlossen Bestellungen sind m�glich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:'). HTML_NEWLINE;
+		$errormessage = $lang['foodcenter']['time_closed_info']. HTML_NEWLINE;
 		$errormessage .= $timemessage;
 		$func->error($errormessage,"index.php?mod=home");
 	}
@@ -51,7 +51,7 @@ if($open == false && ($cfg['foodcenter_foodtime'] == 3 || $cfg['foodcenter_foodt
 	if($_POST['imageField'] != ''){
 		if($basket->change_basket($auth['userid'])){
 			$basket->order_basket($auth['userid']);
-			$func->information(t('Die Bestellung wurde aufgenommen'),"?mod=foodcenter");
+			$func->information($lang['foodcenter']['basket_ordered'],"?mod=foodcenter");
 		}else{
 			$basket->show_basket();
 		}

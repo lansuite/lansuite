@@ -3,10 +3,10 @@
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
-if (!$_GET["teamid"]) $func->error(t('Es wurde kein Team ausgewählt! Die Anzeige der Team-Details ist daher nicht möglich'));
+if (!$_GET["teamid"]) $func->error($lang["tourney"]["tdet_no_team"]);
 
 else {
-	$dsp->NewContent(t('Turnier Verwaltung'), t('Mit Hilfe des folgenden Formulars können Sie ein Turnier erstellen / ändern'));
+	$dsp->NewContent($lang["tourney"]["t_add_caption"], $lang["tourney"]["t_add_subcaption"]);
 
 	// Get Data
 	$team = $db->query_first("SELECT teams.name, teams.comment, teams.disqualified, teams.banner, users.username, users.userid
@@ -16,19 +16,19 @@ else {
 			");
 
 	// Teamname
-	$dsp->AddDoubleRow(t('Teamame'), $team['name']);
+	$dsp->AddDoubleRow($lang["tourney"]["t_det_teamname"], $team['name']);
 
 	// Disqualified
-	if ($team['disqualified']) $dsp->AddDoubleRow("", "<font color=\"#ff0000\">".t('Disqualifiziert')."</font>");
+	if ($team['disqualified']) $dsp->AddDoubleRow("", "<font color=\"#ff0000\">{$lang["tourney"]["details_disqualifyed"]}</font>");
 
 	// Banner
 	if ($team['banner']) $dsp->AddSingleRow("<img src=\"ext_inc/team_banners/{$team['banner']}\" alt=\"{$team['banner']}\">");
 
 	// Leader
-	$dsp->AddDoubleRow(t('Teamleiter'), $team['username'] . $func->button_userdetails($team['userid'], "") . " (Platz: ". $seat2->SeatNameLink($team['userid'], '', '') .")");
+	$dsp->AddDoubleRow($lang["tourney"]["t_det_leader"], $team['username'] . $func->button_userdetails($team['userid'], "") . " (Platz: ". $seat2->SeatNameLink($team['userid'], '', '') .")");
 
 	// Members
-	$dsp->AddDoubleRow(t('Mitglieder'), $tfunc->GetMemberList($_GET["teamid"]));
+	$dsp->AddDoubleRow($lang["tourney"]["t_det_member"], $tfunc->GetMemberList($_GET["teamid"]));
 
 	// Stats
 	$game_anz = 0;
@@ -49,12 +49,12 @@ else {
 	}
 	$db->free_result($games);
 
-	$stats2 = t('Spiele gewonnen') .": $won" . HTML_NEWLINE . t('Spiele verloren') .": $lost" . HTML_NEWLINE . t('Spiele insgesamt') .": $game_anz";
-	if ($game_anz > 0) $stats2 .= HTML_NEWLINE . t('Gewinnquote') .": ". ($won / $game_anz * 100) ."%";
-	$dsp->AddDoubleRow(t('Statistiken'), $stats2);
+	$stats2 = $lang["tourney"]["t_det_stats_won"] .": $won" . HTML_NEWLINE . $lang["tourney"]["t_det_stats_lost"] .": $lost" . HTML_NEWLINE . $lang["tourney"]["t_det_stats_sum"] .": $game_anz";
+	if ($game_anz > 0) $stats2 .= HTML_NEWLINE . $lang["tourney"]["t_det_stats_quota"] .": ". ($won / $game_anz * 100) ."%";
+	$dsp->AddDoubleRow($lang["tourney"]["t_det_stats"], $stats2);
 
 	// Comment
-	$dsp->AddDoubleRow(t('Kommentar'), $func->text2html($team['comment']));
+	$dsp->AddDoubleRow($lang["tourney"]["t_det_comment"], $func->text2html($team['comment']));
 
 	// Output
 	$dsp->AddBackButton($func->internal_referer, "tournament2/team_details"); 

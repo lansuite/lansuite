@@ -27,19 +27,19 @@ if ($_GET["step"] < 2 and $tournament["blind_draw"]) $team_anz = floor($team_anz
 ########## Fehler prüfen
 ## Mind. 4 Teams im Turnier
 if ($team_anz < 4) {
-	$func->information(t('Es müssen mindestens 4 Teams angemeldet sein!'), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
+	$func->information($lang["tourney"]["g_pairs_tofew_teams"], "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
 
 ## Bei Gruppen-Modus: Mind. 6 Teams im Turnier
 } elseif ($tournament['mode'] == "groups" and $team_anz < 6) {
-	$func->information(t('Es müssen mindestens 6 Teams angemeldet sein!'), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
+	$func->information($lang["tourney"]["g_pairs_tofew_teams6"], "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
 
 ## Status noch Offen
 } elseif ($tournament['status'] != "open") {
-	$func->information(t('Dieses Turnier wurde bereits gestartet!'), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=1");
+	$func->information($lang["tourney"]["g_pairs_started_error"], "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=1");
 
 ## Nicht mehr als die Hälft geseeded
 } elseif (($seeded['anz']) > ($team_anz / 2)){
-	$func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkieren Sie zuerst ein Team, bevor Sie ein weiteres markieren'), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
+	$func->information($lang["tourney"]["seeding_error"], "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
 
 
 ########## Keine Fehler gefunden
@@ -84,7 +84,7 @@ if ($team_anz < 4) {
 
 		## Wenn unvollständige Teams vorhanden: Fragen, ob löschen
 		if (($tournament['teamplayer'] == 1) || ($waiting_teams == 0)) $_GET["step"] = 3;
-		else $func->question(t('Zu diesem Turnier haben sich Teams angemeldet, welche noch nicht komplett sind. Möchten Sie diese beim Generieren aus dem Turnier entfernen?'), "index.php?mod=tournament2&action=generate_pairs&step=4&tournamentid={$_GET["tournamentid"]}", "index.php?mod=tournament2&action=generate_pairs&step=3&tournamentid={$_GET["tournamentid"]}");
+		else $func->question($lang["tourney"]["g_pairs_uncompleted_question"], "index.php?mod=tournament2&action=generate_pairs&step=4&tournamentid={$_GET["tournamentid"]}", "index.php?mod=tournament2&action=generate_pairs&step=3&tournamentid={$_GET["tournamentid"]}");
 	}
 
 	## Unvollständige Teams löschen
@@ -100,13 +100,13 @@ if ($team_anz < 4) {
 				$db->query("DELETE FROM {$config["tables"]["t2_teams"]} WHERE (teamid = {$team2["teamid"]}) AND (tournamentid = {$_GET["tournamentid"]})");
 				$db->query("DELETE FROM {$config["tables"]["t2_teammembers"]} WHERE (teamid = {$team2["teamid"]}) AND (tournamentid = {$_GET["tournamentid"]})");
 
-				$mail->create_sys_mail($team2['leaderid'], t('Ihr Team wurde vom Turnier %1 abgemeldet', $tournament['name']) , t('Der Turnieradmin hat soeben die Paarungen für das Turnier %1 generiert. Da Ihr Team zu diesem Zeitpunkt leider noch nicht vollständig war, wurde es, wie vom Turnieradmin gewünscht, vom Turnier abgemeldet.', $tournament['name']));
-				$func->log_event(t('Alle unvollständigen Teams im Turnier %1 wurden entfernt', $tournament['name']), 1, t('Turnier Teamverwaltung'));
+				$mail->create_sys_mail($team2['leaderid'], str_replace("%NAME%", $tournament['name'], $lang["tourney"]["g_pairs_mail_fail_subj"]) , str_replace("%NAME%", $tournament['name'], $lang["tourney"]["g_pairs_mail_fail"]));
+				$func->log_event(str_replace("%NAME%", $tournament['name'], $lang["tourney"]["g_pairs_log_del"]), 1, $lang["tourney"]["log_t_teammanage"]);
 			}
 		}
 		$db->free_result($teams2);
 
-		$func->question(t('Alle unvollständigen Teams im Turnier %1 wurden erfolgreich gelöscht. Möchten Sie das Turnier nun generieren?', $tournament["name"]), "index.php?mod=tournament2&action=generate_pairs&step=3&tournamentid={$_GET["tournamentid"]}", "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
+		$func->question(str_replace("%NAME%", $tournament["name"], $lang["tourney"]["g_pairs_del_success"]), "index.php?mod=tournament2&action=generate_pairs&step=3&tournamentid={$_GET["tournamentid"]}", "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
 	}
 
 
@@ -137,7 +137,7 @@ if ($team_anz < 4) {
 					if ($team["seeding_mark"]) array_push($seed_team_liste, $team["leaderid"]);
 					else array_push($noseed_team_liste, $team["leaderid"]);
 
-					$mail->create_sys_mail($team['leaderid'],  t('Turnier %1 generiert', $tournament['name']) , t('Die Rundes des Turniers %1 wurden soeben generiert. Wir bitten Sie, direkt mit dem ersten Spiel anzufangen, damit es keine unnötge Verzögerung im Turnier gibt. Viel Erfolg!', $tournament['name']));
+					$mail->create_sys_mail($team['leaderid'], str_replace("%NAME%", $tournament['name'], $lang["tourney"]["g_pairs_mail_success_subj"]) , str_replace("%NAME%", $tournament['name'], $lang["tourney"]["g_pairs_mail_success"]));
 				}
 				$seeded_teams_num = count($seed_team_liste);
 
@@ -304,8 +304,8 @@ if ($team_anz < 4) {
 		########## Turnierstatus auf "process" setzen
 		$db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET status='process' WHERE tournamentid = '{$_GET["tournamentid"]}'");
 
-		$func->confirmation(t('Das Turnier %1 wurde generiert.HTML_NEWLINEDie Begegnungen können nun gespielt werden.', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}");
-		$func->log_event(t('Das Turnier %1 wurde generiert', $tournament["name"]), 1, t('Turnier Verwaltung'));
+		$func->confirmation(str_replace("%NAME%", $tournament["name"], $lang["tourney"]["g_pairs_success"]), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}");
+		$func->log_event(str_replace("%NAME%", $tournament["name"], $lang["tourney"]["g_pairs_log_success"]), 1, $lang["tourney"]["log_t_manage"]);
 /*
 		$cronjob->load_job("cron_tmod");
 		if($tournament['mode'] == "groups"){

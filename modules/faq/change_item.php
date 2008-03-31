@@ -28,7 +28,7 @@ switch($_GET["step"]) {
 
 				if($name == $_POST["question_new_cat"] AND $_POST["question_new_cat"] != "" ) {
 
-					$faq_error['question_cat'] = t('Dieser Kategoriename existiert bereits');
+					$faq_error['question_cat'] = $lang['faq']['cat_exists'];
 					$_GET["step"] = 2;
 
 				}
@@ -38,7 +38,7 @@ switch($_GET["step"]) {
 
 		if($i > 5000) {
 
-			$faq_error['question_text'] = t('Die Antwort darf nicht mehr als 5000 Zeichen enthalten');
+			$faq_error['question_text'] = $lang['faq']['text_to_long'];
 			$_GET["step"] = 2;
 
 		}
@@ -46,31 +46,31 @@ switch($_GET["step"]) {
 
 	if($_POST["question_new_cat"] == "" AND $_POST["question_cat"] == "new") {
 
-		$faq_error['cat_name']	= t('Bitte geben Sie einen Namen für die neue Kategorie ein');
+		$faq_error['cat_name']	= $lang['faq']['no_cat_name'];
 		$_GET["step"] = 2;
 	}
 
 	if($_POST["question_caption"] == "") {
 
-		$faq_error['question_caption']	= t('Bitte geben Sie eine Frage ein');
+		$faq_error['question_caption']	= $lang['faq']['no_quest_name'];
 		$_GET["step"] = 2;
 	}
 
 
 	if($_POST["question_text"] == "") {
-		$faq_error['question_text']	= t('Bitte geben Sie einen Text ein');
+		$faq_error['question_text']	= $lang['faq']['no_quest_text'];
 		$_GET["step"] = 2;
 	}
 
 	if($_POST["question_cat"] == 0 AND $_POST["question_new_cat"] == "") {
 
-		$faq_error['question_cat']	= t('Bitte wählen Sie eine Kategorie aus oder erstellen Sie eine neue Kategorie');
+		$faq_error['question_cat']	= $lang['faq']['new_cat_error'];
 		$_GET["step"] = 2;
 	}
 
 	if($_POST["question_cat"] != 0 AND $_POST["question_new_cat"] != "") {
 
-		$faq_error['question_cat']	= t('Bitte wählen Sie eine Kategorie aus <b> ODER </b> erstellen Sie eine neue Kategorie');
+		$faq_error['question_cat']	= $lang['faq']['choise_cat_error'];
 		$_GET["step"] = 2;
 	}
 
@@ -89,11 +89,11 @@ switch($_GET["step"]) {
 
 	$count_cat = $db->num_rows($get_cat);
 
-	if($count_cat == 0) { $func->information(t('Keine Einträge vorhanden.'),"index.php?mod=home"); }
+	if($count_cat == 0) { $func->information($lang['faq']['no_itenm'],"index.php?mod=home"); }
 
 	else {
 
-		$dsp->NewContent(t('FAQ ändern'),t('Auf dieser Seite sehen Sie häufig gestellte Fragen und deren Antworten. Die Fragen sind in verschiedene Kategorien eingeteilt, die Sie mit dem /\'/+/\'/-Symbol aufklappen können.'));
+		$dsp->NewContent($lang['faq']['change_caption'],$lang['faq']['show_subcaption']);
 		if($_SESSION['menu_status']['faq'][$_GET['faqcatid']] == "open") {
 			$_SESSION['menu_status']['faq'][$_GET['faqcatid']] = "closed";
 		}else {
@@ -148,12 +148,12 @@ switch($_GET["step"]) {
 				$_POST["question_cat"]=($_POST["question_cat"] == "") ? $get_data["catid"] : $_POST["question_cat"];
 
 
-				$dsp->NewContent(t('Frage ändern'),t(' Um eine Frage hinzuzufügen, füllen Sie bitte das folgende Formular vollständig aus. Für das Feld Überschirft stehen 30 Zeichen, für das Feld Text 5000 Zeichen zur Verfügung. Im Feld Kategorie können Sie die Kategorie definieren, in der die Frage angezeigt werden soll.'));
+				$dsp->NewContent($lang['faq']['change_cat_caption'],$lang['faq']['add_quest_subcaption']);
 				$dsp->SetForm("index.php?mod=faq&object=item&came_from=$came_from&action=change_item&step=3&itemid=" .$_GET["itemid"]);
 
 				$get_cats = $db->query("SELECT name,catid FROM {$config["tables"]["faq_cat"]}");
 
-				$faq_cats[] = "<option value=\"0\"> ".t('Kategorie wählen')." </option>";
+				$faq_cats[] = "<option value=\"0\"> ".$lang['faq']['choose_cat']." </option>";
 
 				while($row=$db->fetch_array($get_cats)) {
 
@@ -162,17 +162,17 @@ switch($_GET["step"]) {
 					$faq_cats[] .= "<option $selected value=" . $row["catid"] . "> " . $row["name"] . " </option>";
 				}
 
-				$dsp->AddTextFieldRow("question_caption",t('Frage / Überschrift'),$_POST['question_caption'],$faq_error['question_caption']);
-				$dsp->AddTextAreaPlusRow("question_text",t('Text'),$_POST['question_text'],$faq_error['question_text'], 70, 20);
-				$dsp->AddDropDownFieldRow("question_cat",t('Bestehende Kategorie'),$faq_cats,"");
-				$dsp->AddTextFieldRow("question_new_cat",t('Neue Kategorie'),$_POST['question_new_cat'],$faq_error['question_cat']);
+				$dsp->AddTextFieldRow("question_caption",$lang['faq']['add_quest'],$_POST['question_caption'],$faq_error['question_caption']);
+				$dsp->AddTextAreaPlusRow("question_text",$lang['faq']['add_text'],$_POST['question_text'],$faq_error['question_text'], 70, 20);
+				$dsp->AddDropDownFieldRow("question_cat",$lang['faq']['choise_cat'],$faq_cats,"");
+				$dsp->AddTextFieldRow("question_new_cat",$lang['faq']['new_cat'],$_POST['question_new_cat'],$faq_error['question_cat']);
 				$dsp->AddFormSubmitRow("add");
 				$dsp->AddContent();
 		}
 
 			else
 
-				$func->error(t('Diese Frage existiert nicht'),"");
+				$func->error($lang['faq']['quest_not_exists'],"");
 
 	break;
 
@@ -207,7 +207,7 @@ switch($_GET["step"]) {
 
 						if($update_it1 == 1 AND $update_it2 == 1) {
 
-							$func->confirmation(t('Frage und Kategorie wurden erfolgreich geändert')	,"");
+							$func->confirmation($lang['faq']['change_quest_ok']	,"");
 
 							$_SESSION['change_blocker_faqitem'] = 1;
 
@@ -235,7 +235,7 @@ switch($_GET["step"]) {
 
 								if($add_it == 1) {
 
-									$func->confirmation(t('Die Frage wurde erfolgreich ge&ändert'),"");
+									$func->confirmation($lang['faq']['change_onlyquest_ok'],"");
 									$_SESSION['change_blocker_faqitem'] = 1;
 
 								}
@@ -252,7 +252,7 @@ switch($_GET["step"]) {
 
 			else {
 
-				$func->error(t('Diese Frage existiert nicht'),"");
+				$func->error($lang['faq']['quest_not_exists'],"");
 
 			}
 

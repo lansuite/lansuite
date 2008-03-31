@@ -21,17 +21,17 @@
                                            <b>%NAMES2%</b> ' . HTML_NEWLINE .'
                                            This could be due to: ' . HTML_NEWLINE .'
                                            - The user allready exists in your list' . HTML_NEWLINE .'
-                                           - The user doesn\'t exist, at all' . HTML_NEWLINE .'
+                                           - The user doesn''t exist, at all' . HTML_NEWLINE .'
                                            - There are allready too many users in your buddy list' . HTML_NEWLINE .'
                                            - You have tried to put your selfe into your buddy list' . HTML_NEWLINE .'
                                            The changes will take effect, after you have loaded the next page.';
  //Errors
- $lang['msgsys']['err_no_user_choosen'] = 'You haven\'t selected a user';
- $lang['msgsys']['err_not_a_buddy']     = 'This user doesn\'t belong to your buddy list';
+ $lang['msgsys']['err_no_user_choosen'] = 'You haven''t selected a user';
+ $lang['msgsys']['err_not_a_buddy']     = 'This user doesn''t belong to your buddy list';
  $lang['msgsys']['err_add']             = 'No users could be added to your buddy list' . HTML_NEWLINE .'
 					  This could be due to: ' . HTML_NEWLINE .'
                                    - The user allready exists in your list' . HTML_NEWLINE .'
-                                   - The user doesn\'t exist, at all' . HTML_NEWLINE .'
+                                   - The user doesn''t exist, at all' . HTML_NEWLINE .'
                                    - There are allready too many users in your buddy list' . HTML_NEWLINE .'
                                    - You have tried to put your selfe into your buddy list' . HTML_NEWLINE;
  //Questions

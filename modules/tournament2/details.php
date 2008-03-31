@@ -12,7 +12,7 @@ if ($headermenuitem == "") $headermenuitem = 1;
 
 $tournament = $db->query_first_rows("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
 
-if($tournament["number"] == 0) $func->error(t('Das ausgewählte Turnier existiert nicht'), "index.php?mod=tournament2");
+if($tournament["number"] == 0) $func->error($lang["tourney"]["t_not_exist"], "index.php?mod=tournament2");
 else {
 
 	switch ($step){
@@ -34,44 +34,44 @@ else {
 			$team = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = '$tournamentid') GROUP BY tournamentid");
 
 			if (($seeded['anz']+1) > ($team['anz'] / 2)){
-				$func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkieren Sie zuerst ein Team, bevor Sie ein weiteres markieren'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=2");
+				$func->information($lang["tourney"]["seeding_error"], "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=2");
 			} else {
 				$db->query("UPDATE {$config["tables"]["t2_teams"]} SET seeding_mark = '1' WHERE (teamid = $teamid)");
-				$func->confirmation(t('Das Team wurde zum Setzen markiert.HTML_NEWLINEAlle markierten Teams werden beim Generieren so gesetzt, dass sie möglichst spät im Turnierbaum aufeinander treffen werden.'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=2");
+				$func->confirmation($lang["tourney"]["seeding_success"], "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=2");
 			}
 		break;
 
 		case 11:	// Deaktivate Seeding
 			$db->query("UPDATE {$config["tables"]["t2_teams"]} SET seeding_mark = '0' WHERE (teamid = $teamid)");
-			$func->confirmation(t('Das Team wurde demarkiert.'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=2");
+			$func->confirmation($lang["tourney"]["seeding_unmark_success"], "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=2");
 		break;
 
 		default:	// Show details
-			$dsp->NewContent(t('Turnier %1', $tournament['name']), t('Hier finden Sie Informationen zu diesem Turnier und können sich anmelden'));
+			$dsp->NewContent(str_replace("%NAME%", $tournament['name'], $lang["tourney"]["details_caption"]), $lang["tourney"]["details_subcaption"]);
 
-			$menunames[1] = t('Turnierinfos');
-			$menunames[2] = t('Angemeldete Teams');
+			$menunames[1] = $lang["tourney"]["details_navi_info"];
+			$menunames[2] = $lang["tourney"]["details_navi_regteams"];
 			$dsp->AddHeaderMenu($menunames, "index.php?mod=tournament2&action=details&tournamentid=$tournamentid", $headermenuitem);
 
 			switch ($headermenuitem) {
 				case 1:
-					$dsp->AddDoubleRow(t('Turniername'), $func->db2text($tournament['name']));
+					$dsp->AddDoubleRow($lang["tourney"]["details_name"], $func->db2text($tournament['name']));
 
 					if (($tournament['icon']) && ($tournament['icon'] != "none")) $icon = "<img src=\"ext_inc/tournament_icons/{$tournament['icon']}\" alt=\"Icon\"> ";
-					if ($tournament['version'] == "") $tournament['version'] = "<i>".t('unbekannt')."</i>";
-					$dsp->AddDoubleRow(t('Spiel'), $icon . $func->db2text($tournament['game']) ." (".t('Version').": ". $func->db2text($tournament['version']) .")");
+					if ($tournament['version'] == "") $tournament['version'] = "<i>{$lang["tourney"]["unknown"]}</i>";
+					$dsp->AddDoubleRow($lang["tourney"]["details_game"], $icon . $func->db2text($tournament['game']) ." ({$lang["tourney"]["details_version"]}: ". $func->db2text($tournament['version']) .")");
 
 					$league = "";
 					if ($tournament['wwcl_gameid'] != 0) $league .= ", <img src=\"ext_inc/tournament_icons/leagues/wwcl.png\" alt=\"WWCL\">";
 					if ($tournament['ngl_gamename'] != "") $league .= ", <img src=\"ext_inc/tournament_icons/leagues/ngl.png\" alt=\"NGL\">";
-					if ($tournament['mode'] == "single") $modus = t('Single-Elimination');
-					if ($tournament['mode'] == "double") $modus = t('Double-Elimination');
-					if ($tournament['mode'] == "liga") $modus = t('Liga');
-					if ($tournament['mode'] == "groups") $modus = t('Gruppenspiele + KO');
-					if ($tournament['mode'] == "all") $modus = t('Alle in einem');
+					if ($tournament['mode'] == "single") $modus = $lang["tourney"]["se"];
+					if ($tournament['mode'] == "double") $modus = $lang["tourney"]["de"];
+					if ($tournament['mode'] == "liga") $modus = $lang["tourney"]["league"];
+					if ($tournament['mode'] == "groups") $modus = $lang["tourney"]["groups"];
+					if ($tournament['mode'] == "all") $modus = $lang["tourney"]["all"];
 					if ($tournament['blind_draw']) $blind_draw = " (Blind Draw)";
 					else $blind_draw = "";
-					$dsp->AddDoubleRow(t('Spiel-Modus'), $modus .", ". $tournament['teamplayer'] ." ".t('gegen')." ". $tournament['teamplayer'] . $blind_draw . $league);
+					$dsp->AddDoubleRow($lang["tourney"]["details_mode"], $modus .", ". $tournament['teamplayer'] ." {$lang["tourney"]["details_vs"]} ". $tournament['teamplayer'] . $blind_draw . $league);
 
           $sponsor_banners = '';
           $sponsor = $db->query("SELECT * FROM {$config['tables']['sponsor']} WHERE tournamentid = ". (int)$tournamentid);
@@ -83,20 +83,19 @@ else {
           $db->free_result($sponsor);
 					if ($sponsor_banners) $dsp->AddDoubleRow('Sponsored by', $sponsor_banners);
 
-          $dsp->AddFieldsetStart(t('Anmeldeeinschränkungen'));
-					if ($tournament['status'] == "invisible") $status = t('Unsichtbar');
-					if ($tournament['status'] == "open") $status = t('Anmeldung offen');
-					if ($tournament['status'] == "locked") $status = t('Anmeldung geschlossen');
-					if ($tournament['status'] == "closed") $status = "<div class=\"tbl_error\">".t('Turnier beendet')."</div>";
-					if ($tournament['status'] == "process") $status = "<div class=\"tbl_error\">".t('Partien werden gespielt')."</div>";
-					$dsp->AddDoubleRow(t('Status'), $status);
+          $dsp->AddFieldsetStart($lang["tourney"]["details_reg_limits"]);
+					if ($tournament['status'] == "invisible") $status = $lang["tourney"]["details_state_invisible"];
+					if ($tournament['status'] == "open") $status = $lang["tourney"]["details_state_open"];
+					if ($tournament['status'] == "closed") $status = "<div class=\"tbl_error\">{$lang["tourney"]["details_state_closed"]}</div>";
+					if ($tournament['status'] == "process") $status = "<div class=\"tbl_error\">{$lang["tourney"]["details_state_process"]}</div>";
+					$dsp->AddDoubleRow($lang["tourney"]["details_state"], $status);
 
 					($tournament['groupid'] == 0) ?
-						$dsp->AddDoubleRow(t('Turniergruppe'), t('Dieses Turnier wurde keiner Gruppe zugeordnet. Jeder darf teilnehmen.'))
-						: $dsp->AddDoubleRow(t('Turniergruppe'), t('Dieses Turnier wurde der Gruppe %1 zugeordnet. Es düfen sich nur Spieler anmelden, welche nicht bereits zu einem anderen Turnier der Gruppe %1 angemeldet sind.', $tournament['groupid']));
+						$dsp->AddDoubleRow($lang["tourney"]["details_group"], $lang["tourney"]["details_nogroup"])
+						: $dsp->AddDoubleRow($lang["tourney"]["details_group"], str_replace("%GROUP%", $tournament['groupid'], $lang["tourney"]["details_group_out"]));
 
           if ($auth['userid'] != '') {
-  					if ($tournament['coins'] == 0) $dsp->AddDoubleRow(t('Coin-Kosten'), t('Für dieses Turnier werden keine Coins benötigt'));
+  					if ($tournament['coins'] == 0) $dsp->AddDoubleRow($lang["tourney"]["details_coins"], $lang["tourney"]["details_nocoins"]);
   					else {
   						$team_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
   							FROM {$config["tables"]["tournament_tournaments"]} AS t
@@ -113,38 +112,37 @@ else {
   							GROUP BY members.userid
   							");
   						(($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']) < $tournament['coins']) ?
-  							$coin_out = t('Das Anmelden kostet %COST% Coins, Sie besitzen jedoch nur %IS% Coins!')
-  							: $coin_out = t('Das Anmelden kostet %COST% Coins. Sie besitzen noch: %IS% Coins');
+  							$coin_out = $lang["tourney"]["details_tofew_coins"]
+  							: $coin_out = $lang["tourney"]["details_enough_coins"];
   						
-  						$dsp->AddDoubleRow(t('Coin-Kosten'), "<div class=\"tbl_error\">". str_replace("%IS%", ($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']), str_replace("%COST%", $tournament['coins'], $coin_out)) ."</div>");
+  						$dsp->AddDoubleRow($lang["tourney"]["details_coins"], "<div class=\"tbl_error\">". str_replace("%IS%", ($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']), str_replace("%COST%", $tournament['coins'], $coin_out)) ."</div>");
   					}
           }
 
 					($tournament['over18']) ?
-						$dsp->AddDoubleRow(t('U18-Sperre'), t('Nur zugänglich für Spieler aus Über-18-Blöcken'))
-						: $dsp->AddDoubleRow(t('U18-Sperre'), t('Keine Sperre'));
+						$dsp->AddDoubleRow($lang["tourney"]["details_u18"], $lang["tourney"]["details_u18_limit"])
+						: $dsp->AddDoubleRow($lang["tourney"]["details_u18"], $lang["tourney"]["details_u18_nolimit"]);
           $dsp->AddFieldsetEnd();
 
 
-					($tournament["defwin_on_time_exceed"] == "1")? $defwin_warning = "<div class=\"tbl_error\">".t('ACHTUNG: Bei Zeitüberschreitung wird das Ergebnis automatisch gelost!')."</div> ".t('Wir bitten euch daher die Spiele direkt zu beginnen und das Ergebnis umgehend zu melden!')."" : $defwin_warning = "";
-          $dsp->AddFieldsetStart(t('Zeiten') . $defwin_warning);
-					$dsp->AddDoubleRow(t('Turnier beginnt um'), $func->unixstamp2date($tournament["starttime"], "datetime"));
+					($tournament["defwin_on_time_exceed"] == "1")? $defwin_warning = "<div class=\"tbl_error\">{$lang["tourney"]["details_defwin_warning"]}</div> {$lang["tourney"]["details_defwin_warning2"]}" : $defwin_warning = "";
+          $dsp->AddFieldsetStart($lang["tourney"]["details_times"] . $defwin_warning);
+					$dsp->AddDoubleRow($lang["tourney"]["details_startat"], $func->unixstamp2date($tournament["starttime"], "datetime"));
 
-					$dsp->AddDoubleRow(t('Dauer einer Runde'), t('Maximal %1 Spiel(e) pro Runde (je %2) + %3 Pause -> %4', $tournament["max_games"], $tournament["game_duration"] ."min", $tournament["break_duration"] ."min", $tournament["max_games"] * $tournament["game_duration"] + $tournament["break_duration"] ."min"));
-;
+					$dsp->AddDoubleRow($lang["tourney"]["details_round_duration"], str_replace("%MAX_GAMES%", $tournament["max_games"], str_replace("%GAME_DURATION%", $tournament["game_duration"] ."min", str_replace("%BREAK_DURATION%", $tournament["break_duration"] ."min", str_replace("%SUM%", ($tournament["max_games"] * $tournament["game_duration"] + $tournament["break_duration"]) ."min", $lang["tourney"]["details_round_duration_val"])))));
           $dsp->AddFieldsetEnd();
 
 
-          $dsp->AddFieldsetStart(t('Regeln und Sonstiges'));
-					if ($tournament['rules_ext']) $dsp->AddDoubleRow(t('Regelwerk'), "<a href=\"./ext_inc/tournament_rules/{$tournament['rules_ext']}\" target=\"_blank\">".t('Regelwerk öffnen')."({$tournament['rules_ext']})</a>");
+          $dsp->AddFieldsetStart($lang["tourney"]["details_rules_misc"]);
+					if ($tournament['rules_ext']) $dsp->AddDoubleRow($lang["tourney"]["details_rules"], "<a href=\"./ext_inc/tournament_rules/{$tournament['rules_ext']}\" target=\"_blank\">{$lang["tourney"]["details_openrules"]}({$tournament['rules_ext']})</a>");
 
-					$dsp->AddDoubleRow(t('Bemerkung'), $func->db2text2html($tournament["comment"]));
+					$dsp->AddDoubleRow($lang["tourney"]["details_comment"], $func->db2text2html($tournament["comment"]));
 
           $maps = explode("\n", $tournament["mapcycle"]);
           $map_str = '';
-          foreach ($maps as $key => $val) $map_str .= t('Runde')." $key: $val \n";
-          $mapcycle = t('Mapcycle'). HTML_NEWLINE . HTML_NEWLINE;
-          if ($auth['type'] > 1) $mapcycle .= '<a href="index.php?mod=tournament2&action=details&tournamentid='. $_GET['tournamentid'] .'&step=20">'. t('Maps neu mischen') .'</a>';
+          foreach ($maps as $key => $val) $map_str .= "{$lang['tourney']['games_round']} $key: $val \n";
+          $mapcycle = $lang["tourney"]["details_mapcycle"]. HTML_NEWLINE . HTML_NEWLINE;
+          if ($auth['type'] > 1) $mapcycle .= '<a href="index.php?mod=tournament2&action=details&tournamentid='. $_GET['tournamentid'] .'&step=20">'. $lang["tourney"]["details_mapcycle_shuffle"] .'</a>';
 					$dsp->AddDoubleRow($mapcycle, $func->db2text2html($map_str));
           $dsp->AddFieldsetEnd();
 				break;
@@ -161,15 +159,15 @@ else {
 							");
 						$team_out = $team["name"] . $tfunc->button_team_details($team['teamid'], $tournamentid);
 						if (($tournament['mode'] == "single") or ($tournament['mode'] == "double")){
-							if ($team["seeding_mark"]) $team_out .= " ". t('Dieses Team wird beim Generieren gesetzt');
+							if ($team["seeding_mark"]) $team_out .= " ". $lang["tourney"]["details_seeding_true"];
 							if (($auth["type"] > 1) && ($tournament['status'] == "open")) {
-								if ($team["seeding_mark"]) $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=11&tournamentid=$tournamentid&teamid={$team['teamid']}\">".t('demarkieren')."</a>";
-								else $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=10&tournamentid=$tournamentid&teamid={$team['teamid']}\">".t('Team setzen')."</a>";
+								if ($team["seeding_mark"]) $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=11&tournamentid=$tournamentid&teamid={$team['teamid']}\">{$lang["tourney"]["details_seeding_unmark"]}</a>";
+								else $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=10&tournamentid=$tournamentid&teamid={$team['teamid']}\">{$lang["tourney"]["details_seeding_mark"]}</a>";
 							}
 						}
 /*  // Disquallifiy droped, due to errors
 						if ($auth["type"] > 1 and $tournament['status'] == "process") {
-							if ($team['disqualified']) $team_out .= " <font color=\"#ff0000\">".t('Disqualifiziert')."</font> ". $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}&step=10", "undisqualify");
+							if ($team['disqualified']) $team_out .= " <font color=\"#ff0000\">{$lang["tourney"]["details_disqualifyed"]}</font> ". $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}&step=10", "undisqualify");
 							else $team_out .= " ". $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}", "disqualify");
 						}
 */
@@ -184,14 +182,14 @@ else {
 					}
 					$db->free_result($teams);
 
-					$dsp->AddSingleRow(t('Es sind %1 von maximal %2 Teams zu diesem Turnier angemeldet.',($teamcount[0] + $teamcount[1]), $tournament['maxteams']));
+					$dsp->AddSingleRow(str_replace("%NUM_TEAMS%",($teamcount[0] + $teamcount[1]), str_replace("%MAX_TEAMS%", $tournament['maxteams'], $lang["tourney"]["details_registered"])));
 
-					if ($completed_teams == "") $completed_teams = "<i>".t('Keine')."</i>";
-					$dsp->AddDoubleRow(t('Teamnamen'), $completed_teams);
+					if ($completed_teams == "") $completed_teams = "<i>{$lang["tourney"]["none"]}</i>";
+					$dsp->AddDoubleRow($lang["tourney"]["details_teamnames"], $completed_teams);
 
 					if (($tournament['teamplayer'] > 1) && ($waiting_teams != "")){
-						$dsp->AddSingleRow(t('Folgende %1 Teams sind noch unvollständig', ($teamcount[0] + 0)));
-						$dsp->AddDoubleRow(t('Teamnamen'), $waiting_teams);
+						$dsp->AddSingleRow(str_replace("%NUM_TEAMS%", ($teamcount[0] + 0), $lang["tourney"]["details_uncompleded"]));
+						$dsp->AddDoubleRow($lang["tourney"]["details_teamnames"], $waiting_teams);
 					}
 				break;
 			} // END Switch($headermenuitem)

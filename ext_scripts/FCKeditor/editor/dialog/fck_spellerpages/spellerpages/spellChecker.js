@@ -459,3 +459,4 @@ function _getFormInputs( inputPattern ) {
 	}
 	return inputs;
 }
+

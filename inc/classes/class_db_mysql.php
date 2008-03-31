@@ -72,7 +72,6 @@ class db {
   function escape($match) {
     global $CurrentArg;
 
-    $CurrentArg = stripslashes($CurrentArg);
     if ($match[0] == '%int%') return (int)$CurrentArg;
     elseif ($match[0] == '%string%') return "'". mysql_real_escape_string((string)$CurrentArg, $GLOBALS['db_link_id']) ."'";
   }

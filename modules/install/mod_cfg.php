@@ -57,7 +57,7 @@ switch ($_GET['step']) {
   				if ($row['cfg_type'] == 'string') $row['cfg_value'] = $func->translate($row['cfg_value']);
 
   				// Get Selections
-  				$get_cfg_selection = $db->qry('SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = %string% ORDER BY cfg_value', $row['cfg_type']);
+  				$get_cfg_selection = $db->qry('SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = %string%', $row['cfg_type']);
   				if ($db->num_rows($get_cfg_selection) > 0) {
   					$t_array = array();
   					while ($selection = $db->fetch_array($get_cfg_selection)){
@@ -189,7 +189,7 @@ switch ($_GET['step']) {
 
   // Database
   case 40:
-		if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) $func->error(t('Modul "%1" wurde nicht gefunden', $_GET['module']), '');
+		if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) $func->error(t('Modul "%1" wurde nicht gefunden', array($_GET['module'])), '');
 		else {
 #			$dsp->NewContent($lang["install"]["modules_db_caption"] .": ". $_GET["module"], $lang["install"]["modules_db_subcaption"]);
 

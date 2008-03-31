@@ -8,7 +8,7 @@ switch($_GET['step']) {
 		$_POST["ip_offset"] = "0";
 
 		$templ['misc']['ipgen']['details']['control']['form_action']	= "index.php?mod=seating&action=ipgen&step=10&blockid=". $_GET['blockid'];
-		$templ['misc']['ipgen']['details']['info']['page_title'] 	= t('IP-Generierung');
+		$templ['misc']['ipgen']['details']['info']['page_title'] 	= $lang['seating']['ip_gen'];
 
     $gd->CreateButton('new_calculate');
 		$templ['misc']['ipgen']['control']['case'] .= $dsp->FetchModTpl("seating", "ipgen_details");
@@ -160,7 +160,7 @@ switch($_GET['step']) {
   		} // switch
 		} //for loop
 
-		$func->confirmation(t('Die IP Adressen wurden erfolgreich eingetragen.'), "index.php?mod=seating");
+		$func->confirmation($lang['seating']['cf_add_ip'], "index.php?mod=seating");
 	break;
 
   // Delete IPs

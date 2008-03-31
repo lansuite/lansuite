@@ -141,9 +141,6 @@ switch ($_GET["step"]){
 
 	// Display import form
 	case 4:
-		$config["environment"]["configured"] = 1;
-		$install->WriteConfig($cfg_set);
-
 		$dsp->NewContent($lang["install"]["wizard_import_caption"], $lang["install"]["wizard_import_subcaption"]);
 
 		$dsp->SetForm("index.php?mod=install&action=wizard&step=5", "", "", "multipart/form-data");
@@ -333,6 +330,9 @@ switch ($_GET["step"]){
 		$db->query("UPDATE {$config['tables']['config']} SET cfg_value = '{$_POST['mode']}' WHERE cfg_key = 'sys_internet'");
 
 		unset($_SESSION['language']);
+
+		$config["environment"]["configured"] = 1;
+		$install->WriteConfig($cfg_set);
 
 		$dsp->NewContent($lang["install"]["wizard_final_caption"], $lang["install"]["wizard_final_subcaption"]);
         	

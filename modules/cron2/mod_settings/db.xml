@@ -70,14 +70,6 @@
 				<lastrun>2007-02-01 23:16:25</lastrun>
 				<runat>04:15:00</runat>
 			</entry>
-			<entry>
-				<jobid>1</jobid>
-				<name>Optimize all tables</name>
-				<function>DELETE FROM `lansuite_log` WHERE (DATEDIFF(NOW(), date) > 100)</function>
-				<active>1</active>
-				<lastrun>2007-02-01 23:16:25</lastrun>
-				<runat>05:15:00</runat>
-			</entry>
 		</content>
 	</table>
 </lansuite>

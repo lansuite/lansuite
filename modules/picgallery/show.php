@@ -36,7 +36,7 @@ function IsPackage($ext){
 if ($_POST['gallery_name']) {
 	if ($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) {
 	  $func->CreateDir('ext_inc/picgallery/'. $_GET['file'] . $_POST['gallery_name']);
-	} else $func->error(t('Sie sind nicht berechtigt neue Galerien anzulegen'), "index.php?mod=picgallery&file={$_GET["file"]}");
+	} else $func->error($lang['picgallery']['err_add_gallery_denied'], "index.php?mod=picgallery&file={$_GET["file"]}");
 }
 
 if (!$_GET["file"]) $_GET["file"] = "/";
@@ -67,14 +67,14 @@ if ($_POST["file_name"] and ($auth['type'] >= 2 or $cfg['picgallery_allow_user_n
   $db->query("UPDATE {$config["tables"]["picgallery"]} SET caption = '{$_POST["file_name"]}' WHERE name = '$db_dir'");
 
 // GD-Check
-if (!$gd->available) $func->error(t('Kein GD installiert'), "");
+if (!$gd->available) $func->error($lang['picgallery']['no_gd'], "");
 
 // Wenn keine Datei ausgewählt ist: Übersicht
 elseif (!$akt_file) {
 	session_unregister("klick_reload");
 	unset($klick_reload);
 
-	$dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicken Sie auf ein Bild oder auf /\'/öffnen/\'/ um das Bild anzuzeigen.'));
+	$dsp->NewContent($lang['picgallery']['pic_show_caption'] . ": ". $get_gname["caption"], $overall_entries . " " . $lang['picgallery']['pic_show_subcaption']);
 
 	if (!$cfg["picgallery_items_per_row"]) $cfg["picgallery_items_per_row"] = 3;
 	if (!$cfg["picgallery_rows"]) $cfg["picgallery_rows"] = 4;
@@ -125,7 +125,7 @@ elseif (!$akt_file) {
     if ($auth['type'] > 2) $DelDirLink = ' <a href="index.php?mod=picgallery&action=delete&step=10&file='.$akt_dir.$dir.'"><img src="design/'.$auth['design'].'/images/arrows_delete.gif" border="0" /></a>';
     $directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$akt_dir$dir/\">$dir$DelDirLink</a>] ";
   }
-	if ($directory_selection) $dsp->AddDoubleRow(t('Ordner'), $directory_selection);
+	if ($directory_selection) $dsp->AddDoubleRow($lang['picgallery']['show_dir'], $directory_selection);
 
 	// Show Page-Selection
 	$page_selection = "";
@@ -135,10 +135,10 @@ elseif (!$akt_file) {
 		if ($z == $_GET["page"]) $page_selection .= "[<b>$z</b>] ";
 		else $page_selection .= "[<a href=\"index.php?mod=picgallery&file={$_GET["file"]}&page=$z\">$z</a>] ";
 	}
-	if ($num_pages > 1) $dsp->AddDoubleRow(t('Seite'), $page_selection);
+	if ($num_pages > 1) $dsp->AddDoubleRow($lang['picgallery']['show_page'], $page_selection);
 
 	// Show Picture-List
-	if (!$file_list && !$package_list) $dsp->AddSingleRow("<i>".t('Keine Bilder in diesem Ordner vorhanden')."</i>");
+	if (!$file_list && !$package_list) $dsp->AddSingleRow("<i>{$lang['picgallery']['show_no_pic_dir']}</i>");
 	else {
 		$z = 0;
 
@@ -185,9 +185,9 @@ elseif (!$akt_file) {
 
 					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
 
-					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", "next", t('Bild anzeigen'));
+					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", "next", $lang['picgallery']['show_show_pic']);
 					if ($auth["type"] > 1) {
-						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", t('Bild l&ouml;schen'));
+						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
 					}
 
 					$templ['ls']['row']['gallery']['spalte'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_spalte");
@@ -243,9 +243,9 @@ elseif (!$akt_file) {
 					
 					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
 
-					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", "download", t('Bild herrunterladen'));
+					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", "download", $lang['picgallery']['show_download_pic']);
 					if ($auth["type"] > 1) {
-						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", "delete", t('Bild l&ouml;schen'));
+						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", "delete", $lang['picgallery']['show_del_pic']);
 					}
 
 					$templ['ls']['row']['gallery']['spalte'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_spalte");
@@ -268,17 +268,17 @@ elseif (!$akt_file) {
 	}
 
 	// Stats
-	$dsp->AddDoubleRow(t('Statistiken'), "$num_files ".t('Dateien')." (". (round(($dir_size / 1024), 1)) ."kB); ".t('Letzte Ã„nderung').": ". $func->unixstamp2date($last_modified, "datetime"));
+	$dsp->AddDoubleRow($lang['picgallery']['show_stats'], "$num_files {$lang['picgallery']['show_files']} (". (round(($dir_size / 1024), 1)) ."kB); {$lang['picgallery']['show_last_change']}: ". $func->unixstamp2date($last_modified, "datetime"));
 
 	// Upload-Formular
 	if ($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) {
 		$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}", "", "", "multipart/form-data");
-		$dsp->AddFileSelectRow("file_upload", t('Datei hochladen'), "");
+		$dsp->AddFileSelectRow("file_upload", $lang['picgallery']['show_upload_file'], "");
 		$dsp->AddFormSubmitRow("add");
 
 		// Add Gallery
 		$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}", "Form2", "", "");
-		$dsp->AddTextFieldRow("gallery_name", t('Neue Galerie anlegen'), "", "");
+		$dsp->AddTextFieldRow("gallery_name", $lang['picgallery']['add_gallery'], "", "");
 		$dsp->AddFormSubmitRow("add");
 	}
 
@@ -288,7 +288,7 @@ elseif (!$akt_file) {
 
 // Details
 } else {
-	if (!is_file($root_file)) $func->error(t('Dieses Bild ist nicht vorhanden'), "index.php?mod=picgallery");
+	if (!is_file($root_file)) $func->error($lang['picgallery']['is_no_pic'], "index.php?mod=picgallery");
 	else {
 
 		if ($_GET['mcact'] == "show" or $_GET['mcact'] == ""){
@@ -303,7 +303,7 @@ elseif (!$akt_file) {
 			$js_full_link = "javascript:var w=window.open('$root_file','_blank','width=". ($picinfo['0'] + 10) .",height=". ($picinfo['1'] + 10) .",resizable=yes,scrollbars=yes')";
 
 			// Select pic data
-			$pic = $db->query_first("SELECT	p.picid, p.userid, p.caption, p.clicks, u.userid, u.username
+			$pic = $db->query_first("SELECT	p.picid, p.userid, p.caption, p.clicks, u.username
 				FROM {$config["tables"]["picgallery"]} AS p
 				LEFT JOIN {$config["tables"]["user"]} AS u ON p.userid = u.userid
 				WHERE p.name = '$db_dir'
@@ -314,16 +314,16 @@ elseif (!$akt_file) {
 				$_SESSION["click_reload"][$db_dir] = 1;
 			}
 
-			if ($pic['caption']) $dsp->AddDoubleRow(t('Bildname'), $pic['caption']);
+			if ($pic['caption']) $dsp->AddDoubleRow($lang['picgallery']['pic_name'], $pic['caption']);
 
 			//					JPG						PNG						GIF						BMP
 			if ($picinfo['2'] == "1" or $picinfo['2'] == "2" or $picinfo['2'] == "3" or $picinfo['2'] == "6")
 				$dsp->AddDoubleRow("", "<a href=\"$js_full_link\"><img border=\"1\" src=\"$root_file\" width=\"$pic_width\" class=\"img\"></a>");
 
 			// Define Buttons
-			if(!IsPackage($extension)) $dl_button = $dsp->FetchIcon($js_full_link, "fullscreen", t('Vollbild'));
-			$full_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "download", t('Bild herrunterladen'));
-			($auth[type] > "1") ? $del_button = $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", t('Bild l&ouml;schen')) : $del_button = "";
+			if(!IsPackage($extension)) $dl_button = $dsp->FetchIcon($js_full_link, "fullscreen", $lang['picgallery']['show_fullscreen']);
+			$full_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "download", $lang['picgallery']['show_download_pic']);
+			($auth[type] > "1") ? $del_button = $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", $lang['picgallery']['show_del_pic']) : $del_button = "";
 
 			// Scan Directory
 			$file_list = array();
@@ -337,21 +337,21 @@ elseif (!$akt_file) {
 			$num_files = count($file_list);
 			$akt_file = array_keys($file_list, $akt_file);
 
-			if ($file_list[$akt_file[0] - 1]) $prev_button = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] - 1], "back", t('Bild zur&uuml;ck'));
+			if ($file_list[$akt_file[0] - 1]) $prev_button = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] - 1], "back", $lang['picgallery']['show_pic_back']);
 			else $prev_button = "";
-			if ($file_list[$akt_file[0] + 1]) $next_button = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] + 1], "next", t('Bild weiter'));
+			if ($file_list[$akt_file[0] + 1]) $next_button = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] + 1], "next", $lang['picgallery']['show_pic_next']);
 			else $next_button = "";
 			$dsp->AddDoubleRow("", "$prev_button $next_button $full_button $dl_button $del_button");
 
 			// Change Pic-Name
 			if ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming']) {
   			$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}");
-  			$dsp->AddTextFieldRow("file_name", t('Bildname'), $pic['caption'], "");
+  			$dsp->AddTextFieldRow("file_name", $lang['picgallery']['pic_name'], $pic['caption'], "");
   			$dsp->AddFormSubmitRow("edit");
       }
 
 			// Show Picname
-			$dsp->AddDoubleRow(t('Dateiname'), $db_dir);
+			$dsp->AddDoubleRow($lang['picgallery']['show_file_name'], $db_dir);
 
 			// Calculate Size-Format
 			$size_format = "";
@@ -364,16 +364,16 @@ elseif (!$akt_file) {
 				}
 			}
 			if ($size_format == "") $size_format = "100:". round($verh * 100, 1);
-			if(!IsPackage($extension)) $dsp->AddDoubleRow(t('Bildgr&ouml;&szlig;e'), "{$picinfo['0']} x {$picinfo['1']} Pixel ($size_format); ". round($picinfo['5'], 1) ." kB");
-			else $dsp->AddDoubleRow(t('Bildgr&ouml;&szlig;e'),round($picinfo['5'], 1) ." kB");
+			if(!IsPackage($extension)) $dsp->AddDoubleRow($lang['picgallery']['show_pic_size'], "{$picinfo['0']} x {$picinfo['1']} Pixel ($size_format); ". round($picinfo['5'], 1) ." kB");
+			else $dsp->AddDoubleRow($lang['picgallery']['show_pic_size'],round($picinfo['5'], 1) ." kB");
 
 			// File-Times
-			$dsp->AddDoubleRow(t('Erstellt'), $func->unixstamp2date(filectime($root_file), "datetime"));
-			$dsp->AddDoubleRow(t('Letzte Ã„nderung'), $func->unixstamp2date(filemtime($root_file), "datetime"));
+			$dsp->AddDoubleRow($lang['picgallery']['show_created'], $func->unixstamp2date(filectime($root_file), "datetime"));
+			$dsp->AddDoubleRow($lang['picgallery']['show_last_change'], $func->unixstamp2date(filemtime($root_file), "datetime"));
 
 			// Show DB-Data to Pic
-			if ($pic['username']) $dsp->AddDoubleRow(t('Ersteller'), $pic['username'] .' '. $dsp->FetchUserIcon($pic['userid']));
-			if ($pic['clicks']) $dsp->AddDoubleRow(t('Aufrufe'), $pic['clicks']);
+			if ($pic['username']) $dsp->AddDoubleRow($lang['picgallery']['owner'], "{$pic['username']} <a href=\"index.php?mod=usrmgr&action=details&userid={$pic['userid']}\"><img src=\"design/{$auth["design"]}/images/arrows_user.gif\" width=\"12\" height=\"13\" hspace=\"1\" vspace=\"0\" border=\"0\"></a>");
+			if ($pic['clicks']) $dsp->AddDoubleRow($lang['picgallery']['clicks'], $pic['clicks']);
 
 			$dsp->AddBackButton("index.php?mod=picgallery&file=$akt_dir&page={$_GET["page"]}", "picgallery");
 			$dsp->AddContent();

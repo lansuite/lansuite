@@ -3,15 +3,15 @@
 switch($_GET["step"]) {
 	case 2:
 		if ($_POST["subject"] == ""){
-			$subject_error = t('Bitte geben Sie einen Betreff an');
+			$subject_error = $lang["mail"]["newsletter_err_nosubject"];
 			$_GET["step"] = 1;
 		}
 		if ($_POST["text"] == ""){
-			$text_error = t('Bitte geben Sie einen Text an');
+			$text_error = $lang["mail"]["newsletter_err_notext"];
 			$_GET["step"] = 1;
 		}
 		if (($_POST["toinet"] == "") && ($_POST["tosys"] == "")){
-			$inet_error = t('Bitte wählen Sie mindestens ein Ziel aus');
+			$inet_error = $lang["mail"]["newsletter_err_noto"];
 			$_GET["step"] = 1;
 		}
 	break;
@@ -19,15 +19,15 @@ switch($_GET["step"]) {
 
 switch($_GET["step"]) {
 	default:
-		$dsp->NewContent(t('Rundmail versenden'), t('Hier können Sie eine Rundmail an alle Benutzer senden.'));
+		$dsp->NewContent($lang["mail"]["newsletter_caption"], $lang["mail"]["newsletter_subcaption"]);
 		$dsp->SetForm("index.php?mod=mail&action=newsletter&step=2");
 
 		if ($_POST["onlynewsletter"] == "") $_POST["onlynewsletter"] = 1;
 		if ($_POST["toinet"] == "") $_POST["toinet"] = 1;
 
 		$dsp->AddFieldSetStart('Zielgruppen-Einschränkung');
-		$dsp->AddCheckBoxRow("onlynewsletter", t('Nur Newsletter'), t('Nur an Benutzer, die den Newsletter bei der Anmeldung bestellt haben'), "", 1, $_POST["onlynewsletter"]);
-#		$dsp->AddCheckBoxRow("onlysignon", t('Nur Angemeldete'), t('Nur an Benutzer, die zur aktuellen Party angemeldet sind'), "", 1, $_POST["onlysignon"]);
+		$dsp->AddCheckBoxRow("onlynewsletter", $lang["mail"]["newsletter_onlynewsletter"], $lang["mail"]["newsletter_onlynewsletter2"], "", 1, $_POST["onlynewsletter"]);
+#		$dsp->AddCheckBoxRow("onlysignon", $lang["mail"]["newsletter_onlysignon"], $lang["mail"]["newsletter_onlysignon2"], "", 1, $_POST["onlysignon"]);
 
 		$t_array = array();
 		array_push($t_array, '<option $selected value="0">'. t('An alle Benutzer') .'</option>');
@@ -38,9 +38,9 @@ switch($_GET["step"]) {
 		$dsp->AddDropDownFieldRow("onlysignon", t('Nur Angemeldete an folgender Party'), $t_array, '');
 
 		$t_array = array();
-		array_push ($t_array, "<option $selected value=\"0\">".t('An alle Benutzer')."</option>");
-		array_push ($t_array, "<option $selected value=\"1\">".t('Nur an Benutzer, die bezahlt haben')."</option>");
-		array_push ($t_array, "<option $selected value=\"2\">".t('Nur an Benutzer, die NICHT bezahlt haben')."</option>");
+		array_push ($t_array, "<option $selected value=\"0\">{$lang['mail']['newsletter_onlypaid_all']}</option>");
+		array_push ($t_array, "<option $selected value=\"1\">{$lang['mail']['newsletter_onlypaid2']}</option>");
+		array_push ($t_array, "<option $selected value=\"2\">{$lang['mail']['newsletter_onlypaid_not']}</option>");
 		$dsp->AddDropDownFieldRow("onlypaid", t('Nur Benutzer die zu oben ausgewählter Party bezahlt haben'), $t_array, '');
 
 		$t_array = array();
@@ -65,8 +65,8 @@ switch($_GET["step"]) {
 		$dsp->AddFieldSetEnd();
 
 		$dsp->AddFieldSetStart('Nachricht');
-		$dsp->AddTextFieldRow("subject", t('Betreff'), $_POST["subject"], $subject_error);
-		$dsp->AddTextAreaMailRow("text", t('Text'), $_POST["text"], $text_error);
+		$dsp->AddTextFieldRow("subject", $lang["mail"]["newsletter_subject"], $_POST["subject"], $subject_error);
+		$dsp->AddTextAreaMailRow("text", $lang["mail"]["newsletter_text"], $_POST["text"], $text_error);
 		$dsp->AddFieldSetEnd();
 
 		$dsp->AddFormSubmitRow("send");
@@ -121,14 +121,14 @@ switch($_GET["step"]) {
 			$text = str_replace("%NGLCLANID%", $user["nglclanid"], $text);
 			$text = str_replace("%IP%", $user["ip"], $text);
 
-			($user["paid"]) ? $text = str_replace("%BEZAHLT%", t('Ja'), $text)
-				: $text = str_replace("%BEZAHLT%", t('Nein'), $text);
+			($user["paid"]) ? $text = str_replace("%BEZAHLT%", $lang["sys"]["yes"], $text)
+				: $text = str_replace("%BEZAHLT%", $lang["sys"]["no"], $text);
 
-			($user["checkin"]) ? $text = str_replace("%EINGECHECKT%", t('Ja'), $text)
-				: $text = str_replace("%EINGECHECKT%", t('Nein'), $text);
+			($user["checkin"]) ? $text = str_replace("%EINGECHECKT%", $lang["sys"]["yes"], $text)
+				: $text = str_replace("%EINGECHECKT%", $lang["sys"]["no"], $text);
 
-			($user["party_id"]) ? $text = str_replace("%ANGEMELDET%", t('Ja'), $text)
-				: $text = str_replace("%ANGEMELDET%", t('Nein'), $text);
+			($user["party_id"]) ? $text = str_replace("%ANGEMELDET%", $lang["sys"]["yes"], $text)
+				: $text = str_replace("%ANGEMELDET%", $lang["sys"]["no"], $text);
 
 			// Mail senden
 			if ($_POST["toinet"]) {
@@ -139,8 +139,8 @@ switch($_GET["step"]) {
 		}
 		$db->free_result($users);
 
-		if ($_POST["toinet"]) $inet_success = t('Die Mail wurde erfolgreich an folgende Benutzer gesendet:') .HTML_NEWLINE. $success .HTML_NEWLINE . HTML_NEWLINE . t('An folgende Benutzer konnte die Mail leider nicht gesendet werden:') .HTML_NEWLINE. $fail . HTML_NEWLINE . HTML_NEWLINE;
-		if ($_POST["tosys"]) $sys_success = t('Die Nachrichten an die System-Mailbox wurden erfolgreich versandt');
+		if ($_POST["toinet"]) $inet_success = $lang["mail"]["newsletter_success"] .HTML_NEWLINE. $success .HTML_NEWLINE . HTML_NEWLINE . $lang["mail"]["newsletter_fail"] .HTML_NEWLINE. $fail . HTML_NEWLINE . HTML_NEWLINE;
+		if ($_POST["tosys"]) $sys_success = $lang["mail"]["newsletter_system_success"];
 
 		$func->confirmation($inet_success . $sys_success, "index.php?mod=mail&action=newsletter&step=1");
 	break;

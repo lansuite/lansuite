@@ -23,11 +23,11 @@ switch($_GET["step"]) {
 
 	$count_cat = $db->num_rows($get_cat);
 
-	if($count_cat == 0) { $func->information(t('Keine Einträge vorhanden.'),"index.php?mod=home"); }
+	if($count_cat == 0) { $func->information($lang['faq']['no_itenm'],"index.php?mod=home"); }
 
 	else {
 
-		$dsp->NewContent(t('FAQ löschen'),t('Auf dieser Seite sehen Sie häufig gestellte Fragen und deren Antworten. Die Fragen sind in verschiedene Kategorien eingeteilt, die Sie mit dem (+)-Symbol aufklappen können. Mit einem Klick auf die Löschen-Buttons können Sie die entsprechende Kategorie bzw. Frage löschen.'));
+		$dsp->NewContent($lang['faq']['del_caption'],$lang['faq']['del_subcaption']);
 		if($_SESSION['menu_status']['faq'][$_GET['faqcatid']] == "open") {
 			$_SESSION['menu_status']['faq'][$_GET['faqcatid']] = "closed";
 		}else {
@@ -70,11 +70,11 @@ switch($_GET["step"]) {
 		
 		if($get_catname["name"] != "") {
 			
-			$func->question(t('Sind Sie sicher, dass Sie die Kategorie  <b> %1 </b> und die darin enthaltenen Fragen wirklich löschen wollen?', $get_catname['name']),"index.php?mod=faq&object=cat&action=delete_cat&catid={$_GET['catid']}&step=3","index.php?mod=faq&object=cat&action=delete_cat");
+			$func->question(str_replace("%CATNAME%",$get_catname['name'],$lang['faq']['del_cat_quest']),"index.php?mod=faq&object=cat&action=delete_cat&catid={$_GET['catid']}&step=3","index.php?mod=faq&object=cat&action=delete_cat");
 		}
 		
 			else {
-				$func->error(t('Diese Kategorie existiert nicht'),"");	
+				$func->error($lang['faq']['cat_not_exists'],"");	
 			}	
 	
 	break;
@@ -89,7 +89,7 @@ switch($_GET["step"]) {
 			
 			if($del_cat == true && $del_item == true) {
 				
-				$func->confirmation(t('Die Kategorie wurde erfolgreich gelöscht'),"index.php?mod=faq&object=cat&action=delete_cat");
+				$func->confirmation($lang['faq']['del_cat_ok'],"index.php?mod=faq&object=cat&action=delete_cat");
 			}
 			
 				else {
@@ -101,7 +101,7 @@ switch($_GET["step"]) {
 		
 			else {	
 				
-				$func->error(t('Diese Kategorie existiert nicht'),"");
+				$func->error($lang['faq']['cat_not_exists'],"");
 			}	
 	
 	break;

@@ -53,7 +53,7 @@ else {
     	$pages = $func->page_split($vars["news_page"], $cfg["news_count"], $overall_news, "index.php?mod=news&amp;action=show", "news_page");
     
     	//GET NEWS DATA AND ORDER NEWS
-    	$get_news = $db->query("SELECT n.*, u.userid, u.username FROM	{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC {$pages["sql"]}");
+    	$get_news = $db->query("SELECT n.*, u.username FROM	{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC {$pages["sql"]}");
     
     	while($row=$db->fetch_array($get_news)) {
     		$priority = $row["priority"];
@@ -67,7 +67,7 @@ else {
         }
     		$templ['news']['show']['row'][$type]['info']['caption']     = $row["caption"];
     		$text                                                       = $row["text"];
-    		$templ['news']['show']['row'][$type]['info']['username']    = $row["username"] .' '. $dsp->FetchUserIcon($row['userid']);
+    		$templ['news']['show']['row'][$type]['info']['username']    = $row["username"];
     		$templ['news']['show']['row'][$type]['control']['userid']   = $row["poster"];
     		if ($row['icon'] and $row['icon'] != 'none') $templ['news']['show']['row']['normal']['info']['icon'] =	'<img src="ext_inc/news_icons/'.$row['icon'].'" vspace="2" align="right" />';
     		else $templ['news']['show']['row']['normal']['info']['icon'] = '';
@@ -105,7 +105,7 @@ else {
       
       //SHOW COMPLETE NEWS
       //GET NEWS DATA AND ORDER NEWS
-    	$get_news = $db->query("SELECT n.*, u.userid, u.username FROM	{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT " .$cfg["news_complete"]);
+    	$get_news = $db->query("SELECT n.*, u.username FROM	{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT " .$cfg["news_complete"]);
     	while($row=$db->fetch_array($get_news)) {
     		$priority = $row["priority"];
     
@@ -118,7 +118,7 @@ else {
         }
     		$templ['news']['show']['row'][$type]['info']['caption']     = $row["caption"];
     		$text                                                       = $row["text"];
-    		$templ['news']['show']['row'][$type]['info']['username']    = $row["username"] .' '. $dsp->FetchUserIcon($row['userid']);
+    		$templ['news']['show']['row'][$type]['info']['username']    = $row["username"];
     		$templ['news']['show']['row'][$type]['control']['userid']   = $row["poster"];
     		if ($row['icon'] and $row['icon'] != 'none') $templ['news']['show']['row']['normal']['info']['icon'] =	'<img src="ext_inc/news_icons/'.$row['icon'].'" vspace="2" align="right" />';
     		else $templ['news']['show']['row']['normal']['info']['icon'] = '';

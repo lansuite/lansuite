@@ -202,30 +202,13 @@ switch ($_GET['step']) {
   
   // Translate Module
   case 20:
-    $dsp->NewContent(t('Modul übersetzen : ').$_GET['file'], '');
-    
-    // Show switch between Lanuages
-    if ($_POST['target_language']) $_SESSION['target_language'] = $_POST['target_language'];
-    $dsp->SetForm('index.php?mod=misc&action=translation&step=20&file='.$_GET['file']);
-    $list = array();
-    $res = $db->query("SELECT cfg_value, cfg_display FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language'");
-    while($row = $db->fetch_array($res)) {
-      ($_SESSION['target_language'] == $row['cfg_value'])? $selected = 'selected' : $selected = '';
-      $list[] = "<option $selected value='{$row['cfg_value']}'>{$row['cfg_display']}</option>";
-    }
-    $dsp->AddDropDownFieldRow('target_language', t('Ziel Sprache'), $list, '');
-    $db->free_result($res);
-    $dsp->AddFormSubmitRow('change');
+    $dsp->NewContent(t('Modul übersetzen'), '');
 
-    // Start Tanslation
     if ($_SESSION['target_language'] == '') $_SESSION['target_language'] = 'en';
+    $dsp->AddDoubleRow('Zielsprache', $dsp->FetchIcon('', $_SESSION['target_language']));
     $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
     $res = $db->query("SELECT DISTINCT id, org, file, {$_SESSION['target_language']} FROM {$config['tables']['translation']} WHERE file = '{$_GET['file']}'");
-    while($row = $db->fetch_array($res)) {
-        $trans_link_google ="http://translate.google.com/translate_t?langpair=de|".$_SESSION['target_language']."&hl=de&ie=UTF8&text=".$row['org'];
-        $trans_link_google =" <a href=\"".$trans_link_google."\" target=\"_blank\"><img src=\"design/".$auth['design']."/images/arrows_transl.gif\" width=\"12\" height=\"13\" border=\"0\" /></a>";
-        $dsp->AddTextFieldRow("id[{$row['id']}]",$row['org'].$trans_link_google, $row[$_SESSION['target_language']], '', 65);
-    }
+    while($row = $db->fetch_array($res)) $dsp->AddTextFieldRow("id[{$row['id']}]", $row['org'], $row[$_SESSION['target_language']], '', 65);
     $db->free_result($res);
     $dsp->AddFormSubmitRow('edit');
 

@@ -19,11 +19,11 @@ function UploadFiles() {
 global $func, $gd;
 		// Check for errors
 		if ($_POST['name'] == '') {
-			$name_error = t('Bitte geben Sie einen Namen ein');
+			$name_error = $lang['sponsor']['err_name'];
 			$_GET['step'] = 1;
 		}
 		if (strlen($_POST['text']) > 5000) {
-			$text_error = t('Der Text darf nicht mehr als 5000 Zeichen enthalten');
+			$text_error = $lang['sponsor']['err_text'];
 			$_GET['step'] = 1;
 		}
 
@@ -86,8 +86,8 @@ else {
   include_once('inc/classes/class_masterform.php');
   $mf = new masterform();
 
-  $mf->AddField(t('Name'), 'name');
-  $mf->AddField(t('Ziel-URL'), 'url', '', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_name'], 'name');
+  $mf->AddField($lang['sponsor']['add_url'], 'url', '', '', FIELD_OPTIONAL);
   $mf->AddGroup('General');
 
   $code_popup_link_banner = '<ul>
@@ -102,37 +102,37 @@ else {
     <li><a href="javascript:OpenHelplet(\'sponsor\', \'adsense_box\');">Google Anzeigen</a></li>
     </ul>';
 
-  $mf->AddField(t('Auf Sponsorenseite').'|'.t('Der Banner wird auf der Sponsorenseite angezeigt'), 'sponsor', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
-  $mf->AddField(t('Bild-Upload'), 'pic_upload', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
-  $mf->AddField(t('Oder: Bild-URL'), 'pic_path', 'varchar(255)', '', FIELD_OPTIONAL);
-  $mf->AddField(t('Oder: Bild-Code (z.B. Flash)') . $code_popup_link_banner, 'pic_code', 'text', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_sponsor'].'|'.$lang['sponsor']['add_sponsor2'], 'sponsor', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+  $mf->AddField($lang['sponsor']['add_pic_upload'], 'pic_upload', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic'], 'pic_path', 'varchar(255)', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic_code'] . $code_popup_link_banner, 'pic_code', 'text', '', FIELD_OPTIONAL);
   $mf->AddGroup('Sponsorenseite');
 
-  $mf->AddField('', '', IS_TEXT_MESSAGE, t('Wenn Sie hier keine Datei angeben, wird der Banner/Button automatisch durch verkleinern der oben angegebenen Datei erzeugt (Funktioniert nur bei heraufgeladenen Dateien).'));
+  $mf->AddField('', '', IS_TEXT_MESSAGE, $lang['sponsor']['add_other_sizes']);
   $mf->AddGroup('');
 
-  $mf->AddField(t('In Rotations-Banner').'|'.t('Der Banner wird oben in den Rotations-Banner aufgenommen'), 'rotation', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
-  $mf->AddField(t('Bild-Upload'), 'pic_upload_banner', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
-  $mf->AddField(t('Oder: Bild-URL'), 'pic_path_banner', 'varchar(255)', '', FIELD_OPTIONAL);
-  $mf->AddField(t('Oder: Bild-Code (z.B. Flash)') . $code_popup_link_banner, 'pic_code_banner', 'text', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_banner'].'|'.$lang['sponsor']['add_banner2'], 'rotation', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+  $mf->AddField($lang['sponsor']['add_pic_upload'], 'pic_upload_banner', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic'], 'pic_path_banner', 'varchar(255)', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic_code'] . $code_popup_link_banner, 'pic_code_banner', 'text', '', FIELD_OPTIONAL);
   $mf->AddGroup('Rotation Banner');
 
-  $mf->AddField(t('In Sponsoren-Box').'|'.t('Der Banner wird in der Sponsoren-Box angezeigt'), 'active', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
-  $mf->AddField(t('Bild-Upload'), 'pic_upload_button', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
-  $mf->AddField(t('Oder: Bild-URL'), 'pic_path_button', 'varchar(255)', '', FIELD_OPTIONAL);
-  $mf->AddField(t('Oder: Bild-Code (z.B. Flash)') . $code_popup_link_box, 'pic_code_button', 'text', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_active'].'|'.$lang['sponsor']['add_active2'], 'active', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+  $mf->AddField($lang['sponsor']['add_pic_upload'], 'pic_upload_button', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic'], 'pic_path_button', 'varchar(255)', '', FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pic_code'] . $code_popup_link_box, 'pic_code_button', 'text', '', FIELD_OPTIONAL);
   $mf->AddGroup('Sponsoren Box');
 
   $t = $db->query("SELECT tournamentid, name FROM {$config['tables']['tournament_tournaments']} WHERE party_id = ". (int)$party->party_id);
 	$selections = array();
-  $selections[0] = t('Keine');
+  $selections[0] = $lang['sys']['none'];
 	while($tRow = $db->fetch_array($t)) {
     $selections[$tRow['tournamentid']] = $tRow['name'];
 	}
-  $mf->AddField(t('Sponsor einem Turnier zuordnen'), 'tournamentid', IS_SELECTION, $selections, FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_tournament'], 'tournamentid', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
-  $mf->AddField(t('Position'), 'pos');
-  $mf->AddField(t('Text'), 'text', '', HTML_ALLOWED, FIELD_OPTIONAL);
+  $mf->AddField($lang['sponsor']['add_pos'], 'pos');
+  $mf->AddField($lang['sponsor']['add_text'], 'text', '', HTML_ALLOWED, FIELD_OPTIONAL);
   $mf->AddGroup('Misc.');
 
   $mf->AdditionalDBAfterSelectFunction = 'RewriteFields';

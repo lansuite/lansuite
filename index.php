@@ -165,11 +165,9 @@ $seat2 = new seat2();   // Load Seat-Controll Class
 
 
 // Wenn Install: Connect ohne Abbruch bei Fehler, sonst mit Abbruch
-if ($IsAboutToInstall) {
-  $db->connect(1);
-  $db->success = false;
-} 
+if ($IsAboutToInstall) $db->success = $db->connect(1);
 else $db->success = $db->connect(0);
+
 
 $found_adm = 0;
 if ($db->success) {
@@ -204,7 +202,7 @@ elseif ($_GET['language']) $_SESSION['language'] = $_GET['language'];
 if ($_SESSION['language']) $language = $_SESSION['language'];
 elseif ($cfg["sys_language"]) $language = $cfg["sys_language"];
 else $language = "de";
-if (strlen($language) > 3) $language = "de"; # For avoiding bad Code-Injections
+if (strlen($language > 3)) $language = "de"; # For avoiding bad Code-Injections
 
 // Load Barcode System
 $barcode	= new barcode_system();	// Barcode System
@@ -214,7 +212,6 @@ $barcode	= new barcode_system();	// Barcode System
 if ($language != "de" and file_exists("inc/language/language_$language.php")) include_once("inc/language/language_$language.php");
 if ($language != "de" and file_exists("modules/mastersearch/language/mastersearch_lang_$language.php")) include_once("modules/mastersearch/language/mastersearch_lang_$language.php");
 if ($language != "de" and file_exists("modules/boxes/language/boxes_lang_$language.php")) include_once("modules/boxes/language/boxes_lang_$language.php");
-if ($language != "de" and file_exists("modules/install/language/install_lang_$language.php")) include_once("modules/install/language/install_lang_$language.php");
 
 // Initialize party
 $party = new party();
