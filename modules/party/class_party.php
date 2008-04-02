@@ -89,13 +89,13 @@ class party{
 					else $list_array = array("<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
 				}
         $dsp->SetForm($link);
-				$dsp->AddDropDownFieldRow("set_party_id",t('Party auswählen'),$list_array,'');
+				$dsp->AddDropDownFieldRow("set_party_id",t('Party auswÃ¤hlen'),$list_array,'');
         $dsp->AddFormSubmitRow("change");
 			}
 		}
 
 		/**
-		 * Funktion zum hinzufügen eines Dropdownfeldes zur Klasse $dsp 
+		 * Funktion zum hinzufÃ¼gen eines Dropdownfeldes zur Klasse $dsp 
 		 *
 		 * @param boolean $show_old
 		 */
@@ -133,14 +133,14 @@ class party{
 							$list_array = array("<option $selected value='{$res['party_id']}'>{$res['name']} $start_date - $end_date</option>");
 						}
 					}
-		        	$dsp->AddDropDownFieldRow("party_id",t('Party auswählen'),$list_array);
+		        	$dsp->AddDropDownFieldRow("party_id",t('Party auswÃ¤hlen'),$list_array);
 		        }
 			
 			}
 		}
 
 		/**
-		 * Funktion zum hinzufüge einer Party
+		 * Funktion zum hinzufÃ¼ge einer Party
 		 *
 		 */
 		function add_party(){
@@ -166,7 +166,7 @@ class party{
 		}
 		
 		/**
-		 * Party ändern 
+		 * Party Ã¤ndern 
 		 *
 		 */
 		function change_party(){
@@ -192,21 +192,21 @@ class party{
 		
 		
 		/**
-		 * Party löschen und auf Standartparty einstellen
+		 * Party lÃ¶schen und auf Standartparty einstellen
 		 *
 		 */
 		function delete_party(){
 			global $db,$func,$config,$cfg;
-			// Party löschen
+			// Party lÃ¶schen
 			$db->query("DELETE FROM {$config['tables']['partys']} 
 								WHERE party_id = {$this->party_id}");
 			
-			// Preise zur Party löschen
+			// Preise zur Party lÃ¶schen
 			$db->query("DELETE FROM {$config['tables']['party_prices']} 
 								party_id = {$this->party_id}
 								");
 			
-			// User zur Party löschen
+			// User zur Party lÃ¶schen
 			$db->query("DELETE FROM {$config['tables']['party_user']} 
 								party_id = {$this->party_id}
 								");
@@ -217,7 +217,7 @@ class party{
 		
 		
 		/**
-		 * Preise zählen
+		 * Preise zÃ¤hlen
 		 */
 		
 		function get_price_count($groupid = false){
@@ -264,10 +264,10 @@ class party{
 						 $data = array("<option $selected value='{$res['price_id']}'>{$res['price_text']} / {$res['price']} {$cfg['sys_currency']}</option>");
 						}
 				}
-				$dsp->AddDropDownFieldRow("price_id",t('Preis auswählen'),$data,'');
+				$dsp->AddDropDownFieldRow("price_id",t('Preis auswÃ¤hlen'),$data,'');
 			}else{
 				$res = $db->fetch_array($row);
-				$dsp->AddDoubleRow(t('Preis auswählen'),$res['price_text'] . "  / {$res['price']} {$cfg['sys_currency']}<input name='price_id' type='hidden' value='{$res['price_id']}' />");
+				$dsp->AddDoubleRow(t('Preis auswÃ¤hlen'),$res['price_text'] . "  / {$res['price']} {$cfg['sys_currency']}<input name='price_id' type='hidden' value='{$res['price_id']}' />");
 			}
 
 		}
@@ -286,7 +286,7 @@ class party{
 			if($anzahl == 0) $row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} AND group_id='0'");
 
 			while ($res = $db->fetch_array($row)) $selections[$res['price_id']] = $res['price_text'] .' / '. $res['price'] .' '. $cfg['sys_currency'];
-			$mf->AddField(t('Preis auswählen'), 'price_id', IS_SELECTION, $selections);
+			$mf->AddField(t('Preis auswÃ¤hlen'), 'price_id', IS_SELECTION, $selections);
 			$res = $db->free_result($res);
 		}
 
@@ -312,7 +312,7 @@ class party{
 		}
 		
 		/**
-		 * Funktion um einen Preis hizuzufügen
+		 * Funktion um einen Preis hizuzufÃ¼gen
 		 *
 		 * @param string $price_text
 		 * @param int $price
@@ -337,7 +337,7 @@ class party{
 		
 		
 		/**
-		 * Funktion um einen Preis zu ändern
+		 * Funktion um einen Preis zu Ã¤ndern
 		 *
 		 * @param int $price_id
 		 * @param string $price_text
@@ -361,8 +361,8 @@ class party{
 		
 		
 		/**
-		 * Funktion zum hinzufügen eines Users zu einer Party
-		 * Die Funktion prüft ob der User schon an der Party angemeldet ist und ersetzt gegebenenfalls den Eintrag.
+		 * Funktion zum hinzufÃ¼gen eines Users zu einer Party
+		 * Die Funktion prÃ¼ft ob der User schon an der Party angemeldet ist und ersetzt gegebenenfalls den Eintrag.
 		 *
 		 * @param int $user_id
 		 * @param int $price_id
@@ -411,7 +411,7 @@ class party{
 		
 
 		/**
-		 * Funktion um einen Bezahlungsstatus zu ändern
+		 * Funktion um einen Bezahlungsstatus zu Ã¤ndern
 		 *
 		 * @param int $user_id
 		 * @param bool $paid
@@ -458,7 +458,7 @@ class party{
 						WHERE user_id = {$user_id} AND
 						party_id = {$this->party_id}
 						";
-			$msg = str_replace("%PARTY%",$this->party_id,str_replace("%ID%",$user_id,str_replace("%PIRCEID%",$price_id,str_replace("%SEATCONTROL%",$seatcontrol,str_replace("%CHECKOUT%",$checkout,str_replace("%CHECKIN%",$checkin,str_replace("%PAID%",$paid,t('Die Anmeldung von %ID% bei der Party %PARTY% wurde geändert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%')/* TRANS */)))))));
+			$msg = str_replace("%PARTY%",$this->party_id,str_replace("%ID%",$user_id,str_replace("%PIRCEID%",$price_id,str_replace("%SEATCONTROL%",$seatcontrol,str_replace("%CHECKOUT%",$checkout,str_replace("%CHECKIN%",$checkin,str_replace("%PAID%",$paid,t('Die Anmeldung von %ID% bei der Party %PARTY% wurde geÃ¤ndert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%')/* TRANS */)))))));
 			$func->log_event($msg,1);
 			$db->query($query);
 
@@ -490,7 +490,7 @@ class party{
 
 
 		/**
-		 * Funktion um ein Dropdownfeld mit Benutzergruppen hinzuzufügen.
+		 * Funktion um ein Dropdownfeld mit Benutzergruppen hinzuzufÃ¼gen.
 		 *
 		 */
 		function GetUserGroupDropdown($group_id = "NULL",$nogroub = 0,$select_id = 0,$javascript = false){
@@ -559,7 +559,7 @@ class party{
 		
 		
 		/**
-		 * Funktion um Benutzergruppen hinzuzufügen
+		 * Funktion um Benutzergruppen hinzuzufÃ¼gen
 		 *
 		 * @param string $group
 		 * @param string $description
@@ -577,7 +577,7 @@ class party{
 		}
 		
 		/**
-		 * Funktion um Benutzergruppen zu ändern
+		 * Funktion um Benutzergruppen zu Ã¤ndern
 		 *
 		 * @param string $group
 		 * @param string $description
@@ -628,7 +628,7 @@ class party{
 		}
 				
 		/**
-		 * Preise löschen, dabei werden alle Benutzer die diesen Preis haben auf einen neuen Preis gesetzt
+		 * Preise lÃ¶schen, dabei werden alle Benutzer die diesen Preis haben auf einen neuen Preis gesetzt
 		 *
 		 * @param int $del_price
 		 * @param int $set_price
@@ -641,7 +641,7 @@ class party{
 		
 		
 		/**
-		 * Gruppe löschen, dabei werden alle Benutzer die in dieser Gruppe sind auf einen neue Gruppe setzt.
+		 * Gruppe lÃ¶schen, dabei werden alle Benutzer die in dieser Gruppe sind auf einen neue Gruppe setzt.
 		 *
 		 * @param unknown_type $del_group
 		 * @param unknown_type $set_group

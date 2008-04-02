@@ -44,7 +44,7 @@ if ($cfg['sys_blocksite'] == 1) $func->information($cfg['sys_blocksite_text'], "
 
 // Check, if all required user data fields, are known and force user to add them, if not.
 $missing_fields = 0;
-if ($found_adm and $auth['login'] and $auth['userid'] and $_GET["mod"] != 'install') include_once('modules/usrmgr/missing_fields.php');
+if (func::admin_exists() and $auth['login'] and $auth['userid'] and $_GET["mod"] != 'install') include_once('modules/usrmgr/missing_fields.php');
 
 // Set Mod = 'Home', if none selected
 if ($_GET['mod'] == '' or !$func->check_var($_GET['mod'], 'string', 0, 50)) $mod = 'home'; #($_GET['templ'] == 'install')? $mod = 'install' : $mod = 'home';
@@ -57,7 +57,7 @@ if (file_exists("modules/install/language/install_lang_de.php")) include_once("m
 if ($language != 'de' and file_exists("modules/install/language/install_lang_{$language}.php")) include_once("modules/install/language/install_lang_{$language}.php");
 
 // Reset $auth['type'], if no permission to Mod
-if ($found_adm and $auth['type'] > 1) {
+if (func::admin_exists() and $auth['type'] > 1 and $_GET["mod"] != 'install') {
 
   // Has at least someone access to this mod?
 	$permission = $db->query_first("SELECT 1 AS found FROM {$config['tables']['user_permissions']} WHERE module = '$mod'");
@@ -77,6 +77,11 @@ if ($found_adm and $auth['type'] > 1) {
 if (!$missing_fields and !$siteblock) {
   switch ($mod) {
   	case 'logout': $func->confirmation(t('Sie wurden erfolgreich ausgeloggt.'), '');
+  	break;
+  	
+    case 'auth': 
+	    $_GET['mod']='home';
+		//$func->confirmation(t('auth.'), '');
   	break;
 
   	case 'install':

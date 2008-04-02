@@ -2,7 +2,7 @@
 
 $dsp->NewContent($lang["install"]["index_caption"], $lang["install"]["index_subcaption"]);
 
-if (!$found_adm) $dsp->AddSingleRow("<font color=\"red\">{$lang["install"]["index_no_admin_warnig"]}</font>");
+if (!func::admin_exists()) $dsp->AddSingleRow("<font color=\"red\">{$lang["install"]["index_no_admin_warnig"]}</font>");
 else {
 	$module_list = $db->query("SELECT module.caption FROM {$config["tables"]["modules"]} AS module
 			LEFT JOIN {$config["tables"]["menu"]} AS menu ON menu.module = module.name

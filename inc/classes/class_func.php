@@ -68,7 +68,7 @@ class func {
     	$templ['index']['control']['current_url'] = 'index.php?'. $URLQuery .'&fullscreen=no';
   		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'current_url\']}', $templ['index']['control']['current_url'], $tpl_str);
 
-      if ($auth['login']) $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', ' | <a href="index.php?mod=logout" class="menu">Logout</a>', $tpl_str);
+      if ($auth['login']) $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', ' | <a href="index.php?mod=auth&action=logout" class="menu">Logout</a>', $tpl_str);
       else $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', '', $tpl_str);
 
   		$tpl_str = str_replace('{$templ[\'index\'][\'debug\'][\'content\']}', $this->ShowDebug(), $tpl_str);
@@ -603,7 +603,7 @@ class func {
 	function ShowDebug() {
 		global $cfg, $auth;
 
-		if ($auth['type'] >= 2 and $cfg['sys_showdebug']) {
+        if ($auth['type'] >= 2 and $cfg['sys_showdebug']) {
 			$debug = $this->debug_parse_array($_GET, '$_GET');
 			$debug .= $this->debug_parse_array($_POST, '$_POST');
 			$debug .= $this->debug_parse_array($auth, '$auth');
@@ -612,10 +612,9 @@ class func {
 			$debug .= $this->debug_parse_array($_COOKIE, '$_COOKIE');
 			$debug .= $this->debug_parse_array($_SESSION, '$_SESSION');
 			$debug .= $this->debug_parse_array($_SERVER, '$_SERVER');
-			$debug .= $this->debug_parse_array($_FILES["importdata"], '$_FILES[importdata]');
-
-      $debug = '<div class="content" align="left">'. $debug .'</div>';
-  		return $debug;
+			$debug .= $this->debug_parse_array($_FILES["importdata"], '$_FILES[importdata]'); 
+            $debug = '<div class="content" align="left">'. $debug .'</div>';
+      		return $debug;
 		}
 		return '';
 	}
@@ -836,6 +835,45 @@ class func {
             }
         }
     }  
+    
+  /**
+   * Select and set the Language
+   *
+   * @param boolean If $configured = true dbconfig will be also read
+   * @return string Returns a valid Language selected by User
+   */
+    function get_lang($configured = false){
+        global $cfg;
+        $valid_lang = array('de','en', 'es', 'fr','nl', 'it');
+        
+        if     ($_POST['language']) $_SESSION['language'] = $_POST['language'];
+        elseif ($_GET['language'])  $_SESSION['language'] = $_GET['language'];
+        
+        if ($_SESSION['language']) $func_language = $_SESSION['language'];
+        elseif ($configured) {
+            // Get Syslanguage only if configured
+            if ($cfg["sys_language"]) $func_language = $cfg["sys_language"];
+                else $func_language = "de";
+        } else $func_language = "de";
+        
+        if (!in_array($func_language,$valid_lang)) $func_language = "de"; # For avoiding bad Code-Injections 
+        return $func_language;
+    }
+    
+  /**
+   * Shows if a Superadmin exists
+   *
+   * @return boolean
+   */
+    function admin_exists(){
+        global $db, $config;
+        if (is_object($db) AND is_array($config) AND $db->success==1) {
+            $res = $db->query("SELECT userid FROM {$config["database"]["prefix"]}user WHERE type = 3 LIMIT 1");
+            if ($db->num_rows($res) > 0) $found = 1; else $found = 0;
+            $db->free_result($res);
+            return $found;
+        } else return 0;
+    }
 
 }
 ?>

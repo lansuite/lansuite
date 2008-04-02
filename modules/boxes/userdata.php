@@ -3,14 +3,15 @@ $templ['box']['rows'] = "";
 
 // If an admin is logged in as an user
 // show admin name and switch back link
-if ($_COOKIE["olduserid"] != "") {
-	$old_user = $db->query_first("SELECT username FROM {$config['tables']['user']} WHERE userid='{$_COOKIE["olduserid"]}'");
+
+if ($olduserid > 0) {
+    $old_user = $db->query_first("SELECT username FROM {$config['tables']['user']} WHERE userid='{$olduserid}'");
 
 	if (strlen($old_user['username']) > 14) $old_user['username'] = substr($old_user['username'], 0, 11) . "...";
 
 	$box->DotRow(t('Admin').':', "", "", "admin", 0);
-	$box->EngangedRow("<b>{$old_user["username"]}</b>". $dsp->FetchUserIcon($_COOKIE["olduserid"]), "", "", "admin", 0);
-	$box->EngangedRow(t('Zurück wechseln'), "index.php?mod=usrmgr&amp;action=switch_user&amp;step=11&amp;userid={$_COOKIE["olduserid"]}", "", "admin", 0);
+    $box->EngangedRow("<b>{$old_user["username"]}</b>". $dsp->FetchUserIcon($olduserid), "", "", "admin", 0);
+    $box->EngangedRow(t('Zurück wechseln'), "index.php?mod=auth&amp;action=switch_back", "", "admin", 0);
 	$box->EmptyRow();
 }
 
@@ -19,13 +20,13 @@ if (strlen($auth['username']) > 14) $username = substr($auth['username'], 0, 11)
 else $username = $auth['username'];
 $userid_formated = sprintf( "%0".$config['size']['userid_digits']."d", $auth['userid']);
 
-$box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=logout" onmouseover="return overlib(\''. t('Logout') .'\');" onmouseout="return nd();"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" /></a>');
+$box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=auth&action=logout" onmouseover="return overlib(\''. t('Logout') .'\');" onmouseout="return nd();"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" /></a>');
 $box->EngangedRow("<b>$username</b> ". $dsp->FetchUserIcon($auth["userid"]));
 #$box->EngangedRow("");
 
 #$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=details&amp;userid='. $auth["userid"], 'details', t('Pers. Details')) .' ';
 #$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=settings', 'generate', t('Pers. Einstellungen')) .' ';
-#$icons .= $dsp->FetchIcon('index.php?mod=logout', 'no', t('Logout')) .' ';
+#$icons .= $dsp->FetchIcon('index.php?mod=auth&action=logout', 'no', t('Logout')) .' ';
 #$box->EngangedRow($icons);
 
 // Show last log in and login count

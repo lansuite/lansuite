@@ -99,7 +99,7 @@ else {
         : $name .= ' '. $dsp->AddIcon('unlocked', 'index.php?mod=usrmgr&step=10&userid='. $_GET['userid'], t('Account sperren'));
       }
         if (IsAuthorizedAdmin())
-        $name .= ' '. $dsp->AddIcon('assign', 'index.php?mod=usrmgr&action=switch_user&step=10&userid='. $_GET['userid'], t('Benutzer wechseln'));
+        $name .= ' '. $dsp->AddIcon('assign', 'index.php?mod=auth&action=switch_to&userid='. $_GET['userid'], t('Benutzer wechseln'));
       if ($_GET['userid'] == $auth['userid'])
         $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changepw', t('Passwort ändern'));
       elseif (IsAuthorizedAdmin())
