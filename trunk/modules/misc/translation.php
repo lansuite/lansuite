@@ -206,6 +206,7 @@ switch ($_GET['step']) {
     
     // Show switch between Lanuages
     if ($_POST['target_language']) $_SESSION['target_language'] = $_POST['target_language'];
+    if ($_SESSION['target_language'] == '') $_SESSION['target_language'] = 'en';
     $dsp->SetForm('index.php?mod=misc&action=translation&step=20&file='.$_GET['file']);
     $list = array();
     $res = $db->query("SELECT cfg_value, cfg_display FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language'");
@@ -218,7 +219,7 @@ switch ($_GET['step']) {
     $dsp->AddFormSubmitRow('change');
 
     // Start Tanslation
-    if ($_SESSION['target_language'] == '') $_SESSION['target_language'] = 'en';
+    
     $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
     $res = $db->query("SELECT DISTINCT id, org, file, {$_SESSION['target_language']} FROM {$config['tables']['translation']} WHERE file = '{$_GET['file']}'");
     while($row = $db->fetch_array($res)) {
