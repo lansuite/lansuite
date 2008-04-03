@@ -1,11 +1,11 @@
-<?
+<?php
 
 /**
  * Class PLUGIN for Lansuite
- * This Class generates the needed Dataarray to load the
- * Pluginfiles 
  *
- * @package ls_core
+ * This Class generates the needed Dataarray to load the Pluginfiles 
+ *
+ * @package lansuite_core
  * @author bytekilla
  * @version $Id$
  * @access public

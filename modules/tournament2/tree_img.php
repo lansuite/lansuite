@@ -15,7 +15,7 @@ $tournament = $db->query_first("SELECT tournamentid, name, mode, UNIX_TIMESTAMP(
 		FROM {$config["tables"]["tournament_tournaments"]}
 		WHERE tournamentid = '$tournamentid'
 		");
-$map = explode("\n", $func->db2text($tournament["mapcycle"]));
+$map = explode("\n", $tournament["mapcycle"]);
 if ($map[0] == "") $map[0] = t('unbekannt');
 
 

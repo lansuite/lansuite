@@ -4,12 +4,13 @@ require_once("inc/classes/class.crypt.php");
 
 
 /**
- * auth
+ * Authorisation and Cookiemanagement for Lansuite
  *
- * @package lansuite
+ * @package lansuite_core
  * @author bytekilla
  * @version $Id$
  * @access public
+ * @todo Change uniqkey from md5(password) to an extra Field
  */
 class auth {
 
@@ -27,8 +28,9 @@ class auth {
     var $cookie_time =     "30";         // Dauer in Tagen
     var $cookie_path =     "/";          // Domainpfad
   /**#@-*/
+  
   /**
-   * Constructor
+   * CONSTRUCTOR : Initialize basic Variables for Authorisation
    *
    */
     function auth() {
@@ -42,8 +44,11 @@ class auth {
     }
 
   /**
-   * auth::check_logon()
-   *
+   * Check Userlogon via Session or Cookie. Check some Security Options
+   * and set or delete logon if any Problem are found.
+   * 
+   * @todo Set more securityfunctions
+   * @return array Returns the auth-Array
    */
     function check_logon() {
         global $func;
@@ -103,8 +108,9 @@ class auth {
     }
 
   /**
-   * Login auth
+   * Check and Login a User.
    *
+   * @todo Get the Messages out of the Class, just make Strings
    * @param mixed Useremail
    * @param mixed Userpassword
    * @return array Returns the auth-dataarray
@@ -231,7 +237,7 @@ class auth {
     }
 
   /**
-   * Login auth via Cookie
+   * Login User via Cookie e.g. if Session is expired
    *
    * @access private
    * @param mixed Userid
@@ -275,7 +281,7 @@ class auth {
     }
 
   /**
-   * Logout
+   * Logout the User and delete Sessiondata, Cookie and Authdata
    *
    * @return array Returns the cleared auth-dataarray
    */
@@ -393,7 +399,7 @@ class auth {
 
 
   /**
-   * load_authdata
+   * Load all needed Auth-Data from DB and set to auth[]
    *
    * @access private
    */
@@ -410,7 +416,7 @@ class auth {
     }
 
   /**
-   * update_visits
+   * Update Visitdata in stats_auth Table
    *
    * @access private
    */
@@ -535,6 +541,7 @@ class auth {
    *
    * @param mixed Encryptet Cookiedata
    * @return mixed Decryptet Cookiedata as array
+   * @access private
    */
     function cookiedata_unpack($cookie) {
         $crypt= new AzDGCrypt(md5("synergycookie"));

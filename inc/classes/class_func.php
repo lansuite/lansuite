@@ -1,16 +1,33 @@
 <?php
 define('NO_LINK', -1);
 
+/**
+ * Global Functions
+ *
+ * @package lansuite_core
+ * @author ls_admin
+ * @version $Id$
+ * @access public
+ * @todo Remove Dialogfunctions and create own class
+ */
 class func {
 
-	// Constructor
-	// Referer ermitteln und in einen Internen Link wandeln
-	function func() {
-		$url_array = parse_url($_SERVER['HTTP_REFERER']);
-		$this->internal_referer = "?".$url_array['query'].$url_array['fragment'];
+  /**
+   * CONSTRUCTOR : Get referer and transform in a internal Link
+   *
+   */
+    function func() {
+        $url_array = parse_url($_SERVER['HTTP_REFERER']);
+        $this->internal_referer = "?".$url_array['query'].$url_array['fragment'];
     }
 
 
+  /**
+   * Read the Config-settings from DB
+   * @global mixed Databaseobject
+   * @global array Baseconfig from File
+   * @return array Config-array with all Settings from DB
+   */
 	function read_db_config() {
 		global $db, $config;
 
@@ -572,11 +589,6 @@ class func {
     return $text;
 	}
 
-	// Old. Do not use any more
-	function db2text($text) {
-    return $text;
-	}
-
 	function check_exist($checktype, $id) {
 		global $db, $config;
 
@@ -627,7 +639,7 @@ class func {
 		if ($array) foreach($array as $key => $value) {
 			if (is_array($value)) $debug .= $this->debug_parse_array($value, "Array => $key", $level++);
 			else {
-				if (strlen($value) > 80) $value = $this->wrap($value, 80);
+				if (strlen($value) > 80) $value = wordwrap($value, 80, "<br />\n", 1);
 				$debug .= HTML_NEWLINE .$spaces. "$key = $value";
 			}
 		}
@@ -780,21 +792,6 @@ class func {
 
 		}
 	}
-
-	function translate($in) {
-    $return = t($in);
-    return $return;
-	}
-
-  function wrap($text, $maxlength, $spacer = "<br />\n") {
-    $textarr = explode(' ', $text);
-    $i = 0;
-    foreach($textarr as $textpart) {
-      if (strlen($textpart) > $maxlength) $textarr[$i] = chunk_split($textpart, $maxlength, $spacer);
-      $i++;
-    }
-    return implode (' ', $textarr);
-  }
   
   function FormatFileSize($size){
     $i = 0;
@@ -825,6 +822,7 @@ class func {
    *
    * @param  mixed    Path to test for validity
    * @return boolean  Path OK an Picture exists
+   * @static
    */
     function chk_img_path($imgpath) {
         if ($imgpath != '' and $imgpath != 'none' and $imgpath != '0') {
@@ -841,6 +839,7 @@ class func {
    *
    * @param boolean If $configured = true dbconfig will be also read
    * @return string Returns a valid Language selected by User
+   * @static
    */
     function get_lang($configured = false){
         global $cfg;
@@ -861,9 +860,10 @@ class func {
     }
     
   /**
-   * Shows if a Superadmin exists
+   * Read DB and shows if a Superadmin exists
    *
    * @return boolean
+   * @static
    */
     function admin_exists(){
         global $db, $config;

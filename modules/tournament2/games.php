@@ -108,7 +108,7 @@ else {
   	$tournament = $db->query_first("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
   
   	// Get Maparray
-  	$map = explode("\r\n", $func->db2text($tournament["mapcycle"]));
+  	$map = explode("\r\n", $tournament["mapcycle"]);
   	if ($map[0] == "") $map[0] = t('unbekannt');
   
   	// Check Errors

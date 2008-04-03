@@ -190,8 +190,8 @@ switch($_GET["step"]) {
 		while ($row = $db->fetch_array($res)){
 
 			$templ['ls']['row']['module']['name'] = $row["name"];
-			$templ['ls']['row']['module']['caption'] = $func->translate($row["caption"]);
-			$templ['ls']['row']['module']['description'] = $func->translate($row["description"]);
+			$templ['ls']['row']['module']['caption'] = t($row["caption"]);
+			$templ['ls']['row']['module']['description'] = t($row["description"]);
 
 			if ($row["email"]) $templ['ls']['row']['module']['author'] = "<a href=\"mailto:{$row["email"]}\">{$row["author"]}</a>";
 			else $templ['ls']['row']['module']['author'] = $row["author"];
