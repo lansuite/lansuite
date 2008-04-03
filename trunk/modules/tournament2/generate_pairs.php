@@ -113,7 +113,7 @@ if ($team_anz < 4) {
 	## Generieren
 
 	//random mapcycle
-	$rand_map = explode("\r\n", $func->db2text($tournament["mapcycle"]));
+	$rand_map = explode("\r\n", $tournament["mapcycle"]);
 	shuffle($rand_map);
 	$db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET mapcycle = '" . $func->text2db(implode("\r\n", $rand_map)) . "' WHERE tournamentid = {$_GET["tournamentid"]}");
 

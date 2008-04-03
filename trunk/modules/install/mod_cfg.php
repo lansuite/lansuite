@@ -53,8 +53,8 @@ switch ($_GET['step']) {
           $_GET["module"], $rowGroup['cfg_group']
           );
   			while ($row = $db->fetch_array($res)){
-  				$row['cfg_desc'] = $func->translate($row['cfg_desc']);
-  				if ($row['cfg_type'] == 'string') $row['cfg_value'] = $func->translate($row['cfg_value']);
+  				$row['cfg_desc'] = t($row['cfg_desc']);
+  				if ($row['cfg_type'] == 'string') $row['cfg_value'] = t($row['cfg_value']);
 
   				// Get Selections
   				$get_cfg_selection = $db->qry('SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = %string% ORDER BY cfg_value', $row['cfg_type']);
@@ -62,7 +62,7 @@ switch ($_GET['step']) {
   					$t_array = array();
   					while ($selection = $db->fetch_array($get_cfg_selection)){
   						($row['cfg_value'] == $selection['cfg_value']) ? $selected = 'selected' : $selected = '';
-  						array_push ($t_array, "<option $selected value=\"{$selection["cfg_value"]}\">". $func->translate($selection['cfg_display']) .'</option>');
+  						array_push ($t_array, "<option $selected value=\"{$selection["cfg_value"]}\">". t($selection['cfg_display']) .'</option>');
   					}
   					$dsp->AddDropDownFieldRow($row['cfg_key'], $row['cfg_desc'], $t_array, '', 1);
 

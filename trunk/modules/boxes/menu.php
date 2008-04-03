@@ -3,10 +3,10 @@
 $BoxContent = array();
 
 function FetchItem ($item) {
-	global $box, $func, $cfg;
+	global $box, $cfg;
 
-	$item['caption'] = $func->translate($item['caption']);
-	$item['hint'] = $func->translate($item['hint']);
+	$item['caption'] = t($item['caption']);
+	$item['hint'] = t($item['hint']);
 
 	// Horrizontal Line IF Caption == '--hr--'
 	if ($item['caption'] == '--hr--') switch($item['level']) {

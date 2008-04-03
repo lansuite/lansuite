@@ -55,11 +55,11 @@ else {
 
 			switch ($headermenuitem) {
 				case 1:
-					$dsp->AddDoubleRow(t('Turniername'), $func->db2text($tournament['name']));
+					$dsp->AddDoubleRow(t('Turniername'), $tournament['name']);
 
 					if (($tournament['icon']) && ($tournament['icon'] != "none")) $icon = "<img src=\"ext_inc/tournament_icons/{$tournament['icon']}\" alt=\"Icon\"> ";
 					if ($tournament['version'] == "") $tournament['version'] = "<i>".t('unbekannt')."</i>";
-					$dsp->AddDoubleRow(t('Spiel'), $icon . $func->db2text($tournament['game']) ." (".t('Version').": ". $func->db2text($tournament['version']) .")");
+					$dsp->AddDoubleRow(t('Spiel'), $icon . $tournament['game'] ." (".t('Version').": ". $tournament['version'] .")");
 
 					$league = "";
 					if ($tournament['wwcl_gameid'] != 0) $league .= ", <img src=\"ext_inc/tournament_icons/leagues/wwcl.png\" alt=\"WWCL\">";

@@ -291,7 +291,7 @@ switch ($_GET["step"]){
 		$country_array = array();
 		while ($selection = $db->fetch_array($get_cfg_selection)){
 			($language == $selection["cfg_value"]) ? $selected = "selected" : $selected = "";
-			array_push ($country_array, "<option $selected value=\"{$selection["cfg_value"]}\">". $func->translate($selection["cfg_display"]) ."</option>");
+			array_push ($country_array, "<option $selected value=\"{$selection["cfg_value"]}\">". t($selection["cfg_display"]) ."</option>");
 		}
 		$dsp->AddDropDownFieldRow("country", $lang["install"]["vars_country"], $country_array, "");
 
