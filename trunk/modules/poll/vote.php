@@ -19,16 +19,16 @@ switch($_GET['step']) {
 
 switch ($_GET['step']) {
 	default:
-		$POLL = $db->qry_first('SELECT pollid, caption, endtime, multi FROM %prefix%polls WHERE	pollid = %int%', $_GET['pollid']);
-		$VOTE = $db->qry_first('SELECT pollvoteid FROM %prefix%pollvotes WHERE pollid = %int% AND userid = %int%', $_GET['pollid'], $auth['userid']);
+		$POLL = $db->qry_first("SELECT pollid, caption, endtime, multi FROM {$config['tables']['polls']} WHERE	pollid = {$_GET['pollid']}");
+		$VOTE = $db->qry_first("SELECT pollvoteid FROM {$config['tables']['pollvotes']} WHERE pollid = {$_GET['pollid']} AND userid = {$auth['userid']}");
 
 		if ((isset($POLL['pollid'])) AND ($poll['endtime'] > time() OR ($poll['endtime'] == "0" OR $poll['endtime'] == "")) AND (!$VOTE['pollvoteid'])) {
-			$OPTIONS = $db->qry('SELECT	polloptionid, caption FROM %prefix%polloptions WHERE pollid = %int%', $_GET['pollid']);
+			$query = $db->query("SELECT polloptionid, caption FROM {$config['tables']['polloptions']} WHERE pollid = {$_GET['pollid']}");
 
 			$dsp->NewContent(t('F&uuml;r Poll <b>%1</b> voten', $POLL["caption"]), t('Um f&uuml;r einen Poll zu voten, klicken Sie bitte das Feld der Option an f&uuml;r die Sie stimmen wollen. Wenn die Mehrfachauswahl f&uuml;r diesen Poll aktiviert ist, k&ouml;nnen Sie auch f&uuml;r mehrere Optionen stimmen.'));
 			$dsp->SetForm("index.php?mod=poll&action=vote&step=2&pollid=". $_GET['pollid']);
 
-			while($OPTIONS = $db->fetch_array()) {
+			while($OPTIONS = $db->fetch_array($query)) {
 				if ($POLL['multi']) $dsp->AddCheckBoxRow("option[]", $OPTIONS['caption'], '', '', '', '', '', $OPTIONS['polloptionid']);
 				else $dsp->AddRadioRow("option", $OPTIONS["caption"], $OPTIONS["polloptionid"]);
 			}
