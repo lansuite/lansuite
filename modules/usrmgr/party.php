@@ -74,7 +74,9 @@ else {
     
         // Prices
         $selections = array();  
-        $res2 = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$row['party_id']}");
+        $res2 = $db->query("SELECT * FROM {$config['tables']['party_prices']}
+        						WHERE party_id = {$row['party_id']} AND requirement <= {$auth['type']}
+        						");
         while ($row2 = $db->fetch_array($res2)) $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']';
         if ($selections) $mf->AddField(t('Eintrittspreis'), 'price_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
         else $mf->AddField(t('Eintrittspreis'), 'price_id', IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
