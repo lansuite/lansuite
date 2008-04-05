@@ -1,5 +1,10 @@
 <?php
 
+$selectrequire = array();
+$selectrequire['0'] = t('Alle');
+$selectrequire['2'] = t('Admins und Superadmins');
+$selectrequire['3'] = t('Superadmins');
+
 if (!$_GET['party_id']) $_GET['party_id'] = $party->party_id;
 
 include_once('inc/classes/class_masterform.php');
@@ -20,6 +25,8 @@ while ($row = $db->fetch_array($res)) {
   $selections[$row['group_id']] = $row['group_name'];
 }
 $mf->AddField(t('Gruppenname'), 'group_id', IS_SELECTION, $selections, 1);
+$mf->AddField(t('Sichtbar für'), 'requirement', IS_SELECTION, $selectrequire, 1);
+$mf->AddField(t('Gültig bis'), 'enddate');
 
 $mf->SendForm('index.php?mod=party&action=price_edit', 'party_prices', 'price_id', $_GET['price_id']);
 $dsp->AddBackButton('index.php?mod=party&action=price');
