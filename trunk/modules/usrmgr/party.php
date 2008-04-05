@@ -67,8 +67,8 @@ else {
         if ($auth['type'] >= 2) {
           $selections = array();
           $selections['0'] = t('Nicht bezahlt');
-          $selections['1'] = t('Bezahlt - Vorverkauf');
-          $selections['2'] = t('Bezahlt - Abendkasse');
+          $selections['1'] = t('Bezahlt');
+         // $selections['2'] = t('Bezahlt - Abendkasse');
           $mf->AddField(t('Bezahltstatus'), 'paid', IS_SELECTION, $selections);
         } elseif ($cfg['signon_autopaid']) $mf->AddFix('paid', '1');
     
