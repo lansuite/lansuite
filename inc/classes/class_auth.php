@@ -154,10 +154,10 @@ class auth {
 
             // Too many login trys
             if ($row['anz'] >= 5) {
-                $func->information(t('Sie haben in der letzten Minute bereits 5 mal Ihr Passwort falsch eingegeben. Bitte waren Sei einen Moment, bevor Sie es erneut versuchen dÃ¼rfen'), '', '', 1);
+                $func->information(t('Sie haben in der letzten Minute bereits 5 mal Ihr Passwort falsch eingegeben. Bitte waren Sei einen Moment, bevor Sie es erneut versuchen dürfen'), '', '', 1);
             // Email not found?
             } elseif (!$user["found"]) {
-                $func->information(t('Dieser Benutzer existiert nicht in unserer Datenbank. Bitte prÃ¼fen Sie die eingegebene Email/ID'), '', '', 1);
+                $func->information(t('Dieser Benutzer existiert nicht in unserer Datenbank. Bitte prüfen Sie die eingegebene Email/ID'), '', '', 1);
                 $func->log_event(str_replace("%EMAIL%", $tmp_login_email, t('Falsche Email angegeben')), '2', 'Authentifikation');
             // Account disabled?
             } elseif ($user["type"] <= -1) {
@@ -174,15 +174,15 @@ class auth {
             // Wrong Password?
             } elseif ($tmp_login_pass != $user["password"]){
                 ($cfg["sys_internet"])? $remindtext = $lang['class_auth']['wrong_pw_inet'] : $remindtext = $lang['class_auth']['wrong_pw_lan'];
-                $func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte Ã¼berprÃ¼fen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
+                $func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
                 $func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['wrong_pw_log']), "2", "Authentifikation");
                 $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = %string%, time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
             // Not checked in?
-            } elseif((!$user["checkin"] or $user["checkin"] == '0000-00-00 00:00:00') AND $user["type"] < 2 AND !$cfg["sys_internet"]){                $func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur mÃ¶glich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
+            } elseif((!$user["checkin"] or $user["checkin"] == '0000-00-00 00:00:00') AND $user["type"] < 2 AND !$cfg["sys_internet"]){                $func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
                 $func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['not_checkedin_log']), "2", "Authentifikation");
             // Already checked out?
             } elseif ($user["checkout"] and $user["checkout"] != '0000-00-00 00:00:00' AND $user["type"] < 2 AND !$cfg["sys_internet"]){
-                $func->information(t('Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur mÃ¶glich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
+                $func->information(t('Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
                 $func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['checkedout_log']), "2", "Authentifikation");
             // Everything fine!
             } else {
@@ -222,7 +222,7 @@ class auth {
                                  WHERE userid = %int%', $user['userid']);
                 while ($row = $db->fetch_array($res)) $msg .= t('Am') .' '. $row['time'] .' von der IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>'. HTML_NEWLINE;
                 $db->free_result($res);
-                if ($msg != '') $func->information('<b>'. t('Fehlerhafte Logins') .'</b>'. HTML_NEWLINE .t('Es wurden fehlerhafte Logins seit Ihrem letzten erfolgreichen Login durchgefÃ¼hrt.'). HTML_NEWLINE . HTML_NEWLINE . $msg, NO_LINK, '', 1);
+                if ($msg != '') $func->information('<b>'. t('Fehlerhafte Logins') .'</b>'. HTML_NEWLINE .t('Es wurden fehlerhafte Logins seit Ihrem letzten erfolgreichen Login durchgeführt.'). HTML_NEWLINE . HTML_NEWLINE . $msg, NO_LINK, '', 1);
                 $db->qry('DELETE FROM %prefix%login_errors WHERE userid = %int%', $user['userid']);
 
                 // The User will be logged in on the phpBB Board if the modul is available, configured and active.
@@ -345,7 +345,7 @@ class auth {
                         SET userid='{$target_id}',
                             login='1'
                         WHERE sessid='{$this->auth["sessid"]}'");
-            $func->information(t('Benutzerwechsel erfolgreich. Die Ã„nderungen werden beim laden der nÃ¤chsten Seite wirksam.'), $func->internal_referer,'',1);  //FIX meldungen auserhalb/standart?!?
+            $func->information(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,'',1);  //FIX meldungen auserhalb/standart?!?
         } else {
             $func->error(t('Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), $func->internal_referer,1); //FIX meldungen auserhalb/standart?!
         }
@@ -379,12 +379,12 @@ class auth {
                 $this->cookie_data['olduserid'] = '-1';
                 $this->cookie_data['sb_code'] = '-1';
                 $this->cookie_set();
-                $func->information(t('Benutzerwechsel erfolgreich. Die Ã„nderungen werden beim laden der nÃ¤chsten Seite wirksam.'), $func->internal_referer,'',1);
+                $func->information(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,'',1);
             } else {
-                $func->error(t('Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstÃ¼tzt.'), $func->internal_referer,1);
+                $func->error(t('Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), $func->internal_referer,1);
             }
         } else {
-            $func->error(t('Fehler: Keine Switchbackdaten gefunden! Das kann daran liegen, dass dein Browser keine Cookies unterstÃ¼tzt.'), $func->internal_referer,1);
+            $func->error(t('Fehler: Keine Switchbackdaten gefunden! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), $func->internal_referer,1);
         }
     }
 
