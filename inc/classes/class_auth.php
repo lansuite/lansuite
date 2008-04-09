@@ -286,7 +286,7 @@ class auth {
    * @return array Returns the cleared auth-dataarray
    */
     function logout() {
-        global $db, $config, $ActiveModules;
+        global $db, $config, $ActiveModules, $func;
 
         // Delete entry from SID table
         $db->query("DELETE FROM {$config['tables']['stats_auth']} WHERE sessid='{$this->auth["sessid"]}'");
@@ -303,7 +303,7 @@ class auth {
         $this->auth["email"] = "";
         $this->auth["username"] = "";
         $this->auth["userpassword"] = "";
-        $this->auth["design"] = "";
+        $this->auth['design'] = $config['lansuite']['default_design'];
         $this->auth["type"] = 0;
 
         // The User will be logged out on the phpBB Board if the modul is available, configured and active.
@@ -312,6 +312,7 @@ class auth {
             $board2 = new board2();
             $board2->logoutPhpBB($this->auth['userid']);
         } 
+        $func->information(t('Sie wurden erfolgreich ausgeloggt. Vielen dank für ihren Besuch.'), "", '', 1);
         return $this->auth;                // For overwrite global $auth
     }
 
