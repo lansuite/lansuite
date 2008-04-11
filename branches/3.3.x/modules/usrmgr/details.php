@@ -334,7 +334,8 @@ break;
 			// Threads
     	$get_board_threads = $db->query("SELECT b.tid, b.date, t.caption FROM {$config['tables']['board_posts']} AS b
     			LEFT JOIN {$config['tables']['board_threads']} AS t ON b.tid = t.tid
-    			WHERE b.userid = '{$_GET['userid']}'
+                LEFT JOIN {$config['tables']['board_forums']} AS f ON t.fid = f.fid
+   				WHERE b.userid = '{$_GET['userid']}' AND (f.need_type <= '{$auth['type']}' OR f.need_type = '1')
     			GROUP BY b.tid
     			ORDER BY b.date DESC
     			LIMIT 10

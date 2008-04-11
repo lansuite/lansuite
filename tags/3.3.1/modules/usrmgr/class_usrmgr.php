@@ -111,7 +111,7 @@ class UsrMgr {
 
       // Signon-Mail
       case 1:
-        if ($_POST['InsertControll'.$_GET[mf_id]]) {
+        if ($_POST['InsertControll0') {
            $message = $cfg["signon_signonemail_text"];
            $subject = $cfg["signon_signonemail_subject"];
 	  } else {

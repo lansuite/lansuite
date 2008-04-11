@@ -28,7 +28,7 @@ switch ($_GET['step']) {
 			$dsp->NewContent(str_replace("%NAME%", $POLL["caption"], $lang["poll"]["vote_caption"]), $lang["poll"]["vote_subcaption"]);
 			$dsp->SetForm("index.php?mod=poll&action=vote&step=2&pollid=". $_GET['pollid']);
 
-			while($OPTIONS = $db->fetch_array()) {
+			while($OPTIONS = $db->fetch_array($query)) {
 				if ($POLL['multi']) $dsp->AddCheckBoxRow("option[]", $OPTIONS['caption'], '', '', '', '', '', $OPTIONS['polloptionid']);
 				else $dsp->AddRadioRow("option", $OPTIONS["caption"], $OPTIONS["polloptionid"]);
 			}
