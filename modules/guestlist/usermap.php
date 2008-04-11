@@ -1,10 +1,10 @@
 <?php
 
-$dsp->NewContent(t('Besucherkarte'), t('Hier sehen Sie aus welchen Gegenden Deutschlands Besucher zu dieser Party kommen'));
+$dsp->NewContent($lang["guestlist"]["map_caption"], $lang["guestlist"]["map_subcaption"]);
 
 // Use Googlemaps
 if ($cfg['guestlist_guestmap'] == 2) {
-  if (!$cfg['google_maps_api_key']) $func->information(t('Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben', '<a href="index.php?mod=install&action=modules&step=10&module=install">'.t('AdminSeite in den Allgemeinen Einstellungen</a>')));
+  if (!$cfg['google_maps_api_key']) $func->information(t('Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben', array('<a href="index.php?mod=install&action=modules&step=10&module=install">'. t('AdminSeite in den Allgemeinen Einstellungen') .'</a>')));
   else {
 
     switch($cfg['country']) {
@@ -51,7 +51,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
 } else {
   $res = $db->query("SELECT plz FROM {$config["tables"]["user"]} LEFT JOIN {$config["tables"]["party_user"]} ON userid = user_id WHERE (plz > 0) AND (party_id = {$party->party_id})");
 
-  if ($db->num_rows($res) == 0) $dsp->AddSingleRow(t('Leider hat noch keiner der angemeldeten Benutzer seine Postleitzahl angegeben. Das Bestimmen der Position ist daher nicht m&ouml;glich.'));
+  if ($db->num_rows($res) == 0) $dsp->AddSingleRow($lang["guestlist"]["map_err_noplz"]);
   else {
 
   	$map_out = '<div id="tooltip" class="tooltip" style="position: absolute; width: auto; height: auto; z-index: 100; visibility: hidden; left: 0; top: 0;"></div><script src="modules/guestlist/templates/map.js" type="text/javascript"></script><map name="deutschland">';

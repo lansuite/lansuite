@@ -32,7 +32,7 @@ switch($_GET["step"]){
     $ms2->AddSelect('u.userid');
     $ms2->AddResultField(t('Meldung'), 'l.description', '', 140);
     $ms2->AddResultField(t('Gruppe'), 'l.sort_tag');
-    $ms2->AddResultField(t('Datum'), 'UNIX_TIMESTAMP(l.date) AS date', 'MS2GetDate');
+    $ms2->AddResultField(t('Datum'), 'l.date', 'MS2GetDate');
     $ms2->AddResultField(t('Auslöser'), 'u.username', 'UserNameAndIcon');
     $ms2->AddResultField(t('Prio.'), 'l.type');
 
@@ -43,7 +43,7 @@ switch($_GET["step"]){
 	break;
 
   case 2:
-    $log = $db->query_first("SELECT *, UNIX_TIMESTAMP(date) AS date FROM {$config["tables"]["log"]} WHERE logid = {$_GET['logid']}");
+    $log = $db->query_first("SELECT * FROM {$config["tables"]["log"]} WHERE logid = {$_GET['logid']}");
     $dsp->AddSingleRow($log['sort_tag']);
     $dsp->AddSingleRow($log['description']);
     $dsp->AddSingleRow($func->unixstamp2date($log['date'], 'datetime'));

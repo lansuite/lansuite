@@ -6,7 +6,7 @@ class team {
 		global $db, $config, $func, $lang;
 
 		if ($tid == "") {
-			$func->error(t('Sie müssen zuerst ein Turnier auswählen!'), $func->internal_referer);
+			$func->error($lang["tourney"]["join_err_no_t"], $func->internal_referer);
 			return false;
 		}
 
@@ -34,15 +34,18 @@ class team {
 		if ($t["blind_draw"]) $completed_teams = floor($completed_teams / $t["teamplayer"]);
 
 		// Is the tournament finished?
-		if ($t["status"] != "open") $func->information(t('Dieses Turnier befindet sich momentan nicht in der Anmeldephase!'), $func->internal_referer);
+		if ($t["status"] != "open") {
+			$func->information($lang["tourney"]["join_err_started"], $func->internal_referer);
+			return false;
+		}
 
 		// Is the tournament allready full?
-		elseif ($completed_teams >= $t["maxteams"]) $func->information(t('Es haben sich bereits %1 von %2 Teams zu diesem Turnier angemeldet. Das Turnier ist damit ausgebucht.', $completed_teams, $t["maxteams"]), $func->internal_referer);
+		if ($completed_teams >= $t["maxteams"]){
+			$func->information(str_replace("%TEAMS%", $completed_teams, str_replace("%MAXTEAMS%", $t["maxteams"], $lang["tourney"]["join_err_full"])), $func->internal_referer);
+			return false;
+		}
 
-    // Everything fine
-		else return true;
-
-		return false;
+		return true;
 	}
 
 
@@ -90,28 +93,30 @@ class team {
 			");
 
 
+		// Has the tournament started?
+		if ($t["status"] == "closed") $func->information($lang["tourney"]["join_err_started"], $func->internal_referer);
+
 		// Is the user allready signed on to this tournament?
-		if ($team["found"]) $func->information(t('%1 ist bereits zu diesem Turnier angemeldet!', $user["username"]), $func->internal_referer);
+		elseif ($team["found"]) $func->information(str_replace("%USER%", $user["username"], $lang["tourney"]["join_err_reg"]), $func->internal_referer);
 
 		// Is the user member of a team, allready signed on to this tournament?
-		elseif ($teammember["found"] != "") $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu diesem Turnier angemeldet hat!', $user["username"]), $func->internal_referer);
+		elseif ($teammember["found"] != "") $func->information(str_replace("%USER%", $user["username"], $lang["tourney"]["join_err_reg_memb"]), $func->internal_referer);
 
 		// Is the user allready signed on to a tournament in the same group as this tournament?
-		elseif ($in_group["found"] != "") $func->information(t('%1 ist bereits zu einem Turnier angemeldet, welches der gleichen Gruppe angehört!', $user["username"]), $func->internal_referer);
+		elseif ($in_group["found"] != "") $func->information(str_replace("%USER%", $user["username"], $lang["tourney"]["join_err_reg_group"]), $func->internal_referer);
 
 		// Is the user member of a team, allready signed on to a tournament in the same group as this tournament?
-		elseif ($memb_in_group["found"] != "") $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu einem Turnier der gleichen Gruppe angemeldet hat!', $user["username"]), $func->internal_referer);
+		elseif ($memb_in_group["found"] != "") $func->information(str_replace("%USER%", $user["username"], $lang["tourney"]["join_err_reg_group_memb"]), $func->internal_referer);
 
 		// Has the user paid?
-		elseif (!$user["paid"]) $func->information(t('%1 muss erst für diese Party bezahlen, um sich an einem Turnier anmelden zu können!', $user["username"]), $func->internal_referer);
+		elseif (!$user["paid"]) $func->information(str_replace("%USER%", $user["username"], $lang["tourney"]["join_err_paid"]), $func->internal_referer);
 
 		// Is the user 18 (only for 18+ tournaments)?
-		elseif ($over_18_error) $func->information(t('%1 kann diesem Turnier nicht beitreten. In diesem Turnier dürfen nur Benutzer mitspielen, die <b>nicht</b> in einem Unter-18-Block sitzen', $user["username"]), $func->internal_referer);
+		elseif ($over_18_error) $func->information(str_replace("%USER%", $user["username"], $lang["tourney"]["join_err_u18"]), $func->internal_referer);
 
 		// Are enough coins left to afford this tournament
-		elseif (($cfg["t_coins"] - $team_coin["t_coins"] - $member_coin["t_coins"] - $t["coins"]) < 0) $func->information(t('%1 besitzt nicht genügend Coins um an diesem Turnier teilnehmen zu können!', $user["username"]), $func->internal_referer);
+		elseif (($cfg["t_coins"] - $team_coin["t_coins"] - $member_coin["t_coins"] - $t["coins"]) < 0) $func->information(str_replace("%USER%", $user["username"], $lang["tourney"]["join_err_tofew_coins"]), $func->internal_referer);
 
-    // Everything fine
 		else return true;
 
 		return false;
@@ -123,10 +128,10 @@ class team {
 		global $db, $config, $auth, $lang, $func, $mail;
 
 		if ($teamid == "") { 
-			$func->error(t('Sie haben kein Team ausgeählt!'), $func->internal_referer);
+			$func->error($lang["tourney"]["teammgr_err_noteam"], $func->internal_referer);
 			return false;
 		} elseif ($userid == "") {
-			$func->error(t('Sie haben keinen Benutzer ausgewählt!'), $func->internal_referer);
+			$func->error($lang["tourney"]["teammgr_err_nouser"], $func->internal_referer);
 			return false;
 
 		} else {
@@ -147,7 +152,7 @@ class team {
 
 				// Isn't the team full yet?
 				if ($team["teamplayer"] <= ($member_anz["members"] + 1)) {
-					$func->information(t('Das gewählte Team ist bereits voll!'), $func->internal_referer);
+					$func->information($lang["tourney"]["join_err_team_full"], $func->internal_referer);
 					return false;
 
 				// Everything Okay! -> Insert!
@@ -158,9 +163,9 @@ class team {
 						teamid = $teamid
 						");
 
-					$mail->create_sys_mail($userid, t('Sie wurden dem Team <b>%1</b> im Turnier <b>%2</b> hinzugefügt', $team["teamname"], $team["tname"]), t('Der Ersteller des Teams <b>%1</b> hat Sie in sein Team im Turnier <b>%2</b> aufgenommen.', $team["teamname"], $team["tname"]));
+					$mail->create_sys_mail($userid, str_replace("%T%", $team["tname"], str_replace("%TEAM%", $team["teamname"], $lang["tourney"]["teammgr_join_mail_subj"])), str_replace("%T%", $team["tname"], str_replace("%TEAM%", $team["teamname"], $lang["tourney"]["teammgr_join_mail"])));
 
-					$func->log_event(t('Der Benutzer <b>%1</b> ist dem Team <b>%2</b> im Turnier <b>%3</b> beigetreten', $auth["username"], $team["teamname"], $team["tname"]), 1, t('Turnier Teamverwaltung'));
+					$func->log_event(str_replace("%USER%", $auth["username"], str_replace("%TEAM%", $team["teamname"], str_replace("%T%", $team["tname"], $lang["tourney"]["join_log_success_team"]))), 1, $lang["tourney"]["log_t_teammanage"]);
 				}
 			} else return false;
 		}
@@ -197,7 +202,7 @@ class team {
 			if ($t["blind_draw"]) $completed_teams = floor($completed_teams / $t["teamplayer"]);
 
 			if (($completed_teams + $waiting_teams) >= $t["maxteams"]) {
-				$func->error(t('Es haben sich bereits %1 von %2 Teams zu diesem Turnier angemeldet. Es gibt jedoch noch in %3 der angemeldeten Teams freie Plätze, dazu bitte eines der Teams mit den freien Plätzen auswählen und beitreten', $completed_teams + $waiting_teams, $t["maxteams"], $waiting_teams), $func->internal_referer);
+				$func->error(str_replace("%TEAMS%", $completed_teams + $waiting_teams, str_replace("%MAXTEAMS%", $t["maxteams"], str_replace("%WAITING%", $waiting_teams, $lang["tourney"]["join_waiting_only"]))), $func->internal_referer);
 				return false;
 
 			} else {
@@ -216,7 +221,7 @@ class team {
 					password = '". md5($password) ."'
 					");
 
-				$func->log_event(t('Der Benutzer <b>%1</b> hat sich zum Turnier <b>%2</b> angemeldet', $auth["username"], $t["name"]), 1, t('Turnier Teamverwaltung'));
+				$func->log_event(str_replace("%USER%", $auth["username"], str_replace("%T%", $t["name"], $lang["tourney"]["join_log_success"])), 1, $lang["tourney"]["log_t_teammanage"]);
 			}
 		} else return false;
 
@@ -249,7 +254,7 @@ class team {
 			comment = '$comment'
 			WHERE teamid = {$_GET["teamid"]}
 			");
-		$func->log_event(t('Das Team <b>%1</b> im Turnier <b>%2</b> hat seine Daten editiert', $_POST['team_name'], $t["name"]), 1, t('Turnier Teamverwaltung'));
+		$func->log_event(str_replace("%TEAM%", $_POST['team_name'], str_replace("%T%", $t["name"], $lang["tourney"]["teammgr_edit_team_log"])), 1, $lang["tourney"]["log_t_teammanage"]);
 
 		$this->UpdateLeagueIDs($auth["userid"], $_POST["wwclid"], $_POST["wwclclanid"], $_POST["nglid"], $_POST["nglclannid"], $_POST["lgzid"], $_POST["lgzclannid"]);
 
@@ -262,7 +267,7 @@ class team {
 		global $db, $config, $lang, $func, $mail;
 
 		if ($teamid == "") {
-			$func->error(t('Sie haben kein Team ausgeählt!'), $func->internal_referer);
+			$func->error($lang["tourney"]["teammgr_err_noteam"], $func->internal_referer);
 			return false;
 		}
 
@@ -274,14 +279,14 @@ class team {
 
 		// No delete if tournament is generated
 		if ($team['status'] != "open") {
-			$func->information(t('Dieses Turnier wird bereits gespielt!HTML_NEWLINEEin Abmelden ist daher nicht mehr möglich.'), $func->internal_referer);
+			$func->information($lang["tourney"]["teammgr_err_nosignoff"], $func->internal_referer);
 			return false;
 		}
 
 		// Send Mail to Teammebers
 		$members = $db->query("SELECT userid FROM {$config["tables"]["t2_teammembers"]} WHERE teamid = $teamid");
 		while ($member = $db->fetch_array($members)) {
-			$mail->create_sys_mail($member['userid'], t('Ihr Team im Turnier %1 wurde aufgelöst', $team['tname']), t('Der Ersteller des Teams hat soeben sein Team aufgelöst. Dies bedeutet, dass Sie nun nicht mehr zu dem Turnier %1 angemeldet sind.', $team['tname']));
+			$mail->create_sys_mail($member['userid'], str_replace("%NAME%", $team['tname'], $lang["tourney"]["teammgr_signoff_mail_subj"]), str_replace("%NAME%", $team['tname'], $lang["tourney"]["teammgr_signoff_mail"]));
 		}
 		$db->free_result($members);
 
@@ -289,7 +294,7 @@ class team {
 		$db->query("DELETE FROM {$config["tables"]["t2_teams"]} WHERE teamid = $teamid");
 		$db->query("DELETE FROM {$config["tables"]["t2_teammembers"]} WHERE teamid = $teamid");
 
-		$func->log_event(t('Das Team %1 wurde aufgelöst', $team['teamname']), 1, t('Turnier Teamverwaltung'));
+		$func->log_event(str_replace("%NAME%", $team['teamname'], $lang["tourney"]["teammgr_signoff_log"]), 1, $lang["tourney"]["log_t_teammanage"]);
 
 		return true;
 	}
@@ -300,11 +305,11 @@ class team {
 		global $db, $config, $lang, $func, $mail;
 
 		if ($teamid == "") {
-			$func->error(t('Sie haben kein Team ausgeählt!'), $func->internal_referer);
+			$func->error($lang["tourney"]["teammgr_err_noteam"], $func->internal_referer);
 			return false;
 		}
 		if ($userid == "") {
-			$func->error(t('Sie haben keinen Benutzer ausgewählt!'), $func->internal_referer);
+			$func->error($lang["tourney"]["teammgr_err_nouser"], $func->internal_referer);
 			return false;
 		}
 
@@ -319,15 +324,15 @@ class team {
 
 		// Is the tournament finished?
 		if ($t["status"] == "closed") {
-			$func->information(t('Dieses Turnier läuft bereits!'), $func->internal_referer);
+			$func->information($lang["tourney"]["join_err_started"], $func->internal_referer);
 			return false;
 		}
 		// Perform Action
 		$db->query("DELETE FROM {$config["tables"]["t2_teammembers"]} WHERE (userid = $userid) AND (teamid = $teamid)");
 
 		// Create Outputs
-		$mail->create_sys_mail($userid, t('Sie wurden im Turnier %1 aus ihrem Team geworfen', $t["name"]), str_replace("%NAME%", $t["name"], t('Der Ersteller dieses Teams hat Sie soeben aus seinem Team entfernt. Dies bedeutet, dass Sie nun nicht mehr zu dem Turnier \'%NAME%\' angemeldet sind.')));
-		$func->log_event(t('Der Benutzer %1 wurde vom Teamadmin aus dem Team %2 geworfen', $user["username"], $team['name']), 1, t('Turnier Teamverwaltung'));
+		$mail->create_sys_mail($userid, str_replace("%NAME%", $t["name"], $lang["tourney"]["teammgr_deluser_mail_subj"]), str_replace("%NAME%", $t["name"], $lang["tourney"]["teammgr_deluser_mail"]));
+		$func->log_event(str_replace("%NAME%", $user["username"], str_replace("%TEAM%", $team['name'], $lang["tourney"]["teammgr_deluser_log"])), 1, $lang["tourney"]["log_t_teammanage"]);
 
 		return true;
 	}

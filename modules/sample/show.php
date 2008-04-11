@@ -9,7 +9,7 @@
 
 	// This is how to simply output some text
 	$dsp->AddSingleRow(t('Eine einfache Zeile'));
-    $dsp->AddDoubleRow("TEST : ",t('Eine einfache Zeile %1 und %2', "eins", "zwei"));
+
 
 
   ### Forms ###
@@ -45,7 +45,7 @@
 	$user_insg = $db->num_rows($res);
 	$db->free_result($res);
 
-	$dsp->AddSingleRow(t('Benutzer insgesamt') .": ". $user_insg);
+	$dsp->AddSingleRow($lang["sample"]["user_insg"] .": ". $user_insg);
 
 	// This will finaly output all the $dsp-Rows
 	$dsp->AddContent();

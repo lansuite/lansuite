@@ -21,11 +21,11 @@
  // TIQ = Time Index Quotient - Not Used yet
 
  // Check GD Libary
- 	if ( $config['environment']['gd'] == "0" ) $func->error( t('Die Statistikanzeige ben&ouml;tigt ddie GD Bibliothek'), "" );
+ 	if ( $config['environment']['gd'] == "0" ) $func->error( $lang["stats"]["gd_error"], "" );
 
 	// Create an Image Stream
 	$Image = @ImageCreate( 611, 480 )
-	or die( $func->error( t('Konnte kein Bild erzeugen') ) );
+	or die( $func->error( $lang["stats"]["image_error"] ) );
 
 	// Declare "White"
 	$white = ImageColorAllocate ( $Image, 255, 255, 255 );
@@ -65,11 +65,11 @@
 
 		If( !is_array( $value ) ) {
 
-			$msg = t('Keine Daten vorhanden. Sie m&uuml;ssen das Modulsuitebeat aktivieren und den Cron-Job einrichten');
+			$msg = $lang["stats"]["no_data_error"];
 
 		} else {
 
-			$msg = t('Zu wenige Daten f&uuml;r ein Skript / Stellen sie die Laufzeit des Cron-Jobs auf 1min und warten sie 15min');
+			$msg = $lang["stats"]["slow_data_error"];
 
 		}
 

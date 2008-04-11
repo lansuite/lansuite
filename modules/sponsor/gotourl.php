@@ -16,8 +16,8 @@
 
 $sponsoren = $db->query("UPDATE {$config['tables']['sponsor']} SET hits = hits + 1 WHERE url='{$_GET["url"]}'");
 
-$dsp->NewContent(t('Unsere Sponsoren'), t('Bei den folgenden Sponsoren möchten wir uns herzlich für ihren Beitrag zu unserer Veranstaltung bedanken.'));
-$dsp->AddDoubleRow(t('Sie werden weitergeleitet...'), "<a href=\"{$_GET["url"]}\">{$_GET["url"]}</a>" . HTML_NEWLINE . "
+$dsp->NewContent($lang["sponsor"]["caption"], $lang["sponsor"]["sub_caption"]);
+$dsp->AddDoubleRow($lang["sponsor"]["redirect"], "<a href=\"{$_GET["url"]}\">{$_GET["url"]}</a>" . HTML_NEWLINE . "
 <script language = \"JavaScript\">window.location.href = \"{$_GET["url"]}\";</script>");
 $dsp->AddBackButton("index.php?mod=sponsor", "sponsor/show");
 $dsp->AddContent();

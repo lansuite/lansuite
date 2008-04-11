@@ -34,7 +34,7 @@ class guestlist {
 
     $usrmgr->WriteXMLStatFile();
 
-    $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "bezahlt" gesetzt', $row['username'], $row2['name']), 1, '', 'Zahlstatus');
+    $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "bezahlt" gesetzt', array($row['username'], $row2['name'])), 1, '', 'Zahlstatus');
     return $Messages;
   }
 
@@ -66,7 +66,7 @@ class guestlist {
 
     $usrmgr->WriteXMLStatFile();
 
-    $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "nicht bezahlt" gesetzt', $row['username'], $row2['name']), 1, '', 'Zahlstatus');
+    $func->log_event(t('Benutzer "%1" wurde für die Party "%2" auf "nicht bezahlt" gesetzt', array($row['username'], $row2['name'])), 1, '', 'Zahlstatus');
     return $Messages;
   }
 
@@ -82,7 +82,7 @@ class guestlist {
     // Log
 		$row = $db->query_first('SELECT username, email from '. $config['tables']['user'] .' WHERE userid = '. (int)$userid);
 		$row2 = $db->query_first('SELECT name from '. $config['tables']['partys'] .' WHERE party_id = '. (int)$partyid);
-    $func->log_event(t('Benutzer "%1" wurde für die Party "%2" eingecheckt', $row['username'], $row2['name']), 1, '', 'Checkin');
+    $func->log_event(t('Benutzer "%1" wurde für die Party "%2" eingecheckt', array($row['username'], $row2['name'])), 1, '', 'Checkin');
   }
 
   function CheckOut($userid, $partyid) {
@@ -97,7 +97,7 @@ class guestlist {
     // Log
 		$row = $db->query_first('SELECT username, email from '. $config['tables']['user'] .' WHERE userid = '. (int)$userid);
 		$row2 = $db->query_first('SELECT name from '. $config['tables']['partys'] .' WHERE party_id = '. (int)$partyid);
-    $func->log_event(t('Benutzer "%1" wurde für die Party "%2" ausgecheckt', $row['username'], $row2['name']), 1, '', 'Checkin');
+    $func->log_event(t('Benutzer "%1" wurde für die Party "%2" ausgecheckt', array($row['username'], $row2['name'])), 1, '', 'Checkin');
   }
 
   function UndoCheckInOut($userid, $partyid) {
@@ -108,7 +108,7 @@ class guestlist {
     // Log
 		$row = $db->query_first('SELECT username, email from '. $config['tables']['user'] .' WHERE userid = '. (int)$userid);
 		$row2 = $db->query_first('SELECT name from '. $config['tables']['partys'] .' WHERE party_id = '. (int)$partyid);
-    $func->log_event(t('Einceck- und Auscheckstatus des Benutzers "%1" wurde für die Party "%2" zurückgesetzt', $row['username'], $row2['name']), 1, '', 'Checkin');
+    $func->log_event(t('Einceck- und Auscheckstatus des Benutzers "%1" wurde für die Party "%2" zurückgesetzt', array($row['username'], $row2['name'])), 1, '', 'Checkin');
   }
 }
 ?>

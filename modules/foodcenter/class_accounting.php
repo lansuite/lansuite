@@ -55,17 +55,17 @@ class accounting{
 		$disbursement = $db->query_first("SELECT SUM(movement) AS total FROM {$config['tables']['food_accounting']} WHERE userid = '{$this->user_id}' AND movement < 0");
 		
 		
-		$dsp->NewContent(t('Kontoauszug')	,t('Alle bisher getätigten Zahlungen')	);
+		$dsp->NewContent($lang['foodcenter']['account_caption']	,$lang['foodcenter']['account_subcaption']	);
 
 		
 		
 		if($this->balance > 0){
-			$dsp->AddDoubleRow("<strong>" . t('Total') . "</strong>","<table width=\"100%\">
+			$dsp->AddDoubleRow("<strong>" . $lang['foodcenter']['account_total'] . "</strong>","<table width=\"100%\">
 								<tr><td align=\"right\" width=\"33%\"><strong><font color='green'>" . round($deposit['total'],2) . " " . $cfg['sys_currency'] ."</font></strong></td>
 								<td align=\"right\" width=\"33%\"><strong><font color='red'>" . round($disbursement['total'],2) . " " . $cfg['sys_currency'] ."</font></strong></td>
 								<td align=\"right\" width=\"34%\"><strong><font color='green'>" . round($this->balance,2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
 		}else{
-			$dsp->AddDoubleRow("<strong>" . t('Total') . "</strong>","<table width=\"100%\">
+			$dsp->AddDoubleRow("<strong>" . $lang['foodcenter']['account_total'] . "</strong>","<table width=\"100%\">
 								<tr><td align=\"right\" width=\"33%\"><strong><font color='green'>" . round($deposit['movement'],2) . " " . $cfg['sys_currency'] ."</font></strong></td>
 								<td align=\"right\" width=\"33%\"><strong><font color='red'>" . round($disbursement['movement'],2) . " " . $cfg['sys_currency'] ."</font></strong></td>
 								<td align=\"right\" width=\"34%\"><strong><font color='red'>" . round($this->balance,2) . " " . $cfg['sys_currency'] ."</font></strong></td></tr></table>");	
@@ -104,7 +104,7 @@ class accounting{
 				$total = $total - $row['movement'];
 			}
 		}else{
-			$dsp->AddSingleRow("<strong>" . t('Keine Kontobewegungen') . "</strong>");
+			$dsp->AddSingleRow("<strong>" . $lang['foodcenter']['account_no_moevement'] . "</strong>");
 		}
 
 		$dsp->AddContent();

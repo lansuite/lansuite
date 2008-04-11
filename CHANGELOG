@@ -4,6 +4,53 @@ Hier bitte die wichtigen Anderungen einfügen :
 (Auch Name,Datum und falls vorhanden BugID fÃ¼r die Ã„nderung angeben!)
 -----
 
+Version 3.3.1
+
+r1263 | bytekilla | 2008-02-14 BUGFIX : INFO2 Fehlerhafte Links korrigiert. Alle Links auf ID umgestellt. Edit/Activate Button hinzugefügt.
+r1264 | bytekilla | 2008-02-15 BUGFIX : Avatare werden nicht korrekt angezeigt 
+r1265 | bytekilla | 2008-02-16 BUGFIX : Zur LAN-Party anmelden http://lansuite.orgapage.de/index.php?mod=bugtracker&bugid=571
+r1266 | bytekilla | 2008-02-16 BUGFIX : Schreibfehler korrigiert (boxes/signonstatus.php)
+r1267 | bytekilla | 2008-02-16 BUGFIX : Wenn "nur Looser eintragen" off war, hate jeder Ergebnisse eintragen können. Jetzt gehen nur noch Teamteilnehmer.
+r1268 | bytekilla | 2008-02-17 BUGFIX : Pflichtfelder Problem (Geburtstag, Geschlecht)
+r1269 | maztah | 2008-02-18 Bugfix Forum: http://lansuite.orgapage.de/index.php?mod=board&action=thread&fid=2&tid=644&gotopid=3754#pid3754
+r1270 | maztah | 2008-02-18 Bugfix foodcenter credit-system 
+r1271 | maztah | 2008-02-18 Bugfix 587 - Alt-Text Bezahlbutton
+r1272 | maztah | 2008-02-19 Bugfix #578: Beim editieren von Kommentaren wurde timestamp und creatorid neu gesetzt
+r1273 | maztah | 2008-02-19 Feature Wunsch #577: Neue Boardeintraege nicht fett gedruckt sondern per Icon angezeigt
+r1274 | maztah | 2008-02-19 Feature Wunsch #577: Neue Boardeintraege nicht fett gedruckt sondern per Icon angezeigt
+r1275 | jochenjung | 2008-02-19 BUGFIX : Newsfeed funktionierte nicht, wenn ", oder ' enthalten war
+r1276 | bytekilla | 2008-02-20 BUGFIX : Fehler infos.xml wird nicht aktualisiert
+r1277 | jochenjung | 2008-02-20 Sonderzeichen werden nun aus Usernamen rausgefiltert, bevor dieser in ein Email-To-Feld geschrieben wird
+r1278 | jochenjung | 2008-02-20 Der Party-URL wird nun ein HTTP vorrangestellt, falls nicht vorhanden
+r1279 | jochenjung | 2008-02-20 Es werden auf der Startseite in Turnier-Partie-Dropdown nur noch Partien angezeigt, deren Turniere im Staus "progress" sind
+r1280 | jochenjung | 2008-02-20 Auto-Checkin hatte nicht mehr funktioniert
+r1282 | jochenjung | 2008-02-20 Doppelte-Linebreaks in mails entfernt
+r1283 | jochenjung | 2008-02-20 Wenn beim Ändern der aktiven Module keine Formulardaten versendet wurden, wurden alle Module deaktiviert
+r1284 | jochenjung | 2008-02-20 " sind in der Masterform in Beiträgen verlorengegangen
+r1285 | bytekilla | 2008-02-21 BUGFIX : Avatare werden nicht korrekt angezeigt 
+r1286 | bytekilla | 2008-02-21 BUGFIX : Geburtstagsangabe nicht unter 1970 
+r1287 | bytekilla | 2008-02-22 BUGFIX : Fehlermeldung bei Installation und Systemtest 
+r1288 | bytekilla | 2008-02-22 BUGFIX : CVS Verzeichnisabfragen austauschen
+r1289 | jochenjung | 2008-02-22 Texte auf Startseite auf 40 Zeichen begrenzt
+r1290 | maztah | 2008-02-24 Neu: Im Home per Icon ungelesene Mails kenntlich gemacht
+r1296 | bytekilla | 2008-03-06 BUGFIX : Die reparierten Icons von r1294 in den branch 3.3.x eingespielt
+r1297 | bytekilla | 2008-03-06 BUGFIX : Turnierdetails in USRMGR unklar bzw Fehler 
+r1299 | bytekilla | 2008-03-07 BUGFIX : Anmeldung an neue Lan muss 2 mal gemacht werden 
+r1300 | bytekilla | 2008-03-08 BUGFIX : Bezeichnungen und fehlerhaften CSV-Export korrigiert
+r1301 | bytekilla | 2008-03-08 BUGFIX : Wenn der Superuser gelöscht wird, sind ausgeloggte User NICHTMEHR Superuser.
+r1302 | bytekilla | 2008-03-11 BUGFIX : Nicht vorhandene Avatare und Bilder korrekt oder garnicht anzeigen
+r1313 | bytekilla | 2008-03-19 Bugfixe aus dem Trunk in 3.3.x nachgepflegt
+=> http://lansuite.orgapage.de/index.php?mod=bugtracker&bugid=611 - Fehler in MF, der in WYSIWYG Feldern das editieren nicht erlaubte
+=> http://lansuite.orgapage.de/index.php?mod=bugtracker&bugid=554 - Bei Systemprüfung wird nun auch session.uso_only_cookie geprueft
+=> http://lansuite.orgapage.de/index.php?mod=bugtracker&bugid=534 - Einloggen ging im Intranetmodus, trotz dass der User nicht eingecheckt war
+r1323 | bytekilla | 2008-03-20 Diverse Bugfixes vom Trunk in 3.3.x eingepflegt
+=> http://lansuite.orgapage.de/index.php?mod=bugtracker&bugid=620 - LS-Code hatte in Poll-Kommentaren nicht funktioniert
+=> http://lansuite.orgapage.de/index.php?mod=bugtracker&bugid=616 - Bezahltdatum wurde falsch exportiert
+=> http://lansuite.orgapage.de/index.php?mod=board&action=thread&fid=2&tid=702&gotopid=4102&pid=#MF1 - Nicht-Admins konnten (bei Kenntnis der Abschick-URL) Beiträge in Orga-Boards schreiben. (Diese jedoch nicht lesen)
+=> Bugfix "Gruppe + KO" Logikfehler
+=> MQ-Problem
+r1352 | bytekilla | 2008-03-22 UPDATE : Fckeditor Update nachgepflegt
+
 Version 3.2
 
 - Bugfix: Beim Sperren eines Accounts, wird nun auch die Session des betreffende Benutzer gelöscht (KnoX 19.06.2007)

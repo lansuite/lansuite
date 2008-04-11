@@ -4,14 +4,14 @@ $check = $db->query_first("SELECT caption FROM {$config["tables"]["news"]} WHERE
 if($check["caption"] != "") { 
 
 // GET NEWS DATA
-$get_news = $db->query_first("SELECT n.*, u.userid, u.username FROM {$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster WHERE n.newsid = '{$vars["newsid"]}'");
+$get_news = $db->query_first("SELECT n.*, u.username FROM {$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster WHERE n.newsid = '{$vars["newsid"]}'");
 $templ_news_single_row_priority = $get_news["priority"];
 	
 if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $news_type = "normal"; }
 	
 	$templ['news']['show']['single']['row'][$news_type]['info']['caption']      = $get_news["caption"];	
 	$templ['news']['show']['single']['row'][$news_type]['control']['userid']    = $get_news["poster"];
-	$templ['news']['show']['single']['row'][$news_type]['info']['username']     = $get_news["username"] .' '. $dsp->FetchUserIcon($get_news['userid']);
+	$templ['news']['show']['single']['row'][$news_type]['info']['username']     = $get_news["username"];
 	$date                                                                       = $get_news["date"];
 	
 	$templ['news']['show']['single']['row'][$news_type]['info']['date']         = $func->unixstamp2date($date,"daydatetime");

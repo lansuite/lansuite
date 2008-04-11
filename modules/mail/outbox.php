@@ -2,7 +2,7 @@
 $mail_send_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE FromUserID = '{$auth['userid']}' AND mail_status != 'disabled'");
 $mail_read_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE FromUserID = '{$auth['userid']}' AND mail_status != 'disabled' AND des_status = 'read'");
 
-$dsp->NewContent(t('Postausgang'), t('Sie haben <b>%1</b> Mail(s) versendet. Davon wurde(n) <b>%2</b> gelesen.',$mail_send_total["n"],$mail_read_total["n"]));
+$dsp->NewContent($lang["mail"]["out_outbox"], str_replace("%TOTAL%", $mail_send_total["n"], str_replace("%READ%", $mail_read_total["n"], $lang["mail"]["out_hint"])));
 $dsp->AddContent();
 
 include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -16,15 +16,15 @@ $ms2->query['default_order_dir'] = 'DESC';
 $ms2->config['EntriesPerPage'] = 30;
 
 $ms2->AddTextSearchField('Mail', array('m.subject' => 'fulltext', 'm.msgbody' => 'fulltext'));
-$ms2->AddTextSearchField(t('Empfänger'), array('u.userid' => 'exact', 'u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
+$ms2->AddTextSearchField($lang['mail']['showmail_mail_to'], array('u.userid' => 'exact', 'u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
 
 $ms2->AddSelect('u.userid');
-$ms2->AddResultField(t('Betreff'), 'm.subject', '', 160);
-$ms2->AddResultField(t('Empfänger'), 'u.username', 'UserNameAndIcon','',100);
-$ms2->AddResultField(t('Gesendet'), 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate','',75);
-$ms2->AddResultField(t('Gelesen'), 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate','',45);
+$ms2->AddResultField($lang['mail']['newsletter_subject'], 'm.subject', '', 160);
+$ms2->AddResultField($lang['mail']['showmail_mail_to'], 'u.username', 'UserNameAndIcon','',100);
+$ms2->AddResultField($lang['mail']['showmail_mail_send'], 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate','',75);
+$ms2->AddResultField($lang['mail']['showmail_mail_read'], 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate','',45);
 
-$ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=out&mailID=', t('Details'));
+$ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=out&mailID=', $lang['ms2']['details']);
 
 $ms2->PrintSearch('index.php?mod=mail&action=outbox', 'm.mailid');
 ?>

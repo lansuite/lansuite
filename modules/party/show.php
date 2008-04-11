@@ -13,7 +13,7 @@ if ($_GET['step'] == 10 and is_numeric($_GET['party_id'])) {
   $cfg['signon_partyid'] = $_GET['party_id'];
 }
 
-$dsp->NewContent(t('Party anzeigen'),t('Die Details der Partys.'));
+$dsp->NewContent($lang['signon']['show_party_caption'],$lang['signon']['show_party_subcaption']);
 switch($_GET['step']){
 	default:
     include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -30,30 +30,28 @@ switch($_GET['step']){
     $ms2->AddResultField('Bis', 'p.enddate');
     $ms2->AddResultField('Aktiv', 'p.party_id', 'GetActiveState');
     
-    $ms2->AddIconField('details', 'index.php?mod=party&action=show&step=1&party_id=', t('Details'));
-    if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=party&action=edit&party_id=', t('Editieren'));
+    $ms2->AddIconField('details', 'index.php?mod=party&action=show&step=1&party_id=', $lang['ms2']['details']);
+    if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=party&action=edit&party_id=', $lang['ms2']['edit']);
     if ($auth['type'] >= 2) $ms2->AddIconField('paid', 'index.php?mod=party&action=price&step=2&party_id=');
 
-    if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=party&action=delete', 1);
+    if ($auth['type'] >= 3) $ms2->AddMultiSelectAction($lang['ms2']['delete'], 'index.php?mod=party&action=delete', 1);
 
     $ms2->PrintSearch('index.php?mod=party', 'p.party_id');
 
     $dsp->AddSingleRow($dsp->FetchButton('index.php?mod=party&action=edit', 'add'));
-    
-    if (isset($_SESSION['party_id'])) $func->information(t('Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite, oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persöhnlich die aktivie ist, kannst du auf der Startseite, oder in der Party-Box einstellen', $_SESSION['party_id']));
 	break;
 
 	case 1:
 		$row = $db->query_first("SELECT p.*, UNIX_TIMESTAMP(p.startdate) AS startdate, UNIX_TIMESTAMP(p.enddate) AS enddate, UNIX_TIMESTAMP(p.sstartdate) AS sstartdate, UNIX_TIMESTAMP(p.senddate) AS senddate FROM {$config['tables']['partys']} AS p WHERE party_id={$party->party_id}");
 
-		$dsp->AddDoubleRow(t('Partyname'),$row['name']);
-		$dsp->AddDoubleRow(t('Anzahl Plätze'),$row['max_guest']);
-		$dsp->AddDoubleRow(t('PLZ'),$row['plz']);
-		$dsp->AddDoubleRow(t('Ort'),$row['ort']);
-		$dsp->AddDoubleRow(t('Party startet am'),$func->unixstamp2date($row['startdate'],"datetime"));
-		$dsp->AddDoubleRow(t('Party endet am'),$func->unixstamp2date($row['enddate'],"datetime"));
-		$dsp->AddDoubleRow(t('Anmeldung startet am'),$func->unixstamp2date($row['sstartdate'],"datetime"));
-		$dsp->AddDoubleRow(t('Anmeldung endet am'),$func->unixstamp2date($row['senddate'],"datetime"));
+		$dsp->AddDoubleRow($lang['signon']['partyname'],$row['name']);
+		$dsp->AddDoubleRow($lang['signon']['max_guest'],$row['max_guest']);
+		$dsp->AddDoubleRow($lang['signon']['plz'],$row['plz']);
+		$dsp->AddDoubleRow($lang['signon']['ort'],$row['ort']);
+		$dsp->AddDoubleRow($lang['signon']['stime'],$func->unixstamp2date($row['startdate'],"datetime"));
+		$dsp->AddDoubleRow($lang['signon']['etime'],$func->unixstamp2date($row['enddate'],"datetime"));
+		$dsp->AddDoubleRow($lang['signon']['sstime'],$func->unixstamp2date($row['sstartdate'],"datetime"));
+		$dsp->AddDoubleRow($lang['signon']['setime'],$func->unixstamp2date($row['senddate'],"datetime"));
 		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=party&action=edit&party_id={$_GET['party_id']}","edit"));
 
     $dsp->AddBackButton('index.php?mod=party');

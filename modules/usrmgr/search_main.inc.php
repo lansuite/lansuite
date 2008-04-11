@@ -8,13 +8,13 @@ $ms2->query['from'] = "{$config['tables']['user']} AS u
 
 $ms2->config['EntriesPerPage'] = 20;
 
-$ms2->AddTextSearchField(t('Benutzername'), array('u.username' => '1337'));
-$ms2->AddTextSearchField(t('Userid'), array('u.userid' => 'exact'));
-$ms2->AddTextSearchField(t('Name'), array('u.name' => 'like', 'u.firstname' => 'like'));
+$ms2->AddTextSearchField($lang['usrmgr']['add_username'], array('u.username' => '1337'));
+$ms2->AddTextSearchField($lang['usrmgr']['userid'], array('u.userid' => 'exact'));
+$ms2->AddTextSearchField($lang['usrmgr']['name'], array('u.name' => 'like', 'u.firstname' => 'like'));
 $ms2->AddTextSearchField(t('E-Mail'), array('u.email' => 'like'));
 
-$ms2->AddResultField(t('Benutzername'), 'u.username');
-$ms2->AddResultField(t('Vorname'), 'u.firstname');
-$ms2->AddResultField(t('Nachname'), 'u.name');
+$ms2->AddResultField($lang['usrmgr']['add_username'], 'u.username');
+$ms2->AddResultField($lang['usrmgr']['add_firstname'], 'u.firstname');
+$ms2->AddResultField($lang['usrmgr']['add_lastname'], 'u.name');
 
 ?>

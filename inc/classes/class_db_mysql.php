@@ -28,25 +28,21 @@ class db {
 
 		$this->link_id=@mysql_connect($this->dbserver,$this->dbuser,$this->dbpasswd);
 		if (!$this->link_id) {
-            if ($save == true) {
-                $this->success = false;
-                return false;
-            } else  {
+			if ($save == true) return false;
+			else  {
 				echo HTML_FONT_ERROR . $lang['class_db_mysql']['no_connection'] . HTML_FONT_END;
 				exit();
 			}
    		} elseif (!@mysql_select_db($this->database, $this->link_id)) {
-            if ($save == true) {
-                $this->success = false;
-                return false;
-            } else {
+			if ($save == true) return false; 
+			else {
 				echo HTML_FONT_ERROR . str_replace("%DB%", $this->database, $lang['class_db_mysql']['no_db'])  . HTML_FONT_END;
 				exit();
 			}
 		} else $GLOBALS['db_link_id'] = $this->link_id;
 
 		@mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $GLOBALS['db_link_id']);
-		$this->success = true;
+
 		return true;
 	}
 
@@ -76,7 +72,6 @@ class db {
   function escape($match) {
     global $CurrentArg;
 
-    $CurrentArg = stripslashes($CurrentArg);
     if ($match[0] == '%int%') return (int)$CurrentArg;
     elseif ($match[0] == '%string%') return "'". mysql_real_escape_string((string)$CurrentArg, $GLOBALS['db_link_id']) ."'";
   }

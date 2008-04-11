@@ -26,7 +26,7 @@ switch($_GET["step"]) {
 		
 				if($name == $_POST["cat_caption"]) {
 				
-					$faq_error['cat_caption'] = t('Dieser Kategoriename existiert bereits');
+					$faq_error['cat_caption'] = $lang['faq']['cat_exists'];
 					$_GET["step"] = 2;
 				}
 		}
@@ -34,7 +34,7 @@ switch($_GET["step"]) {
 			
 		if($_POST["cat_caption"] == "") {
 			
-			$faq_error['cat_caption']	= t('Bitte geben Sie einen Namen für die neue Kategorie ein');
+			$faq_error['cat_caption']	= $lang['faq']['no_cat_name'];
 			
 			eval($error);
 			
@@ -60,9 +60,9 @@ switch($_GET["step"]) {
 		
 		if($_POST["cat_caption"] != "") {
 			
-			$dsp->NewContent(t('Frage ändern'));
+			$dsp->NewContent($lang['faq']['change_cat_caption']);
 			$dsp->SetForm("index.php?mod=faq&object=cat&action=change_cat&catid={$_GET['catid']}&step=3");
-			$dsp->AddTextFieldRow("cat_caption",t('Frage ändern'),$_POST['cat_caption'],$faq_error['cat_caption']);
+			$dsp->AddTextFieldRow("cat_caption",$lang['faq']['change_cat_caption'],$_POST['cat_caption'],$faq_error['cat_caption']);
 			$dsp->AddFormSubmitRow("edit");
 			$dsp->AddContent();
 				
@@ -70,7 +70,7 @@ switch($_GET["step"]) {
 		
 			else {
 		
-				$func->error(t('Diese Kategorie existiert nicht'),"");
+				$func->error($lang['faq']['cat_not_exists'],"");
 			}
 			
 	break;
@@ -91,7 +91,7 @@ switch($_GET["step"]) {
 				
 							$_SESSION["change_blocker_faq_cat"] = 1;
 															
-							$func->confirmation(t('Die Kategorie wurde erfolgreich geändert'),"index.php?mod=faq&action=show");
+							$func->confirmation($lang['faq']['change_cat_ok'],"index.php?mod=faq&action=show");
 				
 						} 
 				
@@ -105,7 +105,7 @@ switch($_GET["step"]) {
 				
 					else {
 		
-						$func->error(t('Diese Kategorie existiert nicht'),"");
+						$func->error($lang['faq']['cat_not_exists'],"");
 					}			
 		
 		} // close if blocker

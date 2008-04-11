@@ -24,13 +24,13 @@ switch ($step){
 
 	case 2:
 		$sponsor = $db->query_first("SELECT name FROM {$config['tables']['sponsor']} WHERE sponsorid=$sponsorid");
-		$func->question(t('Wollen Sie den Sponsor <b>%1</b> wirklich löschen?', $sponsor['name']), "index.php?mod=sponsor&amp;action=delete&amp;step=3&amp;sponsorid=$sponsorid", "index.php?mod=sponsor&amp;action=delete");
+		$func->question(str_replace("%NAME%", $sponsor['name'], $lang["sponsor"]["del_confirm"]), "index.php?mod=sponsor&amp;action=delete&amp;step=3&amp;sponsorid=$sponsorid", "index.php?mod=sponsor&amp;action=delete");
 	break;
 
 	case 3:
 		$sponsor = $db->query_first("SELECT name FROM {$config['tables']['sponsor']} WHERE sponsorid=$sponsorid");
 		$db->query("DELETE FROM {$config['tables']['sponsor']} WHERE sponsorid=$sponsorid");
-		$func->confirmation(t('Der Sponsor <b>%1</b> wurde erfolgreich gelöscht', $sponsor["name"]), "index.php?mod=sponsor&amp;action=delete");
+		$func->confirmation(str_replace("%NAME%", $sponsor["name"], $lang["sponsor"]["del_success"]), "index.php?mod=sponsor&amp;action=delete");
 	break;
 }
 

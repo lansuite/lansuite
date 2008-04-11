@@ -1,212 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="0.91">
 	<channel>
-		<title>Party 2</title>
+		<title>TestTest TestTest TestTest TestTest </title>
 		<link>http://localhost</link>
 		<description></description>
 		<language>de-de</language>
 		<copyright></copyright>
 		<image>
 			<url></url>
-			<title>Party 2 - Logo</title>
+			<title>TestTest TestTest TestTest TestTest  - Logo</title>
 			<link>http://localhost</link>
 		</image>
 		<item>
-			<title>test</title>
-			<description>test ss&Ograve; </description>
-			<author>knox@orgapage.de (ADMIN)</author>
-			<pubDate>Fri, 21 Mar 2008 17:53:23 +0100</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=25</link>
-		</item>
-		<item>
-			<title>Bilder sind online</title>
-			<description>So, die Pics sind online.
-
-Die Bilder gibt es in 3 Größen:
-- Vorschaubild
-- Detail klein
-- Detail groß
-
-Viel Spaß beim anschauen !!!</description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Mon, 29 Oct 2007 17:00:29 +0100</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=23</link>
-		</item>
-		<item>
-			<title>die nächste KAN ...</title>
-			<description>... ist vom 28. - 30.03.2008
-
-
-Also schonmal im Kalender fett markieren und Urlaub einreichen !!!</description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Sun, 28 Oct 2007 20:33:16 +0100</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=22</link>
-		</item>
-		<item>
-			<title>Euer Feedback bitte !!!</title>
-			<description>Die nunmehr 6te KAN ist vorbei.
-Natürlich interessiert uns auch diesmal wieder euer Feedback.
-Was war gut und was können wir beim nächsten mal be</description>
-			<author>knox@orgapage.de (ADMIN)</author>
-			<pubDate>Sun, 28 Oct 2007 20:12:31 +0100</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=21</link>
-		</item>
-		<item>
-			<title>Wir danken ...</title>
-			<description>Wir möchten uns rechtherzlich bedanken bei:
-- Studentenclub Kasseturm für die Bereitstellung der Räume und das leckere Essen
-- unserer Bardame f�</description>
-			<author>knox@orgapage.de (ADMIN)</author>
-			<pubDate>Sun, 28 Oct 2007 20:10:47 +0100</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=20</link>
-		</item>
-		<item>
-			<title>Herzlich Willkommen zur KAN</title>
-			<description>viel spaß beim zocken !!!</description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Fri, 26 Oct 2007 16:18:51 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=19</link>
-		</item>
-		<item>
-			<title>Der Countdown läuft</title>
-			<description>noch 32 stunden ...
-
-vorfreude ist doch immer noch die schönste freude :)</description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Thu, 25 Oct 2007 09:28:52 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=18</link>
-		</item>
-		<item>
-			<title>Abendkasse</title>
-			<description>Da einige nicht vorher bezahlen konnten, wird es auch dieses mal wieder eine Abendkasse geben.
-
-Somit können natürlich auch unentschlossene kurzfr</description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Thu, 25 Oct 2007 09:27:26 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=17</link>
-		</item>
-		<item>
-			<title>Neues Design</title>
-			<description>Endlich ist es soweit: unser neues Design ist fertig !!!
-
-Großes Lob und vielen Dank an Alex! für die Arbeit !!!</description>
-			<author>knox@orgapage.de (ADMIN)</author>
-			<pubDate>Sun, 7 Oct 2007 18:04:25 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=16</link>
-		</item>
-		<item>
-			<title>KAN ORGA Treff am So., 07.10.</title>
-			<description>Am Sonntag den 07.10.2007 / 20.00Uhr im Kampfstand Kasseturm
-ist nochmal eine ORGA Besprechung.
-Wer Lust und Zeit hat kann gerne Teilnehmen... </description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Thu, 4 Oct 2007 15:50:59 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=15</link>
-		</item>
-		<item>
-			<title>!!! Wir sind Weltmeister !!!</title>
-			<description>Nach einem grandiosen 2:0 Sieg gegen Brasilien haben die deutschen Frauen den Weltmeistertitel erfolgreich verteidigt !!!
-
-Da fällt mir noch eins e</description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Sun, 30 Sep 2007 16:08:14 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=14</link>
-		</item>
-		<item>
-			<title>KAN ORGA Treff am So., 30.09.</title>
-			<description>Hiermit möchte ich alle zum KAN-ORGA-Treff einladen.
-Ihr wollt mithelfen oder uns einfach mal kennenlernen?
-Dann schaut vorbei !!!
-
-Wo? SC Kasset</description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Fri, 28 Sep 2007 17:24:57 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=13</link>
-		</item>
-		<item>
-			<title>2te Etage doch verfügbar</title>
-			<description>wir haben es geschafft nun doch die 2te etage für die lanparty zu bekommen. das heißt ab 43 bezahlten gästen wird die kan auf 2 etagen stattfinden.</description>
-			<author>knox@orgapage.de (ADMIN)</author>
-			<pubDate>Mon, 10 Sep 2007 18:35:50 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=12</link>
-		</item>
-		<item>
-			<title>Begrenzung der Sitzplätze !!!</title>
-			<description>da wir den tanzsaal nicht zur verfügung haben wird die KAN nur im vortragssaal stattfinden.
-das heißt MAXIMUM 43 sitzplätze.
-reserve hätten wir </description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Wed, 5 Sep 2007 17:02:13 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=11</link>
-		</item>
-		<item>
-			<title>Bezahlung Lanparty</title>
-			<description>Hier noch einmal zusammengefasst alle wichtigen Informationen:
-
-- Unkostenbeitrag: 20 Euro
-- Zahlart: Vorkasse !!!
-- Zahlungsmöglichkeiten: Zahlu</description>
-			<author>knox@orgapage.de (ADMIN)</author>
-			<pubDate>Tue, 31 Jul 2007 11:02:13 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=10</link>
-		</item>
-		<item>
-			<title>Mülladmin: Alles gute zum Admintag</title>
-			<description>Lieber Müll-Admin, alles gute zu deinem heutigen 'System Administrator Appreciation Day'!
-
-Auf das du uns weiterhin gute Dienste leistest!
-
-Gilt </description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Fri, 27 Jul 2007 14:15:11 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=8</link>
-		</item>
-		<item>
-			<title>Vote 4 KAN @ LanpartyTopList</title>
-			<description>Absofort könnt Ihr auch wieder für die KAN voten. Link/Bild dazu gibts in der Sponsoren-Box links unten !!!</description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Wed, 18 Jul 2007 14:08:03 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=7</link>
-		</item>
-		<item>
-			<title>Turnier-Anmeldung hat begonnen</title>
-			<description>Absofort könnt Ihr euch auch für die Turniere anmelden. Für jedes Turnier sind mind. 4 Teams notwendig, damit es gestartet werden kann. Weitere Spi</description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Tue, 17 Jul 2007 14:45:28 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=6</link>
-		</item>
-		<item>
-			<title>neue URL zur neuen Seite</title>
-			<description>Unsere neue Webseite ist absofort unter http://www.feier-kultur.de/kan/ zu erreichen. Die alte URL (/kan2006/) wird aber weiterhin bestehen und auf di</description>
-			<author>sebastian-kauffmann@web.de (dj_chap)</author>
-			<pubDate>Sun, 15 Jul 2007 20:14:22 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=5</link>
-		</item>
-		<item>
-			<title>Anmeldung zur KAN hat begonnen</title>
-			<description>Absofort kann man sich für die Kasseturm Area Network 2007/2 anmelden. Dazu muss man sich als erstes auf Seite registrieren. Nach dem einloggen muss </description>
-			<author>knox@orgapage.de (ADMIN)</author>
-			<pubDate>Thu, 12 Jul 2007 19:16:29 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=4</link>
-		</item>
-		<item>
-			<title>Mitbringsel</title>
-			<description>Folgende Sachen solltet ihr unbedingt zur KAN mitbringen:
-
-- Computer (klingt komisch, ist aber so)
-- Peripheriegeräte (Monitor, Maus, Mauspad, Ta</description>
-			<author>knox@orgapage.de (ADMIN)</author>
-			<pubDate>Tue, 10 Jul 2007 14:21:20 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=3</link>
-		</item>
-		<item>
-			<title>Neue Webseite</title>
-			<description>Nach langem warten ist endlich unsere neue Internetpräsenz online !!!
-
-Somit kann man sich absofort für die KAN anmelden.</description>
-			<author>knox@orgapage.de (ADMIN)</author>
-			<pubDate>Tue, 10 Jul 2007 14:18:08 +0200</pubDate>
-			<link>http://localhost:80/lansuite-svn/index.php?mod=news&amp;action=comment&amp;newsid=1</link>
+			<title>sdfsdfsdf</title>
+			<description>dsfsdfdsf
+ 
+te
+test
+ 
+te</description>
+			<author>knox@orgapage.de (KnoX)</author>
+			<pubDate>Fri, 27 Apr 2007 22:16:35 +0200</pubDate>
+			<link>http://localhost:80/lansuite/ls_cvs/index.php?mod=news&amp;action=comment&amp;newsid=8</link>
 		</item>
 	</channel>
 </rss>

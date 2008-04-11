@@ -23,24 +23,24 @@ $mf_number = 0;
 
 class masterform {
 
-    var $FormFields = array();
-    var $Groups = array();
-    var $SQLFields = array();
+	var $FormFields = array();
+	var $Groups = array();
+	var $SQLFields = array();
     var $WYSIWYGFields = array();
-    var $SQLFieldTypes = array();
-    var $SQLFieldUnique = array();
-    var $DependOn = array();
-    var $error = array();
-    var $ManualUpdate = '';
-    var $AdditionalDBAfterSelectFunction = '';
-    var $AdditionalDBPreUpdateFunction = '';
-    var $AdditionalDBUpdateFunction = '';
-    var $CheckBeforeInserFunction = '';
-    var $DependOnStarted = 0;
-    var $isChange = false;
-    var $FormEncType = '';
-    var $PWSecID = 0;
-    var $AdditionalKey = '';
+	var $SQLFieldTypes = array();
+	var $SQLFieldUnique = array();
+	var $DependOn = array();
+	var $error = array();
+	var $ManualUpdate = '';
+	var $AdditionalDBAfterSelectFunction = '';
+	var $AdditionalDBPreUpdateFunction = '';
+	var $AdditionalDBUpdateFunction = '';
+	var $CheckBeforeInserFunction = '';
+	var $DependOnStarted = 0;
+	var $isChange = false;
+	var $FormEncType = '';
+	var $PWSecID = 0;
+	var $AdditionalKey = '';
   var $AddInsertControllField = '';
   var $AddChangeCondition = '';
   var $NumFields = 0;
@@ -62,7 +62,7 @@ class masterform {
   function AddToSQLFields($name) {
     if (!in_array($name, $this->SQLFields)) $this->SQLFields[] = $name;
   }
-    
+	
   function AddFix($name, $value){
     $this->AddToSQLFields($name);
     $_POST[$name] = $value;
@@ -102,7 +102,7 @@ class masterform {
   
 
   // Print form
-    function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer needed!
+	function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer needed!
     global $dsp, $db, $config, $func, $sec, $lang, $templ, $CurentURLBase, $mf_number, $__POST;
 
     // Break, if in wrong form
@@ -115,7 +115,7 @@ class masterform {
       $id = '';
     }
 
-        $this->AddGroup(); // Adds non-group-fields to fake group
+		$this->AddGroup(); // Adds non-group-fields to fake group
     if ($BaseURL) $StartURL = $BaseURL .'&'. $idname .'='. $id;
     else {
       $StartURL = $CurentURLBase;
@@ -249,11 +249,11 @@ class masterform {
 
               // Check date
               elseif (($SQLFieldTypes[$field['name']] == 'datetime' or $SQLFieldTypes[$field['name']] == 'date')
-                and (!checkdate($_POST[$field['name'].'_value_month'], $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_year'])
-                AND !($_POST[$field['name'].'_value_month']=="00" AND $_POST[$field['name'].'_value_day']=="00" AND $_POST[$field['name'].'_value_year']=="0000"))) {
+                and !checkdate($_POST[$field['name'].'_value_month'], $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_year']))
                 $this->error[$field['name']] = $lang['mf']['err_invalid_date'];
+                
               // Check new passwords
-              } elseif ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
+              elseif ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
                 $this->error[$field['name'].'2'] = $lang['mf']['err_pw2'];
 
               // Check captcha
@@ -300,7 +300,7 @@ class masterform {
       // Output form
       default:
         $sec->unlock($table);
-            $dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $mf_number .'#MF'. $mf_number, '', '', $this->FormEncType);
+    		$dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $mf_number .'#MF'. $mf_number, '', '', $this->FormEncType);
 
         // InsertControll check box - the table entry will only be created, if this check box is checked, otherwise the existing entry will be deleted
         if ($this->AddInsertControllField != '') {
@@ -345,7 +345,7 @@ class masterform {
                   ob_start();
                   include_once("ext_scripts/FCKeditor/fckeditor.php");
                   $oFCKeditor = new FCKeditor('FCKeditor1') ;
-                  $oFCKeditor->BasePath = 'ext_scripts/FCKeditor/';
+                  $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
                   $oFCKeditor->Config["CustomConfigurationsPath"] = "../myconfig.js"  ;
                   $oFCKeditor->Value = $_POST[$field['name']];
                   $oFCKeditor->Height = 460;
@@ -371,18 +371,8 @@ class masterform {
                 list($date, $time) = split(' ', $_POST[$field['name']]);
                 list($values['year'], $values['month'], $values['day']) = split('-', $date);
                 list($values['hour'], $values['min'], $values['sec']) = split(':', $time);
-                
-                if ($values['year']=="") {
-                    $values['year'] = "0000";
-                    $startj = "0000";
-                }
-                if ($values['month']=="") $values['month'] = "00";
-                if ($values['day']=="") $values['day'] = "00";
-                if ($values['hour']=="") $values['hour'] = "00";
-                if ($values['min']=="") $values['min'] = "00";
-                if ($values['sec']=="") $values['sec'] = "00";
-                
-                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $this->error[$field['name']], $values, '', $startj, '', '', $field['optional']);
+
+                $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $this->error[$field['name']], $values, '', '', '', '', $field['optional']);
               break;
 
               case 'date': // Date-Select
@@ -390,10 +380,6 @@ class masterform {
                 list($date, $time) = split(' ', $_POST[$field['name']]);
                 list($values['year'], $values['month'], $values['day']) = split('-', $date);
                 list($values['hour'], $values['min'], $values['sec']) = split(':', $time);
-
-                if ($values['year']=="") $values['year'] = "0000";
-                if ($values['month']=="") $values['month'] = "00";
-                if ($values['day']=="") $values['day'] = "00";
 
                 if ($field['selections']) $area = split('/', $field['selections']);
                 $start = $area[0];
@@ -424,17 +410,17 @@ class masterform {
                 else $addCriteria = '';
                 if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) $additionalHTML = "onchange=\"DropDownBoxActivate('box_{$field['name']}', this.options[this.options.selectedIndex].value{$addCriteria})\"";
                 if (is_array($field['selections'])) {
-                    $selections = array();
-                    foreach($field['selections'] as $key => $val) {
-                        if (substr($key, 0, 10) == '-OptGroup-') {
+              		$selections = array();
+              		foreach($field['selections'] as $key => $val) {
+              			if (substr($key, 0, 10) == '-OptGroup-') {
                       if ($this->OptGroupOpen) $selections[] = '</optgroup>';
                       $selections[] = '<optgroup label="'. $val .'">';
                       $this->OptGroupOpen = 1;
                     } else {
-                            ($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
-                            $selections[] = "<option$selected value=\"$key\">$val</option>";
+                			($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
+                			$selections[] = "<option$selected value=\"$key\">$val</option>";
                     }
-                    }
+              		}
                   if ($this->OptGroupOpen) $selections[] = '</optgroup>';
                   $this->OptGroupOpen = 0;
                   $dsp->AddDropDownFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], $additionalHTML);
@@ -443,17 +429,17 @@ class masterform {
 
               case IS_MULTI_SELECTION: // Pre-Defined Multiselection
                 if (is_array($field['selections'])) {
-                    $selections = array();
-                    foreach($field['selections'] as $key => $val) {
-                      $selected = '';
+              		$selections = array();
+              		foreach($field['selections'] as $key => $val) {
+              		  $selected = '';
                     if ($_POST[$field['name']]) foreach($_POST[$field['name']] as $PostedField) {
                       if ($PostedField == $key) {
                         $selected = ' selected';
                         break;
                       }
                     }
-                        $selections[] = "<option value=\"$key\"$selected>$val</option>";
-                    }
+              			$selections[] = "<option value=\"$key\"$selected>$val</option>";
+              		}
                   $dsp->AddSelectFieldRow($field['name'], $field['caption'], $selections, $this->error[$field['name']], $field['optional'], 7);
                 }
               break;
@@ -505,8 +491,8 @@ class masterform {
         }
 
         if ($this->SendButtonText) $dsp->AddFormSubmitRow($this->SendButtonText);
-            elseif ($id or $this->MultiLineID) $dsp->AddFormSubmitRow('Editieren');
-            else $dsp->AddFormSubmitRow('Erstellen');
+    		elseif ($id or $this->MultiLineID) $dsp->AddFormSubmitRow('Editieren');
+    		else $dsp->AddFormSubmitRow('Erstellen');
         $dsp->AddContent();
       break;
 
@@ -547,7 +533,7 @@ class masterform {
                 foreach ($this->SQLFields as $key => $val) $db_query .= "$val = '". $_POST[$val][$value2] ."', ";
                 $db_query = substr($db_query, 0, strlen($db_query) - 2);
                 $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $idname = ". (int)$value2);
-                $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($value2, $config['tables'][$table])), 1, '', $this->LogID);
+                $func->log_event(t('Eintrag #%1 in Tabelle "%2" geÃ¤ndert', array($value2, $config['tables'][$table])), 1, '', $this->LogID);
 
               } else {
                 foreach ($this->SQLFields as $key => $val) {
@@ -567,7 +553,7 @@ class masterform {
                 else {
                   if ($this->isChange) {
                     $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $AddKey $idname = ". (int)$id);
-                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" geÃ¤ndert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
                   } else {
                     $DBInsertQuery = $db_query;
                     if ($this->AdditionalKey != '') $DBInsertQuery .= ', '. $this->AdditionalKey;
@@ -575,7 +561,7 @@ class masterform {
                     $db->query("INSERT INTO {$config['tables'][$table]} SET $DBInsertQuery");
                     $id = $db->insert_id();
                     $this->insert_id = $id;
-                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefügt', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefÃ¼gt', array($id, $config['tables'][$table])), 1, '', $this->LogID);
                     $addUpdSuccess = $id;
                   }
                 }
@@ -618,12 +604,12 @@ function CheckValidEmail($email){
     $allTLD = array_merge($TLD, $newTLD);
 
     list($userName, $hostName) = explode('@', $email);
-    if (!preg_match("/^[a-z0-9\_\-\.\%]+$/i", $userName)) return t('Diese Email ist ungültig (Falscher Benutzer-Teil)');
-    if (!preg_match("/^([a-z0-9]+[\-\.]{0,1})+\.[a-z]+$/i", $hostName)) return t('Diese Email ist ungültig (Falscher Host-Teil)');
+    if (!preg_match("/^[a-z0-9\_\-\.\%]+$/i", $userName)) return t('Diese Email ist ungÃ¼ltig (Falscher Benutzer-Teil)');
+    if (!preg_match("/^([a-z0-9]+[\-\.]{0,1})+\.[a-z]+$/i", $hostName)) return t('Diese Email ist ungÃ¼ltig (Falscher Host-Teil)');
 
     $subdomains = explode('.', $hostName);
     $tld = $subdomains[count($subdomains) - 1];
-    if (!in_array($tld, $allTLD)) return t('Diese Email ist ungültig (Nicht exitsierende Domain)');
+    if (!in_array($tld, $allTLD)) return t('Diese Email ist ungÃ¼ltig (Nicht exitsierende Domain)');
   }
   return false;
 }

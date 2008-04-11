@@ -56,7 +56,7 @@ class tfunc {
 		while ($member = $db->fetch_array($team_memb)) $member_liste .= $member['username'] . $func->button_userdetails($member['userid'], "") . " (Platz: ". $seat2->SeatNameLink($member['userid'], '', '') .")" . HTML_NEWLINE;
 		$db->free_result($team_memb);
 
-		if ($member_liste == "") return "<i>".t('Keine')."</i>";
+		if ($member_liste == "") return "<i>{$lang["tourney"]["s_res_none"]}</i>";
 		else return $member_liste;
 	}
 
@@ -214,12 +214,11 @@ class tfunc {
 
 			case "single":
 			case "double":
-			case "groups":
 				// Array für Teams auslesen
 				$teams = $db->query("SELECT teams.teamid, teams.name, teams.disqualified, MAX(games.round) AS rounds
 					FROM {$config["tables"]["t2_games"]} AS games
 					LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
-					WHERE games.tournamentid = $tournamentid AND games.group_nr = 0 AND NOT ISNULL( teams.name )
+					WHERE games.tournamentid = $tournamentid AND NOT ISNULL( teams.name )
 					GROUP BY teams.teamid
 					ORDER BY teams.disqualified ASC, rounds DESC, games.score DESC
 					");
@@ -243,7 +242,7 @@ class tfunc {
 					$teams = $db->query("SELECT teams.teamid, teams.name, teams.disqualified, MIN(games.round) AS rounds
 					FROM {$config["tables"]["t2_games"]} AS games
 					LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (teams.leaderid = games.leaderid) AND (teams.tournamentid = games.tournamentid)
-					WHERE games.tournamentid = $tournamentid AND games.group_nr = 0
+					WHERE games.tournamentid = $tournamentid
 					GROUP BY teams.teamid
 					ORDER BY teams.disqualified ASC, rounds ASC, games.score DESC
 					");
@@ -268,6 +267,7 @@ class tfunc {
 			break;
 
 			case "liga":
+			case "groups":
 	 			if ($group_nr == '') $group_nr = 1;
 	 			
 				// Beteiligte Teams in Array einlesen
@@ -524,7 +524,7 @@ class tfunc {
 					    SET score = '". $score2 ."'
 						WHERE gameid = $gameid2
 						");
-		$func->log_event(t('Das Ergebnis (%1 : %2) des Spieles #%3 vs. #%4 wurde eingetragen.', $score1, $score2, $gameid1, $gameid2), 1, t('Turnier Ergebnise'), $gameid1);
+		$func->log_event(str_replace("%SCORE1%", $score1, str_replace("%SCORE2%", $score2, str_replace("%ID1%", $gameid1, str_replace("%ID2%", $gameid2, $lang["tourney"]["s_res_log_scoresubmit"])))), 1, t('Turnier Ergebnise'), $gameid1);
 
 		# Zusätzlich eine Mail an beide Teamleiter senden?
 
@@ -612,7 +612,7 @@ class tfunc {
 					");
 			if ($unfinished_games['gameid'] == ""){
 				$db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET status='closed' WHERE tournamentid = '$tournamentid'");
-				$func->log_event(t('Das letzte Ergebnis im Turnier %1 wurde gemeldet. Das Turnier ist damit geschlossen worden.', $tournament["name"]), 1, t('Turnier Verwaltung'));
+				$func->log_event(str_replace("%T%", $tournament["name"], $lang["tourney"]["s_res_log_lastsubmit"]), 1, $lang["tourney"]["log_t_manage"]);
 			}
 		}
 
@@ -627,7 +627,7 @@ class tfunc {
 			if (($round == $num_rounds)
 			or ((($tournament["mode"] == "single") or ($tournament["mode"] == "groups")) and ($round == $num_rounds - 1))) {
 				$db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET status='closed' WHERE tournamentid = $tournamentid");
-				$func->log_event(t('Das letzte Ergebnis im Turnier %1 wurde gemeldet. Das Turnier ist damit geschlossen worden.', $tournament["name"]), 1, t('Turnier Verwaltung'));
+				$func->log_event(str_replace("%T%", $tournament["name"], $lang["tourney"]["s_res_log_lastsubmit"]), 1, $lang["tourney"]["log_t_manage"]);
 			}
 
 			$this->GenerateNewPosition(1, 2);
@@ -690,17 +690,17 @@ class tfunc {
 					$score2 = $cfg["t_default_win"];
 				}
 
-				$this->SubmitResult($tournamentid, $gameid1, $gameid2, $score1, $score2, t('Ergbnis wurde automatisch gelost, da die Zeit überschritten wurde'));
+				$this->SubmitResult($tournamentid, $gameid1, $gameid2, $score1, $score2, $lang["tourney"]["time_exceed_comment"]);
 
 				// Log action and send mail
-				$func->log_event(t('Das Ergebnis des Spieles %1 gegen %2 im Turnier %3 wurde automatisch gelost, da die Zeit überschritten wurde', $name1, $name2, $tournament['name']), 1, t('Turnier Ergebnise'));
+				$func->log_event(str_replace("%T%", $tournament['name'], str_replace("%TEAM1%", $name1, str_replace("%TEAM2%", $name2, $lang["tourney"]["time_exceed_log"]))), 1, $lang["tourney"]["log_t_score"]);
 				$mail->create_sys_mail($leaderid1,
-					t('Zeitüberschreitung im Turnier %1', $tournament['name']),
-					t('Das Ergebnis Ihres Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um Verzögerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls Sie denken diese Entscheidung wurde zu Unrecht getroffen, melden Sie sich bitte schnellstmöglich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
+					str_replace("%T%", $tournament['name'], $lang["tourney"]["time_exceed_mail_subj"]),
+					str_replace("%T%", $tournament['name'], str_replace("%TEAM1%", $name1, str_replace("%TEAM2%", $name2, str_replace("%SCORE1%", $score1, str_replace("%SCORE2%", $score2, $lang["tourney"]["time_exceed_mail"])))))
 					);
 				$mail->create_sys_mail($leaderid2,
-					t('Zeitüberschreitung im Turnier %1', $tournament['name']),
-					t('Das Ergebnis Ihres Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um Verzögerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls Sie denken diese Entscheidung wurde zu Unrecht getroffen, melden Sie sich bitte schnellstmöglich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
+					str_replace("%T%", $tournament['name'], $lang["tourney"]["time_exceed_mail_subj"]),
+					str_replace("%T%", $tournament['name'], str_replace("%TEAM1%", $name1, str_replace("%TEAM2%", $name2, str_replace("%SCORE1%", $score1, str_replace("%SCORE2%", $score2, $lang["tourney"]["time_exceed_mail"])))))
 					);
 			}
 		}

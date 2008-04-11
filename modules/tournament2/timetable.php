@@ -4,7 +4,7 @@ include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
 
-$dsp->NewContent(t('Turnier-Zeitplan'), t('Hier sehen Sie, welches Turnier zu welcher Zeit stattfindet.'));
+$dsp->NewContent($lang["tourney"]["timetable_caption"], $lang["tourney"]["timetable_subcaption"]);
 
 // Generate Table-head
 $mintime = 9999999999;
@@ -25,7 +25,7 @@ $db->free_result($tournaments);
 
 if ($maxtime > $mintime + 60 * 60 * 24 * 4) $maxtime = $mintime + 60 * 60 * 24 * 4;
 
-$templ['timetable']['head'] .= "<td><b>".t('Turnier')."</b></td>";
+$templ['timetable']['head'] .= "<td><b>{$lang["tourney"]["teammgr_tourney"]}</b></td>";
 for ($z = $mintime; $z <= $maxtime; $z+= (60 * 60 * 2)) $templ['timetable']['head'] .= "<td colspan = 4>". $func->unixstamp2date($z, "time")."</td>";
 
 
@@ -55,7 +55,7 @@ $db->free_result($tournaments);
 $dsp->AddModTpl("tournament2", "timetable");
 
 
-$dsp->AddSingleRow(t('Achtung: Der Zeitraum eines Turnieres kann sich verlängern, wenn sich weitere Teams zu diesem Turnier anmelden.')); 
+$dsp->AddSingleRow($lang["tourney"]["timetable_hint"]); 
 $dsp->AddBackButton("index.php?mod=tournament2", "tournament2/timetable"); 
 $dsp->AddContent();
 

@@ -12,8 +12,7 @@ switch( $_GET["step"] ) {
 	
 	case 2:
 						
-		$func->question(t('Wollen Sie dieses Device wirklich l&ouml;schen?HTML_NEWLINE
-				 				   Dadurch gehen alle (auch f&uuml;r die Statistik relevante) Informationen verloren'),"index.php?mod=noc&action=delete_device&step=3&deviceid=" . $_GET["deviceid"], "index.php?mod=noc");
+		$func->question($lang['noc']['device_delete'],"index.php?mod=noc&action=delete_device&step=3&deviceid=" . $_GET["deviceid"], "index.php?mod=noc");
 		 
 	break;
 	
@@ -22,7 +21,7 @@ switch( $_GET["step"] ) {
 		// DELETE 'em all.... 
 		$check_device = $db->query_first("SELECT id FROM {$config["tables"]["noc_devices"]} WHERE id='{$_GET["deviceid"]}'");
 		
-		if ($check_device["id"] == "") $func->error(t('Das gew&auml;hlte Device existiert nicht'),"");
+		if ($check_device["id"] == "") $func->error($lang['noc']['device_not_exist'],"");
 		
 		else {
 
@@ -31,11 +30,11 @@ switch( $_GET["step"] ) {
 
 				If ($del_query1 && $del_query2) {
 
-					$func->confirmation(t('Das Device wurde erfolgreich gel&ouml;scht.'), "");
+					$func->confirmation($lang['noc']['delete_ok'], "");
 
 				} else {
 
-					$func->error(t('Das Device konnte nicht gel&ouml;scht werden.'), "");
+					$func->error($lang['noc']['delete_error'], "");
 
 				}
 

@@ -2,7 +2,7 @@
 
 if (!$cfg["sponsor_picwidth"]) $cfg["sponsor_picwidth"] = 400;
 
-$dsp->NewContent(t('Unsere Sponsoren'), t('Bei den folgenden Sponsoren möchten wir uns herzlich für ihren Beitrag zu unserer Veranstaltung bedanken.'));
+$dsp->NewContent($lang["sponsor"]["caption"], $lang["sponsor"]["sub_caption"]);
 $sponsoren = $db->query("SELECT * FROM {$config['tables']['sponsor']} WHERE sponsor ORDER BY pos, sponsorid");
 
 $db->query("UPDATE {$config['tables']['sponsor']} SET views = views + 1 WHERE sponsor");

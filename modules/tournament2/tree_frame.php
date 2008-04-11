@@ -3,10 +3,10 @@
 include_once("modules/tournament2/tree.class.php");
 include_once("modules/tournament2/sp_tree.class.php");
 
-$tournamentid 		= $_GET["tournamentid"];
-$fullscreen 		= $_GET["fullscreen"];
-$group		= $_GET['group'];
-if ($group == '') $group = 1;
+$tournamentid 		= $vars["tournamentid"];
+$fullscreen 		= $vars["fullscreen"];
+$group		= $vars["group"];
+if ($group == "") $group = 1;
 
 $tournament = $db->query_first("SELECT name, mode FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
 
@@ -43,7 +43,7 @@ if (($tournament['mode'] == "groups") && ($group > 0)) {
 
 
 if ($team_anz == 0) {
-	$func->information(t('Dieses Turnier wurde noch nicht generiert. Die Paarungen sind noch nicht bekannt.'), "index.php?mod=tournament2&action=tree&step=1");
+	$func->information($lang["tourney"]["games_pairs_unknown"], "index.php?mod=tournament2&action=tree&step=1");
 } else {
 
 	function write_pairs ($bracket, $max_pos) {

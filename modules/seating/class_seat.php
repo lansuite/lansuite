@@ -453,16 +453,16 @@ class seat2 {
 		}
 
 		$plan = $dsp->FetchModTpl('seating', 'plan');
-		$templ['seating']['legend']['free']		= t('Frei');
-		$templ['seating']['legend']['reserved']	= t('Besetzt');
-		$templ['seating']['legend']['clan']		= t('Platz eines Clanmates');
-		$templ['seating']['legend']['marked']	= t('Vorgemerkt');
-		$templ['seating']['legend']['locked']	= t('Gesperrter Platz');
-		$templ['seating']['legend']['checked_in']	= t('Besetzt (Eingecheckt)');
-		$templ['seating']['legend']['checked_out']	= t('Frei (Ausgecheckt)');    		
+		$templ['seating']['legend']['free']		= $lang['seating']['free'];
+		$templ['seating']['legend']['reserved']	= $lang['seating']['reserved'];
+		$templ['seating']['legend']['clan']		= $lang['seating']['clan_seat'];
+		$templ['seating']['legend']['marked']	= $lang['seating']['marked'];
+		$templ['seating']['legend']['locked']	= $lang['seating']['locked'];
+		$templ['seating']['legend']['checked_in']	= $lang['seating']['checked_in'];
+		$templ['seating']['legend']['checked_out']	= $lang['seating']['checked_out'];    		
 		
-		if ($selected_user) $templ['seating']['legend']['me'] = t('Ausgewählter User');
-		else	$templ['seating']['legend']['me']			 = t('Ihr Platz');
+		if ($selected_user) $templ['seating']['legend']['me'] = $lang['seating']['selected'];
+		else	$templ['seating']['legend']['me']			 = $lang['seating']['me'];
 				
 		if ($mode == 0) $plan .= $dsp->FetchModTpl('seating', 'plan_legend');
 		return $plan;

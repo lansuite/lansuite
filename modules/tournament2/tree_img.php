@@ -11,16 +11,17 @@ $tfunc = new tfunc;
 $tfunc->CheckTimeExceed($tournamentid);
 
 
-$tournament = $db->query_first("SELECT tournamentid, name, mode, UNIX_TIMESTAMP(starttime) AS starttime, break_duration, game_duration, max_games, status, mapcycle
+$tournament = $db->query_first("SELECT name, mode, UNIX_TIMESTAMP(starttime) AS starttime, break_duration, game_duration, max_games, status, mapcycle
 		FROM {$config["tables"]["tournament_tournaments"]}
 		WHERE tournamentid = '$tournamentid'
 		");
-$map = explode("\n", $tournament["mapcycle"]);
-if ($map[0] == "") $map[0] = t('unbekannt');
+$map = explode("\n", $func->db2text($tournament["mapcycle"]));
+if ($map[0] == "") $map[0] = $lang["tourney"]["unknown"];
 
 
 ######## Get number of teams
 $team_anz = $tfunc->GetTeamAnz($tournamentid, $tournament["mode"], $_GET["group"]);
+
 
 #### If at least one team is present, and the tounrmanet is started
 if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['status'] == "closed")) {
@@ -83,14 +84,14 @@ if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['statu
 		// Set the backgroundcolour for each round
 		(floor($akt_round) % 2) ? $bg_color = $color["round_bg_2"] : $bg_color = $color["round_bg_1"];
 		ImageFilledRectangle ($gd->img, $xpos - 5, 0, $xpos + $box_width + 4, $img_height, $bg_color);
-		$gd->Text($xpos, 5, $color["text"], t('Runde') .": $akt_round");
+		$gd->Text($xpos, 5, $color["text"], $lang["tourney"]["games_round"] .": $akt_round");
 
 		$round_start = $func->unixstamp2date($tfunc->GetGameStart($tournament, $akt_round), "time");
 		$round_end = $func->unixstamp2date($tfunc->GetGameEnd($tournament, $akt_round), "time");
 
 		// Output time & map
-		$gd->Text($xpos, 15, $color["text"], t('Zeit') .": ". $round_start ." - ". $round_end);
-		$gd->Text($xpos, 25, $color["text"], t('Map') .": ". $map[(abs(floor($akt_round)) % count($map))]);
+		$gd->Text($xpos, 15, $color["text"], $lang["tourney"]["tree_time"] .": ". $round_start ." - ". $round_end);
+		$gd->Text($xpos, 25, $color["text"], $lang["tourney"]["tree_map"] .": ". $map[(abs(floor($akt_round)) % count($map))]);
 
 		$spieler1 = "";
 		$i = 0;
@@ -106,11 +107,11 @@ if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['statu
 
 			if ($spieler1 == "") {
 				if ($game == 0) {
-					$game['name'] = t('Noch Unbekannt');
+					$game['name'] = $lang["tourney"]["games_unknown"];
 					$known_game1 = 0;
 				} else {
 					$known_game1 = 1;
-					if ($game['leaderid'] == 0) $game['name'] = t('Freilos');
+					if ($game['leaderid'] == 0) $game['name'] = $lang["tourney"]["games_gamefree"];
 				}
 				$spielerid1 = $game['leaderid'];
 				$spieler1 = $game['name'];
@@ -119,11 +120,11 @@ if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['statu
 			} else {
 				$i++;
 				if ($game == 0) {
-					$game['name'] = t('Noch Unbekannt');
+					$game['name'] = $lang["tourney"]["games_unknown"];
 					$known_game2 = 0;
 				} else {
 					$known_game2 = 1;
-					if ($game['leaderid'] == 0) $game['name'] = t('Freilos');
+					if ($game['leaderid'] == 0) $game['name'] = $lang["tourney"]["games_gamefree"];
 				}
 				$spielerid2 = $game['leaderid'];
 				$spieler2 = $game['name'];
@@ -173,15 +174,12 @@ if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['statu
 				if (($akt_round < 0) && ($akt_round == floor($akt_round))) {
 					if (floor($akt_round / 2) == $akt_round / 2) $from_round = (floor($akt_pos / 2) + 1);
 					else $from_round = (($max_pos / 2) - floor($akt_pos / 2));
-					$gd->Text($xpos, $ypos - 26, $color["text"], str_replace("%ROUND%", (abs($akt_round)), str_replace("%GAME%", $from_round, t('Verlierer aus
-Runde %ROUND% Partie %GAME%'))));
+					$gd->Text($xpos, $ypos - 26, $color["text"], str_replace("%ROUND%", (abs($akt_round)), str_replace("%GAME%", $from_round, $lang["tourney"]["tree_from_winner"])));
 				}
 
 				// Specialtext: Final
 				if ($akt_round == $max_round) {
-					$gd->Text($xpos, $ypos+$box_height + 4, $color["text"], str_replace("%ROUND%", ($akt_round * (-1) + 1), str_replace("%GAME%", (floor($akt_pos / 2) + 1), t('Der Gewinner aus
-Runde %ROUND% Partie %GAME%
-muss hier 2x siegen'))));
+					$gd->Text($xpos, $ypos+$box_height + 4, $color["text"], str_replace("%ROUND%", ($akt_round * (-1) + 1), str_replace("%GAME%", (floor($akt_pos / 2) + 1), $lang["tourney"]["tree_final_text"])));
 				}
 
 				$spieler1 = "";

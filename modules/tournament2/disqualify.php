@@ -8,11 +8,11 @@ $team = $db->query_first("SELECT teams.name, t.name AS t_name, teams.leaderid, t
 		WHERE (teams.teamid = $teamid)
 		");
 
-if (!$team['tournamentid']) $func->error(t('Das ausgewählte Turnier existiert nicht'), "");
+if (!$team['tournamentid']) $func->error($lang["tourney"]["t_not_exist"], "");
 else switch ($_GET["step"]){
 	// Disqualify-Question
 	default:
-		$func->question(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Soll das Team \'%NAME%\' wirklich im Turnier \'%T%\' disqualifiziert werden?HTML_NEWLINEDiese Aktion kann nicht mehr rückgängig gemacht werden!'))), "index.php?mod=tournament2&action=disqualify&step=2&teamid=$teamid", $func->internal_referer);
+		$func->question(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], $lang["tourney"]["disqualify_question"])), "index.php?mod=tournament2&action=disqualify&step=2&teamid=$teamid", $func->internal_referer);
 	break;
 
 	// Disqualify
@@ -44,15 +44,15 @@ else switch ($_GET["step"]){
 					$score1 = $cfg["t_default_win"];
 					$score2 = 0;
 				}
-				$tfunc->SubmitResult($team['tournamentid'], $team2['gid1'], $team2['gid2'], $score1, $score2, addslashes(str_replace("%NAME%", $team['name'], t('Defaultwin. Team \'%NAME%\' wurde Disqualifiziert.'))));
+				$tfunc->SubmitResult($team['tournamentid'], $team2['gid1'], $team2['gid2'], $score1, $score2, addslashes(str_replace("%NAME%", $team['name'], $lang["tourney"]["disqualify_comment"])));
 			}
 		}
 
-		$func->log_event(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Das Team \'%NAME%\' wurde im Turnier \'%T%\' disqualifiziert'))), 1, t('Turnier Teamverwaltung'));
+		$func->log_event(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], $lang["tourney"]["disqualify_log"])), 1, $lang["tourney"]["log_t_teammanage"]);
 
-		$mail->create_sys_mail($team['leaderid'], str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Ihr Team \'%NAME%\' wurde im Turnier \'%T%\' disqualifiziert'))), str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Ein Admin hat soeben Ihr Team \'%NAME%\' im Turnier \'%T%\' disqualifiziert. Damit nehmen Sie nicht mehr teil.'))));
+		$mail->create_sys_mail($team['leaderid'], str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], $lang["tourney"]["disqualify_mail_subj"])), str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], $lang["tourney"]["disqualify_mail"])));
 
-		$func->confirmation(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Das Team \'%NAME%\' wurde erfolgreich im Turnier \'%T%\' disqualifiziert'))), "index.php?mod=tournament2");
+		$func->confirmation(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], $lang["tourney"]["disqualify_success"])), "index.php?mod=tournament2");
 	break;
 
 
@@ -60,11 +60,11 @@ else switch ($_GET["step"]){
 	case 10:
 		$db->query("UPDATE {$config["tables"]["t2_teams"]} SET disqualified='0' WHERE (teamid = $teamid)");
 
-		$func->log_event(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Die Disqualifikation des Teams \'%NAME%\' im Turnier \'%T%\' wurde zurückgenommen'))), 1, t('Turnier Teamverwaltung'));
+		$func->log_event(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], $lang["tourney"]["undisqualify_log"])), 1, $lang["tourney"]["log_t_teammanage"]);
 
-		$mail->create_sys_mail($team['leaderid'], str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Die Disqualifikation deines Teams \'%NAME%\' wurde zurückgenommen'))), str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Ein Admin hat gerade die Disqualifikation deines Teams \'%NAME%\' im Turnier \'%T%\' zurückgenommen. Sie können wieder am Turnier teilnehmen.'))));
+		$mail->create_sys_mail($team['leaderid'], str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], $lang["tourney"]["undisqualify_mail_subj"])), str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], $lang["tourney"]["undisqualify_mail"])));
 
-		$func->confirmation(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Die Disqualifikation des Teams \'%NAME%\' im Turnier \'%T%\' wurde erfolgreich zurückgenommen. Achten Sie darauf, dass alle Ergebnise, die durch die Disqualifizierung automatisch eingetragen wurden, immernoch eingetragen sind. Um diese zu korrigieren, können Sie die betreffenden Spiele einfach mit neuen Ergebnisen überschreiben.'))), "index.php?mod=tournament2");
+		$func->confirmation(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], $lang["tourney"]["undisqualify_success"])), "index.php?mod=tournament2");
 	break;
 }
 */

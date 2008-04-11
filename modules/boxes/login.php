@@ -3,7 +3,7 @@
 $templ['box']['rows'] = '';
 
 if ($_GET['mod'] == 'logout') $templ['login']['action'] = 'index.php';
-else $templ['login']['action'] = "index.php?mod=auth&action=login";
+else $templ['login']['action'] = $CurentURLBase;
 $templ['login']['buttons_add'] = $dsp->FetchIcon('index.php?mod=signon', 'add_user');
 $templ['login']['buttons_pw'] = $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=pwrecover', 'pw_forgot');
 

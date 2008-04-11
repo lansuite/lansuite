@@ -57,9 +57,9 @@ if($_GET[queryid])
 				// Question
 				//
 				if($cfg['sys_internet'] == 0){
-					$func->question(t('Wollen Sie den Benutzer <b>%1 (%2 %3)</b> wirklich aus Ihrer Buddy-Liste entfernen?',$row[name],$row[firstname],$row[username]),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php");
+					$func->question(str_replace('%NAME%',$row[name],str_replace('%FIRSTNAME%',$row[firstname],str_replace('%USERNAME%',$row[username],$lang['msgsys']['confirm_delete']))),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php");
 				}else {
-					$func->question(t('Wollen Sie den Benutzer <b>%1</b> wirklich aus Ihrer Buddy-Liste entfernen?', $row[username]),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php");
+					$func->question(str_replace('%USERNAME%',$row[username],$lang['msgsys']['confirm_delete2']),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php");
 				}
 			} // if
 			else
@@ -67,7 +67,7 @@ if($_GET[queryid])
 				//
 				// Error
 				//
-				$func->error(t('Dieser Benutzer befindet sich nicht in ihrer Buddy-Liste'),"");
+				$func->error($lang['msgsys']['err_not_a_buddy'],"");
 
 			} // else
 
@@ -102,9 +102,9 @@ if($_GET[queryid])
 			//
 			if($row2 == TRUE){
 				if($cfg['sys_internet'] == 1){
-					$func->confirmation(t('Der Benutzer <b>%1</b> wurde aus Ihrer Buddy-Liste entfernt. Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf wirksam.', $row1[username]),"");
+					$func->confirmation(str_replace('%USERNAME%',$row1[username],$lang['msgsys']['del_confirm']),"");
 				}else{
-					$func->confirmation(t('Der Benutzer <b>%1 (%2 %3)</b> wurde aus Ihrer Buddy-Liste entfernt. Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf wirksam.', $row1[name],$row1[firstname],$row1[username]),"");
+					$func->confirmation(str_replace('%NAME%',$row1[name],str_replace('%FIRSTNAME%',$row1[firstname],str_replace('%USERNAME%',$row1[username],$lang['msgsys']['del_confirm2']))),"");
 				}
 			}
 
@@ -119,6 +119,6 @@ else
 	//
 	// Error
 	//
-	$func->error(t('Sie haben keinen Benutzer ausgew&auml;hlt'),"");
+	$func->error($lang['msgsys']['err_no_user_choosen'],"");
 } // else queryid
 ?>

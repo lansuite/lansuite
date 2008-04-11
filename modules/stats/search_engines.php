@@ -1,10 +1,10 @@
 <?php
 
-$dsp->NewContent(t('Suchmaschinen'), t('Hier sehen Sie, &uuml;ber welche Suchbegriffe Besucher &uuml;ber Suchmaschinenen auf Ihrer Seite gelandet sind'));
+$dsp->NewContent($lang["stats"]["se_caption"], $lang["stats"]["se_subcaption"]);
 
 // Generate header menu
 $se_name = array ();
-$se_name[] = t('Alle');
+$se_name[] = $lang["stats"]["se_all"];
 $query = $db->query("SELECT se FROM {$config["tables"]["stats_se"]} GROUP BY se ORDER BY se");
 $i = 1;
 while ($row = $db->fetch_array($query)) {

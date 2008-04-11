@@ -8,7 +8,7 @@ switch ($_GET["step"]){
 	default:
 		$dsp->NewContent($lang["install"]["wizard_caption"], $lang["install"]["wizard_subcaption"]);
 
-		$dsp->SetForm("index.php?mod=install&action=wizard");
+		$dsp->SetForm("index.php?mod=install&action=wizard&step=1");
 		$lang_array = array();
 		if ($language == "de") $selected = 'selected'; else $selected = '';
 		array_push ($lang_array, "<option $selected value=\"de\">Deutsch</option>");
@@ -141,7 +141,6 @@ switch ($_GET["step"]){
 
 	// Display import form
 	case 4:
-
 		$dsp->NewContent($lang["install"]["wizard_import_caption"], $lang["install"]["wizard_import_subcaption"]);
 
 		$dsp->SetForm("index.php?mod=install&action=wizard&step=5", "", "", "multipart/form-data");
@@ -227,14 +226,11 @@ switch ($_GET["step"]){
 	case 6:
 		$dsp->NewContent($lang["install"]["wizard_admin_caption"], $lang["install"]["wizard_admin_subcaption"]);
 		$dsp->SetForm("index.php?mod=install&action=wizard&step=7");
-		// FIX language
-        if (func::admin_exists()) $dsp->AddDoubleRow("Info", "Es existiert bereits ein Adminaccount");
-        
 		$dsp->AddTextFieldRow("email", $lang["install"]["admin_email"], 'admin@admin.de', '');
 		$dsp->AddPasswordRow("password", $lang["install"]["conf_pass"], '', '', '', '', "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel1)\"");
 		$dsp->AddPasswordRow("password2", $lang["install"]["admin_pass2"], '', '');
-        $templ['pw_security']['id'] = 1;
-        $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
+    $templ['pw_security']['id'] = 1;
+    $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
 		$dsp->AddFormSubmitRow("add");
 
 		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=8", "next"));
@@ -271,7 +267,15 @@ switch ($_GET["step"]){
 						");
 				$userid = $db->insert_id();
 				$db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid = '$userid'");
+
+				// Log in
+        if (!$auth['login']) {
+          $_POST['email'] = $_POST['email'];
+          $_POST['password'] = $_POST['password_original'];
+          $authentication->login('save');
+        }
 			}
+			$found_adm = 1;
 		}
 	// No break!
 
@@ -291,7 +295,7 @@ switch ($_GET["step"]){
 		$country_array = array();
 		while ($selection = $db->fetch_array($get_cfg_selection)){
 			($language == $selection["cfg_value"]) ? $selected = "selected" : $selected = "";
-			array_push ($country_array, "<option $selected value=\"{$selection["cfg_value"]}\">". t($selection["cfg_display"]) ."</option>");
+			array_push ($country_array, "<option $selected value=\"{$selection["cfg_value"]}\">". $func->translate($selection["cfg_display"]) ."</option>");
 		}
 		$dsp->AddDropDownFieldRow("country", $lang["install"]["vars_country"], $country_array, "");
 
@@ -327,17 +331,17 @@ switch ($_GET["step"]){
 
 		unset($_SESSION['language']);
 
+		$config["environment"]["configured"] = 1;
+		$install->WriteConfig($cfg_set);
+
 		$dsp->NewContent($lang["install"]["wizard_final_caption"], $lang["install"]["wizard_final_subcaption"]);
         	
 		$dsp->AddSingleRow($lang["install"]["wizard_final_text"]);
-		if (!func::admin_exists()) $dsp->AddSingleRow("<font color=red>". $lang["install"]["wizard_warning_noadmin"] ."</font>");
+		if (!$found_adm) $dsp->AddSingleRow("<font color=red>". $lang["install"]["wizard_warning_noadmin"] ."</font>");
 
-		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install", "login"));
+		$dsp->AddDoubleRow("", $dsp->FetchIcon("index.php?mod=install", "signon"));
 		$dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/admin");
 		$dsp->AddContent();
-		
-		$config["environment"]["configured"] = 1;
-		$install->WriteConfig($cfg_set);
 	break;
 }
 

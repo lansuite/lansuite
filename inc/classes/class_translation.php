@@ -16,26 +16,8 @@ function ReplaceParameters($input, $parameters = NULL, $key = NULL) {
   return $input;
 }
 
-/**
- * t() Translate the given String into the selectd Language. The first Argument is 
- * the String to Translate, the following Parameters for dynamic Data.
- * Example : t('Your name is %1 and your Email is %2', $row['name'], $row['email'])
- * Important use %1, %2, %3 for dynamic Data.
- *
- * @return string The translated String
- */
-function t(/*$input, $parameter1, $parameter2....*/) {
+function t($input, $parameters = NULL) {
   global $db, $config, $language, $lang, $TranslationFirstRun, $func;
-    
-    // First argument is the Inputstring, the following are Parameters
-    $args = func_get_args();
-    (string)$input = array_shift($args);
-
-    foreach ($args as $CurrentArg) {
-        // If second Parameter is Array (old Style)
-        if (!is_array($CurrentArg)) $parameters[] = $CurrentArg;
-            else $parameters = $CurrentArg;        
-    }
 
   if ($input == '') return '';
   if (!$db->success) return ReplaceParameters($input, $parameters);

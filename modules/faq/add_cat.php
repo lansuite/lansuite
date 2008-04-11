@@ -28,7 +28,7 @@ switch($_GET["step"]) {
 		
 				if($name == $_POST["cat_caption"]) {
 				
-					$faq_error['cat_caption'] = t('Dieser Kategoriename existiert bereits');
+					$faq_error['cat_caption'] = $lang['faq']['cat_exists'];
 					$_GET["step"] = 1;
 				}
 		}
@@ -36,7 +36,7 @@ switch($_GET["step"]) {
 			
 		if($_POST["cat_caption"] == "") {
 			
-			$faq_error['cat_caption']	= t('Bitte geben Sie einen Namen für die neue Kategorie ein');
+			$faq_error['cat_caption']	= $lang['faq']['no_cat_name'];
 			
 			eval($error);
 			
@@ -55,9 +55,9 @@ switch($_GET["step"]) {
 			
 	unset($_SESSION['add_blocker_faqcat']);
 			
-	$dsp->NewContent(t('Kategorie hinzufügen'),t(' Um eine Kategorie hinzuzufügen, füllen Sie bitte das folgende Formular aus. Für das Feld Kategoriename stehen Ihnen 30 Zeichen zur Verfügung.'));
+	$dsp->NewContent($lang['faq']['add_cat_caption'],$lang['faq']['add_cat_subcaption']);
 	$dsp->SetForm("index.php?mod=faq&object=cat&action=add_cat&step=2");
-	$dsp->AddTextFieldRow("cat_caption",t('Neue Kategorie'),$_POST['cat_caption'],$faq_error['cat_caption']);
+	$dsp->AddTextFieldRow("cat_caption",$lang['faq']['new_cat'],$_POST['cat_caption'],$faq_error['cat_caption']);
 	$dsp->AddFormSubmitRow("add");
 	$dsp->AddContent();
 			
@@ -76,7 +76,7 @@ switch($_GET["step"]) {
 										catid = '$catid'
 										");
 		
-			if($add_it == 1) { $func->confirmation(t('Die Kategorie wurde erfolgreich eingetragen'),"");
+			if($add_it == 1) { $func->confirmation($lang['faq']['add_cat_ok'],"");
 							
 				$_SESSION['add_blocker_faqcat'] = 1;	
 									

@@ -157,22 +157,6 @@
 				<default></default>
 				<extra></extra>
 			</field>
-			<field>
-				<name>requirement</name>
-				<type>int(15)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>enddate</name>
-				<type>datetime</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
 		</structure>
 		<content>
 		</content>

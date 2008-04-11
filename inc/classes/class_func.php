@@ -1,33 +1,16 @@
 <?php
 define('NO_LINK', -1);
 
-/**
- * Global Functions
- *
- * @package lansuite_core
- * @author ls_admin
- * @version $Id$
- * @access public
- * @todo Remove Dialogfunctions and create own class
- */
 class func {
 
-  /**
-   * CONSTRUCTOR : Get referer and transform in a internal Link
-   *
-   */
-    function func() {
-        $url_array = parse_url($_SERVER['HTTP_REFERER']);
-        $this->internal_referer = "?".$url_array['query'].$url_array['fragment'];
+	// Constructor
+	// Referer ermitteln und in einen Internen Link wandeln
+	function func() {
+		$url_array = parse_url($_SERVER['HTTP_REFERER']);
+		$this->internal_referer = "?".$url_array['query'].$url_array['fragment'];
     }
 
 
-  /**
-   * Read the Config-settings from DB
-   * @global mixed Databaseobject
-   * @global array Baseconfig from File
-   * @return array Config-array with all Settings from DB
-   */
 	function read_db_config() {
 		global $db, $config;
 
@@ -54,12 +37,10 @@ class func {
 	}
 
 	function button_userdetails($userid, $target) {
-		global $db;
+		global $auth;
 
 		if ($target == "new") $target = 'target="_blank"';
-    $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = "1" AND lasthit > %int%', $userid, time() - 60*10);
-		($user_online['found'])? $state ='online' : $state ='offline';
-		return ' <a href="index.php?mod=usrmgr&action=details&userid='.$userid.'" '.$target.'><img src="design/images/arrows_user_'. $state .'.png" border="0"/></a>';
+		return ' <a href="index.php?mod=usrmgr&action=details&userid='.$userid.'" '.$target.'><img src="design/'. $auth["design"] .'/images/arrows_user.gif" border="0"/></a>';
 	}
 
   function FetchMasterTmpl($file) {
@@ -85,7 +66,7 @@ class func {
     	$templ['index']['control']['current_url'] = 'index.php?'. $URLQuery .'&fullscreen=no';
   		$tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'current_url\']}', $templ['index']['control']['current_url'], $tpl_str);
 
-      if ($auth['login']) $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', ' | <a href="index.php?mod=auth&action=logout" class="menu">Logout</a>', $tpl_str);
+      if ($auth['login']) $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', ' | <a href="index.php?mod=logout" class="menu">Logout</a>', $tpl_str);
       else $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', '', $tpl_str);
 
   		$tpl_str = str_replace('{$templ[\'index\'][\'debug\'][\'content\']}', $this->ShowDebug(), $tpl_str);
@@ -405,7 +386,7 @@ class func {
 #		$string = str_replace("?&gt;", '?'.'>', $string);
 		$string = strip_tags($string);
 
-		$string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" />', $string);
+		$string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="1" class="img" alt="" />', $string);
 		$string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
 
     $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
@@ -497,7 +478,7 @@ class func {
         userid='$atuser',
         description='". $this->escape_sql($message) ."',
         type='$type',
-        date=NOW(),
+        date='$timestamp',
         sort_tag = '$sort_tag',
         target_id = '$target_id'
         ");
@@ -589,6 +570,11 @@ class func {
     return $text;
 	}
 
+	// Old. Do not use any more
+	function db2text($text) {
+    return $text;
+	}
+
 	function check_exist($checktype, $id) {
 		global $db, $config;
 
@@ -615,7 +601,7 @@ class func {
 	function ShowDebug() {
 		global $cfg, $auth;
 
-        if ($auth['type'] >= 2 and $cfg['sys_showdebug']) {
+		if ($auth['type'] >= 2 and $cfg['sys_showdebug']) {
 			$debug = $this->debug_parse_array($_GET, '$_GET');
 			$debug .= $this->debug_parse_array($_POST, '$_POST');
 			$debug .= $this->debug_parse_array($auth, '$auth');
@@ -624,9 +610,10 @@ class func {
 			$debug .= $this->debug_parse_array($_COOKIE, '$_COOKIE');
 			$debug .= $this->debug_parse_array($_SESSION, '$_SESSION');
 			$debug .= $this->debug_parse_array($_SERVER, '$_SERVER');
-			$debug .= $this->debug_parse_array($_FILES["importdata"], '$_FILES[importdata]'); 
-            $debug = '<div class="content" align="left">'. $debug .'</div>';
-      		return $debug;
+			$debug .= $this->debug_parse_array($_FILES["importdata"], '$_FILES[importdata]');
+
+      $debug = '<div class="content" align="left">'. $debug .'</div>';
+  		return $debug;
 		}
 		return '';
 	}
@@ -639,7 +626,7 @@ class func {
 		if ($array) foreach($array as $key => $value) {
 			if (is_array($value)) $debug .= $this->debug_parse_array($value, "Array => $key", $level++);
 			else {
-				if (strlen($value) > 80) $value = wordwrap($value, 80, "<br />\n", 1);
+				if (strlen($value) > 80) $value = $this->wrap($value, 80);
 				$debug .= HTML_NEWLINE .$spaces. "$key = $value";
 			}
 		}
@@ -792,6 +779,21 @@ class func {
 
 		}
 	}
+
+	function translate($in) {
+    $return = t($in);
+    return $return;
+	}
+
+  function wrap($text, $maxlength, $spacer = "<br />\n") {
+    $textarr = explode(' ', $text);
+    $i = 0;
+    foreach($textarr as $textpart) {
+      if (strlen($textpart) > $maxlength) $textarr[$i] = chunk_split($textpart, $maxlength, $spacer);
+      $i++;
+    }
+    return implode (' ', $textarr);
+  }
   
   function FormatFileSize($size){
     $i = 0;
@@ -822,7 +824,6 @@ class func {
    *
    * @param  mixed    Path to test for validity
    * @return boolean  Path OK an Picture exists
-   * @static
    */
     function chk_img_path($imgpath) {
         if ($imgpath != '' and $imgpath != 'none' and $imgpath != '0') {
@@ -833,47 +834,6 @@ class func {
             }
         }
     }  
-    
-  /**
-   * Select and set the Language
-   *
-   * @param boolean If $configured = true dbconfig will be also read
-   * @return string Returns a valid Language selected by User
-   * @static
-   */
-    function get_lang($configured = false){
-        global $cfg;
-        $valid_lang = array('de','en', 'es', 'fr','nl', 'it');
-        
-        if     ($_POST['language']) $_SESSION['language'] = $_POST['language'];
-        elseif ($_GET['language'])  $_SESSION['language'] = $_GET['language'];
-        
-        if ($_SESSION['language']) $func_language = $_SESSION['language'];
-        elseif ($configured) {
-            // Get Syslanguage only if configured
-            if ($cfg["sys_language"]) $func_language = $cfg["sys_language"];
-                else $func_language = "de";
-        } else $func_language = "de";
-        
-        if (!in_array($func_language,$valid_lang)) $func_language = "de"; # For avoiding bad Code-Injections 
-        return $func_language;
-    }
-    
-  /**
-   * Read DB and shows if a Superadmin exists
-   *
-   * @return boolean
-   * @static
-   */
-    function admin_exists(){
-        global $db, $config;
-        if (is_object($db) AND is_array($config) AND $db->success==1) {
-            $res = $db->query("SELECT userid FROM {$config["database"]["prefix"]}user WHERE type = 3 LIMIT 1");
-            if ($db->num_rows($res) > 0) $found = 1; else $found = 0;
-            $db->free_result($res);
-            return $found;
-        } else return 0;
-    }
 
 }
 ?>

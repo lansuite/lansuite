@@ -115,7 +115,7 @@
 				<id>960b44c579bc2f6818d2daaf9e4c16f0</id>
 				<tid>91</tid>
 				<org>Normal</org>
-				<en>Normal</en>
+				<en></en>
 				<file>news</file>
 			</entry>
 			<entry>
@@ -133,6 +133,20 @@
 				<file>news</file>
 			</entry>
 			<entry>
+				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
+				<tid>94</tid>
+				<org>Nein</org>
+				<en>No</en>
+				<file>news</file>
+			</entry>
+			<entry>
+				<id>375ee26098b46e23bcb854331f0ad8c5</id>
+				<tid>95</tid>
+				<org>Ja</org>
+				<en>Yes</en>
+				<file>news</file>
+			</entry>
+			<entry>
 				<id>34357d471a47e12b2bbf2c2c0785952f</id>
 				<tid>96</tid>
 				<org>Top-Meldung</org>
@@ -140,10 +154,24 @@
 				<file>news</file>
 			</entry>
 			<entry>
+				<id>cf0e3ecd5943bd110cc6449b1c23d29a</id>
+				<tid>97</tid>
+				<org>Die News "%1" wurde geändert</org>
+				<en>News %1 have been changed</en>
+				<file>news</file>
+			</entry>
+			<entry>
+				<id>86d8d0521e5d083b15e7a7ab90327984</id>
+				<tid>98</tid>
+				<org>Die News "%1" wurde erstellt</org>
+				<en>News %1 have been created</en>
+				<file>news</file>
+			</entry>
+			<entry>
 				<id>ad497a59cdd8e2b20cddc69d74dfeec4</id>
 				<tid>99</tid>
 				<org>Newsfeed</org>
-				<en>Newsfeed</en>
+				<en></en>
 				<file>news</file>
 			</entry>
 			<entry>
@@ -196,6 +224,27 @@
 				<file>news</file>
 			</entry>
 			<entry>
+				<id>dcd0c05db6833da5c84f96edafe6c15f</id>
+				<tid>107</tid>
+				<org>Sind Sie sicher, dass Sie die Newsmeldung --lt--b--gt--%1--lt--/b--gt-- wirklich l&ouml;schen wollen?</org>
+				<en>Are you shure about deleting news %1?</en>
+				<file>news</file>
+			</entry>
+			<entry>
+				<id>ea981dc8563f03c37c4523ac0d90c21c</id>
+				<tid>108</tid>
+				<org>Die Newsmeldung wurde erfolgreich gelöscht</org>
+				<en>News has been deleted successfully</en>
+				<file>news</file>
+			</entry>
+			<entry>
+				<id>4207f186045cd3f4cb5803892962cd9d</id>
+				<tid>109</tid>
+				<org>Die News "%1" wurde gelöscht</org>
+				<en>News %1 been deleted</en>
+				<file>news</file>
+			</entry>
+			<entry>
 				<id>18a8022569d6ced829f833aa855530ce</id>
 				<tid>110</tid>
 				<org>Titel</org>
@@ -206,7 +255,7 @@
 				<id>c481b00a606907fd59b4d46623b8d99d</id>
 				<tid>111</tid>
 				<org>Autor</org>
-				<en>Author</en>
+				<en></en>
 				<file>news</file>
 			</entry>
 			<entry>
@@ -231,129 +280,17 @@
 				<file>news</file>
 			</entry>
 			<entry>
-				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
-				<tid>480</tid>
-				<org>Text</org>
-				<en>Text</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>f030a2eb086608f51539becffd28b4e0</id>
-				<tid>2055</tid>
-				<org>News Archiv</org>
-				<en>Newsarchiv</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>622b8b4706839855613a8b00115454cd</id>
-				<tid>2056</tid>
-				<org>Archivierte Mitteilungen</org>
-				<en>Archived Notices</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>35c9c1df912962d906c66f5a2d0c3a48</id>
-				<tid>2057</tid>
-				<org>Zur&uuml;ck</org>
-				<en>Back</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>10fbd0690508ebbbf614ef03f417b906</id>
-				<tid>2058</tid>
-				<org>Hier sehen Sie aktuelle Neuigkeiten.</org>
-				<en>Here are the latest news.</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>9b7c3cb8f1d6ea930aaf50b48d3175af</id>
-				<tid>2059</tid>
-				<org>Kommentar(e)</org>
-				<en>Comment(s)</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>c4739a9771977c455528f194c138cdbc</id>
-				<tid>2060</tid>
-				<org>&Auml;ltere Mitteilungen</org>
-				<en>Old Notices</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>e00147ea0b7008a411c5ad1b6b2aeea4</id>
-				<tid>2061</tid>
-				<org>Newsübersicht</org>
-				<en>Newsoverview</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
-				<tid>4341</tid>
-				<org>Nein</org>
-				<en>No</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>375ee26098b46e23bcb854331f0ad8c5</id>
-				<tid>4342</tid>
-				<org>Ja</org>
-				<en>Yes</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
-				<tid>94</tid>
-				<org>Nein</org>
-				<en>No</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>375ee26098b46e23bcb854331f0ad8c5</id>
-				<tid>95</tid>
-				<org>Ja</org>
-				<en>Yes</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>cf0e3ecd5943bd110cc6449b1c23d29a</id>
-				<tid>97</tid>
-				<org>Die News "%1" wurde geändert</org>
-				<en>News %1 have been changed</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>86d8d0521e5d083b15e7a7ab90327984</id>
-				<tid>98</tid>
-				<org>Die News "%1" wurde erstellt</org>
-				<en>News %1 have been created</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>dcd0c05db6833da5c84f96edafe6c15f</id>
-				<tid>107</tid>
-				<org>Sind Sie sicher, dass Sie die Newsmeldung --lt--b--gt--%1--lt--/b--gt-- wirklich l&ouml;schen wollen?</org>
-				<en>Are you shure about deleting news %1?</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>ea981dc8563f03c37c4523ac0d90c21c</id>
-				<tid>108</tid>
-				<org>Die Newsmeldung wurde erfolgreich gelöscht</org>
-				<en>News has been deleted successfully</en>
-				<file>news</file>
-			</entry>
-			<entry>
-				<id>4207f186045cd3f4cb5803892962cd9d</id>
-				<tid>109</tid>
-				<org>Die News "%1" wurde gelöscht</org>
-				<en>News %1 been deleted</en>
-				<file>news</file>
-			</entry>
-			<entry>
 				<id>0a9aacd545a433d4d47571c9072fd8e2</id>
 				<tid>117</tid>
 				<org>Hier sehen Sie aktuelle Informationen</org>
 				<en>See curren information</en>
+				<file>news</file>
+			</entry>
+			<entry>
+				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
+				<tid>480</tid>
+				<org>Text</org>
+				<en></en>
 				<file>news</file>
 			</entry>
 		</content>

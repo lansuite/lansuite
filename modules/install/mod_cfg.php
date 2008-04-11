@@ -53,16 +53,16 @@ switch ($_GET['step']) {
           $_GET["module"], $rowGroup['cfg_group']
           );
   			while ($row = $db->fetch_array($res)){
-  				$row['cfg_desc'] = t($row['cfg_desc']);
-  				if ($row['cfg_type'] == 'string') $row['cfg_value'] = t($row['cfg_value']);
+  				$row['cfg_desc'] = $func->translate($row['cfg_desc']);
+  				if ($row['cfg_type'] == 'string') $row['cfg_value'] = $func->translate($row['cfg_value']);
 
   				// Get Selections
-  				$get_cfg_selection = $db->qry('SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = %string% ORDER BY cfg_value', $row['cfg_type']);
+  				$get_cfg_selection = $db->qry('SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = %string%', $row['cfg_type']);
   				if ($db->num_rows($get_cfg_selection) > 0) {
   					$t_array = array();
   					while ($selection = $db->fetch_array($get_cfg_selection)){
   						($row['cfg_value'] == $selection['cfg_value']) ? $selected = 'selected' : $selected = '';
-  						array_push ($t_array, "<option $selected value=\"{$selection["cfg_value"]}\">". t($selection['cfg_display']) .'</option>');
+  						array_push ($t_array, "<option $selected value=\"{$selection["cfg_value"]}\">". $func->translate($selection['cfg_display']) .'</option>');
   					}
   					$dsp->AddDropDownFieldRow($row['cfg_key'], $row['cfg_desc'], $t_array, '', 1);
 
@@ -189,7 +189,7 @@ switch ($_GET['step']) {
 
   // Database
   case 40:
-		if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) $func->error(t('Modul "%1" wurde nicht gefunden', $_GET['module']), '');
+		if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) $func->error(t('Modul "%1" wurde nicht gefunden', array($_GET['module'])), '');
 		else {
 #			$dsp->NewContent($lang["install"]["modules_db_caption"] .": ". $_GET["module"], $lang["install"]["modules_db_subcaption"]);
 

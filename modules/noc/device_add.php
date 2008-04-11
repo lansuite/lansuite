@@ -15,7 +15,7 @@ switch( $_GET["step"] ) {
 	
 		If( $_POST["device_caption"] == "" ) { 
 
-			$noc_error['device_caption'] = t('Bitte geben Sie einen Namen f&uuml;r das Device ein');
+			$noc_error['device_caption'] = $lang['noc']['device_caption_error'];
 
 			$_GET["step"] = 1;
 			
@@ -23,7 +23,7 @@ switch( $_GET["step"] ) {
 		
 		If( $_POST["device_ip"] == "" ) {
 		
-			$noc_error['device_ip'] = t('Bitte geben Sie eine IP-Adresse f&uuml;r das Device ein');
+			$noc_error['device_ip'] = $lang['noc']['device_ip_error'];
 			
 			$_GET["step"] = 1;
 			
@@ -31,7 +31,7 @@ switch( $_GET["step"] ) {
 		
 			If( !( $func->checkIP( $_POST["device_ip"] ) ) ) {
 				
-				$noc_error['device_ip'] = t('Bitte geben Sie eine <em>g&uuml;ltige</em> IP-Adresse f&uuml;r das Device ein');
+				$noc_error['device_ip'] = $lang['noc']['device_ipcheck_error'];
 			
 				$_GET["step"] = 1;
 					
@@ -42,7 +42,7 @@ switch( $_GET["step"] ) {
 				
 		If( $_POST["device_write"] == "" ) {
 			
-			$noc_error['device_write'] = t('Bitte geben Sie eine Write-Community f&uuml;r das Device an.');
+			$noc_error['device_write'] = $lang['noc']['device_write_error'];
 				
 			$_GET["step"] = 1;
 			
@@ -50,7 +50,7 @@ switch( $_GET["step"] ) {
 		
 		If( $_POST["device_read"] == "" ) {
 		
-			$noc_error['device_read'] = t('Bitte geben Sie eine Read-Community f&uuml;r das Device an.');
+			$noc_error['device_read'] = $lang['noc']['device_read_error'];
 							
 			$_GET["step"] = 1;
 			
@@ -69,14 +69,12 @@ switch( $_GET["step"] ) {
 	default:	
 	case 1:	
 		
-		$dsp->NewContent(t('Device hinzuf&uuml;gen'),t('Um einen Device zum NOC hinzuzuf&uuml;gen, f&uuml;llen Sie bitte
-				         		  das folgende Formular vollst&auml;ndig aus.HTML_NEWLINEF&uuml;r das Feld Name
-              					   stehen 30 Zeichen zur Verf&uuml;gung. '));
+		$dsp->NewContent($lang['noc']['caption'],$lang['noc']['subcaption']);
 		$dsp->SetForm("index.php?mod=noc&action=add_device&step=2","noc");
-		$dsp->AddTextFieldRow("device_caption",t('Name'),$_POST['device_caption'],$noc_error['device_caption']);
-		$dsp->AddTextFieldRow("device_ip",t('IP-Adresse'),$_POST['device_ip'],$noc_error['device_ip']);
-		$dsp->AddTextFieldRow("device_read",t('Read-Community'),$_POST['device_read'],$noc_error['device_read']);
-		$dsp->AddTextFieldRow("device_write",t('Write-Community'),$_POST['device_write'],$noc_error['device_write']);
+		$dsp->AddTextFieldRow("device_caption",$lang['noc']['device_caption'],$_POST['device_caption'],$noc_error['device_caption']);
+		$dsp->AddTextFieldRow("device_ip",$lang['noc']['device_ip'],$_POST['device_ip'],$noc_error['device_ip']);
+		$dsp->AddTextFieldRow("device_read",$lang['noc']['device_read'],$_POST['device_read'],$noc_error['device_read']);
+		$dsp->AddTextFieldRow("device_write",$lang['noc']['device_write'],$_POST['device_write'],$noc_error['device_write']);
 		
 		$dsp->AddFormSubmitRow("add");
 		$dsp->AddBackButton("index.php?mod=noc", "noc"); 
@@ -91,16 +89,7 @@ switch( $_GET["step"] ) {
 
 		If( $noc->checkSNMPDevice( $_POST["device_ip"], $_POST["device_read"] ) != 1 ) { 
 			
-			$func->error(t('HTML_NEWLINEDas Device konnte nicht erreicht werden. M&ouml;gl. Ursachen:HTML_NEWLINEHTML_NEWLINE
-				      				- Das Device hat keinen StromHTML_NEWLINE
-				      				- Das Device hat noch keine IP-AdresseHTML_NEWLINE
-				      				- Das Device unterst&uuml;tzt kein SNMPHTML_NEWLINE
-				      				- Sie haben eine falsche Read-Community angegebenHTML_NEWLINE
-				      				- Sie haben eine falsche IP-Adresse angegebenHTML_NEWLINE
-				      				- Sie haben vergessen, SNMP am device einzuschaltenHTML_NEWLINE
-				      				- Dieses PHP unterst&uuml;tzt kein SNMP, kompilieren sie es mit SNMPHTML_NEWLINE
-				      				&nbsp; &nbsp;oder laden sie sich ein vorkompiliertes PHP mit SNMP vonHTML_NEWLINE
-				      				&nbsp; &nbsp;<a href="http://de.php.net">Der Deutschen PHP Seite</a> herunterHTML_NEWLINE, '),"index.php?mod=noc&action=add_device&step=1");
+			$func->error($lang['noc']['connect_error'],"index.php?mod=noc&action=add_device&step=1");
 			break;
 		}
 
@@ -216,17 +205,17 @@ switch( $_GET["step"] ) {
 			
 		If( $add_query == 1 ) { 
 		
-			$confirmationtext = t('Das Device wurde erfolgreich eingetragen.');
+			$confirmationtext = $lang['noc']['add_ok'];
 			
 			If ($_POST['device_write'] == "private") {
 
-				$confirmationtext .= t('HTML_NEWLINEHTML_NEWLINE<big>Warnung:</big> Eine Standartm&auml;ßig eingestellte Write-Community ( /\'/private/\'/ ) beinhaltet ein hohes Sicherheitsrisiko!');
+				$confirmationtext .= $lang['noc']['write_warning'];
 				
 			}
 			
 			If ($_POST['device_read'] == "public") {
 				
-				$confirmationtext .= t('HTML_NEWLINEHTML_NEWLINE<big>Warnung:</big> Eine Standartm&auml;ßig eingestellte Read-Community ( /\'/public/\'/ ) beinhaltet ein hohes Sicherheitsrisiko!');
+				$confirmationtext .= $lang['noc']['read_warning'];
 			
 			}
 		
@@ -234,7 +223,7 @@ switch( $_GET["step"] ) {
 		
 		} else {
 		
-			$func->error( t('Device konnte nicht in die Datenbank eingetragen werden.'), "" );
+			$func->error( $lang['noc']['add_error'], "" );
 		
 		}
 	

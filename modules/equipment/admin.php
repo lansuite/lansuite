@@ -1,11 +1,9 @@
 <?
 
-if (!$cfg["equipment_shopid"]) $func->error(t('Es wurde noch keine Orgapage.Net-ShopID angegeben. Diese kann auf der Admin-Seite in den Moduleinstellungen unter \'Equipmentshop\' eingestellt werden'), "");
+if (!$cfg["equipment_shopid"]) $func->error($lang["equipment"]["err_noid"], "");
 else {
-	$dsp->NewContent(t('Administration'), t('Equipmentliste Administrieren'));
-	$dsp->AddSingleRow(t('Dieses Modul ermöglicht es einen <a href="http://www.orgapage.net" traget="_blank">Orgapage.Net<a>-EquipmentShop sehr einfach in eine LanSuite-Webseite zu integrieren.
-	<br><br>In der <a href="http://www.orgapage.net/pages/equip/submit.php" traget="_blank">Equipmentliste auf Orgapage.Net</a> kannst du einen solchen Shop erstellen, falls du dies noch nicht getan hast. Von diesem werden dann die Daten ausgelesen, die hier in diesem Modul präsentiert werden. Durch das Eintragen wird das von dir angebotene Equipment auch in der Equipmentliste auf Orgapage angezeigt, so dass weitere Besucher evtl. auf deinen Shop aufmerksam werden.
-	<br><br>Einen vorhandenen Shop kannst du unter <a href="http://equipadmin.orgapage.net/" traget="_blank">http://equipadmin.orgapage.net/</a> verwalten (Bestellungen einsehen / auf reserviert schalten / löschen / ...).'));
+	$dsp->NewContent($lang["equipment"]["admin_caption"], $lang["equipment"]["admin_subcaption"]);
+	$dsp->AddSingleRow($lang["equipment"]["admin_text"]);
 	$dsp->AddContent();
 }
 ?>

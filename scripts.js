@@ -256,7 +256,7 @@ function markieren(EintragSpalte) {
   else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
   else return false;
 
-  for (var c = 0; c < Spalten.length; c++) if (Spalten[c].className != 'row_value_highlighted') Spalten[c].className = 'row_value_important';
+  for (var c = 0; c < Spalten.length; c++) Spalten[c].className = 'row_value_important';
 
   return true;
 }
@@ -267,20 +267,8 @@ function unmarkieren(EintragSpalte) {
   else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
   else return false;
 
-  for (var c = 0; c < Spalten.length; c++) if (Spalten[c].className != 'row_value_highlighted') Spalten[c].className = 'row_value';
+  for (var c = 0; c < Spalten.length; c++) Spalten[c].className = 'row_value';
   
-  return true;
-}
-
-// Highlights the current table row under the mouse
-function markieren_permanent(EintragSpalte) {
-  if (typeof(document.getElementsByTagName) != 'undefined') var Spalten = EintragSpalte.getElementsByTagName('td');
-  else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
-  else return false;
-
-  for (var c = 0; c < Spalten.length; c++) if (Spalten[c].className != 'row_value_highlighted') Spalten[c].className = 'row_value_highlighted';
-  else Spalten[c].className = 'row_value';
-
   return true;
 }
 

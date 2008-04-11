@@ -17,7 +17,7 @@
 *
 **************************************************************************/
 
-$dsp->NewContent(t('Games-Übersicht'), t('Hier finden Sie ein paar kleine Webspiele, um sich die Zeit zu vertreiben'));
+$dsp->NewContent($lang["games"]["overview_caption"], $lang["games"]["overview_subcaption"]);
 $dsp->AddSingleRow($dsp->FetchModTpl("games", "overview"));
 $dsp->AddContent();
 ?>

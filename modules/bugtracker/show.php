@@ -66,8 +66,8 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     LEFT JOIN {$config["tables"]["user"]} AS a ON b.agent = a.userid
     LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
     ";
-#  $ms2->query['default_order_by'] = 'FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
-  $ms2->query['default_order_by'] = 'changedate DESC, FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
+  $ms2->query['default_order_by'] = 'FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
+#  $ms2->query['default_order_by'] = 'state ASC, date DESC';
   $ms2->config['EntriesPerPage'] = 50;
   $ms2->AddBGColor('state', $colors);
 
@@ -81,12 +81,6 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $ms2->AddTextSearchDropDown('Reporter', 'b.reporter', $list);
 
   $list = array('' => 'Alle');
-  $row = $db->qry('SELECT module FROM %prefix%bugtracker WHERE module != "" GROUP BY module ORDER BY module');
-  while($res = $db->fetch_array($row)) $list[$res['module']] = $res['module'];
-  $db->free_result($row);
-  $ms2->AddTextSearchDropDown('Modul', 'module', $list);
-
-  $list = array('' => 'Alle');
   $row = $db->qry('SELECT b.agent, u.username FROM %prefix%bugtracker AS b LEFT JOIN %prefix%user AS u ON b.agent = u.userid WHERE b.agent > 0 ORDER BY u.username');
   while($res = $db->fetch_array($row)) $list[$res['agent']] = $res['username'];
   $db->free_result($row);
@@ -98,14 +92,11 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $db->free_result($row);
   $ms2->AddTextSearchDropDown('Kommentator', 'c.creatorid', $list);
 
-  $ms2->AddTextSearchDropDown('Status', 'b.state', $bugtracker->stati, '', 8);
-  $ms2->AddTextSearchDropDown('Typ', 'b.type', $types, '', 5);
+  $list = array_merge(array('' => 'Alle'), $bugtracker->stati);
+  $ms2->AddTextSearchDropDown('Status', 'b.state', $list);
 
-/*
-  $list = array('' => 'Alle'));
-  $list += $types;
-  $ms2->AddTextSearchDropDown('Typ', 'b.type', $list);
-*/
+#  $list = array_merge(array('' => 'Alle'), $types);
+#  $ms2->AddTextSearchDropDown('Fehlertyp', 'b.type', $list);
 
   $ms2->AddResultField(t('Titel'), 'b.caption');
   $ms2->AddSelect('r.userid');
@@ -116,7 +107,6 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $ms2->AddResultField(t('Bearbeiter'), 'a.username AS agent');
   $ms2->AddResultField(t('Antw.'), 'COUNT(c.relatedto_id) AS comments');
   $ms2->AddResultField(t('Datum'), 'UNIX_TIMESTAMP(b.date) AS date', 'MS2GetDate');
-  $ms2->AddResultField(t('Letzte Änderung'), 'UNIX_TIMESTAMP(b.changedate) AS changedate', 'MS2GetDate');
 
   $ms2->AddIconField('details', 'index.php?mod=bugtracker&bugid=', t('Details'));
   if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=bugtracker&action=add&bugid=', t('Editieren'));
@@ -142,11 +132,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 
 // Details page
 } else {
-	$search_read = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["bugtracker_lastread"]} WHERE bugid = ". $_GET['bugid'] ." and userid = '{$auth["userid"]}'");
-	if ($search_read["found"]) $db->query_first("UPDATE {$config["tables"]["bugtracker_lastread"]} SET date = NOW() WHERE bugid = ". $_GET['bugid'] ." and userid = '{$auth["userid"]}'");
-	else $db->query_first("INSERT INTO {$config["tables"]["bugtracker_lastread"]} SET date = NOW(), bugid = ". $_GET['bugid'] .", userid = '{$auth["userid"]}'");
-
-  $row = $db->query_first("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, r.username AS reporter_name, a.username AS agent_name FROM {$config['tables']['bugtracker']} AS b
+  $row = $db->query_first("SELECT b.*, r.username AS reporter_name, a.username AS agent_name FROM {$config['tables']['bugtracker']} AS b
     LEFT JOIN {$config["tables"]["user"]} AS r ON b.reporter = r.userid
     LEFT JOIN {$config["tables"]["user"]} AS a ON b.agent = a.userid
     WHERE bugid=". (int)$_GET['bugid']
@@ -158,7 +144,6 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 	$dsp->AddDoubleRow(t('Reporter'), $row['reporter_name'] .' '. $dsp->FetchUserIcon($row['reporter']));
 	$dsp->AddDoubleRow(t('Betrifft Modul'), $row['module']);
 	$dsp->AddDoubleRow(t('Meldezeitpunkt'), $row['date']);
-	$dsp->AddDoubleRow(t('Letzte Änderung'), $func->unixstamp2date($row['changedate'], 'daydatetime'));
 
 	$dsp->AddDoubleRow(t('Status'), $bugtracker->stati[$row['state']]);
 	if ($row['agent']) $dsp->AddDoubleRow(t('Bearbeiter'), $row['agent_name'] .' '. $dsp->FetchUserIcon($row['agent']));
@@ -184,8 +169,8 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   }
 
 	include('inc/classes/class_mastercomment.php');
-	new Mastercomment('BugEintrag', $_GET['bugid'], array('bugtracker' => 'bugid'));
-
+	new Mastercomment('BugEintrag', $_GET['bugid']);
+	
 	$dsp->AddFieldsetStart('Log');
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('bugtracker');
@@ -196,7 +181,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $ms2->AddResultField('', 'l.description');
   $ms2->AddSelect('u.userid');
   $ms2->AddResultField('', 'u.username', 'UserNameAndIcon');
-  $ms2->AddResultField('', 'UNIX_TIMESTAMP(l.date) AS date', 'MS2GetDate');
+  $ms2->AddResultField('', 'l.date', 'MS2GetDate');
   $ms2->PrintSearch('index.php?mod=bugtracker&bugid='. $_GET['bugid'], 'logid');
 	$dsp->AddFieldsetEnd();
 }
