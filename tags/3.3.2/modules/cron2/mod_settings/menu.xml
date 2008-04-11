@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<pos>31</pos>	<!-- The position in the navigation, where this entry should be located. 1 = top; 100 = botom -->
+	<entry>
+		<action>default</action>  <!-- This is the trigger standing in the URL behin the "action=" -->
+		<file>show</file>   <!-- This ist the file, which is executed, when the trigger above was caled -->
+		<caption>Cronjob</caption>	<!-- The Text displayed in the menubar -->
+		<hint>Modul für zyklische Aufgaben</hint>	<!-- This hint is shown, when the mouse resides over this menu item -->
+		<link>?mod=cron2</link>  <!-- This is the link-target of the current menu item -->
+		<requirement>3</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins -->
+		<needed_config></needed_config>
+		<level>0</level> <!-- 0 for Top level entry; 1 for sub entry -->
+	</entry>
+	<entry>
+		<action>add</action>
+		<file>add</file>
+		<requirement>3</requirement>
+	</entry>
+</menu>

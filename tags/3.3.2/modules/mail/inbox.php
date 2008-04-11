@@ -1,0 +1,88 @@
+<?php
+
+$mail_new_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active' AND des_status = 'new'");
+$mail_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active'");
+$dsp->NewContent(t('Posteingang'), t('Sie haben <b>%1</b> Mail(s) empfangen. Davon sind <b>%2</b> ungelesen.', array($mail_total['n'], $mail_new_total['n'])));
+
+// if logged out
+if (!$auth['userid']) $dsp->AddSingleRow(t('Um Ihren Posteingang sehen zu können, müssen Sie sich zuerst einloggen.').HTML_NEWLINE.
+  t('Nutzen Sie das <a href="index.php?mod=mail&action=newmail">Kontaktformular</a> um Mails zu versenden. Dies ist auch im ausgeloggten Zustand möglich.'));
+$dsp->AddContent();
+
+// If logged in
+if ($auth['userid']) {
+  switch($_GET['step']) {
+
+    // Lable
+    case 10:  // None
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+      foreach ($_POST['action'] as $key => $val) {
+        $db->query('UPDATE '. $config['tables']['mail_messages'] .' SET label = '. ((int)$_GET['step'] - 10) .' WHERE mailID = '. (int)$key);
+      }
+    break;
+
+    // Move to trashcan
+    case 20:
+      if (!$_POST['action'] and $_GET['mailid']) $_POST['action'][$_GET['mailid']] = 1;
+      foreach ($_POST['action'] as $key => $val) $db->query('UPDATE '. $config['tables']['mail_messages'] ." SET mail_status = 'delete' WHERE mailID = ". (int)$key);
+    break;
+  }
+
+  $colors = array();
+  $colors[0] = '';
+  $colors[1] = 'red';
+  $colors[2] = 'blue';
+  $colors[3] = 'green';
+  $colors[4] = 'yellow';
+  $colors[5] = 'purple';
+
+  
+  function MailStatus ( $status ) {
+	 global $lang;
+	 if ( $status == "new" ) return $lang['mail']['unread'];
+	 if ( $status == "read" ) return $lang['mail']['read'];
+ 	 if ( $status == "reply" ) return $lang['mail']['answered']; 
+  }
+
+  
+  include_once('modules/mastersearch2/class_mastersearch2.php');
+  $ms2 = new mastersearch2();
+
+  $ms2->query['from'] = "{$config["tables"]["mail_messages"]} AS m LEFT JOIN {$config["tables"]["user"]} AS u ON m.FromUserID = u.userid";
+  $ms2->query['where'] = "m.toUserID = '{$auth['userid']}' AND m.mail_status = 'active'";
+  $ms2->query['default_order_by'] = 'm.tx_date';
+  $ms2->query['default_order_dir'] = 'DESC';
+
+  $ms2->AddBGColor('label', $colors);
+
+  $ms2->config['EntriesPerPage'] = 20;
+
+  $ms2->AddTextSearchField('Mail', array('m.subject' => 'fulltext', 'm.msgbody' => 'fulltext'));
+  $ms2->AddTextSearchField($lang['mail']['showmail_mail_from'], array('u.userid' => 'exact', 'u.username' => '1337', 'u.name' => 'like', 'u.firstname' => 'like'));
+
+  $ms2->AddSelect('u.userid');
+
+  $ms2->AddResultField($lang['mail']['newsletter_subject'], 'm.subject', '', 160);
+  $ms2->AddResultField($lang['mail']['showmail_mail_from'], 'u.username', 'UserNameAndIcon','',100);
+  $ms2->AddResultField('Status', 'm.des_status', 'MailStatus', '',80);
+  $ms2->AddResultField($lang['mail']['showmail_mail_send'], 'UNIX_TIMESTAMP(m.tx_date) AS tx_date', 'MS2GetDate','',70);
+  $ms2->AddResultField($lang['mail']['showmail_mail_read'], 'UNIX_TIMESTAMP(m.rx_date) AS rx_date', 'MS2GetDate','',20);
+    
+  $ms2->AddIconField('details', 'index.php?mod=mail&action=showmail&ref=in&mailID=', $lang['ms2']['details'],'',10);
+  $ms2->AddIconField('delete', 'index.php?mod=mail&action=inbox&step=20&mailid=', $lang['ms2']['delete'],'',10);
+
+  $ms2->AddMultiSelectAction(t('Markierung entfernen'), 'index.php?mod=mail&step=10', 0);
+  $ms2->AddMultiSelectAction(t('Markieren: Rot'), 'index.php?mod=mail&step=11', 0);
+  $ms2->AddMultiSelectAction(t('Markieren: Blau'), 'index.php?mod=mail&step=12', 0);
+  $ms2->AddMultiSelectAction(t('Markieren: Grün'), 'index.php?mod=mail&step=13', 0);
+  $ms2->AddMultiSelectAction(t('Markieren: Gelb'), 'index.php?mod=mail&step=14', 0);
+  $ms2->AddMultiSelectAction(t('Markieren: Lila'), 'index.php?mod=mail&step=15', 0);
+  $ms2->AddMultiSelectAction(t('In den Papierkorb'), 'index.php?mod=mail&step=20', 1, 'delete');
+
+  $ms2->PrintSearch('index.php?mod=mail', 'm.mailid');
+}
+?>

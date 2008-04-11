@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- COPYRIGHT 2001-2003 "http://www.One-Network.Org" - ALL RIGHTS RESERVED -->
+<html>
+<head>
+	<title>Print Foodcenter</title>
+
+	<link rel="STYLESHEET" href="ext_inc/foodcenter_templates/standart.css" type="text/css" />
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+</head>
+<body>
+<table class="tbl">
+<tr>
+<td class="col_main">Bestellliste
+</td>
+<td class="col_main"></td>
+</tr>
+<tr>
+<td class="col_main">
+An
+Lieferant : {$temp['supp']}</td>
+<td class="col_main">
+Bestellt von: {$temp['user']}<br />
+Druckzeit: {$temp['time']}
+</td>
+</tr>
+</table>
+
+
+<!-- Produkliste-->
+<table class="tbl">
+<tr class="row_top">
+<td class="col">
+Produkt
+</td>
+<td class="col">
+Optionen
+</td>
+<td class="col">
+Lieferanteninfo
+</td>
+<td class="col">
+Anzahl
+</td>
+<td class="col">
+Besteller
+</td>
+<td class="col">
+Bestellzeit
+</td>
+<td class="col">
+Letzte änderung
+</td>
+<td class="col">
+Lieferzeit
+</td>
+<td class="col">
+Status
+</td>
+</tr>
+{$temp['content']}
+</table>
+
+
+
+
+
+</body>
+</html>

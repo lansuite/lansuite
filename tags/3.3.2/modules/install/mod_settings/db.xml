@@ -1,0 +1,3719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2005-02-24 07:18</date>
+	</header>
+	<table>
+		<table_head>
+			<name>comments</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>commentid</name>
+				<type>int(10)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>relatedto_id</name>
+				<type>int(10)</type>
+				<null></null>
+				<key>IND</key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>relatedto_item</name>
+				<type>varchar(10)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>creatorid</name>
+				<type>int(6)</type>
+				<null></null>
+				<key>IND</key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>date</name>
+				<type>datetime</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>text</name>
+				<type>text</type>
+				<null></null>
+				<key>FUL</key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>config</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>cfg_key</name>
+				<type>varchar(50)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>cfg_value</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>cfg_type</name>
+				<type>varchar(16)</type>
+				<null></null>
+				<key></key>
+				<default>integer</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>cfg_group</name>
+				<type>varchar(50)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>cfg_module</name>
+				<type>varchar(50)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>cfg_desc</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>config_selections</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>cfg_key</name>
+				<type>varchar(16)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>cfg_display</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>cfg_value</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+	</table>
+	<table>
+		<table_head>
+			<name>counter</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>CID</name>
+				<type>int(20)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>Besucher_IP</name>
+				<type>varchar(16)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>Besucher_Zeit</name>
+				<type>date</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>Besucher_Host</name>
+				<type>varchar(250)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>Besucher_Browser</name>
+				<type>varchar(250)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>referer</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>country</name>
+				<type>varchar(5)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>Besucher_Uhrzeit</name>
+				<type>varchar(10)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>timestamp</name>
+				<type>int(50)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>counter_online</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>BID</name>
+				<type>int(50)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>SessionId</name>
+				<type>varchar(40)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>Besucher_IP</name>
+				<type>varchar(15)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>Besucher_Zeit</name>
+				<type>varchar(80)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>infobox</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>id</name>
+				<type>int(5)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>userid</name>
+				<type>int(5)</type>
+				<null></null>
+				<key>IND</key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>text</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>date</name>
+				<type>int(15)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>priority</name>
+				<type>int(11)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>class</name>
+				<type>varchar(50)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>id_in_class</name>
+				<type>int(5)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>locations</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>plz</name>
+				<type>varchar(5)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>breite</name>
+				<type>float</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>laenge</name>
+				<type>float</type>
+				<null>YES</null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>log</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>logid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>type</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>description</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>userid</name>
+				<type>int(10)</type>
+				<null></null>
+				<key>IND</key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>date</name>
+				<type>int(50)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>sort_tag</name>
+				<type>varchar(50)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>target_id</name>
+				<type>varchar(16)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>menu</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>id</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>module</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>caption</name>
+				<type>varchar(40)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>hint</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>link</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>requirement</name>
+				<type>tinyint(8)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>level</name>
+				<type>tinyint(8)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>pos</name>
+				<type>int(6)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>needed_config</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>group_nr</name>
+				<type>int(6)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>action</name>
+				<type>varchar(50)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>file</name>
+				<type>varchar(50)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>boxid</name>
+				<type>int(2)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>modules</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>name</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>caption</name>
+				<type>varchar(40)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>description</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>author</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>email</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>active</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>changeable</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key></key>
+				<default>1</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>version</name>
+				<type>varchar(10)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>state</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>smilies</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>shortcut</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>image</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+			<entry>
+				<shortcut>:angel:</shortcut>
+				<image>smilie_angel.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:angry:</shortcut>
+				<image>smilie_angry.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:P</shortcut>
+				<image>smilie_cheeky.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:confused:</shortcut>
+				<image>smilie_confused.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:finger:</shortcut>
+				<image>smilie_finger.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:karate:</shortcut>
+				<image>smilie_karate.gif</image>
+			</entry>
+			<entry>
+				<shortcut>=)</shortcut>
+				<image>smilie_lol.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:rolleyes:</shortcut>
+				<image>smilie_rolleyes.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:sleep:</shortcut>
+				<image>smilie_sleep.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:)</shortcut>
+				<image>smilie_smile.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:ugh:</shortcut>
+				<image>smilie_ugh.gif</image>
+			</entry>
+			<entry>
+				<shortcut>;)</shortcut>
+				<image>smilie_wink.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:bier:</shortcut>
+				<image>smilie_bier.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:spam:</shortcut>
+				<image>smilie_spam.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:para:</shortcut>
+				<image>smilie_para.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:kotz:</shortcut>
+				<image>smilie_kotz.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:heuldoch:</shortcut>
+				<image>smilie_heuldoch.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:motz:</shortcut>
+				<image>smilie_motz.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:wallbash:</shortcut>
+				<image>smilie_wallbash.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:instagib:</shortcut>
+				<image>smilie_instagib.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:bad:</shortcut>
+				<image>smilie_bad.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:bussi:</shortcut>
+				<image>smilie_bussi.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:eek:</shortcut>
+				<image>smilie_eek.gif</image>
+			</entry>
+			<entry>
+				<shortcut>:camper:</shortcut>
+				<image>smilie_camper.gif</image>
+			</entry>
+		</content>
+	</table>
+		<table>
+		<table_head>
+			<name>variables</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>shortcut</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>title</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+			<entry>
+				<shortcut>%USERNAME%</shortcut>
+				<title>Benutzername</title>
+			</entry>
+			<entry>
+				<shortcut>%VORNAME%</shortcut>
+				<title>Vorname</title>
+			</entry>
+			<entry>
+				<shortcut>%NACHNAME%</shortcut>
+				<title>Nachname</title>
+			</entry>
+			<entry>
+				<shortcut>%PASSWORD%</shortcut>
+				<title>Passwort (Nur bei SignOn Mail!)</title>
+			</entry>
+			<entry>
+				<shortcut>%EMAIL%</shortcut>
+				<title>eMail Adresse</title>
+			</entry>
+			<entry>
+				<shortcut>%CLAN%</shortcut>
+				<title>Name des Clan</title>
+			</entry>
+			<entry>
+				<shortcut>%CLANURL%</shortcut>
+				<title>URL des Clan</title>
+			</entry>
+			<entry>
+				<shortcut>%PARTYNAME%</shortcut>
+				<title>Name der Lanparty</title>
+			</entry>
+			<entry>
+				<shortcut>%PARTYURL%</shortcut>
+				<title>URL der Lanparty</title>
+			</entry>
+			<entry>
+				<shortcut>%MAXGUESTS%</shortcut>
+				<title>Anzahl der Teilnhemer</title>
+			</entry>
+			<entry>
+				<shortcut>%WWCLID%</shortcut>
+				<title>WWCL ID</title>
+			</entry>
+			<entry>
+				<shortcut>%WWCLCLANID%</shortcut>
+				<title>WWCL Clan ID</title>
+			</entry>
+			<entry>
+				<shortcut>%NGLID%</shortcut>
+				<title>NGL ID</title>
+			</entry>
+			<entry>
+				<shortcut>%NGLCLANID%</shortcut>
+				<title>NGL Clan ID</title>
+			</entry>
+			<entry>
+				<shortcut>%IP%</shortcut>
+				<title>IP Adresse (Aus Sitzplan)</title>
+			</entry>
+			<entry>
+				<shortcut>%ANGEMELDET%</shortcut>
+				<title>Angemeldet?</title>
+			</entry>
+			<entry>
+				<shortcut>%BEZAHLT%</shortcut>
+				<title>Bezahlt?</title>
+			</entry>
+			<entry>
+				<shortcut>%EINGECHECKT%</shortcut>
+				<title>Eingecheckt?</title>
+			</entry>
+		</content>
+	</table>	
+	<table>
+		<table_head>
+			<name>stats_auth</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>userid</name>
+				<type>int(6)</type>
+				<null></null>
+				<key>IND</key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>sessid</name>
+				<type>varchar(32)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>login</name>
+				<type>enum('0','1')</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>ip</name>
+				<type>varchar(15)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>logtime</name>
+				<type>int(15)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>logintime</name>
+				<type>int(15)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>hits</name>
+				<type>int(11) unsigned</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>lasthit</name>
+				<type>int(15)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>visits</name>
+				<type>mediumint(11) unsigned</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>		
+		<table_head>
+			<name>ip_blacklist</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>ip</name>
+				<type>varchar(15)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>dns</name>
+				<type>varchar(50)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>module</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>		
+	<table>		
+		<table_head>
+			<name>ip_locklist</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>ip</name>
+				<type>varchar(15)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>module</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>		
+	<table>		
+		<table_head>
+			<name>ip_hits</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>ip</name>
+				<type>varchar(15)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>module</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>action</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>step</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>date</name>
+				<type>int(20)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>		
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>tid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>id</name>
+				<type>varchar(32)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>org</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>de</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>en</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>es</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>fr</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>nl</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>it</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>file</name>
+				<type>varchar(40)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>translation_long</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>tid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>id</name>
+				<type>varchar(32)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>org</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>de</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>en</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>es</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>fr</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>nl</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>it</name>
+				<type>text</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>file</name>
+				<type>varchar(40)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>login_errors</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>errorid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>userid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>ip</name>
+				<type>varchar(15)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>time</name>
+				<type>datetime</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+		<content>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<id>5f4110486d00f1ceafd93d33f82c55a8</id>
+				<tid>504</tid>
+				<org>Hinzufügen</org>
+				<en>Add</en>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>59b0fe8d3fee044fb03d40984e6300ed</id>
+				<tid>505</tid>
+				<org>Ändern</org>
+				<en>Change</en>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>c10dbfd82ada39d491ee13697ce3034b</id>
+				<tid>508</tid>
+				<org>Senden</org>
+				<en>Send</en>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>ca0dbad92a874b2f69b549293387925e</id>
+				<tid>497</tid>
+				<org>Code</org>
+				<en></en>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>0da3b78d9546e8fe0065cd3c9ed1879a</id>
+				<tid>498</tid>
+				<org>Bild</org>
+				<en>Image</en>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>77778d8c610270cab20769b2d0131b7a</id>
+				<tid>495</tid>
+				<org>Kursiv</org>
+				<en>Italic</en>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>a5e5b758bd63de72993cc13cb5a824dd</id>
+				<tid>496</tid>
+				<org>Unterstrichen</org>
+				<en>Underline</en>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>cce55fad709e2b8a964dc43dcf1bd6bc</id>
+				<tid>509</tid>
+				<org>Editieren</org>
+				<en>Edit</en>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>1010b01ca33474b21dfca7411a13552c</id>
+				<tid>510</tid>
+				<org>Löschen</org>
+				<en>Delete</en>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>8b14d55bb9668ee40cde8f17314feb15</id>
+				<tid>494</tid>
+				<org>Fett</org>
+				<en>Bold</en>
+				<file>System</file>
+			</entry>
+		</content>
+	</table>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<id>c84369cb124912750ac1c1982a7b7e05</id>
+				<tid>1</tid>
+				<org>Startseite</org>
+				<en>Home</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>dd1ba1872df91985ed1ca4cde2dfe669</id>
+				<tid>2</tid>
+				<org>News</org>
+				<en>News</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>453e9414324099e92a34a541eeecaeb1</id>
+				<tid>3</tid>
+				<org>Hier sehen Sie alle eingetragen News-Meldungen</org>
+				<en>All current news</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>9ad78ac03c48ea3049ba8bcef0553c50</id>
+				<tid>4</tid>
+				<org>Was ist Lansuite?</org>
+				<en>What's Lansuite?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>03f0891b07d9020ebe05d12ecc10cb9f</id>
+				<tid>5</tid>
+				<org>Komponenten</org>
+				<en>Components</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>2683c3aa6540b5b8d4b2cffe6cfd3adc</id>
+				<tid>6</tid>
+				<org>Die Lansuite-Komponenten im Überblick</org>
+				<en>Overview over Lansuites components</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f5cccbca87e03a94ad912916333422c5</id>
+				<tid>7</tid>
+				<org>--lt--b--gt--Dokumentation--lt--/b--gt--</org>
+				<en>--lt--b--gt--Documentation--lt--/b--gt--</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a0a6d62e0c8ca5cc9cabf64d858e9134</id>
+				<tid>8</tid>
+				<org>--lt--b--gt--Bugtracker--lt--/b--gt--</org>
+				<en>--lt--b--gt--Bugtracker--lt--/b--gt--</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>2faf8e2d70f6d9ed53a3230cf60d82d7</id>
+				<tid>9</tid>
+				<org>--lt--b--gt--Download--lt--/b--gt--</org>
+				<en>--lt--b--gt--Download--lt--/b--gt--</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>aec62d0b06b4c9de6cf9d2cb3b5caf80</id>
+				<tid>10</tid>
+				<org>Lansuite downloaden</org>
+				<en>Download Lansuite</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>77ea3b9ac8be15d9c1e58ac3f64f4397</id>
+				<tid>11</tid>
+				<org>Support @ LAN</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>85a11bb2e93f64b7feb3bb92b35ed786</id>
+				<tid>12</tid>
+				<org>Wir unterstützen euch, auf eurer LAN!</org>
+				<en>We'll support you at your LAN</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>4975d69f4da46d32046b3ee900fcda5d</id>
+				<tid>13</tid>
+				<org>Feature Spenden</org>
+				<en>Feature donations</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>bcf75a0b7bf0386fe66a4bd65bc32426</id>
+				<tid>14</tid>
+				<org>Unterstütze uns!</org>
+				<en>Support us!</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>abab398dabec18670ba6eb3ad0ba7055</id>
+				<tid>15</tid>
+				<org>Das Projekt unterstützen...</org>
+				<en>Support the project</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>ecff6ecb514e3e1b66f8b07d8b78bafe</id>
+				<tid>16</tid>
+				<org>Anmelden</org>
+				<en>Sign on</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>46fa564bb1eed5cd3992cac85e8f094b</id>
+				<tid>17</tid>
+				<org>Screenshots</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3496c67305161f804f50641012975b81</id>
+				<tid>18</tid>
+				<org>--lt--b--gt--Board--lt--/b--gt--</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d2f45cc5687b0a043bfbc8b4e8cd7f87</id>
+				<tid>24</tid>
+				<org>Thread-Suche</org>
+				<en>Thread-search</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e997dfdb4ffa326e5f1b1e0f19814645</id>
+				<tid>25</tid>
+				<org>Altes Board</org>
+				<en>Old board</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>5b01db7abd9df1cb5cd68516973816cd</id>
+				<tid>26</tid>
+				<org>Lesezeichen</org>
+				<en>Bookmarks</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>383bcc032930a42b441aaaa0f2846af8</id>
+				<tid>27</tid>
+				<org>Hier siehst du die von dir marieren Threads</org>
+				<en>View your marked threads</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b5b5a454e70028ee8e2d728483baa43f</id>
+				<tid>219</tid>
+				<org>Suchmaschinen</org>
+				<en>Searchengine</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>41be4eadda813a9fbb816c9a9c94515c</id>
+				<tid>43</tid>
+				<org>Informationen</org>
+				<en>Information</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>90f21067ab1a80552a301ea70e8dc574</id>
+				<tid>44</tid>
+				<org>Hier k&ouml;nnen Sie die Informationseite Ihren W&uuml;nschen anpassen</org>
+				<en>Fit the information page to your needs</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>72f900798533ecdd87f944ce99ddd22d</id>
+				<tid>45</tid>
+				<org>Partyverwaltung</org>
+				<en>Party manager</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>029800571c36922ce08df623ec3d20c6</id>
+				<tid>46</tid>
+				<org>Sponsoren</org>
+				<en>Sponsors</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>cb83dd6e8cddf8fd34fac47c1526afbf</id>
+				<tid>47</tid>
+				<org>Hier finden Sie eine Liste der Sponsoren dieser Veranstaltung</org>
+				<en>A list of our sponsors</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>983f6bb66c084bef72bb5210dc9e839a</id>
+				<tid>48</tid>
+				<org>Benutzermanager</org>
+				<en>User manager</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>715380d7bcc0b403482990fa332214cc</id>
+				<tid>49</tid>
+				<org>Statistiken</org>
+				<en>Statistics</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>bf2129aece92fe202715f8914e9d9e95</id>
+				<tid>50</tid>
+				<org>Sonstiges</org>
+				<en>Miscellaneous</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>163ca98bb3ce0178ac8ba32f8cf013a6</id>
+				<tid>51</tid>
+				<org>Cronjob</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>6aae337b22546ff3009783b262160868</id>
+				<tid>52</tid>
+				<org>Modul für zyklische Aufgaben</org>
+				<en>Define repetitive tasks</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>6525d47b8fc379c873496aaa21ef74d9</id>
+				<tid>53</tid>
+				<org>Admin-Seite</org>
+				<en>Admin page</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>ef818c0bea000f676296672d295b9af2</id>
+				<tid>54</tid>
+				<org>Hier können Sie Änderungen an der Konfiguration von LanSuite vornehmen</org>
+				<en>Configure Lansuite</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>53c2c99fa0b35144b78675d5322a8903</id>
+				<tid>55</tid>
+				<org>Was geht ab?</org>
+				<en>What's up?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>46677e2a445593669ba34c2568d7b60e</id>
+				<tid>56</tid>
+				<org>Was passiert gerade.. eine komplette &Uuml;bersicht</org>
+				<en>What's happening at the moment.. a complete overview</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>215273711f61a39ff8c0044e63ce489d</id>
+				<tid>57</tid>
+				<org>Logfile</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f79da4f58e47531043e02f8a1dd04a25</id>
+				<tid>58</tid>
+				<org>IP-Blacklist</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>7c1b7197d5eadd7be4bf6e356ba4b499</id>
+				<tid>59</tid>
+				<org>Hier k&ouml;nnen Sie IP blocken</org>
+				<en>Block IPs</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>218d7f0d80f3b7c9f3ceb2457ad4bd92</id>
+				<tid>60</tid>
+				<org>--hr--</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a8ba21dc86d335aec9bea94f0fe6e368</id>
+				<tid>61</tid>
+				<org>Modul-Konfig</org>
+				<en>Module-Config</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>8c2a4a403cb32858b69ce02945854fa0</id>
+				<tid>62</tid>
+				<org>Menü-Einträge</org>
+				<en>Menue-Entries</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>bea4c2c8eb82d05891ddd71584881b56</id>
+				<tid>220</tid>
+				<org>Feedback</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f7a0127538cb9a91d90964c6fea4347a</id>
+				<tid>218</tid>
+				<org>Verwendung</org>
+				<en>Usage</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>0df7b79fba9fd37c6f6c757b4e80320b</id>
+				<tid>138</tid>
+				<org>Nach wie vielen Hits im Zeitraum soll eine IP gesperrt werden?</org>
+				<en>After how manay hits within a timeframe should an IP be locked?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>da4fb5c6e93e74d3df8527599fa62642</id>
+				<tid>139</tid>
+				<org>120</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>849d2eafe1f6cff9caf01d3b107dc78b</id>
+				<tid>140</tid>
+				<org>Seite bei zu häufigen Zugriffen von einer IP sperren?</org>
+				<en>Lock page on too many hits of one IP?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>cfcd208495d565ef66e7dff9f98764da</id>
+				<tid>141</tid>
+				<org>0</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
+				<tid>142</tid>
+				<org>Nein</org>
+				<en>No</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>375ee26098b46e23bcb854331f0ad8c5</id>
+				<tid>143</tid>
+				<org>Ja</org>
+				<en>Yes</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>efe9133a6e4283b6b3875f059ea1499c</id>
+				<tid>144</tid>
+				<org>Aufzeichnungszeitraum für IP-Reload in Sekunden</org>
+				<en>Record timeframe for IP-Reload in secounds</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d490d7b4576290fa60eb31b5fc917ad1</id>
+				<tid>145</tid>
+				<org>600</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>eff111190077dce01fd0c41846a202d7</id>
+				<tid>146</tid>
+				<org>Anfahrt</org>
+				<en>Approach</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>4fb17b950ddcd2df0e76f6c9b163dea8</id>
+				<tid>147</tid>
+				<org>Mit Hilfe dieses Modules kann der User sich eine Wegbeschreibung von MAP24.de anzeigen lassen</org>
+				<en>This module displays a guid using map24.de</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>4db34574085db54968c446263c7807c4</id>
+				<tid>148</tid>
+				<org>Beispielmodul</org>
+				<en>Samplemodule</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>64375b675a6efda3d492a826ff11ccc3</id>
+				<tid>149</tid>
+				<org>Dieses Modul ist nur für Entwickler gedacht und demonstriert an einem Beispiel den Aufbau eines Modules</org>
+				<en>This module was created for developers only. It demonstrates them the sample framework of a module</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a8917e8bdcc893fe2e6dcb14fceeb6b3</id>
+				<tid>150</tid>
+				<org>Bildergalerie</org>
+				<en>Picture gallery</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b1d2c17b07b47064138d811957571117</id>
+				<tid>151</tid>
+				<org>Bietete die Möglichkeit Bilder hochzuladen und stellt diese in Kleinansicht in einer Liste dar</org>
+				<en>Upload pictures and display them as thumbnails</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>6036d0a8b885529156168b3b69ee03cc</id>
+				<tid>152</tid>
+				<org>Board</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>6832bf18533148cd4bae0ec1d6329fdf</id>
+				<tid>153</tid>
+				<org>Ein Forum - Gäste können hier Nachrichten hinterlassen, worauf andere antworten können</org>
+				<en>Guests can leave messages and others can answer them</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>55dcdf017b51fc96f7b5f9d63013b95d</id>
+				<tid>154</tid>
+				<org>Chat</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>8d2ad15c12026df6c5b58a30e234984f</id>
+				<tid>155</tid>
+				<org>Bindet ein JavaApplet zum Chatten auf einem IRC-Server in LanSuite ein</org>
+				<en>Supplies an JavaApplet chat for chatting on an IRC server</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c20c35ef53bf1b70789ce94e66800147</id>
+				<tid>156</tid>
+				<org>Downloads</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>ae06fc16268b9d56a3a9594a91926ae3</id>
+				<tid>157</tid>
+				<org>Dieses Modul stellt den Inhalt eines FTP-Servers auf der Intranetseite da. z.B. zum einfachen Verteilen von Patches</org>
+				<en>This module displays the content of a FTP server within Lansuite. Could be used for distributing patches</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>1fe917b01f9a3f87fa2d7d3b7643fac1</id>
+				<tid>158</tid>
+				<org>FAQ</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>2334d86e2e461297fb20f35a16df6469</id>
+				<tid>159</tid>
+				<org>Orgas können häufig gestellte Fragen mit ihren Antworten niederschreiben</org>
+				<en>Admins are able to write down frequently asked questions in combination with their solutions</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>45e9f2e8a4a222aade94f85072bcb722</id>
+				<tid>160</tid>
+				<org>Foodcenter</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>451133ebe29d92e471e605b665f00838</id>
+				<tid>161</tid>
+				<org>Ein Cateringmodul</org>
+				<en>Manage catering</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3d062d12592f7268a0a3403c2e17a832</id>
+				<tid>162</tid>
+				<org>Gästebuch</org>
+				<en>Guestbook</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f18fe87ad4413405a9405571fee207af</id>
+				<tid>163</tid>
+				<org>Besucher können hier eine kurze Nachricht hinterlassen</org>
+				<en>Guests can leave short messages</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a929e3ec667b05709ba32ba05ab883a8</id>
+				<tid>164</tid>
+				<org>Gästeliste</org>
+				<en>Guestlist</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>8034185fceb7ab80c47f5b38bdd82358</id>
+				<tid>165</tid>
+				<org>Dies ist eine Liste aller angemeldeter Gäste</org>
+				<en>A list of all guests signed on to the current party</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>4482323b93e12e77af8468beeea96400</id>
+				<tid>166</tid>
+				<org>Informationen2</org>
+				<en>Information2</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>69d331f7b647baa44b0be347ff1c4ed3</id>
+				<tid>167</tid>
+				<org>Ermöglicht das einfache hinzufügen weiterer statischer Webseiten</org>
+				<en>Simply add further content to your website</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>4dfbb099eafd3c82e033bf92946d3ce6</id>
+				<tid>168</tid>
+				<org>Mail</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>5e9785f532c3ce307d7b32035551b126</id>
+				<tid>169</tid>
+				<org>Internes Mailsystem von LanSuite</org>
+				<en>Lansuites internal mailing system</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d185bd88744161980aa2d317f6dba5f2</id>
+				<tid>170</tid>
+				<org>Messenger</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e53cf59e273b6fb847364439572e0d67</id>
+				<tid>171</tid>
+				<org>Benutzer können andere zu ihren Kontakten hinzufügen, sehen ob diese online sind und können ihnen Nachrichten schreiben</org>
+				<en>Users could add others contacts, see their online state and send them messages</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>74248c725e00bf9fe04df4e35b249a19</id>
+				<tid>172</tid>
+				<org>Misc</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>6d0659c9fc85d02bbba898c5d78e1eda</id>
+				<tid>173</tid>
+				<org>Verschiedene Admin-Optionen</org>
+				<en>Multiple admin options</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d8d63622642f0253e654d8962260d73c</id>
+				<tid>174</tid>
+				<org>Network Operation Center</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3ff2e5307f0e7b8b25599028bcd3919e</id>
+				<tid>175</tid>
+				<org>Management und Statistiken der Switches (In der Testphase)</org>
+				<en>Management and statistics of switch (Still testing...)</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>4bf6db09e17e24a97496fec83c80ae32</id>
+				<tid>176</tid>
+				<org>Präsentiert Bekanntmachungen der Orgas</org>
+				<en>Displays admins anouncements</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>ad69e733ebae8d264bccaa38d68830e8</id>
+				<tid>177</tid>
+				<org>PayPal</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>1eccc4c0d2ee7f13c6c0865dfcd8a355</id>
+				<tid>178</tid>
+				<org>Mit diesem Modul können die Benutzer einzahlungen machen</org>
+				<en>Users may perform PayPal payments</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>99e35f1309d48330cc7d706e96b82449</id>
+				<tid>179</tid>
+				<org>PDF Export</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b460a5d6bc2473f6780b4177ba242d3d</id>
+				<tid>180</tid>
+				<org>PDF aus Daten erstellen</org>
+				<en>Create PDF from Lansuite data</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>87dde47c3c24ba7cc629ea2dacab3806</id>
+				<tid>181</tid>
+				<org>Poll</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>bf6ff32052f344f5a58a5a01f8b87de5</id>
+				<tid>182</tid>
+				<org>Ein Umfragemodul</org>
+				<en>A survey module</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>9aa1b03934893d7134a660af4204f2a9</id>
+				<tid>183</tid>
+				<org>Server</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>1fbcf243b478ad4077161822ee9b4b7c</id>
+				<tid>184</tid>
+				<org>Eine öffentliche Liste aller Server auf der Lan, in der jeder eingeloggt Benutzer seinen Server eintragen kann</org>
+				<en>A public list of all servers located at the LAN. Each logged in user may add his own server</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>0cb7909a456224ba18ddf1480c1a14d2</id>
+				<tid>185</tid>
+				<org>Sitzplan</org>
+				<en>Seating</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>cae30fe4ab98f6b42924750996b397b2</id>
+				<tid>186</tid>
+				<org>Bezahlte Benutzer können sich hier Sitzplätze reservieren. So kann jeder nachschauen, wo eine gesuchte Person sitzt</org>
+				<en>Users having paid may reserve a seat. All others will be able to locate this person</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>dead5a4e545bf90a5515aa136f18de5e</id>
+				<tid>187</tid>
+				<org>Eine Liste aller Sponsoren mit Banner und Beschreibung</org>
+				<en>A list of all sponsors containing banners and description</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>24a3c92e2848c07b6c75a1e575e768be</id>
+				<tid>188</tid>
+				<org>Zeigt einige Statistiken zur Nutzung von LanSuite</org>
+				<en>Shows statistics on usage of Lansuite</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>8d60b04ccff47bf500992439e70ed7c9</id>
+				<tid>189</tid>
+				<org>Troubleticket</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e74287b54449bafb5329e5e7fe0dbddb</id>
+				<tid>190</tid>
+				<org>Benutzer können hier ihre Probleme posten, Orgas können sie beheben, oder anderen Orgas zuweisen</org>
+				<en>Users may post their problems and admins could fix them or assign them to other admins</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>0c6fbe34d6ec812cdfd575924bf449eb</id>
+				<tid>191</tid>
+				<org>Turnier</org>
+				<en>Tournament</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>36cbd4c8a73a5bd2275be6545b0efff9</id>
+				<tid>192</tid>
+				<org>Zum Verwalten der Turniere (Modi: Single + Double Elimination; Liga; Gruppenspiele)</org>
+				<en>For manageing tournaments (Modi: Single + Double elemination; League; Group games; FFA)</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a377bf984e816b7da45903df0c39cfea</id>
+				<tid>193</tid>
+				<org>Verleih</org>
+				<en>Rental</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>266c668392f9553a52dca152a803022c</id>
+				<tid>194</tid>
+				<org>Orgas können hier eintragen, welche Gegenständig sie welchen Benutzer für die LAN geliehen haben</org>
+				<en>Admins could enter which stuff they lend to wich person</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>6a09538e3be8905d00d058ddb60e510b</id>
+				<tid>195</tid>
+				<org>Web-Spiele</org>
+				<en>Web games</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>763112d1cc7ea95cb60f15307a2b1436</id>
+				<tid>196</tid>
+				<org>Eine Sammlung kleiner Onlinespiele</org>
+				<en>A collection of little online games</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>8f7f4c1ce7a4f933663d10543562b096</id>
+				<tid>197</tid>
+				<org>About</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f73e6dc9b96aca536ad66019b68d7ff0</id>
+				<tid>198</tid>
+				<org>Eine Übersicht der Programmierer von LanSuite</org>
+				<en>An overview over Lansuites programmes and designers</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>05d316097eb9d1289765b00d23b6aba8</id>
+				<tid>199</tid>
+				<org>Anmeldung</org>
+				<en>Sign on</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>58b82757c0a4851c35a6337881ce21ff</id>
+				<tid>200</tid>
+				<org>Durch dieses Modul können sich Benutzer zu der Party anmelden und Partys können verwaltet werden.</org>
+				<en>Users may register within the system</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>27e171d5e7c36151d5b72c5192ace4fc</id>
+				<tid>201</tid>
+				<org>Zum verwalten der Benutzeraccounts</org>
+				<en>For manageing user accounts</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>20658233a3d594f3f6ca5925b0cb5fc3</id>
+				<tid>202</tid>
+				<org>Dieses Modul verwaltet zyklische Aufgaben wie das aufräumen der Datenbank</org>
+				<en>This manages repetetive tasks, like optimizing the database</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>7cd8fb6e31cc946c078d2740c76a9899</id>
+				<tid>203</tid>
+				<org>Installation</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>1a800d88b2df0d6b5c3d0aa9d9d6e62d</id>
+				<tid>204</tid>
+				<org>Ermöglicht das Installieren und Administrieren von LanSuite</org>
+				<en>Allows the installation and adminsitration of Lansuite</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>6d5a3f2cf8eb3835adec51e3f1a9432e</id>
+				<tid>205</tid>
+				<org>MasterSearch</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>19b3d02a37fd731aed0113604200e660</id>
+				<tid>206</tid>
+				<org>LanSuite Such-Engine</org>
+				<en>Lansuites search engine</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>05cbbec74e25d7a759854b4177eb9e64</id>
+				<tid>207</tid>
+				<org>In diesem Modul können Partys erstellt und bearbeitet werden</org>
+				<en>Partys could be created within this module</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b38bdb739eea52c9ed201650611b7b55</id>
+				<tid>208</tid>
+				<org>Dieses Modul gibt eine Übersicht über aktuelle Aktivitäten in LanSuite</org>
+				<en>Provides an overview over current activities within Lansuite</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f686f320c3802565876af86f523cdfb6</id>
+				<tid>209</tid>
+				<org>Übersetzungen</org>
+				<en>Translations</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>ddffbc94082d07139ccbd98efcf748ed</id>
+				<tid>221</tid>
+				<org>Modul-DB</org>
+				<en>Module-DB</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>34ae96f6e3e2bd244bc9509bdb66f323</id>
+				<tid>217</tid>
+				<org>Datenbank</org>
+				<en>Data base</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>5f4110486d00f1ceafd93d33f82c55a8</id>
+				<tid>226</tid>
+				<org>Hinzufügen</org>
+				<en>Add</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e62bfa2658ac702da248b8488e3dd09f</id>
+				<tid>227</tid>
+				<org>Post-Suche</org>
+				<en>Post search</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a6b4ee85e610112c9b19d0ff4bc87245</id>
+				<tid>228</tid>
+				<org>Clanmanager</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d9901e46d194f20b141d913b1c78f7c9</id>
+				<tid>229</tid>
+				<org>Hinzuf&uuml;gen</org>
+				<en>Add</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3f65f54f9af4264914a932c8e5005e71</id>
+				<tid>230</tid>
+				<org>Benutzergruppen</org>
+				<en>User groups</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>99514e9c53f7ebe8dcf54f842fb0e703</id>
+				<tid>231</tid>
+				<org>Felder ergänzen</org>
+				<en>Add fields</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>892ada1b4c99dc72a7b983979a01d121</id>
+				<tid>232</tid>
+				<org>Einlass-Assistent</org>
+				<en>Check in assistent</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>4474fbc0115b236a45eb9573889b2653</id>
+				<tid>233</tid>
+				<org>Suchen</org>
+				<en>Search</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d611d9f4d10e41dc4d07dd122ca77b32</id>
+				<tid>234</tid>
+				<org>Hier k&ouml;nnen Sie nach News-Meldungen suchen</org>
+				<en>Search for news posts</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>99f454dcb610c9d55dd851378b1f0ad6</id>
+				<tid>238</tid>
+				<org>Welche Startseite soll im eingeloggten Zustand angezeigt werden?</org>
+				<en>Which home page should be displayed when logged in?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f33ed9a5efc6d8a1249d0e2cd56011db</id>
+				<tid>239</tid>
+				<org>Neuigkeiten</org>
+				<en>News</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>ce165a23d12e3eff23cf3739ffc41e4e</id>
+				<tid>240</tid>
+				<org>Neues in den Modulen</org>
+				<en>News within modules</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>66c53b40f54d2a54cea98475a8c25478</id>
+				<tid>241</tid>
+				<org>Text aus ext_inc/home/logout.txt</org>
+				<en>Text from ext_inc/home/logout.txt</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f8d76ddb58dbab44e860849590fd1f9f</id>
+				<tid>242</tid>
+				<org>Welche Startseite soll im ausgeloggten Zustand angezeigt werden?</org>
+				<en>Which home page should be displayed when logged out?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>473390974397014edf78846c8f0e93b3</id>
+				<tid>243</tid>
+				<org>Ort</org>
+				<en>City</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>971a6bdb8bc4893985fe55f3c26238a2</id>
+				<tid>244</tid>
+				<org>Hausnummer</org>
+				<en>Number</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>cd31dae2aeabc40bc5bb1094c182bf1c</id>
+				<tid>245</tid>
+				<org>PLZ</org>
+				<en>Postal code</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a763ca073cfda1fce8a14f2f0cc84591</id>
+				<tid>246</tid>
+				<org>Straße</org>
+				<en>Street</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>4b9f5a831ec50753abd84e5354c5c8dd</id>
+				<tid>247</tid>
+				<org>Link zu den AGB</org>
+				<en>Link to TaC</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>84ec84f531a89f77642795e9f7039b2a</id>
+				<tid>248</tid>
+				<org>/index.php?mod=info2&action=show_info2&submod=Regeln%20(AGB)</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>0465a30c0354139684cc5e0920ab09f7</id>
+				<tid>249</tid>
+				<org>Soll der Link zu den AGB in einem neuen Fenster angezeigt werden?</org>
+				<en>Should the link to the TaC be displayed in a new window?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c4ca4238a0b923820dcc509a6f75849b</id>
+				<tid>250</tid>
+				<org>1</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>dccb66c1d5696b6666e10c1eedc3dbca</id>
+				<tid>251</tid>
+				<org>Soll die AGB auch angezeigt werden, wenn man nur einen Account erstellt?</org>
+				<en>Should the TaC be displayed if one only creates an account?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c0133a8fdfbc11b52ce45bea1471b6f5</id>
+				<tid>252</tid>
+				<org>Link zu der U18-Vollmacht</org>
+				<en>Link to U18 warant</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>2dd3e056217753444ff2549e5a84b741</id>
+				<tid>253</tid>
+				<org>Betreff der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird</org>
+				<en>Subject of email, send to an user after registration</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>cfaf0a609d2b6a2a296a5b4f34533849</id>
+				<tid>254</tid>
+				<org>Informationsmail zur Anmeldung bei der LANparty</org>
+				<en>Information mail concerning sign on to Lanparty</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d898c93817c9a26c0923fd6806f67d93</id>
+				<tid>255</tid>
+				<org>Text der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird, wenn er sich auch zur aktuellen Party anmeldet</org>
+				<en>Text, send to the user after siging on to a party</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>5b43a76873eb559bad1914ab35b001af</id>
+				<tid>256</tid>
+				<org>Hallo %USERNAME%!
+
+Sie sind nun registriert und für die kommende LanParty "%PARTYNAME%" vorgemerkt. Ihre Anmeldung ist jedoch erst vollständig, wenn Sie die Teilnahmegebühr überwiesen haben.
+
+Bitte halten Sie diese E-Mail gespeichert, falls Sie Ih</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>07191f62fee8a4c467df43ea34e61fc7</id>
+				<tid>257</tid>
+				<org>Text der eMail, die dem Teilnehmer nach seiner Registrierung gesendet wird, wenn er nur einen Account erstellt</org>
+				<en>Text, send to the user after registration</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>53509519ec028f96ae466a1dd3637e93</id>
+				<tid>258</tid>
+				<org>Hallo %USERNAME%!
+
+Sie haben sich erfolgreich auf %PARTYURL% angemeldet.
+
+Hier nochmal Ihre Daten, die Sie angegeben haben:
+
+--Userdata------------------
+Username: %USERNAME%
+E-Mail: %EMAIL%
+Passwort: %PASSWORD%
+Clan: %CLAN%
+-------------------</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>2f857c50fc92bf3acfba70a00beb8007</id>
+				<tid>259</tid>
+				<org>Sollen neu angemeldete User automatisch eingecheckt werden?</org>
+				<en>Should new users check in automatically</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>ec37cb91d0d071e0f5f0725ef469fe53</id>
+				<tid>260</tid>
+				<org>Sollen neu angemeldete User automatisch auf bezahlt gesetzt werden?</org>
+				<en>Should new users be set to paid automatically</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>24d83773a4423f4387fb87071cb08548</id>
+				<tid>261</tid>
+				<org>Müssen neu erstellte Accounts erst freigeschaltet werden?</org>
+				<en>Have new accounts to be activated first?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a5eccd753101c445bc41d8bfbd600753</id>
+				<tid>262</tid>
+				<org>AGB Zustimmung</org>
+				<en>TaC acknowledgement</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c81e728d9d4c2f636f067f89cc14862c</id>
+				<tid>263</tid>
+				<org>2</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>8f36dc52ff7efbc412ac5417d52ab945</id>
+				<tid>264</tid>
+				<org>Optionale Angabe</org>
+				<en>Optional</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>57af7e947407e6157b67a18044dda031</id>
+				<tid>265</tid>
+				<org>Feld deaktiviert</org>
+				<en>Field deactivated</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>6490b3681eefa40e33f07e3215801060</id>
+				<tid>266</tid>
+				<org>Pflichtfeld</org>
+				<en>Mandatory</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c5c0b38ed571190b92ef2995e27b0bab</id>
+				<tid>267</tid>
+				<org>Geburtstag</org>
+				<en>Birthday</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c05fc5cd8ba6911178b3200da05cd1e3</id>
+				<tid>268</tid>
+				<org>Stadt</org>
+				<en>City</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>603c07e2735df19b9a7ce091d7453d2b</id>
+				<tid>269</tid>
+				<org>Clan</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>6980d6fe15137e367cedef66b668b9da</id>
+				<tid>270</tid>
+				<org>Clanurl</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>fecc7b92efa313ac8de08d4094455c9e</id>
+				<tid>271</tid>
+				<org>Vorname</org>
+				<en>First name</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b33509e4101693a82829fd320a7394ef</id>
+				<tid>272</tid>
+				<org>Geschlecht</org>
+				<en>Gender</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f525aa846d36e5177cffd429d8bdca45</id>
+				<tid>273</tid>
+				<org>Handy</org>
+				<en>Cell phone</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3c2be36e64a2e43897cce5fc46def772</id>
+				<tid>274</tid>
+				<org>ICQ</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>43895f9ec69cb177446921df9828c680</id>
+				<tid>275</tid>
+				<org>Nachname</org>
+				<en>Last name</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>9cafcaf3209bcf8cf540533986191dd6</id>
+				<tid>276</tid>
+				<org>MSN</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>885f1b6433ec1911b9dddd64f228d840</id>
+				<tid>277</tid>
+				<org>Newsletter Anforderung</org>
+				<en>Newsletter registration</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>97a8d7741ab606ccaa640f4317636bb5</id>
+				<tid>278</tid>
+				<org>NGL-ID</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>39c6a9c3da84ae1e6456d11f2b9d7634</id>
+				<tid>279</tid>
+				<org>Personalausweis</org>
+				<en>ID</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a00b774e8ee6f87306f4c14c2b4c55ce</id>
+				<tid>280</tid>
+				<org>Skype</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>0975cf6baccb3862c31522c2b5b8fabc</id>
+				<tid>281</tid>
+				<org>Telefon</org>
+				<en>Phone</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>541e3450229b6cbbb9110455d3b9059a</id>
+				<tid>282</tid>
+				<org>U18 Zustimmung</org>
+				<en>U18 warant</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c0260539d235b38b4e51abb1844d9b84</id>
+				<tid>283</tid>
+				<org>WWCL-ID</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a2f9b6f07744f4fb9aadfce065108b42</id>
+				<tid>284</tid>
+				<org>Soll eine Box mit den zuletzt angemeldeten Benutzern angezeigt werden?</org>
+				<en>Should a box be displayed, containing the last users signed on</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c4dad191674bf7e549a72e3c0293a9c9</id>
+				<tid>285</tid>
+				<org>Soll das Passwort automatisch generiert werden?</org>
+				<en>Should the password be generated automatically</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>9ffdaea0d984e1081f959737b2ed58da</id>
+				<tid>286</tid>
+				<org>Dem neuen Teilnehmer sein Passwort per eMail zusenden?</org>
+				<en>Send the new user his password using email</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>86c7184ed2b774e591d11e756349f262</id>
+				<tid>287</tid>
+				<org>Dem neuen Teilnehmer sein Passwort anzeigen?</org>
+				<en>Show the new user his password</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>bc29185495f608e313294cf035aed183</id>
+				<tid>288</tid>
+				<org>Captcha-Code verlangen (Hilft gegen Bot-Accounts)</org>
+				<en>Require captcha (For preventing bot-accounts)</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d5d192c8438865d7f69bc8bc68185c54</id>
+				<tid>289</tid>
+				<org>Sind neue Accounts automatisch gesperrt?</org>
+				<en>Should new accounts be locked?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>75b934baa4f897cea8599e5f26c23aaf</id>
+				<tid>290</tid>
+				<org>Darf der Benutzer ein Avatarbild uploaden?</org>
+				<en>May the user upload avatars?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>230082279c9c871d7063205ce940c113</id>
+				<tid>291</tid>
+				<org>Darf der Benutzer das Design auswählen?</org>
+				<en>May the user change his design?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c87947d49777538e858f9c01a12a3286</id>
+				<tid>292</tid>
+				<org>Sollen die User ihre Details im Nachhinein selbst ändern dürfen?</org>
+				<en>May users edit their details after signing on</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>96acd7aa019b03c586660727ff7b0aed</id>
+				<tid>293</tid>
+				<org>Soll in der Benutzerdaten-Box der Link zur Eintrittskarte gezeigt werden?</org>
+				<en>Should a link to the ticket be displayed within th user box?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>606098030a326f0ad2cae6ade42d6958</id>
+				<tid>294</tid>
+				<org>Name des PDF-Templates für Eintrittskarte</org>
+				<en>Name of PDF-Teamplate for ticket</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b3a5090b1435aa9934d6193525d725e5</id>
+				<tid>295</tid>
+				<org>Ausweise</org>
+				<en>Passport</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>5a173c07e2ff7f84c2e026b2f4103615</id>
+				<tid>296</tid>
+				<org>Sollen bei einem Orga die Felder "CheckIN/Out" angezeigt werden?</org>
+				<en>Should an admin see the fields CheckIn/Out?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>26a3d29117b2fe14470dd77fb6d80c1a</id>
+				<tid>297</tid>
+				<org>Sollen bei einem Orga die Felder "Bezahlt/PlatzpfandCheckIN/Out" angzeigt werden?</org>
+				<en>Should an admin see the fields Paid/CheckIn/Out?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>14d0d7b132cedd8b111b8bec8e19e5fd</id>
+				<tid>298</tid>
+				<org>Sollen die PLZ und Stadt eines Benutzers JEDEM angezeigt werden? (Orga sieht diese Felder immer)</org>
+				<en>Should the postal code and city of an user be displayed to EVERYONE?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e761902946b3bc71b4803afa4afd55c4</id>
+				<tid>299</tid>
+				<org>Soll die eMail eines Benutzers JEDEM angezeigt werden? (Orga sieht diese Felder immer, im Internetmodus wird sie nie angezeigt)</org>
+				<en>Should the email of an user be displayed to EVERYONE in intranet mode?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>655cb6a8e9ecdb07db139689a2085c29</id>
+				<tid>300</tid>
+				<org>Sollen dem Benutzer SEINE Straße/Passnummer/Sonstiges angezeigt werden? (Orga sieht diese Felder immer)</org>
+				<en>Should a user see HIS Street/ID/Misc?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>db45dff4be7dd4cf3b92eab48aae75af</id>
+				<tid>301</tid>
+				<org>Soll nach der Bezahltstatusänderung die Option geboten werden, dem Benutzer eine Mail zu senden?</org>
+				<en>Display choice to send an email to the user, after changing his paid state</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>0e6b51a84c0a43e484e07ff9ad2f0c3d</id>
+				<tid>302</tid>
+				<org>Hallo %USERNAME%,
+
+Ihr Bezahltstatus der LanParty "%PARTYNAME%" wurde zurück auf "NICHT bezahlt" gesetzt.
+
+Ihre Orgas</org>
+				<en>Hallo, %USERNAME%, your paid state has been resetted to NOT PAID.</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>331317d5317261303cfb67656f44f354</id>
+				<tid>303</tid>
+				<org>Hallo %USERNAME%!
+
+Sie sind nun auf den Status bezahlt gesetzt und können
+für die kommende LanParty "%PARTYNAME%" Ihren Sitzplatz reservieren.
+
+Ihre Orgas</org>
+				<en>Hallo, %USERNAME%, your paid state has just been set PAID. You could now continue choosing your seat</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c9d345b9d531c970f5e57d4e63d0a376</id>
+				<tid>304</tid>
+				<org>Text der Mail, die ein Benutzer bekommt, wenn er auf 'Nicht Bezahlt' gesetzt wird</org>
+				<en>Text of mail beeing send to the user, if he was set to NOT PAID</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>5e1d8ae1826c5f11063372faed7fc2a5</id>
+				<tid>305</tid>
+				<org>Text der Mail, die ein Benutzer bekommt, wenn er auf 'Bezahlt' gesetzt wird</org>
+				<en>Text of mail beeing send to the user, if he was set to PAID</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a28f62d54f5fe8f683587b07abb184dc</id>
+				<tid>306</tid>
+				<org>Darf jeder Bilder hochladen</org>
+				<en>May each user upload pictures?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>0518f9b9885cd68114d5944da6c65f6a</id>
+				<tid>307</tid>
+				<org>Maximalhöhe eines Thumbnails</org>
+				<en>Maximum hight of thumbnails</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>050d01a7de84d2cf243bc26b3cbecd72</id>
+				<tid>308</tid>
+				<org>Maximalbreite eines Thumbnails</org>
+				<en>Maximum width of thumbnails</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>7ef605fc8dba5425d6965fbd4c8fbe1f</id>
+				<tid>309</tid>
+				<org>150</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>38680236baa3cacdc3ec709094aa29ed</id>
+				<tid>310</tid>
+				<org>Bilder in der Übersicht pro Reihe</org>
+				<en>Pictures per row</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>eccbc87e4b5ce2fe28308fd9f2a7baf3</id>
+				<tid>311</tid>
+				<org>3</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>0bacb69691705b5ace4e18d8874174ed</id>
+				<tid>312</tid>
+				<org>Reihen mit Bildern in der Übersicht</org>
+				<en>Amount of rows</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a87ff679a2f3e71d9181a67b7542122c</id>
+				<tid>313</tid>
+				<org>4</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>49876115de20118d5c40ff05b4545066</id>
+				<tid>314</tid>
+				<org>Anzahl der angezeigten Einträge</org>
+				<en>Amount of entries</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d3d9446802a44259755d38e6d163e820</id>
+				<tid>315</tid>
+				<org>10</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d01f7840e6163fbb385536c441cad170</id>
+				<tid>316</tid>
+				<org>Gast Präfix</org>
+				<en>Guest prefix</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d5f85f97cd5f962e276e4a61df33596b</id>
+				<tid>317</tid>
+				<org>Gast_</org>
+				<en>Guest_</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>cd7eaafc7d0b8d27a0acb0a09b3c797a</id>
+				<tid>318</tid>
+				<org>Ranking anzeigen?</org>
+				<en>Show ranking?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>43554e604864674a15ec11826322c267</id>
+				<tid>319</tid>
+				<org>Betreff der Hinweismail auf neue Beiträge</org>
+				<en>Subject of notification mail on new posts</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>4bee426b7ef3feece811d76073b924e4</id>
+				<tid>320</tid>
+				<org>Es ist ein neuer Beitrag vorhanden</org>
+				<en>A new post is availible</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>2f8b3e300e4c9a74adc92a2836524945</id>
+				<tid>321</tid>
+				<org>Text der Hinweismail auf neue Beiträge</org>
+				<en>Text of notification mail on new posts</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>58ed2313a7b195ddb0627e37ffeece67</id>
+				<tid>322</tid>
+				<org>Im Forum gibt es einen neuen Beitrag. Du kannst ihn dir unter %URL% ansehen</org>
+				<en>There is a new post on the board. Have a look at it under %URL%</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a8795c6565bad48a7430cf9abeb57b2c</id>
+				<tid>323</tid>
+				<org>Höhe des Chatfensters</org>
+				<en>Hight of chat window</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>6ea2ef7311b482724a9b7b0bc0dd85c6</id>
+				<tid>324</tid>
+				<org>480</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b319488db00de912d7e9e7361a4de1cd</id>
+				<tid>325</tid>
+				<org>Breite des Chatfensters</org>
+				<en>Width of chat window</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>4ffce04d92a4d6cb21c1494cdfcd6dc1</id>
+				<tid>326</tid>
+				<org>640</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>ce8eee68ac1522429e23ea4d5e63c0a9</id>
+				<tid>327</tid>
+				<org>IRC Channel der Party</org>
+				<en>IRC channel</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>37a6259cc0c1dae299a7866489dff0bd</id>
+				<tid>328</tid>
+				<org>null</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>9a08219bf2cd7ea3eb48096d297d9f4b</id>
+				<tid>329</tid>
+				<org>IRC Server auf dem der Chat läuft?</org>
+				<en>IRC server</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d2046eec1ef5384cd2e932a862cebcaa</id>
+				<tid>330</tid>
+				<org>Download deaktiveren</org>
+				<en>Deactivate download</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>589f11dfe5cd6248cb6ee46bec1e60c3</id>
+				<tid>331</tid>
+				<org>Passwort des LogIn-Accounts</org>
+				<en>Password</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>2fe599335bc860e2e26ac965ce7c0cf3</id>
+				<tid>332</tid>
+				<org>script@lansuite.de</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>345d15a3f5d177cf1df92ed61a315f9a</id>
+				<tid>333</tid>
+				<org>Port des FTP-Servers</org>
+				<en>FTP-Port</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3c59dc048e8850243be8079a5c74d079</id>
+				<tid>334</tid>
+				<org>21</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e838d000e01c7ff6d7aa5c3bcadad11a</id>
+				<tid>335</tid>
+				<org>Hostname / IP des FTP-Servers</org>
+				<en>Hostname / IP of server</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>421aa90e079fa326b6494f812ad13e79</id>
+				<tid>336</tid>
+				<org>localhost</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>7e74ca7f5e410c5db4724b086092f6eb</id>
+				<tid>337</tid>
+				<org>Unterordner auf dem FTP-Server</org>
+				<en>Directory on server</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f1d80629ec7a6e75b6e239fc37c00515</id>
+				<tid>338</tid>
+				<org>Username des LogIn-Accounts</org>
+				<en>Username</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>294de3557d9d00b3d2d8a1e6aab028cf</id>
+				<tid>339</tid>
+				<org>anonymous</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c840e6e82694c42c0280484c7bb72cc8</id>
+				<tid>340</tid>
+				<org>Ende der Öffungszeit 1</org>
+				<en>End of opening hour 1</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>01f74aacdd994708e689f3b9c58b7de5</id>
+				<tid>341</tid>
+				<org>Ende der Öffungszeit 2</org>
+				<en>End of opening hour 2</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>7f692de7e0e09db13e1ae4f132c8c9e7</id>
+				<tid>342</tid>
+				<org>Ende der Öffungszeit 3</org>
+				<en>End of opening hour 3</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a3c2f3d4bf163f7c0bc223993d4aba61</id>
+				<tid>343</tid>
+				<org>Wie soll sich das Modul ausserhalb der Öffnungszeiten verhalten.</org>
+				<en>How shoud the module behave  after opening hours</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>0f475154f9deaea75c76e1d686489973</id>
+				<tid>344</tid>
+				<org>Modul komplett gesperrt</org>
+				<en>Lock module</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>5130c3f7937b10242a0b18acf8388ce2</id>
+				<tid>345</tid>
+				<org>Öffnungszeiten deaktiviert</org>
+				<en>Deactivate opening hours</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>869e85eb5dcb5164a3f7b16ea7f59e8e</id>
+				<tid>346</tid>
+				<org>Keine Bestellungen aber Ansicht</org>
+				<en>View, but no orders</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e7713eaf44cff0990d934c62bcf0853b</id>
+				<tid>347</tid>
+				<org>Hinweis Bestellung möglich</org>
+				<en>Notification order possible</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>bab2d6aa43f15d7909636ec77e9925df</id>
+				<tid>348</tid>
+				<org>Start der Öffungszeit 1</org>
+				<en>Start of opening hour 1</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>84f550ff69fbf6df5a5963cf5e6e238e</id>
+				<tid>349</tid>
+				<org>Start der Öffungszeit 2</org>
+				<en>Start of opening hour 2</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>5de3ead269b491883439bf86854ed1ac</id>
+				<tid>350</tid>
+				<org>Start der Öffungszeit 3</org>
+				<en>Start of opening hour 3</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>5a36de68bddb6a57fc3db69caf37d0d6</id>
+				<tid>351</tid>
+				<org>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der Gäste) anzeigen?</org>
+				<en>Guest map (Map of germay marking the origin of the guests)</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>98dc6ad21532bbc6da3525a5c6eef6ef</id>
+				<tid>352</tid>
+				<org>Sollen Orgas mit in der Gästeliste angezeigt werden.</org>
+				<en>Should admins be displayed on the guest list</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a1ed0bb0cd3d381e7374908430d39bbc</id>
+				<tid>353</tid>
+				<org>Erweiterte Toolbar</org>
+				<en>Extended toolbar</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>8db5054470eb7c8f3dd9e96c00307fcc</id>
+				<tid>354</tid>
+				<org>Eingabe über den WYSIWYG-Editor FCKedit?</org>
+				<en>Use WYSIWYG editor FCKedit?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>ff9cd5dbf01c3bdee931f0ba67b7cdc3</id>
+				<tid>355</tid>
+				<org>Sollen neue Menüpunkte Unterpunkte des Info2-Modules sein?</org>
+				<en>Should new menu items be created as subitems of Info2?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d931b7a993213c024074001c862dc4f1</id>
+				<tid>356</tid>
+				<org>Stärke der Seitenkompression: 0 = Kompression deaktiviert, 1 = schwach, 9 = stark</org>
+				<en>Strength of site compression: (0 = none, 1 = weak, 9 = strong)</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>9b748c096042c2c2fc0d66c2d57df592</id>
+				<tid>357</tid>
+				<org>Läuft diese Version im Internet (Anmeldesystem)?</org>
+				<en>Does this versio run in the internet (sign on system)?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>713bad77d8e029a698eb293ecb6086e0</id>
+				<tid>358</tid>
+				<org>Soll ein eingeloggter User ausgeloggt werden, wenn sich ein 2. mit diesem Account anmeldet?</org>
+				<en>Should a logged in user be logged off once a secound one signs on using his account?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a5ab32c301490bc67981cda091464675</id>
+				<tid>359</tid>
+				<org>Fügt den Text als weitere Fooderzeile unter dem bestehendem hinzu. (html-code)</org>
+				<en>Add this tex as an additional fooder line</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>41b1710aed5ca9a5b8943ff623660972</id>
+				<tid>360</tid>
+				<org>Sollen Passwörter in DIESER Übersicht in Klartext angezeigt werden?</org>
+				<en>Should passwords be displayed in THIS overview</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c1a5aa97107b24e8196c15bafafa5647</id>
+				<tid>361</tid>
+				<org>Soll das Barcodesystem verwendet werden?</org>
+				<en>Should the barcode system be used?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e728ec1c90dacc63a6e8ead14c4e2db8</id>
+				<tid>362</tid>
+				<org>Barcode-Typ der verwendet werden soll</org>
+				<en>Barcode type used</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a7b4930bf2fc5d57eec6b03097200152</id>
+				<tid>363</tid>
+				<org>EAN-13</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>90655c0c4e1754bba52178b33d85c197</id>
+				<tid>364</tid>
+				<org>CODE93</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>614b117dfc20fed8a403922cf5b494c3</id>
+				<tid>365</tid>
+				<org>CODE39</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b29816ae3dd1ebf7a25af301ec027cda</id>
+				<tid>366</tid>
+				<org>UPC-A</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a145abf0f8a5f387864185ea97821fa8</id>
+				<tid>367</tid>
+				<org>Zeigt zusätzliche Debug-Informationen.</org>
+				<en>Show additional debug information</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>58a714ab2551cae3440ce649ef2ff686</id>
+				<tid>368</tid>
+				<org>Sollen Debug-Mitteilungen angezeigt werden?</org>
+				<en>Should debug information be displayed?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>6fa368d4fa5ebc2f8a775be55d53d355</id>
+				<tid>369</tid>
+				<org>FTP Debug Messages</org>
+				<en>FTP debug messages</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>1992cf5dc2a21f3f296dd7712e502984</id>
+				<tid>370</tid>
+				<org>Land in dem die Party stattfindet</org>
+				<en>Country where the party takes place</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>7a0be5a1ed9675975e678b517f07573c</id>
+				<tid>371</tid>
+				<org>Schweiz</org>
+				<en>Switzerland</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b472f5868425ac2bc44e693fc3267e87</id>
+				<tid>372</tid>
+				<org>Österreich</org>
+				<en>Austria</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3c2f8b8c8c43538b25a0327ae84c3f65</id>
+				<tid>373</tid>
+				<org>Deutschland</org>
+				<en>Germany</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>17962479e8d1c07c0f5b84db55160cfd</id>
+				<tid>374</tid>
+				<org>Währung des Systems</org>
+				<en>Systems currency</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3e823fac7473e42888932c7761c224fc</id>
+				<tid>375</tid>
+				<org>Euro</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>075a3afd089aef5ee5f2df5fcb77dbc6</id>
+				<tid>376</tid>
+				<org>Sprache des Systems</org>
+				<en>Systems language</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>5f02f0889301fd7be1ac972c11bf3e7d</id>
+				<tid>377</tid>
+				<org>de</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>78463a384a5aa4fad5fa73e2f506ecfc</id>
+				<tid>378</tid>
+				<org>English</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>8f0ca2185f684aa4edeae4b25a65239b</id>
+				<tid>379</tid>
+				<org>Deutsch</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>ccdf43206671c8bf08a3f7d05549cc14</id>
+				<tid>380</tid>
+				<org>Lansuiteseite gesperrt?</org>
+				<en>Lock lansuite?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>88f061d9481b67f8ebdf447b40d72b4a</id>
+				<tid>381</tid>
+				<org>Offlinetext wenn die Seite gesperrt ist.</org>
+				<en>Offlinetext, if lansuite is logged</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>1fa8e961e77529bcc83fce2a23b48d04</id>
+				<tid>382</tid>
+				<org>Die Seite ist momentan Offline.</org>
+				<en>This page is currently offline</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>8436709ef84db3afa2c781196e8089a9</id>
+				<tid>383</tid>
+				<org>Der Link zu der LanParty-Homepage</org>
+				<en>Link to the partys web site</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>9cba9c266abd545d35fdc08131122ccb</id>
+				<tid>384</tid>
+				<org>Kontaktemail der Lanparty (Webmaster)</org>
+				<en>Partys contact mail (Webmaster)</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>092f0bbdaf61d957217b2a602bd7e17e</id>
+				<tid>385</tid>
+				<org>knox@orgapage.de</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e1325f3b41f3996670c6075db77576c5</id>
+				<tid>386</tid>
+				<org>Maximale anzahl der gespeicherten Mails (gelöscht und gelesen)</org>
+				<en>Maximum number of stored mails (read + deleted)</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>98f13708210194c475687be6106a3b84</id>
+				<tid>387</tid>
+				<org>20</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c4cd6fbcdce50b0595938abcb8ab442d</id>
+				<tid>388</tid>
+				<org>Sollen sich bei neuen Meils ein PopUp öffnen?</org>
+				<en>Should a new popup appear on new mails?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>8e035d88acf3a84346eeceaddb98835f</id>
+				<tid>389</tid>
+				<org>Sollen Mails in UTF-8 kodiert werden?</org>
+				<en>Should mails be coded UTF-8?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>cbf7ab8cc1ccf6c630b334e96a3c4aed</id>
+				<tid>390</tid>
+				<org>Hostname des SMTP-Servers</org>
+				<en>Hostname of SMTP server</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>7c578a07b0ebfa5f8624bcd107e85ca9</id>
+				<tid>391</tid>
+				<org>Passwort des SMTP-Servers</org>
+				<en>Password of SMTP server</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e1109a0abdb7f50177396fc43701a83a</id>
+				<tid>392</tid>
+				<org>Benutzername des SMTP-Servers</org>
+				<en>Username of SMTP server</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>1f781e1e107c8fea93ef6c42164d7efb</id>
+				<tid>393</tid>
+				<org>Sollen Internet-Mails per SMTP-versendet werden (Nicht empfohlen)</org>
+				<en>Should internet mails be delivered using SMTP (Not recomended)</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e06a36ab1de09f6c2db2003653226a23</id>
+				<tid>394</tid>
+				<org>Soll die Such-Box angezeigt werden?</org>
+				<en>Should the search box be displayed?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>815596e8cef5f6ecb0ee1c0e459d647c</id>
+				<tid>395</tid>
+				<org>Soll der Messenger auch im Internet-Modus angezeigt werden?</org>
+				<en>Should the messenger be availible in internet mode, also?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>acffd5f14e74d690493cf69b38a9ebbf</id>
+				<tid>396</tid>
+				<org>Soll ein POPUP geöffnet werden bei einer neuen Nachricht?</org>
+				<en>Should a popup appear on a new message?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>54e14a4fded6412b9a754f252cd38901</id>
+				<tid>397</tid>
+				<org>Hier können Sie News-Meldungen hinzufügen</org>
+				<en>Add news messages</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f37a20090e987b60c2c1ba8483191724</id>
+				<tid>398</tid>
+				<org>Wie viele Nachrichten sollen auf einer Seite gezeigt werden?</org>
+				<en>How many news should be displayed on one page?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>e4da3b7fbbce2345d7772b0674a318d5</id>
+				<tid>399</tid>
+				<org>5</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a38d84e1ac78f36a256f19685b1df3ad</id>
+				<tid>400</tid>
+				<org>Werden News als HTML verfasst?</org>
+				<en>Will news be written in HTML?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c0a70d10fcfabc642e0c21033e7fa9f9</id>
+				<tid>401</tid>
+				<org>Nein - LS-Code verwenden</org>
+				<en>No - Use LS-code</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a4ed904c2b70a5cdf909841f4adfaecc</id>
+				<tid>402</tid>
+				<org>Ja - Über Textfeld</org>
+				<en>Yes - Using simple text field</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>4a6b2613577edde81a8189e4c7884baf</id>
+				<tid>403</tid>
+				<org>Ja - Über WYSIWYG-Editor</org>
+				<en>Yes - Using WYSIWYG-editor</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>92f616e37a3c3161b30393c6a1043623</id>
+				<tid>404</tid>
+				<org>Copyright der Webseite</org>
+				<en>Copyright of web site</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>28dfe5db9f672c29e726e319b9ca6d83</id>
+				<tid>405</tid>
+				<org>Kurze Beschreibung der Webseite</org>
+				<en>Short desciption of web site</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>44e45fc3aac4902ad881c1bc537c07fb</id>
+				<tid>406</tid>
+				<org>Die URL des Logos der Party</org>
+				<en>URL of partys logo</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3f483a0cfa282cdcce304abf9f3dabe3</id>
+				<tid>407</tid>
+				<org>Preise</org>
+				<en>Price</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>2f9fa1d99cb6b0fd0cfa95d3266b15a6</id>
+				<tid>408</tid>
+				<org>Hier können Preise geändert werden</org>
+				<en>Change prices</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>0089124270369968e8febabe615724ba</id>
+				<tid>409</tid>
+				<org>Bitte Standart Party festlegen (Nummer muss existieren)</org>
+				<en>Set default party (number has to exist!)</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>de1c19e4e7b36a9149cca733f8abb613</id>
+				<tid>410</tid>
+				<org>Sollen die Besucher Geld für das Catering einzahlen können?'</org>
+				<en>Should users be able to transfer money for catering?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>555556d3a6abf53e4747c086e3d8b948</id>
+				<tid>411</tid>
+				<org>Soll der Besucher auch gleich das Depot zahlen können?</org>
+				<en>Should user be ablte to pay depot?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>ab19039303497e16df79cbdfa5148f17</id>
+				<tid>412</tid>
+				<org>Sollen die Besucher Spenden einzahlen können?</org>
+				<en>Should users be able to transfer donations?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>9f7b1fe41a128bd03d2fde30b5138851</id>
+				<tid>413</tid>
+				<org>E-Mail PayPal-Kontobesitzer</org>
+				<en>Email of PayPal account owner</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a0b7a1ac7d0c44350185d859e5fb789f</id>
+				<tid>414</tid>
+				<org>pay@mybiz.com</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>13b48218c1f2c64a399eef53124d0669</id>
+				<tid>415</tid>
+				<org>Währung (USD,GBP,JPY,CAD,EUR)</org>
+				<en>Currency (USD,GBP,JPY,CAD,EUR)</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>a055562bdb59ad8ba9cc680367308118</id>
+				<tid>416</tid>
+				<org>EUR</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>8631d7a10413d4468691ae26fde4ca80</id>
+				<tid>417</tid>
+				<org>Zahlungsgrund</org>
+				<en>Cause of payment</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>af0536bfb5957f5e23b9e3337b5ae4f5</id>
+				<tid>418</tid>
+				<org>Anmeldung an Party</org>
+				<en>Sign on to party</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>0dfdab82f2b8b461f65dd9653cc2940c</id>
+				<tid>419</tid>
+				<org>Homepage Konto-Besitzer</org>
+				<en>Web site account owner</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b1155cbebe8b7daf108071ca0ee4a387</id>
+				<tid>420</tid>
+				<org>http://www.one-network.org/</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f8b4e458df69d7b07a0becb8c90a341d</id>
+				<tid>421</tid>
+				<org>PayPal URL</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>1a8d754c47b8e9598af0704b8e66d668</id>
+				<tid>422</tid>
+				<org>https://www.sandbox.paypal.com/cgi-bin/webscr</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c138af5a6f5f7107eaa72b1be67da87f</id>
+				<tid>423</tid>
+				<org>Nur Admins dürfen Server hinzufügen</org>
+				<en>Only admins may add servers</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3c49d9cfbcab4bd90f3c705ff3c955fe</id>
+				<tid>424</tid>
+				<org>Nach wie vielen Sekunden soll die Erreichbarkeit eines Servers neu getestet werden?</org>
+				<en>After how many secounds should the accessibility of the server be tested?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>072b030ba126b2f4b2374f342be9ed44</id>
+				<tid>425</tid>
+				<org>60</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b38affdc7b6cfe94145f147e912aa418</id>
+				<tid>426</tid>
+				<org>Anzahl an Plätzen, die jeder Benutzer für Freunde vormerken darf</org>
+				<en>Amount of seats a user may mark for friends</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>491e1924cad1b382478dcf7346a741cf</id>
+				<tid>427</tid>
+				<org>Dürfen NICHT bezahlte Gäste EINEN Sitzplatz vormerken?</org>
+				<en>May guests, having NOT PAID, mark ONE seat?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c9bb699f47127655a2ddbe7b078d9fbe</id>
+				<tid>428</tid>
+				<org>Dürfen nur als bezahlt markierte Gäste einen Sitzplatz auswählen?</org>
+				<en>May only guests having paid choose a seat?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>7bea475018499db7e1c84058bf9915ad</id>
+				<tid>429</tid>
+				<org>Sponsor hinzufügen</org>
+				<en>Add sponsor</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b2fd77e6e9a4f7460bb1c8c87d78593b</id>
+				<tid>430</tid>
+				<org>Verwalten</org>
+				<en>Manage</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3d2d1a1b32a2ddb46d658830e9fa3836</id>
+				<tid>431</tid>
+				<org>Sponsor editieren</org>
+				<en>Edit sponsor</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>9ba4b5882443870a87c03aa9035ba6f2</id>
+				<tid>432</tid>
+				<org>Statistik</org>
+				<en>Statistic</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>f117cfa700d14328e6ddbb817241a5b7</id>
+				<tid>433</tid>
+				<org>Sponsorenbox anzeigen?</org>
+				<en>Show sponsor box?</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>cf7db388c755124e91a1360421fb254d</id>
+				<tid>434</tid>
+				<org>Maximale Breite eines Bildes auf der Sponsorenseite</org>
+				<en>Maximum width of a banner on the sponsor page</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>18d8042386b79e2c279fd162df0205c8</id>
+				<tid>435</tid>
+				<org>400</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>07065936077dacca1a6474cf0d0e8fd3</id>
+				<tid>436</tid>
+				<org>Maximale Breite eines Bildes in der Sponsorenbox</org>
+				<en>Maximum width of a banner on the sponsor box</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>2f04b69213b69167c8e7da0fcf2b9239</id>
+				<tid>437</tid>
+				<org>Die Anzahl an Coins, die jedem Turnierteilnehmer von Beginn an zur Verfügung stehen</org>
+				<en>Number of coins a player has</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>7377e683a5717ac11813de54cf28df88</id>
+				<tid>438</tid>
+				<org>Nur Verlierer dürfen das Ergebnis eintragen</org>
+				<en>Only loosers may submit results</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>b00b953f4a0989bfb61b59457dee4049</id>
+				<tid>439</tid>
+				<org>Soll der Turnierbaum in Textform, statt in einer Grafik dargestellt werden?</org>
+				<en>Should the tournament tree be displayed in text form, in stead of an graphic</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>fb2011836a697a7bb5acfa670ea666f5</id>
+				<tid>440</tid>
+				<org>Der Pfad zu der zu verwendenen Schriftart für den Turnierbaum</org>
+				<en>Path to font file, used in the tournament tree</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d73452ea76d58a4d34c8ae0e3af01622</id>
+				<tid>441</tid>
+				<org>ext_inc/fonts/verdana.ttf</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>3e170d3d921d1adcb14e85707e510522</id>
+				<tid>442</tid>
+				<org>Die Schriftgröße der zu verwendenen Schriftart für den Turnierbaum</org>
+				<en>Font size, used in the tournament tree</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>c9f0f895fb98ab9159f51fd0297e236d</id>
+				<tid>443</tid>
+				<org>8</org>
+				<en></en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>d4540b5bb2fe31a1b71d22f11a128fbc</id>
+				<tid>444</tid>
+				<org>Punkte, die dem Sieger vergeben werden, bei Zeitüberschreitung, oder Disqualifizierung des Gegners</org>
+				<en>Points, given to the winner, after time has exceeded or opponent has been disqualified</en>
+				<file>DB</file>
+			</entry>
+			<entry>
+				<id>46330ec03c4907f6a3759e340581c84a</id>
+				<tid>445</tid>
+				<org>Sieg-Punkte bei einem Sieg in einem Liga-Turnier (Verlierer bekommen 0, Unentschieden gibt einen Punkt für beide)</org>
+				<en>Points for winning a league game (looser gets 0, draw gives each 1)</en>
+				<file>DB</file>
+			</entry>
+		</content>
+	</table>
+</lansuite>

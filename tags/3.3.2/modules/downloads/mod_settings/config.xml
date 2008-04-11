@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>download_use_ftp</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>FTP-Server verwenden? Alternativ werden die Dateien aus /ext_inc/downloads/ aufgelistet</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Verbindungsdaten</name>
+    </head>
+    <items>
+    	<item>
+    		<name>download_server</name>
+    		<type>string</type>
+    		<default>localhost</default>
+    		<description>Hostname / IP des FTP-Servers</description>
+    	</item>
+    	<item>
+    		<name>download_port</name>
+    		<type>int</type>
+    		<default>21</default>
+    		<description>Port des FTP-Servers</description>
+    	</item>
+    	<item>
+    		<name>download_username</name>
+    		<type>string</type>
+    		<default>anonymous</default>
+    		<description>Username des LogIn-Accounts</description>
+    	</item>
+    	<item>
+    		<name>download_password</name>
+    		<type>string</type>
+    		<default>script@lansuite.de</default>
+    		<description>Passwort des LogIn-Accounts</description>
+    	</item>
+    	<item>
+    		<name>download_subdir</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Unterordner auf dem FTP-Server</description>
+    	</item>
+    </items>
+  </group>
+</config>

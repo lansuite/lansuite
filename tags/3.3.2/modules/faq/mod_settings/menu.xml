@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<pos>10</pos>
+	<entry>
+		<action>default</action>
+		<file>show</file>
+		<caption>FAQ</caption>
+		<hint>FAQ ist englisch und bedeutet Frequently-Asked-Questions was soviel hei&szlig;t wie h&auml;ufig gestellte Fragen</hint>
+		<link>?mod=faq</link>
+		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
+		<needed_config></needed_config>
+		<level>0</level>
+	</entry>
+	<entry>
+		<caption>Suchen</caption>
+		<hint>Durchsuchen Sie die FAQ um schnell zu einer Antwort auf Ihre Frage zu gelangen</hint>
+		<link>?mod=faq&amp;action=search</link>
+		<requirement>0</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>add_item</action>
+		<file>add_item</file>
+		<caption>Frage Hinzuf&uuml;gen</caption>
+		<hint>Eine neue Frage mit Lösung in die FAQ einstellen</hint>
+		<link>?mod=faq&amp;object=item&action=add_item</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>add_cat</action>
+		<file>add_cat</file>
+		<caption>Kategorie Hinzuf&uuml;gen</caption>
+		<hint>Eine neue Kategorie definieren, um die Fragen ordnen zu können</hint>
+		<link>?mod=faq&amp;object=cat&amp;action=add_cat</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>change_item</action>
+		<file>change_item</file>
+		<caption>Frage/Kategorie &auml;ndern</caption>
+		<hint>Eine Frage oder Kategorie abändern</hint>
+		<link>?mod=faq&amp;object=item&amp;action=change_item</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>delete_cat</action>
+		<file>delete_cat</file>
+		<caption>Frage/Kategorie l&ouml;schen</caption>
+		<hint>Eine Frage oder Kategorie entfernen</hint>
+		<link>?mod=faq&amp;object=cat&amp;action=delete_cat</link>
+		<requirement>3</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>delete_item</action>
+		<file>delete_item</file>
+		<requirement>3</requirement>
+	</entry>
+	<entry>
+		<action>change_cat</action>
+		<file>change_cat</file>
+		<requirement>2</requirement>
+	</entry>
+	<entry>
+		<action>comment</action>
+		<file>show_item</file>
+		<requirement>0</requirement>
+	</entry>
+</menu>

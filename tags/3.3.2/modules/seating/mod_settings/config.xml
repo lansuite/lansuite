@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Sitz-Reservierung</name>
+    </head>
+    <items>
+    	<item>
+    		<name>seating_max_marks</name>
+    		<type>int</type>
+    		<default>3</default>
+    		<description>Anzahl an Plätzen, die jeder Benutzer für Freunde vormerken darf</description>
+    	</item>
+    	<item>
+    		<name>seating_not_paid_mark</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Dürfen NICHT bezahlte Gäste EINEN Sitzplatz vormerken?</description>
+    	</item>
+    	<item>
+    		<name>seating_paid_only</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Dürfen nur als bezahlt markierte Gäste einen Sitzplatz auswählen?</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Verschiedenes</name>
+    </head>
+    <items>
+    	<item>
+    		<name>seating_show_user_pics</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Sollen Benutzerbilder im Sitzplan auch im Internet für jeden gezeigt werden?</description>
+    	</item>
+    </items>
+  </group>
+</config>

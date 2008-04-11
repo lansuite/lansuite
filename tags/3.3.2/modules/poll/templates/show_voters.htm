@@ -1,0 +1,25 @@
+<div id="votes">{$templ['poll']['show']['details']['case']['control']['javascript_title']}</div>
+
+<script language="JavaScript">
+<!--
+
+	// Define Data
+	var votes	= new Array();
+	{$templ['poll']['show']['details']['case']['control']['javascript']}
+
+	// Functions for details an swap
+	function showvotes(id) {
+
+		if(id != 'null' && votes != id)
+		{						
+			// Write userdata
+			document.getElementById("votes").firstChild.nodeValue	= votes[id];
+		}	
+	}
+
+	function remove() {
+			// Remove data
+			document.getElementById("votes").firstChild.nodeValue	= '{$templ['poll']['show']['details']['case']['control']['javascript_title']}';
+	}
+//-->
+</script>

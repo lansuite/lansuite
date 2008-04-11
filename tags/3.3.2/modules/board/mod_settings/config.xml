@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>board_ranking</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Ranking anzeigen?</description>
+    	</item>
+    	<item>
+    		<name>board_prefix</name>
+    		<type>string</type>
+    		<default>Gast_</default>
+    		<description>Gast Präfix</description>
+    	</item>
+    	<item>
+    		<name>board_max_posts</name>
+    		<type>integer</type>
+    		<default>10</default>
+    		<description>Anzahl der angezeigten Einträge</description>
+    	</item>
+    	<item>
+    		<name>board_rank</name>
+    		<type>text</type>
+    		<default>0->Junior Member
+10->Trial Member
+20->Member
+50->Senior
+100->Gott</default>
+    		<description>Ränge. Format: min. Posts -> Bezeichnung</description>
+    	</item>
+    </items>
+  </group>
+</config>

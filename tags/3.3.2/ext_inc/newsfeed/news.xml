@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="0.91">
+	<channel>
+		<title>TestTest TestTest TestTest TestTest </title>
+		<link>http://localhost</link>
+		<description></description>
+		<language>de-de</language>
+		<copyright></copyright>
+		<image>
+			<url></url>
+			<title>TestTest TestTest TestTest TestTest  - Logo</title>
+			<link>http://localhost</link>
+		</image>
+		<item>
+			<title>sdfsdfsdf</title>
+			<description>dsfsdfdsf
+ 
+te
+test
+ 
+te</description>
+			<author>knox@orgapage.de (KnoX)</author>
+			<pubDate>Fri, 27 Apr 2007 22:16:35 +0200</pubDate>
+			<link>http://localhost:80/lansuite/ls_cvs/index.php?mod=news&amp;action=comment&amp;newsid=8</link>
+		</item>
+	</channel>
+</rss>

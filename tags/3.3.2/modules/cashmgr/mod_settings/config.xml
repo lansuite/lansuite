@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+   <group>
+    <head>
+      <name>Stromkostenberechnung</name>
+    </head>
+    <items>
+    	<item>
+    		<name>cashmgr_kwh</name>
+    		<type>float</type>
+    		<default>0,2</default>
+    		<description>Preis pro kwh in Cent</description>
+    	</item>
+    	<item>
+    		<name>cashmgr_kwhaverage_usage</name>
+    		<type>float</type>
+    		<default>0,2</default>
+    		<description>Durchschnittlicher Verbrauch pro Spieler und Stunde</description>
+    	</item>
+    </items>
+  </group>
+</config>

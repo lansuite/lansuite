@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite-module>
+	<name>news</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
+	<caption>News</caption>		<!-- The modulname displayed to the user -->
+	<description>Präsentiert Bekanntmachungen der Orgas</description>		<!-- A short description of the module -->
+	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
+	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
+	<author>Michael Gebhardt</author>				<!-- The author of this module -->
+	<email></email>					<!-- The E-Mail-Adress of the modules author -->
+	<version>1.0</version>			<!-- The version of this module -->
+	<state>Stable</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
+</lansuite-module>
