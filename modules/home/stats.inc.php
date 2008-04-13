@@ -9,7 +9,6 @@ if ($party->count > 0) {
   else $querytype = 'type >= 1';
 
 	if ($party->party_id != '') {
-		$timestamp = time()-600;
 
     // User paid / Checked In / Checked Out
 		$user_paid = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["party_user"]} AS p
@@ -28,12 +27,16 @@ if ($party->count > 0) {
 
 
     // User overall / online
-		$user_online = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["stats_auth"]}
-      WHERE lasthit>=$timestamp AND userid!='0' GROUP BY userid
-      ");
-		$visits = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$config['tables']['stats_usage']}");
+	$user_online = $db->query("SELECT SQL_CALC_FOUND_ROWS auth.userid
+	FROM {$config['tables']['stats_auth']} AS auth
+	WHERE (auth.lasthit > ". (time() - 60 * 10) .") AND auth.login = '1' AND auth.userid > 0
+	GROUP BY auth.userid
+	ORDER BY auth.lasthit
+	");
+	$online = $db->query_first('SELECT FOUND_ROWS() AS count');
+	$visits = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$config['tables']['stats_usage']}");
 
-    $templ['home']['show']['item']['control']['row'] .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. $user_online['n'] . HTML_NEWLINE;
+    $templ['home']['show']['item']['control']['row'] .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. $online['count'] . HTML_NEWLINE;
   }
 }
 
