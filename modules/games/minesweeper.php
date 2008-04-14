@@ -21,10 +21,10 @@
 $headermenuitem	= $vars["headermenuitem"];
 $action = $_GET["action"];
 
-$dsp->NewContent(t('MineSweeper')/* TRANS */, t('Versuchen Sie alle Felder aufzudecken, ohne dabei auf eine Miene zu klicken')/* TRANS */);
+$dsp->NewContent(t('MineSweeper'), t('Versuchen Sie alle Felder aufzudecken, ohne dabei auf eine Miene zu klicken'));
 
-$menunames[1] = t('Start')/* TRANS */;
-$menunames[2] = t('Highscore')/* TRANS */;
+$menunames[1] = t('Start');
+$menunames[2] = t('Highscore');
 $dsp->AddHeaderMenu($menunames, "?mod=games&action=minesweeper", $headermenuitem);
 
 if ($headermenuitem == 1) $_GET["step"] = 1;
@@ -34,16 +34,16 @@ if ($headermenuitem == 2) $_GET["step"] = 5;
 switch ($_GET["step"]) {
 	case 2:
 		if ($_POST["rows"] > 20) {
-			$func->information(t('Es dürfen maximal 20 Reihen ausgewählt werden')/* TRANS */, "?mod=games&action=minesweeper");
+			$func->information(t('Es dürfen maximal 20 Reihen ausgewählt werden'), "?mod=games&action=minesweeper");
 
 		} elseif ($_POST["columns"] > 40) {
-			$func->information(t('Es dürfen maximal 40 Spalten ausgewählt werden')/* TRANS */, "?mod=games&action=minesweeper");
+			$func->information(t('Es dürfen maximal 40 Spalten ausgewählt werden'), "?mod=games&action=minesweeper");
 
 		} elseif ($_POST["mines"] > $_POST["rows"] * $_POST["columns"]) {
-			$func->information(t('Es dürfen nicht mehr Mienen, als Felder ausgewählt werden')/* TRANS */, "?mod=games&action=minesweeper");
+			$func->information(t('Es dürfen nicht mehr Mienen, als Felder ausgewählt werden'), "?mod=games&action=minesweeper");
 
 		} elseif ($_POST["mines"] < 5) {
-			$func->information(t('Es sollten mindestens 5 Mienen versteckt sein, sonst ist das Spiel witzlos!')/* TRANS */, "?mod=games&action=minesweeper");
+			$func->information(t('Es sollten mindestens 5 Mienen versteckt sein, sonst ist das Spiel witzlos!'), "?mod=games&action=minesweeper");
 
 		} else {
 			$tmp_nick = rand(0, 100000);
@@ -76,7 +76,7 @@ switch ($_GET["step"]) {
 	break;
 
 	case 3:
-		$dsp->AddSingleRow("<b>". t('Sie haben Gewonnen! Herzlichen Glückwunsch!')/* TRANS */ ."</b>");
+		$dsp->AddSingleRow("<b>". t('Sie haben Gewonnen! Herzlichen Glückwunsch!') ."</b>");
 		$dsp->AddHRuleRow();
 
 		$db->query("UPDATE {$config["tables"]["game_hs"]}
@@ -85,9 +85,9 @@ switch ($_GET["step"]) {
 			");
 
 		$dsp->SetForm("?mod=games&action=minesweeper&step=4&tmp_nick={$_GET["tmp_nick"]}");
-		$dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen')/* TRANS */);
-		$dsp->AddDoubleRow(t('Zeit')/* TRANS */, $score);
-		$dsp->AddTextFieldRow("nick", t('Name')/* TRANS */, $auth["username"], "");
+		$dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
+		$dsp->AddDoubleRow(t('Zeit'), $score);
+		$dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "");
 		$dsp->AddFormSubmitRow("next");
 
 		$dsp->AddBackButton("?mod=games", "games/minesweeper");
@@ -99,12 +99,12 @@ switch ($_GET["step"]) {
 			WHERE (nick = '{$_GET["tmp_nick"]}' AND game = 'mw_tmp')
 			");
 
-		if ($db->get_affected_rows() > 0) $func->confirmation(t('Highscore wurde eingetragen')/* TRANS */, "?mod=games&action=minesweeper&headermenuitem=2");
+		if ($db->get_affected_rows() > 0) $func->confirmation(t('Highscore wurde eingetragen'), "?mod=games&action=minesweeper&headermenuitem=2");
 		else $func->information("Der angegebene temporäre Nick wurde nicht gefunden. Das Ergebnis konnte daher leider nicht eingetragen werden.", "?mod=games&action=minesweeper&headermenuitem=2");
 	break;
 
 	case 5:
-		$dsp->AddSingleRow(t('Highscoreliste')/* TRANS */);
+		$dsp->AddSingleRow(t('Highscoreliste'));
 
 		$hs_liste = $db->query("SELECT nick, score from {$config["tables"]["game_hs"]} WHERE game='mw' ORDER BY score;");
 		while($entry = $db->fetch_array($hs_liste)){
@@ -117,9 +117,9 @@ switch ($_GET["step"]) {
 
 	default:
 		$dsp->SetForm("?mod=games&action=minesweeper&step=2");
-		$dsp->AddTextFieldRow("rows", t('Reihen')/* TRANS */, "12", "");
-		$dsp->AddTextFieldRow("columns", t('Spalten')/* TRANS */, "20", "");
-		$dsp->AddTextFieldRow("mines", t('Minen')/* TRANS */, "25", "");
+		$dsp->AddTextFieldRow("rows", t('Reihen'), "12", "");
+		$dsp->AddTextFieldRow("columns", t('Spalten'), "20", "");
+		$dsp->AddTextFieldRow("mines", t('Minen'), "25", "");
 		$dsp->AddFormSubmitRow("next");
 
 		$dsp->AddBackButton("?mod=games", "games/minesweeper");
