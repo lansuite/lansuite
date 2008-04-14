@@ -458,7 +458,7 @@ class party{
 						WHERE user_id = {$user_id} AND
 						party_id = {$this->party_id}
 						";
-			$msg = str_replace("%PARTY%",$this->party_id,str_replace("%ID%",$user_id,str_replace("%PIRCEID%",$price_id,str_replace("%SEATCONTROL%",$seatcontrol,str_replace("%CHECKOUT%",$checkout,str_replace("%CHECKIN%",$checkin,str_replace("%PAID%",$paid,t('Die Anmeldung von %ID% bei der Party %PARTY% wurde geändert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%')/* TRANS */)))))));
+			$msg = str_replace("%PARTY%",$this->party_id,str_replace("%ID%",$user_id,str_replace("%PIRCEID%",$price_id,str_replace("%SEATCONTROL%",$seatcontrol,str_replace("%CHECKOUT%",$checkout,str_replace("%CHECKIN%",$checkin,str_replace("%PAID%",$paid,t('Die Anmeldung von %ID% bei der Party %PARTY% wurde geändert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%'))))))));
 			$func->log_event($msg,1);
 			$db->query($query);
 
@@ -519,9 +519,9 @@ class party{
 			
 			if($nogroub == 1){
 				if($select_id == 0){
-					$data = array("<option selected value='0'>{t('Ohne Gruppe')/* TRANS */}</option>");
+					$data = array("<option selected value='0'>".t('Ohne Gruppe')."</option>");
 				}else{
-					$data = array("<option value='0'>{t('Ohne Gruppe')/* TRANS */}</option>");
+					$data = array("<option value='0'>".t('Ohne Gruppe')."</option>");
 				}
 			}
 			
@@ -548,7 +548,7 @@ class party{
 						}
 				}
 				if($javascript){
-					$dsp->AddDropDownFieldRow("group_id\" onchange=\"change_group(this.options[this.options.selectedIndex].value)",t('Benutzergruppe')/* TRANS */,$data,'');
+					$dsp->AddDropDownFieldRow("group_id\" onchange=\"change_group(this.options[this.options.selectedIndex].value)",t('Benutzergruppe'),$data,'');
 				}else {
 					$dsp->AddDropDownFieldRow("group_id",t('Benutzergruppe'),$data,'');
 				}

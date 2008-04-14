@@ -47,16 +47,16 @@ class basket{
 	function show_basket(){
 			global $dsp,$config,$db,$lang,$cfg;
 			
-			$dsp->NewContent(t('Warenkorb')/* TRANS */,t('Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf /\'/Neu berechnen/\'/.')/* TRANS */);
+			$dsp->NewContent(t('Warenkorb'),t('Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf /\'/Neu berechnen/\'/.'));
 			if($this->product->count_products() > 0){
 				$dsp->SetForm("?mod=foodcenter&action={$_GET['action']}&mode=change");
-				$dsp->AddDoubleRow("<b>" . t('Artikel / Preis')/* TRANS */ . "</b> ","<b>" . t('Anzahl')/* TRANS */ . "</b> ");
+				$dsp->AddDoubleRow("<b>" . t('Artikel / Preis') . "</b> ","<b>" . t('Anzahl') . "</b> ");
 
 				$this->product->get_basket_form();			
-				$dsp->AddDoubleRow("<b>" . t('Gesamtpreis: ')/* TRANS */ . "</b> " . $this->product->count_products_price() . " " . $cfg['sys_currency'],"<b>" . t('Anzahl Artikel: ')/* TRANS */ . "</b> " . $this->product->count_products());
+				$dsp->AddDoubleRow("<b>" . t('Gesamtpreis: ') . "</b> " . $this->product->count_products_price() . " " . $cfg['sys_currency'],"<b>" . t('Anzahl Artikel: ') . "</b> " . $this->product->count_products());
 				$dsp->AddFormSubmitRow("new_calculate",null,"calculate",false);
 				if($_GET['action'] == "theke"){
-					foreach (t('Array')/* TRANS */ as $key => $value){
+					foreach (t('Array') as $key => $value){
 						($key == 2) ? $selected = "selected" : $selected = "";
 						$delivered_array[] .= "<option $selected value=\"$key\">$value</option>";
 					}
@@ -66,7 +66,7 @@ class basket{
 		
 				$dsp->AddFormSubmitRow("order");
 			}else{
-				$dsp->AddDoubleRow("",t('Keine Artikel im Warenkorb')/* TRANS */);
+				$dsp->AddDoubleRow("",t('Keine Artikel im Warenkorb'));
 			}
 			if(isset($_SESSION['basket_item']['backlink'])) $dsp->AddBackButton($_SESSION['basket_item']['backlink']);
 			$dsp->AddContent();
@@ -99,7 +99,7 @@ class basket{
 			if($this->product->count_products_price() <= $this->account->balance){
 				return $ok;
 			}else{
-				$func->error(t('Nicht genügend Geld auf dem Konto.')/* TRANS */,"index.php?mod=foodcenter&action={$_GET['action']}");
+				$func->error(t('Nicht genügend Geld auf dem Konto.'),"index.php?mod=foodcenter&action={$_GET['action']}");
 				return false;
 			}
 		}else{
@@ -110,7 +110,7 @@ class basket{
 	
 	function order_basket($userid, $delivered = 0){
 		global $db,$config,$func,$lang,$auth;
-		$this->account->change(- $this->product->order_product($userid,$delivered),t('Bestellung Foodcenter')/* TRANS */ . "  (" . $auth['username'] . ")");
+		$this->account->change(- $this->product->order_product($userid,$delivered),t('Bestellung Foodcenter') . "  (" . $auth['username'] . ")");
 		unset($this->product);
 		$this->product = new product_list();
 		unset($_SESSION['basket_item']['product']);

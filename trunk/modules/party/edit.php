@@ -29,18 +29,18 @@ function UpdatePartyID($id) {
   global $db, $config, $lang, $func;
   
   $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '$id' WHERE cfg_key = 'signon_partyid'");
-  $func->confirmation(t('Die Daten wurden erfolgreich geändert.')/* TRANS */);  
+  $func->confirmation(t('Die Daten wurden erfolgreich geändert.'));  
 }
 
-$mf->AddField(t('Partyname')/* TRANS */, 'name');
-$mf->AddField(t('Anzahl Plätze')/* TRANS */, 'max_guest');
-$mf->AddField(t('PLZ')/* TRANS */, 'plz');
-$mf->AddField(t('Ort')/* TRANS */, 'ort');
+$mf->AddField(t('Partyname'), 'name');
+$mf->AddField(t('Anzahl Plätze'), 'max_guest');
+$mf->AddField(t('PLZ'), 'plz');
+$mf->AddField(t('Ort'), 'ort');
 
-$mf->AddField(t('Party startet am')/* TRANS */, 'startdate');
-$mf->AddField(t('Party endet am')/* TRANS */, 'enddate', '', '', '', 'CheckEndDate');
-$mf->AddField(t('Anmeldung startet am')/* TRANS */, 'sstartdate', '', '', '', 'CheckSignonStartDate');
-$mf->AddField(t('Anmeldung endet am')/* TRANS */, 'senddate', '', '', '', 'CheckSignonEndDate');
+$mf->AddField(t('Party startet am'), 'startdate');
+$mf->AddField(t('Party endet am'), 'enddate', '', '', '', 'CheckEndDate');
+$mf->AddField(t('Anmeldung startet am'), 'sstartdate', '', '', '', 'CheckSignonStartDate');
+$mf->AddField(t('Anmeldung endet am'), 'senddate', '', '', '', 'CheckSignonEndDate');
 
 /*
 		// erster Preis einfügen
