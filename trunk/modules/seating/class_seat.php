@@ -58,7 +58,7 @@ class seat2 {
       		
 		  $LinkText = $row['name'] .' - '. $this->CoordinateToName($x, $y, $row['orientation']);
 	    if ($LinkIt == 1) return "<a href=\"index.php?mod=seating&action=show&step=2&blockid=$blockid&col=$x&row=$y\">$LinkText</a>";
-	    if ($LinkIt == 2) return "<a href=\"#\" onclick=\"javascript:var w=window.open('index.php?mod=seating&action=popup&design=base&function=usrmgr&id=$blockid&userarray[]={$userid}&l=1','_blank','width=596,height=638,resizable=yes');\">$LinkText</a>";
+	    if ($LinkIt == 2) return "<a href=\"#\" onclick=\"javascript:var w=window.open('index.php?mod=seating&action=popup&design=popup&function=usrmgr&id=$blockid&userarray[]={$userid}&l=1','_blank','width=596,height=638,resizable=yes');\">$LinkText</a>";
 	    else return $LinkText;
 	  }
   }
