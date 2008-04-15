@@ -1,5 +1,5 @@
 <?php
-if ($_GET['design'] != 'popup' and $db->success and !$_SESSION['lansuite']['fullscreen'] and !$_GET['mod']=="install") {
+if ($_GET['design'] != 'popup' and $db->success and !$_SESSION['lansuite']['fullscreen'] and $_GET['action'] != 'wizard' and in_array('sponsor', $ActiveModules)) {
   $banner = $db->query_first("SELECT sponsorid, pic_path_banner, url, name
     FROM {$config['tables']['sponsor']}
     WHERE rotation AND ((pic_path != '' AND pic_path != 'http://') OR pic_path_banner != '')
