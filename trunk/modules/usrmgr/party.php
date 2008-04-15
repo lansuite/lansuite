@@ -30,7 +30,7 @@ else {
     
       // Do not allow changes, if party is over
       if ($row['enddate'] < time()) return t('Sie können Sich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist');
-      
+
       // Signon started?
       if ($row['sstartdate'] > time()) return t('Die Anmeldung öffnet am'). HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['sstartdate'], 'daydatetime'). '</strong>';
     
@@ -39,8 +39,9 @@ else {
     
       // Do not allow changes, if user has paid
       if ($auth['type'] <= 1) {
-        $row2 = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE party_id = ". (int)$_GET['party_id'] ." AND user_id = ". (int)$id);
-        if ($row2['paid']) return t('Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden');
+      	
+        $row2 = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE party_id = {$_GET['party_id']} AND user_id = {$id}");
+        if ($row2['paid']!= 0) return t('Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden');
       }
       
       return false;
@@ -77,7 +78,9 @@ else {
         $res2 = $db->query("SELECT * FROM {$config['tables']['party_prices']}
         						WHERE party_id = {$row['party_id']} AND requirement <= {$auth['type']}
         						");
-        while ($row2 = $db->fetch_array($res2)) $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']';
+        while ($row2 = $db->fetch_array($res2)) 
+        	$selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']';
+        
         if ($selections) $mf->AddField(t('Eintrittspreis'), 'price_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
         else $mf->AddField(t('Eintrittspreis'), 'price_id', IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
         $db->free_result($res2);
@@ -90,6 +93,10 @@ else {
           $mf->AddField(t('Eingecheckt'), 'checkin', '', '', FIELD_OPTIONAL);
           $mf->AddField(t('Ausgecheckt'), 'checkout', '', '', FIELD_OPTIONAL);
           $mf->AddField(t('Anmeldedatum'), 'signondate', '', '', FIELD_OPTIONAL);
+        }
+        else
+        {
+        	$mf->AddFix('signondate', 'NOW()');
         }
 
         $mf->SendButtonText = 'An-/Abmelden';
