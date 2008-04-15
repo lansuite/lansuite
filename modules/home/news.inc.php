@@ -17,7 +17,7 @@ if ($db->num_rows($query) > 0) {
     $prio		= $row["priority"];
 
     $templ['home']['show']['row']['control']['link']	= "index.php?mod=news&action=comment&newsid=$newsid";
-    $templ['home']['show']['row']['info']['text']		= $caption.' ['.$row['comments'].']';
+    $templ['home']['show']['row']['info']['text']		= $func->CutString($caption, 40) .' ['.$row['comments'].']';
 
     if ($prio == 1) $templ['home']['show']['row']['info']['text2']		= "<strong>!!!</strong>";
 		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row");

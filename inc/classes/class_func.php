@@ -875,5 +875,13 @@ class func {
         } else return 0;
     }
 
+    function CutString($str, $SoftLimit, $HardLimit = false) {
+      if ($HardLimit === false) $HardLimit = $SoftLimit + 6;
+      if ($HardLimit and strlen($str) > $HardLimit) return substr($str, 0, $HardLimit - 2) . '...';
+      elseif (strlen($str) > $SoftLimit) {
+        preg_match('/[^a-zA-Z0-9]/', substr($str, $SoftLimit, strlen($str)), $ret, PREG_OFFSET_CAPTURE);
+        return substr($str, 0, $SoftLimit + $ret[0][1]) . '...'; 
+      } else return $str;
+    }
 }
 ?>
