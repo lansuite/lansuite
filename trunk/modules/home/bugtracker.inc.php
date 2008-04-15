@@ -38,8 +38,8 @@ $query = $db->query("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, COU
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $templ['home']['show']['row']['control']['link'] = "index.php?mod=bugtracker&bugid={$row['bugid']}";
-  if (strlen($row['caption']) > 40) $row['caption'] = substr($row['caption'], 0, 37).'...';
-  $templ['home']['show']['row']['info']['text']		= $row['caption'] .' ['. $row['comments'] .']';
+
+  $templ['home']['show']['row']['info']['text']		= $func->CutString($row['caption'], 40) .' ['. $row['comments'] .']';
   if (CheckBugNew($row['changedate'], $row['LastRead'])) $templ['home']['show']['item']['control']['row']	.= $dsp->FetchModTpl('home', 'show_row_new');
   else $templ['home']['show']['item']['control']['row']	.= $dsp->FetchModTpl('home', 'show_row');
 } else $templ['home']['show']['item']['control']['row'] = "<i>". t('Keine Einträge vorhanden') ."</i>";

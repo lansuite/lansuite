@@ -11,8 +11,8 @@ $query = $db->query("SELECT p.partyid, p.name, UNIX_TIMESTAMP(p.start) as start 
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $templ['home']['show']['row']['control']['link'] = "index.php?mod=partylist&partyid={$row['partyid']}";
-  if (strlen($row['name']) > 40) $row['name'] = substr($row['name'], 0, 25).'...';
-  $templ['home']['show']['row']['info']['text']		= $row['name'] .' ['. $func->unixstamp2date($row['start'], 'date') .']';
+
+  $templ['home']['show']['row']['info']['text']		= $func->CutString($row['name'], 25) .' ['. $func->unixstamp2date($row['start'], 'date') .']';
   $templ['home']['show']['item']['control']['row']	.= $dsp->FetchModTpl('home', 'show_row');
 } else $templ['home']['show']['item']['control']['row'] = "<i>". t('Keine Einträge vorhanden') ."</i>";
 

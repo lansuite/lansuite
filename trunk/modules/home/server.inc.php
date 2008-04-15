@@ -12,7 +12,7 @@ if($db->num_rows($query) > 0) {
 			$type		= $row["type"];
 			
 			$templ['home']['show']['row']['control']['link']	= "index.php?mod=server&action=show_details&serverid=$serverid";
-			$templ['home']['show']['row']['info']['text']		= $caption;
+			$templ['home']['show']['row']['info']['text']		= $func->CutString($caption, 40);
 			$templ['home']['show']['row']['info']['text2']		= "(".$type.")";
 
 

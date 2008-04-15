@@ -12,7 +12,7 @@ $query = $db->qry('SELECT m.des_Status, m.mailID, m.subject, u.username FROM %pr
 if ($db->num_rows($query) > 0) {
 	while ($row = $db->fetch_array($query)) {
    	 $templ['home']['show']['row']['control']['link']	= 'index.php?mod=mail&action=showmail&ref=in&mailID='. $row['mailID'];
-   	 $templ['home']['show']['row']['info']['text']		= $row['subject'].' ['.$row['username'].']';
+   	 $templ['home']['show']['row']['info']['text']		= $func->CutString($row['subject'], 40) .' ['.$row['username'].']';
    	
 	if($row['des_Status'] == 'new')
 		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row_new");
