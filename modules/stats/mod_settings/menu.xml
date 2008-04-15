@@ -74,6 +74,16 @@
 	<entry>
 		<action>age</action>
 		<file>age</file>
+		<caption>Benutzerstatistik</caption>
+		<hint></hint>
+		<link>?mod=stats&amp;action=hits</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<action>signonstats</action>
+		<file>signonstats</file>
 		<caption>Anmeldestatistik</caption>
 		<hint></hint>
 		<link>?mod=stats&amp;action=signonstats</link>
