@@ -4,18 +4,18 @@
 
 
 
-$dsp->NewContent($lang["install"]["menu_cap"],"");
+$dsp->NewContent(t('Menu Einträge ersetzen'),"");
 
 switch ($_GET['step']){
 	default:	
 				$dsp->SetForm("?mod=install&action=dbmenu&step=2");
-				$dsp->AddCheckBoxRow("rewrite",$lang["install"]["menu_cap"],"","");
+				$dsp->AddCheckBoxRow("rewrite",t('Menu Einträge ersetzen'),"","");
 				$dsp->AddFormSubmitRow("next");
 				$dsp->AddBackButton("?mod=install");
 				break;
 	case 2:
 				$install->InsertMenus($_POST["rewrite"]);
-				$func->information($lang["install"]["menu_write"],"?mod=install");
+				$func->information(t('Menu erfolgreich neu geschrieben'),"?mod=install");
 				break;
 }
 

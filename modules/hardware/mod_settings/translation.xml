@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2008-04-16 01:29</date>
+	</header>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<tid>648</tid>
+				<id>dbabfe62e28df1537f8604ab155becc4</id>
+				<org>Sie haben keine Berechtigung diese Daten zu &auml;ndern</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>hardware</file>
+			</entry>
+			<entry>
+				<tid>649</tid>
+				<id>bd564582c2edb735cc5b19e6a25e5230</id>
+				<org>Hardware &auml;ndern</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>hardware</file>
+			</entry>
+			<entry>
+				<tid>650</tid>
+				<id>43dfe182711998db0f36524d0bc5be01</id>
+				<org>Hier k&ouml;nnen sie die Hardware eingeben</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>hardware</file>
+			</entry>
+		</content>
+	</table>
+</lansuite>

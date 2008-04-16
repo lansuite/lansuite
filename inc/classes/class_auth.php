@@ -124,8 +124,8 @@ class auth {
         if ($email != "") $tmp_login_email = strtolower(htmlspecialchars(trim($email)));
         if ($password != "") $tmp_login_pass = md5($password);
 
-        if     ($tmp_login_email == "") $func->information($lang['class_auth']['get_email_or_id'], "", '', 1);
-        elseif ($tmp_login_pass == "") $func->information($lang['class_auth']['get_pw'], "", '', 1);
+        if     ($tmp_login_email == "") $func->information(t('Bitte geben Sie Ihre E-Mail-Adresse oder Ihre Lansuite-ID ein.'), "", '', 1);
+        elseif ($tmp_login_pass == "") $func->information(t('Bitte geben Sie Ihr Kennwort ein.'), "", '', 1);
         else {
             // Go on if email and password
             $user = $db->query_first("SELECT 1 AS found, userid, username, email, password, type, locked
@@ -161,29 +161,29 @@ class auth {
                 $func->log_event(str_replace("%EMAIL%", $tmp_login_email, t('Falsche Email angegeben')), '2', 'Authentifikation');
             // Account disabled?
             } elseif ($user["type"] <= -1) {
-                $func->information($lang['class_auth']['closed'], "", '', 1);
-                $func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['closed_log']), "2", "Authentifikation");
+                $func->information(t('Ihr Account ist gesperrt. Melden Sie sich bitte bei der Organisation.'), "", '', 1);
+                $func->log_event(str_replace("%EMAIL%", $tmp_login_email, t('Login für %EMAIL% fehlgeschlagen (Account gesperrt).')), "2", "Authentifikation");
             // Account locked?
             } elseif ($user['locked']){
-                $func->information($lang['class_auth']['locked'], '', '', 1);
-                $func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['locked_log']), "2", "Authentifikation");
+                $func->information(t('Dieser Account ist noch nicht freigeschaltet. Bitte warten Sie bis ein Organisator Sie freigeschaltet hat.'), '', '', 1);
+                $func->log_event(str_replace("%EMAIL%", $tmp_login_email, t('Account von %EMAIL% ist noch gesperrt. Login daher fehlgeschlagen.')), "2", "Authentifikation");
             // Mail not verified
             } elseif ($cfg['sys_login_verified_mail_only'] == 2 and !$user['email_verified'] and $user["type"] < 2) {
                 $func->information(t('Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email', $user['email']), '', '', 1);
                 $func->log_event(str_replace("%EMAIL%", $tmp_login_email, t('Login fehlgeschlagen. Email (%1) nicht verifiziert', $user['email'])), "2", "Authentifikation");
             // Wrong Password?
             } elseif ($tmp_login_pass != $user["password"]){
-                ($cfg["sys_internet"])? $remindtext = $lang['class_auth']['wrong_pw_inet'] : $remindtext = $lang['class_auth']['wrong_pw_lan'];
+                ($cfg["sys_internet"])? $remindtext = t('Haben Sie ihr Passwort vergessen?<br/><a href=/\'/index.php?mod=usrmgr&action=pwrecover/\'/>Hier können Sie sich ein neues Passwort generieren</a>.') : $remindtext = t('Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.');
                 $func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
-                $func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['wrong_pw_log']), "2", "Authentifikation");
+                $func->log_event(str_replace("%EMAIL%", $tmp_login_email, t('Login für %EMAIL% fehlgeschlagen (Passwort-Fehler).')), "2", "Authentifikation");
                 $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = %string%, time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
             // Not checked in?
             } elseif((!$user["checkin"] or $user["checkin"] == '0000-00-00 00:00:00') AND $user["type"] < 2 AND !$cfg["sys_internet"]){                $func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
-                $func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['not_checkedin_log']), "2", "Authentifikation");
+                $func->log_event(str_replace("%EMAIL%", $tmp_login_email, t('Login für %EMAIL% fehlgeschlagen (Account nicht eingecheckt).')), "2", "Authentifikation");
             // Already checked out?
             } elseif ($user["checkout"] and $user["checkout"] != '0000-00-00 00:00:00' AND $user["type"] < 2 AND !$cfg["sys_internet"]){
                 $func->information(t('Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
-                $func->log_event(str_replace("%EMAIL%", $tmp_login_email, $lang['class_auth']['checkedout_log']), "2", "Authentifikation");
+                $func->log_event(str_replace("%EMAIL%", $tmp_login_email, t('Login für %EMAIL% fehlgeschlagen (Account ausgecheckt).')), "2", "Authentifikation");
             // Everything fine!
             } else {
                 // Set Logonstats

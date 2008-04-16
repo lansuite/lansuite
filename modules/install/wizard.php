@@ -6,9 +6,9 @@ $_SESSION['auth']['design'] = 'standard';
 // Error-Switch
 switch ($_GET["step"]){
   case 7:
-		if ($_POST["email"] == "") $func->error($lang["install"]["admin_err_noemail"], "index.php?mod=install&action=wizard&step=6");
-		elseif ($_POST["password"] == "") $func->error($lang["install"]["admin_err_nopw"], "index.php?mod=install&action=wizard&step=6");
-		elseif ($_POST["password"] != $_POST["password2"]) $func->error($lang["install"]["admin_err_pwnotequal"], "index.php?mod=install&action=wizard&step=6");
+		if ($_POST["email"] == "") $func->error(t('Bitte geben Sie eine E-Mail-Adresse ein!'), "index.php?mod=install&action=wizard&step=6");
+		elseif ($_POST["password"] == "") $func->error(t('Bitte geben Sie ein Kennwort ein!'), "index.php?mod=install&action=wizard&step=6");
+		elseif ($_POST["password"] != $_POST["password2"]) $func->error(t('Das Passwort und seine Verifizierung stimmen nicht überein!'), "index.php?mod=install&action=wizard&step=6");
 		else {
 			// Check for existing Admin-Account.
 			$row = $db->query_first("SELECT email FROM {$config["tables"]["user"]} WHERE email='{$_POST["email"]}'");
@@ -48,7 +48,7 @@ switch ($_GET["step"]){
 switch ($_GET["step"]){
 	// Check Environment
 	default:
-		$dsp->NewContent($lang["install"]["wizard_caption"], $lang["install"]["wizard_subcaption"]);
+		$dsp->NewContent(t('Lansuite Installation und Administration'), t('Willkommen bei der Installation von Lansuite.<br />Im ersten Schritt wird die Konfiguration Ihres Webservers Ã¼berprÃ¼ft.<br />Sollte alles korrekt sein, so drÃ¼cken Sie bitte am Ende der Seite auf --lt--b--gt--Weiter--lt--/b--gt-- um mit der Eingabe der Grundeinstellungen fortzufahren.'));
 
 		$dsp->SetForm("index.php?mod=install&action=wizard");
 		$lang_array = array();
@@ -56,7 +56,7 @@ switch ($_GET["step"]){
 		array_push ($lang_array, "<option $selected value=\"de\">Deutsch</option>");
 		if ($language == "en") $selected = 'selected'; else $selected = '';
 		array_push ($lang_array, "<option $selected value=\"en\">English</option>");
-		$dsp->AddDropDownFieldRow("language", $lang["sys"]["language"], $lang_array, "");
+		$dsp->AddDropDownFieldRow("language", t('Sprache'), $lang_array, "");
 		$dsp->AddFormSubmitRow("change");
 
 		$continue = $install->envcheck();
@@ -68,7 +68,7 @@ switch ($_GET["step"]){
 
 	// Setting up ls_conf
 	case 2:
-		$dsp->NewContent($lang["install"]["conf_caption"], $lang["install"]["conf_subcaption"]);
+		$dsp->NewContent(t('Grundeinstellungen'), t('Bitte geben Sie nun die Zugangsdaten zur Datenbank an.'));
 		$dsp->SetForm("index.php?mod=install&action=wizard&step=3");
 
 		// Set default settings from Config-File
@@ -78,12 +78,12 @@ switch ($_GET["step"]){
 		if ($_POST["prefix"] == "") $_POST["prefix"] = $config['database']['prefix'];
 
 		#### Database Access
-		$dsp->AddSingleRow("<b>". $lang["install"]["conf_dbdata"] ."</b>");
-		$dsp->AddTextFieldRow("host", $lang["install"]["conf_host"], $_POST["host"], "");
-		$dsp->AddTextFieldRow("user", $lang["install"]["conf_user"], $_POST["user"], "");
-		$dsp->AddPasswordRow("pass", $lang["install"]["conf_pass"], $_POST["pass"], "");
-		$dsp->AddTextFieldRow("database", $lang["install"]["conf_db"], $_POST["database"], "");
-		$dsp->AddTextFieldRow("prefix", $lang["install"]["conf_prefix"], $_POST["prefix"], "");
+		$dsp->AddSingleRow("<b>". t('Datenbank-Zugangsdaten') ."</b>");
+		$dsp->AddTextFieldRow("host", t('Host (Server-IP)'), $_POST["host"], "");
+		$dsp->AddTextFieldRow("user", t('Benutzername'), $_POST["user"], "");
+		$dsp->AddPasswordRow("pass", t('Kennwort'), $_POST["pass"], "");
+		$dsp->AddTextFieldRow("database", t('Datenbank'), $_POST["database"], "");
+		$dsp->AddTextFieldRow("prefix", t('Tabellen-Prefix'), $_POST["prefix"], "");
 
 		#### Default Design
 		// Open the design-dir
@@ -106,10 +106,10 @@ switch ($_GET["step"]){
 				fclose($xml_file);
 			}
 		}
-		$dsp->AddDropDownFieldRow("design", $lang["install"]["conf_design"], $t_array, "");
+		$dsp->AddDropDownFieldRow("design", t('Standard-Design'), $t_array, "");
 
-		$dsp->AddCheckBoxRow("resetdb", $lang["install"]["wizard_overwrite"], $lang["install"]["wizard_overwrite2"], "", 0, "");
-		$dsp->AddSingleRow($lang["install"]["wizard_loadwarning"]);
+		$dsp->AddCheckBoxRow("resetdb", t('Datenbank überschreiben'), t('<b>ACHTUNG:</b> Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!'), "", 0, "");
+		$dsp->AddSingleRow(t('<b>ACHTUNG:</b><br>Der Aufruf der nächsten Seite kann bis zu eine Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!'));
 
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddBackButton("index.php?mod=install&action=wizard&step=1", "install/ls_conf");
@@ -136,16 +136,16 @@ switch ($_GET["step"]){
 		// Write new $config-Vars to config.php-File
 		if (!$install->WriteConfig()) {
 			$continue = 0;
-			$output .= $fail_leadin . $lang["install"]["conf_err_write"] . $leadout . HTML_NEWLINE . HTML_NEWLINE;
+			$output .= $fail_leadin . t('Datei \'config.php\' konnte <strong>nicht</strong> geschrieben werden.') . $leadout . HTML_NEWLINE . HTML_NEWLINE;
 		} else {
-			$output .= $lang["install"]["conf_success"] .HTML_NEWLINE . HTML_NEWLINE;
+			$output .= t('Datei \'config.php\' wurde erfolgreich geschrieben.') .HTML_NEWLINE . HTML_NEWLINE;
 
 			$res = $install->TryCreateDB($_POST["resetdb"]);
 			switch ($res){
-				case 0: $output .= $fail_leadin . $lang["install"]["wizard_db_notavailable"] . $leadout; break;
-				case 1: $output .= str_replace("%DB%", $config["database"]["database"], $lang["install"]["wizard_db_exist"]); break;
-				case 2: $output .= $fail_leadin . $lang["install"]["wizard_db_createfailed"] . $leadout; break;
-				case 3: $output .= $lang["install"]["wizard_db_createsuccess"]; break;
+				case 0: $output .= $fail_leadin . t('Die Datenbank ist nicht erreichbar. Überprüfen Sie bitte die Angaben zur Datenbankverbindung.') . $leadout; break;
+				case 1: $output .= t('Die Datenbank \'%1\' existiert bereits und wurde daher nicht neu angelegt.', $config["database"]["database"]); break;
+				case 2: $output .= $fail_leadin . t('Anlegen der Datenbank fehlgeschlagen. Überprüfen Sie bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfen Sie, ob Sie den Namen der Datenbank korrekt angegeben haben.') . $leadout; break;
+				case 3: $output .= t('Datenbank wurde erfolgreich angelegt.'); break;
 			}
 			$output .= HTML_NEWLINE . HTML_NEWLINE;
 
@@ -172,7 +172,7 @@ switch ($_GET["step"]){
 			}
 		}
 
-		$dsp->NewContent($lang["install"]["wizzard_db_caption"], $lang["install"]["wizzard_db_subcaption"]);
+		$dsp->NewContent(t(''), t(''));
 		$dsp->AddSingleRow($output);
 
 		if ($continue) $dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=4", "next"));
@@ -184,26 +184,26 @@ switch ($_GET["step"]){
 	// Display import form
 	case 4:
 
-		$dsp->NewContent($lang["install"]["wizard_import_caption"], $lang["install"]["wizard_import_subcaption"]);
+		$dsp->NewContent(t('Datenimport'), t('Hier können Sie die XML- oder CSV-Datei mit den Benutzerdaten ihrer Gäste importieren. Diese erhalten Sie z.B. bei LanSurfer, oder über den Export-Link einer anderen Lansuite-Version oder von jedem anderen System, das das Lansuite XML-Benutzerformat unterstützt.HTML_NEWLINESie können den Import auch überspringen (auf <b>\'Weiter\'</b> klicken). In diesem Fall sollten Sie im nächsten Schritt einen Adminaccount anlegen.'));
 
 		$dsp->SetForm("index.php?mod=install&action=wizard&step=5", "", "", "multipart/form-data");
 
-		$dsp->AddSingleRow("<b>{$lang["install"]["import_file"]}</b>");
-		$dsp->AddFileSelectRow("importdata", $lang["install"]["import_import"], "");
+		$dsp->AddSingleRow("<b>".t('Zu importierende Datei')."</b>");
+		$dsp->AddFileSelectRow("importdata", t('Import (.xml, .csv, .tgz)'), "");
 		$dsp->AddHRuleRow();
-		$dsp->AddSingleRow("<b>{$lang["install"]["import_settings_new"]}</b>");
-		$dsp->AddCheckBoxRow("rewrite", $lang["install"]["import_settings_overwrite"], "", "", 1, 1);
+		$dsp->AddSingleRow("<b>".t('Lansuite-XML-Export')."</b>");
+		$dsp->AddCheckBoxRow("rewrite", t('Vorhandene Einträge ersetzen'), "", "", 1, 1);
 		$dsp->AddHRuleRow();
-		$dsp->AddSingleRow("<b>{$lang["install"]["import_settings_old"]}</b>");
-		$dsp->AddTextFieldRow("comment", $lang["install"]["import_comment"], "", "", "", 1);
-		$dsp->AddCheckBoxRow("deldb", $lang["install"]["import_deldb"], "", "", 1, 1);
-		$dsp->AddCheckBoxRow("replace", $lang["install"]["import_replace"], "", "", 1, 1);
-		$dsp->AddCheckBoxRow("signon", $lang["install"]["import_signon"], "", "", 1, 1);
+		$dsp->AddSingleRow("<b>".t('')."</b>");
+		$dsp->AddTextFieldRow("comment", t('Kommentar für alle setzen'), "", "", "", 1);
+		$dsp->AddCheckBoxRow("deldb", t('Alte Benutzerdaten löschen'), "", "", 1, 1);
+		$dsp->AddCheckBoxRow("replace", t('Vorhandene Einträge überschreiben'), "", "", 1, 1);
+		$dsp->AddCheckBoxRow("signon", t('Benutzer zur aktuellen Party anmelden'), "", "", 1, 1);
 		$dsp->AddHRuleRow();
-		$dsp->AddSingleRow("<b>{$lang["install"]["import_settings_lansurfer"]}</b>");
-		$dsp->AddCheckBoxRow("noseat", $lang["install"]["import_noseat"], "", "", 1, "");
+		$dsp->AddSingleRow("<b>".t('LanSurfer-XML-Export')."</b>");
+		$dsp->AddCheckBoxRow("noseat", t('Sitzplan NICHT importieren'), "", "", 1, "");
 
-		$dsp->AddSingleRow($lang["install"]["import_warning"]);
+		$dsp->AddSingleRow(t('<b>ACHTUNG:</b> Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.'));
 		$dsp->AddFormSubmitRow("add");
 
 		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=6", "next"));
@@ -217,19 +217,19 @@ switch ($_GET["step"]){
 		switch ($import->GetUploadFileType($_FILES['importdata']['name'])){
 			case "xml":
 				$header = $import->GetImportHeader($_FILES['importdata']['tmp_name']);
-				$dsp->NewContent($lang["install"]["wizard_importupload_caption"], $lang["install"]["wizard_importupload_subcaption"]);
+				$dsp->NewContent(t(''), t(''));
 
 				switch ($header["filetype"]) {
 					case "LANsurfer_export":
 					case "lansuite_import":
 						$import->ImportLanSurfer($_POST["deldb"], $_POST["replace"], $_POST["noseat"], $_POST["signon"], $_POST["comment"]);
 
-						$dsp->AddSingleRow($lang["install"]["wizard_importupload_success"]);
-						$dsp->AddDoubleRow($lang["install"]["wizard_importupload_filetype"], $header["filetype"]);
-						$dsp->AddDoubleRow($lang["install"]["wizard_importupload_date"], $header["date"]);
-						$dsp->AddDoubleRow($lang["install"]["wizard_importupload_source"], $header["source"]);
-						$dsp->AddDoubleRow($lang["install"]["wizard_importupload_event"], $header["event"]);
-						$dsp->AddDoubleRow($lang["install"]["wizard_importupload_version"], $header["version"]);
+						$dsp->AddSingleRow(t('Datei-Import erfolgreich.'));
+						$dsp->AddDoubleRow(t('Dateityp'), $header["filetype"]);
+						$dsp->AddDoubleRow(t('Exportiert am/um'), $header["date"]);
+						$dsp->AddDoubleRow(t('Quelle'), $header["source"]);
+						$dsp->AddDoubleRow(t('LanParty'), $header["event"]);
+						$dsp->AddDoubleRow(t('Lansuite-Version'), $header["version"]);
 					break;
 
 					case "LanSuite":
@@ -238,7 +238,7 @@ switch ($_GET["step"]){
 					break;
 
 					default:
-						$func->Information(str_replace("%FILETYPE%", $header["filetype"], $lang["install"]["import_err_filetype"]), "index.php?mod=install&action=wizard&step=4");
+						$func->Information(t('Dies scheint keine Lansuite-kompatible-XML-Datei zu sein. Bitte Überprüfen sie den Eintrag &lt;filetype&gt; am Anfang der XML-Datei (FileType: \'%1\')', $header["filetype"]), "index.php?mod=install&action=wizard&step=4");
 					break;
 				}
 
@@ -250,8 +250,8 @@ switch ($_GET["step"]){
 			case "csv":
 				$check = $import->ImportCSV($_FILES['importdata']['tmp_name'], $_POST["deldb"], $_POST["replace"], $_POST["signon"], $_POST["comment"]);
 
-				$dsp->NewContent($lang["install"]["wizard_importupload_caption"], $lang["install"]["wizard_importupload_subcaption"]);
-				$dsp->AddSingleRow(str_replace("%ERROR%", $check["error"], str_replace("%NOTHING%", $check["nothing"], str_replace("%INSERT%", $check["insert"], str_replace("%REPLACE%", $check["replace"], $lang["install"]["import_csv_report"])))));
+				$dsp->NewContent(t(''), t(''));
+				$dsp->AddSingleRow(t('Import wurde mit folgendem Ergebnis ausgeführt:HTML_NEWLINE<ul>Fehler: %1HTML_NEWLINEKeine Aktion: %1HTML_NEWLINENeue eingefügt: %1HTML_NEWLINEAlte überschrieben: %1</ul>', $check["error"], $check["nothing"], $check["insert"], $check["replace"]));
 
 				$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=6", "next"));
 				$dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/import");
@@ -259,7 +259,7 @@ switch ($_GET["step"]){
 			break;
 
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=wizard&step=4");
+				$func->information(t('Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.'), "index.php?mod=install&action=wizard&step=4");
 			break;
 		}
 	break;
@@ -267,14 +267,14 @@ switch ($_GET["step"]){
 
 	// Display form to create Adminaccount
 	case 6:
-		$dsp->NewContent($lang["install"]["wizard_admin_caption"], $lang["install"]["wizard_admin_subcaption"]);
+		$dsp->NewContent(t('Adminaccount anlegen'), t('Hier können Sie einen Adminaccount anlegen. Falls dies bereits durch den Import geschehen ist, können Sie diesen Schritt auch überspringen (auf <b>\'Weiter\'</b> klicken).'));
 		$dsp->SetForm("index.php?mod=install&action=wizard&step=7");
 		// FIX language
     if ($func->admin_exists()) $dsp->AddDoubleRow("Info", "Es existiert bereits ein Adminaccount");
         
-		$dsp->AddTextFieldRow("email", $lang["install"]["admin_email"], 'admin@admin.de', '');
-		$dsp->AddPasswordRow("password", $lang["install"]["conf_pass"], '', '', '', '', "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel1)\"");
-		$dsp->AddPasswordRow("password2", $lang["install"]["admin_pass2"], '', '');
+		$dsp->AddTextFieldRow("email", t('E-Mail'), 'admin@admin.de', '');
+		$dsp->AddPasswordRow("password", t('Kennwort'), '', '', '', '', "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel1)\"");
+		$dsp->AddPasswordRow("password2", t('Kennwort wiederholen'), '', '');
         $templ['pw_security']['id'] = 1;
         $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
 		$dsp->AddFormSubmitRow("add");
@@ -293,7 +293,7 @@ switch ($_GET["step"]){
 
 	// Set main config-variables
 	case 8:
-		$dsp->NewContent($lang["install"]["wizard_vars_caption"], $lang["install"]["wizard_vars_subcaption"]);
+		$dsp->NewContent(t('Wichtige Systemvariablen einstellen'), t('Hier, in diesem letzten Schritt, werden die wichtigsten Konfigurationen in Lansuite eingestellt.'));
 
 		$dsp->SetForm("index.php?mod=install&action=wizard&step=9");
 
@@ -308,21 +308,21 @@ switch ($_GET["step"]){
 			($language == $selection["cfg_value"]) ? $selected = "selected" : $selected = "";
 			array_push ($country_array, "<option $selected value=\"{$selection["cfg_value"]}\">". t($selection["cfg_display"]) ."</option>");
 		}
-		$dsp->AddDropDownFieldRow("country", $lang["install"]["vars_country"], $country_array, "");
+		$dsp->AddDropDownFieldRow("country", t('Land, in dem die Party stattfindet'), $country_array, "");
 
 		// URL & Admin-Mail
 		$dsp->AddHRuleRow();
-		$dsp->AddTextFieldRow("url", $lang["install"]["vars_url"], 'http://'. $_SERVER['HTTP_HOST'], "");
-		$dsp->AddTextFieldRow("email", $lang["install"]["vars_email"], 'webmaster@'. $_SERVER['HTTP_HOST'], "");
+		$dsp->AddTextFieldRow("url", t('URL der Webseite'), 'http://'. $_SERVER['HTTP_HOST'], "");
+		$dsp->AddTextFieldRow("email", t('E-Mail des Webmasters'), 'webmaster@'. $_SERVER['HTTP_HOST'], "");
 
 		// Online, or offline mode?
 		$dsp->AddHRuleRow();
 		$mode_array = array();
 		if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') $selected = ""; else $selected = "selected";
-		array_push ($mode_array, '<option $selected value="1">'. $lang['install']['vars_system_mode_internet'] .'</option>');
+		array_push ($mode_array, '<option $selected value="1">'. t('Internet-Seite. Vor der Party') .'</option>');
 		if ($_SERVER['HTTP_HOST'] == 'localhost' or $_SERVER['HTTP_HOST'] == '127.0.0.1') $selected = "selected"; else $selected = "";
-		array_push ($mode_array, '<option $selected value="0">'. $lang['install']['vars_system_mode_intranet'] .'</option>');
-		$dsp->AddDropDownFieldRow("mode", $lang["install"]["vars_system_mode"], $mode_array, "");
+		array_push ($mode_array, '<option $selected value="0">'. t('Intranet-Seite. Auf der Party') .'</option>');
+		$dsp->AddDropDownFieldRow("mode", t('Internet- oder Lokaler-Modus?'), $mode_array, "");
 
 		$dsp->AddFormSubmitRow("next");
 
@@ -342,10 +342,10 @@ switch ($_GET["step"]){
 
 		unset($_SESSION['language']);
 
-		$dsp->NewContent($lang["install"]["wizard_final_caption"], $lang["install"]["wizard_final_subcaption"]);
+		$dsp->NewContent(t('Installation abschließen'), t('Die Installation wurde erfolgreich beendet.'));
         	
-		$dsp->AddSingleRow($lang["install"]["wizard_final_text"]);
-		if (!func::admin_exists()) $dsp->AddSingleRow("<font color=red>". $lang["install"]["wizard_warning_noadmin"] ."</font>");
+		$dsp->AddSingleRow(t('Die Installation ist nun beendet.HTML_NEWLINEHTML_NEWLINEMit einem Klick auf <b>Einloggen</b> unterhalb schließen Sie die Installation ab und gelangen auf die Adminseite. Dort können Sie weitere Konfigurationen vornehmen sowie bereits in der Installation getätigte ändern.HTML_NEWLINEHTML_NEWLINEDer Modulmanager ermöglicht es Ihnen dort Module zu de-/aktivieren.HTML_NEWLINEHTML_NEWLINEÜber den Link \'Allgemeine Einstellungen\' stehen Ihnen eine Vielzahl an Konfigurationen in den einzelnen Modulen zur Verfügung.'));
+		if (!func::admin_exists()) $dsp->AddSingleRow("<font color=red>". t('<b>Es wurde kein Admin-Account angelegt</b>HTML_NEWLINESolange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.') ."</font>");
 
 		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install", "login"));
 		$dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/admin");

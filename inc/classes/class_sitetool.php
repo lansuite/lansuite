@@ -73,7 +73,7 @@ class sitetool {
 		$compression_mode = $this->check_optimizer();
 
 		// Check for {footer}-String in Design
-		if (!$_GET['contentonly'] and strpos($index, "{footer}") === false) echo "<font face=\"Verdana\" color=\"#ff0000\" site=\"6\">{$lang['class_sitetool']['footer_violation']}</font>";
+		if (!$_GET['contentonly'] and strpos($index, "{footer}") === false) echo "<font face=\"Verdana\" color=\"#ff0000\" site=\"6\">".t('Der Eintrag {footer} wurde unerlaubt aus der index.htm entfernt!')."</font>";
 		else {
 
 			$ru_suffix = "";

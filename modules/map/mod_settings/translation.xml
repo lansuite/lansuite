@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2008-04-16 01:29</date>
+	</header>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<tid>987</tid>
+				<id>eff111190077dce01fd0c41846a202d7</id>
+				<org>Anfahrt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>map</file>
+			</entry>
+			<entry>
+				<tid>988</tid>
+				<id>0897dd10177144fbdbd4eb4ab284faf5</id>
+				<org>Hier könnt ihr euch von Map24.de eure Route zur LAN berechnen lassen.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>map</file>
+			</entry>
+		</content>
+	</table>
+</lansuite>

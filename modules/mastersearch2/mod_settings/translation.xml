@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2008-04-16 01:29</date>
+	</header>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<tid>989</tid>
+				<id>ea1168e867fc3a51f45975443da8c6ca</id>
+				<org>Sortieren nach "%1" nicht möglich. Feld ist nicht im Select-Teil definiert</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>mastersearch2</file>
+			</entry>
+			<entry>
+				<tid>990</tid>
+				<id>5b0d731637e877f6d8f1be86ca2b472e</id>
+				<org>Sortieren-Ordnung, darf nur ASC, oder DESC sein</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>mastersearch2</file>
+			</entry>
+		</content>
+	</table>
+</lansuite>

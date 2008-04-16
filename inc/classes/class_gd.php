@@ -31,7 +31,7 @@ class gd {
 		if (function_exists("imagecreatetruecolor")) $this->img = imagecreatetruecolor($this->width, $this->height);
 		else $this->img = imagecreate($this->width, $this->height);
 		if (!$this->img) $this->img = imagecreate($this->width, $this->height);
-		if (!$this->img) return $lang['class_gd']['error_imagecreate'];
+		if (!$this->img) return t('Unable to Initialize new GD image stream');
 
 		ImageInterlace($this->img, $interlace);
 	}
@@ -49,7 +49,7 @@ class gd {
 		if ($type == "") $type = "png";
 
 		if ($file) {
-			if (!is_writable($path)) return str_replace("%PATH%", $path, $lang['class_gd']['error_write']);
+			if (!is_writable($path)) return str_replace("%PATH%", $path, t('Unable to write in directory /\'/%PATH%/\'/'));
 		} else Header("Content-type: image/$type");
 
 		if ($file) {

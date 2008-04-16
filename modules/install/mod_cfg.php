@@ -191,7 +191,7 @@ switch ($_GET['step']) {
   case 40:
 		if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) $func->error(t('Modul "%1" wurde nicht gefunden', $_GET['module']), '');
 		else {
-#			$dsp->NewContent($lang["install"]["modules_db_caption"] .": ". $_GET["module"], $lang["install"]["modules_db_subcaption"]);
+#			$dsp->NewContent(t('Datenbank - Modul') .": ". $_GET["module"], t('Hier können Sie die Datenbankeinträge zu diesem Modul verwalten'));
 
       $mod_tables = '';
 			if (is_dir('modules/'. $_GET['module'] .'/mod_settings')) {

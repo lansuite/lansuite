@@ -128,7 +128,7 @@ class func {
 		global $db, $config, $lang;
 
 		if ($priority != "0" AND $priority != "1" AND $priority != "2") {
-			echo($lang['class_func']['seatinfo_priority']);
+			echo(t('Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)'));
 		} else { 
 			$date = date("U");
 			$db->query("INSERT INTO {$config["tables"]["infobox"]} SET userid='$userid', class='$item', id_in_class = '$itemid', text='$text', date='$date', priority='$priority'");
@@ -204,13 +204,13 @@ class func {
 			case "shorttime":	$func_date  = date("H:i", $func_timestamp);		break;
 			case "datetime":	$func_date  = date("d.m.Y H:i", $func_timestamp);	break;
 			case "daydatetime":
-				$day[0] = $lang['class_func']['sunday'];
-				$day[1] = $lang['class_func']['monday'];
-				$day[2] = $lang['class_func']['tuesday'];
-				$day[3] = $lang['class_func']['wednesday'];
-				$day[4] = $lang['class_func']['thursday'];
-				$day[5] = $lang['class_func']['friday'];
-				$day[6] = $lang['class_func']['saturday'];
+				$day[0] = t('Sonntag');
+				$day[1] = t('Montag');
+				$day[2] = t('Dienstag');
+				$day[3] = t('Mittwoch');
+				$day[4] = t('Donnerstag');
+				$day[5] = t('Freitag');
+				$day[6] = t('Samstag');
 
 				$func_date .= $day[date("w", $func_timestamp)];	
 				$func_date .= ", ";	
@@ -218,24 +218,24 @@ class func {
 			break;
 
 			case "daydate":
-				$day[0] = $lang['class_func']['sunday'];
-				$day[1] = $lang['class_func']['monday'];
-				$day[2] = $lang['class_func']['tuesday'];
-				$day[3] = $lang['class_func']['wednesday'];
-				$day[4] = $lang['class_func']['thursday'];
-				$day[5] = $lang['class_func']['friday'];
-				$day[6] = $lang['class_func']['saturday'];
+				$day[0] = t('Sonntag');
+				$day[1] = t('Montag');
+				$day[2] = t('Dienstag');
+				$day[3] = t('Mittwoch');
+				$day[4] = t('Donnerstag');
+				$day[5] = t('Freitag');
+				$day[6] = t('Samstag');
 				$func_date .= date("d.m.Y", $func_timestamp) . " (". $day[date("w", $func_timestamp)] .")";
 			break;
 
 			case "shortdaytime":
-				$day[0] = $lang['class_func']['sunday_short'];
-				$day[1] = $lang['class_func']['monday_short'];
-				$day[2] = $lang['class_func']['tuesday_short'];
-				$day[3] = $lang['class_func']['wednesday_short'];
-				$day[4] = $lang['class_func']['thursday_short'];
-				$day[5] = $lang['class_func']['friday_short'];
-				$day[6] = $lang['class_func']['saturday_short'];
+				$day[0] = t('So');
+				$day[1] = t('Mo');
+				$day[2] = t('Di');
+				$day[3] = t('');
+				$day[4] = t('Do');
+				$day[5] = t('Fr');
+				$day[6] = t('Sa');
 
 				$func_date .= $day[date("w", $func_timestamp)];	
 				$func_date .= ", ";	
@@ -272,19 +272,19 @@ class func {
 
 		switch($text) {
 			case "ACCESS_DENIED":
-				$templ['error']['info']['errormsg'] = $lang['class_func']['error_access_denied'];
+				$templ['error']['info']['errormsg'] = t('Sie haben keine Zugriffsrechte für diesen Bereich.');
 			break;
 			case "NO_LOGIN":
-				$templ['error']['info']['errormsg'] = $lang['class_func']['error_no_login'];
+				$templ['error']['info']['errormsg'] = t('Sie sind nicht eingeloggt. Bitte loggen Sie sich erst ein, bevor Sie diesen Bereich betreten.');
 			break;
 			case "NOT_FOUND":
-				$templ['error']['info']['errormsg'] = $lang['class_func']['error_not_found'];
+				$templ['error']['info']['errormsg'] = t('Leider ist die von Ihnen aufgerufene Seite auf diesem Server nicht vorhanden.<br/>Um Fehler zu vermeiden, sollten Sie die URL nicht manuell ändern, sondern die Links benutzen. Wenn Sie die Adresse manuell eingegeben haben überprüfen Sie bitte die URL.');
 			break;
 			case "DEACTIVATED":
-				$templ['error']['info']['errormsg'] = $lang['class_func']['error_deactivated'];
+				$templ['error']['info']['errormsg'] = t('Dieses Lansuite Modul wurde deaktiviert und steht somit nicht zur Verfügung.');
 			break;
 			case "NO_REFRESH":
-				$templ['error']['info']['errormsg'] = $lang['class_func']['error_no_refresh'];
+				$templ['error']['info']['errormsg'] = t('Sie haben diese Anfrage wiederholt ausgeführt.');
 			break;
 			default:
 				$templ['error']['info']['errormsg'] = $text;
@@ -360,8 +360,8 @@ class func {
 		global $templ, $auth, $lang, $dsp, $language;
 
 		switch($type) {
-			case "rlist":	$text	= str_replace("%OBJECT%", $object, $lang['class_func']['no_item_rlist']); break;
-			case "search":	$text	= str_replace("%OBJECT%", $object, $lang['class_func']['no_item_search']); break;
+			case "rlist":	$text	= str_replace("%OBJECT%", $object, t('Es sind keine %OBJECT% vorhanden.')); break;
+			case "search":	$text	= str_replace("%OBJECT%", $object, t('Es wurden keine passenden %OBJECT% gefunden.')); break;
 			case "free":	$text	= $object; break;
 		}
     $this->information($text, $link_target);
