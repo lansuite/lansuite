@@ -5,22 +5,22 @@ $export = New Export();
 
 switch($_GET["step"]){
 	default:
-		$dsp->NewContent($lang["install"]["export_caption"], $lang["install"]["export_subcaption"]);
+		$dsp->NewContent(t('Daten exportieren'), t('Hier können Sie Benutzerdaten exportieren. Diese können Sie später wieder in Lansuite importieren.'));
 		$dsp->SetForm("index.php?mod=install&action=export&step=2", "", "", "");
 
-		$type_array = array("xml" => $lang["install"]["export_xml_complete"],
-			"xml_modules" => $lang["install"]["export_xml_module"],
-			"xml_tables" => $lang["install"]["export_xml_tables"],
-			"csv_complete" => $lang["install"]["export_csv_complete"],
-			"csv_sticker" => $lang["install"]["export_csv_sticker"],
-			"csv_card" => $lang["install"]["export_csv_card"],
-			"ext_inc_data" => $lang['install']['export_data_ext_inc']
+		$type_array = array("xml" => t('XML: Komplette Datenbank Exportieren (Empfohlen)'),
+			"xml_modules" => t('XML: Nur ausgewählte Module exportiern'),
+			"xml_tables" => t('XML: Nur ausgewählte Tabellen exportieren (für Experten)'),
+			"csv_complete" => t('CSV: Userdaten komplett (inkl. Sitzplatz und IP)'),
+			"csv_sticker" => t('CSV: Userdaten \'Aufkleber\' (Name, Username, Clan, Sitzplatz und IP)'),
+			"csv_card" => t('CSV: Sitzplatzkarten (Name, Username, Clan, Sitzplatz und IP)'),
+			"ext_inc_data" => t('DATA: Daten-Ordner herunterladen (Avatare, Bildergallerie, Banner, ...)')
 			);
 		$t_array = array();
 		while (list ($key, $val) = each ($type_array)) {
 			array_push ($t_array, "<option $selected value=\"$key\">$val</option>");
 		}
-		$dsp->AddDropDownFieldRow("type", $lang["tourney"]["t_add_ngl_game"], $t_array, "", 1);
+		$dsp->AddDropDownFieldRow("type", t('NGL-Spiel'), $t_array, "", 1);
 
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddBackButton("index.php?mod=install", "install/export");
@@ -29,14 +29,14 @@ switch($_GET["step"]){
 
 	case 2:
 		$db->connect();
-		$dsp->NewContent($lang["install"]["export_caption"], $lang["install"]["export_subcaption"]);
+		$dsp->NewContent(t('Daten exportieren'), t('Hier können Sie Benutzerdaten exportieren. Diese können Sie später wieder in Lansuite importieren.'));
 
 		switch ($_POST["type"]){
 			case "xml":	
 				$dsp->SetForm("index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3", "", "", "");
 
-				$dsp->AddCheckBoxRow("e_struct", $lang["install"]["export_structure"], "", "", 1, 1);
-				$dsp->AddCheckBoxRow("e_cont", $lang["install"]["export_content"], "", "", 1, 1);
+				$dsp->AddCheckBoxRow("e_struct", t('Struktur exportieren'), "", "", 1, 1);
+				$dsp->AddCheckBoxRow("e_cont", t('Inhalt exportieren'), "", "", 1, 1);
 
 				$dsp->AddFormSubmitRow("next");
 			break;
@@ -44,8 +44,8 @@ switch($_GET["step"]){
 			case "xml_modules":
 				$dsp->SetForm("index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3", "", "", "");
 
-				$dsp->AddCheckBoxRow("e_struct", $lang["install"]["export_structure"], "", "", 1, 1);
-				$dsp->AddCheckBoxRow("e_cont", $lang["install"]["export_content"], "", "", 1, 1);
+				$dsp->AddCheckBoxRow("e_struct", t('Struktur exportieren'), "", "", 1, 1);
+				$dsp->AddCheckBoxRow("e_cont", t('Inhalt exportieren'), "", "", 1, 1);
 				$dsp->AddCheckBoxRow("e_trans", 'Übersetzungsdaten exportieren', "", "", 1, 1);
 				$dsp->AddHRuleRow();
 
@@ -81,8 +81,8 @@ switch($_GET["step"]){
 			case "xml_tables":
 				$dsp->SetForm("index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3", "", "", "");
 
-				$dsp->AddCheckBoxRow("e_struct", $lang["install"]["export_structure"], "", "", 1, 1);
-				$dsp->AddCheckBoxRow("e_cont", $lang["install"]["export_content"], "", "", 1, 1);
+				$dsp->AddCheckBoxRow("e_struct", t('Struktur exportieren'), "", "", 1, 1);
+				$dsp->AddCheckBoxRow("e_cont", t('Inhalt exportieren'), "", "", 1, 1);
 				$dsp->AddCheckBoxRow("e_trans", 'Übersetzungsdaten exportieren', "", "", 1, 1);
 				$dsp->AddHRuleRow();
 
@@ -102,7 +102,7 @@ switch($_GET["step"]){
 							foreach ($tables as $table) {
 								$table_head = $xml->get_tag_content("table_head", $table);
 								$table_name = $xml->get_tag_content("name", $table_head);
-								$dsp->AddCheckBoxRow("table[$table_name]", $table_name, $lang["install"]["export_table"], "", 1);
+								$dsp->AddCheckBoxRow("table[$table_name]", $table_name, t('Diese Tabelle exportieren'), "", 1);
 							}
 						}
 					}
@@ -113,23 +113,23 @@ switch($_GET["step"]){
 			break;
 
 			case "csv_complete":
-				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_csv_complete_save"]}</a>", "", "", "");
+				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">".t('Lansuite-CSV-Export speichern')."</a>", "", "", "");
 			break;
 
 			case "csv_sticker":
-				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_csv_sticker_save"]}</a>", "", "", "");
+				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">".t('Lansuite-Aufkleber-Export speichern')."</a>", "", "", "");
 			break;
 
 			case "csv_card":
-				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang["install"]["export_csv_card_save"]}</a>", "", "", "");
+				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">".t('Lansuite-Sitzplatzkarten-Export speichern')."</a>", "", "", "");
 			break;
 
       case 'ext_inc_data':
-				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">{$lang['install']['export_ext_inc']}</a>", "", "", "");
+				$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export&design=base&type={$_POST["type"]}&step=3\">".t('Lansuite Daten-Ordner herunterladen')."</a>", "", "", "");
       break;
 
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=import");
+				$func->information(t('Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.'), "index.php?mod=install&action=import");
 			break;
 		}
 
@@ -182,7 +182,7 @@ switch($_GET["step"]){
 			break;
 
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=import");
+				$func->information(t('Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.'), "index.php?mod=install&action=import");
 			break;
 		}
 	break;

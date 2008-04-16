@@ -124,7 +124,8 @@ if (file_exists("inc/language/language_de.php")) include_once("inc/language/lang
 if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) include_once("modules/mastersearch/language/mastersearch_lang_de.php");
 
 ### Include base classes
-
+    
+    include_once("inc/classes/class_translation.php");
     if (extension_loaded("mysqli")) include_once("inc/classes/class_db_mysqli.php");
     else include_once("inc/classes/class_db_mysql.php");
     include_once("inc/classes/class_func.php");
@@ -134,8 +135,6 @@ if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) inclu
     include_once("inc/classes/class_gd.php");
     include_once("inc/classes/class_sec.php");
     include_once("inc/classes/class_barcode.php");
-    include_once("inc/classes/class_translation.php");
-    
     include_once("modules/party/class_party.php");
     include_once("modules/install/class_install.php");
     if (file_exists("modules/mastersearch/class_mastersearch.php")) include_once("modules/mastersearch/class_mastersearch.php");
@@ -146,21 +145,26 @@ if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) inclu
 
 ### Initialize base classes
 
-    $func       = new func;         // Base Functions (anything that doesnt belong elsewere)
-    $gd         = new gd;           // GD Functions (for graphical outputs)
-    $dsp        = new display();    // Display Functions (to load the lansuite-templates)
-    $mail       = new mail();       // Mail Functions (for sending mails to lansuite-users)
-    $xml        = new xml;          // XML Functions (to maintain XML-Ex-/Imports)
-    $install    = new Install();    // Install Functions (Some basic Setup-Routines)
-    $db         = new db;           // DB Functions (to work with the databse)
-    $sec        = new sec;          // Security Functions (to lock pages)
-    $cron2      = new cron2();      // Load Cronjob
-    $seat2      = new seat2();      // Load Seat-Controll Class
+    $func        = new func;             // Base Functions (anything that doesnt belong elsewere)
+    $gd          = new gd;               // GD Functions (for graphical outputs)
+    $dsp         = new display();        // Display Functions (to load the lansuite-templates)
+    $mail        = new mail();           // Mail Functions (for sending mails to lansuite-users)
+    $xml         = new xml;              // XML Functions (to maintain XML-Ex-/Imports)
+    $install     = new Install();        // Install Functions (Some basic Setup-Routines)
+    $db          = new db;               // DB Functions (to work with the databse)
+    $sec         = new sec;              // Security Functions (to lock pages)
+    $cron2       = new cron2();          // Load Cronjob
+    $seat2       = new seat2();          // Load Seat-Controll Class
+    $translation = new translation();    // Load Translationclass
+    
+### Initalize Basic Parameters
+
+    $language = $translation->get_lang(); // Set and Read Systemlanguage
 
 ### Installingsystem or normal auth
 
     if ($config['environment']['configured'] == 0) {
-
+        $translation->load_trans('xml', 'install'); // Filemode on Installation
         ### Prepare install
         // Force installwizard if LS not configured
         $_GET['mod']    = 'install';
@@ -176,7 +180,6 @@ if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) inclu
             $install->SetTableNames();       // Load SQL-Tables used by each page
             $cfg = $func->read_db_config();  // read Configtable
         }
-        $language = func::get_lang(false); // Set Install language by Wizard defaultstep
 
     } else {
 
@@ -185,6 +188,7 @@ if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) inclu
         $db->connect(0);
         $IsAboutToInstall = 0;
 
+        $translation->load_trans('db', $_GET['mod']); // DB-Mode on Running System
         // FIX : Add function to scan DB for correkt config and Tables (prefix etc.)
 
         // Reset DB-Success in Setup if no Adm.-Account was found, because a connection could work, but prefix is wrong
@@ -203,8 +207,6 @@ if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) inclu
         $ActiveModules[] = 'helplet';
         $ActiveModules[] = 'popups';
         $ActiveModules[] = 'auth';
-        
-        $language = func::get_lang(true); // Get and set Language
         
         // Start autentication, just if LS is working
         $authentication = new auth();
@@ -241,14 +243,9 @@ if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) inclu
 // Load Barcode System
 $barcode    = new barcode_system(); // Barcode System
 
-//// Load Base-Lang-File
-// 2) Overwrite with $language
-if ($language != "de" and file_exists("inc/language/language_$language.php")) include_once("inc/language/language_$language.php");
-if ($language != "de" and file_exists("modules/mastersearch/language/mastersearch_lang_$language.php")) include_once("modules/mastersearch/language/mastersearch_lang_$language.php");
-if ($language != "de" and file_exists("modules/boxes/language/boxes_lang_$language.php")) include_once("modules/boxes/language/boxes_lang_$language.php");
-if ($language != "de" and file_exists("modules/install/language/install_lang_$language.php")) include_once("modules/install/language/install_lang_$language.php");
-
-
+// Load Base-Lang-File
+// OLD, Only for old $lang in Systemfolders 
+include_once("inc/language/language_$language.php");
 
 // Show Blocked Site
 if($cfg['sys_blocksite'] == 1 and $auth['type'] < 2) $siteblock = true;
@@ -273,4 +270,5 @@ if ($db->success) {
   if (!$_GET['mod']=="install") $cron2->CheckJobs();
   $db->disconnect();
 }
+
 ?>

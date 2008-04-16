@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2008-04-16 01:29</date>
+	</header>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<tid>362</tid>
+				<id>418dd16247096753d339ca8a8b7f94b6</id>
+				<org>Cronjob hinzufügen</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>cron2</file>
+			</entry>
+			<entry>
+				<tid>363</tid>
+				<id>49ee3087348e8d44e1feda1917443987</id>
+				<org>Name</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>cron2</file>
+			</entry>
+			<entry>
+				<tid>364</tid>
+				<id>d142ebe4786fbc0ffb437b1ed3c2d2c7</id>
+				<org>SQL-Statement</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>cron2</file>
+			</entry>
+			<entry>
+				<tid>365</tid>
+				<id>c44e07cffb5cd991f28e866e8854b548</id>
+				<org>Aktiv</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>cron2</file>
+			</entry>
+			<entry>
+				<tid>366</tid>
+				<id>d7f5e7a20f32d5e84348b6d0d7199208</id>
+				<org>Ausführen täglich, um</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>cron2</file>
+			</entry>
+			<entry>
+				<tid>367</tid>
+				<id>717746aa7f1d6b5e39641edb2b5253c1</id>
+				<org>Cronjob "%1" wurde ausgeführt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>cron2</file>
+			</entry>
+			<entry>
+				<tid>368</tid>
+				<id>057f0c192deb731db46239490c056aba</id>
+				<org>Folgender SQL-Befehl wurde ausgeführt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>cron2</file>
+			</entry>
+			<entry>
+				<tid>369</tid>
+				<id>415cb0cd0fe2a239b06b1c27ac901bd9</id>
+				<org>Geplant um</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>cron2</file>
+			</entry>
+			<entry>
+				<tid>370</tid>
+				<id>17c4a6518b679ab3017dc4c79f7fa09c</id>
+				<org>Letzte Ausführung</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>cron2</file>
+			</entry>
+			<entry>
+				<tid>371</tid>
+				<id>578226c1cd65323c43b1da815f4dabb7</id>
+				<org>Jetzt ausführen</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>cron2</file>
+			</entry>
+		</content>
+	</table>
+</lansuite>

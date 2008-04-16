@@ -1,97 +1,25 @@
 <?php
 function YesNo($TargetLang) {
-	global $dsp;
+    global $dsp;
 
   if ($TargetLang) return $dsp->FetchIcon('', 'yes');
   else return $dsp->FetchIcon('', 'no');
 }
 
-
-function TUpdateFromFiles($BaseDir) {
-  global $db, $config, $FoundTransEntries;
-
-  $output = '';
-  if (!is_array($FoundTransEntries)) $FoundTransEntries = array();
-
-  $ResDir = opendir($BaseDir);
-  while ($file = readdir($ResDir)) {
-    $FilePath = $BaseDir .'/'. $file;
-
-    if (substr($file, strlen($file) - 4, 4) == '.php') {
-
-  		$ResFile = fopen($FilePath, "r");
-  		$content = fread($ResFile, filesize($FilePath));
-  		fclose($ResFile);
-
-      $treffer = array();
-      preg_match_all('/([^a-zA-Z0-9]+t\\(\\\')(.*?)(\\\'\\)|\\\'\\,)/', $content, $treffer, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
-      foreach ($treffer as $wert) {
-
-        $CurrentPos = $wert[2][1];
-        $CurrentTrans = $wert[2][0];
-        $key = md5($CurrentTrans);
-
-        // Generate Mod-Name from FILE
-        $CurrentFile = str_replace('\\','/', $FilePath);
-        if (strpos($CurrentFile, 'modules/') !== false) {
-          $start = strpos($CurrentFile, 'modules/') + 8;
-          $CurrentFile = substr($CurrentFile, $start, strrpos($CurrentFile, '/') - $start);
-        } else $CurrentFile = 'System';
-
-        // Do only add expressions, which are not already in system lang-file
-        $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['translation']} WHERE id = '{$key}' AND (file = 'System')");
-        if (!$row['found'] or $CurrentFile == 'System'){
-          array_push($FoundTransEntries, $CurrentFile.'+'.$key); // Array is compared to DB later for synchronization
-
-          $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['translation']} WHERE id = '{$key}' AND (file = '$CurrentFile')");
-          if ($row['found']) $output .= $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'<br />';
-          else {
-            // New -> Insert to DB
-            $db->query("REPLACE INTO {$config['tables']['translation']} SET id = '$key', file = '{$CurrentFile}', org = '{$CurrentTrans}'");
-            $output .= '<font color="#00ff00">'. $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'</font><br />';
-          }
-        }
-      }
-    } elseif ($file != '.' and $file != '..' and $file != '.svn' and is_dir($FilePath)) $output .= TUpdateFromFiles($FilePath);
-  }
-  closedir($ResDir);
-  return $output;
-}
-
-function TUpdateFromDB($table, $field) {
-  global $db;
-
-  $res = $db->qry('SELECT '. $field .' FROM %prefix%'. $table);
-  while ($row = $db->fetch_array($res)) if ($row[$field] != '') {
-    $key = md5($row[$field]);
-    $row2 = $db->qry_first('SELECT 1 AS found FROM %prefix%translation WHERE id = %string%', $key);
-    if (!$row2['found']) $db->qry('REPLACE INTO %prefix%translation SET id = %string%, file = \'DB\', org = %string%', $key, $row[$field]);
-  }
-  $db->free_result($res);
-}
-
-
 switch ($_GET['step']) {
   default:
     $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
-
-    $dsp->AddSingleRow('<a href="index.php?mod=misc&action=translation&step=2">'. t('Alle Einträge auflisten') .'</a>');
-    $dsp->AddSingleRow('<a href="index.php?mod=misc&action=translation&step=10">'. t('Einträge neu auslesen und in die Datenbank schreiben') .'</a>');
+    
+    $dsp->AddFieldSetStart(t('Allgemeine Wartungsfunktionen'));
+    $dsp->AddDoubleRow('','<a href="index.php?mod=misc&action=translation&step=2">'. t('Alle Datenbankeinträge auflisten') .'</a>');
+    $dsp->AddDoubleRow('','<a href="index.php?mod=misc&action=translation&step=10">'. t('Einträge neu aus Quellcode auslesen und in die Datenbank schreiben') .'</a>');
+    $dsp->AddDoubleRow('','<a href="index.php?mod=misc&action=translation&step=50">'. t('Einträge aus DB in mod_translation.xml schreiben (alle Module)') .'</a>');
+    $dsp->AddDoubleRow('','<a href="index.php?mod=misc&action=translation&step=60">'. t('mod_translation.xml auslesen und in DB schreiben (alle Module)') .'</a>');
+    $dsp->AddFieldSetEnd();
 
     if ($_POST['target_language']) $_SESSION['target_language'] = $_POST['target_language'];
 
-    $dsp->AddFieldSetStart(t('Modul übersetzen'));
-    $dsp->SetForm('index.php?mod=misc&action=translation');
-    $list = array();
-    $res = $db->query("SELECT cfg_value, cfg_display FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language'");
-    while($row = $db->fetch_array($res)) {
-      ($_SESSION['target_language'] == $row['cfg_value'])? $selected = 'selected' : $selected = '';
-      $list[] = "<option $selected value='{$row['cfg_value']}'>{$row['cfg_display']}</option>";
-    }
-    $dsp->AddDropDownFieldRow('target_language', t('Ziel Sprache'), $list, '');
-    $db->free_result($res);
-    $dsp->AddFormSubmitRow('change');
-    
+    $dsp->AddFieldSetStart(t('Module übersetzen'));
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('misc');
     $ms2->query['from'] = "{$config['tables']['translation']}";
@@ -160,14 +88,14 @@ switch ($_GET['step']) {
 
     if ($auth['type'] >= 3) {
       $dsp->AddFieldSetStart(t('FrameWork'));
-      $dsp->AddSingleRow(TUpdateFromFiles('inc/classes'));
+      $dsp->AddSingleRow($translation->TUpdateFromFiles('inc/classes'));
       $dsp->AddFieldSetEnd();
       $dsp->AddFieldSetStart(t('Module'));
-      $dsp->AddSingleRow(TUpdateFromFiles('modules'));
+      $dsp->AddSingleRow($translation->TUpdateFromFiles('modules'));
       $dsp->AddFieldSetEnd();
 
       // Delete entries, which no do no longer exist
-      $output = '';
+/*      $output = '';
       $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file != 'DB'");
       while($row = $db->fetch_array($res)) {
         if (!in_array($row['file'].'+'.$row['id'], $FoundTransEntries)) {
@@ -178,14 +106,29 @@ switch ($_GET['step']) {
       $db->free_result($res);
       $dsp->AddFieldSetStart(t('Veraltet (wurden nun gelöscht)'));
       $dsp->AddSingleRow($output);
+      $dsp->AddFieldSetEnd();*/
+
+      $output = '';
+      $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file != 'DB'");
+      while($row = $db->fetch_array($res)) {
+        if (!in_array($row['file'].'+'.$row['id'], $FoundTransEntries)) {
+          $db->query("UPDATE {$config['tables']['translation']} SET obsolete='1' WHERE id = '{$row['id']}'");
+          $output .= '<font color="#ff0000">'. $row['file'] .': '. $row['org'] .'</font><br />';
+        }
+      }
+      $db->free_result($res);
+      $dsp->AddFieldSetStart(t('Veraltet (wurden als "veraltet" markiert)'));
+      $dsp->AddSingleRow($output);
       $dsp->AddFieldSetEnd();
 
+
+
       // Scan DB
-      TUpdateFromDB('menu', 'caption');
-      TUpdateFromDB('menu', 'hint');
-      TUpdateFromDB('modules', 'description');
-      TUpdateFromDB('config', 'cfg_desc');
-      TUpdateFromDB('config_selections', 'cfg_display');
+      $translation->TUpdateFromDB('menu', 'caption');
+      $translation->TUpdateFromDB('menu', 'hint');
+      $translation->TUpdateFromDB('modules', 'description');
+      $translation->TUpdateFromDB('config', 'cfg_desc');
+      $translation->TUpdateFromDB('config_selections', 'cfg_display');
 
       // For info output DB internal
       $output = '';
@@ -202,35 +145,50 @@ switch ($_GET['step']) {
   
   // Translate Module
   case 20:
+    // If Write2File
+    if ($_GET['subact'] == 'writetofile') $translation->xml_write_db_to_file($_GET['file']);
+    
     $dsp->NewContent(t('Modul übersetzen : ').$_GET['file'], '');
     
     // Show switch between Lanuages
-    if ($_POST['target_language']) $_SESSION['target_language'] = $_POST['target_language'];
-    if ($_SESSION['target_language'] == '') $_SESSION['target_language'] = 'en';
-    $dsp->SetForm('index.php?mod=misc&action=translation&step=20&file='.$_GET['file']);
-    $list = array();
-    $res = $db->query("SELECT cfg_value, cfg_display FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language'");
-    while($row = $db->fetch_array($res)) {
-      ($_SESSION['target_language'] == $row['cfg_value'])? $selected = 'selected' : $selected = '';
-      $list[] = "<option $selected value='{$row['cfg_value']}'>{$row['cfg_display']}</option>";
-    }
-    $dsp->AddDropDownFieldRow('target_language', t('Ziel Sprache'), $list, '');
-    $db->free_result($res);
-    $dsp->AddFormSubmitRow('change');
+    $dsp->AddFieldSetStart(t('Sprache wechseln. Achtung, nicht gesicherte &Auml;nderungen gehen verloren.'));
+        if ($_POST['target_language']) $_SESSION['target_language'] = $_POST['target_language'];
+        if ($_SESSION['target_language'] == '') $_SESSION['target_language'] = 'en';
+        $dsp->SetForm('index.php?mod=misc&action=translation&step=20&file='.$_GET['file']);
+        $list = array();
+        $res = $db->query("SELECT cfg_value, cfg_display FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language'");
+        while($row = $db->fetch_array($res)) {
+          ($_SESSION['target_language'] == $row['cfg_value'])? $selected = 'selected' : $selected = '';
+          $list[] = "<option $selected value='{$row['cfg_value']}'>{$row['cfg_display']}</option>";
+        }
+        $dsp->AddDropDownFieldRow('target_language', t('Ziel Sprache'), $list, '');
+        $db->free_result($res);
+        $dsp->AddFormSubmitRow('change');
+    $dsp->AddFieldSetEnd();
 
     // Start Tanslation
-    
-    $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
-    $res = $db->query("SELECT DISTINCT id, org, file, {$_SESSION['target_language']} FROM {$config['tables']['translation']} WHERE file = '{$_GET['file']}'");
-    while($row = $db->fetch_array($res)) {
-        $trans_link_google ="http://translate.google.com/translate_t?langpair=de|".$_SESSION['target_language']."&hl=de&ie=UTF8&text=".$row['org'];
-        $trans_link_google =" <a href=\"".$trans_link_google."\" target=\"_blank\"><img src=\"design/".$auth['design']."/images/arrows_transl.gif\" width=\"12\" height=\"13\" border=\"0\" /></a>";
-        $dsp->AddTextFieldRow("id[{$row['id']}]",$row['org'].$trans_link_google, $row[$_SESSION['target_language']], '', 65);
-    }
-    $db->free_result($res);
-    $dsp->AddFormSubmitRow('edit');
+    $dsp->AddFieldSetStart(t('Texte editieren.'));
+        $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
+        $res = $db->query("SELECT DISTINCT id, org, file, {$_SESSION['target_language']} FROM {$config['tables']['translation']} WHERE file = '{$_GET['file']}'");
+        while($row = $db->fetch_array($res)) {
+            $trans_link_google ="http://translate.google.com/translate_t?langpair=de|".$_SESSION['target_language']."&hl=de&ie=UTF8&text=".$row['org'];
+            $trans_link_google =" <a href=\"".$trans_link_google."\" target=\"_blank\"><img src=\"design/".$auth['design']."/images/arrows_transl.gif\" width=\"12\" height=\"13\" border=\"0\" /></a>";
+            
+            if (strlen($row['org'])<60) {
+                $dsp->AddTextFieldRow("id[{$row['id']}]",htmlentities($row['org']).$trans_link_google, $row[$_SESSION['target_language']], '', 65);
+            } else { 
+                $dsp->AddTextAreaRow ("id[{$row['id']}]",htmlentities($row['org']).$trans_link_google, $row[$_SESSION['target_language']], '', 50, 5);
+            }
+        
+        }
+        $db->free_result($res);
+        $dsp->AddFormSubmitRow('edit');
+    $dsp->AddFieldSetEnd();
 
+    $tmp_link = "index.php?mod=misc&action=translation&step=20&file=".$_GET['file']."&subact=writetofile";
+    $dsp->AddDoubleRow(t('Schreibe Modulübersetzung in mod_translation.xml') ,$dsp->FetchSpanButton(t('Schreibe'), $tmp_link));
     $dsp->AddBackButton('index.php?mod=misc&action=translation');
+
   break;
 
   // Translate Module - DB Insert
@@ -269,6 +227,80 @@ switch ($_GET['step']) {
 
     $dsp->AddBackButton('index.php?mod=misc&action=translation');
   break;
+      
+  // Export Translation to Files
+  case 50;
+      if (!$_GET['confirm']=="yes") {
+          $func->question(t('Achtung!!! Alle vorhandenen �bersetzungen in den XML-Dateien werden �berschrieben'),
+                            'index.php?mod=misc&action=translation&step=50&confirm=yes',
+                            'index.php?mod=misc&action=translation');
+      } else {
+          $modules = array();
+          $res = $db->query("SELECT name FROM {$config["tables"]["modules"]}");
+          while($row = $db->fetch_array($res)) $modules[] = $row['name'];
+          $db->free_result($res); 
+          // Add Systemtranslations
+          $modules[] = "DB";
+          $modules[] = "System"; 
+          foreach ($modules as $modul) {
+              $translation->xml_write_db_to_file($modul);
+              $info .= t("Modulübersetzung wurde in <b>translation.xml (%1)</b> geschrieben<br \>",$modul);
+          }
+          $func->information($info,'index.php?mod=misc&action=translation');
+      }
+  break;
+
+  // Import Translation to DB from mod_translation.xml
+  case 60;
+      if (!$_GET['confirm']=="yes") {
+          $func->question(t('Achtung!!! Alle vorhandenen �bersetzungen werden von den XML-Dateien in die Datenbank geschrieben'),
+                            'index.php?mod=misc&action=translation&step=60&confirm=yes',
+                            'index.php?mod=misc&action=translation');
+      } else {
+          $modules = array();
+          $res = $db->query("SELECT name FROM {$config["tables"]["modules"]}");
+          while($row = $db->fetch_array($res)) $modules[] = $row['name'];
+          $db->free_result($res);  
+          // Add Systemtranslations
+          $modules[] = "DB";
+          $modules[] = "System"; 
+          foreach ($modules as $modul) {
+              $translation->xml_write_file_to_db($modul);
+              $info .= t("Modulübersetzung wurde von <b>%1</b> gelesen<br \>",$file);
+          }
+          $func->information($info,'index.php?mod=misc&action=translation');
+      }
+  break;
+
+  // Search for Old Text and New Entrys
+  case 70;
+      // For info output DB internal
+      $output = '';
+
+      $dsp->AddFieldSetStart(t('Veraltete Eintraege'));
+      $res1 = $db->query("SELECT id, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete = '1'");
+      while($row1 = $db->fetch_array($res1)) {
+          $res2 = $db->query("SELECT id, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete != '1'");
+
+          while($row2 = $db->fetch_array($res2)) {
+              $gleichheit = levenshtein ($row1['org'], $row2['org'])+1;
+              $score = ceil(strlen($row1['org']) / $gleichheit)+1;
+              //echo $gleichheit."-".$score."<br />";
+              if ($score >5) {
+                  $dsp->AddFieldSetStart($row1['file'] .': '. $row1['org']);
+                  $dsp->AddSingleRow($row1['id'].":".$row1['file'].":".$row1['org']);
+                  $dsp->AddSingleRow($row2['id'].":".$row2['file'].":".$row2['org']);
+                  $dsp->AddFieldSetEnd();
+              }
+          }
+      }
+      $db->free_result($res2);
+      $db->free_result($res1);
+      $dsp->AddFieldSetEnd();
+
+  break;
+
+
 }
 $dsp->AddContent();
 ?>

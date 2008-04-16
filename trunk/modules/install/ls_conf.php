@@ -12,14 +12,14 @@ switch($_GET["step"]) {
 		if ($_POST["design"]) $config["lansuite"]["default_design"] = $_POST["design"];
 
 		if(!$install->WriteConfig()) {
-			$func->error($lang["install"]["conf_err_write"]);
+			$func->error(t('Datei \'config.php\' konnte <strong>nicht</strong> geschrieben werden.'));
 		} else {
-			$func->confirmation($lang["install"]["conf_success"], "index.php?mod=install&action=ls_conf");
+			$func->confirmation(t('Datei \'config.php\' wurde erfolgreich geschrieben.'), "index.php?mod=install&action=ls_conf");
 		}
 	break;
 	
 	default:
-		$dsp->NewContent($lang["install"]["conf_caption"], $lang["install"]["conf_subcaption"]);
+		$dsp->NewContent(t('Grundeinstellungen'), t('Bitte geben Sie nun die Zugangsdaten zur Datenbank an.'));
 		$dsp->SetForm("index.php?mod=install&action=ls_conf&step=2");
 
 		if ($_POST["host"] == "") $_POST["host"] = $config['database']['server'];
@@ -30,18 +30,18 @@ switch($_GET["step"]) {
 		if ($_POST["display_debug_errors"] == "") $_POST["display_debug_errors"] = $config['database']['display_debug_errors'];
 
 		#### Database Access
-		$dsp->AddSingleRow("<b>". $lang["install"]["conf_dbdata"] ."</b>");
-		$dsp->AddTextFieldRow("host", $lang["install"]["conf_host"], $_POST["host"], "");
-		$dsp->AddTextFieldRow("user", $lang["install"]["conf_user"], $_POST["user"], "");
-		$dsp->AddPasswordRow("pass", $lang["install"]["conf_pass"], $_POST["pass"], "");
-		$dsp->AddTextFieldRow("database", $lang["install"]["conf_db"], $_POST["database"], "");
-		$dsp->AddTextFieldRow("prefix", $lang["install"]["conf_prefix"], $_POST["prefix"], "");
+		$dsp->AddSingleRow("<b>". t('Datenbank-Zugangsdaten') ."</b>");
+		$dsp->AddTextFieldRow("host", t('Host (Server-IP)'), $_POST["host"], "");
+		$dsp->AddTextFieldRow("user", t('Benutzername'), $_POST["user"], "");
+		$dsp->AddPasswordRow("pass", t('Kennwort'), $_POST["pass"], "");
+		$dsp->AddTextFieldRow("database", t('Datenbank'), $_POST["database"], "");
+		$dsp->AddTextFieldRow("prefix", t('Tabellen-Prefix'), $_POST["prefix"], "");
 		$t_array = array();
 		(!$_POST["display_debug_errors"])? $selected = ' selected' :  $selected = ''; 
-		array_push ($t_array, "<option $selected value=\"0\"$selected>{$lang["sys"]["no"]}</option>");
+		array_push ($t_array, "<option $selected value=\"0\"$selected>".t('Nein')."</option>");
 		($_POST["display_debug_errors"])? $selected = ' selected' :  $selected = ''; 
-		array_push ($t_array, "<option $selected value=\"1\">{$lang["sys"]["yes"]}</option>");
-		$dsp->AddDropDownFieldRow("display_debug_errors", $lang["install"]["conf_display_debug_errors"], $t_array, "");
+		array_push ($t_array, "<option $selected value=\"1\">".t('Ja')."</option>");
+		$dsp->AddDropDownFieldRow("display_debug_errors", t('MySQL-Fehler zeigen'), $t_array, "");
 
 		#### Default Design
 		// Open the design-dir
@@ -64,7 +64,7 @@ switch($_GET["step"]) {
 				fclose($xml_file);
 			}
 		}
-		$dsp->AddDropDownFieldRow("design", $lang["install"]["conf_design"], $t_array, "");
+		$dsp->AddDropDownFieldRow("design", t('Standard-Design'), $t_array, "");
 
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddBackButton("index.php?mod=install", "install/ls_conf");

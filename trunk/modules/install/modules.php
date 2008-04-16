@@ -8,7 +8,7 @@ function FindCfgKeyForMod($name) {
 } 
 
 function WriteMenuEntries() {
-	global $templ, $res, $db, $config, $dsp, $lang, $MenuCallbacks;
+	global $templ, $res, $db, $config, $dsp, $MenuCallbacks;
 
 	if ($db->num_rows($res) == 0) $dsp->AddDoubleRow("", "<i>- keine -</i>");
 	else while ($row = $db->fetch_array($res)) {
@@ -23,7 +23,7 @@ function WriteMenuEntries() {
     if ($row['level'] == 0) $templ['ls']['row']['menuitem']['boxid'] = 'Boxid: <input type="text" name="boxid['.$row['id'].']" value="'. $row['boxid'] .'" size="2" />';
     else $templ['ls']['row']['menuitem']['boxid'] = '';
 
-		$templ['ls']['row']['menuitem']['needed_config'] = "<option value=\"\">-{$lang["install"]["none"]}-</option>";
+		$templ['ls']['row']['menuitem']['needed_config'] = "<option value=\"\">-".t('keine')."-</option>";
 
 		$res2 = $db->query("SELECT cfg_key FROM {$config["tables"]["config"]} WHERE cfg_type = 'boolean' OR cfg_type = 'int' ORDER BY cfg_key");
 		if ($MenuCallbacks) foreach ($MenuCallbacks as $MenuCallback) {
@@ -37,12 +37,12 @@ function WriteMenuEntries() {
 		for ($i = 0; $i <= 5; $i++) {
 			($i == $row["requirement"])? $selected = " selected" : $selected = "";
 			switch ($i) {
-				default: $out = $lang["install"]["everyone"]; break;
-				case 1: $out = $lang["install"]["only_login"]; break;
-				case 2: $out = $lang["install"]["only_admin"]; break;
-				case 3: $out = $lang["install"]["only_op"]; break;
-				case 4: $out = $lang["install"]["no_admin"]; break;
-				case 5: $out = $lang["install"]["only_logout"]; break;
+				default: $out = t('Jeder'); break;
+				case 1: $out = t('Nur Eingeloggte'); break;
+				case 2: $out = t('Nur Admins'); break;
+				case 3: $out = t('Nur Superadminen'); break;
+				case 4: $out = t('Keine Admins'); break;
+				case 5: $out = t('Nur Ausgeloggte'); break;
 			}
 			$templ['ls']['row']['menuitem']['requirement'] .= "<option value=\"$i\"$selected>$out</option>";
 		}
@@ -69,17 +69,17 @@ switch($_GET["step"]) {
 		$db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 1 WHERE name = 'banner'");
 		$db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 1 WHERE name = 'about'");
 
-		$func->confirmation($lang['install']['modules_settings_success'], "index.php?mod=install&action=modules");
+		$func->confirmation(t('Änderungen erfolgreich gespeichert.'), "index.php?mod=install&action=modules");
 	break;
 
 	// Question: Reset all Modules
 	case 3:
-		$func->question($lang["install"]["mod_reset_quest"], "index.php?mod=install&action=modules&rewrite=all", "index.php?mod=install&action=modules");
+		$func->question(t('Sollen wirklich <b>\'alle Module\'</b> zurückgesetzt werden?HTML_NEWLINEDies wirkt sich <u>nicht</u> auf die Datenbankeinträge der Module aus, jedoch gehen alle Einstellungen und Menüänderungen verloren, die zu den Modulen getätigt worden sind. Außerdem sind danach nur noch die Standardmodule aktiviert.'), "index.php?mod=install&action=modules&rewrite=all", "index.php?mod=install&action=modules");
 	break;
 
 	// Question: Reset this Module
 	case 4:
-		$func->question(str_replace("%NAME%", $_GET["module"], $lang["install"]["mod_reset_mod_quest"]), "index.php?mod=install&action=modules&rewrite={$_GET["module"]}", "index.php?mod=install&action=modules");
+		$func->question(t('Soll das Modul <b>\'%1\'</b> wirklich zurückgesetzt werden?<br />Dies wirkt sich <u>nicht</u> auf die Datenbankeinträge des Modules aus, jedoch gehen alle Einstellungen und Menüänderungen verloren, die zu diesem Modul getätigt worden sind.', $_GET["module"]), "index.php?mod=install&action=modules&rewrite={$_GET["module"]}", "index.php?mod=install&action=modules");
 	break;
 
 	// Add Menuentry
@@ -97,25 +97,25 @@ switch($_GET["step"]) {
 	case 20:
 		$db->query("DELETE FROM {$config["tables"]["menu"]} WHERE caption='' AND action='' AND file=''");
 
-		$dsp->NewContent($lang["install"]["mod_menu_caption"], $lang["install"]["mod_menu_subcaption"]);
+		$dsp->NewContent(t('Modul-Menüeinträge'), t('Hier können Sie die Navigationseinträge dieses Moduls ändern.'));
 		$dsp->SetForm($script_filename ."?mod=install&action=modules&step=21&module={$_GET["module"]}");
 
- 		$dsp->AddFieldsetStart($lang["install"]["modules_menu_start"]);
+ 		$dsp->AddFieldsetStart(t('Hauptmenüpunkt des Moduls / Modul-Startseite'));
 		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND level = 0 AND caption != '' ORDER BY requirement, pos");
 		WriteMenuEntries();
  		$dsp->AddFieldsetEnd();
 
- 		$dsp->AddFieldsetStart($lang["install"]["modules_menu_sub"]);
+ 		$dsp->AddFieldsetStart(t('Untermenüpunkte'));
 		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND level > 0 AND caption != '' ORDER BY requirement, pos");
 		WriteMenuEntries();
  		$dsp->AddFieldsetEnd();
 
- 		$dsp->AddFieldsetStart($lang["install"]["modules_menu_internal"]);
+ 		$dsp->AddFieldsetStart(t('Keine Menüpunkte - Interne Verweise'));
 		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND caption = '' ORDER BY requirement, pos");
 		WriteMenuEntries();
  		$dsp->AddFieldsetEnd();
 
-		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&module={$_GET["module"]}&step=22\">{$lang["install"]["modules_menu_new"]}</a>");
+		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&module={$_GET["module"]}&step=22\">".t('Neuen Menüeintrag hinzufügen')."</a>");
 
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddContent();
@@ -137,17 +137,17 @@ switch($_GET["step"]) {
 					WHERE id = '$key'");
 		}
 
-		$func->confirmation($lang["install"]["modules_settings_success"], $script_filename ."?mod=install&action=modules&step=20&module={$_GET["module"]}");
+		$func->confirmation(t('Änderungen erfolgreich gespeichert.'), $script_filename ."?mod=install&action=modules&step=20&module={$_GET["module"]}");
 	break;
 
 	// Delete Menuentry
 	case 23:
 	  $row = $db->query_first("SELECT requirement FROM {$config["tables"]["menu"]} WHERE id='{$_GET["id"]}'");
-	  if ($row['requirement'] > 0) $func->information($lang['install']['warning_del_menuitem'], "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
+	  if ($row['requirement'] > 0) $func->information(t('Mit diesem Eintrag ist eine Zugriffsberechtigung verknüpft. Sie sollten diesen Eintrag daher nicht löschen, da sonst jeder Zugriff auf die betreffende Datei hat.HTML_NEWLINEWenn Sie nur den Menülink entfernen möchten, löschen Sie die Felder Titel und Linkziel.HTML_NEWLINEWenn Sie wirklich jedem Zugriff auf die Datei geben möchten, setzen Sie den Zugriff auf Jeder und löschen Sie dann den Eintrag.'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
 	  
 	  else {
   		$db->query("DELETE FROM {$config["tables"]["menu"]} WHERE id='{$_GET["id"]}'");
-  		$func->confirmation($lang["install"]["modules_del_success"], "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
+  		$func->confirmation(t('Der Menü-Eintrag wurde erfolgreich gelöscht'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
   	}
 	break;
 
@@ -179,9 +179,9 @@ switch($_GET["step"]) {
 		$install->InsertMenus($rewrite_all);
 
 		// Output Module-List
-		$dsp->NewContent($lang["install"]["mod_caption"], $lang["install"]["mod_subcaption"]);
+		$dsp->NewContent(t('Modulverwaltung'), t('Hier können Sie Module de-/aktivieren, sowie deren Einstellungen verändern.'));
 
-		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&step=3\">{$lang["install"]["modules_reset_modules"]}</a>");
+		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&step=3\">".t('Alle Module zurücksetzen')."</a>");
 
 		$dsp->AddHRuleRow();
 		$dsp->SetForm("index.php?mod=install&action=modules&step=2");

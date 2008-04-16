@@ -5,22 +5,22 @@ $import = New Import();
 
 switch($_GET["step"]){
 	default:
-		$dsp->NewContent($lang["install"]["import_caption"], $lang["install"]["import_subcaption"]);
+		$dsp->NewContent(t('Daten importieren'), t('Hier können Sie Benutzerdaten, die Sie aus einem anderen System exportiert haben, in Lansuite importieren.'));
 		$dsp->SetForm("index.php?mod=install&action=import&step=2", "", "", "multipart/form-data");
 
-		$dsp->AddSingleRow("<b>{$lang["install"]["import_file"]}</b>");
-		$dsp->AddFileSelectRow("importdata", $lang["install"]["import_import"], "");
+		$dsp->AddSingleRow("<b>".t('Zu importierende Datei')."</b>");
+		$dsp->AddFileSelectRow("importdata", t('Import (.xml, .csv, .tgz)'), "");
 
- 		$dsp->AddFieldsetStart($lang["install"]["import_settings_new"]);
-		$dsp->AddCheckBoxRow("rewrite", $lang["install"]["import_settings_overwrite"], "", "", 1, "");
+ 		$dsp->AddFieldsetStart(t('Lansuite-XML-Export'));
+		$dsp->AddCheckBoxRow("rewrite", t('Vorhandene Einträge ersetzen'), "", "", 1, "");
  		$dsp->AddFieldsetEnd();
 
- 		$dsp->AddFieldsetStart($lang["install"]["import_settings_lansurfer"]);
-		$dsp->AddTextFieldRow("comment", $lang["install"]["import_comment"], "", "", "", 1);
-		$dsp->AddCheckBoxRow("deldb", $lang["install"]["import_deldb"], "", "", 1, "");
-		$dsp->AddCheckBoxRow("replace", $lang["install"]["import_replace"], "", "", 1, 1);
-		$dsp->AddCheckBoxRow("signon", $lang["install"]["import_signon"], "", "", 1, 1);
-		$dsp->AddCheckBoxRow("noseat", $lang["install"]["import_noseat"], "", "", 1, "");
+ 		$dsp->AddFieldsetStart(t('LanSurfer-XML-Export'));
+		$dsp->AddTextFieldRow("comment", t('Kommentar für alle setzen'), "", "", "", 1);
+		$dsp->AddCheckBoxRow("deldb", t('Alte Benutzerdaten löschen'), "", "", 1, "");
+		$dsp->AddCheckBoxRow("replace", t('Vorhandene Einträge überschreiben'), "", "", 1, 1);
+		$dsp->AddCheckBoxRow("signon", t('Benutzer zur aktuellen Party anmelden'), "", "", 1, 1);
+		$dsp->AddCheckBoxRow("noseat", t('Sitzplan NICHT importieren'), "", "", 1, "");
  		$dsp->AddFieldsetEnd();
 
 		$dsp->AddFormSubmitRow("next");
@@ -40,29 +40,29 @@ switch($_GET["step"]){
 					case "lansuite_import":
 						$import->ImportLanSurfer($_POST["deldb"], $_POST["replace"], $_POST["noseat"], $_POST["signon"], $_POST["comment"]);
 
-						$func->confirmation($lang["install"]["wizard_importupload_success"] . HTML_NEWLINE . HTML_NEWLINE
-							. $lang["install"]["wizard_importupload_filetype"] . ": " . $header["filetype"] . HTML_NEWLINE
-							. $lang["install"]["wizard_importupload_date"] . ": " . $header["date"] . HTML_NEWLINE
-							. $lang["install"]["wizard_importupload_source"] . ": " . $header["source"] . HTML_NEWLINE
-							. $lang["install"]["wizard_importupload_event"] . ": " . $header["event"] . HTML_NEWLINE
-							. $lang["install"]["wizard_importupload_version"] . ": " . $header["version"] . HTML_NEWLINE
+						$func->confirmation(t('Datei-Import erfolgreich.') . HTML_NEWLINE . HTML_NEWLINE
+							. t('Dateityp') . ": " . $header["filetype"] . HTML_NEWLINE
+							. t('Exportiert am/um') . ": " . $header["date"] . HTML_NEWLINE
+							. t('Quelle') . ": " . $header["source"] . HTML_NEWLINE
+							. t('LanParty') . ": " . $header["event"] . HTML_NEWLINE
+							. t('Lansuite-Version') . ": " . $header["version"] . HTML_NEWLINE
 							, "index.php?mod=install&action=import");
 					break;
 
 					case "LanSuite":
 						$import->ImportXML($_POST["rewrite"]);
-						$func->confirmation($lang["install"]["import_success"], "index.php?mod=install&action=import");
+						$func->confirmation(t('Import erfolgreich.'), "index.php?mod=install&action=import");
 					break;
 
 					default:
-						$func->Information(str_replace("%FILETYPE%", $header["filetype"], $lang["install"]["import_err_filetype"]), "index.php?mod=install&action=import");
+						$func->Information(t('Dies scheint keine Lansuite-kompatible-XML-Datei zu sein. Bitte Überprüfen sie den Eintrag &lt;filetype&gt; am Anfang der XML-Datei (FileType: \'%1\')',$header["filetype"]), "index.php?mod=install&action=import");
 					break;
 				}
 			break;
 
 			case "csv":
 				if ($_GET["filename"] == "") $_GET["filename"] = $func->FileUpload("importdata", "ext_inc/import/");
-				$dsp->NewContent($lang["install"]["import_caption"], $lang["install"]["import_subcaption"]);
+				$dsp->NewContent(t('Daten importieren'), t('Hier können Sie Benutzerdaten, die Sie aus einem anderen System exportiert haben, in Lansuite importieren.'));
 
 				$dsp->SetForm("index.php?mod=install&action=import&step=2&filename={$_GET["filename"]}", "", "", "multipart/form-data");
 				if ($_POST["seperator"] == "") $_POST["seperator"] = ";";
@@ -102,13 +102,13 @@ switch($_GET["step"]){
 			break;
 
 			case 'tgz':
-			  $func->information($lang['install']['import_err_tgz'], 'index.php?mod=install&action=import');
+			  $func->information(t('Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte laden und entpacken Sie den Ordner manuell auf Ihren Webspace.'), 'index.php?mod=install&action=import');
 //			  $import->ImportExtInc($_FILES['importdata']['tmp_name']);
-//				$func->confirmation($lang["install"]["import_success"], "index.php?mod=install&action=import");
+//				$func->confirmation(t('Import erfolgreich.'), "index.php?mod=install&action=import");
 			break;
 
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=import");
+				$func->information(t('Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.'), "index.php?mod=install&action=import");
 			break;
 		}
 	break;
@@ -160,7 +160,7 @@ switch($_GET["step"]){
 			break;
 
 			default:
-				$func->information($lang["install"]["wizard_importupload_unsuportetfiletype"], "index.php?mod=install&action=import");
+				$func->information(t('Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.'), "index.php?mod=install&action=import");
 			break;
 		}
 	break;

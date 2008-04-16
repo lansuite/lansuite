@@ -12,7 +12,7 @@ class db {
     function db() {
         global $lang;
 
-        if (!extension_loaded("mysqli")) echo(HTML_FONT_ERROR . $lang['class_db_mysql']['no_mysql'] . HTML_FONT_END);
+        if (!extension_loaded("mysqli")) echo(HTML_FONT_ERROR . t('Das MySQL-PHP Modul ist nicht geladen. Bitte fügen Sie die mysql.so Extension zur php.ini hinzu und restarten Sie Apache.') . HTML_FONT_END);
     }
 
 
@@ -32,7 +32,7 @@ class db {
                 $this->success = false;
                 return false;
             } else  {
-                echo HTML_FONT_ERROR . $lang['class_db_mysql']['no_connection'] . HTML_FONT_END;
+                echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. Lansuite wird abgebrochen.') . HTML_FONT_END;
                 exit();
             }
         } elseif (!@mysqli_select_db($this->link_id, $this->database)) {
@@ -40,7 +40,7 @@ class db {
                 $this->success = false;
                 return false;
             } else {
-                echo HTML_FONT_ERROR . str_replace("%DB%", $this->database, $lang['class_db_mysql']['no_db'])  . HTML_FONT_END;
+                echo HTML_FONT_ERROR . str_replace("%DB%", $this->database, t('Die Datenbank /\'/%DB%/\'/ konnte nicht ausgewählt werden. Lansuite wird abgebrochen.'))  . HTML_FONT_END;
                 exit();
             }
         } else $GLOBALS['db_link_id'] = $this->link_id;
@@ -171,7 +171,7 @@ class db {
 
         $url_array = parse_url($_SERVER['REQUEST_URI']);
 
-        $error_msg = str_replace("%SCRIPT%", '?' . $url_array['query'] . $url_array['fragment'], str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $_SERVER["REQUEST_URI"], str_replace("%REFERRER%", $func->internal_referer, $lang['class_db_mysql']['sql_error_log'])))));
+        $error_msg = str_replace("%SCRIPT%", '?' . $url_array['query'] . $url_array['fragment'], str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $_SERVER["REQUEST_URI"], str_replace("%REFERRER%", $func->internal_referer, t('SQL-Fehler in PHP-Skript /\'/%SCRIPT%/\'/ (Referrer: /\'/%REFERRER%/\'/)<br />SQL-Fehler-Meldung: %ERROR%<br />Query: %QUERY%'))))));
     if ($config['database']['display_debug_errors']) echo '<font color="red">' . $error_msg . '</font><br /><br />';
 
         $error_msg = $func->escape_sql($error_msg);

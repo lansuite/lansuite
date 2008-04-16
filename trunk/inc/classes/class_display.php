@@ -621,8 +621,8 @@ class display {
   function AddIFrame($url, $width=795, $height=600) {
     global $lang, $templ, $func;
 
-    $templ["class_display"]["IFrame"]["noIFrame"] .= $lang['class_display']['IFrame']['noIFrame'];
-    $templ["class_display"]["IFrame"]["clickhere"] .= $lang['class_display']['clickhere'];
+    $templ["class_display"]["IFrame"]["noIFrame"] .= t('Wenn ihr Broswer keine IFrames unterstützt, ');
+    $templ["class_display"]["IFrame"]["clickhere"] .= t('bitte hier klicken!');
     $templ["class_display"]["IFrame"]["url"] = 'http://' . $url;
     $templ["class_display"]["IFrame"]["width"] = $width;
     $templ["class_display"]["IFrame"]["height"] = $height;
@@ -634,8 +634,8 @@ class display {
   function ShowNewWindow($url) {
     global $lang, $templ;
 
-    $templ["class_display"]["NewWindow"]["popupBlocked"] .= $lang['class_display']['newWindow']['popupBlocked'];
-    $templ["class_display"]["NewWindow"]["clickhere"] .= $lang['class_display']['clickhere'];
+    $templ["class_display"]["NewWindow"]["popupBlocked"] .= t('Wenn das PopUp geblockt wurde, ');
+    $templ["class_display"]["NewWindow"]["clickhere"] .= t('bitte hier klicken!');
     $templ["class_display"]["NewWindow"]["url"] = 'http://' . $url;
     $this->AddSingleRow($this->FetchModTpl("", "ls_row_newWindow"));
   }

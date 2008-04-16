@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2008-04-16 01:29</date>
+	</header>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<tid>598</tid>
+				<id>c481b00a606907fd59b4d46623b8d99d</id>
+				<org>Autor</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>guestbook</file>
+			</entry>
+			<entry>
+				<tid>599</tid>
+				<id>0b0d4662661492e2fa892c7d65d3e817</id>
+				<org>Eintrag</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>guestbook</file>
+			</entry>
+			<entry>
+				<tid>600</tid>
+				<id>9ba51734ced032fd8ec25acfb387a23f</id>
+				<org>Datum</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>guestbook</file>
+			</entry>
+		</content>
+	</table>
+</lansuite>

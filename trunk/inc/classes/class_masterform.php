@@ -187,7 +187,7 @@ class masterform {
             if ($row['found']) {
               foreach ($this->SQLFields as $key => $val) if (!in_array($key, $this->WYSIWYGFields)) $_POST[$val] = $row[$val]; else $_POST[$val] = $func->db2edit($row[$val]);
             } else {
-              $func->error($lang['mf']['err_invalid_id']);
+              $func->error(t('Diese ID existiert nicht.'));
               return false;
             }
           }
@@ -240,25 +240,25 @@ class masterform {
               if ($err) $this->error[$field['name']] = $err;
 
               // Check for value
-              if (!$field['optional'] and $_POST[$field['name']] == '') $this->error[$field['name']] = $lang['mf']['err_no_value'];
+              if (!$field['optional'] and $_POST[$field['name']] == '') $this->error[$field['name']] = t('Bitte füllen Sie dieses Pflichtfeld aus.');
 
               // Check Int
               elseif (strpos($SQLFieldTypes[$field['name']], 'int') !== false and $SQLFieldTypes[$field['name']] != 'tinyint(1)'
                 and $SQLFieldTypes[$field['name']] != "enum('0','1')"
-                and $_POST[$field['name']] and (int)$_POST[$field['name']] == 0) $this->error[$field['name']] = $lang['mf']['err_no_integer'];
+                and $_POST[$field['name']] and (int)$_POST[$field['name']] == 0) $this->error[$field['name']] = t('Bitte geben Sie eine Zahl ein.');
 
               // Check date
               elseif (($SQLFieldTypes[$field['name']] == 'datetime' or $SQLFieldTypes[$field['name']] == 'date')
                 and (!checkdate($_POST[$field['name'].'_value_month'], $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_year'])
                 AND !($_POST[$field['name'].'_value_month']=="00" AND $_POST[$field['name'].'_value_day']=="00" AND $_POST[$field['name'].'_value_year']=="0000"))) {
-                $this->error[$field['name']] = $lang['mf']['err_invalid_date'];
+                $this->error[$field['name']] = t('Das eingegebene Datum ist nicht korrekt.');
               // Check new passwords
               } elseif ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
-                $this->error[$field['name'].'2'] = $lang['mf']['err_pw2'];
+                $this->error[$field['name'].'2'] = t('Die beiden Kennworte stimmen nicht überein.');
 
               // Check captcha
               elseif ($field['type'] == IS_CAPTCHA and ($_POST['captcha'] == '' or $_COOKIE['image_auth_code'] != md5(strtoupper($_POST['captcha']))))
-                $this->error['captcha'] = $lang['mf']['err_captcha'];
+                $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
 
               // Callbacks
               elseif ($field['callback']) {
@@ -271,7 +271,7 @@ class masterform {
               if ($SQLFieldUnique[$field['name']]) {
                 if ($this->isChange) $check_double_where = ' AND '. $idname .' != '. (int)$id;
                 $row = $db->query_first("SELECT 1 AS found FROM {$config['tables'][$table]} WHERE {$field['name']} = '{$_POST[$field['name']]}'$check_double_where");
-                if ($row['found']) $this->error[$field['name']] = $lang['mf']['err_double_on_unique'];
+                if ($row['found']) $this->error[$field['name']] = t('Dieser Eintrag existiert bereits in unserer Datenbank.');
               }
             }
 
@@ -410,7 +410,7 @@ class masterform {
                 if (strlen($_POST[$field['name']]) == 32) $_POST[$field['name']] = ''; // Dont show MD5-sum, read from DB on change
                 $PWSecID++;
                 $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel{$PWSecID})\"");
-                $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.$lang['mf']['pw2_caption'], $_POST[$field['name'].'2'], $this->error[$field['name'].'2'], '', $field['optional'], 0);
+                $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.t('Verfikation'), $_POST[$field['name'].'2'], $this->error[$field['name'].'2'], '', $field['optional'], 0);
                 $templ['pw_security']['id'] = $PWSecID;
                 $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
               break;
@@ -584,8 +584,8 @@ class masterform {
 
             if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
             if ($addUpdSuccess) {
-              if ($this->isChange) $func->confirmation($lang['mf']['change_success'], $_SESSION['mf_referrer']);
-              else $func->confirmation($lang['mf']['add_success'], $this->LinkBack);
+              if ($this->isChange) $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer']);
+              else $func->confirmation(t('Die Daten wurden erfolgreich eingefügt.'), $this->LinkBack);
             }
           }
 
