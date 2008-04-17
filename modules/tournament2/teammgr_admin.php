@@ -3,19 +3,19 @@
 include("modules/tournament2/class_team.php");
 $tteam = new team;
 
-$tournamentid 	= $vars["tournamentid"];
-$userid 	= $vars["userid"];
-$teamid 	= $vars["teamid"];
-$member_user 	= $vars["member_user"];
+($_GET['tournamentid'])? $tournamentid = $_GET['tournamentid'] : $tournamentid = $_POST['tournamentid'];
+($_GET['userid'])? $userid = $_GET['userid'] : $userid = $_POST['userid'];
+($_GET['teamid'])? $teamid = $_GET['teamid'] : $teamid = $_POST['teamid'];
+($_GET['member_user'])? $member_user = $_GET['member_user'] : $member_user = $_POST['member_user'];
 
 
 switch($_GET["step"]) {
-	// Team lˆschen
+	// Team l√∂schen
 	case 10:
-		if ($tteam->delete($_POST["teamid"])) $func->confirmation(t('Das Team wurde erfolgreich gelˆscht'), "index.php?mod=tournament2&action=teammgr_admin");
+		if ($tteam->delete($_POST["teamid"])) $func->confirmation(t('Das Team wurde erfolgreich gel√∂scht'), "index.php?mod=tournament2&action=teammgr_admin");
 	break;
 
-	// Spieler einem Team hinzuf¸gen - Suchen
+	// Spieler einem Team hinzuf√ºgen - Suchen
 	case 20:
     include_once('modules/usrmgr/search_main.inc.php');      
 
@@ -25,20 +25,20 @@ switch($_GET["step"]) {
     $ms2->PrintSearch('index.php?mod=tournament2&action=teammgr_admin&step=20&teamid='. $teamid, 'u.userid');
 	break;
 
-	// Spieler einem Team hinzuf¸gen - Ausf¸hren
+	// Spieler einem Team hinzuf√ºgen - Ausf√ºhren
 	case 21:
-		if ($tteam->join($_GET["teamid"], $_GET["userid"])) $func->confirmation(t('Der Spieler wurde dem Team hinzugef¸gt'), "index.php?mod=tournament2&action=teammgr_admin");
+		if ($tteam->join($_GET["teamid"], $_GET["userid"])) $func->confirmation(t('Der Spieler wurde dem Team hinzugef√ºgt'), "index.php?mod=tournament2&action=teammgr_admin");
 	break;
 
-	// Member aus Team lˆschen
+	// Member aus Team l√∂schen
 	case 30:
 		list($team_id, $user_id) = split("-", $_POST["member_user"], 2);
 		if ($tteam->kick($team_id, $user_id)) $func->confirmation(t('Der Spieler wurde erfolgreich aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr_admin");
 	break;
 
-	// Neues Team erˆffnen - Teamleiter ausw‰hlen
+	// Neues Team er√∂ffnen - Teamleiter ausw√§hlen
 	case 40:
-		if ($tteam->SignonCheck($vars["tournamentid"])) {
+		if ($tteam->SignonCheck($tournamentid)) {
       include_once('modules/usrmgr/search_main.inc.php');      
 
       $ms2->query['where'] .= "p.party_id={$party->party_id} AND (p.paid)";
@@ -48,7 +48,7 @@ switch($_GET["step"]) {
 		}
 	break;
 
-	// Neues Team erˆffnen - Teamname eingeben
+	// Neues Team er√∂ffnen - Teamname eingeben
 	case 41:
 		$sec->unlock("t_admteam_create");
 
@@ -70,10 +70,10 @@ switch($_GET["step"]) {
 		}
 	break;
 
-	// Neues Team erˆffnen - In DB schreiben
+	// Neues Team er√∂ffnen - In DB schreiben
 	case 42:
-		if ($_POST["set_password"] and $_POST["set_password"] != $_POST["set_password2"]) $func->information("Die Passworteingaben stimmen nicht ¸berein", "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
-		elseif ($_POST['team_name'] == "") $func->information(t('Bitte geben Sie einen Teamnamen ein, oder w‰hlen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
+		if ($_POST["set_password"] and $_POST["set_password"] != $_POST["set_password2"]) $func->information("Die Passworteingaben stimmen nicht √ºberein", "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
+		elseif ($_POST['team_name'] == "") $func->information(t('Bitte geben Sie einen Teamnamen ein, oder w√§hlen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
 
 		elseif (!$sec->locked("t_admteam_create")) {
 			$t = $db->query_first("SELECT name FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = {$_GET["tournamentid"]}");
@@ -86,51 +86,51 @@ switch($_GET["step"]) {
 
 
 	default:
-		$dsp->NewContent(t('Admin-Teammanager'), t('Hier kˆnnen Sie Teams lˆschen oder ihnen weitere Spieler zuweisen.'));
+		$dsp->NewContent(t('Admin-Teammanager'), t('Hier k√∂nnen Sie Teams l√∂schen oder ihnen weitere Spieler zuweisen.'));
 
 		// Neues Team anmelden
 		$tourneys = $db->query("SELECT tournamentid, name FROM {$config["tables"]["tournament_tournaments"]} WHERE (status = 'open')  AND party_id='$party->party_id' ORDER BY name");
-		if ($db->num_rows($tourneys) == 0) $dsp->AddDoubleRow(t('Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase mˆglich)'), t('Es sind keine Turniere vorhanden, welche sich noch in der Anmeldephase befinden'));
+		if ($db->num_rows($tourneys) == 0) $dsp->AddDoubleRow(t('Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase m√∂glich)'), t('Es sind keine Turniere vorhanden, welche sich noch in der Anmeldephase befinden'));
 		else {
-			$t_array = array("<option value=\"\">".t('Bitte Turnier ausw‰hlen')."</option>");
+			$t_array = array("<option value=\"\">".t('Bitte Turnier ausw√§hlen')."</option>");
 			while($tourney = $db->fetch_array($tourneys)) {
 				array_push ($t_array, "<option value=\"{$tourney['tournamentid']}\">{$tourney['name']}</option>");
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=40");
-			$dsp->AddDropDownFieldRow("tournamentid", t('Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase mˆglich)'), $t_array, "");
+			$dsp->AddDropDownFieldRow("tournamentid", t('Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase m√∂glich)'), $t_array, "");
 			$dsp->AddFormSubmitRow("send");
 		}
 		$db->free_result($teams);
 
-		// Team lˆschen Auswahl
+		// Team l√∂schen Auswahl
 		$teams = $db->query("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer
 			FROM {$config["tables"]["t2_teams"]} AS teams
 			LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS t ON t.tournamentid = teams.tournamentid
 			WHERE t.status = 'open' AND t.party_id = '$party->party_id'
 			ORDER BY t.name, teams.name
 			");
-		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Komplettes Team lˆschenHTML_NEWLINE(Nur in Anmeldephase mˆglich)'), t('Es haben sich noch keine Spieler zu Turnieren angemeldet, welche noch nicht bereits laufen'));
+		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Komplettes Team l√∂schenHTML_NEWLINE(Nur in Anmeldephase m√∂glich)'), t('Es haben sich noch keine Spieler zu Turnieren angemeldet, welche noch nicht bereits laufen'));
 		else {
-			$t_array = array("<option value=\"\">".t('Bitte Team ausw‰hlen')."</option>");
+			$t_array = array("<option value=\"\">".t('Bitte Team ausw√§hlen')."</option>");
 			while($team = $db->fetch_array($teams)) {
 				array_push ($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']}</option>");
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=10");
-			$dsp->AddDropDownFieldRow("teamid", t('Komplettes Team lˆschenHTML_NEWLINE(Nur in Anmeldephase mˆglich)'), $t_array, "");
+			$dsp->AddDropDownFieldRow("teamid", t('Komplettes Team l√∂schenHTML_NEWLINE(Nur in Anmeldephase m√∂glich)'), $t_array, "");
 			$dsp->AddFormSubmitRow("delete");
 		}
 		$db->free_result($teams);
 
-		// Spieler hinzuf¸gen Auswahl
+		// Spieler hinzuf√ºgen Auswahl
 		$teams = $db->query("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer
 			FROM {$config["tables"]["t2_teams"]} AS teams
 			LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS t ON t.tournamentid = teams.tournamentid
 			WHERE t.teamplayer > 1 AND t.status != 'closed' AND t.party_id = '$party->party_id'
 			ORDER BY t.name, teams.name
 			");
-		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Spieler einem Team hinzuf¸gen'), t('Es existieren keine Teams, die noch auf weitere Spieler warten'));
+		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Spieler einem Team hinzuf√ºgen'), t('Es existieren keine Teams, die noch auf weitere Spieler warten'));
 		else {
-			$t_array = array("<option value=\"\">".t('Bitte Team ausw‰hlen')."</option>");
+			$t_array = array("<option value=\"\">".t('Bitte Team ausw√§hlen')."</option>");
 			while($team = $db->fetch_array($teams)) {
 				$member = $db->query_first("SELECT COUNT(*) AS members FROM {$config["tables"]["t2_teammembers"]} WHERE teamid = {$team['teamid']} GROUP BY teamid");
 
@@ -139,12 +139,12 @@ switch($_GET["step"]) {
 					array_push ($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']} (". t('Noch %FREE% frei', $freie_platze) .")</option>");
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=20");
-			$dsp->AddDropDownFieldRow("teamid", t('Spieler einem Team hinzuf¸gen'), $t_array, "");
+			$dsp->AddDropDownFieldRow("teamid", t('Spieler einem Team hinzuf√ºgen'), $t_array, "");
 			$dsp->AddFormSubmitRow("send");
 		}
 		$db->free_result($teams);
 
-		// Member aus Team lˆschen - Auswahl
+		// Member aus Team l√∂schen - Auswahl
 		$teams = $db->query("SELECT teams.teamid, teams.name, t.name AS tname, users.username AS mname, t.teamplayer, members.userid AS userid
 			FROM {$config["tables"]["t2_teams"]} AS teams
 			LEFT JOIN {$config["tables"]["t2_teammembers"]} AS members ON teams.teamid = members.teamid
@@ -153,14 +153,14 @@ switch($_GET["step"]) {
 			WHERE t.teamplayer > 1 AND t.party_id = '$party->party_id'
 			ORDER BY t.name, teams.name
 			");
-		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Spieler aus einem Team lˆschen'), t('Es haben sich noch keine Mitglieder zu Teams angemeldet'));
+		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Spieler aus einem Team l√∂schen'), t('Es haben sich noch keine Mitglieder zu Teams angemeldet'));
 		else {
-			$t_array = array("<option value=\"\">".t('Bitte Team ausw‰hlen')."</option>");
+			$t_array = array("<option value=\"\">".t('Bitte Team ausw√§hlen')."</option>");
 			while($team = $db->fetch_array($teams)) {
 				array_push ($t_array, "<option value=\"{$team['teamid']}-{$team['userid']}\">{$team['tname']} - {$team['name']} - {$team['mname']}</option>");
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=30");
-			$dsp->AddDropDownFieldRow("member_user", t('Spieler aus einem Team lˆschen'), $t_array, "");
+			$dsp->AddDropDownFieldRow("member_user", t('Spieler aus einem Team l√∂schen'), $t_array, "");
 			$dsp->AddFormSubmitRow("delete");
 		}
 		$db->free_result($teams);

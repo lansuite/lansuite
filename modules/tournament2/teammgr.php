@@ -3,11 +3,10 @@
 include("modules/tournament2/class_team.php");
 $tteam = new team;
 
-$step 		= $vars["step"];
-$tournamentid 	= $vars["tournamentid"];
-$userid 	= $vars["userid"];
+($_GET['tournamentid'])? $tournamentid = $_GET['tournamentid'] : $tournamentid = $_POST['tournamentid'];
+($_GET['userid'])? $userid = $_GET['userid'] : $userid = $_POST['userid'];
 
-switch($step) {
+switch($_GET['step']) {
 	// Team verlassen
 	case 10:
 		if ($tteam->kick($_GET["teamid"], $auth["userid"])) $func->confirmation(t('Sie wurden aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr");
@@ -190,6 +189,6 @@ switch($step) {
 		$dsp->AddBackButton("index.php?mod=tournament2", "tournament2/teammgr"); 
 		$dsp->AddContent();
 	break;
-} // Switch $step
+} // Switch step
 
 ?>

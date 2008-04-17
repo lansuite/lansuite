@@ -87,9 +87,6 @@ foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) {
 }
 */
 
-// For compatibilty of old LS-Modules
-$vars = array_merge((array)$_GET, (array)$_POST);
-
 // Save Path
 $script_filename = '';
 #$script_filename = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1, strlen($_SERVER["SCRIPT_NAME"]));

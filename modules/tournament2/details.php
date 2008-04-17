@@ -3,19 +3,16 @@
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
-$tournamentid 	= $vars["tournamentid"];
-$teamid 	= $vars["teamid"];
-$step 	= $vars["step"];
-$headermenuitem	= $vars["headermenuitem"];
+$headermenuitem	= $_GET['headermenuitem'];
 
 if ($headermenuitem == "") $headermenuitem = 1;
 
-$tournament = $db->query_first_rows("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+$tournament = $db->query_first_rows("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '{$_GET['tournamentid']}'");
 
 if($tournament["number"] == 0) $func->error(t('Das ausgewählte Turnier existiert nicht'), "index.php?mod=tournament2");
 else {
 
-	switch ($step){
+	switch ($_GET['step']){
     // Shuffle maps
     case 20:
       if ($auth['type'] <= 1) $func->error('ACCESS_DENIED');
@@ -23,27 +20,27 @@ else {
         $maps = explode("\n", $tournament["mapcycle"]);
         shuffle($maps);
         $tournament["mapcycle"] = implode("\n", $maps);
-        $db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET mapcycle = '{$tournament['mapcycle']}' WHERE tournamentid = '$tournamentid'");
+        $db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET mapcycle = '{$tournament['mapcycle']}' WHERE tournamentid = '{$_GET['tournamentid']}'");
       }
     break;
   }
   
-	switch ($step){
+	switch ($_GET['step']){
 		case 10:	// Activate Seeding
-			$seeded = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = '$tournamentid') AND (seeding_mark = '1') GROUP BY tournamentid");
-			$team = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = '$tournamentid') GROUP BY tournamentid");
+			$seeded = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = '{$_GET['tournamentid']}') AND (seeding_mark = '1') GROUP BY tournamentid");
+			$team = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = '{$_GET['tournamentid']}') GROUP BY tournamentid");
 
 			if (($seeded['anz']+1) > ($team['anz'] / 2)){
-				$func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkieren Sie zuerst ein Team, bevor Sie ein weiteres markieren'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=2");
+				$func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkieren Sie zuerst ein Team, bevor Sie ein weiteres markieren'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
 			} else {
-				$db->query("UPDATE {$config["tables"]["t2_teams"]} SET seeding_mark = '1' WHERE (teamid = $teamid)");
-				$func->confirmation(t('Das Team wurde zum Setzen markiert.HTML_NEWLINEAlle markierten Teams werden beim Generieren so gesetzt, dass sie möglichst spät im Turnierbaum aufeinander treffen werden.'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=2");
+				$db->query("UPDATE {$config["tables"]["t2_teams"]} SET seeding_mark = '1' WHERE (teamid = {$_GET['teamid']})");
+				$func->confirmation(t('Das Team wurde zum Setzen markiert.HTML_NEWLINEAlle markierten Teams werden beim Generieren so gesetzt, dass sie möglichst spät im Turnierbaum aufeinander treffen werden.'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
 			}
 		break;
 
 		case 11:	// Deaktivate Seeding
-			$db->query("UPDATE {$config["tables"]["t2_teams"]} SET seeding_mark = '0' WHERE (teamid = $teamid)");
-			$func->confirmation(t('Das Team wurde demarkiert.'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=2");
+			$db->query("UPDATE {$config["tables"]["t2_teams"]} SET seeding_mark = '0' WHERE (teamid = {$_GET['teamid']})");
+			$func->confirmation(t('Das Team wurde demarkiert.'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
 		break;
 
 		default:	// Show details
@@ -51,7 +48,7 @@ else {
 
 			$menunames[1] = t('Turnierinfos');
 			$menunames[2] = t('Angemeldete Teams');
-			$dsp->AddHeaderMenu($menunames, "index.php?mod=tournament2&action=details&tournamentid=$tournamentid", $headermenuitem);
+			$dsp->AddHeaderMenu($menunames, "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}", $headermenuitem);
 
 			switch ($headermenuitem) {
 				case 1:
@@ -74,7 +71,7 @@ else {
 					$dsp->AddDoubleRow(t('Spiel-Modus'), $modus .", ". $tournament['teamplayer'] ." ".t('gegen')." ". $tournament['teamplayer'] . $blind_draw . $league);
 
           $sponsor_banners = '';
-          $sponsor = $db->query("SELECT * FROM {$config['tables']['sponsor']} WHERE tournamentid = ". (int)$tournamentid);
+          $sponsor = $db->query("SELECT * FROM {$config['tables']['sponsor']} WHERE tournamentid = ". (int)$_GET['tournamentid']);
       		while($sponsor_row = $db->fetch_array($sponsor)) {
             $sponsor_banner = '<img src="'. $sponsor_row['pic_path'] .'" border="1" class="img_border" title="'. $sponsor_row['name'] .'" alt="Sponsor Banner"/>';
             if ($cfg['sys_internet']) $sponsor_banner = '<a href="index.php?mod=sponsor&action=bannerclick&design=base&type=banner&sponsorid='. $sponsor_row["sponsorid"] .'" target="_blank">'. $sponsor_banner .'</a><br>';
@@ -152,19 +149,19 @@ else {
 				case 2:
 					$waiting_teams = "";
 					$completed_teams = "";
-					$teams = $db->query("SELECT name, teamid, seeding_mark, disqualified FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = $tournamentid)");
+					$teams = $db->query("SELECT name, teamid, seeding_mark, disqualified FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = {$_GET['tournamentid']})");
 					while($team = $db->fetch_array($teams)) {
 						$members = $db->query_first("SELECT COUNT(*) AS members
 							FROM {$config["tables"]["t2_teammembers"]}
 							WHERE (teamid = {$team['teamid']})
 							GROUP BY teamid
 							");
-						$team_out = $team["name"] . $tfunc->button_team_details($team['teamid'], $tournamentid);
+						$team_out = $team["name"] . $tfunc->button_team_details($team['teamid'], $_GET['tournamentid']);
 						if (($tournament['mode'] == "single") or ($tournament['mode'] == "double")){
 							if ($team["seeding_mark"]) $team_out .= " ". t('Dieses Team wird beim Generieren gesetzt');
 							if (($auth["type"] > 1) && ($tournament['status'] == "open")) {
-								if ($team["seeding_mark"]) $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=11&tournamentid=$tournamentid&teamid={$team['teamid']}\">".t('demarkieren')."</a>";
-								else $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=10&tournamentid=$tournamentid&teamid={$team['teamid']}\">".t('Team setzen')."</a>";
+								if ($team["seeding_mark"]) $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=11&tournamentid={$_GET['tournamentid']}&teamid={$team['teamid']}\">".t('demarkieren')."</a>";
+								else $team_out .= " <a href=\"index.php?mod=tournament2&action=details&step=10&tournamentid={$_GET['tournamentid']}&teamid={$team['teamid']}\">".t('Team setzen')."</a>";
 							}
 						}
 /*  // Disquallifiy droped, due to errors
@@ -199,18 +196,18 @@ else {
 			$buttons="";
 			switch($tournament["status"]) {
 				case "open":
-					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=join&tournamentid=$tournamentid&step=2", "join"). " ";
-					if ($auth["type"] > 1) $buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=generate_pairs&step=2&tournamentid=$tournamentid", "generate"). " ";
+					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=join&tournamentid={$_GET['tournamentid']}&step=2", "join"). " ";
+					if ($auth["type"] > 1) $buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=generate_pairs&step=2&tournamentid={$_GET['tournamentid']}", "generate"). " ";
 				break;
 				case "process":
-					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid", "games"). " ";
-					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=tree&step=2&tournamentid=$tournamentid", "tree"). " ";
-					if ($auth["type"] > 1) $buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=undo_generate&tournamentid=$tournamentid", "undo_generate"). " ";
+					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=games&step=2&tournamentid={$_GET['tournamentid']}", "games"). " ";
+					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=tree&step=2&tournamentid={$_GET['tournamentid']}", "tree"). " ";
+					if ($auth["type"] > 1) $buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=undo_generate&tournamentid={$_GET['tournamentid']}", "undo_generate"). " ";
 				break;
 				case "closed":
-					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid", "games"). " ";
-					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=tree&step=2&tournamentid=$tournamentid", "tree"). " ";
-					if ($auth["type"] > 1) $buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=undo_close&tournamentid=$tournamentid", "undo_close"). " ";
+					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=games&step=2&tournamentid={$_GET['tournamentid']}", "games"). " ";
+					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=tree&step=2&tournamentid={$_GET['tournamentid']}", "tree"). " ";
+					if ($auth["type"] > 1) $buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=undo_close&tournamentid={$_GET['tournamentid']}", "undo_close"). " ";
 				break;
 			} // END: switch status
 			$dsp->AddDoubleRow("", $buttons);
