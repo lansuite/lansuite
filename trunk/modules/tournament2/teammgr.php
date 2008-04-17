@@ -18,12 +18,12 @@ switch($step) {
 		if ($tteam->kick($_GET["teamid"], $userid)) $func->confirmation(t('Der Spieler wurde aus Ihrem Team entfernt'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
-	// Team abmelden (löschen) / Mich abmelden
+	// Team abmelden (lÃ¶schen) / Mich abmelden
 	case 30:
 		if ($tteam->delete($_GET["teamid"])) $func->confirmation(t('Ihr Team wurde vom Turnier abgemeldet'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
-	// Spieler zum eigenen Team hinzufügen - Suchen
+	// Spieler zum eigenen Team hinzufÃ¼gen - Suchen
 	case 40:
     include_once('modules/usrmgr/search_main.inc.php');      
 
@@ -33,9 +33,9 @@ switch($step) {
     $ms2->PrintSearch('index.php?mod=tournament2&action=teammgr&step=40&teamid='. $_GET["teamid"] .'&tournamentid='. $tournamentid, 'u.userid');
 	break;
 
-	// Spieler zum eigenen Team hinzufügen - In DB schreiben
+	// Spieler zum eigenen Team hinzufÃ¼gen - In DB schreiben
 	case 41:
-		if ($tteam->join($_GET["teamid"], $userid)) $func->confirmation(t('Der Spieler wurde Ihrem Team hinzugefügt'), "index.php?mod=tournament2&action=teammgr");
+		if ($tteam->join($_GET["teamid"], $userid)) $func->confirmation(t('Der Spieler wurde Ihrem Team hinzugefÃ¼gt'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
 	// Edit Teamdetails (Form)
@@ -49,7 +49,7 @@ switch($step) {
 				LEFT JOIN {$config["tables"]["user"]} AS user ON user.userid = team.leaderid
 				WHERE teamid = '{$_GET["teamid"]}'");
 
-		$dsp->NewContent(t('Teammanager'), t('Hier können Sie Ihre Teams verwalten'));
+		$dsp->NewContent(t('Teammanager'), t('Hier kÃ¶nnen Sie Ihre Teams verwalten'));
 
 		$dsp->SetForm("index.php?mod=tournament2&action=teammgr&step=51&teamid={$_GET["teamid"]}&tournamentid=$tournamentid", "", "", "multipart/form-data");
 
@@ -86,11 +86,11 @@ switch($step) {
 			$tournament = $db->query_first("SELECT name FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
 
 			if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1){
-				$func->information(t('Bitte geben Sie einen Teamnamen ein, oder wählen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr&tournamentid=$tournamentid&teamid={$_GET["teamid"]}&step=50");
+				$func->information(t('Bitte geben Sie einen Teamnamen ein, oder wÃ¤hlen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr&tournamentid=$tournamentid&teamid={$_GET["teamid"]}&step=50");
 				break;
 			}
 
-			if ($_POST["set_password"] and $_POST["set_password"] != $_POST["set_password2"]) $error["set_password2"] = "Die Passworteingaben stimmen nicht überein";
+			if ($_POST["set_password"] and $_POST["set_password"] != $_POST["set_password2"]) $error["set_password2"] = "Die Passworteingaben stimmen nicht Ã¼berein";
 
 			if ($tteam->edit($_GET["teamid"], $_POST['team_name'], $_POST["set_password"], $_POST['team_comment'], "team_banner")) $func->confirmation(t('Die Daten wurden erfolgreich editiert'), "index.php?mod=tournament2&action=teammgr");
 
@@ -100,7 +100,7 @@ switch($step) {
 
 
 	default:
-		$dsp->NewContent(t('Teammanager'), t('Hier können Sie Ihre Teams verwalten'));
+		$dsp->NewContent(t('Teammanager'), t('Hier kÃ¶nnen Sie Ihre Teams verwalten'));
 
 		$dsp->AddSingleRow(t('Einzelspieler-Turniere, an denen Sie teilnehmen'));
 		// Teamname und Turniername auslesen
@@ -145,7 +145,7 @@ switch($step) {
 			}
 			$db->free_result($members);
 			
-			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$team["name"]} ({$team["tname"]}) (".t('Teamgröße').": ". ($anz_memb+1) ."/{$team["teamplayer"]}) $member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=40&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">".t('Spieler hinzufügen')."</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=50&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">".t('Teamdetails editieren')."</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=30&teamid={$team['teamid']}\">".t('Team abmelden')."</a>");
+			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$team["name"]} ({$team["tname"]}) (".t('TeamgrÃ¶ÃŸe').": ". ($anz_memb+1) ."/{$team["teamplayer"]}) $member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=40&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">".t('Spieler hinzufÃ¼gen')."</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=50&teamid={$team['teamid']}&tournamentid={$team['tournamentid']}\">".t('Teamdetails editieren')."</a>" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=30&teamid={$team['teamid']}\">".t('Team abmelden')."</a>");
 		}
 		$db->free_result($teams);
 
@@ -180,12 +180,12 @@ switch($step) {
 			}
 			$db->free_result($members2);
 
-			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$member["name"]} ({$member["tname"]}) (".t('Teamgröße').": ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . t('Leiter').": ". $member["username"] .' '. $dsp->FetchUserIcon($member['userid']) ." $member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">".t('Team verlassen')."</a>");
+			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$member["name"]} ({$member["tname"]}) (".t('TeamgrÃ¶ÃŸe').": ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . t('Leiter').": ". $member["username"] .' '. $dsp->FetchUserIcon($member['userid']) ." $member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">".t('Team verlassen')."</a>");
 		}
 		$db->free_result($members);
 
 
-		$dsp->AddSingleRow(t('Um ein neues Team zu erstellen / Sich zu einem Turnier anzumelden, wählen Sie bitte in der Turnierübersicht das entsprechende Turnier aus und klicken am Ende der erscheinenden Detailansicht auf den Anmelde-Button.'));
+		$dsp->AddSingleRow(t('Um ein neues Team zu erstellen / Sich zu einem Turnier anzumelden, wÃ¤hlen Sie bitte in der TurnierÃ¼bersicht das entsprechende Turnier aus und klicken am Ende der erscheinenden Detailansicht auf den Anmelde-Button.'));
 
 		$dsp->AddBackButton("index.php?mod=tournament2", "tournament2/teammgr"); 
 		$dsp->AddContent();
