@@ -1,10 +1,10 @@
 <?php
 // CHECK IF NEWSID IS VALID
-$check = $db->query_first("SELECT caption FROM {$config["tables"]["news"]} WHERE newsid = '{$vars["newsid"]}'");
+$check = $db->qry_first('SELECT caption FROM %prefix%news WHERE newsid = %int%', $_GET['newsid']);
 if($check["caption"] != "") { 
 
 // GET NEWS DATA
-$get_news = $db->query_first("SELECT n.*, u.userid, u.username FROM {$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster WHERE n.newsid = '{$vars["newsid"]}'");
+$get_news = $db->query_first("SELECT n.*, u.userid, u.username FROM {$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster WHERE n.newsid = '". $_GET['newsid'] ."'");
 $templ_news_single_row_priority = $get_news["priority"];
 	
 if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $news_type = "normal"; }
@@ -26,7 +26,7 @@ if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $n
 	$templ['news']['show']['single']['row'][$news_type]['info']['text'] .= $text;
 
 	// SELECT ACTION TYPE
-	if ($vars["mcact"] == "" OR $vars["mcact"] == "show") {
+	if ($_GET["mcact"] == "" OR $_GET["mcact"] == "show") {
 
 		$dsp->NewContent(t('Newsmeldung + Kommentare'), t('Hier können Sie diese News kommentieren'));
 		$dsp->AddSingleRow($dsp->FetchModTpl("news", "show_single_row_$news_type"));

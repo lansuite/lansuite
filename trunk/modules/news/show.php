@@ -16,7 +16,7 @@ else {
     $dsp->NewContent(t('News Archiv'), t('Archivierte Mitteilungen'));
     // SET PAGE SPLIT
     if ($cfg["news_shorted_archiv"] == "") $cfg["news_shorted_archiv"] = 10;
-    $pages = page_split_archiv($vars["news_page"], $cfg["news_shorted_archiv"], $overall_news - ($cfg['news_shorted'] + $cfg['news_completed']), "index.php?mod=news&action=show&subaction=archive", "news_page",($cfg['news_shorted'] + $cfg['news_complete']));
+    $pages = page_split_archiv($_GET["news_page"], $cfg["news_shorted_archiv"], $overall_news - ($cfg['news_shorted'] + $cfg['news_completed']), "index.php?mod=news&action=show&subaction=archive", "news_page",($cfg['news_shorted'] + $cfg['news_complete']));
   
     //GET NEWS DATA AND ORDER NEWS
     $get_newsshorted = $db->query("SELECT from_unixtime(n.date,'%W, %d.%m.%Y'),from_unixtime(n.date,'%H:%i'), n.caption, n.text, u.username, n.newsid FROM  {$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC {$pages["sql"]}");
@@ -54,7 +54,7 @@ else {
       //DO PAGED NEWS SHOW
         // SET PAGE SPLIT
         if ($cfg["news_count"] == "") $cfg["news_count"] = 5;
-        $pages = $func->page_split($vars["news_page"], $cfg["news_count"], $overall_news, "index.php?mod=news&amp;action=show", "news_page");
+        $pages = $func->page_split($_GET["news_page"], $cfg["news_count"], $overall_news, "index.php?mod=news&amp;action=show", "news_page");
     
         //GET NEWS DATA AND ORDER NEWS
         $get_news = $db->query("SELECT n.*, u.userid, u.username FROM   {$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC {$pages["sql"]}");

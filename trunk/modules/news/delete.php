@@ -1,5 +1,5 @@
 <?php
-switch($vars["step"]) {
+switch($_GET['step']) {
 	default:
     include_once('modules/news/search.inc.php');
 	break;
