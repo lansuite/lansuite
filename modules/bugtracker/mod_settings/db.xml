@@ -132,6 +132,22 @@
 				<default></default>
 				<extra></extra>
 			</field>
+                        <field>
+                                <name>price</name>
+                                <type>int(4)</type>
+                                <null></null>
+                                <key></key>
+                                <default></default>
+                                <extra></extra>
+                        </field>
+                        <field>
+                                <name>price_payed</name>
+                                <type>int(4)</type>
+                                <null></null>
+                                <key></key>
+                                <default></default>
+                                <extra></extra>
+                        </field>
 		</structure>
 	</table>
 	<table>

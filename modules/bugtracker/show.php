@@ -51,8 +51,11 @@ function FetchState($state) {
 }
 
 function FetchType($type) {
-  global $types;
-  return $types[$type];
+  global $types, $line;
+
+  $ret = $types[$type];
+  if ($line['price']) $ret .= '<br />'. (int)$line['price_payed'] .'&euro; / '. $line['price'] .'&euro; ['. (round((((int)$line['price_payed'] / (int)$line['price']) * 100), 1)) .'%]';
+  return $ret;
 }
 
 if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
@@ -109,6 +112,8 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 
   $ms2->AddResultField(t('Titel'), 'b.caption');
   $ms2->AddSelect('r.userid');
+  $ms2->AddSelect('b.price');
+  $ms2->AddSelect('b.price_payed');
   $ms2->AddResultField(t('Typ'), 'b.type', 'FetchType');
   $ms2->AddResultField(t('Prio.'), 'b.priority');
   $ms2->AddResultField(t('Status'), 'b.state', 'FetchState');
@@ -161,6 +166,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 	$dsp->AddDoubleRow(t('Letzte Änderung'), $func->unixstamp2date($row['changedate'], 'daydatetime'));
 
 	$dsp->AddDoubleRow(t('Status'), $bugtracker->stati[$row['state']]);
+        if ($row['price']) $dsp->AddDoubleRow(t('Gespendet'), (int)$row['price_payed'] .'&euro; / '. $row['price'] .'&euro; ['. (round((((int)$row['price_payed'] / (int)$row['price']) * 100), 1)) .'%]<br /><font color="red">'. t('Dieses Feature wird erst umgesetzt, wenn genug dafür gespendet wurde. Um selbst etwas zu Spenden, schreiben Sie bitte den eingetragenen Bearbeiter an. Dieser kann Ihnen dann seine Kotodaten mitteilen') .'</font>');
 	if ($row['agent']) $dsp->AddDoubleRow(t('Bearbeiter'), $row['agent_name'] .' '. $dsp->FetchUserIcon($row['agent']));
 	else $dsp->AddDoubleRow(t('Bearbeiter'), t('Noch nicht zugeordnet'));
 

@@ -43,6 +43,9 @@ else {
     while ($row = $db->fetch_array($res)) $selections[$row['userid']] = $row['username'];
     $db->free_result($res);
     $mf->AddField(t('Bearbeiter'), 'agent', IS_SELECTION, $selections, FIELD_OPTIONAL);
+
+    $mf->AddField(t('Preis'), 'price', '', '', FIELD_OPTIONAL);
+    $mf->AddField(t('Bereits gespendet'), 'price_payed', '', '', FIELD_OPTIONAL);
   }
 
   if (!$_GET['bugid']) {
