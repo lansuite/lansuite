@@ -7,9 +7,9 @@ $qacc 		= $_GET["qacc"];
 $tournamentid 	= $_GET["tournamentid"];
 $gameid1 		= $_GET["gameid1"];
 $gameid2 		= $_GET["gameid2"];
-$score_team1 		= $vars["score_team1"];
-$score_team2 		= $vars["score_team2"];
-$score_comment 		= $vars["score_comment"];
+$score_team1 		= $_POST["score_team1"];
+$score_team2 		= $_POST["score_team2"];
+$score_comment 		= $_POST["score_comment"];
 
 
 ########## Infos holen
@@ -142,19 +142,19 @@ if ($tournament["name"] == "") {
 			} elseif ($tournament["status"] != "process") { 
 				$func->information(t('Dieses Turnier ist bereits beendet, oder noch nicht gestartet!'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 
-			} elseif (($vars['score_team1'] == "") && ($vars['score_team2'] == "")) { 
+			} elseif (($score_team1 == "") && ($score_team2 == "")) { 
 				$func->information(t('Bitte geben Sie ein Ergebnis ein'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 
-			} elseif (($vars['score_team1'] < 0) || ($vars['score_team2'] < 0)) {
+			} elseif (($score_team1 < 0) || ($score_team2 < 0)) {
 			                                $func->information(t('Das Ergebnis muss eine possitive Zahl sein'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 							
-			} elseif (($vars['score_team1'] == $vars['score_team2']) && (
+			} elseif (($score_team1 == $score_team2) && (
 				($tournament["mode"] == "single") || ($tournament["mode"] == "double")
 				|| (($tournament["mode"] == "groups") && ($team1["group_nr"] == 0))
 				)) {
 				$func->information(t('Ein Spiel darf nicht unentschieden enden! Es muss ein Sieger ausgemacht werden.'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 
-			} elseif (($vars['score_team1'] == $vars['score_team2']) && ($tournament["mode"] == "liga") && ($vars['score_team1'] == 0)){
+			} elseif (($score_team1 == $score_team2) && ($tournament["mode"] == "liga") && ($score_team1 == 0)){
 				$func->information(t('Ein Spiel darf nicht 0:0 enden! Das würde bedeuten, es wäre nicht gespielt worden. Für Unentschieden bitte mindestens 1:1 eintragen.'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 
 			} elseif (!$berechtigt) { 
@@ -179,7 +179,7 @@ if ($tournament["name"] == "") {
 				} else {
 					$_SESSION["tournament_submit_result_blocker"] = TRUE;
 
-					$tfunc->SubmitResult($tournamentid, $gameid1, $gameid2, $vars["score_team1"], $vars["score_team2"], $vars["score_comment"]);
+					$tfunc->SubmitResult($tournamentid, $gameid1, $gameid2, $score_team1, $score_team2, $score_comment);
 
 					$func->confirmation(t('Danke! Das Ergebnis wurde erfolgreich gemeldet.'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 /*

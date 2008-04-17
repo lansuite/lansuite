@@ -1,18 +1,16 @@
 <?php
-$step = (int)$vars["step"];
-$tournamentid = (int)$vars["tournamentid"];
 
-if (!$tournamentid) $func->error(t('Sie haben kein Turnier ausgewählt!'), '');
+if (!$_GET['tournamentid']) $func->error(t('Sie haben kein Turnier ausgewählt!'), '');
 else {
 
-  switch($step) {
+  switch($_GET['step']) {
   	case 1:
   	  include_once('modules/tournament2/search.inc.php');
   	break;
   
   
   	default:
-  		$tournament = $db->query_first("SELECT name, mode, status FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+  		$tournament = $db->query_first("SELECT name, mode, status FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '{$_GET['tournamentid']}'");
   
   		if ($tournament['mode'] == "single") $modus = t('Single-Elimination');
   		if ($tournament['mode'] == "double") $modus = t('Double-Elimination');
@@ -27,7 +25,7 @@ else {
   
   		include_once("modules/tournament2/class_tournament.php");
   		$tfunc = new tfunc;
-  		$ranking_data = $tfunc->get_ranking($tournamentid);
+  		$ranking_data = $tfunc->get_ranking($_GET['tournamentid']);
   
   		$dsp->NewContent(t('Turnier %1 (%2) - Rangliste', $tournament['name'], $modus), t('Hier sehen Sie das Ergebnis dieses Turniers'));
   		if ($tournament['mode'] == "liga") {
@@ -44,9 +42,9 @@ else {
   			if ($tournament['mode'] == "liga") {
   				$score_out = $ranking_data->score[$i] . " : " . $ranking_data->score_en[$i];
   
-  				$tfunc->AddPentRow(t('Platz') ." ". $ranking_data->pos[$i], $mark.$ranking_data->name[$i].$mark2 . $tfunc->button_team_details($akt_pos, $tournamentid), $ranking_data->win[$i], $ranking_data->score_dif[$i] ." ($score_out)", $ranking_data->games[$i]);
+  				$tfunc->AddPentRow(t('Platz') ." ". $ranking_data->pos[$i], $mark.$ranking_data->name[$i].$mark2 . $tfunc->button_team_details($akt_pos, $_GET['tournamentid']), $ranking_data->win[$i], $ranking_data->score_dif[$i] ." ($score_out)", $ranking_data->games[$i]);
   			} else {
-  				$dsp->AddDoubleRow(t('Platz') ." ". $ranking_data->pos[$i], $mark.$ranking_data->name[$i].$mark2 . $tfunc->button_team_details($akt_pos, $tournamentid));
+  				$dsp->AddDoubleRow(t('Platz') ." ". $ranking_data->pos[$i], $mark.$ranking_data->name[$i].$mark2 . $tfunc->button_team_details($akt_pos, $_GET['tournamentid']));
   			}
   		}
   
