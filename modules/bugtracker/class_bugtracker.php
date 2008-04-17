@@ -106,7 +106,7 @@ class Bugtracker {
     if ($state == '') return false;
 
     $this->SetBugStateInternal($bugid, $state);
-    if ($state == 2 or $state == 3 or $state == 4) $this->AssignBugToUserInternal($bugid, $auth['userid']);
+    if ($state == 2 or $state == 4 or $state == 6) $this->AssignBugToUserInternal($bugid, $auth['userid']);
   }
 }
 ?>
