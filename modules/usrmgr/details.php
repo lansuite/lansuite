@@ -65,7 +65,7 @@ else {
     $menunames[3] = t('Sonstiges');
   $user_fields = $db->query("SELECT name, caption, optional FROM {$config['tables']['user_fields']}");
   if ($db->num_rows($user_fields) > 0) $menunames[4] = t('Eigene Felder');
-    if(!$vars['headermenuitem']) { $vars['headermenuitem'] = 1; }
+    if(!$_GET['headermenuitem']) { $_GET['headermenuitem'] = 1; }
     if ($auth['type'] >= 3) $menunames[5] = t('Sessions');
 
 // BEGIN Pluginsystem for Usermanager
@@ -84,10 +84,10 @@ else {
 
 
     $dsp->NewContent(t('Userdetails von %1', $user_data['username']), t('Hier finden Sie alle Details zu diesem User. Am Ende der Seite finden Sie alle Funktionen, die Sie auf den User anwenden dürfen.'));
-    $dsp->AddHeaderMenu($menunames,"index.php?mod=usrmgr&action=details&userid=".$_GET['userid'],$vars['headermenuitem']);
+    $dsp->AddHeaderMenu($menunames, "index.php?mod=usrmgr&action=details&userid=".$_GET['userid'], $_GET['headermenuitem']);
 
     // < menu details (step/headermenuitem)
-    switch($vars['headermenuitem']){
+    switch($_GET['headermenuitem']){
 
         case 1: // Main
         // First name, last name, username, user ID

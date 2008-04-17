@@ -1,6 +1,6 @@
 <?php
 
-switch($vars["info"])
+switch($_GET["info"])
 {
 	default:			die("none");	break;
 

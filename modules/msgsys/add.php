@@ -1,9 +1,6 @@
 <?php
-// Switch
-$step = $vars['step'];
 
-
-switch($step) {
+switch($_GET['step']) {
 
 	// Mastersearch
 	default:
@@ -18,17 +15,7 @@ case 2:
 
   if ($_GET['userid'] == '') $func->error(t('Sie haben keinen Benutzer ausgew&auml;hlt'),"index.php?mod=msgsys&action=addbuddy");
   else {
-/*
-	// Check vars
-	if( $vars['checkbox'] == "" ) {
-		$func->error(t('Sie haben keinen Benutzer ausgew&auml;hlt'),"index.php?mod=msgsys&action=addbuddy");
-	} else {
-		// print_r($vars['checkbox']);
-		foreach( $vars['checkbox'] AS $send_user ) {
-			// echo "-".$send_user."-";
-			$user[]	= $send_user;
-		}
-*/
+
     $user[] = $_GET['userid'];
 		foreach( $user as $buddyid ) {
 

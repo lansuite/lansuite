@@ -18,7 +18,7 @@
 *
 **************************************************************************/
 
-$headermenuitem	= $vars["headermenuitem"];
+$headermenuitem	= $_GET["headermenuitem"];
 $action = $_GET["action"];
 $step = $_GET["step"];
 

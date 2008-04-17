@@ -62,7 +62,7 @@ function NewPosts($last_read) {
 if ($_GET['fid'] != '') {
   $row = $db->query_first("SELECT name, need_type FROM {$config["tables"]["board_forums"]} WHERE fid={$_GET["fid"]}");
   if ($row['need_type'] == 1 and $auth['login'] == 0) $new_thread = t('Sie müssen sich zuerst einloggen, um einen Thread in diesem Forum starten zu können');
-  else $new_thread = $dsp->FetchIcon("index.php?mod=board&action=thread&fid={$vars["fid"]}", "add");
+  else $new_thread = $dsp->FetchIcon("index.php?mod=board&action=thread&fid=". $_GET['fid'], "add");
 
   // Board Headline
 	$hyperlink = '<a href="%s" class="menu">%s</a>';

@@ -18,7 +18,7 @@
 *
 **************************************************************************/
 
-$headermenuitem	= $vars["headermenuitem"];
+$headermenuitem	= $_GET["headermenuitem"];
 $action = $_GET["action"];
 
 $dsp->NewContent(t('MineSweeper'), t('Versuchen Sie alle Felder aufzudecken, ohne dabei auf eine Miene zu klicken'));
