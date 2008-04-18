@@ -3,7 +3,6 @@
 $tournamentid = $_GET["tournamentid"];
 if ($_GET["group"] == "") $_GET["group"] = 1;
 
-include_once("modules/tournament2/language/tournament2_lang_".$language.".php");
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
