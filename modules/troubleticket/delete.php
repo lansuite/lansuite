@@ -12,8 +12,8 @@ switch($_GET["step"]) {
 
     case 3:
 		$tt_id = $_GET["ttid"];
-		$del_ticket = $db->query("DELETE FROM {$config["tables"]["troubleticket"]} WHERE ttid = '$tt_id'");
-		$db->query("DELETE FROM {$config["tables"]["infobox"]} WHERE id_in_class = '$tt_id' AND class = 'troubleticket'");
+		$del_ticket = $db->qry('DELETE FROM %prefix%troubleticket WHERE ttid = %int%', $tt_id);
+		$db->qry('DELETE FROM %prefix%infobox WHERE id_in_class = %int% AND class = \'troubleticket\'', $tt_id);
 		if ($del_ticket) $func->confirmation(t('Das ausgewählte Ticket wurde gelöscht.'),"index.php?mod=troubleticket&action=delete");
 		else $func->error(t('Das Troubleticket konnte nicht gelöscht werden! Problem mit der Datenbank!'), "index.php?mod=troubleticket&action=delete");
 	break;

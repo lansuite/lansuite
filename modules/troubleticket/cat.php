@@ -61,7 +61,7 @@ switch($_GET['step']){
 	
 	case 2:
 		$dsp->NewContent(t('Kategorie'));
-		$user_row = $db->query("SELECT * FROM {$config["tables"]["user"]} WHERE type > 1");
+		$user_row = $db->qry('SELECT * FROM %prefix%user WHERE type > 1');
 	
 		if(isset($_POST["tticket_cat"]) && $_POST["tticket_cat"] > 0){
 			$user_row_option[] .= "<option value=\"0\">".t('Kein zuständiger Admin')."</option>";
