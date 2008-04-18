@@ -37,7 +37,7 @@ switch($_GET["step"]) {
 		// Wenn Update erfolgreich folgende Funktionen ausführen
 		if ($assign_ticket) {
 			// Infobox Messages erstellen bzw. ggf. löschen
-			$db->query("DELETE FROM {$config["tables"]["infobox"]} WHERE id_in_class = '$tt_id' AND class = 'troubleticket'");
+			$db->qry('DELETE FROM %prefix%infobox WHERE id_in_class = %int% AND class = \'troubleticket\'', $tt_id);
 			$func->setainfo(t('Ihnen wurde das Troubleticket "<b>%1</b>"zugewiesen. ',$tt_caption),$t_userid,1,"troubleticket",$tt_id);
 			// Bestätigung ausgeben
 			$func->confirmation(t('Das ausgewählte Ticket wurde dem Orga zugewiesen.'), "index.php?mod=troubleticket&action=assign");

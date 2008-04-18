@@ -158,7 +158,7 @@ switch($_GET["step"]) {
 
 		switch($_POST["tticket_status"]) {
 			case 1:
-				$db->query("UPDATE {$config["tables"]["troubleticket"]} SET status = '1' WHERE ttid = '$tt_id'");
+				$db->qry('UPDATE %prefix%troubleticket SET status = \'1\' WHERE ttid = %int%', $tt_id);
 			break;
 
 			case 2:
