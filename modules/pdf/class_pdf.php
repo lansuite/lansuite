@@ -266,10 +266,10 @@ class pdf {
 		// Array mit Benutzern
 		$t_array = array();
 		array_push ($t_array, "<option $selected value=\"null\">Alle</option>");
-/*		$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user 
-							LEFT JOIN {$config['tables']['pdf_printed']} AS printed ON user.userid=printed.item_id OR printed.item_id is NULL WHERE user.type != '-1'");
+/*		$query = $db->qry('SELECT * FROM %prefix%user AS user 
+							LEFT JOIN %prefix%pdf_printed AS printed ON user.userid=printed.item_id OR printed.item_id is NULL WHERE user.type != \'-1\'');
 */
-		$query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user WHERE user.type > 0");
+		$query = $db->qry('SELECT * FROM %prefix%user AS user WHERE user.type > 0');
 		while($row = $db->fetch_array($query)) {
 			if($row['item_id'] == ""){
 				array_push ($t_array, "<option $selected value=\"" . $row['userid'] . "\">" . $row['username'] . "</option>");
@@ -283,7 +283,7 @@ class pdf {
 		// Array für Datum
 		$d_array = array("<option selected value=\"null\">Alle</option>");
 		
-		$d_row = $db->query("SELECT time FROM {$config['tables']['pdf_printed']} GROUP BY time");
+		$d_row = $db->qry('SELECT time FROM %prefix%pdf_printed GROUP BY time');
 		while ($d_row_data = $db->fetch_array($d_row)){
 			array_push ($d_array, "<option  value=\"" . $d_row_data['time'] . "\">" . date("m.d.y G:i",$d_row_data['time']) . "</option>");
 		}
@@ -469,10 +469,10 @@ class pdf {
 			$data['birthday'] = $row['birthday'];
 
 			// seat
-			$row_seat = $db->query_first("SELECT s.blockid, col, row, ip FROM {$config["tables"]["seat_seats"]} AS s LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid WHERE b.party_id={$party->party_id} AND s.userid='{$row["userid"]}'");
+			$row_seat = $db->qry_first('SELECT s.blockid, col, row, ip FROM %prefix%seat_seats AS s LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid WHERE b.party_id=%int% AND s.userid=%int%', $party->party_id, $row["userid"]);
 			$blockid  = $row_seat["blockid"];
 			if($blockid != "") {
-				$row_block = $db->query_first("SELECT orientation, name FROM {$config["tables"]["seat_block"]} WHERE blockid='$blockid'");
+				$row_block = $db->qry_first('SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%', $blockid);
 				$data['orientation']  = $row_block["orientation"];
 				$data['col']          = $row_seat["col"];
 				$data['row']          = $row_seat["row"];
@@ -729,7 +729,7 @@ class pdf {
 			$data['birthday'] = $row['birthday'];
 
 			// seat
-			$row_seat = $db->query_first("SELECT s.blockid, col, row, ip FROM {$config["tables"]["seat_seats"]} AS s LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid WHERE b.party_id={$party->party_id} AND s.userid='{$row["userid"]}'");
+			$row_seat = $db->qry_first('SELECT s.blockid, col, row, ip FROM %prefix%seat_seats AS s LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid WHERE b.party_id=%int% AND s.userid=%int%', $party->party_id, $row["userid"]);
 			$blockid  = $row_seat["blockid"];
 			if($blockid != "") {
 				$row_block = $db->query_first("SELECT orientation, name FROM lansuite_seat_block WHERE blockid='$blockid'");
