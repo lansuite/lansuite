@@ -426,16 +426,15 @@ class pdf {
     //Userabfragen
     if($pdf_guestid > 0) $pdf_sqlstring .= ' AND user.userid = '.$pdf_guestid.'';
 
-		$query = $db->query("SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM {$config["tables"]["user"]} AS user
-      LEFT JOIN {$config['tables']['clan']} AS clan ON user.clanid = clan.clanid ".
-      $pdf_sqlstring);
+		$query = $db->qry('SELECT user.*, clan.name AS clan, clan.url AS clanurl FROM %prefix%user AS user
+      LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid %plain%', $pdf_sqlstring);
 
 		$user_numusers = $db->num_rows($query);
 		// erste Seite erstellen
 		$this->_make_page();
 		
 		// Datenbank abfragen für momentans Template
-		$templ_data = $db->query("SELECT * FROM " . $config['tables']['pdf_data'] . " WHERE template_id='" . $this->templ_id . "' AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC");
+		$templ_data = $db->qry('SELECT * FROM %prefix%pdf_data WHERE template_id=%string% AND type != \'config\' AND type != \'header\' AND type != \'footer\' AND visible = \'1\' ORDER BY sort ASC', $this->templ_id);
 		$templ = array();
 		while ($templ_data_array = $db->fetch_array($templ_data)){
 			$templ[] = array_merge($templ_data_array,$templ);
@@ -510,9 +509,9 @@ class pdf {
 			
 			// Wenn neue Daten ausgedruckt werden Daten eintragen
 			if($row['template_id'] == ""){
-				$db->query_first("INSERT " . $config['tables']['pdf_printed'] . " SET template_id=" . $this->templ_id . ", item_id=" . $row['userid']  . ",time='$date'");
+				$db->qry_first('INSERT %prefix%pdf_printed SET template_id=$string%, item_id=%int%, time=%string%', $this->templ_id, $row['userid'], $date);
 			}else{
-				$db->query_first("UPDATE " . $config['tables']['pdf_printed'] . " SET time='$date' WHERE template_id=" . $this->templ_id . " AND item_id=" . $row['userid']);
+				$db->qry_first('UPDATE %prefix%pdf_printed SET time=%string WHERE template_id=%string% AND item_id=%int%', $date, $this->templ_id, $row['userid']);
 			}			
 		} // end while
 
