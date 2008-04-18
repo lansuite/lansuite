@@ -61,13 +61,13 @@ else {
 #  					$cronjob->load_job("cron_tmod");
 #  					$cronjob->loaded_class->add_job($_GET["tournamentid"], $_POST['group']);
   				}
-  				$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_" . $_GET['tournamentid'] . "_" . $_POST['group'] . ".png\">".t('Hier können Sie die Grafik herunterladen')."</a>");
+#  				$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_" . $_GET['tournamentid'] . "_" . $_POST['group'] . ".png\">".t('Hier können Sie die Grafik herunterladen')."</a>");
   			}else{
   				if(!file_exists("ext_inc/tournament_trees/tournament_" . $_GET['tournamentid'] . ".png")){
 #  					$cronjob->load_job("cron_tmod");
 #  					$cronjob->loaded_class->add_job($_GET["tournamentid"],"");
   				}
-  				if (!$cfg['t_text_tree']) $dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_". $_GET['tournamentid'] .".png\">".t('Hier können Sie die Grafik herunterladen')."</a>");
+#  				if (!$cfg['t_text_tree']) $dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_". $_GET['tournamentid'] .".png\">".t('Hier können Sie die Grafik herunterladen')."</a>");
   			}
   		}
   
