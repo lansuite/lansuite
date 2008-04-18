@@ -124,7 +124,7 @@
 			// Ergebins speichern
 			if ($special_info =="") { $special_info=$server_daten["special_info"]; }
 			$special_info = $special_info;
-			$db->query("UPDATE {$config["tables"]["server"]} SET special_info='$special_info', available=$available, scans=scans+1, success=success+$success, lastscan=NOW() WHERE ((ip = '$host') AND (port=$port));");
+			$db->qry('UPDATE %prefix%server SET special_info=%string%, available=%string%, scans=scans+1, success=success+%int%, lastscan=NOW() WHERE ((ip = %string%) AND (port=%int%));', $special_info, $available, $success, $host, $port);
 
 		}
 	}

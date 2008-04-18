@@ -27,7 +27,7 @@ function CheckPort($port) {
   return false;
 }
 
-if ($auth['type'] <= 1) $get_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
+if ($auth['type'] <= 1) $get_paid = $db->qry_first('SELECT paid FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%', $auth['userid'], $party->party_id);
 if ($cfg['server_ip_auto_assign']) {
   $IPBase = substr($cfg['server_ip_auto_assign'], 0, strrpos($cfg['server_ip_auto_assign'], '.'));
   $IPArea = substr($cfg['server_ip_auto_assign'], strrpos($cfg['server_ip_auto_assign'], '.') + 1, strlen($cfg['server_ip_auto_assign']));
@@ -47,7 +47,7 @@ else {
   if (!$_GET['serverid']) {
     if ($auth['type'] > 1) {
       $selections = array();
-      $query = $db->query("SELECT * FROM {$config["tables"]["user"]} AS user WHERE user.type > 0 ORDER BY username");
+      $query = $db->qry('SELECT * FROM %prefix%user AS user WHERE user.type > 0 ORDER BY username');
       while($row = $db->fetch_array($query)) {
         $selections[$row['userid']] = $row['username'];
       }
@@ -82,7 +82,7 @@ else {
 
   if ($mf->SendForm('index.php?mod=server&action=add', 'server', 'serverid', $_GET['serverid'])) {
     // Increase auto IP
-    if ($cfg['server_ip_auto_assign']) $db->query("UPDATE {$config["tables"]["config"]} SET cfg_value = ". ($cfg['server_ip_next'] + 1) ." WHERE cfg_key = 'server_ip_next'");
+    if ($cfg['server_ip_auto_assign']) $db->qry('UPDATE %prefix%config SET cfg_value = %int% WHERE cfg_key = \'server_ip_next\'', $cfg['server_ip_next'] + 1);
   };
 }
 ?>

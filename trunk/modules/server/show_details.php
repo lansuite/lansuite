@@ -32,7 +32,7 @@ else {
 			ping_server($server["ip"],$server["port"]);
 
 			// Gescannte Daten neu auslesen
-			$server_scan = $db->query_first("SELECT special_info, available, success, scans, UNIX_TIMESTAMP(lastscan) AS lastscan from {$config["tables"]["server"]} WHERE serverid = '$serverid'");
+			$server_scan = $db->qry_first('SELECT special_info, available, success, scans, UNIX_TIMESTAMP(lastscan) AS lastscan from %prefix%server WHERE serverid = %int%', $serverid);
 
 			($server_scan["available"] == 1) ?
 				$serverstatus = "<div class=\"tbl_green\">".t('Dienst erreichbar')."</div>" : $serverstatus = "<div class=\"tbl_red\">".t('Dienst nicht ereichbar')."</div>";
