@@ -47,7 +47,7 @@ class basket{
 	function show_basket(){
 			global $dsp,$config,$db,$lang,$cfg;
 			
-			$dsp->NewContent(t('Warenkorb'),t('Um einen Artikel zu lˆschen, setzen Sie ihn auf 0 und klicken anschlieﬂend auf /\'/Neu berechnen/\'/.'));
+			$dsp->NewContent(t('Warenkorb'),t('Um einen Artikel zu l√∂schen, setzen Sie ihn auf 0 und klicken anschlie√üend auf /\'/Neu berechnen/\'/.'));
 			if($this->product->count_products() > 0){
 				$dsp->SetForm("?mod=foodcenter&action={$_GET['action']}&mode=change");
 				$dsp->AddDoubleRow("<b>" . t('Artikel / Preis') . "</b> ","<b>" . t('Anzahl') . "</b> ");
@@ -56,7 +56,10 @@ class basket{
 				$dsp->AddDoubleRow("<b>" . t('Gesamtpreis: ') . "</b> " . $this->product->count_products_price() . " " . $cfg['sys_currency'],"<b>" . t('Anzahl Artikel: ') . "</b> " . $this->product->count_products());
 				$dsp->AddFormSubmitRow("new_calculate",null,"calculate",false);
 				if($_GET['action'] == "theke"){
-					foreach (t('Array') as $key => $value){
+					$fc_theke_delivered[0] = t('Nicht abgeholt');
+                    $fc_theke_delivered[1] = t('Alles direkt abgeholt');
+                    $fc_theke_delivered[2] = t('Abgeholt ausser Wartelisten Produkte');
+                    foreach ($fc_theke_delivered as $key => $value){
 						($key == 2) ? $selected = "selected" : $selected = "";
 						$delivered_array[] .= "<option $selected value=\"$key\">$value</option>";
 					}
@@ -93,13 +96,13 @@ class basket{
 		
 		$this->account = new accounting($userid);
 		
-		// Wird nur ausgef¸hrt wenn Credit-System an
+		// Wird nur ausgef√ºhrt wenn Credit-System an
 		if( $cfg['foodcenter_credit'] == 0)
 		{
 			if($this->product->count_products_price() <= $this->account->balance){
 				return $ok;
 			}else{
-				$func->error(t('Nicht gen¸gend Geld auf dem Konto.'),"index.php?mod=foodcenter&action={$_GET['action']}");
+				$func->error(t('Nicht gen√ºgend Geld auf dem Konto.'),"index.php?mod=foodcenter&action={$_GET['action']}");
 				return false;
 			}
 		}else{

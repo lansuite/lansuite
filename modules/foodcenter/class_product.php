@@ -3,7 +3,7 @@
 /**
  * 	Produktliste
  *	Wird verwendet um zum einen die Liste der Speisekarte anzuzeigen
- *  zum anderen für den Warenkorb
+ *  zum anderen fÃ¼r den Warenkorb
  */
 class product_list{
 	/**
@@ -38,7 +38,7 @@ class product_list{
 	}
 	
 	/**
-	 * Produktliste für anzeige ausgeben
+	 * Produktliste fÃ¼r anzeige ausgeben
 	 *
 	 * @param string $worklink
 	 */
@@ -55,7 +55,7 @@ class product_list{
 	}
 	
 	/**
-	 * Zeige Detailansicht eines eingefügten Produktes
+	 * Zeige Detailansicht eines eingefÃ¼gten Produktes
 	 *
 	 * @param int $id
 	 * @param string $worklink
@@ -69,8 +69,8 @@ class product_list{
 	}
 	
 	/**
-	 * Produkt zur Liste hinzufügen
-	 * Gibt true zurück wenn das Produkt hinzugefügt wurde sonst false
+	 * Produkt zur Liste hinzufÃ¼gen
+	 * Gibt true zurÃ¼ck wenn das Produkt hinzugefÃ¼gt wurde sonst false
 	 * 
 	 * @param int $id
 	 * @param array or int $opt
@@ -82,7 +82,7 @@ class product_list{
 		
 			// Wenn das Produkt ein 
 			if(is_array($opt)){
-				// Produkt für den Vergleich erzeugen
+				// Produkt fÃ¼r den Vergleich erzeugen
 				$temp_prod = new product($id);
 				$temp_prod->ordered++;
 				
@@ -106,7 +106,7 @@ class product_list{
 				$key_array = each($this->product);
 				(count($this->product) == 0) ? $key = 0 : $key = $key_array[0] + 1;
 	
-				// Produkt hinzufügen
+				// Produkt hinzufÃ¼gen
 				$this->product[$key] = new product($id);
 				$this->product[$key]->ordered++;
 				$this->product_list[] .= $id;
@@ -130,7 +130,7 @@ class product_list{
 			$key_array = each($this->product);
 			(count($this->product) == 0) ? $key = 0 : $key = $key_array[0] + 1;
 	
-			// Produkt hinzufügen
+			// Produkt hinzufÃ¼gen
 			$this->product[$key] = new product($id);
 			$this->product[$key]->ordered++;
 			$this->product_list[] .= $id;
@@ -148,7 +148,7 @@ class product_list{
 	}
 	
 	/**
-	 * Warenkorb neu schreiben bei änderungen
+	 * Warenkorb neu schreiben bei Ã¤nderungen
 	 *
 	 * @param int $listid
 	 * @param array or int $opt
@@ -179,7 +179,7 @@ class product_list{
 	}
 	
 	/**
-	 * Erzeuge Formular für Warenkorb
+	 * Erzeuge Formular fÃ¼r Warenkorb
 	 *
 	 */
 	function get_basket_form(){
@@ -189,7 +189,7 @@ class product_list{
 	}
 	
 	/**
-	 * Produkte zählen
+	 * Produkte zÃ¤hlen
 	 *
 	 * @return int
 	 */
@@ -201,7 +201,7 @@ class product_list{
 	}
 	
 	/**
-	 * Produktepreis zusammenzählen
+	 * Produktepreis zusammenzÃ¤hlen
 	 *
 	 * @return int
 	 */
@@ -231,7 +231,7 @@ class product_list{
 
 /**
  * Produkt Klasse
- * Ermöglicht alle Funktionen die für ein Produkt benötigt werden.
+ * ErmÃ¶glicht alle Funktionen die fÃ¼r ein Produkt benÃ¶tigt werden.
  *
  */
 class product{
@@ -392,7 +392,7 @@ class product{
 	}
 	
 	/**
-	 * Eingaben aus dem Formular prüfen
+	 * Eingaben aus dem Formular prÃ¼fen
 	 *
 	 * @return boolean
 	 */
@@ -503,7 +503,7 @@ class product{
 	}
 	
 	/**
-	 * Preis zusammenzählen
+	 * Preis zusammenzÃ¤hlen
 	 *
 	 * @return int
 	 */
@@ -556,7 +556,7 @@ class product{
 	}
 	
 	/**
-	 * Produkte zählen
+	 * Produkte zÃ¤hlen
 	 *
 	 * @return int
 	 */
@@ -574,7 +574,7 @@ class product{
 	}
 	
 	/**
-	 * Formular für das ändern und hinzufügen von Produkten ausgeben
+	 * Formular fÃ¼r das Ã¤ndern und hinzufÃ¼gen von Produkten ausgeben
 	 *
 	 * @param int $step
 	 */
@@ -584,10 +584,10 @@ class product{
 		$nextstep = $step + 1;
 		// Change or New ?
 		if($this->id != null){
-			$dsp->NewContent(t('Produkt hinzufügen'),t('Hier können sie ein Produkt hinzuf&uuml;gen'));
+			$dsp->NewContent(t('Produkt hinzufÃ¼gen'),t('Hier kÃ¶nnen sie ein Produkt hinzufÃ¼gen'));
 			$dsp->SetForm("?mod=foodcenter&action=addproduct&step=$nextstep&id={$this->id}","food_add", "", "multipart/form-data");	
 		}else{
-			$dsp->NewContent(t('Produkt ändern'),t('Produkt ändern'));
+			$dsp->NewContent(t('Produkt Ã¤ndern'),t('Produkt Ã¤ndern'));
 			$dsp->SetForm("?mod=foodcenter&action=addproduct&step=$nextstep","food_add","", "multipart/form-data");
 		}		
 		
@@ -611,13 +611,13 @@ class product{
 		if(!is_object($this->supp)) $this->supp = new supp();
 		$this->supp->supp_form();
 
-			$dsp->AddTextFieldRow("supp_infos",t('Infos für Lieferant (zb. seine Artikelnummer)'),$this->supp_infos,"",null,true);
+			$dsp->AddTextFieldRow("supp_infos",t('Infos fÃ¼r Lieferant (zb. seine Artikelnummer)'),$this->supp_infos,"",null,true);
 
 
 		// Picecontrol ?
 		$dsp->AddCheckBoxRow("mat",t('Materialverwaltung'),t('Materialverwaltung aktivieren'),"",NULL,$this->mat,NULL,NULL);
 		// Orderproduct ?
-		$dsp->AddCheckBoxRow("wait",t('Bestelllistenartikel'),t('Muss der Arktikel angefordert werden (Pizza)'),"",NULL,$this->wait,NULL,NULL);
+		$dsp->AddCheckBoxRow("wait",t('Bestelllistenartikel'),t('Muss der Artikel angefordert werden (Pizza)'),"",NULL,$this->wait,NULL,NULL);
 
 		// Hiden not Selected Option an List Product Options
 		$add_product_prod_opt[1] = t('Normales Produkt');
@@ -663,7 +663,7 @@ class product{
 			$templ['ls']['row']['hidden_row']['id'] = "food_2";
 			$templ['ls']['row']['hidden_row']['display'] = $display[2];
 			$dsp->AddModTpl("foodcenter","hiddenbox_start");
-			$dsp->AddCheckBoxRow("chois\" onclick=\"change_optionelem(this.checked)",t('Mehrfachauswahl möglich'),"","",null,$this->choise);
+			$dsp->AddCheckBoxRow("chois\" onclick=\"change_optionelem(this.checked)",t('Mehrfachauswahl mÃ¶glich'),"","",null,$this->choise);
 			($this->type == null) ? $q = 3 : $q = 0;
 			for($i = $q;$i < ($q+8);$i++){
 				($i == $q) ? $optional = null : $optional = true;
@@ -747,7 +747,7 @@ class product{
 	}
 	
 	/**
-	 * Eintrag für den Warenkorb anzeigen
+	 * Eintrag fÃ¼r den Warenkorb anzeigen
 	 *
 	 * @param int $listid
 	 */
@@ -781,7 +781,7 @@ class product{
 			$dsp->AddDoubleRow(t('Produktname'),"<b>" . $this->caption . "</b>");
 			if($this->desc != "") $dsp->AddDoubleRow(t('Produktbeschreibung'),$this->desc);
 			if($this->pic != "" && file_exists("ext_inc/foodcenter/" . $this->pic)) $dsp->AddDoubleRow("","<img src=\"ext_inc/foodcenter/{$this->pic}\" border=\"0\" alt=\"{$this->caption}\" />");
-			$dsp->AddSingleRow(t('Auswahlmöglichkeiten'));
+			$dsp->AddSingleRow(t('AuswahlmÃ¶glichkeiten'));
 			
 			switch ($this->type){
 
@@ -857,7 +857,7 @@ class product{
 	
 	
 	/**
-	 * Bestellte Produkte ändern 
+	 * Bestellte Produkte Ã¤ndern 
 	 *
 	 * @param int $val
 	 * @return boolean
@@ -883,7 +883,7 @@ class product{
 	}
 	
 	/**
-	 * Produkt bestellen gibt den Preis für das hinzugefügte Produkt zurück
+	 * Produkt bestellen gibt den Preis fÃ¼r das hinzugefÃ¼gte Produkt zurÃ¼ck
 	 *
 	 * @param int $userid
 	 * @param int $delivered
@@ -1097,7 +1097,7 @@ class product_option{
 	}
 	
 	/**
-	 * Produktoption hinzufügen
+	 * Produktoption hinzufÃ¼gen
 	 * @param int $id
 	 */
 	function write($id = 0){
@@ -1131,7 +1131,7 @@ class product_option{
 	}
 	
 	/**
-	 * Eingabedaten prüfen
+	 * Eingabedaten prÃ¼fen
 	 * @return boolean
 	 */
 	function check(){
@@ -1154,7 +1154,7 @@ class product_option{
 	}
 	
 	/**
-	 * Produkte zählen
+	 * Produkte zÃ¤hlen
 	 * @return unknown
 	 */
 	function count_unit(){
@@ -1162,7 +1162,7 @@ class product_option{
 	}
 	
 	/**
-	 * Preiszusammenzählen
+	 * PreiszusammenzÃ¤hlen
 	 * @return int
 	 */
 	function count_price(){
@@ -1174,7 +1174,7 @@ class product_option{
 	}
 	
 	/**
-	 * Formular für Dateneingabe anzeigen
+	 * Formular fÃ¼r Dateneingabe anzeigen
 	 *
 	 * @param int $nr
 	 * @param int $optional
@@ -1283,7 +1283,7 @@ class product_option{
 
 
 /**
- * Klasse für die Verwaltung der Lieferanten
+ * Klasse fÃ¼r die Verwaltung der Lieferanten
  *
  */
 class supp{
@@ -1328,7 +1328,7 @@ class supp{
 	}
 	
 	/**
-	 * Gib ein Array mit den Lieferanten zurück
+	 * Gib ein Array mit den Lieferanten zurÃ¼ck
 	 *
 	 * @param int $select_id
 	 * @param boolean $new
@@ -1415,7 +1415,7 @@ class supp{
 	}
 	
 	/**
-	 * Klasse prüfen nach eingaben
+	 * Klasse prÃ¼fen nach eingaben
 	 *
 	 * @return boolean
 	 */
@@ -1429,7 +1429,7 @@ class supp{
 	}
 	
 	/**
-	 * Erzeuge ein Formular für das anlegen von Lieferanten
+	 * Erzeuge ein Formular fÃ¼r das anlegen von Lieferanten
 	 *
 	 */
 	function supp_form(){
@@ -1455,8 +1455,8 @@ class supp{
 
 /**
  * Kategorien verwalten
- * Werden für Menu der Speisekarte verwendet.
- * Diese sind als Headermenu verfügbar
+ * Werden fÃ¼r Menu der Speisekarte verwendet.
+ * Diese sind als Headermenu verfÃ¼gbar
  */
 class cat{
 	/**
@@ -1517,7 +1517,7 @@ class cat{
 	
 	
 	/**
-	 * Gibt ein Array mit allen Kategorieen zurück
+	 * Gibt ein Array mit allen Kategorieen zurÃ¼ck
 	 *
 	 * @param int $select_id
 	 * @param boolean $new
@@ -1577,7 +1577,7 @@ class cat{
 	}
 
 	/**
-	 * Eingaben prüfen
+	 * Eingaben prÃ¼fen
 	 *
 	 * @return boolean
 	 */
@@ -1592,7 +1592,7 @@ class cat{
 	}
 	
 	/**
-	 * Erzeuge ein Textfeld für die Kategorie
+	 * Erzeuge ein Textfeld fÃ¼r die Kategorie
 	 *
 	 */
 	function cat_form(){
