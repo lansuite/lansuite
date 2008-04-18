@@ -3,12 +3,12 @@
 $ms_number = 0;
 
 class MasterSearch2 {
-	var $query;
-	var $result_field = array();
-	var $search_fields = array();
-	var $search_dropdown = array();
-	var $icon_field = array();
-	var $multi_select_action = array();
+    var $query;
+    var $result_field = array();
+    var $search_fields = array();
+    var $search_dropdown = array();
+    var $icon_field = array();
+    var $multi_select_action = array();
   var $config = array();
   var $bgcolors = array();
   var $bgcolor_attr = '';
@@ -30,12 +30,6 @@ class MasterSearch2 {
     $this->query['group_by'] = '';
     $this->query['order_by'] = '';
     $this->query['limit'] = '';
-
-    // Load language files, if included from within another module
-    if ($module and $module != $_GET['mod']) {
-      if (file_exists("modules/{$module}/language/{$module}_lang_de.php")) include_once("modules/{$module}/language/{$module}_lang_de.php");
-      if ($language != "de" and file_exists("modules/{$module}/language/{$module}_lang_{$language}.php")) include_once("modules/{$module}/language/{$module}_lang_{$language}.php");
-    }
 
     // Add $_POST[]-Fields to $working_link
     if ($_POST['search_input']) foreach($_POST['search_input'] as $key => $val) $this->post_in_get .= "&search_input[$key]=$val";
@@ -115,7 +109,7 @@ class MasterSearch2 {
     array_push($this->multi_select_action, $arr);
   }
 
-	function PrintSearch($working_link, $select_id_field, $multiaction = '') {
+    function PrintSearch($working_link, $select_id_field, $multiaction = '') {
     global $db, $config, $dsp, $templ, $func, $auth, $line, $gd, $lang, $ms_number;
 
     $working_link .= $this->post_in_get;
@@ -143,32 +137,32 @@ class MasterSearch2 {
               $this->AddResultField($lang['ms2']['score'], "ROUND(MATCH ($sql_field) AGAINST ('{$_POST["search_input"][$z]}' IN BOOLEAN MODE), 3) AS score");
             break;
             case '1337':
-      				$key_1337 = $_POST["search_input"][$z];
-      				$key_1337 = str_replace ('?', '[?]', $key_1337);
-      				$key_1337 = str_replace ('+', '[+]', $key_1337);
-      				$key_1337 = str_replace ('*', '[*]', $key_1337);
-      				$key_1337 = str_replace ('.', '[.]', $key_1337);
-      				$key_1337 = str_replace ('|', '[|]', $key_1337);
-      				$key_1337 = str_replace ('[', '[[]', $key_1337);
+                    $key_1337 = $_POST["search_input"][$z];
+                    $key_1337 = str_replace ('?', '[?]', $key_1337);
+                    $key_1337 = str_replace ('+', '[+]', $key_1337);
+                    $key_1337 = str_replace ('*', '[*]', $key_1337);
+                    $key_1337 = str_replace ('.', '[.]', $key_1337);
+                    $key_1337 = str_replace ('|', '[|]', $key_1337);
+                    $key_1337 = str_replace ('[', '[[]', $key_1337);
 
-      				$key_1337 = str_replace ("o", "(o|0)", $key_1337);
-      				$key_1337 = str_replace ("O", "(O|0)", $key_1337);
-      				$key_1337 = str_replace ("l", "(l|1|\\\\||!)", $key_1337);
-      				$key_1337 = str_replace ("L", "(L|1|\\\\||!)", $key_1337);
-      				$key_1337 = str_replace ("i", "(i|1|\\\\||!)", $key_1337);
-      				$key_1337 = str_replace ("I", "(I|1|\\\\||!)", $key_1337);
-      				$key_1337 = str_replace ("e", "(e|3|€)", $key_1337);
-      				$key_1337 = str_replace ("E", "(E|3|€)", $key_1337);
-      				$key_1337 = str_replace ("t", "(t|7)", $key_1337);
-      				$key_1337 = str_replace ("T", "(T|7)", $key_1337);
-      				$key_1337 = str_replace ("a", "(a|@)", $key_1337);
-      				$key_1337 = str_replace ("A", "(A|@)", $key_1337);
-      				$key_1337 = str_replace ("s", "(s|5|$)", $key_1337);
-      				$key_1337 = str_replace ("S", "(S|5|$)", $key_1337);
-      				$key_1337 = str_replace ("z", "(z|2)", $key_1337);
-      				$key_1337 = str_replace ("Z", "(Z|2)", $key_1337);
+                    $key_1337 = str_replace ("o", "(o|0)", $key_1337);
+                    $key_1337 = str_replace ("O", "(O|0)", $key_1337);
+                    $key_1337 = str_replace ("l", "(l|1|\\\\||!)", $key_1337);
+                    $key_1337 = str_replace ("L", "(L|1|\\\\||!)", $key_1337);
+                    $key_1337 = str_replace ("i", "(i|1|\\\\||!)", $key_1337);
+                    $key_1337 = str_replace ("I", "(I|1|\\\\||!)", $key_1337);
+                    $key_1337 = str_replace ("e", "(e|3|€)", $key_1337);
+                    $key_1337 = str_replace ("E", "(E|3|€)", $key_1337);
+                    $key_1337 = str_replace ("t", "(t|7)", $key_1337);
+                    $key_1337 = str_replace ("T", "(T|7)", $key_1337);
+                    $key_1337 = str_replace ("a", "(a|@)", $key_1337);
+                    $key_1337 = str_replace ("A", "(A|@)", $key_1337);
+                    $key_1337 = str_replace ("s", "(s|5|$)", $key_1337);
+                    $key_1337 = str_replace ("S", "(S|5|$)", $key_1337);
+                    $key_1337 = str_replace ("z", "(z|2)", $key_1337);
+                    $key_1337 = str_replace ("Z", "(Z|2)", $key_1337);
 
-      				$key_1337 = str_replace (']', '[[.right-square-bracket.]]', $key_1337);
+                    $key_1337 = str_replace (']', '[[.right-square-bracket.]]', $key_1337);
               $sql_one_search_field .= "($sql_field REGEXP '$key_1337')";
             break;
             default:
@@ -284,29 +278,29 @@ class MasterSearch2 {
     $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
     #if ($_GET['ms_page'] >= $count_pages) $_GET['ms_page'] = $count_pages - 1;
 
-		if ($count_rows['count'] > $this->config['EntriesPerPage']) {
-		  $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&ms_page=";
-			$templ['ms2']['pages'] = ("Seiten: ");
+        if ($count_rows['count'] > $this->config['EntriesPerPage']) {
+          $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&ms_page=";
+            $templ['ms2']['pages'] = ("Seiten: ");
       $link_start = ' <a href="';
       $link_end = '" onclick="loadPage(this.href); return false" class="menu">';
-			// Previous page link
-			if ($_GET['ms_page'] != "all" and (int)$_GET['ms_page'] > 0) {
-				$templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] - 1) . $link_end .'<b>&lt;</b></a>';
-			}
-			// Direct page link
-			$i = 0;
-			while($i < $count_pages) {
-				if ($_GET['ms_page'] != "all" and $_GET['ms_page'] == $i) $templ['ms2']['pages'] .= (" " . ($i + 1));
-				else $templ['ms2']['pages'] .= $link_start . $link . $i . $link_end .'<b>'. ($i + 1) .'</b></a>';
-				$i++;
-			}
-			// Next page link
-			if ($_GET['ms_page'] != "all" and ($_GET['ms_page'] + 1) < $count_pages) {
-				$templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
-			}
-			// All link
-			if ($_GET['ms_page'] == "all") $templ['ms2']['pages'] .= " Alle";
-			else $templ['ms2']['pages'] .= ' <a href="' . $link . 'all' . '" class="menu"><b>Alle</b></a>';
+            // Previous page link
+            if ($_GET['ms_page'] != "all" and (int)$_GET['ms_page'] > 0) {
+                $templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] - 1) . $link_end .'<b>&lt;</b></a>';
+            }
+            // Direct page link
+            $i = 0;
+            while($i < $count_pages) {
+                if ($_GET['ms_page'] != "all" and $_GET['ms_page'] == $i) $templ['ms2']['pages'] .= (" " . ($i + 1));
+                else $templ['ms2']['pages'] .= $link_start . $link . $i . $link_end .'<b>'. ($i + 1) .'</b></a>';
+                $i++;
+            }
+            // Next page link
+            if ($_GET['ms_page'] != "all" and ($_GET['ms_page'] + 1) < $count_pages) {
+                $templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
+            }
+            // All link
+            if ($_GET['ms_page'] == "all") $templ['ms2']['pages'] .= " Alle";
+            else $templ['ms2']['pages'] .= ' <a href="' . $link . 'all' . '" class="menu"><b>Alle</b></a>';
     }
 
 

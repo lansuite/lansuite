@@ -1,7 +1,6 @@
 <?php
 
 include_once("modules/usrmgr/class_usrmgr.php");
-include_once("modules/signon/language/signon_lang_de.php");
 $usrmgr = new UsrMgr();
 
 function PartyMail() {
@@ -10,11 +9,11 @@ function PartyMail() {
   $usrmgr->WriteXMLStatFile();
 
   if ($cfg["signon_password_mail"]) {
-  	if ($usrmgr->SendSignonMail(1)) $func->confirmation(t('Eine Bestätigung der Anmeldung wurde an Ihre E-Mail-Adresse gesendet.'), NO_LINK);
-  	else {
-  		$func->error(t('Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.'). $mail->error, NO_LINK);
-  		$cfg['signon_password_view'] = 1;
-  	}
+    if ($usrmgr->SendSignonMail(1)) $func->confirmation(t('Eine Bestätigung der Anmeldung wurde an Ihre E-Mail-Adresse gesendet.'), NO_LINK);
+    else {
+        $func->error(t('Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.'). $mail->error, NO_LINK);
+        $cfg['signon_password_view'] = 1;
+    }
   }
   
   return true;
@@ -39,7 +38,7 @@ else {
     
       // Do not allow changes, if user has paid
       if ($auth['type'] <= 1) {
-      	
+        
         $row2 = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE party_id = {$_GET['party_id']} AND user_id = {$id}");
         if ($row2['paid']!= 0) return t('Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden');
       }
@@ -76,10 +75,10 @@ else {
         // Prices
         $selections = array();  
         $res2 = $db->query("SELECT * FROM {$config['tables']['party_prices']}
-        						WHERE party_id = {$row['party_id']} AND requirement <= {$auth['type']}
-        						");
+                                WHERE party_id = {$row['party_id']} AND requirement <= {$auth['type']}
+                                ");
         while ($row2 = $db->fetch_array($res2)) 
-        	$selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']';
+            $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']';
         
         if ($selections) $mf->AddField(t('Eintrittspreis'), 'price_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
         else $mf->AddField(t('Eintrittspreis'), 'price_id', IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
@@ -96,7 +95,7 @@ else {
         }
         else
         {
-        	$mf->AddFix('signondate', 'NOW()');
+            $mf->AddFix('signondate', 'NOW()');
         }
 
         $mf->SendButtonText = 'An-/Abmelden';

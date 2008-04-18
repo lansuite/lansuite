@@ -1,8 +1,6 @@
 <?php
 
 include_once("modules/usrmgr/class_usrmgr.php");
-include_once("modules/signon/language/signon_lang_de.php");
-include_once("modules/usrmgr/language/usrmgr_lang_de.php");
 
 $usrmgr = new UsrMgr();
 
