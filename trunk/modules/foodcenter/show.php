@@ -4,7 +4,7 @@
 include_once("modules/foodcenter/class_product.php");
 include_once("modules/foodcenter/class_basket.php");
 
-//Pr�fe �ffungszeiten 
+//Prüfe öffungszeiten 
 $time = time();
 if ($cfg['foodcenter_foodtime'] == 4){
 	$open = true;
@@ -38,7 +38,7 @@ if($open == false && $cfg['foodcenter_foodtime'] == 3){
 	$basket = new basket();
 	// InfoMeldung
 	if($open == false && $cfg['foodcenter_foodtime'] == 1) {
-		$errormessage = t('Das Foodcenter ist geschlossen Bestellungen sind m�glich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:'). HTML_NEWLINE;
+		$errormessage = t('Das Foodcenter ist geschlossen. Bestellungen sind möglich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:'). HTML_NEWLINE;
 		$errormessage .= $timemessage;
 		$func->error($errormessage,"index.php?mod=home");
 	}

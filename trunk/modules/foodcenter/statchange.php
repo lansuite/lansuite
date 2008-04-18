@@ -45,7 +45,7 @@ switch ($_GET['step']) {
 				}else{
 					$price = $price * $prodrow['pice'];
 				}
-				$account->change($price,t('Rückzahlung bei abbestellten Produkten') . " (" . $auth['username'] . ")");
+				$account->change($price,t('RÃ¼ckzahlung bei abbestellten Produkten') . " (" . $auth['username'] . ")");
 				
 				if(!isset($_POST['delcount']) || $_POST['delcount'] == $prodrow['pice']){
 					$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $_GET['id']);
@@ -78,7 +78,7 @@ switch ($_GET['step']){
 		  LEFT JOIN {$config['tables']['food_supp']} AS s ON p.supp_id = s.supp_id
 		  LEFT JOIN {$config['tables']['user']} AS u ON u.userid = a.userid";
 
-	// Array Abfragen für DropDowns
+	// Array Abfragen fÃ¼r DropDowns
 	$status_list = array('' => 'Alle');
 	$row = $db->query("SELECT * FROM {$config['tables']['food_status']}");
 	while($res = $db->fetch_array($row)) $status_list[$res['id']] = $res['statusname'];
@@ -117,11 +117,18 @@ switch ($_GET['step']){
 
     $ms2->AddIconField('details', 'index.php?mod=foodcenter&action=statchange&step=2&id=', t('Details'));
 	
-	  $ms2->AddMultiSelectAction(t('Array')[0], 'index.php?mod=foodcenter&action=statchange&step=2&status=6', 1);
-	  $ms2->AddMultiSelectAction(t('Array')[1], 'index.php?mod=foodcenter&action=statchange&step=2&status=5', 1);
-	  $ms2->AddMultiSelectAction(t('Array')[2], 'index.php?mod=foodcenter&action=statchange&step=2&status=3', 1);
-	  $ms2->AddMultiSelectAction(t('Array')[3], 'index.php?mod=foodcenter&action=statchange&step=2&status=7', 1);
-	  $ms2->AddMultiSelectAction(t('Array')[4], 'index.php?mod=foodcenter&action=statchange&step=2&status=8', 1);
+	$fc_ordered_status_quest[0]	= t('Status Ã¤ndern: Abgeholt');
+    $fc_ordered_status_quest[1]	= t('Status Ã¤ndern: Abholbereit');
+    $fc_ordered_status_quest[2]	= t('Status Ã¤ndern: Lieferung erwartet');
+    $fc_ordered_status_quest[3]	= t('Status Ã¤ndern: An Platz geliefert');
+    $fc_ordered_status_quest[4]	= t('Produkt abbestellen und Geld zurÃ¼ckÃ¼berweisen.');
+    $fc_ordered_status_quest[5]	= t('ZurÃ¼ck');
+	
+	  $ms2->AddMultiSelectAction($fc_ordered_status_quest[0], 'index.php?mod=foodcenter&action=statchange&step=2&status=6', 1);
+	  $ms2->AddMultiSelectAction($fc_ordered_status_quest[1], 'index.php?mod=foodcenter&action=statchange&step=2&status=5', 1);
+	  $ms2->AddMultiSelectAction($fc_ordered_status_quest[2], 'index.php?mod=foodcenter&action=statchange&step=2&status=3', 1);
+	  $ms2->AddMultiSelectAction($fc_ordered_status_quest[3], 'index.php?mod=foodcenter&action=statchange&step=2&status=7', 1);
+	  $ms2->AddMultiSelectAction($fc_ordered_status_quest[4], 'index.php?mod=foodcenter&action=statchange&step=2&status=8', 1);
 
     switch ($_POST['search_dd_input'][0]){
     	case 1:
@@ -131,7 +138,7 @@ switch ($_GET['step']){
 
     	case 2:
         $dsp->NewContent(t('Produkte die bestellt werden'), '');
-    		$ms2->NoItemsText = t('Es müssen keine Produkte bestellt werden.');
+    		$ms2->NoItemsText = t('Es mÃ¼ssen keine Produkte bestellt werden.');
     	break;
 
     	case 3:
@@ -140,8 +147,8 @@ switch ($_GET['step']){
     	break;
 
     	case 4:
-        $dsp->NewContent(t('Fertiggestellte Küchengerichte zur Abholung/Lieferung'), '');
-    		$ms2->NoItemsText = t('Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.');
+        $dsp->NewContent(t('Fertiggestellte KÃ¼chengerichte zur Abholung/Lieferung'), '');
+    		$ms2->NoItemsText = t('Derzeit gibt es keine fertiggestellten Gerichte aus der KÃ¼che.');
     	break;
     	
      	case 5:
@@ -160,7 +167,7 @@ switch ($_GET['step']){
 			}
 		}
 		$dsp->SetForm("index.php?mod=foodcenter&action=print&design=base\" target=\"_blank\"","print");
-		$dsp->AddDropDownFieldRow("file",t('Bitte Template auswählen:'),$file_array,"");
+		$dsp->AddDropDownFieldRow("file",t('Bitte Template auswÃ¤hlen:'),$file_array,"");
 		
 		
 
@@ -201,7 +208,7 @@ switch ($_GET['step']){
 					$price += $optrow['price'];
 				}
 				$totprice += $price * $prodrow['pice'];
-				$account->change($totprice,t('Rückzahlung bei abbestellten Produkten') . " (" . $auth['username'] . ")");
+				$account->change($totprice,t('RÃ¼ckzahlung bei abbestellten Produkten') . " (" . $auth['username'] . ")");
 				$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $item);
 			}else{
 				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET["status"]}, lastchange = '$time'  WHERE id = {$item}");
@@ -212,7 +219,12 @@ switch ($_GET['step']){
 			}
 	
 		}
-		$func->confirmation(t('Array')[$_GET["status"]],"index.php?mod=foodcenter&action=statchange");
+        $fc_ordered_status_ask[4] = t('Produkte abbestellt');
+        $fc_ordered_status_ask[5] = t('Status auf abgeholt gesetzt');
+        $fc_ordered_status_ask[3] = t('Status auf Abholbereit gesetzt');
+        $fc_ordered_status_ask[2] = t('Status auf bestellt gesetzt');
+        $fc_ordered_status_ask[1] = t('Status auf bestellen gesetzt');
+		$func->confirmation($fc_ordered_status_ask[$_GET["status"]],"index.php?mod=foodcenter&action=statchange");
 	}else{
 	
 		$link_array[0] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=6";
@@ -221,12 +233,12 @@ switch ($_GET['step']){
 		$link_array[3] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=7";
 		$link_array[4] = "index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=8";
 		$link_array[5] = "index.php?mod=foodcenter&action=statchange";
-		$func->multiquestion(t('Array'),$link_array,t('Status setzen'));
+		$func->multiquestion($fc_ordered_status_quest,$link_array,t('Status setzen'));
 	}
 	break;
 	
 	case 10:
-		$dsp->NewContent(t('Produkt abbestellen'),t('Bitte wählen sie die Produktanzahl die abbestellt werden soll.'));
+		$dsp->NewContent(t('Produkt abbestellen'),t('Bitte wÃ¤hlen sie die Produktanzahl die abbestellt werden soll.'));
 		$dsp->SetForm("index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=4");
 		$dsp->AddDropDownFieldRow("delcount",t('Anzahl'),$count_array,"");
 		$dsp->AddFormSubmitRow("next");
