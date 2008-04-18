@@ -1,7 +1,7 @@
 <?php
 $templ['box']['rows'] = "";
 
-$pics_row = $db->query_first("SELECT COUNT(p.picid) AS activepics FROM {$config["tables"]["picgallery"]} AS p");
+$pics_row = $db->qry_first('SELECT COUNT(p.picid) AS activepics FROM %prefix%picgallery AS p');
 		
 if($pics_row["activepics"] > 0) 
 {	
@@ -15,7 +15,7 @@ if($pics_row["activepics"] > 0)
 	}
 }
 
-$pics_comrow = $db->query_first("SELECT COUNT(commentid) AS comments FROM {$config["tables"]["comments"]} WHERE relatedto_id = $pics_res[picid] ");
+$pics_comrow = $db->qry_first('SELECT COUNT(commentid) AS comments FROM %prefix%comments WHERE relatedto_id = %int% ', $pics_res[picid]);
 $pics_comments= $pics_comrow['comments']." Kommentare";
 
 $pic_array = explode("/", $pics_res['name']);

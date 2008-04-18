@@ -5,17 +5,17 @@ $templ['box']['rows'] = "";
 if($cfg["guestlist_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
 
 // Ermittle die Anzahl der registrierten Usern
-$get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user WHERE ($querytype)");
+$get_cur = $db->qry_first('SELECT count(userid) as n FROM %prefix%user AS user WHERE %plain%', $querytype);
 $reg = $get_cur["n"];
 
 
 
 // Ermittle die Anzahl der derzeit angemeldeten Usern
-$get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user LEFT JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id WHERE party_id='{$party->party_id}' AND ($querytype)");
+$get_cur = $db->qry_first('SELECT count(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, $querytype);
 $cur = $get_cur["n"];
 
 // Wieviele davon haben bezahlt
-$get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user LEFT JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id WHERE ($querytype) AND (party.paid > 0) AND party_id='{$party->party_id}'");
+$get_cur = $db->qry_first('SELECT count(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE (%plain%) AND (party.paid > 0) AND party_id=%int%', $querytype, $party->party_id);
 $paid = $get_cur["n"];
 
 // Anzahl der max. Teilnehmer

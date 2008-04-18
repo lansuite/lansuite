@@ -5,7 +5,7 @@ $templ['box']['rows'] = '';
 $total = $db->query_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM {$config['tables']['stats_usage']}");
 
 // Ermittle die Anzahl der registrierten Usern
-$get_cur = $db->query_first("SELECT count(userid) as n FROM {$config["tables"]["user"]} AS user WHERE user.type > 0");
+$get_cur = $db->qry_first('SELECT count(userid) as n FROM %prefix%user AS user WHERE user.type > 0');
 $reg = $get_cur["n"];
   $box->DotRow(t('Benutzer').': '. $reg);
 

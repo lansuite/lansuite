@@ -300,7 +300,7 @@
 			</entry>
 			<entry>
 				<boxid>18</boxid>
-				<name>Zufallsbild</name>
+				<name>Zufalls-Bild</name>
 				<place>0</place>
 				<pos>1</pos>
 				<active>0</active>
@@ -310,6 +310,18 @@
 				<source>random_pic</source>
 				<callback></callback>
 			</entry>
+                        <entry>
+                                <boxid>19</boxid>
+                                <name>Zufalls-Umfrage</name>
+                                <place>0</place>
+                                <pos>1</pos>
+                                <active>0</active>
+                                <internet>0</internet>
+                                <login>0</login>
+                                <module>poll</module>
+                                <source>random_poll</source>
+                                <callback></callback>
+                        </entry>
 		</content>
 	</table>
 	<table>

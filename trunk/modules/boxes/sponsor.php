@@ -8,7 +8,7 @@ $sponsoren = $db->query("SELECT * FROM {$config['tables']['sponsor']}
 		WHERE active
 		ORDER BY pos, sponsorid");
 
-$db->query("UPDATE {$config['tables']['sponsor']} SET views_box = views_box + 1 WHERE active");
+$db->qry('UPDATE %prefix%sponsor SET views_box = views_box + 1 WHERE active');
 
 while ($sponsor = $db->fetch_array($sponsoren)){
 	$out = '';
