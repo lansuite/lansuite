@@ -125,7 +125,7 @@ switch ($_GET["step"]) {
 	case 5:
 		$dsp->AddSingleRow(t('Highscoreliste'));
 
-		$hs_liste = $db->query("SELECT nick, score from {$config["tables"]["game_hs"]} WHERE game='hm' ORDER BY score;");
+		$hs_liste = $db->qry('SELECT nick, score from %prefix%game_hs WHERE game=\'hm\' ORDER BY score;');
 		while($entry = $db->fetch_array($hs_liste)){
 			$dsp->AddDoubleRow($entry['nick'], $entry['score'] ." Fehlversuche");
 		}
