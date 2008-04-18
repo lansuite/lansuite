@@ -1,6 +1,6 @@
 <?php
 // COUNT NEWS
-$get_amount = $db->query_first("SELECT count(*) as number FROM {$config["tables"]["news"]}");
+$get_amount = $db->qry_first('SELECT count(*) as number FROM %prefix%news');
 $overall_news = $get_amount["number"];
 
 if($overall_news == 0) {
@@ -19,7 +19,7 @@ else {
     $pages = page_split_archiv($_GET["news_page"], $cfg["news_shorted_archiv"], $overall_news - ($cfg['news_shorted'] + $cfg['news_completed']), "index.php?mod=news&action=show&subaction=archive", "news_page",($cfg['news_shorted'] + $cfg['news_complete']));
   
     //GET NEWS DATA AND ORDER NEWS
-    $get_newsshorted = $db->query("SELECT from_unixtime(n.date,'%W, %d.%m.%Y'),from_unixtime(n.date,'%H:%i'), n.caption, n.text, u.username, n.newsid FROM  {$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC {$pages["sql"]}");
+    $get_newsshorted = $db->qry("SELECT FROM_UNIXTIME(n.date, '%W, %d.%m.%Y'), FROM_UNIXTIME(n.date, '%H:%i'), n.caption, n.text, u.username, n.newsid FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC %plain%". $pages["sql"]);
     while($row=$db->fetch_array($get_newsshorted)) {
       $tmpDate = $func->translate_weekdayname(substr($row[0],0,strpos($row[0],","))) . substr($row[0],strpos($row[0],","));
       $shortnews[$tmpDate][$row[1]]['caption'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=" .$row[5] ."\">" .$row[2] ."</a>";
@@ -57,7 +57,7 @@ else {
         $pages = $func->page_split($_GET["news_page"], $cfg["news_count"], $overall_news, "index.php?mod=news&amp;action=show", "news_page");
     
         //GET NEWS DATA AND ORDER NEWS
-        $get_news = $db->query("SELECT n.*, u.userid, u.username FROM   {$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC {$pages["sql"]}");
+        $get_news = $db->qry('SELECT n.*, u.userid, u.username FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC %plain%', $pages["sql"]);
     
         while($row=$db->fetch_array($get_news)) {
             $priority = $row["priority"];
@@ -86,7 +86,7 @@ else {
             $templ['news']['show']['row'][$type]['info']['text']        = $text;
     
             // GET NUMBER OF COMMENTS
-            $get_comments = $db->query_first("SELECT count(*) as number FROM {$config["tables"]["comments"]} WHERE relatedto_id=$newsid AND relatedto_item='news'");
+            $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
             
             if ($get_comments["number"] >= 0) { 
           $templ['news']['show']['row'][$type]['info']['comments'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." ". t('Kommentar(e)') ."</a>"; 
@@ -109,7 +109,7 @@ else {
       
       //SHOW COMPLETE NEWS
       //GET NEWS DATA AND ORDER NEWS
-        $get_news = $db->query("SELECT n.*, u.userid, u.username FROM   {$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT " .$cfg["news_complete"]);
+        $get_news = $db->qry('SELECT n.*, u.userid, u.username FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT %plain%', $cfg["news_complete"]);
         while($row=$db->fetch_array($get_news)) {
             $priority = $row["priority"];
     
@@ -137,7 +137,7 @@ else {
             $templ['news']['show']['row'][$type]['info']['text']        = $text;
     
             // GET NUMBER OF COMMENTS
-            $get_comments = $db->query_first("SELECT count(*) as number FROM {$config["tables"]["comments"]} WHERE relatedto_id=$newsid AND relatedto_item='news'");
+            $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
             
             if ($get_comments["number"] >= 0) { 
           $templ['news']['show']['row'][$type]['info']['comments'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>"; 
@@ -155,7 +155,7 @@ else {
         } // CLOSE WHILE
         
         //SHOW SHORTED NEWS
-        $get_newsshorted = $db->query("SELECT from_unixtime(n.date,'%W, %d.%m.%Y'),from_unixtime(n.date,'%H:%i'), n.caption, n.text, u.username, n.newsid FROM  {$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT " .$cfg["news_complete"] ."," .$cfg["news_shorted"]);
+        $get_newsshorted = $db->query("SELECT from_unixtime(n.date,'%W, %d.%m.%Y'),from_unixtime(n.date,'%H:%i'), n.caption, n.text, u.username, n.newsid FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT %plain%", $cfg["news_complete"] ."," .$cfg["news_shorted"]);
         while($row=$db->fetch_array($get_newsshorted)) {
           $tmpDate = $func->translate_weekdayname(substr($row[0],0,strpos($row[0],","))) . substr($row[0],strpos($row[0],","));
           $shortnews[$tmpDate][$row[1]]['caption'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=" .$row[5] ."\">" .$row[2] ."</a>";
