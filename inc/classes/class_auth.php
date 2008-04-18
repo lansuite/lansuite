@@ -128,19 +128,16 @@ class auth {
         elseif ($tmp_login_pass == "") $func->information(t('Bitte geben Sie Ihr Kennwort ein.'), "", '', 1);
         else {
             // Go on if email and password
-            $user = $db->query_first("SELECT 1 AS found, userid, username, email, password, type, locked
-                                      FROM {$config["tables"]["user"]}
-                                      WHERE ('". (int)$tmp_login_email."' = '".$tmp_login_email."' AND userid = '$tmp_login_email')
-                                      OR LOWER(email) = '$tmp_login_email'");
+            $user = $db->qry_first('SELECT 1 AS found, userid, username, email, password, type, locked
+                                      FROM %prefix%user
+                                      WHERE (%int% = %string% AND userid = %int%) OR LOWER(email) = %string%',
+                                      $tmp_login_email, $tmp_login_email, $tmp_login_email, $tmp_login_email);
             
-            $user2 = $db->query_first("SELECT email_verified
-                                       FROM {$config["tables"]["user"]}
-                                       WHERE ('". (int)$tmp_login_email."' = '".$tmp_login_email."' AND userid = '$tmp_login_email')
-                                       OR LOWER(email) = '$tmp_login_email'");
-
-            $party_query = $db->query("SELECT p.checkin, p.checkout
-                                       FROM {$config["tables"]["party_user"]} AS p
-                                       WHERE p.party_id=". (int)$party->party_id ." AND user_id='{$user['userid']}'");
+            $user2 = $db->qry_first('SELECT email_verified FROM %prefix%user
+                                      WHERE (%int% = %string% AND userid = %int%) OR LOWER(email) = %string%',
+                                      $tmp_login_email, $tmp_login_email, $tmp_login_email, $tmp_login_email);
+            
+            $party_query = $db->qry('SELECT p.checkin, p.checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
             // Check Checkin
             if ($db->num_rows($party_query) > 0){
                 $party_data = $db->fetch_array($party_query);
