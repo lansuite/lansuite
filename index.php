@@ -115,11 +115,6 @@ if (!$config) {
     exit();
 }
 
-//// Load Base-Lang-File
-// 1) Include "de"
-if (file_exists("inc/language/language_de.php")) include_once("inc/language/language_de.php");
-if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) include_once("modules/mastersearch/language/mastersearch_lang_de.php");
-
 ### Include base classes
     
     include_once("inc/classes/class_translation.php");
@@ -157,6 +152,8 @@ if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) inclu
 ### Initalize Basic Parameters
 
     $language = $translation->get_lang(); // Set and Read Systemlanguage
+    // Load Base-Lang-File. OLD!!! Only for old $lang in Systemfolders
+    include_once("inc/language/language_$language.php");
 
 ### Installingsystem or normal auth
 
@@ -239,10 +236,6 @@ if (file_exists("modules/mastersearch/language/mastersearch_lang_de.php")) inclu
 
 // Load Barcode System
 $barcode    = new barcode_system(); // Barcode System
-
-// Load Base-Lang-File
-// OLD, Only for old $lang in Systemfolders 
-include_once("inc/language/language_$language.php");
 
 // Show Blocked Site
 if($cfg['sys_blocksite'] == 1 and $auth['type'] < 2) $siteblock = true;

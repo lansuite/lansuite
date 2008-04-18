@@ -274,30 +274,54 @@ switch ($_GET['step']) {
 
   // Search for Old Text and New Entrys
   case 70;
-      // For info output DB internal
       $output = '';
 
-      $dsp->AddFieldSetStart(t('Veraltete Eintraege'));
-      $res1 = $db->query("SELECT id, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete = '1'");
+      $dsp->NewContent(t('Veraltete Eintraege'), t('Veraltete Eingtraege die aehnlichkeiten mit einem neuen Eintrag aufweisen'));
+
+      // Show switch between Modules/Files
+      $dsp->AddFieldSetStart(t('Modul/File Wechseln.'));
+          if ($_POST['target_file']) $_SESSION['target_file'] = $_POST['target_file'];
+          if ($_SESSION['target_file'] == '') $_SESSION['target_file'] = 'System';
+          $dsp->SetForm('index.php?mod=misc&action=translation&step=70');
+
+          $modules = array();
+          $res = $db->query("SELECT name FROM {$config["tables"]["modules"]}");
+          while($row = $db->fetch_array($res)) $modules[] = $row['name'];
+          $db->free_result($res);  
+          // Add Systemtranslations
+          $modules[] = "DB";
+          $modules[] = "System"; 
+          $list = array();
+          foreach ($modules as $modul) {
+              ($_SESSION['target_file'] == $modul)? $selected = 'selected' : $selected = '';
+              $list[] = "<option $selected value='{$modul}'>{$modul}</option>";
+          }
+
+          $dsp->AddDropDownFieldRow('target_file', t('Ziel Modul/File'), $list, '');
+          $db->free_result($res);
+          $dsp->AddFormSubmitRow('change');
+      $dsp->AddFieldSetEnd();
+
+
+
+      $dsp->AddFieldSetStart(t('Gefundene Texte'));
+      $res1 = $db->query("SELECT id, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete = '1' AND file='{$_SESSION['target_file']}'");
       while($row1 = $db->fetch_array($res1)) {
-          $res2 = $db->query("SELECT id, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete != '1'");
+          $res2 = $db->query("SELECT id, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete != '1' AND file='{$_SESSION['target_file']}'");
 
           while($row2 = $db->fetch_array($res2)) {
               $gleichheit = levenshtein ($row1['org'], $row2['org'])+1;
               $score = ceil(strlen($row1['org']) / $gleichheit)+1;
               //echo $gleichheit."-".$score."<br />";
               if ($score >5) {
-                  $dsp->AddFieldSetStart($row1['file'] .': '. $row1['org']);
-                  $dsp->AddSingleRow($row1['id'].":".$row1['file'].":".$row1['org']);
-                  $dsp->AddSingleRow($row2['id'].":".$row2['file'].":".$row2['org']);
-                  $dsp->AddFieldSetEnd();
+                  $dsp->AddDoubleRow($row1['id'],$row1['org']);
+                  $dsp->AddDoubleRow($row2['id'],$row2['org']);
               }
           }
       }
       $db->free_result($res2);
       $db->free_result($res1);
       $dsp->AddFieldSetEnd();
-
   break;
 
 
