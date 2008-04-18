@@ -5,7 +5,7 @@ $templ['box']['rows'] = "";
 // show admin name and switch back link
 
 if ($olduserid > 0) {
-    $old_user = $db->query_first("SELECT username FROM {$config['tables']['user']} WHERE userid='{$olduserid}'");
+    $old_user = $db->qry_first('SELECT username FROM %prefix%user WHERE userid=%int%', $olduserid);
 
 	if (strlen($old_user['username']) > 14) $old_user['username'] = substr($old_user['username'], 0, 11) . "...";
 

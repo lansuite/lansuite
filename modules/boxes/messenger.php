@@ -17,7 +17,7 @@ if ($auth['login']) {
 
 		// Is user online, or offline?
 		$timeout = time() - 60*10;
-		$row_login = $db->query_first("SELECT userid FROM {$config['tables']['stats_auth']} WHERE userid = '{$row['buddyid']}' AND login = '1' AND lasthit > $timeout");
+		$row_login = $db->qry_first('SELECT userid FROM %prefix%stats_auth WHERE userid = %int% AND login = \'1\' AND lasthit > %int%', $row['buddyid'], $timeout);
 		if ($row_login['userid']) $class = "menu";
 		else $class = "admin";
 
@@ -31,7 +31,7 @@ if ($auth['login']) {
 		$msg_sid = "&" . session_name() . "=" . session_id();
 		
 		// New message available?
-		$row_new_msg = $db->query_first("SELECT senderid FROM {$config['tables']['messages']} WHERE senderid = '$row[buddyid]' AND receiverid = '{$auth["userid"]}' AND	new = '1'");
+		$row_new_msg = $db->qry_first('SELECT senderid FROM %prefix%messages WHERE senderid = %int% AND receiverid = %int% AND new = \'1\'', $row['buddyid'], $auth["userid"]);
 		if ($row_new_msg['senderid']){
 			$item = "message_blink";
 			if($cfg['msgsys_popup']){
@@ -71,7 +71,7 @@ if ($auth['login']) {
 		// Session ID
 		$msg_sid = "&" . session_name() . "=" . session_id();
 
-		$querynobody = $db->query("SELECT id FROM {$config['tables']['buddys']} WHERE buddyid = '{$row['senderid']}' AND userid = '{$auth['userid']}'");
+		$querynobody = $db->qry('SELECT id FROM %prefix%buddys WHERE buddyid = %int% AND userid = %int%', $row['senderid'], $auth['userid']);
 
 		if ($db->num_rows($query_id = $querynobody) < "1" AND $notinlist_peoples[$row["senderid"]] != 1) {
 
@@ -84,7 +84,7 @@ if ($auth['login']) {
 
 			// Is user online, or offline?
 			$timeout = time() - 60*10;
-			$row_login = $db->query_first("SELECT userid FROM {$config['tables']['stats_auth']} WHERE userid = '{$row['senderid']}' AND login = '1' AND lasthit > $timeout");
+			$row_login = $db->qry_first('SELECT userid FROM %prefix%stats_auth WHERE userid = %int% AND login = \'1\' AND lasthit > %int%', $row['senderid'], $timeout);
 			if ($row_login['userid']) $class = "menu";
 			else $class = "admin";
 
