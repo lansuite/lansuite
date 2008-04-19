@@ -60,8 +60,9 @@ function NewPosts($last_read) {
 }
 
 if ($_GET['fid'] != '') {
-  $row = $db->query_first("SELECT name, need_type FROM {$config["tables"]["board_forums"]} WHERE fid={$_GET["fid"]}");
+  $row = $db->query_first("SELECT name, need_type, need_group FROM {$config["tables"]["board_forums"]} WHERE fid={$_GET["fid"]}");
   if ($row['need_type'] == 1 and $auth['login'] == 0) $new_thread = t('Sie müssen sich zuerst einloggen, um einen Thread in diesem Forum starten zu können');
+  elseif ($row['need_group'] and $auth['group_id'] != $row['need_group']) $new_thread = t('Sie gehören nicht der richtigen Gruppe an, um einen Thread in diesem Forum starten zu können');
   else $new_thread = $dsp->FetchIcon("index.php?mod=board&action=thread&fid=". $_GET['fid'], "add");
 
   // Board Headline
@@ -145,7 +146,7 @@ $ms2->query['from'] = "{$config['tables']['board_threads']} AS t
     LEFT JOIN {$config["tables"]["user"]} AS u ON p.userid = u.userid
     LEFT JOIN {$config["tables"]["board_bookmark"]} AS b ON (b.fid = t.fid OR b.tid = t.tid) AND b.userid = ". (int)$auth['userid'] ."
     ";
-$ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1);
+$ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1 ." AND (!need_group OR need_group = {$auth['group_id']})");
 if ($_GET['fid'] != '') $ms2->query['where'] .= ' AND t.fid = '. (int)$_GET['fid'];
 if ($_GET['action'] == 'bookmark') $ms2->query['where'] .= ' AND b.bid IS NOT NULL';
 $ms2->query['default_order_by'] = 't.sticky DESC, LastPost DESC';
@@ -235,7 +236,8 @@ if ($_GET['fid'] and $auth['login']) {
 }
 
 // Generate Boardlist-Dropdown
-$foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]} WHERE need_type <= ". (int)($auth['type'] + 1));
+$foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]}
+  WHERE need_type <= ". (int)($auth['type'] + 1) ." AND (!need_group OR need_group = {$auth['group_id']})");
 while ($forum = $db->fetch_array($foren_liste))
   $templ['board']['thread']['case']['control']['goto'] .= "<option value=\"index.php?mod=board&action=forum&fid={$forum["fid"]}\">{$forum["name"]}</option>";
 $templ['board']['forum']['case']['info']['forum_choise'] = t('Bitte auswählen');
