@@ -184,18 +184,13 @@ class auth {
             // Everything fine!
             } else {
                 // Set Logonstats
-                $db->query("UPDATE {$config["tables"]["user"]} SET logins = logins + 1, changedate = changedate WHERE userid = '{$user["userid"]}'");
-                if ($cfg["sys_logoffdoubleusers"]) $db->query("DELETE FROM {$config["tables"]["stats_auth"]} WHERE userid='{$user["userid"]}'");
+                $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate WHERE userid = %int%', $user['userid']);
+                if ($cfg["sys_logoffdoubleusers"]) $db->qry('DELETE FROM %prefix%stats_auth WHERE userid=', $user['userid']);
                 
                 // Set authdata
-                $db->query("REPLACE INTO {$config["tables"]["stats_auth"]}
-                            SET sessid = '{$this->auth["sessid"]}',
-                                userid = '{$user["userid"]}',
-                                login = '1',
-                                ip = '{$this->auth["ip"]}',
-                                logtime = '{$this->timestamp}',
-                                logintime = '{$this->timestamp}',
-                                lasthit = '{$this->timestamp}'");
+                $db->qry('REPLACE INTO %prefix%stats_auth
+                  SET sessid = %string%, userid = %int%, login = \'1\', ip = %string%, logtime = %string%, logintime = %string%, lasthit = %string%',
+                  $this->auth["sessid"], $user["userid"], $this->auth["ip"], $this->timestamp, $this->timestamp, $this->timestamp);
 
                 $this->load_authdata();
                 $this->auth['userid'] = $user['userid'];
@@ -248,24 +243,17 @@ class auth {
         elseif ($uniquekey == "") $func->information(t('Kein Uniquekey beim Login via Cookie erkannt.'), "", '', 1);
         else {
 
-            $user = $db->query_first("SELECT 1 AS found, userid, username, email, password, type, locked
-                                      FROM {$config["tables"]["user"]}
-                                      WHERE userid = '$userid'");
+            $user = $db->qry_first('SELECT 1 AS found, userid, username, email, password, type, locked FROM %prefix%user WHERE userid = %int%', $userid);
 
             if ($uniquekey == (md5($user['password']))) {
                 // Set Logonstats
-                $db->query("UPDATE {$config["tables"]["user"]} SET logins = logins + 1, changedate = changedate WHERE userid = '{$user["userid"]}'");
-                if ($cfg["sys_logoffdoubleusers"]) $db->query("DELETE FROM {$config["tables"]["stats_auth"]} WHERE userid='{$user["userid"]}'");
+                $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate WHERE userid = %int%', $user["userid"]);
+                if ($cfg["sys_logoffdoubleusers"]) $db->qry('DELETE FROM %prefix%stats_auth WHERE userid=%int%', $user["userid"]);
 
                 // Set authdata
-                $db->query("REPLACE INTO {$config["tables"]["stats_auth"]}
-                             SET sessid = '{$this->auth["sessid"]}',
-                                 userid = '{$user["userid"]}',
-                                 login = '1',
-                                 ip = '{$this->auth["ip"]}',
-                                 logtime = '{$this->timestamp}',
-                                 logintime = '{$this->timestamp}',
-                                 lasthit = '{$this->timestamp}'");
+                $db->qry('REPLACE INTO %prefix%stats_auth
+                  SET sessid = %string%, userid = %int%, login = \'1\', ip = %string%, logtime = %string%, logintime = %string%, lasthit = %string%',
+                  $this->auth["sessid"], $user["userid"], $this->auth["ip"], $this->timestamp, $this->timestamp, $this->timestamp);
 
                  $this->load_authdata();
                  $this->auth['userid'] = $user['userid'];
@@ -286,7 +274,7 @@ class auth {
         global $db, $config, $ActiveModules, $func;
 
         // Delete entry from SID table
-        $db->query("DELETE FROM {$config['tables']['stats_auth']} WHERE sessid='{$this->auth["sessid"]}'");
+        $db->qry('DELETE FROM %prefix%stats_auth WHERE sessid=%string%', $this->auth["sessid"]);
         $this->auth['login'] = "0";
 
         // Reset Cookiedata
@@ -323,7 +311,7 @@ class auth {
         global $db, $config, $lang, $func;
 
         // Get target user type
-        $target_user = $db->query_first("SELECT type, password FROM {$config["tables"]["user"]} WHERE userid = {$target_id}");
+        $target_user = $db->qry_first('SELECT type, password FROM %prefix%user WHERE userid = %int%', $target_id);
 
         // Only highlevel to lowerlevel
         if ($this->auth["type"] > $target_user["type"]) {
@@ -337,12 +325,9 @@ class auth {
             $this->cookie_data['sb_code'] = $switchbackcode;
             $this->cookie_set();
             // Store switch back code in current (admin) user data
-            $db->query("UPDATE {$config["tables"]["user"]} SET switch_back = '". $switchbackcode ."' WHERE userid = {$this->auth["userid"]}");
+            $db->qry('UPDATE %prefix%user SET switch_back = %string% WHERE userid = %int%', $switchbackcode, $this->auth["userid"]);
             // Link session ID to new user ID
-            $db->query("UPDATE {$config["tables"]["stats_auth"]}
-                        SET userid='{$target_id}',
-                            login='1'
-                        WHERE sessid='{$this->auth["sessid"]}'");
+            $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $target_id, $this->auth["sessid"]);
             $func->information(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,'',1);  //FIX meldungen auserhalb/standart?!?
         } else {
             $func->error(t('Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), $func->internal_referer,1); //FIX meldungen auserhalb/standart?!
@@ -360,15 +345,10 @@ class auth {
         $this->cookie_read();
         if ($this->cookie_data['olduserid'] > 0){
             // Check switch back code
-            $admin_user = $db->query_first("SELECT switch_back, password
-                                            FROM {$config["tables"]["user"]}
-                                            WHERE userid = {$this->cookie_data["olduserid"]}");
+            $admin_user = $db->qry_first('SELECT switch_back, password FROM %prefix%user WHERE userid = %int%', $this->cookie_data["olduserid"]);
             if ($this->cookie_data['sb_code'] == $admin_user["switch_back"]) {
                 // Link session ID to origin user ID
-                $db->query("UPDATE {$config["tables"]["stats_auth"]}
-                            SET userid='{$this->cookie_data["olduserid"]}',
-                                login='1'
-                            WHERE sessid='{$this->auth["sessid"]}'");
+                $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $this->cookie_data["olduserid"], $this->auth["sessid"]);
                 // Delete switch back code in admins user data
                 $db->query("UPDATE {$config["tables"]["user"]} SET switch_back = '' WHERE userid = {$this->cookie_data["olduserid"]}"); 
                 $this->cookie_data['userid'] = $this->cookie_data["olduserid"];
