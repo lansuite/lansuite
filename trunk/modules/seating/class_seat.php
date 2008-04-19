@@ -171,10 +171,11 @@ class seat2 {
 		$seat_state = array();
 		$seat_ip = array();
 		$seat_userid = array();
-		$seats_qry = $db->query("SELECT s.*, u.*, c.name AS clan, c.url AS clanurl FROM {$config["tables"]["seat_seats"]} AS s
-      LEFT JOIN {$config["tables"]["user"]} AS u ON u.userid = s.userid
-      LEFT JOIN {$config["tables"]["clan"]} AS c ON u.clanid = c.clanid
-      WHERE blockid = '$blockid'");
+		$seats_qry = $db->qry('SELECT s.*, u.*, c.name AS clan, c.url AS clanurl, d.avatar_path FROM %prefix%seat_seats AS s
+      LEFT JOIN %prefix%user AS u ON u.userid = s.userid
+      LEFT JOIN %prefix%usersettings AS d ON d.userid = u.userid
+      LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
+      WHERE blockid = %int%', $blockid);
 		if (!$db->num_rows() == 0) {
 #			for ($x = 0; $x <= $block['cols']; $x++) for ($y = 0; $y <= $block['rows']; $y++) $seat_state[$y][$x] = 1;
 #		else {
@@ -352,9 +353,9 @@ class seat2 {
                     $templ['seat']['tooltip'] .= t('Name') .': '. $user_info[$y][$x]['firstname'] .' '. $user_info[$y][$x]['name'] . HTML_NEWLINE;
   							  $templ['seat']['tooltip'] .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
   							  $templ['seat']['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-  							  if (func::chk_img_path($user_info[$y][$x]['picture']) and
+  							  if (func::chk_img_path($user_info[$y][$x]['avatar_path']) and
                     ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)))
-    							  $templ['seat']['tooltip'] .= '<img src=&quot;'. $user_info[$y][$x]['picture'] .'&quot; style=&quot;max-width:100%;&quot; />' . HTML_NEWLINE;
+    							  $templ['seat']['tooltip'] .= '<img src=&quot;'. $user_info[$y][$x]['avatar_path'] .'&quot; style=&quot;max-width:100%;&quot; />' . HTML_NEWLINE;
                 break;
                 case "1":
   							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
