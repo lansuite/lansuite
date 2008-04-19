@@ -19,7 +19,7 @@ class pdf_tmpl{
 		$data = $db->query("SELECT * FROM " .  $config['tables']['pdf_list'] . " WHERE template_type = '" . $this->action . "'");
 		
 		$dsp->NewContent(t('Besucherausweise erstellen'), t('Bitte eine Formatierungsform ausw&auml;hlen oder eine Neue erstellen'));
-		// Liste mit möglichen Vorlagen ausgeben
+		// Liste mit mÃ¶glichen Vorlagen ausgeben
 		$out = "";
 		if ($db->num_rows($data) > 0){
 			while($data_array = $db->fetch_array($data)){
@@ -42,10 +42,10 @@ class pdf_tmpl{
 		
 	}
 	
-	// Daten einfügen
+	// Daten einfÃ¼gen
 	function add_templ(){
 		global $config,$db,$dsp,$lang,$templ;	
-		// In Liste einfügen
+		// In Liste einfÃ¼gen
 		$db->query("INSERT INTO " . $config['tables']['pdf_list'] . " ( `template_id` , `template_type` , `name` ) VALUES ('','" . $this->action . "','" . $_POST['template_name'] . "')");
 		$this->tmpl_id = $db->insert_id();
 		
@@ -124,7 +124,7 @@ class pdf_tmpl{
 		}
 		$dsp->AddSingleRow($out);
 		
-		// Array erzeugen für mögliche Einträge
+		// Array erzeugen fÃ¼r mÃ¶gliche EintrÃ¤ge
 		$type = array("<option selected value=\"rect\">" . t('Rechteck') . "</option>",
 					  "<option value=\"text\">" . t('Text') . "</option>",
 					  "<option value=\"line\">" . t('Linie') . "</option>",
@@ -132,7 +132,7 @@ class pdf_tmpl{
 					  "<option value=\"data\">" . t('Daten') . "</option>",
 					  "<option value=\"barcode\">" . t('Strichcode') . "</option>");
 
-		// Formular für hinzufügen von Einträgen
+		// Formular fÃ¼r hinzufÃ¼gen von EintrÃ¤gen
 		$dsp->SetForm("index.php?mod=pdf&action=" . $this->action . "&act=insert_mask&id=" . $this->tmpl_id);
 		$dsp->AddDropDownFieldRow('type',t('Wahl des Feldes') ,$type,"");
 		$dsp->AddFormSubmitRow("add");
@@ -142,7 +142,7 @@ class pdf_tmpl{
 	
 	
 	// Eintrag erstellungs Maske anzeigen
-	// Es müss das Objekt das erstellt werden soll übergreben werden
+	// Es mÃ¼ss das Objekt das erstellt werden soll Ã¼bergreben werden
 	function insert_mask($object){
 		global $config,$db,$dsp,$lang,$templ;
 		
@@ -154,7 +154,7 @@ class pdf_tmpl{
 					  "<option value=\"2\">" . t('Administrator') . "</option>",
 					  "<option value=\"3\">" . t('Superadmin') . "</option>");
 					  
-		// Maske ausgeben für entsprechenden eintrag
+		// Maske ausgeben fÃ¼r entsprechenden eintrag
 		$dsp->NewContent(t('Objekt'),t('Neues Objekt erstellen'));	
 		$dsp->AddSingleRow(t('Erstelle ') . $lang['pdf'][$object]);		  
 		$dsp->SetForm("index.php?mod=pdf&action=" . $this->action ."&act=insert_item&object=$object&id=$this->tmpl_id");
@@ -234,7 +234,7 @@ class pdf_tmpl{
 		$dsp->AddContent();	
 	}
 	
-	// Maske um Einträge ändern anzeigen
+	// Maske um EintrÃ¤ge Ã¤ndern anzeigen
 	function change_mask($item_id){
 		global $config,$db,$dsp,$lang,$templ;
 		$pdf_export = new pdf($this->tmpl_id);
@@ -243,7 +243,7 @@ class pdf_tmpl{
 								  
 		$user_type_list = array( "0" =>  t('Alle') ,"1" =>  t('Besucher ist normaler Gast') ,"2" =>  t('Administrator') ,"3" =>  t('Superadmin') ); 
 		
-		// Liste für Datenfeld erzeugen
+		// Liste fÃ¼r Datenfeld erzeugen
 		foreach ($user_type_list as $key => $value){
 			if($key == $data['user_type']){
 				$user_type[$key] = "<option selected value=\"$key\">$value</option>";
@@ -252,7 +252,7 @@ class pdf_tmpl{
 			}
 		}
 		
-		// Liste für Benutzer
+		// Liste fÃ¼r Benutzer
 		foreach ($user_type_list as $key => $value){
 			if($key == $data['user_type']){
 				$user_type[$key] = "<option selected value=\"$key\">$value</option>";
@@ -342,7 +342,7 @@ class pdf_tmpl{
 	}
 
 	
-	// ein Objekt einfügen
+	// ein Objekt einfÃ¼gen
 	function insert_item($object){
 		global $config,$db,$dsp,$lang,$templ,$func;
 		
@@ -362,7 +362,7 @@ class pdf_tmpl{
 		
 	}
 	
-	// Objekt ändern
+	// Objekt Ã¤ndern
 	function change_item($item_id){
 		global $config,$db,$dsp,$lang,$templ,$func;
 		
@@ -397,7 +397,7 @@ class pdf_tmpl{
 		
 	}
 		
-		// Sortierung ändern
+		// Sortierung Ã¤ndern
 	function sortorder($direction,$item_id){
 		global $config,$db,$dsp,$lang,$templ,$func;	
 		
@@ -410,7 +410,7 @@ class pdf_tmpl{
 	
 		
 	}
-	// Daten löschen
+	// Daten lÃ¶schen
 	function delete_templ(){
 		global $config,$db,$dsp,$lang,$templ;	
 		
@@ -430,10 +430,10 @@ class pdf_tmpl{
 	
 	function new_templ_mask(){
 		global $dsp,$lang;
-		// Array für Seitengrössen		
+		// Array fÃ¼r SeitengrÃ¶ssen		
 		$page_size = array("<option selected value=\"A4\">A4</option>","<option value=\"A3\">A3</option>","<option value=\"A5\">A5</option>");
 		
-		// Formular für neues Template
+		// Formular fÃ¼r neues Template
 		$dsp->NewContent(t('Vorlagen'),t('Neue Vorlage erstellen'));
 		$dsp->SetForm("index.php?mod=pdf&action=" . $this->action . "&act=add");
 		$dsp->AddTextFieldRow("template_name", t('Vorlagenname'),'','');

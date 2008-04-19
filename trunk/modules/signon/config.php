@@ -9,7 +9,7 @@
 *	Module: 			anmeldung
 *	Main editor: 		webmaster@ewep.de
 *	Last change: 		10.09.2003 13:31
-*	Description: 		Anmeldung für neue Benutzer
+*	Description: 		Anmeldung fÃ¼r neue Benutzer
 *	Remarks:
 *
 **************************************************************************/
@@ -20,7 +20,7 @@ $step 		= $_GET['step'];
 
 switch($step) {
 	default:
-		$dsp->NewContent(t('Zur LAN-Party <b>%1</b> anmelden', $cfg["sys_lanpartyname"]), str_replace("%NAME%", $cfg["sys_lanpartyname"], t('Bitte füllen Sie die folgenden Felder sorgfälltig aus')));
+		$dsp->NewContent(t('Zur LAN-Party <b>%1</b> anmelden', $cfg["sys_lanpartyname"]), str_replace("%NAME%", $cfg["sys_lanpartyname"], t('Bitte fÃ¼llen Sie die folgenden Felder sorgfÃ¤lltig aus')));
 		$dsp->SetForm("index.php?mod=signon&action=config&step=2");
 		$dsp->AddDoubleRow("username", "Pflichteingabe");
 		$dsp->AddDoubleRow("email", "Pflichteingabe");
@@ -45,7 +45,7 @@ switch($step) {
 		while (list($key, $val) = each($_POST)) {
 			$db->query("UPDATE {$GLOBALS["config"]["tables"]["config"]} SET cfg_value = $val WHERE cfg_key = '$key'");
 		}
-		$func->confirmation(t('Einstellungen wurden erfolgreich geändert'), "index.php?mod=signon&action=config");
+		$func->confirmation(t('Einstellungen wurden erfolgreich geÃ¤ndert'), "index.php?mod=signon&action=config");
 	break;
 }
 ?>

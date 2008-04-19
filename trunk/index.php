@@ -110,8 +110,8 @@ include_once('inc/base/define.php');
 $lang = array();
 
 if (!$config) {
-    echo HTML_FONT_ERROR. 'Ã–ffnen oder Lesen der Konfigurations-Datei nicht mÃ¶glich. Lansuite wird beendet.' .HTML_NEWLINE . "
-    ÃœberprÃ¼fen Sie die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
+    echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
+    Überprüfen Sie die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
     exit();
 }
 
@@ -252,7 +252,7 @@ if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') 
 if ($_GET['design'] != 'base') include_once('design/'. $auth['design'] .'/templates/index.php');
 else include_once('index_module.inc.php');
 
-// Aktualisierung der Statistik wird erst am Schluss durchgefÃ¼hrt, damit SeitengrÃ¶sse und Berechnungsdauer eingetragen werden kÃ¶nnen.
+// Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
 if ($db->success) {
   if ($_GET['design'] != 'base' AND !$_GET['mod']=="install") $stats->update($sitetool->out_work(), 0);
 

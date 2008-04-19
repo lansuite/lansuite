@@ -40,7 +40,7 @@ class db {
                 $this->success = false;
                 return false;
             } else {
-				echo HTML_FONT_ERROR . str_replace("%DB%", $this->database, t('Die Datenbank /\'/%DB%/\'/ konnte nicht ausgewählt werden. Lansuite wird abgebrochen.'))  . HTML_FONT_END;
+				echo HTML_FONT_ERROR . t('Die Datenbank /\'/%1/\'/ konnte nicht ausgewählt werden. Lansuite wird abgebrochen.', $this->database)  . HTML_FONT_END;
 				exit();
 			}
 		} else $GLOBALS['db_link_id'] = $this->link_id;
@@ -167,10 +167,10 @@ class db {
 	function print_error($msg, $query_string_with_error) {
 		global $func, $config, $auth, $lang;
 
-		if ($config['database']['display_debug_errors']) echo str_replace("%LINE%", __LINE__, str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $func->internal_referer, t('(%LINE%) SQL-Failure. Database respondet: <font color="red"><b>%ERROR%</b></font><br/> Your query was: <i>%QUERY%</i><br/><br/> Script: %SCRIPT%')))));
+		if ($config['database']['display_debug_errors']) echo t('(%1) SQL-Failure. Database respondet: <font color="red"><b>%2</b></font><br/> Your query was: <i>%3</i><br/><br/> Script: %4', __LINE__, $msg, $query_string_with_error, $func->internal_referer);
 
 		$msg = str_replace("'", "", $msg);
-		$post_this_error = str_replace("%LINE%", __LINE__, str_replace("%ERROR%", $msg, str_replace("%QUERY%", $query_string_with_error, str_replace("%SCRIPT%", $_SERVER["REQUEST_URI"], str_replace("%REFERRER%", $func->internal_referer, t('SQL-Fehler in PHP-Skript /\'/%SCRIPT%/\'/ (Referrer: /\'/%REFERRER%/\'/)<br />SQL-Fehler-Meldung: %ERROR%<br />Query: %QUERY%'))))));
+		$post_this_error = t('SQL-Fehler in PHP-Skript /\'/%1/\'/ (Referrer: /\'/%2/\'/)<br />SQL-Fehler-Meldung: %3<br />Query: %4', $_SERVER["REQUEST_URI"], $func->internal_referer, $msg, $query_string_with_error);;
 
 		$post_this_error = $func->escape_sql($post_this_error);
 		

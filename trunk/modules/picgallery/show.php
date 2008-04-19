@@ -69,12 +69,12 @@ if ($_POST["file_name"] and ($auth['type'] >= 2 or $cfg['picgallery_allow_user_n
 // GD-Check
 if (!$gd->available) $func->error(t('Kein GD installiert'), "");
 
-// Wenn keine Datei ausgewählt ist: Übersicht
+// Wenn keine Datei ausgewÃ¤hlt ist: Ãœbersicht
 elseif (!$akt_file) {
 	session_unregister("klick_reload");
 	unset($klick_reload);
 
-	$dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicken Sie auf ein Bild oder auf /\'/öffnen/\'/ um das Bild anzuzeigen.'));
+	$dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicken Sie auf ein Bild oder auf /\'/Ã¶ffnen/\'/ um das Bild anzuzeigen.'));
 
 	if (!$cfg["picgallery_items_per_row"]) $cfg["picgallery_items_per_row"] = 3;
 	if (!$cfg["picgallery_rows"]) $cfg["picgallery_rows"] = 4;

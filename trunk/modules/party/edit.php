@@ -29,11 +29,11 @@ function UpdatePartyID($id) {
   global $db, $config, $lang, $func;
   
   $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '$id' WHERE cfg_key = 'signon_partyid'");
-  $func->confirmation(t('Die Daten wurden erfolgreich geändert.'));  
+  $func->confirmation(t('Die Daten wurden erfolgreich geÃ¤ndert.'));  
 }
 
 $mf->AddField(t('Partyname'), 'name');
-$mf->AddField(t('Anzahl Plätze'), 'max_guest');
+$mf->AddField(t('Anzahl PlÃ¤tze'), 'max_guest');
 $mf->AddField(t('PLZ'), 'plz');
 $mf->AddField(t('Ort'), 'ort');
 
@@ -43,9 +43,9 @@ $mf->AddField(t('Anmeldung startet am'), 'sstartdate', '', '', '', 'CheckSignonS
 $mf->AddField(t('Anmeldung endet am'), 'senddate', '', '', '', 'CheckSignonEndDate');
 
 /*
-		// erster Preis einfügen
+		// erster Preis einfÃ¼gen
 		if($_GET['var'] == "new"){
-			$dsp->AddTextFieldRow("price_text",t('Text für Eintrittspreis'),$_POST['price_text'],$signon_error['price_text']);
+			$dsp->AddTextFieldRow("price_text",t('Text fÃ¼r Eintrittspreis'),$_POST['price_text'],$signon_error['price_text']);
 			$dsp->AddTextFieldRow("price",t('Preis'),$_POST['price'],$signon_error['price']);
 		}
 */

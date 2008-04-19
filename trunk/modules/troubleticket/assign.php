@@ -34,13 +34,13 @@ switch($_GET["step"]) {
 			 assignby_userid = '{$auth["userid"]}'
 			 WHERE ttid = '$tt_id'");
 
-		// Wenn Update erfolgreich folgende Funktionen ausführen
+		// Wenn Update erfolgreich folgende Funktionen ausfÃ¼hren
 		if ($assign_ticket) {
-			// Infobox Messages erstellen bzw. ggf. löschen
+			// Infobox Messages erstellen bzw. ggf. lÃ¶schen
 			$db->qry('DELETE FROM %prefix%infobox WHERE id_in_class = %int% AND class = \'troubleticket\'', $tt_id);
 			$func->setainfo(t('Ihnen wurde das Troubleticket "<b>%1</b>"zugewiesen. ',$tt_caption),$t_userid,1,"troubleticket",$tt_id);
-			// Bestätigung ausgeben
-			$func->confirmation(t('Das ausgewählte Ticket wurde dem Orga zugewiesen.'), "index.php?mod=troubleticket&action=assign");
+			// BestÃ¤tigung ausgeben
+			$func->confirmation(t('Das ausgewÃ¤hlte Ticket wurde dem Orga zugewiesen.'), "index.php?mod=troubleticket&action=assign");
 
 		} else $func->error(t('Das Troubleticket konnte nicht zugewiesen werden! Problem mit der Datenbank !'),"index.php?mod=troubleticket&action=assign");
 	break;

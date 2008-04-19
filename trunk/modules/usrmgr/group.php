@@ -10,16 +10,16 @@
 *	Module: 			usrmgr
 *	Main editor: 		Genesis marco@chuchi.tv
 *	Last change: 		25.02.05
-*	Description: 		Editieren der Preise f¸r die Partys
+*	Description: 		Editieren der Preise f√ºr die Partys
 *	Remarks:
 *
 **************************************************************************/
 
-$selection_data[0]	=	t('Keine zuweisung');
-$selection_data[1]	=	t('Alter');
-$selection_data[2]	=	t('Weiblich');
-$selection_data[3]	=	t('M‰nnlich');
-$selection_data[4]	=	t('Ortschaft');
+$usrmgr_selection[0] = t('Keine zuweisung');
+$usrmgr_selection[1] = t('Alter');
+$usrmgr_selection[2] = t('Weiblich');
+$usrmgr_selection[3] = t('M√§nnlich');
+$usrmgr_selection[4] = t('Ortschaft');
 
 switch ($_GET['step']){
 	case 3:
@@ -83,14 +83,14 @@ switch ($_GET['step']){
 					
 		$dsp->AddTextFieldRow("group_name",t('Gruppenname'),$_POST['group_name'],$error_usrmgr['group']);
 		$dsp->AddTextFieldRow("description",t('Benutzergruppenbeschreibung'),$_POST['description'],$error_usrmgr['group_desc']);
-		// Dropdown f¸r auswahl der Automatischen einstufung
+		// Dropdown f√ºr auswahl der Automatischen einstufung
 #		$selection_array = array();
-#		foreach ($selection_data as $key => $value){
+#		foreach ($usrmgr_selection as $key => $value){
 #			($key == $_POST['selection']) ? $selected = "selected" : $selected = "";
 #			array_push($selection_array,"<option $selected value='$key'>" . $value . "</option>");
 #		}
 #		$dsp->AddDropDownFieldRow("selection",t('Automatische Zuweisung'),$selection_array,$error_usrmgr['selection']);
-#		$dsp->AddTextFieldRow("select_opts",t('Zuweisungsbegriff (f¸r Alter z.b. 18+, 16-18, -18)'),$_POST['select_opts'],$error_usrmgr['select_opts']);
+#		$dsp->AddTextFieldRow("select_opts",t('Zuweisungsbegriff (f√ºr Alter z.b. 18+, 16-18, -18)'),$_POST['select_opts'],$error_usrmgr['select_opts']);
 		
 		$dsp->AddFormSubmitRow("add","usrmgr/group");
 		
@@ -121,7 +121,7 @@ switch ($_GET['step']){
 	case 3:
 		if($_GET['var'] == "new"){
 			$party->add_user_group($_POST['group_name'],$_POST['description'],$_POST['selection'],$_POST['select_opts']);
-			$func->confirmation(t('Benutzergruppe wurde hinzugef¸gt'),'?mod=usrmgr&action=group&step=2');
+			$func->confirmation(t('Benutzergruppe wurde hinzugef√ºgt'),'?mod=usrmgr&action=group&step=2');
 		}elseif ($_GET['var'] == "update"){
 			$party->update_user_group($_GET['group_id'],$_POST['group_name'],$_POST['description'],$_POST['selection'],$_POST['select_opts']);
 			$func->confirmation(t('Benutzergruppe wurde erfolgreich editiert.'),'?mod=usrmgr&action=group&step=2');
@@ -132,7 +132,7 @@ switch ($_GET['step']){
 	break;
 	
 	case 9:
-		$dsp->NewContent(t('Gruppe ausw‰hlen'),t('Gruppe ausw‰hlen'));
+		$dsp->NewContent(t('Gruppe ausw√§hlen'),t('Gruppe ausw√§hlen'));
 		$dsp->SetForm("index.php?mod=usrmgr&action=group&step=10");		
 		$party->get_user_group_dropdown();
 		$dsp->AddFormSubmitRow("next");
@@ -184,22 +184,16 @@ switch ($_GET['step']){
 			}
 		} else $db->query("UPDATE {$config["tables"]["user"]} SET group_id = '{$_GET['group_id']}' WHERE userid = {$_GET["userid"]} LIMIT 1");
 
-		$func->confirmation(t('Die Gruppenzuweisung wurde erfolgreich durchgef¸hrt'), "index.php?mod=usrmgr&action=group&group_id={$_GET['group_id']}");
+		$func->confirmation(t('Die Gruppenzuweisung wurde erfolgreich durchgef√ºhrt'), "index.php?mod=usrmgr&action=group&group_id={$_GET['group_id']}");
 	break;
 	
 	
 	// Sort Groups
 	case 15:
-		$dsp->NewContent(t('Gruppen sortieren'), t('Hier kˆnnen Sie die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die hˆchste Priorit‰t'));
+		$dsp->NewContent(t('Gruppen sortieren'), t('Hier k√∂nnen Sie die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die h√∂chste Priorit√§t'));
 
 		$groups = $db->query("SELECT * FROM {$config["tables"]["party_usergroups"]} WHERE selection != 0 ORDER BY pos");
 		$z = 0;
-		
-		$usrmgr_selection[0] = t('Keine zuweisung');
-		$usrmgr_selection[1] = t('Alter');
-		$usrmgr_selection[2] = t('Weiblich');
-		$usrmgr_selection[3] = t('M‰nnlich');
-		$usrmgr_selection[4] = t('Ortschaft');
 		
 		while ($group = $db->fetch_array($groups)){
 			$z++;
@@ -222,11 +216,11 @@ switch ($_GET['step']){
 	// Delete Group
 	case 20:
 		$row = $db->query_first("SELECT * FROM {$config['tables']['party_usergroups']} WHERE group_id={$_POST['group_id']}");
-		$func->question(t('Wollen sie die Gruppe %1 wirklich lˆschen?',$row['group_name']),"index.php?mod=usrmgr&action=group&step=21&group_id={$_POST['group_id']}","index.php?mod=usrmgr&action=group");
+		$func->question(t('Wollen sie die Gruppe %1 wirklich l√∂schen?',$row['group_name']),"index.php?mod=usrmgr&action=group&step=21&group_id={$_POST['group_id']}","index.php?mod=usrmgr&action=group");
 	break;
 	
 	case 21:
-		$dsp->NewContent(t('Gruppe zuweisen'),t('Welche Gruppe mˆchten Sie den Benutzern die in der gelˆschten Gruppe sind zuweisen?'));
+		$dsp->NewContent(t('Gruppe zuweisen'),t('Welche Gruppe m√∂chten Sie den Benutzern die in der gel√∂schten Gruppe sind zuweisen?'));
 		$dsp->SetForm("index.php?mod=usrmgr&action=group&step=22&group_id={$_GET['group_id']}");
 		$party->get_user_group_dropdown("NULL",1);
 		$dsp->AddFormSubmitRow("next");
@@ -235,7 +229,7 @@ switch ($_GET['step']){
 	
 	case 22:
 		$party->delete_usergroups($_GET['group_id'],$_POST['group_id']);
-		$func->confirmation(t('Gruppe erfolgreich gelˆscht.'),"index.php?mod=usrmgr&action=group");
+		$func->confirmation(t('Gruppe erfolgreich gel√∂scht.'),"index.php?mod=usrmgr&action=group");
 	break;
 	
 	// Multi-User-Assign
@@ -243,7 +237,7 @@ switch ($_GET['step']){
   	foreach ($_POST['action'] as $key => $val) {
       $db->query("UPDATE {$config["tables"]["user"]} SET group_id = '{$_GET['group_id']}' WHERE userid = ". (int)$key);
     }
-		$func->confirmation(t('Die Gruppenzuweisung wurde erfolgreich durchgef¸hrt'), "index.php?mod=usrmgr");
+		$func->confirmation(t('Die Gruppenzuweisung wurde erfolgreich durchgef√ºhrt'), "index.php?mod=usrmgr");
   break;
 }
 

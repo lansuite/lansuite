@@ -24,7 +24,7 @@
 *  4 - abgeschlossen
 *  5 - won't fix
 *
-* Priorit‰t
+* Priorit√§t
 *
 *  0 - unassigned
 *  1 - low
@@ -48,7 +48,7 @@ switch($_GET["step"]) {
 		}
 		
 		if(isset($_POST['tticket_cat']) && $_POST['tticket_cat'] == 0){
-			$error['tticket_cat'] = t('Bitte w‰hlen Sie eine Kategorie');
+			$error['tticket_cat'] = t('Bitte w√§hlen Sie eine Kategorie');
 			$_GET['step'] = 1;
 		}
 	break;
@@ -57,7 +57,7 @@ switch($_GET["step"]) {
 
 switch ($_GET["step"]) {
 	default:
-		$dsp->NewContent(t('Troubleticket hinzuf¸gen'),t(' Mit diesem Formular kˆnnen Sie ein Troubleticket hinzuf¸gen, falls Sie ein Problem haben'));
+		$dsp->NewContent(t('Troubleticket hinzuf√ºgen'),t(' Mit diesem Formular k√∂nnen Sie ein Troubleticket hinzuf√ºgen, falls Sie ein Problem haben'));
 		$dsp->SetForm("index.php?mod=troubleticket&action=add&step=2");
 
 		$dsp->AddTextFieldRow("tticket_desc",t('Beschreibung'), $_POST['tticket_desc'], $error["tticket_desc"]);
@@ -66,7 +66,7 @@ switch ($_GET["step"]) {
 		
 		if($db->num_rows($t_cat) > 0){
 
-			$t_cat_array[] = "<option value=\"0\">".t('Bitte Ausw‰hlen')."</option>";
+			$t_cat_array[] = "<option value=\"0\">".t('Bitte Ausw√§hlen')."</option>";
 			
 			while ($row = $db->fetch_array($t_cat)){
 				$t_cat_array[] .= "<option value=\"{$row['cat_id']}\">{$row['cat_text']}</option>";
@@ -87,11 +87,11 @@ switch ($_GET["step"]) {
 			($_POST["tticket_priority"] == $key) ? $selected = "selected" : $selected = "";
 			array_push ($t_array, "<option $selected value=\"$key\">$val</option>");
 		}
-		$dsp->AddDropDownFieldRow("tticket_priority",t('Priorit‰t'), $t_array, $error["tticket_priority"], 1);
+		$dsp->AddDropDownFieldRow("tticket_priority",t('Priorit√§t'), $t_array, $error["tticket_priority"], 1);
 
 		if ($auth["type"] > 1) {
-			$dsp->AddRadioRow("orgaonly",t('Sichtbar f¸r Alle'), "0", $error["orgaonly"], 0, 1);
-			$dsp->AddRadioRow("orgaonly",t('Sichtbar nur f¸r Orgas'), "1", "", 0, 0);
+			$dsp->AddRadioRow("orgaonly",t('Sichtbar f√ºr Alle'), "0", $error["orgaonly"], 0, 1);
+			$dsp->AddRadioRow("orgaonly",t('Sichtbar nur f√ºr Orgas'), "1", "", 0, 0);
 		}
 
 		$dsp->AddTextAreaPlusRow("tticket_text", "Text", $_POST["tticket_text"], $error["tticket_text"], "", "", 1);
