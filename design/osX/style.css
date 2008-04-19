@@ -494,6 +494,30 @@ a.admin:hover {
   visibility:  hidden;
 }
 
+input {
+  margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 1px 0px 1px 0px;
+  background: #D7E5F2;   color: #102132;
+  font-size: 11px;    font-weight: normal;   font-family: verdana, helvetica, sans-serif;
+}
+input.checkbox {
+  margin: 0px 4px 0px 0px;   border: 0px 0px 0px 0px;   padding: 0px 0px 0px 0px;
+  background: #eeeeee;   color: #eeeeee;
+}
+/*
+input[type=text] {
+  width: 100%;
+}
+*/
+select {
+  margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 0px 0px 0px 0px;
+  background: #D7E5F2;   color: #102132;
+  font-size: 11px;
+}
+textarea {
+  width: 100%;
+  margin: 0px 0px 0px 0px;   border: 1px solid #284279;   padding: 0px 0px 0px 0px;
+  background: #D7E5F2;   color: #102132;
+}
 option[value=de]:before { content:url("../images/icon_de.png"); }
 option[value=en]:before { content:url("../images/icon_en.png"); }
 option[value=at]:before { content:url("../images/icon_at.png"); }
