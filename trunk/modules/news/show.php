@@ -83,6 +83,7 @@ else {
             $templ['news']['show']['row'][$type]['info']['date']        = $func->unixstamp2date($date,"daydatetime");
     
             if ($cfg["news_html"] == 1) $text = $func->text2html($text);
+            else $text = $func->AllowHTML($text);
             $templ['news']['show']['row'][$type]['info']['text']        = $text;
     
             // GET NUMBER OF COMMENTS
@@ -134,6 +135,7 @@ else {
             $templ['news']['show']['row'][$type]['info']['date']        = $func->unixstamp2date($date,"daydatetime");
     
             if ($cfg["news_html"] == 1) $text = $func->text2html($text);
+            else $text = $func->AllowHTML($text);
             $templ['news']['show']['row'][$type]['info']['text']        = $text;
     
             // GET NUMBER OF COMMENTS

@@ -12,7 +12,7 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 	$templ['sponsor']['row']['col1'] = "";
 	// If entry is HTML-Code
 	if (substr($sponsor["pic_path"], 0, 12) == 'html-code://') {
-		$templ['sponsor']['row']['col1'] = substr($sponsor["pic_path"], 12, strlen($sponsor["pic_path"]) - 12);
+		$templ['sponsor']['row']['col1'] = $func->AllowHTML(substr($sponsor["pic_path"], 12, strlen($sponsor["pic_path"]) - 12));
 
 	// Else add Image-Tag
 	} else if ($sponsor["pic_path"] != "" and $sponsor["pic_path"] != "http://") {

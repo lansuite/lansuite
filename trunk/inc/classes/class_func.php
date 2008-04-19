@@ -368,13 +368,19 @@ class func {
 	}
 
   // When text should be displayed within a textarea
+  // Replaced by auto-replace in class_db
   function db2edit($string) {
+/*
 		$string = str_replace('&', '&amp;', $string);
 		$string = str_replace('<', '&lt;', $string);
 		$string = str_replace('>', '&gt;', $string);
 		$string = str_replace('"', '&quot;', $string);
-		
+*/		
 		return $string;
+  }
+
+  function AllowHTML($string) {
+    return html_entity_decode($string, ENT_QUOTES, 'UTF-8');
   }
 
   // If ls-code should be displayed
@@ -394,16 +400,16 @@ class func {
 		$img_start2 = '<img src="ext_inc/smilies/';
 		$img_end   = '" border="0" alt="" />';
 
-		$string = str_replace("&", "&amp;", $string);
-		$string = str_replace("\"", "&quot;", $string);
-		$string = str_replace("<", "&lt;", $string);
-		$string = str_replace(">", "&gt;", $string);
+#		$string = str_replace("&", "&amp;", $string);
+#		$string = str_replace("\"", "&quot;", $string);
+#		$string = str_replace("<", "&lt;", $string);
+#		$string = str_replace(">", "&gt;", $string);
 		
 #		$string = str_replace("&lt;!--", "<!--", $string);
 #		$string = str_replace("--&gt;", "-->", $string);
 #		$string = str_replace("&lt;?", "<?", $string);
 #		$string = str_replace("?&gt;", '?'.'>', $string);
-		$string = strip_tags($string);
+#		$string = strip_tags($string);
 
 		$string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" />', $string);
 		$string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);

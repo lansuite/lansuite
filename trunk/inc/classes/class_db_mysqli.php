@@ -101,6 +101,11 @@ class db {
         if ($query_id != -1) $this->query_id = $query_id;
 
         $this->record = @mysqli_fetch_array($this->query_id);
+        
+        if ($this->record) foreach ($this->record as $key => $value) {
+        	$this->record[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        }
+        
         return $this->record;
     }
 
