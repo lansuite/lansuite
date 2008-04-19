@@ -439,7 +439,7 @@
         <structure>
             <field>
                 <name>group_id</name>
-                <type>int(20)</type>
+                <type>int(11)</type>
                 <null>NO</null>
                 <default></default>
                 <extra>auto_increment</extra>

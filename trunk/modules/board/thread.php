@@ -52,9 +52,9 @@ if ($auth['type'] >= 2) switch ($_GET['step']) {
 
 $tid = (int)$_GET["tid"];
 $list_type = $auth['type'] + 1;
-$thread = $db->query_first("SELECT t.fid, t.caption, t.closed, f.name AS ForumName, f.need_type FROM {$config["tables"]["board_threads"]} AS t
+$thread = $db->query_first("SELECT t.fid, t.caption, t.closed, f.name AS ForumName, f.need_type, f.need_group FROM {$config["tables"]["board_threads"]} AS t
   LEFT JOIN {$config["tables"]["board_forums"]} AS f ON t.fid = f.fid
-  WHERE t.tid=$tid AND (f.need_type <= '{$list_type}')");
+  WHERE t.tid=$tid AND f.need_type <= '{$list_type}' AND (!f.need_group OR f.need_group = {$auth['group_id']})");
 
 if ($thread['caption'] == '' and $tid) $func->information(t('Keine Beiträge vorhanden'), '');
 elseif ($thread['caption'] != '') {
@@ -74,8 +74,6 @@ elseif ($thread['caption'] != '') {
 
 	// Generate Thread-Buttons
 	$buttons = '';
-#" ". $dsp->FetchIcon("index.php?mod=board&action=post&fid=$fid", "add") .
-#	if (($auth["login"] == 1 and $thread['need_type'] >= 1) or $thread['need_type'] == 0 or $auth['type'] > 1) $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=post&tid=$tid", "add");
 	if ($auth["type"] > 1) {
     if ($thread['closed']) $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=thread&step=11&tid=$tid", "unlocked");
     else $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=thread&step=10&tid=$tid", "locked");
@@ -163,6 +161,7 @@ if ($_GET['pid'] != '') $current_post = $db->query_first("SELECT userid FROM {$c
 if ($thread['closed']) $func->information(t('Dieser Thread wurde geschlossen. Es können keine Antworten mehr geschrieben werden'), NO_LINK);
 elseif ($thread['need_type'] >= 1 and !$auth['login']) $func->information(t('Um auf diese Beiträge zu antworten, loggen Sie sich bitte zuerst ein.'), NO_LINK);
 elseif ($thread['need_type'] > (int)($auth['type'] + 1)) $func->information(t('Um auf diese Beiträge zu antworten, müssen Sie Admin sein.'), NO_LINK);
+elseif ($thread['need_group'] and $auth['group_id'] != $thread['need_group']) $func->information(t('Sie gehören nicht der richtigen Gruppe an, um auf diese Beiträge zu antworten.'), NO_LINK); 
 elseif ($_GET['pid'] != '' and $auth['type'] <= 1 and $current_post['userid'] != $auth['userid']) $func->error('Sie dürfen nur Ihre eigenen Beiträge editieren!', NO_LINK);
 else {
   $dsp->AddFieldsetStart(t('Antworten - Der Beitrag kann anschließend noch editiert werden'));
@@ -250,7 +249,8 @@ if ($thread['caption'] != '') {
   }
   
   // Generate Boardlist-Dropdown
-  $foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]} WHERE (need_type <= '{$list_type}')");
+  $foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]}
+    WHERE need_type <= '{$list_type}' AND (!need_group OR need_group = {$auth['group_id']})");
   while ($forum = $db->fetch_array($foren_liste))
     $templ['board']['thread']['case']['control']['goto'] .= "<option value=\"index.php?mod=board&action=forum&fid={$forum["fid"]}\">{$forum["name"]}</option>";
   $templ['board']['forum']['case']['info']['forum_choise'] = t('Bitte auswählen');
