@@ -22,6 +22,7 @@ if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $n
     $text .= $dsp->FetchIcon("index.php?mod=news&action=change&came_from=1&step=2&newsid={$_GET["newsid"]}", "edit", '', '', 'right');
   }
   if ($cfg["news_html"] == 1) $get_news['text'] = $func->text2html($get_news['text']);
+  else $get_news['text'] = $func->AllowHTML($get_news['text']);
   $text .= $get_news['text'];
 	$templ['news']['show']['single']['row'][$news_type]['info']['text'] .= $text;
 

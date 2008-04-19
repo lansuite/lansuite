@@ -3,7 +3,7 @@
 $BoxContent = array();
 
 function FetchItem ($item) {
-	global $box, $cfg;
+	global $box, $cfg, $func;
 
 	$item['caption'] = t($item['caption']);
 	$item['hint'] = t($item['hint']);
@@ -35,8 +35,8 @@ function FetchItem ($item) {
 		}
 
 		switch ($item['level']) {
-			case 0: return $box->DotRow($item['caption'], $item['link'], $item['hint'], $class, $highlighted); break;
-			case 1: return $box->EngangedRow($item['caption'], $item['link'], $item['hint'], $class); break;
+			case 0: return $box->DotRow($func->AllowHTML($item['caption']), $func->AllowHTML($item['link']), $item['hint'], $class, $highlighted); break;
+			case 1: return $box->EngangedRow($func->AllowHTML($item['caption']), $func->AllowHTML($item['link']), $item['hint'], $class); break;
 		}
 	}
 	return '';
