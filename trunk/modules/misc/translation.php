@@ -19,7 +19,7 @@ switch ($_GET['step']) {
 
     if ($_POST['target_language']) $_SESSION['target_language'] = $_POST['target_language'];
 
-    $dsp->AddFieldSetStart(t('Module übersetzen'));
+    $dsp->AddFieldSetStart(t('Module Ã¼bersetzen'));
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('misc');
     $ms2->query['from'] = "{$config['tables']['translation']}";
@@ -32,7 +32,7 @@ switch ($_GET['step']) {
   break;
 
   case 2:
-    $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
+    $dsp->NewContent(t('Ãœbersetzen'), t('Es mÃ¼ssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
 
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('misc');
@@ -148,7 +148,7 @@ switch ($_GET['step']) {
     // If Write2File
     if ($_GET['subact'] == 'writetofile') $translation->xml_write_db_to_file($_GET['file']);
     
-    $dsp->NewContent(t('Modul übersetzen : ').$_GET['file'], '');
+    $dsp->NewContent(t('Modul Ã¼bersetzen : ').$_GET['file'], '');
     
     // Show switch between Lanuages
     $dsp->AddFieldSetStart(t('Sprache wechseln. Achtung, nicht gesicherte &Auml;nderungen gehen verloren.'));
@@ -186,7 +186,7 @@ switch ($_GET['step']) {
     $dsp->AddFieldSetEnd();
 
     $tmp_link = "index.php?mod=misc&action=translation&step=20&file=".$_GET['file']."&subact=writetofile";
-    $dsp->AddDoubleRow(t('Schreibe Modulübersetzung in mod_translation.xml') ,$dsp->FetchSpanButton(t('Schreibe'), $tmp_link));
+    $dsp->AddDoubleRow(t('Schreibe ModulÃ¼bersetzung in mod_translation.xml') ,$dsp->FetchSpanButton(t('Schreibe'), $tmp_link));
     $dsp->AddBackButton('index.php?mod=misc&action=translation');
 
   break;
@@ -196,7 +196,7 @@ switch ($_GET['step']) {
     foreach($_POST['id'] as $key => $value)
       $db->query("UPDATE {$config['tables']['translation']} SET {$_SESSION['target_language']} = '$value' WHERE file = '{$_GET['file']}' AND id = '$key'");
 
-    $func->confirmation('Module-Übersetzung wurde erfolgreich upgedatet');
+    $func->confirmation('Module-Ãœbersetzung wurde erfolgreich upgedatet');
   break;
 
   // Export Module Translations
@@ -212,7 +212,7 @@ switch ($_GET['step']) {
 
   // Translate Item
   case 40:
-    $dsp->NewContent(t('Modul übersetzen'), '');
+    $dsp->NewContent(t('Modul Ã¼bersetzen'), '');
 
     include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
@@ -231,7 +231,7 @@ switch ($_GET['step']) {
   // Export Translation to Files
   case 50;
       if (!$_GET['confirm']=="yes") {
-          $func->question(t('Achtung!!! Alle vorhandenen �bersetzungen in den XML-Dateien werden �berschrieben'),
+          $func->question(t('Achtung!!! Alle vorhandenen Übersetzungen in den XML-Dateien werden überschrieben'),
                             'index.php?mod=misc&action=translation&step=50&confirm=yes',
                             'index.php?mod=misc&action=translation');
       } else {
@@ -253,7 +253,7 @@ switch ($_GET['step']) {
   // Import Translation to DB from mod_translation.xml
   case 60;
       if (!$_GET['confirm']=="yes") {
-          $func->question(t('Achtung!!! Alle vorhandenen �bersetzungen werden von den XML-Dateien in die Datenbank geschrieben'),
+          $func->question(t('Achtung!!! Alle vorhandenen Übersetzungen werden von den XML-Dateien in die Datenbank geschrieben'),
                             'index.php?mod=misc&action=translation&step=60&confirm=yes',
                             'index.php?mod=misc&action=translation');
       } else {
@@ -266,7 +266,7 @@ switch ($_GET['step']) {
           $modules[] = "System"; 
           foreach ($modules as $modul) {
               $translation->xml_write_file_to_db($modul);
-              $info .= t("Modulübersetzung wurde von <b>%1</b> gelesen<br \>",$file);
+              $info .= t("ModulÃ¼bersetzung wurde von <b>%1</b> gelesen<br \>",$file);
           }
           $func->information($info,'index.php?mod=misc&action=translation');
       }
