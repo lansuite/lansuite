@@ -15,6 +15,7 @@ switch ($_GET['step']) {
     $dsp->AddDoubleRow('','<a href="index.php?mod=misc&action=translation&step=10">'. t('Einträge neu aus Quellcode auslesen und in die Datenbank schreiben') .'</a>');
     $dsp->AddDoubleRow('','<a href="index.php?mod=misc&action=translation&step=50">'. t('Einträge aus DB in mod_translation.xml schreiben (alle Module)') .'</a>');
     $dsp->AddDoubleRow('','<a href="index.php?mod=misc&action=translation&step=60">'. t('mod_translation.xml auslesen und in DB schreiben (alle Module)') .'</a>');
+    $dsp->AddDoubleRow('','<a href="index.php?mod=misc&action=translation&step=70">'. t('Suche nach übereinstimmungen Aktuelle / Veraltete Texte (Mergen)') .'</a>');
     $dsp->AddFieldSetEnd();
 
     if ($_POST['target_language']) $_SESSION['target_language'] = $_POST['target_language'];
@@ -305,17 +306,31 @@ switch ($_GET['step']) {
 
 
       $dsp->AddFieldSetStart(t('Gefundene Texte'));
-      $res1 = $db->query("SELECT id, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete = '1' AND file='{$_SESSION['target_file']}'");
+      $res1 = $db->query("SELECT id, org, en, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete = '1' AND file='{$_SESSION['target_file']}'");
       while($row1 = $db->fetch_array($res1)) {
-          $res2 = $db->query("SELECT id, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete != '1' AND file='{$_SESSION['target_file']}'");
+          $res2 = $db->query("SELECT id, en, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete != '1' AND file='{$_SESSION['target_file']}'");
 
           while($row2 = $db->fetch_array($res2)) {
-              $gleichheit = levenshtein ($row1['org'], $row2['org'])+1;
-              $score = ceil(strlen($row1['org']) / $gleichheit)+1;
+              //echo "<hr>".$row1['org'].":".strlen($row1['org'])."<br>";
+              //echo        $row2['org'].":".strlen($row2['org'])."<br>";
+              //if (strlen($row1['org']) < 250 AND strlen($row2['org']) < 250 ) {
+              //if (1) {
+              //    $gleichheit = levenshtein($row1['org'], $row2['org'])+1;
+              //    $score = ceil(strlen($row1['org']+1) / $gleichheit)+1;
+              //} else {
+                  similar_text($row1['org'], $row2['org'], $percent );
+                  $score = ceil($percent);      
+              //}
+              //echo $score."<br>";
               //echo $gleichheit."-".$score."<br />";
-              if ($score >5) {
-                  $dsp->AddDoubleRow($row1['id'],$row1['org']);
-                  $dsp->AddDoubleRow($row2['id'],$row2['org']);
+              if ($score >80) {
+                  $dsp->AddDoubleRow('Aktuell',$row2['org']);
+                  $dsp->AddDoubleRow('Veraltet',$row1['org']);
+                  $dsp->AddDoubleRow('Score',$score);
+                  $dsp->AddDoubleRow('Veraltete Übersetzung EN',$row2['en']);
+                  $buttons = $dsp->FetchButton("index.php?mod=misc&action=translation", "merge"). " ";
+		          $dsp->AddDoubleRow('',$buttons);
+                  
               }
           }
       }
