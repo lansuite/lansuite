@@ -3,7 +3,7 @@
 class Import {
 	var $xml_content;
 	var $xml_content_lansuite;
-	var $table_names = array();
+#	var $table_names = array();
 	var $table_state = array();
 
 	function GetUploadFileType($usr_file_name){
@@ -59,7 +59,7 @@ class Import {
 			// Get Table-Head-Data from XML-File
 			$table_head = $xml->get_tag_content("table_head", $table, 0);
 			$table_name = $xml->get_tag_content("name", $table_head);
-			$this->table_names[] = $table_name;
+			#$this->table_names[] = $table_name;
 
 			$table_found = false;
 
@@ -258,7 +258,7 @@ class Import {
 
     			// Create a new table, if it does not exist yet, or has been dropped above, due to rewrite
     			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}$table_name ($mysql_fields $primary_key $unique_key) TYPE = MyISAM CHARACTER SET utf8");
-    			$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
+    			#$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
 
           // Set Table-Charset to UTF-8
           # Needed??

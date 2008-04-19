@@ -78,9 +78,10 @@ class Install {
   			if ((!$_GET["quest"]) && ($createnew) && ($_GET["step"] == 3)) {
           #mysql_query("DROP DATABASE $database");
 
-          $res = mysql_query("SELECT DISTINCT name FROM {$config['database']['prefix']}table_names", $link_id);
-          while ($row = mysql_fetch_array($res)) mysql_query("DROP TABLE {$config['database']['prefix']}{$row['name']}", $link_id);
-          mysql_free_result($res);
+          $this->DeleteAllTables();
+          #$res = mysql_query("SELECT DISTINCT name FROM {$config['database']['prefix']}table_names", $link_id);
+          #while ($row = mysql_fetch_array($res)) mysql_query("DROP TABLE {$config['database']['prefix']}{$row['name']}", $link_id);
+          #mysql_free_result($res);
         }
 
 			} else {
@@ -111,9 +112,10 @@ class Install {
 		$config['tables']['config'] 	= $config['database']['prefix'].'config';
 		$config['tables']['user'] 	= $config['database']['prefix'].'user';
 
-		$res = $db->query("SELECT name FROM {$config["database"]["prefix"]}table_names");
+		$res = $db->qry('SHOW TABLES'); //"SELECT name FROM {$config["database"]["prefix"]}table_names"
 		while ($row = $db->fetch_array($res)){
-			$config['tables'][$row['name']] = $config['database']['prefix'] . $row['name'];
+		  $table_name = substr($row[0], strlen($config['database']['prefix']), strlen($row[0]));
+			$config['tables'][$table_name] = $row[0];
 		}
 		$db->free_result($res);
 	}
@@ -150,7 +152,7 @@ class Install {
 
 
 
-
+/*
 	function CreateTableNames() {
 		global $db, $config, $xml;
 
@@ -175,7 +177,7 @@ class Install {
 			}
 		}
 	}
-
+*/
 
 
 	// Scans 'install/db_skeleton/' for non-existand tables and creates them
@@ -186,8 +188,8 @@ class Install {
 		$tablecreate = Array("anz" => 0, "created" => 0, "exist" => 0, "failed" => "");
 		$dsp->AddSingleRow("<b>". t('Tabellen erstellen') ."</b>");
 
-		$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}table_names (name varchar(80) NOT NULL default '', PRIMARY KEY(name)) TYPE = MyISAM CHARACTER SET utf8");
-		$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = 'table_names'");
+		#$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}table_names (name varchar(80) NOT NULL default '', PRIMARY KEY(name)) TYPE = MyISAM CHARACTER SET utf8");
+		#$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = 'table_names'");
 
 		if (is_dir("modules")) {
       // Do install-mod first! (for translations-table must exist)
@@ -679,6 +681,25 @@ class Install {
 
 		return $continue;
 	}
+
+  function DeleteAllTables () {
+    global $import, $xml;
+
+		$modules_dir = opendir("modules/");
+		while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
+			$file = "modules/$module/mod_settings/db.xml";
+			if (file_exists($file)) {
+
+        $import->GetImportHeader($file);
+    		$tables = $xml->get_tag_content_array("table", $this->xml_content_lansuite);
+    		foreach ($tables as $table) {        
+    			$table_head = $xml->get_tag_content("table_head", $table, 0);
+    			$table_name = $xml->get_tag_content("name", $table_head);
+          $db->qry_first("DROP TABLE IF EXISTS %prefix%%plain%", $table_name);
+        }
+      }
+    }
+  }
 	
 	function check_updates(){
 		global $db, $config;
