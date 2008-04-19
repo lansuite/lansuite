@@ -12,7 +12,9 @@ $auth['lastname'] = $auth['name'];
 $auth['gender'] = $auth['sex'];
 $auth['wwcl_id'] = $auth['wwclid'];
 $auth['ngl_id'] = $auth['nglid'];
-foreach ($auth as $key => $val) if (!is_int($key) and Needed($key) and $val == '') $missing_fields ++;
+foreach ($auth as $key => $val) {
+  if (!is_int($key) and Needed($key) and ($val == '' or $val == '1927-01-01')) $missing_fields++;
+}
 
 if ($missing_fields) {
   $dsp->NewContent(t('Unvollständiges Benutzerprofil'), t('Es gibt noch unausgefüllte Pflichtfelder in Ihrem Benutzerprofil. Bitte pflegen Sie diese nach'));
