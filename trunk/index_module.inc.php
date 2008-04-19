@@ -90,25 +90,32 @@ if (!$missing_fields and !$siteblock) {
 
   		//// Load Mod-Config
   		else {
-  			// 1) Search $_GET['action'] in DB
+  			// 1) Search $_GET['action'] in DB (field "action")
   			$menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (action = '{$_GET['action']}')");
   			if ($menu['file'] != '') {
   				if (authorized($mod, $menu['file'], $menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
 
-  			// 2) Search file named $_GET['action'] in the Mod-Directory
-  			} elseif (file_exists("modules/$mod/{$_GET['action']}.php")) {
-  				if (authorized($mod, $_GET['action'], $menu['requirement'])) include_once("modules/{$mod}/{$_GET['action']}.php");
+  			// 2) Search $_GET['action'] in DB (field "file")
+  			} else { 
+          $menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (file = '{$_GET['action']}')");
+    			if ($menu['file'] != '') {
+    				if (authorized($mod, $menu['file'], $menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
 
-  			// 3) Search 'default'-Entry in DB
-  			} else {
-  				$menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (action = 'default')");
-  				if ($menu['file'] != '') {
-  					if (authorized($mod, $menu['file'], $menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
-
-    			// 4) Error: 'Not Found'
-  				} else $func->error('NOT_FOUND', '');
-  			}
-  		}
+    			// 3) Search file named $_GET['action'] in the Mod-Directory
+    			} elseif (file_exists("modules/$mod/{$_GET['action']}.php")) {
+    				if (authorized($mod, $_GET['action'], $menu['requirement'])) include_once("modules/{$mod}/{$_GET['action']}.php");
+  
+    			// 4) Search 'default'-Entry in DB
+    			} else {
+    				$menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (action = 'default')");
+    				if ($menu['file'] != '') {
+    					if (authorized($mod, $menu['file'], $menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
+  
+      			// 4) Error: 'Not Found'
+    				} else $func->error('NOT_FOUND', '');
+    			}
+    		}
+    	}
   	break;
   }
 
