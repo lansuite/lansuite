@@ -34,13 +34,13 @@ if ($headermenuitem == 2) $_GET["step"] = 5;
 switch ($_GET["step"]) {
 	case 2:
 		if ($_POST["rows"] > 20) {
-			$func->information(t('Es d¸rfen maximal 20 Reihen ausgew‰hlt werden'), "?mod=games&action=minesweeper");
+			$func->information(t('Es d√ºrfen maximal 20 Reihen ausgew√§hlt werden'), "?mod=games&action=minesweeper");
 
 		} elseif ($_POST["columns"] > 40) {
-			$func->information(t('Es d¸rfen maximal 40 Spalten ausgew‰hlt werden'), "?mod=games&action=minesweeper");
+			$func->information(t('Es d√ºrfen maximal 40 Spalten ausgew√§hlt werden'), "?mod=games&action=minesweeper");
 
 		} elseif ($_POST["mines"] > $_POST["rows"] * $_POST["columns"]) {
-			$func->information(t('Es d¸rfen nicht mehr Mienen, als Felder ausgew‰hlt werden'), "?mod=games&action=minesweeper");
+			$func->information(t('Es d√ºrfen nicht mehr Mienen, als Felder ausgew√§hlt werden'), "?mod=games&action=minesweeper");
 
 		} elseif ($_POST["mines"] < 5) {
 			$func->information(t('Es sollten mindestens 5 Mienen versteckt sein, sonst ist das Spiel witzlos!'), "?mod=games&action=minesweeper");
@@ -76,7 +76,7 @@ switch ($_GET["step"]) {
 	break;
 
 	case 3:
-		$dsp->AddSingleRow("<b>". t('Sie haben Gewonnen! Herzlichen Gl¸ckwunsch!') ."</b>");
+		$dsp->AddSingleRow("<b>". t('Sie haben Gewonnen! Herzlichen Gl√ºckwunsch!') ."</b>");
 		$dsp->AddHRuleRow();
 
 		$db->query("UPDATE {$config["tables"]["game_hs"]}
@@ -85,7 +85,7 @@ switch ($_GET["step"]) {
 			");
 
 		$dsp->SetForm("?mod=games&action=minesweeper&step=4&tmp_nick={$_GET["tmp_nick"]}");
-		$dsp->AddSingleRow(t('Hier kˆnnen Sie sich in die Highscoreliste eintragen'));
+		$dsp->AddSingleRow(t('Hier k√∂nnen Sie sich in die Highscoreliste eintragen'));
 		$dsp->AddDoubleRow(t('Zeit'), $score);
 		$dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "");
 		$dsp->AddFormSubmitRow("next");
@@ -100,7 +100,7 @@ switch ($_GET["step"]) {
 			");
 
 		if ($db->get_affected_rows() > 0) $func->confirmation(t('Highscore wurde eingetragen'), "?mod=games&action=minesweeper&headermenuitem=2");
-		else $func->information("Der angegebene tempor‰re Nick wurde nicht gefunden. Das Ergebnis konnte daher leider nicht eingetragen werden.", "?mod=games&action=minesweeper&headermenuitem=2");
+		else $func->information("Der angegebene tempor√§re Nick wurde nicht gefunden. Das Ergebnis konnte daher leider nicht eingetragen werden.", "?mod=games&action=minesweeper&headermenuitem=2");
 	break;
 
 	case 5:

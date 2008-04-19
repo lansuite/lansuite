@@ -12,11 +12,11 @@ switch ($_GET["step"]) {
 		$rowtest = $db->query_first("SELECT COUNT(*) AS n FROM {$config["tables"]["troubleticket"]} WHERE ttid = '$tt_id'");
 		$numrows = $rowtest["n"];
 
-		// Prüfen ob ticketid leer ist
-		if ($tt_id == "") $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'), "");
+		// PrÃ¼fen ob ticketid leer ist
+		if ($tt_id == "") $func->information(t('Es wurde keine Troubleticket-ID Ã¼bergeben. Aufruf inkorrekt.'), "");
 
-		// Prüfen ob ticketid gültig ist
-		elseif ($numrows == "") { $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'),""); }
+		// PrÃ¼fen ob ticketid gÃ¼ltig ist
+		elseif ($numrows == "") { $func->information(t('Es wurde keine Troubleticket-ID Ã¼bergeben. Aufruf inkorrekt.'),""); }
 
 		else {
 			$dsp->NewContent(t('Troubleticket anzeigen'),t('Hier sehen Sie alle Informationen zu diesem Ticket'));
@@ -34,7 +34,7 @@ switch ($_GET["step"]) {
 			$dsp->AddDoubleRow(t('Eingetragen am/um'), $func->unixstamp2date($row["created"], "daydatetime"));
 			$dsp->AddDoubleRow(t('Von Benutzer'), $get_originuser["username"]);
 
-			// priorität zahl -> text
+			// prioritÃ¤t zahl -> text
 			switch ($row["priority"]) {
 				default:
 					$priority = t('Niedrig');
@@ -49,7 +49,7 @@ switch ($_GET["step"]) {
 					$priority = t('Kritisch');
 				break;
 			}
-			$dsp->AddDoubleRow(t('Priorität'), $priority);
+			$dsp->AddDoubleRow(t('PrioritÃ¤t'), $priority);
 
 			// entsprechend des ticketstatuses passende zeilen ausgeben
 			$status_wahl = array();
@@ -58,17 +58,17 @@ switch ($_GET["step"]) {
 					$status	= t('default: Scriptfehler!');
 				break;
 
-				// status: NEU EINGETRAGEN / NICHT GEPRÜFT
+				// status: NEU EINGETRAGEN / NICHT GEPRÃœFT
 				case 1:
-					$status	= t('Neu / Ungeprüft');
+					$status	= t('Neu / UngeprÃ¼ft');
 					$time_text = "";
 					$time_val = "";
 				break;
 
-				// status: GEPRÜFT / ggf. VON EINEM ORGA NEU EINGETRAGEN
+				// status: GEPRÃœFT / ggf. VON EINEM ORGA NEU EINGETRAGEN
 				case 2:
-					$status	= t('Ãœberprüft / Akzeptiert');
-					$time_text = t('Ãœberprüft am/um');
+					$status	= t('ÃœberprÃ¼ft / Akzeptiert');
+					$time_text = t('ÃœberprÃ¼ft am/um');
 					$time_val = $func->unixstamp2date($row["verified"], "daydatetime");
 				break;
 
@@ -101,7 +101,7 @@ switch ($_GET["step"]) {
 			$dsp->AddDoubleRow(t('Kommentar'), $row["publiccomment"]);
 			if($auth['type'] > 1){
 				if (!$row["orgacomment"]) $row["orgacomment"] = t(' Kein Hinweis eingetragen');
-				$dsp->AddDoubleRow(t('Kommentar von und für Orgas'), $row["orgacomment"]);
+				$dsp->AddDoubleRow(t('Kommentar von und fÃ¼r Orgas'), $row["orgacomment"]);
 			}
 
 			$dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/change");

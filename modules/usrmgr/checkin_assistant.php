@@ -21,8 +21,8 @@ else {
 
   		$questionarr[1] = t('Bereits <b>angemeldeten Gast einchecken</b>');
   		$questionarr[2] = t('Bereits <b>zu einer vergangenen Party angemeldeten Gast einchecken</b>');
-  		$questionarr[3] = t('Neuer Gast. Einen <b>Account erstellen</b>HTML_NEWLINE<i>Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.</i>');
-  		$questionarr[4] = t('Neuer Gast. Einen <b>erweiterten Account erstellen</b>HTML_NEWLINE<i>Hier legen Sie direkt am Einlass alle Benutzerdaten fest.</i>');
+  		$questionarr[3] = t('Neuer Gast. Einen <b>Account erstellen</b><br /><i>Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.</i>');
+  		$questionarr[4] = t('Neuer Gast. Einen <b>erweiterten Account erstellen</b><br /><i>Hier legen Sie direkt am Einlass alle Benutzerdaten fest.</i>');
   		$linkarr[1]	= "index.php?mod=usrmgr&action=entrance&step=2&signon=1";
   		$linkarr[2]	= "index.php?mod=usrmgr&action=entrance&step=2&signon=0";
   		$linkarr[3]	= "index.php?mod=usrmgr&action=entrance&step=3&quick_signon=1";
@@ -82,7 +82,7 @@ else {
 
   	// Neuen Sitzplatz auswählen?
   	case 6:
-  		$func->question(t('Wollen Sie diesem Benutzer einen Sitzplatz zuweisen?HTML_NEWLINEEr sitzt aktuell auf:HTML_NEWLINE%1', $seat2->SeatNameLink($_GET["userid"])), "index.php?mod=usrmgr&action=entrance&step=7&umode=". $_GET["umode"] ."&userid=". $_GET["userid"], "index.php?mod=usrmgr&action=entrance&step=11&umode=". $_GET["umode"] ."&userid=". $_GET["userid"]);
+  		$func->question(t('Wollen Sie diesem Benutzer einen Sitzplatz zuweisen?<br />Er sitzt aktuell auf:<br />%1', $seat2->SeatNameLink($_GET["userid"])), "index.php?mod=usrmgr&action=entrance&step=7&umode=". $_GET["umode"] ."&userid=". $_GET["userid"], "index.php?mod=usrmgr&action=entrance&step=11&umode=". $_GET["umode"] ."&userid=". $_GET["userid"]);
   	break;
 
   	// Sitzblock auswählen

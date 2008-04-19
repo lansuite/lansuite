@@ -48,7 +48,7 @@ switch ($_GET["step"]){
 switch ($_GET["step"]){
 	// Check Environment
 	default:
-		$dsp->NewContent(t('Lansuite Installation und Administration'), t('Willkommen bei der Installation von Lansuite.<br />Im ersten Schritt wird die Konfiguration Ihres Webservers Ã¼berprÃ¼ft.<br />Sollte alles korrekt sein, so drÃ¼cken Sie bitte am Ende der Seite auf --lt--b--gt--Weiter--lt--/b--gt-- um mit der Eingabe der Grundeinstellungen fortzufahren.'));
+		$dsp->NewContent(t('Lansuite Installation und Administration'), t('Willkommen bei der Installation von Lansuite.<br />Im ersten Schritt wird die Konfiguration Ihres Webservers überprüft.<br />Sollte alles korrekt sein, so drücken Sie bitte am Ende der Seite auf --lt--b--gt--Weiter--lt--/b--gt-- um mit der Eingabe der Grundeinstellungen fortzufahren.'));
 
 		$dsp->SetForm("index.php?mod=install&action=wizard");
 		$lang_array = array();
@@ -184,7 +184,7 @@ switch ($_GET["step"]){
 	// Display import form
 	case 4:
 
-		$dsp->NewContent(t('Datenimport'), t('Hier können Sie die XML- oder CSV-Datei mit den Benutzerdaten ihrer Gäste importieren. Diese erhalten Sie z.B. bei LanSurfer, oder über den Export-Link einer anderen Lansuite-Version oder von jedem anderen System, das das Lansuite XML-Benutzerformat unterstützt.HTML_NEWLINESie können den Import auch überspringen (auf <b>\'Weiter\'</b> klicken). In diesem Fall sollten Sie im nächsten Schritt einen Adminaccount anlegen.'));
+		$dsp->NewContent(t('Datenimport'), t('Hier können Sie die XML- oder CSV-Datei mit den Benutzerdaten ihrer Gäste importieren. Diese erhalten Sie z.B. bei LanSurfer, oder über den Export-Link einer anderen Lansuite-Version oder von jedem anderen System, das das Lansuite XML-Benutzerformat unterstützt.<br />Sie können den Import auch überspringen (auf <b>\'Weiter\'</b> klicken). In diesem Fall sollten Sie im nächsten Schritt einen Adminaccount anlegen.'));
 
 		$dsp->SetForm("index.php?mod=install&action=wizard&step=5", "", "", "multipart/form-data");
 
@@ -251,7 +251,7 @@ switch ($_GET["step"]){
 				$check = $import->ImportCSV($_FILES['importdata']['tmp_name'], $_POST["deldb"], $_POST["replace"], $_POST["signon"], $_POST["comment"]);
 
 				$dsp->NewContent(t(''), t(''));
-				$dsp->AddSingleRow(t('Import wurde mit folgendem Ergebnis ausgeführt:HTML_NEWLINE<ul>Fehler: %1HTML_NEWLINEKeine Aktion: %1HTML_NEWLINENeue eingefügt: %1HTML_NEWLINEAlte überschrieben: %1</ul>', $check["error"], $check["nothing"], $check["insert"], $check["replace"]));
+				$dsp->AddSingleRow(t('Import wurde mit folgendem Ergebnis ausgeführt:<br /><ul>Fehler: %1<br />Keine Aktion: %1<br />Neue eingefügt: %1<br />Alte überschrieben: %1</ul>', $check["error"], $check["nothing"], $check["insert"], $check["replace"]));
 
 				$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=6", "next"));
 				$dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/import");
@@ -344,8 +344,8 @@ switch ($_GET["step"]){
 
 		$dsp->NewContent(t('Installation abschließen'), t('Die Installation wurde erfolgreich beendet.'));
         	
-		$dsp->AddSingleRow(t('Die Installation ist nun beendet.HTML_NEWLINEHTML_NEWLINEMit einem Klick auf <b>Einloggen</b> unterhalb schließen Sie die Installation ab und gelangen auf die Adminseite. Dort können Sie weitere Konfigurationen vornehmen sowie bereits in der Installation getätigte ändern.HTML_NEWLINEHTML_NEWLINEDer Modulmanager ermöglicht es Ihnen dort Module zu de-/aktivieren.HTML_NEWLINEHTML_NEWLINEÜber den Link \'Allgemeine Einstellungen\' stehen Ihnen eine Vielzahl an Konfigurationen in den einzelnen Modulen zur Verfügung.'));
-		if (!func::admin_exists()) $dsp->AddSingleRow("<font color=red>". t('<b>Es wurde kein Admin-Account angelegt</b>HTML_NEWLINESolange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.') ."</font>");
+		$dsp->AddSingleRow(t('Die Installation ist nun beendet.<br /><br />Mit einem Klick auf <b>Einloggen</b> unterhalb schließen Sie die Installation ab und gelangen auf die Adminseite. Dort können Sie weitere Konfigurationen vornehmen sowie bereits in der Installation getätigte ändern.<br /><br />Der Modulmanager ermöglicht es Ihnen dort Module zu de-/aktivieren.<br /><br />Über den Link \'Allgemeine Einstellungen\' stehen Ihnen eine Vielzahl an Konfigurationen in den einzelnen Modulen zur Verfügung.'));
+		if (!func::admin_exists()) $dsp->AddSingleRow("<font color=red>". t('<b>Es wurde kein Admin-Account angelegt</b><br />Solange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.') ."</font>");
 
 		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install", "login"));
 		$dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/admin");

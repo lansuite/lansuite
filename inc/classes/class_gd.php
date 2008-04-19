@@ -49,7 +49,7 @@ class gd {
 		if ($type == "") $type = "png";
 
 		if ($file) {
-			if (!is_writable($path)) return str_replace("%PATH%", $path, t('Unable to write in directory /\'/%PATH%/\'/'));
+			if (!is_writable($path)) return t('Unable to write in directory /\'/%1/\'/', $path);
 		} else Header("Content-type: image/$type");
 
 		if ($file) {

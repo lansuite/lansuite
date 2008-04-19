@@ -90,14 +90,14 @@ switch($_GET["step"]) {
 
 		// Neues Team anmelden
 		$tourneys = $db->query("SELECT tournamentid, name FROM {$config["tables"]["tournament_tournaments"]} WHERE (status = 'open')  AND party_id='$party->party_id' ORDER BY name");
-		if ($db->num_rows($tourneys) == 0) $dsp->AddDoubleRow(t('Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase möglich)'), t('Es sind keine Turniere vorhanden, welche sich noch in der Anmeldephase befinden'));
+		if ($db->num_rows($tourneys) == 0) $dsp->AddDoubleRow(t('Neues Team (Spieler) anmelden<br />(Nur in Anmeldephase möglich)'), t('Es sind keine Turniere vorhanden, welche sich noch in der Anmeldephase befinden'));
 		else {
 			$t_array = array("<option value=\"\">".t('Bitte Turnier auswählen')."</option>");
 			while($tourney = $db->fetch_array($tourneys)) {
 				array_push ($t_array, "<option value=\"{$tourney['tournamentid']}\">{$tourney['name']}</option>");
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=40");
-			$dsp->AddDropDownFieldRow("tournamentid", t('Neues Team (Spieler) anmeldenHTML_NEWLINE(Nur in Anmeldephase möglich)'), $t_array, "");
+			$dsp->AddDropDownFieldRow("tournamentid", t('Neues Team (Spieler) anmelden<br />(Nur in Anmeldephase möglich)'), $t_array, "");
 			$dsp->AddFormSubmitRow("send");
 		}
 		$db->free_result($teams);
@@ -109,14 +109,14 @@ switch($_GET["step"]) {
 			WHERE t.status = 'open' AND t.party_id = '$party->party_id'
 			ORDER BY t.name, teams.name
 			");
-		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Komplettes Team löschenHTML_NEWLINE(Nur in Anmeldephase möglich)'), t('Es haben sich noch keine Spieler zu Turnieren angemeldet, welche noch nicht bereits laufen'));
+		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Komplettes Team löschen<br />(Nur in Anmeldephase möglich)'), t('Es haben sich noch keine Spieler zu Turnieren angemeldet, welche noch nicht bereits laufen'));
 		else {
 			$t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");
 			while($team = $db->fetch_array($teams)) {
 				array_push ($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']}</option>");
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=10");
-			$dsp->AddDropDownFieldRow("teamid", t('Komplettes Team löschenHTML_NEWLINE(Nur in Anmeldephase möglich)'), $t_array, "");
+			$dsp->AddDropDownFieldRow("teamid", t('Komplettes Team löschen<br />(Nur in Anmeldephase möglich)'), $t_array, "");
 			$dsp->AddFormSubmitRow("delete");
 		}
 		$db->free_result($teams);

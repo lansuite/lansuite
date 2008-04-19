@@ -360,8 +360,8 @@ class func {
 		global $templ, $auth, $lang, $dsp, $language;
 
 		switch($type) {
-			case "rlist":	$text	= str_replace("%OBJECT%", $object, t('Es sind keine %OBJECT% vorhanden.')); break;
-			case "search":	$text	= str_replace("%OBJECT%", $object, t('Es wurden keine passenden %OBJECT% gefunden.')); break;
+			case "rlist":	$text	= t('Es sind keine %1 vorhanden.', $object); break;
+			case "search":	$text	= t('Es wurden keine passenden %1 gefunden.', $object); break;
 			case "free":	$text	= $object; break;
 		}
     $this->information($text, $link_target);

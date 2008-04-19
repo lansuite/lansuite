@@ -6,12 +6,12 @@ function TTStatus($status) {
 	global $lang;
 
 	switch ($status) {
-		default: return t('Überpr�ft am/um')/* TRANS */; break;
-		case 1: return t('Neu / Ungepr�ft')/* TRANS */; break;
-		case 2: return t('Überpr�ft / Akzeptiert')/* TRANS */; break;
-		case 3: return t('In Arbeit')/* TRANS */; break;
-		case 4: return t('Abgeschlossen')/* TRANS */; break;
-		case 5: return t('Abgelehnt')/* TRANS */; break;
+		default: return t('Überprüft am/um'); break;
+		case 1: return t('Neu / Ungeprüft'); break;
+		case 2: return t('Überprüft / Akzeptiert'); break;
+		case 3: return t('In Arbeit'); break;
+		case 4: return t('Abgeschlossen'); break;
+		case 5: return t('Abgelehnt'); break;
 	}
 }  
 
@@ -25,7 +25,7 @@ $ms2->config['EntriesPerPage'] = 20;
 $ms2->AddTextSearchField('Ticket', array('t.caption' => 'like'));
 
 $ms2->AddResultField('Ticket', 't.caption');
-$ms2->AddResultField('Zust�ndig', 'u.username');
+$ms2->AddResultField('Zuständig', 'u.username');
 $ms2->AddResultField('Status', 't.status', 'TTStatus');
 
 $ms2->AddIconField('details', 'index.php?mod=troubleticket&action=show&step=2&ttid=', 'Details');

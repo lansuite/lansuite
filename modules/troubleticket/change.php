@@ -36,11 +36,11 @@ switch($_GET["step"]) {
 		$rowtest = $db->query_first("SELECT COUNT(*) AS n FROM {$config["tables"]["troubleticket"]} WHERE ttid = '$tt_id'");
 		$numrows = $rowtest["n"];
 
-		// Prüfen ob ticketid leer ist
-		if ($tt_id == "") $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'), "");
+		// PrÃ¼fen ob ticketid leer ist
+		if ($tt_id == "") $func->information(t('Es wurde keine Troubleticket-ID Ã¼bergeben. Aufruf inkorrekt.'), "");
 
-		// Prüfen ob ticketid gültig ist
-		elseif ($numrows == "") { $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'),""); }
+		// PrÃ¼fen ob ticketid gÃ¼ltig ist
+		elseif ($numrows == "") { $func->information(t('Es wurde keine Troubleticket-ID Ã¼bergeben. Aufruf inkorrekt.'),""); }
 
 		else {
 			$dsp->NewContent(t('Troubleticket bearbeiten'), "");
@@ -58,7 +58,7 @@ switch($_GET["step"]) {
 			$dsp->AddDoubleRow(t('Eingetragen am/um'), $func->unixstamp2date($row["created"], "daydatetime"));
 			$dsp->AddDoubleRow(t('Von Benutzer'), $get_originuser["username"]);
 
-			// priorität zahl -> text
+			// prioritÃ¤t zahl -> text
 			switch ($row["priority"]) {
 				default:
 					$priority = t('Niedrig');
@@ -73,7 +73,7 @@ switch($_GET["step"]) {
 					$priority = t('Kritisch');
 				break;
 			}
-			$dsp->AddDoubleRow(t('Priorität'), $priority);
+			$dsp->AddDoubleRow(t('PrioritÃ¤t'), $priority);
 
 			// entsprechend des ticketstatuses passende zeilen ausgeben
 			$status_wahl = array();
@@ -82,24 +82,24 @@ switch($_GET["step"]) {
 					$status	= t('default: Scriptfehler!');
 				break;
 
-				// status: NEU EINGETRAGEN / NICHT GEPRÜFT
+				// status: NEU EINGETRAGEN / NICHT GEPRÃœFT
 				case 1:
-					$status	= t('Neu / Ungeprüft');
+					$status	= t('Neu / UngeprÃ¼ft');
 					array_push($status_wahl, optionrow(4, t(' Auf Erledigt setzen ')));
 					array_push($status_wahl, optionrow(5, t(' Bearbeitung ablehnen ')));
 					$time_text = "";
 					$time_val = "";
 				break;
 
-				// status: GEPRÜFT / ggf. VON EINEM ORGA NEU EINGETRAGEN
+				// status: GEPRÃœFT / ggf. VON EINEM ORGA NEU EINGETRAGEN
 				case 2:
-					$status	= t('Ãœberprüft / Akzeptiert');
+					$status	= t('ÃœberprÃ¼ft / Akzeptiert');
 					array_push($status_wahl, optionrow(0, t(' Keine Ã„nderung ')));
-					array_push($status_wahl, optionrow(2, t(' Problem nicht übernehmen und zurückgeben ')));
-					array_push($status_wahl, optionrow(3, t(' Problem übernehmen und Bearbeitung beginnen ')));
+					array_push($status_wahl, optionrow(2, t(' Problem nicht Ã¼bernehmen und zurÃ¼ckgeben ')));
+					array_push($status_wahl, optionrow(3, t(' Problem Ã¼bernehmen und Bearbeitung beginnen ')));
 					array_push($status_wahl, optionrow(4, t(' Auf Erledigt setzen ')));
 					array_push($status_wahl, optionrow(5, t(' Bearbeitung ablehnen ')));
-					$time_text = t('Ãœberprüft am/um');
+					$time_text = t('ÃœberprÃ¼ft am/um');
 					$time_val = $func->unixstamp2date($row["verified"], "daydatetime");
 				break;
 
@@ -116,7 +116,7 @@ switch($_GET["step"]) {
 				case 4:
 					$status	= t('Abgeschlossen');
 					array_push($status_wahl, optionrow(0, t(' Keine Ã„nderung ')));
-					array_push($status_wahl, optionrow(3, t(' Problem übernehmen und Bearbeitung beginnen ')));
+					array_push($status_wahl, optionrow(3, t(' Problem Ã¼bernehmen und Bearbeitung beginnen ')));
 					$time_text = t('Beendet am/um');
 					$time_val = $func->unixstamp2date($row["finished"],"daydatetime");
 				break;
@@ -135,10 +135,10 @@ switch($_GET["step"]) {
 
 			$dsp->SetForm("index.php?mod=troubleticket&action=change&step=3&ttid=$tt_id");
 
-			$dsp->AddDropDownFieldRow("tticket_status",t('Status auswählen'), $status_wahl, $error["tticket_status"], 1);
+			$dsp->AddDropDownFieldRow("tticket_status",t('Status auswÃ¤hlen'), $status_wahl, $error["tticket_status"], 1);
 
-			$dsp->AddTextAreaPlusRow("tticket_publictext", t('Kommentar für Benutzer'), $_POST['tticket_publictext'], $error["tticket_publictext"]);
-			$dsp->AddTextAreaPlusRow("tticket_orgatext", t('Kommentar für Orgas'), $_POST['tticket_orgatext'], $error["tticket_orgatext"]);
+			$dsp->AddTextAreaPlusRow("tticket_publictext", t('Kommentar fÃ¼r Benutzer'), $_POST['tticket_publictext'], $error["tticket_publictext"]);
+			$dsp->AddTextAreaPlusRow("tticket_orgatext", t('Kommentar fÃ¼r Orgas'), $_POST['tticket_orgatext'], $error["tticket_orgatext"]);
 
 			$dsp->AddFormSubmitRow("add");
 			$dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/change");
@@ -194,7 +194,7 @@ switch($_GET["step"]) {
 			break;
 		}
 
-		$func->confirmation(t('Das Troubleticket wurde erfolgreich geändert'), "index.php?mod=troubleticket&action=change");
+		$func->confirmation(t('Das Troubleticket wurde erfolgreich geÃ¤ndert'), "index.php?mod=troubleticket&action=change");
 	break;
 }
 ?>
