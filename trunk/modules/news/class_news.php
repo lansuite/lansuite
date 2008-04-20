@@ -20,8 +20,8 @@ class News {
     $image .= $xml->write_tag("link", $cfg["sys_partyurl"], 3);
     $channel .= $xml->write_master_tag("image", $image, 2);
 
-    $get_news = $db->query("SELECT n.*, u.username, u.email FROM  {$config["tables"]["news"]} n
-      LEFT JOIN {$config["tables"]["user"]} u ON u.userid = n.poster
+    $get_news = $db->qry("SELECT n.*, u.username, u.email FROM  %prefix%news n
+      LEFT JOIN %prefix%user u ON u.userid = n.poster
       ORDER BY n.date DESC");
     while($news = $db->fetch_array($get_news)) {
       $item = $xml->write_tag("title", $news["caption"], 3);
