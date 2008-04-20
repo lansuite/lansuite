@@ -20,7 +20,7 @@ else {
 
   $selections = array();
   $selections[''] = t('Nicht Modul-spezifisch');
-  $res = $db->query("SELECT name FROM {$config['tables']['modules']}");
+  $res = $db->qry("SELECT name FROM %prefix%modules");
   while ($row = $db->fetch_array($res)) $selections[$row['name']] = $row['name'];
   $db->free_result($res);
   $mf->AddField(t('Betrifft Modul'), 'module', IS_SELECTION, $selections, FIELD_OPTIONAL);
@@ -39,7 +39,7 @@ else {
   if ($auth['type'] >= 2) {
     $selections = array();
     $selections['0'] = t('Keinem zugeordnet');
-    $res = $db->query("SELECT userid, username FROM {$config['tables']['user']} WHERE type >= 2");
+    $res = $db->qry("SELECT userid, username FROM %prefix%user WHERE type >= 2");
     while ($row = $db->fetch_array($res)) $selections[$row['userid']] = $row['username'];
     $db->free_result($res);
     $mf->AddField(t('Bearbeiter'), 'agent', IS_SELECTION, $selections, FIELD_OPTIONAL);

@@ -17,7 +17,7 @@ switch($_GET['step']) {
     $export->LSTableHead('bugs.xml');
 
     $entrys = '';
-    $res = $db->query("SELECT * FROM {$config['tables']['bugtracker']} WHERE state = 0 OR state = 1");
+    $res = $db->qry("SELECT * FROM %prefix%bugtracker WHERE state = 0 OR state = 1");
     while ($row = $db->fetch_array($res)) {
       $entry = '';
       $data = '';
@@ -33,7 +33,7 @@ switch($_GET['step']) {
       $entry .= $xml->write_master_tag('main', $data, 3);
 
       $comments = '';
-      $res2 = $db->query("SELECT date, text FROM {$config['tables']['comments']} WHERE relatedto_item = 'BugEintrag' AND relatedto_id = {$row['bugid']}");
+      $res2 = $db->qry("SELECT date, text FROM %prefix%comments WHERE relatedto_item = 'BugEintrag' AND relatedto_id = %int%", $row['bugid']);
       while ($row2 = $db->fetch_array($res2)) {
         $comment = '';
         $comment .= $xml->write_tag('text', $row2['text'], 5);

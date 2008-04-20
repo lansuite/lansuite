@@ -19,7 +19,7 @@ class Bugtracker {
     global $db, $config, $func, $auth, $mail;
 
     if ($auth['type'] <= 1) {
-      $row = $db->query_first("SELECT reporter, caption, state FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
+      $row = $db->qry_first("SELECT reporter, caption, state FROM %prefix%bugtracker WHERE bugid = %int%", $bugid);
       if (!(($row['state'] == 0 and $state == 1) or ($row['state'] == 4 and $state == 7) or ($row['state'] == 3 and $state == 2))) {
         $func->information(t('Der Status des Bugreports <b>"%1"</b> konnte nicht geändert werden, da Sie nur von <b>"Neu" auf "Bestätigt"</b>, von <b>"Feedback benötigt" auf "In Bearbeitung"</b> und von <b>"Behoben" auf "Wiedereröffnet"</b> wechseln dürfen.', array($row['caption'])));
         return;
@@ -30,9 +30,9 @@ class Bugtracker {
       }
     }
 
-    $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['bugtracker']} WHERE state = ". (int)$state ." AND bugid = ". (int)$bugid);
+    $row = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker WHERE state = %int% AND bugid = %int%", $state, $bugid);
     if (!$row['found']) {
-      $db->query("UPDATE {$config['tables']['bugtracker']} SET state = ". (int)$state .' WHERE bugid = '. (int)$bugid);
+      $db->qry("UPDATE %prefix%bugtracker SET state = %int% WHERE bugid = ", $state, $bugid);
       $func->log_event(t('Bugreport auf Status <b>"%1"</b> geändert', array($this->stati[$state])), 1, '', $bugid);
 
       // Mails
@@ -40,7 +40,7 @@ class Bugtracker {
 
 [url=index.php?mod=bugtracker&bugid=%2]'. t('Zum Bug-Eintrag') .'[/url]';
       if ($state == 1 or $state == 2 or $state == 3 or $state == 4 or $state == 5 or $state == 6) {
-        $row = $db->query_first("SELECT reporter, caption FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
+        $row = $db->qry_first("SELECT reporter, caption FROM %prefix%bugtracker WHERE bugid = %int%", $bugid);
         if ($row['reporter'] != $auth['userid']) {
           switch ($state) {
             case 1: $mail->create_sys_mail($row['reporter'], t('Ihr Bugreport wurde bestätigt'), t('Der Status Ihres Bugreports [b]"%1"[/b] wurde auf [b]"Bestätigt"[/b] gesetzt. Dies bedeutet, dass der Fehler bekannt ist (bzw. der Feature-Wunsch anerkannt wurde), sich jedoch noch kein Bearbeiter gefunden hat.'. $AddLink, array($row['caption'], $bugid)));
@@ -60,7 +60,7 @@ class Bugtracker {
         }
       }
       if ($state == 2 or $state == 7) {
-        $row = $db->query_first("SELECT agent, caption FROM {$config['tables']['bugtracker']} WHERE bugid = ". (int)$bugid);
+        $row = $db->qry_first("SELECT agent, caption FROM %prefix%bugtracker WHERE bugid = %int%", $bugid);
         if ($row['agent'] != $auth['userid']) {
           switch ($state) {
             case 2: $mail->create_sys_mail($row['agent'], t('Ein Ihnen zugewiesener Bugreport wartet auf seine Bearbeitung'), t('Der Status des Bugreports [b]"%1"[/b] wurde auf [b]"In Bearbeitung"[/b] gesetzt. Entweder hat ein Administrator Ihnen den Eintrag zugewiesen oder ein Benutzer hat das von Ihnen erwartete Feedback übermittelt und den Status anschließend geändert. Näheres erfahren Sie eventuell in den Kommentaren dieses Bug-Reports.'. $AddLink, array($row['caption'], $bugid)));
@@ -77,13 +77,13 @@ class Bugtracker {
   function AssignBugToUserInternal($bugid, $userid) {
     global $db, $config, $func, $auth;
 
-    $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['bugtracker']} WHERE agent = ". (int)$userid ." AND bugid = ". (int)$bugid);
+    $row = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker WHERE agent = %int% AND bugid = %int%", $userid, $bugid);
     if (!$row['found']) {
-      if ($auth['type'] > 1) $db->query("UPDATE {$config['tables']['bugtracker']} SET agent = ". (int)$userid .' WHERE bugid = '. (int)$bugid);
+      if ($auth['type'] > 1) $db->qry("UPDATE %prefix%bugtracker SET agent = %int% WHERE bugid = %int%", $userid, $bugid);
 
       if ($userid == 0) $func->log_event(t('Benutzerzuordnung gelöscht'), 1, '', $bugid);
       else {
-        $row = $db->query_first("SELECT username FROM {$config['tables']['user']} WHERE userid = ". (int)$userid);
+        $row = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
         $func->log_event(t('Bugreport Benutzer <b>"%1"</b> zugeordnet', array($row['username'])), 1, '', $bugid);
       }
     }
