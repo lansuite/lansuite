@@ -31,7 +31,7 @@ class func {
 	function read_db_config() {
 		global $db, $config;
 
-		$get_conf = $db->query("SELECT cfg_value, cfg_key FROM {$config["tables"]["config"]}");
+		$get_conf = $db->qry("SELECT cfg_value, cfg_key FROM %prefix%config");
 		while ($row=$db->fetch_array($get_conf)) $cfg["{$row['cfg_key']}"] = $row['cfg_value'];
 		$db->free_result($get_conf);
 
@@ -131,7 +131,7 @@ class func {
 			echo(t('Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)'));
 		} else { 
 			$date = date("U");
-			$db->query("INSERT INTO {$config["tables"]["infobox"]} SET userid='$userid', class='$item', id_in_class = '$itemid', text='$text', date='$date', priority='$priority'");
+			$db->qry("INSERT INTO %prefix%infobox SET userid=%int%, class=%string%, id_in_class = %int%, text=%string%, date=%string%, priority=%string%", $userid, $item, $itemid, $text, $date, $priority);
 		}
 	}
 

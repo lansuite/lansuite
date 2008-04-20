@@ -13,7 +13,7 @@ class sec {
     if ($cfg["reload_limit"]) {
   		// Reload-Black-List
   		if (!$cfg["reload_time"]) $cfg["reload_time"] = 600;
-  		$db->query("DELETE FROM {$config["tables"]["ip_hits"]} WHERE (date + {$cfg["reload_time"]}) < ". time());
+  		$db->qry("DELETE FROM %prefix%ip_hits WHERE (date + %string%) < %string%", $cfg["reload_time"], time());
 
   		$db->query("INSERT INTO {$config["tables"]["ip_hits"]} SET ip = '{$_SERVER['REMOTE_ADDR']}', module = '{$_GET["mod"]}', action = '{$_GET["action"]}', step = '{$_GET["step"]}', date = ". time());
 
