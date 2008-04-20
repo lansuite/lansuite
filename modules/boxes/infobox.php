@@ -6,12 +6,12 @@ if($auth['login'] == 1) {
 	// Checkout infos
 	$halfanhour = date("U") - 30*60;
 
-	$query = $db->query("SELECT	userid, text, priority, date
-		FROM {$config["tables"]["infobox"]}
-		WHERE userid = '{$_SESSION["auth"]["userid"]}' AND date > $halfanhour
+	$query = $db->qry("SELECT userid, text, priority, date
+		FROM %prefix%infobox
+		WHERE userid = %int% AND date > %int%
 		ORDER BY priority DESC, date DESC
 		LIMIT 0,3
-		");
+		", $_SESSION["auth"]["userid"], $halfanhour);
 
 	while ($row=$db->fetch_array()) {
 		if ($row["priority"] == "1") 	$class = "row_value";

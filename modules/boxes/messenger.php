@@ -7,12 +7,12 @@ if ($auth['login']) {
 	// Buddylist
 	$box->EngangedRow('<span class="copyright">-- Buddy List --</span>');
 
-	$query = $db->query("SELECT b.buddyid, u.username
-		FROM {$config["tables"]["buddys"]} b
-		LEFT JOIN {$config["tables"]["user"]} u ON u.userid = b.buddyid
-		WHERE b.userid = '{$auth['userid']}'
+	$query = $db->qry("SELECT b.buddyid, u.username
+		FROM %prefix%buddys b
+		LEFT JOIN %prefix%user u ON u.userid = b.buddyid
+		WHERE b.userid = %int%
 		ORDER BY u.username
-		");
+		", $auth['userid']);
 	while ($row = $db->fetch_array($query)) {
 
 		// Is user online, or offline?
@@ -61,12 +61,12 @@ if ($auth['login']) {
 	if ($buddycount < 1) $box->DotRow("<i>". t('Noch keine Buddies') ."</i>");
 
 	// Users not in buddylist
-	$querynotinlist = $db->query("SELECT m.senderid, u.username
-		FROM {$config['tables']['messages']} m
-		LEFT JOIN {$config["tables"]["user"]} u ON u.userid = m.senderid
-		WHERE m.receiverid = '{$auth['userid']}' AND m.new = 1
+	$querynotinlist = $db->qry("SELECT m.senderid, u.username
+		FROM %prefix%messages m
+		LEFT JOIN %prefix%user u ON u.userid = m.senderid
+		WHERE m.receiverid = %int% AND m.new = 1
 		ORDER BY u.username
-		");
+		", $auth['userid']);
 	while ($row=$db->fetch_array($querynotinlist)) {
 		// Session ID
 		$msg_sid = "&" . session_name() . "=" . session_id();

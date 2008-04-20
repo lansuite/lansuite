@@ -140,7 +140,7 @@ function IsWWCLT() {
   global $db, $config, $party;
   if ($_GET['mod'] != 'tournament2') return 0;
   else {
-    $row = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["tournament_tournaments"]} WHERE wwcl_gameid > 0 AND party_id = '{$party->party_id}'");
+    $row = $db->qry_first("SELECT 1 AS found FROM %prefix%tournament_tournaments WHERE wwcl_gameid > 0 AND party_id = %int%", $party->party_id);
     if ($row['found']) return 1;
     else return 0;
   }
@@ -149,12 +149,12 @@ function IsWWCLT() {
 $box = new boxes();
 
 // Fetch Boxes
-$BoxRes = $db->query("SELECT boxid, name, place, source, module, callback FROM {$config["tables"]["boxes"]}
+$BoxRes = $db->qry("SELECT boxid, name, place, source, module, callback FROM %prefix%boxes
   WHERE active = 1
-    AND (internet = 0 OR internet = ". (int)$cfg['sys_internet'] ." + 1)
-    AND (login = 0 OR (login = 1 AND ". (int)$auth['login'] ." = 0) OR (login = 2 AND ". (int)$auth['login'] ." = 1) OR (login > 2 AND login >= {$auth['type']} - 1))
+    AND (internet = 0 OR internet = %int% + 1)
+    AND (login = 0 OR (login = 1 AND %int% = 0) OR (login = 2 AND %int% = 1) OR (login > 2 AND login >= %int% - 1))
   ORDER BY pos
-  ");
+  ", $cfg['sys_internet'], $auth['login'], $auth['login'], $auth['type']);
 $MenuActive = 0;
 while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or in_array($BoxRow['module'], $ActiveModules))
 and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {

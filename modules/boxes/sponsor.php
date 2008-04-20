@@ -4,7 +4,7 @@ $box->DotRow(t('Wir danken').':');
 
 if (!$cfg["sponsor_picwidth"]) $cfg["sponsor_picwidth"] = 120;
 
-$sponsoren = $db->query("SELECT * FROM {$config['tables']['sponsor']}
+$sponsoren = $db->qry("SELECT * FROM %prefix%sponsor
 		WHERE active
 		ORDER BY pos, sponsorid");
 

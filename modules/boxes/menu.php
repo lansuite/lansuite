@@ -46,18 +46,18 @@ function FetchItem ($item) {
 if (!$_GET['menu_group']) $_GET['menu_group'] = 0;
 
 // Get Main-Items
-$res = $db->query("SELECT menu.*
-	FROM {$config['tables']['menu']} AS menu
-	LEFT JOIN {$config['tables']['modules']} AS module ON menu.module = module.name
+$res = $db->qry("SELECT menu.*
+	FROM %prefix%menu AS menu
+	LEFT JOIN %prefix%modules AS module ON menu.module = module.name
 	WHERE ((module.active) OR (menu.caption = '--hr--'))
-	AND (menu.caption != '') AND (menu.level = 0) AND (menu.group_nr = {$_GET['menu_group']})
+	AND (menu.caption != '') AND (menu.level = 0) AND (menu.group_nr = %int%)
 	AND ((menu.requirement = '') OR (menu.requirement = 0)
-	OR (menu.requirement = 1 AND ". (int)$auth['login'] ." = 1)
-	OR (menu.requirement = 2 AND ". (int)$auth['type'] ." > 1)
-	OR (menu.requirement = 3 AND ". (int)$auth['type'] ." > 2)
-	OR (menu.requirement = 4 AND ". (int)$auth['type'] ." = 1)
-	OR (menu.requirement = 5 AND ". (int)$auth['login'] ." = 0))
-	ORDER BY menu.pos");
+	OR (menu.requirement = 1 AND %int% = 1)
+	OR (menu.requirement = 2 AND %int% > 1)
+	OR (menu.requirement = 3 AND %int% > 2)
+	OR (menu.requirement = 4 AND %int% = 1)
+	OR (menu.requirement = 5 AND %int% = 0))
+	ORDER BY menu.pos", $_GET['menu_group'], $auth['login'], $auth['type'], $auth['type'], $auth['type'], $auth['login']);
 
 while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '' or call_user_func($main_item['needed_config'], '')) {
   $templ['box']['rows'] = '';
@@ -66,16 +66,16 @@ while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '
 	// If selected Module: Get Sub-Items
 	if (isset($_GET['module'])) $module = $_GET['module']; else $module = $_GET['mod'];
 	if ($module and $main_item['module'] == $module and $main_item['action'] != 'show_info2') {
-		$res2 = $db->query("SELECT menu.*
-			FROM {$config['tables']['menu']} AS menu
-			WHERE (menu.caption != '') AND (menu.level = 1) AND (menu.module = '$module')
+		$res2 = $db->qry("SELECT menu.*
+			FROM %prefix%menu AS menu
+			WHERE (menu.caption != '') AND (menu.level = 1) AND (menu.module = %string%)
 			AND ((menu.requirement = '') OR (menu.requirement = 0)
-			OR (menu.requirement = 1 AND ". (int)$auth['login'] ." = 1)
-			OR (menu.requirement = 2 AND ". (int)$auth['type'] ." > 1)
-			OR (menu.requirement = 3 AND ". (int)$auth['type'] ." > 2)
-			OR (menu.requirement = 4 AND ". (int)$auth['type'] ." = 1)
-			OR (menu.requirement = 5 AND ". (int)$auth['login'] ." = 0))
-			ORDER BY menu.requirement, menu.pos");
+			OR (menu.requirement = 1 AND %int% = 1)
+			OR (menu.requirement = 2 AND %int% > 1)
+			OR (menu.requirement = 3 AND %int% > 2)
+			OR (menu.requirement = 4 AND %int% = 1)
+			OR (menu.requirement = 5 AND %int% = 0))
+			ORDER BY menu.requirement, menu.pos", $module, $auth['login'], $auth['type'], $auth['type'], $auth['type'], $auth['login']);
 		while ($sub_item = $db->fetch_array($res2)) if ($sub_item['needed_config'] == '' or call_user_func($sub_item['needed_config'], ''))
 			FetchItem($sub_item);
 		$db->free_result($res2);
@@ -84,10 +84,7 @@ while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '
 		if ($auth['type'] > 2) {
 /*
       $AdminIcons = '';
-			$find_config = $db->query_first("SELECT cfg_key
-					FROM {$config['tables']['config']}
-					WHERE cfg_module = '$module'
-					");
+			$find_config = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_module = %string%", $module);
 			if ($find_config['cfg_key'])
 				$AdminIcons .= $box->LinkItem('index.php?mod=install&amp;action=modules&amp;step=10&amp;module='. $module, t('Konf.'), 'admin', t('Modul-Konfiguration')) .' | ';
 

@@ -1,8 +1,8 @@
 <?php
 $templ['box']['rows'] = "";
 
-$row = $db->query_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.pollid) AS votes FROM {$config["tables"]["polls"]} AS p
-  LEFT JOIN {$config["tables"]["pollvotes"]} AS v on p.pollid = v.pollid
+$row = $db->qry_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.pollid) AS votes FROM %prefix%polls AS p
+  LEFT JOIN %prefix%pollvotes AS v on p.pollid = v.pollid
   GROUP BY p.pollid
   ORDER BY p.changedate ASC
   ");
