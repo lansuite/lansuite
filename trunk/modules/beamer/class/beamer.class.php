@@ -26,7 +26,7 @@ class beamer {
    return $row['n']; 
   }
   
-  function countContent( $status = NULL, $beamerid = null ) { 			// Liefert die Anzahl der Inhalte mit Wahlmˆglichkeit vom Aktiv-Status
+  function countContent( $status = NULL, $beamerid = null ) { 			// Liefert die Anzahl der Inhalte mit Wahlm√∂glichkeit vom Aktiv-Status
 	if( $beamerid ) { $beamerid_sql = " b$beamerid = '1' "; } else { $beamerid_sql = ""; }
   	switch ($status) {
 		case ""  : $status_sql = ""; break;
@@ -54,9 +54,9 @@ class beamer {
 	$active = $row['active'];
 	
 	if( $active == "1" ) {
-		$insert_sql = $db->query("UPDATE {$config["tables"]["beamer_content"]} SET active = '0' WHERE bcID = '$bcid' LIMIT 1");
+		$insert_sql = $db->qry("UPDATE %prefix%beamer_content SET active = '0' WHERE bcID = %int% LIMIT 1", $bcid);
 	} else {
-		$insert_sql = $db->query("UPDATE {$config["tables"]["beamer_content"]} SET active = '1' WHERE bcID = '$bcid' LIMIT 1");	
+		$insert_sql = $db->qry("UPDATE %prefix%beamer_content SET active = '1' WHERE bcID = %int% LIMIT 1", $bcid);	
 	}
   }
 
@@ -67,16 +67,16 @@ class beamer {
   	$row = $db->query_first( 'SELECT b'.$beamerid.' As active FROM ' . $config["tables"]["beamer_content"] . ' WHERE bcID = ' . $bcid );
 	$active = $row['active'];
 	if( $active == "1" ) {
-		$insert_sql = $db->query("UPDATE {$config["tables"]["beamer_content"]} SET b$beamerid = '0' WHERE bcID = $bcid LIMIT 1");
+		$insert_sql = $db->qry("UPDATE %prefix%beamer_content SET b%plain% = '0' WHERE bcID = %int% LIMIT 1", $beamerid, $bcid);
 	} else {
-		$insert_sql = $db->query("UPDATE {$config["tables"]["beamer_content"]} SET b$beamerid = '1' WHERE bcID = $bcid LIMIT 1");	
+		$insert_sql = $db->qry("UPDATE %prefix%beamer_content SET b%plain% = '1' WHERE bcID = %int% LIMIT 1", $beamerid, $bcid);	
 	}
   }
 
   function deleteContent ( $bcid ) {
   global $db, $config;
   
-  	$delete =  $db->query("DELETE FROM {$config["tables"]["beamer_content"]} WHERE bcID = '$bcid' LIMIT 1");
+  	$delete =  $db->qry("DELETE FROM %prefix%beamer_content WHERE bcID = %int% LIMIT 1", $bcid);
   
   }
   
@@ -107,9 +107,9 @@ class beamer {
   }
   
   
-  /*	System: Es wird immer der ‰lteste Eintrag angezeigt und bei jedem Anzeigen der Counter gez‰hlt. Ist der Counter auf Null bekommt der 
+  /*	System: Es wird immer der √§lteste Eintrag angezeigt und bei jedem Anzeigen der Counter gez√§hlt. Ist der Counter auf Null bekommt der 
   * 	Eintrag den aktuellen Zeitstempler und der Counter geht wieder auf sein max-wert.
-  *     Die ‹bergabe des Content muss hinsichtlich anderen Medien noch angepasst werden. Mit TEXT passt das erstmal so.
+  *     Die √úbergabe des Content muss hinsichtlich anderen Medien noch angepasst werden. Mit TEXT passt das erstmal so.
   */
   
   function getCurrentContent ( $beamerid ) {
