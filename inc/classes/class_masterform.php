@@ -140,7 +140,7 @@ class masterform {
     }
 
     // Get SQL-Field Types
-    $res = $db->query("DESCRIBE {$config['tables'][$table]}");
+    $res = $db->qry("DESCRIBE %prefix%%plain%", $table);
     while ($row = $db->fetch_array($res)) {
       $SQLFieldTypes[$row['Field']] = $row['Type'];
       if ($row['Key'] == 'PRI' or $row['Key'] == 'UNI') $SQLFieldUnique[$row['Field']] = true;
@@ -175,7 +175,7 @@ class masterform {
           // Select current values for Multi-Line-Edit
           if ($this->MultiLineID) {
             $z = 0;
-            $res = $db->query("SELECT $idname $db_query FROM {$config['tables'][$table]} WHERE ". $this->MultiLineID);
+            $res = $db->qry("SELECT %plain% %plain% FROM %prefix%%plain% WHERE %plain%", $idname, $db_query, $table, $this->MultiLineID);
             while ($row = $db->fetch_array($res)) {
               foreach ($this->SQLFields as $key => $val) $_POST[$val .'['. $row[$idname]. ']'] = $row[$val];
               $z++;
@@ -240,7 +240,7 @@ class masterform {
               if ($err) $this->error[$field['name']] = $err;
 
               // Check for value
-              if (!$field['optional'] and $_POST[$field['name']] == '') $this->error[$field['name']] = t('Bitte füllen Sie dieses Pflichtfeld aus.');
+              if (!$field['optional'] and $_POST[$field['name']] == '') $this->error[$field['name']] = t('Bitte fÃ¼llen Sie dieses Pflichtfeld aus.');
 
               // Check Int
               elseif (strpos($SQLFieldTypes[$field['name']], 'int') !== false and $SQLFieldTypes[$field['name']] != 'tinyint(1)'
@@ -254,7 +254,7 @@ class masterform {
                 $this->error[$field['name']] = t('Das eingegebene Datum ist nicht korrekt.');
               // Check new passwords
               } elseif ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
-                $this->error[$field['name'].'2'] = t('Die beiden Kennworte stimmen nicht überein.');
+                $this->error[$field['name'].'2'] = t('Die beiden Kennworte stimmen nicht Ã¼berein.');
 
               // Check captcha
               elseif ($field['type'] == IS_CAPTCHA and ($_POST['captcha'] == '' or $_COOKIE['image_auth_code'] != md5(strtoupper($_POST['captcha']))))
@@ -304,7 +304,7 @@ class masterform {
 
         // InsertControll check box - the table entry will only be created, if this check box is checked, otherwise the existing entry will be deleted
         if ($this->AddInsertControllField != '') {
-          $find_entry = $db->query("SELECT * FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
+          $find_entry = $db->qry("SELECT * FROM %prefix%%plain% WHERE %plain% %plain% = %int%" , $table, $AddKey, $idname, $id);
           if ($db->num_rows($find_entry)) $_POST[$InsContName] = 1;
 
           $this->DependOnStarted = $this->NumFields;
@@ -546,8 +546,8 @@ class masterform {
                 $db_query = '';
                 foreach ($this->SQLFields as $key => $val) $db_query .= "$val = '". $_POST[$val][$value2] ."', ";
                 $db_query = substr($db_query, 0, strlen($db_query) - 2);
-                $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $idname = ". (int)$value2);
-                $func->log_event(t('Eintrag #%1 in Tabelle "%2" ge�ndert', array($value2, $config['tables'][$table])), 1, '', $this->LogID);
+                $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% = %int%", $table, $db_query, $idname. $value2);
+                $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($value2, $config['tables'][$table])), 1, '', $this->LogID);
 
               } else {
                 foreach ($this->SQLFields as $key => $val) {
@@ -567,7 +567,7 @@ class masterform {
                 else {
                   if ($this->isChange) {
                     $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $AddKey $idname = ". (int)$id);
-                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" ge�ndert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
                   } else {
                     $DBInsertQuery = $db_query;
                     if ($this->AdditionalKey != '') $DBInsertQuery .= ', '. $this->AdditionalKey;
@@ -575,7 +575,7 @@ class masterform {
                     $db->query("INSERT INTO {$config['tables'][$table]} SET $DBInsertQuery");
                     $id = $db->insert_id();
                     $this->insert_id = $id;
-                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingef�gt', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefügt', array($id, $config['tables'][$table])), 1, '', $this->LogID);
                     $addUpdSuccess = $id;
                   }
                 }
@@ -584,8 +584,8 @@ class masterform {
 
             if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
             if ($addUpdSuccess) {
-              if ($this->isChange) $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer']);
-              else $func->confirmation(t('Die Daten wurden erfolgreich eingefügt.'), $this->LinkBack);
+              if ($this->isChange) $func->confirmation(t('Die Daten wurden erfolgreich geÃ¤ndert.'), $_SESSION['mf_referrer']);
+              else $func->confirmation(t('Die Daten wurden erfolgreich eingefÃ¼gt.'), $this->LinkBack);
             }
           }
 
@@ -618,12 +618,12 @@ function CheckValidEmail($email){
     $allTLD = array_merge($TLD, $newTLD);
 
     list($userName, $hostName) = explode('@', $email);
-    if (!preg_match("/^[a-z0-9\_\-\.\%]+$/i", $userName)) return t('Diese Email ist ung�ltig (Falscher Benutzer-Teil)');
-    if (!preg_match("/^([a-z0-9]+[\-\.]{0,1})+\.[a-z]+$/i", $hostName)) return t('Diese Email ist ung�ltig (Falscher Host-Teil)');
+    if (!preg_match("/^[a-z0-9\_\-\.\%]+$/i", $userName)) return t('Diese Email ist ungültig (Falscher Benutzer-Teil)');
+    if (!preg_match("/^([a-z0-9]+[\-\.]{0,1})+\.[a-z]+$/i", $hostName)) return t('Diese Email ist ungültig (Falscher Host-Teil)');
 
     $subdomains = explode('.', $hostName);
     $tld = $subdomains[count($subdomains) - 1];
-    if (!in_array($tld, $allTLD)) return t('Diese Email ist ung�ltig (Nicht exitsierende Domain)');
+    if (!in_array($tld, $allTLD)) return t('Diese Email ist ungültig (Nicht exitsierende Domain)');
   }
   return false;
 }

@@ -18,14 +18,14 @@ class masterdelete {
     }
 
     // Delete main table
-    $res = $db->query("DELETE FROM {$config['tables'][$table]} WHERE $idname = '$id'");
+    $res = $db->qry("DELETE FROM %prefix%%plain% WHERE $idname = %string%", $table, $id);
 		if ($res) {
 
       // Delete master tables, if content is now missing
       foreach ($this->DeleteIfEmpty as $key => $val) {
         if ($val == '') $val = $idname;
         $row = $db->query_first("SELECT 1 AS found FROM {$config['tables'][$table]} WHERE $val = '{$MasterKey[$key]}'");
-        if (!$row['found']) $db->query("DELETE FROM {$config['tables'][$key]} WHERE $val = '{$MasterKey[$key]}'");
+        if (!$row['found']) $db->qry("DELETE FROM %prefix%%plain% WHERE $val = %string%", $key, $MasterKey[$key]);
       }
 
       // Delete all attached tables
