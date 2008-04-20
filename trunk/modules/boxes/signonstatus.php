@@ -94,7 +94,7 @@ else {
 
   $box->EngangedRow($count);
 
-  $checked = $db->query_first("SELECT checked as n FROM {$config["tables"]["partys"]} WHERE party_id = ".(int)$party->party_id);
+  $checked = $db->qry_first("SELECT checked as n FROM %prefix%partys WHERE party_id = %int%", $party->party_id);
   $box->EmptyRow();
   $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>" );
   $box->EngangedRow($func->unixstamp2date($checked['n'],"datetime" ));

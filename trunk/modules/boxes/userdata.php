@@ -30,11 +30,11 @@ $box->EngangedRow("<b>$username</b> ". $dsp->FetchUserIcon($auth["userid"]));
 #$box->EngangedRow($icons);
 
 // Show last log in and login count
-$user_lg = $db->query_first("SELECT user.logins, max(auth.logintime) AS logintime
-	FROM {$config['tables']['user']} AS user
-	LEFT JOIN {$config['tables']['stats_auth']} AS auth ON auth.userid = user.userid
-	WHERE user.userid=\"".$auth["userid"]."\"
-	GROUP BY auth.userid");
+$user_lg = $db->qry_first("SELECT user.logins, max(auth.logintime) AS logintime
+	FROM %prefix%user AS user
+	LEFT JOIN %prefix%stats_auth AS auth ON auth.userid = user.userid
+	WHERE user.userid = %int%
+	GROUP BY auth.userid", $auth["userid"]);
 
 if (isset($_POST['login']) and isset($_POST['password'])) {
   $box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] .'</b>');
@@ -48,10 +48,10 @@ $box->DotRow(t('Meine Einstellungen'), "index.php?mod=usrmgr&amp;action=settings
 
 // New-Mail Notice
 if (in_array('mail', $ActiveModules)) {
-	$mails_new = $db->query("SELECT mailID
-		FROM {$config["tables"]["mail_messages"]}
-		WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active' AND rx_date IS NULL
-		");
+	$mails_new = $db->qry("SELECT mailID
+		FROM %prefix%mail_messages
+		WHERE ToUserID = %int% AND mail_status = 'active' AND rx_date IS NULL
+		", $auth['userid']);
 
 	if ($db->num_rows($mails_new) > 0) {
     $found_not_popped_up_mail = false;
@@ -80,8 +80,8 @@ if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php
 //Zeige Anmeldestatus
 if($party->count != 0 & $_SESSION['party_info']['partyend'] > time())
 {
-$query_signstat = $db->query_first("SELECT * FROM {$config["tables"]["party_user"]} AS pu
-				WHERE pu.user_id = '{$auth["userid"]}' AND pu.party_id = '{$_SESSION["party_id"]}'");
+$query_signstat = $db->qry_first("SELECT * FROM %prefix%party_user AS pu
+				WHERE pu.user_id = %int% AND pu.party_id = %int%", $auth["userid"], $_SESSION["party_id"]);
 				
 				if($query_signstat == null) 
 				{
@@ -99,8 +99,7 @@ $query_signstat = $db->query_first("SELECT * FROM {$config["tables"]["party_user
 						$paidstat = '<font color="red">'. t('Nein') .'!</font>';
 					}
 
-$query_partys = $db->query_first("SELECT * FROM {$config["tables"]["partys"]} AS p
-				WHERE p.party_id = '{$_SESSION["party_id"]}'");	
+$query_partys = $db->qry_first("SELECT * FROM %prefix%partys AS p WHERE p.party_id = %int%", $_SESSION["party_id"]);	
 					
 $box->DotRow("<b>".$query_partys["name"]."</b> ". t('Status') .':');
 $box->EngangedRow(t('Angemeldet') .': <b>'. $signstat .'</b><br> '. $signstat_info);

@@ -3,8 +3,8 @@ $templ['box']['rows'] = "";
 
 //Anpassungen funky
 srand;
-$sd_row = $db->query_first("SELECT COUNT(p.pollid) AS activepolls FROM {$config["tables"]["polls"]} AS p
-                        WHERE p.endtime = 0 OR p.endtime > ". time());
+$sd_row = $db->qry_first("SELECT COUNT(p.pollid) AS activepolls FROM %prefix%polls AS p
+                        WHERE p.endtime = 0 OR p.endtime > %int%", time());
 						
 if($sd_row["activepolls"] > 0) 
 {						
@@ -28,18 +28,18 @@ if($sd_row["activepolls"] > 0)
 
 if($sd_pollid != -1)
 {
-	$row = $db->query_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.pollid) AS votes FROM {$config["tables"]["polls"]} AS p
-	  LEFT JOIN {$config["tables"]["pollvotes"]} AS v on p.pollid = v.pollid
-	  WHERE p.pollid = ". $sd_pollid ." 
+	$row = $db->qry_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.pollid) AS votes FROM %prefix%polls AS p
+	  LEFT JOIN %prefix%pollvotes AS v on p.pollid = v.pollid
+	  WHERE p.pollid = %int% 
 	  GROUP BY p.pollid
-	  ");
+	  ", $sd_pollid);
 }
 else
 {
 //-Anpassungen funky
 
-	$row = $db->query_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.pollid) AS votes FROM {$config["tables"]["polls"]} AS p
-	  LEFT JOIN {$config["tables"]["pollvotes"]} AS v on p.pollid = v.pollid
+	$row = $db->qry_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.pollid) AS votes FROM %prefix%polls AS p
+	  LEFT JOIN %prefix%pollvotes AS v on p.pollid = v.pollid
 	  GROUP BY p.pollid
 	  ORDER BY p.changedate ASC
 	  ");

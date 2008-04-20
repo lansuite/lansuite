@@ -2,12 +2,12 @@
 switch ($_GET['step']) {
   // Activate
   case 10:
-    foreach ($_POST['action'] AS $key => $val) $db->query("UPDATE {$config["tables"]["boxes"]} SET active = 1 WHERE boxid = ". (int)$key);
+    foreach ($_POST['action'] AS $key => $val) $db->qry("UPDATE %prefix%boxes SET active = 1 WHERE boxid = %int%", $key);
   break;
   
   // Deactivate
   case 11:
-    foreach ($_POST['action'] AS $key => $val) $db->query("UPDATE {$config["tables"]["boxes"]} SET active = 0 WHERE boxid = ". (int)$key);
+    foreach ($_POST['action'] AS $key => $val) $db->qry("UPDATE %prefix%boxes SET active = 0 WHERE boxid = %int%", $key);
   break;
   
   // Edit
