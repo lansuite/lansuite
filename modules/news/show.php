@@ -157,7 +157,7 @@ else {
         } // CLOSE WHILE
         
         //SHOW SHORTED NEWS
-        $get_newsshorted = $db->query("SELECT from_unixtime(n.date,'%W, %d.%m.%Y'),from_unixtime(n.date,'%H:%i'), n.caption, n.text, u.username, n.newsid FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT %plain%", $cfg["news_complete"] ."," .$cfg["news_shorted"]);
+        $get_newsshorted = $db->qry("SELECT from_unixtime(n.date,'%W, %d.%m.%Y'),from_unixtime(n.date,'%H:%i'), n.caption, n.text, u.username, n.newsid FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT %plain%", $cfg["news_complete"] ."," .$cfg["news_shorted"]);
         while($row=$db->fetch_array($get_newsshorted)) {
           $tmpDate = $func->translate_weekdayname(substr($row[0],0,strpos($row[0],","))) . substr($row[0],strpos($row[0],","));
           $shortnews[$tmpDate][$row[1]]['caption'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=" .$row[5] ."\">" .$row[2] ."</a>";
