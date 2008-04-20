@@ -40,7 +40,7 @@ function NewPosts($last_read) {
 	global $db, $config, $auth, $line;
 
 	// Delete old entries
-	$db->query("DELETE FROM {$config["tables"]["board_read_state"]} WHERE last_read < ". (time() - 60 * 60 * 24 * 7));
+	$db->qry("DELETE FROM %prefix%board_read_state WHERE last_read < %int%", (time() - 60 * 60 * 24 * 7));
 
 	// Older, than one week
 	if ($line['LastPost'] < (time() - 60 * 60 * 24 * 7)) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">Alt</a>";
@@ -161,7 +161,7 @@ if ($_GET['fid'] == '') {
 
   $list = array();
   $list[''] = t('Alle');
-  $res = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]}");
+  $res = $db->qry("SELECT fid, name FROM %prefix%board_forums");
   while ($row = $db->fetch_array($res)) $list[$row['fid']] = $row['name'];
   $ms2->AddTextSearchDropDown(t('Forum'), 'f.fid', $list);
   $db->free_result($res);
@@ -188,7 +188,7 @@ if ($_GET['action'] != 'bookmark') {
   if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=11&tid=', t('Löschen'));
 
   if ($auth['type'] >= 2) {
-    $res = $db->query("SELECT fid, name FROM {$config['tables']['board_forums']}");
+    $res = $db->qry("SELECT fid, name FROM %prefix%board_forums");
     while ($row = $db->fetch_array($res))
       $ms2->AddMultiSelectAction(t('Verschieben nach '). $row['name'], 'index.php?mod=board&action=forum&step=20&to_fid='. $row['fid'] .'&fid='. $_GET['fid'], 1, 'in');
     $db->free_result($res);
@@ -236,8 +236,8 @@ if ($_GET['fid'] and $auth['login']) {
 }
 
 // Generate Boardlist-Dropdown
-$foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]}
-  WHERE need_type <= ". (int)($auth['type'] + 1) ." AND (!need_group OR need_group = {$auth['group_id']})");
+$foren_liste = $db->qry("SELECT fid, name FROM %prefix%board_forums
+  WHERE need_type <= "%int% AND (!need_group OR need_group = %int%)", ($auth['type'] + 1), $auth['group_id']);
 while ($forum = $db->fetch_array($foren_liste))
   $templ['board']['thread']['case']['control']['goto'] .= "<option value=\"index.php?mod=board&action=forum&fid={$forum["fid"]}\">{$forum["name"]}</option>";
 $templ['board']['forum']['case']['info']['forum_choise'] = t('Bitte auswählen');

@@ -41,12 +41,12 @@ function getuserinfo($userid) {
 if ($auth['type'] >= 2) switch ($_GET['step']) {
   // Close Thread
   case 10:
-    $db->query("UPDATE {$config['tables']['board_threads']} SET closed = 1 WHERE tid = ". (int)$_GET['tid']);
+    $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $_GET['tid']);
   break;
 
   // Open Thread
   case 11:
-    $db->query("UPDATE {$config['tables']['board_threads']} SET closed = 0 WHERE tid = ". (int)$_GET['tid']);
+    $db->qry("UPDATE %prefix%board_threads SET closed = 0 WHERE tid = %int%", $_GET['tid']);
   break;
 }
 
@@ -80,12 +80,12 @@ elseif ($thread['caption'] != '') {
     $buttons .= ' '. $dsp->FetchIcon("index.php?mod=board&action=delete&tid=$tid", "delete");
   }
 
-	$query = $db->query("SELECT pid, comment, userid, date, ip, file FROM {$config['tables']['board_posts']} WHERE tid='$tid' ORDER BY date");
+	$query = $db->qry("SELECT pid, comment, userid, date, ip, file FROM %prefix%board_posts WHERE tid=%int% ORDER BY date", $tid);
 	$count_entrys = $db->num_rows($query);
 	
 	if ($_GET['gotopid']) {
     $z = 0;
-  	$query2 = $db->query("SELECT pid FROM {$config['tables']['board_posts']} WHERE tid='$tid'");
+  	$query2 = $db->qry("SELECT pid FROM %prefix%board_posts WHERE tid=%int%", $tid);
   	while ($row2 = $db->fetch_array($query2)) {
       if ($row2['pid'] == $_GET['gotopid']) break;
       $z++;
@@ -97,7 +97,7 @@ elseif ($thread['caption'] != '') {
   // Page select
 	if ($count_entrys > $cfg['board_max_posts']){
 		$pages = $func->page_split($_GET['posts_page'], $cfg['board_max_posts'], $count_entrys, "index.php?mod=board&action=thread&tid=$tid", "posts_page");
-		$query = $db->query("SELECT pid, comment, userid, date, UNIX_TIMESTAMP(changedate) AS changedate, changecount, ip, file FROM {$config['tables']['board_posts']} WHERE tid='$tid' order by date {$pages['sql']}");
+		$query = $db->qry("SELECT pid, comment, userid, date, UNIX_TIMESTAMP(changedate) AS changedate, changecount, ip, file FROM %prefix%board_posts WHERE tid=%int% order by date %plain%", $tid, $pages['sql']);
 	}
   $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
 
@@ -149,7 +149,7 @@ elseif ($thread['caption'] != '') {
 		$z++;
 	}
 
-	if ($_SESSION['threadview'] != $tid) $db->query("UPDATE {$config["tables"]["board_threads"]} SET views=views+1 WHERE tid='$tid'");
+	if ($_SESSION['threadview'] != $tid) $db->qry("UPDATE %prefix%board_threads SET views=views+1 WHERE tid=%int%", $tid);
 	$_SESSION['threadview'] = $tid;
 
   $dsp->AddSingleRow($buttons.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pages['html']);
@@ -188,14 +188,14 @@ else {
   
     // Update thread-table, if new thread
   	if (!$_GET['tid'] and $_POST['caption'] != '')	{
-  		$db->query("INSERT INTO {$config['tables']['board_threads']} SET
-  				fid = '{$_GET['fid']}',
-  				caption = '{$_POST['caption']}'
-  				");
+  		$db->qry("INSERT INTO %prefix%board_threads SET
+  				fid = %int%,
+  				caption = %string%
+  				", $_GET['fid'], $_POST['caption']);
   		$tid = $db->insert_id();
   
       // Assign just created post to this new thread
-  		$db->query("UPDATE {$config['tables']['board_posts']} SET tid = $tid WHERE pid = $pid");
+  		$db->qry("UPDATE %prefix%board_posts SET tid = %int% WHERE pid = %int%", $tid, $pid);
     }
 
   	// Send email-notifications to thread-subscribers
@@ -203,18 +203,18 @@ else {
 
     if (!$_GET['fid']) $_GET['fid'] = $thread['fid'];
   	// Internet-Mail
-  	$subscribers = $db->query("SELECT b.userid, u.firstname, u.name, u.email FROM {$config["tables"]["board_bookmark"]} AS b
-  		LEFT JOIN {$config["tables"]["user"]} AS u ON b.userid = u.userid
-  		WHERE b.email = 1 and (b.tid = '$tid' or b.fid = ". (int)$_GET['fid'] .")
-  		");
+  	$subscribers = $db->qry("SELECT b.userid, u.firstname, u.name, u.email FROM %prefix%board_bookmark AS b
+  		LEFT JOIN %prefix%user AS u ON b.userid = u.userid
+  		WHERE b.email = 1 and (b.tid = %int% or b.fid = %int%)
+  		", $tid, $_GET['fid']);
   	while ($subscriber = $db->fetch_array($subscribers)) if ($subscriber['userid'] != $auth['userid'])
   		$mail->create_inet_mail($subscriber["firstname"]." ".$subscriber["name"], $subscriber["email"], $cfg["board_subscribe_subject"], str_replace("%URL%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=board&action=thread&tid=$tid", $cfg["board_subscribe_text"]), $cfg["sys_party_mail"]);
   	$db->free_result($subscribers);
   
   	// Sys-Mail
-  	$subscribers = $db->query("SELECT userid FROM {$config["tables"]["board_bookmark"]} AS b
-      WHERE b.sysemail = 1 and (b.tid = '$tid' or b.fid = ". (int)$_GET['fid'] .")
-      ");
+  	$subscribers = $db->qry("SELECT userid FROM %prefix%board_bookmark AS b
+      WHERE b.sysemail = 1 and (b.tid = %int% or b.fid = %int%)
+      ", $tid, $_GET['fid']);
   	while ($subscriber = $db->fetch_array($subscribers)) if ($subscriber['userid'] != $auth['userid'])
   		$mail->create_sys_mail($subscriber["userid"], $cfg["board_subscribe_subject"], str_replace("%URL%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=board&action=thread&tid=$tid", $cfg["board_subscribe_text"]));
   	$db->free_result($subscribers);
@@ -249,8 +249,8 @@ if ($thread['caption'] != '') {
   }
   
   // Generate Boardlist-Dropdown
-  $foren_liste = $db->query("SELECT fid, name FROM {$config["tables"]["board_forums"]}
-    WHERE need_type <= '{$list_type}' AND (!need_group OR need_group = {$auth['group_id']})");
+  $foren_liste = $db->qry("SELECT fid, name FROM %prefix%board_forums
+    WHERE need_type <= %string% AND (!need_group OR need_group = %int%)", $list_type, $auth['group_id']);
   while ($forum = $db->fetch_array($foren_liste))
     $templ['board']['thread']['case']['control']['goto'] .= "<option value=\"index.php?mod=board&action=forum&fid={$forum["fid"]}\">{$forum["name"]}</option>";
   $templ['board']['forum']['case']['info']['forum_choise'] = t('Bitte auswählen');
