@@ -131,7 +131,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     foreach($bugtracker->stati as $key => $val) $ms2->AddMultiSelectAction(t('Status') .' -> '. $val, 'index.php?mod=bugtracker&state='. $key);
 
     $ms2->AddMultiSelectAction(t('Bearbeiter löschen'), 'index.php?mod=bugtracker&userid=0');
-    $res = $db->query("SELECT userid, username FROM {$config['tables']['user']} WHERE type >= 2");
+    $res = $db->qry("SELECT userid, username FROM %prefix%user WHERE type >= 2");
     while ($row = $db->fetch_array($res)) $ms2->AddMultiSelectAction(t('Bearbeiter') .' -> '. $row['username'], 'index.php?mod=bugtracker&userid='. $row['userid']);
     $db->free_result($res);
 
@@ -147,14 +147,14 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 
 // Details page
 } else {
-	$search_read = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["bugtracker_lastread"]} WHERE bugid = ". $_GET['bugid'] ." and userid = '{$auth["userid"]}'");
-	if ($search_read["found"]) $db->query_first("UPDATE {$config["tables"]["bugtracker_lastread"]} SET date = NOW() WHERE bugid = ". $_GET['bugid'] ." and userid = '{$auth["userid"]}'");
-	else $db->query_first("INSERT INTO {$config["tables"]["bugtracker_lastread"]} SET date = NOW(), bugid = ". $_GET['bugid'] .", userid = '{$auth["userid"]}'");
+	$search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker_lastread WHERE bugid = %int% and userid = %int%", $_GET['bugid'], $auth["userid"]);
+	if ($search_read["found"]) $db->qry_first("UPDATE %prefix%bugtracker_lastread SET date = NOW() WHERE bugid = %int% and userid = %int%", $_GET['bugid'], $auth["userid"]);
+	else $db->qry_first("INSERT INTO %prefix%bugtracker_lastread SET date = NOW(), bugid = %int%, userid = %int%", $_GET['bugid'], $auth["userid"]);
 
-  $row = $db->query_first("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, r.username AS reporter_name, a.username AS agent_name FROM {$config['tables']['bugtracker']} AS b
-    LEFT JOIN {$config["tables"]["user"]} AS r ON b.reporter = r.userid
-    LEFT JOIN {$config["tables"]["user"]} AS a ON b.agent = a.userid
-    WHERE bugid=". (int)$_GET['bugid']
+  $row = $db->qry_first("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, r.username AS reporter_name, a.username AS agent_name FROM %prefix%bugtracker AS b
+    LEFT JOIN %prefix%user AS r ON b.reporter = r.userid
+    LEFT JOIN %prefix%user AS a ON b.agent = a.userid
+    WHERE bugid = %int%", $_GET['bugid']
     );
 
   $dsp->NewContent($row['caption'], $types[$row['type']] .', '. t('Priorität') .': '. $row['priority']);
