@@ -20,7 +20,7 @@ switch ($_GET['step']) {
 
     if ($_POST['target_language']) $_SESSION['target_language'] = $_POST['target_language'];
 
-    $dsp->AddFieldSetStart(t('Module Ã¼bersetzen'));
+    $dsp->AddFieldSetStart(t('Module übersetzen'));
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('misc');
     $ms2->query['from'] = "{$config['tables']['translation']}";
@@ -33,7 +33,7 @@ switch ($_GET['step']) {
   break;
 
   case 2:
-    $dsp->NewContent(t('Ãœbersetzen'), t('Es mÃ¼ssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
+    $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
 
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('misc');
@@ -47,6 +47,8 @@ switch ($_GET['step']) {
     $db->free_result($res);
     $ms2->AddTextSearchDropDown(t('Fundstelle'), 'file', $selections);
     $ms2->AddTextSearchDropDown(t('Englisch'), 'en', array('' => t('Egal'), '>0' => t('Vorhanden')));
+    $ms2->AddTextSearchDropDown(t('Veraltet'), 'obsolete', array('' => t('Alle'), '0' => t('Nur neue'), '1' => t('Nur veraltete')));
+
     $ms2->AddTextSearchField(t('Text'), array('org' => 'like'));
 
     $ms2->AddResultField(t('Text'), 'org');
@@ -149,7 +151,7 @@ switch ($_GET['step']) {
     // If Write2File
     if ($_GET['subact'] == 'writetofile') $translation->xml_write_db_to_file($_GET['file']);
     
-    $dsp->NewContent(t('Modul Ã¼bersetzen : ').$_GET['file'], '');
+    $dsp->NewContent(t('Modul Übersetzen : ').$_GET['file'], '');
     
     // Show switch between Lanuages
     $dsp->AddFieldSetStart(t('Sprache wechseln. Achtung, nicht gesicherte &Auml;nderungen gehen verloren.'));
@@ -187,7 +189,7 @@ switch ($_GET['step']) {
     $dsp->AddFieldSetEnd();
 
     $tmp_link = "index.php?mod=misc&action=translation&step=20&file=".$_GET['file']."&subact=writetofile";
-    $dsp->AddDoubleRow(t('Schreibe ModulÃ¼bersetzung in mod_translation.xml') ,$dsp->FetchSpanButton(t('Schreibe'), $tmp_link));
+    $dsp->AddDoubleRow(t('Schreibe Modulübersetzung in mod_translation.xml') ,$dsp->FetchSpanButton(t('Schreibe'), $tmp_link));
     $dsp->AddBackButton('index.php?mod=misc&action=translation');
 
   break;
@@ -197,7 +199,7 @@ switch ($_GET['step']) {
     foreach($_POST['id'] as $key => $value)
       $db->query("UPDATE {$config['tables']['translation']} SET {$_SESSION['target_language']} = '$value' WHERE file = '{$_GET['file']}' AND id = '$key'");
 
-    $func->confirmation('Module-Ãœbersetzung wurde erfolgreich upgedatet');
+    $func->confirmation('Module-Übersetzung wurde erfolgreich upgedatet');
   break;
 
   // Export Module Translations
@@ -213,7 +215,7 @@ switch ($_GET['step']) {
 
   // Translate Item
   case 40:
-    $dsp->NewContent(t('Modul Ã¼bersetzen'), '');
+    $dsp->NewContent(t('Modul Übersetzen'), '');
 
     include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
@@ -267,7 +269,7 @@ switch ($_GET['step']) {
           $modules[] = "System"; 
           foreach ($modules as $modul) {
               $translation->xml_write_file_to_db($modul);
-              $info .= t("ModulÃ¼bersetzung wurde von <b>%1</b> gelesen<br \>",$file);
+              $info .= t("Modulübersetzung wurde von <b>%1</b> gelesen<br \>",$file);
           }
           $func->information($info,'index.php?mod=misc&action=translation');
       }
@@ -303,40 +305,29 @@ switch ($_GET['step']) {
           $dsp->AddFormSubmitRow('change');
       $dsp->AddFieldSetEnd();
 
-
-
-      $dsp->AddFieldSetStart(t('Gefundene Texte'));
-      $res1 = $db->query("SELECT id, org, en, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete = '1' AND file='{$_SESSION['target_file']}'");
+      
+      $res1 = $db->query("SELECT tid, id, org, en, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete = '1' AND file='{$_SESSION['target_file']}'");
       while($row1 = $db->fetch_array($res1)) {
-          $res2 = $db->query("SELECT id, en, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete != '1' AND file='{$_SESSION['target_file']}'");
+          $res2 = $db->query("SELECT tid, id, en, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete != '1' AND file='{$_SESSION['target_file']}'");
 
           while($row2 = $db->fetch_array($res2)) {
-              //echo "<hr>".$row1['org'].":".strlen($row1['org'])."<br>";
-              //echo        $row2['org'].":".strlen($row2['org'])."<br>";
-              //if (strlen($row1['org']) < 250 AND strlen($row2['org']) < 250 ) {
-              //if (1) {
-              //    $gleichheit = levenshtein($row1['org'], $row2['org'])+1;
-              //    $score = ceil(strlen($row1['org']+1) / $gleichheit)+1;
-              //} else {
-                  similar_text($row1['org'], $row2['org'], $percent );
-                  $score = ceil($percent);      
-              //}
-              //echo $score."<br>";
-              //echo $gleichheit."-".$score."<br />";
+              similar_text($row1['org'], $row2['org'], $percent );
+              $score = ceil($percent);      
               if ($score >80) {
+                  $dsp->AddFieldSetStart(t('Aktueller Text TID:'.$row2['tid'].""));
                   $dsp->AddDoubleRow('Aktuell',$row2['org']);
                   $dsp->AddDoubleRow('Veraltet',$row1['org']);
                   $dsp->AddDoubleRow('Score',$score);
                   $dsp->AddDoubleRow('Veraltete Übersetzung EN',$row2['en']);
-                  $buttons = $dsp->FetchButton("index.php?mod=misc&action=translation", "merge"). " ";
+                  $buttons = $dsp->FetchButton("index.php?mod=misc&action=translation&step=80", "Zusammenführen"). " "; // FIX Button
 		          $dsp->AddDoubleRow('',$buttons);
-                  
+                  $dsp->AddFieldSetEnd();
               }
           }
       }
       $db->free_result($res2);
       $db->free_result($res1);
-      $dsp->AddFieldSetEnd();
+      
   break;
 
 
