@@ -256,6 +256,8 @@ class translation {
     function xml_write_file_to_db($modul) {
         global $db, $xml, $config, $func;
         $lang_file = $this->get_trans_filename($modul);
+        $count_update = 0;
+        $count_insert = 0;
         // Open XML-File
         if (file_exists($lang_file)) {
             $xml_file    = fopen($lang_file, "r");
@@ -269,23 +271,53 @@ class translation {
                 $entrys = $xml->get_tag_content_array("entry", $content);
                 if ($entrys) {
                     foreach ($entrys as $entry) {
-                    if (strlen($xml->get_tag_content("org", $entry)) > 255) $long = '_long'; else $long = '';
-                    $db->query_first("REPLACE INTO {$config["database"]["prefix"]}translation{$long} SET
-                                          tid='".  $func->escape_sql($xml->get_tag_content("tid", $entry)) ."',
-                                          id='".   $func->escape_sql($xml->get_tag_content("id", $entry)) ."',
-                                          org='".  $func->escape_sql($xml->get_tag_content("org", $entry)) ."',
-                                          de='".   $func->escape_sql($xml->get_tag_content("de", $entry)) ."',
-                                          en='".   $func->escape_sql($xml->get_tag_content("en", $entry)) ."',
-                                          es='".   $func->escape_sql($xml->get_tag_content("es", $entry)) ."',
-                                          fr='".   $func->escape_sql($xml->get_tag_content("fr", $entry)) ."',
-                                          nl='".   $func->escape_sql($xml->get_tag_content("nl", $entry)) ."',
-                                          it='".   $func->escape_sql($xml->get_tag_content("if", $entry)) ."',
-                                          file='". $func->escape_sql($xml->get_tag_content("file", $entry)) ."'
-                                          ");
+                        if (strlen($xml->get_tag_content("org", $entry)) > 255) $long = '_long'; else $long = '';
+                        // Search existing Translation in DB
+                        $db->qry("SELECT tid FROM %prefix%translation".$long."
+                                  WHERE file = %string% AND id = %string%",
+                                  $xml->get_tag_content("file", $entry),
+                                  $xml->get_tag_content("id", $entry));
+                        if ($db->get_affected_rows()>0) {
+                            // Update if Row exists
+                            $tr_update_set = Array();
+                            if ($xml->get_tag_content("de", $entry)) $tr_update_set[] = "de='".$func->escape_sql($xml->get_tag_content("de", $entry))."'";
+                            if ($xml->get_tag_content("en", $entry)) $tr_update_set[] = "en='".$func->escape_sql($xml->get_tag_content("en", $entry)) ."'";
+                            if ($xml->get_tag_content("es", $entry)) $tr_update_set[] = "es='".$func->escape_sql($xml->get_tag_content("es", $entry)) ."'";
+                            if ($xml->get_tag_content("fr", $entry)) $tr_update_set[] = "fr='".$func->escape_sql($xml->get_tag_content("fr", $entry)) ."'";
+                            if ($xml->get_tag_content("nl", $entry)) $tr_update_set[] = "nl='".$func->escape_sql($xml->get_tag_content("nl", $entry)) ."'";
+                            if ($xml->get_tag_content("it", $entry)) $tr_update_set[] = "it='".$func->escape_sql($xml->get_tag_content("if", $entry)) ."'";
+                            $tr_update_set_str = implode(',',$tr_update_set);
+                            // FIX echo "Update ".$tr_update_set_str."<br />\n";
+                            if ($tr_update_set_str) {
+                                $count_update++;
+                                $db->qry("UPDATE %prefix%translation".$long." SET ".$tr_update_set_str."
+                                          WHERE file = %string% AND id = %string%",
+                                          $xml->get_tag_content("file", $entry),
+                                          $xml->get_tag_content("id", $entry));
+                            }
+
+                        } else {
+                            // Insert if new Row
+                            // FIX echo "Insert ".$xml->get_tag_content("tid", $entry)."<br />\n";
+                            $count_insert++;
+                            $db->query_first("INSERT INTO {$config["database"]["prefix"]}translation{$long} SET
+                                                  id='".   $func->escape_sql($xml->get_tag_content("id", $entry)) ."',
+                                                  org='".  $func->escape_sql($xml->get_tag_content("org", $entry)) ."',
+                                                  de='".   $func->escape_sql($xml->get_tag_content("de", $entry)) ."',
+                                                  en='".   $func->escape_sql($xml->get_tag_content("en", $entry)) ."',
+                                                  es='".   $func->escape_sql($xml->get_tag_content("es", $entry)) ."',
+                                                  fr='".   $func->escape_sql($xml->get_tag_content("fr", $entry)) ."',
+                                                  nl='".   $func->escape_sql($xml->get_tag_content("nl", $entry)) ."',
+                                                  it='".   $func->escape_sql($xml->get_tag_content("if", $entry)) ."',
+                                                  file='". $func->escape_sql($xml->get_tag_content("file", $entry)) ."'
+                                                  ");
+                        }
                     } // End foreach $entrys
                 }
             } // End foreach $tables
         }
+        $output = "Updates : ".$count_update." Inserts : ".$count_insert;
+        return $output;
     }
 
   /**
