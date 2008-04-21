@@ -268,8 +268,8 @@ switch ($_GET['step']) {
           $modules[] = "DB";
           $modules[] = "System"; 
           foreach ($modules as $modul) {
-              $translation->xml_write_file_to_db($modul);
-              $info .= t("Modulübersetzung wurde von <b>%1</b> gelesen<br \>",$file);
+              $meld = $translation->xml_write_file_to_db($modul);
+              $info .= t("Modulübersetzung wurde von <b>%1</b> gelesen. (%2)<br \>",$translation->get_trans_filename($modul),$meld);
           }
           $func->information($info,'index.php?mod=misc&action=translation');
       }
@@ -320,7 +320,7 @@ switch ($_GET['step']) {
                   $dsp->AddDoubleRow('Score',$score);
                   $dsp->AddDoubleRow('Veraltete Übersetzung EN',$row2['en']);
                   $buttons = $dsp->FetchButton("index.php?mod=misc&action=translation&step=80", "Zusammenführen"). " "; // FIX Button
-		          $dsp->AddDoubleRow('',$buttons);
+                  $dsp->AddDoubleRow('',$buttons);
                   $dsp->AddFieldSetEnd();
               }
           }
