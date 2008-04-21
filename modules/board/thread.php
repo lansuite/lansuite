@@ -54,7 +54,7 @@ $tid = (int)$_GET["tid"];
 $list_type = $auth['type'] + 1;
 $thread = $db->query_first("SELECT t.fid, t.caption, t.closed, f.name AS ForumName, f.need_type, f.need_group FROM {$config["tables"]["board_threads"]} AS t
   LEFT JOIN {$config["tables"]["board_forums"]} AS f ON t.fid = f.fid
-  WHERE t.tid=$tid AND f.need_type <= '{$list_type}' AND (!f.need_group OR f.need_group = {$auth['group_id']})");
+  WHERE t.tid=$tid AND f.need_type <= '{$list_type}' AND (!f.need_group OR f.need_group = ". (int)$auth['group_id'] .")");
 
 if ($thread['caption'] == '' and $tid) $func->information(t('Keine Beiträge vorhanden'), '');
 elseif ($thread['caption'] != '') {
