@@ -34,12 +34,20 @@ class MasterSearch2 {
     // Add $_POST[]-Fields to $working_link
     if ($_POST['search_input']) foreach($_POST['search_input'] as $key => $val) $this->post_in_get .= "&search_input[$key]=$val";
     elseif ($_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $this->post_in_get .= "&search_input[$key]=$val";     
-    if ($_POST['search_dd_input']) foreach($_POST['search_dd_input'] as $key => $val) $this->post_in_get .= "&search_dd_input[$key]=$val";
-    elseif ($_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) $this->post_in_get .= "&search_dd_input[$key]=$val";
+    if ($_POST['search_dd_input']) foreach($_POST['search_dd_input'] as $key => $val) {
+      if (is_array($val)) foreach($val as $key2 => $val2) $this->post_in_get .= "&search_dd_input[$key][$key2]=$val2"; 
+      else $this->post_in_get .= "&search_dd_input[$key]=$val";
+    } elseif ($_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) {
+      if (is_array($val)) foreach($val as $key2 => $val2) $this->post_in_get .= "&search_dd_input[$key][$key2]=$val2";
+      else $this->post_in_get .= "&search_dd_input[$key]=$val";
+    }
 
     // Write back from $_GET[] to $_POST[]
     if (!isset($_POST['search_input']) and $_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
-    if (!isset($_POST['search_dd_input']) and $_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) $_POST['search_dd_input'][$key] = $val;
+    if (!isset($_POST['search_dd_input']) and $_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) {
+      if (is_array($val)) foreach($val as $key2 => $val2) $_POST['search_dd_input'][$key][$key2] = $val2; 
+      else $_POST['search_dd_input'][$key] = $val;
+    }
   }
 
   function AddSelect($sql_field){
