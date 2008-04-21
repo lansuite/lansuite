@@ -32,7 +32,7 @@ class Bugtracker {
 
     $row = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker WHERE state = %int% AND bugid = %int%", $state, $bugid);
     if (!$row['found']) {
-      $db->qry("UPDATE %prefix%bugtracker SET state = %int% WHERE bugid = ", $state, $bugid);
+      $db->qry("UPDATE %prefix%bugtracker SET state = %int% WHERE bugid = %int%", $state, $bugid);
       $func->log_event(t('Bugreport auf Status <b>"%1"</b> geändert', array($this->stati[$state])), 1, '', $bugid);
 
       // Mails
