@@ -11,7 +11,7 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
 
 	$dsp->NewContent(t('Seite').": {$info["caption"]}", $info["shorttext"]);
 
-	$dsp->AddSingleRow($info["text"]);
+	$dsp->AddSingleRow($func->AllowHTML($info["text"]));
 	
 	// Show edit/aktivate Buttons
 	// FIX : add delete
