@@ -33,8 +33,7 @@ $query = $db->query("SELECT f.fid, t.tid, MAX(p.pid) AS pid, t.caption, MAX(p.da
 	LEFT JOIN {$config["tables"]["board_forums"]} AS f ON t.fid = f.fid
 	LEFT JOIN {$config["tables"]["board_posts"]} AS p ON p.tid = t.tid
   LEFT JOIN {$config["tables"]["board_read_state"]} AS r ON t.tid = r.tid AND r.userid = ". (int)$auth['userid'] ."
-  LEFT JOIN {$config['tables']['user']} AS u ON f.need_group = u.group_id
-	WHERE (f.need_type <= '{$authtyp}' AND (!f.need_group OR u.userid = ". ((int)$auth['userid']) ."))
+	WHERE (f.need_type <= '{$authtyp}' AND (!f.need_group OR f.need_group = ". ((int)$auth['group_id']) ."))
 	GROUP BY t.tid
 	ORDER BY LastPost DESC
 	LIMIT 0,{$cfg['home_item_count']}");
