@@ -584,8 +584,8 @@ class masterform {
 
             if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
             if ($addUpdSuccess) {
-              if ($this->isChange) $func->confirmation(t('Die Daten wurden erfolgreich geÃ¤ndert.'), $_SESSION['mf_referrer']);
-              else $func->confirmation(t('Die Daten wurden erfolgreich eingefÃ¼gt.'), $this->LinkBack);
+              if ($this->isChange) $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer']);
+              else $func->confirmation(t('Die Daten wurden erfolgreich eingefügt.'), $this->LinkBack);
             }
           }
 
