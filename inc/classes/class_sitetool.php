@@ -68,7 +68,7 @@ class sitetool {
 
 	// Finalize Output and return Outputbuffer
 	function out_optimizer() {
-		global $templ, $cfg, $db, $lang, $index;
+		global $templ, $cfg, $db, $lang, $index, $design;
     
 		$compression_mode = $this->check_optimizer();
 
@@ -135,9 +135,9 @@ $footer = '
 				$this->content_crc = crc32($index);
 				$index = gzcompress($index, $cfg['sys_compress_level']);
 				$index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
-				echo $index;
+				echo $smarty->display('design/$design/index.tpl');
 				echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
-			} else echo $index;
+			} else echo $smarty->display('design/$design/index.tpl');
 		}
 	}
 }
