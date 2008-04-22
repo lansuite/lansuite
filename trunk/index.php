@@ -134,6 +134,8 @@ if (!$config) {
     include_once("modules/stats/class_stats.php");
     include_once("modules/seating/class_seat.php");
     include_once("modules/cron2/class_cron2.php");
+    include_once('ext_scripts/smarty/Smarty.class.php');
+
 
 ### Initialize base classes
 
@@ -148,7 +150,10 @@ if (!$config) {
     $cron2       = new cron2();          // Load Cronjob
     $seat2       = new seat2();          // Load Seat-Controll Class
     $translation = new translation();    // Load Translationclass
-    
+    $smarty      = new Smarty();
+    $smarty->template_dir = '';
+    $smarty->compile_dir = 'design/templates_c/';
+
 ### Initalize Basic Parameters
 
     $language = $translation->get_lang(); // Set and Read Systemlanguage
