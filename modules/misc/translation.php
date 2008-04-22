@@ -98,19 +98,6 @@ switch ($_GET['step']) {
       $dsp->AddFieldSetEnd();
 
       // Delete entries, which no do no longer exist
-/*      $output = '';
-      $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file != 'DB'");
-      while($row = $db->fetch_array($res)) {
-        if (!in_array($row['file'].'+'.$row['id'], $FoundTransEntries)) {
-          $db->query("DELETE FROM {$config['tables']['translation']} WHERE id = '{$row['id']}'");
-          $output .= '<font color="#ff0000">'. $row['file'] .': '. $row['org'] .'</font><br />';
-        }
-      }
-      $db->free_result($res);
-      $dsp->AddFieldSetStart(t('Veraltet (wurden nun gelöscht)'));
-      $dsp->AddSingleRow($output);
-      $dsp->AddFieldSetEnd();*/
-
       $output = '';
       $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file != 'DB'");
       while($row = $db->fetch_array($res)) {
@@ -123,8 +110,6 @@ switch ($_GET['step']) {
       $dsp->AddFieldSetStart(t('Veraltet (wurden als "veraltet" markiert)'));
       $dsp->AddSingleRow($output);
       $dsp->AddFieldSetEnd();
-
-
 
       // Scan DB
       $translation->TUpdateFromDB('menu', 'caption');
@@ -150,6 +135,7 @@ switch ($_GET['step']) {
   case 20:
     // If Write2File
     if ($_GET['subact'] == 'writetofile') $translation->xml_write_db_to_file($_GET['file']);
+    if ($_GET['subact'] == 'writetodb') $translation->xml_write_file_to_db($_GET['file']);
     
     $dsp->NewContent(t('Modul Übersetzen : ').$_GET['file'], '');
     
@@ -167,6 +153,10 @@ switch ($_GET['step']) {
         $dsp->AddDropDownFieldRow('target_language', t('Ziel Sprache'), $list, '');
         $db->free_result($res);
         $dsp->AddFormSubmitRow('change');
+        $tmp_link_write = "index.php?mod=misc&action=translation&step=20&file=".$_GET['file']."&subact=writetofile";
+        $tmp_link_read = "index.php?mod=misc&action=translation&step=20&file=".$_GET['file']."&subact=writetodb";
+        $dsp->AddDoubleRow(t('Schreibe Modulübersetzung in translation.xml') ,$dsp->FetchSpanButton(t('Schreibe'), $tmp_link_write));
+        $dsp->AddDoubleRow(t('Lese Modulübersetzung von translation.xml') ,$dsp->FetchSpanButton(t('Lese'), $tmp_link_read));
     $dsp->AddFieldSetEnd();
 
     // Start Tanslation
@@ -187,9 +177,6 @@ switch ($_GET['step']) {
         $db->free_result($res);
         $dsp->AddFormSubmitRow('edit');
     $dsp->AddFieldSetEnd();
-
-    $tmp_link = "index.php?mod=misc&action=translation&step=20&file=".$_GET['file']."&subact=writetofile";
-    $dsp->AddDoubleRow(t('Schreibe Modulübersetzung in mod_translation.xml') ,$dsp->FetchSpanButton(t('Schreibe'), $tmp_link));
     $dsp->AddBackButton('index.php?mod=misc&action=translation');
 
   break;

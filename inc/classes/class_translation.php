@@ -74,8 +74,8 @@ class translation {
     var $transfile_name       = 'translation.xml';                    // Basename of Translationfile
     var $valid_lang           = array('de','en','es','fr','nl','it'); // Valid Languages
     var $lang_cache           = array();                              // Temporary Translations
-    var $cachemod_loaded_db   = 0;                                    // Is Cach for Modul loaded (db)
-    var $cachemod_loaded_xml  = 0;                                    // Is Cach for Modul loaded (xml)
+    var $cachemod_loaded_db   = 0;                                    // Is Cache for Modul loaded (db)
+    var $cachemod_loaded_xml  = 0;                                    // Is Cache for Modul loaded (xml)
   /**#@-*/
 
   /**
@@ -285,7 +285,7 @@ class translation {
                             if ($xml->get_tag_content("es", $entry)) $tr_update_set[] = "es='".$func->escape_sql($xml->get_tag_content("es", $entry)) ."'";
                             if ($xml->get_tag_content("fr", $entry)) $tr_update_set[] = "fr='".$func->escape_sql($xml->get_tag_content("fr", $entry)) ."'";
                             if ($xml->get_tag_content("nl", $entry)) $tr_update_set[] = "nl='".$func->escape_sql($xml->get_tag_content("nl", $entry)) ."'";
-                            if ($xml->get_tag_content("it", $entry)) $tr_update_set[] = "it='".$func->escape_sql($xml->get_tag_content("if", $entry)) ."'";
+                            if ($xml->get_tag_content("it", $entry)) $tr_update_set[] = "it='".$func->escape_sql($xml->get_tag_content("it", $entry)) ."'";
                             $tr_update_set_str = implode(',',$tr_update_set);
                             // FIX echo "Update ".$tr_update_set_str."<br />\n";
                             if ($tr_update_set_str) {
@@ -308,7 +308,7 @@ class translation {
                                                   es='".   $func->escape_sql($xml->get_tag_content("es", $entry)) ."',
                                                   fr='".   $func->escape_sql($xml->get_tag_content("fr", $entry)) ."',
                                                   nl='".   $func->escape_sql($xml->get_tag_content("nl", $entry)) ."',
-                                                  it='".   $func->escape_sql($xml->get_tag_content("if", $entry)) ."',
+                                                  it='".   $func->escape_sql($xml->get_tag_content("it", $entry)) ."',
                                                   file='". $func->escape_sql($xml->get_tag_content("file", $entry)) ."'
                                                   ");
                         }
@@ -330,7 +330,10 @@ class translation {
    */
     function xml_write_db_to_file($modul) {
         global $xml, $db, $config;
-
+        
+        // Load old Translation from File to merge
+        $xml_old = $this->xml_read_to_array($modul);
+        
         /* Header */
         $output = '<?xml version="1.0" encoding="UTF-8"?'.">\r\n\r\n";
         $header = $xml->write_tag("filetype", "LanSuite", 2);
@@ -346,15 +349,14 @@ class translation {
         // read normal Translation
         $res = $db->query("SELECT * FROM {$config["database"]["prefix"]}translation WHERE file = '$modul'");
         while ($row = $db->fetch_array($res)) {
-            $entry = $xml->write_tag('tid', $row['tid'], 4);
-            $entry .= $xml->write_tag('id', $row['id'], 4);
-            $entry .= $xml->write_tag('org', $row['org'], 4);
-            $entry .= $xml->write_tag('de', $row['de'], 4);
-            $entry .= $xml->write_tag('en', $row['en'], 4);
-            $entry .= $xml->write_tag('es', $row['es'], 4);
-            $entry .= $xml->write_tag('fr', $row['fr'], 4);
-            $entry .= $xml->write_tag('nl', $row['nl'], 4);
-            $entry .= $xml->write_tag('it', $row['it'], 4);
+            $entry = $xml->write_tag('id', $row['id'], 4);
+            $entry .= $xml->write_tag('org', $this->xml_var_merge($row['org'],$xml_old[$row['file']][$row['id']]['org']), 4);
+            $entry .= $xml->write_tag('de', $this->xml_var_merge($row['de'],$xml_old[$row['file']][$row['id']]['de']), 4);
+            $entry .= $xml->write_tag('en', $this->xml_var_merge($row['en'],$xml_old[$row['file']][$row['id']]['en']), 4);
+            $entry .= $xml->write_tag('es', $this->xml_var_merge($row['es'],$xml_old[$row['file']][$row['id']]['es']), 4);
+            $entry .= $xml->write_tag('fr', $this->xml_var_merge($row['fr'],$xml_old[$row['file']][$row['id']]['fr']), 4);
+            $entry .= $xml->write_tag('nl', $this->xml_var_merge($row['nl'],$xml_old[$row['file']][$row['id']]['nl']), 4);
+            $entry .= $xml->write_tag('it', $this->xml_var_merge($row['it'],$xml_old[$row['file']][$row['id']]['it']), 4);
             $entry .= $xml->write_tag('file', $modul, 4);
             $content .= $xml->write_master_tag("entry", $entry, 3);
         }
@@ -362,15 +364,14 @@ class translation {
         // read long Translation
         $res2 = $db->query("SELECT * FROM {$config["database"]["prefix"]}translation_long WHERE file = '$modul'");
         while ($row2 = $db->fetch_array($res2)) {
-            $entry = $xml->write_tag('tid', $row2['tid'], 4);
-            $entry .= $xml->write_tag('id', $row2['id'], 4);
-            $entry .= $xml->write_tag('org', $row2['org'], 4);
-            $entry .= $xml->write_tag('de', $row2['de'], 4);
-            $entry .= $xml->write_tag('en', $row2['en'], 4);
-            $entry .= $xml->write_tag('es', $row2['es'], 4);
-            $entry .= $xml->write_tag('fr', $row2['fr'], 4);
-            $entry .= $xml->write_tag('nl', $row2['nl'], 4);
-            $entry .= $xml->write_tag('it', $row2['it'], 4);
+            $entry = $xml->write_tag('id', $row2['id'], 4);
+            $entry .= $xml->write_tag('org', $this->xml_var_merge($row['org'],$xml_old[$row['file']][$row['id']]['org']), 4);
+            $entry .= $xml->write_tag('de', $this->xml_var_merge($row['de'],$xml_old[$row['file']][$row['id']]['de']), 4);
+            $entry .= $xml->write_tag('en', $this->xml_var_merge($row['en'],$xml_old[$row['file']][$row['id']]['en']), 4);
+            $entry .= $xml->write_tag('es', $this->xml_var_merge($row['es'],$xml_old[$row['file']][$row['id']]['es']), 4);
+            $entry .= $xml->write_tag('fr', $this->xml_var_merge($row['fr'],$xml_old[$row['file']][$row['id']]['fr']), 4);
+            $entry .= $xml->write_tag('nl', $this->xml_var_merge($row['nl'],$xml_old[$row['file']][$row['id']]['nl']), 4);
+            $entry .= $xml->write_tag('it', $this->xml_var_merge($row['it'],$xml_old[$row['file']][$row['id']]['it']), 4);
             $entry .= $xml->write_tag('file', $modul, 4);
             $content .= $xml->write_master_tag("entry", $entry, 3);
         }            
@@ -383,10 +384,64 @@ class translation {
 
         // Filehandler. Make Backupcopy if Translationsfile exits
         $file = $this->get_trans_filename($modul);
-        if (file_exists($file)) copy($file, $file.time().'.bak'); // Backup
+        //if (file_exists($file)) copy($file, $file.time().'.bak'); // Backup
         $file_handle = @fopen($file, "w");
         @fputs($file_handle, $output);
         @fclose($file_handle);
+    }
+
+  /**
+   * Works like an String-OR.
+   * If Var1 is emty, return Var2
+   *
+   * @param string Variable 1 prior 
+   * @param string Variable 2
+   * @return string Output
+   */
+    function xml_var_merge($var1, $var2) {
+        if ($var2 != "") $out = $var2;
+        if ($var1 != "") $out = $var1; // no error, var2 is prior
+        return $out;
+    }
+
+  /**
+   * Parse all Languagesets in Array
+   *
+   * @param string Modulname e.g. file-field
+   * @return array Temporary XML-Data
+   */
+    function xml_read_to_array($modul) {
+        global $db, $xml, $config, $func;
+        $lang_file = $this->get_trans_filename($modul);
+        $count_update = 0;
+        $count_insert = 0;
+        // Open XML-File
+        if (file_exists($lang_file)) {
+            $xml_file    = fopen($lang_file, "r");
+            $xml_content = fread($xml_file, filesize($lang_file));
+            fclose($xml_file);
+            $xml_content_lansuite = $xml->get_tag_content("lansuite", $xml_content, 0);
+            $tables = $xml->get_tag_content_array("table", $xml_content_lansuite);
+            foreach ($tables as $table) {
+                // Import Table-Content
+                $content = $xml->get_tag_content("content", $table, 0);
+                $entrys = $xml->get_tag_content_array("entry", $content);
+                if ($entrys) {
+                    foreach ($entrys as $entry) {
+                        $id = $xml->get_tag_content("id", $entry);
+                        $file = $xml->get_tag_content("file", $entry);
+                        $xmlarray[$file][$id]['org'] = $xml->get_tag_content("org", $entry);
+                        $xmlarray[$file][$id]['de'] = $xml->get_tag_content("de", $entry);
+                        $xmlarray[$file][$id]['en'] = $xml->get_tag_content("en", $entry);
+                        $xmlarray[$file][$id]['es'] = $xml->get_tag_content("es", $entry);
+                        $xmlarray[$file][$id]['fr'] = $xml->get_tag_content("fr", $entry);
+                        $xmlarray[$file][$id]['nl'] = $xml->get_tag_content("nl", $entry);
+                        $xmlarray[$file][$id]['it'] = $xml->get_tag_content("it", $entry);
+                    } // End foreach $entrys
+                }
+            } // End foreach $tables
+        }
+        return $xmlarray;
     }
 
   /**
