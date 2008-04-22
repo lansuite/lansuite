@@ -1,5 +1,9 @@
 <div class="Headline">
-  {$templ['NewContent']['caption']}
-  <div class="HeadlineHelp">{$templ['NewContent']['help']}</div>
+  {$caption}
+{if $helplet_id != ''} 
+  <div class="HeadlineHelp" style="white-space:nowrap">
+    <a href="#" onclick="javascript:var w=window.open('index.php?mod=helplet&amp;action=helplet&amp;design=popup&amp;module={$mod}&amp;helpletid={$helplet_id}', '_blank', 'width=700, height=500, resizable=no, scrollbars=yes');" class="Help">Hilfe ?</a>
+  </div>
+{/if}
 </div>
-<div class="HeadlineSub">{$templ['NewContent']['header_text']}</div>
+<div class="HeadlineSub">{$text}</div>
