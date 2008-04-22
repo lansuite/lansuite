@@ -84,6 +84,21 @@ class display {
     }
     }
 
+  // Output the template $file
+  function AddLineTplSmarty($file, $OpenTable = 1){
+    global $smarty;
+
+    if ($_GET['design'] != 'base') {
+      if ($this->FirstLine) {
+        $smarty->assign('content', $file);
+        $smarty->display('design/templates/ls_row_firstline.htm');
+        $this->FirstLine = 0;
+      } else {
+        $smarty->assign('content', $file);
+        $smarty->display('design/templates/ls_row_line.htm');
+      }
+    }
+  }
 
     // Writes the headline of a page
   function NewContent($caption, $header = NULL, $helplet_id = 'help') {
@@ -145,25 +160,25 @@ class display {
     }
 
     function AddSingleRow($text, $parm = NULL) {
-        global $templ;
+      global $smarty;
 
-        $templ['SingleRow']['text'] = $text;
-        if ($parm != "") $templ['SingleRow']['align'] = $parm;
-
-        $this->AddLineTpl("design/templates/ls_row_single.htm");
+      $smarty->assign('text', $text);
+      if ($parm != "") $smarty->assign('align', $parm);
+      $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_single.htm'));
     }
 
     function AddDoubleRow($key, $value, $id = NULL) {
-        global $templ;
+      global $smarty;
 
         if ($key == "") $key = "&nbsp;";
         if ($value == "") $value = "&nbsp;";
         if ($id == "") $id = "DoubleRowVal";
-        $templ['AddDoubleRow']['key'] = $key;
-        $templ['AddDoubleRow']['value'] = $value;
-        $templ['AddDoubleRow']['id'] = $id;
 
-        $this->AddLineTpl("design/templates/ls_row_double.htm");
+        $smarty->assign('key', $key);
+        $smarty->assign('value', $value);
+        $smarty->assign('id', $id);
+
+        $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_double.htm'));
     }
 
     function AddCheckBoxRow($name, $key, $text, $errortext, $optional = NULL, $checked = NULL, $disabled = NULL, $val = NULL, $additionalHTML = NULL) {
