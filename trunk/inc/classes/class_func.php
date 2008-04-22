@@ -9,7 +9,17 @@ define('NO_LINK', -1);
  * @version $Id$
  * @access public
  * @todo Remove Dialogfunctions and create own class
- */
+*/
+
+// Rewrite PHP's htmlspecialchars for ' is replaced by &#039;, instead of &#39;
+function htmlspecchars ($string, $quote_style=ENT_COMPAT, $format=null) {
+  $aTransSpecchar = array('&' => '&amp;', '"' => '&quot;', '<' => '&lt;', '>' => '&gt;');
+  if (ENT_NOQUOTES == $quote_style) unset($aTransSpecchar['"']);
+  elseif (ENT_QUOTES == $quote_style) $aTransSpecchar["'"] = '&#39;'; // (apos) htmlspecialchars() uses '&#039;'
+  return strtr($string,$aTransSpecchar);
+}
+
+
 class func {
 
   /**
@@ -452,7 +462,7 @@ class func {
       '#\[c\](.)*\[\/c\]#sUi',
       create_function(
         '$treffer',
-        'global $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true) .\'</div></blockquote>\';'
+        'global $func, $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. $func->AllowHTML(geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true)) .\'</div></blockquote>\';'
       ),
       $string
     );
