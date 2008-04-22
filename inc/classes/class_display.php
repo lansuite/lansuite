@@ -2,11 +2,11 @@
 
 class display {
 
-    var $form_line = '';
-    var $content_need_form = 0;
-    var $form_ok = 0;
-    var $form_open = 0;
-    var $formcount = 1;
+  var $form_line = '';
+  var $content_need_form = 0;
+  var $form_ok = 0;
+  var $form_open = 0;
+  var $formcount = 1;
   var $TplCache = array();
   var $errortext_prefix = '';
   var $errortext_suffix = '';
@@ -22,14 +22,14 @@ class display {
   function EchoTpl($file) {
     global $auth, $language;
 
-        $handle = fopen ($file, 'rb');
-        $tpl_str = fread($handle, filesize($file));
-        fclose ($handle);
+    $handle = fopen ($file, 'rb');
+    $tpl_str = fread($handle, filesize($file));
+    fclose ($handle);
 
-        $tpl_str = str_replace('{language}', $language, $tpl_str );
-        $tpl_str = str_replace('{default_design}', $auth['design'], $tpl_str);
+    $tpl_str = str_replace('{language}', $language, $tpl_str );
+    $tpl_str = str_replace('{default_design}', $auth['design'], $tpl_str);
 
-        echo $tpl_str;
+    echo $tpl_str;
   }
 
   function SetVar($name, $value){
@@ -40,41 +40,41 @@ class display {
     echo $this->TplVars[$name];
   }
 
-    // Returns the template $file
-    function FetchTpl($file, $templx = ''){
-        global $auth, $language, $cfg, $TplCache, $templ;
+  // Returns the template $file
+  function FetchTpl($file, $templx = ''){
+    global $auth, $language, $cfg, $TplCache, $templ;
         
     #echo "Loading $file<br>";
     if ($this->TplCache[$file] != '') $tpl_str = $this->TplCache[$file];
     else {
-        $handle = fopen ($file, 'rb');
-        $tpl_str = fread ($handle, filesize ($file));
-        fclose ($handle);
-        $this->TplCache[$file] = $tpl_str;
+      $handle = fopen ($file, 'rb');
+      $tpl_str = fread ($handle, filesize ($file));
+      fclose ($handle);
+      $this->TplCache[$file] = $tpl_str;
     }
 
-        $tpl_str = str_replace("\"","\\\"", $tpl_str );
-        $tpl_str = str_replace("{language}", $language, $tpl_str );
-        $tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str);
+    $tpl_str = str_replace("\"","\\\"", $tpl_str );
+    $tpl_str = str_replace("{language}", $language, $tpl_str );
+    $tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str);
 
-        $tpl = "";
-        if ($cfg['sys_showdebug']) $tpl .= "\r\n<!-- Start of template '$file' -->\r\n";
-        eval("\$tpl .= \"" .$tpl_str. "\";");
-        if ($cfg['sys_showdebug']) $tpl .= "\r\n<!-- End of template '$file' -->\r\n";
+    $tpl = "";
+    if ($cfg['sys_showdebug']) $tpl .= "\r\n<!-- Start of template '$file' -->\r\n";
+    eval("\$tpl .= \"" .$tpl_str. "\";");
+    if ($cfg['sys_showdebug']) $tpl .= "\r\n<!-- End of template '$file' -->\r\n";
 
-        return $tpl;
-    }
+    return $tpl;
+  }
 
-    // Output the template $file
-    function AddTpl($file, $OpenTable = 1){
-        global $templ;
+  // Output the template $file
+  function AddTpl($file, $OpenTable = 1){
+    global $templ;
 
-    echo $this->FetchTpl($file, $templ);
-    }
+  echo $this->FetchTpl($file, $templ);
+  }
 
-    // Output the template $file
-    function AddLineTpl($file, $OpenTable = 1){
-        global $templ;
+  // Output the template $file
+  function AddLineTpl($file, $OpenTable = 1){
+    global $templ;
 
     if ($_GET['design'] != 'base') {
       if ($this->FirstLine) {
@@ -82,7 +82,7 @@ class display {
         $this->FirstLine = 0;
       } else echo '<ul class="Line">'. $this->FetchTpl($file) .'</ul>';
     }
-    }
+  }
 
   // Output the template $file
   function AddLineTplSmarty($file, $OpenTable = 1){
@@ -100,40 +100,40 @@ class display {
     }
   }
 
-    // Writes the headline of a page
-  function NewContent($caption, $header = NULL, $helplet_id = 'help') {
-        global $templ, $language;
+  // Writes the headline of a page
+  function NewContent($caption, $text = NULL, $helplet_id = 'help') {
+    global $smarty;
 
-    if (file_exists("modules/{$_GET['mod']}/docu/{$language}_{$helplet_id}.php")) {
-      $templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
-      $templ['NewContent']['help'] = $this->FetchModTpl("", "ls_row_helpletbutton");
-    }
-        $templ['NewContent']['caption'] = $caption;
-        $templ['NewContent']['header_text'] = $header;
+    $smarty->assign('helplet_id', $helplet_id);
+    $smarty->assign('mod', $_GET['mod']);
+    $smarty->assign('caption', $caption);
+    $smarty->assign('text', $text);
 
-        unset($this->content_need_form);
-        $this->form_ok = false;
+    unset($this->content_need_form);
+    $this->form_ok = false;
 
-        $this->AddLineTpl("design/templates/ls_row_headline.htm");
-    }
+    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_headline.htm'));
+  }
 
-    function AddHeaderButtons() {
-    }
+  function AddHeaderButtons() {
+  }
 
+  /*TODO*/
   function AddHeaderMenu($names, $link, $active = NULL) {
     global $templ;
 
     foreach ($names as $key => $name) {
-            if ($key == $active and $active != NULL) $am = '';
+      if ($key == $active and $active != NULL) $am = '';
       else $am = 'class="menu"';
-            $templ['AddHeaderMenu']['items'] .= "<a href=\"".$link."&headermenuitem=$key\"".$am."><b>".$name."</b></a> - ";
+      $templ['AddHeaderMenu']['items'] .= "<a href=\"".$link."&headermenuitem=$key\"".$am."><b>".$name."</b></a> - ";
     }
     // Letztes Minus rausschneiden
     $templ['AddHeaderMenu']['items'] = substr($templ['AddHeaderMenu']['items'], 0, -3);
 
-        $this->AddLineTpl("design/templates/ls_row_headermenu.htm");
+    $this->AddLineTpl("design/templates/ls_row_headermenu.htm");
   }
     
+  /*TODO*/
   function AddHeaderMenu2($names, $link, $active = NULL) {
     global $templ;
 
