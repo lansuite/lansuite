@@ -1,8 +1,26 @@
 <li class="LineLeft">
-  {$templ['ls']['row']['datetime']['key']}
+  {$key}
 </li>
 <li class="LineRight">
-	{$templ['ls']['row']['datetime']['show_date']}
-	{$templ['ls']['row']['datetime']['show_time']}
-	{$templ['ls']['row']['datetime']['errortext']}
+{if $showdate == '1'}
+  <select id="{$name}_value_day" name="{$name}_value_day" class="form{$optional}" {$dis_day} {$additional}>
+    {html_options options=$days selected="$day"}
+  </select> Tag&nbsp;
+  <select id="{$name}_value_month" name="{$name}_value_month" class="form{$optional}" {$dis_month} {$additional}>
+    {html_options options=$months selected="$month"}
+  </select> Monat&nbsp;
+  <select id="{$name}_value_year" name="{$name}_value_year" class="form{$optional}" {$dis_year} {$additional}>
+    {html_options options=$years selected="$year"}
+  </select> Jahr
+{/if}
+{if $showtime == '1'}
+  &nbsp;&nbsp;
+  <select id="{$name}_value_hours" name="{$name}_value_hours" class="form{$optional}" {$dis_hour} {$additional}>
+    {html_options options=$hours selected="$hour"}
+  </select> St.&nbsp;
+  <select id="{$name}_value_minutes" name="{$name}_value_minutes" class="form{$optional}" {$dis_min} {$additional}>
+    {html_options options=$mins selected="$min"}
+  </select> Min.
+{/if}
+{$errortext}
 </li>
