@@ -242,7 +242,7 @@ class func {
 				$day[0] = t('So');
 				$day[1] = t('Mo');
 				$day[2] = t('Di');
-				$day[3] = t('');
+				$day[3] = t('Mi');
 				$day[4] = t('Do');
 				$day[5] = t('Fr');
 				$day[6] = t('Sa');

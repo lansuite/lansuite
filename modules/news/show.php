@@ -5,6 +5,11 @@ $overall_news = $get_amount["number"];
 
 if($overall_news == 0) {
   $func->no_items(t("Newsmeldungen"), "", "rlist");
+  // DEBUG
+  echo md5("Fuckoff")."<br>";
+  echo t("Fuckoff");
+  //echo htmlentities ($translation->xml_write_db_to_file('news'));
+  var_dump($translation->xml_read_to_array('install'));
 }
 else {
   //ARCHIVE PAGES
