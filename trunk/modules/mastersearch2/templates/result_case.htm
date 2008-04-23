@@ -1,17 +1,53 @@
-    <script language="JavaScript" type="text/javascript">
-    <!--
-    MultiSelectActions = new Array({$templ['ms2']['multi_select_actions']});
-    MultiSelectSecurityQuest = new Array({$templ['ms2']['security_questions']});
-    -->
-    </script>
- 		<div class="content_head" style="text-align:right">{$templ['ms2']['pages']}</div>
-    <form name="ms_result" method="post" action="">
-    <table width="100%" cellspacing="0" cellpadding="0">
-    <tr>
-    	{$templ['ms2']['table_head']}
-    </tr>
-    {$templ['ms2']['table_entrys']}
-    </table>
-    {$templ['ms2']['multi_select_dropdown']}
-    </form>
- 		<div class="content_head" style="text-align:right">{$templ['ms2']['pages']}</div>
+<script language="JavaScript" type="text/javascript">
+<!--
+MultiSelectActions = new Array({$multi_select_actions});
+MultiSelectSecurityQuest = new Array({$security_questions});
+-->
+</script>
+<div class="content_head" style="text-align:right">{$pages}</div>
+<form name="ms_result" method="post" action="">
+<table width="100%" cellspacing="0" cellpadding="0">
+<tr>
+  {foreach from=$head item=v}
+  	<th class="row_key" width="{$v.width}"><a href="{$v.link}" class="menu">{$v.entry}</a></th>
+  {/foreach}
+</tr>
+
+{foreach from=$body item=line}
+<tr onClick="markieren_permanent(this);" onMouseOver="markieren(this);" onMouseOut="unmarkieren(this);">
+  {foreach from=$line item=v}
+    <td class="row_value" valign="top" width="{$v.width}" {$v.bgcolor}>
+    {if $v.link != ''}<a href="{$v.link}" class="menu">{/if}
+      {if $v.type == 'icon'}
+        <img src="design/images/icon_{$v.name}.png" alt="{$v.name}" title="{$v.title}" width="20" height="20" border="0">
+      {else}
+        {$v.entry}
+      {/if}
+    {if $v.link != ''}</a>{/if}
+    </td>
+  {/foreach}
+</tr>
+{/foreach}
+
+</table>
+
+{if $MultiOptions != '' }
+<div class="content_head" align="left">
+<select name="action_select" onChange="javascript:change_selection();">
+  <option value="">{$MultiCaption}</option>
+  <optgroup label="Auswahl">
+    <option value="select_all" style="background-image: url(design/images/icon_selection_all.png); background-repeat: no-repeat; height:16px;">Alle auswählen</option>
+    <option value="select_none" style="background-image: url(design/images/icon_selection_none.png); background-repeat: no-repeat; height:16px;">Keine auswählen</option>
+    <option value="select_invert" style="background-image: url(design/images/icon_selection_invert.png); background-repeat: no-repeat; height:16px;">Auswahl umkehren</option>
+  </optgroup>
+  <optgroup label="Aktion">
+    {foreach from=$MultiOptions item=v}
+      <option value="{$v.value}" {if $v.BGIcon != ''} style="background-image: url(design/images/icon_{$v.BGIcon}.png); background-repeat: no-repeat; height:20px;"{/if}>{$v.caption}</option>
+    {/foreach}
+  </optgroup>
+</select>
+</div>
+{/if}
+
+</form>
+<div class="content_head" style="text-align:right">{$pages}</div>

@@ -374,59 +374,60 @@ class MasterSearch2 {
     } else {
 
       #### Generate Result Head
-      $templ['ms2']['table_head'] = '';
+      $head = array();
 
       // Checkbox Headline (Empty field)
       if (count($this->multi_select_action) > 0) {
-        $templ['ms2']['table_head_width'] = '16';
-        $templ['ms2']['table_head_entry'] = '&nbsp;';
-        $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');
+        $head[0]['width'] = '16';
+        $head[0]['entry'] = '&nbsp;';
       }
 
       // Normal headline
       foreach ($this->result_field as $current_field) {
-        $templ['ms2']['table_head_width'] = '*';
+
+        // Cut out AS
+        $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
+        if ($first_as > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
+
+        // Order Link and Image
+        ($_GET['ms_page'] == 'all')? $add_page = '&ms_page=all' : $add_page = '';
+        ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC')? $order_dir = 'DESC' : $order_dir = 'ASC';
+
+        // Generate Headlines
+        $arr = array();       
         if ($current_field['caption']) {
-          $templ['ms2']['link_item'] = $current_field['caption'];
-
-          $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
-          if ($first_as > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_as + 4, strlen($current_field['sql_field']));
-
-          // Order Link and Image
-          ($_GET['ms_page'] == 'all')? $add_page = '&ms_page=all' : $add_page = '';
-          ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC')? $order_dir = 'DESC' : $order_dir = 'ASC';
-          $templ['ms2']['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
+          $arr['entry'] = $current_field['caption'];
+          $arr['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
 
           if ($_GET['order_by'] == $current_field['sql_field']) {
-            if ($_GET['order_dir'] == 'DESC') $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
-            else $templ['ms2']['link_item'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_asc_active.gif\" border=\"0\" />";
-          } else $templ['ms2']['link_item'] .= '';
-
-          $templ['ms2']['table_head_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
-        } else $templ['ms2']['table_head_entry'] = '';
-        $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');
+            if ($_GET['order_dir'] == 'DESC') $arr['entry'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
+            else $arr['entry'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_asc_active.gif\" border=\"0\" />";
+          }
+        }
+        $head[] = $arr;
       }
 
       #### Generate Result Body
-      $templ['ms2']['table_entrys'] = '';
+      $body = array();
+      $x = 0;
       while($line = $db->fetch_array($res)) { // Start: Row
-        $templ['ms2']['table_entrys_row_field'] = '';
+        $y = 0;
 
         // cut of 'table.', befor field name
         if (strpos($select_id_field, '.') > 0) $select_id_field = substr($select_id_field, strpos($select_id_field, '.') + 1, strlen($select_id_field));
 
-        $templ['ms2']['table_entrys_row_field_bgcolor'] = '';
-        if ($this->bgcolor_attr) $templ['ms2']['table_entrys_row_field_bgcolor'] = 'style="background-color:'. $this->bgcolors[$line[$this->bgcolor_attr]] .'"';
-
         // Checkbox
         if (count($this->multi_select_action) > 0) {
-          $templ['ms2']['table_entrys_row_field_entry'] = '<input type="checkbox" class="checkbox" name="action['. $line[$select_id_field] .']">';
-          $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');
+          $body[$x][0]['entry'] = '<input type="checkbox" class="checkbox" name="action['. $line[$select_id_field] .']">';
+          $y++;
         }
 
         // Normal fields
-        $z = 0;
-        foreach ($this->result_field as $current_field) {
+        $max_displayed = 0;
+        foreach ($this->result_field as $current_field) {    
+          $arr = array();
+
+          if ($this->bgcolor_attr) $arr['bgcolor'] = 'style="background-color:'. $this->bgcolors[$line[$this->bgcolor_attr]] .'" ';
 
           // cut of 'table.', in front of field name
           $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
@@ -435,91 +436,84 @@ class MasterSearch2 {
           elseif ($first_dot > 0) $current_field['sql_field'] = substr($current_field['sql_field'], $first_dot + 1, strlen($current_field['sql_field']));
 
           // Exec Callback
-          if ($current_field['callback']) $templ['ms2']['table_entrys_row_field_entry'] = call_user_func($current_field['callback'], $line[$current_field['sql_field']], $line[$select_id_field]);
-          else $templ['ms2']['table_entrys_row_field_entry'] = $line[$current_field['sql_field']];
+          if ($current_field['callback']) $arr['entry'] = call_user_func($current_field['callback'], $line[$current_field['sql_field']], $line[$select_id_field]);
+          else $arr['entry'] = $line[$current_field['sql_field']];
 
           // Cut of oversize chars
-          if ($current_field['max_char'] and strlen($templ['ms2']['table_entrys_row_field_entry']) > $current_field['max_char'])
-            $templ['ms2']['table_entrys_row_field_entry'] = substr($templ['ms2']['table_entrys_row_field_entry'], 0, $current_field['max_char'] - 2) .'...';
+          if ($current_field['max_char'] and strlen($arr['entry']) > $current_field['max_char'])
+            $arr['entry'] = substr($arr['entry'], 0, $current_field['max_char'] - 2) .'...';
 
           // Link first row to same target as first icon
-          if ($z == 0 and !$config['dont_link_first_line'] and $this->icon_field[0]['link']) {
-            $templ['ms2']['link'] = $this->icon_field[0]['link'] . $line[$select_id_field];
-            $templ['ms2']['link_item'] = $templ['ms2']['table_entrys_row_field_entry'];
-            $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
-          }
+          if ($y == 0 and !$config['dont_link_first_line'] and $this->icon_field[0]['link']) $arr['link'] = $this->icon_field[0]['link'] . $line[$select_id_field];
 
           // Width?
-          $templ['ms2']['table_entrys_row_field_width'] = '';
-          if ($current_field['width']) $templ['ms2']['table_entrys_row_field_width'] = ' width="'. $current_field['width'] .'px"';
+          if ($current_field['width']) $arr['width'] = $current_field['width'];
 
           // Output fro template
-          if ($templ['ms2']['table_entrys_row_field_entry'] == '') $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
-          $templ['ms2']['table_entrys_row_field'] .= $dsp->FetchModTpl('mastersearch2', 'result_field');
+          if ($arr['entry'] == '') $arr['entry'] = '&nbsp;';
 
-          $z++;
+          $body[$x][$y] = $arr;
+          $y++;
         }
 
         // Icon fields
-        $skipped_items = 0;
-        $templ_icon_cells = '';
+        $skipped = 0;
+        $displayed = 0;
         foreach ($this->icon_field as $current_field) {
-          $templ['ms2']['table_entrys_row_field_entry'] = '';
+          $arr = array();
+
           if (!$current_field['callback'] or call_user_func($current_field['callback'], $line[$select_id_field])) {
-            $templ['ms2']['link'] = $current_field['link'] . $line[$select_id_field];
-            $templ['ms2']['icon_name'] = $current_field['icon_name'];
-            $templ['ms2']['icon_title'] = $current_field['tooltipp'];
-            $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
-            if ($templ['ms2']['link']) $templ['ms2']['table_entrys_row_field_entry'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
-            else $templ['ms2']['table_entrys_row_field_entry'] = $templ['ms2']['link_item'];
-            $templ_icon_cells .= $dsp->FetchModTpl('mastersearch2', 'result_field');
-          } else $skipped_items++;
-        }
-        if ($skipped_items < $min_skipped_items) $min_skipped_items = $skipped_items;
+            $arr['type'] = 'icon';
+            $arr['width'] = '20px';
+            $arr['link'] = $current_field['link'] . $line[$select_id_field];
+            $arr['name'] = $current_field['icon_name'];
+            $arr['title'] = $current_field['tooltipp'];
+            $displayed++;
 
-        // Add an empty table cell for each skipped item
-        for ($i = 0; $i < $skipped_items; $i++) {
-          $templ['ms2']['table_entrys_row_field_entry'] = '&nbsp;';
-          $templ_icon_cells = $dsp->FetchModTpl('mastersearch2', 'result_field') . $templ_icon_cells;
+            $body[$x][$y] = $arr;
+            $y++;
+          } $skipped++;
         }
-
-        $templ['ms2']['table_entrys_row_field'] .= $templ_icon_cells;
-        $templ['ms2']['table_entrys'] .= $dsp->FetchModTpl('mastersearch2', 'result_row');
+        if ($displayed > $max_displayed) $max_displayed = $displayed;
+        $x++;
       } // End: Row
 
+      for ($i = 0; $i < $max_displayed; $i++) {
+        $arr = array();
+        $arr['entry'] = '&nbsp;';
+        $arr['width'] = '20px';
+        $head[] = $arr;
+      }
+
+      $smarty->assign('head', $head);
+      $smarty->assign('body', $body);
+
       // Multi-Select Dropdown
-      $templ['ms2']['multi_select_dropdown'] = '';
+      $MultiOptions = array();
       if (count($this->multi_select_action) > 0) {
-        $templ['ms2']['select_caption'] = 'Bitte auswählen';
-        $templ['ms2']['select_options'] = '';
+        $smarty->assign('MultiCaption', t('Bitte auswählen'));
         $z = 0;
         foreach ($this->multi_select_action as $current_action) {
-          if ($z == 0) $templ['ms2']['multi_select_actions'] = '"'. $current_action['action'] .'"';
-          else $templ['ms2']['multi_select_actions'] .= ', "'. $current_action['action'] .'"';
-          if ($z == 0) $templ['ms2']['security_questions'] = '"'. $current_action['security_question'] .'"';
-          else $templ['ms2']['security_questions'] .= ', "'. $current_action['security_question'] .'"';
-          ($current_action['icon'])? $BGIcon = ' style="background-image: url(design/images/icon_'. $current_action['icon'] .'.png); background-repeat: no-repeat; height:20px;"' : $BGIcon = '';
-          $templ['ms2']['select_options'] .= "<option value=\"$z\"$BGIcon>{$current_action['caption']}</option>";
+          $arr = array();
+          if ($z == 0) $multi_select_actions = '"'. $current_action['action'] .'"';
+          else $multi_select_actions .= ', "'. $current_action['action'] .'"';
+          if ($z == 0) $security_questions = '"'. $current_action['security_question'] .'"';
+          else $security_questions .= ', "'. $current_action['security_question'] .'"';
+
+          $arr['BGIcon'] = $current_action['icon'];
+          $arr['caption'] = $current_action['caption'];
+          $arr['value'] = $z;
+          $MultiOptions[] = $arr;
           $z++;
         }
-        $templ['ms2']['multi_select_dropdown'] = $dsp->FetchModTpl('mastersearch2', 'result_multi_dropdown');
+        $smarty->assign('multi_select_actions', $multi_select_actions);
+        $smarty->assign('security_questions', $security_questions);
+        $smarty->assign('MultiOptions', $MultiOptions);
       }
-
-      // For each IconField in the row with the most icons, add an empty headline field
-      $i = 0;
-      foreach ($this->icon_field as $current_field) {
-        if ($i >= $min_skipped_items) $templ['ms2']['table_head_width'] = '22';
-        else $templ['ms2']['table_head_width'] = '1';
-        $templ['ms2']['table_head_entry'] = '&nbsp;';
-        $templ['ms2']['table_head'] .= $dsp->FetchModTpl('mastersearch2', 'result_head');
-        $i++;
-      }
-
       $db->free_result($res);
-      $templ['ms2']['result_action'] = $multiaction;
-      $dsp->AddModTpl('mastersearch2', 'result_case');
+
+      $dsp->AddLineTplSmarty($smarty->fetch('modules/mastersearch2/templates/result_case.htm'));
     }
-    $dsp->AddContent();
   }
 } // End: Class
 
