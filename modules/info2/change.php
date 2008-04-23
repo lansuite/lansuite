@@ -29,7 +29,7 @@ if ($auth['type'] <= 1) {
   $ms2->PrintSearch('index.php?mod=info2', 'i.infoID');
 
 } else {
-  $_POST['content'] = $_POST['FCKeditor1'];
+  if ($_POST['content'] == '') $_POST['content'] = $_POST['FCKeditor1'];
 
   switch($_GET["step"]){
   	default:
