@@ -118,7 +118,7 @@ class MasterSearch2 {
   }
 
     function PrintSearch($working_link, $select_id_field, $multiaction = '') {
-    global $db, $config, $dsp, $templ, $func, $auth, $line, $gd, $lang, $ms_number;
+    global $smarty, $db, $config, $dsp, $templ, $func, $auth, $line, $gd, $lang, $ms_number;
 
     $working_link .= $this->post_in_get;
     $working_link .= '&ms_number='. $ms_number;
@@ -286,88 +286,85 @@ class MasterSearch2 {
     $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
     #if ($_GET['ms_page'] >= $count_pages) $_GET['ms_page'] = $count_pages - 1;
 
-        if ($count_rows['count'] > $this->config['EntriesPerPage']) {
-          $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&ms_page=";
-            $templ['ms2']['pages'] = ("Seiten: ");
+    if ($count_rows['count'] > $this->config['EntriesPerPage']) {
+      $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&ms_page=";
+      $templ['ms2']['pages'] = ("Seiten: ");
       $link_start = ' <a href="';
       $link_end = '" onclick="loadPage(this.href); return false" class="menu">';
-            // Previous page link
-            if ($_GET['ms_page'] != "all" and (int)$_GET['ms_page'] > 0) {
-                $templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] - 1) . $link_end .'<b>&lt;</b></a>';
-            }
-            // Direct page link
-            $i = 0;
-            while($i < $count_pages) {
-                if ($_GET['ms_page'] != "all" and $_GET['ms_page'] == $i) $templ['ms2']['pages'] .= (" " . ($i + 1));
-                else $templ['ms2']['pages'] .= $link_start . $link . $i . $link_end .'<b>'. ($i + 1) .'</b></a>';
-                $i++;
-            }
-            // Next page link
-            if ($_GET['ms_page'] != "all" and ($_GET['ms_page'] + 1) < $count_pages) {
-                $templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
-            }
-            // All link
-            if ($_GET['ms_page'] == "all") $templ['ms2']['pages'] .= " Alle";
-            else $templ['ms2']['pages'] .= ' <a href="' . $link . 'all' . '" class="menu"><b>Alle</b></a>';
+      // Previous page link
+      if ($_GET['ms_page'] != "all" and (int)$_GET['ms_page'] > 0) {
+          $templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] - 1) . $link_end .'<b>&lt;</b></a>';
+      }
+      // Direct page link
+      $i = 0;
+      while($i < $count_pages) {
+        if ($_GET['ms_page'] != "all" and $_GET['ms_page'] == $i) $templ['ms2']['pages'] .= (" " . ($i + 1));
+        else $templ['ms2']['pages'] .= $link_start . $link . $i . $link_end .'<b>'. ($i + 1) .'</b></a>';
+        $i++;
+      }
+      // Next page link
+      if ($_GET['ms_page'] != "all" and ($_GET['ms_page'] + 1) < $count_pages) {
+          $templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
+      }
+      // All link
+      if ($_GET['ms_page'] == "all") $templ['ms2']['pages'] .= " Alle";
+      else $templ['ms2']['pages'] .= ' <a href="' . $link . 'all' . '" class="menu"><b>Alle</b></a>';
     }
 
 
     ###### Output Search
     ($_GET['ms_page'] == 'all')? $add_page = '&ms_page=all' : $add_page = '';
 
-    $templ['ms2']['action'] = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}";#$add_page
-    $templ['ms2']['inputs'] = '';
+    $smarty->assign('action', "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}");
+
     // Text Inputs
-    $z = 0; $x = 0;
+    $SearchInputs = array();
+    $z = 0; $x = 0; $y = 0;
     if ($this->search_fields) foreach ($this->search_fields as $current_field) {
-      $current = $x % 2;
-      $templ['ms2']['input_field_name'] = "search_input[$z]";
-      $templ['ms2']['input_field_value'] = $_POST['search_input'][$z];
-      $templ['ms2']['input_field_caption'][$current] = $current_field['caption'];      
-      $templ['ms2']['search_help'][$current] = '';
+      $arr = array();
+      $arr['type'] = 'text';
+      $arr['name'] = "search_input[$z]";
+      $arr['value'] = $_POST['search_input'][$z];
+      $arr['caption'] = $current_field['caption'];      
       if ($current_field['sql_fields']) foreach ($current_field['sql_fields'] as $compare_mode) if ($compare_mode == 'fulltext') {
-        $templ['ms2']['helplet_id'] = 'fulltext';
-        $templ['ms2']['helplet_text'] = 'Fulltext';
-        $templ['ms2']['search_help'][$current] = $dsp->FetchModTpl('mastersearch2', 'search_help_link');
+        $arr['helpletId'] = 'fulltext';
+        $arr['helpletText'] = 'Fulltext';
       }
-      $templ['ms2']['search'][$current] = $dsp->FetchModTpl('mastersearch2', 'search_input_field');
-      if ($current == 1) $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_row');
-      $z++; $x++;
+      $SearchInputs[$x][$y] = $arr;
+      $y++; $z++;
+      if ($y == 2) { $y = 0; $x++; }
     }
 
     // Dropdown Inputs
     $z = 0;
     if ($this->search_dropdown) foreach ($this->search_dropdown as $current_field) {
-      $current = $x % 2;
-      $templ['ms2']['input_field_name'] = "search_dd_input[$z]";
-      $templ['ms2']['input_field_multiple'] = '';
+      $arr = array();
+      $arr['type'] = 'select';
+      $arr['name'] = "search_dd_input[$z]";
+      $arr['caption'] = $current_field['caption'];
+      $arr['options'] = $current_field['selections'];
+      $arr['selected'] = $_POST['search_dd_input'][$z];
+
+      $arr['multiple'] = '';
       if ($current_field['multiple']) {
-        $templ['ms2']['input_field_multiple'] = ' multiple="multiple" rows="'. $current_field['multiple'] .'"';
-        $templ['ms2']['input_field_name'] .= '[]';
+        $arr['multiple'] = ' multiple="multiple" rows="'. $current_field['multiple'] .'"';
+        $arr['name'] .= '[]';
       }
-      $templ['ms2']['input_field_options'] = '';
-      $templ['ms2']['search_help'][$current] = '';
-      foreach ($current_field['selections'] as $key => $value) {
-        $selected = '';
-        if (is_array($_POST['search_dd_input'][$z]) and in_array($key, $_POST['search_dd_input'][$z])) $selected = ' selected';
-        elseif ((string)$_POST['search_dd_input'][$z] == (string)$key) $selected = ' selected';
-        $templ['ms2']['input_field_options'] .= '<option value="'.$key.'"'.$selected.'>'.$value.'</option>';
-      }
-      $templ['ms2']['input_field_caption'][$current] = $current_field['caption'];
-      $templ['ms2']['search'][$current] = $dsp->FetchModTpl('mastersearch2', 'search_input_dropdown');
-      if ($current == 1) $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_row');
-      $z++; $x++;
+
+      $SearchInputs[$x][$y] = $arr;
+      $y++; $z++;
+      if ($y == 2) { $y = 0; $x++; }
     }
+
     // If odd number of input fields, add the last one in a single row
-    if ($current == 0) {
-      $templ['ms2']['input_field_caption'][1] = '&nbsp;';
-      $templ['ms2']['search'][1] = '&nbsp;';
-      $templ['ms2']['search_help'][1] = '';
-      $templ['ms2']['inputs'] .= $dsp->FetchModTpl('mastersearch2', 'search_row');
+    if ($y == 1) {
+      $SearchInputs[$x][$y]['type'] = '';
+      $SearchInputs[$x][$y]['caption'] = '&nbsp;';
     }
+
     if ($this->search_fields or $this->search_dropdown) {
-      $gd->CreateButton('search');
-      $dsp->AddModTpl('mastersearch2', 'search_case');
+      $smarty->assign('SearchInputs', $SearchInputs);
+      $dsp->AddLineTplSmarty($smarty->fetch('modules/mastersearch2/templates/search_case.htm'));
     }
 
     ###### Output Result
