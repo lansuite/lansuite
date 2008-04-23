@@ -158,7 +158,7 @@ if (!$config) {
 
     $language = $translation->get_lang(); // Set and Read Systemlanguage
     // Load Base-Lang-File. OLD!!! Only for old $lang in Systemfolders
-    include_once("inc/language/language_$language.php");
+    if (file_exists("inc/language/language_$language.php")) include_once("inc/language/language_$language.php");
 
 ### Installingsystem or normal auth
 
