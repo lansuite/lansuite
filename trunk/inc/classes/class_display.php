@@ -69,7 +69,7 @@ class display {
   function AddTpl($file, $OpenTable = 1){
     global $templ;
 
-  echo $this->FetchTpl($file, $templ);
+    echo $this->FetchTpl($file, $templ);
   }
 
   // Output the template $file
@@ -483,17 +483,17 @@ class display {
 
   // TODO: Review!
   function AddPictureSelectRow($key, $path, $pics_per_row = NULL, $max_rows = NULL, $optional = NULL, $checked = NULL, $max_width = NULL, $max_height = NULL, $JS = false) {
-    global $templ, $gd;
+    global $smarty, $gd;
 
     if ($max_width == "") $max_width = 150;
     if ($max_height == "") $max_height = 120;
     if ($max_rows == "") $max_rows = 100;
     if ($pics_per_row == "") $pics_per_row = 3;
 
-    $templ['ls']['row']['pictureselect']['zeile'] = "";
+    $zeile = "";
     $templ['ls']['row']['pictureselect']['spalte'] = "";
 
-  if ($optional) $optional = '_optional';
+    if ($optional) $optional = '_optional';
 
     $handle = @opendir($path);
     $z = 0;
@@ -509,52 +509,54 @@ class display {
     sort($file_list, SORT_NUMERIC);
     
     // For each file in directory
+    $pics = array();
+    $x = 0;
+    $y = 0;
     $z = 0;
     foreach ($file_list as $file) {
-        $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
-        if (($extension == "jpeg") or ($extension == "jpg") or ($extension == "png") or ($extension == "gif")){
+      $arr = array();
+      $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
+      if (($extension == "jpeg") or ($extension == "jpg") or ($extension == "png") or ($extension == "gif")){
 
-            $file_out = "$path/lsthumb_$file";
+        $file_out = "$path/lsthumb_$file";
 
-            // Wenn Thumb noch nicht generiert wurde, generieren versuchen
-            if (!file_exists($file_out)) $gd->CreateThumb("$path/$file", $file_out, $max_width, $max_height);
+        // Wenn Thumb noch nicht generiert wurde, generieren versuchen
+        if (!file_exists($file_out)) $gd->CreateThumb("$path/$file", $file_out, $max_width, $max_height);
 
-            $pic_dimensions = GetImageSize($file_out);
-            if (!$pic_dimensions[0] or $pic_dimensions[0] > $max_width) $pic_dimensions[0] = $max_width;
-            if (!$pic_dimensions[1] or $pic_dimensions[1] > $max_height) $pic_dimensions[1] = $max_height;
-            $templ['ls']['row']['pictureselect']['pic_width'] = $pic_dimensions[0];
-            $templ['ls']['row']['pictureselect']['pic_height'] = $pic_dimensions[1];
+        $pic_dimensions = GetImageSize($file_out);
+        if (!$pic_dimensions[0] or $pic_dimensions[0] > $max_width) $pic_dimensions[0] = $max_width;
+        if (!$pic_dimensions[1] or $pic_dimensions[1] > $max_height) $pic_dimensions[1] = $max_height;
+        $arr['width'] = $pic_dimensions[0];
+        $arr['height'] = $pic_dimensions[1];
 
-            $templ['ls']['row']['pictureselect']['pic_src'] = $file_out;
-            $caption = strtolower(substr($file, 0, strrpos($file, ".")));
-            if (($z == $checked) || ($file == $checked)) $check = 'checked';
-            else $check = '';
+        $arr['src'] = $file_out;
+        $caption = strtolower(substr($file, 0, strrpos($file, ".")));
+        if (($z == $checked) || ($file == $checked)) $check = 'checked';
+        else $check = '';
 
-      if ($JS) {
-        $templ['pictureselect']['IconClick'] = " onClick=\"javascript:UpdateCurrentPicture('$file_out');\"";
-        $templ['pictureselect']['InputForm'] = '<input type="hidden" name="'. $key .'" value="'. $file .'" />';
-      }
-      else $templ['pictureselect']['InputForm'] = '<input type="radio" name="'. $key .'" class="form'. $optional .'" value="'. $file .'" '. $check .' />'. $caption;
-            $templ['ls']['row']['pictureselect']['spalte'] .= $this->FetchModTpl("", "ls_row_pictureselect_spalte");
-            $z++;
-
-            if ($z % $pics_per_row == 0) {
-                $templ['ls']['row']['pictureselect']['zeile'] .= $this->FetchModTpl("", "ls_row_pictureselect_zeile");
-                $templ['ls']['row']['pictureselect']['spalte'] = "";
-            }
+        if ($JS) {
+          $arr['IconClick'] = " onClick=\"javascript:UpdateCurrentPicture('$file_out');\"";
+          $arr['InputForm'] = '<input type="hidden" name="'. $key .'" value="'. $file .'" />';
         }
+        else $arr['InputForm'] = '<input type="radio" name="'. $key .'" class="form'. $optional .'" value="'. $file .'" '. $check .' />'. $caption;
+
+        $pics[$x][$y] = $arr;
+        $z++;
+        $y++;
+
+        if ($z % $pics_per_row == 0) {
+          $x++;
+          $y = 0;
+        }
+      }
     }
 
-    if ($z % $pics_per_row != 0) {
-        $templ['ls']['row']['pictureselect']['zeile'] .= $this->FetchModTpl("", "ls_row_pictureselect_zeile");
-        $templ['ls']['row']['pictureselect']['spalte'] = "";
-    }
-
-    $this->AddTpl("design/templates/ls_row_pictureselect.htm");
+    $smarty->assign('pics', $pics);
+    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_pictureselect.htm'));
   }
 
-    function AddFileSelectRow($name, $key, $errortext, $size = NULL, $maxlength = NULL, $optional = NULL) {
-        global $templ, $func;
+  function AddFileSelectRow($name, $key, $errortext, $size = NULL, $maxlength = NULL, $optional = NULL) {
+    global $func;
 
     $maxfilesize = ini_get('upload_max_filesize');
     if (strpos($maxfilesize, 'M') > 0) $maxfilesize = (int)$maxfilesize * 1024 * 1024;
@@ -565,7 +567,7 @@ class display {
     if ($maxfilesize < 1000) $maxfilesize = 1024 * 1024 * 100;
     $maxfilesize_formated = '(Max: '. $func->FormatFileSize($maxfilesize) .')';
 
-        if ($size == '') $size = '30';
+    if ($size == '') $size = '30';
     ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
     ($optional)? $optional = "_optional" : $optional = '';
     ($selected and $selected != "none")? $picpreview_init = $path."/".$selected :$picpreview_init = 'design/standard/images/index_transparency.gif';
@@ -575,46 +577,32 @@ class display {
     $value .= '<input type="file" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" value="" size="'. $size .'" enctype="multipart/form-data" maxlength="'. $maxlength .'" /> '. $maxfilesize_formated;
     $value .= $errortext;
     $this->AddDoubleRow($key, $value);
-    }
+  }
 
   function AddJumpToMark($name) {
-    global $templ;
-
-        $templ['jumpto']['name'] = $name;
-        $this->AddTpl("design/templates/ls_row_jump_to.htm");
+    echo "<a name=\"$name\"></a>";
   }
 
-  // Still used?
   function AddIFrame($url, $width=795, $height=600) {
-    global $lang, $templ, $func;
+    global $smarty;
 
-    $templ["class_display"]["IFrame"]["noIFrame"] .= t('Wenn ihr Broswer keine IFrames unterstützt, ');
-    $templ["class_display"]["IFrame"]["clickhere"] .= t('bitte hier klicken!');
-    $templ["class_display"]["IFrame"]["url"] = 'http://' . $url;
-    $templ["class_display"]["IFrame"]["width"] = $width;
-    $templ["class_display"]["IFrame"]["height"] = $height;
+    $smarty->assign('noIFrame', t('Wenn ihr Broswer keine IFrames unterstützt, '));
+    $smarty->assign('clickhere', t('bitte hier klicken!'));
+    $smarty->assign('url', 'http://' . $url);
+    $smarty->assign('width', $width);
+    $smarty->assign('height', $height);
 
-    $this->AddSingleRow($this->FetchModTpl("", "ls_row_IFrame"));
+    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_IFrame.htm'));
   }
 
-  // Still used?
-  function ShowNewWindow($url) {
-    global $lang, $templ;
+  // ################################################################################################################# //
 
-    $templ["class_display"]["NewWindow"]["popupBlocked"] .= t('Wenn das PopUp geblockt wurde, ');
-    $templ["class_display"]["NewWindow"]["clickhere"] .= t('bitte hier klicken!');
-    $templ["class_display"]["NewWindow"]["url"] = 'http://' . $url;
-    $this->AddSingleRow($this->FetchModTpl("", "ls_row_newWindow"));
-  }
-
-    // ################################################################################################################# //
-
-    function AddModTpl($mod, $name) {
-        global $templ, $debug;
+  function AddModTpl($mod, $name) {
+    global $templ, $debug;
         
-        if ($mod == "") $return = $this->AddTpl("design/templates/".$name.".htm");
-        else $return = $this->AddTpl("modules/".$mod."/templates/".$name.".htm");
-    }
+    if ($mod == "") $return = $this->AddTpl("design/templates/".$name.".htm");
+    else $return = $this->AddTpl("modules/".$mod."/templates/".$name.".htm");
+  }
 
   function FetchAttachmentRow($file) {
     global $gd;
@@ -631,41 +619,26 @@ class display {
     } else return HTML_NEWLINE . HTML_NEWLINE. $this->FetchIcon($file, 'download') .' ('. t('Angehängte Datei herunterladen').')';
   }
 
-    function FetchButton($link, $picname, $hint = NULL, $target = NULL) {
+  function FetchButton($link, $picname, $hint = NULL, $target = NULL) {
     global $lang;
 
     return $this->FetchSpanButton($lang['button'][$picname], $link, $hint, $target);
-/*
-        global $templ, $gd;
+  }
 
-        if (!$hint) $hint = 'Pic: '. $picname;
-
-        $templ['ls']['linkbutton']['link'] = $link;
-        $templ['ls']['linkbutton']['picname'] = $picname;
-        $templ['ls']['linkbutton']['hint'] = $hint;
-        if ($target) $templ['ls']['linkbutton']['target'] = "target=\"$target\"";
-        else $templ['ls']['linkbutton']['target'] = "";
-
-        $gd->CreateButton($picname);
-
-        return $this->FetchModTpl("", "ls_linkbutton");
-*/  }
-
-    function FetchCssButton($title, $link, $hint = NULL, $target = NULL) {
+  function FetchCssButton($title, $link, $hint = NULL, $target = NULL) {
     ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
     ($target)? $target = ' target="_blank"' : $target = '';
     return '<div class="Button"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></div>';
-    }
+  }
 
-    function FetchSpanButton($title, $link, $hint = NULL, $target = NULL) {
+  function FetchSpanButton($title, $link, $hint = NULL, $target = NULL) {
     ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
     ($target)? $target = ' target="_blank"' : $target = '';
-#    return '<a href="'. $link .'"'. $hint .''. $target .'><span class="Button">'. $title .'</span></a> ';
     return '<div class="Buttons" style="display:inline"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></div>';
-    }
+  }
   
-    function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {
-        global $templ, $gd;
+  function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {
+    global $templ, $gd;
 
     // Picname-Mappings
     switch ($picname) {
@@ -695,68 +668,68 @@ class display {
         if ($target) $target = " target=\"$target\"";
     if ($link) $ret = '<a href="'.$link.'"'.$target.'>'.$ret.'</a>';
     return $ret;  
-    }
+  }
 
-    function FetchUserIcon($userid) {
-        global $templ, $db;
+  function FetchUserIcon($userid) {
+    global $templ, $db;
 
-        $templ['usericon']['userid'] = $userid;
-        $templ['usericon']['hint'] = t('Benutzerdetails aufrufen');
+    $templ['usericon']['userid'] = $userid;
+    $templ['usericon']['hint'] = t('Benutzerdetails aufrufen');
 
-        $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = "1" AND lasthit > %int%', $userid, time() - 60*10);
-    		($user_online['found'])? $templ['usericon']['state'] ='online' : $templ['usericon']['state'] ='offline';
+    $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = "1" AND lasthit > %int%', $userid, time() - 60*10);
+    ($user_online['found'])? $templ['usericon']['state'] ='online' : $templ['usericon']['state'] ='offline';
 
-        return $this->FetchModTpl("", "ls_usericon");
-    }
+    return $this->FetchModTpl("", "ls_usericon");
+  }
 
-    function FetchModTpl($mod, $name) {
-        global $templ, $debug;
+  function FetchModTpl($mod, $name) {
+    global $templ, $debug;
 
-        if ($mod == "") $return = $this->FetchTpl("design/templates/".$name.".htm", $templ);
-        else $return = $this->FetchTpl("modules/".$mod."/templates/".$name.".htm", $templ);
+    if ($mod == "") $return = $this->FetchTpl("design/templates/".$name.".htm", $templ);
+    else $return = $this->FetchTpl("modules/".$mod."/templates/".$name.".htm", $templ);
 
-        return $return;
-    }
+    return $return;
+  }
 
-    function SetForm($f_url, $f_name = NULL, $f_method = NULL, $f_enctype = NULL) {
-        global $templ;
+  function SetForm($f_url, $f_name = NULL, $f_method = NULL, $f_enctype = NULL) {
+    global $templ;
 
-        if ($f_name == NULL) $f_name = "dsp_form" . $this->formcount++;
-        if ($f_method == NULL) $f_method = "POST";
+    if ($f_name == NULL) $f_name = "dsp_form" . $this->formcount++;
+    if ($f_method == NULL) $f_method = "POST";
 
-        if ($f_enctype == NULL) $f_enctype = "";
-        else $f_enctype = "enctype=\"$f_enctype\"";
+    if ($f_enctype == NULL) $f_enctype = "";
+    else $f_enctype = "enctype=\"$f_enctype\"";
 
-        if ($this->form_open) $this->CloseForm();
-        $this->form_open = true;
+    if ($this->form_open) $this->CloseForm();
+    $this->form_open = true;
 
-        $this->form_name = $f_name;
-        $templ['ls']['row']['formbegin']['name']   = $f_name;
-        $templ['ls']['row']['formbegin']['method'] = strtolower($f_method);
-        $templ['ls']['row']['formbegin']['action'] = $f_url;
-        $templ['ls']['row']['formbegin']['enctype'] = $f_enctype;
+    $this->form_name = $f_name;
+    $templ['ls']['row']['formbegin']['name']   = $f_name;
+    $templ['ls']['row']['formbegin']['method'] = strtolower($f_method);
+    $templ['ls']['row']['formbegin']['action'] = $f_url;
+    $templ['ls']['row']['formbegin']['enctype'] = $f_enctype;
 
-        $this->AddTpl("design/templates/ls_row_formbegin.htm");
-    }
+    $this->AddTpl("design/templates/ls_row_formbegin.htm");
+  }
 
-    function CloseForm() {
-        global $templ;
+  function CloseForm() {
+    global $templ;
 
-        $this->form_open = false;
-        $this->AddTpl("design/templates/ls_row_formend.htm");
-    }
+    $this->form_open = false;
+    $this->AddTpl("design/templates/ls_row_formend.htm");
+  }
 
-    function AddContent($target = NULL) {
-    }
+  function AddContent($target = NULL) {
+  }
 
-    function HelpText($text, $help) {
+  function HelpText($text, $help) {
     return '<span onmouseover="return overlib(\''. t($help) .'\');" onmouseout="return nd();">'. t($text) .'</span>';
-    }
+  }
 
   function AddIcon($name, $link = '', $title = '') {
     global $templ;
     
-      $templ['ms2']['icon_name'] = $name;
+    $templ['ms2']['icon_name'] = $name;
     $templ['ms2']['icon_title'] = $title;
     $templ['ms2']['link_item'] = $this->FetchModTpl('mastersearch2', 'result_icon');
     if ($link) {
