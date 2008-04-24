@@ -3,12 +3,12 @@
 $ms_number = 0;
 
 class MasterSearch2 {
-    var $query;
-    var $result_field = array();
-    var $search_fields = array();
-    var $search_dropdown = array();
-    var $icon_field = array();
-    var $multi_select_action = array();
+  var $query;
+  var $result_field = array();
+  var $search_fields = array();
+  var $search_dropdown = array();
+  var $icon_field = array();
+  var $multi_select_action = array();
   var $config = array();
   var $bgcolors = array();
   var $bgcolor_attr = '';
@@ -458,7 +458,6 @@ class MasterSearch2 {
 
         // Icon fields
         $body_icons = array();
-        $skipped = 0;
         $first_icon = $y;
         $displayed = 0;
         foreach ($this->icon_field as $current_field) {
@@ -474,37 +473,28 @@ class MasterSearch2 {
 
             $body[$x][$y] = $arr;
             $y++;
-          } $skipped++;
+          }
         }
 
         if ($displayed > $max_displayed) $max_displayed = $displayed;
         $x++;
       } // End: Row
-
-      // Move empty Icons to the first possition
-      foreach ($body as $k => $v) {
-#echo '<br>';
-        for ($i = ($max_displayed + $first_icon); $i > $first_icon; $i--) {
-#echo $i;
-          if ($body[$k][$i]['name'] == '') {
-            for ($j = $i; $j > $first_icon; $j--) {
-              $prev = $j - 1;
-
-#              echo $body[$k][$prev]['name'] .'->'. $body[$k][$j]['name'] .' | ';
-              $body[$k][$j] = $body[$k][$prev];
-            }
-            unset($body[$k][$first_icon]);
-          } #else echo $body[$k][$i]['name'];
-        }
+      
+      // Move empty Icons to the front
+      foreach ($body as $k => $v) if (empty($body[$k][$first_icon + $max_displayed - 1])) {
+        for ($i = $first_icon + $max_displayed - 1; $i > $first_icon; $i--) $body[$k][$i] = $body[$k][$i-1];
+        $body[$k][$first_icon]['type'] = '';
+        $body[$k][$first_icon]['entry'] = '&nbsp;';
       }
 
+      // Add empty headlines for each icon column
       for ($i = 0; $i < $max_displayed; $i++) {
         $arr = array();
         $arr['entry'] = '&nbsp;';
         $arr['width'] = '20px';
         $head[] = $arr;
       }
-#print_r($body);
+
       $smarty->assign('head', $head);
       $smarty->assign('body', $body);
 
