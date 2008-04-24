@@ -457,7 +457,9 @@ class MasterSearch2 {
         }
 
         // Icon fields
+        $body_icons = array();
         $skipped = 0;
+        $first_icon = $y;
         $displayed = 0;
         foreach ($this->icon_field as $current_field) {
           $arr = array();
@@ -474,9 +476,27 @@ class MasterSearch2 {
             $y++;
           } $skipped++;
         }
+
         if ($displayed > $max_displayed) $max_displayed = $displayed;
         $x++;
       } // End: Row
+
+      // Move empty Icons to the first possition
+      foreach ($body as $k => $v) {
+#echo '<br>';
+        for ($i = ($max_displayed + $first_icon); $i > $first_icon; $i--) {
+#echo $i;
+          if ($body[$k][$i]['name'] == '') {
+            for ($j = $i; $j > $first_icon; $j--) {
+              $prev = $j - 1;
+
+#              echo $body[$k][$prev]['name'] .'->'. $body[$k][$j]['name'] .' | ';
+              $body[$k][$j] = $body[$k][$prev];
+            }
+            unset($body[$k][$first_icon]);
+          } #else echo $body[$k][$i]['name'];
+        }
+      }
 
       for ($i = 0; $i < $max_displayed; $i++) {
         $arr = array();
@@ -484,7 +504,7 @@ class MasterSearch2 {
         $arr['width'] = '20px';
         $head[] = $arr;
       }
-
+#print_r($body);
       $smarty->assign('head', $head);
       $smarty->assign('body', $body);
 
