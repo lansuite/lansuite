@@ -12,7 +12,6 @@
       {elseif $input.type == 'select'}
         <select name="{$input.name}" class="form" onmouseover="this.focus();" {$input.multiple}>
         {html_options options=$input.options selected=$input.selected}
-        {$input.options}
         </select>
       {else}
         &nbsp;
