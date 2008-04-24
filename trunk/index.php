@@ -151,8 +151,8 @@ if (!$config) {
     $seat2       = new seat2();          // Load Seat-Controll Class
     $translation = new translation();    // Load Translationclass
     $smarty      = new Smarty();
-    $smarty->template_dir = '';
-    $smarty->compile_dir = 'design/templates_c/';
+    $smarty->template_dir = '.';
+    $smarty->compile_dir = './design/templates_c/';
 
 ### Initalize Basic Parameters
 
