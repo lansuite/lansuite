@@ -416,21 +416,21 @@ class MasterSearch2 {
       while($line = $db->fetch_array($res)) { // Start: Row
         $y = 0;
 
+        if ($this->bgcolor_attr) $body[$x]['bgcolor'] = 'style="background-color:'. $this->bgcolors[$line[$this->bgcolor_attr]] .'" ';
+
         // cut of 'table.', befor field name
         if (strpos($select_id_field, '.') > 0) $select_id_field = substr($select_id_field, strpos($select_id_field, '.') + 1, strlen($select_id_field));
 
         // Checkbox
         if (count($this->multi_select_action) > 0) {
-          $body[$x][0]['entry'] = '<input type="checkbox" class="checkbox" name="action['. $line[$select_id_field] .']">';
+          $body[$x]['line'][0]['entry'] = '<input type="checkbox" class="checkbox" name="action['. $line[$select_id_field] .']">';
           $y++;
         }
 
         // Normal fields
         $max_displayed = 0;
-        foreach ($this->result_field as $current_field) {    
+        foreach ($this->result_field as $k => $current_field) {    
           $arr = array();
-
-          if ($this->bgcolor_attr) $arr['bgcolor'] = 'style="background-color:'. $this->bgcolors[$line[$this->bgcolor_attr]] .'" ';
 
           // cut of 'table.', in front of field name
           $first_as = strpos(strtolower($current_field['sql_field']), ' as ');
@@ -447,7 +447,7 @@ class MasterSearch2 {
             $arr['entry'] = substr($arr['entry'], 0, $current_field['max_char'] - 2) .'...';
 
           // Link first row to same target as first icon
-          if ($y == 0 and !$config['dont_link_first_line'] and $this->icon_field[0]['link']) $arr['link'] = $this->icon_field[0]['link'] . $line[$select_id_field];
+          if ($k == 0 and !$config['dont_link_first_line'] and $this->icon_field[0]['link']) $arr['link'] = $this->icon_field[0]['link'] . $line[$select_id_field];
 
           // Width?
           if ($current_field['width']) $arr['width'] = $current_field['width'];
@@ -455,7 +455,7 @@ class MasterSearch2 {
           // Output fro template
           if ($arr['entry'] == '') $arr['entry'] = '&nbsp;';
 
-          $body[$x][$y] = $arr;
+          $body[$x]['line'][$y] = $arr;
           $y++;
         }
 
@@ -467,8 +467,6 @@ class MasterSearch2 {
           $arr = array();
 
           if (!$current_field['callback'] or call_user_func($current_field['callback'], $line[$select_id_field])) {
-            if ($this->bgcolor_attr) $arr['bgcolor'] = 'style="background-color:'. $this->bgcolors[$line[$this->bgcolor_attr]] .'" ';
-
             $arr['type'] = 'icon';
             $arr['width'] = '20px';
             $arr['link'] = $current_field['link'] . $line[$select_id_field];
@@ -476,7 +474,7 @@ class MasterSearch2 {
             $arr['title'] = $current_field['tooltipp'];
             $displayed++;
 
-            $body[$x][$y] = $arr;
+            $body[$x]['line'][$y] = $arr;
             $y++;
           }
         }
@@ -486,11 +484,10 @@ class MasterSearch2 {
       } // End: Row
       
       // Move empty Icons to the front
-      foreach ($body as $k => $v) if (empty($body[$k][$first_icon + $max_displayed - 1])) {
-        for ($i = $first_icon + $max_displayed - 1; $i > $first_icon; $i--) $body[$k][$i] = $body[$k][$i-1];
-        if ($this->bgcolor_attr) $arr['bgcolor'] = 'style="background-color:'. $this->bgcolors[$line[$this->bgcolor_attr]] .'" ';
-        $body[$k][$first_icon]['type'] = '';
-        $body[$k][$first_icon]['entry'] = '&nbsp;';
+      foreach ($body as $k => $v) if (empty($body[$k]['line'][$first_icon + $max_displayed - 1])) {
+        for ($i = $first_icon + $max_displayed - 1; $i > $first_icon; $i--) $body[$k]['line'][$i] = $body[$k]['line'][$i-1];
+        $body[$k]['line'][$first_icon]['type'] = '';
+        $body[$k]['line'][$first_icon]['entry'] = '&nbsp;';
       }
 
       // Add empty headlines for each icon column
