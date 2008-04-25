@@ -23,8 +23,6 @@ class MasterSearch2 {
 
     $ms_number++;
 
-    $this->config['EntriesPerPage'] = 20;
-    
     $this->query['from'] = '';
     $this->query['where'] = '';
     $this->query['group_by'] = '';
@@ -41,6 +39,8 @@ class MasterSearch2 {
       if (is_array($val)) foreach($val as $key2 => $val2) $this->post_in_get .= "&search_dd_input[$key][$key2]=$val2";
       else $this->post_in_get .= "&search_dd_input[$key]=$val";
     }
+    if (isset($_POST['EntsPerPage'])) $this->post_in_get .= '&EntsPerPage='. $_POST['EntsPerPage'];
+    if (isset($_GET['EntsPerPage'])) $this->post_in_get .= '&EntsPerPage='. $_GET['EntsPerPage'];
 
     // Write back from $_GET[] to $_POST[]
     if (!isset($_POST['search_input']) and $_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
@@ -48,6 +48,9 @@ class MasterSearch2 {
       if (is_array($val)) foreach($val as $key2 => $val2) $_POST['search_dd_input'][$key][$key2] = $val2; 
       else $_POST['search_dd_input'][$key] = $val;
     }
+    if (isset($_POST['EntsPerPage'])) $_GET['EntsPerPage'] = $_POST['EntsPerPage'];
+
+    $this->config['EntriesPerPage'] = 20;
   }
 
   function AddSelect($sql_field){
@@ -252,8 +255,10 @@ class MasterSearch2 {
     if ($this->query['order_by'] == '') $this->query['order_by'] = $select_id_field .' ASC';
     if ($this->query['order_by_end']) $this->query['order_by'] .= ', '. $this->query['order_by_end'];
 
+    if (isset($_GET['EntsPerPage'])) $this->config['EntriesPerPage'] = $_GET['EntsPerPage'];
+
     ###### Generate Limit
-    if ($_GET['ms_page'] == 'all') $this->query['limit'] = '';
+    if (!$_GET['EntsPerPage']) $this->query['limit'] = '';
     else {
       if ($_GET['ms_page'] != '' and (!$_GET['ms_number'] or $_GET['ms_number'] == $ms_number)) $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
       else $page_start = 0;
@@ -281,42 +286,40 @@ class MasterSearch2 {
       ";
 */
 
+    $smarty->assign('action', "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}");
+
     ###### Generate Page-Links
     $count_rows = $db->query_first('SELECT FOUND_ROWS() AS count');
-    $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
-    #if ($_GET['ms_page'] >= $count_pages) $_GET['ms_page'] = $count_pages - 1;
+    if ($this->config['EntriesPerPage']) $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
 
-    if ($count_rows['count'] > $this->config['EntriesPerPage']) {
+    if ($this->config['EntriesPerPage'] and ($count_rows['count'] > $this->config['EntriesPerPage'])) {
       $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&ms_page=";
-      $templ['ms2']['pages'] = ("Seiten: ");
+      $pages = t('Seite') .': ';
       $link_start = ' <a href="';
       $link_end = '" onclick="loadPage(this.href); return false" class="menu">';
       // Previous page link
-      if ($_GET['ms_page'] != "all" and (int)$_GET['ms_page'] > 0) {
-          $templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] - 1) . $link_end .'<b>&lt;</b></a>';
+      if ((int)$_GET['ms_page'] > 0) {
+          $pages .= $link_start . $link . ($_GET['ms_page'] - 1) . $link_end .'<b>&lt;</b></a>';
       }
       // Direct page link
       $i = 0;
       while($i < $count_pages) {
-        if ($_GET['ms_page'] != "all" and $_GET['ms_page'] == $i) $templ['ms2']['pages'] .= (" " . ($i + 1));
-        else $templ['ms2']['pages'] .= $link_start . $link . $i . $link_end .'<b>'. ($i + 1) .'</b></a>';
+        if ($_GET['ms_page'] == $i) $pages .= (" " . ($i + 1));
+        else $pages .= $link_start . $link . $i . $link_end .'<b>'. ($i + 1) .'</b></a>';
         $i++;
       }
       // Next page link
-      if ($_GET['ms_page'] != "all" and ($_GET['ms_page'] + 1) < $count_pages) {
-          $templ['ms2']['pages'] .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
+      if (($_GET['ms_page'] + 1) < $count_pages) {
+          $pages .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
       }
-      // All link
-      if ($_GET['ms_page'] == "all") $templ['ms2']['pages'] .= " Alle";
-      else $templ['ms2']['pages'] .= ' <a href="' . $link . 'all' . '" class="menu"><b>Alle</b></a>';
     }
+    $EntsPerPage = array(10 => 10, 20 => 20, 50 => 50, 100 => 100, 0 => t('Alle'));
+    $smarty->assign('EntsPerPage', $EntsPerPage);
+    $smarty->assign('EntPerPage', $this->config['EntriesPerPage']);
+    $smarty->assign('pages', $pages);
 
 
     ###### Output Search
-    ($_GET['ms_page'] == 'all')? $add_page = '&ms_page=all' : $add_page = '';
-
-    $smarty->assign('action', "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}");
-
     // Text Inputs
     $SearchInputs = array();
     $z = 0; $x = 0; $y = 0;
@@ -464,6 +467,8 @@ class MasterSearch2 {
           $arr = array();
 
           if (!$current_field['callback'] or call_user_func($current_field['callback'], $line[$select_id_field])) {
+            if ($this->bgcolor_attr) $arr['bgcolor'] = 'style="background-color:'. $this->bgcolors[$line[$this->bgcolor_attr]] .'" ';
+
             $arr['type'] = 'icon';
             $arr['width'] = '20px';
             $arr['link'] = $current_field['link'] . $line[$select_id_field];
@@ -483,6 +488,7 @@ class MasterSearch2 {
       // Move empty Icons to the front
       foreach ($body as $k => $v) if (empty($body[$k][$first_icon + $max_displayed - 1])) {
         for ($i = $first_icon + $max_displayed - 1; $i > $first_icon; $i--) $body[$k][$i] = $body[$k][$i-1];
+        if ($this->bgcolor_attr) $arr['bgcolor'] = 'style="background-color:'. $this->bgcolors[$line[$this->bgcolor_attr]] .'" ';
         $body[$k][$first_icon]['type'] = '';
         $body[$k][$first_icon]['entry'] = '&nbsp;';
       }

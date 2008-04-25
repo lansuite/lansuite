@@ -4,7 +4,14 @@ MultiSelectActions = new Array({$multi_select_actions});
 MultiSelectSecurityQuest = new Array({$security_questions});
 -->
 </script>
-<div class="content_head" style="text-align:right">{$pages}</div>
+<form name="MSEntsPerPage" method="post" action="{$action}">
+<div class="content_head" style="text-align:right">
+  {$pages}
+  <select name="EntsPerPage" onchange="this.form.submit();">
+    {html_options options=$EntsPerPage selected=$EntPerPage}
+  </select>
+</div>
+</form>
 <form name="ms_result" method="post" action="">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr>
@@ -50,4 +57,11 @@ MultiSelectSecurityQuest = new Array({$security_questions});
 {/if}
 
 </form>
-<div class="content_head" style="text-align:right">{$pages}</div>
+<form name="MSEntsPerPage2" method="post" action="{$action}">
+<div class="content_head" style="text-align:right">
+  {$pages}
+  <select name="EntsPerPage" onchange="this.form.submit();">
+    {html_options options=$EntsPerPage selected=$EntPerPage}
+  </select>
+</div>
+</form>
