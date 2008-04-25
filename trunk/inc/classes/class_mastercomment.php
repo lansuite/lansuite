@@ -18,7 +18,7 @@ function FetchDataRow($username) {
 function FetchPostRow($text) {
   global $func, $line;
 
-  $ret = $func->text2html($text);
+  $ret = '<span id="post'. $line['commentid'] .'">'. $func->text2html($text) .'</span>';
   if ($line['signature']) {
     $ret .= '<hr size="1" width="100%" color="cccccc">';
     $ret .= $func->text2html($line['signature']);
@@ -75,7 +75,7 @@ class Mastercomment{
     $ms2->AddSelect('u.userid');
     $ms2->AddResultField('', 'u.username', 'FetchDataRow', '', 180);
     $ms2->AddResultField('', 'c.text', 'FetchPostRow');
-#   $ms2->AddIconField('quote', "javascript:InsertCode(document.dsp_form1.text, '[quote]". str_replace("\n", "\\n", addslashes(str_replace('"', '', $row["text"]))) ."[/quote]')", t('Zitieren'), 'EditAllowed');
+    $ms2->AddIconField('quote', 'javascript:document.getElementById(\'text\').value=document.getElementById(\'post%id%\').innerHTML', t('Zitieren'));
     $ms2->AddIconField('edit', $CurentURLBase.'&commentid=', t('Editieren'), 'EditAllowed');
     if ($auth['type'] >= 3) $ms2->AddIconField('delete', $CurentURLBase.'&mc_step=10&commentid=', t('Löschen'));
 
