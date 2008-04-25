@@ -102,7 +102,7 @@ class db {
 
 		$this->record = @mysql_fetch_array($this->query_id);
 
-    if ($this->record and substr($this->query, 0, 7) == 'SELECT ') foreach ($this->record as $key => $value) {
+    if ($this->record) foreach ($this->record as $key => $value) {
     	$this->record[$key] = htmlspecchars($value, ENT_QUOTES, 'UTF-8');
     }
 
