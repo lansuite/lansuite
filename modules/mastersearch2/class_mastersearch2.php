@@ -469,7 +469,10 @@ class MasterSearch2 {
           if (!$current_field['callback'] or call_user_func($current_field['callback'], $line[$select_id_field])) {
             $arr['type'] = 'icon';
             $arr['width'] = '20px';
-            $arr['link'] = $current_field['link'] . $line[$select_id_field];
+            if (substr($current_field['link'], 0, 11) == 'javascript:') $arr['link'] = '#" onclick="'. $current_field['link'];
+            else $arr['link'] = $current_field['link'];
+            if (strpos($arr['link'], '%id%')) $arr['link'] = str_replace('%id%', $line[$select_id_field], $arr['link']);
+            else $arr['link'] .= $line[$select_id_field];
             $arr['name'] = $current_field['icon_name'];
             $arr['title'] = $current_field['tooltipp'];
             $displayed++;

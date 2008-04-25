@@ -22,8 +22,8 @@ MultiSelectSecurityQuest = new Array({$security_questions});
 
 {foreach from=$body item=line}
 <tr onClick="markieren_permanent(this);" onMouseOver="markieren(this);" onMouseOut="unmarkieren(this);">
-  {foreach from=$line item=v}
-    <td class="row_value" valign="top" width="{$v.width}" {$v.bgcolor}>
+  {foreach from=$line.line item=v}
+    <td class="row_value" valign="top" width="{$v.width}" {$line.bgcolor}>
     {if $v.link != ''}<a href="{$v.link}" class="menu">{/if}
       {if $v.type == 'icon'}
         <img src="design/images/icon_{$v.name}.png" alt="{$v.name}" title="{$v.title}" width="20" height="20" border="0">
