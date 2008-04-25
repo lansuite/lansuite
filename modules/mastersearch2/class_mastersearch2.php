@@ -40,7 +40,7 @@ class MasterSearch2 {
       else $this->post_in_get .= "&search_dd_input[$key]=$val";
     }
     if (isset($_POST['EntsPerPage'])) $this->post_in_get .= '&EntsPerPage='. $_POST['EntsPerPage'];
-    if (isset($_GET['EntsPerPage'])) $this->post_in_get .= '&EntsPerPage='. $_GET['EntsPerPage'];
+    elseif (isset($_GET['EntsPerPage'])) $this->post_in_get .= '&EntsPerPage='. $_GET['EntsPerPage'];
 
     // Write back from $_GET[] to $_POST[]
     if (!isset($_POST['search_input']) and $_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
@@ -258,7 +258,7 @@ class MasterSearch2 {
     if (isset($_GET['EntsPerPage'])) $this->config['EntriesPerPage'] = $_GET['EntsPerPage'];
 
     ###### Generate Limit
-    if (!$_GET['EntsPerPage']) $this->query['limit'] = '';
+    if (!$this->config['EntriesPerPage']) $this->query['limit'] = '';
     else {
       if ($_GET['ms_page'] != '' and (!$_GET['ms_number'] or $_GET['ms_number'] == $ms_number)) $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
       else $page_start = 0;
