@@ -60,13 +60,13 @@ class db {
 
     // No INTO OUTFILE
     elseif (!strpos($query_test_string, 'into outfile') === false) $query_string = '___INTO OUTFILE_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
-    $this->querys[] = $query_string;
-        $this->querys_count++;
-        $this->query_id = mysqli_query($GLOBALS['db_link_id'], $query_string);
-        $this->sql_error = @mysqli_error($GLOBALS['db_link_id']);
-        $this->count_query++;
-        if (!$this->query_id) $this->print_error($this->sql_error, $query_string);
-        return $this->query_id;
+      $this->querys[] = $query_string;
+      $this->querys_count++;
+      $this->query_id = mysqli_query($GLOBALS['db_link_id'], $query_string);
+      $this->sql_error = @mysqli_error($GLOBALS['db_link_id']);
+      $this->count_query++;
+      if (!$this->query_id) $this->print_error($this->sql_error, $query_string);
+      return $this->query_id;
     }
 
   function escape($match) {
@@ -101,8 +101,7 @@ class db {
         if ($query_id != -1) $this->query_id = $query_id;
 
         $this->record = @mysqli_fetch_array($this->query_id);
-        
-        if ($this->record and substr($this->query, 0, 7) == 'SELECT ') foreach ($this->record as $key => $value) {
+        if ($this->record) foreach ($this->record as $key => $value) {
            $this->record[$key] = htmlspecchars($value, ENT_QUOTES, 'UTF-8');
         }
         
@@ -111,9 +110,8 @@ class db {
 
 
     function free_result($query_id = -1) {
-        if ($query_id != -1) $this->query_id = $query_id;
-
-        return @mysqli_free_result($this->query_id);
+      if ($query_id != -1) $this->query_id = $query_id;
+      return @mysqli_free_result($this->query_id);
     }
 
 
