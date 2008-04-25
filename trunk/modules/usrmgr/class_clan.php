@@ -7,12 +7,6 @@ class Clan {
 
     if ($name == '') return false;
     
-    // Invalid chars in clan name
-		if (preg_match("/([.^\"\'`´]+)/", $name)) {
-      $func->information('Clan:'. t('Sie verwenden nicht zugelassene Sonderzeichen'));
-      return false;
-    }
-    
     if (substr($url, 0, 7) != 'http://') $url = 'http://'. $url;
 		
     $db->query("INSERT INTO {$config['tables']['clan']} SET
