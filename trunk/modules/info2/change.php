@@ -10,7 +10,7 @@ function ShowActiveState($val){
     $templ['ms2']['icon_name'] = 'no';
     $templ['ms2']['icon_title'] = t('Nein');
   }
-  return '<a href="index.php?mod=info2&action=change&step=20&id='. $line['infoID'] .'">'. $dsp->FetchModTpl('mastersearch2', 'result_icon') .'</a>';
+  return $dsp->FetchModTpl('mastersearch2', 'result_icon');
 }
 
 if ($auth['type'] <= 1) {
@@ -51,7 +51,10 @@ if ($auth['type'] <= 1) {
 
 	$ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', t('Details'));
       if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=info2&action=change&step=2&id=', t('Editieren'));
-      if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Aktiv-Status ändern', 'index.php?mod=info2&action=change&step=20', 1);
+      if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Deaktivieren', 'index.php?mod=info2&action=change&step=20', 1);
+      if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Aktivieren (jedoch nicht verlinken)', 'index.php?mod=info2&action=change&step=21', 1);
+      if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Aktivieren und verlinken', 'index.php?mod=info2&action=change&step=22', 1);
+      if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Aktivieren und verlinken nur für Admins', 'index.php?mod=info2&action=change&step=23', 1);
       if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('Löschen', 'index.php?mod=info2&action=change&step=10', 1);
 
       $ms2->PrintSearch('index.php?mod=info2', 'i.infoID');
@@ -145,38 +148,82 @@ if ($auth['type'] <= 1) {
   		$func->confirmation(t('Der Eintrag wurde gelöscht.'), "index.php?mod=info2&action=change");
   	break;
 
-  	// Change active state
+  	// Deactivate
   	case 20:
-		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
-		foreach($_POST["action"] AS $item => $val) {
+  		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
+  		foreach($_POST["action"] AS $item => $val) {
+				$db->query("UPDATE {$config['tables']['info']} SET active = 0 WHERE infoID = $item");
+  			$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
+				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
+      }
+      $func->confirmation(t('Eintrag deaktiviert'), "index.php?mod=info2&action=change");
+  	break;
+    
+    // Activate
+    case 21:
+  		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
+  		foreach($_POST["action"] AS $item => $val) {
+				$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
+      }
+      $func->confirmation(t('Eintrag aktiviert'), "index.php?mod=info2&action=change");
+  	break;
+    
+    // Activate and link
+    case 22:
+  		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
+  		foreach($_POST["action"] AS $item => $val) {
   			$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
   			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
-  			if ($menu_intem["active"]) {
-  				// Set not active and delete menuitem
-  				$db->query("UPDATE {$config['tables']['info']} SET active = 0 WHERE infoID = $item");
-  				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
-  			} else {
-  				// Set active and write menuitem
-          ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
 
-          $link = str_replace('<', '&lt;', $menu_intem["caption"]);
-          $link = str_replace('>', '&gt;', $link);
-  				$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
-  				$db->query("INSERT INTO {$config['tables']['menu']}
-  					SET module = 'info2',
-  					caption = '{$menu_intem["caption"]}',
-  					hint = '{$menu_intem["shorttext"]}',
-  					link = '?mod=info2&action=show_info2&id=". $item ."',
-  					requirement = 0,
-  					level = $level,
-  					pos = {$info_menu["pos"]},
-  					action = 'show_info2',
-  					file = 'show'
-  					");
-  			}
-  		}
+				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
 
-  		$func->confirmation(t('Der Aktiv-Status wurde erfolgreich geändert.'), "index.php?mod=info2&action=change");
+        ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
+
+        $link = str_replace('<', '&lt;', $menu_intem["caption"]);
+        $link = str_replace('>', '&gt;', $link);
+				$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
+				$db->query("INSERT INTO {$config['tables']['menu']}
+					SET module = 'info2',
+					caption = '{$menu_intem["caption"]}',
+					hint = '{$menu_intem["shorttext"]}',
+					link = '?mod=info2&action=show_info2&id=". $item ."',
+					requirement = 0,
+					level = $level,
+					pos = {$info_menu["pos"]},
+					action = 'show_info2',
+					file = 'show'
+					");
+      }
+      $func->confirmation(t('Eintrag aktiviert'), "index.php?mod=info2&action=change");
+  	break;
+    
+    // Activate and link (admin only)
+    case 23:
+  		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
+  		foreach($_POST["action"] AS $item => $val) {
+  			$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
+  			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
+
+				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
+
+        ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
+
+        $link = str_replace('<', '&lt;', $menu_intem["caption"]);
+        $link = str_replace('>', '&gt;', $link);
+				$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
+				$db->query("INSERT INTO {$config['tables']['menu']}
+					SET module = 'info2',
+					caption = '{$menu_intem["caption"]}',
+					hint = '{$menu_intem["shorttext"]}',
+					link = '?mod=info2&action=show_info2&id=". $item ."',
+					requirement = 2,
+					level = $level,
+					pos = {$info_menu["pos"]},
+					action = 'show_info2',
+					file = 'show'
+					");
+      }
+      $func->confirmation(t('Eintrag aktiviert'), "index.php?mod=info2&action=change");
   	break;
 
   }
