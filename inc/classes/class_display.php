@@ -648,6 +648,7 @@ class display {
     $templ['icon']['name'] = $picname;
 
     // Hint
+    $templ['icon']['hint'] = '';
     if ($hint == '') switch ($picname) {
       default: $hint = ''; break;
       case 'add': $hint = t('Hinzufügen'); break;
@@ -656,7 +657,7 @@ class display {
       case 'delete': $hint = t('Löschen'); break;
       case 'send': $hint = t('Senden'); break;
     }
-    if ($hint) $hint = '<span class="infobox">'. $hint .'</span>';
+    if ($hint) $templ['icon']['hint'] = $hint;
 
     $templ['icon']['additionalhtml'] = '';
     if ($align == 'right') $templ['icon']['additionalhtml'] = 'align="right" valign="bottom" vspace="2" ';
@@ -665,7 +666,7 @@ class display {
     else $ret = $this->FetchModTpl('', 'ls_fetch_icon');
     
     if ($target) $target = " target=\"$target\"";
-    if ($link) $ret = '<a href="'.$link.'"'.$target.'>'. $hint . $ret .'</a>';
+    if ($link) $ret = '<a href="'.$link.'"'.$target.'>'. $ret .'</a>';
     return $ret;  
   }
 

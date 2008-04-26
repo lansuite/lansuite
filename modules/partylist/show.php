@@ -27,10 +27,10 @@ function CreateSignonBar($guests, $paid_guests, $max_guests) {
 	$pixelcuruser = $curuser - $gesamtpaid;
 	$pixelpaid = $gesamtpaid;
 
-	// Bar erzeugen
-	if ($pixelpaid > 0) $bar .= '<ul class="BarOccupied" style="width:'. $pixelpaid .'px;" onmouseover="return overlib(\''. t('Bezahlt') .': '. $paid_guests  .'\');" onmouseout="return nd();">&nbsp;</ul>';
-	if ($pixelcuruser > 0) $bar .= '<ul class="BarMarked" style="width:'. $pixelcuruser .'px;" onmouseover="return overlib(\''. t('Angemeldet') .': '. $guests  .'\');" onmouseout="return nd();">&nbsp;</ul>';
-	if ($pixelges > 0) $bar .= '<ul class="BarFree" style="width:'. $pixelges .'px;" onmouseover="return overlib(\''. t('Frei') .': '. ($max_guests - $paid_guests)  .'\');" onmouseout="return nd();">&nbsp;</ul>';
+  // Bar erzeugen
+  if ($pixelpaid > 0) $bar = '<ul id="infobox" class="BarOccupied" style="width:'. $pixelpaid .'px;">&nbsp;<span class="infobox">'. t('Angemeldet und Bezahlt') .': '. $paid .'</span></ul>';
+  if ($pixelcuruser > 0) $bar .= '<ul id="infobox" class="BarMarked" style="width:'. $pixelcuruser .'px;">&nbsp;<span class="infobox">'. t('Nur Angemeldet') .': '. ($cur - $paid) .'</span></ul>';
+  if ($pixelges > 0) $bar .= '<ul id="infobox" class="BarFree" style="width:'. $pixelges .'px;">&nbsp;<span class="infobox">'. t('Frei') .': '. ($max - $cur) .'</span></ul>';
   $bar .= '<ul class="BarClear">&nbsp;</ul>';
 
 	return $bar;
@@ -87,7 +87,7 @@ function AddSignonStatus($lsurl, $show_history = 0) {
   $content = GetSite($lsurl);
 
 #  if (!$lines) return t('infos.xml fehlt');
-  if (!$content) return '<span onmouseover="return overlib(\''. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace("'", "\\'", str_replace('"', "'", str_replace("\r\n", HTML_NEWLINE, $HTTPHeader))) .'\');" onmouseout="return nd();">'. t('infos.xml fehlt') .'</span>';
+  if (!$content) return '<div id="infobox" style="display:inline">'. t('infos.xml fehlt') .'<span class="infobox"'. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace("'", "\\'", str_replace('"', "'", str_replace("\r\n", HTML_NEWLINE, $HTTPHeader))) .'</span></div>';
   else {
 #    $content = '';
 #    foreach ($lines as $line_num => $line) $content .= $line;
