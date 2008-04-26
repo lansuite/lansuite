@@ -13,7 +13,7 @@ if (!$_SESSION['lansuite']['fullscreen']) {
     $dsp->SetVar('Logo', '<img src="design/simple/images/logo.gif" alt="Logo" title="Lansuite" />');
     $dsp->SetVar('Debug', $func->ShowDebug());
   }
-} else $dsp->SetVar('Logo', '<a href="index.php?'. $URLQuery .'&amp;fullscreen=no" class="menu" onmouseover="return overlib(\''. t('Vollbildmodus schließen') .'\');" onmouseout="return nd();"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="" /></a> Lansuite - Vollbildmodus');
+} else $dsp->SetVar('Logo', '<a href="index.php?'. $URLQuery .'&amp;fullscreen=no" class="menu"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span></a> Lansuite - Vollbildmodus');
 
 
 ?>

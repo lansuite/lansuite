@@ -18,10 +18,10 @@ class boxes {
 
 
 	function LinkItem($link, $caption, $class = "", $hint='') {
-		global $templ, $dsp;
+		global $templ, $dsp, $func;
 		if ($link != "") {
 		  $templ['box']['row']['hint'] = '';
-		  if ($hint) $templ['box']['row']['hint'] = ' onmouseover="return overlib(\''. $hint .'\');" onmouseout="return nd();"'; # title="'. $hint .'"
+		  if ($hint) $templ['box']['row']['hint'] = '<span class="infobox">'. $func->AllowHTML($hint) .'</span>';
 			$templ['box']['row']['link'] = $link;
 			$templ['box']['row']['class'] = $class;
 

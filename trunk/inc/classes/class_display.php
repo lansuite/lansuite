@@ -626,15 +626,15 @@ class display {
   }
 
   function FetchCssButton($title, $link, $hint = NULL, $target = NULL) {
-    ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
+    ($hint)? $hint = '<span class="infobox">'. t($hint) .'</span>' : $hint = '';
     ($target)? $target = ' target="_blank"' : $target = '';
-    return '<div class="Button"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></div>';
+    return '<div class="Button"><a href="'. $link .'"'. $target .'>'. $title . $hint .'</a></div>';
   }
 
   function FetchSpanButton($title, $link, $hint = NULL, $target = NULL) {
-    ($hint)? $hint = ' onmouseover="return overlib(\''. t($hint) .'\');" onmouseout="return nd();"' : $hint = '';
+    ($hint)? $hint = '<span class="infobox">'. t($hint) .'</span>' : $hint = '';
     ($target)? $target = ' target="_blank"' : $target = '';
-    return '<div class="Buttons" style="display:inline"><a href="'. $link .'"'. $hint .''. $target .'>'. $title .'</a></div>';
+    return '<div class="Buttons" style="display:inline"><a href="'. $link .'"'. $target .'>'. $title . $hint .'</a></div>';
   }
   
   function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {
