@@ -123,12 +123,14 @@ class seat2 {
 
 
 	function DrawPlan($blockid, $mode, $linktarget = '', $selected_user = false) {
-		global $db, $config, $dsp, $templ, $auth, $gd, $lang, $cfg, $party;
+		global $db, $config, $dsp, $templ, $auth, $gd, $lang, $cfg, $party, $smarty;
 		// $mode:
 		// 0 = Normal display mode
 		// 1 = With seperators
 		// 2 = With checkboxes
 		// 3 = Admin mode
+
+    $smarty->assign('default_design', $auth['design']);
 
 		// Create Images
 		$this->CreateSeatImage('seat_free', 0, 250, 0, 60);
@@ -142,20 +144,21 @@ class seat2 {
 		// Get Block data (side descriptions + number of rows + cols)
 		$block = $db->query_first("SELECT * FROM {$config["tables"]["seat_block"]} WHERE blockid = '{$blockid}'");
 
-		$templ['seat']['text_tl'] = $block['text_tl'];
-		$templ['seat']['text_tc'] = $block['text_tc'];
-		$templ['seat']['text_tr'] = $block['text_tr'];
-		$templ['seat']['text_lt'] = $this->FlipVertical($block['text_lt']);
-		$templ['seat']['text_lc'] = $this->FlipVertical($block['text_lc']);
-		$templ['seat']['text_lb'] = $this->FlipVertical($block['text_lb']);
-		$templ['seat']['text_rt'] = $this->FlipVertical($block['text_rt']);
-		$templ['seat']['text_rc'] = $this->FlipVertical($block['text_rc']);
-		$templ['seat']['text_rb'] = $this->FlipVertical($block['text_rb']);
-		$templ['seat']['text_bl'] = $block['text_bl'];
-		$templ['seat']['text_bc'] = $block['text_bc'];
-		$templ['seat']['text_br'] = $block['text_br'];
-		$templ['seat']['row_count'] = $block['rows'] + 1;
-		$templ['seat']['col_count'] = $block['cols'] + 1;
+		$smarty->assign('text_tl', $block['text_tl']);
+		$smarty->assign('text_tc', $block['text_tc']);
+		$smarty->assign('text_tr', $block['text_tr']);
+		$smarty->assign('text_lt', $this->FlipVertical($block['text_lt']));
+		$smarty->assign('text_lc', $this->FlipVertical($block['text_lc']));
+		$smarty->assign('text_lb', $this->FlipVertical($block['text_lb']));
+		$smarty->assign('text_rt', $this->FlipVertical($block['text_rt']));
+		$smarty->assign('text_rc', $this->FlipVertical($block['text_rc']));
+		$smarty->assign('text_rb', $this->FlipVertical($block['text_rb']));
+		$smarty->assign('text_bl', $block['text_bl']);
+		$smarty->assign('text_bc', $block['text_bc']);
+		$smarty->assign('text_br', $block['text_br']);
+		$smarty->assign('row_count', $block['rows'] + 1);
+		$smarty->assign('col_count', $block['cols'] + 1);
+    $smarty->assign('mode', $mode);
 
 		// Get seperators
 		$sep_cols = array();
@@ -205,40 +208,23 @@ class seat2 {
 		if ($auth['login']) $user_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
 
 		// Header-Row
-		$templ['seat']['plan_sep_row_head_cols'] = '';
-		$templ['seat']['plan_sep_row_desc_x'] = '';
-		if ($mode == 1) $templ['seat']['plan_sep_row_desc_x'] = '<td class="content"></td>';
+		$head = array();
 		for ($x = 0; $x <= $block['cols']; $x++) {
-			$templ['seat']['cur_col'] = $x;
-			$templ['working_link'] = "index.php?mod=seating&action={$_GET['action']}&step=4&blockid=$blockid";
-			$templ['sep_row_click_link'] = $templ['working_link'] . "&change_sep_row=".($x + 1);
 			if ($sep_rows[$x+1]) {
-				$templ['sep_width'] = 28;
-				$templ['sep_ver'] = "design/{$auth['design']}/images/arrows_seating_remove_sep_hor.gif";
+				$head[$x]['width'] = 28;
+				$head[$x]['icon'] = "design/{$auth['design']}/images/arrows_seating_remove_sep_hor.gif";
 			} else {
-				$templ['sep_width'] = 14;
-				$templ['sep_ver'] = "design/{$auth['design']}/images/arrows_seating_add_sep_hor.gif";
+				$head[$x]['width'] = 14;
+				$head[$x]['icon'] = "design/{$auth['design']}/images/arrows_seating_add_sep_hor.gif";
 			}
-
-			if ($mode == 1) {
-				if ($x < $block['cols']) $templ['seat']['plan_sep_row_head_cols'] .= $dsp->FetchModTpl('seating', 'plan_sep_row_head_cols');
-				else {
-					$templ['seat']['cell_content'] = '';
-					$templ['seat']['plan_sep_row_head_cols'] .= $dsp->FetchModTpl('seating', 'plan_cell');
-				}
-			}# elseif ($mode == 2){
-			#	if ($x < $block['cols']) $templ['seat']['plan_sep_row_head_cols'] .= "<td style=\"font-size:8px; table-layout:fixed; width:{$templ['sep_width']}px;\"><img src=\"ext_inc/seating_symbols/100.png\" name=\"leerpic{$block['cols']}\" /></td>";
-			#}
-			$templ['seat']['col_nr'] = $this->CoordinateToName($x + 1, -1, $block['orientation']);
-#			($block['orientation'])? $templ['seat']['col_nr'] = chr(65 + $x) : $templ['seat']['col_nr'] = ($x + 1);
-			$templ['seat']['plan_sep_row_desc_x'] .= $dsp->FetchModTpl('seating', 'plan_row_head');
+		  $head[$x]['link'] = "index.php?mod=seating&action={$_GET['action']}&step=4&blockid=$blockid" . "&change_sep_row=".($x + 1);
+			$head[$x]['name'] = $this->CoordinateToName($x + 1, -1, $block['orientation']);
 		}
-		$templ['seat']['plan_extra_top'] .= $dsp->FetchModTpl('seating', 'plan_sep_row_head');
+		$smarty->assign('head', $head);
 
+		// Images
 		if($mode == 2){
-			// Images
 			$handel = opendir("ext_inc/seating_symbols/");
-		
 			while ($imagedata = readdir($handel)){
 				if(!($imagedata == ".." || $imagedata == "." || is_dir($imagedata) || substr($imagedata,0,2) == "ls")){
 					$imagename = substr($imagedata,0,strlen($imagedata)-4);
@@ -250,20 +236,20 @@ class seat2 {
 				}
 			}
 		}
+		
 		// Main-Table
 		$templ['seat']['seat_data_array'] = '';
 		$cell_nr = 0;
+    $body = array();
 		for ($y = 0; $y <= $block['rows']; $y++) {
-			$templ['seat']['cur_row'] = $y;
-			$templ['working_link'] = "index.php?mod=seating&action={$_GET['action']}&step=4&blockid=$blockid";
-			$templ['sep_row_click_link'] = $templ['working_link'] . "&change_sep_col=".($y + 1);
 			if ($sep_cols[$y+1]) {
-				$templ['sep_height'] = 28;
-				$templ['sep_hor'] = "design/{$auth['design']}/images/arrows_seating_remove_sep_ver.gif";
+				$body[$y]['height'] = 28;
+				$body[$y]['icon'] = "design/{$auth['design']}/images/arrows_seating_remove_sep_ver.gif";
 			} else {
-				$templ['sep_height'] = 14;
-				$templ['sep_hor'] = "design/{$auth['design']}/images/arrows_seating_add_sep_ver.gif";
+				$body[$y]['height'] = 14;
+				$body[$y]['icon'] = "design/{$auth['design']}/images/arrows_seating_add_sep_ver.gif";
 			}
+			$body[$y]['link'] = "index.php?mod=seating&action={$_GET['action']}&step=4&blockid=$blockid&change_sep_col=".($y + 1);
 
 			$templ['seat']['cols'] = "";
 			for ($x = 0; $x <= $block['cols']; $x++) {
@@ -272,68 +258,70 @@ class seat2 {
           // Show plan				
 					default:
 						$templ['seat']['cell_nr'] = $cell_nr;
-						$templ['seat']['img_title'] = $this->CoordinateToName($x + 1, $y, $block['orientation']);
+						
+						$body[$y]['line'][$x]['title'] = $this->CoordinateToName($x + 1, $y, $block['orientation']);
+						#$templ['seat']['img_title'] = $this->CoordinateToName($x + 1, $y, $block['orientation']);
 
 						// Set seat link target
-						$templ['seat']['link_href'] = '';
-						if ($linktarget) $templ['seat']['link_href'] = "$linktarget&row=$y&col=$x";
+						$body[$y]['line'][$x]['link'] = '';
+						if ($linktarget) $body[$y]['line'][$x]['link'] = "$linktarget&row=$y&col=$x";
 						elseif ($auth['login']) {
 							// If free and user has not paid-> Possibility to mark this seat
 							if ($seat_state[$y][$x] == 1 and !$user_paid['paid'])
-								$templ['seat']['link_href'] = "index.php?mod=seating&action=show&step=12&blockid=$blockid&row=$y&col=$x";
+								$body[$y]['line'][$x]['link'] = "index.php?mod=seating&action=show&step=12&blockid=$blockid&row=$y&col=$x";
 							// If free, or marked for another one -> Possibility to reserve this seat
 							elseif ($seat_state[$y][$x] == 1 or ($seat_state[$y][$x] == 3 and $seat_userid[$y][$x] != $auth['userid']))
-								$templ['seat']['link_href'] = "index.php?mod=seating&action=show&step=10&blockid=$blockid&row=$y&col=$x";
+								$body[$y]['line'][$x]['link'] = "index.php?mod=seating&action=show&step=10&blockid=$blockid&row=$y&col=$x";
 							// If assigned to me, or marked for me -> Possibility to free this seat again
 							elseif (($seat_state[$y][$x] == 2 or $seat_state[$y][$x] == 3) and $seat_userid[$y][$x] == $auth['userid'])
-								$templ['seat']['link_href'] = "index.php?mod=seating&action=show&step=20&blockid=$blockid&row=$y&col=$x";
+								$body[$y]['line'][$x]['link'] = "index.php?mod=seating&action=show&step=20&blockid=$blockid&row=$y&col=$x";
 							// If assigned and user is admin -> Possibility to free this seat
 							elseif ($seat_state[$y][$x] == 2 and $auth['type'] > 1) {
-								$templ['seat']['link_href'] = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
+								$body[$y]['line'][$x]['link'] = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
               }
 						}
 
 						// Set seat image
-						$templ['seat']['img_name'] = '';
+						$body[$y]['line'][$x]['img_name'] = '';
 						switch ($seat_state[$y][$x]) {
 							case 0: // Empty
 							break;
 							case 1: // Seat free
-								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_free.png";
+								$body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_free.png";
 							break;
 							case 2: // Seat occupied
 								if ($selected_user)	$userid = $selected_user;
 								else $userid = $auth['userid'];
 								// My Seat
-								if ($seat_userid[$y][$x] == $userid) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_myselfe.png";
+								if ($seat_userid[$y][$x] == $userid) $body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_myselfe.png";
 								// Clanmate
-								elseif (in_array($seat_userid[$y][$x], $my_clanmates)) $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_clanmate.png";
+								elseif (in_array($seat_userid[$y][$x], $my_clanmates)) $body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_clanmate.png";
                 // Checked out
-								elseif ($seat_user_checkout[$y][$x] and $seat_user_checkout[$y][$x] != '0000-00-00 00:00:00') $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_out.png";
+								elseif ($seat_user_checkout[$y][$x] and $seat_user_checkout[$y][$x] != '0000-00-00 00:00:00') $body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_out.png";
                 // Checked in
-								elseif ($seat_user_checkin[$y][$x] and $seat_user_checkin[$y][$x] != '0000-00-00 00:00:00') $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_in.png";
+								elseif ($seat_user_checkin[$y][$x] and $seat_user_checkin[$y][$x] != '0000-00-00 00:00:00') $body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_in.png";
 								// Normal occupied seat
-								else $templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png";
+								else $body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png";
 							break;
 							case 3: // Seat marked
-								$templ['seat']['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_marked.png";
+								$body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_marked.png";
 							break;
 							case 7: // Seat reserved
-								$templ['seat']['img_name'] = "ext_inc/seating_symbols/7.png";
+								$body[$y]['line'][$x]['img_name'] = "ext_inc/seating_symbols/7.png";
 							break;
 							default: // Symbol
-							  if (file_exists('ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png')) $templ['seat']['img_name'] = 'ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png';
+							  if (file_exists('ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png')) $body[$y]['line'][$x]['img_name'] = 'ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png';
 							  else {
     						  $SymbolePath = 'ext_inc/seating_symbols/lsthumb_'. $seat_state[$y][$x];
-    							if (file_exists($SymbolePath .'.png')) $templ['seat']['img_name'] = $SymbolePath .'.png';
-    							elseif (file_exists($SymbolePath .'.gif')) $templ['seat']['img_name'] = $SymbolePath .'.gif';
-    							elseif (file_exists($SymbolePath .'.jpg')) $templ['seat']['img_name'] = $SymbolePath .'.jpg';
+    							if (file_exists($SymbolePath .'.png')) $body[$y]['line'][$x]['img_name'] = $SymbolePath .'.png';
+    							elseif (file_exists($SymbolePath .'.gif')) $body[$y]['line'][$x]['img_name'] = $SymbolePath .'.gif';
+    							elseif (file_exists($SymbolePath .'.jpg')) $body[$y]['line'][$x]['img_name'] = $SymbolePath .'.jpg';
     						}
 							break;
 						}
 
 						$templ['seat']['cell_content'] = '';
-						if ($templ['seat']['img_name']) {
+						if ($body[$y]['line'][$x]['img_name']) {
 
               // Generate popup
       				if ($seat_state[$y][$x] == 2 and $seat_userid[$y][$x] == $auth['userid']) $s_state = 8;
@@ -341,131 +329,114 @@ class seat2 {
       				else $s_state = $seat_state[$y][$x];
 
               if ($seat_ip[$y][$x] == '') $seat_ip[$y][$x] = '<i>'. t('Keine zugeordnet') .'</i>';
-              $templ['seat']['tooltip'] = '';
+              $body[$y]['line'][$x]['tooltip'] = '';
               switch ($s_state) {
                 case "2":
                 case "3":
                 case "8":
                 case "9":
-  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
   							  if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))
-                    $templ['seat']['tooltip'] .= t('Name') .': '. $user_info[$y][$x]['firstname'] .' '. $user_info[$y][$x]['name'] . HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
+                    $body[$y]['line'][$x]['tooltip'] .= t('Name') .': '. $user_info[$y][$x]['firstname'] .' '. $user_info[$y][$x]['name'] . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
   							  if (func::chk_img_path($user_info[$y][$x]['avatar_path']) and
                     ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)))
-    							  $templ['seat']['tooltip'] .= '<img src=&quot;'. $user_info[$y][$x]['avatar_path'] .'&quot; style=&quot;max-width:100%;&quot; />' . HTML_NEWLINE;
+    							  $body[$y]['line'][$x]['tooltip'] .= '<img src=&quot;'. $user_info[$y][$x]['avatar_path'] .'&quot; style=&quot;max-width:100%;&quot; />' . HTML_NEWLINE;
                 break;
                 case "1":
-  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
                 break;
                 case "7":
-  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Gesperrt'). HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Gesperrt'). HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
                 break;
                 case "80":
                 case "81":
-  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('Beschreibung') .': '. t('WC') . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('Beschreibung') .': '. t('WC') . HTML_NEWLINE;
                 break;
                 case "82":
-  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('Beschreibung') .': '. t('Notausgang') . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('Beschreibung') .': '. t('Notausgang') . HTML_NEWLINE;
                 break;
                 case "83":
-  							  $templ['seat']['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $templ['seat']['tooltip'] .= t('Beschreibung') .': '. t('Catering') . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+  							  $body[$y]['line'][$x]['tooltip'] .= t('Beschreibung') .': '. t('Catering') . HTML_NEWLINE;
                 break;
               }
-              $templ['seat']['tooltip'] = addslashes($templ['seat']['tooltip']);
-
-							if ($templ['seat']['link_href']) {
-								$templ['seat']['link_content'] = $dsp->FetchModTpl('seating', 'plan_cell_img');
-								$templ['seat']['cell_content'] = $dsp->FetchModTpl('seating', 'plan_cell_link');
-							} else $templ['seat']['cell_content'] = $dsp->FetchModTpl('seating', 'plan_cell_img');
+              $body[$y]['line'][$x]['tooltip'] = addslashes($body[$y]['line'][$x]['tooltip']);
 						}
-						$templ['seat']['cols'] .= $dsp->FetchModTpl('seating', 'plan_cell');
-					break;
-
-          // Seperator definition
-					case 1:
-						$templ['seat']['cell_content'] = "<img src=\"ext_inc/auto_images/{$auth['design']}/seat/seat_free.png\" />";
-						$templ['seat']['cols'] .= $dsp->FetchModTpl('seating', 'plan_cell');
 					break;
 
           // Edit plan
 					case 2:
-						$templ['seat']['cell_symbole'] = '';
+						$body[$y]['line'][$x]['symbol'] = '';
             $input_hidden = '<input type="hidden" id="cell'. ($x * 100 + $y) .'" name="cell['. ($x * 100 + $y) .']" value="'. $seat_state[$y][$x] .'" />'."\n";
 
 						// Empty cell
 						if ($seat_state[$y][$x] == 0) {
-						  $templ['seat']['cell_symbole'] = 'ext_inc/seating_symbols/lsthumb_100.png';
-							$templ['seat']['input_hidden'] .= $input_hidden;
+						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/lsthumb_100.png';
+							$input_hidden_ret .= $input_hidden;
 
 				    // Free seat cell
 						} elseif ($seat_state[$y][$x] == 1) {
-						  $templ['seat']['cell_symbole'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_free.png';
-							$templ['seat']['input_hidden'] .= $input_hidden;
+						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_free.png';
+							$input_hidden_ret .= $input_hidden;
 
 					  // Reserved seat cell
 						} elseif ($seat_state[$y][$x] > 1 && $seat_state[$y][$x] < 7) {
-						  $templ['seat']['cell_symbole'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_reserved.png';
+						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_reserved.png';
 
             // Locked seat cell
 						} elseif ($seat_state[$y][$x] == 7) {
-						  $templ['seat']['cell_symbole'] = 'ext_inc/seating_symbols/7.png';
-							$templ['seat']['input_hidden'] .= $input_hidden;
+						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/7.png';
+							$input_hidden_ret .= $input_hidden;
 
             // Symbol cell
 						} else {
-						  if (file_exists('ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png')) $templ['seat']['cell_symbole'] = 'ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png';
+						  if (file_exists('ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png')) $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png';
 						  else {
   						  $SymbolePath = 'ext_inc/seating_symbols/'. $seat_state[$y][$x];
-  							if (file_exists($SymbolePath .'.png')) $templ['seat']['cell_symbole'] = $SymbolePath .'.png';
-  							elseif (file_exists($SymbolePath .'.gif')) $templ['seat']['cell_symbole'] = $SymbolePath .'.gif';
-  							elseif (file_exists($SymbolePath .'.jpg')) $templ['seat']['cell_symbole'] = $SymbolePath .'.jpg';
+  							if (file_exists($SymbolePath .'.png')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.png';
+  							elseif (file_exists($SymbolePath .'.gif')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.gif';
+  							elseif (file_exists($SymbolePath .'.jpg')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.jpg';
   						}
-							$templ['seat']['input_hidden'] .= $input_hidden;
+							$input_hidden_ret .= $input_hidden;
 						}
 
-					  $templ['seat']['cell_id'] = 'fcell'. ($x * 100 + $y);
-					  $templ['seat']['cell_content'] = $dsp->FetchModTpl('seating', 'plan_cell_edit');
-						$templ['seat']['cols'] .= $templ['seat']['cell_content'];
-						$templ['seat']['seat_data_array'] = "";
+					  $body[$y]['line'][$x]['cell_id'] = 'fcell'. ($x * 100 + $y);
 					break;
 					
 					// IP-Input-Fields
 					case 3:
-						if ($seat_state[$y][$x] >= 1 and $seat_state[$y][$x] < 10) $templ['seat']['cell_content'] = "<input type=\"text\" name=\"cell[". ($x * 100 + $y) ."]\" size=\"15\" maxlength=\"15\" value=\"". $seat_ip[$y][$x] ."\" />";
-						else $templ['seat']['cell_content'] = "&nbsp;";
-						$templ['seat']['cols'] .= $dsp->FetchModTpl('seating', 'plan_cell');
+						if ($seat_state[$y][$x] >= 1 and $seat_state[$y][$x] < 10) $body[$y]['line'][$x]['content'] = "<input type=\"text\" name=\"cell[". ($x * 100 + $y) ."]\" size=\"15\" maxlength=\"15\" value=\"". $seat_ip[$y][$x] ."\" />";
+						else $body[$y]['line'][$x]['content'] = "&nbsp;";
 					break;
 				}
 				$cell_nr++;
 			}
 
-			if ($mode == 1) $templ['seat']['plan_extra_left'] = $dsp->FetchModTpl('seating', 'plan_sep_left_head');
-			$templ['seat']['plan_sep_desc_y'] = $this->CoordinateToName(-1, $y, $block['orientation']);
-#			($block['orientation'])? $templ['seat']['plan_sep_desc_y'] = $y : $templ['seat']['plan_sep_desc_y'] = chr(65 + $y);
-			$templ['seat']['rows'] .= $dsp->FetchModTpl('seating', 'plan_row');
+			$body[$y]['desc'] = $this->CoordinateToName(-1, $y, $block['orientation']);
 		}
+    $smarty->assign('input_hidden', $input_hidden_ret);
+    $smarty->assign('body', $body);
+		$plan = $smarty->fetch('modules/seating/templates/plan.htm');
 
-		$plan = $dsp->FetchModTpl('seating', 'plan');
-		$templ['seating']['legend']['free']		= t('Frei');
-		$templ['seating']['legend']['reserved']	= t('Besetzt');
-		$templ['seating']['legend']['clan']		= t('Platz eines Clanmates');
-		$templ['seating']['legend']['marked']	= t('Vorgemerkt');
-		$templ['seating']['legend']['locked']	= t('Gesperrter Platz');
-		$templ['seating']['legend']['checked_in']	= t('Besetzt (Eingecheckt)');
-		$templ['seating']['legend']['checked_out']	= t('Frei (Ausgecheckt)');    		
+    $smarty->assign('free', t('Frei'));
+    $smarty->assign('reserved', t('Besetzt'));
+    $smarty->assign('clan', t('Platz eines Clanmates'));
+    $smarty->assign('marked', t('Vorgemerkt'));
+    $smarty->assign('locked', t('Gesperrter Platz'));
+    $smarty->assign('checked_in', t('Besetzt (Eingecheckt)'));
+    $smarty->assign('checked_out', t('Frei (Ausgecheckt)'));
 		
-		if ($selected_user) $templ['seating']['legend']['me'] = t('Ausgewählter User');
-		else	$templ['seating']['legend']['me']			 = t('Ihr Platz');
+		if ($selected_user) $smarty->assign('me', t('Ausgewählter User'));
+		else $smarty->assign('me', t('Ihr Platz'));
 				
-		if ($mode == 0) $plan .= $dsp->FetchModTpl('seating', 'plan_legend');
+		if ($mode == 0) $plan .= $smarty->fetch('modules/seating/templates/plan_legend.htm');
 		return $plan;
 	}
 
