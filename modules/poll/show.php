@@ -17,6 +17,7 @@ switch($_GET['action']) {
   				$POLL_OPTION_QUERY = $db->qry('SELECT caption, polloptionid FROM %prefix%polloptions WHERE pollid = %int%', $_GET['pollid']);
 
   				$dsp->NewContent(t('Poll anzeigen: %1', $POLL["caption"]), "");
+  				$dsp->AddDoubleRow(t('Bemerkung'), $func->text2html($POLL["comment"]));
 
   				$array_index = "0";
   				while($POLL_OPTION = $db->fetch_array($query_id = $POLL_OPTION_QUERY)) {
@@ -66,15 +67,16 @@ switch($_GET['action']) {
   					$array_index++;
   				}
 
-  				$dsp->AddDoubleRow(t('Stimmen gesamt'), $db->num_rows($query_id = $CHECK["totalvotes"]));
   				if($POLL["anonym"] == FALSE) $dsp->AddDoubleRow("", $dsp->FetchModTpl("poll", "show_voters"));
   				($POLL["endtime"] < "1" OR $POLL["endtime"] > time())? $endtime = t('Offen') : $endtime = t('Beendet');
-  				$dsp->AddDoubleRow(t('Status'), $endtime);
   				($POLL["anonym"] == "1")? $anonym = t('Ja') : $anonym = t('Nein');
-  				$dsp->AddDoubleRow(t('Anonym'), $anonym);
   				($POLL["multi"] == "1")? $multi = t('Ja') : $multi = t('Nein');
-  				$dsp->AddDoubleRow(t('Mehrfachauswahl'), $multi);
-  				$dsp->AddDoubleRow(t('Bemerkung'), $func->text2html($POLL["comment"]));
+
+  				$dsp->AddDoubleRow('', $db->num_rows($query_id = $CHECK["totalvotes"]) .' '. t('Stimmen gesamt') .'<br />'.
+  				t('Status') .': '. $endtime .'<br />'.
+  				t('Anonym') .': '. $anonym .'<br />'.
+  				t('Mehrfachauswahl') .': '. $multi
+          );
 
   				if($_SESSION["auth"]["type"] > 1) {
   					$buttons .= $dsp->FetchButton("index.php?mod=poll&action=change&step=2&pollid={$_GET['pollid']}", "edit");
