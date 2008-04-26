@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1085</tid>
 				<id>644482e45acdaddec707ce5b11ae4237</id>
 				<org>Kann den Befehl arp nicht ausf&uuml;hren</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1086</tid>
 				<id>1849e6c44212b1068de5aaab9a4855f3</id>
 				<org>MAC-Addresse</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1087</tid>
 				<id>0823c67a77a84c856c06fa61841fad08</id>
 				<org>Device und IP</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1088</tid>
 				<id>9590fd6b89c476fa35e67445650bbf82</id>
 				<org>Portnummer</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1089</tid>
 				<id>ba04a49858b2540e986b6b506754daa0</id>
 				<org>Die Adresse konnte nicht gefunden werden.HTML_NEWLINEDie Adressen werden bei der Ansicht des Device aktuallisiert.</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1090</tid>
 				<id>4214b4fdbdc5f544945821c4f224cbfd</id>
 				<org>Bitte geben Sie einen Namen f&uuml;r das Device ein</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1091</tid>
 				<id>76239b40697b8168fec91936f4b39f46</id>
 				<org>Bitte geben Sie eine IP-Adresse f&uuml;r das Device ein</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1092</tid>
 				<id>dbbace6dd4151bd0ba91cf36e9cfee5b</id>
 				<org>Bitte geben Sie eine --lt--em--gt--g&uuml;ltige--lt--/em--gt-- IP-Adresse f&uuml;r das Device ein</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1093</tid>
 				<id>d9bf586b3bf48499d9de25d662dc70a1</id>
 				<org>Bitte geben Sie eine Write-Community f&uuml;r das Device an.</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1094</tid>
 				<id>30ecc73f1c3e5c0eda64193fe0fc8ea2</id>
 				<org>Bitte geben Sie eine Read-Community f&uuml;r das Device an.</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1095</tid>
 				<id>b6520a70723a9e64716043bdade44f1f</id>
 				<org>Device hinzuf&uuml;gen</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1096</tid>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1097</tid>
 				<id>74d42e1c6e90732ea786638559defbdd</id>
 				<org>IP-Adresse</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1098</tid>
 				<id>493fbde2e9064e1d0ed3dddd1c52d8c8</id>
 				<org>Read-Community</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1099</tid>
 				<id>658dd135705f63525ec46b012be10d22</id>
 				<org>Write-Community</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1100</tid>
 				<id>888036101489a8b96438370809576c08</id>
 				<org>Das Device wurde erfolgreich eingetragen.</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1101</tid>
 				<id>19492d2ae80c1a57c10453ad4062cb40</id>
 				<org>HTML_NEWLINEHTML_NEWLINE--lt--big--gt--Warnung:--lt--/big--gt-- Eine Standartm&auml;ßig eingestellte Write-Community ( /'/private/'/ ) beinhaltet ein hohes Sicherheitsrisiko!</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1102</tid>
 				<id>b52bf8273575c9e2745f705fec91b5e6</id>
 				<org>HTML_NEWLINEHTML_NEWLINE--lt--big--gt--Warnung:--lt--/big--gt-- Eine Standartm&auml;ßig eingestellte Read-Community ( /'/public/'/ ) beinhaltet ein hohes Sicherheitsrisiko!</org>
 				<de></de>
@@ -229,7 +211,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1103</tid>
 				<id>071067beeea5d17a73503dede59cc8f0</id>
 				<org>Device konnte nicht in die Datenbank eingetragen werden.</org>
 				<de></de>
@@ -241,7 +222,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1104</tid>
 				<id>d7159614e930c837fbc1aa79b859271e</id>
 				<org>Das gew&auml;hlte Device existiert nicht</org>
 				<de></de>
@@ -253,7 +233,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1105</tid>
 				<id>f04f135ed15084edbc114011c91a08cb</id>
 				<org>Das Device wurde erfolgreich ge&auml;ndert.</org>
 				<de></de>
@@ -265,7 +244,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1106</tid>
 				<id>7c0ff33fa1eaec7cd4f74544439e3df9</id>
 				<org>Das Device konnte nicht ge&auml;ndert werden.</org>
 				<de></de>
@@ -277,7 +255,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1107</tid>
 				<id>0567e301d0994e522ca1e7bea8a4004c</id>
 				<org>Das Device wurde erfolgreich gel&ouml;scht.</org>
 				<de></de>
@@ -289,7 +266,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1108</tid>
 				<id>213542e07be1ea247b8fb066b5662e87</id>
 				<org>Das Device konnte nicht gel&ouml;scht werden.</org>
 				<de></de>
@@ -301,7 +277,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1109</tid>
 				<id>35bedb45241d6b3f70fa6f56197c3361</id>
 				<org>Beschreibung</org>
 				<de></de>
@@ -313,7 +288,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1110</tid>
 				<id>a86658c60b449762cd1cf6b352fd9175</id>
 				<org>Kontaktadresse</org>
 				<de></de>
@@ -325,7 +299,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1111</tid>
 				<id>77f0ba2861e04af1275059203c75a5b6</id>
 				<org>Laufzeit</org>
 				<de></de>
@@ -337,7 +310,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1112</tid>
 				<id>91aa3dc3623d3b2f30ba788f70299275</id>
 				<org>Standort</org>
 				<de></de>
@@ -349,7 +321,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1113</tid>
 				<id>fdb3d6fb1c5fbfa787661de65c768934</id>
 				<org>Lengende</org>
 				<de></de>
@@ -361,7 +332,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1114</tid>
 				<id>c44e07cffb5cd991f28e866e8854b548</id>
 				<org>Aktiv</org>
 				<de></de>
@@ -373,7 +343,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1115</tid>
 				<id>2aaad1e130dd23b7195ed5235483cef4</id>
 				<org>Inaktiv</org>
 				<de></de>
@@ -385,7 +354,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1116</tid>
 				<id>b78455b3178b66a5b0762673a4bbeaac</id>
 				<org>Ausgeschaltet</org>
 				<de></de>
@@ -397,7 +365,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1117</tid>
 				<id>fb38a00fa1e2159093a1f32b409bff6b</id>
 				<org>Portstatus &auml;ndern</org>
 				<de></de>
@@ -409,7 +376,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1118</tid>
 				<id>cb9703019461bf544ce6b9cfcc5139c2</id>
 				<org>Geben sie bitte alle Ports an die Sie &auml;ndern wollen</org>
 				<de></de>
@@ -421,7 +387,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1119</tid>
 				<id>c4053c0b644825cb4d52dda2cb6decba</id>
 				<org>Wollen Sie folgende Ports &auml;ndern?</org>
 				<de></de>
@@ -433,7 +398,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1120</tid>
 				<id>27bcb49ef4f97a289badb37903e167b2</id>
 				<org>Keine Ports ausgew&auml;hlt</org>
 				<de></de>
@@ -445,7 +409,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1121</tid>
 				<id>7c76fa4a11e65fe2a4ac509cd06457c5</id>
 				<org>deaktiviert</org>
 				<de></de>
@@ -457,7 +420,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1122</tid>
 				<id>3218f86eee1f4648eb8cb94ace5693f8</id>
 				<org>aktiviert</org>
 				<de></de>
@@ -469,7 +431,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1123</tid>
 				<id>6b8ef17b7e6f7bcc09323cf84f5cf416</id>
 				<org>Der Portstatus wurde ge&auml;ndert</org>
 				<de></de>
@@ -481,7 +442,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1124</tid>
 				<id>dcda21aa017566ce7333fbf6e62a1b7f</id>
 				<org>User im Netzwerk finden</org>
 				<de></de>
@@ -493,7 +453,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1125</tid>
 				<id>c49999b10f843aab132c8cc844ed9ad4</id>
 				<org>Mit diesem Formular k&ouml;nnen sie einen User im Netzwerk lokalisieren</org>
 				<de></de>
@@ -505,7 +464,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1126</tid>
 				<id>84ba181cc285d082721a87a06b0ebea8</id>
 				<org>Dieser Vorgang kann einige Zeit dauern. Wollen sie wirklich alle Ports updaten.</org>
 				<de></de>
@@ -517,7 +475,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1127</tid>
 				<id>e48661ccd3cf01989849b40f742619dd</id>
 				<org>Dieser Port existiert nicht</org>
 				<de></de>
@@ -529,7 +486,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1128</tid>
 				<id>2de8e9e02d0ec63b53af661d36c201e6</id>
 				<org>Port &auml;ndern</org>
 				<de></de>
@@ -541,7 +497,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1129</tid>
 				<id>fb3130cce25a8ee26ffdf2512336f247</id>
 				<org>Um den Status des Ports zu &auml;ndern auf &Auml;ndern dr&uuml;cken.</org>
 				<de></de>
@@ -553,7 +508,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1130</tid>
 				<id>eb9de48f55d7c3d3d6a79499cd7fefee</id>
 				<org>MAC-Adresse</org>
 				<de></de>
@@ -565,7 +519,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1131</tid>
 				<id>2d95a16d29554dc39e629e2a42c70158</id>
 				<org>Portstatus</org>
 				<de></de>
@@ -577,7 +530,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1132</tid>
 				<id>f842af8fb767147253d5cb50d7fd7b4b</id>
 				<org>Geschwindigkeit</org>
 				<de></de>
@@ -589,7 +541,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1133</tid>
 				<id>7806fe6d853db79db0c8e4467807860f</id>
 				<org>Empfangene Bytes</org>
 				<de></de>
@@ -601,7 +552,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1134</tid>
 				<id>2320e82be0c30b0b6be6bf87126cfd39</id>
 				<org>Gesendete Bytes</org>
 				<de></de>
@@ -613,7 +563,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1135</tid>
 				<id>9a07908092cfcc7b3cf9cf32e275303a</id>
 				<org>Sind Sie sicher, dass Sie den Status dieses Ports &auml;ndern wollen?</org>
 				<de></de>
@@ -625,7 +574,6 @@
 				<file>noc</file>
 			</entry>
 			<entry>
-				<tid>1136</tid>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
 				<de></de>

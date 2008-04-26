@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1205</tid>
 				<id>2bc6bbd26d94c3d29c6602af255220f8</id>
 				<org>Party eintragen</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1206</tid>
 				<id>6bf488e40782ece763f5c0ec080aed91</id>
 				<org>Hier können Sie Ihre Party der Liste hinzufügen</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1207</tid>
 				<id>a97f3c5af10a3d51118a90c6c05002f1</id>
 				<org>Partyname</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1208</tid>
 				<id>ec6c735fb2ada15a0bcfc40a313f28b9</id>
 				<org>Partymotto</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1209</tid>
 				<id>6bd9601ea8d76891d32bc79a231c4221</id>
 				<org>Zusätzliche Infos</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1210</tid>
 				<id>4d9482af6be1e56c63af2323db643a73</id>
 				<org>Allgemeine Angaben</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1211</tid>
 				<id>1b74595736bb9c369b1da36dee932f9f</id>
 				<org>Party-Start</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1212</tid>
 				<id>cdae5d1418cf3e5a86da270c82f92c9f</id>
 				<org>Party-Ende</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1213</tid>
 				<id>9ba51734ced032fd8ec25acfb387a23f</id>
 				<org>Datum</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1214</tid>
 				<id>40ccd64464e8bfacd537f36519dad0a3</id>
 				<org>Webseite</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1215</tid>
 				<id>7cc83d0459bb03e95e12f0b79634d6d2</id>
 				<org>Url zum Lansuite-Hauptordner</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1216</tid>
 				<id>d9e34aab2006d86b0899e8f4c9d9ed6a</id>
 				<org>Bsp.: http://deineurl.de/unterordner/</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1217</tid>
 				<id>473390974397014edf78846c8f0e93b3</id>
 				<org>Ort</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1218</tid>
 				<id>cd31dae2aeabc40bc5bb1094c182bf1c</id>
 				<org>PLZ</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1219</tid>
 				<id>a763ca073cfda1fce8a14f2f0cc84591</id>
 				<org>Straße</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1220</tid>
 				<id>971a6bdb8bc4893985fe55f3c26238a2</id>
 				<org>Hausnummer</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1221</tid>
 				<id>5e87c0622dd607a18863659bf77f447d</id>
 				<org>Adresse der Location</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1222</tid>
 				<id>48dfb5768479fc61e4dd10540d8635a3</id>
 				<org>Party-Karte</org>
 				<de></de>
@@ -229,7 +211,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1223</tid>
 				<id>c2fea0b2a5e9a77dda5b3e18645ce041</id>
 				<org>Partys, die Lansuite verwenden</org>
 				<de></de>
@@ -241,7 +222,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1224</tid>
 				<id>3e1afbf148bd94f5651696ff029471a8</id>
 				<org>Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben</org>
 				<de></de>
@@ -253,7 +233,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1225</tid>
 				<id>bf5499349feba8c07fafd9c9f88db427</id>
 				<org>AdminSeite in den Allgemeinen Einstellungen</org>
 				<de></de>
@@ -265,7 +244,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1226</tid>
 				<id>ad60cf5dd813abd16900c25dc1069c84</id>
 				<org>Bezahlt</org>
 				<de></de>
@@ -277,7 +255,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1227</tid>
 				<id>31493eab02656fe21f6ba7b29293bf5e</id>
 				<org>Angemeldet</org>
 				<de></de>
@@ -289,7 +266,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1228</tid>
 				<id>69566353ee20bf15bbfab86db1146ed6</id>
 				<org>Frei</org>
 				<de></de>
@@ -301,7 +277,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1229</tid>
 				<id>ab709cc598ba1bf7141da9098c72d43b</id>
 				<org>Hostname, oder Pfad fehlt</org>
 				<de></de>
@@ -313,7 +288,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1230</tid>
 				<id>e878032d6b4bb38bb67c824033583c2d</id>
 				<org>infos.xml fehlt</org>
 				<de></de>
@@ -325,7 +299,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1231</tid>
 				<id>92b414b968c001a1d8358de2438d37d5</id>
 				<org>Noch keine Party angelegt</org>
 				<de></de>
@@ -337,7 +310,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1232</tid>
 				<id>8e773f839f70af84ce96ea74f7182800</id>
 				<org>Party-Liste</org>
 				<de></de>
@@ -349,7 +321,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1233</tid>
 				<id>1a06729125544cab7cee73195fc044f0</id>
 				<org>Begin</org>
 				<de></de>
@@ -361,7 +332,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1234</tid>
 				<id>37958de49a6922465be7cb2a71a8ee13</id>
 				<org>Ende</org>
 				<de></de>
@@ -373,7 +343,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1235</tid>
 				<id>75a87a155c1121e777e81c19c17f8f26</id>
 				<org>Anmelde-Status</org>
 				<de></de>
@@ -385,7 +354,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1236</tid>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
 				<de></de>
@@ -397,7 +365,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1237</tid>
 				<id>ecff6ecb514e3e1b66f8b07d8b78bafe</id>
 				<org>Anmelden</org>
 				<de></de>
@@ -409,7 +376,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1238</tid>
 				<id>50d46c2f993f4c6ab66c095555dcc401</id>
 				<org>Adresse</org>
 				<de></de>
@@ -421,7 +387,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1239</tid>
 				<id>efe900d013b47def06be1026b4453b2c</id>
 				<org>Anmeldestatus</org>
 				<de></de>
@@ -433,7 +398,6 @@
 				<file>partylist</file>
 			</entry>
 			<entry>
-				<tid>1240</tid>
 				<id>c6a1f387c7e4e3d9761f8e7be1bc52f0</id>
 				<org>Eingetragen durch</org>
 				<de></de>

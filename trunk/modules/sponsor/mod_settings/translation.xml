@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:30</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1627</tid>
 				<id>0b32fe0308d9689169d8f7038bbd1cf0</id>
 				<org>Bitte geben Sie einen Namen ein</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1628</tid>
 				<id>c9bcac873e61cef1c12bae8463c38266</id>
 				<org>Der Text darf nicht mehr als 5000 Zeichen enthalten</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1629</tid>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1630</tid>
 				<id>88de6e5fc8227d345e6d0a62e0335079</id>
 				<org>Ziel-URL</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1631</tid>
 				<id>f855e026f8fb97530d061cbe33a9e23b</id>
 				<org>Auf Sponsorenseite</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1632</tid>
 				<id>c1afe6a9e4be7a3a6c30db1049a9d44a</id>
 				<org>Der Banner wird auf der Sponsorenseite angezeigt</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1633</tid>
 				<id>6e714e80acd43626e7a7be03395a3c14</id>
 				<org>Bild-Upload</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1634</tid>
 				<id>54047e58697538f843cfbb3cb5002269</id>
 				<org>Oder: Bild-URL</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1635</tid>
 				<id>1cb8a46bc5cdfc78b3160d12eb7e8215</id>
 				<org>Oder: Bild-Code (z.B. Flash)</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1636</tid>
 				<id>62e835bfc6b3600a4abd331cdf9aa22c</id>
 				<org>Wenn Sie hier keine Datei angeben, wird der Banner/Button automatisch durch verkleinern der oben angegebenen Datei erzeugt (Funktioniert nur bei heraufgeladenen Dateien).</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1637</tid>
 				<id>25f410e7fce2d9cb781f4856446a59e0</id>
 				<org>In Rotations-Banner</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1638</tid>
 				<id>0849402f03de3ede65ea01d16dbc5572</id>
 				<org>Der Banner wird oben in den Rotations-Banner aufgenommen</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1639</tid>
 				<id>d854e6e2fbd0c25ef3f7f7f621d82fc6</id>
 				<org>In Sponsoren-Box</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1640</tid>
 				<id>dea6029483312ce02fc50247b130472b</id>
 				<org>Der Banner wird in der Sponsoren-Box angezeigt</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1641</tid>
 				<id>1b26a8bba6e841f1c375b283db5c1c61</id>
 				<org>Keine</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1642</tid>
 				<id>2eef4c730b9ca0a3ce916ac3f5121a49</id>
 				<org>Sponsor einem Turnier zuordnen</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1643</tid>
 				<id>52f5e0bc3859bc5f5e25130b6c7e8881</id>
 				<org>Position</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1644</tid>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
 				<de></de>
@@ -229,7 +211,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1645</tid>
 				<id>e90c90901180d6fe57d8931fc7496439</id>
 				<org>Diese Banner-ID existiert nicht! Manipulationsversuch oder Datenbankfehler. Bitte ZURÜCK anklicken.</org>
 				<de></de>
@@ -241,7 +222,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1646</tid>
 				<id>85b8dc97a3238cf702a94a4a7798d1b8</id>
 				<org>Wollen Sie den Sponsor --lt--b--gt--%1--lt--/b--gt-- wirklich löschen?</org>
 				<de></de>
@@ -253,7 +233,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1647</tid>
 				<id>db4f7225146afee4c3853dd032b9713b</id>
 				<org>Der Sponsor --lt--b--gt--%1--lt--/b--gt-- wurde erfolgreich gelöscht</org>
 				<de></de>
@@ -265,7 +244,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1648</tid>
 				<id>b61909ddc1b013586edbe2ef7cee8aa8</id>
 				<org>Unsere Sponsoren</org>
 				<de></de>
@@ -277,7 +255,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1649</tid>
 				<id>7635b2a31429226003f306ba6a8a58e4</id>
 				<org>Bei den folgenden Sponsoren möchten wir uns herzlich für ihren Beitrag zu unserer Veranstaltung bedanken.</org>
 				<de></de>
@@ -289,7 +266,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1650</tid>
 				<id>1a2ef910cbe884f204d34cea2f6cb453</id>
 				<org>Sie werden weitergeleitet...</org>
 				<de></de>
@@ -301,7 +277,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1651</tid>
 				<id>715380d7bcc0b403482990fa332214cc</id>
 				<org>Statistiken</org>
 				<de></de>
@@ -313,7 +288,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1652</tid>
 				<id>e3839fbca64cc7dd77177d5f4ae0584e</id>
 				<org>Hier sehen Sie die Statistiken zu den einzelnen Sponsoren der Sponsorliste</org>
 				<de></de>
@@ -325,7 +299,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1653</tid>
 				<id>4c6f7027a4cbad5046b9784421421f6b</id>
 				<org>Angezeigt</org>
 				<de></de>
@@ -337,7 +310,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1654</tid>
 				<id>95914c75dd59d52a35912b186df37ec3</id>
 				<org>Angeklickt</org>
 				<de></de>
@@ -349,7 +321,6 @@
 				<file>sponsor</file>
 			</entry>
 			<entry>
-				<tid>1655</tid>
 				<id>fa7bba8ae56844137aa694ed0630e971</id>
 				<org>Klickrate</org>
 				<de></de>

@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>562</tid>
 				<id>59abe3880fc6390b07de6cd00aa5e2c0</id>
 				<org>Hangman</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>563</tid>
 				<id>06b73e67045f0ffcdd5100a29707f1b6</id>
 				<org>Versuchen Sie durch Buchstaben tippen ein Wort zu erraten</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>564</tid>
 				<id>a6122a65eaa676f700ae68d393054a37</id>
 				<org>Start</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>565</tid>
 				<id>b23f732032b9cefea07e60bcbd4a9b52</id>
 				<org>Highscore</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>566</tid>
 				<id>24a931cda2d854128a7f463bc35bf81b</id>
 				<org>Bitte geben Sie nur einen Buchstaben ein</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>567</tid>
 				<id>88ce2a69d690db67dd43555dc1275f86</id>
 				<org>Bitte einen Buchstaben raten</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>568</tid>
 				<id>b5088a7e86a8416fdf33cd52111b9972</id>
 				<org>Hier k√∂nnen Sie sich in die Highscoreliste eintragen</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>569</tid>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>570</tid>
 				<id>787ecb534cc414449efddf2de11fa385</id>
 				<org>Highscore wurde eingetragen</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>571</tid>
 				<id>2305685016e82e041cd8cbb4888930f4</id>
 				<org>Highscoreliste</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>572</tid>
 				<id>fdc1915aa2f8149cdff3593e8cd2263e</id>
 				<org>Folgendes Wort erraten</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>573</tid>
 				<id>fe3df9520878562dcf528af924c4f924</id>
 				<org>ZahlenRaten</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>574</tid>
 				<id>8d6e65fc4d10a9fef0a74844bee7845e</id>
 				<org>Versuchen Sie mit m√∂glichst wenig Versuchen die gesuchte Zahl zu erraten</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>575</tid>
 				<id>445cca3192e6ab954a4ddd779f433950</id>
 				<org>Ihre Highscore wurde eingetragen</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>576</tid>
 				<id>9abfd5f1e562a8dbb7eb57918028a35a</id>
 				<org>Versuche</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>577</tid>
 				<id>1d2453b5177b1254e89f520509cc80e3</id>
 				<org>Die Gesuchte Zahl ist --lt--b--gt--kleiner--lt--/b--gt-- als --lt--b--gt--%1--lt--/b--gt--</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>578</tid>
 				<id>254a4a93490af4d54717930101cd3c03</id>
 				<org>Die Gesuchte Zahl ist --lt--b--gt--gr√∂√üer--lt--/b--gt-- als --lt--b--gt--%1--lt--/b--gt--</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>579</tid>
 				<id>a521b5f56485034b0dded8fad7ea69e3</id>
 				<org>Zahl vorschlagen</org>
 				<de></de>
@@ -229,7 +211,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>580</tid>
 				<id>4a4b9caf1a784938ac93e72756756d86</id>
 				<org>Tipp: Die Zahl ist gr√∂√üer -1 und kleiner 1001</org>
 				<de></de>
@@ -241,7 +222,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>581</tid>
 				<id>d4043edec794a93fdcd70373f6a0cbcc</id>
 				<org>Sie haben Gewonnen! Herzlichen Gl√ºckwunsch!</org>
 				<de></de>
@@ -253,7 +233,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>582</tid>
 				<id>6ec5c1c0666583295dcb5bbfbd17ae0e</id>
 				<org>Die gesuchte Zahl lautete</org>
 				<de></de>
@@ -265,7 +244,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>583</tid>
 				<id>6996201a2328aa7c03f9da6072374c13</id>
 				<org>Sie ben√∂tigten %1 Versuche</org>
 				<de></de>
@@ -277,7 +255,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>584</tid>
 				<id>aedbb659d14539a2fa11933e08b31adf</id>
 				<org>Games-√úbersicht</org>
 				<de></de>
@@ -289,7 +266,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>585</tid>
 				<id>09882c1bb4cb2762367cb7ec71bc46c2</id>
 				<org>Hier finden Sie ein paar kleine Webspiele, um sich die Zeit zu vertreiben</org>
 				<de></de>
@@ -301,7 +277,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>586</tid>
 				<id>d64c344d24087d352428a171fe339909</id>
 				<org>MineSweeper</org>
 				<de></de>
@@ -313,7 +288,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>587</tid>
 				<id>593b3710c6c0ad640e72f7ba58d38172</id>
 				<org>Versuchen Sie alle Felder aufzudecken, ohne dabei auf eine Miene zu klicken</org>
 				<de></de>
@@ -325,7 +299,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>588</tid>
 				<id>fae7c86a1f7024a56cd0881f3472fee3</id>
 				<org>Es d¸rfen maximal 20 Reihen ausgew‰hlt werden</org>
 				<de></de>
@@ -337,7 +310,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>589</tid>
 				<id>5362dc2fd6942ad424d1965dd9c6eabb</id>
 				<org>Es d¸rfen maximal 40 Spalten ausgew‰hlt werden</org>
 				<de></de>
@@ -349,7 +321,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>590</tid>
 				<id>cfd69bd2a15b259d84c1d7ed5584f8a7</id>
 				<org>Es d¸rfen nicht mehr Mienen, als Felder ausgew‰hlt werden</org>
 				<de></de>
@@ -361,7 +332,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>591</tid>
 				<id>1ed9bb5546f64d0677cd8bd6bad6a6b6</id>
 				<org>Es sollten mindestens 5 Mienen versteckt sein, sonst ist das Spiel witzlos!</org>
 				<de></de>
@@ -373,7 +343,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>592</tid>
 				<id>8d798ccb99ac1ebea0071fce5cccba70</id>
 				<org>Sie haben Gewonnen! Herzlichen Gl¸ckwunsch!</org>
 				<de></de>
@@ -385,7 +354,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>593</tid>
 				<id>98929f51afd1804d12d7988bbf02e301</id>
 				<org>Hier kˆnnen Sie sich in die Highscoreliste eintragen</org>
 				<de></de>
@@ -397,7 +365,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>594</tid>
 				<id>71827185ced9039cac7b465993ba30e9</id>
 				<org>Zeit</org>
 				<de></de>
@@ -409,7 +376,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>595</tid>
 				<id>6716eb55a348fb35297f7ac5f08666a5</id>
 				<org>Reihen</org>
 				<de></de>
@@ -421,7 +387,6 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>596</tid>
 				<id>f36614aa67e373d36fd13918e7839f3a</id>
 				<org>Spalten</org>
 				<de></de>
@@ -433,9 +398,41 @@
 				<file>games</file>
 			</entry>
 			<entry>
-				<tid>597</tid>
 				<id>5d88df4a47f3706a7b31d2d428a1c59e</id>
 				<org>Minen</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>games</file>
+			</entry>
+			<entry>
+				<id>495a7d92975a55068f2ee5eca6d9b728</id>
+				<org>Es d√ºrfen maximal 20 Reihen ausgew√§hlt werden</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>games</file>
+			</entry>
+			<entry>
+				<id>40386b286f505185752a636a4d4df9df</id>
+				<org>Es d√ºrfen maximal 40 Spalten ausgew√§hlt werden</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>games</file>
+			</entry>
+			<entry>
+				<id>efb10c4e92e94c1b7c0f589706926783</id>
+				<org>Es d√ºrfen nicht mehr Mienen, als Felder ausgew√§hlt werden</org>
 				<de></de>
 				<en></en>
 				<es></es>

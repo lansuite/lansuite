@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1458</tid>
 				<id>c81a678e53bba069d5e8b705773f210e</id>
 				<org>Keine zugeordnet</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1459</tid>
 				<id>e1e4c8c9ccd9fc39c391da4bcd093fb2</id>
 				<org>Block</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1460</tid>
 				<id>cca8493f6f1bd794b75879a6d8a7bbc7</id>
 				<org>Benutzername</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1461</tid>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1462</tid>
 				<id>603c07e2735df19b9a7ce091d7453d2b</id>
 				<org>Clan</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1463</tid>
 				<id>a12a3079e14ced46e69ba52b8a90b21a</id>
 				<org>IP</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1464</tid>
 				<id>69566353ee20bf15bbfab86db1146ed6</id>
 				<org>Frei</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1465</tid>
 				<id>b31d7e4af4df00b6a8708006427e3f3f</id>
 				<org>Gesperrt</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1466</tid>
 				<id>35bedb45241d6b3f70fa6f56197c3361</id>
 				<org>Beschreibung</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1467</tid>
 				<id>26748b021bdc8922f93d9bf054cbec5d</id>
 				<org>WC</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1468</tid>
 				<id>f567c2291ae8f2c513f7e62f443ccd47</id>
 				<org>Notausgang</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1469</tid>
 				<id>e5f6696fe35a80686e78bd72bd59ca17</id>
 				<org>Catering</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1470</tid>
 				<id>d637ab41b86a871f5ee19fcc3bfd73fb</id>
 				<org>Besetzt</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1471</tid>
 				<id>cbda5bca0b76733f30b255ddd9c6ac95</id>
 				<org>Platz eines Clanmates</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1472</tid>
 				<id>d36f4a4e9ff09ede1bd6c6678d9f5be6</id>
 				<org>Vorgemerkt</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1473</tid>
 				<id>544abd94cdd2627fc27b7683bd864609</id>
 				<org>Gesperrter Platz</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1474</tid>
 				<id>0fccb324f0e0d860452200b2168e514d</id>
 				<org>Besetzt (Eingecheckt)</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1475</tid>
 				<id>8e9beceba56c1092687e43042e063afb</id>
 				<org>Frei (Ausgecheckt)</org>
 				<de></de>
@@ -229,7 +211,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1476</tid>
 				<id>3bbbe31c70563fac868e091e95bc79ec</id>
 				<org>Ausgew�hlter User</org>
 				<de></de>
@@ -241,7 +222,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1477</tid>
 				<id>21e41d9c216d49d5bb55799773cd92bd</id>
 				<org>Ihr Platz</org>
 				<de></de>
@@ -253,7 +233,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1478</tid>
 				<id>668b1e13ff6bf731158f233dfb31671a</id>
 				<org>Kopieren</org>
 				<de></de>
@@ -265,7 +244,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1479</tid>
 				<id>d5a9908b821fd07e9e1742a8ca1ac94d</id>
 				<org>Der Sitzplan wurde erfolgreich kopiert</org>
 				<de></de>
@@ -277,7 +255,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1480</tid>
 				<id>a8aa44a1c41d24880c7f6b1646649717</id>
 				<org>Wollen Sie diesen Sitzblock wirklich löschen?</org>
 				<de></de>
@@ -289,7 +266,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1481</tid>
 				<id>422c306dcdb938d6d8b1cce124891eb7</id>
 				<org>Der Sitzblock wurde erfolgreich gelöscht</org>
 				<de></de>
@@ -301,7 +277,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1482</tid>
 				<id>8cff30c30f16385069c7911cfdc4144f</id>
 				<org>Bitte geben Sie die horizontale Länge ein</org>
 				<de></de>
@@ -313,7 +288,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1483</tid>
 				<id>3c3cee656c89085940521c5086fa16b2</id>
 				<org>Bitte geben Sie eine Zahl, die größer als 0 ist ein</org>
 				<de></de>
@@ -325,7 +299,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1484</tid>
 				<id>01921a4d5bd806cbeb129e0f3b436ac7</id>
 				<org>Bitte geben Sie eine kleinere Zahl als 60 ein</org>
 				<de></de>
@@ -337,7 +310,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1485</tid>
 				<id>b25f72f7d910e34c7e2d93713a5b6b07</id>
 				<org>Bitte geben Sie eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entfernen Sie bitte die betroffenen Benutzer.</org>
 				<de></de>
@@ -349,7 +321,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1486</tid>
 				<id>0945cb36a8ebc66793fb5a97c86ae2d5</id>
 				<org>Bitte geben Sie die vertikale Länge ein</org>
 				<de></de>
@@ -361,7 +332,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1487</tid>
 				<id>c7913a48b644f1d90ac0f96b8a56d99f</id>
 				<org>Bitte geben Sie eine kleinere Zahl als 100 ein</org>
 				<de></de>
@@ -373,7 +343,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1488</tid>
 				<id>ec98732b8ba25faed3ccf231ad2969fc</id>
 				<org>Bitte geben Sie weniger als 1500 Zeichen ein</org>
 				<de></de>
@@ -385,7 +354,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1489</tid>
 				<id>d758c451255ae9b28d333107ffbee263</id>
 				<org>Sitzblock erstellen</org>
 				<de></de>
@@ -397,7 +365,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1490</tid>
 				<id>8ceb079dcb2dd5a728a331ebae1fa0d2</id>
 				<org> Mit Hilfe des folgenden Formulars können Sie einen neuen Sitzblock erstellen. In einem folgenden zweiten Schritt können Sie dann Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bedürfnissen anzupassen.</org>
 				<de></de>
@@ -409,7 +376,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1491</tid>
 				<id>d7579b3073e9ba93ce9397378ad1b341</id>
 				<org>Sitzblockname</org>
 				<de></de>
@@ -421,7 +387,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1492</tid>
 				<id>9d33b6bfac847d36120b2c2c17b06d05</id>
 				<org>Länge horizontal</org>
 				<de></de>
@@ -433,7 +398,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1493</tid>
 				<id>ad65a9c8c62ec1169e527dd9dfa92450</id>
 				<org>Länge vertikal</org>
 				<de></de>
@@ -445,7 +409,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1494</tid>
 				<id>0e1b090efb14373e9e7bb7c4fe69981a</id>
 				<org>Vertikal</org>
 				<de></de>
@@ -457,7 +420,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1495</tid>
 				<id>c1b5fa03ecdb95d4a45dd1c40b02527f</id>
 				<org>Horizontal</org>
 				<de></de>
@@ -469,7 +431,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1496</tid>
 				<id>5e108b1e1a047ade45971d08653d322c</id>
 				<org>Orientierung</org>
 				<de></de>
@@ -481,7 +442,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1497</tid>
 				<id>752de4848611be671adc01dea7863472</id>
 				<org>U18 Block</org>
 				<de></de>
@@ -493,7 +453,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1498</tid>
 				<id>61dd5c0ce0a43ceb3d52834dc795ce7f</id>
 				<org>Für alle Benutzer offen</org>
 				<de></de>
@@ -505,7 +464,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1499</tid>
 				<id>54eca29c5fb4a3df281225ee07ab91b4</id>
 				<org>Nur für Benutzer dieser Gruppe</org>
 				<de></de>
@@ -517,7 +475,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1500</tid>
 				<id>29d24cfe37ad8af49e4a5eee013752df</id>
 				<org>Nur für diesen Eintrittspreis</org>
 				<de></de>
@@ -529,7 +486,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1501</tid>
 				<id>32fca0502cabf47fbc3e8dfcb881d814</id>
 				<org>Bemerkung</org>
 				<de></de>
@@ -541,7 +497,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1502</tid>
 				<id>4f4a12f5d374268cf780d1350e979477</id>
 				<org>Sitzblockbeschriftung</org>
 				<de></de>
@@ -553,7 +508,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1503</tid>
 				<id>094a173d3b32f44f5b5c996e8710ae28</id>
 				<org>Party</org>
 				<de></de>
@@ -565,7 +519,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1504</tid>
 				<id>85e717954ac10b9f2dd36bd617672d1d</id>
 				<org>Sitzblock Zwischengänge definieren</org>
 				<de></de>
@@ -577,7 +530,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1505</tid>
 				<id>0ae30f6ee89be223402ed5a93f0f6e87</id>
 				<org> Abstände zwischen einzelnen Zeilen bzw. Reihen können mit den außen angezeigten Pfeilen eingefügt bzw. wieder gelöscht werden.</org>
 				<de></de>
@@ -589,7 +541,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1506</tid>
 				<id>43edc2625b0cf82e3ae2334f4004cce8</id>
 				<org>Sitzblock Sitze definieren</org>
 				<de></de>
@@ -601,7 +552,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1507</tid>
 				<id>d99164769ccde7f591137bc288550917</id>
 				<org>Der Sitzplan wurde erfolgreich bearbeitet</org>
 				<de></de>
@@ -613,7 +563,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1508</tid>
 				<id>062557b6929d291980f012d8aafc2662</id>
 				<org>Das Format mindestens einer IP ist ungültig. Format: 192.168.123.12</org>
 				<de></de>
@@ -625,7 +574,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1509</tid>
 				<id>1303e9760ea8d34a5fbdca24dbdc4821</id>
 				<org>Mindestens eine IP wurde bereits vergeben</org>
 				<de></de>
@@ -637,7 +585,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1510</tid>
 				<id>8e7e5e81d197afbe7e40255ca605296a</id>
 				<org>Sitzplatz - Informationen</org>
 				<de></de>
@@ -649,7 +596,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1511</tid>
 				<id>ce9859e3dcb29b3300a8ba713c5b66d4</id>
 				<org>Fahren Sie mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.</org>
 				<de></de>
@@ -661,7 +607,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1512</tid>
 				<id>6c6bc569e769b5430ce3e4429ecf88ae</id>
 				<org>Die IPs wurden erfolgreich eingetragen</org>
 				<de></de>
@@ -673,7 +618,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1513</tid>
 				<id>aad5e0b7a3bbb8e7861148f3c0c2da40</id>
 				<org>IP-Generierung</org>
 				<de></de>
@@ -685,7 +629,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1514</tid>
 				<id>0b56b5e161fc56d2d1df0bf68aee171c</id>
 				<org>Die IP Adressen wurden erfolgreich eingetragen.</org>
 				<de></de>
@@ -697,7 +640,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1515</tid>
 				<id>aa20a9459585f65e70732b4cdfe823f3</id>
 				<org>IPs dieses Sitzblocks wirklich alle löschen?</org>
 				<de></de>
@@ -709,7 +651,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1516</tid>
 				<id>cac4019eeb8df5fff0b158e0af022a6d</id>
 				<org>Die IPs dieses Plans wurden erfolgreich gelöscht</org>
 				<de></de>
@@ -721,7 +662,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1517</tid>
 				<id>74d80184ff999aefa795c2689e150b8b</id>
 				<org>Blockname</org>
 				<de></de>
@@ -733,7 +673,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1518</tid>
 				<id>10ea6cc278346e585921ac8dde7a8a2c</id>
 				<org>Plätze</org>
 				<de></de>
@@ -745,7 +684,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1519</tid>
 				<id>74533df52e14d028a7125f66a92290b7</id>
 				<org>Belegt</org>
 				<de></de>
@@ -757,7 +695,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1520</tid>
 				<id>d4bbf10579ffb03de0a2963d3c5c7afa</id>
 				<org>Auslastung</org>
 				<de></de>
@@ -769,7 +706,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1521</tid>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
 				<de></de>
@@ -781,7 +717,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1522</tid>
 				<id>a9a8a0559f534dc179ff8486fc87031e</id>
 				<org>IPs generieren</org>
 				<de></de>
@@ -793,7 +728,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1523</tid>
 				<id>076d4b2c537c0b64327447c96208e1ef</id>
 				<org>IPs editieren</org>
 				<de></de>
@@ -805,7 +739,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1524</tid>
 				<id>858c268ed9d5c2a2eedf375dbb59492c</id>
 				<org>IPs löschen</org>
 				<de></de>
@@ -817,7 +750,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1525</tid>
 				<id>dce3022d236a624aabc05aafae0f008b</id>
 				<org>Es wurde kein Benutzer ausgewählt</org>
 				<de></de>
@@ -829,7 +761,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1526</tid>
 				<id>25519a8284b4fd80420a900cecf5a455</id>
 				<org>Es wurde kein Sitzblock ausgewählt</org>
 				<de></de>
@@ -841,7 +772,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1527</tid>
 				<id>fed13d37a0816dfd0540e4cc4751198d</id>
 				<org>Der Sitzplatz wurde erfolgreich für %1 reserviert</org>
 				<de></de>
@@ -853,7 +783,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1528</tid>
 				<id>c522caf4bae1e9dc682ea78a79b64da4</id>
 				<org>Dieser Sitzplatz existiert nicht</org>
 				<de></de>
@@ -865,7 +794,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1529</tid>
 				<id>95eb3db3f15d0ec3ded279e285d62d30</id>
 				<org>Sitzplatz reservierenHTML_NEWLINE(Ein evtl. zuvor für diesen Benutzer reservierter Platz wird freigegeben)</org>
 				<de></de>
@@ -877,7 +805,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1530</tid>
 				<id>557d54a4bf9ba2761fa6304c62a08ca8</id>
 				<org>Sitzplatz markieren</org>
 				<de></de>
@@ -889,7 +816,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1531</tid>
 				<id>c581ae1897743803ac4f14d57c25522a</id>
 				<org>Aktion abbrechen. Zurück zum Sitzplan</org>
 				<de></de>
@@ -901,7 +827,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1532</tid>
 				<id>a2c1e970fbea187f02c56ca828f81fb0</id>
 				<org>Dieser Sitzplatz ist aktuell noch frei (bzw. nur markiert)HTML_NEWLINESoll er fest reserviert oder nur markiert werden?</org>
 				<de></de>
@@ -913,7 +838,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1533</tid>
 				<id>23f4d14c2a68e36817fabac16e1a7713</id>
 				<org>Dies ist der Sitzplatz des aktuell ausgewählten Benutzers. Soll der Platz freigegeben werden?</org>
 				<de></de>
@@ -925,7 +849,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1534</tid>
 				<id>e33471baec51ad1785623fecb5c5c6cc</id>
 				<org>Dennoch reservieren. %1 hat dadurch anschließend keinen Sitzplatz mehr</org>
 				<de></de>
@@ -937,7 +860,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1535</tid>
 				<id>de5ee62aa5d8c68174b136de6d5a78f6</id>
 				<org>Dennoch reservieren und %USERNAME% anschließend einen neuen Sitzplatz aussuchen</org>
 				<de></de>
@@ -949,7 +871,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1536</tid>
 				<id>57dedb74d3dd104c0530186e31b53db1</id>
 				<org>Dieser Sitzplatz ist aktuell belegt durch %1 (%2 %3)</org>
 				<de></de>
@@ -961,7 +882,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1537</tid>
 				<id>e62f33ca616242c0250b3e86c5913718</id>
 				<org>Der Sitzplatz wurde erfolgreich für %1 vorgemerkt</org>
 				<de></de>
@@ -973,7 +893,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1538</tid>
 				<id>920973ad5699d9b03104caef100d7561</id>
 				<org>Der Sitzplatz wurde wieder freigegeben</org>
 				<de></de>
@@ -985,7 +904,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1539</tid>
 				<id>eab367cc1731e75432a20ab2dbc25a8d</id>
 				<org>Sie müssen zuerst für diese Party bezahlen, bevor Sie sich einen Sitzplatz reservieren dürfen.</org>
 				<de></de>
@@ -997,7 +915,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1540</tid>
 				<id>4f05c69ebe5cd42fad2b1836ede839e1</id>
 				<org>Dieser Sitzplatz ist bereits vergeben</org>
 				<de></de>
@@ -1009,7 +926,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1541</tid>
 				<id>cad205fd227a8ee7c3370ccd9730b311</id>
 				<org>Solange Sie nicht für diese Party bezahlt haben, dürfen Sie nur einen Sitz vormerken</org>
 				<de></de>
@@ -1021,7 +937,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1542</tid>
 				<id>106161cc31656cfe2f858f8114885d11</id>
 				<org>Sie haben bereits einen Sitzplatz reserviert. Möchten Sie Ihren Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?</org>
 				<de></de>
@@ -1033,7 +948,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1543</tid>
 				<id>7c41b8ee26d93674b04a12e2688339d7</id>
 				<org>Diesen Sitzplatz für mich reservieren</org>
 				<de></de>
@@ -1045,7 +959,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1544</tid>
 				<id>00fe63aa5a29076d33156db10a91172a</id>
 				<org>Diesen Sitzplatz für einen Freund vormerkenHTML_NEWLINE(Eine Vormekung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)</org>
 				<de></de>
@@ -1057,7 +970,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1545</tid>
 				<id>d2904227ab05e758fce7e9fe2edc3ac8</id>
 				<org>Möchten Sie als Admin diese Vormerkung entfernen?</org>
 				<de></de>
@@ -1069,7 +981,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1546</tid>
 				<id>a2ddc878372eeaca9739b28797b98710</id>
 				<org>Diesen Sitzplatz für mich vormerkenHTML_NEWLINE(Eine Vormekung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)</org>
 				<de></de>
@@ -1081,7 +992,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1547</tid>
 				<id>20c263ac0e9391bcd7ae1d085b2d7652</id>
 				<org>Dieser Sitzplatz ist momentan noch frei</org>
 				<de></de>
@@ -1093,7 +1003,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1548</tid>
 				<id>fc2c6d02f3284f9bcab993f351dcb545</id>
 				<org>Sie gehören nicht der richtigen Gruppe an, um in diesem Block einen Sitz zu reservieren</org>
 				<de></de>
@@ -1105,7 +1014,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1549</tid>
 				<id>f222f0af73d7a31e200b4f88869bd2f8</id>
 				<org>Sie sind nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz zu reservieren</org>
 				<de></de>
@@ -1117,7 +1025,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1550</tid>
 				<id>02c4027b6b6ce8c2fbb85352c1d113cb</id>
 				<org>Der Sitzplatz wurde erfolgreich reserviert</org>
 				<de></de>
@@ -1129,7 +1036,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1551</tid>
 				<id>d2a4233173ed1610c1405c94a6b8bcaf</id>
 				<org>Nur zur Party angemeldete Benutzer dürfen Sitzplätze vormerken</org>
 				<de></de>
@@ -1141,7 +1047,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1552</tid>
 				<id>925fdd283e9fa0a3f73ddd25a6b18e83</id>
 				<org>Sie haben bereits das Maximum an Sitzen reserviert</org>
 				<de></de>
@@ -1153,7 +1058,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1553</tid>
 				<id>317ef09bb7404d5c3ea7d9308916849e</id>
 				<org>Meinen Sitzplatz wieder freigeben</org>
 				<de></de>
@@ -1165,7 +1069,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1554</tid>
 				<id>28d08d91511e7a209d3adc9a28b648d9</id>
 				<org>Dieser Sitzplatz ist momentan für Sie reserviert</org>
 				<de></de>
@@ -1177,7 +1080,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1555</tid>
 				<id>1db6e2c1be5147513d8ae49753b82e8f</id>
 				<org>Der Sitzplatz wurde erfolgreich freigegeben</org>
 				<de></de>
@@ -1189,7 +1091,6 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>1556</tid>
 				<id>b16d75d76b6d0997c7c7d58d7125af33</id>
 				<org>Sind Sie sicher, dass Sie diesen Sitzplatz wieder freigeben möchten?</org>
 				<de></de>
@@ -1201,9 +1102,19 @@
 				<file>seating</file>
 			</entry>
 			<entry>
-				<tid>25</tid>
+				<id>f57aecdba38be6cb558bf9f478b9f729</id>
+				<org>Ausgewählter User</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>seating</file>
+			</entry>
+			<entry>
 				<id>a09d796c922139d0854caf7c86d3e501</id>
-				<org>Nun können Sie Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bedürfnissen anzupassen.--lt--br /--gt----lt--br /--gt--Ganze Reihen bzw. Spalten von Plätzen können aktiviert bzw. deaktiviert werden, indem Sie auf die Spalten- bzw. Reihen-Beschriftung  klicken.</org>
+				<org></org>
 				<de></de>
 				<en></en>
 				<es></es>
