@@ -7,6 +7,7 @@ class db {
 	var $print_sql_error;
 	var $success = false;
 	var $count_query = 0;
+  var $querys = array();
 
     // Konstruktor
 	function db() {
