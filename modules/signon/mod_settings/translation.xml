@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:30</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1621</tid>
 				<id>78ab99fd7cee813363b51b2540f34bf7</id>
 				<org>Zur LAN-Party --lt--b--gt--%1--lt--/b--gt-- anmelden</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>signon</file>
 			</entry>
 			<entry>
-				<tid>1622</tid>
 				<id>fd35e959c94d5b3aa28c77a60a7d2be4</id>
 				<org>Bitte f¸llen Sie die folgenden Felder sorgf‰lltig aus</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>signon</file>
 			</entry>
 			<entry>
-				<tid>1623</tid>
 				<id>f69b4ec591479daec38c2f4bdcf5012b</id>
 				<org>Nicht anzeigen</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>signon</file>
 			</entry>
 			<entry>
-				<tid>1624</tid>
 				<id>d162796a121c65f6beb75757a8a4ff07</id>
 				<org>Optionale Eingabe</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>signon</file>
 			</entry>
 			<entry>
-				<tid>1625</tid>
 				<id>254f8e6742c9c22fa791839c94ef7c18</id>
 				<org>Pflichteingabe</org>
 				<de></de>
@@ -73,9 +68,30 @@
 				<file>signon</file>
 			</entry>
 			<entry>
-				<tid>1626</tid>
 				<id>7ae96fab7bfe8f899de28d17d779fa11</id>
 				<org>Einstellungen wurden erfolgreich ge‰ndert</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>signon</file>
+			</entry>
+			<entry>
+				<id>98a86298651147198da034062113942f</id>
+				<org>Bitte f√ºllen Sie die folgenden Felder sorgf√§lltig aus</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>signon</file>
+			</entry>
+			<entry>
+				<id>0bc3b3a6f55581f588137e10773c1d3a</id>
+				<org>Einstellungen wurden erfolgreich ge√§ndert</org>
 				<de></de>
 				<en></en>
 				<es></es>

@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1137</tid>
 				<id>30727110f2a5709d338764ed643b2b2e</id>
 				<org>Eine Bestätigung der Anmeldung wurde an Ihre E-Mail-Adresse gesendet.</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1138</tid>
 				<id>e42b75af3c2fe0641e48b717d80fc4ac</id>
 				<org>Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1139</tid>
 				<id>c297fc3c889bb0b4b2c511599d4abfc4</id>
 				<org>Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1140</tid>
 				<id>31493eab02656fe21f6ba7b29293bf5e</id>
 				<org>Angemeldet</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1141</tid>
 				<id>c3998db674d32a76bc6f7fc5e6892314</id>
 				<org>Wenn dieses Häckchen gesetzt ist, sind Sie zu dieser Party angemeldet</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1142</tid>
 				<id>9eabaacbbbdd3c37fe4da3e3f83dca74</id>
 				<org>Nicht bezahlt</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1143</tid>
 				<id>7314aa603b390704793ed95fc0d41f98</id>
 				<org>Bezahlt - Vorverkauf</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1144</tid>
 				<id>21f0af220cbea00120a1bdfa19b4d6f3</id>
 				<org>Bezahlt - Abendkasse</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1145</tid>
 				<id>4b3d45867e3166b92bfc351c85c796c4</id>
 				<org>Bezahltstatus</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1146</tid>
 				<id>30c64856e560daffcefc742493cb9069</id>
 				<org>Eintrittspreis</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1147</tid>
 				<id>74d2882ce8f651d09013eeaa1213a8ee</id>
 				<org>Für diese Party wurden keine Preise definiert</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1148</tid>
 				<id>5936cd25dce7742711410aea58f7f4a9</id>
 				<org>Bezahltdatum</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1149</tid>
 				<id>b2f7016decfeff062c7d93e24026e7e3</id>
 				<org>Eingecheckt</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1150</tid>
 				<id>345613e04c19c374f9b4915c141cff93</id>
 				<org>Ausgecheckt</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1151</tid>
 				<id>0adb610472e8bd6164e0c959b9d53ec8</id>
 				<org>Anmeldedatum</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1152</tid>
 				<id>225c3048aea0472017a03724225d66da</id>
 				<org>Partystatus ändern</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1153</tid>
 				<id>dbdf9ba522023a170378afa9623fb605</id>
 				<org>Hier k&ouml;nnen sie die Anmeldedaten im Detail f&uuml;r jeden User / Party einstellen</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1171</tid>
 				<id>0af296968c506e3918cb4fd569609ce4</id>
 				<org>Text für Eintrittspreis</org>
 				<de></de>
@@ -229,7 +211,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1172</tid>
 				<id>17a2725097ccbce4b0bbe1b69fb49aaf</id>
 				<org>Preis</org>
 				<de></de>
@@ -241,7 +222,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1173</tid>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
 				<de></de>
@@ -253,7 +233,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1174</tid>
 				<id>8df3f805c649152e26746661a7983e0f</id>
 				<org>Admins und Superadmins</org>
 				<de></de>
@@ -265,7 +244,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1175</tid>
 				<id>58f64a9bdcf1459a2a3f1ba9b12a9ed9</id>
 				<org>Superadmins</org>
 				<de></de>
@@ -277,7 +255,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1176</tid>
 				<id>1f3c7461657d164064c0eff75ef9940a</id>
 				<org>Beschreibung eines Depots</org>
 				<de></de>
@@ -289,7 +266,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1177</tid>
 				<id>980d919791b82c6d337ca57be4fd692c</id>
 				<org>Depotpreis (Leer lassen, wenn es kein Depot gibt.)</org>
 				<de></de>
@@ -301,7 +277,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1178</tid>
 				<id>d7d001377af53f0336a8a6eca47aa1a7</id>
 				<org>Gruppenname</org>
 				<de></de>
@@ -313,7 +288,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1179</tid>
 				<id>b4251d60fa4f136bf2fa8732ec6ed08e</id>
 				<org>Sichtbar für</org>
 				<de></de>
@@ -325,7 +299,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1180</tid>
 				<id>abf7ac09dfe3da2923516dd75445cd7e</id>
 				<org>Gültig bis</org>
 				<de></de>
@@ -337,7 +310,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1181</tid>
 				<id>64b1098d6777705f3921a1bb92dffb1b</id>
 				<org>Party anzeigen</org>
 				<de></de>
@@ -349,7 +321,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1182</tid>
 				<id>ab45c791ddd4695d8f647901e32c070f</id>
 				<org>Die Details der Partys.</org>
 				<de></de>
@@ -361,7 +332,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1183</tid>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
 				<de></de>
@@ -373,7 +343,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1184</tid>
 				<id>a97f3c5af10a3d51118a90c6c05002f1</id>
 				<org>Partyname</org>
 				<de></de>
@@ -385,7 +354,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1185</tid>
 				<id>9548f502e461dace852f11129cd2311b</id>
 				<org>Anzahl Plätze</org>
 				<de></de>
@@ -397,7 +365,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1186</tid>
 				<id>cd31dae2aeabc40bc5bb1094c182bf1c</id>
 				<org>PLZ</org>
 				<de></de>
@@ -409,7 +376,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1187</tid>
 				<id>473390974397014edf78846c8f0e93b3</id>
 				<org>Ort</org>
 				<de></de>
@@ -421,7 +387,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1188</tid>
 				<id>aed64cf84d53a5e8ecf28a9d4108b173</id>
 				<org>Party startet am</org>
 				<de></de>
@@ -433,7 +398,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1189</tid>
 				<id>89ca9cb435647c3f67aefd38040868cb</id>
 				<org>Party endet am</org>
 				<de></de>
@@ -445,7 +409,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1190</tid>
 				<id>132f88a2aca453d522e58e5bd846466d</id>
 				<org>Anmeldung startet am</org>
 				<de></de>
@@ -457,7 +420,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1191</tid>
 				<id>01c9efe865c01816c1ef954a05921b4d</id>
 				<org>Anmeldung endet am</org>
 				<de></de>
@@ -469,7 +431,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1192</tid>
 				<id>43f519d8bc795324340e613aa8391db0</id>
 				<org>Party auswählen</org>
 				<de></de>
@@ -481,7 +442,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1193</tid>
 				<id>0d757455651ad1f9693ce4d049bc4d10</id>
 				<org>Preis auswählen</org>
 				<de></de>
@@ -493,7 +453,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1194</tid>
 				<id>519254a57df6430bd507c3fe8a166cd2</id>
 				<org>Die Anmeldung von %ID% bei der Party %PARTY% wurde geändert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%</org>
 				<de></de>
@@ -505,7 +464,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1195</tid>
 				<id>c745ae9e66898b2e7fea506489bd1242</id>
 				<org>Ohne Gruppe</org>
 				<de></de>
@@ -517,7 +475,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1196</tid>
 				<id>9e9cec8bc20dcdafcc5d6eadfcd13482</id>
 				<org>Benutzergruppe</org>
 				<de></de>
@@ -529,7 +486,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1197</tid>
 				<id>fd27d51d3c25def0f73eadf1a4195437</id>
 				<org>Keine Benutzergruppe vorhanden</org>
 				<de></de>
@@ -541,7 +497,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1198</tid>
 				<id>4d30d83c330743e9f3e0f8eb49e68c16</id>
 				<org>Der Endzeitpunkt muss nach dem Startzeitpunkt liegen</org>
 				<de></de>
@@ -553,7 +508,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1199</tid>
 				<id>ca516c820763a265be48a5ea5eaf3681</id>
 				<org>Der Anmeldestart muss vor dem Partystart liegen</org>
 				<de></de>
@@ -565,7 +519,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1200</tid>
 				<id>47b03c1d5e9f4528668c2905263dc1ff</id>
 				<org>Der Anmeldeschluss muss nach dem Anmeldestart liegen</org>
 				<de></de>
@@ -577,7 +530,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1201</tid>
 				<id>dc4eab6cc679fe22f4c4d56d6e179b2d</id>
 				<org>Der Anmeldeschluss muss vor dem Partystart liegen</org>
 				<de></de>
@@ -589,7 +541,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1202</tid>
 				<id>db301a401fc5c967406acf2921b74f9c</id>
 				<org>Die Daten wurden erfolgreich ge�ndert.</org>
 				<de></de>
@@ -601,7 +552,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1203</tid>
 				<id>246f0b0ab9e49ac6fb298a06ca3fa36c</id>
 				<org>Anzahl Pl�tze</org>
 				<de></de>
@@ -613,7 +563,6 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>1204</tid>
 				<id>4562044232d0676187bc533061ceb14b</id>
 				<org>Text f�r Eintrittspreis</org>
 				<de></de>
@@ -625,9 +574,8 @@
 				<file>party</file>
 			</entry>
 			<entry>
-				<tid>24</tid>
 				<id>c51a2fcc8e29a8ff2955e3e1baa9b785</id>
-				<org>Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite, oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persöhnlich die aktivie ist, kannst du auf der Startseite, oder in der Party-Box einstellen</org>
+				<org></org>
 				<de></de>
 				<en></en>
 				<es></es>

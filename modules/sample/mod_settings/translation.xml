@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1440</tid>
 				<id>22f9de3383b9419e4f8cb14baf39ddba</id>
 				<org>Überschrift</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1441</tid>
 				<id>d6ade14e043e7df9286ec2ada838d5ea</id>
 				<org>Erweiterte Überschrift</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1442</tid>
 				<id>c8444ba85faba1560b45c41b3cf59086</id>
 				<org>Eine einfache Zeile</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1443</tid>
 				<id>c7bcaeceeb32e71d1d6e9f19d8ddf8ac</id>
 				<org>Eine einfache Zeile %1 und %2</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1444</tid>
 				<id>624a53df9743541cbcaace1e45df6735</id>
 				<org>Texteingabe</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1445</tid>
 				<id>617a22fb5ae9f65bff06a7dd6ae35624</id>
 				<org>Benutzer insgesamt</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1446</tid>
 				<id>18a8022569d6ced829f833aa855530ce</id>
 				<org>Titel</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1447</tid>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1448</tid>
 				<id>c481b00a606907fd59b4d46623b8d99d</id>
 				<org>Autor</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1449</tid>
 				<id>9ba51734ced032fd8ec25acfb387a23f</id>
 				<org>Datum</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1450</tid>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1451</tid>
 				<id>621198805df73c2536ae624678201b1a</id>
 				<org>News verwalten</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1452</tid>
 				<id>b40270b1794198416acf37a1be27cf01</id>
 				<org>Mit Hilfe des folgenden Formulars können Sie Neuigkeiten auf Ihrer Seite ergänzen und bearbeiten</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1453</tid>
 				<id>8eba0c1845d59e877ab09d83d87d0215</id>
 				<org>Überschrift (Knappe Zusammenfassung für die Startseite)</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1454</tid>
 				<id>5236b0f0fb26d1d73909687ee9195458</id>
 				<org>Kategorie / Icon</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1455</tid>
 				<id>960b44c579bc2f6818d2daaf9e4c16f0</id>
 				<org>Normal</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1456</tid>
 				<id>9b924aa7d0c7d0264b2fbb28f666414b</id>
 				<org>Wichtig</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>sample</file>
 			</entry>
 			<entry>
-				<tid>1457</tid>
 				<id>c30f584de7e81f4232d4d2a5094228f5</id>
 				<org>Priorität</org>
 				<de></de>

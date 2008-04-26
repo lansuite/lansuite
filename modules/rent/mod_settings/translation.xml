@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1429</tid>
 				<id>a377bf984e816b7da45903df0c39cfea</id>
 				<org>Verleih</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>rent</file>
 			</entry>
 			<entry>
-				<tid>1430</tid>
 				<id>677d191cace169dc92d02204e96e6505</id>
 				<org>Neuen Artikel zum Verleih eintragen</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>rent</file>
 			</entry>
 			<entry>
-				<tid>1431</tid>
 				<id>6e2ee1c6d1ee1da0c54264077a3bf6b2</id>
 				<org>Bezeichnung</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>rent</file>
 			</entry>
 			<entry>
-				<tid>1432</tid>
 				<id>35bedb45241d6b3f70fa6f56197c3361</id>
 				<org>Beschreibung</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>rent</file>
 			</entry>
 			<entry>
-				<tid>1433</tid>
 				<id>7c856a87e148ff82d5bcfa472c19b006</id>
 				<org>Menge</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>rent</file>
 			</entry>
 			<entry>
-				<tid>1434</tid>
 				<id>ae5476012de8bce9fc10e7463b0f338e</id>
 				<org>Keinem zugeordnet</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>rent</file>
 			</entry>
 			<entry>
-				<tid>1435</tid>
 				<id>8b0261a6c73560a48862c7795bdf733e</id>
 				<org>Besitzer</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>rent</file>
 			</entry>
 			<entry>
-				<tid>1436</tid>
 				<id>902336cac8b9f39c878824aaf56ca964</id>
 				<org>Zurücknehmen</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>rent</file>
 			</entry>
 			<entry>
-				<tid>1437</tid>
 				<id>7c064279d18367364e32a36263f740a3</id>
 				<org>Artikel wurde zurückgenommen</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>rent</file>
 			</entry>
 			<entry>
-				<tid>1438</tid>
 				<id>33b940eef9dfa7d1cd2ce35d01b5255b</id>
 				<org>Zuweisen</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>rent</file>
 			</entry>
 			<entry>
-				<tid>1439</tid>
 				<id>e098a7eb4082e1beab35e482809ba6fb</id>
 				<org>OK, der Artikel wurde verliehen.</org>
 				<de></de>

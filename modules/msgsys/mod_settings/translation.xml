@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1046</tid>
 				<id>557b9ee2e2c8d804024a21dc5424e62f</id>
 				<org>Sie haben keinen Benutzer ausgew&auml;hlt</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>msgsys</file>
 			</entry>
 			<entry>
-				<tid>1047</tid>
 				<id>aeb723c7ed601f4e1b1d0cf5c0fb680a</id>
 				<org>Wollen Sie den Benutzer --lt--b--gt--%1 (%2 %3)--lt--/b--gt-- wirklich aus Ihrer Buddy-Liste entfernen?</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>msgsys</file>
 			</entry>
 			<entry>
-				<tid>1048</tid>
 				<id>a9010f2b374569ad92d33c24b372a201</id>
 				<org>Wollen Sie den Benutzer --lt--b--gt--%1--lt--/b--gt-- wirklich aus Ihrer Buddy-Liste entfernen?</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>msgsys</file>
 			</entry>
 			<entry>
-				<tid>1049</tid>
 				<id>770656677df22ab271f752b343b2cb2f</id>
 				<org>Dieser Benutzer befindet sich nicht in ihrer Buddy-Liste</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>msgsys</file>
 			</entry>
 			<entry>
-				<tid>1050</tid>
 				<id>7f618a1563f4c10ca80f19504e131511</id>
 				<org>Der Benutzer --lt--b--gt--%1--lt--/b--gt-- wurde aus Ihrer Buddy-Liste entfernt. Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf wirksam.</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>msgsys</file>
 			</entry>
 			<entry>
-				<tid>1051</tid>
 				<id>46cab2c50eda5ecbd19e9fab5ac97c52</id>
 				<org>Der Benutzer --lt--b--gt--%1 (%2 %3)--lt--/b--gt-- wurde aus Ihrer Buddy-Liste entfernt. Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf wirksam.</org>
 				<de></de>

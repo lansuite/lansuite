@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:30</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1656</tid>
 				<id>0f2afe882a29cadfc8ec08531f997608</id>
 				<org>Benutzeralter</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1657</tid>
 				<id>c3c53a7d3d270f9a0ddd32a53ff58e65</id>
 				<org>Keine Angabe</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1658</tid>
 				<id>2c6f7ea2cdca462dcc27315772f63e6d</id>
 				<org>Datenbank Statistik</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1659</tid>
 				<id>bb75315746079ed4a477853b45cb8dfe</id>
 				<org>Auf dieser Seite erhalten Sie Informationen &uuml;ber die Datenbank und aktuelle Leistungsdaten.</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1660</tid>
 				<id>12d51585ff9a9b906bf17310fdd56d5c</id>
 				<org>Servername</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1661</tid>
 				<id>4dca2405b845004ec02e611e16b3cc3a</id>
 				<org>Verbindungstyp</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1662</tid>
 				<id>91bbe79e4f896b48eccc40e483ceb49f</id>
 				<org>L&auml;uft seit</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1663</tid>
 				<id>74ce5e9ce1e10aa894271686bb10dae0</id>
 				<org>Stunde(n)</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1664</tid>
 				<id>ff2d1a520fbf5cafcd80e3b59a6ef103</id>
 				<org>Minute(n)</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1665</tid>
 				<id>da8b4fda84fd81b8e713e38097798459</id>
 				<org>Abfragen Insg.</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1666</tid>
 				<id>1265dbe2234cfd5a09735596e1ad5f7b</id>
 				<org>Abfragen / Sekunde</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1667</tid>
 				<id>f04a481498b66229701df88b12146c1f</id>
 				<org>Offene Tabellen</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1668</tid>
 				<id>03bfaee27b3b5cfb28deef84a0f416e5</id>
 				<org>Threads</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1669</tid>
 				<id>54681ecb0b31f537146cc1fd21ee02c3</id>
 				<org>nicht eingetragen</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1670</tid>
 				<id>34273bfcba9bc4664f434913ee215610</id>
 				<org>Die Daten wurden erfolgreich &uuml;bermittelt</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1671</tid>
 				<id>297b8daf146c6557d94eb5ebf29b2981</id>
 				<org>Benutzerstatistiken</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1672</tid>
 				<id>5a3a40cd9446a70f3577fdeb27d266da</id>
 				<org>Hier sehen sie wie viele Benutzer ihre Seite besuchen</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1673</tid>
 				<id>65e072b16de354786fb55c0e4b88b33b</id>
 				<org>Besucher (Visits)</org>
 				<de></de>
@@ -229,7 +211,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1674</tid>
 				<id>dc9db34d93cbee5d5d97a50652672732</id>
 				<org>Seitenaufrufe (Hits)</org>
 				<de></de>
@@ -241,7 +222,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1675</tid>
 				<id>cb17b5605158f205e8d5bd1e7fdf90d5</id>
 				<org>Seiten pro Besucher</org>
 				<de></de>
@@ -253,7 +233,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1676</tid>
 				<id>0a979e1459b681c1521cffd01efa9ff5</id>
 				<org>Benutzer eingeloggt (letzte Stunde)</org>
 				<de></de>
@@ -265,7 +244,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1677</tid>
 				<id>46459aa998fecff24d7b717bb2302548</id>
 				<org>Bis jetzt ben&ouml;tigte Zeit f&uuml;r Skript</org>
 				<de></de>
@@ -277,7 +255,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1678</tid>
 				<id>c14c74a8ad8ad39eabb29f600d1b7ef2</id>
 				<org>Sekunde(n)</org>
 				<de></de>
@@ -289,7 +266,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1679</tid>
 				<id>bca21a1ef2a52bac46a7adac3bae621d</id>
 				<org>Bis jetzt &uuml;bertragene Daten</org>
 				<de></de>
@@ -301,7 +277,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1680</tid>
 				<id>e4a649985a88fc61cb8183ebc3db0001</id>
 				<org>Server Statistik</org>
 				<de></de>
@@ -313,7 +288,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1681</tid>
 				<id>0bff39c5ad722f2fe63400b432ed9afe</id>
 				<org>Hier sehen Sie die aktuelle Auslastung des Servers auf dem Lansuite gerade ausgeführt wird</org>
 				<de></de>
@@ -325,7 +299,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1682</tid>
 				<id>f9a26283d7a8988b63a8f9f5f681ab76</id>
 				<org>Unbekannt</org>
 				<de></de>
@@ -337,7 +310,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1683</tid>
 				<id>611d552879a79dcc1961a7aeb4caf430</id>
 				<org>Serverinfo</org>
 				<de></de>
@@ -349,7 +321,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1684</tid>
 				<id>4d86f2856e28b954277f6a680f63e96c</id>
 				<org>Tag(e)</org>
 				<de></de>
@@ -361,7 +332,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1685</tid>
 				<id>3e60099ef3d8b123b52c776f3de1ca4d</id>
 				<org>Load Avarage</org>
 				<de></de>
@@ -373,7 +343,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1686</tid>
 				<id>b233ca205fb3fed2eaceb79bd6c8ebb8</id>
 				<org>Prozessor(en)</org>
 				<de></de>
@@ -385,7 +354,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1687</tid>
 				<id>8d18ad94a26ece3a3224038247a04b16</id>
 				<org>Arbeitsspeicher gesamt</org>
 				<de></de>
@@ -397,7 +365,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1688</tid>
 				<id>bf7301b076a6eb4321bc84d9de774922</id>
 				<org>Arbeitsspeicher frei</org>
 				<de></de>
@@ -409,7 +376,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1689</tid>
 				<id>fb18f3dde5ca7ba2955a0b23e45dd959</id>
 				<org>Swapspeicher gesamt</org>
 				<de></de>
@@ -421,7 +387,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1690</tid>
 				<id>81bab3c85070e653befdbf8698f03d5e</id>
 				<org>Swapspeicher frei</org>
 				<de></de>
@@ -433,7 +398,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1691</tid>
 				<id>f1eb30f65eebeaa04a8be317374a71be</id>
 				<org>Bis jetzt gesendet (TX)</org>
 				<de></de>
@@ -445,7 +409,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1692</tid>
 				<id>d90aec2e260d77b7f2e45f15330aba14</id>
 				<org>Bis jetzt empfangen (RX)</org>
 				<de></de>
@@ -457,7 +420,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1693</tid>
 				<id>9e898cafd3ad0249f04a88e2fe43f603</id>
 				<org>Leider ist diese Anzeige auf Ihrem System nicht möglich</org>
 				<de></de>
@@ -469,7 +431,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1694</tid>
 				<id>b5b5a454e70028ee8e2d728483baa43f</id>
 				<org>Suchmaschinen</org>
 				<de></de>
@@ -481,7 +442,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1695</tid>
 				<id>cc87d5dccd4ab169f9f80a7681b7f86a</id>
 				<org>Hier sehen Sie, &uuml;ber welche Suchbegriffe Besucher &uuml;ber Suchmaschinenen auf Ihrer Seite gelandet sind</org>
 				<de></de>
@@ -493,7 +453,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1696</tid>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
 				<de></de>
@@ -505,7 +464,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1697</tid>
 				<id>83d5a3f000e4fe6f737eeadbf07d3a50</id>
 				<org>Die Statistikanzeige ben&ouml;tigt ddie GD Bibliothek</org>
 				<de></de>
@@ -517,7 +475,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1698</tid>
 				<id>d01fa3312f5fb19b9855aadbdc28e6a3</id>
 				<org>Konnte kein Bild erzeugen</org>
 				<de></de>
@@ -529,7 +486,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1699</tid>
 				<id>130c3d026c9b37f8de3b6a07045469c8</id>
 				<org>Keine Daten vorhanden. Sie m&uuml;ssen das Modulsuitebeat aktivieren und den Cron-Job einrichten</org>
 				<de></de>
@@ -541,7 +497,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>1700</tid>
 				<id>781ee1177c24df1ff920bbefc042bb6e</id>
 				<org>Zu wenige Daten f&uuml;r ein Skript / Stellen sie die Laufzeit des Cron-Jobs auf 1min und warten sie 15min</org>
 				<de></de>
@@ -553,7 +508,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>4414</tid>
 				<id>5511e399fcf5a9a40c37e42e643028e5</id>
 				<org>Anmeldestatistik</org>
 				<de></de>
@@ -565,7 +519,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>4415</tid>
 				<id>e992f966374bcdf2426881a9abf279b2</id>
 				<org>Hier sehen Sie die aktuelle Statistik zur laufenden LAN</org>
 				<de></de>
@@ -577,7 +530,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>4416</tid>
 				<id>e5b1c9b4ba5c2920b1e4a27305f71d5b</id>
 				<org>Ben&ouml;tigte Anmeldung pro Tag</org>
 				<de></de>
@@ -589,7 +541,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>4417</tid>
 				<id>c942cfe32ac2f4408b00373e9e17919f</id>
 				<org>Ben&ouml;tigte Bezahlungen pro Tag</org>
 				<de></de>
@@ -601,7 +552,6 @@
 				<file>stats</file>
 			</entry>
 			<entry>
-				<tid>4418</tid>
 				<id>412615d7120eca7d1f79daa182c6e9bd</id>
 				<org>Vergangene Anmeldezahlen</org>
 				<de></de>

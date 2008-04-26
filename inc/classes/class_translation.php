@@ -40,6 +40,7 @@ function t(/*$input, $parameter1, $parameter2....*/) {
     } else {
         // Try to read from DB
         //echo "<br>HASH:".$key.":".$input."<br>";
+        if ($translation->language == "de") $translation->ReplaceParameters($input, $parameters, $key);
         if ($db->success) $trans_text = $translation->get_trans_db($key, $_GET['mod'], $long);
         //echo "<br>DB:".$trans_text."<br>";
         // If DB fails Try to read from XML-Files
@@ -155,26 +156,12 @@ class translation {
     function load_cache_byfile($modul) {
         global $db, $xml;
         // Load from File
-        $lang_file = $this->get_trans_filename($modul);
-        // Open XML-File
-        if (file_exists($lang_file)) {
-            $xml_file    = fopen($lang_file, "r");
-            $xml_content = fread($xml_file, filesize($lang_file));
-            fclose($xml_file);
-            $xml_content_lansuite = $xml->get_tag_content("lansuite", $xml_content, 0);
-            $tables = $xml->get_tag_content_array("table", $xml_content_lansuite);
-            foreach ($tables as $table) {
-                // Import Table-Content
-                $content = $xml->get_tag_content("content", $table, 0);
-                $entrys = $xml->get_tag_content_array("entry", $content);
-                if ($entrys) {
-                    foreach ($entrys as $entry) {
-                        $id = $xml->get_tag_content('id', $entry);
-                        $text = $xml->get_tag_content($this->language, $entry);
-                        if ($this->lang_cache[$modul][$id] == '' AND $text != '') $this->lang_cache[$modul][$id] = $text;
-                    }
-                }
-            } // End foreach $tables
+        $xmldata = $this->xml_read_to_array($modul);
+        if (is_array($xmldata)) {
+            foreach ($xmldata[$modul] as $id => $data) {
+                $text = $data[$this->language];
+                if ($this->lang_cache[$modul][$id] == '' AND $text != '') $this->lang_cache[$modul][$id] = $text;
+            }
         }
     }
 
@@ -254,67 +241,63 @@ class translation {
    * @return boolean Success
    */
     function xml_write_file_to_db($modul) {
-        global $db, $xml, $config, $func;
+        global $db, $config, $func;
         $lang_file = $this->get_trans_filename($modul);
         $count_update = 0;
         $count_insert = 0;
         // Open XML-File
-        if (file_exists($lang_file)) {
-            $xml_file    = fopen($lang_file, "r");
-            $xml_content = fread($xml_file, filesize($lang_file));
-            fclose($xml_file);
-            $xml_content_lansuite = $xml->get_tag_content("lansuite", $xml_content, 0);
-            $tables = $xml->get_tag_content_array("table", $xml_content_lansuite);
-            foreach ($tables as $table) {
-                // Import Table-Content
-                $content = $xml->get_tag_content("content", $table, 0);
-                $entrys = $xml->get_tag_content_array("entry", $content);
-                if ($entrys) {
-                    foreach ($entrys as $entry) {
-                        if (strlen($xml->get_tag_content("org", $entry)) > 255) $long = '_long'; else $long = '';
-                        // Search existing Translation in DB
-                        $db->qry("SELECT tid FROM %prefix%translation".$long."
+        $xmldata = $this->xml_read_to_array($modul);
+        if (is_array($xmldata)) {
+            //var_dump($xmldata);
+            foreach ($xmldata[$modul] as $id => $data) {
+                //echo "<hr>";
+                //echo "ID:".$id."<br />\n";
+                //var_dump($data);
+                if (strlen($data['org']) > 255) $long = '_long'; else $long = '';
+                // Search existing Translation in DB
+                $row = $db->qry("SELECT tid FROM %prefix%translation".$long."
+                          WHERE file = %string% AND id = %string%",
+                          $modul,
+                          $id);
+                //var_dump($row);
+                $affrow = $db->get_affected_rows();
+                //echo "aff:".$affrow."<br />\n";
+                if ($affrow>0) {
+                    // Update if Row exists
+                    $tr_update_set = Array();
+                    if ($data['de']) $tr_update_set[] = "de='".$func->escape_sql($data['de'])."'";
+                    if ($data['en']) $tr_update_set[] = "en='".$func->escape_sql($data['en']) ."'";
+                    if ($data['es']) $tr_update_set[] = "es='".$func->escape_sql($data['es']) ."'";
+                    if ($data['fr']) $tr_update_set[] = "fr='".$func->escape_sql($data['fr']) ."'";
+                    if ($data['nl']) $tr_update_set[] = "nl='".$func->escape_sql($data['nl']) ."'";
+                    if ($data['it']) $tr_update_set[] = "it='".$func->escape_sql($data['it']) ."'";
+                    $tr_update_set_str = implode(',',$tr_update_set);
+                    // FIX echo "Update ".$tr_update_set_str."<br />\n";
+                    if ($tr_update_set_str) {
+                        $count_update++;
+                        $db->qry("UPDATE %prefix%translation".$long." SET ".$tr_update_set_str."
                                   WHERE file = %string% AND id = %string%",
-                                  $xml->get_tag_content("file", $entry),
-                                  $xml->get_tag_content("id", $entry));
-                        if ($db->get_affected_rows()>0) {
-                            // Update if Row exists
-                            $tr_update_set = Array();
-                            if ($xml->get_tag_content("de", $entry)) $tr_update_set[] = "de='".$func->escape_sql($xml->get_tag_content("de", $entry))."'";
-                            if ($xml->get_tag_content("en", $entry)) $tr_update_set[] = "en='".$func->escape_sql($xml->get_tag_content("en", $entry)) ."'";
-                            if ($xml->get_tag_content("es", $entry)) $tr_update_set[] = "es='".$func->escape_sql($xml->get_tag_content("es", $entry)) ."'";
-                            if ($xml->get_tag_content("fr", $entry)) $tr_update_set[] = "fr='".$func->escape_sql($xml->get_tag_content("fr", $entry)) ."'";
-                            if ($xml->get_tag_content("nl", $entry)) $tr_update_set[] = "nl='".$func->escape_sql($xml->get_tag_content("nl", $entry)) ."'";
-                            if ($xml->get_tag_content("it", $entry)) $tr_update_set[] = "it='".$func->escape_sql($xml->get_tag_content("it", $entry)) ."'";
-                            $tr_update_set_str = implode(',',$tr_update_set);
-                            // FIX echo "Update ".$tr_update_set_str."<br />\n";
-                            if ($tr_update_set_str) {
-                                $count_update++;
-                                $db->qry("UPDATE %prefix%translation".$long." SET ".$tr_update_set_str."
-                                          WHERE file = %string% AND id = %string%",
-                                          $xml->get_tag_content("file", $entry),
-                                          $xml->get_tag_content("id", $entry));
-                            }
+                                  $modul,
+                                  $id);
+                    }
 
-                        } else {
-                            // Insert if new Row
-                            // FIX echo "Insert ".$xml->get_tag_content("tid", $entry)."<br />\n";
-                            $count_insert++;
-                            $db->query_first("INSERT INTO {$config["database"]["prefix"]}translation{$long} SET
-                                                  id='".   $func->escape_sql($xml->get_tag_content("id", $entry)) ."',
-                                                  org='".  $func->escape_sql($xml->get_tag_content("org", $entry)) ."',
-                                                  de='".   $func->escape_sql($xml->get_tag_content("de", $entry)) ."',
-                                                  en='".   $func->escape_sql($xml->get_tag_content("en", $entry)) ."',
-                                                  es='".   $func->escape_sql($xml->get_tag_content("es", $entry)) ."',
-                                                  fr='".   $func->escape_sql($xml->get_tag_content("fr", $entry)) ."',
-                                                  nl='".   $func->escape_sql($xml->get_tag_content("nl", $entry)) ."',
-                                                  it='".   $func->escape_sql($xml->get_tag_content("it", $entry)) ."',
-                                                  file='". $func->escape_sql($xml->get_tag_content("file", $entry)) ."'
-                                                  ");
-                        }
-                    } // End foreach $entrys
+                } else {
+                    // Insert if new Row
+                    // FIX echo "Insert ".$data['tid']."<br />\n";
+                    $count_insert++;
+                    $db->query_first("INSERT INTO {$config["database"]["prefix"]}translation{$long} SET
+                                          id='".   $func->escape_sql($id) ."',
+                                          org='".  $func->escape_sql($data['org']) ."',
+                                          de='".   $func->escape_sql($data['de']) ."',
+                                          en='".   $func->escape_sql($data['en']) ."',
+                                          es='".   $func->escape_sql($data['es']) ."',
+                                          fr='".   $func->escape_sql($data['fr']) ."',
+                                          nl='".   $func->escape_sql($data['nl']) ."',
+                                          it='".   $func->escape_sql($data['it']) ."',
+                                          file='". $func->escape_sql($modul) ."'
+                                          ");
                 }
-            } // End foreach $tables
+            }
         }
         $output = "Updates : ".$count_update." Inserts : ".$count_insert;
         return $output;
@@ -417,31 +400,26 @@ class translation {
         $count_insert = 0;
         // Open XML-File
         if (file_exists($lang_file)) {
-            $xml_file    = fopen($lang_file, "r");
-            $xml_content = fread($xml_file, filesize($lang_file));
-            fclose($xml_file);
-            $xml_content_lansuite = $xml->get_tag_content("lansuite", $xml_content, 0);
-            $tables = $xml->get_tag_content_array("table", $xml_content_lansuite);
-            foreach ($tables as $table) {
-                // Import Table-Content
-                $content = $xml->get_tag_content("content", $table, 0);
-                $entrys = $xml->get_tag_content_array("entry", $content);
-                if ($entrys) {
-                    foreach ($entrys as $entry) {
-                        $id = $xml->get_tag_content("id", $entry);
-                        $file = $xml->get_tag_content("file", $entry);
-                        $xmlarray[$file][$id]['org'] = $xml->get_tag_content("org", $entry);
-                        $xmlarray[$file][$id]['de'] = $xml->get_tag_content("de", $entry);
-                        $xmlarray[$file][$id]['en'] = $xml->get_tag_content("en", $entry);
-                        $xmlarray[$file][$id]['es'] = $xml->get_tag_content("es", $entry);
-                        $xmlarray[$file][$id]['fr'] = $xml->get_tag_content("fr", $entry);
-                        $xmlarray[$file][$id]['nl'] = $xml->get_tag_content("nl", $entry);
-                        $xmlarray[$file][$id]['it'] = $xml->get_tag_content("it", $entry);
-                    } // End foreach $entrys
+            // fastparse
+            $tag_container = "entry";
+            $tag_datafields =  array('org','de','en','es','fr','nl','it', 'file');
+
+            $filecontent = join("",file($lang_file));
+            $filecontent = preg_replace('/\s\s+/', ' ', $filecontent);
+
+            preg_match_all('/(<'.$tag_container.'>)(.*?)(<\\/'.$tag_container.'>)/', $filecontent, $datacontainer, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
+            unset($filecontent);
+            //var_dump($datacontainer);
+            foreach ($datacontainer as $data) {
+                preg_match_all('/<([a-zA-Z0-9_]*?)>(.*?)<(\\/)([a-zA-Z0-9_]*?)>/', $data[2][0], $elements, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
+                //var_dump($elements);
+                foreach ($elements as $element) {
+                    if ($element[1][0] != 'id' AND $element[1][0]!='file') $records[ $elements[8][2][0] ] [ $elements[0][2][0] ] [ $element[1][0] ] = $element[2][0];
                 }
-            } // End foreach $tables
+            }
+
         }
-        return $xmlarray;
+        return $records;
     }
 
   /**

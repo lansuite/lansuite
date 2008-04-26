@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1355</tid>
 				<id>f9a26283d7a8988b63a8f9f5f681ab76</id>
 				<org>Unbekannt</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1356</tid>
 				<id>9356559b78688044bf1b37bce0ca8b34</id>
 				<org>Wollen sie das Bild --lt--b--gt--%1 (%2)--lt--/b--gt-- wirklich l&ouml;schen?</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1357</tid>
 				<id>9d51145bf302b24c5dd867a9bf2d79ca</id>
 				<org>Das Bild --lt--b--gt--%1 (%2)--lt--/b--gt-- wurde gel&ouml;scht</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1358</tid>
 				<id>23977ee3aa7d0d446860a2f0603b7f75</id>
 				<org>Möchten Sie dieses Verzeichnis wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1359</tid>
 				<id>3a0bd8cf714fa6b461ca9597c9824e78</id>
 				<org>Das Verzeichnis wurde erfolgreich gelöscht</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1360</tid>
 				<id>a8917e8bdcc893fe2e6dcb14fceeb6b3</id>
 				<org>Bildergalerie</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1361</tid>
 				<id>1a9f852f5f0c25cfc8569ad21ca374a1</id>
 				<org>Hitliste</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1362</tid>
 				<id>a673751aa7cbb9648032ee88560bc458</id>
 				<org>Die letzten Änderungen</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1363</tid>
 				<id>43e731d40c1e84f333de9c0f6b0dac77</id>
 				<org>Die meisten Hits</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1364</tid>
 				<id>98ad71ee88efbd8f91bdedb6cee94635</id>
 				<org>Die neusten Kommentare</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1365</tid>
 				<id>e23ecca2a88cbbe62100c9d029f79400</id>
 				<org>Die meisten Kommentare</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1366</tid>
 				<id>99d69eb50d3132c02a04a6ddf9b5a9a3</id>
 				<org>Sie sind nicht berechtigt neue Galerien anzulegen</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1367</tid>
 				<id>76c03461c608e3d7b8b06049736abe66</id>
 				<org>Kein GD installiert</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1368</tid>
 				<id>59a649a09a8338895d879c0b86e6f22a</id>
 				<org>Klicken Sie auf ein Bild oder auf /'/�ffnen/'/ um das Bild anzuzeigen.</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1369</tid>
 				<id>45a882e7f87b208bd6b352dee9f00769</id>
 				<org>Ordner</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1370</tid>
 				<id>4789ac07952deecf2a4ae4276ef5caad</id>
 				<org>Seite</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1371</tid>
 				<id>04a2fb1c36faf7f9ceb8df52c1fc096b</id>
 				<org>Keine Bilder in diesem Ordner vorhanden</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1372</tid>
 				<id>702a112b36ec9ee0b0db922f3604ca68</id>
 				<org>Bild anzeigen</org>
 				<de></de>
@@ -229,7 +211,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1373</tid>
 				<id>820f3b889f9865171c0a8b08ba8fafee</id>
 				<org>Bild l&ouml;schen</org>
 				<de></de>
@@ -241,7 +222,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1374</tid>
 				<id>868326b9247c15dccc8cc4bb393dfb57</id>
 				<org>Bild herrunterladen</org>
 				<de></de>
@@ -253,7 +233,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1375</tid>
 				<id>715380d7bcc0b403482990fa332214cc</id>
 				<org>Statistiken</org>
 				<de></de>
@@ -265,7 +244,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1376</tid>
 				<id>828f196bf6cb0832762b0af8eaf1414a</id>
 				<org>Dateien</org>
 				<de></de>
@@ -277,7 +255,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1377</tid>
 				<id>3f0604b531a4e938485353e0188b6e4f</id>
 				<org>Letzte Änderung</org>
 				<de></de>
@@ -289,7 +266,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1378</tid>
 				<id>c8346c004fd9633c5b7dff34be0df64a</id>
 				<org>Datei hochladen</org>
 				<de></de>
@@ -301,7 +277,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1379</tid>
 				<id>5a1c38e71d7119522260964bb77bbf48</id>
 				<org>Neue Galerie anlegen</org>
 				<de></de>
@@ -313,7 +288,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1380</tid>
 				<id>f7c20c733936ee84aff4b4ffce5c89ef</id>
 				<org>Dieses Bild ist nicht vorhanden</org>
 				<de></de>
@@ -325,7 +299,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1381</tid>
 				<id>261fcf4221d22099a366894e38524fa8</id>
 				<org>Bildname</org>
 				<de></de>
@@ -337,7 +310,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1382</tid>
 				<id>9028d5babfa256fa5e780d914a9b1478</id>
 				<org>Vollbild</org>
 				<de></de>
@@ -349,7 +321,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1383</tid>
 				<id>cf28edb861527ecf72642ade8f5e3ef0</id>
 				<org>Bild zur&uuml;ck</org>
 				<de></de>
@@ -361,7 +332,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1384</tid>
 				<id>76d8e498afc228b3db3fb70594c0604d</id>
 				<org>Bild weiter</org>
 				<de></de>
@@ -373,7 +343,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1385</tid>
 				<id>5ec530b672d5f647cf9146251a254176</id>
 				<org>Dateiname</org>
 				<de></de>
@@ -385,7 +354,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1386</tid>
 				<id>15191ae9d6890209f219ba0a959f6ca8</id>
 				<org>Bildgr&ouml;&szlig;e</org>
 				<de></de>
@@ -397,7 +365,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1387</tid>
 				<id>7c6cb74764b781e546e605a1086486f8</id>
 				<org>Erstellt</org>
 				<de></de>
@@ -409,7 +376,6 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1388</tid>
 				<id>1966445c1281c4dec33b6ece47789f58</id>
 				<org>Ersteller</org>
 				<de></de>
@@ -421,9 +387,19 @@
 				<file>picgallery</file>
 			</entry>
 			<entry>
-				<tid>1389</tid>
 				<id>c1e949c74c82d88410af27e490d554e9</id>
 				<org>Aufrufe</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>picgallery</file>
+			</entry>
+			<entry>
+				<id>c2e52e860e1ada35eb290650970ac699</id>
+				<org>Klicken Sie auf ein Bild oder auf /'/öffnen/'/ um das Bild anzuzeigen.</org>
 				<de></de>
 				<en></en>
 				<es></es>

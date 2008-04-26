@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:52</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1</tid>
 				<id>7163118c683013bd76207da5ef80f9e8</id>
 				<org>Sie haben in der letzten Minute bereits 5 mal Ihr Passwort falsch eingegeben. Bitte waren Sei einen Moment, bevor Sie es erneut versuchen dürfen</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>2</tid>
 				<id>96cd67b7c7fdd4ba1e0a82a3825dda2a</id>
 				<org>Dieser Benutzer existiert nicht in unserer Datenbank. Bitte prüfen Sie die eingegebene Email/ID</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>3</tid>
 				<id>3cca29d7314f55a1d74904823d860b56</id>
 				<org>Falsche Email angegeben</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4</tid>
 				<id>ea5bd96dd2269fef4f77d0b1e52e9cb0</id>
 				<org>Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>5</tid>
 				<id>18da9c0f07f1c38279a2590c3d75c3bf</id>
 				<org>Login fehlgeschlagen. Email (%1) nicht verifiziert</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>6</tid>
 				<id>effcc817fc18787f96bc0b665b8faa8e</id>
 				<org>Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte Überprüfen Sie Ihre Eingaben.</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>7</tid>
 				<id>ae9da221e6553e31803344d27f2e81a8</id>
 				<org>Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>8</tid>
 				<id>6217b75cb76719dfb767ba9e87e62082</id>
 				<org>Bitte melden Sie sich bei der Organisation.</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>9</tid>
 				<id>45df15e01082967b782698c0a4c42e75</id>
 				<org>Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>10</tid>
 				<id>07834f918b2652509fbcae60694b9a58</id>
 				<org>Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>11</tid>
 				<id>f07ec1b01555ed1939e25db154cc4450</id>
 				<org>Am</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>12</tid>
 				<id>d57f0b8306324a0f0cb2d5f4613155e4</id>
 				<org>Fehlerhafte Logins</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>13</tid>
 				<id>d309c908a40bb081c8b380d6806e42f1</id>
 				<org>Es wurden fehlerhafte Logins seit Ihrem letzten erfolgreichen Login durchgeführt.</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>14</tid>
 				<id>0f708c0c9ae26b1978ac5107c98a7450</id>
 				<org>Keine Userid beim Login via Cookie erkannt.</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>15</tid>
 				<id>c58d5b774ad43337ac373b8518d88b4b</id>
 				<org>Kein Uniquekey beim Login via Cookie erkannt.</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>16</tid>
 				<id>8fb0bcc0b38db9274e73487e07642c1c</id>
 				<org>Sie wurden erfolgreich ausgeloggt. Vielen dank für ihren Besuch.</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>17</tid>
 				<id>0ca72d08a148324a5fd451bb77d36c5d</id>
 				<org>Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>18</tid>
 				<id>39f5e954cb57ce0e3796b7ae82d61260</id>
 				<org>Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt</org>
 				<de></de>
@@ -229,7 +211,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>19</tid>
 				<id>b7fbf2ca145b288118026b338f79ad64</id>
 				<org>Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.</org>
 				<de></de>
@@ -241,7 +222,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>20</tid>
 				<id>c9c677f6dbdf02b8a074626ebe223fb9</id>
 				<org>Fehler: Keine Switchbackdaten gefunden! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.</org>
 				<de></de>
@@ -253,7 +233,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>21</tid>
 				<id>b1d78b442789b14ef99684b0898d1cb1</id>
 				<org>Uniquekey fehlerhaft</org>
 				<de></de>
@@ -265,7 +244,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>22</tid>
 				<id>a50d91f23c4f9cb8ee1d81d93d03e7ff</id>
 				<org>Vorschau</org>
 				<de></de>
@@ -277,7 +255,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>23</tid>
 				<id>8b14d55bb9668ee40cde8f17314feb15</id>
 				<org>Fett</org>
 				<de></de>
@@ -289,7 +266,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>24</tid>
 				<id>77778d8c610270cab20769b2d0131b7a</id>
 				<org>Kursiv</org>
 				<de></de>
@@ -301,7 +277,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>25</tid>
 				<id>a5e5b758bd63de72993cc13cb5a824dd</id>
 				<org>Unterstrichen</org>
 				<de></de>
@@ -313,7 +288,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>26</tid>
 				<id>5ea1018a4819fe3436d4c4ffdedaaede</id>
 				<org>Durchstreichen</org>
 				<de></de>
@@ -325,7 +299,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>27</tid>
 				<id>d86a346284e5d71226e722aecec81be9</id>
 				<org>Tiefstellen</org>
 				<de></de>
@@ -337,7 +310,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>28</tid>
 				<id>e1db333cb7742e9b6dcdb152521c8fd8</id>
 				<org>Hochstellen</org>
 				<de></de>
@@ -349,7 +321,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>29</tid>
 				<id>ca0dbad92a874b2f69b549293387925e</id>
 				<org>Code</org>
 				<de></de>
@@ -361,7 +332,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>30</tid>
 				<id>0da3b78d9546e8fe0065cd3c9ed1879a</id>
 				<org>Bild</org>
 				<de></de>
@@ -373,7 +343,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>31</tid>
 				<id>429bdf7fb1ab9dd6ff5f8f5b6d380968</id>
 				<org>Zurück</org>
 				<de></de>
@@ -385,7 +354,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>32</tid>
 				<id>27e0c320ea995df1ae1be0dd00ae9c06</id>
 				<org>Angehängte Datei herunterladen</org>
 				<de></de>
@@ -397,7 +365,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>33</tid>
 				<id>5f4110486d00f1ceafd93d33f82c55a8</id>
 				<org>Hinzufügen</org>
 				<de></de>
@@ -409,7 +376,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>34</tid>
 				<id>59b0fe8d3fee044fb03d40984e6300ed</id>
 				<org>Ändern</org>
 				<de></de>
@@ -421,7 +387,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>35</tid>
 				<id>cce55fad709e2b8a964dc43dcf1bd6bc</id>
 				<org>Editieren</org>
 				<de></de>
@@ -433,7 +398,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>36</tid>
 				<id>1010b01ca33474b21dfca7411a13552c</id>
 				<org>Löschen</org>
 				<de></de>
@@ -445,7 +409,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>37</tid>
 				<id>c10dbfd82ada39d491ee13697ce3034b</id>
 				<org>Senden</org>
 				<de></de>
@@ -457,7 +420,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>38</tid>
 				<id>5acc175c727c1cbe58d20e711edc2bf3</id>
 				<org>Benutzerdetails aufrufen</org>
 				<de></de>
@@ -469,7 +431,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>39</tid>
 				<id>03bd1b9182415458116d3ad044ff652e</id>
 				<org>Das Template "%1" existiert nicht!</org>
 				<de></de>
@@ -481,7 +442,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>40</tid>
 				<id>5393323c3710c96ed0313b77bb70c02e</id>
 				<org>Bitte wählen Sie eine Möglichkeit aus:</org>
 				<de></de>
@@ -493,7 +453,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>41</tid>
 				<id>32036005d1f6ed59803ba3e13c80993e</id>
 				<org>Avatar</org>
 				<de></de>
@@ -505,7 +464,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>42</tid>
 				<id>0aa7015fbee329464981c3654f3119fd</id>
 				<org>Gast</org>
 				<de></de>
@@ -517,7 +475,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>43</tid>
 				<id>25ae1ec0eccec4f159ae670451e41f95</id>
 				<org>Kommentare</org>
 				<de></de>
@@ -529,7 +486,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>44</tid>
 				<id>c52aebc06becfffc14adc9444121379a</id>
 				<org>Zitieren</org>
 				<de></de>
@@ -541,7 +497,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>45</tid>
 				<id>ab559eb6c85d0c3a970dca3e9a94312c</id>
 				<org>Bitte loggen Sie sich ein, bevor Sie einen Kommentar verfassen</org>
 				<de></de>
@@ -553,7 +508,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>46</tid>
 				<id>cd05591e8d0d62d2c11ba7421d80cdba</id>
 				<org>Kommentar</org>
 				<de></de>
@@ -565,7 +519,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>47</tid>
 				<id>03ec70e16109a01b4badf461cc3cfea9</id>
 				<org>Es gibt einen neuen Kommentar</org>
 				<de></de>
@@ -577,7 +530,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>48</tid>
 				<id>50ee067f8b85c79972405065148940bb</id>
 				<org>Es wurde ein neuer Kommentar in einem Lansuite-Modul geschrieben: %URL%</org>
 				<de></de>
@@ -589,7 +541,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>49</tid>
 				<id>edac91e982f98f2f8bc845e59defdf73</id>
 				<org>Sie sind nicht berechtigt, diesen Kommentar zu editieren</org>
 				<de></de>
@@ -601,7 +552,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>50</tid>
 				<id>423e555c5ec3885f2bb5d9d2d6627f63</id>
 				<org>Monitoring</org>
 				<de></de>
@@ -613,7 +563,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>51</tid>
 				<id>5b01db7abd9df1cb5cd68516973816cd</id>
 				<org>Lesezeichen</org>
 				<de></de>
@@ -625,7 +574,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>52</tid>
 				<id>daef98f1581fb82c6942443d98560b59</id>
 				<org>Diesen Beitrag in meine Lesezeichen aufnehmen--lt--br--gt----lt--i--gt--(Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren)--lt--/i--gt--</org>
 				<de></de>
@@ -637,7 +585,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>53</tid>
 				<id>50c6a2e17e1d241b1b84acfd442f3751</id>
 				<org>E-Mail Benachrichtigung</org>
 				<de></de>
@@ -649,7 +596,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>54</tid>
 				<id>f8a934dee2aa489c6aacd63e349073ee</id>
 				<org>Bei Antworten auf diesen Beitrag eine Internet-Mail an mich senden</org>
 				<de></de>
@@ -661,7 +607,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>55</tid>
 				<id>ba74299214c2bb9652a50a9fa7a49e89</id>
 				<org>System-E-Mail</org>
 				<de></de>
@@ -673,7 +618,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>56</tid>
 				<id>7345f3bbcfb48bfd6581d8d8b7d05859</id>
 				<org>Bei Antworten auf diesen Beitrag eine System-Mail an mich senden</org>
 				<de></de>
@@ -685,7 +629,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>57</tid>
 				<id>bd9a11a632f2f4c3d0f68829fe8feca2</id>
 				<org>Eintrag #%1 aus Tabelle "%2" gelöscht</org>
 				<de></de>
@@ -697,7 +640,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>58</tid>
 				<id>fb17340dd900777d91d0f22940d712c4</id>
 				<org>Fehler beim Löschen von #%1 aus Tabelle "%2"</org>
 				<de></de>
@@ -709,7 +651,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>59</tid>
 				<id>fd2e2099e065e78a7b7b34ef7b3b7cd0</id>
 				<org>Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?</org>
 				<de></de>
@@ -721,7 +662,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>60</tid>
 				<id>50030925a405eb56bc19762688f93562</id>
 				<org>Der Eintrag wurde erfolgreich gelöscht</org>
 				<de></de>
@@ -733,7 +673,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>61</tid>
 				<id>94d7a3a7c488b016492e16d23ab96ee7</id>
 				<org>Der Eintrag konnte nicht gelöscht werden</org>
 				<de></de>
@@ -745,7 +684,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>62</tid>
 				<id>b586338b48ad922d12b9a008e108bb69</id>
 				<org>Die folgenden Einträge konnte nicht gelöscht werden</org>
 				<de></de>
@@ -757,7 +695,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>63</tid>
 				<id>d1948655ca9b605f1df5de90c8276d18</id>
 				<org>Die Einträge wurde erfolgreich gelöscht</org>
 				<de></de>
@@ -769,7 +706,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>64</tid>
 				<id>6592eed180ceb7b2eeef043779e68003</id>
 				<org>Es wurden keine Einträge selektiert</org>
 				<de></de>
@@ -781,7 +717,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>65</tid>
 				<id>4e04eb8e20dd8f7ec9cbbf0ad2b185fb</id>
 				<org>Aktuelle Datei beibehalten</org>
 				<de></de>
@@ -793,7 +728,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>66</tid>
 				<id>84c899583dc4bc4632c2fffb16204cc4</id>
 				<org>Eintrag #%1 in Tabelle "%2" geändert</org>
 				<de></de>
@@ -805,7 +739,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>67</tid>
 				<id>67e87b0bc360f02eee367298bb666450</id>
 				<org>Eintrag #%1 in Tabelle "%2" eingefügt</org>
 				<de></de>
@@ -817,7 +750,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>68</tid>
 				<id>fc0ca0f38f5ae5091e705b46e2589430</id>
 				<org>Bitte geben Sie eine Email ein</org>
 				<de></de>
@@ -829,7 +761,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>69</tid>
 				<id>16f025dd551f373b0b7624cd11bce09c</id>
 				<org>Die Adresse muss genau ein @-Zeichen enthalten</org>
 				<de></de>
@@ -841,7 +772,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>70</tid>
 				<id>3bf2e93b0a4cb4deb3930323a98c3691</id>
 				<org>Diese Email ist ungültig (Falscher Benutzer-Teil)</org>
 				<de></de>
@@ -853,7 +783,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>71</tid>
 				<id>f7fd684e4fb1d592673b402209e9dbde</id>
 				<org>Diese Email ist ungültig (Falscher Host-Teil)</org>
 				<de></de>
@@ -865,7 +794,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>72</tid>
 				<id>0da48505b210ba75a4c83502f87e975b</id>
 				<org>Diese Email ist ungültig (Nicht exitsierende Domain)</org>
 				<de></de>
@@ -877,7 +805,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>73</tid>
 				<id>c8f279b9ef302d795004455a87ea0093</id>
 				<org>Your name is %1 and your Email is %2</org>
 				<de></de>
@@ -889,7 +816,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4357</tid>
 				<id>e46678cfa410e25e4d3e2398ac866c7d</id>
 				<org>Bitte geben Sie Ihre E-Mail-Adresse oder Ihre Lansuite-ID ein.</org>
 				<de></de>
@@ -901,7 +827,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4358</tid>
 				<id>c86f920d4c0db848c4fbe280d6f150db</id>
 				<org>Bitte geben Sie Ihr Kennwort ein.</org>
 				<de></de>
@@ -913,7 +838,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4359</tid>
 				<id>fdacaf37a0b8798dde0742571cc22fc6</id>
 				<org>Ihr Account ist gesperrt. Melden Sie sich bitte bei der Organisation.</org>
 				<de></de>
@@ -925,7 +849,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4360</tid>
 				<id>7a40a7f4b2d1be25b61b3b4c7366eb5d</id>
 				<org>Login für %EMAIL% fehlgeschlagen (Account gesperrt).</org>
 				<de></de>
@@ -937,7 +860,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4361</tid>
 				<id>4c9957b42093cea3b99c7838eb7a396c</id>
 				<org>Dieser Account ist noch nicht freigeschaltet. Bitte warten Sie bis ein Organisator Sie freigeschaltet hat.</org>
 				<de></de>
@@ -949,7 +871,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4362</tid>
 				<id>cadb66250c5c5aed3060c9826d85346e</id>
 				<org>Account von %EMAIL% ist noch gesperrt. Login daher fehlgeschlagen.</org>
 				<de></de>
@@ -961,7 +882,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4363</tid>
 				<id>cfb05456ef14fd8d6ce1d9ff91eb9fe6</id>
 				<org>Haben Sie ihr Passwort vergessen?--lt--br/--gt----lt--a href=/'/index.php?mod=usrmgr&action=pwrecover/'/--gt--Hier können Sie sich ein neues Passwort generieren--lt--/a--gt--.</org>
 				<de></de>
@@ -973,7 +893,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4364</tid>
 				<id>3fd404486b4f50f32046ff95bbb7c1c8</id>
 				<org>Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.</org>
 				<de></de>
@@ -985,7 +904,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4365</tid>
 				<id>7d122b13c3b56eb56d5ee397b0960869</id>
 				<org>Login für %EMAIL% fehlgeschlagen (Passwort-Fehler).</org>
 				<de></de>
@@ -997,7 +915,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4366</tid>
 				<id>2775ea88da6ac2053e82669e5ab5f6d8</id>
 				<org>Login für %EMAIL% fehlgeschlagen (Account nicht eingecheckt).</org>
 				<de></de>
@@ -1009,7 +926,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4367</tid>
 				<id>29f181b247de2e9dac8bb350ad57a469</id>
 				<org>Login für %EMAIL% fehlgeschlagen (Account ausgecheckt).</org>
 				<de></de>
@@ -1021,7 +937,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4368</tid>
 				<id>a13c9ad3d51fca3b9d8a9ee874a171bc</id>
 				<org>Das MySQL-PHP Modul ist nicht geladen. Bitte fügen Sie die mysql.so Extension zur php.ini hinzu und restarten Sie Apache.</org>
 				<de></de>
@@ -1033,7 +948,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4369</tid>
 				<id>73f8f7443e52194a4e48d328f6de41dd</id>
 				<org>Die Verbindung zur Datenbank ist fehlgeschlagen. Lansuite wird abgebrochen.</org>
 				<de></de>
@@ -1045,7 +959,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4370</tid>
 				<id>ab5a36dabe81d099ff46abe17147470c</id>
 				<org>Die Datenbank /'/%DB%/'/ konnte nicht ausgewählt werden. Lansuite wird abgebrochen.</org>
 				<de></de>
@@ -1057,7 +970,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4371</tid>
 				<id>47686cbc92a05613135e280280bde93a</id>
 				<org>(%LINE%) SQL-Failure. Database respondet: --lt--font color="red"--gt----lt--b--gt--%ERROR%--lt--/b--gt----lt--/font--gt----lt--br/--gt-- Your query was: --lt--i--gt--%QUERY%--lt--/i--gt----lt--br/--gt----lt--br/--gt-- Script: %SCRIPT%</org>
 				<de></de>
@@ -1069,7 +981,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4372</tid>
 				<id>56577b270a3289dc85d937fdd16cfb01</id>
 				<org>SQL-Fehler in PHP-Skript /'/%SCRIPT%/'/ (Referrer: /'/%REFERRER%/'/)--lt--br /--gt--SQL-Fehler-Meldung: %ERROR%--lt--br /--gt--Query: %QUERY%</org>
 				<de></de>
@@ -1081,7 +992,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4373</tid>
 				<id>8713ef28cc370203b5992ded034f23c9</id>
 				<org>Wenn ihr Broswer keine IFrames unterstützt, </org>
 				<de></de>
@@ -1093,7 +1003,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4374</tid>
 				<id>926c6aaecc36c5f8fde83bc353aa0297</id>
 				<org>bitte hier klicken!</org>
 				<de></de>
@@ -1105,7 +1014,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4375</tid>
 				<id>39416b95771e082c74b0d8c1d8d9142b</id>
 				<org>Wenn das PopUp geblockt wurde, </org>
 				<de></de>
@@ -1117,7 +1025,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4376</tid>
 				<id>fd04b192ef33d3ad06d3659556f398e1</id>
 				<org>Unable to Initialize new GD image stream</org>
 				<de></de>
@@ -1129,7 +1036,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4377</tid>
 				<id>9e41a58eb9c7162e7efab8af006c7804</id>
 				<org>Unable to write in directory /'/%PATH%/'/</org>
 				<de></de>
@@ -1141,7 +1047,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4378</tid>
 				<id>bdc6bb23f90ba20f579c05a83f11fc60</id>
 				<org>Diese ID existiert nicht.</org>
 				<de></de>
@@ -1153,7 +1058,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4379</tid>
 				<id>e7667b33a716b582c1b1ba453c5b82ad</id>
 				<org>Bitte füllen Sie dieses Pflichtfeld aus.</org>
 				<de></de>
@@ -1165,7 +1069,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4380</tid>
 				<id>46985c8e1b7a587fa61d38da8204e0e8</id>
 				<org>Bitte geben Sie eine Zahl ein.</org>
 				<de></de>
@@ -1177,7 +1080,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4381</tid>
 				<id>f2735adcfb12c192808f0f7d540b84de</id>
 				<org>Das eingegebene Datum ist nicht korrekt.</org>
 				<de></de>
@@ -1189,7 +1091,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4382</tid>
 				<id>be98325d4cd729f722f203e4ef8e4e05</id>
 				<org>Die beiden Kennworte stimmen nicht überein.</org>
 				<de></de>
@@ -1201,7 +1102,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4383</tid>
 				<id>a106ae47f0685b677e005c6b66f70fed</id>
 				<org>Captcha falsch wiedergegeben.</org>
 				<de></de>
@@ -1213,7 +1113,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4384</tid>
 				<id>091963481969407cc37f9db9d5461aaf</id>
 				<org>Dieser Eintrag existiert bereits in unserer Datenbank.</org>
 				<de></de>
@@ -1225,7 +1124,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4385</tid>
 				<id>3f0a8c5abec0b8ae2d072736c64aa0fe</id>
 				<org>Verfikation</org>
 				<de></de>
@@ -1237,7 +1135,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4386</tid>
 				<id>5d6c931b136c70de3a474e3b5a8c16b8</id>
 				<org>Die Daten wurden erfolgreich geändert.</org>
 				<de></de>
@@ -1249,7 +1146,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4387</tid>
 				<id>8e2bad1e73058893df1b6b23093898fb</id>
 				<org>Die Daten wurden erfolgreich eingefügt.</org>
 				<de></de>
@@ -1261,7 +1157,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4388</tid>
 				<id>309f7be77f5ab2d700f1c10d469215b8</id>
 				<org>Der Eintrag {footer} wurde unerlaubt aus der index.htm entfernt!</org>
 				<de></de>
@@ -1273,7 +1168,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4389</tid>
 				<id>92786d2b05eb02d0bb9a427cc33d52b5</id>
 				<org>Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)</org>
 				<de></de>
@@ -1285,7 +1179,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4390</tid>
 				<id>35cb2d80a11eadd1c880fc69cb852f76</id>
 				<org>Sonntag</org>
 				<de></de>
@@ -1297,7 +1190,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4391</tid>
 				<id>5ba92fd9fe06536b98e6ab7b19531d8f</id>
 				<org>Montag</org>
 				<de></de>
@@ -1309,7 +1201,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4392</tid>
 				<id>af5b4a59f444f0b452421dcf5238f781</id>
 				<org>Dienstag</org>
 				<de></de>
@@ -1321,7 +1212,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4393</tid>
 				<id>c7ce86340399fcbc38c020a090e5f227</id>
 				<org>Mittwoch</org>
 				<de></de>
@@ -1333,7 +1223,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4394</tid>
 				<id>c4c15efd19d7e642741a346807510abe</id>
 				<org>Donnerstag</org>
 				<de></de>
@@ -1345,7 +1234,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4395</tid>
 				<id>8e968f5fc3fddc3f1c7d9510b22b4ada</id>
 				<org>Freitag</org>
 				<de></de>
@@ -1357,7 +1245,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4396</tid>
 				<id>f3e9b5cbb5bfb05906a402de29d7ee6f</id>
 				<org>Samstag</org>
 				<de></de>
@@ -1369,7 +1256,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4397</tid>
 				<id>e2e0ab9c9510bf61fd17296bae8d3d24</id>
 				<org>So</org>
 				<de></de>
@@ -1381,7 +1267,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4398</tid>
 				<id>c08df9bb5fb44242a6291b1eee5d09ad</id>
 				<org>Mo</org>
 				<de></de>
@@ -1393,7 +1278,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4399</tid>
 				<id>5961102bbf53b3ac0b9085f1ef3ce3f0</id>
 				<org>Di</org>
 				<de></de>
@@ -1405,7 +1289,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4400</tid>
 				<id>d41d8cd98f00b204e9800998ecf8427e</id>
 				<org></org>
 				<de></de>
@@ -1417,7 +1300,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4401</tid>
 				<id>0567953871b1bf589b797d9b178d5a94</id>
 				<org>Do</org>
 				<de></de>
@@ -1429,7 +1311,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4402</tid>
 				<id>fa717ba17306cd76900510df8ac8013e</id>
 				<org>Fr</org>
 				<de></de>
@@ -1441,7 +1322,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4403</tid>
 				<id>e55bb1ae59b6a64858a85a2f48c53036</id>
 				<org>Sa</org>
 				<de></de>
@@ -1453,7 +1333,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4404</tid>
 				<id>008d04f41ae4d1009111a68de817d0f4</id>
 				<org>Sie haben keine Zugriffsrechte für diesen Bereich.</org>
 				<de></de>
@@ -1465,7 +1344,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4405</tid>
 				<id>e7ba52be00619245bf487b34e862db3c</id>
 				<org>Sie sind nicht eingeloggt. Bitte loggen Sie sich erst ein, bevor Sie diesen Bereich betreten.</org>
 				<de></de>
@@ -1477,7 +1355,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4406</tid>
 				<id>b88306302f2681ea25c7ea17d545a037</id>
 				<org>Leider ist die von Ihnen aufgerufene Seite auf diesem Server nicht vorhanden.--lt--br/--gt--Um Fehler zu vermeiden, sollten Sie die URL nicht manuell ändern, sondern die Links benutzen. Wenn Sie die Adresse manuell eingegeben haben überprüfen Sie bitte die URL.</org>
 				<de></de>
@@ -1489,7 +1366,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4407</tid>
 				<id>93bfd0b61624a3812335be027c2134c6</id>
 				<org>Dieses Lansuite Modul wurde deaktiviert und steht somit nicht zur Verfügung.</org>
 				<de></de>
@@ -1501,7 +1377,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4408</tid>
 				<id>4f712108e0e13abdfd131cfa68799338</id>
 				<org>Sie haben diese Anfrage wiederholt ausgeführt.</org>
 				<de></de>
@@ -1513,7 +1388,6 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4409</tid>
 				<id>3f3e9493fc83d3ce0870576ee3f3d437</id>
 				<org>Es sind keine %OBJECT% vorhanden.</org>
 				<de></de>
@@ -1525,9 +1399,239 @@
 				<file>System</file>
 			</entry>
 			<entry>
-				<tid>4410</tid>
 				<id>ea2f770b32f87d38521b3dd5dd3297d7</id>
 				<org>Es wurden keine passenden %OBJECT% gefunden.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>ee65867e7d6715ac23dcea8252c8e0e8</id>
+				<org>Falsche Email angegeben (%1)</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>baea7a0b9f07f1840ebe1a51f13cb692</id>
+				<org>Login für %1 fehlgeschlagen (Account gesperrt).</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>abbd6872535b63a36b7e86d6f01d4a75</id>
+				<org>Account von %1 ist noch gesperrt. Login daher fehlgeschlagen.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>ee4afd2e88681d11061cfd86d628a180</id>
+				<org>Login für %1 fehlgeschlagen (Passwort-Fehler).</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>d9bfb5a529828b84f45ae74c90eafd9a</id>
+				<org>Login für %1 fehlgeschlagen (Account nicht eingecheckt).</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>4b91da1b817b09176d25cb1dfad65c59</id>
+				<org>Login für %1 fehlgeschlagen (Account ausgecheckt).</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>7abf3e475c22af2a26a973ded3befa03</id>
+				<org>Die Datenbank /'/%1/'/ konnte nicht ausgewählt werden. Lansuite wird abgebrochen.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>4f3f285edeb9395aff839440989cf926</id>
+				<org>(%1) SQL-Failure. Database respondet: --lt--font color="red"--gt----lt--b--gt--%2--lt--/b--gt----lt--/font--gt----lt--br/--gt-- Your query was: --lt--i--gt--%3--lt--/i--gt----lt--br/--gt----lt--br/--gt-- Script: %4</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>15b75a5eeea42e19e65830bdca06bef1</id>
+				<org>SQL-Fehler in PHP-Skript /'/%1/'/ (Referrer: /'/%2/'/)--lt--br /--gt--SQL-Fehler-Meldung: %3--lt--br /--gt--Query: %4</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>e39ae91a848d954693d9eef66325b39d</id>
+				<org>Es sind keine %1 vorhanden.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>7d3e613a60be29d4e4c8d4ac43e634f3</id>
+				<org>Es wurden keine passenden %1 gefunden.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>e57ab199a2074f450c154dfd84296615</id>
+				<org>Unable to write in directory /'/%1/'/</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>86309b1b367df62dd5a7b47ef3e9fb5b</id>
+				<org>Bitte fÃ¼llen Sie dieses Pflichtfeld aus.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>49400de2299a14411f7e3986c6c494b8</id>
+				<org>Die beiden Kennworte stimmen nicht Ã¼berein.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>93b264adaeca55feeb7ec542bda031fe</id>
+				<org>Eintrag #%1 in Tabelle "%2" geändert</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>1fdad29030e08f56ede1f2bd22bc2d68</id>
+				<org>Eintrag #%1 in Tabelle "%2" eingefügt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>3049105e50fa25fcf728cfa70b367dbc</id>
+				<org>Die Daten wurden erfolgreich geÃ¤ndert.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>2713a42676849c783ae16f94da2c707a</id>
+				<org>Die Daten wurden erfolgreich eingefÃ¼gt.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>e78eb734f37b3a978031b4871805d3a0</id>
+				<org>Diese Email ist ungültig (Falscher Benutzer-Teil)</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>a01b15fee683b2dc8fda9114c9c3c7c7</id>
+				<org>Diese Email ist ungültig (Falscher Host-Teil)</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>System</file>
+			</entry>
+			<entry>
+				<id>21b62c8fbb71b3fb65bb42e0648c4ae4</id>
+				<org>Diese Email ist ungültig (Nicht exitsierende Domain)</org>
 				<de></de>
 				<en></en>
 				<es></es>

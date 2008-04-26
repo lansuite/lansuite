@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>433</tid>
 				<id>7449b30c6d02c085df6cb392be29b28e</id>
 				<org>Bitte einen Korrekten Betrag angeben</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>434</tid>
 				<id>d2a42bf44c8fed00da041ad02f686458</id>
 				<org>Kommentar zu lange bitte kürzen.</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>435</tid>
 				<id>517c35cdf05b9ae794567370114db514</id>
 				<org>Kontoverwaltung</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>436</tid>
 				<id>9b148fa6112c3f643268c9d42800443c</id>
 				<org>Hier können Sie Einzahlungen, Auszahlungen verwalten und Kontostände einsehen.</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>437</tid>
 				<id>0cd64b24ca55e5db9dc020e48940e256</id>
 				<org>Zahlungen</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>438</tid>
 				<id>e2a063ad8c2c84beda04596a7171ce0b</id>
 				<org>Fremder Kontoauszug</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>439</tid>
 				<id>d9dc47a3cb27352fe549d3d8004dd12c</id>
 				<org>Eigener Kontoauszug</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>440</tid>
 				<id>0003743b98321ae3ee2d8c8a13f76a26</id>
 				<org>Betrag</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>441</tid>
 				<id>e4028dca879f96e7e3a3bc136e7a89fa</id>
 				<org>Kommentar (Dein Name wird in Klammer angefügt)</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>442</tid>
 				<id>284f3fb8b14ca3e16d906c02a4b7ddde</id>
 				<org>Das Produkt wurde hinzugefügt.</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>443</tid>
 				<id>1a96d0e2ec12134d015bd1fe353bf242</id>
 				<org>Das Foodcenter ist geschlossen. Die Öffnungszeigen sind:</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>444</tid>
 				<id>649eedb59d668ad71e5d11f398141a86</id>
 				<org>Das Foodcenter ist geschlossen Bestellungen sind m�glich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>445</tid>
 				<id>f2bcf09212f02b9e5c1726c93f69598a</id>
 				<org>Die Bestellung wurde aufgenommen</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>446</tid>
 				<id>b3a47dae15b32867685ecacc2aeefddd</id>
 				<org>Kontoauszug</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>447</tid>
 				<id>9f0d3af14c4f58d8166dead65c69de73</id>
 				<org>Alle bisher getätigten Zahlungen</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>448</tid>
 				<id>96b0141273eabab320119c467cdcaf17</id>
 				<org>Total</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>449</tid>
 				<id>0274ada6d08fcb48f50e9d02c9c0106d</id>
 				<org>Keine Kontobewegungen</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>450</tid>
 				<id>6f64708ea9eef68e5cf061545114845d</id>
 				<org>In dieser Kategorie sind keine Produkte vorhanden</org>
 				<de></de>
@@ -229,7 +211,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>451</tid>
 				<id>ec697c7e1ce27bc240c42f38070972eb</id>
 				<org>Bitte geben sie einen Produknamen an.</org>
 				<de></de>
@@ -241,7 +222,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>452</tid>
 				<id>c26d813be65ab8260df7f2ac3186d885</id>
 				<org>Datei konnte nicht hochgeladen werden</org>
 				<de></de>
@@ -253,7 +233,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>453</tid>
 				<id>0b3f915aef567b5bafb40f68f4cf840a</id>
 				<org>Das Produkt ist nicht in dieser Menge vorhanden.</org>
 				<de></de>
@@ -265,7 +244,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>454</tid>
 				<id>733238a7fc19707bfbcffbde4010e9cd</id>
 				<org>Produkt hinzuf�gen</org>
 				<de></de>
@@ -277,7 +255,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>455</tid>
 				<id>09a56c2ac6ae93d3b011d77eff25e0fa</id>
 				<org>Hier k�nnen sie ein Produkt hinzuf&uuml;gen</org>
 				<de></de>
@@ -289,7 +266,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>456</tid>
 				<id>b7c230e4fa771b14f797c2d986cc3342</id>
 				<org>Produkt �ndern</org>
 				<de></de>
@@ -301,7 +277,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>457</tid>
 				<id>857905c78c8adc493462d5ac48c236b8</id>
 				<org>Produktname</org>
 				<de></de>
@@ -313,7 +288,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>458</tid>
 				<id>0f46dff1ebfdb39c4e7b639d8df1e954</id>
 				<org>Produktbeschreibung</org>
 				<de></de>
@@ -325,7 +299,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>459</tid>
 				<id>68ec19d85caadea33ee430f79414dd21</id>
 				<org>Bild hochladen</org>
 				<de></de>
@@ -337,7 +310,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>460</tid>
 				<id>5164e803a0232e15e1e082a119ac6903</id>
 				<org>Infos f�r Lieferant (zb. seine Artikelnummer)</org>
 				<de></de>
@@ -349,7 +321,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>461</tid>
 				<id>fca21dae1a52f7c3e8b109bc6076f363</id>
 				<org>Materialverwaltung</org>
 				<de></de>
@@ -361,7 +332,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>462</tid>
 				<id>eb44c5798d7c8c811fde5f6a5715dee4</id>
 				<org>Materialverwaltung aktivieren</org>
 				<de></de>
@@ -373,7 +343,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>463</tid>
 				<id>a02dcdb6a17c822098e24e94a4bab428</id>
 				<org>Bestelllistenartikel</org>
 				<de></de>
@@ -385,7 +354,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>464</tid>
 				<id>341a21b75c82a027ec76cd4f8ecfddf5</id>
 				<org>Muss der Arktikel angefordert werden (Pizza)</org>
 				<de></de>
@@ -397,7 +365,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>465</tid>
 				<id>90e814c6e04194dc8153b93dd5fd36cd</id>
 				<org>Normales Produkt</org>
 				<de></de>
@@ -409,7 +376,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>466</tid>
 				<id>3fc686c916711ec8c1cdbc767782146e</id>
 				<org>Erweitertes Produkt</org>
 				<de></de>
@@ -421,7 +387,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>467</tid>
 				<id>67cc146556147dea40d52633e5bdd811</id>
 				<org>Produktart</org>
 				<de></de>
@@ -433,7 +398,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>468</tid>
 				<id>0c7957cea5ab356db65bc6fe73e2d74b</id>
 				<org>Mehrfachauswahl m�glich</org>
 				<de></de>
@@ -445,7 +409,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>469</tid>
 				<id>e95dc0eb643d781b59f5130249987bd9</id>
 				<org>Produktebeschreibung</org>
 				<de></de>
@@ -457,7 +420,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>470</tid>
 				<id>dbae42ae1483c609ea0c51b88edf6f3a</id>
 				<org>Auswahlm�glichkeiten</org>
 				<de></de>
@@ -469,7 +431,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>471</tid>
 				<id>f2470d7b9802448b193c8cfa4cb5aee2</id>
 				<org>Bitte geben sie einen Artikelnamen ein</org>
 				<de></de>
@@ -481,7 +442,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>472</tid>
 				<id>a7351c8bdfaf62f837cefff616d4a135</id>
 				<org>Bitte geben sie eine einheit an (Stk./dl/kg)</org>
 				<de></de>
@@ -493,7 +453,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>473</tid>
 				<id>990540d4bcd9d8b5454e7bc73701255a</id>
 				<org>Bitte geben sie einen Preis an</org>
 				<de></de>
@@ -505,7 +464,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>474</tid>
 				<id>2d5a9136729446814ed1de997679e4bf</id>
 				<org>Option fixieren</org>
 				<de></de>
@@ -517,7 +475,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>475</tid>
 				<id>f92d20b51130c103401f1d7349bb63f4</id>
 				<org>Dies ist ein Pflichtartikel</org>
 				<de></de>
@@ -529,7 +486,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>476</tid>
 				<id>3ca7cf78ce7cdda385050c4fb6be02f4</id>
 				<org>Artikelname</org>
 				<de></de>
@@ -541,7 +497,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>477</tid>
 				<id>79381be264759f86a3c2698327837d90</id>
 				<org>Produktoption</org>
 				<de></de>
@@ -553,7 +508,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>478</tid>
 				<id>574cd0682e6bdac50e4c1bb7eaf839e8</id>
 				<org>Einheit</org>
 				<de></de>
@@ -565,7 +519,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>479</tid>
 				<id>17a2725097ccbce4b0bbe1b69fb49aaf</id>
 				<org>Preis</org>
 				<de></de>
@@ -577,7 +530,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>480</tid>
 				<id>281125e7ce130b06d22e9fbb187509bb</id>
 				<org>Einkaufspreis</org>
 				<de></de>
@@ -589,7 +541,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>481</tid>
 				<id>71f221d8debed7f7baf1ee4e7b658199</id>
 				<org>Anzahl</org>
 				<de></de>
@@ -601,7 +552,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>482</tid>
 				<id>b93eaef026c32ad9b73e53ba24a5875e</id>
 				<org>Barcode</org>
 				<de></de>
@@ -613,7 +563,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>483</tid>
 				<id>dea9a165039363a96e90d6b436fa3c9c</id>
 				<org>Neuer Lieferant</org>
 				<de></de>
@@ -625,7 +574,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>484</tid>
 				<id>cf3a63f5a5fec941c280e84607903823</id>
 				<org>Bitte geben sie einen Lieferant an</org>
 				<de></de>
@@ -637,7 +585,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>485</tid>
 				<id>c05de0721c8ef1717254fabe803fea3a</id>
 				<org>Lieferant</org>
 				<de></de>
@@ -649,7 +596,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>486</tid>
 				<id>c84770b242ae13be4caa332c1f05ce90</id>
 				<org>Neue Kategorie</org>
 				<de></de>
@@ -661,7 +607,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>487</tid>
 				<id>b25e35a9817ae5c4ead2f160ed59b84b</id>
 				<org>Bitte geben sie eine Kategorie an</org>
 				<de></de>
@@ -673,7 +618,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>488</tid>
 				<id>27789a80fa2b64588e3a3d6f8dec1858</id>
 				<org>Produktkategorie</org>
 				<de></de>
@@ -685,7 +629,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>489</tid>
 				<id>bd9bd586467b0a781deb0a2c9a563a79</id>
 				<org>Neue Produktkategorie</org>
 				<de></de>
@@ -697,7 +640,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>490</tid>
 				<id>b64b59bf81b68600101f6eff3326b31d</id>
 				<org>Münzzähler</org>
 				<de></de>
@@ -709,7 +651,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>491</tid>
 				<id>5aa71e0e0474560dd27c85c4cb9cae1c</id>
 				<org>Hier kannst du die gezählten M&uuml;nzen eintragen um den Total zu erfahren.</org>
 				<de></de>
@@ -721,7 +662,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>492</tid>
 				<id>e294f34621e0ae7e832b7977101ebe00</id>
 				<org>Cent</org>
 				<de></de>
@@ -733,7 +673,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>493</tid>
 				<id>0bd0d985072af55aee9bbc73136debaf</id>
 				<org>M&uuml;nzen</org>
 				<de></de>
@@ -745,7 +684,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>494</tid>
 				<id>53352d28707230767138c91e1f71d37b</id>
 				<org>Noten</org>
 				<de></de>
@@ -757,7 +695,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>495</tid>
 				<id>6b8bf7b7f7e27d07927a17523a2a3335</id>
 				<org>Hartgeld total:</org>
 				<de></de>
@@ -769,7 +706,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>496</tid>
 				<id>7e5e5faea479de79180bc241d23d13bb</id>
 				<org>Weichgeld total:</org>
 				<de></de>
@@ -781,7 +717,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>497</tid>
 				<id>8db00653b3e19f8e772d1ffaf758c010</id>
 				<org>Produktsuche</org>
 				<de></de>
@@ -793,7 +728,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>498</tid>
 				<id>976edb40beb2cd17be9ba5c8cbed02bb</id>
 				<org>Hier findest du alles was das Herz begehrt</org>
 				<de></de>
@@ -805,7 +739,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>499</tid>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
 				<de></de>
@@ -817,7 +750,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>500</tid>
 				<id>eea3b21b91f1d1440e817fc4c094a779</id>
 				<org>Keine aktuellen Bestellungen vorhanden.</org>
 				<de></de>
@@ -829,7 +761,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>501</tid>
 				<id>49c974a0bf5806aeb71b6d1994a09d7d</id>
 				<org>Es müssen keine Produkte bestellt werden.</org>
 				<de></de>
@@ -841,7 +772,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>502</tid>
 				<id>c55593222562b3f920433bd2fda95bd8</id>
 				<org>Es wird auf keine Lieferung gewartet.</org>
 				<de></de>
@@ -853,7 +783,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>503</tid>
 				<id>170fef808f6cb56728451786b385e5ce</id>
 				<org>Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.</org>
 				<de></de>
@@ -865,7 +794,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>504</tid>
 				<id>b22118d5d45a2333a62e276e1ae119bf</id>
 				<org>Sie haben alle Produkte abgeholt.</org>
 				<de></de>
@@ -877,7 +805,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>505</tid>
 				<id>9f1d6780e10dc626a9777fb3f8513c94</id>
 				<org>Küche</org>
 				<de></de>
@@ -889,7 +816,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>506</tid>
 				<id>4c966d9d93b31c141b163b82a00f3aa9</id>
 				<org>Auflistung derzeitiger unbearbeiter Produktionsauftraege</org>
 				<de></de>
@@ -901,7 +827,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>507</tid>
 				<id>ec53a8c4f07baed5d8825072c89799be</id>
 				<org>Status</org>
 				<de></de>
@@ -913,7 +838,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>508</tid>
 				<id>da521b40db09289b1bf14d9134bbafcd</id>
 				<org>Produkt</org>
 				<de></de>
@@ -925,7 +849,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>509</tid>
 				<id>7737aad4407e5d40a0bc801a5146a128</id>
 				<org>Bestelldatum</org>
 				<de></de>
@@ -937,7 +860,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>510</tid>
 				<id>598db54dadc1dbf0699a56b9f4c7c95e</id>
 				<org>Besteller</org>
 				<de></de>
@@ -949,7 +871,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>511</tid>
 				<id>09df854234ecfd32d6e5eff6fbef2cee</id>
 				<org>Fertigstellen</org>
 				<de></de>
@@ -961,7 +882,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>512</tid>
 				<id>8faa77c9cf7465efb7d16af6a0b2630c</id>
 				<org>AUS</org>
 				<de></de>
@@ -973,7 +893,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>513</tid>
 				<id>2958e457c4bceb5786345e5e2d7817fe</id>
 				<org>Aktivieren</org>
 				<de></de>
@@ -985,7 +904,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>514</tid>
 				<id>d9681d05860552e9c3113da381f916fc</id>
 				<org>AN</org>
 				<de></de>
@@ -997,7 +915,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>515</tid>
 				<id>5e3e07837e609be93787d022ed8c52ab</id>
 				<org>Deaktivieren</org>
 				<de></de>
@@ -1009,7 +926,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>516</tid>
 				<id>9c01935c68b74bdb53dd1987e3f0a36e</id>
 				<org>Bestellungen</org>
 				<de></de>
@@ -1021,7 +937,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>517</tid>
 				<id>d38fca4ac39ad4240808e97459f3ba20</id>
 				<org>Auflistung deiner aktiven und abgeschlossenen Catering-Bestellungen</org>
 				<de></de>
@@ -1033,7 +948,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>518</tid>
 				<id>b37607a8fb3831f65a478890ad8e3609</id>
 				<org>Verschiedene</org>
 				<de></de>
@@ -1045,7 +959,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>519</tid>
 				<id>ad60cf5dd813abd16900c25dc1069c84</id>
 				<org>Bezahlt</org>
 				<de></de>
@@ -1057,7 +970,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>520</tid>
 				<id>9eabaacbbbdd3c37fe4da3e3f83dca74</id>
 				<org>Nicht bezahlt</org>
 				<de></de>
@@ -1069,7 +981,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>521</tid>
 				<id>b7135bbf08bb1f4143db11ff0b7304a5</id>
 				<org>Benutzertyp</org>
 				<de></de>
@@ -1081,7 +992,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>522</tid>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
 				<de></de>
@@ -1093,7 +1003,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>523</tid>
 				<id>13fd9321f108c7827ac9e7b0c1c6c949</id>
 				<org>Gelöschte User</org>
 				<de></de>
@@ -1105,7 +1014,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>524</tid>
 				<id>7b7bc2512ee1fedcd76bdc68926d4f7b</id>
 				<org>Administrator</org>
 				<de></de>
@@ -1117,7 +1025,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>525</tid>
 				<id>dddcdaa8264e6d96baadd43f324fbd83</id>
 				<org>Superadmin</org>
 				<de></de>
@@ -1129,7 +1036,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>526</tid>
 				<id>b862a1b61b8434fa18bc6aaa20f7b3d8</id>
 				<org>Orgas</org>
 				<de></de>
@@ -1141,7 +1047,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>527</tid>
 				<id>b2f7016decfeff062c7d93e24026e7e3</id>
 				<org>Eingecheckt</org>
 				<de></de>
@@ -1153,7 +1058,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>528</tid>
 				<id>391916c78f84bcd02911270f1e31bdf9</id>
 				<org>Nicht eingecheckt</org>
 				<de></de>
@@ -1165,7 +1069,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>529</tid>
 				<id>345613e04c19c374f9b4915c141cff93</id>
 				<org>Ausgecheckt</org>
 				<de></de>
@@ -1177,7 +1080,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>530</tid>
 				<id>26361d584204ed388d8b05b3aae400bf</id>
 				<org>Nicht ausgecheckt</org>
 				<de></de>
@@ -1189,7 +1091,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>531</tid>
 				<id>3385907aeccaabfb2db22dba6d8d608c</id>
 				<org>Bez.</org>
 				<de></de>
@@ -1201,7 +1102,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>532</tid>
 				<id>33b940eef9dfa7d1cd2ce35d01b5255b</id>
 				<org>Zuweisen</org>
 				<de></de>
@@ -1213,7 +1113,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>533</tid>
 				<id>3c9031e274d7f42eb15f37a237c1d1c5</id>
 				<org>Das Foodcenter ist geschlossen. Die Produkte werden nicht im Warenkorb abgelegt. Die Öffnungszeigen sind:</org>
 				<de></de>
@@ -1225,7 +1124,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>534</tid>
 				<id>8360b1eeaf5b1a805a8245c82c8919ce</id>
 				<org>Speiseliste</org>
 				<de></de>
@@ -1237,7 +1135,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>535</tid>
 				<id>93a6493f7049f8ec9f17b22ce246572d</id>
 				<org> Produkt(e) im Warenkorb</org>
 				<de></de>
@@ -1249,7 +1146,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>536</tid>
 				<id>d89fcbbfe2a2bc8228f7e76cf1bbd533</id>
 				<org>Strichcode</org>
 				<de></de>
@@ -1261,7 +1157,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>537</tid>
 				<id>4d9c2876fef5afa39d113527e76cd7c0</id>
 				<org>Ausgewählter Benutzer:</org>
 				<de></de>
@@ -1273,7 +1168,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>538</tid>
 				<id>fef46e5063ce3dc78b8ae64fa474241d</id>
 				<org>Exit</org>
 				<de></de>
@@ -1285,7 +1179,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>539</tid>
 				<id>68657f2244b1fd1e3eb5d02da65eeb39</id>
 				<org>Warenkorb</org>
 				<de></de>
@@ -1297,7 +1190,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>540</tid>
 				<id>091e5358b839cffb1a0a44d5f25f3735</id>
 				<org>Um einen Artikel zu l�schen, setzen Sie ihn auf 0 und klicken anschlie�end auf /'/Neu berechnen/'/.</org>
 				<de></de>
@@ -1309,7 +1201,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>541</tid>
 				<id>4a304355d7393232b1437181edec67e7</id>
 				<org>Artikel / Preis</org>
 				<de></de>
@@ -1321,7 +1212,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>542</tid>
 				<id>198e30ec690babfb9076c9156177574e</id>
 				<org>Gesamtpreis: </org>
 				<de></de>
@@ -1333,7 +1223,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>543</tid>
 				<id>aed3e0d717c0bc439064d1e4a9d34cb7</id>
 				<org>Anzahl Artikel: </org>
 				<de></de>
@@ -1345,7 +1234,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>544</tid>
 				<id>4410ec34d9e6c1a68100ca0ce033fb17</id>
 				<org>Array</org>
 				<de></de>
@@ -1357,7 +1245,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>545</tid>
 				<id>8deddf996d3746bdd16338722c8223be</id>
 				<org>Keine Artikel im Warenkorb</org>
 				<de></de>
@@ -1369,7 +1256,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>546</tid>
 				<id>c04153d4c23a36e6d2af3990390934f7</id>
 				<org>Nicht gen�gend Geld auf dem Konto.</org>
 				<de></de>
@@ -1381,7 +1267,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>547</tid>
 				<id>7fcbc25d605c00ad07ae39411de74820</id>
 				<org>Bestellung Foodcenter</org>
 				<de></de>
@@ -1393,7 +1278,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>548</tid>
 				<id>40195068e1468e4d1fee5d5d7352026a</id>
 				<org>R�ckzahlung bei abbestellten Produkten</org>
 				<de></de>
@@ -1405,7 +1289,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>549</tid>
 				<id>9b6db9c21173dc3cfbbf7768b40f3198</id>
 				<org>Deine bestellten Produkte sind abholbereit</org>
 				<de></de>
@@ -1417,7 +1300,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>550</tid>
 				<id>d41d8cd98f00b204e9800998ecf8427e</id>
 				<org></org>
 				<de></de>
@@ -1429,7 +1311,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>551</tid>
 				<id>42183562da5f12b8af482f75eabddf08</id>
 				<org>Bestellte Produkte</org>
 				<de></de>
@@ -1441,7 +1322,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>552</tid>
 				<id>9ec7b3055947fbb177238df05d01898b</id>
 				<org>Produkte die bestellt werden</org>
 				<de></de>
@@ -1453,7 +1333,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>553</tid>
 				<id>90d1a72fc98af69190adb5e5edcd47e4</id>
 				<org>Es m�ssen keine Produkte bestellt werden.</org>
 				<de></de>
@@ -1465,7 +1344,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>554</tid>
 				<id>1baeb36550aecc77b114792416c62e8a</id>
 				<org>Diese Produkte wurden bestellt. Auf die Lieferung wird gewartet.</org>
 				<de></de>
@@ -1477,7 +1355,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>555</tid>
 				<id>24e4bc931f43ba74546bc222ca0bc3b5</id>
 				<org>Fertiggestellte K�chengerichte zur Abholung/Lieferung</org>
 				<de></de>
@@ -1489,7 +1366,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>556</tid>
 				<id>d69555f5692acca3744992dece949b24</id>
 				<org>Derzeit gibt es keine fertiggestellten Gerichte aus der K�che.</org>
 				<de></de>
@@ -1501,7 +1377,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>557</tid>
 				<id>e93f820ebb2c85d656349de3e1a12506</id>
 				<org>Abgeholt</org>
 				<de></de>
@@ -1513,7 +1388,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>558</tid>
 				<id>5e5c9b72c8a2ecceaf88f8208cb30be1</id>
 				<org>Bitte Template ausw�hlen:</org>
 				<de></de>
@@ -1525,7 +1399,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>559</tid>
 				<id>70a28bf79704a91f46c6f063e61ad57e</id>
 				<org>Status setzen</org>
 				<de></de>
@@ -1537,7 +1410,6 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>560</tid>
 				<id>c17c3ebdc836571af20ad3dd2ece0a14</id>
 				<org>Produkt abbestellen</org>
 				<de></de>
@@ -1549,9 +1421,316 @@
 				<file>foodcenter</file>
 			</entry>
 			<entry>
-				<tid>561</tid>
 				<id>4ba422c48b479fbfc32a2387af5e1755</id>
 				<org>Bitte w�hlen sie die Produktanzahl die abbestellt werden soll.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>081bb138b83a8f0bf9fb723395e80b00</id>
+				<org>Das Foodcenter ist geschlossen Bestellungen sind möglich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>22dac8460a4420d0fdc37dc24868c733</id>
+				<org>Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf /'/Neu berechnen/'/.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>aaeca57c7c73f314caa2ebbfe6f39760</id>
+				<org>Nicht abgeholt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>08fc0f0270c26c0b0f653fbe700751ed</id>
+				<org>Alles direkt abgeholt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>c1ec57c053313a0b9e93addf4a2f4a23</id>
+				<org>Abgeholt ausser Wartelisten Produkte</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>2fbe79800b259905f69a560bd744cd25</id>
+				<org>Nicht genügend Geld auf dem Konto.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>83a800a4a735fed99d84826ebe676abb</id>
+				<org>Produkt hinzufügen</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>503f0e7c0df7a374e8ed1e6e87c31a89</id>
+				<org>Hier können sie ein Produkt hinzufügen</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>015fdaf472bb7425420c251744fdb2e3</id>
+				<org>Produkt ändern</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>7a567703c7947c7aa3a1648a35afb024</id>
+				<org>Infos für Lieferant (zb. seine Artikelnummer)</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>886873ab978175f67f9e7694f3dd2c13</id>
+				<org>Muss der Artikel angefordert werden (Pizza)</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>b30b763575777e156b5e7f053509bc51</id>
+				<org>Mehrfachauswahl möglich</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>117965965c67fa0363d5d7185e462c4c</id>
+				<org>Auswahlmöglichkeiten</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>209fae5ba7e3c63ea69aee9af6594387</id>
+				<org>Das Foodcenter ist geschlossen. Bestellungen sind möglich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>66bfea60101ba8c5c10a73d3507fcbe5</id>
+				<org>Rückzahlung bei abbestellten Produkten</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>389b37aec8645c21ff369e85dec3360c</id>
+				<org>Status ändern: Abgeholt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>e23e45b08c1f0549527a12b28efa0f14</id>
+				<org>Status ändern: Abholbereit</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>4eaf4234d375b7345461eef8bba46ac6</id>
+				<org>Status ändern: Lieferung erwartet</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>e253ae80dd3bdcdfe1e69f25b8f5d062</id>
+				<org>Status ändern: An Platz geliefert</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>d98a34c06d8c64dbff994981bd93a40f</id>
+				<org>Produkt abbestellen und Geld zurücküberweisen.</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>7806f8abcd86d93b853bb333a08e624a</id>
+				<org>Fertiggestellte Küchengerichte zur Abholung/Lieferung</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>bcc9cf5be687e7914e7b13028cd20969</id>
+				<org>Bitte Template auswählen:</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>7a376bb670ea0d8eed21f53db959a4b9</id>
+				<org>Produkte abbestellt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>e21c0d17eb43240753cf9131543c95db</id>
+				<org>Status auf abgeholt gesetzt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>446287d9e5dfc0ec3c237eeee9ae614b</id>
+				<org>Status auf Abholbereit gesetzt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>3d75fec560ad7d9570beb1e2c1ea2987</id>
+				<org>Status auf bestellt gesetzt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>c9a6846a5a18836e1bcdeef15ca8e433</id>
+				<org>Status auf bestellen gesetzt</org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>foodcenter</file>
+			</entry>
+			<entry>
+				<id>2ff82bc41b574ef421d824216369be67</id>
+				<org>Bitte wählen sie die Produktanzahl die abbestellt werden soll.</org>
 				<de></de>
 				<en></en>
 				<es></es>

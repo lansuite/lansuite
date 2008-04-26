@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>372</tid>
 				<id>c20c35ef53bf1b70789ce94e66800147</id>
 				<org>Downloads</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>373</tid>
 				<id>47be0e0ed779f0097f84344c6bfe5c88</id>
 				<org>Ordner-Information</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>374</tid>
 				<id>f794d72a2433e8064f13ffd124ac4872</id>
 				<org>Navigation: </org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>375</tid>
 				<id>c8346c004fd9633c5b7dff34be0df64a</id>
 				<org>Datei hochladen</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>376</tid>
 				<id>e2aa67cf2a7876cccd32f27356facdc6</id>
 				<org>Datei</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>377</tid>
 				<id>05ec9a3b3486d5d2030da7d9e2eda79d</id>
 				<org>URL verlinken</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>378</tid>
 				<id>e6b391a8d2c4d45902a23a8b6585703d</id>
 				<org>URL</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>379</tid>
 				<id>5b314ec8140bb02a546cd619fc94058f</id>
 				<org>Ordner Text und Einstellungen editieren</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>380</tid>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>381</tid>
 				<id>9ec08529d3c6b867c3dd06e5b8b5213e</id>
 				<org>Benutzer-Upload erlauben?</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>382</tid>
 				<id>564a750fb276ddf556be0a99852b3c08</id>
 				<org>Die PHP-Erweiterung --lt--b--gt--FTP--lt--/b--gt-- konnte nicht geladen werden. &Uuml;berpr&uuml;fen Sie, ob diese in PHP einkompiliert bzw. aktiviert ist</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>383</tid>
 				<id>9b7e5066d6880c10e4aea346cddf8644</id>
 				<org>Konnte Verbindung zum Downloadserver nicht herstellen</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>384</tid>
 				<id>a7de5affd8223c54f620c3d31f5465e4</id>
 				<org>Konnte Verbindung zu FTP-Server "%1" auf Port %2 nicht herstellen.</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>385</tid>
 				<id>715380d7bcc0b403482990fa332214cc</id>
 				<org>Statistiken</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>386</tid>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
 				<de></de>
@@ -193,9 +178,8 @@
 				<file>downloads</file>
 			</entry>
 			<entry>
-				<tid>3</tid>
 				<id>28ab92da1db25af1f2de80cede412c90</id>
-				<org>Hier können Sie zum Download bereitgestellte Dateien downloaden. Ordner sind durch ein Ordner-Symbol gekennzeichnet und können per Klick auf dieses oder den Namen ge&ouml;ffnet werden. Bei &ouml;ffnen eines Unterverzeichnisses wird das aktuelle Verzeichnis am oberen Rand angezeigt. Ebenfalls angezeigt wird ein Symbol mit dem Sie zum nächst höhergelegenen Verzeichnis gelangen</org>
+				<org></org>
 				<de></de>
 				<en></en>
 				<es></es>

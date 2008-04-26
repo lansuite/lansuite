@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-23 01:48</date>
+		<date>2008-04-26 02:10</date>
 	</header>
 	<table>
 		<table_head>
@@ -40,7 +40,7 @@
 				<de></de>
 				<en>Caption (Tight summary for the Startpage)</en>
 				<es></es>
-				<fr></fr>
+				<fr>Titre (Résumé de la pénurie de la page d&#39;accueil)</fr>
 				<nl></nl>
 				<it></it>
 				<file>news</file>
@@ -62,7 +62,7 @@
 				<de></de>
 				<en>Text</en>
 				<es></es>
-				<fr></fr>
+				<fr>Titre (Résumé de la pénurie de la page d&#39;accueil)</fr>
 				<nl></nl>
 				<it></it>
 				<file>news</file>
@@ -73,7 +73,7 @@
 				<de></de>
 				<en>Normal</en>
 				<es></es>
-				<fr></fr>
+				<fr>Normal</fr>
 				<nl></nl>
 				<it></it>
 				<file>news</file>
@@ -84,7 +84,7 @@
 				<de></de>
 				<en>Important</en>
 				<es></es>
-				<fr></fr>
+				<fr>Important</fr>
 				<nl></nl>
 				<it></it>
 				<file>news</file>
@@ -139,7 +139,7 @@
 				<de></de>
 				<en>News Feed has been successfully updated</en>
 				<es></es>
-				<fr></fr>
+				<fr>Usenet a été mis à jour</fr>
 				<nl></nl>
 				<it></it>
 				<file>news</file>
@@ -150,7 +150,7 @@
 				<de></de>
 				<en>Newsfeed</en>
 				<es></es>
-				<fr></fr>
+				<fr>News Feed</fr>
 				<nl></nl>
 				<it></it>
 				<file>news</file>
@@ -168,7 +168,7 @@
 			</entry>
 			<entry>
 				<id>f29cfe64211f930f447f5caca12f67c4</id>
-				<org>Konnte Newsfeed nicht erstellen. Fehler beim &Ouml;ffnen der Datei ext_inc/newsfeed/news.xml</org>
+				<org>Konnte Newsfeed nicht erstellen. Fehler beim &amp;Ouml;ffnen der Datei ext_inc/newsfeed/news.xml</org>
 				<de></de>
 				<en>Could not create Newsfeed. Error while opening the File ext_inc/newsfeed/news.xml</en>
 				<es></es>
@@ -194,7 +194,7 @@
 				<de></de>
 				<en>News + Comments</en>
 				<es></es>
-				<fr></fr>
+				<fr>News message + commentaires</fr>
 				<nl></nl>
 				<it></it>
 				<file>news</file>
@@ -205,7 +205,7 @@
 				<de></de>
 				<en>Here you can comment on this News</en>
 				<es></es>
-				<fr></fr>
+				<fr>Vous pouvez commenter cette news</fr>
 				<nl></nl>
 				<it></it>
 				<file>news</file>
@@ -216,7 +216,7 @@
 				<de></de>
 				<en>News Overview </en>
 				<es></es>
-				<fr></fr>
+				<fr>Vue d&#39;ensemble News</fr>
 				<nl></nl>
 				<it></it>
 				<file>news</file>
@@ -227,7 +227,7 @@
 				<de></de>
 				<en>This news item does not exist</en>
 				<es></es>
-				<fr></fr>
+				<fr>Ce message n&#39;existe pas News</fr>
 				<nl></nl>
 				<it></it>
 				<file>news</file>
@@ -300,7 +300,7 @@
 			</entry>
 			<entry>
 				<id>35c9c1df912962d906c66f5a2d0c3a48</id>
-				<org>Zur&uuml;ck</org>
+				<org>Zur&amp;uuml;ck</org>
 				<de></de>
 				<en>Back</en>
 				<es></es>
@@ -344,7 +344,7 @@
 			</entry>
 			<entry>
 				<id>c4739a9771977c455528f194c138cdbc</id>
-				<org>&Auml;ltere Mitteilungen</org>
+				<org>&amp;Auml;ltere Mitteilungen</org>
 				<de></de>
 				<en>Older Messages</en>
 				<es></es>
@@ -369,7 +369,7 @@
 				<org>Fuckoff</org>
 				<de></de>
 				<en></en>
-				<es></es>
+				<es>FuckoffEsFile</es>
 				<fr></fr>
 				<nl>FuckoffDBNlTest2</nl>
 				<it></it>

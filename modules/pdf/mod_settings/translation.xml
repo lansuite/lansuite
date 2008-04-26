@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-16 01:29</date>
+		<date>2008-04-25 03:38</date>
 	</header>
 	<table>
 		<table_head>
@@ -13,7 +13,6 @@
 		</table_head>
 		<content>
 			<entry>
-				<tid>1272</tid>
 				<id>2e5f3d4ba164c7ba8b45ff2c8b60c6e2</id>
 				<org>Die von Ihnen gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden</org>
 				<de></de>
@@ -25,7 +24,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1273</tid>
 				<id>ed7b8d4e70c161ffa9500c6a1388c72f</id>
 				<org>Besucherausweise erstellen.</org>
 				<de></de>
@@ -37,7 +35,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1274</tid>
 				<id>766c587b1c7f6b4113a5eab7b7bf215a</id>
 				<org>Hier k&ouml;nnen Karten erstellt werden die beim Einlass an die G&auml;ste ausgeh&auml;ndigt werden.</org>
 				<de></de>
@@ -49,7 +46,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1275</tid>
 				<id>54dd1cd438a1fbb3add15b442e345caf</id>
 				<org>Die Bl&auml;tter werden nach folgenden Kriterien erstellt:</org>
 				<de></de>
@@ -61,7 +57,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1276</tid>
 				<id>e142ae51c1d959fcf6fbc4ca1b425964</id>
 				<org>Egal</org>
 				<de></de>
@@ -73,7 +68,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1277</tid>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
 				<de></de>
@@ -85,7 +79,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1278</tid>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
 				<de></de>
@@ -97,7 +90,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1279</tid>
 				<id>baeb7d8a623bf150bb9c9781e390a13b</id>
 				<org>Besucher hat bezahlt</org>
 				<de></de>
@@ -109,7 +101,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1280</tid>
 				<id>b37c551edf981050cd6a120a61f8f1b8</id>
 				<org>Besucher ist normaler Gast</org>
 				<de></de>
@@ -121,7 +112,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1281</tid>
 				<id>51234e780430577fe1b1ff52643a3192</id>
 				<org>Besucher ist Superadmin</org>
 				<de></de>
@@ -133,7 +123,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1282</tid>
 				<id>3cfc6812573313986f9813e7c65cb53c</id>
 				<org>Besucher ist Orga</org>
 				<de></de>
@@ -145,7 +134,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1283</tid>
 				<id>288a783aaf8f93e50359d139c232dcd8</id>
 				<org>Nur ausgew&auml;hlte Party</org>
 				<de></de>
@@ -157,7 +145,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1284</tid>
 				<id>fdee022d127154b0bbcdced79708075c</id>
 				<org>Benutzer mit Stern wurden schon gedruckt</org>
 				<de></de>
@@ -169,7 +156,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1285</tid>
 				<id>768f5b49c5dd6799af633dcf00c01922</id>
 				<org>Bestimmter Besucher</org>
 				<de></de>
@@ -181,7 +167,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1286</tid>
 				<id>815daeb4eafc41a460b63a8f880ff1ae</id>
 				<org>Es werden alle Benutzer ausgedruck die --lt--b--gt--neuer--lt--/b--gt-- als das eingestellte Datum sind.HTML_NEWLINE Ausser er wurde nur dieses Datum angew&auml;hlt.</org>
 				<de></de>
@@ -193,7 +178,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1287</tid>
 				<id>fa25523dfd2f150ac490315d00281489</id>
 				<org>Datum der Ausdrucke</org>
 				<de></de>
@@ -205,7 +189,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1288</tid>
 				<id>7b1ab3a8e7038b6bf64b266cf8fb3519</id>
 				<org>Nur dieses Datum drucken</org>
 				<de></de>
@@ -217,7 +200,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1289</tid>
 				<id>6492b59d91483f22164665cff2bddb6b</id>
 				<org>Sitzplatzkarten erstellen.</org>
 				<de></de>
@@ -229,7 +211,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1290</tid>
 				<id>62b6b44238310a9ad89695c029f122f4</id>
 				<org>Hier k&ouml;nnen sie Karten f&uuml;r die Sitzpl&auml;tze erstellen.</org>
 				<de></de>
@@ -241,7 +222,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1291</tid>
 				<id>c65ab63224f0183e556d291b53abf9a9</id>
 				<org>Keine Sitzpl&auml;tze vorhanden</org>
 				<de></de>
@@ -253,7 +233,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1292</tid>
 				<id>e1e4c8c9ccd9fc39c391da4bcd093fb2</id>
 				<org>Block</org>
 				<de></de>
@@ -265,7 +244,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1293</tid>
 				<id>6716eb55a348fb35297f7ac5f08666a5</id>
 				<org>Reihen</org>
 				<de></de>
@@ -277,7 +255,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1294</tid>
 				<id>f36614aa67e373d36fd13918e7839f3a</id>
 				<org>Spalten</org>
 				<de></de>
@@ -289,7 +266,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1295</tid>
 				<id>e1040393b0c3a8160e9328037f29d0ea</id>
 				<org>Sortierung</org>
 				<de></de>
@@ -301,7 +277,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1296</tid>
 				<id>2778155a7e900000a5fd20e15b85d5a9</id>
 				<org>Besucherlist erstellen.</org>
 				<de></de>
@@ -313,7 +288,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1297</tid>
 				<id>a2c94ab5e72333a3d8a47c9ec4ed9a49</id>
 				<org>Hier k&ouml;nnen sie Listen mit allen Besuchern erstellen</org>
 				<de></de>
@@ -325,7 +299,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1298</tid>
 				<id>1771b8284280660537e3e533f88af3b2</id>
 				<org>Nickname</org>
 				<de></de>
@@ -337,7 +310,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1299</tid>
 				<id>43895f9ec69cb177446921df9828c680</id>
 				<org>Nachname</org>
 				<de></de>
@@ -349,7 +321,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1300</tid>
 				<id>fecc7b92efa313ac8de08d4094455c9e</id>
 				<org>Vorname</org>
 				<de></de>
@@ -361,7 +332,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1301</tid>
 				<id>603c07e2735df19b9a7ce091d7453d2b</id>
 				<org>Clan</org>
 				<de></de>
@@ -373,7 +343,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1302</tid>
 				<id>cd31dae2aeabc40bc5bb1094c182bf1c</id>
 				<org>PLZ</org>
 				<de></de>
@@ -385,7 +354,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1303</tid>
 				<id>b1a63d3835a2ce74a29b554d96e75b70</id>
 				<org>Ortschaft</org>
 				<de></de>
@@ -397,7 +365,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1304</tid>
 				<id>83d0d7f6788f7567dfdb782f72b83f8c</id>
 				<org>Besucherausweise erstellen</org>
 				<de></de>
@@ -409,7 +376,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1305</tid>
 				<id>b4625be39194fda14c4e4167e8c36331</id>
 				<org>Bitte eine Formatierungsform ausw&auml;hlen oder eine Neue erstellen</org>
 				<de></de>
@@ -421,7 +387,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1306</tid>
 				<id>375605a4acbaedb262ff7cd09ce08ea3</id>
 				<org>Vorlage &auml;ndern</org>
 				<de></de>
@@ -433,7 +398,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1307</tid>
 				<id>9675c02bd8a0c1169eb491286107301f</id>
 				<org>Vorlage l&ouml;schen</org>
 				<de></de>
@@ -445,7 +409,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1308</tid>
 				<id>95d1642112a48d32f877c59d35633d91</id>
 				<org>Keine Vorlagen gefunden</org>
 				<de></de>
@@ -457,7 +420,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1309</tid>
 				<id>89d969e7fd4b09c9eff9adc524ff26d8</id>
 				<org>Neue Vorlage erstellen</org>
 				<de></de>
@@ -469,7 +431,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1310</tid>
 				<id>494e2f5126a639b59414ccd3b2308cc1</id>
 				<org>Vorlagen</org>
 				<de></de>
@@ -481,7 +442,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1311</tid>
 				<id>da5c916e1dff6cfc609ab345390ede71</id>
 				<org>Vorlagenname</org>
 				<de></de>
@@ -493,7 +453,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1312</tid>
 				<id>ae7f7120c93e0bf2b7d354bb90a64a67</id>
 				<org>Rand in x-Richtung</org>
 				<de></de>
@@ -505,7 +464,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1313</tid>
 				<id>8686c7d20b4d288dc6ade9bb3faabfc3</id>
 				<org>Rand in y-Richtung</org>
 				<de></de>
@@ -517,7 +475,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1314</tid>
 				<id>1a15fcf826110729ba688bb8204da332</id>
 				<org>Seitengr&ouml;sse</org>
 				<de></de>
@@ -529,7 +486,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1315</tid>
 				<id>c9b3c5afb82c787e1312b19d4bdf0907</id>
 				<org>Xo</org>
 				<de></de>
@@ -541,7 +497,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1316</tid>
 				<id>3700f097e741a7702f7e4ac61ed88c1a</id>
 				<org>Yo</org>
 				<de></de>
@@ -553,7 +508,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1317</tid>
 				<id>526407a60c19a5cb7d801e27ffb71051</id>
 				<org>Breite</org>
 				<de></de>
@@ -565,7 +519,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1318</tid>
 				<id>c7d0399cbe55cef1e022e3cb6f2257d8</id>
 				<org>H&ouml;he</org>
 				<de></de>
@@ -577,7 +530,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1319</tid>
 				<id>df358e3eb55053fb6e423c6e6160cd25</id>
 				<org>Sichtbar</org>
 				<de></de>
@@ -589,7 +541,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1320</tid>
 				<id>a443640ded4cd7fab4cb774304b8482f</id>
 				<org>Farbe (r/g/b)</org>
 				<de></de>
@@ -601,7 +552,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1321</tid>
 				<id>02129bb861061d1a052c592e2dc6b383</id>
 				<org>X</org>
 				<de></de>
@@ -613,7 +563,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1322</tid>
 				<id>57cec4137b614c87cb4e24a3d003a3e0</id>
 				<org>Y</org>
 				<de></de>
@@ -625,7 +574,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1323</tid>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
 				<de></de>
@@ -637,7 +585,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1324</tid>
 				<id>a11dcd0b15a57a783bd30b1edd5c2ade</id>
 				<org>Rechtsb&uuml;ndig</org>
 				<de></de>
@@ -649,7 +596,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1325</tid>
 				<id>fd23f10847524e45fff33a590ad29d22</id>
 				<org>Schriftart</org>
 				<de></de>
@@ -661,7 +607,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1326</tid>
 				<id>5401b721cc0e4455a481770a0837ecdf</id>
 				<org>Schriftgr&ouml;sse</org>
 				<de></de>
@@ -673,7 +618,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1327</tid>
 				<id>0ccfd2a38297072a29158327f4f589ce</id>
 				<org>Rechteck</org>
 				<de></de>
@@ -685,7 +629,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1328</tid>
 				<id>8b33328e6e2c9fa5365ce9d0015b3f3d</id>
 				<org>Linie</org>
 				<de></de>
@@ -697,7 +640,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1329</tid>
 				<id>81c1cc42cde1166c61ec2a3d1fb5b3fe</id>
 				<org>Daten</org>
 				<de></de>
@@ -709,7 +651,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1330</tid>
 				<id>d89fcbbfe2a2bc8228f7e76cf1bbd533</id>
 				<org>Strichcode</org>
 				<de></de>
@@ -721,7 +662,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1331</tid>
 				<id>ce48d5ce26b8630e8356e975ad009f77</id>
 				<org>Wahl des Feldes</org>
 				<de></de>
@@ -733,7 +673,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1332</tid>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
 				<de></de>
@@ -745,7 +684,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1333</tid>
 				<id>7b7bc2512ee1fedcd76bdc68926d4f7b</id>
 				<org>Administrator</org>
 				<de></de>
@@ -757,7 +695,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1334</tid>
 				<id>dddcdaa8264e6d96baadd43f324fbd83</id>
 				<org>Superadmin</org>
 				<de></de>
@@ -769,7 +706,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1335</tid>
 				<id>f8285880d82a9506f1d0c3d42e753181</id>
 				<org>Objekt</org>
 				<de></de>
@@ -781,7 +717,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1336</tid>
 				<id>05e3c2bbb1cf5a380e48fa1a3bd9d610</id>
 				<org>Neues Objekt erstellen</org>
 				<de></de>
@@ -793,7 +728,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1337</tid>
 				<id>ad94c595025b0a31b3893407ee7ac294</id>
 				<org>Erstelle </org>
 				<de></de>
@@ -805,7 +739,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1338</tid>
 				<id>a99da4dc1e7508d864d38878d55e4d05</id>
 				<org>Rot Anteil</org>
 				<de></de>
@@ -817,7 +750,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1339</tid>
 				<id>d174edd6ee91ebde78d1312c8812cf9b</id>
 				<org>Gr&uuml;n Anteil</org>
 				<de></de>
@@ -829,7 +761,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1340</tid>
 				<id>02347870aac387c5d9825d4680a9a02d</id>
 				<org>Blau Anteil</org>
 				<de></de>
@@ -841,7 +772,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1341</tid>
 				<id>2c692ceab50eebc00c0448153d876bc9</id>
 				<org>Gef&uuml;llt</org>
 				<de></de>
@@ -853,7 +783,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1342</tid>
 				<id>786fedc26f378573dd5f75569a96bda5</id>
 				<org>Angezeigt bei:</org>
 				<de></de>
@@ -865,7 +794,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1343</tid>
 				<id>29c5cb5714361026660563c1a024d4e6</id>
 				<org>Reihenfolge</org>
 				<de></de>
@@ -877,7 +805,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1344</tid>
 				<id>c01f605bd68c8ffc5edd16832931aa3d</id>
 				<org>Datei (relativ zu ext_inc/pdf_templates/</org>
 				<de></de>
@@ -889,7 +816,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1345</tid>
 				<id>76172ce0c71e02014f638254c1785ae3</id>
 				<org>Objekt &auml;ndern</org>
 				<de></de>
@@ -901,7 +827,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1346</tid>
 				<id>27ff1e158546eae92ca6007cd3d4ece5</id>
 				<org>Ändere </org>
 				<de></de>
@@ -913,7 +838,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1347</tid>
 				<id>bf7644528cb9b287eb50f6f0d9185741</id>
 				<org>Die Daten wurden hinzugef&uuml;gt</org>
 				<de></de>
@@ -925,7 +849,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1348</tid>
 				<id>cec2926e1794c5f594739fb66daa3612</id>
 				<org>Die Daten konnten nicht hinzugef&uuml;gt werden</org>
 				<de></de>
@@ -937,7 +860,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1349</tid>
 				<id>819c6ed03b0ec61fe692252e0dbcef8c</id>
 				<org>Querformat</org>
 				<de></de>
@@ -949,7 +871,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1350</tid>
 				<id>b460a5d6bc2473f6780b4177ba242d3d</id>
 				<org>PDF aus Daten erstellen</org>
 				<de></de>
@@ -961,7 +882,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1351</tid>
 				<id>6abff14934c4eec2f3a036ac6352103e</id>
 				<org>Bitte geben sie an was sie ben&ouml;tigen</org>
 				<de></de>
@@ -973,7 +893,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1352</tid>
 				<id>565e9d713c2088afef78dda6d5fc33c7</id>
 				<org>Ausweise erstellen</org>
 				<de></de>
@@ -985,7 +904,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1353</tid>
 				<id>6f45dfaa0506b847152cffb387c06297</id>
 				<org>Sitzplatzkarten erstellen</org>
 				<de></de>
@@ -997,7 +915,6 @@
 				<file>pdf</file>
 			</entry>
 			<entry>
-				<tid>1354</tid>
 				<id>d0a2ba52ffbe2a52b290333277304fec</id>
 				<org>Besucherliste erstellen</org>
 				<de></de>
