@@ -1,0 +1,31 @@
+/*
+Lansuite common Style-Definitions
+These styles are loaded, before the custom designs definitions
+
+For detailed Information see:
+http://lansuite-docu.orgapage.de/index.php?title=Stylesheets
+
+Format:
+name {
+  Positioning, Width, Height
+  Margin, Border, Padding
+  Float, Clear, Allign, White-space
+  Colors, Background, Backgroundimages
+  Font-size, -weight and -family
+}
+*/
+
+/* Relativer Tooltip */
+a span.infobox {
+  visibility:hidden; display:none;
+  position:absolute; left:-99em;
+  margin-top:1.5em; padding:0.5em;
+  text-decoration:none;
+}
+
+a:hover span.infobox {
+  visibility:visible; display:block;
+  left:1em;
+  border:1px solid #c30;
+  color:black; background:white;
+}
