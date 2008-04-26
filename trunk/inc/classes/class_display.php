@@ -648,7 +648,6 @@ class display {
     $templ['icon']['name'] = $picname;
 
     // Hint
-    $templ['icon']['title'] = '';
     if ($hint == '') switch ($picname) {
       default: $hint = ''; break;
       case 'add': $hint = t('Hinzufügen'); break;
@@ -657,7 +656,7 @@ class display {
       case 'delete': $hint = t('Löschen'); break;
       case 'send': $hint = t('Senden'); break;
     }
-    if ($hint) $templ['icon']['title'] = ' onmouseover="return overlib(\''. $hint .'\');" onmouseout="return nd();"';
+    if ($hint) $hint = '<span class="infobox">'. $hint .'</span>';
 
     $templ['icon']['additionalhtml'] = '';
     if ($align == 'right') $templ['icon']['additionalhtml'] = 'align="right" valign="bottom" vspace="2" ';
@@ -665,8 +664,8 @@ class display {
     if ($this->form_open) $ret = $this->FetchModTpl('', 'ls_fetch_icon_submit');
     else $ret = $this->FetchModTpl('', 'ls_fetch_icon');
     
-        if ($target) $target = " target=\"$target\"";
-    if ($link) $ret = '<a href="'.$link.'"'.$target.'>'.$ret.'</a>';
+    if ($target) $target = " target=\"$target\"";
+    if ($link) $ret = '<a href="'.$link.'"'.$target.'>'. $hint . $ret .'</a>';
     return $ret;  
   }
 
@@ -723,7 +722,7 @@ class display {
   }
 
   function HelpText($text, $help) {
-    return '<span onmouseover="return overlib(\''. t($help) .'\');" onmouseout="return nd();">'. t($text) .'</span>';
+    return '<div id="infobox" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
   }
 
   function AddIcon($name, $link = '', $title = '') {

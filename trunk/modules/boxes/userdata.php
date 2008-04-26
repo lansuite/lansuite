@@ -20,7 +20,7 @@ if (strlen($auth['username']) > 14) $username = substr($auth['username'], 0, 11)
 else $username = $auth['username'];
 $userid_formated = sprintf( "%0".$config['size']['userid_digits']."d", $auth['userid']);
 
-$box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=auth&action=logout" onmouseover="return overlib(\''. t('Logout') .'\');" onmouseout="return nd();"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" /></a>');
+$box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=auth&action=logout"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" /><span class="infobox">'. t('Ausloggen') .'</span></a>');
 $box->EngangedRow("<b>$username</b> ". $dsp->FetchUserIcon($auth["userid"]));
 #$box->EngangedRow("");
 
