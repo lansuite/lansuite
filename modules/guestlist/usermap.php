@@ -54,7 +54,8 @@ if ($cfg['guestlist_guestmap'] == 2) {
   if ($db->num_rows($res) == 0) $dsp->AddSingleRow(t('Leider hat noch keiner der angemeldeten Benutzer seine Postleitzahl angegeben. Das Bestimmen der Position ist daher nicht m&ouml;glich.'));
   else {
 
-  	$map_out = '<div id="tooltip" class="tooltip" style="position: absolute; width: auto; height: auto; z-index: 100; visibility: hidden; left: 0; top: 0;"></div><script src="modules/guestlist/templates/map.js" type="text/javascript"></script><map name="deutschland">';
+  	$map_out = '<script type="text/javascript" src="ext_scripts/overlib421/Mini/overlib_mini.js"><!-- overLIB (c) Erik Bosrup --></script>
+<div id="tooltip" class="tooltip" style="position: absolute; width: auto; height: auto; z-index: 100; visibility: hidden; left: 0; top: 0;"></div><script src="modules/guestlist/templates/map.js" type="text/javascript"></script><map name="deutschland">';
 
   	$x_start = 5.43;
   	$y_start = 46.95;

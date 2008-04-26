@@ -18,9 +18,10 @@ name {
 /* Relativer Tooltip */
 a span.infobox {
   visibility:hidden; display:none;
-  position:absolute; left:-99em;
+  position:absolute;
   margin-top:1.5em; padding:0.5em;
   text-decoration:none;
+  z-index:1;
 }
 
 a:hover span.infobox {
@@ -28,4 +29,23 @@ a:hover span.infobox {
   left:1em;
   border:1px solid #c30;
   color:black; background:white;
+  text-decoration:none;
+  z-index:1;
+}
+
+#infobox span.infobox {
+  visibility:hidden; display:none;
+  position:absolute;
+  margin-top:1.5em; padding:0.5em;
+  text-decoration:none;
+  z-index:1;
+}
+
+#infobox:hover span.infobox {
+  visibility:visible; display:block;
+  left:1em;
+  border:1px solid #c30;
+  color:black; background:white;
+  text-decoration:none;
+  z-index:1;
 }
