@@ -629,7 +629,7 @@ class func {
 	}
 
 	function ShowDebug() {
-		global $cfg, $auth;
+		global $cfg, $auth, $db;
 
         if ($auth['type'] >= 2 and $cfg['sys_showdebug']) {
 			$debug = $this->debug_parse_array($_GET, '$_GET');
@@ -641,6 +641,7 @@ class func {
 			$debug .= $this->debug_parse_array($_SESSION, '$_SESSION');
 			$debug .= $this->debug_parse_array($_SERVER, '$_SERVER');
 			$debug .= $this->debug_parse_array($_FILES["importdata"], '$_FILES[importdata]'); 
+			$debug .= $this->debug_parse_array($db->querys, '$db->querys'); 
             $debug = '<div class="content" align="left">'. $debug .'</div>';
       		return $debug;
 		}
