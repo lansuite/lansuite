@@ -39,19 +39,19 @@ function t(/*$input, $parameter1, $parameter2....*/) {
         return $translation->ReplaceParameters($translation->lang_cache[$modul][$key], $parameters, $key);
     } else {
         // Try to read from DB
-        //echo "<br>HASH:".$key.":".$input."<br>";
-        if ($translation->language == "de") $translation->ReplaceParameters($input, $parameters, $key);
-        if ($db->success) $trans_text = $translation->get_trans_db($key, $_GET['mod'], $long);
-        //echo "<br>DB:".$trans_text."<br>";
-        // If DB fails Try to read from XML-Files
-        if ($trans_text == '') $trans_text = $translation->get_trans_file($key, $_GET['mod']);
-        //echo "<br>FILE:".$trans_text."<br>";
-        // If OK replace Parameter
-        if ($trans_text != '' AND $trans_text != null) $output = $translation->ReplaceParameters($trans_text, $parameters);
-        // If any Problem on get Translation just return $input
-            else $output = $translation->ReplaceParameters($input, $parameters, $key);
+        if ($translation->language == "de") {
+            // All Texts in Source are German at the Moment
+            $output = $translation->ReplaceParameters($input, $parameters, $key);
+        } else {
+            if ($db->success) $trans_text = $translation->get_trans_db($key, $_GET['mod'], $long);
+            // If DB fails Try to read from XML-Files
+            // if ($trans_text == '') $trans_text = $translation->get_trans_file($key, $_GET['mod']);
+            // If OK replace Parameter
+            if ($trans_text != '' AND $trans_text != null) $output = $translation->ReplaceParameters($trans_text, $parameters);
+            // If any Problem on get Translation just return $input
+                else $output = $translation->ReplaceParameters($input, $parameters, $key);
+        }
     }
-    // echo "<br>Input:".$input." key:".$key." Output:".$output."<br";
     return $output;
 }
 
