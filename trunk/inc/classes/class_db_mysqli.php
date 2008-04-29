@@ -99,11 +99,13 @@ class db {
 
 
     function fetch_array($query_id=-1) {
+      global $func;
+
         if ($query_id != -1) $this->query_id = $query_id;
 
         $this->record = @mysqli_fetch_array($this->query_id);
         if ($this->record) foreach ($this->record as $key => $value) {
-           $this->record[$key] = htmlspecchars($value, ENT_QUOTES, 'UTF-8');
+           $this->record[$key] = $func->NoHTML($value);
         }
         
         return $this->record;

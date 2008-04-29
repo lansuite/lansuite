@@ -389,8 +389,15 @@ class func {
 		return $string;
   }
 
+
+  function NoHTML($string) {
+    $aTransSpecchar = array('&' => '&amp;', '"' => '&quot;', '<' => '&lt;', '>' => '&gt;');
+    return strtr($string, $aTransSpecchar);
+  }
+
   function AllowHTML($string) {
-    return html_entity_decode($string, ENT_QUOTES, 'UTF-8');
+    $aTransSpecchar = array('&amp;' => '&', '&quot;' => '"', '&lt;' => '<', '&gt;' => '>');
+    return strtr($string, $aTransSpecchar);
   }
 
   // If ls-code should be displayed
