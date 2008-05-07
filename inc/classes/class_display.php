@@ -20,7 +20,7 @@ class display {
   }
 
   function EchoTpl($file) {
-    global $auth, $language;
+    global $auth, $language, $MainContent;
 
     $handle = fopen ($file, 'rb');
     $tpl_str = fread($handle, filesize($file));
@@ -29,7 +29,8 @@ class display {
     $tpl_str = str_replace('{language}', $language, $tpl_str );
     $tpl_str = str_replace('{default_design}', $auth['design'], $tpl_str);
 
-    echo $tpl_str;
+    #echo $tpl_str;
+    $MainContent .= $tpl_str;
   }
 
   function SetVar($name, $value){
@@ -37,7 +38,9 @@ class display {
   }
 
   function EchoVar($name){
-    echo $this->TplVars[$name];
+    global $MainContent;
+    $MainContent .= $this->TplVars[$name];
+    #echo $this->TplVars[$name];
   }
 
   // Returns the template $file
@@ -67,35 +70,35 @@ class display {
 
   // Output the template $file
   function AddTpl($file, $OpenTable = 1){
-    global $templ;
+    global $templ, $MainContent;
 
-    echo $this->FetchTpl($file, $templ);
+    $MainContent .=  $this->FetchTpl($file, $templ);
   }
 
   // Output the template $file
   function AddLineTpl($file, $OpenTable = 1){
-    global $templ;
+    global $templ, $MainContent;
 
     if ($_GET['design'] != 'base') {
       if ($this->FirstLine) {
-        echo '<ul class="LineFirst">'. $this->FetchTpl($file) .'</ul>';
+        $MainContent .= '<ul class="LineFirst">'. $this->FetchTpl($file) .'</ul>';
         $this->FirstLine = 0;
-      } else echo '<ul class="Line">'. $this->FetchTpl($file) .'</ul>';
+      } else $MainContent .= '<ul class="Line">'. $this->FetchTpl($file) .'</ul>';
     }
   }
 
   // Output the template $file
   function AddLineTplSmarty($content, $OpenTable = 1){
-    global $smarty;
+    global $smarty, $MainContent;
 
     if ($_GET['design'] != 'base') {
       if ($this->FirstLine) {
         $smarty->assign('content', $content);
-        $smarty->display('design/templates/ls_row_firstline.htm');
+        $MainContent .= $smarty->fetch('design/templates/ls_row_firstline.htm');
         $this->FirstLine = 0;
       } else {
         $smarty->assign('content', $content);
-        $smarty->display('design/templates/ls_row_line.htm');
+        $MainContent .= $smarty->fetch('design/templates/ls_row_line.htm');
       }
     }
   }
@@ -119,7 +122,7 @@ class display {
   }
 
   function AddHeaderMenu($names, $link, $active = NULL) {
-    global $templ;
+    global $templ, $MainContent;
 
     foreach ($names as $key => $name) {
       if ($key == $active and $active != NULL) $am = '';
@@ -129,11 +132,11 @@ class display {
     // Letztes Minus rausschneiden
     $items = substr($items, 0, -3);
 
-    echo $items;
+    $MainContent .=  $items;
   }
     
   function AddHeaderMenu2($names, $link, $active = NULL) {
-    global $templ;
+    global $templ, $MainContent;
 
     foreach($names as $key => $name) {
       ($key == $active and $active != '')? $am = '' : $am = 'class="menu"';
@@ -141,20 +144,20 @@ class display {
     }
     $items = substr($items, 0, -3);
     
-    echo $items;
+    $MainContent .=  $items;
   }
 
   function StartHiddenBox($name, $vissible = false) {
-    global $templ;
+    global $templ, $MainContent;
 
     ($vissible)? $vissible = '' : $vissible = 'none';
-    echo '<div id="'. $name .'" style="display:'. $vissible .'">';
+    $MainContent .=  '<div id="'. $name .'" style="display:'. $vissible .'">';
   }
 
   function StopHiddenBox() {
-    global $templ;
+    global $templ, $MainContent;
         
-    echo '</div>';
+    $MainContent .=  '</div>';
   }
 
   function AddSingleRow($text, $parm = NULL) {
@@ -304,12 +307,16 @@ class display {
   }
 
   function AddFieldsetStart($name) {
-    echo '<fieldset class="box_frame"><legend class="box_frame"><b>'. $name .'</b></legend>';
+    global $MainContent;
+    
+    $MainContent .=  '<fieldset class="box_frame"><legend class="box_frame"><b>'. $name .'</b></legend>';
     $this->FirstLine = 1;
   }
 
   function AddFieldsetEnd() {
-    echo '</fieldset>';
+    global $MainContent;
+    
+    $MainContent .=  '</fieldset>';
     $this->FirstLine = 1;
   }
 
@@ -451,7 +458,9 @@ class display {
   }
 
   function AddHRuleRow() {
-    echo '<div class="hrule"></div>';
+    global $MainContent;
+    
+    $MainContent .=  '<div class="hrule"></div>';
   }
 
   function AddPictureDropDownRow($name, $key, $path, $errortext, $optional = NULL, $selected = NULL) {
@@ -580,7 +589,8 @@ class display {
   }
 
   function AddJumpToMark($name) {
-    echo "<a name=\"$name\"></a>";
+    global $MainContent;
+    $MainContent .= "<a name=\"$name\"></a>";
   }
 
   function AddIFrame($url, $width=795, $height=600) {
