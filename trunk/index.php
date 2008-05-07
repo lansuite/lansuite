@@ -255,8 +255,11 @@ if ($_GET['design'] and $_GET['design'] != 'popup' and $_GET['design'] != 'base'
 // Boxes
 if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') include_once("modules/boxes/class_boxes.php");
 
-if ($_GET['design'] != 'base') include_once('design/'. $auth['design'] .'/templates/index.php');
-else include_once('index_module.inc.php');
+#if ($_GET['design'] != 'base') include_once('design/'. $auth['design'] .'/templates/index.php');
+#else include_once('index_module.inc.php');
+include_once('index_module.inc.php');
+
+$sitetool->out_optimizer();
 
 // Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
 if ($db->success) {

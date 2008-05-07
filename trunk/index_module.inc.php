@@ -119,6 +119,6 @@ if (!$missing_fields and !$siteblock) {
   	break;
   }
 
-  echo $templ['index']['info']['content'];
+  #echo $templ['index']['info']['content'];
 }
 ?>
