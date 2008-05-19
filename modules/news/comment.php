@@ -32,7 +32,6 @@ if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $n
 		$dsp->NewContent(t('Newsmeldung + Kommentare'), t('Hier können Sie diese News kommentieren'));
 		$dsp->AddSingleRow($dsp->FetchModTpl("news", "show_single_row_$news_type"));
 		$dsp->AddSingleRow($dsp->FetchSpanButton(t('Newsübersicht'), "index.php?mod=news&action=show"));
-		$dsp->AddContent();
 	}
 
 	include('inc/classes/class_mastercomment.php');

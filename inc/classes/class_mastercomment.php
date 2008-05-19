@@ -40,7 +40,7 @@ class Mastercomment{
 	function Mastercomment($mod, $id, $update_table = array()) {
 		global $CurentURLBase, $dsp, $config, $auth, $db, $config, $func, $cfg, $mail;
 
-    echo '<ul class="Line">';
+    #echo '<ul class="Line">';
     $dsp->AddFieldsetStart(t('Kommentare'));
 
     // Delete comments
@@ -129,7 +129,7 @@ class Mastercomment{
     }
 
     $dsp->AddFieldsetEnd();
-    echo '</ul>';
+    #echo '</ul>';
 
     // Bookmarks and Auto-Mail
     if ($auth['login'] and $auth['type'] > 1) {
