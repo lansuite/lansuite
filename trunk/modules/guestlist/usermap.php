@@ -50,6 +50,8 @@ if ($cfg['guestlist_guestmap'] == 2) {
 // Use Geofreedb
 } else {
   $res = $db->query("SELECT plz FROM {$config["tables"]["user"]} LEFT JOIN {$config["tables"]["party_user"]} ON userid = user_id WHERE (plz > 0) AND (party_id = {$party->party_id})");
+  $res3 = $db->qry_first("SELECT laenge, breite FROM {$config["tables"]["locations"]} WHERE plz = {$_SESSION['party_info']['partyplz']}");
+  $pi = pi();
 
   if ($db->num_rows($res) == 0) $dsp->AddSingleRow(t('Leider hat noch keiner der angemeldeten Benutzer seine Postleitzahl angegeben. Das Bestimmen der Position ist daher nicht m&ouml;glich.'));
   else {
@@ -104,7 +106,18 @@ if ($cfg['guestlist_guestmap'] == 2) {
   		}
   		$db->free_result($res2);
 
-  		$hint = $user['plz'] .' '. $user['city'] .' ('. $user['anz'] . ' Gäste)' . $UsersOut;
+		//Entfernungsberechnung
+		$breite1 = $user['breite']/180*$pi;
+		$breite2 = $res3['breite']/180*$pi;
+		$laenge1 = $user['laenge']/180*$pi;
+		$laenge2 = $res3['laenge']/180*$pi;
+		
+		$e = acos( sin($breite1)*sin($breite2) + cos($breite1)*cos($breite2)*cos($laenge2-$laenge1) );
+		$entfernung = round($e * 6378.137, 0);
+		
+
+
+  		$hint = '<b>'. $user['plz'] .' '. $user['city'] .' ('. $user['anz'] . ' G&auml;ste) '. $entfernung .'km</b>'. $UsersOut;
 
   		$map_out .= "<area name=\"point$z\" shape=\"rect\" coords=\"". ($kx-$size) .", ". ($ky-$size) .", ". ($kx+$size) .", ". ($ky+$size) ."\" onmouseover=\"return overlib('". $hint ."');\" onmouseout=\"return nd();\"' />";
   	}
