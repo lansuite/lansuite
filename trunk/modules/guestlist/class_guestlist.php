@@ -42,7 +42,7 @@ class guestlist {
     global $db, $config, $cfg, $func, $mail, $auth, $seat2, $usrmgr;
 
     $Messages = array('success' => '', 'error' => '');
-		$db->query('UPDATE '. $config['tables']['party_user'] .' SET paid = 0 WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
+		$db->query('UPDATE '. $config['tables']['party_user'] .' SET paid = 0, paiddate=NULL WHERE user_id = '. (int)$userid .' AND party_id='. (int)$partyid .' LIMIT 1');
 
 		$row = $db->query_first('SELECT username, email from '. $config['tables']['user'] .' WHERE userid = '. (int)$userid);
 		$row2 = $db->query_first('SELECT name from '. $config['tables']['partys'] .' WHERE party_id = '. (int)$partyid);
