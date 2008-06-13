@@ -53,7 +53,7 @@ while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'
 $db->free_result($row);
 $ms2->AddTextSearchDropDown('Party', 'p.party_id', $party_list);#, $party->party_id
 
-$ms2->AddTextSearchDropDown(t('Zahlstatus'), 'p.paid', array('' => t('Alle'), '0' => t('Nicht bezahlt'), '>1' => t('Bezahlt'), '1' => t('Bezahlt per Vorverkauf'), '2' => t('Bezahlt per Abendkasse')));
+$ms2->AddTextSearchDropDown(t('Zahlstatus'), 'p.paiddate', array('' => t('Alle'), '<1' => t('Nicht bezahlt'), '>1' => t('Bezahlt')));
 $ms2->AddTextSearchDropDown(t('Eingecheckt'), 'p.checkin', array('' => t('Alle'), '0' => t('Nicht eingecheckt'), '>1' => t('Eingecheckt')));
 $ms2->AddTextSearchDropDown(t('Ausgecheckt'), 'p.checkout', array('' => t('Alle'), '0' => t('Nicht ausgecheckt'), '>1' => t('Ausgecheckt')));
 $ms2->AddTextSearchDropDown(t('Geschlecht'), 'u.sex', array('' => t('Alle'), '0' => t('Unbekannt'), '1' => t('Männlich'), '2' => t('Weblich')));
