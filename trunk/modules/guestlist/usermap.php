@@ -77,7 +77,7 @@ if ($cfg['guestlist_guestmap'] == 2) {
   		INNER JOIN {$config["tables"]["locations"]} AS locations ON user.plz = locations.plz
   		INNER JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id
   		WHERE (user.plz > 0) AND s.show_me_in_map = 1 AND (party.party_id = {$party->party_id}) AND user.type > 0
-  		GROUP BY user.plz
+  		GROUP BY locations.laenge, locations.breite
   		");
   	$z = 0;
   	while ($user = $db->fetch_array($res)) {
@@ -85,26 +85,30 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
   		$kx = (int) ($xf * ($user['laenge'] - $x_start));
   		$ky = (int) ($img_height - $yf * ($user['breite'] - $y_start));
-
   		$size = floor(1 + 0.25 * $user['anz']);
   		if ($size > 5) $size = 5;
-
+  		
+  		
   		// Get list of all users with current plz
-      $res2 = $db->query("SELECT u.username, u.firstname, u.name
-  		FROM {$config["tables"]["user"]} AS u
-  		LEFT JOIN {$config["tables"]["usersettings"]} AS s ON u.userid = s.userid
-  		INNER JOIN {$config["tables"]["party_user"]} AS p ON u.userid = p.user_id
-  		WHERE (u.plz = {$user["plz"]}) AND s.show_me_in_map = 1 AND (p.party_id = {$party->party_id}) AND u.type > 0
-  		");
-  		$UsersOut = '';
-  		while ($current_user = $db->fetch_array($res2)) {
-  		  if ($auth['type'] < 2 and ($cfg['sys_internet'])) {
-  		    $current_user['firstname'] = '---';
-  		    $current_user['name'] = '---';
-        }
-        $UsersOut .= HTML_NEWLINE . $current_user['username'] .' ('. $current_user['firstname'] .' '. $current_user['name'] .')';
-  		}
-  		$db->free_result($res2);
+  		$res2 = $db->query("SELECT u.username, u.firstname, u.name
+		FROM lansuite_user AS u
+		LEFT JOIN lansuite_usersettings AS s ON u.userid = s.userid
+		INNER JOIN lansuite_party_user AS p ON u.userid = p.user_id
+		INNER JOIN lansuite_locations AS locations ON u.plz = locations.plz
+		WHERE (laenge LIKE {$user['laenge']} AND breite LIKE {$user['breite']}) AND s.show_me_in_map = 1 AND (p.party_id = {$party->party_id}) AND u.type > 0
+		GROUP BY u.userid
+		");
+		
+		$UsersOut = '';
+		
+  			while ($current_user = $db->fetch_array($res2)) {
+				if ($auth['type'] < 2 and ($cfg['sys_internet'])) {
+  			   		$current_user['firstname'] = '---';
+  		   	 		$current_user['name'] = '---';
+        		}
+        		$UsersOut .= HTML_NEWLINE . $current_user['username'] .' ('. $current_user['firstname'] .' '. $current_user['name'] .')';
+  			}
+  			$db->free_result($res2);
 
 		//Entfernungsberechnung
 		$breite1 = $user['breite']/180*$pi;
