@@ -140,7 +140,7 @@ class translation {
         if ($db->success) {
             // Load from DB
             $res = $db->qry('SELECT id, org, '. $this->language .' FROM %prefix%translation WHERE file = %string%', $modul);
-            while ($row = $db->fetch_array($res)) {
+            while ($row = $db->fetch_array($res, 0)) {
                 if ($row[$this->language] != '') {
                     if ($this->lang_cache[$modul][$row['id']] == '' ) $this->lang_cache[$modul][$row['id']] = $row[$this->language];
                 }
