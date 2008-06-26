@@ -51,7 +51,6 @@ class db {
         return true;
     }
 
-
     function query($query_string) {
     // Escape bad mysql
     $query_test_string = str_replace("\'", '', strtolower($query_string)); # Cut out escaped ' and convert to lower string
@@ -61,12 +60,14 @@ class db {
 
     // No INTO OUTFILE
     elseif (!strpos($query_test_string, 'into outfile') === false) $query_string = '___INTO OUTFILE_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
-      $this->querys[] = $query_string;
+      $query_start = microtime(true);
       $this->querys_count++;
       $this->query_id = mysqli_query($GLOBALS['db_link_id'], $query_string);
       $this->sql_error = @mysqli_error($GLOBALS['db_link_id']);
       $this->count_query++;
+      $query_end = microtime(true);
       if (!$this->query_id) $this->print_error($this->sql_error, $query_string);
+      $this->querys[] = array($query_string, round(($query_end-$query_start)*1000,4));
       return $this->query_id;
     }
 
@@ -98,14 +99,17 @@ class db {
     }
 
 
-    function fetch_array($query_id=-1) {
+    function fetch_array($query_id=-1, $save=1) {
       global $func;
 
         if ($query_id != -1) $this->query_id = $query_id;
 
         $this->record = @mysqli_fetch_array($this->query_id);
+
+        // Disable NoHTML if posible
         if ($this->record) foreach ($this->record as $key => $value) {
-           $this->record[$key] = $func->NoHTML($value);
+           if ($save) $this->record[$key] = $func->NoHTML($value);
+           else       $this->record[$key] = $value;
         }
         
         return $this->record;
