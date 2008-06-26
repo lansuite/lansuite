@@ -1,102 +1,102 @@
 <?php
-	/*
-	#	HINWEISE BITTE LESEN !!!
-	#	PLEASE READ THIS INSTRUCTIONS
+    /*
+    #   HINWEISE BITTE LESEN !!!
+    #   PLEASE READ THIS INSTRUCTIONS
   #
-	#	IMPORTANT !!!
-	#	
-	#	We request you retain the full copyright notice below including the link to www.one-network.org.
-	#	This not only gives respect to the large amount of time given freely by the developers
-	#	but also helps build interest, traffic and use of Lansuite.
-	#	Consequently many bugs can be reported and get fixed quickly.	
-	#
-	#	WICHTIG !!!
-	#
-	#	Wir bitten Sie die gesamten Copyrightvermerke einschlieﬂlich des Links 
-	#	zu www.one-network.org nicht zu entfernen.
-	#	Dies zeigt nicht nur den Entwicklern, die eine Menge unbezahlte Zeit in dieses Projekt 
-	#	gesteckt haben, Respekt, sondern tr‰gt auch der Beteiligung am Support, 
-	#	der Verbreitung und der Anzahl der Nutzer von Lansuite bei.
-	#	Somit kˆnnen viele Fehler schnell gemeldet und behoben werden.
-	#		
-	#		
-	*/
+    #   IMPORTANT !!!
+    #   
+    #   We request you retain the full copyright notice below including the link to www.one-network.org.
+    #   This not only gives respect to the large amount of time given freely by the developers
+    #   but also helps build interest, traffic and use of Lansuite.
+    #   Consequently many bugs can be reported and get fixed quickly.   
+    #
+    #   WICHTIG !!!
+    #
+    #   Wir bitten Sie die gesamten Copyrightvermerke einschlieﬂlich des Links 
+    #   zu www.one-network.org nicht zu entfernen.
+    #   Dies zeigt nicht nur den Entwicklern, die eine Menge unbezahlte Zeit in dieses Projekt 
+    #   gesteckt haben, Respekt, sondern tr‰gt auch der Beteiligung am Support, 
+    #   der Verbreitung und der Anzahl der Nutzer von Lansuite bei.
+    #   Somit kˆnnen viele Fehler schnell gemeldet und behoben werden.
+    #       
+    #       
+    */
 
 class sitetool {
-	var $timer = "";
-	var $timer2 = "";
-	var $send_size = "0";
-	var $content = "";			// Content
-	var $content_crc = "";		// Checksum of Content
-	var $content_size = "";		// Size of Content
+    var $timer = "";
+    var $timer2 = "";
+    var $send_size = "0";
+    var $content = "";          // Content
+    var $content_crc = "";      // Checksum of Content
+    var $content_size = "";     // Size of Content
 
 ################# Script-Start (Output-Init)
 
-	// Constructor
-	function sitetool() {
-		// Set Script-Start-Time, to calculate the scripts runtime
-		$this->timer = time();
-		$this->timer2 = explode(' ', microtime());
-	}
+    // Constructor
+    function sitetool() {
+        // Set Script-Start-Time, to calculate the scripts runtime
+        $this->timer = time();
+        $this->timer2 = explode(' ', microtime());
+    }
 
 ################# Script-End (Output-Compress & Send)
 
-	// Calculate the scripts runtime
-	function out_work() {
-		$timer = explode(' ', microtime());
-		$worktime = $timer[1] - $this->timer2[1];
-		$worktime += $timer[0] - $this->timer2[0];
-		return sprintf("%.5f", $worktime);
-	}
+    // Calculate the scripts runtime
+    function out_work() {
+        $timer = explode(' ', microtime());
+        $worktime = $timer[1] - $this->timer2[1];
+        $worktime += $timer[0] - $this->timer2[0];
+        return sprintf("%.5f", $worktime);
+    }
 
-	// Check for errors in content
-	function check_optimizer() {
-	global $MainContent;
-	
-		if (headers_sent()
-			or connection_aborted()
-			or (ereg("(error</b>:)(.+) in <b>(.+)</b> on line <b>(.+)</b>", $MainContent))
-			or (ereg("SQL-Failure. Database respondet:", $MainContent))
-			) return 0;
-		elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip') !== false) return "x-gzip";
-		elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip') !== false) return "gzip"; 
-		else return 0; 
-	}
+    // Check for errors in content
+    function check_optimizer() {
+    global $MainContent;
+    
+        if (headers_sent()
+            or connection_aborted()
+            or (ereg("(error</b>:)(.+) in <b>(.+)</b> on line <b>(.+)</b>", $MainContent))
+            or (ereg("SQL-Failure. Database respondet:", $MainContent))
+            ) return 0;
+        elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip') !== false) return "x-gzip";
+        elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip') !== false) return "gzip"; 
+        else return 0; 
+    }
 
-	// F¸r Statistik
-	function get_send_size(){
-		return $this->send_size;	
-	}
+    // F¸r Statistik
+    function get_send_size(){
+        return $this->send_size;    
+    }
 
-	// Finalize Output and return Outputbuffer
-	function out_optimizer() {
-		global $templ, $cfg, $db, $lang, $auth, $MainContent, $smarty, $func, $URLQuery;
-		
-		$compression_mode = $this->check_optimizer();
+    // Finalize Output and return Outputbuffer
+    function out_optimizer() {
+        global $templ, $cfg, $db, $lang, $auth, $MainContent, $smarty, $func, $URLQuery;
+        
+        $compression_mode = $this->check_optimizer();
 
-		// Check for {footer}-String in Design
-#		if (!$_GET['contentonly'] and strpos($MainContent, '{$Footer}') === false) echo "<font face=\"Verdana\" color=\"#ff0000\" site=\"6\">".t('Der Eintrag {footer} wurde unerlaubt aus der index.htm entfernt!')."</font>";
-#		else {
+        // Check for {footer}-String in Design
+#       if (!$_GET['contentonly'] and strpos($MainContent, '{$Footer}') === false) echo "<font face=\"Verdana\" color=\"#ff0000\" site=\"6\">".t('Der Eintrag {footer} wurde unerlaubt aus der index.htm entfernt!')."</font>";
+#       else {
 
-			$ru_suffix = "";
-			// if (strpos($_SERVER['REQUEST_URI'], ".php") === false) $ru_suffix .= "index.php";
-			// Alte fullscreen Variablen lˆschen
-			$_SERVER['REQUEST_URI'] = str_replace("&amp;fullscreen=yes", "", $_SERVER['REQUEST_URI']);
-			$_SERVER['REQUEST_URI'] = str_replace("&amp;fullscreen=no", "", $_SERVER['REQUEST_URI']);
-			$_SERVER['REQUEST_URI'] = str_replace("?fullscreen=yes", "", $_SERVER['REQUEST_URI']);
-			$_SERVER['REQUEST_URI'] = str_replace("?fullscreen=no", "", $_SERVER['REQUEST_URI']);
+            $ru_suffix = "";
+            // if (strpos($_SERVER['REQUEST_URI'], ".php") === false) $ru_suffix .= "index.php";
+            // Alte fullscreen Variablen lˆschen
+            $_SERVER['REQUEST_URI'] = str_replace("&amp;fullscreen=yes", "", $_SERVER['REQUEST_URI']);
+            $_SERVER['REQUEST_URI'] = str_replace("&amp;fullscreen=no", "", $_SERVER['REQUEST_URI']);
+            $_SERVER['REQUEST_URI'] = str_replace("?fullscreen=yes", "", $_SERVER['REQUEST_URI']);
+            $_SERVER['REQUEST_URI'] = str_replace("?fullscreen=no", "", $_SERVER['REQUEST_URI']);
 
-			// Vorbreiten f¸r neue fullscreen Variable
-			if (strpos($_SERVER['REQUEST_URI'], "?") === false) $ru_suffix .= "?";
-			else $ru_suffix .= "&";
+            // Vorbreiten f¸r neue fullscreen Variable
+            if (strpos($_SERVER['REQUEST_URI'], "?") === false) $ru_suffix .= "?";
+            else $ru_suffix .= "&";
 /*
-			// Erweiterung f¸r Statisktik
-			if ($compression_mode and $cfg['sys_compress_level']){
-				$this->send_size = sprintf("%01.2f",((strlen(gzcompress($index, $cfg['sys_compress_level'])))/1024));
-	   		$site_size = ' | Size: '. $this->send_size .' KB | Uncompressed: '. sprintf("%01.2f", ((strlen($index))/1024))." KB";
-			} else {
+            // Erweiterung f¸r Statisktik
+            if ($compression_mode and $cfg['sys_compress_level']){
+                $this->send_size = sprintf("%01.2f",((strlen(gzcompress($index, $cfg['sys_compress_level'])))/1024));
+            $site_size = ' | Size: '. $this->send_size .' KB | Uncompressed: '. sprintf("%01.2f", ((strlen($index))/1024))." KB";
+            } else {
         $this->send_size = sprintf("%01.2f", (strlen($index)) / 1024);
-  			$site_size = " | Size: ". $this->send_size ." KB";
+            $site_size = " | Size: ". $this->send_size ." KB";
       }
 */
 $footer = '
@@ -112,28 +112,28 @@ $footer = '
 <a  href="http://www.lansuite.de" title="Lansuite"><img src="ext_inc/footer_buttons/button_lansuite.png" width="80" height="15" alt="Lansuite" border="0" /></a>
 ';
 
-			// Define Footer-Message
-			$footer .= HTML_NEWLINE .'<a href="index.php?mod=about" class="menu">'. $templ['index']['info']['version'].' &copy;2001-'.date('y').'</a>'
+            // Define Footer-Message
+            $footer .= HTML_NEWLINE .'<a href="index.php?mod=about" class="menu">'. $templ['index']['info']['version'].' &copy;2001-'.date('y').'</a>'
       .' | DB-Querys: '. $db->count_query
       .' | Processed in: '. round($this->out_work(), 2) .' Sec'. $site_size
-			.' | <a href="'. $_SERVER['REQUEST_URI'].$ru_suffix .'fullscreen=yes" class="menu">Fullscreen</a>';
+            .' | <a href="'. $_SERVER['REQUEST_URI'].$ru_suffix .'fullscreen=yes" class="menu">Fullscreen</a>';
 
-			if ($cfg["sys_optional_footer"]) $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
+            if ($cfg["sys_optional_footer"]) $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
       if ($_GET['contentonly']) $MainContent .= '<div id="NewLSfooter">'. $footer .'</div>';
 
-			#$index = str_replace("{footer}", $footer, $index);
-			$smarty->assign('Footer', $footer);
+            #$index = str_replace("{footer}", $footer, $index);
+            $smarty->assign('Footer', $footer);
 
-			// change & to &amp;
-			#$index = preg_replace("~&(?=(\w+|[a-f0-9]+)=)~i", "&amp;", $index);
-			#$index = preg_replace("~&(?!(\w+|#\d+|#x[a-f0-9]+);)~i", "&amp;", $index);
+            // change & to &amp;
+            #$index = preg_replace("~&(?=(\w+|[a-f0-9]+)=)~i", "&amp;", $index);
+            #$index = preg_replace("~&(?!(\w+|#\d+|#x[a-f0-9]+);)~i", "&amp;", $index);
       // Delete empty images
       #$index = preg_replace("~<img src=\"/\"((\w|\s|\"|\=)+)>~i", "", $index);
 
       $smarty->assign('Design', $auth['design']);
       $MainHeader = $smarty->fetch('design/templates/html_header.htm');
       if ($_GET['sitereload']) $MainHeader .= '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">';
-  		$smarty->assign('MainHeader', $MainHeader);
+        $smarty->assign('MainHeader', $MainHeader);
 
       if ($_SESSION['lansuite']['fullscreen'] or $_GET['design'] == 'popup') $smarty->assign('MainContentStyleID', 'ContentFullscreen');
       else $smarty->assign('MainContentStyleID', 'Content');
@@ -147,23 +147,23 @@ $footer = '
           $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
           $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
           $smarty->assign('MainLogo', '<img src="design/simple/images/logo.gif" alt="Logo" title="Lansuite" border="0" />');
-          $smarty->assign('Debug', $func->ShowDebug());
+          $smarty->assign('MainDebug', $func->ShowDebug());
         }
       } else $smarty->assign('MainLogo', '<a href="index.php?'. $URLQuery .'&amp;fullscreen=no" class="menu"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schlieﬂen') .'</span></a> Lansuite - Vollbildmodus');
       $smarty->assign('MainContent', $MainContent);
       
-			if ($compression_mode and $cfg['sys_compress_level']) {
-				Header("Content-Encoding: $compression_mode");
-				echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-				$index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $smarty->fetch("design/{$auth['design']}/templates/main.htm");
-				$this->content_size = strlen($index);
-				$this->content_crc = crc32($index);
-				$index = gzcompress($index, $cfg['sys_compress_level']);
-				$index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
-				echo $index;
-				echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
-			} else $smarty->display("design/{$auth['design']}/templates/main.htm");
-		}
-#	}
+            if ($compression_mode and $cfg['sys_compress_level']) {
+                Header("Content-Encoding: $compression_mode");
+                echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
+                $index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $smarty->fetch("design/{$auth['design']}/templates/main.htm");
+                $this->content_size = strlen($index);
+                $this->content_crc = crc32($index);
+                $index = gzcompress($index, $cfg['sys_compress_level']);
+                $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
+                echo $index;
+                echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
+            } else $smarty->display("design/{$auth['design']}/templates/main.htm");
+        }
+#   }
 }
 ?>
