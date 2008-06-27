@@ -367,6 +367,49 @@ class auth {
     }
 
   /**
+   * Check Userrights and add a Errormessage if needed
+   *
+   * @param mixed $requirement
+   * @return
+   */
+	function authorized($requirement) {
+	    global $func;
+	
+	    switch ($requirement) {
+	        case 1: // Logged in
+	            if ($this->auth['login']) return 1;
+	            else $func->error('NO_LOGIN', '');
+	        break;
+	
+	        case 2: // Type is Admin, or Superadmin
+	            if ($this->auth['type'] > 1)   return 1;
+	            elseif (!$this->auth['login']) $func->error('NO_LOGIN', '');
+	            else   $func->error('ACCESS_DENIED', '');
+	        break;
+	
+	        case 3: // Type is Superadmin
+	            if ($this->auth['type'] > 2) return 1;
+	            elseif (!$this->auth['login']) $func->error('NO_LOGIN', '');
+	            else $func->error('ACCESS_DENIED', '');
+	        break;
+	
+	        case 4: // Type is User, or less
+	            if ($this->auth['type'] < 2) return 1;
+	            else $func->error('ACCESS_DENIED', '');
+	        break;
+	
+	        case 5: // Logged out
+	            if (!$this->auth['login']) return 1;
+	            else $func->error('ACCESS_DENIED', '');
+	        break;
+	
+	        default:
+	            return 1;
+	        break;
+	    }
+	}
+
+  /**
    * Returns the old Userid if one is set.
    *
    * @return void Olduserid

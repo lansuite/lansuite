@@ -1,43 +1,6 @@
 <?php
 
-echo $FrameworkMessages;
-
-function authorized($mod, $action, $requirement) {
-	global $auth, $func;
-
-	switch ($requirement) {
-		case 1: // Logged in
-      if ($auth['login']) return 1;
-      else $func->error('NO_LOGIN', '');
-    break;
-
-		case 2: // Type is Admin, or Superadmin
-			if ($auth['type'] > 1) return 1;
-			elseif (!$auth['login']) $func->error('NO_LOGIN', '');
-      else $func->error('ACCESS_DENIED', '');
-		break;
-
-		case 3: // Type is Superadmin
-			if ($auth['type'] > 2) return 1;
-			elseif (!$auth['login']) $func->error('NO_LOGIN', '');
-      else $func->error('ACCESS_DENIED', '');
-		break;
-
-		case 4: // Type is User, or less
-			if ($auth['type'] < 2) return 1;
-      else $func->error('ACCESS_DENIED', '');
-		break;
-
-		case 5: // Logged out
-			if (!$auth['login']) return 1;
-			else $func->error('ACCESS_DENIED', '');
-		break;
-
-		default:
-			return 1;
-		break;
-	}
-}
+$MainContent .= $FrameworkMessages;
 
 // Info Seite blockiert
 if ($cfg['sys_blocksite'] == 1) $func->information($cfg['sys_blocksite_text'], "index.php?mod=install");
@@ -93,23 +56,23 @@ if (!$missing_fields and !$siteblock) {
   			// 1) Search $_GET['action'] in DB (field "action")
   			$menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (action = '{$_GET['action']}')");
   			if ($menu['file'] != '') {
-  				if (authorized($mod, $menu['file'], $menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
+  				if ($authentication->authorized($menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
 
   			// 2) Search $_GET['action'] in DB (field "file")
   			} else { 
           $menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (file = '{$_GET['action']}')");
     			if ($menu['file'] != '') {
-    				if (authorized($mod, $menu['file'], $menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
+    				if ($authentication->authorized($menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
 
     			// 3) Search file named $_GET['action'] in the Mod-Directory
     			} elseif (file_exists("modules/$mod/{$_GET['action']}.php")) {
-    				if (authorized($mod, $_GET['action'], $menu['requirement'])) include_once("modules/{$mod}/{$_GET['action']}.php");
+    				if ($authentication->authorized($menu['requirement'])) include_once("modules/{$mod}/{$_GET['action']}.php");
   
     			// 4) Search 'default'-Entry in DB
     			} else {
     				$menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (action = 'default')");
     				if ($menu['file'] != '') {
-    					if (authorized($mod, $menu['file'], $menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
+    					if ($authentication->authorized($menu['requirement'])) include_once("modules/{$mod}/{$menu['file']}.php");
   
       			// 4) Error: 'Not Found'
     				} else $func->error('NOT_FOUND', '');
@@ -118,7 +81,5 @@ if (!$missing_fields and !$siteblock) {
     	}
   	break;
   }
-
-  #echo $templ['index']['info']['content'];
 }
 ?>
