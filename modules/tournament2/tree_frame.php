@@ -4,7 +4,7 @@ include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
 $tournamentid 		= $_GET["tournamentid"];
-$fullscreen 		= $_GET["fullscreen"];
+$fullscreen 		= $_SESSION['lansuite']['fullscreen'];
 if ($_GET['group'] == '') $_GET['group'] = 1;
 
 $t = $db->qry_first('SELECT tournamentid, name, mode, UNIX_TIMESTAMP(starttime) AS starttime, break_duration, game_duration, max_games, status, mapcycle
