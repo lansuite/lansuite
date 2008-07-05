@@ -402,7 +402,7 @@ class func {
 
   // If ls-code should be displayed
     function text2html($string) {
-        global $db, $config;
+        global $db, $config, $auth;
 
     preg_replace_callback(
       '#\[c\]((.)*)\[\/c\]#sUi',
@@ -413,7 +413,7 @@ class func {
       $string
     );
 
-        $img_start = "<img src=\"design/".$_SESSION["auth"]["design"]."/images/";
+        $img_start = "<img src=\"design/".$auth["design"]."/images/";
         $img_start2 = '<img src="ext_inc/smilies/';
         $img_end   = '" border="0" alt="" />';
 
