@@ -67,7 +67,7 @@ if ($db->num_rows($res) > 1) {
   	if (strlen($row['name']) > 20) $row['name'] = substr($row['name'], 0, 18) .'...';
   	$options .= '<option '. $selected .' value="'. $row['party_id'] .'">'. $row['name'] .'</option>';
   }
-  $box->ItemRow('data', '<form action=""><select name="set_party_id">'. $options .'</select><br /><input type="submit" value="Party wechseln" /></form>');
+  $box->ItemRow('data', '<form action=""><select name="set_party_id" class="form" >'. $options .'</select><br /><input type="submit" class="Button" value="Party wechseln" /></form>');
 } else {
   $box->ItemRow("data", '<b>'. $_SESSION['party_info']['name'] .'</b>');
 }
