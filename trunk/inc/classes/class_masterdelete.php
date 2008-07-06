@@ -49,9 +49,10 @@ class masterdelete {
   }
 
   function Delete($table, $idname, $id) {
-  global $CurentURLBase, $func;
+  global $framework, $func;
   
-    $CurentURLBase = str_replace('&md_step=2', '', $CurentURLBase);
+    $CurentURLBase = $framework->get_clean_url_query('base');
+	$CurentURLBase = str_replace('&md_step=2', '', $CurentURLBase);
     $CurentURLBase = preg_replace('#&'. $idname .'=[0-9]*#si', '', $CurentURLBase);
 
     switch ($_GET['md_step']) {

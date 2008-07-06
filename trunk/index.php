@@ -1,120 +1,85 @@
 <?php
 
-// Set Error Reporting to "all, but notices"
-error_reporting(E_ALL ^ E_NOTICE);
-#ini_set('display_errors', 0);
-#ini_set('log_errors', 1);
-#ini_set('error_log', 'log/php/');
-# Disable SID in URL
-ini_set('url_rewriter.tags', '');
+### Set Error Reporting & INI-Settings
 
-// Sitetool (for compressing the content sending it to the browser)
-if (!isset($_GET['design']) or $_GET['design'] != 'base') {
-  include_once("inc/classes/class_sitetool.php");
-  $sitetool = new sitetool('');
-}
+	error_reporting(E_ALL ^ E_NOTICE);
+	#ini_set('display_errors', 0);
+	#ini_set('log_errors', 1);
+	#ini_set('error_log', 'log/php/');
+	// Disable SID in URL
+	ini_set('url_rewriter.tags', '');
 
-$FrameworkMessages = '';
+### Start session-management
+	
+	session_save_path('ext_inc/session');
+	session_start();
+	
+### Initialise Frameworkclass for Basic output
+    
+	include_once("inc/classes/class_framework.php");
+	$framework = new framework();
+	$framework->fullscreen($_GET['fullscreen']); 				// Switch fullscreen via GET
+	$framework->set_modus( $_GET['design']); 					// Set Popupmode via GET (base, popup)
+    $framework->make_clean_url_query($_SERVER['REQUEST_URI']);	// Build interlal URL-Query
 
-/*
-if ($_GET['load_file']) {
-  if (strpos($_GET['load_file'], 'ext_inc/') === false) exit;
-  $_GET['load_file'] = str_replace('..', '', $_GET['load_file']);
+### Set HTTP-Headers (still needed?)
+	
+	header('Content-Type: text/html; charset=utf-8');
+	#header('Content-Type: application/xhtml+xml; charset=utf-8');
+	#header("Cache-Control: no-cache, must-revalidate");
 
-  header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
-  header('Content-Disposition: attachment; filename="'. substr($_GET['load_file'], strrpos($_GET['load_file'], '/') + 1, strlen($_GET['load_file'])) .'"');
-  header("Content-Length: " .(string)(filesize($_GET['load_file'])));
-  readfile($_GET['load_file']);
-  exit;
-}
-*/
-// HTTP-Headers
-header('Content-Type: text/html; charset=utf-8');
-#header('Content-Type: application/xhtml+xml; charset=utf-8');
-#header("Cache-Control: no-cache, must-revalidate");
+	// For XHTML compatibility
+	@ini_set('arg_separator.output', '&amp;');
 
-// For XHTML compatibility
-@ini_set('arg_separator.output', '&amp;');
+### load $_POST and $_GET variables
+	
+	if (!is_array($_POST)) $_POST = $HTTP_POST_VARS;
+	if (!is_array($_GET)) $_GET = $HTTP_GET_VARS;
+	if (!is_array($_COOKIE)) $_COOKIE = $HTTP_COOKIE_VARS;
 
-// Start session-management
-session_save_path('ext_inc/session');
-session_start();
+    // Save original Array
+	if (get_magic_quotes_gpc()) {
+		foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $__GET[$key] = stripslashes($_GET[$key]);
+		foreach ($_POST as $key => $val) if (!is_array($_POST[$key])) $__POST[$key] = stripslashes($_POST[$key]);
+		foreach ($_COOKIE as $key => $val) if (!is_array($_COOKIE[$key])) $__COOKIE[$key] = stripslashes($_COOKIE[$key]);
+	} else {
+		$__GET = $_GET;
+		$__POST = $_POST;
+		$__COOKIE = $_COOKIE;
+	}
 
-// Analyze current URL
-$CurentURL = '';
-$CurentURLBase = '';
-$CurentURLMod = '';
-if (isset($_SERVER['REQUEST_URI'])) {
-    $CurentURL = @parse_url($_SERVER['REQUEST_URI']);
-    $CurentURLBase = str_replace('&contentonly=1', '', $CurentURL['path'].'?'.$CurentURL['query']);
-    preg_match('#mod=([a-zA-z0-9]*)[&]*#', $CurentURLBase, $treffer);
-    $CurentURLMod = $treffer[1];
-}
+	// Emulate MQ, if disabled
+	if (!get_magic_quotes_gpc()) {   // and !get_magic_quotes_runtime()
+	    foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $_GET[$key] = addslashes($_GET[$key]);
+	    foreach ($_POST as $key => $val) if (!is_array($_POST[$key])) $_POST[$key] = addslashes($_POST[$key]);
+	    foreach ($_COOKIE as $key => $val) if (!is_array($_COOKIE[$key])) $_COOKIE[$key] = addslashes($_COOKIE[$key]);
+	}
 
-// load $_POST and $_GET variables
-if (!is_array($_POST)) $_POST = $HTTP_POST_VARS;
-if (!is_array($_GET)) $_GET = $HTTP_GET_VARS;
-if (!is_array($_COOKIE)) $_COOKIE = $HTTP_COOKIE_VARS;
+	// Protect from XSS
+	#foreach ($_GET as $key => $val) $_GET[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_GET[$key]);
+	#foreach ($_POST as $key => $val) $_POST[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_POST[$key]);
+	
+	/*
+	// Delete Statements from URL, which could manipulate an SQL-WHERE-Clause
+	foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) {
+	  $_GET[$key] = eregi_replace(' and ', '', $_GET[$key]);
+	  $_GET[$key] = eregi_replace(' and\(', '', $_GET[$key]);
+	  $_GET[$key] = eregi_replace(' or ', '', $_GET[$key]);
+	  $_GET[$key] = eregi_replace(' or\(', '', $_GET[$key]);
+	}
+	*/
 
-// Save original Array
-if (get_magic_quotes_gpc()) {
-  foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $__GET[$key] = stripslashes($_GET[$key]);
-  foreach ($_POST as $key => $val) if (!is_array($_POST[$key])) $__POST[$key] = stripslashes($_POST[$key]);
-  foreach ($_COOKIE as $key => $val) if (!is_array($_COOKIE[$key])) $__COOKIE[$key] = stripslashes($_COOKIE[$key]);
-} else {
-  $__GET = $_GET;
-  $__POST = $_POST;
-  $__COOKIE = $_COOKIE;
-}
-
-// Emulate MQ, if disabled
-if (!get_magic_quotes_gpc()) {   // and !get_magic_quotes_runtime()
-    foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $_GET[$key] = addslashes($_GET[$key]);
-    foreach ($_POST as $key => $val) if (!is_array($_POST[$key])) $_POST[$key] = addslashes($_POST[$key]);
-    foreach ($_COOKIE as $key => $val) if (!is_array($_COOKIE[$key])) $_COOKIE[$key] = addslashes($_COOKIE[$key]);
-}
-
-// Protect from XSS
-#foreach ($_GET as $key => $val) $_GET[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_GET[$key]);
-#foreach ($_POST as $key => $val) $_POST[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_POST[$key]);
-
-/*
-// Delete Statements from URL, which could manipulate an SQL-WHERE-Clause
-foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) {
-  $_GET[$key] = eregi_replace(' and ', '', $_GET[$key]);
-  $_GET[$key] = eregi_replace(' and\(', '', $_GET[$key]);
-  $_GET[$key] = eregi_replace(' or ', '', $_GET[$key]);
-  $_GET[$key] = eregi_replace(' or\(', '', $_GET[$key]);
-}
-*/
-
-// Save Path
-$script_filename = '';
-#$script_filename = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1, strlen($_SERVER["SCRIPT_NAME"]));
-#$script_filename = substr($_SERVER["PATH_TRANSLATED"], strrpos($_SERVER["PATH_TRANSLATED"], "/") + 1, strlen($_SERVER["PATH_TRANSLATED"]));
-if (isset($_SERVER['REQUEST_URI'])) $script_filename = substr($_SERVER["REQUEST_URI"], strrpos($_SERVER["REQUEST_URI"], "/") + 1, strlen($_SERVER["REQUEST_URI"]));
-$script_filename = substr($script_filename, 0, strpos($script_filename, "?"));
-
-
-// Vollbild per GET Parameter ein/ausschalten
-if (isset($_GET['fullscreen'])) {
-    if ($_GET['fullscreen'] == 'yes')   $_SESSION['lansuite']['fullscreen'] = true;
-    elseif ($_GET['fullscreen'] == 'no')    $_SESSION['lansuite']['fullscreen'] = false;
-}
-
-// Read config-file
-$config = parse_ini_file('inc/base/config.php', 1);
-
-// Read definition file
-include_once('inc/base/define.php');
-
-$lang = array();
-
-if (!$config) {
-    echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
-    Überprüfen Sie die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
-    exit();
-}
+### Read Config and Definitionfiles
+	
+	$config = parse_ini_file('inc/base/config.php', 1);		// Load Basic Config
+	include_once('inc/base/define.php');					// Read definition file
+	// Exit if no Configfile
+	if (!$config) {
+	    echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
+	    Überprüfen Sie die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
+	    exit();
+	}
+	$lang = array(); // For old $lang 
 
 ### Include base classes
     
@@ -137,6 +102,11 @@ if (!$config) {
     include_once("modules/cron2/class_cron2.php");
     include_once('ext_scripts/smarty/Smarty.class.php');
 
+#########
+
+    include_once("inc/classes/class_dialog.php");
+
+
 
 ### Initialize base classes
 
@@ -151,6 +121,7 @@ if (!$config) {
     $cron2       = new cron2();          // Load Cronjob
     $seat2       = new seat2();          // Load Seat-Controll Class
     $translation = new translation();    // Load Translationclass
+    $barcode     = new barcode_system();  // Load Barcode System
     $smarty      = new Smarty();
     $smarty->template_dir = '.';
     $smarty->compile_dir = './design/templates_c/';
@@ -208,7 +179,8 @@ if (!$config) {
         $ActiveModules[] = 'popups';
         $ActiveModules[] = 'auth';
         
-        // Start autentication, just if LS is working
+        ### Start autentication, just if LS is working
+        
         $authentication = new auth();
         $auth      = $authentication->check_logon();    // Testet Cookie / Session ob User eingeloggt ist
         $olduserid = $authentication->get_olduserid();  // Olduserid for Switback on Boxes
@@ -238,36 +210,40 @@ if (!$config) {
         if ($db->success) $stats = new stats();
     }
 
+### Show Blocked Site
+	
+	if($cfg['sys_blocksite'] == 1 and $auth['type'] < 2) $siteblock = true;
 
+### Set Default-Design, if non is set
 
-// Load Barcode System
-$barcode    = new barcode_system(); // Barcode System
+	if (!$auth["design"]) $auth["design"] = "simple"; // Default if none
+	if (!file_exists("design/{$auth["design"]}/templates/main.htm")) $auth["design"] = "simple"; // Default if not avail
+	$_SESSION["auth"]["design"] = $auth["design"];
+	// folgendes betrifft momentan wohl nur Beamer
+	if ($_GET['design'] and $_GET['design'] != 'popup' and $_GET['design'] != 'base') $auth['design'] = $_GET['design'];
 
-// Show Blocked Site
-if($cfg['sys_blocksite'] == 1 and $auth['type'] < 2) $siteblock = true;
+### Create Boxes / load Boxmanager
+	
+	if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') include_once("modules/boxes/class_boxes.php");
 
-// Set Default-Design, if non is set
-if (!$auth["design"]) $auth["design"] = "simple";
-if (!file_exists("design/{$auth["design"]}/templates/main.htm")) $auth["design"] = "simple";
-$_SESSION["auth"]["design"] = $auth["design"];
-if ($_GET['design'] and $_GET['design'] != 'popup' and $_GET['design'] != 'base') $auth['design'] = $_GET['design'];
+### index_module.inc.php load the Modulactions and Codes
+	
+	include_once('index_module.inc.php');
 
-// Boxes
-if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') include_once("modules/boxes/class_boxes.php");
+### Complete Framework and Output HTML
 
-#if ($_GET['design'] != 'base') include_once('design/'. $auth['design'] .'/templates/index.php');
-#else include_once('index_module.inc.php');
-include_once('index_module.inc.php');
+	$framework->set_design($auth['design']);
+	$framework->add_content($FrameworkMessages);  	// Add old Frameworkmessages (sollten dann ausgetauscht werden)
+	$framework->add_content($MainContent);			// Add oll MainContent-Variable (sollte auch bereinigt werden)
+	$framework->displayall();  // Output of all HTML
+	
+### Statistics will be updated only at scriptend, so pagesize and loadtime can be insert
 
-$sitetool->out_optimizer();
-
-// Aktualisierung der Statistik wird erst am Schluss durchgeführt, damit Seitengrösse und Berechnungsdauer eingetragen werden können.
-if ($db->success) {
-  if ($_GET['design'] != 'base' AND !$_GET['mod']=="install") $stats->update($sitetool->out_work(), 0);
-
-  // Check Cronjobs
-  if (!$_GET['mod']=="install") $cron2->CheckJobs();
-  $db->disconnect();
-}
+	if ($db->success) {
+	  //if ($_GET['design'] != 'base' AND !$_GET['mod']=="install") $stats->update($sitetool->out_work(), 0);
+	  // Check Cronjobs
+	  if (!$_GET['mod']=="install") $cron2->CheckJobs();
+	  $db->disconnect();
+	}
 
 ?>

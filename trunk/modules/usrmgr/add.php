@@ -45,7 +45,7 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
 			$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 			$verification_link = "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
 
-      if (!$mail->create_inet_mail($_POST['firstname'].' '.$_POST['name'], $_POST['email'], t('Ihre Anmeldung bei %1', $CurentURL['host']), t('Sie haben sich soeben bei uns auf %1 angemeldet. Damit Sie sich bei uns Einloggen können, müssen wir jedoch zuerst sicherstellen, dass Ihre Email korrekt ist. Klicken Sie zum Verifizieren Ihrer Email-Adresse bitte auf den folgenden Link %2', $CurentURL['host'], $verification_link), $cfg["sys_party_mail"])) {
+      if (!$mail->create_inet_mail($_POST['firstname'].' '.$_POST['name'], $_POST['email'], t('Ihre Anmeldung bei %1', $CurentURL['host']), t('Sie haben sich soeben bei uns auf %1 angemeldet. Damit Sie sich bei uns Einloggen können, müssen wir jedoch zuerst sicherstellen, dass Ihre Email korrekt ist. Klicken Sie zum Verifizieren Ihrer Email-Adresse bitte auf den folgenden Link %2', $framework->get_clean_url_query('host'), $verification_link), $cfg["sys_party_mail"])) {
         $func->error(t('Es ist ein Fehler beim Versand der Verifikations-Email aufgetreten.'));
       }
     }

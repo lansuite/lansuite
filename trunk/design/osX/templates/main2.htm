@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+	<title>{$MainTitle}</title>
+  <meta name="robots" content="index, follow" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="expires" content="900" />  
+  {$main_header_cssfiles}
+  <link rel="stylesheet" type="text/css" href="ext_scripts/niftycube/niftyCorners.css" />
+  <link rel="stylesheet" type="text/css" href="design/style.css" />
+  <link rel="stylesheet" type="text/css" href="design/{$Design}/style.css" />
+  {$main_header_csscode} 
+  {$main_header_jsfiles}
+  <script type="text/javascript" src="ext_scripts/niftycube/niftycube.js"></script>
+  <script type="text/javascript" src="scripts.js"></script>
+  {$main_header_jscode}
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="alternate" type="application/rss+xml" title="RDF-Datei" href="ext_inc/newsfeed/news.xml" />
+</head>
+
+
+<body onload="BodyOnload(1)" {$MainJS}>
+<a name="top"></a>
+<span id="LSloading" class="loading"></span>
+
+<table border="0" cellpadding="0" cellspacing="0" align="center" width="100%">
+<tr>
+	<td colspan="2" align="right">
+		<span class="small">{$smarty.now|date_format:"%d.%m.%Y"} | {$MainLogout}</span>
+	</td>
+</tr>
+<tr>
+	<td>
+		<strong><a href="index.php">{$MainLogo}</a></strong>
+	</td>
+	<td align="right">
+		<img src="design/osX/images/index_top_advertisement.gif" width="7" height="60" alt="" />
+		{$MainBanner}
+	</td>
+</tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0" align="center" width="100%">
+<tr>
+	<!-- LeftBlock //-->
+	<td valign="top" width="155" style="padding-right:8px;text-align:left;">{$MainLeftBox}</td>
+
+	<!-- MiddleBlock //-->
+	<td valign="top" style="text-align:center;">
+		<table border="0" cellpadding="0" cellspacing="0" align="center" width="100%">
+		<tr>
+			<td valign="middle" width="8" height="18" style="background:url(design/osX/images/menu_content_tl.gif) no-repeat">&nbsp;</td>
+			<td valign="middle" height="18" style="background:url(design/osX/images/menu_content_top.gif) repeat-x">&nbsp;</td>
+			<td valign="middle" width="8" height="18" style="background:url(design/osX/images/menu_content_tr.gif) no-repeat">&nbsp;</td>
+		</tr>
+		<tr>
+			<td valign="top" width="8" style="background:url(design/osX/images/menu_content_ml.gif) repeat-y"></td>
+			<td valign="top" align="left" id="LScontent" bgcolor="#E8E7E7">
+    <div id="{$MainContentStyleID}">
+        {$MainFrameworkmessages}
+		{$MainContent}
+    </div>
+      </td>
+			<td valign="top" width="8" style="background:url(design/osX/images/menu_content_mr.gif) repeat-y"></td>
+		</tr>
+		<tr>
+			<td valign="bottom" width="8" height="20" style="background:url(design/osX/images/menu_content_bl.gif) no-repeat">&nbsp;</td>
+			<td valign="bottom" align="right" height="20" style="background:url(design/osX/images/menu_content_bottom_.gif) repeat-x">
+				<a href="#top"><img src="design/osX/images/index_bottom_2top.gif" width="78" height="7" border="0" alt="" /></a>
+			</td>
+			<td valign="bottom" width="8" height="20"  style="background:url(design/osX/images/menu_content_br.gif) no-repeat"></td>
+		</tr>
+		<tr>
+      <td>&nbsp
+      </td>
+      <td align="center" class="copyright" id="LSfooter"><br>{$Footer}
+      </td>
+      <td>&nbsp
+      </td>
+    </tr>
+		<tr>
+			<td></td>
+			<td>{$MainDebug}</td>
+			<td></td>
+		</tr>
+		</table>
+	</td>
+
+	<!-- RightBlock -->
+	<td valign="top" width="155" style="padding-left:8px;text-align:right">{$MainRightBox}</td>
+</tr>
+</table>
+
+</body>
+</html>
