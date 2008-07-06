@@ -73,7 +73,7 @@ class func {
     }
 
   function FetchMasterTmpl($file) {
-    global $auth, $templ, $config, $CurentURL, $dsp;
+    global $auth, $templ, $config, $dsp, $framework;
 
     if (!is_file($file)) return false;
     else {
@@ -91,8 +91,7 @@ class func {
         
         $tpl_str = str_replace('{$templ[\'index\'][\'html_header\']}', $dsp->FetchModTpl('', 'html_header'), $tpl_str);
 
-      $URLQuery = preg_replace('#[&]?fullscreen=yes#sUi', '', $CurentURL['query']);
-        $templ['index']['control']['current_url'] = 'index.php?'. $URLQuery .'&fullscreen=no';
+        $templ['index']['control']['current_url'] = 'index.php?'. $framework->get_clean_url_query('query') .'&fullscreen=no';
         $tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'current_url\']}', $templ['index']['control']['current_url'], $tpl_str);
 
       if ($auth['login']) $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', ' | <a href="index.php?mod=auth&action=logout" class="menu">Logout</a>', $tpl_str);
@@ -506,24 +505,24 @@ class func {
     }       
 
     function log_event($message, $type, $sort_tag = '', $target_id = '') {
-        global $db, $config, $auth, $CurentURLMod;
+        global $db, $config, $auth;
 
         if ($message == '' or $type == '') echo("Function log_event needs message and type defined! - Invalid arguments supplied!");
 
         // Types:  1 = Info, 2 = Warning, 3 = Error (be careful with 3)
         else {
-            if ($sort_tag == '') $sort_tag = $CurentURLMod;
+            if ($sort_tag == '') $sort_tag = $_GET['mod'];
             $atuser = $auth["userid"];
             if($atuser == "") $atuser = "0";
             $timestamp = date("U");
             $entry = $db->query("INSERT INTO {$config["tables"]["log"]} SET
-        userid='$atuser',
-        description='". $this->escape_sql($message) ."',
-        type='$type',
-        date=NOW(),
-        sort_tag = '$sort_tag',
-        target_id = '$target_id'
-        ");
+							        userid='$atuser',
+							        description='". $this->escape_sql($message) ."',
+							        type='$type',
+							        date=NOW(),
+							        sort_tag = '$sort_tag',
+							        target_id = '$target_id'
+							        ");
 
             if ($entry == 1) return(1); else return(0);
         }
@@ -648,7 +647,6 @@ class func {
             $debug .= $this->debug_parse_array($_SESSION, '$_SESSION');
             $debug .= $this->debug_parse_array($_SERVER, '$_SERVER');
             $debug .= $this->debug_parse_array($_FILES["importdata"], '$_FILES[importdata]'); 
-
             $debug .= HTML_NEWLINE . "<h3>Querys</h3>";
 
             // *** Achtung.. wird noch ausgelagert. Is nur ein Versuch. Byte

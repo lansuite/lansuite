@@ -103,7 +103,7 @@ class masterform {
 
   // Print form
     function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer needed!
-    global $dsp, $db, $config, $func, $sec, $lang, $templ, $CurentURLBase, $mf_number, $__POST;
+    global $dsp, $db, $config, $func, $sec, $lang, $templ, $framework, $mf_number, $__POST;
 
     // Break, if in wrong form
     $Step_Tmp = $_GET['mf_step'];
@@ -118,7 +118,7 @@ class masterform {
         $this->AddGroup(); // Adds non-group-fields to fake group
     if ($BaseURL) $StartURL = $BaseURL .'&'. $idname .'='. $id;
     else {
-      $StartURL = $CurentURLBase;
+      $StartURL =$framework->get_clean_url_query('base');
       $StartURL = str_replace('&mf_step=2', '', $StartURL);
       $StartURL = preg_replace('#&mf_id=[0-9]*#si', '', $StartURL);
 

@@ -98,7 +98,7 @@ switch($_GET["step"]) {
 		$db->query("DELETE FROM {$config["tables"]["menu"]} WHERE caption='' AND action='' AND file=''");
 
 		$dsp->NewContent(t('Modul-Menüeinträge'), t('Hier können Sie die Navigationseinträge dieses Moduls ändern.'));
-		$dsp->SetForm($script_filename ."?mod=install&action=modules&step=21&module={$_GET["module"]}");
+		$dsp->SetForm("index.php?mod=install&action=modules&step=21&module={$_GET["module"]}");
 
  		$dsp->AddFieldsetStart(t('Hauptmenüpunkt des Moduls / Modul-Startseite'));
 		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND level = 0 AND caption != '' ORDER BY requirement, pos");
@@ -137,7 +137,7 @@ switch($_GET["step"]) {
 					WHERE id = '$key'");
 		}
 
-		$func->confirmation(t('Änderungen erfolgreich gespeichert.'), $script_filename ."?mod=install&action=modules&step=20&module={$_GET["module"]}");
+		$func->confirmation(t('Änderungen erfolgreich gespeichert.'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
 	break;
 
 	// Delete Menuentry
