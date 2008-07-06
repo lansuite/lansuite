@@ -224,7 +224,7 @@
 
 ### Create Boxes / load Boxmanager
 	
-	if (!$IsAboutToInstall and !$_GET['contentonly'] and $_GET['design'] != 'base') include_once("modules/boxes/class_boxes.php");
+	if (!$IsAboutToInstall and $_GET['design'] != 'base') include_once("modules/boxes/class_boxes.php");
 
 ### index_module.inc.php load the Modulactions and Codes
 	

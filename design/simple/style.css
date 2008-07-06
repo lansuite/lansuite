@@ -63,6 +63,7 @@ ul.BoxHeadline {
   margin: 0px 0px 0px 0px;    border-bottom:1px solid #9c9d9c;    padding: 4px 4px 4px 8px;
   background: #eee6e6;
   font-weight: bold;    list-style: none;
+  white-space:nowrap
 }
 li.BoxCaption {
   width: 136px;

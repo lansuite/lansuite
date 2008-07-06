@@ -190,7 +190,7 @@ textarea {
   width: 100%;
 }
 
-.box_entry, .box_entryuser, .box_entry_active, .engaged, .box_entryadd {
+.box_entry, .box_entryuser, .box_entry_active, .engaged, .box_entryadd, .box_content, .box_entrydata {
   list-style: none;
 }
 /* ---- BEGINN Änderung .box ----*/
