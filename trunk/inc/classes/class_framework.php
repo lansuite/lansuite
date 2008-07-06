@@ -222,49 +222,51 @@ class framework {
    * @return string Returns the Complete HTML
    */
     function displayall() {
-
 	    global $dsp, $templ, $cfg, $db, $lang, $auth, $smarty, $func;
-	    
 	    $compression_mode = $this->check_optimizer();
 	
-		$footer = $dsp->FetchTpl('design/templates/footer.htm');
+		### Prepare Header	
 
-        // Define Footer-Message
-        $footer .= HTML_NEWLINE .'<a href="index.php?mod=about" class="menu">'. $templ['index']['info']['version'].' &copy;2001-'.date('y').'</a>'
-      		.' | DB-Querys: '. $db->count_query
-      		.' | Processed in: '. round($this->out_work(), 2) .' Sec'. $site_size
-            .' | <a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=yes" class="menu">Fullscreen</a>';
+	      	if ($_GET['sitereload']) 
+				$smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">');
+			// Add special CSS and JS
+			$smarty->assign('main_header_jsfiles', $this->main_header_jsfiles);
+	      	$smarty->assign('main_header_jscode', $this->main_header_jscode);
+			$smarty->assign('main_header_cssfiles', $this->main_header_cssfiles);
+	      	$smarty->assign('main_header_csscode', $this->main_header_csscode);
+	
+		### Prepare Footer
 
-        if ($cfg["sys_optional_footer"]) $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
-	    if ($_GET['contentonly']) $this->main_content .= '<div id="NewLSfooter">'. $footer .'</div>';
+			$smarty->assign('main_footer_version', $templ['index']['info']['version']);
+			$smarty->assign('main_footer_date', date('y'));
+			$smarty->assign('main_footer_countquery',$db->count_query);
+			$smarty->assign('main_footer_timer', round($this->out_work(), 2));
+			$smarty->assign('main_footer_cleanquery', $this->get_clean_url_query('query'));
+			$footer = $smarty->fetch('design/templates/footer.htm');
 
-        $smarty->assign('Footer', $footer);
-		$smarty->assign('Design', $this->design);
-      
-	  
-	  	$MainHeader = $smarty->fetch('design/templates/html_header.htm');
-      	if ($_GET['sitereload']) $MainHeader .= '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">';
-        
-		$smarty->assign('MainHeader', $MainHeader);
+ 	        if ($cfg["sys_optional_footer"]) $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
+			// ????
+			// 	if ($_GET['contentonly']) $this->main_content .= '<div id="NewLSfooter">'. $footer .'</div>';
+	        $smarty->assign('Footer', $footer);
 		
-		// Unterscheidung fullscrenn / Normal
-      	if ($_SESSION['lansuite']['fullscreen'] or $this->modus == 'popup') $smarty->assign('MainContentStyleID', 'ContentFullscreen');
-      		else $smarty->assign('MainContentStyleID', 'Content');
-      	
-		$smarty->assign('MainBodyJS', $templ['index']['body']['js']);
-     	$smarty->assign('MainJS', $templ['index']['control']['js']);
+		### Prepare Mainpage
+			
+			$smarty->assign('Design', $this->design);
+      
+			// Unterscheidung fullscreen / Normal
+	      	if ($_SESSION['lansuite']['fullscreen'] or $this->modus == 'popup') 
+			  	$smarty->assign('MainContentStyleID', 'ContentFullscreen');
+	      	else $smarty->assign('MainContentStyleID', 'Content');
+	      	
+			$smarty->assign('MainBodyJS', $templ['index']['body']['js']);
+	     	$smarty->assign('MainJS', $templ['index']['control']['js']);
 
-		$smarty->assign('main_header_jsfiles', $this->main_header_jsfiles);
-      	$smarty->assign('main_header_jscode', $this->main_header_jscode);
-		$smarty->assign('main_header_cssfiles', $this->main_header_cssfiles);
-      	$smarty->assign('main_header_csscode', $this->main_header_csscode);
-      	
       	if ($auth['login']) $smarty->assign('MainLogout', '<a href="index.php?mod=auth&action=logout" class="menu">Logout</a>');     
 		
 		// Ausgabe Hauptseite
 		if (!$_SESSION['lansuite']['fullscreen']) {
         	if ($this->modus!= 'popup') {
-        		$smarty->assign('MainFrameworkmessages', $this->framework_messages); ################################################
+        		$smarty->assign('MainFrameworkmessages', $this->framework_messages); 
 	          	$smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
 	          	$smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
 	          	$smarty->assign('MainLogo', '<img src="design/simple/images/logo.gif" alt="Logo" title="Lansuite" border="0" />');
