@@ -160,7 +160,7 @@ else {
       }
       $tmpDate = "";
       $tmpSNCode ="<table cellspacing=\"5\" width=\"100%\">";
-      foreach ($shortnews as $newsdate=>$value) {
+      if ($shortnews) foreach ($shortnews as $newsdate=>$value) {
         $tmpSNCode .= "<tr><td colspan=\"2\"><strong>$newsdate</strong></td></tr><tr><td colspan=\"2\"><div class=\"hrule\"></div></td></tr>";
         foreach ($shortnews[$newsdate] as $newsitemtime=>$newsitemdata ) {
           $tmpSNCode .= "<tr><td width=\"45\" align=\"center\" valign=\"top\" rowspan=\"2\">" .$newsitemtime ."</td><td><strong>" .$newsitemdata['caption'] ."</strong> (" .$newsitemdata['username'] .")</td></tr><tr><td>" .$newsitemdata['text'] ."</td></tr>";      
