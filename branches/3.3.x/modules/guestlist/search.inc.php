@@ -76,8 +76,8 @@ if ($party->party_id) {
   $ms2->AddResultField(t('Sitz'), 'u.userid', 'SeatNameLink');
 
   if (!$cfg['sys_internet']) {
-    $ms2->AddResultField(t('In'), 'p.checkin', 'MS2GetDate');
-    $ms2->AddResultField(t('Out'), 'p.checkout', 'MS2GetDate');
+    $ms2->AddResultField(t('In'), 'UNIX_TIMESTAMP(p.checkin) AS checkin', 'MS2GetDate');
+    $ms2->AddResultField(t('Out'), 'UNIX_TIMESTAMP(p.checkout) AS checkout', 'MS2GetDate');
   }
 }
 $ms2->AddIconField('details', 'index.php?mod=guestlist&action=details&userid=', $lang['ms2']['details']);
