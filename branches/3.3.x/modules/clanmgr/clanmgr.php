@@ -42,7 +42,7 @@ switch ($_GET['step']) {
     $dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a>');
 
     $dsp->AddFieldSetStart(t('Mitglieder'));
-    $res2 = $db->qry('SELECT firstname, name, username FROM %prefix%user WHERE clanid = %int%', $_GET['clanid']);
+    $res2 = $db->qry('SELECT userid, firstname, name, username FROM %prefix%user WHERE clanid = %int%', $_GET['clanid']);
     while ($row2 = $db->fetch_array($res2)) {
       if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['userid'] == $_GET['userid']) $realname = $row2['firstname'] .' '. $row2['name'];
       else $realname = ''; 
@@ -68,12 +68,12 @@ switch ($_GET['step']) {
       if ($mf->SendForm('index.php?mod=clanmgr&action=clanmgr&step=10', 'clan', 'clanid', $_GET['clanid'])) {
 
         // Send information mail to all clan members
-      	$clanuser = $db->query("SELECT userid, username, email FROM {$config['tables']['user']} WHERE clanid='{$_GET['clanid']}'");
-      	while ($data = $db->fetch_array($clanuser)) {
-      		$mail->create_mail($auth['userid'], $data['userid'], t('Clanpasswort geändert'), t('Das Clanpasswort wurde durch den Benutzer %1 in "%2" geändert', array($auth['username'], $_POST['password_original'])));
-      		$mail->create_inet_mail($data['username'], $data['email'], t('Clanpasswort geändert'), t('Das Clanpasswort wurde durch den Benutzer %1 in "%2" geändert', array($auth['username'], $_POST['password_original'])), $cfg["sys_party_mail"]);
-      	}
-      	$func->log_event(t('Das Clanpasswort wurde durch den Benutzer %1 geändert', array($auth['username'])), 1, t('Clanmanager'));
+        $clanuser = $db->query("SELECT userid, username, email FROM {$config['tables']['user']} WHERE clanid='{$_GET['clanid']}'");
+        while ($data = $db->fetch_array($clanuser)) {
+            $mail->create_mail($auth['userid'], $data['userid'], t('Clanpasswort geändert'), t('Das Clanpasswort wurde durch den Benutzer %1 in "%2" geändert', array($auth['username'], $_POST['password_original'])));
+            $mail->create_inet_mail($data['username'], $data['email'], t('Clanpasswort geändert'), t('Das Clanpasswort wurde durch den Benutzer %1 in "%2" geändert', array($auth['username'], $_POST['password_original'])), $cfg["sys_party_mail"]);
+        }
+        $func->log_event(t('Das Clanpasswort wurde durch den Benutzer %1 geändert', array($auth['username'])), 1, t('Clanmanager'));
       }
     }
   break;
