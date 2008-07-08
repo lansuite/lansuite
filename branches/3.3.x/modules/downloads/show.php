@@ -92,7 +92,7 @@ if (!$cfg['download_use_ftp']) {
     if ($auth['type'] >= 2 or ($auth['login'] and $row['allow_upload'])) {
       // File Upload Box
       $dsp->AddFieldSetStart(t('Datei hochladen'));
-      $dsp->SetForm('index.php?mod=downloads&step=20', '', '', 'multipart/form-data');
+      $dsp->SetForm('index.php?mod=downloads&step=20&dir='. $_GET['dir'], '', '', 'multipart/form-data');
       $dsp->AddFileSelectRow('upload', t('Datei'), '', '', '', 1);
       $dsp->AddFormSubmitRow('add');
       $dsp->AddFieldSetEnd();
