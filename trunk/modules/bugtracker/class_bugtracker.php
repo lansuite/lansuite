@@ -1,4 +1,4 @@
-<?
+<?php
 class Bugtracker {
 
   var $stati = array();
