@@ -1,4 +1,4 @@
-<?
+<?php
 $dsp->NewContent('Zeichen anklicken, um es ins Textfeld einzufügen');
 
 $smilie = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");

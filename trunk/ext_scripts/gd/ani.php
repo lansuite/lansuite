@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 *------------------------------------------------------------
@@ -251,11 +251,11 @@ return $Info;
 *
 *         Parameters:       $img - Target Image (Can be array of images)
 *                      $filename - Target ani file to save
-*			  $Rates - jifs rate of the images (OPTIONAL)
-*				 - can be array of integer if not array,
-*				    use this value for all images
-*			  $Athor - Author name (OPTIONAL)
-*			  $Title - Title of the ani file (OPTIONAL)
+*             $Rates - jifs rate of the images (OPTIONAL)
+*                - can be array of integer if not array,
+*                   use this value for all images
+*             $Athor - Author name (OPTIONAL)
+*             $Title - Title of the ani file (OPTIONAL)
 *
 *
 *

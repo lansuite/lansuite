@@ -1,4 +1,4 @@
-<?
+<?php
 
 $helplet['modul'] = 'WWCL-Box';
 $helplet['action'] = 'Hilfe';

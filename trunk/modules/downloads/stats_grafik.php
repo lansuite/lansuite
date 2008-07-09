@@ -11,7 +11,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
   <polyline points="40 278  660 278" fill="none" stroke="black" stroke-width="3px" />
   <polyline points="40 0  40 280" fill="none" stroke="black" stroke-width="3px" />
   <polyline points="660 0  660 280" fill="none" stroke="black" stroke-width="3px" />
-<?
+<?php
 
 switch ($_GET['time']) {
   default:

@@ -1,4 +1,4 @@
-<?
+<?php
 
 $helplet['modul'] = 'Lansuite-Suchfunktion';
 $helplet['action'] = 'Volltext Suche';
