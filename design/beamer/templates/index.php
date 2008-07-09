@@ -21,32 +21,32 @@ if (!$_SESSION['lansuite']['fullscreen']) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
 <head>
-	<title><?$dsp->EchoVar('title')?></title>
-	<?$dsp->EchoTpl('design/templates/html_header.htm');
-	  if( $_GET['sitereload'] ) {
-		echo '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">';
-	  }
-	?>
+    <title><?php $dsp->EchoVar('title')?></title>
+    <?php $dsp->EchoTpl('design/templates/html_header.htm');
+      if( $_GET['sitereload'] ) {
+        echo '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">';
+      }
+    ?>
   <link rel="stylesheet" type="text/css" href="ext_scripts/niftycube/niftyCorners.css" />
   <script type="text/javascript" src="ext_scripts/niftycube/niftycube.js"></script>
 </head>
 
 
-<body onload="BodyOnload(1)" <?$dsp->EchoVar('body_atr')?>>
-<?$dsp->EchoVar('js')?>
+<body onload="BodyOnload(1)" <?php $dsp->EchoVar('body_atr')?>>
+<?php $dsp->EchoVar('js')?>
 <a name="top"></a>
 <span id="LSloading" class="loading"></span>
 
-<div id="DateLogout"><?$dsp->EchoVar('DateLogout')?></div>
+<div id="DateLogout"><?php $dsp->EchoVar('DateLogout')?></div>
 <div id="Banner"> BEAMER TEMPLATE - NOT FOR STANDARD USE <br/> OPTIMIZED FOR FULLSCREEN MODE </div>
 
-<div id="BoxesLeft"><?$dsp->EchoVar('BoxesLeft')?></div>
-<div id="<?$dsp->EchoVar('ContentStyle')?>">
-  <?include_once('index_module.inc.php')?>
-  <div id="Footer"><? /* if ($_GET['design'] != 'popup') include_once('design/templates/footer.php') */ ?></div>
-  <?$dsp->EchoVar('Debug')?>
+<div id="BoxesLeft"><?php $dsp->EchoVar('BoxesLeft')?></div>
+<div id="<?php $dsp->EchoVar('ContentStyle')?>">
+  <?php include_once('index_module.inc.php')?>
+  <div id="Footer"><?php /* if ($_GET['design'] != 'popup') include_once('design/templates/footer.php') */ ?></div>
+  <?php $dsp->EchoVar('Debug')?>
 </div>
-<div id="BoxesRight"><? $dsp->EchoVar('BoxesRight') ?></div>
-<div id="Logo"><?$dsp->EchoVar('Logo')?></div>
+<div id="BoxesRight"><?php  $dsp->EchoVar('BoxesRight') ?></div>
+<div id="Logo"><?php $dsp->EchoVar('Logo')?></div>
 </body>
 </html>
