@@ -1,4 +1,4 @@
-;<? /*
+;<?php /*
 ; Position 0 = Plugin disabled
 
 [home]

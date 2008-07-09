@@ -1,4 +1,4 @@
-<?
+<?php
 // This File is a Part of the LS-Pluginsystem. It will be included in 
 // ...
 

@@ -1,4 +1,4 @@
-<?
+<?php
 
 $helplet['modul'] = 'Signon-Status-Box';
 $helplet['action'] = 'Hilfe';

@@ -1,4 +1,4 @@
-<?
+<?php
 
 $helplet['modul'] = 'Login-Box';
 $helplet['action'] = 'Hilfe';

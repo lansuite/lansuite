@@ -1,4 +1,4 @@
-<?
+<?php
 
 $helplet['modul'] = 'Letzte Benutzer-Box';
 $helplet['action'] = 'Hilfe';
