@@ -19,8 +19,8 @@ if ($cfg['sys_optional_footer']) $dsp->SetVar('footer-line', HTML_NEWLINE . $cfg
 -->
 <a  href="http://www.lansuite.de" title="Lansuite"><img src="ext_inc/footer_buttons/button-lansuite-grey.png" onmouseover="this.src='ext_inc/footer_buttons/button_lansuite.png'" onmouseout="this.src='ext_inc/footer_buttons/button-lansuite-grey.png'" width="80" height="15" alt="Lansuite" border="0" /></a>
 <br />
-<span class="footer"><a href="index.php?mod=about" class="menu"><?$dsp->EchoVar('version')?> &copy;2001-<?$dsp->EchoVar('year')?></a>
- | DB-Querys: <?$dsp->EchoVar('db-querys')?>
- | Processed in: <?$dsp->EchoVar('processed-in')?> Sec
- | <a href="<?$dsp->EchoVar('url-base')?>&amp;fullscreen=yes" class="menu">Fullscreen</a>
- <?$dsp->EchoVar('footer-line')?></span>
+<span class="footer"><a href="index.php?mod=about" class="menu"><?php $dsp->EchoVar('version')?> &copy;2001-<?php $dsp->EchoVar('year')?></a>
+ | DB-Querys: <?php $dsp->EchoVar('db-querys')?>
+ | Processed in: <?php $dsp->EchoVar('processed-in')?> Sec
+ | <a href="<?php $dsp->EchoVar('url-base')?>&amp;fullscreen=yes" class="menu">Fullscreen</a>
+ <?php $dsp->EchoVar('footer-line')?></span>

@@ -1,4 +1,4 @@
-<?
+<?php
 
 
 // Definiere HTML Tags

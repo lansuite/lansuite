@@ -1,4 +1,4 @@
-<?
+<?php
 // Default
 $lang['seating']['structure_version'] = '1';
 $lang['seating']['content_version']   = '1';
@@ -65,12 +65,12 @@ $lang['seating']['c_seat_mark2']  = 'The place was marked for %USERNAME% success
 $lang['seating']['c_release']     = 'The place was resigned successfully';
 
 // Seating
-$lang['seating']['free']		  = 'Free';
-$lang['seating']['reserved']	  = 'Occupied';
-$lang['seating']['me']			  = 'Me';
-$lang['seating']['clan_seat']	  = 'Clanmate';
-$lang['seating']['marked']		  = 'Marked';
-$lang['seating']['selected']	  = 'Selected User';
+$lang['seating']['free']          = 'Free';
+$lang['seating']['reserved']      = 'Occupied';
+$lang['seating']['me']            = 'Me';
+$lang['seating']['clan_seat']     = 'Clanmate';
+$lang['seating']['marked']        = 'Marked';
+$lang['seating']['selected']      = 'Selected User';
 $lang['seating']['locked']      = 'Locked seat';
 $lang['seating']['checked_in']      = 'Occupied (Checked in)';
 $lang['seating']['checked_out']      = 'Free (Checked out)';

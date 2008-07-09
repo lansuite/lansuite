@@ -11,7 +11,7 @@ echo '<?xml version="1.0" encoding="utf-8"?>';
   <polyline points="50 278  650 278" fill="none" stroke="black" stroke-width="3px" />
   <polyline points="50 0  50 280" fill="none" stroke="black" stroke-width="3px" />
   <polyline points="650 0  650 280" fill="none" stroke="black" stroke-width="3px" />
-<?
+<?php
 
 switch ($_GET['time']) {
   default:
@@ -24,7 +24,7 @@ switch ($_GET['time']) {
     $XSteps = 20;
     $multiply = 'y';
   break;
-	case 'y':
+    case 'y':
     $link = 'm';
     $back = '';
     $group_by = '%Y-%m-00-00-00-00';
@@ -32,8 +32,8 @@ switch ($_GET['time']) {
     $where_back = '00-00-00-00-00-00';
     $XSteps = 12;
     $multiply = 'm';
-	break;
-	case 'm':
+    break;
+    case 'm':
     $link = 'd';
     $back = 'y';
     $group_by = '%Y-%m-%d-00-00-00';
@@ -41,8 +41,8 @@ switch ($_GET['time']) {
     $where_back = '%Y-00-00-00-00-00';
     $XSteps = 31;
     $multiply = 'd';
-	break;
-	case 'd':
+    break;
+    case 'd':
     $link = '';
     $back = 'm';
     $group_by = '%Y-%m-%d-%H-00-00';
@@ -50,14 +50,14 @@ switch ($_GET['time']) {
     $where_back = '%Y-%m-00-00-00-00';
     $XSteps = 24;
     $multiply = 'H';
-	break;
+    break;
 }
 
 // Select max
 $res = $db->query("SELECT SUM(hits) AS hits, SUM(visits) AS visits FROM {$config["tables"]["stats_usage"]}
   WHERE DATE_FORMAT(time, '$where') = '{$_GET['timeframe']}'
   GROUP BY DATE_FORMAT(time, '$group_by')
-	");
+    ");
 while ($row = $db->fetch_array($res)) {
   if ($row_max['hits'] < $row['hits']) $row_max['hits'] = $row['hits'];
   if ($row_max['visits'] < $row['visits']) $row_max['visits'] = $row['visits'];

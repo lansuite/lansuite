@@ -1,4 +1,4 @@
-<?
+<?php
 // Default
 $lang['seating']['structure_version'] = '1';
 $lang['seating']['content_version']   = '1';
@@ -74,12 +74,12 @@ $lang['seating']['c_seat_mark2']  = 'Der Sitzplatz wurde erfolgreich für %USERN
 $lang['seating']['c_release']     = 'Der Sitzplatz wurde erfolgreich freigegeben';
 
 // Seating
-$lang['seating']['free']		  = 'Frei';
-$lang['seating']['reserved']	  = 'Besetzt';
-$lang['seating']['me']			  = 'Ihr Platz';
-$lang['seating']['clan_seat']	  = 'Platz eines Clanmates';
-$lang['seating']['marked']		  = 'Vorgemerkt';
-$lang['seating']['selected']	  = 'Ausgewählter User';
+$lang['seating']['free']          = 'Frei';
+$lang['seating']['reserved']      = 'Besetzt';
+$lang['seating']['me']            = 'Ihr Platz';
+$lang['seating']['clan_seat']     = 'Platz eines Clanmates';
+$lang['seating']['marked']        = 'Vorgemerkt';
+$lang['seating']['selected']      = 'Ausgewählter User';
 $lang['seating']['locked']      = 'Gesperrter Platz';
 $lang['seating']['checked_in']      = 'Besetzt (Eingecheckt)';
 $lang['seating']['checked_out']      = 'Frei (Ausgecheckt)';

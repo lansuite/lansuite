@@ -1,4 +1,4 @@
-<?
+<?php
 
 function RentCount($quantity) {
   global $line, $db;

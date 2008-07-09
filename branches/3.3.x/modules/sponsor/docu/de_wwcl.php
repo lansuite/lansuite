@@ -1,4 +1,4 @@
-<?
+<?php
 
 $helplet['modul'] = 'WWCL-Code';
 $helplet['action'] = 'Hilfe';

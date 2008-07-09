@@ -1,4 +1,4 @@
-<?
+<?php
 
 $helplet['modul'] = 'Board';
 $helplet['action'] = 'Hilfe';
