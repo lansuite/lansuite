@@ -1,4 +1,4 @@
-<?
+<?php
 
 $helplet['modul'] = 'Google Adsense';
 $helplet['action'] = 'Hilfe';
