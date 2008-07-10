@@ -546,7 +546,7 @@ class masterform {
                 $db_query = '';
                 foreach ($this->SQLFields as $key => $val) $db_query .= "$val = '". $_POST[$val][$value2] ."', ";
                 $db_query = substr($db_query, 0, strlen($db_query) - 2);
-                $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% = %int%", $table, $db_query, $idname. $value2);
+                $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% = %int%", $table, $db_query, $idname, $value2);
                 $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($value2, $config['tables'][$table])), 1, '', $this->LogID);
 
               } else {
