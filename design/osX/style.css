@@ -104,7 +104,7 @@ input.Button:hover, span.Button:hover {
 
 
 /* Content */
-ul.Line {
+ul.LineBoard {
   background: url(images/row_bg_board.gif) repeat-y 15% 0;
   font-size: 11px;
 }

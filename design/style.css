@@ -61,6 +61,7 @@ ul.Line {
   position: relative;   height: 100%;
   margin: 0px 0px 0px 0px;    border-top: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
   clear: left;
+
 }
 ul.LineFirst {
   position: relative;   height: 100%;
@@ -74,17 +75,24 @@ li.LineLeft {
   list-style: none;
 }
 li.LineLeftBoard {
-  width: 15%;   min-height: 16px;   z-index: 10;
+  width: 14%;   min-height: 16px;   z-index: 10;
   margin: 0px 0px 0px 0px;    padding: 4px 1% 4px 1%;
   float: left;
   list-style: none;
 }
 li.LineLeftHalf {
-  width: 50%;   min-height: 16px;   z-index: 10;
-  margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 4px;
+  width: 48%;   min-height: 16px;   z-index: 10;
+  margin: 0px 0px 0px 0px;    padding: 4px 1% 4px 0%;
   float: left;
   list-style: none;
 }
+li.LineRightHalf {
+  width: 48%;   min-height: 16px;   z-index: 11;
+  margin: 0px 0px 0px 0px;    padding: 4px 1% 4px 1%;
+  float: left;
+  list-style: none;
+}
+
 li.LineRight {
   width:76%;
   min-height: 16px;   z-index: 11;
