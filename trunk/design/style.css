@@ -58,7 +58,7 @@ li.engaged {
   background:       #DEE3E7;
 }
 ul.Line {
-  position: relative;   height: 100%;
+  position: relative;   height: 100%;  width: 100%;
   margin: 0px 0px 0px 0px;    border-top: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
   clear: left;
 
@@ -99,6 +99,21 @@ li.LineRight {
   margin: 0px 0px 0px 0px;    padding: 4px 1% 4px 1%;
   list-style: none;
   float: left;
+}
+li.LineMiddle {
+  width:70%;
+  min-height: 16px;   z-index: 11;
+  margin: 0px 0px 0px 0px;    padding: 4px 1% 4px 1%;
+  list-style: none;
+  float: left;
+}
+li.LineMiddleRight {
+  width:4%;
+  min-height: 16px;   z-index: 11;
+  margin: 0px 0px 0px 0px;    padding: 4px 1% 4px 1%;
+  list-style: none;
+  text-align:right;
+  float: right;
 }
 li.LineRightBoard {
   width:80%;

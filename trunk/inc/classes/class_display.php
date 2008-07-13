@@ -182,6 +182,22 @@ class display {
     $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_double.htm'));
   }
 
+  function AddTripleRow($key, $value, $id = NULL, $ext_txt) {
+    global $smarty;
+
+    if ($key == "") $key = "&nbsp;";
+	if ($value == "") $value = "&nbsp;";
+	if ($ext_txt == "") $value = "&nbsp;";
+    if ($id == "") $id = "DoubleRowVal";
+
+    $smarty->assign('key', $key);
+    $smarty->assign('value', $value);
+    $smarty->assign('id', $id);
+    $smarty->assign('ls_triplerow_ext', $ext_txt);
+
+    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_triple.htm'));
+  }
+
   function AddCheckBoxRow($name, $key, $text, $errortext, $optional = NULL, $checked = NULL, $disabled = NULL, $val = NULL, $additionalHTML = NULL) {
     ($checked)? $checked = 'checked' : $checked = '';
     ($disabled)? $disabled = 'disabled' : $disabled = '';
