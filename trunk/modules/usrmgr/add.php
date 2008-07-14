@@ -12,12 +12,12 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
   if ($_POST['clan']) $clan->AddMember($_POST['clan'], $id);
   else $clan->RemoveMember($id);
 
-	// Update User-Perissions
-	if ($id) {
-  	$db->query("DELETE FROM {$config["tables"]["user_permissions"]} WHERE userid = $id");
-  	if ($_POST["permissions"]) foreach ($_POST["permissions"] as $perm) {
-  		$db->query("INSERT INTO {$config["tables"]["user_permissions"]} SET module = '$perm', userid = $id");
-  	}
+    // Update User-Perissions
+    if ($id) {
+    $db->query("DELETE FROM {$config["tables"]["user_permissions"]} WHERE userid = $id");
+    if ($_POST["permissions"]) foreach ($_POST["permissions"] as $perm) {
+        $db->query("INSERT INTO {$config["tables"]["user_permissions"]} SET module = '$perm', userid = $id");
+    }
   }
 
   // If new user has been added
@@ -28,22 +28,22 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
     // If auto generated PW, use PW stored in session, else use PW send by POST field
     if ($_POST['password_original']) $_SESSION['tmp_pass'] = $_POST['password_original'];
 
-  	if ($cfg["signon_password_mail"]) {
-  		if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Ihr Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.'), NO_LINK);
-  		else {
-  			if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-Email aufgetreten.'), NO_LINK);
-  			$cfg['signon_password_view'] = 1;
-  		}
+    if ($cfg["signon_password_mail"]) {
+        if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Ihr Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.'), NO_LINK);
+        else {
+            if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-Email aufgetreten.'), NO_LINK);
+            $cfg['signon_password_view'] = 1;
+        }
     }
 
     // Send email-verification link
-  	if ($cfg['sys_login_verified_mail_only']) {
-			$verification_code = '';
-			for ($x=0; $x<=24; $x++) $verification_code .= chr(mt_rand(65,90));
-			$db->qry('UPDATE %prefix%user SET fcode=%string% WHERE userid = %int%', $verification_code, $id);
-			
-			$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
-			$verification_link = "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
+    if ($cfg['sys_login_verified_mail_only']) {
+            $verification_code = '';
+            for ($x=0; $x<=24; $x++) $verification_code .= chr(mt_rand(65,90));
+            $db->qry('UPDATE %prefix%user SET fcode=%string% WHERE userid = %int%', $verification_code, $id);
+            
+            $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
+            $verification_link = "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
 
       if (!$mail->create_inet_mail($_POST['firstname'].' '.$_POST['name'], $_POST['email'], t('Ihre Anmeldung bei %1', $CurentURL['host']), t('Sie haben sich soeben bei uns auf %1 angemeldet. Damit Sie sich bei uns Einloggen können, müssen wir jedoch zuerst sicherstellen, dass Ihre Email korrekt ist. Klicken Sie zum Verifizieren Ihrer Email-Adresse bitte auf den folgenden Link %2', $framework->get_clean_url_query('host'), $verification_link), $cfg["sys_party_mail"])) {
         $func->error(t('Es ist ein Fehler beim Versand der Verifikations-Email aufgetreten.'));
@@ -53,17 +53,17 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
     // Show passwort, if wanted, or has mail failed
     if ($cfg['signon_password_view']) $func->information(t('Ihr Passwort lautet: <b>%1</b>', array($_SESSION['tmp_pass'])), NO_LINK);
     $_SESSION['tmp_pass'] = '';
-	}
+    }
 
 /*
-	// Picture Upload
-	if ($auth["type"] >= 2) if (file_exists($_FILES['picture']['tmp_name'])) {
-		@unlink("ext_inc/user_pics/pic$id.jpg");
-		@copy($_FILES["picture"]["tmp_name"], "ext_inc/user_pics/pic$id.jpg");
-	}
+    // Picture Upload
+    if ($auth["type"] >= 2) if (file_exists($_FILES['picture']['tmp_name'])) {
+        @unlink("ext_inc/user_pics/pic$id.jpg");
+        @copy($_FILES["picture"]["tmp_name"], "ext_inc/user_pics/pic$id.jpg");
+    }
 */
 
-	return true;
+    return true;
 }
 
 /**
@@ -73,11 +73,11 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
  * @return mixed Returns Message on error else false
  */
 function check_opt_gender($gender) {
-	global $cfg;
-	if ($cfg["signon_show_gender"] == 2) {
-		if ($gender == 0) return t("Bitte wählen sie ein Geschlecht aus.");
-		else return false;
-	}
+    global $cfg;
+    if ($cfg["signon_show_gender"] == 2) {
+        if ($gender == 0) return t("Bitte wählen sie ein Geschlecht aus.");
+        else return false;
+    }
 }
 
 /**
@@ -89,13 +89,13 @@ function check_opt_gender($gender) {
  * @return mixed Returns Message on error else false
  */
 function check_birthday($date) {
-	global $cfg;
-	if ($cfg["signon_show_birthday"] == 2) {
-		$ref_date = (date("Y")-80)."-".date("n")."-".date("d");
-		if ($date == $ref_date OR ($date=="0000-00-00")) {
+    global $cfg;
+    if ($cfg["signon_show_birthday"] == 2) {
+        $ref_date = (date("Y")-80)."-".date("n")."-".date("d");
+        if ($date == $ref_date OR ($date=="0000-00-00")) {
             return t("Bitte das korrekte Geburtsdatum eingeben.");
         } else return false;
-	}	
+    }   
 }
 
 function CheckClanPW ($clanpw) {
@@ -114,7 +114,7 @@ function CheckClanNotExists ($ClanName) {
   $clan = $db->query_first("SELECT 1 AS found FROM {$config['tables']['clan']} WHERE name = '$ClanName'");
   if ($clan['found']) return t('Dieser Clan existiert bereits!') .HTML_NEWLINE. t(' Wenn Sie diesem beitreten möchten, wählen Sie ihn oberhalb aus dem Dropdownmenü aus.');
 
-	if (preg_match("/([.^\"\'`´]+)/", $ClanName)) return t('Sie verwenden nicht zugelassene Sonderzeichen in Ihrem Clannamen.');
+    if (preg_match("/([.^\"\'`´]+)/", $ClanName)) return t('Sie verwenden nicht zugelassene Sonderzeichen in Ihrem Clannamen.');
 
   return false;
 }
@@ -124,41 +124,41 @@ function PersoInput($field, $mode, $error = '') {
 
   switch ($mode) {
     case OUTPUT_PROC:
-			$_POST[$field .'_1'] = substr($_POST[$field], 0, 11);
-			$_POST[$field .'_2'] = substr($_POST[$field], 13, 7);
-			$_POST[$field .'_3'] = substr($_POST[$field], 21, 7);
-			$_POST[$field .'_4'] = substr($_POST[$field], 35, 1);
+            $_POST[$field .'_1'] = substr($_POST[$field], 0, 11);
+            $_POST[$field .'_2'] = substr($_POST[$field], 13, 7);
+            $_POST[$field .'_3'] = substr($_POST[$field], 21, 7);
+            $_POST[$field .'_4'] = substr($_POST[$field], 35, 1);
 
-    	if ($_POST[$field .'_1'] == '') $_POST[$field .'_1'] = "aaaaaaaaaaD";
-    	if ($_POST[$field .'_2'] == '') $_POST[$field .'_2'] = "bbbbbbb";
-    	if ($_POST[$field .'_3'] == '') $_POST[$field .'_3'] = "ccccccc";
-    	if ($_POST[$field .'_4'] == '') $_POST[$field .'_4'] = "d";
+        if ($_POST[$field .'_1'] == '') $_POST[$field .'_1'] = "aaaaaaaaaaD";
+        if ($_POST[$field .'_2'] == '') $_POST[$field .'_2'] = "bbbbbbb";
+        if ($_POST[$field .'_3'] == '') $_POST[$field .'_3'] = "ccccccc";
+        if ($_POST[$field .'_4'] == '') $_POST[$field .'_4'] = "d";
 
-    	$templ['ls']['row']['textfield']['name']	= $field;
-    	$templ['ls']['row']['textfield']['value1']	= $_POST[$field .'_1'];
-    	$templ['ls']['row']['textfield']['value2']	= $_POST[$field .'_2'];
-    	$templ['ls']['row']['textfield']['value3']	= $_POST[$field .'_3'];
-    	$templ['ls']['row']['textfield']['value4']	= $_POST[$field .'_4'];
-    	if ($error) $templ['ls']['row']['textfield']['errortext']	= $dsp->errortext_prefix . $error . $dsp->errortext_suffix;
-    	else $templ['ls']['row']['textfield']['errortext']	= '';
-    	if (Optional("perso")) $templ['ls']['row']['textfield']['optional']	= "_optional";
+        $templ['ls']['row']['textfield']['name']    = $field;
+        $templ['ls']['row']['textfield']['value1']  = $_POST[$field .'_1'];
+        $templ['ls']['row']['textfield']['value2']  = $_POST[$field .'_2'];
+        $templ['ls']['row']['textfield']['value3']  = $_POST[$field .'_3'];
+        $templ['ls']['row']['textfield']['value4']  = $_POST[$field .'_4'];
+        if ($error) $templ['ls']['row']['textfield']['errortext']   = $dsp->errortext_prefix . $error . $dsp->errortext_suffix;
+        else $templ['ls']['row']['textfield']['errortext']  = '';
+        if (Optional("perso")) $templ['ls']['row']['textfield']['optional'] = "_optional";
 
-    	return $dsp->FetchModTpl('usrmgr', 'row_perso');
+        return $dsp->FetchModTpl('usrmgr', 'row_perso');
     break;
 
     case CHECK_ERROR_PROC:
-  		$_POST[$field] = $_POST["perso_1"] . "<<" . $_POST["perso_2"] . "<". $_POST["perso_3"] . "<<<<<<<" . $_POST["perso_4"];
-  		if ($_POST[$field] == "aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d") $_POST[$field] = "";
-  		if ($_POST[$field] == "<<<<<<<<<<") $_POST[$field] = "";
+        $_POST[$field] = $_POST["perso_1"] . "<<" . $_POST["perso_2"] . "<". $_POST["perso_3"] . "<<<<<<<" . $_POST["perso_4"];
+        if ($_POST[$field] == "aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d") $_POST[$field] = "";
+        if ($_POST[$field] == "<<<<<<<<<<") $_POST[$field] = "";
       if ($_POST[$field] != '') {
-  			$perso_res = $usrmgr->CheckPerso($_POST[$field]);
-    		switch ($perso_res) {
-  				case 2: return str_replace("<", "&lt;", t('Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: \'aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d\'')); break;
-  				case 3: return t('Prüfsummenfehler. Bitte überprüfen Sie Ihre Angabe. Sehr wahrscheinlich haben Sie eine oder mehrere Zahlen falsch abgeschrieben.'); break;
-  				case 4: return t('Dieser Personalausweis ist leider bereits abgelaufen.'); break;
-  			}
-  		}
-			return false; // -> Means no error
+            $perso_res = $usrmgr->CheckPerso($_POST[$field]);
+            switch ($perso_res) {
+                case 2: return str_replace("<", "&lt;", t('Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: \'aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d\'')); break;
+                case 3: return t('Prüfsummenfehler. Bitte überprüfen Sie Ihre Angabe. Sehr wahrscheinlich haben Sie eine oder mehrere Zahlen falsch abgeschrieben.'); break;
+                case 4: return t('Dieser Personalausweis ist leider bereits abgelaufen.'); break;
+            }
+        }
+            return false; // -> Means no error
     break;
   }
 }
@@ -168,17 +168,17 @@ function BirthdayInput($field, $mode, $error = '') {
 
   switch ($mode) {
     case OUTPUT_PROC:
-			if ($_POST['birthday'] == 0) $_POST['birthday'] = 1;
-  		$dsp->AddDateTimeRow("birthday", t('Geburtstag'), $_POST['birthday'], $error["birthday"], "", "", (1970 - date("Y")), -5, 1, Optional("birthday"), " onChange=\"WriteAge();\"");
-  		$dsp->AddDoubleRow(t('U18-Prüfung'), $dsp->FetchModTPL("usrmgr", "u18check") . t(' Jahre'));
-    	return false;
+            if ($_POST['birthday'] == 0) $_POST['birthday'] = 1;
+        $dsp->AddDateTimeRow("birthday", t('Geburtstag'), $_POST['birthday'], $error["birthday"], "", "", (1970 - date("Y")), -5, 1, Optional("birthday"), " onChange=\"WriteAge();\"");
+        $dsp->AddDoubleRow(t('U18-Prüfung'), $dsp->FetchModTPL("usrmgr", "u18check") . t(' Jahre'));
+        return false;
     break;
 
     case CHECK_ERROR_PROC:
-  		// GetBirthdayTimestamp
-  		if (($_POST["birthday_value_year"] == (date("Y") - 34)) && ($_POST["birthday_value_month"] == "1") && ($_POST["birthday_value_day"] == "1")) $_POST['birthday'] = 0;
-  		else $_POST['birthday'] = $func->date2unixstamp($_POST["birthday_value_year"], $_POST["birthday_value_month"], $_POST["birthday_value_day"], 0, 0, 0);
-			return false; // -> Means no error
+        // GetBirthdayTimestamp
+        if (($_POST["birthday_value_year"] == (date("Y") - 34)) && ($_POST["birthday_value_month"] == "1") && ($_POST["birthday_value_day"] == "1")) $_POST['birthday'] = 0;
+        else $_POST['birthday'] = $func->date2unixstamp($_POST["birthday_value_year"], $_POST["birthday_value_month"], $_POST["birthday_value_day"], 0, 0, 0);
+            return false; // -> Means no error
     break;
   }
 }
@@ -189,21 +189,21 @@ function Addr1Input($field, $mode, $error = '') {
 
   switch ($mode) {
     case OUTPUT_PROC:
-			if ($_POST['street|hnr'] == '' and $_POST['street'] and $_POST['hnr']) $_POST['street|hnr'] = $_POST['street'] .' '. $_POST['hnr'];
-  		$dsp->AddTextFieldRow('street|hnr', t('Straße und Hausnummer'), $_POST['street|hnr'], $error, '', Optional('street'));
-    	return false;
+            if ($_POST['street|hnr'] == '' and $_POST['street'] and $_POST['hnr']) $_POST['street|hnr'] = $_POST['street'] .' '. $_POST['hnr'];
+        $dsp->AddTextFieldRow('street|hnr', t('Straße und Hausnummer'), $_POST['street|hnr'], $error, '', Optional('street'));
+        return false;
     break;
 
     case CHECK_ERROR_PROC:
-  		if ($_POST['street|hnr'] != '' or FieldNeeded('street')){
+        if ($_POST['street|hnr'] != '' or FieldNeeded('street')){
         $pieces = explode(' ', $_POST['street|hnr']);
         $_POST['hnr'] = (int)array_pop($pieces);
         $_POST['street'] = implode(' ', $pieces);
 
-  			if ($_POST['street'] == '') return t('Bitte geben Sie Straße und Hausnummer in folgendem Format ein: "Straßenname 12".');
-  			elseif ($_POST['hnr'] == 0) return t('Die Hausnummer muss numerisch sein.');
-  		}
-			return false; // -> Means no error
+            if ($_POST['street'] == '') return t('Bitte geben Sie Straße und Hausnummer in folgendem Format ein: "Straßenname 12".');
+            elseif ($_POST['hnr'] == 0) return t('Die Hausnummer muss numerisch sein.');
+        }
+            return false; // -> Means no error
     break;
   }
 }
@@ -213,45 +213,45 @@ function Addr2Input($field, $mode, $error = '') {
 
   switch ($mode) {
     case OUTPUT_PROC:
-			if ($_POST['plz|city'] == '' and $_POST['plz'] and $_POST['city']) $_POST['plz|city'] = $_POST['plz'] .' '. $_POST['city'];
-  		$dsp->AddTextFieldRow('plz|city', t('PLZ und Ort'), $_POST['plz|city'], $error, '', Optional('city'));
-    	return false;
+            if ($_POST['plz|city'] == '' and $_POST['plz'] and $_POST['city']) $_POST['plz|city'] = $_POST['plz'] .' '. $_POST['city'];
+        $dsp->AddTextFieldRow('plz|city', t('PLZ und Ort'), $_POST['plz|city'], $error, '', Optional('city'));
+        return false;
     break;
 
     case CHECK_ERROR_PROC:
-  		if (($_POST['plz|city'] != '') || (FieldNeeded('city'))){
+        if (($_POST['plz|city'] != '') || (FieldNeeded('city'))){
         $pieces = explode(' ', $_POST['plz|city']);
         $_POST['plz'] = array_shift($pieces);
         $_POST['city'] = implode(' ', $pieces);
 
-  			if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".');
-  			elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen. Postleitzahlen mit weniger Ziffern bitte mit führenden Nullen schreiben (z.B. 00123).');
-  		}
-			return false; // -> Means no error
+            if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".');
+            elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen. Postleitzahlen mit weniger Ziffern bitte mit führenden Nullen schreiben (z.B. 00123).');
+        }
+            return false; // -> Means no error
     break;
   }
 }
 
 
 function Optional($key){
-	global $cfg;
+    global $cfg;
 
-	if ($cfg["signon_show_".$key] <= 1) return 1;
-	else return 0;
+    if ($cfg["signon_show_".$key] <= 1) return 1;
+    else return 0;
 }
 
 function FieldNeeded($key){
-	global $cfg;
+    global $cfg;
 
-	if ($cfg["signon_show_".$key] == 2) return 1;
-	else return 0;
+    if ($cfg["signon_show_".$key] == 2) return 1;
+    else return 0;
 }
 
 function ShowField($key){
-	global $cfg;
+    global $cfg;
 
-	if ($cfg["signon_show_".$key] > 0) return 1;
-	else return 0;
+    if ($cfg["signon_show_".$key] > 0) return 1;
+    else return 0;
 }
 
 if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
@@ -292,9 +292,9 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         // Module-Permissions
         $selections = array();
         $res = $db->query("SELECT module.name, module.caption FROM {$config["tables"]["modules"]} AS module
-        	LEFT JOIN {$config["tables"]["menu"]} AS menu ON menu.module = module.name
-        	WHERE menu.file != ''
-        	GROUP BY menu.module");
+            LEFT JOIN {$config["tables"]["menu"]} AS menu ON menu.module = module.name
+            WHERE menu.file != ''
+            GROUP BY menu.module");
         while($row = $db->fetch_array($res)) $selections[$row['name']] = $row['caption'];
         $db->free_result($res);
 
@@ -343,7 +343,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
     if (!$quick_signon) {
       // Clan Options
       if (ShowField('clan')) {
-      	if (!isset($_POST['clan'])) {
+        if (!isset($_POST['clan'])) {
           $users_clan = $db->query_first("SELECT clanid FROM {$config["tables"]["user"]} WHERE userid = ". (int)$_GET['userid']);
           $_POST['clan'] = $users_clan['clanid'];
         }
@@ -352,12 +352,12 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         $selections[''] = '---';
         $PWClans = array();
         $clans_query = $db->query("SELECT c.clanid, c.name, c.url, c.password, COUNT(u.clanid) AS members
-        		FROM {$config["tables"]["clan"]} AS c
-        		LEFT JOIN {$config["tables"]["user"]} AS u ON c.clanid = u.clanid
-        		WHERE u.clanid IS NULL or u.type >= 1
-        		GROUP BY c.clanid
-        		ORDER BY c.name
-        		");
+                FROM {$config["tables"]["clan"]} AS c
+                LEFT JOIN {$config["tables"]["user"]} AS u ON c.clanid = u.clanid
+                WHERE u.clanid IS NULL or u.type >= 1
+                GROUP BY c.clanid
+                ORDER BY c.name
+                ");
         while ($row = $db->fetch_array($clans_query)) {
           $selections[$row['clanid']] = $row['name'] .' ('. $row['members'] .')';
           if ($row['password']) $PWClans[] = $row['clanid'];
@@ -401,7 +401,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
         if (ShowField('birthday')) $mf->AddField(t('Geburtstag'), 'birthday', '', '-80/-8', Optional('birthday'),'check_birthday');
       }
       if (ShowField('gender')) {
-		$selections = array();
+        $selections = array();
         $selections['0'] = t('Keine Angabe');
         $selections['1'] = t('Männlich');
         $selections['2'] = t('Weiblich');
@@ -417,9 +417,9 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
 
       // AGB and Vollmacht, if new user
       if ((!$_GET['userid'] or $DoSignon) and $auth['type'] <= 1) {
-      	if (ShowField('voll')) $mf->AddField(t('U18-Vollmacht') .'|'. t('Hiermit bestätige ich, die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.', "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">". t('U18 Vollmacht') .'</a>', $_SESSION['party_info']['name']), 'vollmacht', 'tinyint(1)');
+        if (ShowField('voll')) $mf->AddField(t('U18-Vollmacht') .'|'. t('Hiermit bestätige ich, die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.', "<a href=\"". $cfg["signon_volllink"] ."\" target=\"new\">". t('U18 Vollmacht') .'</a>', $_SESSION['party_info']['name']), 'vollmacht', 'tinyint(1)');
         if (ShowField('agb')) {
-        	($cfg['signon_agb_targetblank']) ? $target = ' target="_blank"' : $target = '';
+            ($cfg['signon_agb_targetblank']) ? $target = ' target="_blank"' : $target = '';
           $mf->AddField(t('AGB bestätigen') .'|'. t('Hiermit bestätige ich die %1 der Veranstaltung <b>"%2"</b> gelesen zu haben und stimme ihnen zu.', '<a href="'. urldecode($cfg["signon_agblink"]) .'"'. $target .'>'. t('AGB') .'</a>', $_SESSION['party_info']['name']), 'agb', 'tinyint(1)');
         }
       }
@@ -445,7 +445,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       $_POST['login'] = 1;
       $_POST['email'] = $_POST['email'];
       $_POST['password'] = $_POST['password_original'];
-      $auth = $authentication->GetAuthData();
+      $authentication->login($_POST['email'],$_POST['password_original']);
     }
     
     $AddUserSuccess = 1;
