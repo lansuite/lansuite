@@ -19,7 +19,9 @@
 	include_once("inc/classes/class_framework.php");
 	$framework = new framework();
 	$framework->fullscreen($_GET['fullscreen']); 				// Switch fullscreen via GET
-	$framework->set_modus( $_GET['design']); 					// Set Popupmode via GET (base, popup)
+    // Notlösung... design als base und popup sollen ganz verschwinden
+	if ($_GET['design']=='base' OR $_GET['design']=='popup') $framework->set_modus($_GET['design']); // Set Popupmode via GET (base, popup)
+    // Ende Notlösung
     $framework->make_clean_url_query($_SERVER['REQUEST_URI']);	// Build interlal URL-Query
 
 ### Set HTTP-Headers (still needed?)
@@ -235,7 +237,7 @@
 	$framework->set_design($auth['design']);
 	$framework->add_content($FrameworkMessages);  	// Add old Frameworkmessages (sollten dann ausgetauscht werden)
 	$framework->add_content($MainContent);			// Add oll MainContent-Variable (sollte auch bereinigt werden)
-	$framework->displayall();  // Output of all HTML
+	$framework->html_out();  // Output of all HTML
 	
 ### Statistics will be updated only at scriptend, so pagesize and loadtime can be insert
 

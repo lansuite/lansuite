@@ -342,5 +342,6 @@ else {
   	$templ['index']['info']['content'] .= "</script>\r\n";
   }
 }
-$func->FetchMasterTmpl("design/templates/base_index.htm", $templ);
+
+$framework->add_content($func->FetchMasterTmpl("design/templates/base_index.htm", $templ));
 ?>

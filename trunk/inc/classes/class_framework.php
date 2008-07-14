@@ -54,7 +54,7 @@ class framework {
   /**
    * Set Displaymodus
    *
-   * @param string Displaymodus (popup)
+   * @param string Displaymodus (popup,base,print)
    */
     function set_modus($modus) {
 		$this->modus = $modus;   	
@@ -216,14 +216,14 @@ class framework {
     }
 
   /**
-   * Display/output all HTML
+   * Display/output all HTML new Version
    *
    * @return string Returns the Complete HTML
    */
-    function displayall() {
+    function html_out() {
 	    global $dsp, $templ, $cfg, $db, $lang, $auth, $smarty, $func;
 	    $compression_mode = $this->check_optimizer();
-	
+
 		### Prepare Header	
 
 	      	if ($_GET['sitereload']) 
@@ -245,50 +245,80 @@ class framework {
 
  	        if ($cfg["sys_optional_footer"]) $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
 	        $smarty->assign('Footer', $footer);
+            
+        ### Switch Displaymodus (popup, base, print, normal)
+                        
+		switch ($this->modus){ 
+			case 'popup': 
+                // Make HTML for Popup
+				$smarty->assign('MainContentStyleID', 'ContentFullscreen');
+				$smarty->assign('MainBodyJS', $templ['index']['body']['js']);
+		     	$smarty->assign('MainJS', $templ['index']['control']['js']);
+	      		if ($auth['login']) $smarty->assign('MainLogout', '<a href="index.php?mod=auth&action=logout" class="menu">Logout</a>');     
+     		  	$smarty->assign('MainLogo', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span></a> Lansuite - Vollbildmodus');
+				$smarty->assign('MainContent', $this->main_content);				 			
+        		// TODO : Rendundant... zusammenfassen
+                if ($compression_mode and $cfg['sys_compress_level']) {
+        		    Header("Content-Encoding: $compression_mode");
+        		    echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
+        		    $index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $smarty->fetch("design/{$this->design}/templates/main.htm");
+        		    $this->content_size = strlen($index);
+        		    $this->content_crc = crc32($index);
+        		    $index = gzcompress($index, $cfg['sys_compress_level']);
+        		    $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
+        		    echo $index;
+        		    echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
+        		} else $smarty->display("design/{$this->design}/templates/main.htm");
+            break;
 		
-		### Prepare Mainpage
+			case 'base':
+				// Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
+                echo $this->main_content;
+			break;
+		
+			case 'print':
+                // Make a Printpopup (without Boxes and Special CSS for printing)
+			break;
+		
+			default :
+				// Normal HTML-Output with Boxes 
+				$smarty->assign('Design', $this->design);
+	      
+				// Unterscheidung fullscreen / Normal
+		      	if ($_SESSION['lansuite']['fullscreen']) 
+				  	$smarty->assign('MainContentStyleID', 'ContentFullscreen');
+		      	else $smarty->assign('MainContentStyleID', 'Content');
+		      	
+				$smarty->assign('MainBodyJS', $templ['index']['body']['js']);
+		     	$smarty->assign('MainJS', $templ['index']['control']['js']);
+	
+	      		if ($auth['login']) $smarty->assign('MainLogout', '<a href="index.php?mod=auth&action=logout" class="menu">Logout</a>');     
 			
-			$smarty->assign('Design', $this->design);
-      
-			// Unterscheidung fullscreen / Normal
-	      	if ($_SESSION['lansuite']['fullscreen'] or $this->modus == 'popup') 
-			  	$smarty->assign('MainContentStyleID', 'ContentFullscreen');
-	      	else $smarty->assign('MainContentStyleID', 'Content');
-	      	
-			$smarty->assign('MainBodyJS', $templ['index']['body']['js']);
-	     	$smarty->assign('MainJS', $templ['index']['control']['js']);
-
-      		if ($auth['login']) $smarty->assign('MainLogout', '<a href="index.php?mod=auth&action=logout" class="menu">Logout</a>');     
-		
-			// Ausgabe Hauptseite
-			if (!$_SESSION['lansuite']['fullscreen']) {
-	        	if ($this->modus!= 'popup') {
+				// Ausgabe Hauptseite
+				if (!$_SESSION['lansuite']['fullscreen']) {
 	        		$smarty->assign('MainFrameworkmessages', $this->framework_messages); 
 		          	$smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
 		          	$smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
 		          	$smarty->assign('MainLogo', '<img src="design/'.$this->design.'/images/index_top_lansuite.gif" alt="Logo" title="Lansuite" border="0" />');
 		          	$smarty->assign('MainDebug', $func->ShowDebug());
-		        }
-	      	} else {
-	      		// Ausgabe Vollbildmodus	
-			  	$smarty->assign('MainLogo', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span></a> Lansuite - Vollbildmodus');
-			}
-	      	
-			$smarty->assign('MainContent', $this->main_content);
-			
-			// Ausgabe des Hautteils mit oder ohne Kompression
-			if ($compression_mode and $cfg['sys_compress_level']) {
-			    Header("Content-Encoding: $compression_mode");
-			    echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-			    $index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $smarty->fetch("design/{$this->design}/templates/main.htm");
-			    $this->content_size = strlen($index);
-			    $this->content_crc = crc32($index);
-			    $index = gzcompress($index, $cfg['sys_compress_level']);
-			    $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
-			    echo $index;
-			    echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
-			} else $smarty->display("design/{$this->design}/templates/main.htm");
-      
+		      	} else {
+		      		// Ausgabe Vollbildmodus	
+				  	$smarty->assign('MainLogo', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span></a> Lansuite - Vollbildmodus');
+				}
+				$smarty->assign('MainContent', $this->main_content);
+          		// Ausgabe des Hautteils mit oder ohne Kompression
+        		if ($compression_mode and $cfg['sys_compress_level']) {
+        		    Header("Content-Encoding: $compression_mode");
+        		    echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
+        		    $index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $smarty->fetch("design/{$this->design}/templates/main.htm");
+        		    $this->content_size = strlen($index);
+        		    $this->content_crc = crc32($index);
+        		    $index = gzcompress($index, $cfg['sys_compress_level']);
+        		    $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
+        		    echo $index;
+        		    echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
+        		} else $smarty->display("design/{$this->design}/templates/main.htm");
+        }
     }
 }
 ?>
