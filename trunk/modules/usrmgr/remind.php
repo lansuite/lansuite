@@ -25,7 +25,6 @@ else switch ($_GET['step']) {
 
 	case 3: // Freischaltecode prüfen, Passwort generieren, Freischaltcode zurücksetzen
 		$user_data = $db->query_first("SELECT fcode FROM {$config["tables"]["user"]} WHERE fcode = '". $_GET['fcode'] ."'");
-		var_dump($user_data);
         if (($user_data['fcode']) && ($_GET['fcode'] != '')){
 			$new_pwd = "";
 			for ($x=0; $x<=8; $x++) $new_pwd .= chr(mt_rand(65,90));
