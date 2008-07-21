@@ -96,12 +96,6 @@ input.Button:hover, span.Button:hover {
   text-decoration: none;
   cursor: pointer;
 }
-.AdminIcons {
-  padding: 0px 0px 2px 16px;
-  background-image: url(images/arrows_data.gif);   background-repeat: no-repeat;
-  font-size: 10px;
-}
-
 
 /* Content */
 ul.LineBoard {
@@ -120,19 +114,6 @@ li.LineLeftBoard {
 li.LineLeftHalf {
   vertical-align: middle;
 }
-
-
-ul.BoxContent {
-  padding: 1px;
-  margin: 0px;
-}
-
-
-.box_entry, .box_entryuser, .box_entry_active, .engaged, .box_entryadd, .BoxContent {
-  list-style: none;
-}
-
-
 
 /* Size */
 .small {
@@ -238,27 +219,6 @@ ul.BoxContent {
   font-size:        11px;
 }
 
-.box_entry {
-  text-align:       left;
-  background:       #EFEFEF;
-  padding:      2px;
-  padding-left: 16px;
-  font-size:        11px;
-  background-image: url(images/arrows_menurow.gif);
-  background-repeat: no-repeat;
-  list-style: none;
-}
-
-.box_entry_active {
-  text-align:       left;
-  background:       #EFEFEF;
-  padding:      2px;
-  padding-left: 16px;
-  font-size:        11px;
-  background-image: url(images/arrows_menurow_close.gif);
-  background-repeat: no-repeat;
-}
-
 /* Form fields */
 .form {             /* Form fields, which must be supplied */
   font-family:  Verdana,Arial,Helvetica;
@@ -296,17 +256,6 @@ a.underline_on_hover:link, a.underline_on_hover:visited, a.menu:link, a.menu:vis
 }
 a.underline_on_hover:hover, a.menu:hover {
   color:            #FF9000;
-  text-decoration:underline;
-}
-
-/* Admin-Links */
-a.admin:link, a.admin:visited {
-  color:            #FF0000;
-  text-decoration:none;
-}
-
-a.admin:hover {
-  color:            #FF0000;
   text-decoration:underline;
 }
 
@@ -541,14 +490,6 @@ a.menu:link, a.menu:visited {
 
 a.menu:hover {
   color:             #666666;
-  text-decoration: underline;}
-
-/* ADMIN LINK */
-a.admin:link, a.admin:visited {
-  color:             #3481E5;
-  text-decoration: none;}
-
-a.admin:hover {
   text-decoration: underline;}
 
 /* IMAGE STYLE */

@@ -222,7 +222,7 @@
 
 ### Create Boxes / load Boxmanager
     
-    if (!$IsAboutToInstall and $_GET['design'] != 'base') include_once("modules/boxes/class_boxes.php");
+    if (!$IsAboutToInstall and $_GET['design'] != 'base') include_once("modules/boxes/boxes.php");
 
 ### index_module.inc.php load the Modulactions and Codes
     
@@ -230,6 +230,7 @@
 
 ### Complete Framework and Output HTML
 
+    $framework->add_css_path('design/'.$auth['design'].'/navibox.css');
     $framework->set_design($auth['design']);
     $framework->add_content($FrameworkMessages);    // Add old Frameworkmessages (sollten dann ausgetauscht werden)
     $framework->add_content($MainContent);          // Add oll MainContent-Variable (sollte auch bereinigt werden)
