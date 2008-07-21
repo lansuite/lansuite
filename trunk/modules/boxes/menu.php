@@ -1,45 +1,47 @@
 <?php
 
+echo "Menu<br />";
+
 $BoxContent = array();
 
 function FetchItem ($item) {
-	global $box, $cfg, $func;
+    global $box, $cfg, $func;
 
-	$item['caption'] = t($item['caption']);
-	$item['hint'] = t($item['hint']);
+    $item['caption'] = t($item['caption']);
+    $item['hint'] = t($item['hint']);
 
-	// Horrizontal Line IF Caption == '--hr--'
-	if ($item['caption'] == '--hr--') switch($item['level']) {
-		default: return $box->HRuleRow(); break;
-		case 1: return $box->HRuleEngagedRow(); break;
+    // Horrizontal Line IF Caption == '--hr--'
+    if ($item['caption'] == '--hr--') switch($item['level']) {
+        default: return $box->HRuleRow(); break;
+        case 1: return $box->HRuleEngagedRow(); break;
 
-	} else {
-		if (!$_GET['mod'] == 'info2') {
-			$submod_pos = strpos($item['link'], 'submod=') + 7;
-			if ($submod_pos > 7) $submod = substr($item['link'], $submod_pos, strlen($item['link']) - $submod_pos);
-			else $submod = '';
+    } else {
+        if (!$_GET['mod'] == 'info2') {
+            $submod_pos = strpos($item['link'], 'submod=') + 7;
+            if ($submod_pos > 7) $submod = substr($item['link'], $submod_pos, strlen($item['link']) - $submod_pos);
+            else $submod = '';
         } else {
-			// Modul info2 uses ID as submod
-			$submod_pos = strpos($item['link'], 'id=') + 3;
-			if ($submod_pos > 3) $submod = substr($item['link'], $submod_pos, strlen($item['link']) - $submod_pos);
-			else $submod = '';
-		}
-		if ($item['module'] == $_GET['mod'] and ($_GET['mod'] != 'info2' or ($_GET['mod'] == 'info2' and $submod == $_GET['id']))) $highlighted = 1;
-		else $highlighted = 0;
+            // Modul info2 uses ID as submod
+            $submod_pos = strpos($item['link'], 'id=') + 3;
+            if ($submod_pos > 3) $submod = substr($item['link'], $submod_pos, strlen($item['link']) - $submod_pos);
+            else $submod = '';
+        }
+        if ($item['module'] == $_GET['mod'] and ($_GET['mod'] != 'info2' or ($_GET['mod'] == 'info2' and $submod == $_GET['id']))) $highlighted = 1;
+        else $highlighted = 0;
 
-		// Set Item-Class
-		switch ($item['requirement']){
-			default: $class = 'menu'; break;
-			case 2:
-			case 3: $class = 'admin'; break;
-		}
+        // Set Item-Class
+        switch ($item['requirement']){
+            default: $class = 'menu'; break;
+            case 2:
+            case 3: $class = 'admin'; break;
+        }
 
-		switch ($item['level']) {
-			case 0: return $box->DotRow($func->AllowHTML($item['caption']), $func->AllowHTML($item['link']), $item['hint'], $class, $highlighted); break;
-			case 1: return $box->EngangedRow($func->AllowHTML($item['caption']), $func->AllowHTML($item['link']), $item['hint'], $class); break;
-		}
-	}
-	return '';
+        switch ($item['level']) {
+            case 0: return $box->DotRow($func->AllowHTML($item['caption']), $func->AllowHTML($item['link']), $item['hint'], $class, $highlighted); break;
+            case 1: return $box->EngangedRow($func->AllowHTML($item['caption']), $func->AllowHTML($item['link']), $item['hint'], $class); break;
+        }
+    }
+    return '';
 }
 
 
@@ -47,61 +49,48 @@ if (!$_GET['menu_group']) $_GET['menu_group'] = 0;
 
 // Get Main-Items
 $res = $db->qry("SELECT menu.*
-	FROM %prefix%menu AS menu
-	LEFT JOIN %prefix%modules AS module ON menu.module = module.name
-	WHERE ((module.active) OR (menu.caption = '--hr--'))
-	AND (menu.caption != '') AND (menu.level = 0) AND (menu.group_nr = %int%)
-	AND ((menu.requirement = '') OR (menu.requirement = 0)
-	OR (menu.requirement = 1 AND %int% = 1)
-	OR (menu.requirement = 2 AND %int% > 1)
-	OR (menu.requirement = 3 AND %int% > 2)
-	OR (menu.requirement = 4 AND %int% = 1)
-	OR (menu.requirement = 5 AND %int% = 0))
-	ORDER BY menu.pos", $_GET['menu_group'], $auth['login'], $auth['type'], $auth['type'], $auth['type'], $auth['login']);
+    FROM %prefix%menu AS menu
+    LEFT JOIN %prefix%modules AS module ON menu.module = module.name
+    WHERE ((module.active) OR (menu.caption = '--hr--'))
+    AND (menu.caption != '') AND (menu.level = 0) AND (menu.group_nr = %int%)
+    AND ((menu.requirement = '') OR (menu.requirement = 0)
+    OR (menu.requirement = 1 AND %int% = 1)
+    OR (menu.requirement = 2 AND %int% > 1)
+    OR (menu.requirement = 3 AND %int% > 2)
+    OR (menu.requirement = 4 AND %int% = 1)
+    OR (menu.requirement = 5 AND %int% = 0))
+    ORDER BY menu.pos", $_GET['menu_group'], $auth['login'], $auth['type'], $auth['type'], $auth['type'], $auth['login']);
 
 while ($main_item = $db->fetch_array($res)) if ($main_item['needed_config'] == '' or call_user_func($main_item['needed_config'], '')) {
   $templ['box']['rows'] = '';
-	FetchItem($main_item);
+    FetchItem($main_item);
 
-	// If selected Module: Get Sub-Items
-	if (isset($_GET['module'])) $module = $_GET['module']; else $module = $_GET['mod'];
-	if ($module and $main_item['module'] == $module and $main_item['action'] != 'show_info2') {
-		$res2 = $db->qry("SELECT menu.*
-			FROM %prefix%menu AS menu
-			WHERE (menu.caption != '') AND (menu.level = 1) AND (menu.module = %string%)
-			AND ((menu.requirement = '') OR (menu.requirement = 0)
-			OR (menu.requirement = 1 AND %int% = 1)
-			OR (menu.requirement = 2 AND %int% > 1)
-			OR (menu.requirement = 3 AND %int% > 2)
-			OR (menu.requirement = 4 AND %int% = 1)
-			OR (menu.requirement = 5 AND %int% = 0))
-			ORDER BY menu.requirement, menu.pos", $module, $auth['login'], $auth['type'], $auth['type'], $auth['type'], $auth['login']);
-		while ($sub_item = $db->fetch_array($res2)) if ($sub_item['needed_config'] == '' or call_user_func($sub_item['needed_config'], ''))
-			FetchItem($sub_item);
-		$db->free_result($res2);
+    // If selected Module: Get Sub-Items
+    if (isset($_GET['module'])) $module = $_GET['module']; else $module = $_GET['mod'];
+    if ($module and $main_item['module'] == $module and $main_item['action'] != 'show_info2') {
+        $res2 = $db->qry("SELECT menu.*
+            FROM %prefix%menu AS menu
+            WHERE (menu.caption != '') AND (menu.level = 1) AND (menu.module = %string%)
+            AND ((menu.requirement = '') OR (menu.requirement = 0)
+            OR (menu.requirement = 1 AND %int% = 1)
+            OR (menu.requirement = 2 AND %int% > 1)
+            OR (menu.requirement = 3 AND %int% > 2)
+            OR (menu.requirement = 4 AND %int% = 1)
+            OR (menu.requirement = 5 AND %int% = 0))
+            ORDER BY menu.requirement, menu.pos", $module, $auth['login'], $auth['type'], $auth['type'], $auth['type'], $auth['login']);
+        while ($sub_item = $db->fetch_array($res2)) if ($sub_item['needed_config'] == '' or call_user_func($sub_item['needed_config'], ''))
+            FetchItem($sub_item);
+        $db->free_result($res2);
 
-		// If Admin add general Management-Links
-		if ($auth['type'] > 2) {
-/*
-      $AdminIcons = '';
-			$find_config = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_module = %string%", $module);
-			if ($find_config['cfg_key'])
-				$AdminIcons .= $box->LinkItem('index.php?mod=install&amp;action=modules&amp;step=10&amp;module='. $module, t('Konf.'), 'admin', t('Modul-Konfiguration')) .' | ';
-
-			if (file_exists("modules/$module/mod_settings/db.xml"))
-				$AdminIcons .= $box->LinkItem('index.php?mod=install&amp;action=modules&amp;step=30&amp;module='. $module, t('DB'), 'admin', t('Datenbank Tabellen dieses Moduls verwalten')) .' | ';
-
-			$AdminIcons .= $box->LinkItem('index.php?mod=install&amp;action=modules&amp;step=20&amp;module='. $module, t('Menü'), 'admin', t('Menüeinträge verwalten')) .' | ';
-			$AdminIcons .= $box->LinkItem('index.php?mod=misc&amp;action=translation&amp;step=20&amp;file='. $module, t('Ü'), 'admin', t('Übersetzungen zu diesem Modul'));
-*/
-			$AdminIcons .= $box->LinkItem('index.php?mod=install&amp;action=mod_cfg&amp;module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
+        // If Admin add general Management-Links
+        if ($auth['type'] > 2) {
+            $AdminIcons .= $box->LinkItem('index.php?mod=install&amp;action=mod_cfg&amp;module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));
       $box->EngangedRow('<span class="AdminIcons">'. $AdminIcons .'</span>');
-		}
-	}
-	$BoxContent[$main_item['boxid']] .= $templ['box']['rows'];
+        }
+    }
+    $BoxContent[$main_item['boxid']] .= $templ['box']['rows'];
 }
 $db->free_result($res);
-
 foreach ($BoxContent as $key => $val) {
   $templ['box']['rows'] = $val;
   if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'].'_'.$key, t($BoxRow['name']));

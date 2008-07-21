@@ -162,11 +162,6 @@ li.Confirmation {
   list-style: none;
 }
 
-ul.BoxContent {
-  margin: 0px 0px 0px 0px;    padding: 1px;
-  list-style: none;
-}
-
 /* Bars*/
 ul.BarOccupied {
   position: static;   height: 12px;
@@ -200,24 +195,6 @@ textarea {
 .box_entry, .box_entryuser, .box_entry_active, .engaged, .box_entryadd, .box_content, .box_entrydata {
   list-style: none;
 }
-/* ---- BEGINN Änderung .box ----*/
-
-.box_entrymessage {
-  padding: 0px 0px 2px 16px;
-  white-space: nowrap;
-  background-image: url(images/arrows_message.gif);    background-repeat: no-repeat;
-}
-.box_entrymessage_blink {
-  padding: 0px 0px 2px 16px;
-  white-space: nowrap;
-  background-image: url(images/arrows_message_blink.gif);    background-repeat: no-repeat;
-}
-.box_entrydata {
-  padding: 0px 0px 2px 16px;
-  white-space: nowrap;
-  background-image: url(images/arrows_data.gif);    background-repeat: no-repeat;
-}
-/* ---- ENDE Änderung .box ----*/
 
 /* Basic HTML-Elements-Rewrite */
 /*
@@ -343,30 +320,6 @@ body {
 	font-size:		11px; 
 }
 
-.box_entry {
-	text-align:		left;
-	background:		#EFEFEF;
-	padding:		2px;
-	padding-left: 16px;
-	font-size:		11px;
-	white-space:	nowrap;
-	background-image: url(images/arrows_menurow.gif);
-  background-repeat: no-repeat;
-}
-
-.box_entry_active {
-	text-align:		left;
-	background:		#EFEFEF;
-	padding:		2px;
-	padding-left: 16px;
-	font-size:		11px;
-	white-space:	nowrap;
-	background-image: url(images/arrows_menurow_close.gif);
-  background-repeat: no-repeat;
-}
-
-
-
 /* Form fields */
 .form {				/* Form fields, which must be supplied */
 	font-family:	Verdana,Arial,Helvetica;
@@ -408,18 +361,6 @@ a.underline_on_hover:hover, a.menu:hover {
 	text-decoration:underline;
 }
 
-/* Admin-Links */
-a.admin:link, a.admin:visited {
-	color:			#F46814; 
-	text-decoration:none;
-}
-
-a.admin:hover {
-	color:			#F46814; 
-	text-decoration:underline; 
-}
-
-
 /* special */
 .frame_box {
 	background:		#D6D6D6;
@@ -437,12 +378,6 @@ option[value=de]:before { content:url("../../ext_inc/country_flags/de.gif"); }
 option[value=en]:before { content:url("../../ext_inc/country_flags/en.gif"); }
 option[value=at]:before { content:url("../../ext_inc/country_flags/at.gif"); }
 option[value=ch]:before { content:url("../../ext_inc/country_flags/ch.gif"); }
-
-
-
-
-
-
 
 /* MAIN FIELDS. FOR EXAMPLE THE RIGHT SIDE IN A FORM */
 .tbl_1  		

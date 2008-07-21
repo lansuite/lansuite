@@ -1,191 +1,144 @@
 <?php
+
+
+/**
+ * boxes
+ *
+ * @package ls_core
+ * @author bytekilla, knox
+ * @copyright 2008
+ * @version $Id$
+ * @access public
+ */
 class boxes {
 
-	// Constructor (opens/closes the clicked box
-	function boxes() {
-		global $auth, $db, $config;
+    var $box_rows = '';
 
-		// In LogOff state all boxes are visible (no ability to minimize them)
-		if ($auth['login'] == "1") {
-
-			// Change state, when Item is clicked
-			if ($_GET['box_action'] == 'change' and $_GET['boxid'] != "") {
-        if ($_SESSION['box_'. $_GET['boxid'] .'_active']) unset($_SESSION['box_'. $_GET['boxid'] .'_active']);
-        else $_SESSION['box_'. $_GET['boxid'] .'_active'] = 1;
-			}
-		}
-	}
-
-
-	function LinkItem($link, $caption, $class = "", $hint='') {
-		global $templ, $dsp, $func;
-		if ($link != "") {
-		  $templ['box']['row']['hint'] = '';
-		  if ($hint) $templ['box']['row']['hint'] = '<span class="infobox">'. $func->AllowHTML($hint) .'</span>';
-			$templ['box']['row']['link'] = $link;
-			$templ['box']['row']['class'] = $class;
-
-			$templ['box']['row']['content'] = $caption;
-			return $dsp->FetchModTpl("boxes", "link_item");
-		} else return $caption;
-	}
-
-	function ItemRow($item, $caption, $link = "", $hint = "", $class = "") {
-		global $templ, $dsp;
-
-		$templ['box']['row']['item'] = $item;
-		if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18,"<br />\n",1);
-		$templ['box']['row']['link_cont'] = $this->LinkItem($link, $caption, $class, $hint);
-		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", "item_row");
-	}
-
-	function Row($row) {
-		global $templ, $dsp;
-
-		$templ['box']['row']['cont'] = $row;
-		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", "row");
-	}
-
-	function HRuleRow() {
-		global $templ, $dsp;
-
-		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", "hrule_row");
-	}
-
-	function HRuleEngagedRow() {
-		global $templ, $dsp;
-
-		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", "hrule_row_engaged");
-	}
-
-	function DotRow($caption, $link = "", $hint = "", $class = "", $highlighted = "") {
-		if ($highlighted) $item = "_active";
-
-		$this->ItemRow($item, $caption, $link, $hint, $class);
-	}
-
-	function EmptyRow() {
-		global $templ, $dsp;
-
-		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", "empty_row");
-	}
-
-	function EngangedRow($caption, $link = "", $hint = "", $class = "") {
-		global $templ, $dsp;
-
-		$templ['box']['row']['hint'] = $hint;
-		$templ['box']['row']['content'] = $caption;
-		if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18,"<br />\n",1);
-		$templ['box']['row']['link_cont'] = $this->LinkItem($link, $caption, $class);
-		$templ['box']['rows'] .= $dsp->FetchModTpl("boxes", "engaged_row");
-	}
-
-	function AddTemplate($template) {
-		global $templ, $dsp;
-
-		$templ['box']['rows'] .= $this->Row($dsp->FetchModTpl("boxes", $template));
-	}
-
-	function CreateBox($boxid, $caption = "") {
-		global $func, $auth, $dsp, $templ;
-
-		if (!$_SESSION['box_'. $boxid .'_active']) {
-      if ($templ['box']['rows'] == '') return;
-      $file = 'design/'. $auth['design'] .'/templates/box_case.htm';
-			$content = $dsp->FetchModTpl("boxes", "box");
-		} else $file = 'design/'. $auth['design'] .'/templates/box_case_closed.htm';
-
-		$handle = fopen($file, 'rb');
-		$box_content = fread($handle, filesize($file));
-		fclose($handle);
-
-		$box_content = str_replace("{default_design}", $auth["design"], $box_content);
-		switch((int)$boxid) {
-		  case 1: $title = 'menu'; break;
-		  case 2: $title = 'search'; break;
-		  case 3: $title = 'sponsor'; break;
-		  case 4: $title = 'info'; break;
-		  case 5: $title = 'last_user'; break;
-		  case 6: $title = 'user'; break;
-		  case 7: $title = 'login'; break;
-		  case 8: $title = 'stats'; break;
-		  case 9: $title = 'signon_state'; break;
-		  case 10: $title = 'messenger'; break;
-		  case 11: $title = 'wwcl'; break;
-    }
-		$box_content = str_replace("{title}", $title, $box_content);
-		$box_content = str_replace("{caption}", $caption, $box_content);
-		$box_content = str_replace("{content}", $content, $box_content);
-		$box_content = str_replace("{link_open_close}", "index.php?box_action=change&amp;boxid=$boxid", $box_content);
-
-		return $box_content;
-	}
-}
-
-
-### Callbackfunktionen fuer Boxgenerierung
-
-    function PartyAvailible() {
-      global $party;
-      if ($party->count > 0) return 1;
-      else return 0;
-    }
-    
-    function MsgInIntMode() {
-      global $cfg;
-      if (!$cfg['sys_internet'] or $cfg['msgsys_alwayson']) return 1;
-      else return 0;
-    }
-    
-    function IsWWCLT() {
-      global $db, $config, $party;
-      if ($_GET['mod'] != 'tournament2') return 0;
-      else {
-        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%tournament_tournaments WHERE wwcl_gameid > 0 AND party_id = %int%", $party->party_id);
-        if ($row['found']) return 1;
-        else return 0;
-      }
+  /**
+   * Constructor (opens/closes the clicked box)
+   *
+   */
+    function boxes() {
+        global $auth, $db, $config;
+        // In LogOff state all boxes are visible (no ability to minimize them)
+        if ($auth['login'] == "1") {
+            // Change state, when Item is clicked
+            if ($_GET['box_action'] == 'change' and $_GET['boxid'] != "") {
+                if ($_SESSION['box_'. $_GET['boxid'] .'_active']) unset($_SESSION['box_'. $_GET['boxid'] .'_active']);
+                else $_SESSION['box_'. $_GET['boxid'] .'_active'] = 1;
+            }
+        }
     }
 
-### Generate Boxes
+  /**
+   * Add a Menueitem to Navibar
+   *
+   * @param mixed Linktext
+   * @param string Link
+   * @param string Hinttext for Popup
+   * @param integer Navigationslevel (0=Main, 1=Sub, etc)
+   * @param integer Accesslevel (depend on auth['type'])
+   * @param integer Highligt active Menueitem (0=off, 1=on)
+   * @return void
+   */
+    function add_menuitem($caption,$link='',$hint='',$level=0,$requirement=0,$highlighted=0){
+        global $func;
+        // Set Item-Class
+        switch ($requirement){
+            default: $link_class = 'menu'; break;
+            case 2:
+            case 3: $link_class = 'admin'; break;
+        }
+        switch ($level) {
+            case 0: $class = "box_entry"; break;
+            case 1: $class = "box_entry_lvl_1"; break;
+        }  
 
-    $box = new boxes();
-    
-    // Fetch Boxes
-    $BoxRes = $db->qry("SELECT boxid, name, place, source, module, callback FROM %prefix%boxes
-                        WHERE active = 1
-                            AND (internet = 0 OR internet = %int% + 1)
-                            AND (login = 0 OR (login = 1 AND %int% = 0) OR (login = 2 AND %int% = 1) OR (login > 2 AND login >= %int% - 1))
-                        ORDER BY pos
-                        ", $cfg['sys_internet'], $auth['login'], $auth['login'], $auth['type']);
-    $MenuActive = 0;
-    
-    // Boxloop
-    while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or in_array($BoxRow['module'], $ActiveModules)) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
+        if ($highlighted) $class .= "_active";
+        if ($link != "") {
+            if ($hint) $box_row_hint = '<span class="infobox">'. $func->AllowHTML($hint) .'</span>';
+            $tmp_link = '<a href="'.$link.'" class="'.$link_class.'">'.$caption.$box_row_hint.'</a>';
+        }
+        if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18,"<br />\n",1);
+        $this->box_rows .= "<li class=\"".$class."\">".$tmp_link."</li>\n";
+            
+    }
+
+    function LinkItem($link, $caption, $class = "", $hint='') {
+        global $func;
+        if ($link != "") {
+            if ($hint) $box_row_hint = '<span class="infobox">'. $func->AllowHTML($hint) .'</span>';
+            $out = '<a href="'.$link.'" class="'.$class.'">'.$caption.$box_row_hint.'</a>';
+            return $out;
+        } else return $caption;
+    }
+
+    function ItemRow($item, $caption, $link = "", $hint = "", $class = "") {
+        if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18,"<br />\n",1);
+        $this->box_rows .= "<li class=\"box_entry".$item."\">".$this->LinkItem($link, $caption, $class, $hint)."</li>\n";
+    }
+
+    function Row($row) {
+        $this->box_rows .= "<li>".$row."</li>\n";
+    }
+
+    function HRuleRow() {
+        $this->box_rows .= "<hr class=\"hrule\" width=\"100%\" />\n";
+    }
+
+    function HRuleEngagedRow() {
+        global $smarty;
+        $smarty->assign('box_row_mode', 'hrule_row_engaged');
+        $this->box_rows .= $smarty->fetch("modules/boxes/templates/box_row_multi.htm");
+    }
+
+    function DotRow($caption, $link = "", $hint = "", $class = "", $highlighted = "") {
+        if ($highlighted) $item = "_active";
+        $this->ItemRow($item, $caption, $link, $hint, $class);
+    }
+
+    function EmptyRow() {
+        $this->box_rows .= '<br />';
+    }
+
+    function EngangedRow($caption, $link = "", $hint = "", $class = "") {
+        if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18,"<br />\n",1);
+        $this->box_rows .= "<li class=\"engaged\" title=\"".$hint."\">".$this->LinkItem($link, $caption, $class)."</li>\n";
+    }
+
+    function AddTemplate($template) {
+        global $dsp;
+        $this->box_rows .= $this->Row($dsp->FetchModTpl("boxes", $template));
+    }
+
+    function CreateBox($boxid, $caption = "") {
+        global $smarty, $auth;
+        if ($this->box_rows != '') $smarty->assign('content', $this->box_rows);
+        switch((int)$boxid) {
+            case 1: $title = 'menu'; break;
+            case 2: $title = 'search'; break;
+            case 3: $title = 'sponsor'; break;
+            case 4: $title = 'info'; break;
+            case 5: $title = 'last_user'; break;
+            case 6: $title = 'user'; break;
+            case 7: $title = 'login'; break;
+            case 8: $title = 'stats'; break;
+            case 9: $title = 'signon_state'; break;
+            case 10: $title = 'messenger'; break;
+            case 11: $title = 'wwcl'; break;
+        }
+        $smarty->assign('title', $title);
+        $smarty->assign('default_design', $auth["design"]);
+        $smarty->assign('caption', $caption);            
+        $smarty->assign('link_open_close', "index.php?box_action=change&amp;boxid=$boxid");
+        // Open or closed Box
+        if (!$_SESSION['box_'. $boxid .'_active']) $file = 'design/'. $auth['design'] .'/templates/box_case.htm';
+            else $file = 'design/'. $auth['design'] .'/templates/box_case_closed.htm';
+        $out = $smarty->fetch($file);
+        $this->box_rows = '';
+        return $out;
         
-        if ($BoxRow['source'] == 'menu') $MenuActive = 1;
-        if (!$siteblock or $BoxRow['source'] == 'login') {
-            $templ['box']['rows'] = '';
-            // Load file
-            if (!$_SESSION['box_'. $BoxRow['boxid'] .'_active']) include_once('modules/boxes/'. $BoxRow['source'] .'.php');
-            // Write content to template var
-            #    echo $sitetool->out_work().HTML_NEWLINE;
-            if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
-            elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
-        }
     }
-    $db->free_result($BoxRes);
-    
-    // Add Link to boxmanager, if menu is missing and loginbox, if not logged in
-    if (!$siteblock and !$MenuActive) {
-        if ($auth['type'] >= 2) {
-            $templ['box']['rows'] = '<a href="index.php?mod=boxes">Boxmanager</a>';
-            $templ['index']['control']['boxes_letfside'] .= $box->CreateBox(0, t('Temporär'));
-        } else {
-            $templ['box']['rows'] = '';
-            include_once('modules/boxes/login.php');
-            $templ['index']['control']['boxes_rightside'] .= $box->CreateBox(1, t('Temporär'));
-        }
-    }
+}
 
 ?>

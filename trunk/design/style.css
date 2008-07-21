@@ -26,32 +26,6 @@ td {
   font-size: 11px;
 }
 
-/* Boxes */
-li.engaged {
-  padding: 0px 0px 0px 16px;
-}
-.box_entry {
-  padding: 0px 0px 2px 16px;
-  background-image: url(images/arrows_menurow.gif);   background-repeat: no-repeat;
-}
-.box_entry_active {
-  padding: 0px 0px 2px 16px;
-    background-image: url(images/arrows_menurow_close.gif);    background-repeat: no-repeat;
-}
-.box_entrymessage {
-  padding: 0px 0px 2px 16px;
-    background-image: url(images/arrows_message.gif);    background-repeat: no-repeat;
-}
-.box_entrymessage_blink {
-  padding: 0px 0px 2px 16px;
-    background-image: url(images/arrows_message_blink.gif);    background-repeat: no-repeat;
-}
-.box_entrydata {
-  padding: 0px 0px 2px 16px;
-    background-image: url(images/arrows_data.gif);    background-repeat: no-repeat;
-}
-
-
 /* Content */
 .content {
   padding: 0px 0px 0px 0px;
@@ -238,11 +212,7 @@ input.Button:hover {
 .Help {
   color: #aaaaaa;
 }
-.AdminIcons {
-  padding: 0px 0px 2px 16px;
-  background-image: url(images/arrows_data.gif);   background-repeat: no-repeat;
-  font-size: 10px;
-}
+
 .form_optional { /* used for optional form fields */
   background: rgb(191,255,255);
 }
@@ -313,15 +283,6 @@ a:hover {
     color: #888888;
     text-decoration:underline;
 }
-a.admin:link, a.admin:visited {
-    color: #ff0000;
-    text-decoration:none;
-}
-a.admin:hover {
-    color: #ff0000;
-    text-decoration:underline;
-}
-
 
 /* Message-Highlighting */
 .error {
