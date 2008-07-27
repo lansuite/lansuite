@@ -1,6 +1,12 @@
 <?php
-$templ['box']['rows'] = "";
-
+/**
+ * Show all Polls in a Box
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 $row = $db->qry_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.pollid) AS votes FROM %prefix%polls AS p
   LEFT JOIN %prefix%pollvotes AS v on p.pollid = v.pollid
   GROUP BY p.pollid
@@ -18,5 +24,5 @@ while($row2 = $db->fetch_array($res2)) {
 }
 $out .= '<input type="submit" class="Button" name="imageField" value="Abstimmen" /></form>';
 
-$templ['box']['rows'] .= '<li>'. $out . "<br /><br /></li>";
+$box->Row($out . "<br /><br />");
 ?>

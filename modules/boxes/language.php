@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * Generate Languagebox
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 $cont = '';
 $cur_url = parse_url($_SERVER['REQUEST_URI']);
 

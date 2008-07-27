@@ -1,6 +1,12 @@
 <?php
-$templ['box']['rows'] = "";
-
+/**
+ * Generate Box for Messenger
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 // Check for valid login
 if ($auth['login']) {
 
@@ -79,7 +85,7 @@ if ($auth['login']) {
 			if ($notinlist != "1") {
 				$notinlist = "1";
 				$box->EmptyRow();
-      	$box->EngangedRow('<span class="copyright">-- Not in list --</span>');
+                $box->EngangedRow('<span class="copyright">-- Not in list --</span>');
 			}
 
 			// Is user online, or offline?

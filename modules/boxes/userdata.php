@@ -1,6 +1,12 @@
 <?php
-$templ['box']['rows'] = "";
-
+/**
+ * Generate Box for Userdata
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 // If an admin is logged in as an user
 // show admin name and switch back link
 
@@ -18,6 +24,7 @@ if ($olduserid > 0) {
 // Show username and ID
 if (strlen($auth['username']) > 14) $username = substr($auth['username'], 0, 11) . "...";
 else $username = $auth['username'];
+
 $userid_formated = sprintf( "%0".$config['size']['userid_digits']."d", $auth['userid']);
 
 $box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=auth&action=logout"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" /><span class="infobox">'. t('Ausloggen') .'</span></a>');
@@ -54,50 +61,43 @@ if (in_array('mail', $ActiveModules)) {
 		", $auth['userid']);
 
 	if ($db->num_rows($mails_new) > 0) {
-    $found_not_popped_up_mail = false;
-    while ($mail_new = $db->fetch_array($mails_new)) {
-      if (!isset($_SESSION['mail_popup'][$mail_new['mailID']])) {
-        $_SESSION['mail_popup'][$mail_new['mailID']] = 1;
-        $found_not_popped_up_mail = true;
-      }
+        $found_not_popped_up_mail = false;
+        while ($mail_new = $db->fetch_array($mails_new)) {
+            if (!isset($_SESSION['mail_popup'][$mail_new['mailID']])) {
+                $_SESSION['mail_popup'][$mail_new['mailID']] = 1;
+                $found_not_popped_up_mail = true;
+            }
+        }
+        if ($cfg['mail_popup_on_new_mails'] and $found_not_popped_up_mail) {
+            $box->EngangedRow($dsp->FetchIcon('index.php?mod=mail', 'receive_mail') .' <font color="red">'. t('Sie haben Post!') .'</font>');
+    #       $templ['box']['rows'] .= '<script language="JavaScript">
+    #       OpenWindow("index.php?mod=mail&amp;action=mail_popup&amp;design=popup", "new_mail");
+    #       </script>';
+        }
     }
-    if ($cfg['mail_popup_on_new_mails'] and $found_not_popped_up_mail) {
-      $box->EngangedRow($dsp->FetchIcon('index.php?mod=mail', 'receive_mail') .' <font color="red">'. t('Sie haben Post!') .'</font>');
-#      $templ['box']['rows'] .= '<script language="JavaScript">
-#      OpenWindow("index.php?mod=mail&amp;action=mail_popup&amp;design=popup", "new_mail");
-#      </script>';
-    }
-
-  }
-  $db->free_result($mails_new);
-  
-  $box->DotRow(t('Mein Postfach') , 'index.php?mod=mail', '', 'menu');
+    $db->free_result($mails_new);
+    
+    $box->DotRow(t('Mein Postfach') , 'index.php?mod=mail', '', 'menu');
 }
 
 // PDF-Ticket
 if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php?mod=usrmgr&amp;action=myticket", "", "menu");
 
 //Zeige Anmeldestatus
-if($party->count != 0 & $_SESSION['party_info']['partyend'] > time())
-{
+if($party->count != 0 & $_SESSION['party_info']['partyend'] > time()) {
 $query_signstat = $db->qry_first("SELECT * FROM %prefix%party_user AS pu
 				WHERE pu.user_id = %int% AND pu.party_id = %int%", $auth["userid"], $_SESSION["party_id"]);
-				
-				if($query_signstat == null) 
-				{
+				if($query_signstat == null) {
 					$signstat = '<font color="red">'. t('Nein') .'!</font>';
 					$signstat_info = '<a href="index.php?mod=signon"><i> '. t('Hier anmelden') .'</i></a>';
 					$paidstat = '<font color="red">'. t('Nein') .'!</font>';
-				}
-				else
-				{
+				} else {
 					$signstat = '<font color="green">'. t('Ja') .'!</font>';
-					
 					if(($query_signstat["paid"] == 1)||($query_signstat["paid"] == 2))
 						$paidstat = '<font color="green">'. t('Ja') .'!</font>';
 					else
 						$paidstat = '<font color="red">'. t('Nein') .'!</font>';
-					}
+				}
 
 $query_partys = $db->qry_first("SELECT * FROM %prefix%partys AS p WHERE p.party_id = %int%", $_SESSION["party_id"]);	
 					
