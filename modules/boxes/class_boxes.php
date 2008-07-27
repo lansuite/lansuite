@@ -4,7 +4,7 @@
 /**
  * boxes
  *
- * @package ls_core
+ * @package lansuite_core
  * @author bytekilla, knox
  * @copyright 2008
  * @version $Id$
