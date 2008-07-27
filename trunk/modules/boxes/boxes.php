@@ -25,8 +25,6 @@ include_once('modules/boxes/class_boxes.php');
 
 ### Generate Boxes
 
-    $box = new boxes();
-    
     // Fetch Boxes
     $BoxRes = $db->qry("SELECT boxid, name, place, source, module, callback, login, internet FROM %prefix%boxes
                         WHERE active = 1
@@ -38,20 +36,19 @@ include_once('modules/boxes/class_boxes.php');
     
     // Boxloop
     while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or in_array($BoxRow['module'], $ActiveModules)) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
+        $box = new boxes();
         if ($BoxRow['source'] == 'menu') {
             // Menuboxes
             $MenuActive = 1;
             include_once('modules/boxes/class_menu.php');
             $menu = new menu($BoxRow['boxid'],$BoxRow['name']);
-            if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $menu->get_menuarray();
-            elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $menu->get_menuarray();
+            if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $menu->get_menu_items();
+            elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $menu->get_menu_items();
         } else {
             if (!$siteblock or $BoxRow['source'] == 'login') {
-                $templ['box']['rows'] = '';
                 // Load file
                 if (!$_SESSION['box_'. $BoxRow['boxid'] .'_active']) include_once('modules/boxes/'. $BoxRow['source'] .'.php');
                 // Write content to template var
-                #    echo $sitetool->out_work().HTML_NEWLINE;
                 if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
                 elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
             }
