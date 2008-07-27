@@ -3,7 +3,7 @@
 /**
  * menu
  *
- * @package ls_svn
+ * @package lansuite_core
  * @author 
  * @copyright 2008
  * @version $Id$
