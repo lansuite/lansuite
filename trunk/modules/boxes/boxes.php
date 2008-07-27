@@ -23,6 +23,16 @@ include_once('modules/boxes/class_boxes.php');
       }
     }
 
+### In LogOff state all boxes are visible (no ability to minimize them)
+
+    if ($auth['login'] == "1") {
+        // Change state, when Item is clicked
+        if ($_GET['box_action'] == 'change' and $_GET['boxid'] != "") {
+            if ($_SESSION['box_'. $_GET['boxid'] .'_active']) unset($_SESSION['box_'. $_GET['boxid'] .'_active']);
+            else $_SESSION['box_'. $_GET['boxid'] .'_active'] = 1;
+        }
+    }
+
 ### Generate Boxes
 
     // Fetch Boxes
@@ -38,13 +48,14 @@ include_once('modules/boxes/class_boxes.php');
     while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or in_array($BoxRow['module'], $ActiveModules)) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
         $box = new boxes();
         if ($BoxRow['source'] == 'menu') {
-            // Menuboxes
+            // Generate Menuboxes (Links, etc)
             $MenuActive = 1;
             include_once('modules/boxes/class_menu.php');
             $menu = new menu($BoxRow['boxid'],$BoxRow['name']);
             if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $menu->get_menu_items();
             elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $menu->get_menu_items();
         } else {
+            // Generate Funktionboxes
             if (!$siteblock or $BoxRow['source'] == 'login') {
                 // Load file
                 if (!$_SESSION['box_'. $BoxRow['boxid'] .'_active']) include_once('modules/boxes/'. $BoxRow['source'] .'.php');

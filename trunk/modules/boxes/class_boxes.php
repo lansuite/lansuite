@@ -15,19 +15,10 @@ class boxes {
     var $box_rows = '';
 
   /**
-   * Constructor (opens/closes the clicked box)
+   * Constructor
    *
    */
     function boxes() {
-        global $auth, $db, $config;
-        // In LogOff state all boxes are visible (no ability to minimize them)
-        if ($auth['login'] == "1") {
-            // Change state, when Item is clicked
-            if ($_GET['box_action'] == 'change' and $_GET['boxid'] != "") {
-                if ($_SESSION['box_'. $_GET['boxid'] .'_active']) unset($_SESSION['box_'. $_GET['boxid'] .'_active']);
-                else $_SESSION['box_'. $_GET['boxid'] .'_active'] = 1;
-            }
-        }
     }
 
   /**
@@ -87,9 +78,7 @@ class boxes {
     }
 
     function HRuleEngagedRow() {
-        global $smarty;
-        $smarty->assign('box_row_mode', 'hrule_row_engaged');
-        $this->box_rows .= $smarty->fetch("modules/boxes/templates/box_row_multi.htm");
+        $this->box_rows .= "<hr class=\"hrule\" width=\"90%\" align=\"right\" />";
     }
 
     function DotRow($caption, $link = "", $hint = "", $class = "", $highlighted = "") {
