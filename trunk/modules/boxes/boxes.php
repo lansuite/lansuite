@@ -1,18 +1,33 @@
 <?php
 include_once('modules/boxes/class_boxes.php');
 
+/**
+ * PartyAvailible()
+ *
+ * @return
+ */
     function PartyAvailible() {
       global $party;
       if ($party->count > 0) return 1;
       else return 0;
     }
     
+/**
+ * MsgInIntMode()
+ *
+ * @return
+ */
     function MsgInIntMode() {
       global $cfg;
       if (!$cfg['sys_internet'] or $cfg['msgsys_alwayson']) return 1;
       else return 0;
     }
     
+/**
+ * IsWWCLT()
+ *
+ * @return
+ */
     function IsWWCLT() {
       global $db, $config, $party;
       if ($_GET['mod'] != 'tournament2') return 0;
@@ -60,8 +75,10 @@ include_once('modules/boxes/class_boxes.php');
                 // Load file
                 if (!$_SESSION['box_'. $BoxRow['boxid'] .'_active']) include_once('modules/boxes/'. $BoxRow['source'] .'.php');
                 // Write content to template var
-                if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
-                elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
+                if ($box->box_rows) {
+                    if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
+                    elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']));
+                }
             }
         }
     }

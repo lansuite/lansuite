@@ -55,6 +55,15 @@ class boxes {
             
     }
 
+  /**
+   * boxes::LinkItem()
+   *
+   * @param mixed $link
+   * @param mixed $caption
+   * @param string $class
+   * @param string $hint
+   * @return
+   */
     function LinkItem($link, $caption, $class = "", $hint='') {
         global $func;
         if ($link != "") {
@@ -64,42 +73,105 @@ class boxes {
         } else return $caption;
     }
 
+  /**
+   * boxes::ItemRow()
+   *
+   * @param mixed $item
+   * @param mixed $caption
+   * @param string $link
+   * @param string $hint
+   * @param string $class
+   * @return
+   */
     function ItemRow($item, $caption, $link = "", $hint = "", $class = "") {
         if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18,"<br />\n",1);
         $this->box_rows .= "<li class=\"box_entry".$item."\">".$this->LinkItem($link, $caption, $class, $hint)."</li>\n";
     }
 
+  /**
+   * boxes::Row()
+   *
+   * @param mixed $row
+   * @return
+   */
     function Row($row) {
         $this->box_rows .= "<li>".$row."</li>\n";
     }
 
+  /**
+   * boxes::HRuleRow()
+   *
+   * @return
+   */
     function HRuleRow() {
         $this->box_rows .= "<hr class=\"hrule\" width=\"100%\" />\n";
     }
 
+  /**
+   * boxes::HRuleEngagedRow()
+   *
+   * @return
+   */
     function HRuleEngagedRow() {
         $this->box_rows .= "<hr class=\"hrule\" width=\"90%\" align=\"right\" />";
     }
 
+  /**
+   * boxes::DotRow()
+   *
+   * @param mixed $caption
+   * @param string $link
+   * @param string $hint
+   * @param string $class
+   * @param string $highlighted
+   * @return
+   */
     function DotRow($caption, $link = "", $hint = "", $class = "", $highlighted = "") {
         if ($highlighted) $item = "_active";
         $this->ItemRow($item, $caption, $link, $hint, $class);
     }
 
+  /**
+   * boxes::EmptyRow()
+   *
+   * @return
+   */
     function EmptyRow() {
         $this->box_rows .= '<br />';
     }
 
+  /**
+   * boxes::EngangedRow()
+   *
+   * @param mixed $caption
+   * @param string $link
+   * @param string $hint
+   * @param string $class
+   * @return
+   */
     function EngangedRow($caption, $link = "", $hint = "", $class = "") {
         if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18,"<br />\n",1);
         $this->box_rows .= "<li class=\"engaged\" title=\"".$hint."\">".$this->LinkItem($link, $caption, $class)."</li>\n";
     }
 
+  /**
+   * boxes::AddTemplate()
+   *
+   * @param mixed $template
+   * @return
+   */
     function AddTemplate($template) {
         global $dsp;
         $this->box_rows .= $this->Row($dsp->FetchModTpl("boxes", $template));
     }
 
+  /**
+   * boxes::CreateBox()
+   *
+   * @param mixed $boxid
+   * @param string $caption
+   * @return
+   */
     function CreateBox($boxid, $caption = "") {
         global $smarty, $auth;
         if ($this->box_rows != '') $smarty->assign('content', $this->box_rows);
@@ -124,7 +196,6 @@ class boxes {
         if (!$_SESSION['box_'. $boxid .'_active']) $file = 'design/'. $auth['design'] .'/templates/box_case.htm';
             else $file = 'design/'. $auth['design'] .'/templates/box_case_closed.htm';
         $out = $smarty->fetch($file);
-        $this->box_rows = '';
         return $out;
         
     }
