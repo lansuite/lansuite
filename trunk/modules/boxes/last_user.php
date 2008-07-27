@@ -1,5 +1,12 @@
 <?php
-$templ['box']['rows'] = "";
+/**
+ * Generate Generate Box to show last User
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 $box->DotRow(t('Zuletzt angemeldet').':');
 
 $qry = $db->qry('SELECT userid, username FROM %prefix%user WHERE type > 0 ORDER BY userid DESC LIMIT 0,5');

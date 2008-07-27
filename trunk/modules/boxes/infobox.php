@@ -1,6 +1,12 @@
 <?php
-$templ['box']['rows'] = "";
-
+/**
+ * Generate Infobox
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 if($auth['login'] == 1) {
 
 	// Checkout infos

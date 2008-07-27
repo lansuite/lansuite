@@ -1,14 +1,19 @@
 <?php
-$templ['box']['rows'] = '';
-
+/**
+ * Show statsbox
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 // Number of visits
 $total = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage");
 
 // Ermittle die Anzahl der registrierten Usern
 $get_cur = $db->qry_first('SELECT count(userid) as n FROM %prefix%user AS user WHERE user.type > 0');
 $reg = $get_cur["n"];
-  $box->DotRow(t('Benutzer').': '. $reg);
-
+$box->DotRow(t('Benutzer').': '. $reg);
 
 // Avgerage online, this hour
 $avg = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage
@@ -21,12 +26,12 @@ $box->EngangedRow('<div id="infobox" style="display:inline">'. $total['hits'] .'
 
 // Get list of users currently online
 $user_online = $db->qry("SELECT SQL_CALC_FOUND_ROWS user.username, user.userid
-	FROM %prefix%stats_auth AS auth
-	LEFT JOIN %prefix%user AS user ON user.userid = auth.userid
-	WHERE (auth.lasthit > %int%) AND auth.login = '1' AND user.userid > 0 AND user.type > 0
-	GROUP BY user.userid
-	ORDER BY auth.lasthit
-	LIMIT 10
+                        	FROM %prefix%stats_auth AS auth
+                        	LEFT JOIN %prefix%user AS user ON user.userid = auth.userid
+                        	WHERE (auth.lasthit > %int%) AND auth.login = '1' AND user.userid > 0 AND user.type > 0
+                        	GROUP BY user.userid
+                        	ORDER BY auth.lasthit
+                        	LIMIT 10
 	", (time() - 60 * 10));
 $online = $db->query_first('SELECT FOUND_ROWS() AS count');
 $box->DotRow(t('Eingeloggt') .': '. $online['count']);

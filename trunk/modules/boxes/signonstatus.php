@@ -1,14 +1,18 @@
 <?php
-$templ['box']['rows'] = "";
-
+/**
+ * Generate Signonstatus. Show Counter and Bar
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 // mit oder ohne orgas
 if($cfg["guestlist_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
 
 // Ermittle die Anzahl der registrierten Usern
 $get_cur = $db->qry_first('SELECT count(userid) as n FROM %prefix%user AS user WHERE %plain%', $querytype);
 $reg = $get_cur["n"];
-
-
 
 // Ermittle die Anzahl der derzeit angemeldeten Usern
 $get_cur = $db->qry_first('SELECT count(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)', $party->party_id, $querytype);

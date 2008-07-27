@@ -1,6 +1,13 @@
 <?php
-
+/**
+ * Show all new News in a Box
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 include('modules/home/news.inc.php');
-$templ['box']['rows'] = $templ['home']['show']['item']['control']['row'];
+$box->Row($templ['home']['show']['item']['control']['row']);
 
 ?>

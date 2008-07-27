@@ -1,4 +1,11 @@
 <?php
+/**
+ * Show Sponsorpictures
+ *
+ * @package lansuite_core
+ * @author knox, bytekilla
+ * @version $Id$
+ */
 
 $box->DotRow(t('Wir danken').':');
 

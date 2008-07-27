@@ -1,6 +1,13 @@
 <?php
-
+/**
+ * Show all new Servers in a Box
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 include('modules/home/server.inc.php');
-$templ['box']['rows'] = $templ['home']['show']['item']['control']['row'];
+$box->Row($templ['home']['show']['item']['control']['row']);
 
 ?>

@@ -1,7 +1,12 @@
 <?php
-
-$templ['box']['rows'] = '';
-
+/**
+ * Generate Loginbox
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 if ($_GET['mod'] == 'logout') $templ['login']['action'] = 'index.php';
 else $templ['login']['action'] = "index.php?mod=auth&action=login";
 $templ['login']['buttons_add'] = $dsp->FetchIcon('index.php?mod=signon', 'add_user');

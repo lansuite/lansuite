@@ -1,7 +1,12 @@
 <?php
-
-$templ['box']['rows'] = '';
-
+/**
+ * Generate Searchbox
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
+ 
 ($_GET['mod'] == 'usrmgr')? $s = 'selected' : $s = '';
 $templ['searchbox']['module'] = "<option value=\"index.php?mod=guestlist&amp;action=guestlist\" $s>".t('Benutzer')."</option>\n";
 

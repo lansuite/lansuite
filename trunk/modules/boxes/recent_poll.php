@@ -1,6 +1,12 @@
 <?php
-
+/**
+ * Show all new Polls in a Box
+ *
+ * @package lansuite_core
+ * @author knox
+ * @version $Id$
+ */
 include('modules/home/poll.inc.php');
-$templ['box']['rows'] = $templ['home']['show']['item']['control']['row'];
+$box->Row($templ['home']['show']['item']['control']['row']);
 
 ?>
