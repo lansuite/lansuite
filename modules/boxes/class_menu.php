@@ -64,11 +64,11 @@ class menu {
     }
 
   /**
-   * menu::get_menuarray()
+   * menu::get_menu_items()
    *
    * @return
    */
-    function get_menuarray() {
+    function get_menu_items() {
         global $cfg, $func, $auth, $db;
         
         if (!$_GET['menu_group']) $_GET['menu_group'] = 0;
