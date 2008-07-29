@@ -61,15 +61,15 @@ include_once('modules/boxes/class_boxes.php');
     
     // Boxloop
     while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or in_array($BoxRow['module'], $ActiveModules)) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
-        $box = new boxes();
         if ($BoxRow['source'] == 'menu') {
             // Generate Menuboxes (Links, etc)
-            $MenuActive = 1;
             include_once('modules/boxes/class_menu.php');
             $menu = new menu($BoxRow['boxid'],$BoxRow['name']);
             if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $menu->get_menu_items();
             elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $menu->get_menu_items();
+            if ($menu->box->box_rows) $MenuActive = 1;            
         } else {
+            $box = new boxes();            
             // Generate Funktionboxes
             if (!$siteblock or $BoxRow['source'] == 'login') {
                 // Load file
@@ -87,12 +87,12 @@ include_once('modules/boxes/class_boxes.php');
     // Add Link to boxmanager, if menu is missing and loginbox, if not logged in
     if (!$siteblock and !$MenuActive) {
         if ($auth['type'] >= 2) {
-            $templ['box']['rows'] = '<a href="index.php?mod=boxes">Boxmanager</a>';
+            $box = new boxes();
+            $box->Row(t('Keine Navigation gefunden. Bitte korrekte zuweisung Box / Navigation prüfen (BoxID). Temporäre Links aktiviert.'));
+            $box->EmptyRow();
+            $box->DotRow('Boxmanager', 'index.php?mod=boxes');
+            $box->DotRow('Admin-Seite', 'index.php?mod=install');
             $templ['index']['control']['boxes_letfside'] .= $box->CreateBox(0, t('Temporär'));
-        } else {
-            $templ['box']['rows'] = '';
-            include_once('modules/boxes/login.php');
-            $templ['index']['control']['boxes_rightside'] .= $box->CreateBox(1, t('Temporär'));
         }
     }
 
