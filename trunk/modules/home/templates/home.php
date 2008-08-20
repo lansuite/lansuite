@@ -10,6 +10,7 @@ foreach($ModOverviews as $ModOverview) {
   include('modules/home/'. $ModOverview .'.inc.php');
   $MainContent .= $dsp->FetchModTpl('home', 'show_item');
 #  echo round($sitetool->out_work() - $st, 2);
+  $MainContent .= '</li>';
   if ($z % 2 == 1) $MainContent .= '</ul>';
   $z++;
 }
