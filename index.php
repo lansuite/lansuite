@@ -208,6 +208,10 @@
         if ($db->success) $stats = new stats();
     }
 
+### Load Rotation Banner
+
+    include_once("modules/sponsor/banner.php");
+
 ### Show Blocked Site
     
     if($cfg['sys_blocksite'] == 1 and $auth['type'] < 2) $siteblock = true;

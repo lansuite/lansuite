@@ -18,14 +18,14 @@ if ($_GET['design'] != 'popup' and $db->success and !$_SESSION['lansuite']['full
   if ($file_name == '') $file_name = 'ext_inc/banner/one_network_banner.jpg';
 
   // If entry is HTML-Code
-  if (substr($file_name, 0, 12) == 'html-code://') echo $func->AllowHTML(substr($file_name, 12, strlen($file_name) - 12));
+  if (substr($file_name, 0, 12) == 'html-code://') $smarty->assign('MainBanner', $func->AllowHTML(substr($file_name, 12, strlen($file_name) - 12)));
   else {
   	$code = '<img src="'. $file_name .'" border="1" width="468" height="60" class="img_border" title="'. $banner['name'] .'" alt="Sponsor Banner"/>';
 
   	// Link banner, if in online mode
   	if ($cfg['sys_internet']) $code = '<a href="index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=banner&amp;sponsorid='. $banner["sponsorid"] .'" target="_blank">'. $code .'</a>';
   	
-  	echo $code;
+  	$smarty->assign('MainBanner', $code);
   }
 }
 ?>
