@@ -20,7 +20,7 @@ function LastPostDetails($date) {
 }
 
 function FormatTitle($title) {
-  global $dsp, $templ, $line;
+  global $dsp, $templ, $line, $func;
   
   $icon = '';
   if ($line['closed']) {
@@ -33,7 +33,7 @@ function FormatTitle($title) {
     $templ['ms2']['icon_title'] = 'Wichtig!';
     $icon = $dsp->FetchModTpl('mastersearch2', 'result_icon'). ' ';
   }
-  return $icon . $title;
+  return $icon . $func->AllowHTML($title);
 }
 
 function NewPosts($last_read) {
