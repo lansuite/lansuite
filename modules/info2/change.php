@@ -83,7 +83,7 @@ if ($auth['type'] <= 1) {
 	        include_once("ext_scripts/FCKeditor/fckeditor.php");
 	        $oFCKeditor = new FCKeditor('FCKeditor1') ;
 	        $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
-	        $oFCKeditor->Value = $_POST['content'];
+	        $oFCKeditor->Value = $func->AllowHTML($_POST['content']);
 	        $oFCKeditor->Height = 380;
 	        $oFCKeditor->Create();
 	        $fcke_content = ob_get_contents();
