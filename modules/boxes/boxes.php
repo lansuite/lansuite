@@ -64,7 +64,7 @@ include_once('modules/boxes/class_boxes.php');
         if ($BoxRow['source'] == 'menu') {
             // Generate Menuboxes (Links, etc)
             include_once('modules/boxes/class_menu.php');
-            $menu = new menu($BoxRow['boxid'],$BoxRow['name']);
+            $menu = new menu($BoxRow['boxid'], $BoxRow['name']);
             if ($BoxRow['place'] == 0) $templ['index']['control']['boxes_letfside'] .= $menu->get_menu_items();
             elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $menu->get_menu_items();
             if ($menu->box->box_rows) $MenuActive = 1;            
