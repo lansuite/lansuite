@@ -210,20 +210,24 @@ class masterform {
 
               // -- Convertions --
               // Convert Post-date to unix-timestap
-              if ($SQLFieldTypes[$field['name']] == 'datetime')
+              if ($SQLFieldTypes[$field['name']] == 'datetime') {
 #                $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
 #                $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_hours'], $_POST[$field['name'].'_value_minutes'], 0);
 
                 //1997-12-31 23:59:59
                 $_POST[$field['name']] = $_POST[$field['name'].'_value_year'] .'-'. $_POST[$field['name'].'_value_month'] .'-'.
                 $_POST[$field['name'].'_value_day'] .' '. $_POST[$field['name'].'_value_hours'] .':'. $_POST[$field['name'].'_value_minutes'] .':00';
+                $__POST[$field['name']] = $_POST[$field['name']];
+              }
 
-              if ($SQLFieldTypes[$field['name']] == 'date')
+              if ($SQLFieldTypes[$field['name']] == 'date') {
 #                $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
 #                $_POST[$field['name'].'_value_day'], 0, 0, 0);
 
                 $_POST[$field['name']] = $_POST[$field['name'].'_value_year'] .'-'. $_POST[$field['name'].'_value_month'] .'-'. $_POST[$field['name'].'_value_day'];
-
+                $__POST[$field['name']] = $_POST[$field['name']];
+              }
+                
               // Upload submitted file
               if ($_POST[$field['name'].'_keep']) {
                 foreach ($this->SQLFields as $key => $val) if ($val == $field['name']) unset($this->SQLFields[$key]);
@@ -250,7 +254,7 @@ class masterform {
               // Check date
               elseif (($SQLFieldTypes[$field['name']] == 'datetime' or $SQLFieldTypes[$field['name']] == 'date')
                 and (!checkdate($_POST[$field['name'].'_value_month'], $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_year'])
-                AND !($_POST[$field['name'].'_value_month']=="00" AND $_POST[$field['name'].'_value_day']=="00" AND $_POST[$field['name'].'_value_year']=="0000"))) {
+                and !($_POST[$field['name'].'_value_month']=="00" and $_POST[$field['name'].'_value_day']=="00" and $_POST[$field['name'].'_value_year']=="0000"))) {
                 $this->error[$field['name']] = t('Das eingegebene Datum ist nicht korrekt.');
               // Check new passwords
               } elseif ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
