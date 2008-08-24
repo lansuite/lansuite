@@ -218,7 +218,7 @@ class auth {
                 $db->qry('DELETE FROM %prefix%login_errors WHERE userid = %int%', $user['userid']);
 
                 // The User will be logged in on the phpBB Board if the modul is available, configured and active.
-                if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
+                if (is_array($ActiveModules) and in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
                     include_once ('./modules/board2/class_board2.php');
                     $board2 = new board2();
                     $board2->loginPhpBB($this->auth['userid']);
