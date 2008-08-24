@@ -60,48 +60,33 @@ class Install {
 
   // Connect to DB and create Database, if not exist
   function TryCreateDB($createnew = NULL){
-      global $config, $_GET;
+    global $config;
+    
+    $link_id = mysql_connect($config['database']['server'], $config['database']['user'], $config['database']['passwd']);
+    if (!$link_id) return 0;
+    else {
 
-      $dbserver   = $config["database"]["server"];
-      $dbuser     = $config["database"]["user"];
-      $dbpasswd   = $config["database"]["passwd"];
-      $database   = $config["database"]["database"];
+      // Try to select DB
+      if (@mysql_select_db($config['database']['database'], $link_id)) {
+        // If User wants to rewrite all tables, drop databse. It will be created anew in the next step
+        if (!$_GET["quest"] and $createnew and $_GET["step"] == 3) $this->DeleteAllTables();
+        $ret_val = 1;
 
-      $link_id = mysql_connect($dbserver, $dbuser, $dbpasswd);
-      if ($link_id) {
-
-          // Try to select DB
-          if (@mysql_select_db($database, $link_id)) {
-      $ret_val = 1;
-
-          // If User wants to rewrite all tables, drop databse. It will be created anew in the next step
-          if ((!$_GET["quest"]) && ($createnew) && ($_GET["step"] == 3)) {
-        #mysql_query("DROP DATABASE $database");
-
-        $this->DeleteAllTables();
-        #$res = mysql_query("SELECT DISTINCT name FROM {$config['database']['prefix']}table_names", $link_id);
-        #while ($row = mysql_fetch_array($res)) mysql_query("DROP TABLE {$config['database']['prefix']}{$row['name']}", $link_id);
-        #mysql_free_result($res);
+      } else {   
+        // Try to create DB
+        @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $link_id);
+        $query_id = @mysql_query('CREATE DATABASE '. $config['database']['database'] .' CHARACTER SET utf8', $link_id);
+        if ($query_id) $ret_val = 3; else $ret_val = 2;
       }
-
-          } else {
-
-          @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $link_id);
-
-              // Try to create DB
-              $query_id = @mysql_query("CREATE DATABASE $database CHARACTER SET utf8", $link_id);
-              if ($query_id) $ret_val = 3; else $ret_val = 2;
-          }
-      } else $ret_val = 0;
-      @mysql_close($link_id);
-
-      return $ret_val;
-
-      // Return-Values:
-      // 0 = Server not available
-      // 1 = DB already exists
-      // 2 = Create failed (i.e. insufficient rights)
-      // 3 = Create successe
+    }
+    mysql_close($link_id);
+    
+    // Return-Values:
+    // 0 = Server not available
+    // 1 = DB already exists
+    // 2 = Create failed (i.e. insufficient rights)
+    // 3 = Create successe
+    return $ret_val;
   }
 
 
@@ -617,6 +602,9 @@ class Install {
     return $continue;
   }
 
+  // Scans all db.xml-files and deletes all tables listed in them
+  // This meens lansuite is not able to clean up tables, which changed their name during versions
+  // But this is much safer than DROP DATABASE, for this clean methode would drop other web-systems using the same DB table, too
   function DeleteAllTables () {
     global $import, $xml;
   
