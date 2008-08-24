@@ -395,6 +395,8 @@ class Install {
     function InsertMenus($rewrite = false) {
         global $db, $config, $xml;
 
+        $menubox = $db->qry_first('SELECT boxid FROM %prefix%boxes WHERE source = \'menu\' AND active = 1');
+
         $modules_dir = opendir("modules/");
         while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
             $file = "modules/$module/mod_settings/menu.xml";
@@ -442,7 +444,8 @@ class Install {
                                 requirement=$requirement,
                                 level=$level,
                                 pos=$pos,
-                                needed_config='$needed_config'
+                                needed_config='$needed_config',
+                                boxid='{$menubox['boxid']}'
                                 ");
                     }
                 }
