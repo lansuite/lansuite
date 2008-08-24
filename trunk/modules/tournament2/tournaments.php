@@ -1,7 +1,12 @@
 <?php
 
+function CheckModeForWWCLLeague($league) {
+  if ($league and $_POST['mode'] != 'single' and $_POST['mode'] != 'double' and $_POST['mode'] != 'groups') return t('WWCL-Turniere müssen im SE, DE oder Gruppenspiele Modus ausgetragen werden');
+  else return false;
+}
+
 function CheckModeForLeague($league) {
-  if ($league and $_POST['mode'] != 'single' and $_POST['mode'] != 'double') return 'Only in SE and DE';
+  if ($league and $_POST['mode'] != 'single' and $_POST['mode'] != 'double') return t('Diese Liga ist nur im SE und DE Modus möglich');
   else return false;
 }
 
@@ -141,7 +146,7 @@ while ($akt_game_id = array_shift($game_ids)) {
 	$akt_game_name = array_shift($game_namen);
 	$selections[$akt_game_id] = $akt_game_name;
 }
-$mf->AddField(t('WWCL-Spiel'), 'wwcl_gameid', IS_SELECTION, $selections, FIELD_OPTIONAL, 'CheckModeForLeague');
+$mf->AddField(t('WWCL-Spiel'), 'wwcl_gameid', IS_SELECTION, $selections, FIELD_OPTIONAL, 'CheckModeForWWCLLeague');
 
 // NGL-Spiel auswahl
 $xml_file = "";
