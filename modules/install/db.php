@@ -15,10 +15,10 @@ if ($_GET["quest"]){
 		break;
 
 		case 4: // Rewrite configs
-			$func->question(t('Sind Sie sicher, dass Sie <b>\'alle Konfigurationen\'</b> zurücksetzen möchten? Damit gehen alle Ihre Moduleinstellungen verloren!'), "index.php?mod=install&action=db&step=4&quest=0", "index.php?mod=install&action=db");
+			$func->question(t('Sind Sie sicher, dass Sie <b>\'alle Konfigurationen\'</b> zurÃ¼cksetzen möchten? Damit gehen alle Ihre Moduleinstellungen verloren!'), "index.php?mod=install&action=db&step=4&quest=0", "index.php?mod=install&action=db");
 		break;
 /*
-// Muss f�r die Multipartyfunktion angepasst werden
+// Muss für die Multipartyfunktion angepasst werden
 		case 5: // Reset Users Signonstatus
 			$func->question(t('Sind Sie sicher, dass Sie den Status der Benutzer zurücksetzen möchten? Damit ist kein Benutzer mehr zur aktuellen Party angemeldet. Außerdem wird der Bezahltstatus aller Benutzer auf \'Nicht Bezahlt\' gesetzt.'), "index.php?mod=install&action=db&step=5&quest=0", "index.php?mod=install&action=db");
 		break;
@@ -44,7 +44,7 @@ if ($_GET["quest"]){
 			$db->query("DROP TABLE {$config["tables"]["config_selections"]}");
 		break;
 /*
-		// Muss f�r die Multipartyfunktion angepasst werden
+		// Muss für die Multipartyfunktion angepasst werden
 		case 5: // Reset Users Signonstatus
 			$db->query("UPDATE {$config["tables"]["user"]} SET signon = 0, paid = 0");
 			$signonnstatus_out = t('Status zurückgesetzt');
