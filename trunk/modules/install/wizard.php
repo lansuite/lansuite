@@ -6,43 +6,45 @@ $_SESSION['auth']['design'] = 'standard';
 // Error-Switch
 switch ($_GET["step"]){
   case 7:
-        if ($_POST["email"] == "") $func->error(t('Bitte geben Sie eine E-Mail-Adresse ein!'), "index.php?mod=install&action=wizard&step=6");
-        elseif ($_POST["password"] == "") $func->error(t('Bitte geben Sie ein Kennwort ein!'), "index.php?mod=install&action=wizard&step=6");
-        elseif ($_POST["password"] != $_POST["password2"]) $func->error(t('Das Passwort und seine Verifizierung stimmen nicht überein!'), "index.php?mod=install&action=wizard&step=6");
-        else {
-            // Check for existing Admin-Account.
-            $row = $db->query_first("SELECT email FROM {$config["tables"]["user"]} WHERE email='{$_POST["email"]}'");
+    if ($_POST["email"] == "") $func->error(t('Bitte geben Sie eine E-Mail-Adresse ein!'), "index.php?mod=install&action=wizard&step=6");
+    elseif ($_POST["password"] == "") $func->error(t('Bitte geben Sie ein Kennwort ein!'), "index.php?mod=install&action=wizard&step=6");
+    elseif ($_POST["password"] != $_POST["password2"]) $func->error(t('Das Passwort und seine Verifizierung stimmen nicht überein!'), "index.php?mod=install&action=wizard&step=6");
+    else {
+      // Check for existing Admin-Account.
+      $row = $db->query_first("SELECT email FROM {$config["tables"]["user"]} WHERE email='{$_POST["email"]}'");
 
-            // If found, update password
-            if ($row['email']) $db->query("UPDATE {$config["tables"]["user"]} SET
-                password = '". md5($_POST["password"]) ."',
-                type = '3'
-                WHERE email='{$_POST["email"]}'
-                ");
+      // If found, update password
+      if ($row['email']) $db->query("UPDATE {$config["tables"]["user"]} SET
+        password = '". md5($_POST["password"]) ."',
+        type = '3'
+        WHERE email='{$_POST["email"]}'
+        ");
 
-            // If not found, insert
-            else {
-                $db->query("INSERT INTO {$config["tables"]["user"]} SET
-                        username = 'ADMIN',
-                        firstname = 'ADMIN',
-                        name = 'ADMIN',
-                        email='{$_POST["email"]}',
-                        password = '". md5($_POST["password"]) ."',
-                        type = '3'
-                        ");
-                $userid = $db->insert_id();
-                $db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid = '$userid'");
-            }
-        }
-    // No break!
-
-    case 8:
-        if (!$func->admin_exists()) {
-          // Fix Language
-          $func->information('Sie müssen einen Admin-Account anlegen, um fortfahren zu können');
-          $_GET['step'] = 6;
+      // If not found, insert
+      else {
+        $db->query("INSERT INTO {$config["tables"]["user"]} SET
+          username = 'ADMIN',
+          firstname = 'ADMIN',
+          name = 'ADMIN',
+          email='{$_POST["email"]}',
+          password = '". md5($_POST["password"]) ."',
+          type = '3'
+          ");
+        $userid = $db->insert_id();
+        $db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid = '$userid'");
+      }
+      
+      $authentication = new auth();
+      $authentication->login($_POST["email"], $_POST["password"]);
     }
-    break;
+  // No break!
+
+  case 8:
+    if (!$func->admin_exists()) {
+      $func->information(t('Sie müssen einen Admin-Account anlegen, um fortfahren zu können'));
+      $_GET['step'] = 6;
+    }
+  break;
 }
 
 switch ($_GET["step"]){
