@@ -23,24 +23,24 @@ $mf_number = 0;
 
 class masterform {
 
-    var $FormFields = array();
-    var $Groups = array();
-    var $SQLFields = array();
-    var $WYSIWYGFields = array();
-    var $SQLFieldTypes = array();
-    var $SQLFieldUnique = array();
-    var $DependOn = array();
-    var $error = array();
-    var $ManualUpdate = '';
-    var $AdditionalDBAfterSelectFunction = '';
-    var $AdditionalDBPreUpdateFunction = '';
-    var $AdditionalDBUpdateFunction = '';
-    var $CheckBeforeInserFunction = '';
-    var $DependOnStarted = 0;
-    var $isChange = false;
-    var $FormEncType = '';
-    var $PWSecID = 0;
-    var $AdditionalKey = '';
+  var $FormFields = array();
+  var $Groups = array();
+  var $SQLFields = array();
+  var $WYSIWYGFields = array();
+  var $SQLFieldTypes = array();
+  var $SQLFieldUnique = array();
+  var $DependOn = array();
+  var $error = array();
+  var $ManualUpdate = '';
+  var $AdditionalDBAfterSelectFunction = '';
+  var $AdditionalDBPreUpdateFunction = '';
+  var $AdditionalDBUpdateFunction = '';
+  var $CheckBeforeInserFunction = '';
+  var $DependOnStarted = 0;
+  var $isChange = false;
+  var $FormEncType = '';
+  var $PWSecID = 0;
+  var $AdditionalKey = '';
   var $AddInsertControllField = '';
   var $AddChangeCondition = '';
   var $NumFields = 0;
@@ -572,6 +572,7 @@ class masterform {
                   if ($this->isChange) {
                     $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $AddKey $idname = ". (int)$id);
                     $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+                    $addUpdSuccess = $id;
                   } else {
                     $DBInsertQuery = $db_query;
                     if ($this->AdditionalKey != '') $DBInsertQuery .= ', '. $this->AdditionalKey;
@@ -585,7 +586,6 @@ class masterform {
                 }
               }
             }
-
             if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
             if ($addUpdSuccess) {
               if ($this->isChange) $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer']);
@@ -599,8 +599,8 @@ class masterform {
           /* Will be
            1) return of AdditionalDBPreUpdateFunction if AddChangeCondition returns true
            2) return of AdditionalDBUpdateFunction if set
-           3) Insert_id
-          */  
+           3) Insert_id // Note, this will always return 0, if id field has no AUTO_INCREMENT option!
+          */
         }
       break;
     }
