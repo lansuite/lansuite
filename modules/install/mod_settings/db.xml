@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <lansuite>
     <header>
@@ -598,7 +598,7 @@
                 <type>int(2)</type>
                 <null></null>
                 <key>IND</key>
-                <default></default>
+                <default>1</default>
                 <extra></extra>
             </field>
         </structure>

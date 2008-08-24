@@ -81,6 +81,13 @@ switch($_GET["step"]) {
 		if ($_GET["onlyactive"]) $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&onlyactive=0\">".t('Alle Einträge anzeigen')."</a>");
 		else  $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&onlyactive=1\">".t('Nur Einträge von aktivierten Modulen anzeigen')."</a>");
 
+    $validBoxIds = array();
+    $res = $db->qry('SELECT boxid FROM %prefix%boxes WHERE source = \'menu\'');
+    while ($row = $db->fetch_array($res)) {
+      $validBoxIds[] = $row['boxid'];
+    }
+    $db->free_result($res);
+
 		$menus = $db->query("SELECT module.active, menu.* FROM {$config["tables"]["menu"]} AS menu
 			LEFT JOIN {$config["tables"]["modules"]} AS module ON (menu.module = module.name)
 			WHERE (menu.level = 0) and (menu.caption != '') ORDER BY menu.pos");
@@ -103,7 +110,12 @@ switch($_GET["step"]) {
 				if ($z < $db->num_rows($menus)) $link .= "[<a href=\"index.php?mod=install&action=menu&step=3&pos=$z&onlyactive={$_GET["onlyactive"]}\">v</a>]";
 				$link .= " ".t('Pos').": <input type=\"text\" name=\"pos[{$menu["id"]}]\" value=\"$z\" size=\"2\">";
 				$link .= " Gruppe: <input type=\"text\" name=\"group[{$menu["id"]}]\" value=\"{$menu['group_nr']}\" size=\"2\">";
-				$link .= " MenüBox-Nr: <input type=\"text\" name=\"box[{$menu["id"]}]\" value=\"{$menu['boxid']}\" size=\"2\">";
+				$link .= " MenüBox-Nr: <select name=\"box[{$menu["id"]}]\">";
+				foreach ($validBoxIds as $validBoxId) {
+				  ($menu['boxid'] == $validBoxId)? $sel = ' selected' : $sel = '';
+				  $link .= "<option value=\"$validBoxId\"$sel>$validBoxId</option>";
+        }
+        $link .= "</select>";
 
 				$dsp->AddDoubleRow("$z) ". $menu["caption"], $link);
 			}

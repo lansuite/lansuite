@@ -77,7 +77,7 @@ class menu {
         FROM %prefix%menu AS menu
         LEFT JOIN %prefix%modules AS module ON menu.module = module.name
         WHERE ((module.active) OR (menu.caption = '--hr--'))
-        AND ((!menu.boxid) OR (menu.boxid = %int%))
+        AND (menu.boxid = %int%)
         AND (menu.caption != '') AND (menu.level = 0) AND (menu.group_nr = %int%)
         AND ((menu.requirement = '') OR (menu.requirement = 0)
         OR (menu.requirement = 1 AND %int% = 1)
