@@ -1,5 +1,9 @@
 <?php
 
+if ($_GET['name']) {
+  $row = $db->qry_first('SELECT postid FROM %prefix%wiki WHERE name = %string%', $_GET['name']);
+  $_GET['postid'] = $row['postid'];
+}
 if (!$_GET['postid']) $_GET['postid'] = 1;
 if (!isset($_GET['versionid'])) {
   $row = $db->qry_first('SELECT MAX(versionid) AS versionid FROM %prefix%wiki_versions WHERE postid = %int% GROUP BY postid', $_GET['postid']);
