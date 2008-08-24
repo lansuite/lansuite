@@ -86,13 +86,13 @@ class Import {
 				$db->free_result($query);
 
         // Read indizes from DB
-        $DBPrimaryKey = '';
+        $DBPrimaryKeys = array();
         $DBUniqueKeys = array();
         $DBIndizes = array();
         $DBFulltext = array();
         $ResIndizes = $db->query("SHOW INDEX FROM {$config["database"]["prefix"]}$table_name");
         while ($RowIndizes = $db->fetch_array($ResIndizes)) {
-          if ($RowIndizes['Key_name'] == 'PRIMARY') $DBPrimaryKey = $RowIndizes['Column_name'];
+          if ($RowIndizes['Key_name'] == 'PRIMARY') $DBPrimaryKeys[] = $RowIndizes['Column_name'];
           elseif ($RowIndizes['Non_unique'] == 0) $DBUniqueKeys[] = $RowIndizes['Column_name'];
           elseif ($RowIndizes['Non_unique'] == 1) {
             if ($RowIndizes['Index_type'] == 'FULLTEXT') $DBFulltext[] = $RowIndizes['Column_name'];
@@ -183,37 +183,54 @@ class Import {
             //// Index-Check
             // Drop keys, which no longer exist in XML
             if ($key == '') {
-              if ($DBPrimaryKey == $name) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
+              if (in_array($name, $DBPrimaryKeys)) {
+                $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
+                array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
+              }
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
                 $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
 
+            // Drop keys, which have changed type in XML. They will be re-created beneath
             } elseif ($key == 'PRI') {
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
                 $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
 
             } elseif ($key == 'UNI') {
-              if ($DBPrimaryKey == $name) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
+              if (in_array($name, $DBPrimaryKeys)) {
+                $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
+                array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
+              }
               if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
                 $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
 
             } elseif ($key == 'IND') {
-              if ($DBPrimaryKey == $name) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
+              if (in_array($name, $DBPrimaryKeys)) {
+                $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
+                array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
+              }
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext))
                 $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
 
             } elseif ($key == 'FUL') {
-              if ($DBPrimaryKey == $name) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY");
+              if (in_array($name, $DBPrimaryKeys)) {
+                $db->qry('ALTER TABLE %prefix%%plain% DROP PRIMARY KEY', $table_name);
+                array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
+              }
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes))
                 $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
             }
-
             // Primary Key in XML but not in DB
-            if ($key == 'PRI' and $DBPrimaryKey != $name) {
+            // Attention when adding a double-primary-key it is added one after another. So some lines will be droped!
+            if ($key == 'PRI' and !in_array($name, $DBPrimaryKeys)) {
               // No key in DB, yet
-              // IGNORE is to drop non-uniqe lines
-              if ($DBPrimaryKey == '') $db->query("ALTER IGNORE TABLE {$config["database"]["prefix"]}$table_name ADD PRIMARY KEY ($name)");
-              // Key in DB replaced
-              else $db->query("ALTER IGNORE TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY, ADD PRIMARY KEY ($name)");
+              $DBPrimaryKeys[] = $name;
+              // count = 1, because added to var one line before, IGNORE is to drop non-uniqe lines
+              if (count($DBPrimaryKeys) == 1) $db->query("ALTER IGNORE TABLE {$config["database"]["prefix"]}$table_name ADD PRIMARY KEY ($name)");
+              // Key in DB replaced/extended
+              else {
+                $priKeys = implode(', ', $DBPrimaryKeys);
+                $db->query("ALTER IGNORE TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY, ADD PRIMARY KEY ($priKeys)");
+              }
             }
 
             // Unique keys in XML but not in DB
@@ -279,8 +296,8 @@ class Import {
 				// Update Content only, if no row exists, or table has PrimKey set
 				$EntriesFound = array();
 				$qry = $db->query("SELECT * FROM {$config["database"]["prefix"]}$table_name");
-        if ($DBPrimaryKey or $db->num_rows($qry) == 0) {
-          if ($DBPrimaryKey) while ($row = $db->fetch_array($qry)) $EntriesFound[] = $row[$DBPrimaryKey];
+        if (count($DBPrimaryKeys) > 0 or $db->num_rows($qry) == 0) {
+          if (count($DBPrimaryKeys) > 0) while ($row = $db->fetch_array($qry)) $EntriesFound[] = $row[$DBPrimaryKeys[0]];
 
   				foreach ($entrys as $entry) {
   				  $mysql_entries = '';
@@ -289,7 +306,7 @@ class Import {
   					if ($field_names) foreach ($field_names as $field_name) {
   						$value = $xml->get_tag_content($field_name, $entry);
   						if ($value != '') $mysql_entries .= "$field_name = '". $func->escape_sql($value) ."', ";
-  						if ($field_name == $DBPrimaryKey and in_array($value, $EntriesFound)) $FoundValueInDB = 1;
+  						if ($field_name == $DBPrimaryKeys[0] and in_array($value, $EntriesFound)) $FoundValueInDB = 1;
   					}
 
             if (!$FoundValueInDB) {
