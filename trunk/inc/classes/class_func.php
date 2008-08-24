@@ -461,6 +461,18 @@ class func {
         $string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
         $string = str_replace('[/color]', '</font>', $string);
 
+        // Wiki Syntax
+        $string = preg_replace('#====== (.*) ======#Ui', '<b>\\1</b>', $string);
+        $string = preg_replace('#===== (.*) =====#Ui', '<b>\\1</b>', $string);
+        $string = preg_replace('#==== (.*) ====#Ui', '<b>\\1</b>', $string);
+        $string = preg_replace('#=== (.*) ===#Ui', '<b>\\1</b>', $string);
+        $string = preg_replace('#== (.*) ==#Ui', '<b>\\1</b>', $string);
+        $string = preg_replace('#\\[(http://[^ ]*) ([^\\]]*)\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
+        $string = preg_replace('#\\[\\[([^\\|\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\1</a>', $string);
+        $string = preg_replace('#\\[\\[([^\\|]*)\\|([^\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\2</a>', $string);
+        #$string = preg_replace("#^\\* #Ui", "<li>", $string);
+        
+
         $res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
         while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
     $db->free_result($res);
