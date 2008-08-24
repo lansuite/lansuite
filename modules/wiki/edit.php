@@ -10,6 +10,19 @@ if ($row['found']) {
   if ($_GET['mf_step'] != 2) $_POST['text'] = $row['text'];
 }
 
+$templ['define_url_js'] = '';
+$templ['define_url_options'] = '';
+$i = 0;
+$res = $db->qry('SELECT postid, name FROM %prefix%wiki ORDER BY name');
+while ($row = $db->fetch_array($res)) {
+  $templ['define_url_js'] .= "UrlAuswahl[$i] = new Object(); UrlAuswahl[$i]['url'] = 'index.php?mod=wiki&action=show&postid={$row['postid']}'; UrlAuswahl[$i]['name'] = '{$row['name']}';\n";
+  $templ['define_url_options'] .= '<option value="'. $i .'">'. $row['name'] .'</option>';
+  $i++;
+}
+$db->free_result($res);
+
+$dsp->AddDoubleRow('', $dsp->FetchModTpl('wiki', 'add_page_link'));
+
 include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
