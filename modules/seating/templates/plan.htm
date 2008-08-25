@@ -17,88 +17,94 @@ InitSeating();
 
 {$input_hidden}
 
-<table cellspacing="4" cellpadding="0" class="content" align="center" onMousedown="setFlag()" onMouseup="resetFlag()" onmouseout="resetFlag()">
-	<tr>
-		<td class="frame_box" width="33%" colspan="2">{$text_tl}&nbsp;</td>
-		<td class="frame_box" width="34%">{$text_tc}&nbsp;</td>
-		<td class="frame_box" width="33%" colspan="2">{$text_tr}&nbsp;</td>
-	</tr>
+{if $mode == 0}
+  <div id="SeatPlanSVGContet" height="400" width="400" style="width:400px; height:400px"></div><script>go();</script>
+{else}
 
-	<tr>
-		<td class="frame_box" width="5%">{$text_lt}&nbsp;</td>
-		<td rowspan="3" colspan="3" class="frame_box">
-			<table cellspacing="0" cellpadding="0" class="content" align="center">
+  <table cellspacing="4" cellpadding="0" class="content" align="center" onMousedown="setFlag()" onMouseup="resetFlag()" onmouseout="resetFlag()">
+  	<tr>
+  		<td class="frame_box" width="33%" colspan="2">{$text_tl}&nbsp;</td>
+  		<td class="frame_box" width="34%">{$text_tc}&nbsp;</td>
+  		<td class="frame_box" width="33%" colspan="2">{$text_tr}&nbsp;</td>
+  	</tr>
+  
+  	<tr>
+  		<td class="frame_box" width="5%">{$text_lt}&nbsp;</td>
+  		<td rowspan="3" colspan="3" class="frame_box">
 
-			{if $mode == 1}
-        <tr><td class="content"></td><td class="content"></td>
-    			{foreach name=fe_head from=$head item=v}
-            {if $smarty.foreach.fe_head.last}
-              <td class="content" style="font-size:8px;" align="left" valign="top"></td>
-            {else}
-              <td width="{$v.width}" class="content">
-              	<a href="{$v.link}"><img src="{$v.icon}" alt="" border="0" /></a>
-              </td>
-            {/if}
+  			<table cellspacing="0" cellpadding="0" class="content" align="center">
+  
+  			{if $mode == 1}
+          <tr><td class="content"></td><td class="content"></td>
+      			{foreach name=fe_head from=$head item=v}
+              {if $smarty.foreach.fe_head.last}
+                <td class="content" style="font-size:8px;" align="left" valign="top"></td>
+              {else}
+                <td width="{$v.width}" class="content">
+                	<a href="{$v.link}"><img src="{$v.icon}" alt="" border="0" /></a>
+                </td>
+              {/if}
+            {/foreach}
+          </tr>
+  			{/if}
+  			<tr>
+          <td class="content"></td>
+          {if $mode == 1}
+            <td class="content"></td>
+          {/if}
+          {foreach from=$head key=k item=v}
+            <td class="content" style="font-size:8px; table-layout:fixed; width:{$v.width}px;" align="left" onclick="AllselectV({$k});">{$v.name}</td>
           {/foreach}
         </tr>
-			{/if}
-			<tr>
-        <td class="content"></td>
-        {if $mode == 1}
-          <td class="content"></td>
-        {/if}
-        {foreach from=$head key=k item=v}
-          <td class="content" style="font-size:8px; table-layout:fixed; width:{$v.width}px;" align="left" onclick="AllselectV({$k});">{$v.name}</td>
-        {/foreach}
-      </tr>
-
-      {foreach from=$body key=k item=lines}
-        <tr style="table-layout:fixed; height:{$lines.height}px;">
-          {if $mode == 1}
-          	<td height="{$lines.height}" class="content" align="left" valign="top">
-          		<a href="{$lines.link}"><img src="{$lines.icon}" alt="" border="0" /></a>
-          	</td>
-  	      {/if}
-
-        	<td class="content" style="font-size:8px" align="left" valign="top" onclick="AllselectH({$k});">{$lines.desc}</td>
-          {foreach from=$lines.line key=k2 item=v}
-            {if $mode == 2}
-              <td onClick="changeImage(this); return false" onMousemove="changeImage(this); return false" style="background-image:url({$v.symbol}); background-repeat:no-repeat; width:14px" id="{$v.cell_id}"></td>
-            {else}
-        	    <td class="content" style="font-size:8px;" align="left" valign="top">
-        	      {if $mode == 1}
-        	        <img src="ext_inc/auto_images/{$default_design}/seat/seat_free.png" />
-        	      {elseif $mode == 3}
-        	        {$v.content}
-        	      {else}
-          	      {if $v.link != ''}<a href="{$v.link}">{/if}
-                  <img src="{$v.img_name}" name="x{$k2}" onmouseover="return overlib('{$v.tooltip}');" onmouseout="return nd();" alt="{$v.img_title}" title="{$v.img_title}" border="0" style="display:block" />
-                  {if $v.link != ''}</a>{/if}
-                {/if}
-              </td>
-        	  {/if}
-        	{/foreach}
-        </tr>
-			{/foreach}
-
-			</table>
-		</td>
-		<td class="frame_box" width="5%">{$text_rt}&nbsp;</td>
-	</tr>
-	<tr>
-		<td class="frame_box">{$text_lc}&nbsp;</td>
-		<!-- RowSpan #2 + ColSpan 3-->
-		<td class="frame_box">{$text_rc}&nbsp;</td>
-	</tr>
-	<tr>
-		<td class="frame_box">{$text_lb}&nbsp;</td>
-		<!-- RowSpan #3 + ColSpan 3 -->
-		<td class="frame_box">{$text_rb}&nbsp;</td>
-	</tr>
-
-	<tr>
-		<td class="frame_box" colspan="2">{$text_bl}&nbsp;</td>
-		<td class="frame_box">{$text_bc}&nbsp;</td>
-		<td class="frame_box" colspan="2">{$text_br}&nbsp;</td>
-	</tr>
-</table>
+  
+        {foreach from=$body key=k item=lines}
+          <tr style="table-layout:fixed; height:{$lines.height}px;">
+            {if $mode == 1}
+            	<td height="{$lines.height}" class="content" align="left" valign="top">
+            		<a href="{$lines.link}"><img src="{$lines.icon}" alt="" border="0" /></a>
+            	</td>
+    	      {/if}
+  
+          	<td class="content" style="font-size:8px" align="left" valign="top" onclick="AllselectH({$k});">{$lines.desc}</td>
+            {foreach from=$lines.line key=k2 item=v}
+              {if $mode == 2}
+                <td onClick="changeImage(this); return false" onMousemove="changeImage(this); return false" style="background-image:url({$v.symbol}); background-repeat:no-repeat; width:14px" id="{$v.cell_id}"></td>
+              {else}
+          	    <td class="content" style="font-size:8px;" align="left" valign="top">
+          	      {if $mode == 1}
+          	        <img src="ext_inc/auto_images/{$default_design}/seat/seat_free.png" />
+          	      {elseif $mode == 3}
+          	        {$v.content}
+          	      {else}
+            	      {if $v.link != ''}<a href="{$v.link}">{/if}
+                    <img src="{$v.img_name}" name="x{$k2}" onmouseover="return overlib('{$v.tooltip}');" onmouseout="return nd();" alt="{$v.img_title}" title="{$v.img_title}" border="0" style="display:block" />
+                    {if $v.link != ''}</a>{/if}
+                  {/if}
+                </td>
+          	  {/if}
+          	{/foreach}
+          </tr>
+  			{/foreach}
+  
+  			</table>
+  		</td>
+  		<td class="frame_box" width="5%">{$text_rt}&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td class="frame_box">{$text_lc}&nbsp;</td>
+  		<!-- RowSpan #2 + ColSpan 3-->
+  		<td class="frame_box">{$text_rc}&nbsp;</td>
+  	</tr>
+  	<tr>
+  		<td class="frame_box">{$text_lb}&nbsp;</td>
+  		<!-- RowSpan #3 + ColSpan 3 -->
+  		<td class="frame_box">{$text_rb}&nbsp;</td>
+  	</tr>
+  
+  	<tr>
+  		<td class="frame_box" colspan="2">{$text_bl}&nbsp;</td>
+  		<td class="frame_box">{$text_bc}&nbsp;</td>
+  		<td class="frame_box" colspan="2">{$text_br}&nbsp;</td>
+  	</tr>
+  </table>
+{/if}

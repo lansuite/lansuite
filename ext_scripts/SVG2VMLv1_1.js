@@ -39,6 +39,7 @@ VectorModel.prototype = {
 	},
 	
 	createElement: function( element ) {
+		
 		if ( this.svg_capable ) {
 			var svgElement = document.createElementNS("http://www.w3.org/2000/svg", element);
 			
