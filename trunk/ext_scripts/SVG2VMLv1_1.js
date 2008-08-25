@@ -23,7 +23,7 @@ var linearGradients = new Object();
 
 VectorModel.prototype = {
 	init: function() {
-		this.svg_capable = document.implementation.hasFeature("org.w3c.dom.svg", '1.1');
+		this.svg_capable = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#CoreAttribute", "1.1");
 		this.vml_capable = (document.all && !(navigator.userAgent.indexOf("Opera")>=0)) ? true : false;
 		
 		if ( this.vml_capable ) {
@@ -39,7 +39,6 @@ VectorModel.prototype = {
 	},
 	
 	createElement: function( element ) {
-		
 		if ( this.svg_capable ) {
 			var svgElement = document.createElementNS("http://www.w3.org/2000/svg", element);
 			
