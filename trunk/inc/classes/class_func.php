@@ -89,7 +89,7 @@ class func {
         $tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'boxes_rightside\']}', $templ['index']['control']['boxes_rightside'], $tpl_str);
         $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'content\']}', $templ['index']['info']['content'], $tpl_str);
         
-        $tpl_str = str_replace('{$templ[\'index\'][\'html_header\']}', $dsp->FetchModTpl('', 'html_header'), $tpl_str);
+        $tpl_str = str_replace('{$templ[\'index\'][\'html_header\']}', $templ['index']['html_header'] . $dsp->FetchModTpl('', 'html_header'), $tpl_str);
 
         $templ['index']['control']['current_url'] = 'index.php?'. $framework->get_clean_url_query('query') .'&fullscreen=no';
         $tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'current_url\']}', $templ['index']['control']['current_url'], $tpl_str);
