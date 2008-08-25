@@ -400,7 +400,7 @@ class func {
   }
 
   // If ls-code should be displayed
-    function text2html($string) {
+    function text2html($string, $IsForWiki = false) {
         global $db, $config, $auth;
 
     preg_replace_callback(
@@ -427,15 +427,18 @@ class func {
 #       $string = str_replace("?&gt;", '?'.'>', $string);
 #       $string = strip_tags($string);
 
-        $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:450px; max-height:450px; overflow:hidden;" />', $string);
-        $string = preg_replace('#\\[url=(index\.php\?[^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a href="\\1" rel="nofollow">\\2</a>', $string);
-        $string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
-
-        $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
-        $string = preg_replace('#(\\s|^)(mailto:(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\3</a>\\4', $string);
-        $string = preg_replace('#(\\s|^)(www\\.(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="http://\\2" rel="nofollow">\\2</a>\\4', $string);
-
-        $string = str_replace("\n", '<br />', $string);
+        if (!$IsForWiki) {
+          $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:450px; max-height:450px; overflow:hidden;" />', $string);
+          $string = preg_replace('#\\[url=(index\.php\?[^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a href="\\1" rel="nofollow">\\2</a>', $string);
+          $string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
+  
+          $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
+          $string = preg_replace('#(\\s|^)(mailto:(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\3</a>\\4', $string);
+          $string = preg_replace('#(\\s|^)(www\\.(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="http://\\2" rel="nofollow">\\2</a>\\4', $string);
+        }
+        
+        $string = str_replace("\r", '', $string);
+        $string = str_replace("\n", "<br />\n", $string);
         $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
 
         $string = str_replace('[b]', '<b>', $string);
@@ -461,34 +464,48 @@ class func {
         $string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
         $string = str_replace('[/color]', '</font>', $string);
 
-        // Wiki Syntax
-        $string = preg_replace('#====== (.*) ======#Ui', '<b>\\1</b>', $string);
-        $string = preg_replace('#===== (.*) =====#Ui', '<b>\\1</b>', $string);
-        $string = preg_replace('#==== (.*) ====#Ui', '<b>\\1</b>', $string);
-        $string = preg_replace('#=== (.*) ===#Ui', '<b>\\1</b>', $string);
-        $string = preg_replace('#== (.*) ==#Ui', '<b>\\1</b>', $string);
-        $string = preg_replace('#\\[(http://[^ ]*) ([^\\]]*)\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
-        $string = preg_replace('#\\[\\[([^\\|\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\1</a>', $string);
-        $string = preg_replace('#\\[\\[([^\\|]*)\\|([^\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\2</a>', $string);
-        #$string = preg_replace("#^\\* #Ui", "<li>", $string);
+        if (!$IsForWiki) {
+          $res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
+          while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
+          $db->free_result($res);
+        }
         
-
-        $res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
-        while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
-    $db->free_result($res);
-
-    $string = preg_replace_callback(
-      '#\[c\](.)*\[\/c\]#sUi',
-      create_function(
-        '$treffer',
-        'global $func, $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. $func->AllowHTML(geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true)) .\'</div></blockquote>\';'
-      ),
-      $string
-    );
+        $string = preg_replace_callback(
+          '#\[c\](.)*\[\/c\]#sUi',
+          create_function(
+            '$treffer',
+            'global $func, $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. $func->AllowHTML(geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true)) .\'</div></blockquote>\';'
+          ),
+          $string
+        );
 
         return $string;
     }
 
+    // Wiki Syntax
+    function Text2Wiki($string) {
+      $arr = explode("\n", $this->Text2HTML($string, 1));
+      
+      foreach ($arr as $key => $line) {
+        $arr[$key] = preg_replace('#^====== (.*) ======#sUi', '<h5>\\1</h5>', $arr[$key]);
+        $arr[$key] = preg_replace('#^===== (.*) =====#sUi', '<h5>\\1</h5>', $arr[$key]);
+        $arr[$key] = preg_replace('#^==== (.*) ====#sUi', '<h5>\\1</h5>', $arr[$key]);
+        $arr[$key] = preg_replace('#^=== (.*) ===#sUi', '<h5>\\1</h5>', $arr[$key]);
+        $arr[$key] = preg_replace('#^== (.*) ==#sUi', '<h5>\\1</h5>', $arr[$key]);
+        $arr[$key] = preg_replace('#^= (.*) =#sUi', '<h5>\\1</h5>', $arr[$key]);
+        $arr[$key] = preg_replace('#\\[(http://[^ ]*) ([^\\]]*)\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $arr[$key]);
+        $arr[$key] = preg_replace('#\\[\\[([^\\|\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\1</a>', $arr[$key]);
+        $arr[$key] = preg_replace('#\\[\\[([^\\|]*)\\|([^\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\2</a>', $arr[$key]);
+        $arr[$key] = preg_replace("#^\\* (.*)<br />#sUi", "<li>\\1</li>", $arr[$key]);
+        $arr[$key] = preg_replace("#'''(.*)'''#sUi", "<b>\\1</b>", $arr[$key]);
+      }
+
+      $string = implode("\n", $arr);
+#      $string = preg_replace("#<br />\n<li>#sUi", "<br />\n<ul>\n<li>", $string);
+#      $string = preg_replace("#</li>(\n.[^l].[^i].)#sUi", "</li>\n</ul>\\1", $string);
+      return '<br /><br /><br /><ul>'. $string .'</ul>';
+    }
+    
     function Entity2Uml($string) {
         $string = str_replace('&uuml;', 'ü', $string);
         $string = str_replace('&Uuml;', 'Ü', $string);
