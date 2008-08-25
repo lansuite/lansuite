@@ -26,6 +26,7 @@ class framework {
     var $modus = "";                        // Displaymodus (popup)
     var $framework_messages = "";           // All Frameworkmessages
     var $main_content = "";                 // Content
+    var $main_header_metatags = "";         // Headercode for Meta Tags
     var $main_header_jsfiles = "";          // Headercode for JS-Files
     var $main_header_jscode = "";           // Headercode for JS-Code
     var $main_header_cssfiles = "";         // Headercode for CSS-Files
@@ -229,6 +230,7 @@ class framework {
             if ($_GET['sitereload']) 
                 $smarty->assign('main_header_sitereload', '<meta http-equiv="refresh" content="'.$_GET['sitereload'].'; URL='.$_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING'].'">');
             // Add special CSS and JS
+            $smarty->assign('main_header_metatags', $this->main_header_metatags);
             $smarty->assign('main_header_jsfiles', $this->main_header_jsfiles);
             $smarty->assign('main_header_jscode', $this->main_header_jscode);
             $smarty->assign('main_header_cssfiles', $this->main_header_cssfiles);

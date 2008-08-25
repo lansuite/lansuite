@@ -56,7 +56,8 @@ else {
   ######## Check if roundtime has exceeded and set awaiting scores randomly
   $tfunc->CheckTimeExceed($tournamentid);
 
-  $templ['index']['info']['content'] .= '<html><body bgcolor="#EEE6E6"><div id="content"></div>
+  $templ['index']['html_header'] .= '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />';
+  $templ['index']['info']['content'] .= '<div id="content"></div>
     <script src="ext_scripts/SVG2VMLv1_1.js"></script>
     <script src="ext_scripts/ls_svg2vml.js"></script>
 		<script>
@@ -330,7 +331,7 @@ else {
     $templ['index']['info']['content'] .= '
     			}
     			go();
-    		</script></body></html>
+    		</script>
     ';
   }
 
@@ -341,6 +342,8 @@ else {
   	$templ['index']['info']['content'] .= "//-->\r\n";
   	$templ['index']['info']['content'] .= "</script>\r\n";
   }
+  
+  $templ['index']['info']['content'] .= '</body></html>';
 }
 
 $framework->add_content($func->FetchMasterTmpl("design/templates/base_index.htm", $templ));
