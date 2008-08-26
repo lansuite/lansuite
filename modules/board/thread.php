@@ -243,8 +243,9 @@ if ($thread['caption'] != '') {
   	$dsp->StartHiddenBox('email', $_POST["check_bookmark"]);
   	$dsp->AddCheckBoxRow("check_email", t('E-Mail Benachrichtigung'), t('Bei Antworten auf diesen Beitrag eine Internet-Mail an mich senden'), "", 1, $_POST["check_email"]);
   	$dsp->AddCheckBoxRow("check_sysemail", t('System-E-Mail'), t('Bei Antworten auf diesen Beitrag eine System-Mail an mich senden'), "", 1, $_POST["check_sysemail"]);
-  	$dsp->StopHiddenBox();
+    if ($bookmark["found"]) $dsp->StopHiddenBox();
   	$dsp->AddFormSubmitRow("edit");
+  	if (!$bookmark["found"]) $dsp->StopHiddenBox();
   	$dsp->AddFieldsetEnd();
   }
   
