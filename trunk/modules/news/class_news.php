@@ -22,13 +22,13 @@ class News {
       $channel .= $xml->write_master_tag("image", $image, 2);
     }
 
-    $get_news = $db->qry("SELECT n.*, u.username, u.email FROM  %prefix%news n
+    $get_news = $db->qry("SELECT n.*, u.name, u.firstname, u.username FROM  %prefix%news n
       LEFT JOIN %prefix%user u ON u.userid = n.poster
       ORDER BY n.date DESC");
     while($news = $db->fetch_array($get_news)) {
       $item = $xml->write_tag("title", $news["caption"], 3);
-      $item .= $xml->write_tag("description", substr($func->Entity2Uml(strip_tags($news["text"])), 0, 150), 3);
-      $item .= $xml->write_tag("author", "{$news['email']} ({$news['username']})", 3);
+      $item .= $xml->write_tag("description", $func->Entity2Uml(strip_tags($news["text"])), 3);
+      $item .= $xml->write_tag("author", "{$news['firstname']} {$news['name']} ({$news['username']})", 3);
       $item .= $xml->write_tag("pubDate", date("D, j M Y H:i:s O", $news['date']), 3);
                                                     
       $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
