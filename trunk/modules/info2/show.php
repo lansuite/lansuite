@@ -11,14 +11,16 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
 
 	$dsp->NewContent(t('Seite').": {$info["caption"]}", $info["shorttext"]);
 
-	$dsp->AddSingleRow($func->AllowHTML($info["text"]));
+  if ($info['active'] == 1) {
+	 $dsp->AddSingleRow($func->AllowHTML($info["text"]));
+	} else $func->error(t('Diese Info-Seite ist nicht aktiviert. Ein Admin muss sie zuerst im Info-Modul aktivieren'), "");
 	
 	// Show edit/aktivate Buttons
 	// FIX : add delete
 	if ($auth["type"] > 1) {
 		$dsp->AddSingleRow(" <font color=\"#ff0000\">".t('Diese Seite enthält selbst definierten Text. Sie können ihn ändern, indem Sie den Informationen-Link in der Navigations-Box auswählen.')."</font>");
 		$buttons .= $dsp->FetchButton("index.php?mod=info2&action=change&step=2&id={$_GET["id"]}", "edit"). " ";
-		if ($info['active'] = 1) {
+		if ($info['active'] == 1) {
     		$buttons .= $dsp->FetchButton("index.php?mod=info2&action=change&step=20&id={$_GET["id"]}", "deactivate"). " ";
 		} else {
     		$buttons .= $dsp->FetchButton("index.php?mod=info2&action=change&step=20&id={$_GET["id"]}", "activate"). " ";	
