@@ -7,7 +7,7 @@
  * @version $Id$
  */
  
-include_once('modules/home/board.inc.php');
+include('modules/home/board.inc.php');
 $box->Row($templ['home']['show']['item']['control']['row']);
 
 ?>
