@@ -7,7 +7,7 @@ foreach($ModOverviews as $ModOverview) {
     else $MainContent .= '<li class="LineRightHalf">';
   } else $MainContent .= '<li class="LineRightHalf">';
 #  $st = round($sitetool->out_work(), 2);
-  include('modules/home/'. $ModOverview .'.inc.php');
+  include_once('modules/home/'. $ModOverview .'.inc.php');
   $MainContent .= $dsp->FetchModTpl('home', 'show_item');
 #  echo round($sitetool->out_work() - $st, 2);
   $MainContent .= '</li>';
