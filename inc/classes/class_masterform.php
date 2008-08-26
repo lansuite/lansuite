@@ -490,7 +490,9 @@ class masterform {
 
               default: // Normal Textfield
                 ($field['type'] == IS_NOT_CHANGEABLE)? $not_changeable = 1 : $not_changeable = 0;
-                $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], $this->get_fieldlenght($field['type']), $field['optional'], $not_changeable);
+                $maxlength = $this->get_fieldlenght($field['type']);
+                ($maxlength < 70)? $length = $maxlength + (5-($maxlength % 5)) : $length = 70;
+                $dsp->AddTextFieldRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], $length, $field['optional'], $not_changeable, $maxlength);
               break;
             }
 
@@ -614,17 +616,12 @@ class masterform {
    * @param mixed Fieldname ($field['type'] = "varchar(10))
    * @return int Returns the Fieldlength of an varchar
    */
-    function get_fieldlenght($string) {
-        if (!(strrpos($string,"varchar")===false)) {
-            preg_match("/(varchar\()(\\d{1,3})(\))/i",$string, $treffer);
-            if ($treffer[2] < 70) {
-                $lenght = $treffer[2] + (5-($treffer[2] % 5)); // Round up 5er, looks better
-            } else {
-                $lenght = 70;
-            }
-            return $lenght;
-        }
+  function get_fieldlenght($string) {
+    if (!(strrpos($string,"varchar") === false)) {
+      preg_match("/(varchar\()(\\d{1,3})(\))/i",$string, $treffer);
+      return $treffer[2];
     }
+  }
 }
 
 

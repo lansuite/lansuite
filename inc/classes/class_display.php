@@ -222,13 +222,14 @@ class display {
     $this->AddDoubleRow($key, $value);
   }
 
-  function AddTextFieldRow($name, $key, $value, $errortext, $size = NULL, $optional = NULL, $not_changeable = NULL) {
+  function AddTextFieldRow($name, $key, $value, $errortext, $size = NULL, $optional = NULL, $not_changeable = NULL, $maxlength = NULL) {
     ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
     ($optional)? $optional = "_optional" : $optional = '';
     ($not_changeable)? $not_changeable = ' readonly="readonly"' : $not_changeable = '';
+    if ($maxlength) $maxlength = ' maxlength="'. $maxlength .'"';
     if ($size == '') $size = '30';
 
-    $value = '<input type="text" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'"'. $not_changeable .' value="'. $value .'" />'. $errortext;
+    $value = '<input type="text" id="'. $name .'" name="'. $name .'" class="form'. $optional .'" size="'. $size .'"'. $not_changeable .' value="'. $value .'"'. $maxlength .' />'. $errortext;
     $key = '<label for="'. $name .'">'. $key .'</label>';
     $this->AddDoubleRow($key, $value);
   }
