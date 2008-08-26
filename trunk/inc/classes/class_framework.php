@@ -253,6 +253,7 @@ class framework {
         switch ($this->modus){ 
             case 'popup': 
                 // Make HTML for Popup
+                $smarty->assign('MainTitle', $cfg['sys_page_title']);
                 $smarty->assign('MainContentStyleID', 'ContentFullscreen');
                 $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
                 $smarty->assign('MainJS', $templ['index']['control']['js']);
@@ -280,6 +281,7 @@ class framework {
         
             case 'print':
                 // Make a Printpopup (without Boxes and Special CSS for printing)
+                $smarty->assign('MainTitle', $cfg['sys_page_title']);
                 $smarty->assign('MainContentStyleID', 'ContentFullscreen');
                 $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
                 $smarty->assign('MainJS', $templ['index']['control']['js']);
@@ -290,6 +292,8 @@ class framework {
             break;
         
             default :
+                $smarty->assign('MainTitle', $cfg['sys_page_title']);
+
                 // Normal HTML-Output with Boxes 
                 $smarty->assign('Design', $this->design);
           
