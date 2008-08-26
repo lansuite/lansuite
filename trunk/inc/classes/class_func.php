@@ -400,85 +400,78 @@ class func {
   }
 
   // If ls-code should be displayed
-    function text2html($string, $IsForWiki = false) {
+    function text2html($string, $mode = 0) { // mode 0: default; 1: wiki before; 2: wiki after
         global $db, $config, $auth;
 
-    preg_replace_callback(
-      '#\[c\]((.)*)\[\/c\]#sUi',
-      create_function(
-        '$treffer',
-        'global $HighlightCode, $HighlightCount; $HighlightCount++; $HighlightCode[$HighlightCount] = $treffer[1];'
-      ),
-      $string
-    );
-
-        $img_start = "<img src=\"design/".$auth["design"]."/images/";
-        $img_start2 = '<img src="ext_inc/smilies/';
-        $img_end   = '" border="0" alt="" />';
-
-#       $string = str_replace("&", "&amp;", $string);
-#       $string = str_replace("\"", "&quot;", $string);
-#       $string = str_replace("<", "&lt;", $string);
-#       $string = str_replace(">", "&gt;", $string);
+        if ($mode != 1) {
+          preg_replace_callback(
+            '#\[c\]((.)*)\[\/c\]#sUi',
+            create_function(
+              '$treffer',
+              'global $HighlightCode, $HighlightCount; $HighlightCount++; $HighlightCode[$HighlightCount] = $treffer[1];'
+            ),
+            $string
+          );
+        }
         
-#       $string = str_replace("&lt;!--", "<!--", $string);
-#       $string = str_replace("--&gt;", "-->", $string);
-#       $string = str_replace("&lt;?", "<?", $string);
-#       $string = str_replace("?&gt;", '?'.'>', $string);
-#       $string = strip_tags($string);
-
-        if (!$IsForWiki) {
+        if ($mode != 2) {
+          $img_start = "<img src=\"design/".$auth["design"]."/images/";
+          $img_start2 = '<img src="ext_inc/smilies/';
+          $img_end   = '" border="0" alt="" />';
+  
           $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:450px; max-height:450px; overflow:hidden;" />', $string);
           $string = preg_replace('#\\[url=(index\.php\?[^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a href="\\1" rel="nofollow">\\2</a>', $string);
           $string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
+    
+          if ($mode != 1) {
+            $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
+            $string = preg_replace('#(\\s|^)(mailto:(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\3</a>\\4', $string);
+            $string = preg_replace('#(\\s|^)(www\\.(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="http://\\2" rel="nofollow">\\2</a>\\4', $string);
+          }
+          
+          $string = str_replace("\r", '', $string);
+          $string = str_replace("\n", "<br />\n", $string);
+          $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
   
-          $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
-          $string = preg_replace('#(\\s|^)(mailto:(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\3</a>\\4', $string);
-          $string = preg_replace('#(\\s|^)(www\\.(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="http://\\2" rel="nofollow">\\2</a>\\4', $string);
+          $string = str_replace('[b]', '<b>', $string);
+          $string = str_replace('[/b]', '</b>', $string);
+          $string = str_replace('[i]', '<i>', $string);
+          $string = str_replace('[/i]', '</i>', $string);
+          $string = str_replace('[u]', '<u>', $string);
+          $string = str_replace('[/u]', '</u>', $string);
+          $string = str_replace('[s]', '<strike>', $string);
+          $string = str_replace('[/s]', '</strike>', $string);
+          $string = str_replace('[sub]', '<sub>', $string);
+          $string = str_replace('[/sub]', '</sub>', $string);
+          $string = str_replace('[sup]', '<sup>', $string);
+          $string = str_replace('[/sup]', '</sup>', $string);
+  
+          $string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">', $string);
+          $string = str_replace('[/quote]', '</div></blockquote>', $string);
+  
+          $string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
+          $string = str_replace('[/size]', '</font>', $string);
+          $string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
+          $string = str_replace('[/color]', '</font>', $string);
+  
+          if ($mode != 1) {
+            $res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
+            while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
+            $db->free_result($res);
+          }
+        }
+
+        if ($mode != 1) {
+          $string = preg_replace_callback(
+            '#\[c\](.)*\[\/c\]#sUi',
+            create_function(
+              '$treffer',
+              'global $func, $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. $func->AllowHTML(geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true)) .\'</div></blockquote>\';'
+            ),
+            $string
+          );
         }
         
-        $string = str_replace("\r", '', $string);
-        $string = str_replace("\n", "<br />\n", $string);
-        $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
-
-        $string = str_replace('[b]', '<b>', $string);
-        $string = str_replace('[/b]', '</b>', $string);
-        $string = str_replace('[i]', '<i>', $string);
-        $string = str_replace('[/i]', '</i>', $string);
-        $string = str_replace('[u]', '<u>', $string);
-        $string = str_replace('[/u]', '</u>', $string);
-        $string = str_replace('[s]', '<strike>', $string);
-        $string = str_replace('[/s]', '</strike>', $string);
-        $string = str_replace('[sub]', '<sub>', $string);
-        $string = str_replace('[/sub]', '</sub>', $string);
-        $string = str_replace('[sup]', '<sup>', $string);
-        $string = str_replace('[/sup]', '</sup>', $string);
-
-//      $string = str_replace('[c]', '<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">', $string);
-//      $string = str_replace('[/c]', '</div></blockquote>', $string);
-        $string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">', $string);
-        $string = str_replace('[/quote]', '</div></blockquote>', $string);
-
-        $string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
-        $string = str_replace('[/size]', '</font>', $string);
-        $string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
-        $string = str_replace('[/color]', '</font>', $string);
-
-        if (!$IsForWiki) {
-          $res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
-          while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
-          $db->free_result($res);
-        }
-        
-        $string = preg_replace_callback(
-          '#\[c\](.)*\[\/c\]#sUi',
-          create_function(
-            '$treffer',
-            'global $func, $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. $func->AllowHTML(geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true)) .\'</div></blockquote>\';'
-          ),
-          $string
-        );
-
         return $string;
     }
 
@@ -486,24 +479,56 @@ class func {
     function Text2Wiki($string) {
       $arr = explode("\n", $this->Text2HTML($string, 1));
       
+      $COpen = 0;
+      $UlOpen = 0;
+      $OlOpen = 0;
       foreach ($arr as $key => $line) {
-        $arr[$key] = preg_replace('#^====== (.*) ======#sUi', '<h5>\\1</h5>', $arr[$key]);
-        $arr[$key] = preg_replace('#^===== (.*) =====#sUi', '<h5>\\1</h5>', $arr[$key]);
-        $arr[$key] = preg_replace('#^==== (.*) ====#sUi', '<h5>\\1</h5>', $arr[$key]);
-        $arr[$key] = preg_replace('#^=== (.*) ===#sUi', '<h5>\\1</h5>', $arr[$key]);
-        $arr[$key] = preg_replace('#^== (.*) ==#sUi', '<h5>\\1</h5>', $arr[$key]);
-        $arr[$key] = preg_replace('#^= (.*) =#sUi', '<h5>\\1</h5>', $arr[$key]);
+        #$arr[$key] = preg_replace("#^<br />$#sUi", '', $arr[$key]);
+        $arr[$key] = preg_replace('#^====== (.*) ======#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+        $arr[$key] = preg_replace('#^===== (.*) =====#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+        $arr[$key] = preg_replace('#^==== (.*) ====#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+        $arr[$key] = preg_replace('#^=== (.*) ===#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+        $arr[$key] = preg_replace('#^== (.*) ==#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+        $arr[$key] = preg_replace('#^= (.*) =#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
         $arr[$key] = preg_replace('#\\[(http://[^ ]*) ([^\\]]*)\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $arr[$key]);
         $arr[$key] = preg_replace('#\\[\\[([^\\|\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\1</a>', $arr[$key]);
         $arr[$key] = preg_replace('#\\[\\[([^\\|]*)\\|([^\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\2</a>', $arr[$key]);
-        $arr[$key] = preg_replace("#^\\* (.*)<br />#sUi", "<li>\\1</li>", $arr[$key]);
         $arr[$key] = preg_replace("#'''(.*)'''#sUi", "<b>\\1</b>", $arr[$key]);
+
+        if ($UlOpen) {
+          $arr[$key] = preg_replace("#^\\* (.*)<br />#sUi", "<li>\\1</li>", $arr[$key]);
+          $arr[$key] = preg_replace("#^([^\\*].(.*))<br />#sUi", "</ul><br />\\1", $arr[$key], -1, $count);
+          if ($count) $UlOpen = 0;
+        } else {
+          $arr[$key] = preg_replace("#^\\* (.*)<br />#sUi", "<br /><ul><li>\\1</li>", $arr[$key], -1, $count);
+          if ($count) $UlOpen = 1;
+        }
+
+        if ($OlOpen) {
+          $arr[$key] = preg_replace("|^\\# (.*)<br />|sUi", "<li>\\1</li>", $arr[$key]);
+          $arr[$key] = preg_replace("|^([^\\#].(.*))<br />|sUi", "</ol><br />\\1", $arr[$key], -1, $count);
+          if ($count) $OlOpen = 0;
+        } else {
+          $arr[$key] = preg_replace("|^\\# (.*)<br />|sUi", "<br /><ol><li>\\1</li>", $arr[$key], -1, $count);
+          if ($count) $OlOpen = 1;
+        }
+        
+        if ($COpen) {
+          $arr[$key] = preg_replace("#^([^ ].)#sUi", "[/c]\\1", $arr[$key], -1, $count);
+          if ($count) $COpen = 0;
+          $arr[$key] = preg_replace("#^ #sUi", "", $arr[$key]);
+          $arr[$key] = preg_replace("#<br />$#sUi", "", $arr[$key]);
+        } else {
+          $arr[$key] = preg_replace("#^ #sUi", "[c]", $arr[$key], -1, $count);
+          if ($count) {
+            $COpen = 1;
+            $arr[$key] = preg_replace("#<br />$#sUi", "", $arr[$key]);
+          }
+        }
       }
 
       $string = implode("\n", $arr);
-#      $string = preg_replace("#<br />\n<li>#sUi", "<br />\n<ul>\n<li>", $string);
-#      $string = preg_replace("#</li>(\n.[^l].[^i].)#sUi", "</li>\n</ul>\\1", $string);
-      return '<br /><br /><br /><ul>'. $string .'</ul>';
+      return '<br /><br /><ul>'. $this->Text2HTML($string, 2) .'</ul>';
     }
     
     function Entity2Uml($string) {
