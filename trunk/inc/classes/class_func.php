@@ -490,6 +490,7 @@ class func {
         $arr[$key] = preg_replace('#^=== (.*) ===#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
         $arr[$key] = preg_replace('#^== (.*) ==#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
         $arr[$key] = preg_replace('#^= (.*) =#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+        $arr[$key] = preg_replace('#\\[\\[Bild:(.*)\\]\\]#sUi', '<img src="ext_inc/wiki/\\1" alt="\\1">', $arr[$key]);
         $arr[$key] = preg_replace('#\\[(http://[^ ]*) ([^\\]]*)\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $arr[$key]);
         $arr[$key] = preg_replace('#\\[\\[([^\\|\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\1</a>', $arr[$key]);
         $arr[$key] = preg_replace('#\\[\\[([^\\|]*)\\|([^\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\2</a>', $arr[$key]);
@@ -526,8 +527,13 @@ class func {
           }
         }
       }
-
+      
       $string = implode("\n", $arr);
+      
+      if ($UlOpen) $string .= '</ul>';
+      if ($OlOpen) $string .= '</ol>';
+      if ($COpen) $string .= '[/c]';
+      
       return '<br /><br /><ul>'. $this->Text2HTML($string, 2) .'</ul>';
     }
     
