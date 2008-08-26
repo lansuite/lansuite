@@ -312,7 +312,19 @@ class seat2 {
 		$templ['seat']['seat_data_array'] = '';
 		$cell_nr = 0;
     $body = array();
+    $sepY = 0;
 		for ($y = 0; $y <= $block['rows']; $y++) {
+
+			if ($sep_cols[$y]) $sepY++;
+			$YOffset = $y * 14 + $sepY * 7 + 50;
+
+			$body[$y]['desc'] = $this->CoordinateToName(-1, $y, $block['orientation']);
+			$framework->main_header_jscode .= "CreateText('". $this->CoordinateToName(-1, $y, $block['orientation']) ."', ". (40) .", ". ($YOffset + 9) .", '');\n";			
+			if ($mode == 1) {
+			  if ($sep_cols[$y+1]) $framework->main_header_jscode .= "CreateSmallText('^', ". (30) .", ". ($YOffset + 9 + 7) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_col=". ($y + 1) ."');\n";
+			  else  $framework->main_header_jscode .= "CreateSmallText('v', ". (30) .", ". ($YOffset + 9 + 7) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_col=". ($y + 1) ."');\n";
+      }
+
 			if ($sep_cols[$y+1]) {
 				$body[$y]['height'] = 28;
 				$body[$y]['icon'] = "design/{$auth['design']}/images/arrows_seating_remove_sep_ver.gif";
@@ -323,206 +335,238 @@ class seat2 {
 			$body[$y]['link'] = "index.php?mod=seating&action={$_GET['action']}&step=4&blockid=$blockid&change_sep_col=".($y + 1);
 
 			$templ['seat']['cols'] = "";
+      $sepX = 0;
 			for ($x = 0; $x <= $block['cols']; $x++) {
+
+  			if ($sep_rows[$x]) $sepX++;
+				$XOffset = $x * 14 + $sepX * 7 + 50;
 
 				switch ($mode) {
           // Show plan				
 					default:
 						$templ['seat']['cell_nr'] = $cell_nr;
 						
-						$body[$y]['line'][$x]['title'] = $this->CoordinateToName($x + 1, $y, $block['orientation']);
-						if ($y == 1) $framework->main_header_jscode .= "CreateText('". $this->CoordinateToName($x + 1, -1, $block['orientation']) ."', ". ($x * 14 + 50 - 2) .", ". (50 - 6) .", '');\n";
+						if ($y == 1) $framework->main_header_jscode .= "CreateText('". $this->CoordinateToName($x + 1, -1, $block['orientation']) ."', ". ($XOffset - 2) .", ". (50 - 6) .", '');\n";
+						if ($y == 1 and $mode == 1) {
+						  if ($sep_rows[$x+1]) $framework->main_header_jscode .= "CreateSmallText('<', ". ($XOffset - 2 + 9) .", ". (50 - 16) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_row=". ($x + 1) ."');\n";
+						  else  $framework->main_header_jscode .= "CreateSmallText('>', ". ($XOffset - 2 + 9) .", ". (50 - 16) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_row=". ($x + 1) ."');\n";
+            }
 
 						// Set seat link target
-						$body[$y]['line'][$x]['link'] = '';
-						if ($linktarget) $body[$y]['line'][$x]['link'] = "$linktarget&row=$y&col=$x";
-						elseif ($auth['login']) {
-							// If free and user has not paid-> Possibility to mark this seat
-							if ($seat_state[$y][$x] == 1 and !$user_paid['paid'])
-								$body[$y]['line'][$x]['link'] = "index.php?mod=seating&action=show&step=12&blockid=$blockid&row=$y&col=$x";
-							// If free, or marked for another one -> Possibility to reserve this seat
-							elseif ($seat_state[$y][$x] == 1 or ($seat_state[$y][$x] == 3 and $seat_userid[$y][$x] != $auth['userid']))
-								$body[$y]['line'][$x]['link'] = "index.php?mod=seating&action=show&step=10&blockid=$blockid&row=$y&col=$x";
-							// If assigned to me, or marked for me -> Possibility to free this seat again
-							elseif (($seat_state[$y][$x] == 2 or $seat_state[$y][$x] == 3) and $seat_userid[$y][$x] == $auth['userid'])
-								$body[$y]['line'][$x]['link'] = "index.php?mod=seating&action=show&step=20&blockid=$blockid&row=$y&col=$x";
-							// If assigned and user is admin -> Possibility to free this seat
-							elseif ($seat_state[$y][$x] == 2 and $auth['type'] > 1) {
-								$body[$y]['line'][$x]['link'] = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
-              }
+						$link = '';
+						switch ($mode) {
+						  default:
+    						if ($linktarget) $link = "$linktarget&row=$y&col=$x";
+    						elseif ($auth['login']) {
+    							// If free and user has not paid-> Possibility to mark this seat
+    							if ($seat_state[$y][$x] == 1 and !$user_paid['paid'])
+    								$link = "index.php?mod=seating&action=show&step=12&blockid=$blockid&row=$y&col=$x";
+    							// If free, or marked for another one -> Possibility to reserve this seat
+    							elseif ($seat_state[$y][$x] == 1 or ($seat_state[$y][$x] == 3 and $seat_userid[$y][$x] != $auth['userid']))
+    								$link = "index.php?mod=seating&action=show&step=10&blockid=$blockid&row=$y&col=$x";
+    							// If assigned to me, or marked for me -> Possibility to free this seat again
+    							elseif (($seat_state[$y][$x] == 2 or $seat_state[$y][$x] == 3) and $seat_userid[$y][$x] == $auth['userid'])
+    								$link = "index.php?mod=seating&action=show&step=20&blockid=$blockid&row=$y&col=$x";
+    							// If assigned and user is admin -> Possibility to free this seat
+    							elseif ($seat_state[$y][$x] == 2 and $auth['type'] > 1) {
+    								$link = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
+                  }
+    						}
+						  break;
+						  case 1: break;
+						  case 2:
+              break;
+						}
+						if ($mode != 1) {
+            }
+
+/*
+          // Edit plan
+						$body[$y]['line'][$x]['symbol'] = '';
+            $input_hidden = '<input type="hidden" id="cell'. ($x * 100 + $y) .'" name="cell['. ($x * 100 + $y) .']" value="'. $seat_state[$y][$x] .'" />'."\n";
+
+						// Empty cell
+						if ($seat_state[$y][$x] == 0) {
+						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/lsthumb_100.png';
+							$input_hidden_ret .= $input_hidden;
+
+				    // Free seat cell
+						} elseif ($seat_state[$y][$x] == 1) {
+						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_free.png';
+							$input_hidden_ret .= $input_hidden;
+
+					  // Reserved seat cell
+						} elseif ($seat_state[$y][$x] > 1 && $seat_state[$y][$x] < 7) {
+						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_reserved.png';
+
+            // Locked seat cell
+						} elseif ($seat_state[$y][$x] == 7) {
+						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/7.png';
+							$input_hidden_ret .= $input_hidden;
+
+            // Symbol cell
+						} else {
+						  if (file_exists('ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png')) $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png';
+						  else {
+  						  $SymbolePath = 'ext_inc/seating_symbols/'. $seat_state[$y][$x];
+  							if (file_exists($SymbolePath .'.png')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.png';
+  							elseif (file_exists($SymbolePath .'.gif')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.gif';
+  							elseif (file_exists($SymbolePath .'.jpg')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.jpg';
+  						}
+							$input_hidden_ret .= $input_hidden;
 						}
 
-
-
-              // Generate popup
-      				if ($seat_state[$y][$x] == 2 and $seat_userid[$y][$x] == $auth['userid']) $s_state = 8;
-      				elseif ($seat_state[$y][$x] == 2 and in_array($seat_userid[$y][$x], $my_clanmates)) $s_state = 9;
-      				else $s_state = $seat_state[$y][$x];
-
-              if ($seat_ip[$y][$x] == '') $seat_ip[$y][$x] = '<i>'. t('Keine zugeordnet') .'</i>';
-              $tooltip = '';
-              switch ($s_state) {
-                case "2":
-                case "3":
-                case "8":
-                case "9":
-  							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $tooltip .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
-  							  if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))
-                    $tooltip .= t('Name') .': '. $user_info[$y][$x]['firstname'] .' '. $user_info[$y][$x]['name'] . HTML_NEWLINE;
-  							  $tooltip .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
-  							  $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-  							  if (func::chk_img_path($user_info[$y][$x]['avatar_path']) and
-                    ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)))
-    							  $tooltip .= '<img src=&quot;'. $user_info[$y][$x]['avatar_path'] .'&quot; style=&quot;max-width:100%;&quot; />' . HTML_NEWLINE;
-                break;
-                case "1":
-  							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
-  							  $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-                break;
-                case "7":
-  							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Gesperrt'). HTML_NEWLINE;
-  							  $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-                break;
-                case "80":
-                case "81":
-  							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $tooltip .= t('Beschreibung') .': '. t('WC') . HTML_NEWLINE;
-                break;
-                case "82":
-  							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $tooltip .= t('Beschreibung') .': '. t('Notausgang') . HTML_NEWLINE;
-                break;
-                case "83":
-  							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $tooltip .= t('Beschreibung') .': '. t('Catering') . HTML_NEWLINE;
-                break;
-              }
-              $tooltip = addslashes($tooltip);
+					  $body[$y]['line'][$x]['cell_id'] = 'fcell'. ($x * 100 + $y);*/
 
 
 
+            // Generate popup
+    				if ($seat_state[$y][$x] == 2 and $seat_userid[$y][$x] == $auth['userid']) $s_state = 8;
+    				elseif ($seat_state[$y][$x] == 2 and in_array($seat_userid[$y][$x], $my_clanmates)) $s_state = 9;
+    				else $s_state = $seat_state[$y][$x];
+
+            if ($seat_ip[$y][$x] == '') $seat_ip[$y][$x] = '<i>'. t('Keine zugeordnet') .'</i>';
+            $tooltip = '';
+            switch ($s_state) {
+              case "2":
+              case "3":
+              case "8":
+              case "9":
+							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+							  $tooltip .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
+							  if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))
+                  $tooltip .= t('Name') .': '. $user_info[$y][$x]['firstname'] .' '. $user_info[$y][$x]['name'] . HTML_NEWLINE;
+							  $tooltip .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
+							  $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
+							  if (func::chk_img_path($user_info[$y][$x]['avatar_path']) and
+                  ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)))
+  							  $tooltip .= '<img src=&quot;'. $user_info[$y][$x]['avatar_path'] .'&quot; style=&quot;max-width:100%;&quot; />' . HTML_NEWLINE;
+              break;
+              case "1":
+							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
+							  $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
+              break;
+              case "7":
+							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Gesperrt'). HTML_NEWLINE;
+							  $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
+              break;
+              case "80":
+              case "81":
+							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+							  $tooltip .= t('Beschreibung') .': '. t('WC') . HTML_NEWLINE;
+              break;
+              case "82":
+							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+							  $tooltip .= t('Beschreibung') .': '. t('Notausgang') . HTML_NEWLINE;
+              break;
+              case "83":
+							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+							  $tooltip .= t('Beschreibung') .': '. t('Catering') . HTML_NEWLINE;
+              break;
+            }
+            $tooltip = addslashes($tooltip);
 
 						// Set seat image
 						$body[$y]['line'][$x]['img_name'] = '';
 						switch ($seat_state[$y][$x]) {
 							case 0: // Empty
+							  if ($mode == 1) $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#9d9d9d', '{$link}', '$tooltip');\n";
 							break;
 							case 1: // Seat free
-								$body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_free.png";
-                $framework->main_header_jscode .= "CreateSmallRect(". ($x * 14 + 50) .", ". ($y * 14 + 50) .", 12, 12, '#32c88a', '{$body[$y]['line'][$x]['link']}', '$tooltip');\n";
-                if ($body[$y]['line'][$x]['link']) $framework->main_header_jscode .= "CreateText('_', ". ($x * 14 + 50 + 2) .", ". ($y * 14 + 50 + 11) .", '{$body[$y]['line'][$x]['link']}');\n";
+                $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#32c88a', '{$link}', '$tooltip');\n";
+                if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
 							break;
 							case 2: // Seat occupied
 								if ($selected_user)	$userid = $selected_user;
 								else $userid = $auth['userid'];
 								// My Seat
 								if ($seat_userid[$y][$x] == $userid) {
-                  $body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_myselfe.png";
-                  $framework->main_header_jscode .= "CreateSmallRect(". ($x * 14 + 50) .", ". ($y * 14 + 50) .", 12, 12, '#3232aa', '{$body[$y]['line'][$x]['link']}', '$tooltip');\n";
-                  if ($body[$y]['line'][$x]['link']) $framework->main_header_jscode .= "CreateText('_', ". ($x * 14 + 50 + 2) .", ". ($y * 14 + 50 + 11) .", '{$body[$y]['line'][$x]['link']}');\n";
+                  $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#3232aa', '{$link}', '$tooltip');\n";
+                  if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
 								// Clanmate
 								} elseif (in_array($seat_userid[$y][$x], $my_clanmates)) {
-                  $body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_clanmate.png";
-                  $framework->main_header_jscode .= "CreateSmallRect(". ($x * 14 + 50) .", ". ($y * 14 + 50) .", 12, 12, '#326eaa', '{$body[$y]['line'][$x]['link']}', '$tooltip');\n";
-                  if ($body[$y]['line'][$x]['link']) $framework->main_header_jscode .= "CreateText('_', ". ($x * 14 + 50 + 2) .", ". ($y * 14 + 50 + 11) .", '{$body[$y]['line'][$x]['link']}');\n";
+                  $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#326eaa', '{$link}', '$tooltip');\n";
+                  if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
                 // Checked out
 								} elseif ($seat_user_checkout[$y][$x] and $seat_user_checkout[$y][$x] != '0000-00-00 00:00:00') {
-                  $body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_out.png";
-                  $framework->main_header_jscode .= "CreateSmallRect(". ($x * 14 + 50) .", ". ($y * 14 + 50) .", 12, 12, '#326e32', '{$body[$y]['line'][$x]['link']}', '$tooltip');\n";
-                  if ($body[$y]['line'][$x]['link']) $framework->main_header_jscode .= "CreateText('_', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '{$body[$y]['line'][$x]['link']}');\n";
+                  $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#326e32', '{$link}', '$tooltip');\n";
+                  if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
                 // Checked in
 								} elseif ($seat_user_checkin[$y][$x] and $seat_user_checkin[$y][$x] != '0000-00-00 00:00:00') {
-                  $body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_checked_in.png";
-                  $framework->main_header_jscode .= "CreateSmallRect(". ($x * 14  + 50) .", ". ($y * 14  + 50) .", 12, 12, '#6e3232', '{$body[$y]['line'][$x]['link']}', '$tooltip');\n";
-                  if ($body[$y]['line'][$x]['link']) $framework->main_header_jscode .= "CreateText('_', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '{$body[$y]['line'][$x]['link']}');\n";
+                  $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#6e3232', '{$link}', '$tooltip');\n";
+                  if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
 								// Normal occupied seat
 								} else {
-                  $body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_reserved.png";
-                  $framework->main_header_jscode .= "CreateSmallRect(". ($x * 14  + 50) .", ". ($y * 14  + 50) .", 12, 12, '#c83295', '{$body[$y]['line'][$x]['link']}', '$tooltip');\n";
-                  if ($body[$y]['line'][$x]['link']) $framework->main_header_jscode .= "CreateText('_', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '{$body[$y]['line'][$x]['link']}');\n";
+                  $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#c83295', '{$link}', '$tooltip');\n";
+                  if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
 								} 
 							break;
 							case 3: // Seat marked
-								$body[$y]['line'][$x]['img_name'] = "ext_inc/auto_images/{$auth['design']}/seat/seat_marked.png";
-                $framework->main_header_jscode .= "CreateSmallRect(". ($x * 14  + 50) .", ". ($y * 14  + 50) .", 12, 12, '#aaaa9d', '{$body[$y]['line'][$x]['link']}', '$tooltip');\n";
-                if ($body[$y]['line'][$x]['link']) $framework->main_header_jscode .= "CreateText('_', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '{$body[$y]['line'][$x]['link']}');\n";
+                $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#aaaa9d', '{$link}', '$tooltip');\n";
+                if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
 							break;
 							case 7: // Seat reserved
-								$body[$y]['line'][$x]['img_name'] = "ext_inc/seating_symbols/7.png";
-                $framework->main_header_jscode .= "CreateSmallRect(". ($x * 14  + 50) .", ". ($y * 14  + 50) .", 12, 12, '#9d9d9d', '{$body[$y]['line'][$x]['link']}', '$tooltip');\n";
-                if ($body[$y]['line'][$x]['link']) $framework->main_header_jscode .= "CreateText('_', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '{$body[$y]['line'][$x]['link']}');\n";
+                $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#9d9d9d', '{$link}', '$tooltip');\n";
+                if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
 							break;
-							default: // Symbol
-							  if (file_exists('ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png')) $body[$y]['line'][$x]['img_name'] = 'ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png';
-							  else {
-    						  $SymbolePath = 'ext_inc/seating_symbols/lsthumb_'. $seat_state[$y][$x];
-    							if (file_exists($SymbolePath .'.png')) $body[$y]['line'][$x]['img_name'] = $SymbolePath .'.png';
-    							elseif (file_exists($SymbolePath .'.gif')) $body[$y]['line'][$x]['img_name'] = $SymbolePath .'.gif';
-    							elseif (file_exists($SymbolePath .'.jpg')) $body[$y]['line'][$x]['img_name'] = $SymbolePath .'.jpg';
-    						}
-							break;
-						}
-						// Symbols
-						switch ($seat_state[$y][$x]) {
               // Straight lines
-						  case 10: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14 + 50 + 7) .", ". ($y * 14 + 50) .", ". ($x * 14 + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n"; break;
-						  case 11: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14 + 50) .", ". ($y * 14 + 50 + 7) .", ". ($x * 14 + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n"; break;
+						  case 10: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
+						  case 11: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
               // T-Lines
-						  case 12: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 7) .", '#000000');\n"; break;
-						  case 13: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 7) .", '#000000');\n"; break;
-						  case 14: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14 + 50) .", ". ($y * 14 + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($x * 14 + 50 + 7) .", ". ($y * 14 + 50 + 7) .", ". ($x * 14 + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n"; break;
-						  case 15: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14 + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n"; break;
+						  case 12: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 7) .", '#000000');\n"; break;
+						  case 13: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 7) .", '#000000');\n"; break;
+						  case 14: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
+						  case 15: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
               // Cross
-						  case 16: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n"; break;
+						  case 16: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
               // Corners
-						  case 17: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 9) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 9) .", '#000000');\n"; break;
-						  case 18: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 9) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 9) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n"; break;
-						  case 19: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 5) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 5) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n"; break;
-						  case 20: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 5) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 9) .", '#000000');\n"; break;
+						  case 17: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 9) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 9) .", '#000000');\n"; break;
+						  case 18: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 9) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset + 9) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
+						  case 19: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 5) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset + 5) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
+						  case 20: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 5) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 9) .", '#000000');\n"; break;
               // Diagonal
-						  case 21: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 - 1) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 15) .", '#000000');\n"; break;
-						  case 22: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 15) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 15) .", '#000000');\n"; break;
-						  case 23: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 + 15) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 - 1) .", '#000000');\n"; break;
-						  case 24: $framework->main_header_jscode .= "CreateThickLine(". ($x * 14  + 50 - 1) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 - 1) .", '#000000');\n"; break;
+						  case 21: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset - 1) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 15) .", '#000000');\n"; break;
+						  case 22: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 15) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 15) .", '#000000');\n"; break;
+						  case 23: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 15) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset - 1) .", '#000000');\n"; break;
+						  case 24: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset - 1) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset - 1) .", '#000000');\n"; break;
               // Straight lines
-						  case 101: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n"; break;
-						  case 102: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n"; break;
+						  case 101: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
+						  case 102: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
               // Corners
-						  case 103: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 6) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 6) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n"; break;
-						  case 104: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 8) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 8) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n"; break;
-						  case 105: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 6) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 8) .", '#000000');\n"; break;
-						  case 106: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 8) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 8) .", '#000000');\n"; break;
+						  case 103: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 6) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset + 6) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
+						  case 104: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 8) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset + 8) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
+						  case 105: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 6) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 8) .", '#000000');\n"; break;
+						  case 106: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 8) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 8) .", '#000000');\n"; break;
               // T-Lines
-						  case 107: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n"; break;
-						  case 108: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n"; break;
-						  case 109: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 7) .", '#000000');\n"; break;
-						  case 110: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 7) .", '#000000');\n"; break;
+						  case 107: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
+						  case 108: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
+						  case 109: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 7) .", '#000000');\n"; break;
+						  case 110: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 7) .", '#000000');\n"; break;
               // Cross
-						  case 111: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", '#000000');\n"; break;
+						  case 111: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
+                $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
               // Diagonal. TODO: Should be round, and non-straight lines
-						  case 112: case 119: case 124: case 126: case 127: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n"; break;
-						  case 113: case 118: case 123: case 130: case 131: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50 + 14) .", '#000000');\n"; break;
-						  case 114: case 117: case 120: case 122: case 125: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50 + 14) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", '#000000');\n"; break;
-						  case 115: case 116: case 121: case 128: case 129: $framework->main_header_jscode .= "CreateLine(". ($x * 14  + 50) .", ". ($y * 14  + 50 + 7) .", ". ($x * 14  + 50 + 7) .", ". ($y * 14  + 50) .", '#000000');\n"; break;
+						  case 112: case 119: case 124: case 126: case 127: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 14) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
+						  case 113: case 118: case 123: case 130: case 131: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
+						  case 114: case 117: case 120: case 122: case 125: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 14) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset) .", '#000000');\n"; break;
+						  case 115: case 116: case 121: case 128: case 129: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset) .", '#000000');\n"; break;
               // TODO: Windows
 						  case 132: $framework->main_header_jscode .= ""; break;
 						  case 156: $framework->main_header_jscode .= ""; break;
@@ -533,133 +577,85 @@ class seat2 {
 						  case 222: $framework->main_header_jscode .= ""; break;
 						  case 228: $framework->main_header_jscode .= ""; break;
               // Letters and signs
-						  case 300: $framework->main_header_jscode .= "CreateText('A', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 301: $framework->main_header_jscode .= "CreateText('B', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 302: $framework->main_header_jscode .= "CreateText('C', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 303: $framework->main_header_jscode .= "CreateText('D', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 304: $framework->main_header_jscode .= "CreateText('E', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 305: $framework->main_header_jscode .= "CreateText('F', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 306: $framework->main_header_jscode .= "CreateText('G', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 307: $framework->main_header_jscode .= "CreateText('H', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 308: $framework->main_header_jscode .= "CreateText('I', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 309: $framework->main_header_jscode .= "CreateText('J', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 310: $framework->main_header_jscode .= "CreateText('K', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 311: $framework->main_header_jscode .= "CreateText('L', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 312: $framework->main_header_jscode .= "CreateText('M', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 313: $framework->main_header_jscode .= "CreateText('N', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 314: $framework->main_header_jscode .= "CreateText('O', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 315: $framework->main_header_jscode .= "CreateText('P', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 316: $framework->main_header_jscode .= "CreateText('Q', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 317: $framework->main_header_jscode .= "CreateText('R', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 318: $framework->main_header_jscode .= "CreateText('S', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 319: $framework->main_header_jscode .= "CreateText('T', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 320: $framework->main_header_jscode .= "CreateText('U', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 321: $framework->main_header_jscode .= "CreateText('V', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 322: $framework->main_header_jscode .= "CreateText('W', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 323: $framework->main_header_jscode .= "CreateText('X', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 324: $framework->main_header_jscode .= "CreateText('Y', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 325: $framework->main_header_jscode .= "CreateText('Z', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 326: $framework->main_header_jscode .= "CreateText('Ä', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 327: $framework->main_header_jscode .= "CreateText('Ö', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 328: $framework->main_header_jscode .= "CreateText('Ü', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 329: $framework->main_header_jscode .= "CreateText('-', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 330: $framework->main_header_jscode .= "CreateText('+', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 331: $framework->main_header_jscode .= "CreateText('/', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 332: $framework->main_header_jscode .= "CreateText('&', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 333: $framework->main_header_jscode .= "CreateText('*', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 334: $framework->main_header_jscode .= "CreateText('<', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 335: $framework->main_header_jscode .= "CreateText('>', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 336: $framework->main_header_jscode .= "CreateText('@', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 337: $framework->main_header_jscode .= "CreateText('€', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 338: $framework->main_header_jscode .= "CreateText(',', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 339: $framework->main_header_jscode .= "CreateText('.', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 340: $framework->main_header_jscode .= "CreateText(';', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 341: $framework->main_header_jscode .= "CreateText('!', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 342: $framework->main_header_jscode .= "CreateText('?', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 343: $framework->main_header_jscode .= "CreateText('a', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 344: $framework->main_header_jscode .= "CreateText('b', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 345: $framework->main_header_jscode .= "CreateText('c', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 346: $framework->main_header_jscode .= "CreateText('d', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 347: $framework->main_header_jscode .= "CreateText('e', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 348: $framework->main_header_jscode .= "CreateText('f', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 349: $framework->main_header_jscode .= "CreateText('g', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 350: $framework->main_header_jscode .= "CreateText('h', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 351: $framework->main_header_jscode .= "CreateText('i', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 352: $framework->main_header_jscode .= "CreateText('j', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 353: $framework->main_header_jscode .= "CreateText('k', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 354: $framework->main_header_jscode .= "CreateText('l', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 355: $framework->main_header_jscode .= "CreateText('m', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 356: $framework->main_header_jscode .= "CreateText('n', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 357: $framework->main_header_jscode .= "CreateText('o', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 358: $framework->main_header_jscode .= "CreateText('p', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 359: $framework->main_header_jscode .= "CreateText('q', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 360: $framework->main_header_jscode .= "CreateText('r', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 361: $framework->main_header_jscode .= "CreateText('s', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 362: $framework->main_header_jscode .= "CreateText('t', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 363: $framework->main_header_jscode .= "CreateText('u', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 364: $framework->main_header_jscode .= "CreateText('v', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 365: $framework->main_header_jscode .= "CreateText('w', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 366: $framework->main_header_jscode .= "CreateText('x', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 367: $framework->main_header_jscode .= "CreateText('y', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 368: $framework->main_header_jscode .= "CreateText('z', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 369: $framework->main_header_jscode .= "CreateText('ä', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 370: $framework->main_header_jscode .= "CreateText('ö', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
-						  case 371: $framework->main_header_jscode .= "CreateText('ü', ". ($x * 14  + 50 + 2) .", ". ($y * 14  + 50 + 11) .", '');\n"; break;
+						  case 300: $framework->main_header_jscode .= "CreateText('A', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 301: $framework->main_header_jscode .= "CreateText('B', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 302: $framework->main_header_jscode .= "CreateText('C', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 303: $framework->main_header_jscode .= "CreateText('D', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 304: $framework->main_header_jscode .= "CreateText('E', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 305: $framework->main_header_jscode .= "CreateText('F', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 306: $framework->main_header_jscode .= "CreateText('G', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 307: $framework->main_header_jscode .= "CreateText('H', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 308: $framework->main_header_jscode .= "CreateText('I', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 309: $framework->main_header_jscode .= "CreateText('J', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 310: $framework->main_header_jscode .= "CreateText('K', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 311: $framework->main_header_jscode .= "CreateText('L', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 312: $framework->main_header_jscode .= "CreateText('M', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 313: $framework->main_header_jscode .= "CreateText('N', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 314: $framework->main_header_jscode .= "CreateText('O', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 315: $framework->main_header_jscode .= "CreateText('P', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 316: $framework->main_header_jscode .= "CreateText('Q', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 317: $framework->main_header_jscode .= "CreateText('R', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 318: $framework->main_header_jscode .= "CreateText('S', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 319: $framework->main_header_jscode .= "CreateText('T', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 320: $framework->main_header_jscode .= "CreateText('U', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 321: $framework->main_header_jscode .= "CreateText('V', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 322: $framework->main_header_jscode .= "CreateText('W', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 323: $framework->main_header_jscode .= "CreateText('X', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 324: $framework->main_header_jscode .= "CreateText('Y', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 325: $framework->main_header_jscode .= "CreateText('Z', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 326: $framework->main_header_jscode .= "CreateText('Ä', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 327: $framework->main_header_jscode .= "CreateText('Ö', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 328: $framework->main_header_jscode .= "CreateText('Ü', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 329: $framework->main_header_jscode .= "CreateText('-', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 330: $framework->main_header_jscode .= "CreateText('+', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 331: $framework->main_header_jscode .= "CreateText('/', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 332: $framework->main_header_jscode .= "CreateText('&', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 333: $framework->main_header_jscode .= "CreateText('*', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 334: $framework->main_header_jscode .= "CreateText('<', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 335: $framework->main_header_jscode .= "CreateText('>', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 336: $framework->main_header_jscode .= "CreateText('@', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 337: $framework->main_header_jscode .= "CreateText('€', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 338: $framework->main_header_jscode .= "CreateText(',', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 339: $framework->main_header_jscode .= "CreateText('.', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 340: $framework->main_header_jscode .= "CreateText(';', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 341: $framework->main_header_jscode .= "CreateText('!', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 342: $framework->main_header_jscode .= "CreateText('?', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 343: $framework->main_header_jscode .= "CreateText('a', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 344: $framework->main_header_jscode .= "CreateText('b', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 345: $framework->main_header_jscode .= "CreateText('c', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 346: $framework->main_header_jscode .= "CreateText('d', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 347: $framework->main_header_jscode .= "CreateText('e', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 348: $framework->main_header_jscode .= "CreateText('f', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 349: $framework->main_header_jscode .= "CreateText('g', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 350: $framework->main_header_jscode .= "CreateText('h', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 351: $framework->main_header_jscode .= "CreateText('i', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 352: $framework->main_header_jscode .= "CreateText('j', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 353: $framework->main_header_jscode .= "CreateText('k', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 354: $framework->main_header_jscode .= "CreateText('l', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 355: $framework->main_header_jscode .= "CreateText('m', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 356: $framework->main_header_jscode .= "CreateText('n', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 357: $framework->main_header_jscode .= "CreateText('o', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 358: $framework->main_header_jscode .= "CreateText('p', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 359: $framework->main_header_jscode .= "CreateText('q', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 360: $framework->main_header_jscode .= "CreateText('r', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 361: $framework->main_header_jscode .= "CreateText('s', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 362: $framework->main_header_jscode .= "CreateText('t', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 363: $framework->main_header_jscode .= "CreateText('u', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 364: $framework->main_header_jscode .= "CreateText('v', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 365: $framework->main_header_jscode .= "CreateText('w', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 366: $framework->main_header_jscode .= "CreateText('x', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 367: $framework->main_header_jscode .= "CreateText('y', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 368: $framework->main_header_jscode .= "CreateText('z', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 369: $framework->main_header_jscode .= "CreateText('ä', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 370: $framework->main_header_jscode .= "CreateText('ö', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
+						  case 371: $framework->main_header_jscode .= "CreateText('ü', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
 						}
 
 						$templ['seat']['cell_content'] = '';
-						if ($body[$y]['line'][$x]['img_name']) {
-
-              // Generate popup
-      				if ($seat_state[$y][$x] == 2 and $seat_userid[$y][$x] == $auth['userid']) $s_state = 8;
-      				elseif ($seat_state[$y][$x] == 2 and in_array($seat_userid[$y][$x], $my_clanmates)) $s_state = 9;
-      				else $s_state = $seat_state[$y][$x];
-
-              if ($seat_ip[$y][$x] == '') $seat_ip[$y][$x] = '<i>'. t('Keine zugeordnet') .'</i>';
-              $body[$y]['line'][$x]['tooltip'] = '';
-              switch ($s_state) {
-                case "2":
-                case "3":
-                case "8":
-                case "9":
-  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $body[$y]['line'][$x]['tooltip'] .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
-  							  if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))
-                    $body[$y]['line'][$x]['tooltip'] .= t('Name') .': '. $user_info[$y][$x]['firstname'] .' '. $user_info[$y][$x]['name'] . HTML_NEWLINE;
-  							  $body[$y]['line'][$x]['tooltip'] .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
-  							  $body[$y]['line'][$x]['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-  							  if (func::chk_img_path($user_info[$y][$x]['avatar_path']) and
-                    ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)))
-    							  $body[$y]['line'][$x]['tooltip'] .= '<img src=&quot;'. $user_info[$y][$x]['avatar_path'] .'&quot; style=&quot;max-width:100%;&quot; />' . HTML_NEWLINE;
-                break;
-                case "1":
-  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
-  							  $body[$y]['line'][$x]['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-                break;
-                case "7":
-  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Gesperrt'). HTML_NEWLINE;
-  							  $body[$y]['line'][$x]['tooltip'] .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-                break;
-                case "80":
-                case "81":
-  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $body[$y]['line'][$x]['tooltip'] .= t('Beschreibung') .': '. t('WC') . HTML_NEWLINE;
-                break;
-                case "82":
-  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $body[$y]['line'][$x]['tooltip'] .= t('Beschreibung') .': '. t('Notausgang') . HTML_NEWLINE;
-                break;
-                case "83":
-  							  $body[$y]['line'][$x]['tooltip'] .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-  							  $body[$y]['line'][$x]['tooltip'] .= t('Beschreibung') .': '. t('Catering') . HTML_NEWLINE;
-                break;
-              }
-              $body[$y]['line'][$x]['tooltip'] = addslashes($body[$y]['line'][$x]['tooltip']);
-						}
-					break;
-
+          break;
+          
+          case 2:
           // Edit plan
-					case 2:
 						$body[$y]['line'][$x]['symbol'] = '';
             $input_hidden = '<input type="hidden" id="cell'. ($x * 100 + $y) .'" name="cell['. ($x * 100 + $y) .']" value="'. $seat_state[$y][$x] .'" />'."\n";
 
@@ -705,9 +701,6 @@ class seat2 {
 				}
 				$cell_nr++;
 			}
-
-			$body[$y]['desc'] = $this->CoordinateToName(-1, $y, $block['orientation']);
-			$framework->main_header_jscode .= "CreateText('". $this->CoordinateToName(-1, $y, $block['orientation']) ."', ". (40) .", ". ($y * 14 + 50 + 9) .", '');\n";			
 		}
 
 		$framework->main_header_jscode .= '

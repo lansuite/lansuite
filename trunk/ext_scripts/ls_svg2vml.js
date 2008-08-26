@@ -40,7 +40,16 @@ function CreateSmallRect(x, y, width, height, fill, link, popup) {
 	myG.appendChild(myRoundRect);
 }
 
+
+function CreateSmallText(text, x, y, link) {
+  CreateTextInt(text, x, y, link, 6);
+}
+
 function CreateText(text, x, y, link) {
+  CreateTextInt(text, x, y, link, 8);
+}
+
+function CreateTextInt(text, x, y, link, size) {
   var myText = document.createTextNode(text);
   var myT = vectorModel.createElement("text");
   if (myT && text != '_') {
@@ -50,7 +59,7 @@ function CreateText(text, x, y, link) {
       myT.setAttribute("onclick", "parent.document.location.href='"+ link +"'");
       myT.setAttribute("onmouseover", "this.style.cursor='pointer'");
     }
-    myT.setAttribute("style", "font-family:verdana; font-size:8pt;");
+    myT.setAttribute("style", "font-family:verdana; font-size:" + size + "pt;");
     myT.appendChild(myText);
     myG.appendChild(myT);
   } else {
@@ -68,7 +77,7 @@ function CreateText(text, x, y, link) {
       myDiv.appendChild(myText);
     }
     myDiv.style.fontFamily="verdana";
-    myDiv.style.fontSize="8pt";
+    myDiv.style.fontSize=size +"pt";
     myDiv.style.margin="1pt";
     myDiv.style.position="absolute";
     myDiv.style.left=x;
