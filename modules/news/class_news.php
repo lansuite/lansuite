@@ -9,7 +9,7 @@ class News {
 
     $output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
   
-    $channel = $xml->write_tag("title", $_SESSION['party_info']['name'], 2);
+    $channel = $xml->write_tag("title", $cfg['sys_page_title'], 2);
     $channel .= $xml->write_tag("link", $cfg["sys_partyurl"], 2);
     $channel .= $xml->write_tag("description", $cfg["news_description"], 2);
     $channel .= $xml->write_tag("language", "de-de", 2);
