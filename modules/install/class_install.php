@@ -606,7 +606,7 @@ class Install {
   // This meens lansuite is not able to clean up tables, which changed their name during versions
   // But this is much safer than DROP DATABASE, for this clean methode would drop other web-systems using the same DB table, too
   function DeleteAllTables () {
-    global $import, $xml;
+    global $import, $xml, $db;
   
     $modules_dir = opendir("modules/");
     while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
@@ -614,7 +614,7 @@ class Install {
 
       if (file_exists($file)) {
         $import->GetImportHeader($file);
-        $tables = $xml->get_tag_content_array("table", $this->xml_content_lansuite);
+        $tables = $xml->get_tag_content_array("table", $import->xml_content_lansuite);
 
         foreach ($tables as $table) {        
           $table_head = $xml->get_tag_content("table_head", $table, 0);
