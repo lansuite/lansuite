@@ -128,7 +128,7 @@ class auth {
         elseif ($tmp_login_pass == "") $func->information(t('Bitte geben Sie Ihr Kennwort ein.'), "", '', 1);
         else {
             // Go on if email and password
-            $user = $db->qry_first('SELECT 1 AS found, userid, username, email, password, type, locked
+            $user = $db->qry_first('SELECT 1 AS found, userid, username, email, password, type, locked, email_verified
                                       FROM %prefix%user
                                       WHERE (%int% = %string% AND userid = %int%) OR LOWER(email) = %string%',
                                       $tmp_login_email, $tmp_login_email, $tmp_login_email, $tmp_login_email);
@@ -166,7 +166,7 @@ class auth {
                 $func->log_event(t('Account von %1 ist noch gesperrt. Login daher fehlgeschlagen.', $tmp_login_email), "2", "Authentifikation");
             // Mail not verified
             } elseif ($cfg['sys_login_verified_mail_only'] == 2 and !$user['email_verified'] and $user["type"] < 2) {
-                $func->information(t('Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email', $user['email']), '', '', 1);
+                $func->information(t('Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email.', $user['email']).' <a href="index.php?mod=usrmgr&action=verify_email&step=2&userid='. $user['userid'] .'">'. t('Klicken Sie hier, um die Mail erneut zu versenden</a>'), '', '', 1);
                 $func->log_event(t('Login fehlgeschlagen. Email (%1) nicht verifiziert', $user['email']), "2", "Authentifikation");
             // Wrong Password?
             } elseif ($tmp_login_pass != $user["password"]){
@@ -218,7 +218,7 @@ class auth {
                 $db->qry('DELETE FROM %prefix%login_errors WHERE userid = %int%', $user['userid']);
 
                 // The User will be logged in on the phpBB Board if the modul is available, configured and active.
-                if (is_array($ActiveModules) and in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
+                if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
                     include_once ('./modules/board2/class_board2.php');
                     $board2 = new board2();
                     $board2->loginPhpBB($this->auth['userid']);
