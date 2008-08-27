@@ -237,14 +237,17 @@ class Install {
       $find = $db->query("SELECT * FROM {$config["tables"]["locations"]}");
       if ($db->num_rows($find) == 0) {
           $return_val = 2;
-          $file = "modules/install/db_insert_locations.sql";
+          $file = "modules/install/db_insert_locations.php";
+//          $file = "modules/install/db_insert_locations.sql";
           if (file_exists($file)) {
+/*
               $fp = fopen($file, "r");
               $contents = fread($fp, filesize($file));
               fclose($fp);
-
-              $querrys = explode(";", trim($contents));
-              while (list ($key, $val) = each ($querrys)) if ($val) {
+              $querys = explode(";", trim($contents));
+*/
+              include_once($file);
+              foreach ($querys as $val) if ($val) { 
                   if (!$db->query("REPLACE INTO {$config["database"]["prefix"]}locations (plz, breite, laenge) VALUES ". $val)) $return_val = 0;
               }
           }
