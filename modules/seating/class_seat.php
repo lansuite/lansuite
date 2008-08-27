@@ -239,8 +239,9 @@ class seat2 {
 		
 		// Main-Table
 		$framework->main_header_metatags .= '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />';
-		$framework->main_header_jscode .= '<script src="ext_scripts/SVG2VMLv1_1.js"></script>
-    <script src="ext_scripts/ls_svg2vml.js"></script>
+		$framework->main_header_jscode .= '<script type="text/javascript" src="ext_scripts/SVG2VMLv1_1.js"></script>
+    <script type="text/javascript" src="ext_scripts/ls_svg2vml.js"></script>
+    <script type="text/javascript" src="seating.js"></script>
 		<script>
 			function go() {
 				vectorModel = new VectorModel();
@@ -375,6 +376,7 @@ class seat2 {
 						  break;
 						  case 1: break;
 						  case 2:
+						    $link = "javascript:ChangeSeatingPlan(\"cell". ($x * 100 + $y) ."\", $XOffset, $YOffset)";
               break;
 						}
 						if ($mode != 1) {
@@ -468,193 +470,34 @@ class seat2 {
 
 						// Set seat image
 						$body[$y]['line'][$x]['img_name'] = '';
-						switch ($seat_state[$y][$x]) {
-							case 0: // Empty
-							  if ($mode == 1) $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#9d9d9d', '{$link}', '$tooltip');\n";
-							break;
-							case 1: // Seat free
-                $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#32c88a', '{$link}', '$tooltip');\n";
-                if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
-							break;
-							case 2: // Seat occupied
-								if ($selected_user)	$userid = $selected_user;
-								else $userid = $auth['userid'];
-								// My Seat
-								if ($seat_userid[$y][$x] == $userid) {
-                  $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#3232aa', '{$link}', '$tooltip');\n";
-                  if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
-								// Clanmate
-								} elseif (in_array($seat_userid[$y][$x], $my_clanmates)) {
-                  $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#326eaa', '{$link}', '$tooltip');\n";
-                  if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
-                // Checked out
-								} elseif ($seat_user_checkout[$y][$x] and $seat_user_checkout[$y][$x] != '0000-00-00 00:00:00') {
-                  $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#326e32', '{$link}', '$tooltip');\n";
-                  if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
-                // Checked in
-								} elseif ($seat_user_checkin[$y][$x] and $seat_user_checkin[$y][$x] != '0000-00-00 00:00:00') {
-                  $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#6e3232', '{$link}', '$tooltip');\n";
-                  if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
-								// Normal occupied seat
-								} else {
-                  $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#c83295', '{$link}', '$tooltip');\n";
-                  if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
-								} 
-							break;
-							case 3: // Seat marked
-                $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#aaaa9d', '{$link}', '$tooltip');\n";
-                if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
-							break;
-							case 7: // Seat reserved
-                $framework->main_header_jscode .= "CreateSmallRect(". ($XOffset) .", ". ($YOffset) .", 12, 12, '#9d9d9d', '{$link}', '$tooltip');\n";
-                if ($link) $framework->main_header_jscode .= "CreateText('_', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '{$link}');\n";
-							break;
-              // Straight lines
-						  case 10: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
-						  case 11: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
-              // T-Lines
-						  case 12: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 7) .", '#000000');\n"; break;
-						  case 13: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 7) .", '#000000');\n"; break;
-						  case 14: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
-						  case 15: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
-              // Cross
-						  case 16: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
-              // Corners
-						  case 17: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 9) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 9) .", '#000000');\n"; break;
-						  case 18: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 9) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset + 9) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
-						  case 19: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 5) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset + 5) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
-						  case 20: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 5) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 9) .", '#000000');\n"; break;
-              // Diagonal
-						  case 21: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset - 1) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 15) .", '#000000');\n"; break;
-						  case 22: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 15) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 15) .", '#000000');\n"; break;
-						  case 23: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset + 15) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset - 1) .", '#000000');\n"; break;
-						  case 24: $framework->main_header_jscode .= "CreateThickLine(". ($XOffset - 1) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset - 1) .", '#000000');\n"; break;
-              // Straight lines
-						  case 101: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
-						  case 102: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
-              // Corners
-						  case 103: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 6) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset + 6) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
-						  case 104: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 8) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset + 8) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
-						  case 105: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 6) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 8) .", '#000000');\n"; break;
-						  case 106: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 8) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 8) .", '#000000');\n"; break;
-              // T-Lines
-						  case 107: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
-						  case 108: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
-						  case 109: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 7) .", '#000000');\n"; break;
-						  case 110: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 7) .", '#000000');\n"; break;
-              // Cross
-						  case 111: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 7) .", ". ($YOffset) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n";
-                $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 14) .", ". ($YOffset + 7) .", '#000000');\n"; break;
-              // Diagonal. TODO: Should be round, and non-straight lines
-						  case 112: case 119: case 124: case 126: case 127: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 14) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
-						  case 113: case 118: case 123: case 130: case 131: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset + 14) .", '#000000');\n"; break;
-						  case 114: case 117: case 120: case 122: case 125: $framework->main_header_jscode .= "CreateLine(". ($XOffset + 14) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset) .", '#000000');\n"; break;
-						  case 115: case 116: case 121: case 128: case 129: $framework->main_header_jscode .= "CreateLine(". ($XOffset) .", ". ($YOffset + 7) .", ". ($XOffset + 7) .", ". ($YOffset) .", '#000000');\n"; break;
-              // TODO: Windows
-						  case 132: $framework->main_header_jscode .= ""; break;
-						  case 156: $framework->main_header_jscode .= ""; break;
-              // TODO: Blue Boxes
-						  case 201: $framework->main_header_jscode .= ""; break;
-						  case 221: $framework->main_header_jscode .= ""; break;
-              // TODO: Yellow Boxes
-						  case 222: $framework->main_header_jscode .= ""; break;
-						  case 228: $framework->main_header_jscode .= ""; break;
-              // Letters and signs
-						  case 300: $framework->main_header_jscode .= "CreateText('A', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 301: $framework->main_header_jscode .= "CreateText('B', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 302: $framework->main_header_jscode .= "CreateText('C', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 303: $framework->main_header_jscode .= "CreateText('D', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 304: $framework->main_header_jscode .= "CreateText('E', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 305: $framework->main_header_jscode .= "CreateText('F', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 306: $framework->main_header_jscode .= "CreateText('G', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 307: $framework->main_header_jscode .= "CreateText('H', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 308: $framework->main_header_jscode .= "CreateText('I', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 309: $framework->main_header_jscode .= "CreateText('J', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 310: $framework->main_header_jscode .= "CreateText('K', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 311: $framework->main_header_jscode .= "CreateText('L', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 312: $framework->main_header_jscode .= "CreateText('M', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 313: $framework->main_header_jscode .= "CreateText('N', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 314: $framework->main_header_jscode .= "CreateText('O', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 315: $framework->main_header_jscode .= "CreateText('P', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 316: $framework->main_header_jscode .= "CreateText('Q', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 317: $framework->main_header_jscode .= "CreateText('R', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 318: $framework->main_header_jscode .= "CreateText('S', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 319: $framework->main_header_jscode .= "CreateText('T', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 320: $framework->main_header_jscode .= "CreateText('U', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 321: $framework->main_header_jscode .= "CreateText('V', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 322: $framework->main_header_jscode .= "CreateText('W', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 323: $framework->main_header_jscode .= "CreateText('X', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 324: $framework->main_header_jscode .= "CreateText('Y', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 325: $framework->main_header_jscode .= "CreateText('Z', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 326: $framework->main_header_jscode .= "CreateText('Ä', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 327: $framework->main_header_jscode .= "CreateText('Ö', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 328: $framework->main_header_jscode .= "CreateText('Ü', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 329: $framework->main_header_jscode .= "CreateText('-', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 330: $framework->main_header_jscode .= "CreateText('+', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 331: $framework->main_header_jscode .= "CreateText('/', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 332: $framework->main_header_jscode .= "CreateText('&', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 333: $framework->main_header_jscode .= "CreateText('*', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 334: $framework->main_header_jscode .= "CreateText('<', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 335: $framework->main_header_jscode .= "CreateText('>', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 336: $framework->main_header_jscode .= "CreateText('@', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 337: $framework->main_header_jscode .= "CreateText('€', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 338: $framework->main_header_jscode .= "CreateText(',', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 339: $framework->main_header_jscode .= "CreateText('.', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 340: $framework->main_header_jscode .= "CreateText(';', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 341: $framework->main_header_jscode .= "CreateText('!', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 342: $framework->main_header_jscode .= "CreateText('?', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 343: $framework->main_header_jscode .= "CreateText('a', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 344: $framework->main_header_jscode .= "CreateText('b', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 345: $framework->main_header_jscode .= "CreateText('c', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 346: $framework->main_header_jscode .= "CreateText('d', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 347: $framework->main_header_jscode .= "CreateText('e', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 348: $framework->main_header_jscode .= "CreateText('f', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 349: $framework->main_header_jscode .= "CreateText('g', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 350: $framework->main_header_jscode .= "CreateText('h', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 351: $framework->main_header_jscode .= "CreateText('i', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 352: $framework->main_header_jscode .= "CreateText('j', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 353: $framework->main_header_jscode .= "CreateText('k', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 354: $framework->main_header_jscode .= "CreateText('l', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 355: $framework->main_header_jscode .= "CreateText('m', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 356: $framework->main_header_jscode .= "CreateText('n', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 357: $framework->main_header_jscode .= "CreateText('o', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 358: $framework->main_header_jscode .= "CreateText('p', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 359: $framework->main_header_jscode .= "CreateText('q', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 360: $framework->main_header_jscode .= "CreateText('r', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 361: $framework->main_header_jscode .= "CreateText('s', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 362: $framework->main_header_jscode .= "CreateText('t', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 363: $framework->main_header_jscode .= "CreateText('u', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 364: $framework->main_header_jscode .= "CreateText('v', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 365: $framework->main_header_jscode .= "CreateText('w', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 366: $framework->main_header_jscode .= "CreateText('x', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 367: $framework->main_header_jscode .= "CreateText('y', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 368: $framework->main_header_jscode .= "CreateText('z', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 369: $framework->main_header_jscode .= "CreateText('ä', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 370: $framework->main_header_jscode .= "CreateText('ö', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						  case 371: $framework->main_header_jscode .= "CreateText('ü', ". ($XOffset + 2) .", ". ($YOffset + 11) .", '');\n"; break;
-						}
+
+						if ($seat_state[$y][$x] != 0 or $mode == 1) {
+						  switch ($seat_state[$y][$x]) {
+						    case 0:
+						      if ($mode == 1) $framework->main_header_jscode .= "DrawSeatingSymbol({$seat_state[$y][$x]}, $XOffset, $YOffset, '$link', '$tooltip');\n";
+						    break;
+						    case 2:
+  								if ($selected_user)	$userid = $selected_user;
+  								else $userid = $auth['userid'];
+  								
+  								if ($seat_userid[$y][$x] == $userid) $seat_state[$y][$x] = 4; // My Seat
+  								elseif (in_array($seat_userid[$y][$x], $my_clanmates)) $seat_state[$y][$x] = 5; // Clanmate
+  								elseif ($seat_user_checkout[$y][$x] and $seat_user_checkout[$y][$x] != '0000-00-00 00:00:00') $seat_state[$y][$x] = 6; // Checked out
+  								elseif ($seat_user_checkin[$y][$x] and $seat_user_checkin[$y][$x] != '0000-00-00 00:00:00') $seat_state[$y][$x] = 8; // Checked in
+  								// else = 2 -> Normal occupied seat
+
+                // No Break!
+						    default:
+						      $framework->main_header_jscode .= "DrawSeatingSymbol({$seat_state[$y][$x]}, $XOffset, $YOffset, '$link', '$tooltip');\n";
+						    break;
+						      
+						  }
+            }
 
 						$templ['seat']['cell_content'] = '';
-          break;
+//          break;
           
-          case 2:
+//          case 2:
           // Edit plan
 						$body[$y]['line'][$x]['symbol'] = '';
             $input_hidden = '<input type="hidden" id="cell'. ($x * 100 + $y) .'" name="cell['. ($x * 100 + $y) .']" value="'. $seat_state[$y][$x] .'" />'."\n";

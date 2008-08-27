@@ -383,6 +383,7 @@ function changeImage(id){
 	}
 }
 
+
 var CurrentPicture = '';
 function UpdateCurrentPicture(file) {
   CurrentPicture = file;

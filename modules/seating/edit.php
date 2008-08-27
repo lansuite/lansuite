@@ -155,12 +155,13 @@ switch($_GET['step']) {
 
 		// Partys
 		$selections = array();
-    $row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
-    while($res = $db->fetch_array($row)) {
-  		($_POST['party_id'] == $party->party_id) ? $selected = 'selected' : $selected = '';
-      array_push ($selections, "<option $selected value=\"". $res['party_id'] ."\">". $res['name'] .'</option>');
+		if (!$_POST['party_id']) $_POST['party_id'] = $party->party_id;
+    $res = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+    while($row = $db->fetch_array($res)) {
+  		($_POST['party_id'] == $row['party_id']) ? $selected = 'selected' : $selected = '';
+      array_push ($selections, "<option $selected value=\"". $row['party_id'] ."\">". $row['name'] .'</option>');
     }
-    $db->free_result($row);
+    $db->free_result($res);
 		$dsp->AddDropDownFieldRow('party_id', t('Party'), $selections, '');
 
 		$dsp->AddFormSubmitRow('next');
