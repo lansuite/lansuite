@@ -4,6 +4,29 @@ $usrmgr = new UsrMgr();
 
 class UsrMgr {
 
+  function SendVerificationEmail($id) {
+    global $db, $mail, $func, $framework, $CurentURL;
+    
+    $verification_code = '';
+    for ($x=0; $x<=24; $x++) $verification_code .= chr(mt_rand(65,90));
+    $db->qry('UPDATE %prefix%user SET fcode=%string% WHERE userid = %int%', $verification_code, $id);
+            
+    $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
+    $verification_link = "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
+
+    $row = $db->qry_first('SELECT firstname, name, email FROM %prefix%user WHERE userid = %int%', $id);
+    if (!$_POST['firstname']) $_POST['firstname'] = $row['firstname'];
+    if (!$_POST['name']) $_POST['name'] = $row['name'];
+    if (!$_POST['email']) $_POST['email'] = $row['email'];
+
+    if (!$mail->create_inet_mail($_POST['firstname'].' '.$_POST['name'], $_POST['email'], t('Ihre Anmeldung bei %1', $_SERVER['SERVER_NAME']), t("Sie haben sich soeben bei uns auf %1 angemeldet.\n\nDamit Sie sich bei uns Einloggen können, müssen wir jedoch zuerst sicherstellen, dass Ihre Email korrekt ist.\n\nKlicken Sie zum Verifizieren Ihrer Email-Adresse bitte auf den folgenden Link\n%2.\n\nErst nach diesem Schritt wird es möglich sein sich auf unserer Seite einzuloggen.", $_SERVER['SERVER_NAME'], $verification_link), $cfg["sys_party_mail"])) {
+      $func->error(t('Es ist ein Fehler beim Versand der Verifikations-Email aufgetreten.'));
+      return 0;
+    }
+    
+    return 1;
+  }
+
   function LockAccount($userid) {
     global $db, $config;
 
