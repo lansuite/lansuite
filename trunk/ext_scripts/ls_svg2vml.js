@@ -1,3 +1,14 @@
+function ClearArea(x, y, width, height) {
+	myRoundRect = vectorModel.createElement("rect");
+	myRoundRect.setAttribute("x", x);
+	myRoundRect.setAttribute("y", y);
+	myRoundRect.setAttribute("z-index", 2);
+	myRoundRect.setAttribute("width", width);
+	myRoundRect.setAttribute("height", height);
+	myRoundRect.setAttribute("fill", '#ffffff');
+	myG.appendChild(myRoundRect);
+}
+
 function CreateRect(x, y, width, height, fill, stroke, link) {
 	myRoundRect = vectorModel.createElement("rect");
 	myRoundRect.setAttribute("x", x);
