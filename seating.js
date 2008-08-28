@@ -1,116 +1,110 @@
+function DrawClearSeatingSymbol(id, XOffset, YOffset, link, tooltip) {
+  ClearArea(XOffset, YOffset, 14, 14, link);
+  DrawSeatingSymbol(id, XOffset, YOffset, link, tooltip);
+}
+
+var CurrentDrawingSymbol = '';
+function UpdateCurrentDrawingSymbol(id) {
+  CurrentDrawingSymbol = parseInt(id);
+  DrawClearSeatingSymbol(parseInt(id), 60, 0, '', '');
+}
+
 function DrawSeatingSymbol(id, XOffset, YOffset, link, tooltip) {
 	switch (id) {
 
-		case 0: // Empty
-		  CreateSmallRect(XOffset, YOffset, 12, 12, '#9d9d9d', link, tooltip);
-		break;
-		case 1: // Seat free
-      CreateSmallRect(XOffset, YOffset, 12, 12, '#32c88a', link, tooltip);
-      if (link) CreateText('_', XOffset + 2, YOffset + 11, link);
-		break;
-    case 2: // Normal occupied seat
-      CreateSmallRect(XOffset, YOffset, 12, 12, '#c83295', link, tooltip);
-      if (link) CreateText('_', XOffset + 2, YOffset + 11, link);
-    break;
-		case 3: // Seat marked
-      CreateSmallRect(XOffset, YOffset, 12, 12, '#aaaa9d', link, tooltip);
-      if (link) CreateText('_', XOffset + 2, YOffset + 11, link);
-		break;
-    case 4: // My Seat
-      CreateSmallRect(XOffset, YOffset, 12, 12, '#3232aa', link, tooltip);
-      if (link) CreateText('_', XOffset + 2, YOffset + 11, link);
-    break;
-    case 5: // Clanmate
-      CreateSmallRect(XOffset, YOffset, 12, 12, '#326eaa', link, tooltip);
-      if (link) CreateText('_', XOffset + 2, YOffset + 11, link);
-    break;
-    case 6: // Checked out
-      CreateSmallRect(XOffset, YOffset, 12, 12, '#326e32', link, tooltip);
-      if (link) CreateText('_', XOffset + 2, YOffset + 11, link);
-    break;
-		case 7: // Seat reserved
-      CreateSmallRect(XOffset, YOffset, 12, 12, '#9d9d9d', link, tooltip);
-      if (link) CreateText('_', XOffset + 2, YOffset + 11, link);
-		break;
-    case 8: // Checked in
-      CreateSmallRect(XOffset, YOffset, 12, 12, '#6e3232', link, tooltip);
-      if (link) CreateText('_', XOffset + 2, YOffset + 11, link);
-    break;
+    // Empty (mode 1)
+		case 0: CreateSmallRect(XOffset, YOffset, 12, 12, '#9d9d9d', link, tooltip); break;
+		// Seat free
+    case 1: CreateSmallRect(XOffset, YOffset, 12, 12, '#32c88a', link, tooltip); break;
+    // Normal occupied seat
+    case 2: CreateSmallRect(XOffset, YOffset, 12, 12, '#c83295', link, tooltip); break;
+		// Seat marked
+    case 3: CreateSmallRect(XOffset, YOffset, 12, 12, '#aaaa9d', link, tooltip); break;
+    // My Seat
+    case 4: CreateSmallRect(XOffset, YOffset, 12, 12, '#3232aa', link, tooltip); break;
+    // Clanmate
+    case 5: CreateSmallRect(XOffset, YOffset, 12, 12, '#326eaa', link, tooltip); break;
+    // Checked out
+    case 6: CreateSmallRect(XOffset, YOffset, 12, 12, '#326e32', link, tooltip); break;
+		// Seat reserved
+    case 7: CreateSmallRect(XOffset, YOffset, 12, 12, '#9d9d9d', link, tooltip); break;
+    // Checked in
+    case 8: CreateSmallRect(XOffset, YOffset, 12, 12, '#6e3232', link, tooltip); break;
     // Straight lines
-	  case 10: CreateThickLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000'); break;
-	  case 11: CreateThickLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000'); break;
+	  case 10: CreateThickLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000', link); break;
+	  case 11: CreateThickLinkLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link); break;
     // T-Lines
-	  case 12: CreateThickLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000');
-      CreateThickLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 7, '#000000'); break;
-	  case 13: CreateThickLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000');
-      CreateThickLine(XOffset, YOffset + 7, XOffset + 7, YOffset + 7, '#000000'); break;
-	  case 14: CreateThickLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000');
-      CreateThickLine(XOffset + 7, YOffset + 7, XOffset + 7, YOffset + 14, '#000000'); break;
-	  case 15: CreateThickLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000');
-      CreateThickLine(XOffset + 7, YOffset + 7, XOffset + 14, YOffset + 7, '#000000'); break;
+	  case 12: CreateThickLinkLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link);
+      CreateThickLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 7, '#000000', link); break;
+	  case 13: CreateThickLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000', link);
+      CreateThickLinkLine(XOffset, YOffset + 7, XOffset + 7, YOffset + 7, '#000000', link); break;
+	  case 14: CreateThickLinkLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link);
+      CreateThickLinkLine(XOffset + 7, YOffset + 7, XOffset + 7, YOffset + 14, '#000000', link); break;
+	  case 15: CreateThickLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000', link);
+      CreateThickLinkLine(XOffset + 7, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link); break;
     // Cross
-	  case 16: CreateThickLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000');
-      CreateThickLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000'); break;
+	  case 16: CreateThickLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000', link);
+      CreateThickLinkLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link); break;
     // Corners
-	  case 17: CreateThickLine(XOffset, YOffset + 7, XOffset + 9, YOffset + 7, '#000000');
-      CreateThickLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 9, '#000000'); break;
-	  case 18: CreateThickLine(XOffset, YOffset + 7, XOffset + 9, YOffset + 7, '#000000');
-      CreateThickLine(XOffset + 7, YOffset + 9, XOffset + 7, YOffset + 14, '#000000'); break;
-	  case 19: CreateThickLine(XOffset + 5, YOffset + 7, XOffset + 14, YOffset + 7, '#000000');
-      CreateThickLine(XOffset + 7, YOffset + 5, XOffset + 7, YOffset + 14, '#000000'); break;
-	  case 20: CreateThickLine(XOffset + 5, YOffset + 7, XOffset + 14, YOffset + 7, '#000000');
-      CreateThickLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 9, '#000000'); break;
+	  case 17: CreateThickLinkLine(XOffset, YOffset + 7, XOffset + 9, YOffset + 7, '#000000', link);
+      CreateThickLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 9, '#000000', link); break;
+	  case 18: CreateThickLinkLine(XOffset, YOffset + 7, XOffset + 9, YOffset + 7, '#000000', link);
+      CreateThickLinkLine(XOffset + 7, YOffset + 9, XOffset + 7, YOffset + 14, '#000000', link); break;
+	  case 19: CreateThickLinkLine(XOffset + 5, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link);
+      CreateThickLinkLine(XOffset + 7, YOffset + 5, XOffset + 7, YOffset + 14, '#000000', link); break;
+	  case 20: CreateThickLinkLine(XOffset + 5, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link);
+      CreateThickLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 9, '#000000', link); break;
     // Diagonal
-	  case 21: CreateThickLine(XOffset - 1, YOffset + 7, XOffset + 7, YOffset + 15, '#000000'); break;
-	  case 22: CreateThickLine(XOffset + 15, YOffset + 7, XOffset + 7, YOffset + 15, '#000000'); break;
-	  case 23: CreateThickLine(XOffset + 15, YOffset + 7, XOffset + 7, YOffset - 1, '#000000'); break;
-	  case 24: CreateThickLine(XOffset - 1, YOffset + 7, XOffset + 7, YOffset - 1, '#000000'); break;
+	  case 21: CreateThickLinkLine(XOffset - 1, YOffset + 7, XOffset + 7, YOffset + 15, '#000000', link); break;
+	  case 22: CreateThickLinkLine(XOffset + 15, YOffset + 7, XOffset + 7, YOffset + 15, '#000000', link); break;
+	  case 23: CreateThickLinkLine(XOffset + 15, YOffset + 7, XOffset + 7, YOffset - 1, '#000000', link); break;
+	  case 24: CreateThickLinkLine(XOffset - 1, YOffset + 7, XOffset + 7, YOffset - 1, '#000000', link); break;
     // Straight lines
-	  case 101: CreateLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000'); break;
-	  case 102: CreateLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000'); break;
+	  case 101: CreateLinkLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link); break;
+	  case 102: CreateLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000', link); break;
     // Corners
-	  case 103: CreateLine(XOffset + 6, YOffset + 7, XOffset + 14, YOffset + 7, '#000000');
-      CreateLine(XOffset + 7, YOffset + 6, XOffset + 7, YOffset + 14, '#000000'); break;
-	  case 104: CreateLine(XOffset, YOffset + 7, XOffset + 8, YOffset + 7, '#000000');
-      CreateLine(XOffset + 7, YOffset + 8, XOffset + 7, YOffset + 14, '#000000'); break;
-	  case 105: CreateLine(XOffset + 6, YOffset + 7, XOffset + 14, YOffset + 7, '#000000');
-      CreateLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 8, '#000000'); break;
-	  case 106: CreateLine(XOffset, YOffset + 7, XOffset + 8, YOffset + 7, '#000000');
-      CreateLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 8, '#000000'); break;
+	  case 103: CreateLinkLine(XOffset + 6, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link);
+      CreateLinkLine(XOffset + 7, YOffset + 6, XOffset + 7, YOffset + 14, '#000000', link); break;
+	  case 104: CreateLinkLine(XOffset, YOffset + 7, XOffset + 8, YOffset + 7, '#000000', link);
+      CreateLinkLine(XOffset + 7, YOffset + 8, XOffset + 7, YOffset + 14, '#000000', link); break;
+	  case 105: CreateLinkLine(XOffset + 6, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link);
+      CreateLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 8, '#000000', link); break;
+	  case 106: CreateLinkLine(XOffset, YOffset + 7, XOffset + 8, YOffset + 7, '#000000', link);
+      CreateLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 8, '#000000', link); break;
     // T-Lines
-	  case 107: CreateLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000');
-      CreateLine(XOffset + 7, YOffset + 7, XOffset + 7, YOffset + 14, '#000000'); break;
-	  case 108: CreateLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000');
-      CreateLine(XOffset + 7, YOffset + 7, XOffset + 14, YOffset + 7, '#000000'); break;
-	  case 109: CreateLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000');
-      CreateLine(XOffset, YOffset + 7, XOffset + 7, YOffset + 7, '#000000'); break;
-	  case 110: CreateLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000');
-      CreateLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 7, '#000000'); break;
+	  case 107: CreateLinkLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link);
+      CreateLinkLine(XOffset + 7, YOffset + 7, XOffset + 7, YOffset + 14, '#000000', link); break;
+	  case 108: CreateLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000', link);
+      CreateLinkLine(XOffset + 7, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link); break;
+	  case 109: CreateLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000', link);
+      CreateLinkLine(XOffset, YOffset + 7, XOffset + 7, YOffset + 7, '#000000', link); break;
+	  case 110: CreateLinkLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link);
+      CreateLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 7, '#000000', link); break;
     // Cross
-	  case 111: CreateLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000');
-      CreateLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000'); break;
+	  case 111: CreateLinkLine(XOffset + 7, YOffset, XOffset + 7, YOffset + 14, '#000000', link);
+      CreateLinkLine(XOffset, YOffset + 7, XOffset + 14, YOffset + 7, '#000000', link); break;
     // Diagonal. TODO: Should be round, and non-straight lines
-	  case 112: case 119: case 124: case 126: case 127: CreateLine(XOffset + 14, YOffset + 7, XOffset + 7, YOffset + 14, '#000000'); break;
-	  case 113: case 118: case 123: case 130: case 131: CreateLine(XOffset, YOffset + 7, XOffset + 7, YOffset + 14, '#000000'); break;
-	  case 114: case 117: case 120: case 122: case 125: CreateLine(XOffset + 14, YOffset + 7, XOffset + 7, YOffset, '#000000'); break;
-	  case 115: case 116: case 121: case 128: case 129: CreateLine(XOffset, YOffset + 7, XOffset + 7, YOffset, '#000000'); break;
+	  case 112: case 119: case 124: case 126: case 127: CreateLinkLine(XOffset + 14, YOffset + 7, XOffset + 7, YOffset + 14, '#000000', link); break;
+	  case 113: case 118: case 123: case 130: case 131: CreateLinkLine(XOffset, YOffset + 7, XOffset + 7, YOffset + 14, '#000000', link); break;
+	  case 114: case 117: case 120: case 122: case 125: CreateLinkLine(XOffset + 14, YOffset + 7, XOffset + 7, YOffset, '#000000', link); break;
+	  case 115: case 116: case 121: case 128: case 129: CreateLinkLine(XOffset, YOffset + 7, XOffset + 7, YOffset, '#000000', link); break;
     // TODO: Windows
-	  case 132: CreateLine(XOffset + 7, YOffset + 14, XOffset + 5, YOffset + 11, '#000000');
-      CreateLine(XOffset + 7, YOffset + 14, XOffset + 9, YOffset + 11, '#000000');
-      CreateLine(XOffset + 5, YOffset + 3, XOffset + 5, YOffset + 11, '#000000');
-      CreateLine(XOffset + 9, YOffset + 3, XOffset + 9, YOffset + 11, '#000000');
-      CreateLine(XOffset + 7, YOffset, XOffset + 5, YOffset + 3, '#000000');
-      CreateLine(XOffset + 7, YOffset, XOffset + 9, YOffset + 3, '#000000'); break;
-	  case 133: CreateLine(XOffset + 5, YOffset + 14, XOffset + 5, YOffset + 8, '#000000');
-      CreateLine(XOffset + 9, YOffset + 14, XOffset + 9, YOffset + 8, '#000000');
-      CreateLine(XOffset + 5, YOffset + 8, XOffset + 7, YOffset, '#000000');
-      CreateLine(XOffset + 9, YOffset + 8, XOffset + 7, YOffset, '#000000'); break;
-	  case 134: CreateLine(XOffset + 5, YOffset, XOffset + 5, YOffset + 14, '#000000');
-      CreateLine(XOffset + 9, YOffset, XOffset + 9, YOffset + 14, '#000000'); break;
-	  case 135: CreateLine(XOffset + 5, YOffset, XOffset + 5, YOffset + 8, '#000000');
-      CreateLine(XOffset + 9, YOffset, XOffset + 9, YOffset + 8, '#000000');
-      CreateLine(XOffset + 5, YOffset + 8, XOffset + 7, YOffset + 14, '#000000');
-      CreateLine(XOffset + 9, YOffset + 8, XOffset + 7, YOffset + 14, '#000000'); break;
+	  case 132: CreateLinkLine(XOffset + 7, YOffset + 14, XOffset + 5, YOffset + 11, '#000000', link);
+      CreateLinkLine(XOffset + 7, YOffset + 14, XOffset + 9, YOffset + 11, '#000000', link);
+      CreateLinkLine(XOffset + 5, YOffset + 3, XOffset + 5, YOffset + 11, '#000000', link);
+      CreateLinkLine(XOffset + 9, YOffset + 3, XOffset + 9, YOffset + 11, '#000000', link);
+      CreateLinkLine(XOffset + 7, YOffset, XOffset + 5, YOffset + 3, '#000000', link);
+      CreateLinkLine(XOffset + 7, YOffset, XOffset + 9, YOffset + 3, '#000000', link); break;
+	  case 133: CreateLinkLine(XOffset + 5, YOffset + 14, XOffset + 5, YOffset + 8, '#000000', link);
+      CreateLinkLine(XOffset + 9, YOffset + 14, XOffset + 9, YOffset + 8, '#000000', link);
+      CreateLinkLine(XOffset + 5, YOffset + 8, XOffset + 7, YOffset, '#000000', link);
+      CreateLinkLine(XOffset + 9, YOffset + 8, XOffset + 7, YOffset, '#000000', link); break;
+	  case 134: CreateLinkLine(XOffset + 5, YOffset, XOffset + 5, YOffset + 14, '#000000', link);
+      CreateLinkLine(XOffset + 9, YOffset, XOffset + 9, YOffset + 14, '#000000', link); break;
+	  case 135: CreateLinkLine(XOffset + 5, YOffset, XOffset + 5, YOffset + 8, '#000000', link);
+      CreateLinkLine(XOffset + 9, YOffset, XOffset + 9, YOffset + 8, '#000000', link);
+      CreateLinkLine(XOffset + 5, YOffset + 8, XOffset + 7, YOffset + 14, '#000000', link);
+      CreateLinkLine(XOffset + 9, YOffset + 8, XOffset + 7, YOffset + 14, '#000000', link); break;
 	  //case 156: break;
     // TODO: Blue Boxes
 	  //case 201: break;
@@ -197,15 +191,10 @@ function DrawSeatingSymbol(id, XOffset, YOffset, link, tooltip) {
 // Functions to Change Image
 function ChangeSeatingPlan(CellId, XOffset, YOffset) {
 
-  // Get current selected picture id to draw
-	if (CurrentPicture.indexOf("lsthumb_") > 0) StartPos = CurrentPicture.indexOf("lsthumb_") + 8;
-	else StartPos = CurrentPicture.lastIndexOf("/") + 1;
-	var imgid = CurrentPicture.substring(StartPos, CurrentPicture.length - 4);
-
   // Switch image
-  ClearArea(XOffset, YOffset, 14, 14);
-  DrawSeatingSymbol(parseInt(imgid), XOffset, YOffset, 'javascript:ChangeSeatingPlan(\"'+ CellId +'\", '+ XOffset +', '+ YOffset +')', 't');
+  ClearArea(XOffset, YOffset, 14, 14, 'javascript:ChangeSeatingPlan(\"'+ CellId +'\", '+ XOffset +', '+ YOffset +')');
+  DrawSeatingSymbol(parseInt(CurrentDrawingSymbol), XOffset, YOffset, 'javascript:ChangeSeatingPlan(\"'+ CellId +'\", '+ XOffset +', '+ YOffset +')', 't');
   
   // Update hidden field, for DB
-  document.getElementById(CellId).value = imgid;
+  document.getElementById(CellId).value = CurrentDrawingSymbol;
 }

@@ -132,30 +132,9 @@ class seat2 {
 
     $smarty->assign('default_design', $auth['design']);
 
-		// Create Images
-		$this->CreateSeatImage('seat_free', 0, 250, 0, 60);
-		$this->CreateSeatImage('seat_reserved', 250, 0, 0, 60);
-		$this->CreateSeatImage('seat_checked_in', 100, 0, 0, 60);
-		$this->CreateSeatImage('seat_checked_out', 0, 100, 0, 60);
-		$this->CreateSeatImage('seat_marked', 200, 200, 0, 60);
-		$this->CreateSeatImage('seat_myselfe', 0, 0, 200, 60);
-		$this->CreateSeatImage('seat_clanmate', 0, 100, 200, 60);
-
 		// Get Block data (side descriptions + number of rows + cols)
 		$block = $db->query_first("SELECT * FROM {$config["tables"]["seat_block"]} WHERE blockid = '{$blockid}'");
 
-		$smarty->assign('text_tl', $block['text_tl']);
-		$smarty->assign('text_tc', $block['text_tc']);
-		$smarty->assign('text_tr', $block['text_tr']);
-		$smarty->assign('text_lt', $this->FlipVertical($block['text_lt']));
-		$smarty->assign('text_lc', $this->FlipVertical($block['text_lc']));
-		$smarty->assign('text_lb', $this->FlipVertical($block['text_lb']));
-		$smarty->assign('text_rt', $this->FlipVertical($block['text_rt']));
-		$smarty->assign('text_rc', $this->FlipVertical($block['text_rc']));
-		$smarty->assign('text_rb', $this->FlipVertical($block['text_rb']));
-		$smarty->assign('text_bl', $block['text_bl']);
-		$smarty->assign('text_bc', $block['text_bc']);
-		$smarty->assign('text_br', $block['text_br']);
 		$smarty->assign('row_count', $block['rows'] + 1);
 		$smarty->assign('col_count', $block['cols'] + 1);
     $smarty->assign('mode', $mode);
@@ -180,8 +159,6 @@ class seat2 {
       LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
       WHERE blockid = %int%', $blockid);
 		if (!$db->num_rows() == 0) {
-#			for ($x = 0; $x <= $block['cols']; $x++) for ($y = 0; $y <= $block['rows']; $y++) $seat_state[$y][$x] = 1;
-#		else {
 			while ($seat_row = $db->fetch_array($seats_qry)) {
         if ($seat_row['userid']) $party_user = $db->query_first("SELECT checkin, checkout FROM {$config["tables"]["party_user"]}
           WHERE user_id = {$seat_row['userid']} AND party_id = {$party->party_id}");
@@ -208,107 +185,114 @@ class seat2 {
 		if ($auth['login']) $user_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
 
 		// Header-Row
-		$head = array();
-		for ($x = 0; $x <= $block['cols']; $x++) {
-			if ($sep_rows[$x+1]) {
-				$head[$x]['width'] = 28;
-				$head[$x]['icon'] = "design/{$auth['design']}/images/arrows_seating_remove_sep_hor.gif";
-			} else {
-				$head[$x]['width'] = 14;
-				$head[$x]['icon'] = "design/{$auth['design']}/images/arrows_seating_add_sep_hor.gif";
-			}
-		  $head[$x]['link'] = "index.php?mod=seating&action={$_GET['action']}&step=4&blockid=$blockid" . "&change_sep_row=".($x + 1);
-			$head[$x]['name'] = $this->CoordinateToName($x + 1, -1, $block['orientation']);
-		}
-		$smarty->assign('head', $head);
+    if ($mode == 3) {
+  		$head = array();
+  		for ($x = 0; $x <= $block['cols']; $x++) {
+  			if ($sep_rows[$x+1]) {
+  				$head[$x]['width'] = 28;
+  				$head[$x]['icon'] = "design/{$auth['design']}/images/arrows_seating_remove_sep_hor.gif";
+  			} else {
+  				$head[$x]['width'] = 14;
+  				$head[$x]['icon'] = "design/{$auth['design']}/images/arrows_seating_add_sep_hor.gif";
+  			}
+  		  $head[$x]['link'] = "index.php?mod=seating&action={$_GET['action']}&step=4&blockid=$blockid" . "&change_sep_row=".($x + 1);
+  			$head[$x]['name'] = $this->CoordinateToName($x + 1, -1, $block['orientation']);
+  		}
+  		$smarty->assign('head', $head);
 
-		// Images
-		if($mode == 2){
-			$handel = opendir("ext_inc/seating_symbols/");
-			while ($imagedata = readdir($handel)){
-				if(!($imagedata == ".." || $imagedata == "." || is_dir($imagedata) || substr($imagedata,0,2) == "ls")){
-					$imagename = substr($imagedata,0,strlen($imagedata)-4);
-					$imageext = substr($imagedata,-4);
-					if($imageext == ".jpg" || $imageext == "jpeg" || $imageext == ".gif" || $imageext == ".png"){
-						$templ['seat']['seat_data_image'] .= "image[$imagename] = new Image();\n";
-						$templ['seat']['seat_data_image'] .= "image[$imagename].src = \"ext_inc/seating_symbols/$imagedata\";\n";
-					}
-				}
-			}
-		}
-		
-		// Main-Table
-		$framework->main_header_metatags .= '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />';
-		$framework->main_header_jscode .= '<script type="text/javascript" src="ext_scripts/SVG2VMLv1_1.js"></script>
-    <script type="text/javascript" src="ext_scripts/ls_svg2vml.js"></script>
-    <script type="text/javascript" src="seating.js"></script>
-		<script>
-			function go() {
-				vectorModel = new VectorModel();
-				container = document.getElementById("SeatPlanSVGContet");
-				mySvg = vectorModel.createElement("svg");
-				container.appendChild(mySvg);
-				mySvg.setAttribute("version", "1.1");
-			  myG = vectorModel.createElement("g");
-				mySvg.appendChild(myG);
-    ';
+    } else {
+      $SVGWidth = 600;
+      $SVGHeight = 500;
+      $XStartPlan = 50;
+      $YStartPlan = 150;
+      $XStartPlanFrame = 0;
+      $YStartPlanFrame = 105;
+  		$smarty->assign('SVGWidth', $SVGWidth);
+  		$smarty->assign('SVGHeight', $SVGHeight);
+  		
+  		// Main-Table
+  		$framework->main_header_metatags .= '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />';
+  		$framework->main_header_jscode .= '<script type="text/javascript" src="ext_scripts/SVG2VMLv1_1.js"></script>
+      <script type="text/javascript" src="ext_scripts/ls_svg2vml.js"></script>
+      <script type="text/javascript" src="seating.js"></script>';
 
-    $framework->main_header_jscode .= "CreateRect(4, 5, ". ((400 / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-    $framework->main_header_jscode .= "CreateText('". $block['text_tl'] ."', ". ((400 / 6 * 1) - strlen($block['text_tl']) * 4) .", ". (20) .", '');\n";
-    $framework->main_header_jscode .= "CreateRect(". ((400 / 3) + 4) .", 5, ". ((400 / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-    $framework->main_header_jscode .= "CreateText('". $block['text_tc'] ."', ". ((400 / 6 * 3) - strlen($block['text_tc']) * 4) .", ". (20) .", '');\n";
-    $framework->main_header_jscode .= "CreateRect(". (((400 / 3) * 2) + 4) .", 5, ". ((400 / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-    $framework->main_header_jscode .= "CreateText('". $block['text_tr'] ."', ". ((400 / 6 * 5) - strlen($block['text_tr']) * 4) .", ". (20) .", '');\n";
+  		$framework->main_header_jscode .= '<script>
+  			function go() {
+  				vectorModel = new VectorModel();
+  				container = document.getElementById("SeatPlanSVGContet");
+  				mySvg = vectorModel.createElement("svg");
+  				container.appendChild(mySvg);
+  				mySvg.setAttribute("version", "1.1");
+  			  myG = vectorModel.createElement("g");
+  				mySvg.appendChild(myG);
+      ';
+  
+      // Icon selection in mode 2
+      if ($mode == 2){
 
-    $framework->main_header_jscode .= "CreateRect(4, 32, 20, ". ((330 / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-		for ($i = 0; $i <= strlen($block['text_lt']); $i++) {
-		  $framework->main_header_jscode .= "CreateText('". substr($block['text_lt'], $i, 1) ."', 12, ". ((330 / 6 * 1 + 32) - strlen($block['text_lt']) * 5 + 10 * $i) .", '');\n";
-		}
-    $framework->main_header_jscode .= "CreateRect(4, ". (330 / 3 + 4 + 32) .", 20, ". ((330 / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-		for ($i = 0; $i <= strlen($block['text_lc']); $i++) {
-		  $framework->main_header_jscode .= "CreateText('". substr($block['text_lc'], $i, 1) ."', 12, ". ((330 / 6 * 3 + 32) - strlen($block['text_lc']) * 5 + 10 * $i) .", '');\n";
-		}
-    $framework->main_header_jscode .= "CreateRect(4, ". ((330 / 3) * 2 + 4 + 32) .", 20, ". ((330 / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-		for ($i = 0; $i <= strlen($block['text_lb']); $i++) {
-		  $framework->main_header_jscode .= "CreateText('". substr($block['text_lb'], $i, 1) ."', 12, ". ((330 / 6 * 5 + 32) - strlen($block['text_lb']) * 5 + 10 * $i) .", '');\n";
-		}
-
-    $framework->main_header_jscode .= "CreateRect(". (400 - 25) .", 32, 20, ". ((330 / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-		for ($i = 0; $i <= strlen($block['text_rt']); $i++) {
-		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rt'], $i, 1) ."', ". (400 - 17) .", ". ((330 / 6 * 1 + 32) - strlen($block['text_rt']) * 5 + 10 * $i) .", '');\n";
-		}
-    $framework->main_header_jscode .= "CreateRect(". (400 - 25) .", ". (330 / 3 + 4 + 32) .", 20, ". ((330 / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-		for ($i = 0; $i <= strlen($block['text_rc']); $i++) {
-		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rc'], $i, 1) ."', ". (400 - 17) .", ". ((330 / 6 * 3 + 32) - strlen($block['text_rc']) * 5 + 10 * $i) .", '');\n";
-		}
-    $framework->main_header_jscode .= "CreateRect(". (400 - 25) .", ". ((330 / 3) * 2 + 4 + 32) .", 20, ". ((330 / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
-		for ($i = 0; $i <= strlen($block['text_rb']); $i++) {
-		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rb'], $i, 1) ."', ". (400 - 17) .", ". ((330 / 6 * 5 + 32) - strlen($block['text_rb']) * 5 + 10 * $i) .", '');\n";
-		}
-
-    $framework->main_header_jscode .= "CreateRect(4, ". (400 - 35) .", ". ((400 / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-    $framework->main_header_jscode .= "CreateText('". $block['text_bl'] ."', ". ((400 / 6 * 1) - strlen($block['text_bl']) * 4) .", ". (400 - 20) .", '');\n";
-    $framework->main_header_jscode .= "CreateRect(". ((400 / 3) + 4) .", ". (400 - 35) .", ". ((400 / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-    $framework->main_header_jscode .= "CreateText('". $block['text_bc'] ."', ". ((400 / 6 * 3) - strlen($block['text_bc']) * 4) .", ". (400 - 20) .", '');\n";
-    $framework->main_header_jscode .= "CreateRect(". (((400 / 3) * 2) + 4) .", ". (400 - 35) .", ". ((400 / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
-    $framework->main_header_jscode .= "CreateText('". $block['text_br'] ."', ". ((400 / 6 * 5) - strlen($block['text_br']) * 4) .", ". (400 - 20) .", '');\n";
-
-
-		$smarty->assign('text_tl', $block['text_tl']);
-		$smarty->assign('text_tc', $block['text_tc']);
-		$smarty->assign('text_tr', $block['text_tr']);
-		$smarty->assign('text_lt', $this->FlipVertical($block['text_lt']));
-		$smarty->assign('text_lc', $this->FlipVertical($block['text_lc']));
-		$smarty->assign('text_lb', $this->FlipVertical($block['text_lb']));
-		$smarty->assign('text_rt', $this->FlipVertical($block['text_rt']));
-		$smarty->assign('text_rc', $this->FlipVertical($block['text_rc']));
-		$smarty->assign('text_rb', $this->FlipVertical($block['text_rb']));
-		$smarty->assign('text_bl', $block['text_bl']);
-		$smarty->assign('text_bc', $block['text_bc']);
-		$smarty->assign('text_br', $block['text_br']);
-		$smarty->assign('row_count', $block['rows'] + 1);
-		$smarty->assign('col_count', $block['cols'] + 1);
-    $smarty->assign('mode', $mode);
+        $framework->main_header_jscode .= "CreateText('Auswahl:', 0, 14);\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(19, 0, 14, 'javascript:UpdateCurrentDrawingSymbol(\"19\")', 'Test');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(14, 14, 14, 'javascript:UpdateCurrentDrawingSymbol(\"14\")', 'Test');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(18, 28, 14, 'javascript:UpdateCurrentDrawingSymbol(\"18\")', 'Test');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(15, 0, 28, 'javascript:UpdateCurrentDrawingSymbol(\"15\")', 'Test');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(16, 14, 28, 'javascript:UpdateCurrentDrawingSymbol(\"16\")', 'Test');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(13, 28, 28, 'javascript:UpdateCurrentDrawingSymbol(\"13\")', 'Test');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(20, 0, 42, 'javascript:UpdateCurrentDrawingSymbol(\"20\")', 'Test');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(12, 14, 42, 'javascript:UpdateCurrentDrawingSymbol(\"12\")', 'Test');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(17, 28, 42, 'javascript:UpdateCurrentDrawingSymbol(\"17\")', 'Test');\n";
+        $x = 0;
+        $y = 56;
+        for ($i = 300; $i <= 371; $i++) {
+  	      $framework->main_header_jscode .= "DrawClearSeatingSymbol($i, $x, $y, 'javascript:UpdateCurrentDrawingSymbol(\"$i\")', 'Test');\n";
+  
+          $x += 14;
+          if ($x > 580) {
+            $x = 0;
+            $y += 14;
+          }
+        }
+      }
+  
+      $framework->main_header_jscode .= "CreateRect(4, $YStartPlanFrame, ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+      $framework->main_header_jscode .= "CreateText('". $block['text_tl'] ."', ". (($SVGWidth / 6 * 1) - strlen($block['text_tl']) * 4) .", ". ($YStartPlanFrame + 15) .", '');\n";
+      $framework->main_header_jscode .= "CreateRect(". (($SVGWidth / 3) + 4) .", $YStartPlanFrame, ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+      $framework->main_header_jscode .= "CreateText('". $block['text_tc'] ."', ". (($SVGWidth / 6 * 3) - strlen($block['text_tc']) * 4) .", ". ($YStartPlanFrame + 15) .", '');\n";
+      $framework->main_header_jscode .= "CreateRect(". ((($SVGWidth / 3) * 2) + 4) .", $YStartPlanFrame, ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+      $framework->main_header_jscode .= "CreateText('". $block['text_tr'] ."', ". (($SVGWidth / 6 * 5) - strlen($block['text_tr']) * 4) .", ". ($YStartPlanFrame + 15) .", '');\n";
+  
+      $framework->main_header_jscode .= "CreateRect(4, ". ($YStartPlanFrame + 27) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+  		for ($i = 0; $i <= strlen($block['text_lt']); $i++) {
+  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_lt'], $i, 1) ."', 12, ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 1 + ($YStartPlanFrame + 27)) - strlen($block['text_lt']) * 5 + 10 * $i) .", '');\n";
+  		}
+      $framework->main_header_jscode .= "CreateRect(4, ". (($SVGHeight - $YStartPlanFrame - 70) / 3 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+  		for ($i = 0; $i <= strlen($block['text_lc']); $i++) {
+  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_lc'], $i, 1) ."', 12, ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 3 + ($YStartPlanFrame + 27)) - strlen($block['text_lc']) * 5 + 10 * $i) .", '');\n";
+  		}
+      $framework->main_header_jscode .= "CreateRect(4, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) * 2 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+  		for ($i = 0; $i <= strlen($block['text_lb']); $i++) {
+  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_lb'], $i, 1) ."', 12, ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 5 + ($YStartPlanFrame + 27)) - strlen($block['text_lb']) * 5 + 10 * $i) .", '');\n";
+  		}
+  
+      $framework->main_header_jscode .= "CreateRect(". ($SVGWidth - 25) .", 32, 20, ". ((($SVGHeight - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+  		for ($i = 0; $i <= strlen($block['text_rt']); $i++) {
+  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rt'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - 70) / 6 * 1 + 32) - strlen($block['text_rt']) * 5 + 10 * $i) .", '');\n";
+  		}
+      $framework->main_header_jscode .= "CreateRect(". ($SVGWidth - 25) .", ". (($SVGHeight - 70) / 3 + 4 + 32) .", 20, ". ((($SVGHeight - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+  		for ($i = 0; $i <= strlen($block['text_rc']); $i++) {
+  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rc'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - 70) / 6 * 3 + 32) - strlen($block['text_rc']) * 5 + 10 * $i) .", '');\n";
+  		}
+      $framework->main_header_jscode .= "CreateRect(". ($SVGWidth - 25) .", ". ((($SVGHeight - 70) / 3) * 2 + 4 + 32) .", 20, ". ((($SVGHeight - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+  		for ($i = 0; $i <= strlen($block['text_rb']); $i++) {
+  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rb'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - 70) / 6 * 5 + 32) - strlen($block['text_rb']) * 5 + 10 * $i) .", '');\n";
+  		}
+  
+      $framework->main_header_jscode .= "CreateRect(4, ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+      $framework->main_header_jscode .= "CreateText('". $block['text_bl'] ."', ". (($SVGWidth / 6 * 1) - strlen($block['text_bl']) * 4) .", ". ($SVGHeight - 20) .", '');\n";
+      $framework->main_header_jscode .= "CreateRect(". (($SVGWidth / 3) + 4) .", ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+      $framework->main_header_jscode .= "CreateText('". $block['text_bc'] ."', ". (($SVGWidth / 6 * 3) - strlen($block['text_bc']) * 4) .", ". ($SVGHeight - 20) .", '');\n";
+      $framework->main_header_jscode .= "CreateRect(". ((($SVGWidth / 3) * 2) + 4) .", ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
+      $framework->main_header_jscode .= "CreateText('". $block['text_br'] ."', ". (($SVGWidth / 6 * 5) - strlen($block['text_br']) * 4) .", ". ($SVGHeight - 20) .", '');\n";
+    }
 
 		$templ['seat']['seat_data_array'] = '';
 		$cell_nr = 0;
@@ -317,13 +301,13 @@ class seat2 {
 		for ($y = 0; $y <= $block['rows']; $y++) {
 
 			if ($sep_cols[$y]) $sepY++;
-			$YOffset = $y * 14 + $sepY * 7 + 50;
+			$YOffset = $y * 14 + $sepY * 7 + $YStartPlan;
 
 			$body[$y]['desc'] = $this->CoordinateToName(-1, $y, $block['orientation']);
-			$framework->main_header_jscode .= "CreateText('". $this->CoordinateToName(-1, $y, $block['orientation']) ."', ". (40) .", ". ($YOffset + 9) .", '');\n";			
+			if ($mode != 3) $framework->main_header_jscode .= "CreateText('". $this->CoordinateToName(-1, $y, $block['orientation']) ."', ". ($XStartPlan - 10) .", ". ($YOffset + 9) .", '');\n";			
 			if ($mode == 1) {
-			  if ($sep_cols[$y+1]) $framework->main_header_jscode .= "CreateSmallText('^', ". (30) .", ". ($YOffset + 9 + 7) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_col=". ($y + 1) ."');\n";
-			  else  $framework->main_header_jscode .= "CreateSmallText('v', ". (30) .", ". ($YOffset + 9 + 7) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_col=". ($y + 1) ."');\n";
+			  if ($sep_cols[$y+1]) $framework->main_header_jscode .= "CreateSmallText('^', ". ($XStartPlan - 20) .", ". ($YOffset + 9 + 7) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_col=". ($y + 1) ."');\n";
+			  else  $framework->main_header_jscode .= "CreateSmallText('v', ". ($XStartPlan - 20) .", ". ($YOffset + 9 + 7) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_col=". ($y + 1) ."');\n";
       }
 
 			if ($sep_cols[$y+1]) {
@@ -340,17 +324,17 @@ class seat2 {
 			for ($x = 0; $x <= $block['cols']; $x++) {
 
   			if ($sep_rows[$x]) $sepX++;
-				$XOffset = $x * 14 + $sepX * 7 + 50;
+				$XOffset = $x * 14 + $sepX * 7 + $XStartPlan;
 
 				switch ($mode) {
           // Show plan				
 					default:
 						$templ['seat']['cell_nr'] = $cell_nr;
 						
-						if ($y == 1) $framework->main_header_jscode .= "CreateText('". $this->CoordinateToName($x + 1, -1, $block['orientation']) ."', ". ($XOffset - 2) .", ". (50 - 6) .", '');\n";
+						if ($y == 1) $framework->main_header_jscode .= "CreateText('". $this->CoordinateToName($x + 1, -1, $block['orientation']) ."', ". ($XOffset - 2) .", ". ($YStartPlan - 6) .", '');\n";
 						if ($y == 1 and $mode == 1) {
-						  if ($sep_rows[$x+1]) $framework->main_header_jscode .= "CreateSmallText('<', ". ($XOffset - 2 + 9) .", ". (50 - 16) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_row=". ($x + 1) ."');\n";
-						  else  $framework->main_header_jscode .= "CreateSmallText('>', ". ($XOffset - 2 + 9) .", ". (50 - 16) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_row=". ($x + 1) ."');\n";
+						  if ($sep_rows[$x+1]) $framework->main_header_jscode .= "CreateSmallText('<', ". ($XOffset - 2 + 9) .", ". ($YStartPlan - 16) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_row=". ($x + 1) ."');\n";
+						  else  $framework->main_header_jscode .= "CreateSmallText('>', ". ($XOffset - 2 + 9) .", ". ($YStartPlan - 16) .", 'index.php?mod=seating&action=edit&step=4&blockid=". $_GET['blockid'] ."&change_sep_row=". ($x + 1) ."');\n";
             }
 
 						// Set seat link target
@@ -379,8 +363,6 @@ class seat2 {
 						    $link = "javascript:ChangeSeatingPlan(\"cell". ($x * 100 + $y) ."\", $XOffset, $YOffset)";
               break;
 						}
-						if ($mode != 1) {
-            }
 
 /*
           // Edit plan
@@ -471,33 +453,35 @@ class seat2 {
 						// Set seat image
 						$body[$y]['line'][$x]['img_name'] = '';
 
-						if ($seat_state[$y][$x] != 0 or $mode == 1) {
-						  switch ($seat_state[$y][$x]) {
-						    case 0:
-						      if ($mode == 1) $framework->main_header_jscode .= "DrawSeatingSymbol({$seat_state[$y][$x]}, $XOffset, $YOffset, '$link', '$tooltip');\n";
-						    break;
-						    case 2:
-  								if ($selected_user)	$userid = $selected_user;
-  								else $userid = $auth['userid'];
-  								
-  								if ($seat_userid[$y][$x] == $userid) $seat_state[$y][$x] = 4; // My Seat
-  								elseif (in_array($seat_userid[$y][$x], $my_clanmates)) $seat_state[$y][$x] = 5; // Clanmate
-  								elseif ($seat_user_checkout[$y][$x] and $seat_user_checkout[$y][$x] != '0000-00-00 00:00:00') $seat_state[$y][$x] = 6; // Checked out
-  								elseif ($seat_user_checkin[$y][$x] and $seat_user_checkin[$y][$x] != '0000-00-00 00:00:00') $seat_state[$y][$x] = 8; // Checked in
-  								// else = 2 -> Normal occupied seat
+					  switch ($seat_state[$y][$x]) {
+					    case 0:
+					    case 100:
+					      if ($mode == 1) $framework->main_header_jscode .= "DrawSeatingSymbol(0, $XOffset, $YOffset, '$link', '$tooltip');\n";
+					      elseif ($mode == 2) $framework->main_header_jscode .= "ClearArea($XOffset, $YOffset, 14, 14, '$link');\n";
+					    break;
+					    case 2:
+								if ($selected_user)	$userid = $selected_user;
+								else $userid = $auth['userid'];
+								
+								if ($seat_userid[$y][$x] == $userid) $seat_state[$y][$x] = 4; // My Seat
+								elseif (in_array($seat_userid[$y][$x], $my_clanmates)) $seat_state[$y][$x] = 5; // Clanmate
+								elseif ($seat_user_checkout[$y][$x] and $seat_user_checkout[$y][$x] != '0000-00-00 00:00:00') $seat_state[$y][$x] = 6; // Checked out
+								elseif ($seat_user_checkin[$y][$x] and $seat_user_checkin[$y][$x] != '0000-00-00 00:00:00') $seat_state[$y][$x] = 8; // Checked in
+								// else = 2 -> Normal occupied seat
 
-                // No Break!
-						    default:
-						      $framework->main_header_jscode .= "DrawSeatingSymbol({$seat_state[$y][$x]}, $XOffset, $YOffset, '$link', '$tooltip');\n";
-						    break;
-						      
-						  }
-            }
+              // No Break!
+					    default:
+					      if ($mode == 2) $framework->main_header_jscode .= "ClearArea($XOffset, $YOffset, 14, 14, '$link');\n";
+					      $framework->main_header_jscode .= "DrawSeatingSymbol({$seat_state[$y][$x]}, $XOffset, $YOffset, '$link', '$tooltip');\n";
+					    break;
+					      
+					  }
 
 						$templ['seat']['cell_content'] = '';
-//          break;
+          break;
           
-//          case 2:
+/*
+          case 2:
           // Edit plan
 						$body[$y]['line'][$x]['symbol'] = '';
             $input_hidden = '<input type="hidden" id="cell'. ($x * 100 + $y) .'" name="cell['. ($x * 100 + $y) .']" value="'. $seat_state[$y][$x] .'" />'."\n";
@@ -535,7 +519,7 @@ class seat2 {
 
 					  $body[$y]['line'][$x]['cell_id'] = 'fcell'. ($x * 100 + $y);
 					break;
-					
+*/
 					// IP-Input-Fields
 					case 3:
 						if ($seat_state[$y][$x] >= 1 and $seat_state[$y][$x] < 10) $body[$y]['line'][$x]['content'] = "<input type=\"text\" name=\"cell[". ($x * 100 + $y) ."]\" size=\"15\" maxlength=\"15\" value=\"". $seat_ip[$y][$x] ."\" />";
@@ -546,7 +530,7 @@ class seat2 {
 			}
 		}
 
-		$framework->main_header_jscode .= '
+    if ($mode != 3) $framework->main_header_jscode .= '
 			}
 		</script>
     ';

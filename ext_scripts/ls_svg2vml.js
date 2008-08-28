@@ -1,4 +1,4 @@
-function ClearArea(x, y, width, height) {
+function ClearArea(x, y, width, height, link) {
 	myRoundRect = vectorModel.createElement("rect");
 	myRoundRect.setAttribute("x", x);
 	myRoundRect.setAttribute("y", y);
@@ -6,7 +6,15 @@ function ClearArea(x, y, width, height) {
 	myRoundRect.setAttribute("width", width);
 	myRoundRect.setAttribute("height", height);
 	myRoundRect.setAttribute("fill", '#ffffff');
+//	myRoundRect.setAttribute("stroke", '#ffffff');
+//	myRoundRect.setAttribute("stroke-width", "0px");
+  if (link) {
+    myRoundRect.setAttribute("onclick", "parent.document.location.href='"+ link +"'");
+    myRoundRect.setAttribute("onmouseover", "this.style.cursor='pointer'");
+  }
 	myG.appendChild(myRoundRect);
+
+	if (link) CreateTextInt('_', x + 2, y + 13, link, 8);
 }
 
 function CreateRect(x, y, width, height, fill, stroke, link) {
@@ -26,6 +34,8 @@ function CreateRect(x, y, width, height, fill, stroke, link) {
     myRoundRect.setAttribute("onmouseover", "this.style.cursor='pointer'");
   }
 	myG.appendChild(myRoundRect);
+
+	if (link) CreateTextInt('_', x + 2, y + 11, link, 8);
 }
 
 function CreateSmallRect(x, y, width, height, fill, link, popup) {
@@ -49,6 +59,8 @@ function CreateSmallRect(x, y, width, height, fill, link, popup) {
     myRoundRect.setAttribute("onmouseout", "return nd();");
   }
 	myG.appendChild(myRoundRect);
+	
+	if (link) CreateTextInt('_', x + 2, y + 11, link, 8);
 }
 
 
@@ -100,23 +112,36 @@ function CreateTextInt(text, x, y, link, size) {
 }
 
 function CreateLine(x1, y1, x2, y2, stroke) { 
-	var myLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-	myLine.setAttribute("x1", x1);
-	myLine.setAttribute("y1", y1);
-	myLine.setAttribute("x2", x2);
-	myLine.setAttribute("y2", y2);
-	myLine.setAttribute("stroke", stroke);
-	myLine.setAttribute("stroke-width", "1");
-	myG.appendChild(myLine);
+  CreateLineInt(x1, y1, x2, y2, stroke, 1, '');
 }
 
-function CreateThickLine(x1, y1, x2, y2, stroke) { 
+function CreateLinkLine(x1, y1, x2, y2, stroke, link) { 
+  CreateLineInt(x1, y1, x2, y2, stroke, 1, link);
+}
+
+function CreateThickLinkLine(x1, y1, x2, y2, stroke, link) { 
+  CreateLineInt(x1, y1, x2, y2, stroke, 4, link);
+}
+
+function CreateLineInt(x1, y1, x2, y2, stroke, width, link) { 
 	var myLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
 	myLine.setAttribute("x1", x1);
 	myLine.setAttribute("y1", y1);
 	myLine.setAttribute("x2", x2);
 	myLine.setAttribute("y2", y2);
 	myLine.setAttribute("stroke", stroke);
-	myLine.setAttribute("stroke-width", "4");
+	myLine.setAttribute("stroke-width", width);
+  if (link) {
+    myLine.setAttribute("onclick", "parent.document.location.href='"+ link +"'");
+    myLine.setAttribute("onmouseover", "this.style.cursor='pointer'");
+  }
 	myG.appendChild(myLine);
+
+/*
+	if (link) {
+	  if (x2 < x1) x1 = x2;
+	  if (y2 < y1) y1 = y2;
+    CreateTextInt('_', x1 + 2, y1 + 11, link, 8);
+  }
+*/
 }
