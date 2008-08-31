@@ -231,15 +231,92 @@ class seat2 {
       if ($mode == 2){
 
         $framework->main_header_jscode .= "CreateText('Auswahl:', 0, 14);\n";
-        $framework->main_header_jscode .= "DrawClearSeatingSymbol(19, 0, 14, 'javascript:UpdateCurrentDrawingSymbol(\"19\")', 'Test');\n";
-        $framework->main_header_jscode .= "DrawClearSeatingSymbol(14, 14, 14, 'javascript:UpdateCurrentDrawingSymbol(\"14\")', 'Test');\n";
-        $framework->main_header_jscode .= "DrawClearSeatingSymbol(18, 28, 14, 'javascript:UpdateCurrentDrawingSymbol(\"18\")', 'Test');\n";
-        $framework->main_header_jscode .= "DrawClearSeatingSymbol(15, 0, 28, 'javascript:UpdateCurrentDrawingSymbol(\"15\")', 'Test');\n";
-        $framework->main_header_jscode .= "DrawClearSeatingSymbol(16, 14, 28, 'javascript:UpdateCurrentDrawingSymbol(\"16\")', 'Test');\n";
-        $framework->main_header_jscode .= "DrawClearSeatingSymbol(13, 28, 28, 'javascript:UpdateCurrentDrawingSymbol(\"13\")', 'Test');\n";
-        $framework->main_header_jscode .= "DrawClearSeatingSymbol(20, 0, 42, 'javascript:UpdateCurrentDrawingSymbol(\"20\")', 'Test');\n";
-        $framework->main_header_jscode .= "DrawClearSeatingSymbol(12, 14, 42, 'javascript:UpdateCurrentDrawingSymbol(\"12\")', 'Test');\n";
-        $framework->main_header_jscode .= "DrawClearSeatingSymbol(17, 28, 42, 'javascript:UpdateCurrentDrawingSymbol(\"17\")', 'Test');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(19, 0, 14, 'javascript:UpdateCurrentDrawingSymbol(\"19\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(14, 14, 14, 'javascript:UpdateCurrentDrawingSymbol(\"14\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(18, 28, 14, 'javascript:UpdateCurrentDrawingSymbol(\"18\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(15, 0, 28, 'javascript:UpdateCurrentDrawingSymbol(\"15\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(16, 14, 28, 'javascript:UpdateCurrentDrawingSymbol(\"16\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(13, 28, 28, 'javascript:UpdateCurrentDrawingSymbol(\"13\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(20, 0, 42, 'javascript:UpdateCurrentDrawingSymbol(\"20\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(12, 14, 42, 'javascript:UpdateCurrentDrawingSymbol(\"12\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(17, 28, 42, 'javascript:UpdateCurrentDrawingSymbol(\"17\")', '');\n";
+
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(103, 42, 14, 'javascript:UpdateCurrentDrawingSymbol(\"103\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(107, 56, 14, 'javascript:UpdateCurrentDrawingSymbol(\"107\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(104, 70, 14, 'javascript:UpdateCurrentDrawingSymbol(\"104\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(108, 42, 28, 'javascript:UpdateCurrentDrawingSymbol(\"108\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(111, 56, 28, 'javascript:UpdateCurrentDrawingSymbol(\"111\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(109, 70, 28, 'javascript:UpdateCurrentDrawingSymbol(\"109\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(105, 42, 42, 'javascript:UpdateCurrentDrawingSymbol(\"105\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(110, 56, 42, 'javascript:UpdateCurrentDrawingSymbol(\"110\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(106, 70, 42, 'javascript:UpdateCurrentDrawingSymbol(\"106\")', '');\n";
+
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(22, 84, 14, 'javascript:UpdateCurrentDrawingSymbol(\"22\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(21, 98, 14, 'javascript:UpdateCurrentDrawingSymbol(\"21\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(23, 84, 28, 'javascript:UpdateCurrentDrawingSymbol(\"108\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(24, 98, 28, 'javascript:UpdateCurrentDrawingSymbol(\"24\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(10, 84, 42, 'javascript:UpdateCurrentDrawingSymbol(\"10\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(11, 98, 42, 'javascript:UpdateCurrentDrawingSymbol(\"11\")', '');\n";
+    
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(148, 112, 14, 'javascript:UpdateCurrentDrawingSymbol(\"148\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(149, 126, 14, 'javascript:UpdateCurrentDrawingSymbol(\"149\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(150, 112, 28, 'javascript:UpdateCurrentDrawingSymbol(\"150\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(151, 126, 28, 'javascript:UpdateCurrentDrawingSymbol(\"151\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(102, 112, 42, 'javascript:UpdateCurrentDrawingSymbol(\"102\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(101, 126, 42, 'javascript:UpdateCurrentDrawingSymbol(\"101\")', '');\n";
+        
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(136, 140, 14, 'javascript:UpdateCurrentDrawingSymbol(\"136\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(137, 154, 14, 'javascript:UpdateCurrentDrawingSymbol(\"137\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(138, 140, 28, 'javascript:UpdateCurrentDrawingSymbol(\"138\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(139, 154, 28, 'javascript:UpdateCurrentDrawingSymbol(\"139\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(1, 140, 42, 'javascript:UpdateCurrentDrawingSymbol(\"1\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(100, 154, 42, 'javascript:UpdateCurrentDrawingSymbol(\"100\")', '');\n";
+        
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(140, 168, 14, 'javascript:UpdateCurrentDrawingSymbol(\"140\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(141, 182, 14, 'javascript:UpdateCurrentDrawingSymbol(\"141\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(142, 168, 28, 'javascript:UpdateCurrentDrawingSymbol(\"142\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(143, 182, 28, 'javascript:UpdateCurrentDrawingSymbol(\"143\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(7, 168, 42, 'javascript:UpdateCurrentDrawingSymbol(\"7\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(153, 182, 42, 'javascript:UpdateCurrentDrawingSymbol(\"153\")', '');\n";
+        
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(144, 196, 14, 'javascript:UpdateCurrentDrawingSymbol(\"144\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(145, 210, 14, 'javascript:UpdateCurrentDrawingSymbol(\"145\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(146, 196, 28, 'javascript:UpdateCurrentDrawingSymbol(\"146\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(147, 210, 28, 'javascript:UpdateCurrentDrawingSymbol(\"147\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(154, 196, 42, 'javascript:UpdateCurrentDrawingSymbol(\"154\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(156, 210, 42, 'javascript:UpdateCurrentDrawingSymbol(\"156\")', '');\n";
+
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(112, 224, 14, 'javascript:UpdateCurrentDrawingSymbol(\"112\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(113, 238, 14, 'javascript:UpdateCurrentDrawingSymbol(\"113\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(114, 224, 28, 'javascript:UpdateCurrentDrawingSymbol(\"114\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(115, 238, 28, 'javascript:UpdateCurrentDrawingSymbol(\"115\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(132, 224, 42, 'javascript:UpdateCurrentDrawingSymbol(\"132\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(152, 238, 42, 'javascript:UpdateCurrentDrawingSymbol(\"152\")', '');\n";
+
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(133, 252, 14, 'javascript:UpdateCurrentDrawingSymbol(\"133\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(134, 252, 28, 'javascript:UpdateCurrentDrawingSymbol(\"134\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(135, 252, 42, 'javascript:UpdateCurrentDrawingSymbol(\"135\")', '');\n";
+
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(224, 266, 14, 'javascript:UpdateCurrentDrawingSymbol(\"224\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(226, 280, 14, 'javascript:UpdateCurrentDrawingSymbol(\"226\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(227, 294, 14, 'javascript:UpdateCurrentDrawingSymbol(\"227\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(223, 266, 28, 'javascript:UpdateCurrentDrawingSymbol(\"223\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(222, 280, 28, 'javascript:UpdateCurrentDrawingSymbol(\"222\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(225, 294, 28, 'javascript:UpdateCurrentDrawingSymbol(\"225\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(100, 266, 42, 'javascript:UpdateCurrentDrawingSymbol(\"100\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(228, 280, 42, 'javascript:UpdateCurrentDrawingSymbol(\"228\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(100, 294, 42, 'javascript:UpdateCurrentDrawingSymbol(\"100\")', '');\n";
+
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(206, 308, 14, 'javascript:UpdateCurrentDrawingSymbol(\"206\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(212, 322, 14, 'javascript:UpdateCurrentDrawingSymbol(\"212\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(213, 336, 14, 'javascript:UpdateCurrentDrawingSymbol(\"213\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(207, 308, 28, 'javascript:UpdateCurrentDrawingSymbol(\"207\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(201, 322, 28, 'javascript:UpdateCurrentDrawingSymbol(\"201\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(216, 336, 28, 'javascript:UpdateCurrentDrawingSymbol(\"216\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(208, 308, 42, 'javascript:UpdateCurrentDrawingSymbol(\"208\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(220, 322, 42, 'javascript:UpdateCurrentDrawingSymbol(\"220\")', '');\n";
+        $framework->main_header_jscode .= "DrawClearSeatingSymbol(209, 336, 42, 'javascript:UpdateCurrentDrawingSymbol(\"209\")', '');\n";
+
         $x = 0;
         $y = 56;
         for ($i = 300; $i <= 371; $i++) {
@@ -273,17 +350,17 @@ class seat2 {
   		  $framework->main_header_jscode .= "CreateText('". substr($block['text_lb'], $i, 1) ."', 12, ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 5 + ($YStartPlanFrame + 27)) - strlen($block['text_lb']) * 5 + 10 * $i) .", '');\n";
   		}
   
-      $framework->main_header_jscode .= "CreateRect(". ($SVGWidth - 25) .", 32, 20, ". ((($SVGHeight - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+      $framework->main_header_jscode .= "CreateRect(". ($SVGWidth - 25) .", ". ($YStartPlanFrame + 27) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
   		for ($i = 0; $i <= strlen($block['text_rt']); $i++) {
-  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rt'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - 70) / 6 * 1 + 32) - strlen($block['text_rt']) * 5 + 10 * $i) .", '');\n";
+  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rt'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 1 + ($YStartPlanFrame + 27)) - strlen($block['text_rt']) * 5 + 10 * $i) .", '');\n";
   		}
-      $framework->main_header_jscode .= "CreateRect(". ($SVGWidth - 25) .", ". (($SVGHeight - 70) / 3 + 4 + 32) .", 20, ". ((($SVGHeight - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+      $framework->main_header_jscode .= "CreateRect(". ($SVGWidth - 25) .", ". (($SVGHeight - $YStartPlanFrame - 70) / 3 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
   		for ($i = 0; $i <= strlen($block['text_rc']); $i++) {
-  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rc'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - 70) / 6 * 3 + 32) - strlen($block['text_rc']) * 5 + 10 * $i) .", '');\n";
+  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rc'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 3 + ($YStartPlanFrame + 27)) - strlen($block['text_rc']) * 5 + 10 * $i) .", '');\n";
   		}
-      $framework->main_header_jscode .= "CreateRect(". ($SVGWidth - 25) .", ". ((($SVGHeight - 70) / 3) * 2 + 4 + 32) .", 20, ". ((($SVGHeight - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
+      $framework->main_header_jscode .= "CreateRect(". ($SVGWidth - 25) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) * 2 + 4 + ($YStartPlanFrame + 27)) .", 20, ". ((($SVGHeight - $YStartPlanFrame - 70) / 3) - 8) .", '#d6d6d6 ', '#9d9d9d', '');\n";
   		for ($i = 0; $i <= strlen($block['text_rb']); $i++) {
-  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rb'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - 70) / 6 * 5 + 32) - strlen($block['text_rb']) * 5 + 10 * $i) .", '');\n";
+  		  $framework->main_header_jscode .= "CreateText('". substr($block['text_rb'], $i, 1) ."', ". ($SVGWidth - 17) .", ". ((($SVGHeight - $YStartPlanFrame - 70) / 6 * 5 + ($YStartPlanFrame + 27)) - strlen($block['text_rb']) * 5 + 10 * $i) .", '');\n";
   		}
   
       $framework->main_header_jscode .= "CreateRect(4, ". ($SVGHeight - 35) .", ". (($SVGWidth / 3) - 8) .", 20, '#d6d6d6 ', '#9d9d9d', '');\n";
@@ -360,49 +437,11 @@ class seat2 {
 						  break;
 						  case 1: break;
 						  case 2:
-						    $link = "javascript:ChangeSeatingPlan(\"cell". ($x * 100 + $y) ."\", $XOffset, $YOffset)";
+						    // Seat only changeble, if noone sits there
+                if ($seat_state[$y][$x] > 1 and $seat_state[$y][$x] < 7) $link = "javascript:alert(\"". t('Es können nur freie Sitzplätze geändert werden') ."\")";
+                else $link = "javascript:ChangeSeatingPlan(\"cell". ($x * 100 + $y) ."\", $XOffset, $YOffset)";
               break;
 						}
-
-/*
-          // Edit plan
-						$body[$y]['line'][$x]['symbol'] = '';
-            $input_hidden = '<input type="hidden" id="cell'. ($x * 100 + $y) .'" name="cell['. ($x * 100 + $y) .']" value="'. $seat_state[$y][$x] .'" />'."\n";
-
-						// Empty cell
-						if ($seat_state[$y][$x] == 0) {
-						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/lsthumb_100.png';
-							$input_hidden_ret .= $input_hidden;
-
-				    // Free seat cell
-						} elseif ($seat_state[$y][$x] == 1) {
-						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_free.png';
-							$input_hidden_ret .= $input_hidden;
-
-					  // Reserved seat cell
-						} elseif ($seat_state[$y][$x] > 1 && $seat_state[$y][$x] < 7) {
-						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_reserved.png';
-
-            // Locked seat cell
-						} elseif ($seat_state[$y][$x] == 7) {
-						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/7.png';
-							$input_hidden_ret .= $input_hidden;
-
-            // Symbol cell
-						} else {
-						  if (file_exists('ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png')) $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png';
-						  else {
-  						  $SymbolePath = 'ext_inc/seating_symbols/'. $seat_state[$y][$x];
-  							if (file_exists($SymbolePath .'.png')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.png';
-  							elseif (file_exists($SymbolePath .'.gif')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.gif';
-  							elseif (file_exists($SymbolePath .'.jpg')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.jpg';
-  						}
-							$input_hidden_ret .= $input_hidden;
-						}
-
-					  $body[$y]['line'][$x]['cell_id'] = 'fcell'. ($x * 100 + $y);*/
-
-
 
             // Generate popup
     				if ($seat_state[$y][$x] == 2 and $seat_userid[$y][$x] == $auth['userid']) $s_state = 8;
@@ -479,47 +518,7 @@ class seat2 {
 
 						$templ['seat']['cell_content'] = '';
           break;
-          
-/*
-          case 2:
-          // Edit plan
-						$body[$y]['line'][$x]['symbol'] = '';
-            $input_hidden = '<input type="hidden" id="cell'. ($x * 100 + $y) .'" name="cell['. ($x * 100 + $y) .']" value="'. $seat_state[$y][$x] .'" />'."\n";
 
-						// Empty cell
-						if ($seat_state[$y][$x] == 0) {
-						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/lsthumb_100.png';
-							$input_hidden_ret .= $input_hidden;
-
-				    // Free seat cell
-						} elseif ($seat_state[$y][$x] == 1) {
-						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_free.png';
-							$input_hidden_ret .= $input_hidden;
-
-					  // Reserved seat cell
-						} elseif ($seat_state[$y][$x] > 1 && $seat_state[$y][$x] < 7) {
-						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/auto_images/'. $auth['design'] .'/seat/seat_reserved.png';
-
-            // Locked seat cell
-						} elseif ($seat_state[$y][$x] == 7) {
-						  $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/7.png';
-							$input_hidden_ret .= $input_hidden;
-
-            // Symbol cell
-						} else {
-						  if (file_exists('ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png')) $body[$y]['line'][$x]['symbol'] = 'ext_inc/seating_symbols/default/'. $seat_state[$y][$x] .'.png';
-						  else {
-  						  $SymbolePath = 'ext_inc/seating_symbols/'. $seat_state[$y][$x];
-  							if (file_exists($SymbolePath .'.png')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.png';
-  							elseif (file_exists($SymbolePath .'.gif')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.gif';
-  							elseif (file_exists($SymbolePath .'.jpg')) $body[$y]['line'][$x]['symbol'] = $SymbolePath .'.jpg';
-  						}
-							$input_hidden_ret .= $input_hidden;
-						}
-
-					  $body[$y]['line'][$x]['cell_id'] = 'fcell'. ($x * 100 + $y);
-					break;
-*/
 					// IP-Input-Fields
 					case 3:
 						if ($seat_state[$y][$x] >= 1 and $seat_state[$y][$x] < 10) $body[$y]['line'][$x]['content'] = "<input type=\"text\" name=\"cell[". ($x * 100 + $y) ."]\" size=\"15\" maxlength=\"15\" value=\"". $seat_ip[$y][$x] ."\" />";
