@@ -15,7 +15,11 @@ InitSeating();
 -->
 </script>
 
-{$input_hidden}
+{if $mode == 2}
+  {foreach from=$HiddenFields key=k item=v}
+    <input id="cell{$k}" name="cell[{$k}]" value="{$v}" type="hidden" />
+  {/foreach}
+{/if}
 
 {if $mode == 0 or $mode == 1 or $mode == 2}
   <div id="SeatPlanSVGContet" height="{$SVGHeight}" width="{$SVGWidth}" style="width:{$SVGWidth}px; height:{$SVGHeight}px"></div><script>go();</script>
