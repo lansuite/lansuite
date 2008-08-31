@@ -5,7 +5,7 @@ function ClearArea(x, y, width, height, link) {
 	myRoundRect.setAttribute("z-index", 2);
 	myRoundRect.setAttribute("width", width);
 	myRoundRect.setAttribute("height", height);
-	myRoundRect.setAttribute("fill", '#ffffff');
+	myRoundRect.setAttribute("fill", '#e8e7e7');
 //	myRoundRect.setAttribute("stroke", '#ffffff');
 //	myRoundRect.setAttribute("stroke-width", "0px");
   if (link) {
