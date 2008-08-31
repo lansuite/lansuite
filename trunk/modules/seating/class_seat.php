@@ -214,9 +214,10 @@ class seat2 {
       }
       $SVGWidth = $XStartPlanFrame + 14 * $block['cols'] + 100;
       $SVGHeight = $YStartPlanFrame + 14 * $block['rows'] + 100;
-      if ($mode == 2 and $SVGWidth < 600) $SVGWidth = 600; 
-  		$smarty->assign('SVGWidth', $SVGWidth);
-  		$smarty->assign('SVGHeight', $SVGHeight);
+      if ($mode == 2 and $SVGWidth < 600) $SVGWidth = 600;
+      ($SVGWidth < 250)? $SVGImgWidth = 250 : $SVGImgWidth = $SVGWidth;
+  		$smarty->assign('SVGWidth', $SVGImgWidth);
+  		$smarty->assign('SVGHeight', $SVGHeight + 50);
 
       $HiddenFields = array();
       for ($x = 0; $x <= $block['cols']; $x++) for ($y = 0; $y <= $block['rows']; $y++) {
@@ -543,26 +544,35 @@ class seat2 {
 			}
 		}
 
+    if ($mode == 3) $smarty->assign('body', $body);
+		$plan = $smarty->fetch('modules/seating/templates/plan.htm');
+
+    if ($mode == 0) {    
+      $framework->main_header_jscode .= "DrawSeatingSymbol(1, 0, ". ($YOffset + 50) .", '', '');\n";
+      $framework->main_header_jscode .= "CreateText('". t('Frei') ."', ". 14 .", ". ($YOffset + 58) .", '');\n";
+      $framework->main_header_jscode .= "DrawSeatingSymbol(2, 0, ". ($YOffset + 64) .", '', '');\n";
+      $framework->main_header_jscode .= "CreateText('". t('Besetzt') ."', ". 14 .", ". ($YOffset + 72) .", '');\n";
+      $framework->main_header_jscode .= "DrawSeatingSymbol(4, 0, ". ($YOffset + 78) .", '', '');\n";
+      if ($selected_user) $framework->main_header_jscode .= "CreateText('". t('Auswahl') ."', ". 14 .", ". ($YOffset + 86) .", '');\n";
+      else $framework->main_header_jscode .= "CreateText('". t('Ihr Platz') ."', ". 14 .", ". ($YOffset + 86) .", '');\n";
+      $framework->main_header_jscode .= "DrawSeatingSymbol(3, 0, ". ($YOffset + 92) .", '', '');\n";
+      $framework->main_header_jscode .= "CreateText('". t('Vorgemerkt') ."', ". 14 .", ". ($YOffset + 100) .", '');\n";
+
+      $framework->main_header_jscode .= "DrawSeatingSymbol(6, 100, ". ($YOffset + 50) .", '', '');\n";
+      $framework->main_header_jscode .= "CreateText('". t('Frei (Ausgecheckt)') ."', ". 114 .", ". ($YOffset + 58) .", '');\n";
+      $framework->main_header_jscode .= "DrawSeatingSymbol(8, 100, ". ($YOffset + 64) .", '', '');\n";
+      $framework->main_header_jscode .= "CreateText('". t('Besetzt (Eingecheckt)') ."', ". 114 .", ". ($YOffset + 72) .", '');\n";
+      $framework->main_header_jscode .= "DrawSeatingSymbol(5, 100, ". ($YOffset + 78) .", '', '');\n";
+      $framework->main_header_jscode .= "CreateText('". t('Clanmate') ."', ". 114 .", ". ($YOffset + 86) .", '');\n";
+      $framework->main_header_jscode .= "DrawSeatingSymbol(7, 100, ". ($YOffset + 92) .", '', '');\n";
+      $framework->main_header_jscode .= "CreateText('". t('Gesperrt') ."', ". 114 .", ". ($YOffset + 100) .", '');\n";
+  	}
+
     if ($mode != 3) $framework->main_header_jscode .= '
 			}
 		</script>
     ';
     
-    if ($mode == 3) $smarty->assign('body', $body);
-		$plan = $smarty->fetch('modules/seating/templates/plan.htm');
-
-    if ($mode == 0) { 
-      $smarty->assign('free', t('Frei'));
-      $smarty->assign('reserved', t('Besetzt'));
-      $smarty->assign('clan', t('Platz eines Clanmates'));
-      $smarty->assign('marked', t('Vorgemerkt'));
-      $smarty->assign('locked', t('Gesperrter Platz'));
-      $smarty->assign('checked_in', t('Besetzt (Eingecheckt)'));
-      $smarty->assign('checked_out', t('Frei (Ausgecheckt)'));
-  		if ($selected_user) $smarty->assign('me', t('Ausgewählter User'));
-  		else $smarty->assign('me', t('Ihr Platz'));
-  		$plan .= $smarty->fetch('modules/seating/templates/plan_legend.htm');
-  	}
 		return $plan;
 	}
 
