@@ -201,14 +201,29 @@ class seat2 {
   		$smarty->assign('head', $head);
 
     } else {
-      $SVGWidth = 600;
-      $SVGHeight = 500;
-      $XStartPlan = 50;
-      $YStartPlan = 150;
-      $XStartPlanFrame = 0;
-      $YStartPlanFrame = 105;
+      if ($mode == 2) {
+        $XStartPlan = 50;
+        $YStartPlan = 150;
+        $XStartPlanFrame = 0;
+        $YStartPlanFrame = 105;
+      } else {
+        $XStartPlan = 50;
+        $YStartPlan = 50;
+        $XStartPlanFrame = 0;
+        $YStartPlanFrame = 5;
+      }
+      $SVGWidth = $XStartPlanFrame + 14 * $block['cols'] + 100;
+      $SVGHeight = $YStartPlanFrame + 14 * $block['rows'] + 100;
+      if ($mode == 2 and $SVGWidth < 600) $SVGWidth = 600; 
   		$smarty->assign('SVGWidth', $SVGWidth);
   		$smarty->assign('SVGHeight', $SVGHeight);
+
+      $HiddenFields = array();
+      for ($x = 0; $x <= $block['cols']; $x++) for ($y = 0; $y <= $block['rows']; $y++) {
+        $k = $x * 100 + $y;
+        $HiddenFields[$k] = $seat_state[$y][$x];
+      }
+  		$smarty->assign('HiddenFields', $HiddenFields);
   		
   		// Main-Table
   		$framework->main_header_metatags .= '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />';
@@ -371,7 +386,6 @@ class seat2 {
       $framework->main_header_jscode .= "CreateText('". $block['text_br'] ."', ". (($SVGWidth / 6 * 5) - strlen($block['text_br']) * 4) .", ". ($SVGHeight - 20) .", '');\n";
     }
 
-		$templ['seat']['seat_data_array'] = '';
 		$cell_nr = 0;
     $body = array();
     $sepY = 0;
@@ -533,22 +547,22 @@ class seat2 {
 			}
 		</script>
     ';
-    $smarty->assign('input_hidden', $input_hidden_ret);
-    $smarty->assign('body', $body);
+    
+    if ($mode == 3) $smarty->assign('body', $body);
 		$plan = $smarty->fetch('modules/seating/templates/plan.htm');
 
-    $smarty->assign('free', t('Frei'));
-    $smarty->assign('reserved', t('Besetzt'));
-    $smarty->assign('clan', t('Platz eines Clanmates'));
-    $smarty->assign('marked', t('Vorgemerkt'));
-    $smarty->assign('locked', t('Gesperrter Platz'));
-    $smarty->assign('checked_in', t('Besetzt (Eingecheckt)'));
-    $smarty->assign('checked_out', t('Frei (Ausgecheckt)'));
-		
-		if ($selected_user) $smarty->assign('me', t('Ausgewählter User'));
-		else $smarty->assign('me', t('Ihr Platz'));
-				
-		if ($mode == 0) $plan .= $smarty->fetch('modules/seating/templates/plan_legend.htm');
+    if ($mode == 0) { 
+      $smarty->assign('free', t('Frei'));
+      $smarty->assign('reserved', t('Besetzt'));
+      $smarty->assign('clan', t('Platz eines Clanmates'));
+      $smarty->assign('marked', t('Vorgemerkt'));
+      $smarty->assign('locked', t('Gesperrter Platz'));
+      $smarty->assign('checked_in', t('Besetzt (Eingecheckt)'));
+      $smarty->assign('checked_out', t('Frei (Ausgecheckt)'));
+  		if ($selected_user) $smarty->assign('me', t('Ausgewählter User'));
+  		else $smarty->assign('me', t('Ihr Platz'));
+  		$plan .= $smarty->fetch('modules/seating/templates/plan_legend.htm');
+  	}
 		return $plan;
 	}
 

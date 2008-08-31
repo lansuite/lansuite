@@ -240,11 +240,7 @@ switch($_GET['step']) {
 	case 6:
 		$dsp->NewContent(t('Sitzblock Sitze definieren'), t('Nun können Sie Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bedürfnissen anzupassen.<br /><br />Ganze Reihen bzw. Spalten von Plätzen können aktiviert bzw. deaktiviert werden, indem Sie auf die Spalten- bzw. Reihen-Beschriftung  klicken.'));
 		$dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=6&blockid={$_GET['blockid']}", "block");
-
-    $dsp->AddSingleRow($dsp->FetchModTpl('seating', 'plan_symbols'));
-		$dsp->AddPictureSelectRow('icon', 'ext_inc/seating_symbols', 20, 15, 0, $_POST["icon"], 14, 14, true);
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 2));
-
 		$dsp->AddFormSubmitRow('save');
 		$dsp->AddDoubleRow('', $dsp->FetchButton("index.php?mod=seating&action={$_GET['action']}&step=7&blockid={$_GET['blockid']}", 'next'));
 		$dsp->AddBackButton("index.php?mod=seating&action={$_GET['action']}&step=4&blockid={$_GET['blockid']}", 'seating/add');
