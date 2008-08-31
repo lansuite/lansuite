@@ -1,20 +1,4 @@
 <script type="text/javascript" src="ext_scripts/overlib421/Mini/overlib_mini.js"><!-- overLIB (c) Erik Bosrup --></script>
-<script language="javascript">
-<!--
-// Define Seatdata
-var seat	= new Array();
-{$seat_data_array}
-
-var image = new Array();
-{$seat_data_image}
-
-var rows = {$row_count};
-var cols = {$col_count};
-
-InitSeating();
--->
-</script>
-
 {if $mode == 2}
   {foreach from=$HiddenFields key=k item=v}
     <input id="cell{$k}" name="cell[{$k}]" value="{$v}" type="hidden" />
