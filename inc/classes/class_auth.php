@@ -68,6 +68,7 @@ class auth {
             if ($this->auth["type"] > 1) {
             // Procedure for Admin
                 // Check Cookie
+/*
                 if ($cookie_status == 1 AND $cookie_valid == 1) {
                     // Cookie OK
                 } else {
@@ -75,9 +76,11 @@ class auth {
                     $this->logout();
                     $func->information('Fehlerhafte Cookiedaten. Sie wurden ausgeloggt.', "", '', 1);
                 }
+*/
             } else {
             // Procedure for User
                 // Check Cookie
+/*
                 if ($cookie_status == 1 AND $cookie_valid == 1) {
                     // Cookie OK
                 } else {
@@ -85,6 +88,7 @@ class auth {
                     $this->logout();
                     $func->information('Fehlerhafte Cookiedaten. Sie wurden ausgeloggt.', "", '', 1);
                 }
+*/
             }
         } else {
         // Session inactive, check for Cookielogin
@@ -115,7 +119,7 @@ class auth {
    * @param mixed Userpassword
    * @return array Returns the auth-dataarray
    */
-    function login($email, $password) {
+    function login($email, $password, $show_confirmation = 1) {
         global $db, $func, $cfg, $config, $party, $lang, $board_config, $ActiveModules;
         $this->auth['design'] = $config['lansuite']['default_design'];
         $tmp_login_email = "";
@@ -202,20 +206,22 @@ class auth {
                 $this->cookie_data['sb_code'] = "";
                 $this->cookie_set();
 
-                // Print Loginmessages
-                if ($_GET['mod']=='auth' AND $_GET['action'] == 'login') $auth_backlink = "?mod=home"; 
-                    else $auth_backlink = "";
-                $func->information(t('Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $auth_backlink,'',1);
-
-                // Show error logins
-                $msg = '';
-                $res = $db->qry('SELECT ip, time
-                                 FROM %prefix%login_errors
-                                 WHERE userid = %int%', $user['userid']);
-                while ($row = $db->fetch_array($res)) $msg .= t('Am') .' '. $row['time'] .' von der IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>'. HTML_NEWLINE;
-                $db->free_result($res);
-                if ($msg != '') $func->information('<b>'. t('Fehlerhafte Logins') .'</b>'. HTML_NEWLINE .t('Es wurden fehlerhafte Logins seit Ihrem letzten erfolgreichen Login durchgeführt.'). HTML_NEWLINE . HTML_NEWLINE . $msg, NO_LINK, '', 1);
-                $db->qry('DELETE FROM %prefix%login_errors WHERE userid = %int%', $user['userid']);
+                if ($show_confirmation) { 
+                  // Print Loginmessages
+                  if ($_GET['mod']=='auth' AND $_GET['action'] == 'login') $auth_backlink = "?mod=home"; 
+                      else $auth_backlink = "";
+                  $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $auth_backlink,'',1);
+  
+                  // Show error logins
+                  $msg = '';
+                  $res = $db->qry('SELECT ip, time
+                                   FROM %prefix%login_errors
+                                   WHERE userid = %int%', $user['userid']);
+                  while ($row = $db->fetch_array($res)) $msg .= t('Am') .' '. $row['time'] .' von der IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>'. HTML_NEWLINE;
+                  $db->free_result($res);
+                  if ($msg != '') $func->information('<b>'. t('Fehlerhafte Logins') .'</b>'. HTML_NEWLINE .t('Es wurden fehlerhafte Logins seit Ihrem letzten erfolgreichen Login durchgeführt.'). HTML_NEWLINE . HTML_NEWLINE . $msg, NO_LINK, '', 1);
+                  $db->qry('DELETE FROM %prefix%login_errors WHERE userid = %int%', $user['userid']);
+                }
 
                 // The User will be logged in on the phpBB Board if the modul is available, configured and active.
                 if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
