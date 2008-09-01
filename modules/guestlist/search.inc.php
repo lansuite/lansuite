@@ -39,10 +39,18 @@ function ClanURLLink($clan_name) {
   } else return $clan_name;
 }
 
+function p_price($price_text) {
+  global $line, $cfg;
+  
+  if ($line['price']) return $price_text .' ('. $line['price'] .' '. $cfg['sys_currency'] .')';
+  else return $price_text;
+}
+
 
 $ms2->query['from'] = "{$config['tables']['user']} AS u
     LEFT JOIN {$config['tables']['clan']} AS c ON u.clanid = c.clanid
-    LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id";
+    LEFT JOIN {$config['tables']['party_user']} AS p ON u.userid = p.user_id
+    LEFT JOIN {$config["tables"]["party_prices"]} AS i ON i.party_id = p.party_id AND i.price_id = p.price_id";
 
 if ($party->party_id) $ms2->query['where'] = 'p.party_id = '. (int)$party->party_id;
 else $ms2->query['where'] = '1 = 1';
@@ -73,6 +81,8 @@ $ms2->AddResultField('Clan', 'c.name AS clan', 'ClanURLLink');
 
 if ($party->party_id) {
   $ms2->AddResultField(t('Bez.'), 'p.paid', 'PaidIconLink');
+  $ms2->AddSelect('i.price');
+  $ms2->AddResultField(t('Preis'), 'i.price_text', 'p_price');
   $ms2->AddResultField(t('Sitz'), 'u.userid', 'SeatNameLink');
 
   if (!$cfg['sys_internet']) {

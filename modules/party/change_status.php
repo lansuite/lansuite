@@ -47,8 +47,7 @@ $user_data = $db->qry_first("SELECT * FROM %prefix%user AS u WHERE u.userid = %i
         // Paid
           $selections = array();
           $selections['0'] = t('Nicht bezahlt');
-          $selections['1'] = t('Bezahlt - Vorverkauf');
-          $selections['2'] = t('Bezahlt - Abendkasse');
+          $selections['1'] = t('Bezahlt');
           $mf->AddField(t('Bezahltstatus'), 'paid', IS_SELECTION, $selections);
     
         // Prices
