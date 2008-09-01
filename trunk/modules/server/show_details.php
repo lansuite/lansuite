@@ -88,7 +88,10 @@ else {
 	}
 
 	// Including comment-engine     
-	if($_SESSION["auth"]["login"] == 1) {
+	if($auth['login'] == 1) {
+  	include('inc/classes/class_masterrate.php');
+  	new masterrate('server', $_GET['serverid']);
+
   	include('inc/classes/class_mastercomment.php');
   	new Mastercomment('server', $_GET['serverid']);
 	}
