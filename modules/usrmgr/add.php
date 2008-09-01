@@ -29,11 +29,8 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
     if ($_POST['password_original']) $_SESSION['tmp_pass'] = $_POST['password_original'];
 
     if ($cfg["signon_password_mail"]) {
-        if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Ihr Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.'), NO_LINK);
-        else {
-            if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-Email aufgetreten.'), NO_LINK);
-            $cfg['signon_password_view'] = 1;
-        }
+      if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Ihr Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.'), NO_LINK);
+      else if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-Email aufgetreten.') .'<br />'. t('Ihr Passwort lautet: <b>%1</b>', array($_SESSION['tmp_pass'])), NO_LINK);
     }
 
     // Send email-verification link
@@ -434,7 +431,8 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       $_POST['login'] = 1;
       $_POST['email'] = $_POST['email'];
       $_POST['password'] = $_POST['password_original'];
-      $authentication->login($_POST['email'],$_POST['password_original']);
+      $auth = $authentication->login($_POST['email'], $_POST['password_original'], 0);
+      $auth = $authentication->check_logon();
     }
     
     $AddUserSuccess = 1;
