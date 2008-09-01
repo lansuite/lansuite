@@ -4,7 +4,7 @@ class masterrate {
 
 	// Construktor
 	function masterrate($mod, $id) {
-	  global $auth;
+	  global $auth, $db, $dsp;
 	  
 	  include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
@@ -30,6 +30,9 @@ class masterrate {
     $mf->AddFix('date', 'NOW()');
     $mf->AddFix('creatorid', $auth['userid']);
     $mf->SendForm('', 'ratings', 'ratingid', $_GET['ratingid']);
+
+  	$row = $db->qry_first('SELECT AVG(score) AS score FROM %prefix%ratings WHERE ref_name = %string% AND ref_id = %string% GROUP BY ref_name, ref_id', $mod, $id);
+  	$dsp->AddDoubleRow('Current Rating:', $row['score']);
 	}
 }
 ?>
