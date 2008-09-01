@@ -78,21 +78,6 @@ class seat2 {
 		return $out;
 	}
 
-	function CreateSeatImage($name, $r, $g, $b, $percentage) {
-		global $func, $gd, $auth;
-
-    $target_dir = "ext_inc/auto_images/{$auth['design']}/seat/";
-    $source_dir = "design/{$auth['design']}/images/";
-    if (!file_exists($target_dir . $name .'.png')) {
-  		$func->CreateDir($target_dir);
-  		$gd->Colorize($source_dir .'seat.png', $r, $g, $b, $percentage);
-  		$gd->PutImage($target_dir . $name .'.png', 'png');
-  
-  		// Create Image for selection
-  		$gd->MergeImages($target_dir . $name .'.png', $source_dir .'seat_onclick.png', $target_dir . $name .'_onclick.png');
-  	}
-	}
-
 	function U18Block($id, $idtype) {
 		global $db;
 		/*
