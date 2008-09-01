@@ -177,6 +177,29 @@
     		<name>mc_only_logged_in</name>
     		<type>boolean</type>
     		<default>0</default>
+    		<description>Email-Domain-Blacklist (Um Wegwerf-Mailadressen zu vermeiden)</description>
+    	</item>
+    	<item>
+    		<name>mf_forbidden_trashmail_domains</name>
+    		<type>text</type>
+    		<default>dodgeit.com
+mailinator.com
+jetable.org
+spam.la
+mytrashmail.com
+trash-mail.de
+discardmail.com
+e4ward.com
+kasmail.com
+spamgourmet.com
+discardmail.de
+emaildienst.de
+spambog.com
+dontsendmespam.de
+trashdevil.de
+mailtrash.net
+eintagsmail.de
+nospamfor.us</default>
     		<description>Nur Eingeloggte dürfen Kommentare verfassen</description>
     	</item>
     </items>
