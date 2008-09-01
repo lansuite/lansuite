@@ -18,8 +18,7 @@ if ($party->count > 0) {
       : $link = 'index.php?mod=guestlist&step=10&userid='. $_GET['userid'];
     // Paid
     ($user_party['paid'])? $party_row .= ', '. $dsp->AddIcon('paid', $link, t('Bezahlt')) : $party_row .= ', '. $dsp->AddIcon('not_paid', $link, t('Nicht bezahlt'));
-    if ($user_party['paid'] == 1) $party_row .= ' ['. t('Vorverkauf') .']';
-    elseif ($user_party['paid'] == 2) $party_row .= ' ['. t('Abendkasse') .']';
+    if ($user_party['paid'] > 0) $party_row .= ' ['. $user_party['price_text'] .']';
     // Platzpfand
     if ($party_seatcontrol['depot_price'] > 0){
         $party_row .= ', '. $party_seatcontrol['depot_desc'];

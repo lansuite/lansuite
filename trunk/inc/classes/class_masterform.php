@@ -480,6 +480,8 @@ class masterform {
               break;
               
               case IS_TEXT_MESSAGE:
+                if (!$field['selections']) $field['selections'] = $_POST[$field['name']];
+                if (is_array($field['selections'])) $field['selections'] = $field['selections'][$_POST[$field['name']]];
                 $dsp->AddDoubleRow($field['caption'], $field['selections']);
               break;
 

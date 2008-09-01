@@ -68,18 +68,13 @@ else {
           $selections = array();
           $selections['0'] = t('Nicht bezahlt');
           $selections['1'] = t('Bezahlt');
-         // $selections['2'] = t('Bezahlt - Abendkasse');
           $mf->AddField(t('Bezahltstatus'), 'paid', IS_SELECTION, $selections);
         } elseif ($cfg['signon_autopaid']) $mf->AddFix('paid', '1');
     
         // Prices
         $selections = array();  
-        $res2 = $db->query("SELECT * FROM {$config['tables']['party_prices']}
-                                WHERE party_id = {$row['party_id']} AND requirement <= {$auth['type']}
-                                ");
-        while ($row2 = $db->fetch_array($res2)) 
-            $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']';
-        
+        $res2 = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$row['party_id']} AND requirement <= {$auth['type']}");
+        while ($row2 = $db->fetch_array($res2)) $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']';
         if ($selections) $mf->AddField(t('Eintrittspreis'), 'price_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
         else $mf->AddField(t('Eintrittspreis'), 'price_id', IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
         $db->free_result($res2);
@@ -93,10 +88,7 @@ else {
           $mf->AddField(t('Ausgecheckt'), 'checkout', '', '', FIELD_OPTIONAL);
           $mf->AddField(t('Anmeldedatum'), 'signondate', '', '', FIELD_OPTIONAL);
         }
-        else
-        {
-            $mf->AddFix('signondate', 'NOW()');
-        }
+        else $mf->AddFix('signondate', 'NOW()');
 
         $mf->SendButtonText = 'An-/Abmelden';
 
@@ -123,8 +115,7 @@ else {
       if ($row['user_id']) {
         $text .= t('Sie waren angemeldet');
         if ($row['paid'] == 0) $text .= t(', aber hatten nicht bezahlt.');
-        if ($row['paid'] == 1) $text .= t('und hatten per Vorkasse gezahlt.');
-        if ($row['paid'] == 2) $text .= t('und hatten per Abendkasse gezahlt.');
+        if ($row['paid']) $text .= t('und hatten bezahlt.');
 
         if ($row['price_id']) $text .= '('. $row['price_id'] .')';
         $text .= '.'. HTML_NEWLINE;
