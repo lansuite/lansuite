@@ -432,7 +432,6 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       $_POST['email'] = $_POST['email'];
       $_POST['password'] = $_POST['password_original'];
       $auth = $authentication->login($_POST['email'], $_POST['password_original'], 0);
-      $auth = $authentication->check_logon();
     }
     
     $AddUserSuccess = 1;

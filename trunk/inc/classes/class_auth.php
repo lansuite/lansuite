@@ -68,7 +68,6 @@ class auth {
             if ($this->auth["type"] > 1) {
             // Procedure for Admin
                 // Check Cookie
-/*
                 if ($cookie_status == 1 AND $cookie_valid == 1) {
                     // Cookie OK
                 } else {
@@ -76,11 +75,9 @@ class auth {
                     $this->logout();
                     $func->information('Fehlerhafte Cookiedaten. Sie wurden ausgeloggt.', "", '', 1);
                 }
-*/
             } else {
             // Procedure for User
                 // Check Cookie
-/*
                 if ($cookie_status == 1 AND $cookie_valid == 1) {
                     // Cookie OK
                 } else {
@@ -88,7 +85,6 @@ class auth {
                     $this->logout();
                     $func->information('Fehlerhafte Cookiedaten. Sie wurden ausgeloggt.', "", '', 1);
                 }
-*/
             }
         } else {
         // Session inactive, check for Cookielogin
@@ -378,42 +374,42 @@ class auth {
    * @param mixed $requirement
    * @return
    */
-	function authorized($requirement) {
-	    global $func;
-	
-	    switch ($requirement) {
-	        case 1: // Logged in
-	            if ($this->auth['login']) return 1;
-	            else $func->error('NO_LOGIN', '');
-	        break;
-	
-	        case 2: // Type is Admin, or Superadmin
-	            if ($this->auth['type'] > 1)   return 1;
-	            elseif (!$this->auth['login']) $func->error('NO_LOGIN', '');
-	            else   $func->error('ACCESS_DENIED', '');
-	        break;
-	
-	        case 3: // Type is Superadmin
-	            if ($this->auth['type'] > 2) return 1;
-	            elseif (!$this->auth['login']) $func->error('NO_LOGIN', '');
-	            else $func->error('ACCESS_DENIED', '');
-	        break;
-	
-	        case 4: // Type is User, or less
-	            if ($this->auth['type'] < 2) return 1;
-	            else $func->error('ACCESS_DENIED', '');
-	        break;
-	
-	        case 5: // Logged out
-	            if (!$this->auth['login']) return 1;
-	            else $func->error('ACCESS_DENIED', '');
-	        break;
-	
-	        default:
-	            return 1;
-	        break;
-	    }
-	}
+    function authorized($requirement) {
+        global $func;
+    
+        switch ($requirement) {
+            case 1: // Logged in
+                if ($this->auth['login']) return 1;
+                else $func->error('NO_LOGIN', '');
+            break;
+    
+            case 2: // Type is Admin, or Superadmin
+                if ($this->auth['type'] > 1)   return 1;
+                elseif (!$this->auth['login']) $func->error('NO_LOGIN', '');
+                else   $func->error('ACCESS_DENIED', '');
+            break;
+    
+            case 3: // Type is Superadmin
+                if ($this->auth['type'] > 2) return 1;
+                elseif (!$this->auth['login']) $func->error('NO_LOGIN', '');
+                else $func->error('ACCESS_DENIED', '');
+            break;
+    
+            case 4: // Type is User, or less
+                if ($this->auth['type'] < 2) return 1;
+                else $func->error('ACCESS_DENIED', '');
+            break;
+    
+            case 5: // Logged out
+                if (!$this->auth['login']) return 1;
+                else $func->error('ACCESS_DENIED', '');
+            break;
+    
+            default:
+                return 1;
+            break;
+        }
+    }
 
   /**
    * Returns the old Userid if one is set.
