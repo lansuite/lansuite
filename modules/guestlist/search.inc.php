@@ -42,8 +42,11 @@ function ClanURLLink($clan_name) {
 function p_price($price_text) {
   global $line, $cfg;
   
-  if ($line['price']) return $price_text .' ('. $line['price'] .' '. $cfg['sys_currency'] .')';
-  else return $price_text;
+  if ($line['price']) $ret = $price_text .' ('. $line['price'] .' '. $cfg['sys_currency'] .')';
+  else $ret = $price_text;
+
+  if ($ret) return '<a href="index.php?mod=usrmgr&action=party&user_id='. $line['userid'] .'">'. $ret .'</a>';
+  else return '';
 }
 
 

@@ -21,6 +21,14 @@
 				<extra>auto_increment</extra>
 			</field>
 			<field>
+				<name>evening_price_id</name>
+				<type>int(20)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>max_guest</name>
 				<type>int(11)</type>
 				<null></null>
