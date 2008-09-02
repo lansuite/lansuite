@@ -33,7 +33,7 @@ class Bugtracker {
     $row = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker WHERE state = %int% AND bugid = %int%", $state, $bugid);
     if (!$row['found']) {
       $db->qry("UPDATE %prefix%bugtracker SET state = %int% WHERE bugid = %int%", $state, $bugid);
-      $func->log_event(t('Bugreport auf Status <b>"%1"</b> geändert', array($this->stati[$state])), 1, '', $bugid);
+      $func->log_event(t('Bugreport auf Status "%1" geändert', array($this->stati[$state])), 1, '', $bugid);
 
       // Mails
       $AddLink = '
@@ -84,7 +84,7 @@ class Bugtracker {
       if ($userid == 0) $func->log_event(t('Benutzerzuordnung gelöscht'), 1, '', $bugid);
       else {
         $row = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
-        $func->log_event(t('Bugreport Benutzer <b>"%1"</b> zugeordnet', array($row['username'])), 1, '', $bugid);
+        $func->log_event(t('Bugreport Benutzer "%1" zugeordnet', array($row['username'])), 1, '', $bugid);
       }
     }
   }
