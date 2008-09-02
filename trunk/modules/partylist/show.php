@@ -1,4 +1,8 @@
 <?php
+
+include_once('modules/party/class_party.php');
+$party = new party();
+
 switch ($_GET['step']) {
   case 10:
     $row = $db->query_first("SELECT ls_url FROM {$config['tables']['partylist']} WHERE partyid = ".(int)$_GET['partyid']);
@@ -8,35 +12,6 @@ switch ($_GET['step']) {
     exit;
   break;
 }
-
-function CreateSignonBar($guests, $paid_guests, $max_guests) {
-  global $auth;
-
-	$max_bars = 100;
-
-	// Angemeldet länge ausrechnen.
-	if ($max_guests * $guests) $curuser = round($max_bars / $max_guests * $guests);
-	if ($curuser > $max_bars) $curuser = $max_bars;
-
-	// Bezahlt länge ausrechnen.
-	if ($max_guests * $paid_guests) $gesamtpaid = round($max_bars / $max_guests * $paid_guests);
-	if ($gesamtpaid > $max_bars) $gesamtpaid = $max_bars;
-
-	// Wirkliche Bildanzahl ausrechenn
-	$pixelges = $max_bars - $curuser;
-	$pixelcuruser = $curuser - $gesamtpaid;
-	$pixelpaid = $gesamtpaid;
-
-  // Bar erzeugen
-  if ($pixelpaid > 0) $bar = '<ul id="infobox" class="BarOccupied" style="width:'. $pixelpaid .'px;">&nbsp;<span class="infobox">'. t('Angemeldet und Bezahlt') .': '. $paid .'</span></ul>';
-  if ($pixelcuruser > 0) $bar .= '<ul id="infobox" class="BarMarked" style="width:'. $pixelcuruser .'px;">&nbsp;<span class="infobox">'. t('Nur Angemeldet') .': '. ($cur - $paid) .'</span></ul>';
-  if ($pixelges > 0) $bar .= '<ul id="infobox" class="BarFree" style="width:'. $pixelges .'px;">&nbsp;<span class="infobox">'. t('Frei') .': '. ($max - $cur) .'</span></ul>';
-  $bar .= '<ul class="BarClear">&nbsp;</ul>';
-
-	return $bar;
-}
-
-
 
 function GetSite($url) {
   global $HTTPHeader;
@@ -118,13 +93,13 @@ function AddSignonStatus($lsurl, $show_history = 0) {
         $paid = $xml->get_tag_content('paid', $party);
 
         # Overview
-        if (!$_GET['partyid'] and $current_party == $partyid) $ret .= CreateSignonBar($registered, $paid, $max_guest).'Max.: '.$max_guest;
+        if (!$_GET['partyid'] and $current_party == $partyid) $ret .= $party->CreateSignonBar($registered, $paid, $max_guest).'Max.: '.$max_guest;
         
         # Details
         if ($_GET['partyid']) {
-          if (!$show_history and $current_party == $partyid) $ret .= CreateSignonBar($registered, $paid, $max_guest);
+          if (!$show_history and $current_party == $partyid) $ret .= $party->CreateSignonBar($registered, $paid, $max_guest);
           elseif ($show_history and $current_party != $partyid)
-            $dsp->AddDoubleRow($partyname .HTML_NEWLINE. $plz .' '. $ort, CreateSignonBar($registered, $paid, $max_guest));
+            $dsp->AddDoubleRow($partyname .HTML_NEWLINE. $plz .' '. $ort, $party->CreateSignonBar($registered, $paid, $max_guest));
         }
       }
       return $ret;
@@ -137,7 +112,7 @@ function AddSignonStatus($lsurl, $show_history = 0) {
       $signon_start = $xml->get_tag_content('signon_start', $content);
       $signon_end = $xml->get_tag_content('signon_end', $content);
 
-    	return CreateSignonBar($guests, $paid_guests, $max_guests);
+    	return $party->CreateSignonBar($registered, $paid, $max_guest);
     }
   }
 }

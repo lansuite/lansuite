@@ -1,5 +1,8 @@
 <?php
 
+include_once('modules/party/class_party.php');
+$party = new party();
+
 function GetActiveState($id) {
 	global $cfg;
 
@@ -13,7 +16,15 @@ if ($_GET['step'] == 10 and is_numeric($_GET['party_id'])) {
   $cfg['signon_partyid'] = $_GET['party_id'];
 }
 
-$dsp->NewContent(t('Party anzeigen'),t('Die Details der Partys.'));
+function GetGuests($max_guest) {
+  global $db, $party, $line;
+
+  $row = $db->qry_first('SELECT COUNT(*) AS anz FROM %prefix%party_user WHERE party_id = %int%', $line['party_id']);
+  $row2 = $db->qry_first('SELECT COUNT(*) AS anz FROM %prefix%party_user WHERE paid > 0 AND party_id = %int%', $line['party_id']);
+  return $party->CreateSignonBar($row['anz'], $row2['anz'], $max_guest);
+}
+
+$dsp->NewContent(t('Unsere Partys'),t('Hier siehst du eine Liste aller geplanten Partys'));
 switch($_GET['step']){
 	default:
     include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -25,12 +36,13 @@ switch($_GET['step']){
     $ms2->config['EntriesPerPage'] = 20;
     
     $ms2->AddResultField('Name', 'p.name');
-    $ms2->AddResultField('Gäste', 'p.max_guest');
+    $ms2->AddResultField('Gäste', 'p.max_guest', 'GetGuests');
     $ms2->AddResultField('Von', 'p.startdate');
     $ms2->AddResultField('Bis', 'p.enddate');
-    $ms2->AddResultField('Aktiv', 'p.party_id', 'GetActiveState');
-    
+    if ($auth['type'] >= 2) $ms2->AddResultField('Aktiv', 'p.party_id', 'GetActiveState');
+
     $ms2->AddIconField('details', 'index.php?mod=party&action=show&step=1&party_id=', t('Details'));
+    $ms2->AddIconField('signon', 'index.php?mod=usrmgr&action=party&user_id='. $auth['userid'] .'&party_id=', t('Partyanmeldung'));
     if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=party&action=edit&party_id=', t('Editieren'));
     if ($auth['type'] >= 2) $ms2->AddIconField('paid', 'index.php?mod=party&action=price&step=2&party_id=');
 
@@ -40,7 +52,7 @@ switch($_GET['step']){
 
     $dsp->AddSingleRow($dsp->FetchButton('index.php?mod=party&action=edit', 'add'));
     
-    if (isset($_SESSION['party_id'])) $func->information(t('Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite, oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persöhnlich die aktivie ist, kannst du auf der Startseite, oder in der Party-Box einstellen', $_SESSION['party_id']));
+    if ($auth['type'] >= 2 and isset($_SESSION['party_id'])) $func->information(t('Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite, oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persöhnlich die aktivie ist, kannst du auf der Startseite, oder in der Party-Box einstellen', $_SESSION['party_id']), NO_LINK);
 	break;
 
 	case 1:
