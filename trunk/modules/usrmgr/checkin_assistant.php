@@ -52,23 +52,38 @@ else {
       if ($_SESSION['quick_signon']) $quick_signon = $_SESSION['quick_signon'];
 
   		$dsp->NewContent(t('Benutzer hinzufügen'), t('Um einen Benutzer hinzuzufügen, füllen Sie bitte das folgende Formular vollständig aus.'));
+
+      $row = $db->qry_first('SELECT pp.price, pp.price_text FROM %prefix%partys AS p
+        LEFT JOIN %prefix%party_prices AS pp ON p.evening_price_id = pp.price_id
+        WHERE p.party_id = %int%', $party->party_id);
+      $row2 = $db->qry_first('SELECT paid, price, price_text FROM %prefix%party_user AS u
+        LEFT JOIN %prefix%party_prices AS p ON u.price_id = p.price_id
+        WHERE u.party_id = %int% AND u.user_id = %int%', $party->party_id, $_GET['userid']);
+      if ($_GET['mf_step'] != 2 and !$row2['paid']) {
+        ($row2['price_text'])? $his_wish = '<br>'. t('Der von ihm gewünschte Preis war: '). $row2['price_text'] .' ('. $row2['price'] .' '. $cfg['sys_currency'] .')' : $his_wish = '';
+        $func->information(t('Achtung: Der Benutzer wird mit der nächsten Seite auf Bezahlt gesetzt.') .'<br>'. t('Preis: ') . $row['price_text'] .' ('. $row['price'] .' '. $cfg['sys_currency'] .')'. $his_wish, NO_LINK);
+      }
+
       include_once("modules/usrmgr/add.php");
       if ($AddUserSuccess) {
         if (!$_GET['userid']) $_GET['userid'] = $mf->insert_id;
         $_GET['step']++;
 
-        // Signon to current party using no Price, but set to paid (evening checkout)
-        $db->query("DELETE FROM {$config['tables']['party_user']} WHERE user_id = ". (int)$_GET['userid'] ." AND party_id = ". (int)$party->party_id);
-        $db->query("INSERT INTO {$config['tables']['party_user']} SET
-          user_id = ". (int)$_GET['userid'] .",
-          party_id = ". (int)$party->party_id .",
-          price_id = 0,
-          checkin = NOW(),
-          paid = 2,
-          paiddate = NOW(),
-          seatcontrol = 0,
-          signondate = NOW()"
-          );
+        $row = $db->qry_first('SELECT evening_price_id FROM %prefix%partys WHERE party_id = %int%', $party->party_id);
+        
+        if ($row2['paid']) {
+          $db->qry('UPDATE %prefix%party_user SET
+            checkin = NOW()
+            WHERE user_id = %int% AND party_id = %int%', $_GET['userid'], $party->party_id
+            );
+        } else {
+          $db->qry('DELETE FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%', $_GET['userid'], $party->party_id);
+          $db->qry('INSERT INTO %prefix%party_user SET
+            user_id = %int%, party_id = %int%, price_id = %int%, checkin = NOW(),
+            paid = 2, paiddate = NOW(), seatcontrol = 0, signondate = NOW()',
+            $_GET['userid'], $party->party_id, $row['evening_price_id']
+            );
+        }
       }
   	break;
   }

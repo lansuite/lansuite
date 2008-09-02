@@ -1,10 +1,32 @@
 <?php
 
+switch ($_GET['step']) {
+  case 11:
+    $db->qry('UPDATE %prefix%partys SET evening_price_id = %int% WHERE party_id = %int%', $_GET['evening_price_id'], $_GET['party_id']);
+    $func->confirmation(t('Der neue Abendkasse-Preis wurde gesetzt'));
+  break;
+}
+
+function eveningPriceIdLink($evening_price_id){
+  global $dsp, $templ, $lang, $line;
+  
+  if ($evening_price_id == $line['price_id']) {
+    $templ['ms2']['icon_name'] = 'yes';
+    $templ['ms2']['icon_title'] = $lang['sys']['yes'];
+    return $dsp->FetchModTpl('mastersearch2', 'result_icon');  
+  } else {
+    $templ['ms2']['icon_name'] = 'no';
+    $templ['ms2']['icon_title'] = $lang['sys']['no'];
+    return '<a href="index.php?mod=party&action=price&step=11&party_id='. $_GET['party_id'] .'&evening_price_id='. $line['price_id'] .'">'. $dsp->FetchModTpl('mastersearch2', 'result_icon') . '</a>';
+  } 
+}
+
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2('party');
 
-$ms2->query['from'] = "{$config["tables"]["party_prices"]} AS p LEFT JOIN {$config['tables']['partys']} AS party ON p.party_id = party.party_id";
+$ms2->query['from'] = "{$config['tables']['partys']} AS party LEFT JOIN {$config["tables"]["party_prices"]} AS p ON p.party_id = party.party_id";
 $ms2->query['default_order_by'] = 'p.price_text DESC';
+$ms2->query['where'] = "party.party_id = ". (int)$_GET['party_id'];
 
 $ms2->config['EntriesPerPage'] = 20;
 
@@ -16,6 +38,7 @@ $ms2->AddTextSearchDropDown('Party', 'p.party_id', $party_list, $party->party_id
 
 $ms2->AddResultField(t('Text für Eintrittspreis'), 'p.price_text');
 $ms2->AddResultField(t('Preis'), 'p.price');
+$ms2->AddResultField(t('Abendkasse-Preis?'), 'party.evening_price_id', 'eveningPriceIdLink');
 $ms2->AddResultField('Party', 'party.name');
 
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=party&action=price_edit&price_id=', t('Editieren'));
