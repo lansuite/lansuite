@@ -31,11 +31,15 @@ td {
   padding: 0px 0px 0px 0px;
   background:       #DEE3E7;
 }
+
+div#Footer {
+  clear: both;
+}
+
 ul.Line {
   position: relative;   height: 100%;  width: 100%;
   margin: 0px 0px 0px 0px;    border-top: 1px solid #9c9d9c;    padding: 0px 0px 2px 0px;
   clear: left;
-
 }
 ul.LineFirst {
   position: relative;   height: 100%;
