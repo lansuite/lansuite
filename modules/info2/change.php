@@ -1,5 +1,28 @@
 <?php
 
+function Update($id) {
+  global $db, $cfg, $row;
+
+	if ($id != '') {
+		$menu_intem = $db->qry_first('SELECT active, caption, shorttext FROM %prefix%info WHERE infoID = %int%', $id);
+
+		if ($menu_intem['active']) {
+      ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
+
+			$db->qry("UPDATE %prefix%menu
+        SET module = 'info2',
+				caption = %string%,
+				hint = %string%,
+				level = %int%,
+				link = %string%
+				WHERE id = %int%",
+        $_POST["caption"], $_POST["shorttext"], $level, '?mod=info2&action=show_info2&id='. $id, $row["id"]);
+		}
+	}
+	
+	return true;
+}
+
 function ShowActiveState($val){
   global $dsp, $templ, $lang, $line;
 
@@ -49,8 +72,8 @@ if ($auth['type'] <= 1) {
       $ms2->AddResultField(t('Untertitel'), 'i.shorttext', '', 140);
       $ms2->AddResultField(t('Aktiv'), 'i.active', 'ShowActiveState');
 
-	$ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', t('Details'));
-      if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=info2&action=change&step=2&id=', t('Editieren'));
+	    $ms2->AddIconField('details', 'index.php?mod=info2&action=show_info2&id=', t('Details'));
+      if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=info2&action=change&step=2&infoID=', t('Editieren'));
       if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Deaktivieren', 'index.php?mod=info2&action=change&step=20', 1);
       if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Aktivieren (jedoch nicht verlinken)', 'index.php?mod=info2&action=change&step=21', 1);
       if ($auth['type'] >= 2) $ms2->AddMultiSelectAction('Aktivieren und verlinken', 'index.php?mod=info2&action=change&step=22', 1);
@@ -62,79 +85,29 @@ if ($auth['type'] <= 1) {
 	
 	// Generate Editform
   	case 2:
-  		if ($_POST["content"] == "" and $_POST["title"] == "" and $_GET["id"] != ""){
-  			$module = $db->query_first("SELECT info.text, info.caption, info.shorttext, menu.id FROM {$config['tables']['info']} AS info
-  						LEFT JOIN {$config['tables']['menu']} AS menu ON info.caption = menu.caption AND action = 'show_info2'
-  						WHERE info.infoID = '{$_GET["id"]}'");
-  			$_POST["content"] = $module["text"];
-  			$_POST["title"] = $module["caption"];
-  			$_POST["subtitle"] = $module["shorttext"];
-  		}
+			if ($_GET['infoID'] != '') $row = $db->qry_first("SELECT m.id FROM %prefix%info AS i
+        LEFT JOIN %prefix%menu AS m ON i.caption = m.caption AND m.action = 'show_info2'
+        WHERE i.infoID = %int%", $_GET["infoID"]);
 
   		$dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier können Sie den Inhalt der Seite editieren.'));
-  		$dsp->SetForm("index.php?mod=info2&action=change&step=3&id={$_GET["id"]}&menuid={$module["id"]}");
 
-  		$dsp->AddTextFieldRow("title", t('Seitentitel'), $_POST["title"], $title_error);
-  		$dsp->AddTextFieldRow("subtitle", t('Untertitel'), $_POST["subtitle"], $title_error);
+      include_once('inc/classes/class_masterform.php');
+      $mf = new masterform();
 
-  		if ($cfg["info2_use_fckedit"]) {
-
-	        ob_start();
-	        include_once("ext_scripts/FCKeditor/fckeditor.php");
-	        $oFCKeditor = new FCKeditor('FCKeditor1') ;
-	        $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
-	        $oFCKeditor->Value = $func->AllowHTML($_POST['content']);
-	        $oFCKeditor->Height = 380;
-	        $oFCKeditor->Create();
-	        $fcke_content = ob_get_contents();
-	        ob_end_clean();
-	        $dsp->AddSingleRow($fcke_content);
-
-  		} else $dsp->AddTextAreaRow("content", "", $_POST["content"], "", 80, 25, 0);
-
-  		$dsp->AddFormSubmitRow("add");
+      foreach ($translation->valid_lang as $val) {
+        $_POST[$language] = 1;
+        $mf->AddField(t($translation->lang_names[$val]).'|'.t('Einen Text für die Sprache "%1" definieren', t($translation->lang_names[$val])), $val, 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+        if ($val == 'de') $val = '';
+        else $val = '_'. $val;
+        $mf->AddField(t('Seitentitel'), 'caption'. $val);
+        $mf->AddField(t('Untertitel'), 'shorttext'. $val);
+        if ($cfg['info2_use_fckedit']) $mf->AddField(t('Text'), 'text'. $val, '', HTML_WYSIWYG);
+        else $mf->AddField(t('Text'), 'text'. $val);
+      }
+      $mf->AdditionalDBUpdateFunction = 'Update';
+      $mf->SendForm('index.php?mod=info2&action=change&step=2', 'info', 'infoID', $_GET['infoID']);
+      
   		$dsp->AddBackButton("index.php?mod=info2&action=change", "info2/form");
-  		$dsp->AddContent();
-  	break;
-	
-	// Write Content to DB
-  	case 3:
-  		if ($_POST["title"] == "" or $_POST["content"] == "") $func->information(t('Bitte füllen Sie alle Felder aus!'), "index.php?mod=info2&action=change&step=2&id={$_GET["id"]}");
-  		else {
-  			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
-
-  			if ($_GET["id"] == "") {
-  				$db->query("INSERT INTO {$config['tables']['info']}
-  					SET caption = '{$_POST["title"]}',
-  					shorttext = '{$_POST["subtitle"]}',
-  					text = '{$_POST["content"]}'");
-
-  				$func->confirmation(t('Der Eintrag wurde erfolgreich erstellt.'), "index.php?mod=info2&action=change");
-
-  			} else {
-  				$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = {$_GET["id"]}");
-
-  				if ($menu_intem['active'] == 1){
-            ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
-
-  					$db->query("UPDATE {$config['tables']['menu']}
-  						SET module = 'info2',
-  						caption = '{$_POST["title"]}',
-  						hint = '{$_POST["subtitle"]}',
-  						level = $level,
-  						link = '?mod=info2&action=show_info2&id=". $_GET["id"] ."'
-  						WHERE id = '{$_GET["menuid"]}'");
-  				}
-
-  				$db->query("UPDATE {$config['tables']['info']}
-  					SET caption = '{$_POST["title"]}',
-  					shorttext = '{$_POST["subtitle"]}',
-  					text = '{$_POST["content"]}'
-  					WHERE infoID = '{$_GET["id"]}'");
-
-  				$func->confirmation(t('Der Eintrag wurde erfolgreich geändert.'), "index.php?mod=info2&action=change");
-  			}
-  		}
   	break;
 
   	// Delete entry

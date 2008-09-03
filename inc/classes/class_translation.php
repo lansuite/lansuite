@@ -73,6 +73,7 @@ class translation {
    */
     var $language             = "de";                                 // Global Language
     var $transfile_name       = 'translation.xml';                    // Basename of Translationfile
+    var $lang_names           = array('de' => 'Deutsch', 'en' => 'Englisch', 'es' => 'Spanisch', 'fr' => 'Französich', 'nl' => 'Holländisch', 'it' => 'Italienisch');
     var $valid_lang           = array('de','en','es','fr','nl','it'); // Valid Languages
     var $lang_cache           = array();                              // Temporary Translations
     var $cachemod_loaded_db   = 0;                                    // Is Cache for Modul loaded (db)

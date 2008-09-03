@@ -51,6 +51,7 @@ class masterform {
   var $OptGroupOpen = 0;
   var $MultiLineID = 0;
   var $MultiLineIDs = array();
+  var $FCKeditorID = 0;
 
   function masterform($MFID = 0) {
     global $mf_number;
@@ -197,13 +198,17 @@ class masterform {
 
       // Check for errors and convert data, if necessary (dates, passwords, ...)
       case 2:
+        $this->FCKeditorID = 0;
         if ($this->Groups) foreach ($this->Groups as $GroupKey => $group) {
           if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) if($field['name']) {
             $err = false;
 
             // Copy WYSIWYG editor variable
             if (($SQLFieldTypes[$field['name']] == 'text' or $SQLFieldTypes[$field['name']] == 'mediumtext' or $SQLFieldTypes[$field['name']] == 'longtext')
-              and $field['selections'] == HTML_WYSIWYG) $_POST[$field['name']] = $_POST['FCKeditor1'];
+              and $field['selections'] == HTML_WYSIWYG) {
+                $this->FCKeditorID++;
+                $_POST[$field['name']] = $_POST['FCKeditor'. $this->FCKeditorID];
+            }
 
             // If not in DependOn-Group, or DependOn-Group is active
             if (!$this->DependOnStarted or $_POST[$this->DependOnField]) {
@@ -321,6 +326,7 @@ class masterform {
         // Output fields
         $z = 0;
         $y = 0;
+        $this->FCKeditorID = 0;
         if ($this->Groups) foreach ($this->Groups as $GroupKey => $group) {
           if ($group['caption']) $dsp->AddFieldsetStart($group['caption']);
           if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) {
@@ -346,9 +352,10 @@ class masterform {
                 if ($field['selections'] == HTML_ALLOWED or $field['selections'] == LSCODE_ALLOWED) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', '', $field['optional'], $maxchar);
                 elseif ($field['selections'] == LSCODE_BIG) $dsp->AddTextAreaPlusRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], 70, 20, $field['optional'], $maxchar);
                 elseif ($field['selections'] == HTML_WYSIWYG) {
+                  $this->FCKeditorID++;
                   ob_start();
                   include_once("ext_scripts/FCKeditor/fckeditor.php");
-                  $oFCKeditor = new FCKeditor('FCKeditor1') ;
+                  $oFCKeditor = new FCKeditor('FCKeditor'. $this->FCKeditorID) ;
                   $oFCKeditor->BasePath = 'ext_scripts/FCKeditor/';
                   $oFCKeditor->Config["CustomConfigurationsPath"] = "../myconfig.js"  ;
                   $oFCKeditor->Value = $func->AllowHTML($_POST[$field['name']]);
