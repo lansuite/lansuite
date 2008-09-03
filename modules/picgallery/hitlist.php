@@ -2,8 +2,8 @@
 
 $dsp->NewContent(t('Bildergalerie'), t('Hitliste'));
 
-echo '<ul class="Line">';
-echo '<li class="LineLeftHalf">';
+$MainContent .= '<ul class="Line">';
+$MainContent .= '<li class="LineLeftHalf">';
 
 $templ['home']['show']['item']['info']['caption'] = t('Die letzten Änderungen');
 $templ['home']['show']['item']['control']['row'] = '';
@@ -15,10 +15,10 @@ while ($row = $db->fetch_array($res)) {
   $templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl('home', 'show_row');
 }
 $db->free_result($row);
-echo $dsp->FetchModTpl('home', 'show_item');
+$MainContent .= $dsp->FetchModTpl('home', 'show_item');
 
-echo '</li>';
-echo '<li class="LineRight">';
+$MainContent .= '</li>';
+$MainContent .= '<li class="LineRightHalf">';
 
 $templ['home']['show']['item']['info']['caption'] = t('Die meisten Hits');
 $templ['home']['show']['item']['control']['row'] = '';
@@ -30,12 +30,12 @@ while ($row = $db->fetch_array($res)) {
   $templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl('home', 'show_row');
 }
 $db->free_result($row);
-echo $dsp->FetchModTpl('home', 'show_item');
+$MainContent .= $dsp->FetchModTpl('home', 'show_item');
 
-echo '</li>';
-echo '</ul>';
-echo '<ul class="Line">';
-echo '<li class="LineLeftHalf">';
+$MainContent .= '</li>';
+$MainContent .= '</ul>';
+$MainContent .= '<ul class="Line">';
+$MainContent .= '<li class="LineLeftHalf">';
 
 $templ['home']['show']['item']['info']['caption'] = t('Die neusten Kommentare');
 $templ['home']['show']['item']['control']['row'] = '';
@@ -50,10 +50,10 @@ while ($row = $db->fetch_array($res)) {
   $templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl('home', 'show_row');
 }
 $db->free_result($row);
-echo $dsp->FetchModTpl('home', 'show_item');
+$MainContent .= $dsp->FetchModTpl('home', 'show_item');
 
-echo '</li>';
-echo '<li class="LineRight">';
+$MainContent .= '</li>';
+$MainContent .= '<li class="LineRightHalf">';
 
 $templ['home']['show']['item']['info']['caption'] = t('Die meisten Kommentare');
 $templ['home']['show']['item']['control']['row'] = '';
@@ -69,9 +69,9 @@ while ($row = $db->fetch_array($res)) {
   $templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl('home', 'show_row');
 }
 $db->free_result($row);
-echo $dsp->FetchModTpl('home', 'show_item');
+$MainContent .= $dsp->FetchModTpl('home', 'show_item');
 
-echo '</li>';
-echo '</ul>';
+$MainContent .= '</li>';
+$MainContent .= '</ul>';
 
 ?>
