@@ -407,7 +407,7 @@ class Install {
 
   // System prüfen
   function envcheck() {
-    global $dsp, $config, $func;
+    global $db, $dsp, $config, $func;
 
     $continue = 1;
 
@@ -601,6 +601,22 @@ class Install {
 
     // Set Configs
     $this->WriteConfig();
+
+    // Check MySQL-Config
+    if ($db->success) {
+      $mysql_check = '';
+      $res = $db->qry('SHOW variables WHERE Variable_name LIKE "key_buffer_size"');
+      while ($row = $db->fetch_array($res)) {
+        $mysql_check .= $row[0] .' = '. $row[1] .'<br />';
+      }
+      $db->free_result($res);
+      $res = $db->qry('SHOW status WHERE Variable_name LIKE "Key_blocks%"');
+      while ($row = $db->fetch_array($res)) {
+        $mysql_check .= $row[0] .' = '. $row[1] .'<br />';
+      }
+      $db->free_result($res);
+      $dsp->AddDoubleRow("MySQL-Config", $mysql_check);
+    }
 
     return $continue;
   }
