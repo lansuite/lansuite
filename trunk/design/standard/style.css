@@ -113,10 +113,6 @@ body {
 }
 
 
-/* Boxes */
-.box_frame {		/* old name: tbl_1 */
-}
-
 .box_caption {
 	color:			#EFEFEF;
 	padding:		0px;
