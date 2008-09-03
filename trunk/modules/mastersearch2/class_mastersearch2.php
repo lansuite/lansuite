@@ -16,6 +16,7 @@ class MasterSearch2 {
   var $sql_select_field_alias_list = array();
   var $post_in_get = '';
   var $NoItemsText = '';
+  var $SQLFieldTypes = array();
 
   // Constructor
   function MasterSearch2($module = '') {
@@ -239,14 +240,35 @@ class MasterSearch2 {
 
     ###### Generate Order By
     if (strpos($_GET['order_by'], "\'") > 0) $_GET['order_by'] = ''; # Important for FIND_IN_SET ranking
+
+    // Order by user selection
     if ($_GET['order_by']) {
+
       if (!in_array($_GET['order_by'], $this->sql_select_field_alias_list)) $func->error(t('Sortieren nach "%1" nicht möglich. Feld ist nicht im Select-Teil definiert', array($_GET['order_by'])), $func->internal_referer);
       else $this->query['order_by'] .= $_GET['order_by'];
+
+      // Order direction given by user?
       if ($_GET['order_dir']) {
         if ($_GET['order_dir'] != 'ASC' and $_GET['order_dir'] != 'DESC') $func->error(t('Sortieren-Ordnung, darf nur ASC, oder DESC sein'), $func->internal_referer); 
         else $this->query['order_by'] .= ' '. $_GET['order_dir'];
+
+      // Get default order direction by sql-field type
+      } else {
+        if (strpos($this->query['from'], ' ')) $FirstTable = substr($this->query['from'], 0, strpos($this->query['from'], ' '));
+        else $FirstTable = $this->query['from'];
+        
+        $res = $db->qry("DESCRIBE %plain%", $FirstTable);
+        while ($row = $db->fetch_array($res)) $this->SQLFieldTypes[$row['Field']] = $row['Type'];
+        $db->free_result($res);
+        
+        if ($this->SQLFieldTypes[$this->query['order_by']] == 'datetime'
+          or $this->SQLFieldTypes[$this->query['order_by']] == 'date'
+          or $this->SQLFieldTypes[$this->query['order_by']] == 'time'
+          or $this->SQLFieldTypes[$this->query['order_by']] == 'timestamp')
+          $this->query['order_by'] .= ' DESC';
       }
 
+    // Default order by (if non given per URL)
     } elseif ($this->query['default_order_by']) {
       $this->query['order_by'] = $this->query['default_order_by'];
       if ($this->query['default_order_dir']) $this->query['order_by'] .= ' '. $this->query['default_order_dir'];
@@ -394,7 +416,15 @@ class MasterSearch2 {
 
         // Order Link and Image
         ($_GET['ms_page'] == 'all')? $add_page = '&ms_page=all' : $add_page = '';
-        ($_GET['order_by'] == $current_field['sql_field'] and $_GET['order_dir'] != 'DESC')? $order_dir = 'DESC' : $order_dir = 'ASC';
+        $order_dir = '';
+        if ($_GET['order_by'] == $current_field['sql_field']) {
+          if ($this->SQLFieldTypes[$current_field['sql_field']] == 'datetime'
+            or $this->SQLFieldTypes[$current_field['sql_field']] == 'date'
+            or $this->SQLFieldTypes[$current_field['sql_field']] == 'time'
+            or $this->SQLFieldTypes[$current_field['sql_field']] == 'timestamp')
+            ($_GET['order_dir'] != 'ASC')? $order_dir = 'ASC' : $order_dir = 'DESC';
+          else ($_GET['order_dir'] != 'DESC')? $order_dir = 'DESC' : $order_dir = 'ASC';
+        }
 
         // Generate Headlines
         $arr = array();       
@@ -403,7 +433,7 @@ class MasterSearch2 {
           $arr['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
 
           if ($_GET['order_by'] == $current_field['sql_field']) {
-            if ($_GET['order_dir'] == 'DESC') $arr['entry'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
+            if ($order_dir == 'DESC') $arr['entry'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
             else $arr['entry'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_asc_active.gif\" border=\"0\" />";
           }
         }
