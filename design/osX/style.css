@@ -201,12 +201,6 @@ li.LineLeftHalf {
   padding-left: 18px;
 }
 
-/* Boxes */
-.box_frame {        /* old name: tbl_1 */
-  background:       #EFEFEF;
-  font-size: 11px;
-}
-
 .box_caption {
   color:            #EFEFEF;
   padding:      0px;

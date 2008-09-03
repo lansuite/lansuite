@@ -326,7 +326,7 @@ class display {
   function AddFieldsetStart($name) {
     global $MainContent;
     
-    $MainContent .=  '<fieldset class="box_frame"><legend class="box_frame"><b>'. $name .'</b></legend>';
+    $MainContent .=  '<br /><fieldset width="100%" style="clear:left; width:100%"><legend><b>'. $name .'</b></legend>';
     $this->FirstLine = 1;
   }
 
