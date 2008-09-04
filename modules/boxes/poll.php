@@ -7,12 +7,13 @@
  * @version $Id$
  */
  
-$row = $db->qry_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.polloptionid) AS votes FROM %prefix%polls AS p
+$row = $db->qry_first('SELECT p.pollid, p.caption, p.multi, COUNT(v.polloptionid) AS votes FROM %prefix%polls AS p
   LEFT JOIN %prefix%polloptions AS o ON p.pollid = o.pollid
   LEFT JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
+  WHERE !p.group_id OR p.group_id = %int%
   GROUP BY p.pollid
   ORDER BY p.changedate ASC
-  ");
+  ', $auth['group_id']);
 
 $box->DotRow('<b>'. $row['caption'] .'</b>');
 $box->EngangedRow(t('Rückmeldungen') .': '. $row['votes'], '', '', 'admin', 0);
