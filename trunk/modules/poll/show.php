@@ -1,19 +1,23 @@
 <?php
 
+include_once('modules/poll/class_poll.php');
+$poll = new poll;
+
 if ($_GET['step'] >= 2) {
-	$poll = $db->qry_first('SELECT caption, comment, UNIX_TIMESTAMP(endtime) AS endtime, multi, anonym FROM %prefix%polls WHERE	pollid = %int%', $_GET['pollid']);
-  $dsp->NewContent(t('Poll') .': '. $poll["caption"], $func->text2html($poll['comment']));
+	$pollrow = $db->qry_first('SELECT caption, comment, UNIX_TIMESTAMP(endtime) AS endtime, multi, anonym FROM %prefix%polls
+    WHERE	pollid = %int% AND (!group_id OR group_id = %int%)', $_GET['pollid'], $auth['group_id']);
+  $dsp->NewContent(t('Poll') .': '. $pollrow["caption"], $func->text2html($pollrow['comment']));
 
 	$voted = $db->qry_first('SELECT 1 AS found FROM %prefix%polloptions AS o
     INNER JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
     WHERE o.pollid = %int% AND v.userid = %int%', $_GET['pollid'], $auth['userid']);
-	if (!$poll['caption']) {
-    $func->error(t('Dieser Poll existiert nicht'), NOLINK);
+	if (!$pollrow['caption']) {
+    $func->error(t('Dieser Poll existiert nicht, oder Sie haben keine Berechtigung ihn zu sehen'), NO_LINK);
   	$_GET['step'] = 1;
   }
 
   if ($_GET['step'] >= 3) {
-    if ($poll['endtime'] and $poll['endtime'] < time()) {
+    if ($pollrow['endtime'] and $pollrow['endtime'] < time()) {
       $func->information(t('Dieser Poll ist bereits beendet'));
       $_GET['step'] = 2;
     } elseif ($voted['found']) {
@@ -30,54 +34,26 @@ switch ($_GET['step']) {
 
   case 2:
     // Has voted? -> Show results
-    if ($voted['found'] or ($poll['endtime'] and $poll['endtime'] < time())) {
-      $total = $db->qry_first('SELECT COUNT(v.polloptionid) AS votes FROM %prefix%polloptions AS o
-        LEFT JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
-        WHERE o.pollid = %int% GROUP BY o.pollid', $_GET['pollid']);
-      $res = $db->qry('SELECT COUNT(v.polloptionid) AS votes, o.caption, o.polloptionid FROM %prefix%polloptions AS o
-        LEFT JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
-        WHERE o.pollid = %int% GROUP BY o.polloptionid ORDER BY o.polloptionid', $_GET['pollid']);
-      while ($row = $db->fetch_array($res)) {
-        $width = 400;
-        ($total['votes'])? $score = ceil((400 / $total['votes']) * $row['votes']) : $score = 0;
-        $score_rest = 400 - $score;
-        $votes_text = $row['votes'];
-        
-        if ($score and !$poll['anonym']) {
-          $votes_text .= '<br />Gevoted haben:';
-          $users = $db->qry('SELECT u.username FROM %prefix%pollvotes AS v
-            LEFT JOIN %prefix%user AS u ON v.userid = u.userid
-            WHERE v.polloptionid = %int%', $row['polloptionid']);
-          while ($user = $db->fetch_array($users)) $votes_text .= '<br />'. $user['username'];
-          $db->free_result($users);
-        }
-        $dsp->AddDoubleRow($row['caption'], '<ul id="infobox" class="BarOccupied" style="width:'. (int)$score .'px;">&nbsp;<span class="infobox">Votes: '. $votes_text .'</span></ul><ul id="infobox" class="BarFree" style="width:'. $score_rest .'px;"></ul><ul class="BarClear">&nbsp;</ul>');
-      }
-      $db->free_result($res);
-
-      if($auth["login"] == 1) {
-          include('inc/classes/class_mastercomment.php');
-          new Mastercomment('Poll', $_GET['pollid']);
-      }
+    if ($voted['found'] or ($pollrow['endtime'] and $pollrow['endtime'] < time())) $poll->ShowResult($_GET['pollid'], $pollrow['anonym']);
 
     // Has not voted? -> Show form
-    } else {
+    else {
   		$dsp->SetForm('index.php?mod=poll&action=show&step=3&pollid='. $_GET['pollid']);
   
       $res = $db->qry('SELECT polloptionid, caption FROM %prefix%polloptions WHERE pollid = %int% ORDER BY polloptionid', $_GET['pollid']);
       while ($row = $db->fetch_array($res)) {
-        if ($poll['multi']) $dsp->AddCheckBoxRow('option[]', $row['caption'], '', '', '', '', '', $row['polloptionid']);
+        if ($pollrow['multi']) $dsp->AddCheckBoxRow('option[]', $row['caption'], '', '', '', '', '', $row['polloptionid']);
         else $dsp->AddRadioRow("option", $row['caption'], $row['polloptionid']);
       }
       $db->free_result($res);
   
   		$dsp->AddFormSubmitRow("vote");
-  		$dsp->AddBackButton("index.php?mod=poll", "poll/vote");
   	}
+		$dsp->AddBackButton("index.php?mod=poll", "poll/vote");
   break;
 
   case 3:
-		if ($poll['multi']) foreach($_POST['option'] as $option) $db->qry('INSERT INTO %prefix%pollvotes SET userid = %int%, polloptionid = %int%', $auth['userid'], $option);
+		if ($pollrow['multi']) foreach($_POST['option'] as $option) $db->qry('INSERT INTO %prefix%pollvotes SET userid = %int%, polloptionid = %int%', $auth['userid'], $option);
 		else $db->qry('INSERT INTO %prefix%pollvotes SET userid = %int%, polloptionid = %int%', $auth['userid'], $_POST['option']);
 		$func->confirmation(t('Ihre Stimme wurde gezählt'), 'index.php?mod=poll&action=show&step=2&pollid='. $_GET['pollid']);
   break;
