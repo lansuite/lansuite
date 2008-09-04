@@ -1,179 +1,52 @@
 <?php
 
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-----------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.0
-*	Filename: 			show.php
-*	Module: 			Poll
-*	Main editor: 		johannes@one-network.org
-*	Last change: 		26.02.03 18:00
-*	Description:
-*	Remarks:
-*
-**************************************************************************/
-$step = $_GET["step"];
-if (($_GET["action"] == "add") && ($step == "")) $step = 2;
+function Update($id) {
+  global $db;
 
-//
-// Error switch
-//
-
-switch($step) {
-	case 3:
-		if($_POST['poll_caption'] == "")	{
-			$caption_err = t('Bitte geben Sie einen Pollnamen ein');
-			$step = 2;
-		}
-
-		$options = 0;
-		$check_values = array();
-		foreach ($_POST["poll_option"] as $ind => $option) {
-			if (trim($option) != "") {
-				$options++;
-
-				if (in_array($option, $check_values)) {
-					$poll_option_err[$options] = t('Sie d&uuml;rfen 2 Optionen nicht gleich benennen.');
-					$step = 2;
-				}
-				$check_values[] = $option;
-			} else unset($_POST["poll_option"][$ind]);
-		}
-
-		if ($options < 1) {
-			$poll_option_err[1] = t('Sie m&uuml;ssen mindestens 2 Optionen eingeben');
-			$step = 2;
-		}
-		if ($options < 2) {
-			$poll_option_err[2] = t('Sie m&uuml;ssen mindestens 2 Optionen eingeben');
-			$step = 2;
-		}
-	break;
+  if ($_POST['poll_reset'] or !$_GET['pollid']) {
+			$db->qry('DELETE FROM %prefix%polloptions WHERE pollid = %int%', $id);
+			$db->qry('DELETE FROM %prefix%pollvotes WHERE pollid = %int%', $id);
+      if ($_POST['poll_option']) foreach ($_POST['poll_option'] as $key => $val) {
+      if (trim($val) != '') $db->qry('INSERT INTO %prefix%polloptions SET caption = %string%, pollid = %int%', $val, $id);
+    }
+  }
+  
+  return true;
 }
 
-//
-// Show switch
-//
-switch($step) {
-	default:
-	  include_once('modules/poll/search.inc.php');
-	break;
+$dsp->NewContent(t('Poll hinzufügen / ändern'), t('Um den Poll hinzuzufügen / zu ändern, füllen Sie bitte das folgende Formular vollständig aus.'));
 
-	case 2:
-		$_SESSION["poll_refresh"] = FALSE;
+include_once('inc/classes/class_masterform.php');
+$mf = new masterform();
 
-		if ($_GET["action"] == "change") {
-			if (!$func->check_exist("pollid", $_GET["pollid"])) {
-				$func->error(t('Dieser Poll existiert nicht'), "index.php?mod=poll&action=change");
-				break;
-			}
+$mf->AddField(t('Name'), 'caption');
+$mf->AddField(t('Bemerkung'), 'comment', '', LSCODE_ALLOWED, FIELD_OPTIONAL);
+$mf->AddField(t('Anonym'), 'anonym', '', '', FIELD_OPTIONAL);
+$mf->AddField(t('Mehrfachauswahl möglich'), 'multi', '', '', FIELD_OPTIONAL);
+$mf->AddField(t('Zeitlich begrenzen'), 'endtime', '', '', FIELD_OPTIONAL);
 
-			$poll = $db->query_first("SELECT caption, comment, anonym, multi, endtime
-				FROM {$config["tables"]["polls"]}
-				WHERE pollid = '{$_GET["pollid"]}'
-				");
-			if ($_POST['poll_caption'] == "") $_POST['poll_caption'] = $poll["caption"];
-			if ($_POST['poll_comment'] == "") $_POST['poll_comment'] = $poll["comment"];
-			if ($_POST['poll_anonym'] == "") $_POST['poll_anonym'] = $poll["anonym"];
-			if ($_POST['poll_multi'] == "") $_POST['poll_multi'] = $poll["multi"];
-			if ($_POST['poll_endtime'] == "") $_POST['poll_endtime'] = $poll["endtime"];
-			if ($_POST['poll_time'] == "") {
-				($_POST['poll_endtime'])? $_POST['poll_time'] = 1 : $_POST['poll_time'] = 0;
-			}
-			if ($_POST['group_id'] == "") $_POST['group_id'] = $poll["group_id"];
-		}
+$selections = array();
+$selections[''] = t('Keine bestimmte Gruppe');
+$res = $db->qry('SELECT group_id, group_name FROM %prefix%party_usergroups');
+while ($row = $db->fetch_array($res)) {
+  $selections[$row['group_id']] = $row['group_name'];
+}
+$db->free_result($res);
+$mf->AddField(t('Benutzergruppe'), 'group_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
-		($_POST['poll_anonym'])? $poll_anonym = "checked" : $poll_anonym = "";
-		($_POST['poll_multi'])? $poll_multi = "checked" : $poll_multi = "";
-		($_POST['poll_time'])? $poll_time = "checked" : $poll_time = "";
-		($_POST['poll_reset'])? $poll_reset = "checked" : $poll_reset = "";
+// Poll Options
+if ($_POST['poll_option']) foreach ($_POST['poll_option'] as $key => $val) $_POST["poll_option[$key]"] = $val;
+elseif ($_GET['pollid'])  {
+  $res = $db->qry('SELECT caption FROM %prefix%polloptions WHERE pollid = %int% ORDER BY polloptionid', $_GET['pollid']);
+  for ($z = 1; $row = $db->fetch_array($res); $z++) if (!$_POST["poll_option[$z]"]) $_POST["poll_option[$z]"] = $row['caption'];
+  $db->free_result($res);
+}
+if ($_GET['pollid']) $mf->AddField(t('Polloptionen ändern') .'|'. t('Achtung: Dies führt dazu, dass die Abstimmung zurückgesetzt wird!'), 'poll_reset', 'tinyint(1)', '', FIELD_OPTIONAL, '', 10);
+for ($z = 1; $z <= 10; $z++) {
+  ($z <= 2)? $optional = 0 : $optional = FIELD_OPTIONAL;
+  $mf->AddField(t('Option') ." $z", "poll_option[$z]", 'varchar(80)', '', $optional);
+}
 
-		$dsp->NewContent(t('Poll hinzuf&uuml;gen / &auml;ndern'), t('Um den Poll hinzuzuf&uuml;gen / zu &auml;ndern, f&uuml;llen Sie bitte das folgende Formular vollst&auml;ndig aus. F&uuml;r das Feld Überschrift stehen 30 Zeichen, f&uuml;r das Feld Text 5000 Zeichen zur Verf&uuml;gung.'));
-		$dsp->SetForm("index.php?mod=poll&action={$_GET["action"]}&step=3&pollid={$_GET["pollid"]}");
-		$dsp->AddTextFieldRow("poll_caption", t('Name'), $_POST['poll_caption'], $caption_err);
-		$dsp->AddTextAreaPlusRow("poll_comment", t('Bemerkung'), $_POST['poll_comment'], "", "", "", 1);
-		$dsp->AddCheckBoxRow("poll_anonym", t('Anonym'), "", "", 1, $poll_anonym);
-		$dsp->AddCheckBoxRow("poll_multi", t('Mehrfachauswahl m&ouml;glich'), "", "", 1, $poll_multi);
-		$dsp->AddCheckBoxRow("poll_time", t('Zeitlich begrenzen'), "", "", 1, $poll_time);
-		$dsp->AddDateTimeRow("poll_endtime", "", $_POST['poll_endtime'], "");
-		$party->get_user_group_dropdown("NULL",1,$_POST['group_id']);
-
-		if ($_GET["action"] == "change") {
-			$dsp->AddCheckBoxRow("poll_reset", t('Abstimmung zur&uuml;cksetzen'), t('Optionen unterhalb werden nur ge&auml;ndert, wenn dieses H&auml;ckchen aktiv ist!'), "", 1, $poll_reset);
-		}
-
-		$dsp->AddHRuleRow();
-		$dsp->AddSingleRow(t('Unterhalb legen Sie die Poll-Optionen f&uuml;r diesen Poll fest. F&uuml;llen Sie dazu beliebig viele Formularfelder aus. Es m&uuml;ssen mindestens 2 Felder ausgef&uuml;llt werden. Pro Feld stehen Ihnen 30 Zeichen zur Verf&uuml;gung.'));
-		// Poll-Optionen ausgeben
-		$polloptions = $db->query("SELECT caption
-			FROM {$config["tables"]["polloptions"]}
-			WHERE pollid = '{$_GET["pollid"]}'
-			ORDER BY polloptionid
-			");
-		for ($z = 1; $row = $db->fetch_array($polloptions); $z++)
-			if ($poll_option[$z] == "") $poll_option[$z] = $row["caption"];
-		for ($z = 1; $z <= 10; $z++)
-			$dsp->AddTextFieldRow("poll_option[$z]", t('Option') ." $z", $poll_option[$z], $poll_option_err[$z]);
-
-		$dsp->AddFormSubmitRow("add");
-		$dsp->AddBackButton("index.php?mod=poll", "poll/form1");
-		$dsp->AddContent();
-	break;
-
-	case 3:
-		if ($_SESSION["poll_refresh"]) $func->error("NO_REFRESH", "index.php?mod=poll&action=add");
-		else {
-			$_SESSION["poll_refresh"] = TRUE;
-
-			if (!$_POST["poll_anonym"]) $_POST["poll_anonym"] = 0;
-			if (!$_POST["poll_multi"]) $_POST["poll_multi"] = 0;
-			if (!$_POST["poll_time"]) $_POST["poll_time"] = 0;
-
-			($_POST["poll_time"])?
-				$poll_endtime = mktime($_POST["poll_endtime_value_hours"], $_POST["poll_endtime_value_minutes"], 0, $_POST["poll_endtime_value_month"], $_POST["poll_endtime_value_day"], $_POST["poll_endtime_value_year"])
-				: $poll_endtime = 0;
-
-			if ($_GET["action"] == "change") {
-				$db->query("UPDATE {$config["tables"]["polls"]} SET
-									caption = '{$_POST["poll_caption"]}',
-									comment = '{$_POST["poll_comment"]}',
-									anonym = '{$_POST["poll_anonym"]}',
-									multi = '{$_POST["poll_multi"]}',
-									endtime = '$poll_endtime',
-									changedate = NOW(),
-									group_id = '{$_POST['group_id']}'
-									WHERE pollid = '{$_GET["pollid"]}'");
-				$func->confirmation(t('Der Poll <b>%1</b> wurde erfolgreich ge&auml;ndert', $_POST["poll_caption"]), "index.php?mod=poll&action=change");
-			}
-
-			if ($_GET["action"] == "add") {
-				$db->query("INSERT INTO {$config['tables']['polls']}
-							SET caption='{$_POST["poll_caption"]}',
-							comment='{$_POST["poll_comment"]}',
-							anonym='{$_POST["poll_anonym"]}',
-							multi='{$_POST["poll_multi"]}',
-							endtime='$poll_endtime',
-							changedate = NOW(),
-							group_id = '{$_POST['group_id']}'
-							");
-				$_GET["pollid"] = $db->insert_id();
-				$func->confirmation(t('Der Poll <b>%1</b> wurde erfolgreich hinzugef&uuml;gt.', $_POST["poll_caption"]), "index.php?mod=poll&action=show&step=2&pollid={$_GET["pollid"]}");
-			}
-
-			// Auswahloptionen in DB schreiben
-			if (($_POST['poll_reset']) || ($_GET["action"] == "add")) {
-				$db->query("DELETE FROM {$config["tables"]["polloptions"]} WHERE pollid='{$_GET["pollid"]}'");
-				$db->query("DELETE FROM {$config["tables"]["pollvotes"]} WHERE pollid='{$_GET["pollid"]}'");
-				foreach($_POST["poll_option"] as $option) if (trim($option) != "") {
-					$db->query("INSERT INTO {$config['tables']['polloptions']}
-						SET caption='$option',
-						pollid ='{$_GET["pollid"]}'
-						");
-				}
-			}
-		}
-	break;
-} // switch
+$mf->AdditionalDBUpdateFunction = 'Update';
+$mf->SendForm('index.php?mod=poll&action=change&step=2&pollid='. $_GET['pollid'], 'polls', 'pollid', $_GET['pollid']);
 ?>

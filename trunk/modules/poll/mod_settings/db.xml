@@ -85,7 +85,7 @@
 			</field>
 			<field>
 				<name>endtime</name>
-				<type>int(16)</type>
+				<type>datetime</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
