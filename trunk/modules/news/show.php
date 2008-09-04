@@ -15,7 +15,7 @@ else {
     $pages = page_split_archiv($_GET["news_page"], $cfg["news_shorted_archiv"], $overall_news - ($cfg['news_shorted'] + $cfg['news_completed']), "index.php?mod=news&action=show&subaction=archive", "news_page",($cfg['news_shorted'] + $cfg['news_complete']));
   
     //GET NEWS DATA AND ORDER NEWS
-    $get_newsshorted = $db->qry("SELECT FROM_UNIXTIME(n.date, '%W, %d.%m.%Y'), FROM_UNIXTIME(n.date, '%H:%i'), n.caption, n.text, u.username, n.newsid FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC %plain%". $pages["sql"]);
+    $get_newsshorted = $db->qry("SELECT FROM_UNIXTIME(n.date, '%W, %d.%m.%Y'), FROM_UNIXTIME(n.date, '%H:%i'), n.caption, n.text, u.username, n.newsid FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC %plain%", $pages["sql"]);
     while($row=$db->fetch_array($get_newsshorted)) {
       $tmpDate = $func->translate_weekdayname(substr($row[0],0,strpos($row[0],","))) . substr($row[0],strpos($row[0],","));
       $shortnews[$tmpDate][$row[1]]['caption'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=" .$row[5] ."\">" .$row[2] ."</a>";
@@ -242,7 +242,7 @@ function page_split_archiv($current_page, $max_entries_per_page, $overall_entrie
         
             // ?!?! unset($output); unset($working_link); unset($page_sql); unset($page_output);
     
-        } else echo ("Error: Function page_split needs defined: current_page, max_entries_per_page,working_link, page_varname For more information please visit the lansuite programmers docu");
+        }# else echo ("Error: Function page_split needs defined: current_page, max_entries_per_page,working_link, page_varname For more information please visit the lansuite programmers docu");
     }
 
 ?>
