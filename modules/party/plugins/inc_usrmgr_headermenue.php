@@ -40,7 +40,7 @@ if ($auth['type'] >= 1) {
   $ms2->AddResultField(t('Bezahltdatum'), 'u.paiddate', 'MS2GetDate');
   $ms2->AddResultField(t('Eingecheckt'), 'u.checkin', 'MS2GetDate');
   $ms2->AddResultField(t('Ausgecheckt'), 'u.checkout', 'MS2GetDate');
-  if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=party&action=change_status&user_id='. $_GET['userid'] .'&party_id=', t('Editieren'));
+  if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=party&user_id='. $_GET['userid'] .'&party_id=', t('Editieren'));
   
   $ms2->PrintSearch('index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&headermenuitem=6', 'p.party_id');
 }

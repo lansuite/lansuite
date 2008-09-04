@@ -4,18 +4,15 @@ include_once("modules/usrmgr/class_usrmgr.php");
 $usrmgr = new UsrMgr();
 
 function PartyMail() {
-  global $cfg, $usrmgr, $func, $mail;
+  global $usrmgr, $func, $mail, $auth;
 
   $usrmgr->WriteXMLStatFile();
 
-  if ($cfg["signon_password_mail"]) {
+  if ($_POST['sendmail'] or $auth['type'] < 2) {
     if ($usrmgr->SendSignonMail(1)) $func->confirmation(t('Eine Bestätigung der Anmeldung wurde an Ihre E-Mail-Adresse gesendet.'), NO_LINK);
-    else {
-        $func->error(t('Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.'). $mail->error, NO_LINK);
-        $cfg['signon_password_view'] = 1;
-    }
+    else $func->error(t('Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.'). $mail->error, NO_LINK);
   }
-  
+    
   return true;
 }
 
@@ -90,6 +87,7 @@ else {
         }
         else $mf->AddFix('signondate', 'NOW()');
 
+        if ($auth['type'] >= 2) $mf->AddField(t('Mail versenden?') .'|'. t('Den Benutzer per Mail über die Änderung informieren'), 'sendmail', 'tinyint(1)', '', FIELD_OPTIONAL);
         $mf->SendButtonText = 'An-/Abmelden';
 
         $mf->AdditionalDBUpdateFunction = 'PartyMail';
