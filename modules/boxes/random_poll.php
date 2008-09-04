@@ -27,8 +27,9 @@ if($sd_row["activepolls"] > 0) {
 }
 
 if($sd_pollid != -1) {
-	$row = $db->qry_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.pollid) AS votes FROM %prefix%polls AS p
-	  LEFT JOIN %prefix%pollvotes AS v on p.pollid = v.pollid
+	$row = $db->qry_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.polloptionid) AS votes FROM %prefix%polls AS p
+    LEFT JOIN %prefix%polloptions AS o ON p.pollid = o.pollid
+    LEFT JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
 	  WHERE p.pollid = %int% 
 	  GROUP BY p.pollid
 	  ", $sd_pollid);

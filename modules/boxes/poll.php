@@ -7,8 +7,9 @@
  * @version $Id$
  */
  
-$row = $db->qry_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.pollid) AS votes FROM %prefix%polls AS p
-  LEFT JOIN %prefix%pollvotes AS v on p.pollid = v.pollid
+$row = $db->qry_first("SELECT p.pollid, p.caption, p.multi, COUNT(v.polloptionid) AS votes FROM %prefix%polls AS p
+  LEFT JOIN %prefix%polloptions AS o ON p.pollid = o.pollid
+  LEFT JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
   GROUP BY p.pollid
   ORDER BY p.changedate ASC
   ");
