@@ -249,7 +249,7 @@ class masterform {
               if ($err) $this->error[$field['name']] = $err;
 
               // Check for value
-              if (!$field['optional'] and $_POST[$field['name']] == '') $this->error[$field['name']] = t('Bitte fÃ¼llen Sie dieses Pflichtfeld aus.');
+              if (!$field['optional'] and $_POST[$field['name']] == '') $this->error[$field['name']] = t('Bitte füllen Sie dieses Pflichtfeld aus.');
 
               // Check Int
               elseif (strpos($SQLFieldTypes[$field['name']], 'int') !== false and $SQLFieldTypes[$field['name']] != 'tinyint(1)'
