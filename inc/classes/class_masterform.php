@@ -263,7 +263,7 @@ class masterform {
                 $this->error[$field['name']] = t('Das eingegebene Datum ist nicht korrekt.');
               // Check new passwords
               } elseif ($field['type'] == IS_NEW_PASSWORD and $_POST[$field['name']] != $_POST[$field['name'].'2'])
-                $this->error[$field['name'].'2'] = t('Die beiden Kennworte stimmen nicht Ã¼berein.');
+                $this->error[$field['name'].'2'] = t('Die beiden Kennworte stimmen nicht überein.');
 
               // Check captcha
               elseif ($field['type'] == IS_CAPTCHA and ($_POST['captcha'] == '' or $_COOKIE['image_auth_code'] != md5(strtoupper($_POST['captcha']))))
