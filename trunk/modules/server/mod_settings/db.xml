@@ -19,14 +19,17 @@
 				<key>PRI</key>
 				<default></default>
 				<extra>auto_increment</extra>
+    	  <reference>comments.relatedto_id</reference>
+    	  <reference_condition>comments.relatedto_item=server</reference_condition>
 			</field>
 			<field>
 				<name>owner</name>
-				<type>varchar(20)</type>
+				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>caption</name>

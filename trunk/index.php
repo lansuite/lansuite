@@ -97,7 +97,6 @@
     include_once("inc/classes/class_sec.php");
     include_once("inc/classes/class_barcode.php");
     include_once("modules/party/class_party.php");
-    include_once("modules/install/class_install.php");
     if (file_exists("modules/mastersearch/class_mastersearch.php")) include_once("modules/mastersearch/class_mastersearch.php");
     include_once("modules/mail/class_mail.php");
     include_once("modules/stats/class_stats.php");
@@ -113,7 +112,6 @@
     $dsp         = new display();        // Display Functions (to load the lansuite-templates)
     $mail        = new mail();           // Mail Functions (for sending mails to lansuite-users)
     $xml         = new xml;              // XML Functions (to maintain XML-Ex-/Imports)
-    $install     = new Install();        // Install Functions (Some basic Setup-Routines)
     $db          = new db;               // DB Functions (to work with the databse)
     $sec         = new sec;              // Security Functions (to lock pages)
     $cron2       = new cron2();          // Load Cronjob
@@ -146,12 +144,11 @@
         $auth["login"] = 1;
         // Load DB-Data after installwizard step 3
         if ($_GET["action"] == "wizard" and $_GET["step"] > 3) {
-            $install->SetTableNames();       // Load SQL-Tables used by each page
+            $db->SetTableNames();       // Load SQL-Tables used by each page
             $cfg = $func->read_db_config();  // read Configtable
         }
 
     } else {
-
         ### Normal auth cycle and Database-init
 
         $db->connect(0);
@@ -163,7 +160,7 @@
         // Reset DB-Success in Setup if no Adm.-Account was found, because a connection could work, but prefix is wrong
         if (!func::admin_exists() and (($_GET["action"] == "wizard" and $_GET["step"] <= 3) or ($_GET["action"] == "ls_conf"))) $db->success = 0;
 
-        $install->SetTableNames();      // Load SQL-Tables used by each page to $config['tables']['name'] = "prefix_name"
+        $db->SetTableNames();      // Load SQL-Tables used by each page to $config['tables']['name'] = "prefix_name"
         $cfg = $func->read_db_config(); // Config-Tabelle aulesen
         $sec->check_blacklist();
         

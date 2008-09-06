@@ -1,6 +1,8 @@
 <?php
-include_once("modules/install/class_import.php");
-$import = New Import();
+
+include_once('modules/install/class_install.php');
+$install = new Install();
+
 $_SESSION['auth']['design'] = 'standard';
 
 // Error-Switch
@@ -161,7 +163,7 @@ switch ($_GET["step"]){
                 // Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
                 $install->CreateNewTables(0);
                 // Read table-names from DB an save them in $config['tables']
-                $install->SetTableNames();
+                $db->SetTableNames();
 
                 // Insert PLZs from modules/install/db_insert_locations.sql in DB, if not exist
                 $install->InsertPLZs();

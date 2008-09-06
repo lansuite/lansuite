@@ -1,5 +1,8 @@
 <?php
 
+include_once('modules/install/class_install.php');
+$install = new Install();
+
 function FindCfgKeyForMod($name) {
   global $db, $config;
 
