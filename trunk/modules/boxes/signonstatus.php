@@ -56,9 +56,9 @@ $pixelcuruser = $curuser - $gesamtpaid;
 $pixelpaid = $gesamtpaid;
 
 // Bar erzeugen
-if ($pixelpaid > 0) $bar = '<ul id="infobox" class="BarOccupied" style="width:'. $pixelpaid .'px;">&nbsp;<span class="infobox">'. t('Angemeldet und Bezahlt') .': '. $paid .'</span></ul>';
-if ($pixelcuruser > 0) $bar .= '<ul id="infobox" class="BarMarked" style="width:'. $pixelcuruser .'px;">&nbsp;<span class="infobox">'. t('Nur Angemeldet') .': '. ($cur - $paid) .'</span></ul>';
-if ($pixelges > 0) $bar .= '<ul id="infobox" class="BarFree" style="width:'. $pixelges .'px;">&nbsp;<span class="infobox">'. t('Frei') .': '. ($max - $cur) .'</span></ul>';
+if ($pixelpaid > 0) $bar = '<ul class="BarOccupied infolink" style="width:'. $pixelpaid .'px;">&nbsp;<span class="infobox">'. t('Angemeldet und Bezahlt') .': '. $paid .'</span></ul>';
+if ($pixelcuruser > 0) $bar .= '<ul class="BarMarked infolink" style="width:'. $pixelcuruser .'px;">&nbsp;<span class="infobox">'. t('Nur Angemeldet') .': '. ($cur - $paid) .'</span></ul>';
+if ($pixelges > 0) $bar .= '<ul class="BarFree infolink" style="width:'. $pixelges .'px;">&nbsp;<span class="infobox">'. t('Frei') .': '. ($max - $cur) .'</span></ul>';
 $bar .= '<ul class="BarClear">&nbsp;</ul>';
 
 #if (strlen($_SESSION['party_info']['name']) > 16) $party_name = substr($_SESSION['party_info']['name'], 0, 14) .'...';

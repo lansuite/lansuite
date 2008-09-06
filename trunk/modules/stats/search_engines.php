@@ -22,7 +22,7 @@ else $where = ""; // Wrong selection
 
 $query = $db->query("SELECT * FROM {$config["tables"]["stats_se"]} $where ORDER BY hits DESC, term ASC");
 while ($row = $db->fetch_array($query)) {
-  if (strlen($row['term']) > 30) $row['term'] = '<div id="infobox" style="display:inline">'. substr($row['term'], 0, 28) .'...<span class="infobox">'. $row['term'] .'</span>';
+  if (strlen($row['term']) > 30) $row['term'] = '<div class="infolink" style="display:inline">'. substr($row['term'], 0, 28) .'...<span class="infobox">'. $row['term'] .'</span>';
   $dsp->AddDoubleRow($row["term"], $row["hits"] .' Hits bei '. $row["se"] .' ('. $func->unixstamp2date($row["first"], "datetime") .' - '. $func->unixstamp2date($row["last"], "datetime") .')');
 }
 $db->free_result($res);

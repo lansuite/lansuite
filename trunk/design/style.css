@@ -406,7 +406,7 @@ a:hover span.infobox {
   z-index:1;
 }
 
-#infobox span.infobox {
+.infolink span.infobox {
   visibility:hidden; display:none;
   position:absolute;
   margin-top:1.5em; padding:0.5em;
@@ -414,7 +414,7 @@ a:hover span.infobox {
   z-index:1;
 }
 
-#infobox:hover span.infobox {
+.infolink:hover span.infobox {
   visibility:visible; display:block;
   left:1em;
   border:1px solid #c30;
