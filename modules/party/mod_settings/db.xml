@@ -27,6 +27,7 @@
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>party_prices.price_id</foreign_key>
 			</field>
 			<field>
 				<name>max_guest</name>
@@ -124,6 +125,7 @@
 				<key></key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>partys.party_id</foreign_key>
 			</field>
 			<field>
 				<name>price_text</name>
@@ -197,6 +199,7 @@
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>partys.party_id</foreign_key>
 			</field>
 			<field>
 				<name>user_id</name>
@@ -205,6 +208,7 @@
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>price_id</name>
@@ -213,6 +217,7 @@
 				<key></key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>party_prices.price_id</foreign_key>
 			</field>
 			<field>
 				<name>paid</name>

@@ -3,8 +3,18 @@
 class Import {
 	var $xml_content;
 	var $xml_content_lansuite;
-#	var $table_names = array();
 	var $table_state = array();
+	var $installed_tables = array();
+
+  // Constructor
+  function Import() {
+    global $db;
+
+    // Get Array of installed tables
+		$res = $db->qry('SHOW TABLES');
+		while ($row = $db->fetch_array($res)) array_push($this->installed_tables, $row[0]); 
+		$db->free_result($res);
+  }
 
 	function GetUploadFileType($usr_file_name){
 		$file_type = substr($usr_file_name, strrpos($usr_file_name, ".") + 1, strlen($usr_file_name));
@@ -47,12 +57,6 @@ class Import {
 	function ImportXML($rewrite = NULL){
 		global $xml, $db, $config, $func;
 
-    // Get Array of installed tables
-		$res = $db->query("SHOW TABLES");
-		$installed_tables = array();
-		while ($row = $db->fetch_array($res)) array_push($installed_tables, $row[0]); 
-		$db->free_result($res);
-
 		$tables = $xml->get_tag_content_array("table", $this->xml_content_lansuite);
 		foreach ($tables as $table) {
 
@@ -69,7 +73,7 @@ class Import {
 			} else {
 
   			// Search current XML-Table in installed tables
-  			$table_found = in_array($config['database']['prefix'] . $table_name, $installed_tables);
+  			$table_found = in_array($config['database']['prefix'] . $table_name, $this->installed_tables);
   			if ($table_found) $this->table_state[] = "exist";
       }
 
@@ -122,6 +126,9 @@ class Import {
   				$key = $xml->get_tag_content("key", $field);
   				$default_xml = $xml->get_tag_content("default", $field);
   				$extra = $xml->get_tag_content("extra", $field);
+  				$foreign_key = $xml->get_tag_content("foreign_key", $field);
+  				$reference = $xml->get_tag_content("reference", $field);
+  				$reference_condition = $xml->get_tag_content("reference_condition", $field);
 
           // Set default value to 0 or '', if NOT NULL and not autoincrement
           if ($null_xml == '' and $extra == '') {
@@ -261,6 +268,26 @@ class Import {
   						else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra");
   					}
   				}
+  				
+  				// Foreign Key references
+  				if ($foreign_key) {
+  				  list ($foreign_table, $foreign_key_name) = split('\\.', $foreign_key);
+  				  $row = $db->qry_first('SELECT 1 AS found FROM %prefix%references WHERE
+              pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string%',
+              $table_name, $name, $foreign_table, $foreign_key_name);
+  				  if (!$row['found']) $db->qry('INSERT INTO %prefix%references SET
+              pri_table = %string%, pri_key = %string%, foreign_table = %string%, foreign_key = %string%',
+              $table_name, $name, $foreign_table, $foreign_key_name);
+          }
+  				if ($reference) {
+  				  list ($reference_table, $reference_key) = split('\\.', $reference);
+  				  $row = $db->qry_first('SELECT 1 AS found FROM %prefix%references WHERE
+  				    pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string% AND foreign_condition = %string%',
+              $reference_table, $reference_key, $table_name, $name, $reference_condition);
+  				  if (!$row['found']) $db->qry('INSERT INTO %prefix%references SET
+              pri_table = %string%, pri_key = %string%, foreign_table = %string%, foreign_key = %string%, foreign_condition = %string%',
+              $reference_table, $reference_key, $table_name, $name, $reference_condition);
+          }
   			}
 
   			// Search for fields, which exist in the XML-File no more, but still in DB.
@@ -284,7 +311,7 @@ class Import {
 
   				// Add to installed tables
   				# Maybe no longer needed??
-          array_push($installed_tables, $config["database"]["prefix"]. $table_name);
+          array_push($this->installed_tables, $config["database"]["prefix"]. $table_name);
         }
       }
 
@@ -321,7 +348,7 @@ class Import {
 			if ($rewrite) $this->table_state[] = "rewrite";
 
 			// Optimize table
-			$db->query_first("OPTIMIZE TABLE $table_name");
+			$db->query_first("OPTIMIZE TABLE `$table_name`");
 		}
 	}
 

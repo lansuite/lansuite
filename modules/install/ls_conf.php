@@ -1,5 +1,8 @@
 <?php
 
+include_once('modules/install/class_install.php');
+$install = new Install();
+
 switch($_GET["step"]) {
 	case 2:
 		// Set new $config-Vars

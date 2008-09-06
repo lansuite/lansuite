@@ -9,6 +9,63 @@
     </header>
     <table>
         <table_head>
+            <name>references</name>
+        </table_head>
+        <structure>
+            <field>
+                <name>refid</name>
+                <type>int(10)</type>
+                <null></null>
+                <key>PRI</key>
+                <default></default>
+                <extra>auto_increment</extra>
+            </field>
+            <field>
+                <name>pri_table</name>
+                <type>varchar(50)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>pri_key</name>
+                <type>varchar(50)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>foreign_table</name>
+                <type>varchar(50)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>foreign_key</name>
+                <type>varchar(50)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>foreign_condition</name>
+                <type>varchar(100)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+        </structure>
+        <content>
+        </content>
+    </table>
+    <table>
+        <table_head>
             <name>comments</name>
         </table_head>
         <structure>
@@ -43,6 +100,7 @@
                 <key>IND</key>
                 <default>0</default>
                 <extra></extra>
+                <foreign_key>user.userid</foreign_key>
             </field>
             <field>
                 <name>date</name>
@@ -100,6 +158,7 @@
                 <key>IND</key>
                 <default>0</default>
                 <extra></extra>
+            	  <foreign_key>user.userid</foreign_key>
             </field>
             <field>
                 <name>email</name>

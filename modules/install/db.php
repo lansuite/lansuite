@@ -1,5 +1,8 @@
 <?php
 
+include_once('modules/install/class_install.php');
+$install = new Install();
+
 $install->TryCreateDB(1);
 $db->connect();
 
@@ -65,7 +68,7 @@ if ($_GET["quest"]){
 	// Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
 	$install->CreateNewTables(1);
 	// Read table-names from DB an save them in $config['tables']
-	$install->SetTableNames();
+	$db->SetTableNames();
 
 	// Insert PLZs from modules/install/db_insert_locations.sql in DB, if not exist
 	$install->InsertPLZs();

@@ -207,9 +207,24 @@ class db {
     return mysql_field_name($this->query_id, $pos);
   }
 
-    function get_mysqli_stmt() {
-        $prep = $link_id->stmt_init();
-        return $prep;
-    }
+  function get_mysqli_stmt() {
+      $prep = $link_id->stmt_init();
+      return $prep;
+  }
+  
+  function SetTableNames() {
+      global $config;
+
+      // Importent Tables
+      $config['tables']['config']     = $config['database']['prefix'].'config';
+      $config['tables']['user']   = $config['database']['prefix'].'user';
+
+      $res = $this->qry('SHOW TABLES'); //"SELECT name FROM {$config["database"]["prefix"]}table_names"
+      while ($row = $this->fetch_array($res)){
+        $table_name = substr($row[0], strlen($config['database']['prefix']), strlen($row[0]));
+        $config['tables'][$table_name] = $row[0];
+      }
+      $this->free_result($res);
+  }
 }
 ?>

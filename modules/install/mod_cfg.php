@@ -1,4 +1,8 @@
 <?php
+
+include_once('modules/install/class_install.php');
+$install = new Install();
+
 $CurrentMod = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name=%string%', $_GET['module']);
 
 $dsp->NewContent(t('Modul-Konfiguration') .' - '. $CurrentMod['caption'], t('Hier können Sie dieses Modul Ihren Bedürfnissen anpassen'));

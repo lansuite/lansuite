@@ -1,4 +1,8 @@
 <?php
+
+include_once('modules/install/class_install.php');
+$install = new Install();
+
 switch($_GET["step"]) {
 	// Move Up
 	case 2:
