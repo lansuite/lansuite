@@ -24,7 +24,7 @@ class poll {
         while ($user = $db->fetch_array($users)) $votes_text .= '<br />'. $user['username'];
         $db->free_result($users);
       }
-      $votebar = '<ul id="infobox" class="BarOccupied" style="width:'. (int)$score .'px;">&nbsp;<span class="infobox">Votes: '. $votes_text .'</span></ul><ul id="infobox" class="BarFree" style="width:'. $score_rest .'px;"></ul><ul class="BarClear">&nbsp;</ul>';
+      $votebar = '<ul class="BarOccupied infolink" style="width:'. (int)$score .'px;">&nbsp;<span class="infobox">Votes: '. $votes_text .'</span></ul><ul id="infobox" class="BarFree" style="width:'. $score_rest .'px;"></ul><ul class="BarClear">&nbsp;</ul>';
       if ($boxmode) $box->Row($votebar .' '. $row['caption']);
       else $dsp->AddDoubleRow($row['caption'], $votebar);
     }

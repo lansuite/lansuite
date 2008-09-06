@@ -20,7 +20,7 @@ if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $templ['home']['show']['row']['control']['link']	= "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&gotopid={$row['pid']}#pid{$row['pid']}";
 
   $templ['home']['show']['row']['info']['text']		= $func->CutString($row['caption'], 40) .' ['. $row['posts'] .']';
-  if ($row['closed']) $templ['home']['show']['row']['info']['text'] .= ' <div id="infobox" style="display:inline"><img src="design/images/icon_locked.png" border="0" width="12" /><span class="infobox">'. t('Thread wurde geschlossen') .'</span></div>';
+  if ($row['closed']) $templ['home']['show']['row']['info']['text'] .= ' <div class="infolink" style="display:inline"><img src="design/images/icon_locked.png" border="0" width="12" /><span class="infobox">'. t('Thread wurde geschlossen') .'</span></div>';
   
   if (CheckPostNew($row['LastPost'], $row['last_read']))
 	$templ['home']['show']['item']['control']['row']	.= $dsp->FetchModTpl('home', 'show_row_new');

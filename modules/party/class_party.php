@@ -695,9 +695,9 @@ class party{
   	$pixelpaid = $gesamtpaid;
   
     // Bar erzeugen
-    if ($pixelpaid > 0) $bar = '<ul id="infobox" class="BarOccupied" style="width:'. $pixelpaid .'px;">&nbsp;<span class="infobox">'. t('Angemeldet und Bezahlt') .': '. $paid_guests .'</span></ul>';
-    if ($pixelcuruser > 0) $bar .= '<ul id="infobox" class="BarMarked" style="width:'. $pixelcuruser .'px;">&nbsp;<span class="infobox">'. t('Nur Angemeldet') .': '. ($guests - $paid_guests) .'</span></ul>';
-    if ($pixelges > 0) $bar .= '<ul id="infobox" class="BarFree" style="width:'. $pixelges .'px;">&nbsp;<span class="infobox">'. t('Frei') .': '. ($max_guests - $paid_guests) .'</span></ul>';
+    if ($pixelpaid > 0) $bar = '<ul class="BarOccupied infolink" style="width:'. $pixelpaid .'px;">&nbsp;<span class="infobox">'. t('Angemeldet und Bezahlt') .': '. $paid_guests .'</span></ul>';
+    if ($pixelcuruser > 0) $bar .= '<ul class="BarMarked infolink" style="width:'. $pixelcuruser .'px;">&nbsp;<span class="infobox">'. t('Nur Angemeldet') .': '. ($guests - $paid_guests) .'</span></ul>';
+    if ($pixelges > 0) $bar .= '<ul class="BarFree infolink" style="width:'. $pixelges .'px;">&nbsp;<span class="infobox">'. t('Frei') .': '. ($max_guests - $paid_guests) .'</span></ul>';
     $bar .= '<ul class="BarClear">&nbsp;</ul>';
   
   	return $bar;

@@ -750,7 +750,7 @@ class display {
   }
 
   function HelpText($text, $help) {
-    return '<div id="infobox" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
+    return '<div class="infolink" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
   }
 
   function AddIcon($name, $link = '', $title = '') {
