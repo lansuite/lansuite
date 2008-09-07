@@ -272,19 +272,19 @@ textarea {
   background: #D7E5F2;   color: #102132;
 }
 /* Dropdown Images */
-option[value=de]:before { content:url("../images/icon_de.png"); }
-option[value=en]:before { content:url("../images/icon_en.png"); }
-option[value=at]:before { content:url("../images/icon_at.png"); }
-option[value=ch]:before { content:url("../images/icon_ch.png"); }
-option[value=es]:before { content:url("../images/icon_es.png"); }
-option[value=fr]:before { content:url("../images/icon_fr.png"); }
-option[value=nl]:before { content:url("../images/icon_nl.png"); }
-option[value=it]:before { content:url("../images/icon_it.png"); }
+option[value=de]:before { content:url("images/icon_de.png"); }
+option[value=en]:before { content:url("images/icon_en.png"); }
+option[value=at]:before { content:url("images/icon_at.png"); }
+option[value=ch]:before { content:url("images/icon_ch.png"); }
+option[value=es]:before { content:url("images/icon_es.png"); }
+option[value=fr]:before { content:url("images/icon_fr.png"); }
+option[value=nl]:before { content:url("images/icon_nl.png"); }
+option[value=it]:before { content:url("images/icon_it.png"); }
 
 input.yes_button {
   margin: 0px; border: 0px; padding: 0px;
   width: 20px; height: 20px;
-  background-color: transparent; background-image: url("design/images/icon_yes.png");
+  background-color: transparent; background-image: url("images/icon_yes.png");
   cursor: pointer;
 }
 form {
