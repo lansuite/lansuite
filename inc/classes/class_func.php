@@ -354,15 +354,14 @@ class func {
     }
 
     function question($text, $link_target_yes, $link_target_no = '') {
-        global $templ, $auth, $dsp, $language;
+      global $smarty, $dsp;
 
-        if ($link_target_no == '') $link_target_no = $this->internal_referer;
-
-        $templ['question']['info']['questionmsg']   = $text;
-        $templ['question']['control']['link']['yes'] = $dsp->FetchIcon($link_target_yes, "yes");
-        $templ['question']['control']['link']['no'] = $dsp->FetchIcon($link_target_no, "no");
-
-    $dsp->AddTpl("design/templates/question.htm");
+      if ($link_target_no == '') $link_target_no = $this->internal_referer;
+      $smarty->assign('question', $text);
+      $smarty->assign('action', $link_target_yes);
+      $smarty->assign('yes', $dsp->FetchIcon($link_target_yes, 'yes'));
+      $smarty->assign('no', $dsp->FetchIcon($link_target_no, 'no'));
+      $dsp->AddLineTplSmarty($smarty->fetch('design/templates/question.htm'));
     }
 
     function no_items($object, $link_target, $type) {

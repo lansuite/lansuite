@@ -52,28 +52,23 @@ class masterdelete {
   global $framework, $func;
   
     $CurentURLBase = $framework->get_clean_url_query('base');
-	$CurentURLBase = str_replace('&md_step=2', '', $CurentURLBase);
+  	$CurentURLBase = str_replace('&md_step=2', '', $CurentURLBase);
     $CurentURLBase = preg_replace('#&'. $idname .'=[0-9]*#si', '', $CurentURLBase);
 
-    switch ($_GET['md_step']) {
-      // Question
-      default:
+    // Question
+    if (!$_POST['confirmed']) {
+      #echo ."\n".$_SESSION['md_referrer'];
+      if ($func->internal_referer != '?'.$_SERVER['QUERY_STRING']) $_SESSION['md_referrer'] = $func->internal_referer;
+      $func->question(t('Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?'), $CurentURLBase. '&'. $idname .'='. $id, $_SESSION['md_referrer']);      
+      return false;
 
-        $_SESSION['md_referrer'] = $func->internal_referer;
-        $func->question(t('Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?'), $CurentURLBase. '&md_step=2&'. $idname .'='. $id, $_SESSION['md_referrer']);
-        
-        return false;
-      break;
-
-      // Action
-      case 2:
-        $res = $this->DoDelete($table, $idname, $id);
-        if ($res) $func->confirmation(t('Der Eintrag wurde erfolgreich gelöscht'), $_SESSION['md_referrer']);
-        else $func->error(t('Der Eintrag konnte nicht gelöscht werden'), $_SESSION['md_referrer']);
-
-        unset($_SESSION['md_referrer']);
-        return $res;
-      break;
+    // Action
+    } else {
+      $res = $this->DoDelete($table, $idname, $id);
+      if ($res) $func->confirmation(t('Der Eintrag wurde erfolgreich gelöscht'), $_SESSION['md_referrer']);
+      else $func->error(t('Der Eintrag konnte nicht gelöscht werden'), $_SESSION['md_referrer']);
+      unset($_SESSION['md_referrer']);
+      return $res;
     }
   }
 
