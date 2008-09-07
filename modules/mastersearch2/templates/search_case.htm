@@ -1,4 +1,7 @@
-<form name="ms_search" method="post" action="{$action}">
+<form name="ms_search" method="get" action="{$action}">
+{foreach from=$HiddenGetFields key=k item=v}
+  <input type="hidden" name="{$k}" value="{$v}" />
+{/foreach}
 <table width="100%" cellspacing="0" cellpadding="0">
 
 {foreach from=$SearchInputs item=Line}
