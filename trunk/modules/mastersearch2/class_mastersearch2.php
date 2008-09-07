@@ -17,6 +17,7 @@ class MasterSearch2 {
   var $post_in_get = '';
   var $NoItemsText = '';
   var $SQLFieldTypes = array();
+  var $HiddenGetFields = array();
 
   // Constructor
   function MasterSearch2($module = '') {
@@ -30,26 +31,12 @@ class MasterSearch2 {
     $this->query['order_by'] = '';
     $this->query['limit'] = '';
 
-    // Add $_POST[]-Fields to $working_link
-    if ($_POST['search_input']) foreach($_POST['search_input'] as $key => $val) $this->post_in_get .= "&search_input[$key]=$val";
-    elseif ($_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $this->post_in_get .= "&search_input[$key]=$val";     
-    if ($_POST['search_dd_input']) foreach($_POST['search_dd_input'] as $key => $val) {
-      if (is_array($val)) foreach($val as $key2 => $val2) $this->post_in_get .= "&search_dd_input[$key][$key2]=$val2"; 
-      else $this->post_in_get .= "&search_dd_input[$key]=$val";
-    } elseif ($_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) {
-      if (is_array($val)) foreach($val as $key2 => $val2) $this->post_in_get .= "&search_dd_input[$key][$key2]=$val2";
-      else $this->post_in_get .= "&search_dd_input[$key]=$val";
-    }
-    if (isset($_POST['EntsPerPage'])) $this->post_in_get .= '&EntsPerPage='. $_POST['EntsPerPage'];
-    elseif (isset($_GET['EntsPerPage'])) $this->post_in_get .= '&EntsPerPage='. $_GET['EntsPerPage'];
-
-    // Write back from $_GET[] to $_POST[]
-    if (!isset($_POST['search_input']) and $_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
-    if (!isset($_POST['search_dd_input']) and $_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) {
+    // Write Get to Post, for MF expects this for default values
+    if ($_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
+    if ($_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) {
       if (is_array($val)) foreach($val as $key2 => $val2) $_POST['search_dd_input'][$key][$key2] = $val2; 
       else $_POST['search_dd_input'][$key] = $val;
     }
-    if (isset($_POST['EntsPerPage'])) $_GET['EntsPerPage'] = $_POST['EntsPerPage'];
 
     $this->config['EntriesPerPage'] = 20;
   }
@@ -86,7 +73,7 @@ class MasterSearch2 {
     $arr['multiple'] = $multiple;
 
     $curr_pos = count($this->search_dropdown);
-    if ($default != '' and !isset($_POST["search_dd_input"][$curr_pos])) $_POST["search_dd_input"][$curr_pos] = $default;
+    if ($default != '' and !isset($_GET["search_dd_input"][$curr_pos])) $_GET["search_dd_input"][$curr_pos] = $default;
 
     array_push($this->search_dropdown, $arr);
   }
@@ -124,7 +111,13 @@ class MasterSearch2 {
     function PrintSearch($working_link, $select_id_field, $multiaction = '') {
     global $smarty, $db, $config, $dsp, $templ, $func, $auth, $line, $gd, $lang, $ms_number;
 
-    $working_link .= $this->post_in_get;
+    $UrlParas = explode('&', substr($working_link, strpos($working_link, '?') + 1, strlen($working_link)));
+    foreach ($UrlParas as $UrlPara) {
+      list($key, $val) = split('=', $UrlPara);
+      $this->HiddenGetFields[$key] .= $val;
+    }
+
+#    $working_link .= $this->post_in_get;
     $working_link .= '&ms_number='. $ms_number;
     $this->AddSelect($select_id_field); 
     $min_skipped_items = 99;
@@ -135,21 +128,21 @@ class MasterSearch2 {
     // Generate where from input fields
     $z = 0;
     if ($this->search_fields) foreach ($this->search_fields as $current_field_list) {
-      if ($_POST["search_input"][$z] != '') {
+      if ($_GET["search_input"][$z] != '') {
         $x = 0;
         $sql_one_search_field = '';
         if ($current_field_list['sql_fields']) foreach ($current_field_list['sql_fields'] as $sql_field => $compare_mode) {
           if ($x > 0) $sql_one_search_field .= ' OR ';
           switch ($compare_mode) {
             case 'exact':
-              $sql_one_search_field .= "($sql_field = '". $_POST["search_input"][$z] ."')";
+              $sql_one_search_field .= "($sql_field = '". $_GET["search_input"][$z] ."')";
             break;
             case 'fulltext':
-              $sql_one_search_field .= "(MATCH ($sql_field) AGAINST ('{$_POST["search_input"][$z]}' IN BOOLEAN MODE))";
-              $this->AddResultField($lang['ms2']['score'], "ROUND(MATCH ($sql_field) AGAINST ('{$_POST["search_input"][$z]}' IN BOOLEAN MODE), 3) AS score");
+              $sql_one_search_field .= "(MATCH ($sql_field) AGAINST ('{$_GET["search_input"][$z]}' IN BOOLEAN MODE))";
+              $this->AddResultField($lang['ms2']['score'], "ROUND(MATCH ($sql_field) AGAINST ('{$_GET["search_input"][$z]}' IN BOOLEAN MODE), 3) AS score");
             break;
             case '1337':
-                    $key_1337 = $_POST["search_input"][$z];
+                    $key_1337 = $_GET["search_input"][$z];
                     $key_1337 = str_replace ('?', '[?]', $key_1337);
                     $key_1337 = str_replace ('+', '[+]', $key_1337);
                     $key_1337 = str_replace ('*', '[*]', $key_1337);
@@ -178,7 +171,7 @@ class MasterSearch2 {
               $sql_one_search_field .= "($sql_field REGEXP '$key_1337')";
             break;
             default:
-              $sql_one_search_field .= "($sql_field LIKE '%". $_POST["search_input"][$z] ."%')";
+              $sql_one_search_field .= "($sql_field LIKE '%". $_GET["search_input"][$z] ."%')";
             break;
           }
           $x++;
@@ -191,10 +184,10 @@ class MasterSearch2 {
     // Generate additional where from dropdown fields 
     $z = 0;
     if ($this->search_dropdown) foreach ($this->search_dropdown as $current_field_list) {
-      if ($_POST["search_dd_input"][$z] != '') {
+      if ($_GET["search_dd_input"][$z] != '') {
         if ($current_field_list['sql_field'] != '') {
-          if (is_array($_POST["search_dd_input"][$z])) $values = $_POST["search_dd_input"][$z];
-          else $values = explode(',', $_POST["search_dd_input"][$z]);
+          if (is_array($_GET["search_dd_input"][$z])) $values = $_GET["search_dd_input"][$z];
+          else $values = explode(',', $_GET["search_dd_input"][$z]);
           
           $x = 0;
           $sql_one_search_field = '';
@@ -277,7 +270,7 @@ class MasterSearch2 {
     if ($this->query['order_by'] == '') $this->query['order_by'] = $select_id_field .' ASC';
     if ($this->query['order_by_end']) $this->query['order_by'] .= ', '. $this->query['order_by_end'];
 
-    if (isset($_GET['EntsPerPage'])) $this->config['EntriesPerPage'] = $_GET['EntsPerPage'];
+    if ($_GET['EntsPerPage'] != '') $this->config['EntriesPerPage'] = $_GET['EntsPerPage'];
 
     ###### Generate Limit
     if (!$this->config['EntriesPerPage']) $this->query['limit'] = '';
@@ -302,22 +295,25 @@ class MasterSearch2 {
       FROM {$this->query['from']}<br>
       WHERE {$this->query['where']}<br>
       GROUP BY {$this->query['group_by']}<br>
-      {$this->query['having']}<br>
+      {$this->query['having']}<br>*
       ORDER BY {$this->query['order_by']}<br>
       {$this->query['limit']}
       ";
 */
 
-    $smarty->assign('action', "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}");
+    $this->HiddenGetFields['order_by'] = $_GET['order_by'];
+    $this->HiddenGetFields['order_dir'] = $_GET['order_dir'];
+    $this->HiddenGetFields['EntsPerPage'] = $_GET['EntsPerPage'];
+    $smarty->assign('action', $working_link);
 
     ###### Generate Page-Links
     $count_rows = $db->query_first('SELECT FOUND_ROWS() AS count');
     if ($this->config['EntriesPerPage']) $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
 
     if ($this->config['EntriesPerPage'] and ($count_rows['count'] > $this->config['EntriesPerPage'])) {
-      $link = "$working_link&order_by={$_GET['order_by']}&order_dir={$_GET['order_dir']}&ms_page=";
+      $link = $_SERVER['QUERY_STRING'] .'&ms_page=';
       $pages = t('Seite') .': ';
-      $link_start = ' <a href="';
+      $link_start = ' <a href="index.php?';
       $link_end = '" onclick="loadPage(this.href); return false" class="menu">';
       // Previous page link
       if ((int)$_GET['ms_page'] > 0) {
@@ -339,7 +335,7 @@ class MasterSearch2 {
     $smarty->assign('EntsPerPage', $EntsPerPage);
     $smarty->assign('EntPerPage', $this->config['EntriesPerPage']);
     $smarty->assign('pages', $pages);
-
+    $smarty->assign('EntPerPageAction', $working_link);
 
     ###### Output Search
     // Text Inputs
@@ -349,7 +345,7 @@ class MasterSearch2 {
       $arr = array();
       $arr['type'] = 'text';
       $arr['name'] = "search_input[$z]";
-      $arr['value'] = $_POST['search_input'][$z];
+      $arr['value'] = $_GET['search_input'][$z];
       $arr['caption'] = $current_field['caption'];      
       if ($current_field['sql_fields']) foreach ($current_field['sql_fields'] as $compare_mode) if ($compare_mode == 'fulltext') {
         $arr['helpletId'] = 'fulltext';
@@ -368,7 +364,7 @@ class MasterSearch2 {
       $arr['name'] = "search_dd_input[$z]";
       $arr['caption'] = $current_field['caption'];
       $arr['options'] = $current_field['selections'];
-      $arr['selected'] = $_POST['search_dd_input'][$z];
+      $arr['selected'] = $_GET['search_dd_input'][$z];
 
       $arr['multiple'] = '';
       if ($current_field['multiple']) {
@@ -389,8 +385,18 @@ class MasterSearch2 {
 
     if ($this->search_fields or $this->search_dropdown) {
       $smarty->assign('SearchInputs', $SearchInputs);
+      $smarty->assign('HiddenGetFields', $this->HiddenGetFields);
       $dsp->AddLineTplSmarty($smarty->fetch('modules/mastersearch2/templates/search_case.htm'));
     }
+
+    // Hidden Fields for EntPerPage Box
+    $this->HiddenGetFields = array();
+    $UrlParas = explode('&', $_SERVER['QUERY_STRING']);
+    foreach ($UrlParas as $UrlPara) {
+      list($key, $val) = split('=', $UrlPara);
+      if ($key != 'ms_page') if (!array_key_exists(urldecode($key), $this->HiddenGetFields)) $this->HiddenGetFields[urldecode($key)] .= urldecode($val);
+    }
+    $smarty->assign('HiddenGetFields', $this->HiddenGetFields);
 
     ###### Output Result
     // When no Items were found
@@ -430,7 +436,7 @@ class MasterSearch2 {
         $arr = array();       
         if ($current_field['caption']) {
           $arr['entry'] = $current_field['caption'];
-          $arr['link'] = "$working_link&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
+          $arr['link'] = 'index.php?'. $_SERVER['QUERY_STRING'] ."&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
 
           if ($_GET['order_by'] == $current_field['sql_field']) {
             if ($order_dir == 'DESC') $arr['entry'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
