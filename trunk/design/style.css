@@ -169,7 +169,7 @@ div.Button a {
   width: 140px;
   margin: 2px 0px 2px 0px;    padding: 2px 6px 2px 6px;
   text-align: center;
-    background: #bbbbbb;
+  background: #bbbbbb;
   font-weight: bold;
   display: block;
 }
@@ -177,7 +177,7 @@ div.Button a:hover {
   width: 140px;
   margin: 2px 0px 2px 0px;    padding: 2px 6px 2px 6px;
   text-align: center;
-    background: #999999;    color: #ffffff;
+  background: #999999;    color: #ffffff;
   font-weight: bold;
   text-decoration: none;
   display: block;
@@ -252,6 +252,10 @@ input.checkbox {
   margin: 0px 4px 0px 0px;   border: 0px 0px 0px 0px;   padding: 0px 0px 0px 0px;
   background: #eeeeee;   color: #eeeeee;
 }
+input[type=checkbox] {
+  border: 0px;
+  background-color: transparent;
+}
 /*
 input[type=text] {
   width: 100%;
@@ -276,6 +280,16 @@ option[value=es]:before { content:url("../images/icon_es.png"); }
 option[value=fr]:before { content:url("../images/icon_fr.png"); }
 option[value=nl]:before { content:url("../images/icon_nl.png"); }
 option[value=it]:before { content:url("../images/icon_it.png"); }
+
+input.yes_button {
+  margin: 0px; border: 0px; padding: 0px;
+  width: 20px; height: 20px;
+  background-color: transparent; background-image: url("design/images/icon_yes.png");
+  cursor: pointer;
+}
+form {
+  margin: 0px; border: 0px; padding: 0px;
+}
 
 
 /* Links */

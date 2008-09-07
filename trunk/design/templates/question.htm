@@ -1,8 +1,10 @@
 <ul class="Line">
   <li class="Information">
+    <form name="question" method="post" action="{$action}">
     <b>Frage:</b>
-    <br />{$templ['question']['info']['questionmsg']}
     <br />
-    <br />{$templ['question']['control']['link']['yes']} {$templ['question']['control']['link']['no']}
+    <br /><input type="checkbox" id="confirmed" name="confirmed" /> <label for="confirmed">{$question}</label>
+    <br />
+    <br /><input type="submit" class="yes_button" name="Send" alt="Send" value=""> (Senden) {$no} (Abbrechen)
   </li>
 </ul>
