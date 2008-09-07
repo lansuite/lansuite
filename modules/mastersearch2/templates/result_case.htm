@@ -60,7 +60,10 @@ MultiSelectSecurityQuest = new Array({$security_questions});
 {/if}
 
 </form>
-<form name="MSEntsPerPage2" method="post" action="{$action}">
+<form name="MSEntsPerPage" method="get" action="{$EntPerPageAction}">
+{foreach from=$HiddenGetFields key=k item=v}
+  <input type="hidden" name="{$k}" value="{$v}" />
+{/foreach}
 <div class="content_head" style="text-align:right">
   {$pages}
   <select name="EntsPerPage" onchange="this.form.submit();">
