@@ -15,7 +15,7 @@
 		<action>cat</action>
 		<file>cat</file>
 		<caption>Kategorie</caption>
-		<hint>Neue Kategorie hinzufügen oder &auml;ndern</hint>
+		<hint>Neue Kategorie hinzufügen oder ändern</hint>
 		<link>?mod=troubleticket&amp;action=cat</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
@@ -24,8 +24,8 @@
 	<entry>
 		<action>add</action>
 		<file>add</file>
-		<caption>Hinzuf&uuml;gen</caption>
-		<hint>Ein Troubleticket hinzuf&uuml;gen</hint>
+		<caption>Hinzufügen</caption>
+		<hint>Ein Troubleticket hinzufügen</hint>
 		<link>?mod=troubleticket&amp;action=add</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>

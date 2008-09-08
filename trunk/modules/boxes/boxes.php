@@ -69,7 +69,7 @@ include_once('modules/boxes/class_boxes.php');
             elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $menu->get_menu_items();
             if ($menu->box->box_rows) $MenuActive = 1;            
         } else {
-            $box = new boxes();            
+            $box = new boxes();
             // Generate Funktionboxes
             if (!$siteblock or $BoxRow['source'] == 'login') {
               // Load file

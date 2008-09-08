@@ -35,7 +35,7 @@
 		<action>trash</action>
 		<file>trashcan</file>
 		<caption>Papierkorb</caption>
-		<hint>Hier finden sie Ihre gel&ouml;schten Mails</hint>
+		<hint>Hier finden sie Ihre gelöschten Mails</hint>
 		<link>?mod=mail&amp;action=trash</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>

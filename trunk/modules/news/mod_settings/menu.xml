@@ -14,7 +14,7 @@
 		<action>search</action>
 		<file>search</file>
 		<caption>Suchen</caption>
-		<hint>Hier k&ouml;nnen Sie nach News-Meldungen suchen</hint>
+		<hint>Hier können Sie nach News-Meldungen suchen</hint>
 		<link>?mod=news&amp;action=search</link>
 		<requirement>0</requirement>
 		<level>1</level>
@@ -23,7 +23,7 @@
 		<action>archive</action>
 		<file>show</file>
 		<caption>Archiv</caption>
-		<hint>Hier k&ouml;nnen Sie &auml;ltere News-Meldungen anschauen</hint>
+		<hint>Hier können Sie ältere News-Meldungen anschauen</hint>
 		<link>?mod=news&amp;action=show&amp;subaction=archive</link>
 		<requirement>0</requirement>
 		<level>1</level>

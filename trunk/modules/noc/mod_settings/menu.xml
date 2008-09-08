@@ -14,7 +14,7 @@
 	<entry>
 		<action>add_device</action>
 		<file>device_add</file>
-		<caption>Device Hinzuf&uuml;gen</caption>
+		<caption>Device Hinzufügen</caption>
 		<hint></hint>
 		<link>?mod=noc&amp;action=add_device</link>
 		<requirement>2</requirement>
