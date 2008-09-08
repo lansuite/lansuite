@@ -53,7 +53,7 @@ function GetSite($url) {
 
 
 function AddSignonStatus($lsurl, $show_history = 0) {
-  global $xml, $dsp, $HTTPHeader;
+  global $xml, $dsp, $HTTPHeader, $party;
 
   if (substr($lsurl, strlen($lsurl) - 1, 1) != '/') $lsurl .= '/';
   if (substr($lsurl, 0, 7) != 'http://') $lsurl = 'http://'. $lsurl;
@@ -79,18 +79,18 @@ function AddSignonStatus($lsurl, $show_history = 0) {
       $partys = $xml->get_tag_content_array('party', $content);
       $ret = '';
       if (!$partys) return t('Noch keine Party angelegt');
-      else foreach ($partys as $party) {
-        $partyid = $xml->get_tag_content('partyid', $party);
-        $partyname = $xml->get_tag_content('name', $party);
-        $max_guest = $xml->get_tag_content('max_guest', $party);
-        $ort = $xml->get_tag_content('ort', $party);
-        $plz = $xml->get_tag_content('plz', $party);
-  #     $startdate = $xml->get_tag_content('startdate', $party);
-  #     $enddate = $xml->get_tag_content('enddate', $party);
-  #     $sstartdate = $xml->get_tag_content('sstartdate', $party);
-  #     $senddate = $xml->get_tag_content('senddate', $party);
-        $registered = $xml->get_tag_content('registered', $party);
-        $paid = $xml->get_tag_content('paid', $party);
+      else foreach ($partys as $p) {
+        $partyid = $xml->get_tag_content('partyid', $p);
+        $partyname = $xml->get_tag_content('name', $p);
+        $max_guest = $xml->get_tag_content('max_guest', $p);
+        $ort = $xml->get_tag_content('ort', $p);
+        $plz = $xml->get_tag_content('plz', $p);
+  #     $startdate = $xml->get_tag_content('startdate', $p);
+  #     $enddate = $xml->get_tag_content('enddate', $p);
+  #     $sstartdate = $xml->get_tag_content('sstartdate', $p);
+  #     $senddate = $xml->get_tag_content('senddate', $p);
+        $registered = $xml->get_tag_content('registered', $p);
+        $paid = $xml->get_tag_content('paid', $p);
 
         # Overview
         if (!$_GET['partyid'] and $current_party == $partyid) $ret .= $party->CreateSignonBar($registered, $paid, $max_guest).'Max.: '.$max_guest;
