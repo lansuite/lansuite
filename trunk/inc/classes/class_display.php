@@ -105,9 +105,9 @@ class display {
 
   // Writes the headline of a page
   function NewContent($caption, $text = NULL, $helplet_id = 'help') {
-    global $smarty;
+    global $smarty, $language;
 
-    $smarty->assign('helplet_id', $helplet_id);
+    if (file_exists('modules/'. $_GET['mod'] .'/docu/'. $language .'_'. $helplet_id .'.php')) $smarty->assign('helplet_id', $helplet_id);
     $smarty->assign('mod', $_GET['mod']);
     $smarty->assign('caption', $caption);
     $smarty->assign('text', $text);
