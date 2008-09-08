@@ -11,9 +11,11 @@ class Import {
     global $db;
 
     // Get Array of installed tables
-		$res = $db->qry('SHOW TABLES');
-		while ($row = $db->fetch_array($res)) array_push($this->installed_tables, $row[0]); 
-		$db->free_result($res);
+    if ($db->success) {
+  		$res = $db->qry('SHOW TABLES');
+  		while ($row = $db->fetch_array($res)) array_push($this->installed_tables, $row[0]); 
+  		$db->free_result($res);
+  	}
   }
 
 	function GetUploadFileType($usr_file_name){
@@ -281,6 +283,7 @@ class Import {
           }
   				if ($reference) {
   				  list ($reference_table, $reference_key) = split('\\.', $reference);
+
   				  $row = $db->qry_first('SELECT 1 AS found FROM %prefix%references WHERE
   				    pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string% AND foreign_condition = %string%',
               $reference_table, $reference_key, $table_name, $name, $reference_condition);
