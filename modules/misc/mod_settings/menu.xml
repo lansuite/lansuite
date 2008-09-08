@@ -32,6 +32,16 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>sessions</action>
+		<file>sessions</file>
+		<caption>Sessions</caption>
+		<hint></hint>
+		<link>?mod=misc&amp;action=sessions</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
 		<action>ip_block</action>
 		<file>ip_block</file>
 		<caption>IP-Blacklist</caption>
