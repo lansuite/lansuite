@@ -194,7 +194,7 @@ class boxes {
         $smarty->assign('link_open_close', "index.php?box_action=change&amp;boxid=$boxid");
         // Open or closed Box
         if (!$_SESSION['box_'. $boxid .'_active']) $file = 'design/'. $auth['design'] .'/templates/box_case.htm';
-            else $file = 'design/'. $auth['design'] .'/templates/box_case_closed.htm';
+        else $file = 'design/'. $auth['design'] .'/templates/box_case_closed.htm';
         $out = $smarty->fetch($file);
         return $out;
         
