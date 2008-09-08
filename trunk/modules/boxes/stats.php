@@ -20,9 +20,9 @@ $avg = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %pre
   WHERE DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 HOUR), '%Y-%m-%d %H:00:00')
 	");
 $box->DotRow(t('Besucher').':');
-$box->EngangedRow('<div class="infolink" style="display:inline">'. $total['visits'] .'<span class="infobox">'. t('Besucher insgesamt') .'</span></div>&nbsp;<div id="infobox" style="display:inline">('. $avg['visits'] .')<span class="infobox">'. t('Besucher in der letzten Stunde') .'</span></div>');
+$box->EngangedRow('<span class="infolink">'. $total['visits'] .'<span class="infobox">'. t('Besucher insgesamt') .'</span></span>&nbsp;<span class="infolink">('. $avg['visits'] .')<span class="infobox">'. t('Besucher in der letzten Stunde') .'</span></span>');
 $box->DotRow(t('Aufrufe').':');
-$box->EngangedRow('<div class="infolink" style="display:inline">'. $total['hits'] .'<span class="infobox">'. t('Seitenzugriffe insgesamt') .'</span></div>&nbsp;<div id="infobox" style="display:inline">('. $avg['hits'] .')<span class="infobox">'. t('Seitenzugriffe in der letzten Stunde') .'</span></div>');
+$box->EngangedRow('<span class="infolink">'. $total['hits'] .'<span class="infobox">'. t('Seitenzugriffe insgesamt') .'</span></span>&nbsp;<span class="infolink">('. $avg['hits'] .')<span class="infobox">'. t('Seitenzugriffe in der letzten Stunde') .'</span></span>');
 
 // Get list of users currently online
 $user_online = $db->qry("SELECT SQL_CALC_FOUND_ROWS user.username, user.userid
