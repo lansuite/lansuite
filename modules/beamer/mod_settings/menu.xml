@@ -16,7 +16,7 @@
 		<caption>Inhalte verwalten</caption>
 		<action>content</action>
 		<file>beamer_index</file>
-		<hint>Beamerinhalte hinzufügen, bearbeiten und löschen</hint>
+		<hint>Beamerinhalte hinzufÃ¼gen, bearbeiten und lÃ¶schen</hint>
 		<link>?mod=beamer&amp;action=content</link>
 		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>

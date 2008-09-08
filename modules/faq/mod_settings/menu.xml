@@ -5,7 +5,7 @@
 		<action>default</action>
 		<file>show</file>
 		<caption>FAQ</caption>
-		<hint>FAQ ist englisch und bedeutet Frequently-Asked-Questions was soviel hei&szlig;t wie h&auml;ufig gestellte Fragen</hint>
+		<hint>FAQ ist englisch und bedeutet Frequently-Asked-Questions was soviel hei&szlig;t wie häufig gestellte Fragen</hint>
 		<link>?mod=faq</link>
 		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>
@@ -22,7 +22,7 @@
 	<entry>
 		<action>add_item</action>
 		<file>add_item</file>
-		<caption>Frage Hinzuf&uuml;gen</caption>
+		<caption>Frage Hinzufügen</caption>
 		<hint>Eine neue Frage mit Lösung in die FAQ einstellen</hint>
 		<link>?mod=faq&amp;object=item&action=add_item</link>
 		<requirement>2</requirement>
@@ -32,7 +32,7 @@
 	<entry>
 		<action>add_cat</action>
 		<file>add_cat</file>
-		<caption>Kategorie Hinzuf&uuml;gen</caption>
+		<caption>Kategorie Hinzufügen</caption>
 		<hint>Eine neue Kategorie definieren, um die Fragen ordnen zu können</hint>
 		<link>?mod=faq&amp;object=cat&amp;action=add_cat</link>
 		<requirement>2</requirement>
@@ -42,7 +42,7 @@
 	<entry>
 		<action>change_item</action>
 		<file>change_item</file>
-		<caption>Frage/Kategorie &auml;ndern</caption>
+		<caption>Frage/Kategorie ändern</caption>
 		<hint>Eine Frage oder Kategorie abändern</hint>
 		<link>?mod=faq&amp;object=item&amp;action=change_item</link>
 		<requirement>2</requirement>
@@ -52,7 +52,7 @@
 	<entry>
 		<action>delete_cat</action>
 		<file>delete_cat</file>
-		<caption>Frage/Kategorie l&ouml;schen</caption>
+		<caption>Frage/Kategorie löschen</caption>
 		<hint>Eine Frage oder Kategorie entfernen</hint>
 		<link>?mod=faq&amp;object=cat&amp;action=delete_cat</link>
 		<requirement>3</requirement>

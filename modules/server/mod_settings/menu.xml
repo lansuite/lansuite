@@ -14,7 +14,7 @@
 	<entry>
 		<action>add</action>
 		<file>add</file>
-		<caption>Hinzuf&uuml;gen</caption>
+		<caption>Hinzufügen</caption>
 		<hint></hint>
 		<link>?mod=server&amp;action=add</link>
 		<requirement>1</requirement>

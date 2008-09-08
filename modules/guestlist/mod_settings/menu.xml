@@ -4,7 +4,7 @@
 	<entry>
 		<action>default</action>
 		<file>guestlist</file>
-		<caption>G&auml;steliste</caption>
+		<caption>Gästeliste</caption>
 		<hint></hint>
 		<link>?mod=guestlist&amp;action=guestlist</link>
 		<requirement>0</requirement>

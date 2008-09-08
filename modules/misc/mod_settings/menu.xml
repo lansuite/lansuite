@@ -45,7 +45,7 @@
 		<action>ip_block</action>
 		<file>ip_block</file>
 		<caption>IP-Blacklist</caption>
-		<hint>Hier k&ouml;nnen Sie IP blocken</hint>
+		<hint>Hier können Sie IP blocken</hint>
 		<link>?mod=misc&amp;action=ip_block</link>
 		<requirement>3</requirement>
 		<needed_config></needed_config>

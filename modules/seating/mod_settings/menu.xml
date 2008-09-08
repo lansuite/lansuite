@@ -5,7 +5,7 @@
 		<action>default</action>
 		<file>show</file>
 		<caption>Sitzplan</caption>
-		<hint>Hier k&ouml;nnen Sie alle Sitzbl&ouml;cke anzeigen</hint>
+		<hint>Hier können Sie alle Sitzblöcke anzeigen</hint>
 		<link>?mod=seating</link>
 		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>
@@ -14,8 +14,8 @@
 	<entry>
 		<action>add</action>
 		<file>edit</file>
-		<caption>Hinzuf&uuml;gen</caption>
-		<hint>Hier k&ouml;nnen Sie einen Sitzblock hinzuf&uuml;gen</hint>
+		<caption>Hinzufügen</caption>
+		<hint>Hier können Sie einen Sitzblock hinzufügen</hint>
 		<link>?mod=seating&amp;action=add</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
@@ -25,7 +25,7 @@
 		<action>seatadmin</action>
 		<file>seatadmin</file>
 		<caption>Platzverwaltung</caption>
-		<hint>Hier k&ouml;nnen Sie einzelnen Benutzern neue Sitzpl&auml;tze zuweisen</hint>
+		<hint>Hier können Sie einzelnen Benutzern neue Sitzplätze zuweisen</hint>
 		<link>?mod=seating&amp;action=seatadmin</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
