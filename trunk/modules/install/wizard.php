@@ -1,5 +1,6 @@
 <?php
 
+if ($_POST["resetdb"]) $db->success = 0;
 include_once('modules/install/class_install.php');
 $install = new Install();
 
@@ -153,7 +154,7 @@ switch ($_GET["step"]){
             }
             $output .= HTML_NEWLINE . HTML_NEWLINE;
 
-            if (($res == 1) || ($res == 3)){
+            if ($res == 1 or $res == 3){
                 $db->connect();
 
                 // Check for Updates
@@ -162,6 +163,8 @@ switch ($_GET["step"]){
 #               }
                 // Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
                 $install->CreateNewTables(0);
+                $output .= t('Die Tabellenstruktur wurde erfolgreich angepasst'). HTML_NEWLINE . HTML_NEWLINE;
+
                 // Read table-names from DB an save them in $config['tables']
                 $db->SetTableNames();
 
