@@ -78,7 +78,9 @@ switch($_GET["step"]) {
 
 
 	default:
-		$dsp->NewContent(t('Navigationsmenü verwalten'), '<font color="red">'. t('Hinweis: Verwenden Sie die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box'). HTML_NEWLINE .t('Hinweis2: Verwenden sie die Gruppen um in der URL mit dem Parameter &menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design') .'</font>');
+		$dsp->NewContent(t('Navigationsmenü verwalten'), '');
+		$dsp->AddDoubleRow("Hinweis MenüBox", "<font color=\"red\">".t("Verwenden Sie die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box")."</font>");
+		$dsp->AddDoubleRow("Hinweis Gruppen", "<font color=\"red\">".t("Verwenden sie die Gruppen um in der URL mit dem Parameter &menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design")."</font>");
 		$dsp->SetForm("index.php?mod=install&action=menu&step=10&onlyactive={$_GET["onlyactive"]}");
 
 		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&step=6&onlyactive={$_GET["onlyactive"]}\">".t('Navigation zurücksetzen')."</a>");

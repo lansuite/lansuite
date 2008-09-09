@@ -113,7 +113,7 @@ class framework {
   /**
    * Add JS-File for implementing in Header (as Sourcefile)
    *
-   * @param string JS-Codestring
+   * @param string Path to JS-File
    */
     function add_js_path($jspath) {
         $this->main_header_jsfiles .= "<script src=\"".$jspath."\" type=\"text/javascript\"></script>\n";
