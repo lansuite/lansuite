@@ -496,7 +496,7 @@ class display {
 
     ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
     ($optional)? $optional = "_optional" : $optional = '';
-    ($selected and $selected != "none")? $picpreview_init = $path."/".$selected :$picpreview_init = 'design/standard/images/index_transparency.gif';
+    ($selected and $selected != "none")? $picpreview_init = $path."/".$selected :$picpreview_init = 'design/images/transparent.png';
     $options = implode("", $file_out);
 
     $key = '<label for="'. $name .'">'. $key .'</label>';

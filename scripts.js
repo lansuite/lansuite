@@ -130,7 +130,8 @@ function LoadingToolTip(text) {
 //// Class Display ////
 
 function changepic(picname, obj) {
-  if (picname == "none" || picname == "") obj.src = "design/standard/images/index_transparency.gif";
+alert(picname.substr(picname.substr.length - 6, 6));
+  if (picname.substr(picname.substr.length - 6, 6) == "none" || picname == "") obj.src = "design/images/transparent.png";
   else obj.src = picname;
 }
 
