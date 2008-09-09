@@ -40,6 +40,17 @@
     if (!is_array($_GET)) $_GET = $HTTP_GET_VARS;
     if (!is_array($_COOKIE)) $_COOKIE = $HTTP_COOKIE_VARS;
 
+    // Base Functions (anything that doesnt belong elsewere)
+    include_once("inc/classes/class_func.php");
+    $func        = new func;
+
+    // Prevent XSS
+    foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $_GET[$key] = $func->NoHTML($_GET[$key]);
+    else foreach ($_GET[$key] as $key2 => $val2) $_GET[$key][$key2] = $func->NoHTML($_GET[$key][$key2]);
+    $_SERVER['REQUEST_URI'] = $func->NoHTML($_SERVER['REQUEST_URI']);
+    $_SERVER['HTTP_REFERER'] = $func->NoHTML($_SERVER['HTTP_REFERER']);
+    $_SERVER['QUERY_STRING'] = $func->NoHTML($_SERVER['QUERY_STRING']);
+
     // Save original Array
     if (get_magic_quotes_gpc()) {
         foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $__GET[$key] = stripslashes($_GET[$key]);
@@ -89,7 +100,6 @@
     include_once("inc/classes/class_translation.php");
     if (extension_loaded("mysqli")) include_once("inc/classes/class_db_mysqli.php");
     else include_once("inc/classes/class_db_mysql.php");
-    include_once("inc/classes/class_func.php");
     include_once("inc/classes/class_auth.php");
     include_once("inc/classes/class_xml.php");
     include_once("inc/classes/class_display.php");
@@ -107,7 +117,6 @@
 
 ### Initialize base classes
 
-    $func        = new func;             // Base Functions (anything that doesnt belong elsewere)
     $gd          = new gd;               // GD Functions (for graphical outputs)
     $dsp         = new display();        // Display Functions (to load the lansuite-templates)
     $mail        = new mail();           // Mail Functions (for sending mails to lansuite-users)
