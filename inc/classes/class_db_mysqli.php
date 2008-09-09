@@ -60,14 +60,14 @@ class db {
 
     // No INTO OUTFILE
     elseif (!strpos($query_test_string, 'into outfile') === false) $query_string = '___INTO OUTFILE_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
-      $query_start = microtime(true);
+      //$query_start = microtime(true);
       $this->querys_count++;
       $this->query_id = mysqli_query($GLOBALS['db_link_id'], $query_string);
       $this->sql_error = @mysqli_error($GLOBALS['db_link_id']);
       $this->count_query++;
-      $query_end = microtime(true);
+      // $query_end = microtime(true);
       if (!$this->query_id) $this->print_error($this->sql_error, $query_string);
-      $this->querys[] = array($query_string, round(($query_end-$query_start)*1000,4));
+      // $this->querys[] = array($query_string, round(($query_end-$query_start)*1000,4));
       return $this->query_id;
     }
 

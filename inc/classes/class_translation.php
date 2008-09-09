@@ -26,9 +26,6 @@ function t(/*$input, $parameter1, $parameter2....*/) {
     ### End prepare Functionparameters
 
     if ($input == '') return '';
-    
-    // var_dump($translation->get_calling_module());
-    
     $key = md5($input);
     $modul = $_GET['mod'];
     $trans_text = '';
@@ -36,7 +33,7 @@ function t(/*$input, $parameter1, $parameter2....*/) {
 
     if ($translation->lang_cache[$modul][$key] != '') {
         // Already in Memorycache ($this->lang_cache[key])
-        return $translation->ReplaceParameters($translation->lang_cache[$modul][$key], $parameters, $key);
+        $output = $translation->ReplaceParameters($translation->lang_cache[$modul][$key], $parameters, $key);
     } else {
         // Try to read from DB
         if ($translation->language == "de") {
@@ -52,6 +49,9 @@ function t(/*$input, $parameter1, $parameter2....*/) {
                 else $output = $translation->ReplaceParameters($input, $parameters, $key);
         }
     }
+    $output = str_replace("--lt--", "<", $output);
+    $output = str_replace("--gt--", ">", $output);
+    $output = str_replace("HTML_NEWLINE", "<br />", $output);
     return $output;
 }
 
@@ -251,6 +251,7 @@ class translation {
         if (is_array($xmldata)) {
             //var_dump($xmldata);
             foreach ($xmldata[$modul] as $id => $data) {
+                $data = $this->xml_change_ltgt($data);
                 //echo "<hr>";
                 //echo "ID:".$id."<br />\n";
                 //var_dump($data);
@@ -381,10 +382,30 @@ class translation {
    * @param string Variable 1 prior 
    * @param string Variable 2
    * @return string Output
+   * @access private 
    */
     function xml_var_merge($var1, $var2) {
         if ($var2 != "") $out = $var2;
         if ($var1 != "") $out = $var1; // no error, var2 is prior
+        return $out;
+    }
+
+  /**
+   * Just change -lt-/-gt- to </> in a given array
+   *
+   * @param array Array with XML-Textfields (en,de,etc) 
+   * @return array Clean Array with correkt <>
+   * @access private 
+   */
+    function xml_change_ltgt($textarray) {
+        // Helpfunction for Callback
+        if (!function_exists('tr_change')) { 
+            function tr_change($text) {
+                $text = str_replace("--lt--", "<", $text);
+    			$text = str_replace("--gt--", ">", $text);
+            }
+        }
+        $out = array_map("tr_change", $textarray);
         return $out;
     }
 
