@@ -18,11 +18,11 @@ else
 if (func::admin_exists() and $auth['type'] > 1 and $_GET["mod"] != 'install') {
 
     // Has at least someone access to this mod?
-    $permission = $db->query_first("SELECT 1 AS found FROM {$config['tables']['user_permissions']} WHERE module = '$mod'");
+    $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string%",$mod);
 
     // If so: Has the current user access to this mod?
     if ($permission['found']) {
-        $permission = $db->query_first("SELECT 1 AS found FROM {$config['tables']['user_permissions']} WHERE module = '$mod' AND userid = '{$auth['userid']}'");
+        $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string% AND userid = %int%", $mod, $auth['userid']);
 
         // If not: Set his rights to user-rights
         if (!$permission['found']) {
@@ -57,14 +57,14 @@ if (!$missing_fields and !$siteblock) {
             //// Load Mod-Config
             else {
                 // 1) Search $_GET['action'] in DB (field "action")
-                $menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (action = '{$_GET['action']}')");
+                $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = %string%)", $mod, $_GET['action']);
                 if ($menu['file'] != '') {
                     if ($authentication->authorized($menu['requirement']))
                         include_once ("modules/{$mod}/{$menu['file']}.php");
 
                     // 2) Search $_GET['action'] in DB (field "file")
                 } else {
-                    $menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (file = '{$_GET['action']}')");
+                    $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (file = %string%)", $mod, $_GET['action']);
                     if ($menu['file'] != '') {
                         if ($authentication->authorized($menu['requirement']))
                             include_once ("modules/{$mod}/{$menu['file']}.php");
@@ -76,7 +76,7 @@ if (!$missing_fields and !$siteblock) {
 
                         // 4) Search 'default'-Entry in DB
                     } else {
-                        $menu = $db->query_first("SELECT file, requirement FROM {$config['tables']['menu']} WHERE (module = '$mod') and (action = 'default')");
+                        $menu = $db->qry_first("SELECT file, requirement FROM %prefix%menu WHERE (module = %string%) and (action = 'default')",$mod);
                         if ($menu['file'] != '') {
                             if ($authentication->authorized($menu['requirement']))
                                 include_once ("modules/{$mod}/{$menu['file']}.php");
