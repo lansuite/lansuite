@@ -67,11 +67,11 @@ if (!$_GET['file']) {
 
   $dsp->AddDoubleRow("<b>Time</b>", "<b>Hits</b>");
 
-  $res = $db->query("SELECT DATE_FORMAT(time, '$group_by') AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits FROM {$config["tables"]["download_stats"]}
-    WHERE file = '{$_GET['file']}' AND DATE_FORMAT(time, '$where') = '{$_GET['timeframe']}'
-    GROUP BY DATE_FORMAT(time, '$group_by')
-    ORDER BY DATE_FORMAT(time, '$group_by')
-  ");
+  $res = $db->qry("SELECT DATE_FORMAT(time, %string% AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits FROM %prefix%download_stats
+    WHERE file = %string% AND DATE_FORMAT(time, %string%) = %string%
+    GROUP BY DATE_FORMAT(time, %string%)
+    ORDER BY DATE_FORMAT(time, %string%)
+  ", $group_by'), $_GET['file'], $where, $_GET['timeframe'], $group_by, $group_by);
   while ($row = $db->fetch_array($res)) {
     switch ($_GET['time']) {
       default: $out = $func->unixstamp2date($row['display_time'], 'year'); break;
@@ -85,10 +85,7 @@ if (!$_GET['file']) {
   $db->free_result($res);
 
   if ($where_back) {
-    $row_back = $db->query_first("SELECT DATE_FORMAT(time, '$where_back') AS back_time FROM {$config["tables"]["download_stats"]}
-      WHERE DATE_FORMAT(time, '$where') = '{$_GET['timeframe']}'");
+    $row_back = $db->qry_first("SELECT DATE_FORMAT(time, %string%) AS back_time FROM %prefix%download_stats
+      WHERE DATE_FORMAT(time, %string%) = %string%", $where_back, $where, $_GET['timeframe']);
     $dsp->AddBackButton('index.php?mod=downloads&action=stats&file='.$_GET['file'].'&time='. $back .'&timeframe='. $row_back['back_time']);
   } else $dsp->AddBackButton('index.php?mod=downloads&action=stats');
-}
-$dsp->AddContent();
-?>

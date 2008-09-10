@@ -54,10 +54,10 @@ switch ($_GET['time']) {
 }
 
 // Select max
-$res = $db->query("SELECT SUM(hits) AS hits FROM {$config["tables"]["download_stats"]}
-  WHERE file = '{$_GET['file']}' AND DATE_FORMAT(time, '$where') = '{$_GET['timeframe']}'
-  GROUP BY DATE_FORMAT(time, '$group_by')
-  ");
+$res = $db->qry("SELECT SUM(hits) AS hits FROM %prefix%download_stats
+  WHERE file = %string% AND DATE_FORMAT(time, %string%) = %string%
+  GROUP BY DATE_FORMAT(time, %string%)
+  ", $_GET['file'], $where, $_GET['timeframe'], $group_by);
 while ($row = $db->fetch_array($res)) {
   if ($row_max['hits'] < $row['hits']) $row_max['hits'] = $row['hits'];
 }
@@ -85,11 +85,11 @@ for ($y = 0; $y < 280; $y+= (280 / 14)) {
 
 
 // Select hits
-$res = $db->query("SELECT DATE_FORMAT(time, '$group_by') AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits FROM {$config["tables"]["download_stats"]}
-  WHERE file = '{$_GET['file']}' AND DATE_FORMAT(time, '$where') = '{$_GET['timeframe']}'
-  GROUP BY DATE_FORMAT(time, '$group_by')
-  ORDER BY DATE_FORMAT(time, '$group_by')
-");
+$res = $db->qry("SELECT DATE_FORMAT(time, %string%) AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits FROM %prefix%download_stats
+  WHERE file = %string% AND DATE_FORMAT(time, %string%) = %string%
+  GROUP BY DATE_FORMAT(time, %string%)
+  ORDER BY DATE_FORMAT(time, %string%)
+", $group_by, $_GET['file'], $where, $_GET['timeframe'], $group_by, $group_by);
 $X = 40;
 $Y = 280;
 $Y2 = 280;
@@ -108,5 +108,3 @@ while ($row = $db->fetch_array($res)) {
 $db->free_result($res);
 
 
-?>
-</svg>

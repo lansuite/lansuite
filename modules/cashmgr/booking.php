@@ -16,11 +16,11 @@ $mf->AddField('Betreff', 'comment');
 $mf->AddField('Betrag (bei Negativen, minus davor)', 'movement');
 
 $party_list = array();
-	$row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+	$row = $db->qry("SELECT party_id, name FROM %prefix%partys");
 	while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
 	
 $user_list = array('' => '(keine Auswahl)');
-	$row = $db->query("SELECT userid, username FROM {$config['tables']['user']}");
+	$row = $db->qry("SELECT userid, username FROM %prefix%user");
 	while($res = $db->fetch_array($row)) $user_list[$res['userid']] = $res['username'];
 
 $mf->AddField('Party', 'partyid', IS_SELECTION, $party_list);

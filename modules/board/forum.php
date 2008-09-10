@@ -3,9 +3,9 @@ function LastPostDetails($date) {
   global $db, $config, $line, $dsp, $templ;
 
   if ($date) {
-    $row = $db->query_first("SELECT p.userid, p.pid, p.tid, u.username FROM {$config['tables']['board_posts']} AS p
-      LEFT JOIN {$config['tables']['user']} AS u ON p.userid = u.userid
-      WHERE p.date = $date AND p.tid = {$line['tid']}");
+    $row = $db->qry_first("SELECT p.userid, p.pid, p.tid, u.username FROM %prefix%board_posts AS p
+      LEFT JOIN %prefix%user AS u ON p.userid = u.userid
+      WHERE p.date = %string% AND p.tid = %int%", $date, $line['tid']);
 
     $ret = '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&gotopid='. $row['pid'] .'#pid'. $row['pid'] .'" class="menu">'. date('d.m.y H:i', $date);
     if ($row['userid']) $ret .= '<br />'. $row['username'] .'</a> '. $dsp->FetchUserIcon($row['userid']);
@@ -60,7 +60,7 @@ function NewPosts($last_read) {
 }
 
 if ($_GET['fid'] != '') {
-  $row = $db->query_first("SELECT name, need_type, need_group FROM {$config["tables"]["board_forums"]} WHERE fid={$_GET["fid"]}");
+  $row = $db->qry_first("SELECT name, need_type, need_group FROM %prefix%board_forums WHERE fid=%int%", $_GET["fid"]);
   if ($row['need_type'] == 1 and $auth['login'] == 0) $new_thread = t('Sie müssen sich zuerst einloggen, um einen Thread in diesem Forum starten zu können');
   elseif ($row['need_group'] and $auth['group_id'] != $row['need_group']) $new_thread = t('Sie gehören nicht der richtigen Gruppe an, um einen Thread in diesem Forum starten zu können');
   else $new_thread = $dsp->FetchIcon("index.php?mod=board&action=thread&fid=". $_GET['fid'], "add");
@@ -88,7 +88,7 @@ switch($_GET['step']) {
 
   case 20:
     if ($auth['type'] >= 2) foreach ($_POST['action'] as $key => $val) {
-      $db->query_first("UPDATE {$config["tables"]["board_threads"]} SET fid = ". (int)$_GET['to_fid'] ." WHERE tid = ". (int)$key);
+      $db->qry_first("UPDATE %prefix%board_threads SET fid = %int% WHERE tid = %int%", $_GET['to_fid'], $key);
     }
   break;
   
@@ -214,11 +214,11 @@ if ($_GET['fid'] != '') $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("in
 // Bookmarks and Auto-Mail
 if ($_GET['fid'] and $auth['login']) {
 	if ($_GET["set_bm"]) {
-		$db->query_first("DELETE FROM {$config["tables"]["board_bookmark"]} WHERE fid = '{$_GET['fid']}' AND userid = '{$auth['userid']}'");
-		if ($_POST["check_bookmark"]) $db->query_first("INSERT INTO {$config["tables"]["board_bookmark"]} SET fid = '{$_GET['fid']}', userid = '{$auth['userid']}', email = '{$_POST["check_email"]}', sysemail = '{$_POST["check_sysemail"]}'");
+		$db->qry_first("DELETE FROM %prefix%board_bookmark WHERE fid = %int% AND userid = %int%", $_GET['fid'], $auth['userid']);
+		if ($_POST["check_bookmark"]) $db->qry_first("INSERT INTO %prefix%board_bookmark SET fid = %int% userid = %int% email = %string% sysemail = %string%", $_GET['fid']}, $auth['userid']}, $_POST["check_email"], $_POST["check_sysemail"]);
 	}
 
-	$bookmark = $db->query_first("SELECT 1 AS found, email, sysemail FROM {$config["tables"]["board_bookmark"]} WHERE fid = '". (int)$_GET['fid'] ."' AND userid = '{$auth['userid']}'");
+	$bookmark = $db->qry_first("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE fid = %int% AND userid = %int%", $_GET['fid'], $auth['userid']);
 	if ($bookmark["found"]) $_POST["check_bookmark"] = 1;
 	if ($bookmark["email"]) $_POST["check_email"] = 1;
 	if ($bookmark["sysemail"]) $_POST["check_sysemail"] = 1;
