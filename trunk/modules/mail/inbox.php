@@ -1,7 +1,7 @@
 <?php
 
-$mail_new_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active' AND des_status = 'new'");
-$mail_total = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["mail_messages"]} WHERE ToUserID = '{$auth['userid']}' AND mail_status = 'active'");
+$mail_new_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active' AND des_status = 'new'", $auth['userid']);
+$mail_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active'", $auth['userid']);
 $dsp->NewContent(t('Posteingang'), t('Sie haben <b>%1</b> Mail(s) empfangen. Davon sind <b>%2</b> ungelesen.', array($mail_total['n'], $mail_new_total['n'])));
 
 // if logged out

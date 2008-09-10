@@ -31,7 +31,7 @@ $ms2->query['where'] = "party.party_id = ". (int)$_GET['party_id'];
 $ms2->config['EntriesPerPage'] = 20;
 
 $party_list = array('' => 'Alle');
-$row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+$row = $db->qry("SELECT party_id, name FROM %prefix%partys");
 while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
 $db->free_result($row);
 $ms2->AddTextSearchDropDown('Party', 'p.party_id', $party_list, $party->party_id);

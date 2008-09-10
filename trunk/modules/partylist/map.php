@@ -7,7 +7,7 @@ else {
   $where_pid = '';
   if ($party->party_id) $where_pid = "AND (p.party_id = {$party->party_id})";
 
-  $res = $db->query("SELECT *, UNIX_TIMESTAMP(start) AS start, UNIX_TIMESTAMP(end) AS end FROM {$config['tables']['partylist']} AS p WHERE start > NOW()");
+  $res = $db->qry("SELECT *, UNIX_TIMESTAMP(start) AS start, UNIX_TIMESTAMP(end) AS end FROM %prefix%partylist AS p WHERE start > NOW()");
 
   $templ['addresses'] = '';
   while ($row = $db->fetch_array($res)) {

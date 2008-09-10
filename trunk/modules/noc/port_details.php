@@ -105,7 +105,7 @@ switch( $_GET["step"] ) {
 
 			if($noc->setSNMPValue( $device["ip"], $device["writecommunity"], ".1.3.6.1.2.1.2.2.1.7.{$port["portnr"]}", "i", $newstatus )){
 				
-				$db->query_first("UPDATE {$config["tables"]["noc_ports"]} SET adminstatus='$statusdb' WHERE portid=" . $_GET["portid"]);
+				$db->qry_first("UPDATE %prefix%noc_ports SET adminstatus=%string% WHERE portid=%int%", $statusdb, $_GET["portid"]);
 			
 				$func->confirmation(t('Der Portstatus wurde ge&auml;ndert'), "index.php?mod=noc&action=port_details&portid={$_GET["portid"]}");
 			}else{

@@ -20,7 +20,7 @@ $mf->AddField(t('Preis'), 'price');
 #$mf->AddField(t('Depotpreis (Leer lassen, wenn es kein Depot gibt.)'), 'depot_price');
 
 $selections = array();
-$res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
+$res = $db->qry("SELECT * FROM %prefix%party_usergroups");
 while ($row = $db->fetch_array($res)) {
   $selections[$row['group_id']] = $row['group_name'];
 }

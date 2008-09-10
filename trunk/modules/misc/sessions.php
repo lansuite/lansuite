@@ -12,8 +12,8 @@ switch($_GET["step"]){
     $ms2->query['default_order_by'] = 'a.lasthit DESC';
 
     $list = array('' => t('Alle'), '0' => t('System'));
-    $res = $db->query("SELECT l.userid, u.username FROM {$config['tables']['log']} AS l
-      LEFT JOIN {$config["tables"]["user"]} AS u ON u.userid = l.userid
+    $res = $db->qry("SELECT l.userid, u.username FROM %prefix%log AS l
+      LEFT JOIN %prefix%user AS u ON u.userid = l.userid
       GROUP BY l.userid");
     while($row = $db->fetch_array($res)) if($row['userid']) $list[$row['userid']] = $row['username'];
     $db->free_result($res);

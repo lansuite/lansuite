@@ -3,9 +3,9 @@
 if ($_GET['step'] == 2 and $_POST['text'] != '') {
 	$time = time();
 
-	$insert = $db->query("INSERT INTO	{$config['tables']['messages']}
-    SET text='{$_POST['text']}', timestamp='$time', new='1', senderid='{$auth['userid']}', receiverid='{$_GET['queryid']}'
-    ");
+	$insert = $db->qry("INSERT INTO %prefix%messages
+    SET text=%string%, timestamp=%string%, new='1', senderid=%int%, receiverid=%int%
+    ", $_POST['text'], $time, $auth['userid'], $_GET['queryid']);
 }
 
 /*

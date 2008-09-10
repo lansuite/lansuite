@@ -69,7 +69,7 @@ switch( $_GET["step"] ) {
 		
 	case 2:	
 	
-		$db->query("SELECT * FROM {$config["tables"]["noc_devices"]} WHERE id=" . $_GET["deviceid"]);
+		$db->qry("SELECT * FROM %prefix%noc_devices WHERE id = %int%", $_GET["deviceid"]);
 		
 		if( $row = $db->fetch_array() ) {
 	
@@ -125,12 +125,12 @@ switch( $_GET["step"] ) {
 		// ------------------------------------------------------------------------------------------
 	
 		// U p d a t e it, not delete and reinsert it.
-		$add_query = $db->query("UPDATE {$config["tables"]["noc_devices"]} SET
-			    		name = '{$_POST['device_caption']}',
-			    		ip = '{$_POST['device_ip']}',
-			    		readcommunity = '{$_POST['device_read']}',
-			    		writecommunity = '{$_POST['device_write']}'
-			    		WHERE id=" . $_GET["deviceid"]);
+		$add_query = $db->qry("UPDATE %prefix%noc_devices SET
+         name = %string%,
+         ip = %string%,
+         readcommunity = %string%,
+         writecommunity = %string%
+         WHERE id = %int%", $_POST['device_caption'], $_POST['device_ip'], $_POST['device_read'], $_POST['device_write'], $_GET["deviceid"]);
 		
 		If( $add_query == 1 ) { 
 		

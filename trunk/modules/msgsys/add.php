@@ -20,33 +20,33 @@ case 2:
 		foreach( $user as $buddyid ) {
 
 			// User already in list ?
-			$existsinthelist = $db->query("
-			SELECT 		id
-			FROM		{$config[tables][buddys]}
-			WHERE		userid ='{$_SESSION[auth][userid]}'
-			AND		buddyid ='$buddyid'
-			");
+			$existsinthelist = $db->qry("
+   SELECT   id
+   FROM  %prefix%buddys
+   WHERE  userid =%int%
+   AND  buddyid =%int%
+   ", $_SESSION[auth][userid], $buddyid);
 
 			if($db->num_rows() != "0") {
 				$user_exist_in_the_list = 1;
 			}
 
 			// Does the user exist ?
-			$exist = $db->query("
-			SELECT 		userid
-			FROM		{$config[tables][user]}
-			WHERE		userid ='$buddyid'
-			");
+			$exist = $db->qry("
+   SELECT   userid
+   FROM  %prefix%user
+   WHERE  userid =%int%
+   ", $buddyid);
 			if($db->num_rows() != "0") {
 				$user_exist = 1;
 			}
 
 			// Too many users in the list ?
-			$num = $db->query("
-			SELECT 		id
-			FROM		{$config[tables][buddys]}
-			WHERE		userid ='{$_SESSION[auth][userid]}'
-			");
+			$num = $db->qry("
+   SELECT   id
+   FROM  %prefix%buddys
+   WHERE  userid =%int%
+   ", $_SESSION[auth][userid]);
 			$user_num = $db->num_rows();
 			if($user_num >= $config[size][buddies]) {
 				$to_many_users = 1;
@@ -57,20 +57,20 @@ case 2:
 			$i_am_the_user = 1;
 
 			// Get name
-     	$name = $db->query_first("
-     	SELECT 		username, firstname, name
-     	FROM		{$config[tables][user]}
-     	WHERE		userid = '$buddyid'
-     	");
+     	$name = $db->qry_first("
+      SELECT   username, firstname, name
+      FROM  %prefix%user
+      WHERE  userid = %int%
+      ", $buddyid);
 
 			// If the user isn't in the list
 			if($user_exist_in_the_list != 1 && $user_exist == 1 && $to_many_users != 1 && $i_am_the_user != 1)
 			{
 
-	          		$insert = $db->query("
-	          		INSERT INTO	{$config[tables][buddys]}
-	          		SET 		userid = '{$_SESSION[auth][userid]}', buddyid = '$buddyid'
-	          		");
+	          		$insert = $db->qry("
+             INSERT INTO %prefix%buddys
+             SET   userid = %int%, buddyid = %int%
+             ", $_SESSION[auth][userid], $buddyid);
 
 				if($insert == TRUE){
 					if($cfg['sys_internet'] == 0){

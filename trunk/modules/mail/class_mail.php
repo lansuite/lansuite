@@ -16,15 +16,8 @@ class Mail {
 			return false;
 		}
 
-		$c_mail = $db->query("INSERT INTO {$config["tables"]["mail_messages"]} SET
-				mail_status = 'active',
-				des_status 	= 'new',
-				fromUserID 	= ". (int)$from_userid .",
-				toUserID 	= ". (int)$to_userid .",
-				Subject		= '". $func->escape_sql($subject_text) ."',
-				msgbody		= '". $func->escape_sql($msgbody_text) ."',
-				tx_date		= NOW()
-				");
+		$c_mail = $db->qry("INSERT INTO %prefix%mail_messages SET mail_status = 'active', des_status = 'new', fromUserID = %int%, toUserID = %int%, Subject= %string%, msgbody= %string%, tx_date= NOW()",
+  $from_userid, $to_userid, $subject_text, $msgbody_text);
 		$this->error = 'OK';
 		
 		// Send Info-Mail to receiver

@@ -42,7 +42,7 @@ switch ($_GET['step']) {
     $ms2->config['EntriesPerPage'] = 50;
 
     $selections = array('' => t('Alle'));
-    $res = $db->query("SELECT file FROM {$config['tables']['translation']} GROUP BY file");
+    $res = $db->qry("SELECT file FROM %prefix%translation GROUP BY file");
     while($row = $db->fetch_array($res)) $selections[$row['file']] = $row['file'];
     $db->free_result($res);
     $ms2->AddTextSearchDropDown(t('Fundstelle'), 'file', $selections);
@@ -99,10 +99,10 @@ switch ($_GET['step']) {
 
       // Delete entries, which no do no longer exist
       $output = '';
-      $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file != 'DB'");
+      $res = $db->qry("SELECT id, org, file FROM %prefix%translation WHERE file != 'DB'");
       while($row = $db->fetch_array($res)) {
         if (!in_array($row['file'].'+'.$row['id'], $FoundTransEntries)) {
-          $db->query("UPDATE {$config['tables']['translation']} SET obsolete='1' WHERE id = '{$row['id']}'");
+          $db->qry("UPDATE %prefix%translation SET obsolete='1' WHERE id = %int%", $row['id']);
           $output .= '<font color="#ff0000">'. $row['file'] .': '. $row['org'] .'</font><br />';
         }
       }
@@ -120,7 +120,7 @@ switch ($_GET['step']) {
 
       // For info output DB internal
       $output = '';
-      $res = $db->query("SELECT id, org, file FROM {$config['tables']['translation']} WHERE file = 'DB'");
+      $res = $db->qry("SELECT id, org, file FROM %prefix%translation WHERE file = 'DB'");
       while($row = $db->fetch_array($res)) $output .= $row['file'] .': '. $row['org'] .'<br />';
       $db->free_result($res);
       $dsp->AddFieldSetStart(t('DB-Internal'));
@@ -145,7 +145,7 @@ switch ($_GET['step']) {
         if ($_SESSION['target_language'] == '') $_SESSION['target_language'] = 'en';
         $dsp->SetForm('index.php?mod=misc&action=translation&step=20&file='.$_GET['file']);
         $list = array();
-        $res = $db->query("SELECT cfg_value, cfg_display FROM {$config["tables"]["config_selections"]} WHERE cfg_key = 'language'");
+        $res = $db->qry("SELECT cfg_value, cfg_display FROM %prefix%config_selections WHERE cfg_key = 'language'");
         while($row = $db->fetch_array($res)) {
           ($_SESSION['target_language'] == $row['cfg_value'])? $selected = 'selected' : $selected = '';
           $list[] = "<option $selected value='{$row['cfg_value']}'>{$row['cfg_display']}</option>";
@@ -162,7 +162,7 @@ switch ($_GET['step']) {
     // Start Tanslation
     $dsp->AddFieldSetStart(t('Texte editieren.'));
         $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
-        $res = $db->query("SELECT DISTINCT id, org, file, {$_SESSION['target_language']} FROM {$config['tables']['translation']} WHERE file = '{$_GET['file']}'");
+        $res = $db->qry("SELECT DISTINCT id, org, file, %plain% FROM %prefix%translation WHERE file = %string%", $_SESSION['target_language'], $_GET['file']);
         while($row = $db->fetch_array($res)) {
             $trans_link_google ="http://translate.google.com/translate_t?langpair=de|".$_SESSION['target_language']."&hl=de&ie=UTF8&text=".$row['org'];
             $trans_link_google =" <a href=\"".$trans_link_google."\" target=\"_blank\"><img src=\"design/".$auth['design']."/images/arrows_transl.gif\" width=\"12\" height=\"13\" border=\"0\" /></a>";
@@ -184,7 +184,7 @@ switch ($_GET['step']) {
   // Translate Module - DB Insert
   case 21:
     foreach($_POST['id'] as $key => $value)
-      $db->query("UPDATE {$config['tables']['translation']} SET {$_SESSION['target_language']} = '$value' WHERE file = '{$_GET['file']}' AND id = '$key'");
+      $db->qry("UPDATE %prefix%translation SET %plain% = %string% WHERE file = %string% AND id = %string%", $_SESSION['target_language'], $value, $_GET['file'], $key);
 
     $func->confirmation('Module-Übersetzung wurde erfolgreich upgedatet');
   break;
@@ -226,7 +226,7 @@ switch ($_GET['step']) {
                             'index.php?mod=misc&action=translation');
       } else {
           $modules = array();
-          $res = $db->query("SELECT name FROM {$config["tables"]["modules"]}");
+          $res = $db->qry("SELECT name FROM %prefix%modules");
           while($row = $db->fetch_array($res)) $modules[] = $row['name'];
           $db->free_result($res); 
           // Add Systemtranslations
@@ -248,7 +248,7 @@ switch ($_GET['step']) {
                             'index.php?mod=misc&action=translation');
       } else {
           $modules = array();
-          $res = $db->query("SELECT name FROM {$config["tables"]["modules"]}");
+          $res = $db->qry("SELECT name FROM %prefix%modules");
           while($row = $db->fetch_array($res)) $modules[] = $row['name'];
           $db->free_result($res);  
           // Add Systemtranslations
@@ -275,7 +275,7 @@ switch ($_GET['step']) {
           $dsp->SetForm('index.php?mod=misc&action=translation&step=70');
 
           $modules = array();
-          $res = $db->query("SELECT name FROM {$config["tables"]["modules"]}");
+          $res = $db->qry("SELECT name FROM %prefix%modules");
           while($row = $db->fetch_array($res)) $modules[] = $row['name'];
           $db->free_result($res);  
           // Add Systemtranslations
@@ -293,9 +293,9 @@ switch ($_GET['step']) {
       $dsp->AddFieldSetEnd();
 
       
-      $res1 = $db->query("SELECT tid, id, org, en, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete = '1' AND file='{$_SESSION['target_file']}'");
+      $res1 = $db->qry("SELECT tid, id, org, en, file, obsolete FROM %prefix%translation WHERE obsolete = '1' AND file=%string%", $_SESSION['target_file']);
       while($row1 = $db->fetch_array($res1)) {
-          $res2 = $db->query("SELECT tid, id, en, org, file, obsolete FROM {$config['tables']['translation']} WHERE obsolete != '1' AND file='{$_SESSION['target_file']}'");
+          $res2 = $db->qry("SELECT tid, id, en, org, file, obsolete FROM %prefix%translation WHERE obsolete != '1' AND file=%string%", $_SESSION['target_file']);
 
           while($row2 = $db->fetch_array($res2)) {
               similar_text($row1['org'], $row2['org'], $percent );

@@ -179,10 +179,10 @@ class noc {
 	
 		if(is_array($data)){
 			// Alte Adressen löschen
-			$db->query("UPDATE {$config["tables"]["noc_ports"]} SET mac='0' WHERE deviceid ='{$device_id}'");
+			$db->qry("UPDATE %prefix%noc_ports SET mac='0' WHERE deviceid =%int%", $device_id);
 			// Neue Adresse setzen
 			foreach ($data as $key => $value){
-				$db->query("UPDATE {$config["tables"]["noc_ports"]} SET mac='{$value}' WHERE deviceid ='{$device_id}' AND portnr='{$key}'");
+				$db->qry("UPDATE %prefix%noc_ports SET mac=%string% WHERE deviceid =%int% AND portnr=%string%", $value, $device_id, $key);
 			}
 		}
 			
@@ -219,10 +219,10 @@ class noc {
 				$dsp->AddDoubleRow(t('MAC-Addresse'),$result[$i]);
 				$dsp->AddHRuleRow();
 				$string = str_replace(":","%",$result[$i]);
-				$query = $db->query("SELECT * FROM {$config["tables"]["noc_ports"]} WHERE mac LIKE '%{$string}%'");
+				$query = $db->qry("SELECT * FROM %prefix%noc_ports WHERE mac LIKE %string%", '%'. $string .'%');
 				if($db->num_rows($query) > 0){
 					while ($row = $db->fetch_array($query)){
-						$device = $db->query_first("SELECT name,ip,id FROM {$config["tables"]["noc_devices"]} WHERE id = {$row['deviceid']}");	
+						$device = $db->qry_first("SELECT name,ip,id FROM %prefix%noc_devices WHERE id = %int%", $row['deviceid']);	
 						$dsp->AddDoubleRow(t('Device und IP'),"<a href='index.php?mod=noc&action=details_device&deviceid={$device['id']}'>" . $device['name'] . " " . $device['ip'] . "</a>");
 						$dsp->AddDoubleRow(t('Portnummer'),"<a href='index.php?mod=noc&action=port_details&portid={$row['portid']}'>{$row['portnr']}</a>");
 						$dsp->AddHRuleRow();

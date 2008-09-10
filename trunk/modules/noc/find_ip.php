@@ -39,7 +39,7 @@ switch ($_GET['step']){
 			$dsp->NewContent(t('User im Netzwerk finden'),t('Mit diesem Formular k&ouml;nnen sie einen User im Netzwerk lokalisieren'));
 			
 			// Alle Device Updaten
-			$row = $db->query_first("SELECT * FROM {$config["tables"]["noc_devices"]}");
+			$row = $db->qry_first("SELECT * FROM %prefix%noc_devices");
 			while ($db->fetch_array($row)){
 				$noc->getMacAddress($row["ip"],$row["readcommunity"],$row["id"],$row["sysDescr"]);
 			}
