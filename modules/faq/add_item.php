@@ -19,7 +19,7 @@ switch($_GET["step"]) {
 	case 2:
 
 	//  ERRORS
-	$get_cat_names = $db->query("SELECT name FROM {$config["tables"]["faq_cat"]}");
+	$get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
 
 		while($row=$db->fetch_array($get_cat_names)) {
 
@@ -87,7 +87,7 @@ switch($_GET["step"]) {
 	$dsp->NewContent(t('Frage hinzufügen'),t(' Um eine Frage hinzuzufügen, füllen Sie bitte das folgende Formular vollständig aus. Für das Feld Überschirft stehen 30 Zeichen, für das Feld Text 5000 Zeichen zur Verfügung. Im Feld Kategorie können Sie die Kategorie definieren, in der die Frage angezeigt werden soll.'));
 	$dsp->SetForm("index.php?mod=faq&object=item&action=add_item&step=2");
 
-	$get_cats = $db->query("SELECT name,catid FROM {$config["tables"]["faq_cat"]}");
+	$get_cats = $db->qry("SELECT name,catid FROM %prefix%faq_cat");
 
 	$faq_cats[] = "<option selected value=\"0\"> ".t('Kategorie wählen')." </option>";
 
@@ -111,22 +111,22 @@ switch($_GET["step"]) {
 
 	if($_POST["question_cat"] == 0 AND $_POST["question_new_cat"] != "" AND $_SESSION['add_blocker_faqitem'] != 1) {
 
-		$add_it = $db->query("INSERT INTO {$config["tables"]["faq_cat"]} SET
-								name = '{$_POST["question_new_cat"]}',
-								poster = '{$_SESSION["auth"]["userid"]}',
-								date = '$courent_date'
-								");
+		$add_it = $db->qry("INSERT INTO %prefix%faq_cat SET
+								name = %string%,
+								poster = %int%,
+								date = %string%
+								", $_POST["question_new_cat"], $_SESSION["auth"]["userid"], $courent_date);
 
 		$catid = $db->insert_id();
 
 
-		$add_it = $db->query("INSERT INTO {$config["tables"]["faq_item"]} SET
-								caption = '{$_POST["question_caption"]}',
-								text = '{$_POST["question_text"]}',
-								poster = '{$_SESSION["auth"]["userid"]}',
-								date = '$courent_date',
-								catid = '$catid'
-								");
+		$add_it = $db->qry("INSERT INTO %prefix%faq_item SET
+								caption = %string%,
+								text = %string%,
+								poster = %int%,
+								date = %string%,
+								catid = %int%
+								", $_POST["question_caption"], $_POST["question_text"], $_SESSION["auth"]["userid"], $courent_date, $catid);
 
 			if($add_it == 1) { $func->confirmation(t('Die Frage und die Kategorie wurden erfolgreich eingetragen'),"");
 
@@ -146,13 +146,13 @@ switch($_GET["step"]) {
 
 			if($_SESSION["add_blocker_faqitem"] != 1) {
 
-				$add_it = $db->query("INSERT INTO {$config["tables"]["faq_item"]} SET
-								caption = '{$_POST["question_caption"]}',
-								text = '{$_POST["question_text"]}',
-								poster = '{$_SESSION["auth"]["userid"]}',
-								date = '$courent_date',
-								catid = '{$_POST["question_cat"]}'
-								");
+				$add_it = $db->qry("INSERT INTO %prefix%faq_item SET
+								caption = %string%,
+								text = %string%,
+								poster = %int%,
+								date = %string%,
+								catid = %string%
+								", $_POST["question_caption"], $_POST["question_text"], $_SESSION["auth"]["userid"], $courent_date, $_POST["question_cat"]);
 
 					if($add_it == 1) { $func->confirmation(t('Die Frage wurde erfolgreich eingetragen'),"");
 

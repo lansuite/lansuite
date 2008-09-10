@@ -46,7 +46,7 @@ switch ($home_page) {
 		$dsp->AddHRuleRow($func->text2html($logout_hometext));
 		$dsp->AddSingleRow(t("Die letzten News:"));
 
-		$get_news_caption = $db->query("SELECT newsid, caption FROM	{$config["tables"]["news"]} ORDER BY date DESC LIMIT 3");
+		$get_news_caption = $db->qry("SELECT newsid, caption FROM	%prefix%news ORDER BY date DESC LIMIT 3");
 		$i = 1;
 		while($row=$db->fetch_array($get_news_caption)) {
 			$dsp->AddDoubleRow("", "<a href=\"index.php?mod=news&action=show&newsid={$row["newsid"]}\">{$row["caption"]}</a>");

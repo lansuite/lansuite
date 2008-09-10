@@ -19,7 +19,7 @@ switch($_GET["step"]) {
 	default:
 
 
-	$get_cat = $db->query("SELECT catid, name FROM {$config["tables"]["faq_cat"]}");
+	$get_cat = $db->qry("SELECT catid, name FROM %prefix%faq_cat");
 
 	$count_cat = $db->num_rows($get_cat);
 
@@ -44,8 +44,7 @@ switch($_GET["step"]) {
 
 			if($_SESSION['menu_status']['faq'][$row['catid']] == "open") {
 
-				$get_item = $db->query("SELECT caption,itemid FROM {$config["tables"]["faq_item"]}
-													WHERE catid = '{$row['catid']}'");
+				$get_item = $db->qry("SELECT caption,itemid FROM %prefix%faq_item WHERE catid = %int%", $row['catid']);
 				while($row=$db->fetch_array($get_item)) {
 
 					$templ["faq"]["overview"]["row"]["question"]["title"]	= $func->text2html($row["caption"]);
@@ -66,7 +65,7 @@ switch($_GET["step"]) {
 
 	case 2: 
 	
-		$get_catname = $db->query_first("SELECT name FROM {$config["tables"]["faq_cat"]} WHERE catid = '{$_GET["catid"]}'");
+		$get_catname = $db->qry_first("SELECT name FROM %prefix%faq_cat WHERE catid = %int%", $_GET['catid']);
 		
 		if($get_catname["name"] != "") {
 			
@@ -80,12 +79,12 @@ switch($_GET["step"]) {
 	break;
 	
 	case 3:
-		$get_catname = $db->query_first("SELECT name FROM {$config["tables"]["faq_cat"]} WHERE catid = '{$_GET["catid"]}'");
+		$get_catname = $db->qry_first("SELECT name FROM %prefix%faq_cat WHERE catid = %int%", $_GET['catid']);
 		
 		if($get_catname["name"] != "") {
 			
-			$del_cat = $db->query("DELETE FROM {$config["tables"]["faq_cat"]} WHERE catid = '{$_GET["catid"]}'");
-			$del_item = $db->query("DELETE FROM {$config["tables"]["faq_item"]} WHERE catid = '{$_GET["catid"]}'");
+			$del_cat = $db->qry("DELETE FROM %prefix%faq_cat WHERE catid = %int%", $_GET['catid']);
+			$del_item = $db->qry("DELETE FROM %prefix%faq_item WHERE catid = %int%", $_GET['catid']);
 			
 			if($del_cat == true && $del_item == true) {
 				

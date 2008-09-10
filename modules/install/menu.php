@@ -6,27 +6,27 @@ $install = new Install();
 switch($_GET["step"]) {
 	// Move Up
 	case 2:
-		$db->query("UPDATE {$config["tables"]["menu"]} SET pos = 0 WHERE pos = ". ($_GET["pos"] - 1) ."");
-		$db->query("UPDATE {$config["tables"]["menu"]} SET pos = pos - 1 WHERE pos = {$_GET["pos"]}");
-		$db->query("UPDATE {$config["tables"]["menu"]} SET pos = {$_GET["pos"]} WHERE pos = 0");
+		$db->qry("UPDATE %prefix%menu SET pos = 0 WHERE pos = %int%", ($_GET["pos"] - 1));
+		$db->qry("UPDATE %prefix%menu SET pos = pos - 1 WHERE pos = %int%", $_GET["pos"]);
+		$db->qry("UPDATE %prefix%menu SET pos = %int% WHERE pos = 0", $_GET["pos"]);
 	break;
 
 	// Move Down
 	case 3:
-		$db->query("UPDATE {$config["tables"]["menu"]} SET pos = 0 WHERE pos = ". ($_GET["pos"] + 1) ."");
-		$db->query("UPDATE {$config["tables"]["menu"]} SET pos = pos + 1 WHERE pos = {$_GET["pos"]}");
-		$db->query("UPDATE {$config["tables"]["menu"]} SET pos = {$_GET["pos"]} WHERE pos = 0");
+		$db->qry("UPDATE %prefix%menu SET pos = 0 WHERE pos = %int%", ($_GET["pos"] + 1));
+		$db->qry("UPDATE %prefix%menu SET pos = pos + 1 WHERE pos = %int%", $_GET["pos"]);
+		$db->qry("UPDATE %prefix%menu SET pos = %int% WHERE pos = 0", $_GET["pos"]);
 	break;
 
 	// Add HRule Row
 	case 4:
-		$db->query("UPDATE {$config["tables"]["menu"]} SET pos = pos + 1 WHERE pos > {$_GET["pos"]}");
-		$db->query("INSERT INTO {$config["tables"]["menu"]} SET caption = '--hr--', pos = ". ($_GET["pos"] + 1));
+		$db->qry("UPDATE %prefix%menu SET pos = pos + 1 WHERE pos > %int%", $_GET["pos"]);
+		$db->qry("INSERT INTO %prefix%menu SET caption = '--hr--', pos = %int%", ($_GET["pos"] + 1));
 	break;
 
 	// Delete
 	case 5:
-		$db->query("DELETE FROM {$config["tables"]["menu"]} WHERE pos = {$_GET["pos"]}");
+		$db->qry("DELETE FROM %prefix%menu WHERE pos = %int%", $_GET["pos"]);
 	break;
 
 	// Rewrite Menu Question
@@ -36,13 +36,13 @@ switch($_GET["step"]) {
 
 	// Rewrite Menu Action
 	case 7:
-		$db->query_first("DELETE FROM {$config["tables"]["menu"]}");
+		$db->qry_first("DELETE FROM %prefix%menu");
 		$install->InsertMenus(1);
 	break;
 
 	// Change Group Action
 	case 9:
-		$menu = $db->query("UPDATE {$config["tables"]["menu"]} SET group_nr = ". (int)$_POST["group"] ." WHERE pos = {$_GET["pos"]}");
+		$menu = $db->qry("UPDATE %prefix%menu SET group_nr = %int% WHERE pos = %string%", $_POST["group"], $_GET["pos"]);
 	break;
 
 	// Set Possition
@@ -68,7 +68,7 @@ switch($_GET["step"]) {
 		$dsp->NewContent(t('Gruppe ändern'), t('Hier können Sie diesen Navigationseintrag einer Gruppe zuweisen'));
 		$dsp->SetForm("index.php?mod=install&action=menu&step=9&pos={$_GET["pos"]}&onlyactive={$_GET["onlyactive"]}");
 
-		$menu = $db->query_first("SELECT group_nr FROM {$config["tables"]["menu"]} WHERE pos = {$_GET["pos"]}");
+		$menu = $db->qry_first("SELECT group_nr FROM %prefix%menu WHERE pos = %string%", $_GET["pos"]);
 		$dsp->AddTextFieldRow("group", "Gruppe", (int)$menu["group_nr"], "");
 
 		$dsp->AddFormSubmitRow("next");
@@ -94,13 +94,13 @@ switch($_GET["step"]) {
     }
     $db->free_result($res);
 
-		$menus = $db->query("SELECT module.active, menu.* FROM {$config["tables"]["menu"]} AS menu
-			LEFT JOIN {$config["tables"]["modules"]} AS module ON (menu.module = module.name)
+		$menus = $db->qry("SELECT module.active, menu.* FROM %prefix%menu AS menu
+			LEFT JOIN %prefix%modules AS module ON (menu.module = module.name)
 			WHERE (menu.level = 0) and (menu.caption != '') ORDER BY menu.pos");
 		$z = 0;
 		while ($menu = $db->fetch_array($menus)){
 			$z++;
-			$db->query("UPDATE {$config["tables"]["menu"]} SET pos = $z WHERE id = {$menu["id"]}");
+			$db->qry("UPDATE %prefix%menu SET pos = %int% WHERE id = %int%", $z, $menu["id"]);
 
 			if ($menu["active"] or (!$_GET["onlyactive"])) {
 				$link = "";

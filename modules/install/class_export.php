@@ -50,7 +50,7 @@ class Export {
 		$tables = $xml->write_master_tag("table_head", $table_head, 2);
 
     $content = '';
-    $res = $db->query("SELECT * FROM {$config["database"]["prefix"]}translation WHERE file = '$mod'");
+    $res = $db->qry("SELECT * FROM %prefix%translation WHERE file = %string%", $mod);
 		while ($row = $db->fetch_array($res)) {
 			$entry = $xml->write_tag('id', $row['id'], 4);
 			$entry .= $xml->write_tag('tid', $row['tid'], 4);
@@ -88,7 +88,7 @@ class Export {
         $DBUniqueKeys = array();
         $DBIndizes = array();
         $DBFulltext = array();
-        $ResIndizes = $db->query("SHOW INDEX FROM {$config["database"]["prefix"]}$table");
+        $ResIndizes = $db->qry("SHOW INDEX FROM %prefix%$table");
         while ($RowIndizes = $db->fetch_array($ResIndizes)) {
           if ($RowIndizes['Key_name'] == 'PRIMARY') $DBPrimaryKey = $RowIndizes['Column_name'];
           elseif ($RowIndizes['Non_unique'] == 0) $DBUniqueKeys[] = $RowIndizes['Column_name'];
@@ -99,7 +99,7 @@ class Export {
         }
         $db->free_result($ResIndizes);
 
-  			$query = $db->query("DESCRIBE {$config["database"]["prefix"]}$table");
+  			$query = $db->qry("DESCRIBE %prefix%$table");
   			while ($row = $db->fetch_array($query)) {
   				$field = $xml->write_tag("name", $row["Field"], 4);
   				$field .= $xml->write_tag("type", $row["Type"], 4);
@@ -119,7 +119,7 @@ class Export {
   		/* Content */
   		if ($e_cont and $table != "locations") {
   			$content = "";
-  			$query = $db->query("SELECT * FROM {$config["database"]["prefix"]}$table");
+  			$query = $db->qry("SELECT * FROM %prefix%$table");
   			while ($row = $db->fetch_array($query)) {
   				$entry = "";
   				for ($z = 0; $z < $db->num_fields(); $z++) {
@@ -176,7 +176,7 @@ class Export {
 
 		$this->LSTableHead();
 
-		$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
+		$res = $db->qry("SELECT * FROM %prefix%modules ORDER BY changeable DESC, caption");
 		while ($row = $db->fetch_array($res)) $this->ExportMod($row["name"], $e_struct, $e_cont, 0);
 		$db->free_result($res);
 
@@ -205,12 +205,12 @@ class Export {
 
 		$user_export .= "tmp userid;email;username;name;firstname;sex;street;hnr;plz;city;passnr/misc;md5pwd;usertype;paid;seatcontrol;clan;clanurl;wwclid;nglid;checkin;checkout;signondate;paiddate;birthday;seatblock;seat;ip;comment\r\n";
 
-		$query = $db->query("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol, p.paiddate
-			FROM {$config["tables"]["user"]} AS u
-			LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id = u.userid
-			LEFT JOIN {$config["tables"]["clan"]} AS c ON u.clanid = c.clanid
-			WHERE p.party_id = {$party->party_id}
-			");
+		$query = $db->qry("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol, p.paiddate
+			FROM %prefix%user AS u
+			LEFT JOIN %prefix%party_user AS p ON p.user_id = u.userid
+			LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
+			WHERE p.party_id = %int%
+			", $party->party_id);
 		while($row = $db->fetch_array($query)) {
 			$user_export .= $row["userid"].$sep;
 			$user_export .= $row["email"].$sep;
@@ -248,10 +248,10 @@ class Export {
 			$user_export .= $row["birthday"].$sep;
 
 			// seat
-			$row_seat = $db->query_first("SELECT blockid, col, row, ip FROM {$config['tables']['seat_seats']} WHERE userid='{$row["userid"]}' AND status = 2");
+			$row_seat = $db->qry_first("SELECT blockid, col, row, ip FROM %prefix%seat_seats WHERE userid=%int% AND status = 2", $row["userid"]);
 			$blockid  = $row_seat["blockid"];
 			if ($blockid != "") {
-				$row_block    = $db->query_first("SELECT orientation, name FROM {$config['tables']['seat_block']} WHERE blockid='$blockid'");
+				$row_block    = $db->qry_first("SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%", $blockid);
 				$seatindex = $seat2->CoordinateToName($row_seat["col"] + 1, $row_seat["row"], $row_block["orientation"]);
 				$user_export .= $row_block["name"].$sep;
 				$user_export .= $seatindex.$sep;
@@ -273,12 +273,12 @@ class Export {
 		$user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(),'daydatetime')."\r\n\r\n";
 
 		$user_export .= "username;name;firstname;clan;seatblock;seat;ip\r\n";
-		$query = $db->query("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
-			FROM {$config["tables"]["user"]} AS u
-			LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id = u.userid
-			LEFT JOIN {$config["tables"]["clan"]} AS c ON u.clanid = c.clanid
-			WHERE p.party_id = {$party->party_id}
-			");
+		$query = $db->qry("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
+			FROM %prefix%user AS u
+			LEFT JOIN %prefix%party_user AS p ON p.user_id = u.userid
+			LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
+			WHERE p.party_id = %int%
+			", $party->party_id);
 
 		while($row = $db->fetch_array($query)) {
 			$username = str_replace("&gt;","",$row["username"]);
@@ -293,10 +293,10 @@ class Export {
 			$user_export .= $row["clan"].$sep;
 
 			// seat
-			$row_seat = $db->query_first("SELECT blockid, col, row, ip FROM {$GLOBALS['config']['tables']['seat_seats']} WHERE userid='{$row["userid"]} AND status = 2'");
+			$row_seat = $db->qry_first("SELECT blockid, col, row, ip FROM %string% WHERE userid=%int% AND status = 2'", $GLOBALS['config']['tables']['seat_seats'], $row["userid"]);
 			$blockid  = $row_seat["blockid"];
 			if($blockid != "") {
-				$row_block    = $db->query_first("SELECT orientation, name FROM {$GLOBALS['config']['tables']['seat_block']} WHERE blockid='$blockid'");
+				$row_block    = $db->qry_first("SELECT orientation, name FROM %string% WHERE blockid=%int%", $GLOBALS['config']['tables']['seat_block'], $blockid);
 				$seatindex = $seat2->CoordinateToName($row_seat["col"] + 1, $row_seat["row"], $row_block["orientation"]);
 				$user_export .= $row_block["name"].$sep;
 				$user_export .= $seatindex.$sep;
@@ -317,19 +317,19 @@ class Export {
 
     $user_export .= "username;name;firstname;clan;seatblock;col;row;seat;ip\n";
     
-    $query = $db->query("SELECT s.* FROM {$config["tables"]["seat_seats"]} AS s
-      LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b.blockid
-      WHERE b.party_id = {$party->party_id} AND s.status = 2
-      ORDER BY s.blockid");      
+    $query = $db->qry("SELECT s.* FROM %prefix%seat_seats AS s
+      LEFT JOIN %prefix%seat_block AS b ON s.blockid = b.blockid
+      WHERE b.party_id = %int% AND s.status = 2
+      ORDER BY s.blockid", $party->party_id);      
     while ($row_seat = $db->fetch_array($query)) {
       $userid = $row_seat["userid"];
 
-      $row = $db->query_first("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
-        FROM {$config["tables"]["user"]} AS u
-        LEFT JOIN {$config["tables"]["party_user"]} AS p ON p.user_id = u.userid
-  			LEFT JOIN {$config["tables"]["clan"]} AS c ON u.clanid = c.clanid
-        WHERE u.userid='$userid'
-        ");
+      $row = $db->qry_first("SELECT u.*, c.name AS clan, c.url AS clanurl, p.paid, p.checkin, p.checkout, p.signondate, p.seatcontrol
+        FROM %prefix%user AS u
+        LEFT JOIN %prefix%party_user AS p ON p.user_id = u.userid
+  			LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
+        WHERE u.userid=%int%
+        ", $userid);
       
       $username = str_replace("&gt;","",$row["username"]);
       $username = str_replace("&lt;","",$username);
@@ -342,7 +342,7 @@ class Export {
       $user_export .= $row["clan"].$sep;
       
       $blockid  = $row_seat["blockid"];
-      $row_block    = $db->query_first("SELECT orientation, name FROM {$config['tables']['seat_block']} WHERE blockid='$blockid'");
+      $row_block    = $db->qry_first("SELECT orientation, name FROM %prefix%seat_block WHERE blockid=%int%", $blockid);
   		$seatindex = $seat2->CoordinateToName($row_seat["col"] + 1, $row_seat["row"], $row_block["orientation"]);
       $user_export .= $row_block["name"].$sep;
       $user_export .= $row_seat["col"].$sep;

@@ -3,7 +3,7 @@
 function CheckClanPW ($clanpw) {
   global $db, $config, $auth;
 
-  $clan = $db->query_first("SELECT password FROM {$config['tables']['clan']} WHERE clanid = '{$_GET['clanid']}'");
+  $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);
   if ($clan['password'] and $clan['password'] != md5($clanpw)) return t('Passwort falsch!');
   return false;
 }
@@ -68,7 +68,7 @@ switch ($_GET['step']) {
       if ($mf->SendForm('index.php?mod=clanmgr&action=clanmgr&step=10', 'clan', 'clanid', $_GET['clanid'])) {
 
         // Send information mail to all clan members
-      	$clanuser = $db->query("SELECT userid, username, email FROM {$config['tables']['user']} WHERE clanid='{$_GET['clanid']}'");
+      	$clanuser = $db->qry("SELECT userid, username, email FROM %prefix%user WHERE clanid=%int%", $_GET['clanid']);
       	while ($data = $db->fetch_array($clanuser)) {
       		$mail->create_mail($auth['userid'], $data['userid'], t('Clanpasswort geändert'), t('Das Clanpasswort wurde durch den Benutzer %1 in "%2" geändert', array($auth['username'], $_POST['password_original'])));
       		$mail->create_inet_mail($data['username'], $data['email'], t('Clanpasswort geändert'), t('Das Clanpasswort wurde durch den Benutzer %1 in "%2" geändert', array($auth['username'], $_POST['password_original'])), $cfg["sys_party_mail"]);
@@ -83,8 +83,8 @@ switch ($_GET['step']) {
     if ($auth['type'] >= 3) {
       if ($_GET['clanid']) $_POST['action'][$_GET['clanid']] = 1;
       if ($_POST['action']) foreach ($_POST['action'] as $key => $val) {
-        $db->query("DELETE FROM {$config["tables"]["clan"]} WHERE clanid = '$key'");
-        $db->query("UPDATE {$config["tables"]["user"]} SET clanid = 0 WHERE clanid = '$key'");
+        $db->qry("DELETE FROM %prefix%clan WHERE clanid = %string%", $key);
+        $db->qry("UPDATE %prefix%user SET clanid = 0 WHERE clanid = %string%", $key);
       }
       $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr');      
     }
@@ -129,7 +129,7 @@ switch ($_GET['step']) {
     if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
     elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) $func->information(t('Sie sind nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
     else {
-      $db->query("UPDATE {$config["tables"]["user"]} SET clanid = 0 WHERE userid = ". (int)$_GET['userid']);
+      $db->qry("UPDATE %prefix%user SET clanid = 0 WHERE userid = %int", $_GET['userid']);
       $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid']);
     }
   break;

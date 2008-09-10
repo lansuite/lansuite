@@ -80,7 +80,7 @@ switch($_GET["step"]){
 				// Read fields in user table
 				$tables = array('user', 'party_user');
 				foreach ($tables as $table){
-  				$query = $db->query("DESCRIBE {$config["database"]["prefix"]}$table");
+  				$query = $db->qry("DESCRIBE %prefix%%plain%", $table);
   				while ($row = $db->fetch_array($query)){
   					reset($items);
   					$fields = array();
@@ -140,7 +140,7 @@ switch($_GET["step"]){
 					  foreach ($table as $field => $itemnr) $sql .= "$field = '". $func->escape_sql($items[$itemnr]) ."', ";
 						$sql = substr($sql, 0, strlen($sql) - 2);
 
-						$db->query("REPLACE INTO {$config["database"]["prefix"]}user SET $sql");
+						$db->qry("REPLACE INTO %prefix%user SET %string%", $sql);
 						$userid = $db->insert_id();
 
             // Party-user table
@@ -150,7 +150,7 @@ switch($_GET["step"]){
   					  foreach ($table as $field => $itemnr) $sql .= "$field = '". $func->escape_sql($items[$itemnr]) ."', ";
   						$sql = substr($sql, 0, strlen($sql) - 2);
   
-  						$db->query("REPLACE INTO {$config["database"]["prefix"]}party_user SET user_id = $userid, party_id = {$party->party_id}, $sql");
+  						$db->qry("REPLACE INTO %prefix%party_user SET user_id = %int%, party_id = %int%, %plain%", $userid, $party->party_id, $sql);
             }            
 					}
 					$z++;

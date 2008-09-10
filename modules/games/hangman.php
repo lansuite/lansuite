@@ -112,11 +112,12 @@ switch ($_GET["step"]) {
 
     // Highscoreeintrag hinzufügen
     case 4:
-        $add_it = $db->query("INSERT INTO {$config["tables"]["game_hs"]} SET
+        $add_it = $db->qry("INSERT INTO %prefix%game_hs SET
                                 game = 'hm',
-                                nick = '". $func->text2db($_POST["nick"]) ."',
-                                score = {$_SESSION["versuche"]}
-                                ");
+                                nick = %string%,
+                                score = %string%
+                                ", $_POST["nick"], $_SESSION["versuche"]}
+);
 
         $func->confirmation(t('Highscore wurde eingetragen'), "?mod=games&action=hangman&headermenuitem=2");
     break;

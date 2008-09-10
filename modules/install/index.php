@@ -4,9 +4,9 @@ $dsp->NewContent(t('Installation und Administration'), t('Auf diesen Seiten kön
 
 if (!func::admin_exists()) $dsp->AddSingleRow("<font color=\"red\">".t('<b>ACHTUNG</b>: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.')."</font>");
 else {
-	$module_list = $db->query("SELECT module.caption FROM {$config["tables"]["modules"]} AS module
-			LEFT JOIN {$config["tables"]["menu"]} AS menu ON menu.module = module.name
-			LEFT JOIN {$config["tables"]["user_permissions"]} AS perm ON (module.name = perm.module)
+	$module_list = $db->qry("SELECT module.caption FROM %prefix%modules AS module
+			LEFT JOIN %prefix%menu AS menu ON menu.module = module.name
+			LEFT JOIN %prefix%user_permissions AS perm ON (module.name = perm.module)
 			WHERE menu.file != '' and ISNULL(perm.module)
 			GROUP BY menu.module
 			");

@@ -20,12 +20,12 @@ $ms2->query['from'] = "{$config['tables']['food_ordering']} AS a
 $ms2->query['where'] = 'userid='. (int)$auth['userid'];
 
 	$status_list = array('' => 'Alle');
-	$row = $db->query("SELECT * FROM {$config['tables']['food_status']}");
+	$row = $db->qry("SELECT * FROM %prefix%food_status");
 	while($res = $db->fetch_array($row)) $status_list[$res['id']] = $res['statusname'];
 	$db->free_result($row);
 	
 	$party_list = array('' => 'Alle');
-	$row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+	$row = $db->qry("SELECT party_id, name FROM %prefix%partys");
 	while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
 	$db->free_result($row);
 

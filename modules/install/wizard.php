@@ -14,27 +14,18 @@ switch ($_GET["step"]){
     elseif ($_POST["password"] != $_POST["password2"]) $func->error(t('Das Passwort und seine Verifizierung stimmen nicht überein!'), "index.php?mod=install&action=wizard&step=6");
     else {
       // Check for existing Admin-Account.
-      $row = $db->query_first("SELECT email FROM {$config["tables"]["user"]} WHERE email='{$_POST["email"]}'");
+      $row = $db->qry_first("SELECT email FROM %prefix%user WHERE email=%string%", $_POST["email"]);
 
       // If found, update password
-      if ($row['email']) $db->query("UPDATE {$config["tables"]["user"]} SET
-        password = '". md5($_POST["password"]) ."',
-        type = '3'
-        WHERE email='{$_POST["email"]}'
-        ");
+      if ($row['email']) $db->qry("UPDATE %prefix%user SET password = %string%, type = '3' WHERE email=%string%",
+  md5($_POST["password"]), $_POST["email"]);
 
       // If not found, insert
       else {
-        $db->query("INSERT INTO {$config["tables"]["user"]} SET
-          username = 'ADMIN',
-          firstname = 'ADMIN',
-          name = 'ADMIN',
-          email='{$_POST["email"]}',
-          password = '". md5($_POST["password"]) ."',
-          type = '3'
-          ");
+        $db->qry("INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
+  $_POST["email"], md5($_POST["password"]));
         $userid = $db->insert_id();
-        $db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid = '$userid'");
+        $db->qry("INSERT INTO %prefix%usersettings SET userid = %int%", $userid);
       }
       
       $authentication = new auth();
@@ -306,10 +297,7 @@ switch ($_GET["step"]){
 
         // Country
         // Get Selections
-        $get_cfg_selection = $db->query("SELECT cfg_display, cfg_value
-                FROM {$config["tables"]["config_selections"]}
-                WHERE cfg_key = 'country'
-                ");
+        $get_cfg_selection = $db->qry("SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = 'country'");
         $country_array = array();
         while ($selection = $db->fetch_array($get_cfg_selection)){
             ($language == $selection["cfg_value"]) ? $selected = "selected" : $selected = "";
@@ -341,11 +329,11 @@ switch ($_GET["step"]){
     // Display final hints
     case 9:
         // Set variables
-        $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '{$language}' WHERE cfg_key = 'sys_language'");
-        $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '{$_POST['country']}' WHERE cfg_key = 'sys_country'");
-        $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '{$_POST['url']}' WHERE cfg_key = 'sys_partyurl'");
-        $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '{$_POST['email']}' WHERE cfg_key = 'sys_party_mail'");
-        $db->query("UPDATE {$config['tables']['config']} SET cfg_value = '{$_POST['mode']}' WHERE cfg_key = 'sys_internet'");
+        $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_language'", $language);
+        $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_country'", $_POST['country']);
+        $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_partyurl'", $_POST['url']);
+        $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_party_mail'", $_POST['email']);
+        $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_internet'", $_POST['mode']);
 
         unset($_SESSION['language']);
 

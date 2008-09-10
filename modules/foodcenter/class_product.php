@@ -27,7 +27,7 @@ class product_list{
 	 */
 	function load_cat($cat){
 		global $db,$config;
-		$products = $db->query("SELECT id FROM {$config['tables']['food_product']} WHERE cat_id={$cat}");
+		$products = $db->qry("SELECT id FROM %prefix%food_product WHERE cat_id=%string%", $cat);
 		
 		$i = 0;
 		while ($data = $db->fetch_array($products)){
@@ -343,9 +343,9 @@ class product{
 	function get_product_by_option($id){
 		global $db,$config;
 		
-		$option = $db->query_first("SELECT parentid FROM {$config['tables']['food_option']} WHERE id=$id");	
+		$option = $db->qry_first("SELECT parentid FROM %prefix%food_option WHERE id=%int%", $id);	
 		
-		$product = $db->query_first("SELECT * FROM {$config['tables']['food_product']} WHERE id={$option['parentid']}");	
+		$product = $db->qry_first("SELECT * FROM %prefix%food_product WHERE id=%int%", $option['parentid']);	
 	}*/
 	
 	/**
@@ -433,7 +433,7 @@ class product{
 		if($this->id == null){
 			return false;
 		}else {
-			$row = $db->query_first("SELECT * FROM {$config['tables']['food_product']} WHERE id={$this->id}");
+			$row = $db->qry_first("SELECT * FROM %prefix%food_product WHERE id=%int%", $this->id);
 			
 			
 			$this->caption 	=	$row['caption'];
@@ -447,7 +447,7 @@ class product{
 			$this->wait		= 	$row['wait'];
 			$this->pic		= 	$row['p_file'];
 			
-			$opt = $db->query("SELECT id FROM {$config['tables']['food_option']} WHERE parentid={$this->id}");
+			$opt = $db->qry("SELECT id FROM %prefix%food_option WHERE parentid=%int%", $this->id);
 			
 			$int = 0;
 			while ($option = $db->fetch_array($opt)){
@@ -469,31 +469,31 @@ class product{
 		if($this->cat->cat_id == null) $this->cat->write();
 		
 		if($this->id == null || $this->id < 1){
-			$db->query("INSERT INTO {$config['tables']['food_product']} SET
-						caption = '{$this->caption}',
-						p_desc = '{$this->desc}',
-						cat_id = '{$this->cat->cat_id}',
-						supp_id = '{$this->supp->supp_id}',
-						supp_infos = '{$this->supp_infos}',
-						p_file = '{$this->pic}',
-						mat = '". (int)$this->mat ."',
-						p_type = '{$this->type}',
-						wait = '". (int)$this->wait ."',
-						chois = '". (int)$this->choise ."'");	
+			$db->qry("INSERT INTO %prefix%food_product SET
+						caption = %string%,
+						p_desc = %string%,
+						cat_id = %int%,
+						supp_id = %int%,
+						supp_infos = %string%,
+						p_file = %string%,
+						mat = %int%,
+						p_type = %string%,
+						wait = %int%,
+						chois = %int%", $this->caption, $this->desc, $this->cat->cat_id, $this->supp->supp_id, $this->supp_infos, $this->pic, $this->mat, $this->type, $this->wait, $this->choise);	
 			$this->id = $db->insert_id();
 		}else{
-			$db->query("UPDATE {$config['tables']['food_product']} SET
-						caption = '{$this->caption}',
-						p_desc = '{$this->desc}',
-						cat_id = '{$this->cat->cat_id}',
-						supp_id = '{$this->supp->supp_id}',
-						supp_infos = '{$this->supp_infos}',
-						p_file = '{$this->pic}',
-						mat = '". (int)$this->mat ."',
-						p_type = '{$this->type}',
-						chois = '". (int)$this->choise ."',
-						wait = '". (int)$this->wait ."'
-						WHERE id={$this->id}");		
+			$db->qry("UPDATE %prefix%food_product SET
+						caption = %string%,
+						p_desc = %string%,
+						cat_id = %int%,
+						supp_id = %int%,
+						supp_infos = %string%,
+						p_file = %string%,
+						mat = '%int%,
+						p_type = %string%,
+						chois = %int%,
+						wait = %int%
+						WHERE id=%int%", $this->caption, $this->desc, $this->cat->cat_id, $this->supp->supp_id, $this->supp_infos, $this->pic, $this->mat, $this->type, $this->choise, $this->wait, $this->id);		
 		}
 		// Save Productsoption
 		foreach ($this->option as $opts){
@@ -900,7 +900,7 @@ class product{
 					$price += $this->option[$key]->price;
 					if($this->mat == 1){
 					$tmp_rest1 = $this->option[$key]->pice - $this->option[$key]->ordered;
-						$db->query("UPDATE {$config['tables']['food_option']} SET pice = '". (int)$tmp_rest1 ."' WHERE id = {$this->option[$key]->id}");
+						$db->qry("UPDATE %prefix%food_option SET pice = %int% WHERE id = %int%", $tmp_rest1, $this->option[$key]->id);
 					}
 				}
 			}
@@ -912,16 +912,18 @@ class product{
 				
 			//if($delivered == 1 || $delivered == 2 && $this->wait == 1) $status = 4;
 			$opt_string = implode("/",$opt_array);
-			if($db->query("INSERT INTO {$config['tables']['food_ordering']} SET 
-					userid = '$userid',
-					productid = '{$this->id}',
-					partyid = '{$party->party_id}',
-					opts = '$opt_string',
+			if($db->qry("INSERT INTO %prefix%food_ordering SET 
+					userid = %int%,
+					productid = %int%,
+					partyid = %int%,
+					opts = %string%,
 					pice = '". (int)$this->ordered ."',
-					status = '$status',
-					ordertime = '$time',
-					lastchange = '$time',
-					supplytime = '0'")){
+					status = %string%,
+					ordertime = %string%,
+					lastchange = %string%,
+					supplytime = '0'", $userid, $this->id, $party->party_id, $opt_string, $status, $time, $time);
+#Fehler!
+){
 				return $price * $this->ordered;
 			}else{
 				return 0;
@@ -934,21 +936,23 @@ class product{
 					else 
 						$status = 1;
 					//if($delivered == 1 || $delivered == 2 && $this->wait == 1) $status = 4;
-					if($db->query("INSERT INTO {$config['tables']['food_ordering']} SET 
-									userid = '$userid',
-									productid = '{$this->id}',
-									partyid = '{$party->party_id}',
-									opts = '{$this->option[$key]->id}',
-									pice = '". (int)$this->option[$key]->ordered ."',
-									status = '$status',
-									ordertime = '$time',
-									lastchange = '$time',
-									supplytime = '0'")){
+					if($db->qry("INSERT INTO %prefix%food_ordering SET 
+									userid = %int%,
+									productid = %int%,
+									partyid = %int%,
+									opts = %int%,
+									pice = %int%,
+									status = %string%,
+									ordertime = %string%,
+									lastchange = %string%,
+									supplytime = '0'", $userid, $this->id, $party->party_id, $this->option[$key]->id, $this->option[$key]->ordered, $status, $time, $time);
+#Fehler!
+){
 						$price += $this->option[$key]->price * $this->option[$key]->ordered;
 					} 
 					if($this->mat == 1){
 					$tmp_rest2 = $this->option[$key]->pice - $this->option[$key]->ordered;
-						$db->query("UPDATE {$config['tables']['food_option']} SET pice = '". (int)$tmp_rest2 ."' WHERE id = {$this->option[$key]->id}");
+						$db->qry("UPDATE %prefix%food_option SET pice = %int% WHERE id = %int%", $tmp_rest2, $this->option[$key]->id);
 					}
 				}	
 			}
@@ -1083,7 +1087,7 @@ class product_option{
 	function read(){
 		global $db,$config;
 		
-		$row = $db->query_first("SELECT * FROM {$config['tables']['food_option']} WHERE id={$this->id}");
+		$row = $db->qry_first("SELECT * FROM %prefix%food_option WHERE id=%int%", $this->id);
 
 		$this->parentid	= $row['parentid'];
 		$this->caption	= $row['caption'];
@@ -1105,27 +1109,27 @@ class product_option{
 		if($this->parentid == null) $this->parentid = $id;
 		if($this->id == null){
 			
-			$db->query("INSERT INTO {$config['tables']['food_option']}  SET 
-									parentid 	= '{$this->parentid}',
-									barcode 	= '{$this->barcode}',
-									caption		= '{$this->caption}',
-									unit		= '{$this->unit}',
-									price		= '{$this->price}',
-									eprice		= '{$this->eprice}',
-									fix			= '{$this->fix}',
-									pice		= '{$this->pice}'");
+			$db->qry("INSERT INTO %prefix%food_option  SET 
+									parentid 	= %int%,
+									barcode 	= %string%,
+									caption		= %string%,
+									unit		= %string%,
+									price		= %string%,
+									eprice		= %string%,
+									fix			= %string%,
+									pice		= %string%", $this->parentid, $this->barcode, $this->caption, $this->unit, $this->price, $this->eprice, $this->fix, $this->pice);
 			$this->id = $db->insert_id();
 		}else{
-			$db->query("UPDATE {$config['tables']['food_option']}  SET 
-									parentid 	= '{$this->parentid}',
-									barcode 	= '{$this->barcode}',
-									caption		= '{$this->caption}',
-									unit		= '{$this->unit}',
-									price		= '{$this->price}',
-									eprice		= '{$this->eprice}',
-									pice		= '{$this->pice}',
-									fix			= '{$this->fix}'
-									WHERE id = {$this->id}");
+			$db->qry("UPDATE %prefix%food_option  SET 
+									parentid 	= %int%,
+									barcode 	= %string%,
+									caption		= %string%,
+									unit		= %string%,
+									price		= %string%,
+									eprice		= %string%,
+									pice		= %string%,
+									fix			= %string%
+									WHERE id = %int%", $this->parentid, $this->barcode, $this->caption, $this->unit, $this->price, $this->eprice, $this->pice, $this->fix, $this->id);
 		}			
 
 	}
@@ -1337,7 +1341,7 @@ class supp{
 	function get_supp_array($select_id, $new = null){
 		global $db,$config,$lang;
 		
-		$row = $db->query("SELECT * FROM {$config['tables']['food_supp']}");		
+		$row = $db->qry("SELECT * FROM %prefix%food_supp");		
 
 		if($db->num_rows($row) > 0){
 			$tmp = array();
@@ -1381,7 +1385,7 @@ class supp{
 	function read(){
 		global $db,$config;
 		if($this->supp_id != null){	
-			$row = $db->query_first("SELECT * FROM {$config['tables']['food_supp']} WHERE supp_id={$this->supp_id}");	
+			$row = $db->qry_first("SELECT * FROM %prefix%food_supp WHERE supp_id=%int%", $this->supp_id);	
 			if($db->num_rows($row) > 0){
 				$this->supp_caption	= $row['name'];
 				$this->supp_desc 	= $row['s_desc'];
@@ -1402,15 +1406,15 @@ class supp{
 		global $db,$config;
 
 		if($this->supp_id == NULL){
-			$db->query("INSERT INTO {$config['tables']['food_supp']} SET 
-							name = '{$this->supp_caption}',
-							s_desc = '{$this->supp_desc}'");
+			$db->qry("INSERT INTO %prefix%food_supp SET 
+							name = %string%,
+							s_desc = %string%", $this->supp_caption, $this->supp_desc);
 			$this->supp_id = $db->insert_id();
 		}else{
-			$db->query("UPDADE {$config['tables']['food_supp']} SET 
-							name = '{$this->supp_caption}',
-							s_desc = '{$this->supp_desc}'
-							WHERE supp_id = {$this->supp_id}");
+			$db->qry("UPDADE %prefix%food_supp SET 
+							name = %string%,
+							s_desc = %string%
+							WHERE supp_id = %int%", $this->supp_caption, $this->supp_desc, $this->supp_id);
 		}
 	}
 	
@@ -1503,7 +1507,7 @@ class cat{
 	function read(){
 		global $db,$config;
 		if($this->cat_id != null){	
-			$row = $db->query_first("SELECT * FROM {$config['tables']['food_cat']} WHERE cat_id={$this->cat_id}");	
+			$row = $db->qry_first("SELECT * FROM %prefix%food_cat WHERE cat_id=%int%", $this->cat_id);	
 			if($db->num_rows($row) > 0){
 				$this->name = $row['name'];
 				return true;
@@ -1526,7 +1530,7 @@ class cat{
 	function get_cat_array($select_id,$new = null){
 		global $db,$config,$lang;
 		
-		$row = $db->query("SELECT * FROM {$config['tables']['food_cat']}");		
+		$row = $db->qry("SELECT * FROM %prefix%food_cat");		
 
 		if($db->num_rows($row) > 0){
 			$tmp = array();
@@ -1568,10 +1572,10 @@ class cat{
 	function write(){
 		global $db,$config;
 		if($this->cat_id == NULL){
-			$db->query("INSERT INTO {$config['tables']['food_cat']} SET name = '{$this->name}'");
+			$db->qry("INSERT INTO %prefix%food_cat SET name = %string%", $this->name);
 			$this->cat_id = $db->insert_id();
 		}else{
-			$db->query("UPDATE {$config['tables']['food_cat']} SET name = '{$this->name}' WHERE cat_id='{$this->cat_id}");
+			$db->qry("UPDATE %prefix%food_cat SET name = %string% WHERE cat_id=%int%", $this->name, $this->cat_id);
 		}
 
 	}
@@ -1602,8 +1606,4 @@ class cat{
 		if($cat_array){
 			$dsp->AddDropDownFieldRow("cat_id",t('Produktkategorie'),$cat_array,"");
 		}
-		$dsp->AddTextFieldRow("cat_name",t('Neue Produktkategorie'),$_POST['cat_name'],$this->error['cat_name']);
-	}
-	
-}
-?>
+		$dsp->AddTextFieldRow("cat_name",t('Neue Produktkategorie'),$_POST['cat_name']

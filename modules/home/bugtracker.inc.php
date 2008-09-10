@@ -26,14 +26,14 @@ function CheckBugNew($last_change, $last_read) {
 $templ['home']['show']['item']['info']['caption'] = t('Neue Bugs und Feature Wünsche');
 $templ['home']['show']['item']['control']['row'] = "";
 
-$query = $db->query("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, COUNT(c.relatedto_id) AS comments, UNIX_TIMESTAMP(r.date) as LastRead FROM {$config["tables"]["bugtracker"]} AS b
-  LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
-  LEFT JOIN {$config["tables"]["bugtracker_lastread"]} AS r ON b.bugid = r.bugid AND r.userid = ". (int)$auth['userid'] ."
+$query = $db->qry("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, COUNT(c.relatedto_id) AS comments, UNIX_TIMESTAMP(r.date) as LastRead FROM %prefix%bugtracker AS b
+  LEFT JOIN %prefix%comments AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
+  LEFT JOIN %prefix%bugtracker_lastread AS r ON b.bugid = r.bugid AND r.userid = %int%
   WHERE b.state <= 3
   GROUP BY b.bugid
   ORDER BY b.changedate DESC
-  LIMIT 0,{$cfg['home_item_count']}
-  ");
+  LIMIT 0,%int%
+  ", $auth['userid'], $cfg['home_item_count']);
 
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {

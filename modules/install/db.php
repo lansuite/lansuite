@@ -39,22 +39,22 @@ if ($_GET["quest"]){
 	// Action Switch
 	switch ($_GET["step"]){
 		case 2: // Rewrite specific table
-			$db->query("DROP TABLE {$_GET["table"]}");
+			$db->qry("DROP TABLE %plain%", $_GET["table"]);
 		break;
 
 		case 4: // Rewrite configs
-			$db->query("DROP TABLE {$config["tables"]["config"]}");
-			$db->query("DROP TABLE {$config["tables"]["config_selections"]}");
+			$db->qry("DROP TABLE %prefix%config");
+			$db->qry("DROP TABLE %prefix%config_selections");
 		break;
 /*
 		// Muss für die Multipartyfunktion angepasst werden
 		case 5: // Reset Users Signonstatus
-			$db->query("UPDATE {$config["tables"]["user"]} SET signon = 0, paid = 0");
+			$db->qry("UPDATE %prefix%user SET signon = 0, paid = 0");
 			$signonnstatus_out = t('Status zurückgesetzt');
 		break;
 */
 		case 6: // Rewrite Configs
-			$db->query("DROP TABLE {$config["tables"]["modules"]}");
+			$db->qry("DROP TABLE %prefix%modules");
 		break;
 
 		case 7: // Reset Module DBs
@@ -84,4 +84,3 @@ if ($_GET["quest"]){
 
 }
 
-?>

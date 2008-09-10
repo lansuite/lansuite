@@ -18,7 +18,7 @@ switch($_GET["step"]) {
 	
 	case 2:
 	
-	$get_caption = $db->query_first("SELECT caption FROM {$config["tables"]["faq_item"]} WHERE itemid = '{$_GET["itemid"]}'");
+	$get_caption = $db->qry_first("SELECT caption FROM %prefix%faq_item WHERE itemid = %int%", $_GET['itemid']);
 	$caption = $get_caption["caption"];
 	
 		if($caption != "") {
@@ -35,12 +35,12 @@ switch($_GET["step"]) {
 	
 	case 3:
 	
-	$get_caption = $db->query_first("SELECT caption FROM {$config["tables"]["faq_item"]} WHERE itemid = '{$_GET["itemid"]}'");
+	$get_caption = $db->qry_first("SELECT caption FROM %prefix%faq_item WHERE itemid = %int%", $_GET['itemid']);
 	$caption = $get_caption["caption"];
 	
 		if($caption != "") {
 		
-			$del_item = $db->query("DELETE FROM {$config["tables"]["faq_item"]} WHERE itemid = '{$_GET["itemid"]}'");
+			$del_item = $db->qry("DELETE FROM %prefix%faq_item WHERE itemid = %int%", $_GET['itemid']);
 		
 				if ($del_item == true) {
 			

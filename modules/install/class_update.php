@@ -31,7 +31,7 @@ class update{
 
 			$querrys2 = explode(";", trim($contents2));
 			while (list ($key, $val) = each ($querrys2)) if ($val) {
-				$db->query("$val");
+				$db->qry("%plain%", $val);
 			}
 		
 

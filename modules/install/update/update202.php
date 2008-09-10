@@ -33,7 +33,7 @@
 	if($found_user == 1 && $found_party_user == 0){			
 		if($db->field_exist("{$config["database"]["prefix"]}user","signon")){
 			//Create Table party_user
-			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}party_user (
+			$db->qry("CREATE TABLE IF NOT EXISTS %prefix%party_user (
 					  `party_id` int(20) NOT NULL default '0',
 					  `user_id` int(20) NOT NULL default '0',
   					  `price_id` int(20) NOT NULL default '0',
@@ -43,7 +43,7 @@
                       `signondate` int(15) NOT NULL default '0'
    					   )");
 			// Insert Ol Data from Table User
-			$db->query("INSERT INTO {$config["database"]["prefix"]}party_user SELECT '1',userid,'0',paid,checkin,checkout,'0' FROM {$config["database"]["prefix"]}user WHERE signon='1'");
+			$db->qry("INSERT INTO %prefix%party_user SELECT '1',userid,'0',paid,checkin,checkout,'0' FROM %prefix%user WHERE signon='1'");
 			// Delete old config entrys
 			
 		}

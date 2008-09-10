@@ -15,7 +15,7 @@
 **************************************************************************/
 
 
-$get_cat = $db->query("SELECT catid, name FROM {$config["tables"]["faq_cat"]} ORDER BY name");
+$get_cat = $db->qry("SELECT catid, name FROM %prefix%faq_cat ORDER BY name");
 
 $count_cat = $db->num_rows($get_cat);
 
@@ -39,10 +39,7 @@ if($count_cat == 0) { $func->information(t('Keine Einträge vorhanden.'),"index.
 		
 				if($_SESSION['menu_status']['faq'][$row['catid']] == '' or $_SESSION['menu_status']['faq'][$row['catid']] == "open") {
 		
-					$get_item = $db->query("SELECT caption,itemid FROM {$config["tables"]["faq_item"]}
-													WHERE catid = '{$row['catid']}'
-                          ORDER BY caption
-                          ");
+					$get_item = $db->qry("SELECT caption,itemid FROM %prefix%faq_item WHERE catid = %int% ORDER BY caption", $row['catid']);
 						while($row=$db->fetch_array($get_item)) {
 		
 							$templ["faq"]["overview"]["row"]["question"]["title"]	= $func->text2html($row["caption"]);

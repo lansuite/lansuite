@@ -7,9 +7,9 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
 	
 	if ($_GET["submod"]) { 
 		// FIX : Remove on next Version, SUBMOD is only for compartiblity
-		$info = $db->query_first("SELECT active, text$val, shorttext$val, caption$val FROM {$config['tables']['info']} WHERE caption = '{$_GET["submod"]}'");
+		$info = $db->qry_first("SELECT active, text%plain%, shorttext%plain%, caption%plain% FROM %prefix%info WHERE caption = %string%", $val, $val, $val, $_GET["submod"]);
 	} else {
-		$info = $db->query_first("SELECT active, text$val, shorttext$val, caption$val FROM {$config['tables']['info']} WHERE infoID = '{$_GET["id"]}'");
+		$info = $db->qry_first("SELECT active, text%plain%, shorttext%plain%, caption%plain% FROM %prefix%info WHERE infoID = %int%", $val, $val, $val, $_GET["id"]);
 	}
 
 	$dsp->NewContent(t('Seite').": {$info["caption$val"]}", $info["shorttext$val"]);
@@ -32,5 +32,4 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
     }
 
 	$dsp->AddContent();
-} else $func->error(t('Sie haben keine Seite ausgewählt.'), "");
-?>
+} else $func->error(t('Sie haben keine Seite ausgewähl

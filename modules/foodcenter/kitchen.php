@@ -35,7 +35,7 @@ $ms2->AddIconField('change', 'index.php?mod=foodcenter&action=kitchen&step=1&ord
 $ms2->PrintSearch('index.php?mod=foodcenter&action=kitchen', 'o.id');
 
 if($_GET['step'] == 1)
-	$db->query("UPDATE {$config["tables"]["food_ordering"]} SET status = '4' WHERE id = '{$_GET["orderid"]}'");
+	$db->qry("UPDATE %prefix%food_ordering SET status = '4' WHERE id = %string%", $_GET["orderid"]);
 
 // Display autorefresh status and control link:
 

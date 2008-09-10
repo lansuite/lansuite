@@ -5,7 +5,7 @@ include_once('modules/mastersearch2/class_mastersearch2.php');
 function GetTitelName($id) {
 	global $db, $config, $auth, $lang;
 
-	$data = $db->query_first("SELECT caption, p_desc, cat_id FROM {$config['tables']['food_product']} WHERE id = $id");
+	$data = $db->qry_first("SELECT caption, p_desc, cat_id FROM %prefix%food_product WHERE id = %int%", $id);
 	
 	
 	$return = "";
@@ -28,7 +28,7 @@ $ms2->query['from'] = "{$config['tables']['food_product']} AS p
 			LEFT JOIN {$config['tables']['food_option']} AS o ON o.parentid = p.id";
 
 	$cat_list = array('' => 'Alle');
-	$row = $db->query("SELECT * FROM {$config['tables']['food_cat']}");
+	$row = $db->qry("SELECT * FROM %prefix%food_cat");
 	while($res = $db->fetch_array($row)) $cat_list[$res['cat_id']] = $res['name'];
 	$db->free_result($row);
 	

@@ -11,9 +11,9 @@ switch ($_GET['step']) {
 	case 3:
 		$time = time();
 		if($_GET['status'] == 6 | $_GET['status'] == 7){
-			$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET['status']}, lastchange = '$time', supplytime = '$time'  WHERE id = {$_GET['id']}");
+			$db->qry("UPDATE %prefix%food_ordering SET status = %string%, lastchange = %string%, supplytime = %string%  WHERE id = %int%", $_GET['status'], $time, $time, $_GET['id']);
 		}elseif ($_GET['status'] == 8){
-			$prodrow = $db->query_first("SELECT * FROM {$config['tables']['food_ordering']} WHERE id = {$_GET['id']}");				
+			$prodrow = $db->qry_first("SELECT * FROM %prefix%food_ordering WHERE id = %int%", $_GET['id']);				
 			
 			if($prodrow['pice'] > 1 && !isset($_POST['delcount'])){
 				$count_array[] = "<option selected value=\"{$prodrow['pice']}\">".t('Alle')."</option>";
@@ -30,13 +30,13 @@ switch ($_GET['step']) {
 
 					foreach ($values as $number){
 						if(is_numeric($number)){
-							$optrow = $db->query_first("SELECT price FROM {$config['tables']['food_option']} WHERE id = " . $number);
+							$optrow = $db->qry_first("SELECT price FROM %prefix%food_option WHERE id = %int%", $number);
 							$price += $optrow['price'];
 						}
 
 					}
 				}else{
-					$optrow = $db->query_first("SELECT price FROM {$config['tables']['food_option']} WHERE id = " . $prodrow['opts']);
+					$optrow = $db->qry_first("SELECT price FROM %prefix%food_option WHERE id = %int%", $prodrow['opts']);
 					$price += $optrow['price'];
 				}
 
@@ -48,16 +48,16 @@ switch ($_GET['step']) {
 				$account->change($price,t('Rückzahlung bei abbestellten Produkten') . " (" . $auth['username'] . ")");
 				
 				if(!isset($_POST['delcount']) || $_POST['delcount'] == $prodrow['pice']){
-					$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $_GET['id']);
+					$db->qry_first("DELETE FROM %prefix%food_ordering WHERE id = %int%", $_GET['id']);
 				}else{
 					$pice = $prodrow['pice'] - $_POST['delcount'];
-					$db->query_first("UPDATE {$config['tables']['food_ordering']} SET pice = ". (int)$pice ." WHERE id = " . $_GET['id']);
+					$db->qry_first("UPDATE %prefix%food_ordering SET pice = %int% WHERE id = %int%", $pice, $_GET['id']);
 				}
 			}
 		}else{
-			$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET['status']}, lastchange = '$time' WHERE id = {$_GET['id']}");
+			$db->qry("UPDATE %prefix%food_ordering SET status = %string%, lastchange = %string% WHERE id = %int%", $_GET['status'], $time, $_GET['id']);
 			if($_GET['status'] == 3){
-				$user_id = $db->query_first("SELECT userid FROM {$config['tables']['food_ordering']} WHERE id = {$_GET['id']}");
+				$user_id = $db->qry_first("SELECT userid FROM %prefix%food_ordering WHERE id = %int%", $_GET['id']);
 				$func->setainfo(t('Deine bestellten Produkte sind abholbereit'),$user_id['userid'],2,"foodcenter",$_GET['id']);
 			}
 		}
@@ -80,17 +80,17 @@ switch ($_GET['step']){
 
 	// Array Abfragen für DropDowns
 	$status_list = array('' => 'Alle');
-	$row = $db->query("SELECT * FROM {$config['tables']['food_status']}");
+	$row = $db->qry("SELECT * FROM %prefix%food_status");
 	while($res = $db->fetch_array($row)) $status_list[$res['id']] = $res['statusname'];
 	$db->free_result($row); 
 	
 	$supp_list = array('' => 'Alle');
-	$row = $db->query("SELECT * FROM {$config['tables']['food_supp']}");
+	$row = $db->qry("SELECT * FROM %prefix%food_supp");
 	while($res = $db->fetch_array($row)) $supp_list[$res['supp_id']] = $res['name'];
 	$db->free_result($row); 
   	
     $party_list = array('' => 'Alle');
-	$row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+	$row = $db->qry("SELECT party_id, name FROM %prefix%partys");
 	while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
 	$db->free_result($row);
 	
@@ -98,7 +98,7 @@ switch ($_GET['step']){
     $ms2->AddTextSearchDropDown('Lieferant', 's.supp_id', $supp_list);
 	$ms2->AddTextSearchDropDown('Party', 'a.partyid', $party_list, $party->party_id);
 /*
-  	$userquery = $db->query("SELECT * FROM {$config['tables']['food_ordering']} AS a LEFT JOIN {$config['tables']['user']} AS u ON a.userid=u.userid");
+  	$userquery = $db->qry("SELECT * FROM %prefix%food_ordering AS a LEFT JOIN %prefix%user AS u ON a.userid=u.userid");
   	$user_array[''] = t('');
   	while ($userrows = $db->fetch_array($userquery)) {
   		$user_array[$userrows['userid']] = $userrows['username'];
@@ -186,9 +186,9 @@ switch ($_GET['step']){
 		$totprice = 0;
 		foreach($_POST["action"] AS $item => $val) {
 			if($_GET["status"] == 6 | $_GET["status"] == 7){
-				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET["status"]}, lastchange = '$time', supplytime = '$time'  WHERE id = {$item}");
+				$db->qry("UPDATE %prefix%food_ordering SET status = %string%, lastchange = %string%, supplytime = %string%  WHERE id = %string%", $_GET["status"], $time, $time, $item);
 			}elseif ($_GET["status"] == 8){
-				$prodrow = $db->query_first("SELECT * FROM {$config['tables']['food_ordering']} WHERE id = {$item}");				
+				$prodrow = $db->qry_first("SELECT * FROM %prefix%food_ordering WHERE id = %string%", $item);				
 				
 				unset($account);
 				$account = new accounting($prodrow['userid']);
@@ -198,22 +198,22 @@ switch ($_GET['step']){
 
 					foreach ($values as $number){
 						if(is_numeric($number)){
-							$optrow = $db->query_first("SELECT price FROM {$config['tables']['food_option']} WHERE id = " . $number);
+							$optrow = $db->qry_first("SELECT price FROM %prefix%food_option WHERE id = %int%", $number);
 							$price += $optrow['price'];
 						}
 
 					}
 				}else{
-					$optrow = $db->query_first("SELECT price FROM {$config['tables']['food_option']} WHERE id = " . $prodrow['opts']);
+					$optrow = $db->qry_first("SELECT price FROM %prefix%food_option WHERE id = %int%", $prodrow['opts']);
 					$price += $optrow['price'];
 				}
 				$totprice += $price * $prodrow['pice'];
 				$account->change($totprice,t('Rückzahlung bei abbestellten Produkten') . " (" . $auth['username'] . ")");
-				$db->query_first("DELETE FROM {$config['tables']['food_ordering']} WHERE id = " . $item);
+				$db->qry_first("DELETE FROM %prefix%food_ordering WHERE id = %int%", $item);
 			}else{
-				$db->query("UPDATE {$config['tables']['food_ordering']} SET status = {$_GET["status"]}, lastchange = '$time'  WHERE id = {$item}");
+				$db->qry("UPDATE %prefix%food_ordering SET status = %string%, lastchange = %string%  WHERE id = %string%", $_GET["status"], $time, $item);
 				if($_GET["status"] == 3){
-					$user_id = $db->query_first("SELECT userid FROM {$config['tables']['food_ordering']} WHERE id = {$item}");
+					$user_id = $db->qry_first("SELECT userid FROM %prefix%food_ordering WHERE id = %string%", $item);
 					$func->setainfo(t('Deine bestellten Produkte sind abholbereit'),$user_id['userid'],2,"foodcenter",$item);
 				}
 			}
@@ -243,6 +243,4 @@ switch ($_GET['step']){
 		$dsp->AddDropDownFieldRow("delcount",t('Anzahl'),$count_array,"");
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddContent();
-	break;
-}
-?>
+	bre

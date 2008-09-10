@@ -1,6 +1,6 @@
 <?php
 
-$get_data = $db->query_first("SELECT caption,text FROM {$config["tables"]["faq_item"]} WHERE itemid = '${_GET["itemid"]}'");
+$get_data = $db->qry_first("SELECT caption,text FROM %prefix%faq_item WHERE itemid = %int%", $_GET['itemid']);
 	
 $templ["faq"]["show"]["caption"] 	= $func->text2html($get_data["caption"]);
 $templ["faq"]["show"]["text"] 		= $func->text2html($get_data["text"]);
