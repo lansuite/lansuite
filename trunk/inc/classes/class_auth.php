@@ -352,7 +352,7 @@ class auth {
                 // Link session ID to origin user ID
                 $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $this->cookie_data["olduserid"], $this->auth["sessid"]);
                 // Delete switch back code in admins user data
-                $db->query("UPDATE {$config["tables"]["user"]} SET switch_back = '' WHERE userid = {$this->cookie_data["olduserid"]}"); 
+                $db->qry('UPDATE %prefix%user SET switch_back = \'\' WHERE userid = %int%', $this->cookie_data['olduserid']); 
                 $this->cookie_data['userid'] = $this->cookie_data["olduserid"];
                 $this->cookie_data['uniqekey'] = md5($admin_user["password"]); // FIX abfrage nach neuen uniqekey
                 $this->cookie_data['version'] = $this->cookie_version;
@@ -429,11 +429,11 @@ class auth {
     function load_authdata() {
         global $db, $config;
         // Put all User-Data into $auth-Array
-        $user_data = $db->query_first("SELECT session.userid, session.login, session.ip, user.*, user_set.design
-            FROM {$config["tables"]["stats_auth"]} AS session
-            LEFT JOIN {$config["tables"]["user"]} AS user ON user.userid = session.userid
-            LEFT JOIN {$config["tables"]["usersettings"]} AS user_set ON user.userid = user_set.userid
-            WHERE session.sessid='{$this->auth["sessid"]}' ORDER BY session.lasthit");
+        $user_data = $db->qry_first('SELECT session.userid, session.login, session.ip, user.*, user_set.design
+            FROM %prefix%stats_auth AS session
+            LEFT JOIN %prefix%user AS user ON user.userid = session.userid
+            LEFT JOIN %prefix%usersettings AS user_set ON user.userid = user_set.userid
+            WHERE session.sessid=%string% ORDER BY session.lasthit', $this->auth["sessid"]);
         if (is_array($user_data)) foreach ($user_data as $key => $val) if (!is_numeric($key)) $this->auth[$key] = $val;
         if ($this->auth['design'] == '') $this->auth['design'] = $config['lansuite']['default_design'];
     }
@@ -448,15 +448,9 @@ class auth {
         // Update visits, hits, IP and lasthit
         $visit_timeout = time() - 60*60;
         // If a session loaded no page for over one hour, this counts as a new visit
-        $db->query("UPDATE {$config["tables"]["stats_auth"]}
-                    SET visits = visits + 1
-                    WHERE (sessid='{$this->auth["sessid"]}') AND (lasthit < $visit_timeout)");
+        $db->qry('UPDATE %prefix%stats_auth SET visits = visits + 1 WHERE (sessid=%string%) AND (lasthit < %int%)', $this->auth["sessid"], $visit_timeout);
         // Update user-stats and lasthit, so the timeout is resetted
-        $db->query("UPDATE {$config["tables"]["stats_auth"]}
-                    SET lasthit='{$this->timestamp}',
-                        hits = hits + 1,
-                        ip='{$this->auth["ip"]}'
-                    WHERE sessid='{$this->auth["sessid"]}'");
+        $db->qry('UPDATE %prefix%stats_auth SET lasthit=%int%, hits = hits + 1, ip=%string% WHERE sessid=%string%', $this->timestamp, $this->auth["ip"], $this->auth["sessid"]);
     }
 
   /**
@@ -467,9 +461,7 @@ class auth {
     function set_install_cookie($email, $password){
         global $db, $config;
         $email = strtolower(htmlspecialchars(trim($email)));
-        $user = $db->query_first("SELECT userid, password
-                                  FROM {$config["tables"]["user"]}
-                                  WHERE LOWER(email) = '$email'");
+        $user = $db->qry_first('SELECT userid, password FROM %prefix%user WHERE LOWER(email) = %string%', $email);
         $this->cookie_data['userid'] = $user['userid'];
         $this->cookie_data['uniqekey'] = md5($user['password']); // FIX
         $this->cookie_data['version'] = $this->cookie_version;
@@ -487,7 +479,7 @@ class auth {
     function cookie_valid() {
         global $db, $config;
         // Get target user type
-        if ($this->cookie_data['userid']>=1) $user_row = $db->query_first("SELECT password FROM {$config["tables"]["user"]} WHERE userid = {$this->cookie_data['userid']}");
+        if ($this->cookie_data['userid']>=1) $user_row = $db->qry_first('SELECT password FROM %prefix%user WHERE userid = %int%', $this->cookie_data['userid']);
         $ok = 0;
         // Check for Cookie
         if ($this->cookie_data['uniqekey'] == md5($user_row['password'])) $ok = 1;

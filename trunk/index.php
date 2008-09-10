@@ -176,7 +176,7 @@
         // FIX : Maybe its a good Idea make a func::get_activemodules()
         // Fetch all names of active modules
         $ActiveModules = array();
-        $res = $db->query("SELECT name FROM {$config["tables"]["modules"]} WHERE active = 1");
+        $res = $db->qry('SELECT name FROM %prefix%modules WHERE active = 1');
         while($row = $db->fetch_array($res)) $ActiveModules[] = $row['name'];
         $db->free_result($res);
         $ActiveModules[] = 'helplet';
