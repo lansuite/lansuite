@@ -36,7 +36,7 @@
 
   ### Direct DB access ###
 	// Lets use the database - This will simply read all usernames from the database and display them
-	$res = $db->query("SELECT username FROM {$config["tables"]["user"]}");
+	$res = $db->qry("SELECT username FROM %prefix%user");
 	while ($user = $db->fetch_array($res)){
 		$user_out .= $user["username"] .", ";
 	}

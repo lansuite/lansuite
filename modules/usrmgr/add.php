@@ -14,15 +14,15 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
 
     // Update User-Perissions
     if ($id) {
-    $db->query("DELETE FROM {$config["tables"]["user_permissions"]} WHERE userid = $id");
+    $db->qry("DELETE FROM %prefix%user_permissions WHERE userid = %int%", $id);
     if ($_POST["permissions"]) foreach ($_POST["permissions"] as $perm) {
-        $db->query("INSERT INTO {$config["tables"]["user_permissions"]} SET module = '$perm', userid = $id");
+        $db->qry("INSERT INTO %prefix%user_permissions SET module = %string% userid = %int%", $perm, $id);
     }
   }
 
   // If new user has been added
   if (!$mf->isChange) {
-    if ($id) $add_query2 = $db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid = '$id'");
+    if ($id) $add_query2 = $db->qry("INSERT INTO %prefix%usersettings SET userid = %int%", $id);
     $usrmgr->WriteXMLStatFile();
 
     // If auto generated PW, use PW stored in session, else use PW send by POST field
@@ -88,7 +88,7 @@ function CheckClanPW ($clanpw) {
   global $db, $config, $auth;
 
   if (!$_POST['new_clan_select'] and $auth['type'] <= 1 and $auth['clanid'] != $_POST['clan']) {
-    $clan = $db->query_first("SELECT password FROM {$config['tables']['clan']} WHERE clanid = '{$_POST['clan']}'");
+    $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_POST['clan']);
     if ($clan['password'] and $clan['password'] != md5($clanpw)) return t('Passwort falsch!');
   }
   return false;
@@ -97,7 +97,7 @@ function CheckClanPW ($clanpw) {
 function CheckClanNotExists ($ClanName) {
   global $db, $config, $auth;
 
-  $clan = $db->query_first("SELECT 1 AS found FROM {$config['tables']['clan']} WHERE name = '$ClanName'");
+  $clan = $db->qry_first("SELECT 1 AS found FROM %prefix%clan WHERE name = %string%", $ClanName);
   if ($clan['found']) return t('Dieser Clan existiert bereits!') .HTML_NEWLINE. t(' Wenn Sie diesem beitreten möchten, wählen Sie ihn oberhalb aus dem Dropdownmenü aus.');
 
     if (preg_match("/([.^\"\'`´]+)/", $ClanName)) return t('Sie verwenden nicht zugelassene Sonderzeichen in Ihrem Clannamen.');
@@ -242,7 +242,7 @@ function ShowField($key){
 
 if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
 if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and ($cfg['user_self_details_change'] or $missing_fields))) {
-  $party_user = $db->query_first("SELECT * FROM {$config['tables']['party_user']} WHERE user_id = ". (int)$_GET["userid"] ." AND party_id={$party->party_id}");
+  $party_user = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id= %int%", $_GET["userid"], $party->party_id);
   include_once('inc/classes/class_masterform.php');
   $mf = new masterform();
 
@@ -277,15 +277,15 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
 
         // Module-Permissions
         $selections = array();
-        $res = $db->query("SELECT module.name, module.caption FROM {$config["tables"]["modules"]} AS module
-            LEFT JOIN {$config["tables"]["menu"]} AS menu ON menu.module = module.name
+        $res = $db->qry("SELECT module.name, module.caption FROM %prefix%modules AS module
+            LEFT JOIN %prefix%menu AS menu ON menu.module = module.name
             WHERE menu.file != ''
             GROUP BY menu.module");
         while($row = $db->fetch_array($res)) $selections[$row['name']] = $row['caption'];
         $db->free_result($res);
 
         if (!$_GET['mf_step'] and $_GET['userid']) {
-          $res = $db->query("SELECT module FROM {$config["tables"]["user_permissions"]} WHERE userid = {$_GET['userid']}");
+          $res = $db->qry("SELECT module FROM %prefix%user_permissions WHERE userid = %int%", $_GET['userid']);
           while($row = $db->fetch_array($res)) $_POST["permissions"][] = $row["module"];
           $db->free_result($res);
         }
@@ -296,7 +296,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
           'permissions', IS_MULTI_SELECTION, $selections, FIELD_OPTIONAL);
 
         // Group
-        $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
+        $res = $db->qry("SELECT * FROM %prefix%party_usergroups");
         if ($db->num_rows($res) > 0) {
           $selections = array('' => t('Keine'));
           while ($row = $db->fetch_array($res)) {
@@ -330,16 +330,16 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       // Clan Options
       if (ShowField('clan')) {
         if (!isset($_POST['clan'])) {
-          $users_clan = $db->query_first("SELECT clanid FROM {$config["tables"]["user"]} WHERE userid = ". (int)$_GET['userid']);
+          $users_clan = $db->qry_first("SELECT clanid FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
           $_POST['clan'] = $users_clan['clanid'];
         }
 
         $selections = array();
         $selections[''] = '---';
         $PWClans = array();
-        $clans_query = $db->query("SELECT c.clanid, c.name, c.url, c.password, COUNT(u.clanid) AS members
-                FROM {$config["tables"]["clan"]} AS c
-                LEFT JOIN {$config["tables"]["user"]} AS u ON c.clanid = u.clanid
+        $clans_query = $db->qry("SELECT c.clanid, c.name, c.url, c.password, COUNT(u.clanid) AS members
+                FROM %prefix%clan AS c
+                LEFT JOIN %prefix%user AS u ON c.clanid = u.clanid
                 WHERE u.clanid IS NULL or u.type >= 1
                 GROUP BY c.clanid
                 ORDER BY c.name
@@ -413,7 +413,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
 
 
       // Add extra admin-defined fields    
-      $user_fields = $db->query("SELECT name, caption, optional FROM {$config['tables']['user_fields']}");
+      $user_fields = $db->qry("SELECT name, caption, optional FROM %prefix%user_fields");
       while ($user_field = $db->fetch_array($user_fields)) {
         $mf->AddField($user_field['caption'], $user_field['name'], '', '', $user_field['optional']);
       }

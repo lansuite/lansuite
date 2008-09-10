@@ -63,7 +63,7 @@ else {
 
     $menunames[1] = t('Spielerinfos');
     $menunames[3] = t('Sonstiges');
-  $user_fields = $db->query("SELECT name, caption, optional FROM {$config['tables']['user_fields']}");
+  $user_fields = $db->qry("SELECT name, caption, optional FROM %prefix%user_fields");
   if ($db->num_rows($user_fields) > 0) $menunames[4] = t('Eigene Felder');
     if(!$_GET['headermenuitem']) { $_GET['headermenuitem'] = 1; }
     if ($auth['type'] >= 3) $menunames[5] = t('Sessions');
@@ -280,14 +280,14 @@ break;
             $dsp->AddDoubleRow(t('Board Posts'), $user_data['posts'].$count_rows['count']);
 
             // Threads
-        $get_board_threads = $db->query("SELECT b.tid, b.date, t.caption FROM {$config['tables']['board_posts']} AS b
-                LEFT JOIN {$config['tables']['board_threads']} AS t ON b.tid = t.tid
-                LEFT JOIN {$config['tables']['board_forums']} AS f ON t.fid = f.fid
-   				WHERE b.userid = '{$_GET['userid']}' AND (f.need_type <= '{$auth['type']}' OR f.need_type = '1')
+        $get_board_threads = $db->qry("SELECT b.tid, b.date, t.caption FROM %prefix%board_posts AS b
+                LEFT JOIN %prefix%board_threads AS t ON b.tid = t.tid
+                LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
+   				WHERE b.userid = %int% AND (f.need_type <= %string% OR f.need_type = '1')
                 GROUP BY b.tid
                 ORDER BY b.date DESC
                 LIMIT 10
-                ");
+                ", $_GET['userid'], $auth['type']);
 
             while($row_threads = $db->fetch_array($get_board_threads)) {
                 $threads .= $func->unixstamp2date($row_threads['date'], "datetime")." - <a href=\"index.php?mod=board&action=thread&tid={$row_threads['tid']}\">{$row_threads['caption']}</a>". HTML_NEWLINE;
@@ -297,7 +297,7 @@ break;
 
             // logins, last login
             if ($auth['type'] >= 2) {
-                $lastLoginTS = $db->query_first("SELECT max(logintime) FROM {$config['tables']['stats_auth']} WHERE userid = '{$_GET['userid']}' AND login = '1'");
+                $lastLoginTS = $db->qry_first("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", $_GET['userid']);
                 $dsp->AddDoubleRow(t('Logins'), $user_data['logins']);
                 if ($lastLoginTS['max(logintime)']) $loginTime = t('am/um: ') . $func->unixstamp2date($lastLoginTS['max(logintime)'], "datetime");
                 else $loginTime = t('noch nicht eingeloggt');

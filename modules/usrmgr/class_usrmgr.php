@@ -30,14 +30,14 @@ class UsrMgr {
   function LockAccount($userid) {
     global $db, $config;
 
-    $db->query("UPDATE {$config["tables"]["user"]} SET locked = 1 WHERE userid=". (int)$userid);
+    $db->qry("UPDATE %prefix%user SET locked = 1 WHERE userid=%int%", $userid);
     $db->qry('DELETE FROM %prefix%stats_auth WHERE userid=%int%', $userid);
   }
 
   function UnlockAccount($userid) {
     global $db, $config;
 
-    $db->query("UPDATE {$config["tables"]["user"]} SET locked = 0 WHERE userid=". (int)$userid);
+    $db->qry("UPDATE %prefix%user SET locked = 0 WHERE userid=%int%", $userid);
   }
 
     function GeneratePassword() {
@@ -121,7 +121,7 @@ class UsrMgr {
             $message = str_replace('%EMAIL%', $_POST['email'], $message);
             $message = str_replace('%PASSWORD%', $_SESSION['tmp_pass'], $message);
             if ($_POST['clan']) {
-          $row = $db->query_first("SELECT name FROM {$config["tables"]["clan"]} WHERE clanid = {$_POST['clan']}");
+          $row = $db->qry_first("SELECT name FROM %prefix%clan WHERE clanid%int%", $_POST['clan']);
           $clan = $row['name'];
         }
             else $clan = $_POST['clan_new'];
@@ -144,7 +144,7 @@ class UsrMgr {
 
         if (!$_GET['user_id']) $_GET['user_id'] = $auth['userid'];
         if ($_GET['user_id']) {
-          $row = $db->query_first("SELECT firstname, name, username, email FROM {$config["tables"]["user"]} WHERE userid = {$_GET['user_id']}");
+          $row = $db->qry_first("SELECT firstname, name, username, email FROM %prefix%user WHERE userid = %int%", $_GET['user_id']);
             $message = str_replace('%USERNAME%', $row['username'], $message);
             $message = str_replace('%EMAIL%', $row['email'], $message);
             $message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
@@ -173,12 +173,12 @@ class UsrMgr {
         $system .= $xml->write_tag('language', 'de-de', 2);
         $system .= $xml->write_tag('current_party', $cfg['signon_partyid'], 2);
 
-    $row = $db->query_first("SELECT COUNT(*) AS anz FROM {$config['tables']['user']} WHERE type > 0");
+    $row = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%user WHERE type > 0");
         $system .= $xml->write_tag('users', $row['anz'], 2);
 
         $lansuite = $xml->write_master_tag('system', $system, 1);
 
-        $res = $db->query("SELECT party_id, name, max_guest, ort, plz, startdate, enddate FROM {$config['tables']['partys']}");
+        $res = $db->qry("SELECT party_id, name, max_guest, ort, plz, startdate, enddate FROM %prefix%partys");
         $partys = '';
         while ($row = $db->fetch_array($res)) {
         $party = $xml->write_tag('partyid', $row['party_id'], 3);
@@ -191,14 +191,14 @@ class UsrMgr {
         $party .= $xml->write_tag('sstartdate', $row['sstartdate'], 3);
         $party .= $xml->write_tag('senddate', $row['senddate'], 3);
 
-        $row2 = $db->query_first("SELECT count(userid) as anz FROM {$config["tables"]["user"]} AS user
-        LEFT JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id
-        WHERE party_id='{$row['party_id']}' AND (type >= 1)");
+        $row2 = $db->qry_first("SELECT count(userid) as anz FROM %prefix%user AS user
+        LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
+        WHERE party_id=%int% AND (type >= 1)", $row['party_id']);
         $party .= $xml->write_tag('registered', $row2['anz'], 3);
 
-        $row2 = $db->query_first("SELECT count(userid) as anz FROM {$config["tables"]["user"]} AS user
-        LEFT JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id
-        WHERE (party.paid > 0) AND party_id='{$row['party_id']}' AND (type >= 1)");
+        $row2 = $db->qry_first("SELECT count(userid) as anz FROM %prefix%user AS user
+        LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id
+        WHERE (party.paid > 0) AND party_id=%int% AND (type >= 1)", $row['party_id']);
         $party .= $xml->write_tag('paid', $row2['anz'], 3);
         
         $partys .= $xml->write_master_tag('party', $party, 2);
