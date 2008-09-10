@@ -14,15 +14,15 @@ switch($_GET["step"]){
     $ms2->AddTextSearchField(t('Gruppe'), array('l.sort_tag' => 'like'));
 
     $list = array('' => t('Alle'), '0' => t('System'));
-    $res = $db->query("SELECT l.userid, u.username FROM {$config['tables']['log']} AS l
-      LEFT JOIN {$config["tables"]["user"]} AS u ON u.userid = l.userid
+    $res = $db->qry("SELECT l.userid, u.username FROM %prefix%log AS l
+      LEFT JOIN %prefix%user AS u ON u.userid = l.userid
       GROUP BY l.userid");
     while($row = $db->fetch_array($res)) if($row['userid']) $list[$row['userid']] = $row['username'];
     $db->free_result($res);
     $ms2->AddTextSearchDropDown(t('Auslöser'), 'l.userid', $list);
 
     $list = array('' => t('Alle'));
-    $row = $db->query("SELECT sort_tag FROM {$config['tables']['log']} GROUP BY sort_tag");
+    $row = $db->qry("SELECT sort_tag FROM %prefix%log GROUP BY sort_tag");
     while($res = $db->fetch_array($row)) if($res['sort_tag']) $list[$res['sort_tag']] = $res['sort_tag'];
     $db->free_result($row);
     $ms2->AddTextSearchDropDown(t('Gruppe'), 'l.sort_tag', $list);
@@ -43,7 +43,7 @@ switch($_GET["step"]){
 	break;
 
   case 2:
-    $log = $db->query_first("SELECT *, UNIX_TIMESTAMP(date) AS date FROM {$config["tables"]["log"]} WHERE logid = {$_GET['logid']}");
+    $log = $db->qry_first("SELECT *, UNIX_TIMESTAMP(date) AS date FROM %prefix%log WHERE logid = %int%", $_GET['logid']);
     $dsp->AddSingleRow($log['sort_tag']);
     $dsp->AddSingleRow($log['description']);
     $dsp->AddSingleRow($func->unixstamp2date($log['date'], 'datetime'));

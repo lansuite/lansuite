@@ -25,7 +25,7 @@ class party{
 
     if ($db->success) {
       // Count Partys
-  		$res = $db->query("SELECT * FROM {$config['tables']['partys']}");
+  		$res = $db->qry("SELECT * FROM %prefix%partys");
   		$this->count = $db->num_rows($res);
   		$db->free_result($res);
 
@@ -34,7 +34,7 @@ class party{
     		$this->party_id = 0;
       }
 
-			$row = $db->query_first("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM {$config['tables']['partys']} WHERE party_id={$this->party_id}");
+			$row = $db->qry_first("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM %prefix%partys WHERE party_id=%int%", $this->party_id);
 			$this->data = $row;
 
 			$_SESSION['party_info'] = array();
@@ -152,15 +152,15 @@ class party{
 			$_POST['senddate']		= mktime($_POST["setime_value_hours"], $_POST["setime_value_minutes"], $_POST["setime_value_seconds"], $_POST["setime_value_month"], $_POST["setime_value_day"], $_POST["setime_value_year"]);
 			
 			
-			$db->query("INSERT INTO {$config['tables']['partys']} SET
-								name = '{$_POST['name']}',
-								ort = '{$_POST['ort']}',
-								plz = '{$_POST['plz']}',
-								max_guest = '{$_POST['max_guest']}',
-								startdate = {$_POST['startdate']},
-								enddate = {$_POST['enddate']},
-								sstartdate = {$_POST['sstartdate']},
-								senddate = {$_POST['senddate']}");
+			$db->qry("INSERT INTO %prefix%partys SET
+        name = %string%,
+        ort = %string%,
+        plz = %string%,
+        max_guest = %string%,
+        startdate = %string%,
+        enddate = %string%,
+        sstartdate = %string%,
+        senddate = %string%", $_POST['name'], $_POST['ort'], $_POST['plz'], $_POST['max_guest'], $_POST['startdate'], $_POST['enddate'], $_POST['sstartdate'], $_POST['senddate']);
 						
 			$this->set_party_id($db->insert_id());
 		}
@@ -177,16 +177,16 @@ class party{
 			$_POST['sstartdate']	= mktime($_POST["sstime_value_hours"], $_POST["sstime_value_minutes"], $_POST["sstime_value_seconds"], $_POST["sstime_value_month"], $_POST["sstime_value_day"], $_POST["sstime_value_year"]);
 			$_POST['senddate']		= mktime($_POST["setime_value_hours"], $_POST["setime_value_minutes"], $_POST["setime_value_seconds"], $_POST["setime_value_month"], $_POST["setime_value_day"], $_POST["setime_value_year"]);
 			
-			$db->query("UPDATE {$config['tables']['partys']} SET
-								name = '{$_POST['name']}',
-								ort = '{$_POST['ort']}',
-								plz = '{$_POST['plz']}',
-								max_guest = '{$_POST['max_guest']}',
-								startdate = {$_POST['startdate']},
-								enddate = {$_POST['enddate']},
-								sstartdate = {$_POST['sstartdate']},
-								senddate = {$_POST["senddate"]}
-								WHERE party_id = {$this->party_id}");
+			$db->qry("UPDATE %prefix%partys SET
+        name = %string%,
+        ort = %string%,
+        plz = %string%,
+        max_guest = %string%,
+        startdate = %string%,
+        enddate = %string%,
+        sstartdate = %string%,
+        senddate = %string%
+        WHERE party_id = %int%", $_POST['name'], $_POST['ort'], $_POST['plz'], $_POST['max_guest'], $_POST['startdate'], $_POST['enddate'], $_POST['sstartdate'], $_POST["senddate"], $this->party_id);
 						
 		}
 		
@@ -198,18 +198,18 @@ class party{
 		function delete_party(){
 			global $db,$func,$config,$cfg;
 			// Party löschen
-			$db->query("DELETE FROM {$config['tables']['partys']} 
-								WHERE party_id = {$this->party_id}");
+			$db->qry("DELETE FROM %prefix%partys 
+        WHERE party_id = %int%", $this->party_id);
 			
 			// Preise zur Party löschen
-			$db->query("DELETE FROM {$config['tables']['party_prices']} 
-								party_id = {$this->party_id}
-								");
+			$db->qry("DELETE FROM %prefix%party_prices 
+        party_id = %int%
+        ", $this->party_id);
 			
 			// User zur Party löschen
-			$db->query("DELETE FROM {$config['tables']['party_user']} 
-								party_id = {$this->party_id}
-								");
+			$db->qry("DELETE FROM %prefix%party_user 
+        party_id = %int%
+        ", $this->party_id);
 			
 			$this->set_party_id($cfg['signon_partyid']);
 						
@@ -224,10 +224,10 @@ class party{
 			global $db,$config;
 			
 			if($groupid){
-				$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} AND group_id='$groupid'");
+				$row = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND group_id=%int%", $this->party_id, $groupid);
 				
 			}else{
-				$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id}");	
+				$row = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int%", $this->party_id);	
 			
 			}
 			return $db->num_rows($row);
@@ -243,11 +243,11 @@ class party{
 			if($group_id !== "NULL") $subquery = " AND group_id='{$group_id}'";
 			if($price_id == "NULL") $price_id = 0;
 
-			$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} $subquery");
+			$row = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% %plain%", $this->party_id, $subquery);
 			$anzahl = $db->num_rows($row);
 
 			if($anzahl == 0){
-				$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} AND group_id='0'");
+				$row = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND group_id='0'", $this->party_id);
 			}
 
 			if($anzahl >1 || $dropdown == true){
@@ -280,10 +280,10 @@ class party{
 			if($group_id !== "NULL") $subquery = " AND group_id='{$group_id}'";
 			if($price_id == "NULL") $price_id = 0;
 
-			$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} $subquery");
+			$row = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% %plain%", $this->party_id, $subquery);
 			$anzahl = $db->num_rows($row);
 
-			if($anzahl == 0) $row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} AND group_id='0'");
+			if($anzahl == 0) $row = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND group_id='0'", $this->party_id);
 
 			while ($res = $db->fetch_array($row)) $selections[$res['price_id']] = $res['price_text'] .' / '. $res['price'] .' '. $cfg['sys_currency'];
 			$mf->AddField(t('Preis auswählen'), 'price_id', IS_SELECTION, $selections);
@@ -292,7 +292,7 @@ class party{
 
 		function get_party_javascript(){
 			global $db,$config,$cfg;
-			$row = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$this->party_id} ORDER BY group_id");
+			$row = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% ORDER BY group_id", $this->party_id);
 			$option = "var option = new Array();\n";
 			$prices = "var price = new Array();\n";
 			while ($data = $db->fetch_array($row)){
@@ -323,14 +323,14 @@ class party{
 		function add_price($price_text,$price,$depot_desc = "",$depot_price = 0,$usergroup = 0){
 			global $db,$config;
 			
-			$db->query("INSERT {$config['tables']['party_prices']} SET 
-								party_id = {$this->party_id},
-								price_text = '$price_text',
-								price = '$price',
-								depot_desc = '$depot_desc',
-								depot_price = '$depot_price',
-								group_id = '$usergroup'
-								");
+			$db->qry("INSERT %prefix%party_prices SET 
+        party_id = %int%,
+        price_text = %string%,
+        price = %string%,
+        depot_desc = %string%,
+        depot_price = %string%,
+        group_id = %string%
+        ", $this->party_id, $price_text, $price, $depot_desc, $depot_price, $usergroup);
 		}
 		
 
@@ -349,14 +349,14 @@ class party{
 		function update_price($price_id,$price_text,$price,$depot_desc = "",$depot_price = 0,$usergroup = 0){
 			global $db,$config;
 			
-			$db->query("UPDATE {$config['tables']['party_prices']} SET 
-								price_text = '$price_text',
-								price = '$price',
-								depot_desc = '$depot_desc',
-								depot_price = '$depot_price',
-								group_id = '$usergroup'
-								WHERE price_id = {$price_id}
-								");
+			$db->qry("UPDATE %prefix%party_prices SET 
+        price_text = %string%,
+        price = %string%,
+        depot_desc = %string%,
+        depot_price = %string%,
+        group_id = %string%
+        WHERE price_id = %int%
+        ", $price_text, $price, $depot_desc, $depot_price, $usergroup, $price_id);
 		}
 		
 		
@@ -385,24 +385,24 @@ class party{
 				$paid = "0";	
 			}
 
-			$row = $db->query("SELECT * FROM {$config['tables']['party_user']} WHERE user_id={$user_id} AND party_id={$this->party_id}");
+			$row = $db->qry("SELECT * FROM %prefix%party_user WHERE user_id=%int% AND party_id=%int%", $user_id, $this->party_id);
 			if($db->num_rows($row) < 1){
-				$prices = $db->query_first("SELECT * FROM {$config['tables']['party_prices']} WHERE price_id=$price_id");
+				$prices = $db->qry_first("SELECT * FROM %prefix%party_prices WHERE price_id=%int%", $price_id);
 				if($prices['depot_price'] == 0){
 					$seatcontrol = 1;	
 				}else {
 					$seatcontrol = 0;	
 				}
 
-				$db->query("INSERT INTO {$config['tables']['party_user']} SET
-									user_id = ". (int)$user_id .",
-									party_id = ". (int)$this->party_id .",
-									price_id = ". (int)$price_id .",
-									checkin = ". (int)$checkin .",
-									paid = ". (int)$paid .",
-									seatcontrol = ". (int)$seatcontrol .",
-									signondate = $timestamp
-									");
+				$db->qry("INSERT INTO %prefix%party_user SET
+         user_id = %int%,
+         party_id = %int%,
+         price_id = %int%,
+         checkin = %string%,
+         paid = %int%,
+         seatcontrol = %string%,
+         signondate = %string%
+         ", $user_id, $this->party_id, $price_id, $checkin, $paid, $seatcontrol, $timestamp);
 			}else{
 				$this->update_user_at_party($user_id,$paid,$price_id,$checkin);
 			}
@@ -432,7 +432,7 @@ class party{
 			}
 
 			if($price_id != 0){
-				 $prices = $db->query_first("SELECT * FROM {$config['tables']['party_prices']} WHERE price_id=$price_id");
+				 $prices = $db->qry_first("SELECT * FROM %prefix%party_prices WHERE price_id=%int%", $price_id);
 				if($prices['depot_price'] == 0){
 					$seatcontrol = 1;	
 				}
@@ -481,10 +481,10 @@ class party{
 			}
 			
 			
-			$db->query("DELETE FROM {$config['tables']['party_user']} 
-								WHERE user_id = $user_id AND
-								party_id = {$this->party_id}
-								");
+			$db->qry("DELETE FROM %prefix%party_user 
+        WHERE user_id = %int% AND
+        party_id = %int%
+        ", $user_id, $this->party_id);
 				
 		}
 
@@ -496,8 +496,8 @@ class party{
 		function GetUserGroupDropdown($group_id = "NULL",$nogroub = 0,$select_id = 0,$javascript = false){
 			global $db,$mf,$config,$lang;
 
-			if($group_id == "NULL") $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
-			else $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']} WHERE group_id = {$group_id}");
+			if($group_id == "NULL") $res = $db->qry("SELECT * FROM %prefix%party_usergroups");
+			else $res = $db->qry("SELECT * FROM %prefix%party_usergroups WHERE group_id = %int%", $group_id);
 
 			$selections = array();
       $selections[] = t('Ohne Gruppe');
@@ -512,9 +512,9 @@ class party{
 			global $db,$dsp,$config,$lang;
 			
 			if($group_id == "NULL"){
-				$row = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
+				$row = $db->qry("SELECT * FROM %prefix%party_usergroups");
 			}else{
-				$row = $db->query("SELECT * FROM {$config['tables']['party_usergroups']} WHERE group_id = {$group_id}");	
+				$row = $db->qry("SELECT * FROM %prefix%party_usergroups WHERE group_id = %int%", $group_id);	
 			}
 			
 			if($nogroub == 1){
@@ -567,12 +567,12 @@ class party{
 		function add_user_group($group,$description,$selection,$select_opts){
 			global $db,$config;
 			
-			$db->query("INSERT {$config['tables']['party_usergroups']} SET
-								group_name = '{$group}',
-								description = '{$description}',
-								selection = '{$selection}',
-								select_opts = '{$select_opts}'
-								");
+			$db->qry("INSERT %prefix%party_usergroups SET
+        group_name = %string%,
+        description = %string%,
+        selection = %string%,
+        select_opts = %string%
+        ", $group, $description, $selection, $select_opts);
 			
 		}
 		
@@ -586,20 +586,20 @@ class party{
 		function update_user_group($group_id,$group,$description,$selection,$select_opts){
 			global $db,$config;
 			
-			$db->query("UPDATE {$config['tables']['party_usergroups']} SET
-								group_name = '{$group}',
-								description = '{$description}',
-								selection = '{$selection}',
-								select_opts = '{$select_opts}'
-								WHERE group_id = '{$group_id}'
-								");
+			$db->qry("UPDATE %prefix%party_usergroups SET
+        group_name = %string%,
+        description = %string%,
+        selection = %string%,
+        select_opts = %string%
+        WHERE group_id = %int%
+        ", $group, $description, $selection, $select_opts, $group_id);
 			
 		}		
 		
 		
 		function price_seatcontrol($price_id){
 			global $db, $config;
-			$prices = $db->query_first("SELECT * FROM {$config['tables']['party_prices']} WHERE price_id=$price_id");
+			$prices = $db->qry_first("SELECT * FROM %prefix%party_prices WHERE price_id=%int%", $price_id);
 			return $prices['depot_price'];
 		}
 		
@@ -611,7 +611,7 @@ class party{
 		 */
 		function get_seatcontrol($user_id){
 			global $db, $config;
-				$row = $db->query_first("SELECT * FROM {$config['tables']['party_user']} WHERE user_id=$user_id AND party_id={$this->party_id}");
+				$row = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id=%int% AND party_id=%int%", $user_id, $this->party_id);
 				return $row['seatcontrol'];
 		}
 		
@@ -623,7 +623,7 @@ class party{
 		 */
 		function set_seatcontrol($user_id,$seatcontrol){
 			global $db, $config;
-				$db->query("UPDATE {$config['tables']['party_user']}  SET seatcontrol=$seatcontrol WHERE user_id=$user_id AND party_id={$this->party_id}");
+				$db->qry("UPDATE %prefix%party_user  SET seatcontrol=%string% WHERE user_id=%int% AND party_id=%int%", $seatcontrol, $user_id, $this->party_id);
 		
 		}
 				
@@ -635,8 +635,8 @@ class party{
 		 */
 		function delete_price($del_price, $set_price){
 			global $db, $config;
-				$db->query("UPDATE {$config['tables']['party_user']}  SET price_id='$set_price' WHERE price_id=$del_price");
-				$db->query("DELETE FROM {$config['tables']['party_prices']} WHERE price_id=$del_price");
+				$db->qry("UPDATE %prefix%party_user  SET price_id=%string% WHERE price_id=%string%", $set_price, $del_price);
+				$db->qry("DELETE FROM %prefix%party_prices WHERE price_id=%string%", $del_price);
 		}
 		
 		
@@ -648,8 +648,8 @@ class party{
 		 */
 		function delete_usergroups($del_group,$set_group){
 			global $db, $config;
-				$db->query("UPDATE {$config['tables']['user']}  SET group_id='$set_group' WHERE group_id=$del_group");
-				$db->query("DELETE FROM {$config['tables']['party_usergroups']} WHERE group_id=$del_group");
+				$db->qry("UPDATE %prefix%user  SET group_id=%string% WHERE group_id=%string%", $set_group, $del_group);
+				$db->qry("DELETE FROM %prefix%party_usergroups WHERE group_id=%string%", $del_group);
 		}
 		
 		

@@ -20,29 +20,29 @@ $templ['messenger']['query']['messages']['refreshtime'] = $config["size"]["msgre
 // 
 // Set all msgs to status 0
 //
-$query = $db->query("
-UPDATE	{$config[tables][messages]} 
-SET	new 	 = '0' 
-WHERE	senderid = '$_GET[queryid]' AND receiverid = '{$_SESSION[auth][userid]}'
-");
+$query = $db->qry("
+UPDATE %prefix%messages 
+SET new   = '0' 
+WHERE senderid = %int% AND receiverid = %int%
+", $_GET[queryid], $_SESSION[auth][userid]);
 
 // 
 // Select msgs
 //
 
-$query = $db->query("
-		SELECT	text, timestamp, senderid
-		FROM	{$config[tables][messages]}	
-		WHERE	(senderid = '{$_SESSION[auth][userid]}'	AND receiverid = '$_GET[queryid]')
-		OR	(senderid = '$_GET[queryid]'		AND receiverid = '{$_SESSION[auth][userid]}')
-		ORDER BY timestamp
-		");
+$query = $db->qry("
+  SELECT text, timestamp, senderid
+  FROM %prefix%messages 
+  WHERE (senderid = %int% AND receiverid = %int%)
+  OR (senderid = %int%  AND receiverid = %int%)
+  ORDER BY timestamp
+  ", $_SESSION[auth][userid], $_GET[queryid], $_GET[queryid], $_SESSION[auth][userid]);
 
-$row2 = $db->query_first("
-		SELECT	username
-		FROM	{$config[tables][user]}	
-		WHERE	userid = '$_GET[queryid]'
-		");
+$row2 = $db->qry_first("
+  SELECT username
+  FROM %prefix%user 
+  WHERE userid = %int%
+  ", $_GET[queryid]);
 
 while($row = $db->fetch_array($query))
 {

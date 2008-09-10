@@ -20,14 +20,14 @@ switch( $_GET["step"] ) {
 	case 3:
 	
 		// DELETE 'em all.... 
-		$check_device = $db->query_first("SELECT id FROM {$config["tables"]["noc_devices"]} WHERE id='{$_GET["deviceid"]}'");
+		$check_device = $db->qry_first("SELECT id FROM %prefix%noc_devices WHERE id=%int%", $_GET["deviceid"]);
 		
 		if ($check_device["id"] == "") $func->error(t('Das gew&auml;hlte Device existiert nicht'),"");
 		
 		else {
 
-				$del_query1 = $db->query("DELETE FROM {$config["tables"]["noc_devices"]} WHERE id=" . $_GET["deviceid"]);
-				$del_query2 = $db->query("DELETE FROM {$config["tables"]["noc_ports"]} WHERE deviceid=" . $_GET["deviceid"]);
+				$del_query1 = $db->qry("DELETE FROM %prefix%noc_devices WHERE id = %int%", $_GET["deviceid"]);
+				$del_query2 = $db->qry("DELETE FROM %prefix%noc_ports WHERE deviceid = %int%", $_GET["deviceid"]);
 
 				If ($del_query1 && $del_query2) {
 

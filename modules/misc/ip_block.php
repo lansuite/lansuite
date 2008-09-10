@@ -7,7 +7,7 @@ switch($_GET["step"]) {
 		$dsp->SetForm("index.php?mod=misc&action={$_GET["action"]}&step=2");
 
 		$blacklist = "";
-		$res = $db->query("SELECT ip FROM {$config["tables"]["ip_blacklist"]}");
+		$res = $db->qry("SELECT ip FROM %prefix%ip_blacklist");
 		while ($ip = $db->fetch_array($res)) $blacklist .= $ip["ip"] ."\n";
 		$db->free_result($res);
 		$dsp->AddTextAreaRow("blacklist", "<b>Blacklist</b>" . HTML_NEWLINE ."<i>Einträge durch Zeilenumbruch trennen</i>", $blacklist, $error["blacklist"]);
@@ -19,9 +19,9 @@ switch($_GET["step"]) {
 	
 	case 2:
 		if (!$sec->locked("ip_block")) {
-			$db->query("TRUNCATE TABLE {$config["tables"]["ip_blacklist"]}");
+			$db->qry("TRUNCATE TABLE %prefix%ip_blacklist");
 			$blacklist = split("\n", $_POST["blacklist"]);
-			foreach ($blacklist as $entry) $db->query("INSERT INTO {$config["tables"]["ip_blacklist"]} SET ip = '$entry'");
+			foreach ($blacklist as $entry) $db->qry("INSERT INTO %prefix%ip_blacklist SET ip = %string%", $entry);
 
 			$func->confirmation("Blacklist wurde aktuallisiert", "index.php?mod=misc&action=ip_block");
 

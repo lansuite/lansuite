@@ -5,7 +5,7 @@ $party = new party();
 
 switch ($_GET['step']) {
   case 10:
-    $row = $db->query_first("SELECT ls_url FROM {$config['tables']['partylist']} WHERE partyid = ".(int)$_GET['partyid']);
+    $row = $db->qry_first("SELECT ls_url FROM %prefix%partylist WHERE partyid = %int%", $_GET['partyid']);
     if (substr($row['ls_url'], strlen($row['ls_url']) - 1, 1) != '/') $row['ls_url'] .= '/';
     if (substr($row['ls_url'], 0, 7) != 'http://') $row['ls_url'] = 'http://'. $row['ls_url'];
     header('Location: '. $row['ls_url'] . 'index.php?mod=signon');
@@ -161,9 +161,9 @@ if (!$_GET['partyid']) {
 
 
 } else {
-  $row = $db->query_first("SELECT u.username, p.*, UNIX_TIMESTAMP(p.start) AS start, UNIX_TIMESTAMP(p.end) AS end FROM {$config['tables']['partylist']} AS p
-  	LEFT JOIN {$config['tables']['user']} AS u on p.userid = u.userid
-	WHERE p.partyid = ".(int)$_GET['partyid']);
+  $row = $db->qry_first("SELECT u.username, p.*, UNIX_TIMESTAMP(p.start) AS start, UNIX_TIMESTAMP(p.end) AS end FROM %prefix%partylist AS p
+   LEFT JOIN %prefix%user AS u on p.userid = u.userid
+ WHERE p.partyid = %int%", $_GET['partyid']);
 
   if (substr($row['url'], 0, 7) != 'http://') $row['url'] = 'http://'. $row['url'];
 

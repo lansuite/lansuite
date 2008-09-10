@@ -143,7 +143,7 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 		
 		default:
 			if(!isset($_POST['email']) && $auth['userid'] != 0){
-				$row = $db->query_first("SELECT * FROM {$config["tables"]["user"]} WHERE userid={$auth['userid']}");
+				$row = $db->qry_first("SELECT * FROM %prefix%user WHERE userid=%int%", $auth['userid']);
 				$_POST['firstname'] = $row['firstname'];
 				$_POST['lastname'] = $row['name'];
 				$_POST['street'] = $row['street'];
@@ -156,7 +156,7 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 			if(isset($_POST['price'])){
 				$_SESSION['paypal']['price'] = $_POST['price'];
 				foreach ($_POST['price'] as $price_id){
-					$price_db = $db->query_first("SELECT * FROM {$config["tables"]["party_prices"]} WHERE price_id='$price_id'");
+					$price_db = $db->qry_first("SELECT * FROM %prefix%party_prices WHERE price_id=%int%", $price_id);
 					$price = $price + $price_db['price'];
 					if(isset($_POST['depot']) && in_array($price_id,$_POST['depot'])){
 						$_SESSION['paypal']['depot'] = $_POST['depot'];
@@ -249,15 +249,16 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 
 				if(isset($_SESSION['paypal']['price'])){
 					foreach ($_SESSION['paypal']['price'] as $price_id){
-						$db->query("UPDATE {$config["tables"]["party_user"]} SET paid='1' WHERE user_id={$auth['userid']} AND price_id={$price_id}");
+						$db->qry("UPDATE %prefix%party_user SET paid='1' WHERE user_id=%int% AND price_id=%int%", $auth['userid'], $price_id);
 						if(isset($_SESSION['paypal']['depot']) && in_array($price_id,$_SESSION['paypal']['depot'])){
-							$db->query("UPDATE {$config["tables"]["party_user"]} SET seatcontrol='1' WHERE user_id={$auth['userid']} AND price_id={$price_id}");
+							$db->qry("UPDATE %prefix%party_user SET seatcontrol='1' WHERE user_id=%int% AND price_id=%int%", $auth['userid'], $price_id);
 						}
 					}
 				}
 				
 				if($_SESSION['paypal']['catering'] > 0){
-					$db->query("INSERT INTO {$config["tables"]["catering_accounting"]} SET userID='".$auth["userid"]."', actiontime=NOW(), comment=\"PAYPAL:  {$_POST['payment_date']} {$_POST['txn_id']}\", movement='".$_SESSION['paypal']['catering']."'");
+					$db->qry("INSERT INTO %prefix%catering_accounting SET userID=%int%, actiontime=NOW(), comment=\"PAYPAL: %string% %string%\", movement=%string",
+  $auth["userid"], $_POST['payment_date'], $_POST['txn_id'], $_SESSION['paypal']['catering']);
 				}
 				
 				$dsp->NewContent(t('Zahlung erfolgreich'));

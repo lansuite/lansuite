@@ -32,12 +32,12 @@ if($_GET[queryid])
 		//
 		default:
 
-			$rowcheck = $db->query("
-			SELECT	id
-			FROM	{$config[tables][buddys]}
-			WHERE	userid = '{$_SESSION[auth][userid]}'
-			AND	buddyid = '$_GET[queryid]'
-			");
+			$rowcheck = $db->qry("
+   SELECT id
+   FROM %prefix%buddys
+   WHERE userid = %int%
+   AND buddyid = %int%
+   ", $_SESSION[auth][userid], $_GET[queryid]);
 
 			//
 			// User in buddylist ?
@@ -47,11 +47,11 @@ if($_GET[queryid])
 				//
 				// Get name
 				//
-				$row = $db->query_first("
-				SELECT	username, name, firstname
-				FROM	{$config[tables][user]}
-				WHERE	userid = '$_GET[queryid]'
-				");
+				$row = $db->qry_first("
+    SELECT username, name, firstname
+    FROM %prefix%user
+    WHERE userid = %int%
+    ", $_GET[queryid]);
 
 				//
 				// Question
@@ -81,21 +81,21 @@ if($_GET[queryid])
 			//
 			// Get name
 			//
-			$row1 = $db->query_first("
-			SELECT	username, name, firstname
-			FROM	{$config[tables][user]}
-			WHERE	userid = '$_GET[queryid]'
-			");
+			$row1 = $db->qry_first("
+   SELECT username, name, firstname
+   FROM %prefix%user
+   WHERE userid = %int%
+   ", $_GET[queryid]);
 
 			//
 			// Remove
 			//
-			$row2 = $db->query("
-			DELETE
-			FROM	{$config[tables][buddys]}
-			WHERE	buddyid = '$_GET[queryid]'
-			AND	userid = '{$_SESSION[auth][userid]}'
-			");
+			$row2 = $db->qry("
+   DELETE
+   FROM %prefix%buddys
+   WHERE buddyid = %int%
+   AND userid = %int%
+   ", $_GET[queryid], $_SESSION[auth][userid]);
 
 			//
 			// Confirmation

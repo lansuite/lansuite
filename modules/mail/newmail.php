@@ -26,9 +26,9 @@ function SendOnlineMail() {
 
   // Inet-Mail
   else {
-    $row = $db->query_first("SELECT name, firstname, email FROM {$config['tables']['user']} WHERE userid = ". (int)$_POST['toUserID']);
+    $row = $db->qry_first("SELECT name, firstname, email FROM %prefix%user WHERE userid = %int%", $_POST['toUserID']);
     if ($_POST['fromUserID']) {
-      $row2 = $db->query_first("SELECT email FROM {$config['tables']['user']} WHERE userid = ". (int)$_POST['fromUserID']);
+      $row2 = $db->qry_first("SELECT email FROM %prefix%user WHERE userid = %int%", $_POST['fromUserID']);
       $_POST['SenderMail'] = $row2['email'];
     }
 
@@ -43,9 +43,9 @@ $mf = new masterform();
 
 if ($_GET['userID']) $_POST['toUserID'] = $_GET['userID'];
 if ($_GET['replyto']) {
-  $row = $db->query_first("SELECT m.mailID, m.Subject, m.msgbody, UNIX_TIMESTAMP(m.tx_date) AS tx_date, u.username FROM {$config['tables']['mail_messages']} AS m
-    LEFT JOIN {$config['tables']['user']} AS u ON m.fromUserID = u.userid
-    WHERE m.mailID = ".(int)$_GET['replyto']);
+  $row = $db->qry_first("SELECT m.mailID, m.Subject, m.msgbody, UNIX_TIMESTAMP(m.tx_date) AS tx_date, u.username FROM %prefix%mail_messages AS m
+    LEFT JOIN %prefix%user AS u ON m.fromUserID = u.userid
+    WHERE m.mailID = %int%", $_GET['replyto']);
   $reply_message = $row[mailID];
   if (substr($row['Subject'], 0, 4) == 'Re: ') $_POST['Subject'] = $row['Subject'];
   else $_POST['Subject'] = 'Re: '.$row['Subject'];
@@ -75,7 +75,7 @@ $AdminFound = 0;
 $UserFound = 0;
 if ($auth['userid']) $WhereMinType = 1;
 else $WhereMinType = 2;
-$res = $db->query("SELECT type, userid, username, firstname, name FROM {$config['tables']['user']} WHERE type >= $WhereMinType ORDER BY type DESC, username");
+$res = $db->qry("SELECT type, userid, username, firstname, name FROM %prefix%user WHERE type >= %string% ORDER BY type DESC, username", $WhereMinType);
 while ($row = $db->fetch_array($res)) {
   if (!$AdminFound and $row['type'] > 1) {
     $selections['-OptGroup-1'] = t('Admins');
@@ -119,7 +119,7 @@ if ( $mf->SendForm('index.php?mod=mail&action=newmail&reply_message', 'mail_mess
   $reply_to = strrchr($url_parts['query'], 'replyto');
   if ( $reply_to ) {
   	$reply_to_id = substr( strrchr ( $reply_to , '=' ) , 1);
-  	$setreply = $db->query("UPDATE {$config['tables']['mail_messages']} SET des_status = 'reply' WHERE mailID = '$reply_to_id' ");
+  	$setreply = $db->qry("UPDATE %prefix%mail_messages SET des_status = 'reply' WHERE mailID = %int% ", $reply_to_id);
   }
 }
 ?>

@@ -114,18 +114,18 @@ switch( $_GET["step"] ) {
 		$numport = count($ports);
 		
 		// Store the device into a SQL table
-		$add_query = $db->query("INSERT INTO {$config["tables"]["noc_devices"]} SET
-					name 		= '{$_POST['device_caption']}',
-					ip 		= '{$_POST['device_ip']}',
-					readcommunity	= '{$_POST['device_read']}',
-					writecommunity	= '{$_POST['device_write']}',
-					sysDescr 	= '$sysDescr',
-					sysContact 	= '$sysContact',
-					sysUpTime 	= '$sysUpTime',
-					sysLocation 	= '$sysLocation',
-					sysName 	= '$sysName',
-					ports		= '$numport'
-					");
+		$add_query = $db->qry("INSERT INTO %prefix%noc_devices SET
+     name   = %string%,
+     ip   = %string%,
+     readcommunity = %string%,
+     writecommunity = %string%,
+     sysDescr  = %string%,
+     sysContact  = %string%,
+     sysUpTime  = %string%,
+     sysLocation  = %string%,
+     sysName  = %string%,
+     ports  = %string%
+     ", $_POST['device_caption'], $_POST['device_ip'], $_POST['device_read'], $_POST['device_write'], $sysDescr, $sysContact, $sysUpTime, $sysLocation, $sysName, $numport);
 
 
 		$db->query( "SELECT id, ip, readcommunity FROM {$config["tables"]["noc_devices"]} WHERE name=\"" . $_POST["device_caption"] . "\"" );
@@ -197,19 +197,19 @@ switch( $_GET["step"] ) {
 				break;
 			}
 			// Save it all
-				$add_query = $db->query("INSERT INTO {$config["tables"]["noc_ports"]} SET
-							portnr = '". $Port[$ActualPort]["PortNr"] . "',
-							bytesIn = '". $Port[$ActualPort]["BytesIn"] ."',
-							bytesOut = '". $Port[$ActualPort]["BytesOut"] ."',
-							speed = '". $Port[$ActualPort]["Speed"] ."',
-							mac = '" . $Port[$ActualPort]["MACAddress"] . "',
-							ip = '" . $Port[$ActualPort]["IPAddress"] . "',
-							adminstatus = '". $Port[$ActualPort]["AdminStatus"]. "',
-							linkstatus = '". $Port[$ActualPort]["LinkStatus"] ."',
-							deviceid = '". $Port[$ActualPort]["deviceid"] ."',
-							type = '". $Port[$ActualPort]["Type"] ."',
-							indexname = '". $Port[$ActualPort]["indexname"] . "' 
-							");
+				$add_query = $db->qry("INSERT INTO %prefix%noc_ports SET
+       portnr = %string%,
+       bytesIn = %string%,
+       bytesOut = %string%,
+       speed = %string%,
+       mac = %string%,
+       ip = %string%,
+       adminstatus = %string%,
+       linkstatus = %string%,
+       deviceid = %int%,
+       type = %string%,
+       indexname = %string%",
+  $Port[$ActualPort]["PortNr"], $Port[$ActualPort]["BytesIn"], $Port[$ActualPort]["BytesOut"], $Port[$ActualPort]["Speed"], $Port[$ActualPort]["MACAddress"], $Port[$ActualPort]["IPAddress"], $Port[$ActualPort]["AdminStatus"]., $Port[$ActualPort]["LinkStatus"], $Port[$ActualPort]["deviceid"], $Port[$ActualPort]["Type"], $Port[$ActualPort]["indexname"]);
 		} // END FOR
 
 		$noc->getMacAddress($row["ip"], $row["readcommunity"],$row["id"],$sysDescr);
@@ -240,8 +240,4 @@ switch( $_GET["step"] ) {
 	
 	break;
 	
-	// ------------------------------------------------------------------------------------
-
-} // END SWITCH II
-
-?>
+	// ---------------------------------------------------------

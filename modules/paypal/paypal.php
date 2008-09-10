@@ -10,7 +10,7 @@ if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
 
 	// LIST ALL PARTYS
 	if($auth['userid'] != 0){
-		$pay_partys = $db->query("SELECT * FROM {$config["tables"]["party_user"]} AS pu LEFT JOIN {$config["tables"]["partys"]} AS p USING(party_id) LEFT JOIN {$config["tables"]["party_prices"]} AS price ON price.price_id=pu.price_id WHERE user_id={$auth['userid']} AND paid = '0'");
+		$pay_partys = $db->qry("SELECT * FROM %prefix%party_user AS pu LEFT JOIN %prefix%partys AS p USING(party_id) LEFT JOIN %prefix%party_prices AS price ON price.price_id=pu.price_id WHERE user_id=%int% AND paid = '0'", $auth['userid']);
 
 		if($db->num_rows($pay_partys) > 0){
 			while($pay = $db->fetch_array($pay_partys)){

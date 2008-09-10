@@ -1,7 +1,7 @@
 <?php
 
 foreach ($_POST[action] as $key => $val) {
-	$db->query("DELETE FROM {$config["tables"]["partys"]} WHERE party_id = ". (int)$key);
+	$db->qry("DELETE FROM %prefix%partys WHERE party_id = %string%", $key);
 }
 $func->confirmation('Erfolgreich gelöscht', 'index.php?mod=party');
 

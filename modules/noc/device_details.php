@@ -6,7 +6,7 @@ $noc = new noc();
 
 $filepath = "ext_inc/auto_images/noc/";
 // Get the device details
-$db->query("SELECT * from {$config["tables"]["noc_devices"]} WHERE id=" . $_GET["deviceid"]);
+$db->qry("SELECT * from %prefix%noc_devices WHERE id = %int%", $_GET["deviceid"]);
 
 if( !$row = $db->fetch_array() ) { 
 
@@ -82,14 +82,14 @@ if( !$row = $db->fetch_array() ) {
 		$noc->getMacAddress($row["ip"], $row["readcommunity"],$row["id"],$row["sysDescr"]);
 		
 		// Get the Ports and display 'em
-		$db->query("SELECT name FROM {$config["tables"]["noc_devices"]} WHERE id=" . $_GET["deviceid"]);
+		$db->qry("SELECT name FROM %prefix%noc_devices WHERE id = %int%", $_GET["deviceid"]);
 
 		$row = $db->fetch_array();
 		
 		// Ports are all saved into 1 template variable
 		$templ["noc"]["show"]["device"]["details"]["control"]["ports"] = "<tr align=\"center\">";
 
-		$port_query = $db->query("SELECT portnr, portid, linkstatus, adminstatus, speed, type, indexname FROM {$config["tables"]["noc_ports"]} WHERE deviceid=" . $_GET["deviceid"] . " AND type != 'system' ORDER BY portnr ASC");
+		$port_query = $db->qry("SELECT portnr, portid, linkstatus, adminstatus, speed, type, indexname FROM %prefix%noc_ports WHERE deviceid = %int% AND type != 'system' ORDER BY portnr ASC", $_GET["deviceid"]);
 
 		$Portcount = 1;
 
@@ -99,12 +99,12 @@ if( !$row = $db->fetch_array() ) {
 			$Port["AdminStatus"] =	$noc->getSNMPValue( $device_ip, $readcommunity, ".1.3.6.1.2.1.2.2.1.7." . $row["portnr"] );
 
 			if($Port["LinkStatus"] != $row["linkstatus"]){
-					$db->query_first("UPDATE {$config["tables"]["noc_ports"]} SET linkstatus='{$Port["LinkStatus"]}' WHERE portid={$row["portid"]}");
+					$db->qry_first("UPDATE %prefix%noc_ports SET linkstatus=%string% WHERE portid=%int%", $Port["LinkStatus"], $row["portid"]);
 					$row["linkstatus"] = $Port["LinkStatus"];
 			}
 
 			if($Port["AdminStatus"] != $row["adminstatus"]){
-					$db->query_first("UPDATE {$config["tables"]["noc_ports"]} SET adminstatus='{$Port["AdminStatus"]}' WHERE portid={$row["portid"]}");
+					$db->qry_first("UPDATE %prefix%noc_ports SET adminstatus=%string% WHERE portid=%int%", $Port["AdminStatus"], $row["portid"]);
 					$row["adminstatus"] = $Port["AdminStatus"];
 			}
 
@@ -186,7 +186,7 @@ if( !$row = $db->fetch_array() ) {
 		$dsp->NewContent(t('Portstatus &auml;ndern'),t('Geben sie bitte alle Ports an die Sie &auml;ndern wollen'));
 		$dsp->SetForm("index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=3");
 
-		$db->query("SELECT portnr, portid, linkstatus, adminstatus, speed, type, indexname FROM {$config["tables"]["noc_ports"]} WHERE deviceid=" . $_GET["deviceid"] . " AND type != 'system' ORDER BY portnr ASC");
+		$db->qry("SELECT portnr, portid, linkstatus, adminstatus, speed, type, indexname FROM %prefix%noc_ports WHERE deviceid = %int% AND type != 'system' ORDER BY portnr ASC", $_GET["deviceid"]);
 
 		$Portcount = 1;
 		$tmp_noc = "</td></tr><tr align=\"center\">";
@@ -297,7 +297,7 @@ if( !$row = $db->fetch_array() ) {
 
 				if($noc->setSNMPValue( $row["ip"], $row["writecommunity"], ".1.3.6.1.2.1.2.2.1.7.{$noc_data}", "i", $newstatus )){
 
-					$db->query_first("UPDATE {$config["tables"]["noc_ports"]} SET adminstatus='$statusdb' WHERE portnr=" . $noc_data . " AND deviceid=" . $_GET['deviceid']);
+					$db->qry_first("UPDATE %prefix%noc_ports SET adminstatus=%string% WHERE portnr=%string% AND deviceid=%int%", $statusdb, $noc_data, $_GET['deviceid']);
 
 					$text .= $noc_data . t('Der Portstatus wurde ge&auml;ndert') . HTML_NEWLINE;
 				}else{
@@ -334,7 +334,7 @@ if( !$row = $db->fetch_array() ) {
 
 				if($noc->setSNMPValue( $row["ip"], $row["writecommunity"], ".1.3.6.1.2.1.2.2.1.7.{$_SESSION['noc_ports']}", "i", $newstatus )){
 
-					$db->query_first("UPDATE {$config["tables"]["noc_ports"]} SET adminstatus='$statusdb' WHERE portnr=" . $noc_data . " AND deviceid=" . $_GET['deviceid']);
+					$db->qry_first("UPDATE %prefix%noc_ports SET adminstatus=%string% WHERE portnr=%string% AND deviceid=%int%", $statusdb, $noc_data, $_GET['deviceid']);
 
 					$text .= $noc_data . t('Der Portstatus wurde ge&auml;ndert') . HTML_NEWLINE;
 				}else{
