@@ -101,7 +101,7 @@ class beamer {
   
   function getContent( $bcid ) {
   global $db, $config, $func;  
-  	$row = $db->query_first(" SELECT * FROM {$config['tables']['beamer_content']} WHERE bcid = '$bcid' LIMIT 1");
+  	$row = $db->qry_first("SELECT * FROM %prefix%beamer_content WHERE bcid = %int% LIMIT 1", $bcid);
 	return $row;
   
   }

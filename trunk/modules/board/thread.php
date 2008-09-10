@@ -14,9 +14,9 @@ function getboardrank($posts) {
 function getuserinfo($userid) {
 	global $db, $cfg, $config;
 
-	$row_poster = $db->query_first("SELECT username, type FROM {$config["tables"]["user"]} WHERE userid='$userid'");
-	$row_poster_settings = $db->query_first("SELECT avatar_path, signature FROM {$config["tables"]["usersettings"]} WHERE userid='$userid'");
-	$count_rows = $db->query_first("SELECT COUNT(*) AS posts FROM {$config['tables']['board_posts']} WHERE userid = '$userid'");
+	$row_poster = $db->qry_first("SELECT username, type FROM %prefix%user WHERE userid=%int%", $userid);
+	$row_poster_settings = $db->qry_first("SELECT avatar_path, signature FROM %prefix%usersettings WHERE userid=%int%", $userid);
+	$count_rows = $db->qry_first("SELECT COUNT(*) AS posts FROM %prefix%board_posts WHERE userid = %int%", $userid);
 
 	$html_image= '<img src="%s" alt="%s" border="0">';
 
@@ -52,9 +52,9 @@ if ($auth['type'] >= 2) switch ($_GET['step']) {
 
 $tid = (int)$_GET["tid"];
 $list_type = $auth['type'] + 1;
-$thread = $db->query_first("SELECT t.fid, t.caption, t.closed, f.name AS ForumName, f.need_type, f.need_group FROM {$config["tables"]["board_threads"]} AS t
-  LEFT JOIN {$config["tables"]["board_forums"]} AS f ON t.fid = f.fid
-  WHERE t.tid=$tid AND f.need_type <= '{$list_type}' AND (!f.need_group OR f.need_group = ". (int)$auth['group_id'] .")");
+$thread = $db->qry_first("SELECT t.fid, t.caption, t.closed, f.name AS ForumName, f.need_type, f.need_group FROM %prefix%board_threads AS t
+  LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
+  WHERE t.tid=%int% AND f.need_type <= %string% AND (!f.need_group OR f.need_group = %int%)", $tid, $list_type, $auth['group_id']);
 
 if ($thread['caption'] == '' and $tid) $func->information(t('Keine Beiträge vorhanden'), '');
 elseif ($thread['caption'] != '') {
@@ -62,9 +62,9 @@ elseif ($thread['caption'] != '') {
 	$fid = $thread["fid"];
 
 	// Mark thread read
-	$search_read = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["board_read_state"]} WHERE tid = $tid and userid = '{$auth["userid"]}'");
-	if ($search_read["found"]) $db->query_first("UPDATE {$config["tables"]["board_read_state"]} SET last_read = ". time() ." WHERE tid = $tid and userid = '{$auth["userid"]}'");
-	else $db->query_first("INSERT INTO {$config["tables"]["board_read_state"]} SET last_read = ". time() .", tid = $tid, userid = '{$auth["userid"]}'");
+	$search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%board_read_state WHERE tid = %int% and userid = %int%", $tid, $auth["userid"]);
+	if ($search_read["found"]) $db->qry_first("UPDATE %prefix%board_read_state SET last_read = %int% WHERE tid = %int% and userid = %int%", time(), $tid, $auth["userid"]);
+	else $db->qry_first("INSERT INTO %prefix%board_read_state SET last_read = %int%, tid = %int% userid = %int%", $tid, time(), $auth["userid"]);
 
   // Tread Headline
 	$hyperlink = '<a href="%s" class="menu">%s</a>';
@@ -156,7 +156,7 @@ elseif ($thread['caption'] != '') {
 	$dsp->AddContent();
 }
 
-if ($_GET['pid'] != '') $current_post = $db->query_first("SELECT userid FROM {$config['tables']['board_posts']} WHERE pid = {$_GET['pid']}");
+if ($_GET['pid'] != '') $current_post = $db->qry_first("SELECT userid FROM %prefix%board_posts WHERE pid = %int%", $_GET['pid']);
 
 if ($thread['closed']) $func->information(t('Dieser Thread wurde geschlossen. Es können keine Antworten mehr geschrieben werden'), NO_LINK);
 elseif ($thread['need_type'] >= 1 and !$auth['login']) $func->information(t('Um auf diese Beiträge zu antworten, loggen Sie sich bitte zuerst ein.'), NO_LINK);
@@ -227,11 +227,11 @@ if ($thread['caption'] != '') {
   // Bookmarks and Auto-Mail
   if ($auth['login']) {
   	if ($_GET["set_bm"]) {
-  		$db->query_first("DELETE FROM {$config["tables"]["board_bookmark"]} WHERE tid = '$tid' AND userid = '{$auth['userid']}'");
-  		if ($_POST["check_bookmark"]) $db->query_first("INSERT INTO {$config["tables"]["board_bookmark"]} SET tid = '$tid', userid = '{$auth['userid']}', email = '{$_POST["check_email"]}', sysemail = '{$_POST["check_sysemail"]}'");
+  		$db->qry_first("DELETE FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
+  		if ($_POST["check_bookmark"]) $db->qry_first("INSERT INTO %prefix%board_bookmark SET tid = %int% userid = %int% email = %string% sysemail = %striing%", $tid, $auth['userid']}, $_POST["check_email"], $_POST["check_sysemail"]);
   	}
   
-  	$bookmark = $db->query_first("SELECT 1 AS found, email, sysemail FROM {$config["tables"]["board_bookmark"]} WHERE tid = '$tid' AND userid = '{$auth['userid']}'");
+  	$bookmark = $db->qry_first("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
   	if ($bookmark["found"]) $_POST["check_bookmark"] = 1;
   	if ($bookmark["email"]) $_POST["check_email"] = 1;
   	if ($bookmark["sysemail"]) $_POST["check_sysemail"] = 1;

@@ -34,7 +34,7 @@ switch($_GET['step'])
 		break;
 		
 	case 2:
-		$db->query("DELETE FROM {$config["tables"]["cashmgr_group"]} WHERE id = {$_GET['id']}");
+		$db->qry("DELETE FROM %prefix%cashmgr_group WHERE id = %int%", $_GET['id']);
 		$func->confirmation('Erfolgreich gelöscht', 'index.php?mod=cashmgr&action=managegroup');
 		break;
 }

@@ -49,14 +49,15 @@ class accounting
 			$this->fix = 0;
 			
 		global $db,$config;
-			$db->query("INSERT INTO {$config['tables']['cashmgr_accounting']} SET 
-				userid	='{$this->userid}',
-				editorid='{$this->editorid}', 
-				partyid	='{$this->partyid}', 
-				modul	='{$this->modul}', 
-				movement='{$movement}',
-				fix		='{$this->fix}',
-				comment	='{$comment}'");
+			$db->qry("INSERT INTO %prefix%cashmgr_accounting SET 
+				userid	=%int%,
+				editorid=%int%,
+				partyid	=%int%,
+				modul	=%string%,
+				movement=%string%,
+				fix		=%string%,
+				comment	=%string%",
+                                $this->userid, $this->editorid, $this->partyid, $this->modul, $movement, $this->fix, $comment);
 				
 		$func->confirmation("Betrag von " . getMoneyColor($movement) . " erfolgreich von Modul " . $this->modul ." gebucht.", "");
 	}
@@ -65,14 +66,14 @@ class accounting
 	function getCashTotalBudget()
 	{
 		global $db, $config;
-		$result = $db->query_first("SELECT SUM(movement) AS total FROM {$config['tables']['cashmgr_accounting']} WHERE userid = {$this->userid} AND cash = '1'");
+		$result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE userid = %int% AND cash = '1'", $this->userid);
 		return getMoneyColor($result['total']);
 	}
 
 	function getOnlineTotalBudget()
 	{
 		global $db, $config;
-		$result = $db->query_first("SELECT SUM(movement) AS total FROM {$config['tables']['cashmgr_accounting']} WHERE userid = {$this->userid} AND cash = '0'");
+		$result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE userid = %int% AND cash = '0'", $this->userid);
 		return getMoneyColor($result['total']);
 	}
 
@@ -94,7 +95,7 @@ class accounting
 	$ms2->config['EntriesPerPage'] = 20;
 	
 	$party_list = array('' => 'Alle');
-	$row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+	$row = $db->qry("SELECT party_id, name FROM %prefix%partys");
 	while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
 	$db->free_result($row);
 
@@ -116,10 +117,10 @@ class accounting
 	{
 		global $cfg, $db, $config;
 		
-		$partydate = $db->query_first("SELECT UNIX_TIMESTAMP(startdate) AS startdate, UNIX_TIMESTAMP(enddate) AS enddate FROM {$config['tables']['partys']} WHERE party_id = {$this->partyid}");
+		$partydate = $db->qry_first("SELECT UNIX_TIMESTAMP(startdate) AS startdate, UNIX_TIMESTAMP(enddate) AS enddate FROM %prefix%partys WHERE party_id = %int%", $this->partyid);
 		$partytime = ($partydate['enddate'] - $partydate['startdate']) /3600;
 		
-		$query = $db->query("SELECT user_id FROM {$config['tables']['party_user']} WHERE party_id = {$this->partyid} AND paid != $paid");
+		$query = $db->qry("SELECT user_id FROM %prefix%party_user WHERE party_id = %int% AND paid != %int%", $this->partyid, $paid);
 		$result = $db->num_rows($query);
 		return getMoneyColor($result * $cfg['cashmgr_kwhaverage_usage'] * $cfg['cashmgr_kwh'] * $partytime * (-1));
 	}
@@ -132,13 +133,13 @@ class accounting
 		switch($posneg)
 		{
 		case 0:
-			$result = $db->query_first("SELECT SUM(movement) AS total FROM {$config['tables']['cashmgr_accounting']} WHERE partyid = {$this->partyid} AND fix = $fix AND movement < 0");
+			$result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string% AND movement < 0", $this->partyid, $fix);
 			break;
 		case 1:
-			$result = $db->query_first("SELECT SUM(movement) AS total FROM {$config['tables']['cashmgr_accounting']} WHERE partyid = {$this->partyid} AND fix = $fix AND movement > 0");
+			$result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string% AND movement > 0", $this->partyid, $fix);
 			break;
 		case 3:
-			$result = $db->query_first("SELECT SUM(movement) AS total FROM {$config['tables']['cashmgr_accounting']} WHERE partyid = {$this->partyid} AND fix = $fix");
+			$result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE partyid = %int% AND fix = %string", $this->partyid, $fix);
 			break;
 		}
 		return getMoneyColor($result['total']);
@@ -154,13 +155,13 @@ class accounting
 		switch($posneg)
 		{
 		case 0:
-			$row = $db->query("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM {$config['tables']['cashmgr_accounting']} AS a LEFT JOIN {$config['tables']['cashmgr_group']} AS g ON a.groupid = g.id WHERE partyid = {$this->partyid} AND fix = $fix AND movement < 0 GROUP BY modul, caption");
+			$row = $db->qry("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM %prefix%cashmgr_accounting AS a LEFT JOIN %prefix%cashmgr_group AS g ON a.groupid = g.id WHERE partyid = %int% AND fix = %string% AND movement < 0 GROUP BY modul, caption", $this->partyid, $fix);
 			break;
 		case 1:
-			$row = $db->query("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM {$config['tables']['cashmgr_accounting']} AS a LEFT JOIN {$config['tables']['cashmgr_group']} AS g ON a.groupid = g.id  WHERE partyid = {$this->partyid} AND fix = $fix AND movement > 0 GROUP BY modul, caption");
+			$row = $db->qry("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM %prefix%cashmgr_accounting AS a LEFT JOIN %prefix%cashmgr_group AS g ON a.groupid = g.id  WHERE partyid = %int% AND fix = %string% AND movement > 0 GROUP BY modul, caption", $this->partyid, $fix);
 			break;
 		case 3:
-			$row = $db->query("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM {$config['tables']['cashmgr_accounting']} AS a LEFT JOIN {$config['tables']['cashmgr_group']} AS g ON a.groupid = g.id  WHERE partyid = {$this->partyid} AND fix = $fix GROUP BY modul, caption");
+			$row = $db->qry("SELECT SUM(movement) AS movement, modul AS subjekt_m, caption AS subjekt FROM %prefix%cashmgr_accounting AS a LEFT JOIN %prefix%cashmgr_group AS g ON a.groupid = g.id  WHERE partyid = %int% AND fix = %string% GROUP BY modul, caption", $this->partyid, $fix);
 			break;
 		}
 		
@@ -223,9 +224,4 @@ class accounting
 			$templ['cashmgr']['bgcolor'] = "FFCCCC";
 			$templ['cashmgr']['totalcaption'] = "Summe";
 			$templ['cashmgr']['totalsum'] = $this->getSum(0,0);	
-			$dsp->AddModTpl("cashmgr", "sum");		
-		$dsp->AddFieldsetEnd();
-	}
-}
-  
-?>
+			$dsp->AddModTpl("cashmgr", "sum"

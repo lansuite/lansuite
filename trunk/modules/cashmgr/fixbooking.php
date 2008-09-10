@@ -9,11 +9,11 @@ $mf->AddField('Betreff', 'comment');
 $mf->AddField('Betrag (bei Negativen, minus davor)', 'movement');
 
 $party_list = array();
-	$row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+	$row = $db->qry("SELECT party_id, name FROM %prefix%partys");
 	while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
 	
 $group_list = array();
-	$row = $db->query("SELECT id, caption FROM {$config['tables']['cashmgr_group']}");
+	$row = $db->qry("SELECT id, caption FROM %prefix%cashmgr_group");
 	while($res = $db->fetch_array($row)) $group_list[$res['id']] = $res['caption'];
 
 	

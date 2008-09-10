@@ -9,9 +9,9 @@ function LastPostDetails($date) {
   global $db, $config, $line, $dsp, $templ;
 
   if ($date) {
-    $row = $db->query_first("SELECT t.caption, p.userid, p.tid, p.pid FROM {$config['tables']['board_posts']} AS p
-      LEFT JOIN {$config['tables']['board_threads']} AS t ON p.tid = t.tid
-      WHERE p.date = $date AND t.fid = {$line['fid']}");
+    $row = $db->qry_first("SELECT t.caption, p.userid, p.tid, p.pid FROM %prefix%board_posts AS p
+      LEFT JOIN %prefix%board_threads AS t ON p.tid = t.tid
+      WHERE p.date = %string% AND t.fid = %int%", $date, $line['fid']);
 
     if (strlen($row['caption']) > 18) $row['caption'] = substr($row['caption'], 0, 16). '...';
     return '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&gotopid='. $row['pid'] .'#pid'. $row['pid'] .'" class="menu">'. $row['caption'] .'<br />'. date('d.m.y H:i', $date) .'</a> '. $dsp->FetchUserIcon($row['userid']);
@@ -43,8 +43,8 @@ if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action
 $ms2->PrintSearch('index.php?mod=board', 'f.fid');
 
 // Statistics
-$total_threads = $db->query_first("SELECT COUNT(tid) as threads FROM {$config['tables']['board_threads']}");
-$total_posts = $db->query_first("SELECT COUNT(pid) as posts FROM {$config['tables']['board_posts']}");
+$total_threads = $db->qry_first("SELECT COUNT(tid) as threads FROM %prefix%board_threads");
+$total_posts = $db->qry_first("SELECT COUNT(pid) as posts FROM %prefix%board_posts");
 
 $info_line = t('Es wurden bereits %1 Beiträge in %2 Threads geschrieben', array($total_posts['posts'], $total_threads['threads'])) .HTML_NEWLINE.
   '<a href="index.php?mod=board&action=forum&fid=&order_by=LastPost&order_dir=DESC">'. t('Die neusten Beiträge anzeigen') .'</a>';
