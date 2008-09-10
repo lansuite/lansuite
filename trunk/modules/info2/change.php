@@ -113,9 +113,9 @@ if ($auth['type'] <= 1) {
   	// Delete entry
   	case 10:
   		foreach($_POST["action"] AS $item => $val) {
-  			$menu_intem = $db->query_first("SELECT caption FROM {$config['tables']['info']} WHERE infoID = $item");
-  			$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
-  			$db->query("DELETE FROM {$config['tables']['info']} WHERE infoID = $item");
+  			$menu_intem = $db->qry_first("SELECT caption FROM %prefix%info WHERE infoID = %string%", $item);
+  			$db->qry("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = %string%", $menu_intem["caption"]);
+  			$db->qry("DELETE FROM %prefix%info WHERE infoID = %string%", $item);
   		}
 
   		$func->confirmation(t('Der Eintrag wurde gelöscht.'), "index.php?mod=info2&action=change");
@@ -125,9 +125,9 @@ if ($auth['type'] <= 1) {
   	case 20:
   		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
   		foreach($_POST["action"] AS $item => $val) {
-				$db->query("UPDATE {$config['tables']['info']} SET active = 0 WHERE infoID = $item");
-  			$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
-				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
+				$db->qry("UPDATE %prefix%info SET active = 0 WHERE infoID = %string%", $item);
+  			$menu_intem = $db->qry_first("SELECT active, caption, shorttext FROM %prefix%info WHERE infoID = %string%", $item);
+				$db->qry("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = %string%", $menu_intem["caption"]);
       }
       $func->confirmation(t('Eintrag deaktiviert'), "index.php?mod=info2&action=change");
   	break;
@@ -136,7 +136,7 @@ if ($auth['type'] <= 1) {
     case 21:
   		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
   		foreach($_POST["action"] AS $item => $val) {
-				$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
+				$db->qry("UPDATE %prefix%info SET active = 1 WHERE infoID = %string%", $item);
       }
       $func->confirmation(t('Eintrag aktiviert'), "index.php?mod=info2&action=change");
   	break;
@@ -145,27 +145,27 @@ if ($auth['type'] <= 1) {
     case 22:
   		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
   		foreach($_POST["action"] AS $item => $val) {
-  			$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
-  			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
+  			$menu_intem = $db->qry_first("SELECT active, caption, shorttext FROM %prefix%info WHERE infoID = %string%", $item);
+  			$info_menu = $db->qry_first("SELECT pos FROM %prefix%menu WHERE module='info2'");
 
-				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
+				$db->qry("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = %string%", $menu_intem["caption"]);
 
         ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
 
         $link = str_replace('<', '&lt;', $menu_intem["caption"]);
         $link = str_replace('>', '&gt;', $link);
-				$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
-				$db->query("INSERT INTO {$config['tables']['menu']}
+				$db->qry("UPDATE %prefix%info SET active = 1 WHERE infoID = %string%", $item);
+				$db->qry("INSERT INTO %prefix%menu
 					SET module = 'info2',
-					caption = '{$menu_intem["caption"]}',
-					hint = '{$menu_intem["shorttext"]}',
-					link = '?mod=info2&action=show_info2&id=". $item ."',
+					caption = %string%,
+					hint = %string%,
+					link = %string%,
 					requirement = 0,
-					level = $level,
-					pos = {$info_menu["pos"]},
+					level = %string%,
+					pos = %string%,
 					action = 'show_info2',
 					file = 'show'
-					");
+					", $menu_intem["caption"], $menu_intem["shorttext"], "?mod=info2&action=show_info2&id=$item", $level, $info_menu["pos"]);
       }
       $func->confirmation(t('Eintrag aktiviert'), "index.php?mod=info2&action=change");
   	break;
@@ -174,27 +174,27 @@ if ($auth['type'] <= 1) {
     case 23:
   		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
   		foreach($_POST["action"] AS $item => $val) {
-  			$menu_intem = $db->query_first("SELECT active, caption, shorttext FROM {$config['tables']['info']} WHERE infoID = $item");
-  			$info_menu = $db->query_first("SELECT pos FROM {$config['tables']['menu']} WHERE module='info2'");
+  			$menu_intem = $db->qry_first("SELECT active, caption, shorttext FROM %prefix%info WHERE infoID = %string%", $item);
+  			$info_menu = $db->qry_first("SELECT pos FROM %prefix%menu WHERE module='info2'");
 
-				$db->query("DELETE FROM {$config['tables']['menu']} WHERE action = 'show_info2' AND caption = '{$menu_intem["caption"]}'");
+				$db->qry("DELETE FROM %prefix%menu WHERE action = 'show_info2' AND caption = %string%", $menu_intem["caption"]);
 
         ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
 
         $link = str_replace('<', '&lt;', $menu_intem["caption"]);
         $link = str_replace('>', '&gt;', $link);
-				$db->query("UPDATE {$config['tables']['info']} SET active = 1 WHERE infoID = $item");
-				$db->query("INSERT INTO {$config['tables']['menu']}
+				$db->qry("UPDATE %prefix%info SET active = 1 WHERE infoID = %string%", $item);
+				$db->qry("INSERT INTO %prefix%menu
 					SET module = 'info2',
-					caption = '{$menu_intem["caption"]}',
-					hint = '{$menu_intem["shorttext"]}',
-					link = '?mod=info2&action=show_info2&id=". $item ."',
+					caption = %string%,
+					hint = %string%,
+					link = %string%,
 					requirement = 2,
-					level = $level,
-					pos = {$info_menu["pos"]},
+					level = %string%,
+					pos = %string%,
 					action = 'show_info2',
 					file = 'show'
-					");
+					", $menu_intem["caption"], $menu_intem["shorttext"], "?mod=info2&action=show_info2&id=$item", $level, $info_menu["pos"]);
       }
       $func->confirmation(t('Eintrag aktiviert'), "index.php?mod=info2&action=change");
   	break;

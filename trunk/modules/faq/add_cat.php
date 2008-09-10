@@ -20,7 +20,7 @@ switch($_GET["step"]) {
 	case 2:
 		
 	//  ERRORS
-	$get_cat_names = $db->query("SELECT name FROM {$config["tables"]["faq_cat"]}");
+	$get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
 	
 		while($row=$db->fetch_array($get_cat_names)) {
 			
@@ -69,12 +69,12 @@ switch($_GET["step"]) {
 			
 		if($_SESSION["add_blocker_faqcat"] != 1) {
 				
-			$add_it = $db->query("INSERT INTO {$config["tables"]["faq_cat"]} SET
-										name = '{$_POST["cat_caption"]}',
-										poster = '{$_SESSION["auth"]["userid"]}',
-										date = '$courent_date',
-										catid = '$catid'
-										");
+			$add_it = $db->qry("INSERT INTO %prefix%faq_cat SET
+										name = %string%,
+										poster = %int%,
+										date = %string%,
+										catid = %int%
+										", $_POST["cat_caption"], $_SESSION["auth"]["userid"], $courent_date, $catid);
 		
 			if($add_it == 1) { $func->confirmation(t('Die Kategorie wurde erfolgreich eingetragen'),"");
 							

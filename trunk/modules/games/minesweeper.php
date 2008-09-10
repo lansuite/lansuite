@@ -48,9 +48,9 @@ switch ($_GET["step"]) {
         } else {
             $tmp_nick = rand(0, 100000);
 
-            $db->query("REPLACE INTO {$config["tables"]["game_hs"]}
-                SET game = 'mw_tmp', nick = '$tmp_nick', score = ". time() ."
-                ");
+            $db->qry("REPLACE INTO %prefix%game_hs
+                SET game = 'mw_tmp', nick = %string%, score = %int%
+                ", $tmp_nick, time());
 
             $templ['games']['minesweeper']['rows'] = $_POST["rows"];
             $templ['games']['minesweeper']['columns'] = $_POST["columns"];
@@ -79,10 +79,10 @@ switch ($_GET["step"]) {
         $dsp->AddSingleRow("<b>". t('Sie haben Gewonnen! Herzlichen Glückwunsch!') ."</b>");
         $dsp->AddHRuleRow();
 
-        $db->query("UPDATE {$config["tables"]["game_hs"]}
-            SET score = ". time() ." - score
-            WHERE (nick = '{$_GET["tmp_nick"]}' AND game = 'mw_tmp')
-            ");
+        $db->qry("UPDATE %prefix%game_hs
+            SET score = %int% - score
+            WHERE (nick = %string% AND game = 'mw_tmp')
+            ", time(), $_GET["tmp_nick"]);
 
         $dsp->SetForm("?mod=games&action=minesweeper&step=4&tmp_nick={$_GET["tmp_nick"]}");
         $dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
@@ -94,10 +94,10 @@ switch ($_GET["step"]) {
     break;
 
     case 4:
-        $db->query("UPDATE {$config["tables"]["game_hs"]}
-            SET game = 'mw', nick = '". $func->text2db($_POST["nick"]) ."'
-            WHERE (nick = '{$_GET["tmp_nick"]}' AND game = 'mw_tmp')
-            ");
+        $db->qry("UPDATE %prefix%game_hs
+            SET game = 'mw', nick = %string%
+            WHERE (nick = %string% AND game = 'mw_tmp')
+            ", $_POST["nick"], $_GET["tmp_nick"]);
 
         if ($db->get_affected_rows() > 0) $func->confirmation(t('Highscore wurde eingetragen'), "?mod=games&action=minesweeper&headermenuitem=2");
         else $func->information("Der angegebene temporäre Nick wurde nicht gefunden. Das Ergebnis konnte daher leider nicht eingetragen werden.", "?mod=games&action=minesweeper&headermenuitem=2");

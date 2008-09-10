@@ -71,7 +71,7 @@ class Import {
 
 			// If Rewrite: Drop current table
 			if ($rewrite){
-				$db->query_first("DROP TABLE IF EXISTS {$config["database"]["prefix"]}$table_name");
+				$db->qry_first("DROP TABLE IF EXISTS %prefix%%plain%", $table_name);
 			} else {
 
   			// Search current XML-Table in installed tables
@@ -84,7 +84,7 @@ class Import {
 			$FieldsForContent = array();
 			if ($table_found) {
         // Read fields from DB
-				$query = $db->query("DESCRIBE {$config["database"]["prefix"]}$table_name");
+				$query = $db->qry("DESCRIBE %prefix%%plain%", $table_name);
 				while ($row = $db->fetch_array($query)) {
           $db_fields[] = $row;
           $FieldsForContent[] = $row['Field'];
@@ -96,7 +96,7 @@ class Import {
         $DBUniqueKeys = array();
         $DBIndizes = array();
         $DBFulltext = array();
-        $ResIndizes = $db->query("SHOW INDEX FROM {$config["database"]["prefix"]}$table_name");
+        $ResIndizes = $db->qry("SHOW INDEX FROM %prefix%%plain%", $table_name);
         while ($RowIndizes = $db->fetch_array($ResIndizes)) {
           if ($RowIndizes['Key_name'] == 'PRIMARY') $DBPrimaryKeys[] = $RowIndizes['Column_name'];
           elseif ($RowIndizes['Non_unique'] == 0) $DBUniqueKeys[] = $RowIndizes['Column_name'];
@@ -167,17 +167,17 @@ class Import {
   						// Handle special type changes
   						// Changing int() to datetime
   						if (substr($db_field["Type"], 0, 3) == 'int' and $type == 'datetime') {
-  						  $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name CHANGE $name {$name}_lstmp INT");
-  						  $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name DATETIME");
-  						  $db->query("UPDATE {$config["database"]["prefix"]}$table_name SET $name = FROM_UNIXTIME({$name}_lstmp)");
-  						  $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP {$name}_lstmp");
+  						  $db->qry("ALTER TABLE %prefix%$table_name CHANGE %plain% %plain%_lstmp INT", $name, $name);
+  						  $db->qry("ALTER TABLE %prefix%%plain% ADD %string% DATETIME", $table_name, $name);
+  						  $db->qry("UPDATE %prefix%%plain% SET %string% = FROM_UNIXTIME(%plain%_lstmp)", $table_name, $name, $name);
+  						  $db->qry("ALTER TABLE %prefix%%plain% DROP %plain%_lstmp", $table_name, $name);
 
               // Handle structure changes in general
   						} elseif ($db_field["Type"] != $type
                 or $db_field["Null"] != $null_xml
                 or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
                 or $db_field["Extra"] != $extra) {
-  						    $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name CHANGE $name $name $type $null $default $extra");
+  						    $db->qry("ALTER TABLE %prefix%%plain% CHANGE %plain% %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $name, $type, $null $default $extra);
 /*
     						// Differece-Report
     						if ($db_field["Type"] != $type) echo $db_field["Type"] ."=". $type ." Type in $table_name $name<br>";
@@ -197,12 +197,12 @@ class Import {
                 array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
               }
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
-                $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
 
             // Drop keys, which have changed type in XML. They will be re-created beneath
             } elseif ($key == 'PRI') {
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
-                $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
 
             } elseif ($key == 'UNI') {
               if (in_array($name, $DBPrimaryKeys)) {
@@ -210,7 +210,7 @@ class Import {
                 array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
               }
               if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
-                $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
 
             } elseif ($key == 'IND') {
               if (in_array($name, $DBPrimaryKeys)) {
@@ -218,7 +218,7 @@ class Import {
                 array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
               }
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext))
-                $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
 
             } elseif ($key == 'FUL') {
               if (in_array($name, $DBPrimaryKeys)) {
@@ -226,7 +226,7 @@ class Import {
                 array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
               }
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes))
-                $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
             }
             // Primary Key in XML but not in DB
             // Attention when adding a double-primary-key it is added one after another. So some lines will be droped!
@@ -234,40 +234,41 @@ class Import {
               // No key in DB, yet
               $DBPrimaryKeys[] = $name;
               // count = 1, because added to var one line before, IGNORE is to drop non-uniqe lines
-              if (count($DBPrimaryKeys) == 1) $db->query("ALTER IGNORE TABLE {$config["database"]["prefix"]}$table_name ADD PRIMARY KEY ($name)");
+              if (count($DBPrimaryKeys) == 1) $db->qry("ALTER IGNORE TABLE %prefix%%plain% ADD PRIMARY KEY (%plain%)", $table_name, $name);
               // Key in DB replaced/extended
               else {
                 $priKeys = implode(', ', $DBPrimaryKeys);
-                $db->query("ALTER IGNORE TABLE {$config["database"]["prefix"]}$table_name DROP PRIMARY KEY, ADD PRIMARY KEY ($priKeys)");
+                $db->qry("ALTER IGNORE TABLE %prefix%%plain% DROP PRIMARY KEY, ADD PRIMARY KEY (%plain%)", $table_name, $priKeys);
               }
             }
 
             // Unique keys in XML but not in DB
             if ($key == 'UNI' and !in_array($name, $DBUniqueKeys)) {
-              if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+              if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
               // IGNORE is to drop non-uniqe lines
-              $db->query("ALTER IGNORE TABLE {$config["database"]["prefix"]}$table_name ADD UNIQUE ($name)");
+              $db->qry("ALTER IGNORE TABLE %prefix%%plain% ADD UNIQUE (%plain%)", $table_name, $name);
             }
 
             // Index in XML but not in DB
             if ($key == 'IND' and !in_array($name, $DBIndizes)) {
-              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext)) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
-              $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD INDEX ($name)");
+              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext)) $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
+              $db->qry("ALTER TABLE %prefix%%plain% ADD INDEX (%plain%)", $table_name, $name);
             }
 
             // Fulltext in XML but not in DB
             if ($key == 'FUL' and !in_array($name, $DBFulltext)) {
-              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes)) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP INDEX $name");
+              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes)) $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
               ## TODO: if ($type == 'text' or $type == 'longtext' or substr($type, 0, 7) == 'varchar')
-              $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD FULLTEXT ($name)");
+              $db->qry("ALTER TABLE %prefix%%plain% ADD FULLTEXT (%plain%)", $table_name, $name);
             }
 
 
   					// If a key was not found in the DB, but in the XML-File -> Add it!
   					if (!$found_in_db) {
   						// If auto_increment is used for this key, add this key as primary, unique key
-  						if ($extra == "auto_increment") $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra , ADD PRIMARY KEY ($name), ADD UNIQUE ($name)");
-  						else $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name ADD $name $type $null $default $extra");
+  						if ($extra == "auto_increment") $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% %plain% %plain% %plain% %plain%, ADD PRIMARY KEY (%plain%), ADD UNIQUE (%plain%)",
+  $table_name, $name $type $null $default $extra, $name, $name);
+  						else $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% %plain% %plain% %plain% %plain%", $table_name, $name $type $null $default $extra);
   					}
   				}
   				
@@ -296,7 +297,7 @@ class Import {
   			// Search for fields, which exist in the XML-File no more, but still in DB.
   			// Delete them from the DB
   			if ($table_found and $db_fields) foreach ($db_fields as $db_field) {
-    			if (!in_array($db_field['Field'], $field_names)) $db->query("ALTER TABLE {$config["database"]["prefix"]}$table_name DROP `{$db_field["Field"]}`");
+    			if (!in_array($db_field['Field'], $field_names)) $db->qry("ALTER TABLE %prefix%%plain% DROP `%plain%`", $table_name, $db_field["Field"]);
   			}
 
         if (!$table_found) {
@@ -304,13 +305,13 @@ class Import {
     			if ($primary_key) $primary_key = ", PRIMARY KEY (". substr($primary_key, 0, strlen($primary_key) - 2) .")";
 
     			// Create a new table, if it does not exist yet, or has been dropped above, due to rewrite
-    			$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}$table_name ($mysql_fields $primary_key $unique_key) TYPE = MyISAM CHARACTER SET utf8");
-    			#$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = '$table_name'");
+    			$db->qry("CREATE TABLE IF NOT EXISTS %prefix%%plain% ($mysql_fields %plain% $unique_key) TYPE = MyISAM CHARACTER SET utf8", $table_name, $primary_key);
+    			#$db->qry("REPLACE INTO %prefix%table_names SET name = %string%", $table_name);
 
           // Set Table-Charset to UTF-8
           # Needed??
           // Do not use, for some old MySQL-Versions are causing trouble, with that statement.
-#          $db->query_first("ALTER TABLE {$config["database"]["prefix"]}$table_name DEFAULT CHARACTER SET utf8");
+#          $db->qry_first("ALTER TABLE %prefix%%plain% DEFAULT CHARACTER SET utf8", $table_name);
 
   				// Add to installed tables
   				# Maybe no longer needed??
@@ -325,7 +326,7 @@ class Import {
 			if ($entrys) {
 				// Update Content only, if no row exists, or table has PrimKey set
 				$EntriesFound = array();
-				$qry = $db->query("SELECT * FROM {$config["database"]["prefix"]}$table_name");
+				$qry = $db->qry("SELECT * FROM %prefix%%plain%", $table_name);
         if (count($DBPrimaryKeys) > 0 or $db->num_rows($qry) == 0) {
           if (count($DBPrimaryKeys) > 0) while ($row = $db->fetch_array($qry)) $EntriesFound[] = $row[$DBPrimaryKeys[0]];
 
@@ -341,7 +342,7 @@ class Import {
 
             if (!$FoundValueInDB) {
     					$mysql_entries = substr($mysql_entries, 0, strlen($mysql_entries) - 2);
-              $db->query_first("REPLACE INTO {$config["database"]["prefix"]}$table_name SET $mysql_entries");
+              $db->qry_first("REPLACE INTO %prefix%%plain% SET %string%", $table_name, $mysql_entries);
             }
           }
         }
@@ -351,7 +352,7 @@ class Import {
 			if ($rewrite) $this->table_state[] = "rewrite";
 
 			// Optimize table
-			$db->query_first("OPTIMIZE TABLE `$table_name`");
+			$db->qry_first("OPTIMIZE TABLE `%plain%`", $table_name);
 		}
 	}
 
@@ -361,8 +362,8 @@ class Import {
 
 		// Delete User-Table
 		if ($del_db){
-			$db->query("TRUNCATE TABLE {$config["tables"]["user"]}");
-			$db->query("TRUNCATE TABLE {$config["tables"]["usersettings"]}");
+			$db->qry("TRUNCATE TABLE %prefix%user");
+			$db->qry("TRUNCATE TABLE %prefix%usersettings");
 		}
 
 		// Getting all data in Usertags
@@ -439,7 +440,7 @@ class Import {
 
 		/* DB INPUT */
 		if(is_array($users_to_import) == TRUE) {
-#				$db->query("DELETE FROM lansuite_usersettings");
+#				$db->qry("DELETE FROM lansuite_usersettings");
 
 			foreach($users_to_import as $user) {
 				$email 		= $user['email'];
@@ -458,37 +459,25 @@ class Import {
 				$checkin =($type > 1) ? "1" : "0";
 
 				$skip = 0;
-				$res = $db->query("SELECT username FROM {$config["tables"]["user"]} WHERE email = '$email'");
+				$res = $db->qry("SELECT username FROM %prefix%user WHERE email = %string%", $email);
 				if (($db->num_rows($res) > 0) && (!$replace)) $skip = 1;
 
 				if (!$skip){
 				  $clan_id = 0;
 				  if ($clan != '') {
 				    // Search clan
-   					$search_clan = $db->query_first("SELECT clanid FROM {$config["tables"]["clan"]} WHERE name = '$clan'");
+   					$search_clan = $db->qry_first("SELECT clanid FROM %prefix%clan WHERE name = %string%", $clan);
    					if ($search_clan['clanid'] != '') $clan_id = $search_clan['clanid'];
    					
    					// Insert new clan
             else {
-    					$db->query("INSERT INTO {$config["tables"]["clan"]} SET
-    							name = '$clan',
-    							url = '$clanurl'
-    							");
+    					$db->qry("INSERT INTO %prefix%clan SET name = %string%, url = %string% ", $clan, $clanurl);
     					$clan_id = $db->insert_id();
     				}
           }
-					$db->query("REPLACE INTO {$config["tables"]["user"]} SET
-							email = '$email',
-							name = '$name',
-							username = '$username',
-							firstname = '$firstname',
-							type = '$type',
-							clanid = ". (int)$clan_id .",
-							password = '$password',
-							wwclid = '$wwclid',
-							wwclclanid = '$wwclclanid',
-							comment = '$comment'
-							");
+					$db->qry("REPLACE INTO %prefix%user SET email = %string%, name = %string%, username = %string%, firstname = %string%, type = %string%, clanid = %int%,
+  password = %string%, wclid = %int%, wwclclanid = %int%, comment = %string%",
+  $email, $name, $username, $firstname, $type, $clan_id, $password, $wwclid, $wwclclanid, $comment);
 					$id = $db->insert_id();
 
 					// Update Party-Signon
@@ -496,7 +485,7 @@ class Import {
 					else $party->delete_user_from_party($id);	
 
 					$default_design = $config['lansuite']['default_design'];
-					$db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid='$id'");
+					$db->qry("INSERT INTO %prefix%usersettings SET userid=%int%", $id);
 
 					$userids[$email] = $id;
 				}
@@ -525,34 +514,17 @@ class Import {
 				$text_bc	= $block['text_bc'];
 				$text_br	= $block['text_br'];
 
-				$db->query("REPLACE INTO {$config["tables"]["seat_block"]} SET 
-							name='$name',
-							cols='$cols',
-							rows='$rows',
-							orientation='$orientation',
-							remark='$remark',
-							text_tl='$text_tl',
-							text_tc='$text_tc',
-							text_tr='$text_tr',
-							text_lt='$text_lt', 
-							text_lc='$text_lc',  
-							text_lb='$text_lb', 
-							text_rt='$text_rt',
-							text_rc='$text_rc',
-							text_rb='$text_rb',
-							text_bl='$text_bl',
-							text_bc='$text_bc',
-							text_br='$text_br',
-							party_id={$cfg['signon_partyid']}");
+				$db->qry("REPLACE INTO %prefix%seat_block SET name=%string%, cols=%string%, rows=%string%, orientation=%string%, remark=%string%, text_tl=%string%, text_tc=%string%,
+  text_tr=%string%, text_lt=%string%, text_lc=%string%, text_lb=%string%, text_rt=%string%, text_rc=%string%, text_rb=%string%, text_bl=%string%, text_bc=%string%,
+  text_br=%string%, party_id=%int%",
+  $name, $cols, $rows, $orientation, $remark, $text_tl, $text_tc, $text_tr, $text_lt, $text_lc, $text_lb, $text_rt, $text_rc, $text_rb, $text_bl, $text_bc, $text_br, $cfg['signon_partyid']);
 				$blockid = $db->insert_id();
 
 				if(is_array($block['seps'])) foreach($block['seps'] as $sep) {
 					$orientation 	= $sep['orientation'];
 					$value 		= $sep['value'];
-					$db->query("REPLACE INTO {$config["tables"]["seat_sep"]} SET
-								blockid='$blockid',
-								orientation='$orientation',
-								value='$value'"); 
+					$db->qry("REPLACE INTO %prefix%seat_sep SET blockid=%int%, orientation=%string%, value=%string%",
+  $blockid, $orientation, $value); 
 				} // foreach - seps
 
 				if(is_array($block['seats'])) foreach($block['seats'] as $seat) {
@@ -564,13 +536,8 @@ class Import {
 					$userid 	= $userids[$owner];
 					if($owner == "") $userid  = 0;
 
-					$db->query("REPLACE INTO {$config["tables"]["seat_seats"]} SET
-								blockid='$blockid',
-								col='$col',
-								row='$row',
-								status='$status',
-								userid='$userid',
-								ip='$ipaddress'"); 
+					$db->qry("REPLACE INTO %prefix%seat_seats SET blockid=%int%, col=%string%, row=%string%, status=%string%, userid=%int%, ip=%string%",
+  $blockid, $col, $row, $status, $userid, $ipaddress); 
 				} // foreach - seats
 			} // foreach - $seat_blocks_to_import
 		} // if array
@@ -583,8 +550,8 @@ class Import {
 
 		// Delete User-Table
 		if ($del_db){
-			$db->query("TRUNCATE TABLE {$config["tables"]["user"]}");
-			$db->query("TRUNCATE TABLE {$config["tables"]["usersettings"]}");
+			$db->qry("TRUNCATE TABLE %prefix%user");
+			$db->qry("TRUNCATE TABLE %prefix%usersettings");
 		}
 
 		$csv_file = file($tmp_file_name);
@@ -600,23 +567,15 @@ class Import {
 			($user[5] == "Not Paid") ? $user_paid = 0 : $user_paid = 1;
 
 			$skip = 0;
-			$res = $db->query("SELECT username FROM {$config["tables"]["user"]} WHERE email = '$email'");
+			$res = $db->qry("SELECT username FROM %prefix%user WHERE email = %string%", $email);
 			if (($db->num_rows($res) > 0) && (!$replace)) $skip = 1;
 
 			if (!$skip){
-				$replace_user = $db->query("REPLACE INTO {$config["tables"]["user"]}
-											SET username	= '{$user[0]}',
-												clan		= '{$user[1]}',
-												firstname	= '{$user[2]}',
-												name		= '{$user[3]}',
-												email		= '{$user[4]}',
-												paid		= '$user_paid',
-												type		= '1',
-												signon		= '$signon',
-												comment		= '$comment'
-												");
+				$replace_user = $db->qry("REPLACE INTO %prefix%user SET username = %string%, clan = %string%, firstname = %string%, name = %string%, email = %string%, paid = %int%,
+  type = '1', signon = %string%, comment = %string%",
+  $user[0], $user[1], $user[2], $user[3], $user[4], $user_paid, $signon, $comment);
 				$id = $db->insert_id();
-				$db->query("INSERT INTO {$config["tables"]["usersettings"]} SET userid='$id'");
+				$db->qry("INSERT INTO %prefix%usersettings SET userid=%int%", $id);
 			}
 
 			switch(mysql_affected_rows($db->link_id)) {

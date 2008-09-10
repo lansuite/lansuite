@@ -51,7 +51,7 @@ if($open == false && $cfg['foodcenter_foodtime'] == 3){
 		$basket->add_to_basket_from_global();
 	}
 	// Productgroups
-	$row = $db->query("SELECT * FROM {$config['tables']['food_cat']}");		
+	$row = $db->qry("SELECT * FROM %prefix%food_cat");		
 	$i = 1;
 	while ($data = $db->fetch_array($row)){
 			$menus[$i]	= $data['name'];

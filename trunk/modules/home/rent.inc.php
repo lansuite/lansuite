@@ -2,7 +2,7 @@
 
 // Rent
 	$user_id = $_SESSION["auth"]["userid"];
-	$rentuser = $db->query("SELECT rs.caption, rs.comment FROM {$config["tables"]["rentuser"]} AS ru LEFT JOIN {$config["tables"]["rentstuff"]} AS rs ON rs.stuffid=ru.stuffid WHERE ru.userid=$user_id");
+	$rentuser = $db->qry("SELECT rs.caption, rs.comment FROM %prefix%rentuser AS ru LEFT JOIN %prefix%rentstuff AS rs ON rs.stuffid=ru.stuffid WHERE ru.userid=%int%", $user_id);
 	if($db->num_rows($rentuser) > 0) {
 		while($row = $db->fetch_array($rentuser)) {
 

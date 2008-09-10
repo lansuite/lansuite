@@ -4,7 +4,7 @@ function CheckPostNew($last_post, $last_read) {
   global $db, $config, $auth, $line;
 
   // Delete old entries
-  $db->query("DELETE FROM {$config["tables"]["board_read_state"]} WHERE last_read < ". (time() - 60 * 60 * 24 * 7));
+  $db->qry("DELETE FROM %prefix%board_read_state WHERE last_read < %int%", (time() - 60 * 60 * 24 * 7));
 
   // Older, than one week
   if ($last_post < (time() - 60 * 60 * 24 * 7)) return 0;

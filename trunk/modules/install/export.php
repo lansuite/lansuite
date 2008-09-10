@@ -49,7 +49,7 @@ switch($_GET["step"]){
 				$dsp->AddCheckBoxRow("e_trans", 'Übersetzungsdaten exportieren', "", "", 1, 1);
 				$dsp->AddHRuleRow();
 
-				$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
+				$res = $db->qry("SELECT * FROM %prefix%modules ORDER BY changeable DESC, caption");
 				while ($row = $db->fetch_array($res)){
 
 					if (is_dir("modules/{$row["name"]}/mod_settings")) {
@@ -86,7 +86,7 @@ switch($_GET["step"]){
 				$dsp->AddCheckBoxRow("e_trans", 'Übersetzungsdaten exportieren', "", "", 1, 1);
 				$dsp->AddHRuleRow();
 
-				$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
+				$res = $db->qry("SELECT * FROM %prefix%modules ORDER BY changeable DESC, caption");
 				while ($row = $db->fetch_array($res)){
 
 					if (is_dir("modules/{$row["name"]}/mod_settings")) {

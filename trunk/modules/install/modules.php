@@ -6,7 +6,7 @@ $install = new Install();
 function FindCfgKeyForMod($name) {
   global $db, $config;
 
-	$find_config = $db->query_first("SELECT cfg_key FROM {$config["tables"]["config"]} WHERE (cfg_module = '$name')");
+	$find_config = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $name);
 	if ($find_config["cfg_key"] != '') return true; else return false;
 } 
 
@@ -28,7 +28,7 @@ function WriteMenuEntries() {
 
 		$templ['ls']['row']['menuitem']['needed_config'] = "<option value=\"\">-".t('keine')."-</option>";
 
-		$res2 = $db->query("SELECT cfg_key FROM {$config["tables"]["config"]} WHERE cfg_type = 'boolean' OR cfg_type = 'int' ORDER BY cfg_key");
+		$res2 = $db->qry("SELECT cfg_key FROM %prefix%config WHERE cfg_type = 'boolean' OR cfg_type = 'int' ORDER BY cfg_key");
 		if ($MenuCallbacks) foreach ($MenuCallbacks as $MenuCallback) {
 			($MenuCallback == $row["needed_config"])? $selected = " selected" : $selected = "";
 			$templ['ls']['row']['menuitem']['needed_config'] .= "<option value=\"{$MenuCallback}\"$selected>{$MenuCallback}</option>";
@@ -61,16 +61,16 @@ function WriteMenuEntries() {
 switch($_GET["step"]) {
 	// Update Modules
 	case 2:
-		$res = $db->query("SELECT name FROM {$config["tables"]["modules"]} WHERE changeable");
+		$res = $db->qry("SELECT name FROM %prefix%modules WHERE changeable");
 		while ($row = $db->fetch_array($res)){
-			if ($_POST[$row["name"]]) $db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 1 WHERE name = '{$row["name"]}'");
-			elseif (count($_POST)) $db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 0 WHERE name = '{$row["name"]}'");
+			if ($_POST[$row["name"]]) $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = %string%", $row["name"]);
+			elseif (count($_POST)) $db->qry_first("UPDATE %prefix%modules SET active = 0 WHERE name = %string%", $row["name"]);
 		}
 		$db->free_result($res);
 
-		$db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 1 WHERE name = 'settings'");
-		$db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 1 WHERE name = 'banner'");
-		$db->query_first("UPDATE {$config["tables"]["modules"]} SET active = 1 WHERE name = 'about'");
+		$db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'settings'");
+		$db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'banner'");
+		$db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'about'");
 
 		$func->confirmation(t('Änderungen erfolgreich gespeichert.'), "index.php?mod=install&action=modules");
 	break;
@@ -87,34 +87,27 @@ switch($_GET["step"]) {
 
 	// Add Menuentry
 	case 22:
-		$db->query("INSERT INTO {$config["tables"]["menu"]}
-				SET caption = 'Neuer Eintrag',
-					requirement = '0',
-					hint = '',
-					link = 'index.php?mod=',
-					needed_config = '',
-					module='{$_GET["module"]}',
-					level = 1");
+		$db->qry("INSERT INTO %prefix%menu SET caption = 'Neuer Eintrag', requirement = '0', hint = '', link = 'index.php?mod=', needed_config = '', module=%string%, level = 1", $_GET["module"]);
 
 	// Menuentries
 	case 20:
-		$db->query("DELETE FROM {$config["tables"]["menu"]} WHERE caption='' AND action='' AND file=''");
+		$db->qry("DELETE FROM %prefix%menu WHERE caption='' AND action='' AND file=''");
 
 		$dsp->NewContent(t('Modul-Menüeinträge'), t('Hier können Sie die Navigationseinträge dieses Moduls ändern.'));
 		$dsp->SetForm("index.php?mod=install&action=modules&step=21&module={$_GET["module"]}");
 
  		$dsp->AddFieldsetStart(t('Hauptmenüpunkt des Moduls / Modul-Startseite'));
-		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND level = 0 AND caption != '' ORDER BY requirement, pos");
+		$res = $db->qry("SELECT * FROM %prefix%menu WHERE module=%string% AND level = 0 AND caption != '' ORDER BY requirement, pos", $_GET["module"]);
 		WriteMenuEntries();
  		$dsp->AddFieldsetEnd();
 
  		$dsp->AddFieldsetStart(t('Untermenüpunkte'));
-		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND level > 0 AND caption != '' ORDER BY requirement, pos");
+		$res = $db->qry("SELECT * FROM %prefix%menu WHERE module=%string% AND level > 0 AND caption != '' ORDER BY requirement, pos", $_GET["module"]);
 		WriteMenuEntries();
  		$dsp->AddFieldsetEnd();
 
  		$dsp->AddFieldsetStart(t('Keine Menüpunkte - Interne Verweise'));
-		$res = $db->query("SELECT * FROM {$config["tables"]["menu"]} WHERE module='{$_GET["module"]}' AND caption = '' ORDER BY requirement, pos");
+		$res = $db->qry("SELECT * FROM %prefix%menu WHERE module=%string% AND caption = '' ORDER BY requirement, pos", $_GET["module"]);
 		WriteMenuEntries();
  		$dsp->AddFieldsetEnd();
 
@@ -127,17 +120,8 @@ switch($_GET["step"]) {
 	// Change Menuentries
 	case 21:
 		foreach ($_POST["caption"] as $key => $val) {
-			$db->query("UPDATE {$config["tables"]["menu"]}
-					SET caption = '{$_POST["caption"][$key]}',
-					requirement = '{$_POST["requirement"][$key]}',
-					action = '{$_POST["action"][$key]}',
-					hint = '{$_POST["hint"][$key]}',
-					link = '{$_POST["link"][$key]}',
-					file = '{$_POST["file"][$key]}',
-					pos = '{$_POST["pos"][$key]}',
-					boxid = '{$_POST["boxid"][$key]}',
-					needed_config = '{$_POST["needed_config"][$key]}'
-					WHERE id = '$key'");
+			$db->qry("UPDATE %prefix%menu SET caption = %string%, requirement = %string%, action = %string%, hint = %string%, link = %string%, file = %string%, pos = %string%, boxid = %int%, needed_config = %string% WHERE id = %string%",
+  $_POST["caption"][$key], $_POST["requirement"][$key], $_POST["action"][$key], $_POST["hint"][$key], $_POST["link"][$key], $_POST["file"][$key], $_POST["pos"][$key], $_POST["boxid"][$key], $_POST["needed_config"][$key]}', $key);
 		}
 
 		$func->confirmation(t('Änderungen erfolgreich gespeichert.'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
@@ -145,11 +129,11 @@ switch($_GET["step"]) {
 
 	// Delete Menuentry
 	case 23:
-	  $row = $db->query_first("SELECT requirement FROM {$config["tables"]["menu"]} WHERE id='{$_GET["id"]}'");
+	  $row = $db->qry_first("SELECT requirement FROM %prefix%menu WHERE id=%int%", $_GET["id"]);
 	  if ($row['requirement'] > 0) $func->information(t('Mit diesem Eintrag ist eine Zugriffsberechtigung verknüpft. Sie sollten diesen Eintrag daher nicht löschen, da sonst jeder Zugriff auf die betreffende Datei hat.HTML_NEWLINEWenn Sie nur den Menülink entfernen möchten, löschen Sie die Felder Titel und Linkziel.HTML_NEWLINEWenn Sie wirklich jedem Zugriff auf die Datei geben möchten, setzen Sie den Zugriff auf Jeder und löschen Sie dann den Eintrag.'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
 	  
 	  else {
-  		$db->query("DELETE FROM {$config["tables"]["menu"]} WHERE id='{$_GET["id"]}'");
+  		$db->qry("DELETE FROM %prefix%menu WHERE id=%int%", $_GET["id"]);
   		$func->confirmation(t('Der Menü-Eintrag wurde erfolgreich gelöscht'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
   	}
 	break;
@@ -160,21 +144,19 @@ switch($_GET["step"]) {
 		// If Rewrite, delete corresponding items
 		$rewrite_all = 0;
 		if ($_GET["rewrite"] == "all") {
-			$db->query("TRUNCATE TABLE {$config["tables"]["config"]}");
-			$db->query("TRUNCATE TABLE {$config["tables"]["modules"]}");
-			$db->query("TRUNCATE TABLE {$config["tables"]["menu"]}");
+			$db->qry("TRUNCATE TABLE %prefix%config");
+			$db->qry("TRUNCATE TABLE %prefix%modules");
+			$db->qry("TRUNCATE TABLE %prefix%menu");
 			$rewrite_all = 1;
 		} elseif ($_GET["rewrite"]) {
-			$db->query("DELETE FROM {$config["tables"]["modules"]} WHERE name = '{$_GET["rewrite"]}'");
-			$db->query("DELETE FROM {$config["tables"]["menu"]} WHERE module = '{$_GET["rewrite"]}'");
+			$db->qry("DELETE FROM %prefix%modules WHERE name = %string%", $_GET["rewrite"]);
+			$db->qry("DELETE FROM %prefix%menu WHERE module = %string%", $_GET["rewrite"]);
 
 			$_GET["rewrite"] .= "_";
 			if ($_GET["rewrite"] == "downloads_") $_GET["rewrite"] = "Download";
 			if ($_GET["rewrite"] == "usrmgr_") $_GET["rewrite"] = "Userdetails";
 			if ($_GET["rewrite"] == "tournament2_") $_GET["rewrite"] = "t";
-			$find_config = $db->query_first("DELETE FROM {$config["tables"]["config"]}
-					WHERE (cfg_group = '{$_GET["rewrite"]}') OR (cfg_key LIKE '{$_GET["rewrite"]}%')
-					");
+			$find_config = $db->qry_first("DELETE FROM %prefix%config HERE (cfg_group = %string%) OR (cfg_key LIKE %string%)", $_GET["rewrite"], $_GET["rewrite"].'%');
 		}
 
 		// Auto-Load Modules from XML-Files
@@ -189,7 +171,7 @@ switch($_GET["step"]) {
 		$dsp->AddHRuleRow();
 		$dsp->SetForm("index.php?mod=install&action=modules&step=2");
 
-		$res = $db->query("SELECT * FROM {$config["tables"]["modules"]} ORDER BY changeable DESC, caption");
+		$res = $db->qry("SELECT * FROM %prefix%modules ORDER BY changeable DESC, caption");
 		while ($row = $db->fetch_array($res)){
 
 			$templ['ls']['row']['module']['name'] = $row["name"];
@@ -216,10 +198,7 @@ switch($_GET["step"]) {
 			if (FindCfgKeyForMod($row["name"])) $templ['ls']['row']['module']['settings_link'] = " | <a href=\"index.php?mod=install&action=mod_cfg&step=10&module={$row["name"]}\">". t('Konfig.') ."</a>";
 			else $templ['ls']['row']['module']['settings_link'] = "";
 
-			$find_mod = $db->query_first("SELECT module
-					FROM {$config["tables"]["menu"]}
-					WHERE module='{$row["name"]}'
-					");
+			$find_mod = $db->qry_first("SELECT module FROM %prefix%menu WHERE module=%string%", $row["name"]);
 			if ($find_mod["module"]) $templ['ls']['row']['module']['menu_link'] = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}\">". t('Menü') ."</a>";
 			else $templ['ls']['row']['module']['menu_link'] = "";
 

@@ -34,11 +34,11 @@ if ($headermenuitem == 2) $step = 3;
 switch ($step){
     // Write Score to DB
     case 2:
-        $db->query("INSERT INTO {$config["tables"]["game_hs"]} SET
+        $db->qry("INSERT INTO %prefix%game_hs SET
                     game = 'num',
-                    nick = '". $func->text2db($_POST["nick"]) ."',
-                    score = '{$_GET["score"]}'
-                    ");
+                    nick = %string%,
+                    score = %string%
+                    ", $_POST["nick"], $_GET["score"]);
         $func->confirmation(t('Ihre Highscore wurde eingetragen'), "?mod=games&action=number&headermenuitem=2");
     break;
 

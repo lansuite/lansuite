@@ -62,7 +62,7 @@ class foodcenter_print{
 		if($value == ""){
 			return t('Verschiedene');		
 		}else{
-			$supp = $db->query_first("SELECT name FROM {$config['tables']['food_supp']} WHERE supp_id = " . $value);
+			$supp = $db->qry_first("SELECT name FROM %prefix%food_supp WHERE supp_id = %int%", $value);
 			return $supp['name'];
 		}
 		
@@ -79,7 +79,7 @@ class foodcenter_print{
 
 			foreach ($values as $number){
 				if(is_numeric($number)){
-					$data = $db->query_first("SELECT caption, unit FROM {$config['tables']['food_option']} WHERE id = " . $number);
+					$data = $db->qry_first("SELECT caption, unit FROM %prefix%food_option WHERE id = %int%", $number);
 					if($data['caption'] == ""){
 						$out .= $data['unit'] . "<br />";
 					}else{
@@ -89,7 +89,7 @@ class foodcenter_print{
 		
 			}
 		}else {
-			$data = $db->query_first("SELECT caption,unit FROM {$config['tables']['food_option']} WHERE id = " . $value);
+			$data = $db->qry_first("SELECT caption,unit FROM %prefix%food_option WHERE id = %int%", $value);
 			if($data['caption'] == ""){
 				$out .= $data['unit'] . "<br />";
 			}else{
@@ -105,7 +105,7 @@ class foodcenter_print{
 		if($userid == 'all'){
 			return t('Verschiedene');	
 		}else {
-			$get_username = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = '$userid'");
+			$get_username = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
 			return $get_username["username"];
 		}
 	}
@@ -115,10 +115,10 @@ class foodcenter_print{
 		if($userid == 'all'){
 			return t('Verschiedene');	
 		}else {
-	$get_userdata = $db->query_first("SELECT u.*, s.ip FROM {$config["tables"]["user"]} AS u
-      								LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON s.userid = u.userid
-      								LEFT JOIN {$config["tables"]["seat_block"]} AS b ON b.blockid = s.blockid
-      WHERE u.userid = '$userid' AND b.party_id = '$party->party_id'");
+	$get_userdata = $db->qry_first("SELECT u.*, s.ip FROM %prefix%user AS u
+      								LEFT JOIN %prefix%seat_seats AS s ON s.userid = u.userid
+      								LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid
+      WHERE u.userid = %int% AND b.party_id = %int%", $userid, $party->party_id);
 	return $get_userdata;
 		}
 	}
@@ -150,8 +150,8 @@ class foodcenter_print{
 			$key_1337 = str_replace ("O", "(O|0)", $key_1337);
 			$key_1337 = str_replace ("l", "(l|1|\\\\||!)", $key_1337);
 			$key_1337 = str_replace ("L", "(L|1|\\\\||!)", $key_1337);
-			$key_1337 = str_replace ("e", "(e|3|€)", $key_1337);
-			$key_1337 = str_replace ("E", "(E|3|€)", $key_1337);
+			$key_1337 = str_replace ("e", "(e|3|â‚¬)", $key_1337);
+			$key_1337 = str_replace ("E", "(E|3|â‚¬)", $key_1337);
 			$key_1337 = str_replace ("t", "(t|7)", $key_1337);
 			$key_1337 = str_replace ("T", "(T|7)", $key_1337);
 			$key_1337 = str_replace ("a", "(a|@)", $key_1337);
@@ -190,13 +190,11 @@ class foodcenter_print{
 
 		$search .= "1";
 
-		$sql = "SELECT a.*, p.*, s.* FROM {$config['tables']['food_ordering']} AS a
-								LEFT JOIN {$config['tables']['food_product']} AS p ON a.productid = p.id
-								LEFT JOIN {$config['tables']['food_supp']} AS s ON p.supp_id = s.supp_id
-				WHERE $search
-				ORDER BY p.caption ASC";
-
-		$result = $db->query($sql);
+		$result = $db->qry("SELECT a.*, p.*, s.* FROM %prefix%food_ordering AS a
+								LEFT JOIN %prefix%food_product AS p ON a.productid = p.id
+								LEFT JOIN %prefix%food_supp AS s ON p.supp_id = s.supp_id
+				WHERE %string%
+				ORDER BY p.caption ASC", $search);
 
 		while ($data = $db->fetch_array($result)) {
 			unset($row_temp);

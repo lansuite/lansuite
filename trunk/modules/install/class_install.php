@@ -110,8 +110,8 @@ class Install {
       $tablecreate = Array("anz" => 0, "created" => 0, "exist" => 0, "failed" => "");
       $dsp->AddSingleRow("<b>". t('Tabellen erstellen') ."</b>");
 
-      #$db->query("CREATE TABLE IF NOT EXISTS {$config["database"]["prefix"]}table_names (name varchar(80) NOT NULL default '', PRIMARY KEY(name)) TYPE = MyISAM CHARACTER SET utf8");
-      #$db->query("REPLACE INTO {$config["database"]["prefix"]}table_names SET name = 'table_names'");
+      #$db->qry("CREATE TABLE IF NOT EXISTS %prefix%table_names (name varchar(80) NOT NULL default '', PRIMARY KEY(name)) TYPE = MyISAM CHARACTER SET utf8");
+      #$db->qry("REPLACE INTO %prefix%table_names SET name = 'table_names'");
 
       // Delete references, if table exists, for they will be recreated in WriteTableFromXMLFile
       if (in_array($config['database']['prefix'] .'references', $import->installed_tables)) $db->qry('TRUNCATE TABLE %prefix%references');
@@ -164,18 +164,15 @@ class Install {
       if ($xml_types) while ($xml_type = array_shift($xml_types)) {
         $xml_head = $xml->get_tag_content('head', $xml_type);
         $name = $xml->get_tag_content('name', $xml_head);
-        $db->query("DELETE FROM {$config["database"]["prefix"]}config_selections WHERE cfg_key = '". $func->escape_sql($name) ."'");
+        $db->qry("DELETE FROM %prefix%config_selections WHERE cfg_key = %string%", $name);
         
         $xml_entries = $xml->get_tag_content_array('entry', $xml_type);
         if ($xml_entries) while ($xml_entry = array_shift($xml_entries)) {
         $value = $xml->get_tag_content('value', $xml_entry);
         $description = $xml->get_tag_content('description', $xml_entry);              
         
-        if ($name != '' and $description != '') $db->query("INSERT INTO {$config["database"]["prefix"]}config_selections SET
-          cfg_key = '". $func->escape_sql($name) ."',
-          cfg_value = '". $func->escape_sql($value) ."',
-          cfg_display = '". $func->escape_sql($description) ."'
-          ");
+        if ($name != '' and $description != '') $db->qry("INSERT INTO %prefix%config_selections SET cfg_key = %string%, cfg_value = %string%, cfg_display = %string%",
+  $name, $value, $description);
         }
       }
 
@@ -194,22 +191,16 @@ class Install {
           array_push($SettingList, $name);
           
           // Insert into DB, if not exists
-          $found = $db->query_first("SELECT cfg_key FROM {$config["database"]["prefix"]}config WHERE cfg_key = '$name'");
-          if (!$found['cfg_key']) $db->query("INSERT INTO {$config["database"]["prefix"]}config SET
-            cfg_key = '". $func->escape_sql($name) ."',
-            cfg_value = '". $func->escape_sql($default) ."',
-            cfg_type = '". $func->escape_sql($type) ."',
-            cfg_group = '". $func->escape_sql($group) ."',
-            cfg_desc = '". $func->escape_sql($description) ."',
-            cfg_module = '$module'
-            ");
+          $found = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_key = %string%", $name);
+          if (!$found['cfg_key']) $db->qry("INSERT INTO %prefix%config SET cfg_key = %string%, cfg_value = %string%, cfg_type = %string%, cfg_group = %string%, cfg_desc = %string%, cfg_module = %string%",
+  $name, $default, $type, $group, $description, $module);
         }
       }
       
       // Delete Settings from DB, which are no longer in the modules config.sql
-      $settings_db = $db->query("SELECT cfg_key FROM {$config["database"]["prefix"]}config WHERE (cfg_module = '$module')");
+      $settings_db = $db->qry("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $module);
       while ($setting_db = $db->fetch_array($settings_db)) {
-        if (!in_array($setting_db["cfg_key"], $SettingList)) $db->query("DELETE FROM {$config["database"]["prefix"]}config WHERE cfg_key = '{$setting_db["cfg_key"]}'");
+        if (!in_array($setting_db["cfg_key"], $SettingList)) $db->qry("DELETE FROM %prefix%config WHERE cfg_key = %string%", $setting_db["cfg_key"]);
       }
     }
   }
@@ -220,7 +211,7 @@ class Install {
       global $db, $config;
 
       $return_val = 1;
-      $find = $db->query("SELECT * FROM {$config["tables"]["locations"]}");
+      $find = $db->qry("SELECT * FROM %prefix%locations");
       if ($db->num_rows($find) == 0) {
           $return_val = 2;
           $file = "modules/install/db_insert_locations.php";
@@ -234,7 +225,7 @@ class Install {
 */
               include_once($file);
               foreach ($querys as $val) if ($val) { 
-                  if (!$db->query("REPLACE INTO {$config["database"]["prefix"]}locations (plz, breite, laenge) VALUES ". $val)) $return_val = 0;
+                  if (!$db->qry("REPLACE INTO %prefix%locations (plz, breite, laenge) VALUES %plain%", $val)) $return_val = 0;
               }
           }
       }
@@ -253,7 +244,7 @@ class Install {
 
       // Tabelle Modules leeren um Module zu deinstallieren
       if($_GET["action"] == "wizard"){
-          $db->query("TRUNCATE TABLE {$config["tables"]["modules"]}");
+          $db->qry("TRUNCATE TABLE %prefix%modules");
       }
       
       $mod_list = array();
@@ -278,40 +269,23 @@ class Install {
               $version = $xml->get_tag_content("version", $xml_file);
               $state = $xml->get_tag_content("state", $xml_file);
 
-              $mod_found = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["modules"]} WHERE name = '$module'");
+              $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%modules WHERE name = %string%", $module);
 
               $this->InsertSettings($module);
 
               if ($name) {
-                  if (!$mod_found["found"]) $db->query_first("REPLACE INTO {$config["tables"]["modules"]} SET
-                      name='". $func->escape_sql($name) ."',
-                      caption='". $func->escape_sql($caption) ."',
-                      description='". $func->escape_sql($description) ."',
-                      author='". $func->escape_sql($author) ."',
-                      email='". $func->escape_sql($email) ."',
-                      active='". $func->escape_sql($active) ."',
-                      changeable='". $func->escape_sql($changeable) ."',
-                      version='". $func->escape_sql($version) ."',
-                      state='". $func->escape_sql($state) ."'
-                      ");
-                  elseif ($rewrite) $db->query_first("REPLACE INTO {$config["tables"]["modules"]} SET
-                      name='". $func->escape_sql($name) ."',
-                      caption='". $func->escape_sql($caption) ."',
-                      description='". $func->escape_sql($description) ."',
-                      author='". $func->escape_sql($author) ."',
-                      email='". $func->escape_sql($email) ."',
-                      changeable='". $func->escape_sql($changeable) ."',
-                      version='". $func->escape_sql($version) ."',
-                      state='". $func->escape_sql($state) ."'
-                      ");
+                  if (!$mod_found["found"]) $db->qry_first("REPLACE INTO %prefix%modules SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, active=%string%, changeable=%string%, version=%string%, state=%string%",
+  $name, $caption, $description, $author, $email, $active, $changeable, $version, $state);
+                  elseif ($rewrite) $db->qry_first("REPLACE INTO %prefix%modules SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, changeable=%string%, version=%string%, state=%string%",
+  $name, $caption, $description, $author, $email, $changeable, $version, $state);
               }
           }
       }
 
       // Delete non-existend Modules from DB
-      $mods = $db->query("SELECT name FROM {$config["tables"]["modules"]}");
+      $mods = $db->qry("SELECT name FROM %prefix%modules");
       while($row = $db->fetch_array($mods)) {
-          if (!in_array($row["name"], $mod_list)) $db->query("DELETE FROM {$config["tables"]["modules"]} WHERE name = '{$row["name"]}'");
+          if (!in_array($row["name"], $mod_list)) $db->qry("DELETE FROM %prefix%modules WHERE name = %string%", $row["name"]);
       }
       $db->free_result($mods);
   }
@@ -327,11 +301,11 @@ class Install {
     while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
       $file = "modules/$module/mod_settings/menu.xml";
       if (file_exists($file)) {
-        $menu_found = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["menu"]} WHERE module = '$module'");
+        $menu_found = $db->qry_first("SELECT 1 AS found FROM %prefix%menu WHERE module = %string%", $module);
 
         $i = 0;
         if ($rewrite or (!$menu_found["found"])) {
-          $db->query_first("DELETE FROM {$config["tables"]["menu"]} WHERE module = '$module'");
+          $db->qry_first("DELETE FROM %prefix%menu WHERE module = %string%", $module);
 
           $handle = fopen ($file, "r");
           $xml_file = fread ($handle, filesize ($file));
@@ -359,19 +333,8 @@ class Install {
             ($level == 0)? $pos = $main_pos : $pos = $i;
             $i++;
 
-            $db->query_first("INSERT INTO {$config["tables"]["menu"]} SET
-              module='$module',
-              action='$action',
-              file='$file',
-              caption='$caption',
-              hint='$hint',
-              link='$link',
-              requirement=$requirement,
-              level=$level,
-              pos=$pos,
-              needed_config='$needed_config',
-              boxid='{$menubox['boxid']}'
-              ");
+            $db->qry_first("INSERT INTO %prefix%menu SET module=%string%, action=%string%, file=%string%, caption=%string%, hint=%string%, link=%string%, requirement=%string%, level=%string%, pos=%string%, needed_config=%string%, boxid=%int%",
+  $module, $action, $file, $caption, $hint, $link, $requirement, $level, $pos, $needed_config, $menubox['boxid']);
           }
         }
       }

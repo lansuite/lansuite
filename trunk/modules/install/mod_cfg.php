@@ -15,14 +15,7 @@ $db->free_result($res);
 // First switch
 switch ($_GET['step']) {
   case 31:
-		$db->query("INSERT INTO {$config["tables"]["menu"]}
-			SET caption = 'Neuer Eintrag',
-				requirement = '0',
-				hint = '',
-				link = 'index.php?mod=',
-				needed_config = '',
-				module='{$_GET["module"]}',
-				level = 1");
+		$db->qry("INSERT INTO %prefix%menu SET caption = 'Neuer Eintrag', requirement = '0', hint = '', link = 'index.php?mod=', needed_config = '', module=%string%, level = 1", $_GET["module"]);
     $_GET['step'] = 30;
   break;
 }
@@ -160,14 +153,7 @@ switch ($_GET['step']) {
 
 	// Add Menuentry
 	case 31:
-		$db->query("INSERT INTO {$config["tables"]["menu"]}
-				SET caption = 'Neuer Eintrag',
-					requirement = '0',
-					hint = '',
-					link = 'index.php?mod=',
-					needed_config = '',
-					module='{$_GET["module"]}',
-					level = 1");
+		$db->qry("INSERT INTO %prefix%menu SET caption = 'Neuer Eintrag', requirement = '0', hint = '', link = 'index.php?mod=', needed_config = '', module=%string%, level = 1", $_GET["module"]);
   # No Break!
 
   // Menu

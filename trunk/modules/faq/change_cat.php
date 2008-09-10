@@ -18,7 +18,7 @@ switch($_GET["step"]) {
 	
 	case 3:
 	//  ERRORS
-	$get_cat_names = $db->query("SELECT name FROM {$config["tables"]["faq_cat"]}");
+	$get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
 	
 		while($row=$db->fetch_array($get_cat_names)) {
 			
@@ -53,7 +53,7 @@ switch($_GET["step"]) {
 	
 	case 2:
 		
-	$get_data = $db->query_first("SELECT name FROM {$config["tables"]["faq_cat"]} WHERE catid = '{$_GET["catid"]}'");
+	$get_data = $db->qry_first("SELECT name FROM %prefix%faq_cat WHERE catid = %int%", $_GET["catid"]);
 	$_POST["cat_caption"] = $get_data["name"];
 		
 	$_SESSION["change_blocker_faq_cat"] = "";
@@ -80,12 +80,12 @@ switch($_GET["step"]) {
 		
 		if($_SESSION["change_blocker_faq_cat"] != 1) {
 		
-			$get_data = $db->query_first("SELECT name FROM {$config["tables"]["faq_cat"]} WHERE catid = '{$_GET["catid"]}'");
+			$get_data = $db->qry_first("SELECT name FROM %prefix%faq_cat WHERE catid = %int%", $_GET["catid"]);
 			$catcaption = $get_data["name"];
 		
 				if($catcaption != "") {
 				
-					$change_it = $db->query("UPDATE {$config["tables"]["faq_cat"]} SET name = '{$_POST[cat_caption]}' WHERE catid = '{$_GET["catid"]}'");
+					$change_it = $db->qry("UPDATE %prefix%faq_cat SET name = %string% WHERE catid = %int%", $_POST[cat_caption], $_GET["catid"]);
 				
 						if($change_it == true) {
 				

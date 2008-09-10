@@ -20,7 +20,7 @@ switch($_GET["step"]) {
 	case 3:
 
 	//  ERRORS
-	$get_cat_names = $db->query("SELECT name FROM {$config["tables"]["faq_cat"]}");
+	$get_cat_names = $db->qry("SELECT name FROM %prefix%faq_cat");
 
 		while($row=$db->fetch_array($get_cat_names)) {
 
@@ -85,7 +85,7 @@ switch($_GET["step"]) {
 	default:
 
 
-	$get_cat = $db->query("SELECT catid, name FROM {$config["tables"]["faq_cat"]}");
+	$get_cat = $db->qry("SELECT catid, name FROM %prefix%faq_cat");
 
 	$count_cat = $db->num_rows($get_cat);
 
@@ -110,7 +110,7 @@ switch($_GET["step"]) {
 
 			if($_SESSION['menu_status']['faq'][$row['catid']] == "open") {
 
-				$get_item = $db->query("SELECT caption,itemid FROM {$config["tables"]["faq_item"]}
+				$get_item = $db->qry("SELECT caption,itemid FROM %prefix%faq_item
 													WHERE catid = '{$row['catid']}'");
 				while($row=$db->fetch_array($get_item)) {
 
@@ -135,7 +135,7 @@ switch($_GET["step"]) {
 
 	unset($_SESSION['change_blocker_faqitem']);
 
-	$get_data = $db->query_first("SELECT caption, text, catid FROM {$config["tables"]["faq_item"]} WHERE itemid = '{$_GET["itemid"]}'");
+	$get_data = $db->qry_first("SELECT caption, text, catid FROM %prefix%faq_item WHERE itemid = %int%", $_GET["itemid"]);
 
 	$question_caption 	= $get_data["caption"];
 
@@ -151,7 +151,7 @@ switch($_GET["step"]) {
 				$dsp->NewContent(t('Frage ändern'),t(' Um eine Frage hinzuzufügen, füllen Sie bitte das folgende Formular vollständig aus. Für das Feld Überschirft stehen 30 Zeichen, für das Feld Text 5000 Zeichen zur Verfügung. Im Feld Kategorie können Sie die Kategorie definieren, in der die Frage angezeigt werden soll.'));
 				$dsp->SetForm("index.php?mod=faq&object=item&came_from=$came_from&action=change_item&step=3&itemid=" .$_GET["itemid"]);
 
-				$get_cats = $db->query("SELECT name,catid FROM {$config["tables"]["faq_cat"]}");
+				$get_cats = $db->qry("SELECT name,catid FROM %prefix%faq_cat");
 
 				$faq_cats[] = "<option value=\"0\"> ".t('Kategorie wählen')." </option>";
 
@@ -179,7 +179,7 @@ switch($_GET["step"]) {
 
 	case 3:
 
-	$get_itemid = $db->query_first("SELECT caption FROM {$config["tables"]["faq_item"]} WHERE itemid = '{$_GET["itemid"]}'");
+	$get_itemid = $db->qry_first("SELECT caption FROM %prefix%faq_item WHERE itemid = %int%", $_GET["itemid"]);
 	$faqitem_caption_test = $get_itemid["caption"];
 
 		if($faqitem_caption_test != "") {
@@ -188,22 +188,22 @@ switch($_GET["step"]) {
 
 				if($_POST["question_cat"] == 0 AND $_POST["question_new_cat"] != "" AND $_SESSION["change_blocker_faqitem"] != 1) {
 
-					$update_it1 = $db->query("INSERT INTO {$config["tables"]["faq_cat"]} SET
-												name = '{$_POST["question_new_cat"]}',
-												poster = '{$_SESSION["auth"]["userid"]}',
-												date = '$courent_date'
-								 				");
+					$update_it1 = $db->qry("INSERT INTO %prefix%faq_cat SET
+												name = %string%,
+												poster = %int%,
+												date = %string%
+								 				", $_POST["question_new_cat"], $_SESSION["auth"]["userid"], $courent_date);
 
-					$get_catid = $db->query_first("SELECT catid FROM {$config["tables"]["faq_cat"]} WHERE name = '{$_POST["question_new_cat"]}'");
+					$get_catid = $db->qry_first("SELECT catid FROM %prefix%faq_cat WHERE name = %string%", $_POST["question_new_cat"]);
 					$catid = $get_catid["catid"];
 
-					$update_it2 = $db->query("UPDATE {$config["tables"]["faq_item"]} SET
-										caption = '{$_POST["question_caption"]}',
-										text = '{$_POST["question_text"]}',
-										poster = '{$_SESSION["auth"]["userid"]}',
-										date = '$courent_date',
-										catid = '$catid'
-										WHERE itemid = '{$_GET["itemid"]}'");
+					$update_it2 = $db->qry("UPDATE %prefix%faq_item SET
+										caption = %string%,
+										text = %string%,
+										poster = %int%,
+										date = %string%,
+										catid = %int%
+										WHERE itemid = '{$_GET["itemid"]}'", $_POST["question_caption"], $_POST["question_text"], $_SESSION["auth"]["userid"], $courent_date, $catid);
 
 						if($update_it1 == 1 AND $update_it2 == 1) {
 
@@ -225,13 +225,13 @@ switch($_GET["step"]) {
 
 						if($_SESSION['change_blocker_faqitem'] != 1) {
 
-							$add_it = $db->query("UPDATE {$config["tables"]["faq_item"]} SET
-											caption = '{$_POST["question_caption"]}',
-											text = '{$_POST["question_text"]}',
-											poster = '{$_SESSION["auth"]["userid"]}',
-											date = '$courent_date',
-											catid = '{$_POST["question_cat"]}'
-								 			WHERE itemid = '{$_GET["itemid"]}'");
+							$add_it = $db->qry("UPDATE %prefix%faq_item SET
+											caption = %string%,
+											text = %string%,
+											poster = %int%,
+											date = %string%,
+											catid = %string%
+								 			WHERE itemid = '{$_GET["itemid"]}'", $_POST["question_caption"], $_POST["question_text"], $_SESSION["auth"]["userid"], $courent_date, $_POST["question_cat"]);
 
 								if($add_it == 1) {
 

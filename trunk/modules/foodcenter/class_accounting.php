@@ -15,7 +15,7 @@ class accounting{
 		if(isset($_SESSION['foodcenter']['account_block']) && $_SESSION['foodcenter']['account_block'] != $_SERVER['QUERY_STRING']){
 			unset($_SESSION['foodcenter']['account_block']);
 		}
-		$result = $db->query_first("SELECT SUM(movement) AS total FROM {$config['tables']['food_accounting']} WHERE userid = {$this->user_id}");
+		$result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int%", $this->user_id);
 		
 		if($result['total'] == ""){
 			$this->balance = 0;
@@ -32,11 +32,11 @@ class accounting{
 	function change($price,$comment){
 		global $db,$config;
 		if(!isset($_SESSION['foodcenter']['account_block'])){
-			$db->query("INSERT INTO {$config['tables']['food_accounting']} SET userid='{$this->user_id}', comment='{$comment}', movement='{$price}',actiontime=NOW()");
+			$db->qry("INSERT INTO %prefix%food_accounting SET userid=%int%, comment=%string%, movement=%string%,actiontime=NOW()", $this->user_id, $comment, $price);
 			$_SESSION['foodcenter']['account_block'] = $_SERVER['QUERY_STRING'];
 		}
 		
-		$result = $db->query_first("SELECT SUM(movement) AS total FROM {$config['tables']['food_accounting']} WHERE userid = '{$this->user_id}'");
+		$result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int%", $this->user_id);
 		
 		if($result['total'] == ""){
 			$this->balance = 0;
@@ -48,11 +48,11 @@ class accounting{
 	function list_balance(){
 		global $db,$config,$dsp,$lang,$cfg;
 		
-		$result = $db->query("SELECT *, DATE_FORMAT(actiontime,\"%d.%m.%y %H:%i\") AS time FROM {$config['tables']['food_accounting']} WHERE userid = '{$this->user_id}' ORDER BY actiontime DESC");
+		$result = $db->qry("SELECT *, DATE_FORMAT(actiontime,\"%d.%m.%y %H:%i\") AS time FROM %prefix%food_accounting WHERE userid = %int% ORDER BY actiontime DESC", $this->user_id);
 		
-		$deposit = $db->query_first("SELECT SUM(movement) AS total FROM {$config['tables']['food_accounting']} WHERE userid = '{$this->user_id}' AND movement > 0");
+		$deposit = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int% AND movement > 0", $this->user_id);
 		
-		$disbursement = $db->query_first("SELECT SUM(movement) AS total FROM {$config['tables']['food_accounting']} WHERE userid = '{$this->user_id}' AND movement < 0");
+		$disbursement = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int% AND movement < 0", $this->user_id);
 		
 		
 		$dsp->NewContent(t('Kontoauszug')	,t('Alle bisher getätigten Zahlungen')	);
