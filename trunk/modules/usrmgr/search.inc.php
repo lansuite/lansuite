@@ -48,7 +48,7 @@ $ms2->AddTextSearchField('NGL/WWCL/LGZ-ID', array('u.nglid' => 'exact', 'u.nglcl
 $ms2->AddTextSearchDropDown(t('Benutzertyp'), 'u.type', array('' => t('Alle'), '1' => t('Gast'), '!1' => t('Nicht Gast'), '<0' => t('Deaktiviert'), '2' => t('Admin'), '3' => t('Superadmin'), '2,3' => t('Admin, oder Superadmin')));
 	
 $party_list = array('' => 'Alle', 'NULL' => 'Zu keiner Party angemeldet');
-$row = $db->query("SELECT party_id, name FROM {$config['tables']['partys']}");
+$row = $db->qry("SELECT party_id, name FROM %prefix%partys");
 while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
 $db->free_result($row);
 $ms2->AddTextSearchDropDown('Party', 'p.party_id', $party_list);#, $party->party_id
@@ -94,7 +94,7 @@ if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&actio
 
 
 if ($auth['type'] >= 2) {
-  $res = $db->query("SELECT * FROM {$config['tables']['party_usergroups']}");
+  $res = $db->qry("SELECT * FROM %prefix%party_usergroups");
   $ms2->AddMultiSelectAction("Gruppenzuordung aufheben", "index.php?mod=usrmgr&action=group&step=30&group_id=0", 0, 'delete_group');
   while ($row = $db->fetch_array($res)) {
     $ms2->AddMultiSelectAction("Der Gruppe '{$row['group_name']}' zuordnen", "index.php?mod=usrmgr&action=group&step=30&group_id={$row['group_id']}", 0, 'assign_group');

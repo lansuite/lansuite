@@ -3,7 +3,7 @@
 function Update($id){
   global $db, $config;
   
-  $db->query("ALTER TABLE {$config['tables']['user']} ADD {$_POST['name']} VARCHAR(255) NOT NULL;");
+  $db->qry("ALTER TABLE %prefix%user ADD %plain% VARCHAR(255) NOT NULL;", $_POST['name']);
   
   return true;
 }
@@ -43,10 +43,10 @@ switch ($_GET['step']) {
   
   // Delete entry
   case 20:
-    $fild_row = $db->query_first("SELECT name FROM {$config["tables"]["user_fields"]} WHERE fieldid = '{$_GET['fieldid']}'");
-    $db->query("ALTER TABLE {$config['tables']['user']} DROP {$fild_row['name']}");
+    $fild_row = $db->qry_first("SELECT name FROM %prefix%user_fields WHERE fieldid = %int%", $_GET['fieldid']);
+    $db->qry("ALTER TABLE %prefix%user DROP %plain%", $fild_row['name']);
 
-    $db->query("DELETE FROM {$config["tables"]["user_fields"]} WHERE fieldid = '{$_GET['fieldid']}'");
+    $db->qry("DELETE FROM %prefix%user_fields WHERE fieldid = %int%", $_GET['fieldid']);
     
     $func->confirmation('Gelöscht', 'index.php?mod=usrmgr&action=user_fields');
   break;

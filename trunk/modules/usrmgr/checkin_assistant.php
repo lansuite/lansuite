@@ -129,9 +129,9 @@ else {
 
   	// Belegten Sitzplatz tauschen / löschen?
   	case 9:
-  		$seat = $db->query_first("SELECT s.userid, s.status, u.username, u.firstname, u.name FROM {$config["tables"]["seat_seats"]} AS s
-  			LEFT JOIN {$config["tables"]["user"]} AS u ON s.userid = u.userid
-  			WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}'");
+  		$seat = $db->qry_first("SELECT s.userid, s.status, u.username, u.firstname, u.name FROM %prefix%seat_seats AS s
+  			LEFT JOIN %prefix%user AS u ON s.userid = u.userid
+  			WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 
   		if ($seat['status'] == 1) $_GET['step'] = 10;
   		elseif ($seat['status'] == 2) {

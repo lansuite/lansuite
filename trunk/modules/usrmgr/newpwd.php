@@ -1,6 +1,6 @@
 <?php
 
-$user_data = $db->query_first("SELECT name, firstname, username, type FROM {$config["tables"]["user"]} WHERE userid = '{$_GET['userid']}'");
+$user_data = $db->qry_first("SELECT name, firstname, username, type FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
 
 switch($_GET['step']) {	
 	default:
@@ -17,7 +17,7 @@ switch($_GET['step']) {
 
 		if ($_SESSION["auth"]["type"] < $userdata["type"]) $func->information(t('Sie verfügen über ein geringeres Benutzerlevel, als derjenige, auf den Sie diese Funktion anwenden möchten. Es wurde kein neues Passwort generiert'), "");
 		else {
-			$db->query("UPDATE {$config["tables"]["user"]} SET password = '$md5_password' WHERE userid = '{$_GET['userid']}'");
+			$db->qry("UPDATE %prefix%user SET password = %string% WHERE userid = %int%", $md5_password, $_GET['userid']);
 
 			$func->confirmation(t('Das Passwort von <b>%2 %3 (%4)</b> wurde erfolgreich geändert.HTML_NEWLINEDas neue Passwort lautet <b>%1</b>.', $password, $user_data["firstname"], $user_data["name"], $user_data["username"]), "index.php?mod=usrmgr&action=details&userid=". $_GET['userid']);
 		}

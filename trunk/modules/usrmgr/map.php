@@ -17,8 +17,8 @@ else {
     default: $GCountry = 'Germany'; break;
   }
 
-  $res = $db->query("SELECT u.*, s.avatar_path FROM {$config["tables"]["user"]} AS u
-		LEFT JOIN {$config["tables"]["usersettings"]} AS s ON u.userid = s.userid
+  $res = $db->qry("SELECT u.*, s.avatar_path FROM %prefix%user AS u
+		LEFT JOIN %prefix%usersettings AS s ON u.userid = s.userid
 		WHERE u.plz > 0 AND u.type > 0
     ");
     # AND s.show_me_in_map = 1

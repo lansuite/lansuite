@@ -9,11 +9,11 @@ class Clan {
     
     if (substr($url, 0, 7) != 'http://') $url = 'http://'. $url;
 		
-    $db->query("INSERT INTO {$config['tables']['clan']} SET
-      name = '$name',
-      url = '$url',
-      password = '$password'
-      ");
+    $db->qry("INSERT INTO %prefix%clan SET
+      name = %string%,
+      url = %string%,
+      password = %string%
+      ", $name, $url, $password);
 
     return $db->insert_id();
   }
@@ -22,10 +22,10 @@ class Clan {
   function AddMember($clanid, $userid){
     global $db, $config;
     
-    $db->query("UPDATE {$config['tables']['user']} SET
-      clanid = '$clanid'
-      WHERE userid = '$userid'
-      ");
+    $db->qry("UPDATE %prefix%user SET
+      clanid = %int%
+      WHERE userid = %int%
+      ", $clanid, $userid);
       
     return true;
   }
@@ -34,12 +34,10 @@ class Clan {
   function RemoveMember($userid){
     global $db, $config;
 
-    $db->query("UPDATE {$config['tables']['user']} SET
+    $db->qry("UPDATE %prefix%user SET
       clanid = '0'
-      WHERE userid = '$userid'
-      ");
+      WHERE userid = %int%
+      ", $userid);
 
     return true;
   }
-}
-?>

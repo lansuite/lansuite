@@ -6,14 +6,14 @@ if (!$cfg['sys_internet']) $func->information(t('Diese Funktion ist nur im Inter
 
 else switch ($_GET['step']) {
 	case 2: // Email prüfen, Freischaltecode generieren, Email senden
-		$user_data = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE email = '". $_POST['pwr_mail'] ."'");
+		$user_data = $db->qry_first("SELECT username FROM %prefix%user WHERE email = %string%", $_POST['pwr_mail']);
 		if ($user_data['username'] == "LS_SYSTEM"){
 			$func->information(t('Für den System-Account darf kein neues Passwort generiert werden'), "index.php?mod=usrmgr&action=pwrecover&step=1");
 		} else if ($user_data['username']){
 			$fcode = '';
 			for ($x=0; $x<=24; $x++) $fcode.=chr(mt_rand(65,90));
 
-			$db->query("UPDATE {$config["tables"]["user"]} SET fcode='$fcode' WHERE email = '". $_POST['pwr_mail'] ."'");
+			$db->qry("UPDATE %prefix%user SET fcode='$fcode' WHERE email = %string%", $_POST['pwr_mail']);
 
 			$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
@@ -24,12 +24,12 @@ else switch ($_GET['step']) {
 	break;
 
 	case 3: // Freischaltecode prüfen, Passwort generieren, Freischaltcode zurücksetzen
-		$user_data = $db->query_first("SELECT fcode FROM {$config["tables"]["user"]} WHERE fcode = '". $_GET['fcode'] ."'");
+		$user_data = $db->qry_first("SELECT fcode FROM %prefix%user WHERE fcode = %string%", $_GET['fcode']);
         if (($user_data['fcode']) && ($_GET['fcode'] != '')){
 			$new_pwd = "";
 			for ($x=0; $x<=8; $x++) $new_pwd .= chr(mt_rand(65,90));
 		
-			$db->query("UPDATE {$config["tables"]["user"]} SET password = '". md5($new_pwd) ."', fcode = '' WHERE fcode = '". $_GET['fcode'] ."'");
+			$db->qry("UPDATE %prefix%user SET password = %string%, fcode = '' WHERE fcode = '". %string% ."'", md5($new_pwd), $_GET['fcode']);
 
 			$func->confirmation(t('Das neue Kennwort wurde erfolgreich generiert.HTML_NEWLINEEs lautet:') ." <b>$new_pwd</b>", "index.php");
 		} else $func->error(t('Der von Ihnen übermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prüfen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.'), "index.php?mod=usrmgr&action=pwrecover&step=1");

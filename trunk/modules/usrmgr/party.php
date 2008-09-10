@@ -36,7 +36,7 @@ else {
       // Do not allow changes, if user has paid
       if ($auth['type'] <= 1) {
         
-        $row2 = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE party_id = {$_GET['party_id']} AND user_id = {$id}");
+        $row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
         if ($row2['paid']!= 0) return t('Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden');
       }
       
@@ -48,7 +48,7 @@ else {
     include_once('inc/classes/class_masterform.php');
     $MFID = 1;
 
-    $res = $db->query("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']} WHERE UNIX_TIMESTAMP(enddate) >= UNIX_TIMESTAMP(NOW()) ORDER BY startdate");
+    $res = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys WHERE UNIX_TIMESTAMP(enddate) >= UNIX_TIMESTAMP(NOW()) ORDER BY startdate");
     while ($row = $db->fetch_array($res)) {
       if ($_GET['mf_step'] != 2 or $row['party_id'] == $_GET['party_id']) {
 
@@ -70,7 +70,7 @@ else {
     
         // Prices
         $selections = array();  
-        $res2 = $db->query("SELECT * FROM {$config['tables']['party_prices']} WHERE party_id = {$row['party_id']} AND requirement <= {$auth['type']}");
+        $res2 = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND requirement <= %string%", $row['party_id'], $auth['type']);
         while ($row2 = $db->fetch_array($res2)) $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']';
         if ($selections) $mf->AddField(t('Eintrittspreis'), 'price_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
         else $mf->AddField(t('Eintrittspreis'), 'price_id', IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
@@ -104,10 +104,10 @@ else {
 
     // ShowHistory
     $dsp->AddFieldsetStart(t('Vergangene Partys'));
-    $res = $db->query("SELECT p.*, pu.user_id, pu.paid, pu.checkin, pu.checkout, UNIX_TIMESTAMP(p.enddate) AS enddate, UNIX_TIMESTAMP(p.sstartdate) AS sstartdate, UNIX_TIMESTAMP(p.senddate) AS senddate, UNIX_TIMESTAMP(p.startdate) AS startdate FROM {$config['tables']['partys']} AS p
-      LEFT JOIN {$config['tables']['party_user']} AS pu ON p.party_id = pu.party_id
-      WHERE UNIX_TIMESTAMP(p.enddate) < UNIX_TIMESTAMP(NOW()) AND (pu.user_id = ". (int)$_GET['user_id'] ." OR pu.user_id IS NULL)
-      ORDER BY p.startdate");
+    $res = $db->qry("SELECT p.*, pu.user_id, pu.paid, pu.checkin, pu.checkout, UNIX_TIMESTAMP(p.enddate) AS enddate, UNIX_TIMESTAMP(p.sstartdate) AS sstartdate, UNIX_TIMESTAMP(p.senddate) AS senddate, UNIX_TIMESTAMP(p.startdate) AS startdate FROM %prefix%partys AS p
+      LEFT JOIN %prefix%party_user AS pu ON p.party_id = pu.party_id
+      WHERE UNIX_TIMESTAMP(p.enddate) < UNIX_TIMESTAMP(NOW()) AND (pu.user_id = %int% OR pu.user_id IS NULL)
+      ORDER BY p.startdate", $_GET['user_id']);
     while ($row = $db->fetch_array($res)) {
       $text = '';
       if ($row['user_id']) {
