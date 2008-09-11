@@ -19,7 +19,7 @@ $tournamentid 	= $_GET["tournamentid"];
 if ($tournamentid == "") $func->error(t('Das ausgewählte Turnier existiert nicht'), "index.php?mod=tournament2");
 
 else {
-	$tournament = $db->query_first("SELECT status, teamplayer, name, mode, blind_draw FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+	$tournament = $db->qry_first("SELECT status, teamplayer, name, mode, blind_draw FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
 
 	switch ($_GET["action"]) {
 		case "undo_generate":
@@ -31,20 +31,20 @@ else {
 				case 2:
 					## Blind-Draw Teas auflösen
 					if ($tournament["blind_draw"]) {
-						$bd_teams = $db->query("SELECT * FROM {$config["tables"]["t2_teammembers"]} WHERE tournamentid = {$_GET["tournamentid"]}");
+						$bd_teams = $db->qry("SELECT * FROM %prefix%t2_teammembers WHERE tournamentid = %int%", $_GET["tournamentid"]);
 						while ($bd_team = $db->fetch_array($bd_teams)) {
-							$leader = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = {$bd_team["userid"]}");
-							$db->query("INSERT INTO {$config["tables"]["t2_teams"]} 
-								SET tournamentid = {$_GET["tournamentid"]},
-								name = '{$leader["username"]}',
-								leaderid = {$bd_team["userid"]}
-								");
-							$db->query("DELETE FROM {$config["tables"]["t2_teammembers"]} WHERE teamid = {$bd_team["teamid"]} AND userid = {$bd_team["userid"]}");
+							$leader = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $bd_team["userid"]);
+							$db->qry("INSERT INTO %prefix%t2_teams 
+        SET tournamentid = %int%,
+        name = %string%,
+        leaderid = %int%
+        ", $_GET["tournamentid"], $leader["username"], $bd_team["userid"]);
+							$db->qry("DELETE FROM %prefix%t2_teammembers WHERE teamid = %int% AND userid = %int%", $bd_team["teamid"], $bd_team["userid"]);
 						}
 					}
 
-					$db->query("DELETE FROM {$config["tables"]["t2_games"]} WHERE tournamentid = '$tournamentid'");
-					$db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET status='open' WHERE tournamentid = '$tournamentid'");
+					$db->qry("DELETE FROM %prefix%t2_games WHERE tournamentid = %int%", $tournamentid);
+					$db->qry("UPDATE %prefix%tournament_tournaments SET status='open' WHERE tournamentid = %int%", $tournamentid);
 
 					$func->confirmation(t('Das Turnier \'%1\' wurde erfolgreich zurückgesetzt', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
 					$func->log_event(t('Das Generieren des Turnieres \'%1\' wurde rückgängig gemacht', $tournament["name"]), 1, t('Turnier Verwaltung'));
@@ -53,7 +53,7 @@ else {
 		break;
 
 		case "undo_close":
-			$db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET status='process' WHERE tournamentid = '$tournamentid'");
+			$db->qry("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = %int%", $tournamentid);
 
 			$func->confirmation(t('Der Status wurde wieder auf \'wird gespielt\' gesetzt. Das Turnier wird wieder beendet, sobald Sie das nächste Ergebniss eingetragen haben.'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
 			$func->log_event(t('Der Status wurde wieder auf \'wird gespielt\' gesetzt'), 1, t('Turnier Verwaltung'));

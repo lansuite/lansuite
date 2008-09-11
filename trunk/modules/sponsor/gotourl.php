@@ -14,7 +14,7 @@
 *
 **************************************************************************/
 
-$sponsoren = $db->query("UPDATE {$config['tables']['sponsor']} SET hits = hits + 1 WHERE url='{$_GET["url"]}'");
+$sponsoren = $db->qry("UPDATE %prefix%sponsor SET hits = hits + 1 WHERE url=%string%", $_GET["url"]);
 
 $dsp->NewContent(t('Unsere Sponsoren'), t('Bei den folgenden Sponsoren möchten wir uns herzlich für ihren Beitrag zu unserer Veranstaltung bedanken.'));
 $dsp->AddDoubleRow(t('Sie werden weitergeleitet...'), "<a href=\"{$_GET["url"]}\">{$_GET["url"]}</a>" . HTML_NEWLINE . "

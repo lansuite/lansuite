@@ -1,7 +1,7 @@
 <?php
 
 $dsp->NewContent(t('Statistiken'), t('Hier sehen Sie die Statistiken zu den einzelnen Sponsoren der Sponsorliste'));
-$sponsoren = $db->query("SELECT * FROM {$config['tables']['sponsor']}");
+$sponsoren = $db->qry("SELECT * FROM %prefix%sponsor");
 while ($sponsor = $db->fetch_array($sponsoren)){
   $dsp->AddFieldsetStart("<a href=\"{$sponsor["url"]}\" traget=\"_blank\">{$sponsor["name"]}</a>");
   if ($sponsor['views']) $percentage = round($sponsor['hits'] / $sponsor['views'], 4) * 100 .'%';

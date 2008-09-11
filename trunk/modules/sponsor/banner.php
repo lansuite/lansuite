@@ -1,14 +1,14 @@
 <?php
 if ($_GET['design'] != 'popup' and $db->success and !$_SESSION['lansuite']['fullscreen'] and $_GET['action'] != 'wizard' and in_array('sponsor', $ActiveModules)) {
-  $banner = $db->query_first("SELECT sponsorid, pic_path_banner, url, name
-    FROM {$config['tables']['sponsor']}
+  $banner = $db->qry_first("SELECT sponsorid, pic_path_banner, url, name
+    FROM %prefix%sponsor
     WHERE rotation AND ((pic_path != '' AND pic_path != 'http://') OR pic_path_banner != '')
     ORDER BY RAND()");
 
   $file_name = '';
   $old_file_name = 'ext_inc/banner/banner_'. substr($banner['pic_path'], strrpos($banner["pic_path"], 'ext_inc/banner/') + 15, strlen($banner['pic_path']));
 
-  if ($banner['sponsorid']) $db->query("UPDATE {$config['tables']['sponsor']} SET views_banner = views_banner + 1 WHERE sponsorid = '{$banner['sponsorid']}'");
+  if ($banner['sponsorid']) $db->qry("UPDATE %prefix%sponsor SET views_banner = views_banner + 1 WHERE sponsorid = %int%", $banner['sponsorid']);
 
   // If no specific rotation banner is given, use the banner from the sponsor page
   if ($banner['pic_path_banner'] == '' and file_exists($old_file_name)) $file_name = $old_file_name;

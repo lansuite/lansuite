@@ -10,10 +10,10 @@ $tfunc = new tfunc;
 $tfunc->CheckTimeExceed($tournamentid);
 
 
-$tournament = $db->query_first("SELECT tournamentid, name, mode, UNIX_TIMESTAMP(starttime) AS starttime, break_duration, game_duration, max_games, status, mapcycle
-		FROM {$config["tables"]["tournament_tournaments"]}
-		WHERE tournamentid = '$tournamentid'
-		");
+$tournament = $db->qry_first("SELECT tournamentid, name, mode, UNIX_TIMESTAMP(starttime) AS starttime, break_duration, game_duration, max_games, status, mapcycle
+  FROM %prefix%tournament_tournaments
+  WHERE tournamentid = %int%
+  ", $tournamentid);
 $map = explode("\n", $tournament["mapcycle"]);
 if ($map[0] == "") $map[0] = t('unbekannt');
 
@@ -95,13 +95,13 @@ if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['statu
 		$i = 0;
 		$line_start = 0;
 		for ($akt_pos = 0; $akt_pos <= $max_pos-1; $akt_pos++) {
-			$game = $db->query_first("SELECT teams.name, teams.teamid, games.leaderid, games.gameid, games.score
-					FROM {$config["tables"]["t2_games"]} AS games
-					LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
-					WHERE (games.tournamentid = '$tournamentid') AND (games.group_nr = 0)
-					AND (games.round = $akt_round) AND (games.position = $akt_pos)
-					GROUP BY games.gameid
-					");
+			$game = $db->qry_first("SELECT teams.name, teams.teamid, games.leaderid, games.gameid, games.score
+     FROM %prefix%t2_games AS games
+     LEFT JOIN %prefix%t2_teams AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
+     WHERE (games.tournamentid = %int%) AND (games.group_nr = 0)
+     AND (games.round = %string%) AND (games.position = %string%)
+     GROUP BY games.gameid
+     ", $tournamentid, $akt_round, $akt_pos);
 
 			if ($spieler1 == "") {
 				if ($game == 0) {
@@ -217,13 +217,13 @@ muss hier 2x siegen'))));
 		|| (($tournament["mode"] == "groups") && ($_GET["group"] > 0))) {
 		$leader_array = array();
 		$leader_name_array = array();
-		$leaders = $db->query("SELECT teams.leaderid, teams.name
-			FROM {$config["tables"]["t2_teams"]} AS teams
-			LEFT JOIN {$config["tables"]["t2_games"]} AS games ON (teams.tournamentid = games.tournamentid) AND (teams.leaderid = games.leaderid)
-			WHERE (teams.tournamentid = $tournamentid) AND (games.group_nr = {$_GET["group"]})
-			GROUP BY teams.leaderid
-			ORDER BY teams.leaderid
-			");
+		$leaders = $db->qry("SELECT teams.leaderid, teams.name
+   FROM %prefix%t2_teams AS teams
+   LEFT JOIN %prefix%t2_games AS games ON (teams.tournamentid = games.tournamentid) AND (teams.leaderid = games.leaderid)
+   WHERE (teams.tournamentid = %int%) AND (games.group_nr = %string%)
+   GROUP BY teams.leaderid
+   ORDER BY teams.leaderid
+   ", $tournamentid, $_GET["group"]);
 		while ($leader = $db->fetch_array($leaders)){
 			array_push($leader_array, $leader["leaderid"]);
 			array_push($leader_name_array, $leader["name"]);
@@ -249,15 +249,15 @@ muss hier 2x siegen'))));
 				$color["round_bg_1"]);
 
 			for ($x = 0; $x < $y-1; $x++){
-				$score = $db->query_first("SELECT games1.score AS s1, games2.score AS s2, games1.leaderid AS leader1
-					FROM {$config["tables"]["t2_games"]} AS games1
-					INNER JOIN {$config["tables"]["t2_games"]} AS games2 ON (games1.tournamentid = games2.tournamentid) AND (games1.round = games2.round) AND (games1.group_nr = games2.group_nr)
-					WHERE (games1.tournamentid = $tournamentid) AND (games1.group_nr = {$_GET["group"]})
-					AND ((games1.position + 1) = games2.position)
-					AND ((games1.position / 2) = FLOOR(games1.position / 2))
-					AND (((games1.leaderid = '". $leader_array[$x] ."') AND (games2.leaderid = '". $leader_array[$y-1] ."'))
-					OR ((games1.leaderid = '". $leader_array[$y-1] ."') AND (games2.leaderid = '". $leader_array[$x] ."')))
-					");
+				$score = $db->qry_first("SELECT games1.score AS s1, games2.score AS s2, games1.leaderid AS leader1
+     FROM %prefix%t2_games AS games1
+     INNER JOIN %prefix%t2_games AS games2 ON (games1.tournamentid = games2.tournamentid) AND (games1.round = games2.round) AND (games1.group_nr = games2.group_nr)
+     WHERE (games1.tournamentid = %int%) AND (games1.group_nr = %string%)
+     AND ((games1.position + 1) = games2.position)
+     AND ((games1.position / 2) = FLOOR(games1.position / 2))
+     AND (((games1.leaderid = %string%) AND (games2.leaderid = %string%))
+     OR ((games1.leaderid = %string%) AND (games2.leaderid = %string%)))
+     ", $tournamentid, $_GET["group"], $leader_array[$x], $leader_array[$y-1], $leader_array[$y-1], $leader_array[$x]);
 
 				if (($score['s1'] == 0) && ($score['s2'] == 0)) $game_score = "- : -";
 				elseif ($score['leader1'] == $leader_array[$x]) $game_score = $score['s2']. " : " .$score['s1'];

@@ -9,11 +9,11 @@ else {
 	$dsp->NewContent(t('Turnier Verwaltung'), t('Mit Hilfe des folgenden Formulars können Sie ein Turnier erstellen / ändern'));
 
 	// Get Data
-	$team = $db->query_first("SELECT teams.name, teams.comment, teams.disqualified, teams.banner, users.username, users.userid
-			FROM {$config["tables"]["t2_teams"]} AS teams
-			LEFT JOIN {$config["tables"]["user"]} AS users ON (teams.leaderid = users.userid)
-			WHERE (teams.teamid = {$_GET["teamid"]})
-			");
+	$team = $db->qry_first("SELECT teams.name, teams.comment, teams.disqualified, teams.banner, users.username, users.userid
+   FROM %prefix%t2_teams AS teams
+   LEFT JOIN %prefix%user AS users ON (teams.leaderid = users.userid)
+   WHERE (teams.teamid = %int%)
+   ", $_GET["teamid"]);
 
 	// Teamname
 	$dsp->AddDoubleRow(t('Teamame'), $team['name']);
@@ -35,13 +35,13 @@ else {
 	$won = 0;
 	$lost = 0;
 
-	$games = $db->query("SELECT g1.score AS s1, g2.score AS s2, g1.leaderid
-			FROM {$config["tables"]["t2_games"]} AS g1
-			LEFT JOIN {$config["tables"]["t2_games"]} AS g2 ON (g1.tournamentid = g2.tournamentid) AND (g1.round = g2.round) AND ((g1.position + 1) = g2.position)
-			WHERE ((g1.score != 0) OR (g2.score != 0))
-			AND ((g1.position / 2) = FLOOR(g1.position / 2))
-			AND ((g1.leaderid = {$team['userid']}) OR (g2.leaderid = {$team['userid']}))
-			");
+	$games = $db->qry("SELECT g1.score AS s1, g2.score AS s2, g1.leaderid
+   FROM %prefix%t2_games AS g1
+   LEFT JOIN %prefix%t2_games AS g2 ON (g1.tournamentid = g2.tournamentid) AND (g1.round = g2.round) AND ((g1.position + 1) = g2.position)
+   WHERE ((g1.score != 0) OR (g2.score != 0))
+   AND ((g1.position / 2) = FLOOR(g1.position / 2))
+   AND ((g1.leaderid = %int%) OR (g2.leaderid = %int%))
+   ", $team['userid'], $team['userid']);
 	while ($game = $db->fetch_array($games)) {
 		$game_anz++;
 		if ($game['leaderid'] == $team['userid']) ($game[s1] > $game[s2])? $won++ : $lost++;

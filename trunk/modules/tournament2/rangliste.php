@@ -10,7 +10,7 @@ else {
   
   
   	default:
-  		$tournament = $db->query_first("SELECT name, mode, status FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '{$_GET['tournamentid']}'");
+  		$tournament = $db->qry_first("SELECT name, mode, status FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $_GET['tournamentid']);
   
   		if ($tournament['mode'] == "single") $modus = t('Single-Elimination');
   		if ($tournament['mode'] == "double") $modus = t('Double-Elimination');

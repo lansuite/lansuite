@@ -18,7 +18,7 @@ else {
   	if ($tournament['mode'] == "groups") $modus = t('Gruppenspiele + KO');
   	if ($tournament['mode'] == "all") $modus = t('Alle in einem');
   
-  /*	$games = $db->query("SELECT gameid FROM {$config["tables"]["t2_games"]} WHERE (tournamentid = '{$_GET['tournamentid']}') AND (round=0)");
+  /*	$games = $db->qry("SELECT gameid FROM %prefix%t2_games WHERE (tournamentid = %int%) AND (round=0)", $_GET['tournamentid']);
   	$team_anz = $db->num_rows($games);
   	$db->free_result($games);*/
   	include_once("modules/tournament2/class_tournament.php"); 
@@ -41,10 +41,10 @@ else {
   		}
   
   		if (($tournament["mode"] == "groups") && ($_POST['group'] == '')) {
-  			$teams = $db->query_first("SELECT MAX(group_nr) AS max_group_nr
-  				FROM {$config["tables"]["t2_games"]}
-  				WHERE (tournamentid = '{$_GET['tournamentid']}') AND (round = 0)
-  				");
+  			$teams = $db->qry_first("SELECT MAX(group_nr) AS max_group_nr
+      FROM %prefix%t2_games
+      WHERE (tournamentid = %int%) AND (round = 0)
+      ", $_GET['tournamentid']);
   
   			$t_array = array("<option value=\"0\">".t('Finalspiele')."</option>");
   			for ($i = 1; $i <= $teams["max_group_nr"]; $i++) array_push ($t_array, "<option value=\"$i\">".t('Spiele der Gruppe')." $i</option>");

@@ -5,7 +5,7 @@ $dsp->NewContent(t('Suchmaschinen'), t('Hier sehen Sie, &uuml;ber welche Suchbeg
 // Generate header menu
 $se_name = array ();
 $se_name[] = t('Alle');
-$query = $db->query("SELECT se FROM {$config["tables"]["stats_se"]} GROUP BY se ORDER BY se");
+$query = $db->qry("SELECT se FROM %prefix%stats_se GROUP BY se ORDER BY se");
 $i = 1;
 while ($row = $db->fetch_array($query)) {
 	$se_name[$i] = $row["se"];
@@ -20,7 +20,7 @@ if ($_GET["headermenuitem"] == 0) $where = ""; // Show all
 elseif ($se_name[$_GET["headermenuitem"]] != "") $where = "WHERE se = '{$se_name[$_GET["headermenuitem"]]}'"; // Show selected
 else $where = ""; // Wrong selection
 
-$query = $db->query("SELECT * FROM {$config["tables"]["stats_se"]} $where ORDER BY hits DESC, term ASC");
+$query = $db->qry("SELECT * FROM %prefix%stats_se %plain% ORDER BY hits DESC, term ASC", $where);
 while ($row = $db->fetch_array($query)) {
   if (strlen($row['term']) > 30) $row['term'] = '<div class="infolink" style="display:inline">'. substr($row['term'], 0, 28) .'...<span class="infobox">'. $row['term'] .'</span>';
   $dsp->AddDoubleRow($row["term"], $row["hits"] .' Hits bei '. $row["se"] .' ('. $func->unixstamp2date($row["first"], "datetime") .' - '. $func->unixstamp2date($row["last"], "datetime") .')');

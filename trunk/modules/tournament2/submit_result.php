@@ -13,26 +13,26 @@ $score_comment 		= $_POST["score_comment"];
 
 
 ########## Infos holen
-$tournament = $db->query_first("SELECT name, teamplayer, over18, status, mode, mapcycle, UNIX_TIMESTAMP(starttime) AS starttime, max_games, game_duration, break_duration, tournamentid FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+$tournament = $db->qry_first("SELECT name, teamplayer, over18, status, mode, mapcycle, UNIX_TIMESTAMP(starttime) AS starttime, max_games, game_duration, break_duration, tournamentid FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
 $map = explode("\n", $tournament["mapcycle"]);
 if ($map[0] == "") $map[0] = t('unbekannt');
 
-$games = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["t2_games"]} WHERE (tournamentid = '$tournamentid') AND (round=0) GROUP BY round");
+$games = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%t2_games WHERE (tournamentid = %int%) AND (round=0) GROUP BY round", $tournamentid);
 $team_anz = $games["anz"];
 
-$team1 = $db->query_first("SELECT games.group_nr, games.round, games.score, games.comment, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
-		FROM {$config["tables"]["t2_games"]} AS games
-		LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON games.leaderid = teams.leaderid
-		LEFT JOIN {$config["tables"]["user"]} AS user ON user.userid = teams.leaderid
-		WHERE (teams.tournamentid = $tournamentid) AND (games.gameid = $gameid1)
-		");
+$team1 = $db->qry_first("SELECT games.group_nr, games.round, games.score, games.comment, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
+  FROM %prefix%t2_games AS games
+  LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
+  LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
+  WHERE (teams.tournamentid = %int%) AND (games.gameid = %int%)
+  ", $tournamentid, $gameid1);
 
-$team2 = $db->query_first("SELECT games.round, games.score, games.comment, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
-		FROM {$config["tables"]["t2_games"]} AS games
-		LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON games.leaderid = teams.leaderid
-		LEFT JOIN {$config["tables"]["user"]} AS user ON user.userid = teams.leaderid
-		WHERE (teams.tournamentid = $tournamentid) AND (games.gameid = $gameid2)
-		");
+$team2 = $db->qry_first("SELECT games.round, games.score, games.comment, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
+  FROM %prefix%t2_games AS games
+  LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
+  LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
+  WHERE (teams.tournamentid = %int%) AND (games.gameid = %int%)
+  ", $tournamentid, $gameid2);
 
 
 ########## Einschränkungen prüfen
@@ -132,7 +132,7 @@ if ($tournament["name"] == "") {
 			## Wurde Ergebnis schon eingetragen?
 			$not_new = 0;
 			if (($tournament["mode"] == "single") || ($tournament["mode"] == "double")) {
-				$score = $db->query_first("SELECT score FROM {$config["tables"]["t2_games"]} WHERE (gameid = $gameid1 OR gameid = $gameid2) AND score != 0");
+				$score = $db->qry_first("SELECT score FROM %prefix%t2_games WHERE (gameid = %int% OR gameid = %int%) AND score != 0", $gameid1, $gameid2);
 				if ($score['score']) $not_new = 1;
 			}
 

@@ -75,13 +75,13 @@ function WritePairs ($bracket, $max_pos) {
 	$i = 0;
 
 	for ($akt_pos = 0; $akt_pos <= $max_pos-1; $akt_pos++) {
-		$game = $db->query_first("SELECT teams.name, teams.teamid, games.leaderid, games.gameid, games.score
-				FROM {$config["tables"]["t2_games"]} AS games
-				LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
-				WHERE (games.tournamentid = '$tournamentid')
-				AND (games.group_nr = 0) AND (games.round = $akt_round) AND (games.position = $akt_pos)
-				GROUP BY games.gameid
-				");
+		$game = $db->qry_first("SELECT teams.name, teams.teamid, games.leaderid, games.gameid, games.score
+    FROM %prefix%t2_games AS games
+    LEFT JOIN %prefix%t2_teams AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
+    WHERE (games.tournamentid = %int%)
+    AND (games.group_nr = 0) AND (games.round = %string%) AND (games.position = %string%)
+    GROUP BY games.gameid
+    ", $tournamentid, $akt_round, $akt_pos);
 
 		// Set Playernames
 		if ($game == 0) $game['name'] = "<i>".t('Noch Unbekannt')."</i>";
@@ -105,7 +105,7 @@ else {
   	// Check if roundtime has exceeded and set awaiting scores randomly
   	$tfunc->CheckTimeExceed($tournamentid);
   
-  	$tournament = $db->query_first("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+  	$tournament = $db->qry_first("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
   
   	// Get Maparray
   	$map = explode("\r\n", $tournament["mapcycle"]);
@@ -135,30 +135,30 @@ else {
   		if ($_GET['step'] == 10) {
   			foreach ($_POST['team_score'] as $gameid => $team_score) if ($gameid) {
   				if (!is_numeric($team_score)) $team_score_error[$gameid] = t('Bitte geben Sie eine Zahl ein');
-  				else $db->query("UPDATE {$config["tables"]["t2_games"]}
-  					SET score = {$team_score}
-  					WHERE gameid = $gameid");
+  				else $db->qry("UPDATE %prefix%t2_games
+       SET score = %string%
+       WHERE gameid = %int%", $team_score, $gameid);
   			}
   		}
   
   		// Finish tournament
   		if ($_GET['step'] == 11) {
-			$db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET status='closed' WHERE tournamentid = $tournamentid");
+			$db->qry("UPDATE %prefix%tournament_tournaments SET status='closed' WHERE tournamentid = %int%", $tournamentid);
 			$func->confirmation(t('Turnier wurde beendet'), '');
 		}
 		// Unfinish tournament
 		if ($_GET['step'] == 12) {
-			$db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET status='process' WHERE tournamentid = $tournamentid");
+			$db->qry("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = %int%", $tournamentid);
 			$func->confirmation(t('Turnier wurde wiedereröffnet'), '');
 		}
 		
   		// Show players and scores
-  		$games = $db->query("SELECT teams.name, teams.teamid, games.leaderid, games.score, games.gameid
-  				FROM {$config["tables"]["t2_games"]} AS games
-  				LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
-  				WHERE games.tournamentid = '$tournamentid'
-  				ORDER BY games.position
-  				");
+  		$games = $db->qry("SELECT teams.name, teams.teamid, games.leaderid, games.score, games.gameid
+      FROM %prefix%t2_games AS games
+      LEFT JOIN %prefix%t2_teams AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
+      WHERE games.tournamentid = %int%
+      ORDER BY games.position
+      ", $tournamentid);
   		$dsp->SetForm("index.php?mod=tournament2&action=games&step=10&tournamentid=$tournamentid");
   		while ($game = $db->fetch_array($games)) {
   			$dsp->AddTextFieldRow('team_score['. $game['gameid'] .']', $game['name'] .' '. $tfunc->button_team_details($game['teamid'], $tournamentid), $game['score'], $team_score_error[$game['gameid']]);
@@ -170,13 +170,13 @@ else {
   	break;
   	case "liga":
   	case "groups":
-  		$games = $db->query("SELECT teams.name, teams.teamid, games.leaderid, games.gameid, games.score, games.group_nr, games.round, games.position, games.leaderid
-  				FROM {$config["tables"]["t2_games"]} AS games
-  				LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
-  				WHERE (games.tournamentid = '$tournamentid') AND (games.group_nr > 0)
-  				GROUP BY games.gameid
-  				ORDER BY games.group_nr, games.round, games.position
-  				");
+  		$games = $db->qry("SELECT teams.name, teams.teamid, games.leaderid, games.gameid, games.score, games.group_nr, games.round, games.position, games.leaderid
+      FROM %prefix%t2_games AS games
+      LEFT JOIN %prefix%t2_teams AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
+      WHERE (games.tournamentid = %int%) AND (games.group_nr > 0)
+      GROUP BY games.gameid
+      ORDER BY games.group_nr, games.round, games.position
+      ", $tournamentid);
   		$last_round = -1;
   		while ($game = $db->fetch_array($games)){
   
@@ -210,19 +210,19 @@ else {
   	case "groups":
   		// Get $team_anz
   		if ($tournament['mode'] == "groups") {
-  			$games = $db->query("SELECT gameid
-  					FROM {$config["tables"]["t2_games"]}
-  					WHERE (tournamentid = $tournamentid) AND (group_nr > 0)
-  					GROUP BY group_nr
-  					");
+  			$games = $db->qry("SELECT gameid
+       FROM %prefix%t2_games
+       WHERE (tournamentid = %int%) AND (group_nr > 0)
+       GROUP BY group_nr
+       ", $tournamentid);
   			$team_anz = 2 * $db->num_rows($games);
   			$db->free_result($games);
   		} else {
-  			$games = $db->query_first("SELECT COUNT(*) AS anz
-  					FROM {$config["tables"]["t2_games"]}
-  					WHERE (tournamentid = $tournamentid) AND (round = 0) AND (group_nr = 0)
-  					GROUP BY round
-  					");
+  			$games = $db->qry_first("SELECT COUNT(*) AS anz
+       FROM %prefix%t2_games
+       WHERE (tournamentid = %int%) AND (round = 0) AND (group_nr = 0)
+       GROUP BY round
+       ", $tournamentid);
   			$team_anz = $games["anz"];
   		}
   
@@ -250,12 +250,12 @@ else {
   		// Write Winner
   		$akt_round++;
   		$dsp->AddSingleRow("<b>". t('Turnier-Sieger') ."</b>");
-  		$game = $db->query_first("SELECT teams.name, teams.teamid
-  				FROM {$config["tables"]["t2_games"]} AS games
-  				LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
-  				WHERE (games.tournamentid = '$tournamentid') AND (games.round = $akt_round) AND (games.position = 0) AND (games.group_nr = 0)
-  				GROUP BY games.gameid
-  				");
+  		$game = $db->qry_first("SELECT teams.name, teams.teamid
+      FROM %prefix%t2_games AS games
+      LEFT JOIN %prefix%t2_teams AS teams ON (games.tournamentid = teams.tournamentid) AND (games.leaderid = teams.leaderid)
+      WHERE (games.tournamentid = %int%) AND (games.round = %string%) AND (games.position = 0) AND (games.group_nr = 0)
+      GROUP BY games.gameid
+      ", $tournamentid, $akt_round);
   		if ($game == 0) $game['name'] = "<i>".t('Noch Unbekannt')."</i>";
   		else $game['name'] .= $tfunc->button_team_details($game['teamid'], $tournamentid);
   		$dsp->AddDoubleRow(t('Sieger'), $game['name']);

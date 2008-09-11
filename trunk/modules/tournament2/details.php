@@ -20,26 +20,26 @@ else {
         $maps = explode("\n", $tournament["mapcycle"]);
         shuffle($maps);
         $tournament["mapcycle"] = implode("\n", $maps);
-        $db->query("UPDATE {$config["tables"]["tournament_tournaments"]} SET mapcycle = '{$tournament['mapcycle']}' WHERE tournamentid = '{$_GET['tournamentid']}'");
+        $db->qry("UPDATE %prefix%tournament_tournaments SET mapcycle = %string% WHERE tournamentid = %int%", $tournament['mapcycle'], $_GET['tournamentid']);
       }
     break;
   }
   
 	switch ($_GET['step']){
 		case 10:	// Activate Seeding
-			$seeded = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = '{$_GET['tournamentid']}') AND (seeding_mark = '1') GROUP BY tournamentid");
-			$team = $db->query_first("SELECT COUNT(*) AS anz FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = '{$_GET['tournamentid']}') GROUP BY tournamentid");
+			$seeded = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%t2_teams WHERE (tournamentid = %int%) AND (seeding_mark = '1') GROUP BY tournamentid", $_GET['tournamentid']);
+			$team = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%t2_teams WHERE (tournamentid = %int%) GROUP BY tournamentid", $_GET['tournamentid']);
 
 			if (($seeded['anz']+1) > ($team['anz'] / 2)){
 				$func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkieren Sie zuerst ein Team, bevor Sie ein weiteres markieren'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
 			} else {
-				$db->query("UPDATE {$config["tables"]["t2_teams"]} SET seeding_mark = '1' WHERE (teamid = {$_GET['teamid']})");
+				$db->qry("UPDATE %prefix%t2_teams SET seeding_mark = '1' WHERE (teamid = %int%)", $_GET['teamid']);
 				$func->confirmation(t('Das Team wurde zum Setzen markiert.HTML_NEWLINEAlle markierten Teams werden beim Generieren so gesetzt, dass sie möglichst spät im Turnierbaum aufeinander treffen werden.'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
 			}
 		break;
 
 		case 11:	// Deaktivate Seeding
-			$db->query("UPDATE {$config["tables"]["t2_teams"]} SET seeding_mark = '0' WHERE (teamid = {$_GET['teamid']})");
+			$db->qry("UPDATE %prefix%t2_teams SET seeding_mark = '0' WHERE (teamid = %int%)", $_GET['teamid']);
 			$func->confirmation(t('Das Team wurde demarkiert.'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
 		break;
 
@@ -71,7 +71,7 @@ else {
 					$dsp->AddDoubleRow(t('Spiel-Modus'), $modus .", ". $tournament['teamplayer'] ." ".t('gegen')." ". $tournament['teamplayer'] . $blind_draw . $league);
 
           $sponsor_banners = '';
-          $sponsor = $db->query("SELECT * FROM {$config['tables']['sponsor']} WHERE tournamentid = ". (int)$_GET['tournamentid']);
+          $sponsor = $db->qry("SELECT * FROM %prefix%sponsor WHERE tournamentid = %int%", $_GET['tournamentid']);
       		while($sponsor_row = $db->fetch_array($sponsor)) {
             $sponsor_banner = '<img src="'. $sponsor_row['pic_path'] .'" border="1" class="img_border" title="'. $sponsor_row['name'] .'" alt="Sponsor Banner"/>';
             if ($cfg['sys_internet']) $sponsor_banner = '<a href="index.php?mod=sponsor&action=bannerclick&design=base&type=banner&sponsorid='. $sponsor_row["sponsorid"] .'" target="_blank">'. $sponsor_banner .'</a><br>';
@@ -95,20 +95,20 @@ else {
           if ($auth['userid'] != '') {
   					if ($tournament['coins'] == 0) $dsp->AddDoubleRow(t('Coin-Kosten'), t('Für dieses Turnier werden keine Coins benötigt'));
   					else {
-  						$team_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
-  							FROM {$config["tables"]["tournament_tournaments"]} AS t
-  							INNER JOIN {$config["tables"]["t2_teams"]} AS teams ON t.tournamentid = teams.tournamentid
-  							WHERE (teams.leaderid = '{$auth["userid"]}')
-  							AND t.party_id='$party->party_id' 
-  							GROUP BY teams.leaderid
-  							");
-  						$member_coin = $db->query_first("SELECT SUM(t.coins) AS t_coins
-  							FROM {$config["tables"]["tournament_tournaments"]} AS t
-  							INNER JOIN {$config["tables"]["t2_teammembers"]} AS members ON t.tournamentid = members.tournamentid
-  							WHERE (members.userid = '{$auth["userid"]}')
-  							AND t.party_id='$party->party_id' 
-  							GROUP BY members.userid
-  							");
+  						$team_coin = $db->qry_first("SELECT SUM(t.coins) AS t_coins
+         FROM %prefix%tournament_tournaments AS t
+         INNER JOIN %prefix%t2_teams AS teams ON t.tournamentid = teams.tournamentid
+         WHERE (teams.leaderid = %int%)
+         AND t.party_id=%int% 
+         GROUP BY teams.leaderid
+         ", $auth["userid"], $party->party_id);
+  						$member_coin = $db->qry_first("SELECT SUM(t.coins) AS t_coins
+         FROM %prefix%tournament_tournaments AS t
+         INNER JOIN %prefix%t2_teammembers AS members ON t.tournamentid = members.tournamentid
+         WHERE (members.userid = %int%)
+         AND t.party_id=%int% 
+         GROUP BY members.userid
+         ", $auth["userid"], $party->party_id);
   						(($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']) < $tournament['coins']) ?
   							$coin_out = t('Das Anmelden kostet %COST% Coins, Sie besitzen jedoch nur %IS% Coins!')
   							: $coin_out = t('Das Anmelden kostet %COST% Coins. Sie besitzen noch: %IS% Coins');
@@ -149,13 +149,13 @@ else {
 				case 2:
 					$waiting_teams = "";
 					$completed_teams = "";
-					$teams = $db->query("SELECT name, teamid, seeding_mark, disqualified FROM {$config["tables"]["t2_teams"]} WHERE (tournamentid = {$_GET['tournamentid']})");
+					$teams = $db->qry("SELECT name, teamid, seeding_mark, disqualified FROM %prefix%t2_teams WHERE (tournamentid = %int%)", $_GET['tournamentid']);
 					while($team = $db->fetch_array($teams)) {
-						$members = $db->query_first("SELECT COUNT(*) AS members
-							FROM {$config["tables"]["t2_teammembers"]}
-							WHERE (teamid = {$team['teamid']})
-							GROUP BY teamid
-							");
+						$members = $db->qry_first("SELECT COUNT(*) AS members
+       FROM %prefix%t2_teammembers
+       WHERE (teamid = %int%)
+       GROUP BY teamid
+       ", $team['teamid']);
 						$team_out = $team["name"] . $tfunc->button_team_details($team['teamid'], $_GET['tournamentid']);
 						if (($tournament['mode'] == "single") or ($tournament['mode'] == "double")){
 							if ($team["seeding_mark"]) $team_out .= " ". t('Dieses Team wird beim Generieren gesetzt');

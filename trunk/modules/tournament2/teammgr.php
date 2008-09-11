@@ -41,12 +41,12 @@ switch($_GET['step']) {
 	case 50:
 		$sec->unlock("t_team_edit");
 
-		$tournament = $db->query_first("SELECT teamplayer, wwcl_gameid, ngl_gamename FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+		$tournament = $db->qry_first("SELECT teamplayer, wwcl_gameid, ngl_gamename FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
 
-		$team = $db->query_first("SELECT team.name, team.comment, team.banner, user.nglid, user.nglclanid, user.wwclid, user.wwclclanid
-				FROM {$config["tables"]["t2_teams"]} AS team
-				LEFT JOIN {$config["tables"]["user"]} AS user ON user.userid = team.leaderid
-				WHERE teamid = '{$_GET["teamid"]}'");
+		$team = $db->qry_first("SELECT team.name, team.comment, team.banner, user.nglid, user.nglclanid, user.wwclid, user.wwclclanid
+    FROM %prefix%t2_teams AS team
+    LEFT JOIN %prefix%user AS user ON user.userid = team.leaderid
+    WHERE teamid = %int%", $_GET["teamid"]);
 
 		$dsp->NewContent(t('Teammanager'), t('Hier können Sie Ihre Teams verwalten'));
 
@@ -82,7 +82,7 @@ switch($_GET['step']) {
 	// Edit Teamdetails (Action)
 	case 51:
 		if (!$sec->locked("t_team_edit")) {
-			$tournament = $db->query_first("SELECT name FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+			$tournament = $db->qry_first("SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
 
 			if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1){
 				$func->information(t('Bitte geben Sie einen Teamnamen ein, oder wählen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr&tournamentid=$tournamentid&teamid={$_GET["teamid"]}&step=50");
@@ -104,10 +104,10 @@ switch($_GET['step']) {
 		$dsp->AddSingleRow(t('Einzelspieler-Turniere, an denen Sie teilnehmen'));
 		// Teamname und Turniername auslesen
 		$i=0;
-		$teams = $db->query("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer, t.tournamentid
-			FROM {$config["tables"]["t2_teams"]} AS teams
-			LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS t ON (t.tournamentid = teams.tournamentid)
-			WHERE (teams.leaderid = ". $auth["userid"] .") AND (t.teamplayer = 1) AND t.party_id='$party->party_id'");
+		$teams = $db->qry("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer, t.tournamentid
+   FROM %prefix%t2_teams AS teams
+   LEFT JOIN %prefix%tournament_tournaments AS t ON (t.tournamentid = teams.tournamentid)
+   WHERE (teams.leaderid = %int%) AND (t.teamplayer = 1) AND t.party_id=%int%", $auth["userid"], $party->party_id);
 		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Turnier'), t('Sie haben sich zu noch keinem Einzelspieler-Turnier angemeldet'));
 		else while($team = $db->fetch_array($teams)) {
 			$i++;
@@ -120,21 +120,21 @@ switch($_GET['step']) {
 		$dsp->AddSingleRow(t('Teams, die Sie erstellt haben'));
 		// Teamname und Turniername auslesen
 		$i=0;
-		$teams = $db->query("SELECT teams.teamid, teams.name, t.name AS tname, t.tournamentid, t.teamplayer
-			FROM {$config["tables"]["t2_teams"]} AS teams
-			LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS t ON t.tournamentid = teams.tournamentid
-			WHERE (teams.leaderid = ". $auth["userid"] .") AND (t.teamplayer > 1) AND t.party_id='$party->party_id'
-			");
+		$teams = $db->qry("SELECT teams.teamid, teams.name, t.name AS tname, t.tournamentid, t.teamplayer
+   FROM %prefix%t2_teams AS teams
+   LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = teams.tournamentid
+   WHERE (teams.leaderid = %int%) AND (t.teamplayer > 1) AND t.party_id=%int%
+   ", $auth["userid"], $party->party_id);
 		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Team'), t('Sie haben noch keine Teams erstellt'));
 		else while($team = $db->fetch_array($teams)) {
 			$i++;
 
 			// Mitgliedernamen auslesen
-			$members = $db->query("SELECT users.username, members.userid, members.teamid
-				FROM {$config["tables"]["t2_teammembers"]} AS members
-				LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON members.teamid = teams.teamid
-				LEFT JOIN {$config["tables"]["user"]} AS users ON members.userid = users.userid
-				WHERE (teams.teamid = {$team['teamid']})");
+			$members = $db->qry("SELECT users.username, members.userid, members.teamid
+    FROM %prefix%t2_teammembers AS members
+    LEFT JOIN %prefix%t2_teams AS teams ON members.teamid = teams.teamid
+    LEFT JOIN %prefix%user AS users ON members.userid = users.userid
+    WHERE (teams.teamid = %int%)", $team['teamid']);
 
 			$member_liste = "";
 			$anz_memb = 0;
@@ -150,12 +150,12 @@ switch($_GET['step']) {
 
 
 		$dsp->AddSingleRow(t('Teams, in denen Sie Mitglied sind'));
-		$members = $db->query("SELECT users.username, users.userid, teams.name, teams.teamid, t.name AS tname, t.teamplayer
-			FROM {$config["tables"]["t2_teammembers"]} AS members
-			LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON members.teamid = teams.teamid
-			LEFT JOIN {$config["tables"]["user"]} AS users ON teams.leaderid = users.userid
-			LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS t ON teams.tournamentid = t.tournamentid
-			WHERE (members.userid = {$auth["userid"]}) AND t.party_id='$party->party_id'");
+		$members = $db->qry("SELECT users.username, users.userid, teams.name, teams.teamid, t.name AS tname, t.teamplayer
+   FROM %prefix%t2_teammembers AS members
+   LEFT JOIN %prefix%t2_teams AS teams ON members.teamid = teams.teamid
+   LEFT JOIN %prefix%user AS users ON teams.leaderid = users.userid
+   LEFT JOIN %prefix%tournament_tournaments AS t ON teams.tournamentid = t.tournamentid
+   WHERE (members.userid = %int%) AND t.party_id=%int%", $auth["userid"], $party->party_id);
 
 		$member_liste = "";
 		$anz_memb = 0;
@@ -165,11 +165,11 @@ switch($_GET['step']) {
 			$i++;
 
 			// Mitgliedernamen auslesen
-			$members2 = $db->query("SELECT users.username, members.userid, members.teamid
-				FROM {$config["tables"]["t2_teammembers"]} AS members
-				LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON members.teamid = teams.teamid
-				LEFT JOIN {$config["tables"]["user"]} AS users ON members.userid = users.userid
-				WHERE (teams.teamid = {$member['teamid']})");
+			$members2 = $db->qry("SELECT users.username, members.userid, members.teamid
+    FROM %prefix%t2_teammembers AS members
+    LEFT JOIN %prefix%t2_teams AS teams ON members.teamid = teams.teamid
+    LEFT JOIN %prefix%user AS users ON members.userid = users.userid
+    WHERE (teams.teamid = %int%)", $member['teamid']);
 
 			$member_liste = "";
 			$anz_memb = 0;
