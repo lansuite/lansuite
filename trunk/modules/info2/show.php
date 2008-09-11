@@ -32,4 +32,5 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
     }
 
 	$dsp->AddContent();
-} else $func->error(t('Sie haben keine Seite ausgewähl
+} else $func->error(t('Sie haben keine Seite ausgewählt'));
+?>
