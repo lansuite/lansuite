@@ -58,7 +58,7 @@ if  (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["fi
 	$extension = substr($_FILES['file_upload']['name'], strrpos($_FILES['file_upload']['name'], ".") + 1, 4);
 	if (IsSupportedType($extension) || IsPackage($extension)) {
 		$upload = $func->FileUpload("file_upload", $root_dir);
-		$db->qry("REPLACE INTO %prefix%picgallery SET userid = %int%, name = %string%", $auth["userid"], $db_dir{$_FILES["file_upload"]["name"]);
+		$db->qry("REPLACE INTO %prefix%picgallery SET userid = %int%, name = %string%", $auth["userid"], $db_dir.$_FILES["file_upload"]["name"]);
 	} else $func->error("Bitte nur Grafik-Dateien hochladen (Format: Jpg, Png, Gif, Bmp)<br> oder Archive (Format: zip,ace,rar,tar,gz,bz)", "index.php?mod=picgallery");
 }
 

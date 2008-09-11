@@ -279,7 +279,7 @@ class masterform {
               # Neccessary in Multi Line Edit Mode? If so: Still to do
               if ($SQLFieldUnique[$field['name']]) {
                 if ($this->isChange) $check_double_where = ' AND '. $idname .' != '. (int)$id;
-                $row = $db->qry_first("SELECT 1 AS found FROM %prefix%%plain% WHERE %plain% = %string% %plain%", $table, $field['name'], $_POST[$field['name']]}', $check_double_where);
+                $row = $db->qry_first("SELECT 1 AS found FROM %prefix%%plain% WHERE %plain% = %string% %plain%", $table, $field['name'], $_POST[$field['name']], $check_double_where);
                 if ($row['found']) $this->error[$field['name']] = t('Dieser Eintrag existiert bereits in unserer Datenbank.');
               }
             }
