@@ -550,7 +550,7 @@ class pdf {
 		$this->_make_page();
 		
 		// Datenbank abfragen für momentans Template
-		$templ_data = $db->query("SELECT * FROM " . $config['tables']['pdf_data'] . " WHERE template_id='" . $this->templ_id . "' AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC");
+		$templ_data = $db->qry("SELECT * FROM %string% WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $config['tables']['pdf_data'], $this->templ_id);
 		$templ = array();
 		while ($templ_data_array = $db->fetch_array($templ_data)){
 			$templ[] = array_merge($templ_data_array,$templ);
@@ -566,7 +566,7 @@ class pdf {
 		while($row = $db->fetch_array($query)) {
 			unset($data);
 			// Block abfragen und Sitzplatz abfragen
-			$row_block    		  = $db->query_first("SELECT orientation, name FROM {$GLOBALS['config']['tables']['seat_block']} WHERE blockid='{$row['blockid']}'");
+			$row_block    		  = $db->qry_first("SELECT orientation, name FROM %string% WHERE blockid=%int%", $GLOBALS['config']['tables']['seat_block'], $row['blockid']);
 			$userid 			  = $row["userid"];
 			$data['col']  		  = $row["col"];
 			$data['row']  		  = $row["row"];
@@ -692,7 +692,7 @@ class pdf {
 		$this->_make_page();
 		
 		// Datenbank abfragen für momentans Template
-		$templ_data = $db->query("SELECT * FROM " . $config['tables']['pdf_data'] . " WHERE template_id='" . $this->templ_id . "' AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC");
+		$templ_data = $db->qry("SELECT * FROM %string% WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $config['tables']['pdf_data'], $this->templ_id);
 		$templ = array();
 		while ($templ_data_array = $db->fetch_array($templ_data)){
 			$templ[] = array_merge($templ_data_array,$templ);
@@ -731,7 +731,7 @@ class pdf {
 			$row_seat = $db->qry_first('SELECT s.blockid, col, row, ip FROM %prefix%seat_seats AS s LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid WHERE b.party_id=%int% AND s.userid=%int%', $party->party_id, $row["userid"]);
 			$blockid  = $row_seat["blockid"];
 			if($blockid != "") {
-				$row_block = $db->query_first("SELECT orientation, name FROM lansuite_seat_block WHERE blockid='$blockid'");
+				$row_block = $db->qry_first("SELECT orientation, name FROM lansuite_seat_block WHERE blockid=%int%", $blockid);
 				$data['orientation']  = $row_block["orientation"];
 				$data['col']          = $row_seat["col"];
 				$data['row']          = $row_seat["row"];
@@ -781,7 +781,7 @@ class pdf {
 	function _make_page(){
 		global $db,$config;
 		
-		$page_data = $db->query_first("SELECT * FROM " . $config['tables']['pdf_data'] . " WHERE template_id='" . $this->templ_id . "' AND type = 'config' ORDER BY sort ASC");
+		$page_data = $db->qry_first("SELECT * FROM %string% WHERE template_id= %int% AND type = 'config' ORDER BY sort ASC", $config['tables']['pdf_data'], $this->templ_id);
 		define('FPDF_FONTPATH','ext_inc/pdf_fonts/');
 		if($page_data['visible'] == 1){
 			$orientation = 'l';
@@ -920,5 +920,4 @@ class pdf {
 	function _make_footer(){
 		
 	}
-} // END CLASS
-?>
+} // END

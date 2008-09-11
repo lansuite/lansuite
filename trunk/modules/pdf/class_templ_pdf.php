@@ -16,7 +16,7 @@ class pdf_tmpl{
 	function read_List(){
 		global $config,$db,$dsp,$lang,$templ;	
 		
-		$data = $db->query("SELECT * FROM " .  $config['tables']['pdf_list'] . " WHERE template_type = '" . $this->action . "'");
+		$data = $db->qry("SELECT * FROM %string% WHERE template_type = %string%", $config['tables']['pdf_list'], $this->action);
 		
 		$dsp->NewContent(t('Besucherausweise erstellen'), t('Bitte eine Formatierungsform ausw&auml;hlen oder eine Neue erstellen'));
 		// Liste mit möglichen Vorlagen ausgeben
@@ -46,7 +46,7 @@ class pdf_tmpl{
 	function add_templ(){
 		global $config,$db,$dsp,$lang,$templ;	
 		// In Liste einfügen
-		$db->query("INSERT INTO " . $config['tables']['pdf_list'] . " ( `template_id` , `template_type` , `name` ) VALUES ('','" . $this->action . "','" . $_POST['template_name'] . "')");
+		$db->qry("INSERT INTO %plain% ( `template_id` , `template_type` , `name` ) VALUES ('', %string%, %string%)", $config['tables']['pdf_list'], $this->action, $_POST['template_name']);
 		$this->tmpl_id = $db->insert_id();
 		
 		// Config anlegen
@@ -62,19 +62,19 @@ class pdf_tmpl{
 		global $config,$db,$dsp,$lang,$templ,$gd;
 				  
 		// Name ausgeben
-		$template = $db->query_first("SELECT * FROM " . $config['tables']['pdf_list'] . " WHERE template_id='" . $this->tmpl_id . "'");
+		$template = $db->qry_first("SELECT * FROM %plain% WHERE template_id= %int%", $config['tables']['pdf_list'], $this->tmpl_id);
 		$dsp->NewContent(t('Vorlagen'),t('Vorlage &auml;ndern'));
 		$dsp->AddDoubleRow(t('Vorlagenname'),$template['name']);
 		
 		// Konfiguration ausgeben
-		$template_config = $db->query_first("SELECT * FROM " . $config['tables']['pdf_data'] . " WHERE template_id='" . $this->tmpl_id . "' AND type='config'");
+		$template_config = $db->qry_first("SELECT * FROM %plain% WHERE template_id= %int% AND type='config'", $config['tables']['pdf_data'], $this->tmpl_id);
 		
 		$dsp->AddDoubleRow(t('Rand in x-Richtung'),$template_config['pos_x']);
 		$dsp->AddDoubleRow(t('Rand in y-Richtung'),$template_config['pos_y']);
 		$dsp->AddDoubleRow(t('Seitengr&ouml;sse'),$template_config['text']);
 
 		// Daten ausgeben
-		$data = $db->query("SELECT * FROM " . $config['tables']['pdf_data'] . " WHERE template_id='" . $this->tmpl_id . "' AND type != 'config' ORDER BY sort ASC");
+		$data = $db->qry("SELECT * FROM %plain% WHERE template_id= %int% AND type != 'config' ORDER BY sort ASC", $config['tables']['pdf_data'], $this->tmpl_id);
 		
 		$templ['pdf']['action'] = $this->action;
 		
@@ -239,7 +239,7 @@ class pdf_tmpl{
 		global $config,$db,$dsp,$lang,$templ;
 		$pdf_export = new pdf($this->tmpl_id);
 		
-		$data = $db->query_first("SELECT * FROM " . $config['tables']['pdf_data'] . " WHERE pdfid='" . $item_id . "'");
+		$data = $db->qry_first("SELECT * FROM %plain% WHERE pdfid= %int%", $config['tables']['pdf_data'], $item_id);
 								  
 		$user_type_list = array( "0" =>  t('Alle') ,"1" =>  t('Besucher ist normaler Gast') ,"2" =>  t('Administrator') ,"3" =>  t('Superadmin') ); 
 		
@@ -406,7 +406,7 @@ class pdf_tmpl{
 		}else {
 			$sort = "+1";
 		}
-		$db->query("UPDATE " .  $config['tables']['pdf_data'] . " SET sort=sort$sort WHERE pdfid = '" . $item_id . "'");
+		$db->qry("UPDATE %plain% SET sort=sort%plain% WHERE pdfid = %int%", $config['tables']['pdf_data'], $sort, $item_id);
 	
 		
 	}
@@ -414,8 +414,8 @@ class pdf_tmpl{
 	function delete_templ(){
 		global $config,$db,$dsp,$lang,$templ;	
 		
-		$db->query("DELETE FROM " .  $config['tables']['pdf_list'] . " WHERE template_id = '" . $this->tmpl_id . "'");
-		$db->query("DELETE FROM " .  $config['tables']['pdf_data'] . " WHERE template_id = '" . $this->tmpl_id . "'");
+		$db->qry("DELETE FROM %plain% WHERE template_id = %int%", $config['tables']['pdf_list'], $this->tmpl_id);
+		$db->qry("DELETE FROM %plain% WHERE template_id = %int%", $config['tables']['pdf_data'], $this->tmpl_id);
 	
 		
 	}
@@ -423,7 +423,7 @@ class pdf_tmpl{
 	function delete_item($itemid){
 		global $config,$db,$dsp,$lang,$templ;	
 		
-		$db->query("DELETE FROM " .  $config['tables']['pdf_data'] . " WHERE pdfid = '" . $itemid . "'");
+		$db->qry("DELETE FROM %plain% WHERE pdfid = %int%", $config['tables']['pdf_data'], $itemid);
 	
 		
 	}
