@@ -17,10 +17,10 @@ switch($_GET['step']) {
 
 	// Reserve free seat
 	case 10:
-		$user_data = $db->query_first("SELECT paid FROM {$config['tables']['party_user']}
-      WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
-		$seat_user = $db->query_first("SELECT status FROM {$config["tables"]["seat_seats"]}
-      WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}'");
+		$user_data = $db->qry_first("SELECT paid FROM %prefix%party_user
+      WHERE user_id = %int% AND party_id = %int%", $auth['userid'], $party->party_id);
+		$seat_user = $db->qry_first("SELECT status FROM %prefix%seat_seats
+      WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 
 		// Check paid
 		if (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) $func->information(t('Sie müssen zuerst für diese Party bezahlen, bevor Sie sich einen Sitzplatz reservieren dürfen.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
@@ -34,9 +34,9 @@ switch($_GET['step']) {
 		// No errors
 		else {
 			// Get number of marked seats of this user
-			$marked_seats = $db->query_first("SELECT count(*) AS anz FROM {$config['tables']['seat_seats']} AS s
-				LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b. blockid
-				WHERE s.userid = {$auth['userid']} AND s.status = 3 AND b.party_id = {$party->party_id}");
+			$marked_seats = $db->qry_first("SELECT count(*) AS anz FROM %prefix%seat_seats AS s
+    LEFT JOIN %prefix%seat_block AS b ON s.blockid = b. blockid
+    WHERE s.userid = %int% AND s.status = 3 AND b.party_id = %int%", $auth['userid'], $party->party_id);
 
 			// Check if not paid user has allready marked one seat
       if (!$user_data['paid'] and $marked_seats['anz'] >= 1) $func->information(t('Solange Sie nicht für diese Party bezahlt haben, dürfen Sie nur einen Sitz vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
@@ -44,7 +44,7 @@ switch($_GET['step']) {
 				$questionarray = array();
 				$linkarray = array();
 
-				$row = $db->query_first("SELECT seatid FROM {$config["tables"]["seat_seats"]} WHERE blockid = '{$_GET['blockid']}' AND status = 2 AND userid = '{$auth['userid']}'");
+				$row = $db->qry_first("SELECT seatid FROM %prefix%seat_seats WHERE blockid = %int% AND status = 2 AND userid = %int%", $_GET['blockid'], $auth['userid']);
 				if ($user_data['paid']) {
 					// Reserve seat for myselfe
 					if ($row['seatid']) {
@@ -80,12 +80,12 @@ switch($_GET['step']) {
 
 	// Reserve seat for me
 	case 11:
-		$user_data = $db->query_first("SELECT paid, price_id FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
+		$user_data = $db->qry_first("SELECT paid, price_id FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%", $auth['userid'], $party->party_id);
 
-		$block_data = $db->query_first("SELECT group_id, price_id FROM {$config['tables']['seat_block']} WHERE blockid = {$_GET['blockid']}");
+		$block_data = $db->qry_first("SELECT group_id, price_id FROM %prefix%seat_block WHERE blockid = %int%", $_GET['blockid']);
 
-		$seat_user = $db->query_first("SELECT status FROM {$config["tables"]["seat_seats"]}
-            WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}'");
+		$seat_user = $db->qry_first("SELECT status FROM %prefix%seat_seats
+            WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 
 		// Check paid
 		if (!$user_data['paid'] and $cfg['seating_paid_only']) $func->information(t('Sie müssen zuerst für diese Party bezahlen, bevor Sie sich einen Sitzplatz reservieren dürfen.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
@@ -111,16 +111,16 @@ switch($_GET['step']) {
 
 	// Mark seat for friend (or myselfe, if not paid)
 	case 12:
-		$marked_seats = $db->query_first("SELECT count(*) AS anz FROM {$config['tables']['seat_seats']} AS s
-			LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b. blockid
-			WHERE s.userid = {$auth['userid']} AND s.status = 3 AND b.party_id = {$party->party_id}");
+		$marked_seats = $db->qry_first("SELECT count(*) AS anz FROM %prefix%seat_seats AS s
+   LEFT JOIN %prefix%seat_block AS b ON s.blockid = b. blockid
+   WHERE s.userid = %int% AND s.status = 3 AND b.party_id = %int%", $auth['userid'], $party->party_id);
 
-		$user_data = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
+		$user_data = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%", $auth['userid'], $party->party_id);
 
-		$seat_user = $db->query_first("SELECT userid FROM {$config["tables"]["seat_seats"]}
-			WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}'");
+		$seat_user = $db->qry_first("SELECT userid FROM %prefix%seat_seats
+   WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 
-    $user_party = $db->query_first("SELECT user_id FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
+    $user_party = $db->qry_first("SELECT user_id FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%", $auth['userid'], $party->party_id);
 
 		// Check Signed on
 		if (!$user_party['user_id']) $func->information(t('Nur zur Party angemeldete Benutzer dürfen Sitzplätze vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
@@ -164,8 +164,8 @@ switch($_GET['step']) {
 
 	// Release seat
 	case 21:
-		$db->query("UPDATE {$config["tables"]["seat_seats"]} SET userid = 0, status = 1
-			WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}' AND userid = '{$auth['userid']}'");
+		$db->qry("UPDATE %prefix%seat_seats SET userid = 0, status = 1
+   WHERE blockid = %int% AND row = %string% AND col = %string% AND userid = %int%", $_GET['blockid'], $_GET['row'], $_GET['col'], $auth['userid']);
 
 		$func->confirmation(t('Der Sitzplatz wurde erfolgreich freigegeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 	break;
@@ -185,8 +185,8 @@ switch($_GET['step']) {
 	// Free seat as admin
 	case 31:
     if ($auth['type'] > 1) {
-			$db->query("UPDATE {$config["tables"]["seat_seats"]} SET userid = 0, status = 1
-			WHERE blockid = {$_GET['blockid']} AND row = {$_GET['row']} AND col = {$_GET['col']}");
+			$db->qry("UPDATE %prefix%seat_seats SET userid = 0, status = 1
+   WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 
 		$func->confirmation(t('Der Sitzplatz wurde erfolgreich freigegeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
     }

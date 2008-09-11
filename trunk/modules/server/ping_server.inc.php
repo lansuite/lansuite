@@ -5,11 +5,11 @@
 		global $db, $config,$func;
 
 		$cfg["server_ping_refresh"] = (int) $cfg["server_ping_refresh"];
-		$server_daten = $db->query_first("SELECT UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(lastscan) AS idle, type, available, special_info
-			FROM {$config["tables"]["server"]}
-			WHERE (ip = '$host') AND (port = $port)
-			HAVING (idle > {$cfg["server_ping_refresh"]})
-			");
+		$server_daten = $db->qry_first("SELECT UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(lastscan) AS idle, type, available, special_info
+   FROM %prefix%server
+   WHERE (ip = %string%) AND (port = %string%)
+   HAVING (idle > %int%)
+   ", $host, $port, $cfg["server_ping_refresh"]);
 
 		if (rand(0, 2) == 0){
 			

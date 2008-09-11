@@ -20,7 +20,7 @@ switch($_GET['step']) {
 
 			// Check for allready assigned IPs
 			/*
-			$current_ip = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["seat_seats"]} WHERE ip = '$value'");
+			$current_ip = $db->qry_first("SELECT 1 AS found FROM %prefix%seat_seats WHERE ip = %string%", $value);
 			if ($current_ip['found']) {
 				$func->error(t('Mindestens eine IP wurde bereits vergeben'), '');
 				$_GET['step'] = 2;
@@ -54,8 +54,8 @@ switch($_GET['step']) {
 			$col = floor($cur_cell / 100);
 			$row = $cur_cell % 100;
 
-			$db->query_first("UPDATE {$config["tables"]["seat_seats"]} SET ip='$value'
-				WHERE blockid = '{$_GET['blockid']}' AND row = '$row' AND col = '$col'");
+			$db->qry_first("UPDATE %prefix%seat_seats SET ip=%string%
+    WHERE blockid = %int% AND row = %string% AND col = %string%", $value, $_GET['blockid'], $row, $col);
 		}
 		$func->confirmation(t('Die IPs wurden erfolgreich eingetragen'), 'index.php?mod=seating&action=ip');
 	break;

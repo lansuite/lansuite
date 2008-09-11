@@ -50,21 +50,21 @@ $gallery_id = $_GET["galleryid"];
 if (!$_GET["page"]) $_GET["page"] = 0;
 
 // Insert non existing entries
-$row = $db->query_first("SELECT 1 AS found FROM {$config["tables"]["picgallery"]} WHERE name = '$db_dir'");
-if (!$row['found']) $db->query("INSERT INTO {$config["tables"]["picgallery"]} SET userid = '', name = '$db_dir'");
+$row = $db->qry_first("SELECT 1 AS found FROM %prefix%picgallery WHERE name = %string%", $db_dir);
+if (!$row['found']) $db->qry("INSERT INTO %prefix%picgallery SET userid = '', name = %string%", $db_dir);
 
 // Upload posted File
 if  (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["file_upload"]) {
 	$extension = substr($_FILES['file_upload']['name'], strrpos($_FILES['file_upload']['name'], ".") + 1, 4);
 	if (IsSupportedType($extension) || IsPackage($extension)) {
 		$upload = $func->FileUpload("file_upload", $root_dir);
-		$db->query("REPLACE INTO {$config["tables"]["picgallery"]} SET userid = '{$auth["userid"]}', name = '$db_dir{$_FILES["file_upload"]["name"]}'");
+		$db->qry("REPLACE INTO %prefix%picgallery SET userid = %int%, name = %string%", $auth["userid"], $db_dir{$_FILES["file_upload"]["name"]);
 	} else $func->error("Bitte nur Grafik-Dateien hochladen (Format: Jpg, Png, Gif, Bmp)<br> oder Archive (Format: zip,ace,rar,tar,gz,bz)", "index.php?mod=picgallery");
 }
 
 // Set Changed Name
 if ($_POST["file_name"] and ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming']))
-  $db->query("UPDATE {$config["tables"]["picgallery"]} SET caption = '{$_POST["file_name"]}' WHERE name = '$db_dir'");
+  $db->qry("UPDATE %prefix%picgallery SET caption = %string% WHERE name = %string%", $_POST["file_name"], $db_dir);
 
 // GD-Check
 if (!$gd->available) $func->error(t('Kein GD installiert'), "");
@@ -74,7 +74,7 @@ elseif (!$akt_file) {
 	session_unregister("klick_reload");
 	unset($klick_reload);
 
-	$dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicken Sie auf ein Bild oder auf /\'/öffnen/\'/ um das Bild anzuzeigen.'));
+	$dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicken Sie auf ein Bild um das Bild in voller Größe anzuzeigen.'));
 
 	if (!$cfg["picgallery_items_per_row"]) $cfg["picgallery_items_per_row"] = 3;
 	if (!$cfg["picgallery_rows"]) $cfg["picgallery_rows"] = 4;
@@ -174,11 +174,11 @@ elseif (!$akt_file) {
 					if (strlen($file) > 22) $templ['ls']['row']['gallery']['file_name'] = substr(strtolower($file), 0, 16) ."..". substr(strtolower($file), strrpos($file, "."), 5);
 					else $templ['ls']['row']['gallery']['file_name'] = strtolower($file);
 
-					$pic = $db->query_first("SELECT p.picid, p.caption, p.clicks, COUNT(*) AS comments FROM {$config["tables"]["picgallery"]} AS p
-					  LEFT JOIN {$config["tables"]["comments"]} AS c ON p.picid = c.relatedto_id
-            WHERE p.name = '$db_dir$file' AND c.relatedto_item = 'Picgallery'
-					  GROUP BY p.picid
-            ");
+					$pic = $db->qry_first("SELECT p.picid, p.caption, p.clicks, COUNT(*) AS comments FROM %prefix%picgallery AS p
+       LEFT JOIN %prefix%comments AS c ON p.picid = c.relatedto_id
+            WHERE p.name = %string% AND c.relatedto_item = 'Picgallery'
+       GROUP BY p.picid
+            ", $db_dir . $file);
 					($pic['caption']) ? $templ['ls']['row']['gallery']['caption'] = $pic['caption']
 					: $templ['ls']['row']['gallery']['caption'] = "<i>Unbenannt</i>";
 					$templ['ls']['row']['gallery']['clicks'] = $dsp->HelpText($pic['clicks'], 'Angesehen') .'/'. $dsp->HelpText($pic['comments'], 'Kommentare');
@@ -236,7 +236,7 @@ elseif (!$akt_file) {
 					else $templ['ls']['row']['gallery']['file_name'] = strtolower($package);
 
 
-					$pic = $db->query_first("SELECT picid, caption, clicks FROM {$config["tables"]["picgallery"]} WHERE name = '$db_dir$package'");
+					$pic = $db->qry_first("SELECT picid, caption, clicks FROM %prefix%picgallery WHERE name = %string%", $db_dir . $package);
 					($pic['caption']) ? $templ['ls']['row']['gallery']['caption'] = $pic['caption']
 					: $templ['ls']['row']['gallery']['caption'] = "<i>Unbenannt</i>";
 					$templ['ls']['row']['gallery']['clicks'] = $pic['clicks'];
@@ -303,14 +303,14 @@ elseif (!$akt_file) {
 			$js_full_link = "javascript:var w=window.open('$root_file','_blank','width=". ($picinfo['0'] + 10) .",height=". ($picinfo['1'] + 10) .",resizable=yes,scrollbars=yes')";
 
 			// Select pic data
-			$pic = $db->query_first("SELECT	p.picid, p.userid, p.caption, p.clicks, u.userid, u.username
-				FROM {$config["tables"]["picgallery"]} AS p
-				LEFT JOIN {$config["tables"]["user"]} AS u ON p.userid = u.userid
-				WHERE p.name = '$db_dir'
-				");
+			$pic = $db->qry_first("SELECT p.picid, p.userid, p.caption, p.clicks, u.userid, u.username
+    FROM %prefix%picgallery AS p
+    LEFT JOIN %prefix%user AS u ON p.userid = u.userid
+    WHERE p.name = %string%
+    ", $db_dir);
 
 			if (!$_SESSION["click_reload"][$db_dir]) {
-				$db->query("UPDATE {$config["tables"]["picgallery"]} SET clicks = clicks + 1 WHERE name = '$db_dir'");
+				$db->qry("UPDATE %prefix%picgallery SET clicks = clicks + 1 WHERE name = %string%", $db_dir);
 				$_SESSION["click_reload"][$db_dir] = 1;
 			}
 

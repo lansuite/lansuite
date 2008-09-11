@@ -1,11 +1,11 @@
 <?php
 $serverid = $_GET["serverid"];
 
-$server = $db->query_first("SELECT a.*, b.userid, b.username
-		FROM {$config["tables"]["server"]} AS a
-		LEFT JOIN {$config["tables"]["user"]} AS b ON a.owner = b.userid
-		WHERE serverid = '$serverid'
-		");
+$server = $db->qry_first("SELECT a.*, b.userid, b.username
+  FROM %prefix%server AS a
+  LEFT JOIN %prefix%user AS b ON a.owner = b.userid
+  WHERE serverid = %int%
+  ", $serverid);
      
 if($server == "") $func->error(t('Der von Ihnen aufgerufene Server existiert nicht'), "index.php?mod=server&action=show");
 else {

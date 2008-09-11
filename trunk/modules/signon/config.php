@@ -25,7 +25,7 @@ switch($step) {
 		$dsp->AddDoubleRow("username", "Pflichteingabe");
 		$dsp->AddDoubleRow("email", "Pflichteingabe");
 
-		$rows = $db->query("SELECT * FROM {$config["tables"]["config"]} WHERE cfg_group = 'Anmeldungsfelder' ORDER BY cfg_value DESC");
+		$rows = $db->qry("SELECT * FROM %prefix%config WHERE cfg_group = 'Anmeldungsfelder' ORDER BY cfg_value DESC");
 		while($row = $db->fetch_array($rows)) {
 			$option_array = array(t('Nicht anzeigen'), t('Optionale Eingabe'), t('Pflichteingabe'));
 			$t_array = array();
@@ -43,7 +43,7 @@ switch($step) {
 
 	case 2:
 		while (list($key, $val) = each($_POST)) {
-			$db->query("UPDATE {$GLOBALS["config"]["tables"]["config"]} SET cfg_value = $val WHERE cfg_key = '$key'");
+			$db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = %string%", $val, $key);
 		}
 		$func->confirmation(t('Einstellungen wurden erfolgreich geändert'), "index.php?mod=signon&action=config");
 	break;

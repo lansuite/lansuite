@@ -9,21 +9,21 @@ switch($HANDLE["STEP"]) {
 	break;
 
 	case 2:
-			$POLL = $db->query_first("
-			SELECT	caption
-			FROM	{$config[tables][polls]}
-			WHERE	pollid = '$HANDLE[POLLID]'
-			");
+			$POLL = $db->qry_first("
+   SELECT caption
+   FROM %prefix%polls
+   WHERE pollid = %string%
+   ", $HANDLE[POLLID]);
 
 			if(isset($POLL['caption'])) $func->question(t('Wollen sie den Poll <b>%1</b> wirklich l&ouml;schen?', $POLL['caption']),"index.php?mod=poll&action=delete&step=3&pollid=" . $HANDLE["POLLID"], "index.php?mod=poll&action=delete");
 			else $func->error(t('Dieser Poll existiert nicht'), "index.php?mod=poll&action=delete");
 	break;
 
 	case 3:
-		$POLL = $db->query_first("SELECT caption FROM {$config[tables][polls]} WHERE pollid = '$HANDLE[POLLID]'");
+		$POLL = $db->qry_first("SELECT caption FROM %prefix%polls WHERE pollid = %string%", $HANDLE[POLLID]);
 
 		if (isset($POLL['caption'])) {
-			$DELETE = $db->query("DELETE FROM {$config[tables][polls]} WHERE pollid = '$HANDLE[POLLID]'");
+			$DELETE = $db->qry("DELETE FROM %prefix%polls WHERE pollid = %string%", $HANDLE[POLLID]);
 			if ($DELETE) $func->confirmation(t('Der Poll <b>%1</b> wurde gel&ouml;scht', $POLL['caption']),"index.php?mod=poll&action=delete");
 		} else $func->error(t('Dieser Poll existiert nicht'), "index.php?mod=poll&action=delete");
 	break;

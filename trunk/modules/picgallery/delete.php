@@ -24,7 +24,7 @@ $root_dir = "ext_inc/picgallery". $akt_dir;
 $root_file = "ext_inc/picgallery". $_GET["file"];
 
 
-$pic = $db->query_first("SELECT caption FROM {$config[tables][picgallery]} WHERE name = '$db_dir'");
+$pic = $db->qry_first("SELECT caption FROM %prefix%picgallery WHERE name = %string%", $db_dir);
 if (!$pic['caption']) $pic['caption'] = "<i>".t('Unbekannt')."</i>";
 
 switch ($_GET["step"]) {
@@ -33,7 +33,7 @@ switch ($_GET["step"]) {
 	break;
 	
 	case 2:
-		$delete_db = $db->query("DELETE FROM {$config[tables][picgallery]} WHERE name = '$db_dir'");
+		$delete_db = $db->qry("DELETE FROM %prefix%picgallery WHERE name = %string%", $db_dir);
 
 		unlink($root_file);
 		if(file_exists($root_dir ."lsthumb_". $akt_file)) unlink($root_dir ."lsthumb_". $akt_file);
