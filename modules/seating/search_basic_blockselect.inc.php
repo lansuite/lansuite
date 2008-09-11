@@ -6,7 +6,7 @@ $ms2 = new mastersearch2('seating');
 function SeatsAvailable($blockid) {
 	global $db, $config;
 
-	$row = $db->query_first("SELECT COUNT(*) AS SeatsAvailable FROM {$config['tables']['seat_seats']} WHERE blockid='$blockid' AND status > 0 AND status < 7");
+	$row = $db->qry_first("SELECT COUNT(*) AS SeatsAvailable FROM %prefix%seat_seats WHERE blockid=%int% AND status > 0 AND status < 7", $blockid);
 	return $row['SeatsAvailable'];
 }
 
@@ -14,7 +14,7 @@ function SeatsAvailable($blockid) {
 function SeatsOccupied($blockid) {
 	global $db, $config;
 
-	$row = $db->query_first("SELECT COUNT(*) AS SeatsOccupied FROM {$config['tables']['seat_seats']} WHERE blockid='$blockid' AND status = 2");
+	$row = $db->qry_first("SELECT COUNT(*) AS SeatsOccupied FROM %prefix%seat_seats WHERE blockid=%int% AND status = 2", $blockid);
 	return $row['SeatsOccupied'];
 }
 

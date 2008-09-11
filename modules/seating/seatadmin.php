@@ -22,12 +22,12 @@ if ($_GET['step'] == 10 and $_GET['quest']) {
 
 // Select seat and user infos
 if ($_GET['blockid'] and isset($_GET['row']) and isset($_GET['col']))
-	$seat = $db->query_first("SELECT s.userid, s.status, u.username, u.firstname, u.name FROM {$config["tables"]["seat_seats"]} AS s
-		LEFT JOIN {$config["tables"]["user"]} AS u ON s.userid = u.userid
-		WHERE blockid = '{$_GET['blockid']}' AND row = '{$_GET['row']}' AND col = '{$_GET['col']}'");
+	$seat = $db->qry_first("SELECT s.userid, s.status, u.username, u.firstname, u.name FROM %prefix%seat_seats AS s
+  LEFT JOIN %prefix%user AS u ON s.userid = u.userid
+  WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 
 if ($_GET['userid'])
-	$new_user = $db->query_first("SELECT userid, username, firstname, name FROM {$config["tables"]["user"]} WHERE userid = '{$_GET['userid']}'");
+	$new_user = $db->qry_first("SELECT userid, username, firstname, name FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
 
 
 switch($_GET['step']) {

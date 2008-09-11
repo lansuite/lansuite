@@ -50,9 +50,9 @@ class pdf_tmpl{
 		$this->tmpl_id = $db->insert_id();
 		
 		// Config anlegen
-		$db->query("INSERT INTO " . $config['tables']['pdf_data'] . "
-		( `pdfid` , `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` ) VALUES 
-			('','" . $this->tmpl_id . "','" . $_POST['landscape'] . "','config','" . $_POST['rand_x'] . "','" . $_POST['rand_y'] . "','0','0','0','','0','0','0','" . $_POST['pagesize'] . "','')");
+		$db->qry("INSERT INTO %plain% ( `pdfid` , `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` ) VALUES 
+  ('', %int%, %string%, 'config', %string%, %string%,'0','0','0','','0','0','0', %string%, '')",
+  $config['tables']['pdf_data'], $this->tmpl_id, $_POST['landscape'], $_POST['rand_x'], $_POST['rand_y'], $_POST['pagesize']);
 	
 	
 	}
@@ -445,4 +445,3 @@ class pdf_tmpl{
 		$dsp->AddContent();
 	}
 	
-}

@@ -10,7 +10,7 @@ $mf->AddField(t('Menge'), 'quantity');
 
 $selections = array();
 $selections['0'] = t('Keinem zugeordnet');
-$res = $db->query("SELECT userid, username FROM {$config['tables']['user']} WHERE type >= 2");
+$res = $db->qry("SELECT userid, username FROM %prefix%user WHERE type >= 2");
 while ($row = $db->fetch_array($res)) $selections[$row['userid']] = $row['username'];
 $db->free_result($res);
 $mf->AddField(t('Besitzer'), 'ownerid', IS_SELECTION, $selections, FIELD_OPTIONAL);

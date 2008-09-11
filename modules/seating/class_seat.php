@@ -16,14 +16,14 @@ class seat2 {
     global $db, $config, $party;
   
     // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
-    $seat_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']}
-                                   WHERE  party_id=$party->party_id AND user_id=$userid");
+    $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
+                                   WHERE  party_id=%int% AND user_id=%int%", $party->party_id, $userid);
     if ($seat_paid['paid']>0) {$seat_status = 2;} else {$seat_status = 3;};
 
     if (!$userid) return '';
-    else $row = $db->query_first("SELECT b.blockid, b.name, b.orientation, s.col, s.row FROM {$config['tables']['seat_block']} AS b
-      LEFT JOIN {$config['tables']['seat_seats']} AS s ON b.blockid = s.blockid
-      WHERE b.party_id = ". (int)$party->party_id ." AND s.userid = $userid AND s.status = $seat_status");
+    else $row = $db->qry_first("SELECT b.blockid, b.name, b.orientation, s.col, s.row FROM %prefix%seat_block AS b
+      LEFT JOIN %prefix%seat_seats AS s ON b.blockid = s.blockid
+      WHERE b.party_id = %int% AND s.userid = %int% AND s.status = %string%", $party->party_id, $userid, $seat_status);
   
     if (!$row['blockid']) return '';
     else {
@@ -35,13 +35,13 @@ class seat2 {
 	function SeatOfUser($userid, $MaxBlockLength = 0, $LinkIt = 0) {
 	  global $db, $config, $party; 
       // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
-      $seat_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']}
-                                     WHERE  party_id=$party->party_id AND user_id=$userid");
+      $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
+                                     WHERE  party_id=%int% AND user_id=%int%", $party->party_id, $userid);
       if ($seat_paid['paid']>0) {$seat_status = 2;} else {$seat_status = 3;};
 
-		$row = $db->query_first("SELECT s.row, s.col, b.blockid, b.name FROM {$config['tables']['seat_seats']} AS s
-			LEFT JOIN {$config['tables']['seat_block']} AS b ON s.blockid = b.blockid
-			WHERE s.userid='$userid' AND s.status = $seat_status AND b.party_id = ". (int)$party->party_id);
+		$row = $db->qry_first("SELECT s.row, s.col, b.blockid, b.name FROM %prefix%seat_seats AS s
+   LEFT JOIN %prefix%seat_block AS b ON s.blockid = b.blockid
+   WHERE s.userid=%int% AND s.status = %string% AND b.party_id = %int%", $userid, $seat_status, $party->party_id);
 
     if ($row['blockid']) return $this->CoordinateToBlockAndName($row['col'] + 1, $row['row'], $row['blockid'], $MaxBlockLength, $LinkIt, $userid);
     else return false;
@@ -50,7 +50,7 @@ class seat2 {
   function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0, $userid = 0) {
     global $db, $config;
     
-		$row = $db->query_first("SELECT name, orientation FROM {$config['tables']['seat_block']} WHERE blockid = $blockid");
+		$row = $db->qry_first("SELECT name, orientation FROM %prefix%seat_block WHERE blockid = %int%", $blockid);
 
 		if (!$row['name']) return false;
 		else {
@@ -92,12 +92,12 @@ class seat2 {
 
 		if ($idtype == "b") $blockid = $id;
 		elseif ($idtype != "b") {
-      $row_seat = $db->query_first("SELECT blockid FROM {$GLOBALS['config']['tables']['seat_seats']} WHERE userid='$id'");
+      $row_seat = $db->qry_first("SELECT blockid FROM %string% WHERE userid=%int%", $GLOBALS['config']['tables']['seat_seats'], $id);
       $blockid = $row_seat['blockid'];
       if ($blockid == "") return FALSE;
 		}
 
-		$row_block = $db->query_first("SELECT u18, blockid FROM {$GLOBALS['config']['tables']['seat_block']} WHERE blockid='$blockid'");
+		$row_block = $db->qry_first("SELECT u18, blockid FROM %string% WHERE blockid=%int%", $GLOBALS['config']['tables']['seat_block'], $blockid);
 		$blockid = $row_block['blockid'];
 		if ($blockid == "") return FALSE;
 
@@ -118,7 +118,7 @@ class seat2 {
     $smarty->assign('default_design', $auth['design']);
 
 		// Get Block data (side descriptions + number of rows + cols)
-		$block = $db->query_first("SELECT * FROM {$config["tables"]["seat_block"]} WHERE blockid = '{$blockid}'");
+		$block = $db->qry_first("SELECT * FROM %prefix%seat_block WHERE blockid = %int%", $blockid);
 
 		$smarty->assign('row_count', $block['rows'] + 1);
 		$smarty->assign('col_count', $block['cols'] + 1);
@@ -127,7 +127,7 @@ class seat2 {
 		// Get seperators
 		$sep_cols = array();
 		$sep_rows = array();
-		$seperators = $db->query("SELECT orientation, value FROM {$config["tables"]["seat_sep"]} WHERE blockid = '$blockid'");
+		$seperators = $db->qry("SELECT orientation, value FROM %prefix%seat_sep WHERE blockid = %int%", $blockid);
 		while($seperator = $db->fetch_array($seperators)) {
 			if ($seperator['orientation'] == 0) $sep_cols[$seperator['value']] = 1;	
 			else $sep_rows[$seperator['value']] = 1;
@@ -145,8 +145,8 @@ class seat2 {
       WHERE blockid = %int%', $blockid);
 		if (!$db->num_rows() == 0) {
 			while ($seat_row = $db->fetch_array($seats_qry)) {
-        if ($seat_row['userid']) $party_user = $db->query_first("SELECT checkin, checkout FROM {$config["tables"]["party_user"]}
-          WHERE user_id = {$seat_row['userid']} AND party_id = {$party->party_id}");
+        if ($seat_row['userid']) $party_user = $db->qry_first("SELECT checkin, checkout FROM %prefix%party_user
+          WHERE user_id = %int% AND party_id = %int%", $seat_row['userid'], $party->party_id);
           
 				$seat_state[$seat_row['row']][$seat_row['col']] = $seat_row['status'];
 				$seat_ip[$seat_row['row']][$seat_row['col']] = $seat_row['ip'];
@@ -161,13 +161,13 @@ class seat2 {
 		// Get current users clanmates
 		$my_clanmates = array();
 		if ($auth['clanid']) {
-			$clanmates = $db->query("SELECT userid FROM {$config["tables"]["user"]} WHERE clanid = '{$auth['clanid']}'");
+			$clanmates = $db->qry("SELECT userid FROM %prefix%user WHERE clanid = %int%", $auth['clanid']);
 			while ($clanmate = $db->fetch_array($clanmates)) array_push($my_clanmates, $clanmate['userid']);
 			$db->free_result($clanmates);
 		}
 
     // Has user paid?
-		if ($auth['login']) $user_paid = $db->query_first("SELECT paid FROM {$config['tables']['party_user']} WHERE user_id = {$auth['userid']} AND party_id = {$party->party_id}");
+		if ($auth['login']) $user_paid = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%", $auth['userid'], $party->party_id);
 
 		// Header-Row
     if ($mode == 3) {
@@ -563,52 +563,52 @@ class seat2 {
   function ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid) {
     global $db, $config, $party;
     
-    $res = $db->query("SELECT s.seatid, s.status FROM {$config["tables"]["seat_block"]} AS b
-			LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON b.blockid = s.blockid
-			WHERE b.party_id = {$party->party_id} AND s.userid = '$userid'
-			");
+    $res = $db->qry("SELECT s.seatid, s.status FROM %prefix%seat_block AS b
+   LEFT JOIN %prefix%seat_seats AS s ON b.blockid = s.blockid
+   WHERE b.party_id = %int% AND s.userid = %int%
+   ", $party->party_id, $userid);
 		$row = $db->fetch_array($res);
 		if ($db->num_rows($res) == 1 and $row['status'] == 3)
-      $db->query("UPDATE {$config["tables"]["seat_seats"]} SET status = 2 WHERE seatid = {$row['seatid']}");    
+      $db->qry("UPDATE %prefix%seat_seats SET status = 2 WHERE seatid = %int%", $row['seatid']);    
   }
 	
   function MarkSeatIfNotPaidAndSeatReserved($userid) {
     global $db, $config, $party;
     
-    $row = $db->query_first("SELECT s.seatid, s.status FROM {$config["tables"]["seat_block"]} AS b
-			LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON b.blockid = s.blockid
-			WHERE b.party_id = {$party->party_id} AND s.userid = '$userid' AND s.status = 2
-			");
-		if ($row['seatid'] > 0) $db->query("UPDATE {$config["tables"]["seat_seats"]} SET status = 3 WHERE seatid = {$row['seatid']}");    
+    $row = $db->qry_first("SELECT s.seatid, s.status FROM %prefix%seat_block AS b
+   LEFT JOIN %prefix%seat_seats AS s ON b.blockid = s.blockid
+   WHERE b.party_id = %int% AND s.userid = %int% AND s.status = 2
+   ", $party->party_id, $userid);
+		if ($row['seatid'] > 0) $db->qry("UPDATE %prefix%seat_seats SET status = 3 WHERE seatid = %int%", $row['seatid']);    
   }
 	
 	function AssignSeat($userid, $blockid, $row, $col) {
 		global $db, $config, $party;
 
 		// Delete old seat, if exists
-		$my_party_seat = $db->query_first("SELECT s.seatid FROM {$config["tables"]["seat_block"]} AS b
-			LEFT JOIN {$config["tables"]["seat_seats"]} AS s ON b.blockid = s.blockid
-			WHERE b.party_id = {$party->party_id} AND s.userid = '$userid' AND status = 2
-			");
-		if ($my_party_seat['seatid']) $db->query("UPDATE {$config["tables"]["seat_seats"]} SET userid = 0, status = 1 WHERE seatid = {$my_party_seat['seatid']}");
+		$my_party_seat = $db->qry_first("SELECT s.seatid FROM %prefix%seat_block AS b
+   LEFT JOIN %prefix%seat_seats AS s ON b.blockid = s.blockid
+   WHERE b.party_id = %int% AND s.userid = %int% AND status = 2
+   ", $party->party_id, $userid);
+		if ($my_party_seat['seatid']) $db->qry("UPDATE %prefix%seat_seats SET userid = 0, status = 1 WHERE seatid = %int%", $my_party_seat['seatid']);
 
 		// Assign new seat
-		$db->query("UPDATE {$config["tables"]["seat_seats"]} SET userid = $userid, status = 2
-			WHERE blockid = '$blockid' AND row = '$row' AND col = '$col'");
+		$db->qry("UPDATE %prefix%seat_seats SET userid = %int%, status = 2
+   WHERE blockid = %int% AND row = %string% AND col = %string%", $userid, $blockid, $row, $col);
 	}
 
 	function MarkSeat($userid, $blockid, $row, $col) {
 		global $db, $config, $party;
 
-		$db->query("UPDATE {$config["tables"]["seat_seats"]} SET userid = $userid, status = 3
-			WHERE blockid = '$blockid' AND row = '$row' AND col = '$col'");
+		$db->qry("UPDATE %prefix%seat_seats SET userid = %int%, status = 3
+   WHERE blockid = %int% AND row = %string% AND col = %string%", $userid, $blockid, $row, $col);
 	}
 
 	function FreeSeat($blockid, $row, $col) {
 		global $db, $config, $party;
 
-		$db->query("UPDATE {$config["tables"]["seat_seats"]} SET userid = 0, status = 1
-			WHERE blockid = '$blockid' AND row = '$row' AND col = '$col'");
+		$db->qry("UPDATE %prefix%seat_seats SET userid = 0, status = 1
+   WHERE blockid = %int% AND row = %string% AND col = %string%", $blockid, $row, $col);
 	}
 }
 ?>

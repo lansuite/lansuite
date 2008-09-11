@@ -1,7 +1,7 @@
 <?php
 $dsp->NewContent('Zeichen anklicken, um es ins Textfeld einzufügen');
 
-$smilie = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
+$smilie = $db->qry("SELECT shortcut, image FROM %prefix%smilies");
 $out = '';
 $z = 0;
 while($smilies = $db->fetch_array($smilie)) if (file_exists('ext_inc/smilies/'. $smilies['image'])) {

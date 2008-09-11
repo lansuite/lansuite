@@ -29,10 +29,10 @@ switch($_GET['step']) {
 		$block_id = $_GET["blockid"];
 
 		// Lösche alle IP einträge (sicher ist sicher)
-		$del_ips = $db->query("UPDATE {$config["tables"]["seat_seats"]} SET ip = '' WHERE blockid='$block_id'");
+		$del_ips = $db->qry("UPDATE %prefix%seat_seats SET ip = '' WHERE blockid=%int%", $block_id);
 
 		// ermittle wieviele reihen und spalten der sitzplan hat
-		$get_size = $db->query_first("SELECT rows,cols FROM {$config["tables"]["seat_block"]} WHERE blockid='$block_id'");
+		$get_size = $db->qry_first("SELECT rows,cols FROM %prefix%seat_block WHERE blockid=%int%", $block_id);
 		$max_row = $get_size["rows"];
 		$max_col = $get_size["cols"];
 
@@ -42,7 +42,7 @@ switch($_GET['step']) {
 		// Hole alle seatids nach reihen sortiert in ein array
 		$count = 0;
 		if($sort=="col") { $order = "col $s_col,row $s_row"; } else { $order = "row $s_row,col $s_col"; }
-		$query_sub = $db->query("SELECT seatid, row, col FROM {$config["tables"]["seat_seats"]} WHERE $check_status blockid='$block_id' ORDER BY $order");
+		$query_sub = $db->qry("SELECT seatid, row, col FROM %prefix%seat_seats WHERE %string% blockid=%int% ORDER BY %string%", $check_status, $block_id, $order);
 		while($row_seat_ids = $db->fetch_array($query_sub)) {
 			$seat_ids[$count] = $row_seat_ids["seatid"];
 			$seat_row[$count] = $row_seat_ids["row"];
@@ -64,12 +64,12 @@ switch($_GET['step']) {
 
 			// aktuelle anzahl der Spalten falls Sitzplaetze deaktiviert
 			$colakt = $seat_col[$i-1];
-			$get_size = $db->query("SELECT row FROM {$config["tables"]["seat_seats"]} WHERE blockid='$block_id' and col='$colakt'");
+			$get_size = $db->qry("SELECT row FROM %prefix%seat_seats WHERE blockid=%int% and col=%string%", $block_id, $colakt);
 			$max_row_durchg = $db->num_rows($get_size);
 
 			// aktuelle anzahl der Zeilen falls Sitzplaetze deaktiviert
 			$rowakt = $seat_row[$i-1];
-		    $get_size2 = $db->query("SELECT col FROM {$config["tables"]["seat_seats"]} WHERE blockid='$block_id' and row='$rowakt'");
+		    $get_size2 = $db->qry("SELECT col FROM %prefix%seat_seats WHERE blockid=%int% and row=%string%", $block_id, $rowakt);
 			$max_col_durchg = $db->num_rows($get_size2);
 
 			//ip hochzählen
@@ -89,7 +89,7 @@ switch($_GET['step']) {
 			$ip = $ip_a.".".$ip_b.".".$ip_c.".".$ip_d;
 
 			// db updaten
-			$db->query("UPDATE {$config["tables"]["seat_seats"]} SET ip='$ip' WHERE seatid='$seat_id'");
+			$db->qry("UPDATE %prefix%seat_seats SET ip=%string% WHERE seatid=%int%", $ip, $seat_id);
 
 			/*
 			echo $i." zähler<br>";

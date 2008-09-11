@@ -1,7 +1,7 @@
 <?php
 $dsp->NewContent('Variable anklicken, um es ins Textfeld einzufügen');
 
-$variable = $db->query("SELECT shortcut, title FROM {$config["tables"]["variables"]}");
+$variable = $db->qry("SELECT shortcut, title FROM %prefix%variables");
 $out = '';
 $z = 0;
 while($variables = $db->fetch_array($variable)){
