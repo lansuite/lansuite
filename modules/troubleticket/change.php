@@ -33,7 +33,7 @@ switch($_GET["step"]) {
 	case 2:
 		$tt_id = $_GET['ttid'];
 
-		$rowtest = $db->query_first("SELECT COUNT(*) AS n FROM {$config["tables"]["troubleticket"]} WHERE ttid = '$tt_id'");
+		$rowtest = $db->qry_first("SELECT COUNT(*) AS n FROM %prefix%troubleticket WHERE ttid = %int%", $tt_id);
 		$numrows = $rowtest["n"];
 
 		// Prüfen ob ticketid leer ist
@@ -46,12 +46,12 @@ switch($_GET["step"]) {
 			$dsp->NewContent(t('Troubleticket bearbeiten'), "");
 
 			// Ticket aus DB laden und ausgeben
-			$row = $db->query_first("SELECT * FROM {$config["tables"]["troubleticket"]} WHERE ttid = '$tt_id'");
+			$row = $db->qry_first("SELECT * FROM %prefix%troubleticket WHERE ttid = %int%", $tt_id);
 
 			$origin_user_id = $row["origin_userid"];
-			$get_originuser = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = '$origin_user_id' ");
+			$get_originuser = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int% ", $origin_user_id);
 			$target_user_id = $row["target_userid"];
-			$get_targetuser = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = '$target_user_id' ");
+			$get_targetuser = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int% ", $target_user_id);
 
 			$dsp->AddDoubleRow(t('Überschrift'), $row["caption"]);
 			$dsp->AddDoubleRow(t('Problembeschreibung'), $func->text2html($row["text"]));
@@ -150,10 +150,10 @@ switch($_GET["step"]) {
 	case 3:
 		$tt_id = $_GET['ttid'];
 
-		$db->query("UPDATE {$config["tables"]["troubleticket"]} SET
-				publiccomment = '{$_POST["tticket_publictext"]}',
-				orgacomment = '{$_POST["tticket_orgatext"]}'
-				WHERE ttid = '{$tt_id}'");
+		$db->qry("UPDATE %prefix%troubleticket SET
+    publiccomment = %string%,
+    orgacomment = %string%
+    WHERE ttid = %int%", $_POST["tticket_publictext"], $_POST["tticket_orgatext"], $tt_id);
 		$zeit = time();
 
 		switch($_POST["tticket_status"]) {
@@ -162,35 +162,35 @@ switch($_GET["step"]) {
 			break;
 
 			case 2:
-				$db->query("UPDATE {$config["tables"]["troubleticket"]} SET
-					status = '2',
-					target_userid = '0'
-					WHERE ttid = '$tt_id'");
+				$db->qry("UPDATE %prefix%troubleticket SET
+     status = '2',
+     target_userid = '0'
+     WHERE ttid = %int%", $tt_id);
 			break;
 
 			case 3:
-				$db->query("UPDATE {$config["tables"]["troubleticket"]} SET
-					status = '3',
-					processstatus = '0',
-					process = '{$zeit}',
-					finished = ''
-					WHERE ttid = '$tt_id'");
+				$db->qry("UPDATE %prefix%troubleticket SET
+     status = '3',
+     processstatus = '0',
+     process = %string%,
+     finished = ''
+     WHERE ttid = %int%", $zeit, $tt_id);
 			break;
 
 			case 4:
-				$db->query("UPDATE {$config["tables"]["troubleticket"]} SET
-					status = '4',
-					processstatus = '100',
-					finished = '{$zeit}'
-					WHERE ttid = '$tt_id'");
+				$db->qry("UPDATE %prefix%troubleticket SET
+     status = '4',
+     processstatus = '100',
+     finished = %string%
+     WHERE ttid = %int%", $zeit, $tt_id);
 			break;
 
 			case 5:
-				$db->query("UPDATE {$config["tables"]["troubleticket"]} SET
-					status = '5',
-					processstatus = '100',
-					finished = '{$zeit}'
-					WHERE ttid = '$tt_id'");
+				$db->qry("UPDATE %prefix%troubleticket SET
+     status = '5',
+     processstatus = '100',
+     finished = %string%
+     WHERE ttid = %int%", $zeit, $tt_id);
 			break;
 		}
 

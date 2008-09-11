@@ -13,7 +13,7 @@ class masterdelete {
 
     // Get key to master table
     foreach ($this->DeleteIfEmpty as $key => $val) {
-      $row = $db->query_first("SELECT $val FROM {$config['tables'][$table]} WHERE $idname = '$id'");
+      $row = $db->qry_first("SELECT %plain% FROM %prefix%%plain% WHERE %plain% = %int%", $val, $table, $idname, $id);
       $MasterKey[$key] = $row[$val];
     }
 
@@ -24,7 +24,7 @@ class masterdelete {
       // Delete master tables, if content is now missing
       foreach ($this->DeleteIfEmpty as $key => $val) {
         if ($val == '') $val = $idname;
-        $row = $db->query_first("SELECT 1 AS found FROM {$config['tables'][$table]} WHERE $val = '{$MasterKey[$key]}'");
+        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%%plain% WHERE %string% = %string%", $table, $val, $MasterKey[$key]);
         if (!$row['found']) $db->qry("DELETE FROM %prefix%%plain% WHERE $val = %string%", $key, $MasterKey[$key]);
       }
 
@@ -34,12 +34,12 @@ class masterdelete {
 
         // If a table is attached, to the attached table, fetch all keys from the first and delete them in the second
         if ($this->SubReferences) foreach ($this->SubReferences as $key2 => $val2) if ($val2) {
-          $res2 = $db->query("SELECT $val2 FROM {$config['tables'][$key]} WHERE $val = '$id'");
-          while ($row2 = $db->fetch_array($res2)) $db->query("DELETE FROM {$config['tables'][$key2]} WHERE $val2 = '{$row2[$val2]}'");
+          $res2 = $db->qry("SELECT %plain% FROM %prefix%%plain% WHERE %string% = %int%", $val2, $key, $val, $id);
+          while ($row2 = $db->fetch_array($res2)) $db->qry("DELETE FROM %prefix%%plain% WHERE %plain% = %string%", $key2, $val2, $row2[$val2]);
           $db->free_result($res2);
         }
 
-        $db->query("DELETE FROM {$config['tables'][$key]} WHERE $val = '$id'");
+        $db->qry("DELETE FROM %prefix%%plain% WHERE %plain% = %int%", $key, $val, $id);
       }
 
       if ($table != 'log') $func->log_event(t('Eintrag #%1 aus Tabelle "%2" gelöscht', array($id, $config['tables'][$table])), 1, '', $this->LogID);

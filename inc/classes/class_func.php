@@ -454,7 +454,7 @@ class func {
           $string = str_replace('[/color]', '</font>', $string);
   
           if ($mode != 1) {
-            $res = $db->query("SELECT shortcut, image FROM {$config["tables"]["smilies"]}");
+            $res = $db->qry("SELECT shortcut, image FROM %prefix%smilies");
             while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
             $db->free_result($res);
           }
@@ -575,14 +575,14 @@ class func {
             $atuser = $auth["userid"];
             if($atuser == "") $atuser = "0";
             $timestamp = date("U");
-            $entry = $db->query("INSERT INTO {$config["tables"]["log"]} SET
-							        userid='$atuser',
-							        description='". $this->escape_sql($message) ."',
-							        type='$type',
-							        date=NOW(),
-							        sort_tag = '$sort_tag',
-							        target_id = '$target_id'
-							        ");
+            $entry = $db->qry("INSERT INTO %prefix%log SET
+               userid=%string%,
+               description=%string%,
+               type=%string%,
+               date=NOW(),
+               sort_tag = %string%,
+               target_id = %int%
+               ", $atuser, $message, $type, $sort_tag, $target_id);
 
             if ($entry == 1) return(1); else return(0);
         }
@@ -677,16 +677,16 @@ class func {
         switch($checktype) {
             default:
             case "userid":
-                $row = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["user"]} WHERE userid = '$id'"); 
+                $row = $db->qry_first("SELECT count(*) as n FROM %prefix%user WHERE userid = %int%", $id); 
             break;
             case "seatid":
-                $row = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["seat_seats"]} WHERE seatid = '$id'"); 
+                $row = $db->qry_first("SELECT count(*) as n FROM %prefix%seat_seats WHERE seatid = %int%", $id); 
             break;
             case "blockid":
-                $row = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["seat_block"]} WHERE blockid = '$id'");
+                $row = $db->qry_first("SELECT count(*) as n FROM %prefix%seat_block WHERE blockid = %int%", $id);
             break;
             case "pollid":
-                $row = $db->query_first("SELECT count(*) as n FROM {$config["tables"]["polls"]} WHERE pollid = '$id'");
+                $row = $db->qry_first("SELECT count(*) as n FROM %prefix%polls WHERE pollid = %int%", $id);
             break;
         }
 
@@ -969,7 +969,7 @@ class func {
     function admin_exists(){
         global $db, $config;
         if (is_object($db) AND is_array($config) AND $db->success==1) {
-            $res = $db->query("SELECT userid FROM {$config["database"]["prefix"]}user WHERE type = 3 LIMIT 1");
+            $res = $db->qry("SELECT userid FROM %prefix%user WHERE type = 3 LIMIT 1");
             if ($db->num_rows($res) > 0) $found = 1; else $found = 0;
             $db->free_result($res);
             return $found;

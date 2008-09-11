@@ -128,7 +128,7 @@ switch( $_GET["step"] ) {
      ", $_POST['device_caption'], $_POST['device_ip'], $_POST['device_read'], $_POST['device_write'], $sysDescr, $sysContact, $sysUpTime, $sysLocation, $sysName, $numport);
 
 
-		$db->query( "SELECT id, ip, readcommunity FROM {$config["tables"]["noc_devices"]} WHERE name=\"" . $_POST["device_caption"] . "\"" );
+		$db->qry("SELECT id, ip, readcommunity FROM %prefix%noc_devices WHERE name=%string%", $_POST["device_caption"]);
 
 		$row = $db->fetch_array();
 
@@ -241,3 +241,5 @@ switch( $_GET["step"] ) {
 	break;
 	
 	// ---------------------------------------------------------
+	}
+?>

@@ -21,18 +21,18 @@ switch($_GET["step"]) {
 		$zeit = time();
 
 		// aktuelles Ticket laden
-		$get_ticket = $db->query_first("SELECT target_userid, caption FROM {$config["tables"]["troubleticket"]} WHERE ttid = '$tt_id'");
+		$get_ticket = $db->qry_first("SELECT target_userid, caption FROM %prefix%troubleticket WHERE ttid = %int%", $tt_id);
 		$tt_caption = $get_ticket["caption"];
 		$target_userid_old = $get_ticket["target_userid"];
 
 		// Zuweisen, Status setzen, Comment setzen, Zeiten setzen, assign_by setzen, old_target_user setzen
-		$assign_ticket = $db->query("UPDATE {$config["tables"]["troubleticket"]} SET target_userid = '$t_userid',
-			 target_userid_old = '$target_userid_old',
-			 status = '2',
-			 publiccomment = '',
-			 verified = '". time() ."',
-			 assignby_userid = '{$auth["userid"]}'
-			 WHERE ttid = '$tt_id'");
+		$assign_ticket = $db->qry("UPDATE %prefix%troubleticket SET target_userid = %int%,
+    target_userid_old = %int%,
+    status = '2',
+    publiccomment = '',
+    verified = %int%,
+    assignby_userid = %int%
+    WHERE ttid = %int%", $t_userid, $target_userid_old, time(), $auth["userid"], $tt_id);
 
 		// Wenn Update erfolgreich folgende Funktionen ausführen
 		if ($assign_ticket) {

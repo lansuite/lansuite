@@ -36,7 +36,7 @@ switch($_GET['step']){
 	default:
 		$dsp->NewContent(t('Kategorie'));
 		
-		$t_cat = $db->query("SELECT * FROM {$config["tables"]["troubleticket_cat"]}");
+		$t_cat = $db->qry("SELECT * FROM %prefix%troubleticket_cat");
 		if($db->num_rows($t_cat) > 0){
 
 			$t_cat_array[] = "<option value=\"0\">".t('Bitte Auswählen')."</option>";
@@ -83,7 +83,7 @@ switch($_GET['step']){
 			$dsp->AddDropDownFieldRow("orga",t('Zuständiger Admin'),$user_row_option,"");
 			$dsp->AddFormSubmitRow("add");
 		}else{
-			$cat_data = $db->query_first("SELECT * FROM {$config["tables"]["troubleticket_cat"]} WHERE cat_id = {$_POST["tticket_cat"]}");
+			$cat_data = $db->qry_first("SELECT * FROM %prefix%troubleticket_cat WHERE cat_id = %string%", $_POST["tticket_cat"]);
 			
 			$dsp->SetForm("index.php?mod=troubleticket&action=cat&act=change&step=3&cat_id={$_POST['tticket_cat']}");
 			$dsp->AddTextFieldRow("name",t('Kategorie'),$cat_data['cat_text'],$error_cat['name']);
@@ -96,20 +96,20 @@ switch($_GET['step']){
 	
 	case 3:
 		if($_GET['act'] == "add"){
-			if($db->query("INSERT INTO {$config["tables"]["troubleticket_cat"]} SET
-					cat_text = '{$_POST['name']}',
-					orga = '{$_POST['orga']}'")){
+			if($db->qry("INSERT INTO %prefix%troubleticket_cat SET
+     cat_text = %string%,
+     orga = %string%", $_POST['name'], $_POST['orga'])){
 				$func->confirmation(t('Kategorie erfolgreich hinzugefügt/geändert'),"index.php?mod=troubleticket&action=cat");
 			}else{
 				$func->error(t('Kategorie konnte nicht hinzugefügt/geändert werden'),"index.php?mod=troubleticket&action=cat");
 			}
 			
 		}else{
-			if($db->query("UPDATE {$config["tables"]["troubleticket_cat"]} SET
-					cat_text = '{$_POST['name']}',
-					orga = '{$_POST['orga']}'
-					WHERE cat_id = {$_GET['cat_id']}
-			")){			
+			if($db->qry("UPDATE %prefix%troubleticket_cat SET
+     cat_text = %string%,
+     orga = %string%
+     WHERE cat_id = %int%
+   ", $_POST['name'], $_POST['orga'], $_GET['cat_id'])){			
 				$func->confirmation(t('Kategorie erfolgreich hinzugefügt/geändert'),"index.php?mod=troubleticket&action=cat");
 			}else{
 				$func->error(t('Kategorie konnte nicht hinzugefügt/geändert werden'),"index.php?mod=troubleticket&action=cat");

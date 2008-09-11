@@ -26,7 +26,7 @@ class modules {
         global $db, $config;
 
         // Read Active Modules (once, better performance)
-        $res = $db->query("SELECT name FROM {$config["tables"]["modules"]} WHERE active = 1");
+        $res = $db->qry("SELECT name FROM %prefix%modules WHERE active = 1");
         while($row = $db->fetch_array($res)) $this->active_modules[] = $row['name'];
         $db->free_result($res);
 
@@ -87,7 +87,7 @@ class modules {
    */
     function check_modul($modul) {
         /*
-        Punkte könnten u.a. sein Verzeichniss vorhanden, Configdateien
+        Punkte kÃ¶nnten u.a. sein Verzeichniss vorhanden, Configdateien
         vorhanden, Uebersetzung vorhanden, etc. Was macht sinn... es
         muss ja nicht alles vorhanden sein.
         */
@@ -103,10 +103,10 @@ class modules {
     function get_modulpermission($modul, $userid) {
         global $config;
         // Has at least someone access to this mod?
-        $permission = $db->query_first("SELECT 1 AS found FROM {$config['tables']['user_permissions']} WHERE module = '$modul'");
+        $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string%", $modul);
         // If so: Has the current user access to this mod?
         if ($permission['found']) {
-            $permission = $db->query_first("SELECT 1 AS found FROM {$config['tables']['user_permissions']} WHERE module = '$modul' AND userid = '{$userid}'");
+            $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string% AND userid = %int%", $modul, $userid);
             // If not: Set his rights to user-rights
             if (!$permission['found']) return 1;
                 else return 0;

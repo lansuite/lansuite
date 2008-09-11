@@ -4,10 +4,10 @@ class sec {
 		global $db, $config, $cfg;
 
 		// Global-Black-List
-		$found = $db->query_first("SELECT ip FROM {$config["tables"]["ip_blacklist"]}
-			WHERE ip = '{$_SERVER['REMOTE_ADDR']}' AND (module = '' OR module = '{$_GET["mod"]}')
-			LIMIT 1
-			");
+		$found = $db->qry_first("SELECT ip FROM %prefix%ip_blacklist
+   WHERE ip = %string% AND (module = '' OR module = %string%)
+   LIMIT 1
+   ", $_SERVER['REMOTE_ADDR'], $_GET["mod"]);
 		if ($found) die ("Deine IP wird von LanSuite geblockt. Melde dich bitte bei den Organisatoren");
 
     if ($cfg["reload_limit"]) {
@@ -15,16 +15,16 @@ class sec {
   		if (!$cfg["reload_time"]) $cfg["reload_time"] = 600;
   		$db->qry("DELETE FROM %prefix%ip_hits WHERE (date + %string%) < %string%", $cfg["reload_time"], time());
 
-  		$db->query("INSERT INTO {$config["tables"]["ip_hits"]} SET ip = '{$_SERVER['REMOTE_ADDR']}', module = '{$_GET["mod"]}', action = '{$_GET["action"]}', step = '{$_GET["step"]}', date = ". time());
+  		$db->qry("INSERT INTO %prefix%ip_hits SET ip = %string%, module = %string%, action = %string%, step = %string%, date = %int%", $_SERVER['REMOTE_ADDR'], $_GET["mod"], $_GET["action"], $_GET["step"], time());
 
-  		$ip_hits = $db->query_first("SELECT COUNT(*) AS hits FROM {$config["tables"]["ip_hits"]}
-  			WHERE ip = '{$_SERVER['REMOTE_ADDR']}'
-  			GROUP BY ip
-  			LIMIT 1
-  			");
+  		$ip_hits = $db->qry_first("SELECT COUNT(*) AS hits FROM %prefix%ip_hits
+     WHERE ip = %string%
+     GROUP BY ip
+     LIMIT 1
+     ", $_SERVER['REMOTE_ADDR']);
 
   		if (!$cfg["reload_hits"]) $cfg["reload_hits"] = 120;
-  		if ($ip_hits["hits"] > $cfg["reload_hits"]) die ("Deine IP wird von LanSuite wegen zu häufigen Seitenaufrufen geblockt. Bitte warte ein wenig und versuche es dann erneut.");
+  		if ($ip_hits["hits"] > $cfg["reload_hits"]) die ("Deine IP wird von LanSuite wegen zu hÃ¤ufigen Seitenaufrufen geblockt. Bitte warte ein wenig und versuche es dann erneut.");
     }
 	}
 
@@ -33,14 +33,14 @@ class sec {
 		global $db, $config;
 
 		$_SESSION["lock_$module"] = true;
-		$db->query("REPLACE INTO {$config["tables"]["ip_locklist"]} SET ip = '{$_SERVER['REMOTE_ADDR']}', module = '$module'");
+		$db->qry("REPLACE INTO %prefix%ip_locklist SET ip = %string%, module = %string%", $_SERVER['REMOTE_ADDR'], $module);
 	}
 
 	function unlock ($module = NULL) {
 		global $db, $config;
 
 		$_SESSION["lock_$module"] = false;
-		$db->query("DELETE FROM {$config["tables"]["ip_locklist"]} WHERE ip = '{$_SERVER['REMOTE_ADDR']}' AND module = '$module'");
+		$db->qry("DELETE FROM %prefix%ip_locklist WHERE ip = %string% AND module = %string%", $_SERVER['REMOTE_ADDR'], $module);
 	}
 
 	function locked ($module = NULL, $referrer = '') {
@@ -48,7 +48,7 @@ class sec {
 
 		if ($_SESSION["lock_$module"]) $locked = true;
 		else {
-			$found = $db->query_first("SELECT ip FROM {$config["tables"]["ip_locklist"]} WHERE ip = '{$_SERVER['REMOTE_ADDR']}' AND module = '$module' LIMIT 1");
+			$found = $db->qry_first("SELECT ip FROM %prefix%ip_locklist WHERE ip = %string% AND module = %string% LIMIT 1", $_SERVER['REMOTE_ADDR'], $module);
 			if ($found) $locked = true;
 			else $locked = false;
 		}
