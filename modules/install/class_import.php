@@ -177,7 +177,7 @@ class Import {
                 or $db_field["Null"] != $null_xml
                 or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
                 or $db_field["Extra"] != $extra) {
-  						    $db->qry("ALTER TABLE %prefix%%plain% CHANGE %plain% %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $name, $type, $null $default $extra);
+  						    $db->qry("ALTER TABLE %prefix%%plain% CHANGE %plain% %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $name, $type, $null, $default, $extra);
 /*
     						// Differece-Report
     						if ($db_field["Type"] != $type) echo $db_field["Type"] ."=". $type ." Type in $table_name $name<br>";
@@ -267,8 +267,8 @@ class Import {
   					if (!$found_in_db) {
   						// If auto_increment is used for this key, add this key as primary, unique key
   						if ($extra == "auto_increment") $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% %plain% %plain% %plain% %plain%, ADD PRIMARY KEY (%plain%), ADD UNIQUE (%plain%)",
-  $table_name, $name $type $null $default $extra, $name, $name);
-  						else $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% %plain% %plain% %plain% %plain%", $table_name, $name $type $null $default $extra);
+  $table_name, $name, $type, $null, $default, $extra, $name, $name);
+  						else $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $type, $null, $default, $extra);
   					}
   				}
   				
