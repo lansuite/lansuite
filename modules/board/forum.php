@@ -215,7 +215,7 @@ if ($_GET['fid'] != '') $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("in
 if ($_GET['fid'] and $auth['login']) {
 	if ($_GET["set_bm"]) {
 		$db->qry_first("DELETE FROM %prefix%board_bookmark WHERE fid = %int% AND userid = %int%", $_GET['fid'], $auth['userid']);
-		if ($_POST["check_bookmark"]) $db->qry_first("INSERT INTO %prefix%board_bookmark SET fid = %int% userid = %int% email = %string% sysemail = %string%", $_GET['fid']}, $auth['userid']}, $_POST["check_email"], $_POST["check_sysemail"]);
+		if ($_POST["check_bookmark"]) $db->qry_first("INSERT INTO %prefix%board_bookmark SET fid = %int%, userid = %int%, email = %string%, sysemail = %string%", $_GET['fid'], $auth['userid'], $_POST["check_email"], $_POST["check_sysemail"]);
 	}
 
 	$bookmark = $db->qry_first("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE fid = %int% AND userid = %int%", $_GET['fid'], $auth['userid']);
