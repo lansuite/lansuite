@@ -227,8 +227,8 @@ if ($thread['caption'] != '') {
   // Bookmarks and Auto-Mail
   if ($auth['login']) {
   	if ($_GET["set_bm"]) {
-  		$db->qry_first("DELETE FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
-  		if ($_POST["check_bookmark"]) $db->qry_first("INSERT INTO %prefix%board_bookmark SET tid = %int% userid = %int% email = %string% sysemail = %striing%", $tid, $auth['userid']}, $_POST["check_email"], $_POST["check_sysemail"]);
+          $db->qry_first("DELETE FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
+          if ($_POST["check_bookmark"]) $db->qry_first("INSERT INTO %prefix%board_bookmark SET tid = %int%, userid = %int%, email = %string%, sysemail = %string%", $tid, $auth['userid'], $_POST["check_email"], $_POST["check_sysemail"]); 
   	}
   
   	$bookmark = $db->qry_first("SELECT 1 AS found, email, sysemail FROM %prefix%board_bookmark WHERE tid = %int% AND userid = %int%", $tid, $auth['userid']);
