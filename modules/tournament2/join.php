@@ -5,11 +5,11 @@ $tteam = new team;
 
 $tournamentid 	= $_GET["tournamentid"];
 
-$tournament = $db->query_first("SELECT name, teamplayer, over18, status, groupid, coins, wwcl_gameid, ngl_gamename, lgz_gamename, maxteams FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+$tournament = $db->qry_first("SELECT name, teamplayer, over18, status, groupid, coins, wwcl_gameid, ngl_gamename, lgz_gamename, maxteams FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
 
 if ($auth["userid"] == "") $auth["userid"] = 0;
 
-$user = $db->query_first("SELECT wwclid, wwclclanid, nglid, nglclanid, lgzid, lgzclanid FROM {$config["tables"]["user"]} WHERE userid = '{$auth["userid"]}'");
+$user = $db->qry_first("SELECT wwclid, wwclclanid, nglid, nglclanid, lgzid, lgzclanid FROM %prefix%user WHERE userid = %int%", $auth["userid"]);
 
 
 if ($tteam->SignonCheck($tournamentid)) {
@@ -58,7 +58,7 @@ if ($tteam->SignonCheck($tournamentid)) {
 
 				// Vorhandene Teams
 				$t_array = array("<option $selected value=\"\">-".t('Neues Team erstellen')."-</option>");
-				$teams = $db->query("SELECT teamid, name FROM {$config["tables"]["t2_teams"]} WHERE tournamentid = $tournamentid");
+				$teams = $db->qry("SELECT teamid, name FROM %prefix%t2_teams WHERE tournamentid = %int%", $tournamentid);
 				while ($team = $db->fetch_array($teams)) {
 					if ($_POST["existing_team_name"] == $team['teamid']) $selected = "selected";
 					array_push ($t_array, "<option $selected value=\"{$team['teamid']}\">{$team['name']}</option>");

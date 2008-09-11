@@ -52,9 +52,9 @@ switch($_GET["step"]) {
 	case 41:
 		$sec->unlock("t_admteam_create");
 
-		$t = $db->query_first("SELECT teamplayer FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = '$tournamentid'");
+		$t = $db->qry_first("SELECT teamplayer FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
 		if ($t['teamplayer'] == 1) {
-			$leader = $db->query_first("SELECT username FROM {$config["tables"]["user"]} WHERE userid = '{$_GET['userid']}'");
+			$leader = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
 			$_POST["team_name"] = $leader["username"];
 		}
 
@@ -76,7 +76,7 @@ switch($_GET["step"]) {
 		elseif ($_POST['team_name'] == "") $func->information(t('Bitte geben Sie einen Teamnamen ein, oder wählen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
 
 		elseif (!$sec->locked("t_admteam_create")) {
-			$t = $db->query_first("SELECT name FROM {$config["tables"]["tournament_tournaments"]} WHERE tournamentid = {$_GET["tournamentid"]}");
+			$t = $db->qry_first("SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $_GET["tournamentid"]);
 
 			if ($tteam->create($_GET["tournamentid"], $_GET["userid"], $_POST["team_name"], $_POST["set_password"], $_POST["team_comment"], "team_banner")) $func->confirmation(t('Der Spieler / Das Team wurden zum Turnier %1 erfolgreich angemeldet', $t["name"]), "index.php?mod=tournament2&action=teammgr_admin");
 
@@ -89,7 +89,7 @@ switch($_GET["step"]) {
 		$dsp->NewContent(t('Admin-Teammanager'), t('Hier können Sie Teams löschen oder ihnen weitere Spieler zuweisen.'));
 
 		// Neues Team anmelden
-		$tourneys = $db->query("SELECT tournamentid, name FROM {$config["tables"]["tournament_tournaments"]} WHERE (status = 'open')  AND party_id='$party->party_id' ORDER BY name");
+		$tourneys = $db->qry("SELECT tournamentid, name FROM %prefix%tournament_tournaments WHERE (status = 'open')  AND party_id=%int% ORDER BY name", $party->party_id);
 		if ($db->num_rows($tourneys) == 0) $dsp->AddDoubleRow(t('Neues Team (Spieler) anmelden<br />(Nur in Anmeldephase möglich)'), t('Es sind keine Turniere vorhanden, welche sich noch in der Anmeldephase befinden'));
 		else {
 			$t_array = array("<option value=\"\">".t('Bitte Turnier auswählen')."</option>");
@@ -103,12 +103,12 @@ switch($_GET["step"]) {
 		$db->free_result($teams);
 
 		// Team löschen Auswahl
-		$teams = $db->query("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer
-			FROM {$config["tables"]["t2_teams"]} AS teams
-			LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS t ON t.tournamentid = teams.tournamentid
-			WHERE t.status = 'open' AND t.party_id = '$party->party_id'
-			ORDER BY t.name, teams.name
-			");
+		$teams = $db->qry("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer
+   FROM %prefix%t2_teams AS teams
+   LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = teams.tournamentid
+   WHERE t.status = 'open' AND t.party_id = %int%
+   ORDER BY t.name, teams.name
+   ", $party->party_id);
 		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Komplettes Team löschen<br />(Nur in Anmeldephase möglich)'), t('Es haben sich noch keine Spieler zu Turnieren angemeldet, welche noch nicht bereits laufen'));
 		else {
 			$t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");
@@ -122,17 +122,17 @@ switch($_GET["step"]) {
 		$db->free_result($teams);
 
 		// Spieler hinzufügen Auswahl
-		$teams = $db->query("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer
-			FROM {$config["tables"]["t2_teams"]} AS teams
-			LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS t ON t.tournamentid = teams.tournamentid
-			WHERE t.teamplayer > 1 AND t.status != 'closed' AND t.party_id = '$party->party_id'
-			ORDER BY t.name, teams.name
-			");
+		$teams = $db->qry("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer
+   FROM %prefix%t2_teams AS teams
+   LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = teams.tournamentid
+   WHERE t.teamplayer > 1 AND t.status != 'closed' AND t.party_id = %int%
+   ORDER BY t.name, teams.name
+   ", $party->party_id);
 		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Spieler einem Team hinzufügen'), t('Es existieren keine Teams, die noch auf weitere Spieler warten'));
 		else {
 			$t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");
 			while($team = $db->fetch_array($teams)) {
-				$member = $db->query_first("SELECT COUNT(*) AS members FROM {$config["tables"]["t2_teammembers"]} WHERE teamid = {$team['teamid']} GROUP BY teamid");
+				$member = $db->qry_first("SELECT COUNT(*) AS members FROM %prefix%t2_teammembers WHERE teamid = %int% GROUP BY teamid", $team['teamid']);
 
 				$freie_platze = $team['teamplayer'] - ($member['members'] + 1);
 				if ($freie_platze > 0) 
@@ -145,14 +145,14 @@ switch($_GET["step"]) {
 		$db->free_result($teams);
 
 		// Member aus Team löschen - Auswahl
-		$teams = $db->query("SELECT teams.teamid, teams.name, t.name AS tname, users.username AS mname, t.teamplayer, members.userid AS userid
-			FROM {$config["tables"]["t2_teams"]} AS teams
-			LEFT JOIN {$config["tables"]["t2_teammembers"]} AS members ON teams.teamid = members.teamid
-			LEFT JOIN {$config["tables"]["user"]} AS users ON members.userid = users.userid
-			LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS t ON t.tournamentid = teams.tournamentid
-			WHERE t.teamplayer > 1 AND t.party_id = '$party->party_id'
-			ORDER BY t.name, teams.name
-			");
+		$teams = $db->qry("SELECT teams.teamid, teams.name, t.name AS tname, users.username AS mname, t.teamplayer, members.userid AS userid
+   FROM %prefix%t2_teams AS teams
+   LEFT JOIN %prefix%t2_teammembers AS members ON teams.teamid = members.teamid
+   LEFT JOIN %prefix%user AS users ON members.userid = users.userid
+   LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = teams.tournamentid
+   WHERE t.teamplayer > 1 AND t.party_id = %int%
+   ORDER BY t.name, teams.name
+   ", $party->party_id);
 		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Spieler aus einem Team löschen'), t('Es haben sich noch keine Mitglieder zu Teams angemeldet'));
 		else {
 			$t_array = array("<option value=\"\">".t('Bitte Team auswählen')."</option>");

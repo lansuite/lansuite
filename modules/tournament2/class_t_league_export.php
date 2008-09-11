@@ -22,14 +22,14 @@ class t_league_export {
 		$tmpplayer = "";
 		$data_email = array();
 		$i = 0;
-		$query = $db->query("SELECT users.username, users.email, tournament.tournamentid, tournament.teamplayer, teams.name, teams.teamid
-				FROM {$config["tables"]["t2_teams"]} AS teams
-				LEFT JOIN {$config["tables"]["tournament_tournaments"]} AS tournament ON tournament.tournamentid = teams.tournamentid
-				LEFT JOIN {$config["tables"]["user"]} AS users ON teams.leaderid = users.userid
-				WHERE (tournament.wwcl_gameid > 0)
-					AND (((tournament.teamplayer = 1) AND (!users.wwclid))
-					OR ((tournament.teamplayer > 1) AND (!users.wwclclanid)))
-				");
+		$query = $db->qry("SELECT users.username, users.email, tournament.tournamentid, tournament.teamplayer, teams.name, teams.teamid
+    FROM %prefix%t2_teams AS teams
+    LEFT JOIN %prefix%tournament_tournaments AS tournament ON tournament.tournamentid = teams.tournamentid
+    LEFT JOIN %prefix%user AS users ON teams.leaderid = users.userid
+    WHERE (tournament.wwcl_gameid > 0)
+     AND (((tournament.teamplayer = 1) AND (!users.wwclid))
+     OR ((tournament.teamplayer > 1) AND (!users.wwclclanid)))
+    ");
 		while($row = $db->fetch_array($query)) {
 			$i++;
 			array_push ($data_email, $row["teamid"]);
@@ -50,7 +50,7 @@ class t_league_export {
 		$wwcl .= $xml->write_master_tag("tmpplayer", $tmpplayer, 1);
 
 		// Liste der Turniere und ihrer Ranglisten
-		$query = $db->query("SELECT tournamentid, teamplayer, name, mode, maxteams, wwcl_gameid FROM {$config["tables"]["tournament_tournaments"]} WHERE party_id='$party->party_id' AND wwcl_gameid > 0");
+		$query = $db->qry("SELECT tournamentid, teamplayer, name, mode, maxteams, wwcl_gameid FROM %prefix%tournament_tournaments WHERE party_id=%int% AND wwcl_gameid > 0", $party->party_id);
 		while($row = $db->fetch_array($query)) {
 			$tourney = $xml->write_tag("name", $row['name'], 2);
 			$tourney .= $xml->write_tag("gid", $row['wwcl_gameid'], 2);
@@ -62,10 +62,10 @@ class t_league_export {
 			$ranking = "";
 			while ($akt_pos = array_shift($ranking_data->tid)){
 
-				$user = $db->query_first("SELECT users.wwclid, users.wwclclanid
-					FROM {$config["tables"]["user"]} AS users
-					LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON users.userid = teams.leaderid
-					WHERE teams.teamid = $akt_pos");
+				$user = $db->qry_first("SELECT users.wwclid, users.wwclclanid
+     FROM %prefix%user AS users
+     LEFT JOIN %prefix%t2_teams AS teams ON users.userid = teams.leaderid
+     WHERE teams.teamid = %string%", $akt_pos);
 
 				if ($row["teamplayer"] == 1) {
 					if ($user["wwclid"]) $wwclid = $user["wwclid"];
@@ -105,7 +105,7 @@ class t_league_export {
 		$laninfo .= $xml->write_tag("contact", "knox@orgapage.de (Programmierer dieses LS-Moduls, nicht Veranstalter)", 2);
 		$export = $xml->write_master_tag("laninfo", $laninfo, 1);
 
-		$tournaments = $db->query("SELECT mode, ngl_gamename, tournamentid FROM {$config["tables"]["tournament_tournaments"]} WHERE party_id='$party->party_id' && ((mode = 'single') OR (mode = 'double')) AND (ngl_gamename != '') AND (status = 'closed')");
+		$tournaments = $db->qry("SELECT mode, ngl_gamename, tournamentid FROM %prefix%tournament_tournaments WHERE party_id=%int% AND ((mode = 'single') OR (mode = 'double')) AND (ngl_gamename != '') AND (status = 'closed')", $party->party_id);
 		while($tournament = $db->fetch_array($tournaments)) {
 			if ($tournament['mode'] == "double") $mode = "DE";
 			if ($tournament['mode'] == "single") $mode = "SE";
@@ -117,20 +117,20 @@ class t_league_export {
 			$game = $xml->write_master_tag("gameinfo", $gameinfo, 2);
 
 			$teams = "";
-			$db_teams = $db->query("SELECT teams.name AS tname, teams.teamid, users.username, users.email, users.firstname, users.name, users.nglid, users.nglclanid
-				FROM {$config["tables"]["t2_teams"]} AS teams, {$config["tables"]["user"]} AS users
-				WHERE (teams.leaderid = users.userid) AND (teams.tournamentid = {$tournament['tournamentid']})
-				");
+			$db_teams = $db->qry("SELECT teams.name AS tname, teams.teamid, users.username, users.email, users.firstname, users.name, users.nglid, users.nglclanid
+    FROM %prefix%t2_teams AS teams, %prefix%user AS users
+    WHERE (teams.leaderid = users.userid) AND (teams.tournamentid = %int%)
+    ", $tournament['tournamentid']);
 			while($db_team = $db->fetch_array($db_teams)) {
 				$ngl_id = $db_team['nglid'];
 				if ($ngl_id == "") $ngl_id = 0;
 				$ngl_clanid = $db_team['nglclanid'];
 				if ($ngl_clanid == "") $ngl_clanid = 0;
 				$teamname = $db_team['tname'];
-				$db_members = $db->query("SELECT users.username, users.email, users.firstname, users.name, users.nglid
-					FROM {$config["tables"]["t2_teammembers"]} AS members, {$config["tables"]["user"]} AS users
-					WHERE (members.userid = users.userid) AND (members.teamid = {$db_team['teamid']})
-					");
+				$db_members = $db->qry("SELECT users.username, users.email, users.firstname, users.name, users.nglid
+     FROM %prefix%t2_teammembers AS members, %prefix%user AS users
+     WHERE (members.userid = users.userid) AND (members.teamid = %int%)
+     ", $db_team['teamid']);
 				if ($db->num_rows($db_members) == 0) {
 					$ngl_clanid = $ngl_id;
 					$teamname = $db_team['username'];
@@ -172,24 +172,24 @@ class t_league_export {
 
 
 			$matches = "";
-			$db_rounds = $db->query("SELECT round
-				FROM {$config["tables"]["t2_games"]}
-				WHERE tournamentid = {$tournament['tournamentid']}
-				GROUP BY round
-				ORDER BY round
-				");
+			$db_rounds = $db->qry("SELECT round
+    FROM %prefix%t2_games
+    WHERE tournamentid = %int%
+    GROUP BY round
+    ORDER BY round
+    ", $tournament['tournamentid']);
 			while($db_round = $db->fetch_array($db_rounds)) {
 
 				$tmpid1 = "";
 				$round = "";
-				$db_matchs = $db->query("SELECT leaderid, score
-					FROM {$config["tables"]["t2_games"]}
-					WHERE (tournamentid = {$tournament['tournamentid']}) AND (round = {$db_round['round']})
-					ORDER BY position
-					");
+				$db_matchs = $db->qry("SELECT leaderid, score
+     FROM %prefix%t2_games
+     WHERE (tournamentid = %int%) AND (round = %string%)
+     ORDER BY position
+     ", $tournament['tournamentid'], $db_round['round']);
 				while($db_match = $db->fetch_array($db_matchs)) {
 					if ($db_match['leaderid'] == 0) $db_teamid['teamid'] = 0;
-					else $db_teamid = $db->query_first("SELECT teamid FROM {$config["tables"]["t2_teams"]} AS teams WHERE (tournamentid = {$tournament['tournamentid']}) AND (teams.leaderid = {$db_match['leaderid']})");
+					else $db_teamid = $db->qry_first("SELECT teamid FROM %prefix%t2_teams AS teams WHERE (tournamentid = %int%) AND (teams.leaderid = %int%)", $tournament['tournamentid'], $db_match['leaderid']);
 
 					if ($tmpid1 == ""){
 						$tmpid1 = "{$db_teamid['teamid']}";
@@ -239,7 +239,7 @@ class t_league_export {
 		$laninfo .= $xml->write_tag("contact", "knox@orgapage.de (Programmierer dieses LS-Moduls, nicht Veranstalter)", 2);
 		$export = $xml->write_master_tag("laninfo", $laninfo, 1);
 
-		$tournaments = $db->query("SELECT mode, lgz_gamename, tournamentid FROM {$config["tables"]["tournament_tournaments"]} WHERE party_id='$party->party_id' && ((mode = 'single') OR (mode = 'double')) AND (lgz_gamename != '') AND (status = 'closed')");
+		$tournaments = $db->qry("SELECT mode, lgz_gamename, tournamentid FROM %prefix%tournament_tournaments WHERE party_id=%int% AND ((mode = 'single') OR (mode = 'double')) AND (lgz_gamename != '') AND (status = 'closed')", $party->party_id);
 		while($tournament = $db->fetch_array($tournaments)) {
 			if ($tournament['mode'] == "double") $mode = "DE";
 			if ($tournament['mode'] == "single") $mode = "SE";
@@ -251,20 +251,20 @@ class t_league_export {
 			$game = $xml->write_master_tag("gameinfo", $gameinfo, 2);
 
 			$teams = "";
-			$db_teams = $db->query("SELECT teams.name AS tname, teams.teamid, users.username, users.email, users.firstname, users.name, users.lgzid, users.lgzclanid
-				FROM {$config["tables"]["t2_teams"]} AS teams, {$config["tables"]["user"]} AS users
-				WHERE (teams.leaderid = users.userid) AND (teams.tournamentid = {$tournament['tournamentid']})
-				");
+			$db_teams = $db->qry("SELECT teams.name AS tname, teams.teamid, users.username, users.email, users.firstname, users.name, users.lgzid, users.lgzclanid
+    FROM %prefix%t2_teams AS teams, %prefix%user AS users
+    WHERE (teams.leaderid = users.userid) AND (teams.tournamentid = %int%)
+    ", $tournament['tournamentid']);
 			while($db_team = $db->fetch_array($db_teams)) {
 				$ngl_id = $db_team['lgzid'];
 				if ($ngl_id == "") $ngl_id = 0;
 				$ngl_clanid = $db_team['lgzclanid'];
 				if ($ngl_clanid == "") $ngl_clanid = 0;
 				$teamname = $db_team['tname'];
-				$db_members = $db->query("SELECT users.username, users.email, users.firstname, users.name, users.lgzid
-					FROM {$config["tables"]["t2_teammembers"]} AS members, {$config["tables"]["user"]} AS users
-					WHERE (members.userid = users.userid) AND (members.teamid = {$db_team['teamid']})
-					");
+				$db_members = $db->qry("SELECT users.username, users.email, users.firstname, users.name, users.lgzid
+     FROM %prefix%t2_teammembers AS members, %prefix%user AS users
+     WHERE (members.userid = users.userid) AND (members.teamid = %int%)
+     ", $db_team['teamid']);
 				if ($db->num_rows($db_members) == 0) {
 					$ngl_clanid = $ngl_id;
 					$teamname = $db_team['username'];
@@ -319,24 +319,24 @@ class t_league_export {
 
 
 			$matches = "";
-			$db_rounds = $db->query("SELECT round
-				FROM {$config["tables"]["t2_games"]}
-				WHERE tournamentid = {$tournament['tournamentid']}
-				GROUP BY round
-				ORDER BY round
-				");
+			$db_rounds = $db->qry("SELECT round
+    FROM %prefix%t2_games
+    WHERE tournamentid = %int%
+    GROUP BY round
+    ORDER BY round
+    ", $tournament['tournamentid']);
 			while($db_round = $db->fetch_array($db_rounds)) {
 
 				$tmpid1 = "";
 				$round = "";
-				$db_matchs = $db->query("SELECT leaderid, score
-					FROM {$config["tables"]["t2_games"]}
-					WHERE (tournamentid = {$tournament['tournamentid']}) AND (round = {$db_round['round']})
-					ORDER BY position
-					");
+				$db_matchs = $db->qry("SELECT leaderid, score
+     FROM %prefix%t2_games
+     WHERE (tournamentid = %int%) AND (round = %string%)
+     ORDER BY position
+     ", $tournament['tournamentid'], $db_round['round']);
 				while($db_match = $db->fetch_array($db_matchs)) {
 					if ($db_match['leaderid'] == 0) $db_teamid['teamid'] = 0;
-					else $db_teamid = $db->query_first("SELECT teamid FROM {$config["tables"]["t2_teams"]} AS teams WHERE (tournamentid = {$tournament['tournamentid']}) AND (teams.leaderid = {$db_match['leaderid']})");
+					else $db_teamid = $db->qry_first("SELECT teamid FROM %prefix%t2_teams AS teams WHERE (tournamentid = %int%) AND (teams.leaderid = %int%)", $tournament['tournamentid'], $db_match['leaderid']);
 
 					if ($tmpid1 == ""){
 						$tmpid1 = "{$db_teamid['teamid']}";
@@ -375,3 +375,4 @@ class t_league_export {
 	}
 
 }
+?>
