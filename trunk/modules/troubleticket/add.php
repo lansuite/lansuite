@@ -62,7 +62,7 @@ switch ($_GET["step"]) {
 
 		$dsp->AddTextFieldRow("tticket_desc",t('Beschreibung'), $_POST['tticket_desc'], $error["tticket_desc"]);
 
-		$t_cat = $db->query("SELECT *FROM {$config["tables"]["troubleticket_cat"]}");
+		$t_cat = $db->qry("SELECT *FROM %prefix%troubleticket_cat");
 		
 		if($db->num_rows($t_cat) > 0){
 
@@ -118,30 +118,30 @@ switch ($_GET["step"]) {
 		if (!isset($_POST["tticket_cat"]) || $_POST["tticket_cat"] == 0){
 			$_POST["tticket_cat"] = 0;
 		}else{
-			$cat_data = $db->query_first("SELECT * FROM {$config["tables"]["troubleticket_cat"]} WHERE cat_id = {$_POST["tticket_cat"]}");
+			$cat_data = $db->qry_first("SELECT * FROM %prefix%troubleticket_cat WHERE cat_id = %string%", $_POST["tticket_cat"]);
 			if($cat_data['orga'] > 0){	
 				$target_userid	= $cat_data['orga'];
 			}
 		}
 		
 				
-		$db->query("INSERT INTO {$config["tables"]["troubleticket"]} SET
-				created = '$czeit',
-				verified = '$vzeit',
-				process = '',
-				finished = '',
-				status = '$ticketstatus',
-				processstatus = '0',
-				priority = '{$_POST["tticket_priority"]}',
-				origin_userid = '{$auth["userid"]}',
-				target_userid = '$target_userid',
-				orgaonly = '{$_POST["orgaonly"]}',
-				caption = '{$_POST["tticket_desc"]}',
-				text = '{$_POST["tticket_text"]}',
-				orgacomment = '',
-				publiccomment = '$pubcomment',
-				cat = '{$_POST["tticket_cat"]}'
-				");
+		$db->qry("INSERT INTO %prefix%troubleticket SET
+    created = %string%,
+    verified = %string%,
+    process = '',
+    finished = '',
+    status = %string%,
+    processstatus = '0',
+    priority = %string%,
+    origin_userid = %int%,
+    target_userid = %int%,
+    orgaonly = %string%,
+    caption = %string%,
+    text = %string%,
+    orgacomment = '',
+    publiccomment = %string%,
+    cat = %string%
+    ", $czeit, $vzeit, $ticketstatus, $_POST["tticket_priority"], $auth["userid"], $target_userid, $_POST["orgaonly"], $_POST["tticket_desc"], $_POST["tticket_text"], $pubcomment, $_POST["tticket_cat"]);
 
 		
 		if($cat_data['orga'] > 0 && isset($_POST["tticket_cat"]) && $_POST["tticket_cat"] > 0){

@@ -184,7 +184,7 @@ class masterform {
             $db->free_result($res);
           // Select current values for normal edit
           } else {
-            $row = $db->query_first("SELECT 1 AS found $db_query FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
+            $row = $db->qry_first("SELECT 1 AS found %plain% FROM %prefix%%plain% WHERE %plain% %plain% = %int%", $db_query, $table, $AddKey, $idname, $id);
             if ($row['found']) {
               foreach ($this->SQLFields as $key => $val) if (!in_array($key, $this->WYSIWYGFields)) $_POST[$val] = $row[$val]; else $_POST[$val] = $func->db2edit($row[$val]);
             } else {
@@ -279,7 +279,7 @@ class masterform {
               # Neccessary in Multi Line Edit Mode? If so: Still to do
               if ($SQLFieldUnique[$field['name']]) {
                 if ($this->isChange) $check_double_where = ' AND '. $idname .' != '. (int)$id;
-                $row = $db->query_first("SELECT 1 AS found FROM {$config['tables'][$table]} WHERE {$field['name']} = '{$_POST[$field['name']]}'$check_double_where");
+                $row = $db->qry_first("SELECT 1 AS found FROM %prefix%%plain% WHERE %plain% = %string% %plain%", $table, $field['name'], $_POST[$field['name']]}', $check_double_where);
                 if ($row['found']) $this->error[$field['name']] = t('Dieser Eintrag existiert bereits in unserer Datenbank.');
               }
             }
@@ -576,19 +576,19 @@ class masterform {
 
                 // If the table entry should be created, or deleted wheter the control field is checked
                 if ($this->AddInsertControllField != '' and !$_POST[$InsContName])
-                  $db->query("DELETE FROM {$config['tables'][$table]} WHERE $AddKey $idname = ". (int)$id);
+                  $db->qry("DELETE FROM %prefix%%plain% WHERE %plain% %plain% = %int%", $table, $AddKey, $idname, $id);
 
                 // Send query
                 else {
                   if ($this->isChange) {
-                    $db->query("UPDATE {$config['tables'][$table]} SET $db_query WHERE $AddKey $idname = ". (int)$id);
+                    $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% %plain% = %int%", $table, $db_query, $AddKey, $id);
                     $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
                     $addUpdSuccess = $id;
                   } else {
                     $DBInsertQuery = $db_query;
                     if ($this->AdditionalKey != '') $DBInsertQuery .= ', '. $this->AdditionalKey;
                     if ($this->AddInsertControllField) $DBInsertQuery .= ', '. $idname .' = '. (int)$id;
-                    $db->query("INSERT INTO {$config['tables'][$table]} SET $DBInsertQuery");
+                    $db->qry("INSERT INTO %prefix%%plain% SET %plain%", $table, $DBInsertQuery);
                     $id = $db->insert_id();
                     $this->insert_id = $id;
                     $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefügt', array($id, $config['tables'][$table])), 1, '', $this->LogID);

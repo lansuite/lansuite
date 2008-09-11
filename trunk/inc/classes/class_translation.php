@@ -287,17 +287,17 @@ class translation {
                     // Insert if new Row
                     // FIX echo "Insert ".$data['tid']."<br />\n";
                     $count_insert++;
-                    $db->query_first("INSERT INTO {$config["database"]["prefix"]}translation{$long} SET
-                                          id='".   $func->escape_sql($id) ."',
-                                          org='".  $func->escape_sql($data['org']) ."',
-                                          de='".   $func->escape_sql($data['de']) ."',
-                                          en='".   $func->escape_sql($data['en']) ."',
-                                          es='".   $func->escape_sql($data['es']) ."',
-                                          fr='".   $func->escape_sql($data['fr']) ."',
-                                          nl='".   $func->escape_sql($data['nl']) ."',
-                                          it='".   $func->escape_sql($data['it']) ."',
-                                          file='". $func->escape_sql($modul) ."'
-                                          ");
+                    $db->qry_first("INSERT INTO %prefix%translation{$long} SET
+                                          id= %int%,
+                                          org= %string%,
+                                          de= %string%,
+                                          en= %string%,
+                                          es= %string%,
+                                          fr= %string%,
+                                          nl= %string%,
+                                          it= %string%,
+                                          file= %string%
+                                          ", $id, $data['org'], $data['de'], $data['en'], $data['es'], $data['fr'], $data['nl'], $data['it'], $modul);
                 }
             }
         }
@@ -332,7 +332,7 @@ class translation {
     
         $content = '';
         // read normal Translation
-        $res = $db->query("SELECT * FROM {$config["database"]["prefix"]}translation WHERE file = '$modul'");
+        $res = $db->qry("SELECT * FROM %prefix%translation WHERE file = %string%", $modul);
         while ($row = $db->fetch_array($res)) {
             $entry = $xml->write_tag('id', $row['id'], 4);
             $entry .= $xml->write_tag('org', $this->xml_var_merge($row['org'],$xml_old[$row['file']][$row['id']]['org']), 4);
@@ -347,7 +347,7 @@ class translation {
         }
         $db->free_result($res);
         // read long Translation
-        $res2 = $db->query("SELECT * FROM {$config["database"]["prefix"]}translation_long WHERE file = '$modul'");
+        $res2 = $db->qry("SELECT * FROM %prefix%translation_long WHERE file = %string%", $modul);
         while ($row2 = $db->fetch_array($res2)) {
             $entry = $xml->write_tag('id', $row2['id'], 4);
             $entry .= $xml->write_tag('org', $this->xml_var_merge($row['org'],$xml_old[$row['file']][$row['id']]['org']), 4);
@@ -536,15 +536,15 @@ class translation {
                     } else $CurrentFile = 'System';
 
                     // Do only add expressions, which are not already in system lang-file
-                    $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['translation']}{$long} WHERE id = '{$key}' AND (file = 'System')");
+                    $row = $db->qry_first("SELECT 1 AS found FROM %prefix%translation%plain% WHERE id = %string% AND (file = 'System')", $long, $key);
                     if (!$row['found'] or $CurrentFile == 'System'){
                         array_push($FoundTransEntries, $CurrentFile.'+'.$key); // Array is compared to DB later for synchronization
 
-                        $row = $db->query_first("SELECT 1 AS found FROM {$config['tables']['translation']}{$long} WHERE id = '{$key}' AND (file = '$CurrentFile')");
+                        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%translation%plain% WHERE id = %string% AND (file = %string%)", $long, $key, $CurrentFile);
                         if ($row['found']) $output .= $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'<br />';
                         else {
                             // New -> Insert to DB
-                            $db->query("REPLACE INTO {$config['tables']['translation']}{$long} SET id = '$key', file = '{$CurrentFile}', org = '{$CurrentTrans}'");
+                            $db->qry("REPLACE INTO %prefix%translation%plain% SET id = %string%, file = %string%, org = %string%", $long, $key, $CurrentFile, $CurrentTrans);
                             $output .= '<font color="#00ff00">'. $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'</font><br />';
                         }
                     }

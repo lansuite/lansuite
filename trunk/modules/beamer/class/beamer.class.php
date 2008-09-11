@@ -44,13 +44,13 @@ class beamer {
  
   function set2first( $bcid ) {
   global $config, $db; 
-  	  	$update = $db->query( "UPDATE {$config['tables']['beamer_content']} SET lastView = '0' WHERE bcid = '$bcid' LIMIT 1");
+  	  	$update = $db->qry("UPDATE %prefix%beamer_content SET lastView = '0' WHERE bcid = %int% LIMIT 1", $bcid);
   }
  
  
   function toggleActive ( $bcid ) {
   global $config, $db;
-  	$row = $db->query_first( "SELECT active FROM {$config["tables"]["beamer_content"]} WHERE bcID = '$bcid' ");
+  	$row = $db->qry_first("SELECT active FROM %prefix%beamer_content WHERE bcID = %int%", $bcid);
 	$active = $row['active'];
 	
 	if( $active == "1" ) {
@@ -87,12 +87,11 @@ class beamer {
 	$lastview = time();
   	if ( !$c['bcid'] ) 
 	{
-	  	$insert = $db->query( 	"INSERT INTO {$config['tables']['beamer_content']} SET ".
-								"caption = '{$c['caption']}', maxRepeats = '{$c['maxrepeats']}', ".
-								"contentType = '{$c['type']}', lastView = '$lastview' , contentData = '{$c['text']}' ");
+	  	$insert = $db->qry("INSERT INTO %prefix%beamer_content SET caption = %string%, maxRepeats = %string%, contentType = %string%, lastView = %string%, contentData = %string%",
+  $c['caption'], $c['maxrepeats'], $c['type'], $lastview, $c['text']);
 	} else {
 	  	if ( $c['caption'] != "" ) { $caption_sql = " , caption = '{$c['caption']}' ";  }
-		$update = $db->query( 	"UPDATE {$config['tables']['beamer_content']} SET contentData = '{$c['text']}' $caption_sql WHERE bcid = '{$c['bcid']}' ");
+		$update = $db->qry("UPDATE %prefix%beamer_content SET contentData = %string% %plain% WHERE bcid = %int%", $c['text'], $caption_sql, $c['bcid']);
 	
 	}
   
@@ -117,7 +116,7 @@ class beamer {
   
   	$row = $db->query_first('SELECT * FROM ' . $config["tables"]["beamer_content"] . ' WHERE active = 1 AND b'.$beamerid.' = 1  '.
 							'ORDER BY lastView ASC');
-	$update = $db->query('UPDATE ' . $config["tables"]["beamer_content"].' SET lastView = '.time().' WHERE bcID = '.$row['bcID'].' LIMIT 1');
+	$update = $db->query('UPDATE %prefix%beamer_content SET lastView = %int% WHERE bcID = %int% LIMIT 1', time(), $row['bcID']);
 	
 	
 	switch ( $row['contentType'] ) {
@@ -147,7 +146,7 @@ class beamer {
   function getAllTournamentsAsOptionList() {
   global $db, $config, $func;
     
-  	$result = $db->query('SELECT tournamentid, name FROM ' . $config["tables"]["tournament_tournaments"] );
+  	$result = $db->qry('SELECT tournamentid, name FROM %prefix%tournament_tournaments');
 	while ($row = $db->fetch_array($result))
 	{
 		$tournaments[] = "<option value=\"{$row['tournamentid']}\">{$row['name']}</option>";

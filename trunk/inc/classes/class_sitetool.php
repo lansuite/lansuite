@@ -12,12 +12,12 @@
     #
     #   WICHTIG !!!
     #
-    #   Wir bitten Sie die gesamten Copyrightvermerke einschlieﬂlich des Links 
+    #   Wir bitten Sie die gesamten Copyrightvermerke einschlie√ülich des Links 
     #   zu www.one-network.org nicht zu entfernen.
     #   Dies zeigt nicht nur den Entwicklern, die eine Menge unbezahlte Zeit in dieses Projekt 
-    #   gesteckt haben, Respekt, sondern tr‰gt auch der Beteiligung am Support, 
+    #   gesteckt haben, Respekt, sondern tr√§gt auch der Beteiligung am Support, 
     #   der Verbreitung und der Anzahl der Nutzer von Lansuite bei.
-    #   Somit kˆnnen viele Fehler schnell gemeldet und behoben werden.
+    #   Somit k√∂nnen viele Fehler schnell gemeldet und behoben werden.
     #       
     #       
     */
@@ -63,7 +63,7 @@ class sitetool {
         else return 0; 
     }
 
-    // F¸r Statistik
+    // F√ºr Statistik
     function get_send_size(){
         return $this->send_size;    
     }
@@ -80,17 +80,17 @@ class sitetool {
 
             $ru_suffix = "";
             // if (strpos($_SERVER['REQUEST_URI'], ".php") === false) $ru_suffix .= "index.php";
-            // Alte fullscreen Variablen lˆschen
+            // Alte fullscreen Variablen l√∂schen
             $_SERVER['REQUEST_URI'] = str_replace("&amp;fullscreen=yes", "", $_SERVER['REQUEST_URI']);
             $_SERVER['REQUEST_URI'] = str_replace("&amp;fullscreen=no", "", $_SERVER['REQUEST_URI']);
             $_SERVER['REQUEST_URI'] = str_replace("?fullscreen=yes", "", $_SERVER['REQUEST_URI']);
             $_SERVER['REQUEST_URI'] = str_replace("?fullscreen=no", "", $_SERVER['REQUEST_URI']);
 
-            // Vorbreiten f¸r neue fullscreen Variable
+            // Vorbreiten f√ºr neue fullscreen Variable
             if (strpos($_SERVER['REQUEST_URI'], "?") === false) $ru_suffix .= "?";
             else $ru_suffix .= "&";
 /*
-            // Erweiterung f¸r Statisktik
+            // Erweiterung f√ºr Statisktik
             if ($compression_mode and $cfg['sys_compress_level']){
                 $this->send_size = sprintf("%01.2f",((strlen(gzcompress($index, $cfg['sys_compress_level'])))/1024));
             $site_size = ' | Size: '. $this->send_size .' KB | Uncompressed: '. sprintf("%01.2f", ((strlen($index))/1024))." KB";
@@ -149,7 +149,7 @@ $footer = '
           $smarty->assign('MainLogo', '<img src="design/simple/images/logo.gif" alt="Logo" title="Lansuite" border="0" />');
           $smarty->assign('MainDebug', $func->ShowDebug());
         }
-      } else $smarty->assign('MainLogo', '<a href="index.php?'. $URLQuery .'&amp;fullscreen=no" class="menu"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schlieﬂen') .'</span></a> Lansuite - Vollbildmodus');
+      } else $smarty->assign('MainLogo', '<a href="index.php?'. $URLQuery .'&amp;fullscreen=no" class="menu"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schlie√üen') .'</span></a> Lansuite - Vollbildmodus');
       $smarty->assign('MainContent', $MainContent);
       
             if ($compression_mode and $cfg['sys_compress_level']) {

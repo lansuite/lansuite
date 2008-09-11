@@ -86,7 +86,7 @@ class Mastercomment{
     // Add new comments
     if ($cfg['mc_only_logged_in'] and !$auth['login']) $func->information(t('Bitte loggen Sie sich ein, bevor Sie einen Kommentar verfassen'), NO_LINK);
     else {
-      if ($_GET['commentid']) $row = $db->query_first("SELECT creatorid FROM {$config['tables']['comments']} WHERE commentid = ".(int)$_GET['commentid']);
+      if ($_GET['commentid']) $row = $db->qry_first("SELECT creatorid FROM %prefix%comments WHERE commentid = %int%", $_GET['commentid']);
       if (!$_GET['commentid'] or ($row['creatorid'] and $row['creatorid'] == $auth['userid']) or $auth['type'] >= 2) {
         include_once('inc/classes/class_masterform.php');
         $mf = new masterform();

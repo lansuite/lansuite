@@ -1771,7 +1771,7 @@ class barcode_system{
 		$this->class_barcode->setHexColor("#000000","#FFFFFF");
 		
 		if(isset($_POST['barcodefield']) && $cfg['sys_barcode_on']){
-			$data = $db->query_first("SELECT userid FROM {$config["tables"]["user"]} WHERE barcode='{$_POST['barcodefield']}'");
+			$data = $db->qry_first("SELECT userid FROM %prefix%user WHERE barcode=%string%", $_POST['barcodefield']);
 			$_POST['userid'] = $data['userid'];
 			$_GET['userid'] = $data['userid'];
 		}
@@ -1788,11 +1788,11 @@ class barcode_system{
 	function getcode($userid){
 		global $db,$cfg,$config;
 		
-		$data = $db->query_first("SELECT barcode FROM {$config["tables"]["user"]} WHERE userid='$userid'");
+		$data = $db->qry_first("SELECT barcode FROM %prefix%user WHERE userid=%int%", $userid);
 		if($data['barcode'] == "0"){
 			$data['barcode'] = $this->gencode($userid);
 
-			$db->query_first("UPDATE {$config["tables"]["user"]} SET barcode = {$data['barcode']} WHERE userid='$userid'");
+			$db->qry_first("UPDATE %prefix%user SET barcode = %string% WHERE userid=%int%", $data['barcode'], $userid);
 			
 		}
 		return $data['barcode'];
