@@ -581,7 +581,7 @@ class masterform {
                 // Send query
                 else {
                   if ($this->isChange) {
-                    $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% %plain% = %int%", $table, $db_query, $AddKey, $id);
+                    $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% %plain% = %int%", $table, $db_query, $AddKey, $idname, $id);
                     $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
                     $addUpdSuccess = $id;
                   } else {
