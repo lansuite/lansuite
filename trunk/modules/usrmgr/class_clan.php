@@ -8,7 +8,7 @@ class Clan {
     if ($name == '') return false;
     
     if (substr($url, 0, 7) != 'http://') $url = 'http://'. $url;
-		
+        
     $db->qry("INSERT INTO %prefix%clan SET
       name = %string%,
       url = %string%,
@@ -41,3 +41,5 @@ class Clan {
 
     return true;
   }
+}
+?>
