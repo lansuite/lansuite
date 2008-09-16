@@ -92,12 +92,12 @@ class seat2 {
 
 		if ($idtype == "b") $blockid = $id;
 		elseif ($idtype != "b") {
-      $row_seat = $db->qry_first("SELECT blockid FROM %string% WHERE userid=%int%", $GLOBALS['config']['tables']['seat_seats'], $id);
+      $row_seat = $db->qry_first("SELECT blockid FROM %prefix%seat_seats WHERE userid=%int%", $id);
       $blockid = $row_seat['blockid'];
       if ($blockid == "") return FALSE;
 		}
 
-		$row_block = $db->qry_first("SELECT u18, blockid FROM %string% WHERE blockid=%int%", $GLOBALS['config']['tables']['seat_block'], $blockid);
+		$row_block = $db->qry_first("SELECT u18, blockid FROM %prefix%seat_block WHERE blockid=%int%", $blockid);
 		$blockid = $row_block['blockid'];
 		if ($blockid == "") return FALSE;
 
