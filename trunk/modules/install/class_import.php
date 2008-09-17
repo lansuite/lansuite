@@ -342,7 +342,7 @@ class Import {
 
             if (!$FoundValueInDB) {
     					$mysql_entries = substr($mysql_entries, 0, strlen($mysql_entries) - 2);
-              $db->qry_first("REPLACE INTO %prefix%%plain% SET %string%", $table_name, $mysql_entries);
+              $db->qry_first("REPLACE INTO %prefix%%plain% SET %plain%", $table_name, $mysql_entries);
             }
           }
         }
