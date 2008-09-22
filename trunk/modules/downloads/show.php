@@ -10,7 +10,7 @@ if (!$cfg['download_use_ftp']) {
   if (is_file($BaseDir.$_GET['dir'])  ) {
     $row = $db->qry_first("SELECT 1 AS found FROM %prefix%download_stats WHERE file = %string% AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
     if ($row['found']) $db->qry("UPDATE %prefix%download_stats SET hits = hits + 1 WHERE file = %string% AND DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
-    else $db->qry("INSERT INTO %prefix%download_stats SET file = %string% hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']});
+    else $db->qry("INSERT INTO %prefix%download_stats SET file = %string%, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')", $_GET['dir']);
 
 #    header('Content-type: application/octetstream'); # Others: application/octet-stream # application/force-download
 #    header('Content-Disposition: attachment; filename="'. substr($_GET['dir'], strrpos($_GET['dir'], '/') + 1, strlen($_GET['dir'])) .'"');
