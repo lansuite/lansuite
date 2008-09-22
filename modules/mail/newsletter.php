@@ -97,7 +97,7 @@ switch($_GET["step"]) {
       LEFT JOIN %prefix%party_user AS p ON p.user_id=u.userid
       LEFT JOIN %prefix%clan AS c ON c.clanid=u.clanid
       LEFT JOIN %prefix%seat_seats AS s ON s.userid=u.userid
-      WHERE %string%
+      WHERE %plain%
       GROUP BY u.email", $where);
 
 		while ($user = $db->fetch_array($users)){
