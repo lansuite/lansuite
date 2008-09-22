@@ -23,16 +23,16 @@ class t_league_export {
 		$data_email = array();
 		$i = 0;
 		$query = $db->qry("SELECT users.username, users.email, tournament.tournamentid, tournament.teamplayer, teams.name, teams.teamid
-    FROM %prefix%t2_teams AS teams
-    LEFT JOIN %prefix%tournament_tournaments AS tournament ON tournament.tournamentid = teams.tournamentid
+    FROM %prefix%tournament_tournaments AS tournament
+    LEFT JOIN %prefix%t2_teams AS teams ON tournament.tournamentid = teams.tournamentid
     LEFT JOIN %prefix%user AS users ON teams.leaderid = users.userid
-    WHERE (tournament.wwcl_gameid > 0)
+    WHERE tournament.wwcl_gameid > 0
      AND (((tournament.teamplayer = 1) AND (!users.wwclid))
-     OR ((tournament.teamplayer > 1) AND (!users.wwclclanid)))
+     OR ((tournament.teamplayer > 1) AND (users.wwclclanid IS NULL)))
     ");
 		while($row = $db->fetch_array($query)) {
 			$i++;
-			array_push ($data_email, $row["teamid"]);
+			array_push($data_email, $row["teamid"]);
 
 			// Spieler
 			if ($row["teamplayer"] == 1) {
@@ -62,10 +62,10 @@ class t_league_export {
 			$ranking = "";
 			while ($akt_pos = array_shift($ranking_data->tid)){
 
-				$user = $db->qry_first("SELECT users.wwclid, users.wwclclanid
-     FROM %prefix%user AS users
-     LEFT JOIN %prefix%t2_teams AS teams ON users.userid = teams.leaderid
-     WHERE teams.teamid = %string%", $akt_pos);
+				$user = $db->qry_first("SELECT u.wwclid, u.wwclclanid
+         FROM %prefix%user AS u
+         LEFT JOIN %prefix%t2_teams AS t ON u.userid = t.leaderid
+         WHERE t.teamid = %string%", $akt_pos);
 
 				if ($row["teamplayer"] == 1) {
 					if ($user["wwclid"]) $wwclid = $user["wwclid"];
