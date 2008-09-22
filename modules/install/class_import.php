@@ -168,8 +168,8 @@ class Import {
   						// Changing int() to datetime
   						if (substr($db_field["Type"], 0, 3) == 'int' and $type == 'datetime') {
   						  $db->qry("ALTER TABLE %prefix%$table_name CHANGE %plain% %plain%_lstmp INT", $name, $name);
-  						  $db->qry("ALTER TABLE %prefix%%plain% ADD %string% DATETIME", $table_name, $name);
-  						  $db->qry("UPDATE %prefix%%plain% SET %string% = FROM_UNIXTIME(%plain%_lstmp)", $table_name, $name, $name);
+  						  $db->qry("ALTER TABLE %prefix%%plain% ADD %plain% DATETIME", $table_name, $name);
+  						  $db->qry("UPDATE %prefix%%plain% SET %plain% = FROM_UNIXTIME(%plain%_lstmp)", $table_name, $name, $name);
   						  $db->qry("ALTER TABLE %prefix%%plain% DROP %plain%_lstmp", $table_name, $name);
 
               // Handle structure changes in general
@@ -197,12 +197,12 @@ class Import {
                 array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
               }
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
-                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
+                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
 
             // Drop keys, which have changed type in XML. They will be re-created beneath
             } elseif ($key == 'PRI') {
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
-                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
+                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
 
             } elseif ($key == 'UNI') {
               if (in_array($name, $DBPrimaryKeys)) {
@@ -210,7 +210,7 @@ class Import {
                 array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
               }
               if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext))
-                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
+                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
 
             } elseif ($key == 'IND') {
               if (in_array($name, $DBPrimaryKeys)) {
@@ -218,7 +218,7 @@ class Import {
                 array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
               }
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext))
-                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
+                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
 
             } elseif ($key == 'FUL') {
               if (in_array($name, $DBPrimaryKeys)) {
@@ -226,7 +226,7 @@ class Import {
                 array_splice($DBPrimaryKeys, array_search($name, $DBPrimaryKeys));
               }
               if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes))
-                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
+                $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
             }
             // Primary Key in XML but not in DB
             // Attention when adding a double-primary-key it is added one after another. So some lines will be droped!
@@ -244,20 +244,20 @@ class Import {
 
             // Unique keys in XML but not in DB
             if ($key == 'UNI' and !in_array($name, $DBUniqueKeys)) {
-              if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
+              if (in_array($name, $DBIndizes) or in_array($name, $DBFulltext)) $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
               // IGNORE is to drop non-uniqe lines
               $db->qry("ALTER IGNORE TABLE %prefix%%plain% ADD UNIQUE (%plain%)", $table_name, $name);
             }
 
             // Index in XML but not in DB
             if ($key == 'IND' and !in_array($name, $DBIndizes)) {
-              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext)) $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
+              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBFulltext)) $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
               $db->qry("ALTER TABLE %prefix%%plain% ADD INDEX (%plain%)", $table_name, $name);
             }
 
             // Fulltext in XML but not in DB
             if ($key == 'FUL' and !in_array($name, $DBFulltext)) {
-              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes)) $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %string%", $table_name, $name);
+              if (in_array($name, $DBUniqueKeys) or in_array($name, $DBIndizes)) $db->qry("ALTER TABLE %prefix%%plain% DROP INDEX %plain%", $table_name, $name);
               ## TODO: if ($type == 'text' or $type == 'longtext' or substr($type, 0, 7) == 'varchar')
               $db->qry("ALTER TABLE %prefix%%plain% ADD FULLTEXT (%plain%)", $table_name, $name);
             }

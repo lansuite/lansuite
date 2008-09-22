@@ -16,7 +16,7 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
     if ($id) {
     $db->qry("DELETE FROM %prefix%user_permissions WHERE userid = %int%", $id);
     if ($_POST["permissions"]) foreach ($_POST["permissions"] as $perm) {
-        $db->qry("INSERT INTO %prefix%user_permissions SET module = %string% userid = %int%", $perm, $id);
+        $db->qry("INSERT INTO %prefix%user_permissions SET module = %string%, userid = %int%", $perm, $id);
     }
   }
 
