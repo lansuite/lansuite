@@ -64,4 +64,5 @@ if ($where_back) {
   $dsp->AddBackButton('index.php?mod=stats&action=usage&time='. $back .'&timeframe='. $row_back['back_time'], "stats/usage");
 }
 
-$d
+$dsp->AddContent();
+?>

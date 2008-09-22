@@ -61,7 +61,7 @@ function IfFinished($tid) {
 
 
 $ms2->query['from'] = "{$config["tables"]["tournament_tournaments"]} AS t LEFT JOIN {$config["tables"]["t2_teams"]} AS teams ON t.tournamentid = teams.tournamentid";
-$ms2->query['where'] = "(t.status != 'invisible' OR {$auth['type']} > 1) AND t.party_id = ". (int)$party->party_id;
+$ms2->query['where'] = "(t.status != 'invisible' OR ". (int)$auth['type'] ." > 1) AND t.party_id = ". (int)$party->party_id;
 
 $ms2->config['EntriesPerPage'] = 50;
 
