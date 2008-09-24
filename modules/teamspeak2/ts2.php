@@ -70,6 +70,7 @@
 else {
 $dsp->NewContent("TeamSpeak2", t('Übersicht der Channels und User auf dem TeamSpeak Server. Um auf den Server zu connecten, einfach auf einen Channel klicken und den Anweisungen folgen.'));
 $dsp->AddSingleRow("&nbsp");
+ob_start();
 ?>
 <table border="0" width="<?php echo $cfg['tabellenbreite'] ?>" bgcolor = "<?php echo $cfg['hintergrund'] ?>">
  <tr>
@@ -88,4 +89,8 @@ $dsp->AddSingleRow("&nbsp");
   </td>
  </tr>
 </table>
-<?php } ?>
+<?php
+  $dsp->AddSingleRow(ob_get_contents());
+  ob_end_clean();
+}
+?>
