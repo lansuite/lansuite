@@ -34,8 +34,11 @@ class MasterSearch2 {
     // Write Get to Post, for MF expects this for default values
     if ($_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
     if ($_GET['search_dd_input']) foreach($_GET['search_dd_input'] as $key => $val) {
-      if (is_array($val)) foreach($val as $key2 => $val2) $_POST['search_dd_input'][$key][$key2] = $val2; 
-      else $_POST['search_dd_input'][$key] = $val;
+      if (is_array($val)) {
+        foreach($val as $key2 => $val2) $_POST['search_dd_input'][$key][$key2] = $val2;
+      } else {
+        $_POST['search_dd_input'][$key] = $val;
+      }
     }
 
     $this->config['EntriesPerPage'] = 20;
