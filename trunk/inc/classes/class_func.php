@@ -399,52 +399,57 @@ class func {
   }
 
   // If ls-code should be displayed
-    function text2html($string, $mode = 0) { // mode 0: default; 1: wiki before; 2: wiki after
+    function text2html($string, $mode = 0) { // mode 0: default; 1: wiki before; 2: wiki after; 4: basic
         global $db, $config, $auth;
 
-        if ($mode != 1) {
-          preg_replace_callback(
-            '#\[c\]((.)*)\[\/c\]#sUi',
-            create_function(
-              '$treffer',
-              'global $HighlightCode, $HighlightCount; $HighlightCount++; $HighlightCode[$HighlightCount] = $treffer[1];'
-            ),
-            $string
-          );
-        }
-        
-        if ($mode != 2) {
-          $img_start = "<img src=\"design/".$auth["design"]."/images/";
-          $img_start2 = '<img src="ext_inc/smilies/';
-          $img_end   = '" border="0" alt="" />';
-  
-          $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:450px; max-height:450px; overflow:hidden;" />', $string);
-          $string = preg_replace('#\\[url=(index\.php\?[^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a href="\\1" rel="nofollow">\\2</a>', $string);
-          $string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
-    
+        if ($mode != 4) {
           if ($mode != 1) {
-            $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
-            $string = preg_replace('#(\\s|^)(mailto:(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\3</a>\\4', $string);
-            $string = preg_replace('#(\\s|^)(www\\.(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="http://\\2" rel="nofollow">\\2</a>\\4', $string);
+            preg_replace_callback(
+              '#\[c\]((.)*)\[\/c\]#sUi',
+              create_function(
+                '$treffer',
+                'global $HighlightCode, $HighlightCount; $HighlightCount++; $HighlightCode[$HighlightCount] = $treffer[1];'
+              ),
+              $string
+            );
           }
           
-          $string = str_replace("\r", '', $string);
-          $string = str_replace("\n", "<br />\n", $string);
-          $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
-  
-          $string = str_replace('[b]', '<b>', $string);
-          $string = str_replace('[/b]', '</b>', $string);
-          $string = str_replace('[i]', '<i>', $string);
-          $string = str_replace('[/i]', '</i>', $string);
-          $string = str_replace('[u]', '<u>', $string);
-          $string = str_replace('[/u]', '</u>', $string);
-          $string = str_replace('[s]', '<strike>', $string);
-          $string = str_replace('[/s]', '</strike>', $string);
-          $string = str_replace('[sub]', '<sub>', $string);
-          $string = str_replace('[/sub]', '</sub>', $string);
-          $string = str_replace('[sup]', '<sup>', $string);
-          $string = str_replace('[/sup]', '</sup>', $string);
-  
+          if ($mode != 2) {
+            $img_start = "<img src=\"design/".$auth["design"]."/images/";
+            $img_start2 = '<img src="ext_inc/smilies/';
+            $img_end   = '" border="0" alt="" />';
+    
+            $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:450px; max-height:450px; overflow:hidden;" />', $string);
+            $string = preg_replace('#\\[url=(index\.php\?[^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a href="\\1" rel="nofollow">\\2</a>', $string);
+            $string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
+      
+            if ($mode != 1) {
+              $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
+              $string = preg_replace('#(\\s|^)(mailto:(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\3</a>\\4', $string);
+              $string = preg_replace('#(\\s|^)(www\\.(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="http://\\2" rel="nofollow">\\2</a>\\4', $string);
+            }
+          }
+        }
+                    
+        $string = str_replace("\r", '', $string);
+        $string = str_replace("\n", "<br />\n", $string);
+        $string = str_replace("[br]", "<br />\n", $string);
+        $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
+
+        $string = str_replace('[b]', '<b>', $string);
+        $string = str_replace('[/b]', '</b>', $string);
+        $string = str_replace('[i]', '<i>', $string);
+        $string = str_replace('[/i]', '</i>', $string);
+        $string = str_replace('[u]', '<u>', $string);
+        $string = str_replace('[/u]', '</u>', $string);
+        $string = str_replace('[s]', '<strike>', $string);
+        $string = str_replace('[/s]', '</strike>', $string);
+        $string = str_replace('[sub]', '<sub>', $string);
+        $string = str_replace('[/sub]', '</sub>', $string);
+        $string = str_replace('[sup]', '<sup>', $string);
+        $string = str_replace('[/sup]', '</sup>', $string);
+
+        if ($mode != 4) {
           $string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">', $string);
           $string = str_replace('[/quote]', '</div></blockquote>', $string);
   
@@ -458,19 +463,19 @@ class func {
             while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
             $db->free_result($res);
           }
+  
+          if ($mode != 1) {
+            $string = preg_replace_callback(
+              '#\[c\](.)*\[\/c\]#sUi',
+              create_function(
+                '$treffer',
+                'global $func, $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. $func->AllowHTML(geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true)) .\'</div></blockquote>\';'
+              ),
+              $string
+            );
+          }
         }
-
-        if ($mode != 1) {
-          $string = preg_replace_callback(
-            '#\[c\](.)*\[\/c\]#sUi',
-            create_function(
-              '$treffer',
-              'global $func, $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. $func->AllowHTML(geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true)) .\'</div></blockquote>\';'
-            ),
-            $string
-          );
-        }
-        
+                
         return $string;
     }
 
