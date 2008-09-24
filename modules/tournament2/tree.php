@@ -1,3 +1,4 @@
+
 <?php
 
 if (!$_GET['tournamentid']) $func->error(t('Sie haben kein Turnier ausgewählt!'), '');
@@ -53,9 +54,9 @@ else {
   			$dsp->AddDropDownFieldRow("group", t('Gruppenauswahl'), $t_array, "");
   			$dsp->AddFormSubmitRow("next");
   
-  		} else {
-  			$dsp->AddSingleRow('<iframe src="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'" width="99%" height="'. (int)$height .'"><a href="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'">Tree</a></iframe>');
-  			
+  		} else $dsp->AddSingleRow('<iframe src="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'" width="100%" height="'. (int)$height .'" style="width:100%; min-width:600px;"><a href="index.php?mod=tournament2&action=tree_frame&design=base&tournamentid='. (int)$_GET['tournamentid'] .'&group='. (int)$_POST['group'] .'">Tree</a></iframe>');
+
+/*  			
   			if ($tournament["mode"] == "groups"){
   				if(!file_exists("ext_inc/tournament_trees/tournament_" . $_GET['tournamentid'] . "_" . $_POST['group'] . ".png")){
 #  					$cronjob->load_job("cron_tmod");
@@ -70,6 +71,7 @@ else {
 #  				if (!$cfg['t_text_tree']) $dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_". $_GET['tournamentid'] .".png\">".t('Hier können Sie die Grafik herunterladen')."</a>");
   			}
   		}
+*/
   
   		
   		if ($func->internal_referer) $dsp->AddBackButton($func->internal_referer, "tournament2/games");
