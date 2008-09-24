@@ -28,7 +28,7 @@ class News {
     while($news = $db->fetch_array($get_news)) {
       $item = $xml->write_tag("title", $news["caption"], 3);
       $item .= $xml->write_tag("description", $func->Entity2Uml(strip_tags($news["text"])), 3);
-      $item .= $xml->write_tag("author", "{$news['firstname']} {$news['name']} ({$news['username']})", 3);
+      $item .= $xml->write_tag("author", $func->Entity2Uml("{$news['firstname']} {$news['name']} ({$news['username']})"), 3);
       $item .= $xml->write_tag("pubDate", date("D, j M Y H:i:s O", $news['date']), 3);
                                                     
       $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
