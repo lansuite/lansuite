@@ -64,7 +64,7 @@ elseif ($thread['caption'] != '') {
 	// Mark thread read
 	$search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%board_read_state WHERE tid = %int% and userid = %int%", $tid, $auth["userid"]);
 	if ($search_read["found"]) $db->qry_first("UPDATE %prefix%board_read_state SET last_read = %int% WHERE tid = %int% and userid = %int%", time(), $tid, $auth["userid"]);
-	else $db->qry_first("INSERT INTO %prefix%board_read_state SET last_read = %int%, tid = %int%, userid = %int%", $tid, time(), $auth["userid"]);
+	else $db->qry_first("INSERT INTO %prefix%board_read_state SET last_read = %int%, tid = %int%, userid = %int%", time(), $tid, $auth["userid"]);
 
   // Tread Headline
 	$hyperlink = '<a href="%s" class="menu">%s</a>';

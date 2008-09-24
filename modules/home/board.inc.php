@@ -11,7 +11,7 @@ $query = $db->qry("SELECT f.fid, t.tid, MAX(p.pid) AS pid, t.caption, MAX(p.date
 	LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
 	LEFT JOIN %prefix%board_posts AS p ON p.tid = t.tid
         LEFT JOIN %prefix%board_read_state AS r ON t.tid = r.tid AND r.userid = %int%
-	WHERE (f.need_type <= %string% AND (!f.need_group OR f.need_group = %int%))
+	WHERE (f.need_type <= %int% AND (!f.need_group OR f.need_group = %int%))
 	GROUP BY t.tid
 	ORDER BY LastPost DESC
 	LIMIT 0, %int%", $auth['userid'], $authtyp, $auth['group_id'], $cfg['home_item_count']);
