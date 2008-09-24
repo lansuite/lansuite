@@ -56,21 +56,6 @@ else {
   ######## Check if roundtime has exceeded and set awaiting scores randomly
   $tfunc->CheckTimeExceed($tournamentid);
 
-  $templ['index']['html_header'] .= '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />';
-  $templ['index']['info']['content'] .= '<div id="content"></div>
-    <script src="ext_scripts/SVG2VMLv1_1.js"></script>
-    <script src="ext_scripts/ls_svg2vml.js"></script>
-		<script>
-			function go() {
-				vectorModel = new VectorModel();
-				container = document.getElementById("content");
-				mySvg = vectorModel.createElement("svg");
-				container.appendChild(mySvg);
-				mySvg.setAttribute("version", "1.1");
-			  myG = vectorModel.createElement("g");
-				mySvg.appendChild(myG);
-  ';
-
   $map = explode("\n", $t["mapcycle"]);
   if ($map[0] == "") $map[0] = t('unbekannt');
 
@@ -129,6 +114,22 @@ else {
   		$box_height = 40;
   		$img_height = $height + $height_menu;
   	}
+
+    $templ['index']['html_header'] .= '<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />';
+    $templ['index']['info']['content'] .= '<div id="content" style="width:'. (int)$width .'; height:'. (int)$img_height .'px"></div>
+      <script src="ext_scripts/SVG2VMLv1_1.js"></script>
+      <script src="ext_scripts/ls_svg2vml.js"></script>
+  		<script>
+  			function go() {
+  				vectorModel = new VectorModel();
+  				container = document.getElementById("content");
+  				mySvg = vectorModel.createElement("svg");
+        	mySvg.setAttribute("width", "'. (int)$width .'");
+  				container.appendChild(mySvg);
+  				mySvg.setAttribute("version", "1.1");
+  			  myG = vectorModel.createElement("g");
+  				mySvg.appendChild(myG);
+    ';
   
 
   	function write_pairs2 ($bracket, $max_pos) {
@@ -342,8 +343,6 @@ else {
   	$templ['index']['info']['content'] .= "//-->\r\n";
   	$templ['index']['info']['content'] .= "</script>\r\n";
   }
-  
-  $templ['index']['info']['content'] .= '</body></html>';
 }
 
 $framework->add_content($func->FetchMasterTmpl("design/templates/base_index.htm", $templ));
