@@ -11,8 +11,7 @@
  * @return string the translated String
  */
 function t(/*$input, $parameter1, $parameter2....*/) {
-
-    global $db, $translation;
+    global $db, $translation, $func;
     
     ### Prepare Functionparameters
         // First argument is the Inputstring, the following are Parameters
@@ -49,10 +48,14 @@ function t(/*$input, $parameter1, $parameter2....*/) {
                 else $output = $translation->ReplaceParameters($input, $parameters, $key);
         }
     }
+
+    // Deprecated. Should be replaced in t() by '<', '>' and '[br]'
     $output = str_replace("--lt--", "<", $output);
     $output = str_replace("--gt--", ">", $output);
     $output = str_replace("HTML_NEWLINE", "<br />", $output);
-    return $output;
+
+    return $func->text2html($output, 4);
+#    return $output;
 }
 
 /**
