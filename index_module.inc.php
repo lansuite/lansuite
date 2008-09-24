@@ -28,6 +28,7 @@ if (func::admin_exists() and $auth['type'] > 1 and $_GET["mod"] != 'install') {
         if (!$permission['found']) {
             $auth['type'] = 1;
             $_SESSION['auth']['type'] = 1;
+            $authentication->auth['type'] = 1;
         }
     }
 }
