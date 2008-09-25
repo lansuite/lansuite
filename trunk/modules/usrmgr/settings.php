@@ -1,5 +1,10 @@
 <?php
 
+// Create user in user_settings, if not pressent
+// (in some installations this was not created automatically)
+$row = $db->qry_first("SELECT 1 AS found FROM %prefix%usersettings WHERE userid = %int%", $auth['userid']);
+if (!$row['found']) $db->qry("INSERT INTO %prefix%usersettings SET userid = %int%", $auth['userid']);
+
 function CheckAndResizeUploadPic($AvatarName) {
   global $gd;
 
