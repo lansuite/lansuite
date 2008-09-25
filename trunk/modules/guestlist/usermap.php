@@ -22,11 +22,11 @@ if ($cfg['guestlist_guestmap'] == 2) {
     $where_pid = '';
     if ($party->party_id) $where_pid = "AND (p.party_id = {$party->party_id})";
 
-    $res = $db->query("SELECT u.*, s.avatar_path FROM {$config["tables"]["user"]} AS u
-  		LEFT JOIN {$config["tables"]["party_user"]} AS p ON u.userid = p.user_id
-  		LEFT JOIN {$config["tables"]["usersettings"]} AS s ON u.userid = s.userid
-  		WHERE u.plz > 0 AND u.type > 0 AND s.show_me_in_map = 1 $where_pid
-      ");
+    $res = $db->qry("SELECT u.*, s.avatar_path FROM %prefix%user AS u
+  		LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
+  		LEFT JOIN %prefix%usersettings AS s ON u.userid = s.userid
+  		WHERE u.plz > 0 AND u.type > 0 AND s.show_me_in_map = 1 %plain%
+      ", $where_pid);
 
     $templ['addresses'] = '';
     while ($row = $db->fetch_array($res)) {
@@ -71,14 +71,14 @@ if ($cfg['guestlist_guestmap'] == 2) {
   	$xf = $img_width / (abs($x_start - $x_end));
   	$yf = $img_height / (abs($y_start - $y_end));
 
-  	$res = $db->query("SELECT user.userid, user.username, user.city, user.plz, COUNT(*) AS anz, locations.laenge, locations.breite
-  		FROM {$config["tables"]["user"]} AS user
-  		LEFT JOIN {$config["tables"]["usersettings"]} AS s ON user.userid = s.userid
-  		INNER JOIN {$config["tables"]["locations"]} AS locations ON user.plz = locations.plz
-  		INNER JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id
-  		WHERE (user.plz > 0) AND s.show_me_in_map = 1 AND (party.party_id = {$party->party_id}) AND user.type > 0
+  	$res = $db->qry("SELECT user.userid, user.username, user.city, user.plz, COUNT(*) AS anz, locations.laenge, locations.breite
+  		FROM %prefix%user AS user
+  		LEFT JOIN %prefix%usersettings AS s ON user.userid = s.userid
+  		INNER JOIN %prefix%locations AS locations ON user.plz = locations.plz
+  		INNER JOIN %prefix%party_user AS party ON user.userid = party.user_id
+  		WHERE (user.plz > 0) AND s.show_me_in_map = 1 AND (party.party_id = %int%) AND user.type > 0
   		GROUP BY locations.laenge, locations.breite
-  		");
+  		", $party->party_id);
   	$z = 0;
   	while ($user = $db->fetch_array($res)) {
   	  $z++;
@@ -90,37 +90,35 @@ if ($cfg['guestlist_guestmap'] == 2) {
   		
   		
   		// Get list of all users with current plz
-  		$res2 = $db->query("SELECT u.username, u.firstname, u.name
-		FROM lansuite_user AS u
-		LEFT JOIN lansuite_usersettings AS s ON u.userid = s.userid
-		INNER JOIN lansuite_party_user AS p ON u.userid = p.user_id
-		INNER JOIN lansuite_locations AS locations ON u.plz = locations.plz
-		WHERE (laenge LIKE {$user['laenge']} AND breite LIKE {$user['breite']}) AND s.show_me_in_map = 1 AND (p.party_id = {$party->party_id}) AND u.type > 0
-		GROUP BY u.userid
-		");
+  		$res2 = $db->qry("SELECT u.username, u.firstname, u.name
+    		FROM %prefix%user AS u
+    		LEFT JOIN %prefix%usersettings AS s ON u.userid = s.userid
+    		INNER JOIN %prefix%party_user AS p ON u.userid = p.user_id
+    		INNER JOIN %prefix%locations AS locations ON u.plz = locations.plz
+    		WHERE (laenge LIKE %string% AND breite LIKE %string%) AND s.show_me_in_map = 1 AND (p.party_id = %int%) AND u.type > 0
+    		GROUP BY u.userid
+    		", $user['laenge'], $user['breite'], $party->party_id);
 		
-		$UsersOut = '';
+  		$UsersOut = '';
 		
-  			while ($current_user = $db->fetch_array($res2)) {
-				if ($auth['type'] < 2 and ($cfg['sys_internet'])) {
-  			   		$current_user['firstname'] = '---';
-  		   	 		$current_user['name'] = '---';
-        		}
-        		$UsersOut .= HTML_NEWLINE . $current_user['username'] .' ('. $current_user['firstname'] .' '. $current_user['name'] .')';
-  			}
-  			$db->free_result($res2);
+			while ($current_user = $db->fetch_array($res2)) {
+			if ($auth['type'] < 2 and ($cfg['sys_internet'])) {
+			   		$current_user['firstname'] = '---';
+		   	 		$current_user['name'] = '---';
+      		}
+      		$UsersOut .= HTML_NEWLINE . $current_user['username'] .' ('. $current_user['firstname'] .' '. $current_user['name'] .')';
+			}
+			$db->free_result($res2);
 
-		//Entfernungsberechnung
-		$breite1 = $user['breite']/180*$pi;
-		$breite2 = $res3['breite']/180*$pi;
-		$laenge1 = $user['laenge']/180*$pi;
-		$laenge2 = $res3['laenge']/180*$pi;
+  		//Entfernungsberechnung
+  		$breite1 = $user['breite']/180*$pi;
+  		$breite2 = $res3['breite']/180*$pi;
+  		$laenge1 = $user['laenge']/180*$pi;
+  		$laenge2 = $res3['laenge']/180*$pi;
+  		
+  		$e = acos( sin($breite1)*sin($breite2) + cos($breite1)*cos($breite2)*cos($laenge2-$laenge1) );
+  		$entfernung = round($e * 6378.137, 0);
 		
-		$e = acos( sin($breite1)*sin($breite2) + cos($breite1)*cos($breite2)*cos($laenge2-$laenge1) );
-		$entfernung = round($e * 6378.137, 0);
-		
-
-
   		$hint = '<b>'. $user['plz'] .' '. $user['city'] .' ('. $user['anz'] . ' G&auml;ste) '. $entfernung .'km</b>'. $UsersOut;
 
   		$map_out .= "<area name=\"point$z\" shape=\"rect\" coords=\"". ($kx-$size) .", ". ($ky-$size) .", ". ($kx+$size) .", ". ($ky+$size) ."\" onmouseover=\"return overlib('". $hint ."');\" onmouseout=\"return nd();\"' />";

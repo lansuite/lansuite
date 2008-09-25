@@ -15,14 +15,14 @@ $yf = $img_height / (abs($y_start - $y_end));
 
 $red = ImageColorAllocate($map_img, 255, 0, 0);
 
-$res = $db->query("SELECT user.userid, user.username, user.city, user.plz, COUNT(*) AS anz, locations.laenge, locations.breite
-		FROM {$config["tables"]["user"]} AS user
-		LEFT JOIN {$config["tables"]["usersettings"]} AS s ON user.userid = s.userid
-		INNER JOIN {$config["tables"]["locations"]} AS locations ON user.plz = locations.plz
-		INNER JOIN {$config["tables"]["party_user"]} AS party ON user.userid = party.user_id
-		WHERE (user.plz > 0) AND s.show_me_in_map = 1 AND (party.party_id = {$party->party_id}) AND user.type > 0
+$res = $db->qry("SELECT user.userid, user.username, user.city, user.plz, COUNT(*) AS anz, locations.laenge, locations.breite
+		FROM %prefix%user AS user
+		LEFT JOIN %prefix%usersettings AS s ON user.userid = s.userid
+		INNER JOIN %prefix%locations AS locations ON user.plz = locations.plz
+		INNER JOIN %prefix%party_user AS party ON user.userid = party.user_id
+		WHERE (user.plz > 0) AND s.show_me_in_map = 1 AND (party.party_id = %int%) AND user.type > 0
 		GROUP BY user.plz
-		");
+		", $party->party_id);
 
 while ($user = $db->fetch_array($res)) {
 	$kx = (int) ($xf * ($user['laenge'] - $x_start));

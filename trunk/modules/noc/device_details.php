@@ -275,7 +275,7 @@ if( !$row = $db->fetch_array() ) {
 	
 		if(is_array($_SESSION['noc_ports'])){
 			foreach ($_SESSION['noc_ports'] as $noc_data){
-				$device = $db->query_first( "SELECT name, readcommunity, writecommunity, ip FROM {$config["tables"]["noc_devices"]} WHERE id=" . $noc_data );
+				$device = $db->qry_first("SELECT name, readcommunity, writecommunity, ip FROM %prefix%noc_devices WHERE id = %int%", $noc_data);
 
 
 
@@ -313,7 +313,7 @@ if( !$row = $db->fetch_array() ) {
 			}
 				
 			}elseif (isset($_SESSION['noc_ports'])){
-				$device = $db->query_first( "SELECT name, readcommunity, writecommunity, ip FROM {$config["tables"]["noc_devices"]} WHERE id=" . $_SESSION['noc_ports']);
+				$device = $db->qry_first("SELECT name, readcommunity, writecommunity, ip FROM %prefix%noc_devices WHERE id = %int%", $_SESSION['noc_ports']);
 
 
 

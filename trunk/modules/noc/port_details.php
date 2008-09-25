@@ -10,7 +10,7 @@ switch( $_GET["step"] ) {
 	default:
 	case 1:
 		// Get all the Port data
-		$row = $db->query_first( "SELECT * FROM {$config["tables"]["noc_ports"]} WHERE portid=" . $_GET["portid"] );
+		$row = $db->qry_first("SELECT * FROM %prefix%noc_ports WHERE portid = %int%", $_GET["portid"]);
 		
 		if($row["portid"] == "") $func->error(t('Dieser Port existiert nicht'),"");
 		
@@ -77,13 +77,13 @@ switch( $_GET["step"] ) {
 	// 3 stands for change the port "status" (deactivate it, regulate the speed, and so on)
 	case 3:
 	
-		$port = $db->query_first( "SELECT portid, deviceid, portnr, adminstatus FROM {$config["tables"]["noc_ports"]} WHERE portid=" . $_GET["portid"] );
+		$port = $db->qry_first("SELECT portid, deviceid, portnr, adminstatus FROM %prefix%noc_ports WHERE portid = %int%", $_GET["portid"]);
 		
 		if($port["portid"] == "") $func->error(t('Dieser Port existiert nicht')	,""); 
 		
 		else {
 
-			$device = $db->query_first( "SELECT name, readcommunity, writecommunity, ip FROM {$config["tables"]["noc_devices"]} WHERE id=" . $port['deviceid'] );
+			$device = $db->qry_first( "SELECT name, readcommunity, writecommunity, ip FROM %prefix%noc_devices WHERE id = %int%", $port['deviceid']);
 
 
 

@@ -353,8 +353,8 @@ class pdf_tmpl{
 			$visible = 0;
 		}
 		
-		if($db->query("INSERT INTO " . $config['tables']['pdf_data'] . "  ( `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` , `sort` ) 
-		VALUES ('$this->tmpl_id' , '" . $_POST['visible'] . "' , '$object', '" . $_POST['pos_x'] . "', '" . $_POST['pos_y'] . "', '" . $_POST['end_x'] . "', '" . $_POST['end_y'] . "', '" . $_POST['fontsize'] . "', '" . $_POST['font'] . "', '" . $_POST['red'] . "', '" . $_POST['green'] . "', '" . $_POST['blue'] . "', '" . $_POST['text'] . "', '" . $_POST['user_type'] . "', '" . $_POST['sort'] . "')" )){
+		if ($db->qry("INSERT INTO %prefix%pdf_data ( `template_id` , `visible` , `type` , `pos_x` , `pos_y` , `end_x` , `end_y` , `fontsize` , `font` , `red` , `green` , `blue` , `text` , `user_type` , `sort` ) 
+		  VALUES %plain%", "('$this->tmpl_id' , '" . $_POST['visible'] . "' , '$object', '" . $_POST['pos_x'] . "', '" . $_POST['pos_y'] . "', '" . $_POST['end_x'] . "', '" . $_POST['end_y'] . "', '" . $_POST['fontsize'] . "', '" . $_POST['font'] . "', '" . $_POST['red'] . "', '" . $_POST['green'] . "', '" . $_POST['blue'] . "', '" . $_POST['text'] . "', '" . $_POST['user_type'] . "', '" . $_POST['sort'] . "')")) {
 			$func->confirmation(t('Die Daten wurden hinzugef&uuml;gt'),"index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id);
 		}else{
 			$func->error(t('Die Daten konnten nicht hinzugef&uuml;gt werden'),"index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id);
@@ -374,7 +374,7 @@ class pdf_tmpl{
 		}
 
 	
-		if($db->query("UPDATE " . $config['tables']['pdf_data'] . "  
+		if($db->qry("UPDATE %prefix%pdf_data SET %plain%", "  
 			SET `visible`='" . $_POST['visible'] . 
 		       "', `pos_x`='" . $_POST['pos_x'] .
 		       "', `pos_y`='" . $_POST['pos_y'] .

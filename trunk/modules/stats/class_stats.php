@@ -16,18 +16,12 @@ class stats {
       $db->qry("INSERT INTO %prefix%stats_usage
         SET visits = 0, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')
         ON DUPLICATE KEY UPDATE hits = hits + 1;");
-#			$find = $db->query_first_rows("SELECT hits FROM {$config["tables"]["stats_usage"]} WHERE DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
-#			if ($find["number"] > 0) $db->qry("UPDATE %prefix%stats_usage SET hits = hits + 1 WHERE DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
-#			else $db->qry("INSERT INTO %prefix%stats_usage SET visits = 0, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
 
     // New session -> Hit and visit
     } else {
       $db->qry("INSERT INTO %prefix%stats_usage
         SET visits = 1, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')
         ON DUPLICATE KEY UPDATE visits = visits + 1, hits = hits + 1;");
-#			$find = $db->query_first_rows("SELECT hits FROM {$config["tables"]["stats_usage"]} WHERE DATE_FORMAT(time, '%Y%m%d%H') = DATE_FORMAT(NOW(), '%Y%m%d%H')");
-#			if ($find["number"] > 0) $db->qry("UPDATE %prefix%stats_usage SET visits = visits + 1, hits = hits + 1 WHERE DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
-#			else $db->qry("INSERT INTO %prefix%stats_usage SET visits = 1, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')");
 		}
     setcookie('last_hit', time(), time() + (30 * 60));
 
@@ -64,7 +58,7 @@ class stats {
 
 				// Search for parameter containing the search term
 				if ($para_var == $query_var[$search_engine]){
-					$row = $db->query_first_rows("SELECT term FROM {$config["tables"]["stats_se"]} WHERE term = '$para_val' AND se = '$search_engine'");
+					$row = $db->qry_first_rows("SELECT term FROM %prefix%stats_se WHERE term = %string% AND se = %string%", $para_val, $search_engine);
 					if ($row["number"] > 0) $db->qry("UPDATE %prefix%stats_se SET hits = hits + 1, last = 'time()' WHERE term = %string% AND se = %string%", $para_val, $search_engine);
 					else $db->qry("INSERT INTO %prefix%stats_se SET hits = 1, term = %string%, se = %string%, first = %int%, last = %int%", $para_val, $search_engine, time(), time());
 				}

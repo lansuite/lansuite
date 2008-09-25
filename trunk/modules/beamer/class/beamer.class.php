@@ -22,7 +22,7 @@ class beamer {
   
   function countSQL($where) {
   global $db, $config;
-   $row = $db->query_first( "SELECT count(bcID) as n FROM {$config['tables']['beamer_content']} " . $where );
+   $row = $db->qry_first("SELECT count(bcID) as n FROM %prefix%beamer_content %plain%", $where);
    return $row['n']; 
   }
   
@@ -64,7 +64,7 @@ class beamer {
   function toggleBeamerActive ( $bcid , $beamerid ) {
   global $config, $db;
     if( $beamerid == "" ) { return; }
-  	$row = $db->query_first( 'SELECT b'.$beamerid.' As active FROM ' . $config["tables"]["beamer_content"] . ' WHERE bcID = ' . $bcid );
+  	$row = $db->qry_first('SELECT b%plain% As active FROM %prefix%beamer_content WHERE bcID = %int%', $beamerid, $bcid);
 	$active = $row['active'];
 	if( $active == "1" ) {
 		$insert_sql = $db->qry("UPDATE %prefix%beamer_content SET b%plain% = '0' WHERE bcID = %int% LIMIT 1", $beamerid, $bcid);
@@ -114,9 +114,8 @@ class beamer {
   function getCurrentContent ( $beamerid ) {
   global $db, $config, $func;
   
-  	$row = $db->query_first('SELECT * FROM ' . $config["tables"]["beamer_content"] . ' WHERE active = 1 AND b'.$beamerid.' = 1  '.
-							'ORDER BY lastView ASC');
-	$update = $db->query('UPDATE %prefix%beamer_content SET lastView = %int% WHERE bcID = %int% LIMIT 1', time(), $row['bcID']);
+  	$row = $db->qry_first('SELECT * FROM %prefix%beamer_content WHERE active = 1 AND b%plain% = 1 ORDER BY lastView ASC', $beamerid);
+	$update = $db->qry('UPDATE %prefix%beamer_content SET lastView = %int% WHERE bcID = %int% LIMIT 1', time(), $row['bcID']);
 	
 	
 	switch ( $row['contentType'] ) {
@@ -156,7 +155,7 @@ class beamer {
   
   function getTournamentNamebyID( $ctid ) {
   global $db, $config, $func;  
-   	$result = $db->query_first('SELECT name FROM ' . $config["tables"]["tournament_tournaments"] . " WHERE tournamentid ='$ctid'" );
+   	$result = $db->qry_first('SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $ctid);
     return $result['name'];
   }
   
