@@ -17,8 +17,10 @@ else
 // Reset $auth['type'], if no permission to Mod
 if (func::admin_exists() and $auth['type'] > 1 and $_GET["mod"] != 'install') {
 
-    // Has at least someone access to this mod?
-    $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string%",$mod);
+    // Has at least someone (with rights equal or above) access to this mod?
+    $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions AS p
+      LEFT JOIN %prefix%user AS u on p.userid = u.userid
+      WHERE p.module = %string% AND u.type >= %int%", $mod, $auth['type']);
 
     // If so: Has the current user access to this mod?
     if ($permission['found']) {
