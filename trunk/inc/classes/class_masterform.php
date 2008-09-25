@@ -162,7 +162,7 @@ class masterform {
     switch ($Step_Tmp) {
       default:
 
-        $_SESSION['mf_referrer'] = $func->internal_referer;
+        $_SESSION['mf_referrer'][$mf_number] = $func->internal_referer;
 
         // Read current values, if change
         if ($this->isChange) {
@@ -599,12 +599,12 @@ class masterform {
             }
             if ($this->AdditionalDBUpdateFunction) $addUpdSuccess = call_user_func($this->AdditionalDBUpdateFunction, $id);
             if ($addUpdSuccess) {
-              if ($this->isChange) $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer']);
+              if ($this->isChange) $func->confirmation(t('Die Daten wurden erfolgreich geändert.'), $_SESSION['mf_referrer'][$mf_number]);
               else $func->confirmation(t('Die Daten wurden erfolgreich eingefügt.'), $this->LinkBack);
             }
           }
 
-          unset($_SESSION['mf_referrer']);
+          unset($_SESSION['mf_referrer'][$mf_number]);
           $sec->lock($table);
           return $addUpdSuccess;
           /* Will be
