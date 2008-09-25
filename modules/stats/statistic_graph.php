@@ -43,11 +43,11 @@
 	$red = ImageColorAllocate( $Image, 240, 0, 0 );
 
 	// Create the Lines
-	$db->query( "SELECT time FROM {$config['tables']['stats_localserver']}" );
+	$db->qry("SELECT time FROM %prefix%stats_localserver");
 	$rows = $db->num_rows( );
 	
   (($rows - 11) < 0)? $st = 0 : $st = $rows - 11;
-	$db->query( "SELECT time, {$_GET['act']} FROM {$config['tables']['stats_localserver']} ORDER BY time ASC LIMIT ". $st ."," . ($rows + 1) );
+	$db->qry("SELECT time, %plain% FROM %prefix%stats_localserver']} ORDER BY time ASC LIMIT %int%, %int%", $_GET['act'], $st, ($rows + 1));
 
 	$i = 0;
 

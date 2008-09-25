@@ -285,7 +285,8 @@ class MasterSearch2 {
         
     
     ###### Execute SQL
-    $res = $db->query("SELECT SQL_CALC_FOUND_ROWS {$this->query['select']}
+    $res = $db->qry('%plain%',
+      "SELECT SQL_CALC_FOUND_ROWS {$this->query['select']}
       FROM {$this->query['from']}
       WHERE {$this->query['where']}
       GROUP BY {$this->query['group_by']}
@@ -310,7 +311,7 @@ class MasterSearch2 {
     $smarty->assign('action', $working_link);
 
     ###### Generate Page-Links
-    $count_rows = $db->query_first('SELECT FOUND_ROWS() AS count');
+    $count_rows = $db->qry_first('SELECT FOUND_ROWS() AS count');
     if ($this->config['EntriesPerPage']) $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
 
     if ($this->config['EntriesPerPage'] and ($count_rows['count'] > $this->config['EntriesPerPage'])) {

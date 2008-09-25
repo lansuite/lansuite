@@ -146,8 +146,8 @@ class db {
   }
 
 
-    function query_first_rows($query_string) { // fieldname "number" is reserved
-        $this->query($query_string);
+    function qry_first_rows($query_string) { // fieldname "number" is reserved
+        $this->qry($query_string);
         $row = $this->fetch_array($this->query_id);
         $row['number'] = $this->num_rows($this->query_id);
         $this->free_result($this->query_id);

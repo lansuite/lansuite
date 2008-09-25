@@ -45,11 +45,11 @@ ImageLine( $Image, 60, 460, 610, 460, $black );
 $red = ImageColorAllocate( $Image, 240, 0, 0 );
 
 // Create the Lines
-$db->query( "SELECT time FROM {$config['tables']['noc_statistics']}" );
+$db->qry("SELECT time FROM %prefix%noc_statistics" );
 $rows = $db->num_rows( );
 $rows -= 12;
 
-$db->query( "SELECT time, transferedbytes FROM {$config['tables']['noc_statistics']} ORDER BY time ASC LIMIT $rows,-1" );
+$db->qry("SELECT time, transferedbytes FROM %prefix%noc_statistics ORDER BY time ASC LIMIT %int%, -1", $rows);
 
 $i = 0;
 

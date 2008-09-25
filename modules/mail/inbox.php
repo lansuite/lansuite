@@ -21,14 +21,14 @@ if ($auth['userid']) {
     case 14:
     case 15:
       foreach ($_POST['action'] as $key => $val) {
-        $db->query('UPDATE '. $config['tables']['mail_messages'] .' SET label = '. ((int)$_GET['step'] - 10) .' WHERE mailID = '. (int)$key);
+        $db->qry('UPDATE %prefix%mail_messages SET label = %int% WHERE mailID = %int%', ($_GET['step'] - 10), $key);
       }
     break;
 
     // Move to trashcan
     case 20:
       if (!$_POST['action'] and $_GET['mailid']) $_POST['action'][$_GET['mailid']] = 1;
-      foreach ($_POST['action'] as $key => $val) $db->query('UPDATE '. $config['tables']['mail_messages'] ." SET mail_status = 'delete' WHERE mailID = ". (int)$key);
+      foreach ($_POST['action'] as $key => $val) $db->qry("UPDATE %prefix%mail_messages SET mail_status = 'delete' WHERE mailID = %int%", $key);
     break;
   }
 

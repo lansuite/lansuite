@@ -33,7 +33,7 @@ $user_online = $db->qry("SELECT SQL_CALC_FOUND_ROWS user.username, user.userid
                         	ORDER BY auth.lasthit
                         	LIMIT 10
 	", (time() - 60 * 10));
-$online = $db->query_first('SELECT FOUND_ROWS() AS count');
+$online = $db->qry_first('SELECT FOUND_ROWS() AS count');
 $box->DotRow(t('Eingeloggt') .': '. $online['count']);
 while ($user = $db->fetch_array($user_online)) $box->EngangedRow($user["username"] .' '. $dsp->FetchUserIcon($user["userid"]));
 $db->free_result($user_online);

@@ -33,7 +33,7 @@ if ($party->count > 0) {
 	GROUP BY auth.userid
 	ORDER BY auth.lasthit
 	", (time() - 60 * 10));
-	$online = $db->query_first('SELECT FOUND_ROWS() AS count');
+	$online = $db->qry_first('SELECT FOUND_ROWS() AS count');
 	$visits = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage");
 
     $templ['home']['show']['item']['control']['row'] .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. $online['count'] . HTML_NEWLINE;

@@ -56,7 +56,7 @@ class party{
 	function set_party_id($id){
 		global $db, $config;
 
-		$row = $db->query_first_rows("SELECT * FROM {$config['tables']['partys']} WHERE party_id={$id}");	
+		$row = $db->qry_first_rows("SELECT * FROM %prefix%partys WHERE party_id = %int%", $id);	
 		if($row['number'] == 1){
 			$this->party_id = $id;
 		}
@@ -71,13 +71,11 @@ class party{
 			// Bei leerem String
 			if ($link == '') $link = "index.php?" . $_SERVER['QUERY_STRING'];
 			
-			if ($show_old = 0) $query = "SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']} WHERE enddate < " . time();
-			else $query = "SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']}";
-			
 			// Wenn nur eine Party aufgelistet ist nichts ausgeben
-			$row = $db->query($query);
+			if ($show_old = 0) $row = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys WHERE enddate < %int%", time());
+			else $row = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys");
+
 			if ($db->num_rows($row) >= 1) {
-				
 				while ($res = $db->fetch_array($row)){
 					$start_date = $func->unixstamp2date($res["startdate"], "date");
 					$end_date = $func->unixstamp2date($res["enddate"], "date");
@@ -109,14 +107,10 @@ class party{
 			
 			// Wenn die Anzeige auf nur einer party steht dann nichts ausgeben
 			if($cfg['singon_multiparty'] == 1){
-				if($archive = 0){
-					$query = "SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']} WHERE UNIX_TIMESTAMP(enddate) < " . time();
-				}else{
-					$query = "SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']}";
-				}
-			
+				if ($archive = 0) $row = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys WHERE UNIX_TIMESTAMP(enddate) < %int%", time());
+				else $row = $db->qry("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys");
+
 				// Wenn nur eine Party aufgelistet ist nichts ausgeben
-				$row = $db->query($query);
 				if($db->num_rows($row) > 1){
 					while($res = $db->fetch_array($row)){
 						$start_date = $func->unixstamp2date($res["statedate"], "date");
@@ -438,7 +432,7 @@ class party{
 				}
 			}
 
-			$query = "UPDATE {$config['tables']['party_user']} SET ";
+			$query = "";
 			
 			if($paid != ""){
 				$query .= "paid = {$paid},";
@@ -460,9 +454,7 @@ class party{
 						";
 			$msg = str_replace("%PARTY%",$this->party_id,str_replace("%ID%",$user_id,str_replace("%PIRCEID%",$price_id,str_replace("%SEATCONTROL%",$seatcontrol,str_replace("%CHECKOUT%",$checkout,str_replace("%CHECKIN%",$checkin,str_replace("%PAID%",$paid,t('Die Anmeldung von %ID% bei der Party %PARTY% wurde geändert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%'))))))));
 			$func->log_event($msg,1);
-			$db->query($query);
-
-
+			$db->qry('UPDATE %prefix%party_user SET %plain%', $query);
 		}
 			
 
@@ -658,7 +650,7 @@ class party{
 			global $db,$config;
 			
 			$time = time();
-			$row = $db->query_first_rows("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM {$config['tables']['partys']} WHERE startdate > $time ORDER BY startdate ASC");	
+			$row = $db->qry_first_rows("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys WHERE startdate > %int% ORDER BY startdate ASC", $time);	
 			
 			if($row['number'] > 0){
 				$data['party_id']		= $row['party_id'];
