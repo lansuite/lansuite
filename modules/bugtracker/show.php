@@ -159,7 +159,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 
   $dsp->NewContent($row['caption'], $types[$row['type']] .', '. t('Priorität') .': '. $row['priority']);
 
-	$dsp->AddDoubleRow(t('Herkunft'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> Version('. $row['version'] .')');
+	$dsp->AddDoubleRow(t('Herkunft'), '<a href="http://'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> Version('. $row['version'] .')');
 	$dsp->AddDoubleRow(t('Reporter'), $row['reporter_name'] .' '. $dsp->FetchUserIcon($row['reporter']));
 	$dsp->AddDoubleRow(t('Betrifft Modul'), $row['module']);
 	$dsp->AddDoubleRow(t('Meldezeitpunkt'), $row['date']);
