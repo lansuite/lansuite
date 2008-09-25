@@ -74,7 +74,7 @@ class stats {
 		// Update duration and traffic
     $time = round($time, 0);
     $size = round($size, 0);
-		$db->qry("UPDATE %prefix%stats SET hits = hits + 1, time = time + %string%, size = size + %string%", $time, $size);
+		$db->qry("UPDATE %prefix%stats SET hits = hits + 1, time = time + %int%, size = size + %int%", $time, $size);
 	}
 	
 	// Auslesen der CPU Informationen
