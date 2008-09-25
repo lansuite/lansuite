@@ -1,8 +1,8 @@
 ;<?php /*
 
 [lansuite]
-version             = "v3 SVN"
-default_design          = "osX"
+version             = "v3.9 Beta"
+default_design          = "simple"
 user_timeout            = "300"
 chmod_dir           = "777"
 chmod_file          = "666"
@@ -23,8 +23,6 @@ wwcl_orgateam_id        = "0"
 
 [size]
 userid_digits           = "4"
-search_results          = "30"
-comments            = "5"
 buddies             = "20"
 msgrefreshtime          = "15"
 log             = "10"
