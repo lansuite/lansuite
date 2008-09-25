@@ -197,8 +197,8 @@ class seat2 {
         $XStartPlanFrame = 0;
         $YStartPlanFrame = 5;
       }
-      $SVGWidth = $XStartPlanFrame + 14 * $block['cols'] + 100;
-      $SVGHeight = $YStartPlanFrame + 14 * $block['rows'] + 100;
+      $SVGWidth = $XStartPlanFrame + 14 * $block['cols'] + count($sep_rows) * 7 + 100;
+      $SVGHeight = $YStartPlanFrame + 14 * $block['rows'] + count($sep_cols) * 7 + 100;
       if ($mode == 2 and $SVGWidth < 600) $SVGWidth = 600;
       ($SVGWidth < 250)? $SVGImgWidth = 250 : $SVGImgWidth = $SVGWidth;
   		$smarty->assign('SVGWidth', $SVGImgWidth);
