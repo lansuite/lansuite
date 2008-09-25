@@ -604,7 +604,7 @@ class masterform {
             }
           }
 
-          unset($_SESSION['mf_referrer'][$mf_number]);
+          if (isset($_SESSION['mf_referrer'][$mf_number])) unset($_SESSION['mf_referrer'][$mf_number]);
           $sec->lock($table);
           return $addUpdSuccess;
           /* Will be
