@@ -59,22 +59,24 @@ div.Box {
   margin: 0px 4px 8px 4px;    padding: 0px 0px 0px 0px;
 }
 ul.BoxHeadline {
+  width: 160px;
   margin: 0px 0px 0px 0px;    border-bottom:1px solid #9c9d9c;    padding: 4px 4px 4px 8px;
   background: #eee6e6;
   font-weight: bold;    list-style: none;
   white-space:nowrap
 }
 li.BoxCaption {
-  width: 136px;
+  width: 136px; display: inline;
   float: left;
   background: #eee6e6;
   font-weight: bold;    list-style: none;
 }
 li.BoxHelpClose {
-  width: 18px;
+  width: 18px; display: inline;
   font-size: 10px;   list-style: none;
 }
 ul.BoxContent {
+  width: 160px;
   margin: 0px 0px 0px 0px;    padding: 4px 4px 4px 8px;
   background: #dee2e6;
   list-style: none;
