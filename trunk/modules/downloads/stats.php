@@ -71,7 +71,7 @@ if (!$_GET['file']) {
     WHERE file = %string% AND DATE_FORMAT(time, %string%) = %string%
     GROUP BY DATE_FORMAT(time, %string%)
     ORDER BY DATE_FORMAT(time, %string%)
-  ", $group_by'), $_GET['file'], $where, $_GET['timeframe'], $group_by, $group_by);
+  ", $group_by, $_GET['file'], $where, $_GET['timeframe'], $group_by, $group_by);
   while ($row = $db->fetch_array($res)) {
     switch ($_GET['time']) {
       default: $out = $func->unixstamp2date($row['display_time'], 'year'); break;
@@ -89,3 +89,5 @@ if (!$_GET['file']) {
       WHERE DATE_FORMAT(time, %string%) = %string%", $where_back, $where, $_GET['timeframe']);
     $dsp->AddBackButton('index.php?mod=downloads&action=stats&file='.$_GET['file'].'&time='. $back .'&timeframe='. $row_back['back_time']);
   } else $dsp->AddBackButton('index.php?mod=downloads&action=stats');
+}
+?>
