@@ -105,7 +105,7 @@ class db {
 
         if ($query_id != -1) $this->query_id = $query_id;
 
-        $this->record = @mysqli_fetch_array($this->query_id);
+        $this->record = @mysqli_fetch_assoc($this->query_id);
 
         // Disable NoHTML if posible
         if ($this->record) foreach ($this->record as $key => $value) {
