@@ -185,7 +185,7 @@ class auth {
             } else {
                 // Set Logonstats
                 $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate WHERE userid = %int%', $user['userid']);
-                if ($cfg["sys_logoffdoubleusers"]) $db->qry('DELETE FROM %prefix%stats_auth WHERE userid=', $user['userid']);
+                if ($cfg["sys_logoffdoubleusers"]) $db->qry('DELETE FROM %prefix%stats_auth WHERE userid = %int%', $user['userid']);
                 
                 // Set authdata
                 $db->qry('REPLACE INTO %prefix%stats_auth
