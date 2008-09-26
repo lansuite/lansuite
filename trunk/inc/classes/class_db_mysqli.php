@@ -73,11 +73,12 @@ class db {
 
   function escape($match) {
     global $CurrentArg;
-
-    $CurrentArg = stripslashes($CurrentArg);    
+    
     if ($match[0] == '%int%') return (int)$CurrentArg;
-    elseif ($match[0] == '%string%') return "'". mysqli_real_escape_string($GLOBALS['db_link_id'], (string)$CurrentArg) ."'";
-    elseif ($match[0] == '%plain%') return $CurrentArg;
+    elseif ($match[0] == '%string%') {
+      $CurrentArg = stripslashes($CurrentArg);
+      return "'". mysqli_real_escape_string($GLOBALS['db_link_id'], (string)$CurrentArg) ."'";
+    } elseif ($match[0] == '%plain%') return $CurrentArg;
   }
 
   function qry() {
