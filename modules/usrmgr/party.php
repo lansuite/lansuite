@@ -67,6 +67,8 @@ else {
           $selections['1'] = t('Bezahlt');
           $mf->AddField(t('Bezahltstatus'), 'paid', IS_SELECTION, $selections);
         } elseif ($cfg['signon_autopaid']) $mf->AddFix('paid', '1');
+        
+        if ($cfg['signon_autopaid'] or $_POST['paid']) $mf->AddFix('paiddate', 'NOW()');
     
         // Prices
         $selections = array();  
@@ -78,14 +80,15 @@ else {
 
         if ($cfg['signon_autocheckin']) $mf->AddFix('checkin', 'NOW()');
 
-        if ($auth['type'] >= 2) {
-          //$mf->AddField('Seatcontrol', 'seatcontrol', '', '', FIELD_OPTIONAL);
-          $mf->AddField(t('Bezahltdatum'), 'paiddate', '', '', FIELD_OPTIONAL);
-          $mf->AddField(t('Eingecheckt'), 'checkin', '', '', FIELD_OPTIONAL);
-          $mf->AddField(t('Ausgecheckt'), 'checkout', '', '', FIELD_OPTIONAL);
-          $mf->AddField(t('Anmeldedatum'), 'signondate', '', '', FIELD_OPTIONAL);
-        }
-        else $mf->AddFix('signondate', 'NOW()');
+        #if ($auth['type'] >= 2) {
+          //$mf->AddField('Seatcontrol', 'seatcontrol', IS_TEXT_MESSAGE, '', FIELD_OPTIONAL);
+          #$mf->AddField(t('Bezahltdatum'), 'paiddate', '', '', FIELD_OPTIONAL);
+          #$mf->AddField(t('Eingecheckt'), 'checkin', '', '', FIELD_OPTIONAL);
+          #$mf->AddField(t('Ausgecheckt'), 'checkout', '', '', FIELD_OPTIONAL);
+          #$mf->AddField(t('Anmeldedatum'), 'signondate', '', '', FIELD_OPTIONAL);
+        #}
+        #else
+        $mf->AddFix('signondate', 'NOW()');
 
         if ($auth['type'] >= 2) $mf->AddField(t('Mail versenden?') .'|'. t('Den Benutzer per Mail über die Änderung informieren'), 'sendmail', 'tinyint(1)', '', FIELD_OPTIONAL);
         $mf->SendButtonText = 'An-/Abmelden';
