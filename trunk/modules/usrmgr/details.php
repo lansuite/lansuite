@@ -52,11 +52,11 @@ $user_data = $db->qry_first("SELECT u.*, g.*, u.birthday AS birthday, DATE_FORMA
 // If exists
 if (!$user_data['userid']) $func->error(t('Dieser Benutzer existiert nicht'), '');
 else {
-    $user_party = $db->qry_first("SELECT u.*, p.*, UNIX_TIMESTAMP(u.checkin) AS checkin, UNIX_TIMESTAMP(u.checkout) AS checkout FROM {$config["tables"]["party_user"]} AS u
-    										LEFT JOIN {$config["tables"]["party_prices"]} AS p ON u.price_id = p.price_id
-    										WHERE user_id = {$_GET['userid']} AND u.party_id = {$party->party_id}
+    $user_party = $db->qry_first("SELECT u.*, p.*, UNIX_TIMESTAMP(u.checkin) AS checkin, UNIX_TIMESTAMP(u.checkout) AS checkout FROM %prefix%party_user AS u
+    										LEFT JOIN %prefix%party_prices AS p ON u.price_id = p.price_id
+    										WHERE user_id = %int% AND u.party_id = %int%
     										GROUP BY u.user_id
-    										");
+    										", $_GET['userid'], $party->party_id);
     $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = \'1\' AND lasthit > %int%', $_GET['userid'], time() - 60*10);
     $count_rows = $db->qry_first('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = %int%', $_GET['userid']);
     $party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $user_party['price_id']);
