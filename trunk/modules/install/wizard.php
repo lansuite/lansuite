@@ -4,7 +4,7 @@ if ($_POST["resetdb"]) $db->success = 0;
 include_once('modules/install/class_install.php');
 $install = new Install();
 
-$_SESSION['auth']['design'] = 'standard';
+$_SESSION['auth']['design'] = 'simple';
 
 // Error-Switch
 switch ($_GET["step"]){
