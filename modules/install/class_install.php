@@ -367,15 +367,16 @@ class Install {
     $not_possible = "<span class=\"warning\">".t('Leider nicht möglich')."</span>" . HTML_NEWLINE;
 
     // Display System-Variables
-    $mysql_version = @mysql_get_server_info();
+    #$mysql_version = mysql_get_server_info($config['database']['database']);
+    $mysql_version = $db->qry_first("SELECT VERSION() as mysql_version");
     if (!$mysql_version) $mysql_version = t('Unbekannt');
     $SysInfo = "<table width=\"99%\">"
-        ."<tr><td class=\"row_value\">PHP-Version:</td><td class=\"row_value\">". phpversion() ."</td></tr>"
-        ."<tr><td class=\"row_value\">MySQL-Version:</td><td class=\"row_value\">$mysql_version</td></tr>"
-        ."<tr><td class=\"row_value\">Max. Script-Execution-Time:</td><td class=\"row_value\">". ini_get('max_execution_time') ." Sec.</td></tr>"
-        ."<tr><td class=\"row_value\">Max. Data-Input-Zeit:</td><td class=\"row_value\">". ini_get('max_input_time') ." Sec.</td></tr>"
-        ."<tr><td class=\"row_value\">Memory Limit:</td><td class=\"row_value\">". ini_get('memory_limit') ." MB</td></tr>"
-        ."<tr><td class=\"row_value\">Max. Post-Form Size:</td><td class=\"row_value\">". (float)ini_get('post_max_size') ." MB</td></tr>";
+      ."<tr><td class=\"row_value\">PHP-Version:</td><td class=\"row_value\">". phpversion() ."</td></tr>"
+      ."<tr><td class=\"row_value\">MySQL-Version:</td><td class=\"row_value\">".$mysql_version["mysql_version"]."</td></tr>"
+      ."<tr><td class=\"row_value\">Max. Script-Execution-Time:</td><td class=\"row_value\">". (float)ini_get('max_execution_time') ." Sec.</td></tr>"
+      ."<tr><td class=\"row_value\">Max. Data-Input-Zeit:</td><td class=\"row_value\">". (float)ini_get('max_input_time') ." Sec.</td></tr>"
+      ."<tr><td class=\"row_value\">Memory Limit:</td><td class=\"row_value\">". (float)ini_get('memory_limit') ." MB</td></tr>"
+      ."<tr><td class=\"row_value\">Max. Post-Form Size:</td><td class=\"row_value\">". (float)ini_get('post_max_size') ." MB</td></tr>";
     if (function_exists('disk_total_space') and function_exists('disk_free_space')) $SysInfo .= "<tr><td class=\"row_value\">Free space:</td><td class=\"row_value\">". $func->FormatFileSize(disk_free_space('.')) .' / '. $func->FormatFileSize(disk_total_space('.')) .'</td></tr>';
     $SysInfo .= "</table>";
     $dsp->AddDoubleRow("System-Info", $SysInfo);
