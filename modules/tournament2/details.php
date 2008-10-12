@@ -7,9 +7,9 @@ $headermenuitem	= $_GET['headermenuitem'];
 
 if ($headermenuitem == "") $headermenuitem = 1;
 
-$tournament = $db->qry_first_rows("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $_GET['tournamentid']);
+$tournament = $db->qry_first("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $_GET['tournamentid']);
 
-if($tournament["number"] == 0) $func->error(t('Das ausgewählte Turnier existiert nicht'), "index.php?mod=tournament2");
+if (!$tournament["tournamentid"]) $func->error(t('Das ausgewählte Turnier existiert nicht'), "index.php?mod=tournament2");
 else {
 
 	switch ($_GET['step']){
