@@ -42,13 +42,22 @@ switch ($_GET['step']) {
     $dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a>');
 
     $dsp->AddFieldSetStart(t('Mitglieder'));
-    $res2 = $db->qry('SELECT userid, firstname, name, username FROM %prefix%user WHERE clanid = %int%', $_GET['clanid']);
-    while ($row2 = $db->fetch_array($res2)) {
-      if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['userid'] == $_GET['userid']) $realname = $row2['firstname'] .' '. $row2['name'];
-      else $realname = ''; 
-      $dsp->AddDoubleRow($row2['username'] .' '. $dsp->FetchUserIcon($row2['userid']), $realname);
-    }
-    $db->free_result($res2);
+    include_once('modules/mastersearch2/class_mastersearch2.php');
+    $ms2 = new mastersearch2('clanmgr');
+    
+    $ms2->query['from'] = "{$config["tables"]["user"]} AS u";
+    $ms2->query['where'] = "u.clanid = ". (int)$_GET['clanid'];
+    
+    $ms2->config['EntriesPerPage'] = 100;
+    
+    $ms2->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
+    $ms2->AddResultField(t('Vorname'), 'u.firstname');
+    $ms2->AddResultField(t('Nachname'), 'u.name');
+
+    $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Clan-Details'));
+    if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', t('Löschen'));
+
+    $ms2->PrintSearch('index.php?mod=clanmgr&action=clanmgr&step=2', 'u.userid');
     $dsp->AddFieldSetEnd();
 
     $dsp->AddBackButton('index.php?mod=clanmgr&action=clanmgr');
@@ -117,7 +126,7 @@ switch ($_GET['step']) {
       $ms2->AddResultField(t('Benutzername'), 'u.username');
 
       $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', t('Löschen'));
-      $ms2->PrintSearch('index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid'], 'u.userid');
+      $ms2->PrintSearch('index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid'] .'&userid=', 'u.userid');
       $dsp->AddFieldsetEnd();
 
       $dsp->AddBackButton('index.php?mod=clanmgr&action=clanmgr');
@@ -129,7 +138,7 @@ switch ($_GET['step']) {
     if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
     elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) $func->information(t('Sie sind nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
     else {
-      $db->qry("UPDATE %prefix%user SET clanid = 0 WHERE userid = %int", $_GET['userid']);
+      $db->qry("UPDATE %prefix%user SET clanid = 0 WHERE userid = %int%", $_GET['userid']);
       $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid']);
     }
   break;
