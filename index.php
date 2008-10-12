@@ -45,12 +45,12 @@
     $func        = new func;
 
     // Prevent XSS
-    foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $_GET[$key] = $func->NoHTML($_GET[$key]);
-    else foreach ($_GET[$key] as $key2 => $val2) if (!is_array($_GET[$key][$key2])) $_GET[$key][$key2] = $func->NoHTML($_GET[$key][$key2]);
-    else foreach ($_GET[$key][$key2] as $key3 => $val3) $_GET[$key][$key2][$key3] = $func->NoHTML($_GET[$key][$key2][$key3]);
-    $_SERVER['REQUEST_URI'] = $func->NoHTML($_SERVER['REQUEST_URI']);
-    $_SERVER['HTTP_REFERER'] = $func->NoHTML($_SERVER['HTTP_REFERER']);
-    $_SERVER['QUERY_STRING'] = $func->NoHTML($_SERVER['QUERY_STRING']);
+    foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) $_GET[$key] = $func->NoHTML($_GET[$key], 1);
+    else foreach ($_GET[$key] as $key2 => $val2) if (!is_array($_GET[$key][$key2])) $_GET[$key][$key2] = $func->NoHTML($_GET[$key][$key2], 1);
+    else foreach ($_GET[$key][$key2] as $key3 => $val3) $_GET[$key][$key2][$key3] = $func->NoHTML($_GET[$key][$key2][$key3], 1);
+    $_SERVER['REQUEST_URI'] = $func->NoHTML($_SERVER['REQUEST_URI'], 1);
+    $_SERVER['HTTP_REFERER'] = $func->NoHTML($_SERVER['HTTP_REFERER'], 1);
+    $_SERVER['QUERY_STRING'] = $func->NoHTML($_SERVER['QUERY_STRING'], 1);
 
     // Save original Array
     if (get_magic_quotes_gpc()) {

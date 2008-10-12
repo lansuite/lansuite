@@ -339,7 +339,7 @@ class MasterSearch2 {
     $smarty->assign('EntsPerPage', $EntsPerPage);
     $smarty->assign('EntPerPage', $this->config['EntriesPerPage']);
     $smarty->assign('pages', $pages);
-    $smarty->assign('EntPerPageAction', $working_link);
+    #$smarty->assign('EntPerPageAction', $working_link);
 
     ###### Output Search
     // Text Inputs
