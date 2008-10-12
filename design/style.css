@@ -250,7 +250,7 @@ input {
 }
 input.checkbox {
   margin: 0px 4px 0px 0px;   border: 0px 0px 0px 0px;   padding: 0px 0px 0px 0px;
-  background: #eeeeee;   color: #eeeeee;
+  background: #eeeeee;
 }
 input[type=checkbox] {
   border: 0px;
