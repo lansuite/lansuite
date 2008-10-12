@@ -388,8 +388,9 @@ class func {
   }
 
 
-  function NoHTML($string) {
-    $aTransSpecchar = array('&' => '&amp;', '"' => '&quot;', '<' => '&lt;', '>' => '&gt;');
+  function NoHTML($string, $soft = 0) {
+    if ($soft) $aTransSpecchar = array('"' => '&quot;', '<' => '&lt;', '>' => '&gt;');
+    else $aTransSpecchar = array('&' => '&amp;', '"' => '&quot;', '<' => '&lt;', '>' => '&gt;');
     return strtr($string, $aTransSpecchar);
   }
 

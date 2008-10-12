@@ -4,7 +4,7 @@ MultiSelectActions = new Array({$multi_select_actions});
 MultiSelectSecurityQuest = new Array({$security_questions});
 -->
 </script>
-<form name="MSEntsPerPage" method="get" action="{$EntPerPageAction}">
+<form name="MSEntsPerPage" method="get" action="">
 {foreach from=$HiddenGetFields key=k item=v}
   <input type="hidden" name="{$k}" value="{$v}" />
 {/foreach}
@@ -60,7 +60,7 @@ MultiSelectSecurityQuest = new Array({$security_questions});
 {/if}
 
 </form>
-<form name="MSEntsPerPage" method="get" action="{$EntPerPageAction}">
+<form name="MSEntsPerPage" method="get" action="">
 {foreach from=$HiddenGetFields key=k item=v}
   <input type="hidden" name="{$k}" value="{$v}" />
 {/foreach}
