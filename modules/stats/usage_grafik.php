@@ -110,4 +110,4 @@ $db->free_result($res);
 
 
 ?>
-<
+</svg>
