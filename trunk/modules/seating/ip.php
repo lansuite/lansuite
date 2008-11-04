@@ -39,13 +39,13 @@ switch($_GET['step']) {
 	break;
 
 	case 2:
-		$dsp->NewContent(t('Sitzplatz - Informationen'), t('Fahren Sie mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.'));
+		$dsp->NewContent(t('Sitzplatz - IP-Verteilung'), t('Hier sehen Sie die einzelnen Sitzpl&auml;tze und die jeweils zugewiesene IP-Nummer. Diese k&ouml;nnen einzeln von Hand neu eingetragen oder ge&auml;ndert werden.'));
 
 		$dsp->SetForm("index.php?mod=seating&action=ip&step=3&blockid={$_GET['blockid']}");
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 3));
 		$dsp->AddFormSubmitRow('next');
 
-		$dsp->AddBackButton('index.php?mod=seating&action=ip', 'seating/show');
+		$dsp->AddBackButton('index.php?mod=seating', 'seating/show');
 		$dsp->AddContent();
 	break;
 
@@ -57,7 +57,7 @@ switch($_GET['step']) {
 			$db->qry_first("UPDATE %prefix%seat_seats SET ip=%string%
     WHERE blockid = %int% AND row = %string% AND col = %string%", $value, $_GET['blockid'], $row, $col);
 		}
-		$func->confirmation(t('Die IPs wurden erfolgreich eingetragen'), 'index.php?mod=seating&action=ip');
+		$func->confirmation(t('Die IPs wurden erfolgreich eingetragen'), 'index.php?mod=seating');
 	break;
 }
 ?>

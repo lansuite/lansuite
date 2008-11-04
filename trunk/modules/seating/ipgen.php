@@ -12,7 +12,7 @@ switch($_GET['step']) {
 
     $gd->CreateButton('new_calculate');
 		$templ['misc']['ipgen']['control']['case'] .= $dsp->FetchModTpl("seating", "ipgen_details");
-		$templ['index']['info']['content'] .= $dsp->FetchModTpl("seating", "ipgen");
+		$dsp->AddSingleRow($dsp->FetchModTpl("seating", "ipgen"));
 	break;
 
 	case 10:
@@ -41,8 +41,8 @@ switch($_GET['step']) {
 
 		// Hole alle seatids nach reihen sortiert in ein array
 		$count = 0;
-		if($sort=="col") { $order = "col $s_col,row $s_row"; } else { $order = "row $s_row,col $s_col"; }
-		$query_sub = $db->qry("SELECT seatid, row, col FROM %prefix%seat_seats WHERE %string% blockid=%int% ORDER BY %string%", $check_status, $block_id, $order);
+		if($sort=="col") { $order = "col ".$s_col.",row ".$s_row; } else { $order = "row ".$s_row.",col ".$s_col; }
+		$query_sub = $db->qry("SELECT seatid, row, col FROM %prefix%seat_seats WHERE $check_status blockid=%int% ORDER BY $order", $block_id);
 		while($row_seat_ids = $db->fetch_array($query_sub)) {
 			$seat_ids[$count] = $row_seat_ids["seatid"];
 			$seat_row[$count] = $row_seat_ids["row"];
