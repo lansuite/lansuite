@@ -20,6 +20,10 @@ else {
       $tmpDate = $func->translate_weekdayname(substr($row[0],0,strpos($row[0],","))) . substr($row[0],strpos($row[0],","));
       $shortnews[$tmpDate][$row[1]]['caption'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=" .$row[5] ."\">" .$row[2] ."</a>";
       $shortnews[$tmpDate][$row[1]]['text'] = substr(strip_tags($row[3]),0,$cfg["news_shorted_length"]) ."...";
+      #$text = substr(strip_tags($row[3]), 0, $cfg["news_shorted_length"]) ."...";
+      #if ($cfg["news_html"] == 1) $text = $func->text2html($text);
+      #else $text = $func->AllowHTML($text);
+      #$shortnews[$tmpDate][$row[1]]['text'] = $text;
       $shortnews[$tmpDate][$row[1]]['username'] = $row[4];
     }
     $tmpDate = "";
