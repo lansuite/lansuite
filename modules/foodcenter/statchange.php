@@ -243,4 +243,5 @@ switch ($_GET['step']){
 		$dsp->AddDropDownFieldRow("delcount",t('Anzahl'),$count_array,"");
 		$dsp->AddFormSubmitRow("next");
 		$dsp->AddContent();
-	bre
+	break;
+}
