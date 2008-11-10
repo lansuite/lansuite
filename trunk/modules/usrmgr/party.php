@@ -116,7 +116,7 @@ else {
       if ($row['user_id']) {
         $text .= t('Sie waren angemeldet');
         if ($row['paid'] == 0) $text .= t(', aber hatten nicht bezahlt.');
-        if ($row['paid']) $text .= t('und hatten bezahlt.');
+        if ($row['paid']) $text .= t(' und hatten bezahlt.');
 
         if ($row['price_id']) $text .= '('. $row['price_id'] .')';
         $text .= '.'. HTML_NEWLINE;

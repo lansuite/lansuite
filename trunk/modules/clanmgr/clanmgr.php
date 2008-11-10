@@ -51,9 +51,11 @@ switch ($_GET['step']) {
     $ms2->config['EntriesPerPage'] = 100;
     
     $ms2->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
-    $ms2->AddResultField(t('Vorname'), 'u.firstname');
-    $ms2->AddResultField(t('Nachname'), 'u.name');
-
+    if (!$cfg['sys_internet'] or $auth['type'] > 1) {
+      $ms2->AddResultField(t('Vorname'), 'u.firstname');
+      $ms2->AddResultField(t('Nachname'), 'u.name');
+    }
+    
     $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Clan-Details'));
     if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', t('Löschen'));
 
