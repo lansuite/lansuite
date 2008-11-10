@@ -7,18 +7,6 @@ if ($cfg['guestlist_guestmap'] == 2) {
   if (!$cfg['google_maps_api_key']) $func->information(t('Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben', '<a href="index.php?mod=install&action=modules&step=10&module=install">'.t('AdminSeite in den Allgemeinen Einstellungen</a>')));
   else {
 
-    switch($cfg['country']) {
-      case 'de': $GCountry = 'Germany'; break;
-      case 'at': $GCountry = 'Austria'; break;
-      case 'ch': $GCountry = 'Swiss'; break;
-      case 'en': $GCountry = 'England'; break;
-      case 'nl': $GCountry = 'Netherlands'; break;
-      case 'es': $GCountry = 'Spain'; break;
-      case 'it': $GCountry = 'Italy'; break;
-      case 'fr': $GCountry = 'France'; break;
-      default: $GCountry = 'Germany'; break;
-    }
-
     $where_pid = '';
     if ($party->party_id) $where_pid = "AND (p.party_id = {$party->party_id})";
 
@@ -30,6 +18,20 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
     $templ['addresses'] = '';
     while ($row = $db->fetch_array($res)) {
+
+      ($row['country'])? $country = $row['country'] : $country = $cfg['sys_country'];
+      switch($country) {
+        case 'de': $GCountry = 'Germany'; break;
+        case 'at': $GCountry = 'Austria'; break;
+        case 'ch': $GCountry = 'Swiss'; break;
+        case 'en': $GCountry = 'England'; break;
+        case 'nl': $GCountry = 'Netherlands'; break;
+        case 'es': $GCountry = 'Spain'; break;
+        case 'it': $GCountry = 'Italy'; break;
+        case 'fr': $GCountry = 'France'; break;
+        default: $GCountry = 'Germany'; break;
+      }
+
       $text = "<b>{$row['username']}</b>";
       if ($cfg['guestlist_shownames']) $text .= "<br>{$row['firstname']} {$row['name']}";
       $text .= "<br>{$row['plz']} {$row['city']}";

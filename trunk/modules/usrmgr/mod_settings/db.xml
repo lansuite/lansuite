@@ -196,6 +196,13 @@
                 <extra></extra>
             </field>
             <field>
+                <name>country</name>
+                <type>varchar(50)</type>
+                <null>NO</null>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
                 <name>passnr</name>
                 <type>varchar(15)</type>
                 <null>NO</null>

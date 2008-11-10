@@ -370,6 +370,14 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       // Address
       if (ShowField('street')) $mf->AddField('', 'street|hnr', IS_CALLBACK, 'Addr1Input', Optional('street'));
       if (ShowField('city')) $mf->AddField('', 'plz|city', IS_CALLBACK, 'Addr2Input', Optional('city'));
+
+      $list = array();
+      if (!$_POST['country']) $_POST['country'] = $cfg['sys_country'];
+      $res = $db->qry("SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = 'country' ORDER BY cfg_display");
+      echo $row['cfg_display'];
+      while($row = $db->fetch_array($res)) $list[$row['cfg_value']] = $row['cfg_display'];
+      $db->free_result($res);
+      $mf->AddField(t('Land'), 'country', IS_SELECTION, $list);
       $mf->AddGroup(t('Adresse'));
 
       // Contact
