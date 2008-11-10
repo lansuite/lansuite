@@ -24,8 +24,8 @@ class masterdelete {
       // Delete master tables, if content is now missing
       foreach ($this->DeleteIfEmpty as $key => $val) {
         if ($val == '') $val = $idname;
-        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%%plain% WHERE %string% = %string%", $table, $val, $MasterKey[$key]);
-        if (!$row['found']) $db->qry("DELETE FROM %prefix%%plain% WHERE $val = %string%", $key, $MasterKey[$key]);
+        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%%plain% WHERE %plain% = %int%", $table, $val, $MasterKey[$key]);
+        if (!$row['found']) $db->qry("DELETE FROM %prefix%%plain% WHERE %plain% = %int%", $key, $val, $MasterKey[$key]);
       }
 
       // Delete all attached tables
