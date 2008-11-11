@@ -322,7 +322,6 @@ body {
 
 /* Form fields */
 .form {				/* Form fields, which must be supplied */
-	font-family:	Verdana,Arial,Helvetica;
 	font-size:		11px;
 	font-weight:	normal;
 	color:			#000000;
@@ -332,7 +331,6 @@ body {
 }
 
 .form_optional {	/* Optional form fields, which need not to be supplied */
-	font-family:	Verdana,Arial,Helvetica;
 	font-size:		11px;
 	font-weight:	normal;
 	color:			#000000;
