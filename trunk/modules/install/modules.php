@@ -156,7 +156,7 @@ switch($_GET["step"]) {
             if ($_GET["rewrite"] == "downloads_") $_GET["rewrite"] = "Download";
             if ($_GET["rewrite"] == "usrmgr_") $_GET["rewrite"] = "Userdetails";
             if ($_GET["rewrite"] == "tournament2_") $_GET["rewrite"] = "t";
-            $find_config = $db->qry_first("DELETE FROM %prefix%config HERE (cfg_group = %string%) OR (cfg_key LIKE %string%)", $_GET["rewrite"], $_GET["rewrite"].'%');
+            $find_config = $db->qry_first("DELETE FROM %prefix%config WHERE (cfg_group = %string%) OR (cfg_key LIKE %string%)", $_GET["rewrite"], $_GET["rewrite"].'%');
         }
 
         // Auto-Load Modules from XML-Files
