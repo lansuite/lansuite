@@ -1,0 +1,182 @@
+Installation:
+
+1  Spiele:
+   --------------
+
+      Game:                           Gamename Variable:
+    - American's Army               aa
+    - Armagetronad                  atron
+    - Battlefield 1942              bf
+    - Battlefield Vietnam           bfv
+    - Battlefield 2                 bf2
+    - Battlefield 2142              bf2142
+    - Call of Duty                  cod
+    - Call of Duty 2                cod2
+    - Descent 3 (without gamespy)   descent3
+    - Descent 3 (gamespy)           des3gs
+    - Doom 3                        d3
+    - Enemy Territory               et
+    - FEAR                          fear
+    - HALO                          halo
+    - Half-Life / CS OLD            hl_old
+    - Half-Life / CS                hl
+    - Half-Life 2 / CS:S            hl2
+    - Hidden & Dangerous 2          hd2
+    - Jedi Knight: Jedi Academy     jedi
+    - Jedi Knight II                jedi2
+    - Medal of Honor                mohaa
+    - No One Lives Forever          nolf
+    - Painkiller                    pk
+    - Red Orchestra                 ro
+    - Return to Castle Wolfenstein  rtcw
+    - Rune                          rune
+    - Soldier of Fortune 2          sof2
+    - SWAT4                         swat
+    - Teamspeak                     ts
+    - Unreal Tournament             ut
+    - Unreal Torunament 2003        ut2003
+    - Unreal Tournament 2004        ut2004
+    - Quakeworld                    qw
+    - Quake 1                       q1
+    - Quake 2                       q2
+    - Quake 3                       q3
+    - Quake 4                       q4
+    - Warsow                        warsow
+
+2a Server Einstellungen (neu):
+   ---------------------------
+
+   Installation:
+   -------------
+   
+   In dieser Version von Phgstats kann man anstatt der schwierigen
+   Methode (Punkt 2b) unser neues Install-Script nutzen, um das
+   Gameserver-Status-Script zu installieren.
+   
+   Gebe dafuer einfach folgende Adresse in den Web-Browser ein ein:
+
+   http://yoursite.exp/phgstats/install/
+
+   Folge den Anweisungen um die Installation abzuschliessen. Vergesse
+   nicht zum Schluss das "install"-Verzeichnis zu entfernen.
+
+   Admin:
+   ------
+
+   Ueber das neue Adminmenu kannst du Server hinzufuegen oder entfernen.
+   Gebe dafuer folgende Adresse in den Web-Browser ein:
+
+   http://yoursite.exp/phgstats/admin/
+
+
+
+   Nun sollte alles konfiguriert sein. Solltest du aber vor haben phgstats
+   in deiner webpage.php einzufuegen, dann gehe zum Schritt 5 ueber.						
+
+2b Server Einstellungen (Editor Methode):
+   ---------------------
+
+    - Oeffne die phgstats/settings/config.inc.php - Datei mit einen Editor und fuege
+    Spiel(Kuerzel), IP, Port und wenn benoetigt den Queryport ein.
+
+    Beispiel:
+
+    $gameserver = array(
+    /* 3  */ 'mohaa:213.253.57.57:12020:12301',    
+    /* 2  */ 'bf:212.227.65.120:14567',
+    /* 1  */ 'et:213.202.211.42:27980',
+    );
+
+    Server 1 ist ein Enemy Territory Server:
+    Spiel: et    IP: 213.202.211.42  Port: 27980  QueryPort: wird nicht gebraucht
+  
+    Server 2 ist ein Battlefield Server:
+    Spiel: bf    IP: 212.227.65.120  Port: 14567  QueryPort: wird gebraucht, aber
+                                               
+                                                  phgstats hat den default Port 23000
+					          schon gesetzt, so dass wir diesen
+						  Server schon erfolgreich hinzugefuegt
+						  haben.
+    
+    Server 3 ist ein Medal of Honor Server:
+    Game: mohaa IP: 213.253.57.57    Port: 12020  QueryPort: 12301
+                                     
+	                                          Phgstats hat auch hier den default
+						  Port 12300 gesetzt, doch laufen auf 
+						  unserer Maschine 2 Mohaa Server, 
+						  sodass der Queryport nicht mehr stimmt
+						  und z.B. den Wert 12301 hat. Deswegen
+						  muessen wir diesen manuell richtig setzen.
+  
+3  Land Einstellung: (Editor Methode)
+   ----------------
+
+    $country = array(
+    /* 2 */ 'Germany',
+    /* 1 */ 'Germany',
+    )
+  
+    Server 1 hat den Standort: Germany
+    Server 2 hat den Standort: Germany
+
+4  HTML Tabellen Farben (Editor Methode):
+   ---------------------
+   
+    - Folgende Werte sind in der Datei phgstats/settings/style.css veraenderbar:
+   
+    - Server land
+    - web-Browser Titel
+    - Schriftfarbe
+    - Body Hintergrundfarbe
+    - table, th, td Schriftfarben 
+    - table, th, td Hintergrundfarben
+    - link hover Farbe
+   
+    - Kopiere nun das Verzeichnis phgstats auf deinen Webserver
+    (Beispiel: http://www.deineadresse.de/phgstats/)
+
+5  INCLUDE Erklaerung:
+   -------------------
+   
+   - Wenn du moechtest, kannst du Phgstats auch in deiner Webseite einfuegen. Dazu musst du
+     folgenden Code in deiner webpage.php einfuegen:
+   
+   <?php
+   define ('PHGDIR', 'phgstats/');                   // Pfad zum phgstats Verzeichnis
+   $use_file = basename(__FILE__);                   // Kann man in der Regel so lassen
+   $use_bind = '?';                                  // Kann man in der Regel so lassen
+   require_once (PHGDIR . '/main/phgstats.inc.php'); // Kann man in der Regel so lassen
+   ?>
+
+   - Fuer einige Webseiten ist etwas mehr Arbeit noetig, deswegen hier ein Beispiel
+     mit dem ilch-clanscript welches unter http://site.you/ilch/include/serverstats.php
+     als phgstats einbinden soll,
+
+   // .... some ilch-clanscript code ....
+   // .....
+   $design->header();
+
+   // new 4 lines for phgstats include, must added for phgstats support
+
+   define ('PHGDIR', 'phgstats/');                   // Pfad zu phgstats (http;//site.you/phgstats/
+   $use_file = '?m=serverstats';                     // Original Ilch-Url um Module zu laden
+   $use_bind = '&';                                  // Zum Verbinden der Ilch- und phgstatsvariablen
+   require_once (PHGDIR . '/main/phgstats.inc.php'); // main() von phgstats
+
+   // end of customs lines
+
+   $design->footer();
+   // .....
+   // .....
+   
+6  Map Bilder:
+   -------------
+   
+   Im Moment sind nur die Standard oder sogar Default Maps in den entsprechenden
+   Spieleverzeichnissen (phgstats/maps/spiel) enthalten. Wenn du eigene oder mehr Bilder
+   nutzen moechtest such dir die Grafik, benenne diese um (mapname.jpg) und kopiere
+   diese nach phgstats/maps/spielname/ auf deinen Webserver.
+   
+   Du kannst uns auch Tipps, Map-Grafiken oder Wuensche, Vorschlaege fuer die naechsten Versionen
+   im Forum auf http://woah-projekt.de oder im Quakenet(irc) Raum: #woah-projekt senden.
+

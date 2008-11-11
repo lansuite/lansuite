@@ -1,0 +1,168 @@
+Installation:
+
+1  Games Example:
+   --------------
+  
+     Game:                           Gamename Variable:
+    - American's Army               aa
+    - Armagetronad                  atron
+    - Battlefield 1942              bf
+    - Battlefield Vietnam           bfv
+    - Battlefield 2                 bf2
+    - Battlefield 2142              bf2142
+    - Call of Duty                  cod
+    - Call of Duty 2                cod2
+    - Descent 3 (without gamespy)   descent3
+    - Descent 3 (gamespy)           des3gs
+    - Doom 3                        d3
+    - Enemy Territory               et
+    - FEAR                          fear
+    - HALO                          halo
+    - Half-Life / CS OLD            hl_old
+    - Half-Life / CS                hl
+    - Half-Life 2 / CS:S            hl2
+    - Hidden & Dangerous 2          hd2
+    - Jedi Knight: Jedi Academy     jedi
+    - Jedi Knight II                jedi2
+    - Medal of Honor                mohaa
+    - No One Lives Forever          nolf
+    - Painkiller                    pk
+    - Red Orchestra                 ro
+    - Return to Castle Wolfenstein  rtcw
+    - Rune                          rune
+    - Soldier of Fortune 2          sof2
+    - SWAT4                         swat
+    - Teamspeak                     ts
+    - Unreal Tournament             ut
+    - Unreal Torunament 2003        ut2003
+    - Unreal Tournament 2004        ut2004
+    - Quakeworld                    qw
+    - Quake 1                       q1
+    - Quake 2                       q2
+    - Quake 3                       q3
+    - Quake 4                       q4
+    - Warsow                        warsow
+
+2a  Server Example (new):
+   ----------------------
+
+   Install:
+   --------
+   In this version you can use the new phgstats install-tool.
+   Please enter following url in your webbrowser:
+
+   http://yoursite.exp/phgstats/install/
+
+   Follow the instruction to complete the installation. Dont forget
+   to remove the install directory from your server at the end.
+
+
+   Admin:
+   -------
+   You can add / remove server and change color with the new adminpanel:
+   Please enter following url in your web browser:
+
+   http://yoursite.exp/phgstats/admin/
+
+   
+   
+   Now you are ready. If you want to use phgstats including in a your
+   webpage.php, go to step: "5 INCLUDE Example".
+
+2b  Server Example (editor way):
+   -----------------------------
+
+    - open the phgstats/settings/config.inc.php file with an editor and add the
+    game, ip, port and the queryport if you need an other as the default of the game
+
+    $gameserver = array(
+    /* 3  */ 'mohaa:213.253.57.57:12020:12301',    
+    /* 2  */ 'bf:212.227.65.120:14567',
+    /* 1  */ 'et:213.202.211.42:27980',
+    );
+
+    First server is an Enemy Territory Server:
+    Game: et    IP: 213.202.211.42  Port: 27980  QueryPort: not need
+  
+    Second server is a Battlefield Server:
+    Game: bf    IP: 212.227.65.120  Port: 14567  QueryPort: need, but
+                                               
+                                                 phgstats sets the default queryport to 23000
+					         so we can keep the query port
+					         configuration
+    
+    Third server is a Medal of Honor Server:
+    Game: mohaa IP: 213.253.57.57   Port: 12020  QueryPort: 12301
+                                     
+	                                         phgstats sets default queryport to 12300
+				                 but we need 12301, because 2
+                  		                 servers are running on our machine
+					         So we must set the queryport manually
+  
+3  Country Example (editor way):
+   -----------------------------
+
+    $country = array(
+    /* 2 */ 'Germany',
+    /* 1 */ 'Germany',
+    )
+  
+    First Server Location: Germany
+    Second Server Location: Germany
+
+4  HTML Table Colors (editor way):
+   ------------------
+   
+    - you can also set the following variables in the phgstats/settings/style.css - file:
+   
+    - server country
+    - webbrowser title
+    - font color
+    - body background color
+    - table, th, td font color
+    - table, th, td background color
+    - link hover color
+   
+    - copy the phgstats directory to your webserver
+    (example: http://www.yourdomain.net/phgstats/)
+
+5  INCLUDE Example:
+   ----------------
+
+   - if you would use phgstats into your webpage, add the following lines in your webpage.php
+
+   <?php
+   define ('PHGDIR', 'phgstats/');   	             // this line must include the path to phgstats directory
+   $use_file = basename(__FILE__); 		     // can leave it
+   $use_bind = '?';                                  // can leave it
+   require_once (PHGDIR . '/main/phgstats.inc.php'); // can leave it
+   ?>
+
+
+   - here is an ilch-clanscript example for the lines in http://site.you/ilch/include/serverstats.php
+   
+   // .... some ilch-clanscript code ....
+   // .....
+   $design->header();
+   
+   // new 4 lines for phgstats include, must added for phgstats support
+   
+   define ('PHGDIR', 'phgstats/');            	     // directory to phgstats (http://site.you/phgstats/)
+   $use_file = '?m=serverstats';                     // original ilch url line to load modules
+   $use_bind = '&';                                  // is needed to bind ilch and server variables
+   require_once (PHGDIR . '/main/phgstats.inc.php'); // there is main() of phgstats
+   
+   // end of customs lines
+   
+   $design->footer();
+   // .....
+   // .....
+   
+   
+6  Map Pictures:
+   -------------
+   Only the default map-pictues are in phgstats/maps/ - directory. For more pics search
+   the pictures, rename to mapname.jpg and copy to phgstats/maps/gamename/ directory
+   on your webserver. You can also send us new tips, minimaps or wishes for next
+   release on the forum of http://woah-projekt.de or on Quakenet(irc) channel: #woah-projekt
+
