@@ -14,12 +14,7 @@
 	<entry>
 		<action>price</action>
 		<file>price</file>
-		<caption>Preise</caption>
-		<hint>Hier können Preise geändert werden</hint>
-		<link>?mod=party&amp;action=price</link>
 		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>edit</action>

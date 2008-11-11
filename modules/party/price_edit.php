@@ -28,8 +28,8 @@ $mf->AddField(t('Gruppenname'), 'group_id', IS_SELECTION, $selections, 1);
 $mf->AddField(t('Sichtbar für'), 'requirement', IS_SELECTION, $selectrequire, 1);
 $mf->AddField(t('Gültig bis'), 'enddate');
 
-$mf->SendForm('index.php?mod=party&action=price_edit', 'party_prices', 'price_id', $_GET['price_id']);
-$dsp->AddBackButton('index.php?mod=party&action=price');
+$mf->SendForm('index.php?mod=party&action=price_edit&party_id='. $_GET['party_id'], 'party_prices', 'price_id', $_GET['price_id']);
+$dsp->AddBackButton('index.php?mod=party&action=price&party_id='. $_GET['party_id']);
 $dsp->AddContent();
 
 ?>
