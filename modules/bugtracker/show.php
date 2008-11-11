@@ -151,7 +151,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 	if ($search_read["found"]) $db->qry_first("UPDATE %prefix%bugtracker_lastread SET date = NOW() WHERE bugid = %int% and userid = %int%", $_GET['bugid'], $auth["userid"]);
 	else $db->qry_first("INSERT INTO %prefix%bugtracker_lastread SET date = NOW(), bugid = %int%, userid = %int%", $_GET['bugid'], $auth["userid"]);
 
-  $row = $db->qry_first("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, r.username AS reporter_name, a.username AS agent_name FROM %prefix%bugtracker AS b
+  $row = $db->qry_first("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, UNIX_TIMESTAMP(b.date) AS date, r.username AS reporter_name, a.username AS agent_name FROM %prefix%bugtracker AS b
     LEFT JOIN %prefix%user AS r ON b.reporter = r.userid
     LEFT JOIN %prefix%user AS a ON b.agent = a.userid
     WHERE bugid = %int%", $_GET['bugid']
@@ -162,7 +162,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 	$dsp->AddDoubleRow(t('Herkunft'), '<a href="http://'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> Version('. $row['version'] .')');
 	$dsp->AddDoubleRow(t('Reporter'), $row['reporter_name'] .' '. $dsp->FetchUserIcon($row['reporter']));
 	$dsp->AddDoubleRow(t('Betrifft Modul'), $row['module']);
-	$dsp->AddDoubleRow(t('Meldezeitpunkt'), $row['date']);
+	$dsp->AddDoubleRow(t('Meldezeitpunkt'), $func->unixstamp2date($row['date'], 'daydatetime'));
 	$dsp->AddDoubleRow(t('Letzte Änderung'), $func->unixstamp2date($row['changedate'], 'daydatetime'));
 
 	$dsp->AddDoubleRow(t('Status'), $bugtracker->stati[$row['state']]);
