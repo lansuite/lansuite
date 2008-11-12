@@ -28,10 +28,8 @@ else {
   		$ranking_data = $tfunc->get_ranking($_GET['tournamentid']);
   
   		$dsp->NewContent(t('Turnier %1 (%2) - Rangliste', $tournament['name'], $modus), t('Hier sehen Sie das Ergebnis dieses Turniers'));
-  		if ($tournament['mode'] == "liga") {
-  			$dsp->AddModTpl("tournament2", "res_liga_head");
-  		}
-  
+
+      $rows = '';
   		$anz_elements = count($ranking_data->tid);
   		for ($i = 0; $i < $anz_elements; $i++) {
   			$akt_pos = $ranking_data->tid[$i];
@@ -41,12 +39,22 @@ else {
   
   			if ($tournament['mode'] == "liga") {
   				$score_out = $ranking_data->score[$i] . " : " . $ranking_data->score_en[$i];
-  
-  				$tfunc->AddPentRow(t('Platz') ." ". $ranking_data->pos[$i], $mark.$ranking_data->name[$i].$mark2 . $tfunc->button_team_details($akt_pos, $_GET['tournamentid']), $ranking_data->win[$i], $ranking_data->score_dif[$i] ." ($score_out)", $ranking_data->games[$i]);
+
+          $smarty->assign('cell1', t('Platz') ." ". $ranking_data->pos[$i]);
+          $smarty->assign('cell2', $mark.$ranking_data->name[$i].$mark2 . $tfunc->button_team_details($akt_pos, $_GET['tournamentid']));
+          $smarty->assign('cell3', $ranking_data->win[$i]);
+          $smarty->assign('cell4', $ranking_data->score_dif[$i] ." ($score_out)");
+          $smarty->assign('cell5', $ranking_data->games[$i]);
+          $rows .= $smarty->fetch('modules/tournament2/templates/ls_row_pent.htm');
   			} else {
   				$dsp->AddDoubleRow(t('Platz') ." ". $ranking_data->pos[$i], $mark.$ranking_data->name[$i].$mark2 . $tfunc->button_team_details($akt_pos, $_GET['tournamentid']));
   			}
   		}
+
+			if ($tournament['mode'] == "liga") {
+        $smarty->assign('rows', $rows);
+        $dsp->AddSmartyTpl('ls_row_pent_table', 'tournament2');
+      }
   
   		if ($func->internal_referer) $dsp->AddBackButton($func->internal_referer, "tournament2/rangliste");
   		else $dsp->AddBackButton("index.php?mod=tournament2&action=rangliste&step=1", "tournament2/rangliste");

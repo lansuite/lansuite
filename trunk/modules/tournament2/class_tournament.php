@@ -31,19 +31,6 @@ class ranking_data {
 
 
 class tfunc {
-	function AddPentRow($key, $value1, $value2, $value3, $value4) {
-		global $dsp, $templ;
-
-		$templ['ls']['row']['pent']['key'] = $key;
-		$templ['ls']['row']['pent']['value1'] = $value1;
-		$templ['ls']['row']['pent']['value2'] = $value2;
-		$templ['ls']['row']['pent']['value3'] = $value3;
-		$templ['ls']['row']['pent']['value4'] = $value4;
-
-		$dsp->AddModTpl("tournament2", "ls_row_pent");
-	}
-
-
 	// Generates a string to output a memberlist of one team
 	function GetMemberList($teamid){
 		global $db, $config, $func, $seat2, $lang;
