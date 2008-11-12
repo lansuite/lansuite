@@ -263,85 +263,51 @@ class func {
 
     
   #### Dialog functions ####
-  function error($text, $link_target = '', $JustReturn = 0) {
-    global $templ, $auth, $lang, $language, $dsp, $FrameworkMessages;
-    
+  function GeneralDialog($type, $text, $link_target = '', $JustReturn = 0) {
+    global $smarty, $dsp, $FrameworkMessages;
+
+    // Link
     if ($link_target == '') $link_target = $this->internal_referer;
     if ($link_target == NO_LINK) $link_target = '';
-    if ($link_target) $templ['error']['info']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
+    if ($link_target) $smarty->assign('link', $dsp->FetchCssButton('Zurück', $link_target, t('Zurück zur vorherigen Seite')));
 
+    // Text
     switch($text) {
-        case "ACCESS_DENIED":
-            $templ['error']['info']['errormsg'] = t('Sie haben keine Zugriffsrechte für diesen Bereich.');
-        break;
-        case "NO_LOGIN":
-            $templ['error']['info']['errormsg'] = t('Sie sind nicht eingeloggt. Bitte loggen Sie sich erst ein, bevor Sie diesen Bereich betreten.');
-        break;
-        case "NOT_FOUND":
-            $templ['error']['info']['errormsg'] = t('Leider ist die von Ihnen aufgerufene Seite auf diesem Server nicht vorhanden.<br/>Um Fehler zu vermeiden, sollten Sie die URL nicht manuell ändern, sondern die Links benutzen. Wenn Sie die Adresse manuell eingegeben haben überprüfen Sie bitte die URL.');
-        break;
-        case "DEACTIVATED":
-            $templ['error']['info']['errormsg'] = t('Dieses Lansuite Modul wurde deaktiviert und steht somit nicht zur Verfügung.');
-        break;
-        case "NO_REFRESH":
-            $templ['error']['info']['errormsg'] = t('Sie haben diese Anfrage wiederholt ausgeführt.');
-        break;
-        default:
-            $templ['error']['info']['errormsg'] = $text;
-        break;
+      case "ACCESS_DENIED": $text = t('Sie haben keine Zugriffsrechte für diesen Bereich.'); break;
+      case "NO_LOGIN": $text = t('Sie sind nicht eingeloggt. Bitte loggen Sie sich erst ein, bevor Sie diesen Bereich betreten.'); break;
+      case "NOT_FOUND": $text = t('Leider ist die von Ihnen aufgerufene Seite auf diesem Server nicht vorhanden.<br/>Um Fehler zu vermeiden, sollten Sie die URL nicht manuell ändern, sondern die Links benutzen. Wenn Sie die Adresse manuell eingegeben haben überprüfen Sie bitte die URL.'); break;
+      case "DEACTIVATED": $text = t('Dieses Lansuite Modul wurde deaktiviert und steht somit nicht zur Verfügung.'); break;
+      case "NO_REFRESH": $text = t('Sie haben diese Anfrage wiederholt ausgeführt.'); break;
     }
-    if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/error.htm');
-    else $dsp->AddTpl("design/templates/error.htm");
-  }
+    $smarty->assign('msg', $text);
 
+    if ($JustReturn) $FrameworkMessages .= $smarty->fetch('design/templates/'. $type .'.htm');
+    else $dsp->AddLineTplSmarty($smarty->fetch('design/templates/'. $type .'.htm'));
+  }
+  
   function confirmation($text, $link_target = '', $JustReturn = 0) {
-    global $templ, $auth, $dsp, $language, $FrameworkMessages;
-
-    if ($link_target == '') $link_target = $this->internal_referer;
-    if ($link_target == NO_LINK) $link_target = '';
-    if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
-    $templ['confirmation']['info']['confirmationmsg']   = $text;
-
-    if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/confirmation.htm');
-    else $dsp->AddLineTpl("design/templates/confirmation.htm");
+    return $this->GeneralDialog('confirmation', $text, $link_target, $JustReturn);
   }
 
-  function information($text, $link_target = '', $button_text = 'back', $JustReturn = 0) {
-    global $templ, $auth, $dsp, $language, $FrameworkMessages;
-  
-    if ($link_target == '') $link_target = $this->internal_referer;
-    if ($link_target == NO_LINK) $link_target = '';
-    if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
-    $templ['confirmation']['info']['confirmationmsg'] = $text;
-  
-    if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/information.htm');
-    else $dsp->AddTpl("design/templates/information.htm");
+  function information($text, $link_target = '', $button_text = 'NOT_USED_ANYMORE', $JustReturn = 0) {
+    return $this->GeneralDialog('information', $text, $link_target, $JustReturn);
   }
 
-  function multiquestion($questionarray, $linkarray, $text) {
-    global $templ, $dsp;
+  function error($text, $link_target = '', $JustReturn = 0) {
+    return $this->GeneralDialog('error', $text, $link_target, $JustReturn);
+  }
+
+  function multiquestion($questionarray, $linkarray, $text = '') {
+    global $smarty, $dsp;
     
-    ($text)? $templ['multiquestion']['info']['text'] = $text : $templ['multiquestion']['info']['text'] = t('Bitte wählen Sie eine Möglichkeit aus:');
+    if ($text == '') $text = t('Bitte wählen Sie eine Möglichkeit aus:');
+    $smarty->assign('msg', $text);
+    
     if (is_array($questionarray)) foreach($questionarray as $ind => $question)
-    $templ['multiquestion']['control']['row'] .= '<br /><br /><a href="'. $linkarray[$ind] .'">'. $question .'</a>';
-    
-    $dsp->AddTpl("design/templates/multiquestion.htm");
-  }
+    $row .= '<br /><br /><a href="'. $linkarray[$ind] .'">'. $question .'</a>';
+    $smarty->assign('row', $row);
 
-  function dialog($dialogarray, $linkarray, $picarray) {
-    global $templ, $gd, $dsp;
-    
-    if ($dialogarray[0]=="") $dialogarray[0]="question";
-    if ($dialogarray[1]=="") $dialogarray[1]="Frage";
-    
-    $templ['dialog']['info']['icon']        = $dialogarray[0]; // using the pic filename w/o "icon_" & ".gif" !
-    $templ['dialog']['info']['caption']     = $dialogarray[1];
-    $templ['dialog']['info']['questionmsg'] = $dialogarray[2];
-    
-    if (is_array($linkarray)) foreach ($linkarray as $ind => $link)
-    $templ['dialog']['control']['row'] .= $dsp->FetchButton($link, $picarray[$ind]);
-    
-    $dsp->AddTpl("design/templates/dialog.htm");
+    $dsp->AddLineTplSmarty($smarty->fetch("design/templates/multiquestion.htm"));
   }
 
   function question($text, $link_target_yes, $link_target_no = '') {
@@ -352,12 +318,11 @@ class func {
     $smarty->assign('action', $link_target_yes);
     $smarty->assign('yes', $dsp->FetchIcon($link_target_yes, 'yes'));
     $smarty->assign('no', $dsp->FetchIcon($link_target_no, 'no'));
+
     $dsp->AddLineTplSmarty($smarty->fetch('design/templates/question.htm'));
   }
 
   function no_items($object, $link_target, $type) {
-    global $templ, $auth, $lang, $dsp, $language;
-
     switch($type) {
       case "rlist":   $text   = t('Es sind keine %1 vorhanden.', $object); break;
       case "search":  $text   = t('Es wurden keine passenden %1 gefunden.', $object); break;
