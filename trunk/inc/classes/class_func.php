@@ -282,7 +282,7 @@ class func {
     $smarty->assign('msg', $text);
 
     if ($JustReturn) $FrameworkMessages .= $smarty->fetch('design/templates/'. $type .'.htm');
-    else $dsp->AddLineTplSmarty($smarty->fetch('design/templates/'. $type .'.htm'));
+    else $dsp->AddContentLine($smarty->fetch('design/templates/'. $type .'.htm'));
   }
   
   function confirmation($text, $link_target = '', $JustReturn = 0) {
@@ -307,7 +307,7 @@ class func {
     $row .= '<br /><br /><a href="'. $linkarray[$ind] .'">'. $question .'</a>';
     $smarty->assign('row', $row);
 
-    $dsp->AddLineTplSmarty($smarty->fetch("design/templates/multiquestion.htm"));
+    $dsp->AddContentLine($smarty->fetch("design/templates/multiquestion.htm"));
   }
 
   function question($text, $link_target_yes, $link_target_no = '') {
@@ -319,7 +319,7 @@ class func {
     $smarty->assign('yes', $dsp->FetchIcon($link_target_yes, 'yes'));
     $smarty->assign('no', $dsp->FetchIcon($link_target_no, 'no'));
 
-    $dsp->AddLineTplSmarty($smarty->fetch('design/templates/question.htm'));
+    $dsp->AddContentLine($smarty->fetch('design/templates/question.htm'));
   }
 
   function no_items($object, $link_target, $type) {

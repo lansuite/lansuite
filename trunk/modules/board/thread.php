@@ -105,15 +105,18 @@ elseif ($thread['caption'] != '') {
 	while ($row = $db->fetch_array($query)){
 		$pid = $row["pid"];
 
-		$templ['board']['thread']['case']['info']['post']['pid'] 		= $pid;
-		$templ['board']['thread']['case']['info']['post']['text'] 		= $func->text2html($row["comment"]);
-		$templ['board']['thread']['case']['info']['post']['date'] 		= $func->unixstamp2date($row["date"], "datetime");
-		if ($row['changecount'] > 0) {
-      $templ['board']['thread']['case']['info']['post']['date'] .= '<br />'. t('Geändert') .': '. $row['changecount'] .'x';
-  		$templ['board']['thread']['case']['info']['post']['date'] .= '<br />'. $func->unixstamp2date($row['changedate'], 'datetime');
-    }
+    $smarty->assign('pid', $pid);
 
-    if ($row['file']) $templ['board']['thread']['case']['info']['post']['text'] .= $dsp->FetchAttachmentRow($row['file']);
+		$date = $func->unixstamp2date($row["date"], "datetime");
+		if ($row['changecount'] > 0) {
+      $date .= '<br />'. t('Geändert') .': '. $row['changecount'] .'x';
+  		$date .= '<br />'. $func->unixstamp2date($row['changedate'], 'datetime');
+    }
+    $smarty->assign('date', $date);
+
+    $text = $func->text2html($row["comment"]);
+    if ($row['file']) $text .= $dsp->FetchAttachmentRow($row['file']);
+    $smarty->assign('text', $text);
 
 		if ($row['userid'] == 0){
 			preg_match("@<!--(.*)-->@",$row['comment'],$tmp);
@@ -125,27 +128,31 @@ elseif ($thread['caption'] != '') {
 			$userdata["signature"] = "";
 		} else $userdata = getuserinfo($row["userid"]);
 
-		$templ['board']['thread']['case']['info']['post']['poster']['username'] 	= $userdata["username"] .' '. $dsp->FetchUserIcon($row['userid']);;
-		$templ['board']['thread']['case']['info']['post']['poster']['type'] = $userdata["type"];
-		if ($auth['type'] >= 2) $templ['board']['thread']['case']['info']['post']['poster']['type'] .= '<br />IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>';
-		if (!$cfg['board_ranking'])$templ['board']['thread']['case']['info']['post']['poster']['rank'] = '';
-    else $templ['board']['thread']['case']['info']['post']['poster']['rank'] 		= t('Rang') . ': <a href="index.php?mod=board&action=ranking">'. $userdata['rank'] .'</a>';
-		$templ['board']['thread']['case']['info']['post']['poster']['posts'] 		= t('Beiträge') . ': <a href="index.php?mod=board&action=ranking">'. $userdata['posts'] .'</a>';;
-		$templ['board']['thread']['case']['info']['post']['poster']['avatar']		= $userdata["avatar"];
-		$templ['board']['thread']['case']['info']['post']['poster']['signature'] = '';
-		if ($userdata["signature"]) $templ['board']['thread']['case']['info']['post']['poster']['signature'] 	= '<hr size="1" width="100%" color="cccccc">'.$func->text2html($userdata["signature"]);
+    $smarty->assign('username', $userdata["username"] .' '. $dsp->FetchUserIcon($row['userid']));
 
-		$templ['board']['thread']['case']['info']['post']['edit'] = '';
-		if ($auth['type'] > 1)
-			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=delete&pid=$pid&gotopid=$pid", "delete", '', '', 'right');
-		if ($auth['type'] > 1 or $row["userid"] == $auth["userid"])
-			$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&gotopid=$pid", "edit", '', '', 'right');
-		$templ['board']['thread']['case']['info']['post']['edit'] .= $dsp->FetchIcon("javascript:InsertCode(document.dsp_form1.comment, '[quote]". str_replace("\n", "\\n", addslashes(str_replace('"', '', $row["comment"]))) ."[/quote]')", "quote", '', '', 'right');;
+    $type = $userdata["type"];
+		if ($auth['type'] >= 2) $type .= '<br />IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>';
+    $smarty->assign('type', $userdata["type"]);
 
-    if ($z % 2 == 0) $templ['board']['highlighted'] = '';
-    else $templ['board']['highlighted'] = '_highlighted';
+    $smarty->assign('posts', t('Beiträge') . ': <a href="index.php?mod=board&action=ranking">'. $userdata['posts'] .'</a>');
+    $smarty->assign('avatar', $userdata["avatar"]);
     
-		$templ['board']['forum']['case']['control']['rows'] .= $dsp->AddModTpl("board", "board_thread_row");
+		if ($cfg['board_ranking']) $smarty->assign('rank', t('Rang') . ': <a href="index.php?mod=board&action=ranking">'. $userdata['rank'] .'</a>');
+
+    $signature = '';
+    if ($userdata["signature"]) $signature = '<hr size="1" width="100%" color="cccccc">'.$func->text2html($userdata["signature"]);
+    $smarty->assign('signature', $signature);
+
+		$edit = '';
+		if ($auth['type'] > 1) $edit .= $dsp->FetchIcon("index.php?mod=board&action=delete&pid=$pid&gotopid=$pid", "delete", '', '', 'right');
+		if ($auth['type'] > 1 or $row["userid"] == $auth["userid"]) $edit .= $dsp->FetchIcon("index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&gotopid=$pid", "edit", '', '', 'right');
+		$edit .= $dsp->FetchIcon("javascript:InsertCode(document.dsp_form1.comment, '[quote]". str_replace("\n", "\\n", addslashes(str_replace('"', '', $row["comment"]))) ."[/quote]')", "quote", '', '', 'right');;
+    $smarty->assign('edit', $edit);
+
+    ($z % 2 == 0)? $highlighted = '' : $highlighted = '_highlighted';
+    $smarty->assign('highlighted', $highlighted);
+    
+		$dsp->AddSmartyTpl('board_thread_row', 'board');
 		$z++;
 	}
 
@@ -252,10 +259,11 @@ if ($thread['caption'] != '') {
   // Generate Boardlist-Dropdown
   $foren_liste = $db->qry("SELECT fid, name FROM %prefix%board_forums
     WHERE need_type <= %string% AND (!need_group OR need_group = %int%)", $list_type, $auth['group_id']);
-  while ($forum = $db->fetch_array($foren_liste))
-    $templ['board']['thread']['case']['control']['goto'] .= "<option value=\"index.php?mod=board&action=forum&fid={$forum["fid"]}\">{$forum["name"]}</option>";
-  $templ['board']['forum']['case']['info']['forum_choise'] = t('Bitte auswählen');
-  $dsp->AddDoubleRow(t('Gehe zu Forum'), $dsp->FetchModTpl('board', 'forum_dropdown'));
+  $goto = '';
+  while ($forum = $db->fetch_array($foren_liste)) $goto .= "<option value=\"index.php?mod=board&action=forum&fid={$forum["fid"]}\">{$forum["name"]}</option>";
+  $smarty->assign('goto', $goto);
+  $smarty->assign('forum_choise', t('Bitte auswählen'));
+  $dsp->AddDoubleRow(t('Gehe zu Forum'), $smarty->fetch('modules/board/templates/forum_dropdown.htm'));
 }
 
 $dsp->AddBackButton("index.php?mod=board&action=forum&fid=$fid", "board/show_post"); 
