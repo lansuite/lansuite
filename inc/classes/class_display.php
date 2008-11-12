@@ -19,30 +19,6 @@ class display {
     $this->errortext_suffix = HTML_FONT_END;
   }
 
-  function EchoTpl($file) {
-    global $auth, $language, $MainContent;
-
-    $handle = fopen ($file, 'rb');
-    $tpl_str = fread($handle, filesize($file));
-    fclose ($handle);
-
-    $tpl_str = str_replace('{language}', $language, $tpl_str );
-    $tpl_str = str_replace('{default_design}', $auth['design'], $tpl_str);
-
-    #echo $tpl_str;
-    $MainContent .= $tpl_str;
-  }
-
-  function SetVar($name, $value){
-    $this->TplVars[$name] = $value;
-  }
-
-  function EchoVar($name){
-    global $MainContent;
-    $MainContent .= $this->TplVars[$name];
-    #echo $this->TplVars[$name];
-  }
-
   // Returns the template $file
   function FetchTpl($file, $templx = ''){
     global $auth, $language, $cfg, $TplCache, $templ;
@@ -69,13 +45,6 @@ class display {
   }
 
   // Output the template $file
-  function AddTpl($file, $OpenTable = 1){
-    global $templ, $MainContent;
-
-    $MainContent .=  $this->FetchTpl($file, $templ);
-  }
-
-  // Output the template $file
   function AddLineTpl($file, $OpenTable = 1){
     global $templ, $MainContent;
 
@@ -85,6 +54,20 @@ class display {
         $this->FirstLine = 0;
       } else $MainContent .= '<ul class="Line">'. $this->FetchTpl($file) .'</ul>';
     }
+  }
+
+  // Output the template $file
+  function AddTpl($file, $OpenTable = 1){
+    global $templ, $MainContent;
+
+    $MainContent .=  $this->FetchTpl($file, $templ);
+  }
+
+  function AddModTpl($mod, $name) {
+    global $templ, $debug;
+        
+    if ($mod == "") $return = $this->AddTpl("design/templates/".$name.".htm");
+    else $return = $this->AddTpl("modules/".$mod."/templates/".$name.".htm");
   }
 
   // Output the template $file
@@ -623,13 +606,6 @@ class display {
   }
 
   // ################################################################################################################# //
-
-  function AddModTpl($mod, $name) {
-    global $templ, $debug;
-        
-    if ($mod == "") $return = $this->AddTpl("design/templates/".$name.".htm");
-    else $return = $this->AddTpl("modules/".$mod."/templates/".$name.".htm");
-  }
 
   function FetchAttachmentRow($file) {
     global $gd;
