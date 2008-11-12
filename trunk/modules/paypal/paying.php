@@ -174,7 +174,7 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 			}else{
 				
 				$dsp->NewContent(t('Daten eingeben'),t('Bitte geben sie ihre Zahlungsdaten ein.'));
-				$dsp->AddModTpl("paypal","javascript");
+				$dsp->AddSmartyTpl('javascript', 'paypal');
 				$dsp->SetForm("index.php?mod=paypal&action=paying&design=base&step=2");
 				$dsp->AddTextFieldRow("firstname",t('Vorname'),$_POST['firstname'],$error_pay['firstname']);
 				$dsp->AddTextFieldRow("lastname",t('Nachname'),$_POST['lastname'],$error_pay['lastname']);
@@ -262,7 +262,7 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 				}
 				
 				$dsp->NewContent(t('Zahlung erfolgreich'));
-				$dsp->AddModTpl("paypal","javascript");
+				$dsp->AddSmartyTpl('javascript', 'paypal');
 				$dsp->AddSingleRow(t('Die Zahlung war erfolgreich. Wir danken f&uuml;r die Einzahlung.'));
 				$dsp->AddDoubleRow(t('Vorname'),$_POST['first_name']);
 				$dsp->AddDoubleRow(t('Nachname'),$_POST['last_name']);
@@ -273,7 +273,7 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 				$dsp->AddContent();
 			}else{
 				$dsp->NewContent(t('Transaktionsfehler oder unerlaubter Zugriff'));
-				$dsp->AddModTpl("paypal","javascript");
+				$dsp->AddSmartyTpl('javascript', 'paypal');
 				$dsp->AddSingleRow("<font color=\"red\">" . t('Bitte melden sie sich beim einem Admin damit der die Zahlung pr&uuml;fen kann.') . "</font>");
 				$dsp->AddDoubleRow(t('Vorname'),$_POST['first_name']);
 				$dsp->AddDoubleRow(t('Nachname'),$_POST['last_name']);

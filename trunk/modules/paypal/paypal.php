@@ -5,7 +5,7 @@ if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
 	$func->error(t('Sie k&ouml;nnen nichts einzahlen wenn Sie nicht eingeloggt sind.'),"index.php?mod=home");
 }else{
 	$dsp->NewContent(t('Einzahlen'), t('Hier sehen sie was f&uuml;r Betr&auml;ge noch ausstehend sind. W&auml;hlen sie was sie bezahlen m&ouml;chten.'));
-	$dsp->AddModTpl("paypal","javascript");
+	$dsp->AddSmartyTpl('javascript', 'paypal');
 	$dsp->SetForm("index.php?mod=paypal&action=paying&design=base\" target=\"PopWnd\" onsubmit=\"submitpaypal(); return false;","paypal");
 
 	// LIST ALL PARTYS
