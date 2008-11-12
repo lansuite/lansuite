@@ -305,7 +305,7 @@ break;
             }
 
             // signature
-            $dsp->AddDoubleRow(t('Signatur'), $func->db2text2html($user_data['signature']));
+            $dsp->AddDoubleRow(t('Signatur'), $func->text2html($user_data['signature']));
 
             // avatar
             ($user_data['avatar_path'] != "" AND $user_data['avatar_path'] != "0") ?

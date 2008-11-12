@@ -77,5 +77,5 @@ $templ['messenger']['query']['messages']['info']['msgs'] .= "<a name=\"end\"></a
 // Output HTML
 //
 $index .= $dsp->FetchTpl("design/templates/messenger_query_messages.htm");
-$func->templ_output($index);
+echo $index;
 ?>

@@ -135,14 +135,14 @@ else {
           $dsp->AddFieldsetStart(t('Regeln und Sonstiges'));
 					if ($tournament['rules_ext']) $dsp->AddDoubleRow(t('Regelwerk'), "<a href=\"./ext_inc/tournament_rules/{$tournament['rules_ext']}\" target=\"_blank\">".t('Regelwerk öffnen')."({$tournament['rules_ext']})</a>");
 
-					$dsp->AddDoubleRow(t('Bemerkung'), $func->db2text2html($tournament["comment"]));
+					$dsp->AddDoubleRow(t('Bemerkung'), $func->text2html($tournament["comment"]));
 
           $maps = explode("\n", $tournament["mapcycle"]);
           $map_str = '';
           foreach ($maps as $key => $val) $map_str .= t('Runde')." $key: $val \n";
           $mapcycle = t('Mapcycle'). HTML_NEWLINE . HTML_NEWLINE;
           if ($auth['type'] > 1) $mapcycle .= '<a href="index.php?mod=tournament2&action=details&tournamentid='. $_GET['tournamentid'] .'&step=20">'. t('Maps neu mischen') .'</a>';
-					$dsp->AddDoubleRow($mapcycle, $func->db2text2html($map_str));
+					$dsp->AddDoubleRow($mapcycle, $func->text2html($map_str));
           $dsp->AddFieldsetEnd();
 				break;
 

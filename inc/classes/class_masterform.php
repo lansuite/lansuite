@@ -186,7 +186,7 @@ class masterform {
           } else {
             $row = $db->qry_first("SELECT 1 AS found %plain% FROM %prefix%%plain% WHERE %plain% %plain% = %int%", $db_query, $table, $AddKey, $idname, $id);
             if ($row['found']) {
-              foreach ($this->SQLFields as $key => $val) if (!in_array($key, $this->WYSIWYGFields)) $_POST[$val] = $row[$val]; else $_POST[$val] = $func->db2edit($row[$val]);
+              foreach ($this->SQLFields as $key => $val) if (!in_array($key, $this->WYSIWYGFields)) $_POST[$val] = $row[$val]; else $_POST[$val] = $row[$val];
             } else {
               $func->error(t('Diese ID existiert nicht.'));
               return false;

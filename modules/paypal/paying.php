@@ -307,5 +307,5 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 		
 	}
 	
-$func->templ_output($dsp->FetchModTpl("paypal","sendbox"));
+echo $dsp->FetchModTpl("paypal","sendbox");
 ?>

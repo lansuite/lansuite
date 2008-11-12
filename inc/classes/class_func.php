@@ -21,7 +21,6 @@ function htmlspecchars ($string, $quote_style=ENT_COMPAT, $format=null) {
 
 
 class func {
-
   /**
    * CONSTRUCTOR : Get referer and transform in a internal Link
    *
@@ -49,29 +48,7 @@ class func {
     }
 
     
-    function checkIP($ip) {
-        if (strlen($ip) < 5 OR strlen($ip) > 15) return 0;
-
-        $IPParts = explode(".", $ip);
-        if (count($IPParts) != 4) return 0;
-        if ($IPParts[0] == 0 ) return 0;
-
-        for ($i=0; $i<=3; $i++) {
-            if (ereg("[^0-9]", $IPParts[$i])) return 0;
-            if ($IPParts[$i] > 255 or $IPParts[$i] < 0) return 0;
-        }
-        return 1;
-    }
-
-    function button_userdetails($userid, $target) {
-        global $db;
-
-        if ($target == "new") $target = 'target="_blank"';
-    $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = "1" AND lasthit > %int%', $userid, time() - 60*10);
-        ($user_online['found'])? $state ='online' : $state ='offline';
-        return ' <a href="index.php?mod=usrmgr&action=details&userid='.$userid.'" '.$target.'><img src="design/images/arrows_user_'. $state .'.png" border="0"/></a>';
-    }
-
+  #### Template stuff (should be moved to class_framework, or class_display) ####
   function FetchMasterTmpl($file) {
     global $auth, $templ, $config, $dsp, $framework;
 
@@ -108,18 +85,19 @@ class func {
     }
   }
 
-    function gettemplate($template) {
-    global $auth, $templ;
 
-    if ($tpl_str = $this->FetchMasterTmpl("design/{$auth['design']}/templates/$template.htm")) return $tpl_str;
-    elseif ($tpl_str = $this->FetchMasterTmpl("design/templates/$template.htm")) return $tpl_str;
-    else echo t('Das Template "%1" existiert nicht!', array("dessign/{$auth['design']}/templates/$template.htm"));
-    }
+  #### Display stuff (should be moved to class_display) ####
+  function button_userdetails($userid, $target) {
+    global $db;
 
-    function templ_output($template) {
-        echo $template;
-    }
+    if ($target == "new") $target = 'target="_blank"';
+    $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = "1" AND lasthit > %int%', $userid, time() - 60*10);
+    ($user_online['found'])? $state ='online' : $state ='offline';
+    return ' <a href="index.php?mod=usrmgr&action=details&userid='.$userid.'" '.$target.'><img src="design/images/arrows_user_'. $state .'.png" border="0"/></a>';
+  }
 
+
+  #### Date Conversions ####
   function MysqlDateToTimestamp($datetime) {
     list($date, $time) = split(' ', $datetime);
     list($year, $month, $day) = split('-', $date);
@@ -128,578 +106,553 @@ class func {
     return mktime($hour, $min, $sec, $month, $day, $year);
   }
 
-    function date2unixstamp($year,$month,$day,$hour,$minute,$second) {  
-        $func_timestamp = @mktime($hour,$minute,$second,$month,$day,$year);
-        return $func_timestamp;     
-    } 
-    
-    function setainfo( $text, $userid, $priority, $item, $itemid) {
-        global $db, $config, $lang;
-
-        if ($priority != "0" AND $priority != "1" AND $priority != "2") {
-            echo(t('Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)'));
-        } else { 
-            $date = date("U");
-            $db->qry("INSERT INTO %prefix%infobox SET userid=%int%, class=%string%, id_in_class = %int%, text=%string%, date=%string%, priority=%string%", $userid, $item, $itemid, $text, $date, $priority);
-        }
-    }
+  function date2unixstamp($year,$month,$day,$hour,$minute,$second) {  
+    $func_timestamp = @mktime($hour,$minute,$second,$month,$day,$year);
+    return $func_timestamp;     
+  } 
 
   function str2time($strStr, $strPattern = 'Y-m-d H:i:s') {
-     // an array of the valide date characters, see: http://php.net/date#AEN21898
-     $arrCharacters = array(
-         'd', // day
-         'm', // month
-         'y', // year, 2 digits
-         'Y', // year, 4 digits
-         'H', // hours
-         'i', // minutes
-         's'  // seconds
-     );
-     // transform the characters array to a string
-     $strCharacters = implode('', $arrCharacters);
+    // an array of the valide date characters, see: http://php.net/date#AEN21898
+    $arrCharacters = array(
+       'd', // day
+       'm', // month
+       'y', // year, 2 digits
+       'Y', // year, 4 digits
+       'H', // hours
+       'i', // minutes
+       's'  // seconds
+    );
+    // transform the characters array to a string
+    $strCharacters = implode('', $arrCharacters);
+    
+    // splits up the pattern by the date characters to get an array of the delimiters between the date characters
+    $arrDelimiters = preg_split('~['.$strCharacters.']~', $strPattern);
+    // transform the delimiters array to a string
+    $strDelimiters = quotemeta(implode('', array_unique($arrDelimiters)));
+    
+    // splits up the date by the delimiters to get an array of the declaration
+    $arrStr    = preg_split('~['.$strDelimiters.']~', $strStr);
+    // splits up the pattern by the delimiters to get an array of the used characters
+    $arrPattern = preg_split('~['.$strDelimiters.']~', $strPattern);
+    
+    // if the numbers of the two array are not the same, return false, because the cannot belong together
+    if (count($arrStr) !== count($arrPattern)) return false;
+    
+    // creates a new array which has the keys from the $arrPattern array and the values from the $arrStr array
+    $arrTime = array();
+    for ($i = 0;$i < count($arrStr);$i++) $arrTime[$arrPattern[$i]] = $arrStr[$i];
+    
+    // gernerates a 4 digit year declaration of a 2 digit one by using the current year
+    if (isset($arrTime['y']) && !isset($arrTime['Y'])) $arrTime['Y'] = substr(date('Y'), 0, 2) . $arrTime['y'];
+    
+    // if a declaration is empty, it will be filled with the current date declaration
+    foreach ($arrCharacters as $strCharacter) if (empty($arrTime[$strCharacter])) $arrTime[$strCharacter] = date($strCharacter);
+    
+    // checks if the date is a valide date
+    if (!checkdate($arrTime['m'], $arrTime['d'], $arrTime['Y'])) return false;
 
-     // splits up the pattern by the date characters to get an array of the delimiters between the date characters
-     $arrDelimiters = preg_split('~['.$strCharacters.']~', $strPattern);
-     // transform the delimiters array to a string
-     $strDelimiters = quotemeta(implode('', array_unique($arrDelimiters)));
-
-     // splits up the date by the delimiters to get an array of the declaration
-     $arrStr    = preg_split('~['.$strDelimiters.']~', $strStr);
-     // splits up the pattern by the delimiters to get an array of the used characters
-     $arrPattern = preg_split('~['.$strDelimiters.']~', $strPattern);
-
-     // if the numbers of the two array are not the same, return false, because the cannot belong together
-     if (count($arrStr) !== count($arrPattern)) {
-         return false;
-     }
-
-     // creates a new array which has the keys from the $arrPattern array and the values from the $arrStr array
-     $arrTime = array();
-     for ($i = 0;$i < count($arrStr);$i++) {
-         $arrTime[$arrPattern[$i]] = $arrStr[$i];
-     }
-
-     // gernerates a 4 digit year declaration of a 2 digit one by using the current year
-     if (isset($arrTime['y']) && !isset($arrTime['Y'])) {
-         $arrTime['Y'] = substr(date('Y'), 0, 2) . $arrTime['y'];
-     }
-
-     // if a declaration is empty, it will be filled with the current date declaration
-     foreach ($arrCharacters as $strCharacter) {
-         if (empty($arrTime[$strCharacter])) {
-             $arrTime[$strCharacter] = date($strCharacter);
-         }
-     }
-
-     // checks if the date is a valide date
-     if (!checkdate($arrTime['m'], $arrTime['d'], $arrTime['Y'])) {
-         return false;
-     }
-
-     // generates the timestamp
-     $intTime = mktime($arrTime['H'], $arrTime['i'], $arrTime['s'], $arrTime['m'], $arrTime['d'], $arrTime['Y']);
-     // returns the timestamp
-     return $intTime;
+    $intTime = mktime($arrTime['H'], $arrTime['i'], $arrTime['s'], $arrTime['m'], $arrTime['d'], $arrTime['Y']);
+    return $intTime;
   }
 
-    function unixstamp2date($func_timestamp,$func_art) {
-        global $lang;
+  function unixstamp2date($func_timestamp,$func_art) {
+    global $lang;
 
-        switch($func_art) {
-            case "year":        $func_date  = date("Y", $func_timestamp);       break;      
-            case "month":       $func_date  = date("Y", $func_timestamp) ." - ". $this->translate_monthname(date("F", $func_timestamp));        break;      
-            case "date":        $func_date  = date("d.m.Y", $func_timestamp);       break;      
-            case "time":        $func_date  = date("H:i", $func_timestamp);     break;
-            case "shorttime":   $func_date  = date("H:i", $func_timestamp);     break;
-            case "datetime":    $func_date  = date("d.m.Y H:i", $func_timestamp);   break;
-            case "daydatetime":
-                $day[0] = t('Sonntag');
-                $day[1] = t('Montag');
-                $day[2] = t('Dienstag');
-                $day[3] = t('Mittwoch');
-                $day[4] = t('Donnerstag');
-                $day[5] = t('Freitag');
-                $day[6] = t('Samstag');
+    switch($func_art) {
+        case "year":        $func_date  = date("Y", $func_timestamp);       break;      
+        case "month":       $func_date  = date("Y", $func_timestamp) ." - ". $this->translate_monthname(date("F", $func_timestamp));        break;      
+        case "date":        $func_date  = date("d.m.Y", $func_timestamp);       break;      
+        case "time":        $func_date  = date("H:i", $func_timestamp);     break;
+        case "shorttime":   $func_date  = date("H:i", $func_timestamp);     break;
+        case "datetime":    $func_date  = date("d.m.Y H:i", $func_timestamp);   break;
+        case "daydatetime":
+          $day[0] = t('Sonntag');
+          $day[1] = t('Montag');
+          $day[2] = t('Dienstag');
+          $day[3] = t('Mittwoch');
+          $day[4] = t('Donnerstag');
+          $day[5] = t('Freitag');
+          $day[6] = t('Samstag');
 
-                $func_date .= $day[date("w", $func_timestamp)]; 
-                $func_date .= ", "; 
-                $func_date .= date("d.m.Y H:i", $func_timestamp);
-            break;
+          $func_date .= $day[date("w", $func_timestamp)]; 
+          $func_date .= ", "; 
+          $func_date .= date("d.m.Y H:i", $func_timestamp);
+        break;
 
-            case "daydate":
-                $day[0] = t('Sonntag');
-                $day[1] = t('Montag');
-                $day[2] = t('Dienstag');
-                $day[3] = t('Mittwoch');
-                $day[4] = t('Donnerstag');
-                $day[5] = t('Freitag');
-                $day[6] = t('Samstag');
-                $func_date .= date("d.m.Y", $func_timestamp) . " (". $day[date("w", $func_timestamp)] .")";
-            break;
+        case "daydate":
+          $day[0] = t('Sonntag');
+          $day[1] = t('Montag');
+          $day[2] = t('Dienstag');
+          $day[3] = t('Mittwoch');
+          $day[4] = t('Donnerstag');
+          $day[5] = t('Freitag');
+          $day[6] = t('Samstag');
+          $func_date .= date("d.m.Y", $func_timestamp) . " (". $day[date("w", $func_timestamp)] .")";
+        break;
 
-            case "shortdaytime":
-                $day[0] = t('So');
-                $day[1] = t('Mo');
-                $day[2] = t('Di');
-                $day[3] = t('Mi');
-                $day[4] = t('Do');
-                $day[5] = t('Fr');
-                $day[6] = t('Sa');
+        case "shortdaytime":
+          $day[0] = t('So');
+          $day[1] = t('Mo');
+          $day[2] = t('Di');
+          $day[3] = t('Mi');
+          $day[4] = t('Do');
+          $day[5] = t('Fr');
+          $day[6] = t('Sa');
 
-                $func_date .= $day[date("w", $func_timestamp)]; 
-                $func_date .= ", "; 
-                $func_date .= date("H:i", $func_timestamp);
-            break;
-        }
-        return $func_date;
+          $func_date .= $day[date("w", $func_timestamp)]; 
+          $func_date .= ", "; 
+          $func_date .= date("H:i", $func_timestamp);
+        break;
     }
+    return $func_date;
+  }
+
+  function translate_weekdayname($name) {
+    global $lang;
+
+    $name = strtolower($name);
+    return $lang['class_func'][$name];
+  }
+
+  function translate_monthname($name) {
+    global $lang;
+
+    $name = strtolower($name);
+    return $lang['class_func'][$name];
+  }
+
+  // Gibt das aktuelle Alter zurück
+  function age($gebtimestamp) {
+      $yeardiff = date("Y") - date("Y", $gebtimestamp);
+      $monthdiff = date("m") - date("m", $gebtimestamp);
+      $daydiff = date("j") - date("j", $gebtimestamp);
+
+      if (($monthdiff < 0) || ($monthdiff == 0 && $daydiff < 0)) $age = $yeardiff - 1;
+      else $age = $yeardiff;
+
+      return $age;
+  }
+
+  // Gibt das Alter bei der LanParty zurück
+  function age_at_lan($gebtimestamp) {
+/*  Funktioniert so leider noch nicht
+      $yeardiff = date("Y", mktime($cfg["signon_partybegin"])) - date("Y", $gebtimestamp);
+      $monthdiff = date("m", mktime($cfg["signon_partybegin"])) - date("m", $gebtimestamp);
+      $daydiff = date("j", mktime($cfg["signon_partybegin"])) - date("j", $gebtimestamp);
+
+      if (($monthdiff < 0) || ($monthdiff == 0 && $daydiff < 0)) $age = $yeardiff - 1;
+      else $age = $yeardiff;
+
+      return $age;
+*/
+  }
 
 
-    function translate_weekdayname($name) {
-        global $lang;
+  #### Infobox ####
+  function setainfo( $text, $userid, $priority, $item, $itemid) {
+      global $db, $config, $lang;
 
-        $name = strtolower($name);
-        return $lang['class_func'][$name];
-    }
+      if ($priority != "0" AND $priority != "1" AND $priority != "2") {
+          echo(t('Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)'));
+      } else { 
+          $date = date("U");
+          $db->qry("INSERT INTO %prefix%infobox SET userid=%int%, class=%string%, id_in_class = %int%, text=%string%, date=%string%, priority=%string%", $userid, $item, $itemid, $text, $date, $priority);
+      }
+  }
+
 
     
-    function translate_monthname($name) {
-        global $lang;
-
-        $name = strtolower($name);
-        return $lang['class_func'][$name];
-    }
-
+  #### Dialog functions ####
+  function error($text, $link_target = '', $JustReturn = 0) {
+    global $templ, $auth, $lang, $language, $dsp, $FrameworkMessages;
     
-    // #### DIALOG FUNCTIONS ####
-    function error($text, $link_target = '', $JustReturn = 0) {
-        global $templ, $auth, $lang, $language, $dsp, $FrameworkMessages;
-        
-        if ($link_target == '') $link_target = $this->internal_referer;
-        if ($link_target == NO_LINK) $link_target = '';
+    if ($link_target == '') $link_target = $this->internal_referer;
+    if ($link_target == NO_LINK) $link_target = '';
     if ($link_target) $templ['error']['info']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
 
-        switch($text) {
-            case "ACCESS_DENIED":
-                $templ['error']['info']['errormsg'] = t('Sie haben keine Zugriffsrechte für diesen Bereich.');
-            break;
-            case "NO_LOGIN":
-                $templ['error']['info']['errormsg'] = t('Sie sind nicht eingeloggt. Bitte loggen Sie sich erst ein, bevor Sie diesen Bereich betreten.');
-            break;
-            case "NOT_FOUND":
-                $templ['error']['info']['errormsg'] = t('Leider ist die von Ihnen aufgerufene Seite auf diesem Server nicht vorhanden.<br/>Um Fehler zu vermeiden, sollten Sie die URL nicht manuell ändern, sondern die Links benutzen. Wenn Sie die Adresse manuell eingegeben haben überprüfen Sie bitte die URL.');
-            break;
-            case "DEACTIVATED":
-                $templ['error']['info']['errormsg'] = t('Dieses Lansuite Modul wurde deaktiviert und steht somit nicht zur Verfügung.');
-            break;
-            case "NO_REFRESH":
-                $templ['error']['info']['errormsg'] = t('Sie haben diese Anfrage wiederholt ausgeführt.');
-            break;
-            default:
-                $templ['error']['info']['errormsg'] = $text;
-            break;
-        }
+    switch($text) {
+        case "ACCESS_DENIED":
+            $templ['error']['info']['errormsg'] = t('Sie haben keine Zugriffsrechte für diesen Bereich.');
+        break;
+        case "NO_LOGIN":
+            $templ['error']['info']['errormsg'] = t('Sie sind nicht eingeloggt. Bitte loggen Sie sich erst ein, bevor Sie diesen Bereich betreten.');
+        break;
+        case "NOT_FOUND":
+            $templ['error']['info']['errormsg'] = t('Leider ist die von Ihnen aufgerufene Seite auf diesem Server nicht vorhanden.<br/>Um Fehler zu vermeiden, sollten Sie die URL nicht manuell ändern, sondern die Links benutzen. Wenn Sie die Adresse manuell eingegeben haben überprüfen Sie bitte die URL.');
+        break;
+        case "DEACTIVATED":
+            $templ['error']['info']['errormsg'] = t('Dieses Lansuite Modul wurde deaktiviert und steht somit nicht zur Verfügung.');
+        break;
+        case "NO_REFRESH":
+            $templ['error']['info']['errormsg'] = t('Sie haben diese Anfrage wiederholt ausgeführt.');
+        break;
+        default:
+            $templ['error']['info']['errormsg'] = $text;
+        break;
+    }
     if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/error.htm');
     else $dsp->AddTpl("design/templates/error.htm");
-    }
+  }
 
-    function confirmation($text, $link_target = '', $JustReturn = 0) {
-        global $templ, $auth, $dsp, $language, $FrameworkMessages;
+  function confirmation($text, $link_target = '', $JustReturn = 0) {
+    global $templ, $auth, $dsp, $language, $FrameworkMessages;
 
-        if ($link_target == '') $link_target = $this->internal_referer;
-        if ($link_target == NO_LINK) $link_target = '';
-        if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
-        $templ['confirmation']['info']['confirmationmsg']   = $text;
+    if ($link_target == '') $link_target = $this->internal_referer;
+    if ($link_target == NO_LINK) $link_target = '';
+    if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
+    $templ['confirmation']['info']['confirmationmsg']   = $text;
 
     if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/confirmation.htm');
     else $dsp->AddLineTpl("design/templates/confirmation.htm");
-    }
+  }
 
-    function information($text, $link_target = '', $button_text = 'back', $JustReturn = 0) {
-        global $templ, $auth, $dsp, $language, $FrameworkMessages;
-
-        if ($link_target == '') $link_target = $this->internal_referer;
-        if ($link_target == NO_LINK) $link_target = '';
-        if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
-        $templ['confirmation']['info']['confirmationmsg'] = $text;
-
+  function information($text, $link_target = '', $button_text = 'back', $JustReturn = 0) {
+    global $templ, $auth, $dsp, $language, $FrameworkMessages;
+  
+    if ($link_target == '') $link_target = $this->internal_referer;
+    if ($link_target == NO_LINK) $link_target = '';
+    if ($link_target) $templ['confirmation']['control']['link'] = $dsp->FetchCssButton('Zurück', $link_target, 'Zurück zur vorherigen Seite');
+    $templ['confirmation']['info']['confirmationmsg'] = $text;
+  
     if ($JustReturn) $FrameworkMessages .= $dsp->FetchTpl('design/templates/information.htm');
     else $dsp->AddTpl("design/templates/information.htm");
-    }
+  }
 
-    function multiquestion($questionarray, $linkarray, $text) {
-        global $templ, $dsp;
-
-        ($text)? $templ['multiquestion']['info']['text'] = $text : $templ['multiquestion']['info']['text'] = t('Bitte wählen Sie eine Möglichkeit aus:');
-        if (is_array($questionarray)) foreach($questionarray as $ind => $question)
-      $templ['multiquestion']['control']['row'] .= '<br /><br /><a href="'. $linkarray[$ind] .'">'. $question .'</a>';
-
+  function multiquestion($questionarray, $linkarray, $text) {
+    global $templ, $dsp;
+    
+    ($text)? $templ['multiquestion']['info']['text'] = $text : $templ['multiquestion']['info']['text'] = t('Bitte wählen Sie eine Möglichkeit aus:');
+    if (is_array($questionarray)) foreach($questionarray as $ind => $question)
+    $templ['multiquestion']['control']['row'] .= '<br /><br /><a href="'. $linkarray[$ind] .'">'. $question .'</a>';
+    
     $dsp->AddTpl("design/templates/multiquestion.htm");
-    }
+  }
 
-    function dialog($dialogarray, $linkarray, $picarray) {
-        global $templ, $gd, $dsp;
-
-        if ($dialogarray[0]=="") $dialogarray[0]="question";
-        if ($dialogarray[1]=="") $dialogarray[1]="Frage";
-
-        $templ['dialog']['info']['icon']        = $dialogarray[0]; // using the pic filename w/o "icon_" & ".gif" !
-        $templ['dialog']['info']['caption']     = $dialogarray[1];
-        $templ['dialog']['info']['questionmsg'] = $dialogarray[2];
-
-        if (is_array($linkarray)) foreach ($linkarray as $ind => $link)
-      $templ['dialog']['control']['row'] .= $dsp->FetchButton($link, $picarray[$ind]);
-
+  function dialog($dialogarray, $linkarray, $picarray) {
+    global $templ, $gd, $dsp;
+    
+    if ($dialogarray[0]=="") $dialogarray[0]="question";
+    if ($dialogarray[1]=="") $dialogarray[1]="Frage";
+    
+    $templ['dialog']['info']['icon']        = $dialogarray[0]; // using the pic filename w/o "icon_" & ".gif" !
+    $templ['dialog']['info']['caption']     = $dialogarray[1];
+    $templ['dialog']['info']['questionmsg'] = $dialogarray[2];
+    
+    if (is_array($linkarray)) foreach ($linkarray as $ind => $link)
+    $templ['dialog']['control']['row'] .= $dsp->FetchButton($link, $picarray[$ind]);
+    
     $dsp->AddTpl("design/templates/dialog.htm");
+  }
+
+  function question($text, $link_target_yes, $link_target_no = '') {
+    global $smarty, $dsp;
+
+    if ($link_target_no == '') $link_target_no = $this->internal_referer;
+    $smarty->assign('question', $text);
+    $smarty->assign('action', $link_target_yes);
+    $smarty->assign('yes', $dsp->FetchIcon($link_target_yes, 'yes'));
+    $smarty->assign('no', $dsp->FetchIcon($link_target_no, 'no'));
+    $dsp->AddLineTplSmarty($smarty->fetch('design/templates/question.htm'));
+  }
+
+  function no_items($object, $link_target, $type) {
+    global $templ, $auth, $lang, $dsp, $language;
+
+    switch($type) {
+      case "rlist":   $text   = t('Es sind keine %1 vorhanden.', $object); break;
+      case "search":  $text   = t('Es wurden keine passenden %1 gefunden.', $object); break;
+      case "free":    $text   = $object; break;
     }
-
-    function question($text, $link_target_yes, $link_target_no = '') {
-      global $smarty, $dsp;
-
-      if ($link_target_no == '') $link_target_no = $this->internal_referer;
-      $smarty->assign('question', $text);
-      $smarty->assign('action', $link_target_yes);
-      $smarty->assign('yes', $dsp->FetchIcon($link_target_yes, 'yes'));
-      $smarty->assign('no', $dsp->FetchIcon($link_target_no, 'no'));
-      $dsp->AddLineTplSmarty($smarty->fetch('design/templates/question.htm'));
-    }
-
-    function no_items($object, $link_target, $type) {
-        global $templ, $auth, $lang, $dsp, $language;
-
-        switch($type) {
-            case "rlist":   $text   = t('Es sind keine %1 vorhanden.', $object); break;
-            case "search":  $text   = t('Es wurden keine passenden %1 gefunden.', $object); break;
-            case "free":    $text   = $object; break;
-        }
     $this->information($text, $link_target);
-    }
-
-  // When text should be displayed within a textarea
-  // Replaced by auto-replace in class_db
-  function db2edit($string) {
-/*
-        $string = str_replace('&', '&amp;', $string);
-        $string = str_replace('<', '&lt;', $string);
-        $string = str_replace('>', '&gt;', $string);
-        $string = str_replace('"', '&quot;', $string);
-*/      
-        return $string;
   }
 
 
+  #### String conversion (Anti-Hacking + Nicer look) ####
+  // NoHTML is applied to every field retrieved from an SQL-Query, as well as GET, Request_Uri, Http_Referrer and Query_String
+  // If you would like to use HTML code in one of these, you have to transform the code again, using AllowHTML
   function NoHTML($string, $soft = 0) {
     if ($soft) $aTransSpecchar = array('"' => '&quot;', '<' => '&lt;', '>' => '&gt;');
     else $aTransSpecchar = array('&' => '&amp;', '"' => '&quot;', '<' => '&lt;', '>' => '&gt;');
     return strtr($string, $aTransSpecchar);
   }
 
+  // See above
   function AllowHTML($string) {
     $aTransSpecchar = array('&amp;' => '&', '&quot;' => '"', '&lt;' => '<', '&gt;' => '>');
     return strtr($string, $aTransSpecchar);
   }
 
   // If ls-code should be displayed
-    function text2html($string, $mode = 0) { // mode 0: default; 1: wiki before; 2: wiki after; 4: basic
-        global $db, $config, $auth;
+  function text2html($string, $mode = 0) { // mode 0: default; 1: wiki before; 2: wiki after; 4: basic
+      global $db, $config, $auth;
 
-        if ($mode != 4) {
-          if ($mode != 1) {
-            preg_replace_callback(
-              '#\[c\]((.)*)\[\/c\]#sUi',
-              create_function(
-                '$treffer',
-                'global $HighlightCode, $HighlightCount; $HighlightCount++; $HighlightCode[$HighlightCount] = $treffer[1];'
-              ),
-              $string
-            );
-          }
-          
-          if ($mode != 2) {
-            $img_start = "<img src=\"design/".$auth["design"]."/images/";
-            $img_start2 = '<img src="ext_inc/smilies/';
-            $img_end   = '" border="0" alt="" />';
-    
-            $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:450px; max-height:450px; overflow:hidden;" />', $string);
-            $string = preg_replace('#\\[url=(index\.php\?[^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a href="\\1" rel="nofollow">\\2</a>', $string);
-            $string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
-      
-            if ($mode != 1) {
-              $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
-              $string = preg_replace('#(\\s|^)(mailto:(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\3</a>\\4', $string);
-              $string = preg_replace('#(\\s|^)(www\\.(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="http://\\2" rel="nofollow">\\2</a>\\4', $string);
-            }
-          }
-        }
-                    
-        $string = str_replace("\r", '', $string);
-        $string = str_replace("\n", "<br />\n", $string);
-        $string = str_replace("[br]", "<br />\n", $string);
-        $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
-
-        $string = str_replace('[b]', '<b>', $string);
-        $string = str_replace('[/b]', '</b>', $string);
-        $string = str_replace('[i]', '<i>', $string);
-        $string = str_replace('[/i]', '</i>', $string);
-        $string = str_replace('[u]', '<u>', $string);
-        $string = str_replace('[/u]', '</u>', $string);
-        $string = str_replace('[s]', '<strike>', $string);
-        $string = str_replace('[/s]', '</strike>', $string);
-        $string = str_replace('[sub]', '<sub>', $string);
-        $string = str_replace('[/sub]', '</sub>', $string);
-        $string = str_replace('[sup]', '<sup>', $string);
-        $string = str_replace('[/sup]', '</sup>', $string);
-
-        if ($mode != 4) {
-          $string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">', $string);
-          $string = str_replace('[/quote]', '</div></blockquote>', $string);
-  
-          $string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
-          $string = str_replace('[/size]', '</font>', $string);
-          $string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
-          $string = str_replace('[/color]', '</font>', $string);
-  
-          if ($mode != 1) {
-            $res = $db->qry("SELECT shortcut, image FROM %prefix%smilies");
-            while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
-            $db->free_result($res);
-          }
-  
-          if ($mode != 1) {
-            $string = preg_replace_callback(
-              '#\[c\](.)*\[\/c\]#sUi',
-              create_function(
-                '$treffer',
-                'global $func, $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. $func->AllowHTML(geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true)) .\'</div></blockquote>\';'
-              ),
-              $string
-            );
-          }
-        }
-                
-        return $string;
-    }
-
-    // Wiki Syntax
-    function Text2Wiki($string) {
-      $arr = explode("\n", $this->Text2HTML($string, 1));
-      
-      $COpen = 0;
-      $UlOpen = 0;
-      $OlOpen = 0;
-      foreach ($arr as $key => $line) {
-        #$arr[$key] = preg_replace("#^<br />$#sUi", '', $arr[$key]);
-        $arr[$key] = preg_replace('#^====== (.*) ======#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
-        $arr[$key] = preg_replace('#^===== (.*) =====#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
-        $arr[$key] = preg_replace('#^==== (.*) ====#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
-        $arr[$key] = preg_replace('#^=== (.*) ===#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
-        $arr[$key] = preg_replace('#^== (.*) ==#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
-        $arr[$key] = preg_replace('#^= (.*) =#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
-        $arr[$key] = preg_replace('#\\[\\[Bild:(.*)\\]\\]#sUi', '<img src="ext_inc/wiki/\\1" alt="\\1">', $arr[$key]);
-        $arr[$key] = preg_replace('#\\[(http://[^ ]*) ([^\\]]*)\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $arr[$key]);
-        $arr[$key] = preg_replace('#\\[\\[([^\\|\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\1</a>', $arr[$key]);
-        $arr[$key] = preg_replace('#\\[\\[([^\\|]*)\\|([^\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\2</a>', $arr[$key]);
-        $arr[$key] = preg_replace("#'''(.*)'''#sUi", "<b>\\1</b>", $arr[$key]);
-
-        if ($UlOpen) {
-          $arr[$key] = preg_replace("#^\\* (.*)<br />#sUi", "<li>\\1</li>", $arr[$key]);
-          $arr[$key] = preg_replace("#^([^\\*].(.*))<br />#sUi", "</ul><br />\\1", $arr[$key], -1, $count);
-          if ($count) $UlOpen = 0;
-        } else {
-          $arr[$key] = preg_replace("#^\\* (.*)<br />#sUi", "<br /><ul><li>\\1</li>", $arr[$key], -1, $count);
-          if ($count) $UlOpen = 1;
-        }
-
-        if ($OlOpen) {
-          $arr[$key] = preg_replace("|^\\# (.*)<br />|sUi", "<li>\\1</li>", $arr[$key]);
-          $arr[$key] = preg_replace("|^([^\\#].(.*))<br />|sUi", "</ol><br />\\1", $arr[$key], -1, $count);
-          if ($count) $OlOpen = 0;
-        } else {
-          $arr[$key] = preg_replace("|^\\# (.*)<br />|sUi", "<br /><ol><li>\\1</li>", $arr[$key], -1, $count);
-          if ($count) $OlOpen = 1;
+      if ($mode != 4) {
+        if ($mode != 1) {
+          preg_replace_callback(
+            '#\[c\]((.)*)\[\/c\]#sUi',
+            create_function(
+              '$treffer',
+              'global $HighlightCode, $HighlightCount; $HighlightCount++; $HighlightCode[$HighlightCount] = $treffer[1];'
+            ),
+            $string
+          );
         }
         
-        if ($COpen) {
-          $arr[$key] = preg_replace("#^([^ ].)#sUi", "[/c]\\1", $arr[$key], -1, $count);
-          if ($count) $COpen = 0;
-          $arr[$key] = preg_replace("#^ #sUi", "", $arr[$key]);
-          $arr[$key] = preg_replace("#<br />$#sUi", "", $arr[$key]);
-        } else {
-          $arr[$key] = preg_replace("#^ #sUi", "[c]", $arr[$key], -1, $count);
-          if ($count) {
-            $COpen = 1;
-            $arr[$key] = preg_replace("#<br />$#sUi", "", $arr[$key]);
+        if ($mode != 2) {
+          $img_start = "<img src=\"design/".$auth["design"]."/images/";
+          $img_start2 = '<img src="ext_inc/smilies/';
+          $img_end   = '" border="0" alt="" />';
+  
+          $string = preg_replace('#\\[img\\]([^[]*)\\[/img\\]#sUi', '<img src="\1" border="0" class="img" alt="" style="max-width:450px; max-height:450px; overflow:hidden;" />', $string);
+          $string = preg_replace('#\\[url=(index\.php\?[^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a href="\\1" rel="nofollow">\\2</a>', $string);
+          $string = preg_replace('#\\[url=([^\\]]*)\\]([^[]*)\\[/url\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $string);
+    
+          if ($mode != 1) {
+            $string = preg_replace('#(\\s|^)([a-zA-Z]+://(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2" rel="nofollow">\\2</a>\\4', $string);
+            $string = preg_replace('#(\\s|^)(mailto:(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="\\2">\\3</a>\\4', $string);
+            $string = preg_replace('#(\\s|^)(www\\.(.)*)(\\s|$)#sUi', '\\1<a target="_blank" href="http://\\2" rel="nofollow">\\2</a>\\4', $string);
           }
         }
       }
+                  
+      $string = str_replace("\r", '', $string);
+      $string = str_replace("\n", "<br />\n", $string);
+      $string = str_replace("[br]", "<br />\n", $string);
+      $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
+
+      $string = str_replace('[b]', '<b>', $string);
+      $string = str_replace('[/b]', '</b>', $string);
+      $string = str_replace('[i]', '<i>', $string);
+      $string = str_replace('[/i]', '</i>', $string);
+      $string = str_replace('[u]', '<u>', $string);
+      $string = str_replace('[/u]', '</u>', $string);
+      $string = str_replace('[s]', '<strike>', $string);
+      $string = str_replace('[/s]', '</strike>', $string);
+      $string = str_replace('[sub]', '<sub>', $string);
+      $string = str_replace('[/sub]', '</sub>', $string);
+      $string = str_replace('[sup]', '<sup>', $string);
+      $string = str_replace('[/sup]', '</sup>', $string);
+
+      if ($mode != 4) {
+        $string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">', $string);
+        $string = str_replace('[/quote]', '</div></blockquote>', $string);
+
+        $string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
+        $string = str_replace('[/size]', '</font>', $string);
+        $string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
+        $string = str_replace('[/color]', '</font>', $string);
+
+        if ($mode != 1) {
+          $res = $db->qry("SELECT shortcut, image FROM %prefix%smilies");
+          while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
+          $db->free_result($res);
+        }
+
+        if ($mode != 1) {
+          $string = preg_replace_callback(
+            '#\[c\](.)*\[\/c\]#sUi',
+            create_function(
+              '$treffer',
+              'global $func, $HighlightCode, $HighlightCount2; $HighlightCount2++; include_once(\'ext_scripts/geshi/geshi.php\'); return \'<blockquote><div class="tbl_small">Code:</div><div class="tbl_7">\'. $func->AllowHTML(geshi_highlight($HighlightCode[$HighlightCount2], \'php\', \'ext_scripts/geshi/geshi\', true)) .\'</div></blockquote>\';'
+            ),
+            $string
+          );
+        }
+      }
+              
+      return $string;
+  }
+
+  // Wiki Syntax
+  function Text2Wiki($string) {
+    $arr = explode("\n", $this->Text2HTML($string, 1));
+    
+    $COpen = 0;
+    $UlOpen = 0;
+    $OlOpen = 0;
+    foreach ($arr as $key => $line) {
+      #$arr[$key] = preg_replace("#^<br />$#sUi", '', $arr[$key]);
+      $arr[$key] = preg_replace('#^====== (.*) ======#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+      $arr[$key] = preg_replace('#^===== (.*) =====#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+      $arr[$key] = preg_replace('#^==== (.*) ====#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+      $arr[$key] = preg_replace('#^=== (.*) ===#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+      $arr[$key] = preg_replace('#^== (.*) ==#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+      $arr[$key] = preg_replace('#^= (.*) =#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+      $arr[$key] = preg_replace('#\\[\\[Bild:(.*)\\]\\]#sUi', '<img src="ext_inc/wiki/\\1" alt="\\1">', $arr[$key]);
+      $arr[$key] = preg_replace('#\\[(http://[^ ]*) ([^\\]]*)\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $arr[$key]);
+      $arr[$key] = preg_replace('#\\[\\[([^\\|\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\1</a>', $arr[$key]);
+      $arr[$key] = preg_replace('#\\[\\[([^\\|]*)\\|([^\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\2</a>', $arr[$key]);
+      $arr[$key] = preg_replace("#'''(.*)'''#sUi", "<b>\\1</b>", $arr[$key]);
+
+      if ($UlOpen) {
+        $arr[$key] = preg_replace("#^\\* (.*)<br />#sUi", "<li>\\1</li>", $arr[$key]);
+        $arr[$key] = preg_replace("#^([^\\*].(.*))<br />#sUi", "</ul><br />\\1", $arr[$key], -1, $count);
+        if ($count) $UlOpen = 0;
+      } else {
+        $arr[$key] = preg_replace("#^\\* (.*)<br />#sUi", "<br /><ul><li>\\1</li>", $arr[$key], -1, $count);
+        if ($count) $UlOpen = 1;
+      }
+
+      if ($OlOpen) {
+        $arr[$key] = preg_replace("|^\\# (.*)<br />|sUi", "<li>\\1</li>", $arr[$key]);
+        $arr[$key] = preg_replace("|^([^\\#].(.*))<br />|sUi", "</ol><br />\\1", $arr[$key], -1, $count);
+        if ($count) $OlOpen = 0;
+      } else {
+        $arr[$key] = preg_replace("|^\\# (.*)<br />|sUi", "<br /><ol><li>\\1</li>", $arr[$key], -1, $count);
+        if ($count) $OlOpen = 1;
+      }
       
-      $string = implode("\n", $arr);
-      
-      if ($UlOpen) $string .= '</ul>';
-      if ($OlOpen) $string .= '</ol>';
-      if ($COpen) $string .= '[/c]';
-      
-      return '<br /><br /><ul>'. $this->Text2HTML($string, 2) .'</ul>';
+      if ($COpen) {
+        $arr[$key] = preg_replace("#^([^ ].)#sUi", "[/c]\\1", $arr[$key], -1, $count);
+        if ($count) $COpen = 0;
+        $arr[$key] = preg_replace("#^ #sUi", "", $arr[$key]);
+        $arr[$key] = preg_replace("#<br />$#sUi", "", $arr[$key]);
+      } else {
+        $arr[$key] = preg_replace("#^ #sUi", "[c]", $arr[$key], -1, $count);
+        if ($count) {
+          $COpen = 1;
+          $arr[$key] = preg_replace("#<br />$#sUi", "", $arr[$key]);
+        }
+      }
     }
     
-    function Entity2Uml($string) {
-        $string = str_replace('&uuml;', 'ü', $string);
-        $string = str_replace('&Uuml;', 'Ü', $string);
-        $string = str_replace('&auml;', 'ä', $string);
-        $string = str_replace('&Auml;', 'Ä', $string);
-        $string = str_replace('&ouml;', 'ö', $string);
-        $string = str_replace('&Ouml;', 'Ö', $string);
-        $string = str_replace('&szlig;', 'ß', $string);
+    $string = implode("\n", $arr);
+    
+    if ($UlOpen) $string .= '</ul>';
+    if ($OlOpen) $string .= '</ol>';
+    if ($COpen) $string .= '[/c]';
+    
+    return '<br /><br /><ul>'. $this->Text2HTML($string, 2) .'</ul>';
+  }
+    
+  function Entity2Uml($string) {
+    $string = str_replace('&uuml;', 'ü', $string);
+    $string = str_replace('&Uuml;', 'Ü', $string);
+    $string = str_replace('&auml;', 'ä', $string);
+    $string = str_replace('&Auml;', 'Ä', $string);
+    $string = str_replace('&ouml;', 'ö', $string);
+    $string = str_replace('&Ouml;', 'Ö', $string);
+    $string = str_replace('&szlig;', 'ß', $string);
     $string = str_replace('&nbsp;', '', $string);
     $string = str_replace('&quot;', '"', $string);
-
-        return $string;
+    
+    return $string;
   }
-            
-    function generate_error_template($template_name,$formfield_name,$error_text) {
-        // THIS CODE FITS THE NEW TEMPL VARS
-        $templ_names = explode("_",$template_name);
 
-        foreach($templ_names AS $templ_name_piece) $templ_name .= "[\"" . $templ_name_piece . "\"]";
+  // Add slashes at any non GPC-variable
+  // This function musst be used, if ' come from other sources, than $_GET, or $_POST
+  // for example language-files
+  function escape_sql($text) {
+      $text = addslashes(stripslashes($text));
+      return $text;
+  }
 
-        $to_return .= (
-            "\$templ" . $templ_name . "[\"error\"][\"$formfield_name\"][\"bgrd\"] = \"_error\";" .
-            "\$templ" . $templ_name . "[\"error\"][\"$formfield_name\"][\"msg\"] = " . "\"" . $error_text . "\";"
-        );
 
-        return ($to_return);
-    }       
+  #### Check Var Content ####
+  function check_var($var, $type, $min_length, $max_length) {
+      if (($type == "integer" OR $type == "double" OR $type == "string" OR $type == "boolean" OR $type == "object" OR $type == "array") AND (isset($min_length) == FALSE OR gettype($min_length) == "integer") AND (isset($max_length) == FALSE OR gettype($max_length) == "integer") AND (isset($var) == TRUE))
+      {
+          if((gettype($var) == $type) AND (strlen($var) >= $min_length) AND (strlen($var) <= $max_length)) return TRUE;
+          else return FALSE;
+      } else echo "Error: Function check_var needs defined: var, datatype (may be integer, double, string, boolean, object or array), [optionally: min_length], [optionally: max_length] <br/> For more information please visit the lansuite programmers docu";
+  }
 
-    function log_event($message, $type, $sort_tag = '', $target_id = '') {
-        global $db, $config, $auth;
+  function checkIP($ip) {
+      if (strlen($ip) < 5 OR strlen($ip) > 15) return 0;
 
-        if ($message == '' or $type == '') echo("Function log_event needs message and type defined! - Invalid arguments supplied!");
+      $IPParts = explode(".", $ip);
+      if (count($IPParts) != 4) return 0;
+      if ($IPParts[0] == 0 ) return 0;
 
-        // Types:  1 = Info, 2 = Warning, 3 = Error (be careful with 3)
-        else {
-            if ($sort_tag == '') $sort_tag = $_GET['mod'];
-            $atuser = $auth["userid"];
-            if($atuser == "") $atuser = "0";
-            $timestamp = date("U");
-            $entry = $db->qry("INSERT INTO %prefix%log SET
-               userid=%string%,
-               description=%string%,
-               type=%string%,
-               date=NOW(),
-               sort_tag = %string%,
-               target_id = %int%
-               ", $atuser, $message, $type, $sort_tag, $target_id);
+      for ($i=0; $i<=3; $i++) {
+          if (ereg("[^0-9]", $IPParts[$i])) return 0;
+          if ($IPParts[$i] > 255 or $IPParts[$i] < 0) return 0;
+      }
+      return 1;
+  }
 
-            if ($entry == 1) return(1); else return(0);
-        }
-                                
-    }
-    
+  
+  #### Misc ####
+  function log_event($message, $type, $sort_tag = '', $target_id = '') {
+      global $db, $config, $auth;
 
-    function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name) {
-        if ($max_entries_per_page > 0 and $overall_entries >= 0 and $working_link != "" and $var_page_name != "") {
-            if($current_page == "") {
-                $page_sql = "LIMIT 0," . $max_entries_per_page;
-                $page_a = 0;
-                $page_b = $max_entries_per_page;
-            }
-            if($current_page == "all") {
-                $page_sql = "";
-                $page_a = 0;
-                $page_b = $overall_entries;
-            } else  {
-                $page_sql = ("LIMIT " . ($current_page * $max_entries_per_page) . ", " . ($max_entries_per_page));
-                $page_a = ($current_page * $max_entries_per_page);
-                $page_b = ($max_entries_per_page);
-            }
-            if($overall_entries > $max_entries_per_page) {
-                $page_output = ("Seiten: ");
-                if( $current_page != "all" && ($current_page + 1) > 1 ) {
-                    $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($current_page - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
-                }
-                $i = 0;                 
-                while($i < ($overall_entries / $max_entries_per_page)) {
-                    if($current_page == $i && $current_page != "all") {
-                        $page_output .= (" " . ($i + 1));
-                    } else {
-                        $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . $i . "\">" ."<b>" . ($i + 1) . "</b>" . "</a>");
-                    }
-                    $i++;
-                }
-                if($current_page != "all" && ($current_page + 1) < ($overall_entries/$max_entries_per_page)) {
-                    $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
-                }
-                if($current_page != "all") {
-                    $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=all" . "\">" ."<b>" . "Alle" . "</b>" . "</a>");                                 
-                }
-                if ($current_page == "all") {
-                    $page_output .= " Alle";
-                }
-            }
+      if ($message == '' or $type == '') echo("Function log_event needs message and type defined! - Invalid arguments supplied!");
 
-            $output["html"] = $page_output;
-            $output["sql"] = $page_sql;
-            $output["a"] = $page_a;
-            $output["b"] = $page_b;
-    
-            return($output);
-        
-            // ?!?! unset($output); unset($working_link); unset($page_sql); unset($page_output);
-    
-        } else echo ("Error: Function page_split needs defined: current_page, max_entries_per_page,working_link, page_varname For more information please visit the lansuite programmers docu");
-    }
+      // Types:  1 = Info, 2 = Warning, 3 = Error (be careful with 3)
+      else {
+          if ($sort_tag == '') $sort_tag = $_GET['mod'];
+          $atuser = $auth["userid"];
+          if($atuser == "") $atuser = "0";
+          $timestamp = date("U");
+          $entry = $db->qry("INSERT INTO %prefix%log SET
+             userid=%string%,
+             description=%string%,
+             type=%string%,
+             date=NOW(),
+             sort_tag = %string%,
+             target_id = %int%
+             ", $atuser, $message, $type, $sort_tag, $target_id);
 
-    function check_var($var, $type, $min_length, $max_length) {
-        if (($type == "integer" OR $type == "double" OR $type == "string" OR $type == "boolean" OR $type == "object" OR $type == "array") AND (isset($min_length) == FALSE OR gettype($min_length) == "integer") AND (isset($max_length) == FALSE OR gettype($max_length) == "integer") AND (isset($var) == TRUE))
-        {
-            if((gettype($var) == $type) AND (strlen($var) >= $min_length) AND (strlen($var) <= $max_length)) return TRUE;
-            else return FALSE;
-        } else echo "Error: Function check_var needs defined: var, datatype (may be integer, double, string, boolean, object or array), [optionally: min_length], [optionally: max_length] <br/> For more information please visit the lansuite programmers docu";
-    }
+          if ($entry == 1) return(1); else return(0);
+      }
+                              
+  }
+  
 
-    // Add slashes at any non GPC-variable
-    // This function musst be used, if ' come from other sources, than $_GET, or $_POST
-    // for example language-files
-    function escape_sql($text) {
-        $text = addslashes(stripslashes($text));
-        return $text;
-    }
+  function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name) {
+      if ($max_entries_per_page > 0 and $overall_entries >= 0 and $working_link != "" and $var_page_name != "") {
+          if($current_page == "") {
+              $page_sql = "LIMIT 0," . $max_entries_per_page;
+              $page_a = 0;
+              $page_b = $max_entries_per_page;
+          }
+          if($current_page == "all") {
+              $page_sql = "";
+              $page_a = 0;
+              $page_b = $overall_entries;
+          } else  {
+              $page_sql = ("LIMIT " . ($current_page * $max_entries_per_page) . ", " . ($max_entries_per_page));
+              $page_a = ($current_page * $max_entries_per_page);
+              $page_b = ($max_entries_per_page);
+          }
+          if($overall_entries > $max_entries_per_page) {
+              $page_output = ("Seiten: ");
+              if( $current_page != "all" && ($current_page + 1) > 1 ) {
+                  $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . ($current_page - 1) . "&orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
+              }
+              $i = 0;                 
+              while($i < ($overall_entries / $max_entries_per_page)) {
+                  if($current_page == $i && $current_page != "all") {
+                      $page_output .= (" " . ($i + 1));
+                  } else {
+                      $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&" . $var_page_name . "=" . $i . "\">" ."<b>" . ($i + 1) . "</b>" . "</a>");
+                  }
+                  $i++;
+              }
+              if($current_page != "all" && ($current_page + 1) < ($overall_entries/$max_entries_per_page)) {
+                  $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
+              }
+              if($current_page != "all") {
+                  $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&" . $var_page_name . "=all" . "\">" ."<b>" . "Alle" . "</b>" . "</a>");                                 
+              }
+              if ($current_page == "all") {
+                  $page_output .= " Alle";
+              }
+          }
 
-    // Old. Use $func->text2html instead
-    function db2text2html($text) {
-    $text = $this->text2html($text);
-    return $text;
-    }
+          $output["html"] = $page_output;
+          $output["sql"] = $page_sql;
+          $output["a"] = $page_a;
+          $output["b"] = $page_b;
+  
+          return($output);
+      
+          // ?!?! unset($output); unset($working_link); unset($page_sql); unset($page_output);
+  
+      } else echo ("Error: Function page_split needs defined: current_page, max_entries_per_page,working_link, page_varname For more information please visit the lansuite programmers docu");
+  }
 
-    // Old. Do not use any more
-    function text2db($text) {
-    $text = trim($text);
-    return $text;
-    }
-
-    function check_exist($checktype, $id) {
-        global $db, $config;
-
-        switch($checktype) {
-            default:
-            case "userid":
-                $row = $db->qry_first("SELECT count(*) as n FROM %prefix%user WHERE userid = %int%", $id); 
-            break;
-            case "seatid":
-                $row = $db->qry_first("SELECT count(*) as n FROM %prefix%seat_seats WHERE seatid = %int%", $id); 
-            break;
-            case "blockid":
-                $row = $db->qry_first("SELECT count(*) as n FROM %prefix%seat_block WHERE blockid = %int%", $id);
-            break;
-            case "pollid":
-                $row = $db->qry_first("SELECT count(*) as n FROM %prefix%polls WHERE pollid = %int%", $id);
-            break;
-        }
-
-        if ($row["n"] == 1) return TRUE;
-        else return FALSE;
-    }
-
+    // TODO: I think, this should be moved to class_framework (KnoX)
     function ShowDebug() {
         global $cfg, $auth, $db;
 
@@ -755,31 +708,6 @@ class func {
     }
 
 
-    // Gibt das aktuelle Alter zurück
-    function age($gebtimestamp) {
-        $yeardiff = date("Y") - date("Y", $gebtimestamp);
-        $monthdiff = date("m") - date("m", $gebtimestamp);
-        $daydiff = date("j") - date("j", $gebtimestamp);
-
-        if (($monthdiff < 0) || ($monthdiff == 0 && $daydiff < 0)) $age = $yeardiff - 1;
-        else $age = $yeardiff;
-
-        return $age;
-    }
-
-    // Gibt das Alter bei der LanParty zurück
-    function age_at_lan($gebtimestamp) {
-/*  Funktioniert so leider noch nicht
-        $yeardiff = date("Y", mktime($cfg["signon_partybegin"])) - date("Y", $gebtimestamp);
-        $monthdiff = date("m", mktime($cfg["signon_partybegin"])) - date("m", $gebtimestamp);
-        $daydiff = date("j", mktime($cfg["signon_partybegin"])) - date("j", $gebtimestamp);
-
-        if (($monthdiff < 0) || ($monthdiff == 0 && $daydiff < 0)) $age = $yeardiff - 1;
-        else $age = $yeardiff;
-
-        return $age;
-*/
-    }
 
     function FileUpload($source_var, $path, $name = NULL) {
         global $config;

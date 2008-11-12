@@ -6,7 +6,7 @@ if ($auth['login']) {
 	$templ['messenger']['query']['info']['username'] = $row['username'];
 
 	$index .= $dsp->FetchTpl("design/templates/messenger_query_index.htm");
-	$func->templ_output($index);
+	echo $index;
 
 } else {
 	$func->error("NO_LOGIN","");
