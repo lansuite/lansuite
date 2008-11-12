@@ -1,11 +1,11 @@
 <form name="SearchBox" method="post" onSubmit="javascript:SubmitDropDown(this, this.SearchBoxModule);" action="index.php">
 	<label for="text" class="copyright">Suchbegriff</label>
-	<input type="text" name="search_input[0]" value="{$_POST['search_input'][0]}" class="form" style="width: 138px" />
+	<input type="text" name="search_input[0]" value="{$value}" class="form" style="width: 138px" />
 
 	<label for="SearchBoxModule" class="copyright">Modul</label>
   <select name="SearchBoxModule" class="form" style="width: 138px">
-	{$templ['searchbox']['module']}
+	{$module}
   </select>
 
-	<div>{$templ['searchbox']['button']}</div>
+	<div><input type="submit" class="Button" name="suchen" value="Suchen" /></div>
 </form>

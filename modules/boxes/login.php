@@ -13,6 +13,6 @@ $templ['login']['buttons_add'] = $dsp->FetchIcon('index.php?mod=signon', 'add_us
 $templ['login']['buttons_pw'] = $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=pwrecover', 'pw_forgot');
 
 $templ['login']['buttons_login'] = '<input type="submit" class="Button" name="login" value="Einloggen" />';
-$box->AddTemplate("box_login_content");
+$box->AddTemplate($dsp->FetchModTpl("boxes", "box_login_content"));
 
 ?>
