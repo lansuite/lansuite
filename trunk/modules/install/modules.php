@@ -11,49 +11,52 @@ function FindCfgKeyForMod($name) {
 } 
 
 function WriteMenuEntries() {
-    global $templ, $res, $db, $config, $dsp, $MenuCallbacks;
+  global $smarty, $res, $db, $config, $dsp, $MenuCallbacks;
 
-    if ($db->num_rows($res) == 0) $dsp->AddDoubleRow("", "<i>- keine -</i>");
-    else while ($row = $db->fetch_array($res)) {
-        $templ['ls']['row']['menuitem']['action'] = $row["action"];
-        $templ['ls']['row']['menuitem']['file'] = $row["file"];
-        $templ['ls']['row']['menuitem']['id'] = $row["id"];
-        $templ['ls']['row']['menuitem']['caption'] = $row["caption"];
-        $templ['ls']['row']['menuitem']['hint'] = $row["hint"];
-        $templ['ls']['row']['menuitem']['link'] = $row["link"];
-        $templ['ls']['row']['menuitem']['link'] = $row["link"];
-        $templ['ls']['row']['menuitem']['pos'] = $row["pos"];
-    if ($row['level'] == 0) $templ['ls']['row']['menuitem']['boxid'] = 'Boxid: <input type="text" name="boxid['.$row['id'].']" value="'. $row['boxid'] .'" size="2" />';
-    else $templ['ls']['row']['menuitem']['boxid'] = '';
+  if ($db->num_rows($res) == 0) $dsp->AddDoubleRow("", "<i>- keine -</i>");
+  else while ($row = $db->fetch_array($res)) {
+  
+    $smarty->assign('action', $row["action"]);
+    $smarty->assign('file', $row["file"]);
+    $smarty->assign('id', $row["id"]);
+    $smarty->assign('caption', $row["caption"]);
+    $smarty->assign('hint', $row["hint"]);
+    $smarty->assign('link', $row["link"]);
+    $smarty->assign('pos', $row["pos"]);
+    $smarty->assign('module', $_GET['module']);
+    
+    $boxid = '';
+    if ($row['level'] == 0) $boxid = 'Boxid: <input type="text" name="boxid['.$row['id'].']" value="'. $row['boxid'] .'" size="2" />';
+    $smarty->assign('boxid', $boxid);
 
-        $templ['ls']['row']['menuitem']['needed_config'] = "<option value=\"\">-".t('keine')."-</option>";
-
-        $res2 = $db->qry("SELECT cfg_key FROM %prefix%config WHERE cfg_type = 'boolean' OR cfg_type = 'int' ORDER BY cfg_key");
-        if ($MenuCallbacks) foreach ($MenuCallbacks as $MenuCallback) {
-            ($MenuCallback == $row["needed_config"])? $selected = " selected" : $selected = "";
-            $templ['ls']['row']['menuitem']['needed_config'] .= "<option value=\"{$MenuCallback}\"$selected>{$MenuCallback}</option>";
-        }
-        $db->free_result($res2);
-
-
-        $templ['ls']['row']['menuitem']['requirement'] = "";
-        for ($i = 0; $i <= 5; $i++) {
-            ($i == $row["requirement"])? $selected = " selected" : $selected = "";
-            switch ($i) {
-                default: $out = t('Jeder'); break;
-                case 1: $out = t('Nur Eingeloggte'); break;
-                case 2: $out = t('Nur Admins'); break;
-                case 3: $out = t('Nur Superadminen'); break;
-                case 4: $out = t('Keine Admins'); break;
-                case 5: $out = t('Nur Ausgeloggte'); break;
-            }
-            $templ['ls']['row']['menuitem']['requirement'] .= "<option value=\"$i\"$selected>$out</option>";
-        }
-
-        $dsp->AddModTpl("install", "menuitem");
-        $dsp->AddHRuleRow();
+    $needed_config = "<option value=\"\">-".t('keine')."-</option>";
+    $res2 = $db->qry("SELECT cfg_key FROM %prefix%config WHERE cfg_type = 'boolean' OR cfg_type = 'int' ORDER BY cfg_key");
+    if ($MenuCallbacks) foreach ($MenuCallbacks as $MenuCallback) {
+        ($MenuCallback == $row["needed_config"])? $selected = " selected" : $selected = "";
+        $needed_config .= "<option value=\"{$MenuCallback}\"$selected>{$MenuCallback}</option>";
     }
-    $db->free_result($res);
+    $db->free_result($res2);
+    $smarty->assign('needed_config', $needed_config);
+
+    $requirement = "";
+    for ($i = 0; $i <= 5; $i++) {
+      ($i == $row["requirement"])? $selected = " selected" : $selected = "";
+      switch ($i) {
+          default: $out = t('Jeder'); break;
+          case 1: $out = t('Nur Eingeloggte'); break;
+          case 2: $out = t('Nur Admins'); break;
+          case 3: $out = t('Nur Superadminen'); break;
+          case 4: $out = t('Keine Admins'); break;
+          case 5: $out = t('Nur Ausgeloggte'); break;
+      }
+      $requirement .= "<option value=\"$i\"$selected>$out</option>";
+    }
+    $smarty->assign('requirement', $requirement);
+
+    $dsp->AddSmartyTpl('menuitem', 'install');
+    $dsp->AddHRuleRow();
+  }
+  $db->free_result($res);
 }
 
 
@@ -141,83 +144,86 @@ switch($_GET["step"]) {
 
     // Show Modulelist
     default:
-        // If Rewrite, delete corresponding items
-        $rewrite_all = 0;
-        if ($_GET["rewrite"] == "all") {
-            $db->qry("TRUNCATE TABLE %prefix%config");
-            $db->qry("TRUNCATE TABLE %prefix%modules");
-            $db->qry("TRUNCATE TABLE %prefix%menu");
-            $rewrite_all = 1;
-        } elseif ($_GET["rewrite"]) {
-            $db->qry("DELETE FROM %prefix%modules WHERE name = %string%", $_GET["rewrite"]);
-            $db->qry("DELETE FROM %prefix%menu WHERE module = %string%", $_GET["rewrite"]);
+      // If Rewrite, delete corresponding items
+      $rewrite_all = 0;
+      if ($_GET["rewrite"] == "all") {
+        $db->qry("TRUNCATE TABLE %prefix%config");
+        $db->qry("TRUNCATE TABLE %prefix%modules");
+        $db->qry("TRUNCATE TABLE %prefix%menu");
+        $rewrite_all = 1;
+      } elseif ($_GET["rewrite"]) {
+        $db->qry("DELETE FROM %prefix%modules WHERE name = %string%", $_GET["rewrite"]);
+        $db->qry("DELETE FROM %prefix%menu WHERE module = %string%", $_GET["rewrite"]);
 
-            $_GET["rewrite"] .= "_";
-            if ($_GET["rewrite"] == "downloads_") $_GET["rewrite"] = "Download";
-            if ($_GET["rewrite"] == "usrmgr_") $_GET["rewrite"] = "Userdetails";
-            if ($_GET["rewrite"] == "tournament2_") $_GET["rewrite"] = "t";
-            $find_config = $db->qry_first("DELETE FROM %prefix%config WHERE (cfg_group = %string%) OR (cfg_key LIKE %string%)", $_GET["rewrite"], $_GET["rewrite"].'%');
-        }
+        $_GET["rewrite"] .= "_";
+        if ($_GET["rewrite"] == "downloads_") $_GET["rewrite"] = "Download";
+        if ($_GET["rewrite"] == "usrmgr_") $_GET["rewrite"] = "Userdetails";
+        if ($_GET["rewrite"] == "tournament2_") $_GET["rewrite"] = "t";
+        $find_config = $db->qry_first("DELETE FROM %prefix%config WHERE (cfg_group = %string%) OR (cfg_key LIKE %string%)", $_GET["rewrite"], $_GET["rewrite"].'%');
+      }
 
-        // Auto-Load Modules from XML-Files
-        $install->InsertModules(0);
-        $install->InsertMenus($rewrite_all);
+      // Auto-Load Modules from XML-Files
+      $install->InsertModules(0);
+      $install->InsertMenus($rewrite_all);
 
-        // Output Module-List
-        $dsp->NewContent(t('Modulverwaltung'), t('Hier können Sie Module de-/aktivieren, sowie deren Einstellungen verändern.'));
+      // Output Module-List
+      $dsp->NewContent(t('Modulverwaltung'), t('Hier können Sie Module de-/aktivieren, sowie deren Einstellungen verändern.'));
 
-        $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&step=3\">".t('Alle Module zurücksetzen')."</a>");
+      $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&step=3\">".t('Alle Module zurücksetzen')."</a>");
 
-        $dsp->AddHRuleRow();
-        $dsp->SetForm("index.php?mod=install&action=modules&step=2");
+      $dsp->AddHRuleRow();
+      $dsp->SetForm("index.php?mod=install&action=modules&step=2");
 
-        $res = $db->qry("SELECT * FROM %prefix%modules ORDER BY changeable DESC, caption");
-        while ($row = $db->fetch_array($res)){
+      $res = $db->qry("SELECT * FROM %prefix%modules ORDER BY changeable DESC, caption");
+      while ($row = $db->fetch_array($res)){
 
-            $templ['ls']['row']['module']['name'] = $row["name"];
-            $templ['ls']['row']['module']['caption'] = t($row["caption"]);
-            $templ['ls']['row']['module']['description'] = t($row["description"]);
+        $smarty->assign('name', $row['name']);
+        $smarty->assign('caption', $row['caption']);
+        $smarty->assign('description', $row['description']);
+        $smarty->assign('version', $row["version"]);
 
-            if ($row["email"]) $templ['ls']['row']['module']['author'] = "<a href=\"mailto:{$row["email"]}\">{$row["author"]}</a>";
-            else $templ['ls']['row']['module']['author'] = $row["author"];
+        if ($row["email"]) $author = "<a href=\"mailto:{$row["email"]}\">{$row["author"]}</a>";
+        else $author = $row["author"];
+        $smarty->assign('author', $author);
 
-            if ($row["active"]) $templ['ls']['row']['module']['active'] = " checked";
-            else $templ['ls']['row']['module']['active'] = " ";
+        $active = '';
+        if ($row["active"]) $active = " checked";
+        $smarty->assign('active', $active);
 
-            if ($row["changeable"]) $templ['ls']['row']['module']['readonly'] = "";
-            else $templ['ls']['row']['module']['readonly'] = " disabled";
+        $changeable = '';
+        if (!$row["changeable"]) $changeable = ' disabled';
+        $smarty->assign('active', $changeable);
+        
+        ($row["state"] == "Stable")? $state = $row["state"] : $state = "<font color=\"red\">{$row["state"]}</font>";
+        $smarty->assign('state', $state);
 
-            $templ['ls']['row']['module']['version'] = $row["version"];
-            
-            ($row["state"] == "Stable")? $templ['ls']['row']['module']['state'] = $row["state"]
-            : $templ['ls']['row']['module']['state'] = "<font color=\"red\">{$row["state"]}</font>";
+        (file_exists("modules/{$row["name"]}/icon.gif"))? $img = "modules/{$row["name"]}/icon.gif" : $img = "modules/sample/icon.gif";
+        $smarty->assign('img', $img);
 
-            (file_exists("modules/{$row["name"]}/icon.gif"))? $templ['ls']['row']['module']['img'] = "modules/{$row["name"]}/icon.gif"
-            : $templ['ls']['row']['module']['img'] = "modules/sample/icon.gif";
+        if (FindCfgKeyForMod($row["name"])) $settings_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=10&module={$row["name"]}\">". t('Konfig.') ."</a>";
+        else $settings_link = "";
+        $smarty->assign('settings_link', $settings_link);
 
-            if (FindCfgKeyForMod($row["name"])) $templ['ls']['row']['module']['settings_link'] = " | <a href=\"index.php?mod=install&action=mod_cfg&step=10&module={$row["name"]}\">". t('Konfig.') ."</a>";
-            else $templ['ls']['row']['module']['settings_link'] = "";
+        $find_mod = $db->qry_first("SELECT module FROM %prefix%menu WHERE module=%string%", $row["name"]);
+        if ($find_mod["module"]) $menu_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}\">". t('Menü') ."</a>";
+        else $menu_link = "";
+        $smarty->assign('menu_link', $menu_link);
 
-            $find_mod = $db->qry_first("SELECT module FROM %prefix%menu WHERE module=%string%", $row["name"]);
-            if ($find_mod["module"]) $templ['ls']['row']['module']['menu_link'] = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}\">". t('Menü') ."</a>";
-            else $templ['ls']['row']['module']['menu_link'] = "";
+        if (file_exists("modules/{$row["name"]}/mod_settings/db.xml")) $db_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=40&module={$row["name"]}\">". t('DB') ."</a>";
+        else $db_link = "";
+        $smarty->assign('db_link', $db_link);
 
-            if (file_exists("modules/{$row["name"]}/mod_settings/db.xml")) $templ['ls']['row']['module']['db_link'] = " | <a href=\"index.php?mod=install&action=mod_cfg&step=40&module={$row["name"]}\">". t('DB') ."</a>";
-            else $templ['ls']['row']['module']['db_link'] = "";
+        if (file_exists("modules/{$row["name"]}/docu/{$language}_help.php")) $help_link = " | <a href=\"#\" onclick=\"javascript:var w=window.open('index.php?mod=helplet&action=helplet&design=base&module={$row["name"]}&helpletid=help','_blank','width=700,height=500,resizable=no,scrollbars=yes');\" class=\"Help\">?</a>";
+        else $help_link = '';
+        $smarty->assign('help_link', $help_link);
+  
+        $dsp->AddContentLine($smarty->fetch('modules/install/templates/module.htm'));
+      }
+      $db->free_result($res);
 
-            if (file_exists("modules/{$row["name"]}/docu/{$language}_help.php")) {
-        $templ['ls']['row']['helpletbutton']['helplet_id'] = $helplet_id;
-        $templ['ls']['row']['helpletbutton']['help'] = 
-        $templ['ls']['row']['module']['help_link'] = " | <a href=\"#\" onclick=\"javascript:var w=window.open('index.php?mod=helplet&action=helplet&design=base&module={$row["name"]}&helpletid=help','_blank','width=700,height=500,resizable=no,scrollbars=yes');\" class=\"Help\">?</a>";
-      } else $templ['ls']['row']['module']['help_link'] = '';
-
-            $dsp->AddModTpl("install", "module");
-        }
-        $db->free_result($res);
-
-        $dsp->AddFormSubmitRow("next");
-        $dsp->AddBackButton("index.php?mod=install", "install/modules");
-        $dsp->AddContent();
+      $dsp->AddFormSubmitRow("next");
+      $dsp->AddBackButton("index.php?mod=install", "install/modules");
+      $dsp->AddContent();
     break;
 } // Switch Action
 ?>
