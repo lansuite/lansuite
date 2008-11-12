@@ -20,6 +20,8 @@ class display {
   }
 
   // Returns the template $file
+  // Old. And internal use only!
+  // Replace with $smarty->fetch()
   function FetchTpl($file, $templx = ''){
     global $auth, $language, $cfg, $TplCache, $templ;
         
@@ -45,33 +47,29 @@ class display {
   }
 
   // Output the template $file
-  function AddLineTpl($file, $OpenTable = 1){
-    global $templ, $MainContent;
-
-    if ($_GET['design'] != 'base') {
-      if ($this->FirstLine) {
-        $MainContent .= '<ul class="LineFirst">'. $this->FetchTpl($file) .'</ul>';
-        $this->FirstLine = 0;
-      } else $MainContent .= '<ul class="Line">'. $this->FetchTpl($file) .'</ul>';
-    }
-  }
-
-  // Output the template $file
+  // Old. And internal use only!
   function AddTpl($file, $OpenTable = 1){
     global $templ, $MainContent;
 
     $MainContent .=  $this->FetchTpl($file, $templ);
   }
 
+  // Old: Use AddSmartyTpl instead
   function AddModTpl($mod, $name) {
-    global $templ, $debug;
-        
-    if ($mod == "") $return = $this->AddTpl("design/templates/".$name.".htm");
-    else $return = $this->AddTpl("modules/".$mod."/templates/".$name.".htm");
+    if ($mod == '') $this->AddTpl("design/templates/".$name.".htm");
+    else $this->AddTpl("modules/".$mod."/templates/".$name.".htm");
   }
 
-  // Output the template $file
-  function AddLineTplSmarty($content, $OpenTable = 1){
+  // Adds a smarty templae. Attention: This does not add the SL-line-container, so you have to add it yourselfe!
+  function AddSmartyTpl($name, $mod = '') {
+    global $smarty, $MainContent;
+
+    if ($mod == '') $MainContent .= $smarty->fetch('design/templates/'. $name .'.htm');
+    else $MainContent .= $smarty->fetch('modules/'. $mod .'/templates/'. $name .'.htm');
+  }
+
+  // Adds the provided content in a new LS-line
+  function AddContentLine($content){
     global $smarty, $MainContent;
 
     if ($_GET['design'] != 'base') {
@@ -98,7 +96,7 @@ class display {
     unset($this->content_need_form);
     $this->form_ok = false;
 
-    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_headline.htm'));
+    $this->AddContentLine($smarty->fetch('design/templates/ls_row_headline.htm'));
   }
 
   function AddHeaderButtons() {
@@ -148,7 +146,7 @@ class display {
 
     $smarty->assign('text', $text);
     if ($parm != "") $smarty->assign('align', $parm);
-    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_single.htm'));
+    $this->AddContentLine($smarty->fetch('design/templates/ls_row_single.htm'));
   }
 
   function AddDoubleRow($key, $value, $id = NULL) {
@@ -162,7 +160,7 @@ class display {
     $smarty->assign('value', $value);
     $smarty->assign('id', $id);
 
-    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_double.htm'));
+    $this->AddContentLine($smarty->fetch('design/templates/ls_row_double.htm'));
   }
 
   function AddTripleRow($key, $value, $id = NULL, $ext_txt) {
@@ -178,7 +176,7 @@ class display {
     $smarty->assign('id', $id);
     $smarty->assign('ls_triplerow_ext', $ext_txt);
 
-    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_triple.htm'));
+    $this->AddContentLine($smarty->fetch('design/templates/ls_row_triple.htm'));
   }
 
   function AddCheckBoxRow($name, $key, $text, $errortext, $optional = NULL, $checked = NULL, $disabled = NULL, $val = NULL, $additionalHTML = NULL) {
@@ -288,7 +286,7 @@ class display {
     $this->form_open = true;
     $smarty->assign('buttons', $buttons);
 
-    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_textareaplus.htm'));
+    $this->AddContentLine($smarty->fetch('design/templates/ls_row_textareaplus.htm'));
   }
 
   function AddDropDownFieldRow($name, $key, $option_array, $errortext, $optional = NULL, $additionalHTML = NULL) {
@@ -454,7 +452,7 @@ class display {
     if ($hidetime != 1) $smarty->assign('showtime', '1');
     if ($hidetime != 2) $smarty->assign('showdate', '1');
 
-    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_datetime.htm'));
+    $this->AddContentLine($smarty->fetch('design/templates/ls_row_datetime.htm'));
   }
 
   function AddHRuleRow() {
@@ -561,7 +559,7 @@ class display {
     }
 
     $smarty->assign('pics', $pics);
-    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_pictureselect.htm'));
+    $this->AddContentLine($smarty->fetch('design/templates/ls_row_pictureselect.htm'));
   }
 
   function AddFileSelectRow($name, $key, $errortext, $size = NULL, $maxlength = NULL, $optional = NULL) {
@@ -602,7 +600,7 @@ class display {
     $smarty->assign('width', $width);
     $smarty->assign('height', $height);
 
-    $this->AddLineTplSmarty($smarty->fetch('design/templates/ls_row_IFrame.htm'));
+    $this->AddContentLine($smarty->fetch('design/templates/ls_row_IFrame.htm'));
   }
 
   // ################################################################################################################# //

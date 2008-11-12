@@ -390,7 +390,7 @@ class MasterSearch2 {
     if ($this->search_fields or $this->search_dropdown) {
       $smarty->assign('SearchInputs', $SearchInputs);
       $smarty->assign('HiddenGetFields', $this->HiddenGetFields);
-      $dsp->AddLineTplSmarty($smarty->fetch('modules/mastersearch2/templates/search_case.htm'));
+      $dsp->AddContentLine($smarty->fetch('modules/mastersearch2/templates/search_case.htm'));
     }
 
     // Hidden Fields for EntPerPage Box
@@ -568,7 +568,7 @@ class MasterSearch2 {
       }
       $db->free_result($res);
 
-      $dsp->AddLineTplSmarty($smarty->fetch('modules/mastersearch2/templates/result_case.htm'));
+      $dsp->AddContentLine($smarty->fetch('modules/mastersearch2/templates/result_case.htm'));
     }
   }
 } // End: Class
