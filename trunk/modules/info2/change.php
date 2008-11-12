@@ -26,14 +26,8 @@ function Update($id) {
 function ShowActiveState($val){
   global $dsp, $templ, $lang, $line;
 
-  if ($val) {
-    $templ['ms2']['icon_name'] = 'yes';
-    $templ['ms2']['icon_title'] = t('Ja');
-  } else {
-    $templ['ms2']['icon_name'] = 'no';
-    $templ['ms2']['icon_title'] = t('Nein');
-  }
-  return $dsp->FetchModTpl('mastersearch2', 'result_icon');
+  if ($val) return $dsp->FetchIcon('', 'yes', t('Ja'));
+  else return $dsp->FetchIcon('', 'no', t('Nein'));
 }
 
 if ($auth['type'] <= 1) {

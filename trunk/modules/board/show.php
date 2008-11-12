@@ -15,11 +15,7 @@ function LastPostDetails($date) {
 
     if (strlen($row['caption']) > 18) $row['caption'] = substr($row['caption'], 0, 16). '...';
     return '<a href="index.php?mod=board&action=thread&tid='. $row['tid'] .'&gotopid='. $row['pid'] .'#pid'. $row['pid'] .'" class="menu">'. $row['caption'] .'<br />'. date('d.m.y H:i', $date) .'</a> '. $dsp->FetchUserIcon($row['userid']);
-  } else {
-    $templ['ms2']['icon_name'] = 'no';
-    $templ['ms2']['icon_title'] = '-';
-    return $dsp->FetchModTpl('mastersearch2', 'result_icon');
-  }
+  } else return $dsp->FetchIcon('', 'no', '-');
 }
 
 include_once('modules/mastersearch2/class_mastersearch2.php');

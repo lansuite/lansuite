@@ -13,15 +13,8 @@ switch ($_GET['step']) {
 function eveningPriceIdLink($evening_price_id){
   global $dsp, $templ, $lang, $line;
   
-  if ($evening_price_id == $line['price_id']) {
-    $templ['ms2']['icon_name'] = 'yes';
-    $templ['ms2']['icon_title'] = $lang['sys']['yes'];
-    return $dsp->FetchModTpl('mastersearch2', 'result_icon');  
-  } else {
-    $templ['ms2']['icon_name'] = 'no';
-    $templ['ms2']['icon_title'] = $lang['sys']['no'];
-    return '<a href="index.php?mod=party&action=price&step=11&party_id='. $_GET['party_id'] .'&evening_price_id='. $line['price_id'] .'">'. $dsp->FetchModTpl('mastersearch2', 'result_icon') . '</a>';
-  } 
+  if ($evening_price_id == $line['price_id']) return $dsp->FetchIcon('', 'yes', t('Ja'));
+  else return $dsp->FetchIcon('index.php?mod=party&action=price&step=11&party_id='. $_GET['party_id'] .'&evening_price_id='. $line['price_id'], 'no', t('Nein'));
 }
 
 include_once('modules/mastersearch2/class_mastersearch2.php');

@@ -5,14 +5,8 @@ $ms2 = new mastersearch2();
 function PWIcon($pw){
   global $dsp, $templ;
   
-  if ($pw) {
-    $templ['ms2']['icon_name'] = 'locked';
-    $templ['ms2']['icon_title'] = 'Unprotected';
-  } else {
-    $templ['ms2']['icon_name'] = 'unlocked';
-    $templ['ms2']['icon_title'] = 'Protected';
-  }
-  return $dsp->FetchModTpl('mastersearch2', 'result_icon');
+  if ($pw) return $dsp->FetchIcon('', 'locked', t('Geschützt'));
+  else return $dsp->FetchIcon('', 'unlocked', t('Nicht geschützt'));
 }
 
 function ServerType ($type) {

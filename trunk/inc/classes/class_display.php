@@ -680,17 +680,16 @@ class display {
   }
   
   function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {
-    global $templ, $gd;
+    global $smarty;
 
     // Picname-Mappings
     switch ($picname) {
       case 'next': $picname = 'forward'; break;
       case 'preview': $picname = 'search'; break;
     }
-    $templ['icon']['name'] = $picname;
+    $smarty->assign('name', $picname);
 
     // Hint
-    $templ['icon']['hint'] = '';
     if ($hint == '') switch ($picname) {
       default: $hint = ''; break;
       case 'add': $hint = t('Hinzufügen'); break;
@@ -699,42 +698,33 @@ class display {
       case 'delete': $hint = t('Löschen'); break;
       case 'send': $hint = t('Senden'); break;
     }
-    if ($hint) $templ['icon']['hint'] = $hint;
+    if ($hint) $smarty->assign('hint', $hint);
+    if ($align == 'right') $smarty->assign('additionalhtml', 'align="right" valign="bottom" vspace="2" ');
 
-    $templ['icon']['additionalhtml'] = '';
-    if ($align == 'right') $templ['icon']['additionalhtml'] = 'align="right" valign="bottom" vspace="2" ';
-
-    if ($this->form_open) $ret = $this->FetchModTpl('', 'ls_fetch_icon_submit');
-    else $ret = $this->FetchModTpl('', 'ls_fetch_icon');
+    if ($this->form_open) $ret = $smarty->fetch('design/templates/ls_fetch_icon_submit.htm');
+    else $ret = $smarty->fetch('design/templates/ls_fetch_icon.htm');
     
     if ($target) $target = " target=\"$target\"";
     if ($link) $ret = '<a href="'.$link.'"'.$target.'>'. $ret .'</a>';
-    return $ret;  
+    return $ret;
   }
 
   function FetchUserIcon($userid) {
-    global $templ, $db;
+    global $smarty, $db;
 
-    $templ['usericon']['userid'] = $userid;
-    $templ['usericon']['hint'] = t('Benutzerdetails aufrufen');
+    $smarty->assign('userid', $userid);
+    $smarty->assign('hint', t('Benutzerdetails aufrufen'));
 
     $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = "1" AND lasthit > %int%', $userid, time() - 60*10);
-    ($user_online['found'])? $templ['usericon']['state'] ='online' : $templ['usericon']['state'] ='offline';
+    ($user_online['found'])? $state ='online' : $state ='offline';
+    $smarty->assign('state', $state);
 
-    return $this->FetchModTpl("", "ls_usericon");
+    return $smarty->fetch('design/templates/ls_usericon.htm');
   }
 
-  // Should be called FetchIcon
+  // Old: Use FetchIcon instead
   function AddIcon($name, $link = '', $title = '') {
-    global $templ;
-    
-    $templ['ms2']['icon_name'] = $name;
-    $templ['ms2']['icon_title'] = $title;
-    $templ['ms2']['link_item'] = $this->FetchModTpl('mastersearch2', 'result_icon');
-    if ($link) {
-      $templ['ms2']['link'] = $link;
-      return $this->FetchModTpl('mastersearch2', 'result_link');
-    } else return $templ['ms2']['link_item'];
+    $this->FetchIcon($link, $name, $title);
   }
 
   // Should be called FetchHelpText
