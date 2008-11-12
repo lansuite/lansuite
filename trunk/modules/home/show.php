@@ -20,7 +20,7 @@ switch ($home_page) {
     if (in_array('partylist', $ActiveModules)) $ModOverviews[] = 'partylist';
 		if (in_array('stats', $ActiveModules)
       and ($party->count > 0 or $auth['type'] >= 2)
-      and (in_array('troubleticket', $ActiveModules) or in_array('rent', $ActiveModules)))
+      and (in_array('troubleticket', $ActiveModules)))
       $ModOverviews[] = 'stats';
 
     include_once('modules/home/templates/home.php');

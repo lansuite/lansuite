@@ -32,6 +32,6 @@ $gd->CreateButton('picture');
 $gd->CreateButton('send');
 $index .= $dsp->FetchTpl('design/templates/messenger_query_console.htm', $templ);
 
-$func->templ_output($index);
+echo $index;
 	
 ?>

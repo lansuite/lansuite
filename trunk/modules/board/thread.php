@@ -106,7 +106,7 @@ elseif ($thread['caption'] != '') {
 		$pid = $row["pid"];
 
 		$templ['board']['thread']['case']['info']['post']['pid'] 		= $pid;
-		$templ['board']['thread']['case']['info']['post']['text'] 		= $func->db2text2html($row["comment"]);
+		$templ['board']['thread']['case']['info']['post']['text'] 		= $func->text2html($row["comment"]);
 		$templ['board']['thread']['case']['info']['post']['date'] 		= $func->unixstamp2date($row["date"], "datetime");
 		if ($row['changecount'] > 0) {
       $templ['board']['thread']['case']['info']['post']['date'] .= '<br />'. t('Geändert') .': '. $row['changecount'] .'x';
@@ -133,7 +133,7 @@ elseif ($thread['caption'] != '') {
 		$templ['board']['thread']['case']['info']['post']['poster']['posts'] 		= t('Beiträge') . ': <a href="index.php?mod=board&action=ranking">'. $userdata['posts'] .'</a>';;
 		$templ['board']['thread']['case']['info']['post']['poster']['avatar']		= $userdata["avatar"];
 		$templ['board']['thread']['case']['info']['post']['poster']['signature'] = '';
-		if ($userdata["signature"]) $templ['board']['thread']['case']['info']['post']['poster']['signature'] 	= '<hr size="1" width="100%" color="cccccc">'.$func->db2text2html($userdata["signature"]);
+		if ($userdata["signature"]) $templ['board']['thread']['case']['info']['post']['poster']['signature'] 	= '<hr size="1" width="100%" color="cccccc">'.$func->text2html($userdata["signature"]);
 
 		$templ['board']['thread']['case']['info']['post']['edit'] = '';
 		if ($auth['type'] > 1)

@@ -176,7 +176,6 @@ if( !$row = $db->fetch_array() ) {
 		$templ['noc']['show']['device']['details']['control']['changebutton'] .= $dsp->FetchButton("index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=2","edit");
 	
 		// DISPLAY TEMPLATE
-		// eval("\$templ['index']['info']['content'] .= \"". $func->gettemplate("noc_show_device_details")."\";");
 		$dsp->AddModTpl("noc","device_details");
 		$dsp->AddContent();
 		break;
