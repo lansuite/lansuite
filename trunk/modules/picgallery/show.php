@@ -142,11 +142,13 @@ elseif (!$akt_file) {
 	else {
 		$z = 0;
 
-		$templ['ls']['row']['gallery']['zeile'] = "";
-		$templ['ls']['row']['gallery']['spalte'] = "";
+		$rows = "";
+		$cols = "";
 
-		$templ['ls']['row']['gallery']['name'] = $key;
-		if($optional) $templ['ls']['row']['gallery']['optional'] = "_optional";
+    $smarty->assign('page', $_GET['page']);
+
+		$smarty->assign('name', $key);
+		if ($optional) $smarty->assign('optional', '_optional');
 
 		if($file_list){
 			foreach($file_list as $file) {
@@ -166,43 +168,44 @@ elseif (!$akt_file) {
 						$pic_dimensions[1] = $cfg["picgallery_max_height"];
 					}
 
-					$templ['ls']['row']['gallery']['pic_width'] = $pic_dimensions[0];
-					$templ['ls']['row']['gallery']['pic_height'] = $pic_dimensions[1];
+          $smarty->assign('pic_width', $pic_dimensions[0]);
+          $smarty->assign('pic_height', $pic_dimensions[1]);
+          $smarty->assign('pic_src', $thumb_path);
+          $smarty->assign('file', $akt_dir . $file);
 
-					$templ['ls']['row']['gallery']['pic_src'] = $thumb_path;
-					$templ['ls']['row']['gallery']['file'] = $akt_dir . $file;
-					if (strlen($file) > 22) $templ['ls']['row']['gallery']['file_name'] = substr(strtolower($file), 0, 16) ."..". substr(strtolower($file), strrpos($file, "."), 5);
-					else $templ['ls']['row']['gallery']['file_name'] = strtolower($file);
+					if (strlen($file) > 22) $file_name = substr(strtolower($file), 0, 16) ."..". substr(strtolower($file), strrpos($file, "."), 5);
+					else $file_name = strtolower($file);
+          $smarty->assign('file_name', $file_name);
 
 					$pic = $db->qry_first("SELECT p.picid, p.caption, p.clicks, COUNT(*) AS comments FROM %prefix%picgallery AS p
        LEFT JOIN %prefix%comments AS c ON p.picid = c.relatedto_id
             WHERE p.name = %string% AND c.relatedto_item = 'Picgallery'
        GROUP BY p.picid
             ", $db_dir . $file);
-					($pic['caption']) ? $templ['ls']['row']['gallery']['caption'] = $pic['caption']
-					: $templ['ls']['row']['gallery']['caption'] = "<i>Unbenannt</i>";
-					$templ['ls']['row']['gallery']['clicks'] = $dsp->HelpText($pic['clicks'], 'Angesehen') .'/'. $dsp->HelpText($pic['comments'], 'Kommentare');
+					($pic['caption']) ? $caption = $pic['caption'] : $caption = "<i>Unbenannt</i>";
+					$smarty->assign('caption', $caption);
+					
+					$smarty->assign('clicks', $dsp->HelpText($pic['clicks'], 'Angesehen') .'/'. $dsp->HelpText($pic['comments'], 'Kommentare'));
+					$smarty->assign('galleryid', $gallery_id);
 
-					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
+					$buttons = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", "next", t('Bild anzeigen'));
+					if ($auth["type"] > 1) $buttons .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", t('Bild löschen'));
+					$smarty->assign('buttons', $buttons);
 
-					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir$file&page={$_GET["page"]}", "next", t('Bild anzeigen'));
-					if ($auth["type"] > 1) {
-						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", t('Bild l&ouml;schen'));
-					}
-
-					$templ['ls']['row']['gallery']['spalte'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_spalte");
+					$cols .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_spalte.htm');
 
 					if ($z % $cfg["picgallery_items_per_row"] == 0) {
-						$templ['ls']['row']['gallery']['zeile'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_zeile");
-						$templ['ls']['row']['gallery']['spalte'] = "";
+            $smarty->assign('cols', $cols);
+						$rows .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_zeile.htm');
+						$cols = "";
 					}
 				}
 			}
 		}
 
 		// Gepackte Daten anzeigen
-		if($package_list){
-			foreach($package_list as $package) {
+		if ($package_list){
+			foreach ($package_list as $package) {
 				$z++;
 				if ($z > $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * $_GET["page"]
 				and $z <= $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * ($_GET["page"] + 1)) {
@@ -227,32 +230,32 @@ elseif (!$akt_file) {
 						$pic_dimensions[1] = "100px";
 					}
 
-					$templ['ls']['row']['gallery']['pic_width'] = $pic_dimensions[0];
-					$templ['ls']['row']['gallery']['pic_height'] = $pic_dimensions[1];
+          $smarty->assign('pic_width', $pic_dimensions[0]);
+          $smarty->assign('pic_height', $pic_dimensions[1]);
+          $smarty->assign('pic_src', $thumb_path);
+          $smarty->assign('file', $akt_dir . $file);
 
-					$templ['ls']['row']['gallery']['pic_src'] = $thumb_path;
-					$templ['ls']['row']['gallery']['file'] = $akt_dir . $package;
-					if (strlen($file) > 22) $templ['ls']['row']['gallery']['file_name'] = substr(strtolower($package), 0, 16) ."..". substr(strtolower($package), strrpos($package, "."), 5);
-					else $templ['ls']['row']['gallery']['file_name'] = strtolower($package);
-
+					if (strlen($file) > 22) $file_name = substr(strtolower($package), 0, 16) ."..". substr(strtolower($package), strrpos($package, "."), 5);
+					else $file_name = strtolower($package);
+          $smarty->assign('file_name', $file_name);
 
 					$pic = $db->qry_first("SELECT picid, caption, clicks FROM %prefix%picgallery WHERE name = %string%", $db_dir . $package);
-					($pic['caption']) ? $templ['ls']['row']['gallery']['caption'] = $pic['caption']
-					: $templ['ls']['row']['gallery']['caption'] = "<i>Unbenannt</i>";
-					$templ['ls']['row']['gallery']['clicks'] = $pic['clicks'];
-					
-					$templ['ls']['row']['gallery']['galleryid'] = $gallery_id;
+					($pic['caption']) ? $caption = $pic['caption'] : $caption = "<i>Unbenannt</i>";
+					$smarty->assign('caption', $caption);
 
-					$templ['ls']['row']['gallery']['buttons'] = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", "download", t('Bild herrunterladen'));
-					if ($auth["type"] > 1) {
-						$templ['ls']['row']['gallery']['buttons'] .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", "delete", t('Bild l&ouml;schen'));
-					}
+          $smarty->assign('clicks', $pic['clicks']);
+          $smarty->assign('galleryid', $gallery_id);
 
-					$templ['ls']['row']['gallery']['spalte'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_spalte");
+					$buttons = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl=$akt_dir$package", "download", t('Bild herrunterladen'));
+					if ($auth["type"] > 1) $buttons .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$package&page={$_GET["page"]}", "delete", t('Bild l&ouml;schen'));
+          $smarty->assign('buttons', $buttons);
+
+					$cols .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_spalte.htm');
 
 					if ($z % $cfg["picgallery_items_per_row"] == 0) {
-						$templ['ls']['row']['gallery']['zeile'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_zeile");
-						$templ['ls']['row']['gallery']['spalte'] = "";
+            $smarty->assign('cols', $cols);
+						$rows .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_zeile.htm');
+						$cols = "";
 					}
 				}
 
@@ -260,11 +263,13 @@ elseif (!$akt_file) {
 		}
 
 		if ($z % $cfg["picgallery_items_per_row"] != 0) {
-			$templ['ls']['row']['gallery']['zeile'] .= $dsp->FetchModTpl("picgallery", "ls_row_gallery_zeile");
-			$templ['ls']['row']['gallery']['spalte'] = "";
+      $smarty->assign('cols', $cols);
+			$rows .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_zeile.htm');
+			$cols = "";
 		}
 
-		$dsp->AddModTpl("picgallery", "ls_row_gallery");
+    $smarty->assign('rows', $rows);
+		$dsp->AddSmartyTpl('ls_row_gallery', 'picgallery');
 	}
 
 	// Stats

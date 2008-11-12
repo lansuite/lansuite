@@ -30,7 +30,7 @@
 	$dsp->AddFormSubmitRow("add");
 
 	// This is how to load your own template, located in the 'templates'-folder of your module
-	$dsp->AddSingleRow($dsp->FetchModTpl("sample", "my_template"));
+	$dsp->AddSingleRow($smarty->fetch('modules/sample/templates/my_template.htm'));
 
 
 
