@@ -19,6 +19,40 @@ class display {
     $this->errortext_suffix = HTML_FONT_END;
   }
 
+  #### Main Functions ####
+
+  /* When handling own templates, the prefered way is to use $smarty->fetch()
+  / However, at some point, you have to append these fetched content to $MainContent
+  / But: Never write to $MainContent within your module!
+  / Instead: Use either $dsp->AddSmartyTpl(), or $dsp->AddContentLine()
+  / to attach your content to the LS-output.
+  */
+
+  // Adds a smarty template.
+  // Attention: This does not add the LS-line-container, so you have to take care of it yourselfe!
+  function AddSmartyTpl($name, $mod = '') {
+    global $smarty, $MainContent;
+
+    if ($mod == '') $MainContent .= $smarty->fetch('design/templates/'. $name .'.htm');
+    else $MainContent .= $smarty->fetch('modules/'. $mod .'/templates/'. $name .'.htm');
+  }
+
+  // Adds the provided content in a new LS-line
+  function AddContentLine($content){
+    global $smarty, $MainContent;
+
+    if ($_GET['design'] != 'base') {
+      if ($this->FirstLine) {
+        $smarty->assign('content', $content);
+        $MainContent .= $smarty->fetch('design/templates/ls_row_firstline.htm');
+        $this->FirstLine = 0;
+      } else {
+        $smarty->assign('content', $content);
+        $MainContent .= $smarty->fetch('design/templates/ls_row_line.htm');
+      }
+    }
+  }
+
   // Returns the template $file
   // Old. And internal use only!
   // Replace with $smarty->fetch()
@@ -46,43 +80,19 @@ class display {
     return $tpl;
   }
 
-  // Output the template $file
-  // Old. And internal use only!
-  function AddTpl($file, $OpenTable = 1){
-    global $templ, $MainContent;
+  // Old: Use smarty->fetch instead
+  function FetchModTpl($mod, $name) {
+    global $templ, $debug;
 
-    $MainContent .=  $this->FetchTpl($file, $templ);
+    if ($mod == "") $return = $this->FetchTpl("design/templates/".$name.".htm", $templ);
+    else $return = $this->FetchTpl("modules/".$mod."/templates/".$name.".htm", $templ);
+
+    return $return;
   }
 
-  // Old: Use AddSmartyTpl instead
-  function AddModTpl($mod, $name) {
-    if ($mod == '') $this->AddTpl("design/templates/".$name.".htm");
-    else $this->AddTpl("modules/".$mod."/templates/".$name.".htm");
-  }
 
-  // Adds a smarty templae. Attention: This does not add the SL-line-container, so you have to add it yourselfe!
-  function AddSmartyTpl($name, $mod = '') {
-    global $smarty, $MainContent;
-
-    if ($mod == '') $MainContent .= $smarty->fetch('design/templates/'. $name .'.htm');
-    else $MainContent .= $smarty->fetch('modules/'. $mod .'/templates/'. $name .'.htm');
-  }
-
-  // Adds the provided content in a new LS-line
-  function AddContentLine($content){
-    global $smarty, $MainContent;
-
-    if ($_GET['design'] != 'base') {
-      if ($this->FirstLine) {
-        $smarty->assign('content', $content);
-        $MainContent .= $smarty->fetch('design/templates/ls_row_firstline.htm');
-        $this->FirstLine = 0;
-      } else {
-        $smarty->assign('content', $content);
-        $MainContent .= $smarty->fetch('design/templates/ls_row_line.htm');
-      }
-    }
-  }
+  #### Add content ####
+  # The following functions all printing their content directly, to the LS-content-container
 
   // Writes the headline of a page
   function NewContent($caption, $text = NULL, $helplet_id = 'help') {
@@ -97,9 +107,6 @@ class display {
     $this->form_ok = false;
 
     $this->AddContentLine($smarty->fetch('design/templates/ls_row_headline.htm'));
-  }
-
-  function AddHeaderButtons() {
   }
 
   function AddHeaderMenu($names, $link, $active = NULL) {
@@ -167,8 +174,8 @@ class display {
     global $smarty;
 
     if ($key == "") $key = "&nbsp;";
-	if ($value == "") $value = "&nbsp;";
-	if ($ext_txt == "") $value = "&nbsp;";
+    if ($value == "") $value = "&nbsp;";
+    if ($ext_txt == "") $value = "&nbsp;";
     if ($id == "") $id = "DoubleRowVal";
 
     $smarty->assign('key', $key);
@@ -603,7 +610,41 @@ class display {
     $this->AddContentLine($smarty->fetch('design/templates/ls_row_IFrame.htm'));
   }
 
-  // ################################################################################################################# //
+  function AddContent($target = NULL) {
+  }
+
+  // Should be called AddForm
+  function SetForm($f_url, $f_name = NULL, $f_method = NULL, $f_enctype = NULL) {
+    global $smarty;
+
+    if ($f_name == NULL) $f_name = "dsp_form" . $this->formcount++;
+    if ($f_method == NULL) $f_method = "POST";
+
+    if ($f_enctype == NULL) $f_enctype = "";
+    else $f_enctype = "enctype=\"$f_enctype\"";
+
+    if ($this->form_open) $this->CloseForm();
+    $this->form_open = true;
+
+    $this->form_name = $f_name;
+
+    $smarty->assign('name', $f_name);
+    $smarty->assign('method', strtolower($f_method));
+    $smarty->assign('action', $f_url);
+    $smarty->assign('enctype', $f_enctype);
+
+    $this->AddSmartyTpl('ls_row_formbegin');
+  }
+
+  // Should be called AddCloseForm
+  function CloseForm() {
+    $this->form_open = false;
+    $this->AddSmartyTpl('ls_row_formend');
+  }
+
+
+  #### Fetch Content ####
+  # The following functions all return their content, to the module, instead of printing them directly
 
   function FetchAttachmentRow($file) {
     global $gd;
@@ -683,50 +724,7 @@ class display {
     return $this->FetchModTpl("", "ls_usericon");
   }
 
-  function FetchModTpl($mod, $name) {
-    global $templ, $debug;
-
-    if ($mod == "") $return = $this->FetchTpl("design/templates/".$name.".htm", $templ);
-    else $return = $this->FetchTpl("modules/".$mod."/templates/".$name.".htm", $templ);
-
-    return $return;
-  }
-
-  function SetForm($f_url, $f_name = NULL, $f_method = NULL, $f_enctype = NULL) {
-    global $templ;
-
-    if ($f_name == NULL) $f_name = "dsp_form" . $this->formcount++;
-    if ($f_method == NULL) $f_method = "POST";
-
-    if ($f_enctype == NULL) $f_enctype = "";
-    else $f_enctype = "enctype=\"$f_enctype\"";
-
-    if ($this->form_open) $this->CloseForm();
-    $this->form_open = true;
-
-    $this->form_name = $f_name;
-    $templ['ls']['row']['formbegin']['name']   = $f_name;
-    $templ['ls']['row']['formbegin']['method'] = strtolower($f_method);
-    $templ['ls']['row']['formbegin']['action'] = $f_url;
-    $templ['ls']['row']['formbegin']['enctype'] = $f_enctype;
-
-    $this->AddTpl("design/templates/ls_row_formbegin.htm");
-  }
-
-  function CloseForm() {
-    global $templ;
-
-    $this->form_open = false;
-    $this->AddTpl("design/templates/ls_row_formend.htm");
-  }
-
-  function AddContent($target = NULL) {
-  }
-
-  function HelpText($text, $help) {
-    return '<div class="infolink" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
-  }
-
+  // Should be called FetchIcon
   function AddIcon($name, $link = '', $title = '') {
     global $templ;
     
@@ -737,6 +735,11 @@ class display {
       $templ['ms2']['link'] = $link;
       return $this->FetchModTpl('mastersearch2', 'result_link');
     } else return $templ['ms2']['link_item'];
+  }
+
+  // Should be called FetchHelpText
+  function HelpText($text, $help) {
+    return '<div class="infolink" style="display:inline">'. t($text) .'<span class="infobox">'. t($help) .'</span></div>';
   }
 }
 ?>
