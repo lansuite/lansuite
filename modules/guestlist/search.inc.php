@@ -10,20 +10,14 @@ function SeatNameLink($userid){
 
 function PaidIconLink($paid){
   global $dsp, $templ, $line, $auth;
-  
-  if ($paid) {
-    $templ['ms2']['icon_name'] = 'paid';
-    $templ['ms2']['icon_title'] = 'Paid';
-    $templ['ms2']['link'] = 'index.php?mod=guestlist&step=11&userid='. $line['userid'];
+
+  if ($auth['type'] > 1) {
+    if ($paid) return $dsp->FetchIcon('index.php?mod=guestlist&step=11&userid='. $line['userid'], 'paid', t('Bezahlt'));
+    else return $dsp->FetchIcon('index.php?mod=guestlist&step=10&userid='. $line['userid'], 'not_paid', t('Nicht bezahlt'));
   } else {
-    $templ['ms2']['icon_name'] = 'not_paid';
-    $templ['ms2']['icon_title'] = 'Not Paid';
-    $templ['ms2']['link'] = 'index.php?mod=guestlist&step=10&userid='. $line['userid'];
+    if ($paid) return $dsp->FetchIcon('', 'paid', t('Bezahlt'));
+    else return $dsp->FetchIcon('', 'not_paid', t('Nicht bezahlt'));
   }
-  $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
-  if ($auth['type'] > 1) $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
-  
-  return $templ['ms2']['link_item'];
 }
 
 function ClanURLLink($clan_name) {

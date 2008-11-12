@@ -8,16 +8,10 @@ function SeatNameLink($userid){
 }
 
 function PaidIcon($paid){
-  global $dsp, $templ, $line, $party;
-  
-  if ($paid) {
-    $templ['ms2']['icon_name'] = 'paid';
-    $templ['ms2']['icon_title'] = 'Paid';
-  } else {
-    $templ['ms2']['icon_name'] = 'not_paid';
-    $templ['ms2']['icon_title'] = 'Not Paid';
-  }
-  return $dsp->FetchModTpl('mastersearch2', 'result_icon');
+  global $dsp;
+
+  if ($paid) return $dsp->FetchIcon('', 'paid', t('Bezahlt'));
+  else return $dsp->FetchIcon('', 'not_paid', t('Nicht bezahlt'));
 }
 
 function ClanURLLink($clan_name) {

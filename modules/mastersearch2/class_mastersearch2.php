@@ -581,35 +581,21 @@ function MS2GetDate($time){
   global $dsp, $templ;
   
   if ($time > 0) return '<span class="small">'. date('d.m.y', $time) .'<br />'. date('H:i', $time) .'</span>';
-  else {
-    $templ['ms2']['icon_name'] = 'no';
-    $templ['ms2']['icon_title'] = '-';
-    return $dsp->FetchModTpl('mastersearch2', 'result_icon');  
-  } 
+  else return $dsp->FetchIcon('', 'no', '-');
 }
 
 function MS2GetTime($time){
   global $dsp, $templ;
   
   if ($time > 0) return date('H:i', $time);
-  else {
-    $templ['ms2']['icon_name'] = 'no';
-    $templ['ms2']['icon_title'] = '-';
-    return $dsp->FetchModTpl('mastersearch2', 'result_icon');  
-  } 
+  else return $dsp->FetchIcon('', 'no', '-');
 }
 
 function TrueFalse($val){
   global $dsp, $templ, $lang;
   
-  if ($val) {
-    $templ['ms2']['icon_name'] = 'yes';
-    $templ['ms2']['icon_title'] = $lang['sys']['yes'];
-  } else {
-    $templ['ms2']['icon_name'] = 'no';
-    $templ['ms2']['icon_title'] = $lang['sys']['no'];
-  } 
-  return $dsp->FetchModTpl('mastersearch2', 'result_icon');  
+  if ($val) return $dsp->FetchIcon('', 'yes', t('Ja'));
+  else return $dsp->FetchIcon('', 'no', t('Nein'));
 }
 
 function UserNameAndIcon($username){

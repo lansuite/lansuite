@@ -12,27 +12,15 @@ function LastPostDetails($date) {
     else $ret .= '<br />Gast_';
     return $ret;
      
-  } else {
-    $templ['ms2']['icon_name'] = 'no';
-    $templ['ms2']['icon_title'] = '-';
-    return $dsp->FetchModTpl('mastersearch2', 'result_icon');
-  }
+  } else return $dsp->FetchIcon('', 'no', '-');
 }
 
 function FormatTitle($title) {
   global $dsp, $templ, $line, $func;
   
   $icon = '';
-  if ($line['closed']) {
-    $templ['ms2']['icon_name'] = 'locked';
-    $templ['ms2']['icon_title'] = 'Not Paid';
-    $icon = $dsp->FetchModTpl('mastersearch2', 'result_icon'). ' ';
-  }
-  if ($line['sticky']) {
-    $templ['ms2']['icon_name'] = 'important';
-    $templ['ms2']['icon_title'] = 'Wichtig!';
-    $icon = $dsp->FetchModTpl('mastersearch2', 'result_icon'). ' ';
-  }
+  if ($line['closed']) $icon = $dsp->FetchIcon('', 'locked', t('Nicht bezahlt!'));
+  if ($line['sticky']) $icon = $dsp->FetchIcon('', 'important', t('Wichtig!'));
   return $icon . $func->AllowHTML($title);
 }
 

@@ -12,19 +12,10 @@ function PaidIconLink($paid){
   global $dsp, $templ, $line, $party, $lang;
   
   // Only link, if selected party = current party
-  if ($_POST["search_dd_input"][1] == $party->party_id) $templ['ms2']['link'] = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
-  else $templ['ms2']['link'] = '';
+  if ($_POST["search_dd_input"][1] == $party->party_id) $link = 'index.php?mod=usrmgr&action=changepaid&step=2&userid='. $line['userid'];
   
-  if ($paid) {
-    $templ['ms2']['icon_name'] = 'paid';
-    $templ['ms2']['icon_title'] = t('Bezahlt');
-  } else {
-    $templ['ms2']['icon_name'] = 'not_paid';
-    $templ['ms2']['icon_title'] = t('Nicht bezahlt');
-  }
-  $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_icon');
-  if ($templ['ms2']['link']) $templ['ms2']['link_item'] = $dsp->FetchModTpl('mastersearch2', 'result_link');
-  return $templ['ms2']['link_item'];
+  if ($paid) return $dsp->FetchIcon($link, 'paid', t('Bezahlt'));
+  else return $dsp->FetchIcon($link, 'not_paid', t('Nicht bezahlt'));
 }
 
 
