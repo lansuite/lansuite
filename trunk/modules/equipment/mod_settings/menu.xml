@@ -2,6 +2,8 @@
 <menu>
 	<pos>23</pos>
 	<entry>
+		<action>default</action>
+		<file>list</file>
 		<caption>Equipmentshop</caption>
 		<hint>Folgende Artikel vermieten wir an andere Partys</hint>
 		<link>?mod=equipment</link>
@@ -10,6 +12,8 @@
 		<level>0</level>
 	</entry>
 	<entry>
+		<action>order</action>
+		<file>order</file>
 		<caption>Bestellen</caption>
 		<hint></hint>
 		<link>?mod=equipment&amp;action=order</link>
@@ -18,6 +22,8 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>calendar</action>
+		<file>calendar</file>
 		<caption>Terminliste</caption>
 		<hint></hint>
 		<link>?mod=equipment&amp;action=calendar</link>
@@ -26,6 +32,8 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>history</action>
+		<file>history</file>
 		<caption>Terminhistory</caption>
 		<hint></hint>
 		<link>?mod=equipment&amp;action=history</link>
@@ -34,6 +42,8 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>admin</action>
+		<file>admin</file>
 		<caption>Administration</caption>
 		<hint></hint>
 		<link>?mod=equipment&amp;action=admin</link>
