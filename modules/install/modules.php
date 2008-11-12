@@ -187,12 +187,12 @@ switch($_GET["step"]) {
         $smarty->assign('author', $author);
 
         $active = '';
-        if ($row["active"]) $active = " checked";
+        if ($row["active"]) $active = ' checked="checked"';
         $smarty->assign('active', $active);
 
         $changeable = '';
         if (!$row["changeable"]) $changeable = ' disabled';
-        $smarty->assign('active', $changeable);
+        $smarty->assign('changeable', $changeable);
         
         ($row["state"] == "Stable")? $state = $row["state"] : $state = "<font color=\"red\">{$row["state"]}</font>";
         $smarty->assign('state', $state);
