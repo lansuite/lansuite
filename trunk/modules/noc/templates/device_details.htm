@@ -1,12 +1,12 @@
 <!-- TEMPLATE - STANDARD - NOC SHOW device DETAILS -->
-  
+
 <table width="100%" cellspacing="0" cellpadding="0">
   <tr class="tbl_5"> 
     <td colspan="2"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_5">
         <tr> 
           <td> 
-            <p><b>Device '{$templ['noc']['show']['device']['details']['info']['caption']}'</b></p>
+            <p><b>Device '{$caption}'</b></p>
             <p>&nbsp;</p>
           </td>
         </tr>
@@ -20,14 +20,14 @@
     <td class="tbl_6" height="30" width="30%"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
         <tr> 
-          <td>{$templ['noc']['show']['device']['details']['text']['caption']}</td>
+          <td>{$caption}</td>
         </tr>
       </table>
     </td>
     <td class="tbl_1" width="70%" height="30"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
         <tr> 
-          <td> {$templ['noc']['show']['device']['details']['info']['caption']}</td>
+          <td> {$caption}</td>
         </tr>
       </table>
     </td>
@@ -39,14 +39,14 @@
     <td class="tbl_6" height="30" width="30%"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
         <tr> 
-          <td>{$templ['noc']['show']['device']['details']['text']['ip']}</td>
+          <td>{$ip}</td>
         </tr>
       </table>
     </td>
     <td class="tbl_1" width="70%" height="30"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
         <tr> 
-          <td> {$templ['noc']['show']['device']['details']['info']['ip']}</td>
+          <td> {$ip}</td>
         </tr>
       </table>
     </td>
@@ -59,7 +59,7 @@
     <td class="tbl_1" width="70%" height="30"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
         <tr> 
-          <td><img border="1" src="{$templ['noc']['show']['device']['details']['control']['image']}" alt=""/></td>
+          <td><img border="1" src="{$image}" alt=""/></td>
         </tr>
       </table>
     </td>
@@ -71,14 +71,14 @@
     <td class="tbl_6" height="30" width="30%"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
         <tr> 
-          <td>{$templ['noc']['show']['device']['details']['text']['descr']}</td>
+          <td>{$descr}</td>
         </tr>
       </table>
     </td>
     <td class="tbl_1" width="70%" height="30"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
         <tr> 
-          <td> {$templ['noc']['show']['device']['details']['info']['descr']}</td>
+          <td> {$descr}</td>
         </tr>
       </table>
     </td>
@@ -90,14 +90,14 @@
     <td class="tbl_6" height="30" width="30%"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
         <tr> 
-          <td> {$templ['noc']['show']['device']['details']['text']['contact']}</td>
+          <td> {$contact}</td>
         </tr>
       </table>
     </td>
     <td class="tbl_1" width="70%" height="30"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
         <tr> 
-          <td> {$templ['noc']['show']['device']['details']['info']['contact']}</td>
+          <td> {$contact}</td>
         </tr>
       </table>
     </td>
@@ -109,14 +109,14 @@
     <td class="tbl_6" height="30" width="30%"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
         <tr> 
-          <td>{$templ['noc']['show']['device']['details']['text']['uptime']}</td>
+          <td>{$uptime}</td>
         </tr>
       </table>
     </td>
     <td class="tbl_1" width="70%" height="30"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
         <tr> 
-          <td> {$templ['noc']['show']['device']['details']['info']['uptime']}</td>
+          <td> {$uptime}</td>
         </tr>
       </table>
     </td>
@@ -128,14 +128,14 @@
     <td class="tbl_6" height="30" width="30%"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
         <tr> 
-          <td>{$templ['noc']['show']['device']['details']['text']['location']}</td>
+          <td>{$location}</td>
         </tr>
       </table>
     </td>
     <td class="tbl_1" width="70%" height="30"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
         <tr> 
-          <td> {$templ['noc']['show']['device']['details']['info']['location']}</td>
+          <td> {$location}</td>
         </tr>
       </table>
     </td>
@@ -147,7 +147,7 @@
     <td class="tbl_6" height="30" width="30%"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
         <tr> 
-          <td>{$templ['noc']['show']['device']['details']['text']['context']}</td>
+          <td>{$context}</td>
         </tr>
       </table>
     </td>
@@ -158,15 +158,15 @@
             <table cellspacing="2" cellpadding="0" class="tbl_1">
               <tr> 
                 <td width="28"><img src="design/images/noc_port_on.png" alt=""/></td>
-                <td> {$templ['noc']['show']['device']['details']['text']['active']}</td>
+                <td> {$active}</td>
               </tr>
               <tr> 
                 <td width="28"><img src="design/images/noc_port_off.png" alt=""/></td>
-                <td>{$templ['noc']['show']['device']['details']['text']['inactive']}</td>
+                <td>{$inactive}</td>
               </tr>
               <tr> 
                 <td width="28"><img src="design/images/noc_port_failed.png" alt=""/></td>
-                <td>{$templ['noc']['show']['device']['details']['text']['off']}</td>
+                <td>{$off}</td>
               </tr>
             </table>
           </td>
@@ -180,7 +180,7 @@
   <tr> 
     <td class="tbl_1" height="30" colspan="2">
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
-		{$templ['noc']['show']['device']['details']['control']['ports']}
+		{$ports}
       </table>
     </td>
   </tr>
@@ -199,7 +199,7 @@
     <td class="tbl_6" height="30" width="70%"> 
       <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
         <tr> 
-          <td>{$templ['noc']['show']['device']['details']['control']['changebutton']} {$templ['noc']['show']['device']['details']['control']['deletebutton']}
+          <td>{$changebutton} {$deletebutton}
           </td>  
         </tr>
       </table>

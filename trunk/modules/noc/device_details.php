@@ -17,32 +17,29 @@ if( !$row = $db->fetch_array() ) {
 	
 		default:
 
-		// Since I'm not going to write $templ["noc"]["show"]["device"]["details"]["info"]["ip"] 10 times I'll just put it on $device_ip
 		$device_ip = $row["ip"];
 		$readcommunity  = $row["readcommunity"];
 		
 		// DISPLAYED TEXT
-		$templ['noc']['show']['device']['details']['text']['caption'] 		= t('Name');
-		$templ['noc']['show']['device']['details']['text']['ip'] 			= t('IP-Adresse');
-		$templ['noc']['show']['device']['details']['text']['descr']			= t('Beschreibung');
-		$templ['noc']['show']['device']['details']['text']['contact'] 		= t('Kontaktadresse');
-		$templ['noc']['show']['device']['details']['text']['uptime']		= t('Laufzeit');
-		$templ['noc']['show']['device']['details']['text']['location']		= t('Standort');
-		$templ['noc']['show']['device']['details']['text']['context']		= t('Lengende');
-		$templ['noc']['show']['device']['details']['text']['active']		= t('Aktiv');
-		$templ['noc']['show']['device']['details']['text']['inactive']		= t('Inaktiv');
-		$templ['noc']['show']['device']['details']['text']['off']			= t('Ausgeschaltet');
-
+		$smarty->assign('caption', t('Name'));
+		$smarty->assign('ip', t('IP-Adresse'));
+		$smarty->assign('descr', t('Beschreibung'));
+		$smarty->assign('contact', t('Kontaktadresse'));
+		$smarty->assign('uptime', t('Laufzeit'));
+		$smarty->assign('location', t('Standort'));
+		$smarty->assign('context', t('Lengende'));
+		$smarty->assign('active', t('Aktiv'));
+		$smarty->assign('inactive', t('Inaktiv'));
+		$smarty->assign('off', t('Ausgeschaltet'));
 
 		// DISPLAYED VALUES
-		$templ["noc"]["show"]["device"]["details"]["info"]["deviceid"]	= $_GET["deviceid"];
-		$templ["noc"]["show"]["device"]["details"]["info"]["ip"]		= $row["ip"];
-		$templ["noc"]["show"]["device"]["details"]["info"]["caption"]	= $row["name"];
-		$templ["noc"]["show"]["device"]["details"]["info"]["contact"]	= $row["sysContact"];
-		$templ["noc"]["show"]["device"]["details"]["info"]["descr"]		= $row["sysDescr"];
-		$templ["noc"]["show"]["device"]["details"]["info"]["uptime"]	= $row["sysUpTime"];
-		$templ["noc"]["show"]["device"]["details"]["info"]["location"]	= $row["sysLocation"];
-
+		$smarty->assign('deviceid', $_GET["deviceid"]);
+		$smarty->assign('ip', $row["ip"]);
+		$smarty->assign('caption', $row["name"]);
+		$smarty->assign('contact', $row["sysContact"]);
+		$smarty->assign('descr', $row["sysDescr"]);
+		$smarty->assign('uptime', $row["sysUpTime"]);
+		$smarty->assign('location', $row["sysLocation"]);
 
 
 		// Choose the right Picture
@@ -76,7 +73,7 @@ if( !$row = $db->fetch_array() ) {
 
 
 		// Set the manufacturer Picture
-		$templ["noc"]["show"]["device"]["details"]["control"]["image"] = $ProdPic;
+		$smarty->assign('image', $ProdPic);
 
 		//Mac-Addressen auslesen
 		$noc->getMacAddress($row["ip"], $row["readcommunity"],$row["id"],$row["sysDescr"]);
@@ -87,7 +84,7 @@ if( !$row = $db->fetch_array() ) {
 		$row = $db->fetch_array();
 		
 		// Ports are all saved into 1 template variable
-		$templ["noc"]["show"]["device"]["details"]["control"]["ports"] = "<tr align=\"center\">";
+		$ports = "<tr align=\"center\">";
 
 		$port_query = $db->qry("SELECT portnr, portid, linkstatus, adminstatus, speed, type, indexname FROM %prefix%noc_ports WHERE deviceid = %int% AND type != 'system' ORDER BY portnr ASC", $_GET["deviceid"]);
 
@@ -125,14 +122,14 @@ if( !$row = $db->fetch_array() ) {
 					}else{
 						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}
-						$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";
+						$ports .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";
 				} else {
 					if(file_exists($filepath . "port_" . $row["type"] . "_on_" . $row["portnr"] . ".png")){
 						$port_pic = $filepath . "port_" . $row["type"] . "_on_" . $row["portnr"] . ".png";
 					}else{
 						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=on&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}
-						$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";				
+						$ports .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";				
 				}
 					
 		
@@ -148,35 +145,37 @@ if( !$row = $db->fetch_array() ) {
 					}else{
 						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}
-						$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";
+						$ports .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";
 				} else {
 					if(file_exists($filepath . "port_" . $row["type"] . "_off_" . $row["portnr"] . ".png")){
 						$port_pic = $filepath . "port_" . $row["type"] . "_off_" . $row["portnr"] . ".png";
 					}else{
 						$port_pic = "index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=failed&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\" title=\"" . $row['indexname'];
 					}					
-						$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";						
+						$ports .= "<td colspan=\"" . $colspan . "\"><a class=\"menu\" href=\"index.php?mod=noc&action=port_details&portid=" . $row["portid"] . "\"><img alt='' border=0 src=\"$port_pic\"/></a></td>";						
 				}
 
 				break;
 
 				default:
-				//$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "<td colspan=\"" . $colspan . "\"><img border=0 src=\"index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=off&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\"></td>";
+				//$ports .= "<td colspan=\"" . $colspan . "\"><img border=0 src=\"index.php?mod=noc&action=port_picture&design=base&type=" . $row["type"] . "&status=off&speed=" . $row["speed"] . "&unit=MBit&portnr=" . $row["portnr"] . "\"></td>";
 				break;
 
 			} // END SWITCH($row["linkstatus"])
 
-			If( $Portcount%16 == 0 ) { $templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "</tr><tr align=\"center\">"; }
+			If( $Portcount%16 == 0 ) { $ports .= "</tr><tr align=\"center\">"; }
 			$Portcount++;
 
 		} // END WHILE
 
-		$templ["noc"]["show"]["device"]["details"]["control"]["ports"] .= "</tr>";
-		$templ['noc']['show']['device']['details']['control']['changebutton'] = $dsp->FetchButton("index.php?mod=noc&action=show_device","back");
-		$templ['noc']['show']['device']['details']['control']['changebutton'] .= $dsp->FetchButton("index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=2","edit");
+		$ports .= "</tr>";
+		$smarty->assign('ports', $ports);
+		$changebutton = $dsp->FetchButton("index.php?mod=noc&action=show_device","back");
+		$changebutton .= $dsp->FetchButton("index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=2","edit");
+		$smarty->assign('changebutton', $changebutton);
 	
 		// DISPLAY TEMPLATE
-		$dsp->AddModTpl("noc","device_details");
+		$dsp->AddSmartyTpl('device_details', 'noc');
 		$dsp->AddContent();
 		break;
 		
