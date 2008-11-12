@@ -162,7 +162,7 @@ class boxes {
    */
     function AddTemplate($template) {
         global $dsp;
-        $this->box_rows .= $this->Row($dsp->FetchModTpl("boxes", $template));
+        $this->box_rows .= $this->Row($template);
     }
 
   /**

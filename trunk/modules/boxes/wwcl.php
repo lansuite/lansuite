@@ -7,5 +7,5 @@
  * @version $Id$
  */
  
-$box->AddTemplate("wwcl_code");
+$box->AddTemplate($smarty->fetch('modules/boxes/templates/wwcl_code.htm'));
 ?>

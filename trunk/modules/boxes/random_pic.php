@@ -23,7 +23,7 @@ if ($pics_res['picid']) {
     $templ['randompic']['tag'] = $pics_res['caption'];
     $templ['randompic']['thumblink'] = $pic_neuname;
     $templ['randompic']['link'] = $pics_res['name'];
-    $box->AddTemplate("box_randompic");
+    $box->AddTemplate($dsp->FetchModTpl("boxes", "box_randompic"));
     if ($pics_comrow['comments'] == 1) $box->EngangedRow($pics_comrow['comments']." ".t("Kommentar"));
     else if ($pics_comrow['comments'] > 1) $box->EngangedRow($pics_comrow['comments']." ".t("Kommentare"));
 }
