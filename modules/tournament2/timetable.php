@@ -25,12 +25,12 @@ $db->free_result($tournaments);
 
 if ($maxtime > $mintime + 60 * 60 * 24 * 4) $maxtime = $mintime + 60 * 60 * 24 * 4;
 
-$templ['timetable']['head'] .= "<td><b>".t('Turnier')."</b></td>";
-for ($z = $mintime; $z <= $maxtime; $z+= (60 * 60 * 2)) $templ['timetable']['head'] .= "<td colspan = 4>". $func->unixstamp2date($z, "time")."</td>";
-
+$head .= "<td><b>".t('Turnier')."</b></td>";
+for ($z = $mintime; $z <= $maxtime; $z+= (60 * 60 * 2)) $head .= "<td colspan = 4>". $func->unixstamp2date($z, "time")."</td>";
+$smarty->assign('head', $head);
 
 // Generate Table-foot
-$templ['timetable']['zeilen'] = "";
+$rows = "";
 $tournaments = $db->qry("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM %prefix%tournament_tournaments WHERE party_id = %int%", $party->party_id);
 while ($tournament = $db->fetch_array($tournaments)) {
 #	echo "Zeit {$tournament["starttime"]}<br>";
@@ -40,19 +40,21 @@ while ($tournament = $db->fetch_array($tournaments)) {
 	for ($z = $team_anz/2; $z >= 2; $z/=2) $max_round++;
 	$endtime = $tfunc->GetGameEnd($tournament, $max_round);
 
-	$templ['timetable']['inhalt'] = "<td nowrap>{$tournament["name"]}</td>";
+	$content = "<td nowrap>{$tournament["name"]}</td>";
 	for ($z = $mintime; $z <= $maxtime; $z+= (60 * 30)) {
-		if ($z > $tournament["starttime"] and $z <= $endtime) $templ['timetable']['inhalt'] .= "<td bgcolor=\"#00bb33\">&nbsp;</td>";
+		if ($z > $tournament["starttime"] and $z <= $endtime) $content .= "<td bgcolor=\"#00bb33\">&nbsp;</td>";
 		else {
-			if (($z/(60 * 30)) % 2 == 0) $templ['timetable']['inhalt'] .= "<td bgcolor=\"#dddddd\">&nbsp;</td>";
-			else $templ['timetable']['inhalt'] .= "<td bgcolor=\"#aaaaaa\">&nbsp;</td>";
+			if (($z/(60 * 30)) % 2 == 0) $content .= "<td bgcolor=\"#dddddd\">&nbsp;</td>";
+			else $content .= "<td bgcolor=\"#aaaaaa\">&nbsp;</td>";
 		}
 	}
-	$templ['timetable']['zeilen'] .= $dsp->FetchModTpl("tournament2", "timetable_zeile");
+	$smarty->assign('content', $content);
+	$rows .= $smarty->fetch('modules/tournament2/templates/timetable_zeile.htm');
 }
 $db->free_result($tournaments);
 
-$dsp->AddModTpl("tournament2", "timetable");
+$smarty->assign('rows', $rows);
+$dsp->AddSmartyTpl('timetable', 'tournament2');
 
 
 $dsp->AddSingleRow(t('Achtung: Der Zeitraum eines Turnieres kann sich verlängern, wenn sich weitere Teams zu diesem Turnier anmelden.')); 
