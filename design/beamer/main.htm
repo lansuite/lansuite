@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+	<title>{$MainTitle}</title>
+  {$main_header_metatags}
+  <meta name="robots" content="index, follow" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="expires" content="900" />  
+  {$main_header_sitereload}
+  {$main_header_cssfiles}
+  <link rel="stylesheet" type="text/css" href="ext_scripts/niftycube/niftyCorners.css" />
+  <link rel="stylesheet" type="text/css" href="design/style.css" />
+  <link rel="stylesheet" type="text/css" href="design/{$Design}/style.css" />
+  {$main_header_csscode} 
+  {$main_header_jsfiles}
+  <script type="text/javascript" src="ext_scripts/niftycube/niftycube.js"></script>
+  <script type="text/javascript" src="scripts.js"></script>
+  {$main_header_jscode}
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="alternate" type="application/rss+xml" title="RDF-Datei" href="ext_inc/newsfeed/news.xml" />
+  <!--[if lte IE 6]>
+  <style type="text/css">
+  {literal}div#Content { width: 70%; }{/literal}
+  </style>
+  <![endif]-->
+</head>
+
+
+<body onload="BodyOnload(1)" {$MainJS}>
+<a name="top"></a>
+<span id="LSloading" class="loading"></span>
+
+<div id="Logo">{$MainLogo}</div>
+<div id="DateLogout">{$smarty.now|date_format:"%d.%m.%Y"} | {$MainLogout}</div>
+<div id="Banner">{$MainBanner}</div>
+
+<div id="BoxesLeft">{$MainLeftBox}</div>
+<div id="{$MainContentStyleID}">
+  {$MainFrameworkmessages}
+  {$MainContent}
+  <br />
+  <div id="Footer">{$Footer}</div>
+  {$MainDebug}
+</div>
+<div id="BoxesRight">{$MainRightBox}</div>
+
+</body>
+</html>
