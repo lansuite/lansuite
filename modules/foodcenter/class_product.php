@@ -579,7 +579,7 @@ class product{
      * @param int $step
      */
     function form_add_product($step){
-        global $dsp,$gd,$lang,$templ;
+        global $dsp,$gd,$lang,$templ, $smarty;
 
         $nextstep = $step + 1;
         // Change or New ?
@@ -592,7 +592,7 @@ class product{
         }       
         
         // Add Javascript Code
-        $dsp->AddModTpl("foodcenter","javascript");
+        $dsp->AddSmartyTpl('javascript', 'foodcenter');
         $dsp->AddTextFieldRow("p_caption",t('Produktname'),$this->caption,$this->error_food['caption']);
         $dsp->AddTextAreaRow("desc",t('Produktbeschreibung'),$this->desc,$this->error_food['desc'],NULL,NULL,true);
 
@@ -646,23 +646,23 @@ class product{
 
         if($this->type == null || $this->type == 1){
             // display HTML for option 1
-            $templ['ls']['row']['hidden_row']['id'] = "food_1";
-            $templ['ls']['row']['hidden_row']['display'] = $display[1];
-            $dsp->AddModTpl("foodcenter","hiddenbox_start");
+            $smarty->assign('hidden_id', 'food_1');
+            $smarty->assign('hidden_display', $display[1]);
+            $dsp->AddSmartyTpl('hiddenbox_start', 'foodcenter');
 
             for($i = 0;$i < 3;$i++){
                 ($i == 0) ? $optional = null : $optional = true;
                 if(!is_object($this->option[$i])) $this->option[$i] = new product_option();
                 $this->option[$i]->option_form($i,$optional);
             }
-            $dsp->AddModTpl("foodcenter","hiddenbox_stop");
+            $dsp->AddSmartyTpl('hiddenbox_stop', 'foodcenter');
         }
 
         if($this->type == null || $this->type == 2){
             // display HTML for option 2
-            $templ['ls']['row']['hidden_row']['id'] = "food_2";
-            $templ['ls']['row']['hidden_row']['display'] = $display[2];
-            $dsp->AddModTpl("foodcenter","hiddenbox_start");
+            $smarty->assign('hidden_id', 'food_2');
+            $smarty->assign('hidden_display', $display[2]);
+            $dsp->AddSmartyTpl('hiddenbox_start', 'foodcenter');
             $dsp->AddCheckBoxRow("chois\" onclick=\"change_optionelem(this.checked)",t('Mehrfachauswahl möglich'),"","",null,$this->choise);
             ($this->type == null) ? $q = 3 : $q = 0;
             for($i = $q;$i < ($q+8);$i++){
@@ -670,7 +670,7 @@ class product{
                 if(!is_object($this->option[$i])) $this->option[$i] = new product_option();
                 $this->option[$i]->option_form($i,$optional,true,$this->choise);
             }
-            $dsp->AddModTpl("foodcenter","hiddenbox_stop");
+            $dsp->AddSmartyTpl('hiddenbox_stop', 'foodcenter');
         }
         if($this->id != null){
             $dsp->AddFormSubmitRow("edit");
@@ -1188,11 +1188,11 @@ class product_option{
         ($multiselect) ? $display = "" : $display = "none";
         if($big == true){
             // display HTML for option 3
-            $templ['ls']['row']['hidden_row']['id'] = "opt_big_$nr";
-            $templ['ls']['row']['hidden_row']['display'] = $display;
-            $dsp->AddModTpl("foodcenter","hiddenbox_start");
+            $smarty->assign('hidden_id', "opt_big_$nr");
+            $smarty->assign('hidden_display', $display);
+            $dsp->AddSmartyTpl('hiddenbox_start', 'foodcenter');
             $dsp->AddCheckBoxRow("fix[$nr]",t('Option fixieren'),t('Dies ist ein Pflichtartikel'),"",$optional,$this->fix);
-            $dsp->AddModTpl("foodcenter","hiddenbox_stop");
+            $dsp->AddSmartyTpl('hiddenbox_stop', 'foodcenter');
             $dsp->AddTextFieldRow("caption[$nr]",t('Artikelname'),$this->caption,$this->error['caption'],null,$optional);
         }
         $this->_Add_Option_Row(t('Produktoption'),t('Einheit'),t('Preis'),t('Einkaufspreis'),t('Anzahl'),t('Barcode'),"unit[$nr]","price[$nr]","eprice[$nr]","piece[$nr]","barcode[$nr]",$this->unit,$this->price,$this->eprice,$this->pice,$this->barcode,"hidden[$nr]",$this->id,$this->error['price'],$optional);
@@ -1251,34 +1251,31 @@ class product_option{
      * @return template
      */
     function _Add_Option_Row($text,$text_product,$text_price,$text_eprice,$text_piece,$text_barcode,$name_product,$name_price,$name_eprice,$name_piece,$name_barcode,$value_product,$value_price,$value_eprice,$value_piece,$value_barcode,$hidden_name,$hidden_id,$errortext,$optional = false) {
-        global $dsp,$templ;
-                
-        $templ['foodcenter']['productcontrol']['pricerow']['text_row'] = $text;
-        $templ['foodcenter']['productcontrol']['pricerow']['text_product'] = $text_product;
-        $templ['foodcenter']['productcontrol']['pricerow']['name_product'] = $name_product;
-        $templ['foodcenter']['productcontrol']['pricerow']['value_name'] = $value_product;
-        $templ['foodcenter']['productcontrol']['pricerow']['text_price'] = $text_price;
-        $templ['foodcenter']['productcontrol']['pricerow']['name_price'] = $name_price;
-        $templ['foodcenter']['productcontrol']['pricerow']['value_price'] = $value_price;
-        $templ['foodcenter']['productcontrol']['pricerow']['text_eprice'] = $text_eprice;
-        $templ['foodcenter']['productcontrol']['pricerow']['name_eprice'] = $name_eprice;
-        $templ['foodcenter']['productcontrol']['pricerow']['value_eprice'] = $value_eprice;
-        $templ['foodcenter']['productcontrol']['pricerow']['text_piece'] = $text_piece;
-        $templ['foodcenter']['productcontrol']['pricerow']['name_piece'] = $name_piece;
-        $templ['foodcenter']['productcontrol']['pricerow']['value_piece'] = $value_piece;
-        $templ['foodcenter']['productcontrol']['pricerow']['text_barcode'] = $text_barcode;
-        $templ['foodcenter']['productcontrol']['pricerow']['name_barcode'] = $name_barcode;
-        $templ['foodcenter']['productcontrol']['pricerow']['value_barcode'] = $value_barcode;
-        $templ['foodcenter']['productcontrol']['pricerow']['hidden_name'] = $hidden_name;
-        $templ['foodcenter']['productcontrol']['pricerow']['hidden_id'] = $hidden_id;
-        
-        if($errortext) $templ['foodcenter']['productcontrol']['pricerow']['errortext'] = $errortext;
-        if(!$errortext) $templ['foodcenter']['productcontrol']['pricerow']['errortext'] = "";
-        if($optional) $templ['foodcenter']['productcontrol']['pricerow']['optional'] = "_optional";
-        if(!$optional) $templ['foodcenter']['productcontrol']['pricerow']['optional'] = "";
+        global $dsp, $smarty;
 
-        return $dsp->AddDoubleRow($templ['foodcenter']['productcontrol']['pricerow']['text_row'], $dsp->FetchModTpl('foodcenter', 'productcontrol_price_row'));
-    #$dsp->AddModTpl("foodcenter","productcontrol_price_row");
+        $smarty->assign('text_row', $text);
+        $smarty->assign('text_product', $text_product);
+        $smarty->assign('name_product', $name_product);
+        $smarty->assign('value_name', $value_product);
+        $smarty->assign('text_price', $text_price);
+        $smarty->assign('name_price', $name_price);
+        $smarty->assign('value_price', $value_price);
+        $smarty->assign('text_eprice', $text_eprice);
+        $smarty->assign('name_eprice', $name_eprice);
+        $smarty->assign('value_eprice', $value_eprice);
+        $smarty->assign('text_piece', $text_piece);
+        $smarty->assign('name_piece', $name_piece);
+        $smarty->assign('value_piece', $value_piece);
+        $smarty->assign('text_barcode', $text_barcode);
+        $smarty->assign('name_barcode', $name_barcode);
+        $smarty->assign('value_barcode', $value_barcode);
+        $smarty->assign('hidden_name', $hidden_name);
+        $smarty->assign('hidden_id', $hidden_id);
+        
+        if ($errortext) $smarty->assign('errortext', $errortext);
+        if ($optional) $smarty->assign('optional', '_optional');
+
+        return $dsp->AddDoubleRow($text, $smarty->fetch('modules/foodcenter/templates/productcontrol_price_row.htm'));
     }
     
 }

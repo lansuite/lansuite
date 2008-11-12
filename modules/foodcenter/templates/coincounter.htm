@@ -1,7 +1,5 @@
-
-
 <!-- TEMPLATE - STANDARD - FOOD COINCOUNTER -->
-
+{literal}
 <script language="JavaScript">
 
 function doOnchange() {
@@ -65,15 +63,15 @@ function doOnchange() {
 	document.getElementById('softeurototal').value=softeurototal;
  	document.getElementById('eurototal').value= eurototal;		
 }
-
 </script>
+{/literal}
 
   <tr class="tbl_1"> 
     <td colspan="2"> 
      <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
       <tr> 
-   	   <td><input type="text" name="onecent" id="onecent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"> 1 {$templ['foodcenter']['coincounter']['cents']}</td>
-	   <td align="right"><input type="text" name="onecenttotal" id="onecenttotal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+   	   <td><input type="text" name="onecent" id="onecent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();"> 1 {$cents}</td>
+	   <td align="right"><input type="text" name="onecenttotal" id="onecenttotal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -87,9 +85,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="twocent" id="twocent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-		2 {$templ['foodcenter']['coincounter']['cents']}
+		2 {$cents}
 	   </td>
-	   <td align="right"><input readonly type="text" name="twocenttotal" id="twocenttotal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="twocenttotal" id="twocenttotal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -103,9 +101,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="fivecent" id="fivecent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-        5 {$templ['foodcenter']['coincounter']['cents']}
+        5 {$cents}
 	   </td>
-	   <td align="right"><input readonly type="text" name="fivecenttotal" id="fivecenttotal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="fivecenttotal" id="fivecenttotal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -119,9 +117,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="tencent" id="tencent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-        10 {$templ['foodcenter']['coincounter']['cents']}
+        10 {$cents}
 	   </td>
-	   <td align="right"><input readonly type="text" name="tencenttotal" id="tencenttotal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="tencenttotal" id="tencenttotal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -135,9 +133,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="twentycent" id="twentycent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-        20 {$templ['foodcenter']['coincounter']['cents']}
+        20 {$cents}
 	   </td>
-	   <td align="right"><input readonly type="text" name="twentycenttotal" id="twentycenttotal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="twentycenttotal" id="twentycenttotal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -151,9 +149,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="fiftycent" id="fiftycent" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-        50 {$templ['foodcenter']['coincounter']['cents']}
+        50 {$cents}
 	   </td>
-	   <td align="right"><input readonly type="text" name="fiftycenttotal" id="fiftycenttotal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="fiftycenttotal" id="fiftycenttotal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -168,9 +166,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="oneeuro" id="oneeuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-		1 {$templ['foodcenter']['coincounter']['coins']}
+		1 {$coins}
 	   </td>
-	   <td align="right"><input readonly type="text" name="oneeurototal" id="oneeurototal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="oneeurototal" id="oneeurototal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -184,9 +182,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="twoeuro" id="twoeuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-       2 {$templ['foodcenter']['coincounter']['coins']}
+       2 {$coins}
 	   </td>
-	   <td align="right"><input readonly type="text" name="twoeurototal" id="twoeurototal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="twoeurototal" id="twoeurototal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -201,9 +199,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="fiveeuro" id="fiveeuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-       5 {$templ['foodcenter']['coincounter']['note']}
+       5 {$note}
 	   </td>
-	   <td align="right"><input readonly type="text" name="fiveeurototal" id="fiveeurototal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="fiveeurototal" id="fiveeurototal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -217,9 +215,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="teneuro" id="teneuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-       10 {$templ['foodcenter']['coincounter']['note']}
+       10 {$note}
 	   </td>
-	   <td align="right"><input readonly type="text" name="teneurototal" id="teneurototal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="teneurototal" id="teneurototal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -233,9 +231,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="twentyeuro" id="twentyeuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-       20 {$templ['foodcenter']['coincounter']['note']}
+       20 {$note}
 	   </td>
-	   <td align="right"><input readonly type="text" name="twentyeurototal" id="twentyeurototal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="twentyeurototal" id="twentyeurototal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -249,9 +247,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="fiftyeuro" id="fiftyeuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-       50 {$templ['foodcenter']['coincounter']['note']}
+       50 {$note}
 	   </td>
-	   <td align="right"><input readonly type="text" name="fiftyeurototal" id="fiftyeurototal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="fiftyeurototal" id="fiftyeurototal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -265,9 +263,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="hunderteuro" id="hunderteuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-       100 {$templ['foodcenter']['coincounter']['note']}
+       100 {$note}
 	   </td>
-	   <td align="right"><input readonly type="text" name="hunderteurototal" id="hunderteurototal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="hunderteurototal" id="hunderteurototal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -281,9 +279,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="twohunderteuro" id="twohunderteuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-       200 {$templ['foodcenter']['coincounter']['note']}
+       200 {$note}
 	   </td>
-	   <td align="right"><input readonly type="text" name="twohunderteurototal" id="twohunderteurototal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="twohunderteurototal" id="twohunderteurototal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -297,9 +295,9 @@ function doOnchange() {
       <tr> 
 	   <td>
    		<input type="text" name="fivehunderteuro" id="fivehunderteuro" maxlength="5" size="4" class="form" value="" onkeyup="doOnchange();" onChange="doOnchange();">  
-       500 {$templ['foodcenter']['coincounter']['note']}
+       500 {$note}
 	   </td>
-	   <td align="right"><input readonly type="text" name="fivehunderteurototal" id="fivehunderteurototal" maxlength="5" size="5" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}</td>
+	   <td align="right"><input readonly type="text" name="fivehunderteurototal" id="fivehunderteurototal" maxlength="5" size="5" class="form" value="" disabled> {$currency}</td>
       </tr>
      </table>
     </td>
@@ -312,14 +310,14 @@ function doOnchange() {
      <table width="100%" cellspacing="0" cellpadding="3" class="tbl_1">
       <tr> 
 	   <td align="right">
-	   {$templ['foodcenter']['coincounter']['hardmoney']}
-	    <input readonly type="text" name="hardeurototal" id="hardeurototal" maxlength="6" size="6" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}
+	   {$hardmoney}
+	    <input readonly type="text" name="hardeurototal" id="hardeurototal" maxlength="6" size="6" class="form" value="" disabled> {$currency}
 	    &nbsp;&nbsp;
-	    {$templ['foodcenter']['coincounter']['softmoney']}
-	    <input readonly type="text" name="softeurototal" id="softeurototal" maxlength="6" size="6" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}
+	    {$softmoney}
+	    <input readonly type="text" name="softeurototal" id="softeurototal" maxlength="6" size="6" class="form" value="" disabled> {$currency}
 	    &nbsp;&nbsp;
-		<b>{$templ['foodcenter']['coincounter']['money']}
-	    <input readonly type="text" name="eurototal" id="eurototal" maxlength="7" size="7" class="form" value="" disabled> {$templ['foodcenter']['coincounter']['currency']}
+		<b>{$money}
+	    <input readonly type="text" name="eurototal" id="eurototal" maxlength="7" size="7" class="form" value="" disabled> {$currency}
 	    </b> &nbsp;
 	   </td>
       </tr>
