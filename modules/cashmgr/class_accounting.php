@@ -180,7 +180,7 @@ class accounting
 
     function showCalculation()
     {
-        global $dsp, $cfg, $templ;
+        global $dsp, $cfg, $smarty;
         
         $dsp->AddFieldsetStart(t('Stromkosten '));
             $dsp->AddDoubleRow("Kosten laut Voranmeldung", $this->getEnergyUsage(1));
@@ -191,40 +191,40 @@ class accounting
             foreach($this->getGroup(1,1) AS $row)
                 $dsp->AddDoubleRow($row[0], $row[1]);
             
-            $templ['cashmgr']['bgcolor'] = "CCFFCC";
-            $templ['cashmgr']['totalcaption'] = "Summe";
-            $templ['cashmgr']['totalsum'] = $this->getSum(1,1); 
-            $dsp->AddModTpl("cashmgr", "sum");
+            $smarty->assign('bgcolor', 'CCFFCC');
+            $smarty->assign('totalcaption', t('Summe'));
+            $smarty->assign('totalsum', $this->getSum(1,1));
+            $dsp->AddContentLine($smarty->fetch('modules/cashmgr/templates/sum.htm'));
         $dsp->AddFieldsetEnd();
         
         $dsp->AddFieldsetStart(t('Gruppenanzeige Negative Fixbetraege '));
             foreach($this->getGroup(1,0) AS $row)
                 $dsp->AddDoubleRow($row[0], $row[1]);
             
-            $templ['cashmgr']['bgcolor'] = "FFCCCC";
-            $templ['cashmgr']['totalcaption'] = "Summe";
-            $templ['cashmgr']['totalsum'] = $this->getSum(1,0); 
-            $dsp->AddModTpl("cashmgr", "sum");
+            $smarty->assign('bgcolor', 'CCFFCC');
+            $smarty->assign('totalcaption', t('Summe'));
+            $smarty->assign('totalsum', $this->getSum(1,0));
+            $dsp->AddContentLine($smarty->fetch('modules/cashmgr/templates/sum.htm'));
         $dsp->AddFieldsetEnd();
         
         $dsp->AddFieldsetStart(t('Gruppenanzeige Einnahmen'));
             foreach($this->getGroup(0,1) AS $row1)
                 $dsp->AddDoubleRow($row1[0], $row1[1]);
             
-            $templ['cashmgr']['bgcolor'] = "CCFFCC";
-            $templ['cashmgr']['totalcaption'] = "Summe";
-            $templ['cashmgr']['totalsum'] = $this->getSum(0,1); 
-            $dsp->AddModTpl("cashmgr", "sum");
-        $dsp->AddFieldsetEnd();
+            $smarty->assign('bgcolor', 'CCFFCC');
+            $smarty->assign('totalcaption', t('Summe'));
+            $smarty->assign('totalsum', $this->getSum(0,1));
+            $dsp->AddContentLine($smarty->fetch('modules/cashmgr/templates/sum.htm'));
+       $dsp->AddFieldsetEnd();
         
         $dsp->AddFieldsetStart(t('Gruppenanzeige Ausgaben '));
             foreach($this->getGroup(0,0) AS $row)
                 $dsp->AddDoubleRow($row[0], $row[1]);
             
-            $templ['cashmgr']['bgcolor'] = "FFCCCC";
-            $templ['cashmgr']['totalcaption'] = "Summe";
-            $templ['cashmgr']['totalsum'] = $this->getSum(0,0); 
-            $dsp->AddModTpl("cashmgr", "sum");
+            $smarty->assign('bgcolor', 'FFCCCC');
+            $smarty->assign('totalcaption', t('Summe'));
+            $smarty->assign('totalsum', $this->getSum(0,0));
+            $dsp->AddContentLine($smarty->fetch('modules/cashmgr/templates/sum.htm'));
             $dsp->AddFieldsetEnd();
    }
 }
