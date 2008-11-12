@@ -64,13 +64,17 @@ switch ($_GET["step"]){
 
     // Setting up ls_conf
     case 2:
+        // Reset DB-Config, for when reinstalling in new DB, the next step would connect to existing, old tables
+        $config["database"]["database"] = '';
+        $install->WriteConfig();
+
         $dsp->NewContent(t('Grundeinstellungen'), t('Bitte geben Sie nun die Zugangsdaten zur Datenbank an.'));
         $dsp->SetForm("index.php?mod=install&action=wizard&step=3");
 
         // Set default settings from Config-File
         if ($_POST["host"] == "") $_POST["host"] = $config['database']['server'];
         if ($_POST["user"] == "") $_POST["user"] = $config['database']['user'];
-        if ($_POST["database"] == "") $_POST["database"] = $config['database']['database'];
+#        if ($_POST["database"] == "") $_POST["database"] = $config['database']['database'];
         if ($_POST["prefix"] == "") $_POST["prefix"] = $config['database']['prefix'];
 
         #### Database Access
