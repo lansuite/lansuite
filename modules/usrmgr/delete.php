@@ -6,8 +6,10 @@ function DeleteUser($userid) {
   global $db, $config, $auth, $lang, $func;
   
 	$get_data = $db->qry_first("SELECT username, type FROM %prefix%user WHERE userid = %int%", $userid);
+  $get_party_data = $db->qry_first('SELECT 1 AS found FROM %prefix%party_user WHERE user_id = %int%', $userid);
 
 	if ($auth["type"] == 2 and $get_data["type"] >= 2) $func->error(t('Sie haben nicht die erforderlichen Rechte, um einen Admin zu löschen'), "index.php?mod=usrmgr");
+	elseif ($get_party_data["found"]) $func->error(t('Dieser Benutzer ist noch zu einer Party angemeldet. Melden sie ihn zuerst ab'), "index.php?mod=usrmgr");
 	elseif ($get_data["type"] < 0) $func->error(t('Dieser Benutzer wurde bereits gelöscht'), "index.php?mod=usrmgr");
 	elseif ($auth["userid"] == $userid) $func->error(t('Sie können sich nicht selbst löschen'), "index.php?mod=usrmgr");
 	#elseif ($get_data["username"] == "") $func->error(t('Dieser Benutzer existiert nicht'), "index.php?mod=usrmgr");
