@@ -232,6 +232,28 @@ class display {
     $this->AddDoubleRow($key, $value);
   }
 
+  function AddTableRow($table) {
+    global $func, $smarty;
+
+    $rows = '';
+    if (!is_array($table)) $func->error(t('AddTableRow: First argument needs to be array'));
+    else foreach ($table as $y => $row) {
+
+      $cells = '';
+      if (!is_array($row)) $func->error(t('AddTableRow: First argument needs to be 2-dimension-array'));
+      else foreach ($row as $x => $cell) {
+        if ($cell['link']) $cell['text'] = $this->FetchLink($cell['text'], $cell['link'], '', $cell['link_target']);
+        $smarty->assign('content', $cell['text']);
+        $cells .= $smarty->fetch('design/templates/ls_row_table_cells.htm');
+      }
+      $smarty->assign('cells', $cells);
+      $rows .= $smarty->fetch('design/templates/ls_row_table_rows.htm');
+    }
+
+    $smarty->assign('rows', $rows);
+    $this->AddSingleRow($smarty->fetch('design/templates/ls_row_table.htm'));
+  }
+
   function AddTextAreaMailRow($name, $key, $value, $errortext, $cols = NULL, $rows = NULL, $optional = NULL, $maxchar = NULL) {
     if ($cols == "") $cols = "50";
     if ($rows == "") $rows = "7";
@@ -720,6 +742,12 @@ class display {
     $smarty->assign('state', $state);
 
     return $smarty->fetch('design/templates/ls_usericon.htm');
+  }
+
+  function FetchLink($text, $link, $class = '', $target = '') {
+    if ($class) $class = ' class="'. $class .'"';
+    if ($target) $target = ' target="'. $target .'"';
+    return '<a href="'.$link.'"'. $class . $target.'>'. $text .'</a>';
   }
 
   // Old: Use FetchIcon instead
