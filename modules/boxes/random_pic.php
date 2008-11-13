@@ -20,10 +20,10 @@ if ($pics_res['picid']) {
     // Fill Template and make output
     if ($pics_res['caption']) $box->DotRow($pics_res['caption']);
     $box->EmptyRow();
-    $templ['randompic']['tag'] = $pics_res['caption'];
-    $templ['randompic']['thumblink'] = $pic_neuname;
-    $templ['randompic']['link'] = $pics_res['name'];
-    $box->AddTemplate($dsp->FetchModTpl("boxes", "box_randompic"));
+    $smarty->assign('tag', $pics_res['caption']);
+    $smarty->assign('thumblink', $pic_neuname);
+    $smarty->assign('link', $pics_res['name']);
+    $box->AddTemplate($smarty->fetch('modules/boxes/templates/box_randompic.htm'));
     if ($pics_comrow['comments'] == 1) $box->EngangedRow($pics_comrow['comments']." ".t("Kommentar"));
     else if ($pics_comrow['comments'] > 1) $box->EngangedRow($pics_comrow['comments']." ".t("Kommentare"));
 }
