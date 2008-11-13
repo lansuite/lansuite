@@ -1,57 +1,26 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	 2.0
-*	File Version:		 2.0
-*	Filename: 		show.php
-*	Module: 		FAQ
-*	Main editor: 		micheal@one-network.org
-*	Last change: 		29.03.2003 18:56
-*	Description: 		Prints all FAQ-Data
-*	Remarks:
-*
-**************************************************************************/
-
-
 $get_cat = $db->qry("SELECT catid, name FROM %prefix%faq_cat ORDER BY name");
-
 $count_cat = $db->num_rows($get_cat);
 
-if($count_cat == 0) { $func->information(t('Keine Einträge vorhanden.'),"index.php?mod=home"); }
+if ($count_cat == 0) $func->information(t('Keine Einträge vorhanden.'), "index.php?mod=home");
+else {
+	$dsp->NewContent(t('FAQ'), t('Auf dieser Seite sehen Sie häufig gestellte Fragen und deren Antworten'));
 
-	else {
-			
-		$dsp->NewContent(t('FAQ'),t('Auf dieser Seite sehen Sie häufig gestellte Fragen und deren Antworten. Die Fragen sind in verschiedene Kategorien eingeteilt, die Sie mit dem /\'/+/\'/-Symbol aufklappen können.'));
-		if ($_SESSION['menu_status']['faq'][$_GET['faqcatid']] == "closed") {
-			$_SESSION['menu_status']['faq'][$_GET['faqcatid']] = "open";
-		} else {
-			$_SESSION['menu_status']['faq'][$_GET['faqcatid']] = "closed";
-		}	
-		
-		while($row=$db->fetch_array($get_cat)) {
-		
-			$templ["faq"]["overview"]["row"]["cat"]["titel"]	= $row["name"];
-			$templ["faq"]["overview"]["row"]["cat"]["link"]	= "index.php?mod=faq&action=show&faqcatid={$row['catid']}";
-		
-			$faq_content .= $dsp->FetchModTpl("faq","faq_overview_row_cat");
-		
-				if($_SESSION['menu_status']['faq'][$row['catid']] == '' or $_SESSION['menu_status']['faq'][$row['catid']] == "open") {
-		
-					$get_item = $db->qry("SELECT caption,itemid FROM %prefix%faq_item WHERE catid = %int% ORDER BY caption", $row['catid']);
-						while($row=$db->fetch_array($get_item)) {
-		
-							$templ["faq"]["overview"]["row"]["question"]["title"]	= $func->text2html($row["caption"]);
-							$templ["faq"]["overview"]["row"]["question"]["id"]	= $row["itemid"];
-							$faq_content .= $dsp->FetchModTpl("faq","faq_overview_row_question");
-		
-						}//while
-				}//if
-		}//while
-		
-		$dsp->AddSingleRow($faq_content, "class='menu'");
-		$dsp->AddContent();
-		
-	} // close else
+	while ($row = $db->fetch_array($get_cat)) {
+
+	  if ($auth['type'] > 1) $admin_link = $dsp->FetchIcon('index.php?mod=faq&object=cat&action=change_cat&catid='. $row["catid"] .'&step=2', 'edit');
+	  if ($auth['type'] > 2) $admin_link .= $dsp->FetchIcon('index.php?mod=faq&object=item&action=delete_cat&catid='. $row["catid"] .'&step=2', 'delete');
+    $dsp->AddFieldsetStart($row["name"] . $admin_link);
+
+  	$get_item = $db->qry("SELECT caption,itemid FROM %prefix%faq_item WHERE catid = %int% ORDER BY caption", $row['catid']);
+		while ($row = $db->fetch_array($get_item)) {
+		  if ($auth['type'] > 1) $admin_link = $dsp->FetchIcon('index.php?mod=faq&object=cat&action=change_item&itemid='. $row["itemid"] .'&step=2', 'edit');
+		  if ($auth['type'] > 2) $admin_link .= $dsp->FetchIcon('index.php?mod=faq&object=item&action=delete_item&itemid='. $row["itemid"] .'&step=2', 'delete');
+    	$dsp->AddSingleRow($dsp->FetchLink($func->text2html($row["caption"]), 'index.php?mod=faq&action=comment&itemid='. $row["itemid"]) . $admin_link);
+		}
+		$dsp->AddFieldsetEnd();
+	}
+	$dsp->AddSingleRow($faq_content, "class='menu'");
+	$dsp->AddContent();
+}
 ?>

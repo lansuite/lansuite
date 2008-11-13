@@ -22,7 +22,7 @@
 	<entry>
 		<action>add_item</action>
 		<file>add_item</file>
-		<caption>Frage Hinzufügen</caption>
+		<caption>Frage hinzufügen</caption>
 		<hint>Eine neue Frage mit Lösung in die FAQ einstellen</hint>
 		<link>?mod=faq&amp;object=item&action=add_item</link>
 		<requirement>2</requirement>
@@ -32,7 +32,7 @@
 	<entry>
 		<action>add_cat</action>
 		<file>add_cat</file>
-		<caption>Kategorie Hinzufügen</caption>
+		<caption>Kategorie hinzufügen</caption>
 		<hint>Eine neue Kategorie definieren, um die Fragen ordnen zu können</hint>
 		<link>?mod=faq&amp;object=cat&amp;action=add_cat</link>
 		<requirement>2</requirement>
@@ -42,22 +42,12 @@
 	<entry>
 		<action>change_item</action>
 		<file>change_item</file>
-		<caption>Frage/Kategorie ändern</caption>
-		<hint>Eine Frage oder Kategorie abändern</hint>
-		<link>?mod=faq&amp;object=item&amp;action=change_item</link>
 		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>delete_cat</action>
 		<file>delete_cat</file>
-		<caption>Frage/Kategorie löschen</caption>
-		<hint>Eine Frage oder Kategorie entfernen</hint>
-		<link>?mod=faq&amp;object=cat&amp;action=delete_cat</link>
 		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
 	</entry>
 	<entry>
 		<action>delete_item</action>
