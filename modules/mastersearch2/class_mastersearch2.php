@@ -191,7 +191,7 @@ class MasterSearch2 {
         if ($current_field_list['sql_field'] != '') {
           if (is_array($_GET["search_dd_input"][$z])) $values = $_GET["search_dd_input"][$z];
           else $values = explode(',', $_GET["search_dd_input"][$z]);
-          
+
           $x = 0;
           $sql_one_search_field = '';
           foreach ($values as $value) {
@@ -199,6 +199,7 @@ class MasterSearch2 {
 
             // Negation, greater than, less than
             $pre_eq = '';
+            $value = $func->AllowHTML($value); # Converts &lt; back to <
             if (substr($value, 0, 1) == '!' or substr($value, 0, 1) == '<' or substr($value, 0, 1) == '>') {
               $pre_eq = substr($value, 0, 1);
               $value = substr($value, 1, strlen($value) - 1);
