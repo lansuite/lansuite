@@ -292,16 +292,6 @@ class display {
     if ($rows == "") $rows = "7";
     if ($maxchar == "") $maxchar = "5000";
 
-    $smarty->assign('name', $name);
-    $smarty->assign('key', $key);
-    $smarty->assign('maxchar', $maxchar);
-    $smarty->assign('formname', $this->form_name);
-    $smarty->assign('value', $value);
-    $smarty->assign('rows', $rows);
-
-    if ($errortext) $smarty->assign('errortext', $this->errortext_prefix . $errortext . $this->errortext_suffix);
-    if ($optional) $smarty->assign('optional', '_optional');
-
     $this->form_open = false;
     $buttons = $this->FetchButton('index.php?mod=popups&action=textareaplus_preview&design=popup&textareaname='. $name .'" onclick="javascript:OpenPreviewWindow(this.href, document.'. $this->form_name .'); return false;', 'preview', t('Vorschau'));
     $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b]', '[/b]')", 'bold', t('Fett'));
@@ -314,6 +304,16 @@ class display {
     $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[img]', '[/img]')", 'img', t('Bild'));
     $this->form_open = true;
     $smarty->assign('buttons', $buttons);
+
+    $smarty->assign('name', $name);
+    $smarty->assign('key', $key);
+    $smarty->assign('maxchar', $maxchar);
+    $smarty->assign('formname', $this->form_name);
+    $smarty->assign('value', $value);
+    $smarty->assign('rows', $rows);
+
+    if ($errortext) $smarty->assign('errortext', $this->errortext_prefix . $errortext . $this->errortext_suffix);
+    if ($optional) $smarty->assign('optional', '_optional');
 
     $this->AddContentLine($smarty->fetch('design/templates/ls_row_textareaplus.htm'));
   }
