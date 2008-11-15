@@ -752,7 +752,7 @@ class display {
 
   // Old: Use FetchIcon instead
   function AddIcon($name, $link = '', $title = '') {
-    $this->FetchIcon($link, $name, $title);
+    return $this->FetchIcon($link, $name, $title);
   }
 
   // Should be called FetchHelpText

@@ -18,7 +18,7 @@ $dsp->AddDoubleRow(t('Optisches Laufwerk 2'),$dsp->AddIcon('cd','','').' '.$hard
 $dsp->AddDoubleRow(t('Maus'),$dsp->AddIcon('maus','','').' '.$hardware['maus']);
 $dsp->AddDoubleRow(t('Tastatur'),$dsp->AddIcon('tasta','','').' '.$hardware['tasta']);
 $dsp->AddDoubleRow(t('Monitor'),$dsp->AddIcon('screen','','').' '.$hardware['monitor']);
-$dsp->AddDoubleRow(t('Betriebssystem'),$dsp->AddIcon('xp','','').' '.$hardware['os']);
+$dsp->AddDoubleRow(t('Betriebssystem'),$dsp->AddIcon('os','','').' '.$hardware['os']);
 $dsp->AddDoubleRow(t('Computername'),$dsp->AddIcon('pc','','').' '.$hardware['name']);
 $dsp->AddDoubleRow(t('Sonstiges'),$hardware['sonstiges']);
 
