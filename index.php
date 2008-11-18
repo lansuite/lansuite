@@ -132,7 +132,7 @@
     $barcode     = new barcode_system();  // Load Barcode System
     $smarty      = new Smarty();
     $smarty->template_dir = '.';
-    $smarty->compile_dir = './design/templates_c/';
+    $smarty->compile_dir = './ext_inc/templates_c/';
 
 ### Initalize Basic Parameters
 
