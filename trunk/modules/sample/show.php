@@ -26,7 +26,7 @@
 	$dsp->AddTextFieldRow("name", t('Texteingabe'), "value", "");
 
 	// Use this to display the form-submit-link
-	// "add" is the name of the button-grafic which will be displayed. you can also use "next", or "send", or any other button-grafic which will be generated when calling first and located in ext_inc/auto_images/{design}/{language}/button_*.png
+	// "add" is the text which is displayed on the button. It will be translatet into other languages, if translations exist
 	$dsp->AddFormSubmitRow("add");
 
 	// This is how to load your own template, located in the 'templates'-folder of your module
