@@ -176,8 +176,8 @@
     	<item>
     		<name>mc_only_logged_in</name>
     		<type>boolean</type>
-    		<default>0</default>
-    		<description>Email-Domain-Blacklist (Um Wegwerf-Mailadressen zu vermeiden)</description>
+    		<default>1</default>
+    		<description>Nur Eingeloggte dürfen Kommentare verfassen</description>
     	</item>
     	<item>
     		<name>mf_forbidden_trashmail_domains</name>
@@ -200,7 +200,7 @@ trashdevil.de
 mailtrash.net
 eintagsmail.de
 nospamfor.us</default>
-    		<description>Nur Eingeloggte dürfen Kommentare verfassen</description>
+    		<description>Email-Domain-Blacklist (Um Wegwerf-Mailadressen zu vermeiden)</description>
     	</item>
     </items>
   </group>
