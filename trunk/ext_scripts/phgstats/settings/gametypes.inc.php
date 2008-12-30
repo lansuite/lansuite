@@ -38,7 +38,7 @@ $gametypes = array( 'aa'       => 'America`s Army',
                     'q2'       => 'Quake 2',
                     'q3'       => 'Quake 3',
                     'q4'       => 'Quake 4',
-                    'warsow'   => 'Warsow');
-                    'vc'       => 'Vietkong');
+                    'warsow'   => 'Warsow',
+                    'vc'       => 'Vietkong',
                     'ef'       => 'Eliteforce');
 ?>
