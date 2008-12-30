@@ -267,7 +267,7 @@ class display {
       <br />
       <br />
       <a href="index.php?mod=popups&action=ls_row_textareamail_popup&design=popup&form='. $this->form_name .'&textarea='. $name .'" onclick="OpenWindow(this.href, \'TextFormatSelect\'); return false">Variablen einfügen</a>';
-    $value = '<textarea name="'. $name .'" id="'. $name .'" class="form'. $name .'" cols="'. $cols .'" rows="'. $rows .'" onKeyUp="TextAreaPlusCharsLeft(this, document.'. $this->form_name .'.'. $name .'_chr, '. $maxchar .')">'. $value .'</textarea>';
+    $value = '<textarea name="'. $name .'" id="'. $name .'" class="form'. $name .'" cols="'. $cols .'" rows="'. $rows .'" onKeyUp="TextAreaPlusCharsLeft(this, document.'. $this->form_name .'.'. $name .'_chr, '. $maxchar .'); AddaptTextAreaHeight(this)">'. $value .'</textarea>';
     $value .= $errortext;
     $this->AddDoubleRow($key, $value);
   }
@@ -281,7 +281,7 @@ class display {
     ($optional)? $optional = "_optional" : $optional = '';
 
     $key = '<label for="'. $name .'">'. $key .'</label>';
-    $value = '<textarea name="'. $name .'" id="'. $name .'" class="form'. $name .'" cols="'. $cols .'" rows="'. $rows .'" onKeyUp="TextAreaPlusCharsLeft(this, document.'. $this->form_name .'.'. $name .'_chr, '. $maxchar .')">'. $value .'</textarea>';
+    $value = '<textarea name="'. $name .'" id="'. $name .'" class="form'. $name .'" cols="'. $cols .'" rows="'. $rows .'" onKeyUp="AddaptTextAreaHeight(this)">'. $value .'</textarea>';
     $value .= $errortext;
     $this->AddDoubleRow($key, $value);
   }
