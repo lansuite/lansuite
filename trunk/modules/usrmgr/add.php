@@ -6,10 +6,10 @@ function Update($id) {
 global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func, $cfg, $signon, $mail;
 
   // Clan-Management
-  include_once("modules/usrmgr/class_clan.php");
+  include_once("modules/clanmgr/class_clan.php");
   $clan = new Clan();
-  if ($_POST['new_clan_select']) $_POST['clan'] = $clan->Add($_POST['clan_new'], $_POST["clanurl"], $_POST["newclanpw"]);
-  if ($_POST['clan']) $clan->AddMember($_POST['clan'], $id);
+  if ($_POST['new_clan_select']) $clan->Add($_POST['clan_new'], $id, $_POST["clanurl"], $_POST["newclanpw"]);
+  elseif ($_POST['clan']) $clan->AddMember($_POST['clan'], $id);
   else $clan->RemoveMember($id);
 
     // Update User-Perissions
