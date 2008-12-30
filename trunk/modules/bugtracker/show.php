@@ -147,9 +147,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 
 // Details page
 } else {
-	$search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker_lastread WHERE bugid = %int% and userid = %int%", $_GET['bugid'], $auth["userid"]);
-	if ($search_read["found"]) $db->qry_first("UPDATE %prefix%bugtracker_lastread SET date = NOW() WHERE bugid = %int% and userid = %int%", $_GET['bugid'], $auth["userid"]);
-	else $db->qry_first("INSERT INTO %prefix%bugtracker_lastread SET date = NOW(), bugid = %int%, userid = %int%", $_GET['bugid'], $auth["userid"]);
+	$func->SetRead('bugtracker', $_GET['bugid']);
 
   $row = $db->qry_first("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, UNIX_TIMESTAMP(b.date) AS date, r.username AS reporter_name, a.username AS agent_name FROM %prefix%bugtracker AS b
     LEFT JOIN %prefix%user AS r ON b.reporter = r.userid

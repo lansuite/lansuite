@@ -1,6 +1,6 @@
 <?php
-  $templ['home']['show']['item']['info']['caption'] = t('Statistiken') . " " . $_SESSION['party_info']['name'];
-  $templ['home']['show']['item']['control']['row'] = '';
+  $smarty->assign('caption', t('Statistiken') . " " . $_SESSION['party_info']['name']);
+  $content = '';
   
 if ($party->count > 0) {
 
@@ -23,7 +23,7 @@ if ($party->count > 0) {
       LEFT JOIN %prefix%user ON user_id=userid
       WHERE p.checkout>1 AND %string% AND p.party_id=%int%
       ", $querytype, $party->party_id);
-    $templ['home']['show']['item']['control']['row'] .= t('Gäste bezahlt / eingecheckt / ausgecheckt') .': '. $user_paid['n'] .' / '. $user_checkin['n'] .' / '. $user_checkout['n'] . HTML_NEWLINE;
+    $content .= t('Gäste bezahlt / eingecheckt / ausgecheckt') .': '. $user_paid['n'] .' / '. $user_checkin['n'] .' / '. $user_checkout['n'] . HTML_NEWLINE;
 
 
     // User overall / online
@@ -36,7 +36,7 @@ if ($party->count > 0) {
 	$online = $db->qry_first('SELECT FOUND_ROWS() AS count');
 	$visits = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage");
 
-    $templ['home']['show']['item']['control']['row'] .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. $online['count'] . HTML_NEWLINE;
+    $content .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. $online['count'] . HTML_NEWLINE;
   }
 }
 
@@ -46,14 +46,14 @@ if ($auth["type"] >= 2) {
   if (in_array('troubleticket', $ActiveModules)) {
     $row6 = $db->qry_first("SELECT count(*) as n FROM %prefix%troubleticket WHERE target_userid = '0'");
     $row7 = $db->qry_first("SELECT count(*) as n FROM %prefix%troubleticket");
-    $templ['home']['show']['item']['control']['row'] .= t('Troubletickets') .": ".$row6["n"]." / ".$row7["n"] . HTML_NEWLINE;
+    $content .= t('Troubletickets') .": ".$row6["n"]." / ".$row7["n"] . HTML_NEWLINE;
   }
   
 	// Rental
   if (in_array('rent', $ActiveModules)) {
     $row8 = $db->qry_first("SELECT count(*) as n FROM %prefix%rentuser WHERE back_orgaid = '' AND out_orgaid != ''");
     $row9 = $db->qry_first("SELECT count(*) as n FROM %prefix%rentuser WHERE back_orgaid > '0' AND out_orgaid > '0'");	
-    $templ['home']['show']['item']['control']['row'] .= t('Verleih') .": ".$row8["n"]." / ".$row9["n"] . HTML_NEWLINE;
+    $content .= t('Verleih') .": ".$row8["n"]." / ".$row9["n"] . HTML_NEWLINE;
   }		
 }			
 ?>

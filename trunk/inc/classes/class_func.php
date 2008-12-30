@@ -884,5 +884,54 @@ class func {
         return substr($str, 0, $SoftLimit + $ret[0][1]) . '...'; 
       } else return $str;
     }
+
+    function DeleteOldReadStates() {
+      global $db;
+
+      $db->qry('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7');
+    }
+
+    function CheckNewPosts($last_change, $table, $entryid, $userid = 0) {
+      global $db, $auth;
+      
+      // Older, than one week
+      if ($last_change < (time() - 60 * 60 * 24 * 7)) return 0;
+
+      // If logged out, everyting in the last week is considered new
+      if (!$userid) $userid = $auth['userid'];
+      if (!$userid) return 1;
+      
+      // If logged in
+      else {
+        $last_read = $db->qry_first('SELECT UNIX_TIMESTAMP(date) AS date FROM %prefix%lastread
+          WHERE userid = %int% AND tab = %string% AND entryid = %int%', $userid, $table, $entryid);
+  
+        // Older, than one week
+        if ($last_change < (time() - 60 * 60 * 24 * 7)) return 0;
+  
+        // No entry -> Thread completely new
+        elseif (!$last_read['date']) return 1;
+      
+        // Entry exists
+        else {
+      
+          // The posts date is newer than the mark -> New
+          if ($last_read['date'] < $last_change) return 1;
+      
+          // The posts date is older than the mark -> Old
+          else return 0;
+        }
+      }
+    }
+
+    function SetRead($table, $entryid, $userid = 0) {
+      global $db, $auth;
+
+      if (!$userid) $userid = $auth['userid'];
+      
+    	$search_read = $db->qry_first("SELECT 1 AS found FROM %prefix%lastread WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
+    	if ($search_read["found"]) $db->qry_first("UPDATE %prefix%lastread SET date = NOW() WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
+    	else $db->qry_first("INSERT INTO %prefix%lastread SET date = NOW(), tab = %string%, entryid = %int%, userid = %int%", $table, $entryid, $userid);
+    }
 }
 ?>

@@ -1,13 +1,15 @@
 <?php
 // CHECK IF NEWSID IS VALID
 $check = $db->qry_first('SELECT caption FROM %prefix%news WHERE newsid = %int%', $_GET['newsid']);
-if($check["caption"] != "") { 
+if ($check["caption"] != "") {
 
-// GET NEWS DATA
-$get_news = $db->qry_first('SELECT n.*, u.userid, u.username FROM %prefix%news n LEFT JOIN %prefix%user u ON u.userid = n.poster WHERE n.newsid = %int%', $_GET['newsid']);
-$templ_news_single_row_priority = $get_news["priority"];
-	
-if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $news_type = "normal"; }
+  $func->SetRead('news', $_GET['newsid']);
+  
+  // GET NEWS DATA
+  $get_news = $db->qry_first('SELECT n.*, u.userid, u.username FROM %prefix%news n LEFT JOIN %prefix%user u ON u.userid = n.poster WHERE n.newsid = %int%', $_GET['newsid']);
+  $templ_news_single_row_priority = $get_news["priority"];
+  	
+  if ($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $news_type = "normal"; }
 	
 	$templ['news']['show']['single']['row'][$news_type]['info']['caption']      = $get_news["caption"];	
 	$templ['news']['show']['single']['row'][$news_type]['control']['userid']    = $get_news["poster"];
@@ -35,7 +37,7 @@ if($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $n
 	}
 
 	include('inc/classes/class_mastercomment.php');
-	new Mastercomment('news', $_GET['newsid']);
+	new Mastercomment('news', $_GET['newsid'], array('news' => 'newsid'));
 
 } else $func->error(t('Diese Newsmeldung existiert nicht'), '');
 ?>

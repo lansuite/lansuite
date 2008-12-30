@@ -7,6 +7,6 @@
  * @version $Id$
  */
 include('modules/home/poll.inc.php');
-$box->Row($templ['home']['show']['item']['control']['row']);
+$box->Row($content);
 
 ?>

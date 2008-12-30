@@ -1,8 +1,8 @@
 <?php
-$templ['home']['show']['item']['info']['caption'] = t('Aktuelle Umfragen');
-$templ['home']['show']['item']['control']['row'] = "";
+$smarty->assign('caption', t('Aktuelle Umfragen'));
+$content = "";
 
-$query = $db->qry('SELECT UNIX_TIMESTAMP(p.endtime) AS endtime, p.pollid, p.caption, COUNT(v.polloptionid) AS votes FROM %prefix%polls AS p
+$query = $db->qry('SELECT UNIX_TIMESTAMP(p.endtime) AS endtime, p.pollid, p.caption, COUNT(v.polloptionid) AS votes, UNIX_TIMESTAMP(p.changedate) AS changedate FROM %prefix%polls AS p
   LEFT JOIN %prefix%polloptions AS o on p.pollid = o.pollid
   LEFT JOIN %prefix%pollvotes AS v on o.polloptionid = v.polloptionid
   WHERE !p.group_id OR p.group_id = %int%
@@ -18,8 +18,11 @@ if ($db->num_rows($query) > 0) {
 		$templ['home']['show']['row']['info']['text2']		= '(Votes: '. $row['votes'] .') ';
     if ($row["endtime"] and $row["endtime"] < time()) $templ['home']['show']['row']['info']['text2'] .= ' <div class="infolink" style="display:inline"><img src="design/images/icon_locked.png" border="0" width="12" /><span class="infobox">'. t('Abstimmung wurde geschlossen') .'</span></div>';
 		elseif ($row["endtime"]) $templ['home']['show']['row']['info']['text2'] .= '['. ($row["endtime"] - time()) .' sec]';
-		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row");
+
+    if ($func->CheckNewPosts($row['changedate'], 'poll', $row['pollid'])) $content	.= $dsp->FetchModTpl('home', 'show_row_new');
+    else $content	.= $dsp->FetchModTpl('home', 'show_row');
+
 		$templ['home']['show']['row']['info']['text2']		= "";	// set var to NULL
 	}
-} else $templ['home']['show']['item']['control']['row'] = "<i>". t('Keine Umfragen vorhanden') ."</i>";
+} else $content = "<i>". t('Keine Umfragen vorhanden') ."</i>";
 ?>

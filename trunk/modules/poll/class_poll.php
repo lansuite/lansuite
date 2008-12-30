@@ -32,7 +32,7 @@ class poll {
 
     if (!$boxmode and $auth["login"] == 1) {
       include_once('inc/classes/class_mastercomment.php');
-      new Mastercomment('Poll', $pollid);
+      new Mastercomment('Poll', $pollid, array('polls' => 'pollid'));
     }
   }
 

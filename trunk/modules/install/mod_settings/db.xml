@@ -1443,4 +1443,51 @@
         <content>
         </content>
     </table>
+	<table>
+		<table_head>
+			<name>lastread</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>readid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>tab</name>
+				<type>varchar(100)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>entryid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>userid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>date</name>
+				<type>datetime</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+		</structure>
+  </table>
 </lansuite>
