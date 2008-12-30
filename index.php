@@ -104,8 +104,7 @@
     include_once("inc/classes/class_translation.php");
     $translation = new translation();
 
-    if (extension_loaded("mysqli")) include_once("inc/classes/class_db_mysqli.php");
-    else include_once("inc/classes/class_db_mysql.php");
+    include_once("inc/classes/class_db_mysql.php");
     include_once("inc/classes/class_auth.php");
     include_once("inc/classes/class_xml.php");
     include_once("inc/classes/class_display.php");
