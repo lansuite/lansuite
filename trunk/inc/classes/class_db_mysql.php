@@ -64,7 +64,7 @@ class db {
     else mysql_close($this->link_id);
   }
 
-  function query($query_string) {
+  function query($query_string, $noErrorLog = 0) {
     #// Escape bad mysql
     #$query_test_string = str_replace("\'", '', strtolower($query_string)); # Cut out escaped ' and convert to lower string
     #$query_test_string = ereg_replace("'[^']*'", "", strtolower($query_test_string)); # Cut out strings within '-quotes
@@ -81,7 +81,7 @@ class db {
       $this->query_id = mysql_query($query_string, $this->link_id);
       $this->sql_error = @mysql_error($this->link_id);
     }
-    if (!$this->query_id) $this->print_error($this->sql_error, $query_string);
+    if (!$this->query_id and !$noErrorLog) $this->print_error($this->sql_error, $query_string);
     $this->count_query++;
     $query_end = microtime(true);
     $this->querys[] = array($query_string, round(($query_end - $query_start) *1000, 4));
@@ -195,16 +195,10 @@ class db {
   function print_error($msg, $query_string_with_error) {
     global $func, $config, $auth, $lang;
 
-    if ($config['database']['display_debug_errors']) echo t('(%1) SQL-Failure. Database respondet: <font color="red"><b>%2</b></font><br/> Your query was: <i>%3</i><br/><br/> Script: %4', __LINE__, $msg, $query_string_with_error, $func->internal_referer);
+    $error = t('SQL-Failure. Database respondet: <font color="red"><b>%1</b></font><br/>Your query was: <i>%2</i><br/><br/> Script: %3<br/>Referrer: %4', $msg, $query_string_with_error, $_SERVER["REQUEST_URI"], $func->internal_referer);
 
-    $msg = str_replace("'", "", $msg);
-    $post_this_error = t('SQL-Fehler in PHP-Skript /\'/%1/\'/ (Referrer: /\'/%2/\'/)<br />SQL-Fehler-Meldung: %3<br />Query: %4', $_SERVER["REQUEST_URI"], $func->internal_referer, $msg, $query_string_with_error);;
-
-    $post_this_error = $func->escape_sql($post_this_error);
-    
-    $current_time = date("U");
-    if ($this->mysqli) @mysqli_query($GLOBALS['db_link_id'], "INSERT INTO {$config["tables"]["log"]} SET date = '$current_time',  userid = '{$auth["userid"]}', type='3', description = '$error_msg', sort_tag = 'SQL-Fehler'");   
-    else @mysql_query("INSERT INTO {$config["tables"]["log"]} SET date = '$current_time',  userid = '{$auth["userid"]}', type='3', description = '$post_this_error', sort_tag = 'SQL-Fehler'", $this->link_id);  
+    if ($config['database']['display_debug_errors']) echo $error;
+    $this->qry('INSERT INTO %prefix%log SET date = NOW(), userid = %int%, type = 3, description = %string%, sort_tag = \'SQL-Fehler\'', $auth["userid"], $error);
     $this->count_query++;
   }
     
