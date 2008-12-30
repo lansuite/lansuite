@@ -54,7 +54,7 @@ include_once('modules/boxes/class_boxes.php');
     $BoxRes = $db->qry("SELECT boxid, name, place, source, module, callback, login, internet FROM %prefix%boxes
                         WHERE active = 1
                             AND (internet = 0 OR internet = %int% + 1)
-                            AND (login = 0 OR (login = 1 AND %int% = 0) OR (login = 2 AND %int% = 1) OR (login > 2 AND login >= %int% - 1))
+                            AND (login = 0 OR (login = 1 AND %int% = 0) OR (login = 2 AND %int% = 1) OR (login > 2 AND login <= %int% + 1))
                         ORDER BY pos
                         ", $cfg['sys_internet'], $auth['login'], $auth['login'], $auth['type']);
     $MenuActive = 0;
