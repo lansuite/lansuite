@@ -26,5 +26,8 @@ if ($pics_res['picid']) {
     $box->AddTemplate($smarty->fetch('modules/boxes/templates/box_randompic.htm'));
     if ($pics_comrow['comments'] == 1) $box->EngangedRow($pics_comrow['comments']." ".t("Kommentar"));
     else if ($pics_comrow['comments'] > 1) $box->EngangedRow($pics_comrow['comments']." ".t("Kommentare"));
+} else {
+  $box->DotRow(t('Es sind noch keine Bilder hochgeladen.'));
+  $box->DotRow(t('Nicht über LS hochgeladene Dateien müssen einmal angeklickt werden um in die Datenbank aufgenommen zu werden'));
 }
 ?>
