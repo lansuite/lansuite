@@ -1,6 +1,8 @@
 //function silentErrorHandler() {return true;}
 //window.onerror=silentErrorHandler;
 
+var isIE	= document.all;
+
 //// Basic Events ////
 function BodyOnload(nifty) {
   // Load Google-Maps, if map-element is found
@@ -66,6 +68,10 @@ function OpenHelplet(module, helpletid) {
   w = window.open('index.php?mod=helplet&action=helplet&design=popup&module='+ module +'&helpletid='+ helpletid, 'neu', 'width=800, height=500, resizable=yes, scrollbars=yes');
 }
 
+function AddaptTextAreaHeight(obj) {
+//  obj.style.height = 0;
+  obj.style.height = obj.scrollHeight + 'px';
+}
 
 //// AJAX ////
 
