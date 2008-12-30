@@ -1,5 +1,16 @@
 <?php
 
+function ShowRole ($role) {
+  global $auth, $line;
+
+  if ($role) $ret = t('Clan-Admin');
+  else $ret = t('Clan-Mitglied');
+  
+  if (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > 1) $ret = '<a href="index.php?mod=clanmgr&action=clanmgr&step=50&clanid='. $_GET['clanid'] .'&userid='. $line['userid'] .'">'. $ret .'</a>';
+  
+  return $ret;
+}
+
 function CheckClanPW ($clanpw) {
   global $db, $config, $auth;
 
@@ -17,6 +28,7 @@ switch ($_GET['step']) {
         LEFT JOIN {$config["tables"]["user"]} AS u ON c.clanid = u.clanid";
     
     $ms2->config['EntriesPerPage'] = 20;
+    #$ms2->AddBGColor('c.clanid', array($auth['clanid'] => 'ff0000'));
     
     $ms2->AddTextSearchField(t('Clanname'), array('c.name' => '1337', 'c.url' => 'like'));
     $ms2->AddTextSearchDropDown(t('Mitglieder'), 'COUNT(u.clanid)', array('' => t('Alle'), '0' => t('Ohne Mitglieder'), '>1' => t('Mit Mitglieder')));
@@ -51,10 +63,11 @@ switch ($_GET['step']) {
     $ms2->config['EntriesPerPage'] = 100;
     
     $ms2->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
-    if (!$cfg['sys_internet'] or $auth['type'] > 1) {
+    if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['clanid'] == $_GET['clanid']) {
       $ms2->AddResultField(t('Vorname'), 'u.firstname');
       $ms2->AddResultField(t('Nachname'), 'u.name');
     }
+    $ms2->AddResultField(t('Rolle'), 'u.clanadmin', 'ShowRole');
     
     $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Clan-Details'));
     if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', t('Löschen'));
@@ -126,6 +139,7 @@ switch ($_GET['step']) {
       $ms2->AddResultField(t('Vorname'), 'u.firstname');
       $ms2->AddResultField(t('Nachname'), 'u.name');
       $ms2->AddResultField(t('Benutzername'), 'u.username');
+      $ms2->AddResultField(t('Rolle'), 'u.clanadmin', 'ShowRole');
 
       $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', t('Löschen'));
       $ms2->PrintSearch('index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid'] .'&userid=', 'u.userid');
@@ -138,11 +152,25 @@ switch ($_GET['step']) {
   // Delete Member
   case 40:
     if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
-    elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) $func->information(t('Sie sind nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
-    else {
+    elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > 1) {
       $db->qry("UPDATE %prefix%user SET clanid = 0 WHERE userid = %int%", $_GET['userid']);
       $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid']);
-    }
+    } else $func->information(t('Sie sind nicht berechtigt Mitglieder aus diesem Clan zu entfernen'), "index.php?mod=home");
+  break;
+
+  // Change role
+  case 50:
+    if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
+    elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > 1) {
+      $cur_role = $db->qry_first("SELECT clanadmin FROM %prefix%user WHERE clanid = %int% AND userid = %int%", $_GET['clanid'], $_GET['userid']);
+      if ($cur_role['clanadmin']) {
+        $db->qry("UPDATE %prefix%user SET clanadmin = 0 WHERE userid = %int%", $_GET['userid']);
+        $func->confirmation(t('Dieser Benutzer ist nun kein Clan-Admin mehr'), 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid']);
+      } else {
+        $db->qry("UPDATE %prefix%user SET clanadmin = 1 WHERE userid = %int%", $_GET['userid']);
+        $func->confirmation(t('Dieser Benutzer ist nun Clan-Admin'), 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid']);
+      }
+    } else $func->information(t('Sie sind nicht berechtigt die Berehtigung dieses Nutzers zu verändern'), "index.php?mod=home");
   break;
 }
 

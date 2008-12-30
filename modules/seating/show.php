@@ -60,8 +60,18 @@ switch($_GET['step']) {
 						array_push($questionarray, t('Diesen Sitzplatz für einen Freund vormerkenHTML_NEWLINE(Eine Vormekung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)'));
 						array_push($linkarray, "index.php?mod=seating&action=show&step=12&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
 					}
+					// Clanadmins can reserve seats for paid clan-members
+					if ($auth['clanadmin']) {
+					  $res = $db->qry("SELECT u.userid, u.username FROM %prefix%user AS u LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
+              WHERE u.clanid = %int% AND u.userid != %int% AND p.paid AND p.party_id = %int%", $auth['clanid'], $auth['userid'], $party->party_id);
+					  while ($row = $db->fetch_array($res)) {
+  						array_push($questionarray, t('Diesen Sitzplatz für mein bezahltes Clan-Mitglied %1 reservieren', $row['username']));
+  						array_push($linkarray, "index.php?mod=seating&action=show&step=13&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&userid={$row['userid']}");
+            }
+            $db->free_result($res);
+					}
 					// Delete mark, if Admin
-					if ($auth['type'] > 1) {
+					if ($auth['type'] > 1 and $seat_user['status'] == 3) {
 						array_push($questionarray, t('Möchten Sie als Admin diese Vormerkung entfernen?'));
 						array_push($linkarray, "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
 					}
@@ -80,10 +90,14 @@ switch($_GET['step']) {
 
 	// Reserve seat for me
 	case 11:
-		$user_data = $db->qry_first("SELECT paid, price_id FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%", $auth['userid'], $party->party_id);
-
+    $_GET['userid'] = $auth['userid'];
+  // no break!
+  
+	// Reserve seat for clan-member
+	case 13:
+		$user = $db->qry_first("SELECT group_id FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
+		$user_data = $db->qry_first("SELECT paid, price_id FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int%", $_GET['userid'], $party->party_id);
 		$block_data = $db->qry_first("SELECT group_id, price_id FROM %prefix%seat_block WHERE blockid = %int%", $_GET['blockid']);
-
 		$seat_user = $db->qry_first("SELECT status FROM %prefix%seat_seats
             WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 
@@ -91,7 +105,7 @@ switch($_GET['step']) {
 		if (!$user_data['paid'] and $cfg['seating_paid_only']) $func->information(t('Sie müssen zuerst für diese Party bezahlen, bevor Sie sich einen Sitzplatz reservieren dürfen.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check Group ID
-		elseif ($block_data['group_id'] and $auth['group_id'] != $block_data['group_id']) $func->information(t('Sie gehören nicht der richtigen Gruppe an, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+		elseif ($block_data['group_id'] and $user['group_id'] != $block_data['group_id']) $func->information(t('Sie gehören nicht der richtigen Gruppe an, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check Price ID
                 elseif ($block_data['price_id'] and $user_data['price_id'] != $block_data['price_id']) $func->information(t('Sie sind nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
@@ -104,7 +118,7 @@ switch($_GET['step']) {
 	    
 		// No errors
 		else {
-			$seat2->AssignSeat($auth['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
+			$seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
 			$func->confirmation(t('Der Sitzplatz wurde erfolgreich reserviert'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 		}
 	break;
