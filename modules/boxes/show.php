@@ -31,8 +31,8 @@ switch ($_GET['step']) {
     $selections['0'] = t('Egal');
     $selections['1'] = t('Nur für ausgeloggte');
     $selections['2'] = t('Nur für eingeloggte');
-    $selections['3'] = t('Nur für Admins + Superadminen');
-    $selections['4'] = t('Nur für Superadminen');
+    $selections['3'] = t('Nur für Admins + Superadmins');
+    $selections['4'] = t('Nur für Superadmins');
     $mf->AddField(t('Login benötigt'), 'login', IS_SELECTION, $selections, FIELD_OPTIONAL);
     $mf->AddField(t('Modul benötigt'), 'module', '', '', FIELD_OPTIONAL);
     $mf->AddField(t('Quelldatei'), 'source');
