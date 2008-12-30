@@ -368,7 +368,8 @@ class Install {
 
     // Display System-Variables
     #$mysql_version = mysql_get_server_info($config['database']['database']);
-	$mysql_version = sprintf("%s\n", mysqli_get_client_info());
+    if (function_exists('mysqli_get_client_info')) $mysql_version = sprintf("%s\n", mysqli_get_client_info());
+    elseif (function_exists('mysql_get_client_info')) $mysql_version = sprintf("%s\n", mysql_get_client_info());
     if (!$mysql_version) $mysql_version = t('Unbekannt');
     $SysInfo = "<table width=\"99%\">"
       ."<tr><td class=\"row_value\">PHP-Version:</td><td class=\"row_value\">". phpversion() ."</td></tr>"
