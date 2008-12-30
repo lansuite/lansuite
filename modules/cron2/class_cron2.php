@@ -7,8 +7,8 @@ class cron2{
     if (!$jobid) return false;
 
     $row = $db->qry_first("SELECT name, function FROM %prefix%cron WHERE jobid = %int%", $jobid);
-    $db->qry_first('%plain%', $row['function']);
-    $db->qry_first("UPDATE %prefix%cron SET lastrun = NOW() WHERE jobid = %int%", $jobid);
+    $db->qry('%plain%', $func->AllowHTML($row['function']));
+    $db->qry("UPDATE %prefix%cron SET lastrun = NOW() WHERE jobid = %int%", $jobid);
 
     $func->log_event(t('Cronjob "%1" wurde ausgeführt', array($row['name'])), 1);
 
