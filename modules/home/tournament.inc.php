@@ -2,8 +2,8 @@
 
 // TOURNAMENT
 
-$templ['home']['show']['item']['info']['caption'] = t('Turnier: Spielpaarungen');
-$templ['home']['show']['item']['control']['row'] = "";
+$smarty->assign('caption', t('Turnier: Spielpaarungen'));
+$content = "";
 $templ['home']['show']['row']['text']['info']['text'] = "";
 
 if ($auth["userid"]) {
@@ -26,13 +26,13 @@ if ($auth["userid"]) {
 		", $auth["userid"], $auth["userid"], $auth["userid"], $auth["userid"], $party->party_id);
 }
 
-if ($db->num_rows($teams) == 0) $templ['home']['show']['item']['control']['row'] = "<i>". t('Es sind keine aktuellen Spielpaarungen vorhanden') ."</i>";
+if ($db->num_rows($teams) == 0) $content = "<i>". t('Es sind keine aktuellen Spielpaarungen vorhanden') ."</i>";
 else {
 	while($team = $db->fetch_array($teams)) {
 		$templ['home']['show']['row']['control']['link']	= "index.php?mod=tournament2&action=submit_result&step=1&tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}";
 		$templ['home']['show']['row']['info']['text']		= "{$team["name1"]} vs {$team["name2"]}";
 		$templ['home']['show']['row']['info']['text2']		= "({$team["tuname"]})";
-		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row");
+		$content .= $dsp->FetchModTpl("home", "show_row");
 	}
 }
 $db->free_result($teams);
@@ -63,7 +63,7 @@ if ($auth['type'] > 1) {
     $templ['home']['t_select_options'] .= "<option value=\"$x\">{$team["tuname"]} - {$team["name1"]} vs {$team["name2"]}</option>";
 		$x++;
 	}
-	$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "admin_tournament_selection");
+	$content .= $dsp->FetchModTpl("home", "admin_tournament_selection");
 }
 
 ?>

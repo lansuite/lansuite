@@ -8,6 +8,6 @@
  */
  
 include('modules/home/board.inc.php');
-$box->Row($templ['home']['show']['item']['control']['row']);
+$box->Row($content);
 
 ?>

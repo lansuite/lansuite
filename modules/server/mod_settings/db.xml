@@ -122,7 +122,7 @@
 			<field>
 				<name>changedate</name>
 				<type>timestamp</type>
-				<null>YES</null>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>

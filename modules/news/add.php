@@ -19,6 +19,7 @@ $mf->AddField(t('Top-Meldung'), 'top', IS_SELECTION, $selections, FIELD_OPTIONAL
 
 if (!$_GET['newsid']) {
   $mf->AddFix('date', time());
+  $mf->AddFix('lastchange', 'NOW()');
   $mf->AddFix('poster', $auth['userid']);
 }
 

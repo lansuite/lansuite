@@ -10,6 +10,8 @@ $server = $db->qry_first("SELECT a.*, b.userid, b.username
 if($server == "") $func->error(t('Der von Ihnen aufgerufene Server existiert nicht'), "index.php?mod=server&action=show");
 else {
 
+	$func->SetRead('server', $_GET["serverid"]);
+
 	//Just show details if the user is not adding, deleting or chaning his comment
 	if($_GET["mcact"] == "" || $_GET["mcact"] == "show") {
 
@@ -93,7 +95,7 @@ else {
   	new masterrate('server', $_GET['serverid']);
 
   	include('inc/classes/class_mastercomment.php');
-  	new Mastercomment('server', $_GET['serverid']);
+  	new Mastercomment('server', $_GET['serverid'], array('server' => 'serverid'));
 	}
 	//End comment-engine	
 }

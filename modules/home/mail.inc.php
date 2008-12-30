@@ -1,7 +1,7 @@
 <?php
 
-$templ['home']['show']['item']['info']['caption'] = t('Neue Mails');
-$templ['home']['show']['item']['control']['row'] = "";
+$smarty->assign('caption', t('Neue Mails'));
+$content = "";
 
 $query = $db->qry('SELECT m.des_Status, m.mailID, m.subject, u.username FROM %prefix%mail_messages AS m LEFT JOIN %prefix%user AS u ON m.FromUserID = u.userid
   WHERE m.toUserID = %int% AND m.mail_status = \'active\'
@@ -15,13 +15,13 @@ if ($db->num_rows($query) > 0) {
    	 $templ['home']['show']['row']['info']['text']		= $func->CutString($row['subject'], 40) .' ['.$row['username'].']';
    	
 	if($row['des_Status'] == 'new')
-		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row_new");
+		$content .= $dsp->FetchModTpl("home", "show_row_new");
 	else
-		$templ['home']['show']['item']['control']['row'] .= $dsp->FetchModTpl("home", "show_row");
+		$content .= $dsp->FetchModTpl("home", "show_row");
 
 	 $templ['home']['show']['row']['info']['text'] = '';
 	 $templ['home']['show']['row']['info']['text2'] = '';
 	}
 }
-else $templ['home']['show']['item']['control']['row'] = "<i>". t('Keine Mails bisher vorhanden') ."</i>";
+else $content = "<i>". t('Keine Mails bisher vorhanden') ."</i>";
 ?>
