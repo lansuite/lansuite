@@ -35,6 +35,8 @@ if (func::admin_exists() and $auth['type'] > 1 and $_GET["mod"] != 'install') {
     }
 }
 
+if ($cfg['sys_blocksite'] == 1 and $auth['type'] < 2 and $_GET['mod'] != 'info2') $siteblock = true;
+
 if (!$missing_fields and !$siteblock) {
     switch ($mod) {
         case 'logout':
