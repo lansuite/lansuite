@@ -38,7 +38,7 @@ else {
   $db->free_result($haus_data);
 
   $templ['guestmap']['apikey'] = $cfg['google_maps_api_key'];
-  $dsp->AddSingleRow($dsp->FetchModTpl('guestlist', 'googlemaps'));
+  $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
 }
 $dsp->AddContent();
 ?>
