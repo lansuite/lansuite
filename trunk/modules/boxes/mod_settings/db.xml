@@ -196,7 +196,7 @@
 				<place>1</place>
 				<pos>5</pos>
 				<active>1</active>
-				<internet>2</internet>
+				<internet>0</internet>
 				<login>0</login>
 				<module>stats</module>
 				<source>signonstatus</source>

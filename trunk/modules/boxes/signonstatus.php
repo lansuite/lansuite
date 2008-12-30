@@ -6,7 +6,7 @@
  * @author knox
  * @version $Id$
  */
- 
+
 // mit oder ohne orgas
 if($cfg["guestlist_showorga"] == 0) { $querytype = "type = 1"; } else { $querytype = "type >= 1"; }
 
@@ -61,46 +61,60 @@ if ($pixelcuruser > 0) $bar .= '<ul class="BarMarked infolink" style="width:'. $
 if ($pixelges > 0) $bar .= '<ul class="BarFree infolink" style="width:'. $pixelges .'px;">&nbsp;<span class="infobox">'. t('Frei') .': '. ($max - $cur) .'</span></ul>';
 $bar .= '<ul class="BarClear">&nbsp;</ul>';
 
-#if (strlen($_SESSION['party_info']['name']) > 16) $party_name = substr($_SESSION['party_info']['name'], 0, 14) .'...';
-#else
-$options = '';
-$res = $db->qry('SELECT party_id, name FROM %prefix%partys');
-if ($db->num_rows($res) > 1) {
-  while ($row = $db->fetch_array($res)){
-  	($row['party_id'] == $party->party_id)? $selected = 'selected="selected"' : $selected = '';
-  	if (strlen($row['name']) > 20) $row['name'] = substr($row['name'], 0, 18) .'...';
-  	$options .= '<option '. $selected .' value="'. $row['party_id'] .'">'. $row['name'] .'</option>';
+if ($cfg['sys_internet']) {
+  #if (strlen($_SESSION['party_info']['name']) > 16) $party_name = substr($_SESSION['party_info']['name'], 0, 14) .'...';
+  #else
+  $options = '';
+  $res = $db->qry('SELECT party_id, name FROM %prefix%partys');
+  if ($db->num_rows($res) > 1) {
+    while ($row = $db->fetch_array($res)){
+    	($row['party_id'] == $party->party_id)? $selected = 'selected="selected"' : $selected = '';
+    	if (strlen($row['name']) > 20) $row['name'] = substr($row['name'], 0, 18) .'...';
+    	$options .= '<option '. $selected .' value="'. $row['party_id'] .'">'. $row['name'] .'</option>';
+    }
+    $box->ItemRow('data', '<form action=""><select name="set_party_id" class="form" >'. $options .'</select><br /><input type="submit" class="Button" value="Party wechseln" /></form>');
+  } else {
+    $box->ItemRow("data", '<b>'. $_SESSION['party_info']['name'] .'</b>');
   }
-  $box->ItemRow('data', '<form action=""><select name="set_party_id" class="form" >'. $options .'</select><br /><input type="submit" class="Button" value="Party wechseln" /></form>');
-} else {
-  $box->ItemRow("data", '<b>'. $_SESSION['party_info']['name'] .'</b>');
+  $db->free_result($res);
+  
+  $box->EngangedRow(date("d.m.y", $_SESSION['party_info']['partybegin']) .' - '. date("d.m.y", $_SESSION['party_info']['partyend']));
 }
-$db->free_result($res);
-
-$box->EngangedRow(date("d.m.y", $_SESSION['party_info']['partybegin']) .' - '. date("d.m.y", $_SESSION['party_info']['partyend']));
 
 $box->EngangedRow($bar);
 $box->EngangedRow(t('Angemeldet').': '. $cur);
 $box->EngangedRow(t('Bezahlt').': '. $paid);
 $box->EngangedRow(t('Frei').': '. ($max - $paid));
 
+if (!$cfg['sys_internet']) {
+  $checkedin = $db->qry_first('SELECT COUNT(p.user_id) as n FROM %prefix%user AS u LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
+    WHERE (%plain%) AND (p.checkin > 0) AND p.party_id = %int%', $querytype, $party->party_id);
+  $box->EngangedRow(t('Eingecheckt').': '. ($checkedin['n']));
+
+  $checkedout = $db->qry_first('SELECT COUNT(p.user_id) as n FROM %prefix%user AS u LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
+    WHERE (%plain%) AND (p.checkout > 0) AND p.party_id = %int%', $querytype, $party->party_id);
+  $box->EngangedRow(t('Ausgecheckt').': '. ($checkedout['n']));
+}
+
 ## Counter
-$box->EmptyRow();
-$box->ItemRow("data", '<b>'. t('Counter') .'</b>');
-
-if ($_SESSION['party_info']['partyend'] < time()) $box->EngangedRow(t('Diese Party ist bereits vorüber'));
-else {
-  $count = ceil(($_SESSION['party_info']['partybegin'] - time()) / 60);
-  if ($count <= 1) $count = t('Die Party läuft gerade!');
-  elseif ($count <= 120) $count = t('Noch %1 Minuten.', array($count));
-  elseif ($count > 120 AND $count <= 2880) $count = t('Noch %1 Stunden.', array(floor($count/60)));
-  else $count = t('Noch %1 Tage.', array(floor($count/1440)));
-
-  $box->EngangedRow($count);
-
-  $checked = $db->qry_first("SELECT checked as n FROM %prefix%partys WHERE party_id = %int%", $party->party_id);
+if ($cfg['sys_internet']) {
   $box->EmptyRow();
-  $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>" );
-  $box->EngangedRow($func->unixstamp2date($checked['n'],"datetime" ));
+  $box->ItemRow("data", '<b>'. t('Counter') .'</b>');
+  
+  if ($_SESSION['party_info']['partyend'] < time()) $box->EngangedRow(t('Diese Party ist bereits vorüber'));
+  else {
+    $count = ceil(($_SESSION['party_info']['partybegin'] - time()) / 60);
+    if ($count <= 1) $count = t('Die Party läuft gerade!');
+    elseif ($count <= 120) $count = t('Noch %1 Minuten.', array($count));
+    elseif ($count > 120 AND $count <= 2880) $count = t('Noch %1 Stunden.', array(floor($count/60)));
+    else $count = t('Noch %1 Tage.', array(floor($count/1440)));
+  
+    $box->EngangedRow($count);
+  
+    $checked = $db->qry_first("SELECT checked as n FROM %prefix%partys WHERE party_id = %int%", $party->party_id);
+    $box->EmptyRow();
+    $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>" );
+    $box->EngangedRow($func->unixstamp2date($checked['n'],"datetime" ));
+  }
 }
 ?>
