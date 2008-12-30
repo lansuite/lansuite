@@ -100,7 +100,10 @@
 
 ### Include base classes
     
+    // Load Translationclass. No t()-Function before this point!
     include_once("inc/classes/class_translation.php");
+    $translation = new translation();
+
     if (extension_loaded("mysqli")) include_once("inc/classes/class_db_mysqli.php");
     else include_once("inc/classes/class_db_mysql.php");
     include_once("inc/classes/class_auth.php");
@@ -128,7 +131,6 @@
     $sec         = new sec;              // Security Functions (to lock pages)
     $cron2       = new cron2();          // Load Cronjob
     $seat2       = new seat2();          // Load Seat-Controll Class
-    $translation = new translation();    // Load Translationclass
     $barcode     = new barcode_system();  // Load Barcode System
     $smarty      = new Smarty();
     $smarty->template_dir = '.';
