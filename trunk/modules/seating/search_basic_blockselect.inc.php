@@ -20,17 +20,7 @@ function SeatsOccupied($blockid) {
 
 // Get number of seats in block
 function SeatLoad($blockid) {
-	global $dsp, $templ;
-	
-	$seats = SeatsAvailable($blockid);
-	if ($seats != 0) {
-		$SeatLoad = SeatsOccupied($blockid) / $seats * 100;
-	} else {
-		$SeatLoad = 0;
-	}
-	$templ['bar']['width'] = round($SeatLoad, 0) * 2;
-	$templ['bar']['text'] = round($SeatLoad, 1) .'%';
-	return $dsp->FetchModTpl('seating', 'bar');
+	return round($SeatLoad, 1) .'%';
 }
 
 

@@ -10,18 +10,20 @@ if ($row['found']) {
   if ($_GET['mf_step'] != 2) $_POST['text'] = $row['text'];
 }
 
-$templ['define_url_js'] = '';
-$templ['define_url_options'] = '';
+$jscode = "UrlAuswahl = new Array();\n";
+$define_url_options = '';
 $i = 0;
 $res = $db->qry('SELECT postid, name FROM %prefix%wiki ORDER BY name');
 while ($row = $db->fetch_array($res)) {
-  $templ['define_url_js'] .= "UrlAuswahl[$i] = new Object(); UrlAuswahl[$i]['url'] = 'index.php?mod=wiki&action=show&postid={$row['postid']}'; UrlAuswahl[$i]['name'] = '{$row['name']}';\n";
-  $templ['define_url_options'] .= '<option value="'. $i .'">'. $row['name'] .'</option>';
+  $jscode .= "UrlAuswahl[$i] = new Object(); UrlAuswahl[$i]['url'] = 'index.php?mod=wiki&action=show&postid={$row['postid']}'; UrlAuswahl[$i]['name'] = '{$row['name']}';\n";
+  $define_url_options .= '<option value="'. $i .'">'. $row['name'] .'</option>';
   $i++;
 }
 $db->free_result($res);
 
-$dsp->AddDoubleRow('', $dsp->FetchModTpl('wiki', 'add_page_link'));
+$framework->add_js_code($jscode);
+$smarty->assign('define_url_options', $define_url_options);
+$dsp->AddDoubleRow('', $smarty->fetch('modules/wiki/templates/add_page_link.htm'));
 
 include_once('inc/classes/class_masterform.php');
 $mf = new masterform();

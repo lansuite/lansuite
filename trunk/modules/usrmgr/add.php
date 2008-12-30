@@ -106,69 +106,47 @@ function CheckClanNotExists ($ClanName) {
 }
 
 function PersoInput($field, $mode, $error = '') {
-  global $dsp, $templ, $auth, $usrmgr;
+  global $dsp, $templ, $auth, $usrmgr, $smarty;
 
   switch ($mode) {
     case OUTPUT_PROC:
-            $_POST[$field .'_1'] = substr($_POST[$field], 0, 11);
-            $_POST[$field .'_2'] = substr($_POST[$field], 13, 7);
-            $_POST[$field .'_3'] = substr($_POST[$field], 21, 7);
-            $_POST[$field .'_4'] = substr($_POST[$field], 35, 1);
+      $_POST[$field .'_1'] = substr($_POST[$field], 0, 11);
+      $_POST[$field .'_2'] = substr($_POST[$field], 13, 7);
+      $_POST[$field .'_3'] = substr($_POST[$field], 21, 7);
+      $_POST[$field .'_4'] = substr($_POST[$field], 35, 1);
 
-        if ($_POST[$field .'_1'] == '') $_POST[$field .'_1'] = "aaaaaaaaaaD";
-        if ($_POST[$field .'_2'] == '') $_POST[$field .'_2'] = "bbbbbbb";
-        if ($_POST[$field .'_3'] == '') $_POST[$field .'_3'] = "ccccccc";
-        if ($_POST[$field .'_4'] == '') $_POST[$field .'_4'] = "d";
+      if ($_POST[$field .'_1'] == '') $_POST[$field .'_1'] = "aaaaaaaaaaD";
+      if ($_POST[$field .'_2'] == '') $_POST[$field .'_2'] = "bbbbbbb";
+      if ($_POST[$field .'_3'] == '') $_POST[$field .'_3'] = "ccccccc";
+      if ($_POST[$field .'_4'] == '') $_POST[$field .'_4'] = "d";
 
-        $templ['ls']['row']['textfield']['name']    = $field;
-        $templ['ls']['row']['textfield']['value1']  = $_POST[$field .'_1'];
-        $templ['ls']['row']['textfield']['value2']  = $_POST[$field .'_2'];
-        $templ['ls']['row']['textfield']['value3']  = $_POST[$field .'_3'];
-        $templ['ls']['row']['textfield']['value4']  = $_POST[$field .'_4'];
-        if ($error) $templ['ls']['row']['textfield']['errortext']   = $dsp->errortext_prefix . $error . $dsp->errortext_suffix;
-        else $templ['ls']['row']['textfield']['errortext']  = '';
-        if (Optional("perso")) $templ['ls']['row']['textfield']['optional'] = "_optional";
+      $smarty->assign('name', $field);
+      $smarty->assign('value1', $_POST[$field .'_1']);
+      $smarty->assign('value2', $_POST[$field .'_2']);
+      $smarty->assign('value3', $_POST[$field .'_3']);
+      $smarty->assign('value4', $_POST[$field .'_4']);
+      if ($error) $smarty->assign('errortext', $dsp->errortext_prefix . $error . $dsp->errortext_suffix);
+      if (Optional("perso")) $smarty->assign('optional', "_optional");
 
-        return $dsp->FetchModTpl('usrmgr', 'row_perso');
+      return $smarty->fetch('modules/usrmgr/templates/row_perso.htm');
     break;
 
     case CHECK_ERROR_PROC:
-        $_POST[$field] = $_POST["perso_1"] . "<<" . $_POST["perso_2"] . "<". $_POST["perso_3"] . "<<<<<<<" . $_POST["perso_4"];
-        if ($_POST[$field] == "aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d") $_POST[$field] = "";
-        if ($_POST[$field] == "<<<<<<<<<<") $_POST[$field] = "";
+      $_POST[$field] = $_POST["perso_1"] . "<<" . $_POST["perso_2"] . "<". $_POST["perso_3"] . "<<<<<<<" . $_POST["perso_4"];
+      if ($_POST[$field] == "aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d") $_POST[$field] = "";
+      if ($_POST[$field] == "<<<<<<<<<<") $_POST[$field] = "";
       if ($_POST[$field] != '') {
-            $perso_res = $usrmgr->CheckPerso($_POST[$field]);
-            switch ($perso_res) {
-                case 2: return str_replace("<", "&lt;", t('Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: \'aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d\'')); break;
-                case 3: return t('Prüfsummenfehler. Bitte überprüfen Sie Ihre Angabe. Sehr wahrscheinlich haben Sie eine oder mehrere Zahlen falsch abgeschrieben.'); break;
-                case 4: return t('Dieser Personalausweis ist leider bereits abgelaufen.'); break;
-            }
+        $perso_res = $usrmgr->CheckPerso($_POST[$field]);
+        switch ($perso_res) {
+          case 2: return str_replace("<", "&lt;", t('Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: \'aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d\'')); break;
+          case 3: return t('Prüfsummenfehler. Bitte überprüfen Sie Ihre Angabe. Sehr wahrscheinlich haben Sie eine oder mehrere Zahlen falsch abgeschrieben.'); break;
+          case 4: return t('Dieser Personalausweis ist leider bereits abgelaufen.'); break;
         }
-            return false; // -> Means no error
+      }
+      return false; // -> Means no error
     break;
   }
 }
-/*
-function BirthdayInput($field, $mode, $error = '') {
-  global $dsp, $templ, $auth, $func;
-
-  switch ($mode) {
-    case OUTPUT_PROC:
-            if ($_POST['birthday'] == 0) $_POST['birthday'] = 1;
-        $dsp->AddDateTimeRow("birthday", t('Geburtstag'), $_POST['birthday'], $error["birthday"], "", "", (1970 - date("Y")), -5, 1, Optional("birthday"), " onChange=\"WriteAge();\"");
-        $dsp->AddDoubleRow(t('U18-Prüfung'), $dsp->FetchModTPL("usrmgr", "u18check") . t(' Jahre'));
-        return false;
-    break;
-
-    case CHECK_ERROR_PROC:
-        // GetBirthdayTimestamp
-        if (($_POST["birthday_value_year"] == (date("Y") - 34)) && ($_POST["birthday_value_month"] == "1") && ($_POST["birthday_value_day"] == "1")) $_POST['birthday'] = 0;
-        else $_POST['birthday'] = $func->date2unixstamp($_POST["birthday_value_year"], $_POST["birthday_value_month"], $_POST["birthday_value_day"], 0, 0, 0);
-            return false; // -> Means no error
-    break;
-  }
-}
-*/
 
 function Addr1Input($field, $mode, $error = '') {
   global $dsp, $templ, $auth, $func;
@@ -391,7 +369,6 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       // Misc (Perso + Birthday + Gender + Newsletter)
       if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) {
         if (ShowField('perso')) $mf->AddField(t('Personalausweis'), 'perso', IS_CALLBACK, 'PersoInput', Optional('perso'));
-#        if (ShowField('birthday')) $mf->AddField('', 'birthday', IS_CALLBACK, 'BirthdayInput', Optional('birthday'));
         if (ShowField('birthday')) $mf->AddField(t('Geburtstag'), 'birthday', '', '-80/-8', Optional('birthday'),'check_birthday');
       }
       if (ShowField('gender')) {

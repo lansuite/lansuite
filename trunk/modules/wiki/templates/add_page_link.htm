@@ -1,9 +1,4 @@
-<script type="text/javascript" language="JavaScript">
-  UrlAuswahl = new Array();
-  {$templ['define_url_js']}
-</script>
-
 <select name="wikipage" onChange="javascript:if (this.options[this.selectedIndex].value != '') InsertCode(document.dsp_form1.text, '[url=' + UrlAuswahl[this.options[this.selectedIndex].value]['url'] + ']' + UrlAuswahl[this.options[this.selectedIndex].value]['name'] + '[/url]')" class="form">
   <option value="" selected>Seite verlinken</option>
-  {$templ['define_url_options']}
+  {$define_url_options}
 </select>
