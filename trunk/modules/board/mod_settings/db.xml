@@ -68,6 +68,14 @@
 				<default>0</default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>board_group</name>
+				<type>varchar(100)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
 		</structure>
 	</table>
 	<table>
