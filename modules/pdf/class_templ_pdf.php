@@ -446,5 +446,3 @@ class pdf_tmpl{
     }
 }
 ?>
-
-    

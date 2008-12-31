@@ -38,7 +38,7 @@ class barcode{
 	var $_format;
 	var $_n2w;
 
-	function BARCODE($encoding="EAN-13")
+	function barcode($encoding="EAN-13")
 	{
 
 		if(!function_exists("imagecreate"))
@@ -1762,7 +1762,7 @@ class barcode_system{
 	var $class_barcode;
 	
 	function barcode_system(){
-		global $cfg,$db,$config;
+		global $cfg, $db, $config;
 		
 		$this->class_barcode = new barcode($cfg['sys_barcode_typ']);
 

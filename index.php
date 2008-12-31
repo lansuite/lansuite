@@ -110,7 +110,6 @@
     include_once("inc/classes/class_display.php");
     include_once("inc/classes/class_gd.php");
     include_once("inc/classes/class_sec.php");
-    include_once("inc/classes/class_barcode.php");
     include_once("modules/party/class_party.php");
     if (file_exists("modules/mastersearch/class_mastersearch.php")) include_once("modules/mastersearch/class_mastersearch.php");
     include_once("modules/mail/class_mail.php");
@@ -130,7 +129,6 @@
     $sec         = new sec;              // Security Functions (to lock pages)
     $cron2       = new cron2();          // Load Cronjob
     $seat2       = new seat2();          // Load Seat-Controll Class
-    $barcode     = new barcode_system();  // Load Barcode System
     $smarty      = new Smarty();
     $smarty->template_dir = '.';
     $smarty->compile_dir = './ext_inc/templates_c/';

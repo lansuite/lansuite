@@ -1,6 +1,8 @@
 <?php
 
 include_once("modules/pdf/class_fpdf.php");
+include_once("inc/classes/class_barcode.php");
+$barcode     = new barcode_system();  // Load Barcode System
 
 /**
  * Klasse um die Menus und die PDF-Dateien im Modul PDF  zu erzeugen.
@@ -237,7 +239,7 @@ class pdf {
      * @param string $action
      */
     function _menuUsercards($action){
-        global $lang,$dsp,$db,$config;
+        global $lang,$dsp,$db;
         
         
         $dsp->NewContent(t('Besucherausweise erstellen.'), t('Hier k&ouml;nnen Karten erstellt werden die beim Einlass an die G&auml;ste ausgeh&auml;ndigt werden.'));
@@ -303,7 +305,7 @@ class pdf {
      * @param string $action
      */
     function _menuSeatcards($action){
-        global $lang,$dsp,$db,$config,$party,$func;
+        global $lang,$dsp,$db,$party,$func;
         
         $dsp->NewContent(t('Sitzplatzkarten erstellen.'), t('Hier k&ouml;nnen sie Karten f&uuml;r die Sitzpl&auml;tze erstellen.'));
         $dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
@@ -342,7 +344,7 @@ class pdf {
      * @param string $action
      */
     function _menuUserlist($action){
-        global $lang,$dsp,$db,$config;
+        global $lang,$dsp,$db;
         
         $dsp->NewContent(t('Besucherlist erstellen.'), t('Hier k&ouml;nnen sie Listen mit allen Besuchern erstellen'));
         $dsp->SetForm("index.php?mod=pdf&action=" .$action . "&design=base&act=print&id=" .  $this->templ_id, "", "", "");
@@ -433,7 +435,7 @@ class pdf {
         $this->_make_page();
         
         // Datenbank abfragen für momentans Template
-        $templ_data = $db->qry('SELECT * FROM %prefix%pdf_data WHERE template_id=%string% AND type != \'config\' AND type != \'header\' AND type != \'footer\' AND visible = \'1\' ORDER BY sort ASC', $this->templ_id);
+        $templ_data = $db->qry('SELECT * FROM %prefix%pdf_data WHERE template_id=%int% AND type != \'config\' AND type != \'header\' AND type != \'footer\' AND visible = \'1\' ORDER BY sort ASC', $this->templ_id);
         $templ = array();
         while ($templ_data_array = $db->fetch_array($templ_data)){
             $templ[] = array_merge($templ_data_array,$templ);
@@ -449,17 +451,18 @@ class pdf {
         // Seite füllen
         while($row = $db->fetch_array($query)) {
             unset($data);
-            $data['user_nickname'] = str_replace("&gt;","",$row["username"]);
-            $data['user_nickname'] = str_replace("&lt;","",$data['user_nickname']);
-            $data['user_nickname'] = str_replace("&gt","",$data['user_nickname']);
-            $data['user_nickname'] = str_replace("&lt","",$data['user_nickname']);
-            $data['user_nickname'] = trim($data['user_nickname']);
+            #$data['user_nickname'] = str_replace("&gt;","",$row["username"]);
+            #$data['user_nickname'] = str_replace("&lt;","",$data['user_nickname']);
+            #$data['user_nickname'] = str_replace("&gt","",$data['user_nickname']);
+            #$data['user_nickname'] = str_replace("&lt","",$data['user_nickname']);
+            #$data['user_nickname'] = trim($data['user_nickname']);
+            $data['user_nickname'] = $func->AllowHTML($row["username"]);
             $data['party_name']    = $_SESSION['party_info']['name'];   
             
             $data['userid']         = $row["userid"];
             $data['name'] = $row["name"];
             $data['firstname'] = $row["firstname"];
-            $data['clan'] = $row["clan"];
+            $data['clan'] = $func->AllowHTML($row["clan"]);
             $data['fullname'] = $row["firstname"] . " " . $row["name"];
             $data['userid'] = $row['userid'];
             $data['plz'] = $row['plz'];
@@ -508,9 +511,9 @@ class pdf {
             
             // Wenn neue Daten ausgedruckt werden Daten eintragen
             if($row['template_id'] == ""){
-                $db->qry_first('INSERT %prefix%pdf_printed SET template_id=$string%, item_id=%int%, time=%string%', $this->templ_id, $row['userid'], $date);
+                $db->qry_first('INSERT %prefix%pdf_printed SET template_id = %string%, item_id = %int%, time = %string%', $this->templ_id, $row['userid'], $date);
             }else{
-                $db->qry_first('UPDATE %prefix%pdf_printed SET time=%string WHERE template_id=%string% AND item_id=%int%', $date, $this->templ_id, $row['userid']);
+                $db->qry_first('UPDATE %prefix%pdf_printed SET time = %string WHERE template_id = %string% AND item_id = %int%', $date, $this->templ_id, $row['userid']);
             }           
         } // end while
 
@@ -527,7 +530,7 @@ class pdf {
      */
     function _makeSeatCard($block,$order){
         define('IMAGE_PATH','ext_inc/pdf_templates/');
-        global $db, $config, $func,$party, $seat2;
+        global $db, $func,$party, $seat2;
         
         if($order == "row"){
             $sql_order = ", 'row', 'col'";
@@ -577,16 +580,17 @@ class pdf {
         LEFT JOIN %prefix%clan AS clan ON user.clanid = clan.clanid
         WHERE userid=%int%", $userid);
 
-            $data['user_nickname'] = str_replace("&gt;","",$row_user["username"]);
-            $data['user_nickname'] = str_replace("&lt;","",$data['user_nickname']);
-            $data['user_nickname'] = str_replace("&gt","",$data['user_nickname']);
-            $data['user_nickname'] = str_replace("&lt","",$data['user_nickname']);
-            $data['user_nickname'] = trim($data['user_nickname']);
+            #$data['user_nickname'] = str_replace("&gt;","",$row_user["username"]);
+            #$data['user_nickname'] = str_replace("&lt;","",$data['user_nickname']);
+            #$data['user_nickname'] = str_replace("&gt","",$data['user_nickname']);
+            #$data['user_nickname'] = str_replace("&lt","",$data['user_nickname']);
+            #$data['user_nickname'] = trim($data['user_nickname']);
+            $data['user_nickname'] = $func->AllowHTML($row["username"]);
 
             $data['userid']         = $row_user["userid"];
             $data['name']       = $row_user["name"];
             $data['firstname'] = $row_user["firstname"];
-            $data['clan']       = $row_user["clan"];
+            $data['clan']       = $func->AllowHTML($row_user["clan"]);
             $data['fullname'] = $row["firstname"] . " " . $row["name"];
             $data['plz'] = $row['plz'];
             $data['city'] = $row['city'];
@@ -690,7 +694,7 @@ class pdf {
         $this->_make_page();
         
         // Datenbank abfragen für momentans Template
-        $templ_data = $db->qry("SELECT * FROM %string% WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $config['tables']['pdf_data'], $this->templ_id);
+        $templ_data = $db->qry("SELECT * FROM %prefix%pdf_data WHERE template_id = %int% AND type != 'config' AND type != 'header' AND type != 'footer' AND visible = '1' ORDER BY sort ASC", $this->templ_id);
         $templ = array();
         while ($templ_data_array = $db->fetch_array($templ_data)){
             $templ[] = array_merge($templ_data_array,$templ);
@@ -708,11 +712,12 @@ class pdf {
         while($row = $db->fetch_array($query)) {
             $nr = $nr + 1;
             unset($data);
-            $data['user_nickname'] = str_replace("&gt;","",$row["username"]);
-            $data['user_nickname'] = str_replace("&lt;","",$data['user_nickname']);
-            $data['user_nickname'] = str_replace("&gt","",$data['user_nickname']);
-            $data['user_nickname'] = str_replace("&lt","",$data['user_nickname']);
-            $data['user_nickname'] = trim($data['user_nickname']);
+            #$data['user_nickname'] = str_replace("&gt;","",$row["username"]);
+            #$data['user_nickname'] = str_replace("&lt;","",$data['user_nickname']);
+            #$data['user_nickname'] = str_replace("&gt","",$data['user_nickname']);
+            #$data['user_nickname'] = str_replace("&lt","",$data['user_nickname']);
+            #$data['user_nickname'] = trim($data['user_nickname']);
+            $data['user_nickname'] = $func->AllowHTML($row["username"]);
             $data['party_name']    = $_SESSION['party_info']['name'];   
             $data['nr'] = $nr;
             
@@ -720,7 +725,7 @@ class pdf {
             $data['lastname']       = $row["name"];
             $data['firstname']  = $row["firstname"];
             $data['fullname'] = $row["firstname"] . " " . $row["name"];
-            $data['clan']       = $row["clan"];
+            $data['clan']       = $func->AllowHTML($row["clan"]);
             $data['plz'] = $row['plz'];
             $data['city'] = $row['city'];
             $data['birthday'] = $row['birthday'];
@@ -777,7 +782,7 @@ class pdf {
      *
      */
     function _make_page(){
-        global $db,$config;
+        global $db;
         
         $page_data = $db->qry_first("SELECT * FROM %prefix%pdf_data WHERE template_id= %int% AND type = 'config' ORDER BY sort ASC", $this->templ_id);
         define('FPDF_FONTPATH','ext_inc/pdf_fonts/');
