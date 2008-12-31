@@ -45,16 +45,8 @@ else {
   $mf = new masterform();
 
   if (!$_GET['serverid']) {
-    if ($auth['type'] > 1) {
-      $selections = array();
-      $query = $db->qry('SELECT * FROM %prefix%user AS user WHERE user.type > 0 ORDER BY username');
-      while($row = $db->fetch_array($query)) {
-        $selections[$row['userid']] = $row['username'];
-      }
-      $db->free_Result();
-      $mf->AddField(t('Besitzer'), 'owner', IS_SELECTION, $selections, FIELD_OPTIONAL);
-
-    } else $mf->AddFix('owner', $auth['userid']);
+    if ($auth['type'] > 1) $mf->AddDropDownFromTable(t('Besitzer'), 'owner', 'userid', 'username', 'user', '', 'type > 0');
+    else $mf->AddFix('owner', $auth['userid']);
   }
 
   $mf->AddField(t('Name'), 'caption');

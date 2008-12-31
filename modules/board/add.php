@@ -12,12 +12,7 @@ $selections['3'] = t('Admins lesen/schreiben');
 $selections['4'] = t('Super-Admins lesen/schreiben');
 $mf->AddField(t('Nur folgende Benutzertypen'), 'need_type', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
-$selections = array();
-$selections[''] = t('Alle Gruppen');
-$res = $db->qry('SELECT group_id, group_name FROM %prefix%party_usergroups');
-while ($row = $db->fetch_array($res)) $selections[$row['group_id']] = $row['group_name'];
-$db->free_result($res);
-$mf->AddField(t('Nur folgende Gruppen'), 'need_group', IS_SELECTION, $selections, FIELD_OPTIONAL);
+$mf->AddDropDownFromTable(t('Nur folgende Gruppen'), 'need_group', 'group_id', 'group_name', 'party_usergroups', t('Alle Gruppen'));
 
 $mf->AddField(t('Position'), 'pos', '', '', FIELD_OPTIONAL);
 

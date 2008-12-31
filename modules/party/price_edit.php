@@ -16,15 +16,8 @@ $dsp->AddDoubleRow('Party', $party->data['name']);
 
 $mf->AddField(t('Text für Eintrittspreis'), 'price_text');
 $mf->AddField(t('Preis'), 'price');
-#$mf->AddField(t('Beschreibung eines Depots'), 'depot_desc');
-#$mf->AddField(t('Depotpreis (Leer lassen, wenn es kein Depot gibt.)'), 'depot_price');
 
-$selections = array();
-$res = $db->qry("SELECT * FROM %prefix%party_usergroups");
-while ($row = $db->fetch_array($res)) {
-  $selections[$row['group_id']] = $row['group_name'];
-}
-$mf->AddField(t('Gruppenname'), 'group_id', IS_SELECTION, $selections, 1);
+$mf->AddDropDownFromTable(t('Gruppenname'), 'group_id', 'group_id', 'group_name', 'party_usergroups');
 $mf->AddField(t('Sichtbar für'), 'requirement', IS_SELECTION, $selectrequire, 1);
 $mf->AddField(t('Gültig bis'), 'enddate');
 

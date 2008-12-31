@@ -27,14 +27,7 @@ $mf->AddField(t('Anonym'), 'anonym', '', '', FIELD_OPTIONAL);
 $mf->AddField(t('Mehrfachauswahl möglich'), 'multi', '', '', FIELD_OPTIONAL);
 $mf->AddField(t('Zeitlich begrenzen'), 'endtime', '', '', FIELD_OPTIONAL);
 
-$selections = array();
-$selections[''] = t('Keine bestimmte Gruppe');
-$res = $db->qry('SELECT group_id, group_name FROM %prefix%party_usergroups');
-while ($row = $db->fetch_array($res)) {
-  $selections[$row['group_id']] = $row['group_name'];
-}
-$db->free_result($res);
-$mf->AddField(t('Benutzergruppe'), 'group_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
+$mf->AddDropDownFromTable(t('Benutzergruppe'), 'group_id', 'group_id', 'group_name', 'party_usergroups', t('Keine bestimmte Gruppe'));
 
 // Poll Options
 if ($_POST['poll_option']) foreach ($_POST['poll_option'] as $key => $val) $_POST["poll_option[$key]"] = $val;

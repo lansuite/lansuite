@@ -97,6 +97,18 @@ class masterform {
     }
   }
 
+  function AddDropDownFromTable($caption, $id1, $id2, $text, $table, $defText = '', $where = '') {
+    global $db;
+    
+    $selections = array();
+    if ($defText) $selections[''] = $defText;
+    if ($where) $where = ' WHERE '. $where;
+    $res = $db->qry('SELECT %plain%, %plain% FROM %prefix%%plain%%plain% ORDER BY %plain%', $id2, $text, $table, $where, $text);
+    while ($row = $db->fetch_array($res)) $selections[$row[$id2]] = $row[$text];
+    $db->free_result($res);
+    $this->AddField($caption, $id1, IS_SELECTION, $selections, FIELD_OPTIONAL);
+  }
+
   function AddDBLineID($id) {
     $this->MultiLineIDs[] = $id;
   }

@@ -17,8 +17,8 @@ $group_list = array();
 	while($res = $db->fetch_array($row)) $group_list[$res['id']] = $res['caption'];
 
 	
-$mf->AddField('Party', 'partyid', IS_SELECTION, $party_list);
-$mf->AddField('Gruppe', 'groupid', IS_SELECTION, $group_list);
+$mf->AddDropDownFromTable(t('Party'), 'partyid', 'party_id', 'name', 'partys');
+$mf->AddDropDownFromTable(t('Gruppe'), 'groupid', 'id', 'caption', 'cashmgr_group');
 $mf->AddFix('fix', '1');
 $mf->AddFix('editorid', $auth['userid']);
 $mf->AddFix('modul', 'cashmgr');
