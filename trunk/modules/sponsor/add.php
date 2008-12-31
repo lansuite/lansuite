@@ -123,14 +123,7 @@ else {
   $mf->AddField(t('Oder: Bild-Code (z.B. Flash)') . $code_popup_link_box, 'pic_code_button', 'text', '', FIELD_OPTIONAL);
   $mf->AddGroup('Sponsoren Box');
 
-  $t = $db->qry("SELECT tournamentid, name FROM %prefix%tournament_tournaments WHERE party_id = %int%", $party->party_id);
-	$selections = array();
-  $selections[0] = t('Keine');
-	while($tRow = $db->fetch_array($t)) {
-    $selections[$tRow['tournamentid']] = $tRow['name'];
-	}
-  $mf->AddField(t('Sponsor einem Turnier zuordnen'), 'tournamentid', IS_SELECTION, $selections, FIELD_OPTIONAL);
-
+  $mf->AddDropDownFromTable(t('Sponsor einem Turnier zuordnen'), 'tournamentid', 'tournamentid', 'name', 'tournament_tournaments', t('Keine'), 'party_id = '. (int)$party->party_id);
   $mf->AddField(t('Position'), 'pos');
   $mf->AddField(t('Text'), 'text', '', HTML_ALLOWED, FIELD_OPTIONAL);
   $mf->AddGroup('Misc.');

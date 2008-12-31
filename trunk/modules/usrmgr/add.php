@@ -273,16 +273,7 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
           '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
           'permissions', IS_MULTI_SELECTION, $selections, FIELD_OPTIONAL);
 
-        // Group
-        $res = $db->qry("SELECT * FROM %prefix%party_usergroups");
-        if ($db->num_rows($res) > 0) {
-          $selections = array('' => t('Keine'));
-          while ($row = $db->fetch_array($res)) {
-            $selections[$row['group_id']] = $row['group_name'];
-          }
-          $mf->AddField(t('Gruppe'), 'group_id', IS_SELECTION, $selections, 1);
-        }
-        $db->free_result($res);
+        $mf->AddDropDownFromTable(t('Gruppe'), 'group_id', 'group_id', 'group_name', 'party_usergroups', t('Keine'));
         $mf->AddGroup('Rechte');
       }
     }

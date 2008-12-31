@@ -15,16 +15,12 @@ $dsp->NewContent(t('Betrag Buchen'), t('Fixbetrag (z.B Miete oder Sponsoring) od
 $mf->AddField('Betreff', 'comment');
 $mf->AddField('Betrag (bei Negativen, minus davor)', 'movement');
 
-$party_list = array();
-	$row = $db->qry("SELECT party_id, name FROM %prefix%partys");
-	while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
-	
 $user_list = array('' => '(keine Auswahl)');
 	$row = $db->qry("SELECT userid, username FROM %prefix%user");
 	while($res = $db->fetch_array($row)) $user_list[$res['userid']] = $res['username'];
 
-$mf->AddField('Party', 'partyid', IS_SELECTION, $party_list);
-$mf->AddField('Betrifft Benutzer', 'userid', IS_SELECTION, $user_list, FIELD_OPTIONAL);
+$mf->AddDropDownFromTable(t('Party'), 'partyid', 'party_id', 'name', 'partys');
+$mf->AddDropDownFromTable(t('Betrifft Benutzer'), 'userid', 'userid', 'username', 'user', t('keine Auswahl');
 $mf->AddField('Fix Betrag', 'fix', 'tinyint(1)', FIELD_OPTIONAL);
 $mf->AddFix('editorid', $auth['userid']);
 $mf->AddFix('modul', 'cashmgr');

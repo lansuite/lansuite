@@ -18,12 +18,7 @@ else {
   $selections['5'] = t('Absturz');
   $mf->AddField(t('Typ'), 'type', IS_SELECTION, $selections);
 
-  $selections = array();
-  $selections[''] = t('Nicht Modul-spezifisch');
-  $res = $db->qry("SELECT name FROM %prefix%modules");
-  while ($row = $db->fetch_array($res)) $selections[$row['name']] = $row['name'];
-  $db->free_result($res);
-  $mf->AddField(t('Betrifft Modul'), 'module', IS_SELECTION, $selections, FIELD_OPTIONAL);
+  $mf->AddDropDownFromTable(t('Betrifft Modul'), 'module', 'name', 'name', 'modules', t('Nicht Modul-spezifisch'));
 
   if ($_SERVER['SERVER_NAME'] == 'lansuite.orgapage.de') $mf->AddField(t('Betrifft Version'), 'version');
 
@@ -37,13 +32,7 @@ else {
 
   // Assign bug
   if ($auth['type'] >= 2) {
-    $selections = array();
-    $selections['0'] = t('Keinem zugeordnet');
-    $res = $db->qry("SELECT userid, username FROM %prefix%user WHERE type >= 2");
-    while ($row = $db->fetch_array($res)) $selections[$row['userid']] = $row['username'];
-    $db->free_result($res);
-    $mf->AddField(t('Bearbeiter'), 'agent', IS_SELECTION, $selections, FIELD_OPTIONAL);
-
+    $mf->AddDropDownFromTable(t('Bearbeiter'), 'agent', 'userid', 'username', 'user', t('Keinem zugeordnet'), 'type >= 2');
     $mf->AddField(t('Preis'), 'price', '', '', FIELD_OPTIONAL);
     $mf->AddField(t('Bereits gespendet'), 'price_payed', '', '', FIELD_OPTIONAL);
   }
