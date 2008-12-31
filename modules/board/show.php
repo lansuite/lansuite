@@ -2,7 +2,9 @@
 function NameAndDesc($name) {
   global $line, $auth, $func;
 
-  return '<img src="design/'. $auth['design'] .'/images/arrows_forum.gif" hspace="3" align="left" border="0"><b>'. $name .'</b><br />' . $func->text2html($line['description']);
+  if ($line['board_group']) $group = '<b>'. $line['board_group'] .'</b> - ';
+
+  return '<img src="design/'. $auth['design'] .'/images/arrows_forum.gif" hspace="3" align="left" border="0">'. $group .'<b>'. $name .'</b><br />' . $line['description'];
 }
 
 function LastPostDetails($date) {
@@ -26,9 +28,10 @@ $ms2->query['from'] = "{$config['tables']['board_forums']} AS f
     LEFT JOIN {$config['tables']['board_posts']} AS p ON t.tid = p.tid
     LEFT JOIN {$config['tables']['user']} AS u ON f.need_group > 0 AND f.need_group = u.group_id";
 $ms2->query['where'] = 'f.need_type <= '. ((int)($auth['type'] + 1) .' AND (!f.need_group OR u.userid = '. ((int)$auth['userid']) .')');
-$ms2->query['default_order_by'] = 'f.pos';
+$ms2->query['default_order_by'] = 'f.board_group, f.pos';
 
 $ms2->AddSelect('f.description');
+$ms2->AddSelect('f.board_group');
 $ms2->AddResultField(t('Forum'), 'f.name', 'NameAndDesc');
 $ms2->AddResultField(t('Beiträge'), 'COUNT(p.pid) AS posts');
 $ms2->AddResultField(t('Letzter Beitrag'), 'MAX(p.date) AS LastPost', 'LastPostDetails');
