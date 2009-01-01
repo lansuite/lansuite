@@ -73,6 +73,18 @@ function AddaptTextAreaHeight(obj) {
   obj.style.height = obj.scrollHeight + 'px';
 }
 
+
+// OnLoad Alternative
+window.onDomReady = initReady;
+function initReady(fn) {
+  if (document.addEventListener) document.addEventListener("DOMContentLoaded", fn, false);
+  else document.onreadystatechange = function(){readyState(fn)}
+}
+function readyState(func) {
+  if (document.readyState == "interactive" || document.readyState == "complete") func();
+}
+
+
 //// AJAX ////
 
 // globale Instanz von XMLHttpRequest

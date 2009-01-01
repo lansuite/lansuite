@@ -103,8 +103,8 @@ class masterform {
     $selections = array();
     if ($defText) $selections[''] = $defText;
     if ($where) $where = ' WHERE '. $where;
-    $res = $db->qry('SELECT %plain%, %plain% FROM %prefix%%plain%%plain% ORDER BY %plain%', $id2, $text, $table, $where, $text);
-    while ($row = $db->fetch_array($res)) $selections[$row[$id2]] = $row[$text];
+    $res = $db->qry('SELECT %plain%, %plain% FROM %prefix%%plain%%plain% GROUP BY %plain% ORDER BY %plain%', $id2, $text, $table, $where, $id2, $text);
+    while ($row = $db->fetch_array($res)) if ($row[$id2]) $selections[$row[$id2]] = $row[$text];
     $db->free_result($res);
     $this->AddField($caption, $id1, IS_SELECTION, $selections, FIELD_OPTIONAL);
   }
