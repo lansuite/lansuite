@@ -132,6 +132,10 @@
     $smarty      = new Smarty();
     $smarty->template_dir = '.';
     $smarty->compile_dir = './ext_inc/templates_c/';
+    $smarty->cache_dir = './ext_inc/templates_cache/';
+    $smarty->caching = false;
+    $smarty->cache_lifetime = 0; // sec
+    #$smarty->compile_check = 0;
 
 ### Initalize Basic Parameters
 
