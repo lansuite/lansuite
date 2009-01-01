@@ -32,27 +32,30 @@ class boxes {
    * @param integer Highligt active Menueitem (0=off, 1=on)
    * @return void
    */
-    function add_menuitem($caption,$link='',$hint='',$level=0,$requirement=0,$highlighted=0){
-        global $func;
-        // Set Item-Class
-        switch ($requirement){
-            default: $link_class = 'menu'; break;
-            case 2:
-            case 3: $link_class = 'admin'; break;
-        }
-        switch ($level) {
-            case 0: $class = "box_entry"; break;
-            case 1: $class = "box_entry_lvl_1"; break;
-        }  
+    function add_menuitem($caption, $link = '', $hint = '', $level = 0, $requirement = 0, $highlighted = 0, $id = '') {
+      global $func;
 
-        if ($highlighted) $class .= "_active";
-        if ($link != "") {
-            if ($hint) $box_row_hint = '<span class="infobox">'. $func->AllowHTML($hint) .'</span>';
-            $tmp_link = '<a href="'.$func->AllowHTML($link).'" class="'.$link_class.'">'.$caption.$box_row_hint.'</a>';
-        }
-        if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18,"<br />\n",1);
-        $this->box_rows .= "<li class=\"".$class."\">".$tmp_link."</li>\n";
-            
+      // Set Item-Class
+      switch ($requirement){
+          default: $link_class = 'menu'; break;
+          case 2:
+          case 3:
+            $link_class = 'admin';
+          break;
+      }
+      switch ($level) {
+          case 0: $class = "box_entry"; break;
+          case 1: $class = "box_entry_lvl_1"; break;
+      }  
+
+      if ($highlighted) $class .= "_active";
+      if ($link != "") {
+          if ($hint) $box_row_hint = '<span class="infobox">'. $func->AllowHTML($hint) .'</span>';
+          $tmp_link = '<a href="'.$func->AllowHTML($link).'" class="'.$link_class.'">'.$caption.$box_row_hint.'</a>';
+      }
+      if (strip_tags($caption) == $caption) $caption = wordwrap($caption, 18,"<br />\n",1);
+      if ($id) $id = ' id="'. $id .'"';
+      $this->box_rows .= '<li'. $id .' class="'. $class .'">'. $tmp_link ."</li>\n";
     }
 
   /**
@@ -88,14 +91,25 @@ class boxes {
         $this->box_rows .= "<li class=\"box_entry".$item."\">".$this->LinkItem($link, $caption, $class, $hint)."</li>\n";
     }
 
+    function StartHidden($id, $hide = 0, $class = '') {
+      if ($hide) $hide = ' style="display:none"';
+      if ($class) $class = ' class="'. $class .'"';
+      $this->box_rows .= "<ul id=\"$id\"$class$hide>";
+    }
+
+    function StopHidden() {
+      $this->box_rows .= "</ul>";
+    }
+
   /**
    * boxes::Row()
    *
    * @param mixed $row
    * @return
    */
-    function Row($row) {
-        $this->box_rows .= "<li>".$row."</li>\n";
+    function Row($row, $name = '') {
+      if ($name) $name = ' name="'. $name .'"';
+      $this->box_rows .= "<li$name>".$row."</li>\n";
     }
 
   /**
@@ -172,7 +186,7 @@ class boxes {
    * @param string $caption
    * @return
    */
-    function CreateBox($boxid, $caption = "") {
+    function CreateBox($boxid, $caption = '') {
         global $smarty, $auth;
         if ($this->box_rows != '') $smarty->assign('content', $this->box_rows);
         switch((int)$boxid) {
@@ -195,7 +209,8 @@ class boxes {
         // Open or closed Box
         if (!$_SESSION['box_'. $boxid .'_active']) $file = 'design/'. $auth['design'] .'/templates/box_case.htm';
         else $file = 'design/'. $auth['design'] .'/templates/box_case_closed.htm';
-        $out = $smarty->fetch($file);
+        if ($title) $out = $smarty->fetch($file, 'box'.$title.$auth['type']);
+        else $smarty->fetch($file);
         return $out;
         
     }
