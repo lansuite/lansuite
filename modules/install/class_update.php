@@ -40,8 +40,8 @@ class update{
 			
 			return false;
 		
-		}	
+		}	*/
 	}
-	*/
+	
 }
 ?>
