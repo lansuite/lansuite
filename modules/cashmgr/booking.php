@@ -20,7 +20,7 @@ $user_list = array('' => '(keine Auswahl)');
 	while($res = $db->fetch_array($row)) $user_list[$res['userid']] = $res['username'];
 
 $mf->AddDropDownFromTable(t('Party'), 'partyid', 'party_id', 'name', 'partys');
-$mf->AddDropDownFromTable(t('Betrifft Benutzer'), 'userid', 'userid', 'username', 'user', t('keine Auswahl');
+$mf->AddDropDownFromTable(t('Betrifft Benutzer'), 'userid', 'userid', 'username', 'user', t('keine Auswahl'));
 $mf->AddField('Fix Betrag', 'fix', 'tinyint(1)', FIELD_OPTIONAL);
 $mf->AddFix('editorid', $auth['userid']);
 $mf->AddFix('modul', 'cashmgr');

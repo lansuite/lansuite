@@ -209,7 +209,7 @@ switch( $_GET["step"] ) {
        deviceid = %int%,
        type = %string%,
        indexname = %string%",
-  $Port[$ActualPort]["PortNr"], $Port[$ActualPort]["BytesIn"], $Port[$ActualPort]["BytesOut"], $Port[$ActualPort]["Speed"], $Port[$ActualPort]["MACAddress"], $Port[$ActualPort]["IPAddress"], $Port[$ActualPort]["AdminStatus"]., $Port[$ActualPort]["LinkStatus"], $Port[$ActualPort]["deviceid"], $Port[$ActualPort]["Type"], $Port[$ActualPort]["indexname"]);
+  $Port[$ActualPort]["PortNr"], $Port[$ActualPort]["BytesIn"], $Port[$ActualPort]["BytesOut"], $Port[$ActualPort]["Speed"], $Port[$ActualPort]["MACAddress"], $Port[$ActualPort]["IPAddress"], $Port[$ActualPort]["AdminStatus"], $Port[$ActualPort]["LinkStatus"], $Port[$ActualPort]["deviceid"], $Port[$ActualPort]["Type"], $Port[$ActualPort]["indexname"]);
 		} // END FOR
 
 		$noc->getMacAddress($row["ip"], $row["readcommunity"],$row["id"],$sysDescr);
