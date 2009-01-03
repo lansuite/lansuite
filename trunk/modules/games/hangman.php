@@ -116,9 +116,7 @@ switch ($_GET["step"]) {
                                 game = 'hm',
                                 nick = %string%,
                                 score = %string%
-                                ", $_POST["nick"], $_SESSION["versuche"]}
-);
-
+                                ", $_POST["nick"], $_SESSION["versuche"]);
         $func->confirmation(t('Highscore wurde eingetragen'), "?mod=games&action=hangman&headermenuitem=2");
     break;
     
