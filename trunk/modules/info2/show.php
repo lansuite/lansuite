@@ -26,7 +26,7 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
 		if ($info['active'] == 1) {
     		$buttons .= $dsp->FetchButton("index.php?mod=info2&action=change&step=20&id={$_GET["id"]}", "deactivate"). " ";
 		} else {
-    		$buttons .= $dsp->FetchButton("index.php?mod=info2&action=change&step=20&id={$_GET["id"]}", "activate"). " ";	
+    		$buttons .= $dsp->FetchButton("index.php?mod=info2&action=change&step=21&id={$_GET["id"]}", "activate"). " ";	
 		}
 		$dsp->AddSingleRow($buttons);
     }
