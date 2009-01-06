@@ -1184,7 +1184,7 @@ class product_option{
      * @param boolean $multiselect
      */
     function option_form($nr,$optional = null, $big = false, $multiselect = false){
-        global $dsp,$templ,$lang;
+        global $dsp, $templ, $lang, $smarty;
         ($multiselect) ? $display = "" : $display = "none";
         if($big == true){
             // display HTML for option 3
