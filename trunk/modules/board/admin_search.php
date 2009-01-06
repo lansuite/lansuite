@@ -18,7 +18,7 @@ if ($_POST['action']) {
   $ms2 = new mastersearch2();
 
   $ms2->query['from'] = "{$config['tables']['board_posts']} AS p
-      LEFT JOIN {$config["tables"]["user"]} AS u ON p.userid = u.userid
+      LEFT JOIN {$config['tables']['user']} AS u ON p.userid = u.userid
       LEFT JOIN {$config['tables']['board_threads']} AS t ON p.tid = t.tid
       LEFT JOIN {$config['tables']['board_forums']} AS f ON t.fid = f.fid
       ";
