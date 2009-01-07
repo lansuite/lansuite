@@ -17,7 +17,7 @@ if ($db->num_rows($query) > 0) {
 		$templ['home']['show']['row']['info']['text']		= $func->CutString($row['caption'], 40);
 		$templ['home']['show']['row']['info']['text2']		= '(Votes: '. $row['votes'] .') ';
     if ($row["endtime"] and $row["endtime"] < time()) $templ['home']['show']['row']['info']['text2'] .= ' <div class="infolink" style="display:inline"><img src="design/images/icon_locked.png" border="0" width="12" /><span class="infobox">'. t('Abstimmung wurde geschlossen') .'</span></div>';
-		elseif ($row["endtime"]) $templ['home']['show']['row']['info']['text2'] .= '['. ($row["endtime"] - time()) .' sec]';
+		elseif ($row["endtime"]) $templ['home']['show']['row']['info']['text2'] .= '['. $func->unixstamp2date($row["endtime"] - time(), 'date') .']';
 
     if ($func->CheckNewPosts($row['changedate'], 'poll', $row['pollid'])) $content	.= $dsp->FetchModTpl('home', 'show_row_new');
     else $content	.= $dsp->FetchModTpl('home', 'show_row');
