@@ -14,16 +14,16 @@
 </P>
 <TABLE BORDER="0">
 
-{$templ['games']['minesweeper']['generate_field']}
+{$generate_field}
 
 </TABLE>
 </FORM>
 
 <FORM NAME="init_form">
 <INPUT onfocus=HandsOff(this) size=15 value="" name=status>
-<br>Reihen: {$templ['games']['minesweeper']['rows']}
-<br>Spalten: {$templ['games']['minesweeper']['columns']}
-<br>Minen: {$templ['games']['minesweeper']['mines']}
+<br>Reihen: {$rows}
+<br>Spalten: {$columns}
+<br>Minen: {$mines}
 </form>
 
 </CENTER>
@@ -33,8 +33,7 @@
 
 
 <SCRIPT language=JavaScript>
-
-
+{literal}
 function MakeArray(n) {
 	for (var i = 0; i < n; i++)
 		this[i] = false
@@ -82,10 +81,12 @@ function Check(button) {
 			if ( left == 0 ) {
 				stat.value = 'Gewonnen! :-)'
 				ShowMines()
-				document.location.href = "{$templ['games']['minesweeper']['link_won']}";
+{/literal}
+				document.location.href = "{$link_won}";
+{literal}
 			}
 			else
-				stat.value = left + ' Felder übrig'
+				stat.value = left + ' Felder Ã¼brig'
 		}
 	}
 	button.blur()
@@ -111,13 +112,17 @@ function ShowMines() {
 }
 
 
-rows = {$templ['games']['minesweeper']['rows']};
-cols = {$templ['games']['minesweeper']['columns']};
-mines = {$templ['games']['minesweeper']['mines']};
+{/literal}
+rows = {$rows};
+cols = {$columns};
+mines = {$mines};
+{literal}
+
 left = rows*cols-mines;
 if (mines < rows*cols) { var field = new MineField(); }
 stat = document.init_form.status;
 
+{/literal}
 </SCRIPT>
 
 

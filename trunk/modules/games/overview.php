@@ -18,6 +18,6 @@
 **************************************************************************/
 
 $dsp->NewContent(t('Games-Übersicht'), t('Hier finden Sie ein paar kleine Webspiele, um sich die Zeit zu vertreiben'));
-$dsp->AddSingleRow($dsp->FetchModTpl("games", "overview"));
+$dsp->AddSingleRow($smarty->fetch('modules/games/templates/overview.htm'));
 $dsp->AddContent();
 ?>
