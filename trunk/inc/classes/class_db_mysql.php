@@ -9,6 +9,7 @@ class db {
   var $success = false;
   var $count_query = 0;
   var $querys = array();
+  var $errors = '';
 
   // Construktor
   function db() {
@@ -195,11 +196,20 @@ class db {
   function print_error($msg, $query_string_with_error) {
     global $func, $config, $auth, $lang;
 
-    $error = t('SQL-Failure. Database respondet: <font color="red"><b>%1</b></font><br/>Your query was: <i>%2</i><br/><br/> Script: %3<br/>Referrer: %4', $msg, $query_string_with_error, $_SERVER["REQUEST_URI"], $func->internal_referer);
+    $error = t('SQL-Failure. Database respondet: <font color="red"><b>%1</b></font><br/>Your query was: <i>%2</i><br/><br/> Script: %3<br/>Referrer: %4<br/>', $msg, $query_string_with_error, $_SERVER["REQUEST_URI"], $func->internal_referer);
 
-    if ($config['database']['display_debug_errors']) echo $error;
+    $this->errors .= $error;
     $this->qry('INSERT INTO %prefix%log SET date = NOW(), userid = %int%, type = 3, description = %string%, sort_tag = \'SQL-Fehler\'', $auth["userid"], $error);
     $this->count_query++;
+  }
+  
+  function DisplayErrors() {
+    global $config, $func;
+
+    if ($config['database']['display_debug_errors'] and $this->errors) {
+      $func->error($this->errors);
+      $this->errors = '';
+    } 
   }
     
   function field_exist($table,$field) {
