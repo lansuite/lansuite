@@ -52,26 +52,25 @@ switch ($_GET["step"]) {
                 SET game = 'mw_tmp', nick = %string%, score = %int%
                 ", $tmp_nick, time());
 
-            $templ['games']['minesweeper']['rows'] = $_POST["rows"];
-            $templ['games']['minesweeper']['columns'] = $_POST["columns"];
-            $templ['games']['minesweeper']['mines'] = $_POST["mines"];
-
-            $templ['games']['minesweeper']['link_won'] = "?mod=games&action=minesweeper&step=3&tmp_nick=$tmp_nick";
-
-            $templ['games']['minesweeper']['generate_field'] = "";
+            $generate_field = "";
             for ($i=0; $i< $_POST["rows"]; $i++) {
-                $templ['games']['minesweeper']['generate_field'] .= "<tr>";
+                $generate_field .= "<tr>";
                 for ($j=0; $j< $_POST["columns"]; $j++) {
-                    $templ['games']['minesweeper']['generate_field'] .= "<td><input type=\"button\" value=\" \" name=\"";
-                    if ($i<10) $templ['games']['minesweeper']['generate_field'] .= "0";
-                    $templ['games']['minesweeper']['generate_field'] .= $i;
-                    if ($j<10) $templ['games']['minesweeper']['generate_field'] .= "0";
-                    $templ['games']['minesweeper']['generate_field'] .= "$j\" style=\"width:19;height:19;border:solid 1px 000000\" onClick=\"Check(this)\"></td>";
+                    $generate_field .= "<td><input type=\"button\" value=\" \" name=\"";
+                    if ($i<10) $generate_field .= "0";
+                    $generate_field .= $i;
+                    if ($j<10) $generate_field .= "0";
+                    $generate_field .= "$j\" style=\"width:19;height:19;border:solid 1px 000000\" onClick=\"Check(this)\"></td>";
                 }
-                $templ['games']['minesweeper']['generate_field'] .= "</tr>";
+                $generate_field .= "</tr>";
             }
 
-            $dsp->AddSingleRow($dsp->FetchModTpl("games", "minesweeper"));
+            $smarty->assign('rows', $_POST["rows"]);
+            $smarty->assign('columns', $_POST["columns"]);
+            $smarty->assign('mines', $_POST["mines"]);
+            $smarty->assign('link_won', "?mod=games&action=minesweeper&step=3&tmp_nick=$tmp_nick");
+            $smarty->assign('generate_field', $generate_field);
+            $dsp->AddSingleRow($smarty->fetch('modules/games/templates/minesweeper.htm'));
         }
     break;
 
