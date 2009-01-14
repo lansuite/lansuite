@@ -64,8 +64,11 @@ else {
         $smarty->assign('date', $func->unixstamp2date($row["date"], "daydatetime"));
 
         if ($cfg["news_html"] == 1) $text = $func->text2html($row["text"]);
-        else $text = $func->AllowHTML($text);
-        $smarty->assign('text', $row["text"]);
+        else $text = $func->AllowHTML($row["text"]);
+        if ($row['link_1']) $text .= '<br><u>'. t('Links zum Thema:') .'</u><br><a href="'. $row['link_1'] .'" target="_blank">'. $row['link_1'] .'</a>';
+        if ($row['link_2']) $text .= '<br><a href="'. $row['link_2'] .'" target="_blank">'. $row['link_2'] .'</a>';
+        if ($row['link_3']) $text .= '<br><a href="'. $row['link_3'] .'" target="_blank">'. $row['link_3'] .'</a>';
+        $smarty->assign('text', $text);
 
         // GET NUMBER OF COMMENTS
         $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
@@ -105,7 +108,10 @@ else {
 
         if ($cfg["news_html"] == 1) $text = $func->text2html($row["text"]);
         else $text = $func->AllowHTML($text);
-        $smarty->assign('text', $row["text"]);
+        if ($row['link_1']) $text .= '<br><u>'. t('Links zum Thema:') .'</u><br><a href="'. $row['link_1'] .'" target="_blank">'. $row['link_1'] .'</a>';
+        if ($row['link_2']) $text .= '<br><a href="'. $row['link_2'] .'" target="_blank">'. $row['link_2'] .'</a>';
+        if ($row['link_3']) $text .= '<br><a href="'. $row['link_3'] .'" target="_blank">'. $row['link_3'] .'</a>';
+        $smarty->assign('text', $text);
   
         $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
         
@@ -140,6 +146,9 @@ else {
       }
       $tmpSNCode .= "</table>";
       $smarty->assign('title', "<strong>" .t('&Auml;ltere Mitteilungen') ."</strong>");
+      if ($row['link_1']) $tmpSNCode .= '<br><u>'. t('Links zum Thema:') .'</u><br><a href="'. $row['link_1'] .'" target="_blank">'. $row['link_1'] .'</a>';
+      if ($row['link_2']) $tmpSNCode .= '<br><a href="'. $row['link_2'] .'" target="_blank">'. $row['link_2'] .'</a>';
+      if ($row['link_3']) $tmpSNCode .= '<br><a href="'. $row['link_3'] .'" target="_blank">'. $row['link_3'] .'</a>';
       $smarty->assign('text', $tmpSNCode);
       $rows .= $smarty->fetch("modules/news/templates/show_row_shorted.htm");
       if ($cfg['news_shorted_archiv'] != 0) $pages["html"] = "<strong><a href=\"index.php?mod=news&amp;action=show&amp;subaction=archive\">" .t('News Archiv') ."</a></strong>";

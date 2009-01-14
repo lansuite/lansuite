@@ -23,6 +23,10 @@ if (!$_GET['newsid']) {
   $mf->AddFix('poster', $auth['userid']);
 }
 
+$mf->AddField(t('Link 1'), 'link_1', '', '', FIELD_OPTIONAL);
+$mf->AddField(t('Link 2'), 'link_2', '', '', FIELD_OPTIONAL);
+$mf->AddField(t('Link 3'), 'link_3', '', '', FIELD_OPTIONAL);
+
 if ($mf->SendForm('index.php?mod=news&action='. $_GET['action'], 'news', 'newsid', $_GET['newsid'])) {
   include_once('modules/news/class_news.php');
   $news->GenerateNewsfeed();
