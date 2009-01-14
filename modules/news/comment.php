@@ -24,6 +24,9 @@ if ($check["caption"] != "") {
   if ($cfg["news_html"] == 1) $get_news['text'] = $func->text2html($get_news['text']);
   else $get_news['text'] = $func->AllowHTML($get_news['text']);
   $text .= $get_news['text'];
+  if ($get_news['link_1']) $text .= '<br><u>'. t('Links zum Thema:') .'</u><br><a href="'. $get_news['link_1'] .'" target="_blank">'. $get_news['link_1'] .'</a>';
+  if ($get_news['link_2']) $text .= '<br><a href="'. $get_news['link_2'] .'" target="_blank">'. $get_news['link_2'] .'</a>';
+  if ($get_news['link_3']) $text .= '<br><a href="'. $get_news['link_3'] .'" target="_blank">'. $get_news['link_3'] .'</a>';
 	$smarty->assign('text', $text);
 
 	// SELECT ACTION TYPE

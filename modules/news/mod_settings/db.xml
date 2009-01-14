@@ -84,6 +84,30 @@
 				<default>0</default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>link_1</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>link_2</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>link_3</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
 		</structure>
 	</table>
 </lansuite>
