@@ -4,7 +4,6 @@
 
 $smarty->assign('caption', t('Turnier: Spielpaarungen'));
 $content = "";
-$templ['home']['show']['row']['text']['info']['text'] = "";
 
 if ($auth["userid"]) {
 	$teams = $db->qry("SELECT games1.gameid AS gid1, games2.gameid AS gid2, teams1.name AS name1, teams2.name AS name2, t.name AS tuname, t.tournamentid AS tid
@@ -27,13 +26,11 @@ if ($auth["userid"]) {
 }
 
 if ($db->num_rows($teams) == 0) $content = "<i>". t('Es sind keine aktuellen Spielpaarungen vorhanden') ."</i>";
-else {
-	while($team = $db->fetch_array($teams)) {
-		$templ['home']['show']['row']['control']['link']	= "index.php?mod=tournament2&action=submit_result&step=1&tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}";
-		$templ['home']['show']['row']['info']['text']		= "{$team["name1"]} vs {$team["name2"]}";
-		$templ['home']['show']['row']['info']['text2']		= "({$team["tuname"]})";
-		$content .= $dsp->FetchModTpl("home", "show_row");
-	}
+else while($team = $db->fetch_array($teams)) {
+	$smarty->assign('link', "index.php?mod=tournament2&action=submit_result&step=1&tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}");
+	$smarty->assign('text', "{$team["name1"]} vs {$team["name2"]}");
+	$smarty->assign('text2', "({$team["tuname"]})");
+	$content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
 $db->free_result($teams);
 
@@ -54,16 +51,16 @@ if ($auth['type'] > 1) {
 		", $party->party_id);
 	$x = 0;
 	while($team = $db->fetch_array($teams)) {
-    if ($x == 0) $templ['home']['multi_select_actions'] = '"'. "tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}" .'"';
-    else $templ['home']['multi_select_actions'] .= ', "'. "tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}" .'"';	
-    
+    if ($x == 0) $smarty->assign('multi_select_actions', '"'. "tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}" .'"');
+    else $smarty->assign('multi_select_actions', ', "'. "tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}" .'"');
+
     $team['tuname'] = $func->CutString($team['tuname'], 12);
     $team['name1'] = $func->CutString($team['name1'], 12);
     $team['name2'] = $func->CutString($team['name2'], 12);
-    $templ['home']['t_select_options'] .= "<option value=\"$x\">{$team["tuname"]} - {$team["name1"]} vs {$team["name2"]}</option>";
+  	$smarty->assign('t_select_options', "<option value=\"$x\">{$team["tuname"]} - {$team["name1"]} vs {$team["name2"]}</option>");
 		$x++;
 	}
-	$content .= $dsp->FetchModTpl("home", "admin_tournament_selection");
+	$content .= $smarty->fetch('modules/home/templates/admin_tournament_selection.htm');
 }
 
 ?>

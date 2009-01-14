@@ -10,10 +10,9 @@ $query = $db->qry("SELECT p.partyid, p.name, UNIX_TIMESTAMP(p.start) as start FR
   ", $cfg['home_item_count']);
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
-  $templ['home']['show']['row']['control']['link'] = "index.php?mod=partylist&partyid={$row['partyid']}";
-
-  $templ['home']['show']['row']['info']['text']		= $func->CutString($row['name'], 25) .' ['. $func->unixstamp2date($row['start'], 'date') .']';
-  $content	.= $dsp->FetchModTpl('home', 'show_row');
+  $smarty->assign('link', "index.php?mod=partylist&partyid={$row['partyid']}");
+  $smarty->assign('text', $func->CutString($row['name'], 25) .' ['. $func->unixstamp2date($row['start'], 'date') .']');
+  $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 } else $content = "<i>". t('Keine Einträge vorhanden') ."</i>";
 
 ?>

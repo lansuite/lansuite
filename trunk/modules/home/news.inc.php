@@ -10,24 +10,15 @@ $query = $db->qry("SELECT n.newsid, n.caption, n.priority, UNIX_TIMESTAMP(n.chan
   LIMIT 0,%int%
   ", $cfg['home_item_count']);
 
-if ($db->num_rows($query) > 0) {
-	while ($row = $db->fetch_array($query)) {
+if ($db->num_rows($query) > 0) while ($row = $db->fetch_array($query)) {
+  $smarty->assign('link', "index.php?mod=news&action=comment&newsid={$row["newsid"]}");
+  $smarty->assign('text', $func->CutString($row["caption"], 40) .' ['.$row['comments'].']');
 
-    $newsid 	= $row["newsid"];
-    $caption	= $row["caption"];
-    $prio		= $row["priority"];
+  if ($row["priority"] == 1)   $smarty->assign('text2', "<strong>!!!</strong>");
+  else $smarty->assign('text2', '');
 
-    $templ['home']['show']['row']['control']['link']	= "index.php?mod=news&action=comment&newsid=$newsid";
-    $templ['home']['show']['row']['info']['text']		= $func->CutString($caption, 40) .' ['.$row['comments'].']';
-
-    if ($prio == 1) $templ['home']['show']['row']['info']['text2']		= "<strong>!!!</strong>";
-
-    if ($func->CheckNewPosts($row['changedate'], 'news', $row['newsid'])) $content	.= $dsp->FetchModTpl('home', 'show_row_new');
-    else $content	.= $dsp->FetchModTpl('home', 'show_row');
-
-		$templ['home']['show']['row']['info']['text'] = '';
-		$templ['home']['show']['row']['info']['text2'] = '';
-	}
+  if ($func->CheckNewPosts($row['changedate'], 'news', $row['newsid'])) $content .= $smarty->fetch('modules/home/templates/show_row_new.htm');
+  else $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
 else $content = "<i>". t('Keine News bisher vorhanden') ."</i>";
 ?>

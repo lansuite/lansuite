@@ -38,14 +38,13 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
       if (func::chk_img_path($row['avatar_path'])) $text .= '<br>'. sprintf('<img src=\\"%s\\" alt=\\"%s\\" border=\\"0\\">', $row["avatar_path"], '');
 
-      $templ['guestmap']['adresses'] .= "showAddress('$GCountry', '{$row['city']}', '{$row['plz']}', '{$row['street']}', '{$row['hnr']}', '$text');\r\n";
-#      if ($row['street']) $templ['guestmap']['adresses'] .= "showAddress('{$row['street']}, {$row['plz']}, Germany', \"$text\");\r\n";
-#      elseif ($row['plz']) $templ['guestmap']['adresses'] .= "showAddress('{$row['plz']}, Germany', \"$text\");\r\n";
+      $adresses .= "showAddress('$GCountry', '{$row['city']}', '{$row['plz']}', '{$row['street']}', '{$row['hnr']}', '$text');\r\n";
     }
     $db->free_result($haus_data);
 
-    $templ['guestmap']['apikey'] = $cfg['google_maps_api_key'];
-    $dsp->AddSingleRow($dsp->FetchModTpl('guestlist', 'googlemaps'));
+    $smarty->assign('adresses', $adresses);
+    $smarty->assign('apikey', $cfg['google_maps_api_key']);
+    $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
   }
 
 

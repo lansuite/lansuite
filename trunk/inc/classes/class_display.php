@@ -80,17 +80,6 @@ class display {
     return $tpl;
   }
 
-  // Old: Use smarty->fetch instead
-  function FetchModTpl($mod, $name) {
-    global $templ, $debug;
-
-    if ($mod == "") $return = $this->FetchTpl("design/templates/".$name.".htm", $templ);
-    else $return = $this->FetchTpl("modules/".$mod."/templates/".$name.".htm", $templ);
-
-    return $return;
-  }
-
-
   #### Add content ####
   # The following functions all printing their content directly, to the LS-content-container
 
@@ -100,8 +89,8 @@ class display {
 
     if (file_exists('modules/'. $_GET['mod'] .'/docu/'. $language .'_'. $helplet_id .'.php')) $smarty->assign('helplet_id', $helplet_id);
     $smarty->assign('mod', $_GET['mod']);
-    $smarty->assign('caption', $caption);
-    $smarty->assign('text', $text);
+    $smarty->assign('newcontent_caption', $caption);
+    $smarty->assign('newcontent_text', $text);
 
     unset($this->content_need_form);
     $this->form_ok = false;

@@ -4,23 +4,14 @@ $content = "";
 
 if (!$cfg['server_sortmethod']) $cfg['server_sortmethod'] = 'changedate';
 $query = $db->qry("SELECT serverid, caption, type, UNIX_TIMESTAMP(changedate) AS changedate FROM %prefix%server ORDER BY %string% DESC LIMIT 0, %plain%", $cfg['server_sortmethod'], $cfg['home_item_count']);
-if($db->num_rows($query) > 0) {
-	while($row = $db->fetch_array($query)) {
 
-			$serverid 	= $row["serverid"];
-			$caption	= $row["caption"];
-			$type		= $row["type"];
-			
-			$templ['home']['show']['row']['control']['link']	= "index.php?mod=server&action=show_details&serverid=$serverid";
-			$templ['home']['show']['row']['info']['text']		= $func->CutString($caption, 40);
-			$templ['home']['show']['row']['info']['text2']		= "(".$type.")";
+if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
+  $smarty->assign('link', "index.php?mod=server&action=show_details&serverid={$row["serverid"]}");
+  $smarty->assign('text', $func->CutString($row["caption"], 40));
+  $smarty->assign('text2', "(".$row["type"].")");
 
-
-    if ($func->CheckNewPosts($row['changedate'], 'server', $row['serverid'])) $content	.= $dsp->FetchModTpl('home', 'show_row_new');
-    else $content	.= $dsp->FetchModTpl('home', 'show_row');
-
-		$templ['home']['show']['row']['info']['text2']		= "";	// set var to NULL
-	}
+  if ($func->CheckNewPosts($row['changedate'], 'server', $row['serverid'])) $content .= $smarty->fetch('modules/home/templates/show_row_new.htm');
+  else $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
 else $content = "<i>". t('Keine Server vorhanden') ."</i>";
 ?>

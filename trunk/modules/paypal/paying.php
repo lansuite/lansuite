@@ -204,7 +204,7 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 			$_SESSION['paypal']['item_number'] = $item_number;
 			
 			
-			$templ['index']['info']['action'] = "document.paypal_form.submit();";
+			$smarty->assign('action', "document.paypal_form.submit();");
 			$dsp->NewContent(t('Senden der Daten'),t('Die Daten werden gesendet einen Moment bitte'));
 			$dsp->SetForm($cfg['paypal_url'],"paypal_form");
 			$dsp->AddSingleRow("<font color=\"red\">" . t('Einen Moment Bitte die Daten werden gesendet') . "</font>");
@@ -307,5 +307,5 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 		
 	}
 	
-echo $dsp->FetchModTpl("paypal","sendbox");
+echo $smarty->fetch('modules/paypal/templates/sendbox.htm');
 ?>

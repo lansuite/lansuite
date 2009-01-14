@@ -9,16 +9,16 @@ else {
 
   $res = $db->qry("SELECT *, UNIX_TIMESTAMP(start) AS start, UNIX_TIMESTAMP(end) AS end FROM %prefix%partylist AS p WHERE start > NOW()");
 
-  $templ['addresses'] = '';
+  $addresses = '';
   while ($row = $db->fetch_array($res)) {
     $text = "<b>{$row['name']}</b><br />- {$row['motto']} -<br>". $func->unixstamp2date($row['start'], 'datetime') .' - '. $func->unixstamp2date($row['end'], 'datetime') ."<br>{$row['street']} {$row['hnr']}, {$row['plz']} {$row['city']}";
-    $templ['guestmap']['adresses'] .= "showAddress('Germany', '". addslashes($row['city']) ."', '". addslashes($row['plz']) ."', '". addslashes($row['street']) ."', '". addslashes($row['hnr']) ."', '". addslashes($text) ."');\r\n";
+    $addresses .= "showAddress('Germany', '". addslashes($row['city']) ."', '". addslashes($row['plz']) ."', '". addslashes($row['street']) ."', '". addslashes($row['hnr']) ."', '". addslashes($text) ."');\r\n";
   }
   $db->free_result($haus_data);
+  $smarty->assign('addresses', $addresses);
 
-  $templ['guestmap']['apikey'] = $cfg['google_maps_api_key'];
-  $dsp->AddSingleRow($dsp->FetchModTpl('guestlist', 'googlemaps'));
-  $templ['index']['body']['js'] = 'onload="ShowMap();"';
+  $smarty->assign('apikey', $cfg['google_maps_api_key']);
+  $dsp->AddSingleRow($smarty->fetch('modules/guestlist/templates/googlemaps.htm'));
 }
 $dsp->AddContent();
 ?>

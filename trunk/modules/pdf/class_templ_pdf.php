@@ -14,7 +14,7 @@ class pdf_tmpl{
     
     // Alle Vorlagen zu bestimmtem Thema auslesen
     function read_List(){
-        global $config,$db,$dsp,$lang,$templ;   
+        global $config,$db,$dsp,$lang,$templ, $smarty;   
         
         $data = $db->qry("SELECT * FROM %prefix%pdf_list WHERE template_type = %string%", $this->action);
         
@@ -23,12 +23,10 @@ class pdf_tmpl{
         $out = "";
         if ($db->num_rows($data) > 0){
             while($data_array = $db->fetch_array($data)){
-                
-                
-                $templ['pdf']['liste'] = "<a href=\"index.php?mod=pdf&action=" . $this->action . "&act=start&id=" . $data_array['template_id'] . "\">" . $data_array['name'] . "</a>";
-                $templ['pdf']['change'] = "<a href=\"index.php?mod=pdf&action=" . $this->action . "&act=change&id=" . $data_array['template_id'] . "\">" . t('Vorlage &auml;ndern') . "</a>";
-                $templ['pdf']['delete'] = "<a href=\"index.php?mod=pdf&action=" . $this->action . "&delete=1&id=" . $data_array['template_id'] . "\">" . t('Vorlage l&ouml;schen') . "</a>";                
-                $out .= $dsp->FetchModTpl("pdf","liste");
+              $smarty->assign('liste', "<a href=\"index.php?mod=pdf&action=" . $this->action . "&act=start&id=" . $data_array['template_id'] . "\">" . $data_array['name'] . "</a>");
+              $smarty->assign('change', "<a href=\"index.php?mod=pdf&action=" . $this->action . "&act=change&id=" . $data_array['template_id'] . "\">" . t('Vorlage &auml;ndern') . "</a>");
+              $smarty->assign('delete', "<a href=\"index.php?mod=pdf&action=" . $this->action . "&delete=1&id=" . $data_array['template_id'] . "\">" . t('Vorlage l&ouml;schen') . "</a>");                
+              $out .= $smarty->fetch('modules/pdf/templates/liste.htm');
             }
             $dsp->AddSingleRow($out);
         }else {
@@ -59,7 +57,7 @@ class pdf_tmpl{
     
     // Daten auslesen
     function display_data(){
-        global $config,$db,$dsp,$lang,$templ,$gd;
+        global $config,$db,$dsp,$lang,$templ,$gd, $smarty;
                   
         // Name ausgeben
         $template = $db->qry_first("SELECT * FROM %prefix%pdf_list WHERE template_id= %int%", $this->tmpl_id);
@@ -80,47 +78,48 @@ class pdf_tmpl{
         
         $out = "";
         while ($data_array = $db->fetch_array($data)){
-        
-            $templ['pdf']['name'] = $lang['pdf'][$data_array['type']];
-            $templ['pdf']['itemid'] = $data_array['pdfid'];
-            $templ['pdf']['id'] = $this->tmpl_id;
+            $smarty->assign('name', $lang['pdf'][$data_array['type']]);
+            $smarty->assign('itemid', $data_array['pdfid']);
+            $smarty->assign('id', $this->tmpl_id);
             if($data_array['type'] == "rect"){
-                $templ['pdf']['description'] = t('Xo') . " : " . $data_array['pos_x']. " , "; 
-                $templ['pdf']['description'] .= t('Yo') . " : " . $data_array['pos_y']. " , ";
-                $templ['pdf']['description'] .= t('Breite') . " : " . $data_array['end_x']. " , ";
-                $templ['pdf']['description'] .= t('H&ouml;he') . " : " . $data_array['end_y']. " , ";
-                $templ['pdf']['description'] .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
-                $templ['pdf']['description'] .= t('Farbe (r/g/b)') . " : " . $data_array['red'] . "/". $data_array['green'] . "/". $data_array['blue'];
+                $description = t('Xo') . " : " . $data_array['pos_x']. " , "; 
+                $description .= t('Yo') . " : " . $data_array['pos_y']. " , ";
+                $description .= t('Breite') . " : " . $data_array['end_x']. " , ";
+                $description .= t('H&ouml;he') . " : " . $data_array['end_y']. " , ";
+                $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
+                $description .= t('Farbe (r/g/b)') . " : " . $data_array['red'] . "/". $data_array['green'] . "/". $data_array['blue'];
             }elseif ($data_array['type'] == "line"){
-                $templ['pdf']['description'] = t('Xo') . " : " . $data_array['pos_x']. " , "; 
-                $templ['pdf']['description'] .= t('Yo') . " : " . $data_array['pos_y']. " , ";
-                $templ['pdf']['description'] .= t('X') . " : " . $data_array['end_x']. " , ";
-                $templ['pdf']['description'] .= t('Y') . " : " . $data_array['end_y']. " , ";
-                $templ['pdf']['description'] .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
-                $templ['pdf']['description'] .= t('Farbe (r/g/b)') . " : " . $data_array['red'] . "/". $data_array['green'] . "/". $data_array['blue'];
+                $description = t('Xo') . " : " . $data_array['pos_x']. " , "; 
+                $description .= t('Yo') . " : " . $data_array['pos_y']. " , ";
+                $description .= t('X') . " : " . $data_array['end_x']. " , ";
+                $description .= t('Y') . " : " . $data_array['end_y']. " , ";
+                $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
+                $description .= t('Farbe (r/g/b)') . " : " . $data_array['red'] . "/". $data_array['green'] . "/". $data_array['blue'];
             }elseif ($data_array['type'] == "text" || $data_array['type'] == "data"){
-                $templ['pdf']['description'] = t('Text') . " : " . $data_array['text']. HTML_NEWLINE; 
-                $templ['pdf']['description'] .= t('Xo') . " : " . $data_array['pos_x']. " , "; 
-                $templ['pdf']['description'] .= t('Yo') . " : " . $data_array['pos_y']. " , ";
-                $templ['pdf']['description'] .= t('Rechtsb&uuml;ndig') . " : " . $data_array['end_x']. " , ";
-                $templ['pdf']['description'] .= t('Schriftart') . " : " . $data_array['font']. " , ";
-                $templ['pdf']['description'] .= t('Schriftgr&ouml;sse') . " : " . $data_array['fontsize']. " , ";
-                $templ['pdf']['description'] .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
-                $templ['pdf']['description'] .= t('Farbe (r/g/b)') . " : " . $data_array['red'] . "/". $data_array['green'] . "/". $data_array['blue'];
+                $description = t('Text') . " : " . $data_array['text']. HTML_NEWLINE; 
+                $description .= t('Xo') . " : " . $data_array['pos_x']. " , "; 
+                $description .= t('Yo') . " : " . $data_array['pos_y']. " , ";
+                $description .= t('Rechtsb&uuml;ndig') . " : " . $data_array['end_x']. " , ";
+                $description .= t('Schriftart') . " : " . $data_array['font']. " , ";
+                $description .= t('Schriftgr&ouml;sse') . " : " . $data_array['fontsize']. " , ";
+                $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
+                $description .= t('Farbe (r/g/b)') . " : " . $data_array['red'] . "/". $data_array['green'] . "/". $data_array['blue'];
             }elseif ($data_array['type'] == "image"){
-                $templ['pdf']['description'] = t('Xo') . " : " . $data_array['pos_x']. " , "; 
-                $templ['pdf']['description'] .= t('Yo') . " : " . $data_array['pos_y']. " , "; ;
-                $templ['pdf']['description'] .= t('Breite') . " : " . $data_array['end_x']. " , "; 
-                $templ['pdf']['description'] .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
-                $templ['pdf']['description'] .= t('H&ouml;he') . " : " . $data_array['end_y'];
+                $description = t('Xo') . " : " . $data_array['pos_x']. " , "; 
+                $description .= t('Yo') . " : " . $data_array['pos_y']. " , "; ;
+                $description .= t('Breite') . " : " . $data_array['end_x']. " , "; 
+                $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
+                $description .= t('H&ouml;he') . " : " . $data_array['end_y'];
             }elseif ($data_array['type'] == "barcode"){
-                $templ['pdf']['description'] = t('Xo') . " : " . $data_array['pos_x']. " , "; 
-                $templ['pdf']['description'] .= t('Yo') . " : " . $data_array['pos_y']. " , "; ;
-                $templ['pdf']['description'] .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
+                $description = t('Xo') . " : " . $data_array['pos_x']. " , "; 
+                $description .= t('Yo') . " : " . $data_array['pos_y']. " , "; ;
+                $description .= t('Sichtbar') . " : " . $data_array['visible'] . " , ";
             }
+            $smarty->assign('description', $description);
+
       $gd->CreateButton('edit');
       $gd->CreateButton('delete');
-            $out .= $dsp->FetchModTpl("pdf","edit_liste");
+      $out .= $smarty->fetch('modules/pdf/templates/edit_liste.htm');
         }
         $dsp->AddSingleRow($out);
         
