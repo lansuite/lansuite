@@ -9,19 +9,11 @@ $query = $db->qry('SELECT m.des_Status, m.mailID, m.subject, u.username FROM %pr
   LIMIT 0, %int%',
   $auth['userid'], $cfg['home_item_count']);
 
-if ($db->num_rows($query) > 0) {
-	while ($row = $db->fetch_array($query)) {
-   	 $templ['home']['show']['row']['control']['link']	= 'index.php?mod=mail&action=showmail&ref=in&mailID='. $row['mailID'];
-   	 $templ['home']['show']['row']['info']['text']		= $func->CutString($row['subject'], 40) .' ['.$row['username'].']';
-   	
-	if($row['des_Status'] == 'new')
-		$content .= $dsp->FetchModTpl("home", "show_row_new");
-	else
-		$content .= $dsp->FetchModTpl("home", "show_row");
+if ($db->num_rows($query) > 0) while ($row = $db->fetch_array($query)) {
+  $smarty->assign('link', 'index.php?mod=mail&action=showmail&ref=in&mailID='. $row['mailID']);   	
+  $smarty->assign('text', $func->CutString($row['subject'], 40) .' ['.$row['username'].']');   	
+	if($row['des_Status'] == 'new') $content .= $smarty->fetch('modules/home/templates/show_row_new.htm');
+	else $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 
-	 $templ['home']['show']['row']['info']['text'] = '';
-	 $templ['home']['show']['row']['info']['text2'] = '';
-	}
-}
-else $content = "<i>". t('Keine Mails bisher vorhanden') ."</i>";
+} else $content = "<i>". t('Keine Mails bisher vorhanden') ."</i>";
 ?>

@@ -6,13 +6,17 @@ switch($_GET['step']) {
 		$_POST["ipgen_b"] = "10";
 		$_POST["ipgen_c"] = "0";
 		$_POST["ip_offset"] = "0";
+		$smarty->assign('ipgen_a', $_POST["ipgen_a"]);
+		$smarty->assign('ipgen_b', $_POST["ipgen_b"]);
+		$smarty->assign('ipgen_c', $_POST["ipgen_c"]);
+		$smarty->assign('ip_offset', $_POST["ip_offset"]);
 
-		$templ['misc']['ipgen']['details']['control']['form_action']	= "index.php?mod=seating&action=ipgen&step=10&blockid=". $_GET['blockid'];
-		$templ['misc']['ipgen']['details']['info']['page_title'] 	= t('IP-Generierung');
+		$smarty->assign('form_action', "index.php?mod=seating&action=ipgen&step=10&blockid=". $_GET['blockid']);
+		$smarty->assign('page_title', t('IP-Generierung'));
 
     $gd->CreateButton('new_calculate');
-		$templ['misc']['ipgen']['control']['case'] .= $dsp->FetchModTpl("seating", "ipgen_details");
-		$dsp->AddSingleRow($dsp->FetchModTpl("seating", "ipgen"));
+    $smarty->assign('case', $smarty->fetch('modules/seating/templates/ipgen_details.htm'));
+		$dsp->AddSingleRow($smarty->fetch('modules/seating/templates/ipgen.htm'));
 	break;
 
 	case 10:

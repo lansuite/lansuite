@@ -14,12 +14,13 @@ $query = $db->qry("SELECT f.fid, t.tid, MAX(p.pid) AS pid, t.caption, MAX(p.date
 	LIMIT 0, %int%", $authtyp, $auth['group_id'], $cfg['home_item_count']);
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
-  $templ['home']['show']['row']['control']['link']	= "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&gotopid={$row['pid']}#pid{$row['pid']}";
+  $smarty->assign('link', "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&gotopid={$row['pid']}#pid{$row['pid']}");
 
-  $templ['home']['show']['row']['info']['text']		= $func->CutString($row['caption'], 40) .' ['. $row['posts'] .']';
-  if ($row['closed']) $templ['home']['show']['row']['info']['text'] .= ' <div class="infolink" style="display:inline"><img src="design/images/icon_locked.png" border="0" width="12" /><span class="infobox">'. t('Thread wurde geschlossen') .'</span></div>';
-  
-  if ($func->CheckNewPosts($row['LastPost'], 'board', $row['tid'])) $content .= $dsp->FetchModTpl('home', 'show_row_new');
-  else $content .= $dsp->FetchModTpl('home', 'show_row');
+  $text = $func->CutString($row['caption'], 40) .' ['. $row['posts'] .']';
+  if ($row['closed']) $text .= ' <div class="infolink" style="display:inline"><img src="design/images/icon_locked.png" border="0" width="12" /><span class="infobox">'. t('Thread wurde geschlossen') .'</span></div>';
+  $smarty->assign('text', $text);
+
+  if ($func->CheckNewPosts($row['LastPost'], 'board', $row['tid'])) $content .= $smarty->fetch('modules/home/templates/show_row_new.htm');
+  else $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 } else $content = "<i>". t('Keine Beiträge vorhanden') ."</i>";
 ?>

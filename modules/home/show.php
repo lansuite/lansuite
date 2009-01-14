@@ -32,6 +32,7 @@ switch ($home_page) {
         if ($z != (count($ModOverviews) - 1)) $MainContent .= '<li class="LineLeftHalf">';
         else $MainContent .= '<li class="LineRightHalf">';
       } else $MainContent .= '<li class="LineRightHalf">';
+      $smarty->assign('text2', '');
       include('modules/home/'. $ModOverview .'.inc.php');
       $smarty->assign('content', $content);
       $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');

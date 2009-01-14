@@ -11,12 +11,10 @@ if ($check["caption"] != "") {
   	
   if ($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $news_type = "normal"; }
 	
-	$templ['news']['show']['single']['row'][$news_type]['info']['caption']      = $get_news["caption"];	
-	$templ['news']['show']['single']['row'][$news_type]['control']['userid']    = $get_news["poster"];
-	$templ['news']['show']['single']['row'][$news_type]['info']['username']     = $get_news["username"] .' '. $dsp->FetchUserIcon($get_news['userid']);
-	$date                                                                       = $get_news["date"];
-	
-	$templ['news']['show']['single']['row'][$news_type]['info']['date']         = $func->unixstamp2date($date,"daydatetime");
+	$smarty->assign('caption', $get_news["caption"]);
+	$smarty->assign('userid', $get_news["poster"]);
+	$smarty->assign('username', $get_news["username"] .' '. $dsp->FetchUserIcon($get_news['userid']));
+	$smarty->assign('date', $func->unixstamp2date($get_news["date"],"daydatetime"));
 
   $text = '';
 	if ($auth["type"] > 1) {
@@ -26,13 +24,12 @@ if ($check["caption"] != "") {
   if ($cfg["news_html"] == 1) $get_news['text'] = $func->text2html($get_news['text']);
   else $get_news['text'] = $func->AllowHTML($get_news['text']);
   $text .= $get_news['text'];
-	$templ['news']['show']['single']['row'][$news_type]['info']['text'] .= $text;
+	$smarty->assign('text', $text);
 
 	// SELECT ACTION TYPE
 	if ($_GET["mcact"] == "" OR $_GET["mcact"] == "show") {
-
 		$dsp->NewContent(t('Newsmeldung + Kommentare'), t('Hier können Sie diese News kommentieren'));
-		$dsp->AddSingleRow($dsp->FetchModTpl("news", "show_single_row_$news_type"));
+		$dsp->AddSingleRow($smarty->fetch("modules/news/templates/show_single_row_$news_type.htm"));
 		$dsp->AddSingleRow($dsp->FetchSpanButton(t('Newsübersicht'), "index.php?mod=news&action=show"));
 	}
 

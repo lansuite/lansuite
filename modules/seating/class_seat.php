@@ -115,8 +115,6 @@ class seat2 {
 		// 2 = With checkboxes
 		// 3 = Admin mode
 
-    $smarty->assign('default_design', $auth['design']);
-
 		// Get Block data (side descriptions + number of rows + cols)
 		$block = $db->qry_first("SELECT * FROM %prefix%seat_block WHERE blockid = %int%", $blockid);
 

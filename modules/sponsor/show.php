@@ -9,10 +9,10 @@ $db->qry("UPDATE %prefix%sponsor SET views = views + 1 WHERE sponsor");
 
 $out = "<table>";
 while ($sponsor = $db->fetch_array($sponsoren)){
-	$templ['sponsor']['row']['col1'] = "";
+	$col1 = "";
 	// If entry is HTML-Code
 	if (substr($sponsor["pic_path"], 0, 12) == 'html-code://') {
-		$templ['sponsor']['row']['col1'] = $func->AllowHTML(substr($sponsor["pic_path"], 12, strlen($sponsor["pic_path"]) - 12));
+		$col1 = $func->AllowHTML(substr($sponsor["pic_path"], 12, strlen($sponsor["pic_path"]) - 12));
 
 	// Else add Image-Tag
 	} else if ($sponsor["pic_path"] != "" and $sponsor["pic_path"] != "http://") {
@@ -20,17 +20,19 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 		if (!$ImgSize[0]) $ImgSize[0] = 468;
 
 		if ($ImgSize[0] > $cfg["sponsor_picwidth"]) $ImgSize[0] = $cfg["sponsor_picwidth"];
-		$templ['sponsor']['row']['col1'] = "<img src=\"". $sponsor["pic_path"] ."\" width=\"{$ImgSize[0]}\" border=\"0\" title=\"{$sponsor["name"]}\">";
+		$col1 = "<img src=\"". $sponsor["pic_path"] ."\" width=\"{$ImgSize[0]}\" border=\"0\" title=\"{$sponsor["name"]}\">";
 		if ($sponsor["url"] != "" and $sponsor["url"] != "http://")
-			$templ['sponsor']['row']['col1'] = "<a href=\"index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=page&amp;sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $templ['sponsor']['row']['col1'] ."</a>";
+			$col1 = "<a href=\"index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=page&amp;sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $col1 ."</a>";
 	}
 
-	$templ['sponsor']['row']['col2'] = '<b>'. $sponsor["name"] .'</b>';
+	$col2 = '<b>'. $sponsor["name"] .'</b>';
 	if ($sponsor["url"] != "" && $sponsor["url"] != "http://")
-		$templ['sponsor']['row']['col2'] = "<a href=\"index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=page&amp;sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $templ['sponsor']['row']['col2'] ."</a>";
-	$templ['sponsor']['row']['col2'] .= HTML_NEWLINE. $func->text2html($sponsor["text"]);
+		$col2 = "<a href=\"index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=page&amp;sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $col2 ."</a>";
+	$col2 .= HTML_NEWLINE. $func->text2html($sponsor["text"]);
 
-	$out .= $dsp->FetchModTpl("sponsor", "liste");
+  $smarty->assign('col1', $col1);
+  $smarty->assign('col2', $col2);
+	$out .= $smarty->fetch('modules/sponsor/templates/liste.htm');
 }
 $db->free_result($sponsoren);
 $out .= "</table>";

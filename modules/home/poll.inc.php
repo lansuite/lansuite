@@ -10,19 +10,18 @@ $query = $db->qry('SELECT UNIX_TIMESTAMP(p.endtime) AS endtime, p.pollid, p.capt
   ORDER BY p.changedate DESC
   LIMIT 0, %int%
   ', $auth['group_id'], $cfg['home_item_count']);
-if ($db->num_rows($query) > 0) {
-	while($row = $db->fetch_array($query)) {
-		$templ['home']['show']['row']['control']['link']	= 'index.php?mod=poll&action=show&step=2&pollid='. $row['pollid'];
 
-		$templ['home']['show']['row']['info']['text']		= $func->CutString($row['caption'], 40);
-		$templ['home']['show']['row']['info']['text2']		= '(Votes: '. $row['votes'] .') ';
-    if ($row["endtime"] and $row["endtime"] < time()) $templ['home']['show']['row']['info']['text2'] .= ' <div class="infolink" style="display:inline"><img src="design/images/icon_locked.png" border="0" width="12" /><span class="infobox">'. t('Abstimmung wurde geschlossen') .'</span></div>';
-		elseif ($row["endtime"]) $templ['home']['show']['row']['info']['text2'] .= '['. $func->unixstamp2date($row["endtime"], 'date') .']';
+if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
+  $smarty->assign('link', 'index.php?mod=poll&action=show&step=2&pollid='. $row['pollid']);
+  $smarty->assign('text', $func->CutString($row['caption'], 40));
 
-    if ($func->CheckNewPosts($row['changedate'], 'poll', $row['pollid'])) $content	.= $dsp->FetchModTpl('home', 'show_row_new');
-    else $content	.= $dsp->FetchModTpl('home', 'show_row');
+	$text2		= '(Votes: '. $row['votes'] .') ';
+  if ($row["endtime"] and $row["endtime"] < time()) $text2 .= ' <div class="infolink" style="display:inline"><img src="design/images/icon_locked.png" border="0" width="12" /><span class="infobox">'. t('Abstimmung wurde geschlossen') .'</span></div>';
+	elseif ($row["endtime"]) $text2 .= '['. $func->unixstamp2date($row["endtime"], 'date') .']';
+  $smarty->assign('text2', $text2);
 
-		$templ['home']['show']['row']['info']['text2']		= "";	// set var to NULL
-	}
+  if ($func->CheckNewPosts($row['changedate'], 'poll', $row['pollid'])) $content .= $smarty->fetch('modules/home/templates/show_row_new.htm');
+  else $content .= $smarty->fetch('modules/home/templates/show_row.htm');
+
 } else $content = "<i>". t('Keine Umfragen vorhanden') ."</i>";
 ?>

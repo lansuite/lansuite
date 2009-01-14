@@ -203,7 +203,6 @@ class boxes {
             case 11: $title = 'wwcl'; break;
         }
         $smarty->assign('title', $title);
-        $smarty->assign('default_design', $auth["design"]);
         $smarty->assign('caption', $caption);            
         $smarty->assign('link_open_close', "index.php?box_action=change&amp;boxid=$boxid");
         // Open or closed Box

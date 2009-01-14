@@ -111,6 +111,19 @@ switch($_GET['step']) {
 			if ($_POST['text_bl'] == "") $_POST['text_bl'] = $block['text_bl'];
 			if ($_POST['text_bc'] == "") $_POST['text_bc'] = $block['text_bc'];
 			if ($_POST['text_br'] == "") $_POST['text_br'] = $block['text_br'];
+
+      $smarty->assign('text_tl', $_POST['text_tl']);
+      $smarty->assign('text_tc', $_POST['text_tc']);
+      $smarty->assign('text_tr', $_POST['text_tr']);
+      $smarty->assign('text_lt', $_POST['text_lt']);
+      $smarty->assign('text_lc', $_POST['text_lc']);
+      $smarty->assign('text_lb', $_POST['text_lb']);
+      $smarty->assign('text_rt', $_POST['text_rt']);
+      $smarty->assign('text_rc', $_POST['text_rc']);
+      $smarty->assign('text_rb', $_POST['text_rb']);
+      $smarty->assign('text_bl', $_POST['text_bl']);
+      $smarty->assign('text_bc', $_POST['text_bc']);
+      $smarty->assign('text_br', $_POST['text_br']);
 		}
 
 		$dsp->NewContent(t('Sitzblock erstellen'), t(' Mit Hilfe des folgenden Formulars können Sie einen neuen Sitzblock erstellen. In einem folgenden zweiten Schritt können Sie dann Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bedürfnissen anzupassen.'));
@@ -151,7 +164,7 @@ switch($_GET['step']) {
                 $dsp->AddDropDownFieldRow("price_id", t('Nur für diesen Eintrittspreis'), $t_array, '');
 
 		$dsp->AddTextAreaPlusRow('remark', t('Bemerkung'), $_POST['remark'], $error['remark'], '', 4, 1);
-		$dsp->AddDoubleRow(t('Sitzblockbeschriftung'), $dsp->FetchModTpl('seating', 'plan_labels'));
+		$dsp->AddDoubleRow(t('Sitzblockbeschriftung'), $smarty->fetch('modules/seating/templates/plan_labels.htm'));
 
 		// Partys
 		$selections = array();

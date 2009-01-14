@@ -65,7 +65,7 @@
     		<name>news_shorted_archiv</name>
     		<type>int</type>
     		<default>0</default>
-    		<description>Wieviele Archivmitteilungen sollen pro Seite angezeigt werden werden?</description>
+    		<description>Wieviele Archivmitteilungen sollen pro Seite angezeigt werden?</description>
     	</item>
     </items>
   </group>
