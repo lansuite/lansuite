@@ -2,9 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
 <head>
-<link rel="STYLESHEET" href="design/{default_design}/style.css">
+<link rel="STYLESHEET" href="design/{$default_design}/style.css">
 <script type="text/javascript" src="scripts.js"></script>
 <script language="JavaScript">
+{literal}
 <!--
 // Insert smilies and style tags
 function code(sign) 
@@ -28,7 +29,7 @@ function checklength()
 // Reload message-window
 function loadwindow()
 {
-	top.location.href='index.php?mod=msgsys&action=query&design=base&queryid={$_GET[queryid]}';
+	top.location.href='index.php?mod=msgsys&action=query&design=base&queryid={$queryid}';
 }
 //-->
 <!--
@@ -38,10 +39,11 @@ function x()
 	top.close();
 }
 //-->
+{/literal}
 </script>
 </head>
 <body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<form name="form" method="post" action="index.php?mod=msgsys&action=query_console&design=base&queryid={$_GET['queryid']}&step=2">
+<form name="form" method="post" action="index.php?mod=msgsys&action=query_console&design=base&queryid={$queryid}&step=2">
   <table width="100%" cellspacing="0" cellpadding="0">
     <tr class="tbl_4"> 
       <td><img src="/" width="1" height="1"></td>
@@ -114,11 +116,11 @@ function x()
       <td class="tbl_6" height="30"> 
         <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
           <tr> 
-            <td> <a href="javascript:InsertCode(document.form.text, '[b]', '[/b]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_bold.png" border="0"></a>
-              <a href="javascript:InsertCode(document.form.text, '[i]', '[/i]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_kursiv.png" border="0"></a>
-              <a href="javascript:InsertCode(document.form.text, '[u]', '[/u]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_underline.png" border="0"></a>
-              <a href="javascript:InsertCode(document.form.text, '[c]', '[/c]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_code.png" border="0"></a>
-              <a href="javascript:InsertCode(document.form.text, '[img]', '[/img]')"><img src="ext_inc/auto_images/{default_design}/{language}/button_picture.png" border="0"></a>
+            <td> <a href="javascript:InsertCode(document.form.text, '[b]', '[/b]')"><img src="ext_inc/auto_images/{$default_design}/{$language}/button_bold.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[i]', '[/i]')"><img src="ext_inc/auto_images/{$default_design}/{$language}/button_kursiv.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[u]', '[/u]')"><img src="ext_inc/auto_images/{$default_design}/{$language}/button_underline.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[c]', '[/c]')"><img src="ext_inc/auto_images/{$default_design}/{$language}/button_code.png" border="0"></a>
+              <a href="javascript:InsertCode(document.form.text, '[img]', '[/img]')"><img src="ext_inc/auto_images/{$default_design}/{$language}/button_picture.png" border="0"></a>
             </td>
             <td> 
               <div align="right">Zeichen: 
@@ -136,13 +138,13 @@ function x()
       <td class="tbl_6" height="30"> 
         <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
           <tr> 
-            <td> <input type="image" border="0" name="imageField" src="ext_inc/auto_images/{default_design}/{language}/button_send.png" width="61" height="17" onClick="loadwindow()"> 
+            <td> <input type="image" border="0" name="imageField" src="ext_inc/auto_images/{$default_design}/{$language}/button_send.png" width="61" height="17" onClick="loadwindow()"> 
             </td>
-            <td><div align="right"><a href="javascript:var r=loadwindow()" class="menu"><img src="design/{default_design}/images/arrows_info.gif" width="12" height="13" border="0"> 
+            <td><div align="right"><a href="javascript:var r=loadwindow()" class="menu"><img src="design/{$default_design}/images/arrows_info.gif" width="12" height="13" border="0"> 
                 Aktualisieren</a></div></td>
-            <td width="50"><a href="javascript:var w=window.open('index.php?mod=helplet&action=helplet&design=base&helpletid=msgsys/query','_blank','width=320,height=400,resizable=no');" class="menu"><img src="design/{default_design}/images/arrows_help.gif" width="12" height="13" border="0">
+            <td width="50"><a href="javascript:var w=window.open('index.php?mod=helplet&action=helplet&design=base&helpletid=msgsys/query','_blank','width=320,height=400,resizable=no');" class="menu"><img src="design/{$default_design}/images/arrows_help.gif" width="12" height="13" border="0">
               Hilfe</a></td>
-            <td width="80"><a href="javascript:x();" class="menu"><img src="design/{default_design}/images/arrows_delete.gif" width="12" height="13" border="0"> 
+            <td width="80"><a href="javascript:x();" class="menu"><img src="design/{$default_design}/images/arrows_delete.gif" width="12" height="13" border="0"> 
               Schliessen</a></td>
           </tr>
         </table>
