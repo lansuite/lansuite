@@ -53,33 +53,6 @@ class display {
     }
   }
 
-  // Returns the template $file
-  // Old. And internal use only!
-  // Replace with $smarty->fetch()
-  function FetchTpl($file, $templx = ''){
-    global $auth, $language, $cfg, $TplCache, $templ;
-        
-    #echo "Loading $file<br>";
-    if ($this->TplCache[$file] != '') $tpl_str = $this->TplCache[$file];
-    else {
-      $handle = fopen ($file, 'rb');
-      $tpl_str = fread ($handle, filesize ($file));
-      fclose ($handle);
-      $this->TplCache[$file] = $tpl_str;
-    }
-
-    $tpl_str = str_replace("\"","\\\"", $tpl_str );
-    $tpl_str = str_replace("{language}", $language, $tpl_str );
-    $tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str);
-
-    $tpl = "";
-    if ($cfg['sys_showdebug']) $tpl .= "\r\n<!-- Start of template '$file' -->\r\n";
-    eval("\$tpl .= \"" .$tpl_str. "\";");
-    if ($cfg['sys_showdebug']) $tpl .= "\r\n<!-- End of template '$file' -->\r\n";
-
-    return $tpl;
-  }
-
   #### Add content ####
   # The following functions all printing their content directly, to the LS-content-container
 

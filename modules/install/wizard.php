@@ -277,8 +277,8 @@ switch ($_GET["step"]){
         $dsp->AddTextFieldRow("email", t('E-Mail'), 'admin@admin.de', '');
         $dsp->AddPasswordRow("password", t('Kennwort'), '', '', '', '', "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel1)\"");
         $dsp->AddPasswordRow("password2", t('Kennwort wiederholen'), '', '');
-        $templ['pw_security']['id'] = 1;
-        $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
+        $smarty->assign('pw_security_id', '1');
+        $dsp->AddDoubleRow('', $smarty->fetch('design/templates/ls_row_pw_security.htm'));
         $dsp->AddFormSubmitRow("add");
 
         $dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=8", "next"));

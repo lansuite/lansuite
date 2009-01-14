@@ -116,7 +116,7 @@ class masterform {
 
   // Print form
     function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer needed!
-    global $dsp, $db, $config, $func, $sec, $lang, $templ, $framework, $mf_number, $__POST;
+    global $dsp, $db, $config, $func, $sec, $lang, $framework, $mf_number, $__POST, $smarty;
 
     // Break, if in wrong form
     $Step_Tmp = $_GET['mf_step'];
@@ -434,8 +434,8 @@ class masterform {
                 $PWSecID++;
                 $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional'], "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel{$PWSecID})\"");
                 $dsp->AddPasswordRow($field['name'].'2', $field['caption'].' '.t('Verfikation'), $_POST[$field['name'].'2'], $this->error[$field['name'].'2'], '', $field['optional'], 0);
-                $templ['pw_security']['id'] = $PWSecID;
-                $dsp->AddDoubleRow('', $dsp->FetchTpl('design/templates/ls_row_pw_security.htm'));
+                $smarty->assign('pw_security_id', $PWSecID);
+                $dsp->AddDoubleRow('', $smarty->fetch('design/templates/ls_row_pw_security.htm'));
               break;
 
               case IS_CAPTCHA: // Captcha-Row

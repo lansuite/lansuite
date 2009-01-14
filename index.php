@@ -117,7 +117,6 @@
     include_once("modules/seating/class_seat.php");
     include_once("modules/cron2/class_cron2.php");
     include_once('ext_scripts/smarty/Smarty.class.php');
-    include_once("inc/classes/class_dialog.php");
 
 ### Initialize base classes
 

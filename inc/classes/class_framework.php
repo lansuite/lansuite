@@ -71,36 +71,6 @@ class framework {
     }
 
   /**
-   * Add Frameworkmessage
-   *
-   * @param string Messagetype (error,info,confirm)
-   * @param string Messagetext 
-   * @param string Link for Buttons 
-   */
-    function add_framework_msg($typ="info", $text, $link_target="index.php") {
-        $msgbox = new dialogs;
-        
-        // Eventuell das ganze als Array realisieren. Könnte man dann bei der 
-        // Ausgabe nach Meldungstypen sortieren (error hohe prio, etc.)
-        
-        switch ($typ){ 
-            case 'error':
-                $this->framework_messages .= $msgbox->error($text,$link_target);
-            break;
-        
-            case 'info':
-                $this->framework_messages .= $msgbox->information($text,$link_target);
-            break;
-        
-            case 'confirm':
-                $this->framework_messages .= $msgbox->confirmation($text,$link_target);
-            break;
-            default :
-                $this->framework_messages .= $msgbox->information($text,$link_target);
-        }
-    }
-
-  /**
    * Add JS-Code for implementing in Header
    *
    * @param string JS-Codestring
