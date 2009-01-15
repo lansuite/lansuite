@@ -5,6 +5,8 @@
 	<br />Verbl. Zeichen: <input type="text" name="{$name}_chr" class="form" maxlength="10" size="10" value="{$maxchar}" readonly />
 	<br />
   <br /><a href="index.php?mod=popups&amp;action=ls_row_textareaplus_popup&amp;design=popup&amp;form={$formname}&amp;textarea={$name}" onclick="OpenWindow(this.href, 'TextFormatSelect'); return false">Smilies einfügen</a>
+  <br />
+  <br /><a href="index.php?mod=popups&amp;action=ls_row_textareaplus_link&amp;design=popup&amp;form={$formname}&amp;textarea={$name}" onclick="OpenWindow(this.href, 'TextFormatSelect'); return false">Interner Link</a>
 </li>
 <li class="LineRight">
   <textarea name="{$name}" id="{$name}" class="form{$optional}" rows="{$rows}" onKeyUp="TextAreaPlusCharsLeft(this, document.{$formname}.{$name}_chr, {$maxchar}); AddaptTextAreaHeight(this)">{$value}</textarea>

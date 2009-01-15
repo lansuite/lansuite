@@ -48,7 +48,7 @@ function InsertCode(object, CodeStart, CodeEnd) {
 
 function OpenWindow(url, name) {
   url = url.replace(/\&amp\;/g, "&");
-  Win1 = window.open(url, name, "width=600,height=200,left=100,top=100");
+  Win1 = window.open(url, name, "width=600,height=400,left=100,top=100");
   Win1.focus();
 }
 
