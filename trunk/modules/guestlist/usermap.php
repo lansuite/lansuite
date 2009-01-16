@@ -54,7 +54,8 @@ if ($cfg['guestlist_guestmap'] == 2) {
   $res3 = $db->qry_first("SELECT laenge, breite FROM %prefix%locations WHERE plz = %int%", $_SESSION['party_info']['partyplz']);
   $pi = pi();
 
-  if ($db->num_rows($res) == 0) $dsp->AddSingleRow(t('Leider hat noch keiner der angemeldeten Benutzer seine Postleitzahl angegeben. Das Bestimmen der Position ist daher nicht m&ouml;glich.'));
+  if ($db->num_rows($res) == 0) 
+  $func->information(t('Leider hat noch keiner der angemeldeten Benutzer seine Postleitzahl angegeben. Das Bestimmen der Position ist daher nicht m&ouml;glich.'), "index.php?mod=home");
   else {
 
   	$map_out = '<script type="text/javascript" src="ext_scripts/overlib421/Mini/overlib_mini.js"><!-- overLIB (c) Erik Bosrup --></script>
