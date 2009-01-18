@@ -73,7 +73,7 @@ else {
         // GET NUMBER OF COMMENTS
         $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
         
-        if ($get_comments["number"] >= 0) $smarty->assign('comments', $func->unixstamp2date($row["date"], "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." ". t('Kommentar(e)') ."</a>"));
+        if ($get_comments["number"] >= 0) $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." ". t('Kommentar(e)') ."</a>");
 
         // Buttons
         $buttons = "";
