@@ -265,6 +265,7 @@
                 <null>NO</null>
                 <default>0</default>
                 <extra></extra>
+                <key>IND</key>
             </field>
             <field>
                 <name>votes_left</name>
