@@ -186,10 +186,10 @@ class boxes {
    * @param string $caption
    * @return
    */
-    function CreateBox($boxid, $caption = '') {
+    function CreateBox($boxid, $caption = '', $title = '') {
         global $smarty, $auth;
         if ($this->box_rows != '') $smarty->assign('content', $this->box_rows);
-        switch((int)$boxid) {
+        if (!$title) switch((int)$boxid) {
             case 1: $title = 'menu'; break;
             case 2: $title = 'search'; break;
             case 3: $title = 'sponsor'; break;
