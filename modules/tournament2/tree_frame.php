@@ -73,18 +73,18 @@ else {
 
     include_once("modules/tournament2/tree.class.php");
     include_once("modules/tournament2/sp_tree.class.php");
-    $t = new lansuiteTree($tournamentid, $team_anz, $db);
-    $t->prepareWB();
+    $t2 = new lansuiteTree($tournamentid, $team_anz, $db);
+    $t2->prepareWB();
 
-    if ($t['mode'] == "double") $t->prepareLB();
+    if ($t['mode'] == "double") $t2->prepareLB();
 
-    $t->mkTree();
+    $t2->mkTree();
     $ret .= '<h3>Winner-Bracket</h3>';
-    $ret .= $t->getWBString();
+    $ret .= $t2->getWBString();
 
     if ($t['mode'] == "double") {
     	$ret .= '<br><br><h3>Lower-Bracket</h3>';
-    	$ret .= $t->getLBString();
+    	$ret .= $t2->getLBString();
     }
     $templ['index']['info']['content'] = $ret;
 
