@@ -22,9 +22,10 @@ class menu {
    * @param mixed $caption
    * @return
    */
-    function menu($id,$caption){
+    function menu($id, $caption, $title = ''){
 	   $this->caption = $caption;
 	   $this->boxid = $id;
+	   $this->title = $title;
 	   $this->box = new boxes();
     }
 
@@ -86,7 +87,7 @@ class menu {
         OR (menu.requirement = 4 AND %int% = 1)
         OR (menu.requirement = 5 AND %int% = 0))
         ORDER BY menu.pos", $this->boxid, $_GET['menu_group'], $auth['login'], $auth['type'], $auth['type'], $auth['type'], $auth['login']);
-      
+
         while ($main_item = $db->fetch_array($res)) {
 
             if ($main_item['needed_config'] == '' or call_user_func($main_item['needed_config'], '')) {
@@ -118,7 +119,7 @@ class menu {
             }
         }}
         $db->free_result($res);
-        if ($this->box->box_rows) return $this->box->CreateBox($this->boxid, t($this->caption));
+        if ($this->box->box_rows) return $this->box->CreateBox($this->boxid, t($this->caption), $this->title);
     }
 }
 
