@@ -47,8 +47,8 @@ switch ($home_page) {
 
 	// Show News
 	case 1:
-		if ($party->count > 1) $party->get_party_dropdown_form();
 		include ("modules/news/show.php");
+		if ($party->count > 1) $party->get_party_dropdown_form();
 	break;
 	
 	// Show Logout-Text
