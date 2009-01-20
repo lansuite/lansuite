@@ -24,7 +24,7 @@
 				<name>party_id</name>
 				<type>int(20)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -32,7 +32,7 @@
                                 <name>group_id</name>
                                 <type>int(20)</type>
                                 <null></null>
-                                <key></key>
+                                <key>IND</key>
                                 <default>0</default>
                                 <extra></extra>
                         </field>
@@ -40,7 +40,7 @@
 				<name>price_id</name>
 				<type>int(20)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -207,7 +207,7 @@
 				<name>blockid</name>
 				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -247,7 +247,7 @@
 				<name>userid</name>
 				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
