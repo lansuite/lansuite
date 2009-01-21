@@ -70,7 +70,7 @@ function OpenHelplet(module, helpletid) {
 
 function AddaptTextAreaHeight(obj) {
 //  obj.style.height = 0;
-  obj.style.height = obj.scrollHeight + 'px';
+  if (obj.scrollHeight > 100) obj.style.height = obj.scrollHeight + 'px';
 }
 
 
@@ -349,72 +349,7 @@ function TX_getScrollPos() {
  
 } 
  
-function TX_showToolTip(e,id) { 
- 	if (id != 'null') {
- 		
-        var scr = TX_getScrollPos(); 
-        var cordX = e.clientX + scr.x; 
-        var cordY = e.clientY + scr.y; 
- 		var text = "<table>";
- 		
- 		data_array = seat[id].split(",");
- 		
- 		// Text für die Verschiedenen Symbole
- 		switch (data_array[6]){
-		
-		case "2":
-		case "3":
-		case "8":
-		case "9":
- 			text += '<tr><td style="font-weight: bold;">Block:</td><td>' + data_array[4] + "</td></tr>";
-        	text += '<tr><td style="font-weight: bold;">Benutzername:</td><td>' + data_array[0] + "</td></tr>";
-        	text += '<tr><td style="font-weight: bold;">Name / Vorname:</td><td>' + data_array[1] + ' ' + data_array[2] + "</td></tr>";
-        	text += '<tr><td style="font-weight: bold;">Clan :</td><td>' + data_array[3] + "</td></tr>";
-        	text += '<tr><td style="font-weight: bold;">IP :</td><td>' + data_array[7] + "</td></tr>";
-        	break;
-        case "1":
-        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + " Frei</td></tr>";
-        	text += '<tr><td style="font-weight: bold;">IP :</td><td>' + data_array[7] + "</td></tr>";
-        	break;
-        
-        case "7":
-        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + " Gesperrt</td></tr>";
-        	text += '<tr><td style="font-weight: bold;">IP :</td><td>' + data_array[7] + "</td></tr>";
-        	break;
-  
-        // Text für die Verschiedenen Symbole
-        case "80":
-        case "81":
-        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + "</td></tr>";
-        	text += '<tr><td style="font-weight: bold;">Beschreibung :</td><td> WC</td></tr>';
-        break;
 
-        case "82":
-        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + "</td></tr>";
-        	text += '<tr><td style="font-weight: bold;">Beschreibung :</td><td> Notausgang</td></tr>';
-        break;
-        
-        case "83":
-        	text += '<tr><td style="font-weight: bold;">Block :</td><td>' + data_array[4] + "</td></tr>";
-        	text += '<tr><td style="font-weight: bold;">Beschreibung :</td><td> Catering</td></tr>';
-        break;
-        
-        default:
-			
-			text = "";
-			break;
- 		}
- 		if(text != ""){
- 			text += "</table>"
-	        document.getElementById("tooltip").style.position = "absolute"; 
-    	    document.getElementById("tooltip").style.left =  ( cordX + 20 ) + "px"; 
-        	document.getElementById("tooltip").style.top = ( cordY + 20 ) + "px"; 
-	        document.getElementById("tooltip").innerHTML = text; 
-    	    document.getElementById("tooltip").style.visibility = "visible"; 
- 		}
- 	}
-} 
- 
 function TX_hideToolTip() { 
         document.getElementById("tooltip").style.visibility = "hidden"; 
         document.getElementById("tooltip").innerHTML = "false"; 
