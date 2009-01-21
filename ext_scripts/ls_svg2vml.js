@@ -14,7 +14,7 @@ function ClearArea(x, y, width, height, link) {
   }
 	myG.appendChild(myRoundRect);
 
-	if (link) CreateTextInt('_', x + 2, y + 13, link, 8);
+	if (link) CreateTextInt('_', x + 2, y + 13, link, 8, '');
 }
 
 function CreateRect(x, y, width, height, fill, stroke, link) {
@@ -35,7 +35,7 @@ function CreateRect(x, y, width, height, fill, stroke, link) {
   }
 	myG.appendChild(myRoundRect);
 
-	if (link) CreateTextInt('_', x + 2, y + 11, link, 8);
+	if (link) CreateTextInt('_', x + 2, y + 11, link, 8, '');
 }
 
 function CreateSmallRect(x, y, width, height, fill, link, popup) {
@@ -60,21 +60,23 @@ function CreateSmallRect(x, y, width, height, fill, link, popup) {
   }
 	myG.appendChild(myRoundRect);
 	
-	if (link) CreateTextInt('_', x + 2, y + 11, link, 8);
+	if (link) CreateTextInt('_', x + 2, y + 11, link, 8, popup);
 }
 
 
 function CreateSmallText(text, x, y, link) {
-  CreateTextInt(text, x, y, link, 6);
+  CreateTextInt(text, x, y, link, 6, '');
 }
 
 function CreateText(text, x, y, link) {
-  CreateTextInt(text, x, y, link, 8);
+  CreateTextInt(text, x, y, link, 8, '');
 }
 
-function CreateTextInt(text, x, y, link, size) {
+function CreateTextInt(text, x, y, link, size, popup) {
   var myText = document.createTextNode(text);
   var myT = vectorModel.createElement("text");
+
+  // SVG
   if (myT && text != '_') {
     myT.setAttribute("x", x);
     myT.setAttribute("y", y);
@@ -85,16 +87,26 @@ function CreateTextInt(text, x, y, link, size) {
     myT.setAttribute("style", "font-family:verdana; font-size:" + size + "pt;");
     myT.appendChild(myText);
     myG.appendChild(myT);
+    
+  // VML
   } else {
     var myDiv = document.createElement("div");
 
     if (link) {
+      if (popup) {
+        var myPopText = document.createTextNode(popup);
+        var myPop = document.createElement("span");
+        myPop.className = "infobox";
+        myPop.appendChild(myPopText);
+      }
+
       var myA = document.createElement("a");
       myA.setAttribute("href", link);
       myA.setAttribute("target", "_parent");
       myA.style.color="#000000";
       myA.style.textDecoration="none";
       myA.appendChild(myText);
+      myA.appendChild(myPop);
       myDiv.appendChild(myA);
     } else {
       myDiv.appendChild(myText);
@@ -141,7 +153,7 @@ function CreateLineInt(x1, y1, x2, y2, stroke, width, link) {
 	if (link) {
 	  if (x2 < x1) x1 = x2;
 	  if (y2 < y1) y1 = y2;
-    CreateTextInt('_', x1 + 2, y1 + 11, link, 8);
+    CreateTextInt('_', x1 + 2, y1 + 11, link, 8, '');
   }
 */
 }
