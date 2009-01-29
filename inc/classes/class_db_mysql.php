@@ -11,83 +11,23 @@ class db {
   var $querys = array();
   var $errors = '';
 
-  // Construktor
   function db() {
-    global $lang;
-
     if (extension_loaded("mysqli")) $this->mysqli = 1;
-    elseif (!extension_loaded("mysql")) echo(HTML_FONT_ERROR . t('Das MySQL-PHP Modul ist nicht geladen. Bitte fügen Sie die mysql.so Extension zur php.ini hinzu und restarten Sie Apache.') . HTML_FONT_END);
+    elseif (!extension_loaded("mysql")) echo HTML_FONT_ERROR . t('Das MySQL-PHP Modul ist nicht geladen. Bitte fügen Sie die mysql.so Erweiterung zur php.ini hinzu und restarten Sie den Webserver neu. Lansuite wird abgebrochen') . HTML_FONT_END;
   }
 
-  function connect($save = false) {
-    global $config, $lang;
 
-    $this->dbserver = $config["database"]["server"];
-    $this->dbuser   = $config["database"]["user"];
-    $this->dbpasswd = $config["database"]["passwd"];
-    $this->database = $config["database"]["database"];
+  #### Internal only ####
 
-    // Try to connect
-    if ($this->mysqli) $this->link_id=@mysqli_connect($this->dbserver,$this->dbuser,$this->dbpasswd);
-    else $this->link_id=@mysql_connect($this->dbserver,$this->dbuser,$this->dbpasswd);
-    if (!$this->link_id) {
-      if ($save == true) {
-        $this->success = false;
-        return false;
-      } else  {
-        echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. Lansuite wird abgebrochen.') . HTML_FONT_END;
-        exit();
-      }
+  function print_error($msg, $query_string_with_error) {
+    global $func, $config, $auth;
 
-    // Try to select DB
-    } else {
-      if ($this->mysqli) $ret = @mysqli_select_db($this->link_id, $this->database);
-      else $ret = @mysql_select_db($this->database, $this->link_id);
-      if (!$ret) {
-        if ($save == true) {
-          $this->success = false;
-          return false;
-        } else {
-          echo HTML_FONT_ERROR . t('Die Datenbank /\'/%1/\'/ konnte nicht ausgewählt werden. Lansuite wird abgebrochen.', $this->database)  . HTML_FONT_END;
-          exit();
-        }
-      }
-    }
+    $error = t('SQL-Failure. Database respondet: <font color="red"><b>%1</b></font><br/>Your query was: <i>%2</i><br/><br/> Script: %3<br/>Referrer: %4<br/>', $msg, $query_string_with_error, $_SERVER["REQUEST_URI"], $func->internal_referer);
 
-    if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
-    else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
-    $this->success = true;
-    return true;
-  }
-
-  function disconnect() {
-    if ($this->mysqli) mysqli_close($this->link_id);
-    else mysql_close($this->link_id);
-  }
-
-  function query($query_string, $noErrorLog = 0) {
-    #// Escape bad mysql
-    #$query_test_string = str_replace("\'", '', strtolower($query_string)); # Cut out escaped ' and convert to lower string
-    #$query_test_string = ereg_replace("'[^']*'", "", strtolower($query_test_string)); # Cut out strings within '-quotes
-    #// No UNION
-    #if (!strpos($query_test_string, 'union ') === false) $query_string = '___UNION_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
-    #// No INTO OUTFILE
-    #elseif (!strpos($query_test_string, 'into outfile') === false) $query_string = '___INTO OUTFILE_STATEMENT_IS_FORBIDDEN_WITHIN_LANSUITE___'; 
-
-    $query_start = microtime(true);
-    if ($this->mysqli) {
-      $this->query_id = mysqli_query($this->link_id, $query_string);
-      $this->sql_error = @mysqli_error($this->link_id);
-    } else {
-      $this->query_id = mysql_query($query_string, $this->link_id);
-      $this->sql_error = @mysql_error($this->link_id);
-    }
-    if (!$this->query_id and !$noErrorLog) $this->print_error($this->sql_error, $query_string);
+    $this->errors .= $error;
+    // Need to use mysql_querys here, to prevent loops!!
+    mysql_query('INSERT INTO '. $config['database']['prefix'] .'log SET date = NOW(), userid = '. (int)$auth['userid'] .', type = 3, description = "'. $error .'", sort_tag = "SQL-Fehler"', $this->link_id);
     $this->count_query++;
-    $query_end = microtime(true);
-    $this->querys[] = array($query_string, round(($query_end - $query_start) *1000, 4));
-
-    return $this->query_id;
   }
 
   function escape($match) {
@@ -101,81 +41,48 @@ class db {
     } elseif ($match[0] == '%plain%') return $CurrentArg;
   }
 
-  function qry() {
-    global $config, $CurrentArg;
 
-    $args = func_get_args();
-    $query = array_shift($args);
-    $query = str_replace('%prefix%', $config['database']['prefix'], $query);
-    foreach ($args as $CurrentArg) $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array('db', 'escape'), $query, 1);
-    return $this->query($query);
-  }
+  #### Connection related ####
 
-  function get_affected_rows() {
-    if ($this->mysqli) return @mysqli_affected_rows($this->link_id);
-    else return @mysql_affected_rows($this->link_id);
-  }
+  function connect($save = false) {
+    global $config;
 
-  function fetch_array($query_id=-1, $save=1) {
-    global $func;
-    
-    if ($query_id != -1) $this->query_id = $query_id;
-    
-    if ($this->mysqli) $this->record = @mysqli_fetch_array($this->query_id);
-    else $this->record = @mysql_fetch_array($this->query_id);
-    
-    if ($this->record) foreach ($this->record as $key => $value) {
-      if ($save) $this->record[$key] = $func->NoHTML($value);
-      else $this->record[$key] = $value;
-    }    
-    return $this->record;
-  }
+    $server = $config['database']['server'];
+    $user = $config['database']['user'];
+    $pass = $config['database']['passwd'];
+    $database = $config['database']['database'];
 
-  function free_result($query_id = -1) {
-    if ($query_id != -1) $this->query_id = $query_id;
-    if ($this->mysqli) return @mysqli_free_result($this->query_id);
-    else return @mysql_free_result($this->query_id);
-  }
+    // Try to connect
+    if ($this->mysqli) $this->link_id=@mysqli_connect($server, $user, $pass);
+    else $this->link_id=@mysql_connect($server, $user, $pass);
+    if (!$this->link_id) {
+      if ($save) {
+        $this->success = false;
+        return false;
+      } else  {
+        echo HTML_FONT_ERROR . t('Die Verbindung zur Datenbank ist fehlgeschlagen. Lansuite wird abgebrochen') . HTML_FONT_END;
+        exit();
+      }
 
-  function query_first($query_string) {
-    $this->query($query_string);
-    $row = $this->fetch_array($this->query_id);
-    $this->free_result($this->query_id);
-    return $row;
-  }
+    // Try to select DB
+    } else {
+      if ($this->mysqli) $ret = @mysqli_select_db($this->link_id, $database);
+      else $ret = @mysql_select_db($database, $this->link_id);
+      if (!$ret) {
+        if ($save) {
+          $this->success = false;
+          return false;
+        } else {
+          echo HTML_FONT_ERROR . t("Die Datenbank '%1' konnte nicht ausgewählt werden. Lansuite wird abgebrochen", $this->database) . HTML_FONT_END;
+          exit();
+        }
+      }
+    }
 
-  function qry_first() {
-    global $config, $CurrentArg;
-    
-    $args = func_get_args();
-    $query = array_shift($args);
-    $query = str_replace('%prefix%', $config['database']['prefix'], $query);
-    foreach ($args as $CurrentArg) $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array('db', 'escape'), $query, 1);
-    $this->query($query);
-    
-    $row = $this->fetch_array($this->query_id);
-    $this->free_result($this->query_id);
-    return $row;
-  }
-
-  function qry_first_rows($query_string) { // fieldname "number" is reserved
-    $this->qry($query_string);
-    $row = $this->fetch_array($this->query_id);
-    $row['number'] = $this->num_rows($this->query_id);
-    $this->free_result($this->query_id);
-    
-    return $row;
-  }
-
-  function num_rows($query_id=-1) {
-    if ($query_id!=-1) $this->query_id=$query_id;
-    if ($this->mysqli) return @mysqli_num_rows($this->query_id);
-    else return @mysql_num_rows($this->query_id);
-  }
-
-  function insert_id() {
-    if ($this->mysqli) return @mysqli_insert_id($this->link_id);
-    return @mysql_insert_id($this->link_id);
+    if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
+    else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
+    $this->success = true;
+    return true;
   }
 
   function get_host_info() {
@@ -183,6 +90,123 @@ class db {
     else return @mysql_get_host_info($this->link_id);
   }
 
+  function disconnect() {
+    if ($this->mysqli) mysqli_close($this->link_id);
+    else mysql_close($this->link_id);
+  }
+
+
+  #### Queries ####
+
+  function query($query_string) {
+  }
+
+  function qry() {
+    global $config, $CurrentArg;
+
+    $query_start = microtime(true);
+
+    $args = func_get_args();
+    if (is_array($args[0])) $args = $args[0]; // Arguments could be passed als multiple ones, or a single array
+
+    $query = array_shift($args);
+    $query = str_replace('%prefix%', $config['database']['prefix'], $query);
+    foreach ($args as $CurrentArg) $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array('db', 'escape'), $query, 1);
+
+    if ($this->mysqli) {
+      $this->query_id = mysqli_query($this->link_id, $query);
+      $this->sql_error = @mysqli_error($this->link_id);
+    } else {
+      $this->query_id = mysql_query($query, $this->link_id);
+      $this->sql_error = @mysql_error($this->link_id);
+    }
+    if (!$this->query_id) $this->print_error($this->sql_error, $query);
+
+    $this->count_query++;
+    $query_end = microtime(true);
+    $this->querys[] = array($query_string, round(($query_end - $query_start) *1000, 4));
+
+    return $this->query_id;
+  }
+
+  function fetch_array($query_id = -1, $save = 1) {
+    global $func;
+
+    if ($query_id != -1) $this->query_id = $query_id;
+    
+    if ($this->mysqli) $this->record = @mysqli_fetch_array($this->query_id);
+    else $this->record = @mysql_fetch_array($this->query_id);
+
+    if ($save and $this->record) foreach ($this->record as $key => $value) $this->record[$key] = $func->NoHTML($value);
+
+    return $this->record;
+  }
+
+  function num_rows($query_id =- 1) {
+    if ($query_id != -1) $this->query_id=$query_id;
+
+    if ($this->mysqli) return @mysqli_num_rows($this->query_id);
+    else return @mysql_num_rows($this->query_id);
+  }
+
+  function get_affected_rows($query_id =- 1) {
+    if ($query_id != -1) $this->query_id=$query_id;
+
+    if ($this->mysqli) return @mysqli_affected_rows($this->link_id);
+    else return @mysql_affected_rows($this->link_id);
+  }
+
+  function insert_id($query_id =- 1) {
+    if ($query_id != -1) $this->query_id=$query_id;
+
+    if ($this->mysqli) return @mysqli_insert_id($this->link_id);
+    return @mysql_insert_id($this->link_id);
+  }
+
+  function num_fields($query_id =- 1) {
+    if ($query_id != -1) $this->query_id=$query_id;
+
+    if ($this->mysqli) return mysqli_num_fields($this->query_id);
+    else return mysql_num_fields($this->query_id);
+  }
+
+  function field_name($pos, $query_id =- 1) {
+    if ($query_id !=- 1) $this->query_id=$query_id;
+
+    if ($this->mysqli) {
+      $finfo = mysqli_fetch_field_direct($this->query_id, $pos);
+      return $finfo->name;
+    } else return mysql_field_name($this->query_id, $pos);
+  }
+
+  function free_result($query_id = -1) {
+    if ($query_id != -1) $this->query_id = $query_id;
+
+    if ($this->mysqli) return @mysqli_free_result($this->query_id);
+    else return @mysql_free_result($this->query_id);
+  }
+
+
+  #### Special ####
+
+  function qry_first() {
+    $this->qry($args = func_get_args());
+    $row = $this->fetch_array();
+    $this->free_result();
+    return $row;
+  }
+
+  function qry_first_rows() {
+    $this->qry($args = func_get_args());
+    $row = $this->fetch_array();
+    $row['number'] = $this->num_rows(); // fieldname "number" is reserved
+    $this->free_result();
+    return $row;
+  }
+
+
+  #### Misc ####
+  
   function client_info() {
     if ($this->mysqli) {
       if (function_exists('mysqli_get_client_info')) return mysqli_get_client_info();
@@ -193,16 +217,6 @@ class db {
     }
   }
 
-  function print_error($msg, $query_string_with_error) {
-    global $func, $config, $auth, $lang;
-
-    $error = t('SQL-Failure. Database respondet: <font color="red"><b>%1</b></font><br/>Your query was: <i>%2</i><br/><br/> Script: %3<br/>Referrer: %4<br/>', $msg, $query_string_with_error, $_SERVER["REQUEST_URI"], $func->internal_referer);
-
-    $this->errors .= $error;
-    $this->qry('INSERT INTO %prefix%log SET date = NOW(), userid = %int%, type = 3, description = %string%, sort_tag = \'SQL-Fehler\'', $auth["userid"], $error);
-    $this->count_query++;
-  }
-  
   function DisplayErrors() {
     global $config, $func;
 
@@ -211,8 +225,8 @@ class db {
       $this->errors = '';
     } 
   }
-    
-  function field_exist($table,$field) {
+
+  function field_exist($table, $field) {
     $fields = mysql_list_fields($this->database, $table);
     if ($this->mysqli) $columns = mysqli_num_fields($fields);
     else $columns = mysql_num_fields($fields);
@@ -227,23 +241,8 @@ class db {
    return $found;
   }
 
-  function num_fields() {
-    if ($this->mysqli) return mysqli_num_fields($this->query_id);
-    else return mysql_num_fields($this->query_id);
-  }
-
-  function field_name($pos) {
-    if ($this->mysqli) {
-      $finfo = mysqli_fetch_field_direct($this->query_id, $pos);
-      return $finfo->name;
-    } else return mysql_field_name($this->query_id, $pos);
-  }
-
-  function get_mysqli_stmt() {
-    $prep = $link_id->stmt_init();
-    return $prep;
-  }
-  
+  // Old: All "$config['tables'][table_name]" should be replaced by "$config['database']['prefix']. 'table_name'"
+  // Afterwards this could be deleted
   function SetTableNames() {
     global $config;
 

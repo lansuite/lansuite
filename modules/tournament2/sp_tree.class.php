@@ -22,14 +22,14 @@ class lansuiteTree extends TourneyTree {
 				FROM lansuite_t2_games AS games
 				LEFT JOIN lansuite_t2_teams AS teams ON ( games.tournamentid = teams.tournamentid )
 					AND ( games.leaderid = teams.leaderid)
-				WHERE (games.tournamentid = '".$id."')
+				WHERE (games.tournamentid = '".(int)$id."')
 				AND (games.group_nr = 0) AND (games.round = %s) GROUP BY games.gameid ORDER BY games.position DESC";
 		$this->db = $db;
 	}
 
 	function prepareWB() {
 		for ($i=0; $i <= TourneyTree::numWBRounds($this->size); $i++) {
-			$res = $this->db->query(sprintf($this->st, $i));
+			$res = $this->db->qry(sprintf($this->st, $i));
 			while($row = $this->db->fetch_array($res)) {
 				$this->wb_teams[$i][] = (!$row['name'] ? array('name' => NULL, 'score' => 0): $row);
 			}
@@ -67,7 +67,7 @@ class lansuiteTree extends TourneyTree {
 	function prepareLB() {
 		$x=0;
 		for ($i=0.5; $i <= (TourneyTree::numLBRounds($this->size)/2); ) {
-			$res = $this->db->query(sprintf($this->st, ($i*(-1))));
+			$res = $this->db->qry(sprintf($this->st, ($i*(-1))));
 			while($row = $this->db->fetch_array($res)) {
 				$this->lb_teams[$x][] = (!$row['name'] ? array('name' => NULL, 'score' => 0): $row);
 			}
