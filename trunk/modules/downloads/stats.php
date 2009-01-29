@@ -67,7 +67,7 @@ if (!$_GET['file']) {
 
   $dsp->AddDoubleRow("<b>Time</b>", "<b>Hits</b>");
 
-  $res = $db->qry("SELECT DATE_FORMAT(time, %string% AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits FROM %prefix%download_stats
+  $res = $db->qry("SELECT DATE_FORMAT(time, %string%) AS group_by_time, UNIX_TIMESTAMP(time) AS display_time, SUM(hits) AS hits FROM %prefix%download_stats
     WHERE file = %string% AND DATE_FORMAT(time, %string%) = %string%
     GROUP BY DATE_FORMAT(time, %string%)
     ORDER BY DATE_FORMAT(time, %string%)

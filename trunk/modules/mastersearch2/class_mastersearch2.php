@@ -281,6 +281,7 @@ class MasterSearch2 {
     else {
       if ($_GET['ms_page'] != '' and (!$_GET['ms_number'] or $_GET['ms_number'] == $ms_number)) $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
       else $page_start = 0;
+      if ($page_start < 0) $page_start = 0;
       $this->query['limit'] = "LIMIT $page_start, ". $this->config['EntriesPerPage'];
     }
         
