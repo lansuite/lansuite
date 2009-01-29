@@ -1,0 +1,266 @@
+#labels Featured
+[http://lansuite-docu.orgapage.net To the english LanSuite-Doku - Zur Englischen LanSuite-Doku]
+
+== Über die Lansuite Dokumentation ==
+* [[Vorwort]] - Dieses Projekt soll Einsteigern und Fortgeschrittenen helfen mit LanSuite arbeiten zu können.
+
+
+<table width="99%" cellpadding="8" style="background-color:#FABD23; border-width:0px; border-style:solid; padding:0px;">
+<tr><td align="left" valign="top" bgcolor="#ffffff" colspan="2">
+
+== Installieren und Konfigurieren von LanSuite ==
+</td></tr>
+<tr><td align="left" valign="top" bgcolor="#ffffff">
+=== Installation ===
+* [[Systemvorraussetzungen]]
+* [[Webserver Installation]]
+* [[Webserverinstallation Linux]]
+* [[LanSuite installieren]]
+* [[Subversion]]
+
+=== Update-Anleitungen ===
+* [[Updates durchführen]]
+* [[2.0.2 auf 2.0.5]]
+* [[2.0.5 auf 2.1.0]]
+* [[2.1.0 auf 2.1.2]]
+* [[2.1.2 auf 2.1.3]]
+* [[2.1.3 auf 2.1.4]]
+* [[Latin1toutf8|ISO-8859-1(Latin 1) DB in UTF-8 Konvertieren]]
+
+=== Hilfe an der LAN ===
+* [[Helfer für die LAN]]
+
+</td><td align="left" valign="top" bgcolor="#ffffff">
+
+=== Konfigurieren mit Hilfe der Admin Seite ===
+* [[AdminSeite|Allgemeines]]
+'''LanSuite konfigurieren'''
+* [[Grundeinstellungen]]
+* [[Allgemeine Einstellungen]]
+* [[Modulmanager]]
+* [[Navigationsverwaltung]]
+'''LanSuite updaten / reparieren'''
+* [[Systemvorraussetzungen testen]]
+* [[Datenbank updaten und verwalten]]
+'''Daten-Management'''
+* [[Daten-Import]]
+* [[Daten-Export]]
+* [[Feedback senden]]
+</td></tr></table>
+<br>
+
+<table width="99%" cellpadding="8" style="background-color:#FABD23; border-width:0px; border-style:solid; padding:0px;">
+<tr><td align="left" valign="top" bgcolor="#ffffff" colspan="2">
+
+== Verwenden von LanSuite ==
+* [[Menüs]]
+* [[Häufig verwendete Elemente]]
+* [[Multiparty]]
+* [[Barcodesystem]]
+</td></tr>
+<tr><td align="left" valign="top" bgcolor="#ffffff">
+==== Standard Module ====
+* [[Anmeldung]] (Hier erstellen Benutzer ihren Account)
+* [[Benutzermanager]] ([[Rechtemanagment|Admins und Operatoren]] können die Accounts verwalten)
+* [[Bildergalerie]] (Bilderalbum)
+* [[Board]] (Forum)
+* [[Download]] (FTP-Download über die Webseite)
+* [[FAQ]] (Häufig gestellte Fragen und ihre Antwort)
+* [[Foodcenter]] (Speisekarte und Essensbestellung)
+* [[Games]] (Online Games)
+* [[Gästebuch]] (Erlaubt Gästen sich zu verewigen)
+* [[Gästeliste]] (Liste aller angemeldeten Benutzer)
+* [[Informationen2]] (Eigene Textseiten definieren)
+* [[IRC]] (IR-Chat)
+* [[Mail]] (LanSuite-internes Mail-System)
+* [[Map]] (Anfahrt-Route über MAP24)
+* [[Messenger]] (Wie ICQ, nur über Web)
+* [[News]] (Neuigkeiten)
+* [[NOC]] (Network Operation Center)
+* [[PDF]] (Erstellt Sitzplatzkarten und Ähnliches)
+* [[Poll]] (Abstimmung)
+* [[Sitzplan]] (Zum Plätze reservieren)
+* [[Server]] (Serverliste)
+* [[Sponsor]] (Sponsorenliste)
+* [[Startseite]] (Eingangsseite)
+* [[Statistiken]] (Statistiken für Admins)
+* [[Troubletickets]] (Problem-verwaltungs-System)
+* [[Turniere]] (Turnierverwaltungs-System)
+* [[Verleih]] (Verleihliste für Admins)
+</td><td align="left" valign="top" bgcolor="#ffffff">
+
+==== Addon Paket ====
+''Einige dieser Addon-Module befinden sich noch in der Testphase und funktionieren nicht einwandfrei. Jeder der möchte, kann sich gerne daran versuchen, diese Module zu verbessern und vervollständigen''
+* [[Aufgaben]] (Aufgabenverwaltung)
+* [[Beamer]] (Modul zum Steuern mehrerer Beamer)
+* [[Board2]] (Integration des PHPBB Boards)
+* [[Equipment]] (Equipment-Shop von Orgapage)
+* [[G6FTP]] (FTP-Account für G6FTP-Server erstellen)
+* [[Gameserver]] (Infos über Gameserver auflisten)
+* [[InfoCat]] (Informationen zum Catering)
+* [[LansinTV]] (Streaming-Funktion mit Programm-Abstimmung)
+* [[Mitfahrerzentrale]] (Hin-/Rückfahrt mit anderen organisieren)
+* [[MMC]] (Multimediacenter)
+* [[Teamspeak]] (Teamspeak Channel Ansicht)
+</td></tr></table>
+<br>
+
+<table width="99%" cellpadding="8" style="background-color:#FABD23; border-width:0px; border-style:solid; padding:0px;">
+<tr><td align="left" valign="top" bgcolor="#ffffff" colspan="2">
+
+== Entwickeln in LanSuite ==
+</td></tr>
+<tr>
+  <td align="left" valign="top" bgcolor="#ffffff" colspan="2">
+=== Allgemein ===
+* [[Entwicklung_Tools|Allgemeine Hilfsmittel und Tools zur PHP/Mysql-Softwareentwicklung]]
+* [[Entwicklung_Dokumentationen|Wichtige Dokumentationen zur PHP/Mysql-Softwareentwicklung]]
+* [[Subversion|Quellcodeverwaltung mit Subversion]]
+
+  </td></tr>
+<tr>
+<td align="left" valign="top" bgcolor="#ffffff">
+
+=== Dokumentationen für Designer ===
+* [[Templates_erstellen|Ein eigenes Template erstellen]]
+* [[Variablen für Designs]]
+* [[Stylesheets]]
+</td><td align="left" valign="top" bgcolor="#ffffff">
+
+=== Dokumentationen für Entwickler ===
+* [[Copyright Header]]
+* [[Modul_erstellen|Ein eigenes Modul erstellen]]
+* [[class_dsp|Bildschirmausgabe]] (Verwenden der Dsp-Klasse)
+* [[class_db|Datenbankinteraktion]] (Verwenden der DB-Klasse)
+* [[class_func|Systemweite Funktionen]] (Verwenden der systemweiten Funktionen)
+* [[class_gd|Grafik Funktionen]] (Verwenden der GD-Klasse)
+* [[Datenbank-Struktur]] (Einträge in der db.xml-Datei)
+* [[Menüeinträge| Menüeinträge und Rechtemanagement]] (Einträge in der menu.xml-Datei)
+* [[Multilanguage Support]]
+* [[MultiLAN Support]]
+* [[Mastersearch2]] (Suchfunktion und Ergebnisauflistung)
+* [[MasterForm]] (Erstellen von HTML-Formularen zum Einfügen von Daten in die DB)
+* [[Mastercomment]] (Einfügen von Kommentaren)
+* [[Box erstellen|Eine eigene Box erstellen]]
+* [[Include-Map]]
+* [[LanSuite Daten-Import-Schema]]
+</td></tr></table>
+<br>
+
+<table width="99%" cellpadding="8" style="background-color:#FABD23; border-width:0px; border-style:solid; padding:0px;">
+<tr><td colspan="2" align="left" valign="top" bgcolor="#ffffff">
+
+== FAQ ==
+'''Generelle Fragen'''
+* [[Ist Lansuite kostenlos?]]
+* [[LanSuite_Docu:Site_support|Wie kann ich helfen Lansuite zu verbessern?]]
+
+'''Anwender-Probleme'''
+* [[Ich werde nach dem Einloggen wieder ausgeloggt, sobald ich die nächste Seite aufrufe]] 
+* [[Warum kann ich einen Benutzer nicht komplett löschen?]] 
+
+'''Server-Probleme'''
+* [[Ich erhalte auf jeder Seite einen MySql-Fehler. Was kann ich dagegen machen?]]
+* [[Mein Turnierbaum hat Fehler in der Logik]] (Sieger / Verlierer wird an die falsche Stelle verschoben)
+* [[Beim installieren erhalte ich komische Fehlermeldungen und der Button "Weiter" fehlt.]] 
+* [[Ich lande beim Absenden mancher Formularen wieder auf der Startseite]]
+* [[Probleme mit dem Setzen der Rechte unter Linux]]
+* [[In der Bildergallery erscheint eine ähnliche Meldung, wie: Allowed memory size of 8388608 bytes exhausted]] 
+* [[Die Datenbank ist nicht erreichbar]]
+* [[Ich erhalte eine Meldung: Warning: main(): Failed opening 'modules/install/class_import.php' for inclusion (include_path='/usr/share/php') ...]]
+* [[Ich verwende den IIS-Webserver und manche Seiten können nicht gefunden werden]]
+* [[Fatal error: Trying to clone an uncloneable object of class mysqli]]
+* [[Der Sitzplan lässt maximal 19x19 große Blöcke zu. Sonst erscheint auf der Folgeseite eine leere Seite]]
+
+'''Entwickler-Fragen'''
+* [[Wie schütze ich mein Script vor SQL-Injections?]]
+</td></tr></table>
+<br>
+
+<table width="99%" cellpadding="8" style="background-color:#FABD23; border-width:0px; border-style:solid; padding:0px;">
+<tr><td colspan="2" align="left" valign="top" bgcolor="#ffffff">
+
+== Bekannte, schwerwiegende Probleme ==
+* In Version 3.1:
+** Manche PHP-Versionen können mit dem Befehl debug_backtrace nicht umgehen und zeigen daher manche Seiten nicht an. Insbesondere den Step 4 der Installation.
+
+ Lösung: inc/classes/class_translation.php folgende Zeilen rauslöschen
+ // Get CallingFile
+ if (function_exists('debug_backtrace')) {
+   $bt = debug_backtrace();
+   if ($bt[1]['function'] == 'translate') $CallingFile = 'DB';
+   else {
+     $CallingFile = $bt[0]['file'];
+     $BasePath = substr(__FILE__, 0, strpos(__FILE__, 'inc\classes\class_translation.php'));
+     $CallingFile = str_replace($BasePath, '', $CallingFile);
+   }
+ }
+
+
+* In Version 2.1.5:
+** Invalid argument supplied for foreach() in /home/htdocs/lan66.de/www/lansuite/inc/classes/class_translation.php führt dazu dass man bei der Anmeldung nicht automatisch eingeloggt wird.
+ Lösung: modules/boxes/signonstatus.php
+ elseif ($count == 1) $count = t('noch %1 Tag', $count);
+ else $count = t('noch %1 Tage', $count);
+ 
+ ändern in:
+ elseif ($count == 1) $count = t('noch %1 Tag', array($count));
+ else $count = t('noch %1 Tage', array($count));
+
+ Außerdem in modules/usrmgr/add.php die )-Klammer anders setzen. Von:
+ if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Dein Passwort und weitere Informationen wurden an deine eMail-Adresse gesendet', NO_LINK));
+ in:
+ if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Dein Passwort und weitere Informationen wurden an deine eMail-Adresse gesendet'), NO_LINK);
+
+
+* In Version 2.1.4:
+** Bei aktivem register_globals kann man sich nicht mehr zur Party anmelden, sobald man die Benutzerdetails eines Besuchers aufgerufen hat
+ Lösung: Register globals deaktivieren, oder in der Datei modules\usrmgr\details.php alle Vorkommen von
+ $party_info
+ in
+ $party_row
+ umbenennen.
+
+
+* In Version 2.1.2:
+** Mehrfachauswahl Dialoge funktionieren nich
+ Lösung: Zeile 221 der Datei inc\classes\class_func.php wie folgt ändern:
+ global $templ, $dsp;
+ In Zeile 230 und 246 das = in ein .= ändern.
+
+
+* In Version 2.1.1:
+** Der LanSurfer Import funktioniert nicht mehr
+ Auf manchen Webservern lässt sich die DB nicht erstellen, mit der Fehlermeldung, dass Default-Werte fehlen würden:
+ Lösung: http://knox.orgapage.de/files/class_import.txt herunterladen
+ und modules/install/class_import.php damit ersetzen
+
+
+* In Version 2.0.5:
+** MySQL-Fehler beim Aufruf des Datenbankmanagers in der Tabelle "stats_usage"
+ Problembeschreibung: http://bugtracking.one-network.org/view.php?id=228
+ Lösung: Update auf neuere Version
+
+
+* In Version 2.0.4:
+** Bei neueren MySQL-Versionen kommt es zu MySQL-Fehlern in der Tabelle "party_user"
+ Lösung: http://board.one-network.org/viewtopic.php?t=2141
+
+</td></tr></table>
+<br>
+
+<table width="99%" cellpadding="8" style="background-color:#FABD23; border-width:0px; border-style:solid; padding:0px;">
+<tr><td colspan="2" align="left" valign="top" bgcolor="#ffffff">
+
+== Web-Links ==
+</td></tr>
+<tr><td align="left" valign="top" bgcolor="#ffffff">
+=== Offizielle Links ===
+* [http://lansuite.orgapage.de lansuite.de] (Die offizielle Lansuite-Webpräsenz)
+</td><td align="left" valign="top" bgcolor="#ffffff">
+
+=== Weitere Links zum Thema ===
+* [http://www.apachefriends.org Apachefriends] (XAMPP-Webserver-Komplettpacket)
+* [http://www.orgapage.de Orgapage] (Infos für Lan-Party Orgas)
+</td></tr></table>
+<br>
