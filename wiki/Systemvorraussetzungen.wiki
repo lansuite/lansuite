@@ -1,0 +1,55 @@
+#labels Phase-Installation
+Damit Lansuite funktioniert, muss auf deinem Server ein Webserver mit PHP und MySQL installiert sein.
+
+== Komplettpacket ==
+
+Als einfach zu installierendes Komplettpacket empfehlen wir XAMPP von [http://www.apachefriends.org/de/ www.apachefriends.org].
+
+Dies beinhaltet alle für LanSuite benötigten Vorraussetzungen und LanSuite wird auch regelmäßig mit dieser Installation getestet. Eine Installationsanleitung gibt es [Webserver_Installation hier].
+
+== Einzel-Komponenten ==
+
+Für diejenigen, die lieber alles einzeln installieren möchten, oder bereits Teile installiert haben:
+
+Folgende Komponenten müssen auf eurem Server installiert sein:
+
+ * Webserver ([http://www.apache.org Apache] empfohlen)
+
+ * PHP 4.1.2, oder höher ([http://www.php.net PHP-Webseite])
+(LanSuite läuft auch mit früheren Versionen von PHP, dann jedoch mit Einschränkungen)<br>
+Aus Sicherheitstechnisschen Gründen wird die aktuellste Version der PHP 5.xx Serie empfohlen.
+
+ * MySQL-Datenbank ([http://www.mysql.com MySQL-Webseite])
+Auch hier wie die aktuellste Version der Reihe 5 empfohlen.
+Getestet wurde aber auch erfolgreich mit der 4er Reihe von MySQL.
+
+Die 3er Reihe von MySQL funktioniert ab Lansuite 2.1.0 nicht mehr, da wir uns ab dieser Version entschieden haben kein MySQL 3.x mehr zu unterstützen, da ab dieser Lansuite Version Befehle eingesetzt werden, die die Performace verbessern, aber erst ab MySQL 4.0 unterstützt werden.
+
+
+=== PHP Erweiterungen ===
+ * GD-Lib
+Ohne diese PHP-Erweiterung funktionieren servergenerierte, dynamischen Grafiken nicht. Lansuite setzt diese jedoch nur noch sehr vereinzellt ein. Z.B. beim Verkleinern der Avatare.
+
+ * SNMP-Lib
+Ohne diese PHP-Erweiterung funktioniert das [NOC NOC-Modul] nicht
+
+ * FTP-Lib
+Ohne diese PHP-Erweiterung funktioniert das [download Download-Modul] nicht im FTP-Modus
+
+ * PDF-lib
+Ohne diese PHP-Erweiterung funktioniert das [PDF PDF-Modul] zum Erzeugen von Eintritts- und Sitzplatz-Karten nicht
+
+=== Notwendige PHP-Einstellungen ===
+Folgende Einstellungen sollten in der php.ini gesetzt werden.
+Da es bei fast allen Online-Webhostern keine Möglichkeit gibt diese Einstellungen zu ändern, sollten sie bei der Hoster-Wahl berücksichtigt werden.
+
+ * SafeMode = Off
+SafeMode sollte deaktiviert sein, sonst funktioniert das [server Servermodul], die [Statistiken] und [LansinTV] nicht korrekt
+
+ * MagicQuotes = On
+MagicQuotes sollte aktiviert sein. Ohne könnte es in einigen LanSuite-Funktionen zu MySQL-Fehlern kommen, wenn in Formularen das Zeichen ', oder \ verwendet wird. Deaktiviertes MagicQuotes stellt außerdem eine theoretische Sicherheitslücke da, die von erfahrenen Programmierern ausgenutzt werden kann.
+
+LanSuite sollte auch mit deaktiviertem MagicQuotes vor diesen Sicherhietslücken geschützt sein, doch kann es beim Programmieren passieren, dass doch mal an einer Stelle vergessen wurde darauf zu achten. Mit aktiviertem MagicQuotes ist man dann auch in diesem Fällen geschützt.
+
+ * RegisterGlobals = Off
+Weniger wichtig, aber sollte aus Sicherheitsgründen deaktiviert werden, denn LanSuite kommt auch ohne das globale Registrieren von Variablen aus.
