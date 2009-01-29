@@ -1,4 +1,4 @@
-#labels Phase-Implementation
+#labels Phase-Developer
 == Allgemeines ==
 
 Wir haben uns im LANSuite-Team darauf geeinigt, nach den PEAR-Coding-Standards zu programmieren.
