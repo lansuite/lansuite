@@ -1,0 +1,41 @@
+#labels Phase-Implementation
+= Allgemeines =
+
+Wir haben uns im LANSuite-Team darauf geeinigt, nach den PEAR-Coding-Standards zu programmieren.
+Das macht die Sache nicht schwerer, aber einiges Übersichtlicher. Wir möchten darum alle Programmierer darum bitten, sich doch auch an diesen Standard zu halten, wenn sie für LS programmieren. Es gibt zukünftigen Programmierern die Möglichkeit, sich schnell in den Code einzudenken.<br>
+Beschreibung: [http://pear.php.net/manual/de/standards.php http://pear.php.net/manual/de/standards.php]<br>
+
+
+= Ein eigenes Modul =
+
+Am Anfang kopierst du dir am Besten das Beispielmodul und startest mit den darin vorgegeben Dateien.
+
+modules/sample/
+
+
+= Wichtige Dateien in einem Modul =
+ * *icon.gif* (Dieses Bild wird im Modulmanager auf der [Admin_Seite Adminseite] angezeigt)
+ * *mod_settings/translation.xml* (Deutsche Sprachdatei für das Modul. Siehe [Multilanguage_Support])
+ * *mod_settings/module.xml* (Enthält Informationen über das Modul)
+ * *mod_settings/menu.xml* (Hier wird die Menüstruktur definiert, sowie die `$_GET['action']` -> Dateiname Zuordnung vorgenommen. Außerdem wird hier definiert, welche Benutzer auf welche Dateien zugreifen dürfen - Siehe [Menueeintraege Menüeinträge und Rechtemanagement])
+ * *mod_settings/db.xml* (Hier wird die Struktur der Datenbank-Tabellen des Modules, sowie Standart-Content der Tabellen definiert - Siehe [DatenbankStruktur])
+ * *mod_settings/config.xml* (Hier können Benutzer-Einstellungen eingefügt werden, welche später über `$cfg['var']` abgefragt werden können) - Nach Änderungen an dieser Datei ist unbedingt ein RESET im Adminbereich für das Modul durch zuführen damit Lansuite erkennt das es neue Config-Parameter gibt !!
+ * *plugins*-Verzeichnis. Enthält Modulabhängige Plugins für Usrmgr, Home, etc. Siehe [Pluginsystem]
+
+= Mein erstes Modul =
+Nachdem die oben genannten Datein, je nachdem, ob benötigt, oder nicht, alle angelegt wurden, erstellt man im Modulordner eine neue Datei.
+
+z.B. index.php
+
+mit folgendem Inhalt:
+{{{
+<?
+$dsp->NewContent(t('Headline'), t('Subheadline'));
+$dsp->AddSingleRow(t('My Text'));
+?>
+}}}
+
+Die Datei sollte nun unter http://127.0.0.1/index.php?mod=mymod&action=index erreichbar sein.
+
+= Weiteres gestalten der Ausgabe einer Datei =
+Um nun mehr als nur eine einfache Zeile ausgeben zu können, schaust du dir am besten mal die Beschreibung zu [Class_dsp] an.
