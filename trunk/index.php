@@ -246,10 +246,10 @@
 
     $framework->add_css_path('design/'.$auth['design'].'/navibox.css');
     $framework->set_design($auth['design']);
+    $db->DisplayErrors();
     $framework->add_content($FrameworkMessages);    // Add old Frameworkmessages (sollten dann ausgetauscht werden)
     $framework->add_content($MainContent);          // Add oll MainContent-Variable (sollte auch bereinigt werden)
 
-    $db->DisplayErrors();
     $framework->html_out();  // Output of all HTML
     
 ### Statistics will be updated only at scriptend, so pagesize and loadtime can be insert
