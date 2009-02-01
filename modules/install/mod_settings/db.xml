@@ -978,7 +978,7 @@
             </field>
             <field>
                 <name>sessid</name>
-                <type>varchar(32)</type>
+                <type>varchar(40)</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
