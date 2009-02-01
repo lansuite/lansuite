@@ -22,11 +22,14 @@ class db {
   function print_error($msg, $query_string_with_error) {
     global $func, $config, $auth;
 
-    $error = t('SQL-Failure. Database respondet: <font color="red"><b>%1</b></font><br/>Your query was: <i>%2</i><br/><br/> Script: %3<br/>Referrer: %4<br/>', $msg, $query_string_with_error, $_SERVER["REQUEST_URI"], $func->internal_referer);
+    $error = t('SQL-Failure. Database respondet: <b>%1</b><br/><br/>Query: <br><i>%2</i><br/><br/>Script: <a href="%3">%3</a><br/>Referrer: <a href="%4">%4</a><br/>', $msg, $query_string_with_error, $_SERVER["REQUEST_URI"], $func->internal_referer);
 
     $this->errors .= $error;
     // Need to use mysql_querys here, to prevent loops!!
-    mysql_query('INSERT INTO '. $config['database']['prefix'] .'log SET date = NOW(), userid = '. (int)$auth['userid'] .', type = 3, description = "'. $error .'", sort_tag = "SQL-Fehler"', $this->link_id);
+    $query = 'INSERT INTO '. $config['database']['prefix'] .'log SET date = NOW(), userid = '. (int)$auth['userid'] .', type = 3, description = "'. strip_tags($error) .'", sort_tag = "SQL-Fehler"';
+    if ($this->mysqli) mysqli_query($this->link_id, $query);
+    else mysql_query($query, $this->link_id);
+
     $this->count_query++;
   }
 
