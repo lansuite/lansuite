@@ -9,7 +9,7 @@ require_once (PHGDIR . '/main/phgstats.inc.php');
 $phg_content = ob_get_contents();
 ob_end_clean();
 
-$style='<style>
+/*$style='<style>
 table {
   background: #4E5F71;
 }
@@ -20,6 +20,6 @@ td {
   background: #EEE6E6;
 }
 </style>
-';
+';*/
 $dsp->AddSingleRow($style . $phg_content);
 ?>
