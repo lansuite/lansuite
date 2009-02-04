@@ -668,6 +668,7 @@ global $cfg;
     if (!in_array($tld, $allTLD)) return t('Diese Email ist ungültig (Nicht exitsierende Domain)');
 
     $TrashMailDomains = explode("\n", $cfg['mf_forbidden_trashmail_domains']);
+    foreach ($TrashMailDomains as $key => $val) $TrashMailDomains[$key] = trim($val);
     if (in_array($hostName, $TrashMailDomains)) return t('Die Mail-Domain %1 ist nicht erlaubt, da sie Anbieter von "Wegwerf-Mails" ist', $hostName);
   }
   return false;
