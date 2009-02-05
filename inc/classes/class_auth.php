@@ -117,7 +117,6 @@ class auth {
    */
     function login($email, $password, $show_confirmation = 1) {
         global $db, $func, $cfg, $config, $party, $lang, $board_config, $ActiveModules;
-        $this->auth['design'] = $config['lansuite']['default_design'];
         $tmp_login_email = "";
         $tmp_login_pass = "";        
 
@@ -290,7 +289,6 @@ class auth {
         $this->auth["email"] = "";
         $this->auth["username"] = "";
         $this->auth["userpassword"] = "";
-        $this->auth['design'] = $config['lansuite']['default_design'];
         $this->auth["type"] = 0;
 
         // The User will be logged out on the phpBB Board if the modul is available, configured and active.
@@ -435,7 +433,6 @@ class auth {
             LEFT JOIN %prefix%usersettings AS user_set ON user.userid = user_set.userid
             WHERE session.sessid=%string% ORDER BY session.lasthit', $this->auth["sessid"]);
         if (is_array($user_data)) foreach ($user_data as $key => $val) if (!is_numeric($key)) $this->auth[$key] = $val;
-        if ($this->auth['design'] == '') $this->auth['design'] = $config['lansuite']['default_design'];
     }
 
   /**

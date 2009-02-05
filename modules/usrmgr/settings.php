@@ -23,7 +23,7 @@ $mf = new masterform();
 // Designs
 if ($cfg['user_design_change']) {
   $selections = array();
-  #$selections[''] = t('Standard Design');
+  $selections[''] = t('System-Vorgabe');
 
   $ResDesign = opendir('design/');
   while ($dir = readdir($ResDesign)) if (is_dir("design/$dir") and file_exists("design/$dir/design.xml") and ($dir != 'beamer')) {
