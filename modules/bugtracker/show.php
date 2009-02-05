@@ -168,6 +168,15 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 	if ($row['agent']) $dsp->AddDoubleRow(t('Bearbeiter'), $row['agent_name'] .' '. $dsp->FetchUserIcon($row['agent']));
 	else $dsp->AddDoubleRow(t('Bearbeiter'), t('Noch nicht zugeordnet'));
 
+	if ($row['revision']) $dsp->AddDoubleRow(t('SVN-Revision'), $row['revision'] .' (<a href="http://code.google.com/p/lansuite/source/detail?r='. $row['revision'] .'" target="_blank">'. t('Änderungen anzeigen') .'</a>)');
+
+  if ($auth['type'] >= 2) {
+    include_once('inc/classes/class_masterform.php');
+    $mf = new masterform();
+    $mf->AddField(t('Fix in SVN-Revision'), 'revision');
+    $mf->SendForm('', 'bugtracker', 'bugid', $_GET['bugid']);
+  }
+
 	$dsp->AddDoubleRow(t('Text'), $func->text2html($row['text']));
   if ($row['file']) $dsp->AddDoubleRow(t('Anhang'), $dsp->FetchAttachmentRow($row['file']));
 	$dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Editieren'), 'index.php?mod=bugtracker&action=add&bugid='.$row['bugid']) . $dsp->FetchSpanButton(t('Zurück zur Übersicht'), 'index.php?mod=bugtracker'));

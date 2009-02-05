@@ -148,6 +148,14 @@
         <default></default>
         <extra></extra>
       </field>
+      <field>
+        <name>revision</name>
+        <type>int(11)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
 		</structure>
 	</table>
 </lansuite>
