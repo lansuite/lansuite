@@ -361,96 +361,31 @@ class Install {
     $continue = 1;
 
     // Environment Check
-    $ok = "<span class=\"okay\">".t('erfolgreich')."</span>" . HTML_NEWLINE;
-    $failed = "<span class=\"error\">".t('fehlgeschlagen')."</span>" . HTML_NEWLINE;
-    $warning = "<span class=\"warning\">".t('bedenkliche Einstellung')."</span>" . HTML_NEWLINE;
+    $ok = "<span class=\"okay\">".t('Erfolgreich')."</span>" . HTML_NEWLINE;
+    $failed = "<span class=\"error\">".t('Fehlgeschlagen')."</span>" . HTML_NEWLINE;
+    $warning = "<span class=\"warning\">".t('Bedenkliche Einstellung')."</span>" . HTML_NEWLINE;
+    $optimize = "<span class=\"warning\">".t('Optimierungsbedarf')."</span>" . HTML_NEWLINE;
     $not_possible = "<span class=\"warning\">".t('Leider nicht möglich')."</span>" . HTML_NEWLINE;
 
-    // Display System-Variables
-    #$mysql_version = mysql_get_server_info($config['database']['database']);
-    $mysql_version = sprintf("%s\n", $db->client_info());
-    if (!$mysql_version) $mysql_version = t('Unbekannt');
-    $SysInfo = "<table width=\"99%\">"
-      ."<tr><td class=\"row_value\">PHP-Version:</td><td class=\"row_value\">". phpversion() ."</td></tr>"
-      ."<tr><td class=\"row_value\">MySQL-Version:</td><td class=\"row_value\">".$mysql_version."</td></tr>"
-      ."<tr><td class=\"row_value\">Max. Script-Execution-Time:</td><td class=\"row_value\">". (float)ini_get('max_execution_time') ." Sec.</td></tr>"
-      ."<tr><td class=\"row_value\">Max. Data-Input-Zeit:</td><td class=\"row_value\">". (float)ini_get('max_input_time') ." Sec.</td></tr>"
-      ."<tr><td class=\"row_value\">Memory Limit:</td><td class=\"row_value\">". (float)ini_get('memory_limit') ." MB</td></tr>"
-      ."<tr><td class=\"row_value\">Max. Post-Form Size:</td><td class=\"row_value\">". (float)ini_get('post_max_size') ." MB</td></tr>";
-    if (function_exists('disk_total_space') and function_exists('disk_free_space')) $SysInfo .= "<tr><td class=\"row_value\">Free space:</td><td class=\"row_value\">". $func->FormatFileSize(disk_free_space('.')) .' / '. $func->FormatFileSize(disk_total_space('.')) .'</td></tr>';
-    $SysInfo .= "</table>";
-    $dsp->AddDoubleRow("System-Info", $SysInfo);
+
+    #### Critical ####
+    $dsp->AddFieldSetStart("Kritisch - Diese Test müssen alle erfolgreich sein, damit Lansuite funktioniert");
 
     // PHP-Version
-    if (version_compare(phpversion(), "4.1.2") >= 0) $phpv_check = $ok;
-    else $phpv_check = $failed . t('Auf Ihrem System wurde die PHP-Version %1 gefunden.  Lansuite benötigt mindestens PHP Version 4.3.0. Sie können zwar die Installation fortsetzen, allerdings kann keinerlei Garantie auf die ordnungsgemäße Funktionsweise gegeben werden. Laden und installieren Sie sich eine aktuellere Version von <a href=\'http://www.php.net\' target=\'_blank\'>www.php.net</a>.', phpversion());
+    if (version_compare(phpversion(), "4.1.2") >= 0) $phpv_check = $ok . phpversion();
+    else $phpv_check = $failed . t('Auf Ihrem System wurde die PHP-Version %1 gefunden. Lansuite benötigt mindestens PHP Version 4.3.0. Sie können zwar die Installation fortsetzen, allerdings kann keinerlei Garantie auf die ordnungsgemäße Funktionsweise gegeben werden. Laden und installieren Sie sich eine aktuellere Version von <a href=\'http://www.php.net\' target=\'_blank\'>www.php.net</a>.', phpversion());
     $dsp->AddDoubleRow("PHP Version", $phpv_check);
 
     // MySQL installed?
-    if (extension_loaded("mysql")) $mysql_check = $ok;
-    else {
+    if (extension_loaded("mysql") or extension_loaded("mysqli")) {
+      $mysql_version = sprintf("%s\n", $db->client_info());
+      if (!$mysql_version) $mysql_version = t('Unbekannt');
+      $mysql_check = $ok . $mysql_version;
+    } else {
         $mysql_check = $failed . t('Die MySQL-Erweiterung ist in PHP nicht geladen. Diese wird benötigt um auf die Datenbank zuzugreifen. Bevor keine Datenbank verfügbar ist, kann Lansuite nicht installiert werden. Den MySQL-Server gibt es unter <a href=\'http://www.mysql.com\' target=\'_blank\'>www.mysql.com</a> zum Download.');
         $continue = 0;
     }
-    $dsp->AddDoubleRow("MySQL", $mysql_check);
-
-    // Register Globals
-    if (ini_get('register_globals') == FALSE) $rg_check = $ok;
-    else $rg_check = $warning . t('Auf Ihrem System ist die PHP-Einstellung <b>register_globals</b> auf <b>On</b> gesetzt. Dies kann unter Umständen ein Sicherheitsrisiko darstellen, wenn auch kein großes (siehe dazu: <a href=\'http://www.php.net/manual/de/security.globals.php\' target=\'_blank\'>www.php.net</a>). Sie sollten in Ihrer <b>PHP.ini</b> die Option <b>register_globals</b> auf <b>Off</b> setzen! Bitte vergessen Sie nicht, Ihren Webserver nach dieser Änderung neu zu starten.');
-    $dsp->AddDoubleRow("Register Globals", $rg_check);
-
-    // Test Safe-Mode
-    if (!ini_get("safe_mode")) $safe_mode = $ok;
-    else $safe_mode = $not_possible . t('Auf Ihrem System ist die PHP-Einstellung <b>safe_mode</b> auf <b>On</b> gesetzt. safe_mode ist dazu gedacht, einige Systemfunktionen auf dem Server zu sperren um Angriffe zu verhindern (siehe dazu: <a href=\'http://de2.php.net/features.safe-mode\' target=\'_blank\'>www.php.net</a>). Doch leider benötigen einige Lansuite-Module (speziell: LansinTV, Serverstatistiken oder das Server-Modul) Zugriff auf genau diese Funktionen. Sie sollten daher in Ihrer <b>PHP.ini</b> die Option <b>safe_mode</b> auf <b>Off</b> setzen! <br /> Außer bei oben genannten Modulen, kann es bei aktiviertem safe_mode auch zu Problemen bei dem Generieren von Buttons, wie dem am Ende dieser Seite kommen.');
-    $dsp->AddDoubleRow("Safe Mode", $safe_mode);
-
-    // Magic Quotes
-    if (get_magic_quotes_gpc()){
-        $mq_check = $ok;
-        $config["environment"]["mq"] = 1;
-    } else {
-        $mq_check = $not_possible . t('Auf Ihrem System ist die PHP-Einstellung <b>magic_quotes_gpc</b> auf <b>Off</b> gesetzt. Um mit Lansuite arbeiten zu können muss diese Option aktiviert sein. Ändern Sie bitte in Ihrer <b>PHP.ini</b> die Option <b>magic_quotes_gpc </b> auf <b> On </b>! Bitte vergessen Sie nicht, Ihren Webserver nach dieser Änderung neu zu starten.');
-        $config["environment"]["mq"] = 0;
-    }
-    $dsp->AddDoubleRow("Magic Quotes", $mq_check);
-
-    // GD-Lib
-    if (extension_loaded ('gd')){
-        if (function_exists("gd_info")) {
-            $GD = gd_info();
-            if (!strstr($GD["GD Version"], "2.0")) $gd_check = $warning . t('Auf Ihrem System wurde das PHP-Modul <b>GD-Library</b> nur in der Version GD1  gefunden. Damit ist die Qualität der erzeugten Bilder wesentlich schlechter. Es wird deshalb empfohlen GD2 zu benutzen. Sollten Sie die Auswahl zwischen GD und GD2 haben, wählen Sie immer das neuere GD2. Sie können die Installation jetzt fortführen, allerdings werden Sie entsprechende Einschränkungen im Gebrauch machen müssen.');
-            elseif (!$GD["FreeType Support"]) $gd_check = $warning . t('Auf Ihrem System wurde das PHP-Modul <b>GD-Library</b> ohne Free-Type Support gefunden. Dadurch werden die Schriftarten in Grafiken (z.b. im Turnierbaum) nicht sehr schön dargestellt. Sie können die Installation jetzt fortführen, allerdings werden Sie entsprechende Einschränkungen im Gebrauch machen müssen.');
-            else $gd_check = $ok;
-            $gd_check .= '<table>';
-            foreach ($GD as $key => $val) $gd_check .= '<tr><td class="content">'. $key .'</td><td class="content">'. $val .'</td></tr>';
-            $gd_check .= '</table>';
-            $config["environment"]["gd"] = 1;
-        } else $gd_check = $warning . t('Auf Ihrem System wurde das PHP-Modul <b>GD-Library</b> nur in der Version GD1  gefunden. Damit ist die Qualität der erzeugten Bilder wesentlich schlechter. Es wird deshalb empfohlen GD2 zu benutzen. Sollten Sie die Auswahl zwischen GD und GD2 haben, wählen Sie immer das neuere GD2. Sie können die Installation jetzt fortführen, allerdings werden Sie entsprechende Einschränkungen im Gebrauch machen müssen.');
-    } else {
-        $gd_check = $failed . t('Auf Ihrem System konnte das PHP-Modul <b>GD-Library</b> nicht gefunden werden. Durch diese Programmierbibliothek werden in Lansuite Grafiken, wie z.B. Turnierbäume generiert. Ab PHP Version 4.3.0 ist die GD bereits in PHP enthalten. Sollten Sie PHP 4.3.0 installiert haben und diese Meldung dennoch erhalten, überprüfen Sie, ob das GD-Modul evtl. deaktiviert ist. In PHP Version 4.2.3 ist die GD nicht enthalten. Wenn Sie diese Version benutzen muss GD 2.0 separat heruntergeladen, installiert und in PHP einkompiliert werden. Sollten Sie Windows und PHP 4.2.3 benutzen, empfehlen wir auf PHP 4.3.0 umzusteigen, da Sie sich auf diese Weise viel Arbeit sparen. Sollten Sie die Auswahl zwischen GD und GD2 haben, wählen Sie immer das neuere GD2. Sie können die Installation jetzt fortführen, allerdings werden Sie erhebliche Einschränkungen im Gebrauch machen müssen.');
-        $config["environment"]["gd"] = 0;
-    }
-    $dsp->AddDoubleRow("GD Library", $gd_check);
-
-    // SNMP-Lib
-    if (extension_loaded('snmp')){
-        $snmp_check = $ok;
-        $config["environment"]["snmp"] = 1;
-    } else {
-        $snmp_check = $not_possible . t('Auf Ihrem System konnte das PHP-Modul <b>SNMP-Library</b> nicht gefunden werden. SNMP ermöglicht es, auf Netzwerkdevices zuzugreifen, um detaillierte Informatioen über diese zu liefern. Ohne diese Bibliothek kann das Lansuite-Modul <b> NOC </b> (Netzwerküberwachung) nicht arbeiten. Das Modul NOC wird <b>automatisch deaktiviert</b>.');
-        $config["environment"]["snmp"] = 0;
-    }
-    $dsp->AddDoubleRow("SNMP Library", $snmp_check);
-
-    // FTP-Lib
-    if (extension_loaded('ftp')){
-        $ftp_check = $ok;
-        $config["environment"]["ftp"] = 1;
-    } else {
-        $ftp_check = $not_possible . t('Auf Ihrem System konnte das PHP-Modul <b>FTP-Library</b> nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.');
-        $config["environment"]["ftp"] = 0;
-    }
-    $dsp->AddDoubleRow("FTP Library", $ftp_check);
+    $dsp->AddDoubleRow("MySQL-Extention", $mysql_check);
 
     // config.php Rights
     $lansuite_conf = "inc/base/config.php";
@@ -459,6 +394,50 @@ class Install {
     else $cfgfile_check = $ok;
     $dsp->AddDoubleRow(t('Schreibrechte auf die Konfigurationsdatei'), $cfgfile_check);
     if ($cfgfile_check != $ok) $continue = 0;
+
+    // Ext_inc Rights
+    $ext_inc = "ext_inc";
+    if (!file_exists($ext_inc)) $ext_inc_check = $failed . t('Der Ordner <b>ext_inc</b> existiert <b>nicht</b> im Lansuite-Verzeichnis. Bitte überprüfen Sie den Pfad auf korrekte Groß- und Kleinschreibung. Legen Sie den Ordner gegebenfalls bitte selbst an.');
+    else {
+      $ret = $this->IsWriteableRec($ext_inc);
+      if ($ret != '') $ext_inc_check = $failed . t('In den Ordner <b>ext_inc</b> und alle seine Unterordner muss geschrieben werden können. Ändern Sie bitte die Zugriffsrechte entsprechend. Dies können Sie mit den meisten guten FTP-Clients erledigen. Die Datei muss mindestens die Schreibrechte (chmod) 666 besitzen. Die folgenden Dateien besitzten noch keinen Schreibzugriff:'). '<br><b>'. $ret .'<b>';
+      else $ext_inc_check = $ok;
+    }
+    $dsp->AddDoubleRow(t('Schreibrechte im Ordner \'ext_inc\''), $ext_inc_check);
+
+    // Error Reporting
+    if (error_reporting() <= (E_ALL ^ E_NOTICE)) $errreport_check = $ok;
+    else $errreport_check = $warning . t('In Ihrer php.ini ist \'error_reporting\' so konfiguriert, dass auch unwichtige Fehlermeldungen angezeigt werden. Dies kann dazu führen, dass störende Fehlermeldungen in Lansuite auftauchen. Wir empfehlen diese Einstellung auf \'E_ALL ^ E_NOTICE\' zu ändern. In dieser Einstellung werden dann nur noch Fehler angezeigt, welche die Lauffähigkeit des Skriptes beeinträchtigen.');
+    $dsp->AddDoubleRow("Error Reporting", $errreport_check);
+
+    $dsp->AddFieldSetEnd();
+
+
+    #### Warning ####
+    $dsp->AddFieldSetStart("Warnungen - Lansuite kann trotz evtl. Fehler verwendet werden");
+
+    // GD-Lib
+    if (extension_loaded ('gd')){
+        if (function_exists("gd_info")) {
+            $GD = gd_info();
+            if (!strstr($GD["GD Version"], "2.0")) $gd_check = $warning . t('Auf Ihrem System wurde das PHP-Modul <b>GD-Library</b> nur in der Version GD1 gefunden. Damit ist die Qualität der erzeugten Bilder wesentlich schlechter. Es wird deshalb empfohlen GD2 zu benutzen. Sollten Sie die Auswahl zwischen GD und GD2 haben, wählen Sie immer das neuere GD2. Sie können die Installation jetzt fortführen, allerdings werden Sie entsprechende Einschränkungen im Gebrauch machen müssen.');
+            elseif (!$GD["FreeType Support"]) $gd_check = $warning . t('Auf Ihrem System wurde das PHP-Modul <b>GD-Library</b> ohne Free-Type Support gefunden. Dadurch werden die Schriftarten in Grafiken (z.b. in den User-Avataren) nicht sehr schön dargestellt. Sie können die Installation jetzt fortführen, allerdings werden Sie entsprechende Einschränkungen im Gebrauch machen müssen.');
+            else $gd_check = $ok;
+            $gd_check .= '<table>';
+            foreach ($GD as $key => $val) $gd_check .= '<tr><td class="content">'. $key .'</td><td class="content">'. $val .'</td></tr>';
+            $gd_check .= '</table>';
+            $config["environment"]["gd"] = 1;
+        } else $gd_check = $warning . t('Auf Ihrem System wurde das PHP-Modul <b>GD-Library</b> nur in der Version GD1  gefunden. Damit ist die Qualität der erzeugten Bilder wesentlich schlechter. Es wird deshalb empfohlen GD2 zu benutzen. Sollten Sie die Auswahl zwischen GD und GD2 haben, wählen Sie immer das neuere GD2. Sie können die Installation jetzt fortführen, allerdings werden Sie entsprechende Einschränkungen im Gebrauch machen müssen.');
+    } else {
+        $gd_check = $failed . t('Auf Ihrem System konnte das PHP-Modul <b>GD-Library</b> nicht gefunden werden. Durch diese Programmierbibliothek werden in Lansuite Grafiken, wie z.B. User-Avatare generiert. Ab PHP Version 4.3.0 ist die GD bereits in PHP enthalten. Sollten Sie PHP 4.3.0 installiert haben und diese Meldung dennoch erhalten, überprüfen Sie, ob das GD-Modul evtl. deaktiviert ist. In PHP Version 4.2.3 ist die GD nicht enthalten. Wenn Sie diese Version benutzen muss GD 2.0 separat heruntergeladen, installiert und in PHP einkompiliert werden. Sollten Sie Windows und PHP 4.2.3 benutzen, empfehlen wir auf PHP 4.3.0 umzusteigen, da Sie sich auf diese Weise viel Arbeit sparen. Sollten Sie die Auswahl zwischen GD und GD2 haben, wählen Sie immer das neuere GD2. Sie können die Installation jetzt fortführen, allerdings werden Sie erhebliche Einschränkungen im Gebrauch machen müssen.');
+        $config["environment"]["gd"] = 0;
+    }
+    $dsp->AddDoubleRow("GD Library", $gd_check);
+
+    // Test Safe-Mode
+    if (!ini_get("safe_mode")) $safe_mode = $ok;
+    else $safe_mode = $not_possible . t('Auf Ihrem System ist die PHP-Einstellung <b>safe_mode</b> auf <b>On</b> gesetzt. safe_mode ist dazu gedacht, einige Systemfunktionen auf dem Server zu sperren um Angriffe zu verhindern (siehe dazu: <a href=\'http://de2.php.net/features.safe-mode\' target=\'_blank\'>www.php.net</a>). Doch leider benötigen einige Lansuite-Module (speziell: LansinTV, Serverstatistiken oder das Server-Modul) Zugriff auf genau diese Funktionen. Sie sollten daher, wenn Sie Probleme in diesen Modulen haben, in Ihrer <b>PHP.ini</b> die Option <b>safe_mode</b> auf <b>Off</b> setzen! <br />Außer bei oben genannten Modulen, kann es bei aktiviertem safe_mode außerdem auch zu Problemen bei dem Generieren von Buttons, wie dem am Ende dieser Seite kommen.');
+    $dsp->AddDoubleRow("Safe Mode", $safe_mode);
 
     // Server statistic
     $config["server_stats"]["status"] = 0;
@@ -516,30 +495,93 @@ class Install {
       $dsp->AddDoubleRow("Server Stats", $server_stats);
     }
 
-    // Ext_inc Rights
-    $ext_inc = "ext_inc";
-    if (!file_exists($ext_inc)) $ext_inc_check = $failed . t('Der Ordner <b>ext_inc</b> existiert <b>nicht</b> im Lansuite-Verzeichnis. Bitte überprüfen Sie den Pfad auf korrekte Groß- und Kleinschreibung. Legen Sie den Ordner gegebenfalls bitte selbst an.');
-    else {
-      $ret = $this->IsWriteableRec($ext_inc);
-      if ($ret != '') $ext_inc_check = $failed . t('In den Ordner <b>ext_inc</b> und alle seine Unterordner muss geschrieben werden können. Ändern Sie bitte die Zugriffsrechte entsprechend. Dies können Sie mit den meisten guten FTP-Clients erledigen. Die Datei muss mindestens die Schreibrechte (chmod) 666 besitzen. Die folgenden Dateien besitzten noch keinen Schreibzugriff:'). '<br><b>'. $ret .'<b>';
-      else $ext_inc_check = $ok;
+#    // Debug Backtrace
+#    if (function_exists('debug_backtrace')) $debug_bt_check = $ok;
+#    else $debug_bt_check = $warning . t('Die Funktion "Debug Backtrace" ist auf deinem System nicht vorhanden. Diese wird jedoch benötigt, um Übersetzungs-Texte einem bestimmten Modul zuzuordnen. Solange du lansuite nur in Deutsch verwenden willst, sollte dies keine Auswirkung haben');
+#    $dsp->AddDoubleRow('Debug Backtrace', $debug_bt_check);
+    
+    // SNMP-Lib
+    if (extension_loaded('snmp')){
+        $snmp_check = $ok;
+        $config["environment"]["snmp"] = 1;
+    } else {
+        $snmp_check = $not_possible . t('Auf Ihrem System konnte das PHP-Modul <b>SNMP-Library</b> nicht gefunden werden. SNMP ermöglicht es, auf Netzwerkdevices zuzugreifen, um detaillierte Informatioen über diese zu liefern. Ohne diese Bibliothek kann das Lansuite-Modul <b> NOC </b> (Netzwerküberwachung) nicht arbeiten. Das Modul NOC wird <b>automatisch deaktiviert</b>.');
+        $config["environment"]["snmp"] = 0;
     }
-    $dsp->AddDoubleRow(t('Schreibrechte im Ordner \'ext_inc\''), $ext_inc_check);
+    $dsp->AddDoubleRow("SNMP Library", $snmp_check);
 
-    // Debug Backtrace
-    if (function_exists('debug_backtrace')) $debug_bt_check = $ok;
-    else $debug_bt_check = $warning . t('Die Funktion "Debug Backtrace" ist auf deinem System nicht vorhanden. Diese wird jedoch benötigt, um Übersetzungs-Texte einem bestimmten Modul zuzuordnen. Solange du lansuite nur in Deutsch verwenden willst, sollte dies keine Auswirkung haben');
-    $dsp->AddDoubleRow('Debug Backtrace', $debug_bt_check);
+    // FTP-Lib
+    if (extension_loaded('ftp')){
+        $ftp_check = $ok;
+        $config["environment"]["ftp"] = 1;
+    } else {
+        $ftp_check = $not_possible . t('Auf Ihrem System konnte das PHP-Modul <b>FTP-Library</b> nicht gefunden werden. Dies hat zur Folge haben, dass das Download-Modul nur im Standard-Modus, jedoch nicht im FTP-Modus, verwendet werden kann');
+        $config["environment"]["ftp"] = 0;
+    }
+    $dsp->AddDoubleRow("FTP Library", $ftp_check);
 
-    // Error Reporting
-    if (error_reporting() <= (E_ALL ^ E_NOTICE)) $errreport_check = $ok;
-    else $errreport_check = $warning . t('In Ihrer php.ini ist \'error_reporting\' so konfiguriert, dass auch unwichtige Fehlermeldungen angezeigt werden. Dies kann dazu führen, dass störende Fehlermeldungen in Lansuite auftauchen. Wir empfehlen diese Einstellung auf \'E_ALL ^ E_NOTICE\' zu ändern. In dieser Einstellung werden dann nur noch Fehler angezeigt, welche die Lauffähigkeit des Skriptes beeinträchtigen.');
-    $dsp->AddDoubleRow("Error Reporting", $errreport_check);
+    $dsp->AddFieldSetEnd();
 
-            // Session Use Only Cookies
-            if (ini_get('session.use_only_cookies')) $only_cookies_check = $ok;
-            else $only_cookies_check = $warning . t('Es wird empfohlen session.use_only_cookies in der php.ini auf 1 zu setzen! Dies verhindert, dass Session-IDs in der URL angezeigt werden. Wenn dies nicht verhindert wird, können unvorsichtige Benutzer, deren Browser keine Cookies zulassen, durch weiterleiten der URL an Dritte ihre Session preisgeben, was einer weitergabe des Passwortes gleichkommt.');
-            $dsp->AddDoubleRow("Session.use_only_cookies", $only_cookies_check);
+
+    #### Information ####
+    $dsp->AddFieldSetStart(t('Informationen - Interesante Server-Einstellungen im Überblick'));
+
+    // Display System-Variables
+    $dsp->AddFieldSetStart(t('Webserver'));
+    if (function_exists('disk_total_space') and function_exists('disk_free_space')) $dsp->AddDoubleRow(t('Freier Speicherplatz'), $func->FormatFileSize(disk_free_space('.')) .' / '. $func->FormatFileSize(disk_total_space('.')));
+    $dsp->AddFieldSetEnd();
+
+    $dsp->AddFieldSetStart(t('PHP'));
+    $dsp->AddDoubleRow('Max. Script-Execution-Time', (float)ini_get('max_execution_time') .' Sec');
+    $dsp->AddDoubleRow('Max. Data-Input-Zeit', (float)ini_get('max_input_time') .' Sec');
+    $dsp->AddDoubleRow('Memory Limit', (float)ini_get('memory_limit') .' MB');
+    $dsp->AddDoubleRow('Max. Post-Form Size', (float)ini_get('post_max_size') .' MB');
+    $dsp->AddDoubleRow('Magic Quotes', get_magic_quotes_gpc());
+    $dsp->AddFieldSetEnd();
+
+    if ($db->success) {
+      $dsp->AddFieldSetStart(t('MySQL'));
+      $res = $db->qry('SHOW variables LIKE "key_buffer_size"');
+      while ($row = $db->fetch_array($res)) $dsp->AddDoubleRow($row[0], $row[1]);
+      $db->free_result($res);
+      $res = $db->qry('SHOW status LIKE "Key_blocks%"');
+      while ($row = $db->fetch_array($res)) $dsp->AddDoubleRow($row[0], $row[1]);
+      $db->free_result($res);
+      $dsp->AddFieldSetEnd();
+    }
+
+    $dsp->AddFieldSetEnd();
+
+
+    #### Information ####
+    $dsp->AddFieldSetStart(t('Sicherheit - Diese Einstellungen sollten aus Security-Gründen vorgenommen werden'));
+    
+    // Session Use Only Cookies
+    if (ini_get('session.use_only_cookies')) $only_cookies_check = $ok;
+    else $only_cookies_check = $warning . t('Es wird empfohlen session.use_only_cookies in der php.ini auf 1 zu setzen! Dies verhindert, dass Session-IDs in der URL angezeigt werden. Wenn dies nicht verhindert wird, können unvorsichtige Benutzer, deren Browser keine Cookies zulassen, durch weiterleiten der URL an Dritte ihre Session preisgeben, was einer Weitergabe des Passwortes gleichkommt.');
+    $dsp->AddDoubleRow("Session.use_only_cookies", $only_cookies_check);
+
+    $dsp->AddFieldSetEnd();
+
+
+    #### Performace ####
+    $dsp->AddFieldSetStart("Performace - Hier können Sie ansetzen um die Performace Ihres Servers zu optimieren");
+
+    // Register Globals
+    if (ini_get('register_globals') == FALSE) $check = $ok;
+    else $check = $optimize . t('Auf Ihrem System ist die PHP-Einstellung register_globals auf On gesetzt. Dabei muss PHP mehr Speicher für Globale Variablen belegen, als eigentlich für Lansuite notwendig. Sie können diese Einstellung in der php.ini ändern. Vergessen Sie nicht Ihren Webserver nach dieser Änderung neu zu starten.');
+    $dsp->AddDoubleRow("Register Globals", $check);
+
+    if (ini_get('expose_php') == FALSE) $check = $ok;
+    else $check = $optimize . t('Auf Ihrem System ist die PHP-Einstellung expose_php auf On gesetzt. Diese Einstellung fügt - wenn sie auf On steht - jedem HTTP-Response einen Headereintrag hinzu, dass die Seite mit PHP erstellt wurde. Das ist unnötig, denn Ihre Besucher interessiert das sowieso nicht und aus Performancesicht muss der hinzugefügte Headereintrag natürlich mit zum Client übertragen werden. Also besser auf Off stellen.');
+    $dsp->AddDoubleRow("Expose PHP", $check);
+
+    if (ini_get('register_argc_argv') == FALSE) $check = $ok;
+    else $check = $optimize . t('Auf Ihrem System ist die PHP-Einstellung register_argc_argv auf On gesetzt. Diese Einstellung ist nur nützlich, wenn man PHP über die Kommandozeile aufruft und dort Parameter mitgeben möchte. Das ist für Lansuite nicht notwendig und belegt unnötig Speicher');
+    $dsp->AddDoubleRow("Register_argc_argv", $check);
+
+    $dsp->AddFieldSetEnd();
+
 
     // Get Operating System
     $software_arr =  preg_split('/\s/', $_SERVER['SERVER_SOFTWARE'], 0);
@@ -552,21 +594,8 @@ class Install {
     // Set Configs
     $this->WriteConfig();
 
-    // Check MySQL-Config
-    if ($db->success) {
-      $mysql_check = '';
-      $res = $db->qry('SHOW variables LIKE "key_buffer_size"');
-      while ($row = $db->fetch_array($res)) {
-        $mysql_check .= $row[0] .' = '. $row[1] .'<br />';
-      }
-      $db->free_result($res);
-      $res = $db->qry('SHOW status LIKE "Key_blocks%"');
-      while ($row = $db->fetch_array($res)) {
-        $mysql_check .= $row[0] .' = '. $row[1] .'<br />';
-      }
-      $db->free_result($res);
-      $dsp->AddDoubleRow("MySQL-Config", $mysql_check);
-    }
+
+    $dsp->AddFieldSetEnd();
 
     return $continue;
   }

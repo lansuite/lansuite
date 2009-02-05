@@ -76,7 +76,7 @@ class db {
           $this->success = false;
           return false;
         } else {
-          echo HTML_FONT_ERROR . t("Die Datenbank '%1' konnte nicht ausgewählt werden. Lansuite wird abgebrochen", $this->database) . HTML_FONT_END;
+          echo HTML_FONT_ERROR . t("Die Datenbank '%1' konnte nicht ausgewählt werden. Lansuite wird abgebrochen", $database) . HTML_FONT_END;
           exit();
         }
       }
