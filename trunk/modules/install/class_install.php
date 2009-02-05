@@ -535,6 +535,8 @@ class Install {
     $dsp->AddDoubleRow('Max. Script-Execution-Time', (float)ini_get('max_execution_time') .' Sec');
     $dsp->AddDoubleRow('Max. Data-Input-Zeit', (float)ini_get('max_input_time') .' Sec');
     $dsp->AddDoubleRow('Memory Limit', (float)ini_get('memory_limit') .' MB');
+    $post_max_size = (float)ini_get('post_max_size');
+    if ($post_max_size > 1000) $post_max_size = $post_max_size / 1024; // For some PHP-Versions use KB, instead of MB
     $dsp->AddDoubleRow('Max. Post-Form Size', (float)ini_get('post_max_size') .' MB');
     $dsp->AddDoubleRow('Magic Quotes', get_magic_quotes_gpc());
     $dsp->AddFieldSetEnd();
