@@ -269,8 +269,8 @@ class func {
 
     // Link
     if ($link_target == '') $link_target = $this->internal_referer;
-    if ($link_target == NO_LINK) $link_target = '';
-    if ($link_target) $smarty->assign('link', $dsp->FetchCssButton('Zurück', $link_target, t('Zurück zur vorherigen Seite')));
+    if ($link_target and $link_target != NO_LINK) $smarty->assign('link', $dsp->FetchCssButton('Zurück', $link_target, t('Zurück zur vorherigen Seite')));
+    else $smarty->assign('link', '');
 
     // Text
     switch($text) {
