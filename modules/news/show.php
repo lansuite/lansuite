@@ -107,7 +107,7 @@ else {
         $smarty->assign('date', $func->unixstamp2date($row["date"], "daydatetime"));
 
         if ($cfg["news_html"] == 1) $text = $func->text2html($row["text"]);
-        else $text = $func->AllowHTML($text);
+        else $text = $func->AllowHTML($row["text"]);
         if ($row['link_1']) $text .= '<br><u>'. t('Links zum Thema:') .'</u><br><a href="'. $row['link_1'] .'" target="_blank">'. $row['link_1'] .'</a>';
         if ($row['link_2']) $text .= '<br><a href="'. $row['link_2'] .'" target="_blank">'. $row['link_2'] .'</a>';
         if ($row['link_3']) $text .= '<br><a href="'. $row['link_3'] .'" target="_blank">'. $row['link_3'] .'</a>';
