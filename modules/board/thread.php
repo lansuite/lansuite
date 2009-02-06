@@ -56,6 +56,8 @@ $thread = $db->qry_first("SELECT t.fid, t.caption, t.closed, f.name AS ForumName
   LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
   WHERE t.tid=%int% AND f.need_type <= %string% AND (!f.need_group OR f.need_group = %int%)", $tid, $list_type, $auth['group_id']);
 
+$forum = $db->qry_first("SELECT need_type, need_group FROM %prefix%board_forums WHERE fid = %int%", $_GET['fid']);
+
 if ($thread['caption'] == '' and $tid) $func->information(t('Keine Beiträge vorhanden'), '');
 elseif ($thread['caption'] != '') {
 
@@ -164,9 +166,9 @@ elseif ($thread['caption'] != '') {
 if ($_GET['pid'] != '') $current_post = $db->qry_first("SELECT userid FROM %prefix%board_posts WHERE pid = %int%", $_GET['pid']);
 
 if ($thread['closed']) $func->information(t('Dieser Thread wurde geschlossen. Es können keine Antworten mehr geschrieben werden'), NO_LINK);
-elseif ($thread['need_type'] >= 1 and !$auth['login']) $func->information(t('Um auf diese Beiträge zu antworten, loggen Sie sich bitte zuerst ein.'), NO_LINK);
-elseif ($thread['need_type'] > (int)($auth['type'] + 1)) $func->information(t('Um auf diese Beiträge zu antworten, müssen Sie Admin sein.'), NO_LINK);
-elseif ($thread['need_group'] and $auth['group_id'] != $thread['need_group']) $func->information(t('Sie gehören nicht der richtigen Gruppe an, um auf diese Beiträge zu antworten.'), NO_LINK); 
+elseif ($forum['need_type'] >= 1 and !$auth['login']) $func->information(t('Um in diesem Board zu posten zu antworten, loggen Sie sich bitte zuerst ein.'), NO_LINK);
+elseif ($forum['need_type'] > (int)($auth['type'] + 1)) $func->information(t('Um in diesem Board zu posten, müssen Sie Admin sein.'), NO_LINK);
+elseif ($forum['need_group'] and $auth['group_id'] != $forum['need_group']) $func->information(t('Sie gehören nicht der richtigen Gruppe an, um auf diese Beiträge zu antworten.'), NO_LINK); 
 elseif ($_GET['pid'] != '' and $auth['type'] <= 1 and $current_post['userid'] != $auth['userid']) $func->error('Sie dürfen nur Ihre eigenen Beiträge editieren!', NO_LINK);
 else {
   $dsp->AddFieldsetStart(t('Antworten - Der Beitrag kann anschließend noch editiert werden'));
