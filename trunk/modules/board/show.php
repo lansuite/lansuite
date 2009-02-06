@@ -25,9 +25,8 @@ $ms2 = new mastersearch2();
 
 $ms2->query['from'] = "{$config['tables']['board_forums']} AS f
     LEFT JOIN {$config['tables']['board_threads']} AS t ON f.fid = t.fid
-    LEFT JOIN {$config['tables']['board_posts']} AS p ON t.tid = p.tid
-    LEFT JOIN {$config['tables']['user']} AS u ON f.need_group > 0 AND f.need_group = u.group_id";
-$ms2->query['where'] = 'f.need_type <= '. ((int)($auth['type'] + 1) .' AND (!f.need_group OR u.userid = '. ((int)$auth['userid']) .')');
+    LEFT JOIN {$config['tables']['board_posts']} AS p ON t.tid = p.tid";
+$ms2->query['where'] = 'f.need_type <= '. ((int)($auth['type'] + 1) .' AND (!f.need_group OR f.need_group = '. ((int)$auth['userid']) .')');
 $ms2->query['default_order_by'] = 'f.board_group, f.pos';
 
 $ms2->AddSelect('f.description');
