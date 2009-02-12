@@ -218,12 +218,12 @@ class auth {
                   $db->qry('DELETE FROM %prefix%login_errors WHERE userid = %int%', $user['userid']);
                 }
 
-//                // The User will be logged in on the phpBB Board if the modul is available, configured and active.
-//                if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
-//                    include_once ('./modules/board2/class_board2.php');
-//                    $board2 = new board2();
-//                    $board2->loginPhpBB($this->auth['userid']);
-//                }
+                // The User will be logged in on the phpBB Board if the modul is available, configured and active.
+                if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
+                    include_once ('./modules/board2/class_board2.php');
+                    $board2 = new Board2();
+                    $board2->loginPhpBB($this->auth['userid']);
+                }
             }
         }
         return $this->auth; // For global setting $auth
@@ -280,6 +280,13 @@ class auth {
 
         // Reset Cookiedata
         $this->cookie_unset();
+        
+        // The User will be logged out on the phpBB Board if the modul is available, configured and active.
+        if (in_array('board2', $ActiveModules) and $config['board2']['configured'] and $this->auth['userid'] != '') {
+            include_once ('./modules/board2/class_board2.php');
+            $board2 = new board2();
+            $board2->logoutPhpBB($this->auth['userid']);
+        } 
 
         // Reset Sessiondata
         unset($this->auth);
@@ -291,12 +298,6 @@ class auth {
         $this->auth["userpassword"] = "";
         $this->auth["type"] = 0;
 
-        // The User will be logged out on the phpBB Board if the modul is available, configured and active.
-        if (in_array('board2', $ActiveModules) and $config['board2']['configured']) {
-            include_once ('./modules/board2/class_board2.php');
-            $board2 = new board2();
-            $board2->logoutPhpBB($this->auth['userid']);
-        } 
         $func->information(t('Sie wurden erfolgreich ausgeloggt. Vielen dank für ihren Besuch.'), "", '', 1);
         return $this->auth;                // For overwrite global $auth
     }
