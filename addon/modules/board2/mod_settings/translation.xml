@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2009-02-07 00:11</date>
+	</header>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<id>a403fa78c8144198ba6755a7esb4fbdf</id>
+				<org>PhpBB kann nicht integriert werden, da phpBB im Dateisystem nicht gefunden wurde. Bitte &uuml;berpr&uuml;fen Sie den Pfad.</org>
+				<de>PhpBB kann nicht integriert werden, da phpBB im Dateisystem nicht gefunden wurde. Bitte &uuml;berpr&uuml;fen Sie den Pfad.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>a4034a78c8144198ba6755a7e0b4fbdf</id>
+				<org>PhpBB kann nicht integriert werden, da die phpBB User-Tabelle nicht existiert bzw. bereits zu einer View konvertiert wurde.</org>
+				<de>PhpBB kann nicht integriert werden, da die phpBB User-Tabelle nicht existiert bzw. bereits zu einer View konvertiert wurde.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>a4034a78c8144198ba6755ase0b4fbdf</id>
+				<org>PhpBB kann nicht integriert werden, da die phpBB User-Tabelle bereits eine View ist. Wenn ein vorheriger Integrationsversuch fehlgeschlagen ist, spielen Sie bitte das Bakcup ein!</org>
+				<de>PhpBB kann nicht integriert werden, da die phpBB User-Tabelle bereits eine View ist. Wenn ein vorheriger Integrationsversuch fehlgeschlagen ist, spielen Sie bitte das Bakcup ein!</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>a4034a78c81441c8ba6755ase0b4fbdf</id>
+				<org>In phpBB gibt es nicht menschliche Benuter die eine spezielle Bedeutung besitzen (z.B.: Anonymous). Es gibt lansuite Accounts die solche Usernamen besitzen. Bitte pr&uuml;fen Sie ob die lansuite Accounts von einer vorherigen phpBB Integration stammen, oder ob es sich um menschliche Benutzer handelt. Wenn es menschliche User sind &auml;ndern sie bitte deren Usernamen.<br><br>Folgende Usernamen existieren in lansuite:</org>
+				<de>In phpBB gibt es nicht menschliche Benuter die eine spezielle Bedeutung besitzen (z.B.: Anonymous). Es gibt lansuite Accounts die solche Usernamen besitzen. Bitte pr&uuml;fen Sie ob die lansuite Accounts von einer vorherigen phpBB Integration stammen, oder ob es sich um menschliche Benutzer handelt. Wenn es menschliche User sind &auml;ndern sie bitte deren Usernamen.<br><br>Folgende Usernamen existieren in lansuite:</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>a4034a78cf1441c8ba6755ase0b4fbdf</id>
+				<org>Klicken Sie auf Weiter um die lansuite Accounts mit den phpBB Accounts zu verbinden oder &auml;ndern sie die lansuite Accounts und starten Sie die Integration neu.</org>
+				<de>Klicken Sie auf Weiter um die lansuite Accounts mit den phpBB Accounts zu verbinden oder &auml;ndern sie die lansuite Accounts und starten Sie die Integration neu.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>82b796f7b3e44c66b54d0f5c2a6996b3</id>
+				<org>Editieren</org>
+				<de>Editieren</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>bb8a9d97d6bb4adab3d7a16de7316da4</id>
+				<org>Details</org>
+				<de>Details</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>f8777259421d4f94b0e0d3acd2c1248a</id>
+				<org>L&ouml;schen</org>
+				<de>L&ouml;schen</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>d844421851c340eaac6389599705fcfe</id>
+				<org>Board phpBB</org>
+				<de>Board phpBB</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>60265880f75742b498a38d8d19cbc7d4</id>
+				<org>Update</org>
+				<de>Update</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>70265880f75742b498a38d8d19cbc7d4</id>
+				<org>Update von lansuite oder des phpBB Boards</org>
+				<de>Update von lansuite oder des phpBB Boards</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>8700118ee1be487ebb8b996bb97e3b28</id>
+				<org>Integration</org>
+				<de>Integration</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>cff9b993cfa14764baa8d2593bb8c309</id>
+				<org>Integrieren eines phpBB Boards.</org>
+				<de>Integrieren eines phpBB Boards.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>63688d93a47e430593a0ebba97a743cc</id>
+				<org>Deintegration</org>
+				<de>Deintegration</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>183c79b0b3aa47398b2bb0ac9aa3123e</id>
+				<org>PhpBB und lansuite wieder in zwei unabh&auml;ngige Anwendungen trennen.</org>
+				<de>PhpBB und lansuite wieder in zwei unabh&auml;ngige Anwendungen trennen.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>d63dd6b5af1041ddbdee85f688d181f5</id>
+				<org>Die ausgew&auml;hlte phpBB Version wird nicht unterst&uuml;tzt.</org>
+				<de>Die ausgew&auml;hlte phpBB Version wird nicht unterst&uuml;tzt.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>2ad078080e764a219cad0d914402232c</id>
+				<org>Die ausgew&auml;hlte phpBB Version wird nicht unterst&uuml;t.</org>
+				<de>Die ausgew&auml;hlte phpBB Version wird nicht unterst&uuml;t.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>128c30839078420da0c4d30d2819dc5d</id>
+				<org>Wollen sie phpBB und Lansuite wirklich wieder trennen, wenn ja <b>Bitte Datenbank sichern!</br></org>
+				<de>Wollen sie phpBB und Lansuite wirklich wieder trennen, wenn ja <b>Bitte Datenbank sichern!</br></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>5fbcd171dc3241129f25c08fe1ae3878</id>
+				<org>PhpBB und lansuite wurden erfolgreich getrennt.</org>
+				<de>PhpBB und lansuite wurden erfolgreich getrennt.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>3bf3f574957f41ee9222d802ab2877cc</id>
+				<org>Das Board wurde noch nicht integriert, daher kann es nicht getrennt werden.</org>
+				<de>Das Board wurde noch nicht integriert, daher kann es nicht getrennt werden.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>abd4159eb29846a88d53281531f67bbf</id>
+				<org>Wenn das Popup geblockt wurde, </org>
+				<de>Wenn das Popup geblockt wurde, </de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>a5a8c4c3804e49f19d9121ea511930a6</id>
+				<org>bitte hier klicken.</org>
+				<de>bitte hier klicken.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>642483c7bf0e45ad95bd930c5d42f9e7</id>
+				<org>Es wurde noch kein phpBB Forum integriert.</org>
+				<de>Es wurde noch kein phpBB Forum integriert.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>ace0637bbace42a5b2d098c7c77398f0</id>
+				<org>Klicken Sie auf Weiter um die Integration zu beginnen.</org>
+				<de>Klicken Sie auf Weiter um die Integration zu beginnen.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>22ef8211dfe94fa69d6b3ffa8ff119a3</id>
+				<org>Das phpBB Board wurde bereits integriert.</org>
+				<de>Das phpBB Board wurde bereits integriert.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>e1440c4a161d452fa72a0b9606206126</id>
+				<org>Datenbank Backup!</org>
+				<de>Datenbank Backup!</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>31440c4a161d452fa72a0b9606206126</id>
+				<org>Bitte erstellen Sie ein komplettes Backup von lansuite und phpbb (DB + Dateisystem).<br>Im Fehlerfall kann die Datenbank in einem <b>inkonsistenten</b> Zustand hinterlassen werden!</org>
+				<de>Bitte erstellen Sie ein komplettes Backup von lansuite und phpbb (DB + Dateisystem).<br>Im Fehlerfall kann die Datenbank in einem <b>inkonsistenten</b> Zustand hinterlassen werden!</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>07b1e96c88d44364b3a719329415e2c7</id>
+				<org>Aufsetzen eines neuen phpBB Forums</org>
+				<de>Aufsetzen eines neuen phpBB Forums</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>4ccb9cdb1b884f949fde63a6b2cc66c3</id>
+				<org>Integrieren eines bestehenden phpBB Forums</org>
+				<de>Integrieren eines bestehenden phpBB Forums</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>a88e6b7cec6440b3bea72830e16251cc</id>
+				<org>Wollen Sie ein phpBB Forum neu Aufsetzen und in Lansuite integrieren oder wollen Sie ein bestehendes phpBB Forum in Lansuite integrieren?</org>
+				<de>Wollen Sie ein phpBB Forum neu Aufsetzen und in Lansuite integrieren oder wollen Sie ein bestehendes phpBB Forum in Lansuite integrieren?</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>008ed154ae0e499f8110ccbedfd8cf28</id>
+				<org>Beachte die folgenden Punkte bei der Installation von phpBB!:</org>
+				<de>Beachte die folgenden Punkte bei der Installation von phpBB!:</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>6e2b0d1480a048f58fd29bb23088f922</id>
+				<org>"MySQL" oder "MySQL with MySQLi Extension"</org>
+				<de>"MySQL" oder "MySQL with MySQLi Extension"</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>af20ab5b1dec44de9ed515a63e65f5a6</id>
+				<org>Wird mit den Daten des Admins von lansuite &uuml;berschrieben.</org>
+				<de>Wird mit den Daten des Admins von lansuite &uuml;berschrieben.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>d5163aa5f7ec4d6490a11fd742b1dd04</id>
+				<org>Die restlichen Felder je nach Server korrekt ausf&uuml;llen.</org>
+				<de>Die restlichen Felder je nach Server korrekt ausf&uuml;llen.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>b9feeb8b649c478d92367ae532e1986a</id>
+				<org>Um phpBB zu installieren, klicken Sie bitte hier.</org>
+				<de>Um phpBB zu installieren, klicken Sie bitte hier.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>59b90bfe24d94157902d8eeb0b712713</id>
+				<org>Wenn die Installation beendet ist m&uuml;ssen noch die Ordner <b>install/</b> und <b>contrib/</b> im Verzeichnis <b>@path</b> gel&ouml;scht werden.<br><br> Im n&auml;chsten Schritt wird phpBB in lansuite integriert.</org>
+				<de>Wenn die Installation beendet ist m&uuml;ssen noch die Ordner <b>install/</b> und <b>contrib/</b> im Verzeichnis <b>@path</b> gel&ouml;scht werden.<br><br> Im n&auml;chsten Schritt wird phpBB in lansuite integriert.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>f94af3379466415bbc852fa3389d250e</id>
+				<org>Installation von phpBB</org>
+				<de>Installation von phpBB</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>cc704d55772948acaf94290de6481dcf</id>
+				<org>Version von phpBB</org>
+				<de>Version von phpBB</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>6a2180451ef942ddb91f1f0ebf3a0329</id>
+				<org>Integrationseinstellungen</org>
+				<de>Integrationseinstellungen</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>6b2180451ef942ddb91f1f0ebf3a0329</id>
+				<org>Lansuite und phpBB m&uuml;ssen am <b>selben Server</b> liegen und die und die beiden Datenbanken m&uuml;ssen <b>in einer Datenbank</b> gespeichert sein. (Durch den Prefix der Tabellen, kannes nicht zu &Uuml;berschneidungen kommen.)</org>
+				<de>Lansuite und phpBB m&uuml;ssen am <b>selben Server</b> liegen und die und die beiden Datenbanken m&uuml;ssen <b>in einer Datenbank</b> gespeichert sein. (Durch den Prefix der Tabellen, kannes nicht zu &Uuml;berschneidungen kommen.)</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>6b2180451efd42ddb91f1f0ebf3a0329</id>
+				<org>Klicken Sie auf Weiter.</org>
+				<de>Klicken Sie auf Weiter.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>5aaa57ad380a49eb9b624b18a7382725</id>
+				<org>Prefix der Datenbanktabellen des phpBB Forum:</org>
+				<de>Prefix der Datenbanktabellen des phpBB Forum:</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>b7913fd5014e4dfeb5a3faf078855e7c</id>
+				<org>Pfad des phpBB Forums relativ zu lansuite:</org>
+				<de>Pfad des phpBB Forums relativ zu lansuite:</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>cba443dcd5364ab6a93115aefa397691</id>
+				<org>Die neue user_id des Anonymous aus phpBB k&ouml;nnte in der phpbb\\includes\\constants.php.<br> Bitte setzten sie die ID per Hand. Die k&ouml;nnen Sie per Datenbank herausfinden.</org>
+				<de>Die neue user_id des Anonymous aus phpBB k&ouml;nnte in der phpbb\\includes\\constants.php.<br> Bitte setzten sie die ID per Hand. Die k&ouml;nnen Sie per Datenbank herausfinden.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>0e2a4a5aeccf4fc48a885e25c56a60ec</id>
+				<org>Sollen die Account Aktivierung am phpBB Board mittels Admin-Mail aktiviert werden?</org>
+				<de>Sollen die Account Aktivierung am phpBB Board mittels Admin-Mail aktiviert werden?</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>cc39bf3390f849dab44e71108d35be1d</id>
+				<org>Die folgenden Usernamen kommen in der lansuite Datenbank doppelt vor. Bitte &auml;nderen oder l&ouml;schen Sie User, bis keine weiteren doppelten Benutzernamen mehr existieren.</org>
+				<de>Die folgenden Usernamen kommen in der lansuite Datenbank doppelt vor. Bitte &auml;nderen oder l&ouml;schen Sie User, bis keine weiteren doppelten Benutzernamen mehr existieren.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>8b8fc8bfe5084s33b2db86b3a576d8d3</id>
+				<org>Nachdem Sie alle doppelten Benutzernamen entfernt haben, klicken Sie auf Aktualisieren.</org>
+				<de>Nachdem Sie alle doppelten Benutzernamen entfernt haben, klicken Sie auf Aktualisieren.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>8b8fc8bfe5084a33b2db86b3a576d8d3</id>
+				<org>In der lansuite Datenbank kommen keine Benutzernamen doppelt vor, phpbb kann integriert werden.</org>
+				<de>In der lansuite Datenbank kommen keine Benutzernamen doppelt vor, phpbb kann integriert werden.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>2003ad1c1958445e8cdf54c139570ab1</id>
+				<org>Es werden automatisch alle lansuite und phpBB Accounts mit der selben Email Adresse zu einem Account vereinigt.</org>
+				<de>Es werden automatisch alle lansuite und phpBB Accounts mit der selben Email Adresse zu einem Account vereinigt.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>67e1cad2b7124e72b64e93208f8f2116</id>
+				<org>Es werden automatisch alle lansuite und phpBB Accounts mit den selben Usernamen und unterschiedlichen Email Adressen zu einem Account vereinigt.</org>
+				<de>Es werden automatisch alle lansuite und phpBB Accounts mit den selben Usernamen und unterschiedlichen Email Adressen zu einem Account vereinigt.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>08dc9cd3c2a04eee9aacb7a7e383ac70</id>
+				<org>Neuen Lansuite Account anlegen.</org>
+				<de>Neuen Lansuite Account anlegen.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>d76f80e28cb246a38c70c46f9379a44e</id>
+				<org>Es werden alle phpBB Accounts angezeigt, f&uuml;r die kein passender lansuite Account gefunden wurde. Sie k&uuml;nnen diesen Accounts h&auml;ndisch lansuite Accounts zuordnen, sonst werden automatisch neue lansuite Accounts angelegt.</org>
+				<de>Es werden alle phpBB Accounts angezeigt, f&uuml;r die kein passender lansuite Account gefunden wurde. Sie k&uuml;nnen diesen Accounts h&auml;ndisch lansuite Accounts zuordnen, sonst werden automatisch neue lansuite Accounts angelegt.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>36f974e83dc444e9b3d02d254bfafbff</id>
+				<org>phpBB</org>
+				<de>phpBB</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>1d60348f8aca427ba8d825c78d0c1108</id>
+				<org>lansuite</org>
+				<de>lansuite</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>3d7e16722af04ae4befb76a3523084f1</id>
+				<org>Soll die Account Aktivierung am phpBB Board mittels Admin-Mail verhindert werden?</org>
+				<de>Soll die Account Aktivierung am phpBB Board mittels Admin-Mail verhindert werden?</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>d057200c541e49feafdd2393f554d22d</id>
+				<org>Es wurde ein phpBB User einem lansuite User mehrfach zugewiesen!</org>
+				<de>Es wurde ein phpBB User einem lansuite User mehrfach zugewiesen!</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>f0ea858be98c4f8ab94b5e9301c6f60a</id>
+				<org>Bei der Integration ist folgender Fehler aufgetreten: </org>
+				<de>Bei der Integration ist folgender Fehler aufgetreten: </de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>088da8ed8e81435c8dd85a8a3004be36</id>
+				<org>Die Integration wurde unvollst&auml;ndig beendet, die DB ist u.U. in einem inkonsistenten Zustand. Bitte spielen Sie das Backup ein.</org>
+				<de>Die Integration wurde unvollst&auml;ndig beendet, die DB ist u.U. in einem inkonsistenten Zustand. Bitte spielen Sie das Backup ein.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>59b7a75e5a7f402d9c9cc015fabb21f8</id>
+				<org>Es ist ein unbekannter Fehler aufgetreten.</org>
+				<de>Es ist ein unbekannter Fehler aufgetreten.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>42926fd925fd43fead59fc0a2a043e1e</id>
+				<org>Das PhpBB Forum wurde erfolgreich in lansuite integriert.</org>
+				<de>Das PhpBB Forum wurde erfolgreich in lansuite integriert.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>e6016d5569bb45718cbb897f83d91493</id>
+				<org>Updaten von phpBB oder lansuite</org>
+				<de>Updaten von phpBB oder lansuite</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>197d11b8bfc540e9929b7f03df94a1d0</id>
+				<org>Wenn sie phpBB oder lansuite Updaten m&uuml;ssen bitte befolgen sie folgende Schritte:</org>
+				<de>Wenn sie phpBB oder lansuite Updaten m&uuml;ssen bitte befolgen sie folgende Schritte:</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>225d33d995b947ad9ad007bf0b3dcb12</id>
+				<org>1. <b>Deintetgrieren</b> sie phpBB von lansuite.</org>
+				<de>1. <b>Deintetgrieren</b> sie phpBB von lansuite.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>77862dd5f9594f3fbf9553d42c811007</id>
+				<org>2. Updaten sie phpbb und/oder lansuite.</org>
+				<de>2. Updaten sie phpbb und/oder lansuite.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>f0af63a5e7554945a88ad4e82e29829f</id>
+				<org>3. <b>Integrieren</b> sie phpBB wieder in lansuite.</org>
+				<de>3. <b>Integrieren</b> sie phpBB wieder in lansuite.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>9b20568f0b4345098b6fb950d72e490b</id>
+				<org>Das Board wurde noch nicht integriert, daher m&uuml;ssen f&uuml;r ein Update keine besonderen Schritte durchgef&uuml;hrt werden.</org>
+				<de>Das Board wurde noch nicht integriert, daher m&uuml;ssen f&uuml;r ein Update keine besonderen Schritte durchgef&uuml;hrt werden.</de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+			<entry>
+				<id>71b4124eb6f148e9a2f769c9b8ab3786</id>
+				<org></org>
+				<de></de>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>board2</file>
+			</entry>
+		</content>
+	</table>
+</lansuite>
+	

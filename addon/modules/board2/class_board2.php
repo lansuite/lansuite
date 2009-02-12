@@ -1,159 +1,104 @@
 <?php
-	class Board2
-	{
-		/*
-		 * Logon the user with the phpbb_user_id on the phpBB board.
-		 *
-		 * This function is under the LGPL and orginaly written by Duncan Gough
-		 *
-		 * Distributed under the LGPL license:
-		 * http://www.gnu.org/licenses/lgpl.html
-		 *
-		 * Duncan Gough
-		 * 3rdSense.com
-		 *
-		 * Home  http://www.suttree.com
-		 * Work  http://www.3rdsense.com
-		 * Play! http://www.playaholics.com
-		 * 
-		 * 
-		 */ 
-		 function loginPhpBB( $phpbb_user_id ) {
-			global $db, $board_config, $config, $lang, $gd;
-			global $HTTP_COOKIE_VARS, $HTTP_GET_VARS, $SID;
-		  	
-		  	$temp_db = $db;
-			$temp_lang = $lang;
-			$tempboard_config = $board_config;
-			$temp_gd = $gd;
-		  	
-		  	
-			// Setup the phpbb environment and then
-		    // run through the phpbb login process
-		
-			$phpbb_root_path = $this->get_absolute_path($config[board2][path]);
-			
-			// You may need to change the following line to reflect
-			// your phpBB installation.
-			include_once( $phpbb_root_path . 'config.php' );
-			
-			define('IN_PHPBB',true);
-		
-			// You may need to change the following line to reflect
-			// your phpBB installation.
-		  
-			include_once( $phpbb_root_path . 'extension.inc' );
-			include_once( $phpbb_root_path . 'common.php' );
-			
-			$ret = session_begin( $phpbb_user_id, $user_ip, PAGE_INDEX, FALSE, TRUE );
-			
-			$db = $temp_db;
-			$lang = $temp_lang;
-			$board_config = $tempboard_config;
-			$gd = $temp_gd;
-			
-			return $ret;
-		}
-		
-		/*
-		 * Logoff the user with the phpbb_user_id of the phpBB board.
-		 *
-		 * This function is under the LGPL and orginaly written by Duncan Gough
-		 *
-		 * Distributed under the LGPL license:
-		 * http://www.gnu.org/licenses/lgpl.html
-		 *
-		 * Duncan Gough
-		 * 3rdSense.com
-		 *
-		 * Home  http://www.suttree.com
-		 * Work  http://www.3rdsense.com
-		 * Play! http://www.playaholics.com
-		 */ 
-		function logoutPhpBB( $phpbb_user_id ) {
-			global $db, $lang, $board_config, $config, $gd;
-			global $HTTP_COOKIE_VARS, $HTTP_GET_VARS, $SID;
-		  	
-		  	$temp_db = $db;
-			$temp_lang = $lang;
-			$tempboard_config = $board_config;
-			$temp_gd = $gd;
-		  	
-		  	
-			// Setup the phpbb environment and then
-			// run through the phpbb login process
-			
-			$phpbb_root_path = $this->get_absolute_path($config[board2][path]);
-			
-			// You may need to change the following line to reflect
-			// your phpBB installation.
-			include_once( $phpbb_root_path . 'config.php' );
-		  
-			define('IN_PHPBB',true);
-		  
-			// You may need to change the following line to reflect
-			// your phpBB installation.
-		
-			include_once( $phpbb_root_path . 'extension.inc' );
-			include_once( $phpbb_root_path . 'common.php' );
-		
-			session_end( session_id(), $phpbb_user_id );
-		  
-			// session_end doesn't seem to get rid of these cookies,
-			// so we'll do it here just in to make certain.
-			setcookie( $board_config[ 'cookie_name' ] . '_sid', '', time() - 3600, ' ' );
-			setcookie( $board_config[ 'cookie_name' ] . '_mysql', '', time() - 3600, ' ' );
-			
-			
-			$db = $temp_db;
-			$lang = $temp_lang;
-			$board_config = $tempboard_config;
-			$gd = $temp_gd;
-		}
-		
-		function getAnonymousUserID()
-		{
-			global $db, $lang, $board_config, $config, $gd;
-			
-			//Saves all Variables which are used by phpBB and lansuite
-			$temp_db = $db;
-			$temp_lang = $lang;
-			$tempboard_config = $board_config;
-			$temp_gd = $gd;
-			
-			$phpbb_root_path = $this->get_absolute_path($config[board2][path]);
-			include_once($phpbb_root_path . 'config.php');
-			define('IN_PHPBB',true);
-			
-			$phpbb_root_path = $this->get_absolute_path($config[board2][path]);
-			
-			include_once( $phpbb_root_path . 'includes/constants.php' );
-			
-			//Returns all Variables which are used by phpBB and lansuite
-			$db = $temp_db;
-			$lang = $temp_lang;
-			$board_config = $tempboard_config;
-			$gd = $temp_gd;
-			return ANONYMOUS;
-		}
-		
-		/*
-		 * $file is the file url relative to the root of your site.
-		 * Yourdomain.com/folder/file.inc would be passed as
-		 * "folder/file.inc"
-		 */ 
-		function get_absolute_path($path)
-        {       	
-			$folder_depth = substr_count(substr($path,0,-1) , "/");
-			
-			if($folder_depth == false)
-				$folder_depth = 1;
-				
-			if($folder_depth == 1)
-				$folder_depth = 2;
-			
-         	//echo ('vorgeschlagen=' . str_repeat("../", $folder_depth - 1) . $path . '<br>');
-			return (str_repeat("../", $folder_depth - 1)) . $path;
-		}
+
+class Board2
+{
+	/**
+	 * Returns all supported integration Versions from the board2/integration folder
+	 * @return unknown_type, returns an array with all supported versions: array[minversion]='fromversion-toversion'
+	 */
+	public static function getSupportedVersions() {
+		$phpbbVersions = array();
+
+		$phpbbVersions['2.0.19'] .= 'phpBB2 2.0.19';
+		$phpbbVersions['2.0.20'] .= 'phpBB2 2.0.20';
+		$phpbbVersions['2.0.21'] .= 'phpBB2 2.0.21';
+		$phpbbVersions['2.0.22'] .= 'phpBB2 2.0.22';
+		$phpbbVersions['2.0.23'] .= 'phpBB2 2.0.23';
+		$phpbbVersions['2.0.22_Plus_1.5.3'] .= 'phpBB2 Plus 1.53';
+		//$phpbbVersions['3.0.4'] .= 'phpBB3 3.0.4';
+
+		return $phpbbVersions;
 	}
+
+	/**
+	 * Gets the integration object corresponding to specified minversion
+	 * This object is responsible for the actual integration, e.g. SQL - Views....
+	 * @param $minversion, the min. supported version of the integration object. If the param is '' the default version will be used.
+	 * @return unknown_type, the integration object.
+	 */
+	public static function getVersionspecificObject($version = '') {
+		global $config;
+
+		if ($version == '') $version = $config['board2']['version'];
+			
+		switch ($version) {
+			case '2.0.19':
+			case '2.0.20':
+			case '2.0.21':
+			case '2.0.22':
+			case '2.0.23':
+				include_once('modules/board2/integration/class_versionspecific_2_0_19.php');
+				return new versionspecific_2_0_19();
+			case '2.0.22_Plus_1.5.3':
+				include_once('modules/board2/integration/class_versionspecific_2_0_22_plus_1_5_3.php');
+				return new versionspecific_2_0_22_plus_1_5_3();
+			case '3.0.4':
+				include_once('modules/board2/integration/class_versionspecific_3_0_4.php');
+				return new versionspecific_3_0_4();
+		}
+
+		throw new Exception(t('Die ausgew&auml;hlte phpBB Version wird nicht unterst&uuml;tzt.'));
+	}
+
+	/**
+	 * Logon the user with the phpbb_user_id on the phpBB board.
+	 * @param $phpbbUserID
+	 * @return unknown_type
+	 */
+	public static function loginPhpbb($phpbbUserID) {
+		return Board2::getVersionspecificObject()->loginphpbb($phpbbUserID);
+	}
+
+	/*
+	 * Logoff the user with the phpbb_user_id of the phpbb board.
+	 * @param $phpbbUserID
+	 * @return unknown_type
+	 */
+	public static function logoutPhpbb($phpbbUserID) {
+		return Board2::getVersionspecificObject()->logoutPhpbb($phpbbUserID);
+	}
+
+	/**
+	 * Gets the id of the anonymous user.
+	 * @return unknown_type, returns the id of the user.
+	 */
+	public static function getAnonymousUserID() {
+		return Board2::getVersionspecificObject()->getAnonymousUserID();
+	}
+
+
+	/**
+	 * $file is the file url relative to the root of your site.
+	 * Yourdomain.com/folder/file.inc would be passed as
+	 * "folder/file.inc"
+	 * @param $path, the relative path
+	 * @return, the absolut path of the $path.
+	 */
+	public static function getPathToRoot() {
+		$path = substr($_SERVER["PHP_SELF"], 0, strrpos($_SERVER["PHP_SELF"], '/')+1);
+		return $path;
+	}
+
+	public static function getPathFromRootToScript() {
+		$path = substr($_SERVER["PHP_SELF"], 0, strrpos($_SERVER["PHP_SELF"], '/')+1);
+		return $path;
+	}
+	//
+	// Please make a history at the end of file of your changes !!
+	//
+
+	/* HISTORY
+	 * 06. 2. 2009 : Major changes of the versionspecific object handling.
+	 */
+}
 ?>

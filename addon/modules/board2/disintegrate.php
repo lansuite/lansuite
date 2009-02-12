@@ -1,42 +1,30 @@
 <?php
-	
-	include_once('class_board2.php');
-	include_once('class_board2install.php');
-	
-	
-	$board2 = new Board2();
-	$board2install = new Board2install();
-	$cAuth = new auth();
-	
-	if (($cAuth->isCurrentUserOperator('board2') == 1 || $auth['type'] == 3) && $auth['login'])
-	{	
-		if ($config['board2']['configured'])
-		{
-			if (!isset($_GET['todo']))
-			{
-				$func->question($lang['board2']['disintegrate']['question'], 'index.php?mod=board2&action=disintegrate&todo=disintegrate', 'index.php?mod=board2&action=index');
-			}
-			else
-			{
-				if ($_GET['todo'] == 'disintegrate')
-				{
-					$board2install->deIntegrate();
-					
-					$dsp->NewContent($lang['board2']['headline'], $lang['board2']['installorinte']['subheadline']);
-					$dsp->AddSingleRow($lang['board2']['disintegrate']['successfully']);
-					$dsp->AddContent();
-				} 
-				//else
-				//{
-			}
-		}
-		else
-		{
-			$func->error($lang['board2']['not_configured'], 'index.php?mod=board2&action=index');
+
+include_once('class_board2install.php');
+
+if ($config['board2']['configured'])
+{
+	if (!isset($_GET['todo'])) {
+		$func->question(t('Wollen sie phpBB und Lansuite wirklich wieder trennen, wenn ja <b>Bitte Datenbank sichern!</br>'), 'index.php?mod=board2&action=disintegrate&todo=disintegrate', 'index.php?mod=board2&action=index');
+	} else {
+		if ($_GET['todo'] == 'disintegrate') {
+			Board2install::deIntegrate();
+			$dsp->NewContent(t('Board phpBB'), t('Deintegration'));
+			$dsp->AddSingleRow(t('PhpBB und lansuite wurden erfolgreich getrennt.'));
+			$dsp->AddContent();
 		}
 	}
-	else
-	{
-		$func->error('ACCESS_DENIED', 'index.php?mod=board2&action=index');
-	}
+}
+else
+{
+	$func->error(t('Das Board wurde noch nicht integriert, daher kann es nicht getrennt werden.'), 'index.php?mod=board2&action=index');
+}
+
+//
+// Please make a history at the end of file of your changes !!
+//
+
+/* HISTORY
+ * 14. 1. 2009 : Created the file.
+ */
 ?>
