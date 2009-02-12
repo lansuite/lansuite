@@ -264,12 +264,26 @@ class func {
 
     
   #### Dialog functions ####
-  function GeneralDialog($type, $text, $link_target = '', $JustReturn = 0) {
+ 
+  function GeneralDialog($type, $text, $link_target = '', $JustReturn = 0, $link_type = 'BACK') {
     global $smarty, $dsp, $FrameworkMessages;
 
     // Link
+	switch($link_type) {
+		case "":
+		case "BACK": 
+			$link_text = t('Zurück');
+			$link_description = t('Zurück zur vorherigen Seite');
+			break;
+		case "FORWARD":
+			$link_text = t('Weiter');
+			$link_description = t('Weiter zur naechsten Seite'); 
+			break;
+	}
+    
     if ($link_target == '') $link_target = $this->internal_referer;
-    if ($link_target and $link_target != NO_LINK) $smarty->assign('link', $dsp->FetchCssButton('Zurück', $link_target, t('Zurück zur vorherigen Seite')));
+    if ($link_target == NO_LINK) $link_target = '';
+    if ($link_target) $smarty->assign('link', $dsp->FetchCssButton($link_text, $link_target, $link_description));
     else $smarty->assign('link', '');
 
     // Text
@@ -286,12 +300,12 @@ class func {
     else $dsp->AddContentLine($smarty->fetch('design/templates/'. $type .'.htm'));
   }
   
-  function confirmation($text, $link_target = '', $JustReturn = 0) {
-    return $this->GeneralDialog('confirmation', $text, $link_target, $JustReturn);
+  function confirmation($text, $link_target = '', $JustReturn = 0, $link_type = 'BACK') {
+    return $this->GeneralDialog('confirmation', $text, $link_target, $JustReturn, $link_type);
   }
 
-  function information($text, $link_target = '', $button_text = 'NOT_USED_ANYMORE', $JustReturn = 0) {
-    return $this->GeneralDialog('information', $text, $link_target, $JustReturn);
+  function information($text, $link_target = '', $button_text = 'NOT_USED_ANYMORE', $JustReturn = 0, $link_type = 'BACK') {
+    return $this->GeneralDialog('information', $text, $link_target, $JustReturn, $link_type);
   }
 
   function error($text, $link_target = '', $JustReturn = 0) {

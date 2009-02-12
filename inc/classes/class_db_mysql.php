@@ -11,6 +11,7 @@ class db {
   var $querys = array();
   var $errors = '';
 
+  // Construktor
   function db() {
     if (extension_loaded("mysqli")) $this->mysqli = 1;
     elseif (!extension_loaded("mysql")) echo HTML_FONT_ERROR . t('Das MySQL-PHP Modul ist nicht geladen. Bitte fügen Sie die mysql.so Erweiterung zur php.ini hinzu und restarten Sie den Webserver neu. Lansuite wird abgebrochen') . HTML_FONT_END;
@@ -104,6 +105,11 @@ class db {
   function query($query_string) {
   }
 
+	
+  /**
+   * If the second parameter is an array, the function uses the array as value list.
+   * @return unknown_type
+   */
   function qry() {
     global $config, $CurrentArg;
 
@@ -114,6 +120,10 @@ class db {
 
     $query = array_shift($args);
     $query = str_replace('%prefix%', $config['database']['prefix'], $query);
+
+    if (is_array($args[0]))
+    	$args = $args[0];
+
     foreach ($args as $CurrentArg) $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array('db', 'escape'), $query, 1);
 
     if ($this->mysqli) {
@@ -191,7 +201,11 @@ class db {
 
 
   #### Special ####
-
+  
+  /**
+   * If the second parameter is an array, the function uses the array as value list.
+   * @return unknown_type
+   */
   function qry_first() {
     $this->qry($args = func_get_args());
     $row = $this->fetch_array();
@@ -255,9 +269,12 @@ class db {
 
     $res = $this->qry('SHOW TABLES'); //"SELECT name FROM {$config["database"]["prefix"]}table_names"
     while ($row = $this->fetch_array($res)){
-      $table_name = substr($row[0], strlen($config['database']['prefix']), strlen($row[0]));
-      $config['tables'][$table_name] = $row[0];
+      if ($config['database']['prefix'] == substr($row[0], 0, strlen($config['database']['prefix']))){
+	      $table_name = substr($row[0], strlen($config['database']['prefix']), strlen($row[0]));
+	      $config['tables'][$table_name] = $row[0];
+      }
     }
+        
     $this->free_result($res);
   }
 }

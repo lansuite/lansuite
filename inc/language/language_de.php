@@ -184,6 +184,7 @@
 	$lang['button']['register'] = 'Registrieren';
 	$lang['button']['lost_pw'] = 'Passwort vergessen?';
 	$lang['button']['quote'] = 'Zitieren';
+	$lang['button']['refresh'] = 'Aktualisieren';
 
 	// Missing-Fields dialog
 	$lang['missing_fields']['caption'] = 'Es gibt noch unausgefüllte Felder';
