@@ -205,7 +205,7 @@ class auth {
                   // Print Loginmessages
                   if ($_GET['mod']=='auth' AND $_GET['action'] == 'login') $auth_backlink = "?mod=home"; 
                       else $auth_backlink = "";
-                  $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $auth_backlink,'',1);
+                  $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $auth_backlink,'');
   
                   // Show error logins
                   $msg = '';
@@ -219,7 +219,7 @@ class auth {
                 }
 
                 // The User will be logged in on the phpBB Board if the modul is available, configured and active.
-               // $this->loginPhpbb();
+                $this->loginPhpbb();
             }
         }
         return $this->auth; // For global setting $auth
