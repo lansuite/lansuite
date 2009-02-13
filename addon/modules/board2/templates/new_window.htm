@@ -1,0 +1,9 @@
+{$popupBlocked} <a href="{$url}" target="_blank"> {$clickhere} </a>
+{literal}<script language="JavaScript">
+<!--
+function full() {
+	window.open('{/literal}{$url}{literal}','neu','fullscreen=0');
+}
+full();
+//-->
+</script>{/literal}

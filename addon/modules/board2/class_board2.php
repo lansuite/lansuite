@@ -38,13 +38,13 @@ class Board2
 			case '2.0.22':
 			case '2.0.23':
 				include_once('modules/board2/integration/class_versionspecific_2_0_19.php');
-				return new versionspecific_2_0_19();
+				return new Versionspecific_2_0_19();
 			case '2.0.22_Plus_1.5.3':
 				include_once('modules/board2/integration/class_versionspecific_2_0_22_plus_1_5_3.php');
-				return new versionspecific_2_0_22_plus_1_5_3();
+				return new Versionspecific_2_0_22_plus_1_5_3();
 			case '3.0.4':
 				include_once('modules/board2/integration/class_versionspecific_3_0_4.php');
-				return new versionspecific_3_0_4();
+				return new Versionspecific_3_0_4();
 		}
 
 		throw new Exception(t('Die ausgew&auml;hlte phpBB Version wird nicht unterst&uuml;tzt.'));
