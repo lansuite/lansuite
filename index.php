@@ -222,14 +222,7 @@
 
 ### Set Default-Design, if non is set
 
-    // If user is not allowed to use an own selected design, or none is selected, use default
-    if (!$cfg['user_design_change'] or !$auth["design"]) $auth['design'] = $config['lansuite']['default_design'];
-    if (!$auth["design"]) $auth["design"] = "simple"; // Default if none
-    if (!file_exists("design/{$auth["design"]}/templates/main.htm")) $auth["design"] = "simple"; // Default if not availible
-    $_SESSION["auth"]["design"] = $auth["design"]; // For compaibility with old LS code
-    // folgendes betrifft momentan wohl nur Beamer
-    if ($_GET['design'] and $_GET['design'] != 'popup' and $_GET['design'] != 'base') $auth['design'] = $_GET['design'];
-    $smarty->assign('default_design', $auth['design']);
+    initializeDesign();
 
 ### Load Rotation Banner
 
@@ -261,6 +254,22 @@
       // Check Cronjobs
       if (!$_GET['mod']=="install") $cron2->CheckJobs();
       $db->disconnect();
+    }
+    
+    /*
+     * Initializes the design of lansuite. 
+     */
+    function initializeDesign() {
+    	global $cfg, $auth, $config, $_SESSION, $_GET, $smarty;
+    	
+		// If user is not allowed to use an own selected design, or none is selected, use default
+	    if (!$cfg['user_design_change'] or !$auth["design"]) $auth['design'] = $config['lansuite']['default_design'];
+	    if (!$auth["design"]) $auth["design"] = "simple"; // Default if none
+	    if (!file_exists("design/{$auth["design"]}/templates/main.htm")) $auth["design"] = "simple"; // Default if not availible
+	    $_SESSION["auth"]["design"] = $auth["design"]; // For compaibility with old LS code
+	    // folgendes betrifft momentan wohl nur Beamer
+	    if ($_GET['design'] and $_GET['design'] != 'popup' and $_GET['design'] != 'base') $auth['design'] = $_GET['design'];
+	    $smarty->assign('default_design', $auth['design']);
     }
 
 ?>
