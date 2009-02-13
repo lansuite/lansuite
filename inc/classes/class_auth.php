@@ -219,11 +219,7 @@ class auth {
                 }
 
                 // The User will be logged in on the phpBB Board if the modul is available, configured and active.
-                if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
-                    include_once ('./modules/board2/class_board2.php');
-                    $board2 = new Board2();
-                    $board2->loginPhpBB($this->auth['userid']);
-                }
+               // $this->loginPhpbb();
             }
         }
         return $this->auth; // For global setting $auth
@@ -243,7 +239,6 @@ class auth {
         if     ($userid == "") $func->information(t('Keine Userid beim Login via Cookie erkannt.'), "", '', 1);
         elseif ($uniquekey == "") $func->information(t('Kein Uniquekey beim Login via Cookie erkannt.'), "", '', 1);
         else {
-
             $user = $db->qry_first('SELECT 1 AS found, userid, username, email, password, type, locked FROM %prefix%user WHERE userid = %int%', $userid);
 
             if ($uniquekey == (md5($user['password']))) {
@@ -254,23 +249,42 @@ class auth {
                 // Set authdata
                 $db->qry('REPLACE INTO %prefix%stats_auth
                   SET sessid = %string%, userid = %int%, login = \'1\', ip = %string%, logtime = %string%, logintime = %string%, lasthit = %string%',
-                  $this->auth["sessid"], $user["userid"], $this->auth["ip"], $this->timestamp, $this->timestamp, $this->timestamp);
+				$this->auth["sessid"], $user["userid"], $this->auth["ip"], $this->timestamp, $this->timestamp, $this->timestamp);
 
-                 $this->load_authdata();
-                 $this->auth['userid'] = $user['userid'];
-
+				$this->load_authdata();
+				$this->auth['userid'] = $user['userid'];
+                 
+				// The User will be logged in on the phpBB Board if the modul is available, configured and active.
+            	$this->loginPhpbb();
             } else {
                 // DEBUG
                 $func->information(t("Uniquekey fehlerhaft"), '','',1);
             }
         }
     }
+    
+    /**
+     * Logs the user on the phpbb board on, if the board was integrated.
+     */
+    function loginPhpbb($userid = '') {
+    	global $config, $ActiveModules;
 
-  /**
-   * Logout the User and delete Sessiondata, Cookie and Authdata
-   *
-   * @return array Returns the cleared auth-dataarray
-   */
+    	if ($userid == '')
+    		$userid = $this->auth['userid'];
+
+		// The User will be logged in on the phpBB Board if the modul is available, configured and active.
+        if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
+			include_once ('./modules/board2/class_board2.php');
+			$board2 = new Board2();
+			$board2->loginPhpBB($userid);
+		}
+    }
+    
+	/**
+	 * Logout the User and delete Sessiondata, Cookie and Authdata
+	 *
+	 * @return array Returns the cleared auth-dataarray
+	 */
     function logout() {
         global $db, $config, $ActiveModules, $func;
 
@@ -281,12 +295,8 @@ class auth {
         // Reset Cookiedata
         $this->cookie_unset();
         
-        // The User will be logged out on the phpBB Board if the modul is available, configured and active.
-        if (in_array('board2', $ActiveModules) and $config['board2']['configured'] and $this->auth['userid'] != '') {
-            include_once ('./modules/board2/class_board2.php');
-            $board2 = new board2();
-            $board2->logoutPhpBB($this->auth['userid']);
-        } 
+        // Logs the user from the board2 off.
+		$this->logoutPhpbb();
 
         // Reset Sessiondata
         unset($this->auth);
@@ -300,6 +310,20 @@ class auth {
 
         $func->information(t('Sie wurden erfolgreich ausgeloggt. Vielen dank für ihren Besuch.'), "", '', 1);
         return $this->auth;                // For overwrite global $auth
+    }
+    
+	/**
+	 * Logs the user from the phpbb board off, if it was integrated.
+	 */
+    function logoutPhpbb() {
+    	global $config, $ActiveModules;
+ 
+    	// The User will be logged out on the phpBB Board if the modul is available, configured and active.
+        if (in_array('board2', $ActiveModules) and $config['board2']['configured'] and $this->auth['userid'] != '') {
+            include_once ('./modules/board2/class_board2.php');
+            $board2 = new board2();
+            $board2->logoutPhpBB($this->auth['userid']);
+        } 
     }
 
   /**
@@ -329,17 +353,21 @@ class auth {
             $db->qry('UPDATE %prefix%user SET switch_back = %string% WHERE userid = %int%', $switchbackcode, $this->auth["userid"]);
             // Link session ID to new user ID
             $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $target_id, $this->auth["sessid"]);
-            $func->information(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,'',1);  //FIX meldungen auserhalb/standart?!?
+			
+            // Logs the auser out on the board2 and logs the new user on
+            $this->logoutPhpbb();
+            $this->loginPhpbb($target_id);
+            
+            $func->information(t('Benutzerwechsel erfolgreich. Die &Auml;nderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,'',1);  //FIX meldungen auserhalb/standart?!?
         } else {
             $func->error(t('Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), $func->internal_referer,1); //FIX meldungen auserhalb/standart?!
         }
     }
 
-  /**
-   * Switchback to Adminuser
-   * Logout from the selectet User and go back to the calling Adminuser
-   *
-   */
+	/**
+	 * Switchback to Adminuser
+	 * Logout from the selectet User and go back to the calling Adminuser
+	 */
     function switchback() {
         global $db, $config, $lang, $func;
         // Make sure that Cookiedata is loaded
@@ -358,6 +386,11 @@ class auth {
                 $this->cookie_data['olduserid'] = '-1';
                 $this->cookie_data['sb_code'] = '-1';
                 $this->cookie_set();
+                
+                // Logs the new user out on the board2 and logs the admin user on again
+	            $this->logoutPhpbb();
+	            $this->loginPhpbb($this->cookie_data['userid']);
+                
                 $func->information(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,'',1);
             } else {
                 $func->error(t('Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), $func->internal_referer,1);
