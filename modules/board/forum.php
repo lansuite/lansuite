@@ -25,26 +25,10 @@ function FormatTitle($title) {
 }
 
 function NewPosts($last_read) {
-	global $db, $config, $auth, $line;
+	global $func, $line;
 
-	// Delete old entries
-	$db->qry("DELETE FROM %prefix%board_read_state WHERE last_read < %int%", (time() - 60 * 60 * 24 * 7));
-
-	// Older, than one week
-	if ($line['LastPost'] < (time() - 60 * 60 * 24 * 7)) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">Alt</a>";
-
-	// No entry -> Thread completely new
-	elseif (!$last_read) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">Neu</a>";
-
-	// Entry exists
-	else {
-
-		// The posts date is newer than the mark -> New
-		if ($last_read < $line['LastPost']) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}#pid{$line['last_pid']}\">Neu</a>";
-
-		// The posts date is older than the mark -> Old
-		else return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">Alt</a>";
-	}
+  if ($func->CheckNewPosts($line['LastPost'], 'board', $line['tid'])) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">Neu</a>";
+  else return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">Alt</a>";
 }
 
 if ($_GET['fid'] != '') {
@@ -130,7 +114,7 @@ $ms2 = new mastersearch2();
 $ms2->query['from'] = "{$config['tables']['board_threads']} AS t
     LEFT JOIN {$config['tables']['board_forums']} AS f ON t.fid = f.fid
     LEFT JOIN {$config['tables']['board_posts']} AS p ON t.tid = p.tid
-    LEFT JOIN {$config["tables"]["board_read_state"]} AS r ON t.tid = r.tid AND r.userid = ". (int)$auth['userid'] ."
+    LEFT JOIN {$config["tables"]["lastread"]} AS r ON t.tid = r.entryid AND r.tab = 'board' AND r.userid = ". (int)$auth['userid'] ."
     LEFT JOIN {$config["tables"]["user"]} AS u ON p.userid = u.userid
     LEFT JOIN {$config["tables"]["board_bookmark"]} AS b ON (b.fid = t.fid OR b.tid = t.tid) AND b.userid = ". (int)$auth['userid'] ."
     ";
@@ -159,7 +143,7 @@ $ms2->AddSelect('t.closed');
 $ms2->AddSelect('t.sticky');
 if ($_GET['fid'] != '') $ms2->AddResultField(t('Thread'), 't.caption', 'FormatTitle');
 else $ms2->AddResultField(t('Thread'), 'CONCAT(\'<b>\', f.name, \'</b><br />\', t.caption) AS ThreadName', 'FormatTitle');
-$ms2->AddResultField(t('Status'), 'r.last_read', 'NewPosts');
+$ms2->AddResultField(t('Status'), 'r.date', 'NewPosts');
 $ms2->AddResultField(t('Aufrufe'), 't.views');
 $ms2->AddResultField(t('Antworten'), '(COUNT(p.pid) - 1) AS posts');
 $ms2->AddResultField(t('Erster Beitrag'), 'MIN(p.date) AS FirstPost', 'LastPostDetails');

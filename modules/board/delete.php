@@ -11,7 +11,6 @@ if ($_GET['pid']) {
 // Delete thread
 } elseif ($_GET['tid']) {
   $md->References['board_posts'] = '';
-  $md->References['board_read_state'] = '';
   $md->References['board_bookmark'] = '';
   $md->Delete('board_threads', 'tid', $_GET['tid']);
 
@@ -19,7 +18,6 @@ if ($_GET['pid']) {
 } else {
   $md->References['board_threads'] = '';
   $md->SubReferences['board_posts'] = 'tid';
-  $md->SubReferences['board_read_state'] = 'tid';
   $md->SubReferences['board_bookmark'] = 'tid';
 
   switch($_GET['step']) {
