@@ -128,7 +128,7 @@ class masterform {
       $id = '';
     }
 
-        $this->AddGroup(); // Adds non-group-fields to fake group
+    $this->AddGroup(); // Adds non-group-fields to fake group
     if ($BaseURL) $StartURL = $BaseURL .'&'. $idname .'='. $id;
     else {
       $StartURL =$framework->get_clean_url_query('base');
@@ -343,6 +343,8 @@ class masterform {
           if ($group['caption']) $dsp->AddFieldsetStart($group['caption']);
           if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) {
 
+            if (!$field['type']) $field['type'] = $SQLFieldTypes[$field['name']];
+
             // Rename fields to arrays, if in Multi-Line-Edit-Mode
             if ($this->MultiLineID) $field['name'] = $field['name'] .'['. $this->MultiLineIDs[$y] .']';
             $z++;
@@ -352,7 +354,6 @@ class masterform {
             }
 
             $additionalHTML = '';
-            if (!$field['type']) $field['type'] = $SQLFieldTypes[$field['name']];
             switch ($field['type']) {
 
               case 'text': // Textarea
