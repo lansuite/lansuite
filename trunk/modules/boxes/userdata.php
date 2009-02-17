@@ -52,6 +52,9 @@ if (isset($_POST['login']) and isset($_POST['password'])) {
 
 // Show other links
 $box->DotRow(t('Meine Einstellungen'), "index.php?mod=usrmgr&amp;action=settings", '', "menu");
+// Show Clan
+if(($auth['clanid'] != NULL and $auth['clanid'] > 0) and in_array('clanmgr', $ActiveModules))
+$box->DotRow(t('Mein Clan'), "index.php?mod=clanmgr&amp;step=2&clanid=".$auth['clanid'], '', "menu");
 
 // New-Mail Notice
 if (in_array('mail', $ActiveModules)) {
