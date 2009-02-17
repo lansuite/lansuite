@@ -51,7 +51,11 @@ if (!$_GET["page"]) $_GET["page"] = 0;
 
 // Insert non existing entries
 $row = $db->qry_first("SELECT 1 AS found FROM %prefix%picgallery WHERE name = %string%", $db_dir);
-if (!$row['found']) $db->qry("INSERT INTO %prefix%picgallery SET userid = '', name = %string%", $db_dir);
+if (!$row['found']) 
+{
+	if($db_dir != "" and strpos($db_dir, "http://") == 0)
+	$db->qry("INSERT INTO %prefix%picgallery SET userid = '', name = %string%", $db_dir);
+}
 
 // Upload posted File
 if  (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["file_upload"]) {
