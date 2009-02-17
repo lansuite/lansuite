@@ -16,12 +16,12 @@ if ($pics_res['picid']) {
     $pic_name = $pic_array[sizeof($pic_array)-1];
     $pic_thumbname = "lsthumb_".$pic_name;
     $pic_neuname = str_replace($pic_name, $pic_thumbname, $pics_res['name']);
-    $pic_namelink ='<img src="ext_inc/picgallery/'.$pic_neuname.'" />';
     // Fill Template and make output
     if ($pics_res['caption']) $box->DotRow($pics_res['caption']);
     $box->EmptyRow();
     $smarty->assign('tag', $pics_res['caption']);
     $smarty->assign('thumblink', $pic_neuname);
+    $smarty->assign('alt', $pics_res['caption']);
     $smarty->assign('link', $pics_res['name']);
     $box->AddTemplate($smarty->fetch('modules/boxes/templates/box_randompic.htm'));
     if ($pics_comrow['comments'] == 1) $box->EngangedRow($pics_comrow['comments']." ".t("Kommentar"));
