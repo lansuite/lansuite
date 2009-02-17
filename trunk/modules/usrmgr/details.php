@@ -124,11 +124,11 @@ else {
             // Clan
       if ($cfg['signon_show_clan']) {
         $clan = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
-            $clan .= $user_data['clan'];
+            $clan .= '<a href="index.php?mod=clanmgr&step=2&clanid='.$user_data["clanid"].'">'.$user_data["clan"].'</a>';
             if (substr($user_data['clanurl'], 0, 7) != 'http://') $user_data['clanurl'] = 'http://'. $user_data['clanurl'];
             if ($user_data['clanurl']) $clan .= " [<a href=\"{$user_data['clanurl']}\" target=\"_blank\">{$user_data['clanurl']}</a>]";
         $clan .= '</td><td align="right">&nbsp;';
-            if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or $user_data['clanid'] == $auth['clanid']))
+            if ($user_data['clan'] != '' and (IsAuthorizedAdmin() or ($user_data['clanid'] == $auth['clanid'] and $user_data['clanadmin'] == 1)))
           $clan .= $dsp->AddIcon('change_pw', 'index.php?mod=clanmgr&action=clanmgr&step=10&clanid='. $user_data['clanid'], t('Passwort ändern')) .
             $dsp->AddIcon('edit', 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $user_data['clanid'], t('Editieren'));
         $clan .= '</td></tr></table>';
