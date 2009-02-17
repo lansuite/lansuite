@@ -71,4 +71,14 @@
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
+		<entry>
+		<action>random_user</action>
+		<file>random_user</file>
+		<caption>Zufallsgast</caption>
+		<hint>Wählt anhand bestimmter Kriterien zufällige Gäste aus</hint>
+		<link>?mod=misc&amp;action=random_user</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
 </menu>
