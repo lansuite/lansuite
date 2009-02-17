@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Teamspeak Display Preview Release 3
 // Copyright (C) 2005  Guido van Biemen (aka MrGuide@NL)
 //
@@ -559,8 +559,5 @@ class teamspeakDisplayClass {
 	}
 	
 }
-
-// Create an instance of the Teamspeak Display Class
-$teamspeakDisplay = new teamspeakDisplayClass;
 
 ?>
