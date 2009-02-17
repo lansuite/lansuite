@@ -105,7 +105,7 @@ class framework {
    * @param string JS-Codestring
    */
     function add_css_path($csspath) {
-        $this->main_header_cssfiles .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$csspath."\">\n";
+        $this->main_header_cssfiles .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"".$csspath."\" />\n";
     }
 
   /**
