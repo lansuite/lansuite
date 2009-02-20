@@ -31,6 +31,13 @@ function CheckExistingClan() {
 	}
 }
 
+function CountAdmins() {
+	global $auth, $db, $func;
+	
+	 $query_admins = $db->qry("SELECT * FROM %prefix%user WHERE clanid = %int% AND clanadmin = 1",$_GET['clanid']);     
+     return $db->num_rows($query_admins); 
+}
+
 function Update($id) {
 	global $auth, $db, $func;
 	
@@ -202,26 +209,25 @@ switch ($_GET['step']) {
   // Delete Member
   case 40:
     if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
+    elseif(CountAdmins() == 1 and $auth['clanadmin'] == 1) {$func->information(t('Löschen nicht möglich. Sie sind der einzige Clan-Admin in diesem Clan. Bennen Sie bitte vorher einen weiteren Admin.'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);}
     elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] > 2) {
       $db->qry("UPDATE %prefix%user SET clanid = 0 WHERE userid = %int%", $_GET['userid']);
-      $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid']);
+      $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);
     } else $func->information(t('Sie sind nicht berechtigt Mitglieder aus diesem Clan zu entfernen'), "index.php?mod=home");
   break;
 
   // Change role
   case 50:
     if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
-    elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > 1) { 
-      $query_admins = $db->qry("SELECT * FROM %prefix%user WHERE clanid = %int% AND clanadmin = 1",$_GET['clanid']);     
-      $countadmins = $db->num_rows($query_admins);  	
+    elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > 1) {  	
       $cur_role = $db->qry_first("SELECT clanadmin FROM %prefix%user WHERE clanid = %int% AND userid = %int%", $_GET['clanid'], $_GET['userid']);
-      if ($cur_role['clanadmin'] and $countadmins == 1) $func->information(t('Sie sind der einzige Clan-Admin in dem Clan. Benennen Sie bitte vorher einen anderen Admin, bevor Sie sich selbst die Admin-Rechte entziehen.'), "index.php?mod=clanmgr&step=2&clanid=".$_GET["clanid"]);
+      if ($cur_role['clanadmin'] and CountAdmins() == 1) $func->information(t('Sie sind der einzige Clan-Admin in dem Clan. Benennen Sie bitte vorher einen anderen Admin, bevor Sie sich selbst die Admin-Rechte entziehen.'), "index.php?mod=clanmgr&step=2&clanid=".$_GET["clanid"]);
       elseif ($cur_role['clanadmin']) {
         $db->qry("UPDATE %prefix%user SET clanadmin = 0 WHERE userid = %int%", $_GET['userid']);
-        $func->confirmation(t('Dieser Benutzer ist nun kein Clan-Admin mehr'), 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid']);
+        $func->confirmation(t('Dieser Benutzer ist nun kein Clan-Admin mehr'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);
       } else {
         $db->qry("UPDATE %prefix%user SET clanadmin = 1 WHERE userid = %int%", $_GET['userid']);
-        $func->confirmation(t('Dieser Benutzer ist nun Clan-Admin'), 'index.php?mod=clanmgr&action=clanmgr&step=30&clanid='. $_GET['clanid']);
+        $func->confirmation(t('Dieser Benutzer ist nun Clan-Admin'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);
       }
     } else $func->information(t('Sie sind nicht berechtigt die Berehtigung dieses Nutzers zu verändern'), "index.php?mod=home");
   break;
