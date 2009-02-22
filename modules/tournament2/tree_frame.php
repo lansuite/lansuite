@@ -145,7 +145,7 @@ else {
   		$templ['index']['info']['content'] .= "CreateRect(". ($xpos - 5) .", 1, ". ($box_width + 10) .", $img_height, '$bg_color_svg', '#ffffff', '');";
   		$templ['index']['info']['content'] .= "CreateText('". t('Runde') .": $akt_round" ."', $xpos, 16, '');";
   		$templ['index']['info']['content'] .= "CreateText('". t('Zeit') .": ". $round_start ." - ". $round_end ."', $xpos, 26, '');";
-  		$templ['index']['info']['content'] .= "CreateText('". t('Map') .": ". trim($map[(abs(floor($akt_round)) % count($map))]) ."', $xpos, 36, '');";
+  		$templ['index']['info']['content'] .= "CreateText('". t('Map') .": ". addslashes(trim($map[(abs(floor($akt_round)) % count($map))])) ."', $xpos, 36, '');";
     
   		$round_start = $func->unixstamp2date($tfunc->GetGameStart($t, $akt_round), "time");
   		$round_end = $func->unixstamp2date($tfunc->GetGameEnd($t, $akt_round), "time");
@@ -219,7 +219,7 @@ else {
   				elseif ($spielerid2 == 0 and $known_game2) $t_color = $color["winner"];
   				else $t_color = $color["text"];
   
-  		    $templ['index']['info']['content'] .= "CreateText('$spieler1', ". ($xpos +4) .", ". ($ypos +11) .", '$link');";
+  		    $templ['index']['info']['content'] .= "CreateText('". addslashes($spieler1) ."', ". ($xpos +4) .", ". ($ypos +11) .", '$link');";
   		    $templ['index']['info']['content'] .= "CreateText('$score1', ". ($xpos + $box_width - 16) .", ". ($ypos +11) .", '$link');";
   
   		    $templ['index']['info']['content'] .= "CreateText('vs', ". ($xpos + ($box_width / 2) - 10) .", ". ($ypos +23) .", '$link');";
@@ -231,7 +231,7 @@ else {
   				elseif ($score1 > $score2 and $known_game1) $t_color = $color["loser"];
   				elseif ($spielerid1 == 0 and $known_game1) $t_color = $color["winner"];
   				else $t_color = $color["text"];
-  		    $templ['index']['info']['content'] .= "CreateText('$spieler2', ". ($xpos +4) .", ". ($ypos +36) .", '$link');";
+  		    $templ['index']['info']['content'] .= "CreateText('". addslashes($spieler2) ."', ". ($xpos +4) .", ". ($ypos +36) .", '$link');";
   		    $templ['index']['info']['content'] .= "CreateText('$score2', ". ($xpos + $box_width -16) .", ". ($ypos +36) .", '$link');";
   
   				// Specialtext: From WB
