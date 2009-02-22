@@ -90,8 +90,8 @@ switch ($_GET['step']) {
     $buttons = '';
     if ($auth['type'] >= 1 and $auth['clanid'] != $_GET['clanid']) $buttons .= $dsp->FetchSpanButton(t('Clan beitreten'), 'index.php?mod='. $_GET['mod'] .'&step=60&clanid='. $_GET['clanid']).' ';
     if ($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid']) $buttons .= $dsp->FetchSpanButton(t('Clan verlassen'), 'index.php?mod='. $_GET['mod'] .'&step=40&clanid='. $_GET['clanid'].'&userid='.$auth['userid']).' ';
-    if (($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin']) or $auth['type'] >= 2) $buttons .= $dsp->FetchSpanButton(t('Clan editieren'), 'index.php?mod='. $_GET['mod'] .'&step=30&clanid='. $_GET['clanid']).' ';
-    if (($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin']) or $auth['type'] >= 2) $buttons .= $dsp->FetchSpanButton(t('Passwort ändern'), 'index.php?mod='. $_GET['mod'] .'&step=10&clanid='. $_GET['clanid']).' ';
+    if (($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] >= 2) $buttons .= $dsp->FetchSpanButton(t('Clan editieren'), 'index.php?mod='. $_GET['mod'] .'&step=30&clanid='. $_GET['clanid']).' ';
+    if (($auth['type'] >= 1 and $auth['clanid'] == $_GET['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] >= 2) $buttons .= $dsp->FetchSpanButton(t('Passwort ändern'), 'index.php?mod='. $_GET['mod'] .'&step=10&clanid='. $_GET['clanid']).' ';
     $dsp->AddDoubleRow('',$buttons);
     
 
@@ -162,7 +162,7 @@ switch ($_GET['step']) {
   // Add - Edit
   case 30:
    // if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
-    if (!($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) and $auth['type'] < 2) $func->information(t('Sie sind nicht berechtigt diesen Clan zu ändern'), "index.php?mod=home");
+    if ($_GET['clanid'] != '' and !($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) and $auth['type'] < 2) $func->information(t('Sie sind nicht berechtigt diesen Clan zu ändern'), "index.php?mod=home");
     else {
       include_once('inc/classes/class_masterform.php');
       $mf = new masterform();
@@ -210,7 +210,7 @@ switch ($_GET['step']) {
   case 40:
     if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
     elseif(CountAdmins() == 1 and $auth['clanadmin'] == 1) {$func->information(t('Löschen nicht möglich. Sie sind der einzige Clan-Admin in diesem Clan. Bennen Sie bitte vorher einen weiteren Admin.'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);}
-    elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) or $auth['type'] > 2) {
+    elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) or ($_GET['clanid'] == $auth['clanid'] and $_GET['userid'] = $auth['userid']) or $auth['type'] > 2) {
       $db->qry("UPDATE %prefix%user SET clanid = 0 WHERE userid = %int%", $_GET['userid']);
       $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);
     } else $func->information(t('Sie sind nicht berechtigt Mitglieder aus diesem Clan zu entfernen'), "index.php?mod=home");
