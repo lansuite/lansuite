@@ -24,6 +24,12 @@
       <name>Allgemein</name>
     </head>
     <items>
+    <item>
+    	<name>news_comments_allowed</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>Dürfen zu News Kommentare abgegeben werden?</description>
+    	</item>
     	<item>
     		<name>news_html</name>
     		<type>news_type</type>
