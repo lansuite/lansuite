@@ -12,8 +12,10 @@ $query = $db->qry("SELECT n.newsid, n.caption, n.priority, UNIX_TIMESTAMP(n.chan
 
 if ($db->num_rows($query) > 0) while ($row = $db->fetch_array($query)) {
   $smarty->assign('link', "index.php?mod=news&action=comment&newsid={$row["newsid"]}");
-  $smarty->assign('text', $func->CutString($row["caption"], 40) .' ['.$row['comments'].']');
-
+  if ($cfg['news_comments_allowed'])
+  	$smarty->assign('text', $func->CutString($row["caption"], 40) .' ['.$row['comments'].']');
+  else
+    $smarty->assign('text', $func->CutString($row["caption"], 40));
   if ($row["priority"] == 1)   $smarty->assign('text2', "<strong>!!!</strong>");
   else $smarty->assign('text2', '');
 
