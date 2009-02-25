@@ -71,17 +71,21 @@ else {
         $smarty->assign('text', $text);
 
         // GET NUMBER OF COMMENTS
-        $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
+        if ($cfg['news_comments_allowed'])
+        {
+        	$get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
         
-        if ($get_comments["number"] >= 0) $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." ". t('Kommentar(e)') ."</a>");
-
+        	if ($get_comments["number"] >= 0) $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." ". t('Kommentar(e)') ."</a>");
+        }
+        
         // Buttons
         $buttons = "";
         if ($auth["type"] > 1) {
           $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid", "edit") . " ";
           $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid", "delete") . " ";
         }
-        $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=comment&amp;newsid=$newsid", "quote") . " ";
+        if ($cfg['news_comments_allowed'])
+			$buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=comment&amp;newsid=$newsid", "quote") . " ";
         $smarty->assign('buttons', $buttons);
         $rows .= $smarty->fetch("modules/news/templates/show_row_$type.htm");
       }
@@ -112,18 +116,22 @@ else {
         if ($row['link_2']) $text .= '<br><a href="'. $row['link_2'] .'" target="_blank">'. $row['link_2'] .'</a>';
         if ($row['link_3']) $text .= '<br><a href="'. $row['link_3'] .'" target="_blank">'. $row['link_3'] .'</a>';
         $smarty->assign('text', $text);
-  
-        $get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
+  		
+        if ($cfg['news_comments_allowed'])
+        {
+        	$get_comments = $db->qry_first('SELECT count(*) as number FROM %prefix%comments WHERE relatedto_id=%int% AND relatedto_item=\'news\'', $newsid);
         
-        if ($get_comments["number"] >= 0) $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>");
-  
+        	if ($get_comments["number"] >= 0) $smarty->assign('comments', "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=$newsid\">" .$get_comments["number"]." Kommentar(e)</a>");
+        }
+        
         // Buttons
         $buttons = "";
         if ($auth["type"] > 1) {
             $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=change&amp;step=2&amp;newsid=$newsid", "edit") . " ";
             $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=delete&amp;step=2&amp;newsid=$newsid", "delete") . " ";
         }
-        $buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=comment&amp;newsid=$newsid", "quote") . " ";
+        if ($cfg['news_comments_allowed'])
+			$buttons .= $dsp->FetchIcon("index.php?mod=news&amp;action=comment&amp;newsid=$newsid", "quote") . " ";
         $smarty->assign('buttons', $buttons);
   
         $rows .= $smarty->fetch("modules/news/templates/show_row_$type.htm");

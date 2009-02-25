@@ -14,7 +14,9 @@
 <tr> 
 	<td class="row_key" height="20">
 		{$buttons}
-		<sup>{$comments}</sup>
+		{if isset($comments)}
+			<sup>{$comments}</sup>
+		{/if}
 		<br />&nbsp;
 	</td>
 	<td class="row_key" height="20"> 
