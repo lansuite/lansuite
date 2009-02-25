@@ -355,8 +355,9 @@ class auth {
             $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $target_id, $this->auth["sessid"]);
 			
             // Logs the auser out on the board2 and logs the new user on
-            $this->logoutPhpbb();
-            $this->loginPhpbb($target_id);
+            //TODO: fix switch user phpbb logon
+            //$this->logoutPhpbb();
+            //$this->loginPhpbb($target_id);
             
             $func->information(t('Benutzerwechsel erfolgreich. Die &Auml;nderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,'',1);  //FIX meldungen auserhalb/standart?!?
         } else {
@@ -388,8 +389,9 @@ class auth {
                 $this->cookie_set();
                 
                 // Logs the new user out on the board2 and logs the admin user on again
-	            $this->logoutPhpbb();
-	            $this->loginPhpbb($this->cookie_data['userid']);
+	            //TODO: fix switch user phpbb logon
+            	//$this->logoutPhpbb();
+	            //$this->loginPhpbb($this->cookie_data['userid']);
                 
                 $func->information(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,'',1);
             } else {
@@ -537,6 +539,25 @@ class auth {
         }
         if ($ok==0) $this->cookie_unset();
         return $ok;
+    }
+    
+    
+  /**
+   * Rewrites the cookie for the current user, e.g. when the user changed his password.
+   *
+   * @access private
+   */
+    function cookie_resetpassword($userid) {
+    	global $db;
+    	
+		$user = $db->qry_first('SELECT password FROM %prefix%user WHERE (userid = %int%)', $userid);
+
+        $this->cookie_data['userid'] = $userid;
+		$this->cookie_data['uniqekey'] = md5($user['password']);
+		$this->cookie_data['version'] = $this->cookie_version;
+		$this->cookie_data['olduserid'] = "";
+		$this->cookie_data['sb_code'] = "";
+		$this->cookie_set();
     }
 
   /**
