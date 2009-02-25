@@ -16,6 +16,13 @@ $mf = new masterform();
 $mf->AddField(t('Derzeitiges Passwort'), 'old_password', IS_PASSWORD, '', '', 'CheckOldPW');
 $mf->AddField(t('Neues Passwort'), 'password', IS_NEW_PASSWORD);
 
-$mf->SendForm('index.php?mod=usrmgr&action=changepw', 'user', 'userid', $_GET['userid']);
+$mf->SendForm('index.php?mod=usrmgr&action=changepw&setcookie=1', 'user', 'userid', $_GET['userid']);
+
+if ($_GET['setcookie'] == '1')
+{
+	include_once ('inc/classes/class_auth.php');
+	$authent = new auth();
+	$authent->cookie_resetpassword($auth["userid"]);
+}
 
 ?>
