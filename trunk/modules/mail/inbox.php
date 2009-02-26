@@ -1,13 +1,10 @@
 <?php
-
-$mail_new_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active' AND des_status = 'new'", $auth['userid']);
-$mail_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active'", $auth['userid']);
-$dsp->NewContent(t('Posteingang'), t('Sie haben <b>%1</b> Mail(s) empfangen. Davon sind <b>%2</b> ungelesen.', array($mail_total['n'], $mail_new_total['n'])));
-
 // if logged out
-if (!$auth['userid']) $dsp->AddSingleRow(t('Um Ihren Posteingang sehen zu können, müssen Sie sich zuerst einloggen.').HTML_NEWLINE.
-  t('Nutzen Sie das <a href="index.php?mod=mail&action=newmail">Kontaktformular</a> um Mails zu versenden. Dies ist auch im ausgeloggten Zustand möglich.'));
-$dsp->AddContent();
+if (!$auth['userid'])
+{
+	$dsp->NewContent(t('Posteingang'));
+	$func->information(t('Um Ihren Posteingang sehen zu können, müssen Sie sich zuerst einloggen. Nutzen Sie das <a href="index.php?mod=mail&action=newmail">Kontaktformular</a> um Mails zu versenden. Dies ist auch im ausgeloggten Zustand möglich.'));
+}
 
 // If logged in
 if ($auth['userid']) {
@@ -48,6 +45,10 @@ if ($auth['userid']) {
  	 if ( $status == "reply" ) return t('Beantwortet'); 
   }
 
+	$mail_new_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active' AND des_status = 'new'", $auth['userid']);
+	$mail_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'active'", $auth['userid']);
+	$dsp->NewContent(t('Posteingang'), t('Sie haben <b>%1</b> Mail(s) empfangen. Davon sind <b>%2</b> ungelesen.', array($mail_total['n'], $mail_new_total['n'])));
+	
   
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2();
