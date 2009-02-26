@@ -126,6 +126,9 @@ li.Confirmation {
     background: #84cd82;
   list-style: none;
 }
+li.Information > A, li.Confirmation > A, li.Err > A {
+	color: DarkBlue;
+}
 div.Headline {
   position: relative;
   font-weight: bold;
