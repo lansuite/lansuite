@@ -3,7 +3,7 @@ $smarty->assign('caption', t('Neue Server'));
 $content = "";
 
 if (!$cfg['server_sortmethod']) $cfg['server_sortmethod'] = 'changedate';
-$query = $db->qry("SELECT serverid, caption, type, UNIX_TIMESTAMP(changedate) AS changedate FROM %prefix%server ORDER BY %string% DESC LIMIT 0, %plain%", $cfg['server_sortmethod'], $cfg['home_item_count']);
+$query = $db->qry("SELECT serverid, caption, type, UNIX_TIMESTAMP(changedate) AS changedate FROM %prefix%server WHERE (party_id = %int% OR party_id = 0 or party_id = NULL) ORDER BY %string% DESC LIMIT 0, %plain%", $party->party_id, $cfg['server_sortmethod'], $cfg['home_item_count']);
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $smarty->assign('link', "index.php?mod=server&action=show_details&serverid={$row["serverid"]}");
