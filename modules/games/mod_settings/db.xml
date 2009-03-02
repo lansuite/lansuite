@@ -29,6 +29,14 @@
 				<extra></extra>
 			</field>
 			<field>
+				<name>userid</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
 				<name>nick</name>
 				<type>varchar(20)</type>
 				<null></null>
@@ -42,6 +50,22 @@
 				<null></null>
 				<key></key>
 				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>comment</name>
+				<type>varchar(100)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>changedate</name>
+				<type>timestamp</type>
+				<null></null>
+				<key></key>
+				<default></default>
 				<extra></extra>
 			</field>
 		</structure>
