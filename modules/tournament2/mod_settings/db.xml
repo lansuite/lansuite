@@ -76,6 +76,14 @@
 				<default>0</default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>server_id</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
 		</structure>
 	</table>
 	<table>

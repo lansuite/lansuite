@@ -40,7 +40,9 @@ if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) $func->in
 elseif ($cfg["server_admin_only"] and $auth['type'] <= 1) $func->information(t('Nur Adminsitratoren dürfen Server hinzufügen'), "index.php?mod=server");
 elseif (!$get_paid['paid'] and $auth["type"] <= 1) $func->information(t('Sie müssen zuerst bezahlen, um Server hinzufügen zu dürfen'), "index.php?mod=server");
 else {
-
+	
+  $dsp->NewContent(t('Server'), t('Hinzufügen und Aendern der Server'));
+	
   include_once('inc/classes/class_masterform.php');
   $mf = new masterform();
 
@@ -48,8 +50,15 @@ else {
     if ($auth['type'] > 1) $mf->AddDropDownFromTable(t('Besitzer'), 'owner', 'userid', 'username', 'user', '', 'type > 0');
     else $mf->AddFix('owner', $auth['userid']);
   }
-
+  
+  //Party-Liste
+		$party_list = array('' => t('KEINE'));
+		$row = $db->qry("SELECT party_id, name FROM {$config['tables']['partys']}");
+		while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
+		$db->free_result($row);
+  
   $mf->AddField(t('Name'), 'caption');
+  $mf->AddField(t('Party'), 'party_id', IS_SELECTION, $party_list, $party->party_id);
 
   $selections = array();
   $selections['gameserver'] = t('Gameserver');
@@ -59,6 +68,7 @@ else {
   $selections['proxy'] = t('Proxy Server');
   $selections['misc'] = t('Sonstiger Server');
   $mf->AddField(t('Servertyp'), 'type', IS_SELECTION, $selections, FIELD_OPTIONAL);
+  
 
   if ($cfg['server_ip_auto_assign']) $mf->AddFix('ip', $IPBase .'.'. $cfg['server_ip_next']);
   else $mf->AddField(t('IP / Domain'), 'ip', '', '', '', 'CheckIP');
