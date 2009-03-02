@@ -25,7 +25,7 @@ if ($auth['type'] >= 1) {
   function p_price($price_text) {
     global $line, $cfg;
     
-    if ($line['price']) return $price_text .' ('. $line['price'] .' '. $cfg['sys_currency'] .')';
+    if ($line['price']) return $price_text .'<br /> ('. $line['price'] .' '. $cfg['sys_currency'] .')';
     else return $price_text;
   }
 
