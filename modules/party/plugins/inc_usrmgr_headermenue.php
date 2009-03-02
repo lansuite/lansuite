@@ -13,6 +13,14 @@ if ($auth['type'] >= 1) {
     if ($cfg['signon_partyid'] == $line['party_id']) return "<b>".$name." (aktiv)</b>";
     else return $name;
   }
+  
+  function active($tid)
+  {
+  	global $line, $party;
+  	
+  	if($line['party_id'] == $party->party_id) return true;
+  	else return false;
+  }
 
   function p_price($price_text) {
     global $line, $cfg;
@@ -40,7 +48,7 @@ if ($auth['type'] >= 1) {
   $ms2->AddResultField(t('Bezahltdatum'), 'u.paiddate', 'MS2GetDate');
   $ms2->AddResultField(t('Eingecheckt'), 'u.checkin', 'MS2GetDate');
   $ms2->AddResultField(t('Ausgecheckt'), 'u.checkout', 'MS2GetDate');
-  if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=party&user_id='. $_GET['userid'] .'&party_id=', t('Editieren'));
+  if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=party&user_id='. $_GET['userid'] .'&party_id=', t('Editieren'), 'active');
   
   $ms2->PrintSearch('index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&headermenuitem=6', 'p.party_id');
 }
