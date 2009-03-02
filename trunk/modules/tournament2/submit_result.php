@@ -7,9 +7,17 @@ $qacc 		= $_GET["qacc"];
 $tournamentid 	= $_GET["tournamentid"];
 $gameid1 		= $_GET["gameid1"];
 $gameid2 		= $_GET["gameid2"];
-$score_team1 		= $_POST["score_team1"];
-$score_team2 		= $_POST["score_team2"];
-$score_comment 		= $_POST["score_comment"];
+$score_team1 	= $_POST["score_team1"];
+$score_team2 	= $_POST["score_team2"];
+$score_comment 	= $_POST["score_comment"];
+
+## Ueberschreibungsabfrage
+if($_GET["qacc"] == 1)
+{
+	$score_team1 = $_GET["score_team1"];
+	$score_team2 = $_GET["score_team2"];
+	$score_comment = $_GET["score_comment"];
+}
 
 
 ########## Infos holen
@@ -20,14 +28,14 @@ if ($map[0] == "") $map[0] = t('unbekannt');
 $games = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%t2_games WHERE (tournamentid = %int%) AND (round=0) GROUP BY round", $tournamentid);
 $team_anz = $games["anz"];
 
-$team1 = $db->qry_first("SELECT games.group_nr, games.round, games.score, games.comment, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
+$team1 = $db->qry_first("SELECT games.group_nr, games.round, games.score, games.comment, games.server_id, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
   FROM %prefix%t2_games AS games
   LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
   LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
   WHERE (teams.tournamentid = %int%) AND (games.gameid = %int%)
   ", $tournamentid, $gameid1);
 
-$team2 = $db->qry_first("SELECT games.round, games.score, games.comment, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
+$team2 = $db->qry_first("SELECT games.round, games.score, games.comment, games.server_id, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
   FROM %prefix%t2_games AS games
   LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
   LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
@@ -45,6 +53,13 @@ if ($tournament["name"] == "") {
 	switch ($_GET["step"]) {
 		default:
 			unset($_SESSION['tournament_submit_result_blocker']);
+			
+			 //Server auslesen
+			 $selections = array();
+   			 $selections['0'] = t('Kein Server zugewiesen');
+   			 $res = $db->qry("SELECT * FROM %prefix%server WHERE party_id = %int%", $party->party_id);
+			 while ($row = $db->fetch_array($res)) $selections[$row['serverid']] = $row['caption'];
+    			 	$db->free_result($res);
 
 			$dsp->NewContent(t('Details der Partie %1 vs %2', $team1['name'], $team2['name']), t('Hier sehen Sie Details zu dieser Partie und können das Ergebnis eintragen.'));
 			// Write Start and Enddate for each round
@@ -52,6 +67,20 @@ if ($tournament["name"] == "") {
 			$round_end = $tfunc->GetGameEnd($tournament, $team1['round'],$team1['group_nr']);
 			$dsp->AddDoubleRow(t('Spielzeit'), $func->unixstamp2date($round_start, "datetime") ." - ". $func->unixstamp2date($round_end, "datetime"));
 			$dsp->AddDoubleRow(t('Map'), $map[(abs(floor($team1['round'])) % count($map))]);
+			$dsp->AddDoubleRow(t('Server'), '<a href="index.php?mod=server&action=show_details&serverid='.$team1['server_id'].'">'.$selections[$team1['server_id']].'</a>');
+			
+			if($auth['type'] >= 2)
+			{
+				include_once('inc/classes/class_masterform.php');
+    			$mf = new masterform();
+ 	
+    			$mf->AddField(t('Server Zuweisen'), 'server_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
+
+    			if($mf->SendForm("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=".$tournamentid."&gameid1=".$gameid1."&gameid2=".$gameid2, 't2_games', 'gameid', $gameid1))
+    			{
+    					$db->qry("UPDATE %prefix%t2_games SET server_id = %int% WHERE gameid = %int%", $_POST['server_id'], $gameid2);
+    			}
+			}
 
 			$dsp->AddHRuleRow();
 			$dsp->AddSingleRow("<b>".t('Ergebnis melden')."</b>");
@@ -91,8 +120,8 @@ if ($tournament["name"] == "") {
 
 			if ($team1['comment'] != "") $score_comment = $team1['comment'];
 			$dsp->AddTextAreaPlusRow("score_comment", t('Bemerkung'), $score_comment, "", "", "", 1);
-			$dsp->AddFormSubmitRow("result");
 			$dsp->AddFieldSetEnd();
+			$dsp->AddFormSubmitRow("result");
 
     	$dsp->AddFieldsetStart('Log');
       include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -104,7 +133,7 @@ if ($tournament["name"] == "") {
       $ms2->AddResultField('', 'l.description');
       $ms2->AddSelect('u.userid');
       $ms2->AddResultField('', 'u.username', 'UserNameAndIcon');
-      $ms2->AddResultField('', 'l.date', 'MS2GetDate');
+      $ms2->AddResultField('', 'UNIX_TIMESTAMP(l.date) AS date', 'MS2GetDate');
       $ms2->PrintSearch('index.php?mod=tournament2&action=submit_result&step=1&tournamentid='. $_GET['tournamentid'] .'&gameid1='. $_GET['gameid1'] .'&gameid2='. $_GET['gameid2'], 'logid');
     	$dsp->AddFieldsetEnd();
 
@@ -178,7 +207,7 @@ if ($tournament["name"] == "") {
 					$func->question(t('ACHTUNG: Zu diesem Turnier wurde bereits ein Ergebnis eingetragen. Wurde noch keine der Folgepartien dieses Spieles gespielt, so kann ohne Probleme fortgefahren werden. Wurden diese hingegen bereits gespielt, so sollten Sie sich im Klaren darüber sein, dass die beiden Folgepartien dadurch teilweise überschrieben werden und das Ergebnis dort auf 0 (noch nicht gespielt) gesetzt wird, sodass Sie alle aus dieser Partie resultierenden Partien erneut eintragen müssen!'), "index.php?mod=tournament2&action=submit_result&step=2&gameid1=$gameid1&gameid2=$gameid2&tournamentid=$tournamentid&qacc=1&score_team1=$score_team1&score_team2=$score_team2&score_comment=$score_comment", "index.php?mod=tournament2&action=submit_result&step=1&gameid1=$gameid1&gameid2=$gameid2&tournamentid=$tournamentid");
 				} else {
 					$_SESSION["tournament_submit_result_blocker"] = TRUE;
-
+					
 					$tfunc->SubmitResult($tournamentid, $gameid1, $gameid2, $score_team1, $score_team2, $score_comment);
 
 					$func->confirmation(t('Danke! Das Ergebnis wurde erfolgreich gemeldet.'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
@@ -192,6 +221,12 @@ if ($tournament["name"] == "") {
 */
 				}
 			}
+		break;
+		
+		case 3:
+		
+		
+		
 		break;
 	} // Switch
 }

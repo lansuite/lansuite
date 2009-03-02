@@ -39,6 +39,15 @@
 				<default></default>
 				<extra></extra>
 			</field>
+				<field>
+				<name>party_id</name>
+				<type>int(11)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+				<foreign_key>partys.party_id</foreign_key>
+			</field>
 			<field>
 				<name>text</name>
 				<type>longtext</type>
