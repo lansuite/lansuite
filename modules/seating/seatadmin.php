@@ -64,19 +64,23 @@ switch($_GET['step']) {
 			case 1:	// Seat free, or just marked -> ask if reserve, or mark
 			case 3:
 				if (!$_GET['quest']) {
-					$questionarray = array();
-					$linkarray = array();
+				
+				//$User = $db->qry_first("SELECT username FROM %prefix%user
+  				 //		WHERE userid = %int%", $_GET['userid']);
+					
+				$questionarray = array();
+				$linkarray = array();
 
-  				array_push($questionarray, t('Sitzplatz reservierenHTML_NEWLINE(Ein evtl. zuvor für diesen Benutzer reservierter Platz wird freigegeben)'));
+  				array_push($questionarray, t('Sitzplatz für %1 reservierenHTML_NEWLINE(Ein evtl. zuvor für diesen Benutzer reservierter Platz wird freigegeben)', $new_user['username']));
   				array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=11&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
 
-  				array_push($questionarray, t('Sitzplatz markieren'));
+  				array_push($questionarray, t('Sitzplatz für %1 markieren', $new_user['username']));
   				array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=12&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
 
   				array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
   				array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid={$_GET['blockid']}");
   			
-  				$func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist aktuell noch frei (bzw. nur markiert)HTML_NEWLINESoll er fest reserviert oder nur markiert werden?'));
+  				$func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist noch frei (bzw. nur markiert)HTML_NEWLINESoll er fest reserviert oder nur markiert werden?'));
         }
 			break;
 

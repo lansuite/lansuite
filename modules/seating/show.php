@@ -192,7 +192,26 @@ switch($_GET['step']) {
 	// Free seat as admin (question)
 	case 30:
     if ($auth['type'] > 1) {
-      $func->question(t('Sind Sie sicher, dass Sie diesen Sitzplatz wieder freigeben möchten?'), "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}", "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+    	
+    	$seatingUser = $db->qry_first("SELECT s.userid, u.username FROM %prefix%seat_seats AS s
+    			 INNER JOIN %prefix%user AS u ON u.userid = s.userid
+  				 WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
+    		
+    	$questionarray = array();
+		$linkarray = array();
+
+		array_push($questionarray, t('Diesen Sitzplatz wieder freigeben'));
+		array_push($linkarray, "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
+
+		array_push($questionarray, t('Für %1 einen anderen Sitzplatz bestimmen (umsetzen)', $seatingUser['username']));
+		array_push($linkarray, "index.php?mod=seating&action=show&step=32&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}&userid={$seatingUser['userid']}");
+
+		array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
+		array_push($linkarray, "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+
+		$func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist momentan für %1 reserviert. Sie können:',$seatingUser['username']));
+		
+     // $func->question(t('Sind Sie sicher, dass Sie diesen Sitzplatz wieder freigeben möchten?'), "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}", "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
     }
 	break;
 	
@@ -205,5 +224,14 @@ switch($_GET['step']) {
 		$func->confirmation(t('Der Sitzplatz wurde erfolgreich freigegeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
     }
 	break;
+	
+	//Umsetzen als Admin
+	case 32:
+	if($auth['type'] > 1)
+	{
+	    $current_url = "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}";
+	    $target_url = "index.php?mod=seating&action=seatadmin&step=3&userid={$_GET['userid']}&blockid=";
+	    include_once('modules/seating/search_basic_blockselect.inc.php');
+	}
 }
 ?>
