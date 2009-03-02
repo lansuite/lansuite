@@ -45,9 +45,9 @@ if ($auth['type'] >= 1) {
   $ms2->AddSelect('i.price');
   $ms2->AddResultField(t('Preis'), 'i.price_text', 'p_price');
   $ms2->AddResultField(t('Bezahlt'), 'u.paid', 'TrueFalse');
-  $ms2->AddResultField(t('Bezahltdatum'), 'u.paiddate', 'MS2GetDate');
-  $ms2->AddResultField(t('Eingecheckt'), 'u.checkin', 'MS2GetDate');
-  $ms2->AddResultField(t('Ausgecheckt'), 'u.checkout', 'MS2GetDate');
+  $ms2->AddResultField(t('Bezahltdatum'), 'UNIX_TIMESTAMP(u.paiddate) AS paiddate', 'MS2GetDate');
+  $ms2->AddResultField(t('Eingecheckt'), 'UNIX_TIMESTAMP(u.checkin) AS checkin', 'MS2GetDate');
+  $ms2->AddResultField(t('Ausgecheckt'), 'UNIX_TIMESTAMP(u.checkout) AS checkout', 'MS2GetDate');
   if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=party&user_id='. $_GET['userid'] .'&party_id=', t('Editieren'), 'active');
   
   $ms2->PrintSearch('index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&headermenuitem=6', 'p.party_id');
