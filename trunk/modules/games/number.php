@@ -34,24 +34,40 @@ if ($headermenuitem == 2) $step = 3;
 switch ($step){
     // Write Score to DB
     case 2:
-        $db->qry("INSERT INTO %prefix%game_hs SET
-                    game = 'num',
-                    nick = %string%,
-                    score = %string%
-                    ", $_POST["nick"], $_GET["score"]);
+    if ($_GET["score"] != $_SESSION["versuch"] or $_SESSION["gewonnen"] == 0) $func->error("Faking verboten!", "index.php?mod=games&action=number");
+    elseif($auth['login'])  
+    {
+        $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_GET["score"], $_POST["comment"]);
+   		$func->confirmation(t('Ihre Highscore wurde eingetragen'), "?mod=games&action=number&headermenuitem=2");
+    	$_SESSION["versuch"] = 0;
+        $_SESSION["gewonnen"] = 0;
+    }else{
+        $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_GET["score"], $_POST["comment"]);
         $func->confirmation(t('Ihre Highscore wurde eingetragen'), "?mod=games&action=number&headermenuitem=2");
+    	$_SESSION["versuch"] = 0;
+        $_SESSION["gewonnen"] = 0;
+    }
     break;
 
     // Highscoreliste
     case 3:
         $dsp->AddSingleRow(t('Highscoreliste'));
 
-        $hs_liste = $db->qry('SELECT nick, score from %prefix%game_hs WHERE game=\'num\' ORDER BY score;');
-        while($entry = $db->fetch_array($hs_liste)){
-            $dsp->AddDoubleRow($entry['nick'], $entry['score'] . " ". t('Versuche'));
-        }
-        $db->free_result($hs_liste);
+		include_once('modules/mastersearch2/class_mastersearch2.php');
+		$ms2 = new mastersearch2('games');
 
+		//Anzeige der Aufgaben
+		$ms2->query['from'] = "{$config['tables']['game_hs']} AS g";
+		$ms2->query['where'] ="game='num'"; 
+		$ms2->query['default_order_by'] ="g.score"; 
+		$ms2->config['EntriesPerPage'] = 50;
+
+		$ms2->AddSelect('g.userid');
+		$ms2->AddResultField(t('Name'), 'g.nick', 'UserNameAndIcon');
+		$ms2->AddResultField(t('Versuche'), 'g.score');
+		$ms2->AddResultField(t('Kommentar'), 'g.comment');
+		$ms2->PrintSearch('index.php?mod=games&action=number&headermenuitem=2', 'g.id');
+		
         $dsp->AddBackButton("?mod=games", "games/number");
     break;
 
@@ -60,6 +76,7 @@ switch ($step){
         if ($headermenuitem == 1) {
             unset( $_SESSION['zahl'] );
             $_SESSION["versuch"] = 0;
+            $_SESSION["gewonnen"] = 0;
         }
 
         if (!isset($_SESSION["zahl"])){
@@ -68,12 +85,12 @@ switch ($step){
             $_POST['eingabe'] = "0";
         }
 
-        $gewonnen = 0;
+        $_SESSION["gewonnen"] = 0;
         if ($headermenuitem != 1) if ($_POST["eingabe"] > $_SESSION["zahl"]) $dsp->AddSingleRow(t('Die Gesuchte Zahl ist <b>kleiner</b> als <b>%1</b>', $_POST['eingabe']));
         else if ($_POST["eingabe"] < $_SESSION["zahl"]) $dsp->AddSingleRow(t('Die Gesuchte Zahl ist <b>größer</b> als <b>%1</b>', $_POST['eingabe']));
-        else $gewonnen = 1;
+        else $_SESSION["gewonnen"] = 1;
 
-        if (!$gewonnen) {
+        if (!$_SESSION["gewonnen"]) {
             $dsp->SetForm("?mod=games&action=number");
             $dsp->AddTextFieldRow("eingabe", t('Zahl vorschlagen'), $_POST['eingabe'], "");
             $dsp->AddDoubleRow(t('Versuche'), $_SESSION["versuch"]);
@@ -92,7 +109,9 @@ switch ($step){
             $dsp->SetForm("?mod=games&action=number&step=2&score=$score");
             $dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
             $dsp->AddDoubleRow(t('Versuche'), $score);
-            $dsp->AddTextFieldRow("nick", t('Name'), $_SESSION["auth"]["username"], "");
+            $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "", "", "", $auth['login']);
+            $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", FIELD_OPTIONAL);
+            
             $dsp->AddFormSubmitRow("next");
 
             $dsp->AddBackButton("?mod=games", "games/number");

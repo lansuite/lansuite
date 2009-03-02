@@ -102,33 +102,54 @@ switch ($_GET["step"]) {
         $dsp->AddHRuleRow();
 
         if ($_SESSION["do_highscore"]) {
+        	$_SESSION["ratewort"] = $_GET["ratewort"];
             $dsp->SetForm("?mod=games&action=hangman&step=4&sieg=1");
             $dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
             $dsp->AddDoubleRow("Fehlversuche", $_SESSION["versuche"]);
-            $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "");
+            $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "", "", "", $auth['login']);
+            $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", FIELD_OPTIONAL);
             $dsp->AddFormSubmitRow("next");
         }
     break;
 
     // Highscoreeintrag hinzufügen
     case 4:
-        $add_it = $db->qry("INSERT INTO %prefix%game_hs SET
-                                game = 'hm',
-                                nick = %string%,
-                                score = %string%
-                                ", $_POST["nick"], $_SESSION["versuche"]);
+    if (!$_SESSION["do_highscore"] or !($_SESSION["ratewort"] == $_SESSION["losungswort"]) && ($_SESSION["losungswort"] != "")) $func->error("Faking verboten!", "index.php?mod=games&action=hangman");
+    elseif($auth['login'])  
+	{
+        $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_SESSION["versuche"], $_POST["comment"]);
         $func->confirmation(t('Highscore wurde eingetragen'), "?mod=games&action=hangman&headermenuitem=2");
+    	unset($_SESSION["ratewort"]);
+        unset($_SESSION["losungswort"]);
+        unset($_SESSION["do_highscore"]);
+    }else{
+        $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_SESSION["versuche"], $_POST["comment"]);
+        $func->confirmation(t('Highscore wurde eingetragen'), "?mod=games&action=hangman&headermenuitem=2");
+    	unset($_SESSION["ratewort"]);
+        unset($_SESSION["losungswort"]);
+        unset($_SESSION["do_highscore"]);
+    }
     break;
     
     // Highscoreliste
     case 5:
         $dsp->AddSingleRow(t('Highscoreliste'));
 
-        $hs_liste = $db->qry('SELECT nick, score from %prefix%game_hs WHERE game=\'hm\' ORDER BY score;');
-        while($entry = $db->fetch_array($hs_liste)){
-            $dsp->AddDoubleRow($entry['nick'], $entry['score'] ." Fehlversuche");
-        }
-        $db->free_result($hs_liste);
+		include_once('modules/mastersearch2/class_mastersearch2.php');
+		$ms2 = new mastersearch2('games');
+
+		//Anzeige der Aufgaben
+		$ms2->query['from'] = "{$config['tables']['game_hs']} AS g";
+		$ms2->query['where'] ="game='hm'"; 
+		$ms2->query['default_order_by'] ="g.score"; 
+		$ms2->config['EntriesPerPage'] = 50;
+
+		$ms2->AddSelect('g.userid');
+		$ms2->AddResultField(t('Name'), 'g.nick', 'UserNameAndIcon');
+		$ms2->AddResultField(t('Fehlversuche'), 'g.score');
+		$ms2->AddResultField(t('Kommentar'), 'g.comment');
+		$ms2->PrintSearch('index.php?mod=games&action=hangman&headermenuitem=2', 'g.id');
+
 
         $dsp->AddBackButton("?mod=games", "games/hangman");
     break;
