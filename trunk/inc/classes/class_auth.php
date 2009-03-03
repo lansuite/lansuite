@@ -205,7 +205,7 @@ class auth {
                   // Print Loginmessages
                   if ($_GET['mod']=='auth' AND $_GET['action'] == 'login') $auth_backlink = "?mod=home"; 
                       else $auth_backlink = "";
-                  $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $auth_backlink,'');
+                  $func->confirmation(t('Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $auth_backlink,'', 'FORWARD');
   
                   // Show error logins
                   $msg = '';
