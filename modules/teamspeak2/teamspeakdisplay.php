@@ -1,23 +1,23 @@
-ï»¿<?php
-// Teamspeak Display Preview Release 3
-// Copyright (C) 2005  Guido van Biemen (aka MrGuide@NL)
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+<?php
+/* 
+Teamspeak Display Preview Release 3
+Copyright (C) 2005  Guido van Biemen (aka MrGuide@NL)
 
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
 class teamspeakDisplayClass {
-	
 	// Removes subsequent end of line charachter from the right part of a string
 	function _stripEOL($evalString) {
 		$newLen = strlen($evalString);
@@ -374,7 +374,7 @@ class teamspeakDisplayClass {
 			echo("	}\n");
 			echo("	serveraddress = serveraddress + \"/nickname=\" + escape(nickname);\n");
 			if (($serverInfo["serverinfo"]["server_password"] == "1") and ($cfg['serverpassword'] == null )) {
-				echo("	var password=window.prompt('".t('Teamspeak Server Passwort eintragen fÃ¼r')." " . $serverInfo["serverinfo"]["server_name"] . "', '');\n");
+				echo("	var password=window.prompt('".t('Teamspeak Server Passwort eintragen für')." " . $serverInfo["serverinfo"]["server_name"] . "', '');\n");
 				echo("	if (password == null) {\n");
 				echo("		return;\n");
 				echo("	} else if (password == \"\") {\n");
@@ -392,7 +392,7 @@ class teamspeakDisplayClass {
 			}
 			echo("	if (channelName != null) { serveraddress = serveraddress + \"?channel=\" + escape(channelName); }\n");
 			echo("	if (channelPassworded) {\n");
-			echo("		var channelpassword=window.prompt('".t('Channel Passwort eintragen fÃ¼r')." ' + channelName, '');\n");
+			echo("		var channelpassword=window.prompt('".t('Channel Passwort eintragen für')." ' + channelName, '');\n");
 			echo("		if (channelpassword == null) {\n");
 			echo("			return;\n");
 			echo("		} else if (channelpassword == \"\") {\n");
@@ -557,7 +557,5 @@ class teamspeakDisplayClass {
 		$settings["serverqueryport"] = $serverQueryPort;
 		$this->displayTeamspeakEx($settings);
 	}
-	
 }
-
 ?>
