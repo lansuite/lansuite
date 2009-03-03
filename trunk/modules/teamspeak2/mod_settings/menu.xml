@@ -3,7 +3,7 @@
 	<pos>19</pos>
 	<entry>
 		<action>default</action>
-		<file>ts2</file>
+		<file>show</file>
 		<caption>TeamSpeak2</caption>
 		<hint>Wer befindet sich gerade auf dem Teampeak Server?</hint>
 		<link>?mod=teamspeak2</link>
@@ -12,8 +12,8 @@
 		<level>0</level>
 	</entry>
 	<entry>
-		<action>ts2</action>
-		<file>ts2</file>
+		<action>show</action>
+		<file>show</file>
 		<requirement>0</requirement>
 	</entry>
 </menu>
