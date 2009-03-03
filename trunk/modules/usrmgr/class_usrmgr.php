@@ -121,7 +121,7 @@ class UsrMgr {
             $message = str_replace('%EMAIL%', $_POST['email'], $message);
             $message = str_replace('%PASSWORD%', $_SESSION['tmp_pass'], $message);
             if ($_POST['clan']) {
-          $row = $db->qry_first("SELECT name FROM %prefix%clan WHERE clanid%int%", $_POST['clan']);
+          $row = $db->qry_first("SELECT name FROM %prefix%clan WHERE clanid = %int%", $_POST['clan']);
           $clan = $row['name'];
         }
             else $clan = $_POST['clan_new'];
