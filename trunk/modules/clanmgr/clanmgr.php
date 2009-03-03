@@ -11,14 +11,6 @@ function ShowRole ($role) {
   return $ret;
 }
 
-function CheckClanPW ($clanpw) {
-  global $db, $config, $auth;
-
-  $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);
-  if ($clan['password'] and $clan['password'] == md5($clanpw)) return true;
-  return false;
-}
-
 function CheckExistingClan() {
 	global $auth, $db, $func;
 	$clanuser = $db->qry_first("SELECT clanid FROM %prefix%user WHERE userid=%int%", $auth['userid']);
@@ -248,7 +240,10 @@ switch ($_GET['step']) {
   }
   else
   {
-  	if(CheckClanPW($_POST['clan_pass']))
+  	include_once("modules/clanmgr/class_clan.php");
+  	$clan = new Clan();
+  	
+  	if($clan->CheckClanPW($_GET['clanid'], $_POST['clan_pass']))
   	{
   		  $db->qry("UPDATE %prefix%user SET clanid = %int%, clanadmin = 0 WHERE userid =%int%", $_GET['clanid'], $auth["userid"]);
   		  $tmpclanname =  $db->qry_first("SELECT name FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);

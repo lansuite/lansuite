@@ -45,5 +45,15 @@ class Clan {
 
     return true;
   }
+
+  //Check Clan Passwort
+  function CheckClanPW($clanid, $clanpw) {
+  global $db, $config, $auth;
+
+  $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $clanid);
+  if ($clan['password'] and $clan['password'] == md5($clanpw)) return true;
+  return false;
+  }
+  
 }
 ?>
