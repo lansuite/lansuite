@@ -163,7 +163,7 @@
   </group>
   <group>
     <head>
-      <name>AGB und U18-Vollmach</name>
+      <name>AGB, U18-Vollmacht, Bezahlung</name>
     </head>
     <items>
     	<item>
@@ -189,6 +189,12 @@
     		<type>string</type>
     		<default></default>
     		<description>Link zu der U18-Vollmacht</description>
+    	</item>
+        <item>
+    		<name>signon_paylink</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Link zu den Bezahlinfos</description>
     	</item>
     </items>
   </group>
