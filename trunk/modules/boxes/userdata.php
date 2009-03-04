@@ -99,14 +99,17 @@ $query_signstat = $db->qry_first("SELECT * FROM %prefix%party_user AS pu
 					if(($query_signstat["paid"] == 1)||($query_signstat["paid"] == 2))
 						$paidstat = '<font color="green">'. t('Ja') .'!</font>';
 					else
-						$paidstat = '<font color="red">'. t('Nein') .'!</font>';
+					{
+						$paidstat = '<font color="red">'. t('Nein') .'!</font>'; 
+						$paidstat_info = '<a href="'.$cfg[signon_paylink].'"><i> '. t('Bezahlinfos') .'</i></a>';
+					}
 				}
 
 $query_partys = $db->qry_first("SELECT * FROM %prefix%partys AS p WHERE p.party_id = %int%", $_SESSION["party_id"]);	
 					
 $box->DotRow("<b>".$query_partys["name"]."</b> ". t('Status') .':');
 $box->EngangedRow(t('Angemeldet') .': <b>'. $signstat .'</b><br> '. $signstat_info);
-$box->EngangedRow(t('Bezahlt') .': <b>'. $paidstat .'</b>');
+$box->EngangedRow(t('Bezahlt') .': <b>'. $paidstat .'</b><br> '. $paidstat_info);
 }
 
 ?>
