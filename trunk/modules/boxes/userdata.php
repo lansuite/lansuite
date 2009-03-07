@@ -71,7 +71,8 @@ if (in_array('mail', $ActiveModules)) {
                 $found_not_popped_up_mail = true;
             }
         }
-        if ($cfg['mail_popup_on_new_mails'] and $found_not_popped_up_mail) {
+        //and $found_not_popped_up_mail
+        if ($cfg['mail_popup_on_new_mails'] ) {
             $box->EngangedRow($dsp->FetchIcon('index.php?mod=mail', 'receive_mail') .' <font color="red">'. t('Sie haben Post!') .'</font>');
     #       $templ['box']['rows'] .= '<script language="JavaScript">
     #       OpenWindow("index.php?mod=mail&amp;action=mail_popup&amp;design=popup", "new_mail");
