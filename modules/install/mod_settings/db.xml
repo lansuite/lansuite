@@ -1033,6 +1033,14 @@
                 <extra></extra>
             </field>
             <field>
+                <name>lasthiturl</name>
+                <type>varchar(100)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
                 <name>visits</name>
                 <type>mediumint(11) unsigned</type>
                 <null></null>
