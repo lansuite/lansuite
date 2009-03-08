@@ -81,4 +81,15 @@
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
+	</entry>
+		<entry>
+		<action>onlineuser</action>
+		<file>onlineuser</file>
+		<caption>Onlineuser</caption>
+		<hint></hint>
+		<link>?mod=misc&action=onlineuser</link>
+		<requirement>3</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
 </menu>
