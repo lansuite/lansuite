@@ -106,7 +106,7 @@ function CreateTextInt(text, x, y, link, size, popup) {
       myA.style.color="#000000";
       myA.style.textDecoration="none";
       myA.appendChild(myText);
-      myA.appendChild(myPop);
+      if(popup) myA.appendChild(myPop);
       myDiv.appendChild(myA);
     } else {
       myDiv.appendChild(myText);
