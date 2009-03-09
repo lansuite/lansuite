@@ -83,7 +83,7 @@ else {
 // END Pluginsystem for Usermanager
 
 
-    $dsp->NewContent(t('Userdetails von %1', $user_data['username']), t('Hier finden Sie alle Details zu diesem User. Am Ende der Seite finden Sie alle Funktionen, die Sie auf den User anwenden dürfen.'));
+    $dsp->NewContent(t('Benutzerdetails von %1', $user_data['username']), t('Hier finden Sie alle Details zu dem Benutzer %1', $user_data['username']));
     $dsp->AddHeaderMenu($menunames, "index.php?mod=usrmgr&action=details&userid=".$_GET['userid'], $_GET['headermenuitem']);
 
     // < menu details (step/headermenuitem)
