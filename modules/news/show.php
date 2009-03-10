@@ -141,7 +141,7 @@ else {
       while($row=$db->fetch_array($get_newsshorted)) {
         $tmpDate = $func->translate_weekdayname(substr($row[0],0,strpos($row[0],","))) . substr($row[0],strpos($row[0],","));
         $shortnews[$tmpDate][$row[1]]['caption'] = "<a href=\"index.php?mod=news&amp;action=comment&amp;newsid=" .$row[5] ."\">" .$row[2] ."</a>";
-        $shortnews[$tmpDate][$row[1]]['text'] = substr(strip_tags($row[3]),0,$cfg["news_shorted_length"]) ."...";
+        $shortnews[$tmpDate][$row[1]]['text'] = substr(strip_tags($func->AllowHTML($row[3])),0,$cfg["news_shorted_length"]) ."...";
         $shortnews[$tmpDate][$row[1]]['username'] = $row[4];
       }
       $tmpDate = "";
