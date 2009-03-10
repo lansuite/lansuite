@@ -25,14 +25,14 @@ switch ($_GET["step"]) {
 			$row = $db->qry_first("SELECT * FROM %prefix%troubleticket WHERE ttid = %int%", $tt_id);
 
 			$origin_user_id = $row["origin_userid"];
-			$get_originuser = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int% ", $origin_user_id);
+			$get_originuser = $db->qry_first("SELECT userid, username FROM %prefix%user WHERE userid = %int% ", $origin_user_id);
 			$target_user_id = $row["target_userid"];
-			$get_targetuser = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int% ", $target_user_id);
+			$get_targetuser = $db->qry_first("SELECT userid, username FROM %prefix%user WHERE userid = %int% ", $target_user_id);
 
 			$dsp->AddDoubleRow(t('Überschrift'), $row["caption"]);
 			$dsp->AddDoubleRow(t('Problembeschreibung'), $func->text2html($row["text"]));
 			$dsp->AddDoubleRow(t('Eingetragen am/um'), $func->unixstamp2date($row["created"], "daydatetime"));
-			$dsp->AddDoubleRow(t('Von Benutzer'), $get_originuser["username"]);
+			$dsp->AddDoubleRow(t('Von Benutzer'), $get_originuser["username"].' '.$dsp->FetchUserIcon($get_originuser["userid"]));
 
 			// priorität zahl -> text
 			switch ($row["priority"]) {
@@ -95,10 +95,10 @@ switch ($_GET["step"]) {
 			}
 			$dsp->AddDoubleRow(t('Ticketstatus'), $status);
 			if ($time_text and $time_val) $dsp->AddDoubleRow($time_text, $time_val);
-			$dsp->AddDoubleRow(t('Bearbeitender Orga'), $get_targetuser["username"]);
+			$dsp->AddDoubleRow(t('Bearbeitender Orga'), $get_targetuser["username"].' '.$dsp->FetchUserIcon($get_targetuser["userid"]));
 
 			if (!$row["publiccomment"]) $row["publiccomment"] = t(' Kein Hinweis eingetragen');
-			$dsp->AddDoubleRow(t('Kommentar'), $row["publiccomment"]);
+			$dsp->AddDoubleRow(t('Kommentar'), $func->text2html($row["publiccomment"]));
 			if($auth['type'] > 1){
 				if (!$row["orgacomment"]) $row["orgacomment"] = t(' Kein Hinweis eingetragen');
 				$dsp->AddDoubleRow(t('Kommentar von und für Orgas'), $row["orgacomment"]);
