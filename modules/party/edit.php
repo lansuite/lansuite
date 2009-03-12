@@ -30,7 +30,7 @@ function UpdatePartyID($id) {
   
   $db->qry("UPDATE %prefix%config SET cfg_value = %int% WHERE cfg_key = 'signon_partyid'", $id);
   $_SESSION['party_id'] = $id;
-  $func->confirmation(t('Die Daten wurden erfolgreich geändert.'));  
+  $func->confirmation(t('Die Daten wurden erfolgreich geändert.'),'index.php?mod=party');  
 }
 
 $mf->AddField(t('Partyname'), 'name');
