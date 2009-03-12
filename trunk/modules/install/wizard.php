@@ -109,7 +109,7 @@ switch ($_GET["step"]){
         $dsp->AddDropDownFieldRow("design", t('Standard-Design'), $t_array, "");
 
         $dsp->AddCheckBoxRow("resetdb", t('Datenbank überschreiben'), t('<b>ACHTUNG:</b> Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!'), "", 0, "");
-        $dsp->AddSingleRow(t('<b>ACHTUNG:</b><br>Der Aufruf der nächsten Seite kann bis zu eine Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!'));
+        $func->information(t('ACHTUNG: Der Aufruf der nächsten Seite kann bis zu einer Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!'),NO_LINK);
 
         $dsp->AddFormSubmitRow("next");
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=1", "install/ls_conf");
