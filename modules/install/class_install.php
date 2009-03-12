@@ -69,7 +69,7 @@ class Install {
       // Try to select DB
       if (@mysql_select_db($config['database']['database'], $link_id)) {
         // If User wants to rewrite all tables, drop databse. It will be created anew in the next step
-        if (!$_GET["quest"] and $createnew and $_GET["step"] == 3) $this->DeleteAllTables();
+        if (!$_GET["quest"] and $createnew and $_GET["step"] == 3) $this->DeleteAllTables($link_id);
         $ret_val = 1;
 
       } else {   
@@ -605,8 +605,8 @@ class Install {
   // Scans all db.xml-files and deletes all tables listed in them
   // This meens lansuite is not able to clean up tables, which changed their name during versions
   // But this is much safer than DROP DATABASE, for this clean methode would drop other web-systems using the same DB table, too
-  function DeleteAllTables () {
-    global $import, $xml, $db;
+  function DeleteAllTables ($link_id) {
+    global $config, $import, $xml;
   
     $modules_dir = opendir("modules/");
     while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
@@ -619,7 +619,7 @@ class Install {
         foreach ($tables as $table) {        
           $table_head = $xml->get_tag_content("table_head", $table, 0);
           $table_name = $xml->get_tag_content("name", $table_head);
-          $db->qry_first("DROP TABLE IF EXISTS %prefix%%plain%", $table_name);
+          @mysql_query("DROP TABLE IF EXISTS ".$config["database"]["prefix"].$table_name, $link_id);
         }
       }
     }
