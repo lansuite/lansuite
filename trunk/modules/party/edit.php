@@ -26,9 +26,10 @@ function CheckSignonEndDate($senddate) {
 
 
 function UpdatePartyID($id) {
-  global $db, $config, $lang, $func;
+  global $db, $config, $lang, $func, $auth, $party;
   
   $db->qry("UPDATE %prefix%config SET cfg_value = %int% WHERE cfg_key = 'signon_partyid'", $id);
+  $_SESSION['party_id'] = $id;
   $func->confirmation(t('Die Daten wurden erfolgreich geändert.'));  
 }
 
