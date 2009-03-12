@@ -99,25 +99,27 @@ switch ($_GET['step']) {
 
     $dsp->AddFieldSetStart(t('Mitglieder'));
     include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms3 = new mastersearch2('clanmgr');
+    $ms2 = new mastersearch2('clanmgr');
     
-    $ms3->query['from'] = "{$config["tables"]["user"]} AS u";
-    $ms3->query['where'] = "u.clanid = ". (int)$_GET['clanid'];
+    $ms2->query['from'] = "{$config["tables"]["user"]} AS u";
+    $ms2->query['where'] = "u.clanid = ". (int)$_GET['clanid'];
     
-    $ms3->config['EntriesPerPage'] = 100;
-    $ms3->AddSelect('u.firstname');
-	  $ms3->AddSelect('u.name');
-    $ms3->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
+    $ms2->config['EntriesPerPage'] = 100;
+	
+    $ms2->AddSelect('u.firstname');
+	$ms2->AddSelect('u.name');
+	
+    $ms2->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
     if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['clanid'] == $_GET['clanid']) {
-      $ms3->AddResultField(t('Vorname'), 'u.firstname', '');
-      $ms3->AddResultField(t('Nachname'), 'u.name', '');
+      $ms2->AddResultField(t('Vorname'), 'u.firstname', '');
+      $ms2->AddResultField(t('Nachname'), 'u.name', '');
     }
-    $ms3->AddResultField(t('Rolle'), 'u.clanadmin', 'ShowRole');
+    $ms2->AddResultField(t('Rolle'), 'u.clanadmin', 'ShowRole');
     
-    $ms3->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Clan-Details'));
-    if ($auth['type'] >= 3 | ($auth['clanid'] == $_GET['clanid'] & $auth['clanadmin'] == 1)) $ms3->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', t('Löschen'));
+    $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Clan-Details'));
+    if ($auth['type'] >= 3 | ($auth['clanid'] == $_GET['clanid'] & $auth['clanadmin'] == 1)) $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', t('Löschen'));
 
-    $ms3->PrintSearch('index.php?mod=clanmgr&action=clanmgr&step=2', 'u.userid');
+    $ms2->PrintSearch('index.php?mod=clanmgr&action=clanmgr&step=2', 'u.userid');
     $dsp->AddFieldSetEnd();
 
     $dsp->AddBackButton('index.php?mod=clanmgr&action=clanmgr');
