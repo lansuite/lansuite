@@ -273,11 +273,14 @@ class auth {
     		$userid = $this->auth['userid'];
 
 		// The User will be logged in on the phpBB Board if the modul is available, configured and active.
-        if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
-			include_once ('./modules/board2/class_board2.php');
-			$board2 = new Board2();
-			$board2->loginPhpBB($userid);
-		}
+        if ($config['environment']['configured'])
+        {
+	        if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
+				include_once ('./modules/board2/class_board2.php');
+				$board2 = new Board2();
+				$board2->loginPhpBB($userid);
+			}
+        }
     }
     
 	/**
