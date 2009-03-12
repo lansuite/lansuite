@@ -37,7 +37,7 @@ function EditAllowed() {
 class Mastercomment{
 
 	// Construktor
-	function Mastercomment($mod, $id, $update_table = array()) {
+	function Mastercomment($mod, $id, $update_table = array(), $AddSelect_list = array()) {
 		global $framework, $dsp, $config, $auth, $db, $config, $func, $cfg, $mail;
 
     #echo '<ul class="Line">';
@@ -74,6 +74,11 @@ class Mastercomment{
     $ms2->AddSelect('s.avatar_path');
     $ms2->AddSelect('s.signature');
     $ms2->AddSelect('u.userid');
+	if($AddSelect_list) {
+		foreach($AddSelect_list as $key) {
+			$ms2->AddSelect($key);
+		}
+	}
     $ms2->AddResultField('', 'u.username', 'FetchDataRow', '', 180);
     $ms2->AddResultField('', 'c.text', 'FetchPostRow');
     $ms2->AddIconField('quote', 'javascript:document.getElementById(\'text\').value += \'[quote]\' + document.getElementById(\'post%id%\').innerHTML + \'[/quote]\'', t('Zitieren'));

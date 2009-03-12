@@ -11,6 +11,14 @@ function ShowRole ($role) {
   return $ret;
 }
 
+function CheckClanPW ($clanpw) {
+  global $db, $config, $auth;
+
+  $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);
+  if ($clan['password'] and $clan['password'] == md5($clanpw)) return true;
+  return false;
+}
+
 function CheckExistingClan() {
 	global $auth, $db, $func;
 	$clanuser = $db->qry_first("SELECT clanid FROM %prefix%user WHERE userid=%int%", $auth['userid']);
@@ -91,30 +99,36 @@ switch ($_GET['step']) {
 
     $dsp->AddFieldSetStart(t('Mitglieder'));
     include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2('clanmgr');
+    $ms3 = new mastersearch2('clanmgr');
     
-    $ms2->query['from'] = "{$config["tables"]["user"]} AS u";
-    $ms2->query['where'] = "u.clanid = ". (int)$_GET['clanid'];
+    $ms3->query['from'] = "{$config["tables"]["user"]} AS u";
+    $ms3->query['where'] = "u.clanid = ". (int)$_GET['clanid'];
     
-    $ms2->config['EntriesPerPage'] = 100;
-    
-    $ms2->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
+    $ms3->config['EntriesPerPage'] = 100;
+    $ms3->AddSelect('u.firstname');
+	  $ms3->AddSelect('u.name');
+    $ms3->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
     if (!$cfg['sys_internet'] or $auth['type'] > 1 or $auth['clanid'] == $_GET['clanid']) {
-      $ms2->AddResultField(t('Vorname'), 'u.firstname');
-      $ms2->AddResultField(t('Nachname'), 'u.name');
+      $ms3->AddResultField(t('Vorname'), 'u.firstname', '');
+      $ms3->AddResultField(t('Nachname'), 'u.name', '');
     }
-    $ms2->AddResultField(t('Rolle'), 'u.clanadmin', 'ShowRole');
+    $ms3->AddResultField(t('Rolle'), 'u.clanadmin', 'ShowRole');
     
-    $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Clan-Details'));
-    if ($auth['type'] >= 3 | ($auth['clanid'] == $_GET['clanid'] & $auth['clanadmin'] == 1)) $ms2->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', t('Löschen'));
+    $ms3->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Clan-Details'));
+    if ($auth['type'] >= 3 | ($auth['clanid'] == $_GET['clanid'] & $auth['clanadmin'] == 1)) $ms3->AddIconField('delete', 'index.php?mod=clanmgr&action=clanmgr&step=40&clanid='. $_GET['clanid'] .'&userid=', t('Löschen'));
 
-    $ms2->PrintSearch('index.php?mod=clanmgr&action=clanmgr&step=2', 'u.userid');
+    $ms3->PrintSearch('index.php?mod=clanmgr&action=clanmgr&step=2', 'u.userid');
     $dsp->AddFieldSetEnd();
 
     $dsp->AddBackButton('index.php?mod=clanmgr&action=clanmgr');
     
+	$AddSelect_List = array();
+	array_push($AddSelect_List, 'u.firstname');
+	array_push($AddSelect_List, 'u.name');
+	array_push($AddSelect_List, 'u.clanadmin');
+	
     include('inc/classes/class_mastercomment.php');
-    new Mastercomment('Clan', $_GET['clanid']);
+    new Mastercomment('Clan', $_GET['clanid'], '', $AddSelect_List);
   break;
 
   // Change clan password
@@ -240,10 +254,7 @@ switch ($_GET['step']) {
   }
   else
   {
-  	include_once("modules/clanmgr/class_clan.php");
-  	$clan = new Clan();
-  	
-  	if($clan->CheckClanPW($_GET['clanid'], $_POST['clan_pass']))
+  	if(CheckClanPW($_POST['clan_pass']))
   	{
   		  $db->qry("UPDATE %prefix%user SET clanid = %int%, clanadmin = 0 WHERE userid =%int%", $_GET['clanid'], $auth["userid"]);
   		  $tmpclanname =  $db->qry_first("SELECT name FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);
