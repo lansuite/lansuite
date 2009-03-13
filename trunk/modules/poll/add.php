@@ -28,6 +28,7 @@ $mf->AddField(t('Mehrfachauswahl möglich'), 'multi', '', '', FIELD_OPTIONAL);
 $mf->AddField(t('Zeitlich begrenzen'), 'endtime', '', '', FIELD_OPTIONAL);
 
 $mf->AddDropDownFromTable(t('Benutzergruppe'), 'group_id', 'group_id', 'group_name', 'party_usergroups', t('Keine bestimmte Gruppe'));
+$mf->AddField(t('Nur eingeloggt?'), 'requirement', 'tinyint(1)', '', FIELD_OPTIONAL);
 
 // Poll Options
 if ($_POST['poll_option']) foreach ($_POST['poll_option'] as $key => $val) $_POST["poll_option[$key]"] = $val;

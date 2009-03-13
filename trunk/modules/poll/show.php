@@ -4,7 +4,7 @@ include_once('modules/poll/class_poll.php');
 $poll = new poll;
 
 if ($_GET['step'] >= 2) {
-	$pollrow = $db->qry_first('SELECT caption, comment, UNIX_TIMESTAMP(endtime) AS endtime, multi, anonym FROM %prefix%polls
+	$pollrow = $db->qry_first('SELECT caption, comment, UNIX_TIMESTAMP(endtime) AS endtime, multi, anonym, requirement FROM %prefix%polls
     WHERE	pollid = %int% AND (!group_id OR group_id = %int%)', $_GET['pollid'], $auth['group_id']);
   $dsp->NewContent(t('Poll') .': '. $pollrow["caption"], $func->text2html($pollrow['comment']));
 
@@ -22,6 +22,9 @@ if ($_GET['step'] >= 2) {
       $_GET['step'] = 2;
     } elseif ($voted['found']) {
       $func->information(t('Sie haben bereits gevoted'));
+      $_GET['step'] = 2;
+    } elseif ($pollrow['requirement'] == 1 and $auth['login'] == 0) {
+      $func->information(t("Sie müssen eingeloggt sein um zu diesem Poll ihre Stimme abzugeben."));
       $_GET['step'] = 2;
     }
   }
