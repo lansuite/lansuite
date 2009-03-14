@@ -61,10 +61,7 @@ class Install {
 
   // Connect to DB and create Database, if not exist
   function TryCreateDB($createnew = NULL){
-    global $config, $dsp, $db;
-    
-    //$dsp->AddSingleRow($db->mysqli);
-    //$link_id = mysql_connect($config['database']['server'], $config['database']['user'], $config['database']['passwd']);
+    global $config, $db;
     
     if(!$db->connect(1))
     {
@@ -76,7 +73,6 @@ class Install {
     		//Try to create DB
 	        $db->set_charset();
 	        $query_id = $db->qry('CREATE DATABASE '. $config['database']['database'] .' CHARACTER SET utf8');
-	        $dsp->AddSingleRow($query_id);
 	        if ($query_id) $ret_val = 3; else $ret_val = 2;
 	    }
     }
