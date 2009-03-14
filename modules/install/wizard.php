@@ -126,12 +126,12 @@ switch ($_GET["step"]){
         $output = "";
 
         // Set new $config-Vars
-        if ($_POST["host"]) $config["database"]["server"] = $_POST["host"];
-        if ($_POST["user"]) $config["database"]["user"] = $_POST["user"];
-        if ($_POST["pass"]) $config["database"]["passwd"] = $_POST["pass"];
-        if ($_POST["database"]) $config["database"]["database"] = $_POST["database"];
-        if ($_POST["prefix"]) $config["database"]["prefix"] = $_POST["prefix"];
-        if ($_POST["design"]) $config["lansuite"]["default_design"] = $_POST["design"];
+        $config["database"]["server"] = $_POST["host"];
+        $config["database"]["user"] = $_POST["user"];
+        $config["database"]["passwd"] = $_POST["pass"];
+        $config["database"]["database"] = $_POST["database"];
+        $config["database"]["prefix"] = $_POST["prefix"];
+        $config["lansuite"]["default_design"] = $_POST["design"];
 
         // Write new $config-Vars to config.php-File
         if (!$install->WriteConfig()) {
@@ -146,10 +146,12 @@ switch ($_GET["step"]){
                 case 1: $output .= t('Die Datenbank \'%1\' existiert bereits und wurde daher nicht neu angelegt.', $config["database"]["database"]); break;
                 case 2: $output .= $fail_leadin . t('Anlegen der Datenbank fehlgeschlagen. Überprüfen Sie bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfen Sie, ob Sie den Namen der Datenbank korrekt angegeben haben.') . $leadout; break;
                 case 3: $output .= t('Datenbank wurde erfolgreich angelegt.'); break;
+                case 4: $output .= $fail_leadin . t('Verbdindung ok aber keinen Datenbanknamen angegeben.') . $leadout; break;
+                case 5: $output .= t('Datenbank wurde erfolgreich Überschrieben.'); break;
             }
             $output .= HTML_NEWLINE . HTML_NEWLINE;
 
-            if ($res == 1 or $res == 3){
+            if ($res == 1 or $res == 3 or $res == 5){
                 $db->connect();
 
                 // Check for Updates

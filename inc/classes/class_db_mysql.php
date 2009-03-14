@@ -10,6 +10,7 @@ class db {
   var $count_query = 0;
   var $querys = array();
   var $errors = '';
+  var $connectfailure = 0;  //0= no error, 1=connection error, 2=database error
 
   // Construktor
   function db() {
@@ -61,6 +62,7 @@ class db {
     else $this->link_id=@mysql_connect($server, $user, $pass);
     if (!$this->link_id) {
       if ($save) {
+      	$this->connectfailure = 1;
         $this->success = false;
         return false;
       } else  {
@@ -74,6 +76,7 @@ class db {
       else $ret = @mysql_select_db($database, $this->link_id);
       if (!$ret) {
         if ($save) {
+          $this->connectfailure = 2;
           $this->success = false;
           return false;
         } else {
@@ -86,9 +89,16 @@ class db {
     if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
     else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
     $this->success = true;
+    $this->connectfailure = 0;
     return true;
   }
-
+  
+  function set_charset()
+  {
+  	if ($this->mysqli) @mysqli_query($this->link_id, "/*!40101 SET NAMES utf8_general_ci */;");
+    else @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $this->link_id);
+  }
+  
   function get_host_info() {
     if ($this->mysqli) return @mysqli_get_host_info($this->link_id);
     else return @mysql_get_host_info($this->link_id);

@@ -1,5 +1,6 @@
 <?php
 include_once("modules/install/class_import.php");
+
 $import = New Import();
 
 class Install {
@@ -60,32 +61,39 @@ class Install {
 
   // Connect to DB and create Database, if not exist
   function TryCreateDB($createnew = NULL){
-    global $config;
+    global $config, $dsp, $db;
     
-    $link_id = mysql_connect($config['database']['server'], $config['database']['user'], $config['database']['passwd']);
-    if (!$link_id) return 0;
-    else {
-
-      // Try to select DB
-      if (@mysql_select_db($config['database']['database'], $link_id)) {
-        // If User wants to rewrite all tables, drop databse. It will be created anew in the next step
-        if (!$_GET["quest"] and $createnew and $_GET["step"] == 3) $this->DeleteAllTables($link_id);
-        $ret_val = 1;
-
-      } else {   
-        // Try to create DB
-        @mysql_query("/*!40101 SET NAMES utf8_general_ci */;", $link_id);
-        $query_id = @mysql_query('CREATE DATABASE '. $config['database']['database'] .' CHARACTER SET utf8', $link_id);
-        if ($query_id) $ret_val = 3; else $ret_val = 2;
-      }
+    //$dsp->AddSingleRow($db->mysqli);
+    //$link_id = mysql_connect($config['database']['server'], $config['database']['user'], $config['database']['passwd']);
+    
+    if(!$db->connect(1))
+    {
+    	//No success connection
+    	if($db->connectfailure == 1) $ret_val = 0;
+    	elseif($db->connectfailure == 2 and $config['database']['database'] == '') $ret_val = 4;
+    	elseif($db->connectfailure == 2 and $config['database']['database'] != '')
+    	{
+    		//Try to create DB
+	        $db->set_charset();
+	        $query_id = $db->qry('CREATE DATABASE '. $config['database']['database'] .' CHARACTER SET utf8');
+	        $dsp->AddSingleRow($query_id);
+	        if ($query_id) $ret_val = 3; else $ret_val = 2;
+	    }
     }
-    mysql_close($link_id);
+    else 
+    {
+      	// If User wants to rewrite all tables, drop databse. It will be created anew in the next step
+        if (!$_GET["quest"] and $createnew and $_GET["step"] == 3) $this->DeleteAllTables();
+        if($createnew) $ret_val = 5; else $ret_val = 1;
+    } 
     
     // Return-Values:
     // 0 = Server not available
     // 1 = DB already exists
     // 2 = Create failed (i.e. insufficient rights)
     // 3 = Create successe
+    // 4 = no Database
+    // 5 = DB overwrite
     return $ret_val;
   }
 
@@ -605,8 +613,8 @@ class Install {
   // Scans all db.xml-files and deletes all tables listed in them
   // This meens lansuite is not able to clean up tables, which changed their name during versions
   // But this is much safer than DROP DATABASE, for this clean methode would drop other web-systems using the same DB table, too
-  function DeleteAllTables ($link_id) {
-    global $config, $import, $xml;
+  function DeleteAllTables () {
+    global $config, $import, $xml, $db;
   
     $modules_dir = opendir("modules/");
     while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
@@ -619,7 +627,7 @@ class Install {
         foreach ($tables as $table) {        
           $table_head = $xml->get_tag_content("table_head", $table, 0);
           $table_name = $xml->get_tag_content("name", $table_head);
-          @mysql_query("DROP TABLE IF EXISTS ".$config["database"]["prefix"].$table_name, $link_id);
+          $db->qry_first("DROP TABLE IF EXISTS %prefix%%plain%", $table_name);
         }
       }
     }
