@@ -136,13 +136,12 @@ class auth {
                                       WHERE (%int% = %string% AND userid = %int%) OR LOWER(email) = %string%',
                                       $tmp_login_email, $tmp_login_email, $tmp_login_email, $tmp_login_email);
             
-            $party_query = $db->qry('SELECT p.checkin, p.checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
+            $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
             // Check Checkin
-            if ($db->num_rows($party_query) > 0){
-                $party_data = $db->fetch_array($party_query);
-                $user["checkin"] = $party_data['checkin'];
-                $user["checkout"] = $party_data['checkout'];
-            }
+            if ($party_query){
+               $user["checkin"] = $party_query['checkin'];
+               $user["checkout"] = $party_query['checkout'];
+           }
             $row = $db->qry_first('SELECT COUNT(*) AS anz
                                    FROM %prefix%login_errors
                                    WHERE userid = %int% AND (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(time) < 60)
