@@ -37,7 +37,7 @@ if($_GET[queryid])
    FROM %prefix%buddys
    WHERE userid = %int%
    AND buddyid = %int%
-   ", $_SESSION[auth][userid], $_GET[queryid]);
+   ", $auth['userid'], $_GET[queryid]);
 
 			//
 			// User in buddylist ?
@@ -95,7 +95,7 @@ if($_GET[queryid])
    FROM %prefix%buddys
    WHERE buddyid = %int%
    AND userid = %int%
-   ", $_GET[queryid], $_SESSION[auth][userid]);
+   ", $_GET[queryid], $auth['userid']);
 
 			//
 			// Confirmation
