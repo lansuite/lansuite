@@ -25,7 +25,7 @@ case 2:
    FROM  %prefix%buddys
    WHERE  userid =%int%
    AND  buddyid =%int%
-   ", $_SESSION[auth][userid], $buddyid);
+   ", $auth['userid'], $buddyid);
 
 			if($db->num_rows() != "0") {
 				$user_exist_in_the_list = 1;
@@ -46,14 +46,14 @@ case 2:
    SELECT   id
    FROM  %prefix%buddys
    WHERE  userid =%int%
-   ", $_SESSION[auth][userid]);
+   ", $auth['userid']);
 			$user_num = $db->num_rows();
 			if($user_num >= $config[size][buddies]) {
 				$to_many_users = 1;
 			}
 
 			// Is it the User himself ?
-			if($buddyid == $_SESSION[auth][userid])
+			if($buddyid == $auth['userid'])
 			$i_am_the_user = 1;
 
 			// Get name
@@ -70,7 +70,7 @@ case 2:
 	          		$insert = $db->qry("
              INSERT INTO %prefix%buddys
              SET   userid = %int%, buddyid = %int%
-             ", $_SESSION[auth][userid], $buddyid);
+             ", $auth['userid'], $buddyid);
 
 				if($insert == TRUE){
 					if($cfg['sys_internet'] == 0){
