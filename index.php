@@ -195,6 +195,9 @@
         $auth      = $authentication->check_logon();    // Testet Cookie / Session ob User eingeloggt ist
         $olduserid = $authentication->get_olduserid();  // Olduserid for Switback on Boxes
 
+        // Initialize party
+        $party = new party();
+
         if ($_GET['mod']=='auth'){
            switch ($_GET['action']){
                 case 'login':
@@ -212,10 +215,7 @@
                 break;
             }
         }
-        
-        // Initialize party
-        $party = new party();
-        
+               
         // Statistic Functions (for generating server- and usage-statistics)
         if ($db->success) $stats = new stats();
     }
