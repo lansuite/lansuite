@@ -88,9 +88,9 @@ switch($_GET["step"]) {
 		else  $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&onlyactive=1\">".t('Nur Einträge von aktivierten Modulen anzeigen')."</a>");
 
     $validBoxIds = array();
-    $res = $db->qry('SELECT boxid FROM %prefix%boxes WHERE source = \'menu\'');
+    $res = $db->qry('SELECT boxid,name FROM %prefix%boxes WHERE source = \'menu\'');
     while ($row = $db->fetch_array($res)) {
-      $validBoxIds[] = $row['boxid'];
+      $validBoxIds[$row['boxid']] = $row['name'];
     }
     $db->free_result($res);
 
@@ -117,9 +117,9 @@ switch($_GET["step"]) {
 				$link .= " ".t('Pos').": <input type=\"text\" name=\"pos[{$menu["id"]}]\" value=\"$z\" size=\"2\">";
 				$link .= " Gruppe: <input type=\"text\" name=\"group[{$menu["id"]}]\" value=\"{$menu['group_nr']}\" size=\"2\">";
 				$link .= " MenüBox-Nr: <select name=\"box[{$menu["id"]}]\">";
-				foreach ($validBoxIds as $validBoxId) {
+				foreach ($validBoxIds as $validBoxId => $validBoxName) {
 				  ($menu['boxid'] == $validBoxId)? $sel = ' selected' : $sel = '';
-				  $link .= "<option value=\"$validBoxId\"$sel>$validBoxId</option>";
+				  $link .= "<option value=\"$validBoxId\"$sel>$validBoxName</option>";
         }
         $link .= "</select>";
 
