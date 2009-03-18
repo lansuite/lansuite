@@ -10,6 +10,10 @@
  */
 //$user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = \'1\' AND lasthit > %int%', $_GET['userid'], time() - 60*10);
 
+function getTimeDiff($last) {
+	return date("i:s",time()-$last);
+}
+
  		include_once('modules/mastersearch2/class_mastersearch2.php');
 		$ms2 = new mastersearch2('games');
 
@@ -21,5 +25,7 @@
 
 		$ms2->AddResultField(t('Name'), 'u.username', 'UserNameAndIcon');
 		$ms2->AddResultField(t('URL'), 's.lasthiturl');
+		$ms2->AddResultField(t('Letzter Aufruf'), 's.lasthit', 'getTimeDiff');
+		
 		$ms2->PrintSearch('index.php?mod=misc&action=onlineuser', 'u.userid');
 ?>
