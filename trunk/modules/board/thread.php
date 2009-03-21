@@ -70,7 +70,7 @@ elseif ($thread['caption'] != '') {
 	$hyperlink = '<a href="%s" class="menu">%s</a>';
 	$overview_capt = sprintf($hyperlink, "index.php?mod=board", t('Forum'));
 	$forum_capt = sprintf($hyperlink, "index.php?mod=board&action=forum&fid=$fid", $thread['ForumName']);
-	$dsp->NewContent($thread["caption"], "$overview_capt - $forum_capt - ". $thread["caption"]);
+	$dsp->NewContent($thread["caption"],t('Sie sind hier: » ').$overview_capt.' - '.$forum_capt.' - '.$thread["caption"]);
 
 	// Generate Thread-Buttons
 	$buttons = '';

@@ -21,14 +21,14 @@ function FormatTitle($title) {
   $icon = '';
   if ($line['closed']) $icon = $dsp->FetchIcon('', 'locked', t('Nicht bezahlt!'));
   if ($line['sticky']) $icon = $dsp->FetchIcon('', 'important', t('Wichtig!'));
-  return $icon . $func->AllowHTML($title);
+  return $icon . "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">{$func->AllowHTML($title)}</a>";
 }
 
 function NewPosts($last_read) {
-	global $func, $line;
+	global $func, $line, $auth;
 
-  if ($func->CheckNewPosts($line['LastPost'], 'board', $line['tid'])) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">Neu</a>";
-  else return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">Alt</a>";
+  if ($func->CheckNewPosts($line['LastPost'], 'board', $line['tid'])) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\"><img src=\"design/{$auth["design"]}/images/forum_new.png\" alt=\"".t('Neue Beiträge')."\" border=\"0\"></a>";
+  else return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\"><img src=\"design/{$auth["design"]}/images/forum_old.png\" alt=\"".t('Kein neuer Beitrag')."\" border=\"0\"></a>";
 }
 
 if ($_GET['fid'] != '') {
@@ -40,7 +40,7 @@ if ($_GET['fid'] != '') {
   // Board Headline
 	$hyperlink = '<a href="%s" class="menu">%s</a>';
 	$overview_capt = sprintf($hyperlink, "index.php?mod=board", t('Forum'));
-	$dsp->NewContent($row['name'], "$overview_capt - {$row['name']}");
+	$dsp->NewContent($row['name'], t('Sie sind hier: » ').$overview_capt.' - '.$row['name']);
   $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
 }
 
@@ -141,12 +141,12 @@ if ($_GET['fid'] == '') {
 
 $ms2->AddSelect('t.closed');
 $ms2->AddSelect('t.sticky');
+$ms2->AddResultField(t('Status'), 'r.date', 'NewPosts');
 if ($_GET['fid'] != '') $ms2->AddResultField(t('Thread'), 't.caption', 'FormatTitle');
 else $ms2->AddResultField(t('Thread'), 'CONCAT(\'<b>\', f.name, \'</b><br />\', t.caption) AS ThreadName', 'FormatTitle');
-$ms2->AddResultField(t('Status'), 'r.date', 'NewPosts');
 $ms2->AddResultField(t('Aufrufe'), 't.views');
 $ms2->AddResultField(t('Antworten'), '(COUNT(p.pid) - 1) AS posts');
-$ms2->AddResultField(t('Erster Beitrag'), 'MIN(p.date) AS FirstPost', 'LastPostDetails');
+//$ms2->AddResultField(t('Erster Beitrag'), 'MIN(p.date) AS FirstPost', 'LastPostDetails');
 $ms2->AddResultField(t('Letzter Beitrag'), 'MAX(p.date) AS LastPost', 'LastPostDetails');
 
 if ($_GET['action'] == 'bookmark') {
