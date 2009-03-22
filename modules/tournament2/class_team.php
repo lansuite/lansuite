@@ -158,9 +158,9 @@ class team {
       teamid = %int%
       ", $team["tournamentid"], $userid, $teamid);
 
-					$mail->create_sys_mail($userid, t('Sie wurden dem Team <b>%1</b> im Turnier <b>%2</b> hinzugefügt', $team["teamname"], $team["tname"]), t('Der Ersteller des Teams <b>%1</b> hat Sie in sein Team im Turnier <b>%2</b> aufgenommen.', $team["teamname"], $team["tname"]));
+					$mail->create_sys_mail($userid, t('Sie wurden dem Team %1 im Turnier %2 hinzugefügt', $team["teamname"], $team["tname"]), t('Der Ersteller des Teams <b>%1</b> hat Sie in sein Team im Turnier <b>%2</b> aufgenommen.', $team["teamname"], $team["tname"]));
 
-					$func->log_event(t('Der Benutzer <b>%1</b> ist dem Team <b>%2</b> im Turnier <b>%3</b> beigetreten', $auth["username"], $team["teamname"], $team["tname"]), 1, t('Turnier Teamverwaltung'));
+					$func->log_event(t('Der Benutzer %1 ist dem Team %2 im Turnier %3 beigetreten', $auth["username"], $team["teamname"], $team["tname"]), 1, t('Turnier Teamverwaltung'));
 				}
 			} else return false;
 		}
@@ -216,7 +216,7 @@ class team {
      password = %string%
      ", $tournamentid, $name, $leaderid, $comment, $_FILES[$banner]["name"], md5($password));
 
-				$func->log_event(t('Der Benutzer <b>%1</b> hat sich zum Turnier <b>%2</b> angemeldet', $auth["username"], $t["name"]), 1, t('Turnier Teamverwaltung'));
+				$func->log_event(t('Der Benutzer %1 hat sich zum Turnier %2 angemeldet', $auth["username"], $t["name"]), 1, t('Turnier Teamverwaltung'));
 			}
 		} else return false;
 
@@ -249,7 +249,7 @@ class team {
    comment = %string%
    WHERE teamid = %int%
    ", $name, $comment, $_GET["teamid"]);
-		$func->log_event(t('Das Team <b>%1</b> im Turnier <b>%2</b> hat seine Daten editiert', $_POST['team_name'], $t["name"]), 1, t('Turnier Teamverwaltung'));
+		$func->log_event(t('Das Team %1 im Turnier %2 hat seine Daten editiert', $_POST['team_name'], $t["name"]), 1, t('Turnier Teamverwaltung'));
 
 		$this->UpdateLeagueIDs($auth["userid"], $_POST["wwclid"], $_POST["wwclclanid"], $_POST["nglid"], $_POST["nglclannid"], $_POST["lgzid"], $_POST["lgzclannid"]);
 
