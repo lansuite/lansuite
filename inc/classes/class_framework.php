@@ -234,6 +234,11 @@ class framework {
         // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
         echo $this->main_content;
       break;
+	  
+	  case 'ajax':
+        // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
+        echo $this->main_content;
+      break;
   
       case 'print':
         // Make a Printpopup (without Boxes and Special CSS for printing)

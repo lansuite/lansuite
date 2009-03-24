@@ -480,13 +480,15 @@ class auth {
    */
     function update_visits() {
         global $db, $config;
-        // Update visits, hits, IP and lasthit
-        $visit_timeout = time() - 60*60;
-        // If a session loaded no page for over one hour, this counts as a new visit
-        $db->qry('UPDATE %prefix%stats_auth SET visits = visits + 1 WHERE (sessid=%string%) AND (lasthit < %int%)', $this->auth["sessid"], $visit_timeout);
-        // Update user-stats and lasthit, so the timeout is resetted
-        $db->qry('UPDATE %prefix%stats_auth SET lasthit=%int%, hits = hits + 1, ip=%string%, lasthiturl= %string% WHERE sessid=%string%', $this->timestamp, $this->auth["ip"], $_SERVER['REQUEST_URI'], $this->auth["sessid"]);
-    }
+		if($_GET["design"] != "ajax") {
+        	// Update visits, hits, IP and lasthit
+        	$visit_timeout = time() - 60*60;
+        	// If a session loaded no page for over one hour, this counts as a new visit
+        	$db->qry('UPDATE %prefix%stats_auth SET visits = visits + 1 WHERE (sessid=%string%) AND (lasthit < %int%)', $this->auth["sessid"], $visit_timeout);
+        	// Update user-stats and lasthit, so the timeout is resetted
+        	$db->qry('UPDATE %prefix%stats_auth SET lasthit=%int%, hits = hits + 1, ip=%string%, lasthiturl= %string% WHERE sessid=%string%', $this->timestamp, $this->auth["ip"], $_SERVER['REQUEST_URI'], $this->auth["sessid"]);
+    	}
+	}
 
   /**
    * Set Cookie for Installadmin
