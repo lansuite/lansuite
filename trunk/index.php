@@ -22,7 +22,7 @@
     $framework = new framework();
     $framework->fullscreen($_GET['fullscreen']);                // Switch fullscreen via GET
     // Notlösung... design als base und popup sollen ganz verschwinden
-    if ($_GET['design']=='base' OR $_GET['design']=='popup') $framework->set_modus($_GET['design']); // Set Popupmode via GET (base, popup)
+    if ($_GET['design']=='base' OR $_GET['design']=='popup' OR $_GET['design']=='ajax') $framework->set_modus($_GET['design']); // Set Popupmode via GET (base, popup)
     if ($_GET['frmwrkmode']) $framework->set_modus($_GET['frmwrkmode']); // Set Popupmode via GET (base, popup)
     // Ende Notlösung
     $framework->make_clean_url_query($_SERVER['REQUEST_URI']);  // Build interlal URL-Query
@@ -113,6 +113,7 @@
     include_once("modules/party/class_party.php");
     if (file_exists("modules/mastersearch/class_mastersearch.php")) include_once("modules/mastersearch/class_mastersearch.php");
     include_once("modules/mail/class_mail.php");
+	#include_once("modules/msgsys2/class_msgsys.php");
     include_once("modules/stats/class_stats.php");
     include_once("modules/seating/class_seat.php");
     include_once("modules/cron2/class_cron2.php");
@@ -123,6 +124,7 @@
     $gd          = new gd;               // GD Functions (for graphical outputs)
     $dsp         = new display();        // Display Functions (to load the lansuite-templates)
     $mail        = new mail();           // Mail Functions (for sending mails to lansuite-users)
+	#$msgsys		 = new msgsys;			 // Msgsys Functions (for sending mails to lansuite-users, manage the buddylist and the messenger)
     $xml         = new xml;              // XML Functions (to maintain XML-Ex-/Imports)
     $db          = new db;               // DB Functions (to work with the databse)
     $sec         = new sec;              // Security Functions (to lock pages)
@@ -239,8 +241,15 @@
 
 ### Complete Framework and Output HTML
 
-    $framework->add_css_path('design/'.$auth['design'].'/navibox.css');
-    $framework->set_design($auth['design']);
+    $framework->add_css_path('design/'.$auth['design'].'/navibox.css'); 
+	#$framework->add_css_path('design/ui.tabs.css');
+	#$framework->add_js_path('ext_scripts/jquery/jquery.js');
+	#$framework->add_js_path('ext_scripts/jquery/jquery.timer.js');
+	#$framework->add_js_path('ext_scripts/jquery/ui/ui.core.js');
+	#$framework->add_js_path('ext_scripts/jquery/plugins/dimensions/jquery.dimensions.js');
+    #$framework->add_js_path('ext_scripts/jquery/ui/ui.tabs.js');
+	#if($_GET['action'] != 'wizard' && $auth['login'] == 1) $framework->add_js_path('modules/msgsys2/js/msgsys2.js');
+	
     $db->DisplayErrors();
     $framework->add_content($FrameworkMessages);    // Add old Frameworkmessages (sollten dann ausgetauscht werden)
     $framework->add_content($MainContent);          // Add oll MainContent-Variable (sollte auch bereinigt werden)
