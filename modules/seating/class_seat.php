@@ -46,6 +46,28 @@ class seat2 {
     if ($row['blockid']) return $this->CoordinateToBlockAndName($row['col'] + 1, $row['row'], $row['blockid'], $MaxBlockLength, $LinkIt, $userid);
     else return false;
 	}
+	
+	function SeatOfUserArray($userid) {
+	  global $db, $config, $party; 
+      // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
+      $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
+                                     WHERE  party_id=%int% AND user_id=%int%", $party->party_id, $userid);
+      	if ($seat_paid['paid']>0) {$seat_status = 2;} else {$seat_status = 3;};
+
+		$row = $db->qry_first("SELECT s.row, s.col, b.blockid, b.name FROM %prefix%seat_seats AS s
+   		LEFT JOIN %prefix%seat_block AS b ON s.blockid = b.blockid
+   		WHERE s.userid=%int% AND s.status = %string% AND b.party_id = %int%", $userid, $seat_status, $party->party_id);
+	
+	if($row['blockid']) {
+		$arr = array();
+		$arr['block'] = $row['blockid'];
+		$arr['row'] = $row['row'];
+		$arr['col'] = $row['col'];
+		$arr['ip'] = $row['ip'];
+		return $arr;
+	}
+    else return false;
+	}
 
   function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0, $userid = 0) {
     global $db, $config;

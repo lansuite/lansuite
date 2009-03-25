@@ -40,12 +40,11 @@ function GetTypeDescription($type) {
 
 // Select from table_user
 // username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment
-$user_data = $db->qry_first("SELECT u.*, g.*, u.birthday AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, c.avatar_path, c.signature, s.seatid, s.blockid, s.col, s.row, s.ip, clan.name AS clan, clan.url AS clanurl
+$user_data = $db->qry_first("SELECT u.*, g.*, u.birthday AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, c.avatar_path, c.signature, clan.name AS clan, clan.url AS clanurl
     FROM %prefix%user AS u
     LEFT JOIN %prefix%usersettings AS c ON u.userid = c.userid
     LEFT JOIN %prefix%party_usergroups AS g ON u.group_id = g.group_id
     LEFT JOIN %prefix%clan AS clan ON u.clanid = clan.clanid
-    LEFT JOIN %prefix%seat_seats AS s ON u.userid = s.userid
     WHERE u.userid = %int%",
   $_GET['userid']);
 
@@ -169,15 +168,16 @@ else {
 
             // Seating
             if (in_array('seating', $ActiveModules)) { 
-            if ($user_data['blockid'] == '') $seat = t('Kein Sitzplatz ausgewählt / zugeteilt.');
+            $user_data_seating = $seat2->SeatOfUserArray($_GET['userid']);
+            if ($user_data_seating['block'] == '') $seat = t('Kein Sitzplatz ausgewählt / zugeteilt.');
             else {
               $seat = $seat2->SeatOfUser($_GET['userid'], 0, 2);
               if (IsAuthorizedAdmin()) {
-            $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=free_seat&step=3&blockid={$user_data['blockid']}&row={$user_data['row']}&col={$user_data['col']}", t('Löschen'));
+            $seat .= ' '. $dsp->AddIcon('delete', "index.php?mod=seating&action=seatadmin&step=20&blockid={$user_data_seating['block']}&row={$user_data_seating['row']}&col={$user_data_seating['col']}&userid={$user_data['userid']}", t('Löschen'));
           }
             }
               if (IsAuthorizedAdmin()) $seat .= ' '. $dsp->AddIcon('edit', 'index.php?mod=seating&action=seatadmin&step=2&userid='. $_GET['userid'], t('Editieren'));
-            if ($cfg['sys_internet'] == 0 and $user_data['ip']) $seat .= ' IP:'. $user_data['ip'];
+            if ($cfg['sys_internet'] == 0 and $user_data_seating['ip']) $seat .= ' IP:'. $user_data_seating['ip'];
         $dsp->AddDoubleRow(t('Sitzplatz'), $seat);
       }
       
