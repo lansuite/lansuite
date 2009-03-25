@@ -48,7 +48,7 @@
 				<name>fromUserID</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -56,7 +56,7 @@
 				<name>toUserID</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
@@ -89,6 +89,22 @@
 				<type>datetime</type>
 				<null></null>
 				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>tx_deleted</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key>IND</key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>rx_deleted</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
 			</field>
