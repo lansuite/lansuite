@@ -27,7 +27,9 @@ if ($_GET['blockid'] and isset($_GET['row']) and isset($_GET['col']))
   WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 
 if ($_GET['userid'])
-	$new_user = $db->qry_first("SELECT userid, username, firstname, name FROM %prefix%user WHERE userid = %int%", $_GET['userid']);
+	$new_user = $db->qry_first("SELECT u.userid, u.username, u.firstname, u.name, pu.paid FROM %prefix%user AS u
+								LEFT JOIN %prefix%party_user AS pu ON pu.user_id = u.userid
+								WHERE userid = %int% AND pu.party_id = %int%", $_GET['userid'], $party->party_id);
 
 
 switch($_GET['step']) {
@@ -70,11 +72,13 @@ switch($_GET['step']) {
 					
 				$questionarray = array();
 				$linkarray = array();
+				if($new_user['paid'] == 0)
+				$markinfo = "HTML_NEWLINE(Alle markierten Sitzplätze von %1 werden gelöscht, da %1 noch nicht bezahlt hat)";
 
   				array_push($questionarray, t('Sitzplatz für %1 reservierenHTML_NEWLINE(Ein evtl. zuvor für diesen Benutzer reservierter Platz wird freigegeben)', $new_user['username']));
   				array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=11&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
 
-  				array_push($questionarray, t('Sitzplatz für %1 markieren', $new_user['username']));
+  				array_push($questionarray, t('Sitzplatz für %1 markieren'.$markinfo, $new_user['username']));
   				array_push($linkarray, "index.php?mod=seating&action=seatadmin&step=12&userid={$_GET['userid']}&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
 
   				array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
@@ -118,6 +122,7 @@ switch($_GET['step']) {
 
 	// Mark seat
 	case 12:
+		if($new_user['paid'] == 0) $seat2->FreeSeatAllMarkedByUser($_GET['userid']);
 		$seat2->MarkSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
 		$func->confirmation(t('Der Sitzplatz wurde erfolgreich für %1 vorgemerkt', $new_user['username']), "index.php?mod=seating&action=seatadmin");
 	break;

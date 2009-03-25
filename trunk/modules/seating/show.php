@@ -218,9 +218,7 @@ switch($_GET['step']) {
 	// Free seat as admin
 	case 31:
     if ($auth['type'] > 1) {
-			$db->qry("UPDATE %prefix%seat_seats SET userid = 0, status = 1
-   WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
-
+    	$seat2->FreeSeat($_GET['blockid'], $_GET['row'], $_GET['col']);
 		$func->confirmation(t('Der Sitzplatz wurde erfolgreich freigegeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
     }
 	break;

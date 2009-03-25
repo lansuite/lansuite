@@ -626,10 +626,29 @@ class seat2 {
 	}
 
 	function FreeSeat($blockid, $row, $col) {
-		global $db, $config, $party;
+		global $db, $config;
 
 		$db->qry("UPDATE %prefix%seat_seats SET userid = 0, status = 1
    WHERE blockid = %int% AND row = %string% AND col = %string%", $blockid, $row, $col);
 	}
+	
+	function FreeSeatAllMarkedByUser($userid) {
+		global $db, $config, $party;
+		/*
+		$mark_seats = $db->qry("SELECT s.blockid, s.row, s.col FROM %prefix%seat_seats AS s
+				LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid
+			    WHERE s.userid = %int% AND b.party_id = %string%", $userid, $party-party_id);
+		
+		while($res = $db->fetch_array($mark_seats)){
+
+		}
+		$db->free_result($row);
+		*/
+		$db->qry("UPDATE %prefix%seat_seats AS s
+				LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid
+				SET s.userid = 0, s.status = 1
+   				WHERE s.userid = %int% AND b.party_id = %int% ", $userid, $party->party_id);
+	}
+	
 }
 ?>
