@@ -53,7 +53,13 @@ if (!$_GET["page"]) $_GET["page"] = 0;
 $row = $db->qry_first("SELECT 1 AS found FROM %prefix%picgallery WHERE name = %string%", $db_dir);
 if (!$row['found']) 
 {
-	if($db_dir != "" and strpos($db_dir, "http://") == 0)
+	$fileok = false;
+	
+	$filetype = strtoupper(strrchr($db_dir, "."));
+	if($filetype == ".JPG" or $filetype == ".JPEG" or $filetype == ".BMP" or $filetype == ".GIF" or $filetype == ".PNG")
+		$fileok = true;
+	
+	if($db_dir != "" and strpos($db_dir, "http://") == false and strpos($db_dir, "www.") == false and $fileok)
 	$db->qry("INSERT INTO %prefix%picgallery SET userid = '', name = %string%", $db_dir);
 }
 
