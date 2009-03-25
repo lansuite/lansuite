@@ -242,6 +242,7 @@
 ### Complete Framework and Output HTML
 
     $framework->add_css_path('design/'.$auth['design'].'/navibox.css'); 
+    $framework->set_design($auth['design']); 
 	#$framework->add_css_path('design/ui.tabs.css');
 	#$framework->add_js_path('ext_scripts/jquery/jquery.js');
 	#$framework->add_js_path('ext_scripts/jquery/jquery.timer.js');
