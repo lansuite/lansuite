@@ -8,10 +8,18 @@ $dsp->AddContent();
 function SendOnlineMail() {
   global $db, $config, $mail, $func, $__POST;
 
-  if (substr($_POST['toUserID'], 1, 7) == '-mail-'){
+  if($_POST['toUserID'] == -1) {
+  	$_SESSION['tmpmsgbody'] = $_POST['msgbody'];
+  	$_SESSION['tmpmsgsubject'] = $_POST['Subject'];
+  	
+  	$func->information(t("Bitte geben Sie einen Empfänger für Ihre Mail an"),"index.php?mod=mail&action=".$_GET['action']."&step=2&replyto=".$_GET['replyto']."&back=1");
+  }
+  elseif (substr($_POST['toUserID'], 1, 7) == '-mail-'){
     $to = substr($_POST['toUserID'], 8, strlen($_POST['toUserID']));
     $mail->create_inet_mail('', $to, $__POST['Subject'], $__POST['msgbody'], $_POST['SenderMail']);
     $func->confirmation('Die Mail wurde and '. $to .' versendet', '');
+    unset($_SESSION['tmpmsgbody']);
+    unset($_SESSION['tmpmsgsubject']);
 
   // System-Mail: Insert will be done, by MF
   } elseif ($_POST['fromUserID'] and $_POST['type'] == 0) {
@@ -34,6 +42,9 @@ function SendOnlineMail() {
 
     $mail->create_inet_mail($row['firstname'].' '.$row['name'], $row['email'], $__POST['Subject'], $__POST['msgbody'], $_POST['SenderMail']);
     $func->confirmation('Die Mail wurde versendet', '');
+    unset($_SESSION['tmpmsgbody']);
+    unset($_SESSION['tmpmsgsubject']);
+    
     return false;
   }
 }
@@ -47,7 +58,8 @@ if ($_GET['replyto']) {
     LEFT JOIN %prefix%user AS u ON m.fromUserID = u.userid
     WHERE m.mailID = %int%", $_GET['replyto']);
   $reply_message = $row[mailID];
-  if (substr($row['Subject'], 0, 4) == 'Re: ') $_POST['Subject'] = $row['Subject'];
+  if(!$_POST['toUserID'] and $_GET['replyto']) $_POST['Subject'] = 'WG: '.$row['Subject'];
+  elseif (substr($row['Subject'], 0, 4) == 'Re: ') $_POST['Subject'] = $row['Subject'];
   else $_POST['Subject'] = 'Re: '.$row['Subject'];
   $_POST['msgbody'] = '
 
@@ -58,7 +70,8 @@ Betreff: '. $row['Subject'] .'
 
 '.$row['msgbody'];
 }
-
+if($_SESSION['tmpmsgbody'] and $_GET['back']) $_POST['msgbody'] = $_SESSION['tmpmsgbody'];
+if($_SESSION['tmpmsgsubject'] and $_GET['back']) $_POST['Subject'] = $_SESSION['tmpmsgsubject'];
 
 $selections = array();
 if ($cfg['sys_internet'] and $cfg['mail_additional_mails']) {
@@ -76,6 +89,7 @@ $UserFound = 0;
 if ($auth['userid']) $WhereMinType = 1;
 else $WhereMinType = 2;
 $res = $db->qry("SELECT type, userid, username, firstname, name FROM %prefix%user WHERE type >= %string% ORDER BY type DESC, username", $WhereMinType);
+if(!$_POST['toUserID'])$selections[-1] = "- Bitte wählen -";
 while ($row = $db->fetch_array($res)) {
   if (!$AdminFound and $row['type'] > 1) {
     $selections['-OptGroup-1'] = t('Admins');

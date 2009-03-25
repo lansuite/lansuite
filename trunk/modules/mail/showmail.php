@@ -29,6 +29,7 @@ else {
                 $back_link = 'index.php?mod=mail&action=inbox';
                 $buttons .= $dsp->FetchButton("index.php?mod=mail&action=inbox&step=20&mailid=". (int)$_GET['mailID'], "delete");
                 if ($row['fromUserID']) $buttons .= $dsp->FetchButton("index.php?mod=mail&action=newmail&step=2&userID=". $row['fromUserID'] ."&replyto=". (int)$_GET['mailID'], "new_post");
+                $buttons .= $dsp->FetchSpanButton(t("Weiterleiten"),"index.php?mod=mail&action=newmail&step=2&replyto=". (int)$_GET['mailID']);
             break;
 
             case 'out':
