@@ -157,7 +157,7 @@ switch($_GET['step']) {
 		// No errors
 		else {
 			$seat2->MarkSeat($auth['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
-			$func->confirmation(t('Der Sitzplatz wurde erfolgreich reserviert'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+			$func->confirmation(t('Der Sitzplatz wurde erfolgreich vorgemerkt'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 		}
 	break;
 

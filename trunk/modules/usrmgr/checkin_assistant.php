@@ -133,7 +133,7 @@ else {
   			LEFT JOIN %prefix%user AS u ON s.userid = u.userid
   			WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 
-  		if ($seat['status'] == 1) $_GET['step'] = 10;
+  		if ($seat['status'] == 1 or $seat['status'] == 3) $_GET['step'] = 10; //Status vorreserviert oder frei
   		elseif ($seat['status'] == 2) {
   			$questionarray = array();
   			$linkarray = array();
