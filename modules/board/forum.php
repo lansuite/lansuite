@@ -33,14 +33,12 @@ function NewPosts($last_read) {
 
 if ($_GET['fid'] != '') {
   $row = $db->qry_first("SELECT name, need_type, need_group FROM %prefix%board_forums WHERE fid=%int%", $_GET["fid"]);
-  if ($row['need_type'] == 1 and $auth['login'] == 0) $new_thread = t('Sie müssen sich zuerst einloggen, um einen Thread in diesem Forum starten zu können');
-  elseif ($row['need_group'] and $auth['group_id'] != $row['need_group']) $new_thread = t('Sie gehören nicht der richtigen Gruppe an, um einen Thread in diesem Forum starten zu können');
-  else $new_thread = $dsp->FetchIcon("index.php?mod=board&action=thread&fid=". $_GET['fid'], "add");
+  $new_thread = $dsp->FetchIcon("index.php?mod=board&action=thread&fid=". $_GET['fid'], "add");
 
   // Board Headline
 	$hyperlink = '<a href="%s" class="menu">%s</a>';
 	$overview_capt = sprintf($hyperlink, "index.php?mod=board", t('Forum'));
-	$dsp->NewContent($row['name'], t('Sie sind hier: » ').$overview_capt.' - '.$row['name']);
+	$dsp->NewContent($row['name'], "<br />".t('Sie sind hier » ').$overview_capt.' - '.$row['name']);
   $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
 }
 
