@@ -92,6 +92,11 @@ switch($_GET['step']) {
       $db->qry('UPDATE %prefix%board_threads SET sticky = 0 WHERE tid = %int%', $key);
     }
   break;
+  case 52: //Close Threads
+  if($auth['type'] >= 2) foreach ($_POST['action'] as $key => $val) {
+          $db->qry("UPDATE %prefix%board_threads SET closed = 1 WHERE tid = %int%", $key);
+  }
+  break;
 }
 
 $colors = array();
@@ -172,6 +177,7 @@ if ($_GET['action'] != 'bookmark') {
 
     $ms2->AddMultiSelectAction(t('Als Top Thread setzen'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=50', 0, 'important');
     $ms2->AddMultiSelectAction(t('Top Thread Marker entfernen'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=51', 0, 'del_important');
+    $ms2->AddMultiSelectAction(t('Schliessen'), 'index.php?mod=board&action=forum&fid='. $_GET['fid'] .'&step=52', 1);    
   }
 } else {
   $ms2->AddIconField('delete', 'index.php?mod=board&action=bookmark&step=30&tid=', t('Löschen'));
