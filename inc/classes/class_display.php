@@ -96,7 +96,79 @@ class display {
     
     $MainContent .=  $items;
   }
-
+  
+  // dynamic = 1 --> Jquery-Javascript-Tabs
+  // dynamic = 0 --> static tabs without Jquery & Javascript
+  function AddJQueryTabsStart($id, $dynamic = NULL) {
+  	global $MainContent, $framework;
+	
+		if($dynamic) {
+			$framework->add_js_code("
+				$(document).ready(function(){
+					$('#".$id."').tabs({
+    					click: function(tab) {
+        					location.href = $.data(tab, 'href');
+        					return false;
+    					}
+					});
+				});"
+			);
+		}
+	
+		$MainContent .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='".$id."'>\n";
+		$this->FirstLine = 1;
+  }
+  
+  function AddJQueryTabNavStart() {
+  	global $MainContent;
+		
+		$MainContent .= "  <ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>\n";
+		$this->FirstLine = 1;
+  }
+  
+  // In case of dynamic Jquery-Javascript-Tabs selected is set automaticly
+  // In case of static-tabs, selected has to be set 0 or 1
+  function AddJQueryTab($content, $link, $title = NULL, $selected = NULL) {
+  	global $MainContent;
+		
+		if($selected) $additional = " ui-tabs-selected ui-state-active";
+		$MainContent .= "    <li class='ui-state-default ui-corner-top".$additional."'><a href='".$link."' title='".$title."'><em>".$content."</em></a></li>\n";
+		$this->FirstLine = 1;
+  }
+  
+  function AddJQueryTabNavStop() {
+    global $MainContent;
+	
+		$MainContent .= "  </ul>\n";
+		$this->FirstLine = 1;
+  }
+  
+  function AddJQueryTabContentStart() {
+  	global $MainContent;
+	
+		$MainContent .= "  <div class='ui-content'>\n";
+  }
+  
+  function AddJQueryTabContent($id, $content) {
+  	global $MainContent;
+	
+		$MainContent .= "    <div id='".$id."'>\n";
+		$MainContent .= "      ".$content."\n";
+		$MainContent .= "    </div>\n";
+  	}
+	
+  function AddJQueryTabContentStop() {
+	global $MainContent;
+	
+		$MainContent .= "  </div>\n";
+  }
+  
+  function AddJQueryTabsStop() {
+	global $MainContent;
+	
+		$MainContent .= "</div>\n";
+  }
+  
   function StartHiddenBox($name, $vissible = false) {
     global $templ, $MainContent;
 

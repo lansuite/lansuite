@@ -100,7 +100,51 @@ class boxes {
     function StopHidden() {
       $this->box_rows .= "</ul>";
     }
-
+	
+	function AddJQueryTabsStart($id, $dynamic = NULL) {
+  		global $framework;
+	
+		if($dynamic) {
+			$framework->add_js_code("
+				$(document).ready(function(){
+					$('#".$id."').tabs();
+				});"
+			);
+		}
+		$this->box_rows .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='".$id."'>\n";
+  	}
+    
+	function AddJQueryTabNavStart() {
+		$this->box_rows .= "  <ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>\n";
+  	}
+	
+  	function AddJQueryTab($content, $link, $title = NULL, $selected = NULL) {
+	
+		if($selected) $additional = " ui-tabs-selected ui-state-active";
+		$this->box_rows .= "    <li class='ui-state-default ui-corner-top".$additional."'><a href='".$link."' title='".$title."'><em>".$content."</em></a></li>\n";
+  	}
+	
+	function AddJQueryTabNavStop() {
+		$this->box_rows .= "  </ul>\n";
+  	}
+  	
+	function AddJQueryTabContentStart() {
+		$this->box_rows .= "  <div class='ui-content'>\n";
+  	}
+	
+  	function AddJQueryTabContent($id, $content) {
+		$this->box_rows .= "    <div id='".$id."'>\n";
+		$this->box_rows .= "      ".$content."\n";
+		$this->box_rows .= "    </div>\n";
+  	}
+	
+	function AddJQueryTabContentStop() {
+		$this->box_rows .= "  </div>\n";
+  	}
+  	
+	function AddJQueryTabsStop() {
+		$this->box_rows .= "</div>\n";
+  	}
   /**
    * boxes::Row()
    *
@@ -110,6 +154,10 @@ class boxes {
     function Row($row, $name = '') {
       if ($name) $name = ' name="'. $name .'"';
       $this->box_rows .= "<li$name>".$row."</li>\n";
+    }
+	
+	function RowClean($row) {
+      $this->box_rows .= $row."\n";
     }
 
   /**
