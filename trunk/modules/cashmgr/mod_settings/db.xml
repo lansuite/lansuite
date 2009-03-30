@@ -29,7 +29,7 @@
 				<extra></extra>
 			</field>
 			<field>
-				<name>userid</name>
+				<name>toUserid</name>
 				<type>int(6)</type>
 				<null></null>
 				<key>IND</key>
@@ -37,7 +37,7 @@
 				<extra></extra>
 			</field>
 			<field>
-				<name>editorid</name>
+				<name>fromUserid</name>
 				<type>int(6)</type>
 				<null></null>
 				<key>IND</key>
@@ -62,10 +62,10 @@
 			</field>
 			<field>
 				<name>actiontime</name>
-				<type>datetime</type>
+				<type>timestamp</type>
 				<null></null>
 				<key></key>
-				<default>0000-00-00 00:00:00</default>
+				<default></default>
 				<extra></extra>
 			</field>
 			<field>

@@ -7,9 +7,6 @@
         
         if($money < 0)
             return "<font color='red'>".number_format($money, 2, ',', '.') . " EUR</font>";
-
-        if($money = 0)
-            return number_format($money, 2, ',', '.') . " EUR";
     }
 
 
@@ -17,49 +14,48 @@ class accounting
     {
     var $editorid;      //Bearbeiter
     var $partyid;       //Party
-    var $fix;           //Fixkosten oder Fixeinnahmen?
+    var $fix = 0;           //Fixkosten / Fixeinnahmen?
     var $modul;
 
     /**
     * Konstruktor
-    * Sobald keine UserID übergeben wird,
-    * ist der einzutragene Wert automatisch Fix (z.B Miete oder Sponsoring)
     */
-    function accounting($party_id)
-    {
-        global $config;
-        
+    function accounting($party_id = 0, $userid = null)
+    { 
+    	global $party, $auth;
+    	
         $this->modul = $_GET['mod'];
-        $this->editorid = $auth['userid'];
-        $this->partyid = $party_id;
+        
+        if($userid) $this->editorid = $userid;
+        else $this->editorid = $auth['userid'];
+        
+        if($party_id = 0) $this->partyid = $party->party_id;
+        else $this->partyid = $party_id;
     }
     
     /**
     * Buchung
-    * nimmt positive und negative Werte an.
-    * Wenn Wert negativ -> Ausgabe für die LAN
+    * @param $movement
+    * @param String $comment
+    * @param int $toUserID
+    * @param boolean $silentMode
     */
-    function booking($movement, $comment, $user_id = NULL)
+    function booking($movement, $comment, $toUserid = 0, $silentMode = false)
     {
-        global $func;
-        
-        if($user_id == NULL)
-            $this->fix = 1;
-        else
-            $this->fix = 0;
-            
+        global $func, $db;
+                   
         global $db,$config;
             $db->qry("INSERT INTO %prefix%cashmgr_accounting SET 
-                userid  =%int%,
-                editorid=%int%,
+                toUserid  =%int%,
+                fromUserid=%int%,
                 partyid =%int%,
                 modul   =%string%,
                 movement=%string%,
                 fix     =%string%,
                 comment =%string%",
-                                $this->userid, $this->editorid, $this->partyid, $this->modul, $movement, $this->fix, $comment);
+                $toUserid, $this->editorid, $this->partyid, $this->modul, $movement, $this->fix, $comment);
                 
-        $func->confirmation("Betrag von " . getMoneyColor($movement) . " erfolgreich von Modul " . $this->modul ." gebucht.", "");
+        if(!$silentMode) $func->confirmation("Betrag von " . getMoneyColor($movement) . " erfolgreich von Modul " . $this->modul ." gebucht.", "");
     }
     
 
@@ -77,41 +73,6 @@ class accounting
         return getMoneyColor($result['total']);
     }
 
-
-    function getAccounting()
-    {
-        global $db, $config, $dsp, $party;
-
-    $dsp->NewContent(t('Meine Buchhaltung'), t('Übersicht aller Ausgaben und Einnahmen'));
-
-    include_once('modules/mastersearch2/class_mastersearch2.php');
-    $ms2 = new mastersearch2('news');
-
-    
-    $ms2->query['from'] = "{$config["tables"]["cashmgr_accounting"]} AS a
-                            LEFT JOIN {$config['tables']['user']} AS u ON a.editorid = u.userid";
-    $ms2->query['default_order_by'] = 'actiontime DESC';
-    $ms2->query['where'] = "a.userid = {$this->userid}";
-    $ms2->config['EntriesPerPage'] = 20;
-    
-    $party_list = array('' => 'Alle');
-    $row = $db->qry("SELECT party_id, name FROM %prefix%partys");
-    while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
-    $db->free_result($row);
-
-    $ms2->AddTextSearchDropDown('Party', 'a.partyid', $party_list, $party->party_id);
-    $ms2->AddTextSearchDropDown('Zahlungsart', 'a.cash', array('' => 'Alle', 0 => 'Nur Online','1' => 'Nur Bar'));
-
-    $ms2->AddResultField(t('Datum'), 'a.actiontime', 'MS2GetDate');
-    $ms2->AddResultField(t('Modul'), 'a.modul');
-    $ms2->AddResultField(t('Kommentar'), 'a.comment');
-    $ms2->AddSelect('a.editorid');
-    $ms2->AddResultField(t('Bearbeiter'), 'u.username', 'UserNameAndIcon');
-    $ms2->AddResultField(t('Betrag'), 'a.movement', 'getMoneyColor');
-
-    $ms2->PrintSearch('index.php?mod=cashmgr&action=account', 'a.id');
-  
-    }
     
     function getEnergyUsage($paid)
     {
