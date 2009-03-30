@@ -8,11 +8,10 @@
 		<caption>Buchhaltung</caption>	<!-- The Text displayed in the menubar -->
 		<hint>Buchhaltung</hint>	<!-- This hint is shown, when the mouse resides over this menu item -->
 		<link>?mod=cashmgr&amp;action=show</link>  <!-- This is the link-target of the current menu item -->
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins -->
+		<requirement>1</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins -->
 		<needed_config></needed_config>
 		<level>0</level> <!-- 0 for Top level entry; 1 for sub entry -->
 	</entry>
-
 	<entry>
 		<action>myaccounting</action>  <!-- This is the trigger standing in the URL behin the "action=" -->
 		<file>myaccounting</file>   <!-- This ist the file, which is executed, when the trigger above was caled -->
@@ -23,14 +22,13 @@
 		<needed_config></needed_config>
 		<level>1</level> <!-- 0 for Top level entry; 1 for sub entry -->
 	</entry>
-
 	<entry>
-		<action>accounting</action>  <!-- This is the trigger standing in the URL behin the "action=" -->
-		<file>accounting</file>   <!-- This ist the file, which is executed, when the trigger above was caled -->
-		<caption>Kunden Kontoauszug</caption>	<!-- The Text displayed in the menubar -->
-		<hint>Detallierte Ein- und Ausgabenuebersicht</hint>	<!-- This hint is shown, when the mouse resides over this menu item -->
-		<link>?mod=cashmgr&amp;action=accounting</link>  <!-- This is the link-target of the current menu item -->
-		<requirement>3</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins -->
+		<action>sendmoney</action>  <!-- This is the trigger standing in the URL behin the "action=" -->
+		<file>sendmoney</file>   <!-- This ist the file, which is executed, when the trigger above was caled -->
+		<caption>Überweisung</caption>	<!-- The Text displayed in the menubar -->
+		<hint>Hier können Sie anderen Benutzern Geld überweisen</hint>	<!-- This hint is shown, when the mouse resides over this menu item -->
+		<link>?mod=cashmgr&amp;action=sendmoney</link>  <!-- This is the link-target of the current menu item -->
+		<requirement>1</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins -->
 		<needed_config></needed_config>
 		<level>1</level> <!-- 0 for Top level entry; 1 for sub entry -->
 	</entry>
@@ -42,7 +40,7 @@
 		<link>?mod=cashmgr&amp;action=fixbooking</link>  <!-- This is the link-target of the current menu item -->
 		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins -->
 		<needed_config></needed_config>
-		<level>1</level> <!-- 0 for Top level entry; 1 for sub entry -->
+		<level>3</level> <!-- 0 for Top level entry; 1 for sub entry -->
 	</entry>
 	<entry>
 		<action>managegroup</action>  <!-- This is the trigger standing in the URL behin the "action=" -->
@@ -50,7 +48,7 @@
 		<caption>Gruppen verwalten</caption>	<!-- The Text displayed in the menubar -->
 		<hint>Gruppen anlegen und löschen</hint>	<!-- This hint is shown, when the mouse resides over this menu item -->
 		<link>?mod=cashmgr&amp;action=managegroup</link>  <!-- This is the link-target of the current menu item -->
-		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins -->
+		<requirement>3</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins -->
 		<needed_config></needed_config>
 		<level>1</level> <!-- 0 for Top level entry; 1 for sub entry -->
 	</entry>
