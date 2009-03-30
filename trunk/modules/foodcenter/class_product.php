@@ -26,7 +26,7 @@ class product_list{
      * @param int $cat
      */
     function load_cat($cat){
-        global $db,$config;
+        global $db;
         $products = $db->qry("SELECT id FROM %prefix%food_product WHERE cat_id=%string%", $cat);
         
         $i = 0;
@@ -43,7 +43,7 @@ class product_list{
      * @param string $worklink
      */
     function get_list($worklink){
-        global $dsp,$lang;
+        global $dsp;
         
         if(count($this->product) > 0){
             for($i = 0;$i < count($this->product);$i++){
@@ -60,9 +60,7 @@ class product_list{
      * @param int $id
      * @param string $worklink
      */
-    function get_info($id,$worklink){
-        global $dsp,$lang,$cfg,$db,$config;
-        
+    function get_info($id,$worklink){       
         $data_array = array_flip($this->product_list);
         $this->product[$data_array[$id]]->get_info($worklink);
         
@@ -77,9 +75,10 @@ class product_list{
      * @return boolean
      */
     function add_product($id,$opt){
-        // Produkt schon vorhanden?
+    	global $func;
+        ### Produkt schon vorhanden?
         if(in_array($id,$this->product_list)){
-        
+     
             // Wenn das Produkt ein 
             if(is_array($opt)){
                 // Produkt für den Vergleich erzeugen
@@ -96,10 +95,12 @@ class product_list{
                         // Vergleich Positiv Produkt aufaddieren und Funktion verlassen
                         if($this->product[$key]->compare($temp_prod)){
                             $this->product[$key]->ordered++;
+
                             return true;
                         }
                     }
                 }
+                            	
                 // Vergleich Fehlgeschlagen 
                 // Letzten Key auslesen
                 end($this->product);
@@ -110,6 +111,7 @@ class product_list{
                 $this->product[$key] = new product($id);
                 $this->product[$key]->ordered++;
                 $this->product_list[] .= $id;
+                
                 foreach ($opt as $cle => $value){
                     $this->product[$key]->order_option($cle);
                 }
@@ -118,13 +120,15 @@ class product_list{
                 // Produkt suchen und aufaddieren
                 foreach ($this->product_list as $key => $value){
                     if($value == $id){
-                        $this->product[$key]->order_option($opt);
-                        return true;
+                        $this->product[$key]->order_option($opt);             
+                       	return true;
                     }
                 }
                 return false;
             }
+        ### Produkt noch nicht vorhanden, neu adden
         }else{
+        	$ret = true;
             // Letzten Key auslesen
             end($this->product);
             $key_array = each($this->product);
@@ -137,12 +141,12 @@ class product_list{
             
             if(is_array($opt)){
                 foreach ($opt as $cle => $value){
-                    $this->product[$key]->order_option($cle);
+                    if(!$this->product[$key]->order_option($cle))
+                    $ret = false;
                 }
-            }else{
-                $this->product[$key]->order_option($opt);               
-            }
-            return $key;
+            }else {$ret = $this->product[$key]->order_option($opt);}                           
+           
+            return $ret;
         }           
             
     }
@@ -157,6 +161,7 @@ class product_list{
      */
     function chanche_ordered($listid,$opt,$value){
         if(!is_null($opt)){
+        	//Normales Produkt
             //print_r($this->product[$listid]);
             return $this->product[$listid]->order_option($opt,$value);
         }else{
@@ -397,7 +402,7 @@ class product{
      * @return boolean
      */
     function check(){
-        global $lang,$func;
+        global $func;
         if($this->caption == ""){
             $this->error_food['caption'] = t('Bitte geben sie einen Produknamen an.');
             $this->noerror = false;
@@ -429,7 +434,7 @@ class product{
      * @return boolean
      */
     function read(){
-        global $db,$config;
+        global $db;
         if($this->id == null){
             return false;
         }else {
@@ -463,7 +468,7 @@ class product{
      *
      */
     function write(){
-        global $db,$config; 
+        global $db; 
 
         if($this->supp->supp_id == null) $this->supp->write();
         if($this->cat->cat_id == null) $this->cat->write();
@@ -489,7 +494,7 @@ class product{
                         supp_id = %int%,
                         supp_infos = %string%,
                         p_file = %string%,
-                        mat = '%int%,
+                        mat = %int%,
                         p_type = %string%,
                         chois = %int%,
                         wait = %int%
@@ -533,10 +538,11 @@ class product{
      * @param int $value
      * @return boolean
      */
-    function order_option($id,$value = null){
-        global $lang;
+    function order_option($id,$value = 1){
+        global $func;
         $ok = true;
         for($i = 0;$i < count($this->option);$i++){
+        	$this->option[$i]->error['pice_error'] = "";
             $count = $this->option[$i]->ordered;
             if($this->option[$i]->id == $id){
                 if($value == null){
@@ -547,6 +553,7 @@ class product{
                     }else{
                         $this->option[$i]->ordered = $this->option[$i]->pice;
                         $this->option[$i]->error['pice_error'] = t('Das Produkt ist nicht in dieser Menge vorhanden.');
+                        $func->information(t('Dieses Produkt ist leider nicht mehr vorhanden.'));
                         $ok = false;
                     }
                 }
@@ -579,7 +586,7 @@ class product{
      * @param int $step
      */
     function form_add_product($step){
-        global $dsp,$gd,$lang,$templ, $smarty;
+        global $dsp,$gd,$smarty;
 
         $nextstep = $step + 1;
         // Change or New ?
@@ -689,7 +696,7 @@ class product{
      * @param string $worklink
      */
     function order_form($worklink){
-        global $dsp,$cfg,$templ,$auth, $smarty;
+        global $dsp,$cfg,$auth, $smarty;
         
         switch ($this->type){
             case 1:
@@ -777,7 +784,7 @@ class product{
      * @param string $worklink
      */
     function get_info($worklink){
-        global $dsp,$lang,$auth,$cfg;
+        global $dsp,$auth,$cfg;
                 
             $dsp->NewContent(t('Produktebeschreibung'));
             $dsp->AddDoubleRow(t('Produktname'),"<b>" . $this->caption . "</b>");
@@ -865,16 +872,16 @@ class product{
      * @return boolean
      */
     function set_ordered($val){
-        global $lang;
         $error = -1;
         foreach ($this->option as $key => $value){
+        	// Prüfe alle Produktopionen auf verfügbarkeit
             if(($val * $this->option[$key]->ordered) <  $this->option[$key]->pice){
                 if($error == -1 || $error > $this->option[$key]->pice){
                     $error = $this->option[$key]->pice;
                 }
             }
         }
-        if($error = -1){
+        if($error == -1){
             $this->error_food['order_error'] = t('Das Produkt ist nicht in dieser Menge vorhanden.');
             $this->ordered = $error;    
             return false;
@@ -892,9 +899,10 @@ class product{
      * @return int
      */
     function order($userid,$delivered){
-        global $db,$config, $party;
+        global $db, $party;
         $time = time();
         $price = 0;
+        ### Erweitertes Produkt
         if($this->type == 2){
             foreach ($this->option as $key => $value){
                 if($this->option[$key]->ordered > 0 || $this->option[$key]->fix == 1){
@@ -929,6 +937,7 @@ class product{
             }else{
                 return 0;
             }
+         ### Einfaches Produkt
         }else{
             foreach ($this->option as $key => $value){
                 if($this->option[$key]->ordered > 0 || $this->option[$key]->fix == 1){
@@ -1085,7 +1094,7 @@ class product_option{
      * Produktoption aus der DB lesen
      */
     function read(){
-        global $db,$config;
+        global $db;
         
         $row = $db->qry_first("SELECT * FROM %prefix%food_option WHERE id=%int%", $this->id);
 
@@ -1105,7 +1114,7 @@ class product_option{
      * @param int $id
      */
     function write($id = 0){
-        global $db,$config;
+        global $db;
         if($this->parentid == null) $this->parentid = $id;
         if($this->id == null){
             
@@ -1139,7 +1148,6 @@ class product_option{
      * @return boolean
      */
     function check(){
-        global $lang;
         if($this->caption == "" && $this->parenttyp == 2) $this->error['caption'] = t('Bitte geben sie einen Artikelnamen ein');
         
         if($this->unit == ""){
@@ -1186,7 +1194,7 @@ class product_option{
      * @param boolean $multiselect
      */
     function option_form($nr,$optional = null, $big = false, $multiselect = false){
-        global $dsp, $templ, $lang, $smarty;
+        global $dsp, $smarty;
         ($multiselect) ? $display = "" : $display = "none";
         if($big == true){
             // display HTML for option 3
@@ -1336,7 +1344,7 @@ class supp{
      * @return array
      */
     function get_supp_array($select_id, $new = null){
-        global $db,$config,$lang;
+        global $db;
         
         $row = $db->qry("SELECT * FROM %prefix%food_supp");     
 
@@ -1380,7 +1388,7 @@ class supp{
      * @return boolean
      */
     function read(){
-        global $db,$config;
+        global $db;
         if($this->supp_id != null){ 
             $row = $db->qry_first("SELECT * FROM %prefix%food_supp WHERE supp_id=%int%", $this->supp_id);   
             if($db->num_rows($row) > 0){
@@ -1400,7 +1408,7 @@ class supp{
      *
      */
     function write(){
-        global $db,$config;
+        global $db;
 
         if($this->supp_id == NULL){
             $db->qry("INSERT INTO %prefix%food_supp SET 
@@ -1421,7 +1429,6 @@ class supp{
      * @return boolean
      */
     function check(){
-        global $lang;
         if($this->supp_caption == "" && $this->supp_id == null){
             $this->error['supp_name']   = t('Bitte geben sie einen Lieferant an');
             return false;
@@ -1434,7 +1441,7 @@ class supp{
      *
      */
     function supp_form(){
-        global $dsp,$lang;
+        global $dsp;
         // Get Supplier
         $supp_array = $this->get_supp_array($this->supp_id,1);
         if($supp_array){
@@ -1488,7 +1495,6 @@ class cat{
      * @return cat
      */
     function cat($id = NULL){
-        global $db,$config,$lang;
         if($id != null && $id > 0){
             $this->cat_id = $id;
             $this->read();
@@ -1502,7 +1508,7 @@ class cat{
      * @return boolean
      */
     function read(){
-        global $db,$config;
+        global $db;
         if($this->cat_id != null){  
             $row = $db->qry_first("SELECT * FROM %prefix%food_cat WHERE cat_id=%int%", $this->cat_id);  
             if($db->num_rows($row) > 0){
@@ -1525,7 +1531,7 @@ class cat{
      * @return boolean
      */
     function get_cat_array($select_id,$new = null){
-        global $db,$config,$lang;
+        global $db;
         
         $row = $db->qry("SELECT * FROM %prefix%food_cat");      
 
@@ -1567,7 +1573,7 @@ class cat{
      *
      */
     function write(){
-        global $db,$config;
+        global $db;
         if($this->cat_id == NULL){
             $db->qry("INSERT INTO %prefix%food_cat SET name = %string%", $this->name);
             $this->cat_id = $db->insert_id();
@@ -1583,7 +1589,6 @@ class cat{
      * @return boolean
      */
     function check(){
-        global $lang;
         if($this->name == "" && $this->cat_id == null){
             $this->error['cat_name'] = t('Bitte geben sie eine Kategorie an');
             return false;
@@ -1597,7 +1602,7 @@ class cat{
      *
      */
     function cat_form(){
-        global $dsp,$lang;
+        global $dsp;
         // Check for existing categories
         $cat_array = $this->get_cat_array($this->cat_id,1);
         if($cat_array){
