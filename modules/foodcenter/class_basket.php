@@ -1,6 +1,6 @@
 <?php
 
-include_once("modules/foodcenter/class_accounting.php");
+include_once("modules/cashmgr/class_accounting.php");
 
 
 class basket{
@@ -11,6 +11,10 @@ class basket{
 	var $account;
 	
 	function basket($backlink = null){
+		global $auth;
+		
+		$this->account = new accounting();
+		
 		// Load Basket
 		if(!isset($_SESSION['basket_item']['product'])){
 			$_SESSION['basket_item'] = array();
@@ -26,15 +30,16 @@ class basket{
 	
 	
 	function add_to_basket_from_global(){
+		global $func;
 		// Add new Products
 		if(isset($_GET['add']) && $_GET['add'] > 0){
 			if($_GET['opt'] != 0){
-				$this->product->add_product($_GET['add'],$_GET['opt']);
-				$this->count ++;
+				if($this->product->add_product($_GET['add'],$_GET['opt']))
+					$this->count ++;
 			}else{
 				if(!is_array($_POST['option'])) $_POST['option'] = array();
-				$this->product->add_product($_GET['add'],$_POST['option']);
-				$this->count ++;
+					if($this->product->add_product($_GET['add'],$_POST['option']))
+						$this->count ++;
 			}
 		}
 		
@@ -45,9 +50,9 @@ class basket{
 	
 	
 	function show_basket(){
-			global $dsp,$config,$db,$lang,$cfg;
+			global $dsp,$cfg, $func;
 			
-			$dsp->NewContent(t('Warenkorb'),t('Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf /\'/Neu berechnen/\'/.'));
+			$dsp->NewContent(t('Warenkorb'),t('Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf "Neu berechnen".'));
 			if($this->product->count_products() > 0){
 				$dsp->SetForm("?mod=foodcenter&action={$_GET['action']}&mode=change");
 				$dsp->AddDoubleRow("<b>" . t('Artikel / Preis') . "</b> ","<b>" . t('Anzahl') . "</b> ");
@@ -69,7 +74,7 @@ class basket{
 		
 				$dsp->AddFormSubmitRow("order");
 			}else{
-				$dsp->AddDoubleRow("",t('Keine Artikel im Warenkorb'));
+				$func->information(t('Keine Artikel im Warenkorb'), NO_LINK);
 			}
 			if(isset($_SESSION['basket_item']['backlink'])) $dsp->AddBackButton($_SESSION['basket_item']['backlink']);
 			$dsp->AddContent();
@@ -78,7 +83,7 @@ class basket{
 	
 	
 	function change_basket($userid){
-		global $func,$lang, $cfg;
+		global $func, $cfg;
 		$ok = true;
 		$this->count = 0;
 		foreach ($_POST as $key => $value){
@@ -94,11 +99,10 @@ class basket{
 		$_SESSION['basket_item']['product'] = serialize($this->product);
 		$_SESSION['basket_count'] = $this->count;
 		
-		$this->account = new accounting($userid);
-		
 		// Wird nur ausgeführt wenn Credit-System an
 		if( $cfg['foodcenter_credit'] == 0)
 		{
+
 			if($this->product->count_products_price() <= $this->account->balance){
 				return $ok;
 			}else{
@@ -112,8 +116,8 @@ class basket{
 	}
 	
 	function order_basket($userid, $delivered = 0){
-		global $db,$config,$func,$lang,$auth;
-		$this->account->change(- $this->product->order_product($userid,$delivered),t('Bestellung Foodcenter') . "  (" . $auth['username'] . ")");
+		global $auth;
+		$this->account->booking($this->product->order_product($userid,$delivered),t('Bestellung Foodcenter') . "  (" . $auth['username'] . ")");
 		unset($this->product);
 		$this->product = new product_list();
 		unset($_SESSION['basket_item']['product']);
