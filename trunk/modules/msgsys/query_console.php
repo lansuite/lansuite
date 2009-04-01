@@ -16,7 +16,7 @@ $gd->CreateButton('picture');
 $gd->CreateButton('send');
 
 $smarty->assign('queryid', $_GET['queryid']);
-$index .= $smarty->assign('design/templates/messenger_query_console.htm');
+$index .= $smarty->fetch('design/templates/messenger_query_console.htm');
 
 echo $index;
 	
