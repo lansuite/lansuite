@@ -290,6 +290,7 @@ class framework {
           $smarty->assign('MainLogo', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span></a> Lansuite - Vollbildmodus');
         }
 		
+		// Start Javascript-Code for MainContent with JQuery-Tabs
 		/*$this->main_header_jscode .= "
 				$(document).ready(function(){
 					$('#MainContentTabs').tabs({
@@ -302,17 +303,17 @@ class framework {
 		";*/
 		
 		// MainContent with JQuery-Tabs for LS-Messenger
-		#$main_content_with_tabs .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='MainContentTabs'>\n";
-		#$main_content_with_tabs .= "  <ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>\n";
-		#$main_content_with_tabs .= "    <li class='ui-state-default ui-corner-top ui-tabs-selected ui-state-active'><a href='#main_content' title='Lansuite'><em>Lansuite</em></a></li>\n";
-		#$main_content_with_tabs .= "  </ul>\n";
-		#$main_content_with_tabs .= "  <div class='ui-content'>\n";
-		#$main_content_with_tabs .= "    <div id='main_content'>\n";
-		#$main_content_with_tabs .= "    <br />\n";
+		$main_content_with_tabs .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='MainContentTabs'>\n";
+		$main_content_with_tabs .= "  <ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>\n";
+		$main_content_with_tabs .= "    <li class='ui-state-default ui-corner-top ui-tabs-selected ui-state-active'><a href='#main_content' title='Lansuite'><em>Lansuite</em></a></li>\n";
+		$main_content_with_tabs .= "  </ul>\n";
+		$main_content_with_tabs .= "  <div class='ui-content'>\n";
+		$main_content_with_tabs .= "    <div id='main_content'>\n";
+		$main_content_with_tabs .= "    <br />\n";
 		$main_content_with_tabs .= $this->main_content;
-		#$main_content_with_tabs .= "    </div>\n";
-		#$main_content_with_tabs .= "  </div>\n";
-		#$main_content_with_tabs .= "</div>\n";
+		$main_content_with_tabs .= "    </div>\n";
+		$main_content_with_tabs .= "  </div>\n";
+		$main_content_with_tabs .= "</div>\n";
 		
 		$smarty->assign("MainContent", $main_content_with_tabs);
 		
