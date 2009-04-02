@@ -78,6 +78,7 @@ class pdf_tmpl{
         
         $out = "";
         while ($data_array = $db->fetch_array($data)){
+        	$smarty->assign('action', $_GET['action']);
             $smarty->assign('name', $lang['pdf'][$data_array['type']]);
             $smarty->assign('itemid', $data_array['pdfid']);
             $smarty->assign('id', $this->tmpl_id);
@@ -374,7 +375,7 @@ class pdf_tmpl{
 
     
         if($db->qry("UPDATE %prefix%pdf_data SET %plain%", "  
-            SET `visible`='" . $_POST['visible'] . 
+             `visible`='" . $_POST['visible'] . 
                "', `pos_x`='" . $_POST['pos_x'] .
                "', `pos_y`='" . $_POST['pos_y'] .
                "', `end_x`='" . $_POST['end_x'] . 

@@ -14,7 +14,7 @@ $pdf_export = new pdf($templ_id);
 
 switch ($_GET['act']){
 	default:
-		// Eintrag löschen
+		// Eintrag lï¿½schen
 		if(isset($_GET['delete'])){
 			$pdf_tmpl->delete_templ();
 		}		
@@ -30,16 +30,16 @@ switch ($_GET['act']){
 		$pdf_tmpl->add_templ();
 		
 	case 'change':
-		// Eintrag löschen
+		// Eintrag lï¿½schen
 		if(isset($_GET['delete_item'])){
 			$pdf_tmpl->delete_item($_GET['itemid']);
 		}
-		// Reihenfolge ändern
+		// Reihenfolge ï¿½ndern
 		if(isset($_GET['direction'])){
 			$pdf_tmpl->sortorder($_GET['direction'],$_GET['itemid']);
 		}
 		
-		// Einträge anzeigen			    
+		// Eintrï¿½ge anzeigen			    
 		$pdf_tmpl->display_data();
 	break;
 	
@@ -53,7 +53,7 @@ switch ($_GET['act']){
 		$pdf_tmpl->insert_item($_GET['object']);
 	break;
 	
-	// Feld ändern
+	// Feld ï¿½ndern
 	case 'change_mask':
 		$pdf_tmpl->change_mask($_GET['itemid']);
 	break;
