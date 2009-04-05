@@ -29,6 +29,15 @@
 		<level>1</level>
 	</entry>
 	<entry>
+		<action>ranking</action>
+		<file>ranking</file>
+		<caption>Ranking</caption>
+		<hint>Das aktuelle Posting-Rankung</hint>
+		<link>index.php?mod=board&amp;action=ranking</link>
+		<requirement>1</requirement>
+		<level>1</level>
+	</entry>
+	<entry>
 		<action>add</action>
 		<file>add</file>
 		<caption>Hinzufügen</caption>
