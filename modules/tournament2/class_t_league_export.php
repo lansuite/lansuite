@@ -15,7 +15,7 @@ class t_league_export {
 		$submit .= $xml->write_tag("party_name", $_SESSION['party_info']['name'], 2);
 		$submit .= $xml->write_tag("pid", $pid, 2);
 		$submit .= $xml->write_tag("pvdid", $pvdid, 2);
-		$submit .= $xml->write_tag("stadt", "-", 2);
+		$submit .= $xml->write_tag("stadt", $_SESSION['party_info']['partyort'], 2);
 		$wwcl = $xml->write_master_tag("submit", $submit, 1);
 
 		// Liste neuer Spieler, ohne ID
@@ -28,7 +28,7 @@ class t_league_export {
     LEFT JOIN %prefix%user AS users ON teams.leaderid = users.userid
     WHERE tournament.wwcl_gameid > 0
      AND (((tournament.teamplayer = 1) AND (!users.wwclid))
-     OR ((tournament.teamplayer > 1) AND (users.wwclclanid IS NULL)))
+     OR ((tournament.teamplayer > 1) AND (!users.wwclclanid)))
     ");
 		while($row = $db->fetch_array($query)) {
 			$i++;
