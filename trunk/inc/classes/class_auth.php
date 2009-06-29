@@ -126,15 +126,17 @@ class auth {
         if     ($tmp_login_email == "") $func->information(t('Bitte geben Sie Ihre E-Mail-Adresse oder Ihre Lansuite-ID ein.'), "", '', 1);
         elseif ($tmp_login_pass == "") $func->information(t('Bitte geben Sie Ihr Kennwort ein.'), "", '', 1);
         else {
+        	$is_email = strstr($tmp_login_email, '@');
+        	if(!$is_email) $is_email = 0; else $is_email = 1;
             // Go on if email and password
             $user = $db->qry_first('SELECT 1 AS found, userid, username, email, password, type, locked, email_verified
                                       FROM %prefix%user
-                                      WHERE (%int% = %string% AND userid = %int%) OR LOWER(email) = %string%',
-                                      $tmp_login_email, $tmp_login_email, $tmp_login_email, $tmp_login_email);
+                                      WHERE (userid = %int% AND 0 = %int%) OR LOWER(email) = %string%',
+                                      $tmp_login_email, $is_email, $tmp_login_email);
             
             $user2 = $db->qry_first('SELECT email_verified FROM %prefix%user
-                                      WHERE (%int% = %string% AND userid = %int%) OR LOWER(email) = %string%',
-                                      $tmp_login_email, $tmp_login_email, $tmp_login_email, $tmp_login_email);
+                                      WHERE (userid = %int% AND 0 = %int%) OR LOWER(email) = %string%',
+                                      $tmp_login_email, $is_email, $tmp_login_email);
             
             $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
             // Check Checkin
