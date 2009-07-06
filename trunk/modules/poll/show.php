@@ -6,15 +6,15 @@ $poll = new poll;
 if ($_GET['step'] >= 2) {
 	$pollrow = $db->qry_first('SELECT caption, comment, UNIX_TIMESTAMP(endtime) AS endtime, multi, anonym, requirement FROM %prefix%polls
     WHERE	pollid = %int% AND (!group_id OR group_id = %int%)', $_GET['pollid'], $auth['group_id']);
-  $dsp->NewContent(t('Poll') .': '. $pollrow["caption"], $func->text2html($pollrow['comment']));
+	$dsp->NewContent(t('Poll') .': '. $pollrow["caption"], $func->text2html($pollrow['comment']));
 
 	$voted = $db->qry_first('SELECT 1 AS found FROM %prefix%polloptions AS o
     INNER JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
     WHERE o.pollid = %int% AND v.userid = %int%', $_GET['pollid'], $auth['userid']);
 	if (!$pollrow['caption']) {
-    $func->error(t('Dieser Poll existiert nicht, oder Sie haben keine Berechtigung ihn zu sehen'), NO_LINK);
-  	$_GET['step'] = 1;
-  }
+		$func->error(t('Dieser Poll existiert nicht, oder Sie haben keine Berechtigung ihn zu sehen'), NO_LINK);
+		$_GET['step'] = 1;
+	}
 
   if ($_GET['step'] >= 3) {
     if ($pollrow['endtime'] and $pollrow['endtime'] < time()) {
