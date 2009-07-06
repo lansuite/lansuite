@@ -32,6 +32,11 @@
 		<requirement>2</requirement>
 	</entry>
 	<entry>
+		<action>result</action>
+		<file>result</file>
+		<requirement>2</requirement>
+	</entry>
+	<entry>
 		<action>delete</action>
 		<file>delete</file>
 		<requirement>3</requirement>
