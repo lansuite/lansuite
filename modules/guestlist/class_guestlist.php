@@ -18,16 +18,15 @@ class guestlist {
     $msgtext = str_replace('%USERNAME%', $row['username'], $msgtext);
     $msgtext = str_replace('%PARTYNAME%', $row2['name'], $msgtext);
 
-    $signonmail = New Mail();
     if ($cfg['signon_send_paid_email'] == 1 or $cfg['signon_send_paid_email'] == 3)
-        ($signonmail->create_sys_mail($userid, $cfg['signon_paid_email_subject'], $msgtext))?
-    $Messages['success'] .= $row['username'] .' (System-Mail)'. HTML_NEWLINE
-    : $Messages['error'] .= $row['username'] .' (System-Mail)'. HTML_NEWLINE;
+        ($mail->create_sys_mail($userid, $cfg['signon_paid_email_subject'], $msgtext))? 
+				$Messages['success'] .= $row['username'] .' (System-Mail)'. HTML_NEWLINE : 
+				$Messages['error'] .= $row['username'] .' (System-Mail)'. HTML_NEWLINE;
 
     if ($cfg['signon_send_paid_email'] == 2 or $cfg['signon_send_paid_email'] == 3)
-        ($signonmail->create_inet_mail($row['username'], $row['email'], $cfg['signon_paid_email_subject'], $msgtext, $auth['email']))?
-    $Messages['success'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE
-    : $Messages['error'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE;
+        ($mail->create_inet_mail($row['username'], $row['email'], $cfg['signon_paid_email_subject'], $msgtext))? 
+				$Messages['success'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE : 
+				$Messages['error'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE;
 
     // Reserve Seat
     $seat2->ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid);
@@ -50,16 +49,15 @@ class guestlist {
     $msgtext = str_replace('%USERNAME%', $row['username'], $msgtext);
     $msgtext = str_replace('%PARTYNAME%', $row2['name'], $msgtext);
 
-        $signonmail = New Mail();
-        if ($cfg['signon_send_paid_email'] == 1 or $cfg['signon_send_paid_email'] == 3)
-            ($signonmail->create_sys_mail($userid, $cfg['signon_paid_email_subject'], $msgtext))?
-        $Messages['success'] .= $row['username'] .' (System-Mail)'. HTML_NEWLINE
-        : $Messages['error'] .= $row['username'] .' (System-Mail)'. HTML_NEWLINE;
+		if ($cfg['signon_send_paid_email'] == 1 or $cfg['signon_send_paid_email'] == 3)
+				($mail->create_sys_mail($userid, $cfg['signon_paid_email_subject'], $msgtext))?
+				$Messages['success'] .= $row['username'] .' (System-Mail)'. HTML_NEWLINE
+				: $Messages['error'] .= $row['username'] .' (System-Mail)'. HTML_NEWLINE;
 
-        if ($cfg['signon_send_paid_email'] == 2 or $cfg['signon_send_paid_email'] == 3)
-            ($signonmail->create_inet_mail($row['username'], $row['email'], $cfg['signon_paid_email_subject'], $msgtext, $auth['email']))?
-        $Messages['success'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE
-        : $Messages['error'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE;
+		if ($cfg['signon_send_paid_email'] == 2 or $cfg['signon_send_paid_email'] == 3)
+				($mail->create_inet_mail($row['username'], $row['email'], $cfg['signon_paid_email_subject'], $msgtext))?
+				$Messages['success'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE
+				: $Messages['error'] .= $row['username'] .' (Internet-Mail)'. HTML_NEWLINE;
 
     // Switch seat back to "marked"
     $seat2->MarkSeatIfNotPaidAndSeatReserved($userid);

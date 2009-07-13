@@ -16,8 +16,7 @@ class Mail {
 			return false;
 		}
 
-		$c_mail = $db->qry("INSERT INTO %prefix%mail_messages SET mail_status = 'active', des_status = 'new', fromUserID = %int%, toUserID = %int%, Subject= %string%, msgbody= %string%, tx_date= NOW()",
-  $from_userid, $to_userid, $subject_text, $msgbody_text);
+		$c_mail = $db->qry("INSERT INTO %prefix%mail_messages SET mail_status = 'active', des_status = 'new', fromUserID = %int%, toUserID = %int%, Subject= %string%, msgbody= %string%, tx_date= NOW()", $from_userid, $to_userid, $subject_text, $msgbody_text);
 		$this->error = 'OK';
 		
 		// Send Info-Mail to receiver
@@ -36,6 +35,10 @@ class Mail {
 
 	function create_inet_mail($to_user_name, $to_user_email, $subject_text, $msgbody_text, $from = '') {
 		global $cfg, $board_config;
+		
+		// The sending mail address must be the sys_part_mail, otherwise some mail-provider won't send the mail.
+		if ($from == '' || $from = null)
+			$from = $cfg['sys_party_mail'];
 
     // No special charachters in Username!
     $to_user_name = ereg_replace('[^a-zA-Z ]', '', $to_user_name);
