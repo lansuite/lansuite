@@ -54,13 +54,15 @@ if (!$cfg['download_use_ftp']) {
 
     $dsp->AddFieldSetStart(t('Navigation: ') . $LinkUp);
     $FileList = array();
-    $DLDesign = opendir($BaseDir.$_GET['dir']);
-    if ($DLDesign) {
-      while ($CurFile = readdir($DLDesign)) if ($CurFile != '.' and $CurFile != '..') $FileList[] = $CurFile;
-      closedir($DLDesign);
-      sort($FileList);
+    if file_exists($BaseDir.$_GET['dir']) {
+      $DLDesign = opendir($BaseDir.$_GET['dir']);
+      if ($DLDesign) {
+        while ($CurFile = readdir($DLDesign)) if ($CurFile != '.' and $CurFile != '..') $FileList[] = $CurFile;
+        closedir($DLDesign);
+        sort($FileList);
+      }
     }
-      
+          
     if ($FileList) foreach ($FileList as $CurFile) {
       $CreateTime = filectime($BaseDir.'/'.$CurFilePath);
 
