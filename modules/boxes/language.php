@@ -8,7 +8,7 @@
  */
  
 $cont = '';
-$cur_url = parse_url($_SERVER['REQUEST_URI']);
+$cur_url = @parse_url($_SERVER['REQUEST_URI']);
 
 // Delete old 'language=' from URL
 if (isset($_GET['language'])) {

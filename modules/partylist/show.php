@@ -16,7 +16,7 @@ switch ($_GET['step']) {
 function GetSite($url) {
   global $HTTPHeader;
 
-  $url = parse_url($url);
+  $url = @parse_url($url);
   if (!$url['port']) $url['port'] = 80;
   $url['host'] = trim($url['host']);
   $url['path'] = trim($url['path']);
