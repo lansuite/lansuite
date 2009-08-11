@@ -55,11 +55,13 @@ if (!$cfg['download_use_ftp']) {
     $dsp->AddFieldSetStart(t('Navigation: ') . $LinkUp);
     $FileList = array();
     $DLDesign = opendir($BaseDir.$_GET['dir']);
-    while ($CurFile = readdir($DLDesign)) if ($CurFile != '.' and $CurFile != '..') $FileList[] = $CurFile;
-    closedir($DLDesign);
-    sort($FileList);
+    if ($DLDesign) {
+      while ($CurFile = readdir($DLDesign)) if ($CurFile != '.' and $CurFile != '..') $FileList[] = $CurFile;
+      closedir($DLDesign);
+      sort($FileList);
+    }
       
-    foreach ($FileList as $CurFile) {
+    if ($FileList) foreach ($FileList as $CurFile) {
       $CreateTime = filectime($BaseDir.'/'.$CurFilePath);
 
       if ($_GET['dir']) $CurFilePath = $_GET['dir'] .'/'. $CurFile;
@@ -77,7 +79,7 @@ if (!$cfg['download_use_ftp']) {
           $dsp->AddSingleRow('<a href="index.php?mod=downloads&design=base&dir='. $CurFilePath .'" class="menu"><img src="design/'. $auth['design'] .'/images/downloads_file.gif" border="0" /> '. $CurFile .' ['. $func->FormatFileSize($Size) .']'.'</a>');
         }
       }
-    }
+    } else $func->information('No files found in "'. ($BaseDir.$_GET['dir']) .'"');
 
     // Links
     $res2 = $db->qry('SELECT link FROM %prefix%download_urls WHERE dir = %string%', $_GET['dir']);
