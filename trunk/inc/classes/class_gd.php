@@ -169,8 +169,9 @@ class gd {
 
 
 	function OpenImage($filename) {
-		$type = strtolower(substr($filename, strrpos($filename, ".") + 1, 4));
+	  if (!file_exists($filename)) return 0;
 
+		$type = strtolower(substr($filename, strrpos($filename, ".") + 1, 4));
 		switch ($type) {
 			default: return 0; break;
 			case "png": if (ImageTypes() & IMG_PNG) $img_src = ImageCreateFromPNG($filename); break;
@@ -201,12 +202,12 @@ class gd {
 
 
 	function CreateThumb($old_file, $new_file, $max_width, $max_height) {
-
+    global $func;
     if (($old_file != $new_file) and file_exists($new_file)) return;
 
 		$imgsrc_old = $this->OpenImage($old_file);
     if (!$imgsrc_old) {
-      echo "Could not open source file '$old_file'<br />";
+      $func->error("Could not open source file '$old_file'", NO_LINK);
       return false;
     } else {
   		// Calculate new size
@@ -226,7 +227,7 @@ class gd {
   			$new_width = $old_width / $ratio_y;
   			$new_height = $max_height;
   		} else {
-        echo "Source file has 0x0 pixel<br />";
+  		  $func->error("Source file '$old_file' has 0x0 pixel", NO_LINK);
         return false;
       }
   
