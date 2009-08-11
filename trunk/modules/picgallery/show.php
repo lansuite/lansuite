@@ -51,17 +51,7 @@ if (!$_GET["page"]) $_GET["page"] = 0;
 
 // Insert non existing entries
 $row = $db->qry_first("SELECT 1 AS found FROM %prefix%picgallery WHERE name = %string%", $db_dir);
-if (!$row['found']) 
-{
-	$fileok = false;
-	
-	$filetype = strtoupper(strrchr($db_dir, "."));
-	if($filetype == ".JPG" or $filetype == ".JPEG" or $filetype == ".BMP" or $filetype == ".GIF" or $filetype == ".PNG")
-		$fileok = true;
-	
-	if($db_dir != "" and strpos($db_dir, "http://") == false and strpos($db_dir, "www.") == false and $fileok)
-	$db->qry("INSERT INTO %prefix%picgallery SET userid = '', name = %string%", $db_dir);
-}
+if (!$row['found']) $db->qry("INSERT INTO %prefix%picgallery SET userid = '', name = %string%", $db_dir);
 
 // Upload posted File
 if  (($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) and $_FILES["file_upload"]) {
@@ -98,30 +88,32 @@ elseif (!$akt_file) {
 	$dir_size = 0;
 	$last_modified = 0;
 	if (is_dir($root_dir)) $handle = opendir($root_dir);
-	while ($file = readdir ($handle)) if ($file != "." and $file != ".." and $file != ".svn" and substr($file, 0, 1) != '.') {
-		if (is_dir($root_dir . $file)) array_push($dir_list, $file);
-		elseif (substr($file, 0, 8) != "lsthumb_") {
-			$extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
-			if (IsSupportedType($extension)) {
-				$dir_size += filesize($root_dir . $file);
-				$file_modified = filemtime($root_dir . $file);
-				if ($file_modified > $last_modified) $last_modified = $file_modified;
-				array_push($file_list, $file);
-			} elseif (IsPackage($extension)){
-				$dir_size += filesize($root_dir . $file);
-				$file_modified = filemtime($root_dir . $file);
-				if ($file_modified > $last_modified) $last_modified = $file_modified;
-				array_push($package_list, $file);
-			}
-		}
-	}
-	closedir($handle);
+	if ($handle) {
+  	while ($file = readdir ($handle)) if ($file != "." and $file != ".." and $file != ".svn" and substr($file, 0, 1) != '.') {
+  		if (is_dir($root_dir . $file)) array_push($dir_list, $file);
+  		elseif (substr($file, 0, 8) != "lsthumb_") {
+  			$extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
+  			if (IsSupportedType($extension)) {
+  				$dir_size += filesize($root_dir . $file);
+  				$file_modified = filemtime($root_dir . $file);
+  				if ($file_modified > $last_modified) $last_modified = $file_modified;
+  				array_push($file_list, $file);
+  			} elseif (IsPackage($extension)){
+  				$dir_size += filesize($root_dir . $file);
+  				$file_modified = filemtime($root_dir . $file);
+  				if ($file_modified > $last_modified) $last_modified = $file_modified;
+  				array_push($package_list, $file);
+  			}
+  		}
+  	}
+  	closedir($handle);
+
+    // Sort by Name
+    sort($dir_list);
+    sort($file_list);
+  }
 	$num_files = count($file_list);
 	$num_files += count($package_list);
-
-  // Sort by Name
-  sort($dir_list);
-  sort($file_list);
 
 	// Show Directory Navigation
 	$directory_selection = "";
