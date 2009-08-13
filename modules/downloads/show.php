@@ -54,7 +54,7 @@ if (!$cfg['download_use_ftp']) {
 
     $dsp->AddFieldSetStart(t('Navigation: ') . $LinkUp);
     $FileList = array();
-    if file_exists($BaseDir.$_GET['dir']) {
+    if(file_exists($BaseDir.$_GET['dir'])) {
       $DLDesign = opendir($BaseDir.$_GET['dir']);
       if ($DLDesign) {
         while ($CurFile = readdir($DLDesign)) if ($CurFile != '.' and $CurFile != '..') $FileList[] = $CurFile;
