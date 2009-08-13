@@ -10,7 +10,7 @@ $content = '';
 $res = $db->qry('SELECT name, UNIX_TIMESTAMP(changedate) AS changedate FROM %prefix%picgallery ORDER BY changedate DESC LIMIT 10');
 while ($row = $db->fetch_array($res)) {
   $smarty->assign('link', 'index.php?mod=picgallery&action=show&step=2&file=/'. $row['name'] .'&page=0');
-  $smarty->assign('text', $row['name'].' ['. $row['changedate'] .']');
+  $smarty->assign('text', $row['name'].' ['. $func->unixstamp2date($row['changedate'],'datetime') .']');
   $smarty->assign('text2', '');
   $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
@@ -47,7 +47,7 @@ $res = $db->qry('SELECT name, UNIX_TIMESTAMP(date) as date FROM %prefix%picgalle
   LIMIT 10');
 while ($row = $db->fetch_array($res)) {
   $smarty->assign('link', 'index.php?mod=picgallery&action=show&step=2&file=/'. $row['name'] .'&page=0');
-  $smarty->assign('text', $row['name'].' ['. $row['date'] .']');
+  $smarty->assign('text', $row['name'].' ['. $func->unixstamp2date($row['date'],'datetime') .']');
   $smarty->assign('text2', '');
   $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 }
