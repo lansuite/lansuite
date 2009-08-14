@@ -46,6 +46,7 @@ $user_lg = $db->qry_first("SELECT user.logins, max(auth.logintime) AS logintime
 if (isset($_POST['login']) and isset($_POST['password'])) {
   $box->DotRow(t('Logins'). ": <b>". $user_lg["logins"] .'</b>');
   $box->DotRow(t('Zuletzt eingeloggt'));
+  date_default_timezone_set($cfg['sys_timezone']);
   $box->EngangedRow("<b>". date('d.m H:i', $user_lg["logintime"]) ."</b>");
 }
 
