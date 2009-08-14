@@ -78,6 +78,7 @@ if ($cfg['sys_internet']) {
   }
   $db->free_result($res);
   
+  date_default_timezone_set($cfg['sys_timezone']);
   $box->EngangedRow(date("d.m.y", $_SESSION['party_info']['partybegin']) .' - '. date("d.m.y", $_SESSION['party_info']['partyend']));
 }
 
