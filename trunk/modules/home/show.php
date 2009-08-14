@@ -42,13 +42,13 @@ switch ($home_page) {
     }
     if ($z % 2 == 1) $MainContent .= '</ul>';
 
-		if ($party->count > 1) $party->get_party_dropdown_form();
+		if ($party->count > 1 && $cfg['display_change_party']) $party->get_party_dropdown_form();
 	break;
 
 	// Show News
 	case 1:
 		include ("modules/news/show.php");
-		if ($party->count > 1) $party->get_party_dropdown_form();
+		if ($party->count > 1 && $cfg['display_change_party']) $party->get_party_dropdown_form();
 	break;
 	
 	// Show Logout-Text
@@ -67,7 +67,7 @@ switch ($home_page) {
 		}
 		$db->free_result($get_news_caption);
 
-		if ($party->count > 1) $party->get_party_dropdown_form();
+		if ($party->count > 1 && $cfg['display_change_party']) $party->get_party_dropdown_form();
   break;
 }
 ?>

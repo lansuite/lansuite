@@ -32,4 +32,17 @@
     	</item>
     </items>
   </group>
+	<group>
+		<head>
+			<name>Anzeigeeinstellungen</name>
+		</head>
+		<items>
+			<item>
+	    		<name>display_change_party</name>
+	    		<type>boolean</type>
+	    		<default>1</default>
+	    		<description>Soll jeder User auf der Startseite und im Anmeldedialog seine default Party auswählen dürfen?</description>
+	    	</item>
+    	</items>
+	</group>
 </config>

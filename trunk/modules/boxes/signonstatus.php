@@ -66,7 +66,7 @@ if ($cfg['sys_internet']) {
   #else
   $options = '';
   $res = $db->qry('SELECT party_id, name FROM %prefix%partys');
-  if ($db->num_rows($res) > 1) {
+  if ($db->num_rows($res) > 1 && $cfg['display_change_party']) {
     while ($row = $db->fetch_array($res)){
     	($row['party_id'] == $party->party_id)? $selected = 'selected="selected"' : $selected = '';
     	if (strlen($row['name']) > 20) $row['name'] = substr($row['name'], 0, 18) .'...';
