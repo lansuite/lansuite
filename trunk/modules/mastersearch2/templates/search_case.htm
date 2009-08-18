@@ -7,29 +7,31 @@
 {foreach from=$SearchInputs item=Line}
 <tr>
   {foreach from=$Line item=input}
-    <td class="row_key" width="10%" valign="top">
-      <b>{$input.caption}</b>
-    </td><td class="row_value" valign="top">
-      {if $input.type == 'text'}
-        <input type="text" name="{$input.name}" value="{$input.value}" size="30" class="form" onmouseover="this.focus();" />
-      {elseif $input.type == 'select'}
-        <select name="{$input.name}" class="form" onmouseover="this.focus();" {$input.multiple}>
-        {html_options options=$input.options selected=$input.selected}
-        </select>
-      {else}
-        &nbsp;
-      {/if}
-      {if $input.helpletId != ''}
-        <a href="#" onclick="javascript:var w=window.open('index.php?mod=helplet&action=helplet&design=base&module=mastersearch2&helpletid={$input.helpletId}','_blank','width=700,height=500,resizable=no,scrollbars=yes');" class="underline_on_hover">? {$helpletText}</a>
-      {/if}
-    </td>
+  	{if $input.type != ''}
+	    <td class="mastersearch2_search_row_key" width="20%" valign="top">
+	      <b>{$input.caption}</b>
+	    </td><td class="mastersearch2_search_row_value" valign="top">
+	      {if $input.type == 'text'}
+	        <input type="text" name="{$input.name}" value="{$input.value}" size="30" class="form" onmouseover="this.focus();" />
+	      {elseif $input.type == 'select'}
+	        <select name="{$input.name}" class="form" onmouseover="this.focus();" {$input.multiple}>
+	        {html_options options=$input.options selected=$input.selected}
+	        </select>
+	      {else}
+	        &nbsp;
+	      {/if}
+	      {if $input.helpletId != ''}
+	        <a href="#" onclick="javascript:var w=window.open('index.php?mod=helplet&action=helplet&design=base&module=mastersearch2&helpletid={$input.helpletId}','_blank','width=700,height=500,resizable=no,scrollbars=yes');" class="underline_on_hover">? {$helpletText}</a>
+	      {/if}
+	    </td>
+	{/if}
   {/foreach}
 </tr>
 {/foreach}
 
-<tr><td class="row_key">
+<tr><td class="mastersearch2_search_row_key">
   &nbsp;
-</td><td class="row_value" colspan="3">
+</td><td class="mastersearch2_search_row_value" colspan="3">
   <input type="submit" class="Button" name="suchen" value="Suchen" />
 </td></tr>
 </table>

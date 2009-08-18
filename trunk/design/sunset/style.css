@@ -257,14 +257,14 @@ body {
 	border-bottom:	1px solid #9D9D9D;
 }
 
-.row_key {			/* old name: tbl_6 */
+.row_key, .mastersearch2_search_row_key, .mastersearch2_result_row_key {			/* old name: tbl_6 */
 	background:		#E8E7E7;
 	padding:		4px;
 	font-size:		11px; 
 	border-bottom:	1px solid #9D9D9D;
 }
 
-.row_value {		/* old name: tbl_1 */
+.row_value, .mastersearch2_search_row_value, .mastersearch2_result_row_value {		/* old name: tbl_1 */
 	background:		#EFEFEF;
 	padding:		4px;
 	font-size:		11px; 
@@ -350,11 +350,12 @@ a:hover, a.link:hover {
 }
 
 /* Link, undelined only, when mouse is over it */
-a.underline_on_hover:link, a.underline_on_hover:visited, a.menu:link, a.menu:visited { 
+a.underline_on_hover:link, a.underline_on_hover:visited, a.menu:link, a.menu:visited,
+a.mastersearch2_result_heading:link, a.mastersearch2_result_heading:visited { 
 	color:			#000000; 
 	text-decoration:none;
 }
-a.underline_on_hover:hover, a.menu:hover {
+a.underline_on_hover:hover, a.menu:hover, a.mastersearch2_result_heading:hover {
 	color:			#666666; 
 	text-decoration:underline;
 }

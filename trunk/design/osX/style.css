@@ -15,6 +15,15 @@ name {
 }
 */
 /* ---- BEGINN neuer Elemente ----*/
+div#LansuiteFullscreen {
+	position: absolute;
+	top: 2px;
+	height: 20px;
+	z-index: 90;
+	font-size: 11px;
+	left: 4px;
+}
+
 div.Headline {
   	position: relative;
   	background: #DEE3E7;
@@ -196,7 +205,7 @@ li.LineLeftHalf {
   	text-align: left;
 }
 
-.row_key {          /* old name: tbl_6 */
+.row_key, .mastersearch2_search_row_key, .mastersearch2_result_row_key {          /* old name: tbl_6 */
   	height: 100%;
   	background: #E8E7E7;
   	padding: 4px;
@@ -206,7 +215,7 @@ li.LineLeftHalf {
   	text-align: left;
 }
 
-.row_value {        /* old name: tbl_1 */
+.row_value, .mastersearch2_search_row_value, .mastersearch2_result_row_value {        /* old name: tbl_1 */
   	height: 100%;
   	background: #EFEFEF;
   	padding: 4px;

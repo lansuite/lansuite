@@ -26,6 +26,15 @@ div#DateLogout {
   	font-size: 11px;
 }
 
+div#LansuiteFullscreen {
+	position: absolute;
+	top: 2px;
+	height: 20px;
+	z-index: 90;
+	font-size: 11px;
+	left: 4px;
+}
+
 div#Logo {
   	position: absolute;   
 	top: 10px;    

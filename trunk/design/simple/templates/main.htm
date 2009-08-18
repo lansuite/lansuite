@@ -33,7 +33,11 @@
 <a name="top"></a>
 <span id="LSloading" class="loading"></span>
 
+{if $MainContentStyleID == 'ContentFullscreen'}
+<div id="LansuiteFullscreen">{$CloseFullscreen}</div>
+{else}
 <div id="Logo">{$MainLogo}</div>
+{/if}
 <div id="DateLogout">{$smarty.now|date_format:"%d.%m.%Y"} | {$MainLogout}</div>
 <div id="Banner">{$MainBanner}</div>
 
