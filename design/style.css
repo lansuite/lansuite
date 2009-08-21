@@ -158,13 +158,13 @@ div.HeadlineHelp {
     background: #EFEFEF;
   font-size: 11px;
 }
-.row_value_highlighted {
+.row_value_highlighted, .mastersearch2_search_row_value_highlighted, .mastersearch2_result_row_value_highlighted {
   height: 100%;
   border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
     background:     #E2F2E2;
   font-size: 11px;
 }
-.row_value_important {
+.row_value_important, .mastersearch2_search_row_value_important, .mastersearch2_result_row_value_important {
   height: 100%;
   border-bottom: 1px solid #9c9d9c;   padding: 4px 2px 0px 2px;
     background: #EEE6BD;
