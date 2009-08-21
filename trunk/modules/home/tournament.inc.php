@@ -50,16 +50,21 @@ if ($auth['type'] > 1) {
 		ORDER BY t.tournamentid, teams1.name
 		", $party->party_id);
 	$x = 0;
+	$multi_select_actions = '';
+	$t_select_options = '';
 	while($team = $db->fetch_array($teams)) {
-    if ($x == 0) $smarty->assign('multi_select_actions', '"'. "tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}" .'"');
-    else $smarty->assign('multi_select_actions', ', "'. "tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}" .'"');
-
-    $team['tuname'] = $func->CutString($team['tuname'], 12);
-    $team['name1'] = $func->CutString($team['name1'], 12);
-    $team['name2'] = $func->CutString($team['name2'], 12);
-  	$smarty->assign('t_select_options', "<option value=\"$x\">{$team["tuname"]} - {$team["name1"]} vs {$team["name2"]}</option>");
+    	if ($x == 0) $multi_select_actions = $multi_select_actions . '"'. "tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}" .'"';
+    	else $multi_select_actions = $multi_select_actions . ', "'. "tournamentid={$team["tid"]}&gameid1={$team["gid1"]}&gameid2={$team["gid2"]}" .'"';
+    	
+    	$team['tuname'] = $func->CutString($team['tuname'], 12);
+    	$team['name1'] = $func->CutString($team['name1'], 12);
+    	$team['name2'] = $func->CutString($team['name2'], 12);
+    	$t_select_options .= "<option value=\"$x\">{$team["tuname"]} - {$team["name1"]} vs {$team["name2"]}</option>";
+  		$smarty->assign('t_select_options', "<option value=\"$x\">{$team["tuname"]} - {$team["name1"]} vs {$team["name2"]}</option>");
 		$x++;
 	}
+	$smarty->assign('multi_select_actions', $multi_select_actions);
+	$smarty->assign('t_select_options', $t_select_options);
 	$content .= $smarty->fetch('modules/home/templates/admin_tournament_selection.htm');
 }
 
