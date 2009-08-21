@@ -275,7 +275,9 @@ function markieren(EintragSpalte) {
   else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
   else return false;
 
-  for (var c = 0; c < Spalten.length; c++) if (Spalten[c].className != 'row_value_highlighted') Spalten[c].className = 'row_value_important';
+  for (var c = 0; c < Spalten.length; c++) 
+	  if (Spalten[c].className.substring(Spalten[c].className.length - 9) == 'row_value') 
+		  Spalten[c].className = Spalten[c].className + '_important';
 
   return true;
 }
@@ -285,8 +287,10 @@ function unmarkieren(EintragSpalte) {
   if (typeof(document.getElementsByTagName) != 'undefined') var Spalten = EintragSpalte.getElementsByTagName('td');
   else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
   else return false;
-
-  for (var c = 0; c < Spalten.length; c++) if (Spalten[c].className != 'row_value_highlighted') Spalten[c].className = 'row_value';
+  
+  for (var c = 0; c < Spalten.length; c++) 
+	  if (Spalten[c].className.substring(Spalten[c].className.length - 19, Spalten[c].className.length) == 'row_value_important') 
+		  Spalten[c].className = Spalten[c].className.substring(0, Spalten[c].className.length-10);
   
   return true;
 }
@@ -297,12 +301,16 @@ function markieren_permanent(EintragSpalte) {
   else if (typeof(EintragSpalte.cells) != 'undefined') var Spalten = EintragSpalte.cells;
   else return false;
 
-  for (var c = 0; c < Spalten.length; c++) if (Spalten[c].className != 'row_value_highlighted') {
-    Spalten[c].className = 'row_value_highlighted';
-    if (c == 0 && typeof(Spalten[c].getElementsByTagName('input')[0]) != 'undefined') Spalten[c].getElementsByTagName('input')[0].checked = true;
-  } else {
-    Spalten[c].className = 'row_value';
-    if (c == 0 && typeof(Spalten[c].getElementsByTagName('input'[0])) != 'undefined') Spalten[c].getElementsByTagName('input')[0].checked = false;
+  for (var c = 0; c < Spalten.length; c++)
+	if (Spalten[c].className.substring(Spalten[c].className.length - 9, Spalten[c].className.length) == 'row_value') {	
+		Spalten[c].className = Spalten[c].className + '_highlighted';
+		if (c == 0 && typeof(Spalten[c].getElementsByTagName('input')[0]) != 'undefined') Spalten[c].getElementsByTagName('input')[0].checked = true;
+	} else if (Spalten[c].className.substring(Spalten[c].className.length - 19, Spalten[c].className.length) == 'row_value_important') {		
+		Spalten[c].className = Spalten[c].className.substring(0, Spalten[c].className.length-10) + '_highlighted'
+		if (c == 0 && typeof(Spalten[c].getElementsByTagName('input')[0]) != 'undefined') Spalten[c].getElementsByTagName('input')[0].checked = true;
+	} else {
+		Spalten[c].className = Spalten[c].className.substring(0, Spalten[c].className.length-12);
+		if (c == 0 && typeof(Spalten[c].getElementsByTagName('input'[0])) != 'undefined') Spalten[c].getElementsByTagName('input')[0].checked = false;
   }
 
   return true;

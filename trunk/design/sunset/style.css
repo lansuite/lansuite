@@ -271,14 +271,14 @@ body {
 	border-bottom:	1px solid #9D9D9D;
 }
 
-.row_value_highlighted {		/* old name: tbl_2 */
+.row_value_highlighted, .mastersearch2_search_row_value_highlighted, .mastersearch2_result_row_value_highlighted {		/* old name: tbl_2 */
 	background:		#E2F2E2;
 	padding:		4px;
 	font-size:		11px; 
 	border-bottom:	1px solid #9D9D9D;
 }
 
-.row_value_important {		/* old name: tbl_important */
+.row_value_important, .mastersearch2_search_row_value_important, .mastersearch2_result_row_value_important {		/* old name: tbl_important */
 	background:		#EEE6BD;
 	padding:		4px;
 	font-size:		11px; 
