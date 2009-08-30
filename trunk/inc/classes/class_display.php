@@ -753,6 +753,7 @@ class display {
       case 'edit': $hint = t('Editieren'); break;
       case 'delete': $hint = t('Löschen'); break;
       case 'send': $hint = t('Senden'); break;
+      case 'quote': $hint = t('Zitieren'); break;
     }
     if ($hint) $smarty->assign('hint', $hint);
     if ($align == 'right') $smarty->assign('additionalhtml', 'align="right" valign="bottom" vspace="2" ');
