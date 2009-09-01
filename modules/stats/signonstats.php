@@ -1,8 +1,8 @@
 <?php
 
   // With or without admins?
-  if ($cfg['guestlist_showorga'] == 0) $querytype = 'type = 1';
-  else $querytype = 'type >= 1';
+  if ($cfg['guestlist_showorga'] == 0) $querytype = 'user.type = 1';
+  else $querytype = 'user.type >= 1';
 
 $dsp->NewContent(t('Anmeldestatistik'), t('Hier sehen Sie die aktuelle Statistik zur laufenden LAN'));
 
