@@ -2,7 +2,7 @@
 
 ### Set Error Reporting & INI-Settings
 
-    error_reporting(E_ALL ^ E_NOTICE);
+    error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
     if (function_exists('ini_set')) {
       #ini_set('display_errors', 0);
       #ini_set('log_errors', 1);
