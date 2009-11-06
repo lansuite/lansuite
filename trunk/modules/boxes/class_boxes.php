@@ -120,8 +120,8 @@ class boxes {
 	
   	function AddJQueryTab($content, $link, $title = NULL, $selected = NULL) {
 	
-		if($selected) $additional = " ui-tabs-selected ui-state-active";
-		$this->box_rows .= "    <li class='ui-state-default ui-corner-top".$additional."'><a href='".$link."' title='".$title."'><em>".$content."</em></a></li>\n";
+#		if($selected) $additional = " ui-tabs-selected ui-state-active";
+#		$this->box_rows .= "    <li class='ui-state-default ui-corner-top".$additional."'><a href='".$link."' title='".$title."'><em>".$content."</em></a></li>\n";
   	}
 	
 	function AddJQueryTabNavStop() {

@@ -131,8 +131,8 @@ class display {
   function AddJQueryTab($content, $link, $title = NULL, $selected = NULL) {
   	global $MainContent;
 		
-		if($selected) $additional = " ui-tabs-selected ui-state-active";
-		$MainContent .= "    <li class='ui-state-default ui-corner-top".$additional."'><a href='".$link."' title='".$title."'><em>".$content."</em></a></li>\n";
+#		if($selected) $additional = " ui-tabs-selected ui-state-active";
+#		$MainContent .= "    <li class='ui-state-default ui-corner-top".$additional."'><a href='".$link."' title='".$title."'><em>".$content."</em></a></li>\n";
 		$this->FirstLine = 1;
   }
   
