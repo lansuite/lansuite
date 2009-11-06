@@ -1,8 +1,8 @@
 <?php
 
-  // With or without admins?
-  if ($cfg['guestlist_showorga'] == 0) $querytype = 'user.type = 1';
-  else $querytype = 'user.type >= 1';
+// With or without admins?
+if ($cfg['guestlist_showorga'] == 0) $querytype = 'user.type = 1';
+else $querytype = 'user.type >= 1';
 
 $dsp->NewContent(t('Anmeldestatistik'), t('Hier sehen Sie die aktuelle Statistik zur laufenden LAN'));
 
@@ -11,14 +11,18 @@ $get_cur = $db->qry_first("SELECT count(userid) as n FROM %prefix%user AS user L
 $cur = $get_cur["n"];
 
 // Wieviele davon haben bezahlt
-$get_cur = $db->qry_first("SELECT count(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE (%plain%) AND (party.paid > 0) AND party_id=%int%", $party->party_id, $querytype);
+$get_cur = $db->qry_first("SELECT count(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE (%plain%) AND (party.paid > 0) AND party_id=%int%", $querytype, $party->party_id);
 $paid = $get_cur["n"];
 
 // Ermittel die derzeitige Zeitdifferenz zwischen Startdatum und Heute
 $party_date = $db->qry_first("SELECT DATEDIFF(startdate, NOW()) AS timetoleft FROM %prefix%partys WHERE party_id = %int%", $party->party_id);
 
-$dsp->AddDoubleRow(t('Ben&ouml;tigte Anmeldung pro Tag'), round((($_SESSION['party_info']['max_guest']-$cur)/$party_date['timetoleft']),2));
-$dsp->AddDoubleRow(t('Ben&ouml;tigte Bezahlungen pro Tag'), round((($_SESSION['party_info']['max_guest']-$paid)/$party_date['timetoleft']),2));
+if (!$party_date['timetoleft'])
+  $dsp->AddSingleRow(t('Derzeit ist keine Party geplant'));
+else {
+  $dsp->AddDoubleRow(t('Ben&ouml;tigte Anmeldung pro Tag'), round((($_SESSION['party_info']['max_guest']-$cur)/$party_date['timetoleft']),2));
+  $dsp->AddDoubleRow(t('Ben&ouml;tigte Bezahlungen pro Tag'), round((($_SESSION['party_info']['max_guest']-$paid)/$party_date['timetoleft']),2));
+}
 
 // Ermittel die derzeitige Zeitdifferenz zwischen Startdatum und Heute
 $party_date = $db->qry_first("SELECT DATEDIFF(startdate, NOW()) AS timetoleft FROM %prefix%partys WHERE party_id = %int%", $party->party_id);
