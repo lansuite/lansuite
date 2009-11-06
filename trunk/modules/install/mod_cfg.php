@@ -46,7 +46,7 @@ switch ($_GET['step']) {
         // Get items in group
     		$res = $db->qry('SELECT cfg_key, cfg_value, cfg_desc, cfg_type, cfg_group FROM %prefix%config
           WHERE cfg_module = %string% and cfg_group = %string%
-          ORDER BY cfg_key',
+          ORDER BY cfg_pos, cfg_desc',
           $_GET["module"], $rowGroup['cfg_group']
           );
   			while ($row = $db->fetch_array($res)){

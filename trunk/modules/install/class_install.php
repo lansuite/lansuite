@@ -192,12 +192,13 @@ class Install {
           $type = $xml->get_tag_content('type', $xml_item);
           $default = $xml->get_tag_content('default', $xml_item);
           $description = $xml->get_tag_content('description', $xml_item);
+          $pos = $xml->get_tag_content('pos', $xml_item);
           array_push($SettingList, $name);
           
           // Insert into DB, if not exists
           $found = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_key = %string%", $name);
-          if (!$found['cfg_key']) $db->qry("INSERT INTO %prefix%config SET cfg_key = %string%, cfg_value = %string%, cfg_type = %string%, cfg_group = %string%, cfg_desc = %string%, cfg_module = %string%",
-  $name, $default, $type, $group, $description, $module);
+          if (!$found['cfg_key']) $db->qry("INSERT INTO %prefix%config SET cfg_key = %string%, cfg_value = %string%, cfg_type = %string%, cfg_group = %string%, cfg_desc = %string%, cfg_module = %string%, cfg_pos = %int%",
+  $name, $default, $type, $group, $description, $module, $pos);
         }
       }
       
