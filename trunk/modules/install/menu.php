@@ -96,7 +96,7 @@ switch($_GET["step"]) {
 
 		$menus = $db->qry("SELECT module.active, menu.* FROM %prefix%menu AS menu
 			LEFT JOIN %prefix%modules AS module ON (menu.module = module.name)
-			WHERE (menu.level = 0) and (menu.caption != '') ORDER BY menu.pos");
+			WHERE (menu.level = 0) and (menu.caption != '') ORDER BY menu.boxid, menu.pos");
 		$z = 0;
 		while ($menu = $db->fetch_array($menus)){
 			$z++;
