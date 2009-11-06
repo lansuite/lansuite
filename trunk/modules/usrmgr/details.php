@@ -182,18 +182,29 @@ else {
       }
       
 
+      //kontostand
+      if (in_array('foodcenter', $ActiveModules)) {
+        $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int%", $_GET['userid']);
+        if ($result['total'] == "") $amount = 0;
+        else $amount = $result['total'];
+  
+        $kontostand = round($amount,2) . " " . $cfg['sys_currency'];
+        $kontostand .= ', '. t('Zahlung vornehmen') .': '.$dsp->AddIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid='.$_GET['userid']);
+        $dsp->AddDoubleRow(t('Aktueller Kontobetrag:'), $kontostand);
+      } 
+
       $dsp->AddFieldsetStart(t('Kontakt'));
-            // Address
-            $address = '';
-            if (($user_data['street'] != '' or $user_data['hnr']) and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1')))
-                $address .= $user_data['street'] .' '. $user_data['hnr'] .', ';
-            if (($user_data['plz'] != '' or $user_data['city']) and ($cfg['user_showcity4all'] == '1' or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']))
-                $address .= $user_data['plz'] .' '. $user_data['city'];
-            if ($address) $dsp->AddDoubleRow(t('Adresse'), $address);
+      // Address
+      $address = '';
+      if (($user_data['street'] != '' or $user_data['hnr']) and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1')))
+          $address .= $user_data['street'] .' '. $user_data['hnr'] .', ';
+      if (($user_data['plz'] != '' or $user_data['city']) and ($cfg['user_showcity4all'] == '1' or $auth['type'] >= 2 or $auth['userid'] == $_GET['userid']))
+          $address .= $user_data['plz'] .' '. $user_data['city'];
+      if ($address) $dsp->AddDoubleRow(t('Adresse'), $address);
 
 
-            // Phone
-            $phone = '';
+      // Phone
+      $phone = '';
       if ($user_data['telefon'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= $dsp->AddIcon('phone', '', 'Phone'). ' '. $user_data['telefon'] . ' ';
       if ($user_data['handy'] and (IsAuthorizedAdmin() or $auth['userid'] == $_GET['userid'])) $phone .= $dsp->AddIcon('cellphone', '', 'Handy'). ' '. $user_data['handy'] . ' ';
       $dsp->AddDoubleRow(t('Telefon'), $phone);
