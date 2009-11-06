@@ -38,7 +38,7 @@ elseif ($_GET['pollid'])  {
   $db->free_result($res);
 }
 if ($_GET['pollid']) $mf->AddField(t('Polloptionen ändern') .'|'. t('Achtung: Dies führt dazu, dass die Abstimmung zurückgesetzt wird!'), 'poll_reset', 'tinyint(1)', '', FIELD_OPTIONAL, '', 10);
-for ($z = 1; $z <= 10; $z++) {
+for ($z = 1; $z <= 20; $z++) {
   ($z <= 2)? $optional = 0 : $optional = FIELD_OPTIONAL;
   $mf->AddField(t('Option') ." $z", "poll_option[$z]", 'varchar(80)', '', $optional);
 }
