@@ -10,6 +10,7 @@
  *
  * @return string the translated String
  */
+$translation_no_html_replace = false;
 function t(/*$input, $parameter1, $parameter2....*/) {
     global $db, $translation, $func;
     
@@ -49,15 +50,22 @@ function t(/*$input, $parameter1, $parameter2....*/) {
         }
     }
 
-    // Deprecated. Should be replaced in t() by '<', '>' and '[br]'
-    $output = str_replace("--lt--", "<", $output);
-    $output = str_replace("--gt--", ">", $output);
-    $output = str_replace("HTML_NEWLINE", "<br />", $output);
-
-    return $func->text2html($output, 4);
-#    return $output;
+    if (!$translation_no_html_replace) {
+      // Deprecated. Should be replaced in t() by '<', '>' and '[br]'
+      $output = str_replace("--lt--", "<", $output);
+      $output = str_replace("--gt--", ">", $output);
+      $output = str_replace("HTML_NEWLINE", "<br />", $output);
+  
+      return $func->text2html($output, 4);
+    } else return $output;
 }
 
+function t_no_html() {
+  $args = func_get_args();
+  $translation_no_html_replace = true;
+  t($args);
+  $translation_no_html_replace = false;
+}
 /**
  * Global Translation
  *
