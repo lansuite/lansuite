@@ -138,14 +138,14 @@ $xml_file = fread ($handle, filesize ($file));
 fclose ($handle);
 
 $selections = array();
-$selections['0'] = t('Kein WWCL-Support für dieses Turnier');
-
 $game_ids = $xml->get_tag_content_array("id", $xml_file);
 $game_namen = $xml->get_tag_content_array("name", $xml_file);
 while ($akt_game_id = array_shift($game_ids)) {
 	$akt_game_name = array_shift($game_namen);
 	$selections[$akt_game_id] = $akt_game_name;
 }
+asort($selections);
+$selections = array('0' => t('Kein WWCL-Support für dieses Turnier')) + $selections;
 $mf->AddField(t('WWCL-Spiel'), 'wwcl_gameid', IS_SELECTION, $selections, FIELD_OPTIONAL, 'CheckModeForWWCLLeague');
 
 // NGL-Spiel auswahl
@@ -156,8 +156,6 @@ $xml_file = fread ($handle, filesize ($file));
 fclose ($handle);
 
 $selections = array();
-$selections[''] = t('Kein NGL-Support für dieses Turnier');
-
 # and $cfg["sys_country"] != "at" and $cfg["sys_country"] != "ch"
 if ($cfg["sys_country"] != "de") $mf->AddField(t('NGL-Support ist nur für Partys in Deutschland möglich. Das Land deiner Party kannst du auf der Adminseite einstellen'), 'ngl_gamename', IS_TEXT_MESSAGE, t('NGL-Support ist nur in Deutschland, Österreich, oder der Schweiz möglich. Das Land deiner Party kannst du auf der Adminseite einstellen'));
 else {
@@ -177,6 +175,8 @@ else {
 			}
 		}
 	}
+	asort($selections);
+  $selections = array('0' => t('Kein NGL-Support für dieses Turnier')) + $selections;
 	$mf->AddField(t('NGL-Spiel'), 'ngl_gamename', IS_SELECTION, $selections, FIELD_OPTIONAL, 'CheckModeForLeague');
 }
 
@@ -188,24 +188,25 @@ $xml_file = fread ($handle, filesize ($file));
 fclose ($handle);
 
 $selections = array();
-$selections[''] = t('Kein LGZ-Support für dieses Turnier');
-
 $games = $xml->get_tag_content_array("game", $xml_file);
 foreach ($games as $game){
   $akt_game_name = $xml->get_tag_content("contest", $game) .' - '. $xml->get_tag_content("name", $game);
   $syscode = $xml->get_tag_content("syscode", $game);
 	$selections[$syscode] = $akt_game_name;
 }
+asort($selections);
+$selections = array('0' => t('Kein LGZ-Support für dieses Turnier')) + $selections;
 $mf->AddField(t('LGZ-Spiel'), 'lgz_gamename', IS_SELECTION, $selections, FIELD_OPTIONAL, 'CheckModeForLeague');
 
 // Rules (Extern)
 $selections = array();
-$selections[] = t('Keines');
 $verz = opendir('ext_inc/tournament_rules/');
 while ($file_name = readdir($verz)) if (!is_dir('ext_inc/tournament_rules/'.$file_name) and $file_name != 'gameini.xml'
   and $file_name != 'games.xml' and $file_name != 'info.txt' and $file_name != 'xml_games.xml')
   $selections[$file_name] = $file_name;
 closedir($verz);
+asort($selections);
+$selections = array('' => t('Keines')) + $selections;
 $mf->AddField(t('Externes Regelwerk'), 'rules_ext', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
 $mf->AddField(t('Bemerkung / Zusätzliche Regeln'), 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
