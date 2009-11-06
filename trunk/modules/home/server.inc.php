@@ -8,7 +8,7 @@ $query = $db->qry("SELECT serverid, caption, type, UNIX_TIMESTAMP(changedate) AS
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $smarty->assign('link', "index.php?mod=server&action=show_details&serverid={$row["serverid"]}");
   $smarty->assign('text', $func->CutString($row["caption"], 40));
-  $smarty->assign('text2', "(".$row["type"].")");
+  $smarty->assign('text2', " (".$row["type"].")");
 
   if ($func->CheckNewPosts($row['changedate'], 'server', $row['serverid'])) $content .= $smarty->fetch('modules/home/templates/show_row_new.htm');
   else $content .= $smarty->fetch('modules/home/templates/show_row.htm');

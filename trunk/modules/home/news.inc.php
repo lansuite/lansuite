@@ -13,11 +13,12 @@ $query = $db->qry("SELECT n.newsid, n.caption, n.priority, UNIX_TIMESTAMP(n.chan
 if ($db->num_rows($query) > 0) while ($row = $db->fetch_array($query)) {
   $smarty->assign('link', "index.php?mod=news&action=comment&newsid={$row["newsid"]}");
   if ($cfg['news_comments_allowed'])
-  	$smarty->assign('text', $func->CutString($row["caption"], 40) .' ['.$row['comments'].']');
+  	$smarty->assign('text', $func->CutString($row["caption"], 40));
   else
     $smarty->assign('text', $func->CutString($row["caption"], 40));
-  if ($row["priority"] == 1)   $smarty->assign('text2', "<strong>!!!</strong>");
-  else $smarty->assign('text2', '');
+  $text2 = ' ['.$row['comments'].']';
+  if ($row["priority"] == 1) $text2 .= '<strong>!!!</strong>';
+  $smarty->assign('text2', $text2);
 
   if ($func->CheckNewPosts($row['changedate'], 'news', $row['newsid'])) $content .= $smarty->fetch('modules/home/templates/show_row_new.htm');
   else $content .= $smarty->fetch('modules/home/templates/show_row.htm');
