@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include_once("modules/foodcenter/class_product.php");
 include_once("modules/foodcenter/class_accounting.php");
 $product_list = new product_list();
@@ -45,7 +45,7 @@ switch ($_GET['step']) {
 				}else{
 					$price = $price * $prodrow['pice'];
 				}
-				$account->change($price,t('Rückzahlung bei abbestellten Produkten') . " (" . $auth['username'] . ")");
+				$account->change($price,t('Rückzahlung bei abbestellten Produkten') . " (" . $auth['username'] . ")",$prodrow['userid']);
 				
 				if(!isset($_POST['delcount']) || $_POST['delcount'] == $prodrow['pice']){
 					$db->qry_first("DELETE FROM %prefix%food_ordering WHERE id = %int%", $_GET['id']);
@@ -187,28 +187,55 @@ switch ($_GET['step']){
 		foreach($_POST["action"] AS $item => $val) {
 			if($_GET["status"] == 6 | $_GET["status"] == 7){
 				$db->qry("UPDATE %prefix%food_ordering SET status = %string%, lastchange = %string%, supplytime = %string%  WHERE id = %string%", $_GET["status"], $time, $time, $item);
+
+//sitzplan popup einbinden
+//change by jan für sitzplatz popup $item = id in food_ordering table
+				//unit food_option (größe)
+				$abfrage = $db->qry_first("SELECT %prefix%food_ordering.userid AS userid,%prefix%food_ordering.pice AS pice,unit, %prefix%food_product.caption AS caption, username, name, firstname
+				FROM %prefix%food_ordering,%prefix%food_option, %prefix%food_product, %prefix%user
+				WHERE %prefix%food_ordering.id = ".$item." 
+				AND lastchange=".$time." 
+				AND supplytime=".$time." 
+				AND %prefix%food_product.id = %prefix%food_option.parentid 
+				AND %prefix%food_ordering.productid = %prefix%food_product.id
+				AND %prefix%user.userid = %prefix%food_ordering.userid");
+				//$dsp->AddDoubleRow('Ergebnis', $seat2->SeatOfUser($abfrage['userid'], 0, 2));
+				$dsp->AddDoubleRow('Was -> Wohin', $abfrage['pice'].' x '.$abfrage['caption']. ' ('.$abfrage['unit']. ') -> '.$abfrage['username'].' ('.$abfrage['firstname'].' '.$abfrage['name'].') '.$seat2->SeatOfUser($abfrage['userid'], 0, 2));
+				
+				
+				//change ende
+
 			}elseif ($_GET["status"] == 8){
+				$totprice = 0;
 				$prodrow = $db->qry_first("SELECT * FROM %prefix%food_ordering WHERE id = %string%", $item);				
 				
 				unset($account);
 				$account = new accounting($prodrow['userid']);
 				$price = 0;
+				$tempdesc = "";
 				if(stristr($prodrow['opts'],"/")){
 					$values = split("/",$prodrow['opts']);
 
 					foreach ($values as $number){
 						if(is_numeric($number)){
-							$optrow = $db->qry_first("SELECT price FROM %prefix%food_option WHERE id = %int%", $number);
+							$optrow = $db->qry_first("SELECT price, caption FROM %prefix%food_option WHERE id = %int%", $number);
 							$price += $optrow['price'];
+							$tempdesc .= $optrow['caption'];
 						}
 
 					}
 				}else{
-					$optrow = $db->qry_first("SELECT price FROM %prefix%food_option WHERE id = %int%", $prodrow['opts']);
+					$optrow = $db->qry_first("SELECT price, caption FROM %prefix%food_option WHERE id = %int%", $prodrow['opts']);
 					$price += $optrow['price'];
+					$tempdesc .= $optrow['caption'];
 				}
 				$totprice += $price * $prodrow['pice'];
-				$account->change($totprice,t('Rückzahlung bei abbestellten Produkten') . " (" . $auth['username'] . ")");
+				$tempsession = $_SESSION;
+				$account->change(	$totprice,
+									t('Rückzahlung bei abbestellten Produkten') . " (" . $auth['username'] . ") Artikel:".$tempdesc,
+									$prodrow['userid']);
+				$_SESSION = $tempsession;
+				unset($tempsession);
 				$db->qry_first("DELETE FROM %prefix%food_ordering WHERE id = %int%", $item);
 			}else{
 				$db->qry("UPDATE %prefix%food_ordering SET status = %string%, lastchange = %string%  WHERE id = %string%", $_GET["status"], $time, $item);

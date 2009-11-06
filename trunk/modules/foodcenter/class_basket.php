@@ -1,6 +1,7 @@
 <?php
 
-include_once("modules/cashmgr/class_accounting.php");
+//include_once("modules/cashmgr/class_accounting.php");
+include_once("modules/foodcenter/class_accounting.php");
 
 
 class basket{
@@ -13,7 +14,7 @@ class basket{
 	function basket($backlink = null){
 		global $auth;
 		
-		$this->account = new accounting();
+		$this->account = new accounting($auth->user_id);
 		
 		// Load Basket
 		if(!isset($_SESSION['basket_item']['product'])){
@@ -83,7 +84,7 @@ class basket{
 	
 	
 	function change_basket($userid){
-		global $func, $cfg;
+		global $func, $cfg, $db;
 		$ok = true;
 		$this->count = 0;
 		foreach ($_POST as $key => $value){
@@ -102,10 +103,25 @@ class basket{
 		// Wird nur ausgeführt wenn Credit-System an
 		if( $cfg['foodcenter_credit'] == 0)
 		{
+//accounting($userid);
+//echo("<script language='JavaScript'>alert
+//('kram1 : ".$this->balance." ');</script>");
+	
+			$result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = ".$userid);
+		
+		if($result['total'] == ""){
+			$this->balance = 0;
+		}else {
+			$this->balance = $result['total'];
+		}
 
-			if($this->product->count_products_price() <= $this->account->balance){
+	
+			if($this->product->count_products_price() <= $this->balance){
 				return $ok;
 			}else{
+				
+			
+										
 				$func->error(t('Nicht genügend Geld auf dem Konto.'),"index.php?mod=foodcenter&action={$_GET['action']}");
 				return false;
 			}
@@ -117,7 +133,7 @@ class basket{
 	
 	function order_basket($userid, $delivered = 0){
 		global $auth;
-		$this->account->booking($this->product->order_product($userid,$delivered),t('Bestellung Foodcenter') . "  (" . $auth['username'] . ")");
+		$this->account->change(- $this->product->order_product($userid,$delivered),t('Bestellung Foodcenter') . "  (" . $auth['username'] . ") Artikel:".$this->product->order_productdesc($userid,$delivered),$userid);
 		unset($this->product);
 		$this->product = new product_list();
 		unset($_SESSION['basket_item']['product']);

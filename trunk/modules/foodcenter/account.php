@@ -67,7 +67,7 @@ switch($_GET['act']){
 			
 			case "3":
 				$account = new accounting($_GET['userid']);
-				$account->change($_POST['amount'],$_POST['comment'] . " (" . $auth['username'] . ")");
+				$account->change($_POST['amount'],$_POST['comment'] . " (" . $auth['username'] . ")",$_GET['userid']);
 				$account->list_balance();
 			break;
 			
