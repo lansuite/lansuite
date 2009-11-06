@@ -159,7 +159,8 @@ class func {
   function unixstamp2date($func_timestamp,$func_art) {
     global $lang;
 
-    switch($func_art) {
+    if ((int)$func_timestamp == 0) return '---';
+    else switch($func_art) {
         case "year":        $func_date  = date("Y", $func_timestamp);       break;      
         case "month":       $func_date  = date("Y", $func_timestamp) ." - ". $this->translate_monthname(date("F", $func_timestamp));        break;      
         case "date":        $func_date  = date("d.m.Y", $func_timestamp);       break;      
