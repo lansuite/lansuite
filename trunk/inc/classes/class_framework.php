@@ -31,6 +31,7 @@ class framework {
     var $main_header_jscode = "";           // Headercode for JS-Code
     var $main_header_cssfiles = "";         // Headercode for CSS-Files
     var $main_header_csscode = "";          // Headercode for CSS-Code
+    var $IsMobileBrowser = false;
   /**#@-*/
   
   /**
@@ -204,6 +205,7 @@ class framework {
     $smarty->assign('main_header_jscode', $this->main_header_jscode);
     $smarty->assign('main_header_cssfiles', $this->main_header_cssfiles);
     $smarty->assign('main_header_csscode', $this->main_header_csscode);
+    $smarty->assign('IsMobileBrowser', $this->IsMobileBrowser);
     
     ### Switch Displaymodus (popup, base, print, normal)                    
     switch ($this->modus) {

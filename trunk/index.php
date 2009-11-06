@@ -33,6 +33,9 @@
     #header('Content-Type: application/xhtml+xml; charset=utf-8');
     #header("Cache-Control: no-cache, must-revalidate");
 
+    include_once("ext_scripts/mobile_device_detect.php");
+    $framework->IsMobileBrowser = mobile_device_detect();
+
     // For XHTML compatibility
     @ini_set('arg_separator.output', '&amp;');
 
