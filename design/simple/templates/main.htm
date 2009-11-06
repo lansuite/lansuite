@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" href="ext_scripts/niftycube/niftyCorners.css" />
   <link rel="stylesheet" type="text/css" href="design/style.css" />
   <link rel="stylesheet" type="text/css" href="design/{$Design}/style.css" />
+  {if $IsMobileBrowser}<link rel="stylesheet" type="text/css" href="design/{$Design}/style_mobile.css" />{/if}
   {$main_header_csscode} 
   {$main_header_jsfiles}
   <script type="text/javascript" src="ext_scripts/niftycube/niftycube.js"></script>
@@ -49,7 +50,7 @@
   <div id="Footer">{$Footer}</div>
   {$MainDebug}
 </div>
-<div id="BoxesRight">{$MainRightBox}</div>
+{if !$IsMobileBrowser}<div id="BoxesRight">{$MainRightBox}</div>{/if}
 
 </body>
 </html>
