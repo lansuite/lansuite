@@ -9,6 +9,7 @@ function ShowMap() {
     var map = new GMap2(document.getElementById("GoogleMaps"));
     map.addControl(new GSmallMapControl());
     map.addControl(new GMapTypeControl());
+    map.enableScrollWheelZoom();
     map.setCenter(new GLatLng(51.17689812200107, 9.84375), 6);
 
     var geocoder = new GClientGeocoder();
