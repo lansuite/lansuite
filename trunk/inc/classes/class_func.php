@@ -424,12 +424,6 @@ class func {
         $string = str_replace('[/color]', '</font>', $string);
 
         if ($mode != 1) {
-          $res = $db->qry("SELECT shortcut, image FROM %prefix%smilies");
-          while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
-          $db->free_result($res);
-        }
-
-        if ($mode != 1) {
           $string = preg_replace_callback(
             '#\[c\](.)*\[\/c\]#sUi',
             create_function(
@@ -439,7 +433,14 @@ class func {
             $string
           );
         }
+
+        if ($mode != 1) {
+          $res = $db->qry("SELECT shortcut, image FROM %prefix%smilies");
+          while ($row = $db->fetch_array($res)) $string = str_replace($row['shortcut'], $img_start2 . $row['image'] . $img_end, $string);
+          $db->free_result($res);
+        }
       }
+
               
       return $string;
   }
