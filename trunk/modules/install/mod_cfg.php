@@ -61,6 +61,7 @@ switch ($_GET['step']) {
   						($row['cfg_value'] == $selection['cfg_value']) ? $selected = 'selected' : $selected = '';
   						array_push ($t_array, "<option $selected value=\"{$selection["cfg_value"]}\">". t($selection['cfg_display']) .'</option>');
   					}
+  					if ($selections) asort($selections);
   					$dsp->AddDropDownFieldRow($row['cfg_key'], $row['cfg_desc'], $t_array, '', 1);
 
   				// Show Edit-Fields for Settings
@@ -138,8 +139,9 @@ switch ($_GET['step']) {
       $mf->AddField(t('Zugriff'), 'requirement', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
       $selections = array();
-      $selections[''] = 'Keine';
   		if ($MenuCallbacks) foreach ($MenuCallbacks as $MenuCallback) $selections[$MenuCallback] = $MenuCallback;
+			asort($selections);
+			$selections = array('' => t('Keine')) + $selections;
       $mf->AddField(t('Vorraussetzung'), 'needed_config', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
       $mf->AddGroup($row['caption'] .' ('. $row['link'] .')');
