@@ -13,7 +13,8 @@ $query = $db->qry("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, COUNT
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $smarty->assign('link', "index.php?mod=bugtracker&bugid={$row['bugid']}");
-  $smarty->assign('text', $func->CutString($row['caption'], 40) .' ['. $row['comments'] .']');
+  $smarty->assign('text', $func->CutString($row['caption'], 40));
+  $smarty->assign('text2', ' ['. $row['comments'] .']');
   if ($func->CheckNewPosts($row['changedate'], 'bugtracker', $row['bugid'])) $content .= $smarty->fetch('modules/home/templates/show_row_new.htm');
   else $content .= $smarty->fetch('modules/home/templates/show_row.htm');
 } else $content = "<i>". t('Keine Einträge vorhanden') ."</i>";

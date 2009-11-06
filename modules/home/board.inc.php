@@ -16,9 +16,12 @@ $query = $db->qry("SELECT f.fid, t.tid, MAX(p.pid) AS pid, t.caption, MAX(p.date
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $smarty->assign('link', "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&gotopid={$row['pid']}#pid{$row['pid']}");
 
-  $text = $func->CutString($row['caption'], 40) .' ['. $row['posts'] .']';
-  if ($row['closed']) $text .= ' <div class="infolink" style="display:inline"><img src="design/images/icon_locked.png" border="0" width="12" /><span class="infobox">'. t('Thread wurde geschlossen') .'</span></div>';
+  $text = $func->CutString($row['caption'], 40);
   $smarty->assign('text', $text);
+  
+  $text2 = ' ['. $row['posts'] .']';
+  if ($row['closed']) $text2 .= ' <div class="infolink" style="display:inline"><img src="design/images/icon_locked.png" border="0" width="12" alt="Closed" /><span class="infobox">'. t('Thread wurde geschlossen') .'</span></div>';
+  $smarty->assign('text2', $text2);
 
   if ($func->CheckNewPosts($row['LastPost'], 'board', $row['tid'])) $content .= $smarty->fetch('modules/home/templates/show_row_new.htm');
   else $content .= $smarty->fetch('modules/home/templates/show_row.htm');
