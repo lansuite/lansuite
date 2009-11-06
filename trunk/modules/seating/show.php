@@ -2,14 +2,20 @@
 
 switch($_GET['step']) {
 	default:
-    include_once('modules/seating/search.inc.php');
-	break;
+    #include_once('modules/seating/search.inc.php');
+    
+    $row = $db->qry_first('SELECT blockid FROM %prefix%seat_block
+      WHERE party_id = %int%', $party->party_id);
+    $_GET['blockid'] = $row['blockid'];
 
 	// Show seatplan
 	case 2:
 		$dsp->NewContent(t('Sitzplatz - Informationen'), t('Fahren Sie mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.'));
-		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0));
 
+    $current_url = 'index.php?mod=seating';
+    include_once('modules/seating/search_basic_blockselect.inc.php');
+
+		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0));
 		$dsp->AddBackButton('index.php?mod=seating', 'seating/show');
 		$dsp->AddContent();
 	break;
