@@ -184,8 +184,11 @@
         // FIX : Maybe its a good Idea make a func::get_activemodules()
         // Fetch all names of active modules
         $ActiveModules = array();
-        $res = $db->qry('SELECT name FROM %prefix%modules WHERE active = 1');
-        while($row = $db->fetch_array($res)) $ActiveModules[] = $row['name'];
+        $res = $db->qry('SELECT name, caption FROM %prefix%modules WHERE active = 1');
+        while($row = $db->fetch_array($res)) {
+          $ActiveModules[] = $row['name'];
+          if ($_GET['mod'] == $row['name']) $cfg['sys_page_title'] .= ' - ' .$row['caption'];
+        }
         $db->free_result($res);
         $ActiveModules[] = 'helplet';
         $ActiveModules[] = 'popups';

@@ -282,13 +282,13 @@ nospamfor.us</default>
     	<item>
     		<name>sys_page_title</name>
     		<type>string</type>
-    		<default>Lansuite - Lanparty CMS-System</default>
+    		<default>Lansuite CMS</default>
     		<description>Der Seitentitel. Z.b. oben Links im Browserfenster, oder im RSS-Feed</description>
     	</item>
     	<item>
     		<name>sys_partyurl</name>
     		<type>string</type>
-    		<default>http://www.one-network.org</default>
+    		<default>http://lansuite.orgapage.de</default>
     		<description>Der Link zu der LanParty-Homepage</description>
     	</item>
     	<item>
