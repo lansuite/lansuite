@@ -29,14 +29,19 @@ class accounting{
 		return $this->balance;
 	}
 	
-	function change($price,$comment){
+	function change($price,$comment, $userid){
 		global $db,$config;
-		if(!isset($_SESSION['foodcenter']['account_block'])){
-			$db->qry("INSERT INTO %prefix%food_accounting SET userid=%int%, comment=%string%, movement=%string%,actiontime=NOW()", $this->user_id, $comment, $price);
+
+   // echo("<script language='JavaScript'>alert('TEST');</script>");
+		
+    	if(!isset($_SESSION['foodcenter']['account_block'])){
+    		
+				
+		$db->qry("INSERT INTO %prefix%food_accounting SET userID=%int%, comment=%string%, movement=%string%,actiontime=NOW()", $userid, $comment, $price);
 			$_SESSION['foodcenter']['account_block'] = $_SERVER['QUERY_STRING'];
 		}
 		
-		$result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int%", $this->user_id);
+		$result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userID = %int%", $userid);
 		
 		if($result['total'] == ""){
 			$this->balance = 0;
@@ -47,6 +52,7 @@ class accounting{
 	
 	function list_balance(){
 		global $db,$config,$dsp,$lang,$cfg;
+		
 		
 		$result = $db->qry("SELECT *, DATE_FORMAT(actiontime,\"%d.%m.%y %H:%i\") AS time FROM %prefix%food_accounting WHERE userid = %int% ORDER BY actiontime DESC", $this->user_id);
 		
@@ -110,10 +116,6 @@ class accounting{
 		$dsp->AddContent();
 	}
 }
-
-
-
-
 
 
 ?>

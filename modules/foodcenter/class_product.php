@@ -231,6 +231,16 @@ class product_list{
         }
         return $price;
     }
+    
+    function order_productdesc($userid,$delivered){
+        $tempdesc = ""; 
+        foreach ($this->product_list as $key => $value){
+        	$tempdesc .= " ".$this->product[$key]->caption." *";
+        }
+		//echo("<script language='JavaScript'>alert('TEST : ".$tempdesc." ');</script>");        
+        return $tempdesc;
+    }    
+    
 }
 
 
@@ -679,12 +689,14 @@ class product{
             }
             $dsp->AddSmartyTpl('hiddenbox_stop', 'foodcenter');
         }
+        
         if($this->id != null){
             $dsp->AddFormSubmitRow("edit");
         }else {
             $dsp->AddFormSubmitRow("add");
         }
         
+                
         
         $dsp->AddContent();
     }
