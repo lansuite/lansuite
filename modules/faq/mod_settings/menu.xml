@@ -12,14 +12,6 @@
 		<level>0</level>
 	</entry>
 	<entry>
-		<caption>Suchen</caption>
-		<hint>Durchsuchen Sie die FAQ um schnell zu einer Antwort auf Ihre Frage zu gelangen</hint>
-		<link>?mod=faq&amp;action=search</link>
-		<requirement>0</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
 		<action>add_item</action>
 		<file>add_item</file>
 		<caption>Frage hinzufügen</caption>
