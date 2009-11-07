@@ -103,7 +103,7 @@ $query_signstat = $db->qry_first("SELECT * FROM %prefix%party_user AS pu
 					else
 					{
 						$paidstat = '<font color="red">'. t('Nein') .'!</font>'; 
-						$paidstat_info = '<a href="'.$cfg[signon_paylink].'"><i> '. t('Bezahlinfos') .'</i></a>';
+						if ($cfg['signon_paylink']) $paidstat_info = '<a href="'.$cfg['signon_paylink'].'"><i> '. t('Bezahlinfos') .'</i></a>';
 					}
 				}
 
