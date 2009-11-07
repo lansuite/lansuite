@@ -22,7 +22,7 @@
     $framework = new framework();
     $framework->fullscreen($_GET['fullscreen']);                // Switch fullscreen via GET
     // Notlösung... design als base und popup sollen ganz verschwinden
-    if ($_GET['design']=='base' OR $_GET['design']=='popup' OR $_GET['design']=='ajax') $framework->set_modus($_GET['design']); // Set Popupmode via GET (base, popup)
+    if ($_GET['design']=='base' OR $_GET['design']=='popup' OR $_GET['design']=='ajax' OR $_GET['design']=='print') $framework->set_modus($_GET['design']); // Set Popupmode via GET (base, popup)
     if ($_GET['frmwrkmode']) $framework->set_modus($_GET['frmwrkmode']); // Set Popupmode via GET (base, popup)
     // Ende Notlösung
     $framework->make_clean_url_query($_SERVER['REQUEST_URI']);  // Build interlal URL-Query
