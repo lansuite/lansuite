@@ -17,11 +17,10 @@ else {
     default: $GCountry = 'Germany'; break;
   }
 
-  $res = $db->qry("SELECT u.*, s.avatar_path FROM %prefix%user AS u
-		LEFT JOIN %prefix%usersettings AS s ON u.userid = s.userid
+  $res = $db->qry("SELECT u.* FROM %prefix%user AS u
 		WHERE u.plz > 0 AND u.type > 0
     ");
-    # AND s.show_me_in_map = 1
+    # AND u.show_me_in_map = 1
 
   $templ['addresses'] = '';
   while ($row = $db->fetch_array($res)) {

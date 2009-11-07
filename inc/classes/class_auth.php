@@ -467,10 +467,9 @@ class auth {
     function load_authdata() {
         global $db, $config;
         // Put all User-Data into $auth-Array
-        $user_data = $db->qry_first('SELECT session.userid, session.login, session.ip, user.*, user_set.design
+        $user_data = $db->qry_first('SELECT session.userid, session.login, session.ip, user.*
             FROM %prefix%stats_auth AS session
             LEFT JOIN %prefix%user AS user ON user.userid = session.userid
-            LEFT JOIN %prefix%usersettings AS user_set ON user.userid = user_set.userid
             WHERE session.sessid=%string% ORDER BY session.lasthit', $this->auth["sessid"]);
         if (is_array($user_data)) foreach ($user_data as $key => $val) if (!is_numeric($key)) $this->auth[$key] = $val;
     }

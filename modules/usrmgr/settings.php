@@ -2,8 +2,8 @@
 
 // Create user in user_settings, if not pressent
 // (in some installations this was not created automatically)
-$row = $db->qry_first("SELECT 1 AS found FROM %prefix%usersettings WHERE userid = %int%", $auth['userid']);
-if (!$row['found']) $db->qry("INSERT INTO %prefix%usersettings SET userid = %int%", $auth['userid']);
+#$row = $db->qry_first("SELECT 1 AS found FROM %prefix%user WHERE userid = %int%", $auth['userid']);
+#if (!$row['found']) $db->qry("INSERT INTO %prefix%user SET userid = %int%", $auth['userid']);
 
 function CheckAndResizeUploadPic($AvatarName) {
   global $gd;
@@ -45,5 +45,5 @@ $mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue
 if ($cfg['user_avatarupload']) $mf->AddField(t('Avatar'), 'avatar_path', IS_FILE_UPLOAD, 'ext_inc/avatare/'. $auth['userid'] .'_', FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
 $mf->AddField(t('Signatur'), 'signature', '', LSCODE_ALLOWED, FIELD_OPTIONAL);
 
-$mf->SendForm('', 'usersettings', 'userid', $auth['userid']);
+$mf->SendForm('', 'user', 'userid', $auth['userid']);
 ?>

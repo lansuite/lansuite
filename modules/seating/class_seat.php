@@ -158,9 +158,8 @@ class seat2 {
 		$seat_state = array();
 		$seat_ip = array();
 		$seat_userid = array();
-		$seats_qry = $db->qry('SELECT s.*, u.*, c.name AS clan, c.url AS clanurl, d.avatar_path FROM %prefix%seat_seats AS s
+		$seats_qry = $db->qry('SELECT s.*, u.*, c.name AS clan, c.url AS clanurl, u.avatar_path FROM %prefix%seat_seats AS s
       LEFT JOIN %prefix%user AS u ON u.userid = s.userid
-      LEFT JOIN %prefix%usersettings AS d ON d.userid = u.userid
       LEFT JOIN %prefix%clan AS c ON u.clanid = c.clanid
       WHERE blockid = %int%', $blockid);
 		if (!$db->num_rows() == 0) {

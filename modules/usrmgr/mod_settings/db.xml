@@ -337,6 +337,41 @@
                 <default></default>
                 <extra></extra>
             </field>
+            <field>
+                <name>design</name>
+                <type>varchar(255)</type>
+                <null>NO</null>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>avatar_path</name>
+                <type>varchar(255)</type>
+                <null>NO</null>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>signature</name>
+                <type>text</type>
+                <null>NO</null>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>show_me_in_map</name>
+                <type>tinyint(1)</type>
+                <null>NO</null>
+                <default>1</default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>lsmail_alert</name>
+                <type>tinyint(1)</type>
+                <null>NO</null>
+                <default>0</default>
+                <extra></extra>
+            </field>
         </structure>
     </table>
     <table>

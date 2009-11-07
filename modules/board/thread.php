@@ -14,15 +14,14 @@ function getboardrank($posts) {
 function getuserinfo($userid) {
 	global $db, $cfg, $config;
 
-	$row_poster = $db->qry_first("SELECT username, type FROM %prefix%user WHERE userid=%int%", $userid);
-	$row_poster_settings = $db->qry_first("SELECT avatar_path, signature FROM %prefix%usersettings WHERE userid=%int%", $userid);
+	$row_poster = $db->qry_first("SELECT username, type, avatar_path, signature FROM %prefix%user WHERE userid=%int%", $userid);
 	$count_rows = $db->qry_first("SELECT COUNT(*) AS posts FROM %prefix%board_posts WHERE userid = %int%", $userid);
 
 	$html_image= '<img src="%s" alt="%s" border="0">';
 
 	$user["username"]   =$row_poster["username"];
-	$user["avatar"]     =(func::chk_img_path($row_poster_settings["avatar_path"])) ? sprintf($html_image, $row_poster_settings["avatar_path"], "") : "";
-	$user["signature"]   = $row_poster_settings["signature"];
+	$user["avatar"]     =(func::chk_img_path($row_poster["avatar_path"])) ? sprintf($html_image, $row_poster["avatar_path"], "") : "";
+	$user["signature"]   = $row_poster["signature"];
 
 	if ($cfg['board_ranking'] == TRUE) $user["rank"] = getboardrank($count_rows["posts"]);
 	$user["posts"] = $count_rows["posts"];
