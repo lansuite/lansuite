@@ -285,7 +285,7 @@ class framework {
           $smarty->assign('MainFrameworkmessages', $this->framework_messages); 
           $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
           $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
-          $smarty->assign('MainLogo', '<img src="design/'.$this->design.'/images/lansuite-logo.gif" alt="Lansuite Logo" title="Lansuite Logo" width="191" height="62" border="0" />');
+          $smarty->assign('MainLogo', '<img src="design/'.$this->design.'/images/lansuite-logo.gif" alt="Lansuite Logo" title="Lansuite Logo" border="0" />');
           $smarty->assign('MainDebug', $func->ShowDebug());
         } else {
           // Ausgabe Vollbildmodus    
