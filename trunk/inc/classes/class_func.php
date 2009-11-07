@@ -401,22 +401,15 @@ class func {
       $string = str_replace("[br]", "<br />\n", $string);
       $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
 
-      $string = str_replace('[b]', '<b>', $string);
-      $string = str_replace('[/b]', '</b>', $string);
-      $string = str_replace('[i]', '<i>', $string);
-      $string = str_replace('[/i]', '</i>', $string);
-      $string = str_replace('[u]', '<u>', $string);
-      $string = str_replace('[/u]', '</u>', $string);
-      $string = str_replace('[s]', '<strike>', $string);
-      $string = str_replace('[/s]', '</strike>', $string);
-      $string = str_replace('[sub]', '<sub>', $string);
-      $string = str_replace('[/sub]', '</sub>', $string);
-      $string = str_replace('[sup]', '<sup>', $string);
-      $string = str_replace('[/sup]', '</sup>', $string);
+      $string = preg_replace('#\[b\](.*)\[/b\]#sUi', '<b>\\1</b>', $string);
+      $string = preg_replace('#\[i\](.*)\[/i\]#sUi', '<i>\\1</i>', $string);
+      $string = preg_replace('#\[u\](.*)\[/u\]#sUi', '<u>\\1</u>', $string);
+      $string = preg_replace('#\[s\](.*)\[/s\]#sUi', '<s>\\1</s>', $string);
+      $string = preg_replace('#\[sub\](.*)\[/sub\]#sUi', '<sub>\\1</sub>', $string);
+      $string = preg_replace('#\[sup\](.*)\[/sup\]#sUi', '<sup>\\1</sup>', $string);
 
       if ($mode != 4) {
-        $string = str_replace('[quote]', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">', $string);
-        $string = str_replace('[/quote]', '</div></blockquote>', $string);
+        $string = preg_replace('#\[quote\](.*)\[/quote\]#sUi', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">\\1</div></blockquote>', $string);
 
         $string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
         $string = str_replace('[/size]', '</font>', $string);
