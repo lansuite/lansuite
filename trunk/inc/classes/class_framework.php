@@ -205,30 +205,40 @@ class framework {
     $smarty->assign('main_header_jscode', $this->main_header_jscode);
     $smarty->assign('main_header_cssfiles', $this->main_header_cssfiles);
     $smarty->assign('main_header_csscode', $this->main_header_csscode);
+
     $smarty->assign('IsMobileBrowser', $this->IsMobileBrowser);
-    
+    $smarty->assign('DisplayMode', $this->modus);
+
+    $smarty->assign('MainTitle', $cfg['sys_page_title']);
+    $smarty->assign('MainLogout', '');
+    $smarty->assign('MainLogo', '');
+    $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
+    $smarty->assign('MainJS', $templ['index']['control']['js']);
+    $smarty->assign('MainContent', $this->main_content);                            
+
     ### Switch Displaymodus (popup, base, print, normal)                    
     switch ($this->modus) {
+      case 'print':
+        // Make a Printpopup (without Boxes and Special CSS for printing)
+        $smarty->assign('MainContentStyleID', 'ContentFullscreen');
+        $smarty->display("design/simple/templates/main.htm");
+      break;
+  
       case 'popup': 
         // Make HTML for Popup
-        $smarty->assign('MainTitle', $cfg['sys_page_title']);
         $smarty->assign('MainContentStyleID', 'ContentFullscreen');
-        $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
-        $smarty->assign('MainJS', $templ['index']['control']['js']);
-        $smarty->assign('MainLogout', '');
-        $smarty->assign('MainLogo', '');
-        $smarty->assign('MainContent', $this->main_content);                            
+
         // TODO : Rendundant... zusammenfassen
         if ($compression_mode and $cfg['sys_compress_level']) {
-            Header("Content-Encoding: $compression_mode");
-            echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-            $index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $smarty->fetch("design/{$this->design}/templates/main.htm");
-            $this->content_size = strlen($index);
-            $this->content_crc = crc32($index);
-            $index = gzcompress($index, $cfg['sys_compress_level']);
-            $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
-            echo $index;
-            echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
+          header("Content-Encoding: $compression_mode");
+          echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
+          $index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $smarty->fetch("design/{$this->design}/templates/main.htm");
+          $this->content_size = strlen($index);
+          $this->content_crc = crc32($index);
+          $index = gzcompress($index, $cfg['sys_compress_level']);
+          $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
+          echo $index;
+          echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
         } else $smarty->display("design/{$this->design}/templates/main.htm");
       break;
   
@@ -237,21 +247,9 @@ class framework {
         echo $this->main_content;
       break;
 	  
-	  case 'ajax':
+	    case 'ajax':
         // Make HTML for Sites Without HTML (e.g. for generation Pictures etc)
         echo $this->main_content;
-      break;
-  
-      case 'print':
-        // Make a Printpopup (without Boxes and Special CSS for printing)
-        $smarty->assign('MainTitle', $cfg['sys_page_title']);
-        $smarty->assign('MainContentStyleID', 'ContentFullscreen');
-        $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
-        $smarty->assign('MainJS', $templ['index']['control']['js']);
-        $smarty->assign('MainLogout', '');
-        $smarty->assign('MainLogo', '');
-        $smarty->assign('MainContent', $this->main_content);                            
-        $smarty->display("design/simple/templates/main.htm");
       break;
   
       default :
@@ -265,9 +263,6 @@ class framework {
         if ($cfg["sys_optional_footer"]) $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
         $smarty->assign('Footer', $footer);
 
-        // Title
-        $smarty->assign('MainTitle', $cfg['sys_page_title']);
-
         // Normal HTML-Output with Boxes 
         $smarty->assign('Design', $this->design);
   
@@ -275,9 +270,6 @@ class framework {
         if ($_SESSION['lansuite']['fullscreen']) $smarty->assign('MainContentStyleID', 'ContentFullscreen');
         else $smarty->assign('MainContentStyleID', 'Content');
         
-        $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
-        $smarty->assign('MainJS', $templ['index']['control']['js']);
-
         if ($auth['login']) $smarty->assign('MainLogout', '<a href="index.php?mod=auth&action=logout" class="menu">Logout</a>');     
     
         // Ausgabe Hauptseite
@@ -292,44 +284,44 @@ class framework {
           $smarty->assign('CloseFullscreen', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span> Lansuite - Vollbildmodus</a>');
         }
 		
-		// Start Javascript-Code for MainContent with JQuery-Tabs
-		/*$this->main_header_jscode .= "
-				$(document).ready(function(){
-					$('#MainContentTabs').tabs({
-    					click: function(tab) {
-        					location.href = $.data(tab, 'href');
-        					return false;
-    					}
-					});
-				});
-		";*/
-		
-		// MainContent with JQuery-Tabs for LS-Messenger
-		#$main_content_with_tabs .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='MainContentTabs'>\n";
-		#$main_content_with_tabs .= "  <ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>\n";
-		#$main_content_with_tabs .= "    <li class='ui-state-default ui-corner-top ui-tabs-selected ui-state-active'><a href='#main_content' title='Lansuite'><em>Lansuite</em></a></li>\n";
-		#$main_content_with_tabs .= "  </ul>\n";
-		#$main_content_with_tabs .= "  <div class='ui-content'>\n";
-		#$main_content_with_tabs .= "    <div id='main_content'>\n";
-		#$main_content_with_tabs .= "    <br />\n";
-		$main_content_with_tabs .= $this->main_content;
-		#$main_content_with_tabs .= "    </div>\n";
-		#$main_content_with_tabs .= "  </div>\n";
-		#$main_content_with_tabs .= "</div>\n";
-		
-		$smarty->assign("MainContent", $main_content_with_tabs);
+    		// Start Javascript-Code for MainContent with JQuery-Tabs
+    		/*$this->main_header_jscode .= "
+    				$(document).ready(function(){
+    					$('#MainContentTabs').tabs({
+        					click: function(tab) {
+            					location.href = $.data(tab, 'href');
+            					return false;
+        					}
+    					});
+    				});
+    		";*/
+    		
+    		// MainContent with JQuery-Tabs for LS-Messenger
+    		#$main_content_with_tabs .= "<div class='ui-tabs ui-widget ui-widget-content ui-corner-all' id='MainContentTabs'>\n";
+    		#$main_content_with_tabs .= "  <ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>\n";
+    		#$main_content_with_tabs .= "    <li class='ui-state-default ui-corner-top ui-tabs-selected ui-state-active'><a href='#main_content' title='Lansuite'><em>Lansuite</em></a></li>\n";
+    		#$main_content_with_tabs .= "  </ul>\n";
+    		#$main_content_with_tabs .= "  <div class='ui-content'>\n";
+    		#$main_content_with_tabs .= "    <div id='main_content'>\n";
+    		#$main_content_with_tabs .= "    <br />\n";
+    		#$main_content_with_tabs .= $this->main_content;
+    		#$main_content_with_tabs .= "    </div>\n";
+    		#$main_content_with_tabs .= "  </div>\n";
+    		#$main_content_with_tabs .= "</div>\n";
+    		
+    		#$smarty->assign("MainContent", $main_content_with_tabs);
 		
         // Ausgabe des Hautteils mit oder ohne Kompression
         if ($compression_mode and $cfg['sys_compress_level']) {
-            Header("Content-Encoding: $compression_mode");
-            echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-            $index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $smarty->fetch("design/{$this->design}/templates/main.htm");
-            $this->content_size = strlen($index);
-            $this->content_crc = crc32($index);
-            $index = gzcompress($index, $cfg['sys_compress_level']);
-            $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
-            echo $index;
-            echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
+          header("Content-Encoding: $compression_mode");
+          echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
+          $index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $smarty->fetch("design/{$this->design}/templates/main.htm");
+          $this->content_size = strlen($index);
+          $this->content_crc = crc32($index);
+          $index = gzcompress($index, $cfg['sys_compress_level']);
+          $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
+          echo $index;
+          echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
         } else $smarty->display("design/{$this->design}/templates/main.htm");
       break;
     }
