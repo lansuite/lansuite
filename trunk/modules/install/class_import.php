@@ -353,6 +353,22 @@ class Import {
 
 			// Optimize table
 			$db->qry_first("OPTIMIZE TABLE `%plain%`", $table_name);
+			
+			// Move usersettings to user 
+			if ($table_name == 'user') {
+			  $res = $db->qry("SELECT s.userid, s.design, s.avatar_path, s.signature, s.show_me_in_map, s.lsmail_alert,
+          u.design AS design2, u.avatar_path AS avatar_path2, u.signature AS signature2, u.show_me_in_map AS show_me_in_map2, u.lsmail_alert AS lsmail_alert2
+          FROM %prefix%usersettings AS s
+          LEFT JOIN %prefix%user AS u ON s.userid = u.userid
+          ");
+			  while ($row = $db->fetch_array($res)) {
+			    if ($row['design'] != '' and $row['design2'] == '') { $db->qry('UPDATE %prefix%user SET design = %string%', $row['design']); $db->qry('UPDATE %prefix%usersettings SET design = \'\''); }
+			    if ($row['avatar_path'] != '' and $row['avatar_path2'] == '') { $db->qry('UPDATE %prefix%user SET avatar_path = %string%', $row['avatar_path']); $db->qry('UPDATE %prefix%usersettings SET avatar_path = \'\''); }
+			    if ($row['signature'] != '' and $row['designsignature2'] == '') { $db->qry('UPDATE %prefix%user SET signature = %string%', $row['signature']); $db->qry('UPDATE %prefix%usersettings SET signature = \'\''); }
+			    if ($row['show_me_in_map'] != '' and $row['show_me_in_map2'] == '') { $db->qry('UPDATE %prefix%user SET show_me_in_map = %int%', $row['show_me_in_map']); $db->qry('UPDATE %prefix%usersettings SET show_me_in_map = 0'); }
+			    if ($row['lsmail_alert'] != '' and $row['lsmail_alert2'] == '') { $db->qry('UPDATE %prefix%user SET lsmail_alert = %int%', $row['lsmail_alert']); $db->qry('UPDATE %prefix%usersettings SET lsmail_alert = 0'); }
+        }
+      }
 		}
 	}
 

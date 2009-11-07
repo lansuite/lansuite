@@ -10,10 +10,9 @@ if ($cfg['guestlist_guestmap'] == 2) {
     $where_pid = '';
     if ($party->party_id) $where_pid = "AND (p.party_id = {$party->party_id})";
 
-    $res = $db->qry("SELECT u.*, s.avatar_path FROM %prefix%user AS u
+    $res = $db->qry("SELECT u.* FROM %prefix%user AS u
   		LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
-  		LEFT JOIN %prefix%usersettings AS s ON u.userid = s.userid
-  		WHERE u.plz > 0 AND u.type > 0 AND s.show_me_in_map = 1 %plain%
+  		WHERE u.plz > 0 AND u.type > 0 AND u.show_me_in_map = 1 %plain%
       ", $where_pid);
 
     $templ['addresses'] = '';
@@ -75,10 +74,9 @@ if ($cfg['guestlist_guestmap'] == 2) {
 
   	$res = $db->qry("SELECT user.userid, user.username, user.city, user.plz, COUNT(*) AS anz, locations.laenge, locations.breite
   		FROM %prefix%user AS user
-  		LEFT JOIN %prefix%usersettings AS s ON user.userid = s.userid
   		INNER JOIN %prefix%locations AS locations ON user.plz = locations.plz
   		INNER JOIN %prefix%party_user AS party ON user.userid = party.user_id
-  		WHERE (user.plz > 0) AND s.show_me_in_map = 1 AND (party.party_id = %int%) AND user.type > 0
+  		WHERE (user.plz > 0) AND user.show_me_in_map = 1 AND (party.party_id = %int%) AND user.type > 0
   		GROUP BY locations.laenge, locations.breite
   		", $party->party_id);
   	$z = 0;
@@ -94,10 +92,9 @@ if ($cfg['guestlist_guestmap'] == 2) {
   		// Get list of all users with current plz
   		$res2 = $db->qry("SELECT u.username, u.firstname, u.name
     		FROM %prefix%user AS u
-    		LEFT JOIN %prefix%usersettings AS s ON u.userid = s.userid
     		INNER JOIN %prefix%party_user AS p ON u.userid = p.user_id
     		INNER JOIN %prefix%locations AS locations ON u.plz = locations.plz
-    		WHERE (laenge LIKE %string% AND breite LIKE %string%) AND s.show_me_in_map = 1 AND (p.party_id = %int%) AND u.type > 0
+    		WHERE (laenge LIKE %string% AND breite LIKE %string%) AND u.show_me_in_map = 1 AND (p.party_id = %int%) AND u.type > 0
     		GROUP BY u.userid
     		", $user['laenge'], $user['breite'], $party->party_id);
 		

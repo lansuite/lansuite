@@ -64,15 +64,14 @@ class Mastercomment{
 
     $ms2->query['from'] = "{$config["tables"]["comments"]} AS c
       LEFT JOIN {$config["tables"]["user"]} AS u ON c.creatorid = u.userid
-      LEFT JOIN {$config["tables"]["usersettings"]} AS s ON c.creatorid = s.userid
       ";
     $ms2->query['where'] = "c.relatedto_item = '$mod' AND c.relatedto_id = '$id'";
     $config['dont_link_first_line'] = 1;
 
     $ms2->AddSelect('UNIX_TIMESTAMP(c.date) AS date');
     $ms2->AddSelect('c.creatorid');
-    $ms2->AddSelect('s.avatar_path');
-    $ms2->AddSelect('s.signature');
+    $ms2->AddSelect('u.avatar_path');
+    $ms2->AddSelect('u.signature');
     $ms2->AddSelect('u.userid');
 	if($AddSelect_list) {
 		foreach($AddSelect_list as $key) {
