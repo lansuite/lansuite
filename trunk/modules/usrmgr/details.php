@@ -106,7 +106,7 @@ else {
         $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=changepw', t('Passwort ändern'));
       elseif (IsAuthorizedAdmin())
         $name .= ' '. $dsp->AddIcon('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid='. $_GET['userid'], t('Passwort ändern'));
-      if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change']))
+      if (IsAuthorizedAdmin() or ($_GET['userid'] == $auth['userid'])) # and $cfg['user_self_details_change']
         $name .= ' '. $dsp->AddIcon('edit', 'index.php?mod=usrmgr&action=change&step=1&userid='. $_GET['userid'], t('Editieren'));
       if ($auth['type'] >= 3)
         $name .= ' '. $dsp->AddIcon('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid='. $_GET['userid'], t('Löschen'));

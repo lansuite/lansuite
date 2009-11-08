@@ -52,7 +52,7 @@ if (isset($_POST['login']) and isset($_POST['password'])) {
 
 
 // Show other links
-$box->DotRow(t('Meine Einstellungen'), "index.php?mod=usrmgr&amp;action=settings", '', "menu");
+#$box->DotRow(t('Meine Einstellungen'), "index.php?mod=usrmgr&amp;action=settings", '', "menu");
 // Show Clan
 if(($auth['clanid'] != NULL and $auth['clanid'] > 0) and in_array('clanmgr', $ActiveModules))
 $box->DotRow(t('Mein Clan'), "index.php?mod=clanmgr&amp;step=2&clanid=".$auth['clanid'], '', "menu");
@@ -64,25 +64,17 @@ if (in_array('mail', $ActiveModules)) {
 		WHERE ToUserID = %int% AND mail_status = 'active' AND rx_date IS NULL
 		", $auth['userid']);
 
-	if ($db->num_rows($mails_new) > 0) {
-        $found_not_popped_up_mail = false;
-        while ($mail_new = $db->fetch_array($mails_new)) {
-            if (!isset($_SESSION['mail_popup'][$mail_new['mailID']])) {
-                $_SESSION['mail_popup'][$mail_new['mailID']] = 1;
-                $found_not_popped_up_mail = true;
-            }
-        }
-        //and $found_not_popped_up_mail
-        if ($cfg['mail_popup_on_new_mails'] ) {
-            $box->EngangedRow($dsp->FetchIcon('index.php?mod=mail', 'receive_mail') .' <font color="red">'. t('Sie haben Post!') .'</font>');
-    #       $templ['box']['rows'] .= '<script language="JavaScript">
-    #       OpenWindow("index.php?mod=mail&amp;action=mail_popup&amp;design=popup", "new_mail");
-    #       </script>';
-        }
+	if ($cfg['mail_popup_on_new_mails'] and $db->num_rows($mails_new) > 0) {
+    $found_not_popped_up_mail = false;
+    while ($mail_new = $db->fetch_array($mails_new)) {
+      if (!isset($_SESSION['mail_popup'][$mail_new['mailID']])) {
+        $_SESSION['mail_popup'][$mail_new['mailID']] = 1;
+        $found_not_popped_up_mail = true;
+      }
     }
-    $db->free_result($mails_new);
-    
-    $box->DotRow(t('Mein Postfach') , 'index.php?mod=mail', '', 'menu');
+    $box->DotRow('<a href="index.php?mod=mail"><font color="red">'. t('Neue Nachrichten!') .'</font></a> '. $dsp->FetchIcon('index.php?mod=mail', 'receive_mail', t('Zum Posteingang'), '', 'right'));
+  } else $box->DotRow(t('Mein Postfach') , 'index.php?mod=mail', '', 'menu');
+  $db->free_result($mails_new);
 }
 
 // PDF-Ticket
