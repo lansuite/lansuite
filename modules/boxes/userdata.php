@@ -28,7 +28,7 @@ else $username = $auth['username'];
 $userid_formated = sprintf( "%0".$config['size']['userid_digits']."d", $auth['userid']);
 
 $box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=auth&action=logout"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" /><span class="infobox">'. t('Ausloggen') .'</span></a>');
-$box->EngangedRow("<b>$username</b> ". $dsp->FetchUserIcon($auth["userid"]));
+$box->EngangedRow('<a href="index.php?mod=usrmgr&action=details&userid='. $auth['userid'] .'"><b>'. $username .'</b></a> '. $dsp->FetchUserIcon($auth['userid']));
 #$box->EngangedRow("");
 
 #$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=details&amp;userid='. $auth["userid"], 'details', t('Pers. Details')) .' ';
