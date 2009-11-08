@@ -52,6 +52,17 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
     return true;
 }
 
+function CheckAndResizeUploadPic($AvatarName) {
+  global $gd;
+
+  if ($AvatarName == '') return false;
+  $FileEnding = strtolower(substr($AvatarName, strrpos($AvatarName, '.'), 5));
+  if ($FileEnding != '.png' and $FileEnding != '.gif' and $FileEnding != '.jpg' and $FileEnding != '.jpeg') return t('Bitte eine Grafikdatei auswählen');
+
+  $gd->CreateThumb($AvatarName, $AvatarName, 100, 100);
+  return false;
+}
+
 /**
  * Check for optional gender selection
  *
@@ -219,11 +230,10 @@ function ShowField($key){
 }
 
 if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
-if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and ($cfg['user_self_details_change'] or $missing_fields))) {
   $party_user = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id = %int% AND party_id= %int%", $_GET["userid"], $party->party_id);
   include_once('inc/classes/class_masterform.php');
   $mf = new masterform();
-
+  
   if ($cfg['signon_def_locked'] and !$_GET['userid']) $mf->AddFix('locked', 1);
   
 /*
@@ -231,71 +241,71 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
   if (!isset($_POST['price_id'])) $_POST['price_id'] = $party_user['price_id'];
   if (!isset($_POST['paid'])) $_POST['paid'] = $party_user['paid'];
 */
-  if (!$DoSignon) {
-
-    // If Admin, Creating a new user, or Missing fields:
-    //   Show Username Field
-    ($quick_signon)? $optional = 1 : $optional = 0;
-    if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) $mf->AddField(t('Benutzername'), 'username', '', '', $optional);
-    else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, t('Als Benutzer können Sie Ihren Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden Sie sich dazu bitte an einen Administrator.'));
-
-    if (!$quick_signon) {
-      if (ShowField('firstname')) $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
-      if (ShowField('lastname')) $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
-      $mf->AddGroup(t('Namen'));
-
-      // If Admin: Usertype, Group and Module-Permissions
-      if ($auth['type'] >= 2) {
-        // Usertype
-        $selections = array();
-        $selections['1'] = t('Benutzer');
-        $selections['2'] = t('Administrator');
-        if ($auth['type'] >= 3) $selections['3'] = t('Superadmin');
-        $mf->AddField(t('Benutzertyp'), 'type', IS_SELECTION, $selections, '', '', 1, array('2', '3'));
-
-        // Module-Permissions
-        $selections = array();
-        $res = $db->qry("SELECT module.name, module.caption FROM %prefix%modules AS module
-            LEFT JOIN %prefix%menu AS menu ON menu.module = module.name
-            WHERE menu.file != ''
-            GROUP BY menu.module");
-        while($row = $db->fetch_array($res)) $selections[$row['name']] = $row['caption'];
-        $db->free_result($res);
-
-        if (!$_GET['mf_step'] and $_GET['userid']) {
-          $res = $db->qry("SELECT module FROM %prefix%user_permissions WHERE userid = %int%", $_GET['userid']);
-          while($row = $db->fetch_array($res)) $_POST["permissions"][] = $row["module"];
+  if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and ($cfg['user_self_details_change'] or $missing_fields))) {
+    if (!$DoSignon) {
+  
+      // If Admin, Creating a new user, or Missing fields:
+      //   Show Username Field
+      ($quick_signon)? $optional = 1 : $optional = 0;
+      if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) $mf->AddField(t('Benutzername'), 'username', '', '', $optional);
+      else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, t('Als Benutzer können Sie Ihren Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden Sie sich dazu bitte an einen Administrator.'));
+  
+      if (!$quick_signon) {
+        if (ShowField('firstname')) $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
+        if (ShowField('lastname')) $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
+        $mf->AddGroup(t('Namen'));
+  
+        // If Admin: Usertype, Group and Module-Permissions
+        if ($auth['type'] >= 2) {
+          // Usertype
+          $selections = array();
+          $selections['1'] = t('Benutzer');
+          $selections['2'] = t('Administrator');
+          if ($auth['type'] >= 3) $selections['3'] = t('Superadmin');
+          $mf->AddField(t('Benutzertyp'), 'type', IS_SELECTION, $selections, '', '', 1, array('2', '3'));
+  
+          // Module-Permissions
+          $selections = array();
+          $res = $db->qry("SELECT module.name, module.caption FROM %prefix%modules AS module
+              LEFT JOIN %prefix%menu AS menu ON menu.module = module.name
+              WHERE menu.file != ''
+              GROUP BY menu.module");
+          while($row = $db->fetch_array($res)) $selections[$row['name']] = $row['caption'];
           $db->free_result($res);
+  
+          if (!$_GET['mf_step'] and $_GET['userid']) {
+            $res = $db->qry("SELECT module FROM %prefix%user_permissions WHERE userid = %int%", $_GET['userid']);
+            while($row = $db->fetch_array($res)) $_POST["permissions"][] = $row["module"];
+            $db->free_result($res);
+          }
+  
+          $mf->AddField(t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
+            '('.t('Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
+            '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
+            'permissions', IS_MULTI_SELECTION, $selections, FIELD_OPTIONAL);
+  
+          $mf->AddDropDownFromTable(t('Gruppe'), 'group_id', 'group_id', 'group_name', 'party_usergroups', t('Keine'));
+          $mf->AddGroup('Rechte');
         }
-
-        $mf->AddField(t('Zugriffsberechtigung').HTML_NEWLINE.HTML_NEWLINE.
-          '('.t('Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.') .')'.HTML_NEWLINE.HTML_NEWLINE.
-          '('.t('Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.') .')',
-          'permissions', IS_MULTI_SELECTION, $selections, FIELD_OPTIONAL);
-
-        $mf->AddDropDownFromTable(t('Gruppe'), 'group_id', 'group_id', 'group_name', 'party_usergroups', t('Keine'));
-        $mf->AddGroup('Rechte');
       }
-    }
-    // If not admin and user is created (not changed)
-    // or if quick sign on is enabled
-    if ($quick_signon or ($auth['type'] < 2 and !$_GET['userid'])) $mf->AddFix('type', 1);
-
-    $mf->AddField(t('E-Mail'), 'email', '', '', '', CheckValidEmail);
-    if (($_GET['action'] != 'change' and $_GET['action'] != 'entrance') or ($_GET['action'] == 'entrance' and !$_GET['userid'])) {
-      if ($cfg['signon_autopw']) {
-        $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
-        $mf->AddFix('password', md5($_SESSION['tmp_pass']));
+      // If not admin and user is created (not changed)
+      // or if quick sign on is enabled
+      if ($quick_signon or ($auth['type'] < 2 and !$_GET['userid'])) $mf->AddFix('type', 1);
+  
+      $mf->AddField(t('E-Mail'), 'email', '', '', '', CheckValidEmail);
+      if (($_GET['action'] != 'change' and $_GET['action'] != 'entrance') or ($_GET['action'] == 'entrance' and !$_GET['userid'])) {
+        if ($cfg['signon_autopw']) {
+          $_SESSION['tmp_pass'] = $usrmgr->GeneratePassword();
+          $mf->AddFix('password', md5($_SESSION['tmp_pass']));
+        }
+        else $mf->AddField(t('Passwort'), 'password', IS_NEW_PASSWORD);
+  
+        if ($cfg['signon_captcha'] and !$_GET['userid']) $mf->AddField('', 'captcha', IS_CAPTCHA);
       }
-      else $mf->AddField(t('Passwort'), 'password', IS_NEW_PASSWORD);
-
-      if ($cfg['signon_captcha'] and !$_GET['userid']) $mf->AddField('', 'captcha', IS_CAPTCHA);
+      $mf->AddGroup(t('Zugangsdaten'));
     }
-    $mf->AddGroup(t('Zugangsdaten'));
-  }
-
-  if (!$DoSignon) {
-    if (!$quick_signon) {
+  
+    if (!$DoSignon and !$quick_signon) {
       // Clan Options
       if (ShowField('clan')) {
         if (!isset($_POST['clan'])) {
@@ -387,15 +397,48 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
       }
       $mf->AddGroup(t('Verschiedenes'));
 
-
       // Add extra admin-defined fields    
       $user_fields = $db->qry("SELECT name, caption, optional FROM %prefix%user_fields");
+      $extra_found = 0;
       while ($user_field = $db->fetch_array($user_fields)) {
         $mf->AddField($user_field['caption'], $user_field['name'], '', '', $user_field['optional']);
+        $extra_found = 1;
       }
       $db->free_result($user_fields);
+      if ($extra_found) $mf->AddGroup(t('Sonstiges'));
     }
   }
+
+  if (!$DoSignon and !$quick_signon) {
+    // Settings
+    if (!$_GET['userid']) {
+      if ($cfg['user_design_change']) {
+        $selections = array();
+        $selections[''] = t('System-Vorgabe');
+      
+        $ResDesign = opendir('design/');
+        while ($dir = readdir($ResDesign)) if (is_dir("design/$dir") and file_exists("design/$dir/design.xml") and ($dir != 'beamer')) {
+          $file = "design/$dir/design.xml";
+          $ResFile = fopen ($file, "rb");
+          $XMLFile = fread ($ResFile, filesize ($file));
+          fclose ($ResFile);
+          $DesignName = $xml->get_tag_content('name', $XMLFile);
+          $selections[$dir] = $DesignName;
+        }
+        closedir($ResDesign);
+      
+        $mf->AddField(t('Design'), 'design', IS_SELECTION, $selections, FIELD_OPTIONAL);
+      }
+      
+      $mf->AddField(t('Mich auf der Karte zeigen') .'|'. t('Meine Adresse in der Besucherkarte anzeigen?'), 'show_me_in_map', '', '', FIELD_OPTIONAL);
+      $mf->AddField(t('LS-Mail Alert') .'|'. t('Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist'), 'lsmail_alert', '', '', FIELD_OPTIONAL);
+      
+      if ($cfg['user_avatarupload']) $mf->AddField(t('Avatar'), 'avatar_path', IS_FILE_UPLOAD, 'ext_inc/avatare/'. $_GET['userid'] .'_', FIELD_OPTIONAL, 'CheckAndResizeUploadPic');
+      $mf->AddField(t('Signatur'), 'signature', '', LSCODE_ALLOWED, FIELD_OPTIONAL);
+      $mf->AddGroup(t('Einstellungen'));
+    }
+  }
+
   if ($_GET['mod'] == 'signon') $mf->SendButtonText = 'Benutzer anlegen';
   elseif ($_GET['mod'] == 'usrmgr' and $_GET['action'] == 'entrance' and $_GET['step'] == 3) $mf->SendButtonText = 'Edit. + Einchecken';
 
@@ -413,7 +456,6 @@ if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'
     
     $AddUserSuccess = 1;
   }
-}
 }
 
 if ($_GET['mod'] == 'signon' and $auth['login']) {
