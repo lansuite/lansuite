@@ -2,7 +2,7 @@
 
 ### Set Error Reporting & INI-Settings
 
-    if (defined(E_DEPRECATED)) error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED); // Will work for PHP >= 5.3
+    if (defined('E_DEPRECATED')) error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED); // Will work for PHP >= 5.3
     else error_reporting(E_ALL ^ E_NOTICE); // For PHP < 5.3
     if (function_exists('ini_set')) {
       #ini_set('display_errors', 0);
