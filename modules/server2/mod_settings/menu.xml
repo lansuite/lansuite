@@ -14,7 +14,7 @@
 	<entry>
 		<caption>Admin</caption>
 		<hint>Serverliste verändern</hint>
-		<link>ext_scripts/phgstats/admin/index.php" target="_blank</link>
+		<link>ext_scripts/lgsl/admin.php" target="_blank</link>
 		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<level>1</level>
 	</entry>
