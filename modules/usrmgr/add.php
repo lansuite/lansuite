@@ -411,7 +411,7 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
 
   if (!$DoSignon and !$quick_signon) {
     // Settings
-    if (!$_GET['userid']) {
+    if ($auth['type'] >= 2 or !$_GET['userid'] or ($auth['userid'] == $_GET['userid'] and ($cfg['user_self_details_change'] or $missing_fields))) {
       if ($cfg['user_design_change']) {
         $selections = array();
         $selections[''] = t('System-Vorgabe');
