@@ -129,6 +129,7 @@ class Import {
 					$default_xml = $xml->get_tag_content("default", $field);
 					$extra = $xml->get_tag_content("extra", $field);
 					$foreign_key = $xml->get_tag_content("foreign_key", $field);
+					$on_delete = $xml->get_tag_content("on_delete", $field);
 					$reference = $xml->get_tag_content("reference", $field);
 					$reference_condition = $xml->get_tag_content("reference_condition", $field);
 
@@ -275,12 +276,18 @@ class Import {
 					// Foreign Key references
 					if ($foreign_key) {
 						list ($foreign_table, $foreign_key_name) = split('\\.', $foreign_key);
-						$row = $db->qry_first('SELECT 1 AS found FROM %prefix%references WHERE
+						$row = $db->qry_first('SELECT 1 AS found, on_delete FROM %prefix%references WHERE
               pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string%',
 						$table_name, $name, $foreign_table, $foreign_key_name);
+            if ($row['on_delete'] != $on_delete) {
+              $db->qry('DELETE FROM %prefix%references WHERE
+                pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string%',
+						  $table_name, $name, $foreign_table, $foreign_key_name);
+						  $row['found'] = 0;
+            }
 						if (!$row['found']) $db->qry('INSERT INTO %prefix%references SET
-              pri_table = %string%, pri_key = %string%, foreign_table = %string%, foreign_key = %string%',
-						$table_name, $name, $foreign_table, $foreign_key_name);
+              pri_table = %string%, pri_key = %string%, foreign_table = %string%, foreign_key = %string%, on_delete = %string%', 
+						$table_name, $name, $foreign_table, $foreign_key_name, $on_delete);
 					}
 					if ($reference) {
 						list ($reference_table, $reference_key) = split('\\.', $reference);
@@ -358,15 +365,15 @@ class Import {
 			if ($table_name == 'user') {
 			  $res = $db->qry("SELECT s.userid, s.design, s.avatar_path, s.signature, s.show_me_in_map, s.lsmail_alert,
           u.design AS design2, u.avatar_path AS avatar_path2, u.signature AS signature2, u.show_me_in_map AS show_me_in_map2, u.lsmail_alert AS lsmail_alert2
-          FROM %prefix%usersettings AS s
-          LEFT JOIN %prefix%user AS u ON s.userid = u.userid
+          FROM %prefix%user AS u
+          LEFT JOIN %prefix%usersettings AS s ON s.userid = u.userid
           ");
 			  while ($row = $db->fetch_array($res)) {
-			    if ($row['design'] != '' and $row['design2'] == '') { $db->qry('UPDATE %prefix%user SET design = %string%', $row['design']); $db->qry('UPDATE %prefix%usersettings SET design = \'\''); }
-			    if ($row['avatar_path'] != '' and $row['avatar_path2'] == '') { $db->qry('UPDATE %prefix%user SET avatar_path = %string%', $row['avatar_path']); $db->qry('UPDATE %prefix%usersettings SET avatar_path = \'\''); }
-			    if ($row['signature'] != '' and $row['designsignature2'] == '') { $db->qry('UPDATE %prefix%user SET signature = %string%', $row['signature']); $db->qry('UPDATE %prefix%usersettings SET signature = \'\''); }
-			    if ($row['show_me_in_map'] != '' and $row['show_me_in_map2'] == '') { $db->qry('UPDATE %prefix%user SET show_me_in_map = %int%', $row['show_me_in_map']); $db->qry('UPDATE %prefix%usersettings SET show_me_in_map = 0'); }
-			    if ($row['lsmail_alert'] != '' and $row['lsmail_alert2'] == '') { $db->qry('UPDATE %prefix%user SET lsmail_alert = %int%', $row['lsmail_alert']); $db->qry('UPDATE %prefix%usersettings SET lsmail_alert = 0'); }
+			    if ($row['design'] != '' and $row['design2'] == '') { $db->qry('UPDATE %prefix%user SET design = %string% WHERE userid = %int%', $row['design'], $row['userid']); $db->qry('UPDATE %prefix%usersettings SET design = \'\' WHERE userid = %int%', $row['userid']); }
+			    if ($row['avatar_path'] != '' and $row['avatar_path2'] == '') { $db->qry('UPDATE %prefix%user SET avatar_path = %string% WHERE userid = %int%', $row['avatar_path'], $row['userid']); $db->qry('UPDATE %prefix%usersettings SET avatar_path = \'\' WHERE userid = %int%', $row['userid']); }
+			    if ($row['signature'] != '' and $row['designsignature2'] == '') { $db->qry('UPDATE %prefix%user SET signature = %string% WHERE userid = %int%', $row['signature'], $row['userid']); $db->qry('UPDATE %prefix%usersettings SET signature = \'\' WHERE userid = %int%', $row['userid']); }
+			    if ($row['show_me_in_map'] != '' and $row['show_me_in_map2'] == '') { $db->qry('UPDATE %prefix%user SET show_me_in_map = %int% WHERE userid = %int%', $row['show_me_in_map'], $row['userid']); $db->qry('UPDATE %prefix%usersettings SET show_me_in_map = 0 WHERE userid = %int%', $row['userid']); }
+			    if ($row['lsmail_alert'] != '' and $row['lsmail_alert2'] == '') { $db->qry('UPDATE %prefix%user SET lsmail_alert = %int% WHERE userid = %int%', $row['lsmail_alert'], $row['userid']); $db->qry('UPDATE %prefix%usersettings SET lsmail_alert = 0 WHERE userid = %int%', $row['userid']); }
         }
       }
 		}
