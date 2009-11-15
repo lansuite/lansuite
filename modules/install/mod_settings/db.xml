@@ -60,6 +60,14 @@
                 <default></default>
                 <extra></extra>
             </field>
+            <field>
+                <name>on_delete</name>
+                <type>varchar(16)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
         </structure>
         <content>
         </content>
@@ -100,7 +108,8 @@
                 <key>IND</key>
                 <default>0</default>
                 <extra></extra>
-                <foreign_key>user.userid</foreign_key>
+            	  <foreign_key>user.userid</foreign_key>
+            	  <on_delete>NO_DELETE</on_delete>
             </field>
             <field>
                 <name>date</name>
@@ -159,6 +168,7 @@
                 <default>0</default>
                 <extra></extra>
             	  <foreign_key>user.userid</foreign_key>
+            	  <on_delete>DELETE</on_delete>
             </field>
             <field>
                 <name>email</name>
@@ -416,6 +426,8 @@
                 <key>IND</key>
                 <default>0</default>
                 <extra></extra>
+            	  <foreign_key>user.userid</foreign_key>
+            	  <on_delete>NO_DELETE</on_delete>
             </field>
             <field>
                 <name>text</name>
