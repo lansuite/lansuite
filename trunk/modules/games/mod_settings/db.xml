@@ -35,6 +35,8 @@
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>NO_DELETE</on_delete>
 			</field>
 			<field>
 				<name>nick</name>

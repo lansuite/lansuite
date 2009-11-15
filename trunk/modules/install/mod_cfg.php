@@ -186,6 +186,7 @@ switch ($_GET['step']) {
 #			$dsp->NewContent(t('Datenbank - Modul') .": ". $_GET["module"], t('Hier können Sie die Datenbankeinträge zu diesem Modul verwalten'));
 
       $mod_tables = '';
+      $mod_tables_arr = array();
 			if (is_dir('modules/'. $_GET['module'] .'/mod_settings')) {
 				$file = 'modules/'. $_GET['module'] .'/mod_settings/db.xml';
 				if (file_exists($file)) {
@@ -203,6 +204,7 @@ switch ($_GET['step']) {
   						$row = $db->qry_first('SHOW TABLE STATUS FROM '. $config['database']['database'] ." LIKE '". $config['database']['prefix'] . $table_name ."'");
   						$TableInfo = ' ['. $row['Rows'] .' Zeilen, '. $func->FormatFileSize($row['Data_length']) .' Daten, '. $func->FormatFileSize($row['Index_length']) .' Indizes]'; #Name, Engine, Version, Row_format, Rows, Avg_row_length, Data_length, Max_data_length, Index_length, Data_free, Auto_increment, Create_time, Update_time, Check_time, Collation, Checksum, Create_options, Comment
   						$mod_tables .= '<b>'. $config['database']['prefix'] . $table_name .'</b>'. $TableInfo . HTML_NEWLINE;
+  						$mod_tables_arr[] = $table_name;
 
   						$res = $db->qry('DESCRIBE %prefix%'. $table_name);
   						while ($row = $db->fetch_array($res)) {
@@ -217,6 +219,38 @@ switch ($_GET['step']) {
 			}
 			$mod_tables = substr($mod_tables, 0, strlen($mod_tables) - 5);
 			$dsp->AddDoubleRow(t('DB-Tabellen dieses Moduls'), $mod_tables);
+
+			$dsp->AddFieldsetStart(t('Abhängigkeiten'));
+			$where = '';
+			foreach ($mod_tables_arr as $table) $where .= ' OR pri_table = \''. $table .'\'';
+			$res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%references WHERE (0 = 1) %plain%', $where);
+			while ($row = $db->fetch_array($res)) {
+			  switch ($row['on_delete']) {
+			    case 'DELETE':    $color = '#ff0000'; break;
+			    case 'NO_DELETE': $color = '#008800'; break;
+			    default:          $color = '#000000'; break;
+        }
+        $dsp->AddDoubleRow('<font color="'. $color .'">'. $row['pri_table'] .'.'. $row['pri_key'] .'</font>', $row['foreign_table'] .'.'. $row['foreign_key']);
+      }
+      $dsp->AddSingleRow('<font color="#ff0000">'. t('Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht') .'</font>');
+      $dsp->AddSingleRow('<font color="#008800">'. t('Grün: Rechts kann kein Eintrag gelöscht werden, solange links nocht mindestens ein Wert auf diesen referenziert') .'</font>');
+			$dsp->AddFieldsetEnd();
+
+			$dsp->AddFieldsetStart(t('Tabellen, die Tabellen dieses Moduls vorraussetzen'));
+			$where = '';
+			foreach ($mod_tables_arr as $table) $where .= ' OR foreign_table = \''. $table .'\'';
+			$res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%references WHERE (0 = 1) %plain%', $where);
+			while ($row = $db->fetch_array($res)) {
+			  switch ($row['on_delete']) {
+			    case 'DELETE':    $color = '#ff0000'; break;
+			    case 'NO_DELETE': $color = '#008800'; break;
+			    default:          $color = '#000000'; break;
+        }
+        $dsp->AddDoubleRow('<font color="'. $color .'">'. $row['pri_table'] .'.'. $row['pri_key'] .'</font>', $row['foreign_table'] .'.'. $row['foreign_key']);
+      }
+      $dsp->AddSingleRow('<font color="#ff0000">'. t('Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht') .'</font>');
+      $dsp->AddSingleRow('<font color="#008800">'. t('Grün: Rechts kann kein Eintrag gelöscht werden, solange links nocht mindestens ein Wert auf diesen referenziert') .'</font>');
+			$dsp->AddFieldsetEnd();
 
 			$dsp->AddFieldsetStart(t('Modul-Datenbank exportieren'));
 			$dsp->SetForm('index.php?mod=install&action=mod_cfg&design=base&step=43&module='. $_GET['module'], '', '', '');
