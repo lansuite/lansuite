@@ -118,7 +118,7 @@ class foodcenter_print{
 	$get_userdata = $db->qry_first("SELECT u.*, s.ip FROM %prefix%user AS u
       								LEFT JOIN %prefix%seat_seats AS s ON s.userid = u.userid
       								LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid
-      WHERE u.userid = %int% AND b.party_id = %int%", $userid, $party->party_id);
+      WHERE u.userid = %int% AND (b.party_id = %int% OR b.party_id IS NULL)", $userid, $party->party_id);
 	return $get_userdata;
 		}
 	}
