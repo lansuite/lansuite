@@ -100,7 +100,7 @@ if ($team_anz < 4) {
 				$db->qry("DELETE FROM %prefix%t2_teams WHERE (teamid = %int%) AND (tournamentid = %int%)", $team2["teamid"], $_GET["tournamentid"]);
 				$db->qry("DELETE FROM %prefix%t2_teammembers WHERE (teamid = %int%) AND (tournamentid = %int%)", $team2["teamid"], $_GET["tournamentid"]);
 
-				$mail->create_sys_mail($team2['leaderid'], t('Ihr Team wurde vom Turnier %1 abgemeldet', $tournament['name']) , t('Der Turnieradmin hat soeben die Paarungen für das Turnier %1 generiert. Da Ihr Team zu diesem Zeitpunkt leider noch nicht vollständig war, wurde es, wie vom Turnieradmin gewünscht, vom Turnier abgemeldet.', $tournament['name']));
+				$mail->create_sys_mail($team2['leaderid'], t_no_html('Ihr Team wurde vom Turnier %1 abgemeldet', $tournament['name']) , t_no_html('Der Turnieradmin hat soeben die Paarungen für das Turnier %1 generiert. Da Ihr Team zu diesem Zeitpunkt leider noch nicht vollständig war, wurde es, wie vom Turnieradmin gewünscht, vom Turnier abgemeldet.', $tournament['name']));
 				$func->log_event(t('Alle unvollständigen Teams im Turnier %1 wurden entfernt', $tournament['name']), 1, t('Turnier Teamverwaltung'));
 			}
 		}
@@ -137,7 +137,7 @@ if ($team_anz < 4) {
 					if ($team["seeding_mark"]) array_push($seed_team_liste, $team["leaderid"]);
 					else array_push($noseed_team_liste, $team["leaderid"]);
 
-					$mail->create_sys_mail($team['leaderid'],  t('Turnier %1 generiert', $tournament['name']) , t('Die Rundes des Turniers %1 wurden soeben generiert. Wir bitten Sie, direkt mit dem ersten Spiel anzufangen, damit es keine unnötge Verzögerung im Turnier gibt. Viel Erfolg!', $tournament['name']));
+					$mail->create_sys_mail($team['leaderid'],  t_no_html('Turnier %1 generiert', $tournament['name']) , t_no_html('Die Rundes des Turniers %1 wurden soeben generiert. Wir bitten Sie, direkt mit dem ersten Spiel anzufangen, damit es keine unnötge Verzögerung im Turnier gibt. Viel Erfolg!', $tournament['name']));
 				}
 				$seeded_teams_num = count($seed_team_liste);
 

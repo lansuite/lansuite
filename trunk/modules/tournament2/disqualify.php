@@ -50,7 +50,7 @@ else switch ($_GET["step"]){
 
 		$func->log_event(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Das Team \'%NAME%\' wurde im Turnier \'%T%\' disqualifiziert'))), 1, t('Turnier Teamverwaltung'));
 
-		$mail->create_sys_mail($team['leaderid'], str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Ihr Team \'%NAME%\' wurde im Turnier \'%T%\' disqualifiziert'))), str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Ein Admin hat soeben Ihr Team \'%NAME%\' im Turnier \'%T%\' disqualifiziert. Damit nehmen Sie nicht mehr teil.'))));
+		$mail->create_sys_mail($team['leaderid'], str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t_no_html('Ihr Team \'%NAME%\' wurde im Turnier \'%T%\' disqualifiziert'))), str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t_no_html('Ein Admin hat soeben Ihr Team \'%NAME%\' im Turnier \'%T%\' disqualifiziert. Damit nehmen Sie nicht mehr teil.'))));
 
 		$func->confirmation(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Das Team \'%NAME%\' wurde erfolgreich im Turnier \'%T%\' disqualifiziert'))), "index.php?mod=tournament2");
 	break;
@@ -62,7 +62,7 @@ else switch ($_GET["step"]){
 
 		$func->log_event(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Die Disqualifikation des Teams \'%NAME%\' im Turnier \'%T%\' wurde zurückgenommen'))), 1, t('Turnier Teamverwaltung'));
 
-		$mail->create_sys_mail($team['leaderid'], str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Die Disqualifikation deines Teams \'%NAME%\' wurde zurückgenommen'))), str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Ein Admin hat gerade die Disqualifikation deines Teams \'%NAME%\' im Turnier \'%T%\' zurückgenommen. Sie können wieder am Turnier teilnehmen.'))));
+		$mail->create_sys_mail($team['leaderid'], str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t_no_html('Die Disqualifikation deines Teams \'%NAME%\' wurde zurückgenommen'))), str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t_no_html('Ein Admin hat gerade die Disqualifikation deines Teams \'%NAME%\' im Turnier \'%T%\' zurückgenommen. Sie können wieder am Turnier teilnehmen.'))));
 
 		$func->confirmation(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Die Disqualifikation des Teams \'%NAME%\' im Turnier \'%T%\' wurde erfolgreich zurückgenommen. Achten Sie darauf, dass alle Ergebnise, die durch die Disqualifizierung automatisch eingetragen wurden, immernoch eingetragen sind. Um diese zu korrigieren, können Sie die betreffenden Spiele einfach mit neuen Ergebnisen überschreiben.'))), "index.php?mod=tournament2");
 	break;
