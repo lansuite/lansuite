@@ -160,9 +160,10 @@
 				<name>tournamentid</name>
 				<type>tinyint(3) unsigned</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>tournament_tournaments.tournamentid</foreign_key>
 			</field>
 		</structure>
 		<content>

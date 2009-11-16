@@ -80,33 +80,37 @@
 				<name>origin_userid</name>
 				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>target_userid</name>
 				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>target_userid_old</name>
 				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>assignby_userid</name>
 				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>orgaonly</name>
@@ -152,9 +156,10 @@
 				<name>cat</name>
 				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>troubleticket_cat.cat_id</foreign_key>
 			</field>
 			<field>
 				<name>changedate</name>

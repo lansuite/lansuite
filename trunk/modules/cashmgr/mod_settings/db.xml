@@ -27,6 +27,7 @@
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>party_usergroup.group_id</foreign_key>
 			</field>
 			<field>
 				<name>toUserid</name>
@@ -35,6 +36,7 @@
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>fromUserid</name>
@@ -43,6 +45,7 @@
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>partyid</name>
@@ -51,6 +54,7 @@
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>partys.party_id</foreign_key>
 			</field>
 			<field>
 				<name>modul</name>
@@ -115,6 +119,5 @@
 				<default></default>
 				<extra></extra>
 			</field>
-
 		</structure>	
 </lansuite>

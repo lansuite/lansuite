@@ -119,9 +119,10 @@
 				<name>deviceid</name>
 				<type>int(4) unsigned</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>noc_devices.id</foreign_key>
 			</field>
 			<field>
 				<name>portnr</name>
