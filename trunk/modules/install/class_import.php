@@ -34,6 +34,9 @@ class Import {
 		$this->xml_content = fread($xml_file, filesize($tmp_file_name));
 		fclose($xml_file);
 
+    // Due to a bug in PHP "5.2.4-2ubuntu5.7", fread seams to replace all ' with ''. So lets fix this:
+    $this->xml_content = str_replace("''", "'", $this->xml_content);
+
 		## Get Header-Tag
 		$header = "";
 		$this->xml_content_lansuite = $xml->get_tag_content("LANsurfer", $this->xml_content, 0);
