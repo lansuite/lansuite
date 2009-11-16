@@ -682,12 +682,12 @@ class tfunc {
 				// Log action and send mail
 				$func->log_event(t('Das Ergebnis des Spieles %1 gegen %2 im Turnier %3 wurde automatisch gelost, da die Zeit überschritten wurde', $name1, $name2, $tournament['name']), 1, t('Turnier Ergebnise'));
 				$mail->create_sys_mail($leaderid1,
-					t('Zeitüberschreitung im Turnier %1', $tournament['name']),
-					t('Das Ergebnis Ihres Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um Verzögerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls Sie denken diese Entscheidung wurde zu Unrecht getroffen, melden Sie sich bitte schnellstmöglich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
+					t_no_html('Zeitüberschreitung im Turnier %1', $tournament['name']),
+					t_no_html('Das Ergebnis Ihres Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um Verzögerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls Sie denken diese Entscheidung wurde zu Unrecht getroffen, melden Sie sich bitte schnellstmöglich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
 					);
 				$mail->create_sys_mail($leaderid2,
-					t('Zeitüberschreitung im Turnier %1', $tournament['name']),
-					t('Das Ergebnis Ihres Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um Verzögerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls Sie denken diese Entscheidung wurde zu Unrecht getroffen, melden Sie sich bitte schnellstmöglich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
+					t_no_html('Zeitüberschreitung im Turnier %1', $tournament['name']),
+					t_no_html('Das Ergebnis Ihres Spieles %1 gegen %2 im Turnier %5 wurde nicht rechtzeitig gemeldet. Um Verzögerungen im Turnier zu vermeiden haben die Organisatoren festgelegt, dass das Ergebnis in diesem Fall gelost werden soll. Das geloste Ergebnis ist: %1 %3 - %2 %4. Falls Sie denken diese Entscheidung wurde zu Unrecht getroffen, melden Sie sich bitte schnellstmöglich bei den Organisatoren.', $name1, $name2, $score1, $score2, $tournament['name'])
 					);
 			}
 		}
