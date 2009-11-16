@@ -321,7 +321,6 @@ class Import {
 #          			$db->qry_first("ALTER TABLE %prefix%%plain% DEFAULT CHARACTER SET utf8", $table_name);
 
 					// Add to installed tables
-					# Maybe no longer needed??
 					array_push($this->installed_tables, $config["database"]["prefix"]. $table_name);
 				}
 			}
@@ -362,7 +361,7 @@ class Import {
 			$db->qry_first("OPTIMIZE TABLE `%plain%`", $table_name);
 			
 			// Move usersettings to user 
-			if ($table_name == 'user') {
+			if ($table_name == 'user' and in_array('usersettings', $this->installed_tables)) {
 			  $res = $db->qry("SELECT s.userid, s.design, s.avatar_path, s.signature, s.show_me_in_map, s.lsmail_alert,
           u.design AS design2, u.avatar_path AS avatar_path2, u.signature AS signature2, u.show_me_in_map AS show_me_in_map2, u.lsmail_alert AS lsmail_alert2
           FROM %prefix%user AS u

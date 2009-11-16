@@ -3,7 +3,7 @@
 	<name>bugtracker</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
 	<caption>Bugtracker</caption>		<!-- The modulname displayed to the user -->
 	<description>Lassen Sie Gäste Fehler melden, die Sie entweder selbst beheben, oder an das Lansuite weiterreichen können</description>		<!-- A short description of the module -->
-	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
+	<active>0</active>				<!-- Is the module activated by default? 0/1 -->
 	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>Jochen (KnoX)</author>				<!-- The author of this module -->
 	<email>knox@orgapage.de</email>					<!-- The E-Mail-Adress of the modules author -->

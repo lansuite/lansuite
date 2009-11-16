@@ -182,6 +182,7 @@ switch ($_GET['step']) {
   // Database
   case 40:
 		if (!is_dir('modules/'. $_GET['module'] .'/mod_settings')) $func->error(t('Modul "%1" wurde nicht gefunden', $_GET['module']), '');
+		elseif (!in_array($_GET['module'], $ActiveModules)) $func->information(t('Dieses Modul ist nicht aktiv.'), '');
 		else {
 #			$dsp->NewContent(t('Datenbank - Modul') .": ". $_GET["module"], t('Hier können Sie die Datenbankeinträge zu diesem Modul verwalten'));
 

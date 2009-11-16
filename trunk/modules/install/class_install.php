@@ -108,11 +108,11 @@ class Install {
 
   // Scans 'install/db_skeleton/' for non-existand tables and creates them
   // Puts the results to the screen, by using $dsp->AddSingleRow for each table, if $display_to_screen = 1
-  function CreateNewTables($display_to_screen) {
+  function CreateNewTables($display_to_screen = 1) {
       global $dsp, $config, $db, $import;
 
       $tablecreate = Array("anz" => 0, "created" => 0, "exist" => 0, "failed" => "");
-      $dsp->AddSingleRow("<b>". t('Tabellen erstellen') ."</b>");
+      if ($display_to_screen) $dsp->AddSingleRow("<b>". t('Tabellen erstellen') ."</b>");
 
       #$db->qry("CREATE TABLE IF NOT EXISTS %prefix%table_names (name varchar(80) NOT NULL default '', PRIMARY KEY(name)) TYPE = MyISAM CHARACTER SET utf8");
       #$db->qry("REPLACE INTO %prefix%table_names SET name = 'table_names'");
@@ -121,7 +121,7 @@ class Install {
       if (in_array($config['database']['prefix'] .'references', $import->installed_tables)) $db->qry('TRUNCATE TABLE %prefix%references');
 
       if (is_dir("modules")) {
-      // Do install-mod first! (for translations-table must exist)
+        // Do install-mod first! (for translations-table must exist)
         if (is_dir("modules/install/mod_settings")) {
           // Try to find DB-XML-File
           if (file_exists("modules/install/mod_settings/db.xml")){
@@ -130,18 +130,24 @@ class Install {
           }
         }
 
-        $modules_dir = opendir("modules/");
-        while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND $module != "install" AND is_dir("modules/$module")) {
+        // Generate module table, so Lansuite knows, which modules need to be written
+        $this->InsertModules();
+
+        $ActiveModules = array();
+        $res = $db->qry('SELECT name FROM %prefix%modules WHERE active = 1');
+        while($row = $db->fetch_array($res)) {
+          $module = $row['name'];
+#        $modules_dir = opendir("modules/");
+#        while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND $module != "install" AND is_dir("modules/$module")) {
         
-          if (is_dir("modules/$module/mod_settings")) {
-            // Try to find DB-XML-File
-            if (file_exists("modules/$module/mod_settings/db.xml")){
-              $this->WriteTableFromXMLFile($module);
-              if ($display_to_screen) $dsp->AddDoubleRow("Modul '$module'", "[<a href=\"index.php?mod=install&action=db&step=7&module=$module&quest=1\">".t('zurücksetzen')."</a>]");
-            }
+          // Try to find DB-XML-File
+          if (file_exists("modules/$module/mod_settings/db.xml")) {
+            $this->WriteTableFromXMLFile($module);
+            if ($display_to_screen) $dsp->AddDoubleRow("Modul '$module'", "[<a href=\"index.php?mod=install&action=db&step=7&module=$module&quest=1\">".t('zurücksetzen')."</a>]");
           }
         }
-        closedir($modules_dir);
+        $db->free_result($res);
+#        closedir($modules_dir);
       }
 
       if ($display_to_screen) $dsp->AddDoubleRow("<b>". t('Alle Tabellen') ."</b>", "[<a href=\"index.php?mod=install&action=db&step=3&quest=1\">".t('zurücksetzen')."</a>]");

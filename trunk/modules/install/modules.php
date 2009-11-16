@@ -74,7 +74,8 @@ switch($_GET["step"]) {
         $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'settings'");
         $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'banner'");
         $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'about'");
-
+        
+        $install->CreateNewTables(0);
         $func->confirmation(t('Änderungen erfolgreich gespeichert.'), "index.php?mod=install&action=modules");
     break;
 
