@@ -37,7 +37,7 @@ function EditAllowed() {
 class Mastercomment{
 
 	// Construktor
-	function Mastercomment($mod, $id, $update_table = array(), $AddSelect_list = array()) {
+	function Mastercomment($mod, $id, $update_table = array()) {
 		global $framework, $dsp, $config, $auth, $db, $config, $func, $cfg, $mail;
 
     #echo '<ul class="Line">';
@@ -52,11 +52,15 @@ class Mastercomment{
       unset($_GET['commentid']);
     }
 	
-	$CurentURLBase = $framework->get_clean_url_query('base');
+	  $CurentURLBase = $framework->get_clean_url_query('base');
     $CurentURLBase = str_replace('&mc_step=10', '', $CurentURLBase);
     $CurentURLBase = str_replace('&mf_step=2', '', $CurentURLBase);
     $CurentURLBase = preg_replace('#&mf_id=[0-9]*#si', '', $CurentURLBase);
     $CurentURLBase = preg_replace('#&commentid=[0-9]*#si', '', $CurentURLBase);
+
+    // No Order by in this MS, for it collidates with possible other MS on this page
+    $order_by_tmp = $_GET['order_by'];
+    $_GET['order_by'] = '';    
 
     // List current comments
     include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -73,11 +77,7 @@ class Mastercomment{
     $ms2->AddSelect('u.avatar_path');
     $ms2->AddSelect('u.signature');
     $ms2->AddSelect('u.userid');
-	if($AddSelect_list) {
-		foreach($AddSelect_list as $key) {
-			$ms2->AddSelect($key);
-		}
-	}
+
     $ms2->AddResultField('', 'u.username', 'FetchDataRow', '', 180);
     $ms2->AddResultField('', 'c.text', 'FetchPostRow');
     $ms2->AddIconField('quote', 'javascript:document.getElementById(\'text\').value += \'[quote]\' + document.getElementById(\'post%id%\').innerHTML + \'[/quote]\'', t('Zitieren'));
@@ -85,7 +85,7 @@ class Mastercomment{
     if ($auth['type'] >= 3) $ms2->AddIconField('delete', $CurentURLBase.'&mc_step=10&commentid=', t('Löschen'));
 
     $ms2->PrintSearch($CurentURLBase, 'c.commentid');
-
+    $_GET['order_by'] = $order_by_tmp;
 
     // Add new comments
     if ($cfg['mc_only_logged_in'] and !$auth['login']) $func->information(t('Bitte loggen Sie sich ein, bevor Sie einen Kommentar verfassen'), NO_LINK);
