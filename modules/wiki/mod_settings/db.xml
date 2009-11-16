@@ -56,6 +56,7 @@
 				<key>PRI</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>wiki.postid</foreign_key>
 			</field>
 			<field>
 				<name>date</name>
@@ -72,6 +73,7 @@
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>text</name>

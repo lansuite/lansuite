@@ -27,15 +27,17 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>partys.party_id</foreign_key>
 			</field>
-                        <field>
-                                <name>group_id</name>
-                                <type>int(20)</type>
-                                <null></null>
-                                <key>IND</key>
-                                <default>0</default>
-                                <extra></extra>
-                        </field>
+      <field>
+        <name>group_id</name>
+        <type>int(20)</type>
+        <null></null>
+        <key>IND</key>
+        <default>0</default>
+        <extra></extra>
+    	  <foreign_key>party_usergroups.group_id</foreign_key>
+      </field>
 			<field>
 				<name>price_id</name>
 				<type>int(20)</type>
@@ -210,6 +212,7 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>seat_block.blockid</foreign_key>
 			</field>
 			<field>
 				<name>col</name>
@@ -250,6 +253,7 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 		</structure>
 	</table>
@@ -270,9 +274,10 @@
 				<name>blockid</name>
 				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>seat_block.blockid</foreign_key>
 			</field>
 			<field>
 				<name>orientation</name>

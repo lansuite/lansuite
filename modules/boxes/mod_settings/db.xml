@@ -299,16 +299,16 @@
 				<callback></callback>
 			</entry>
       <entry>
-              <boxid>19</boxid>
-              <name>Zufalls-Umfrage</name>
-              <place>0</place>
-              <pos>1</pos>
-              <active>0</active>
-              <internet>0</internet>
-              <login>0</login>
-              <module>poll</module>
-              <source>random_poll</source>
-              <callback></callback>
+        <boxid>19</boxid>
+        <name>Zufalls-Umfrage</name>
+        <place>0</place>
+        <pos>1</pos>
+        <active>0</active>
+        <internet>0</internet>
+        <login>0</login>
+        <module>poll</module>
+        <source>random_poll</source>
+        <callback></callback>
       </entry>
 		</content>
 	</table>

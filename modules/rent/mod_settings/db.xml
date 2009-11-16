@@ -48,9 +48,10 @@
 				<name>ownerid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>changedate</name>
@@ -79,9 +80,10 @@
 				<name>stuffid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>rentstuff.stuffid</foreign_key>
 			</field>
 			<field>
 				<name>userid</name>
@@ -90,22 +92,25 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>out_orgaid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>back_orgaid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>comment</name>

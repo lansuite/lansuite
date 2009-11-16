@@ -27,6 +27,7 @@
 				<key></key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>buddyid</name>
@@ -35,6 +36,7 @@
 				<key></key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 		</structure>
 	</table>
@@ -58,6 +60,7 @@
 				<key></key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>receiverid</name>
@@ -66,6 +69,7 @@
 				<key></key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>text</name>

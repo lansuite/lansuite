@@ -51,6 +51,7 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>toUserID</name>
@@ -59,6 +60,7 @@
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>Subject</name>

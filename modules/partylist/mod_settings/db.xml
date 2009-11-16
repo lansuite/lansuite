@@ -80,9 +80,10 @@
 				<name>userid</name>
 				<type>int(11)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>city</name>

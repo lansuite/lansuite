@@ -64,9 +64,10 @@
 				<name>poster</name>
 				<type>int(8)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>priority</name>

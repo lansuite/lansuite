@@ -71,17 +71,19 @@
 				<name>galleryid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>gallery.galleryid</foreign_key>
 			</field>
 			<field>
 				<name>userid</name>
 				<type>int(6)</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
 			</field>
 			<field>
 				<name>caption</name>
