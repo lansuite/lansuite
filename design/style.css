@@ -12,7 +12,7 @@ name {
   Float, Clear, Allign, White-space
   Colors, Background, Backgroundimages
   Font-size, -weight and -family
-}
+}a
 */
 
 /* Main-Template */
@@ -413,6 +413,10 @@ ul.BarClear {
 
 
 /* Relativer Tooltip */
+a {
+  position:relative;
+}
+
 a span.infobox {
   visibility:hidden; display:none;
   position:absolute;
@@ -425,9 +429,14 @@ a:hover span.infobox {
   visibility:visible; display:block;
   left:1em;
   border:1px solid #c30;
+  left:-30px;
   color:black; background:white;
   text-decoration:none;
   z-index:1;
+}
+
+.infolink {
+  position:relative;
 }
 
 .infolink span.infobox {
@@ -442,6 +451,7 @@ a:hover span.infobox {
   visibility:visible; display:block;
   left:1em;
   border:1px solid #c30;
+  left:-30px;
   color:black; background:white;
   text-decoration:none;
   z-index:1;
