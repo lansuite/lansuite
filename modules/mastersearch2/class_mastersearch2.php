@@ -318,6 +318,8 @@ class MasterSearch2 {
 
     if ($this->config['EntriesPerPage'] and ($count_rows['count'] > $this->config['EntriesPerPage'])) {
       $link = $_SERVER['QUERY_STRING'] .'&ms_page=';
+      $link = preg_replace('#mf_step=.\\&?#si', '', $link);
+      $link = preg_replace('#mf_id=.\\&?#si', '', $link);
       $pages = t('Seite') .': ';
       $link_start = ' <a href="index.php?';
       $link_end = '" onclick="loadPage(this.href); return false" class="menu">';
@@ -442,7 +444,14 @@ class MasterSearch2 {
         $arr = array();       
         if ($current_field['caption']) {
           $arr['entry'] = $current_field['caption'];
-          $arr['link'] = 'index.php?'. $_SERVER['QUERY_STRING'] ."&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
+          $arr['link'] = $_SERVER['QUERY_STRING'];
+          $arr['link'] = preg_replace('#order_by=.*\\&#sUi', '', $arr['link']);
+          $arr['link'] = preg_replace('#\\&order_by=.*$#sUi', '', $arr['link']);
+          $arr['link'] = preg_replace('#order_dir=.*\\&#sUi', '', $arr['link']);
+          $arr['link'] = preg_replace('#\\&order_dir=.*$#sUi', '', $arr['link']);
+          $arr['link'] = 'index.php?'. $arr['link'] ."&order_by={$current_field['sql_field']}&order_dir=$order_dir$add_page";
+          $arr['link'] = preg_replace('#mf_step=.\\&?#si', '', $arr['link']);
+          $arr['link'] = preg_replace('#mf_id=.\\&?#si', '', $arr['link']);
 
           if ($_GET['order_by'] == $current_field['sql_field']) {
             if ($order_dir == 'DESC') $arr['entry'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";

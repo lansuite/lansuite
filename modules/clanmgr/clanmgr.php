@@ -123,14 +123,9 @@ switch ($_GET['step']) {
     $dsp->AddFieldSetEnd();
 
     $dsp->AddBackButton('index.php?mod=clanmgr&action=clanmgr');
-    
-	$AddSelect_List = array();
-	array_push($AddSelect_List, 'u.firstname');
-	array_push($AddSelect_List, 'u.name');
-	array_push($AddSelect_List, 'u.clanadmin');
-	
+
     include('inc/classes/class_mastercomment.php');
-    new Mastercomment('Clan', $_GET['clanid'], '', $AddSelect_List);
+    new Mastercomment('Clan', $_GET['clanid'], '');
   break;
 
   // Change clan password
