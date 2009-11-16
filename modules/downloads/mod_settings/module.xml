@@ -3,7 +3,7 @@
 	<name>downloads</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
 	<caption>Downloads</caption>		<!-- The modulname displayed to the user -->
 	<description>Dieses Modul stellt den Inhalt eines FTP-Servers auf der Intranetseite da. z.B. zum einfachen Verteilen von Patches</description>		<!-- A short description of the module -->
-	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
+	<active>0</active>				<!-- Is the module activated by default? 0/1 -->
 	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>Johannes Treitz</author>				<!-- The author of this module -->
 	<email></email>					<!-- The E-Mail-Adress of the modules author -->

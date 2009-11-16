@@ -24,7 +24,6 @@ switch($_GET["step"]) {
 			$userid = $db->insert_id();
 			// Admin zur Party hinzufügen
 			$party->add_user_to_party($userid, 1, "1", "1");
-			$db->qry("INSERT INTO %prefix%usersettings SET userid = %int%", $userid);
 
 			$func->confirmation(t('Der Adminaccount wurde erfolgreich angelegt.'), "index.php?mod=install&action=adminaccount");
 		}

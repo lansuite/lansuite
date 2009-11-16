@@ -25,7 +25,6 @@ switch ($_GET["step"]){
         $db->qry("INSERT INTO %prefix%user SET username = 'ADMIN', firstname = 'ADMIN', name = 'ADMIN', email=%string%, password = %string%, type = '3'",
   $_POST["email"], md5($_POST["password"]));
         $userid = $db->insert_id();
-        $db->qry("INSERT INTO %prefix%usersettings SET userid = %int%", $userid);
       }
       
       $authentication = new auth();
@@ -168,7 +167,7 @@ switch ($_GET["step"]){
                 // Insert PLZs from modules/install/db_insert_locations.sql in DB, if not exist
                 $install->InsertPLZs();
                 // Insert modules-settings from mod_settings/module.xml in DB, if not exist
-                $install->InsertModules(1);
+                //$install->InsertModules(1); // Is performed in $install->CreateNewTables(0); now
                 // Insert menus from mod_settings/menu.xml in DB, if not exist
                 $install->InsertMenus(0);
                 // Insert translations of DB-items

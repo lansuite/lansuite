@@ -3,7 +3,7 @@
 	<name>beamer</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
 	<caption>Beamer</caption>		<!-- The modulname displayed to the user -->
 	<description>Beamerverwaltung</description>		<!-- A short description of the module -->
-	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
+	<active>0</active>				<!-- Is the module activated by default? 0/1 -->
 	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>Denny Mleinek</author>				<!-- The author of this module -->
 	<email>denny1977@googlemail.com</email>					<!-- The E-Mail-Adress of the modules author -->

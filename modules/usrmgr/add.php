@@ -22,7 +22,6 @@ global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func
 
   // If new user has been added
   if (!$mf->isChange) {
-    if ($id) $add_query2 = $db->qry("INSERT INTO %prefix%usersettings SET userid = %int%", $id);
     $usrmgr->WriteXMLStatFile();
 
     // If auto generated PW, use PW stored in session, else use PW send by POST field

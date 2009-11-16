@@ -3,7 +3,7 @@
 	<name>server</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
 	<caption>Server</caption>		<!-- The modulname displayed to the user -->
 	<description>Eine öffentliche Liste aller Server auf der Lan, in der jeder eingeloggt Benutzer seinen Server eintragen kann</description>		<!-- A short description of the module -->
-	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
+	<active>0</active>				<!-- Is the module activated by default? 0/1 -->
 	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>Unbekannt, Jochen</author>				<!-- The author of this module -->
 	<email>knox@orgapage.net</email>					<!-- The E-Mail-Adress of the modules author -->
