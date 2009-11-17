@@ -5,7 +5,7 @@ $content = "";
 
 $query = $db->qry("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, COUNT(c.relatedto_id) AS comments FROM %prefix%bugtracker AS b
   LEFT JOIN %prefix%comments AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
-  WHERE b.state <= 3
+  WHERE b.state <= 3 AND (!private OR ". (int)$auth['type'] ." >= 2)
   GROUP BY b.bugid
   ORDER BY b.changedate DESC
   LIMIT 0, %int%

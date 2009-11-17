@@ -158,6 +158,13 @@
         <default></default>
         <extra></extra>
       </field>
+      <field>
+        <name>private</name>
+        <type>tinyint(1)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
 		</structure>
 	</table>
 </lansuite>
