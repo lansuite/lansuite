@@ -69,6 +69,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     LEFT JOIN {$config["tables"]["user"]} AS a ON b.agent = a.userid
     LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
     ";
+  $ms2->query['where'] = '(!private OR '. (int)$auth['type'] .' >= 2)';
 #  $ms2->query['default_order_by'] = 'FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
   $ms2->query['default_order_by'] = 'changedate DESC, FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
   $ms2->config['EntriesPerPage'] = 50;
@@ -152,7 +153,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $row = $db->qry_first("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, UNIX_TIMESTAMP(b.date) AS date, r.username AS reporter_name, a.username AS agent_name FROM %prefix%bugtracker AS b
     LEFT JOIN %prefix%user AS r ON b.reporter = r.userid
     LEFT JOIN %prefix%user AS a ON b.agent = a.userid
-    WHERE bugid = %int%", $_GET['bugid']
+    WHERE bugid = %int% AND (!private OR ". (int)$auth['type'] ." >= 2)", $_GET['bugid']
     );
 
   $dsp->NewContent($row['caption'], $types[$row['type']] .', '. t('Priorität') .': '. $row['priority']);
