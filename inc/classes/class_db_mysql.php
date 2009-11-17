@@ -147,7 +147,7 @@ class db {
 
     $this->count_query++;
     $query_end = microtime(true);
-    $this->querys[] = array($query_string, round(($query_end - $query_start) *1000, 4));
+    $this->querys[] = array($query, round(($query_end - $query_start) *1000, 4));
 
     return $this->query_id;
   }
