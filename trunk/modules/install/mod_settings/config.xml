@@ -354,6 +354,12 @@ nospamfor.us</default>
     		<default>Die Seite ist momentan Offline.</default>
     		<description>Offlinetext wenn die Seite gesperrt ist.</description>
     	</item>
+    	<item>
+    		<name>sys_freeze</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Freeze-Mode - Keine Änderungen an der DB mehr erlauben</description>
+    	</item>
     </items>
   </group>
 </config>

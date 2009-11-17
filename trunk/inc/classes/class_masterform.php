@@ -115,8 +115,14 @@ class masterform {
   
 
   // Print form
-    function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer needed!
-    global $dsp, $db, $config, $func, $sec, $lang, $framework, $mf_number, $__POST, $smarty;
+  function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer needed!
+    global $dsp, $db, $config, $func, $sec, $lang, $framework, $mf_number, $__POST, $smarty, $cfg;
+
+    // In freeze-mode there are no changes to the DB allowed
+    if ($cfg['sys_freeze']) {
+      $func->information(t('Diese Webseite ist Momentan im "Freeze-Mode".[br]D.h. es können keine neuen Daten in die Datenbank geschrieben werden.[br][br]Bitte versuchen Sie es zu einem Späteren Zeitpunkt nocheinmal.'));
+      return;
+    }
 
     // Break, if in wrong form
     $Step_Tmp = $_GET['mf_step'];
