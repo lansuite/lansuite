@@ -54,7 +54,7 @@ $dsp->NewContent(t('Box-Manager'), t('Hier können Sie die Anzeige und Position 
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2('');
 
-$ms2->query['from'] = "{$config["tables"]["boxes"]} AS b";
+$ms2->query['from'] = "%prefix%boxes AS b";
 $ms2->query['default_order_by'] = 'place ASC, pos ASC, name ASC';
 
 $ms2->AddTextSearchDropDown(t('Internet-Modus'), 'b.internet', array('' => t('Egal'), '1' => t('Nur im Intranet-Modus'), '2' => t('Nur im Internet-Modus')));

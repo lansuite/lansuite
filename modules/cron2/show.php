@@ -21,7 +21,7 @@ switch ($_GET['step']) {
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('cron2');
 
-    $ms2->query['from'] = "{$config['tables']['cron']} AS c";
+    $ms2->query['from'] = "%prefix%cron AS c";
 
     $ms2->AddResultField(t('Name'), 'c.name');
     $ms2->AddResultField(t('Geplant um'), 'runat');

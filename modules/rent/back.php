@@ -4,9 +4,9 @@ switch($_GET['step']) {
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('news');
 
-    $ms2->query['from'] = "{$config["tables"]["rentuser"]} AS r
-      LEFT JOIN {$config["tables"]["user"]} AS u ON u.userid = r.userid
-      LEFT JOIN {$config["tables"]["rentstuff"]} AS s ON s.stuffid = r.stuffid";
+    $ms2->query['from'] = "%prefix%rentuser AS r
+      LEFT JOIN %prefix%user AS u ON u.userid = r.userid
+      LEFT JOIN %prefix%rentstuff AS s ON s.stuffid = r.stuffid";
     $ms2->query['where'] = 'back_orgaid = 0';
 
     $ms2->AddTextSearchField('Titel', array('s.caption' => 'like'));

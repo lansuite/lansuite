@@ -59,7 +59,7 @@
   $ms2 = new mastersearch2('news');
 
   // Define the source table and join all tables, which should be attached
-  $ms2->query['from'] = "{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON n.poster=u.userid";
+  $ms2->query['from'] = "%prefix%news n LEFT JOIN %prefix%user u ON n.poster=u.userid";
   $ms2->query['default_order_by'] = 'DATE DESC';
 
   // How many entries will be displayed per page? defaults to 20, if not set

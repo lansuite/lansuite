@@ -268,6 +268,9 @@ class db {
    return $found;
   }
 
+/*
+// Could be deleted soon ... KnoX 17.11.2009
+
   // Old: All "$config['tables'][table_name]" should be replaced by "$config['database']['prefix']. 'table_name'"
   // Afterwards this could be deleted
   function SetTableNames() {
@@ -287,5 +290,6 @@ class db {
         
     $this->free_result($res);
   }
+  */
 }
 ?>

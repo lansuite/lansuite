@@ -66,7 +66,7 @@ class beamer_display {
   
   	  	include_once('modules/mastersearch2/class_mastersearch2.php');
 		$ms2 = new mastersearch2('beamer');
-		$ms2->query['from'] = $config["tables"]["beamer_content"];
+		$ms2->query['from'] = '%prefix%beamer_content';
 		$ms2->AddResultField('-A-', 'active', 'formatActiveStatus','',35);
 		$ms2->AddResultField(t('Typ'), 'contentType', 'formatContentType',"",35);
 		$ms2->AddResultField(t('Titel'), 'caption');

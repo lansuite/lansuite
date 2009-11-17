@@ -581,7 +581,7 @@ class masterform {
                 foreach ($this->SQLFields as $key => $val) $db_query .= "$val = '". $_POST[$val][$value2] ."', ";
                 $db_query = substr($db_query, 0, strlen($db_query) - 2);
                 $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% = %int%", $table, $db_query, $idname, $value2);
-                $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($value2, $config['tables'][$table])), 1, '', $this->LogID);
+                $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($value2, $config['database']['prefix'] . $table)), 1, '', $this->LogID);
 
               } else {
                 foreach ($this->SQLFields as $key => $val) {
@@ -601,7 +601,7 @@ class masterform {
                 else {
                   if ($this->isChange) {
                     $db->qry("UPDATE %prefix%%plain% SET %plain% WHERE %plain% %plain% = %int%", $table, $db_query, $AddKey, $idname, $id);
-                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" geändert', array($id, $config['database']['prefix'] . $table)), 1, '', $this->LogID);
                     $addUpdSuccess = $id;
                   } else {
                     $DBInsertQuery = $db_query;
@@ -610,7 +610,7 @@ class masterform {
                     $db->qry("INSERT INTO %prefix%%plain% SET %plain%", $table, $DBInsertQuery);
                     $id = $db->insert_id();
                     $this->insert_id = $id;
-                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefügt', array($id, $config['tables'][$table])), 1, '', $this->LogID);
+                    $func->log_event(t('Eintrag #%1 in Tabelle "%2" eingefügt', array($id, $config['database']['prefix'] . $table)), 1, '', $this->LogID);
                     $addUpdSuccess = $id;
                   }
                 }

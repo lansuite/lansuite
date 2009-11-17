@@ -8,9 +8,9 @@ function GetPollStatus($endtime) {
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2('news');
 
-$ms2->query['from'] = "{$config["tables"]["polls"]} AS p
-  LEFT JOIN {$config["tables"]["polloptions"]} AS o ON p.pollid = o.pollid
-  LEFT JOIN {$config["tables"]["pollvotes"]} AS v ON o.polloptionid = v.polloptionid";
+$ms2->query['from'] = "%prefix%polls AS p
+  LEFT JOIN %prefix%polloptions AS o ON p.pollid = o.pollid
+  LEFT JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid";
 $ms2->query['default_order_by'] = 'p.changedate ASC';
 $ms2->query['where'] = (int)$auth['type'] .' >= 2 OR !p.group_id OR p.group_id = '. (int)$auth['group_id'];
 

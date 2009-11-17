@@ -140,7 +140,7 @@ if (!$_GET['partyid']) {
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('');
 
-  $ms2->query['from'] = "{$config['tables']['partylist']} AS p";
+  $ms2->query['from'] = "%prefix%partylist AS p";
   $ms2->query['where'] = $where;
   $ms2->query['default_order_by'] = 'p.start ASC';
   $ms2->config['EntriesPerPage'] = 20;

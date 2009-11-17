@@ -410,7 +410,7 @@ class pdf {
         $pdf_sqlstring = "";
 
         // Auf Party Prüfen
-        if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= "LEFT JOIN {$config['tables']['party_user']} AS party ON user.userid=party.user_id";
+        if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id";
     $pdf_sqlstring .= ' WHERE user.type > -1';
     if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
 
@@ -648,7 +648,7 @@ class pdf {
         $pdf_sqlstring = "";
 
         // Auf Party Prüfen
-        if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= "LEFT JOIN {$config['tables']['party_user']} AS party ON user.userid=party.user_id";
+        if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= "LEFT JOIN %prefix%party_user AS party ON user.userid=party.user_id";
     $pdf_sqlstring .= ' WHERE user.type > -1';
     if ($_POST['party'] == '1' or $pdf_paid) $pdf_sqlstring .= ' AND party.party_id = '. $party->party_id;
 

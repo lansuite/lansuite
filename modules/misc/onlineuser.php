@@ -18,7 +18,7 @@ function getTimeDiff($last) {
 		$ms2 = new mastersearch2('games');
 
 		//Anzeige der Aufgaben
-		$ms2->query['from'] = "{$config['tables']['stats_auth']} AS s LEFT JOIN {$config['tables']['user']} AS u on s.userid = u.userid";
+		$ms2->query['from'] = "%prefix%stats_auth AS s LEFT JOIN %prefix%user AS u on s.userid = u.userid";
 		$ms2->query['where'] ="login = '1' AND lasthit > UNIX_TIMESTAMP(NOW())- 60*10 AND u.userid > 0 AND u.type > 0"; 
 		$ms2->config['EntriesPerPage'] = 50;
         $ms2->query['order_by'] = "s.lasthit";

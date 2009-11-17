@@ -14,9 +14,9 @@ if ($autorefresh == 1) {
 $dsp->NewContent(t('Küche'), t('Auflistung derzeitiger unbearbeiter Produktionsauftraege'));
 $ms2 = new mastersearch2();
 
-$ms2->query['from'] = "{$config["tables"]["food_ordering"]} AS o 
-					INNER JOIN {$config["tables"]["food_product"]} AS p ON p.id = o.productid
-					INNER JOIN {$config["tables"]["user"]} AS u ON u.userid = o.userid";
+$ms2->query['from'] = "%prefix%food_ordering AS o 
+					INNER JOIN %prefix%food_product AS p ON p.id = o.productid
+					INNER JOIN %prefix%user AS u ON u.userid = o.userid";
 $ms2->query['where'] = "p.supp_id= '{$cfg['foodcenter_kitchen']}' AND (o.status = '1' OR o.status = '2')";
 
 //$ms2->query['default_order_by'] = 'DATE DESC';

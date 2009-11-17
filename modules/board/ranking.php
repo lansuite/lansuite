@@ -14,8 +14,8 @@ $dsp->AddFieldSetStart(t('Aktuelle Rangliste'));
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
-$ms2->query['from'] = "{$config['tables']['board_posts']} AS p
-    LEFT JOIN {$config['tables']['user']} AS u ON u.userid = p.userid";
+$ms2->query['from'] = "%prefix%board_posts AS p
+    LEFT JOIN %prefix%user AS u ON u.userid = p.userid";
 $ms2->query['default_order_by'] = 'posts DESC';
 $ms2->AddResultField(t('Benutzername'), 'u.username', 'UserNameAndIcon');
 $ms2->AddResultField(t('Beiträge'), 'COUNT(*) as posts');

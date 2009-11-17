@@ -32,9 +32,9 @@ if ($auth['type'] >= 1) {
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('usrmgr');
   
-  $ms2->query['from'] = "{$config["tables"]["partys"]} p
-    LEFT JOIN {$config["tables"]["party_user"]} u ON p.party_id = u.party_id AND u.user_id = ". (int)$_GET['userid'] ."
-    LEFT JOIN {$config["tables"]["party_prices"]} i ON i.party_id = p.party_id AND i.price_id = u.price_id";
+  $ms2->query['from'] = "%prefix%partys p
+    LEFT JOIN %prefix%party_user u ON p.party_id = u.party_id AND u.user_id = ". (int)$_GET['userid'] ."
+    LEFT JOIN %prefix%party_prices i ON i.party_id = p.party_id AND i.price_id = u.price_id";
   $ms2->query['where'] = "u.user_id = ". (int)$_GET['userid'] . " OR u.user_id is NULL";
   
   $ms2->config['EntriesPerPage'] = 50;

@@ -34,7 +34,7 @@ if ($auth['type'] <= 1) {
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2();
 
-  $ms2->query['from'] = "{$config['tables']['info']} AS i";
+  $ms2->query['from'] = "%prefix%info AS i";
   $ms2->query['where'] = "i.active";
 
   $ms2->config['EntriesPerPage'] = 50;
@@ -58,7 +58,7 @@ if ($auth['type'] <= 1) {
       include_once('modules/mastersearch2/class_mastersearch2.php');
       $ms2 = new mastersearch2();
 
-      $ms2->query['from'] = "{$config['tables']['info']} AS i";
+      $ms2->query['from'] = "%prefix%info AS i";
 
       $ms2->config['EntriesPerPage'] = 50;
 

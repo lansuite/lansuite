@@ -13,10 +13,10 @@ function GetPriceFormat($price)
 
 $ms2 = new mastersearch2();
 
-$ms2->query['from'] = "{$config['tables']['food_ordering']} AS a
-			LEFT JOIN {$config['tables']['food_status']} AS s ON a.status = s.id 
-			LEFT JOIN {$config['tables']['food_product']} AS p ON a.productid = p.id 
-			LEFT JOIN {$config['tables']['food_option']} AS o ON a.opts = o.id";
+$ms2->query['from'] = "%prefix%food_ordering AS a
+			LEFT JOIN %prefix%food_status AS s ON a.status = s.id 
+			LEFT JOIN %prefix%food_product AS p ON a.productid = p.id 
+			LEFT JOIN %prefix%food_option AS o ON a.opts = o.id";
 $ms2->query['where'] = 'userid='. (int)$auth['userid'];
 
 	$status_list = array('' => 'Alle');

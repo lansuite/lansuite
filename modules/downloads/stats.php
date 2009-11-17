@@ -14,7 +14,7 @@ if (!$_GET['file']) {
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('news');
 
-  $ms2->query['from'] = "{$config["tables"]["download_stats"]} AS s";
+  $ms2->query['from'] = "%prefix%download_stats AS s";
   $ms2->query['default_order_by'] = 's.file';
 
   $ms2->AddResultField(t('Datei'), 's.file');

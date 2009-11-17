@@ -5,8 +5,8 @@ switch($_GET["step"]){
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('usrmgr');
 
-    $ms2->query['from'] = "{$config["tables"]["stats_auth"]} AS a
-      LEFT JOIN {$config["tables"]["user"]} AS u ON a.userid = u.userid";
+    $ms2->query['from'] = "%prefix%stats_auth AS a
+      LEFT JOIN %prefix%user AS u ON a.userid = u.userid";
 
     $ms2->config['EntriesPerPage'] = 50;
     $ms2->query['default_order_by'] = 'a.lasthit DESC';

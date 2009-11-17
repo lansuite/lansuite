@@ -40,9 +40,9 @@ $dsp->NewContent(t('Buchhaltung'), t('Übersicht aller meiner Ein- und Ausgaben'
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2('accounting');
 
-$ms2->query['from'] = "{$config["tables"]["cashmgr_accounting"]} AS a
-                            LEFT JOIN {$config['tables']['user']} AS fu ON a.fromUserid = fu.userid
-                            LEFT JOIN {$config['tables']['user']} AS tu ON a.toUserid = tu.userid";
+$ms2->query['from'] = "%prefix%cashmgr_accounting AS a
+                            LEFT JOIN %prefix%user AS fu ON a.fromUserid = fu.userid
+                            LEFT JOIN %prefix%user AS tu ON a.toUserid = tu.userid";
 $ms2->query['default_order_by'] = 'actiontime DESC';
 $ms2->query['where'] = "a.toUserid = {$userid} OR a.fromUserid = {$userid}";
 $ms2->config['EntriesPerPage'] = 20;

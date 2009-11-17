@@ -23,7 +23,7 @@ switch ($_GET['step']) {
     $dsp->AddFieldSetStart(t('Module übersetzen'));
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('misc');
-    $ms2->query['from'] = "{$config['tables']['translation']}";
+    $ms2->query['from'] = "%prefix%translation";
     $ms2->config['EntriesPerPage'] = 20;
     $ms2->AddResultField(t('Modul'), 'file');
     $ms2->AddIconField('edit', 'index.php?mod=misc&action=translation&step=20&file=', t('Edit'));
@@ -38,7 +38,7 @@ switch ($_GET['step']) {
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('misc');
 
-    $ms2->query['from'] = "{$config['tables']['translation']}";
+    $ms2->query['from'] = "%prefix%translation";
     $ms2->config['EntriesPerPage'] = 50;
 
     $selections = array('' => t('Alle'));

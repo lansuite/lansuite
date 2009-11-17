@@ -7,8 +7,8 @@ switch($_GET['step'])
 		include_once('modules/mastersearch2/class_mastersearch2.php');
 		$ms2 = new mastersearch2('cashmgr');
 
-		$ms2->query['from'] = "{$config["tables"]["cashmgr_group"]} AS g
-								LEFT JOIN {$config['tables']['cashmgr_accounting']} AS a ON g.id = a.groupid";
+		$ms2->query['from'] = "%prefix%cashmgr_group AS g
+								LEFT JOIN %prefix%cashmgr_accounting AS a ON g.id = a.groupid";
 		$ms2->query['default_order_by'] = 'actiontime DESC';
 		$ms2->config['EntriesPerPage'] = 20;
 		

@@ -345,7 +345,7 @@ break;
                 include_once('modules/mastersearch2/class_mastersearch2.php');
                 $ms2 = new mastersearch2('usrmgr');
 
-                $ms2->query['from'] = "{$config["tables"]["stats_auth"]} a";
+                $ms2->query['from'] = "%prefix%stats_auth a";
                 $ms2->query['where'] = "a.userid = ". (int)$_GET['userid'];
 
                 $ms2->config['EntriesPerPage'] = 50;

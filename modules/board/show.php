@@ -23,9 +23,9 @@ function LastPostDetails($date) {
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
-$ms2->query['from'] = "{$config['tables']['board_forums']} AS f
-    LEFT JOIN {$config['tables']['board_threads']} AS t ON f.fid = t.fid
-    LEFT JOIN {$config['tables']['board_posts']} AS p ON t.tid = p.tid";
+$ms2->query['from'] = "%prefix%board_forums AS f
+    LEFT JOIN %prefix%board_threads AS t ON f.fid = t.fid
+    LEFT JOIN %prefix%board_posts AS p ON t.tid = p.tid";
 $ms2->query['where'] = 'f.need_type <= '. ((int)($auth['type'] + 1) .' AND (!f.need_group OR f.need_group = '. ((int)$auth['group_id']) .')');
 $ms2->query['default_order_by'] = 'f.board_group, f.pos';
 

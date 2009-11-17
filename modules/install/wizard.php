@@ -161,9 +161,6 @@ switch ($_GET["step"]){
                 $install->CreateNewTables(0);
                 $output .= t('Die Tabellenstruktur wurde erfolgreich angepasst'). HTML_NEWLINE . HTML_NEWLINE;
 
-                // Read table-names from DB an save them in $config['tables']
-                $db->SetTableNames();
-
                 // Insert PLZs from modules/install/db_insert_locations.sql in DB, if not exist
                 $install->InsertPLZs();
                 // Insert modules-settings from mod_settings/module.xml in DB, if not exist

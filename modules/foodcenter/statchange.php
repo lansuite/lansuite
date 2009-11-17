@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 include_once("modules/foodcenter/class_product.php");
 include_once("modules/foodcenter/class_accounting.php");
 $product_list = new product_list();
@@ -72,11 +72,11 @@ switch ($_GET['step']){
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('news');
 
-    $ms2->query['from'] = "{$config['tables']['food_ordering']} AS a
-    	  LEFT JOIN {$config['tables']['food_option']} AS o ON a.opts = o.id
-		  LEFT JOIN {$config['tables']['food_product']} AS p ON a.productid = p.id
-		  LEFT JOIN {$config['tables']['food_supp']} AS s ON p.supp_id = s.supp_id
-		  LEFT JOIN {$config['tables']['user']} AS u ON u.userid = a.userid";
+    $ms2->query['from'] = "%prefix%food_ordering AS a
+    	  LEFT JOIN %prefix%food_option AS o ON a.opts = o.id
+		  LEFT JOIN %prefix%food_product AS p ON a.productid = p.id
+		  LEFT JOIN %prefix%food_supp AS s ON p.supp_id = s.supp_id
+		  LEFT JOIN %prefix%user AS u ON u.userid = a.userid";
 
 	// Array Abfragen für DropDowns
 	$status_list = array('' => 'Alle');
