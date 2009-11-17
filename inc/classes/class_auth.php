@@ -129,21 +129,18 @@ class auth {
         	$is_email = strstr($tmp_login_email, '@');
         	if(!$is_email) $is_email = 0; else $is_email = 1;
             // Go on if email and password
-            $user = $db->qry_first('SELECT 1 AS found, userid, username, email, password, type, locked, email_verified
-                                      FROM %prefix%user
-                                      WHERE (userid = %int% AND 0 = %int%) OR LOWER(email) = %string%',
-                                      $tmp_login_email, $is_email, $tmp_login_email);
+            $user = $db->qry_first('SELECT 1 AS found, u.userid, u.username, u.email, u.password, u.type, u.locked, u.email_verified
+              FROM %prefix%user AS u
+              LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
+              WHERE ((u.userid = %int% AND 0 = %int%) OR LOWER(u.email) = %string%) AND (p.party_id IS NULL OR p.party_id=%int%)',
+              $tmp_login_email, $is_email, $tmp_login_email, $party->party_id);
             
-            $user2 = $db->qry_first('SELECT email_verified FROM %prefix%user
-                                      WHERE (userid = %int% AND 0 = %int%) OR LOWER(email) = %string%',
-                                      $tmp_login_email, $is_email, $tmp_login_email);
-            
-            $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
+#            $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
             // Check Checkin
-            if ($party_query){
-               $user["checkin"] = $party_query['checkin'];
-               $user["checkout"] = $party_query['checkout'];
-           }
+#            if ($party_query){
+#               $user["checkin"] = $party_query['checkin'];
+#               $user["checkout"] = $party_query['checkout'];
+#           }
             $row = $db->qry_first('SELECT COUNT(*) AS anz
                                    FROM %prefix%login_errors
                                    WHERE userid = %int% AND (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(time) < 60)
