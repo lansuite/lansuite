@@ -129,7 +129,7 @@ class auth {
         	$is_email = strstr($tmp_login_email, '@');
         	if(!$is_email) $is_email = 0; else $is_email = 1;
             // Go on if email and password
-            $user = $db->qry_first('SELECT 1 AS found, u.userid, u.username, u.email, u.password, u.type, u.locked, u.email_verified
+            $user = $db->qry_first('SELECT 1 AS found, u.*
               FROM %prefix%user AS u
               LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
               WHERE ((u.userid = %int% AND 0 = %int%) OR LOWER(u.email) = %string%) AND (p.party_id IS NULL OR p.party_id=%int%)',
@@ -166,7 +166,7 @@ class auth {
                 $func->information(t('Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email.', $user['email']).' <a href="index.php?mod=usrmgr&action=verify_email&step=2&userid='. $user['userid'] .'">'. t('Klicken Sie hier, um die Mail erneut zu versenden</a>'), '', '', 1);
                 $func->log_event(t('Login fehlgeschlagen. Email (%1) nicht verifiziert', $user['email']), "2", "Authentifikation");
             // Wrong Password?
-            } elseif ($tmp_login_pass != $user["password"]){
+            } elseif ($tmp_login_pass != $user["password"] and $tmp_login_pass != $user["password_cookie"]){
                 ($cfg["sys_internet"])? $remindtext = t('Haben Sie ihr Passwort vergessen?<br/><a href="/index.php?mod=usrmgr&action=pwrecover"/>Hier können Sie sich ein neues Passwort generieren</a>.') : $remindtext = t('Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.');
                 $func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Passwort-Fehler).', $tmp_login_email), "2", "Authentifikation");
@@ -180,8 +180,16 @@ class auth {
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account ausgecheckt).', $tmp_login_email), "2", "Authentifikation");
             // Everything fine!
             } else {
-                // Set Logonstats
-                $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate WHERE userid = %int%', $user['userid']);
+                // Generate cookie PW
+                $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
+                $password_cookie = '';
+                for ($i = 0; $i < 40; $i++) {
+                  $char = substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+                  $password_cookie .= $char;
+                }
+
+                // Set Logonstats + new Cookie PW
+                $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate, password_cookie = %string% WHERE userid = %int%', md5($password_cookie),  $user['userid']);
                 if ($cfg["sys_logoffdoubleusers"]) $db->qry('DELETE FROM %prefix%stats_auth WHERE userid = %int%', $user['userid']);
                 
                 // Set authdata
@@ -193,7 +201,8 @@ class auth {
                 $this->auth['userid'] = $user['userid'];
 
                 $this->cookie_data['userid'] = $user['userid'];
-                $this->cookie_data['uniqekey'] = md5($user['password']);
+                $this->cookie_data['uniqekey'] = $password_cookie;
+                //$this->cookie_data['uniqekey'] = md5($user['password']);
                 $this->cookie_data['version'] = $this->cookie_version;
                 $this->cookie_data['olduserid'] = "";
                 $this->cookie_data['sb_code'] = "";
@@ -237,6 +246,9 @@ class auth {
         if     ($userid == "") $func->information(t('Keine Userid beim Login via Cookie erkannt.'), "", '', 1);
         elseif ($uniquekey == "") $func->information(t('Kein Uniquekey beim Login via Cookie erkannt.'), "", '', 1);
         else {
+        
+          $this->login($userid, $uniquekey, 0);
+          /*
             $user = $db->qry_first('SELECT 1 AS found, userid, username, email, password, type, locked FROM %prefix%user WHERE userid = %int%', $userid);
 
             if ($uniquekey == (md5($user['password']))) {
@@ -258,6 +270,7 @@ class auth {
                 // DEBUG
                 $func->information(t("Uniquekey fehlerhaft"), '','',1);
             }
+            */
         }
     }
     
@@ -514,10 +527,10 @@ class auth {
     function cookie_valid() {
         global $db, $config;
         // Get target user type
-        if ($this->cookie_data['userid']>=1) $user_row = $db->qry_first('SELECT password FROM %prefix%user WHERE userid = %int%', $this->cookie_data['userid']);
+        if ($this->cookie_data['userid'] >= 1) $user_row = $db->qry_first('SELECT password_cookie FROM %prefix%user WHERE userid = %int%', $this->cookie_data['userid']);
         $ok = 0;
         // Check for Cookie
-        if ($this->cookie_data['uniqekey'] == md5($user_row['password'])) $ok = 1;
+        if (md5($this->cookie_data['uniqekey']) == $user_row['password_cookie']) $ok = 1;
         if ($ok==0) $this->cookie_unset();
         return $ok;
     }

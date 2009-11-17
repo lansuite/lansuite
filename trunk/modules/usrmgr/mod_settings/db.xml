@@ -52,6 +52,13 @@
                 <extra></extra>
             </field>
             <field>
+                <name>password_cookie</name>
+                <type>varchar(60)</type>
+                <null>NO</null>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
                 <name>type</name>
                 <type>tinyint(2)</type>
                 <null>NO</null>
