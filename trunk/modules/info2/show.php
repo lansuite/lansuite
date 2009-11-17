@@ -13,6 +13,7 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
 	}
 
 	$dsp->NewContent(t('Seite').": {$info["caption$val"]}", $info["shorttext$val"]);
+	$framework->AddToPageTitle($info["caption$val"]);
 
   if ($info['active'] == 1) {
   	if($info["text$val"] == null)

@@ -183,19 +183,14 @@
         $cfg = $func->read_db_config(); // Config-Tabelle aulesen
         $sec->check_blacklist();
         
+        if (!$_GET['mod']) $_GET['mod'] = 'home';
         // FIX : Maybe its a good Idea make a func::get_activemodules()
         // Fetch all names of active modules
         $ActiveModules = array();
         $res = $db->qry('SELECT name, caption FROM %prefix%modules WHERE active = 1');
         while($row = $db->fetch_array($res)) {
           $ActiveModules[] = $row['name'];
-          if ($_GET['mod'] == $row['name']) {
-            if ($_GET['mod'] == 'info2') {
-              $row2 = $db->qry_first("SELECT caption FROM %prefix%info WHERE infoID = %int%", $_GET["id"]);
-              if ($row2['caption']) $cfg['sys_page_title'] .= ' - ' .$row2['caption'];
-              else $cfg['sys_page_title'] .= ' - ' .$row['caption'];
-            } else $cfg['sys_page_title'] .= ' - ' .$row['caption'];
-          }
+          if ($_GET['mod'] == $row['name']) $framework->AddToPageTitle($row['caption']);
         }
         $db->free_result($res);
         $ActiveModules[] = 'helplet';

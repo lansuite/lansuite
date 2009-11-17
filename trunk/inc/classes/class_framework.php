@@ -187,6 +187,11 @@ class framework {
         return $this->internal_url_query[$mode];
     }
 
+  function AddToPageTitle($add) {
+    global $cfg;
+    if ($add) $cfg['sys_page_title'] .= ' - '. $add;
+  } 
+
   /**
    * Display/output all HTML new Version
    *

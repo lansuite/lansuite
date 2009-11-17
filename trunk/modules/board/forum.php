@@ -39,6 +39,7 @@ if ($_GET['fid'] != '') {
 	$hyperlink = '<a href="%s" class="menu">%s</a>';
 	$overview_capt = '<b>'.sprintf($hyperlink, "index.php?mod=board", t('Forum')).'</b>';
 	$dsp->NewContent($row['name'], "<br />".t('Sie sind hier » ').$overview_capt.' » '.$row['name']);
+	$framework->AddToPageTitle($row['name']);
   $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
 }
 
