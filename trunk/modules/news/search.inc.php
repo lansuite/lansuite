@@ -2,7 +2,7 @@
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2('news');
 
-$ms2->query['from'] = "{$config["tables"]["news"]} n LEFT JOIN {$config["tables"]["user"]} u ON n.poster=u.userid";
+$ms2->query['from'] = "%prefix%news n LEFT JOIN %prefix%user u ON n.poster=u.userid";
 $ms2->query['default_order_by'] = 'DATE DESC';
 
 $ms2->config['EntriesPerPage'] = 20;

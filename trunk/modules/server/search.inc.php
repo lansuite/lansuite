@@ -36,7 +36,7 @@ function ServerStatus () {
 }
 
 
-$ms2->query['from'] = "{$config["tables"]["server"]} AS s LEFT JOIN {$config["tables"]["user"]} AS u ON s.owner = u.userid";
+$ms2->query['from'] = "%prefix%server AS s LEFT JOIN %prefix%user AS u ON s.owner = u.userid";
 
 $ms2->config['EntriesPerPage'] = 30;
 

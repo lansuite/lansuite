@@ -114,12 +114,12 @@ if ($_POST['search_input'][1] != '' or $_POST['search_input'][2] != '' or $_GET[
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
-$ms2->query['from'] = "{$config['tables']['board_threads']} AS t
-    LEFT JOIN {$config['tables']['board_forums']} AS f ON t.fid = f.fid
-    LEFT JOIN {$config['tables']['board_posts']} AS p ON t.tid = p.tid
-    LEFT JOIN {$config["tables"]["lastread"]} AS r ON t.tid = r.entryid AND r.tab = 'board' AND r.userid = ". (int)$auth['userid'] ."
-    LEFT JOIN {$config["tables"]["user"]} AS u ON p.userid = u.userid
-    LEFT JOIN {$config["tables"]["board_bookmark"]} AS b ON (b.fid = t.fid OR b.tid = t.tid) AND b.userid = ". (int)$auth['userid'] ."
+$ms2->query['from'] = "%prefix%board_threads AS t
+    LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
+    LEFT JOIN %prefix%board_posts AS p ON t.tid = p.tid
+    LEFT JOIN %prefix%lastread AS r ON t.tid = r.entryid AND r.tab = 'board' AND r.userid = ". (int)$auth['userid'] ."
+    LEFT JOIN %prefix%user AS u ON p.userid = u.userid
+    LEFT JOIN %prefix%board_bookmark AS b ON (b.fid = t.fid OR b.tid = t.tid) AND b.userid = ". (int)$auth['userid'] ."
     ";
 $ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1 ." AND (!need_group OR need_group = {$auth['group_id']})");
 if ($_GET['fid'] != '') $ms2->query['where'] .= ' AND t.fid = '. (int)$_GET['fid'];

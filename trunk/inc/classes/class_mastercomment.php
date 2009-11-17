@@ -66,8 +66,8 @@ class Mastercomment{
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('bugtracker');
 
-    $ms2->query['from'] = "{$config["tables"]["comments"]} AS c
-      LEFT JOIN {$config["tables"]["user"]} AS u ON c.creatorid = u.userid
+    $ms2->query['from'] = "%prefix%comments AS c
+      LEFT JOIN %prefix%user AS u ON c.creatorid = u.userid
       ";
     $ms2->query['where'] = "c.relatedto_item = '$mod' AND c.relatedto_id = '$id'";
     $config['dont_link_first_line'] = 1;

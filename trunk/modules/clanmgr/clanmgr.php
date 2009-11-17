@@ -56,8 +56,8 @@ switch ($_GET['step']) {
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('clanmgr');
     
-    $ms2->query['from'] = "{$config["tables"]["clan"]} AS c
-        LEFT JOIN {$config["tables"]["user"]} AS u ON c.clanid = u.clanid";
+    $ms2->query['from'] = "%prefix%clan AS c
+        LEFT JOIN %prefix%user AS u ON c.clanid = u.clanid";
     
     $ms2->config['EntriesPerPage'] = 20;
     #$ms2->AddBGColor('c.clanid', array($auth['clanid'] => 'ff0000'));
@@ -101,7 +101,7 @@ switch ($_GET['step']) {
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('clanmgr');
     
-    $ms2->query['from'] = "{$config["tables"]["user"]} AS u";
+    $ms2->query['from'] = "%prefix%user AS u";
     $ms2->query['where'] = "u.clanid = ". (int)$_GET['clanid'];
     
     $ms2->config['EntriesPerPage'] = 100;
@@ -193,7 +193,7 @@ switch ($_GET['step']) {
       include_once('modules/mastersearch2/class_mastersearch2.php');
       $ms2 = new mastersearch2('clanmgr');
 
-      $ms2->query['from'] = "{$config["tables"]["user"]} AS u";
+      $ms2->query['from'] = "%prefix%user AS u";
       $ms2->query['where'] = 'u.clanid = '. (int)$_GET['clanid'];
       $ms2->config['EntriesPerPage'] = 20;
 

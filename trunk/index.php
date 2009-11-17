@@ -165,7 +165,6 @@
         $auth["login"] = 1;
         // Load DB-Data after installwizard step 3
         if ($_GET["action"] == "wizard" and $_GET["step"] > 3) {
-            $db->SetTableNames();       // Load SQL-Tables used by each page
             $cfg = $func->read_db_config();  // read Configtable
         }
 
@@ -181,7 +180,6 @@
         // Reset DB-Success in Setup if no Adm.-Account was found, because a connection could work, but prefix is wrong
         if (!func::admin_exists() and (($_GET["action"] == "wizard" and $_GET["step"] <= 3) or ($_GET["action"] == "ls_conf"))) $db->success = 0;
 
-        $db->SetTableNames();      // Load SQL-Tables used by each page to $config['tables']['name'] = "prefix_name"
         $cfg = $func->read_db_config(); // Config-Tabelle aulesen
         $sec->check_blacklist();
         

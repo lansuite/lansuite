@@ -17,10 +17,10 @@ if ($_POST['action']) {
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2();
 
-  $ms2->query['from'] = "{$config['tables']['board_posts']} AS p
-      LEFT JOIN {$config['tables']['user']} AS u ON p.userid = u.userid
-      LEFT JOIN {$config['tables']['board_threads']} AS t ON p.tid = t.tid
-      LEFT JOIN {$config['tables']['board_forums']} AS f ON t.fid = f.fid
+  $ms2->query['from'] = "%prefix%board_posts AS p
+      LEFT JOIN %prefix%user AS u ON p.userid = u.userid
+      LEFT JOIN %prefix%board_threads AS t ON p.tid = t.tid
+      LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
       ";
   $ms2->query['where'] = 'f.need_type <= '. (int)($auth['type'] + 1);
   $ms2->query['default_order_by'] = 'LastPost DESC';

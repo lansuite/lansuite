@@ -67,9 +67,6 @@ if ($_GET["quest"]){
 
 	// Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
 	$install->CreateNewTables(1);
-	// Read table-names from DB an save them in $config['tables']
-	$db->SetTableNames();
-
 	// Insert PLZs from modules/install/db_insert_locations.sql in DB, if not exist
 	$install->InsertPLZs();
 	// Insert modules-settings from mod_settings/module.xml in DB, if not exist

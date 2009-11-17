@@ -11,8 +11,8 @@ switch($_GET['step']){
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
-$ms2->query['from'] = "{$config["tables"]["comments"]} AS c
-  LEFT JOIN {$config["tables"]["user"]} AS u ON u.userid = c.creatorid";
+$ms2->query['from'] = "%prefix%comments AS c
+  LEFT JOIN %prefix%user AS u ON u.userid = c.creatorid";
 $ms2->query['default_order_by'] = 'c.date DESC';
 $ms2->config['EntriesPerPage'] = 30;
 

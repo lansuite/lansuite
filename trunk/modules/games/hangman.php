@@ -139,7 +139,7 @@ switch ($_GET["step"]) {
 		$ms2 = new mastersearch2('games');
 
 		//Anzeige der Aufgaben
-		$ms2->query['from'] = "{$config['tables']['game_hs']} AS g";
+		$ms2->query['from'] = "%prefix%game_hs AS g";
 		$ms2->query['where'] ="game='hm'"; 
 		$ms2->query['default_order_by'] ="g.score"; 
 		$ms2->config['EntriesPerPage'] = 50;

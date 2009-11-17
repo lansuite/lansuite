@@ -5,7 +5,7 @@ $dsp->AddSingleRow($dsp->FetchButton('index.php?mod=guestbook&action=add', 'add'
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
-$ms2->query['from'] = "{$config["tables"]["guestbook"]} AS g";
+$ms2->query['from'] = "%prefix%guestbook AS g";
 $ms2->query['default_order_by'] = 'g.date';
 $ms2->query['default_order_dir'] = 'DESC';
 

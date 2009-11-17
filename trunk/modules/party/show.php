@@ -30,7 +30,7 @@ switch($_GET['step']){
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('party');
     
-    $ms2->query['from'] = "{$config["tables"]["partys"]} AS p";
+    $ms2->query['from'] = "%prefix%partys AS p";
     $ms2->query['default_order_by'] = 'p.startdate DESC';
     
     $ms2->config['EntriesPerPage'] = 20;

@@ -11,7 +11,7 @@ switch($_GET['step']){
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
-$ms2->query['from'] = "{$config["tables"]["comments_bookmark"]} AS b";
+$ms2->query['from'] = "%prefix%comments_bookmark AS b";
 $ms2->query['where'] = 'b.userid = '. (int)$auth['userid'];
 $ms2->query['default_order_by'] = 'b.relatedto_item';
 $ms2->config['EntriesPerPage'] = 20;

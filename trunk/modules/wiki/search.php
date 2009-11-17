@@ -2,9 +2,9 @@
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2('wiki');
 
-$ms2->query['from'] = "{$config['tables']['wiki']} AS w
-  LEFT JOIN {$config['tables']['wiki_versions']} AS v ON w.postid = v.postid
-  LEFT JOIN {$config['tables']['user']} AS u ON v.userid = u.userid";
+$ms2->query['from'] = "%plain%wiki AS w
+  LEFT JOIN %plain%wiki_versions AS v ON w.postid = v.postid
+  LEFT JOIN %plain%user AS u ON v.userid = u.userid";
 $ms2->query['default_order_by'] = 'v.date DESC';
 
 $ms2->config['EntriesPerPage'] = 30;

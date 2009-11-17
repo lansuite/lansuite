@@ -24,8 +24,8 @@ $dsp->NewContent(t('Produktsuche'), t('Hier findest du alles was das Herz begehr
 
 $ms2 = new mastersearch2();
 
-$ms2->query['from'] = "{$config['tables']['food_product']} AS p
-			LEFT JOIN {$config['tables']['food_option']} AS o ON o.parentid = p.id";
+$ms2->query['from'] = "%prefix%food_product AS p
+			LEFT JOIN %prefix%food_option AS o ON o.parentid = p.id";
 
 	$cat_list = array('' => 'Alle');
 	$row = $db->qry("SELECT * FROM %prefix%food_cat");

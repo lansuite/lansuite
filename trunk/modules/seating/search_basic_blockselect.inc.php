@@ -36,7 +36,7 @@ function SeatLoad($blockid) {
 }
 
 
-$ms2->query['from'] = $config['tables']['seat_block'] .' AS b';
+$ms2->query['from'] = '%plain%seat_block AS b';
 $ms2->query['where'] = 'b.party_id = '. $party->party_id;
 
 $ms2->config['EntriesPerPage'] = 30;

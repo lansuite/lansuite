@@ -10,9 +10,9 @@ function RentCount($quantity) {
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2('news');
 
-$ms2->query['from'] = "{$config["tables"]["rentstuff"]} AS s
-  LEFT JOIN {$config["tables"]["user"]} AS o ON s.ownerid = o.userid
-  LEFT JOIN {$config["tables"]["rentuser"]} AS u ON u.stuffid = s.stuffid";
+$ms2->query['from'] = "%prefix%rentstuff AS s
+  LEFT JOIN %prefix%user AS o ON s.ownerid = o.userid
+  LEFT JOIN %prefix%rentuser AS u ON u.stuffid = s.stuffid";
 
 $ms2->AddTextSearchField('Titel', array('s.caption' => 'like'));
 

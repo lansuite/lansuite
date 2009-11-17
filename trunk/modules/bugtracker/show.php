@@ -64,10 +64,10 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('bugtracker');
 
-  $ms2->query['from'] = "{$config["tables"]["bugtracker"]} AS b
-    LEFT JOIN {$config["tables"]["user"]} AS r ON b.reporter = r.userid
-    LEFT JOIN {$config["tables"]["user"]} AS a ON b.agent = a.userid
-    LEFT JOIN {$config["tables"]["comments"]} AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
+  $ms2->query['from'] = "%prefix%bugtracker AS b
+    LEFT JOIN %prefix%user AS r ON b.reporter = r.userid
+    LEFT JOIN %prefix%user AS a ON b.agent = a.userid
+    LEFT JOIN %prefix%comments AS c ON (c.relatedto_id = b.bugid AND c.relatedto_item = 'BugEintrag')
     ";
   $ms2->query['where'] = '(!private OR '. (int)$auth['type'] .' >= 2)';
 #  $ms2->query['default_order_by'] = 'FIND_IN_SET(state, \'0,7,1,2,3,4,5,6\'), date DESC';
@@ -204,7 +204,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('bugtracker');
 
-  $ms2->query['from'] = "{$config["tables"]["log"]} AS l LEFT JOIN {$config["tables"]["user"]} AS u ON l.userid = u.userid";
+  $ms2->query['from'] = "%prefix%log AS l LEFT JOIN %prefix%user AS u ON l.userid = u.userid";
   $ms2->query['where'] = "(sort_tag = 'bugtracker' AND target_id = ". (int)$_GET['bugid'] .')';
 
   $ms2->AddResultField('', 'l.description');

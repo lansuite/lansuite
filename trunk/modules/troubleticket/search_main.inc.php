@@ -15,8 +15,8 @@ function TTStatus($status) {
 	}
 }  
 
-$ms2->query['from'] = "{$config["tables"]["troubleticket"]} AS t
-  LEFT JOIN {$config["tables"]["user"]} AS u ON t.target_userid = u.userid";
+$ms2->query['from'] = "%prefix%troubleticket AS t
+  LEFT JOIN %prefix%user AS u ON t.target_userid = u.userid";
 
 $ms2->query['where'] = "status > '0'";
 

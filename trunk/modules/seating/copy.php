@@ -5,7 +5,7 @@ switch($_GET['step']) {
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('seating');
 
-    $ms2->query['from'] = "{$config['tables']['seat_block']} AS b LEFT JOIN {$config['tables']['partys']} AS p on b.party_id = p.party_id";
+    $ms2->query['from'] = "%prefix%seat_block AS b LEFT JOIN %prefix%partys AS p on b.party_id = p.party_id";
 
     $ms2->AddResultField('Blockname', 'b.name');
     $ms2->AddResultField('Party', 'p.name AS partyname');
