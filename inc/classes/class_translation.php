@@ -108,8 +108,8 @@ class translation {
     function load_trans($mode, $akt_modul) {
         if ($mode == 'db') {
             // System is configured, Language will be loaded from DB
-            $this->load_cache_bydb('System');
-            $this->load_cache_bydb('DB');
+            #$this->load_cache_bydb('System'); // Both included in the third query for performance reasons
+            #$this->load_cache_bydb('DB');
             $this->load_cache_bydb($akt_modul);
             $this->cachemod_loaded_db = 1;
         } elseif ($mode == 'xml') {
@@ -151,7 +151,7 @@ class translation {
         global $db;
         if ($db->success) {
             // Load from DB
-            $res = $db->qry('SELECT id, org, '. $this->language .' FROM %prefix%translation WHERE file = %string%', $modul);
+            $res = $db->qry('SELECT id, org, '. $this->language .' FROM %prefix%translation WHERE file = %string% OR file = \'DB\' OR file = \'System\' ORDER BY FIELD(file, \'System,DB,'. $modul .'\')', $modul);
             while ($row = $db->fetch_array($res, 0)) {
                 if ($row[$this->language] != '') {
                     if ($this->lang_cache[$modul][$row['id']] == '' ) $this->lang_cache[$modul][$row['id']] = $row[$this->language];
