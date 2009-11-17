@@ -506,12 +506,25 @@ class auth {
    *
    * @return void
    */
-    function set_install_cookie($email, $password){
+    function set_install_cookie($email, $password) {
         global $db, $config;
+
         $email = strtolower(htmlspecialchars(trim($email)));
         $user = $db->qry_first('SELECT userid, password FROM %prefix%user WHERE LOWER(email) = %string%', $email);
+
+        // Generate cookie PW
+        $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $password_cookie = '';
+        for ($i = 0; $i < 40; $i++) {
+          $char = substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+          $password_cookie .= $char;
+        }
+
+        // Set new Cookie PW
+        $db->qry('UPDATE %prefix%user SET password_cookie = %string% WHERE userid = %int%', md5($password_cookie), $user['userid']);
+
         $this->cookie_data['userid'] = $user['userid'];
-        $this->cookie_data['uniqekey'] = md5($user['password']); // FIX
+        $this->cookie_data['uniqekey'] = $password_cookie;
         $this->cookie_data['version'] = $this->cookie_version;
         $this->cookie_data['olduserid'] = "";
         $this->cookie_data['sb_code'] = "";
