@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lansuite-module>
 	<name>info2</name>			<!-- The modules internal name. This should be the same as the name of its folder! -->
-	<caption>Informationen2</caption>		<!-- The modulname displayed to the user -->
+	<caption>Info</caption>		<!-- The modulname displayed to the user -->
 	<description>Ermöglicht das einfache hinzufügen weiterer statischer Webseiten</description>		<!-- A short description of the module -->
 	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
 	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->

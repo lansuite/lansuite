@@ -66,6 +66,7 @@ else
 if (!$thread and $tid) $func->information(t('Keine Beiträge vorhanden'), '');
 elseif ($thread['caption'] != '') {
 
+	$framework->AddToPageTitle($thread['caption']);
 	$fid = $thread["fid"];
 
 	// Mark thread read

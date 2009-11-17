@@ -3,6 +3,7 @@
 $check = $db->qry_first('SELECT caption FROM %prefix%news WHERE newsid = %int%', $_GET['newsid']);
 if ($check["caption"] != "") {
 
+	$framework->AddToPageTitle($check["caption"]);
   $func->SetRead('news', $_GET['newsid']);
   
   // GET NEWS DATA
