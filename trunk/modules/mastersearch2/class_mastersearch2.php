@@ -124,7 +124,9 @@ class MasterSearch2 {
     $working_link .= '&ms_number='. $ms_number;
     $this->AddSelect($select_id_field); 
     $min_skipped_items = 99;
-    
+   
+    $this->query['from'] = str_replace('%prefix%', $config['database']['prefix'], $this->query['from']);
+
     ###### Generate Where
     if ($this->query['where'] == '') $this->query['where'] = '1 = 1';
     
@@ -286,7 +288,6 @@ class MasterSearch2 {
     }
         
     
-    $this->query['from'] = str_replace('%prefix%', $config['database']['prefix'], $this->query['from']);
     ###### Execute SQL
     $res = $db->qry('%plain%',
       "SELECT SQL_CALC_FOUND_ROWS {$this->query['select']}
