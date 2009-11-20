@@ -39,7 +39,7 @@ class auth {
         $this->auth["sessid"] = session_id();
         $this->auth["ip"] = $_SERVER['REMOTE_ADDR'];
         $this->timestamp = time();
-        $this->update_visits(); // Update Statistik
+        $this->update_visits($frmwrkmode); // Update Statistik
     }
 
   /**
