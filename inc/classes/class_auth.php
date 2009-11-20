@@ -488,7 +488,7 @@ class auth {
    *
    * @access private
    */
-    function update_visits($frmwrkmode) {
+    function update_visits($frmwrkmode="") {
         global $db;
         if($frmwrkmode != "ajax" OR $frmwrkmode != "print" OR $frmwrkmode != "popup" OR $frmwrkmode != "base") {
             // Update visits, hits, IP and lasthit
