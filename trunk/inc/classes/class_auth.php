@@ -26,7 +26,8 @@ class auth {
     var $cookie_version =  "1";          // Cookieversion
     var $cookie_domain =   "";           // Domain
     var $cookie_time =     "30";         // Dauer in Tagen
-    var $cookie_path =     "";           // Domainpath. Left blank
+    var $cookie_path =     "";           // Cookiepatz. Left blank for autodetect
+    var $cookie_crypt =    true;         // Crypt Cookie with AzDGCrypt
  /**#@-*/
   
   /**
@@ -38,8 +39,9 @@ class auth {
         // Init-Vars
         $this->auth["sessid"] = session_id();
         $this->auth["ip"] = $_SERVER['REMOTE_ADDR'];
-        $this->timestamp = time();
-        $this->update_visits($frmwrkmode); // Update Statistik
+        $this->timestamp = time();              // Timestamp for Statistik
+        $this->update_visits($frmwrkmode);      // Update Statistik
+        //$this->cookie_crypt = $cfg[''];       // Crypt via Config
     }
 
   /**
@@ -626,8 +628,12 @@ class auth {
                       $this->cookie_data['olduserid'],
                       $this->cookie_data['sb_code']);
         $cookie = implode("|", $data);
-        $crypt= new AzDGCrypt(md5("synergycookie"));
-        return $crypt->crypt($cookie);
+        // Crypt only via Config. See Construktor
+        if ($this->cookie_crypt) {
+            $crypt= new AzDGCrypt(md5("synergycookie"));
+            $cookie = $crypt->crypt($cookie);
+        }
+        return $cookie;
     }
 
   /**
@@ -638,8 +644,12 @@ class auth {
    * @access private
    */
     function cookiedata_unpack($cookie) {
-        $crypt= new AzDGCrypt(md5("synergycookie"));
-        $cookie = $crypt->decrypt($cookie);
+        // Crypt only via Config. See Construktor
+        if ($this->cookie_crypt) {
+            $crypt= new AzDGCrypt(md5("synergycookie"));
+            $cookie = $crypt->decrypt($cookie);
+        }
+        // TODO : Check Vars
         list ($this->cookie_data['userid'], 
               $this->cookie_data['uniqekey'], 
               $this->cookie_data['version'],
