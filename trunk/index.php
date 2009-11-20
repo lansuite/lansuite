@@ -1,5 +1,4 @@
 <?php
-
 ### Set Error Reporting & INI-Settings
 
     if (defined('E_DEPRECATED')) error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED); // Will work for PHP >= 5.3
@@ -23,8 +22,9 @@
     $framework = new framework();
     $framework->fullscreen($_GET['fullscreen']);                // Switch fullscreen via GET
     // Notlösung... design als base und popup sollen ganz verschwinden
-    if ($_GET['design']=='base' OR $_GET['design']=='popup' OR $_GET['design']=='ajax' OR $_GET['design']=='print') $framework->set_modus($_GET['design']); // Set Popupmode via GET (base, popup)
-    if ($_GET['frmwrkmode']) $framework->set_modus($_GET['frmwrkmode']); // Set Popupmode via GET (base, popup)
+    if ($_GET['design']=='base' OR $_GET['design']=='popup' OR $_GET['design']=='ajax' OR $_GET['design']=='print') $frmwrkmode = $_GET['design']; // Set Popupmode via GET (base, popup)
+    if ($_GET['frmwrkmode']) $frmwrkmode = $_GET['frmwrkmode']; // Set Popupmode via GET (base, popup)
+    if (isset($frmwrkmode)) $framework->set_modus($frmwrkmode);
     // Ende Notlösung
     $framework->make_clean_url_query($_SERVER['REQUEST_URI']);  // Build interlal URL-Query
 
@@ -117,7 +117,7 @@
     include_once("modules/party/class_party.php");
     if (file_exists("modules/mastersearch/class_mastersearch.php")) include_once("modules/mastersearch/class_mastersearch.php");
     include_once("modules/mail/class_mail.php");
-	#include_once("modules/msgsys2/class_msgsys.php");
+    #include_once("modules/msgsys2/class_msgsys.php");
     include_once("modules/stats/class_stats.php");
     include_once("modules/seating/class_seat.php");
     include_once("modules/cron2/class_cron2.php");
@@ -128,7 +128,7 @@
     $gd          = new gd;               // GD Functions (for graphical outputs)
     $dsp         = new display();        // Display Functions (to load the lansuite-templates)
     $mail        = new mail();           // Mail Functions (for sending mails to lansuite-users)
-	#$msgsys		 = new msgsys;			 // Msgsys Functions (for sending mails to lansuite-users, manage the buddylist and the messenger)
+    #$msgsys         = new msgsys;           // Msgsys Functions (for sending mails to lansuite-users, manage the buddylist and the messenger)
     $xml         = new xml;              // XML Functions (to maintain XML-Ex-/Imports)
     $db          = new db;               // DB Functions (to work with the databse)
     $sec         = new sec;              // Security Functions (to lock pages)
@@ -199,7 +199,7 @@
         
         ### Start autentication, just if LS is working
         
-        $authentication = new auth();
+        $authentication = new auth($frmwrkmode);
         $auth      = $authentication->check_logon();    // Testet Cookie / Session ob User eingeloggt ist
         $olduserid = $authentication->get_olduserid();  // Olduserid for Switback on Boxes
 
@@ -249,14 +249,14 @@
 
     $framework->add_css_path('design/'.$auth['design'].'/navibox.css'); 
     $framework->set_design($auth['design']); 
-	#$framework->add_css_path('design/ui.tabs.css');
-	#$framework->add_js_path('ext_scripts/jquery/jquery.js');
-	#$framework->add_js_path('ext_scripts/jquery/jquery.timer.js');
-	#$framework->add_js_path('ext_scripts/jquery/ui/ui.core.js');
-	#$framework->add_js_path('ext_scripts/jquery/plugins/dimensions/jquery.dimensions.js');
+    #$framework->add_css_path('design/ui.tabs.css');
+    #$framework->add_js_path('ext_scripts/jquery/jquery.js');
+    #$framework->add_js_path('ext_scripts/jquery/jquery.timer.js');
+    #$framework->add_js_path('ext_scripts/jquery/ui/ui.core.js');
+    #$framework->add_js_path('ext_scripts/jquery/plugins/dimensions/jquery.dimensions.js');
     #$framework->add_js_path('ext_scripts/jquery/ui/ui.tabs.js');
-	#if($_GET['action'] != 'wizard' && $auth['login'] == 1) $framework->add_js_path('modules/msgsys2/js/msgsys2.js');
-	
+    #if($_GET['action'] != 'wizard' && $auth['login'] == 1) $framework->add_js_path('modules/msgsys2/js/msgsys2.js');
+    
     $db->DisplayErrors();
     $framework->add_content($FrameworkMessages);    // Add old Frameworkmessages (sollten dann ausgetauscht werden)
     $framework->add_content($MainContent);          // Add oll MainContent-Variable (sollte auch bereinigt werden)
@@ -276,16 +276,16 @@
      * Initializes the design of lansuite. 
      */
     function initializeDesign() {
-    	global $cfg, $auth, $config, $_SESSION, $_GET, $smarty;
-    	
-		// If user is not allowed to use an own selected design, or none is selected, use default
-	    if (!$cfg['user_design_change'] or !$auth["design"]) $auth['design'] = $config['lansuite']['default_design'];
-	    if (!$auth["design"]) $auth["design"] = "simple"; // Default if none
-	    if (!file_exists("design/{$auth["design"]}/templates/main.htm")) $auth["design"] = "simple"; // Default if not availible
-	    $_SESSION["auth"]["design"] = $auth["design"]; // For compaibility with old LS code
-	    // folgendes betrifft momentan wohl nur Beamer
-	    if ($_GET['design'] and $_GET['design'] != 'popup' and $_GET['design'] != 'base') $auth['design'] = $_GET['design'];
-	    $smarty->assign('default_design', $auth['design']);
+        global $cfg, $auth, $config, $_SESSION, $_GET, $smarty;
+        
+        // If user is not allowed to use an own selected design, or none is selected, use default
+        if (!$cfg['user_design_change'] or !$auth["design"]) $auth['design'] = $config['lansuite']['default_design'];
+        if (!$auth["design"]) $auth["design"] = "simple"; // Default if none
+        if (!file_exists("design/{$auth["design"]}/templates/main.htm")) $auth["design"] = "simple"; // Default if not availible
+        $_SESSION["auth"]["design"] = $auth["design"]; // For compaibility with old LS code
+        // folgendes betrifft momentan wohl nur Beamer
+        if ($_GET['design'] and $_GET['design'] != 'popup' and $_GET['design'] != 'base') $auth['design'] = $_GET['design'];
+        $smarty->assign('default_design', $auth['design']);
     }
 
 ?>
