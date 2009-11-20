@@ -26,21 +26,20 @@ class auth {
     var $cookie_version =  "1";          // Cookieversion
     var $cookie_domain =   "";           // Domain
     var $cookie_time =     "30";         // Dauer in Tagen
-    var $cookie_path =     "/";          // Domainpfad
-  /**#@-*/
+    var $cookie_path =     "";           // Domainpath. Left blank
+ /**#@-*/
   
   /**
    * CONSTRUCTOR : Initialize basic Variables for Authorisation
+   * @param mixed Frameworkmode for switch Stats
    *
    */
-    function auth() {
+    function auth($frmwrkmode="") {
         // Init-Vars
         $this->auth["sessid"] = session_id();
         $this->auth["ip"] = $_SERVER['REMOTE_ADDR'];
         $this->timestamp = time();
         $this->update_visits(); // Update Statistik
-        // $this->load_authdata(); // Load Sessiondata if Possible
-        // $this->cookie_read();   // Read Cookiedata
     }
 
   /**
@@ -126,8 +125,8 @@ class auth {
         if     ($tmp_login_email == "") $func->information(t('Bitte geben Sie Ihre E-Mail-Adresse oder Ihre Lansuite-ID ein.'), "", '', 1);
         elseif ($tmp_login_pass == "") $func->information(t('Bitte geben Sie Ihr Kennwort ein.'), "", '', 1);
         else {
-        	$is_email = strstr($tmp_login_email, '@');
-        	if(!$is_email) $is_email = 0; else $is_email = 1;
+            $is_email = strstr($tmp_login_email, '@');
+            if(!$is_email) $is_email = 0; else $is_email = 1;
             // Go on if email and password
             $user = $db->qry_first('SELECT 1 AS found, u.*
               FROM %prefix%user AS u
@@ -259,13 +258,13 @@ class auth {
                 // Set authdata
                 $db->qry('REPLACE INTO %prefix%stats_auth
                   SET sessid = %string%, userid = %int%, login = \'1\', ip = %string%, logtime = %string%, logintime = %string%, lasthit = %string%',
-				$this->auth["sessid"], $user["userid"], $this->auth["ip"], $this->timestamp, $this->timestamp, $this->timestamp);
+                $this->auth["sessid"], $user["userid"], $this->auth["ip"], $this->timestamp, $this->timestamp, $this->timestamp);
 
-				$this->load_authdata();
-				$this->auth['userid'] = $user['userid'];
+                $this->load_authdata();
+                $this->auth['userid'] = $user['userid'];
                  
-				// The User will be logged in on the phpBB Board if the modul is available, configured and active.
-            	$this->loginPhpbb();
+                // The User will be logged in on the phpBB Board if the modul is available, configured and active.
+                $this->loginPhpbb();
             } else {
                 // DEBUG
                 $func->information(t("Uniquekey fehlerhaft"), '','',1);
@@ -278,27 +277,27 @@ class auth {
      * Logs the user on the phpbb board on, if the board was integrated.
      */
     function loginPhpbb($userid = '') {
-    	global $config, $ActiveModules;
+        global $config, $ActiveModules;
 
-    	if ($userid == '')
-    		$userid = $this->auth['userid'];
+        if ($userid == '')
+            $userid = $this->auth['userid'];
 
-		// The User will be logged in on the phpBB Board if the modul is available, configured and active.
+        // The User will be logged in on the phpBB Board if the modul is available, configured and active.
         if ($config['environment']['configured'])
         {
-	        if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
-				include_once ('./modules/board2/class_board2.php');
-				$board2 = new Board2();
-				$board2->loginPhpBB($userid);
-			}
+            if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
+                include_once ('./modules/board2/class_board2.php');
+                $board2 = new Board2();
+                $board2->loginPhpBB($userid);
+            }
         }
     }
     
-	/**
-	 * Logout the User and delete Sessiondata, Cookie and Authdata
-	 *
-	 * @return array Returns the cleared auth-dataarray
-	 */
+    /**
+     * Logout the User and delete Sessiondata, Cookie and Authdata
+     *
+     * @return array Returns the cleared auth-dataarray
+     */
     function logout() {
         global $db, $config, $ActiveModules, $func;
 
@@ -310,7 +309,7 @@ class auth {
         $this->cookie_unset();
         
         // Logs the user from the board2 off.
-		$this->logoutPhpbb();
+        $this->logoutPhpbb();
 
         // Reset Sessiondata
         unset($this->auth);
@@ -326,13 +325,13 @@ class auth {
         return $this->auth;                // For overwrite global $auth
     }
     
-	/**
-	 * Logs the user from the phpbb board off, if it was integrated.
-	 */
+    /**
+     * Logs the user from the phpbb board off, if it was integrated.
+     */
     function logoutPhpbb() {
-    	global $config, $ActiveModules;
+        global $config, $ActiveModules;
  
-    	// The User will be logged out on the phpBB Board if the modul is available, configured and active.
+        // The User will be logged out on the phpBB Board if the modul is available, configured and active.
         if (in_array('board2', $ActiveModules) and $config['board2']['configured'] and $this->auth['userid'] != '') {
             include_once ('./modules/board2/class_board2.php');
             $board2 = new board2();
@@ -367,7 +366,7 @@ class auth {
             $db->qry('UPDATE %prefix%user SET switch_back = %string% WHERE userid = %int%', $switchbackcode, $this->auth["userid"]);
             // Link session ID to new user ID
             $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $target_id, $this->auth["sessid"]);
-			
+            
             // Logs the auser out on the board2 and logs the new user on
             //TODO: fix switch user phpbb logon
             //$this->logoutPhpbb();
@@ -379,10 +378,10 @@ class auth {
         }
     }
 
-	/**
-	 * Switchback to Adminuser
-	 * Logout from the selectet User and go back to the calling Adminuser
-	 */
+    /**
+     * Switchback to Adminuser
+     * Logout from the selectet User and go back to the calling Adminuser
+     */
     function switchback() {
         global $db, $config, $lang, $func;
         // Make sure that Cookiedata is loaded
@@ -403,9 +402,9 @@ class auth {
                 $this->cookie_set();
                 
                 // Logs the new user out on the board2 and logs the admin user on again
-	            //TODO: fix switch user phpbb logon
-            	//$this->logoutPhpbb();
-	            //$this->loginPhpbb($this->cookie_data['userid']);
+                //TODO: fix switch user phpbb logon
+                //$this->logoutPhpbb();
+                //$this->loginPhpbb($this->cookie_data['userid']);
                 
                 $func->information(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,'',1);
             } else {
@@ -489,17 +488,17 @@ class auth {
    *
    * @access private
    */
-    function update_visits() {
-        global $db, $config;
-		if($_GET["design"] != "ajax") {
-        	// Update visits, hits, IP and lasthit
-        	$visit_timeout = time() - 60*60;
-        	// If a session loaded no page for over one hour, this counts as a new visit
-        	$db->qry('UPDATE %prefix%stats_auth SET visits = visits + 1 WHERE (sessid=%string%) AND (lasthit < %int%)', $this->auth["sessid"], $visit_timeout);
-        	// Update user-stats and lasthit, so the timeout is resetted
-        	$db->qry('UPDATE %prefix%stats_auth SET lasthit=%int%, hits = hits + 1, ip=%string%, lasthiturl= %string% WHERE sessid=%string%', $this->timestamp, $this->auth["ip"], $_SERVER['REQUEST_URI'], $this->auth["sessid"]);
-    	}
-	}
+    function update_visits($frmwrkmode) {
+        global $db;
+        if($frmwrkmode != "ajax" OR $frmwrkmode != "print" OR $frmwrkmode != "popup" OR $frmwrkmode != "base") {
+            // Update visits, hits, IP and lasthit
+            $visit_timeout = time() - 60*60;
+            // If a session loaded no page for over one hour, this counts as a new visit
+            $db->qry('UPDATE %prefix%stats_auth SET visits = visits + 1 WHERE (sessid=%string%) AND (lasthit < %int%)', $this->auth["sessid"], $visit_timeout);
+            // Update user-stats and lasthit, so the timeout is resetted
+            $db->qry('UPDATE %prefix%stats_auth SET lasthit=%int%, hits = hits + 1, ip=%string%, lasthiturl= %string% WHERE sessid=%string%', $this->timestamp, $this->auth["ip"], $_SERVER['REQUEST_URI'], $this->auth["sessid"]);
+        }
+    }
 
   /**
    * Set Cookie for Installadmin
@@ -576,16 +575,16 @@ class auth {
    * @access private
    */
     function cookie_resetpassword($userid) {
-    	global $db;
-    	
-		$user = $db->qry_first('SELECT password FROM %prefix%user WHERE (userid = %int%)', $userid);
+        global $db;
+        
+        $user = $db->qry_first('SELECT password FROM %prefix%user WHERE (userid = %int%)', $userid);
 
         $this->cookie_data['userid'] = $userid;
-		$this->cookie_data['uniqekey'] = md5($user['password']);
-		$this->cookie_data['version'] = $this->cookie_version;
-		$this->cookie_data['olduserid'] = "";
-		$this->cookie_data['sb_code'] = "";
-		$this->cookie_set();
+        $this->cookie_data['uniqekey'] = md5($user['password']);
+        $this->cookie_data['version'] = $this->cookie_version;
+        $this->cookie_data['olduserid'] = "";
+        $this->cookie_data['sb_code'] = "";
+        $this->cookie_set();
     }
 
   /**
