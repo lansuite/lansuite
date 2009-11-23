@@ -198,12 +198,7 @@ class auth {
             // Everything fine!
             } else {
                 // Generate cookie PW
-                $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
-                $password_cookie = '';
-                for ($i = 0; $i < 40; $i++) {
-                  $char = substr($possible, mt_rand(0, strlen($possible) - 1), 1);
-                  $password_cookie .= $char;
-                }
+                $password_cookie = $this->gen_rnd_key(40);
 
                 // Set Logonstats + new Cookie PW
                 $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate, password_cookie = %string% WHERE userid = %int%', md5($password_cookie),  $user['userid']);
@@ -371,8 +366,7 @@ class auth {
 
         // Only highlevel to lowerlevel
         if ($this->auth["type"] > $target_user["type"]) {
-            // Generate switch back code
-            for ($x = 0; $x <= 24; $x++) $switchbackcode .= chr(mt_rand(65, 90));
+            $switchbackcode = $this->gen_rnd_key(24); // Generate switch back code
 
             // UserID and PW are not needed in Cookie, for during Switch, the login is maintanined by the session ID
             $this->cookie_data['userid'] = '';
@@ -540,12 +534,7 @@ class auth {
         $user = $db->qry_first('SELECT userid, password FROM %prefix%user WHERE LOWER(email) = %string%', $email);
 
         // Generate cookie PW
-        $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
-        $password_cookie = '';
-        for ($i = 0; $i < 40; $i++) {
-          $char = substr($possible, mt_rand(0, strlen($possible) - 1), 1);
-          $password_cookie .= $char;
-        }
+        $password_cookie = $this->gen_rnd_key(40);
 
         // Set new Cookie PW
         $db->qry('UPDATE %prefix%user SET password_cookie = %string% WHERE userid = %int%', md5($password_cookie), $user['userid']);
@@ -684,6 +673,20 @@ class auth {
               $this->cookie_data['version'],
               $this->cookie_data['olduserid'],
               $this->cookie_data['sb_code']) = explode("|", $cookie);
+    }
+
+
+  /**
+   * Generate simple Randomkey
+   * @param integer How many Chars to generate
+   * @return mixed Generated Randomkey
+   * @access private
+   */
+    function gen_rnd_key($count) {
+        $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $key = '';
+        for ($i = 0; $i < $count; $i++) $key .= substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+        return $key;
     }
 }
 
