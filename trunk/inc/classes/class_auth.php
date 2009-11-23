@@ -26,8 +26,9 @@ class auth {
     var $cookie_version =  "1";          // Cookieversion
     var $cookie_domain =   "";           // Domain
     var $cookie_time =     "30";         // Dauer in Tagen
-    var $cookie_path =     "";           // Cookiepatz. Left blank for autodetect
+    var $cookie_path =     "";           // Cookiepath. Left blank for autodetect
     var $cookie_crypt =    true;         // Crypt Cookie with AzDGCrypt
+    var $cookie_crypt_pw = "iD9ww32e";   // Passphrase for AzDGCrypt
  /**#@-*/
   
   /**
@@ -42,6 +43,7 @@ class auth {
         $this->timestamp = time();              // Timestamp for Statistik
         $this->update_visits($frmwrkmode);      // Update Statistik
         //$this->cookie_crypt = $cfg[''];       // Crypt via Config
+        //$this->cookie_crypt_pw = $cfg[''];    // CryptPW via Config => uniqekey
     }
 
   /**
@@ -250,9 +252,9 @@ class auth {
         
           $this->login($userid, $uniquekey, 0);
           /*
-            $user = $db->qry_first('SELECT 1 AS found, userid, username, email, password, type, locked FROM %prefix%user WHERE userid = %int%', $userid);
+            $user = $db->qry_first('SELECT 1 AS found, userid, username, email, password_cookie, type, locked FROM %prefix%user WHERE userid = %int%', $userid);
 
-            if ($uniquekey == (md5($user['password']))) {
+            if ($uniquekey == ($user['password_cookie'])) {
                 // Set Logonstats
                 $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate WHERE userid = %int%', $user["userid"]);
                 if ($cfg["sys_logoffdoubleusers"]) $db->qry('DELETE FROM %prefix%stats_auth WHERE userid=%int%', $user["userid"]);
@@ -271,7 +273,7 @@ class auth {
                 // DEBUG
                 $func->information(t("Uniquekey fehlerhaft"), '','',1);
             }
-            */
+          */  
         }
     }
     
@@ -351,7 +353,7 @@ class auth {
         global $db, $config, $lang, $func;
 
         // Get target user type
-        $target_user = $db->qry_first('SELECT type, password FROM %prefix%user WHERE userid = %int%', $target_id);
+        $target_user = $db->qry_first('SELECT type, password_cookie FROM %prefix%user WHERE userid = %int%', $target_id);
 
         // Only highlevel to lowerlevel
         if ($this->auth["type"] > $target_user["type"]) {
@@ -359,7 +361,10 @@ class auth {
             for ($x = 0; $x <= 24; $x++) $switchbackcode .= chr(mt_rand(65, 90));
             // Save old user ID & write cookie
             $this->cookie_data['userid'] = $target_id;
-            $this->cookie_data['uniqekey'] = md5($target_user["password"]); // FIX abfrage nach neuen uniqekey
+            // Geht nicht. Das PWC wird vorher mit MD5 in die DB geschrieben.
+            // Nicht umkehrbar. Lösung.. evt. PWC für target_id neu schreiben.
+            // Aber dann wird der User gekickt und muss sich neu anmelden. 
+            $this->cookie_data['uniqekey'] = $target_user["password_cookie"];
             $this->cookie_data['version'] = $this->cookie_version;
             $this->cookie_data['olduserid'] = $this->auth['userid'];
             $this->cookie_data['sb_code'] = $switchbackcode;
@@ -390,14 +395,14 @@ class auth {
         $this->cookie_read();
         if ($this->cookie_data['olduserid'] > 0){
             // Check switch back code
-            $admin_user = $db->qry_first('SELECT switch_back, password FROM %prefix%user WHERE userid = %int%', $this->cookie_data["olduserid"]);
+            $admin_user = $db->qry_first('SELECT switch_back, password_cookie FROM %prefix%user WHERE userid = %int%', $this->cookie_data["olduserid"]);
             if ($this->cookie_data['sb_code'] == $admin_user["switch_back"]) {
                 // Link session ID to origin user ID
                 $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $this->cookie_data["olduserid"], $this->auth["sessid"]);
                 // Delete switch back code in admins user data
                 $db->qry('UPDATE %prefix%user SET switch_back = \'\' WHERE userid = %int%', $this->cookie_data['olduserid']); 
                 $this->cookie_data['userid'] = $this->cookie_data["olduserid"];
-                $this->cookie_data['uniqekey'] = md5($admin_user["password"]); // FIX abfrage nach neuen uniqekey
+                $this->cookie_data['uniqekey'] = $admin_user["password_cookie"]; // FIX abfrage nach neuen uniqekey
                 $this->cookie_data['version'] = $this->cookie_version;
                 $this->cookie_data['olduserid'] = '-1';
                 $this->cookie_data['sb_code'] = '-1';
@@ -579,10 +584,13 @@ class auth {
     function cookie_resetpassword($userid) {
         global $db;
         
-        $user = $db->qry_first('SELECT password FROM %prefix%user WHERE (userid = %int%)', $userid);
+        // Wird normal nicht mehr benötigt. Evtl beim wechsel des Passwortes ein
+        // neues Cookiepasswort setzten. Togglefunktion?
+        
+        $user = $db->qry_first('SELECT password_cookie FROM %prefix%user WHERE (userid = %int%)', $userid);
 
         $this->cookie_data['userid'] = $userid;
-        $this->cookie_data['uniqekey'] = md5($user['password']);
+        $this->cookie_data['uniqekey'] = $user['password_cookie'];
         $this->cookie_data['version'] = $this->cookie_version;
         $this->cookie_data['olduserid'] = "";
         $this->cookie_data['sb_code'] = "";
@@ -630,7 +638,7 @@ class auth {
         $cookie = implode("|", $data);
         // Crypt only via Config. See Construktor
         if ($this->cookie_crypt) {
-            $crypt= new AzDGCrypt(md5("synergycookie"));
+            $crypt= new AzDGCrypt(md5($this->cookie_crypt_pw));
             $cookie = $crypt->crypt($cookie);
         }
         return $cookie;
@@ -646,7 +654,7 @@ class auth {
     function cookiedata_unpack($cookie) {
         // Crypt only via Config. See Construktor
         if ($this->cookie_crypt) {
-            $crypt= new AzDGCrypt(md5("synergycookie"));
+            $crypt= new AzDGCrypt(md5($this->cookie_crypt_pw));
             $cookie = $crypt->decrypt($cookie);
         }
         // TODO : Check Vars
