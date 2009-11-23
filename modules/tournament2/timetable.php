@@ -9,7 +9,9 @@ $dsp->NewContent(t('Turnier-Zeitplan'), t('Hier sehen Sie, welches Turnier zu we
 // Generate Table-head
 $mintime = 9999999999;
 $maxtime = 0;
-$tournaments = $db->qry("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM %prefix%tournament_tournaments WHERE party_id = %int%", $party->party_id);
+$tournaments = $db->qry("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime
+  FROM %prefix%tournament_tournaments
+  WHERE party_id = %int% AND (%int% > 1 OR status != 'invisible')", $party->party_id, $auth['type']);
 while ($tournament = $db->fetch_array($tournaments)) {
 	// Calc Min-Time
 	if ($tournament["starttime"] < $mintime) $mintime = $tournament["starttime"];
@@ -31,7 +33,9 @@ $smarty->assign('head', $head);
 
 // Generate Table-foot
 $rows = "";
-$tournaments = $db->qry("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime FROM %prefix%tournament_tournaments WHERE party_id = %int%", $party->party_id);
+$tournaments = $db->qry("SELECT *, UNIX_TIMESTAMP(starttime) AS starttime
+  FROM %prefix%tournament_tournaments
+  WHERE party_id = %int% AND (%int% > 1 OR status != 'invisible')", $party->party_id, $auth['type']);
 while ($tournament = $db->fetch_array($tournaments)) {
 #	echo "Zeit {$tournament["starttime"]}<br>";
 
