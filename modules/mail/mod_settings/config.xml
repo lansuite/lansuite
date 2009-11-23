@@ -72,7 +72,7 @@
     		<type>text</type>
     		<default>Hallo %USERNAME%!
 
-Sie sind nun registriert und für die kommende Lan-Party "%PARTYNAME%" vorgemerkt. Ihre Anmeldung ist jedoch erst vollständig, wenn Sie die Teilnahmegebühr überwiesen haben.
+Du bist nun registriert und für die kommende Party "%PARTYNAME%" vorgemerkt. Deine Anmeldung ist jedoch erst vollständig, wenn du die Teilnahmegebühr überwiesen hast.
 
 --LANdata-------------------
 Event: %PARTYNAME%
@@ -80,7 +80,7 @@ Webseite: %PARTYURL%
 Teilnehmer: %MAXGUESTS%
 ---------------------------
 
-Ihre Orgas</default>
+Dein %PARTYNAME%-Team</default>
     		<description>Text bei Anmeldung zur aktuellen Party
 
 Variablen:
@@ -113,9 +113,9 @@ Variablen:
     		<type>text</type>
     		<default>Hallo %USERNAME%!
 
-Sie haben sich erfolgreich auf %PARTYURL% angemeldet.
+Du hast dich erfolgreich auf %PARTYURL% angemeldet.
 
-Hier nochmal Ihre Daten, die Sie angegeben haben:
+Hier nochmal Ihre Daten, die du angegeben hast:
 
 --Userdata------------------
 Username: %USERNAME%
@@ -124,7 +124,7 @@ Passwort: %PASSWORD%
 Clan: %CLAN%
 ----------------------------
 
-Ihre Orgas</default>
+Dein %PARTYNAME%-Team</default>
     		<description>Text bei Registrierung im System
 
 Variablen:
@@ -139,13 +139,13 @@ Variablen:
     		<name>board_subscribe_subject</name>
     		<type>string</type>
     		<default>Es ist ein neuer Beitrag vorhanden</default>
-    		<description>Betreff bei neue Beiträge im Thread</description>
+    		<description>Betreff bei neuen Beiträgen im Thread</description>
     	</item>
     	<item>
     		<name>board_subscribe_text</name>
     		<type>text</type>
     		<default>Im Forum gibt es einen neuen Beitrag. Du kannst ihn dir unter %URL% ansehen</default>
-    		<description>Text bei neue Beiträge im Thread
+    		<description>Text bei neuen Beiträgen im Thread
 
 Variablen:
 %URL%
@@ -162,10 +162,10 @@ Variablen:
     		<type>text</type>
     		<default>Hallo %USERNAME%!
 
-Sie sind nun auf den Status bezahlt gesetzt und können
-für die kommende LanParty "%PARTYNAME%" Ihren Sitzplatz reservieren.
+Du bist nun auf den Status BEZAHLT gesetzt und kannst dir
+für die kommende Party "%PARTYNAME%" deinen Sitzplatz reservieren.
 
-Ihre Orgas</default>
+Dein %PARTYNAME%-Team</default>
     		<description>Text bei Zahlstatus-Änderung zu Bezahlt
 
 Variablen:
@@ -178,9 +178,9 @@ Variablen:
     		<type>text</type>
     		<default>Hallo %USERNAME%,
 
-Ihr Bezahltstatus der LanParty "%PARTYNAME%" wurde zurück auf "NICHT bezahlt" gesetzt.
+Dein Bezahltstatus der LanParty "%PARTYNAME%" wurde zurück auf "NICHT bezahlt" gesetzt.
 
-Ihre Orgas</default>
+Dein %PARTYNAME%-Team</default>
     		<description>Text bei Zahlstatus-Änderung zu nicht Bezahlt
 
 Variablen:
@@ -199,14 +199,16 @@ Variablen:
     		<type>text</type>
     		<default>Hallo %USERNAME%,
 
-Sie haben ein neues LanSuite Passwort angefordert.
-Damit das neue Passwort generiert wird, gehen Sie bitte auf folgende Webseite: %PATH%
+Du hast ein neues LanSuite Passwort angefordert.
+Damit das neue Passwort generiert wird, gehe bitte auf folgende Webseite: %PATH%
 
-Dieser zusätzliche Schritt ist notwendig, um zu verifizieren, dass dies Ihre Email-Adresse ist
-und Sie somit der legitime Besitzer des Lansuite Accounts sind.
+Dieser zusätzliche Schritt ist notwendig, um zu verifizieren, dass dies deine Email-Adresse ist
+und du somit der legitime Besitzer dieses Lansuite Accounts bist.
 
-Sollte Sie diese Email erreichen, ohne dass Sie ein neues Passwort angefordert haben, so hat wahrscheinlich jemand anderes versucht Ihr Passwort zu erhalten.
-In diesem Fall reagieren Sie einfach überhaupt nicht auf diese Email. Es wird dann kein neues Passwort generiert und Sie verwenden wie bisher gewohnt ihr bestehendes.</default>
+Sollte dich diese Email erreichen, ohne dass du ein neues Passwort angefordert hast, so hat wahrscheinlich jemand anderes versucht dein Passwort zu erhalten.
+In diesem Fall reagiere einfach überhaupt nicht auf diese Email. Es wird dann kein neues Passwort generiert und du verwendest wie bisher gewohnt dein bestehendes.
+
+Dein %PARTYNAME%-Team</default>
     		<description>Text bei Passwort Recovery
 
 Variablen:
