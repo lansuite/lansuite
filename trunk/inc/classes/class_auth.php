@@ -64,9 +64,15 @@ class auth {
 
         $this->load_authdata();                  // Load Sessiondata if Possible
         $cookie_status = $this->cookie_read();   // Read Cookiedata
-        $cookie_valid = $this->cookie_valid();   // Validate Cookie
+        #$cookie_valid = $this->cookie_valid();   // Validate Cookie
 
         if ($this->auth['login'] == 1) {
+        
+        // User allready checked in by session - No need to check cookie
+        // Cookie will be checked, when session expires
+        // TODO: But maybe we should set a maximum session livetime to something like 60min
+        
+        /*
         // Session active
             if ($this->auth["type"] > 1) {
             // Procedure for Admin
@@ -89,6 +95,7 @@ class auth {
                     $func->information('Fehlerhafte Cookiedaten. Sie wurden ausgeloggt.', "", '', 1);
                 }
             }
+        */
         } else {
         // Session inactive, check for Cookielogin
             if (array_key_exists($this->cookie_name, $_COOKIE)) {
@@ -359,16 +366,23 @@ class auth {
         if ($this->auth["type"] > $target_user["type"]) {
             // Generate switch back code
             for ($x = 0; $x <= 24; $x++) $switchbackcode .= chr(mt_rand(65, 90));
-            // Save old user ID & write cookie
-            $this->cookie_data['userid'] = $target_id;
+
+            // UserID and PW are not needed in Cookie, for during Switch, the login is maintanined by the session ID
+            $this->cookie_data['userid'] = '';
+            $this->cookie_data['uniqekey'] = '';
+
+            // $this->cookie_data['userid'] = $target_id;
             // Geht nicht. Das PWC wird vorher mit MD5 in die DB geschrieben.
             // Nicht umkehrbar. Lösung.. evt. PWC für target_id neu schreiben.
             // Aber dann wird der User gekickt und muss sich neu anmelden. 
-            $this->cookie_data['uniqekey'] = $target_user["password_cookie"];
-            $this->cookie_data['version'] = $this->cookie_version;
+#            $this->cookie_data['uniqekey'] = $target_user["password_cookie"];
+#            $this->cookie_data['version'] = $this->cookie_version;
+
+            // Save old user ID & write cookie
             $this->cookie_data['olduserid'] = $this->auth['userid'];
             $this->cookie_data['sb_code'] = $switchbackcode;
             $this->cookie_set();
+            
             // Store switch back code in current (admin) user data
             $db->qry('UPDATE %prefix%user SET switch_back = %string% WHERE userid = %int%', $switchbackcode, $this->auth["userid"]);
             // Link session ID to new user ID
@@ -379,9 +393,9 @@ class auth {
             //$this->logoutPhpbb();
             //$this->loginPhpbb($target_id);
             
-            $func->information(t('Benutzerwechsel erfolgreich. Die &Auml;nderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,'',1);  //FIX meldungen auserhalb/standart?!?
+            $func->confirmation(t('Benutzerwechsel erfolgreich. Die &Auml;nderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer, 1);  //FIX meldungen auserhalb/standart?!?
         } else {
-            $func->error(t('Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), $func->internal_referer,1); //FIX meldungen auserhalb/standart?!
+            $func->error(t('Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), $func->internal_referer, 1); //FIX meldungen auserhalb/standart?!
         }
     }
 
@@ -571,7 +585,7 @@ class auth {
                 is_numeric($this->cookie_data['version']) AND
                 ($this->cookie_version == $this->cookie_data['version'])) $ok = 1;
         }
-        if ($ok==0) $this->cookie_unset();
+        #if ($ok==0) $this->cookie_unset();
         return $ok;
     }
     
