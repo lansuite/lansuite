@@ -13,18 +13,20 @@ if ($auth['login']) {
 	// Buddylist
 	$box->EngangedRow('<span class="copyright">-- Buddy List --</span>');
 
-	$query = $db->qry("SELECT b.buddyid, u.username
-		FROM %prefix%buddys b
-		LEFT JOIN %prefix%user u ON u.userid = b.buddyid
+	$query = $db->qry("SELECT b.buddyid, u.username, a.login, a.lasthit
+		FROM %prefix%buddys AS b
+		LEFT JOIN %prefix%user AS u ON b.buddyid = u.userid
+		LEFT JOIN %prefix%stats_auth AS a ON b.buddyid = a.userid
 		WHERE b.userid = %int%
+		GROUP BY b.buddyid
 		ORDER BY u.username
 		", $auth['userid']);
+
 	while ($row = $db->fetch_array($query)) {
 
 		// Is user online, or offline?
 		$timeout = time() - 60*10;
-		$row_login = $db->qry_first('SELECT userid FROM %prefix%stats_auth WHERE userid = %int% AND login = \'1\' AND lasthit > %int%', $row['buddyid'], $timeout);
-		if ($row_login['userid']) $class = "menu";
+		if ($row['login'] == 1 and $row['lasthit'] > $timeout) $class = "menu";
 		else $class = "admin";
 
 		// Chop username

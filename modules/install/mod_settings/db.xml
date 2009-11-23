@@ -1014,7 +1014,7 @@
                 <name>login</name>
                 <type>enum('0','1')</type>
                 <null></null>
-                <key></key>
+                <key>IND</key>
                 <default>0</default>
                 <extra></extra>
             </field>
@@ -1054,7 +1054,7 @@
                 <name>lasthit</name>
                 <type>int(15)</type>
                 <null></null>
-                <key></key>
+                <key>IND</key>
                 <default>0</default>
                 <extra></extra>
             </field>

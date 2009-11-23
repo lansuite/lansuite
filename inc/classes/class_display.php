@@ -767,13 +767,14 @@ class display {
   }
 
   function FetchUserIcon($userid) {
-    global $smarty, $db;
+    global $smarty, $authentication;
 
     $smarty->assign('userid', $userid);
     $smarty->assign('hint', t('Benutzerdetails aufrufen'));
 
-    $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = "1" AND lasthit > %int%', $userid, time() - 60*10);
-    ($user_online['found'])? $state ='online' : $state ='offline';
+    #$user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = "1" AND lasthit > %int%', $userid, time() - 60*10);
+    #($user_online['found'])? $state ='online' : $state ='offline';
+    (in_array($userid, $authentication->online_users))? $state ='online' : $state ='offline';
     $smarty->assign('state', $state);
 
     return $smarty->fetch('design/templates/ls_usericon.htm');

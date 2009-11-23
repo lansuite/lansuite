@@ -29,6 +29,7 @@ class auth {
     var $cookie_path =     "";           // Cookiepath. Left blank for autodetect
     var $cookie_crypt =    true;         // Crypt Cookie with AzDGCrypt
     var $cookie_crypt_pw = "iD9ww32e";   // Passphrase for AzDGCrypt
+    var $online_users = array();         // Array containing all users, currently online
  /**#@-*/
   
   /**
@@ -37,6 +38,8 @@ class auth {
    *
    */
     function auth($frmwrkmode="") {
+        global $db;
+        
         // Init-Vars
         $this->auth["sessid"] = session_id();
         $this->auth["ip"] = $_SERVER['REMOTE_ADDR'];
@@ -44,6 +47,10 @@ class auth {
         $this->update_visits($frmwrkmode);      // Update Statistik
         //$this->cookie_crypt = $cfg[''];       // Crypt via Config
         //$this->cookie_crypt_pw = $cfg[''];    // CryptPW via Config => uniqekey
+        
+        // Better handle it here, otherwise its an DB-Query for each $dsp->FetchUserIcon()
+        $res = $db->qry('SELECT userid FROM %prefix%stats_auth WHERE login = "1" AND lasthit > %int%', time() - 60*10);
+        while ($row = $db->fetch_array($res)) $online_users[] = $row['userid'];
     }
 
   /**
