@@ -53,7 +53,7 @@ else {
     $selections['5'] = t('Aufgeschoben');
     $selections['6'] = t('Geschlossen');
     $mf->AddField(t('Status'), 'state', IS_SELECTION, $selections);
-    $mf->AddField(t('Privat') .'|'. t('Nur Admins dürfen diesen Bugeintrag lesen.'), 'private');
+    $mf->AddField(t('Privat') .'|'. t('Nur Admins dürfen diesen Bugeintrag lesen.'), 'private', '', '', FIELD_OPTIONAL);
   }
 
   $mf->AddField(t('Text'), 'text', '', LSCODE_BIG);
