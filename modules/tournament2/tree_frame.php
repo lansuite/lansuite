@@ -282,7 +282,7 @@ else {
   		}
   
   		if ($t['mode'] == "single") write_pairs2 ("Winner", 4);
-  		else write_pairs2 ("Winner", 4);
+  		else write_pairs2 ("Winner", 2);
   	}
   
   	if ($t['mode'] == "liga" or ($t["mode"] == "groups"  and $_GET["group"] > 0)) {

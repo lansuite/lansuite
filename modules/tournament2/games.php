@@ -245,8 +245,8 @@ else {
   			$akt_round++;
   		}
 
-  		if ($t['mode'] == "single") WritePairs("Winner", 4);
-  		else WritePairs("Winner", 4);
+  		if ($tournament['mode'] == "single") WritePairs("Winner", 4);
+  		else WritePairs("Winner", 2);
   
   		// Write Winner
   		$akt_round++;
