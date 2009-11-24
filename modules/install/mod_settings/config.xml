@@ -52,6 +52,10 @@
     </head>
     <entries>
   		<entry>
+  			<value></value>
+  			<description>Use system default</description>
+  		</entry>
+  		<entry>
   			<value>Europe/Amsterdam</value>
   			<description>Europe/Amsterdam</description>
   		</entry>
@@ -257,7 +261,7 @@ nospamfor.us</default>
 		<item>
     		<name>sys_timezone</name>
     		<type>timezone</type>
-    		<default>Europe/Berlin</default>
+    		<default></default>
     		<description>Zeitzone</description>
     	</item>
     	<item>
