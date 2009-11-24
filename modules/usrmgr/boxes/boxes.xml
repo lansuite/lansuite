@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite>
+	<box>
+		<name>Meine Daten</name>
+		<place>1</place>
+		<pos>3</pos>
+		<active>1</active>
+		<internet>0</internet>
+		<login>2</login>
+		<source>userdata</source>
+		<callback></callback>
+	</box>
+</lansuite>

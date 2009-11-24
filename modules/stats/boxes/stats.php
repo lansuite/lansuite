@@ -4,7 +4,7 @@
  *
  * @package lansuite_core
  * @author knox
- * @version $Id$
+ * @version $Id: stats.php 1673 2008-09-25 08:13:47Z jochenjung $
  */
  
 // Number of visits

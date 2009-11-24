@@ -4,7 +4,7 @@
  *
  * @package lansuite_core
  * @author knox
- * @version $Id$
+ * @version $Id: login.php 1798 2009-01-18 17:46:03Z maztah $
  */
 
 if ($_GET['mod'] == 'logout') $smarty->assign('action', 'index.php');

@@ -155,6 +155,7 @@ switch($_GET["step"]) {
       } elseif ($_GET["rewrite"]) {
         $db->qry("DELETE FROM %prefix%modules WHERE name = %string%", $_GET["rewrite"]);
         $db->qry("DELETE FROM %prefix%menu WHERE module = %string%", $_GET["rewrite"]);
+        $db->qry("DELETE FROM %prefix%boxes WHERE module = %string%", $_GET["rewrite"]);
 
         $_GET["rewrite"] .= "_";
         if ($_GET["rewrite"] == "downloads_") $_GET["rewrite"] = "Download";

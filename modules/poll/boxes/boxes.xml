@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite>
+	<box>
+		<name>Neue Umfragen</name>
+		<place>0</place>
+		<pos>8</pos>
+		<active>0</active>
+		<internet>0</internet>
+		<login>0</login>
+		<source>recent_poll</source>
+		<callback></callback>
+	</box>
+	<box>
+    <name>Zufalls-Umfrage</name>
+    <place>0</place>
+    <pos>1</pos>
+    <active>0</active>
+    <internet>0</internet>
+    <login>0</login>
+    <source>random_poll</source>
+    <callback></callback>
+	</box>
+</lansuite>

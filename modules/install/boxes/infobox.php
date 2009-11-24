@@ -4,7 +4,7 @@
  *
  * @package lansuite_core
  * @author knox
- * @version $Id$
+ * @version $Id: infobox.php 1535 2008-07-27 22:36:01Z bytekilla $
  */
  
 if($auth['login'] == 1) {

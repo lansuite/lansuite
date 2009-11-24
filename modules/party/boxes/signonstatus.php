@@ -4,7 +4,7 @@
  *
  * @package lansuite_core
  * @author knox
- * @version $Id$
+ * @version $Id: signonstatus.php 1956 2009-08-14 14:07:05Z johannes.pieringer@gmail.com $
  */
 
 // mit oder ohne orgas

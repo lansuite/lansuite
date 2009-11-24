@@ -51,18 +51,15 @@ if ($auth['login'] == "1") {
 ### Generate Boxes
 
 // Fetch Boxes
-$BoxRes = $db->qry("SELECT boxid, name, place, source, module, callback, login, internet FROM %prefix%boxes
-                    WHERE active = 1
-                        AND (internet = 0 OR internet = %int% + 1)
-                        AND (login = 0 OR (login = 1 AND %int% = 0) OR (login = 2 AND %int% = 1) OR (login > 2 AND login <= %int% + 1))
-                    ORDER BY pos
-                    ", $cfg['sys_internet'], $auth['login'], $auth['login'], $auth['type']);
 $MenuActive = 0;
-
-// Boxloop
+$BoxRes = $db->qry("SELECT boxid, name, place, source, module, callback, login, internet FROM %prefix%boxes
+  WHERE active = 1
+    AND (internet = 0 OR internet = %int% + 1)
+    AND (login = 0 OR (login = 1 AND %int% = 0) OR (login = 2 AND %int% = 1) OR (login > 2 AND login <= %int% + 1))
+  ORDER BY pos
+  ", $cfg['sys_internet'], $auth['login'], $auth['login'], $auth['type']);
 while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or in_array($BoxRow['module'], $ActiveModules)) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
   if ($BoxRow['source'] == 'menu') {
-    // Generate Menuboxes (Links, etc)
     include_once('modules/boxes/class_menu.php');
     $menu = new menu($BoxRow['boxid'], $BoxRow['name'], $BoxRow['source']);
     if ($BoxRow['place'] == 0 or $framework->IsMobileBrowser) $templ['index']['control']['boxes_letfside'] .= $menu->get_menu_items();
@@ -70,10 +67,8 @@ while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or in_a
     if ($menu->box->box_rows) $MenuActive = 1;            
   } else {
     $box = new boxes();
-    // Generate Funktionboxes
-    // Load file
-    if (!$_SESSION['box_'. $BoxRow['boxid'] .'_active']) include_once('modules/boxes/'. $BoxRow['source'] .'.php');
-    // Write content to template var
+    if (!$BoxRow['module']) $BoxRow['module'] = 'install';
+    if (!$_SESSION['box_'. $BoxRow['boxid'] .'_active']) include_once('modules/'. $BoxRow['module'] .'/boxes/'. $BoxRow['source'] .'.php');
     if ($BoxRow['place'] == 0 or $framework->IsMobileBrowser) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']),t($BoxRow['name']));
     elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']),t($BoxRow['name']));
   }

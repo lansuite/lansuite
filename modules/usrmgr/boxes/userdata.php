@@ -4,7 +4,7 @@
  *
  * @package lansuite_core
  * @author knox
- * @version $Id$
+ * @version $Id: userdata.php 1993 2009-11-08 09:14:02Z jochen.jung $
  */
  
 // If an admin is logged in as an user
@@ -80,30 +80,30 @@ if (in_array('mail', $ActiveModules)) {
 // PDF-Ticket
 if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php?mod=usrmgr&amp;action=myticket", "", "menu");
 
-//Zeige Anmeldestatus
+// Zeige Anmeldestatus
 if($party->count != 0 & $_SESSION['party_info']['partyend'] > time()) {
-$query_signstat = $db->qry_first("SELECT * FROM %prefix%party_user AS pu
-				WHERE pu.user_id = %int% AND pu.party_id = %int%", $auth["userid"], $_SESSION["party_id"]);
-				if($query_signstat == null) {
-					$signstat = '<font color="red">'. t('Nein') .'!</font>';
-					$signstat_info = '<a href="index.php?mod=signon"><i> '. t('Hier anmelden') .'</i></a>';
-					$paidstat = '<font color="red">'. t('Nein') .'!</font>';
-				} else {
-					$signstat = '<font color="green">'. t('Ja') .'!</font>';
-					if(($query_signstat["paid"] == 1)||($query_signstat["paid"] == 2))
-						$paidstat = '<font color="green">'. t('Ja') .'!</font>';
-					else
-					{
-						$paidstat = '<font color="red">'. t('Nein') .'!</font>'; 
-						if ($cfg['signon_paylink']) $paidstat_info = '<a href="'.$cfg['signon_paylink'].'"><i> '. t('Bezahlinfos') .'</i></a>';
-					}
-				}
-
-$query_partys = $db->qry_first("SELECT * FROM %prefix%partys AS p WHERE p.party_id = %int%", $_SESSION["party_id"]);	
-					
-$box->DotRow("<b>".$query_partys["name"]."</b> ". t('Status') .':');
-$box->EngangedRow(t('Angemeldet') .': <b>'. $signstat .'</b><br> '. $signstat_info);
-$box->EngangedRow(t('Bezahlt') .': <b>'. $paidstat .'</b><br> '. $paidstat_info);
+  $query_signstat = $db->qry_first("SELECT * FROM %prefix%party_user AS pu
+		WHERE pu.user_id = %int% AND pu.party_id = %int%", $auth["userid"], $_SESSION["party_id"]);
+		if($query_signstat == null) {
+			$signstat = '<font color="red">'. t('Nein') .'!</font>';
+			$signstat_info = '<a href="index.php?mod=signon"><i> '. t('Hier anmelden') .'</i></a>';
+			$paidstat = '<font color="red">'. t('Nein') .'!</font>';
+		} else {
+			$signstat = '<font color="green">'. t('Ja') .'!</font>';
+			if(($query_signstat["paid"] == 1)||($query_signstat["paid"] == 2))
+				$paidstat = '<font color="green">'. t('Ja') .'!</font>';
+			else
+			{
+				$paidstat = '<font color="red">'. t('Nein') .'!</font>'; 
+				if ($cfg['signon_paylink']) $paidstat_info = '<a href="'.$cfg['signon_paylink'].'"><i> '. t('Bezahlinfos') .'</i></a>';
+			}
+		}
+  
+  $query_partys = $db->qry_first("SELECT * FROM %prefix%partys AS p WHERE p.party_id = %int%", $_SESSION["party_id"]);	
+  					
+  $box->DotRow("<b>".$query_partys["name"]."</b> ". t('Status') .':');
+  $box->EngangedRow(t('Angemeldet') .': <b>'. $signstat .'</b><br> '. $signstat_info);
+  $box->EngangedRow(t('Bezahlt') .': <b>'. $paidstat .'</b><br> '. $paidstat_info);
 }
 
 ?>

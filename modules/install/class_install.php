@@ -250,55 +250,85 @@ class Install {
 
 
   // Auto-Load Modules from XML-Files
+  // And boxes
   function InsertModules($rewrite = false) {
-      global $db, $config, $xml, $func;
+    global $db, $config, $xml, $func;
 
-      // Tabelle Modules leeren um Module zu deinstallieren
-      if($_GET["action"] == "wizard"){
-          $db->qry("TRUNCATE TABLE %prefix%modules");
+    // Tabelle Modules leeren um Module zu deinstallieren
+    if($_GET["action"] == "wizard") $db->qry("TRUNCATE TABLE %prefix%modules");
+    
+    $mod_list = array();
+    $modules_dir = opendir("modules/");
+    while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
+
+      // module.xml
+      $file = "modules/$module/mod_settings/module.xml";
+      if (file_exists($file)) {
+        $handle = fopen ($file, "r");
+        $xml_file = fread ($handle, filesize ($file));
+        fclose ($handle);
+
+        array_push($mod_list, $module);
+
+        $name = $xml->get_tag_content("name", $xml_file);
+        $caption = $xml->get_tag_content("caption", $xml_file);
+        $description = $xml->get_tag_content("description", $xml_file);
+        $author = $xml->get_tag_content("author", $xml_file);
+        $email = $xml->get_tag_content("email", $xml_file);
+        $active = $xml->get_tag_content("active", $xml_file);
+        $changeable = $xml->get_tag_content("changeable", $xml_file);
+        $version = $xml->get_tag_content("version", $xml_file);
+        $state = $xml->get_tag_content("state", $xml_file);
+
+        $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%modules WHERE name = %string%", $module);
+
+        $this->InsertSettings($module);
+
+        if ($name) {
+          if (!$mod_found["found"]) $db->qry_first("REPLACE INTO %prefix%modules
+            SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, active=%string%, changeable=%string%, version=%string%, state=%string%",
+            $name, $caption, $description, $author, $email, $active, $changeable, $version, $state);
+          elseif ($rewrite) $db->qry_first("REPLACE INTO %prefix%modules
+            SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, changeable=%string%, version=%string%, state=%string%",
+            $name, $caption, $description, $author, $email, $changeable, $version, $state);
+        }
       }
       
-      $mod_list = array();
-      $modules_dir = opendir("modules/");
-      while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
+      // boxes.xml
+      $file = "modules/$module/boxes/boxes.xml";
+      if (file_exists($file)) {
+        $handle = fopen ($file, "r");
+        $xml_file = fread ($handle, filesize ($file));
+        fclose ($handle);
 
-          $file = "modules/$module/mod_settings/module.xml";
-          if (file_exists($file)) {
-              $handle = fopen ($file, "r");
-              $xml_file = fread ($handle, filesize ($file));
-              fclose ($handle);
+        if ($module == 'install') $module = '';
 
-              array_push($mod_list, $module);
+        $boxes = $xml->get_tag_content_array("box", $xml_file);
+        foreach ($boxes as $box) {
+          $name = $xml->get_tag_content("name", $box);
+          $place = $xml->get_tag_content("place", $box);
+          $pos = $xml->get_tag_content("pos", $box);
+          $active = $xml->get_tag_content("active", $box);
+          $internet = $xml->get_tag_content("internet", $box);
+          $login = $xml->get_tag_content("login", $box);
+          $source = $xml->get_tag_content("source", $box);
+          $callback = $xml->get_tag_content("callback", $box);
 
-              $name = $xml->get_tag_content("name", $xml_file);
-              $caption = $xml->get_tag_content("caption", $xml_file);
-              $description = $xml->get_tag_content("description", $xml_file);
-              $author = $xml->get_tag_content("author", $xml_file);
-              $email = $xml->get_tag_content("email", $xml_file);
-              $active = $xml->get_tag_content("active", $xml_file);
-              $changeable = $xml->get_tag_content("changeable", $xml_file);
-              $version = $xml->get_tag_content("version", $xml_file);
-              $state = $xml->get_tag_content("state", $xml_file);
-
-              $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%modules WHERE name = %string%", $module);
-
-              $this->InsertSettings($module);
-
-              if ($name) {
-                  if (!$mod_found["found"]) $db->qry_first("REPLACE INTO %prefix%modules SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, active=%string%, changeable=%string%, version=%string%, state=%string%",
-  $name, $caption, $description, $author, $email, $active, $changeable, $version, $state);
-                  elseif ($rewrite) $db->qry_first("REPLACE INTO %prefix%modules SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, changeable=%string%, version=%string%, state=%string%",
-  $name, $caption, $description, $author, $email, $changeable, $version, $state);
-              }
+          $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $module);
+          if ($rewrite or !$mod_found['found']) {
+            $db->qry_first("DELETE FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $module);
+            $db->qry_first("INSERT INTO %prefix%boxes
+              SET name=%string%, place=%string%, pos=%string%, active=%string%, internet=%string%, login=%string%, source=%string%, callback=%string%, module=%string%",
+              $name, $place, $pos, $active, $internet, $login, $source, $callback, $module);
           }
+        }
       }
+    }
 
-      // Delete non-existend Modules from DB
-      $mods = $db->qry("SELECT name FROM %prefix%modules");
-      while($row = $db->fetch_array($mods)) {
-          if (!in_array($row["name"], $mod_list)) $db->qry("DELETE FROM %prefix%modules WHERE name = %string%", $row["name"]);
-      }
-      $db->free_result($mods);
+    // Delete non-existend Modules from DB
+    $mods = $db->qry("SELECT name FROM %prefix%modules");
+    while($row = $db->fetch_array($mods)) if (!in_array($row["name"], $mod_list)) $db->qry("DELETE FROM %prefix%modules WHERE name = %string%", $row["name"]);
+    $db->free_result($mods);
   }
 
 

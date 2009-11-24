@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite>
+	<box>
+		<name>Neue Server</name>
+		<place>0</place>
+		<pos>7</pos>
+		<active>0</active>
+		<internet>0</internet>
+		<login>0</login>
+		<source>recent_server</source>
+		<callback></callback>
+	</box>
+</lansuite>
