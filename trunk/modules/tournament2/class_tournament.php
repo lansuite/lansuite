@@ -354,6 +354,8 @@ class tfunc {
 
 		$team_round[$player1] = $round;
 		$team_pos[$player1] = $pos[$player1];
+		$team_round_before = $team_round[$player1];
+		$team_pos_before = $team_pos[$player1];
 
 		$team_pow_anz = $team_anz;
 		for ($z = 0; $team_pow_anz > 1; $z++) $team_pow_anz /= 2;
@@ -411,6 +413,20 @@ class tfunc {
     ", $tournamentid, $leaderid[$player1], $team_round[$player1], $team_pos[$player1]);
 		}
 
+		# Verliert jemand das Halb-Finale im SE, gibt es einen zusätzlichen Eintrag im Winnerbracket. (Spiel um Platz 3)
+		if ($round == ($num_rounds - 2) and $looser) {
+    	$db->qry("DELETE FROM %prefix%t2_games
+        WHERE (tournamentid = %int%) AND (round = %string%) AND (position = %string%) AND (group_nr = 0)
+        ", $tournamentid, ($team_round_before + 1), (floor($team_pos_before / 2) + 2));
+
+  		$db->qry("INSERT INTO %prefix%t2_games SET
+        tournamentid = %int%,
+        leaderid = %int%,
+        round = %string%,
+        position = %string%,
+        score = 0
+        ", $tournamentid, $leaderid[$player1], ($team_round_before + 1), (floor($team_pos_before / 2) + 2));
+		}
 
 		// Freilose in Runde -0.5 und -1
 		if ($team_round[$player1] == -0.5) {
@@ -610,9 +626,24 @@ class tfunc {
 			$num_rounds = 1;
 			for ($z = $team_anz/2; $z > 1; $z/=2) $num_rounds++;
 
+      // Find unfinished games in last round on SE games
+      if (($tournament["mode"] == "single") and $round == ($num_rounds - 1)) {
+  			$unfinished_games = $db->qry_first("SELECT games1.gameid
+          FROM %prefix%t2_games AS games1
+          LEFT JOIN %prefix%t2_games AS games2 ON (games1.round = games2.round) AND (games1.tournamentid = games2.tournamentid)
+          WHERE  (games1.tournamentid = %int%)
+          AND ((games1.position + 1) = games2.position)
+          AND ((games1.position / 2) = FLOOR(games1.position / 2))
+          AND (games1.score = 0) AND (games2.score = 0)
+          AND (games1.leaderid != 0) AND (games2.leaderid != 0)
+          AND (games1.round = %int%)
+          ", $tournamentid, $round);
+      }
+      
 			// Wenn Final-Ergebnis: Turnierstatus auf "closed" setzen
 			if (($round == $num_rounds)
-			or ((($tournament["mode"] == "single") or ($tournament["mode"] == "groups")) and ($round == $num_rounds - 1))) {
+			  or (($tournament["mode"] == "groups") and ($round == $num_rounds - 1))
+			  or (($tournament["mode"] == "single") and ($round == $num_rounds - 1) and ($unfinished_games['gameid'] == ""))) {
 				$db->qry("UPDATE %prefix%tournament_tournaments SET status='closed' WHERE tournamentid = %int%", $tournamentid);
 				$func->log_event(t('Das letzte Ergebnis im Turnier %1 wurde gemeldet. Das Turnier ist damit geschlossen worden.', $tournament["name"]), 1, t('Turnier Verwaltung'));
 			}

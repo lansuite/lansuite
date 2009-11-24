@@ -248,7 +248,13 @@ else {
   					$templ['index']['info']['content'] .= "CreateText('". t('Runde %1 Partie %2', ($akt_round * (-1) + 1), (floor($akt_pos / 2) + 1)) ."', $xpos, ". ($ypos+$box_height + 20) .", '');";
   					$templ['index']['info']['content'] .= "CreateText('". t('muss hier 2x siegen') ."', $xpos, ". ($ypos+$box_height + 30) .", '');";
           }
-          
+
+  				// Specialtext: Single Elemination Final & 3rd Place Final
+  				if ($akt_round == $max_round - 1 and $t['mode'] == 'single') {
+  				  if ($akt_pos == 1) $templ['index']['info']['content'] .= "CreateText('". t('Finale') ."', $xpos, ". ($ypos+$box_height + 10) .", '');";
+  				  elseif ($akt_pos == 3) $templ['index']['info']['content'] .= "CreateText('". t('Spiel um Platz 3') ."', $xpos, ". ($ypos+$box_height + 10) .", '');";
+          }
+                    
   				$spieler1 = "";
   			}
   		}
@@ -275,7 +281,8 @@ else {
   			$akt_round++;
   		}
   
-  		write_pairs2 ("Winner", 2);
+  		if ($t['mode'] == "single") write_pairs2 ("Winner", 4);
+  		else write_pairs2 ("Winner", 4);
   	}
   
   	if ($t['mode'] == "liga" or ($t["mode"] == "groups"  and $_GET["group"] > 0)) {
