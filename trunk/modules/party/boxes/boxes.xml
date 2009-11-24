@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite>
+	<box>
+		<name>Anmelde-Status</name>
+		<place>1</place>
+		<pos>5</pos>
+		<active>1</active>
+		<internet>0</internet>
+		<login>0</login>
+		<source>signonstatus</source>
+		<callback></callback>
+	</box>
+</lansuite>

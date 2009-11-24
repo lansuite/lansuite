@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite>
+	<box>
+		<name>Zufalls-Bild</name>
+		<place>0</place>
+		<pos>1</pos>
+		<active>0</active>
+		<internet>0</internet>
+		<login>0</login>
+		<source>random_pic</source>
+		<callback></callback>
+	</box>
+</lansuite>

@@ -4,7 +4,7 @@
  *
  * @package lansuite_core
  * @author knox, bytekilla
- * @version $Id$
+ * @version $Id: sponsor.php 1535 2008-07-27 22:36:01Z bytekilla $
  */
 
 $box->DotRow(t('Wir danken').':');

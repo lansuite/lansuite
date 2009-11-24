@@ -4,7 +4,7 @@
  *
  * @package lansuite_core
  * @author knox
- * @version $Id$
+ * @version $Id: search.php 1739 2008-11-12 22:59:07Z jochenjung $
  */
 
 $smarty->assign('value', $_POST['search_input'][0]);

@@ -4,7 +4,7 @@
  *
  * @package lansuite_core
  * @author knox
- * @version $Id$
+ * @version $Id: messenger.php 2028 2009-11-23 15:23:32Z jochen.jung $
  */
  
 // Check for valid login
