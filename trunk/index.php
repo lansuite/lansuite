@@ -115,7 +115,6 @@
     include_once("inc/classes/class_gd.php");
     include_once("inc/classes/class_sec.php");
     include_once("modules/party/class_party.php");
-    if (file_exists("modules/mastersearch/class_mastersearch.php")) include_once("modules/mastersearch/class_mastersearch.php");
     include_once("modules/mail/class_mail.php");
     #include_once("modules/msgsys2/class_msgsys.php");
     include_once("modules/stats/class_stats.php");
@@ -182,6 +181,13 @@
 
         $cfg = $func->read_db_config(); // Config-Tabelle aulesen
         $sec->check_blacklist();
+        
+        // Set timezone info (php + mysql)
+        if ($cfg['sys_timezone'] and function_exists('date_default_timezone_set')) {
+          #date_default_timezone_set($cfg['sys_timezone']);
+          #$db->qry('SET SESSION time_zone = %string%', $cfg['sys_timezone']);
+          ##$db->qry('SET SESSION time_zone = \'+0:00\'');
+        }
         
         if (!$_GET['mod']) $_GET['mod'] = 'home';
         // FIX : Maybe its a good Idea make a func::get_activemodules()
