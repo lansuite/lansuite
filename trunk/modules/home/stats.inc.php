@@ -27,6 +27,7 @@ if ($party->count > 0) {
 
 
     // User overall / online
+    /*
 	$user_online = $db->qry("SELECT SQL_CALC_FOUND_ROWS auth.userid
 	FROM %prefix%stats_auth AS auth
 	WHERE (auth.lasthit > %int%) AND auth.login = '1' AND auth.userid > 0
@@ -34,8 +35,9 @@ if ($party->count > 0) {
 	ORDER BY auth.lasthit
 	", (time() - 60 * 10));
 	$online = $db->qry_first('SELECT FOUND_ROWS() AS count');
+    */
+    $online = count($authentication->online_users);
 	$visits = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage");
-
     $content .= t('Besucher gesamt / Gerade eingeloggt') .": ". $visits['visits'] .' / '. $online['count'] . HTML_NEWLINE;
   }
 }

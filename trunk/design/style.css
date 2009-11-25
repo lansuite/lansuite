@@ -422,7 +422,6 @@ a span.infobox {
   position:absolute;
   margin-top:1.5em; padding:0.5em;
   text-decoration:none;
-  z-index:1;
 }
 
 a:hover span.infobox {
@@ -432,7 +431,7 @@ a:hover span.infobox {
   left:-30px;
   color:black; background:white;
   text-decoration:none;
-  z-index:1;
+  z-index:999;
 }
 
 .infolink {
@@ -444,7 +443,6 @@ a:hover span.infobox {
   position:absolute;
   margin-top:1.5em; padding:0.5em;
   text-decoration:none;
-  z-index:1;
 }
 
 .infolink:hover span.infobox {
@@ -454,5 +452,5 @@ a:hover span.infobox {
   left:-30px;
   color:black; background:white;
   text-decoration:none;
-  z-index:1;
+  z-index:999;
 }

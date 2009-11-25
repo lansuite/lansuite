@@ -8,7 +8,6 @@
  * @author Maztah
  * 
  */
-//$user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = \'1\' AND lasthit > %int%', $_GET['userid'], time() - 60*10);
 
 function getTimeDiff($last) {
 	return date("i:s",time()-$last);
