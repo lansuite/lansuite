@@ -51,6 +51,14 @@ class auth {
         // Better handle it here, otherwise its an DB-Query for each $dsp->FetchUserIcon()
         $res = $db->qry('SELECT userid FROM %prefix%stats_auth WHERE login = "1" AND lasthit > %int%', time() - 60*10);
         while ($row = $db->fetch_array($res)) $online_users[] = $row['userid'];
+        
+        // Close sessions older than one hour.
+        // Do check first, for SELECT is faster than DELETE
+        $row = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE lasthit < %int%', time() - 60*60);
+        if ($row['found']) {
+            $row = $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', time() - 60*60);
+            $row = $db->qry_first('OPTIMIZE TABLE %prefix%stats_auth');
+        }
     }
 
   /**
