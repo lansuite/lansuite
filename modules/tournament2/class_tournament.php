@@ -81,61 +81,73 @@ class tfunc {
 
 	## Returns the time, when the given round in this tournament starts
 	function GetGameStart($tournament, $round, $group_nr = 0) {
-		global $db, $config;
-
-		$break_duration = $tournament["break_duration"] * 60;
-		$round_duration = $tournament["max_games"] * $tournament["game_duration"] * 60 + $break_duration;
-		($tournament['mode'] == "double")? $faktor = 2 : $faktor = 1;
-
-		## If final games of a group-tournament add time for group-games
-		if (($tournament["mode"] == "groups") and ($group_nr == 0)){
-			## Count numer of teams of the first group
-			$get_team_anz = $db->qry_first("SELECT COUNT(*) AS anz
-     FROM %prefix%t2_games
-     WHERE (tournamentid = %int%) AND (round = 0) AND (group_nr = 1)
-     GROUP BY group_nr
-     ", $tournament["tournamentid"]);
-			$team_anz = $get_team_anz["anz"];
-
-			$tournament["starttime"] += $round_duration * ($team_anz - 1) * $faktor;
-		}
-
-    if ($tournament["mode"] == 'single') {
-  		return $tournament["starttime"] + $round_duration * (abs($round));
-    } else {
-  		if ($round > 0) return $tournament["starttime"] + $round_duration * ($round - 0.5) * $faktor;
-  		else return $tournament["starttime"] + $round_duration * abs($round) * $faktor;
-    }
+        global $db, $config;
+        
+        $break_duration = $tournament["break_duration"] * 60;
+        $round_duration = $tournament["max_games"] * $tournament["game_duration"] * 60 + $break_duration;
+        ($tournament['mode'] == "double")? $faktor = 2 : $faktor = 1;
+        
+        ## If final games of a group-tournament add time for group-games
+        if (($tournament["mode"] == "groups") and ($group_nr == 0)){
+            ## Count numer of teams of the first group
+            $get_team_anz = $db->qry_first("SELECT COUNT(*) AS anz
+                FROM %prefix%t2_games
+                WHERE (tournamentid = %int%) AND (round = 0) AND (group_nr = 1)
+                GROUP BY group_nr
+                ", $tournament["tournamentid"]);
+            $team_anz = $get_team_anz["anz"];
+            
+            $tournament["starttime"] += $round_duration * ($team_anz - 1) * $faktor;
+        }
+        
+        if ($tournament["mode"] == 'single') {
+            $time = $tournament["starttime"] + $round_duration * (abs($round));
+        } else {
+            if ($round > 0) $time = $tournament["starttime"] + $round_duration * ($round - 0.5) * $faktor;
+            else $time = $tournament["starttime"] + $round_duration * abs($round) * $faktor;
+        }
+        
+        $res = $db->qry('SELECT start, duration FROM %prefix%t2_breaks WHERE tournamentid = %int%', $tournament["tournamentid"]);
+        while ($row = $db->fetch_array($res)) {
+            if ($row['start'] > $tournament["starttime"] and $row['start'] < $time) $time += $row['duration'] * 60;
+        }
+        return $time;
 	}
 
 
 	## Returns the time, when the given round in this tournament ends
 	function GetGameEnd($tournament, $round, $group_nr = 0) {
-		global $db, $config;
-
-		$break_duration = $tournament["break_duration"] * 60;
-		$round_duration = $tournament["max_games"] * $tournament["game_duration"] * 60 + $break_duration;
-		($tournament['mode'] == "double")? $faktor = 2 : $faktor = 1;
-
-		## If final games of a group-tournament add time for group-games
-		if (($tournament["mode"] == "groups") and ($group_nr == 0)){
-			## Count numer of teams of the first group
-			$get_team_anz = $db->qry_first("SELECT COUNT(*) AS anz
-     FROM %prefix%t2_games
-     WHERE (tournamentid = %int%) AND (round = 0) AND (group_nr = 1)
-     GROUP BY group_nr
-     ", $tournament["tournamentid"]);
-			$team_anz = $get_team_anz["anz"];
-
-			$tournament["starttime"] += $round_duration * ($team_anz - 1) * $faktor;
-		}
-
-    if ($tournament["mode"] == 'single') {
-  		return $tournament["starttime"] + $round_duration * (abs($round + 1)) - $break_duration;
-    } else {
-  		if ($round > 0) return $tournament["starttime"] + $round_duration * ($round + 1 - 0.5) * $faktor - $break_duration;
-  		else return $tournament["starttime"] + $round_duration * (abs($round) + 0.5) * $faktor  - $break_duration;
-    }
+        global $db, $config;
+        
+        $break_duration = $tournament["break_duration"] * 60;
+        $round_duration = $tournament["max_games"] * $tournament["game_duration"] * 60 + $break_duration;
+        ($tournament['mode'] == "double")? $faktor = 2 : $faktor = 1;
+        
+        ## If final games of a group-tournament add time for group-games
+        if (($tournament["mode"] == "groups") and ($group_nr == 0)){
+            ## Count numer of teams of the first group
+            $get_team_anz = $db->qry_first("SELECT COUNT(*) AS anz
+                FROM %prefix%t2_games
+                WHERE (tournamentid = %int%) AND (round = 0) AND (group_nr = 1)
+                GROUP BY group_nr
+                ", $tournament["tournamentid"]);
+            $team_anz = $get_team_anz["anz"];
+            
+            $tournament["starttime"] += $round_duration * ($team_anz - 1) * $faktor;
+        }
+        
+        if ($tournament["mode"] == 'single') {
+            $time = $tournament["starttime"] + $round_duration * (abs($round + 1)) - $break_duration;
+        } else {
+           if ($round > 0) $time = $tournament["starttime"] + $round_duration * ($round + 1 - 0.5) * $faktor - $break_duration;
+          else $time = $tournament["starttime"] + $round_duration * (abs($round) + 0.5) * $faktor  - $break_duration;
+        }
+        
+        $res = $db->qry('SELECT start, duration FROM %prefix%t2_breaks WHERE tournamentid = %int%', $tournament["tournamentid"]);
+        while ($row = $db->fetch_array($res)) {
+            if ($row['start'] > $tournament["starttime"] and $row['start'] < $time) $time += $row['duration'] * 60;
+        }
+        return $time;
 	}
 
 

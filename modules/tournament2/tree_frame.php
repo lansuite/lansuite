@@ -133,7 +133,7 @@ else {
   
 
   	function write_pairs2 ($bracket, $max_pos) {
-  		global $templ, $gd, $func, $t, $width, $x_start, $height, $height_menu, $box_height, $box_width, $config, $dsp, $db, $tournamentid, $akt_round, $max_round, $color, $team_anz, $dg, $img_height, $lang, $map, $tfunc;
+  		global $auth, $templ, $gd, $func, $t, $width, $x_start, $height, $height_menu, $box_height, $box_width, $config, $dsp, $db, $tournamentid, $akt_round, $max_round, $color, $team_anz, $dg, $img_height, $lang, $map, $tfunc;
   
   		$dg++;
   		if ($akt_round > 0) $xpos = $x_start + (($box_width + 10) * $akt_round);
@@ -142,13 +142,14 @@ else {
   		// Set the backgroundcolour for each round
   		(floor($akt_round) % 2) ? $bg_color_svg = '#DEE2E6' : $bg_color_svg = '#EEE6E6';
 
-  		$templ['index']['info']['content'] .= "CreateRect(". ($xpos - 5) .", 1, ". ($box_width + 10) .", $img_height, '$bg_color_svg', '#ffffff', '');";
-  		$templ['index']['info']['content'] .= "CreateText('". t('Runde') .": $akt_round" ."', $xpos, 16, '');";
-  		$templ['index']['info']['content'] .= "CreateText('". t('Zeit') .": ". $round_start ." - ". $round_end ."', $xpos, 26, '');";
-  		$templ['index']['info']['content'] .= "CreateText('". t('Map') .": ". addslashes(trim($map[(abs(floor($akt_round)) % count($map))])) ."', $xpos, 36, '');";
-    
   		$round_start = $func->unixstamp2date($tfunc->GetGameStart($t, $akt_round), "time");
   		$round_end = $func->unixstamp2date($tfunc->GetGameEnd($t, $akt_round), "time");
+    
+  		$templ['index']['info']['content'] .= "CreateRect(". ($xpos - 5) .", 1, ". ($box_width + 10) .", $img_height, '$bg_color_svg', '#ffffff', '');";
+  		$templ['index']['info']['content'] .= "CreateText('". t('Runde') .": $akt_round" ."', $xpos, 16, '');";
+  		($auth['type'] >= 2)? $link = 'index.php?mod=tournament2&action=breaks&tournamentid='. $tournamentid : $link = '';  
+  		$templ['index']['info']['content'] .= "CreateText('". t('Zeit') .": ". $round_start ." - ". $round_end ."', $xpos, 26, '". $link ."');";
+  		$templ['index']['info']['content'] .= "CreateText('". t('Map') .": ". addslashes(trim($map[(abs(floor($akt_round)) % count($map))])) ."', $xpos, 36, '');";
     
   		$spieler1 = "";
   		$i = 0;
