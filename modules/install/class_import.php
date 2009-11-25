@@ -128,6 +128,7 @@ class Import {
 					$name = $xml->get_tag_content("name", $field);
 					$type = $xml->get_tag_content("type", $field);
 					$null_xml = $xml->get_tag_content("null", $field);
+					($null_xml != 'NULL')? $null = "NOT NULL" : $null = "NULL";
 					$key = $xml->get_tag_content("key", $field);
 					$default_xml = $xml->get_tag_content("default", $field);
 					$extra = $xml->get_tag_content("extra", $field);
@@ -137,18 +138,22 @@ class Import {
 					$reference_condition = $xml->get_tag_content("reference_condition", $field);
 
 					// Set default value to 0 or '', if NOT NULL and not autoincrement
-					if ($null_xml == '' and $extra == '') {
+					if ($null == 'NOT NULL' and $extra == '') {
 						if (substr($type, 0, 3) == 'int' or substr($type, 0, 7) == 'tinyint' or substr($type, 0, 9) == 'mediumint'
 						or substr($type, 0, 8) == 'smallint' or substr($type, 0, 6) == 'bigint'
 						or substr($type, 0, 7) == 'decimal' or substr($type, 0, 5) == 'float' or substr($type, 0, 6) == 'double')
 						$default = 'default '. (int)$default_xml;
-						elseif ($type == 'timestamp' or $type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'blob') $default = '';
+						elseif ($type == 'timestamp') {
+                            $default = 'default CURRENT_TIMESTAMP';
+                            $default_xml = 'CURRENT_TIMESTAMP';
+                            $extra = 'on update CURRENT_TIMESTAMP';
+                        }
+                        elseif ($type == 'datetime' or $type == 'date' or $type == 'time' or $type == 'blob') $default = '';
 						elseif ($type == 'text' or $type == 'tinytext' or $type == 'mediumtext' or $type == 'longtext') $default = '';
 						else $default = "default '$default_xml'";
 					} else $default = '';
 
 					// Create MySQL-String to import
-					($null_xml == '')? $null = "NOT NULL" : $null = "NULL";
 					if ($key == "PRI") $primary_key .= "$name, ";
 					if ($key == "UNI") $unique_key .= ", UNIQUE KEY $name ($name)";
 					$mysql_fields .= "$name $type $null $default $extra, ";
@@ -166,8 +171,8 @@ class Import {
 
 							// Check wheather the field in the DB differs from the one in the XML-File
 							// Change it
-							if ($null_xml == '' and $db_field['Null'] = 'NO') $null_xml = $db_field['Null']; // Some MySQL-Versions return 'NO' instead of ''
-  						
+							if ($db_field['Null'] == 'NO') $db_field['Null'] = 'NOT NULL'; // Some MySQL-Versions return 'NO' instead of ''
+
 							// Handle special type changes
 							// Changing int() to datetime
 							if (substr($db_field["Type"], 0, 3) == 'int' and $type == 'datetime') {
@@ -178,16 +183,16 @@ class Import {
 
 								// Handle structure changes in general
 							} elseif ($db_field["Type"] != $type
-							or $db_field["Null"] != $null_xml
-							or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
-							or $db_field["Extra"] != $extra) {
+							  or $db_field["Null"] != $null
+							  or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
+							  or $db_field["Extra"] != $extra) {
 								$db->qry("ALTER TABLE %prefix%%plain% CHANGE %plain% %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $name, $type, $null, $default, $extra);
 /*
 								 // Differece-Report
-								 if ($db_field["Type"] != $type) echo $db_field["Type"] ."=". $type ." Type in $table_name $name<br>";
-								 if ($db_field["Null"] != $null_xml) echo $db_field["Null"] ."=". $null_xml ." Null in $table_name $name<br>";
-								 if ($db_field["Default"] != $default_xml) echo $db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>";
-								 if ($db_field["Extra"] != $extra) echo $db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>";
+								 if ($db_field["Type"] != $type) $func->information($db_field["Type"] ."=". $type ." Type in $table_name $name<br>");
+								 if ($db_field["Null"] != $null) $func->information($db_field["Null"] ."=". $null ." Null in $table_name $name<br>");
+								 if ($db_field["Default"] != $default_xml) $func->information($db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>");
+								 if ($db_field["Extra"] != $extra) $func->information($db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>");
 */
 							}
 							break;

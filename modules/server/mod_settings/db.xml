@@ -140,8 +140,8 @@
 			</field>
 			<field>
 				<name>lastscan</name>
-				<type>timestamp</type>
-				<null>YES</null>
+				<type>datetime</type>
+				<null></null>
 				<key></key>
 				<default></default>
 				<extra></extra>
