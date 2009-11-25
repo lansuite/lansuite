@@ -49,8 +49,11 @@ class auth {
         //$this->cookie_crypt_pw = $cfg[''];    // CryptPW via Config => uniqekey
         
         // Better handle it here, otherwise its an DB-Query for each $dsp->FetchUserIcon()
-        $res = $db->qry('SELECT userid FROM %prefix%stats_auth WHERE login = "1" AND lasthit > %int%', time() - 60*10);
-        while ($row = $db->fetch_array($res)) $online_users[] = $row['userid'];
+        $res = $db->qry('SELECT userid FROM %prefix%stats_auth
+            WHERE login = "1" AND lasthit > %int% AND userid > 0
+            GROUP BY userid',
+            time() - 60*10);
+        while ($row = $db->fetch_array($res)) $this->online_users[] = $row['userid'];
         
         // Close sessions older than one hour.
         // Do check first, for SELECT is faster than DELETE

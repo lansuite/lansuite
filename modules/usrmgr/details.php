@@ -55,7 +55,6 @@ else {
     										WHERE user_id = %int% AND u.party_id = %int%
     										GROUP BY u.user_id
     										", $_GET['userid'], $party->party_id);
-    $user_online = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE userid = %int% AND login = \'1\' AND lasthit > %int%', $_GET['userid'], time() - 60*10);
     $count_rows = $db->qry_first('SELECT COUNT(*) AS count FROM %prefix%board_posts WHERE userid = %int%', $_GET['userid']);
     $party_seatcontrol = $db->qry_first('SELECT * FROM %prefix%party_prices WHERE price_id = %int%', $user_party['price_id']);
 
@@ -235,7 +234,7 @@ else {
         else $messenger .= ' <img src="ext_inc/footer_buttons/skype.gif" alt="Skype" title="Skype: '. $user_data['skype'] .'" border="0" />';
       }
       $messenger .= '</td><td align="right">&nbsp;';
-      ($user_online['found']) ? $messenger .= $dsp->AddIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->AddIcon('no', '', t('Benutzer ist Offline'));
+      (in_array($_GET['userid'], $authentication->online_users))? $messenger .= $dsp->AddIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->AddIcon('no', '', t('Benutzer ist Offline'));
           if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], t('Den User zu Ihrer Buddyliste hinzufügen')) .' ';
       $messenger .= '</td></tr></table>';
       $dsp->AddDoubleRow('Messenger', $messenger);

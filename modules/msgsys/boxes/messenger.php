@@ -13,10 +13,9 @@ if ($auth['login']) {
 	// Buddylist
 	$box->EngangedRow('<span class="copyright">-- Buddy List --</span>');
 
-	$query = $db->qry("SELECT b.buddyid, u.username, a.login, a.lasthit
+	$query = $db->qry("SELECT b.buddyid, u.username
 		FROM %prefix%buddys AS b
 		LEFT JOIN %prefix%user AS u ON b.buddyid = u.userid
-		LEFT JOIN %prefix%stats_auth AS a ON b.buddyid = a.userid
 		WHERE b.userid = %int%
 		GROUP BY b.buddyid
 		ORDER BY u.username
@@ -25,9 +24,7 @@ if ($auth['login']) {
 	while ($row = $db->fetch_array($query)) {
 
 		// Is user online, or offline?
-		$timeout = time() - 60*10;
-		if ($row['login'] == 1 and $row['lasthit'] > $timeout) $class = "menu";
-		else $class = "admin";
+		(in_array($auth['userid'], $authentication->online_users))? $class = "menu" : $class = "admin";
 
 		// Chop username
 		if (strlen($row["username"]) > 12) {
@@ -91,10 +88,7 @@ if ($auth['login']) {
 			}
 
 			// Is user online, or offline?
-			$timeout = time() - 60*10;
-			$row_login = $db->qry_first('SELECT userid FROM %prefix%stats_auth WHERE userid = %int% AND login = \'1\' AND lasthit > %int%', $row['senderid'], $timeout);
-			if ($row_login['userid']) $class = "menu";
-			else $class = "admin";
+    		(in_array($row['senderid'], $authentication->online_users))? $class = "menu" : $class = "admin";
 
 			// Chop username
 			if (strlen($row["username"]) > 12) {
