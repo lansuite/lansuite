@@ -994,7 +994,7 @@
         <structure>
             <field>
                 <name>sessid</name>
-                <type>varchar(40)</type>
+                <type>char(40)</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -1020,7 +1020,7 @@
             </field>
             <field>
                 <name>ip</name>
-                <type>varchar(15)</type>
+                <type>char(15)</type>
                 <null></null>
                 <key></key>
                 <default></default>
