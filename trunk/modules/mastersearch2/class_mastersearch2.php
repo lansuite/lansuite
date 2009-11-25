@@ -331,19 +331,37 @@ class MasterSearch2 {
       if ((int)$_GET['ms_page'] > 0) {
           $pages .= $link_start . $link . ($_GET['ms_page'] - 1) . $link_end .'<b>&lt;</b></a>';
       }
+      
+      // First page link
+      if ($_GET['ms_page'] > 4) {
+        $pages .= $link_start . $link . '0' . $link_end .'<b>1</b></a> ... ';
+        $i = $_GET['ms_page'] - 3;
+      } else $i = 0;
+
       // Direct page link
-      $i = 0;
-      while($i < $count_pages) {
+      while($i < $count_pages and $i < ($_GET['ms_page'] + 4)) {
         if ($_GET['ms_page'] == $i) $pages .= (" " . ($i + 1));
         else $pages .= $link_start . $link . $i . $link_end .'<b>'. ($i + 1) .'</b></a>';
         $i++;
       }
+      
+      // Last page link
+      if ($i < $count_pages) {
+        if ($i < $count_pages - 1) $pages .= ' ... ';
+        $pages .= $link_start . $link . ($count_pages - 1) . $link_end .'<b>'. $count_pages .'</b></a>';
+      }
+      
       // Next page link
       if (($_GET['ms_page'] + 1) < $count_pages) {
           $pages .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
       }
     }
-    $EntsPerPage = array(10 => 10, 20 => 20, 50 => 50, 100 => 100, 0 => t('Alle'));
+    $EntsPerPage = array(10 => t('Zeige %1 von %2', 10, $count_rows['count']),
+        20 => t('Zeige %1 von %2', 20, $count_rows['count']),
+        50 => t('Zeige %1 von %2', 50, $count_rows['count']),
+        100 => t('Zeige %1 von %2', 100, $count_rows['count']),
+        0 => t('Zeige alle %1', $count_rows['count'])
+        );
     $smarty->assign('EntsPerPage', $EntsPerPage);
     $smarty->assign('EntPerPage', $this->config['EntriesPerPage']);
     $smarty->assign('pages', $pages);
