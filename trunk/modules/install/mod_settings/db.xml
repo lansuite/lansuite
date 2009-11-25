@@ -1469,10 +1469,10 @@
             </field>
             <field>
                 <name>score</name>
-                <type>int</type>
+                <type>int(11)</type>
                 <null></null>
                 <key></key>
-                <default></default>
+                <default>0</default>
                 <extra></extra>
             </field>
         </structure>
