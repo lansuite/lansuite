@@ -64,10 +64,12 @@ function WriteMenuEntries() {
 switch($_GET["step"]) {
     // Update Modules
     case 2:
-        $res = $db->qry("SELECT name FROM %prefix%modules WHERE changeable");
+        $res = $db->qry("SELECT name, reqphp, reqmysql FROM %prefix%modules WHERE changeable");
         while ($row = $db->fetch_array($res)){
-            if ($_POST[$row["name"]]) $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = %string%", $row["name"]);
-            elseif (count($_POST)) $db->qry_first("UPDATE %prefix%modules SET active = 0 WHERE name = %string%", $row["name"]);
+            if ($_POST[$row["name"]]) {
+                if ($row['reqphp'] and version_compare(phpversion(), $row['reqphp']) < 0) $func->information(t('Das Modul %1 kann nicht aktiviert werden, da die PHP Version %2 benötigt wird', $row["name"], $row['reqphp']), NO_LINK);
+                else $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = %string%", $row["name"]);
+            } elseif (count($_POST)) $db->qry_first("UPDATE %prefix%modules SET active = 0 WHERE name = %string%", $row["name"]);
         }
         $db->free_result($res);
 
@@ -187,6 +189,13 @@ switch($_GET["step"]) {
         if ($row["email"]) $author = "<a href=\"mailto:{$row["email"]}\">{$row["author"]}</a>";
         else $author = $row["author"];
         $smarty->assign('author', $author);
+
+        if ($row["reqphp"] or $row["reqmysql"]) {
+	    $req = '<br /><u>'. t('Benötigt') .'</u>: ';
+            if ($row["reqphp"]) $req .= 'PHP >= '. $row["reqphp"] .' ';
+            if ($row["reqmysql"]) $req .= 'MySQL >= '. $row["reqmysql"] .' ';
+	} else $req = '';
+        $smarty->assign('req', $req);
 
         $active = '';
         if ($row["active"]) $active = ' checked="checked"';
