@@ -765,6 +765,22 @@
                 <default></default>
                 <extra></extra>
             </field>
+            <field>
+                <name>reqphp</name>
+                <type>varchar(10)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>reqmysql</name>
+                <type>varchar(10)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
         </structure>
         <content>
         </content>

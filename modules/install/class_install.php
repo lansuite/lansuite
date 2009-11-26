@@ -279,6 +279,9 @@ class Install {
         $changeable = $xml->get_tag_content("changeable", $xml_file);
         $version = $xml->get_tag_content("version", $xml_file);
         $state = $xml->get_tag_content("state", $xml_file);
+        $requires = $xml->get_tag_content("requires", $xml_file);
+        $reqPhp = $xml->get_tag_content("php", $requires);
+        $reqMysql = $xml->get_tag_content("mysql", $requires);
 
         $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%modules WHERE name = %string%", $module);
 
@@ -286,11 +289,11 @@ class Install {
 
         if ($name) {
           if (!$mod_found["found"]) $db->qry_first("REPLACE INTO %prefix%modules
-            SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, active=%string%, changeable=%string%, version=%string%, state=%string%",
-            $name, $caption, $description, $author, $email, $active, $changeable, $version, $state);
+            SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, active=%string%, changeable=%string%, version=%string%, state=%string%, reqphp=%string%, reqmysql=%string%",
+            $name, $caption, $description, $author, $email, $active, $changeable, $version, $state, $reqPhp, $reqMysql);
           elseif ($rewrite) $db->qry_first("REPLACE INTO %prefix%modules
-            SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, changeable=%string%, version=%string%, state=%string%",
-            $name, $caption, $description, $author, $email, $changeable, $version, $state);
+            SET name=%string%, caption=%string%, description=%string%, author=%string%, email=%string%, changeable=%string%, version=%string%, state=%string%, reqphp=%string%, reqmysql=%string%",
+            $name, $caption, $description, $author, $email, $changeable, $version, $state, $reqPhp, $reqMysql);
         }
       }
       
