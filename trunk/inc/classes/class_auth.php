@@ -55,12 +55,22 @@ class auth {
             time() - 60*10);
         while ($row = $db->fetch_array($res)) $this->online_users[] = $row['userid'];
         
-        // Close sessions older than one hour.
+        // Close sessions older than 1-2 hours.
+        // ceil(x / (60*60)) * 60*60 for making query the same for one hour and therefore cacheable by MySQL
         // Do check first, for SELECT is faster than DELETE
-        $row = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE lasthit < %int%', time() - 60*60);
+        $row = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - 60*60) / (60*60)) * 60*60);
         if ($row['found']) {
-            $row = $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', time() - 60*60);
+            $row = $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - 60*60) / (60*60)) * 60*60);
             $row = $db->qry_first('OPTIMIZE TABLE %prefix%stats_auth');
+            
+            // Delete cookie after 30 days
+            // (TODO: Maybe make this time a config option)
+            // (TODO: Maybe differ time for admins and non-admins)
+            $row = $db->qry_first('SELECT 1 AS found FROM %prefix%cookie WHERE date < %int%', ceil((time() - 60*60*24*30) / (60*60)) * 60*60);
+            if ($row['found']) {
+                $row = $db->qry_first('DELETE FROM %prefix%cookie WHERE date < %int%', ceil((time() - 60*60*24*30) / (60*60)) * 60*60);
+                $row = $db->qry_first('OPTIMIZE TABLE %prefix%cookie');
+            }
         }
     }
 
@@ -156,13 +166,22 @@ class auth {
         else {
             $is_email = strstr($tmp_login_email, '@');
             if(!$is_email) $is_email = 0; else $is_email = 1;
-            // Go on if email and password
-            $user = $db->qry_first('SELECT 1 AS found, u.*
+
+            // Search in cookie table for id + pw
+            $cookierow = $db->qry_first('SELECT userid from %prefix%cookie WHERE cookieid = %int% AND password = %string%', $tmp_login_email, $tmp_login_pass);
+            if ($cookierow['userid']) $user = $db->qry_first('SELECT 1 AS found, u.*
+              FROM %prefix%user AS u
+              LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
+              WHERE (u.userid = %int%) AND (p.party_id IS NULL OR p.party_id=%int%)',
+              $cookierow['userid'], $party->party_id);
+ 
+            // Not found in cookie table, then check for manual login (either with email, oder userid)
+            else $user = $db->qry_first('SELECT 1 AS found, u.*
               FROM %prefix%user AS u
               LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
               WHERE ((u.userid = %int% AND 0 = %int%) OR LOWER(u.email) = %string%) AND (p.party_id IS NULL OR p.party_id=%int%)',
               $tmp_login_email, $is_email, $tmp_login_email, $party->party_id);
-            
+
 #            $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
             // Check Checkin
 #            if ($party_query){
@@ -193,8 +212,8 @@ class auth {
             } elseif ($cfg['sys_login_verified_mail_only'] == 2 and !$user['email_verified'] and $user["type"] < 2) {
                 $func->information(t('Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email.', $user['email']).' <a href="index.php?mod=usrmgr&action=verify_email&step=2&userid='. $user['userid'] .'">'. t('Klicken Sie hier, um die Mail erneut zu versenden</a>'), '', '', 1);
                 $func->log_event(t('Login fehlgeschlagen. Email (%1) nicht verifiziert', $user['email']), "2", "Authentifikation");
-            // Wrong Password?
-            } elseif ($tmp_login_pass != $user["password"] and $tmp_login_pass != $user["password_cookie"]){
+            // Wrong password and no correct cookie supplied?
+            } elseif ($tmp_login_pass != $user["password"] and !$cookierow['userid']) {
                 ($cfg["sys_internet"])? $remindtext = t('Haben Sie ihr Passwort vergessen?<br/><a href="/index.php?mod=usrmgr&action=pwrecover"/>Hier können Sie sich ein neues Passwort generieren</a>.') : $remindtext = t('Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.');
                 $func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Passwort-Fehler).', $tmp_login_email), "2", "Authentifikation");
@@ -208,12 +227,26 @@ class auth {
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account ausgecheckt).', $tmp_login_email), "2", "Authentifikation");
             // Everything fine!
             } else {
-                // Generate cookie PW
-                $password_cookie = $this->gen_rnd_key(40);
 
-                // Set Logonstats + new Cookie PW
-                $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate, password_cookie = %string% WHERE userid = %int%', md5($password_cookie),  $user['userid']);
-                if ($cfg["sys_logoffdoubleusers"]) $db->qry('DELETE FROM %prefix%stats_auth WHERE userid = %int%', $user['userid']);
+                // Set Logonstats
+                $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate WHERE userid = %int%', $user['userid']);
+                
+                // If not logged in by cookie, generete new cookie and store it
+                if (!$cookierow['userid']) {
+                    $password_cookie = $this->gen_rnd_key(40);
+                    $db->qry('INSERT INTO %prefix%cookie SET password = %string%, userid = %int%', md5($password_cookie),  $user['userid']);
+                    $this->cookie_data['userid'] = $db->insert_id();
+                    $this->cookie_data['uniqekey'] = $password_cookie;
+                    $this->cookie_data['version'] = $this->cookie_version;
+                    $this->cookie_data['olduserid'] = "";
+                    $this->cookie_data['sb_code'] = "";
+                    $this->cookie_set();
+                }
+
+                if ($cfg["sys_logoffdoubleusers"]) {
+                    $db->qry('DELETE FROM %prefix%stats_auth WHERE userid = %int%', $user['userid']);
+                    $db->qry('DELETE FROM %prefix%cookie WHERE userid = %int% AND cookieid != %int%', $user['userid'], $this->cookie_data['userid']);
+                }
                 
                 // Set authdata
                 $db->qry('REPLACE INTO %prefix%stats_auth
@@ -222,14 +255,6 @@ class auth {
 
                 $this->load_authdata();
                 $this->auth['userid'] = $user['userid'];
-
-                $this->cookie_data['userid'] = $user['userid'];
-                $this->cookie_data['uniqekey'] = $password_cookie;
-                //$this->cookie_data['uniqekey'] = md5($user['password']);
-                $this->cookie_data['version'] = $this->cookie_version;
-                $this->cookie_data['olduserid'] = "";
-                $this->cookie_data['sb_code'] = "";
-                $this->cookie_set();
 
                 if ($show_confirmation) { 
                   // Print Loginmessages
@@ -325,11 +350,13 @@ class auth {
     function logout() {
         global $db, $config, $ActiveModules, $func;
 
-        // Delete entry from SID table
+        // Delete entry from SID
         $db->qry('DELETE FROM %prefix%stats_auth WHERE sessid=%string%', $this->auth["sessid"]);
         $this->auth['login'] = "0";
 
         // Reset Cookiedata
+        $this->cookie_read();
+        $db->qry('DELETE FROM %prefix%cookie WHERE userid = %int% AND cookieid = %int%', $this->auth['userid'], $this->cookie_data['userid']);
         $this->cookie_unset();
         
         // Logs the user from the board2 off.
