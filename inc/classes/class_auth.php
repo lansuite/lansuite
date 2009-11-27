@@ -66,9 +66,9 @@ class auth {
             // Delete cookie after 30 days
             // (TODO: Maybe make this time a config option)
             // (TODO: Maybe differ time for admins and non-admins)
-            $row = $db->qry_first('SELECT 1 AS found FROM %prefix%cookie WHERE date < %int%', ceil((time() - 60*60*24*30) / (60*60)) * 60*60);
+            $row = $db->qry_first('SELECT 1 AS found FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - 60*60*24*30) / (60*60)) * 60*60);
             if ($row['found']) {
-                $row = $db->qry_first('DELETE FROM %prefix%cookie WHERE date < %int%', ceil((time() - 60*60*24*30) / (60*60)) * 60*60);
+                $row = $db->qry_first('DELETE FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - 60*60*24*30) / (60*60)) * 60*60);
                 $row = $db->qry_first('OPTIMIZE TABLE %prefix%cookie');
             }
         }
