@@ -109,7 +109,7 @@
                 <default>0</default>
                 <extra></extra>
             	  <foreign_key>user.userid</foreign_key>
-            	  <on_delete>NO_DELETE</on_delete>
+            	  <on_delete>ASK_SET0</on_delete>
             </field>
             <field>
                 <name>date</name>
@@ -428,7 +428,7 @@
                 <default>0</default>
                 <extra></extra>
             	  <foreign_key>user.userid</foreign_key>
-            	  <on_delete>NO_DELETE</on_delete>
+            	  <on_delete>ASK_DELETE</on_delete>
             </field>
             <field>
                 <name>text</name>
@@ -683,6 +683,7 @@
                 <default>1</default>
                 <extra></extra>
             	  <foreign_key>boxes.boxid</foreign_key>
+            	  <on_delete>ASK_SET0</on_delete>
             </field>
         </structure>
         <content>
@@ -1416,6 +1417,7 @@
                 <default></default>
                 <extra></extra>
             	  <foreign_key>user.userid</foreign_key>
+    	       <on_delete>DELETE</on_delete>
             </field>
             <field>
                 <name>ip</name>
@@ -1474,6 +1476,7 @@
                 <default>0</default>
                 <extra></extra>
             	  <foreign_key>user.userid</foreign_key>
+        	  <on_delete>ASK_DELETE</on_delete>
             </field>
             <field>
                 <name>date</name>
@@ -1532,6 +1535,7 @@
 				<default></default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>date</name>
@@ -1667,6 +1671,7 @@
 				<default></default>
 				<extra></extra>
                 <foreign_key>user.userid</foreign_key>
+    	       <on_delete>DELETE</on_delete>
 			</field>
 		</structure>
     </table>

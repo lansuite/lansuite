@@ -100,7 +100,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>board_forums.fid</foreign_key>
-    	  <on_delete>NO_DELETE</on_delete>
+    	  <on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>caption</name>
@@ -173,7 +173,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>board_threads.tid</foreign_key>
-    	  <on_delete>NO_DELETE</on_delete>
+    	  <on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>userid</name>
@@ -183,7 +183,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
-    	  <on_delete>NO_DELETE</on_delete>
+    	  <on_delete>ASK_SET0</on_delete>
 			</field>
 			<field>
 				<name>comment</name>

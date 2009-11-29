@@ -52,6 +52,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>DENY</on_delete>
 			</field>
 			<field>
 				<name>changedate</name>
@@ -84,6 +85,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>rentstuff.stuffid</foreign_key>
+    	  <on_delete>ASK_DELETE</on_delete>
 			</field>
 			<field>
 				<name>userid</name>
@@ -93,6 +95,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>DENY</on_delete>
 			</field>
 			<field>
 				<name>out_orgaid</name>
@@ -102,6 +105,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>DENY</on_delete>
 			</field>
 			<field>
 				<name>back_orgaid</name>
@@ -111,6 +115,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>DENY</on_delete>
 			</field>
 			<field>
 				<name>comment</name>

@@ -440,6 +440,7 @@
                 <key>IND</key>                
                 <extra></extra>
     	          <foreign_key>user.userid</foreign_key>
+    	  <on_delete>DELETE</on_delete>
             </field>
             <field>
                 <name>module</name>

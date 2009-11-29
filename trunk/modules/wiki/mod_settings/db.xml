@@ -57,6 +57,7 @@
 				<default></default>
 				<extra></extra>
     	  <foreign_key>wiki.postid</foreign_key>
+    	  <on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>date</name>
@@ -74,6 +75,7 @@
 				<default></default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>ASK_SET0</on_delete>
 			</field>
 			<field>
 				<name>text</name>
