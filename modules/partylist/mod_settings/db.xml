@@ -84,6 +84,7 @@
 				<default></default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>DENY</on_delete>
 			</field>
 			<field>
 				<name>city</name>

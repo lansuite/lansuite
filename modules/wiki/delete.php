@@ -9,7 +9,6 @@ switch($_GET['step']) {
     include_once('inc/classes/class_masterdelete.php');
     $md = new masterdelete();
 
-    $md->References['wiki_versions'] = '';
     $md->Delete('wiki', 'postid', $_GET['postid']);
   break;
 

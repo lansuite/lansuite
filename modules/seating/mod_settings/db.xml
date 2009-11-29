@@ -213,6 +213,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>seat_block.blockid</foreign_key>
+    	  <on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>col</name>
@@ -254,6 +255,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>ASK_SET0</on_delete>
 			</field>
 		</structure>
 	</table>
@@ -278,6 +280,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>seat_block.blockid</foreign_key>
+    	  <on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>orientation</name>

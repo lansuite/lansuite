@@ -60,6 +60,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>ASK_SET0</on_delete>
 			</field>
 			<field>
 				<name>agent</name>
@@ -69,6 +70,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>ASK_SET0</on_delete>
 			</field>
 			<field>
 				<name>priority</name>
