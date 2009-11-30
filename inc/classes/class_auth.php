@@ -90,56 +90,19 @@ class auth {
         // 3. Eingeloggt Session und Cookie
         // 4. Eingeloggt Session und Cookie und userswitch
 
-        $this->load_authdata();                  // Load Sessiondata if Possible
-        $cookie_status = $this->cookie_read();   // Read Cookiedata
-        #$cookie_valid = $this->cookie_valid();   // Validate Cookie
 
-        if ($this->auth['login'] == 1) {
-        
-        // User allready checked in by session - No need to check cookie
-        // Cookie will be checked, when session expires
-        // TODO: But maybe we should set a maximum session livetime to something like 60min
-        
-        /*
-        // Session active
-            if ($this->auth["type"] > 1) {
-            // Procedure for Admin
-                // Check Cookie
-                if ($cookie_status == 1 AND $cookie_valid == 1) {
-                    // Cookie OK
-                } else {
-                    // Cookie NOK
-                    $this->logout();
-                    $func->information('Fehlerhafte Cookiedaten. Sie wurden ausgeloggt.', "", '', 1);
-                }
-            } else {
-            // Procedure for User
-                // Check Cookie
-                if ($cookie_status == 1 AND $cookie_valid == 1) {
-                    // Cookie OK
-                } else {
-                    // Cookie NOK
-                    $this->logout();
-                    $func->information('Fehlerhafte Cookiedaten. Sie wurden ausgeloggt.', "", '', 1);
-                }
-            }
-        */
+        // Look for SessionID in DB and load auth-data
+        if ($this->loadAuthBySID()) {
+            $cookie_status = $this->cookie_read();   // Read Cookiedata
+
+        // Not found? Then look for cookie
         } else {
-        // Session inactive, check for Cookielogin
+            $cookie_status = $this->cookie_read();   // Read Cookiedata
+            // Not needed, for check is performed in login()
+            #$cookie_valid = $this->cookie_valid();   // Validate Cookie
             if (array_key_exists($this->cookie_name, $_COOKIE)) {
-                // Check Cookie
-                if ($cookie_status == 1) {
-                    // Cookie OK
-                    // Login per Cookie, Session setzten
-                    $this->login_cookie($this->cookie_data['userid'], $this->cookie_data['uniqekey']);
-                } else {
-                    // Cookie NOK
-                    // Cookie löschen
-                    // Meldung
-                    // Logeintrag
-                }
+                if ($cookie_status == 1) $this->login_cookie($this->cookie_data['userid'], $this->cookie_data['uniqekey']);
             }
-
         }
 
         return $this->auth;
@@ -182,16 +145,10 @@ class auth {
               WHERE ((u.userid = %int% AND 0 = %int%) OR LOWER(u.email) = %string%) AND (p.party_id IS NULL OR p.party_id=%int%)',
               $tmp_login_email, $is_email, $tmp_login_email, $party->party_id);
 
-#            $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
-            // Check Checkin
-#            if ($party_query){
-#               $user["checkin"] = $party_query['checkin'];
-#               $user["checkout"] = $party_query['checkout'];
-#           }
             $row = $db->qry_first('SELECT COUNT(*) AS anz
-                                   FROM %prefix%login_errors
-                                   WHERE userid = %int% AND (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(time) < 60)
-                                   GROUP BY userid', $user['userid']);
+               FROM %prefix%login_errors
+               WHERE userid = %int% AND (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(time) < 60)
+               GROUP BY userid', $user['userid']);
 
             // Too many login trys
             if ($row['anz'] >= 5) {
@@ -253,8 +210,9 @@ class auth {
                   SET sessid = %string%, userid = %int%, login = \'1\', ip = %string%, logtime = %string%, logintime = %string%, lasthit = %string%',
                   $this->auth["sessid"], $user["userid"], $this->auth["ip"], $this->timestamp, $this->timestamp, $this->timestamp);
 
-                $this->load_authdata();
+                $this->loadAuthBySID();
                 $this->auth['userid'] = $user['userid'];
+                $this->online_users[] = $user['userid'];
 
                 if ($show_confirmation) { 
                   // Print Loginmessages
@@ -294,31 +252,7 @@ class auth {
         if     ($userid == "") $func->information(t('Keine Userid beim Login via Cookie erkannt.'), "", '', 1);
         elseif ($uniquekey == "") $func->information(t('Kein Uniquekey beim Login via Cookie erkannt.'), "", '', 1);
         else {
-        
           $this->login($userid, $uniquekey, 0);
-          /*
-            $user = $db->qry_first('SELECT 1 AS found, userid, username, email, password_cookie, type, locked FROM %prefix%user WHERE userid = %int%', $userid);
-
-            if ($uniquekey == ($user['password_cookie'])) {
-                // Set Logonstats
-                $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate WHERE userid = %int%', $user["userid"]);
-                if ($cfg["sys_logoffdoubleusers"]) $db->qry('DELETE FROM %prefix%stats_auth WHERE userid=%int%', $user["userid"]);
-
-                // Set authdata
-                $db->qry('REPLACE INTO %prefix%stats_auth
-                  SET sessid = %string%, userid = %int%, login = \'1\', ip = %string%, logtime = %string%, logintime = %string%, lasthit = %string%',
-                $this->auth["sessid"], $user["userid"], $this->auth["ip"], $this->timestamp, $this->timestamp, $this->timestamp);
-
-                $this->load_authdata();
-                $this->auth['userid'] = $user['userid'];
-                 
-                // The User will be logged in on the phpBB Board if the modul is available, configured and active.
-                $this->loginPhpbb();
-            } else {
-                // DEBUG
-                $func->information(t("Uniquekey fehlerhaft"), '','',1);
-            }
-          */  
         }
     }
     
@@ -372,7 +306,7 @@ class auth {
         $this->auth["userpassword"] = "";
         $this->auth["type"] = 0;
 
-        $func->information(t('Sie wurden erfolgreich ausgeloggt. Vielen dank für ihren Besuch.'), "", '', 1, FORWARD);
+        $func->confirmation(t('Sie wurden erfolgreich ausgeloggt. Vielen dank für ihren Besuch.'), "", 1, FORWARD);
         return $this->auth;                // For overwrite global $auth
     }
     
@@ -400,22 +334,11 @@ class auth {
         global $db, $config, $lang, $func;
 
         // Get target user type
-        $target_user = $db->qry_first('SELECT type, password_cookie FROM %prefix%user WHERE userid = %int%', $target_id);
+        $target_user = $db->qry_first('SELECT type FROM %prefix%user WHERE userid = %int%', $target_id);
 
         // Only highlevel to lowerlevel
         if ($this->auth["type"] > $target_user["type"]) {
             $switchbackcode = $this->gen_rnd_key(24); // Generate switch back code
-
-            // UserID and PW are not needed in Cookie, for during Switch, the login is maintanined by the session ID
-            $this->cookie_data['userid'] = '';
-            $this->cookie_data['uniqekey'] = '';
-
-            // $this->cookie_data['userid'] = $target_id;
-            // Geht nicht. Das PWC wird vorher mit MD5 in die DB geschrieben.
-            // Nicht umkehrbar. Lösung.. evt. PWC für target_id neu schreiben.
-            // Aber dann wird der User gekickt und muss sich neu anmelden. 
-#            $this->cookie_data['uniqekey'] = $target_user["password_cookie"];
-#            $this->cookie_data['version'] = $this->cookie_version;
 
             // Save old user ID & write cookie
             $this->cookie_data['olduserid'] = $this->auth['userid'];
@@ -423,7 +346,7 @@ class auth {
             $this->cookie_set();
             
             // Store switch back code in current (admin) user data
-            $db->qry('UPDATE %prefix%user SET switch_back = %string% WHERE userid = %int%', $switchbackcode, $this->auth["userid"]);
+            $db->qry('UPDATE %prefix%user SET switch_back = %string% WHERE userid = %int%', md5($switchbackcode), $this->auth["userid"]);
             // Link session ID to new user ID
             $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $target_id, $this->auth["sessid"]);
             
@@ -446,19 +369,18 @@ class auth {
         global $db, $config, $lang, $func;
         // Make sure that Cookiedata is loaded
         $this->cookie_read();
-        if ($this->cookie_data['olduserid'] > 0){
+        if ($this->cookie_data['olduserid'] > 0) {
             // Check switch back code
-            $admin_user = $db->qry_first('SELECT switch_back, password_cookie FROM %prefix%user WHERE userid = %int%', $this->cookie_data["olduserid"]);
-            if ($this->cookie_data['sb_code'] == $admin_user["switch_back"]) {
+            $admin_user = $db->qry_first('SELECT switch_back FROM %prefix%user WHERE userid = %int%', $this->cookie_data["olduserid"]);
+            if (md5($this->cookie_data['sb_code']) == $admin_user["switch_back"]) {
                 // Link session ID to origin user ID
                 $db->qry('UPDATE %prefix%stats_auth SET userid=%int%, login=\'1\' WHERE sessid=%string%', $this->cookie_data["olduserid"], $this->auth["sessid"]);
                 // Delete switch back code in admins user data
                 $db->qry('UPDATE %prefix%user SET switch_back = \'\' WHERE userid = %int%', $this->cookie_data['olduserid']); 
-                $this->cookie_data['userid'] = $this->cookie_data["olduserid"];
-                $this->cookie_data['uniqekey'] = $admin_user["password_cookie"]; // FIX abfrage nach neuen uniqekey
-                $this->cookie_data['version'] = $this->cookie_version;
-                $this->cookie_data['olduserid'] = '-1';
-                $this->cookie_data['sb_code'] = '-1';
+
+                // Unset switch cookie data
+                $this->cookie_data['olduserid'] = '';
+                $this->cookie_data['sb_code'] = '';
                 $this->cookie_set();
                 
                 // Logs the new user out on the board2 and logs the admin user on again
@@ -466,12 +388,12 @@ class auth {
                 //$this->logoutPhpbb();
                 //$this->loginPhpbb($this->cookie_data['userid']);
                 
-                $func->information(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,'',1);
+                $func->confirmation(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,1);
             } else {
-                $func->error(t('Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), $func->internal_referer,1);
+                $func->information(t('Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), $func->internal_referer,'',1);
             }
         } else {
-            $func->error(t('Fehler: Keine Switchbackdaten gefunden! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), $func->internal_referer,1);
+            $func->information(t('Fehler: Keine Switchbackdaten gefunden! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), $func->internal_referer,'',1);
         }
     }
 
@@ -533,14 +455,15 @@ class auth {
    *
    * @access private
    */
-    function load_authdata() {
+    function loadAuthBySID() {
         global $db, $config;
         // Put all User-Data into $auth-Array
-        $user_data = $db->qry_first('SELECT session.userid, session.login, session.ip, user.*
+        $user_data = $db->qry_first('SELECT 1 AS found, session.userid, session.login, session.ip, user.*
             FROM %prefix%stats_auth AS session
             LEFT JOIN %prefix%user AS user ON user.userid = session.userid
             WHERE session.sessid=%string% ORDER BY session.lasthit', $this->auth["sessid"]);
         if (is_array($user_data)) foreach ($user_data as $key => $val) if (!is_numeric($key)) $this->auth[$key] = $val;
+        return $this->auth['login'];
     }
 
   /**
@@ -593,13 +516,13 @@ class auth {
    */
     function cookie_valid() {
         global $db, $config;
-        // Get target user type
-        if ($this->cookie_data['userid'] >= 1) $user_row = $db->qry_first('SELECT password_cookie FROM %prefix%user WHERE userid = %int%', $this->cookie_data['userid']);
-        $ok = 0;
-        // Check for Cookie
-        if (md5($this->cookie_data['uniqekey']) == $user_row['password_cookie']) $ok = 1;
-        if ($ok==0) $this->cookie_unset();
-        return $ok;
+
+        if ($this->cookie_data['userid'] >= 1) $user_row = $db->qry_first('SELECT password FROM %prefix%cookie WHERE userid = %int%', $this->cookie_data['userid']);
+        if (md5($this->cookie_data['uniqekey']) == $user_row['password']) return 1;
+        else {
+            $this->cookie_unset();
+            return 0;
+        }
     }
 
   /**
@@ -619,32 +542,14 @@ class auth {
                 is_numeric($this->cookie_data['version']) AND
                 ($this->cookie_version == $this->cookie_data['version'])) $ok = 1;
         }
-        #if ($ok==0) $this->cookie_unset();
+        if (!$ok) {
+            $this->cookie_unset();
+            #$func->error(t('Fehlerhafte Cookie-Daten. Cookie wurde gelöscht'), "", '', 1);
+            #$func->log_event(t('Fehlerhafte Cookie-Daten. Cookie wurde gelöscht'), "2", "Authentifikation");
+        }
         return $ok;
     }
-    
-    
-  /**
-   * Rewrites the cookie for the current user, e.g. when the user changed his password.
-   *
-   * @access private
-   */
-    function cookie_resetpassword($userid) {
-        global $db;
         
-        // Wird normal nicht mehr benötigt. Evtl beim wechsel des Passwortes ein
-        // neues Cookiepasswort setzten. Togglefunktion?
-        
-        $user = $db->qry_first('SELECT password_cookie FROM %prefix%user WHERE (userid = %int%)', $userid);
-
-        $this->cookie_data['userid'] = $userid;
-        $this->cookie_data['uniqekey'] = $user['password_cookie'];
-        $this->cookie_data['version'] = $this->cookie_version;
-        $this->cookie_data['olduserid'] = "";
-        $this->cookie_data['sb_code'] = "";
-        $this->cookie_set();
-    }
-
   /**
    * Set Cookie for User
    *

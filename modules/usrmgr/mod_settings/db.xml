@@ -279,8 +279,8 @@
             </field>
             <field>
                 <name>switch_back</name>
-                <type>varchar(25)</type>
-                <null>NO</null>
+                <type>varchar(60)</type>
+                <null></null>
                 <default></default>
                 <extra></extra>
             </field>
