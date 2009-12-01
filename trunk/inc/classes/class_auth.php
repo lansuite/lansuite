@@ -56,19 +56,21 @@ class auth {
         while ($row = $db->fetch_array($res)) $this->online_users[] = $row['userid'];
         
         // Close sessions older than 1-2 hours.
-        // ceil(x / (60*60)) * 60*60 for making query the same for one hour and therefore cacheable by MySQL
+        // ceil(x / $oneHour) * $oneHour for making query the same for one hour and therefore cacheable by MySQL
         // Do check first, for SELECT is faster than DELETE
-        $row = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - 60*60) / (60*60)) * 60*60);
+        $oneHour = 60 * 60;
+        $thirtyDays = 60 * 60 * 24 * 30;
+        $row = $db->qry_first('SELECT 1 AS found FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
         if ($row['found']) {
-            $row = $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - 60*60) / (60*60)) * 60*60);
+            $row = $db->qry_first('DELETE FROM %prefix%stats_auth WHERE lasthit < %int%', ceil((time() - $oneHour) / $oneHour) * $oneHour);
             $row = $db->qry_first('OPTIMIZE TABLE %prefix%stats_auth');
             
             // Delete cookie after 30 days
             // (TODO: Maybe make this time a config option)
             // (TODO: Maybe differ time for admins and non-admins)
-            $row = $db->qry_first('SELECT 1 AS found FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - 60*60*24*30) / (60*60)) * 60*60);
+            $row = $db->qry_first('SELECT 1 AS found FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - $thirtyDays) / $oneHour) * $oneHour);
             if ($row['found']) {
-                $row = $db->qry_first('DELETE FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - 60*60*24*30) / (60*60)) * 60*60);
+                $row = $db->qry_first('DELETE FROM %prefix%cookie WHERE lastchange < %int%', ceil((time() - $thirtyDays) / $oneHour) * $oneHour);
                 $row = $db->qry_first('OPTIMIZE TABLE %prefix%cookie');
             }
         }
@@ -93,16 +95,12 @@ class auth {
 
         // Look for SessionID in DB and load auth-data
         if ($this->loadAuthBySID()) {
-            $cookie_status = $this->cookie_read();   // Read Cookiedata
+            $this->cookie_read();   // Read Cookiedata
 
         // Not found? Then look for cookie
         } else {
-            $cookie_status = $this->cookie_read();   // Read Cookiedata
-            // Not needed, for check is performed in login()
-            #$cookie_valid = $this->cookie_valid();   // Validate Cookie
-            if (array_key_exists($this->cookie_name, $_COOKIE)) {
-                if ($cookie_status == 1) $this->login_cookie($this->cookie_data['userid'], $this->cookie_data['uniqekey']);
-            }
+            if ($this->cookie_read() == 1) $this->login_cookie($this->cookie_data['userid'], $this->cookie_data['uniqekey']);
+            // Else: Cookie invalide. But no message, for maybe the user don't likes to log in
         }
 
         return $this->auth;
@@ -117,7 +115,8 @@ class auth {
    * @return array Returns the auth-dataarray
    */
     function login($email, $password, $show_confirmation = 1) {
-        global $db, $func, $cfg, $config, $party, $lang, $board_config, $ActiveModules;
+        global $db, $func, $cfg, $party, $ActiveModules;
+
         $tmp_login_email = "";
         $tmp_login_pass = "";        
 
@@ -139,18 +138,19 @@ class auth {
               $cookierow['userid'], $party->party_id);
  
             // Not found in cookie table, then check for manual login (either with email, oder userid)
-            else $user = $db->qry_first('SELECT 1 AS found, u.*
+            else $user = $db->qry_first('SELECT 1 AS found, 1 AS user_login, u.*
               FROM %prefix%user AS u
               LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
               WHERE ((u.userid = %int% AND 0 = %int%) OR LOWER(u.email) = %string%) AND (p.party_id IS NULL OR p.party_id=%int%)',
               $tmp_login_email, $is_email, $tmp_login_email, $party->party_id);
 
+            // Count login errors
             $row = $db->qry_first('SELECT COUNT(*) AS anz
                FROM %prefix%login_errors
                WHERE userid = %int% AND (UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(time) < 60)
                GROUP BY userid', $user['userid']);
 
-            // Too many login trys
+            // Too many login trys?
             if ($row['anz'] >= 5) {
                 $func->information(t('Sie haben in der letzten Minute bereits 5 mal Ihr Passwort falsch eingegeben. Bitte waren Sei einen Moment, bevor Sie es erneut versuchen dürfen'), '', '', 1);
             // Email not found?
@@ -165,16 +165,23 @@ class auth {
             } elseif ($user['locked']){
                 $func->information(t('Dieser Account ist noch nicht freigeschaltet. Bitte warten Sie bis ein Organisator Sie freigeschaltet hat.'), '', '', 1);
                 $func->log_event(t('Account von %1 ist noch gesperrt. Login daher fehlgeschlagen.', $tmp_login_email), "2", "Authentifikation");
-            // Mail not verified
+            // Mail not verified?
             } elseif ($cfg['sys_login_verified_mail_only'] == 2 and !$user['email_verified'] and $user["type"] < 2) {
                 $func->information(t('Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email.', $user['email']).' <a href="index.php?mod=usrmgr&action=verify_email&step=2&userid='. $user['userid'] .'">'. t('Klicken Sie hier, um die Mail erneut zu versenden</a>'), '', '', 1);
                 $func->log_event(t('Login fehlgeschlagen. Email (%1) nicht verifiziert', $user['email']), "2", "Authentifikation");
-            // Wrong password and no correct cookie supplied?
-            } elseif ($tmp_login_pass != $user["password"] and !$cookierow['userid']) {
+            // User login and wrong password?
+            } elseif ($user["user_login"] and $tmp_login_pass != $user["password"]) {
                 ($cfg["sys_internet"])? $remindtext = t('Haben Sie ihr Passwort vergessen?<br/><a href="/index.php?mod=usrmgr&action=pwrecover"/>Hier können Sie sich ein neues Passwort generieren</a>.') : $remindtext = t('Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.');
                 $func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Passwort-Fehler).', $tmp_login_email), "2", "Authentifikation");
                 $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = %string%, time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
+            // Cookie login and no correct cookie supplied?
+            } elseif (!$user["user_login"] and !$cookierow['userid']) {
+                ($cfg["sys_internet"])? $remindtext = t('Haben Sie ihr Passwort vergessen?<br/><a href="/index.php?mod=usrmgr&action=pwrecover"/>Hier können Sie sich ein neues Passwort generieren</a>.') : $remindtext = t('Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.');
+                $func->information(t('Ihre Session ist abgelaufen und das bei Ihnen gesetzte Cookie ist fehlerhaft. Leider konnten Sie damit nicht eingeloggt werden. Bitte loggen Sie sich neben erneut manuell ein'), "", '', 1);
+                $func->log_event(t('Login für %1 fehlgeschlagen (Cookie-Fehler).', $tmp_login_email), "2", "Authentifikation");
+                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = %string%, time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
+                $this->cookie_unset();
             // Not checked in?
             } elseif((!$user["checkin"] or $user["checkin"] == '0000-00-00 00:00:00') AND $user["type"] < 2 AND !$cfg["sys_internet"]){                $func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account nicht eingecheckt).', $tmp_login_email), "2", "Authentifikation");
@@ -247,7 +254,7 @@ class auth {
    * @return array Returns the auth-dataarray
    */
     function login_cookie($userid, $uniquekey) {
-        global $db, $func, $cfg, $config;
+        global $db, $func, $cfg;
 
         if     ($userid == "") $func->information(t('Keine Userid beim Login via Cookie erkannt.'), "", '', 1);
         elseif ($uniquekey == "") $func->information(t('Kein Uniquekey beim Login via Cookie erkannt.'), "", '', 1);
@@ -282,7 +289,7 @@ class auth {
      * @return array Returns the cleared auth-dataarray
      */
     function logout() {
-        global $db, $config, $ActiveModules, $func;
+        global $db, $ActiveModules, $func;
 
         // Delete entry from SID
         $db->qry('DELETE FROM %prefix%stats_auth WHERE sessid=%string%', $this->auth["sessid"]);
@@ -331,7 +338,7 @@ class auth {
    * @param mixed $target_id
    */
     function switchto($target_id) {
-        global $db, $config, $lang, $func;
+        global $db, $func;
 
         // Get target user type
         $target_user = $db->qry_first('SELECT type FROM %prefix%user WHERE userid = %int%', $target_id);
@@ -366,7 +373,7 @@ class auth {
      * Logout from the selectet User and go back to the calling Adminuser
      */
     function switchback() {
-        global $db, $config, $lang, $func;
+        global $db, $func;
         // Make sure that Cookiedata is loaded
         $this->cookie_read();
         if ($this->cookie_data['olduserid'] > 0) {
@@ -456,7 +463,7 @@ class auth {
    * @access private
    */
     function loadAuthBySID() {
-        global $db, $config;
+        global $db;
         // Put all User-Data into $auth-Array
         $user_data = $db->qry_first('SELECT 1 AS found, session.userid, session.login, session.ip, user.*
             FROM %prefix%stats_auth AS session
@@ -489,7 +496,7 @@ class auth {
    * @return void
    */
     function set_install_cookie($email, $password) {
-        global $db, $config;
+        global $db;
 
         $email = strtolower(htmlspecialchars(trim($email)));
         $user = $db->qry_first('SELECT userid, password FROM %prefix%user WHERE LOWER(email) = %string%', $email);
@@ -515,7 +522,7 @@ class auth {
    * @access private
    */
     function cookie_valid() {
-        global $db, $config;
+        global $db;
 
         if ($this->cookie_data['userid'] >= 1) $user_row = $db->qry_first('SELECT password FROM %prefix%cookie WHERE userid = %int%', $this->cookie_data['userid']);
         if (md5($this->cookie_data['uniqekey']) == $user_row['password']) return 1;
@@ -543,7 +550,9 @@ class auth {
                 ($this->cookie_version == $this->cookie_data['version'])) $ok = 1;
         }
         if (!$ok) {
-            $this->cookie_unset();
+            // i.e. user don't like to log in
+            // But still we maybe need Cookies for not logged in users. So just keep it.
+            #$this->cookie_unset();
             #$func->error(t('Fehlerhafte Cookie-Daten. Cookie wurde gelöscht'), "", '', 1);
             #$func->log_event(t('Fehlerhafte Cookie-Daten. Cookie wurde gelöscht'), "2", "Authentifikation");
         }
