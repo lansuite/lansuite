@@ -18,7 +18,7 @@ class masterdelete {
         }
 
         // Check if attached tables are denied
-        $res = $db->qry('SELECT pri_table, pri_key, on_delete FROM %prefix%references WHERE foreign_table = %string% AND foreign_key = %string%', $table, $idname);
+        $res = $db->qry('SELECT pri_table, pri_key, on_delete FROM %prefix%ref WHERE foreign_table = %string% AND foreign_key = %string%', $table, $idname);
         while ($row = $db->fetch_array($res)) {
             $row2 = $db->qry_first('SELECT COUNT(*) AS cnt FROM %prefix%%plain%
                 WHERE %plain% = %int%', $row['pri_table'], $row['pri_key'], $id);
@@ -41,7 +41,7 @@ class masterdelete {
             }
 
             // Delete all attached tables
-            $res = $db->qry('SELECT pri_table, pri_key, on_delete FROM %prefix%references WHERE foreign_table = %string% AND foreign_key = %string%', $table, $idname);
+            $res = $db->qry('SELECT pri_table, pri_key, on_delete FROM %prefix%ref WHERE foreign_table = %string% AND foreign_key = %string%', $table, $idname);
             while ($row = $db->fetch_array($res)) {
                 switch ($row['on_delete']) {
                     case 'ASK_DELETE':
@@ -76,7 +76,7 @@ class masterdelete {
             $refFieldsDelete = '';
             $refFieldsSet0 = '';
             $refFieldsDeny = '';
-            $res = $db->qry('SELECT pri_table, pri_key, on_delete FROM %prefix%references WHERE foreign_table = %string% AND foreign_key = %string%', $table, $idname);
+            $res = $db->qry('SELECT pri_table, pri_key, on_delete FROM %prefix%ref WHERE foreign_table = %string% AND foreign_key = %string%', $table, $idname);
             while ($row = $db->fetch_array($res)) {
                 $row2 = $db->qry_first('SELECT COUNT(*) AS cnt FROM %prefix%%plain%
                     WHERE %plain% = %int%', $row['pri_table'], $row['pri_key'], $id);
