@@ -506,7 +506,7 @@ class Import {
 						}
 					}
 					$db->qry("REPLACE INTO %prefix%user SET email = %string%, name = %string%, username = %string%, firstname = %string%, type = %string%, clanid = %int%,
-								password = %string%, wclid = %int%, wwclclanid = %int%, comment = %string%",
+								password = %string%, wwclid = %int%, wwclclanid = %int%, comment = %string%",
 					$email, $name, $username, $firstname, $type, $clan_id, $password, $wwclid, $wwclclanid, $comment);
 					$id = $db->insert_id();
 
@@ -520,7 +520,7 @@ class Import {
 					$userids[$email] = $id;
 				}
 			} // foreach - $users_to_import
-			$confirmation .= HTML_NEWLINE . HTML_NEWLINE ."- User erfolgreich eingetragen";
+			$confirmation .= HTML_NEWLINE . HTML_NEWLINE ."- User eintragen beendet";
 		} // is array
 		else echo "FEHLER: USER NICHT EINGETRAGEN" .HTML_NEWLINE;
 
