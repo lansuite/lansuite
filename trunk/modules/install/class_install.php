@@ -118,7 +118,7 @@ class Install {
       #$db->qry("REPLACE INTO %prefix%table_names SET name = 'table_names'");
 
       // Delete references, if table exists, for they will be recreated in WriteTableFromXMLFile
-      if (in_array($config['database']['prefix'] .'references', $import->installed_tables)) $db->qry('TRUNCATE TABLE %prefix%references');
+      if (in_array($config['database']['prefix'] .'ref', $import->installed_tables)) $db->qry('TRUNCATE TABLE %prefix%ref');
 
       if (is_dir("modules")) {
         // Do install-mod first! (for translations-table must exist)

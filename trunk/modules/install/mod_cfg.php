@@ -224,7 +224,7 @@ switch ($_GET['step']) {
 			$dsp->AddFieldsetStart(t('Abhängigkeiten'));
 			$where = '';
 			foreach ($mod_tables_arr as $table) $where .= ' OR pri_table = \''. $table .'\'';
-			$res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%references WHERE (0 = 1) %plain%', $where);
+			$res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
 			while ($row = $db->fetch_array($res)) {
 			  switch ($row['on_delete']) {
 			    case 'DELETE':    $color = '#ff0000'; break;
@@ -240,7 +240,7 @@ switch ($_GET['step']) {
 			$dsp->AddFieldsetStart(t('Tabellen, die Tabellen dieses Moduls vorraussetzen'));
 			$where = '';
 			foreach ($mod_tables_arr as $table) $where .= ' OR foreign_table = \''. $table .'\'';
-			$res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%references WHERE (0 = 1) %plain%', $where);
+			$res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
 			while ($row = $db->fetch_array($res)) {
 			  switch ($row['on_delete']) {
 			    case 'DELETE':    $color = '#ff0000'; break;

@@ -9,7 +9,7 @@
     </header>
     <table>
         <table_head>
-            <name>references</name>
+            <name>ref</name>
         </table_head>
         <structure>
             <field>

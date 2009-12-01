@@ -284,26 +284,26 @@ class Import {
 					// Foreign Key references
 					if ($foreign_key) {
 						list ($foreign_table, $foreign_key_name) = split('\\.', $foreign_key);
-						$row = $db->qry_first('SELECT 1 AS found, on_delete FROM %prefix%references WHERE
+						$row = $db->qry_first('SELECT 1 AS found, on_delete FROM %prefix%ref WHERE
               pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string%',
 						$table_name, $name, $foreign_table, $foreign_key_name);
             if ($row['on_delete'] != $on_delete) {
-              $db->qry('DELETE FROM %prefix%references WHERE
+              $db->qry('DELETE FROM %prefix%ref WHERE
                 pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string%',
 						  $table_name, $name, $foreign_table, $foreign_key_name);
 						  $row['found'] = 0;
             }
-						if (!$row['found']) $db->qry('INSERT INTO %prefix%references SET
+						if (!$row['found']) $db->qry('INSERT INTO %prefix%ref SET
               pri_table = %string%, pri_key = %string%, foreign_table = %string%, foreign_key = %string%, on_delete = %string%', 
 						$table_name, $name, $foreign_table, $foreign_key_name, $on_delete);
 					}
 					if ($reference) {
 						list ($reference_table, $reference_key) = split('\\.', $reference);
 
-						$row = $db->qry_first('SELECT 1 AS found FROM %prefix%references WHERE
+						$row = $db->qry_first('SELECT 1 AS found FROM %prefix%ref WHERE
   				    pri_table = %string% AND pri_key = %string% AND foreign_table = %string% AND foreign_key = %string% AND foreign_condition = %string%',
 						$reference_table, $reference_key, $table_name, $name, $reference_condition);
-						if (!$row['found']) $db->qry('INSERT INTO %prefix%references SET
+						if (!$row['found']) $db->qry('INSERT INTO %prefix%ref SET
               pri_table = %string%, pri_key = %string%, foreign_table = %string%, foreign_key = %string%, foreign_condition = %string%',
 						$reference_table, $reference_key, $table_name, $name, $reference_condition);
 					}
