@@ -217,7 +217,7 @@ class auth {
 
                 $this->loadAuthBySID();
                 $this->auth['userid'] = $user['userid'];
-                if (in_array($user['userid'], $this->online_users)) $this->online_users[] = $user['userid'];
+                if (!in_array($user['userid'], $this->online_users)) $this->online_users[] = $user['userid'];
 
                 if ($show_confirmation) { 
                   // Print Loginmessages
