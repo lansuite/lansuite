@@ -153,15 +153,22 @@
     if ($config['environment']['configured'] == 0) {
         $translation->load_trans('xml', 'install'); // Filemode on Installation
         ### Prepare install
+
         // Force installwizard if LS not configured
         $_GET['mod']    = 'install';
         $_GET['action'] = 'wizard';
+
         // Silent connect
         $db->connect(1);
         $IsAboutToInstall = 1;
+
+        // Need class_party for LanSurfer Import
+        if ($db->success) $party = new party();
+
         // Force Adminrights for installing User
         $auth["type"]  = 3;
         $auth["login"] = 1;
+
         // Load DB-Data after installwizard step 3
         if ($_GET["action"] == "wizard" and $_GET["step"] > 3) {
             $cfg = $func->read_db_config();  // read Configtable
