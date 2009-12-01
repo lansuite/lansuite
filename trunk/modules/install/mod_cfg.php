@@ -227,10 +227,13 @@ switch ($_GET['step']) {
 			$res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
 			while ($row = $db->fetch_array($res)) {
 			  switch ($row['on_delete']) {
-			    case 'DELETE':    $color = '#ff0000'; break;
-			    case 'NO_DELETE': $color = '#008800'; break;
-			    default:          $color = '#000000'; break;
-        }
+			    case 'DELETE':       $color = '#ff0000'; break;
+			    case 'ASK_DELETE':   $color = '#ff0000'; break;
+			    case 'SET0':         $color = '#ff0000'; break;
+			    case 'ASK_SET0':     $color = '#ff0000'; break;
+			    case 'DENY':         $color = '#008800'; break;
+			    default:             $color = '#000000'; break;
+              }
         $dsp->AddDoubleRow('<font color="'. $color .'">'. $row['pri_table'] .'.'. $row['pri_key'] .'</font>', $row['foreign_table'] .'.'. $row['foreign_key']);
       }
       $dsp->AddSingleRow('<font color="#ff0000">'. t('Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht') .'</font>');
@@ -243,9 +246,12 @@ switch ($_GET['step']) {
 			$res = $db->qry('SELECT pri_table, pri_key, foreign_table, foreign_key, on_delete FROM %prefix%ref WHERE (0 = 1) %plain%', $where);
 			while ($row = $db->fetch_array($res)) {
 			  switch ($row['on_delete']) {
-			    case 'DELETE':    $color = '#ff0000'; break;
-			    case 'NO_DELETE': $color = '#008800'; break;
-			    default:          $color = '#000000'; break;
+			    case 'DELETE':       $color = '#ff0000'; break;
+			    case 'ASK_DELETE':   $color = '#ff0000'; break;
+			    case 'SET0':         $color = '#ff0000'; break;
+			    case 'ASK_SET0':     $color = '#ff0000'; break;
+			    case 'DENY':         $color = '#008800'; break;
+			    default:             $color = '#000000'; break;
         }
         $dsp->AddDoubleRow('<font color="'. $color .'">'. $row['pri_table'] .'.'. $row['pri_key'] .'</font>', $row['foreign_table'] .'.'. $row['foreign_key']);
       }
