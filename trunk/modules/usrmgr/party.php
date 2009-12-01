@@ -22,7 +22,7 @@ else {
   if ($_GET['user_id'] == $auth['userid'] or $auth['type'] >= 2) {
   
     function ChangeAllowed($id) {
-      global $db, $config, $row, $lang, $func, $auth;
+      global $db, $config, $row, $lang, $func, $auth, $seat2;
     
       // Do not allow changes, if party is over
       if ($row['enddate'] < time()) return t('Sie können Sich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist');
@@ -35,10 +35,12 @@ else {
     
       // Do not allow changes, if user has paid
       if ($auth['type'] <= 1) {
-        
         $row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
         if ($row2['paid']!= 0) return t('Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden');
       }
+
+      // Free seats      
+      $seat2->FreeSeatAllMarkedByUser($id);
       
       return false;
     }
