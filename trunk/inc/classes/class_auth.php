@@ -129,14 +129,14 @@ class auth {
 
             // Search in cookie table for id + pw
             $cookierow = $db->qry_first('SELECT userid from %prefix%cookie WHERE cookieid = %int% AND password = %string%', $tmp_login_email, $tmp_login_pass);
-            if ($cookierow['userid']) $user = $db->qry_first('SELECT 1 AS found, u.*
+            if ($cookierow['userid']) $user = $db->qry_first('SELECT 1 AS found, u.*, p.checkin, p.checkout
               FROM %prefix%user AS u
               LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
               WHERE (u.userid = %int%) AND (p.party_id IS NULL OR p.party_id=%int%)',
               $cookierow['userid'], $party->party_id);
  
             // Not found in cookie table, then check for manual login (either with email, oder userid)
-            else $user = $db->qry_first('SELECT 1 AS found, 1 AS user_login, u.*
+            else $user = $db->qry_first('SELECT 1 AS found, 1 AS user_login, u.*, p.checkin, p.checkout
               FROM %prefix%user AS u
               LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
               WHERE ((u.userid = %int% AND 0 = %int%) OR LOWER(u.email) = %string%) AND (p.party_id IS NULL OR p.party_id=%int%)',
