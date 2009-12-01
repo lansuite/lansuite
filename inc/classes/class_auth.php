@@ -92,16 +92,14 @@ class auth {
         // 3. Eingeloggt Session und Cookie
         // 4. Eingeloggt Session und Cookie und userswitch
 
-
+        // Read Cookiedata
+        $CookieStatus = $this->cookie_read();
+        
         // Look for SessionID in DB and load auth-data
-        if ($this->loadAuthBySID()) {
-            $this->cookie_read();   // Read Cookiedata
-
-        // Not found? Then look for cookie
-        } else {
-            if ($this->cookie_read() == 1) $this->login_cookie($this->cookie_data['userid'], $this->cookie_data['uniqekey']);
-            // Else: Cookie invalide. But no message, for maybe the user don't likes to log in
-        }
+        // Not found? Then look for valid cookie
+            // Found? Then try cookie login
+            // Not Found?: Cookie invalide. But no message, for maybe the user don't likes to log in
+        if (!$this->loadAuthBySID() and $CookieStatus == 1) $this->login_cookie($this->cookie_data['userid'], $this->cookie_data['uniqekey']);
 
         return $this->auth;
     }
