@@ -618,12 +618,31 @@ class Install {
 
     if ($db->success) {
       $dsp->AddFieldSetStart(t('MySQL'));
+
+      // key_buffer_size
+      $dsp->AddFieldSetStart(t('Key buffer size -  MySQL empfiehlt für optimale Performance: 25% des Arbeitsspeichers. Oft reicht weniger.'));
       $res = $db->qry('SHOW variables LIKE "key_buffer_size"');
       while ($row = $db->fetch_array($res)) $dsp->AddDoubleRow($row[0], $row[1]);
       $db->free_result($res);
+      $dsp->AddFieldSetEnd();
+
+      // Key_blocks
+      $dsp->AddFieldSetStart(t('Key blocks - Performance: Key_blocks_unused sollte niemals 0 erreichen! Wenn der Wert nahe 0 ist: key_buffer_size erhöhen'));
       $res = $db->qry('SHOW status LIKE "Key_blocks%"');
       while ($row = $db->fetch_array($res)) $dsp->AddDoubleRow($row[0], $row[1]);
       $db->free_result($res);
+      $dsp->AddFieldSetEnd();
+
+      // Query cache
+      $dsp->AddFieldSetStart(t('Query cache - Beschleunigt MySQL-Abfragen. Sollte aktiv sein'));
+      $res = $db->qry('SHOW VARIABLES LIKE \'have_query_cache\'');
+      while ($row = $db->fetch_array($res)) $dsp->AddDoubleRow($row[0], $row[1]);
+      $db->free_result($res);
+      $res = $db->qry('SHOW STATUS LIKE \'Qcache%\'');
+      while ($row = $db->fetch_array($res)) $dsp->AddDoubleRow($row[0], $row[1]);
+      $db->free_result($res);
+      $dsp->AddFieldSetEnd();
+
       $dsp->AddFieldSetEnd();
     }
 
