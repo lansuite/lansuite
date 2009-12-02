@@ -27,7 +27,7 @@
     	<item>
     		<name>guestlist_guestmap</name>
     		<type>guestmap_sel</type>
-    		<default>1</default>
+    		<default>2</default>
     		<description>Besucherkarte (Deutschlandkarte mit Markierung der Herkunft der Gäste) anzeigen?</description>
     	</item>
     	<item>
