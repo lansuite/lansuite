@@ -219,29 +219,31 @@ class Install {
 
   // Insert PLZ-Entrys in DB, if not exist
   function InsertPLZs() {
-      global $db, $config;
+      global $db, $config, $cfg;
 
-      $return_val = 1;
-      $find = $db->qry("SELECT * FROM %prefix%locations");
-      if ($db->num_rows($find) == 0) {
-          $return_val = 2;
-          $file = "modules/install/db_insert_locations.php";
-//          $file = "modules/install/db_insert_locations.sql";
-          if (file_exists($file)) {
-/*
-              $fp = fopen($file, "r");
-              $contents = fread($fp, filesize($file));
-              fclose($fp);
-              $querys = explode(";", trim($contents));
-*/
-              include_once($file);
-              foreach ($querys as $val) if ($val) { 
-                  if (!$db->qry("REPLACE INTO %prefix%locations (plz, breite, laenge) VALUES %plain%", $val)) $return_val = 0;
-              }
-          }
-      }
-      $db->free_result($find);
-
+      if ($cfg['guestlist_guestmap'] == 1) {
+        $return_val = 1;
+        $find = $db->qry("SELECT * FROM %prefix%locations");
+        if ($db->num_rows($find) == 0) {
+            $return_val = 2;
+            $file = "modules/install/db_insert_locations.php";
+  //          $file = "modules/install/db_insert_locations.sql";
+            if (file_exists($file)) {
+  /*
+                $fp = fopen($file, "r");
+                $contents = fread($fp, filesize($file));
+                fclose($fp);
+                $querys = explode(";", trim($contents));
+  */
+                include_once($file);
+                foreach ($querys as $val) if ($val) {
+                    if (!$db->qry("REPLACE INTO %prefix%locations (plz, breite, laenge) VALUES %plain%", $val)) $return_val = 0;
+                }
+            }
+        }
+        $db->free_result($find);
+      } else $return_val = 1;
+      
       return $return_val;
       // 0 = At least one create failed
       // 1 = Alreday existing
@@ -388,7 +390,7 @@ class Install {
 
   function InsertTranslations() {
 #    global $translation;
-    global $db, $xml;
+    global $db, $xml, $language;
 
     $db->qry('TRUNCATE TABLE %prefix%translation');
 
@@ -408,10 +410,10 @@ class Install {
           $org = $xml->getFirstTagContent("org", $entry, 1);
           $de = $xml->getFirstTagContent("de", $entry, 1);
           $en = $xml->getFirstTagContent("en", $entry, 1);
-          $es = $xml->getFirstTagContent("es", $entry, 1);
-          $fr = $xml->getFirstTagContent("fr", $entry, 1);
-          $nl = $xml->getFirstTagContent("nl", $entry, 1);
-          $it = $xml->getFirstTagContent("it", $entry, 1);
+          if ($language == 'es') $es = $xml->getFirstTagContent("es", $entry, 1);
+          if ($language == 'fr') $fr = $xml->getFirstTagContent("fr", $entry, 1);
+          if ($language == 'nl') $nl = $xml->getFirstTagContent("nl", $entry, 1);
+          if ($language == 'it') $it = $xml->getFirstTagContent("it", $entry, 1);
           $file = $xml->getFirstTagContent("file", $entry);
 
           $db->qry_first('INSERT INTO %prefix%translation SET
