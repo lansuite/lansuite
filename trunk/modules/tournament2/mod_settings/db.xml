@@ -32,7 +32,7 @@
 			</field>
 			<field>
 				<name>leaderid</name>
-				<type>int(6)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default>0</default>
@@ -117,7 +117,7 @@
 			</field>
 			<field>
 				<name>userid</name>
-				<type>int(6)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default>0</default>
@@ -170,7 +170,7 @@
 			</field>
 			<field>
 				<name>leaderid</name>
-				<type>int(6)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default>0</default>
@@ -212,7 +212,7 @@
 			</field>
 			<field>
 				<name>password</name>
-				<type>varchar(60)</type>
+				<type>char(32)</type>
 				<null></null>
 				<key></key>
 				<default></default>

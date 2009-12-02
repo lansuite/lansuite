@@ -31,7 +31,7 @@
 			</field>
       <field>
         <name>group_id</name>
-        <type>int(20)</type>
+        <type>mediumint(8) unsigned</type>
         <null></null>
         <key>IND</key>
         <default>0</default>
@@ -249,7 +249,7 @@
 			</field>
 			<field>
 				<name>userid</name>
-				<type>int(11)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default>0</default>

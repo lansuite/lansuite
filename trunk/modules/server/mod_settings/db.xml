@@ -24,7 +24,7 @@
 			</field>
 			<field>
 				<name>owner</name>
-				<type>int(11)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default></default>

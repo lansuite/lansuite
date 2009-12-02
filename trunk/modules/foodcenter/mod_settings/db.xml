@@ -22,7 +22,7 @@
 			</field>
 			<field>
 				<name>userID</name>
-				<type>int(6)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default>0</default>
@@ -302,7 +302,7 @@
 			</field>
 			<field>
 				<name>userid</name>
-				<type>int(6)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default>0</default>

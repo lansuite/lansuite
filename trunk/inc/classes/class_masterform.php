@@ -431,11 +431,13 @@ class masterform {
                 $dsp->AddDateTimeRow($field['name'], $field['caption'], 0, $this->error[$field['name']], $values, '', $start, $end, 1, $field['optional']);
               break;
 
+              #case 'char(32)':
               case IS_PASSWORD: // Password-Row
                 if (strlen($_POST[$field['name']]) == 32) $_POST[$field['name']] = ''; // Dont show MD5-sum, read from DB on change
                 $dsp->AddPasswordRow($field['name'], $field['caption'], $_POST[$field['name']], $this->error[$field['name']], '', $field['optional']);
               break;
 
+              #case 'char(32)':
               case IS_NEW_PASSWORD: // New-Password-Row
                 if (strlen($_POST[$field['name']]) == 32) $_POST[$field['name']] = ''; // Dont show MD5-sum, read from DB on change
                 $PWSecID++;

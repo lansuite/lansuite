@@ -62,12 +62,12 @@
 			</field>
 			<field>
 				<name>need_group</name>
-				<type>int(11)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>party_usergroup.group_id</foreign_key>
+    	  <foreign_key>party_usergroups.group_id</foreign_key>
 			</field>
 			<field>
 				<name>board_group</name>
@@ -177,7 +177,7 @@
 			</field>
 			<field>
 				<name>userid</name>
-				<type>int(6)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default>0</default>
@@ -270,7 +270,7 @@
 			</field>
 			<field>
 				<name>userid</name>
-				<type>int(6)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default>0</default>
