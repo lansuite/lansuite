@@ -84,8 +84,8 @@ class masterdelete {
                 if ($row2['cnt']) {
                     if ($row['on_delete'] == 'ASK_DELETE') $refFieldsDelete .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
                     elseif ($row['on_delete'] == 'ASK_SET0') $refFieldsSet0 .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
-                    elseif ($row['on_delete'] == 'DELETE') // No additional question needed ;
-                    elseif ($row['on_delete'] == 'SET0') // No additional question needed ;
+                    elseif ($row['on_delete'] == 'DELETE') ; // No additional question needed
+                    elseif ($row['on_delete'] == 'SET0') ; // No additional question needed
                     else $refFieldsDeny .= HTML_NEWLINE. $row['pri_table'] .'.'. $row['pri_key'] .' ('. $row2['cnt'] .'x)';
                 }
             }
