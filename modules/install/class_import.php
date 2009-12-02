@@ -128,7 +128,7 @@ class Import {
 					$name = $xml->getFirstTagContent("name", $field);
 					$type = $xml->getFirstTagContent("type", $field);
 					$null_xml = $xml->getFirstTagContent("null", $field);
-					($null_xml != 'NULL')? $null = "NOT NULL" : $null = "NULL";
+					($null_xml != 'NULL' and $null_xml != 'YES')? $null = "NOT NULL" : $null = "NULL";
 					$key = $xml->getFirstTagContent("key", $field);
 					$default_xml = $xml->getFirstTagContent("default", $field);
 					$extra = $xml->getFirstTagContent("extra", $field);
@@ -175,25 +175,33 @@ class Import {
 
 							// Handle special type changes
 							// Changing int() to datetime
-							if (substr($db_field["Type"], 0, 3) == 'int' and $type == 'datetime') {
+							if ($type == 'datetime' and substr($db_field["Type"], 0, 3) == 'int') {
 								$db->qry("ALTER TABLE %prefix%$table_name CHANGE %plain% %plain%_lstmp INT", $name, $name);
 								$db->qry("ALTER TABLE %prefix%%plain% ADD %plain% DATETIME", $table_name, $name);
 								$db->qry("UPDATE %prefix%%plain% SET %plain% = FROM_UNIXTIME(%plain%_lstmp)", $table_name, $name, $name);
 								$db->qry("ALTER TABLE %prefix%%plain% DROP %plain%_lstmp", $table_name, $name);
 
+							// Changing varchar(15) to int(11) unsigned   (IP Adresses)
+							} elseif ($type == 'int(11) unsigned' and $db_field["Type"] == 'varchar(15)') {
+								$db->qry("ALTER TABLE %prefix%$table_name CHANGE %plain% %plain%_lstmp varchar(15)", $name, $name);
+								$db->qry("ALTER TABLE %prefix%%plain% ADD %plain% int(11) unsigned", $table_name, $name);
+								$db->qry("UPDATE %prefix%%plain% SET %plain% = INET_ATON(%plain%_lstmp)", $table_name, $name, $name);
+								$db->qry("ALTER TABLE %prefix%%plain% DROP %plain%_lstmp", $table_name, $name);
+
 								// Handle structure changes in general
 							} elseif ($db_field["Type"] != $type
-							  or $db_field["Null"] != $null
+							  or (!($db_field["Null"] == $null or ($db_field["Null"] == 'YES' and $null == 'NULL')))
 							  or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
 							  or $db_field["Extra"] != $extra) {
 								$db->qry("ALTER TABLE %prefix%%plain% CHANGE %plain% %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $name, $type, $null, $default, $extra);
-/*
+
 								 // Differece-Report
+                                 #echo "ALTER TABLE $table_name CHANGE $name $name $type $null $default $extra";
 								 if ($db_field["Type"] != $type) $func->information($db_field["Type"] ."=". $type ." Type in $table_name $name<br>");
 								 if ($db_field["Null"] != $null) $func->information($db_field["Null"] ."=". $null ." Null in $table_name $name<br>");
 								 if ($db_field["Default"] != $default_xml) $func->information($db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>");
 								 if ($db_field["Extra"] != $extra) $func->information($db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>");
-*/
+
 							}
 							break;
 						}

@@ -22,9 +22,9 @@
 			</field>
 			<field>
 				<name>userid</name>
-				<type>int(50)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
@@ -32,9 +32,9 @@
 			</field>
 			<field>
 				<name>buddyid</name>
-				<type>int(50)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
@@ -57,9 +57,9 @@
 			</field>
 			<field>
 				<name>senderid</name>
-				<type>int(50)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>
@@ -67,9 +67,9 @@
 			</field>
 			<field>
 				<name>receiverid</name>
-				<type>int(50)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>user.userid</foreign_key>

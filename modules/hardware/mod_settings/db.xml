@@ -22,10 +22,11 @@
             </field>
             <field>
                 <name>userid</name>
-                <type>int(6)</type>
+                <type>mediumint(8) unsigned</type>
                 <null>NO</null>
                 <default></default>
                 <extra></extra>
+                <key>IND</key>
             	  <foreign_key>user.userid</foreign_key>
             	  <on_delete>DELETE</on_delete>
             </field>

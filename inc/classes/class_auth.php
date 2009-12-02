@@ -129,18 +129,16 @@ class auth {
 
             // Search in cookie table for id + pw
             $cookierow = $db->qry_first('SELECT userid from %prefix%cookie WHERE cookieid = %int% AND password = %string%', $tmp_login_email, $tmp_login_pass);
-            if ($cookierow['userid']) $user = $db->qry_first('SELECT 1 AS found, u.*, p.checkin, p.checkout
-              FROM %prefix%user AS u
-              LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
-              WHERE (u.userid = %int%) AND (p.party_id IS NULL OR p.party_id=%int%)',
-              $cookierow['userid'], $party->party_id);
+            if ($cookierow['userid']) $user = $db->qry_first('SELECT *, 1 AS found FROM %prefix%user WHERE (userid = %int%)',
+              $cookierow['userid']);
  
             // Not found in cookie table, then check for manual login (either with email, oder userid)
-            else $user = $db->qry_first('SELECT 1 AS found, 1 AS user_login, u.*, p.checkin, p.checkout
-              FROM %prefix%user AS u
-              LEFT JOIN %prefix%party_user AS p ON u.userid = p.user_id
-              WHERE ((u.userid = %int% AND 0 = %int%) OR LOWER(u.email) = %string%) AND (p.party_id IS NULL OR p.party_id=%int%)',
-              $tmp_login_email, $is_email, $tmp_login_email, $party->party_id);
+            else $user = $db->qry_first('SELECT *, 1 AS found, 1 AS user_login FROM %prefix%user
+              WHERE ((userid = %int% AND 0 = %int%) OR LOWER(email) = %string%)',
+              $tmp_login_email, $is_email, $tmp_login_email);
+
+            // Needs to be a seperate query; WHERE (p.party_id IS NULL OR p.party_id=%int%) does not work when 2 parties exist
+            $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
 
             // Count login errors
             $row = $db->qry_first('SELECT COUNT(*) AS anz
@@ -172,19 +170,20 @@ class auth {
                 ($cfg["sys_internet"])? $remindtext = t('Haben Sie ihr Passwort vergessen?<br/><a href="/index.php?mod=usrmgr&action=pwrecover"/>Hier können Sie sich ein neues Passwort generieren</a>.') : $remindtext = t('Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.');
                 $func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Passwort-Fehler).', $tmp_login_email), "2", "Authentifikation");
-                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = %string%, time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
+                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET_ATON(%string%), time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
             // Cookie login and no correct cookie supplied?
             } elseif (!$user["user_login"] and !$cookierow['userid']) {
                 ($cfg["sys_internet"])? $remindtext = t('Haben Sie ihr Passwort vergessen?<br/><a href="/index.php?mod=usrmgr&action=pwrecover"/>Hier können Sie sich ein neues Passwort generieren</a>.') : $remindtext = t('Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.');
                 $func->information(t('Ihre Session ist abgelaufen und das bei Ihnen gesetzte Cookie ist fehlerhaft. Leider konnten Sie damit nicht eingeloggt werden. Bitte loggen Sie sich neben erneut manuell ein'), "", '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Cookie-Fehler).', $tmp_login_email), "2", "Authentifikation");
-                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = %string%, time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
+                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET_ATON(%string%), time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
                 $this->cookie_unset();
             // Not checked in?
-            } elseif((!$user["checkin"] or $user["checkin"] == '0000-00-00 00:00:00') AND $user["type"] < 2 AND !$cfg["sys_internet"]){                $func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
+            } elseif((!$party_query["checkin"] or $party_query["checkin"] == '0000-00-00 00:00:00') AND $user["type"] < 2 AND !$cfg["sys_internet"]){
+                $func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account nicht eingecheckt).', $tmp_login_email), "2", "Authentifikation");
             // Already checked out?
-            } elseif ($user["checkout"] and $user["checkout"] != '0000-00-00 00:00:00' AND $user["type"] < 2 AND !$cfg["sys_internet"]){
+            } elseif ($party_query["checkout"] and $party_query["checkout"] != '0000-00-00 00:00:00' AND $user["type"] < 2 AND !$cfg["sys_internet"]){
                 $func->information(t('Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account ausgecheckt).', $tmp_login_email), "2", "Authentifikation");
             // Everything fine!
@@ -227,7 +226,7 @@ class auth {
   
                   // Show error logins
                   $msg = '';
-                  $res = $db->qry('SELECT ip, time
+                  $res = $db->qry('SELECT INET_NTOA(ip) AS ip, time
                                    FROM %prefix%login_errors
                                    WHERE userid = %int%', $user['userid']);
                   while ($row = $db->fetch_array($res)) $msg .= t('Am') .' '. $row['time'] .' von der IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>'. HTML_NEWLINE;

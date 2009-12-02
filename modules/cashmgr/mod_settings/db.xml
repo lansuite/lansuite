@@ -22,16 +22,16 @@
 			</field>
 			<field>
 				<name>groupid</name>
-				<type>int(6)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
-    	  <foreign_key>party_usergroup.group_id</foreign_key>
+    	  <foreign_key>party_usergroups.group_id</foreign_key>
 			</field>
 			<field>
 				<name>toUserid</name>
-				<type>int(6)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default></default>
@@ -41,7 +41,7 @@
 			</field>
 			<field>
 				<name>fromUserid</name>
-				<type>int(6)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default></default>

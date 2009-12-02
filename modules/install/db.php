@@ -70,7 +70,7 @@ if ($_GET["quest"]){
 	// Insert PLZs from modules/install/db_insert_locations.sql in DB, if not exist
 	$install->InsertPLZs();
 	// Insert modules-settings from mod_settings/module.xml in DB, if not exist
-	$install->InsertModules(0);
+	#$install->InsertModules(0); // Is performed in $install->CreateNewTables(0); now
 	// Insert menus from mod_settings/menu.xml in DB, if not exist
 	$install->InsertMenus(0);
 	// Insert translations of DB-items
