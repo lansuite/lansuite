@@ -589,6 +589,7 @@ class masterform {
                 foreach ($this->SQLFields as $key => $val) {
                   if (($SQLFieldTypes[$val] == 'datetime' or $SQLFieldTypes[$val] == 'date') and $_POST[$val] == 'NOW()') $db_query .= "$val = NOW(), ";
                   elseif ($SQLFieldTypes[$val] == 'tinyint(1)') $db_query .= $val .' = '. (int)$_POST[$val] .', ';
+                  elseif ($SQLFieldTypes[$val] == 'int(11) unsigned' and $val == 'ip') $db_query .= $val .' = INET_ATON(\''. $_POST[$val] .'\'), ';
                   elseif ($_POST[$val] == '++' and strpos($SQLFieldTypes[$val], 'int') !== false) $db_query .= "$val = $val + 1, ";
                   elseif ($_POST[$val] == '--' and strpos($SQLFieldTypes[$val], 'int') !== false) $db_query .= "$val = $val - 1, ";
                   else $db_query .= "$val = '{$_POST[$val]}', ";

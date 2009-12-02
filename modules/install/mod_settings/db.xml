@@ -1403,7 +1403,7 @@
         <structure>
             <field>
                 <name>errorid</name>
-                <type>int(11)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -1429,7 +1429,7 @@
             </field>
             <field>
                 <name>time</name>
-                <type>datetime</type>
+                <type>timestamp</type>
                 <null></null>
                 <key></key>
                 <default></default>
