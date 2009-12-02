@@ -170,13 +170,13 @@ class auth {
                 ($cfg["sys_internet"])? $remindtext = t('Haben Sie ihr Passwort vergessen?<br/><a href="/index.php?mod=usrmgr&action=pwrecover"/>Hier können Sie sich ein neues Passwort generieren</a>.') : $remindtext = t('Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.');
                 $func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Passwort-Fehler).', $tmp_login_email), "2", "Authentifikation");
-                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET_ATON(%string%), time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
+                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
             // Cookie login and no correct cookie supplied?
             } elseif (!$user["user_login"] and !$cookierow['userid']) {
                 ($cfg["sys_internet"])? $remindtext = t('Haben Sie ihr Passwort vergessen?<br/><a href="/index.php?mod=usrmgr&action=pwrecover"/>Hier können Sie sich ein neues Passwort generieren</a>.') : $remindtext = t('Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.');
                 $func->information(t('Ihre Session ist abgelaufen und das bei Ihnen gesetzte Cookie ist fehlerhaft. Leider konnten Sie damit nicht eingeloggt werden. Bitte loggen Sie sich neben erneut manuell ein'), "", '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Cookie-Fehler).', $tmp_login_email), "2", "Authentifikation");
-                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET_ATON(%string%), time = NOW()', $user['userid'], $_SERVER['REMOTE_ADDR']);
+                $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
                 $this->cookie_unset();
             // Not checked in?
             } elseif((!$party_query["checkin"] or $party_query["checkin"] == '0000-00-00 00:00:00') AND $user["type"] < 2 AND !$cfg["sys_internet"]){

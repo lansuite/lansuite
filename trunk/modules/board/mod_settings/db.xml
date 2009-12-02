@@ -219,8 +219,8 @@
 			</field>
 			<field>
 				<name>ip</name>
-				<type>varchar(15)</type>
-				<null></null>
+				<type>int(11) unsigned</type>
+				<null>NULL</null>
 				<key></key>
 				<default></default>
 				<extra></extra>
