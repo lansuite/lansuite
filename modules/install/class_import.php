@@ -194,14 +194,14 @@ class Import {
 							  or ($db_field["Default"] != $default_xml and !($db_field["Default"] == 0 and $default_xml == '') and !($db_field["Default"] == '' and $default_xml == 0))
 							  or $db_field["Extra"] != $extra) {
 								$db->qry("ALTER TABLE %prefix%%plain% CHANGE %plain% %plain% %plain% %plain% %plain% %plain%", $table_name, $name, $name, $type, $null, $default, $extra);
-
+/*
 								 // Differece-Report
                                  #echo "ALTER TABLE $table_name CHANGE $name $name $type $null $default $extra";
 								 if ($db_field["Type"] != $type) $func->information($db_field["Type"] ."=". $type ." Type in $table_name $name<br>");
 								 if ($db_field["Null"] != $null) $func->information($db_field["Null"] ."=". $null ." Null in $table_name $name<br>");
 								 if ($db_field["Default"] != $default_xml) $func->information($db_field["Default"] ."=". $default_xml ." Def in $table_name $name<br>");
 								 if ($db_field["Extra"] != $extra) $func->information($db_field["Extra"] ."=". $extra ." Extra in $table_name $name<br>");
-
+*/
 							}
 							break;
 						}
