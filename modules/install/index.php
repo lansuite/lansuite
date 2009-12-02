@@ -2,7 +2,7 @@
 
 $dsp->NewContent(t('Installation und Administration'), t('Auf diesen Seiten können Sie Lansuite installieren und verwalten'));
 
-if (!func::admin_exists()) $dsp->AddSingleRow("<font color=\"red\">".t('<b>ACHTUNG</b>: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.')."</font>");
+if (!func::admin_exists()) $func->information(t('<b>ACHTUNG</b>: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.'));
 else {
 	$module_list = $db->qry("SELECT module.caption FROM %prefix%modules AS module
 			LEFT JOIN %prefix%menu AS menu ON menu.module = module.name
@@ -15,8 +15,14 @@ else {
 			$mod_list .= "{$row["caption"]}, ";
 		}
 		$mod_list = substr($mod_list, 0, strlen($mod_list) - 2);
-		$dsp->AddSingleRow("<font color=\"red\">".t('Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:')."</font>" . HTML_NEWLINE . "$mod_list" . HTML_NEWLINE . "(".t('Aktuell sind noch nicht alle Module so programmiert, dass sie eigene Admins haben können.').")");
+		$func->information(t('Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:[br]%1', $mod_list), NO_LINK);
 	}
+}
+
+// Scan for DB-Structure SQL-Errors
+$row = $db->qry_first('SELECT 1 AS found FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
+if ($row['found']) {
+    $func->information(t('Es wurden SQL-Fehler im Log gefunden, die auf eine nicht aktuelle Struktur der Lansuite-Datenbank hindeuten. Es wird empfohlen die Datenbank zu aktuallisieren.'). '<br><br><a href="index.php?mod=install&action=db">'. t('Datenbank jetzt aktuallisieren') .'</a>', NO_LINK);
 }
 
 $dsp->AddFieldSetStart(t('Lansuite konfigurieren'));

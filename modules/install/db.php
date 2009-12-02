@@ -76,6 +76,9 @@ if ($_GET["quest"]){
 	// Insert translations of DB-items
 #	$install->InsertTranslations();
 
+    // Delete Log eintries which indicate a broken DB-Structure, for they are most likely fixed by now
+    $db->qry_first('DELETE FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
+
 	$dsp->AddBackButton("index.php?mod=install", "install/db");
 	$dsp->AddContent();
 
