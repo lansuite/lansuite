@@ -18,7 +18,7 @@ First start with a few general naming conventions:
 
 Next there are a few very Lansuite specific rules (most of them due to definitions in Mastersearch):
   * Boolean fields (Checkboxes) need to be "tinyint(1)"
-  * IP fields need to be "int(11) unsigned" and be called "ip"
+  * IP fields need to be "int(11) unsigned", allow NULL-Values and be called "ip"
   * Password fields need to be "char(32)"
 
 And last there are a few conventions that should be sticked to due to performance reasons:
