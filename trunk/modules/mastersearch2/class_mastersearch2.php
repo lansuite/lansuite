@@ -362,7 +362,7 @@ class MasterSearch2 {
     if ($count_rows['count'] > 50) $EntsPerPage[50] = t('Zeige %1 von %2', 50, $count_rows['count']);
     if ($count_rows['count'] > 100) $EntsPerPage[100] = t('Zeige %1 von %2', 100, $count_rows['count']);
     if ($count_rows['count'] > 10) $EntsPerPage[0] = t('Zeige alle %1', $count_rows['count']);
-    if ($count_rows['count'] <= 10) $EntsFound = t('%1 Einträge', $count_rows['count']);
+    if ($count_rows['count'] <= $this->config['EntriesPerPage']) $EntsFound = t('%1 Einträge', $count_rows['count']);
     else $EntsFound = '';
     $smarty->assign('EntsFound', $EntsFound);
     $smarty->assign('EntsPerPage', $EntsPerPage);
