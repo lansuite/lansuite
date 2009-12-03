@@ -20,6 +20,7 @@ switch ($home_page) {
     if (in_array('bugtracker', $ActiveModules)) $ModOverviews[] = 'bugtracker';
     if (in_array('tournament2', $ActiveModules)) $ModOverviews[] = 'tournament';
     if (in_array('partylist', $ActiveModules)) $ModOverviews[] = 'partylist';
+    if (in_array('wiki', $ActiveModules)) $ModOverviews[] = 'wiki';
 		if (in_array('stats', $ActiveModules)
       and ($party->count > 0 or $auth['type'] >= 2)
       and (in_array('troubleticket', $ActiveModules)))

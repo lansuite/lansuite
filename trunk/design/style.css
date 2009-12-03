@@ -32,6 +32,11 @@ td {
   background:       #DEE3E7;
 }
 
+div.textContent {
+    font-size: 10pt;
+    padding: 24px 16px 16px 16px;
+}
+
 div#Footer {
   clear: both;
 }
@@ -352,6 +357,41 @@ ul.BarClear {
   position: static;   width: 0px;   height: 0px;
   margin: 0px 0px 0px 0px;    padding: 0px 0px 0px 0px;
   clear: left;
+}
+
+
+/* Wiki */
+
+div.wikiH6 {
+    padding: 8px 0px 8px 0px;
+    font-weight: bold;
+}
+
+div.wikiH5 {
+    padding: 8px 0px 8px 0px;
+    font-weight: bold;
+}
+
+div.wikiH4 {
+    padding: 8px 0px 8px 0px;
+    font-weight: bold;
+}
+
+div.wikiH3 {
+    padding: 8px 0px 8px 0px;
+    font-weight: bold;
+}
+
+div.wikiH2 {
+    padding: 16px 0px 8px 0px;
+    font-weight: bold;
+    font-size: 12pt;
+}
+
+div.wikiH1 {
+    padding: 16px 0px 8px 0px;
+    font-weight: bold;
+    font-size: 16pt;
 }
 
 

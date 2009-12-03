@@ -182,11 +182,12 @@ class display {
     $MainContent .=  '</div>';
   }
 
-  function AddSingleRow($text, $parm = NULL) {
+  function AddSingleRow($text, $parm = NULL, $class = '') {
     global $smarty;
 
     $smarty->assign('text', $text);
     if ($parm != "") $smarty->assign('align', $parm);
+    if ($class != "") $smarty->assign('class', 'class="'. $class .'"');
     $this->AddContentLine($smarty->fetch('design/templates/ls_row_single.htm'));
   }
 
