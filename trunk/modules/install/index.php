@@ -4,19 +4,19 @@ $dsp->NewContent(t('Installation und Administration'), t('Auf diesen Seiten kön
 
 if (!func::admin_exists()) $func->information(t('<b>ACHTUNG</b>: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.'));
 else {
-	$module_list = $db->qry("SELECT module.caption FROM %prefix%modules AS module
-			LEFT JOIN %prefix%menu AS menu ON menu.module = module.name
-			LEFT JOIN %prefix%user_permissions AS perm ON (module.name = perm.module)
-			WHERE menu.file != '' and ISNULL(perm.module)
-			GROUP BY menu.module
-			");
-	if ($db->num_rows() > 0){
-		while($row = $db->fetch_array($module_list)) {
-			$mod_list .= "{$row["caption"]}, ";
-		}
-		$mod_list = substr($mod_list, 0, strlen($mod_list) - 2);
+    $module_list = $db->qry("SELECT module.caption FROM %prefix%modules AS module
+            LEFT JOIN %prefix%menu AS menu ON menu.module = module.name
+            LEFT JOIN %prefix%user_permissions AS perm ON (module.name = perm.module)
+            WHERE menu.file != '' and ISNULL(perm.module)
+            GROUP BY menu.module
+            ");
+    if ($db->num_rows() > 0){
+        while($row = $db->fetch_array($module_list)) {
+            $mod_list .= "{$row["caption"]}, ";
+        }
+        $mod_list = substr($mod_list, 0, strlen($mod_list) - 2);
 		$func->information(t('Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:[br]%1', $mod_list), NO_LINK);
-	}
+    }
 }
 
 // Scan for DB-Structure SQL-Errors
@@ -30,6 +30,7 @@ $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=ls_conf\">".t('Gr
 $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=mod_cfg&step=10&module=install\">".t('Allgemeine Einstellungen')."</a>");
 $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules\">".t('Modulmanager')."</a>");
 $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu\">".t('Navigationsmenü verwalten')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=search_cfg\">".t('Konfigurationseinstellungen suchen')."</a>");
 #$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=adminaccount\">".t('Administrator Account anlegen')."</a>");
 $dsp->AddFieldSetEnd();
 
