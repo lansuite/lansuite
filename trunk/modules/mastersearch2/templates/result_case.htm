@@ -4,7 +4,7 @@ MultiSelectActions = new Array({$multi_select_actions});
 MultiSelectSecurityQuest = new Array({$security_questions});
 -->
 </script>
-<form name="MSEntsPerPage" method="get" action="">
+<form name="MSEntsPerPage" method="get" action="" rel="nofollow">
 {foreach from=$HiddenGetFields key=k item=v}
   <input type="hidden" name="{$k}" value="{$v}" />
 {/foreach}
@@ -19,7 +19,7 @@ MultiSelectSecurityQuest = new Array({$security_questions});
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr>
   {foreach from=$head item=v}
-  	<th class="mastersearch2_result_row_key" width="{$v.width}"><a href="{$v.link}" class="mastersearch2_result_heading">{$v.entry}</a></th>
+  	<th class="mastersearch2_result_row_key" width="{$v.width}"><a href="{$v.link}" class="mastersearch2_result_heading" rel="nofollow">{$v.entry}</a></th>
   {/foreach}
 </tr>
 
@@ -60,7 +60,7 @@ MultiSelectSecurityQuest = new Array({$security_questions});
 {/if}
 
 </form>
-<form name="MSEntsPerPage" method="get" action="">
+<form name="MSEntsPerPage" method="get" action="" rel="nofollow">
 {foreach from=$HiddenGetFields key=k item=v}
   <input type="hidden" name="{$k}" value="{$v}" />
 {/foreach}
