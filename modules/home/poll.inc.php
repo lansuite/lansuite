@@ -2,12 +2,12 @@
 $smarty->assign('caption', t('Aktuelle Umfragen'));
 $content = "";
 
-$query = $db->qry('SELECT UNIX_TIMESTAMP(p.endtime) AS endtime, p.pollid, p.caption, COUNT(v.polloptionid) AS votes, UNIX_TIMESTAMP(p.changedate) AS changedate FROM %prefix%polls AS p
+$query = $db->qry('SELECT UNIX_TIMESTAMP(p.endtime) AS endtime, p.pollid, p.caption, COUNT(v.polloptionid) AS votes, MAX(UNIX_TIMESTAMP(p.changedate)) AS changedate FROM %prefix%polls AS p
   LEFT JOIN %prefix%polloptions AS o on p.pollid = o.pollid
   LEFT JOIN %prefix%pollvotes AS v on o.polloptionid = v.polloptionid
   WHERE !p.group_id OR p.group_id = %int%
   GROUP BY p.pollid
-  ORDER BY p.changedate DESC
+  ORDER BY changedate DESC
   LIMIT 0, %int%
   ', $auth['group_id'], $cfg['home_item_count']);
 
