@@ -17,7 +17,7 @@ MultiSelectSecurityQuest = new Array({$security_questions});
   </div>
   </form>
 {/if}
-<form name="ms_result" method="post" action="">
+<form name="ms_result{$ms_number}" method="post" action="">
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr>
   {foreach from=$head item=v}
@@ -45,7 +45,7 @@ MultiSelectSecurityQuest = new Array({$security_questions});
 
 {if $MultiOptions != '' }
 <div class="content_head" align="left">
-<select name="action_select" onChange="javascript:change_selection();">
+<select name="action_select" onChange="javascript:change_selection(this, {$ms_number});">
   <option value="">{$MultiCaption}</option>
   <optgroup label="Auswahl">
     <option value="select_all" style="background-image: url(design/images/icon_selection_all.png); background-repeat: no-repeat; height:16px;">Alle auswählen</option>

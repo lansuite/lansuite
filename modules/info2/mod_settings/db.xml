@@ -198,6 +198,14 @@
     	  <foreign_key>partys.party_id</foreign_key>
     	  <on_delete>ASK_SET0</on_delete>
 			</field>
+			<field>
+				<name>link</name>
+				<type>varchar(255)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
 		</structure>
 		<content>
 			<entry>
