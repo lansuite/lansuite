@@ -23,8 +23,8 @@ Next there are a few very Lansuite specific rules (most of them due to definitio
 
 And last there are a few conventions that should be sticked to due to performance reasons:
   * Foreign keys should have the exact same type, as the primary one they refer to.
-  * Foreign keys should always have "<key>IND</key>"! (probably the most important performance rule)
-  * Fields filtered by in any where clause should be "<key>IND</key>"
+  * Foreign keys should always have "IND"-Key set! (probably the most important performance rule)
+  * Fields filtered by in any where clause should have "IND"-Key set
   * Use timestamp, instead of date = NOW() if a date should update on each Insert/Update.
   * Primary key fields, in most cases, are "mediumint(8) unsigned". If this is not sufficent, use "int(11) unsigned"
   * Define a PRI for every table (except tables existing just for the reason to link two others)
