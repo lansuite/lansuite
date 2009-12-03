@@ -11,14 +11,16 @@ if (!isset($_GET['versionid'])) {
 }
 
 $links = t('Version') .': ';
+$start_versionid = $_GET['versionid'] - 4;
+if ($start_versionid < 0) $start_versionid = 0;
 $res = $db->qry('SELECT v.versionid, v.date, u.username FROM %prefix%wiki_versions AS v LEFT JOIN %prefix%user AS u ON v.userid = u.userid
-  WHERE postid = %int% ORDER BY versionid',
-  $_GET['postid']);
+  WHERE postid = %int% ORDER BY versionid LIMIT %int%, 7',
+  $_GET['postid'], $start_versionid);
 while ($row = $db->fetch_array($res)) {
   $links .= '[<a href="index.php?mod=wiki&action=show&postid='. $_GET['postid'] .'&versionid='. $row['versionid'] .'">'. $row['versionid'];
   if ($_GET['versionid'] == $row['versionid']) $links .= ' - '. $row['username'] .'@'. $row['date'] .' ';
   $links .= '</a>';
-  if ($_GET['versionid'] == $row['versionid'] and $auth['type'] > 2) $links .= ' <a href="index.php?mod=wiki&action=delete&step=10&postid='. $_GET['postid'] .'&versionid='. $_GET['versionid'] .'"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="'. t('Löschen') .'" /></a> ';
+  if ($_GET['versionid'] == $row['versionid'] and $auth['type'] > 2) $links .= ' <a href="index.php?mod=wiki&action=delete&step=10&postid='. $_GET['postid'] .'&versionid='. $_GET['versionid'] .'" rel="nofollow"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="'. t('Löschen') .'" /></a> ';
   $links .= '] ';
 }
 $db->free_result($res);
