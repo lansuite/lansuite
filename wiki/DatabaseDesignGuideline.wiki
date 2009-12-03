@@ -1,5 +1,5 @@
+#summary design guideline for database fields
 #labels Phase-Developer
-#design guideline for database fields
 
 = Introduction =
 
