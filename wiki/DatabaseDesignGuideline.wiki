@@ -1,0 +1,33 @@
+#labels Phase-Developer
+#design guideline for database fields
+
+= Introduction =
+
+These guidelines define naming conventions for database fields.
+The aim is to have a more unique structure and to gain more database performance
+
+
+= Naming convention =
+
+First start with a few general naming conventions:
+  * Table names should be singular (user, not users)
+  * The tables primary key should be called "table name" + "id" (i.e. userid)
+  * Field names should rather be CamelCase, than using "_"
+  * Foreign keys should, in most cases, be called just like the key, they refer to. (Exception: if the table refers twice to the same id. i.e. author -> userid and agent -> userid)
+(unfortunately there are quite a lot of tables, that don't stick to these rules yet, but this will hopefully change in the future)
+
+Next there are a few very Lansuite specific rules (most of them due to definitions in Mastersearch):
+  * Boolean fields (Checkboxes) need to be "tinyint(1)"
+  * IP fields need to be "int(11) unsigned" and be called "ip"
+  * Password fields need to be "char(32)"
+
+And last there are a few conventions that should be sticked to due to performance reasons:
+  * Foreign keys should have the exact same type, as the primary one they refer to.
+  * Foreign keys should always have "<key>IND</key>"! (probably the most important performance rule)
+  * Fields filtered by in any where clause should be "<key>IND</key>"
+  * Use timestamp, instead of date = NOW() if a date should update on each Insert/Update.
+  * Primary key fields, in most cases, are "mediumint(8) unsigned". If this is not sufficent, use "int(11) unsigned"
+  * Define a PRI for every table (except tables existing just for the reason to link two others)
+
+These are all rules I can think of by now.
+Feel free to extend and discuss
