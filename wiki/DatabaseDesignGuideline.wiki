@@ -27,7 +27,7 @@ And last there are a few conventions that should be sticked to due to performanc
   * Fields filtered by in any where clause should have "IND"-Key set
   * Use timestamp, instead of date = NOW() if a date should update on each Insert/Update.
   * Primary key fields, in most cases, are "mediumint(8) unsigned". If this is not sufficent, use "int(11) unsigned"
-  * Define a PRI for every table (except tables existing just for the reason to link two others)
+  * Define a "PRI"-Key for every table (except tables existing just for the reason to link two others)
 
 These are all rules I can think of by now.
 Feel free to extend and discuss
