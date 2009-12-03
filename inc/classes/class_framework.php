@@ -237,7 +237,7 @@ class framework {
         if ($compression_mode and $cfg['sys_compress_level']) {
           header("Content-Encoding: $compression_mode");
           echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-          $index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $smarty->fetch("design/{$this->design}/templates/main.htm");
+          $index = $smarty->fetch("design/{$this->design}/templates/main.htm"). "\n<!-- SiteTool - Compressed by $compression_mode -->";
           $this->content_size = strlen($index);
           $this->content_crc = crc32($index);
           $index = gzcompress($index, $cfg['sys_compress_level']);
@@ -320,7 +320,7 @@ class framework {
         if ($compression_mode and $cfg['sys_compress_level']) {
           header("Content-Encoding: $compression_mode");
           echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-          $index = "<!-- SiteTool - Compressed by $compression_mode -->\n". $smarty->fetch("design/{$this->design}/templates/main.htm");
+          $index = $smarty->fetch("design/{$this->design}/templates/main.htm") ."\n<!-- SiteTool - Compressed by $compression_mode -->";
           $this->content_size = strlen($index);
           $this->content_crc = crc32($index);
           $index = gzcompress($index, $cfg['sys_compress_level']);
