@@ -317,22 +317,23 @@ function markieren_permanent(EintragSpalte) {
 }
 
 // Checks all/none/inverted checkboxes
-function change_selection() {
-  if (document.ms_result.action_select.value == "") return 0;
-	else if (document.ms_result.action_select.value == "select_all") for (z=0; z<=document.ms_result.length-1; z++){
-		document.ms_result.elements[z].checked = 1;
-	} else if (document.ms_result.action_select.value == "select_none") for (z=0; z<=document.ms_result.length-1; z++){
-		document.ms_result.elements[z].checked = 0;
-	} else if (document.ms_result.action_select.value == "select_invert") for (z=0; z<=document.ms_result.length-1; z++){
-		if (document.ms_result.elements[z].checked) document.ms_result.elements[z].checked = 0;
-		else document.ms_result.elements[z].checked = 1;
+function change_selection(id, ms_number) {
+  resultObj = eval("document.ms_result" + ms_number);
+  if (id.value == "") return 0;
+	else if (id.value == "select_all") for (z=0; z<=resultObj.length-1; z++){
+		resultObj.elements[z].checked = 1;
+	} else if (id.value == "select_none") for (z=0; z<=resultObj.length-1; z++){
+		resultObj.elements[z].checked = 0;
+	} else if (id.value == "select_invert") for (z=0; z<=resultObj.length-1; z++){
+		if (resultObj.elements[z].checked) resultObj.elements[z].checked = 0;
+		else resultObj.elements[z].checked = 1;
 	} else {
-	  if (MultiSelectSecurityQuest[document.ms_result.action_select.value] == 1) {
-      if (!confirm("Wollen Sie die Aktion '"+ document.ms_result.action_select.options[document.ms_result.action_select.selectedIndex].text +"' wirklich auf alle ausgewählten Einträge anwenden?")) return 0;
+	  if (MultiSelectSecurityQuest[this.value] == 1) {
+      if (!confirm("Wollen Sie die Aktion '"+ id.options[id.selectedIndex].text +"' wirklich auf alle ausgewählten Einträge anwenden?")) return 0;
     }
-    MultiSelectActions[document.ms_result.action_select.value] = MultiSelectActions[document.ms_result.action_select.value].replace(/&amp;/g, "&");
-    document.ms_result.action = MultiSelectActions[document.ms_result.action_select.value];
-    document.ms_result.submit();
+    MultiSelectActions[id.value] = MultiSelectActions[id.value].replace(/&amp;/g, "&");
+    resultObj.action = MultiSelectActions[id.value];
+    resultObj.submit();
   }
 }
 
