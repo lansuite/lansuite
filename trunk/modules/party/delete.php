@@ -1,8 +1,7 @@
 <?php
 
-foreach ($_POST[action] as $key => $val) {
-	$db->qry("DELETE FROM %prefix%partys WHERE party_id = %string%", $key);
-}
-$func->confirmation('Erfolgreich gelöscht', 'index.php?mod=party');
+include_once('inc/classes/class_masterdelete.php');
+$md = new masterdelete();
+$md->Delete('partys', 'party_id', $_GET['party_id']);
 
 ?>
