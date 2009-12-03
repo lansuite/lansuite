@@ -395,26 +395,30 @@ class func {
         }
       }
                   
-      $string = str_replace("\r", '', $string);
-      $string = str_replace("\n", "<br />\n", $string);
-      $string = str_replace("[br]", "<br />\n", $string);
-      $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
+      if ($mode != 2) {
+        $string = str_replace("\r", '', $string);
+        $string = str_replace("\n", "<br />\n", $string);
+        $string = str_replace("[br]", "<br />\n", $string);
+        $string = str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $string);
 
-      $string = preg_replace('#\[b\](.*)\[/b\]#sUi', '<b>\\1</b>', $string);
-      $string = preg_replace('#\[i\](.*)\[/i\]#sUi', '<i>\\1</i>', $string);
-      $string = preg_replace('#\[u\](.*)\[/u\]#sUi', '<u>\\1</u>', $string);
-      $string = preg_replace('#\[s\](.*)\[/s\]#sUi', '<s>\\1</s>', $string);
-      $string = preg_replace('#\[sub\](.*)\[/sub\]#sUi', '<sub>\\1</sub>', $string);
-      $string = preg_replace('#\[sup\](.*)\[/sup\]#sUi', '<sup>\\1</sup>', $string);
+        $string = preg_replace('#\[b\](.*)\[/b\]#sUi', '<b>\\1</b>', $string);
+        $string = preg_replace('#\[i\](.*)\[/i\]#sUi', '<i>\\1</i>', $string);
+        $string = preg_replace('#\[u\](.*)\[/u\]#sUi', '<u>\\1</u>', $string);
+        $string = preg_replace('#\[s\](.*)\[/s\]#sUi', '<s>\\1</s>', $string);
+        $string = preg_replace('#\[sub\](.*)\[/sub\]#sUi', '<sub>\\1</sub>', $string);
+        $string = preg_replace('#\[sup\](.*)\[/sup\]#sUi', '<sup>\\1</sup>', $string);
+      }
 
       if ($mode != 4) {
-        $string = preg_replace('#\[quote\](.*)\[/quote\]#sUi', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">\\1</div></blockquote>', $string);
+        if ($mode != 2) {
+          $string = preg_replace('#\[quote\](.*)\[/quote\]#sUi', '<blockquote><div class="tbl_small">Zitat:</div><div class="tbl_7">\\1</div></blockquote>', $string);
 
-        $string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
-        $string = str_replace('[/size]', '</font>', $string);
-        $string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
-        $string = str_replace('[/color]', '</font>', $string);
-
+          $string = preg_replace('#\[size=([0-9]+)\]#sUi', '<font style="font-size:\1px">', $string);
+          $string = str_replace('[/size]', '</font>', $string);
+          $string = preg_replace('#\[color=([a-z]+)\]#sUi', '<font color="\1">', $string);
+          $string = str_replace('[/color]', '</font>', $string);
+        }
+        
         if ($mode != 1) {
           $string = preg_replace_callback(
             '#\[c\](.)*\[\/c\]#sUi',
@@ -446,12 +450,12 @@ class func {
     $OlOpen = 0;
     foreach ($arr as $key => $line) {
       #$arr[$key] = preg_replace("#^<br />$#sUi", '', $arr[$key]);
-      $arr[$key] = preg_replace('#^====== (.*) ======#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
-      $arr[$key] = preg_replace('#^===== (.*) =====#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
-      $arr[$key] = preg_replace('#^==== (.*) ====#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
-      $arr[$key] = preg_replace('#^=== (.*) ===#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
-      $arr[$key] = preg_replace('#^== (.*) ==#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
-      $arr[$key] = preg_replace('#^= (.*) =#sUi', '<br /><br /><b>\\1</b><br />', $arr[$key]);
+      $arr[$key] = preg_replace('#^====== (.*) ======#sUi', '<div class="wikiH6">\\1</div>', $arr[$key]);
+      $arr[$key] = preg_replace('#^===== (.*) =====#sUi', '<div class="wikiH5">\\1</div>', $arr[$key]);
+      $arr[$key] = preg_replace('#^==== (.*) ====#sUi', '<div class="wikiH4">\\1</div>', $arr[$key]);
+      $arr[$key] = preg_replace('#^=== (.*) ===#sUi', '<div class="wikiH3">\\1</div>', $arr[$key]);
+      $arr[$key] = preg_replace('#^== (.*) ==#sUi', '<div class="wikiH2">\\1</div>', $arr[$key]);
+      $arr[$key] = preg_replace('#^= (.*) =#sUi', '<div class="wikiH1">\\1</div>', $arr[$key]);
       $arr[$key] = preg_replace('#\\[\\[Bild:(.*)\\]\\]#sUi', '<img src="ext_inc/wiki/\\1" alt="\\1">', $arr[$key]);
       $arr[$key] = preg_replace('#\\[(http://[^ ]*) ([^\\]]*)\\]#sUi', '<a target="_blank" href="\\1" rel="nofollow">\\2</a>', $arr[$key]);
       $arr[$key] = preg_replace('#\\[\\[([^\\|\\]]*)\\]\\]#sUi', '<a href="index.php?mod=wiki&action=show&name=\\1">\\1</a>', $arr[$key]);
@@ -460,19 +464,19 @@ class func {
 
       if ($UlOpen) {
         $arr[$key] = preg_replace("#^\\* (.*)<br />#sUi", "<li>\\1</li>", $arr[$key]);
-        $arr[$key] = preg_replace("#^([^\\*].(.*))<br />#sUi", "</ul><br />\\1", $arr[$key], -1, $count);
+        $arr[$key] = preg_replace("#^([^\\*].(.*))<br />#sUi", "</ul>\\1", $arr[$key], -1, $count);
         if ($count) $UlOpen = 0;
       } else {
-        $arr[$key] = preg_replace("#^\\* (.*)<br />#sUi", "<br /><ul><li>\\1</li>", $arr[$key], -1, $count);
+        $arr[$key] = preg_replace("#^\\* (.*)<br />#sUi", "<ul><li>\\1</li>", $arr[$key], -1, $count);
         if ($count) $UlOpen = 1;
       }
 
       if ($OlOpen) {
         $arr[$key] = preg_replace("|^\\# (.*)<br />|sUi", "<li>\\1</li>", $arr[$key]);
-        $arr[$key] = preg_replace("|^([^\\#].(.*))<br />|sUi", "</ol><br />\\1", $arr[$key], -1, $count);
+        $arr[$key] = preg_replace("|^([^\\#].(.*))<br />|sUi", "</ol>\\1", $arr[$key], -1, $count);
         if ($count) $OlOpen = 0;
       } else {
-        $arr[$key] = preg_replace("|^\\# (.*)<br />|sUi", "<br /><ol><li>\\1</li>", $arr[$key], -1, $count);
+        $arr[$key] = preg_replace("|^\\# (.*)<br />|sUi", "<ol><li>\\1</li>", $arr[$key], -1, $count);
         if ($count) $OlOpen = 1;
       }
       
@@ -496,7 +500,7 @@ class func {
     if ($OlOpen) $string .= '</ol>';
     if ($COpen) $string .= '[/c]';
     
-    return '<br /><br /><ul>'. $this->Text2HTML($string, 2) .'</ul>';
+    return $this->Text2HTML($string, 2);
   }
     
   function Entity2Uml($string) {

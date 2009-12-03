@@ -28,12 +28,14 @@ if ($auth['login']) $links .= '[<a href="index.php?mod=wiki&action=edit&postid='
 $links_main = '';
 if ($auth['type'] > 2) $links_main .= ' <a href="index.php?mod=wiki&action=delete&step=2&postid='. $_GET['postid'] .'"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="'. t('Löschen') .'" /></a>';
 
-$row = $db->qry_first('SELECT w.name, v.text FROM %prefix%wiki AS w LEFT JOIN %prefix%wiki_versions AS v ON w.postid = v.postid
+$row = $db->qry_first('SELECT w.postid, w.name, v.text FROM %prefix%wiki AS w LEFT JOIN %prefix%wiki_versions AS v ON w.postid = v.postid
   WHERE w.postid = %int% AND v.versionid = %int%',
   $_GET['postid'], $_GET['versionid']);
 
+$func->SetRead('wiki', $row['postid']);
+
 $dsp->NewContent($row['name'] . $links_main, $links);
-$dsp->AddSingleRow($func->Text2Wiki($row['text']));
+$dsp->AddSingleRow($func->Text2Wiki($row['text']), '', 'textContent');
 $dsp->AddContent();
 
 ?>
