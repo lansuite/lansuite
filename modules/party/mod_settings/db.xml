@@ -126,6 +126,7 @@
 				<default></default>
 				<extra></extra>
     	  <foreign_key>partys.party_id</foreign_key>
+    	  <on_delete>ASK_DELETE</on_delete>
 			</field>
 			<field>
 				<name>price_text</name>
@@ -201,6 +202,7 @@
 				<default></default>
 				<extra></extra>
     	  <foreign_key>partys.party_id</foreign_key>
+    	  <on_delete>ASK_DELETE</on_delete>
 			</field>
 			<field>
 				<name>user_id</name>

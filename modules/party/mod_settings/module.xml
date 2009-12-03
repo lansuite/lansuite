@@ -4,7 +4,7 @@
 	<caption>Partyverwaltung</caption>		<!-- The modulname displayed to the user -->
 	<description>In diesem Modul können Partys erstellt und bearbeitet werden</description>		<!-- A short description of the module -->
 	<active>1</active>				<!-- Is the module activated by default? 0/1 -->
-	<changeable>0</changeable>		<!-- May the user de-/activate the module? 0/1 -->
+	<changeable>1</changeable>		<!-- May the user de-/activate the module? 0/1 -->
 	<author>Jochen (KnoX), Marco (Genesis)</author>				<!-- The author of this module -->
 	<email>knox@orgapage.de</email>					<!-- The E-Mail-Adress of the modules author -->
 	<version>1.0</version>			<!-- The version of this module -->

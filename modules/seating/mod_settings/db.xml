@@ -28,6 +28,7 @@
 				<default>0</default>
 				<extra></extra>
     	  <foreign_key>partys.party_id</foreign_key>
+    	  <on_delete>ASK_DELETE</on_delete>
 			</field>
       <field>
         <name>group_id</name>

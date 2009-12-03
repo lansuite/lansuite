@@ -57,6 +57,7 @@
 				<default></default>
 				<extra></extra>
     	  <foreign_key>partys.party_id</foreign_key>
+    	  <on_delete>DENY</on_delete>
 			</field>
 			<field>
 				<name>modul</name>

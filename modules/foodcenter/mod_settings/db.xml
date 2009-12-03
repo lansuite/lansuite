@@ -318,7 +318,8 @@
 				<default></default>
 				<extra></extra>
     	  <foreign_key>partys.party_id</foreign_key>
-			</field>					
+    	  <on_delete>DENY</on_delete>
+			</field>
 			<field>
 				<name>productid</name>
 				<type>int(6)</type>
