@@ -89,17 +89,6 @@ elseif ($thread['caption'] != '') {
 	$query = $db->qry("SELECT pid, comment, userid, date, INET_NTOA(ip) AS ip, file FROM %prefix%board_posts WHERE tid=%int% ORDER BY date", $tid);
 	$count_entrys = $db->num_rows($query);
 	
-	if ($_GET['gotopid']) {
-    $z = 0;
-  	$query2 = $db->qry("SELECT pid FROM %prefix%board_posts WHERE tid=%int%", $tid);
-  	while ($row2 = $db->fetch_array($query2)) {
-      if ($row2['pid'] == $_GET['gotopid']) break;
-      $z++;
-  	}
-  	$db->free_result($query2);
-  	$_GET['posts_page'] = (string)floor($z / $cfg['board_max_posts']);
-  }
-
   // Page select
 	if ($count_entrys > $cfg['board_max_posts']){
 		$pages = $func->page_split($_GET['posts_page'], $cfg['board_max_posts'], $count_entrys, "index.php?mod=board&action=thread&tid=$tid", "posts_page");
@@ -150,8 +139,8 @@ elseif ($thread['caption'] != '') {
     $smarty->assign('signature', $signature);
 
 		$edit = '';
-		if ($auth['type'] > 1) $edit .= $dsp->FetchIcon("index.php?mod=board&action=delete&pid=$pid&gotopid=$pid", "delete", '', '', 'right');
-		if ($auth['type'] > 1 or $row["userid"] == $auth["userid"]) $edit .= $dsp->FetchIcon("index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&gotopid=$pid", "edit", '', '', 'right');
+		if ($auth['type'] > 1) $edit .= $dsp->FetchIcon("index.php?mod=board&action=delete&pid=$pid&posts_page=".$_GET['posts_page'], "delete", '', '', 'right');
+		if ($auth['type'] > 1 or $row["userid"] == $auth["userid"]) $edit .= $dsp->FetchIcon("index.php?mod=board&action=thread&fid=$fid&tid=$tid&pid=$pid&posts_page=".$_GET['posts_page'], "edit", '', '', 'right');
 		$edit .= $dsp->FetchIcon("javascript:InsertCode(document.dsp_form1.comment, '[quote]". str_replace("\n", "\\n", addslashes(str_replace('"', '', $row["comment"]))) ."[/quote]')", "quote", '', '', 'right');;
     $smarty->assign('edit', $edit);
 
@@ -198,7 +187,7 @@ elseif ($thread) {
     $mf->AddFix('changecount', '++');
   }
   
-  if ($pid = $mf->SendForm('index.php?mod=board&action=thread&fid='. $_GET['fid'] .'&tid='. $_GET['tid'].'&gotopid='.$pid, 'board_posts', 'pid', $_GET['pid'])) {
+  if ($pid = $mf->SendForm('index.php?mod=board&action=thread&fid='. $_GET['fid'] .'&tid='. $_GET['tid'].'&posts_page='.$_GET['posts_page'], 'board_posts', 'pid', $_GET['pid'])) {
     $tid = (int)$_GET['tid'];
   
     // Update thread-table, if new thread

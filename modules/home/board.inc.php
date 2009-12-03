@@ -14,7 +14,8 @@ $query = $db->qry("SELECT f.fid, t.tid, MAX(p.pid) AS pid, t.caption, MAX(p.date
 	LIMIT 0, %int%", $authtyp, $auth['group_id'], $cfg['home_item_count']);
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
-  $smarty->assign('link', "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&gotopid={$row['pid']}#pid{$row['pid']}");
+  $page = floor(($row['posts']) / $cfg['board_max_posts']);
+  $smarty->assign('link', "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&posts_page={$page}#pid{$row['pid']}");
 
   $text = $func->CutString($row['caption'], 40);
   $smarty->assign('text', $text);
