@@ -3,10 +3,10 @@
 $smarty->assign('caption', t('Aktuelle News') . ' <span class="small">[<a href="ext_inc/newsfeed/news.xml" class="menu" title="XML Newsfeed">RSS</a>]</span>');
 $content = '';
 
-$query = $db->qry("SELECT n.newsid, n.caption, n.priority, UNIX_TIMESTAMP(n.changedate) AS changedate, COUNT(c.relatedto_id) AS comments FROM %prefix%news AS n
+$query = $db->qry("SELECT n.newsid, n.caption, n.priority, MAX(UNIX_TIMESTAMP(n.changedate)) AS changedate, COUNT(c.relatedto_id) AS comments FROM %prefix%news AS n
   LEFT JOIN %prefix%comments AS c ON (c.relatedto_id = n.newsid AND (c.relatedto_item = 'news' OR c.relatedto_item IS NULL))
   GROUP BY n.newsid
-  ORDER BY n.top DESC, n.date DESC
+  ORDER BY n.top DESC, changedate DESC
   LIMIT 0,%int%
   ", $cfg['home_item_count']);
 
