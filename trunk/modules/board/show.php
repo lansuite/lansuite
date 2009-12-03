@@ -8,7 +8,7 @@ function NameAndDesc($name) {
 }
 
 function LastPostDetails($date) {
-  global $db, $config, $line, $dsp, $templ;
+  global $db, $config, $line, $dsp, $templ, $cfg;
 
   if ($date) {
     $row = $db->qry_first("SELECT t.caption, p.userid, p.tid, p.pid FROM %prefix%board_posts AS p
