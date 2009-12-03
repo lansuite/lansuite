@@ -666,5 +666,55 @@ form {
 	border-top-color:#3c414c;
 	height
 	padding:0.25em 0.1em;
-	*padding:0.244em 0.0975em;
+	padding:0.244em 0.0975em;
+}
+
+/* Boxes */
+
+li.box_entry, li.box_entryuser, li.box_entry_active, li.engaged, li.box_entryadd, ul.BoxContent {
+  list-style: none;
+}
+
+ul.BoxContent {
+  padding: 1px;
+  margin: 0px;
+}
+
+li.engaged {
+  padding: 1px 0px 2px 16px;
+}
+li.box_entry {
+  padding: 1px 0px 2px 16px;
+  background-image: url(images/arrows_menurow.gif);   background-repeat: no-repeat;
+}
+li.box_entry_active {
+  padding: 1px 0px 2px 16px;
+    background-image: url(images/arrows_menurow_close.gif);    background-repeat: no-repeat;
+}
+
+li.box_entry_lvl_1 {
+  padding: 1px 0px 2px 30px;
+  background-position:14px;
+  background-image: url(images/arrows_menurow.gif);   background-repeat: no-repeat;
+}
+li.box_entry_lvl_1_active {
+  padding: 1px 0px 2px 30px;
+  background-position:14px;
+  background-image: url(images/arrows_menurow_close.gif);    background-repeat: no-repeat;
+}
+
+span.AdminIcons {
+  padding: 1px 0px 2px 30px;
+  background-position:14px;
+  background-image: url(images/arrows_data.gif);   background-repeat: no-repeat;
+    }
+
+/* Links */
+a.admin:link, a.admin:visited {
+    color: #0000ff;
+    text-decoration:none;
+}
+a.admin:hover {
+    color: #ff0000;
+    text-decoration:underline;
 }
