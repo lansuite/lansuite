@@ -356,12 +356,15 @@ class MasterSearch2 {
           $pages .= $link_start . $link . ($_GET['ms_page'] + 1) . $link_end .'<b>&gt;</b></a>';
       }
     }
-    $EntsPerPage = array(10 => t('Zeige %1 von %2', 10, $count_rows['count']),
-        20 => t('Zeige %1 von %2', 20, $count_rows['count']),
-        50 => t('Zeige %1 von %2', 50, $count_rows['count']),
-        100 => t('Zeige %1 von %2', 100, $count_rows['count']),
-        0 => t('Zeige alle %1', $count_rows['count'])
-        );
+    $EntsPerPage = array();
+    if ($count_rows['count'] > 10) $EntsPerPage[10] = t('Zeige %1 von %2', 10, $count_rows['count']);
+    if ($count_rows['count'] > 20) $EntsPerPage[20] = t('Zeige %1 von %2', 20, $count_rows['count']);
+    if ($count_rows['count'] > 50) $EntsPerPage[50] = t('Zeige %1 von %2', 50, $count_rows['count']);
+    if ($count_rows['count'] > 100) $EntsPerPage[100] = t('Zeige %1 von %2', 100, $count_rows['count']);
+    if ($count_rows['count'] > 10) $EntsPerPage[0] = t('Zeige alle %1', $count_rows['count']);
+    if ($count_rows['count'] <= 10) $EntsFound = t('%1 Einträge', $count_rows['count']);
+    else $EntsFound = '';
+    $smarty->assign('EntsFound', $EntsFound);
     $smarty->assign('EntsPerPage', $EntsPerPage);
     $smarty->assign('EntPerPage', $this->config['EntriesPerPage']);
     $smarty->assign('pages', $pages);
