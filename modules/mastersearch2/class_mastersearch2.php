@@ -604,6 +604,7 @@ class MasterSearch2 {
       }
       $db->free_result($res);
 
+      $smarty->assign('ms_number', $ms_number);
       $dsp->AddContentLine($smarty->fetch('modules/mastersearch2/templates/result_case.htm'));
     }
   }
