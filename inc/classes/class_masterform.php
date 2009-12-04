@@ -116,7 +116,7 @@ class masterform {
 
   // Print form
   function SendForm($BaseURL, $table, $idname = '', $id = 0) {     // $BaseURL is no longer needed!
-    global $dsp, $db, $config, $func, $sec, $lang, $framework, $mf_number, $__POST, $smarty, $cfg;
+    global $dsp, $db, $config, $func, $sec, $lang, $framework, $mf_number, $__POST, $smarty, $cfg, $authentication;
 
     // In freeze-mode there are no changes to the DB allowed
     if ($cfg['sys_freeze']) {
@@ -284,7 +284,9 @@ class masterform {
                 $this->error[$field['name'].'2'] = t('Die beiden Kennworte stimmen nicht überein.');
 
               // Check captcha
-              elseif ($field['type'] == IS_CAPTCHA and ($_POST['captcha'] == '' or $_COOKIE['image_auth_code'] != md5(strtoupper($_POST['captcha']))))
+#              elseif ($field['type'] == IS_CAPTCHA and ($_POST['captcha'] == '' or $_COOKIE['image_auth_code'] != md5(strtoupper($_POST['captcha']))))
+#                $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
+              elseif ($field['type'] == IS_CAPTCHA and ($_POST['captcha'] == '' or $_SESSION['captcha'] != $_POST['captcha']))
                 $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
 
               // Callbacks
@@ -448,7 +450,13 @@ class masterform {
               break;
 
               case IS_CAPTCHA: // Captcha-Row
-                $dsp->AddTextFieldRow('captcha', 'Captcha <img src="ext_scripts/captcha.php">', $_POST['captcha'], $this->error['captcha']);
+#                $dsp->AddTextFieldRow('captcha', 'Captcha <img src="ext_scripts/captcha.php">', $_POST['captcha'], $this->error['captcha']);
+                 include_once('ext_scripts/ascii_captcha.class.php');
+                 $captcha = new ASCII_Captcha();
+                 $data = $captcha->create($text);
+                 $_SESSION['captcha'] = $text;
+                 $dsp->AddDoubleRow(t('Bitte geben Sie diesen Text unterhalb ein'), "<pre style='font-size:8px;'>$data</pre>");
+                 $dsp->AddTextFieldRow('captcha', '', $_POST['captcha'], $this->error['captcha']);
               break;
 
               case IS_SELECTION: // Pre-Defined Dropdown
