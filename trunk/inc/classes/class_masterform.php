@@ -286,7 +286,7 @@ class masterform {
               // Check captcha
 #              elseif ($field['type'] == IS_CAPTCHA and ($_POST['captcha'] == '' or $_COOKIE['image_auth_code'] != md5(strtoupper($_POST['captcha']))))
 #                $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
-              elseif ($field['type'] == IS_CAPTCHA and ($_POST['captcha'] == '' or $_SESSION['captcha'] != $_POST['captcha']))
+              elseif ($field['type'] == IS_CAPTCHA and ($_POST['captcha'] == '' or $_SESSION['captcha'] != strtoupper($_POST['captcha'])))
                 $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
 
               // Callbacks
