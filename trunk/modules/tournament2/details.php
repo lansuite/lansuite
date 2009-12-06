@@ -60,7 +60,7 @@ else {
 
 					$league = "";
 					if ($tournament['wwcl_gameid'] != 0) $league .= ", <img src=\"ext_inc/tournament_icons/leagues/wwcl.png\" alt=\"WWCL\">";
-					if ($tournament['ngl_gamename'] != "") $league .= ", <img src=\"ext_inc/tournament_icons/leagues/ngl.png\" alt=\"NGL\">";
+					if ($tournament['ngl_gamename']) $league .= ", <img src=\"ext_inc/tournament_icons/leagues/ngl.png\" alt=\"NGL\">";
 					if ($tournament['mode'] == "single") $modus = t('Single-Elimination');
 					if ($tournament['mode'] == "double") $modus = t('Double-Elimination');
 					if ($tournament['mode'] == "liga") $modus = t('Liga');
