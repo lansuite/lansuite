@@ -176,7 +176,7 @@ else {
 		}
 	}
 	asort($selections);
-  $selections = array('0' => t('Kein NGL-Support für dieses Turnier')) + $selections;
+    $selections = array('' => t('Kein NGL-Support für dieses Turnier')) + $selections;
 	$mf->AddField(t('NGL-Spiel'), 'ngl_gamename', IS_SELECTION, $selections, FIELD_OPTIONAL, 'CheckModeForLeague');
 }
 
