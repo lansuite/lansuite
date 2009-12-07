@@ -28,6 +28,8 @@ if ($_GET['step'] >= 2) {
       $_GET['step'] = 2;
     }
   }
+
+  $framework->AddToPageTitle($pollrow["caption"]);
 }
 
 switch ($_GET['step']) {
