@@ -35,6 +35,8 @@ $row = $db->qry_first('SELECT w.postid, w.name, v.text FROM %prefix%wiki AS w LE
   $_GET['postid'], $_GET['versionid']);
 
 $func->SetRead('wiki', $row['postid']);
+$framework->AddToPageTitle($row["name"]);
+$framework->AddToPageTitle('V'. (int)$_GET['versionid']);
 
 $dsp->NewContent($row['name'] . $links_main, $links);
 $dsp->AddSingleRow($func->Text2Wiki($row['text']), '', 'textContent');

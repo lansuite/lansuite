@@ -164,6 +164,7 @@ if (!$_GET['partyid']) {
   $row = $db->qry_first("SELECT u.username, p.*, UNIX_TIMESTAMP(p.start) AS start, UNIX_TIMESTAMP(p.end) AS end FROM %prefix%partylist AS p
    LEFT JOIN %prefix%user AS u on p.userid = u.userid
  WHERE p.partyid = %int%", $_GET['partyid']);
+  $framework->AddToPageTitle($row["name"]);
 
   if (substr($row['url'], 0, 7) != 'http://') $row['url'] = 'http://'. $row['url'];
 
