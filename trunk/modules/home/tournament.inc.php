@@ -22,7 +22,8 @@ if ($auth["userid"]) {
 			AND (teams2.disqualified = '0')
 			AND (t.party_id = %int%) AND (t.status = 'process')
 		GROUP BY games1.gameid, games2.gameid
-		", $auth["userid"], $auth["userid"], $auth["userid"], $auth["userid"], $party->party_id);
+		LIMIT 0, %int%
+		", $auth["userid"], $auth["userid"], $auth["userid"], $auth["userid"], $party->party_id, $cfg['home_item_cnt_tournament2']);
 }
 
 if ($db->num_rows($teams) == 0) $content = "<i>". t('Es sind keine aktuellen Spielpaarungen vorhanden') ."</i>";

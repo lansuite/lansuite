@@ -9,7 +9,7 @@ $query = $db->qry("SELECT b.*, MAX(UNIX_TIMESTAMP(b.changedate)) AS changedate, 
   GROUP BY b.bugid
   ORDER BY changedate DESC
   LIMIT 0, %int%
-  ", $cfg['home_item_count']);
+  ", $cfg['home_item_cnt_bugtracker']);
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $smarty->assign('link', "index.php?mod=bugtracker&bugid={$row['bugid']}");
