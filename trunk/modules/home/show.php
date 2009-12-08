@@ -29,8 +29,7 @@ switch ($home_page) {
     foreach($ModOverviews as $ModOverview) {
       if ($z % 2 == 0) {
         $MainContent .= '<ul class="Line">';
-        if ($z != (count($ModOverviews) - 1)) $MainContent .= '<li class="LineLeftHalf">';
-        else $MainContent .= '<li class="LineRightHalf">';
+        $MainContent .= '<li class="LineLeftHalf">';
       } else $MainContent .= '<li class="LineRightHalf">';
       $smarty->assign('text2', '');
       include('modules/home/'. $ModOverview .'.inc.php');
@@ -40,7 +39,7 @@ switch ($home_page) {
       if ($z % 2 == 1) $MainContent .= '</ul>';
       $z++;
     }
-    if ($z % 2 == 1) $MainContent .= '</ul>';
+    if ($z % 2 == 1) $MainContent .= '<li class="LineRightHalf">&nbsp;</li></ul>';
 
 		if ($party->count > 1 && $cfg['display_change_party']) $party->get_party_dropdown_form();
 	break;
