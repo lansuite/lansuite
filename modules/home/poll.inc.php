@@ -9,7 +9,7 @@ $query = $db->qry('SELECT UNIX_TIMESTAMP(p.endtime) AS endtime, p.pollid, p.capt
   GROUP BY p.pollid
   ORDER BY changedate DESC
   LIMIT 0, %int%
-  ', $auth['group_id'], $cfg['home_item_count']);
+  ', $auth['group_id'], $cfg['home_item_cnt_poll']);
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $smarty->assign('link', 'index.php?mod=poll&action=show&step=2&pollid='. $row['pollid']);

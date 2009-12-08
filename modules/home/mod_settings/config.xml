@@ -36,11 +36,90 @@
     		<default>0</default>
     		<description>Welche Startseite soll im ausgeloggten Zustand angezeigt werden?</description>
     	</item>
+    </items>
+  </group>
+  <group>
+    <head>
+      <name>Anz. Einträge in Neues-Boxen (0 = Box verbergen)</name>
+    </head>
+    <items>
     	<item>
-    		<name>home_item_count</name>
+    		<name>home_item_cnt_board</name>
     		<type>integer</type>
     		<default>8</default>
-    		<description>Wie viele neue Einträge sollen jeweils angezeigt werden?</description>
+    		<description>Board</description>
+    	</item>
+    </items>
+    <items>
+    	<item>
+    		<name>home_item_cnt_bugtracker</name>
+    		<type>integer</type>
+    		<default>8</default>
+    		<description>Bugtracker</description>
+    	</item>
+    </items>
+    <items>
+    	<item>
+    		<name>home_item_cnt_mail</name>
+    		<type>integer</type>
+    		<default>8</default>
+    		<description>Mail</description>
+    	</item>
+    </items>
+    <items>
+    	<item>
+    		<name>home_item_cnt_comments</name>
+    		<type>integer</type>
+    		<default>8</default>
+    		<description>Kommentare</description>
+    	</item>
+    </items>
+    <items>
+    	<item>
+    		<name>home_item_cnt_news</name>
+    		<type>integer</type>
+    		<default>8</default>
+    		<description>News</description>
+    	</item>
+    </items>
+    <items>
+    	<item>
+    		<name>home_item_cnt_partylist</name>
+    		<type>integer</type>
+    		<default>8</default>
+    		<description>Partyliste</description>
+    	</item>
+    </items>
+    <items>
+    	<item>
+    		<name>home_item_cnt_poll</name>
+    		<type>integer</type>
+    		<default>8</default>
+    		<description>Poll</description>
+    	</item>
+    </items>
+    <items>
+    	<item>
+    		<name>home_item_cnt_tournament2</name>
+    		<type>integer</type>
+    		<default>8</default>
+    		<description>Turnier-Spiele</description>
+    	</item>
+    </items>
+    <items>
+    	<item>
+    		<name>home_item_cnt_wiki</name>
+    		<type>integer</type>
+    		<default>8</default>
+    		<description>Wiki</description>
+    	</item>
+    </items>
+    <items>
+    	<item>
+    		<name>home_item_cnt_wiki</name>
+    		<type>integer</type>
+    		<default>8</default>
+    		<description>Wiki</description>
     	</item>
     </items>
   </group>

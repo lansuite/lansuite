@@ -8,7 +8,7 @@ $query = $db->qry("SELECT n.newsid, n.caption, n.priority, MAX(n.date) AS date, 
   GROUP BY n.newsid
   ORDER BY n.top DESC, date DESC
   LIMIT 0,%int%
-  ", $cfg['home_item_count']);
+  ", $cfg['home_item_cnt_news']);
 
 if ($db->num_rows($query) > 0) while ($row = $db->fetch_array($query)) {
   $smarty->assign('link', "index.php?mod=news&action=comment&newsid={$row["newsid"]}");

@@ -8,7 +8,7 @@ $query = $db->qry('SELECT w.postid, w.name, MAX(UNIX_TIMESTAMP(v.date)) AS date,
     GROUP BY v.postid
     ORDER BY date DESC
     LIMIT 0, %int%',
-    $cfg['home_item_count']);
+    $cfg['home_item_cnt_wiki']);
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $smarty->assign('link', 'index.php?mod=wiki&action=show&name='. urlencode($row['name']));

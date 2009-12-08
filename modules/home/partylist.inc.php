@@ -7,7 +7,7 @@ $query = $db->qry("SELECT p.partyid, p.name, UNIX_TIMESTAMP(p.start) as start FR
   WHERE p.end >= NOW()
   ORDER BY p.start ASC
   LIMIT 0,%int%
-  ", $cfg['home_item_count']);
+  ", $cfg['home_item_cnt_partylist']);
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $smarty->assign('link', "index.php?mod=partylist&partyid={$row['partyid']}");

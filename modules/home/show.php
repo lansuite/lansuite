@@ -1,8 +1,6 @@
 <?php
 $func->DeleteOldReadStates();
 
-if (!$cfg['home_item_count']) $cfg['home_item_count'] = 8;
-
 if ($auth["type"] == 1 or $auth["type"] == 2 or $auth["type"] == 3) $home_page = $cfg["home_login"];
 else $home_page = $cfg["home_logout"];
 
@@ -12,15 +10,16 @@ switch ($home_page) {
 		$dsp->NewContent(t('Startseite'), t('Willkommen! Hier sehen Sie eine kleine Übersicht der wichtigsten Aktivitäten.'));
 
     $ModOverviews = array();
-    if (in_array('news', $ActiveModules)) $ModOverviews[] = 'news';
-    if (in_array('board', $ActiveModules)) $ModOverviews[] = 'board';
-    if (in_array('mail', $ActiveModules) and $auth['login']) $ModOverviews[] = 'mail';
-    if (in_array('server', $ActiveModules)) $ModOverviews[] = 'server';
-    if (in_array('poll', $ActiveModules)) $ModOverviews[] = 'poll';
-    if (in_array('bugtracker', $ActiveModules)) $ModOverviews[] = 'bugtracker';
-    if (in_array('tournament2', $ActiveModules)) $ModOverviews[] = 'tournament';
-    if (in_array('partylist', $ActiveModules)) $ModOverviews[] = 'partylist';
-    if (in_array('wiki', $ActiveModules)) $ModOverviews[] = 'wiki';
+    if ($cfg['home_item_cnt_news'] and in_array('news', $ActiveModules)) $ModOverviews[] = 'news';
+    if ($cfg['home_item_cnt_board'] and in_array('board', $ActiveModules)) $ModOverviews[] = 'board';
+    if ($cfg['home_item_cnt_server'] and in_array('server', $ActiveModules)) $ModOverviews[] = 'server';
+    if ($cfg['home_item_cnt_poll'] and in_array('poll', $ActiveModules)) $ModOverviews[] = 'poll';
+    if ($cfg['home_item_cnt_bugtracker'] and in_array('bugtracker', $ActiveModules)) $ModOverviews[] = 'bugtracker';
+    if ($cfg['home_item_cnt_wiki'] and in_array('wiki', $ActiveModules)) $ModOverviews[] = 'wiki';
+    if ($cfg['home_item_cnt_tournament2'] and in_array('tournament2', $ActiveModules)) $ModOverviews[] = 'tournament';
+    if ($cfg['home_item_cnt_partylist'] and in_array('partylist', $ActiveModules)) $ModOverviews[] = 'partylist';
+    if ($cfg['home_item_cnt_comments']) $ModOverviews[] = 'mastercomment';
+    if ($cfg['home_item_cnt_mail'] and in_array('mail', $ActiveModules) and $auth['login']) $ModOverviews[] = 'mail';
 		if (in_array('stats', $ActiveModules)
       and ($party->count > 0 or $auth['type'] >= 2)
       and (in_array('troubleticket', $ActiveModules)))
