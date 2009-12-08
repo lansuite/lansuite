@@ -132,7 +132,8 @@ class beamer {
 		
 						break;
 
-		case 'turnier':		$t = "<center><h2>" . $row['caption'] . "</h2><img src=\"ext_inc/tournament_trees/tournament_{$row['contentData']}.png\" border=\"0\"><p />";
+        case 'turnier':         $t = "<center><h2>" . $row['caption'] . "</h2><iframe src=\"index.php?mod=tournament2&amp;action=tree_frame&amp;design=base&amp;tournamentid={$row['contentData']}&amp;group=0\" style=\"width: 100%; min-width: 600px;\" width=\"100%\" height=\"500\" frameborder=\"0\"></iframe><p />";
+		#case 'turnier':		$t = "<center><h2>" . $row['caption'] . "</h2><img src=\"ext_inc/tournament_trees/tournament_{$row['contentData']}.png\" border=\"0\"><p />";
 							return $t;
 						break;
 	
