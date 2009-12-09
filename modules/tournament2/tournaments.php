@@ -125,7 +125,7 @@ $mf->AddField(t('Pause nach jeder Runde (Min.)'), 'break_duration');
 
 $mf->AddField(t('Keine Zeitüberschreitung').'|'.t('Bei Zeitüberschreitung (Beginn der Pause) wird der Gewinner automatisch gelost'), 'defwin_on_time_exceed', '', 1, FIELD_OPTIONAL);
 $mf->AddGroup(t('Zeiten'));
-
+$mf->AddPage(t('Haupteinstellungen'));
 
 // League + Misc
 $mf->AddField(t('Icon'), 'icon', IS_PICTURE_SELECT, 'ext_inc/tournament_icons', FIELD_OPTIONAL);
@@ -211,7 +211,8 @@ $mf->AddField(t('Externes Regelwerk'), 'rules_ext', IS_SELECTION, $selections, F
 
 $mf->AddField(t('Bemerkung / Zusätzliche Regeln'), 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
 $mf->AddField(t('Mapcycle (Maps durch Zeilenumbruch trennen)'), 'mapcycle', '', '', FIELD_OPTIONAL);
-$mf->AddGroup(t('Liga-Support, Regeln und Sonstiges'));
+#$mf->AddGroup(t('Liga-Support, Regeln und Mapcycle'));
+$mf->AddPage(t('Liga-Support, Regeln und Mapcycle'));
 
 if (!$_GET['tournamentid']) {
   $mf->AddFix('party_id', (int)$party->party_id);
