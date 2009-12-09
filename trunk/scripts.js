@@ -166,6 +166,13 @@ function CheckBoxBoxActivate(name, id) {
   else document.getElementById(name).style.display = "none";
 }
 
+function ActivateTab(id) {
+  $("div[name='tabs']").each(function (i) {
+    this.style.display = "none";
+  });
+  $("div#tab"+id).attr("style", "display:inline")
+}
+
 function DropDownBoxActivate(name, id, list) {
   if (list) {
     var found = false;
