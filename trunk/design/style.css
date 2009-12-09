@@ -136,13 +136,26 @@ li.Information > A, li.Confirmation > A, li.Err > A {
 }
 div.Headline {
   position: relative;
+  font-size: 14px;
   font-weight: bold;
 }
 div.HeadlineSub {
+  font-size: 12px;
+  border-bottom: 1px solid #9c9d9c;   margin: 0px 0px 12px 0px;
 }
 div.HeadlineHelp {
   position: absolute;   top: 0px;   right: 8px;
   font-size: 10px;
+}
+span.HeaderMenuItem {
+  border: 1px solid #9c9d9c; padding: 6px 16px 0px 16px;
+  font-weight: bold;
+}
+span.HeaderMenuItem:hover {
+  background: #bbbbbb;
+}
+span.HeaderMenuItemActive {
+  border: 1px solid #9c9d9c; padding: 6px 16px 0px 16px;
 }
 .login {
     background: #dee2e6;
