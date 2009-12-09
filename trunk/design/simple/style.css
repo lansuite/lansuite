@@ -97,46 +97,6 @@ div#Footer a {
   	color: #bbbbbb;
 }
 
-/* Boxes */
-
-.box_entry, .box_entryuser, .box_entry_active, .engaged, .box_entryadd, .BoxContent {
-  list-style: none;
-}
-
-ul.BoxContent {
-  padding: 1px;
-  margin: 0px;
-}
-
-li.engaged {
-  padding: 1px 0px 2px 16px;
-}
-li.box_entry {
-  padding: 1px 0px 2px 16px;
-  background-image: url(images/arrows_menurow.gif);   background-repeat: no-repeat;
-}
-li.box_entry_active {
-  padding: 1px 0px 2px 16px;
-    background-image: url(images/arrows_menurow_close.gif);    background-repeat: no-repeat;
-}
-
-li.box_entry_lvl_1 {
-  padding: 1px 0px 2px 24px;
-  background-position:8px;
-  background-image: url(images/arrows_menurow.gif);   background-repeat: no-repeat;
-}
-li.box_entry_lvl_1_active {
-  padding: 1px 0px 2px 24px;
-  background-position:8px;
-  background-image: url(images/arrows_menurow_close.gif);    background-repeat: no-repeat;
-}
-
-span.AdminIcons {
-  padding: 1px 0px 2px 24px;
-  background-position:8px;
-  background-image: url(images/arrows_data.gif);   background-repeat: no-repeat;
-    }
-
 /* Links */
 a.admin:link, a.admin:visited {
     color: #0000ff;

@@ -26,7 +26,6 @@
     if ($_GET['frmwrkmode']) $frmwrkmode = $_GET['frmwrkmode']; // Set Popupmode via GET (base, popup)
     if (isset($frmwrkmode)) $framework->set_modus($frmwrkmode);
     // Ende Notlösung
-    $framework->make_clean_url_query($_SERVER['REQUEST_URI']);  // Build interlal URL-Query
 
 ### Set HTTP-Headers (still needed?)
     

@@ -261,6 +261,23 @@ input.Button:hover {
   font-size: 10px;
 }
 
+.DotRow:before {
+  margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 4px 0px 0px;
+  content: url(images/dot.gif);
+}
+.DotRowActive:before {
+  margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 4px 0px 0px;
+  content: url(images/dot_active.gif);
+}
+.user_online:before {
+  margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 4px 0px 0px;
+  content: url(images/arrows_user_online.png);
+}
+.user_offline:before {
+  margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 4px 0px 0px;
+  content: url(images/arrows_user_offline.png);
+}
+
 
 /* Forms */
 
@@ -507,3 +524,45 @@ a:hover span.infobox {
   text-decoration:none;
   z-index:999;
 }
+
+
+/* Boxes */
+
+.box_entry, .box_entryuser, .box_entry_active, .engaged, .box_entryadd, .BoxContent {
+  list-style: none;
+}
+
+ul.BoxContent {
+  padding: 1px;
+  margin: 0px;
+}
+
+li.engaged {
+  padding: 1px 0px 2px 16px;
+}
+li.box_entry {
+  padding: 1px 0px 2px 16px;
+  background-image: url(images/dot.gif);   background-repeat: no-repeat;
+}
+li.box_entry_active {
+  padding: 1px 0px 2px 16px;
+    background-image: url(images/dot_active.gif);    background-repeat: no-repeat;
+}
+
+li.box_entry_lvl_1 {
+  padding: 1px 0px 2px 24px;
+  background-position:8px;
+  background-image: url(images/dot.gif);   background-repeat: no-repeat;
+}
+li.box_entry_lvl_1_active {
+  padding: 1px 0px 2px 24px;
+  background-position:8px;
+  background-image: url(images/dot_active.gif);    background-repeat: no-repeat;
+}
+
+span.AdminIcons {
+  padding: 1px 0px 2px 24px;
+  background-position:8px;
+  background-image: url(images/dot.gif);   background-repeat: no-repeat;
+}
+
