@@ -7,7 +7,7 @@ else $home_page = $cfg["home_logout"];
 switch ($home_page) {
 	// Show overview
 	default:
-		$dsp->NewContent(t('Startseite'), t('Willkommen! Hier sehen Sie eine kleine Übersicht der wichtigsten Aktivitäten.'));
+		$dsp->NewContent($cfg['sys_page_title'], t('Übersicht der neusten Aktivitäten auf %1.', $framework->internal_url_query['host']));
 
     $ModOverviews = array();
     if ($cfg['home_item_cnt_news'] and in_array('news', $ActiveModules)) $ModOverviews[] = 'news';
