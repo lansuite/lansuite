@@ -75,14 +75,11 @@ class display {
     global $templ, $MainContent;
 
     foreach ($names as $key => $name) {
-      if ($key == $active and $active != NULL) $am = '';
-      else $am = 'class="menu"';
-      $items .= "<a href=\"".$link."&headermenuitem=$key\"".$am."><b>".$name."</b></a> - ";
+      if ($key == $active and $active != NULL) $items .= '<span class="HeaderMenuItemActive">'. $name .'</span>';
+      else $items .= '<span class="HeaderMenuItem"><a href="'. $link .'&headermenuitem='. $key .'">'. $name .'</a></span>';
     }
-    // Letztes Minus rausschneiden
-    $items = substr($items, 0, -3);
 
-    $MainContent .=  $items;
+    $MainContent .= $items;
   }
     
   function AddHeaderMenu2($names, $link, $active = NULL) {
