@@ -12,6 +12,7 @@ class display {
   var $errortext_suffix = '';
   var $FirstLine = 1;
   var $TplVars = array();
+  var $CurrentTab = 0;
 
   // Constructor
   function display() {
@@ -69,6 +70,28 @@ class display {
     $this->form_ok = false;
 
     $this->AddContentLine($smarty->fetch('design/templates/ls_row_headline.htm'));
+  }
+
+  function AddTabs($tabs) {
+    global $MainContent;
+
+    foreach ($tabs as $key => $name) {
+      if ($_GET['tab'] != '' and $key == $_GET['tab']) $items .= '<span class="HeaderMenuItemActive">'. $name .'</span>';
+      else $items .= '<span class="HeaderMenuItem"><a href="javascript:ActivateTab('. $key .')">'. $name .'</a></span>';
+    }
+
+    $MainContent .= $items;
+  }
+
+  function StartTab() {
+    global $MainContent;
+    $MainContent .= '<div id="tab'. (int)$this->CurrentTab .'" name="tabs">';
+    $this->CurrentTab++;
+  }
+
+  function EndTab() {
+    global $MainContent;
+    $MainContent .= '</div>';
   }
 
   function AddHeaderMenu($names, $link, $active = NULL) {
