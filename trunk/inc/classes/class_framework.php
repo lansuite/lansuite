@@ -174,22 +174,6 @@ class framework {
 
 
   /**
-   * Make clean URL-Query for internal links  
-   *
-   * @param string Request-URI
-   */
-    function make_clean_url_query($request_uri){
-        if (isset($request_uri)) {
-            $CurentURL = @parse_url($request_uri);
-            // Filter for Query
-            $URLQuery = preg_replace('/[&]?fullscreen=(no|yes)/sUi', '', $CurentURL['query']); // Remove Fullscreenvar
-            $this->internal_url_query['base'] = $CurentURL['path'].'?'.$CurentURL['query']; // Enspricht alter $CurentURLBase;
-            $this->internal_url_query['query'] = $URLQuery; // Enspricht alter $URLQuery;
-            $this->internal_url_query['host'] = $CurentURL['host'];
-        }
-    }
-
-  /**
    * Show clean URL-Query for build internal Links    
    *
    * @param string Needed part of URL (keys : query, base)
