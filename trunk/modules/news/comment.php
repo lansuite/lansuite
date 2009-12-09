@@ -7,7 +7,7 @@ if ($check["caption"] != "") {
   $func->SetRead('news', $_GET['newsid']);
   
   // GET NEWS DATA
-  $get_news = $db->qry_first('SELECT n.*, u.userid, u.username FROM %prefix%news n LEFT JOIN %prefix%user u ON u.userid = n.poster WHERE n.newsid = %int%', $_GET['newsid']);
+  $get_news = $db->qry_first('SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.userid, u.username FROM %prefix%news n LEFT JOIN %prefix%user u ON u.userid = n.poster WHERE n.newsid = %int%', $_GET['newsid']);
   $templ_news_single_row_priority = $get_news["priority"];
   	
   if ($templ_news_single_row_priority == 1) { $news_type = "important"; } else { $news_type = "normal"; }

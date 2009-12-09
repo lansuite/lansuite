@@ -13,7 +13,7 @@ function LastPostDetails($date) {
   if ($date) {
     $row = $db->qry_first("SELECT t.caption, p.userid, p.tid, p.pid FROM %prefix%board_posts AS p
       LEFT JOIN %prefix%board_threads AS t ON p.tid = t.tid
-      WHERE p.date = %string% AND t.fid = %int%", $date, $line['fid']);
+      WHERE UNIX_TIMESTAMP(p.date) = %string% AND t.fid = %int%", $date, $line['fid']);
 
     $row2 = $db->qry_first("SELECT COUNT(*) AS cnt FROM %prefix%board_posts AS p
         WHERE p.tid = %int%

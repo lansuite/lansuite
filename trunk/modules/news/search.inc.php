@@ -14,7 +14,7 @@ $ms2->AddTextSearchField(t('Autor'), array('u.username' => '1337', 'u.name' => '
 $ms2->AddResultField(t('Titel'), 'n.caption');
 $ms2->AddSelect('u.userid');
 $ms2->AddResultField(t('Autor'), 'u.username', 'UserNameAndIcon');
-$ms2->AddResultField(t('Datum'), 'n.date', 'MS2GetDate');
+$ms2->AddResultField(t('Datum'), 'UNIX_TIMESTAMP(n.date) AS date', 'MS2GetDate');
 
 $ms2->AddIconField('details', 'index.php?mod=news&action=comment&newsid=', t('Details'));
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));

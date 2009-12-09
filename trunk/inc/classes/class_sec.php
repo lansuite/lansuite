@@ -4,28 +4,29 @@ class sec {
 		global $db, $config, $cfg;
 
 		// Global-Black-List
-		$found = $db->qry_first("SELECT ip FROM %prefix%ip_blacklist
-   WHERE ip = %string% AND (module = '' OR module = %string%)
-   LIMIT 1
-   ", $_SERVER['REMOTE_ADDR'], $_GET["mod"]);
-		if ($found) die ("Deine IP wird von LanSuite geblockt. Melde dich bitte bei den Organisatoren");
+		$row = $db->qry_first("SELECT 1 AS found FROM %prefix%ip_blacklist
+            WHERE ip = INET_ATON(%string%) AND (module = '' OR module = %string%)
+            LIMIT 1
+            ", $_SERVER['REMOTE_ADDR'], $_GET["mod"]);
+		if ($row['found']) die ("Deine IP wird von LanSuite geblockt. Melde dich bitte bei den Administratoren");
 
-    if ($cfg["reload_limit"]) {
-  		// Reload-Black-List
-  		if (!$cfg["reload_time"]) $cfg["reload_time"] = 600;
-  		$db->qry("DELETE FROM %prefix%ip_hits WHERE (date + %string%) < %string%", $cfg["reload_time"], time());
+        if ($cfg["reload_limit"]) {
+    		// Reload-Black-List
+    		if (!$cfg["reload_time"]) $cfg["reload_time"] = 600;
+    		$db->qry("DELETE FROM %prefix%ip_hits WHERE (date + %int%) < %int%", $cfg["reload_time"], time());
 
-  		$db->qry("INSERT INTO %prefix%ip_hits SET ip = %string%, module = %string%, action = %string%, step = %string%, date = %int%", $_SERVER['REMOTE_ADDR'], $_GET["mod"], $_GET["action"], $_GET["step"], time());
+    		$db->qry("INSERT INTO %prefix%ip_hits SET ip = INET_ATON(%string%)",
+                $_SERVER['REMOTE_ADDR'], $_GET["mod"], $_GET["action"], $_GET["step"]);
 
-  		$ip_hits = $db->qry_first("SELECT COUNT(*) AS hits FROM %prefix%ip_hits
-     WHERE ip = %string%
-     GROUP BY ip
-     LIMIT 1
-     ", $_SERVER['REMOTE_ADDR']);
+    		$ip_hits = $db->qry_first("SELECT COUNT(*) AS hits FROM %prefix%ip_hits
+              WHERE ip = INET_ATON(%string%)
+              GROUP BY ip
+              LIMIT 1
+              ", $_SERVER['REMOTE_ADDR']);
 
-  		if (!$cfg["reload_hits"]) $cfg["reload_hits"] = 120;
-  		if ($ip_hits["hits"] > $cfg["reload_hits"]) die ("Deine IP wird von LanSuite wegen zu häufigen Seitenaufrufen geblockt. Bitte warte ein wenig und versuche es dann erneut.");
-    }
+    		if (!$cfg["reload_hits"]) $cfg["reload_hits"] = 120;
+    		if ($ip_hits["hits"] > $cfg["reload_hits"]) die ("Deine IP wird von LanSuite wegen zu häufigen Seitenaufrufen geblockt. Bitte warte ein wenig und versuche es dann erneut.");
+        }
 	}
 
 
@@ -33,14 +34,16 @@ class sec {
 		global $db, $config;
 
 		$_SESSION["lock_$module"] = true;
-		$db->qry("REPLACE INTO %prefix%ip_locklist SET ip = %string%, module = %string%", $_SERVER['REMOTE_ADDR'], $module);
+        if ($_SERVER['REMOTE_ADDR'] == '::1') return true; // for INET_ATON(IPv6-Localhost) returns sql error
+		$db->qry("REPLACE INTO %prefix%ip_locklist SET ip = INET_ATON(%string%), module = %string%", $_SERVER['REMOTE_ADDR'], $module);
 	}
 
 	function unlock ($module = NULL) {
 		global $db, $config;
 
 		$_SESSION["lock_$module"] = false;
-		$db->qry("DELETE FROM %prefix%ip_locklist WHERE ip = %string% AND module = %string%", $_SERVER['REMOTE_ADDR'], $module);
+        if ($_SERVER['REMOTE_ADDR'] == '::1') return true; // for INET_ATON(IPv6-Localhost) returns sql error
+		$db->qry("DELETE FROM %prefix%ip_locklist WHERE ip = INET_ATON(%string%) AND module = %string%", $_SERVER['REMOTE_ADDR'], $module);
 	}
 
 	function locked ($module = NULL, $referrer = '') {
@@ -48,8 +51,8 @@ class sec {
 
 		if ($_SESSION["lock_$module"]) $locked = true;
 		else {
-			$found = $db->qry_first("SELECT ip FROM %prefix%ip_locklist WHERE ip = %string% AND module = %string% LIMIT 1", $_SERVER['REMOTE_ADDR'], $module);
-			if ($found) $locked = true;
+			$row = $db->qry_first("SELECT 1 AS found FROM %prefix%ip_locklist WHERE ip = INET_ATON(%string%) AND module = %string% LIMIT 1", $_SERVER['REMOTE_ADDR'], $module);
+			if ($row['found']) $locked = true;
 			else $locked = false;
 		}
 
