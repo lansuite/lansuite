@@ -307,6 +307,12 @@ nospamfor.us</default>
     		<default></default>
     		<description>Google-Maps-Api-Key (Für die Besucher-Karte) Siehe: http://www.google.com/apis/maps/signup.html</description>
     	</item>
+    	<item>
+    		<name>google_analytics_id</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Google-Analytics-ID. ID um Google-Analytics Code zu aktivieren</description>
+    	</item>
     </items>
   </group>
   <group>
@@ -350,7 +356,7 @@ nospamfor.us</default>
     		<name>sys_blocksite</name>
     		<type>boolean</type>
     		<default>0</default>
-    		<description>Lansuiteseite gesperrt?</description>
+    		<description>Lansuiteseite sperren - Es wird auf jeder Seite nur noch ein Infotext angezeigt</description>
     	</item>
     	<item>
     		<name>sys_blocksite_text</name>

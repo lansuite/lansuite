@@ -233,7 +233,18 @@ class framework {
     $smarty->assign('MainLogo', '');
     $smarty->assign('MainBodyJS', $templ['index']['body']['js']);
     $smarty->assign('MainJS', $templ['index']['control']['js']);
-    $smarty->assign('MainContent', $this->main_content);                            
+    $smarty->assign('MainContent', $this->main_content);
+
+    $EndJS = '';
+    if ($cfg['google_analytics_id']) $EndJS = '<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src=\'" + gaJsHost + "google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("'. $cfg['google_analytics_id'] .'");
+pageTracker._trackPageview();
+</script>';
+    $smarty->assign('EndJS', $EndJS);
 
     ### Switch Displaymodus (popup, base, print, normal)                    
     switch ($this->modus) {
