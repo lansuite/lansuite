@@ -99,7 +99,8 @@ class masterform {
     }
   }
 
-  function AddPage($caption = 'Seite') {
+  function AddPage($caption = '') {
+    if (!$caption) $caption = t('Seite') .' '. count($this->Pages);
     $this->AddGroup(); // Adds non-group-fields to fake group
     if (count($this->Groups) > 0) {
       $arr = array();
@@ -342,7 +343,7 @@ class masterform {
       // Output form
       default:
         $sec->unlock($table);
-            $dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $mf_number .'#MF'. $mf_number, '', '', $this->FormEncType);
+        $dsp->SetForm($StartURL .'&mf_step=2&mf_id='. $mf_number .'#MF'. $mf_number, '', '', $this->FormEncType);
 
         // InsertControll check box - the table entry will only be created, if this check box is checked, otherwise the existing entry will be deleted
         if ($this->AddInsertControllField != '') {
@@ -357,10 +358,12 @@ class masterform {
         }
 
         // Write pages links
-        if ($this->Pages) foreach ($this->Pages as $PageKey => $page) {
-            $menunames[$PageKey] = $page['caption'];
+        if ($this->Pages and count($this->Pages) > 1) {
+            foreach ($this->Pages as $PageKey => $page) {
+                $menunames[$PageKey] = $page['caption'];
+            }
+            $dsp->AddTabs($menunames);
         }
-        $dsp->AddTabs($menunames);
 
         // Output fields
         $z = 0;
@@ -368,7 +371,7 @@ class masterform {
         $this->FCKeditorID = 0;
         // Pages loop
         if ($this->Pages) foreach ($this->Pages as $PageKey => $page) {
-          if ($page['caption']) $dsp->StartTab();
+          if ($page['caption'] and count($this->Pages) > 1) $dsp->StartTab();
 
           // Groups loop
           if ($page['groups']) foreach ($page['groups'] as $GroupKey => $group) {
@@ -573,7 +576,7 @@ class masterform {
             }
             if ($group['caption']) $dsp->AddFieldsetEnd();
           } // End: Groups loop
-          if ($page['caption']) $dsp->EndTab();
+          if ($page['caption'] and count($this->Pages) > 1) $dsp->EndTab();
         } // End: Pages loop
 
         if ($this->SendButtonText) $dsp->AddFormSubmitRow($this->SendButtonText);

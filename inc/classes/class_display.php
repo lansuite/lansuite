@@ -76,10 +76,9 @@ class display {
     global $MainContent;
 
     foreach ($tabs as $key => $name) {
-      if ($_GET['tab'] != '' and $key == $_GET['tab']) $items .= '<span class="HeaderMenuItemActive">'. $name .'</span>';
-      else $items .= '<span class="HeaderMenuItem"><a href="javascript:ActivateTab('. $key .')">'. $name .'</a></span>';
-    }
-
+      if ($key == $_GET['tab'] or ($_GET['tab'] == '' and $key == 0)) $class = 'HeaderMenuItemActive';
+      else $class = 'HeaderMenuItem';
+      $items .= '<span id="tablink'. $key .'" name="tablinks" class="'. $class .'"><a href="javascript:ActivateTab('. $key .')">'. $name .'</a></span>';    }
     $MainContent .= $items;
   }
 

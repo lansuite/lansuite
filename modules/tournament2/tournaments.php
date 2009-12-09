@@ -211,7 +211,7 @@ $mf->AddField(t('Externes Regelwerk'), 'rules_ext', IS_SELECTION, $selections, F
 
 $mf->AddField(t('Bemerkung / Zusätzliche Regeln'), 'comment', '', HTML_ALLOWED, FIELD_OPTIONAL);
 $mf->AddField(t('Mapcycle (Maps durch Zeilenumbruch trennen)'), 'mapcycle', '', '', FIELD_OPTIONAL);
-#$mf->AddGroup(t('Liga-Support, Regeln und Mapcycle'));
+$mf->AddGroup(t('Liga-Support, Regeln und Mapcycle'));
 $mf->AddPage(t('Liga-Support, Regeln und Mapcycle'));
 
 if (!$_GET['tournamentid']) {

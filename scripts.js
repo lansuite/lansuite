@@ -171,6 +171,13 @@ function ActivateTab(id) {
     this.style.display = "none";
   });
   $("div#tab"+id).removeAttr("style");
+
+  $("span[name='tablinks']").each(function (i) {
+    $(this).removeClass("HeaderMenuItemActive");
+    $(this).addClass("HeaderMenuItem");
+  });
+  $("span#tablink"+id).removeClass("HeaderMenuItem");
+  $("span#tablink"+id).addClass("HeaderMenuItemActive");
 }
 
 function DropDownBoxActivate(name, id, list) {
