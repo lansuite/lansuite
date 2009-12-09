@@ -501,13 +501,13 @@ div.HeadlineHelp {
 }
 span.HeaderMenuItem {
   border: 1px solid #9c9d9c; padding: 6px 16px 0px 16px;
-  font-weight: bold;
 }
 span.HeaderMenuItem:hover {
   background: #bbbbbb;
 }
 span.HeaderMenuItemActive {
   border: 1px solid #9c9d9c; padding: 6px 16px 0px 16px;
+  font-weight: bold;
 }
 
 /*

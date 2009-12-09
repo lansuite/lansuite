@@ -117,13 +117,14 @@ if ($auth['type'] <= 1) {
 
       foreach ($translation->valid_lang as $val) {
         $_POST[$language] = 1;
-        $mf->AddField(t($translation->lang_names[$val]).'|'.t('Einen Text für die Sprache "%1" definieren', t($translation->lang_names[$val])), $val, 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
-        if ($val == 'de') $val = '';
-        else $val = '_'. $val;
-        $mf->AddField(t('Seitentitel'), 'caption'. $val);
-        $mf->AddField(t('Untertitel'), 'shorttext'. $val);
-        if ($cfg['info2_use_fckedit']) $mf->AddField(t('Text'), 'text'. $val, '', HTML_WYSIWYG);
-        else $mf->AddField(t('Text'), 'text'. $val);
+        #$mf->AddField(t($translation->lang_names[$val]).'|'.t('Einen Text für die Sprache "%1" definieren', t($translation->lang_names[$val])), $val, 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+        if ($val == 'de') $valkey = '';
+        else $valkey = '_'. $val;
+        $mf->AddField(t('Seitentitel'), 'caption'. $valkey);
+        $mf->AddField(t('Untertitel'), 'shorttext'. $valkey);
+        if ($cfg['info2_use_fckedit']) $mf->AddField(t('Text'), 'text'. $valkey, '', HTML_WYSIWYG);
+        else $mf->AddField(t('Text'), 'text'. $valkey);
+        $mf->AddPage($translation->lang_names[$val]);
       }
       $mf->AdditionalDBUpdateFunction = 'Update';
       $mf->SendForm('index.php?mod=info2&action=change&step=2', 'info', 'infoID', $_GET['infoID']);
