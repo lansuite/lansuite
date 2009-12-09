@@ -440,7 +440,7 @@
             </field>
             <field>
                 <name>date</name>
-                <type>int(15)</type>
+                <type>datetime</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -1102,23 +1102,15 @@
         <structure>
             <field>
                 <name>ip</name>
-                <type>varchar(15)</type>
-                <null></null>
+                <type>int(11) unsigned</type>
+                <null>YES</null>
                 <key>PRI</key>
                 <default></default>
                 <extra></extra>
             </field>
             <field>
-                <name>dns</name>
-                <type>varchar(50)</type>
-                <null></null>
-                <key></key>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
                 <name>module</name>
-                <type>varchar(20)</type>
+                <type>char(20)</type>
                 <null></null>
                 <key>IND</key>
                 <default></default>
@@ -1135,15 +1127,15 @@
         <structure>
             <field>
                 <name>ip</name>
-                <type>varchar(15)</type>
-                <null></null>
+                <type>int(11) unsigned</type>
+                <null>YES</null>
                 <key>PRI</key>
                 <default></default>
                 <extra></extra>
             </field>
             <field>
                 <name>module</name>
-                <type>varchar(20)</type>
+                <type>char(20)</type>
                 <null></null>
                 <key>IND</key>
                 <default></default>
@@ -1159,40 +1151,24 @@
         </table_head>
         <structure>
             <field>
+                <name>id</name>
+                <type>int(11) unsigned</type>
+                <null></null>
+                <key>PRI</key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
                 <name>ip</name>
-                <type>varchar(15)</type>
-                <null></null>
-                <key></key>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
-                <name>module</name>
-                <type>varchar(20)</type>
-                <null></null>
-                <key>IND</key>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
-                <name>action</name>
-                <type>varchar(20)</type>
-                <null></null>
-                <key></key>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
-                <name>step</name>
-                <type>varchar(20)</type>
-                <null></null>
+                <type>int(11) unsigned</type>
+                <null>YES</null>
                 <key></key>
                 <default></default>
                 <extra></extra>
             </field>
             <field>
                 <name>date</name>
-                <type>int(20)</type>
+                <type>timestamp</type>
                 <null></null>
                 <key></key>
                 <default>0</default>

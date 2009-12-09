@@ -21,7 +21,7 @@ switch($_GET["step"]) {
 		if (!$sec->locked("ip_block")) {
 			$db->qry("TRUNCATE TABLE %prefix%ip_blacklist");
 			$blacklist = split("\n", $_POST["blacklist"]);
-			foreach ($blacklist as $entry) $db->qry("INSERT INTO %prefix%ip_blacklist SET ip = %string%", $entry);
+			foreach ($blacklist as $entry) $db->qry("INSERT INTO %prefix%ip_blacklist SET ip = INET_ATON(%string%)", $entry);
 
 			$func->confirmation("Blacklist wurde aktuallisiert", "index.php?mod=misc&action=ip_block");
 
