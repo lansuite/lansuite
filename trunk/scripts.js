@@ -170,7 +170,7 @@ function ActivateTab(id) {
   $("div[name='tabs']").each(function (i) {
     this.style.display = "none";
   });
-  $("div#tab"+id).attr("style", "display:inline")
+  $("div#tab"+id).removeAttr("style");
 }
 
 function DropDownBoxActivate(name, id, list) {

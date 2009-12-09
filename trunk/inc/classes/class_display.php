@@ -85,7 +85,9 @@ class display {
 
   function StartTab() {
     global $MainContent;
-    $MainContent .= '<div id="tab'. (int)$this->CurrentTab .'" name="tabs">';
+    ($this->CurrentTab == $_GET['tab'] or ($_GET['tab'] == '' and $this->CurrentTab == 0))? $style = ''
+      : $style = ' style="display:none"';
+    $MainContent .= '<div id="tab'. (int)$this->CurrentTab .'" name="tabs"'. $style .'>';
     $this->CurrentTab++;
   }
 
