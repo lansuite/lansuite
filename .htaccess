@@ -1,0 +1,21 @@
+#RewriteEngine On
+#
+#RewriteBase /lansuite-svn/
+#RewriteRule ^(.*)/(.*)/(.*)/(.*)/(.*)/index.html$ index.php?mod=$1&action=$2&step=$3&$4=$5 [L]
+#RewriteRule ^(.*)/(.*)/(.*)/(.*)/index.html$ index.php?mod=$1&action=$2&step=$3&$4 [L]
+#RewriteRule ^(.*)/(.*)/(.*)/index.html$ index.php?mod=$1&action=$2&$3 [L]
+#RewriteRule ^(.*)/(.*)/index.html$ index.php?mod=$1&$2 [L]
+#
+#RewriteRule ^(.*)/(design/(.*))$ $2 [L]
+#RewriteRule ^(.*)/(ext_inc/(.*))$ $2 [L]
+#RewriteRule ^(.*)/(index.php)$ $2 [L]
+
+# 2 days cache for images
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf)$">
+Header set Cache-Control "max-age=172800, public"
+</FilesMatch>
+ 
+# 2 hours cache for css and js
+<FilesMatch "\.(css|js)$">
+Header set Cache-Control "max-age=7200, private, must-revalidate"
+</FilesMatch>
