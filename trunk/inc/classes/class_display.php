@@ -74,19 +74,28 @@ class display {
 
   function AddTabs($tabs) {
     global $MainContent;
-
+/*
     foreach ($tabs as $key => $name) {
       if ($key == $_GET['tab'] or ($_GET['tab'] == '' and $key == 0)) $class = 'HeaderMenuItemActive';
       else $class = 'HeaderMenuItem';
-      $items .= '<span id="tablink'. $key .'" name="tablinks" class="'. $class .'"><a href="javascript:ActivateTab('. $key .')">'. $name .'</a></span>';    }
+      $items .= '<span id="tablink'. $key .'" name="tablinks" class="'. $class .'"><a href="javascript:ActivateTab('. $key .')">'. $name .'</a></span>';
+    }
     $MainContent .= $items;
+    */
+    foreach ($tabs as $key => $name) {
+      $items .= '<li><a href="#tabs-'. $key .'">'. $name .'</a></li>';
+    }
+    $MainContent .= '<div id="tabs"><ul>'. $items .'</ul>';
   }
 
   function StartTab() {
     global $MainContent;
+/*
     ($this->CurrentTab == $_GET['tab'] or ($_GET['tab'] == '' and $this->CurrentTab == 0))? $style = ''
       : $style = ' style="display:none"';
     $MainContent .= '<div id="tab'. (int)$this->CurrentTab .'" name="tabs"'. $style .'>';
+*/
+    $MainContent .= '<div id="tabs-'. (int)$this->CurrentTab .'">';
     $this->CurrentTab++;
   }
 
