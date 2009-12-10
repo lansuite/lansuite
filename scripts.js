@@ -377,3 +377,7 @@ function TX_hideToolTip() {
         document.getElementById("tooltip").style.visibility = "hidden"; 
         document.getElementById("tooltip").innerHTML = "false"; 
 }
+
+$(function() {
+	$("#tabs").tabs();
+});
