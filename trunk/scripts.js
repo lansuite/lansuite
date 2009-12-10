@@ -8,17 +8,6 @@ function BodyOnload(nifty) {
   // Load Google-Maps, if map-element is found
   if (document.getElementById("GoogleMaps")) ShowMap();
 
-  // Load nifty-corners
-  if (nifty) {
-    Nifty("ul.BoxHeadline", "top");
-    Nifty("ul.BoxContent", "transparent bottom");
-    Nifty("div#Content", "big");
-    Nifty("li.Confirmation", "big");
-    Nifty("li.Information", "big");
-    Nifty("li.Err", "big");
-    Nifty("div.Button a", "transparent");
-  }
-
   // Focus on userid field in checkin assistant
   if (document.CheckinAssistantUseridForm) if (document.CheckinAssistantUseridForm.userid) document.CheckinAssistantUseridForm.userid.focus();
 }
