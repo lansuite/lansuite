@@ -199,6 +199,7 @@
         // FIX : Maybe its a good Idea make a func::get_activemodules()
         // Fetch all names of active modules
         $ActiveModules = array();
+        $framework->AddToPageTitle($cfg['sys_page_title']);
         $res = $db->qry('SELECT name, caption FROM %prefix%modules WHERE active = 1');
         while($row = $db->fetch_array($res)) {
           $ActiveModules[] = $row['name'];
@@ -260,10 +261,6 @@
 ### Complete Framework and Output HTML
 
     $framework->set_design($auth['design']); 
-    $framework->add_js_path('ext_scripts/jquery-1.3.2.min.js');
-    $framework->add_js_path('ext_scripts/jquery-ui/jquery-ui-1.7.2.custom.min.js');
-    $framework->add_js_path('scripts.js');
-    $framework->add_css_path('ext_scripts/jquery-ui/smoothness/jquery-ui-1.7.2.custom.css');
     #$framework->add_css_path('design/ui.tabs.css');
     #$framework->add_js_path('ext_scripts/jquery/jquery.js');
     #$framework->add_js_path('ext_scripts/jquery/jquery.timer.js');

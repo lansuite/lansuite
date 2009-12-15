@@ -186,8 +186,10 @@ class framework {
   function AddToPageTitle($add) {
     global $cfg;
 
-    if ($this->pageTitle == '') $this->pageTitle = $cfg['sys_page_title'];
-    if ($add) $this->pageTitle .= ' - '. $add;
+    if ($add) {
+      if ($this->pageTitle == '') $this->pageTitle = $add;
+      else $this->pageTitle .= ' - '. $add;
+    }
   } 
 
   /**
