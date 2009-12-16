@@ -148,7 +148,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
 
 // Details page
 } else {
-	$func->SetRead('bugtracker', $_GET['bugid']);
+  $func->SetRead('bugtracker', $_GET['bugid']);
 
   $row = $db->qry_first("SELECT b.*, UNIX_TIMESTAMP(b.changedate) AS changedate, UNIX_TIMESTAMP(b.date) AS date, r.username AS reporter_name, a.username AS agent_name FROM %prefix%bugtracker AS b
     LEFT JOIN %prefix%user AS r ON b.reporter = r.userid
@@ -157,20 +157,23 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     );
 
   $dsp->NewContent($row['caption'], $types[$row['type']] .', '. t('Priorität') .': '. $row['priority']);
-	$framework->AddToPageTitle($row['caption']);
+  $dsp->AddTabs(array (t('Eintrag und Kommentare'), t('Log')));
+  
+  $dsp->StartTab();
+  $framework->AddToPageTitle($row['caption']);
 
-	$dsp->AddDoubleRow(t('Herkunft'), '<a href="http://'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> Version('. $row['version'] .')');
-	$dsp->AddDoubleRow(t('Reporter'), $row['reporter_name'] .' '. $dsp->FetchUserIcon($row['reporter']));
-	$dsp->AddDoubleRow(t('Betrifft Modul'), $row['module']);
-	$dsp->AddDoubleRow(t('Meldezeitpunkt'), $func->unixstamp2date($row['date'], 'daydatetime'));
-	$dsp->AddDoubleRow(t('Letzte Änderung'), $func->unixstamp2date($row['changedate'], 'daydatetime'));
+  $dsp->AddDoubleRow(t('Herkunft'), '<a href="http://'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> Version('. $row['version'] .')');
+  $dsp->AddDoubleRow(t('Reporter'), $row['reporter_name'] .' '. $dsp->FetchUserIcon($row['reporter']));
+  $dsp->AddDoubleRow(t('Betrifft Modul'), $row['module']);
+  $dsp->AddDoubleRow(t('Meldezeitpunkt'), $func->unixstamp2date($row['date'], 'daydatetime'));
+  $dsp->AddDoubleRow(t('Letzte Änderung'), $func->unixstamp2date($row['changedate'], 'daydatetime'));
 
-	$dsp->AddDoubleRow(t('Status'), $bugtracker->stati[$row['state']]);
+  $dsp->AddDoubleRow(t('Status'), $bugtracker->stati[$row['state']]);
         if ($row['price']) $dsp->AddDoubleRow(t('Gespendet'), (int)$row['price_payed'] .'&euro; / '. $row['price'] .'&euro; ['. (round((((int)$row['price_payed'] / (int)$row['price']) * 100), 1)) .'%]<br /><font color="red">'. t('Dieses Feature wird erst umgesetzt, wenn genug dafür gespendet wurde. Um selbst etwas zu Spenden, schreiben Sie bitte den eingetragenen Bearbeiter an. Dieser kann Ihnen dann seine Kontodaten mitteilen') .'</font>');
-	if ($row['agent']) $dsp->AddDoubleRow(t('Bearbeiter'), $row['agent_name'] .' '. $dsp->FetchUserIcon($row['agent']));
-	else $dsp->AddDoubleRow(t('Bearbeiter'), t('Noch nicht zugeordnet'));
+  if ($row['agent']) $dsp->AddDoubleRow(t('Bearbeiter'), $row['agent_name'] .' '. $dsp->FetchUserIcon($row['agent']));
+  else $dsp->AddDoubleRow(t('Bearbeiter'), t('Noch nicht zugeordnet'));
 
-	if ($row['revision']) $dsp->AddDoubleRow(t('SVN-Revision'), $row['revision'] .' (<a href="http://code.google.com/p/lansuite/source/detail?r='. $row['revision'] .'" target="_blank">'. t('Änderungen anzeigen') .'</a>)');
+  if ($row['revision']) $dsp->AddDoubleRow(t('SVN-Revision'), $row['revision'] .' (<a href="http://code.google.com/p/lansuite/source/detail?r='. $row['revision'] .'" target="_blank">'. t('Änderungen anzeigen') .'</a>)');
 
   if ($auth['type'] >= 2) {
     include_once('inc/classes/class_masterform.php');
@@ -179,9 +182,9 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     $mf->SendForm('', 'bugtracker', 'bugid', $_GET['bugid']);
   }
 
-	$dsp->AddDoubleRow(t('Text'), $func->text2html($row['text']));
+  $dsp->AddDoubleRow(t('Text'), $func->text2html($row['text']));
   if ($row['file']) $dsp->AddDoubleRow(t('Anhang'), $dsp->FetchAttachmentRow($row['file']));
-	$dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Editieren'), 'index.php?mod=bugtracker&action=add&bugid='.$row['bugid']) . $dsp->FetchSpanButton(t('Zurück zur Übersicht'), 'index.php?mod=bugtracker'));
+  $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Editieren'), 'index.php?mod=bugtracker&action=add&bugid='.$row['bugid']) . $dsp->FetchSpanButton(t('Zurück zur Übersicht'), 'index.php?mod=bugtracker'));
 
   if ($auth['login']) {
     include_once('inc/classes/class_masterform.php');
@@ -198,22 +201,26 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
     }
   }
 
-	include('inc/classes/class_mastercomment.php');
-	new Mastercomment('BugEintrag', $_GET['bugid'], array('bugtracker' => 'bugid'));
+  include('inc/classes/class_mastercomment.php');
+  new Mastercomment('BugEintrag', $_GET['bugid'], array('bugtracker' => 'bugid'));
+  $dsp->EndTab();
 
-	$dsp->AddFieldsetStart('Log');
+  $dsp->StartTab();
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('bugtracker');
 
   $ms2->query['from'] = "%prefix%log AS l LEFT JOIN %prefix%user AS u ON l.userid = u.userid";
   $ms2->query['where'] = "(sort_tag = 'bugtracker' AND target_id = ". (int)$_GET['bugid'] .')';
+  $ms2->config['EntriesPerPage'] = 50;
 
   $ms2->AddResultField('', 'l.description');
   $ms2->AddSelect('u.userid');
   $ms2->AddResultField('', 'u.username', 'UserNameAndIcon');
   $ms2->AddResultField('', 'UNIX_TIMESTAMP(l.date) AS date', 'MS2GetDate');
   $ms2->PrintSearch('index.php?mod=bugtracker&bugid='. $_GET['bugid'], 'logid');
-	$dsp->AddFieldsetEnd();
+  $dsp->EndTab();
+  
+  $dsp->EndTabs();
 }
 
 $dsp->AddContent();
