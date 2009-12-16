@@ -70,6 +70,9 @@ div#Content {
     -webkit-border-bottom-left-radius: 8px;
     -webkit-border-bottom-right-radius: 8px;
 }
+div#tabs {
+  	background: #eee6e6;
+}
 div#ContentFullscreen {
   	position: absolute;   
   	top: 40px;    

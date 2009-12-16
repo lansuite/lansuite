@@ -261,14 +261,7 @@
 ### Complete Framework and Output HTML
 
     $framework->set_design($auth['design']); 
-    #$framework->add_css_path('design/ui.tabs.css');
-    #$framework->add_js_path('ext_scripts/jquery/jquery.js');
-    #$framework->add_js_path('ext_scripts/jquery/jquery.timer.js');
-    #$framework->add_js_path('ext_scripts/jquery/ui/ui.core.js');
-    #$framework->add_js_path('ext_scripts/jquery/plugins/dimensions/jquery.dimensions.js');
-    #$framework->add_js_path('ext_scripts/jquery/ui/ui.tabs.js');
-    #if($_GET['action'] != 'wizard' && $auth['login'] == 1) $framework->add_js_path('modules/msgsys2/js/msgsys2.js');
-    
+
     $db->DisplayErrors();
     $framework->add_content($FrameworkMessages);    // Add old Frameworkmessages (sollten dann ausgetauscht werden)
     $framework->add_content($MainContent);          // Add oll MainContent-Variable (sollte auch bereinigt werden)
