@@ -54,6 +54,13 @@ class framework {
             $this->internal_url_query['host'] = $CurentURL['host'];
         }
         if (!$this->internal_url_query['host']) $this->internal_url_query['host'] = $_SERVER['SERVER_NAME'];
+        
+        $this->add_js_path('ext_scripts/jquery-1.3.2.min.js');
+        $this->add_js_path('ext_scripts/jquery-ui/jquery-ui-1.7.2.custom.min.js');
+        $this->add_js_path('scripts.js');
+
+        $this->add_css_path('ext_scripts/jquery-ui/smoothness/jquery-ui-1.7.2.custom.css');
+        $this->add_css_path('design/style.css');
     }
 
   /**

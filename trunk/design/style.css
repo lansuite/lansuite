@@ -161,12 +161,12 @@ li.Confirmation {
   margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
   background: #84cd82;
   list-style: none;
-	-moz-border-radius-topleft: 8px;
-	-moz-border-radius-topright: 8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-topright: 8px;
   -webkit-border-top-left-radius: 8px;
   -webkit-border-top-right-radius: 8px;
-	-moz-border-radius-bottomleft: 8px;
-	-moz-border-radius-bottomright: 8px;
+  -moz-border-radius-bottomleft: 8px;
+  -moz-border-radius-bottomright: 8px;
   -webkit-border-bottom-left-radius: 8px;
   -webkit-border-bottom-right-radius: 8px;
 }
@@ -174,12 +174,12 @@ li.Err {
   margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
   background: #f33737;
   list-style: none;
-	-moz-border-radius-topleft: 8px;
-	-moz-border-radius-topright: 8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-topright: 8px;
   -webkit-border-top-left-radius: 8px;
   -webkit-border-top-right-radius: 8px;
-	-moz-border-radius-bottomleft: 8px;
-	-moz-border-radius-bottomright: 8px;
+  -moz-border-radius-bottomleft: 8px;
+  -moz-border-radius-bottomright: 8px;
   -webkit-border-bottom-left-radius: 8px;
   -webkit-border-bottom-right-radius: 8px;
 }
@@ -187,17 +187,17 @@ li.Information {
   margin: 8px 2px 8px 2px;   padding: 8px 4px 10px 8px;
   background: #f8ae38;
   list-style: none;
-	-moz-border-radius-topleft: 8px;
-	-moz-border-radius-topright: 8px;
+  -moz-border-radius-topleft: 8px;
+  -moz-border-radius-topright: 8px;
   -webkit-border-top-left-radius: 8px;
   -webkit-border-top-right-radius: 8px;
-	-moz-border-radius-bottomleft: 8px;
-	-moz-border-radius-bottomright: 8px;
+  -moz-border-radius-bottomleft: 8px;
+  -moz-border-radius-bottomright: 8px;
   -webkit-border-bottom-left-radius: 8px;
   -webkit-border-bottom-right-radius: 8px;
 }
 li.Information > A, li.Confirmation > A, li.Err > A {
-	color: DarkBlue;
+  color: DarkBlue;
 }
 
 /*

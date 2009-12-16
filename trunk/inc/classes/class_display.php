@@ -475,7 +475,7 @@ class display {
   }
 
   function AddDateTimeRow($name, $key, $time, $errortext, $values = NULL, $disableds = NULL, $start_year = NULL, $end_year = NULL, $hidetime = NULL, $optional = NULL, $additional = NULL) {
-    global $smarty;
+    global $smarty, $framework;
 
     $smarty->assign('name', $name);
     $smarty->assign('key', $key);
@@ -547,6 +547,24 @@ class display {
     if ($hidetime != 2) $smarty->assign('showdate', '1');
 
     $this->AddContentLine($smarty->fetch('design/templates/ls_row_datetime.htm'));
+
+/*
+    // Experiment mit JQueryUI Datepicker
+
+    ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
+    ($optional)? $optional = "_optional" : $optional = '';
+    ($not_changeable)? $not_changeable = ' readonly="readonly"' : $not_changeable = '';
+    if ($maxlength) $maxlength = ' maxlength="'. $maxlength .'"';
+    if ($size == '') $size = '30';
+
+    $framework->add_js_code('$(function() {
+		$("#datepicker").datepicker();
+	});');
+
+    $value = '<input type="text" id="datepicker" name="'. $name .'" class="form'. $optional .'" size="'. $size .'"'. $not_changeable .' value="'. $value .'"'. $maxlength .' />'. $errortext;
+    $key = '<label for="'. $name .'">'. $key .'</label>';
+    $this->AddDoubleRow($key, $value);
+*/
   }
 
   function AddHRuleRow() {
