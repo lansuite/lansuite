@@ -139,6 +139,7 @@
 //------------------------------------------------------------------------------------------------------------+
 //[ STAND-ALONE VERSION DATABASE SETTINGS - MAINLY USED FOR THE STAND-ALONE VERSION ]
 
+  if (file_exists('inc/base/config.php')) $config = parse_ini_file('inc/base/config.php', 1);
   if (file_exists('../../inc/base/config.php')) $config = parse_ini_file('../../inc/base/config.php', 1);
   $lgsl_config['db']['server'] = $config['database']['server'];
   $lgsl_config['db']['user']   = $config['database']['user'];
