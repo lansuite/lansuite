@@ -579,7 +579,7 @@ class masterform {
           if ($page['caption'] and count($this->Pages) > 1) $dsp->EndTab();
         } // End: Pages loop
 
-        if ($this->Pages and count($this->Pages) > 1) $dsp->EndTab();
+        if ($this->Pages and count($this->Pages) > 1) $dsp->EndTabs();
         
         if ($this->SendButtonText) $dsp->AddFormSubmitRow($this->SendButtonText);
             elseif ($id or $this->MultiLineID) $dsp->AddFormSubmitRow('Editieren');

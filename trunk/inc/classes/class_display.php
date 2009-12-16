@@ -73,7 +73,7 @@ class display {
   }
 
   function AddTabs($tabs) {
-    global $MainContent;
+    global $MainContent, $framework;
 /*
     foreach ($tabs as $key => $name) {
       if ($key == $_GET['tab'] or ($_GET['tab'] == '' and $key == 0)) $class = 'HeaderMenuItemActive';
@@ -86,6 +86,11 @@ class display {
       $items .= '<li><a href="#tabs-'. $key .'">'. $name .'</a></li>';
     }
     $MainContent .= '<div id="tabs"><ul>'. $items .'</ul>';
+
+    ($_GET['tab'])? $sel = '{ selected: '. (int)$_GET['tab'] .' }' : $sel = '';
+    $framework->add_js_code('$(function() {
+	   $("#tabs").tabs('. $sel .');
+    });');
   }
 
   function StartTab() {
@@ -100,6 +105,11 @@ class display {
   }
 
   function EndTab() {
+    global $MainContent;
+    $MainContent .= '</div>';
+  }
+
+  function EndTabs() {
     global $MainContent;
     $MainContent .= '</div>';
   }
