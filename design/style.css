@@ -81,6 +81,10 @@ div.textContent {
     font-size: 10pt;
     padding: 24px 16px 16px 16px;
 }
+div.textContent a{
+    color: #444444;
+    text-decoration:underline;
+}
 
 /*
 *   Line definitions for the LS-typical 2-column tables
