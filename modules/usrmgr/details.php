@@ -248,48 +248,29 @@ else {
   $dsp->EndTab();
   $dsp->StartTab(t('Sonstiges'));
 
-  // forumposts
-  $dsp->AddDoubleRow(t('Board Posts'), $user_data['posts'].$count_rows['count']);
+  // logins, last login
+  if ($auth['type'] >= 2) {
+      $lastLoginTS = $db->qry_first("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", $_GET['userid']);
+      $dsp->AddDoubleRow(t('Logins'), $user_data['logins']);
+      if ($lastLoginTS['max(logintime)']) $loginTime = t('am/um: ') . $func->unixstamp2date($lastLoginTS['max(logintime)'], "datetime");
+      else $loginTime = t('noch nicht eingeloggt');
+      $dsp->AddDoubleRow(t('Letzter Login'), $loginTime);
+  }
 
-  // Threads
-  $get_board_threads = $db->qry("SELECT b.tid, b.date, t.caption FROM %prefix%board_posts AS b
-          LEFT JOIN %prefix%board_threads AS t ON b.tid = t.tid
-          LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
-		WHERE b.userid = %int% AND (f.need_type <= %string% OR f.need_type = '1')
-          GROUP BY b.tid
-          ORDER BY b.date DESC
-          LIMIT 10
-          ", $_GET['userid'], $auth['type']);
+  // signature
+  $dsp->AddDoubleRow(t('Signatur'), $func->text2html($user_data['signature']));
 
-    while($row_threads = $db->fetch_array($get_board_threads)) {
-      $threads .= $func->unixstamp2date($row_threads['date'], "datetime")." - <a href=\"index.php?mod=board&action=thread&tid={$row_threads['tid']}\">{$row_threads['caption']}</a>". HTML_NEWLINE;
-    }
-    $db->free_result($get_board_threads);
-    $dsp->AddDoubleRow(t('Letzte 10 Threads'), $threads);
+  // avatar
+  ($user_data['avatar_path'] != "" AND $user_data['avatar_path'] != "0") ?
+      $avatar = "<img border=\"0\" src=\"". $user_data['avatar_path'] . "\">"
+      : $avatar = t('Dieser Benutzer hat keinen Avatar ausgewählt.');
+  $dsp->AddDoubleRow(t('Avatar'), $avatar);
 
-    // logins, last login
-    if ($auth['type'] >= 2) {
-        $lastLoginTS = $db->qry_first("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", $_GET['userid']);
-        $dsp->AddDoubleRow(t('Logins'), $user_data['logins']);
-        if ($lastLoginTS['max(logintime)']) $loginTime = t('am/um: ') . $func->unixstamp2date($lastLoginTS['max(logintime)'], "datetime");
-        else $loginTime = t('noch nicht eingeloggt');
-        $dsp->AddDoubleRow(t('Letzter Login'), $loginTime);
-    }
-
-    // signature
-    $dsp->AddDoubleRow(t('Signatur'), $func->text2html($user_data['signature']));
-
-    // avatar
-    ($user_data['avatar_path'] != "" AND $user_data['avatar_path'] != "0") ?
-        $avatar = "<img border=\"0\" src=\"". $user_data['avatar_path'] . "\">"
-        : $avatar = t('Dieser Benutzer hat keinen Avatar ausgewählt.');
-    $dsp->AddDoubleRow(t('Avatar'), $avatar);
-
-    // Including comment-engine
-    if($auth["login"] == 1) {
-      include('inc/classes/class_mastercomment.php');
-      new Mastercomment('User', $_GET['userid']);
-    }
+  // Including comment-engine
+  if($auth["login"] == 1) {
+    include('inc/classes/class_mastercomment.php');
+    new Mastercomment('User', $_GET['userid']);
+  }
 
   $dsp->EndTab();
   
