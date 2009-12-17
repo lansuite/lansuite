@@ -193,16 +193,7 @@ class auth {
                 $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate WHERE userid = %int%', $user['userid']);
                 
                 // If not logged in by cookie, generete new cookie and store it
-                if (!$cookierow['userid']) {
-                    $password_cookie = $this->gen_rnd_key(40);
-                    $db->qry('INSERT INTO %prefix%cookie SET password = %string%, userid = %int%', md5($password_cookie),  $user['userid']);
-                    $this->cookie_data['userid'] = $db->insert_id();
-                    $this->cookie_data['uniqekey'] = $password_cookie;
-                    $this->cookie_data['version'] = $this->cookie_version;
-                    $this->cookie_data['olduserid'] = "";
-                    $this->cookie_data['sb_code'] = "";
-                    $this->cookie_set();
-                }
+                if (!$cookierow['userid']) $this->set_cookie_pw($user['userid']);
 
                 if ($cfg["sys_logoffdoubleusers"]) {
                     $db->qry('DELETE FROM %prefix%stats_auth WHERE userid = %int%', $user['userid']);
@@ -488,28 +479,22 @@ class auth {
     }
 
   /**
-   * Set Cookie for Installadmin
+   * Generate a new CookiePW and set it (in DB + Cookie)
    *
-   * @return void
+   * @access public
    */
-    function set_install_cookie($email, $password) {
-        global $db;
+    function set_cookie_pw($userid) {
+      global $db;
+      
+      $password_cookie = $this->gen_rnd_key(40);
+      $db->qry('INSERT INTO %prefix%cookie SET password = %string%, userid = %int%', md5($password_cookie),  $userid);
 
-        $email = strtolower(htmlspecialchars(trim($email)));
-        $user = $db->qry_first('SELECT userid, password FROM %prefix%user WHERE LOWER(email) = %string%', $email);
-
-        // Generate cookie PW
-        $password_cookie = $this->gen_rnd_key(40);
-
-        // Set new Cookie PW
-        $db->qry('UPDATE %prefix%user SET password_cookie = %string% WHERE userid = %int%', md5($password_cookie), $user['userid']);
-
-        $this->cookie_data['userid'] = $user['userid'];
-        $this->cookie_data['uniqekey'] = $password_cookie;
-        $this->cookie_data['version'] = $this->cookie_version;
-        $this->cookie_data['olduserid'] = "";
-        $this->cookie_data['sb_code'] = "";
-        $this->cookie_set();
+      $this->cookie_data['userid'] = $db->insert_id();
+      $this->cookie_data['uniqekey'] = $password_cookie;
+      $this->cookie_data['version'] = $this->cookie_version;
+      $this->cookie_data['olduserid'] = "";
+      $this->cookie_data['sb_code'] = "";
+      $this->cookie_set();
     }
 
   /**
