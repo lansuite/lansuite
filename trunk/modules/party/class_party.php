@@ -7,46 +7,50 @@ class party{
 	
   // Constructor
 	function party(){
-		global $cfg, $db, $config;
+		global $cfg, $db;
 
-		if (is_numeric($_GET['set_party_id'])) $this->party_id = $_GET['set_party_id'];
-		elseif (is_numeric($_POST['set_party_id'])) $this->party_id = $_POST['set_party_id'];
-		elseif (is_numeric($_SESSION['party_id'])) $this->party_id = $_SESSION['party_id'];
-		elseif (is_numeric($cfg['signon_partyid'])) $this->party_id = $cfg['signon_partyid'];
+        // Set new Session PartyID on GET or POST
+		if (is_numeric($_GET['set_party_id'])) $_SESSION['party_id'] = $this->party_id;
+        elseif (is_numeric($_POST['set_party_id'])) $_SESSION['party_id'] = $this->party_id;
 
-    $this->UpdatePartyArray();
+        if (is_numeric($_SESSION['party_id'])) {
+            // Look whether this partyId exists
+            $row = $db->qry_first('SELECT 1 AS found FROM %prefix%partys WHERE party_id = %int%', $_SESSION['party_id']);
+            if ($row['found']) $this->party_id = $_SESSION['party_id'];
+            else {
+                $this->party_id = $cfg['signon_partyid'];
+                unset($_SESSION['party_id']);
+            }
+		} else $this->party_id = $cfg['signon_partyid'];
 
-		$_SESSION['party_id'] = $this->party_id;
+        $this->UpdatePartyArray();
 	}
 
 	// Read PartyInfo into Vars
 	function UpdatePartyArray(){
-	global $cfg, $db, $config;
+    	global $cfg, $db;
 
-    if ($db->success) {
-      // Count Partys
-  		$res = $db->qry("SELECT * FROM %prefix%partys");
-  		$this->count = $db->num_rows($res);
-  		$db->free_result($res);
+        if ($db->success) {
+            // Count Partys
+    		$res = $db->qry("SELECT * FROM %prefix%partys");
+    		$this->count = $db->num_rows($res);
+    		$db->free_result($res);
 
-  		if ($this->count == 0) {
-    		$cfg['signon_partyid'] = 0;
-    		$this->party_id = 0;
-      }
+  			$_SESSION['party_info'] = array();
+      	    if ($this->count > 0) {
+    			$row = $db->qry_first("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM %prefix%partys WHERE party_id=%int%", $this->party_id);
+    			$this->data = $row;
 
-			$row = $db->qry_first("SELECT name, ort, plz, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate, max_guest FROM %prefix%partys WHERE party_id=%int%", $this->party_id);
-			$this->data = $row;
-
-			$_SESSION['party_info'] = array();
-			$_SESSION['party_info']['name']			= $row['name'];
-			$_SESSION['party_info']['partyort']		= $row['ort'];
-			$_SESSION['party_info']['partyplz']		= $row['plz'];
-			$_SESSION['party_info']['partybegin'] 	= $row['startdate'];
-			$_SESSION['party_info']['partyend'] 	= $row['enddate'];
-			$_SESSION['party_info']['s_startdate'] 	= $row['sstartdate'];
-			$_SESSION['party_info']['s_enddate'] 	= $row['senddate'];
-			$_SESSION['party_info']['max_guest'] 	= $row['max_guest'];
-    }
+    			$_SESSION['party_info']['name']			= $row['name'];
+    			$_SESSION['party_info']['partyort']		= $row['ort'];
+    			$_SESSION['party_info']['partyplz']		= $row['plz'];
+    			$_SESSION['party_info']['partybegin'] 	= $row['startdate'];
+    			$_SESSION['party_info']['partyend'] 	= $row['enddate'];
+    			$_SESSION['party_info']['s_startdate'] 	= $row['sstartdate'];
+    			$_SESSION['party_info']['s_enddate'] 	= $row['senddate'];
+    			$_SESSION['party_info']['max_guest'] 	= $row['max_guest'];
+            }
+        }
 	}
 
 	function get_party_id(){
