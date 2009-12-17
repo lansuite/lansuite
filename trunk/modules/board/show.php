@@ -39,7 +39,7 @@ $ms2->AddSelect('f.description');
 $ms2->AddSelect('f.board_group');
 $ms2->AddResultField(t('Forum'), 'f.name', 'NameAndDesc');
 $ms2->AddResultField(t('Beiträge'), 'COUNT(p.pid) AS posts');
-$ms2->AddResultField(t('Letzter Beitrag'), 'MAX(p.date) AS LastPost', 'LastPostDetails');
+$ms2->AddResultField(t('Letzter Beitrag'), 'UNIX_TIMESTAMP(MAX(p.date)) AS LastPost', 'LastPostDetails');
 
 $ms2->AddIconField('details', 'index.php?mod=board&action=forum&fid=', t('Details'));
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=board&action=add&var=change&fid=', t('Editieren'));

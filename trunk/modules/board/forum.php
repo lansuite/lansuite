@@ -151,13 +151,13 @@ if ($_GET['fid'] == '') {
 
 $ms2->AddSelect('t.closed');
 $ms2->AddSelect('t.sticky');
-$ms2->AddResultField(t('Status'), 'r.date', 'NewPosts');
+$ms2->AddResultField(t('Status'), 'UNIX_TIMESTAMP(r.date) AS date', 'NewPosts');
 if ($_GET['fid'] != '') $ms2->AddResultField(t('Thread'), 't.caption', 'FormatTitle');
 else $ms2->AddResultField(t('Thread'), 'CONCAT(\'<b>\', f.name, \'</b><br />\', t.caption) AS ThreadName', 'FormatTitle');
 $ms2->AddResultField(t('Aufrufe'), 't.views');
 $ms2->AddResultField(t('Antworten'), '(COUNT(p.pid) - 1) AS posts');
-//$ms2->AddResultField(t('Erster Beitrag'), 'MIN(p.date) AS FirstPost', 'LastPostDetails');
-$ms2->AddResultField(t('Letzter Beitrag'), 'MAX(p.date) AS LastPost', 'LastPostDetails');
+//$ms2->AddResultField(t('Erster Beitrag'), 'UNIX_TIMESTAMP(MIN(p.date)) AS FirstPost', 'LastPostDetails');
+$ms2->AddResultField(t('Letzter Beitrag'), 'UNIX_TIMESTAMP(MAX(p.date)) AS LastPost', 'LastPostDetails');
 
 if ($_GET['action'] == 'bookmark') {
   $ms2->AddResultField(t('E-Mail'), 'b.email', 'TrueFalse');
