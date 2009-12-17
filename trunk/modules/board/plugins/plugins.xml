@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite>
+    <plugin>
+        <name>home</name>
+        <caption></caption>
+        <pos>2</pos>
+    </plugin>
+    <plugin>
+        <name>usrmgr_details_tab</name>
+        <caption>Board</caption>
+        <pos></pos>
+    </plugin>
+</lansuite>

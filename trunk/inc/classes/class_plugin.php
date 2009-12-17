@@ -26,7 +26,7 @@ class plugin {
     function plugin($type) {
       global $db, $ActiveModules;
 
-      $res = $db->qry('SELECT caption, module FROM %prefix%plugin WHERE pluginType = %string%', $type);
+      $res = $db->qry('SELECT caption, module FROM %prefix%plugin WHERE pluginType = %string% ORDER BY pos', $type);
       while ($row = $db->fetch_array($res)) {
         if (in_array($row['module'], $ActiveModules)) {
           $this->modules[] = $row['module'];

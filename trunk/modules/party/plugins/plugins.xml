@@ -3,13 +3,21 @@
     <plugin>
         <name>usrmgr_details_main</name>
         <caption>Aktive Party</caption>
+        <pos></pos>
     </plugin>
     <plugin>
         <name>usrmgr_details_tab</name>
         <caption>LAN-Teilnahme</caption>
+        <pos></pos>
     </plugin>
     <plugin>
         <name>usrmgr_search</name>
         <caption></caption>
+        <pos></pos>
+    </plugin>
+    <plugin>
+        <name>home</name>
+        <caption></caption>
+        <pos>12</pos>
     </plugin>
 </lansuite>

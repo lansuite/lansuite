@@ -299,7 +299,7 @@ class Install {
             $name, $caption, $description, $author, $email, $changeable, $version, $state, $reqPhp, $reqMysql);
         }
       }
-      
+
       // boxes.xml
       $file = "modules/$module/boxes/boxes.xml";
       if (file_exists($file)) {
@@ -307,7 +307,7 @@ class Install {
         $xml_file = fread ($handle, filesize ($file));
         fclose ($handle);
 
-        if ($module == 'install') $module = '';
+        ($module == 'install')? $modTmp = '' : $modTmp = $module;
 
         $boxes = $xml->get_tag_content_array("box", $xml_file);
         foreach ($boxes as $box) {
@@ -320,16 +320,16 @@ class Install {
           $source = $xml->get_tag_content("source", $box);
           $callback = $xml->get_tag_content("callback", $box);
 
-          $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $module);
+          $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
           if ($rewrite or !$mod_found['found']) {
-            $db->qry_first("DELETE FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $module);
+            $db->qry_first("DELETE FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
             $db->qry_first("INSERT INTO %prefix%boxes
               SET name=%string%, place=%string%, pos=%string%, active=%string%, internet=%string%, login=%string%, source=%string%, callback=%string%, module=%string%",
-              $name, $place, $pos, $active, $internet, $login, $source, $callback, $module);
+              $name, $place, $pos, $active, $internet, $login, $source, $callback, $modTmp);
           }
         }
       }
-      
+
       //plugins.xml
       $file = "modules/$module/plugins/plugins.xml";
       if (file_exists($file)) {
@@ -341,7 +341,8 @@ class Install {
         foreach ($plugins as $plugin) {
           $name = $xml->get_tag_content("name", $plugin);
           $caption = $xml->get_tag_content("caption", $plugin);
-          $db->qry_first("INSERT INTO %prefix%plugin SET module=%string%, pluginType=%string%, caption=%string%", $module, $name, $caption);
+          $pos = $xml->get_tag_content("pos", $plugin);
+          $db->qry_first("INSERT INTO %prefix%plugin SET module=%string%, pluginType=%string%, caption=%string%, pos=%int%", $module, $name, $caption, $pos);
         }
       }
     }
