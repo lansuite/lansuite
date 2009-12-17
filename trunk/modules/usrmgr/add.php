@@ -246,12 +246,12 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
       // If Admin, Creating a new user, or Missing fields:
       //   Show Username Field
       ($quick_signon)? $optional = 1 : $optional = 0;
-      if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) $mf->AddField(t('Benutzername'), 'username', '', '', $optional);
+      if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) $mf->AddField(t('Benutzername'), 'username', '', '', $optional, 'NoQuotes');
       else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, t('Als Benutzer können Sie Ihren Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden Sie sich dazu bitte an einen Administrator.'));
   
       if (!$quick_signon) {
-        if (ShowField('firstname')) $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));
-        if (ShowField('lastname')) $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'));
+        if (ShowField('firstname')) $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'), 'NoQuotes');
+        if (ShowField('lastname')) $mf->AddField(t('Nachname'), 'name', '', '', Optional('lastname'), 'NoQuotes');
         $mf->AddGroup(t('Namen'));
   
         // If Admin: Usertype, Group and Module-Permissions

@@ -303,6 +303,12 @@ class masterform {
               elseif ($field['type'] == IS_CAPTCHA and ($_POST['captcha'] == '' or $_SESSION['captcha'] != strtoupper($_POST['captcha'])))
                 $this->error['captcha'] = t('Captcha falsch wiedergegeben.');
 
+              // No \r \n \t \0 \x0B in Non-Multiline-Fields
+              elseif ($SQLFieldTypes[$field['name']] != 'text' and $SQLFieldTypes[$field['name']] != 'mediumtext' and $SQLFieldTypes[$field['name']] != 'longtext'
+                and ((strpos($_POST[$field['name']], "\r") !== false) or (strpos($_POST[$field['name']], "\n") !== false) or (strpos($_POST[$field['name']], "\t") !== false) or (strpos($_POST[$field['name']], "\0") !== false) or (strpos($_POST[$field['name']], "\x0B") !== false))) {
+                  $this->error[$field['name']] = t('Dieses Feld enthält nicht erlaubte Steuerungszeichen (z.B. einen Tab, oder Zeilenumbruch)');
+              }
+
               // Callbacks
               elseif ($field['callback']) {
                 $err = call_user_func($field['callback'], $_POST[$field['name']]);
@@ -726,5 +732,9 @@ global $cfg;
     if (in_array($hostName, $TrashMailDomains)) return t('Die Mail-Domain %1 ist nicht erlaubt, da sie Anbieter von "Wegwerf-Mails" ist', $hostName);
   }
   return false;
+}
+
+function NoQuotes($val) {
+    if ((strpos($val, '\'') !== false) or (strpos($val, '"') !== false)) return t('Es sind keine Anführungszeichen in diesem Feld erlaubt');
 }
 ?>
