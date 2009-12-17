@@ -231,7 +231,7 @@ class masterform {
       // Check for errors and convert data, if necessary (dates, passwords, ...)
       case 2:
         $this->FCKeditorID = 0;
-        if ($this->Groups) foreach ($this->Groups as $GroupKey => $group) {
+        if ($this->Pages) foreach ($this->Pages as $page) if ($page['groups']) foreach ($page['groups'] as $GroupKey => $group) {
           if ($group['fields']) foreach ($group['fields'] as $FieldKey => $field) if($field['name']) {
             $err = false;
 
