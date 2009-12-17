@@ -10,29 +10,8 @@ switch ($home_page) {
 	default:
 		$dsp->NewContent($cfg['sys_page_title'], t('Übersicht der neusten Aktivitäten auf %1.', $framework->internal_url_query['host']));
 
-#    $ModOverviews = array();
-    #if ($cfg['home_item_cnt_mail'] and in_array('mail', $ActiveModules) and $auth['login']) $ModOverviews[] = 'mail';
-    #if ($cfg['home_item_cnt_poll'] and in_array('poll', $ActiveModules)) $ModOverviews[] = 'poll';
-#		if (in_array('stats', $ActiveModules)
-#      and ($party->count > 0 or $auth['type'] >= 2)
-#      and (in_array('troubleticket', $ActiveModules)))
-#      $ModOverviews[] = 'stats';
-
     $z = 0;
-#    foreach($ModOverviews as $ModOverview) {
-#      if ($z % 2 == 0) {
-#        $MainContent .= '<ul class="Line">';
-#        $MainContent .= '<li class="LineLeftHalf">';
-#      } else $MainContent .= '<li class="LineRightHalf">';
-#      $smarty->assign('text2', '');
-#      include('modules/home/'. $ModOverview .'.inc.php');
-#      $smarty->assign('content', $content);
-#      $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
-#      $MainContent .= '</li>';
-#      if ($z % 2 == 1) $MainContent .= '</ul>';
-#      $z++;
-#    }
-    
+
     include_once("inc/classes/class_plugin.php");
     $plugin = new plugin('home');
     while (list($caption, $inc) = $plugin->fetch()) {
