@@ -20,7 +20,7 @@ while ($row = $db->fetch_array($res)) {
   $links .= '[<a href="index.php?mod=wiki&action=show&postid='. $_GET['postid'] .'&versionid='. $row['versionid'] .'">'. $row['versionid'];
   if ($_GET['versionid'] == $row['versionid']) $links .= ' - '. $row['username'] .'@'. $row['date'] .' ';
   $links .= '</a>';
-  if ($_GET['versionid'] == $row['versionid'] and $auth['type'] > 2) $links .= ' <a href="index.php?mod=wiki&action=delete&step=10&postid='. $_GET['postid'] .'&versionid='. $_GET['versionid'] .'" rel="nofollow"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="'. t('Löschen') .'" /></a> ';
+  if ($_GET['versionid'] == $row['versionid'] and $auth['type'] > 2) $links .= ' <a href="index.php?mod=wiki&action=delete&step=10&postid='. $_GET['postid'] .'&versionid='. $_GET['versionid'] .'" rel="nofollow" class="icon_delete" title="'. t('Löschen') .'"> </a> ';
   $links .= '] ';
 }
 $db->free_result($res);
@@ -28,7 +28,7 @@ $db->free_result($res);
 if ($auth['login']) $links .= '[<a href="index.php?mod=wiki&action=edit&postid='. $_GET['postid'] .'">'. t('Editieren') .'</a>] ';
 
 $links_main = '';
-if ($auth['type'] > 2) $links_main .= ' <a href="index.php?mod=wiki&action=delete&step=2&postid='. $_GET['postid'] .'"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="'. t('Löschen') .'" /></a>';
+if ($auth['type'] > 2) $links_main .= ' <a href="index.php?mod=wiki&action=delete&step=2&postid='. $_GET['postid'] .'" class="icon_delete" title="'. t('Löschen') .'"> </a>';
 
 $row = $db->qry_first('SELECT w.postid, w.name, v.text FROM %prefix%wiki AS w LEFT JOIN %prefix%wiki_versions AS v ON w.postid = v.postid
   WHERE w.postid = %int% AND v.versionid = %int%',
