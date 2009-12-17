@@ -78,16 +78,9 @@ if ($auth['type'] >= 3 and in_array('foodcenter', $ActiveModules)) {
 $ms2->AddIconField('locked', 'index.php?mod=usrmgr&step=11&userid=', t('Account freigeben'), 'IfLocked');
 $ms2->AddIconField('unlocked', 'index.php?mod=usrmgr&step=10&userid=', t('Account sperren'), 'IfUnlocked');
 
-// BEGIN Pluginsystem for Usermanager Search
 include_once("inc/classes/class_plugin.php");
-$plug_usrmgr_search = new plugin($ActiveModules,'usrmgr_search');
-foreach ($plug_usrmgr_search->get_list() as $plug_set) {
-    if (file_exists($plug_set['file'])) {
-        include($plug_set['file']);
-    }
-
-}
-// END Pluginsystem for Usermanager Search
+$plugin = new plugin('usrmgr_search');
+while (list($caption, $inc) = $plugin->fetch()) include_once($inc);
 
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=usrmgr&action=change&step=1&userid=', t('Editieren'));
 if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=delete&step=2&userid=', t('Löschen'));

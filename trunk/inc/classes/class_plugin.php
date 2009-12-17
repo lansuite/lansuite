@@ -12,61 +12,48 @@
  */
 class plugin {
 
-  /**#@+
+  /**
    * Intern Variables
    * @access private
    * @var mixed
    */
-    var $list    =     array();          // Arrayliste mit den Plugins
-  /**#@-*/
+    var $modules    =     array();
+    var $captions    =     array();
+    var $currentIndex = 0;
+    var $count = 0;
+    var $type = '';
 
-  /**
-   * Constructor Pluginsystem
-   * @param array   Array with active Modules
-   * @param string  Selected Plugin
-   */
-    function plugin($activemodules, $plugin) {
-        // Read Config of Plugins
-        foreach ($activemodules as $modul) {
-            $cfg_file = "modules/".$modul."/plugins/plugin_cfg.php";
-            // 
-            if (file_exists($cfg_file)) {
-               $cfg_plugin = parse_ini_file($cfg_file, 1);
-               if ($cfg_plugin[$plugin]['position'] > 0) $this->list[] =
-               array(
-                   "pos"     => $cfg_plugin[$plugin]['position'],
-                   "caption" => $cfg_plugin[$plugin]['caption'],
-                   "modul"   => $modul,
-                   "file"    => "modules/".$modul."/plugins/inc_".$plugin.".php",
-                   );
-            }
+    function plugin($type) {
+      global $db, $ActiveModules;
+
+      $res = $db->qry('SELECT caption, module FROM %prefix%plugin WHERE pluginType = %string%', $type);
+      while ($row = $db->fetch_array($res)) {
+        if (in_array($row['module'], $ActiveModules)) {
+          $this->modules[] = $row['module'];
+          ($row['caption'] != '')? $this->captions[] = $row['caption'] : $this->captions[] = $row['module'];
+          $this->count++;
         }
-        $this->list = $this->sortarray($this->list);
+      }
+      $db->free_result($res);
+      $this->type = $type;
     }
 
   /**
-   * Sortarray sorts an 2dimesional Array by "pos" Field
-   * @access private
-   * @param mixed Array with Pluginlist array("pos"=>'...', "caption"=>'..., "modul"=>'..., "file"=>'...);
-   * @return mixed Returns the sorted $plug_list Array
+   * Get the next (or specific) element
+   * @access public
+   * @return list(caption, include_string)
    */
-    function sortarray($plug_list) {
-         if (is_array($plug_list)) {
-             $plug_sort = array();
-             foreach($plug_list as $key => $array) {
-                 $plug_sort[$key] = $array['pos'];
-             }
-             array_multisort($plug_sort, SORT_ASC, SORT_NUMERIC, $plug_list);
-             return $plug_list;
-         }
-    }
-    
-  /**
-   * get_list returns the Generated Pluginslist as 2-dimensional Array
-   * @return mixed Returns the sorted $plug_list Array
-   */
-    function get_list() {
-        return $this->list;
+    function fetch($index = -1) {
+      if ($index == -1) (int)$index = $this->currentIndex;
+
+      if ($index >= $this->count) return false;
+
+      $arr = array();
+      $this->currentIndex = $index + 1;
+      $arr[] = $this->captions[$index];
+      $arr[] = 'modules/'. $this->modules[$index] .'/plugins/'. $this->type .'.php';
+
+      return $arr;
     }
 }
 ?>

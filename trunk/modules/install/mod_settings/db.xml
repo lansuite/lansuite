@@ -227,7 +227,7 @@
             </field>
             <field>
                 <name>cfg_module</name>
-                <type>varchar(50)</type>
+                <type>varchar(20)</type>
                 <null></null>
                 <key></key>
                 <default></default>
@@ -1648,6 +1648,45 @@
 				<extra></extra>
                 <foreign_key>user.userid</foreign_key>
     	       <on_delete>DELETE</on_delete>
+			</field>
+		</structure>
+    </table>
+	<table>
+		<table_head>
+			<name>plugin</name>
+		</table_head>
+		<structure>
+			<field>
+				<name>pluginid</name>
+				<type>int(11) unsigned</type>
+				<null></null>
+				<key>PRI</key>
+				<default></default>
+				<extra>auto_increment</extra>
+			</field>
+			<field>
+				<name>caption</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key></key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>module</name>
+				<type>varchar(20)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>pluginType</name>
+				<type>enum('home','signon','systemtest','usrmgr_details_tab','usrmgr_details_main','usrmgr_search')</type>
+				<null></null>
+				<key>IND</key>
+				<default>home</default>
+				<extra></extra>
 			</field>
 		</structure>
     </table>

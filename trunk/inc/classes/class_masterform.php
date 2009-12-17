@@ -364,12 +364,7 @@ class masterform {
         }
 
         // Write pages links
-        if ($this->Pages and count($this->Pages) > 1) {
-            foreach ($this->Pages as $PageKey => $page) {
-                $menunames[$PageKey] = $page['caption'];
-            }
-            $dsp->AddTabs($menunames);
-        }
+        if ($this->Pages and count($this->Pages) > 1) $dsp->StartTabs();
 
         // Output fields
         $z = 0;
@@ -377,7 +372,7 @@ class masterform {
         $this->FCKeditorID = 0;
         // Pages loop
         if ($this->Pages) foreach ($this->Pages as $PageKey => $page) {
-          if ($page['caption'] and count($this->Pages) > 1) $dsp->StartTab();
+          if ($page['caption'] and count($this->Pages) > 1) $dsp->StartTab($page['caption']);
 
           // Groups loop
           if ($page['groups']) foreach ($page['groups'] as $GroupKey => $group) {

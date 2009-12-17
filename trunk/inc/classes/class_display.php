@@ -13,6 +13,8 @@ class display {
   var $FirstLine = 1;
   var $TplVars = array();
   var $CurrentTab = 0;
+  var $TabsMainContentTmp = '';
+  var $tabNames = array();
 
   // Constructor
   function display() {
@@ -72,34 +74,17 @@ class display {
     $this->AddContentLine($smarty->fetch('design/templates/ls_row_headline.htm'));
   }
 
-  function AddTabs($tabs) {
-    global $MainContent, $framework;
-/*
-    foreach ($tabs as $key => $name) {
-      if ($key == $_GET['tab'] or ($_GET['tab'] == '' and $key == 0)) $class = 'HeaderMenuItemActive';
-      else $class = 'HeaderMenuItem';
-      $items .= '<span id="tablink'. $key .'" name="tablinks" class="'. $class .'"><a href="javascript:ActivateTab('. $key .')">'. $name .'</a></span>';
-    }
-    $MainContent .= $items;
-    */
-    foreach ($tabs as $key => $name) {
-      $items .= '<li><a href="#tabs-'. $key .'">'. $name .'</a></li>';
-    }
-    $MainContent .= '<div id="tabs"><ul>'. $items .'</ul>';
-
-    ($_GET['tab'])? $sel = '{ selected: '. (int)$_GET['tab'] .' }' : $sel = '';
-    $framework->add_js_code('$(function() {
-	   $("#tabs").tabs('. $sel .');
-    });');
+  function StartTabs() {
+    global $MainContent;
+    
+    $this->TabsMainContentTmp = $MainContent;
+    $MainContent = '';
   }
 
-  function StartTab() {
+  function StartTab($name) {
     global $MainContent;
-/*
-    ($this->CurrentTab == $_GET['tab'] or ($_GET['tab'] == '' and $this->CurrentTab == 0))? $style = ''
-      : $style = ' style="display:none"';
-    $MainContent .= '<div id="tab'. (int)$this->CurrentTab .'" name="tabs"'. $style .'>';
-*/
+
+    $this->TabNames[] = $name;
     $MainContent .= '<div id="tabs-'. (int)$this->CurrentTab .'">';
     $this->CurrentTab++;
   }
@@ -110,8 +95,22 @@ class display {
   }
 
   function EndTabs() {
-    global $MainContent;
-    $MainContent .= '</div>';
+    global $MainContent, $framework;
+
+    $out = $this->TabsMainContentTmp;
+
+    foreach ($this->TabNames as $key => $name) {
+      $items .= '<li><a href="#tabs-'. $key .'">'. $name .'</a></li>';
+    }
+    $out .= '<div id="tabs"><ul>'. $items .'</ul>';
+
+    ($_GET['tab'])? $sel = '{ selected: '. (int)$_GET['tab'] .' }' : $sel = '';
+    $framework->add_js_code('$(function() {
+	   $("#tabs").tabs('. $sel .');
+    });');
+
+    $out .= $MainContent .'</div>';
+    $MainContent = $out;
   }
 
   function AddHeaderMenu($names, $link, $active = NULL) {
