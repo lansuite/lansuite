@@ -27,7 +27,7 @@ else $username = $auth['username'];
 
 $userid_formated = sprintf( "%0".$config['size']['userid_digits']."d", $auth['userid']);
 
-$box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=auth&action=logout"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" /><span class="infobox">'. t('Ausloggen') .'</span></a>');
+$box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=auth&action=logout" class="icon_delete" title="'. t('Ausloggen') .'"></a>');
 $box->EngangedRow($dsp->FetchUserIcon($auth['userid'], $username));
 #$box->EngangedRow("");
 
@@ -72,7 +72,7 @@ if (in_array('mail', $ActiveModules)) {
         $found_not_popped_up_mail = true;
       }
     }
-    $box->DotRow('<a href="index.php?mod=mail"><font color="red">'. t('Neue Nachrichten!') .'</font></a> '. $dsp->FetchIcon('index.php?mod=mail', 'receive_mail', t('Zum Posteingang'), '', 'right'));
+    $box->DotRow(t('Mein Postfach') , 'index.php?mod=mail', '', 'menu', 1);
   } else $box->DotRow(t('Mein Postfach') , 'index.php?mod=mail', '', 'menu');
   $db->free_result($mails_new);
 }
