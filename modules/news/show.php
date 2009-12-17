@@ -52,7 +52,7 @@ else {
         else $type = normal; 
 
         $smarty->assign('caption', $row["caption"]);
-        $smarty->assign('username', $row["username"] .' '. $dsp->FetchUserIcon($row['userid']));
+        $smarty->assign('username', $dsp->FetchUserIcon($row['userid'], $row["username"]));
         $smarty->assign('userid', $row["poster"]);
 
         if ($row['icon'] and $row['icon'] != 'none') $smarty->assign('icon', '<img src="ext_inc/news_icons/'.$row['icon'].'" vspace="2" align="right" />');
@@ -101,7 +101,7 @@ else {
         else $type = normal; 
 
         $smarty->assign('caption', $row["caption"]);
-        $smarty->assign('username', $row["username"] .' '. $dsp->FetchUserIcon($row['userid']));
+        $smarty->assign('username', $dsp->FetchUserIcon($row['userid'], $row["username"]));
         $smarty->assign('userid', $row["poster"]);
         if ($row['icon'] and $row['icon'] != 'none') $smarty->assign('icon', '<img src="ext_inc/news_icons/'.$row['icon'].'" vspace="2" align="right" />');
         else $smarty->assign('icon', '');

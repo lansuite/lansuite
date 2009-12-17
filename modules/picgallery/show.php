@@ -379,7 +379,7 @@ elseif (!$akt_file) {
 			$dsp->AddDoubleRow(t('Letzte Änderung'), $func->unixstamp2date(filemtime($root_file), "datetime"));
 
 			// Show DB-Data to Pic
-			if ($pic['username']) $dsp->AddDoubleRow(t('Ersteller'), $pic['username'] .' '. $dsp->FetchUserIcon($pic['userid']));
+			if ($pic['username']) $dsp->AddDoubleRow(t('Ersteller'), $dsp->FetchUserIcon($pic['userid'], $pic['username']));
 			if ($pic['clicks']) $dsp->AddDoubleRow(t('Aufrufe'), $pic['clicks']);
 
 			$dsp->AddBackButton("index.php?mod=picgallery&file=$akt_dir&page={$_GET["page"]}", "picgallery");

@@ -124,7 +124,7 @@ elseif ($thread['caption'] != '') {
 			$userdata["signature"] = "";
 		} else $userdata = getuserinfo($row["userid"]);
 
-    $smarty->assign('username', $userdata["username"] .' '. $dsp->FetchUserIcon($row['userid']));
+    $smarty->assign('username', $dsp->FetchUserIcon($row['userid'], $userdata["username"]));
 
     $type = $userdata["type"];
 		if ($auth['type'] >= 2) $type .= '<br />IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>';

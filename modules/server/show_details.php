@@ -18,7 +18,7 @@ else {
 		$dsp->NewContent(t('Serverdetails'), t('Auf dieser Seite sehen Sie alle Details zum Server <b>%1</b>. Durch eine Klick auf den Zur&uuml;ck-Button gelangen Sie zur Übersicht zur&uuml;ck', $server["caption"]));
 
 		$dsp->AddDoubleRow(t('Name'), $server["caption"]);
-		$dsp->AddDoubleRow(t('Besitzer'), $server["username"] .' '. $dsp->FetchUserIcon($server['userid']));
+		$dsp->AddDoubleRow(t('Besitzer'), $dsp->FetchUserIcon($server['userid'], $server["username"]));
 
 		$type_descriptor["gameserver"] = t('Gameserver');	
 		$type_descriptor["ftp"] = t('FTP-Server');

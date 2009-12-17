@@ -27,7 +27,7 @@ $box->EngangedRow('<span class="infolink">'. $total['hits'] .'<span class="infob
 $box->DotRow(t('Eingeloggt') .': '. count($authentication->online_users));
 foreach ($authentication->online_users as $userid) {
     $row = $db->qry_first("SELECT username FROM %prefix%user WHERE userid = %int%", $userid);
-    $box->EngangedRow($row["username"] .' '. $dsp->FetchUserIcon($userid));
+    $box->EngangedRow($dsp->FetchUserIcon($userid, $row["username"]));
 }
 $db->free_result($user_online);
 

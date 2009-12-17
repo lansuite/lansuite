@@ -140,7 +140,7 @@ switch($_GET['step']) {
 			$anz_memb = 0;
 			while($member = $db->fetch_array($members)) {
 				$anz_memb++;
-				$member_liste .= HTML_NEWLINE . "- ". $member["username"] .' '. $dsp->FetchUserIcon($member['userid']) .' '. $dsp->FetchButton("index.php?mod=tournament2&action=teammgr&step=20&teamid={$member['teamid']}&userid={$member['userid']}", "kick");
+				$member_liste .= HTML_NEWLINE . "- ". $dsp->FetchUserIcon($member['userid'], $member["username"]) .' '. $dsp->FetchButton("index.php?mod=tournament2&action=teammgr&step=20&teamid={$member['teamid']}&userid={$member['userid']}", "kick");
 			}
 			$db->free_result($members);
 			
@@ -175,11 +175,11 @@ switch($_GET['step']) {
 			$anz_memb = 0;
 			while($member2 = $db->fetch_array($members2)) {
 				$anz_memb++;
-				$member_liste .= HTML_NEWLINE . "- ". $member2["username"] .' '. $dsp->FetchUserIcon($member2['userid']);
+				$member_liste .= HTML_NEWLINE . "- ". $dsp->FetchUserIcon($member2['userid'], $member2["username"]);
 			}
 			$db->free_result($members2);
 
-			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$member["name"]} ({$member["tname"]}) (".t('Teamgröße').": ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . t('Leiter').": ". $member["username"] .' '. $dsp->FetchUserIcon($member['userid']) ." $member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">".t('Team verlassen')."</a>");
+			$dsp->AddDoubleRow(t('Team') ." ". $i, "{$member["name"]} ({$member["tname"]}) (".t('Teamgröße').": ". ($anz_memb+1) ."/{$member["teamplayer"]})" . HTML_NEWLINE . t('Leiter').": ". $dsp->FetchUserIcon($member['userid'], $member["username"]) ." $member_liste" . HTML_NEWLINE . "<a href=\"index.php?mod=tournament2&action=teammgr&step=10&teamid={$member['teamid']}\">".t('Team verlassen')."</a>");
 		}
 		$db->free_result($members);
 
