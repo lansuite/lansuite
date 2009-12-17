@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite>
+    <plugin>
+        <name>usrmgr_details_main</name>
+        <caption>Aktive Party</caption>
+    </plugin>
+    <plugin>
+        <name>usrmgr_details_tab</name>
+        <caption>LAN-Teilnahme</caption>
+    </plugin>
+    <plugin>
+        <name>usrmgr_search</name>
+        <caption></caption>
+    </plugin>
+</lansuite>

@@ -126,6 +126,7 @@ class Install {
           // Try to find DB-XML-File
           if (file_exists("modules/install/mod_settings/db.xml")){
             $this->WriteTableFromXMLFile('install');
+            $db->qry_first("TRUNCATE %prefix%plugin");
             if ($display_to_screen) $dsp->AddDoubleRow("Modul 'install'", "[<a href=\"index.php?mod=install&action=db&step=7&module=install&quest=1\">".t('zurücksetzen')."</a>]");
           }
         }
@@ -326,6 +327,21 @@ class Install {
               SET name=%string%, place=%string%, pos=%string%, active=%string%, internet=%string%, login=%string%, source=%string%, callback=%string%, module=%string%",
               $name, $place, $pos, $active, $internet, $login, $source, $callback, $module);
           }
+        }
+      }
+      
+      //plugins.xml
+      $file = "modules/$module/plugins/plugins.xml";
+      if (file_exists($file)) {
+        $handle = fopen ($file, "r");
+        $xml_file = fread ($handle, filesize ($file));
+        fclose ($handle);
+
+        $plugins = $xml->get_tag_content_array("plugin", $xml_file);
+        foreach ($plugins as $plugin) {
+          $name = $xml->get_tag_content("name", $plugin);
+          $caption = $xml->get_tag_content("caption", $plugin);
+          $db->qry_first("INSERT INTO %prefix%plugin SET module=%string%, pluginType=%string%, caption=%string%", $module, $name, $caption);
         }
       }
     }
