@@ -639,7 +639,7 @@ function UserNameAndIcon($username){
   global $line, $dsp;
 
   if ($username == '') return '<i>System</i>';
-  else if ($line['userid']) return '<a href="index.php?mod=usrmgr&action=details&userid='.$line['userid'].'">'.$username .'</a> '. $dsp->FetchUserIcon($line['userid']);
+  else if ($line['userid']) return $dsp->FetchUserIcon($line['userid'], $username);
   else return $username;
 }
 

@@ -174,7 +174,7 @@ if (!$_GET['partyid']) {
   $dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> ' . $dsp->FetchIcon('index.php?mod=partylist&step=10&design=base&partyid='. $_GET['partyid'], 'signon'));
   $dsp->AddDoubleRow(t('Anmeldestatus'), AddSignonStatus($row['ls_url']));
   $dsp->AddDoubleRow(t('Zusätzliche Infos'), $func->text2html($row['text']));
-  $dsp->AddDoubleRow(t('Eingetragen durch'), $row['username'] .' '. $dsp->FetchUserIcon($row['userid']));
+  $dsp->AddDoubleRow(t('Eingetragen durch'), $dsp->FetchUserIcon($row['userid'], $row['username']));
 
   $dsp->AddFieldsetStart('Vergangene Veranstaltungen');
   $history = AddSignonStatus($row['ls_url'], 1);

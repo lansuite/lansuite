@@ -11,9 +11,9 @@ else {
   if (!($auth['userid'] == $row['fromUserID'] or $auth['userid'] == $row['toUserID'])) $func->information(t('Zugriff verweigert'), '');
   else {
     $dsp->NewContent(t('Nachricht'), '');
-        ($row['fromUserID'])? $dsp->AddDoubleRow(t('Von'), $row['fromUsername'].' '. $dsp->FetchUserIcon($row['fromUserID']))
+        ($row['fromUserID'])? $dsp->AddDoubleRow(t('Von'), $dsp->FetchUserIcon($row['fromUserID'], $row['fromUsername']))
         : $dsp->AddDoubleRow(t('Von'), '<i>'. t('System') .'</i>');
-        ($row['toUserID'])? $dsp->AddDoubleRow(t('An'), $row['ToUsername'].' '. $dsp->FetchUserIcon($row['toUserID']))
+        ($row['toUserID'])? $dsp->AddDoubleRow(t('An'), $dsp->FetchUserIcon($row['toUserID'], $row['ToUsername']))
         : $dsp->AddDoubleRow(t('An'), '<i>'. t('System') .'</i>');
         $dsp->AddDoubleRow(t('Gesendet'), $func->unixstamp2date($row['tx_date'], 'daydatetime'));
         $dsp->AddDoubleRow(t('Betreff'), $row['Subject']);

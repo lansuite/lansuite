@@ -14,7 +14,7 @@ if ($check["caption"] != "") {
 	
 	$smarty->assign('caption', $get_news["caption"]);
 	$smarty->assign('userid', $get_news["poster"]);
-	$smarty->assign('username', $get_news["username"] .' '. $dsp->FetchUserIcon($get_news['userid']));
+	$smarty->assign('username', $dsp->FetchUserIcon($get_news['userid'], $get_news["username"]));
 	$smarty->assign('date', $func->unixstamp2date($get_news["date"],"daydatetime"));
 
   $text = '';

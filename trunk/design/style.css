@@ -285,12 +285,12 @@ input.yes_button {
   margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 4px 0px 0px;
   content: url(images/dot_active.gif);
 }
-.user_online:before {
-  margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 4px 0px 0px;
+.user_online:after {
+  margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 0px 0px 2px;
   content: url(images/arrows_user_online.png);
 }
-.user_offline:before {
-  margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 4px 0px 0px;
+.user_offline:after {
+  margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 0px 0px 2px;
   content: url(images/arrows_user_offline.png);
 }
 

@@ -32,7 +32,7 @@ switch ($_GET["step"]) {
 			$dsp->AddDoubleRow(t('Überschrift'), $row["caption"]);
 			$dsp->AddDoubleRow(t('Problembeschreibung'), $func->text2html($row["text"]));
 			$dsp->AddDoubleRow(t('Eingetragen am/um'), $func->unixstamp2date($row["created"], "daydatetime"));
-			$dsp->AddDoubleRow(t('Von Benutzer'), $get_originuser["username"].' '.$dsp->FetchUserIcon($get_originuser["userid"]));
+			$dsp->AddDoubleRow(t('Von Benutzer'), $dsp->FetchUserIcon($get_originuser["userid"], $get_originuser["username"]));
 
 			// priorität zahl -> text
 			switch ($row["priority"]) {
@@ -95,7 +95,7 @@ switch ($_GET["step"]) {
 			}
 			$dsp->AddDoubleRow(t('Ticketstatus'), $status);
 			if ($time_text and $time_val) $dsp->AddDoubleRow($time_text, $time_val);
-			$dsp->AddDoubleRow(t('Bearbeitender Orga'), $get_targetuser["username"].' '.$dsp->FetchUserIcon($get_targetuser["userid"]));
+			$dsp->AddDoubleRow(t('Bearbeitender Orga'), $dsp->FetchUserIcon($get_targetuser["userid"], $get_targetuser["username"]));
 
 			if (!$row["publiccomment"]) $row["publiccomment"] = t(' Kein Hinweis eingetragen');
 			$dsp->AddDoubleRow(t('Kommentar'), $func->text2html($row["publiccomment"]));

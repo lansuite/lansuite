@@ -16,7 +16,7 @@ if ($olduserid > 0) {
 	if (strlen($old_user['username']) > 14) $old_user['username'] = substr($old_user['username'], 0, 11) . "...";
 
 	$box->DotRow(t('Admin').':', "", "", "admin", 0);
-    $box->EngangedRow("<b>{$old_user["username"]}</b>". $dsp->FetchUserIcon($olduserid), "", "", "admin", 0);
+    $box->EngangedRow($dsp->FetchUserIcon($olduserid, $old_user["username"]), "", "", "admin", 0);
     $box->EngangedRow(t('Zurück wechseln'), "index.php?mod=auth&amp;action=switch_back", "", "admin", 0);
 	$box->EmptyRow();
 }
@@ -28,7 +28,7 @@ else $username = $auth['username'];
 $userid_formated = sprintf( "%0".$config['size']['userid_digits']."d", $auth['userid']);
 
 $box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=auth&action=logout"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" width="12" height="13" border="0" /><span class="infobox">'. t('Ausloggen') .'</span></a>');
-$box->EngangedRow('<a href="index.php?mod=usrmgr&action=details&userid='. $auth['userid'] .'"><b>'. $username .'</b></a> '. $dsp->FetchUserIcon($auth['userid']));
+$box->EngangedRow($dsp->FetchUserIcon($auth['userid'], $username));
 #$box->EngangedRow("");
 
 #$icons .= $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=details&amp;userid='. $auth["userid"], 'details', t('Pers. Details')) .' ';

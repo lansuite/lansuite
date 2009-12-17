@@ -825,10 +825,11 @@ class display {
     return $ret;
   }
 
-  function FetchUserIcon($userid) {
+  function FetchUserIcon($userid, $username = '') {
     global $smarty, $authentication;
 
     $smarty->assign('userid', $userid);
+    $smarty->assign('username', $username);
     $smarty->assign('hint', t('Benutzerdetails aufrufen'));
 
     (in_array($userid, $authentication->online_users))? $state ='online' : $state ='offline';
