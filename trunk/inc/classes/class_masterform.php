@@ -733,8 +733,4 @@ global $cfg;
   }
   return false;
 }
-
-function NoQuotes($val) {
-    if ((strpos($val, '\'') !== false) or (strpos($val, '"') !== false)) return t('Es sind keine Anführungszeichen in diesem Feld erlaubt');
-}
 ?>
