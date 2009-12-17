@@ -1688,6 +1688,14 @@
 				<default>home</default>
 				<extra></extra>
 			</field>
+			<field>
+				<name>pos</name>
+				<type>tinyint(3)</type>
+				<null></null>
+				<key>IND</key>
+				<default></default>
+				<extra></extra>
+			</field>
 		</structure>
     </table>
 </lansuite>

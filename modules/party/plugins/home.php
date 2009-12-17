@@ -1,6 +1,6 @@
 <?php
-  $smarty->assign('caption', t('Statistiken') . " " . $_SESSION['party_info']['name']);
-  $content = '';
+$smarty->assign('caption', t('Party') . " " . $_SESSION['party_info']['name']);
+$content = '';
   
 if ($party->count > 0) {
 
@@ -42,20 +42,4 @@ if ($party->count > 0) {
   }
 }
 
-// Additional Admin-Stats	
-if ($auth["type"] >= 2) {
-  // Troubletickets
-  if (in_array('troubleticket', $ActiveModules)) {
-    $row6 = $db->qry_first("SELECT count(*) as n FROM %prefix%troubleticket WHERE target_userid = '0'");
-    $row7 = $db->qry_first("SELECT count(*) as n FROM %prefix%troubleticket");
-    $content .= t('Troubletickets') .": ".$row6["n"]." / ".$row7["n"] . HTML_NEWLINE;
-  }
-  
-	// Rental
-  if (in_array('rent', $ActiveModules)) {
-    $row8 = $db->qry_first("SELECT count(*) as n FROM %prefix%rentuser WHERE back_orgaid = '' AND out_orgaid != ''");
-    $row9 = $db->qry_first("SELECT count(*) as n FROM %prefix%rentuser WHERE back_orgaid > '0' AND out_orgaid > '0'");	
-    $content .= t('Verleih') .": ".$row8["n"]." / ".$row9["n"] . HTML_NEWLINE;
-  }		
-}			
 ?>

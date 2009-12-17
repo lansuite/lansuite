@@ -3,5 +3,11 @@
     <plugin>
         <name>usrmgr_details_tab</name>
         <caption>Turniere</caption>
+        <pos></pos>
+    </plugin>
+    <plugin>
+        <name>home</name>
+        <caption></caption>
+        <pos>6</pos>
     </plugin>
 </lansuite>
