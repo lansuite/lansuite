@@ -161,9 +161,6 @@
         $db->connect(1);
         $IsAboutToInstall = 1;
 
-        // Need class_party for LanSurfer Import
-        if ($db->success) $party = new party();
-
         // Force Adminrights for installing User
         $auth["type"]  = 3;
         $auth["login"] = 1;
@@ -172,6 +169,9 @@
         if ($_GET["action"] == "wizard" and $_GET["step"] > 3) {
             $cfg = $func->read_db_config();  // read Configtable
         }
+
+        // Need class_party for LanSurfer Import
+        if ($db->success) $party = new party();
 
     } else {
         ### Normal auth cycle and Database-init

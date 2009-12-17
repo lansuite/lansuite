@@ -130,7 +130,7 @@ class seat2 {
 
 
 	function DrawPlan($blockid, $mode, $linktarget = '', $selected_user = false) {
-		global $db, $config, $dsp, $templ, $auth, $gd, $lang, $cfg, $party, $smarty, $framework;
+		global $db, $config, $dsp, $templ, $auth, $gd, $lang, $cfg, $party, $smarty, $framework, $func;
 		// $mode:
 		// 0 = Normal display mode
 		// 1 = With seperators
@@ -142,8 +142,8 @@ class seat2 {
 
 		$smarty->assign('row_count', $block['rows'] + 1);
 		$smarty->assign('col_count', $block['cols'] + 1);
-    $smarty->assign('mode', $mode);
-
+        $smarty->assign('mode', $mode);
+        
 		// Get seperators
 		$sep_cols = array();
 		$sep_rows = array();
@@ -450,7 +450,7 @@ class seat2 {
     								$link = "index.php?mod=seating&action=show&step=20&blockid=$blockid&row=$y&col=$x";
     							// If assigned and user is admin -> Possibility to free this seat
     							elseif ($seat_state[$y][$x] == 2 and $auth['type'] > 1) {
-    								$link = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
+    								#$link = "index.php?mod=seating&action=show&step=30&blockid=$blockid&row=$y&col=$x";
                   }
     						}
 						  break;
@@ -474,15 +474,15 @@ class seat2 {
               case "3":
               case "8":
               case "9":
-							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
-							  $tooltip .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
-							  if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))
-                  $tooltip .= t('Name') .': '. $user_info[$y][$x]['firstname'] .' '. $user_info[$y][$x]['name'] . HTML_NEWLINE;
-							  $tooltip .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
-							  $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
-							  if (func::chk_img_path($user_info[$y][$x]['avatar_path']) and
-                  ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)))
-  							  $tooltip .= '<img src=&quot;'. $user_info[$y][$x]['avatar_path'] .'&quot; style=&quot;max-width:100%;&quot; />' . HTML_NEWLINE;
+                $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) . HTML_NEWLINE;
+                $tooltip .= t('Benutzername') .': '. $user_info[$y][$x]['username'] . HTML_NEWLINE;
+                if (!$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false))
+                $tooltip .= t('Name') .': '. trim($user_info[$y][$x]['firstname']) .' '. trim($user_info[$y][$x]['name']) . HTML_NEWLINE;
+                $tooltip .= t('Clan') .': '. $user_info[$y][$x]['clan'] . HTML_NEWLINE;
+                $tooltip .= t('IP') .': '. $seat_ip[$y][$x] . HTML_NEWLINE;
+                if (func::chk_img_path($user_info[$y][$x]['avatar_path']) and
+                ($cfg['seating_show_user_pics'] or !$cfg['sys_internet'] or $auth['type'] > 1 or ($auth['userid'] == $selected_user and $selected_user != false)))
+                $tooltip .= '<img src=&quot;'. $user_info[$y][$x]['avatar_path'] .'&quot; style=&quot;max-width:100%;&quot; />' . HTML_NEWLINE;
               break;
               case "1":
 							  $tooltip .= t('Block') .': '. $this->CoordinateToBlockAndName($x + 1, $y, $blockid) .' '. t('Frei'). HTML_NEWLINE;
