@@ -3,6 +3,9 @@
 include_once("modules/usrmgr/class_usrmgr.php");
 $usrmgr = new UsrMgr();
 
+include_once("modules/seating/class_seat.php");
+$seat2 = new seat2();
+
 function PartyMail() {
   global $usrmgr, $func, $mail, $auth;
 

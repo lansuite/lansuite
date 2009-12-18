@@ -16,7 +16,7 @@ class Bugtracker {
   }
 
   function SetBugStateInternal($bugid, $state) {
-    global $db, $config, $func, $auth, $mail;
+    global $db, $config, $func, $auth;
 
     if ($auth['type'] <= 1) {
       $row = $db->qry_first("SELECT reporter, caption, state FROM %prefix%bugtracker WHERE bugid = %int%", $bugid);
@@ -32,6 +32,10 @@ class Bugtracker {
 
     $row = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker WHERE state = %int% AND bugid = %int%", $state, $bugid);
     if (!$row['found']) {
+
+      include_once("modules/mail/class_mail.php");
+      $mail = new mail();
+
       $db->qry("UPDATE %prefix%bugtracker SET state = %int% WHERE bugid = %int%", $state, $bugid);
       $func->log_event(t('Bugreport auf Status "%1" geändert', array($this->stati[$state])), 1, '', $bugid);
 

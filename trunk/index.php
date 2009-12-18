@@ -141,8 +141,8 @@
     
 ### Read Config and Definitionfiles
     
-    $config = parse_ini_file('inc/base/config.php', 1);     // Load Basic Config
-    include_once('inc/base/define.php');                    // Read definition file
+    $config = parse_ini_file('inc/base/config.php', 1); // Load Basic Config
+    include_once('inc/base/define.php');                // Read definition file
     // Exit if no Configfile
     if (!$config) {
         echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
@@ -151,31 +151,29 @@
     }
     $lang = array(); // For old $lang 
 
-### Include base classes
-    
-    // Load Translationclass. No t()-Function before this point!
-    include_once("inc/classes/class_translation.php");
+### Include and Initialize base classes
+
+    include_once("inc/classes/class_translation.php");  // Load Translationclass. No t()-Function before this point!
     $translation = new translation();
 
-    include_once("inc/classes/class_db_mysql.php");
-    include_once("inc/classes/class_auth.php");
-    include_once("inc/classes/class_display.php");
-    include_once("inc/classes/class_sec.php");
-    include_once("modules/party/class_party.php");  //raus
-    include_once("modules/mail/class_mail.php");    //raus
-    include_once("modules/stats/class_stats.php");
-    include_once("modules/seating/class_seat.php"); //raus
-    include_once("modules/cron2/class_cron2.php");
+    include_once("inc/classes/class_display.php");      // Display Functions (to load the lansuite-templates)
+    $dsp = new display();
+
+    include_once("inc/classes/class_db_mysql.php");     // DB Functions (to work with the databse)
+    $db = new db;
+
+    include_once("inc/classes/class_sec.php");          // Security Functions (to lock pages)
+    $sec = new sec;
+
+    include_once("modules/cron2/class_cron2.php");      // Load Cronjob
+    $cron2 = new cron2();
+
+    // TODO: should be moved out of here!
+    include_once("modules/party/class_party.php");
+
+### Load Smarty template engine
+
     include_once('ext_scripts/smarty/Smarty.class.php');
-
-### Initialize base classes
-
-    $dsp         = new display();        // Display Functions (to load the lansuite-templates)
-    $mail        = new mail();           // Mail Functions (for sending mails to lansuite-users)
-    $db          = new db;               // DB Functions (to work with the databse)
-    $sec         = new sec;              // Security Functions (to lock pages)
-    $cron2       = new cron2();          // Load Cronjob
-    $seat2       = new seat2();          // Load Seat-Controll Class
     $smarty      = new Smarty();
     $smarty->template_dir = '.';
     $smarty->compile_dir = './ext_inc/templates_c/';
@@ -256,6 +254,7 @@
         
         ### Start autentication, just if LS is working
         
+        include_once("inc/classes/class_auth.php");
         $authentication = new auth($frmwrkmode);
         $auth      = $authentication->check_logon();    // Testet Cookie / Session ob User eingeloggt ist
         $olduserid = $authentication->get_olduserid();  // Olduserid for Switback on Boxes
@@ -282,7 +281,10 @@
         }
                
         // Statistic Functions (for generating server- and usage-statistics)
-        if ($db->success) $stats = new stats();
+        if ($db->success) {
+          include_once("modules/stats/class_stats.php");
+          $stats = new stats();
+        }
     }
 
 ### Set Default-Design, if non is set

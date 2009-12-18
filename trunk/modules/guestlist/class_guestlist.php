@@ -1,10 +1,16 @@
 <?php
 include_once("modules/usrmgr/class_usrmgr.php");
 
+include_once("modules/seating/class_seat.php");
+$seat2 = new seat2();
+
 class guestlist {
 
   function SetPaid($userid, $partyid) {
-    global $db, $config, $cfg, $func, $mail, $auth, $seat2, $usrmgr;
+    global $db, $config, $cfg, $func, $auth, $seat2, $usrmgr;
+
+    include_once("modules/mail/class_mail.php");
+    $mail = new mail();
 
     if (!$userid) $func->error(t('Keinen Benutzer ausgewählt'));
     if (!$partyid) $func->error(t('Keine Party ausgewählt'));
@@ -38,7 +44,10 @@ class guestlist {
   }
 
   function SetNotPaid($userid, $partyid) {
-    global $db, $config, $cfg, $func, $mail, $auth, $seat2, $usrmgr;
+    global $db, $config, $cfg, $func, $auth, $seat2, $usrmgr;
+
+    include_once("modules/mail/class_mail.php");
+    $mail = new mail();
 
     $Messages = array('success' => '', 'error' => '');
     $db->qry('UPDATE %prefix%party_user SET paid = 0, paiddate = "" WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);

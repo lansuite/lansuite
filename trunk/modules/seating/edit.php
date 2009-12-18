@@ -1,5 +1,8 @@
 <?php
 
+include_once("modules/seating/class_seat.php");
+$seat2 = new seat2();
+
 if ($_GET['action'] == 'add' and $_GET['step'] < 2) $_GET['step'] = 2;
 
 // Error-Switch

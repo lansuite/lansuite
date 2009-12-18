@@ -55,6 +55,9 @@ if ($tournament["name"] == "") {
 } else {
 	switch ($_GET["step"]) {
 		default:
+      include_once("modules/seating/class_seat.php");
+      $seat2 = new seat2();
+
 			unset($_SESSION['tournament_submit_result_blocker']);
 			
 			 //Server auslesen

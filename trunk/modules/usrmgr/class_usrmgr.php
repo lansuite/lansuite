@@ -1,5 +1,8 @@
 <?php
 
+include_once("modules/mail/class_mail.php");
+$mail = new mail();
+
 $usrmgr = new UsrMgr();
 
 class UsrMgr {

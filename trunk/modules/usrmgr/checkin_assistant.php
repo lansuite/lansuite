@@ -1,5 +1,8 @@
 <?php
 
+include_once("modules/seating/class_seat.php");
+$seat2 = new seat2();
+
 $timestamp 	= time();
 
 if (!$party->party_id) $func->information(t('Es gibt keine aktive Party. Bitte setzen Sie im Partymanager eine Party aktiv'));

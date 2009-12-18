@@ -17,6 +17,8 @@ else switch ($_GET['step']) {
 
             $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
+            include_once("modules/mail/class_mail.php");
+            $mail = new mail();
             $mail->create_inet_mail($user_data['username'], $_POST['pwr_mail'], $cfg['usrmgr_pwrecovery_subject'], str_replace("%USERNAME%", $user_data['username'], str_replace("%PATH%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode", $cfg['usrmgr_pwrecovery_text'])));
 
             $func->confirmation(t('Ihnen wurde nun eine Freischalte-URL an die angegebene Emailadresse gesendet. Mit dem Aufruf dieser URL wird Ihr neues Passwort generiert werden.'), "index.php");

@@ -6,7 +6,7 @@ include_once("inc/classes/class_gd.php");
 $gd = new gd;
 
 function Update($id) {
-global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func, $cfg, $signon, $mail;
+global $mf, $db, $config, $auth, $authentication, $party, $usrmgr, $func, $cfg, $signon;
 
   // Clan-Management
   include_once("modules/clanmgr/class_clan.php");

@@ -182,6 +182,9 @@ switch ($_GET['step']){
 	case 2:
 	
 	if($_POST['action']){
+    include_once("modules/seating/class_seat.php");
+    $seat2 = new seat2();
+
 		$time = time();
 		$totprice = 0;
 		foreach($_POST["action"] AS $item => $val) {

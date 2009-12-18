@@ -1,5 +1,8 @@
 <?php
 
+include_once("modules/mail/class_mail.php");
+$mail = new mail();
+
 switch($_GET["step"]) {
 	case 2:
 		if ($_POST["subject"] == ""){
