@@ -1,5 +1,8 @@
 <?php
 
+include_once("inc/classes/class_xml.php");
+$xml = new xml;
+
 class Export {
 	var $output;
 	var $filename;

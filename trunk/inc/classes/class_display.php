@@ -611,7 +611,10 @@ class display {
 
   // TODO: Review!
   function AddPictureSelectRow($key, $path, $pics_per_row = NULL, $max_rows = NULL, $optional = NULL, $checked = NULL, $max_width = NULL, $max_height = NULL, $JS = false) {
-    global $smarty, $gd;
+    global $smarty;
+
+    include_once("inc/classes/class_gd.php");
+    $gd = new gd;
 
     if ($max_width == "") $max_width = 150;
     if ($max_height == "") $max_height = 120;
@@ -761,8 +764,10 @@ class display {
   # The following functions all return their content, to the module, instead of printing them directly
 
   function FetchAttachmentRow($file) {
-    global $gd;
-    
+
+    include_once("inc/classes/class_gd.php");
+    $gd = new gd;
+
     $FileEnding = strtolower(substr($file, strrpos($file, '.'), 5));
 
     if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') {

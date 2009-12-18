@@ -88,6 +88,9 @@ switch ($_GET["step"]){
         // Open the design-dir
         $design_dir = opendir("design/");
 
+        include_once("inc/classes/class_xml.php");
+        $xml = new xml;
+        
         // Check all Subdirs of $design_dir fpr valid design-xml-files
         $t_array = array();
         while ($akt_design = readdir($design_dir)) if ($akt_design != "." AND $akt_design != ".." AND $akt_design != ".svn" AND $akt_design != "templates") {

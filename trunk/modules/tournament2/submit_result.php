@@ -1,5 +1,8 @@
 <?php
 
+include_once("inc/classes/class_gd.php");
+$gd = new gd;
+
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 

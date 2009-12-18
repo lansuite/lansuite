@@ -1,5 +1,8 @@
 <?php
 
+include_once("inc/classes/class_gd.php");
+$gd = new gd;
+
 switch($_GET['step']) {
 	default:
 		$_POST["ipgen_a"] = "10";

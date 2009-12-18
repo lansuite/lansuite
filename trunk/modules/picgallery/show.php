@@ -1,5 +1,8 @@
 <?php
 
+include_once("inc/classes/class_gd.php");
+$gd = new gd;
+
 # Forbid changedir to upper directories
 $_GET['file'] = str_replace('/..', '', $_GET['file']);
 $_GET['file'] = str_replace('\\..', '', $_GET['file']);

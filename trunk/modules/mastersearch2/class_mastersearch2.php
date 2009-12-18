@@ -112,7 +112,7 @@ class MasterSearch2 {
   }
 
     function PrintSearch($working_link, $select_id_field, $multiaction = '') {
-    global $smarty, $db, $config, $dsp, $templ, $func, $auth, $line, $gd, $lang, $ms_number;
+    global $smarty, $db, $config, $dsp, $templ, $func, $auth, $line, $lang, $ms_number;
 
     $UrlParas = explode('&', substr($working_link, strpos($working_link, '?') + 1, strlen($working_link)));
     foreach ($UrlParas as $UrlPara) {

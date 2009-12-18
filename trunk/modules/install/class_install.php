@@ -1,6 +1,5 @@
 <?php
 include_once("modules/install/class_import.php");
-
 $import = New Import();
 
 class Install {
