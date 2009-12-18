@@ -11,6 +11,63 @@
       ini_set('url_rewriter.tags', '');
     }
 
+    function myErrorHandler($errno, $errstr, $errfile, $errline) {
+      global $PHPErrors, $db, $auth;
+
+      // Only show errors, which sould be reported according to error_reporting
+      // Also filters @ (for @ will have error_reporting "0")
+      $rep = ini_get('error_reporting');
+      if(!($rep & $errno)) return false;
+
+      // error_reporting setting currently doesn't show the following errors:
+      // E_NOTICE
+      // E_USER_NOTICE
+      // E_DEPRECATED
+      // E_USER_NOTICE
+      // E_STRICT
+      // E_DEPRECATED
+      // Should change in the future!
+
+      switch($errno){
+          case E_ERROR:               $errors = "Error";                  break; // not catched
+          case E_WARNING:             $errors = "Warning";                break;
+          case E_PARSE:               $errors = "Parse Error";            break; // not catched
+          case E_NOTICE:              $errors = "Notice";                 break;
+          case E_CORE_ERROR:          $errors = "Core Error";             break; // not catched
+          case E_CORE_WARNING:        $errors = "Core Warning";           break; // not catched
+          case E_COMPILE_ERROR:       $errors = "Compile Error";          break; // not catched
+          case E_COMPILE_WARNING:     $errors = "Compile Warning";        break; // not catched
+          case E_USER_ERROR:          $errors = "User Error";             break;
+          case E_USER_WARNING:        $errors = "User Warning";           break;
+          case E_USER_NOTICE:         $errors = "User Notice";            break;
+          case E_STRICT:              $errors = "Strict Notice";          break; // catched only outside this file
+          case E_RECOVERABLE_ERROR:   $errors = "Recoverable Error";      break;
+          default:
+            if (defined('E_DEPRECATED') and $errno == E_DEPRECATED) $errors = "Deprecated";
+            else $errors = "Unknown error ($errno)";
+          break;
+      }
+
+      // Store error, to print it later
+      #$err = '<b>'. $errors .'</b>: '. $errstr .' in <b>'. $errfile .'</b> on line <b>'. $errline .'</b><br /><br />';
+      $err = sprintf("PHP %s:  %s in %s on line %d", $errors, $errstr, $errfile, $errline);
+      $PHPErrors .= $err;
+
+      // Write to DB-Log
+      // Attention: Be aware of loops!
+      if (isset($db) and $db->success) $db->qry('INSERT INTO %prefix%log
+        SET date = NOW(), userid = %int%, type = 3, description = %string%, sort_tag = "PHP-Fehler"',
+        (int)$auth['userid'], $err);
+
+      // Write error to log file
+      if (ini_get('log_errors')) error_log($err);
+
+      return true;
+    }
+
+    $PHPErrors = '';
+    set_error_handler("myErrorHandler");
+
 ### Start session-management
     
     session_save_path('ext_inc/session');
@@ -256,6 +313,9 @@
 ### index_module.inc.php load the Modulactions and Codes
 
     $db->DisplayErrors();
+    if ($PHPErrors) $func->error($PHPErrors);
+    $PHPErrors = '';
+    
     include_once('index_module.inc.php');
 
 ### Complete Framework and Output HTML
@@ -263,6 +323,9 @@
     $framework->set_design($auth['design']); 
 
     $db->DisplayErrors();
+    if ($PHPErrors) $func->error($PHPErrors);
+    $PHPErrors = '';
+
     $framework->add_content($FrameworkMessages);    // Add old Frameworkmessages (sollten dann ausgetauscht werden)
     $framework->add_content($MainContent);          // Add oll MainContent-Variable (sollte auch bereinigt werden)
 
