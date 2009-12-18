@@ -37,8 +37,8 @@ class Mail {
 		global $cfg, $board_config;
 		
 		// The sending mail address must be the sys_part_mail, otherwise some mail-provider won't send the mail.
-		if ($from == '' || $from = null)
-			$from = $cfg['sys_party_mail'];
+		// Set default Sender-Mail, if non is set
+		if (!$from) $from = $cfg['sys_party_mail'];
 
     // No special charachters in Username!
     $to_user_name = ereg_replace('[^a-zA-Z ]', '', $to_user_name);
@@ -48,9 +48,6 @@ class Mail {
       $this->error = t('Um Internet-Mails zu versenden, muss sich Lansuite im Internet-Modus befinden');
       return false;
     }
-
-		// Set default Sender-Mail, if non is set
-		if ($from == '') $from = $cfg['sys_party_mail'];
 
     // Set Charset
     if ($cfg['mail_utf8']) {

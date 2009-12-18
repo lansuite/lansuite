@@ -6,15 +6,15 @@ $dsp->NewContent(t('Neue Mail verfassen'), '');
 $dsp->AddContent();
 
 function SendOnlineMail() {
-  global $db, $config, $mail, $func, $__POST;
+  global $db, $config, $mail, $func, $__POST, $auth;
 
-  if($_POST['toUserID'] == -1) {
+  if ($_POST['toUserID'] == -1) {
   	$_SESSION['tmpmsgbody'] = $_POST['msgbody'];
   	$_SESSION['tmpmsgsubject'] = $_POST['Subject'];
-  	
   	$func->information(t("Bitte geben Sie einen Empfänger für Ihre Mail an"),"index.php?mod=mail&action=".$_GET['action']."&step=2&replyto=".$_GET['replyto']."&back=1");
-  }
-  elseif (substr($_POST['toUserID'], 1, 7) == '-mail-'){
+
+  // To additional recipients from cfg
+  } elseif (substr($_POST['toUserID'], 1, 7) == '-mail-'){
     $to = substr($_POST['toUserID'], 8, strlen($_POST['toUserID']));
     $mail->create_inet_mail('', $to, $__POST['Subject'], $__POST['msgbody'], $_POST['SenderMail']);
     $func->confirmation('Die Mail wurde and '. $to .' versendet', '');
@@ -22,7 +22,7 @@ function SendOnlineMail() {
     unset($_SESSION['tmpmsgsubject']);
 
   // System-Mail: Insert will be done, by MF
-  } elseif ($_POST['fromUserID'] and $_POST['type'] == 0) {
+  } elseif ($auth['userid'] and $_POST['type'] == 0) {
 
 		// Send Info-Mail to receiver
     if ($cfg['sys_internet']) {
@@ -30,13 +30,12 @@ function SendOnlineMail() {
   		if ($row['lsmail_alert']) $mail->create_inet_mail($row['username'], $row['email'], t('Benachrichtigung: Neue LS-Mail'), t('Sie haben eine neue Lansuite-Mail erhalten. Diese Benachrichtigung können Sie im System unter "Meine Einstellungen" deaktivieren'));
     }
     return true;
-  }
 
   // Inet-Mail
-  else {
+  } else {
     $row = $db->qry_first("SELECT name, firstname, email FROM %prefix%user WHERE userid = %int%", $_POST['toUserID']);
-    if ($_POST['fromUserID']) {
-      $row2 = $db->qry_first("SELECT email FROM %prefix%user WHERE userid = %int%", $_POST['fromUserID']);
+    if ($auth['userid']) {
+      $row2 = $db->qry_first("SELECT email FROM %prefix%user WHERE userid = %int%", $auth['userid']);
       $_POST['SenderMail'] = $row2['email'];
     }
 
@@ -123,7 +122,6 @@ $mf->AddField(t('Nachricht'), 'msgbody', '', LSCODE_BIG);
 
 $mf->AddFix('mail_status', 'active');
 $mf->AddFix('des_status', 'new');
-$mf->AddFix('fromUserID', $auth['userid']);
 $mf->AddFix('tx_date', 'NOW()');
 $mf->SendButtonText = t('Mail abschicken');
 
