@@ -1,18 +1,7 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.1
-*	Filename: 			join.php
-*	Module: 			Tournamentsystem
-*	Main editor: 		jochen@one-network.org
-*	Last change: 		26.04.2004
-*	Description: 		Generate pairs for the tournament
-*	Remarks:
-*
-**************************************************************************/
+
+include_once("modules/mail/class_mail.php");
+$mail = new mail();
 
 $teams = $db->qry("SELECT teamid, leaderid, seeding_mark FROM %prefix%t2_teams WHERE (tournamentid = %int%) ORDER BY RAND()", $_GET["tournamentid"]);
 $team_anz = $db->num_rows($teams);

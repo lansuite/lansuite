@@ -1,5 +1,8 @@
 <?php
 
+include_once("modules/seating/class_seat.php");
+$seat2 = new seat2();
+
 // Errors
 if ($_GET['step'] > 1 and (!$_GET['userid'])) $func->error(t('Es wurde kein Benutzer ausgewählt'), "index.php?mod=seating&action=seatadmin");
 if ($_GET['step'] > 2 and (!$_GET['blockid'])) $func->error(t('Es wurde kein Sitzblock ausgewählt'), "index.php?mod=seating&action=seatadmin&step=2&userid={$_GET['userid']}");

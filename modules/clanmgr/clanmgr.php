@@ -141,6 +141,9 @@ switch ($_GET['step']) {
 
       if ($mf->SendForm('index.php?mod=clanmgr&action=clanmgr&step=10', 'clan', 'clanid', $_GET['clanid'])) {
 
+        include_once("modules/mail/class_mail.php");
+        $mail = new mail();
+
         // Send information mail to all clan members
       	$clanuser = $db->qry("SELECT userid, username, email FROM %prefix%user WHERE clanid=%int%", $_GET['clanid']);
       	while ($data = $db->fetch_array($clanuser)) {

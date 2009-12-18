@@ -206,6 +206,9 @@ elseif ($thread) {
   	// Send email-notifications to thread-subscribers
   	$path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
 
+    include_once("modules/mail/class_mail.php");
+    $mail = new mail();
+
     if (!$_GET['fid']) $_GET['fid'] = $thread['fid'];
   	// Internet-Mail
   	$subscribers = $db->qry("SELECT b.userid, u.firstname, u.name, u.email FROM %prefix%board_bookmark AS b

@@ -1,4 +1,11 @@
 <?php
+
+include_once("modules/seating/class_seat.php");
+$seat2 = new seat2();
+
+include_once("modules/mail/class_mail.php");
+$mail = new mail();
+
 class team {
 
 	// To Check if one can still signon to a tournament

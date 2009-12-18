@@ -140,6 +140,9 @@ else {
 
   // Seating
   if (in_array('seating', $ActiveModules)) {
+    include_once("modules/seating/class_seat.php");
+    $seat2 = new seat2();
+
     $user_data_seating = $seat2->SeatOfUserArray($_GET['userid']);
     if ($user_data_seating['block'] == '') $seat = t('Kein Sitzplatz ausgewählt / zugeteilt.');
     else {

@@ -1,5 +1,8 @@
 <?php
 
+include_once("modules/seating/class_seat.php");
+$seat2 = new seat2();
+
 switch($_GET['step']) {
 	default:
     #include_once('modules/seating/search.inc.php');

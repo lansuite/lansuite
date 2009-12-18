@@ -25,6 +25,8 @@ else {
 	if ($team['banner']) $dsp->AddSingleRow("<img src=\"ext_inc/team_banners/{$team['banner']}\" alt=\"{$team['banner']}\">");
 
 	// Leader
+  include_once("modules/seating/class_seat.php");
+  $seat2 = new seat2();
 	$dsp->AddDoubleRow(t('Teamleiter'), $team['username'] . $func->button_userdetails($team['userid'], "") . " (Platz: ". $seat2->SeatNameLink($team['userid'], '', '') .")");
 
 	// Members

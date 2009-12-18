@@ -2,6 +2,9 @@
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
+include_once("modules/seating/class_seat.php");
+$seat2 = new seat2();
+
 function SeatNameLink($userid){
   global $seat2;
 

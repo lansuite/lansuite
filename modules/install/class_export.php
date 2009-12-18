@@ -203,7 +203,10 @@ class Export {
 
 
 	function ExportCSVComplete($sep){
-		global $db, $config, $func, $party, $seat2;
+		global $db, $config, $func, $party;
+
+    include_once("modules/seating/class_seat.php");
+    $seat2 = new seat2();
 
 		$user_export = $config['lansuite']['version']." CSV Export\r\nParty: ". $_SESSION['party_info']['name'] ."\r\nExportdate: ".$func->unixstamp2date(time(),'daydatetime')."\r\n\r\n";
 
@@ -271,7 +274,10 @@ class Export {
 
 
 	function ExportCSVSticker($sep){
-		global $db, $config, $func, $party, $seat2;
+		global $db, $config, $func, $party;
+
+    include_once("modules/seating/class_seat.php");
+    $seat2 = new seat2();
 
 		$user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(),'daydatetime')."\r\n\r\n";
 
@@ -314,7 +320,10 @@ class Export {
 
 
 	function ExportCSVCard($sep){
-		global $db, $config, $func, $party, $seat2;
+		global $db, $config, $func, $party;
+
+    include_once("modules/seating/class_seat.php");
+    $seat2 = new seat2();
 
 		$user_export = $config['lansuite']['version']." CSV Export\r\nParty: ".$config['lanparty']['name']."\r\nExportdate: ".$func->unixstamp2date(time(),'daydatetime')."\r\n\r\n";
 

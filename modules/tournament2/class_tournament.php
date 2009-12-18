@@ -1,19 +1,10 @@
 <?php
-/*************************************************************************
-*
-*	Lansuite - Webbased LAN-Party Management System03.05.2004
-*	-------------------------------------------------------------------
-*	Lansuite Version:	2.0
-*	File Version:		2.1
-*	Filename: 			class_tournament.php
-*	Module: 			Tournamentsystem
-*	Main editor: 		jochen@orgapage.net
-*	Last change: 		22.08.2003 17:05
-*	Description: 		tournament exports + functions
-*	Remarks: 			
-*				
-**************************************************************************/
 
+include_once("modules/mail/class_mail.php");
+$mail = new mail();
+
+include_once("modules/seating/class_seat.php");
+$seat2 = new seat2();
 
 class ranking_data {
 	var $id = array();
@@ -672,7 +663,7 @@ class tfunc {
 
 	// Functions for CheckTimeExceed
 	function CheckRound($max_pos) {
-		global $team_anz, $akt_round, $tournament, $db, $config, $tournamentid, $lang, $mail, $func, $game, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
+		global $team_anz, $akt_round, $tournament, $db, $config, $tournamentid, $lang, $func, $game, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
 
 		$round_end = $this->GetGameEnd($tournament, $akt_round);
 
@@ -738,7 +729,7 @@ class tfunc {
 
 
 	function CheckTimeExceed($tournamentid) {
-		global $team_anz, $akt_round, $tournament, $db, $config, $lang, $mail, $func, $game, $mail, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
+		global $team_anz, $akt_round, $tournament, $db, $config, $lang, $func, $game, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
 
 		$tournament = $db->qry_first("SELECT mode, defwin_on_time_exceed, name,
    break_duration, max_games, game_duration, UNIX_TIMESTAMP(starttime) AS starttime, tournamentid

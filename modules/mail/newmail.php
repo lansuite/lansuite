@@ -6,7 +6,10 @@ $dsp->NewContent(t('Neue Mail verfassen'), '');
 $dsp->AddContent();
 
 function SendOnlineMail() {
-  global $db, $config, $mail, $func, $__POST, $auth;
+  global $db, $config, $func, $__POST, $auth;
+
+  include_once("modules/mail/class_mail.php");
+  $mail = new mail();
 
   if ($_POST['toUserID'] == -1) {
   	$_SESSION['tmpmsgbody'] = $_POST['msgbody'];

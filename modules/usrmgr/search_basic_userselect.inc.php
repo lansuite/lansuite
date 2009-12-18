@@ -1,6 +1,9 @@
 <?php
 include_once('modules/usrmgr/search_main.inc.php');
 
+include_once("modules/seating/class_seat.php");
+$seat2 = new seat2();
+
 function SeatNameLink($userid){
   global $seat2;
 
