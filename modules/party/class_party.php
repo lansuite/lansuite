@@ -9,21 +9,21 @@ class party{
 	function party(){
 		global $cfg, $db;
 
-        // Set new Session PartyID on GET or POST
+    // Set new Session PartyID on GET or POST
 		if (is_numeric($_GET['set_party_id'])) $_SESSION['party_id'] = $this->party_id;
-        elseif (is_numeric($_POST['set_party_id'])) $_SESSION['party_id'] = $this->party_id;
+    elseif (is_numeric($_POST['set_party_id'])) $_SESSION['party_id'] = $this->party_id;
 
-        if (is_numeric($_SESSION['party_id'])) {
-            // Look whether this partyId exists
-            $row = $db->qry_first('SELECT 1 AS found FROM %prefix%partys WHERE party_id = %int%', $_SESSION['party_id']);
-            if ($row['found']) $this->party_id = $_SESSION['party_id'];
-            else {
-                $this->party_id = $cfg['signon_partyid'];
-                unset($_SESSION['party_id']);
-            }
+    if (is_numeric($_SESSION['party_id'])) {
+      // Look whether this partyId exists
+      $row = $db->qry_first('SELECT 1 AS found FROM %prefix%partys WHERE party_id = %int%', $_SESSION['party_id']);
+      if ($row['found']) $this->party_id = $_SESSION['party_id'];
+      else {
+        $this->party_id = $cfg['signon_partyid'];
+        unset($_SESSION['party_id']);
+      }
 		} else $this->party_id = $cfg['signon_partyid'];
 
-        $this->UpdatePartyArray();
+    $this->UpdatePartyArray();
 	}
 
 	// Read PartyInfo into Vars

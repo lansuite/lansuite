@@ -51,7 +51,7 @@
       // Store error, to print it later
       #$err = '<b>'. $errors .'</b>: '. $errstr .' in <b>'. $errfile .'</b> on line <b>'. $errline .'</b><br /><br />';
       $err = sprintf("PHP %s:  %s in %s on line %d", $errors, $errstr, $errfile, $errline);
-      $PHPErrors .= $err;
+      $PHPErrors .= $err .'<br />';
       
       $PHPErrorsFound = 1;
 
@@ -168,9 +168,6 @@
     include_once("modules/cron2/class_cron2.php");      // Load Cronjob
     $cron2 = new cron2();
 
-    // TODO: should be moved out of here!
-    include_once("modules/party/class_party.php");
-
 ### Load Smarty template engine
 
     include_once('ext_scripts/smarty/Smarty.class.php');
@@ -211,10 +208,6 @@
         if ($_GET["action"] == "wizard" and $_GET["step"] > 3) {
             $cfg = $func->read_db_config();  // read Configtable
         }
-
-        // Need class_party for LanSurfer Import
-        if ($db->success) $party = new party();
-
     } else {
         ### Normal auth cycle and Database-init
 
@@ -258,10 +251,21 @@
         $authentication = new auth($frmwrkmode);
         $auth      = $authentication->check_logon();    // Testet Cookie / Session ob User eingeloggt ist
         $olduserid = $authentication->get_olduserid();  // Olduserid for Switback on Boxes
+    }
 
-        // Initialize party
-        $party = new party();
+    // Initialize party
+    // Needed also, when not configured for LanSurfer Import
+    if (in_array('party', $ActiveModules)) {
+      include_once("modules/party/class_party.php");
+      $party = new party();
+    } else { // If without party-module: just give a fake ID, for many modules need it
+      class party {
+        var $party_id;
+      }
+      $party->party_id = $cfg['signon_partyid'];
+    }
 
+    if ($config['environment']['configured'] != 0) {
         if ($_GET['mod']=='auth'){
            switch ($_GET['action']){
                 case 'login':
@@ -304,7 +308,9 @@
     $db->DisplayErrors();
     if ($PHPErrors) $func->error($PHPErrors);
     $PHPErrors = '';
-    
+
+    #$func->error($func->FormatFileSize(memory_get_usage()));
+    #trigger_error(memory_get_usage(), E_USER_ERROR);
     include_once('index_module.inc.php');
 
 ### Complete Framework and Output HTML
