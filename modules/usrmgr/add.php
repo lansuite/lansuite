@@ -2,6 +2,9 @@
 include_once("modules/usrmgr/class_usrmgr.php");
 $usrmgr = new UsrMgr();
 
+include_once("inc/classes/class_gd.php");
+$gd = new gd;
+
 function Update($id) {
 global $mf, $db, $config, $auth, $authentication, $party, $seat2, $usrmgr, $func, $cfg, $signon, $mail;
 
@@ -414,7 +417,10 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
       if ($cfg['user_design_change']) {
         $selections = array();
         $selections[''] = t('System-Vorgabe');
-      
+
+        include_once("inc/classes/class_xml.php");
+        $xml = new xml;
+
         $ResDesign = opendir('design/');
         while ($dir = readdir($ResDesign)) if (is_dir("design/$dir") and file_exists("design/$dir/design.xml") and ($dir != 'beamer')) {
           $file = "design/$dir/design.xml";

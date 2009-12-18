@@ -163,7 +163,7 @@ class UsrMgr {
     function WriteXMLStatFile() {
         global $cfg, $db, $config;
 
-        include_once ('inc/classes/class_xml.php');
+        include_once('inc/classes/class_xml.php');
         $xml = new xml;
         $output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
 

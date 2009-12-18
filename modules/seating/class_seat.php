@@ -130,7 +130,7 @@ class seat2 {
 
 
 	function DrawPlan($blockid, $mode, $linktarget = '', $selected_user = false) {
-		global $db, $config, $dsp, $templ, $auth, $gd, $lang, $cfg, $party, $smarty, $framework, $func;
+		global $db, $config, $dsp, $templ, $auth, $lang, $cfg, $party, $smarty, $framework, $func;
 		// $mode:
 		// 0 = Normal display mode
 		// 1 = With seperators

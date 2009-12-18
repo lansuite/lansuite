@@ -159,25 +159,19 @@
 
     include_once("inc/classes/class_db_mysql.php");
     include_once("inc/classes/class_auth.php");
-    include_once("inc/classes/class_xml.php");
     include_once("inc/classes/class_display.php");
-    include_once("inc/classes/class_gd.php");
     include_once("inc/classes/class_sec.php");
-    include_once("modules/party/class_party.php");
-    include_once("modules/mail/class_mail.php");
-    #include_once("modules/msgsys2/class_msgsys.php");
+    include_once("modules/party/class_party.php");  //raus
+    include_once("modules/mail/class_mail.php");    //raus
     include_once("modules/stats/class_stats.php");
-    include_once("modules/seating/class_seat.php");
+    include_once("modules/seating/class_seat.php"); //raus
     include_once("modules/cron2/class_cron2.php");
     include_once('ext_scripts/smarty/Smarty.class.php');
 
 ### Initialize base classes
 
-    $gd          = new gd;               // GD Functions (for graphical outputs)
     $dsp         = new display();        // Display Functions (to load the lansuite-templates)
     $mail        = new mail();           // Mail Functions (for sending mails to lansuite-users)
-    #$msgsys         = new msgsys;           // Msgsys Functions (for sending mails to lansuite-users, manage the buddylist and the messenger)
-    $xml         = new xml;              // XML Functions (to maintain XML-Ex-/Imports)
     $db          = new db;               // DB Functions (to work with the databse)
     $sec         = new sec;              // Security Functions (to lock pages)
     $cron2       = new cron2();          // Load Cronjob

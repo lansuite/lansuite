@@ -1,5 +1,8 @@
 <?php
 
+include_once("inc/classes/class_gd.php");
+$gd = new gd;
+
 // Create user in user_settings, if not pressent
 // (in some installations this was not created automatically)
 #$row = $db->qry_first("SELECT 1 AS found FROM %prefix%user WHERE userid = %int%", $auth['userid']);
@@ -24,6 +27,9 @@ $mf = new masterform();
 if ($cfg['user_design_change']) {
   $selections = array();
   $selections[''] = t('System-Vorgabe');
+
+  include_once("inc/classes/class_xml.php");
+  $xml = new xml;
 
   $ResDesign = opendir('design/');
   while ($dir = readdir($ResDesign)) if (is_dir("design/$dir") and file_exists("design/$dir/design.xml") and ($dir != 'beamer')) {

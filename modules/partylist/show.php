@@ -3,6 +3,9 @@
 include_once('modules/party/class_party.php');
 $party = new party();
 
+include_once("inc/classes/class_xml.php");
+$xml = new xml;
+
 switch ($_GET['step']) {
   case 10:
     $row = $db->qry_first("SELECT ls_url FROM %prefix%partylist WHERE partyid = %int%", $_GET['partyid']);

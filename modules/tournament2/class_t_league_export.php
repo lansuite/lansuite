@@ -3,6 +3,9 @@
 include_once("modules/tournament2/class_tournament.php");
 $tfunc = new tfunc;
 
+include_once("inc/classes/class_xml.php");
+$xml = new xml;
+
 class t_league_export {
 	function wwcl_export($pid, $pvdid) {
 		global $config, $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;

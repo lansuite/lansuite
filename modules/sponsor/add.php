@@ -1,5 +1,8 @@
 <?php
 
+include_once("inc/classes/class_gd.php");
+$gd = new gd;
+
 function RewriteFields() {
   if (substr($_POST['pic_path'], 0, 12) == 'html-code://') {
     $_POST['pic_code'] = substr($_POST['pic_path'], 12, strlen($_POST['pic_path']) - 12);

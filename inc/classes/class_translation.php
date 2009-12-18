@@ -166,7 +166,6 @@ class translation {
    * @param string Modulname or DB / System
    */
     function load_cache_byfile($modul) {
-        global $db, $xml;
         // Load from File
         $xmldata = $this->xml_read_to_array($modul);
         if (is_array($xmldata)) {
@@ -325,8 +324,11 @@ class translation {
    * @todo Errorhandler for xml and fileacces
    */
     function xml_write_db_to_file($modul) {
-        global $xml, $db, $config;
-        
+        global $db, $config;
+
+        include_once("inc/classes/class_xml.php");
+        $xml = new xml;
+
         // Load old Translation from File to merge
         $xml_old = $this->xml_read_to_array($modul);
         
@@ -427,7 +429,7 @@ class translation {
    * @return array Temporary XML-Data
    */
     function xml_read_to_array($modul) {
-        global $db, $xml, $config, $func;
+        global $db, $config, $func;
         $lang_file = $this->get_trans_filename($modul);
         $count_update = 0;
         $count_insert = 0;
