@@ -148,14 +148,12 @@ class framework {
    * @return string Returns the possible zip-mode
    */
     function check_optimizer() {
-        if (headers_sent()
-            or connection_aborted()
-            or (ereg("(error</b>:)(.+) in <b>(.+)</b> on line <b>(.+)</b>", $this->main_content))
-            or (ereg("SQL-Failure. Database respondet:", $this->main_content))
-            ) return 0;
-        elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip') !== false) return "x-gzip";
-        elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip') !== false) return "gzip"; 
-        else return 0; 
+      global $PHPErrorsFound, $db;
+
+      if (headers_sent() or connection_aborted() or $PHPErrors or (isset($db) and $db->errorsFound)) return 0;
+      elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'x-gzip') !== false) return "x-gzip";
+      elseif (strpos($_SERVER["HTTP_ACCEPT_ENCODING"], 'gzip') !== false) return "gzip"; 
+      else return 0; 
     }
 
   /**

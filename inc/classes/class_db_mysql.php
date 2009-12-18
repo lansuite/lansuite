@@ -10,6 +10,7 @@ class db {
   var $count_query = 0;
   var $querys = array();
   var $errors = '';
+  var $errorsFound = 0;
   var $connectfailure = 0;  //0= no error, 1=connection error, 2=database error
 
   // Construktor
@@ -27,6 +28,7 @@ class db {
     $error = t('SQL-Failure. Database respondet: <b>%1</b><br/><br/>Query: <br><i>%2</i><br/><br/>Script: <a href="%3">%3</a><br/>Referrer: <a href="%4">%4</a><br/>', $msg, $query_string_with_error, $_SERVER["REQUEST_URI"], $func->internal_referer);
 
     $this->errors .= $error;
+    $this->errorsFound = 1;
     // Need to use mysql_querys here, to prevent loops!!
     $query = 'INSERT INTO '. $config['database']['prefix'] .'log SET date = NOW(), userid = '. (int)$auth['userid'] .', type = 3, description = "'. strip_tags($error) .'", sort_tag = "SQL-Fehler"';
     if ($this->mysqli) mysqli_query($this->link_id, $query);
