@@ -280,7 +280,13 @@ pageTracker._trackPageview();
         $smarty->assign('main_footer_countquery',$db->count_query);
         $smarty->assign('main_footer_timer', round($this->out_work(), 2));
         $smarty->assign('main_footer_cleanquery', $this->get_clean_url_query('query'));
+        
+        $main_footer_mem_usage = '';
+        if (function_exists('memory_get_peak_usage')) $main_footer_mem_usage = 'Memory-Usage: '. $func->FormatFileSize(memory_get_peak_usage()) .' |';
+        $smarty->assign('main_footer_mem_usage', $main_footer_mem_usage);
+
         $footer = $smarty->fetch('design/templates/footer.htm');
+
         if ($cfg["sys_optional_footer"]) $footer .= HTML_NEWLINE.$cfg["sys_optional_footer"];
         $smarty->assign('Footer', $footer);
 
