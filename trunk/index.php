@@ -12,7 +12,7 @@
     }
 
     function myErrorHandler($errno, $errstr, $errfile, $errline) {
-      global $PHPErrors, $db, $auth;
+      global $PHPErrors, $PHPErrorsFound, $db, $auth;
 
       // Only show errors, which sould be reported according to error_reporting
       // Also filters @ (for @ will have error_reporting "0")
@@ -52,6 +52,8 @@
       #$err = '<b>'. $errors .'</b>: '. $errstr .' in <b>'. $errfile .'</b> on line <b>'. $errline .'</b><br /><br />';
       $err = sprintf("PHP %s:  %s in %s on line %d", $errors, $errstr, $errfile, $errline);
       $PHPErrors .= $err;
+      
+      $PHPErrorsFound = 1;
 
       // Write to DB-Log
       // Attention: Be aware of loops!
@@ -65,6 +67,7 @@
       return true;
     }
 
+    $PHPErrorsFound = 0;
     $PHPErrors = '';
     set_error_handler("myErrorHandler");
 
@@ -136,16 +139,6 @@
     #foreach ($_GET as $key => $val) $_GET[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_GET[$key]);
     #foreach ($_POST as $key => $val) $_POST[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_POST[$key]);
     
-    /*
-    // Delete Statements from URL, which could manipulate an SQL-WHERE-Clause
-    foreach ($_GET as $key => $val) if (!is_array($_GET[$key])) {
-      $_GET[$key] = eregi_replace(' and ', '', $_GET[$key]);
-      $_GET[$key] = eregi_replace(' and\(', '', $_GET[$key]);
-      $_GET[$key] = eregi_replace(' or ', '', $_GET[$key]);
-      $_GET[$key] = eregi_replace(' or\(', '', $_GET[$key]);
-    }
-    */
-
 ### Read Config and Definitionfiles
     
     $config = parse_ini_file('inc/base/config.php', 1);     // Load Basic Config
