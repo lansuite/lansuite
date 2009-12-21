@@ -203,7 +203,7 @@ class framework {
    * @return string Returns the Complete HTML
    */
   function html_out() {
-    global $dsp, $templ, $cfg, $db, $lang, $auth, $smarty, $func;
+    global $dsp, $templ, $cfg, $db, $lang, $auth, $smarty, $func, $debug;
     $compression_mode = $this->check_optimizer();
 
     ### Prepare Header  
@@ -305,7 +305,9 @@ pageTracker._trackPageview();
           $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
           $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
           $smarty->assign('MainLogo', '<img src="design/'.$this->design.'/images/lansuite-logo.gif" alt="Lansuite Logo" title="Lansuite Logo" border="0" />');
-          $smarty->assign('MainDebug', $func->ShowDebug());
+          if ($auth['type'] >= 2 and $cfg['sys_showdebug']) {
+            $smarty->assign('MainDebug', $debug->show());
+          }
         } else {
           // Ausgabe Vollbildmodus    
           $smarty->assign('CloseFullscreen', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span> Lansuite - Vollbildmodus</a>');
