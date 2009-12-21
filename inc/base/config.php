@@ -6,6 +6,7 @@ default_design			= "simple"
 user_timeout			= "300"
 chmod_dir			= "777"
 chmod_file			= "666"
+debugmode           = "1"
 
 [environment]
 configured			= "0"

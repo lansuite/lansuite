@@ -50,7 +50,7 @@ class func {
     
   #### Template stuff (should be moved to class_framework, or class_display) ####
   function FetchMasterTmpl($file) {
-    global $auth, $templ, $config, $dsp, $framework, $smarty;
+    global $auth, $templ, $config, $dsp, $framework, $smarty, $debug;
 
     if (!is_file($file)) return false;
     else {
@@ -75,7 +75,7 @@ class func {
       if ($auth['login']) $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', ' | <a href="index.php?mod=auth&action=logout" class="menu">Logout</a>', $tpl_str);
       else $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', '', $tpl_str);
 
-        $tpl_str = str_replace('{$templ[\'index\'][\'debug\'][\'content\']}', $this->ShowDebug(), $tpl_str);
+        $tpl_str = str_replace('{$templ[\'index\'][\'debug\'][\'content\']}', $debug->show(), $tpl_str);
 
         $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'lanparty_name\']}', $_SESSION['party_info']['name'], $tpl_str);
         $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'version\']}', $config['lansuite']['version'], $tpl_str);
@@ -629,63 +629,6 @@ class func {
   
       } else echo ("Error: Function page_split needs defined: current_page, max_entries_per_page,working_link, page_varname For more information please visit the lansuite programmers docu");
   }
-
-    // TODO: I think, this should be moved to class_framework (KnoX)
-    function ShowDebug() {
-        global $cfg, $auth, $db;
-
-        if ($auth['type'] >= 2 and $cfg['sys_showdebug']) {
-            $debug = $this->debug_parse_array($_GET, '$_GET');
-            $debug .= $this->debug_parse_array($_POST, '$_POST');
-            $debug .= $this->debug_parse_array($auth, '$auth');
-            $debug .= $this->debug_parse_array($cfg, '$cfg');
-            $debug .= $this->debug_parse_array($_ENV, '$_ENV');
-            $debug .= $this->debug_parse_array($_COOKIE, '$_COOKIE');
-            $debug .= $this->debug_parse_array($_SESSION, '$_SESSION');
-            $debug .= $this->debug_parse_array($_SERVER, '$_SERVER');
-            $debug .= $this->debug_parse_array($_FILES["importdata"], '$_FILES[importdata]'); 
-            $debug .= HTML_NEWLINE . "<h3>Querys</h3>";
-
-            // *** Achtung.. wird noch ausgelagert. Is nur ein Versuch. Byte
-            // Vergleichsfunktion
-            function vergleich($wert_a, $wert_b) {
-                // Sortierung nach dem zweiten Wert des Array (Index: 1)
-                $a = $wert_a[1];
-                $b = $wert_b[1];
-                if ($a == $b) {
-                   return 0;
-                }
-                return ($a > $b) ? -1 : +1;
-            }
-            usort($db->querys, 'vergleich');
-            foreach($db->querys as $debug_query) {
-                $debug .= sprintf("<b>%8.4f ms</b> => [%s]<br \>\n", $debug_query[1],$debug_query[0]);
-            }
-            // *** Ende Test. Byte
-
-            $debug = '<div class="content" align="left">'. $debug .'</div>';
-            return $debug;
-        }
-        return '';
-    }
-
-    function debug_parse_array($array, $caption = NULL, $level = 0) {
-    $spaces = '';
-    for ($z = 0; $z < $level; $z++) $spaces .= '&nbsp;&nbsp;&nbsp;&nbsp;';
-
-        if ($caption) $debug .= HTML_NEWLINE . "<h3>$caption</h3>";
-        if ($array) foreach($array as $key => $value) {
-            if (is_array($value)) $debug .= $this->debug_parse_array($value, "Array => $key", $level++);
-            else {
-                if (strlen($value) > 80) $value = wordwrap($value, 80, "<br />\n", 1);
-                $debug .= HTML_NEWLINE .$spaces. "$key = $value";
-            }
-        }
-        $debug .= HTML_NEWLINE . "------------------------------";
-        return $debug;
-    }
-
-
 
     function FileUpload($source_var, $path, $name = NULL) {
         global $config;

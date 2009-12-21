@@ -153,6 +153,10 @@
 
 ### Include and Initialize base classes
 
+    // Debug initialisieren
+    require_once "inc/classes/class_debug.php";
+    $debug = new debug($config['lansuite']['debugmode']);
+
     include_once("inc/classes/class_translation.php");  // Load Translationclass. No t()-Function before this point!
     $translation = new translation();
 
@@ -167,9 +171,10 @@
 
     include_once("modules/cron2/class_cron2.php");      // Load Cronjob
     $cron2 = new cron2();
-
+    $debug->tracker("Include and Init Base Classes");
+    
 ### Load Smarty template engine
-
+    
     include_once('ext_scripts/smarty/Smarty.class.php');
     $smarty      = new Smarty();
     $smarty->template_dir = '.';
@@ -178,6 +183,7 @@
     $smarty->caching = false;
     $smarty->cache_lifetime = 0; // sec
     #$smarty->compile_check = 0;
+    $debug->tracker("Include and Init Smarty");
 
 ### Initalize Basic Parameters
 
@@ -323,6 +329,11 @@
 
     $framework->add_content($FrameworkMessages);    // Add old Frameworkmessages (sollten dann ausgetauscht werden)
     $framework->add_content($MainContent);          // Add oll MainContent-Variable (sollte auch bereinigt werden)
+
+    // DEBUG:Alles
+    $debug->addvar('$auth',$auth);
+    $debug->addvar('$cfg',$cfg);
+    $debug->tracker("All upto HTML-Output");
 
     $framework->html_out();  // Output of all HTML
     

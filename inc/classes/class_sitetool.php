@@ -70,7 +70,7 @@ class sitetool {
 
     // Finalize Output and return Outputbuffer
     function out_optimizer() {
-        global $templ, $cfg, $db, $lang, $auth, $MainContent, $smarty, $func, $URLQuery;
+        global $templ, $cfg, $db, $lang, $auth, $MainContent, $smarty, $func, $URLQuery, $debug;
         
         $compression_mode = $this->check_optimizer();
 
@@ -147,7 +147,7 @@ $footer = '
           $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
           $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
           $smarty->assign('MainLogo', '<img src="design/simple/images/logo.gif" alt="Logo" title="Lansuite" border="0" />');
-          $smarty->assign('MainDebug', $func->ShowDebug());
+          $smarty->assign('MainDebug', $debug->show());
         }
       } else $smarty->assign('MainLogo', '<a href="index.php?'. $URLQuery .'&amp;fullscreen=no" class="menu"><img src="design/'. $auth['design'] .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span></a> Lansuite - Vollbildmodus');
       $smarty->assign('MainContent', $MainContent);

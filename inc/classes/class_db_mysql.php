@@ -8,7 +8,6 @@ class db {
   var $print_sql_error;
   var $success = false;
   var $count_query = 0;
-  var $querys = array();
   var $errors = '';
   var $errorsFound = 0;
   var $connectfailure = 0;  //0= no error, 1=connection error, 2=database error
@@ -123,10 +122,7 @@ class db {
    * @return unknown_type
    */
   function qry() {
-    global $config, $CurrentArg;
-
-    $query_start = microtime(true);
-
+    global $config, $CurrentArg, $debug;
     $args = func_get_args();
     if (is_array($args[0])) $args = $args[0]; // Arguments could be passed als multiple ones, or a single array
 
@@ -137,7 +133,7 @@ class db {
     	$args = $args[0];
 
     foreach ($args as $CurrentArg) $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array('db', 'escape'), $query, 1);
-
+    $debug->query_start($query);
     if ($this->mysqli) {
       $this->query_id = mysqli_query($this->link_id, $query);
       $this->sql_error = @mysqli_error($this->link_id);
@@ -146,11 +142,8 @@ class db {
       $this->sql_error = @mysql_error($this->link_id);
     }
     if (!$this->query_id) $this->print_error($this->sql_error, $query);
-
     $this->count_query++;
-    $query_end = microtime(true);
-    $this->querys[] = array($query, round(($query_end - $query_start) *1000, 4));
-
+    $debug->query_stop($this->sql_error);
     return $this->query_id;
   }
 
