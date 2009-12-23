@@ -101,7 +101,7 @@ class basket{
 		$_SESSION['basket_count'] = $this->count;
 		
 		// Wird nur ausgeführt wenn Credit-System an
-		if( $cfg['foodcenter_credit'] == 0)
+		if( $cfg['foodcenter_credit'])
 		{
 //accounting($userid);
 //echo("<script language='JavaScript'>alert
