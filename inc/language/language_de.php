@@ -104,9 +104,6 @@
 	$lang['class_party']['no_user_group'] = 'Keine Benutzergruppe vorhanden';
 	$lang['class_party']['logevent'] = 'Die Anmeldung von %ID% bei der Party %PARTY% wurde geändert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%';
 
-	// Class Sitetool
-	$lang['class_sitetool']['footer_violation'] = 'Der Eintrag {footer} wurde unerlaubt aus der index.htm entfernt!';
-
 	// Class XML
 	# No Language
 

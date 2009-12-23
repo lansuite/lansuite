@@ -97,9 +97,6 @@
 	$lang['class_party']['drowpdown_no_group'] = 'No group';
 	$lang['class_party']['no_user_group'] = 'No usergroups available';
 
-	// Class Sitetool
-	$lang['class_sitetool']['footer_violation'] = 'The entry {footer} was not found in index.htm!';
-
 	// Class XML
 	# No Language
 
