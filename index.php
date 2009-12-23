@@ -194,6 +194,7 @@
 
 ### Installingsystem or normal auth
 
+    $ActiveModules = array();
     if ($config['environment']['configured'] == 0) {
         $translation->load_trans('xml', 'install'); // Filemode on Installation
         ### Prepare install
@@ -239,7 +240,6 @@
         if (!$_GET['mod']) $_GET['mod'] = 'home';
         // FIX : Maybe its a good Idea make a func::get_activemodules()
         // Fetch all names of active modules
-        $ActiveModules = array();
         $framework->AddToPageTitle($cfg['sys_page_title']);
         $res = $db->qry('SELECT name, caption FROM %prefix%modules WHERE active = 1');
         while($row = $db->fetch_array($res)) {

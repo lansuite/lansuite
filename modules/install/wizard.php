@@ -27,6 +27,7 @@ switch ($_GET["step"]){
         $userid = $db->insert_id();
       }
       
+      include_once("inc/classes/class_auth.php");
       $authentication = new auth();
       $authentication->login($_POST["email"], $_POST["password"]);
     }
