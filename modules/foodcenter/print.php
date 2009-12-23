@@ -213,7 +213,7 @@ class foodcenter_print{
 			$row_temp['supplytime']			= $this->GetDate($data['supplytime']);
 			$row_temp['status']				= $data['status'];
 
-			$this->fetch_row($row_temp);
+			if($row_temp['status'] == 2) $this->fetch_row($row_temp);
 		}
 	}
 }

@@ -123,7 +123,7 @@ class product_list{
                 // Produkt suchen und aufaddieren
                 foreach ($this->product_list as $key => $value){
                     if($value == $id){
-                        $this->product[$key]->order_option($opt);             
+                        $this->product[$key]->order_option($opt,0);
                        	return true;
                     }
                 }
