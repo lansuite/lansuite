@@ -73,7 +73,7 @@
 
 ### Start session-management
     
-    session_save_path('ext_inc/session');
+    #session_save_path('ext_inc/session'); Leave to hosters default value, for some don't seam to empty it and data here counts against web space quota
     session_start();
     
 ### Initialise Frameworkclass for Basic output
