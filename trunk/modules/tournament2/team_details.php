@@ -27,7 +27,7 @@ else {
 	// Leader
   include_once("modules/seating/class_seat.php");
   $seat2 = new seat2();
-	$dsp->AddDoubleRow(t('Teamleiter'), $team['username'] . $func->button_userdetails($team['userid'], "") . " (Platz: ". $seat2->SeatNameLink($team['userid'], '', '') .")");
+	$dsp->AddDoubleRow(t('Teamleiter'), $dsp->FetchUserIcon($team['userid'], $team['username']) . " (Platz: ". $seat2->SeatNameLink($team['userid'], '', '') .")");
 
 	// Members
 	$dsp->AddDoubleRow(t('Mitglieder'), $tfunc->GetMemberList($_GET["teamid"]));

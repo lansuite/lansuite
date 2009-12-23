@@ -12,5 +12,4 @@ $dsp->NewContent("");
 $dsp->AddSingleRow($seat2->DrawPlan($id,0,'',$userarray[0]));
 $dsp->AddContent();
 
-//echo $func->FetchMasterTmpl("design/templates/base_index.htm",$templ);
 ?>

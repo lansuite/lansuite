@@ -7,11 +7,9 @@ class display {
   var $form_ok = 0;
   var $form_open = 0;
   var $formcount = 1;
-  var $TplCache = array();
   var $errortext_prefix = '';
   var $errortext_suffix = '';
   var $FirstLine = 1;
-  var $TplVars = array();
   var $CurrentTab = 0;
   var $TabsMainContentTmp = '';
   var $tabNames = array();
@@ -44,7 +42,7 @@ class display {
   function AddContentLine($content){
     global $smarty, $MainContent;
 
-    if ($_GET['design'] != 'base') {
+#    if ($_GET['design'] != 'base') {
       if ($this->FirstLine) {
         $smarty->assign('content', $content);
         $MainContent .= $smarty->fetch('design/templates/ls_row_firstline.htm');
@@ -53,7 +51,7 @@ class display {
         $smarty->assign('content', $content);
         $MainContent .= $smarty->fetch('design/templates/ls_row_line.htm');
       }
-    }
+#    }
   }
 
   #### Add content ####

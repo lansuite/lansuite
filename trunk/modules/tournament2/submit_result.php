@@ -101,7 +101,7 @@ if ($tournament["name"] == "") {
 			}
 */
 			$dsp->AddFieldSetStart(t('Team'). ' 1'. $tfunc->button_team_details($team1['teamid'], $tournamentid) . " ". $disqualify_link);
-			$dsp->AddDoubleRow(t('Teamleiter'), $team1['username'] . $func->button_userdetails($team1['userid'], "") . " (".t('Platz').": ". $seat2->SeatNameLink($team1['userid'], '', '') .")");
+			$dsp->AddDoubleRow(t('Teamleiter'), $dsp->FetchUserIcon($team1['userid'], $team1['username']) . " (".t('Platz').": ". $seat2->SeatNameLink($team1['userid'], '', '') .")");
 			$dsp->AddTextFieldRow("score_team1", t('Punktzahl'), (int) $team1["score"], "");
 			$dsp->AddFieldSetEnd();
 
@@ -114,7 +114,7 @@ if ($tournament["name"] == "") {
 			}
 */
 			$dsp->AddFieldSetStart(t('Team'). ' 2'. $tfunc->button_team_details($team2['teamid'], $tournamentid) . " ". $disqualify_link);
-			$dsp->AddDoubleRow(t('Teamleiter'), $team2['username'] . $func->button_userdetails($team2['userid'], "") . " (".t('Platz').": ". $seat2->SeatNameLink($team2['userid'], '', '') .")");
+			$dsp->AddDoubleRow(t('Teamleiter'), $dsp->FetchUserIcon($team2['userid'], $team2['username']) . " (".t('Platz').": ". $seat2->SeatNameLink($team2['userid'], '', '') .")");
 			$dsp->AddTextFieldRow("score_team2", t('Punktzahl'), (int) $team2["score"], "");
 			$dsp->AddFieldSetEnd();
 

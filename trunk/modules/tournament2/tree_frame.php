@@ -353,5 +353,5 @@ else {
   }
 }
 
-$framework->add_content($func->FetchMasterTmpl("design/templates/base_index.htm", $templ));
+$dsp->AddSingleRow($templ['index']['info']['content']);
 ?>

@@ -24,14 +24,14 @@ class ranking_data {
 class tfunc {
 	// Generates a string to output a memberlist of one team
 	function GetMemberList($teamid){
-		global $db, $config, $func, $seat2, $lang;
+		global $db, $dsp, $seat2;
 
 		$member_liste = "";
 		$team_memb = $db->qry("SELECT user.username, user.userid
     FROM %prefix%t2_teammembers AS teammember
     LEFT JOIN %prefix%user AS user ON teammember.userid = user.userid
     WHERE teammember.teamid = %int%", $teamid);
-		while ($member = $db->fetch_array($team_memb)) $member_liste .= $member['username'] . $func->button_userdetails($member['userid'], "") . " (Platz: ". $seat2->SeatNameLink($member['userid'], '', '') .")" . HTML_NEWLINE;
+		while ($member = $db->fetch_array($team_memb)) $member_liste .= $dsp->FetchUserIcon($member['userid'], $member['username']) . " (Platz: ". $seat2->SeatNameLink($member['userid'], '', '') .")" . HTML_NEWLINE;
 		$db->free_result($team_memb);
 
 		if ($member_liste == "") return "<i>".t('Keine')."</i>";
