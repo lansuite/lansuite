@@ -340,7 +340,6 @@
 ### Statistics will be updated only at scriptend, so pagesize and loadtime can be insert
 
     if ($db->success) {
-      //if ($_GET['design'] != 'base' AND !$_GET['mod']=="install") $stats->update($sitetool->out_work(), 0);
       // Check Cronjobs
       if (!$_GET['mod']=="install") $cron2->CheckJobs();
       $db->disconnect();

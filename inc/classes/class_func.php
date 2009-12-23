@@ -47,56 +47,6 @@ class func {
         return $cfg;
     }
 
-    
-  #### Template stuff (should be moved to class_framework, or class_display) ####
-  function FetchMasterTmpl($file) {
-    global $auth, $templ, $config, $dsp, $framework, $smarty, $debug;
-
-    if (!is_file($file)) return false;
-    else {
-        $handle = fopen ($file, "rb");
-        $tpl_str = fread ($handle, filesize ($file));
-        fclose ($handle);
-
-        $tpl_str = str_replace("{default_design}", $auth["design"], $tpl_str);
-        $tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'js\']}', '<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>', $tpl_str);
-        $tpl_str = str_replace('{$templ[\'index\'][\'body\'][\'js\']}', $templ['index']['body']['js'], $tpl_str);
-        $tpl_str = str_replace('{$templ[\'index\'][\'banner_code\']}', $templ['index']['banner_code'], $tpl_str);
-        $tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'boxes_letfside\']}', $templ['index']['control']['boxes_letfside'], $tpl_str);
-        $tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'boxes_rightside\']}', $templ['index']['control']['boxes_rightside'], $tpl_str);
-        $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'content\']}', $templ['index']['info']['content'], $tpl_str);
-        
-        $smarty->assign('Design', $auth["design"]);
-        $tpl_str = str_replace('{$templ[\'index\'][\'html_header\']}', $templ['index']['html_header'] . $smarty->fetch('design/templates/html_header.htm'), $tpl_str);
-
-        $templ['index']['control']['current_url'] = 'index.php?'. $framework->get_clean_url_query('query') .'&fullscreen=no';
-        $tpl_str = str_replace('{$templ[\'index\'][\'control\'][\'current_url\']}', $templ['index']['control']['current_url'], $tpl_str);
-
-      if ($auth['login']) $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', ' | <a href="index.php?mod=auth&action=logout" class="menu">Logout</a>', $tpl_str);
-      else $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'logout_link\']}', '', $tpl_str);
-
-        $tpl_str = str_replace('{$templ[\'index\'][\'debug\'][\'content\']}', $debug->show(), $tpl_str);
-
-        $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'lanparty_name\']}', $_SESSION['party_info']['name'], $tpl_str);
-        $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'version\']}', $config['lansuite']['version'], $tpl_str);
-        $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'lansuite_version\']}', $config['lansuite']['version'], $tpl_str);
-        $tpl_str = str_replace('{$templ[\'index\'][\'info\'][\'current_date\']}', $this->unixstamp2date(time(),'daydatetime'), $tpl_str);
-
-      return $tpl_str;
-    }
-  }
-
-
-  #### Display stuff (should be moved to class_display) ####
-  function button_userdetails($userid, $target) {
-    global $authentication;
-
-    if ($target == "new") $target = 'target="_blank"';
-    (in_array($userid, $authentication->online_users))? $state ='online' : $state ='offline';
-    return ' <a href="index.php?mod=usrmgr&action=details&userid='.$userid.'" '.$target.'><img src="design/images/arrows_user_'. $state .'.png" border="0"/></a>';
-  }
-
-
   #### Date Conversions ####
   function MysqlDateToTimestamp($datetime) {
     list($date, $time) = split(' ', $datetime);
