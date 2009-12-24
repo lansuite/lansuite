@@ -18,8 +18,7 @@ $selections['1'] = t('Ja');
 $mf->AddField(t('Top-Meldung'), 'top', IS_SELECTION, $selections, FIELD_OPTIONAL);
 
 if (!$_GET['newsid']) {
-  $mf->AddFix('date', time());
-  $mf->AddFix('lastchange', 'NOW()');
+  $mf->AddFix('date', 'NOW()');
   $mf->AddFix('poster', $auth['userid']);
 }
 
