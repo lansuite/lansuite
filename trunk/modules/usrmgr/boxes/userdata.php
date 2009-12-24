@@ -81,23 +81,23 @@ if (in_array('mail', $ActiveModules)) {
 if ($cfg["user_show_ticket"]) $box->DotRow(t('Meine Eintrittskarte'), "index.php?mod=usrmgr&amp;action=myticket", "", "menu");
 
 // Zeige Anmeldestatus
-if($party->count != 0 & $_SESSION['party_info']['partyend'] > time()) {
+if($party->count > 0 and $_SESSION['party_info']['partyend'] > time()) {
   $query_signstat = $db->qry_first("SELECT * FROM %prefix%party_user AS pu
-		WHERE pu.user_id = %int% AND pu.party_id = %int%", $auth["userid"], $_SESSION["party_id"]);
-		if($query_signstat == null) {
-			$signstat = '<font color="red">'. t('Nein') .'!</font>';
-			$signstat_info = '<a href="index.php?mod=signon"><i> '. t('Hier anmelden') .'</i></a>';
-			$paidstat = '<font color="red">'. t('Nein') .'!</font>';
-		} else {
-			$signstat = '<font color="green">'. t('Ja') .'!</font>';
-			if(($query_signstat["paid"] == 1)||($query_signstat["paid"] == 2))
-				$paidstat = '<font color="green">'. t('Ja') .'!</font>';
-			else
-			{
-				$paidstat = '<font color="red">'. t('Nein') .'!</font>'; 
-				if ($cfg['signon_paylink']) $paidstat_info = '<a href="'.$cfg['signon_paylink'].'"><i> '. t('Bezahlinfos') .'</i></a>';
-			}
+		WHERE pu.user_id = %int% AND pu.party_id = %int%", $auth["userid"], $party->party_id);
+	if($query_signstat == null) {
+		$signstat = '<font color="red">'. t('Nein') .'!</font>';
+		$signstat_info = '<a href="index.php?mod=signon"><i> '. t('Hier anmelden') .'</i></a>';
+		$paidstat = '<font color="red">'. t('Nein') .'!</font>';
+	} else {
+		$signstat = '<font color="green">'. t('Ja') .'!</font>';
+		if(($query_signstat["paid"] == 1)||($query_signstat["paid"] == 2))
+			$paidstat = '<font color="green">'. t('Ja') .'!</font>';
+		else
+		{
+			$paidstat = '<font color="red">'. t('Nein') .'!</font>'; 
+			if ($cfg['signon_paylink']) $paidstat_info = '<a href="'.$cfg['signon_paylink'].'"><i> '. t('Bezahlinfos') .'</i></a>';
 		}
+	}
   
   $query_partys = $db->qry_first("SELECT * FROM %prefix%partys AS p WHERE p.party_id = %int%", $_SESSION["party_id"]);	
   					
