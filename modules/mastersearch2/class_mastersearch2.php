@@ -112,7 +112,7 @@ class MasterSearch2 {
   }
 
     function PrintSearch($working_link, $select_id_field, $multiaction = '') {
-    global $smarty, $db, $config, $dsp, $templ, $func, $auth, $line, $lang, $ms_number;
+    global $smarty, $db, $config, $dsp, $templ, $func, $auth, $line, $lang, $ms_number, $framework;
 
     $UrlParas = explode('&', substr($working_link, strpos($working_link, '?') + 1, strlen($working_link)));
     foreach ($UrlParas as $UrlPara) {
@@ -321,6 +321,8 @@ class MasterSearch2 {
     if ($this->config['EntriesPerPage']) $count_pages = ceil($count_rows['count'] / $this->config['EntriesPerPage']);
 
     if ($this->config['EntriesPerPage'] and ($count_rows['count'] > $this->config['EntriesPerPage'])) {
+    	$framework->AddToPageTitle(t('Seite') .' '. ((int)$_GET['ms_page'] + 1));
+
       $link = $_SERVER['QUERY_STRING'] .'&ms_page=';
       $link = preg_replace('#mf_step=.\\&?#si', '', $link);
       $link = preg_replace('#mf_id=.\\&?#si', '', $link);
