@@ -147,33 +147,40 @@ class MasterSearch2 {
               $this->AddResultField($lang['ms2']['score'], "ROUND(MATCH ($sql_field) AGAINST ('{$_GET["search_input"][$z]}' IN BOOLEAN MODE), 3) AS score");
             break;
             case '1337':
-                    $key_1337 = $_GET["search_input"][$z];
-                    $key_1337 = str_replace ('?', '[?]', $key_1337);
-                    $key_1337 = str_replace ('+', '[+]', $key_1337);
-                    $key_1337 = str_replace ('*', '[*]', $key_1337);
-                    $key_1337 = str_replace ('.', '[.]', $key_1337);
-                    $key_1337 = str_replace ('|', '[|]', $key_1337);
-                    $key_1337 = str_replace ('[', '[[]', $key_1337);
+              $key_1337 = $_GET["search_input"][$z];
+              $key_1337 = str_replace ('?', '[?]', $key_1337);
+              $key_1337 = str_replace ('+', '[+]', $key_1337);
+              $key_1337 = str_replace ('*', '[*]', $key_1337);
+              $key_1337 = str_replace ('.', '[.]', $key_1337);
+              $key_1337 = str_replace ('|', '[|]', $key_1337);
+              $key_1337 = str_replace ('[', '[[]', $key_1337);
 
-                    $key_1337 = str_replace ("o", "(o|0)", $key_1337);
-                    $key_1337 = str_replace ("O", "(O|0)", $key_1337);
-                    $key_1337 = str_replace ("l", "(l|1|\\\\||!)", $key_1337);
-                    $key_1337 = str_replace ("L", "(L|1|\\\\||!)", $key_1337);
-                    $key_1337 = str_replace ("i", "(i|1|\\\\||!)", $key_1337);
-                    $key_1337 = str_replace ("I", "(I|1|\\\\||!)", $key_1337);
-                    $key_1337 = str_replace ("e", "(e|3|€)", $key_1337);
-                    $key_1337 = str_replace ("E", "(E|3|€)", $key_1337);
-                    $key_1337 = str_replace ("t", "(t|7)", $key_1337);
-                    $key_1337 = str_replace ("T", "(T|7)", $key_1337);
-                    $key_1337 = str_replace ("a", "(a|@)", $key_1337);
-                    $key_1337 = str_replace ("A", "(A|@)", $key_1337);
-                    $key_1337 = str_replace ("s", "(s|5|$)", $key_1337);
-                    $key_1337 = str_replace ("S", "(S|5|$)", $key_1337);
-                    $key_1337 = str_replace ("z", "(z|2)", $key_1337);
-                    $key_1337 = str_replace ("Z", "(Z|2)", $key_1337);
+              $key_1337 = str_replace ("o", "(o|0)", $key_1337);
+              $key_1337 = str_replace ("O", "(O|0)", $key_1337);
+              $key_1337 = str_replace ("l", "(l|1|\\\\||!)", $key_1337);
+              $key_1337 = str_replace ("L", "(L|1|\\\\||!)", $key_1337);
+              $key_1337 = str_replace ("i", "(i|1|\\\\||!)", $key_1337);
+              $key_1337 = str_replace ("I", "(I|1|\\\\||!)", $key_1337);
+              $key_1337 = str_replace ("e", "(e|3|€)", $key_1337);
+              $key_1337 = str_replace ("E", "(E|3|€)", $key_1337);
+              $key_1337 = str_replace ("t", "(t|7)", $key_1337);
+              $key_1337 = str_replace ("T", "(T|7)", $key_1337);
+              $key_1337 = str_replace ("a", "(a|@)", $key_1337);
+              $key_1337 = str_replace ("A", "(A|@)", $key_1337);
+              $key_1337 = str_replace ("s", "(s|5|$)", $key_1337);
+              $key_1337 = str_replace ("S", "(S|5|$)", $key_1337);
+              $key_1337 = str_replace ("z", "(z|2)", $key_1337);
+              $key_1337 = str_replace ("Z", "(Z|2)", $key_1337);
 
-                    $key_1337 = str_replace (']', '[[.right-square-bracket.]]', $key_1337);
+              $key_1337 = str_replace (']', '[[.right-square-bracket.]]', $key_1337);
               $sql_one_search_field .= "($sql_field REGEXP '$key_1337')";
+            break;
+            case 'multiword':
+              // Split at ' ' and use each term as correkt one
+              $words = explode(' ', $_GET['search_input'][$z]);
+              $sql_one_search_field .= "($sql_field LIKE '%";
+              $sql_one_search_field .= implode("%') OR ($sql_field LIKE '%", $words);
+              $sql_one_search_field .= "%')";
             break;
             default:
               $sql_one_search_field .= "($sql_field LIKE '%". $_GET["search_input"][$z] ."%')";

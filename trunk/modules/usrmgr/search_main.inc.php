@@ -11,7 +11,7 @@ $ms2->config['EntriesPerPage'] = 20;
 
 $ms2->AddTextSearchField(t('Benutzername'), array('u.username' => '1337'));
 $ms2->AddTextSearchField(t('Userid'), array('u.userid' => 'exact'));
-$ms2->AddTextSearchField(t('Name'), array('u.name' => 'like', 'u.firstname' => 'like'));
+$ms2->AddTextSearchField(t('Name'), array('u.name' => 'multiword', 'u.firstname' => 'multiword'));
 $ms2->AddTextSearchField(t('E-Mail'), array('u.email' => 'like'));
 
 $ms2->AddResultField(t('Benutzername'), 'u.username');
