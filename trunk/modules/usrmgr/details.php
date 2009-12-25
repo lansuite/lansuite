@@ -47,6 +47,8 @@ $user_data = $db->qry_first("SELECT u.*, g.*, u.birthday AS birthday, DATE_FORMA
 // If exists
 if (!$user_data['userid']) $func->error(t('Dieser Benutzer existiert nicht'), '');
 else {
+  $framework->AddToPageTitle($user_data['username']);
+
   $user_party = $db->qry_first("SELECT u.*, p.*, UNIX_TIMESTAMP(u.checkin) AS checkin, UNIX_TIMESTAMP(u.checkout) AS checkout FROM %prefix%party_user AS u
     LEFT JOIN %prefix%party_prices AS p ON u.price_id = p.price_id
     WHERE user_id = %int% AND u.party_id = %int%

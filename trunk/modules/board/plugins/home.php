@@ -4,7 +4,7 @@ $smarty->assign('caption', t('Aktuelles im Board') . ' <span class="small">[<a h
 $content = "";
 
 $authtyp = $auth['type'] + 1;
-$query = $db->qry("SELECT f.fid, t.tid, MAX(p.pid) AS pid, t.caption, UNIX_TIMESTAMP(MAX(p.date)) AS LastPost, (COUNT(p.pid) - 1) AS posts, t.closed
+$query = $db->qry("SELECT t.tid, MAX(p.pid) AS pid, t.caption, UNIX_TIMESTAMP(MAX(p.date)) AS LastPost, (COUNT(p.pid) - 1) AS posts, t.closed
 	FROM %prefix%board_threads AS t
 	LEFT JOIN %prefix%board_forums AS f ON t.fid = f.fid
 	LEFT JOIN %prefix%board_posts AS p ON p.tid = t.tid
@@ -15,7 +15,7 @@ $query = $db->qry("SELECT f.fid, t.tid, MAX(p.pid) AS pid, t.caption, UNIX_TIMES
 
 if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
   $page = floor(($row['posts']) / $cfg['board_max_posts']);
-  $smarty->assign('link', "index.php?mod=board&action=thread&fid={$row['fid']}&tid={$row['tid']}&posts_page={$page}#pid{$row['pid']}");
+  $smarty->assign('link', "index.php?mod=board&action=thread&tid={$row['tid']}&posts_page={$page}#pid{$row['pid']}");
 
   $text = $func->CutString($row['caption'], 40);
   $smarty->assign('text', $text);

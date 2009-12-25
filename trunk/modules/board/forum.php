@@ -27,14 +27,14 @@ function FormatTitle($title) {
   $icon = '';
   if ($line['closed']) $icon = $dsp->FetchIcon('', 'locked', t('Nicht bezahlt!'));
   if ($line['sticky']) $icon = $dsp->FetchIcon('', 'important', t('Wichtig!'));
-  return $icon . "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\">{$func->AllowHTML($title)}</a>";
+  return $icon . "<a class=\"menu\" href=\"index.php?mod=board&action=thread&tid={$line['tid']}\">{$func->AllowHTML($title)}</a>";
 }
 
 function NewPosts($last_read) {
 	global $func, $line, $auth;
 
-  if ($func->CheckNewPosts($line['LastPost'], 'board', $line['tid'])) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\"><img src=\"design/{$auth["design"]}/images/forum_new.png\" alt=\"".t('Neue Beiträge')."\" border=\"0\"></a>";
-  else return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&fid={$_GET["fid"]}&tid={$line['tid']}\"><img src=\"design/{$auth["design"]}/images/forum_old.png\" alt=\"".t('Kein neuer Beitrag')."\" border=\"0\"></a>";
+  if ($func->CheckNewPosts($line['LastPost'], 'board', $line['tid'])) return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&tid={$line['tid']}\"><img src=\"design/{$auth["design"]}/images/forum_new.png\" alt=\"".t('Neue Beiträge')."\" border=\"0\"></a>";
+  else return "<a class=\"menu\" href=\"index.php?mod=board&action=thread&tid={$line['tid']}\"><img src=\"design/{$auth["design"]}/images/forum_old.png\" alt=\"".t('Kein neuer Beitrag')."\" border=\"0\"></a>";
 }
 
 if ($_GET['fid'] != '') {
@@ -164,7 +164,7 @@ if ($_GET['action'] == 'bookmark') {
   $ms2->AddResultField(t('System-Mail'), 'b.sysemail', 'TrueFalse');
 }
 
-$ms2->AddIconField('details', 'index.php?mod=board&action=thread&fid='. $_GET["fid"] .'&tid=', t('Details'));
+$ms2->AddIconField('details', 'index.php?mod=board&action=thread&tid=', t('Details'));
 if ($_GET['action'] != 'bookmark') {
   if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=board&action=forum&step=10&fid='. $_GET['fid'] .'&tid=', t('Überschrift editieren'));
   if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=board&action=delete&step=11&tid=', t('Löschen'));
