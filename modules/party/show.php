@@ -14,11 +14,11 @@ if ($_GET['step'] == 10 and is_numeric($_GET['party_id'])) {
 }
 
 function GetGuests($max_guest) {
-  global $db, $party, $line;
+  global $db, $func, $line;
 
   $row = $db->qry_first('SELECT COUNT(*) AS anz FROM %prefix%party_user WHERE party_id = %int%', $line['party_id']);
   $row2 = $db->qry_first('SELECT COUNT(*) AS anz FROM %prefix%party_user WHERE paid > 0 AND party_id = %int%', $line['party_id']);
-  return $party->CreateSignonBar($row['anz'], $row2['anz'], $max_guest);
+  return $func->CreateSignonBar($row['anz'], $row2['anz'], $max_guest);
 }
 
 $dsp->NewContent(t('Unsere Partys'),t('Hier siehst du eine Liste aller geplanten Partys'));
