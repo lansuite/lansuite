@@ -326,6 +326,7 @@ class MasterSearch2 {
       $link = $_SERVER['QUERY_STRING'] .'&ms_page=';
       $link = preg_replace('#mf_step=.\\&?#si', '', $link);
       $link = preg_replace('#mf_id=.\\&?#si', '', $link);
+      $link = preg_replace('#ms_page=.\\&?#si', '', $link);
       $pages = t('Seite') .': ';
       $link_start = ' <a href="index.php?';
       $link_end = '" onclick="loadPage(this.href); return false" class="menu">';
