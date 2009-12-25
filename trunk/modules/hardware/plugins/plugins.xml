@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lansuite>
+    <plugin>
+        <name>usrmgr_details_tab</name>
+        <caption>Hardware</caption>
+        <pos></pos>
+    </plugin>
+</lansuite>
