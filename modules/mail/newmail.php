@@ -125,6 +125,7 @@ $mf->AddField(t('Nachricht'), 'msgbody', '', LSCODE_BIG);
 
 $mf->AddFix('mail_status', 'active');
 $mf->AddFix('des_status', 'new');
+$mf->AddFix('fromUserID', $auth['userid']);
 $mf->AddFix('tx_date', 'NOW()');
 $mf->SendButtonText = t('Mail abschicken');
 
