@@ -1,8 +1,5 @@
 <?php
 
-include_once('modules/party/class_party.php');
-$party = new party();
-
 include_once("inc/classes/class_xml.php");
 $xml = new xml;
 
