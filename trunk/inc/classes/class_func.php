@@ -838,5 +838,31 @@ class func {
     	if ($search_read["found"]) $db->qry_first("UPDATE %prefix%lastread SET date = NOW() WHERE tab = %string% AND entryid = %int% AND userid = %int%", $table, $entryid, $userid);
     	else $db->qry_first("INSERT INTO %prefix%lastread SET date = NOW(), tab = %string%, entryid = %int%, userid = %int%", $table, $entryid, $userid);
     }
+
+
+    function CreateSignonBar($guests, $paid_guests, $max_guests) {
+    	$max_bars = 100;
+
+    	// Angemeldet länge ausrechnen.
+    	if ($max_guests * $guests) $curuser = round($max_bars / $max_guests * $guests);
+    	if ($curuser > $max_bars) $curuser = $max_bars;
+
+    	// Bezahlt länge ausrechnen.
+    	if ($max_guests * $paid_guests) $gesamtpaid = round($max_bars / $max_guests * $paid_guests);
+    	if ($gesamtpaid > $max_bars) $gesamtpaid = $max_bars;
+
+    	// Wirkliche Bildanzahl ausrechenn
+    	$pixelges = $max_bars - $curuser;
+    	$pixelcuruser = $curuser - $gesamtpaid;
+    	$pixelpaid = $gesamtpaid;
+
+      // Bar erzeugen
+      if ($pixelpaid > 0) $bar = '<ul class="BarOccupied infolink" style="width:'. $pixelpaid .'px;">&nbsp;<span class="infobox">'. t('Angemeldet und Bezahlt') .': '. $paid_guests .'</span></ul>';
+      if ($pixelcuruser > 0) $bar .= '<ul class="BarMarked infolink" style="width:'. $pixelcuruser .'px;">&nbsp;<span class="infobox">'. t('Nur Angemeldet') .': '. ($guests - $paid_guests) .'</span></ul>';
+      if ($pixelges > 0) $bar .= '<ul class="BarFree infolink" style="width:'. $pixelges .'px;">&nbsp;<span class="infobox">'. t('Frei') .': '. ($max_guests - $paid_guests) .'</span></ul>';
+      $bar .= '<ul class="BarClear">&nbsp;</ul>';
+
+    	return $bar;
+    }
 }
 ?>

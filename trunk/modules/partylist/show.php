@@ -1,8 +1,5 @@
 <?php
 
-include_once("modules/party/class_party.php");
-$party = new party();
-
 include_once("inc/classes/class_xml.php");
 $xml = new xml;
 
@@ -56,7 +53,7 @@ function GetSite($url) {
 
 
 function AddSignonStatus($lsurl, $show_history = 0) {
-  global $xml, $dsp, $HTTPHeader, $party;
+  global $xml, $dsp, $HTTPHeader, $func;
 
   if (substr($lsurl, strlen($lsurl) - 1, 1) != '/') $lsurl .= '/';
   if (substr($lsurl, 0, 7) != 'http://') $lsurl = 'http://'. $lsurl;
@@ -96,13 +93,13 @@ function AddSignonStatus($lsurl, $show_history = 0) {
         $paid = $xml->get_tag_content('paid', $p);
 
         # Overview
-        if (!$_GET['partyid'] and $current_party == $partyid) $ret .= $party->CreateSignonBar($registered, $paid, $max_guest).'Max.: '.$max_guest;
+        if (!$_GET['partyid'] and $current_party == $partyid) $ret .= $func->CreateSignonBar($registered, $paid, $max_guest).'Max.: '.$max_guest;
         
         # Details
         if ($_GET['partyid']) {
-          if (!$show_history and $current_party == $partyid) $ret .= $party->CreateSignonBar($registered, $paid, $max_guest);
+          if (!$show_history and $current_party == $partyid) $ret .= $func->CreateSignonBar($registered, $paid, $max_guest);
           elseif ($show_history and $current_party != $partyid)
-            $dsp->AddDoubleRow($partyname .HTML_NEWLINE. $plz .' '. $ort, $party->CreateSignonBar($registered, $paid, $max_guest));
+            $dsp->AddDoubleRow($partyname .HTML_NEWLINE. $plz .' '. $ort, $func->CreateSignonBar($registered, $paid, $max_guest));
         }
       }
       return $ret;
@@ -115,7 +112,7 @@ function AddSignonStatus($lsurl, $show_history = 0) {
       $signon_start = $xml->get_tag_content('signon_start', $content);
       $signon_end = $xml->get_tag_content('signon_end', $content);
 
-    	return $party->CreateSignonBar($registered, $paid, $max_guest);
+    	return $func->CreateSignonBar($registered, $paid, $max_guest);
     }
   }
 }
