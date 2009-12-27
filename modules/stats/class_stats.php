@@ -12,7 +12,7 @@ class stats {
 		// Is the user known, or is it a new visit? - After 30min idle this counts as a new visit
 
     // Existing session -> Only hit
-		if ($_COOKIE['last_hit'] > (time() - 60 * 30)) {
+		if ($_SESSION['last_hit'] > (time() - 60 * 30)) {
       $db->qry("INSERT INTO %prefix%stats_usage
         SET visits = 0, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')
         ON DUPLICATE KEY UPDATE hits = hits + 1;");
@@ -23,7 +23,8 @@ class stats {
         SET visits = 1, hits = 1, time = DATE_FORMAT(NOW(), '%Y-%m-%d %H:00:00')
         ON DUPLICATE KEY UPDATE visits = visits + 1, hits = hits + 1;");
 		}
-    setcookie('last_hit', time(), time() + (30 * 60));
+		$_SESSION['last_hit'] = time();
+    #setcookie('last_hit', time(), time() + (30 * 60));
 
     // Beispiel: Suche bei Google nach lansuite.orgapage.de führt zu folgendem Referrer:
     #$_SERVER['HTTP_REFERER'] = "http://www.google.de/search?hl=de&q=lansuite.orgapage.de&btnG=Google-Suche&meta=";
