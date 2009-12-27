@@ -16,7 +16,7 @@ $reg = $get_cur["n"];
 $box->DotRow(t('Benutzer').': '. $reg);
 
 // Avgerage online, this hour
-$avg = $db->qry_first("SELECT SUM(visits) AS visits, SUM(hits) AS hits FROM %prefix%stats_usage
+$avg = $db->qry_first("SELECT visits, hits FROM %prefix%stats_usage
   WHERE DATE_FORMAT(time, '%Y-%m-%d %H:00:00') = DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 HOUR), '%Y-%m-%d %H:00:00')
 	");
 $box->DotRow(t('Besucher').':');
