@@ -50,19 +50,21 @@
 
       // Store error, to print it later
       #$err = '<b>'. $errors .'</b>: '. $errstr .' in <b>'. $errfile .'</b> on line <b>'. $errline .'</b><br /><br />';
-      $err = sprintf("PHP %s:  %s in %s on line %d", $errors, $errstr, $errfile, $errline);
+      $err = sprintf("PHP %s: %s in %s on line %d", $errors, $errstr, $errfile, $errline);
+
+      // Write error to log file
+      if (ini_get('log_errors')) error_log($err);
+
+      // Write to $PHPError for onscreen output later
       $PHPErrors .= $err .'<br />';
-      
       $PHPErrorsFound = 1;
 
       // Write to DB-Log
       // Attention: Be aware of loops!
+      $err .= sprintf('Script: %s<br/>Referrer: %s<br />', $_SERVER["REQUEST_URI"], $_SERVER['HTTP_REFERER']);
       if (isset($db) and $db->success) $db->qry('INSERT INTO %prefix%log
         SET date = NOW(), userid = %int%, type = 3, description = %string%, sort_tag = "PHP-Fehler"',
         (int)$auth['userid'], $err);
-
-      // Write error to log file
-      if (ini_get('log_errors')) error_log($err);
 
       return true;
     }
