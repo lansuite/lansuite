@@ -21,24 +21,52 @@
 				<extra>auto_increment</extra>
 			</field>
 			<field>
-				<name>userid</name>
-				<type>mediumint(8) unsigned</type>
+				<name>UserID</name>
+				<type>int(50)</type>
 				<null></null>
-				<key>IND</key>
+				<key></key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>user.userid</foreign_key>
-    	  <on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>buddyid</name>
-				<type>mediumint(8) unsigned</type>
+				<type>int(50)</type>
 				<null></null>
-				<key>IND</key>
+				<key></key>
 				<default>0</default>
 				<extra></extra>
-    	  <foreign_key>user.userid</foreign_key>
-    	  <on_delete>ASK_DELETE</on_delete>
+			</field>
+			<field>
+				<name>group_user</name>
+				<type>varchar(150)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>group_buddy</name>
+				<type>varchar(150)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>friendship_status</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>
+			<field>
+				<name>whodeleted</name>
+				<type>tinyint(1)</type>
+				<null></null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
 			</field>
 		</structure>
 	</table>
