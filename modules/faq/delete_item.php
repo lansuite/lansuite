@@ -28,7 +28,7 @@ switch($_GET["step"]) {
 		
 			else {
 	
-				$func->error(t('Diese Frage existiert nicht'),"");	
+				$func->error(t('Diese Frage existiert nicht'));	
 			}
 
 	break;
@@ -49,7 +49,7 @@ switch($_GET["step"]) {
 					
 			else {
 		
-				$func->error("DB_ERROR","");
+				$func->error("DB_ERROR");
 		 		
 			}
 	
@@ -57,7 +57,7 @@ switch($_GET["step"]) {
 		
 			else {	
 		
-				$func->error(t('Diese Frage existiert nicht'),"");
+				$func->error(t('Diese Frage existiert nicht'));
 			}	
 	
 	break;

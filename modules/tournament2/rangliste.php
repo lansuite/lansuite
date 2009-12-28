@@ -1,6 +1,6 @@
 <?php
 
-if (!$_GET['tournamentid']) $func->error(t('Sie haben kein Turnier ausgewählt!'), '');
+if (!$_GET['tournamentid']) $func->error(t('Sie haben kein Turnier ausgewählt!'));
 else {
 
   switch($_GET['step']) {

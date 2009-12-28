@@ -121,8 +121,8 @@ class auth {
         if ($email != "") $tmp_login_email = strtolower(htmlspecialchars(trim($email)));
         if ($password != "") $tmp_login_pass = md5($password);
 
-        if     ($tmp_login_email == "") $func->information(t('Bitte geben Sie Ihre E-Mail-Adresse oder Ihre Lansuite-ID ein.'), "", '', 1);
-        elseif ($tmp_login_pass == "") $func->information(t('Bitte geben Sie Ihr Kennwort ein.'), "", '', 1);
+        if     ($tmp_login_email == "") $func->information(t('Bitte geben Sie Ihre E-Mail-Adresse oder Ihre Lansuite-ID ein.'), '', 1);
+        elseif ($tmp_login_pass == "") $func->information(t('Bitte geben Sie Ihr Kennwort ein.'), '', 1);
         else {
             $is_email = strstr($tmp_login_email, '@');
             if(!$is_email) $is_email = 0; else $is_email = 1;
@@ -148,43 +148,43 @@ class auth {
 
             // Too many login trys?
             if ($row['anz'] >= 5) {
-                $func->information(t('Sie haben in der letzten Minute bereits 5 mal Ihr Passwort falsch eingegeben. Bitte waren Sei einen Moment, bevor Sie es erneut versuchen dürfen'), '', '', 1);
+                $func->information(t('Sie haben in der letzten Minute bereits 5 mal Ihr Passwort falsch eingegeben. Bitte waren Sei einen Moment, bevor Sie es erneut versuchen dürfen'), '', 1);
             // Email not found?
             } elseif (!$user["found"]) {
-                $func->information(t('Dieser Benutzer existiert nicht in unserer Datenbank. Bitte prüfen Sie die eingegebene Email/ID'), '', '', 1);
+                $func->information(t('Dieser Benutzer existiert nicht in unserer Datenbank. Bitte prüfen Sie die eingegebene Email/ID'), '', 1);
                 $func->log_event(t('Falsche Email angegeben (%1)', $tmp_login_email), '2', 'Authentifikation');
             // Account disabled?
             } elseif ($user["type"] <= -1) {
-                $func->information(t('Ihr Account ist gesperrt. Melden Sie sich bitte bei der Organisation.'), "", '', 1);
+                $func->information(t('Ihr Account ist gesperrt. Melden Sie sich bitte bei der Organisation.'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account gesperrt).', $tmp_login_email), "2", "Authentifikation");
             // Account locked?
             } elseif ($user['locked']){
-                $func->information(t('Dieser Account ist noch nicht freigeschaltet. Bitte warten Sie bis ein Organisator Sie freigeschaltet hat.'), '', '', 1);
+                $func->information(t('Dieser Account ist noch nicht freigeschaltet. Bitte warten Sie bis ein Organisator Sie freigeschaltet hat.'), '', 1);
                 $func->log_event(t('Account von %1 ist noch gesperrt. Login daher fehlgeschlagen.', $tmp_login_email), "2", "Authentifikation");
             // Mail not verified?
             } elseif ($cfg['sys_login_verified_mail_only'] == 2 and !$user['email_verified'] and $user["type"] < 2) {
-                $func->information(t('Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email.', $user['email']).' <a href="index.php?mod=usrmgr&action=verify_email&step=2&userid='. $user['userid'] .'">'. t('Klicken Sie hier, um die Mail erneut zu versenden</a>'), '', '', 1);
+                $func->information(t('Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email.', $user['email']).' <a href="index.php?mod=usrmgr&action=verify_email&step=2&userid='. $user['userid'] .'">'. t('Klicken Sie hier, um die Mail erneut zu versenden</a>'), '', 1);
                 $func->log_event(t('Login fehlgeschlagen. Email (%1) nicht verifiziert', $user['email']), "2", "Authentifikation");
             // User login and wrong password?
             } elseif ($user["user_login"] and $tmp_login_pass != $user["password"]) {
                 ($cfg["sys_internet"])? $remindtext = t('Haben Sie ihr Passwort vergessen?<br/><a href="/index.php?mod=usrmgr&action=pwrecover"/>Hier können Sie sich ein neues Passwort generieren</a>.') : $remindtext = t('Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.');
-                $func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, "", '', 1);
+                $func->information(t('Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte überprüfen Sie Ihre Eingaben.') . HTML_NEWLINE . HTML_NEWLINE . $remindtext, '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Passwort-Fehler).', $tmp_login_email), "2", "Authentifikation");
                 $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
             // Cookie login and no correct cookie supplied?
             } elseif (!$user["user_login"] and !$cookierow['userid']) {
                 ($cfg["sys_internet"])? $remindtext = t('Haben Sie ihr Passwort vergessen?<br/><a href="/index.php?mod=usrmgr&action=pwrecover"/>Hier können Sie sich ein neues Passwort generieren</a>.') : $remindtext = t('Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.');
-                $func->information(t('Ihre Session ist abgelaufen und das bei Ihnen gesetzte Cookie ist fehlerhaft. Leider konnten Sie damit nicht eingeloggt werden. Bitte loggen Sie sich neben erneut manuell ein'), "", '', 1);
+                $func->information(t('Ihre Session ist abgelaufen und das bei Ihnen gesetzte Cookie ist fehlerhaft. Leider konnten Sie damit nicht eingeloggt werden. Bitte loggen Sie sich neben erneut manuell ein'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Cookie-Fehler).', $tmp_login_email), "2", "Authentifikation");
                 $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
                 $this->cookie_unset();
             // Not checked in?
             } elseif(in_array('party', $ActiveModules) and (!$party_query["checkin"] or $party_query["checkin"] == '0000-00-00 00:00:00') AND $user["type"] < 2 AND !$cfg["sys_internet"]){
-                $func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
+                $func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account nicht eingecheckt).', $tmp_login_email), "2", "Authentifikation");
             // Already checked out?
             } elseif (in_array('party', $ActiveModules) and $party_query["checkout"] and $party_query["checkout"] != '0000-00-00 00:00:00' AND $user["type"] < 2 AND !$cfg["sys_internet"]){
-                $func->information(t('Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), "", '', 1);
+                $func->information(t('Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account ausgecheckt).', $tmp_login_email), "2", "Authentifikation");
             // Everything fine!
             } else {
@@ -222,7 +222,7 @@ class auth {
                                    WHERE userid = %int%', $user['userid']);
                   while ($row = $db->fetch_array($res)) $msg .= t('Am') .' '. $row['time'] .' von der IP: <a href="http://www.dnsstuff.com/tools/whois.ch?ip='. $row['ip'] .'" target="_blank">'. $row['ip'] .'</a>'. HTML_NEWLINE;
                   $db->free_result($res);
-                  if ($msg != '') $func->information('<b>'. t('Fehlerhafte Logins') .'</b>'. HTML_NEWLINE .t('Es wurden fehlerhafte Logins seit Ihrem letzten erfolgreichen Login durchgeführt.'). HTML_NEWLINE . HTML_NEWLINE . $msg, NO_LINK, '', 1);
+                  if ($msg != '') $func->information('<b>'. t('Fehlerhafte Logins') .'</b>'. HTML_NEWLINE .t('Es wurden fehlerhafte Logins seit Ihrem letzten erfolgreichen Login durchgeführt.'). HTML_NEWLINE . HTML_NEWLINE . $msg, NO_LINK, 1);
                   $db->qry('DELETE FROM %prefix%login_errors WHERE userid = %int%', $user['userid']);
                 }
 
@@ -244,8 +244,8 @@ class auth {
     function login_cookie($userid, $uniquekey) {
         global $db, $func, $cfg;
 
-        if     ($userid == "") $func->information(t('Keine Userid beim Login via Cookie erkannt.'), "", '', 1);
-        elseif ($uniquekey == "") $func->information(t('Kein Uniquekey beim Login via Cookie erkannt.'), "", '', 1);
+        if     ($userid == "") $func->information(t('Keine Userid beim Login via Cookie erkannt.'), '', 1);
+        elseif ($uniquekey == "") $func->information(t('Kein Uniquekey beim Login via Cookie erkannt.'), '', 1);
         else {
           $this->login($userid, $uniquekey, 0);
         }
@@ -350,9 +350,9 @@ class auth {
             //$this->logoutPhpbb();
             //$this->loginPhpbb($target_id);
             
-            $func->confirmation(t('Benutzerwechsel erfolgreich. Die &Auml;nderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer, 1);  //FIX meldungen auserhalb/standart?!?
+            $func->confirmation(t('Benutzerwechsel erfolgreich. Die &Auml;nderungen werden beim laden der nächsten Seite wirksam.'), '', 1);  //FIX meldungen auserhalb/standart?!?
         } else {
-            $func->error(t('Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), $func->internal_referer, 1); //FIX meldungen auserhalb/standart?!
+            $func->error(t('Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt'), '', 1); //FIX meldungen auserhalb/standart?!
         }
     }
 
@@ -383,13 +383,9 @@ class auth {
                 //$this->logoutPhpbb();
                 //$this->loginPhpbb($this->cookie_data['userid']);
                 
-                $func->confirmation(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), $func->internal_referer,1);
-            } else {
-                $func->information(t('Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), $func->internal_referer,'',1);
-            }
-        } else {
-            $func->information(t('Fehler: Keine Switchbackdaten gefunden! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), $func->internal_referer,'',1);
-        }
+                $func->confirmation(t('Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.'), '', 1);
+            } else $func->information(t('Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), '', 1);
+        } else $func->information(t('Fehler: Keine Switchbackdaten gefunden! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.'), '', 1);
     }
 
   /**
@@ -404,29 +400,29 @@ class auth {
         switch ($requirement) {
             case 1: // Logged in
                 if ($this->auth['login']) return 1;
-                else $func->error('NO_LOGIN', '');
+                else $func->error('NO_LOGIN');
             break;
     
             case 2: // Type is Admin, or Superadmin
                 if ($this->auth['type'] > 1)   return 1;
-                elseif (!$this->auth['login']) $func->error('NO_LOGIN', '');
-                else   $func->error('ACCESS_DENIED', '');
+                elseif (!$this->auth['login']) $func->error('NO_LOGIN');
+                else   $func->error('ACCESS_DENIED');
             break;
     
             case 3: // Type is Superadmin
                 if ($this->auth['type'] > 2) return 1;
-                elseif (!$this->auth['login']) $func->error('NO_LOGIN', '');
-                else $func->error('ACCESS_DENIED', '');
+                elseif (!$this->auth['login']) $func->error('NO_LOGIN');
+                else $func->error('ACCESS_DENIED');
             break;
     
             case 4: // Type is User, or less
                 if ($this->auth['type'] < 2) return 1;
-                else $func->error('ACCESS_DENIED', '');
+                else $func->error('ACCESS_DENIED');
             break;
     
             case 5: // Logged out
                 if (!$this->auth['login']) return 1;
-                else $func->error('ACCESS_DENIED', '');
+                else $func->error('ACCESS_DENIED');
             break;
     
             default:
@@ -535,7 +531,7 @@ class auth {
             // i.e. user don't like to log in
             // But still we maybe need Cookies for not logged in users. So just keep it.
             #$this->cookie_unset();
-            #$func->error(t('Fehlerhafte Cookie-Daten. Cookie wurde gelöscht'), "", '', 1);
+            #$func->error(t('Fehlerhafte Cookie-Daten. Cookie wurde gelöscht'), '', 1);
             #$func->log_event(t('Fehlerhafte Cookie-Daten. Cookie wurde gelöscht'), "2", "Authentifikation");
         }
         return $ok;

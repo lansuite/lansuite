@@ -4,8 +4,8 @@ if ($auth['username']) $_POST["username"] = $auth['username'];
 if ($auth['firstname']) $_POST["firstname"] = $auth['firstname'];
 if ($auth['name']) $_POST["name"] = $auth['name'];
 
-if ($cfg["irc_server"] == "null" or $cfg["irc_server"] == "") $func->error(t('Kein IRC Server in den Moduleinstellungen definiert.'),"");
-elseif ($cfg["irc_width"] == "" or $cfg["irc_height"] == "") $func->error(t('Keine Gr&ouml;&szlig;enangaben in den Moduleinstellungen definiert.'),"");
+if ($cfg["irc_server"] == "null" or $cfg["irc_server"] == "") $func->error(t('Kein IRC Server in den Moduleinstellungen definiert.'));
+elseif ($cfg["irc_width"] == "" or $cfg["irc_height"] == "") $func->error(t('Keine Gr&ouml;&szlig;enangaben in den Moduleinstellungen definiert.'));
 
 elseif (!$_POST["username"]) {
 	$dsp->NewContent(t('Chat'), t('Hier k&ouml;nnen Sie auf unserem IRC Server chatten.'));

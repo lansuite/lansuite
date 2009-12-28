@@ -1,6 +1,6 @@
 <?php
 
-if (!$cfg["equipment_shopid"]) $func->error(t('Es wurde noch keine Orgapage.Net-ShopID angegeben. Diese kann auf der Admin-Seite in den Moduleinstellungen unter \'Equipmentshop\' eingestellt werden'), "");
+if (!$cfg["equipment_shopid"]) $func->error(t('Es wurde noch keine Orgapage.Net-ShopID angegeben. Diese kann auf der Admin-Seite in den Moduleinstellungen unter \'Equipmentshop\' eingestellt werden'));
 else {
     $dsp->NewContent(t('Administration'), t('Equipmentliste Administrieren'));
     $dsp->AddSingleRow(t('Dieses Modul ermöglicht es einen <a href="http://www.orgapage.net" traget="_blank">Orgapage.Net<a>-EquipmentShop sehr einfach in eine LanSuite-Webseite zu integrieren.

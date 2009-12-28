@@ -136,7 +136,7 @@ switch($_GET["step"]) {
 
 				else {
 
-					$func->error("NO_REFRESH","");
+					$func->error("NO_REFRESH");
 
 				}
 
@@ -166,7 +166,7 @@ switch($_GET["step"]) {
 
 				else
 
-					$func->error("NO_REFRESH","");
+					$func->error("NO_REFRESH");
 
 				}
 

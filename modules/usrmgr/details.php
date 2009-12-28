@@ -45,7 +45,7 @@ $user_data = $db->qry_first("SELECT u.*, g.*, u.birthday AS birthday, DATE_FORMA
   $_GET['userid']);
 
 // If exists
-if (!$user_data['userid']) $func->error(t('Dieser Benutzer existiert nicht'), '');
+if (!$user_data['userid']) $func->error(t('Dieser Benutzer existiert nicht'));
 else {
   $framework->AddToPageTitle($user_data['username']);
 

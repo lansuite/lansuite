@@ -67,7 +67,7 @@ if($_GET[queryid])
 				//
 				// Error
 				//
-				$func->error(t('Dieser Benutzer befindet sich nicht in ihrer Buddy-Liste'),"");
+				$func->error(t('Dieser Benutzer befindet sich nicht in ihrer Buddy-Liste'));
 
 			} // else
 
@@ -119,6 +119,6 @@ else
 	//
 	// Error
 	//
-	$func->error(t('Sie haben keinen Benutzer ausgew&auml;hlt'),"");
+	$func->error(t('Sie haben keinen Benutzer ausgew&auml;hlt'));
 } // else queryid
 ?>

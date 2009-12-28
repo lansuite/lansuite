@@ -2,7 +2,7 @@
 
 $dsp->NewContent(t('Passwort vergessen'), t('Mit diesem Modul können Sie sich ein neues Passwort generieren lassen'));
 
-if (!$cfg['sys_internet']) $func->information(t('Diese Funktion ist nur im Internetmodus verfügbar'), "");
+if (!$cfg['sys_internet']) $func->information(t('Diese Funktion ist nur im Internetmodus verfügbar'));
 
 else switch ($_GET['step']) {
     case 2: // Email prüfen, Freischaltecode generieren, Email senden

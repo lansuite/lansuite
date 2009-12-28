@@ -70,7 +70,7 @@ if ($_POST["file_name"] and ($auth['type'] >= 2 or $cfg['picgallery_allow_user_n
   $db->qry("UPDATE %prefix%picgallery SET caption = %string% WHERE name = %string%", $_POST["file_name"], $db_dir);
 
 // GD-Check
-if (!$gd->available) $func->error(t('Kein GD installiert'), "");
+if (!$gd->available) $func->error(t('Kein GD installiert'));
 
 // Wenn keine Datei ausgewählt ist: Übersicht
 elseif (!$akt_file) {

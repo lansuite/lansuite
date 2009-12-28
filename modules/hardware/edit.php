@@ -23,6 +23,6 @@ if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_sel
     $mf->SendForm('index.php?mod=hardware&action=edit&userid='.$_GET['userid'], 'hardware','hardwareid',$_GET['hardwareid']);
     $dsp->AddContent();
 } else {
-    $func->error(t('Sie haben keine Berechtigung diese Daten zu &auml;ndern'), '');
+    $func->error(t('Sie haben keine Berechtigung diese Daten zu &auml;ndern'));
 }
 ?>

@@ -48,5 +48,5 @@ if ($check["caption"] != "") {
 	}
 	
 
-} else $func->error(t('Diese Newsmeldung existiert nicht'), '');
+} else $func->error(t('Diese Newsmeldung existiert nicht'));
 ?>

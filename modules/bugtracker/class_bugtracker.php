@@ -25,7 +25,7 @@ class Bugtracker {
         return;
       }
       if ($state == 1 and $row['reporter'] == $auth['userid']) {
-        $func->information(t('Sie dürfen nicht Ihren eigenen Bugreport bestätigen'), '');
+        $func->information(t('Sie dürfen nicht Ihren eigenen Bugreport bestätigen'));
         return;
       }
     }

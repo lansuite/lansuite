@@ -96,7 +96,7 @@ switch( $_GET["step"] ) {
 					
 		} else {
 		
-			$func->error(t('Das gew&auml;hlte Device existiert nicht'), "");
+			$func->error(t('Das gew&auml;hlte Device existiert nicht'));
 			
 		}
 
@@ -118,7 +118,7 @@ switch( $_GET["step"] ) {
 				      				- Sie haben vergessen, SNMP am device einzuschaltenHTML_NEWLINE
 				      				- Dieses PHP unterst&uuml;tzt kein SNMP, kompilieren sie es mit SNMPHTML_NEWLINE
 				      				&nbsp; &nbsp;oder laden sie sich ein vorkompiliertes PHP mit SNMP vonHTML_NEWLINE
-				      				&nbsp; &nbsp;<a href="http://de.php.net">Der Deutschen PHP Seite</a> herunterHTML_NEWLINE, '), "");
+				      				&nbsp; &nbsp;<a href="http://de.php.net">Der Deutschen PHP Seite</a> herunterHTML_NEWLINE, '));
 			break;
 		} // END IF
 		
@@ -134,11 +134,11 @@ switch( $_GET["step"] ) {
 		
 		If( $add_query == 1 ) { 
 		
-			$func->confirmation( t('Das Device wurde erfolgreich ge&auml;ndert.'), "" ); 
+			$func->confirmation( t('Das Device wurde erfolgreich ge&auml;ndert.')); 
 		
 		} else {
 		
-			$func->error( t('Das Device konnte nicht ge&auml;ndert werden.'), "" );
+			$func->error( t('Das Device konnte nicht ge&auml;ndert werden.'));
 		
 		} // END IF
 			    

@@ -93,7 +93,7 @@ function WritePairs ($bracket, $max_pos) {
 }
 
 
-if (!$tournamentid) $func->error(t('Sie haben kein Turnier ausgewählt!'), '');
+if (!$tournamentid) $func->error(t('Sie haben kein Turnier ausgewählt!'));
 else {
   switch($_GET["step"]) {
   case 1:
@@ -113,7 +113,7 @@ else {
   
   	// Check Errors
   	if ($tournament["mode"] == "open") {
-  		$func->error(t('Dieses Turnier wurde noch nicht generiert. Die Paarungen sind noch nicht bekannt.'), "index.php?mod=tournament2&action=games&step=1]");
+  		$func->error(t('Dieses Turnier wurde noch nicht generiert. Die Paarungen sind noch nicht bekannt.'), "index.php?mod=tournament2&action=games&step=1");
   		break;
   	}
   

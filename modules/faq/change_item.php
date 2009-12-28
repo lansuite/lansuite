@@ -128,7 +128,7 @@ switch($_GET["step"]) {
 
 			else
 
-				$func->error(t('Diese Frage existiert nicht'),"");
+				$func->error(t('Diese Frage existiert nicht'));
 
 	break;
 
@@ -172,7 +172,7 @@ switch($_GET["step"]) {
 
 							else {
 
-								$func->error("NO_REFRESH","");
+								$func->error("NO_REFRESH");
 							}
 
 				} // if
@@ -199,7 +199,7 @@ switch($_GET["step"]) {
 
 						else {
 
-							$func->error("NO_REFRESH","");
+							$func->error("NO_REFRESH");
 
 						}
 
@@ -208,7 +208,7 @@ switch($_GET["step"]) {
 
 			else {
 
-				$func->error(t('Diese Frage existiert nicht'),"");
+				$func->error(t('Diese Frage existiert nicht'));
 
 			}
 

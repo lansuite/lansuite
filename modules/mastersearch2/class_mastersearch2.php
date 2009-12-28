@@ -250,13 +250,13 @@ class MasterSearch2 {
     // Order by user selection
     if ($_GET['order_by']) {
 
-      if (!in_array($_GET['order_by'], $this->sql_select_field_alias_list)) $func->error(t('Sortieren nach "%1" nicht möglich. Feld ist nicht im Select-Teil definiert', array($_GET['order_by'])), $func->internal_referer);
+      if (!in_array($_GET['order_by'], $this->sql_select_field_alias_list)) $func->error(t('Sortieren nach "%1" nicht möglich. Feld ist nicht im Select-Teil definiert', array($_GET['order_by'])));
       else {
         $this->query['order_by'] .= $_GET['order_by'];
   
         // Order direction given by user?
         if ($_GET['order_dir']) {
-          if ($_GET['order_dir'] != 'ASC' and $_GET['order_dir'] != 'DESC') $func->error(t('Sortieren-Ordnung, darf nur ASC, oder DESC sein'), $func->internal_referer); 
+          if ($_GET['order_dir'] != 'ASC' and $_GET['order_dir'] != 'DESC') $func->error(t('Sortieren-Ordnung, darf nur ASC, oder DESC sein')); 
           else $this->query['order_by'] .= ' '. $_GET['order_dir'];
   
         // Get default order direction by sql-field type
@@ -444,7 +444,7 @@ class MasterSearch2 {
     ###### Output Result
     // When no Items were found
     if ($db->num_rows($res) == 0) {
-      if ($this->NoItemsText) $func->Information($this->NoItemsText);
+      if ($this->NoItemsText) $func->information($this->NoItemsText);
     } else {
 
       #### Generate Result Head

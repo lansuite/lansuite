@@ -138,7 +138,7 @@ if (!$cfg['download_use_ftp']) {
 
 
 // Try to connect to FTP-Server
-} elseif (!extension_loaded(ftp)) $func->error(t('Die PHP-Erweiterung <b>FTP</b> konnte nicht geladen werden. &Uuml;berpr&uuml;fen Sie, ob diese in PHP einkompiliert bzw. aktiviert ist'), '');
+} elseif (!extension_loaded(ftp)) $func->error(t('Die PHP-Erweiterung <b>FTP</b> konnte nicht geladen werden. &Uuml;berpr&uuml;fen Sie, ob diese in PHP einkompiliert bzw. aktiviert ist'));
 else {
 
   session_register("downloads_dir");
@@ -244,7 +244,7 @@ else {
     if ($cfg['sys_showdebug_ftp'] == "1") $debug[] = "FTP> Quit connection " . $connect. HTML_NEWLINE;
 
   } else {
-    $func->error(t('Konnte Verbindung zum Downloadserver nicht herstellen'), "");
+    $func->error(t('Konnte Verbindung zum Downloadserver nicht herstellen'));
     $func->log_event(t('Konnte Verbindung zu FTP-Server "%1" auf Port %2 nicht herstellen.', $server, $port), "2");
   } 
 }

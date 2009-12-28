@@ -10,7 +10,7 @@ $db->qry("SELECT * from %prefix%noc_devices WHERE id = %int%", $_GET["deviceid"]
 
 if( !$row = $db->fetch_array() ) { 
 
-	$func->error( t('Das gew&auml;hlte Device existiert nicht'),"" ); 
+	$func->error( t('Das gew&auml;hlte Device existiert nicht')); 
 	
 } else {
 	switch ($_GET['step']){
