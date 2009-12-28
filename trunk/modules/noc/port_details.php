@@ -12,7 +12,7 @@ switch( $_GET["step"] ) {
 		// Get all the Port data
 		$row = $db->qry_first("SELECT * FROM %prefix%noc_ports WHERE portid = %int%", $_GET["portid"]);
 		
-		if($row["portid"] == "") $func->error(t('Dieser Port existiert nicht'),"");
+		if($row["portid"] == "") $func->error(t('Dieser Port existiert nicht'));
 		
 		else {
 				
@@ -79,7 +79,7 @@ switch( $_GET["step"] ) {
 	
 		$port = $db->qry_first("SELECT portid, deviceid, portnr, adminstatus FROM %prefix%noc_ports WHERE portid = %int%", $_GET["portid"]);
 		
-		if($port["portid"] == "") $func->error(t('Dieser Port existiert nicht')	,""); 
+		if($port["portid"] == "") $func->error(t('Dieser Port existiert nicht'));
 		
 		else {
 

@@ -234,7 +234,7 @@ switch( $_GET["step"] ) {
 		
 		} else {
 		
-			$func->error( t('Device konnte nicht in die Datenbank eingetragen werden.'), "" );
+			$func->error( t('Device konnte nicht in die Datenbank eingetragen werden.'));
 		
 		}
 	

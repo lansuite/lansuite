@@ -105,7 +105,7 @@ case 2:
 				foreach($sux as $item)
 				{ if($names1 != "") { $names1 .= ", "; } $names1 .= "$item"; }
 				$func->confirmation(str_replace('%NAMES1%',$names1,t('Die folgenden Benutzer wurden in Ihre Buddy-Liste hinzugef&uuml;gt:
-                                           <b>%NAMES1%</b> HTML_NEWLINE Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf sichtbar.')),$func->internal_referer);
+                                           <b>%NAMES1%</b> HTML_NEWLINE Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf sichtbar.')));
 
 			} // if
 
@@ -152,7 +152,7 @@ case 2:
 					  - Der Benutzer ist bereits in Ihrer Buddy-Liste HTML_NEWLINE
 					  - Der Benutzer existiert nicht HTML_NEWLINE
 					  - Es sind bereits zuviele Benutzer in Ihrer Buddy-Liste HTML_NEWLINE
-					  - Sie versuchen sich selbst in die Buddy-Liste hinzuzuf&uuml;gen HTML_NEWLINE'),"");
+					  - Sie versuchen sich selbst in die Buddy-Liste hinzuzuf&uuml;gen HTML_NEWLINE'));
 			} // elseif
 		}
 break;

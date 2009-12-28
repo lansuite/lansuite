@@ -11,11 +11,11 @@ $team = $db->qry_first("SELECT teams.name, t.name AS t_name, teams.leaderid, tea
   WHERE (teams.teamid = %int%)
   ", $teamid);
 
-if (!$team['tournamentid']) $func->error(t('Das ausgewählte Turnier existiert nicht'), "");
+if (!$team['tournamentid']) $func->error(t('Das ausgewählte Turnier existiert nicht'));
 else switch ($_GET["step"]){
 	// Disqualify-Question
 	default:
-		$func->question(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Soll das Team \'%NAME%\' wirklich im Turnier \'%T%\' disqualifiziert werden?HTML_NEWLINEDiese Aktion kann nicht mehr rückgängig gemacht werden!'))), "index.php?mod=tournament2&action=disqualify&step=2&teamid=$teamid", $func->internal_referer);
+		$func->question(str_replace("%NAME%", $team['name'], str_replace("%T%", $team['t_name'], t('Soll das Team \'%NAME%\' wirklich im Turnier \'%T%\' disqualifiziert werden?HTML_NEWLINEDiese Aktion kann nicht mehr rückgängig gemacht werden!'))), "index.php?mod=tournament2&action=disqualify&step=2&teamid=$teamid");
 	break;
 
 	// Disqualify

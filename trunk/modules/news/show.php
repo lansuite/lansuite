@@ -3,7 +3,7 @@
 $get_amount = $db->qry_first('SELECT count(*) as number FROM %prefix%news');
 $overall_news = $get_amount["number"];
 
-if ($overall_news == 0) $func->no_items(t("Newsmeldungen"), "", "rlist");
+if ($overall_news == 0) $func->information(t('Es sind keine News vorhanden.'));
 else {
   if ($_GET['subaction'] == 'archive') {
     $dsp->NewContent(t('News Archiv'), t('Archivierte Mitteilungen'));

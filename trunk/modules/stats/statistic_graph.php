@@ -21,7 +21,7 @@
  // TIQ = Time Index Quotient - Not Used yet
 
  // Check GD Libary
- 	if ( $config['environment']['gd'] == "0" ) $func->error( t('Die Statistikanzeige ben&ouml;tigt ddie GD Bibliothek'), "" );
+ 	if ( $config['environment']['gd'] == "0" ) $func->error( t('Die Statistikanzeige ben&ouml;tigt ddie GD Bibliothek'));
 
 	// Create an Image Stream
 	$Image = @ImageCreate( 611, 480 )

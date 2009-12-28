@@ -57,7 +57,7 @@ if (!$missing_fields and !$siteblock) {
         default:
             // If module is deactivated display error message
             if (!in_array($mod, $ActiveModules))
-                $func->error('DEACTIVATED', '');
+                $func->error('DEACTIVATED');
 
             //// Load Mod-Config
             else {
@@ -88,7 +88,7 @@ if (!$missing_fields and !$siteblock) {
 
                             // 4) Error: 'Not Found'
                         } else
-                            $func->error('NOT_FOUND', '');
+                            $func->error('NOT_FOUND');
                     }
                 }
             }

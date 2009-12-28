@@ -70,7 +70,7 @@ switch($_GET["step"]) {
 		
 			else {
 		
-				$func->error(t('Diese Kategorie existiert nicht'),"");
+				$func->error(t('Diese Kategorie existiert nicht'));
 			}
 			
 	break;
@@ -97,7 +97,7 @@ switch($_GET["step"]) {
 				
 							else { 
 					
-								$func->error("DB_ERROR","");
+								$func->error("DB_ERROR");
 				
 							}
 				
@@ -105,14 +105,14 @@ switch($_GET["step"]) {
 				
 					else {
 		
-						$func->error(t('Diese Kategorie existiert nicht'),"");
+						$func->error(t('Diese Kategorie existiert nicht'));
 					}			
 		
 		} // close if blocker
 		
 			else {
 			
-				$func->error("NO_REFRESH","");
+				$func->error("NO_REFRESH");
 			}
 				
 		

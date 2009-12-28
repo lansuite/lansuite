@@ -63,7 +63,7 @@ if($tid) {
 else
 	$thread = $db->qry_first("SELECT need_type, need_group FROM %prefix%board_forums WHERE fid = %int%", $_GET['fid']);
 
-if (!$thread and $tid) $func->information(t('Keine Beiträge vorhanden'), '');
+if (!$thread and $tid) $func->information(t('Keine Beiträge vorhanden'));
 elseif ($thread['caption'] != '') {
 
 	$framework->AddToPageTitle($thread['caption']);

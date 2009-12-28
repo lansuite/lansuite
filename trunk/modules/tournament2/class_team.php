@@ -13,7 +13,7 @@ class team {
 		global $db, $config, $func, $lang;
 
 		if ($tid == "") {
-			$func->error(t('Sie müssen zuerst ein Turnier auswählen!'), $func->internal_referer);
+			$func->error(t('Sie müssen zuerst ein Turnier auswählen!'));
 			return false;
 		}
 
@@ -41,10 +41,10 @@ class team {
 		if ($t["blind_draw"]) $completed_teams = floor($completed_teams / $t["teamplayer"]);
 
 		// Is the tournament finished?
-		if ($t["status"] != "open") $func->information(t('Dieses Turnier befindet sich momentan nicht in der Anmeldephase!'), $func->internal_referer);
+		if ($t["status"] != "open") $func->information(t('Dieses Turnier befindet sich momentan nicht in der Anmeldephase!'));
 
 		// Is the tournament allready full?
-		elseif ($completed_teams >= $t["maxteams"]) $func->information(t('Es haben sich bereits %1 von %2 Teams zu diesem Turnier angemeldet. Das Turnier ist damit ausgebucht.', $completed_teams, $t["maxteams"]), $func->internal_referer);
+		elseif ($completed_teams >= $t["maxteams"]) $func->information(t('Es haben sich bereits %1 von %2 Teams zu diesem Turnier angemeldet. Das Turnier ist damit ausgebucht.', $completed_teams, $t["maxteams"]));
 
     // Everything fine
 		else return true;
@@ -98,25 +98,25 @@ class team {
 
 
 		// Is the user allready signed on to this tournament?
-		if ($team["found"]) $func->information(t('%1 ist bereits zu diesem Turnier angemeldet!', $user["username"]), $func->internal_referer);
+		if ($team["found"]) $func->information(t('%1 ist bereits zu diesem Turnier angemeldet!', $user["username"]));
 
 		// Is the user member of a team, allready signed on to this tournament?
-		elseif ($teammember["found"] != "") $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu diesem Turnier angemeldet hat!', $user["username"]), $func->internal_referer);
+		elseif ($teammember["found"] != "") $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu diesem Turnier angemeldet hat!', $user["username"]));
 
 		// Is the user allready signed on to a tournament in the same group as this tournament?
-		elseif ($in_group["found"] != "") $func->information(t('%1 ist bereits zu einem Turnier angemeldet, welches der gleichen Gruppe angehört!', $user["username"]), $func->internal_referer);
+		elseif ($in_group["found"] != "") $func->information(t('%1 ist bereits zu einem Turnier angemeldet, welches der gleichen Gruppe angehört!', $user["username"]));
 
 		// Is the user member of a team, allready signed on to a tournament in the same group as this tournament?
-		elseif ($memb_in_group["found"] != "") $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu einem Turnier der gleichen Gruppe angemeldet hat!', $user["username"]), $func->internal_referer);
+		elseif ($memb_in_group["found"] != "") $func->information(t('%1 ist bereits Mitglied eines Teams, dass sich zu einem Turnier der gleichen Gruppe angemeldet hat!', $user["username"]));
 
 		// Has the user paid?
-		elseif (!$user["paid"]) $func->information(t('%1 muss erst für diese Party bezahlen, um sich an einem Turnier anmelden zu können!', $user["username"]), $func->internal_referer);
+		elseif (!$user["paid"]) $func->information(t('%1 muss erst für diese Party bezahlen, um sich an einem Turnier anmelden zu können!', $user["username"]));
 
 		// Is the user 18 (only for 18+ tournaments)?
-		elseif ($over_18_error) $func->information(t('%1 kann diesem Turnier nicht beitreten. In diesem Turnier dürfen nur Benutzer mitspielen, die <b>nicht</b> in einem Unter-18-Block sitzen', $user["username"]), $func->internal_referer);
+		elseif ($over_18_error) $func->information(t('%1 kann diesem Turnier nicht beitreten. In diesem Turnier dürfen nur Benutzer mitspielen, die <b>nicht</b> in einem Unter-18-Block sitzen', $user["username"]));
 
 		// Are enough coins left to afford this tournament
-		elseif (($cfg["t_coins"] - $team_coin["t_coins"] - $member_coin["t_coins"] - $t["coins"]) < 0) $func->information(t('%1 besitzt nicht genügend Coins um an diesem Turnier teilnehmen zu können!', $user["username"]), $func->internal_referer);
+		elseif (($cfg["t_coins"] - $team_coin["t_coins"] - $member_coin["t_coins"] - $t["coins"]) < 0) $func->information(t('%1 besitzt nicht genügend Coins um an diesem Turnier teilnehmen zu können!', $user["username"]));
 
     // Everything fine
 		else return true;
@@ -130,10 +130,10 @@ class team {
 		global $db, $config, $auth, $lang, $func, $mail;
 
 		if ($teamid == "") { 
-			$func->error(t('Sie haben kein Team ausgeählt!'), $func->internal_referer);
+			$func->error(t('Sie haben kein Team ausgeählt!'));
 			return false;
 		} elseif ($userid == "") {
-			$func->error(t('Sie haben keinen Benutzer ausgewählt!'), $func->internal_referer);
+			$func->error(t('Sie haben keinen Benutzer ausgewählt!'));
 			return false;
 
 		} else {
@@ -145,7 +145,7 @@ class team {
 
       // Check password, if set and if acction is not performed, by teamadmin or ls-admin
       if (($auth['userid'] != $team['leaderid']) and ($auth['type'] <= 1) and ($team['password'] != '') and (md5($password) != $team['password'])) {
-        $func->information('Das eingegebene Kennwort ist nicht korrekt', $func->internal_referer);
+        $func->information(t('Das eingegebene Kennwort ist nicht korrekt'));
         return false;
 
 			// May one still signon for this tournament?
@@ -154,7 +154,7 @@ class team {
 
 				// Isn't the team full yet?
 				if ($team["teamplayer"] <= ($member_anz["members"] + 1)) {
-					$func->information(t('Das gewählte Team ist bereits voll!'), $func->internal_referer);
+					$func->information(t('Das gewählte Team ist bereits voll!'));
 					return false;
 
 				// Everything Okay! -> Insert!
@@ -204,7 +204,7 @@ class team {
 			if ($t["blind_draw"]) $completed_teams = floor($completed_teams / $t["teamplayer"]);
 
 			if (($completed_teams + $waiting_teams) >= $t["maxteams"]) {
-				$func->error(t('Es haben sich bereits %1 von %2 Teams zu diesem Turnier angemeldet. Es gibt jedoch noch in %3 der angemeldeten Teams freie Plätze, dazu bitte eines der Teams mit den freien Plätzen auswählen und beitreten', $completed_teams + $waiting_teams, $t["maxteams"], $waiting_teams), $func->internal_referer);
+				$func->error(t('Es haben sich bereits %1 von %2 Teams zu diesem Turnier angemeldet. Es gibt jedoch noch in %3 der angemeldeten Teams freie Plätze, dazu bitte eines der Teams mit den freien Plätzen auswählen und beitreten', $completed_teams + $waiting_teams, $t["maxteams"], $waiting_teams));
 				return false;
 
 			} else {
@@ -269,7 +269,7 @@ class team {
 		global $db, $config, $lang, $func, $mail;
 
 		if ($teamid == "") {
-			$func->error(t('Sie haben kein Team ausgeählt!'), $func->internal_referer);
+			$func->error(t('Sie haben kein Team ausgeählt!'));
 			return false;
 		}
 
@@ -281,7 +281,7 @@ class team {
 
 		// No delete if tournament is generated
 		if ($team['status'] != "open") {
-			$func->information(t('Dieses Turnier wird bereits gespielt!HTML_NEWLINEEin Abmelden ist daher nicht mehr möglich.'), $func->internal_referer);
+			$func->information(t('Dieses Turnier wird bereits gespielt!HTML_NEWLINEEin Abmelden ist daher nicht mehr möglich.'));
 			return false;
 		}
 
@@ -307,11 +307,11 @@ class team {
 		global $db, $config, $lang, $func, $mail;
 
 		if ($teamid == "") {
-			$func->error(t('Sie haben kein Team ausgeählt!'), $func->internal_referer);
+			$func->error(t('Sie haben kein Team ausgeählt!'));
 			return false;
 		}
 		if ($userid == "") {
-			$func->error(t('Sie haben keinen Benutzer ausgewählt!'), $func->internal_referer);
+			$func->error(t('Sie haben keinen Benutzer ausgewählt!'));
 			return false;
 		}
 
@@ -326,7 +326,7 @@ class team {
 
 		// Is the tournament finished?
 		if ($t["status"] == "closed") {
-			$func->information(t('Dieses Turnier läuft bereits!'), $func->internal_referer);
+			$func->information(t('Dieses Turnier läuft bereits!'));
 			return false;
 		}
 		// Perform Action

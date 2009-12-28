@@ -13,10 +13,10 @@ switch ($_GET["step"]) {
 		$numrows = $rowtest["n"];
 
 		// Prüfen ob ticketid leer ist
-		if ($tt_id == "") $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'), "");
+		if ($tt_id == "") $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'));
 
 		// Prüfen ob ticketid gültig ist
-		elseif ($numrows == "") { $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.'),""); }
+		elseif ($numrows == "") { $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.')); }
 
 		else {
 			$dsp->NewContent(t('Troubleticket anzeigen'),t('Hier sehen Sie alle Informationen zu diesem Ticket'));

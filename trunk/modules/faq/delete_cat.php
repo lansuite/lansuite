@@ -30,7 +30,7 @@ switch($_GET["step"]) {
 		}
 		
 			else {
-				$func->error(t('Diese Kategorie existiert nicht'),"");	
+				$func->error(t('Diese Kategorie existiert nicht'));	
 			}	
 	
 	break;
@@ -50,14 +50,14 @@ switch($_GET["step"]) {
 			
 				else {
 				
-					$func->error("DB_ERROR","");
+					$func->error("DB_ERROR");
 				}
 		
 		} //if
 		
 			else {	
 				
-				$func->error(t('Diese Kategorie existiert nicht'),"");
+				$func->error(t('Diese Kategorie existiert nicht'));
 			}	
 	
 	break;

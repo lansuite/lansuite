@@ -1,6 +1,6 @@
 <?php
 
-if (!$_GET['mailID']) $func->error(t('Keine Mail ausgewählt'), '');
+if (!$_GET['mailID']) $func->error(t('Keine Mail ausgewählt'));
 else {
   $row = $db->qry_first("SELECT mm.*, UNIX_TIMESTAMP(mm.tx_date) AS tx_date, UNIX_TIMESTAMP(mm.rx_date) AS rx_date, u1.username AS fromUsername, u2.username AS ToUsername
   FROM %prefix%mail_messages AS mm
@@ -8,7 +8,7 @@ else {
   LEFT JOIN %prefix%user AS u2 ON mm.ToUserID = u2.userid
   WHERE mailID = %int%", $_GET['mailID']);
 
-  if (!($auth['userid'] == $row['fromUserID'] or $auth['userid'] == $row['toUserID'])) $func->information(t('Zugriff verweigert'), '');
+  if (!($auth['userid'] == $row['fromUserID'] or $auth['userid'] == $row['toUserID'])) $func->information(t('Zugriff verweigert'));
   else {
     $dsp->NewContent(t('Nachricht'), '');
         ($row['fromUserID'])? $dsp->AddDoubleRow(t('Von'), $dsp->FetchUserIcon($row['fromUserID'], $row['fromUsername']))

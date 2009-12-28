@@ -23,7 +23,7 @@ $noc = new noc();
  // PTQ = Percental Traffic Quotient - Is used but has another name at the moment
  // TIQ = Time Index Quotient - Not Used yet
 
-if ( $config['environment']['gd'] == "0" ) $func->error( "Der Graph benötigt die GD um dargestellt zu werden", "" );
+if ( $config['environment']['gd'] == "0" ) $func->error( "Der Graph benötigt die GD um dargestellt zu werden");
 
 // Create an Image Stream
 $Image = @ImageCreate( 611, 480 )

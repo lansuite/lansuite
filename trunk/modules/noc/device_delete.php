@@ -22,7 +22,7 @@ switch( $_GET["step"] ) {
 		// DELETE 'em all.... 
 		$check_device = $db->qry_first("SELECT id FROM %prefix%noc_devices WHERE id=%int%", $_GET["deviceid"]);
 		
-		if ($check_device["id"] == "") $func->error(t('Das gew&auml;hlte Device existiert nicht'),"");
+		if ($check_device["id"] == "") $func->error(t('Das gew&auml;hlte Device existiert nicht'));
 		
 		else {
 
@@ -31,11 +31,11 @@ switch( $_GET["step"] ) {
 
 				If ($del_query1 && $del_query2) {
 
-					$func->confirmation(t('Das Device wurde erfolgreich gel&ouml;scht.'), "");
+					$func->confirmation(t('Das Device wurde erfolgreich gel&ouml;scht.'));
 
 				} else {
 
-					$func->error(t('Das Device konnte nicht gel&ouml;scht werden.'), "");
+					$func->error(t('Das Device konnte nicht gel&ouml;scht werden.'));
 
 				}
 
