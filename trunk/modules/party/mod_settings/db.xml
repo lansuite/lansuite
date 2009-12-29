@@ -95,7 +95,7 @@
 			</field>
 			<field>
 				<name>checked</name>
-				<type>int(15)</type>
+				<type>datetime</type>
 				<null></null>
 				<key></key>
 				<default></default>

@@ -1,6 +1,7 @@
 <?php
 
-$func->DeleteOldReadStates();
+// Delete old read states
+$db->qry('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7');
 
 if ($auth["type"] == 1 or $auth["type"] == 2 or $auth["type"] == 3) $home_page = $cfg["home_login"];
 else $home_page = $cfg["home_logout"];

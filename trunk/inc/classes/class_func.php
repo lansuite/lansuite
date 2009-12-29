@@ -38,7 +38,7 @@ class func {
    * @return array Config-array with all Settings from DB
    */
     function read_db_config() {
-        global $db, $config;
+        global $db;
 
         $get_conf = $db->qry("SELECT cfg_value, cfg_key FROM %prefix%config");
         while ($row=$db->fetch_array($get_conf,0)) $cfg["{$row['cfg_key']}"] = $row['cfg_value'];
@@ -48,19 +48,12 @@ class func {
     }
 
   #### Date Conversions ####
-  function MysqlDateToTimestamp($datetime) {
-    list($date, $time) = split(' ', $datetime);
-    list($year, $month, $day) = split('-', $date);
-    list($hour, $min, $sec) = split(':', $time);
-
-    return mktime($hour, $min, $sec, $month, $day, $year);
-  }
-
-  function date2unixstamp($year,$month,$day,$hour,$minute,$second) {  
-    $func_timestamp = @mktime($hour,$minute,$second,$month,$day,$year);
-    return $func_timestamp;     
-  } 
-
+  /**
+   * Convert a date string to a timestamp
+   * @string strStr Date to convert
+   * @optional string Format Format, the date is in
+   * @return timestamp
+   */
   function str2time($strStr, $strPattern = 'Y-m-d H:i:s') {
     // an array of the valide date characters, see: http://php.net/date#AEN21898
     $arrCharacters = array(
@@ -105,13 +98,17 @@ class func {
     return $intTime;
   }
 
-  function unixstamp2date($func_timestamp,$func_art) {
-    global $lang;
-
+  /**
+   * Convert a timestamp, to a nice, readable string
+   * @string timestamp
+   * @string type One of year, month, date, time, shorttime, datetime, daydatetime, daydate, or shortdaytime
+   * @return string
+   */
+  function unixstamp2date($func_timestamp, $func_art) {
     if ((int)$func_timestamp == 0) return '---';
     else switch($func_art) {
         case "year":        $func_date  = date("Y", $func_timestamp);       break;      
-        case "month":       $func_date  = date("Y", $func_timestamp) ." - ". $this->translate_monthname(date("F", $func_timestamp));        break;      
+        case "month":       $func_date  = date("Y", $func_timestamp) ." - ". t(date("F", $func_timestamp));        break;
         case "date":        $func_date  = date("d.m.Y", $func_timestamp);       break;      
         case "time":        $func_date  = date("H:i", $func_timestamp);     break;
         case "shorttime":   $func_date  = date("H:i", $func_timestamp);     break;
@@ -158,50 +155,33 @@ class func {
     return $func_date;
   }
 
-  function translate_weekdayname($name) {
-    global $lang;
+  /**
+   * Calculates the age to a given birthday timestamp
+   * @timestamp birthhday
+   * @optional timestamp attime Calculates the age the person will have at this time
+   * @return int age
+   */
+  function age($birthday, $attime = 0) {
+    if ($attime) {
+      $yeardiff = date("Y", $attime) - date("Y", $birthday);
+      $monthdiff = date("m", $attime) - date("m", $birthday);
+      $daydiff = date("j", $attime) - date("j", $birthday);
+    } else {
+      $yeardiff = date("Y") - date("Y", $birthday);
+      $monthdiff = date("m") - date("m", $birthday);
+      $daydiff = date("j") - date("j", $birthday);
+    }
 
-    $name = strtolower($name);
-    return $lang['class_func'][$name];
-  }
+    if (($monthdiff < 0) || ($monthdiff == 0 and $daydiff < 0)) $age = $yeardiff - 1;
+    else $age = $yeardiff;
 
-  function translate_monthname($name) {
-    global $lang;
-
-    $name = strtolower($name);
-    return $lang['class_func'][$name];
-  }
-
-  // Gibt das aktuelle Alter zurück
-  function age($gebtimestamp) {
-      $yeardiff = date("Y") - date("Y", $gebtimestamp);
-      $monthdiff = date("m") - date("m", $gebtimestamp);
-      $daydiff = date("j") - date("j", $gebtimestamp);
-
-      if (($monthdiff < 0) || ($monthdiff == 0 && $daydiff < 0)) $age = $yeardiff - 1;
-      else $age = $yeardiff;
-
-      return $age;
-  }
-
-  // Gibt das Alter bei der LanParty zurück
-  function age_at_lan($gebtimestamp) {
-/*  Funktioniert so leider noch nicht
-      $yeardiff = date("Y", mktime($cfg["signon_partybegin"])) - date("Y", $gebtimestamp);
-      $monthdiff = date("m", mktime($cfg["signon_partybegin"])) - date("m", $gebtimestamp);
-      $daydiff = date("j", mktime($cfg["signon_partybegin"])) - date("j", $gebtimestamp);
-
-      if (($monthdiff < 0) || ($monthdiff == 0 && $daydiff < 0)) $age = $yeardiff - 1;
-      else $age = $yeardiff;
-
-      return $age;
-*/
+    return (int)$age;
   }
 
 
   #### Infobox ####
   function setainfo( $text, $userid, $priority, $item, $itemid) {
-      global $db, $config, $lang;
+      global $db;
 
       if ($priority != "0" AND $priority != "1" AND $priority != "2") {
           echo(t('Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)'));
@@ -211,10 +191,7 @@ class func {
       }
   }
 
-
-    
   #### Dialog functions ####
- 
   function GeneralDialog($type, $text, $link_target = '', $JustReturn = 0, $link_type = '') {
     global $smarty, $dsp, $FrameworkMessages;
 
@@ -262,6 +239,18 @@ class func {
     return $this->GeneralDialog('error', $text, $link_target, $JustReturn, $link_type);
   }
 
+  function question($text, $link_target_yes, $link_target_no = '') {
+    global $smarty, $dsp;
+
+    if ($link_target_no == '') $link_target_no = $this->internal_referer;
+    $smarty->assign('question', $text);
+    $smarty->assign('action', $link_target_yes);
+    $smarty->assign('yes', $dsp->FetchIcon($link_target_yes, 'yes'));
+    $smarty->assign('no', $dsp->FetchIcon($link_target_no, 'no'));
+
+    $dsp->AddContentLine($smarty->fetch('design/templates/question.htm'));
+  }
+
   function multiquestion($questionarray, $linkarray, $text = '') {
     global $smarty, $dsp;
     
@@ -273,18 +262,6 @@ class func {
     $smarty->assign('row', $row);
 
     $dsp->AddContentLine($smarty->fetch("design/templates/multiquestion.htm"));
-  }
-
-  function question($text, $link_target_yes, $link_target_no = '') {
-    global $smarty, $dsp;
-
-    if ($link_target_no == '') $link_target_no = $this->internal_referer;
-    $smarty->assign('question', $text);
-    $smarty->assign('action', $link_target_yes);
-    $smarty->assign('yes', $dsp->FetchIcon($link_target_yes, 'yes'));
-    $smarty->assign('no', $dsp->FetchIcon($link_target_no, 'no'));
-
-    $dsp->AddContentLine($smarty->fetch('design/templates/question.htm'));
   }
 
 
@@ -303,9 +280,17 @@ class func {
     return strtr($string, $aTransSpecchar);
   }
 
+  // Add slashes at any non GPC-variable
+  // This function musst be used, if ' come from other sources, than $_GET, or $_POST
+  // for example language-files
+  function escape_sql($text) {
+      $text = addslashes(stripslashes($text));
+      return $text;
+  }
+
   // If ls-code should be displayed
   function text2html($string, $mode = 0) { // mode 0: default; 1: wiki before; 2: wiki after; 4: basic
-      global $db, $config, $auth;
+      global $db, $auth;
 
       if ($mode != 4) {
         if ($mode != 1) {
@@ -458,14 +443,6 @@ class func {
     return $string;
   }
 
-  // Add slashes at any non GPC-variable
-  // This function musst be used, if ' come from other sources, than $_GET, or $_POST
-  // for example language-files
-  function escape_sql($text) {
-      $text = addslashes(stripslashes($text));
-      return $text;
-  }
-
 
   #### Check Var Content ####
   function check_var($var, $type, $min_length, $max_length) {
@@ -493,7 +470,7 @@ class func {
   
   #### Misc ####
   function log_event($message, $type, $sort_tag = '', $target_id = '') {
-      global $db, $config, $auth;
+      global $db, $auth;
 
       if ($message == '' or $type == '') echo("Function log_event needs message and type defined! - Invalid arguments supplied!");
 
@@ -517,7 +494,7 @@ class func {
                               
   }
   
-
+  // Better use MasterSearch..
   function page_split($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name) {
       if ($max_entries_per_page > 0 and $overall_entries >= 0 and $working_link != "" and $var_page_name != "") {
           if($current_page == "") {
@@ -730,32 +707,7 @@ class func {
             }
         }
     }  
-    
-  /**
-   * Select and set the Language
-   *
-   * @param boolean If $configured = true dbconfig will be also read
-   * @return string Returns a valid Language selected by User
-   * @static
-   */
-    function get_lang($configured = false){
-        global $cfg;
-        $valid_lang = array('de','en', 'es', 'fr','nl', 'it');
-        
-        if     ($_POST['language']) $_SESSION['language'] = $_POST['language'];
-        elseif ($_GET['language'])  $_SESSION['language'] = $_GET['language'];
-        
-        if ($_SESSION['language']) $func_language = $_SESSION['language'];
-        elseif ($configured) {
-            // Get Syslanguage only if configured
-            if ($cfg["sys_language"]) $func_language = $cfg["sys_language"];
-                else $func_language = "de";
-        } else $func_language = "de";
-        
-        if (!in_array($func_language,$valid_lang)) $func_language = "de"; # For avoiding bad Code-Injections 
-        return $func_language;
-    }
-    
+
   /**
    * Read DB and shows if a Superadmin exists
    *
@@ -763,8 +715,8 @@ class func {
    * @static
    */
     function admin_exists(){
-        global $db, $config;
-        if (is_object($db) AND is_array($config) AND $db->success==1) {
+        global $db;
+        if (is_object($db) AND $db->success==1) {
             $res = $db->qry("SELECT userid FROM %prefix%user WHERE type = 3 LIMIT 1");
             if ($db->num_rows($res) > 0) $found = 1; else $found = 0;
             $db->free_result($res);
@@ -779,12 +731,6 @@ class func {
         preg_match('/[^a-zA-Z0-9]/', substr($str, $SoftLimit, strlen($str)), $ret, PREG_OFFSET_CAPTURE);
         return substr($str, 0, $SoftLimit + $ret[0][1]) . '...'; 
       } else return $str;
-    }
-
-    function DeleteOldReadStates() {
-      global $db;
-
-      $db->qry('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7');
     }
 
     function CheckNewPosts($last_change, $table, $entryid, $userid = 0) {
