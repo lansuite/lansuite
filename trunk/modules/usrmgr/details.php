@@ -63,7 +63,7 @@ else {
   $dsp->NewContent(t('Benutzerdetails von %1', $user_data['username']), t('Hier finden Sie alle Details zu dem Benutzer %1', $user_data['username']));
   $dsp->StartTabs();
 
-  $dsp->StartTab(t('Spielerinfos'));
+  $dsp->StartTab(t('Spielerinfos'), 'assign');
 
   // First name, last name, username, user ID
   $name = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
@@ -251,7 +251,7 @@ else {
   }
 
   $dsp->EndTab();
-  $dsp->StartTab(t('Sonstiges'));
+  $dsp->StartTab(t('Sonstiges'), 'details');
 
   // logins, last login
   if ($auth['type'] >= 2) {
@@ -280,13 +280,13 @@ else {
   $dsp->EndTab();
   
   if ($hasUserFields) {
-    $dsp->StartTab(t('Eigene Felder'));
+    $dsp->StartTab(t('Eigene Felder'), 'database');
     while ($user_field = $db->fetch_array($user_fields)) $dsp->AddDoubleRow($user_field['caption'], $user_data[$user_field['name']]);
     $dsp->EndTab();
   }
 
   if ($auth['type'] >= 3) {
-    $dsp->StartTab(t('Sessions'));
+    $dsp->StartTab(t('Sessions'), 'generate');
 
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('usrmgr');
@@ -311,8 +311,8 @@ else {
   }
 
   $plugin = new plugin('usrmgr_details_tab');
-  while (list($caption, $inc) = $plugin->fetch()) {
-    $dsp->StartTab($caption);
+  while (list($caption, $inc, $icon) = $plugin->fetch()) {
+    $dsp->StartTab($caption, $icon);
     include_once($inc);
     $dsp->EndTab();
   }

@@ -3,6 +3,7 @@
     <plugin>
         <name>usrmgr_details_tab</name>
         <caption>Turniere</caption>
+        <icon>play</icon>
         <pos></pos>
     </plugin>
     <plugin>

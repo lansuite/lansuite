@@ -1,10 +1,6 @@
 <?php
 
 class display {
-
-  var $form_line = '';
-  var $content_need_form = 0;
-  var $form_ok = 0;
   var $form_open = 0;
   var $formcount = 1;
   var $errortext_prefix = '';
@@ -66,9 +62,6 @@ class display {
     $smarty->assign('newcontent_caption', $caption);
     $smarty->assign('newcontent_text', $text);
 
-    unset($this->content_need_form);
-    $this->form_ok = false;
-
     $this->AddContentLine($smarty->fetch('design/templates/ls_row_headline.htm'));
   }
 
@@ -79,9 +72,10 @@ class display {
     $MainContent = '';
   }
 
-  function StartTab($name) {
+  function StartTab($name, $icon = '') {
     global $MainContent;
 
+    if ($icon) $name = '<img src="design/images/icon_'. $icon .'.png" height="14" alt="'. $icon .'" /> '. $name;
     $this->TabNames[] = $name;
     $MainContent .= '<div id="tabs-'. (int)$this->CurrentTab .'">';
     $this->CurrentTab++;
@@ -95,6 +89,7 @@ class display {
   function EndTabs() {
     global $MainContent, $framework;
 
+    $this->AddSingleRow('');
     $out = $this->TabsMainContentTmp;
 
     foreach ($this->TabNames as $key => $name) {

@@ -3,6 +3,7 @@
     <plugin>
         <name>usrmgr_details_tab</name>
         <caption>Hardware</caption>
+        <icon>hdd</icon>
         <pos></pos>
     </plugin>
 </lansuite>
