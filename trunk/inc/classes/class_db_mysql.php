@@ -133,7 +133,7 @@ class db {
     	$args = $args[0];
 
     foreach ($args as $CurrentArg) $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array('db', 'escape'), $query, 1);
-    $debug->query_start($query);
+    if (isset($debug)) $debug->query_start($query);
     if ($this->mysqli) {
       $this->query_id = mysqli_query($this->link_id, $query);
       $this->sql_error = @mysqli_error($this->link_id);
@@ -143,7 +143,7 @@ class db {
     }
     if (!$this->query_id) $this->print_error($this->sql_error, $query);
     $this->count_query++;
-    $debug->query_stop($this->sql_error);
+    if (isset($debug)) $debug->query_stop($this->sql_error);
     return $this->query_id;
   }
 

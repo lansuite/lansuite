@@ -10,7 +10,7 @@
  $action = $_GET['action'];
  
  // debug
- if( $debug ) {
+ if (isset($debug)) {
 	echo "<br/>Ctype: ".$ctype;
  	echo "<br/>bcID: ".$bcid;
 	echo "<br/>FCKeditor1-Data: ".$_POST['FCKeditor1'];	

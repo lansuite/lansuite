@@ -153,10 +153,10 @@ else {
   $login   = @ftp_login($connect, $loginuser, $loginpassword);
 
   if($cfg['sys_showdebug_ftp'] == "1") {
-    $debug[] = "FTP> Connect to " . $server . " on Port:" . $port;
-    $debug[] = "FTP> " . $connect;
-    $debug[] = "FTP> Login with " . $loginuser . ", " . $loginpassword;
-    $debug[] = "FTP> Login (true=1): " . $login;
+    $debugFTP[] = "FTP> Connect to " . $server . " on Port:" . $port;
+    $debugFTP[] = "FTP> " . $connect;
+    $debugFTP[] = "FTP> Login with " . $loginuser . ", " . $loginpassword;
+    $debugFTP[] = "FTP> Login (true=1): " . $login;
   }
 
   if ($connect != FALSE AND $login != FALSE) {
@@ -178,19 +178,19 @@ else {
     $content = ftp_rawlist($connect, $dir); 
 
     if($cfg['sys_showdebug_ftp'] == "1") {
-      $debug[] = "FTP> Set timeout ". $set_timeout;;
-      $debug[] = "FTP> Join dir";
-      $debug[] = "FTP> " . $join_dir;
-      $debug[] = "FTP> Read dir";
-      $debug[] = "FTP> " . $dir;
-      $debug[] = "FTP> Read content";
+      $debugFTP[] = "FTP> Set timeout ". $set_timeout;;
+      $debugFTP[] = "FTP> Join dir";
+      $debugFTP[] = "FTP> " . $join_dir;
+      $debugFTP[] = "FTP> Read dir";
+      $debugFTP[] = "FTP> " . $dir;
+      $debugFTP[] = "FTP> Read content";
     }
 
     if ($content) {
       $z = 0;
       $table = array();
       foreach ($content AS $cur_line) {
-        if($cfg['sys_showdebug_ftp'] == "1") $debug[] = "FTP> " . $cur_line . HTML_NEWLINE;
+        if($cfg['sys_showdebug_ftp'] == "1") $debugFTP[] = "FTP> " . $cur_line . HTML_NEWLINE;
 
         if(ereg("([-d])([rwxst-]{9}).* ([0-9]*) ([a-zA-Z]+[0-9: ]* [0-9]{2}:?[0-9]{2}) (.+)", $cur_line, $regs)) {      
           if($regs[1] == "d") $lineinfo['folder'] = TRUE;
@@ -241,11 +241,13 @@ else {
 
     $quit = ftp_quit($connect);
 
-    if ($cfg['sys_showdebug_ftp'] == "1") $debug[] = "FTP> Quit connection " . $connect. HTML_NEWLINE;
+    $debugFTP[] = "FTP> Quit connection " . $connect. HTML_NEWLINE;
 
   } else {
     $func->error(t('Konnte Verbindung zum Downloadserver nicht herstellen'));
     $func->log_event(t('Konnte Verbindung zu FTP-Server "%1" auf Port %2 nicht herstellen.', $server, $port), "2");
   } 
+
+  if (isset($debug) and $cfg['sys_showdebug_ftp'] == "1") $debug->addvar('FTP', $debugFTP);
 }
 ?>
