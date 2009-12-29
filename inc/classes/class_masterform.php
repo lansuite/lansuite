@@ -248,9 +248,6 @@ class masterform {
               // -- Convertions --
               // Convert Post-date to unix-timestap
               if ($SQLFieldTypes[$field['name']] == 'datetime') {
-#                $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
-#                $_POST[$field['name'].'_value_day'], $_POST[$field['name'].'_value_hours'], $_POST[$field['name'].'_value_minutes'], 0);
-
                 //1997-12-31 23:59:59
                 $_POST[$field['name']] = $_POST[$field['name'].'_value_year'] .'-'. $_POST[$field['name'].'_value_month'] .'-'.
                 $_POST[$field['name'].'_value_day'] .' '. $_POST[$field['name'].'_value_hours'] .':'. $_POST[$field['name'].'_value_minutes'] .':00';
@@ -258,9 +255,6 @@ class masterform {
               }
 
               if ($SQLFieldTypes[$field['name']] == 'date') {
-#                $_POST[$field['name']] = $func->date2unixstamp($_POST[$field['name'].'_value_year'], $_POST[$field['name'].'_value_month'],
-#                $_POST[$field['name'].'_value_day'], 0, 0, 0);
-
                 $_POST[$field['name']] = $_POST[$field['name'].'_value_year'] .'-'. $_POST[$field['name'].'_value_month'] .'-'. $_POST[$field['name'].'_value_day'];
                 $__POST[$field['name']] = $_POST[$field['name']];
               }

@@ -112,7 +112,7 @@ if ($cfg['sys_internet']) {
   
     $box->EngangedRow($count);
   
-    $checked = $db->qry_first("SELECT checked as n FROM %prefix%partys WHERE party_id = %int%", $party->party_id);
+    $checked = $db->qry_first("SELECT UNIX_TIMESTAMP(checked) AS n FROM %prefix%partys WHERE party_id = %int%", $party->party_id);
     $box->EmptyRow();
     $box->ItemRow("data", "<b>". t('Letzter Kontocheck') ."</b>" );
     $box->EngangedRow($func->unixstamp2date($checked['n'],"datetime" ));

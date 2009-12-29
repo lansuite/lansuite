@@ -16,7 +16,7 @@ function CheckModeForLeague($league) {
 function CheckDateInFuture($date) {
   global $lang, $func, $mf;
 
-  if (!$mf->isChange and $func->MysqlDateToTimestamp($date) < time()) return t('Dieses Datum liegt in der Vergangenheit');
+  if (!$mf->isChange and $func->str2time($date) < time()) return t('Dieses Datum liegt in der Vergangenheit');
   else return false;
 }
 
