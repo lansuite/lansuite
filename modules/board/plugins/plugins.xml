@@ -8,6 +8,7 @@
     <plugin>
         <name>usrmgr_details_tab</name>
         <caption>Board</caption>
+        <icon>img</icon>
         <pos></pos>
     </plugin>
 </lansuite>

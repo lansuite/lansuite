@@ -340,8 +340,9 @@ class Install {
         foreach ($plugins as $plugin) {
           $name = $xml->get_tag_content("name", $plugin);
           $caption = $xml->get_tag_content("caption", $plugin);
+          $icon = $xml->get_tag_content("icon", $plugin);
           $pos = $xml->get_tag_content("pos", $plugin);
-          $db->qry_first("INSERT INTO %prefix%plugin SET module=%string%, pluginType=%string%, caption=%string%, pos=%int%", $module, $name, $caption, $pos);
+          $db->qry_first("INSERT INTO %prefix%plugin SET module=%string%, pluginType=%string%, caption=%string%, pos=%int%, icon=%string%", $module, $name, $caption, $pos, $icon);
         }
       }
     }
