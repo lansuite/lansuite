@@ -6,10 +6,10 @@ Deny from all
    Allow from all 
 </Files>
 
-<Files *.js> 
-   Allow from all  
+<Files *.js>
+   Allow from all
 </Files>
 
-<Files *.css> 
-   Allow from all  
+<Files *.css>
+   Allow from all
 </Files>
