@@ -327,10 +327,6 @@ class translation {
         include_once("inc/classes/class_xml.php");
         $xml = new xml;
 
-        // Load old Translation from File to merge
-        $xml_old = $this->xml_read_to_array($modul);
-        
-        /* Header */
         $output = '<?xml version="1.0" encoding="UTF-8"?'.">\r\n\r\n";
         $header = $xml->write_tag("filetype", "LanSuite", 2);
         $header .= $xml->write_tag("version", "2.0", 2);
@@ -343,47 +339,47 @@ class translation {
     
         $content = '';
         // read normal Translation
-        $res = $db->qry("SELECT * FROM %prefix%translation WHERE file = %string%", $modul);
-        while ($row = $db->fetch_array($res)) {
+        $res = $db->qry("SELECT * FROM %prefix%translation WHERE file = %string% AND obsolete = 0", $modul);
+        while ($row = $db->fetch_array($res)) if ($row['id'] != '') {
             $entry = $xml->write_tag('id', $row['id'], 4);
-            $entry .= $xml->write_tag('org', $this->xml_var_merge($row['org'],$xml_old[$row['file']][$row['id']]['org']), 4);
-            $entry .= $xml->write_tag('de', $this->xml_var_merge($row['de'],$xml_old[$row['file']][$row['id']]['de']), 4);
-            $entry .= $xml->write_tag('en', $this->xml_var_merge($row['en'],$xml_old[$row['file']][$row['id']]['en']), 4);
-            $entry .= $xml->write_tag('es', $this->xml_var_merge($row['es'],$xml_old[$row['file']][$row['id']]['es']), 4);
-            $entry .= $xml->write_tag('fr', $this->xml_var_merge($row['fr'],$xml_old[$row['file']][$row['id']]['fr']), 4);
-            $entry .= $xml->write_tag('nl', $this->xml_var_merge($row['nl'],$xml_old[$row['file']][$row['id']]['nl']), 4);
-            $entry .= $xml->write_tag('it', $this->xml_var_merge($row['it'],$xml_old[$row['file']][$row['id']]['it']), 4);
+            $entry .= $xml->write_tag('org', $row['org'], 4);
+            if ($row['de'] != '') $entry .= $xml->write_tag('de', $row['de'], 4);
+            if ($row['en'] != '') $entry .= $xml->write_tag('en', $row['en'], 4);
+            if ($row['es'] != '') $entry .= $xml->write_tag('es', $row['es'], 4);
+            if ($row['fr'] != '') $entry .= $xml->write_tag('fr', $row['fr'], 4);
+            if ($row['nl'] != '') $entry .= $xml->write_tag('nl', $row['nl'], 4);
+            if ($row['it'] != '') $entry .= $xml->write_tag('it', $row['it'], 4);
             $entry .= $xml->write_tag('file', $modul, 4);
             $content .= $xml->write_master_tag("entry", $entry, 3);
         }
         $db->free_result($res);
+        
         // read long Translation
-        $res2 = $db->qry("SELECT * FROM %prefix%translation_long WHERE file = %string%", $modul);
+        $res2 = $db->qry("SELECT * FROM %prefix%translation_long WHERE file = %string% AND obsolete = 0", $modul);
         while ($row2 = $db->fetch_array($res2)) {
-            $entry = $xml->write_tag('id', $row2['id'], 4);
-            $entry .= $xml->write_tag('org', $this->xml_var_merge($row['org'],$xml_old[$row['file']][$row['id']]['org']), 4);
-            $entry .= $xml->write_tag('de', $this->xml_var_merge($row['de'],$xml_old[$row['file']][$row['id']]['de']), 4);
-            $entry .= $xml->write_tag('en', $this->xml_var_merge($row['en'],$xml_old[$row['file']][$row['id']]['en']), 4);
-            $entry .= $xml->write_tag('es', $this->xml_var_merge($row['es'],$xml_old[$row['file']][$row['id']]['es']), 4);
-            $entry .= $xml->write_tag('fr', $this->xml_var_merge($row['fr'],$xml_old[$row['file']][$row['id']]['fr']), 4);
-            $entry .= $xml->write_tag('nl', $this->xml_var_merge($row['nl'],$xml_old[$row['file']][$row['id']]['nl']), 4);
-            $entry .= $xml->write_tag('it', $this->xml_var_merge($row['it'],$xml_old[$row['file']][$row['id']]['it']), 4);
+            $entry = $xml->write_tag('id', $row['id'], 4);
+            $entry .= $xml->write_tag('org', $row['org'], 4);
+            if ($row['de'] != '') $entry .= $xml->write_tag('de', $row['de'], 4);
+            if ($row['en'] != '') $entry .= $xml->write_tag('en', $row['en'], 4);
+            if ($row['es'] != '') $entry .= $xml->write_tag('es', $row['es'], 4);
+            if ($row['fr'] != '') $entry .= $xml->write_tag('fr', $row['fr'], 4);
+            if ($row['nl'] != '') $entry .= $xml->write_tag('nl', $row['nl'], 4);
+            if ($row['it'] != '') $entry .= $xml->write_tag('it', $row['it'], 4);
             $entry .= $xml->write_tag('file', $modul, 4);
             $content .= $xml->write_master_tag("entry", $entry, 3);
         }            
-                       
         $db->free_result($res2);
     
         $tables .= $xml->write_master_tag("content", $content, 2);
         $lansuite .= $xml->write_master_tag("table", $tables, 1);
-        $output .= $xml->write_master_tag("lansuite", $header.$lansuite, 0);
+        $output .= $xml->write_master_tag("lansuite", $header . $lansuite, 0);
 
         // Filehandler. Make Backupcopy if Translationsfile exits
         $file = $this->get_trans_filename($modul);
         //if (file_exists($file)) copy($file, $file.time().'.bak'); // Backup
-        $file_handle = @fopen($file, "w");
-        @fputs($file_handle, $output);
-        @fclose($file_handle);
+        $file_handle = fopen($file, "w");
+        fputs($file_handle, $output);
+        fclose($file_handle);
     }
 
   /**
@@ -418,21 +414,20 @@ class translation {
       $lang_file = $this->get_trans_filename($modul);
       if (file_exists($lang_file)) {
     		$xml_file = fopen($lang_file, "r");
-    		$file_cont = utf8_decode(fread($xml_file, filesize($lang_file)));
+    		$file_cont = fread($xml_file, filesize($lang_file));
     		fclose($xml_file);
 
         $entries = $xml->getTagContentArray('entry', $file_cont);
         foreach ($entries as $entry) {
-          $record = array();
-          $record['id'] = $xml->getFirstTagContent('id', $entry, 1);
-          $record['org'] = $xml->getFirstTagContent('org', $entry, 1);
-          $record['de'] = $xml->getFirstTagContent('de', $entry, 1);
-          $record['en'] = $xml->getFirstTagContent('en', $entry, 1);
-          $record['fr'] = $xml->getFirstTagContent('fr', $entry, 1);
-          $record['it'] = $xml->getFirstTagContent('it', $entry, 1);
-          $record['es'] = $xml->getFirstTagContent('es', $entry, 1);
-          $record['nl'] = $xml->getFirstTagContent('nl', $entry, 1);
-          $records[] = $record;
+          $id = $xml->getFirstTagContent('id', $entry, 1);
+          $records[$id]['id'] = $id;
+          $records[$id]['org'] = $xml->getFirstTagContent('org', $entry, 1);
+          $records[$id]['de'] = $xml->getFirstTagContent('de', $entry, 1);
+          $records[$id]['en'] = $xml->getFirstTagContent('en', $entry, 1);
+          $records[$id]['fr'] = $xml->getFirstTagContent('fr', $entry, 1);
+          $records[$id]['it'] = $xml->getFirstTagContent('it', $entry, 1);
+          $records[$id]['es'] = $xml->getFirstTagContent('es', $entry, 1);
+          $records[$id]['nl'] = $xml->getFirstTagContent('nl', $entry, 1);
         }
       }
 
@@ -499,6 +494,7 @@ class translation {
         global $db, $FoundTransEntries;
 
         $output = '';
+        $BaseDir .= '/';
         if ($sub == 0) $FoundTransEntries = array();
 
         // Generate Mod-Name from FILE
@@ -510,7 +506,7 @@ class translation {
 
         $ResDir = opendir($BaseDir);
         while ($file = readdir($ResDir)) {
-            $FilePath = $BaseDir .'/'. $file;
+            $FilePath = $BaseDir . $file;
 
             if (substr($file, strlen($file) - 4, 4) == '.php') {
                 $ResFile = fopen($FilePath, "r");
@@ -538,20 +534,19 @@ class translation {
                           $row['tid'] = $db->insert_id();
                           $output .= '<font color="#00ff00">'. $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'</font><br />';
                         }
-                        if ($long) $FoundTransEntries[] = $row['tid']; // Array is compared to DB later for synchronization
+                        if (!$long) $FoundTransEntries[] = $row['tid']; // Array is compared to DB later for synchronization
                     }
                 }
 
             } elseif ($file != '.' and $file != '..' and $file != '.svn' and is_dir($FilePath)) $output .= $this->TUpdateFromFiles($FilePath, $sub++);
         }
 
-        // Delete entries, which no do no longer exist
-        //!! Takes too long!
-        if ($sub == 1 and $CurrentFile != 'System') {
-          $res = $db->qry("SELECT tid FROM %prefix%translation WHERE file = %string%", $CurrentFile);
+        // Mark entries as obsolete, which no do no longer exist
+        if (($sub == 1 and $CurrentFile != 'System') or ($sub == 0 and $CurrentFile == 'System')) {
+          $res = $db->qry("SELECT tid, file, org FROM %prefix%translation WHERE file = %string% AND obsolete = 0", $CurrentFile);
           while($row = $db->fetch_array($res)) {
             if (!in_array($row['tid'], $FoundTransEntries)) {
-              $db->qry("UPDATE %prefix%translation SET obsolete='1' WHERE id = %int%", $row['id']);
+              $db->qry("UPDATE %prefix%translation SET obsolete = 1 WHERE tid = %int%", $row['tid']);
               $output .= '<font color="#ff0000">'. $row['file'] .': '. $row['org'] .'</font><br />';
             }
           }

@@ -151,15 +151,15 @@ switch ($_GET['step']) {
     // Start Tanslation
     $dsp->AddFieldSetStart(t('Texte editieren.'));
         $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
-        $res = $db->qry("SELECT DISTINCT id, org, file, %plain% FROM %prefix%translation WHERE file = %string%", $_SESSION['target_language'], $_GET['file']);
+        $res = $db->qry("SELECT DISTINCT id, org, file, %plain% FROM %prefix%translation WHERE file = %string% AND obsolete = 0", $_SESSION['target_language'], $_GET['file']);
         while($row = $db->fetch_array($res)) {
             $trans_link_google ="http://translate.google.com/translate_t?langpair=de|".$_SESSION['target_language']."&hl=de&ie=UTF8&text=".$row['org'];
             $trans_link_google =" <a href=\"".$trans_link_google."\" target=\"_blank\"><img src=\"design/".$auth['design']."/images/arrows_transl.gif\" width=\"12\" height=\"13\" border=\"0\" /></a>";
             
             if (strlen($row['org'])<60) {
-                $dsp->AddTextFieldRow("id[{$row['id']}]",htmlentities($row['org']).$trans_link_google, $row[$_SESSION['target_language']], '', 65);
+                $dsp->AddTextFieldRow("id[{$row['id']}]",$row['org'].$trans_link_google, $row[$_SESSION['target_language']], '', 65);
             } else { 
-                $dsp->AddTextAreaRow ("id[{$row['id']}]",htmlentities($row['org']).$trans_link_google, $row[$_SESSION['target_language']], '', 50, 5);
+                $dsp->AddTextAreaRow ("id[{$row['id']}]",$row['org'].$trans_link_google, $row[$_SESSION['target_language']], '', 50, 5);
             }
         
         }

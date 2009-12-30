@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,947 +15,446 @@
 			<entry>
 				<id>0420b1e70c9605700ef202ab6fb3901a</id>
 				<org>Temporär</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>80545ef9178fc406a52cb1a9fdb040eb</id>
-				<org>Keine Einträge in den </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Keine Einträge in den</org>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>2fbba2aa21264d81881619d5fd6dbb7e</id>
 				<org>letzten 30 Minuten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>4c13a0f237fca3cba3a7d63d2a7c165d</id>
 				<org>Zuletzt angemeldet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>5cc507fa66e7108f40e9c102cfec61bf</id>
 				<org>Konf.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>d1bf55e6ce7e1188c3aac3ae84fb6666</id>
 				<org>Modul-Konfiguration</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>0a5a4d7386065c6c6ac19c303768c7e1</id>
 				<org>DB</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>cc3b836da2a6ed8d1d9a9f0fe5a1fd55</id>
 				<org>Datenbank Tabellen dieses Moduls verwalten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>539efbce394984e11384746316782d78</id>
 				<org>Menü</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>2c72fd979a09b0222db0cc2fe20c70de</id>
 				<org>Menüeinträge verwalten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>68b88d4a74d6893e96c6edc1144ceb7a</id>
 				<org>Ü</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>e7b96b14c468c0ae03fd167d89fe8704</id>
 				<org>Übersetzungen zu diesem Modul</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>4f4c60ca9854149440d7a202f733ea77</id>
 				<org>Mod-Konfig</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>ed208c35c7e19a2e08817e49e887f016</id>
 				<org>Dieses Modul verwalten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>34034107b5c56b5114fc3f25cc812377</id>
 				<org>Noch keine Buddies</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>78b02c8ee4330aae24c314a1855aa475</id>
 				<org>Benutzer hinzufügen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>a7f7b165939621a5e297015f11504fee</id>
 				<org>Rückmeldungen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>b15b7b0340f52d448dc6191fc9317f3a</id>
 				<org>Benutzer</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>dd1ba1872df91985ed1ca4cde2dfe669</id>
 				<org>News</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>cf1e8c14e54505f60aa10ceb8d5d8ab3</id>
 				<org>server</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>d97477d6d8a838ead9348185bb5b6742</id>
 				<org>Thread</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>b2e255e5cfd29133935ae00468406e2e</id>
 				<org>Troubletickets</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>18a8022569d6ced829f833aa855530ce</id>
 				<org>Titel</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>bd908db5ccb07777ced8023dffc802f4</id>
 				<org>Links</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>6a47abc6d7f5b29a94128466b6375896</id>
 				<org>Rechts</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>4789ac07952deecf2a4ae4276ef5caad</id>
 				<org>Seite</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>52f5e0bc3859bc5f5e25130b6c7e8881</id>
 				<org>Position</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>c44e07cffb5cd991f28e866e8854b548</id>
 				<org>Aktiv</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>e142ae51c1d959fcf6fbc4ca1b425964</id>
 				<org>Egal</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>0555bf2d4c67c7c9cf6f38be6a29d510</id>
 				<org>Nur in Intranet Version</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>e9818f941f4917df5ded073d48302f3a</id>
 				<org>Nur in Internet Verrsion</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>a62c508dcc809a66a95bc75c2fed3f00</id>
 				<org>Nur online / offline</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>92dc08ada6b2852edaa722c5e07fe07f</id>
 				<org>Nur für ausgeloggte</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>27812b42f390f01f4a696b09e5163d60</id>
 				<org>Nur für eingeloggte</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>ffac7642257604d2f739d4b3ca59af1f</id>
 				<org>Nur für Admins + Superadminen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>9d396f8d15680db4ce339826a8719be2</id>
 				<org>Nur für Superadminen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>5a6aabb7eb4f04e4aec540c5c9795ffc</id>
 				<org>Login benötigt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>48e72bab46b22bf29000cf640d5826a9</id>
 				<org>Modul benötigt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>c3115f8fab662703fc7d99c96a23d0ed</id>
 				<org>Quelldatei</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>406c70d61a3eefd08d468bd8a7b1b77f</id>
 				<org>Callback</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>1d4325d6842abf3f6227bff3cf256ed9</id>
 				<org>Box-Manager</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>2b05e72b4279097adbc4951dd2539640</id>
 				<org>Hier können Sie die Anzeige und Position der Boxen verwalten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>fda7c275e20f4bf7336b1832d60eebee</id>
 				<org>Internet-Modus</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>4ea4483369e246d0606948ec0e430e87</id>
 				<org>Nur im Intranet-Modus</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>9e90ec766d6c6a39d35eba7f30828716</id>
 				<org>Nur im Internet-Modus</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>99dea78007133396a7b8ed70578ac6ae</id>
 				<org>Login</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>a5fdf80d5ba1b59827be45b5ed581ddc</id>
 				<org>Linke Seite</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>b2132d34c640be7d20ed06cbc87393ea</id>
 				<org>Rechte Seite</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>3e6c02daeb7e1ab80cf3004bc25f31dd</id>
 				<org>Boxid</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>2958e457c4bceb5786345e5e2d7817fe</id>
 				<org>Aktivieren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>5e3e07837e609be93787d022ed8c52ab</id>
 				<org>Deaktivieren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>3eff505aeeeb34636c24cbc862fa554f</id>
 				<org>Angemeldet und Bezahlt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>70cddb2d45f04a29f54704ccb632e576</id>
 				<org>Nur Angemeldet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>69566353ee20bf15bbfab86db1146ed6</id>
 				<org>Frei</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>31493eab02656fe21f6ba7b29293bf5e</id>
 				<org>Angemeldet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>ad60cf5dd813abd16900c25dc1069c84</id>
 				<org>Bezahlt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>64d129224a5377b63e9727479ec987d9</id>
 				<org>Counter</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>31ce770010c6671548a36168293f774a</id>
 				<org>Diese Party ist bereits vorüber</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>4d89dd5f9cb6886d2b0074c20c8f0a25</id>
 				<org>Die Party läuft gerade!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>7af763f68c3438bf124d6d91d49391f3</id>
 				<org>Noch %1 Minuten.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>f340726c83681d1eb5d1a1130523b071</id>
 				<org>Noch %1 Stunden.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>9c9002470e77c1baf431bcf1b85c9287</id>
 				<org>Noch %1 Tage.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>a2b4f8a78b76d51d6090fd54efbf1adb</id>
 				<org>Letzter Kontocheck</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>a9fb96c1ae5d25a84580c4b7c987143d</id>
 				<org>Wir danken</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>30878e181e2ff822d97bf7999a9f87fe</id>
 				<org>Besucher</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>08dce0bd0b0cc4067394fbc46f5326dc</id>
 				<org>Besucher insgesamt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>17d4195364c54efa2f207e7957f720e0</id>
 				<org>Besucher in der letzten Stunde</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>c1e949c74c82d88410af27e490d554e9</id>
 				<org>Aufrufe</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>c20e16d742309e4c0159f4265cfd60c9</id>
 				<org>Seitenzugriffe insgesamt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>0f0c259ac9f6a3d1880f2b4cb7494e4d</id>
 				<org>Seitenzugriffe in der letzten Stunde</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>b34a94ed6c29e661d98a252e34fa390e</id>
 				<org>Eingeloggt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>e3afed0047b08059d0fada10f400c1e5</id>
 				<org>Admin</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>452a73be664e385ee55980d6a7b53ab8</id>
 				<org>Zurück wechseln</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>0323de4f66a1700e2173e9bcdce02715</id>
 				<org>Logout</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>51a8cf58189641aa8eb7e6e61e35712e</id>
 				<org>Pers. Details</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>194231a81cf56730eac805e131b9cd25</id>
 				<org>Pers. Einstellungen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>da2fcb1e3070b3d66f50bca40147ebf6</id>
 				<org>Logins</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>cfb02c9f943ba5136e21a9c5f9219d01</id>
 				<org>Zuletzt eingeloggt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>418a783af339d833d98de81b33bf3268</id>
 				<org>Meine Einstellungen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>d6a8d25a9bfc9901fbc35f7d8af15924</id>
 				<org>Sie haben Post!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>40d506c69f527b13cc7afcc978c4a7c8</id>
 				<org>Mein Postfach</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>11996162440d1846771669d9ec6e919d</id>
 				<org>Meine Eintrittskarte</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>eb8e45201c095a4f7abcf90036ee7e57</id>
 				<org>Hier anmelden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>boxes</file>
 			</entry>
 			<entry>
 				<id>ec53a8c4f07baed5d8825072c89799be</id>
 				<org>Status</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>8e55121c8cebf5f95f891a71ae14ac77</id>
+				<org>Nur für Admins + Superadmins</org>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>59c54f79c23100fc2eba0b7a9eb4750a</id>
+				<org>Nur für Superadmins</org>
+				<file>boxes</file>
+			</entry>
+			<entry>
+				<id>fa7286552f72aca09869db6d3dac9dc7</id>
+				<org>Keine Navigation gefunden. Bitte korrekte zuweisung Box / Navigation prüfen (BoxID). Temporäre Links aktiviert.</org>
 				<file>boxes</file>
 			</entry>
 		</content>

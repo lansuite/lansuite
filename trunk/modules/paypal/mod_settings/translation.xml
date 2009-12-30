@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,342 +15,156 @@
 			<entry>
 				<id>bf5cb63de95b7b6d2f013bff683b5458</id>
 				<org>Bitte geben sie einen Vornamen ein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>2fec6ca6deff4ea9a44bdf4fd230fc6f</id>
 				<org>Bitte geben sie einen Namen ein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>cafbba04e7294d371b4fff86c02a93d9</id>
 				<org>Bitte geben sie eine Email ein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>5aebad07ebf1cb896b792abbffc649f0</id>
-				<org>Kein Preis ausgew&auml;hlt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Kein Preis ausgew&amp;auml;hlt</org>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>d423f4e9112f6d15d068ebf5df65e13d</id>
 				<org>Daten eingeben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>f04455d31e409b1d96006bdd4aae66dd</id>
 				<org>Bitte geben sie ihre Zahlungsdaten ein.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>fecc7b92efa313ac8de08d4094455c9e</id>
 				<org>Vorname</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>43895f9ec69cb177446921df9828c680</id>
 				<org>Nachname</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>8b6e1ce90c17ae5b1a31fc23e7304545</id>
 				<org>Strasse</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>c05fc5cd8ba6911178b3200da05cd1e3</id>
 				<org>Stadt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>cd31dae2aeabc40bc5bb1094c182bf1c</id>
 				<org>PLZ</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>082e55a73f10496681c84231dc1c88f7</id>
 				<org>E-Mail</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>e52631cfb80cd672c852bcc891c9f985</id>
-				<org>Zu &uuml;berweisender Betrag</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Zu &amp;uuml;berweisender Betrag</org>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>55e26d89d561ff0c00fba2da2e6902a8</id>
-				<org>Achtung mit dem klicken auf weiter wird die Zahlung durchgef&uuml;hrt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Achtung mit dem klicken auf weiter wird die Zahlung durchgef&amp;uuml;hrt</org>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>9c3382794e30895927348068b8de526d</id>
 				<org>Senden der Daten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>353bf28f855d8db5b6d701aff1518afb</id>
 				<org>Die Daten werden gesendet einen Moment bitte</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>ea5da16b08df3487034dfc529ff08a44</id>
 				<org>Einen Moment Bitte die Daten werden gesendet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>482873f9c055792b35849d012beddf75</id>
 				<org>Zahlung erfolgreich</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>a11b4cdeb41afc893c48903c3ca88f34</id>
-				<org>Die Zahlung war erfolgreich. Wir danken f&uuml;r die Einzahlung.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Die Zahlung war erfolgreich. Wir danken f&amp;uuml;r die Einzahlung.</org>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>b883dad46eeaaa3239bf753a081e8d2d</id>
 				<org>Zahlungsnummer</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>f371445084251f709ce08627c4bb8ce1</id>
 				<org>Zahlungsdatum</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>4fa5aeaa81a861e4eab8a8588bafb4bd</id>
 				<org>Transaktionsfehler oder unerlaubter Zugriff</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>c71967d240bb23e62b75a5fa899727f6</id>
-				<org>Bitte melden sie sich beim einem Admin damit der die Zahlung pr&uuml;fen kann.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Bitte melden sie sich beim einem Admin damit der die Zahlung pr&amp;uuml;fen kann.</org>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>52e5304c8c7dfe795117f86497f74b8d</id>
 				<org>Fehler</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>04e7213b070d361d6c7ba7d8951506a9</id>
-				<org>Die Transaktion konnte nicht durchgef&uuml;hrt werden.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Die Transaktion konnte nicht durchgef&amp;uuml;hrt werden.</org>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>1870901ad7311ca0165d340c00559f74</id>
-				<org>Sie k&ouml;nnen nichts einzahlen wenn Sie nicht eingeloggt sind.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Sie k&amp;ouml;nnen nichts einzahlen wenn Sie nicht eingeloggt sind.</org>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>7c6ae118401281ccb8b2ed82e0574ebb</id>
 				<org>Einzahlen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>8c8e0b44ba00480522be4c086b6e7ac6</id>
-				<org>Hier sehen sie was f&uuml;r Betr&auml;ge noch ausstehend sind. W&auml;hlen sie was sie bezahlen m&ouml;chten.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Hier sehen sie was f&amp;uuml;r Betr&amp;auml;ge noch ausstehend sind. W&amp;auml;hlen sie was sie bezahlen m&amp;ouml;chten.</org>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>1561dc299173b1fa086b9026c73cf93c</id>
 				<org>Alle Eintrittspreise bezahlt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>dd222861d3e8832d5a8e31380bd5c60a</id>
-				<org>Einzahlung f&uuml;r Catering</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Einzahlung f&amp;uuml;r Catering</org>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>fff87014aa86602f883c419ee43f9224</id>
-				<org>Spende f&uuml;r die Organisatoren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Spende f&amp;uuml;r die Organisatoren</org>
 				<file>paypal</file>
 			</entry>
 		</content>

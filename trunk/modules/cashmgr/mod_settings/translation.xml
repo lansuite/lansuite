@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,221 +15,196 @@
 			<entry>
 				<id>3fb3e2357d542cf2bb08f3519fae7322</id>
 				<org>Kalkulation</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>ccdabefa0fcf9c61d969e83d135830df</id>
 				<org>Zur aktuellen Lanparty zum derzeitigen Stand</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>abcb3ba5684143af7fab59077c60f9f6</id>
 				<org>Betrag Buchen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>59d5119be6549778a85846eb1c0664c7</id>
 				<org>Fixbetrag (z.B Miete oder Sponsoring) oder Geldschiebungen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>9f28ab11360e68bf5bd9e19605adfc7d</id>
 				<org>Meine Buchhaltung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>aad3dcb226e72e4ed18a29dcaafa3933</id>
 				<org>Übersicht aller Ausgaben und Einnahmen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>9ba51734ced032fd8ec25acfb387a23f</id>
 				<org>Datum</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>666b23dcd48ede325a744d21b1628e9e</id>
 				<org>Modul</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>ddf3633213983571ca8ab347ac24049f</id>
 				<org>Bearbeiter</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>0003743b98321ae3ee2d8c8a13f76a26</id>
 				<org>Betrag</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>fe478c3aeaab8465d461e1bcb2d8bd34</id>
-				<org>Stromkosten </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Stromkosten</org>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>d13550013bdff3ae56eab17e1941cdc5</id>
-				<org>Gruppenanzeige Positive Fixbetraege </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Gruppenanzeige Positive Fixbetraege</org>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>f1a13ca936dd995c4c3327bbfa8101b0</id>
-				<org>Gruppenanzeige Negative Fixbetraege </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Gruppenanzeige Negative Fixbetraege</org>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>89e09035e9d1a17620404d80e5d0f0ca</id>
 				<org>Gruppenanzeige Einnahmen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>db84eb2022116236f3174dccad0a6243</id>
-				<org>Gruppenanzeige Ausgaben </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Gruppenanzeige Ausgaben</org>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>9680dbe9699981d216ef5a8632ac6b6f</id>
 				<org>Gruppen verwalten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>2cff771efc00c2fa2d978118f14ddcc9</id>
 				<org>Uebersicht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>a07cb45499a0a765f28fa19d36bd9a70</id>
-				<org>Gruppe anlegen/ editieren </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Gruppe anlegen/ editieren</org>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
-				<id>d41d8cd98f00b204e9800998ecf8427e</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>a3e9a48af974e973ee6c5f085294a38e</id>
+				<org>Summe</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>7f1aa996ac08d222c49b1d9660d26304</id>
+				<org>Geld überweisen</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>99ccd2dac2a2d18592c827ad36ddc17a</id>
+				<org>Hier können Sie anderen Benutzern Geld überweisen</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>3124e63231a4594958d87771b4aaf064</id>
+				<org>Admins</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>b15b7b0340f52d448dc6191fc9317f3a</id>
+				<org>Benutzer</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>889e0013996756b3434cb04de2f02c24</id>
+				<org>Empfänger</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>ce15bd0bab6c3a2a4d378dd2c575dab1</id>
+				<org>Ihre Identität konnte nicht verifiziert werden. Die Transaktion wird sicherheitshalber abgebrochen.</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>2f30b326c73a1688b01b78f67f1d43c5</id>
+				<org>Bitte wählen Sie einen Empfänger für Ihre Transaktion aus</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>49f59907a934f606a56458276091cf4d</id>
+				<org>Sie können nicht sich selbst Geld überweisen</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>3a91e36a4d38183f2802a751b3242540</id>
+				<org>Sie können keine negativen oder neutralen  Beträge überweisen</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>6935a7b1e6dbe5c6afbebbf9fc16a1aa</id>
+				<org>Bitte geben Sie einen Kommentar zu ihrer Überweisung an.</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>094a173d3b32f44f5b5c996e8710ae28</id>
+				<org>Party</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>f00b7c617fc5d1905744b8f302ad2597</id>
+				<org>Betrifft Benutzer</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>25d126eda39e5058c84bc5b65f2df555</id>
+				<org>keine Auswahl</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>3b77a53bb0cbab20a1d684f05c5cf8d6</id>
+				<org>Gruppe</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>f3c15fb168e7347c2beb25d9ef383fbc</id>
+				<org>Buchhaltung</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>e6bff40bd0db21a56ddd4a095cc8297e</id>
+				<org>Übersicht aller meiner Ein- und Ausgaben</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>27cdd9dd4ec67da55a6d2317b2d49557</id>
+				<org>Party Kalkulation</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>e2a063ad8c2c84beda04596a7171ce0b</id>
+				<org>Fremder Kontoauszug</org>
+				<file>cashmgr</file>
+			</entry>
+			<entry>
+				<id>d9dc47a3cb27352fe549d3d8004dd12c</id>
+				<org>Eigener Kontoauszug</org>
 				<file>cashmgr</file>
 			</entry>
 		</content>

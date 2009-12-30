@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,705 +15,361 @@
 			<entry>
 				<id>4ddaadaea7dda2f778fa2c5cf2d126e2</id>
 				<org>Bitte geben Sie eine gültige IP Adresse ein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>40f77ff4a8a7ca69ec2313dce8614a1e</id>
 				<org>Bitte geben Sie eine gültige MAC Adresse ein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>041d6bd13ea20c92fc862ffb69f11c03</id>
 				<org>Der Port muss zwischen 1 und 65535 liegen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>8a6379866812f5eb151c714820c349c6</id>
 				<org>Es sind keine freien IPs mehr vorhanden. Bitten Sie einen Administrator darum den vorgesehenen Bereich zu erhöhren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>6b866234851c3eb9ae858db85ab90801</id>
 				<org>Nur Adminsitratoren dürfen Server hinzufügen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>ee53580344ff5a06475e759002ff0939</id>
 				<org>Sie müssen zuerst bezahlen, um Server hinzufügen zu dürfen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>8b0261a6c73560a48862c7795bdf733e</id>
 				<org>Besitzer</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>5a712570c8d5c42a606b147b99ec1a42</id>
 				<org>Gameserver</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>98cc3814df5e703cb40d72247999d91a</id>
 				<org>FTP Server</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>38c5101a1772c27b6b4630725d3177bf</id>
 				<org>IRC Server</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>3e197446d1794d1838e3734e66b2162c</id>
 				<org>Web Server</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>c55575f38d98677e2c0fc7e960d4d477</id>
 				<org>Proxy Server</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>d158c4fb1b799c2f7900c928ed2ad146</id>
 				<org>Sonstiger Server</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>df49eb09a9fb80bc21458b49b1c8c6d4</id>
 				<org>Servertyp</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>f6527c66a4ea8cb54a62572264fcef3a</id>
 				<org>IP / Domain</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>60aaf44d4b562252c04db7f98497e9aa</id>
 				<org>Port</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>eb9de48f55d7c3d3d6a79499cd7fefee</id>
 				<org>MAC-Adresse</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>f6e6831f1da3510381e8124a1018fa5b</id>
 				<org>Betriebssystem</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>eee47d8e397ad0efece1a2d99bbf599c</id>
 				<org>CPU (MHz)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>2ed98f35f30c04788ec56b0664d08e7c</id>
 				<org>RAM (MB)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>b7a31ce3bcca5eed282493942ee86862</id>
 				<org>HDD (GB)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>3394ed96e55131b09b86cd0e2708c5c5</id>
 				<org>Passwort geschützt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>35bedb45241d6b3f70fa6f56197c3361</id>
 				<org>Beschreibung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>fbd4ecba5be30c2b2e146dffcd62f8c8</id>
-				<org>Wollen sie den Server --lt--b--gt--%1--lt--/b--gt-- wirklich l&ouml;schen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Wollen sie den Server &lt;b&gt;%1&lt;/b&gt; wirklich l&amp;ouml;schen?</org>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>089f243465ad9d53e7496118ada6a80c</id>
 				<org>Dieser Server existiert nicht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>4c4b329e3853eb907dc081c6eefce63a</id>
-				<org>Nur der Besitzer und Administratoren d&uuml;rfen diese Aktion ausf&uuml;hren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Nur der Besitzer und Administratoren d&amp;uuml;rfen diese Aktion ausf&amp;uuml;hren</org>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>a763b8dade23d55bef529ec4e387c474</id>
-				<org>Der Server --lt--b--gt--%1--lt--/b--gt-- wurde gel&ouml;scht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Der Server &lt;b&gt;%1&lt;/b&gt; wurde gel&amp;ouml;scht</org>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>751d0a755dae2df12c82606b43ae6c8b</id>
 				<org>Login als Anonymous erfolgreich</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>638673be68618a57cbaf2730e63a808d</id>
 				<org>Login als Anonymous fehlgeschlagen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>a1ffa83081d9ea5790f28e9cf591dcca</id>
 				<org>Ratio-FTP (Es muss zuerst etwas hochgeladen werden)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>6c0f98bd7ece271c381c94916b73a62d</id>
 				<org>Quota-FTP (Es darf nur eine gewisse Menge gezogen werden)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>3e0e24e0c67d815575d6b9a2d41ec6db</id>
-				<org>--lt--u--gt--Hinweis--lt--/u--gt--: Zu viele User momentan</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>&lt;u&gt;Hinweis&lt;/u&gt;: Zu viele User momentan</org>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>31c4dfb149ef526ca800fda6a387a329</id>
-				<org>--lt--u--gt--Fehler--lt--/u--gt--: Server hat kein Home-Directory gesetzt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>&lt;u&gt;Fehler&lt;/u&gt;: Server hat kein Home-Directory gesetzt</org>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>a45da96d0bf6575970f2d27af22be28a</id>
 				<org>System</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>d19a1475d3ec0f20d4761dfbd088cf9b</id>
 				<org>Fehlermeldungen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>14cb425d8170ed04f3d8016d5a0ccf20</id>
 				<org>Channels</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>f8d68aad4752afc838649a9dab5a381a</id>
 				<org>IP-Adresse / Domain</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>ec53a8c4f07baed5d8825072c89799be</id>
 				<org>Status</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>f9c80131eb937dd75ff865060096181b</id>
 				<org>Der von Ihnen aufgerufene Server existiert nicht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>787934c4efbde8fffac7e50b824bd88b</id>
 				<org>Serverdetails</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>32b470e40e3125ca3f2025d8420cfa70</id>
-				<org>Auf dieser Seite sehen Sie alle Details zum Server --lt--b--gt--%1--lt--/b--gt--. Durch eine Klick auf den Zur&uuml;ck-Button gelangen Sie zur Übersicht zur&uuml;ck</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Auf dieser Seite sehen Sie alle Details zum Server &lt;b&gt;%1&lt;/b&gt;. Durch eine Klick auf den Zur&amp;uuml;ck-Button gelangen Sie zur Übersicht zur&amp;uuml;ck</org>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>4051cdef9d67aeaee5723372fb21f0ec</id>
 				<org>FTP-Server</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>a21376596642a8909d949b31649879c6</id>
 				<org>IRC-Server</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>7417eeb41d24185403a02cdb71bb304d</id>
 				<org>Webserver</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>33f7aecfa63fd8d468806ac27a369420</id>
 				<org>Proxy / Gateway</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>bf2129aece92fe202715f8914e9d9e95</id>
 				<org>Sonstiges</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>2ce39835b746e50f4048169cb3d743cf</id>
 				<org>Dienst erreichbar</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>31d7bc2615f9fb65e285242f3219a903</id>
 				<org>Dienst nicht ereichbar</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>e276b3872e5ae8b6482fe94f1106ba73</id>
 				<org>Noch nicht getestet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>2991406a6ba17d47c7745e840eeaf847</id>
 				<org>Erreichbarkeit</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>0424369e8d5abedaf66021c8351c2fbd</id>
 				<org>Gescannte Infos</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>0174fa70fb323cb102f191b3548c60f7</id>
 				<org>Letzter Scan</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>6020fa7d9387b892c37db1a8ff39439b</id>
-				<org>Diese Funktion ist erst auf der Party verf&uuml;gbar</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Diese Funktion ist erst auf der Party verf&amp;uuml;gbar</org>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>efb800e617dbb6118b36c74feeca3b80</id>
 				<org>MAC Adresse</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>c3c53a7d3d270f9a0ddd32a53ff58e65</id>
 				<org>Keine Angabe</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>c11c47b077b0b84ff955a3482749e634</id>
-				<org>Passwort gesch&uuml;tzt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Passwort gesch&amp;uuml;tzt</org>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>2b63432813faabc85b84eeeaaf63671a</id>
 				<org>editieren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>cc37320298f726e458afc1b0c9ca59a7</id>
-				<org>l&ouml;schen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>l&amp;ouml;schen</org>
 				<file>server</file>
 			</entry>
 			<entry>
 				<id>4538ef6381488f33a79ccf5bf5507c03</id>
-				<org>Webseite &ouml;ffnen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Webseite &amp;ouml;ffnen</org>
+				<file>server</file>
+			</entry>
+			<entry>
+				<id>5ed888c4d3fe527388c9832a1b292497</id>
+				<org>Geschützt</org>
+				<file>server</file>
+			</entry>
+			<entry>
+				<id>8e857c4348a82279753598f7739a1f29</id>
+				<org>Nicht geschützt</org>
+				<file>server</file>
+			</entry>
+			<entry>
+				<id>9aa1b03934893d7134a660af4204f2a9</id>
+				<org>Server</org>
+				<file>server</file>
+			</entry>
+			<entry>
+				<id>04009ae5d1e62a09c8b6e9b077946504</id>
+				<org>Hinzufügen und Aendern der Server</org>
+				<file>server</file>
+			</entry>
+			<entry>
+				<id>11da13304fb37eb06178441e5493cda7</id>
+				<org>KEINE</org>
+				<file>server</file>
+			</entry>
+			<entry>
+				<id>094a173d3b32f44f5b5c996e8710ae28</id>
+				<org>Party</org>
+				<file>server</file>
+			</entry>
+			<entry>
+				<id>9131a1b7c0a2a326a04b71f2dc6d5b67</id>
+				<org>Neue Server</org>
+				<file>server</file>
+			</entry>
+			<entry>
+				<id>b6c68b8a968f5e598492ec09332686f0</id>
+				<org>Keine Server vorhanden</org>
 				<file>server</file>
 			</entry>
 		</content>
