@@ -169,9 +169,9 @@ class translation {
         // Load from File
         $xmldata = $this->xml_read_to_array($modul);
         if (is_array($xmldata)) {
-            foreach ($xmldata as $id => $data) {
+            foreach ($xmldata as $data) {
                 $text = $data[$this->language];
-                if ($this->lang_cache[$modul][$id] == '' AND $text != '') $this->lang_cache[$modul][$id] = $text;
+                if ($this->lang_cache[$modul][$data['id']] == '' AND $text != '') $this->lang_cache[$modul][$data['id']] = $text;
             }
         }
     }
@@ -260,16 +260,15 @@ class translation {
         $xmldata = $this->xml_read_to_array($modul);
         if (is_array($xmldata)) {
             //var_dump($xmldata);
-            foreach ($xmldata as $id => $data) if ($data['org']) {
+            foreach ($xmldata as $data) if ($data['org']) {
                 //echo "<hr>";
-                //echo "ID:".$id."<br />\n";
                 //var_dump($data);
                 if (strlen($data['org']) > 255) $long = '_long'; else $long = '';
                 // Search existing Translation in DB
                 $row = $db->qry("SELECT tid FROM %prefix%translation".$long."
                           WHERE file = %string% AND id = %string%",
                           $modul,
-                          $id);
+                          $data['id']);
                 //var_dump($row);
                 $affrow = $db->get_affected_rows();
                 //echo "aff:".$affrow."<br />\n";
@@ -289,7 +288,7 @@ class translation {
                         $db->qry("UPDATE %prefix%translation".$long." SET ".$tr_update_set_str."
                                   WHERE file = %string% AND id = %string%",
                                   $modul,
-                                  $id);
+                                  $data['id']);
                     }
 
                 } else {
@@ -297,7 +296,7 @@ class translation {
                     // FIX echo "Insert ".$data['tid']."<br />\n";
                     $count_insert++;
                     $db->qry_first("INSERT INTO %prefix%translation{$long} SET
-                                          id= %int%,
+                                          id= %string%,
                                           org= %string%,
                                           de= %string%,
                                           en= %string%,
@@ -306,7 +305,7 @@ class translation {
                                           nl= %string%,
                                           it= %string%,
                                           file= %string%
-                                          ", $id, $data['org'], $data['de'], $data['en'], $data['es'], $data['fr'], $data['nl'], $data['it'], $modul);
+                                          ", $data['id'], $data['org'], $data['de'], $data['en'], $data['es'], $data['fr'], $data['nl'], $data['it'], $modul);
                 }
             }
         }
@@ -329,7 +328,7 @@ class translation {
         $xml = new xml;
 
         // Load old Translation from File to merge
-        #$xml_old = $this->xml_read_to_array($modul);
+        $xml_old = $this->xml_read_to_array($modul);
         
         /* Header */
         $output = '<?xml version="1.0" encoding="UTF-8"?'.">\r\n\r\n";
@@ -409,6 +408,7 @@ class translation {
    * @return array Temporary XML-Data
    */
     function xml_read_to_array($modul) {
+      $records = array();
 
       if (!is_object($xml)) {
         include_once('inc/classes/class_xml.php');
@@ -418,20 +418,21 @@ class translation {
       $lang_file = $this->get_trans_filename($modul);
       if (file_exists($lang_file)) {
     		$xml_file = fopen($lang_file, "r");
-    		$file_cont = fread($xml_file, filesize($lang_file));
+    		$file_cont = utf8_decode(fread($xml_file, filesize($lang_file)));
     		fclose($xml_file);
 
         $entries = $xml->getTagContentArray('entry', $file_cont);
         foreach ($entries as $entry) {
-          $id = $xml->getFirstTagContent('id', $entry, 1);
-          $file = $xml->getFirstTagContent('file', $entry, 1);
-          $records[$id]['org'] = $xml->getFirstTagContent('org', $entry, 1);
-          $records[$id]['de'] = $xml->getFirstTagContent('de', $entry, 1);
-          $records[$id]['en'] = $xml->getFirstTagContent('en', $entry, 1);
-          $records[$id]['fr'] = $xml->getFirstTagContent('fr', $entry, 1);
-          $records[$id]['it'] = $xml->getFirstTagContent('it', $entry, 1);
-          $records[$id]['es'] = $xml->getFirstTagContent('es', $entry, 1);
-          $records[$id]['nl'] = $xml->getFirstTagContent('nl', $entry, 1);
+          $record = array();
+          $record['id'] = $xml->getFirstTagContent('id', $entry, 1);
+          $record['org'] = $xml->getFirstTagContent('org', $entry, 1);
+          $record['de'] = $xml->getFirstTagContent('de', $entry, 1);
+          $record['en'] = $xml->getFirstTagContent('en', $entry, 1);
+          $record['fr'] = $xml->getFirstTagContent('fr', $entry, 1);
+          $record['it'] = $xml->getFirstTagContent('it', $entry, 1);
+          $record['es'] = $xml->getFirstTagContent('es', $entry, 1);
+          $record['nl'] = $xml->getFirstTagContent('nl', $entry, 1);
+          $records[] = $record;
         }
       }
 
@@ -494,25 +495,24 @@ class translation {
    * @param string Path to Scan
    * @return String Output like a Logfile
    */
-    function TUpdateFromFiles($BaseDir) {
+    function TUpdateFromFiles($BaseDir, $sub = 0) {
         global $db, $FoundTransEntries;
 
         $output = '';
-        if (!is_array($FoundTransEntries)) $FoundTransEntries = array();
+        if ($sub == 0) $FoundTransEntries = array();
+
+        // Generate Mod-Name from FILE
+        $CurrentFile = str_replace('\\','/', $BaseDir);
+        if (strpos($CurrentFile, 'modules/') !== false) {
+            $CurrentFile = substr($CurrentFile, strpos($CurrentFile, 'modules/') + 8, strlen($CurrentFile));
+            $CurrentFile = substr($CurrentFile, 0, strpos($CurrentFile, '/'));
+        } else $CurrentFile = 'System';
 
         $ResDir = opendir($BaseDir);
         while ($file = readdir($ResDir)) {
             $FilePath = $BaseDir .'/'. $file;
 
             if (substr($file, strlen($file) - 4, 4) == '.php') {
-
-                // Generate Mod-Name from FILE
-                $CurrentFile = str_replace('\\','/', $FilePath);
-                if (strpos($CurrentFile, 'modules/') !== false) {
-                    $CurrentFile = substr($CurrentFile, strpos($CurrentFile, 'modules/') + 8, strlen($CurrentFile));
-                    $CurrentFile = substr($CurrentFile, 0, strpos($CurrentFile, '/'));
-                } else $CurrentFile = 'System';
-
                 $ResFile = fopen($FilePath, "r");
                 $content = fread($ResFile, filesize($FilePath));
                 fclose($ResFile);
@@ -530,18 +530,35 @@ class translation {
                         if (strlen($CurrentTrans) > 255) $long = '_long'; else $long = '';
 
                         // Do only add expressions, which are not already in system lang-file
-                        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%translation%plain% WHERE id = %string% AND (file = 'System' OR file = %string%)", $long, $key, $CurrentFile);
+                        $row = $db->qry_first("SELECT 1 AS found, tid FROM %prefix%translation%plain% WHERE id = %string% AND (file = 'System' OR file = %string%)", $long, $key, $CurrentFile);
                         if ($row['found']) $output .= $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'<br />';
                         else {
                           // New -> Insert to DB
                           $db->qry("REPLACE INTO %prefix%translation%plain% SET id = %string%, file = %string%, org = %string%", $long, $key, $CurrentFile, $CurrentTrans);
+                          $row['tid'] = $db->insert_id();
                           $output .= '<font color="#00ff00">'. $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'</font><br />';
                         }
-                        array_push($FoundTransEntries, $CurrentFile.'+'.$key); // Array is compared to DB later for synchronization
+                        if ($long) $FoundTransEntries[] = $row['tid']; // Array is compared to DB later for synchronization
                     }
                 }
-            } elseif ($file != '.' and $file != '..' and $file != '.svn' and is_dir($FilePath)) $output .= $this->TUpdateFromFiles($FilePath);
+
+            } elseif ($file != '.' and $file != '..' and $file != '.svn' and is_dir($FilePath)) $output .= $this->TUpdateFromFiles($FilePath, $sub++);
         }
+
+        // Delete entries, which no do no longer exist
+        //!! Takes too long!
+        if ($sub == 1 and $CurrentFile != 'System') {
+          $res = $db->qry("SELECT tid FROM %prefix%translation WHERE file = %string%", $CurrentFile);
+          while($row = $db->fetch_array($res)) {
+            if (!in_array($row['tid'], $FoundTransEntries)) {
+              $db->qry("UPDATE %prefix%translation SET obsolete='1' WHERE id = %int%", $row['id']);
+              $output .= '<font color="#ff0000">'. $row['file'] .': '. $row['org'] .'</font><br />';
+            }
+          }
+          $db->free_result($res);
+          $FoundTransEntries = array();
+        }
+
         closedir($ResDir);
         return $output;
     }
