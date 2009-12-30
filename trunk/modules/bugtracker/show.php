@@ -159,7 +159,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $dsp->NewContent($row['caption'], $types[$row['type']] .', '. t('Priorität') .': '. $row['priority']);
   $dsp->StartTabs();
   
-  $dsp->StartTab(t('Eintrag und Kommentare'));
+  $dsp->StartTab(t('Eintrag und Kommentare'), 'details');
   $framework->AddToPageTitle($row['caption']);
 
   $dsp->AddDoubleRow(t('Herkunft'), '<a href="http://'. $row['url'] .'" target="_blank">'. $row['url'] .'</a> Version('. $row['version'] .')');
@@ -205,7 +205,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   new Mastercomment('BugEintrag', $_GET['bugid'], array('bugtracker' => 'bugid'));
   $dsp->EndTab();
 
-  $dsp->StartTab(t('Log'));
+  $dsp->StartTab(t('Log'), 'save');
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('bugtracker');
 
