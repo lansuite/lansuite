@@ -169,7 +169,7 @@ class translation {
         // Load from File
         $xmldata = $this->xml_read_to_array($modul);
         if (is_array($xmldata)) {
-            foreach ($xmldata[$modul] as $id => $data) {
+            foreach ($xmldata as $id => $data) {
                 $text = $data[$this->language];
                 if ($this->lang_cache[$modul][$id] == '' AND $text != '') $this->lang_cache[$modul][$id] = $text;
             }
@@ -252,7 +252,7 @@ class translation {
    * @return boolean Success
    */
     function xml_write_file_to_db($modul) {
-        global $db, $config, $func;
+        global $db, $func;
         $lang_file = $this->get_trans_filename($modul);
         $count_update = 0;
         $count_insert = 0;
@@ -260,8 +260,7 @@ class translation {
         $xmldata = $this->xml_read_to_array($modul);
         if (is_array($xmldata)) {
             //var_dump($xmldata);
-            foreach ($xmldata[$modul] as $id => $data) {
-                $data = $this->xml_change_ltgt($data);
+            foreach ($xmldata as $id => $data) if ($data['org']) {
                 //echo "<hr>";
                 //echo "ID:".$id."<br />\n";
                 //var_dump($data);
@@ -324,13 +323,13 @@ class translation {
    * @todo Errorhandler for xml and fileacces
    */
     function xml_write_db_to_file($modul) {
-        global $db, $config;
+        global $db;
 
         include_once("inc/classes/class_xml.php");
         $xml = new xml;
 
         // Load old Translation from File to merge
-        $xml_old = $this->xml_read_to_array($modul);
+        #$xml_old = $this->xml_read_to_array($modul);
         
         /* Header */
         $output = '<?xml version="1.0" encoding="UTF-8"?'.">\r\n\r\n";
@@ -404,57 +403,39 @@ class translation {
     }
 
   /**
-   * Just change -lt-/-gt- to </> in a given array
-   *
-   * @param array Array with XML-Textfields (en,de,etc) 
-   * @return array Clean Array with correkt <>
-   * @access private 
-   */
-    function xml_change_ltgt($textarray) {
-        // Helpfunction for Callback
-        if (!function_exists('tr_change')) { 
-            function tr_change($text) {
-                $text = str_replace("--lt--", "<", $text);
-    			$text = str_replace("--gt--", ">", $text);
-            }
-        }
-        $out = array_map("tr_change", $textarray);
-        return $out;
-    }
-
-  /**
    * Parse all Languagesets in Array
    *
    * @param string Modulname e.g. file-field
    * @return array Temporary XML-Data
    */
     function xml_read_to_array($modul) {
-        global $db, $config, $func;
-        $lang_file = $this->get_trans_filename($modul);
-        $count_update = 0;
-        $count_insert = 0;
-        // Open XML-File
-        if (file_exists($lang_file)) {
-            // fastparse
-            $tag_container = "entry";
-            $tag_datafields =  array('org','de','en','es','fr','nl','it', 'file');
 
-            $filecontent = join("",file($lang_file));
-            $filecontent = preg_replace('/\s\s+/', ' ', $filecontent);
+      if (!is_object($xml)) {
+        include_once('inc/classes/class_xml.php');
+        $xml = new xml();
+      }
 
-            preg_match_all('/(<'.$tag_container.'>)(.*?)(<\\/'.$tag_container.'>)/', $filecontent, $datacontainer, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
-            unset($filecontent);
-            //var_dump($datacontainer);
-            foreach ($datacontainer as $data) {
-                preg_match_all('/<([a-zA-Z0-9_]*?)>(.*?)<(\\/)([a-zA-Z0-9_]*?)>/', $data[2][0], $elements, PREG_SET_ORDER + PREG_OFFSET_CAPTURE);
-                //var_dump($elements);
-                foreach ($elements as $element) {
-                    if ($element[1][0] != 'id' AND $element[1][0]!='file') $records[ $elements[8][2][0] ] [ $elements[0][2][0] ] [ $element[1][0] ] = $element[2][0];
-                }
-            }
+      $lang_file = $this->get_trans_filename($modul);
+      if (file_exists($lang_file)) {
+    		$xml_file = fopen($lang_file, "r");
+    		$file_cont = fread($xml_file, filesize($lang_file));
+    		fclose($xml_file);
 
+        $entries = $xml->getTagContentArray('entry', $file_cont);
+        foreach ($entries as $entry) {
+          $id = $xml->getFirstTagContent('id', $entry, 1);
+          $file = $xml->getFirstTagContent('file', $entry, 1);
+          $records[$id]['org'] = $xml->getFirstTagContent('org', $entry, 1);
+          $records[$id]['de'] = $xml->getFirstTagContent('de', $entry, 1);
+          $records[$id]['en'] = $xml->getFirstTagContent('en', $entry, 1);
+          $records[$id]['fr'] = $xml->getFirstTagContent('fr', $entry, 1);
+          $records[$id]['it'] = $xml->getFirstTagContent('it', $entry, 1);
+          $records[$id]['es'] = $xml->getFirstTagContent('es', $entry, 1);
+          $records[$id]['nl'] = $xml->getFirstTagContent('nl', $entry, 1);
         }
-        return $records;
+      }
+
+      return $records;
     }
 
   /**
@@ -514,7 +495,7 @@ class translation {
    * @return String Output like a Logfile
    */
     function TUpdateFromFiles($BaseDir) {
-        global $db, $config, $FoundTransEntries;
+        global $db, $FoundTransEntries;
 
         $output = '';
         if (!is_array($FoundTransEntries)) $FoundTransEntries = array();
@@ -524,6 +505,13 @@ class translation {
             $FilePath = $BaseDir .'/'. $file;
 
             if (substr($file, strlen($file) - 4, 4) == '.php') {
+
+                // Generate Mod-Name from FILE
+                $CurrentFile = str_replace('\\','/', $FilePath);
+                if (strpos($CurrentFile, 'modules/') !== false) {
+                    $CurrentFile = substr($CurrentFile, strpos($CurrentFile, 'modules/') + 8, strlen($CurrentFile));
+                    $CurrentFile = substr($CurrentFile, 0, strpos($CurrentFile, '/'));
+                } else $CurrentFile = 'System';
 
                 $ResFile = fopen($FilePath, "r");
                 $content = fread($ResFile, filesize($FilePath));
@@ -535,31 +523,21 @@ class translation {
                 $treffer = array_merge ($treffer1, $treffer2);
 
                 foreach ($treffer as $wert) {
-
                     $CurrentPos = $wert[2][1];
                     $CurrentTrans = $wert[2][0];
-                    $key = md5($CurrentTrans);
-                    if (strlen($CurrentTrans) > 255) $long = '_long'; else $long = '';
+                    if ($CurrentTrans != '') {
+                        $key = md5($CurrentTrans);
+                        if (strlen($CurrentTrans) > 255) $long = '_long'; else $long = '';
 
-                    // Generate Mod-Name from FILE
-                    $CurrentFile = str_replace('\\','/', $FilePath);
-                    if (strpos($CurrentFile, 'modules/') !== false) {
-                        $start = strpos($CurrentFile, 'modules/') + 8;
-                        $CurrentFile = substr($CurrentFile, $start, strrpos($CurrentFile, '/') - $start);
-                    } else $CurrentFile = 'System';
-
-                    // Do only add expressions, which are not already in system lang-file
-                    $row = $db->qry_first("SELECT 1 AS found FROM %prefix%translation%plain% WHERE id = %string% AND (file = 'System')", $long, $key);
-                    if (!$row['found'] or $CurrentFile == 'System'){
-                        array_push($FoundTransEntries, $CurrentFile.'+'.$key); // Array is compared to DB later for synchronization
-
-                        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%translation%plain% WHERE id = %string% AND (file = %string%)", $long, $key, $CurrentFile);
+                        // Do only add expressions, which are not already in system lang-file
+                        $row = $db->qry_first("SELECT 1 AS found FROM %prefix%translation%plain% WHERE id = %string% AND (file = 'System' OR file = %string%)", $long, $key, $CurrentFile);
                         if ($row['found']) $output .= $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'<br />';
                         else {
-                            // New -> Insert to DB
-                            $db->qry("REPLACE INTO %prefix%translation%plain% SET id = %string%, file = %string%, org = %string%", $long, $key, $CurrentFile, $CurrentTrans);
-                            $output .= '<font color="#00ff00">'. $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'</font><br />';
+                          // New -> Insert to DB
+                          $db->qry("REPLACE INTO %prefix%translation%plain% SET id = %string%, file = %string%, org = %string%", $long, $key, $CurrentFile, $CurrentTrans);
+                          $output .= '<font color="#00ff00">'. $CurrentFile .'@'. $CurrentPos .': '. $CurrentTrans .'</font><br />';
                         }
+                        array_push($FoundTransEntries, $CurrentFile.'+'.$key); // Array is compared to DB later for synchronization
                     }
                 }
             } elseif ($file != '.' and $file != '..' and $file != '.svn' and is_dir($FilePath)) $output .= $this->TUpdateFromFiles($FilePath);
