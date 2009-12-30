@@ -24,7 +24,7 @@ switch ($_GET['step']) {
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('misc');
     $ms2->query['from'] = "%prefix%translation";
-    $ms2->config['EntriesPerPage'] = 20;
+    $ms2->config['EntriesPerPage'] = 100;
     $ms2->AddResultField(t('Modul'), 'file');
     $ms2->AddIconField('edit', 'index.php?mod=misc&action=translation&step=20&file=', t('Edit'));
     $ms2->AddIconField('download', 'index.php?mod=misc&action=translation&step=30&design=base&file=', t('Download'));
@@ -98,7 +98,7 @@ switch ($_GET['step']) {
       $dsp->AddFieldSetEnd();
 
       // Delete entries, which no do no longer exist
-      $output = '';
+      /*$output = '';
       $res = $db->qry("SELECT id, org, file FROM %prefix%translation WHERE file != 'DB'");
       while($row = $db->fetch_array($res)) {
         if (!in_array($row['file'].'+'.$row['id'], $FoundTransEntries)) {
@@ -110,13 +110,16 @@ switch ($_GET['step']) {
       $dsp->AddFieldSetStart(t('Veraltet (wurden als "veraltet" markiert)'));
       $dsp->AddSingleRow($output);
       $dsp->AddFieldSetEnd();
-
+*/
       // Scan DB
       $translation->TUpdateFromDB('menu', 'caption');
       $translation->TUpdateFromDB('menu', 'hint');
       $translation->TUpdateFromDB('modules', 'description');
       $translation->TUpdateFromDB('config', 'cfg_desc');
       $translation->TUpdateFromDB('config_selections', 'cfg_display');
+
+      // DELETE empty rows
+      $res = $db->qry("DELETE FROM %prefix%translation WHERE org = ''");
 
       // For info output DB internal
       $output = '';
