@@ -97,20 +97,6 @@ switch ($_GET['step']) {
       $dsp->AddSingleRow($translation->TUpdateFromFiles('modules'));
       $dsp->AddFieldSetEnd();
 
-      // Delete entries, which no do no longer exist
-      /*$output = '';
-      $res = $db->qry("SELECT id, org, file FROM %prefix%translation WHERE file != 'DB'");
-      while($row = $db->fetch_array($res)) {
-        if (!in_array($row['file'].'+'.$row['id'], $FoundTransEntries)) {
-          $db->qry("UPDATE %prefix%translation SET obsolete='1' WHERE id = %int%", $row['id']);
-          $output .= '<font color="#ff0000">'. $row['file'] .': '. $row['org'] .'</font><br />';
-        }
-      }
-      $db->free_result($res);
-      $dsp->AddFieldSetStart(t('Veraltet (wurden als "veraltet" markiert)'));
-      $dsp->AddSingleRow($output);
-      $dsp->AddFieldSetEnd();
-*/
       // Scan DB
       $translation->TUpdateFromDB('menu', 'caption');
       $translation->TUpdateFromDB('menu', 'hint');
