@@ -21,20 +21,24 @@
 				<extra>auto_increment</extra>
 			</field>
 			<field>
-				<name>UserID</name>
-				<type>int(50)</type>
+				<name>userid</name>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>DELETE</on_delete>
 			</field>
 			<field>
 				<name>buddyid</name>
-				<type>int(50)</type>
+				<type>mediumint(8) unsigned</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default>0</default>
 				<extra></extra>
+    	  <foreign_key>user.userid</foreign_key>
+    	  <on_delete>ASK_DELETE</on_delete>
 			</field>
 			<field>
 				<name>group_user</name>
