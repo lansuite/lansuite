@@ -27,7 +27,7 @@ else switch ($_GET['step']) {
 
     $dsp->StartTab(t('Konfiguration'), 'config');
     $resGroup = $db->qry('SELECT cfg_group FROM %prefix%config WHERE cfg_module = %string% GROUP BY cfg_group ORDER BY cfg_group', $_GET['module']);
-    if ($db->num_rows($resGroup) == 0) $func->error(t('Keine Einstellungen zu diesem Modul vorhanden'), 'index.php?mod=install&action=mod_cfg');
+    if ($db->num_rows($resGroup) == 0) $func->information(t('Zu diesem Modul sind keine Einstellungen vorhanden'), NO_LINK);
     else {
 
       if ($_GET['step'] == 11) {
