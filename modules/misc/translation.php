@@ -127,6 +127,17 @@ switch ($_GET['step']) {
     if ($_GET['subact'] == 'writetodb') $translation->xml_write_file_to_db($_GET['file']);
     
     $dsp->NewContent(t('Modul Übersetzen : ').$_GET['file'], '');
+    $framework->add_js_path('http://www.google.com/jsapi');
+    $framework->add_js_code('google.load("language", "1");
+function translate(textid, from, to) {
+  google.language.translate($("label[for=id["+ textid +"]]").text(), from, to, function(result) {
+    if (!result.error) {
+      $("textarea[name=id["+ textid +"]]").text(result.translation);
+      $("input[name=id["+ textid +"]]").val(result.translation);
+    }
+  });
+}
+');
     
     // Show switch between Lanuages
     $dsp->AddFieldSetStart(t('Sprache wechseln. Achtung, nicht gesicherte &Auml;nderungen gehen verloren.'));
@@ -153,7 +164,8 @@ switch ($_GET['step']) {
         $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
         $res = $db->qry("SELECT DISTINCT id, org, file, %plain% FROM %prefix%translation WHERE file = %string% AND obsolete = 0", $_SESSION['target_language'], $_GET['file']);
         while($row = $db->fetch_array($res)) {
-            $trans_link_google ="http://translate.google.com/translate_t?langpair=de|".$_SESSION['target_language']."&hl=de&ie=UTF8&text=".$row['org'];
+            #$trans_link_google ="http://translate.google.com/translate_t?langpair=de|".$_SESSION['target_language']."&hl=de&ie=UTF8&text=".$row['org'];
+            $trans_link_google = 'javascript:translate(\''. $row['id'] .'\', \'de\', \''. $_SESSION['target_language'] .'\');';
             $trans_link_google =" <a href=\"".$trans_link_google."\" target=\"_blank\"><img src=\"design/".$auth['design']."/images/arrows_transl.gif\" width=\"12\" height=\"13\" border=\"0\" /></a>";
             
             if (strlen($row['org'])<60) {
