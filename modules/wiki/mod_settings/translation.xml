@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2009-12-30 11:44</date>
+	</header>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<id>4557d6b7f0b38af1932188e11fa72383</id>
+				<org>Neue Wiki Einträge</org>
+				<file>wiki</file>
+			</entry>
+			<entry>
+				<id>18a8022569d6ced829f833aa855530ce</id>
+				<org>Titel</org>
+				<file>wiki</file>
+			</entry>
+			<entry>
+				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
+				<org>Text</org>
+				<file>wiki</file>
+			</entry>
+			<entry>
+				<id>34b6cd75171affba6957e308dcbd92be</id>
+				<org>Version</org>
+				<file>wiki</file>
+			</entry>
+			<entry>
+				<id>5c1c5bafe6b260f65df62f3c90070f04</id>
+				<org>Letzer Autor</org>
+				<file>wiki</file>
+			</entry>
+			<entry>
+				<id>3f0604b531a4e938485353e0188b6e4f</id>
+				<org>Letzte Änderung</org>
+				<file>wiki</file>
+			</entry>
+			<entry>
+				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
+				<org>Details</org>
+				<file>wiki</file>
+			</entry>
+			<entry>
+				<id>ec587aecd4a4830ab84f0c3ae0c6a2dd</id>
+				<org>Keine Einträge vorhanden</org>
+				<file>wiki</file>
+			</entry>
+		</content>
+	</table>
+</lansuite>
