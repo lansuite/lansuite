@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lansuite>
+	<header>
+		<filetype>LanSuite</filetype>
+		<version>2.0</version>
+		<source>http://www.lansuite.de</source>
+		<date>2009-12-30 11:44</date>
+	</header>
+	<table>
+		<table_head>
+			<name>translation</name>
+		</table_head>
+		<content>
+			<entry>
+				<id>b8d1f656ae718a7db24ad2fd2383fe75</id>
+				<org>ShortOpenTags</org>
+				<file>codecheck</file>
+			</entry>
+			<entry>
+				<id>9af6115eb51753faf15897584d0b78f8</id>
+				<org>$db-&gt;query</org>
+				<file>codecheck</file>
+			</entry>
+			<entry>
+				<id>7015777bcc86cd0c5e4819310d62b040</id>
+				<org>Tabs</org>
+				<file>codecheck</file>
+			</entry>
+			<entry>
+				<id>82ee279b339313c813dd40ad9d65d387</id>
+				<org>$ in $db-&gt;qry</org>
+				<file>codecheck</file>
+			</entry>
+			<entry>
+				<id>cbfcca2f5bb6d27e624261500699e8d8</id>
+				<org>Es sollte immer &lt;?php statt &lt;? verwendet werden. Anders funktioniert LS beispielsweise im IIS nicht</org>
+				<file>codecheck</file>
+			</entry>
+			<entry>
+				<id>9fa427d71fe45d442af7e5b71c224deb</id>
+				<org>$db-&gt;query sollte durch das neue $qb-&gt;qry ausgetauscht werden. Dieses kann SQL-Injections sehr zuverlässig verhindern</org>
+				<file>codecheck</file>
+			</entry>
+			<entry>
+				<id>d98efbc0ee5f45ab477fc321ff602a1a</id>
+				<org>Es sollten keine Tabs im Code verwendet werden. Statt dessen am Besten 2 Leerzeichen</org>
+				<file>codecheck</file>
+			</entry>
+			<entry>
+				<id>352df1e566caaeafdbf208bc7fb571a3</id>
+				<org>Kein $ in erstem $db-&gt;qry Parameter. Statt dessen %string%, oder %int% verwenden. Zur Not %plain%</org>
+				<file>codecheck</file>
+			</entry>
+		</content>
+	</table>
+</lansuite>
