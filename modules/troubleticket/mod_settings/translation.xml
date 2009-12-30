@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,892 +15,311 @@
 			<entry>
 				<id>c9bcac873e61cef1c12bae8463c38266</id>
 				<org>Der Text darf nicht mehr als 5000 Zeichen enthalten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c4128d9eaaa49f7201417336961de686</id>
 				<org>Bitte geben Sie eine kurze Beschreibung / Überschrift ein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>a4ee9a08796cd891d9f1d18c612a33fb</id>
-				<org>Bitte w�hlen Sie eine Kategorie</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>38fff833717cba8fe4b7b47cd72e21b9</id>
-				<org>Troubleticket hinzuf�gen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>0b7756db339477732bcb0ec164ff72d8</id>
-				<org> Mit diesem Formular k�nnen Sie ein Troubleticket hinzuf�gen, falls Sie ein Problem haben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>35bedb45241d6b3f70fa6f56197c3361</id>
 				<org>Beschreibung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>bbac2f5f3f109103133ed05633a7c926</id>
-				<org>Bitte Ausw�hlen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>efcfe755debad10919b919b6b2be112f</id>
 				<org>Kategorie</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>561bc1c77801170559c8f1a5cbdbab28</id>
 				<org>Niedrig</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>960b44c579bc2f6818d2daaf9e4c16f0</id>
 				<org>Normal</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>73607fe5dfe3102101eb2bbe0d5c6353</id>
 				<org>Hoch</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c6fbd094d458d8fc8d7e7328811dd076</id>
 				<org>Kritisch</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>c2e67c401473bc25589d9c5c42a59f7a</id>
-				<org>Priorit�t</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>7f7dd1e69b34d8251359dca4bc8d9b8c</id>
-				<org>Sichtbar f�r Alle</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>b76ae4f9334c18930ae8d8eecc326849</id>
-				<org>Sichtbar nur f�r Orgas</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>66ba618363f1d1a41d28fbc24e2fa79c</id>
 				<org>Keine weiteren Informationen angegeben.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>f4af0e9f163ceb8e4a8d9ce7244bbec4</id>
-				<org>Ihnen wurde das Troubleticket "--lt--b--gt--%1--lt--/b--gt--"zugewiesen. </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Ihnen wurde das Troubleticket &quot;&lt;b&gt;%1&lt;/b&gt;&quot;zugewiesen.</org>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>813438eea59f53d34eb19b27c0a1428b</id>
 				<org>Das Troubleticket wurde erfolgreich eingetragen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>2a7a4230039af39c5e1782f3d7e7d0bf</id>
-				<org>Das ausgew�hlte Ticket wurde dem Orga zugewiesen.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>78a82d7b0b8bf899223d6282aa23c366</id>
 				<org>Das Troubleticket konnte nicht zugewiesen werden! Problem mit der Datenbank !</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>6391c35adbc40be0095c99c93c0e4a96</id>
 				<org>Sie haben keine Kategorie zum ändern ausgewählt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>6954f6c1230cc1e2612f6c767c40d3ec</id>
 				<org>Name zu lang oder leer</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>aac00a54e8a09c6ab9828649ec17e7f8</id>
 				<org>Bitte Auswählen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>dbc3e1fb6a513d966de8e85586fd15f8</id>
 				<org>Keine Kategorien vorhanden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>f258909c1c5b0a5fe222559b26dc196a</id>
 				<org>Kein zuständiger Admin</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>276957322b1122fe7fdfe7a875b143a9</id>
 				<org>Zuständiger Admin</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>8eb98168309859fc747ae51a4def2377</id>
 				<org>Kategorie erfolgreich hinzugefügt/geändert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>dfbf73174951725f49c289d5586d5700</id>
 				<org>Kategorie konnte nicht hinzugefügt/geändert werden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>673addbfdc25bd50aff1ba90aca7521a</id>
 				<org>Bei einer direkten Ablehnung ist die Angabe eines Grundes notwendig.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>23c2e089b60ff80f1c6473204c7a65af</id>
-				<org>Es wurde keine Troubleticket-ID �bergeben. Aufruf inkorrekt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>26e4ffbe54431a35a1ffb83dc0778de7</id>
 				<org>Troubleticket bearbeiten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>22f9de3383b9419e4f8cb14baf39ddba</id>
 				<org>Überschrift</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>e3d4008a77b3a75a8c16ad003c71383c</id>
 				<org>Problembeschreibung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>0f13ae50eebff79958b0c75efc27e1f8</id>
 				<org>Eingetragen am/um</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>96dd7b71ee3b8adfa9288508d02fc4dc</id>
 				<org>Von Benutzer</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>3825b818d64f528ece805a31b8a8c2db</id>
 				<org>default: Scriptfehler!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>dd9e0c14b8eac375651ac06452e07e69</id>
-				<org>Neu / Ungepr�ft</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>4650c73a6f8f56ced16a5cc9db87e119</id>
-				<org> Auf Erledigt setzen </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Auf Erledigt setzen</org>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>16c5ff544f36e71785b9221cea312f99</id>
-				<org> Bearbeitung ablehnen </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>096d2e24819e813191c352c58eae46a1</id>
-				<org>Überpr�ft / Akzeptiert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Bearbeitung ablehnen</org>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>4d34ed1f59c4010e601615c132c03052</id>
-				<org> Keine Änderung </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>e53abad6b77c377dbee8574098ab3018</id>
-				<org> Problem nicht �bernehmen und zur�ckgeben </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>d175027ac88843e2559a1c392320de3a</id>
-				<org> Problem �bernehmen und Bearbeitung beginnen </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>f911991454757c32da20c0284cd75dc4</id>
-				<org>Überpr�ft am/um</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Keine Änderung</org>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>bc96559d898246e283878d308f5bb4eb</id>
 				<org>In Arbeit</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>54af6a39cb0b779a99caf88e940a00f8</id>
 				<org>In Bearbeitung seit</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>e5a557e11c5934e2ed68ef8e4501ba72</id>
 				<org>Abgeschlossen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>cb0b5faeeb5b47f21cb6fa88641d52f9</id>
 				<org>Beendet am/um</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>76bec9222b6c223f96d25f8b79492ca2</id>
 				<org>Abgelehnt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>d136b0c3cadce6495f00621e0bac8c52</id>
 				<org>Bearbeitung abgelehnt am/um</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>697b26ca50de194b18ac9aa1fcbf5cf1</id>
 				<org>Ticketstatus</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>d09fe2886f34b6a376825bf340c2cd6f</id>
 				<org>Bearbeitender Orga</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>05316fc2e001e2cac14c2e5bfdcf3a55</id>
-				<org>Status ausw�hlen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>76c686329bbd7e66dad56198429f65c2</id>
-				<org>Kommentar f�r Benutzer</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>82e286b960ecd11f6ba2c56d626f08e8</id>
-				<org>Kommentar f�r Orgas</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>ad3c5e87eb4dde943e6b34ee29042b84</id>
-				<org>Das Troubleticket wurde erfolgreich ge�ndert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>80814e6ae6465fe959e5f282f0613bd8</id>
 				<org>Wollen Sie das ausgewählte Troubleticket wirklich löschen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>440ddcb109822c88edf8604a2d775d31</id>
 				<org>Das ausgewählte Ticket wurde gelöscht.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c1f4a165bd32fe217c3b4f90647636b9</id>
 				<org>Das Troubleticket konnte nicht gelöscht werden! Problem mit der Datenbank!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>ba18fd7b24b0cbbf0b03c557af6cbf7e</id>
 				<org>Troubleticket anzeigen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c6213344c8dae963abe208388b67c155</id>
 				<org>Hier sehen Sie alle Informationen zu diesem Ticket</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>2b5a13908862668be976590981c50981</id>
-				<org> Kein Hinweis eingetragen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>troubleticket</file>
-			</entry>
-			<entry>
-				<id>f20ff3c7e941d1e9bc096d9c5788d943</id>
-				<org>Kommentar von und f�r Orgas</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Kein Hinweis eingetragen</org>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>9953dff7163c3460b6883fe63ab1056e</id>
 				<org>Bitte wählen Sie eine Kategorie</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c5238a4b00ace3818de791304a07f707</id>
 				<org>Troubleticket hinzufügen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>a231f485ad2e273589074ff2a9fc467d</id>
-				<org> Mit diesem Formular können Sie ein Troubleticket hinzufügen, falls Sie ein Problem haben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Mit diesem Formular können Sie ein Troubleticket hinzufügen, falls Sie ein Problem haben</org>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c30f584de7e81f4232d4d2a5094228f5</id>
 				<org>Priorität</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>dbe73e1d89c4006c63a25cef92bfc9f0</id>
 				<org>Sichtbar für Alle</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>d4845a8f0239999963bd46d5dc0c7311</id>
 				<org>Sichtbar nur für Orgas</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>63e9c05fd3d53f7404fd5647bd6b54a2</id>
 				<org>Das ausgewählte Ticket wurde dem Orga zugewiesen.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>70835e995e339f6a9d98b7838c90ceee</id>
 				<org>Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>f93e15805ab45759b5fda8aefc9a180f</id>
 				<org>Neu / Ungeprüft</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>2b6ee5bc4d88b52d89f57b868db6e958</id>
 				<org>Überprüft / Akzeptiert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>2d21343de8510f602fad6287ae2dd6cb</id>
-				<org> Problem nicht übernehmen und zurückgeben </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Problem nicht übernehmen und zurückgeben</org>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>0086ddc9c1dbe9bf703a0b3354b89c75</id>
-				<org> Problem übernehmen und Bearbeitung beginnen </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Problem übernehmen und Bearbeitung beginnen</org>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>16400eb599a875e30ac60576d0e928ed</id>
 				<org>Überprüft am/um</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>4d4b2383b7691ef5fdbd24c584135e53</id>
 				<org>Status auswählen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>3b55133a071dd630de4bab9bc07e84d0</id>
 				<org>Kommentar für Benutzer</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>f67de5862e43838aa5bca22d9e7d097c</id>
 				<org>Kommentar für Orgas</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>15ab95b22a4f4b270ed132256df49199</id>
 				<org>Das Troubleticket wurde erfolgreich geändert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>f3fcd6331337b1c01314c1c425ce5213</id>
 				<org>Kommentar von und für Orgas</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>troubleticket</file>
 			</entry>
 		</content>

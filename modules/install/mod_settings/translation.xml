@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -17,10 +17,6 @@
 				<org>Tabellen erstellen</org>
 				<de>Tabellen erstellen</de>
 				<en>Create tables</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -28,10 +24,6 @@
 				<org>zurücksetzen</org>
 				<de>zurücksetzen</de>
 				<en>reset</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -39,10 +31,6 @@
 				<org>Alle Tabellen</org>
 				<de>Alle Tabellen</de>
 				<en>All tables</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -50,10 +38,6 @@
 				<org>erfolgreich</org>
 				<de>erfolgreich</de>
 				<en>Success</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -61,10 +45,6 @@
 				<org>fehlgeschlagen</org>
 				<de>fehlgeschlagen</de>
 				<en>Failed</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -72,10 +52,6 @@
 				<org>bedenkliche Einstellung</org>
 				<de>bedenkliche Einstellung</de>
 				<en>Risky</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -83,10 +59,6 @@
 				<org>Leider nicht möglich</org>
 				<de>Leider nicht möglich</de>
 				<en>Not possible</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -94,32 +66,20 @@
 				<org>Unbekannt</org>
 				<de>Unbekannt</de>
 				<en>Unknown</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e131109beb747315914fc6010f9193d3</id>
-				<org>Auf Ihrem System konnte das PHP-Modul --lt--b--gt--FTP-Library--lt--/b--gt-- nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.</org>
-				<de>Auf Ihrem System konnte das PHP-Modul --lt--b--gt--FTP-Library--lt--/b--gt-- nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.</de>
-				<en>The PHP-Module --lt--b--gt--FTP-Library--lt--/b--gt-- was not found. This will result in errors in the modules connecting to FTP-Servers, like (download, or server)</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Auf Ihrem System konnte das PHP-Modul &lt;b&gt;FTP-Library&lt;/b&gt; nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.</org>
+				<de>Auf Ihrem System konnte das PHP-Modul &lt;b&gt;FTP-Library&lt;/b&gt; nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.</de>
+				<en>The PHP-Module &lt;b&gt;FTP-Library&lt;/b&gt; was not found. This will result in errors in the modules connecting to FTP-Servers, like (download, or server)</en>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>3a0d8f3fa5da153c350bce57d29d62ba</id>
-				<org>Die Datei --lt--b--gt--config.php--lt--/b--gt-- befindet sich --lt--b--gt--nicht--lt--/b--gt-- im Lansuite-Verzeichnis --lt--b--gt-- inc/base/ --lt--/b--gt--. Bitte überprüfen Sie die Datei auf korrekte Groß- und Kleinschreibung.</org>
-				<de>Die Datei --lt--b--gt--config.php--lt--/b--gt-- befindet sich --lt--b--gt--nicht--lt--/b--gt-- im Lansuite-Verzeichnis --lt--b--gt-- inc/base/ --lt--/b--gt--. Bitte überprüfen Sie die Datei auf korrekte Groß- und Kleinschreibung.</de>
-				<en>The file --lt--b--gt--config.php--lt--/b--gt-- was not found in --lt--b--gt-- inc/base/ --lt--/b--gt--. Please check the file is completely lowercase.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Die Datei &lt;b&gt;config.php&lt;/b&gt; befindet sich &lt;b&gt;nicht&lt;/b&gt; im Lansuite-Verzeichnis &lt;b&gt; inc/base/ &lt;/b&gt;. Bitte überprüfen Sie die Datei auf korrekte Groß- und Kleinschreibung.</org>
+				<de>Die Datei &lt;b&gt;config.php&lt;/b&gt; befindet sich &lt;b&gt;nicht&lt;/b&gt; im Lansuite-Verzeichnis &lt;b&gt; inc/base/ &lt;/b&gt;. Bitte überprüfen Sie die Datei auf korrekte Groß- und Kleinschreibung.</de>
+				<en>The file &lt;b&gt;config.php&lt;/b&gt; was not found in &lt;b&gt; inc/base/ &lt;/b&gt;. Please check the file is completely lowercase.</en>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -127,98 +87,46 @@
 				<org>Schreibrechte auf die Konfigurationsdatei</org>
 				<de>Schreibrechte auf die Konfigurationsdatei</de>
 				<en>Writeaccess to the Config-File</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>f05e3d3775944115ffa8f880374a9796</id>
 				<org>Auf ihrem System leider nicht möglich. Der Befehl oder die Datei HTML_NEWLINE{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>c273744d0e15fb7bf27512c0d1a1f3bd</id>
-				<org>Der Ordner --lt--b--gt--ext_inc--lt--/b--gt-- existiert --lt--b--gt--nicht--lt--/b--gt-- im Lansuite-Verzeichnis. Bitte überprüfen Sie den Pfad auf korrekte Groß- und Kleinschreibung. Legen Sie den Ordner gegebenfalls bitte selbst an.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Der Ordner &lt;b&gt;ext_inc&lt;/b&gt; existiert &lt;b&gt;nicht&lt;/b&gt; im Lansuite-Verzeichnis. Bitte überprüfen Sie den Pfad auf korrekte Groß- und Kleinschreibung. Legen Sie den Ordner gegebenfalls bitte selbst an.</org>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>a502c84c03b61377a2c8cf81691ac1e1</id>
 				<org>Schreibrechte im Ordner 'ext_inc'</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ecaa9d8fe562e76129248d07dfb09efc</id>
-				<org>Die Funktion "Debug Backtrace" ist auf deinem System nicht vorhanden. Diese wird jedoch benötigt, um Übersetzungs-Texte einem bestimmten Modul zuzuordnen. Solange du lansuite nur in Deutsch verwenden willst, sollte dies keine Auswirkung haben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Die Funktion &quot;Debug Backtrace&quot; ist auf deinem System nicht vorhanden. Diese wird jedoch benötigt, um Übersetzungs-Texte einem bestimmten Modul zuzuordnen. Solange du lansuite nur in Deutsch verwenden willst, sollte dies keine Auswirkung haben</org>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4b35f36343961e82ba1b5e37f2522e3d</id>
-				<org>Sind Sie sicher, dass Sie die Datenbank des Moduls --lt--b--gt--'%NAME%'--lt--/b--gt-- zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Sind Sie sicher, dass Sie die Datenbank des Moduls &lt;b&gt;'%NAME%'&lt;/b&gt; zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>f0814a994b2ec37dbd92512c20ab3eab</id>
-				<org>Sind Sie sicher, dass Sie --lt--b--gt--'alle Tabellen'--lt--/b--gt-- zurücksetzen möchten? Dies löscht unwiderruflich alle Datenbankeinträge und Lansuite wird komplett auf den Ausgangszustand zurückgesetzt!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Sind Sie sicher, dass Sie &lt;b&gt;'alle Tabellen'&lt;/b&gt; zurücksetzen möchten? Dies löscht unwiderruflich alle Datenbankeinträge und Lansuite wird komplett auf den Ausgangszustand zurückgesetzt!</org>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>401c16f53a97ca511280bbbe7ab8481d</id>
-				<org>Sind Sie sicher, dass Sie --lt--b--gt--'alle Konfigurationen'--lt--/b--gt-- zurücksetzen möchten? Damit gehen alle Ihre Moduleinstellungen verloren!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Sind Sie sicher, dass Sie &lt;b&gt;'alle Konfigurationen'&lt;/b&gt; zurücksetzen möchten? Damit gehen alle Ihre Moduleinstellungen verloren!</org>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>f137a009133b56e5a32102450b1c342d</id>
 				<org>Sind Sie sicher, dass Sie den Status der Benutzer zurücksetzen möchten? Damit ist kein Benutzer mehr zur aktuellen Party angemeldet. Außerdem wird der Bezahltstatus aller Benutzer auf 'Nicht Bezahlt' gesetzt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -226,10 +134,6 @@
 				<org>Sind Sie sicher, dass Sie die Modultabelle zurücksetzen möchten? Dadurch sind nur noch die Standardmodule aktiviert.</org>
 				<de>Sind Sie sicher, dass Sie die Modultabelle zurücksetzen möchten? Dadurch sind nur noch die Standardmodule aktiviert.</de>
 				<en>Are you sure, to reset the module-table? After this only those modules are active, which are active by default.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -237,10 +141,6 @@
 				<org>Sind Sie sicher, dass Sie die Datenbank dieses Moduls zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
 				<de>Sind Sie sicher, dass Sie die Datenbank dieses Moduls zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</de>
 				<en>Are you sure to reset the databse of this module? All entries of this module will be lost!.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -248,10 +148,6 @@
 				<org>Status zurückgesetzt</org>
 				<de>Status zurückgesetzt</de>
 				<en>Reset Status</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -259,65 +155,35 @@
 				<org>Datenbank-Initialisierung</org>
 				<de>Datenbank-Initialisierung</de>
 				<en>Database-Initialisation</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>bd5f2667e5180a9dd98462912df5fe83</id>
-				<org>--lt--br--gt----lt--b--gt--Ihre Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht--lt--/b--gt--. Zusätzlich können Sie unterhalb einzelne Modul-Datenbanken zurücksetzen</org>
-				<de>--lt--br--gt----lt--b--gt--Ihre Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht--lt--/b--gt--. Zusätzlich können Sie unterhalb einzelne Modul-Datenbanken zurücksetzen</de>
-				<en>--lt--br--gt----lt--b--gt--Your data base structure has just been updated to the current level--lt--/b--gt--. Additionaly you can reset your module data bases below</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>&lt;br&gt;&lt;b&gt;Ihre Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht&lt;/b&gt;. Zusätzlich können Sie unterhalb einzelne Modul-Datenbanken zurücksetzen</org>
+				<de>&lt;br&gt;&lt;b&gt;Ihre Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht&lt;/b&gt;. Zusätzlich können Sie unterhalb einzelne Modul-Datenbanken zurücksetzen</de>
+				<en>&lt;br&gt;&lt;b&gt;Your data base structure has just been updated to the current level&lt;/b&gt;. Additionaly you can reset your module data bases below</en>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>de5b8a20942df1bfd9d3efcab3797eb7</id>
 				<org>Menu Einträge ersetzen</org>
 				<de>Menu Einträge ersetzen</de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>05b9262260f5be95f0e142d504407c1c</id>
 				<org>Menu erfolgreich neu geschrieben</org>
 				<de>Menu erfolgreich neu geschrieben</de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>d2683a1996753a35a2ce9e493c58a329</id>
 				<org>Design Manager</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>2132a8e288001984d771b489edceb1b4</id>
 				<org>Editieren Sie Design-Templates und setzen Sie das aktive Design</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -325,10 +191,6 @@
 				<org>Webserverkonfiguration und Systemvorraussetzungen überprüfen</org>
 				<de>Webserverkonfiguration und Systemvorraussetzungen überprüfen</de>
 				<en>Check webserverconfig an system-requirements</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -336,10 +198,6 @@
 				<org>Hier können Sie testen, ob Lansuite auf ihrem System evtl. Probleme haben wird und bekommen entsprechende Lösungsvorschläge angezeigt.</org>
 				<de>Hier können Sie testen, ob Lansuite auf ihrem System evtl. Probleme haben wird und bekommen entsprechende Lösungsvorschläge angezeigt.</de>
 				<en>Test, whether LANSuite will heave trouble on your system and read some solutions if so.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -347,10 +205,6 @@
 				<org>Daten exportieren</org>
 				<de>Daten exportieren</de>
 				<en>Export data</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -358,10 +212,6 @@
 				<org>Hier können Sie Benutzerdaten exportieren. Diese können Sie später wieder in Lansuite importieren.</org>
 				<de>Hier können Sie Benutzerdaten exportieren. Diese können Sie später wieder in Lansuite importieren.</de>
 				<en>This is where you can export userdata, which you can lateron import into lansuite again.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -369,10 +219,6 @@
 				<org>XML: Komplette Datenbank Exportieren (Empfohlen)</org>
 				<de>XML: Komplette Datenbank Exportieren (Empfohlen)</de>
 				<en>XML: Complete export (Recommended)</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -380,10 +226,6 @@
 				<org>XML: Nur ausgewählte Module exportiern</org>
 				<de>XML: Nur ausgewählte Module exportiern</de>
 				<en>XML: Export selected modules only</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -391,10 +233,6 @@
 				<org>XML: Nur ausgewählte Tabellen exportieren (für Experten)</org>
 				<de>XML: Nur ausgewählte Tabellen exportieren (für Experten)</de>
 				<en>XML: Export selected tables only (for experts)</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -402,21 +240,11 @@
 				<org>CSV: Userdaten komplett (inkl. Sitzplatz und IP)</org>
 				<de>CSV: Userdaten komplett (inkl. Sitzplatz und IP)</de>
 				<en>CSV: Userdata complete (inkl. seat and IP)</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>3471dc4c4368a618f1eb1dd8f7d7be46</id>
 				<org>CSV: Userdaten 'Aufkleber' (Name, Username, Clan, Sitzplatz und IP)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -424,10 +252,6 @@
 				<org>CSV: Sitzplatzkarten (Name, Username, Clan, Sitzplatz und IP)</org>
 				<de>CSV: Sitzplatzkarten (Name, Username, Clan, Sitzplatz und IP)</de>
 				<en>CSV: Seat-Cards (Name, username, clan, seat and IP)</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -435,21 +259,11 @@
 				<org>DATA: Daten-Ordner herunterladen (Avatare, Bildergallerie, Banner, ...)</org>
 				<de>DATA: Daten-Ordner herunterladen (Avatare, Bildergallerie, Banner, ...)</de>
 				<en>DATA: Download Data-Directory (Avatars, Picturegallery, Banner, ...)</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>087ddeb87295eef2ef1de6e20f4148df</id>
 				<org>NGL-Spiel</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -457,10 +271,6 @@
 				<org>Struktur exportieren</org>
 				<de>Struktur exportieren</de>
 				<en>Export structure</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -468,10 +278,6 @@
 				<org>Inhalt exportieren</org>
 				<de>Inhalt exportieren</de>
 				<en>Export content</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -479,10 +285,6 @@
 				<org>Diese Tabelle exportieren</org>
 				<de>Diese Tabelle exportieren</de>
 				<en>Export this table</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -490,10 +292,6 @@
 				<org>Lansuite-CSV-Export speichern</org>
 				<de>Lansuite-CSV-Export speichern</de>
 				<en>Save LANSuite-CSV-Export</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -501,10 +299,6 @@
 				<org>Lansuite-Aufkleber-Export speichern</org>
 				<de>Lansuite-Aufkleber-Export speichern</de>
 				<en>Save LANSuite-Sticker-Export</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -512,10 +306,6 @@
 				<org>Lansuite-Sitzplatzkarten-Export speichern</org>
 				<de>Lansuite-Sitzplatzkarten-Export speichern</de>
 				<en>Save LANSuite-Seatcard-Export</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -523,10 +313,6 @@
 				<org>Lansuite Daten-Ordner herunterladen</org>
 				<de>Lansuite Daten-Ordner herunterladen</de>
 				<en>Download LanSuite Data-Directory</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -534,10 +320,6 @@
 				<org>Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.</org>
 				<de>Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.</de>
 				<en>This filetype is not supported. Chosse a file of the type *.xml, or *.csv, or skip the file-import.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -545,10 +327,6 @@
 				<org>Daten importieren</org>
 				<de>Daten importieren</de>
 				<en>Import data</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -556,10 +334,6 @@
 				<org>Hier können Sie Benutzerdaten, die Sie aus einem anderen System exportiert haben, in Lansuite importieren.</org>
 				<de>Hier können Sie Benutzerdaten, die Sie aus einem anderen System exportiert haben, in Lansuite importieren.</de>
 				<en>Here you can import data to LANSuite, which you have exported from another system</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -567,10 +341,6 @@
 				<org>Zu importierende Datei</org>
 				<de>Zu importierende Datei</de>
 				<en>File to import</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -578,10 +348,6 @@
 				<org>Import (.xml, .csv, .tgz)</org>
 				<de>Import (.xml, .csv, .tgz)</de>
 				<en>Import (*.xml, *.csv)</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -589,10 +355,6 @@
 				<org>Lansuite-XML-Export</org>
 				<de>Lansuite-XML-Export</de>
 				<en>LanSuite-XML-Exports</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -600,10 +362,6 @@
 				<org>Vorhandene Einträge ersetzen</org>
 				<de>Vorhandene Einträge ersetzen</de>
 				<en>Replace existing entries</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -611,10 +369,6 @@
 				<org>LanSurfer-XML-Export</org>
 				<de>LanSurfer-XML-Export</de>
 				<en>LanSurfer-XML-Export</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -622,10 +376,6 @@
 				<org>Kommentar für alle setzen</org>
 				<de>Kommentar für alle setzen</de>
 				<en>Write a comment for each imported user</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -633,10 +383,6 @@
 				<org>Alte Benutzerdaten löschen</org>
 				<de>Alte Benutzerdaten löschen</de>
 				<en>Delete old userdata</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -644,10 +390,6 @@
 				<org>Vorhandene Einträge überschreiben</org>
 				<de>Vorhandene Einträge überschreiben</de>
 				<en>Replace existing entries</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -655,10 +397,6 @@
 				<org>Benutzer zur aktuellen Party anmelden</org>
 				<de>Benutzer zur aktuellen Party anmelden</de>
 				<en>Sign on user to current party</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -666,10 +404,6 @@
 				<org>Sitzplan NICHT importieren</org>
 				<de>Sitzplan NICHT importieren</de>
 				<en>Do not import seatings</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -677,10 +411,6 @@
 				<org>Datei-Import erfolgreich.</org>
 				<de>Datei-Import erfolgreich.</de>
 				<en>Import successfull</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -688,10 +418,6 @@
 				<org>Dateityp</org>
 				<de>Dateityp</de>
 				<en>Filetype</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -699,10 +425,6 @@
 				<org>Exportiert am/um</org>
 				<de>Exportiert am/um</de>
 				<en>Export at</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -710,10 +432,6 @@
 				<org>Quelle</org>
 				<de>Quelle</de>
 				<en>Source</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -721,10 +439,6 @@
 				<org>LanParty</org>
 				<de>LanParty</de>
 				<en>LanParty</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -732,10 +446,6 @@
 				<org>Lansuite-Version</org>
 				<de>Lansuite-Version</de>
 				<en>LANSuite-Version</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -743,10 +453,6 @@
 				<org>Import erfolgreich.</org>
 				<de>Import erfolgreich.</de>
 				<en>Import sucessfull</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -754,21 +460,11 @@
 				<org>Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte laden und entpacken Sie den Ordner manuell auf Ihren Webspace.</org>
 				<de>Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte laden und entpacken Sie den Ordner manuell auf Ihren Webspace.</de>
 				<en>The export of the ext_inc-Directory could not be imported using lansuite, yet. Upload and extract it anually, please</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>cef964e10f734bd9ceab2c100fe1c44b</id>
 				<org>CSV Import erfolgreich</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -776,10 +472,6 @@
 				<org>Installation und Administration</org>
 				<de>Installation und Administration</de>
 				<en>Installation and Administration</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -787,21 +479,13 @@
 				<org>Auf diesen Seiten können Sie Lansuite installieren und verwalten</org>
 				<de>Auf diesen Seiten können Sie Lansuite installieren und verwalten</de>
 				<en>At this page you can install and admin LANSuite</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>20ad6ce72eddc46242d487e04d00cf00</id>
-				<org>--lt--b--gt--ACHTUNG--lt--/b--gt--: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.</org>
-				<de>--lt--b--gt--ACHTUNG--lt--/b--gt--: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.</de>
-				<en>--lt--b--gt--ATTENTION--lt--/b--gt--: There is no adminaccount. As long as no adminaccount exists, everyone will be granted access to the admin-page</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>&lt;b&gt;ACHTUNG&lt;/b&gt;: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.</org>
+				<de>&lt;b&gt;ACHTUNG&lt;/b&gt;: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.</de>
+				<en>&lt;b&gt;ATTENTION&lt;/b&gt;: There is no adminaccount. As long as no adminaccount exists, everyone will be granted access to the admin-page</en>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -809,10 +493,6 @@
 				<org>Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:</org>
 				<de>Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:</de>
 				<en>The following modules have no admin defined and are therefore changeable by every admin:</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -820,10 +500,6 @@
 				<org>Aktuell sind noch nicht alle Module so programmiert, dass sie eigene Admins haben können.</org>
 				<de>Aktuell sind noch nicht alle Module so programmiert, dass sie eigene Admins haben können.</de>
 				<en>Currently not all modules are programmed to have their own admins</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -831,10 +507,6 @@
 				<org>Lansuite konfigurieren</org>
 				<de>Lansuite konfigurieren</de>
 				<en>Configure LANSuite</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -842,10 +514,6 @@
 				<org>Grundeinstellungen (Datenbank-Zugangsdaten)</org>
 				<de>Grundeinstellungen (Datenbank-Zugangsdaten)</de>
 				<en>Main-Settings (DB-Connection)</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -853,10 +521,6 @@
 				<org>Allgemeine Einstellungen</org>
 				<de>Allgemeine Einstellungen</de>
 				<en>Common Settings</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -864,10 +528,6 @@
 				<org>Modulmanager</org>
 				<de>Modulmanager</de>
 				<en>Modulmanager</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -875,10 +535,6 @@
 				<org>Navigationsmenü verwalten</org>
 				<de>Navigationsmenü verwalten</de>
 				<en>Manage navigation-menu</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -886,10 +542,6 @@
 				<org>Administrator Account anlegen</org>
 				<de>Administrator Account anlegen</de>
 				<en>Create an Admin-Account</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -897,10 +549,6 @@
 				<org>Lansuite updaten / reparieren</org>
 				<de>Lansuite updaten / reparieren</de>
 				<en>Update / repair LANSuite</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -908,10 +556,6 @@
 				<org>Systemvoraussetzungen testen</org>
 				<de>Systemvoraussetzungen testen</de>
 				<en>Check System</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -919,10 +563,6 @@
 				<org>Datenbank updaten und verwalten</org>
 				<de>Datenbank updaten und verwalten</de>
 				<en>Update / Manage database</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -930,10 +570,6 @@
 				<org>Menueinträge neu schreiben</org>
 				<de>Menueinträge neu schreiben</de>
 				<en>Rewrite Navigation</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -941,10 +577,6 @@
 				<org>Daten-Management</org>
 				<de>Daten-Management</de>
 				<en>Data-Management</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -952,10 +584,6 @@
 				<org>Daten-Import</org>
 				<de>Daten-Import</de>
 				<en>Data-Import</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -963,32 +591,16 @@
 				<org>Daten-Export</org>
 				<de>Daten-Export</de>
 				<en>Data-Export</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ab1c156ad5f867f22ab441a73adfccb7</id>
-				<org>Datei 'config.php' konnte --lt--strong--gt--nicht--lt--/strong--gt-- geschrieben werden.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Datei 'config.php' konnte &lt;strong&gt;nicht&lt;/strong&gt; geschrieben werden.</org>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4e59471b683bc797e4f31b968059915a</id>
 				<org>Datei 'config.php' wurde erfolgreich geschrieben.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -996,10 +608,6 @@
 				<org>Grundeinstellungen</org>
 				<de>Grundeinstellungen</de>
 				<en>Main-Settings</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1007,10 +615,6 @@
 				<org>Bitte geben Sie nun die Zugangsdaten zur Datenbank an.</org>
 				<de>Bitte geben Sie nun die Zugangsdaten zur Datenbank an.</de>
 				<en>Use this page to set up the connection data of your database</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1018,10 +622,6 @@
 				<org>Datenbank-Zugangsdaten</org>
 				<de>Datenbank-Zugangsdaten</de>
 				<en>Database connection</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1029,10 +629,6 @@
 				<org>Host (Server-IP)</org>
 				<de>Host (Server-IP)</de>
 				<en>Host</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1040,10 +636,6 @@
 				<org>Benutzername</org>
 				<de>Benutzername</de>
 				<en>User</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1051,10 +643,6 @@
 				<org>Kennwort</org>
 				<de>Kennwort</de>
 				<en>Password</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1062,10 +650,6 @@
 				<org>Datenbank</org>
 				<de>Datenbank</de>
 				<en>Database</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1073,32 +657,16 @@
 				<org>Tabellen-Prefix</org>
 				<de>Tabellen-Prefix</de>
 				<en>Table-Prefix</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1106,10 +674,6 @@
 				<org>MySQL-Fehler zeigen</org>
 				<de>MySQL-Fehler zeigen</de>
 				<en>Show MySQL-errors</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1117,10 +681,6 @@
 				<org>Standard-Design</org>
 				<de>Standard-Design</de>
 				<en>Standard-Design</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1128,10 +688,6 @@
 				<org>Sind Sie sicher, dass Sie alle Navigationseinträge zurücksetzen möchten?</org>
 				<de>Sind Sie sicher, dass Sie alle Navigationseinträge zurücksetzen möchten?</de>
 				<en>Are you sure to reset all navigation-entries?</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1139,10 +695,6 @@
 				<org>Gruppe ändern</org>
 				<de>Gruppe ändern</de>
 				<en>Change group</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1150,32 +702,16 @@
 				<org>Hier können Sie diesen Navigationseintrag einer Gruppe zuweisen</org>
 				<de>Hier können Sie diesen Navigationseintrag einer Gruppe zuweisen</de>
 				<en>This is where you can assign a navigation-entry to a group.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e2c94c7fc9e7da03724704ca407ff309</id>
 				<org>Hinweis: Verwenden Sie die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>75880c5861f705e59d87223225c2b716</id>
-				<org>Hinweis2: Verwenden sie die Gruppen um in der URL mit dem Parameter &menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Hinweis2: Verwenden sie die Gruppen um in der URL mit dem Parameter &amp;menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design</org>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1183,10 +719,6 @@
 				<org>Navigation zurücksetzen</org>
 				<de>Navigation zurücksetzen</de>
 				<en>Reset navigation-menu</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1194,10 +726,6 @@
 				<org>Alle Einträge anzeigen</org>
 				<de>Alle Einträge anzeigen</de>
 				<en>Show all entries</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1205,10 +733,6 @@
 				<org>Nur Einträge von aktivierten Modulen anzeigen</org>
 				<de>Nur Einträge von aktivierten Modulen anzeigen</de>
 				<en>Show entriers of activated modules only</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1216,10 +740,6 @@
 				<org>entfernen</org>
 				<de>entfernen</de>
 				<en>delete</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1227,10 +747,6 @@
 				<org>editieren</org>
 				<de>editieren</de>
 				<en>edit</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1238,10 +754,6 @@
 				<org>Trennzeile</org>
 				<de>Trennzeile</de>
 				<en>Draw line</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1249,10 +761,6 @@
 				<org>Gruppe</org>
 				<de>Gruppe</de>
 				<en>Group</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1260,87 +768,41 @@
 				<org>Pos</org>
 				<de>Pos</de>
 				<en>Pos</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>d1bf55e6ce7e1188c3aac3ae84fb6666</id>
 				<org>Modul-Konfiguration</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>1d656f0b245f9b56f8b11eb1fe921d5e</id>
 				<org>Hier können Sie dieses Modul Ihren Bedürfnissen anpassen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>2e9305089a0a7089ae7793520d723cab</id>
 				<org>Verwaltungs-Werkzeuge</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>704183817f9cbe5f6f95d58a4b647e7e</id>
 				<org>Konfiguration</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>26c6c9edef67c304b73c1f9d6c4cea7a</id>
 				<org>Hier können Sie Konfigurationen zu diesem Modul vornehmen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ed74d5f1ab857b8a64fe32646280919e</id>
 				<org>Berechtigungen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>11c3d918ffc6cb636d261f4b1ead9902</id>
 				<org>Legen Sie fest, welche Benutzer Berechtigungen zu welchem Menüpunkt erhalten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1348,98 +810,46 @@
 				<org>Menü</org>
 				<de>Menü</de>
 				<en>Menu</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>347b35d7ecce8c5f83cfd6196cfbf106</id>
 				<org>Definieren Sie eigene Menüpunkte</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>f54f3c009e2e066d7007a52d6d32ec34</id>
 				<org>Übersetzung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b8f85089aef5a6e668cb19df75254ca9</id>
 				<org>Übersetzen Sie Texte dieses Moduls in andere Sprachen, oder definieren Sie einen deutschen Text, um einen Text umzuformulieren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>0273c5c25e3bb7e4f30604650ad80cc4</id>
 				<org>Verwalten Sie die Datenbanktabellen, die diesem Modul zugeordnet sind</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>0ce064b188277a7160a150e6dfb02c49</id>
 				<org>Modul-Info</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>d9d98118e70780fc9f77185ac7ac2366</id>
 				<org>Hilfe und Informationen zu diesem Modul aufrufen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>9ef60b7c83afc728a86d9bae8a03580e</id>
 				<org>Keine Einstellungen zu diesem Modul vorhanden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>37c879e89dad97ff1cdfcd0a79a2d3bd</id>
 				<org>Erfolgreich geändert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1447,10 +857,6 @@
 				<org>Jeder</org>
 				<de>Jeder</de>
 				<en>Everyone</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1458,10 +864,6 @@
 				<org>Nur Eingeloggte</org>
 				<de>Nur Eingeloggte</de>
 				<en>Logged in only</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1469,10 +871,6 @@
 				<org>Nur Admins</org>
 				<de>Nur Admins</de>
 				<en>Admins only</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1480,10 +878,6 @@
 				<org>Nur Superadminen</org>
 				<de>Nur Superadminen</de>
 				<en>Superadmins only</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1491,10 +885,6 @@
 				<org>Keine Admins</org>
 				<de>Keine Admins</de>
 				<en>No admins</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1502,87 +892,41 @@
 				<org>Nur Ausgeloggte</org>
 				<de>Nur Ausgeloggte</de>
 				<en>Logged off only</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>5d7b3117874ea4964f0218d2d28b3231</id>
 				<org>Zugriff</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>f356b0929e047b18efb8fc417cb0cb1d</id>
 				<org>Vorraussetzung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>18a8022569d6ced829f833aa855530ce</id>
 				<org>Titel</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>97e7c9a7d06eac006a28bf05467fcc8b</id>
 				<org>Link</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b1228e186982783aa6bd3affab426e6c</id>
 				<org>Popup-Hinweis</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4fbd7ebee0b5c50eb74095f1eb14ebe5</id>
 				<org>Link hinzufügen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>67463c766c54f7c49bf52849943be052</id>
-				<org>Modul "%1" wurde nicht gefunden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Modul &quot;%1&quot; wurde nicht gefunden</org>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1590,10 +934,6 @@
 				<org>Datenbank - Modul</org>
 				<de>Datenbank - Modul</de>
 				<en>Database - module</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1601,21 +941,11 @@
 				<org>Hier können Sie die Datenbankeinträge zu diesem Modul verwalten</org>
 				<de>Hier können Sie die Datenbankeinträge zu diesem Modul verwalten</de>
 				<en>This is where you can manage the database-entries to this module</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>6afc6af6cec6a6ed87da423e2537e553</id>
 				<org>DB-Tabellen dieses Moduls</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1623,32 +953,16 @@
 				<org>Modul-Datenbank exportieren</org>
 				<de>Modul-Datenbank exportieren</de>
 				<en>Export module-database</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b7405e747816fecc21fc8185a08dd620</id>
 				<org>Weitere Aktionen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e4f683a9ea094e0cd9f51f9a602cb297</id>
-				<org>Sind Sie sicher, dass Sie die Datenbank des Moduls "%1" zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Sind Sie sicher, dass Sie die Datenbank des Moduls &quot;%1&quot; zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1656,10 +970,6 @@
 				<org>Tabelle wurde erfolgreich neu geschrieben</org>
 				<de>Tabelle wurde erfolgreich neu geschrieben</de>
 				<en>All tables were resetted successfully</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1667,10 +977,6 @@
 				<org>keine</org>
 				<de>keine</de>
 				<en>none</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1678,21 +984,11 @@
 				<org>Änderungen erfolgreich gespeichert.</org>
 				<de>Änderungen erfolgreich gespeichert.</de>
 				<en>Changes were saved successfully.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>6fd13e8ac48bcf50d3d67c1710c080b5</id>
-				<org>Soll das Modul --lt--b--gt--'%NAME%'--lt--/b--gt-- wirklich zurückgesetzt werden?HTML_NEWLINEDies wirkt sich --lt--u--gt--nicht--lt--/u--gt-- auf die Datenbankeinträge des Modules aus, jedoch gehen alle Einstellungen und Menüänderungen verloren, die zu diesem Modul getätigt worden sind.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Soll das Modul &lt;b&gt;'%NAME%'&lt;/b&gt; wirklich zurückgesetzt werden?HTML_NEWLINEDies wirkt sich &lt;u&gt;nicht&lt;/u&gt; auf die Datenbankeinträge des Modules aus, jedoch gehen alle Einstellungen und Menüänderungen verloren, die zu diesem Modul getätigt worden sind.</org>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1700,10 +996,6 @@
 				<org>Modul-Menüeinträge</org>
 				<de>Modul-Menüeinträge</de>
 				<en>Module-Menuentries</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1711,10 +1003,6 @@
 				<org>Hier können Sie die Navigationseinträge dieses Moduls ändern.</org>
 				<de>Hier können Sie die Navigationseinträge dieses Moduls ändern.</de>
 				<en>Use this form to manage the navigationentries of this module</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1722,10 +1010,6 @@
 				<org>Hauptmenüpunkt des Moduls / Modul-Startseite</org>
 				<de>Hauptmenüpunkt des Moduls / Modul-Startseite</de>
 				<en>Main-Item of this module (mod-homepage)</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1733,10 +1017,6 @@
 				<org>Untermenüpunkte</org>
 				<de>Untermenüpunkte</de>
 				<en>Sub-Item</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1744,10 +1024,6 @@
 				<org>Keine Menüpunkte - Interne Verweise</org>
 				<de>Keine Menüpunkte - Interne Verweise</de>
 				<en>Internal referrer (not listed in menu)</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1755,10 +1031,6 @@
 				<org>Neuen Menüeintrag hinzufügen</org>
 				<de>Neuen Menüeintrag hinzufügen</de>
 				<en>Add a new menu-entry</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1766,10 +1038,6 @@
 				<org>Der Menü-Eintrag wurde erfolgreich gelöscht</org>
 				<de>Der Menü-Eintrag wurde erfolgreich gelöscht</de>
 				<en>The menu-entry was deleted successfully</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1777,10 +1045,6 @@
 				<org>Modulverwaltung</org>
 				<de>Modulverwaltung</de>
 				<en>Module-Management</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1788,10 +1052,6 @@
 				<org>Hier können Sie Module de-/aktivieren, sowie deren Einstellungen verändern.</org>
 				<de>Hier können Sie Module de-/aktivieren, sowie deren Einstellungen verändern.</de>
 				<en>Here you can de-/activate modules, and manage their settings</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1799,10 +1059,6 @@
 				<org>Alle Module zurücksetzen</org>
 				<de>Alle Module zurücksetzen</de>
 				<en>Reset all modules</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1810,10 +1066,6 @@
 				<org>Konfig.</org>
 				<de>Konfig.</de>
 				<en>Config.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1821,10 +1073,6 @@
 				<org>DB</org>
 				<de>DB</de>
 				<en>DB</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1832,21 +1080,11 @@
 				<org>Lansuite Installation und Administration</org>
 				<de>Lansuite Installation und Administration</de>
 				<en>LANSuite Installation and Administration</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ff940ad7740516663c385c2e3837fec0</id>
 				<org>Sprache</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1854,32 +1092,20 @@
 				<org>Datenbank überschreiben</org>
 				<de>Datenbank überschreiben</de>
 				<en>Overwrite database</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4092fee4764a868691b6e20ce4af8304</id>
-				<org>--lt--b--gt--ACHTUNG:--lt--/b--gt-- Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!</org>
-				<de>--lt--b--gt--ACHTUNG:--lt--/b--gt-- Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!</de>
+				<org>&lt;b&gt;ACHTUNG:&lt;/b&gt; Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!</org>
+				<de>&lt;b&gt;ACHTUNG:&lt;/b&gt; Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!</de>
 				<en>Existing data in this database will be lost</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4e303bdd50bec3088c0514a9f00382ae</id>
-				<org>--lt--b--gt--ACHTUNG:--lt--/b--gt----lt--br--gt--Der Aufruf der nächsten Seite kann bis zu eine Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!</org>
-				<de>--lt--b--gt--ACHTUNG:--lt--/b--gt----lt--br--gt--Der Aufruf der nächsten Seite kann bis zu eine Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!</de>
+				<org>&lt;b&gt;ACHTUNG:&lt;/b&gt;&lt;br&gt;Der Aufruf der nächsten Seite kann bis zu eine Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!</org>
+				<de>&lt;b&gt;ACHTUNG:&lt;/b&gt;&lt;br&gt;Der Aufruf der nächsten Seite kann bis zu eine Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!</de>
 				<en>Attention: Calling the next page, could last a minute. Please do not cancel loading during this time!</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1887,21 +1113,11 @@
 				<org>Die Datenbank ist nicht erreichbar. Überprüfen Sie bitte die Angaben zur Datenbankverbindung.</org>
 				<de>Die Datenbank ist nicht erreichbar. Überprüfen Sie bitte die Angaben zur Datenbankverbindung.</de>
 				<en>Database unavailable. Please check your connection-data</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>48612f0b5b824919765c5671ebb4b784</id>
 				<org>Die Datenbank '%DB%' existiert bereits und wurde daher nicht neu angelegt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1909,10 +1125,6 @@
 				<org>Anlegen der Datenbank fehlgeschlagen. Überprüfen Sie bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfen Sie, ob Sie den Namen der Datenbank korrekt angegeben haben.</org>
 				<de>Anlegen der Datenbank fehlgeschlagen. Überprüfen Sie bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfen Sie, ob Sie den Namen der Datenbank korrekt angegeben haben.</de>
 				<en>Database-Creation failed. Please check, whether your database-user has enough rights to create his own database or if you have submitted the correct name given to you by your provider.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1920,21 +1132,6 @@
 				<org>Datenbank wurde erfolgreich angelegt.</org>
 				<de>Datenbank wurde erfolgreich angelegt.</de>
 				<en>Database was created successfully</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>install</file>
-			</entry>
-			<entry>
-				<id>d41d8cd98f00b204e9800998ecf8427e</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1942,32 +1139,18 @@
 				<org>Datenimport</org>
 				<de>Datenimport</de>
 				<en>Data-Import</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e3a587a858f4537997c324fc89dac1eb</id>
-				<org>--lt--b--gt--ACHTUNG:--lt--/b--gt-- Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.</org>
-				<de>--lt--b--gt--ACHTUNG:--lt--/b--gt-- Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.</de>
+				<org>&lt;b&gt;ACHTUNG:&lt;/b&gt; Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.</org>
+				<de>&lt;b&gt;ACHTUNG:&lt;/b&gt; Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.</de>
 				<en>Attention: If you import an adminaccount within the data, you will be prompted to enter its passwort (or a password of any other adminaccount) from now on.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>d2a0be35cdf5a485fa98de7cf181d4a4</id>
-				<org>Import wurde mit folgendem Ergebnis ausgeführt:HTML_NEWLINE--lt--ul--gt--Fehler: %ERROR%HTML_NEWLINEKeine Aktion: %NOTHING%HTML_NEWLINENeue eingefügt: %INSERT%HTML_NEWLINEAlte überschrieben: %REPLACE%--lt--/ul--gt--</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Import wurde mit folgendem Ergebnis ausgeführt:HTML_NEWLINE&lt;ul&gt;Fehler: %ERROR%HTML_NEWLINEKeine Aktion: %NOTHING%HTML_NEWLINENeue eingefügt: %INSERT%HTML_NEWLINEAlte überschrieben: %REPLACE%&lt;/ul&gt;</org>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1975,21 +1158,11 @@
 				<org>Adminaccount anlegen</org>
 				<de>Adminaccount anlegen</de>
 				<en>Create adminaccount</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>c6b794d4e4bb40f4fcf134e23e8cb474</id>
-				<org>Hier können Sie einen Adminaccount anlegen. Falls dies bereits durch den Import geschehen ist, können Sie diesen Schritt auch überspringen (auf --lt--b--gt--'Weiter'--lt--/b--gt-- klicken).</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Hier können Sie einen Adminaccount anlegen. Falls dies bereits durch den Import geschehen ist, können Sie diesen Schritt auch überspringen (auf &lt;b&gt;'Weiter'&lt;/b&gt; klicken).</org>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1997,10 +1170,6 @@
 				<org>E-Mail</org>
 				<de>E-Mail</de>
 				<en>eMail</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2008,10 +1177,6 @@
 				<org>Kennwort wiederholen</org>
 				<de>Kennwort wiederholen</de>
 				<en>Confirm password</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2019,10 +1184,6 @@
 				<org>Bitte geben Sie eine E-Mail-Adresse ein!</org>
 				<de>Bitte geben Sie eine E-Mail-Adresse ein!</de>
 				<en>Enter an eMail-Address, please</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2030,10 +1191,6 @@
 				<org>Bitte geben Sie ein Kennwort ein!</org>
 				<de>Bitte geben Sie ein Kennwort ein!</de>
 				<en>Choose your password</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2041,10 +1198,6 @@
 				<org>Das Passwort und seine Verifizierung stimmen nicht überein!</org>
 				<de>Das Passwort und seine Verifizierung stimmen nicht überein!</de>
 				<en>The password and its verification are not equal.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2052,10 +1205,6 @@
 				<org>Wichtige Systemvariablen einstellen</org>
 				<de>Wichtige Systemvariablen einstellen</de>
 				<en>Define importent variables</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2063,10 +1212,6 @@
 				<org>Hier, in diesem letzten Schritt, werden die wichtigsten Konfigurationen in Lansuite eingestellt.</org>
 				<de>Hier, in diesem letzten Schritt, werden die wichtigsten Konfigurationen in Lansuite eingestellt.</de>
 				<en>Here, in this last step, lansuites main configuration is made</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2074,10 +1219,6 @@
 				<org>Land, in dem die Party stattfindet</org>
 				<de>Land, in dem die Party stattfindet</de>
 				<en>Country where the party takes place</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2085,10 +1226,6 @@
 				<org>URL der Webseite</org>
 				<de>URL der Webseite</de>
 				<en>The URL of this webseite</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2096,10 +1233,6 @@
 				<org>E-Mail des Webmasters</org>
 				<de>E-Mail des Webmasters</de>
 				<en>The webmasters email</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2107,10 +1240,6 @@
 				<org>Internet-Seite. Vor der Party</org>
 				<de>Internet-Seite. Vor der Party</de>
 				<en>Internet-Page. Before the party</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2118,10 +1247,6 @@
 				<org>Intranet-Seite. Auf der Party</org>
 				<de>Intranet-Seite. Auf der Party</de>
 				<en>Intranet-Page. At the party</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2129,10 +1254,6 @@
 				<org>Internet- oder Lokaler-Modus?</org>
 				<de>Internet- oder Lokaler-Modus?</de>
 				<en>Internet-, or Local-Mode?</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2140,10 +1261,6 @@
 				<org>Installation abschließen</org>
 				<de>Installation abschließen</de>
 				<en>Finish installation</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2151,21 +1268,11 @@
 				<org>Die Installation wurde erfolgreich beendet.</org>
 				<de>Die Installation wurde erfolgreich beendet.</de>
 				<en>The Installation was successfull</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e4cad194fc929c07631addbbe4e214d7</id>
-				<org>--lt--b--gt--Es wurde kein Admin-Account angelegt--lt--/b--gt--HTML_NEWLINESolange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>&lt;b&gt;Es wurde kein Admin-Account angelegt&lt;/b&gt;HTML_NEWLINESolange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.</org>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2173,10 +1280,6 @@
 				<org>Hier legen Sie einen Adminaccount an, über welchen Sie Zugriff auf diese Admin-Seite erhalten. Wenn Sie bereits Benutzer-Daten importiert haben müssen Sie hier keinen weiteren Account anlegen.</org>
 				<de>Hier legen Sie einen Adminaccount an, über welchen Sie Zugriff auf diese Admin-Seite erhalten. Wenn Sie bereits Benutzer-Daten importiert haben müssen Sie hier keinen weiteren Account anlegen.</de>
 				<en>Here you create an adminaccount, which will grant you access to this admin-page. If you allready have importet user-data containing an admin, you dont have to create a secound admin here.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2184,10 +1287,6 @@
 				<org>ACHTUNG: Es wurde noch kein Adminaccount angelegt. Bitte legen Sie diesen unbedingt unterhalb an. Sobald dieser angelegt worden ist, ist diese Seite nur noch mit diesem Account erreichbar.</org>
 				<de>ACHTUNG: Es wurde noch kein Adminaccount angelegt. Bitte legen Sie diesen unbedingt unterhalb an. Sobald dieser angelegt worden ist, ist diese Seite nur noch mit diesem Account erreichbar.</de>
 				<en>ATTENTION: No adminaccount has been created, yet. As long, as no adminaccount has been created, each user will be granted to access the admin-page.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -2195,296 +1294,441 @@
 				<org>Der Adminaccount wurde erfolgreich angelegt.</org>
 				<de>Der Adminaccount wurde erfolgreich angelegt.</de>
 				<en>Adminaccount was created successfully</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ab828c6aefb298143635c14cfaa769b3</id>
-				<org>Soll das Modul --lt--b--gt--'%1'--lt--/b--gt-- wirklich zurückgesetzt werden?--lt--br /--gt--Dies wirkt sich --lt--u--gt--nicht--lt--/u--gt-- auf die Datenbankeinträge des Modules aus, jedoch gehen alle Einstellungen und Menüänderungen verloren, die zu diesem Modul getätigt worden sind.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Soll das Modul &lt;b&gt;'%1'&lt;/b&gt; wirklich zurückgesetzt werden?&lt;br /&gt;Dies wirkt sich &lt;u&gt;nicht&lt;/u&gt; auf die Datenbankeinträge des Modules aus, jedoch gehen alle Einstellungen und Menüänderungen verloren, die zu diesem Modul getätigt worden sind.</org>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ebbf908c688713bb690026ebc10e99b8</id>
 				<org>Die Datenbank '%1' existiert bereits und wurde daher nicht neu angelegt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>668fb7fec7465e17fa6a0dec67ef50e0</id>
-				<org>Import wurde mit folgendem Ergebnis ausgeführt:HTML_NEWLINE--lt--ul--gt--Fehler: %1HTML_NEWLINEKeine Aktion: %1HTML_NEWLINENeue eingefügt: %1HTML_NEWLINEAlte überschrieben: %1--lt--/ul--gt--</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Import wurde mit folgendem Ergebnis ausgeführt:HTML_NEWLINE&lt;ul&gt;Fehler: %1HTML_NEWLINEKeine Aktion: %1HTML_NEWLINENeue eingefügt: %1HTML_NEWLINEAlte überschrieben: %1&lt;/ul&gt;</org>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b47334e0a8741536aef4eebdd21995cc</id>
-				<org>Import wurde mit folgendem Ergebnis ausgeführt:--lt--br /--gt----lt--ul--gt--Fehler: %1--lt--br /--gt--Keine Aktion: %1--lt--br /--gt--Neue eingefügt: %1--lt--br /--gt--Alte überschrieben: %1--lt--/ul--gt--</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Import wurde mit folgendem Ergebnis ausgeführt:&lt;br /&gt;&lt;ul&gt;Fehler: %1&lt;br /&gt;Keine Aktion: %1&lt;br /&gt;Neue eingefügt: %1&lt;br /&gt;Alte überschrieben: %1&lt;/ul&gt;</org>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>8cfebf89fd84de2527078cb659a9ec2d</id>
-				<org>--lt--b--gt--Es wurde kein Admin-Account angelegt--lt--/b--gt----lt--br /--gt--Solange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>&lt;b&gt;Es wurde kein Admin-Account angelegt&lt;/b&gt;&lt;br /&gt;Solange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>55d856dbed1842ac981099f6b9357203</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>e7ee70e712e2fe41c61e066d922e247c</id>
+				<org>Dies scheint keine Lansuite-kompatible-XML-Datei zu sein. Bitte Überprüfen sie den Eintrag &amp;lt;filetype&amp;gt; am Anfang der XML-Datei (FileType: '%1</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>97336810fc51d7824e6c8a42b4b2d4c5</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>47a1717583a38d065dd69434b2398f7c</id>
+				<org>Das Modul %1 kann nicht aktiviert werden, da die PHP Version %2 benötigt wird</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>ad06d1bd3606e24323daaeb4596fab5a</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>703c32996a72ec618df378dcc7f7703d</id>
+				<org>Benötigt</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>8a5e73260c3ad68d0a4b6fa22b805db8</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>32fd9580bb559fcfe00b3b29ea11f542</id>
+				<org>Verwenden Sie die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>2013333a13046e088e08b89ee30e1d23</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>b2153d6647abc2a07b4f3eb5ce5fe3e9</id>
+				<org>Verwenden sie die Gruppen um in der URL mit dem Parameter &amp;menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>4d98401fb0ce442c6b863718ade6ff60</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>ded86575b97cdfd8a7ea9c2dd57bb337</id>
+				<org>Erfolgreich</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>074903d08100223f8f4f5efcaec73352</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>de1707496ef1fa73a956d6b02db54784</id>
+				<org>Fehlgeschlagen</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>d4e2a7dfef9507772ba103ae18f41cda</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>938d62458b984f15ccc750f0d12a6afd</id>
+				<org>Bedenkliche Einstellung</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>3ae41a99d0c3378daede207ef821c05a</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>adb781900af027be404e2e33bc297f51</id>
+				<org>Optimierungsbedarf</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>95ee1d6dfbf2d13d261998c0f1a5c92f</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>3ca804fe56c1fa6436f9bcc8a7c46bb8</id>
+				<org>Auf Ihrem System konnte das PHP-Modul &lt;b&gt;FTP-Library&lt;/b&gt; nicht gefunden werden. Dies hat zur Folge haben, dass das Download-Modul nur im Standard-Modus, jedoch nicht im FTP-Modus, verwendet werden kann</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>0667c74a2eb3e88387cb9da830a73ddc</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>5ae963e63928340137b8938216ed9492</id>
+				<org>Informationen - Interesante Server-Einstellungen im Überblick</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>af70f7f47dba8a265bb22e0f9b647f88</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>7417eeb41d24185403a02cdb71bb304d</id>
+				<org>Webserver</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>acdda872cd4ff414abb2b17a24b2d5f8</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>eddb48061fa1223c3ebac7425ab8f0f7</id>
+				<org>Freier Speicherplatz</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>669b915b8decbd6267889717b84d622f</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>2fec392304a5c23ac138da22847f9b7c</id>
+				<org>PHP</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>a460f8226f66a923bbe5cfa3ce252fd5</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>62a004b95946bb97541afa471dcca73a</id>
+				<org>MySQL</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>0245b71f15ff61a98de1343eca1d603b</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>45873bd9a1ef08dc2ca9ebb3dd5e0917</id>
+				<org>Key buffer size -  MySQL empfiehlt für optimale Performance: 25% des Arbeitsspeichers. Oft reicht weniger.</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>e2703fd3861681dc9e3e6fd4b5cc4257</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>3127d8996580e46f68c79aa744481830</id>
+				<org>Key blocks - Performance: Key_blocks_unused sollte niemals 0 erreichen! Wenn der Wert nahe 0 ist: key_buffer_size erhöhen</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>a32780374b3c20adb24829d573ff7630</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>5b5c44503f413bd376c69e45a2bfceba</id>
+				<org>Query cache - Beschleunigt MySQL-Abfragen. Sollte aktiv sein</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>6e41a72a6bf592be1b5c9e1c0eb26bc1</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>0fcc95d2bc2190504e692c1b0e8bb558</id>
+				<org>Sicherheit - Diese Einstellungen sollten aus Security-Gründen vorgenommen werden</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>eb7802db523703bcad9043f57e0f3b9d</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>649e57673cbf175e3684a22ca78c5197</id>
+				<org>Sie müssen einen Admin-Account anlegen, um fortfahren zu können</org>
 				<file>install</file>
 			</entry>
 			<entry>
-				<id>2d6e35fc9566cbdb84ed1df08ea76567</id>
+				<id>99ddd592c1eed478c374f84074ccbf2c</id>
+				<org>ACHTUNG: Der Aufruf der nächsten Seite kann bis zu einer Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>44a18f465e153de552cf7ba477e0b8dd</id>
+				<org>Verbdindung ok aber keinen Datenbanknamen angegeben.</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>30919743bfd257e68b3da745e4df17e6</id>
+				<org>Datenbank wurde erfolgreich Überschrieben.</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>1ac2c94e511f108f36d3da2954ba5ef6</id>
+				<org>Die Tabellenstruktur wurde erfolgreich angepasst</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>83e7ac51db2a979c0154cea4f31f5a21</id>
+				<org>Datenbankgenerierung</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>9d06d5514ed82c43aaf4eba3f8b2295a</id>
+				<org>Das Setup versucht nun die Datenbank zu initialisieren.</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>ac8323aa44be5ffc1395e4d9878a6487</id>
+				<org>Importsettings</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>fd944430e98693af42ca0d85f0b68834</id>
+				<org>wizard_importupload_caption</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>7a89dfff8185c6b71095c2fb1784c0df</id>
+				<org>wizard_importupload_subcaption</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>b15b7b0340f52d448dc6191fc9317f3a</id>
+				<org>Benutzer</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>dd1ba1872df91985ed1ca4cde2dfe669</id>
+				<org>News</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>cf1e8c14e54505f60aa10ceb8d5d8ab3</id>
+				<org>server</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>d97477d6d8a838ead9348185bb5b6742</id>
+				<org>Thread</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>b2e255e5cfd29133935ae00468406e2e</id>
+				<org>Troubletickets</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>4c13a0f237fca3cba3a7d63d2a7c165d</id>
+				<org>Zuletzt angemeldet</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>e402136bbbf3f32728e0bdcc50cfb792</id>
+				<org>Registrieren</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>1b9ab42b566b6e7bd605c9313d430539</id>
+				<org>Passwort vergessen</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>80545ef9178fc406a52cb1a9fdb040eb</id>
+				<org>Keine Einträge in den </org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>2fbba2aa21264d81881619d5fd6dbb7e</id>
+				<org>letzten 30 Minuten</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>8c7c0332388ef9862fb8b85f7bf88e21</id>
+				<org>Zu diesem Modul sind keine Einstellungen vorhanden</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>1b26a8bba6e841f1c375b283db5c1c61</id>
+				<org>Keine</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>c220e6690f8d6c2809ee9593012d1658</id>
+				<org>Dieses Modul benötigt keine Datenbank Tabellen</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>ee215187f3e610af6f72626ab7995770</id>
+				<org>Dieses Modul ist nicht aktiv.</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>64db6dadc009480fb44bef4f08ee07c0</id>
+				<org>Abhängigkeiten</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>89c5a5190426df049b6e313617e02029</id>
+				<org>Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>119a0682e2624633e02a773caec371da</id>
+				<org>Grün: Rechts kann kein Eintrag gelöscht werden, solange links nocht mindestens ein Wert auf diesen referenziert</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>8ef702dddbd3dc28197adad3254dbddd</id>
+				<org>Tabellen, die Tabellen dieses Moduls vorraussetzen</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>db7dd8175c2c1ea1622af8b4547b323f</id>
+				<org>Sprache wechseln. Achtung, nicht gesicherte &amp;Auml;nderungen gehen verloren.</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>2a6cc405419ee2c86a8f8b8d5abeec08</id>
+				<org>Ziel Sprache</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>67b46e8a03d8542528a9097a88d63b1a</id>
+				<org>Texte editieren.</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>da9e910785b339e391a9e910a5965b6e</id>
+				<org>Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:[br]%1</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>4484cab2f272040d09a283a001136299</id>
+				<org>Es wurden SQL-Fehler im Log gefunden, die auf eine nicht aktuelle Struktur der Lansuite-Datenbank hindeuten. Es wird empfohlen die Datenbank zu aktuallisieren.</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>e320dbe53b48b2eacd9ad742a118fb61</id>
+				<org>Datenbank jetzt aktuallisieren</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>84f181810c654721aee880a3187f1ed7</id>
+				<org>Konfigurationseinstellungen suchen</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>9be562988ac623e9e2b31d40d95c553f</id>
+				<org>Alle Felder</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>897356954c2cd3d41b221e3f24f99bba</id>
+				<org>Key</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>666b23dcd48ede325a744d21b1628e9e</id>
+				<org>Modul</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>689202409e48743b914713f96d93947c</id>
+				<org>Value</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>35bedb45241d6b3f70fa6f56197c3361</id>
+				<org>Beschreibung</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>f08620b4c5eccde44ce089f603b63948</id>
+				<org>Sind Sie sicher, dass Sie &lt;b&gt;'alle Konfigurationen'&lt;/b&gt; zurÃ¼cksetzen möchten? Damit gehen alle Ihre Moduleinstellungen verloren!</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>c780db0f6cfd1bdad7fc8065bb494da1</id>
+				<org>Sonstige neue Kommentare</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>ec587aecd4a4830ab84f0c3ae0c6a2dd</id>
+				<org>Keine Einträge vorhanden</org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
 				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
 				<file>install</file>
 			</entry>
 		</content>

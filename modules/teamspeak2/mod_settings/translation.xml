@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,133 +15,71 @@
 			<entry>
 				<id>82e266c2029974fe3e5a853d2d884cec</id>
 				<org>Nickname eintragen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>teamspeak2</file>
 			</entry>
 			<entry>
 				<id>58e62b3f8cbbe2cf014f88b4323280ec</id>
 				<org>Konnte nicht zum Server verbinden, da Sie kein Nickname eingetragen haben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>teamspeak2</file>
 			</entry>
 			<entry>
 				<id>05b8ce1af5b41b0d1866743d25a6575f</id>
 				<org>Teamspeak Server Passwort eintragen fÃ¼r</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>teamspeak2</file>
 			</entry>
 			<entry>
 				<id>4fbc64274d15cb81b996ce63e6ddcedf</id>
 				<org>Konnte nicht zum Server verbinden, da Sie kein Teamspeak Server Passwort eingetragen haben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>teamspeak2</file>
 			</entry>
 			<entry>
 				<id>81e42920b94e166aac04484c029a2bcc</id>
 				<org>Channel Passwort eintragen fÃ¼r</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>teamspeak2</file>
 			</entry>
 			<entry>
 				<id>5c68f3801a25f1ae644a0ab9eb99721a</id>
 				<org>Konnte nicht zum Server verbinden, da Sie kein Channel Passwort eingetragen haben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>teamspeak2</file>
 			</entry>
 			<entry>
 				<id>50287fc12e1f89d8549b65b07c831d31</id>
 				<org>Kein Teamspeak Server konfiguriert.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>teamspeak2</file>
 			</entry>
 			<entry>
 				<id>22f8fec819121753239cc7d94cdbfe85</id>
 				<org>Ãœbersicht der Channels und User auf dem TeamSpeak Server. Um auf den Server zu connecten, einfach auf einen Channel klicken und den Anweisungen folgen.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>teamspeak2</file>
 			</entry>
 			<entry>
 				<id>8faa77c9cf7465efb7d16af6a0b2630c</id>
 				<org>AUS</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>teamspeak2</file>
 			</entry>
 			<entry>
 				<id>2958e457c4bceb5786345e5e2d7817fe</id>
 				<org>Aktivieren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>teamspeak2</file>
 			</entry>
 			<entry>
 				<id>d9681d05860552e9c3113da381f916fc</id>
 				<org>AN</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>teamspeak2</file>
 			</entry>
 			<entry>
 				<id>5e3e07837e609be93787d022ed8c52ab</id>
 				<org>Deaktivieren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<file>teamspeak2</file>
+			</entry>
+			<entry>
+				<id>7257c31fe2f87a7eaf54c0cea3e2c234</id>
+				<org>Teamspeak Server Passwort eintragen für</org>
+				<file>teamspeak2</file>
+			</entry>
+			<entry>
+				<id>5a781160e44f1875982d9451f8b08bed</id>
+				<org>Channel Passwort eintragen für</org>
 				<file>teamspeak2</file>
 			</entry>
 		</content>

@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,397 +15,181 @@
 			<entry>
 				<id>d4de1143d6971dfbbcfd38bdef9ac6f1</id>
 				<org>Dieser Kategoriename existiert bereits</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>cc007a445ca7f77fd974d4bd27e00bd1</id>
 				<org>Bitte geben Sie einen Namen für die neue Kategorie ein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>edd597784c485b0f27567b7d8a6567e9</id>
 				<org>Kategorie hinzufügen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>81f8331bba6ea39a14e654961b0bc2ee</id>
-				<org> Um eine Kategorie hinzuzufügen, füllen Sie bitte das folgende Formular aus. Für das Feld Kategoriename stehen Ihnen 30 Zeichen zur Verfügung.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Um eine Kategorie hinzuzufügen, füllen Sie bitte das folgende Formular aus. Für das Feld Kategoriename stehen Ihnen 30 Zeichen zur Verfügung.</org>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>c84770b242ae13be4caa332c1f05ce90</id>
 				<org>Neue Kategorie</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>63bf88bfe18b09a0d47754f1b1300714</id>
 				<org>Die Kategorie wurde erfolgreich eingetragen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>cc87976a8e24b634eb26157f629927f3</id>
 				<org>Die Antwort darf nicht mehr als 5000 Zeichen enthalten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>3e92a50d159088d9609feef463270501</id>
 				<org>Bitte geben Sie eine Frage ein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>ca75ec7a684a0981aba32330331ba217</id>
 				<org>Bitte geben Sie einen Text ein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>56be20cdf1f36b704fda35167b6fe81f</id>
 				<org>Bitte wählen Sie eine Kategorie aus oder erstellen Sie eine neue Kategorie</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>b00c9a2e9e9191137a14b2254928a9f2</id>
-				<org>Bitte wählen Sie eine Kategorie aus --lt--b--gt-- ODER --lt--/b--gt-- erstellen Sie eine neue Kategorie</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Bitte wählen Sie eine Kategorie aus &lt;b&gt; ODER &lt;/b&gt; erstellen Sie eine neue Kategorie</org>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>fa348c5d45be8754b906452cc89a53ed</id>
 				<org>Frage hinzufügen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>ef0baa08838050876ef9f39e9e0b0b5d</id>
 				<org>Kategorie wählen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>b78e686563dcf74da296977d1ba42ada</id>
 				<org>Frage / Überschrift</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>47e986faf70aeaafd107c5227e4374ce</id>
 				<org>Bestehende Kategorie</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>870783b7a522226969f7be735310e1ef</id>
 				<org>Die Frage und die Kategorie wurden erfolgreich eingetragen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>fb5c70a0600404de3937558c38527959</id>
 				<org>Die Frage wurde erfolgreich eingetragen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>bef6e267fb80e8611244100262fe4754</id>
 				<org>Frage ändern</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>e90902410f3f2c21c062dd0446bf70e3</id>
 				<org>Diese Kategorie existiert nicht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>860b45ce5eac60c0c9028cb372234679</id>
 				<org>Die Kategorie wurde erfolgreich geändert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>ae86ac60037312f00598f522099b192e</id>
 				<org>Keine Einträge vorhanden.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>98c7687026aeb49b394ce7b001719b7f</id>
 				<org>FAQ ändern</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>20b8ece2557f76dc7c9d00a8250faafd</id>
 				<org>Auf dieser Seite sehen Sie häufig gestellte Fragen und deren Antworten. Die Fragen sind in verschiedene Kategorien eingeteilt, die Sie mit dem /'/+/'/-Symbol aufklappen können.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>48e3944a896517f7c209a3ff13ae71f2</id>
 				<org>Diese Frage existiert nicht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>7097c0d2bf3e3f5841e8f07f212e6b99</id>
 				<org>Frage und Kategorie wurden erfolgreich geändert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>7a35e3824e2c0edf7761c13a293392aa</id>
-				<org>Die Frage wurde erfolgreich ge&ändert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Die Frage wurde erfolgreich ge&amp;ändert</org>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>c69449b404ac920743d21133cbf736a4</id>
 				<org>FAQ löschen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>7913e26e1c96356d33f1f650dad4f65e</id>
-				<org>Sind Sie sicher, dass Sie die Kategorie  --lt--b--gt-- %1 --lt--/b--gt-- und die darin enthaltenen Fragen wirklich löschen wollen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Sind Sie sicher, dass Sie die Kategorie  &lt;b&gt; %1 &lt;/b&gt; und die darin enthaltenen Fragen wirklich löschen wollen?</org>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>d9fe7e61d7bc03d497c50c81df1ced33</id>
 				<org>Die Kategorie wurde erfolgreich gelöscht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>67ddc496ef581417360fe228ff6f64dc</id>
-				<org>Sind Sie sicher, dass Sie die Frage --lt--b--gt-- %1 --lt--/b--gt-- löschen wollen ?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Sind Sie sicher, dass Sie die Frage &lt;b&gt; %1 &lt;/b&gt; löschen wollen ?</org>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>a7f8402e6957ad98180d26555cfee205</id>
 				<org>Die Frage wurde erfolgreich gelöscht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>1fe917b01f9a3f87fa2d7d3b7643fac1</id>
 				<org>FAQ</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>0a68f6ca4707a573b22056beac3b0420</id>
-				<org>--lt--b--gt--F--lt--/b--gt--requently --lt--b--gt--A--lt--/b--gt--sked --lt--b--gt--Q--lt--/b--gt--uestions</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>&lt;b&gt;F&lt;/b&gt;requently &lt;b&gt;A&lt;/b&gt;sked &lt;b&gt;Q&lt;/b&gt;uestions</org>
 				<file>faq</file>
 			</entry>
 			<entry>
-				<id>e1d40458c7a2aad63846d06297d55130</id>
-				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>ccfe5b8991f93fde4c6a7967cdbfdc2d</id>
+				<org>Auf dieser Seite sehen Sie häufig gestellte Fragen und deren Antworten</org>
 				<file>faq</file>
 			</entry>
 			<entry>
-				<id>8ca88ef74d7c5d52b4b66890c3c79bb1</id>
+				<id></id>
 				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>faq</file>
 			</entry>
 		</content>

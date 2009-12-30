@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,3048 +15,1541 @@
 			<entry>
 				<id>ff16eac4bb1728bdfea6162a83b34d65</id>
 				<org>Ihr Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0df9bd6b9bc6b346c7dd48b4ed97ddb0</id>
 				<org>Es ist ein Fehler beim Versand der Informations-Email aufgetreten.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a48417c75c7820deee77f0706bec69ca</id>
 				<org>Ihre Anmeldung bei %1</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bd15dbd29f73a4865f4ab11b9c493202</id>
 				<org>Sie haben sich soeben bei uns auf %1 angemeldet. Damit Sie sich bei uns Einloggen können, müssen wir jedoch zuerst sicherstellen, dass Ihre Email korrekt ist. Klicken Sie zum Verifizieren Ihrer Email-Adresse bitte auf den folgenden Link %2</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>42fcab1bcd21ecc8e1c3ed814898903e</id>
 				<org>Es ist ein Fehler beim Versand der Verifikations-Email aufgetreten.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>80b436d74101b5f80e38aa566dabbe0b</id>
-				<org>Ihr Passwort lautet: --lt--b--gt--%1--lt--/b--gt--</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Ihr Passwort lautet: &lt;b&gt;%1&lt;/b&gt;</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>40ffb1db4249441fe2777eb856eaab88</id>
 				<org>Passwort falsch!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8fb16e2cdfa514dcb8fa5e91e591a8ec</id>
 				<org>Dieser Clan existiert bereits!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d383fa17b53fb01cc32ad7f9c1380011</id>
-				<org> Wenn Sie diesem beitreten möchten, wählen Sie ihn oberhalb aus dem Dropdownmenü aus.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Wenn Sie diesem beitreten möchten, wählen Sie ihn oberhalb aus dem Dropdownmenü aus.</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>af2544990da9f365b7e0d814e2b972a1</id>
 				<org>Sie verwenden nicht zugelassene Sonderzeichen in Ihrem Clannamen.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9ef16d98f70cf8bab901c12e4ca62645</id>
-				<org>Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: 'aaaaaaaaaaD--lt----lt--bbbbbbb--lt--ccccccc--lt----lt----lt----lt----lt----lt----lt--d'</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: 'aaaaaaaaaaD&lt;&lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b70acced570918cfb100f33d576ddae0</id>
 				<org>Prüfsummenfehler. Bitte überprüfen Sie Ihre Angabe. Sehr wahrscheinlich haben Sie eine oder mehrere Zahlen falsch abgeschrieben.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>4c396ddda998024fda8ea6f3d75ed920</id>
 				<org>Dieser Personalausweis ist leider bereits abgelaufen.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c5c0b38ed571190b92ef2995e27b0bab</id>
 				<org>Geburtstag</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d2baf6dc6d14fc7cb7f1f5c7444422ac</id>
 				<org>U18-Prüfung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>15c22e0be7fbfa97d9d48804b279acd8</id>
-				<org> Jahre</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Jahre</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>807134f0c9bc3dade943e99a2cd68f58</id>
 				<org>Straße und Hausnummer</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3248e23319978acd17f3a9ce3f126eb5</id>
-				<org>Bitte geben Sie Straße und Hausnummer in folgendem Format ein: "Straßenname 12".</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Bitte geben Sie Straße und Hausnummer in folgendem Format ein: &quot;Straßenname 12&quot;.</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>17bc9c00dbd5087fd51a7130f1bc56d8</id>
 				<org>Die Hausnummer muss numerisch sein.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>483445541aa3fcbb4446fc7fbcdc2fc9</id>
 				<org>PLZ und Ort</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>59bcf8bcc6646b03e94be2b39a99cdce</id>
-				<org>Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: &quot;12345 Stadt&quot;.</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8cf9142dabec9614610f3c0443e25453</id>
 				<org>Die Postleitzahl muss aus 5 Ziffern bestehen. Postleitzahlen mit weniger Ziffern bitte mit führenden Nullen schreiben (z.B. 00123).</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cca8493f6f1bd794b75879a6d8a7bbc7</id>
 				<org>Benutzername</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>97f56f5948579a25eb83c679970b71f8</id>
-				<org>Als Benutzer können Sie Ihren Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden Sie sich dazu bitte an einen Administrator.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Als Benutzer können Sie Ihren Benutzernamen, Bezahlt &amp; Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden Sie sich dazu bitte an einen Administrator.</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>fecc7b92efa313ac8de08d4094455c9e</id>
 				<org>Vorname</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>43895f9ec69cb177446921df9828c680</id>
 				<org>Nachname</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>136eaef8d0a72925dc72b45c3b350a83</id>
 				<org>Namen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b15b7b0340f52d448dc6191fc9317f3a</id>
 				<org>Benutzer</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7b7bc2512ee1fedcd76bdc68926d4f7b</id>
 				<org>Administrator</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>dddcdaa8264e6d96baadd43f324fbd83</id>
 				<org>Superadmin</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b7135bbf08bb1f4143db11ff0b7304a5</id>
 				<org>Benutzertyp</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2ff29d42364de1b39f0c9a5decddbdd6</id>
 				<org>Zugriffsberechtigung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e7f9bdeffdf2f3af91ea9f9053e3bb68</id>
 				<org>Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>67ca595570fe049fcd0e4b9625f5ef1e</id>
 				<org>Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1b26a8bba6e841f1c375b283db5c1c61</id>
 				<org>Keine</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3b77a53bb0cbab20a1d684f05c5cf8d6</id>
 				<org>Gruppe</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>082e55a73f10496681c84231dc1c88f7</id>
 				<org>E-Mail</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3e45af4ca27ea2b03fc6183af40ea112</id>
 				<org>Passwort</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9354a136f8293bb454e4f3e96413393a</id>
 				<org>Zugangsdaten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0cd6fcd5e4ec629f868a6aff2e8187e3</id>
 				<org>Vorhandener Clan</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bf15dea129590abcba1bab3e6a98afae</id>
 				<org>Neuer Clan</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>40ccd64464e8bfacd537f36519dad0a3</id>
 				<org>Webseite</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>603c07e2735df19b9a7ce091d7453d2b</id>
 				<org>Clan</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cc6c71eb9ea33fc3b29bc29eb79cf196</id>
 				<org>WWCL ID</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>52cc3b0a5af24cac3db06f3bbddba9aa</id>
 				<org>NGL ID</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>4a91af7cb25af50cd78ad670feeb59c0</id>
 				<org>LGZ ID</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>33d7e8e1b828ba633ab01cfd2dc90468</id>
 				<org>Ligen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>50d46c2f993f4c6ab66c095555dcc401</id>
 				<org>Adresse</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0975cf6baccb3862c31522c2b5b8fabc</id>
 				<org>Telefon</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f525aa846d36e5177cffd429d8bdca45</id>
 				<org>Handy</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>92316d41c56daf9140fc04509aecaaca</id>
 				<org>Kontakt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>39c6a9c3da84ae1e6456d11f2b9d7634</id>
 				<org>Personalausweis</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c3c53a7d3d270f9a0ddd32a53ff58e65</id>
 				<org>Keine Angabe</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3322b72720651014f6f473f0cf2dae22</id>
 				<org>Männlich</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c1a9d224abe4774fd94d39c4d8f883c4</id>
 				<org>Weiblich</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b33509e4101693a82829fd320a7394ef</id>
 				<org>Geschlecht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3a73d560367bf091921f74c8aa9b3d1c</id>
 				<org>Newsletter abonnieren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>85f7e39236b05dee70e5e08bf0b37bf2</id>
 				<org>Benutzerbild hochladen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a0b11c7923576079536aa8823eae2f67</id>
 				<org>U18-Vollmacht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>199292108b7b512477d90e905827cc64</id>
-				<org>Hiermit bestätige ich, die %1 der Veranstaltung --lt--b--gt--"%2"--lt--/b--gt-- gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Hiermit bestätige ich, die %1 der Veranstaltung &lt;b&gt;&quot;%2&quot;&lt;/b&gt; gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b54701c5e382484367f8626240b21d92</id>
 				<org>U18 Vollmacht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>aa7d1dea08ac9ea09f5e285e5cac5fe5</id>
 				<org>AGB bestätigen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2a70610f6a423f37edd79c0c32e81328</id>
-				<org>Hiermit bestätige ich die %1 der Veranstaltung --lt--b--gt--"%2"--lt--/b--gt-- gelesen zu haben und stimme ihnen zu.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Hiermit bestätige ich die %1 der Veranstaltung &lt;b&gt;&quot;%2&quot;&lt;/b&gt; gelesen zu haben und stimme ihnen zu.</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c4ae8cdfc66973e53c8a1970545a3e2b</id>
 				<org>AGB</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c31fe5dcdc7e7fdf050faf5e1bd0a418</id>
 				<org>Verschiedenes</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f0219d768e0b271002f1a49de97a8494</id>
 				<org>Bitte wählen sie ein Geschlecht aus.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>aa425556858b926477ad97703d250f2d</id>
 				<org>Bitte das korrekte Geburtsdatum eingeben.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e174ea03fb9b4d4b420c24cc91a382ef</id>
 				<org>Wollen sie auch gleich zur Lan-Anmeldung weitergeleitet werden?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b6246ce7fc6579128aeccde58ae02d2f</id>
 				<org>Passwort inkorrekt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>86c663f404587b4084a53e144ab877f7</id>
 				<org>Derzeitiges Passwort</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c8a18c65f4dae9b897a5449b335132c7</id>
 				<org>Neues Passwort</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bf92b28c96a95efc99b27a0e81d3756a</id>
 				<org>Es gibt keine aktive Party. Bitte setzen Sie im Partymanager eine Party aktiv</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d89fcbbfe2a2bc8228f7e76cf1bbd533</id>
 				<org>Strichcode</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>57c7869106fd3be06d0e273a1fd8bbd3</id>
 				<org>UserID</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>23a5ad1d8681f33734695c0b153e119e</id>
-				<org>Bereits --lt--b--gt--angemeldeten Gast einchecken--lt--/b--gt--</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Bereits &lt;b&gt;angemeldeten Gast einchecken&lt;/b&gt;</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2d7495658fddc98d952bd37fed16ef3d</id>
-				<org>Bereits --lt--b--gt--zu einer vergangenen Party angemeldeten Gast einchecken--lt--/b--gt--</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Bereits &lt;b&gt;zu einer vergangenen Party angemeldeten Gast einchecken&lt;/b&gt;</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e9ef2295a1778c5f4ecdab8a7f596c4b</id>
-				<org>Neuer Gast. Einen --lt--b--gt--Account erstellen--lt--/b--gt--HTML_NEWLINE--lt--i--gt--Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.--lt--/i--gt--</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Neuer Gast. Einen &lt;b&gt;Account erstellen&lt;/b&gt;HTML_NEWLINE&lt;i&gt;Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.&lt;/i&gt;</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c782f31af2e1ff59bc9b4f2baff7c79f</id>
-				<org>Neuer Gast. Einen --lt--b--gt--erweiterten Account erstellen--lt--/b--gt--HTML_NEWLINE--lt--i--gt--Hier legen Sie direkt am Einlass alle Benutzerdaten fest.--lt--/i--gt--</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Neuer Gast. Einen &lt;b&gt;erweiterten Account erstellen&lt;/b&gt;HTML_NEWLINE&lt;i&gt;Hier legen Sie direkt am Einlass alle Benutzerdaten fest.&lt;/i&gt;</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>78b02c8ee4330aae24c314a1855aa475</id>
 				<org>Benutzer hinzufügen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f0534f5fcf89fd9f2435e4950a639477</id>
 				<org>Um einen Benutzer hinzuzufügen, füllen Sie bitte das folgende Formular vollständig aus.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>142cdad3ef137e208c6eaf2170239bc3</id>
 				<org>Wollen Sie diesem Benutzer einen Sitzplatz zuweisen?HTML_NEWLINEEr sitzt aktuell auf:HTML_NEWLINE%1</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b2aae3c7d634947aab328ac19c35e68d</id>
-				<org>Der Benutzer --lt--b--gt--%1--lt--/b--gt-- wurde erfolgreich eingecheckt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Der Benutzer &lt;b&gt;%1&lt;/b&gt; wurde erfolgreich eingecheckt</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>720a9a802bfab300eaca38db3b084ca9</id>
 				<org>Sie verwenden nicht zugelassene Sonderzeichen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e8e14b3f2a312b4445e1cd9b21e60ea3</id>
 				<org>Sie haben nicht die erforderlichen Rechte, um einen Admin zu löschen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e96b0bf437569f756c2080d02a904c5c</id>
 				<org>Dieser Benutzer wurde bereits gelöscht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>06e03e4e219d2def8f8245c9cb8c76da</id>
 				<org>Sie können sich nicht selbst löschen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e82bdb44c13b0a39d0d9a1a51e062958</id>
 				<org>Dieser Benutzer existiert nicht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7fac17024083ce56dc3eab15063a52e4</id>
 				<org>Dieser User wurde gelöscht!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8ec6a02760b2b1ddc197f5e6215cd4c6</id>
 				<org>und den vorhandenen Sitzplatz freigeben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0b5bda8c70c6963539fcb4b15f14e721</id>
 				<org>Sind Sie sicher, dass Sie den Benutzer %1 wirklich löschen %2 wollen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>4f9e4eeb954a29300ffef6b4a6bccaf8</id>
 				<org>Der Benutzer wurde erfolgreich gelöscht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c376a6f568cb18c10a5d5193c253a9cb</id>
 				<org>Organisator (gesperrt)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ee89f826c84e92934d31338404c5dd01</id>
 				<org>Gast (gesperrt)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>22ace15ab07978febd9fd6de38557302</id>
 				<org>Gast (deaktiviert)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>073d1761d3ec7841355ae85fb1dfa522</id>
 				<org>Organisator</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>97d56bdb0ad6fa9d7205deecd0806956</id>
 				<org>Spielerinfos</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bf2129aece92fe202715f8914e9d9e95</id>
 				<org>Sonstiges</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>133411acb622893dc763a14a76f62794</id>
 				<org>Eigene Felder</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a9c4b6c9fbd990849d1f128dfc4ed3e7</id>
 				<org>Sessions</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e4f7e6a9b71a60365e5878c5fa2e4ddf</id>
 				<org>Userdetails von %1</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2bec7cc6645b62e2d48b2020b119cba7</id>
 				<org>Hier finden Sie alle Details zu diesem User. Am Ende der Seite finden Sie alle Funktionen, die Sie auf den User anwenden dürfen.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>53cabb79721cace0768b2bd99ac9fe0f</id>
 				<org>Account freigeben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>01b2c729c9f6dc18d5be344fb1e15990</id>
 				<org>Account sperren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2bc5c0d9fe07727f725f7b34fe152efe</id>
 				<org>Benutzer wechseln</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>aea804c7071ed45c1f3641c003ddd006</id>
 				<org>Passwort ändern</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9e9cec8bc20dcdafcc5d6eadfcd13482</id>
 				<org>Benutzergruppe</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>fa34f691af35ed01cef03fda4faa8b1c</id>
 				<org>Keiner Gruppe zugeordnet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>31493eab02656fe21f6ba7b29293bf5e</id>
 				<org>Angemeldet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8c15679a81c7ec9625771462fc6100d0</id>
 				<org>Nicht Angemeldet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ad60cf5dd813abd16900c25dc1069c84</id>
 				<org>Bezahlt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9eabaacbbbdd3c37fe4da3e3f83dca74</id>
 				<org>Nicht bezahlt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cdbdbaf870ffa1beed206f0211d46ad7</id>
 				<org>Abendkasse</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9172c147d3e074952cc2c5542abced2d</id>
-				<org> gezahlt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>gezahlt</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a3ec8fba4b09873489782e9375548b76</id>
-				<org> NICHT gezahlt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>NICHT gezahlt</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b2f7016decfeff062c7d93e24026e7e3</id>
 				<org>Eingecheckt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>391916c78f84bcd02911270f1e31bdf9</id>
 				<org>Nicht eingecheckt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>345613e04c19c374f9b4915c141cff93</id>
 				<org>Ausgecheckt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>26361d584204ed388d8b05b3aae400bf</id>
 				<org>Nicht ausgecheckt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>919885c924275a788504778d4fb7a2b1</id>
 				<org>Kein Sitzplatz ausgewählt / zugeteilt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>72109ac727f431c9c7e193f06c530625</id>
 				<org>Sitzplatz</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c3746ea7afe3a36ab1954d6416b54f8f</id>
 				<org>LANSuite-Mail an den User senden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ce8ae9da5b7cd6c3df2929543a9af92d</id>
 				<org>Email</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>5c5d206956a9d22b3af98afa3567a909</id>
 				<org>Benutzer ist Online</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>75d7b5135e3492bafc21653def3a4e04</id>
 				<org>Benutzer ist Offline</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ecdc7ffafe7a5b5058e9f1e5585d8b78</id>
 				<org>Den User zu Ihrer Buddyliste hinzufügen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a7468612383cbc998a13587c659a6d38</id>
 				<org>Passnummer / Sonstiges</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d0c1334318d5c2a27eb3b34dc8bad4d9</id>
 				<org>Hinweis: Die Angaben zu Straße und Passnummer sind nur für Sie und die Organisatoren sichtbar.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c623e5ccec29982407b194ef78079880</id>
 				<org>Nicht angegeben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>fa2219740e195a6a88e8996baf902e5a</id>
 				<org>Benutzerbild</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7bb5b2b26fb24e353740cf379232fe65</id>
 				<org>Board Posts</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2723788f31e57b2644a580e82e0f3631</id>
 				<org>Letzte 10 Threads</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>da2fcb1e3070b3d66f50bca40147ebf6</id>
 				<org>Logins</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f9144a923cd7766eb8e26e341b9ed75f</id>
-				<org>am/um: </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>am/um:</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ac4c78bc02167273a98c3ec529f98992</id>
 				<org>noch nicht eingeloggt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f57c6cbb5423af158ddc14394f5f67a7</id>
 				<org>Letzter Login</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>62d8bdb300a5ee6ba99a16738b18e786</id>
 				<org>Signatur</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>6d8cd478dba1daf6bd88f206befedc00</id>
 				<org>Dieser Benutzer hat keinen Avatar ausgewählt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>40dba2c0dfb0a075372ff47065b50815</id>
 				<org>Session-ID</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a12a3079e14ced46e69ba52b8a90b21a</id>
 				<org>IP</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3d60e1651d302a5aaf33325d3f7d6298</id>
 				<org>Login?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b69df945ae986e6b1882cdc87ad19617</id>
 				<org>Hits</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d7e637a6e9ff116de2fa89551240a94d</id>
 				<org>Visits</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>770d534783c837e962411a1cb140d294</id>
 				<org>Letzter Aufruf</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b34a94ed6c29e661d98a252e34fa390e</id>
 				<org>Eingeloggt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3a88ce0911552406a97b8586e86a7ee8</id>
 				<org>Benutzerübersicht</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>36b6716390932caec61d6e0a47cc6464</id>
 				<org>Vorheriger Benutzer</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>5dca8c95fb60b331c098a03dae6a6092</id>
 				<org>Nächster Benutzer</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1f94b920cbb6530663d40b6540c76fcf</id>
 				<org>Keine zuweisung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b85145adbca4dc969d89cf96e9546a8b</id>
 				<org>Alter</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b71458124f924a7a956ef5aac8b3eb99</id>
 				<org>M�nnlich</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b1a63d3835a2ce74a29b554d96e75b70</id>
 				<org>Ortschaft</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>5e5f7323f2adb9765fbc13f59307bbd7</id>
 				<org>Geben Sie einen Gruppennamen ein</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1995495b92941998a46a49513a1055dc</id>
 				<org>Alter wurde falsch angegeben bitte in der Form 14+ , -18 oder 15-17 angeben.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bbff3cb1e10d06bdeed1ad7fbc8714d4</id>
 				<org>Bitte eine Stadt angeben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7852bfcea2c56ec4d6fe011cf467d249</id>
 				<org>Gruppenverwaltung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cb1ecfb3f6560c25d0037c10d722a83f</id>
 				<org>Erstellen Sie Benutzergruppen um unterschiedliche Preise zu verlangen.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9a42c14b3e26b60502de2820e516d261</id>
 				<org>Benutzer einer Gruppe zuweisen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d7d001377af53f0336a8a6eca47aa1a7</id>
 				<org>Gruppenname</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f79a9b06387e8fc9f3f834237971be91</id>
 				<org>Benutzergruppenbeschreibung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>63e2138e7684040e9918a16c5012e0a0</id>
 				<org>Automatische Zuweisung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>13eef23234ac36a2f4efc0154f96be98</id>
 				<org>Zuweisungsbegriff (f�r Alter z.b. 18+, 16-18, -18)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0e895454f7f9532b6f2df000c4f71fe1</id>
 				<org>Automatisch Zuordnung sortieren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b31de82a35d22eae31bae787e998168f</id>
 				<org>Benutzergruppe wurde hinzugef�gt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a00c02c7918dd48a303271c150091adf</id>
 				<org>Benutzergruppe wurde erfolgreich editiert.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c209b2ea7e2a3049c0c59951c9999a24</id>
 				<org>Die Benutzergruppe konnte nicht angelegt werden.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2ea0b06ae2c1160f8a57255a35373c5b</id>
 				<org>Gruppe ausw�hlen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a6e78ded0ea697c12872f1f7a8a85bfe</id>
 				<org>ist in der Gruppe</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>df2a692b4c6dbf4631795539636aa5b4</id>
 				<org>ist in keiner Gruppe</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>5a5c644448564dfa9a6ec27b273190bd</id>
 				<org>Wollen Sie diese Benutzer der Gruppe %1 zuweisen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>483a854f6b746a7eacad4e1974fbdcea</id>
 				<org>Wollen Sie den Benutzer %1 der Gruppe %2 zuweisen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>eb360dda2e3d61791c7d384eeb40dac6</id>
 				<org>Die Gruppenzuweisung wurde erfolgreich durchgef�hrt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>31e12de04249eab983553dc91459c0a0</id>
 				<org>Gruppen sortieren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>54f668e09cf179fd8fb1b3a1cd025019</id>
 				<org>Hier k�nnen Sie die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die h�chste Priorit�t</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>98b0e913db21dbfc8c8572b40bfa82b4</id>
 				<org>Wollen sie die Gruppe %1 wirklich l�schen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>6d511b0089ea73f7f3b11a3cae563031</id>
 				<org>Gruppe zuweisen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>54f4731545f7549313ce1f8dcb071198</id>
 				<org>Welche Gruppe m�chten Sie den Benutzern die in der gel�schten Gruppe sind zuweisen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>419c212762172d0f7da33179e04fa063</id>
 				<org>Gruppe erfolgreich gel�scht.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e75792f08d1cd6274cbf05a3f13eb7eb</id>
 				<org>Benutzerkarte</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>36a8b3af3d2ee9b76c28cd4f0d1ae41a</id>
 				<org>Auf dieser Karte finden Sie alle Benutzer, die eine PLZ eingegeben haben.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>30db0e19953c0646116e81ec1c8ed728</id>
 				<org>Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bf5499349feba8c07fafd9c9f88db427</id>
 				<org>AdminSeite in den Allgemeinen Einstellungen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a180c183e819635b20bcc1a94310c4cb</id>
 				<org>Unvollständiges Benutzerprofil</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1784d98330683fbda5d224bdca9de1c5</id>
 				<org>Es gibt noch unausgefüllte Pflichtfelder in Ihrem Benutzerprofil. Bitte pflegen Sie diese nach</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e0eec00c478b84151a4433e16b461500</id>
 				<org>Eintrittskarte drucken</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3cfa0c33ca17502b148b9c7d69cc086a</id>
 				<org>Diese Seite ermöglicht es Ihnen Ihre Eintrittskarte zur Veranstaltung auszudrucken</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>878508319b73dfe092a35c3676230e3e</id>
-				<org>Eintrittskarte anzeigen (Bitte speichern sie die Datei vor dem &ouml;ffnen ab.)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Eintrittskarte anzeigen (Bitte speichern sie die Datei vor dem &amp;ouml;ffnen ab.)</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>74b47e4fdda9347c68b8762b0b07747c</id>
 				<org>Für die Eintrittskarte muss das PDF-Modul aktiv sein und es muss ein Template eingestellt sein.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b0d2b68c2b194c535082d58517796fa7</id>
-				<org>Sind Sie sicher, dass Sie dem Benutzer --lt--b--gt--%1% %2% (%3%)--lt--/b--gt-- ein neues Passwort zuweisen wollen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Sind Sie sicher, dass Sie dem Benutzer &lt;b&gt;%1% %2% (%3%)&lt;/b&gt; ein neues Passwort zuweisen wollen?</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a25a2b45a188ba2953655d6ee01763fd</id>
 				<org>Sie verfügen über ein geringeres Benutzerlevel, als derjenige, auf den Sie diese Funktion anwenden möchten. Es wurde kein neues Passwort generiert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0d4955cb9ce166c5a17ea5b9941bd0cb</id>
-				<org>Das Passwort von --lt--b--gt--%2 %3 (%4)--lt--/b--gt-- wurde erfolgreich geändert.HTML_NEWLINEDas neue Passwort lautet --lt--b--gt--%1--lt--/b--gt--.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Das Passwort von &lt;b&gt;%2 %3 (%4)&lt;/b&gt; wurde erfolgreich geändert.HTML_NEWLINEDas neue Passwort lautet &lt;b&gt;%1&lt;/b&gt;.</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>30727110f2a5709d338764ed643b2b2e</id>
 				<org>Eine Bestätigung der Anmeldung wurde an Ihre E-Mail-Adresse gesendet.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e42b75af3c2fe0641e48b717d80fc4ac</id>
 				<org>Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8ca7152b0410c22edc383581c375abac</id>
 				<org>Aktuell sind keine Partys geplant.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>dde3f908a92cf1d24f81bae749d973fb</id>
 				<org>Sie können Sich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f3dbefb496131bb1fdac8a64e50d8585</id>
 				<org>Die Anmeldung öffnet am</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a7c299aa1de86dfc789a9195e9c65f04</id>
 				<org>Die Anmeldung ist beendet seit</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c297fc3c889bb0b4b2c511599d4abfc4</id>
-				<org>Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf &quot;nicht bezahlt&quot; zu setzen, bevor sich abmelden</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c3998db674d32a76bc6f7fc5e6892314</id>
 				<org>Wenn dieses Häckchen gesetzt ist, sind Sie zu dieser Party angemeldet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>21f0af220cbea00120a1bdfa19b4d6f3</id>
 				<org>Bezahlt - Abendkasse</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>4b3d45867e3166b92bfc351c85c796c4</id>
 				<org>Bezahltstatus</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>30c64856e560daffcefc742493cb9069</id>
 				<org>Eintrittspreis</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>74d2882ce8f651d09013eeaa1213a8ee</id>
 				<org>Für diese Party wurden keine Preise definiert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>5936cd25dce7742711410aea58f7f4a9</id>
 				<org>Bezahltdatum</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0adb610472e8bd6164e0c959b9d53ec8</id>
 				<org>Anmeldedatum</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8b08876e45a04360dd78df5e0ab4c28a</id>
 				<org>Vergangene Partys</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f4f97331e7600b250dede6f17a901435</id>
 				<org>Sie waren angemeldet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b03c4737658f2c7c1acfe99c88865aa1</id>
 				<org>, aber hatten nicht bezahlt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>dd99acb9f6f5c7b0c0db42e66935f3e3</id>
 				<org>und hatten per Vorkasse gezahlt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>820b938e3d30e48cc5a1d55c3a76dced</id>
 				<org>und hatten per Abendkasse gezahlt.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2605f3d5b4810082160ca896d406386d</id>
-				<org>Eingecheckt: </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Eingecheckt:</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ff5b42295215a52932a04a00a5aa284a</id>
-				<org>Ausgecheckt: </org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Ausgecheckt:</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2b060a1acdf7413bd86a173f4d961c49</id>
 				<org>Du warst nicht angemeldet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1b9ab42b566b6e7bd605c9313d430539</id>
 				<org>Passwort vergessen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>932ae3abe7672bf1a294a32081a9235c</id>
 				<org>Mit diesem Modul kÃ¶nnen Sie sich ein neues Passwort generieren lassen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>042dc3e0f32f96a3e68b6aa6fccdcd17</id>
 				<org>Diese Funktion ist nur im Internetmodus verfÃ¼gbar</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cbf324cfe96536e78ae69a061eaa7181</id>
 				<org>Für den System-Account darf kein neues Passwort generiert werden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>252148a47b3fdbfa32da59349bad9053</id>
 				<org>Ihnen wurde nun eine Freischalte-URL an die angegebene Emailadresse gesendet. Mit dem Aufruf dieser URL wird Ihr neues Passwort generiert werden.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c6cd2b5322ded901134c16b3261a34a9</id>
 				<org>Die von Ihnen eigegebene Email existiert nicht in der Datenbank</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0f1f9436e12aefcfe1bb87154229936c</id>
 				<org>Das neue Kennwort wurde erfolgreich generiert.HTML_NEWLINEEs lautet:</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>106953b3883d86158f874bd735a18f7c</id>
 				<org>Der von Ihnen Ã¼bermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prÃ¼fen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a5f6126a37c91e5ffce3181cde6eef53</id>
 				<org>Bitte geben Sie die Email-Adresse ein, mit der Sie sich am System angemeldet haben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f2c51fef2ce6d144b0f4c162e617aee0</id>
 				<org>Ihre Email</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>60c00ad88b5e169f3249fa4230436e40</id>
 				<org>Nicht Gast</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e729d5b15056a33b2e599e91157ff93e</id>
 				<org>Deaktiviert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e3afed0047b08059d0fada10f400c1e5</id>
 				<org>Admin</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>6acebd87e0a2d48d33d7e62907ccd8ea</id>
 				<org>Admin, oder Superadmin</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a224e304ae6ecef2e2d67bfc52c373e5</id>
 				<org>Zahlstatus</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0e156cab485b12c9d94b358b54f62d39</id>
 				<org>Bezahlt per Vorverkauf</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7120093a4cd2e464c529cbbf73338cbe</id>
 				<org>Bezahlt per Abendkasse</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f9a26283d7a8988b63a8f9f5f681ab76</id>
 				<org>Unbekannt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>257a7d1690e744ce71907dbbab30eb44</id>
 				<org>Weblich</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9b945efebb006547a94415eadaa12921</id>
 				<org>Accounts</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d9a82bf69d27432236297f443af9d0be</id>
 				<org>Nur freigegebene</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>28126ff6c83a909c81fdcc768399bf8d</id>
 				<org>Nur gesperrte</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>116f77d62b6084d13e0e88920f9cce08</id>
 				<org>Partyanmeldung</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3e108ee61ea675d22d971783d9281371</id>
 				<org>Mail senden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3feb60cc8933aae7bdc33af66b0010ac</id>
 				<org>Geld auf Konto buchen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0e973da33f58680a5a079821f3f4d7e1</id>
 				<org>Kontostand zeigen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d823e4620ec3222dd9e3aaf93a8cc5b9</id>
 				<org>Freigeben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>950b650b6e401fbf52327f2191f5f5c3</id>
 				<org>Sperren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7d43e5722e659bb5d4f02c073fa19006</id>
 				<org>Accounts wurden gesperrt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>6b54f68f6c7eaa4f8bbbe099c730e5ea</id>
 				<org>Accounts wurden freigegeben</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>13fd9321f108c7827ac9e7b0c1c6c949</id>
 				<org>Gelöschte User</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b862a1b61b8434fa18bc6aaa20f7b3d8</id>
 				<org>Orgas</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>59e7393fc4842bdded062b767c9ad743</id>
 				<org>bezahlt per Abendkasse</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>be92243cd892ea9cfdf97fc86bbad262</id>
 				<org>Geschlecht unbekannt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>183920a8ab5bd9e0bcdeff70406e9d60</id>
 				<org>ist männlich</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e9ef705fb9f40a416d2d69d3fd430bc2</id>
 				<org>ist weiblich</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>33b940eef9dfa7d1cd2ce35d01b5255b</id>
 				<org>Zuweisen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>dba046ea55236c2dc38416e938ab7213</id>
 				<org>Userid</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c52c2ade97623bbed2a5578b368f4a4a</id>
 				<org>Bitte eine Grafikdatei auswählen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>4df15ef563aee0ab5a8a99f3abff632b</id>
 				<org>Standard Design</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1afa74da05ca145d3418aad9af510109</id>
 				<org>Design</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>fd54efce6a0bc90e7662608c7cf9e26b</id>
 				<org>Mich auf der Karte zeigen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c3aaf4ccdf112fa459b8753b843d4d1b</id>
 				<org>Meine Adresse in der Besucherkarte anzeigen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>de18b20ac5c08031ca1d00d024263339</id>
 				<org>LS-Mail Alert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9bb4d53bb5ed74f3221f4c5e68f0dc88</id>
 				<org>Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a09d8126df9d144a38010d6482649bda</id>
 				<org>Email-Adresse verifizieren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c3f497fb804c7651f47f01bb89d91bf5</id>
 				<org>Ihre Email-Adresse wurde erfolgreich verifiziert. Vielen Dank!</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b871c0aeabd5f0a2f4d136f3613c73e7</id>
 				<org>Der von Ihnen Übermittelte Verifizierungscode ist inkorrekt! Bitte prüfen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2c4c27cd20c81464afd5f280cce9d6e7</id>
-				<org>Neuer Gast. Einen --lt--b--gt--Account erstellen--lt--/b--gt----lt--br /--gt----lt--i--gt--Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.--lt--/i--gt--</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Neuer Gast. Einen &lt;b&gt;Account erstellen&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.&lt;/i&gt;</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cf8f638099c7276677856b18e018a6b5</id>
-				<org>Neuer Gast. Einen --lt--b--gt--erweiterten Account erstellen--lt--/b--gt----lt--br /--gt----lt--i--gt--Hier legen Sie direkt am Einlass alle Benutzerdaten fest.--lt--/i--gt--</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Neuer Gast. Einen &lt;b&gt;erweiterten Account erstellen&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Hier legen Sie direkt am Einlass alle Benutzerdaten fest.&lt;/i&gt;</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c59bf87ad94077fa158bcbd9490f2190</id>
-				<org>Wollen Sie diesem Benutzer einen Sitzplatz zuweisen?--lt--br /--gt--Er sitzt aktuell auf:--lt--br /--gt--%1</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Wollen Sie diesem Benutzer einen Sitzplatz zuweisen?&lt;br /&gt;Er sitzt aktuell auf:&lt;br /&gt;%1</org>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7fe5866e05aeff64093ea7a80791ef6a</id>
 				<org>Zuweisungsbegriff (für Alter z.b. 18+, 16-18, -18)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0777cc0701de1a4f0735e386afeb81b5</id>
 				<org>Benutzergruppe wurde hinzugefügt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d6d184a5f59a5656fc39e97c2aec760d</id>
 				<org>Gruppe auswählen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3fc8436c69de241f2f15bc0abe590b09</id>
 				<org>Die Gruppenzuweisung wurde erfolgreich durchgeführt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>322300b8c47b9c8651823cad639c4a1f</id>
 				<org>Hier können Sie die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die höchste Priorität</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3fcab896f8f6bd9868e49ab3858e457d</id>
 				<org>Wollen sie die Gruppe %1 wirklich löschen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1dbf8f1a03e420baa7be645370a92edc</id>
 				<org>Welche Gruppe möchten Sie den Benutzern die in der gelöschten Gruppe sind zuweisen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9355d159f7d9eb018b5d5bb8ec8c7eb8</id>
 				<org>Gruppe erfolgreich gelöscht.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d626baeaf1303f8ed3000a49c73af2b4</id>
 				<org>Mit diesem Modul können Sie sich ein neues Passwort generieren lassen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7a45a7187490b2e72786c53a5ba2a495</id>
 				<org>Diese Funktion ist nur im Internetmodus verfügbar</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f191b53605c6341fe10e5ff0e43bc6d1</id>
 				<org>Der von Ihnen übermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prüfen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>df156eb68a6e72f3ef17e61e1a3552d0</id>
+				<org>Die Verifikations-Email ist versandt worden.</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>87405aa35e1fbb4d4a9d1b5ee4c6fa9f</id>
+				<org>Der von ihm gewünschte Preis war: </org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>eb46f9bb04c26e910c65e762b93c372b</id>
+				<org>Achtung: Der Benutzer wird mit der nächsten Seite auf Bezahlt gesetzt.</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>df0cac8401db444d0ad21e1faa1af0b5</id>
+				<org>Preis: </org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>452a73be664e385ee55980d6a7b53ab8</id>
+				<org>Zurück wechseln</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>7ea70a16624757199315bd1fbdd8a288</id>
+				<org>Ausloggen</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>51a8cf58189641aa8eb7e6e61e35712e</id>
+				<org>Pers. Details</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>194231a81cf56730eac805e131b9cd25</id>
+				<org>Pers. Einstellungen</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>0323de4f66a1700e2173e9bcdce02715</id>
+				<org>Logout</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>cfb02c9f943ba5136e21a9c5f9219d01</id>
+				<org>Zuletzt eingeloggt</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>418a783af339d833d98de81b33bf3268</id>
+				<org>Meine Einstellungen</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>acacdbb77afcd714b879a298f0977b09</id>
+				<org>Mein Clan</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>40d506c69f527b13cc7afcc978c4a7c8</id>
+				<org>Mein Postfach</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>11996162440d1846771669d9ec6e919d</id>
+				<org>Meine Eintrittskarte</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
+				<org>Nein</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>eb8e45201c095a4f7abcf90036ee7e57</id>
+				<org>Hier anmelden</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>375ee26098b46e23bcb854331f0ad8c5</id>
+				<org>Ja</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>042ea475b7d24dccc86ddb56b7c92722</id>
+				<org>Bezahlinfos</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>ec53a8c4f07baed5d8825072c89799be</id>
+				<org>Status</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>17a2725097ccbce4b0bbe1b69fb49aaf</id>
+				<org>Preis</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>1ced0b2dd2255a3651a2ffc02549ddb7</id>
+				<org>Benutzerdetails von %1</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>1bb5ed0dd7a4146d94d065e1d2560a16</id>
+				<org>Hier finden Sie alle Details zu dem Benutzer %1</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>6c018f871e5fbb17996d16723769069d</id>
+				<org>Zahlung vornehmen</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>741f8d0d219e75d3ecef8e9bee22ed37</id>
+				<org>Aktueller Kontobetrag:</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>f95d7d1c7a0596b921180ee48bd37cfd</id>
+				<org>Mail versenden?</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>117c2f9579cfb6e02e65d51990598940</id>
+				<org>Den Benutzer per Mail über die Änderung informieren</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>c3e78da0fc6aafb9cfe57ddf61779dec</id>
+				<org> und hatten bezahlt.</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>512ef7c688a2c8572d5e16f44e17e869</id>
+				<org>Land</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>b67cea1cc23f7e1eaf7e9578d06383d3</id>
+				<org>System-Vorgabe</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>27014dd1bf5fe7e41ced3bedfc4cd2aa</id>
+				<org>Einstellungen</org>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>4273b0921017d8b1ac66dcac6951c087</id>
+				<org>Dieser Benutzer ist noch zu einer Party angemeldet. Melden sie ihn zuerst ab</org>
 				<file>usrmgr</file>
 			</entry>
 		</content>

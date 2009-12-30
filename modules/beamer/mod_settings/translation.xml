@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -14,13 +14,12 @@
 		<content>
 			<entry>
 				<id>c78b743f36e25f1eb8897dbe06ee6dd8</id>
-				<org>Wirklich L&ouml;schen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Wirklich L&amp;ouml;schen?</org>
+				<file>beamer</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
 				<file>beamer</file>
 			</entry>
 		</content>

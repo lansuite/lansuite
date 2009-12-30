@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,573 +15,376 @@
 			<entry>
 				<id>30727110f2a5709d338764ed643b2b2e</id>
 				<org>Eine Bestätigung der Anmeldung wurde an Ihre E-Mail-Adresse gesendet.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>e42b75af3c2fe0641e48b717d80fc4ac</id>
 				<org>Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>c297fc3c889bb0b4b2c511599d4abfc4</id>
-				<org>Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf &quot;nicht bezahlt&quot; zu setzen, bevor sich abmelden</org>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>31493eab02656fe21f6ba7b29293bf5e</id>
 				<org>Angemeldet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>c3998db674d32a76bc6f7fc5e6892314</id>
 				<org>Wenn dieses Häckchen gesetzt ist, sind Sie zu dieser Party angemeldet</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>9eabaacbbbdd3c37fe4da3e3f83dca74</id>
 				<org>Nicht bezahlt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>7314aa603b390704793ed95fc0d41f98</id>
 				<org>Bezahlt - Vorverkauf</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>21f0af220cbea00120a1bdfa19b4d6f3</id>
 				<org>Bezahlt - Abendkasse</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>4b3d45867e3166b92bfc351c85c796c4</id>
 				<org>Bezahltstatus</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>30c64856e560daffcefc742493cb9069</id>
 				<org>Eintrittspreis</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>74d2882ce8f651d09013eeaa1213a8ee</id>
 				<org>Für diese Party wurden keine Preise definiert</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>5936cd25dce7742711410aea58f7f4a9</id>
 				<org>Bezahltdatum</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>b2f7016decfeff062c7d93e24026e7e3</id>
 				<org>Eingecheckt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>345613e04c19c374f9b4915c141cff93</id>
 				<org>Ausgecheckt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>0adb610472e8bd6164e0c959b9d53ec8</id>
 				<org>Anmeldedatum</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>225c3048aea0472017a03724225d66da</id>
 				<org>Partystatus ändern</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>dbdf9ba522023a170378afa9623fb605</id>
-				<org>Hier k&ouml;nnen sie die Anmeldedaten im Detail f&uuml;r jeden User / Party einstellen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Hier k&amp;ouml;nnen sie die Anmeldedaten im Detail f&amp;uuml;r jeden User / Party einstellen</org>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>0af296968c506e3918cb4fd569609ce4</id>
 				<org>Text für Eintrittspreis</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>17a2725097ccbce4b0bbe1b69fb49aaf</id>
 				<org>Preis</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>8df3f805c649152e26746661a7983e0f</id>
 				<org>Admins und Superadmins</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>58f64a9bdcf1459a2a3f1ba9b12a9ed9</id>
 				<org>Superadmins</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>1f3c7461657d164064c0eff75ef9940a</id>
 				<org>Beschreibung eines Depots</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>980d919791b82c6d337ca57be4fd692c</id>
 				<org>Depotpreis (Leer lassen, wenn es kein Depot gibt.)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>d7d001377af53f0336a8a6eca47aa1a7</id>
 				<org>Gruppenname</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>b4251d60fa4f136bf2fa8732ec6ed08e</id>
 				<org>Sichtbar für</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>abf7ac09dfe3da2923516dd75445cd7e</id>
 				<org>Gültig bis</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>64b1098d6777705f3921a1bb92dffb1b</id>
 				<org>Party anzeigen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>ab45c791ddd4695d8f647901e32c070f</id>
 				<org>Die Details der Partys.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>a97f3c5af10a3d51118a90c6c05002f1</id>
 				<org>Partyname</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>9548f502e461dace852f11129cd2311b</id>
 				<org>Anzahl Plätze</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>cd31dae2aeabc40bc5bb1094c182bf1c</id>
 				<org>PLZ</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>473390974397014edf78846c8f0e93b3</id>
 				<org>Ort</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>aed64cf84d53a5e8ecf28a9d4108b173</id>
 				<org>Party startet am</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>89ca9cb435647c3f67aefd38040868cb</id>
 				<org>Party endet am</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>132f88a2aca453d522e58e5bd846466d</id>
 				<org>Anmeldung startet am</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>01c9efe865c01816c1ef954a05921b4d</id>
 				<org>Anmeldung endet am</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>43f519d8bc795324340e613aa8391db0</id>
 				<org>Party auswählen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>0d757455651ad1f9693ce4d049bc4d10</id>
 				<org>Preis auswählen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>519254a57df6430bd507c3fe8a166cd2</id>
 				<org>Die Anmeldung von %ID% bei der Party %PARTY% wurde geändert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>c745ae9e66898b2e7fea506489bd1242</id>
 				<org>Ohne Gruppe</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>9e9cec8bc20dcdafcc5d6eadfcd13482</id>
 				<org>Benutzergruppe</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>fd27d51d3c25def0f73eadf1a4195437</id>
 				<org>Keine Benutzergruppe vorhanden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>4d30d83c330743e9f3e0f8eb49e68c16</id>
 				<org>Der Endzeitpunkt muss nach dem Startzeitpunkt liegen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>ca516c820763a265be48a5ea5eaf3681</id>
 				<org>Der Anmeldestart muss vor dem Partystart liegen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>47b03c1d5e9f4528668c2905263dc1ff</id>
 				<org>Der Anmeldeschluss muss nach dem Anmeldestart liegen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>dc4eab6cc679fe22f4c4d56d6e179b2d</id>
 				<org>Der Anmeldeschluss muss vor dem Partystart liegen</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>db301a401fc5c967406acf2921b74f9c</id>
 				<org>Die Daten wurden erfolgreich ge�ndert.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>246f0b0ab9e49ac6fb298a06ca3fa36c</id>
 				<org>Anzahl Pl�tze</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>4562044232d0676187bc533061ceb14b</id>
 				<org>Text f�r Eintrittspreis</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 			<entry>
-				<id>c51a2fcc8e29a8ff2955e3e1baa9b785</id>
+				<id>ad60cf5dd813abd16900c25dc1069c84</id>
+				<org>Bezahlt</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>64d129224a5377b63e9727479ec987d9</id>
+				<org>Counter</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>31ce770010c6671548a36168293f774a</id>
+				<org>Diese Party ist bereits vorüber</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>4d89dd5f9cb6886d2b0074c20c8f0a25</id>
+				<org>Die Party läuft gerade!</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>7af763f68c3438bf124d6d91d49391f3</id>
+				<org>Noch %1 Minuten.</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>f340726c83681d1eb5d1a1130523b071</id>
+				<org>Noch %1 Stunden.</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>9c9002470e77c1baf431bcf1b85c9287</id>
+				<org>Noch %1 Tage.</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>a2b4f8a78b76d51d6090fd54efbf1adb</id>
+				<org>Letzter Kontocheck</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>200adafa8a40db52970a5e124d0e001a</id>
+				<org>Der neue Abendkasse-Preis wurde gesetzt</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>375ee26098b46e23bcb854331f0ad8c5</id>
+				<org>Ja</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
+				<org>Nein</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>999a1fe4d3acf248cfab2d1651a9d8e3</id>
+				<org>Abendkasse-Preis?</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>44ad3109446e640ac2eb2ac75b5ce0d6</id>
+				<org>Unsere Partys</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>e00204588b6953c5c04f8b14701bd35d</id>
+				<org>Hier siehst du eine Liste aller geplanten Partys</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>116f77d62b6084d13e0e88920f9cce08</id>
+				<org>Partyanmeldung</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>094a173d3b32f44f5b5c996e8710ae28</id>
+				<org>Party</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>827ebef78fd80e4cd6af55afce7fa40c</id>
+				<org>Gäste bezahlt / eingecheckt / ausgecheckt</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>00dcb99942ed6de2085035d5f3704093</id>
+				<org>Besucher gesamt / Gerade eingeloggt</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>8c15679a81c7ec9625771462fc6100d0</id>
+				<org>Nicht Angemeldet</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>9172c147d3e074952cc2c5542abced2d</id>
+				<org> gezahlt</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>a3ec8fba4b09873489782e9375548b76</id>
+				<org> NICHT gezahlt</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>391916c78f84bcd02911270f1e31bdf9</id>
+				<org>Nicht eingecheckt</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id>26361d584204ed388d8b05b3aae400bf</id>
+				<org>Nicht ausgecheckt</org>
+				<file>party</file>
+			</entry>
+			<entry>
+				<id></id>
 				<org></org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>party</file>
 			</entry>
 		</content>

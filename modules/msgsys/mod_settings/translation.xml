@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -14,68 +14,57 @@
 		<content>
 			<entry>
 				<id>557b9ee2e2c8d804024a21dc5424e62f</id>
-				<org>Sie haben keinen Benutzer ausgew&auml;hlt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Sie haben keinen Benutzer ausgew&amp;auml;hlt</org>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>aeb723c7ed601f4e1b1d0cf5c0fb680a</id>
-				<org>Wollen Sie den Benutzer --lt--b--gt--%1 (%2 %3)--lt--/b--gt-- wirklich aus Ihrer Buddy-Liste entfernen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Wollen Sie den Benutzer &lt;b&gt;%1 (%2 %3)&lt;/b&gt; wirklich aus Ihrer Buddy-Liste entfernen?</org>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>a9010f2b374569ad92d33c24b372a201</id>
-				<org>Wollen Sie den Benutzer --lt--b--gt--%1--lt--/b--gt-- wirklich aus Ihrer Buddy-Liste entfernen?</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Wollen Sie den Benutzer &lt;b&gt;%1&lt;/b&gt; wirklich aus Ihrer Buddy-Liste entfernen?</org>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>770656677df22ab271f752b343b2cb2f</id>
 				<org>Dieser Benutzer befindet sich nicht in ihrer Buddy-Liste</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>7f618a1563f4c10ca80f19504e131511</id>
-				<org>Der Benutzer --lt--b--gt--%1--lt--/b--gt-- wurde aus Ihrer Buddy-Liste entfernt. Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf wirksam.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Der Benutzer &lt;b&gt;%1&lt;/b&gt; wurde aus Ihrer Buddy-Liste entfernt. Die &amp;Auml;nderung wird beim n&amp;auml;chsten Seitenaufruf wirksam.</org>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>46cab2c50eda5ecbd19e9fab5ac97c52</id>
-				<org>Der Benutzer --lt--b--gt--%1 (%2 %3)--lt--/b--gt-- wurde aus Ihrer Buddy-Liste entfernt. Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf wirksam.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<org>Der Benutzer &lt;b&gt;%1 (%2 %3)&lt;/b&gt; wurde aus Ihrer Buddy-Liste entfernt. Die &amp;Auml;nderung wird beim n&amp;auml;chsten Seitenaufruf wirksam.</org>
+				<file>msgsys</file>
+			</entry>
+			<entry>
+				<id>2dd4fbf756579b1aa33e66add42a4c24</id>
+				<org>Messenger mit %1 starten</org>
+				<file>msgsys</file>
+			</entry>
+			<entry>
+				<id>7c29f8d4c9c8834c1cdfc5743be781b4</id>
+				<org>Benutzer %1 aus Buddy-Liste entfernen</org>
+				<file>msgsys</file>
+			</entry>
+			<entry>
+				<id>34034107b5c56b5114fc3f25cc812377</id>
+				<org>Noch keine Buddies</org>
+				<file>msgsys</file>
+			</entry>
+			<entry>
+				<id>757289adb5f0fc254a0952cc6ad53396</id>
+				<org>Benutzer %1 in Buddy-Liste aufnehmen</org>
+				<file>msgsys</file>
+			</entry>
+			<entry>
+				<id>78b02c8ee4330aae24c314a1855aa475</id>
+				<org>Benutzer hinzufügen</org>
 				<file>msgsys</file>
 			</entry>
 		</content>

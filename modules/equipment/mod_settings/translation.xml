@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,133 +15,71 @@
 			<entry>
 				<id>eb9315a275dd760f891fd5213e7f00dd</id>
 				<org>Es wurde noch keine Orgapage.Net-ShopID angegeben. Diese kann auf der Admin-Seite in den Moduleinstellungen unter 'Equipmentshop' eingestellt werden</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>equipment</file>
 			</entry>
 			<entry>
 				<id>7258e7251413465e0a3eb58094430bde</id>
 				<org>Administration</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>equipment</file>
 			</entry>
 			<entry>
 				<id>eba3157f09b15d7430c64d5a3ce953b4</id>
 				<org>Equipmentliste Administrieren</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>equipment</file>
 			</entry>
 			<entry>
 				<id>b6b8e6c794317166effbc4bd2398eef2</id>
 				<org>Es konnten keine Daten abgerufen werden. Evtl. ist der Orgapage.Net-Server momentan nicht erreichbar</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>equipment</file>
 			</entry>
 			<entry>
 				<id>8e3e2281e9790f661a459bbdb259b9a0</id>
 				<org>Termin-Liste</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>equipment</file>
 			</entry>
 			<entry>
 				<id>433fc07a6972d02fdcf982fd19e40aa7</id>
 				<org>Dies ist eine Liste aller kommenden Termine, an denen wir unser Equipment vermieten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>equipment</file>
 			</entry>
 			<entry>
 				<id>9c6d993096924b4ef12fdb73f5f4b959</id>
 				<org>Termin-History</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>equipment</file>
 			</entry>
 			<entry>
 				<id>1eb806769e14cf3c67b422b6394824e3</id>
 				<org>Dies ist eine Liste aller vergangen Termine, bei denen wir unser Equipment bereits vermietet hatten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>equipment</file>
 			</entry>
 			<entry>
 				<id>60035e58b7768ccdeb92055831bdadee</id>
 				<org>Equipmentliste</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>equipment</file>
 			</entry>
 			<entry>
 				<id>e2b824171aa77ea44129bdcaa3db780c</id>
 				<org>Hier siehst du eine Liste des LanParty-Equipment, dass wir vermieten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>equipment</file>
 			</entry>
 			<entry>
 				<id>91667ccd35ba0fb465652ff12fce5867</id>
 				<org>Bestellformular</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>equipment</file>
 			</entry>
 			<entry>
 				<id>d4dc0a54abca01c1cc4b882b24ec7160</id>
 				<org>Hier kannst du Equipment für deine Party mieten.</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<file>equipment</file>
+			</entry>
+			<entry>
+				<id>cf43a49a6885e65414354243fe979586</id>
+				<org>In der php.ini muss sowohl allow_url_fopen, als auch allow_url_include auf On gesetzt sein</org>
+				<file>equipment</file>
+			</entry>
+			<entry>
+				<id>4796015491a492dea00efe7099577502</id>
+				<org>Hier kannst du Equipment fÃ¼r deine Party mieten.</org>
 				<file>equipment</file>
 			</entry>
 		</content>

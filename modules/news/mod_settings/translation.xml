@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-26 02:10</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,386 +15,268 @@
 			<entry>
 				<id>621198805df73c2536ae624678201b1a</id>
 				<org>News verwalten</org>
-				<de></de>
 				<en>Manage News</en>
-				<es></es>
 				<fr>Gérer les news</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>b40270b1794198416acf37a1be27cf01</id>
 				<org>Mit Hilfe des folgenden Formulars können Sie Neuigkeiten auf Ihrer Seite ergänzen und bearbeiten</org>
-				<de></de>
 				<en>Using the form below you can add oder customize your News.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>8eba0c1845d59e877ab09d83d87d0215</id>
 				<org>Überschrift (Knappe Zusammenfassung für die Startseite)</org>
-				<de></de>
 				<en>Caption (Tight summary for the Startpage)</en>
-				<es></es>
-				<fr>Titre (Résumé de la pénurie de la page d&#39;accueil)</fr>
-				<nl></nl>
-				<it></it>
+				<fr>Titre (Résumé de la pénurie de la page d&amp;#39;accueil)</fr>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>5236b0f0fb26d1d73909687ee9195458</id>
 				<org>Kategorie / Icon</org>
-				<de></de>
 				<en>Category / Icon</en>
-				<es></es>
 				<fr>Catégorie / Icon</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
-				<de></de>
 				<en>Text</en>
-				<es></es>
-				<fr>Titre (Résumé de la pénurie de la page d&#39;accueil)</fr>
-				<nl></nl>
-				<it></it>
+				<fr>Titre (Résumé de la pénurie de la page d&amp;#39;accueil)</fr>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>960b44c579bc2f6818d2daaf9e4c16f0</id>
 				<org>Normal</org>
-				<de></de>
 				<en>Normal</en>
-				<es></es>
 				<fr>Normal</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>9b924aa7d0c7d0264b2fbb28f666414b</id>
 				<org>Wichtig</org>
-				<de></de>
 				<en>Important</en>
-				<es></es>
 				<fr>Important</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>c30f584de7e81f4232d4d2a5094228f5</id>
 				<org>Priorität</org>
-				<de></de>
 				<en>Priority</en>
-				<es></es>
 				<fr>Priorité</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
-				<de></de>
 				<en>No</en>
-				<es></es>
 				<fr>Non</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
-				<de></de>
 				<en>Yes</en>
-				<es></es>
 				<fr>Oui</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>34357d471a47e12b2bbf2c2c0785952f</id>
 				<org>Top-Meldung</org>
-				<de></de>
 				<en>Top news</en>
-				<es></es>
 				<fr>Top message</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>0ad63c9ca1f63b06c10949141eb9bef4</id>
 				<org>Newsfeed wurde erfolgreich aktuallisiert</org>
-				<de></de>
 				<en>News Feed has been successfully updated</en>
-				<es></es>
 				<fr>Usenet a été mis à jour</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>ad497a59cdd8e2b20cddc69d74dfeec4</id>
 				<org>Newsfeed</org>
-				<de></de>
 				<en>Newsfeed</en>
-				<es></es>
 				<fr>News Feed</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>ee48fde91f2bb69bd4c6ade5a9b712f2</id>
 				<org>Konnte Newsfeed nicht erstellen. Fehler beim Schreiben in der Datei ext_inc/newsfeed/news.xml</org>
-				<de></de>
 				<en>Could not create Newsfeed. Error writing the file ext_inc/newsfeed/news.xml</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>f29cfe64211f930f447f5caca12f67c4</id>
-				<org>Konnte Newsfeed nicht erstellen. Fehler beim &amp;Ouml;ffnen der Datei ext_inc/newsfeed/news.xml</org>
-				<de></de>
+				<org>Konnte Newsfeed nicht erstellen. Fehler beim &amp;amp;Ouml;ffnen der Datei ext_inc/newsfeed/news.xml</org>
 				<en>Could not create Newsfeed. Error while opening the File ext_inc/newsfeed/news.xml</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>a7833fc4c467b10ee0c96ee18acf5167</id>
 				<org>Konnte Newsfeed nicht erstellen. Keine Schreibrechte im Ordner ext_inc/newsfeed/</org>
-				<de></de>
 				<en>Could not create Newsfeed. No writing permissions in ext_inc/newsfeed/</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>739fe7bcbebf114a3ec4a0022fee16e5</id>
 				<org>Newsmeldung + Kommentare</org>
-				<de></de>
 				<en>News + Comments</en>
-				<es></es>
 				<fr>News message + commentaires</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>68e7655d984e0cf064e4a497f9b3ad93</id>
 				<org>Hier können Sie diese News kommentieren</org>
-				<de></de>
 				<en>Here you can comment on this News</en>
-				<es></es>
 				<fr>Vous pouvez commenter cette news</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>e00147ea0b7008a411c5ad1b6b2aeea4</id>
 				<org>Newsübersicht</org>
-				<de></de>
-				<en>News Overview </en>
-				<es></es>
-				<fr>Vue d&#39;ensemble News</fr>
-				<nl></nl>
-				<it></it>
+				<en>News Overview</en>
+				<fr>Vue d&amp;#39;ensemble News</fr>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>1460ac7e6f637065b6f36c40b28fdf38</id>
 				<org>Diese Newsmeldung existiert nicht</org>
-				<de></de>
 				<en>This news item does not exist</en>
-				<es></es>
-				<fr>Ce message n&#39;existe pas News</fr>
-				<nl></nl>
-				<it></it>
+				<fr>Ce message n&amp;#39;existe pas News</fr>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>18a8022569d6ced829f833aa855530ce</id>
 				<org>Titel</org>
-				<de></de>
 				<en>Titel</en>
-				<es></es>
 				<fr>Titre</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>c481b00a606907fd59b4d46623b8d99d</id>
 				<org>Autor</org>
-				<de></de>
 				<en>Author</en>
-				<es></es>
 				<fr>Auteur</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>9ba51734ced032fd8ec25acfb387a23f</id>
 				<org>Datum</org>
-				<de></de>
 				<en>Date</en>
-				<es></es>
 				<fr>Date</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
-				<de></de>
 				<en>Details</en>
-				<es></es>
 				<fr>Détails</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>f030a2eb086608f51539becffd28b4e0</id>
 				<org>News Archiv</org>
-				<de></de>
 				<en>Newsarchiv</en>
-				<es></es>
 				<fr>News Archives</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>622b8b4706839855613a8b00115454cd</id>
 				<org>Archivierte Mitteilungen</org>
-				<de></de>
 				<en>Saved Messages</en>
-				<es></es>
 				<fr>Communiqués archivés</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>35c9c1df912962d906c66f5a2d0c3a48</id>
-				<org>Zur&amp;uuml;ck</org>
-				<de></de>
+				<org>Zur&amp;amp;uuml;ck</org>
 				<en>Back</en>
-				<es></es>
 				<fr>Retour</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>f33ed9a5efc6d8a1249d0e2cd56011db</id>
 				<org>Neuigkeiten</org>
-				<de></de>
 				<en>News</en>
-				<es></es>
 				<fr>Quoi de neuf?</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>10fbd0690508ebbbf614ef03f417b906</id>
 				<org>Hier sehen Sie aktuelle Neuigkeiten.</org>
-				<de></de>
 				<en>Here you can reed the actual News</en>
-				<es></es>
 				<fr>Voici les dernières nouveautés.</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>9b7c3cb8f1d6ea930aaf50b48d3175af</id>
 				<org>Kommentar(e)</org>
-				<de></de>
 				<en>Comment(s)</en>
-				<es></es>
 				<fr>Commentaire(s)</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>c4739a9771977c455528f194c138cdbc</id>
-				<org>&amp;Auml;ltere Mitteilungen</org>
-				<de></de>
+				<org>&amp;amp;Auml;ltere Mitteilungen</org>
 				<en>Older Messages</en>
-				<es></es>
 				<fr>Les anciens messages</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>e52e0d8722baca7e7a5cc493a6f66874</id>
 				<org>Newsmeldungen</org>
-				<de></de>
 				<en>News</en>
-				<es></es>
 				<fr>Actualités</fr>
-				<nl></nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>17c356ec98b72c0ad4b6337beddef772</id>
 				<org>Fuckoff</org>
-				<de></de>
-				<en></en>
 				<es>FuckoffEsFile</es>
-				<fr></fr>
 				<nl>FuckoffDBNlTest2</nl>
-				<it></it>
 				<file>news</file>
 			</entry>
 			<entry>
-				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
-				<org>Nein</org>
-				<de></de>
-				<en>No</en>
-				<es></es>
-				<fr>Non</fr>
-				<nl></nl>
-				<it></it>
+				<id>7376b501ab83a31882ae2f3fa2828510</id>
+				<org>Links zum Thema:</org>
 				<file>news</file>
 			</entry>
 			<entry>
-				<id>375ee26098b46e23bcb854331f0ad8c5</id>
-				<org>Ja</org>
-				<de></de>
-				<en>Yes</en>
-				<es></es>
-				<fr>Oui</fr>
-				<nl></nl>
-				<it></it>
+				<id>ff30d1ab8188d0abed485a496f341bcf</id>
+				<org>Kommentare wurden deaktiviert.</org>
+				<file>news</file>
+			</entry>
+			<entry>
+				<id>a31a84fa1e8cd2b562842e41b2be117f</id>
+				<org>Es sind keine News vorhanden.</org>
+				<file>news</file>
+			</entry>
+			<entry>
+				<id>aa3d1b20090697af0c1b6d6160904685</id>
+				<org>Link 1</org>
+				<file>news</file>
+			</entry>
+			<entry>
+				<id>fe892886118adfa13f9bf4c4e2187194</id>
+				<org>Link 2</org>
+				<file>news</file>
+			</entry>
+			<entry>
+				<id>1a794ff57b78e58064c407ea2f5e4426</id>
+				<org>Link 3</org>
+				<file>news</file>
+			</entry>
+			<entry>
+				<id>3c38d55f15fd77de020451cd1826a550</id>
+				<org>Aktuelle News</org>
+				<file>news</file>
+			</entry>
+			<entry>
+				<id>b3363a26e8336410177b9ba3d509e8e1</id>
+				<org>Keine News bisher vorhanden</org>
 				<file>news</file>
 			</entry>
 		</content>

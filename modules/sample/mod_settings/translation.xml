@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,199 +15,91 @@
 			<entry>
 				<id>22f9de3383b9419e4f8cb14baf39ddba</id>
 				<org>Überschrift</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>d6ade14e043e7df9286ec2ada838d5ea</id>
 				<org>Erweiterte Überschrift</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>c8444ba85faba1560b45c41b3cf59086</id>
 				<org>Eine einfache Zeile</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>c7bcaeceeb32e71d1d6e9f19d8ddf8ac</id>
 				<org>Eine einfache Zeile %1 und %2</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>624a53df9743541cbcaace1e45df6735</id>
 				<org>Texteingabe</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>617a22fb5ae9f65bff06a7dd6ae35624</id>
 				<org>Benutzer insgesamt</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>18a8022569d6ced829f833aa855530ce</id>
 				<org>Titel</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>c481b00a606907fd59b4d46623b8d99d</id>
 				<org>Autor</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>9ba51734ced032fd8ec25acfb387a23f</id>
 				<org>Datum</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>621198805df73c2536ae624678201b1a</id>
 				<org>News verwalten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>b40270b1794198416acf37a1be27cf01</id>
 				<org>Mit Hilfe des folgenden Formulars können Sie Neuigkeiten auf Ihrer Seite ergänzen und bearbeiten</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>8eba0c1845d59e877ab09d83d87d0215</id>
 				<org>Überschrift (Knappe Zusammenfassung für die Startseite)</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>5236b0f0fb26d1d73909687ee9195458</id>
 				<org>Kategorie / Icon</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>960b44c579bc2f6818d2daaf9e4c16f0</id>
 				<org>Normal</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>9b924aa7d0c7d0264b2fbb28f666414b</id>
 				<org>Wichtig</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 			<entry>
 				<id>c30f584de7e81f4232d4d2a5094228f5</id>
 				<org>Priorität</org>
-				<de></de>
-				<en></en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>sample</file>
 			</entry>
 		</content>

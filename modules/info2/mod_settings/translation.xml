@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2008-04-25 03:38</date>
+		<date>2009-12-30 11:44</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,375 +15,153 @@
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
-				<de></de>
 				<en>Yes</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
-				<de></de>
 				<en>No</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>8bfc6dfc150abba3ddc987551c0a03f9</id>
 				<org>Seitentitel</org>
-				<de></de>
 				<en>Lemma</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>b5b672c9d2e6836588978c12d9b534d5</id>
 				<org>Untertitel</org>
-				<de></de>
 				<en>Subtitel</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
-				<de></de>
 				<en>Details</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>9363ece6cc72bbab27121d73c142ee61</id>
 				<org>Informationsseite - Bearbeiten</org>
-				<de></de>
 				<en>Information page - Edit</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>98e2dafaad8f3300a4612790ffca5a2e</id>
 				<org>Hier können Sie den Inhalt der Info-Seiten editieren.</org>
-				<de></de>
 				<en>Here you can edit the content of the information Pages.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>c44e07cffb5cd991f28e866e8854b548</id>
 				<org>Aktiv</org>
-				<de></de>
 				<en>Active</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>60bbccc81058c0a02ef3bc32bcab4115</id>
 				<org>Hier können Sie den Inhalt der Seite editieren.</org>
-				<de></de>
 				<en>Here you can edit the Pagecontent</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>967986841ae5935a30001d9e6ceae7aa</id>
 				<org>Bitte füllen Sie alle Felder aus!</org>
-				<de></de>
 				<en>Please fill in all fields!</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>4ca5953cced64feb37101fff3ea2f04c</id>
 				<org>Der Eintrag wurde erfolgreich erstellt.</org>
-				<de></de>
 				<en>The entry has been successfully created.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>9b56afbfe38c58945d2e0f34dc793ffd</id>
 				<org>Der Eintrag wurde erfolgreich geändert.</org>
-				<de></de>
 				<en>The entry has been successfully changed.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>3a0ca56f99c4ab93b8793e5e8993d43b</id>
 				<org>Der Eintrag wurde gelöscht.</org>
-				<de></de>
 				<en>The entry has been deleted.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>e5d71bd8bf30e401a28e747c9aa66130</id>
 				<org>Der Aktiv-Status wurde erfolgreich geändert.</org>
-				<de></de>
 				<en>The activestate has been changed.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>4789ac07952deecf2a4ae4276ef5caad</id>
 				<org>Seite</org>
-				<de></de>
 				<en>Page</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>0b48b4f7b6f8aab43cb47a4c840ef2f9</id>
 				<org>Diese Seite enthält selbst definierten Text. Sie können ihn ändern, indem Sie den Informationen-Link in der Navigations-Box auswählen.</org>
-				<de></de>
 				<en>This Page contains self defined Text. You can change them wenn you use the Information-Link in the Navigationbox.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>728cd87695ab19ce5fa501d230e8e19e</id>
 				<org>Sie haben keine Seite ausgewählt.</org>
-				<de></de>
 				<en>You have no Page selected</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
 				<file>info2</file>
 			</entry>
 			<entry>
-				<id>4789ac07952deecf2a4ae4276ef5caad</id>
-				<org>Seite</org>
-				<de></de>
-				<en>Page</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>97e7c9a7d06eac006a28bf05467fcc8b</id>
+				<org>Link</org>
 				<file>info2</file>
 			</entry>
 			<entry>
-				<id>0b48b4f7b6f8aab43cb47a4c840ef2f9</id>
-				<org>Diese Seite enthält selbst definierten Text. Sie können ihn ändern, indem Sie den Informationen-Link in der Navigations-Box auswählen.</org>
-				<de></de>
-				<en>This Page contains self defined Text. You can change them wenn you use the Information-Link in the Navigationbox.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>c1aa5eed0da0c8e6bf00f35ed6a315d5</id>
+				<org>Einen Text für die Sprache &quot;%1&quot; definieren</org>
 				<file>info2</file>
 			</entry>
 			<entry>
-				<id>728cd87695ab19ce5fa501d230e8e19e</id>
-				<org>Sie haben keine Seite ausgewählt.</org>
-				<de></de>
-				<en>You have no Page selected</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
+				<org>Text</org>
 				<file>info2</file>
 			</entry>
 			<entry>
-				<id>8bfc6dfc150abba3ddc987551c0a03f9</id>
-				<org>Seitentitel</org>
-				<de></de>
-				<en>Lemma</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>fa478d0041d67f25c64b4417c4ceb538</id>
+				<org>Eintrag deaktiviert</org>
 				<file>info2</file>
 			</entry>
 			<entry>
-				<id>b5b672c9d2e6836588978c12d9b534d5</id>
-				<org>Untertitel</org>
-				<de></de>
-				<en>Subtitel</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>4718992adaf8102425a6e5319bb3a41e</id>
+				<org>Eintrag aktiviert</org>
 				<file>info2</file>
 			</entry>
 			<entry>
-				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
-				<org>Details</org>
-				<de></de>
-				<en>Details</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>37740ea476ecbeb9e13f26ef316227ce</id>
+				<org>Hier können Sie einen externen Link definieren.</org>
 				<file>info2</file>
 			</entry>
 			<entry>
-				<id>9363ece6cc72bbab27121d73c142ee61</id>
-				<org>Informationsseite - Bearbeiten</org>
-				<de></de>
-				<en>Information page - Edit</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>9da19df2ef302844828cdeaf6824a1cd</id>
+				<org>Popup-Infotext</org>
 				<file>info2</file>
 			</entry>
 			<entry>
-				<id>98e2dafaad8f3300a4612790ffca5a2e</id>
-				<org>Hier können Sie den Inhalt der Info-Seiten editieren.</org>
-				<de></de>
-				<en>Here you can edit the content of the information Pages.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>a1c14db599b4e4a0077f2935c38aaa90</id>
+				<org>Diese Info-Seite ist nicht aktiviert. Ein Admin muss sie zuerst im Info-Modul aktivieren</org>
 				<file>info2</file>
 			</entry>
 			<entry>
-				<id>c44e07cffb5cd991f28e866e8854b548</id>
-				<org>Aktiv</org>
-				<de></de>
-				<en>Active</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>73db50e0f089f9349dc9a9ca7285a3aa</id>
+				<org>Sie haben keine Seite ausgewählt</org>
 				<file>info2</file>
 			</entry>
 			<entry>
-				<id>60bbccc81058c0a02ef3bc32bcab4115</id>
-				<org>Hier können Sie den Inhalt der Seite editieren.</org>
-				<de></de>
-				<en>Here you can edit the Pagecontent</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>info2</file>
-			</entry>
-			<entry>
-				<id>967986841ae5935a30001d9e6ceae7aa</id>
-				<org>Bitte füllen Sie alle Felder aus!</org>
-				<de></de>
-				<en>Please fill in all fields!</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>info2</file>
-			</entry>
-			<entry>
-				<id>4ca5953cced64feb37101fff3ea2f04c</id>
-				<org>Der Eintrag wurde erfolgreich erstellt.</org>
-				<de></de>
-				<en>The entry has been successfully created.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>info2</file>
-			</entry>
-			<entry>
-				<id>9b56afbfe38c58945d2e0f34dc793ffd</id>
-				<org>Der Eintrag wurde erfolgreich geändert.</org>
-				<de></de>
-				<en>The entry has been successfully changed.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>info2</file>
-			</entry>
-			<entry>
-				<id>3a0ca56f99c4ab93b8793e5e8993d43b</id>
-				<org>Der Eintrag wurde gelöscht.</org>
-				<de></de>
-				<en>The entry has been deleted.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>info2</file>
-			</entry>
-			<entry>
-				<id>e5d71bd8bf30e401a28e747c9aa66130</id>
-				<org>Der Aktiv-Status wurde erfolgreich geändert.</org>
-				<de></de>
-				<en>The activestate has been changed.</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>info2</file>
-			</entry>
-			<entry>
-				<id>375ee26098b46e23bcb854331f0ad8c5</id>
-				<org>Ja</org>
-				<de></de>
-				<en>Yes</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
-				<file>info2</file>
-			</entry>
-			<entry>
-				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
-				<org>Nein</org>
-				<de></de>
-				<en>No</en>
-				<es></es>
-				<fr></fr>
-				<nl></nl>
-				<it></it>
+				<id>5156ea1bc331b25950210fd0a0726278</id>
+				<org>Es liegen Informationen zu der ausgewählten Seite vor, jedoch nicht in Ihrer aktuell gewählten Sprache: &lt;b&gt;%1&lt;/b&gt;</org>
 				<file>info2</file>
 			</entry>
 		</content>
