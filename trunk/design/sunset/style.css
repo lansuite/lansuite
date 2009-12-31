@@ -373,11 +373,6 @@ a.underline_on_hover:hover, a.menu:hover, a.mastersearch2_result_heading:hover {
 	padding:		4px;
 }
 
-option[value=de]:before { content:url("../../ext_inc/country_flags/de.gif"); }
-option[value=en]:before { content:url("../../ext_inc/country_flags/en.gif"); }
-option[value=at]:before { content:url("../../ext_inc/country_flags/at.gif"); }
-option[value=ch]:before { content:url("../../ext_inc/country_flags/ch.gif"); }
-
 /* MAIN FIELDS. FOR EXAMPLE THE RIGHT SIDE IN A FORM */
 .tbl_1  		
 {
