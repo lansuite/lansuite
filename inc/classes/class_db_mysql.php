@@ -113,17 +113,13 @@ class db {
 
 
   #### Queries ####
-
-  function query($query_string) {
-  }
-
-	
+  
   /**
    * If the second parameter is an array, the function uses the array as value list.
    * @return unknown_type
    */
   function qry() {
-    global $config, $CurrentArg, $debug;
+    global $config, $debug;
     $this->QueryArgs = func_get_args();
     if (is_array($this->QueryArgs[0])) $this->QueryArgs = $this->QueryArgs[0]; // Arguments could be passed als multiple ones, or a single array
 
@@ -132,7 +128,7 @@ class db {
 
     if (is_array($this->QueryArgs[0])) $this->QueryArgs = $this->QueryArgs[0];
 
-    $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array('db', 'escape'), $query);
+    $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array(&$this, 'escape'), $query);
     if (isset($debug)) $debug->query_start($query);
     if ($this->mysqli) {
       $this->query_id = mysqli_query($this->link_id, $query);
@@ -144,6 +140,8 @@ class db {
     if (!$this->query_id) $this->print_error($this->sql_error, $query);
     $this->count_query++;
     if (isset($debug)) $debug->query_stop($this->sql_error);
+    $this->QueryArgs = array();
+    
     return $this->query_id;
   }
 
@@ -262,29 +260,5 @@ class db {
     }
    return $found;
   }
-
-/*
-// Could be deleted soon ... KnoX 17.11.2009
-
-  // Old: All "$config['tables'][table_name]" should be replaced by "$config['database']['prefix']. 'table_name'"
-  // Afterwards this could be deleted
-  function SetTableNames() {
-    global $config;
-
-    // Importent Tables
-    $config['tables']['config'] = $config['database']['prefix'].'config';
-    $config['tables']['user'] = $config['database']['prefix'].'user';
-
-    $res = $this->qry('SHOW TABLES'); //"SELECT name FROM {$config["database"]["prefix"]}table_names"
-    while ($row = $this->fetch_array($res)){
-      if ($config['database']['prefix'] == substr($row[0], 0, strlen($config['database']['prefix']))){
-	      $table_name = substr($row[0], strlen($config['database']['prefix']), strlen($row[0]));
-	      $config['tables'][$table_name] = $row[0];
-      }
-    }
-        
-    $this->free_result($res);
-  }
-  */
 }
 ?>
