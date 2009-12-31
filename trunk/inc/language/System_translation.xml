@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2009-12-31 12:58</date>
 	</header>
 	<table>
 		<table_head>
@@ -39,21 +39,25 @@
 			<entry>
 				<id>ae9da221e6553e31803344d27f2e81a8</id>
 				<org>Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.</org>
+				<en>You are not checked in. In the intranet mode, a login is only possible if you are checked in.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>6217b75cb76719dfb767ba9e87e62082</id>
 				<org>Bitte melden Sie sich bei der Organisation.</org>
+				<en>Please get in touch with the organization.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>45df15e01082967b782698c0a4c42e75</id>
 				<org>Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.</org>
+				<en>You are already checked out. In the intranet mode, a login is only possible if you are checked in.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>07834f918b2652509fbcae60694b9a58</id>
 				<org>Erfolgreich eingeloggt. Die Änderungen werden beim laden der nächsten Seite wirksam.</org>
+				<en>Successfully logged in. The changes will take effect when the next page is loaded.</en>
 				<file>System</file>
 			</entry>
 			<entry>
@@ -71,41 +75,49 @@
 			<entry>
 				<id>d309c908a40bb081c8b380d6806e42f1</id>
 				<org>Es wurden fehlerhafte Logins seit Ihrem letzten erfolgreichen Login durchgeführt.</org>
+				<en>There have been incorrect logins since your last successful login.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>0f708c0c9ae26b1978ac5107c98a7450</id>
 				<org>Keine Userid beim Login via Cookie erkannt.</org>
+				<en>No user ID detected at login via cookie.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>c58d5b774ad43337ac373b8518d88b4b</id>
 				<org>Kein Uniquekey beim Login via Cookie erkannt.</org>
+				<en>No Uniquekey recognized at login via cookie.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>8fb0bcc0b38db9274e73487e07642c1c</id>
 				<org>Sie wurden erfolgreich ausgeloggt. Vielen dank für ihren Besuch.</org>
+				<en>You have successfully logged out. Thank you for your visit.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>0ca72d08a148324a5fd451bb77d36c5d</id>
 				<org>Benutzerwechsel erfolgreich. Die Änderungen werden beim laden der nächsten Seite wirksam.</org>
+				<en>Users change successful. The changes will take effect when the next page is loaded.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>39f5e954cb57ce0e3796b7ae82d61260</id>
 				<org>Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt</org>
+				<en>Your user level is lower than that of the target user. A change is therefore prohibited</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>b7fbf2ca145b288118026b338f79ad64</id>
 				<org>Fehler: Falscher switch back code! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.</org>
+				<en>Error: Wrong switchback code! This may be because your browser does not support cookies.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>c9c677f6dbdf02b8a074626ebe223fb9</id>
 				<org>Fehler: Keine Switchbackdaten gefunden! Das kann daran liegen, dass dein Browser keine Cookies unterstützt.</org>
+				<en>Error: No Switchback data found! This may be because your browser does not support cookies.</en>
 				<file>System</file>
 			</entry>
 			<entry>
@@ -243,546 +255,655 @@
 			<entry>
 				<id>ab559eb6c85d0c3a970dca3e9a94312c</id>
 				<org>Bitte loggen Sie sich ein, bevor Sie einen Kommentar verfassen</org>
+				<en>Please log in before you leave a comment</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>cd05591e8d0d62d2c11ba7421d80cdba</id>
 				<org>Kommentar</org>
+				<en>Comment</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>03ec70e16109a01b4badf461cc3cfea9</id>
 				<org>Es gibt einen neuen Kommentar</org>
+				<en>There is a new comment</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>50ee067f8b85c79972405065148940bb</id>
 				<org>Es wurde ein neuer Kommentar in einem Lansuite-Modul geschrieben: %URL%</org>
+				<en>It was written a new comment in a Lansuite module: %URL%</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>edac91e982f98f2f8bc845e59defdf73</id>
 				<org>Sie sind nicht berechtigt, diesen Kommentar zu editieren</org>
+				<en>You are not authorized to edit this comment</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>423e555c5ec3885f2bb5d9d2d6627f63</id>
 				<org>Monitoring</org>
+				<en>Monitoring</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>5b01db7abd9df1cb5cd68516973816cd</id>
 				<org>Lesezeichen</org>
+				<en>Bookmark</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>daef98f1581fb82c6942443d98560b59</id>
 				<org>Diesen Beitrag in meine Lesezeichen aufnehmen&lt;br&gt;&lt;i&gt;(Lesezeichen ist Vorraussetzung, um Benachrichtigung per Mail zu abonnieren)&lt;/i&gt;</org>
+				<en>Add this entry in my bookmarks &lt;br&gt; &lt;i&gt;(Bookmark is a prerequisite to subscribe to receive by mail)&lt;/i&gt;</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>50c6a2e17e1d241b1b84acfd442f3751</id>
 				<org>E-Mail Benachrichtigung</org>
+				<en>E-mail alerts</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>f8a934dee2aa489c6aacd63e349073ee</id>
 				<org>Bei Antworten auf diesen Beitrag eine Internet-Mail an mich senden</org>
+				<en>When sending replies to this post, send me an email</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>ba74299214c2bb9652a50a9fa7a49e89</id>
 				<org>System-E-Mail</org>
+				<en>System email</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>7345f3bbcfb48bfd6581d8d8b7d05859</id>
 				<org>Bei Antworten auf diesen Beitrag eine System-Mail an mich senden</org>
+				<en>On replies to this post send a system mail to me</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>bd9a11a632f2f4c3d0f68829fe8feca2</id>
 				<org>Eintrag #%1 aus Tabelle &quot;%2&quot; gelöscht</org>
+				<en>Entry #%1 of table &quot;%2&quot; deleted</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>fb17340dd900777d91d0f22940d712c4</id>
 				<org>Fehler beim Löschen von #%1 aus Tabelle &quot;%2&quot;</org>
+				<en>Error when deleting from table #%1 &quot;%2&quot;;</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>fd2e2099e065e78a7b7b34ef7b3b7cd0</id>
 				<org>Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?</org>
+				<en>Are you sure you want to delete this entry?</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>50030925a405eb56bc19762688f93562</id>
 				<org>Der Eintrag wurde erfolgreich gelöscht</org>
+				<en>The entry was successfully deleted</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>94d7a3a7c488b016492e16d23ab96ee7</id>
 				<org>Der Eintrag konnte nicht gelöscht werden</org>
+				<en>The entry could not be deleted</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>b586338b48ad922d12b9a008e108bb69</id>
 				<org>Die folgenden Einträge konnte nicht gelöscht werden</org>
+				<en>The following items could not be deleted</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>d1948655ca9b605f1df5de90c8276d18</id>
 				<org>Die Einträge wurde erfolgreich gelöscht</org>
+				<en>The entries were successfully deleted</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>6592eed180ceb7b2eeef043779e68003</id>
 				<org>Es wurden keine Einträge selektiert</org>
+				<en>There were no entries selected</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>4e04eb8e20dd8f7ec9cbbf0ad2b185fb</id>
 				<org>Aktuelle Datei beibehalten</org>
+				<en>Keep current file</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>fc0ca0f38f5ae5091e705b46e2589430</id>
 				<org>Bitte geben Sie eine Email ein</org>
+				<en>Please enter an email</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>16f025dd551f373b0b7624cd11bce09c</id>
 				<org>Die Adresse muss genau ein @-Zeichen enthalten</org>
+				<en>The address must contain exactly one @ sign</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>c8f279b9ef302d795004455a87ea0093</id>
 				<org>Your name is %1 and your Email is %2</org>
+				<en>Your name is %1 and your e-mail is %2</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>e46678cfa410e25e4d3e2398ac866c7d</id>
 				<org>Bitte geben Sie Ihre E-Mail-Adresse oder Ihre Lansuite-ID ein.</org>
+				<en>Please enter your email address or your Lansuite ID.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>c86f920d4c0db848c4fbe280d6f150db</id>
 				<org>Bitte geben Sie Ihr Kennwort ein.</org>
+				<en>Please enter your password.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>fdacaf37a0b8798dde0742571cc22fc6</id>
 				<org>Ihr Account ist gesperrt. Melden Sie sich bitte bei der Organisation.</org>
+				<en>Your account is locked. Get in touch with the organization.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>4c9957b42093cea3b99c7838eb7a396c</id>
 				<org>Dieser Account ist noch nicht freigeschaltet. Bitte warten Sie bis ein Organisator Sie freigeschaltet hat.</org>
+				<en>This account is not activated yet. Please wait until an organizer, has unlocked you.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>3fd404486b4f50f32046ff95bbb7c1c8</id>
 				<org>Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.</org>
+				<en>If you have forgotten your password, please contact the organization.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>8713ef28cc370203b5992ded034f23c9</id>
 				<org>Wenn ihr Broswer keine IFrames unterstützt,</org>
+				<en>If your Broswer does not support IFrames,</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>926c6aaecc36c5f8fde83bc353aa0297</id>
 				<org>bitte hier klicken!</org>
+				<en>click here!</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>fd04b192ef33d3ad06d3659556f398e1</id>
 				<org>Unable to Initialize new GD image stream</org>
+				<en>Unable to Initialize new GD image stream</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>bdc6bb23f90ba20f579c05a83f11fc60</id>
 				<org>Diese ID existiert nicht.</org>
+				<en>This ID does not exist.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>e7667b33a716b582c1b1ba453c5b82ad</id>
 				<org>Bitte füllen Sie dieses Pflichtfeld aus.</org>
+				<en>Please fill out this required field.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>46985c8e1b7a587fa61d38da8204e0e8</id>
 				<org>Bitte geben Sie eine Zahl ein.</org>
+				<en>Please enter a number.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>f2735adcfb12c192808f0f7d540b84de</id>
 				<org>Das eingegebene Datum ist nicht korrekt.</org>
+				<en>The date entered is not correct.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>be98325d4cd729f722f203e4ef8e4e05</id>
 				<org>Die beiden Kennworte stimmen nicht überein.</org>
+				<en>The two passwords do not match.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>a106ae47f0685b677e005c6b66f70fed</id>
 				<org>Captcha falsch wiedergegeben.</org>
+				<en>Captcha misrepresented.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>091963481969407cc37f9db9d5461aaf</id>
 				<org>Dieser Eintrag existiert bereits in unserer Datenbank.</org>
+				<en>This entry already exists in our database.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>3f0a8c5abec0b8ae2d072736c64aa0fe</id>
 				<org>Verfikation</org>
+				<en>Verfikation</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>5d6c931b136c70de3a474e3b5a8c16b8</id>
 				<org>Die Daten wurden erfolgreich geändert.</org>
+				<en>The data has been successfully changed.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>8e2bad1e73058893df1b6b23093898fb</id>
 				<org>Die Daten wurden erfolgreich eingefügt.</org>
+				<en>The data were successfully inserted.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>92786d2b05eb02d0bb9a427cc33d52b5</id>
 				<org>Function setainfo needs Priority defined as Integer: 0 low (grey), 1 middle (green), 2 high (orange)</org>
+				<en>Function setainfo needs priority defined as Integer: 0 low (gray), 1 middle (green), 2 high (orange)</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>35cb2d80a11eadd1c880fc69cb852f76</id>
 				<org>Sonntag</org>
+				<en>Sunday</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>5ba92fd9fe06536b98e6ab7b19531d8f</id>
 				<org>Montag</org>
+				<en>Monday</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>af5b4a59f444f0b452421dcf5238f781</id>
 				<org>Dienstag</org>
+				<en>Tuesday</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>c7ce86340399fcbc38c020a090e5f227</id>
 				<org>Mittwoch</org>
+				<en>Wednesday</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>c4c15efd19d7e642741a346807510abe</id>
 				<org>Donnerstag</org>
+				<en>Thursday</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>8e968f5fc3fddc3f1c7d9510b22b4ada</id>
 				<org>Freitag</org>
+				<en>Friday</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>f3e9b5cbb5bfb05906a402de29d7ee6f</id>
 				<org>Samstag</org>
+				<en>Saturday</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>e2e0ab9c9510bf61fd17296bae8d3d24</id>
 				<org>So</org>
+				<en>Sun</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>c08df9bb5fb44242a6291b1eee5d09ad</id>
 				<org>Mo</org>
+				<en>Mon</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>5961102bbf53b3ac0b9085f1ef3ce3f0</id>
 				<org>Di</org>
+				<en>Tue</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>0567953871b1bf589b797d9b178d5a94</id>
 				<org>Do</org>
+				<en>Thu</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>fa717ba17306cd76900510df8ac8013e</id>
 				<org>Fr</org>
+				<en>Fri</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>e55bb1ae59b6a64858a85a2f48c53036</id>
 				<org>Sa</org>
+				<en>Sat</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>008d04f41ae4d1009111a68de817d0f4</id>
 				<org>Sie haben keine Zugriffsrechte für diesen Bereich.</org>
+				<en>You do not have access to that area.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>e7ba52be00619245bf487b34e862db3c</id>
 				<org>Sie sind nicht eingeloggt. Bitte loggen Sie sich erst ein, bevor Sie diesen Bereich betreten.</org>
+				<en>You are not logged. Please log in first before you enter this area.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>b88306302f2681ea25c7ea17d545a037</id>
 				<org>Leider ist die von Ihnen aufgerufene Seite auf diesem Server nicht vorhanden.&lt;br/&gt;Um Fehler zu vermeiden, sollten Sie die URL nicht manuell ändern, sondern die Links benutzen. Wenn Sie die Adresse manuell eingegeben haben überprüfen Sie bitte die URL.</org>
+				<en>Unfortunately, the page you requested does not exist on this server. &lt;br/&gt; To avoid errors, you should not change the URL manually, but use the links. If you have manually entered the address, please check the URL.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>93bfd0b61624a3812335be027c2134c6</id>
 				<org>Dieses Lansuite Modul wurde deaktiviert und steht somit nicht zur Verfügung.</org>
+				<en>This Lansuite module was disabled and is therefore not available.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>4f712108e0e13abdfd131cfa68799338</id>
 				<org>Sie haben diese Anfrage wiederholt ausgeführt.</org>
+				<en>They have repeatedly stated this request.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>ee65867e7d6715ac23dcea8252c8e0e8</id>
 				<org>Falsche Email angegeben (%1)</org>
+				<en>Incorrect email specified (%1)</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>baea7a0b9f07f1840ebe1a51f13cb692</id>
 				<org>Login für %1 fehlgeschlagen (Account gesperrt).</org>
+				<en>Login for %1 failed (blocked account).</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>abbd6872535b63a36b7e86d6f01d4a75</id>
 				<org>Account von %1 ist noch gesperrt. Login daher fehlgeschlagen.</org>
+				<en>Account of %1 is still locked. Login therefore failed.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>ee4afd2e88681d11061cfd86d628a180</id>
 				<org>Login für %1 fehlgeschlagen (Passwort-Fehler).</org>
+				<en>Login failed for %1 (password error).</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>d9bfb5a529828b84f45ae74c90eafd9a</id>
 				<org>Login für %1 fehlgeschlagen (Account nicht eingecheckt).</org>
+				<en>Login for %1 failed (account not checked in).</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>4b91da1b817b09176d25cb1dfad65c59</id>
 				<org>Login für %1 fehlgeschlagen (Account ausgecheckt).</org>
+				<en>Login for %1 failed (account checked out).</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>e57ab199a2074f450c154dfd84296615</id>
 				<org>Unable to write in directory /'/%1/'/</org>
+				<en>Unable to write to directory %1</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>93b264adaeca55feeb7ec542bda031fe</id>
 				<org>Eintrag #%1 in Tabelle &quot;%2&quot; geändert</org>
+				<en>Changed entry #%1 of table &quot;%2&quot;</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>1fdad29030e08f56ede1f2bd22bc2d68</id>
 				<org>Eintrag #%1 in Tabelle &quot;%2&quot; eingefügt</org>
+				<en>Entry #%1 of table &quot;%2&quot; was inserted</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>e78eb734f37b3a978031b4871805d3a0</id>
 				<org>Diese Email ist ungültig (Falscher Benutzer-Teil)</org>
+				<en>This email is invalid (incorrect user part)</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>a01b15fee683b2dc8fda9114c9c3c7c7</id>
 				<org>Diese Email ist ungültig (Falscher Host-Teil)</org>
+				<en>This email is invalid (Wrong host part)</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>21b62c8fbb71b3fb65bb42e0648c4ae4</id>
 				<org>Diese Email ist ungültig (Nicht exitsierende Domain)</org>
+				<en>This email is invalid (Non existing domain)</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>fee3153d8768a82e13b08e0aff29a0a9</id>
 				<org>AddTableRow: First argument needs to be array</org>
+				<en>AddTableRow: First argument needs to be array</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>9cfe2c498f503819331e809d47fd5145</id>
 				<org>AddTableRow: First argument needs to be 2-dimension-array</org>
+				<en>AddTableRow: First argument needs to be 2-dimensional array</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>9baed4461ee81660fff41f6f70389834</id>
 				<org>Das MySQL-PHP Modul ist nicht geladen. Bitte fügen Sie die mysql.so Erweiterung zur php.ini hinzu und restarten Sie den Webserver neu. Lansuite wird abgebrochen</org>
+				<en>The MySQL PHP module is not loaded. Please add the mysql.so extension to php.ini and restart the web server. Lansuite is canceled</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>7dbe4e409654309e8dc548ef8224b1c4</id>
 				<org>SQL-Failure. Database respondet: &lt;b&gt;%1&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Query: &lt;br&gt;&lt;i&gt;%2&lt;/i&gt;&lt;br/&gt;&lt;br/&gt;Script: &lt;a href=&quot;%3&quot;&gt;%3&lt;/a&gt;&lt;br/&gt;Referrer: &lt;a href=&quot;%4&quot;&gt;%4&lt;/a&gt;&lt;br/&gt;</org>
+				<en>SQL-Failure. Respondet &lt;b&gt;Database:%1&lt;/b&gt; &lt;br/&gt;&lt;br/&gt; Query: &lt;br&gt; &lt;i&gt;%2&lt;/i&gt; &lt;br/&gt;&lt;br/&gt; &lt;a href=&quot;%3&quot;&gt;Script:%3&lt;/a&gt; &lt;br/&gt; &lt;a href=&quot;%4&quot;&gt;Referrer:%4&lt;/a&gt; &lt;br/&gt;</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>b5632fc6b89802e9371a3306a3cf2dd3</id>
 				<org>Die Verbindung zur Datenbank ist fehlgeschlagen. Lansuite wird abgebrochen</org>
+				<en>The connection to the database failed. Lansuite is canceled</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>d0c08536fefba309d182e260da4c2f8b</id>
 				<org>Die Datenbank '%1' konnte nicht ausgewählt werden. Lansuite wird abgebrochen</org>
+				<en>The database '%1' could not be selected. Lansuite is canceled</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>55bd68d08421681ecb999d9edf5c577f</id>
 				<org>Dieser Eintrag kann momentan leider nicht gelöscht werden, da Einträge aus folgender Tabelle noch darauf referenzieren</org>
+				<en>This entry can not be deleted at the moment, for referenced in the following tables exists</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>c78ad4525df77d469a93e3b99fba4c8d</id>
 				<org>Dieser Eintrag kann momentan leider nicht gelöscht werden, da Einträge aus folgenden Tabellen noch darauf referenzieren</org>
+				<en>This entry can not be deleted at the moment, for referenced in the following tables exists</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>be0d3bb5a0f52755701fafef5c2391e0</id>
 				<org>Achtung</org>
+				<en>Attention</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>06552ef259e791e5e88dc6a347651518</id>
 				<org>Folgende Einträge referenzieren noch auf diesen Eintrag:</org>
+				<en>The following entries still refer to this entry:</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>abec5598c9fed0b86e761e5b3e9ae25c</id>
 				<org>Diese Eintrag werden mitgelöscht!</org>
+				<en>This entry will also be deleted!</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>27605f86aebd3703b7482f752d4a65ee</id>
 				<org>Bei Einträge in dieser Tabelle wird die Zuordnung aufgelöst!</org>
+				<en>For entries in this table, the association is dissolved!</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>570a74121731becb928c0c6f00c7976b</id>
 				<org>Vollbildmodus schließen</org>
+				<en>Close Full Screen</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>4789ac07952deecf2a4ae4276ef5caad</id>
 				<org>Seite</org>
+				<en>Page</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>df24d29109c2ee42527311d45a2f3e19</id>
 				<org>Diese Webseite ist Momentan im &quot;Freeze-Mode&quot;.[br]D.h. es können keine neuen Daten in die Datenbank geschrieben werden.[br][br]Bitte versuchen Sie es zu einem Späteren Zeitpunkt nocheinmal.</org>
+				<en>This website is currently in &quot;freeze mode&quot;. [Br] That is, it is not possible to write any new data into the database. [Br] [br] Please try again at a later time.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>46b4090bea4fb9cef4c9982be7b208f7</id>
 				<org>Dieses Feld enthält nicht erlaubte Steuerungszeichen (z.B. einen Tab, oder Zeilenumbruch)</org>
+				<en>This field contains permitted control characters (such as a tab, or newline)</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>78ce20219f0f80bd2e6f5e991f4295ef</id>
 				<org>Bitte geben Sie diesen Text unterhalb ein</org>
+				<en>Please enter the text below</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>1a86641e4cd940fd2a55e2a4238b0e4b</id>
 				<org>Die Mail-Domain %1 ist nicht erlaubt, da sie Anbieter von &quot;Wegwerf-Mails&quot; ist</org>
+				<en>The mail domain %1 is not allowed because they are offering &quot;disposable emails&quot;</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>e6b431736c96f4307e84d3fe19f1b14f</id>
 				<org>Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email.</org>
+				<en>You have not yet verified your email address (%1). Please follow the link in the e-mail delivered to you.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>f2999f6023f7896c13d6f3ca77985cb9</id>
 				<org>Klicken Sie hier, um die Mail erneut zu versenden&lt;/a&gt;</org>
+				<en>Click here to resend the mail to</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>116157fc9c4516dd2e35512965048960</id>
 				<org>Haben Sie ihr Passwort vergessen?&lt;br/&gt;&lt;a href=&quot;/index.php?mod=usrmgr&amp;action=pwrecover&quot;/&gt;Hier können Sie sich ein neues Passwort generieren&lt;/a&gt;.</org>
+				<en>Forgot your password? &lt;br/&gt; &lt;a href=&quot;/index.php?mod=usrmgr&amp;action=pwrecover&quot;/&gt;Here you can generate a new password.&lt;/a&gt;</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>811e47f41d8090c0c509dea9cefcebab</id>
 				<org>Ihre Session ist abgelaufen und das bei Ihnen gesetzte Cookie ist fehlerhaft. Leider konnten Sie damit nicht eingeloggt werden. Bitte loggen Sie sich neben erneut manuell ein</org>
+				<en>Your session has expired and the cookie set is corrupt. Unfortunately, you were unable to be logged in. Please log in manually again</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>efb0658c8f86ed490e10279b55332adc</id>
 				<org>Login für %1 fehlgeschlagen (Cookie-Fehler).</org>
+				<en>Login failed for %1 (Cookie error).</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>77247842e26d2464303c900fb85ac152</id>
 				<org>Benutzerwechsel erfolgreich. Die &amp;Auml;nderungen werden beim laden der nächsten Seite wirksam.</org>
+				<en>Users change successful. The changes will take effect when the next page loads.</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>f0be8e71454169b8beabad79e1437fd3</id>
 				<org>Fehlerhafte Cookie-Daten. Cookie wurde gelöscht</org>
+				<en>Incorrect cookie data. Cookie has been deleted</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>ce1e61624f032f37a338b7eccc05a90c</id>
 				<org>Mi</org>
+				<en>Wed</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>c39838d84fd81cbfeb7cf74ccd8ae9d0</id>
 				<org>Weiter</org>
+				<en>Next</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>6559ff591c6697998b4b2eb3c341e94c</id>
 				<org>Weiter zur naechsten Seite</org>
+				<en>Continue to next page</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>cdf47deb104473eb8905af1b49d1bfa8</id>
 				<org>Zurück zur vorherigen Seite</org>
+				<en>Back to previous page</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>3eff505aeeeb34636c24cbc862fa554f</id>
 				<org>Angemeldet und Bezahlt</org>
+				<en>Registered and paid</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>70cddb2d45f04a29f54704ccb632e576</id>
 				<org>Nur Angemeldet</org>
+				<en>Just Registered</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>69566353ee20bf15bbfab86db1146ed6</id>
 				<org>Frei</org>
+				<en>Free</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>f59c72aa1d236904f5ddbc69cd1b7b7b</id>
 				<org>Bitte auswählen</org>
+				<en>Please select</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>f797991b3da9682b516352d95ab0b6d8</id>
 				<org>Sehr schlecht</org>
+				<en>Very bad</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>6a14cc29a33cb8ab42ba7884ce469ea8</id>
 				<org>Sehr gut</org>
+				<en>Very good</en>
 				<file>System</file>
 			</entry>
 			<entry>
 				<id>1eb869cbc62e298e310d0b4d40ef819b</id>
 				<org>Bewertung</org>
+				<en>Rating</en>
 				<file>System</file>
 			</entry>
 		</content>
