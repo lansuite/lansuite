@@ -47,7 +47,7 @@ $ms2->AddResultField(t('Belegt'), 'b.blockid', 'SeatsOccupied');
 $ms2->AddResultField(t('Auslastung'), 'b.blockid', 'SeatLoad');
 
 if (!$target_icon) $target_icon = 'details';
-if ($target_url) $ms2->AddIconField($target_icon, $target_url, $lang['ms2'][$target_icon]);
+if ($target_url) $ms2->AddIconField($target_icon, $target_url, t($target_icon));
 else {
   $ms2->AddIconField('details', 'index.php?mod=seating&action=show&step=2&blockid=', t('Details'));
 

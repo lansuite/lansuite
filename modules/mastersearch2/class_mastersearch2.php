@@ -144,7 +144,7 @@ class MasterSearch2 {
             break;
             case 'fulltext':
               $sql_one_search_field .= "(MATCH ($sql_field) AGAINST ('{$_GET["search_input"][$z]}' IN BOOLEAN MODE))";
-              $this->AddResultField($lang['ms2']['score'], "ROUND(MATCH ($sql_field) AGAINST ('{$_GET["search_input"][$z]}' IN BOOLEAN MODE), 3) AS score");
+              $this->AddResultField(t('Score'), "ROUND(MATCH ($sql_field) AGAINST ('{$_GET["search_input"][$z]}' IN BOOLEAN MODE), 3) AS score");
             break;
             case '1337':
               $key_1337 = $_GET["search_input"][$z];

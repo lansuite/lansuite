@@ -81,7 +81,7 @@ class pdf_tmpl{
         $out = "";
         while ($data_array = $db->fetch_array($data)){
         	$smarty->assign('action', $_GET['action']);
-            $smarty->assign('name', $lang['pdf'][$data_array['type']]);
+            $smarty->assign('name', t($data_array['type']));
             $smarty->assign('itemid', $data_array['pdfid']);
             $smarty->assign('id', $this->tmpl_id);
             if($data_array['type'] == "rect"){
@@ -158,7 +158,7 @@ class pdf_tmpl{
                       
         // Maske ausgeben für entsprechenden eintrag
         $dsp->NewContent(t('Objekt'),t('Neues Objekt erstellen'));  
-        $dsp->AddSingleRow(t('Erstelle ') . $lang['pdf'][$object]);       
+        $dsp->AddSingleRow(t('Erstelle ') . t($object));
         $dsp->SetForm("index.php?mod=pdf&action=" . $this->action ."&act=insert_item&object=$object&id=$this->tmpl_id");
             if($object == "rect"){
                 $dsp->AddTextFieldRow("pos_x",t('Xo'),'','');       
@@ -265,7 +265,7 @@ class pdf_tmpl{
                      
         $object = $data['type']; 
         $dsp->NewContent(t('Objekt'),t('Objekt &auml;ndern'));  
-        $dsp->AddSingleRow(t('Ändere ') . " " . $lang['pdf'][$object]);          
+        $dsp->AddSingleRow(t('Ändere ') . " " . t($object));
         $dsp->SetForm("index.php?mod=pdf&action=" . $this->action ."&act=change_item&object=$object&id=$this->tmpl_id&itemid=$item_id");
             if($object == "rect"){
                 $dsp->AddTextFieldRow("pos_x",t('Xo'),$data['pos_x'],'');       

@@ -430,18 +430,8 @@ class display {
     $this->AddDoubleRow($key, $value);
   }
 
-  function AddFormSubmitRow($button, $helplet_id = NULL, $var = false, $close = true) {
-    global $lang;
-
-    ($var)? $ButtonName = $var : $ButtonName = 'imageField';
-    $hint = $button;
-
-    $key = '&nbsp;';
-    // For old compatibility
-    if ($lang['button'][$button]) $value = '<input type="submit" class="Button" name="'. $ButtonName .'" value="'. $lang['button'][$button] .'" />';
-    else $value = '<input type="submit" class="Button" name="'. $ButtonName .'" value="'. t($button) .'" />';
-    $this->AddDoubleRow($key, $value);
-
+  function AddFormSubmitRow($button, $helplet_id = NULL, $var = 'imageField', $close = true) {
+    $this->AddDoubleRow('&nbsp;', '<input type="submit" class="Button" name="'. $var .'" value="'. t($button) .'" />');
     if ($this->form_open and $close) $this->CloseForm();
   }
 
@@ -773,16 +763,15 @@ class display {
     } else return HTML_NEWLINE . HTML_NEWLINE. $this->FetchIcon($file, 'download') .' ('. t('Angehängte Datei herunterladen').')';
   }
 
-  function FetchButton($link, $picname, $hint = NULL, $target = NULL) {
-    global $lang;
-
-    return $this->FetchSpanButton($lang['button'][$picname], $link, $hint, $target);
-  }
-
   function FetchCssButton($title, $link, $hint = NULL, $target = NULL) {
     ($hint)? $hint = '<span class="infobox">'. t($hint) .'</span>' : $hint = '';
     ($target)? $target = ' target="_blank"' : $target = '';
     return '<div class="Button"><a href="'. $link .'"'. $target .'>'. $title . $hint .'</a></div>';
+  }
+
+  // Old: Should be replaced by FetchSpanButton
+  function FetchButton($link, $picname, $hint = NULL, $target = NULL) {
+    return $this->FetchSpanButton(t($picname), $link, $hint, $target);
   }
 
   function FetchSpanButton($title, $link, $hint = NULL, $target = NULL) {
