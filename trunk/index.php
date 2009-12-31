@@ -3,6 +3,7 @@
 
     if (defined('E_DEPRECATED')) error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED); // Will work for PHP >= 5.3
     else error_reporting(E_ALL ^ E_NOTICE); // For PHP < 5.3
+    if (function_exists('date_default_timezone_set')) date_default_timezone_set('Europe/Berlin'); // As of PHP 5.3 this needs to be set. Otherwise some webservers will throw warnings
     if (function_exists('ini_set')) {
       #ini_set('display_errors', 0);
       #ini_set('log_errors', 1);
