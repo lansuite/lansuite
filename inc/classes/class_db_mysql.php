@@ -60,8 +60,8 @@ class db {
     $database = $config['database']['database'];
 
     // Try to connect
-    if ($this->mysqli) $this->link_id=@mysqli_connect($server, $user, $pass);
-    else $this->link_id=@mysql_connect($server, $user, $pass);
+    if ($this->mysqli) $this->link_id = mysqli_connect($server, $user, $pass);
+    else $this->link_id = mysql_connect($server, $user, $pass);
     if (!$this->link_id) {
       if ($save) {
       	$this->connectfailure = 1;
@@ -74,8 +74,8 @@ class db {
 
     // Try to select DB
     } else {
-      if ($this->mysqli) $ret = @mysqli_select_db($this->link_id, $database);
-      else $ret = @mysql_select_db($database, $this->link_id);
+      if ($this->mysqli) $ret = mysqli_select_db($this->link_id, $database);
+      else $ret = mysql_select_db($database, $this->link_id);
       if (!$ret) {
         if ($save) {
           $this->connectfailure = 2;
@@ -132,10 +132,10 @@ class db {
     if (isset($debug)) $debug->query_start($query);
     if ($this->mysqli) {
       $this->query_id = mysqli_query($this->link_id, $query);
-      $this->sql_error = @mysqli_error($this->link_id);
+      $this->sql_error = mysqli_error($this->link_id);
     } else {
       $this->query_id = mysql_query($query, $this->link_id);
-      $this->sql_error = @mysql_error($this->link_id);
+      $this->sql_error = mysql_error($this->link_id);
     }
     if (!$this->query_id) $this->print_error($this->sql_error, $query);
     $this->count_query++;
