@@ -36,10 +36,10 @@ switch($_GET["step"]){
     $ms2->AddResultField(t('Auslöser'), 'u.username', 'UserNameAndIcon');
     $ms2->AddResultField(t('Prio.'), 'l.type');
 
-    $ms2->AddIconField('details', 'index.php?mod=misc&action=log&step=2&logid=', t('Details'));
-    if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), "index.php?mod=misc&action=log&step=10", 1);
+    $ms2->AddIconField('details', 'index.php?mod=install&action=log&step=2&logid=', t('Details'));
+    if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), "index.php?mod=install&action=log&step=10", 1);
 
-    $ms2->PrintSearch('index.php?mod=misc&action=log', 'l.logid');
+    $ms2->PrintSearch('index.php?mod=install&action=log', 'l.logid');
 	break;
 
   case 2:
@@ -48,7 +48,7 @@ switch($_GET["step"]){
     $dsp->AddSingleRow($log['description']);
     $dsp->AddSingleRow($func->unixstamp2date($log['date'], 'datetime'));
     if ($log['userid']) $dsp->AddSingleRow($dsp->FetchUserIcon($log['userid']));
-    $dsp->AddBackButton("index.php?mod=misc&action=log", '');
+    $dsp->AddBackButton("index.php?mod=install&action=log", '');
     $dsp->AddContent();
   break;
   

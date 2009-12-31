@@ -111,4 +111,14 @@
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
+	<entry>
+		<action>log</action>
+		<file>log</file>
+		<caption>Logfile</caption>
+		<hint></hint>
+		<link>?mod=install&amp;action=log</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
 </menu>

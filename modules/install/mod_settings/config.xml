@@ -249,6 +249,37 @@ nospamfor.us</default>
   </group>
   <group>
     <head>
+      <name>IP-Sperre</name>
+    </head>
+    <items>
+    	<item>
+    		<name>ip_blacklist</name>
+    		<type>text</type>
+    		<default></default>
+    		<description>Liste aller IP-Adressen, die von Lansuite komplett geblockt werden sollen</description>
+    	</item>
+    	<item>
+    		<name>reload_limit</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Seite bei zu häufigen Zugriffen von einer IP sperren?</description>
+    	</item>
+    	<item>
+    		<name>reload_time</name>
+    		<type>int</type>
+    		<default>600</default>
+    		<description>Aufzeichnungszeitraum für IP-Reload in Sekunden</description>
+    	</item>
+    	<item>
+    		<name>reload_hits</name>
+    		<type>int</type>
+    		<default>120</default>
+    		<description>Nach wie vielen Hits im Zeitraum soll eine IP gesperrt werden?</description>
+    	</item>
+    </items>
+  </group>
+  <group>
+    <head>
       <name>Lokalisierung</name>
     </head>
     <items>
