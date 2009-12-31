@@ -21,8 +21,6 @@ class gd {
 
 
 	function NewImage($width, $height, $interlace = NULL) {
-		global $lang;
-
 		$this->width = $width;
 		$this->height = $height;
 
@@ -39,7 +37,7 @@ class gd {
 
   // Output image (as file if $file is specified, or as direct output if not)
 	function PutImage($file = NULL, $type = NULL, $destroy = TRUE) {
-		global $lang, $config;
+		global $config;
 
 		if ($file) {
 			$path = substr($file, 0, strrpos($file, "/"));
@@ -144,25 +142,25 @@ class gd {
 
 
 	function CreateButton($name) {
-		global $auth, $language, $lang, $func;
+		global $auth, $language, $func;
 
 		if (!file_exists("ext_inc/auto_images/{$auth["design"]}/$language/button_$name.png")) {
 			$func->CreateDir("ext_inc/auto_images/{$auth["design"]}");
 			$func->CreateDir("ext_inc/auto_images/{$auth["design"]}/$language");
 
-			if (strlen($lang['button'][$name]) <= 10) {
-				$start_x = 34 - (strlen($lang['button'][$name]) * 6) / 2;
+			if (strlen(t($name)) <= 10) {
+				$start_x = 34 - (strlen(t($name) * 6) / 2;
 				$this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button.png");
-			} elseif (strlen($lang['button'][$name]) <= 15) {
-				$start_x = 49 - (strlen($lang['button'][$name]) * 6) / 2;
+			} elseif (strlen(t($name)) <= 15) {
+				$start_x = 49 - (strlen(t($name)) * 6) / 2;
 				$this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button_b.png");
 			} else {
-				$start_x = 64 - (strlen($lang['button'][$name]) * 6) / 2;
-				if (strlen($lang['button'][$name]) > 20) $lang['button'][$name] = substr($lang['button'][$name], 0, 20);
+				$start_x = 64 - (strlen(t($name)) * 6) / 2;
+				if (strlen(t($name)) > 20) t($name) = substr(t($name), 0, 20);
 				$this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button_c.png");
 			}
 			$this->SetFont("ext_inc/fonts/verdana.ttf", 7);
-			$this->Text ($start_x, 4, imagecolorallocate($this->img, 30, 30, 30), $lang['button'][$name], 20);
+			$this->Text ($start_x, 4, imagecolorallocate($this->img, 30, 30, 30), t($name), 20);
 			$this->PutImage("ext_inc/auto_images/{$auth["design"]}/$language/button_$name.png");
 		}
 	}
