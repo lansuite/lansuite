@@ -98,14 +98,26 @@ switch ($_GET['step']) {
       $dsp->AddFieldSetEnd();
 
       // Scan DB
+      $FoundTransEntries = array();
       $translation->TUpdateFromDB('menu', 'caption');
       $translation->TUpdateFromDB('menu', 'hint');
       $translation->TUpdateFromDB('modules', 'description');
       $translation->TUpdateFromDB('config', 'cfg_desc');
       $translation->TUpdateFromDB('config_selections', 'cfg_display');
+      $translation->TUpdateFromDB('plugin', 'caption');
+      $translation->TUpdateFromDB('boxes', 'name');
 
       // DELETE empty rows
       $res = $db->qry("DELETE FROM %prefix%translation WHERE org = ''");
+
+      // Mark entries as obsolete, which no do no longer exist
+      $res = $db->qry("SELECT tid, file, org FROM %prefix%translation WHERE file = 'DB' AND obsolete = 0", $CurrentFile);
+      while($row = $db->fetch_array($res)) {
+        if (!in_array($row['tid'], $FoundTransEntries)) {
+          $db->qry("UPDATE %prefix%translation SET obsolete = 1 WHERE tid = %int%", $row['tid']);
+        }
+      }
+      $db->free_result($res);
 
       // For info output DB internal
       $output = '';

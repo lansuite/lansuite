@@ -468,16 +468,18 @@ class translation {
    */
 
     function TUpdateFromDB($table, $field) {
-        global $db;
+        global $db, $FoundTransEntries;
         $i = 0;
         $res = $db->qry('SELECT '. $field .' FROM %prefix%'. $table);
         while ($row = $db->fetch_array($res)) if ($row[$field] != '') {
             $key = md5($row[$field]);
-            $row2 = $db->qry_first('SELECT 1 AS found FROM %prefix%translation WHERE id = %string%', $key);
+            $row2 = $db->qry_first('SELECT 1 AS found, tid FROM %prefix%translation WHERE id = %string%', $key);
             if (!$row2['found']) {
                 $db->qry('REPLACE INTO %prefix%translation SET id = %string%, file = \'DB\', org = %string%', $key, $row[$field]);
+                $row2['tid'] = $db->insert_id();
                 $i++;
             }
+            $FoundTransEntries[] = $row2['tid']; // Array is compared to DB later for synchronization
         }
         $db->free_result($res);
         return $i;
