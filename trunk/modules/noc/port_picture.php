@@ -15,10 +15,7 @@ If ( $config['environment']['gd'] == "0" ) { break; }
 
 
 // Check Filesystem
-$filepath = "ext_inc/auto_images/noc/";
-if(!file_exists($filepath)){
-	mkdir($filepath,octdec($config["lansuite"]["chmod_dir"]));
-}
+$filepath = "design/images/";
 
 // Check Portstatus:
 //
