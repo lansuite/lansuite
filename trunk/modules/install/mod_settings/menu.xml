@@ -82,16 +82,6 @@
 		<requirement>3</requirement>
 	</entry>
 	<entry>
-		<action>settings</action>
-		<file>modules</file>
-		<caption>Konfiguration</caption>
-		<hint>Konfiguration der Module</hint>
-		<link>index.php?mod=install&amp;action=modules&amp;step=10&amp;module=install</link>
-		<requirement>3</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
 		<action>import</action>
 		<file>import</file>
 		<caption>Import</caption>
