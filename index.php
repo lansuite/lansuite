@@ -191,8 +191,6 @@
 ### Initalize Basic Parameters
 
     $language = $translation->get_lang(); // Set and Read Systemlanguage
-    // Load Base-Lang-File. OLD!!! Only for old $lang in Systemfolders
-    if (file_exists("inc/language/language_$language.php")) include_once("inc/language/language_$language.php");
     $smarty->assign('language', $language);
 
 ### Installingsystem or normal auth
