@@ -11,6 +11,7 @@ class db {
   var $errors = '';
   var $errorsFound = 0;
   var $connectfailure = 0;  //0= no error, 1=connection error, 2=database error
+  var $QueryArgs = array();
 
   // Construktor
   function db() {
@@ -37,7 +38,7 @@ class db {
   }
 
   function escape($match) {
-    global $CurrentArg;
+    $CurrentArg = array_shift($this->QueryArgs);
 
     if ($match[0] == '%int%') return (int)$CurrentArg;
     elseif ($match[0] == '%string%') {
@@ -123,16 +124,15 @@ class db {
    */
   function qry() {
     global $config, $CurrentArg, $debug;
-    $args = func_get_args();
-    if (is_array($args[0])) $args = $args[0]; // Arguments could be passed als multiple ones, or a single array
+    $this->QueryArgs = func_get_args();
+    if (is_array($this->QueryArgs[0])) $this->QueryArgs = $this->QueryArgs[0]; // Arguments could be passed als multiple ones, or a single array
 
-    $query = array_shift($args);
+    $query = array_shift($this->QueryArgs);
     $query = str_replace('%prefix%', $config['database']['prefix'], $query);
 
-    if (is_array($args[0]))
-    	$args = $args[0];
+    if (is_array($this->QueryArgs[0])) $this->QueryArgs = $this->QueryArgs[0];
 
-    foreach ($args as $CurrentArg) $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array('db', 'escape'), $query, 1);
+    $query = preg_replace_callback('#(%string%|%int%|%plain%)#sUi', array('db', 'escape'), $query);
     if (isset($debug)) $debug->query_start($query);
     if ($this->mysqli) {
       $this->query_id = mysqli_query($this->link_id, $query);
