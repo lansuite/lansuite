@@ -132,6 +132,9 @@ switch ($_GET['step']) {
 function translate(textid, from, to) {
   google.language.translate($("label[for=id["+ textid +"]]").text(), from, to, function(result) {
     if (!result.error) {
+      result.translation = result.translation.replace(/&quot;/g, "\"");
+      result.translation = result.translation.replace(/&#39;/g, "\'");
+      result.translation = result.translation.replace(/% /g, "%");
       $("textarea[name=id["+ textid +"]]").text(result.translation);
       $("input[name=id["+ textid +"]]").val(result.translation);
     }
