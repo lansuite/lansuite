@@ -34,9 +34,13 @@ $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=search_cfg\">".t(
 #$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=adminaccount\">".t('Administrator Account anlegen')."</a>");
 $dsp->AddFieldSetEnd();
 
-$dsp->AddFieldSetStart(t('Lansuite updaten / reparieren'));
+$dsp->AddFieldSetStart(t('System Zustand'));
 $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=envcheck\">".t('Systemvoraussetzungen testen')."</a>");
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=db\">".t('Datenbank updaten und verwalten')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=log\">".t('Log File ansehen')."</a>");
+$dsp->AddFieldSetEnd();
+
+$dsp->AddFieldSetStart(t('Lansuite updaten / reparieren'));
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=db\">".t('Datenbank updaten und verwalten (sollte nach jedem Lansuite-Update ausgeführt werden)')."</a>");
 $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=dbmenu\">".t('Menueinträge neu schreiben')."</a>");
 $dsp->AddFieldSetEnd();
 

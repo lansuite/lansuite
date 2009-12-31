@@ -4,29 +4,25 @@ class sec {
 		global $db, $config, $cfg;
 
 		// Global-Black-List
-		$row = $db->qry_first("SELECT 1 AS found FROM %prefix%ip_blacklist
-            WHERE ip = INET_ATON(%string%) AND (module = '' OR module = %string%)
+		if (strpos($cfg['ip_blacklist'], $_SERVER['REMOTE_ADDR']) !== false) die ("Deine IP wird von LanSuite geblockt. Melde dich bitte bei den Administratoren");
+
+    if ($cfg["reload_limit"]) {
+  		// Reload-Black-List
+  		if (!$cfg["reload_time"]) $cfg["reload_time"] = 600;
+  		$db->qry("DELETE FROM %prefix%ip_hits WHERE (date + %int%) < %int%", $cfg["reload_time"], time());
+
+  		$db->qry("INSERT INTO %prefix%ip_hits SET ip = INET_ATON(%string%)",
+              $_SERVER['REMOTE_ADDR'], $_GET["mod"], $_GET["action"], $_GET["step"]);
+
+  		$ip_hits = $db->qry_first("SELECT COUNT(*) AS hits FROM %prefix%ip_hits
+            WHERE ip = INET_ATON(%string%)
+            GROUP BY ip
             LIMIT 1
-            ", $_SERVER['REMOTE_ADDR'], $_GET["mod"]);
-		if ($row['found']) die ("Deine IP wird von LanSuite geblockt. Melde dich bitte bei den Administratoren");
+            ", $_SERVER['REMOTE_ADDR']);
 
-        if ($cfg["reload_limit"]) {
-    		// Reload-Black-List
-    		if (!$cfg["reload_time"]) $cfg["reload_time"] = 600;
-    		$db->qry("DELETE FROM %prefix%ip_hits WHERE (date + %int%) < %int%", $cfg["reload_time"], time());
-
-    		$db->qry("INSERT INTO %prefix%ip_hits SET ip = INET_ATON(%string%)",
-                $_SERVER['REMOTE_ADDR'], $_GET["mod"], $_GET["action"], $_GET["step"]);
-
-    		$ip_hits = $db->qry_first("SELECT COUNT(*) AS hits FROM %prefix%ip_hits
-              WHERE ip = INET_ATON(%string%)
-              GROUP BY ip
-              LIMIT 1
-              ", $_SERVER['REMOTE_ADDR']);
-
-    		if (!$cfg["reload_hits"]) $cfg["reload_hits"] = 120;
-    		if ($ip_hits["hits"] > $cfg["reload_hits"]) die ("Deine IP wird von LanSuite wegen zu häufigen Seitenaufrufen geblockt. Bitte warte ein wenig und versuche es dann erneut.");
-        }
+  		if (!$cfg["reload_hits"]) $cfg["reload_hits"] = 120;
+  		if ($ip_hits["hits"] > $cfg["reload_hits"]) die ("Deine IP wird von LanSuite wegen zu häufigen Seitenaufrufen geblockt. Bitte warte ein wenig und versuche es dann erneut.");
+    }
 	}
 
 

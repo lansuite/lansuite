@@ -22,32 +22,12 @@
 		<level>1</level>
 	</entry>
 	<entry>
-		<action>log</action>
-		<file>log</file>
-		<caption>Logfile</caption>
-		<hint></hint>
-		<link>?mod=misc&amp;action=log</link>
-		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
 		<action>sessions</action>
 		<file>sessions</file>
 		<caption>Sessions</caption>
 		<hint></hint>
 		<link>?mod=misc&amp;action=sessions</link>
 		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
-		<action>ip_block</action>
-		<file>ip_block</file>
-		<caption>IP-Blacklist</caption>
-		<hint>Hier können Sie IP blocken</hint>
-		<link>?mod=misc&amp;action=ip_block</link>
-		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
@@ -68,27 +48,6 @@
 		<hint>Verwaltung der Bookmarks, die in den Kommentaren gesetzt wurden</hint>
 		<link>?mod=misc&amp;action=mc_bookmark</link>
 		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-		<entry>
-		<action>random_user</action>
-		<file>random_user</file>
-		<caption>Zufallsgast</caption>
-		<hint>Wählt anhand bestimmter Kriterien zufällige Gäste aus</hint>
-		<link>?mod=misc&amp;action=random_user</link>
-		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	</entry>
-		<entry>
-		<action>onlineuser</action>
-		<file>onlineuser</file>
-		<caption>Onlineuser</caption>
-		<hint></hint>
-		<link>?mod=misc&action=onlineuser</link>
-		<requirement>3</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
