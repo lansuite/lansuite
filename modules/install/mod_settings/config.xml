@@ -307,6 +307,12 @@ nospamfor.us</default>
     		<default>Euro</default>
     		<description>Währung des Systems</description>
     	</item>
+    	<item>
+    		<name>show_translation_links</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Soll Admins hinter jedem übersetzbaren Text ein Editieren-Link gezeigt werden?</description>
+    	</item>
     </items>
   </group>
   <group>
