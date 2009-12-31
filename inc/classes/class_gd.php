@@ -140,7 +140,7 @@ class gd {
 		}
 	}
 
-
+/*
 	function CreateButton($name) {
 		global $auth, $language, $func;
 
@@ -165,7 +165,7 @@ class gd {
 			$this->PutImage("ext_inc/auto_images/{$auth["design"]}/$language/button_$name.png");
 		}
 	}
-
+*/
 
 	function OpenImage($filename) {
 	  if (!file_exists($filename)) return 0;
