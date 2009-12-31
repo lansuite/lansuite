@@ -26,27 +26,27 @@ if ($row['found']) {
 }
 
 $dsp->AddFieldSetStart(t('Lansuite konfigurieren'));
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=ls_conf\">".t('Grundeinstellungen (Datenbank-Zugangsdaten)')."</a>");
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=mod_cfg&step=10&module=install\">".t('Allgemeine Einstellungen')."</a>");
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules\">".t('Modulmanager')."</a>");
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu\">".t('Navigationsmenü verwalten')."</a>");
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=search_cfg\">".t('Konfigurationseinstellungen suchen')."</a>");
-#$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=adminaccount\">".t('Administrator Account anlegen')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=ls_conf\"><img src=\"design/images/icon_generate.png\" /> ".t('Grundeinstellungen (Datenbank-Zugangsdaten)')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=mod_cfg&step=10&module=install\"><img src=\"design/images/icon_config.png\" /> ".t('Allgemeine Einstellungen')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules\"><img src=\"design/images/icon_details.png\" /> ".t('Modulmanager')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu\"><img src=\"design/images/icon_tree.png\" /> ".t('Navigationsmenü verwalten')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=search_cfg\"><img src=\"design/images/icon_search.png\" /> ".t('Konfigurationseinstellungen suchen')."</a>");
+#$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=adminaccount\"><img src=\"design/images/icon_add_user.png\" /> ".t('Administrator Account anlegen')."</a>");
 $dsp->AddFieldSetEnd();
 
 $dsp->AddFieldSetStart(t('System Zustand'));
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=envcheck\">".t('Systemvoraussetzungen testen')."</a>");
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=log\">".t('Log File ansehen')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=envcheck\"><img src=\"design/images/icon_help.png\" /> ".t('Systemvoraussetzungen testen')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=log\"><img src=\"design/images/icon_save.png\" /> ".t('Log File ansehen')."</a>");
 $dsp->AddFieldSetEnd();
 
 $dsp->AddFieldSetStart(t('Lansuite updaten / reparieren'));
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=db\">".t('Datenbank updaten und verwalten (sollte nach jedem Lansuite-Update ausgeführt werden)')."</a>");
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=dbmenu\">".t('Menueinträge neu schreiben')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=db\"><img src=\"design/images/icon_database.png\" /> ".t('Datenbank updaten und verwalten (sollte nach jedem Lansuite-Update ausgeführt werden)')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=dbmenu\"><img src=\"design/images/icon_change.png\" /> ".t('Menüeinträge neu schreiben')."</a>");
 $dsp->AddFieldSetEnd();
 
 $dsp->AddFieldSetStart(t('Daten-Management'));
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=import\">".t('Daten-Import')."</a>");
-$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export\">".t('Daten-Export')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=import\"><img src=\"design/images/icon_in.png\" /> ".t('Daten-Import')."</a>");
+$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export\"><img src=\"design/images/icon_forward.png\" /> ".t('Daten-Export')."</a>");
 $dsp->AddFieldSetEnd();
 $dsp->AddBackButton("index.php", "");
 

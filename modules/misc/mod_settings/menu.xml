@@ -41,14 +41,4 @@
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>
-	<entry>
-		<action>mc_bookmark</action>
-		<file>mc_bookmark</file>
-		<caption>Kom.-Lesezeichen</caption>
-		<hint>Verwaltung der Bookmarks, die in den Kommentaren gesetzt wurden</hint>
-		<link>?mod=misc&amp;action=mc_bookmark</link>
-		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
 </menu>

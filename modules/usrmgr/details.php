@@ -249,10 +249,38 @@ else {
     include_once($inc);
     $dsp->AddFieldsetEnd();
   }
-
   $dsp->EndTab();
-  $dsp->StartTab(t('Sonstiges'), 'details');
 
+  $dsp->StartTab(t('Lesezeichen'), 'details');
+    $dsp->AddFieldsetStart(t('In Kommentaren'));
+      switch($_GET['step']){
+        case 10:
+          include_once('inc/classes/class_masterdelete.php');
+          $md = new masterdelete();
+          $md->MultiDelete('comments_bookmark', 'bid');
+        break;
+      }
+
+      include_once('modules/mastersearch2/class_mastersearch2.php');
+      $ms2 = new mastersearch2();
+
+      $ms2->query['from'] = "%prefix%comments_bookmark AS b";
+      $ms2->query['where'] = 'b.userid = '. (int)$auth['userid'];
+      $ms2->query['default_order_by'] = 'b.relatedto_item';
+      $ms2->config['EntriesPerPage'] = 20;
+
+      $ms2->AddResultField(t('Modul'), 'b.relatedto_item');
+      $ms2->AddResultField(t('Beitrags ID'), 'b.relatedto_id');
+      $ms2->AddResultField(t('Internet-Mail'), 'b.email');
+      $ms2->AddResultField(t('System-Mail'), 'b.sysemail');
+
+      if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&step=10&tab=1', 1);
+
+      $ms2->PrintSearch('index.php?mod=usrmgr&action=details&userid='. $_GET['userid'] .'&tab=1', 'b.bid');
+    $dsp->AddFieldsetEnd();
+  $dsp->EndTab();
+  
+  $dsp->StartTab(t('Sonstiges'), 'details');
   // logins, last login
   if ($auth['type'] >= 2) {
       $lastLoginTS = $db->qry_first("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", $_GET['userid']);
