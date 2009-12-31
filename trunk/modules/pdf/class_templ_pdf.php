@@ -1,8 +1,5 @@
 <?php
 
-include_once("inc/classes/class_gd.php");
-$gd = new gd;
-
 class pdf_tmpl{
     
     var $action;
@@ -120,9 +117,12 @@ class pdf_tmpl{
             }
             $smarty->assign('description', $description);
 
-      $gd->CreateButton('edit');
-      $gd->CreateButton('delete');
-      $out .= $smarty->fetch('modules/pdf/templates/edit_liste.htm');
+  					$button_edit = $dsp->FetchIcon("?mod=pdf&action=". $_GET['action'] ."&act=change_mask&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'edit', t('Editieren'));
+  					$button_del = $dsp->FetchIcon("?mod=pdf&action=". $_GET['action'] ."&act=change&delete_item=1&id=". $this->tmpl_id ."&itemid=". $data_array['pdfid'], 'delete', t('Löschen'));
+            $smarty->assign('button_edit', $button_edit);
+            $smarty->assign('button_del', $button_del);
+
+          $out .= $smarty->fetch('modules/pdf/templates/edit_liste.htm');
         }
         $dsp->AddSingleRow($out);
         

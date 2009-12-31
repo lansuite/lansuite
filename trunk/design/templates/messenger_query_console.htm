@@ -117,12 +117,7 @@ function x()
       <td class="tbl_6" height="30"> 
         <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
           <tr> 
-            <td> <a href="javascript:InsertCode(document.form.text, '[b]', '[/b]')"><img src="ext_inc/auto_images/{$default_design}/{$language}/button_bold.png" border="0"></a>
-              <a href="javascript:InsertCode(document.form.text, '[i]', '[/i]')"><img src="ext_inc/auto_images/{$default_design}/{$language}/button_kursiv.png" border="0"></a>
-              <a href="javascript:InsertCode(document.form.text, '[u]', '[/u]')"><img src="ext_inc/auto_images/{$default_design}/{$language}/button_underline.png" border="0"></a>
-              <a href="javascript:InsertCode(document.form.text, '[c]', '[/c]')"><img src="ext_inc/auto_images/{$default_design}/{$language}/button_code.png" border="0"></a>
-              <a href="javascript:InsertCode(document.form.text, '[img]', '[/img]')"><img src="ext_inc/auto_images/{$default_design}/{$language}/button_picture.png" border="0"></a>
-            </td>
+            <td>{$buttons}</td>
             <td> 
               <div align="right">Zeichen: 
                 <input type="text" name="chr" class="form" maxlength="6" size="6" onFocus="this.blur()" value="0">
@@ -139,7 +134,7 @@ function x()
       <td class="tbl_6" height="30"> 
         <table width="100%" cellspacing="0" cellpadding="3" class="tbl_6">
           <tr> 
-            <td> <input type="image" border="0" name="imageField" src="ext_inc/auto_images/{$default_design}/{$language}/button_send.png" width="61" height="17" onClick="loadwindow()"> 
+            <td> <input type="submit" class="Button" name="imageField" onClick="loadwindow()" value="Send">
             </td>
             <td><div align="right"><a href="javascript:var r=loadwindow()" class="menu"><img src="design/{$default_design}/images/arrows_info.gif" width="12" height="13" border="0"> 
                 Aktualisieren</a></div></td>
