@@ -148,19 +148,20 @@ class gd {
 			$func->CreateDir("ext_inc/auto_images/{$auth["design"]}");
 			$func->CreateDir("ext_inc/auto_images/{$auth["design"]}/$language");
 
-			if (strlen(t($name)) <= 10) {
-				$start_x = 34 - (strlen(t($name) * 6) / 2;
+      $text = t($name);
+			if (strlen($text) <= 10) {
+				$start_x = 34 - (strlen($text) * 6) / 2;
 				$this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button.png");
-			} elseif (strlen(t($name)) <= 15) {
-				$start_x = 49 - (strlen(t($name)) * 6) / 2;
+			} elseif (strlen($text) <= 15) {
+				$start_x = 49 - (strlen($text) * 6) / 2;
 				$this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button_b.png");
 			} else {
-				$start_x = 64 - (strlen(t($name)) * 6) / 2;
-				if (strlen(t($name)) > 20) t($name) = substr(t($name), 0, 20);
+				$start_x = 64 - (strlen($text) * 6) / 2;
+				if (strlen($text) > 20) $text = substr($text, 0, 20);
 				$this->img = ImageCreateFromPNG("design/{$auth["design"]}/images/button_c.png");
 			}
 			$this->SetFont("ext_inc/fonts/verdana.ttf", 7);
-			$this->Text ($start_x, 4, imagecolorallocate($this->img, 30, 30, 30), t($name), 20);
+			$this->Text ($start_x, 4, imagecolorallocate($this->img, 30, 30, 30), $text, 20);
 			$this->PutImage("ext_inc/auto_images/{$auth["design"]}/$language/button_$name.png");
 		}
 	}

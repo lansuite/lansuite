@@ -1,8 +1,5 @@
 <?php
 
-include_once("inc/classes/class_gd.php");
-$gd = new gd;
-
 switch($_GET['step']) {
 	default:
 		$_POST["ipgen_a"] = "10";
@@ -17,7 +14,6 @@ switch($_GET['step']) {
 		$smarty->assign('form_action', "index.php?mod=seating&action=ipgen&step=10&blockid=". $_GET['blockid']);
 		$smarty->assign('page_title', t('IP-Generierung'));
 
-    $gd->CreateButton('new_calculate');
     $smarty->assign('case', $smarty->fetch('modules/seating/templates/ipgen_details.htm'));
 		$dsp->AddSingleRow($smarty->fetch('modules/seating/templates/ipgen.htm'));
 	break;
