@@ -142,14 +142,23 @@ switch ($_GET['step']) {
     $framework->add_js_path('http://www.google.com/jsapi');
     $framework->add_js_code('google.load("language", "1");
 function translate(textid, from, to) {
-  google.language.translate($("label[for=id["+ textid +"]]").text(), from, to, function(result) {
+  google.language.translate($("label[for="+ textid +"]").text(), from, to, function(result) {
     if (!result.error) {
       result.translation = result.translation.replace(/&quot;/g, "\"");
       result.translation = result.translation.replace(/&#39;/g, "\'");
       result.translation = result.translation.replace(/% /g, "%");
-      $("textarea[name=id["+ textid +"]]").text(result.translation);
-      $("input[name=id["+ textid +"]]").val(result.translation);
+      $("textarea[name="+ textid +"]").text(result.translation);
+      $("input[name="+ textid +"]").val(result.translation);
     }
+  });
+}
+
+function translate_all_empty(from, to) {
+  $("input").each(function (i) {
+    if (this.value == "") translate(this.name, from, to);
+  });
+  $("textarea").each(function (i) {
+    if (this.value == "") translate(this.name, from, to);
   });
 }
 ');
@@ -177,10 +186,12 @@ function translate(textid, from, to) {
     // Start Tanslation
     $dsp->AddFieldSetStart(t('Texte editieren.'));
         $dsp->SetForm('index.php?mod=misc&action=translation&step=21&file='. $_GET['file']);
+        $dsp->AddDoubleRow('', '<a href="javascript:translate_all_empty(\'de\', \''. $_SESSION['target_language'] .'\')">'. t('Alle leeren Felder mit Google-Translate-Übersetzungen füllen') .'</a>');
+
         $res = $db->qry("SELECT DISTINCT id, org, file, %plain% FROM %prefix%translation WHERE file = %string% AND obsolete = 0", $_SESSION['target_language'], $_GET['file']);
         while($row = $db->fetch_array($res)) {
             #$trans_link_google ="http://translate.google.com/translate_t?langpair=de|".$_SESSION['target_language']."&hl=de&ie=UTF8&text=".$row['org'];
-            $trans_link_google = 'javascript:translate(\''. $row['id'] .'\', \'de\', \''. $_SESSION['target_language'] .'\');';
+            $trans_link_google = 'javascript:translate(\'id['. $row['id'] .']\', \'de\', \''. $_SESSION['target_language'] .'\');';
             $trans_link_google =" <a href=\"".$trans_link_google."\" target=\"_blank\"><img src=\"design/".$auth['design']."/images/arrows_transl.gif\" width=\"12\" height=\"13\" border=\"0\" /></a>";
             
             if (strlen($row['org'])<60) {
