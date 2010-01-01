@@ -70,7 +70,7 @@ switch ($_GET['step']){
 		$dsp->AddSingleRow("<a href='?mod=usrmgr&action=group&step=9'>".t('Benutzer einer Gruppe zuweisen')."</a>");
 
 		if($_GET['var'] == "update"){
-			$dsp->AddDoubleRow('',$dsp->FetchButton("index.php?mod=usrmgr&action=group&step=2&var=new","add"));
+			$dsp->AddDoubleRow('',$dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=usrmgr&action=group&step=2&var=new"));
 			$dsp->SetForm("index.php?mod=usrmgr&action=group&step=3&var=update&group_id={$_POST['group_id']}");
 			if(!isset($_POST['group_name'])){
 				$row = $db->qry_first("SELECT * FROM %prefix%party_usergroups WHERE group_id=%int%", $_POST['group_id']);

@@ -27,8 +27,8 @@ else {
 
             case 'in':
                 $back_link = 'index.php?mod=mail&action=inbox';
-                $buttons .= $dsp->FetchButton("index.php?mod=mail&action=inbox&step=20&mailid=". (int)$_GET['mailID'], "delete");
-                if ($row['fromUserID']) $buttons .= $dsp->FetchButton("index.php?mod=mail&action=newmail&step=2&userID=". $row['fromUserID'] ."&replyto=". (int)$_GET['mailID'], "new_post");
+                $buttons .= $dsp->FetchSpanButton(t('Löschen'), "index.php?mod=mail&action=inbox&step=20&mailid=". (int)$_GET['mailID']);
+                if ($row['fromUserID']) $buttons .= $dsp->FetchSpanButton(t('Antworten'), "index.php?mod=mail&action=newmail&step=2&userID=". $row['fromUserID'] ."&replyto=". (int)$_GET['mailID']);
                 $buttons .= $dsp->FetchSpanButton(t("Weiterleiten"),"index.php?mod=mail&action=newmail&step=2&replyto=". (int)$_GET['mailID']);
             break;
 
@@ -38,7 +38,7 @@ else {
 
             case 'trash':
                 $back_link = 'index.php?mod=mail&action=trash';
-                if ($row['fromUserID']) $buttons .= $dsp->FetchButton("index.php?mod=mail&action=newmail&step=2&userID=". $row['fromUserID'] ."&replyto=". (int)$_GET['mailID'], "new_post");
+                if ($row['fromUserID']) $buttons .= $dsp->FetchSpanButton(t('Antworten'), "index.php?mod=mail&action=newmail&step=2&userID=". $row['fromUserID'] ."&replyto=". (int)$_GET['mailID']);
             break;
         }
 

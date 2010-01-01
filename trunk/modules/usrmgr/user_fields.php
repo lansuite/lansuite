@@ -24,7 +24,7 @@ switch ($_GET['step']) {
     if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=usrmgr&action=user_fields&step=20&fieldid=', t('Löschen'));
     $ms2->PrintSearch('index.php?mod=usrmgr&action=user_fields', 'f.fieldid');
     
-    $dsp->AddSingleRow($dsp->FetchButton("index.php?mod=usrmgr&action=user_fields&step=10", 'add'));
+    $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=usrmgr&action=user_fields&step=10"));
     $dsp->AddContent();
   break;
   

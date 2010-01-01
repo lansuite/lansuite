@@ -96,8 +96,8 @@ if ($tournament["name"] == "") {
 			$disqualify_link = "";
 /*  // Disquallifiy droped, due to errors
 			if ($auth["type"] > 1 and $tournament['status'] == "process") {
-				if ($team1['disqualified']) $disqualify_link = "<font color=\"#ff0000\">".t('Disqualifiziert')."</font> ". $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team1['teamid']}&step=10", "undisqualify");
-				else $disqualify_link = $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team1['teamid']}", "disqualify");
+				if ($team1['disqualified']) $disqualify_link = "<font color=\"#ff0000\">".t('Disqualifiziert')."</font> ". $dsp->FetchSpanButton(t('Disqualifizieren rückgängig'), "index.php?mod=tournament2&action=disqualify&teamid={$team1['teamid']}&step=10");
+				else $disqualify_link = $dsp->FetchSpanButton(t('Disqualifizieren'), "index.php?mod=tournament2&action=disqualify&teamid={$team1['teamid']}");
 			}
 */
 			$dsp->AddFieldSetStart(t('Team'). ' 1'. $tfunc->button_team_details($team1['teamid'], $tournamentid) . " ". $disqualify_link);
@@ -109,8 +109,8 @@ if ($tournament["name"] == "") {
 			$disqualify_link = "";
 /*  // Disquallifiy droped, due to errors
 			if ($auth["type"] > 1 and $tournament['status'] == "process") {
-				if ($team2['disqualified']) $disqualify_link = "<font color=\"#ff0000\">".t('Disqualifiziert')."</font> ". $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team2['teamid']}&step=10", "undisqualify");
-				else $disqualify_link = $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team2['teamid']}", "disqualify");
+				if ($team2['disqualified']) $disqualify_link = "<font color=\"#ff0000\">".t('Disqualifiziert')."</font> ". $dsp->FetchSpanButton(t('Disqualifizieren rückgängig'), "index.php?mod=tournament2&action=disqualify&teamid={$team2['teamid']}&step=10");
+				else $disqualify_link = $dsp->FetchSpanButton(t('Disqualifizieren'), "index.php?mod=tournament2&action=disqualify&teamid={$team2['teamid']}");
 			}
 */
 			$dsp->AddFieldSetStart(t('Team'). ' 2'. $tfunc->button_team_details($team2['teamid'], $tournamentid) . " ". $disqualify_link);
@@ -144,8 +144,8 @@ if ($tournament["name"] == "") {
     	$dsp->AddFieldsetEnd();
 
 			$buttons = "";
-			$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid", "games");
-			$buttons .= " ". $dsp->FetchButton("index.php?mod=tournament2&action=tree&step=2&tournamentid=$tournamentid", "tree");
+			$buttons .= $dsp->FetchSpanButton(t('Paarungen'), "index.php?mod=tournament2&action=games&step=2&tournamentid=$tournamentid");
+			$buttons .= " ". $dsp->FetchSpanButton(t('Spielbaum'), "index.php?mod=tournament2&action=tree&step=2&tournamentid=$tournamentid");
 			$dsp->AddDoubleRow("", $buttons);
 		break;
 

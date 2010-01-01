@@ -852,7 +852,7 @@ class product{
                 break;
 
             }
-            if($auth['type'] > 1) $dsp->AddDoubleRow("",$dsp->FetchButton("?mod=foodcenter&amp;action=addproduct&amp;id=". $this->id,"edit"));
+            if($auth['type'] > 1) $dsp->AddDoubleRow("",$dsp->FetchSpanButton(t('Editieren'), "?mod=foodcenter&amp;action=addproduct&amp;id=". $this->id));
             $dsp->AddBackButton($worklink); 
     }
 

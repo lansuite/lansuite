@@ -34,7 +34,7 @@ switch ($_GET['step']) {
 
     $ms2->PrintSearch('index.php?mod=cron2', 'c.jobid');
 
-    $dsp->AddSingleRow($dsp->FetchButton('index.php?mod=cron2&action=add', 'add'));
+    $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=cron2&action=add'));
   break;
 }
 

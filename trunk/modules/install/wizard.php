@@ -57,7 +57,7 @@ switch ($_GET["step"]){
 
         $continue = $install->envcheck();
 
-        if ($continue) $dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=2", "next"));
+        if ($continue) $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=2"));
         $dsp->AddContent();
     break;
 
@@ -180,7 +180,7 @@ switch ($_GET["step"]){
         $dsp->NewContent(t('Datenbankgenerierung'), t('Das Setup versucht nun die Datenbank zu initialisieren.'));
         $dsp->AddSingleRow($output);
 
-        if ($continue) $dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=4", "next"));
+        if ($continue) $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=4"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=2", "install/db");
         $dsp->AddContent();
     break;
@@ -211,7 +211,7 @@ switch ($_GET["step"]){
         $dsp->AddSingleRow(t('<b>ACHTUNG:</b> Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.'));
         $dsp->AddFormSubmitRow("add");
 
-        $dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=6", "next"));
+        $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=3", "install/import");
         $dsp->AddContent();
     break;
@@ -247,7 +247,7 @@ switch ($_GET["step"]){
                     break;
                 }
 
-                $dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=6", "next"));
+                $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
                 $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/import");
                 $dsp->AddContent();
             break;
@@ -258,7 +258,7 @@ switch ($_GET["step"]){
                 $dsp->NewContent(t('wizard_importupload_caption'), t('wizard_importupload_subcaption'));  // FIXME
                 $dsp->AddSingleRow(t('Import wurde mit folgendem Ergebnis ausgeführt:<br /><ul>Fehler: %1<br />Keine Aktion: %1<br />Neue eingefügt: %1<br />Alte überschrieben: %1</ul>', $check["error"], $check["nothing"], $check["insert"], $check["replace"]));
 
-                $dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=6", "next"));
+                $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
                 $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/import");
                 $dsp->AddContent();
             break;
@@ -284,7 +284,7 @@ switch ($_GET["step"]){
         $dsp->AddDoubleRow('', $smarty->fetch('design/templates/ls_row_pw_security.htm'));
         $dsp->AddFormSubmitRow("add");
 
-        $dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install&action=wizard&step=8", "next"));
+        $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=8"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/admin");
         $dsp->AddContent();
     break;
@@ -349,7 +349,7 @@ switch ($_GET["step"]){
         $dsp->AddSingleRow(t('Die Installation ist nun beendet.<br /><br />Mit einem Klick auf <b>Einloggen</b> unterhalb schließen Sie die Installation ab und gelangen auf die Adminseite. Dort können Sie weitere Konfigurationen vornehmen sowie bereits in der Installation getätigte ändern.<br /><br />Der Modulmanager ermöglicht es Ihnen dort Module zu de-/aktivieren.<br /><br />Über den Link \'Allgemeine Einstellungen\' stehen Ihnen eine Vielzahl an Konfigurationen in den einzelnen Modulen zur Verfügung.'));
         if (!func::admin_exists()) $dsp->AddSingleRow("<font color=red>". t('<b>Es wurde kein Admin-Account angelegt</b><br />Solange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.') ."</font>");
 
-        $dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=install", "login"));
+        $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Login'), "index.php?mod=install"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/admin");
         $dsp->AddContent();
         

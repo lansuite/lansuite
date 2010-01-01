@@ -53,7 +53,7 @@ switch($_GET['step']){
 			
 		}
 	
-		$dsp->AddDoubleRow("",$dsp->FetchButton("index.php?mod=troubleticket&action=cat&act=add&step=2","add"));
+		$dsp->AddDoubleRow("",$dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=troubleticket&action=cat&act=add&step=2"));
 		$dsp->AddBackButton("index.php?mod=troubleticket");
 		$dsp->AddContent();
 	break;

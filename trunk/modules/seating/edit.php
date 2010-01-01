@@ -258,7 +258,7 @@ switch($_GET['step']) {
 		$dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=6&blockid={$_GET['blockid']}", "block");
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 2));
 		$dsp->AddFormSubmitRow('save');
-		$dsp->AddDoubleRow('', $dsp->FetchButton("index.php?mod=seating&action={$_GET['action']}&step=7&blockid={$_GET['blockid']}", 'next'));
+		$dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=seating&action={$_GET['action']}&step=7&blockid={$_GET['blockid']}"));
 		$dsp->AddBackButton("index.php?mod=seating&action={$_GET['action']}&step=4&blockid={$_GET['blockid']}", 'seating/add');
 		$dsp->AddContent();
 	break;

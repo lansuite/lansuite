@@ -360,7 +360,7 @@ class display {
     if ($maxchar == "") $maxchar = "5000";
 
     $this->form_open = false;
-    $buttons = $this->FetchButton('index.php?mod=popups&action=textareaplus_preview&design=popup&textareaname='. $name .'" onclick="javascript:OpenPreviewWindow(this.href, document.'. $this->form_name .'); return false;', 'preview', t('Vorschau'));
+    $buttons = $this->FetchSpanButton(t('Vorschau'), 'index.php?mod=popups&action=textareaplus_preview&design=popup&textareaname='. $name .'" onclick="javascript:OpenPreviewWindow(this.href, document.'. $this->form_name .'); return false;');
     $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[b]', '[/b]')", 'bold', t('Fett'));
     $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[i]', '[/i]')", 'italic', t('Kursiv'));
     $buttons .= " ". $this->FetchIcon("javascript:InsertCode(document.{$this->form_name}.{$name}, '[u]', '[/u]')", 'underline', t('Unterstrichen'));
@@ -439,7 +439,7 @@ class display {
     global $func;
 
     if (!$back_link ) $back_link = $func->internal_referer;
-    $this->AddDoubleRow('', $this->FetchButton($back_link, 'back', t('Zurück')));
+    $this->AddDoubleRow('', $this->FetchSpanButton(t('Zurück'), $back_link));
   }
 
   function AddBarcodeForm($key, $value, $action, $methode = "post", $errortext = NULL,  $size = NULL, $optional = NULL){
@@ -767,11 +767,6 @@ class display {
     ($hint)? $hint = '<span class="infobox">'. t($hint) .'</span>' : $hint = '';
     ($target)? $target = ' target="_blank"' : $target = '';
     return '<div class="Button"><a href="'. $link .'"'. $target .'>'. $title . $hint .'</a></div>';
-  }
-
-  // Old: Should be replaced by FetchSpanButton
-  function FetchButton($link, $picname, $hint = NULL, $target = NULL) {
-    return $this->FetchSpanButton(t($picname), $link, $hint, $target);
   }
 
   function FetchSpanButton($title, $link, $hint = NULL, $target = NULL) {

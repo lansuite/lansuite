@@ -77,11 +77,11 @@ else {
 
 		$buttons = "";
 		if ($_SESSION["auth"]["type"] > 1 OR $_SESSION["auth"]["userid"] == $server["owner"]) {
-			$buttons .= $dsp->FetchButton("index.php?mod=server&action=change&step=2&serverid=$serverid", "edit", t('editieren')) ." ";
-			$buttons .= $dsp->FetchButton("index.php?mod=server&action=delete&step=2&serverid=$serverid", "delete", t('l&ouml;schen')) ." ";
+			$buttons .= $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=server&action=change&step=2&serverid=$serverid") ." ";
+			$buttons .= $dsp->FetchSpanButton(t('Löschen'), "index.php?mod=server&action=delete&step=2&serverid=$serverid") ." ";
 		}
 		if($server["type"] == "web") {
-			$buttons .= $dsp->FetchButton("http://{$server['ip']}:{$server['port']}", "open", t('Webseite &ouml;ffnen'), "_blank") ." ";
+			$buttons .= $dsp->FetchSpanButton(t('Öffnen'), "http://{$server['ip']}:{$server['port']}", t('Webseite &ouml;ffnen'), "_blank") ." ";
 		}
 		if ($buttons) $dsp->AddDoubleRow("", $buttons);
 

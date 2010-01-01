@@ -77,7 +77,7 @@ switch ($_GET['step']) {
     if ($auth['type'] >= 3) $ms2->AddMultiSelectAction(t('Löschen'), 'index.php?mod=clanmgr&step=20', 1);
 
     $ms2->PrintSearch('index.php?mod=clanmgr', 'c.clanid');
-   if ($auth['type'] >= 1)$dsp->AddSingleRow($dsp->FetchButton('index.php?mod=clanmgr&step=30', 'add'));
+   if ($auth['type'] >= 1)$dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=clanmgr&step=30'));
     
   break;
 
