@@ -24,9 +24,9 @@ $dsp->AddDoubleRow(t('Sonstiges'),$hardware['sonstiges']);
 
 if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_self_details_change'])){
     if ($hardware['hardwareid']){
-        $plug_bttn_hw = $dsp->FetchButton('index.php?mod=hardware&action=edit&userid='. $_GET['userid'].'&hardwareid='.$hardware['hardwareid'], 'edit');
+        $plug_bttn_hw = $dsp->FetchSpanButton(t('Editieren'), 'index.php?mod=hardware&action=edit&userid='. $_GET['userid'].'&hardwareid='.$hardware['hardwareid']);
     } else {
-        $plug_bttn_hw .= $dsp->FetchButton('index.php?mod=hardware&action=edit&userid='. $_GET['userid'].'&hardwareid='.$hardware['hardwareid'],'add');
+        $plug_bttn_hw .= $dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=hardware&action=edit&userid='. $_GET['userid'].'&hardwareid='.$hardware['hardwareid']);
     }
     $dsp->AddDoubleRow('',$plug_bttn_hw);
 }

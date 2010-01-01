@@ -166,8 +166,8 @@ else {
 						}
 /*  // Disquallifiy droped, due to errors
 						if ($auth["type"] > 1 and $tournament['status'] == "process") {
-							if ($team['disqualified']) $team_out .= " <font color=\"#ff0000\">".t('Disqualifiziert')."</font> ". $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}&step=10", "undisqualify");
-							else $team_out .= " ". $dsp->FetchButton("index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}", "disqualify");
+							if ($team['disqualified']) $team_out .= " <font color=\"#ff0000\">".t('Disqualifiziert')."</font> ". $dsp->FetchSpanButton(t('Disqualifizieren rückgängig'), "index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}&step=10");
+							else $team_out .= " ". $dsp->FetchSpanButton(t('Disqualifizieren'), "index.php?mod=tournament2&action=disqualify&teamid={$team['teamid']}");
 						}
 */
 						$team_out .= HTML_NEWLINE;
@@ -196,18 +196,18 @@ else {
 			$buttons="";
 			switch($tournament["status"]) {
 				case "open":
-					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=join&tournamentid={$_GET['tournamentid']}&step=2", "join"). " ";
-					if ($auth["type"] > 1) $buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=generate_pairs&step=2&tournamentid={$_GET['tournamentid']}", "generate"). " ";
+					$buttons .= $dsp->FetchSpanButton(t('Teilnehmen'), "index.php?mod=tournament2&action=join&tournamentid={$_GET['tournamentid']}&step=2"). " ";
+					if ($auth["type"] > 1) $buttons .= $dsp->FetchSpanButton(t('Generieren'), "index.php?mod=tournament2&action=generate_pairs&step=2&tournamentid={$_GET['tournamentid']}"). " ";
 				break;
 				case "process":
-					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=games&step=2&tournamentid={$_GET['tournamentid']}", "games"). " ";
-					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=tree&step=2&tournamentid={$_GET['tournamentid']}", "tree"). " ";
-					if ($auth["type"] > 1) $buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=undo_generate&tournamentid={$_GET['tournamentid']}", "undo_generate"). " ";
+					$buttons .= $dsp->FetchSpanButton(t('Paarungen'), "index.php?mod=tournament2&action=games&step=2&tournamentid={$_GET['tournamentid']}"). " ";
+					$buttons .= $dsp->FetchSpanButton(t('Spielbaum'), "index.php?mod=tournament2&action=tree&step=2&tournamentid={$_GET['tournamentid']}"). " ";
+					if ($auth["type"] > 1) $buttons .= $dsp->FetchSpanButton(t('Generieren rückgängig'), "index.php?mod=tournament2&action=undo_generate&tournamentid={$_GET['tournamentid']}"). " ";
 				break;
 				case "closed":
-					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=games&step=2&tournamentid={$_GET['tournamentid']}", "games"). " ";
-					$buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=tree&step=2&tournamentid={$_GET['tournamentid']}", "tree"). " ";
-					if ($auth["type"] > 1) $buttons .= $dsp->FetchButton("index.php?mod=tournament2&action=undo_close&tournamentid={$_GET['tournamentid']}", "undo_close"). " ";
+					$buttons .= $dsp->FetchSpanButton(t('Paarungen'), "index.php?mod=tournament2&action=games&step=2&tournamentid={$_GET['tournamentid']}"). " ";
+					$buttons .= $dsp->FetchSpanButton(t('Spielbaum'), "index.php?mod=tournament2&action=tree&step=2&tournamentid={$_GET['tournamentid']}"). " ";
+					if ($auth["type"] > 1) $buttons .= $dsp->FetchSpanButton(t('Schließen rückgängig'), "index.php?mod=tournament2&action=undo_close&tournamentid={$_GET['tournamentid']}"). " ";
 				break;
 			} // END: switch status
 			$dsp->AddDoubleRow("", $buttons);

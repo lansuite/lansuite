@@ -98,11 +98,11 @@ class beamer_display {
 		$a5 = $beamermodul->countContent("1","5");				
 		$dsp->NewContent( t('Beamerinhalte pr&auml;sentieren') ,"");
 		$dsp->AddDoubleRow('Seiteninterval in Sekunden: ',$cfg['beamer_duration_default'] );
-	    if ( $a1 > 0 ) { $btn1 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=1&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'].'" target="_blank', "open", 'Beamerfenster starten');	}
-	    if ( $a2 > 0 ) { $btn2 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=2&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'].'" target="_blank', "open", 'Beamerfenster starten');	}
-	    if ( $a3 > 0 ) { $btn3 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=3&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'].'" target="_blank', "open", 'Beamerfenster starten');	}
-	    if ( $a4 > 0 ) { $btn4 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=4&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'].'" target="_blank', "open", 'Beamerfenster starten');	}
-	    if ( $a5 > 0 ) { $btn5 = $dsp->FetchButton("?mod=beamer&action=viewcontent&beamerid=5&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'].'" target="_blank', "open", 'Beamerfenster starten');	}
+	    if ( $a1 > 0 ) { $btn1 = $dsp->FetchSpanButton(t('Beamerfenster starten'), "?mod=beamer&action=viewcontent&beamerid=1&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'].'" target="_blank');	}
+	    if ( $a2 > 0 ) { $btn2 = $dsp->FetchSpanButton(t('Beamerfenster starten'), "?mod=beamer&action=viewcontent&beamerid=2&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'].'" target="_blank');	}
+	    if ( $a3 > 0 ) { $btn3 = $dsp->FetchSpanButton(t('Beamerfenster starten'), "?mod=beamer&action=viewcontent&beamerid=3&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'].'" target="_blank');	}
+	    if ( $a4 > 0 ) { $btn4 = $dsp->FetchSpanButton(t('Beamerfenster starten'), "?mod=beamer&action=viewcontent&beamerid=4&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'].'" target="_blank');	}
+	    if ( $a5 > 0 ) { $btn5 = $dsp->FetchSpanButton(t('Beamerfenster starten'), "?mod=beamer&action=viewcontent&beamerid=5&design=beamer&fullscreen=yes&sitereload=".$cfg['beamer_duration_default'].'" target="_blank');	}
 		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">1.</font> ".t('Beamerfenster ').$btn1." - ".t('Aktive Inhalte: ').$a1."<p/><br/>");
 		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">2.</font> ".t('Beamerfenster ').$btn2." - ".t('Aktive Inhalte: ').$a2."<p/><br/>");
 		$dsp->AddSingleRow( HTML_NEWLINE." <font size=\"4\">3.</font> ".t('Beamerfenster ').$btn3." - ".t('Aktive Inhalte: ').$a3."<p/><br/>");

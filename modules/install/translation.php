@@ -333,7 +333,7 @@ function translate_all_empty(from, to) {
                   $dsp->AddDoubleRow('Veraltet',$row1['org']);
                   $dsp->AddDoubleRow('Score',$score);
                   $dsp->AddDoubleRow('Veraltete Übersetzung EN',$row2['en']);
-                  $buttons = $dsp->FetchButton("index.php?mod=install&action=translation&step=80", "Zusammenführen"). " "; // FIX Button
+                  $buttons = $dsp->FetchSpanButton(t('Zusammenführen'), "index.php?mod=install&action=translation&step=80"). " ";
                   $dsp->AddDoubleRow('',$buttons);
                   $dsp->AddFieldSetEnd();
               }

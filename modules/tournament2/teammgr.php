@@ -140,7 +140,7 @@ switch($_GET['step']) {
 			$anz_memb = 0;
 			while($member = $db->fetch_array($members)) {
 				$anz_memb++;
-				$member_liste .= HTML_NEWLINE . "- ". $dsp->FetchUserIcon($member['userid'], $member["username"]) .' '. $dsp->FetchButton("index.php?mod=tournament2&action=teammgr&step=20&teamid={$member['teamid']}&userid={$member['userid']}", "kick");
+				$member_liste .= HTML_NEWLINE . "- ". $dsp->FetchUserIcon($member['userid'], $member["username"]) .' '. $dsp->FetchSpanButton(t('Rauswerfen'), "index.php?mod=tournament2&action=teammgr&step=20&teamid={$member['teamid']}&userid={$member['userid']}");
 			}
 			$db->free_result($members);
 			

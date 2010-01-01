@@ -26,11 +26,11 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
 	// FIX : add delete
 	if ($auth["type"] > 1) {
 		//$dsp->AddSingleRow(" <font color=\"#ff0000\">".t('Diese Seite enthält selbst definierten Text. Sie können ihn ändern, indem Sie den Informationen-Link in der Navigations-Box auswählen.')."</font>");
-		$buttons .= $dsp->FetchButton("index.php?mod=info2&action=change&step=2&infoID={$_GET["id"]}", "edit"). " ";
+		$buttons .= $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=info2&action=change&step=2&infoID={$_GET["id"]}"). " ";
 		if ($info['active'] == 1) {
-    		$buttons .= $dsp->FetchButton("index.php?mod=info2&action=change&step=20&infoID={$_GET["id"]}", "deactivate"). " ";
+    		$buttons .= $dsp->FetchSpanButton(t('Deaktivieren'), "index.php?mod=info2&action=change&step=20&infoID={$_GET["id"]}"). " ";
 		} else {
-    		$buttons .= $dsp->FetchButton("index.php?mod=info2&action=change&step=21&infoID={$_GET["id"]}", "activate"). " ";	
+    		$buttons .= $dsp->FetchSpanButton(t('Aktivieren'), "index.php?mod=info2&action=change&step=21&infoID={$_GET["id"]}"). " ";
 		}
 		$dsp->AddSingleRow($buttons);
     }

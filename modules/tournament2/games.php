@@ -44,7 +44,7 @@ function WriteGame() {
 		if (($spieler1_id != 0) && ($spieler2_id != 0)) {
 			if (($score1 == 0) && ($score2 == 0)) $score_output = "- : - ";
 			else $score_output = "$score1 : $score2 ";
-			$score_output .= $dsp->FetchButton("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2", "details");
+			$score_output .= $dsp->FetchSpanButton(t('Details'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 		}
 
 		$dsp->AddDoubleRow(t('Paarung')." $i", "$spieler1 vs $spieler2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$score_output");
@@ -165,7 +165,7 @@ else {
   		}
   		$db->free_result($games);
   		$dsp->AddFormSubmitRow("save");
-  		if ($tournament['status'] == 'process') $dsp->AddDoubleRow('', $dsp->FetchButton("index.php?mod=tournament2&action=games&step=11&tournamentid=$tournamentid", 'finish'));
+  		if ($tournament['status'] == 'process') $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Beenden'), "index.php?mod=tournament2&action=games&step=11&tournamentid=$tournamentid"));
 		elseif ($tournament['status'] == 'closed') $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Beenden rückgängig'), "index.php?mod=tournament2&action=games&step=12&tournamentid=$tournamentid"));
   	break;
   	case "liga":

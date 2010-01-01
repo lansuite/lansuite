@@ -19,7 +19,7 @@ switch($_GET['step'])
 
 		$ms2->PrintSearch('index.php?mod=cashmgr&action=managegroup', 'g.id');
 		
-		$dsp->AddSingleRow($dsp->FetchButton('index.php?mod=cashmgr&action=managegroup&step=1', 'add'));
+		$dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=cashmgr&action=managegroup&step=1'));
 		break;
 		
 	case 1:

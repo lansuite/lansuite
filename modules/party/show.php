@@ -48,7 +48,7 @@ switch($_GET['step']){
 
     $ms2->PrintSearch('index.php?mod=party', 'p.party_id');
 
-    $dsp->AddSingleRow($dsp->FetchButton('index.php?mod=party&action=edit', 'add'));
+    $dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=party&action=edit'));
     
     if ($auth['type'] >= 2 and isset($_SESSION['party_id'])) $func->information(t('Der Status "Aktiv" zeigt an, welche Party standardmäßig für alle aktiviert ist, die nicht selbst eine auf der Startseite, oder in der Party-Box ausgewählt haben. In deinem Browser ist jedoch aktuell die Party mit der ID %1 aktiv. Welche Party für dich persöhnlich die aktivie ist, kannst du auf der Startseite, oder in der Party-Box einstellen', $_SESSION['party_id']), NO_LINK);
 	break;
@@ -64,7 +64,7 @@ switch($_GET['step']){
 		$dsp->AddDoubleRow(t('Party endet am'),$func->unixstamp2date($row['enddate'],"datetime"));
 		$dsp->AddDoubleRow(t('Anmeldung startet am'),$func->unixstamp2date($row['sstartdate'],"datetime"));
 		$dsp->AddDoubleRow(t('Anmeldung endet am'),$func->unixstamp2date($row['senddate'],"datetime"));
-		$dsp->AddDoubleRow("", $dsp->FetchButton("index.php?mod=party&action=edit&party_id={$_GET['party_id']}","edit"));
+		$dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=party&action=edit&party_id={$_GET['party_id']}"));
 
     $dsp->AddBackButton('index.php?mod=party');
 	break;

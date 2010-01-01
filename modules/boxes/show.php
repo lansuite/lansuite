@@ -79,6 +79,6 @@ $ms2->AddMultiSelectAction(t('Aktivieren'), 'index.php?mod=boxes&step=10');
 $ms2->AddMultiSelectAction(t('Deaktivieren'), 'index.php?mod=boxes&step=11');
 
 $ms2->PrintSearch('index.php?mod=boxes', 'b.boxid');
-$dsp->AddSingleRow($dsp->FetchButton('index.php?mod=boxes&amp;step=20', 'add'));
+$dsp->AddSingleRow($dsp->FetchSpanButton(t('Hinzufügen'), 'index.php?mod=boxes&amp;step=20'));
 $dsp->AddContent();
 ?>
