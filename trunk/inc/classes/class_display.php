@@ -75,7 +75,7 @@ class display {
   function StartTab($name, $icon = '') {
     global $MainContent;
 
-    if ($icon) $name = '<img src="design/images/icon_'. $icon .'.png" height="14" alt="'. $icon .'" /> '. $name;
+    if ($icon) $name = '<img src="design/images/icon_'. $icon .'.png" height="14" alt="'. $icon .'" border=\"0\" /> '. $name;
     $this->TabNames[] = $name;
     $MainContent .= '<div id="tabs-'. (int)$this->CurrentTab .'">';
     $this->CurrentTab++;
