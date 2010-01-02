@@ -2,11 +2,11 @@
 include_once('modules/usrmgr/search_main.inc.php');
 
 function ClanURLLink($clan_name) {
-  global $line, $ActiveModules;
+  global $line, $func;
 
   if ($clan_name == '') return '';
 
-  elseif (in_array('clanmgr', $ActiveModules)) return '<a href="index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $line['clanid'] .'">'. $clan_name .'</a>';
+  elseif ($func->isModActive('clanmgr')) return '<a href="index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $line['clanid'] .'">'. $clan_name .'</a>';
 
   elseif ($clan_name != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
     if (substr($line['clanurl'], 0, 7) != 'http://') $line['clanurl'] = 'http://'. $line['clanurl'];
@@ -71,7 +71,7 @@ if ($party->count > 0) $ms2->AddIconField('signon', 'index.php?mod=usrmgr&action
 $ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', t('Mail senden'));
 $ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=', t('Passwort ändern'), 'IfLowerOrEqualUserlevel');
 if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=auth&action=switch_to&userid=', t('Benutzer wechseln'), 'IfLowerUserlevel');
-if ($auth['type'] >= 3 and in_array('foodcenter', $ActiveModules)) {
+if ($auth['type'] >= 3 and $func->isModActive('foodcenter')) {
   $ms2->AddIconField('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid=', t('Geld auf Konto buchen'));
 #  $ms2->AddIconField('paid', 'index.php?mod=foodcenter&action=account&act=himbalance&step=2&userid=', t('Kontostand zeigen'));
 }

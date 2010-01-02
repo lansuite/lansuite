@@ -24,11 +24,11 @@ function PaidIconLink($paid){
 }
 
 function ClanURLLink($clan_name) {
-  global $line, $ActiveModules;
+  global $line, $func;
 
   if ($clan_name == '') return '';
 
-  elseif (in_array('clanmgr', $ActiveModules)) return '<a href="index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $line['clanid'] .'">'. $clan_name .'</a>';
+  elseif ($func->isModActive('clanmgr')) return '<a href="index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $line['clanid'] .'">'. $clan_name .'</a>';
 
   elseif ($clan_name != '' and $line['clanurl'] != '' and $line['clanurl'] != 'http://') {
     if (substr($line['clanurl'], 0, 7) != 'http://') $line['clanurl'] = 'http://'. $line['clanurl'];

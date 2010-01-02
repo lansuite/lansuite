@@ -3,12 +3,12 @@
 $smarty->assign('caption', t('Sonstige neue Kommentare'));
 $content = "";
 
-if (!in_array('faq', $ActiveModules)) $exclude .= ' AND relatedto_item != \'faq\'';
-if (!in_array('usrmgr', $ActiveModules)) $exclude .= ' AND relatedto_item != \'User\'';
-if (!in_array('poll', $ActiveModules)) $exclude .= ' AND relatedto_item != \'Poll\'';
-if (!in_array('server', $ActiveModules)) $exclude .= ' AND relatedto_item != \'server\'';
-if (!in_array('downloads', $ActiveModules)) $exclude .= ' AND relatedto_item != \'downloads\'';
-if (!in_array('picgallery', $ActiveModules)) $exclude .= ' AND relatedto_item != \'Picgallery\'';
+if (!$func->isModActive('faq')) $exclude .= ' AND relatedto_item != \'faq\'';
+if (!$func->isModActive('usrmgr')) $exclude .= ' AND relatedto_item != \'User\'';
+if (!$func->isModActive('poll')) $exclude .= ' AND relatedto_item != \'Poll\'';
+if (!$func->isModActive('server')) $exclude .= ' AND relatedto_item != \'server\'';
+if (!$func->isModActive('downloads')) $exclude .= ' AND relatedto_item != \'downloads\'';
+if (!$func->isModActive('picgallery')) $exclude .= ' AND relatedto_item != \'Picgallery\'';
 
 $query = $db->qry('SELECT relatedto_id, relatedto_item, MAX(UNIX_TIMESTAMP(date)) AS date, COUNT(*) AS cnt FROM %prefix%comments
     WHERE relatedto_item != \'BugEintrag\' AND relatedto_item != \'news\' %plain%

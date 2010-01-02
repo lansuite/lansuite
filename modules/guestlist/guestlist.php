@@ -56,7 +56,7 @@ switch($_GET['step']) {
           $func->information(t('Der Benutzer #%1 konnte nicht eingecheckt werden, da er nicht auf "bezahlt" steht', array($key)), NO_LINK);
       }
       $func->confirmation(t('Checkin wurde durchgeführt'));
-      if (in_array('foodcenter', $ActiveModules)) $dsp->AddSingleRow(t('Zahlung vornehmen'). ': '.$dsp->AddIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid='.$_GET['userid']));
+      if ($func->isModActive('foodcenter')) $dsp->AddSingleRow(t('Zahlung vornehmen'). ': '.$dsp->AddIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid='.$_GET['userid']));
     }
   break;
 
@@ -70,7 +70,7 @@ switch($_GET['step']) {
           $func->information(t('Der Benutzer #%1 konnte nicht ausgecheckt werden, da er nicht eingecheckt ist', array($key)), NO_LINK);
       }
       $func->confirmation(t('Checkout wurde durchgeführt'));
-      if (in_array('foodcenter', $ActiveModules)) $dsp->AddSingleRow(t('Zahlung vornehmen') .': '.$dsp->AddIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid='.$_GET['userid']));
+      if ($func->isModActive('foodcenter')) $dsp->AddSingleRow(t('Zahlung vornehmen') .': '.$dsp->AddIcon('paid', 'index.php?mod=foodcenter&action=account&act=payment&step=2&userid='.$_GET['userid']));
     }
   break;
 

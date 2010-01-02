@@ -141,7 +141,7 @@ else {
   }
 
   // Seating
-  if (in_array('seating', $ActiveModules)) {
+  if ($func->isModActive('seating')) {
     include_once("modules/seating/class_seat.php");
     $seat2 = new seat2();
 
@@ -159,7 +159,7 @@ else {
   }
 
   //kontostand
-  if (in_array('foodcenter', $ActiveModules)) {
+  if ($func->isModActive('foodcenter')) {
     $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%food_accounting WHERE userid = %int%", $_GET['userid']);
     if ($result['total'] == "") $amount = 0;
     else $amount = $result['total'];
@@ -193,7 +193,7 @@ else {
   ($user_data['newsletter']) ? $mail .= $dsp->AddIcon('yes') : $mail .= $dsp->AddIcon('no');
   $mail .= ']';
   $mail .= '</td><td align="right">&nbsp;';
-      if ($auth['login'] and in_array('mail', $ActiveModules)) $mail .= $dsp->AddIcon('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID='. $_GET['userid'], t('LANSuite-Mail an den User senden')) .' ';
+      if ($auth['login'] and $func->isModActive('mail') $mail .= $dsp->AddIcon('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID='. $_GET['userid'], t('LANSuite-Mail an den User senden')) .' ';
   $mail .= '</td></tr></table>';
   $dsp->AddDoubleRow(t('Email'), $mail);
     
@@ -211,7 +211,7 @@ else {
   }
   $messenger .= '</td><td align="right">&nbsp;';
   (in_array($_GET['userid'], $authentication->online_users))? $messenger .= $dsp->AddIcon('yes', '', t('Benutzer ist Online')) : $messenger .= $dsp->AddIcon('no', '', t('Benutzer ist Offline'));
-      if ($auth['login'] and in_array('msgsys', $ActiveModules)) $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], t('Den User zu Ihrer Buddyliste hinzufügen')) .' ';
+      if ($auth['login'] and $func->isModActive('msgsys') $messenger .= $dsp->AddIcon('add_user', 'index.php?mod=msgsys&action=addbuddy&step=2&userid='. $_GET['userid'], t('Den User zu Ihrer Buddyliste hinzufügen')) .' ';
   $messenger .= '</td></tr></table>';
   $dsp->AddDoubleRow('Messenger', $messenger);
   $dsp->AddFieldsetEnd();

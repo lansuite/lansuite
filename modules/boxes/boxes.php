@@ -58,7 +58,7 @@ $BoxRes = $db->qry("SELECT boxid, name, place, source, module, callback, login, 
     AND (login = 0 OR (login = 1 AND %int% = 0) OR (login = 2 AND %int% = 1) OR (login > 2 AND login <= %int% + 1))
   ORDER BY pos
   ", $cfg['sys_internet'], $auth['login'], $auth['login'], $auth['type']);
-while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or in_array($BoxRow['module'], $ActiveModules)) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
+while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or $func->isModActive($BoxRow['module'])) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
   if ($BoxRow['source'] == 'menu') {
     include_once('modules/boxes/class_menu.php');
     $menu = new menu($BoxRow['boxid'], $BoxRow['name'], $BoxRow['source']);

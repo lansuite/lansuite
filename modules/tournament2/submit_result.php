@@ -73,9 +73,9 @@ if ($tournament["name"] == "") {
 			$round_end = $tfunc->GetGameEnd($tournament, $team1['round'],$team1['group_nr']);
 			$dsp->AddDoubleRow(t('Spielzeit'), $func->unixstamp2date($round_start, "datetime") ." - ". $func->unixstamp2date($round_end, "datetime"));
 			$dsp->AddDoubleRow(t('Map'), $map[(abs(floor($team1['round'])) % count($map))]);
-			if (in_array('server', $ActiveModules)) $dsp->AddDoubleRow(t('Server'), '<a href="index.php?mod=server&action=show_details&serverid='.$team1['server_id'].'">'.$selections[$team1['server_id']].'</a>');
+			if ($func->isModActive('server')) $dsp->AddDoubleRow(t('Server'), '<a href="index.php?mod=server&action=show_details&serverid='.$team1['server_id'].'">'.$selections[$team1['server_id']].'</a>');
 			
-			if(in_array('server', $ActiveModules) and $auth['type'] >= 2)
+			if($func->isModActive('server') and $auth['type'] >= 2)
 			{
 				include_once('inc/classes/class_masterform.php');
     			$mf = new masterform();

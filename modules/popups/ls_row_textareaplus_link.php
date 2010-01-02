@@ -3,9 +3,9 @@
 $dsp->NewContent('Wähle den Eintrag aus, der Verlinkt werden soll');
 
 function GetLinks($caption, $mod, $table, $id, $name, $link) {
-  global $ActiveModules, $db, $dsp;
+  global $func, $db, $dsp;
 
-  if (in_array($mod, $ActiveModules)) {
+  if ($func->isModActive($mod)) {
     $out = '<select name="link" onChange="javascript:if (this.options[this.selectedIndex].value != \'\') InsertCode(opener.document.'. $_GET['form'] .'.'. $_GET['textarea'] .', \'[url='. $link .'\' + this.options[this.selectedIndex].value + \']\', \'[/url]\')">';
     $out .= '<option value="">'. t('Bitte Link auswählen') .'</option>';
     $res = $db->qry("SELECT %plain%, %plain% FROM %prefix%%plain%", $id, $name, $table);
