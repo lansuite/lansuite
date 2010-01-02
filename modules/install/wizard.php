@@ -164,14 +164,6 @@ switch ($_GET["step"]){
                 // Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
                 $install->CreateNewTables(0);
                 $output .= t('Die Tabellenstruktur wurde erfolgreich angepasst'). HTML_NEWLINE . HTML_NEWLINE;
-
-                // Insert PLZs from modules/install/db_insert_locations.sql in DB, if not exist
-                #$install->InsertPLZs();
-                # Only done via DB-Update, when activated
-                // Insert modules-settings from mod_settings/module.xml in DB, if not exist
-                //$install->InsertModules(1); // Is performed in $install->CreateNewTables(0); now
-                // Insert menus from mod_settings/menu.xml in DB, if not exist
-                $install->InsertMenus(0);
                 // Insert translations of DB-items
                 $install->InsertTranslations();
             }

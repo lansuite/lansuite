@@ -240,21 +240,12 @@
         }
         
         if (!$_GET['mod']) $_GET['mod'] = 'home';
-        // FIX : Maybe its a good Idea make a func::get_activemodules()
-        // Fetch all names of active modules
+        $func->getActiveModules();
+
         $framework->AddToPageTitle($cfg['sys_page_title']);
-        $res = $db->qry('SELECT name, caption FROM %prefix%modules WHERE active = 1');
-        while($row = $db->fetch_array($res)) {
-          $ActiveModules[] = $row['name'];
-          if ($_GET['mod'] == $row['name']) $framework->AddToPageTitle($row['caption']);
-        }
-        $db->free_result($res);
-        $ActiveModules[] = 'helplet';
-        $ActiveModules[] = 'popups';
-        $ActiveModules[] = 'auth';
-        
+        if ($func->isModActive($_GET['mod'], $caption)) $framework->AddToPageTitle($caption);
+
         ### Start autentication, just if LS is working
-        
         include_once("inc/classes/class_auth.php");
         $authentication = new auth($frmwrkmode);
         $auth      = $authentication->check_logon();    // Testet Cookie / Session ob User eingeloggt ist

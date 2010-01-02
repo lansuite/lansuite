@@ -64,20 +64,12 @@ if ($_GET["quest"]){
 
 
 	$dsp->NewContent(t('Datenbank-Initialisierung'), t('<br><b>Ihre Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht</b>. Zusätzlich können Sie unterhalb einzelne Modul-Datenbanken zurücksetzen'));
-
-	// Scan the modules-dir for mod_settings/db.xml-File, read data, compare with db and create/update DB, if neccessary
 	$install->CreateNewTables(1);
-	// Insert PLZs from modules/install/db_insert_locations.sql in DB, if not exist
 	$install->InsertPLZs();
-	// Insert modules-settings from mod_settings/module.xml in DB, if not exist
-	#$install->InsertModules(0); // Is performed in $install->CreateNewTables(0); now
-	// Insert menus from mod_settings/menu.xml in DB, if not exist
-	$install->InsertMenus(0);
-	// Insert translations of DB-items
 #	$install->InsertTranslations();
 
-    // Delete Log eintries which indicate a broken DB-Structure, for they are most likely fixed by now
-    $db->qry_first('DELETE FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
+  // Delete Log eintries which indicate a broken DB-Structure, for they are most likely fixed by now
+  $db->qry_first('DELETE FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
 
 	$dsp->AddBackButton("index.php?mod=install", "install/db");
 	$dsp->AddContent();
