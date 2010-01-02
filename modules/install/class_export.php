@@ -47,7 +47,7 @@ class Export {
 
 	// Export Translations
 	function ExportTranslation($mod){
-		global $xml, $db, $config;
+		global $xml, $db;
 
 		$table_head = $xml->write_tag('name', 'translation', 3);
 		$tables = $xml->write_master_tag("table_head", $table_head, 2);
@@ -75,7 +75,7 @@ class Export {
 
 
 	function ExportTable($table, $e_struct = NULL, $e_cont = NULL){
-		global $db, $config, $xml;
+		global $db, $xml;
 
 		if ($e_struct or $e_cont) {
 			/* Table-Head */
@@ -142,7 +142,7 @@ class Export {
 
 
 	function ExportMod($mod, $e_struct = NULL, $e_cont = NULL, $e_trans = NULL){
-		global $xml, $db, $config;
+		global $xml, $db;
 
 		if (is_dir("modules/$mod/mod_settings/")){
 
@@ -176,7 +176,7 @@ class Export {
 
 
 	function ExportAllTables($e_struct = NULL, $e_cont = NULL){
-		global $db, $config;
+		global $db;
 
 		$this->LSTableHead();
 

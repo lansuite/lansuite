@@ -1,7 +1,7 @@
 <?php
 
 function Update($id){
-  global $db, $config;
+  global $db;
   
   $db->qry("ALTER TABLE %prefix%user ADD %plain% VARCHAR(255) NOT NULL;", $_POST['name']);
   

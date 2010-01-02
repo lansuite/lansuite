@@ -1,7 +1,7 @@
 <?php
 class sec {
 	function check_blacklist () {
-		global $db, $config, $cfg;
+		global $db, $cfg;
 
 		// Global-Black-List
 		if (strpos($cfg['ip_blacklist'], $_SERVER['REMOTE_ADDR']) !== false) die ("Deine IP wird von LanSuite geblockt. Melde dich bitte bei den Administratoren");
@@ -27,7 +27,7 @@ class sec {
 
 
 	function lock ($module = NULL) {
-		global $db, $config;
+		global $db;
 
 		$_SESSION["lock_$module"] = true;
         if ($_SERVER['REMOTE_ADDR'] == '::1') return true; // for INET_ATON(IPv6-Localhost) returns sql error
@@ -35,7 +35,7 @@ class sec {
 	}
 
 	function unlock ($module = NULL) {
-		global $db, $config;
+		global $db;
 
 		$_SESSION["lock_$module"] = false;
         if ($_SERVER['REMOTE_ADDR'] == '::1') return true; // for INET_ATON(IPv6-Localhost) returns sql error
@@ -43,7 +43,7 @@ class sec {
 	}
 
 	function locked ($module = NULL, $referrer = '') {
-		global $db, $config, $func;
+		global $db, $func;
 
 		if ($_SESSION["lock_$module"]) $locked = true;
 		else {

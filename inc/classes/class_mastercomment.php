@@ -37,7 +37,7 @@ class Mastercomment{
 
 	// Construktor
 	function Mastercomment($mod, $id, $update_table = array()) {
-		global $framework, $dsp, $config, $auth, $db, $config, $func, $cfg;
+		global $framework, $dsp, $auth, $db, $func, $cfg;
 
     #echo '<ul class="Line">';
     $dsp->AddFieldsetStart(t('Kommentare'));
@@ -69,7 +69,7 @@ class Mastercomment{
       LEFT JOIN %prefix%user AS u ON c.creatorid = u.userid
       ";
     $ms2->query['where'] = "c.relatedto_item = '$mod' AND c.relatedto_id = '$id'";
-    $config['dont_link_first_line'] = 1;
+    $ms2->config['dont_link_first_line'] = 1;
 
     $ms2->AddSelect('UNIX_TIMESTAMP(c.date) AS date');
     $ms2->AddSelect('c.creatorid');

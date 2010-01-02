@@ -8,7 +8,7 @@ $xml = new xml;
 
 class t_league_export {
 	function wwcl_export($pid, $pvdid) {
-		global $config, $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
+		global $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
 
 		$output = '<?xml version="1.0" encoding="UTF-8"?'.'>'."\r\n";
 
@@ -96,7 +96,7 @@ class t_league_export {
 
 
 	function ngl_export($eventid) {
-		global $cfg, $config, $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
+		global $cfg, $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
 
 		$output = '<?xml version="1.0" encoding="ISO-8859-15"?'.'>'."\r\n";
 
@@ -233,7 +233,7 @@ class t_league_export {
 
 
 	function lgz_export($eventid) {
-		global $cfg, $config, $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
+		global $cfg, $db, $xml, $i, $j, $ausgegeben, $tourney, $data_email, $party, $tfunc;
 
 		$output = '<?xml version="1.0"?'.'>'."\r\n";
 

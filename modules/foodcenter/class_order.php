@@ -8,7 +8,7 @@ class ordered {
 	var $orders;
 	
 	function read_orders($userid){
-		global $db,$config;
+		global $db;
 		
 		$result = $db->qry("SELECT * FROM %prefix%food_ordering WHERE userid=%int% GROUP BY ordertime ORDER BY ordertime", $userid);	
 

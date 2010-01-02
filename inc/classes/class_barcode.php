@@ -1762,7 +1762,7 @@ class barcode_system{
 	var $class_barcode;
 	
 	function barcode_system(){
-		global $cfg, $db, $config;
+		global $cfg, $db;
 		
 		$this->class_barcode = new barcode($cfg['sys_barcode_typ']);
 
@@ -1786,7 +1786,7 @@ class barcode_system{
 	}
 	
 	function getcode($userid){
-		global $db,$cfg,$config;
+		global $db,$cfg;
 		
 		$data = $db->qry_first("SELECT barcode FROM %prefix%user WHERE userid=%int%", $userid);
 		if($data['barcode'] == "0"){

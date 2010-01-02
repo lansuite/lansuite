@@ -27,7 +27,7 @@ while($row = $db->fetch_array($query)) {
 
 $msgs .= "<a name=\"end\"></a>";
 $smarty->assign('msgs', $msgs);
-$smarty->assign('refreshtime', $config["size"]["msgrefreshtime"]);
+$smarty->assign('refreshtime', 15);
 
 $smarty->assign('queryid', $_GET['queryid']);
 $index .= $smarty->fetch("design/templates/messenger_query_messages.htm");

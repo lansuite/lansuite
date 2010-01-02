@@ -133,7 +133,7 @@ else {
   
 
   	function write_pairs2 ($bracket, $max_pos) {
-  		global $auth, $templ, $func, $t, $width, $x_start, $height, $height_menu, $box_height, $box_width, $config, $dsp, $db, $tournamentid, $akt_round, $max_round, $color, $team_anz, $dg, $img_height, $lang, $map, $tfunc;
+  		global $auth, $templ, $func, $t, $width, $x_start, $height, $height_menu, $box_height, $box_width, $dsp, $db, $tournamentid, $akt_round, $max_round, $color, $team_anz, $dg, $img_height, $lang, $map, $tfunc;
   
   		$dg++;
   		if ($akt_round > 0) $xpos = $x_start + (($box_width + 10) * $akt_round);

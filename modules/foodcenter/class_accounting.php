@@ -8,7 +8,7 @@ class accounting{
 	
 	
 	function accounting($user_id){
-		global $db,$config;
+		global $db;
 		
 		$this->user_id = $user_id;
 		
@@ -30,7 +30,7 @@ class accounting{
 	}
 	
 	function change($price,$comment, $userid){
-		global $db,$config;
+		global $db;
 
    // echo("<script language='JavaScript'>alert('TEST');</script>");
 		
@@ -51,7 +51,7 @@ class accounting{
 	}
 	
 	function list_balance(){
-		global $db,$config,$dsp,$lang,$cfg;
+		global $db,$dsp,$lang,$cfg;
 		
 		
 		$result = $db->qry("SELECT *, DATE_FORMAT(actiontime,\"%d.%m.%y %H:%i\") AS time FROM %prefix%food_accounting WHERE userid = %int% ORDER BY actiontime DESC", $this->user_id);

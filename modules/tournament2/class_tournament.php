@@ -41,7 +41,7 @@ class tfunc {
 
 	// Get the number of teams in this tournament
 	function GetTeamAnz($tid, $mode, $group = 0) {
-		global $db, $config;
+		global $db;
 
 		if (($mode == "groups") and ($group == 0)) {
 			$game = $db->qry("SELECT gameid
@@ -72,7 +72,7 @@ class tfunc {
 
 	## Returns the time, when the given round in this tournament starts
 	function GetGameStart($tournament, $round, $group_nr = 0) {
-        global $db, $config;
+        global $db;
         
         $break_duration = $tournament["break_duration"] * 60;
         $round_duration = $tournament["max_games"] * $tournament["game_duration"] * 60 + $break_duration;
@@ -108,7 +108,7 @@ class tfunc {
 
 	## Returns the time, when the given round in this tournament ends
 	function GetGameEnd($tournament, $round, $group_nr = 0) {
-        global $db, $config;
+        global $db;
         
         $break_duration = $tournament["break_duration"] * 60;
         $round_duration = $tournament["max_games"] * $tournament["game_duration"] * 60 + $break_duration;
@@ -143,7 +143,7 @@ class tfunc {
 
 
 	function GetNextRanks($akt_round, $tournamentid, $ranking_data) {
-		global $db, $config, $akt_round, $num, $array_id;
+		global $db, $akt_round, $num, $array_id;
 
 		$teams = $db->qry("SELECT teams.teamid, teams.name, teams.disqualified
    FROM %prefix%t2_games AS games
@@ -167,7 +167,7 @@ class tfunc {
 
 
 	function get_ranking ($tournamentid, $group_nr = NULL) {
-		global $db, $config, $akt_round, $num, $cfg, $array_id;
+		global $db, $akt_round, $num, $cfg, $array_id;
 
 		$ranking_data = new ranking_data;
 
@@ -353,7 +353,7 @@ class tfunc {
 
 	// Generate the next position in a KO-Tournament, if a score is submitted
 	function GenerateNewPosition($player1, $player2){
-		global $lang, $db, $func, $config, $tournamentid, $round, $pos, $score, $tournamentid, $leaderid, $num_rounds, $team_anz;
+		global $lang, $db, $func, $tournamentid, $round, $pos, $score, $tournamentid, $leaderid, $num_rounds, $team_anz;
 
 		$team_round[$player1] = $round;
 		$team_pos[$player1] = $pos[$player1];
@@ -487,7 +487,7 @@ class tfunc {
 
 	// Sumbit Score $score1:$score2 in the tournament $tournamentid, for the game $gameid1 vs. $gameid2
 	function SubmitResult($ttid, $gameid1, $gameid2, $score1, $score2, $comment) {
-		global $lang, $db, $func, $config, $tournamentid, $round, $pos, $score, $leaderid, $num_rounds, $team_anz;
+		global $lang, $db, $func, $tournamentid, $round, $pos, $score, $leaderid, $num_rounds, $team_anz;
 		$tournamentid = $ttid;
 		$score[1] = $score1;
 		$score[2] = $score2;
@@ -663,7 +663,7 @@ class tfunc {
 
 	// Functions for CheckTimeExceed
 	function CheckRound($max_pos) {
-		global $team_anz, $akt_round, $tournament, $db, $config, $tournamentid, $lang, $func, $game, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
+		global $team_anz, $akt_round, $tournament, $db, $tournamentid, $lang, $func, $game, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
 
 		$round_end = $this->GetGameEnd($tournament, $akt_round);
 
@@ -729,7 +729,7 @@ class tfunc {
 
 
 	function CheckTimeExceed($tournamentid) {
-		global $team_anz, $akt_round, $tournament, $db, $config, $lang, $func, $game, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
+		global $team_anz, $akt_round, $tournament, $db, $lang, $func, $game, $first, $score1, $gameid1, $name1, $leaderid1, $cfg;
 
 		$tournament = $db->qry_first("SELECT mode, defwin_on_time_exceed, name,
    break_duration, max_games, game_duration, UNIX_TIMESTAMP(starttime) AS starttime, tournamentid

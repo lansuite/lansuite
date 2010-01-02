@@ -12,7 +12,7 @@ function getboardrank($posts) {
 }
 
 function getuserinfo($userid) {
-	global $db, $cfg, $config;
+	global $db, $cfg;
 
 	$row_poster = $db->qry_first("SELECT username, type, avatar_path, signature FROM %prefix%user WHERE userid=%int%", $userid);
 	$count_rows = $db->qry_first("SELECT COUNT(*) AS posts FROM %prefix%board_posts WHERE userid = %int%", $userid);

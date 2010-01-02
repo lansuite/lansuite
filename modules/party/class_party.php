@@ -58,7 +58,7 @@ class party{
 	}
 
 	function set_party_id($id){
-		global $db, $config;
+		global $db;
 
 		$row = $db->qry_first_rows("SELECT * FROM %prefix%partys WHERE party_id = %int%", $id);	
 		if($row['number'] == 1){
@@ -70,7 +70,7 @@ class party{
 
 
 		function get_party_dropdown_form($show_old = 0, $link = ''){
-			global $dsp,$db,$lang,$templ,$func,$cfg,$config;
+			global $dsp,$db,$lang,$templ,$func,$cfg;
 			
 			// Bei leerem String
 			if ($link == '') $link = "index.php?" . $_SERVER['QUERY_STRING'];
@@ -102,7 +102,7 @@ class party{
 		 * @param boolean $show_old
 		 */
 		function get_party_dropdown($show_old = 0){
-			global $dsp,$db,$lang,$templ,$func,$config;
+			global $dsp,$db,$lang,$templ,$func;
 			
 			// Bei leerem String
 			if ($link == ''){
@@ -142,7 +142,7 @@ class party{
 		 *
 		 */
 		function add_party(){
-			global $db,$func,$config;
+			global $db,$func;
 			
 			$_POST['startdate'] 	= mktime($_POST["stime_value_hours"], $_POST["stime_value_minutes"], $_POST["stime_value_seconds"], $_POST["stime_value_month"], $_POST["stime_value_day"], $_POST["stime_value_year"]);
 			$_POST['enddate']		= mktime($_POST["etime_value_hours"], $_POST["etime_value_minutes"], $_POST["etime_value_seconds"], $_POST["etime_value_month"], $_POST["etime_value_day"], $_POST["etime_value_year"]);
@@ -168,7 +168,7 @@ class party{
 		 *
 		 */
 		function change_party(){
-			global $db,$func,$config;
+			global $db,$func;
 			
 			$_POST['startdate'] 	= mktime($_POST["stime_value_hours"], $_POST["stime_value_minutes"], $_POST["stime_value_seconds"], $_POST["stime_value_month"], $_POST["stime_value_day"], $_POST["stime_value_year"]);
 			$_POST['enddate']		= mktime($_POST["etime_value_hours"], $_POST["etime_value_minutes"], $_POST["etime_value_seconds"], $_POST["etime_value_month"], $_POST["etime_value_day"], $_POST["etime_value_year"]);
@@ -194,7 +194,7 @@ class party{
 		 *
 		 */
 		function delete_party(){
-			global $db,$func,$config,$cfg;
+			global $db,$func,$cfg;
 			// Party löschen
 			$db->qry("DELETE FROM %prefix%partys 
         WHERE party_id = %int%", $this->party_id);
@@ -219,7 +219,7 @@ class party{
 		 */
 		
 		function get_price_count($groupid = false){
-			global $db,$config;
+			global $db;
 			
 			if($groupid){
 				$row = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND group_id=%int%", $this->party_id, $groupid);
@@ -236,7 +236,7 @@ class party{
 		 *
 		 */
 		function get_price_dropdown($group_id = 0,$price_id = 0,$dropdown = false){
-			global $db,$dsp,$config,$lang,$cfg;
+			global $db,$dsp,$lang,$cfg;
 
 			if($group_id !== "NULL") $subquery = " AND group_id='{$group_id}'";
 			if($price_id == "NULL") $price_id = 0;
@@ -271,7 +271,7 @@ class party{
 		}
 
 		function GetPriceDropdown($group_id = 0,$price_id = 0){
-			global $db,$config,$lang,$cfg,$mf;
+			global $db,$lang,$cfg,$mf;
 
       $selections = array();
       
@@ -289,7 +289,7 @@ class party{
 		}
 
 		function get_party_javascript(){
-			global $db,$config,$cfg;
+			global $db,$cfg;
 			$row = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% ORDER BY group_id", $this->party_id);
 			$option = "var option = new Array();\n";
 			$prices = "var price = new Array();\n";
@@ -319,7 +319,7 @@ class party{
 		 * @param int $usergroup
 		 */
 		function add_price($price_text,$price,$depot_desc = "",$depot_price = 0,$usergroup = 0){
-			global $db,$config;
+			global $db;
 			
 			$db->qry("INSERT %prefix%party_prices SET 
         party_id = %int%,
@@ -345,7 +345,7 @@ class party{
 		 * @param int $usergroup
 		 */
 		function update_price($price_id,$price_text,$price,$depot_desc = "",$depot_price = 0,$usergroup = 0){
-			global $db,$config;
+			global $db;
 			
 			$db->qry("UPDATE %prefix%party_prices SET 
         price_text = %string%,
@@ -367,7 +367,7 @@ class party{
 		 * @param int $checkin
 		 */
 		function add_user_to_party($user_id,$price_id = "0",$paid = "NULL",$checkin = "NULL"){
-			global $db,$cfg,$config;
+			global $db,$cfg;
 			
 			$timestamp = time();
 			
@@ -418,7 +418,7 @@ class party{
 		 * @param bool $checkout
 		 */
 		function update_user_at_party($user_id, $paid, $price_id = "0", $checkin = "0",$checkout = "0",$seatcontrol = "NULL"){
-			global $db,$config,$func,$lang;
+			global $db,$func,$lang;
 			$timestamp = time();
 
 			if($checkin == "1"){
@@ -468,7 +468,7 @@ class party{
 		 * @param int $user_id
 		 */
 		function delete_user_from_party($user_id){
-			global $db,$cfg,$config;
+			global $db,$cfg;
 			$timestamp = time();
 			if($checkin == "1" || $cfg["signon_autocheckin"] == "1"){
 				$checkin = $timestamp;
@@ -490,7 +490,7 @@ class party{
 		 *
 		 */
 		function GetUserGroupDropdown($group_id = "NULL",$nogroub = 0,$select_id = 0,$javascript = false){
-			global $db,$mf,$config,$lang;
+			global $db,$mf,$lang;
 
 			if($group_id == "NULL") $res = $db->qry("SELECT * FROM %prefix%party_usergroups");
 			else $res = $db->qry("SELECT * FROM %prefix%party_usergroups WHERE group_id = %int%", $group_id);
@@ -505,7 +505,7 @@ class party{
 
 
 		function get_user_group_dropdown($group_id = "NULL",$nogroub = 0,$select_id = 0,$javascript = false){
-			global $db,$dsp,$config,$lang;
+			global $db,$dsp,$lang;
 			
 			if($group_id == "NULL"){
 				$row = $db->qry("SELECT * FROM %prefix%party_usergroups");
@@ -561,7 +561,7 @@ class party{
 		 * @param string $description
 		 */
 		function add_user_group($group,$description,$selection,$select_opts){
-			global $db,$config;
+			global $db;
 			
 			$db->qry("INSERT %prefix%party_usergroups SET
         group_name = %string%,
@@ -580,7 +580,7 @@ class party{
 		 * @param int $group_id
 		 */
 		function update_user_group($group_id,$group,$description,$selection,$select_opts){
-			global $db,$config;
+			global $db;
 			
 			$db->qry("UPDATE %prefix%party_usergroups SET
         group_name = %string%,
@@ -594,7 +594,7 @@ class party{
 		
 		
 		function price_seatcontrol($price_id){
-			global $db, $config;
+			global $db;
 			$prices = $db->qry_first("SELECT * FROM %prefix%party_prices WHERE price_id=%int%", $price_id);
 			return $prices['depot_price'];
 		}
@@ -606,7 +606,7 @@ class party{
 		 * @return int
 		 */
 		function get_seatcontrol($user_id){
-			global $db, $config;
+			global $db;
 				$row = $db->qry_first("SELECT * FROM %prefix%party_user WHERE user_id=%int% AND party_id=%int%", $user_id, $this->party_id);
 				return $row['seatcontrol'];
 		}
@@ -618,7 +618,7 @@ class party{
 		 * @param int $seatcontrol
 		 */
 		function set_seatcontrol($user_id,$seatcontrol){
-			global $db, $config;
+			global $db;
 				$db->qry("UPDATE %prefix%party_user  SET seatcontrol=%string% WHERE user_id=%int% AND party_id=%int%", $seatcontrol, $user_id, $this->party_id);
 		
 		}
@@ -630,7 +630,7 @@ class party{
 		 * @param int $set_price
 		 */
 		function delete_price($del_price, $set_price){
-			global $db, $config;
+			global $db;
 				$db->qry("UPDATE %prefix%party_user  SET price_id=%string% WHERE price_id=%string%", $set_price, $del_price);
 				$db->qry("DELETE FROM %prefix%party_prices WHERE price_id=%string%", $del_price);
 		}
@@ -643,7 +643,7 @@ class party{
 		 * @param unknown_type $set_group
 		 */
 		function delete_usergroups($del_group,$set_group){
-			global $db, $config;
+			global $db;
 				$db->qry("UPDATE %prefix%user  SET group_id=%string% WHERE group_id=%string%", $set_group, $del_group);
 				$db->qry("DELETE FROM %prefix%party_usergroups WHERE group_id=%string%", $del_group);
 		}
@@ -651,7 +651,7 @@ class party{
 		
 		
 		function get_next_party(){
-			global $db,$config;
+			global $db;
 			
 			$time = time();
 			$row = $db->qry_first_rows("SELECT *, UNIX_TIMESTAMP(enddate) AS enddate, UNIX_TIMESTAMP(sstartdate) AS sstartdate, UNIX_TIMESTAMP(senddate) AS senddate, UNIX_TIMESTAMP(startdate) AS startdate FROM %prefix%partys WHERE startdate > %int% ORDER BY startdate ASC", $time);	

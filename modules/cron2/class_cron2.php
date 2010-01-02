@@ -2,7 +2,7 @@
 
 class cron2{
   function Run($jobid) {
-    global $db, $config, $func;
+    global $db, $func;
 
     if (!$jobid) return false;
 
@@ -16,7 +16,7 @@ class cron2{
   }
 
   function CheckJobs() {
-    global $db, $config;
+    global $db;
 
     $row = $db->qry_first("SELECT jobid FROM %prefix%cron
       WHERE UNIX_TIMESTAMP(NOW()) > UNIX_TIMESTAMP(DATE_ADD(DATE(lastrun), INTERVAL 1 DAY)) + TIME_TO_SEC(runat)

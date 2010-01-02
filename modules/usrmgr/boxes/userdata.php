@@ -25,7 +25,7 @@ if ($olduserid > 0) {
 if (strlen($auth['username']) > 14) $username = substr($auth['username'], 0, 11) . "...";
 else $username = $auth['username'];
 
-$userid_formated = sprintf( "%0".$config['size']['userid_digits']."d", $auth['userid']);
+$userid_formated = sprintf( "%04d", $auth['userid']);
 
 $box->DotRow(t('Benutzer').": [<i>#$userid_formated</i>]". ' <a href="index.php?mod=auth&action=logout" class="icon_delete" title="'. t('Ausloggen') .'"></a>');
 $box->EngangedRow($dsp->FetchUserIcon($auth['userid'], $username));

@@ -405,7 +405,7 @@ class pdf {
      */
     function _makeUserCard($pdf_paid,$pdf_normal,$pdf_op,$pdf_orga,$pdf_guestid){
         define('IMAGE_PATH','ext_inc/pdf_templates/');
-        global $db, $config, $func, $party, $seat2;
+        global $db, $func, $party, $seat2;
                 
         $date = date('U');
                 
@@ -645,7 +645,7 @@ class pdf {
      */
     function _makeUserlist($pdf_paid,$pdf_normal,$pdf_op,$pdf_orga,$order){
         define('IMAGE_PATH','ext_inc/pdf_templates/');
-        global $db, $config, $func,$party, $seat2;
+        global $db, $func,$party, $seat2;
                 
         // abfrage String erstellen
         $pdf_sqlstring = "";

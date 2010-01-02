@@ -13,7 +13,7 @@ class seat2 {
 	}
 
   function SeatNameLink($userid, $MaxBlockLength = 0, $break = '<br />'){
-    global $db, $config, $party;
+    global $db, $party;
   
     // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
     $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
@@ -33,7 +33,7 @@ class seat2 {
   }
 
 	function SeatOfUser($userid, $MaxBlockLength = 0, $LinkIt = 0) {
-	  global $db, $config, $party; 
+	  global $db, $party;
       // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
       $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
                                      WHERE  party_id=%int% AND user_id=%int%", $party->party_id, $userid);
@@ -48,7 +48,7 @@ class seat2 {
 	}
 	
 	function SeatOfUserArray($userid) {
-	  global $db, $config, $party; 
+	  global $db, $party;
       // Unterscheidung Bezahlt oder Unbezahlt (aber nur 1 res. Platz)
       $seat_paid = $db->qry_first("SELECT paid FROM %prefix%party_user
                                      WHERE  party_id=%int% AND user_id=%int%", $party->party_id, $userid);
@@ -70,7 +70,7 @@ class seat2 {
 	}
 
   function CoordinateToBlockAndName($x, $y, $blockid, $MaxBlockLength = 0, $LinkIt = 0, $userid = 0) {
-    global $db, $config;
+    global $db;
     
 		$row = $db->qry_first("SELECT name, orientation FROM %prefix%seat_block WHERE blockid = %int%", $blockid);
 
@@ -130,7 +130,7 @@ class seat2 {
 
 
 	function DrawPlan($blockid, $mode, $linktarget = '', $selected_user = false) {
-		global $db, $config, $dsp, $templ, $auth, $lang, $cfg, $party, $smarty, $framework, $func;
+		global $db, $dsp, $templ, $auth, $lang, $cfg, $party, $smarty, $framework, $func;
 		// $mode:
 		// 0 = Normal display mode
 		// 1 = With seperators
@@ -581,7 +581,7 @@ class seat2 {
 
 	// Seat management functions
   function ReserveSeatIfPaidAndOnlyOneMarkedSeat($userid) {
-    global $db, $config, $party;
+    global $db, $party;
     
     $res = $db->qry("SELECT s.seatid, s.status FROM %prefix%seat_block AS b
    LEFT JOIN %prefix%seat_seats AS s ON b.blockid = s.blockid
@@ -593,7 +593,7 @@ class seat2 {
   }
 	
   function MarkSeatIfNotPaidAndSeatReserved($userid) {
-    global $db, $config, $party;
+    global $db, $party;
     
     $row = $db->qry_first("SELECT s.seatid, s.status FROM %prefix%seat_block AS b
    LEFT JOIN %prefix%seat_seats AS s ON b.blockid = s.blockid
@@ -603,7 +603,7 @@ class seat2 {
   }
 	
 	function AssignSeat($userid, $blockid, $row, $col) {
-		global $db, $config, $party;
+		global $db, $party;
 
 		// Delete old seat, if exists
 		$my_party_seat = $db->qry_first("SELECT s.seatid FROM %prefix%seat_block AS b
@@ -618,21 +618,21 @@ class seat2 {
 	}
 
 	function MarkSeat($userid, $blockid, $row, $col) {
-		global $db, $config, $party;
+		global $db, $party;
 
 		$db->qry("UPDATE %prefix%seat_seats SET userid = %int%, status = 3
    WHERE blockid = %int% AND row = %string% AND col = %string%", $userid, $blockid, $row, $col);
 	}
 
 	function FreeSeat($blockid, $row, $col) {
-		global $db, $config;
+		global $db;
 
 		$db->qry("UPDATE %prefix%seat_seats SET userid = 0, status = 1
    WHERE blockid = %int% AND row = %string% AND col = %string%", $blockid, $row, $col);
 	}
 	
 	function FreeSeatAllMarkedByUser($userid) {
-		global $db, $config, $party;
+		global $db, $party;
 		/*
 		$mark_seats = $db->qry("SELECT s.blockid, s.row, s.col FROM %prefix%seat_seats AS s
 				LEFT JOIN %prefix%seat_block AS b ON b.blockid = s.blockid

@@ -4,7 +4,7 @@ class Clan {
 
   // Create new clan
   function Add($name, $userid, $url = '', $password = '') {
-    global $db, $config, $func, $lang;
+    global $db, $func, $lang;
 
     if ($name == '') return false;
     
@@ -23,7 +23,7 @@ class Clan {
   
   // Join clan
   function AddMember($clanid, $userid, $isAdmin = 0) {
-    global $db, $config;
+    global $db;
     
     $db->qry("UPDATE %prefix%user SET
       clanid = %int%,
@@ -36,7 +36,7 @@ class Clan {
   
   //Leave clan
   function RemoveMember($userid){
-    global $db, $config;
+    global $db;
 
     $db->qry("UPDATE %prefix%user SET
       clanid = '0'
@@ -48,7 +48,7 @@ class Clan {
 
   //Check Clan Passwort
   function CheckClanPW($clanid, $clanpw) {
-  global $db, $config, $auth;
+  global $db, $auth;
 
   $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $clanid);
   if ($clan['password'] and $clan['password'] == md5($clanpw)) return true;

@@ -6,7 +6,7 @@ include_once("inc/classes/class_gd.php");
 $gd = new gd;
 
 function Update($id) {
-global $mf, $db, $config, $auth, $authentication, $party, $usrmgr, $func, $cfg, $signon;
+global $mf, $db, $auth, $authentication, $party, $usrmgr, $func, $cfg, $signon;
 
   // Clan-Management
   include_once("modules/clanmgr/class_clan.php");
@@ -98,7 +98,7 @@ function check_birthday($date) {
 }
 
 function CheckClanPW ($clanpw) {
-  global $db, $config, $auth;
+  global $db, $auth;
 
   if (!$_POST['new_clan_select'] and $auth['type'] <= 1 and $auth['clanid'] != $_POST['clan']) {
     $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_POST['clan']);
@@ -108,7 +108,7 @@ function CheckClanPW ($clanpw) {
 }
 
 function CheckClanNotExists ($ClanName) {
-  global $db, $config, $auth;
+  global $db, $auth;
 
   $clan = $db->qry_first("SELECT 1 AS found FROM %prefix%clan WHERE name = %string%", $ClanName);
   if ($clan['found']) return t('Dieser Clan existiert bereits!') .HTML_NEWLINE. t(' Wenn Sie diesem beitreten möchten, wählen Sie ihn oberhalb aus dem Dropdownmenü aus.');

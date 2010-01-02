@@ -43,9 +43,7 @@ class accounting
     function booking($movement, $comment, $toUserid = 0, $silentMode = false)
     {
         global $func, $db;
-                   
-        global $db,$config;
-            $db->qry("INSERT INTO %prefix%cashmgr_accounting SET 
+            $db->qry("INSERT INTO %prefix%cashmgr_accounting SET
                 toUserid  =%int%,
                 fromUserid=%int%,
                 partyid =%int%,
@@ -61,14 +59,14 @@ class accounting
 
     function getCashTotalBudget()
     {
-        global $db, $config;
+        global $db;
         $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE userid = %int% AND cash = '1'", $this->userid);
         return getMoneyColor($result['total']);
     }
 
     function getOnlineTotalBudget()
     {
-        global $db, $config;
+        global $db;
         $result = $db->qry_first("SELECT SUM(movement) AS total FROM %prefix%cashmgr_accounting WHERE userid = %int% AND cash = '0'", $this->userid);
         return getMoneyColor($result['total']);
     }
@@ -76,7 +74,7 @@ class accounting
     
     function getEnergyUsage($paid)
     {
-        global $cfg, $db, $config;
+        global $cfg, $db;
         
         $partydate = $db->qry_first("SELECT UNIX_TIMESTAMP(startdate) AS startdate, UNIX_TIMESTAMP(enddate) AS enddate FROM %prefix%partys WHERE party_id = %int%", $this->partyid);
         $partytime = ($partydate['enddate'] - $partydate['startdate']) /3600;
@@ -89,7 +87,7 @@ class accounting
     function getSum($fix, $posneg)
     {
         //$posneg = 0 -> alle negativen, 1 -> alle positiven, 3 -> alle
-        global $db, $config;
+        global $db;
     
         switch($posneg)
         {
@@ -109,7 +107,7 @@ class accounting
     function getGroup($fix, $posneg)
     {
         //$posneg = 0 -> alle negativen, 1 -> alle positiven, 3 -> alle
-        global $db, $config;
+        global $db;
         
         $result_list = array();
     

@@ -76,7 +76,7 @@ if ($team_anz != 0 and ($tournament['status'] == "process" or $tournament['statu
 	ImageFill ($gd->img, 0, 0, $color["background"]);
 
 	function write_pairs ($bracket, $max_pos) {
-		global $gd, $func, $tournament, $width, $x_start, $height, $height_menu, $box_height, $box_width, $config, $dsp, $db, $tournamentid, $akt_round, $max_round, $color, $team_anz, $dg, $img_height, $lang, $map, $tfunc;
+		global $gd, $func, $tournament, $width, $x_start, $height, $height_menu, $box_height, $box_width, $dsp, $db, $tournamentid, $akt_round, $max_round, $color, $team_anz, $dg, $img_height, $lang, $map, $tfunc;
 
 		$dg++;
 		if ($akt_round > 0) $xpos = $x_start + (($box_width + 10) * $akt_round);

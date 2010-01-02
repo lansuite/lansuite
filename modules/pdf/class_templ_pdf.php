@@ -13,7 +13,7 @@ class pdf_tmpl{
     
     // Alle Vorlagen zu bestimmtem Thema auslesen
     function read_List(){
-        global $config,$db,$dsp,$lang,$templ, $smarty;   
+        global $db,$dsp,$lang,$templ, $smarty;
         
         $data = $db->qry("SELECT * FROM %prefix%pdf_list WHERE template_type = %string%", $this->action);
         
@@ -41,7 +41,7 @@ class pdf_tmpl{
     
     // Daten einfügen
     function add_templ(){
-        global $config,$db,$dsp,$lang,$templ;   
+        global $db,$dsp,$lang,$templ;
         // In Liste einfügen
         $db->qry("INSERT INTO %prefix%pdf_list ( `template_id` , `template_type` , `name` ) VALUES ('', %string%, %string%)", $this->action, $_POST['template_name']);
         $this->tmpl_id = $db->insert_id();
@@ -56,7 +56,7 @@ class pdf_tmpl{
     
     // Daten auslesen
     function display_data(){
-        global $config,$db,$dsp,$lang,$templ,$gd, $smarty;
+        global $db,$dsp,$lang,$templ,$gd, $smarty;
                   
         // Name ausgeben
         $template = $db->qry_first("SELECT * FROM %prefix%pdf_list WHERE template_id= %int%", $this->tmpl_id);
@@ -146,7 +146,7 @@ class pdf_tmpl{
     // Eintrag erstellungs Maske anzeigen
     // Es müss das Objekt das erstellt werden soll übergreben werden
     function insert_mask($object){
-        global $config,$db,$dsp,$lang,$templ;
+        global $db,$dsp,$lang,$templ;
         
         $pdf_export = new pdf($this->tmpl_id);
                               
@@ -238,7 +238,7 @@ class pdf_tmpl{
     
     // Maske um Einträge ändern anzeigen
     function change_mask($item_id){
-        global $config,$db,$dsp,$lang,$templ;
+        global $db,$dsp,$lang,$templ;
         $pdf_export = new pdf($this->tmpl_id);
         
         $data = $db->qry_first("SELECT * FROM %prefix%pdf_data WHERE pdfid= %int%", $item_id);
@@ -346,7 +346,7 @@ class pdf_tmpl{
     
     // ein Objekt einfügen
     function insert_item($object){
-        global $config,$db,$dsp,$lang,$templ,$func;
+        global $db,$dsp,$lang,$templ,$func;
         
         
         if($_POST['visible'] == "checked"){
@@ -366,7 +366,7 @@ class pdf_tmpl{
     
     // Objekt ändern
     function change_item($item_id){
-        global $config,$db,$dsp,$lang,$templ,$func;
+        global $db,$dsp,$lang,$templ,$func;
         
         
         if($_POST['visible'] == "checked"){
@@ -401,7 +401,7 @@ class pdf_tmpl{
         
         // Sortierung ändern
     function sortorder($direction,$item_id){
-        global $config,$db,$dsp,$lang,$templ,$func; 
+        global $db,$dsp,$lang,$templ,$func;
         
         if($direction == "minus"){
             $sort = "-1";
@@ -414,7 +414,7 @@ class pdf_tmpl{
     }
     // Daten löschen
     function delete_templ(){
-        global $config,$db,$dsp,$lang,$templ;   
+        global $db,$dsp,$lang,$templ;
         
         $db->qry("DELETE FROM %prefix%pdf_list WHERE template_id = %int%", $this->tmpl_id);
         $db->qry("DELETE FROM %prefix%pdf_data WHERE template_id = %int%", $this->tmpl_id);
@@ -423,7 +423,7 @@ class pdf_tmpl{
     }
     
     function delete_item($itemid){
-        global $config,$db,$dsp,$lang,$templ;   
+        global $db,$dsp,$lang,$templ;
         
         $db->qry("DELETE FROM %prefix%pdf_data WHERE pdfid = %int%", $itemid);
     
