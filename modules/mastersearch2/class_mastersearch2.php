@@ -42,6 +42,7 @@ class MasterSearch2 {
     }
 
     $this->config['EntriesPerPage'] = 20;
+    $this->NoItemsText = t('Es wurden keine Einträge gefunden');
   }
 
   function AddSelect($sql_field){
@@ -444,7 +445,7 @@ class MasterSearch2 {
     ###### Output Result
     // When no Items were found
     if ($db->num_rows($res) == 0) {
-      if ($this->NoItemsText) $func->information($this->NoItemsText);
+      if ($this->NoItemsText) $func->information($this->NoItemsText, NO_LINK);
     } else {
 
       #### Generate Result Head
