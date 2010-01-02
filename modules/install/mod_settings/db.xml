@@ -1195,15 +1195,23 @@
                 <name>tid</name>
                 <type>int(11)</type>
                 <null></null>
-                <key>PRI</key>
+                <key></key>
                 <default></default>
-                <extra>auto_increment</extra>
+                <extra></extra>
             </field>
             <field>
                 <name>id</name>
                 <type>char(32)</type>
                 <null></null>
-                <key>IND</key>
+                <key>PRI</key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>file</name>
+                <type>char(40)</type>
+                <null></null>
+                <key>PRI</key>
                 <default></default>
                 <extra></extra>
             </field>
@@ -1260,14 +1268,6 @@
                 <type>varchar(255)</type>
                 <null></null>
                 <key></key>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
-                <name>file</name>
-                <type>varchar(40)</type>
-                <null></null>
-                <key>IND</key>
                 <default></default>
                 <extra></extra>
             </field>
@@ -1292,15 +1292,23 @@
                 <name>tid</name>
                 <type>int(11)</type>
                 <null></null>
-                <key>PRI</key>
+                <key></key>
                 <default></default>
-                <extra>auto_increment</extra>
+                <extra></extra>
             </field>
             <field>
                 <name>id</name>
                 <type>char(32)</type>
                 <null></null>
-                <key></key>
+                <key>PRI</key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>file</name>
+                <type>char(40)</type>
+                <null></null>
+                <key>PRI</key>
                 <default></default>
                 <extra></extra>
             </field>
@@ -1355,14 +1363,6 @@
             <field>
                 <name>it</name>
                 <type>text</type>
-                <null></null>
-                <key></key>
-                <default></default>
-                <extra></extra>
-            </field>
-            <field>
-                <name>file</name>
-                <type>varchar(40)</type>
                 <null></null>
                 <key></key>
                 <default></default>
