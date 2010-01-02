@@ -122,7 +122,6 @@ class Install {
         // Try to find DB-XML-File
         if (file_exists("modules/install/mod_settings/db.xml")){
           $this->WriteTableFromXMLFile('install'); // Calls InsertModules and InsertMenus as well
-          $db->qry_first("TRUNCATE %prefix%plugin");
           if ($display_to_screen) $dsp->AddDoubleRow("Modul 'install'", "[<a href=\"index.php?mod=install&action=db&step=7&module=install&quest=1\">".t('zurücksetzen')."</a>]");
         }
       }
@@ -182,6 +181,7 @@ class Install {
 
     // Tabelle Modules leeren um Module zu deinstallieren
     if($_GET["action"] == "wizard") $db->qry("TRUNCATE TABLE %prefix%modules");
+    $db->qry("TRUNCATE %prefix%plugin");
     
     $mod_list = array();
     $modules_dir = opendir("modules/");
@@ -226,10 +226,10 @@ class Install {
       if ($ModActive) {
 
         // config.xml
-        $ConfigFileName = "modules/$module/mod_settings/config.xml";
-        if (file_exists($ConfigFileName)) {
-          $handle = fopen ($ConfigFileName, "r");
-          $xml_file = fread ($handle, filesize ($ConfigFileName));
+        $file = "modules/$module/mod_settings/config.xml";
+        if (file_exists($file)) {
+          $handle = fopen ($file, "r");
+          $xml_file = fread ($handle, filesize ($file));
           fclose ($handle);
 
           $SettingList = array();
@@ -324,7 +324,7 @@ class Install {
             $caption = $xml->get_tag_content("caption", $plugin);
             $icon = $xml->get_tag_content("icon", $plugin);
             $pos = $xml->get_tag_content("pos", $plugin);
-            $db->qry_first("INSERT INTO %prefix%plugin SET module=%string%, pluginType=%string%, caption=%string%, pos=%int%, icon=%string%", $module, $name, $caption, $pos, $icon);
+            $db->qry("INSERT INTO %prefix%plugin SET module=%string%, pluginType=%string%, caption=%string%, pos=%int%, icon=%string%", $module, $name, $caption, $pos, $icon);
           }
         }
       }
