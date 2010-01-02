@@ -98,7 +98,7 @@ class Install {
 
     $import->GetImportHeader("modules/$mod/mod_settings/db.xml");
     $import->ImportXML($rewrite);
-    if ($rewrite AND $mod == 'install') {
+    if ($mod == 'install') {
       $this->InsertModules($rewrite);
       $this->InsertMenus($rewrite);
     }
@@ -108,114 +108,38 @@ class Install {
   // Scans 'install/db_skeleton/' for non-existand tables and creates them
   // Puts the results to the screen, by using $dsp->AddSingleRow for each table, if $display_to_screen = 1
   function CreateNewTables($display_to_screen = 1) {
-      global $dsp, $config, $db, $import;
+    global $dsp, $config, $db, $import, $func;
 
-      $tablecreate = Array("anz" => 0, "created" => 0, "exist" => 0, "failed" => "");
-      if ($display_to_screen) $dsp->AddSingleRow("<b>". t('Tabellen erstellen') ."</b>");
+    $tablecreate = Array("anz" => 0, "created" => 0, "exist" => 0, "failed" => "");
+    if ($display_to_screen) $dsp->AddSingleRow("<b>". t('Tabellen erstellen') ."</b>");
 
-      #$db->qry("CREATE TABLE IF NOT EXISTS %prefix%table_names (name varchar(80) NOT NULL default '', PRIMARY KEY(name)) TYPE = MyISAM CHARACTER SET utf8");
-      #$db->qry("REPLACE INTO %prefix%table_names SET name = 'table_names'");
+    // Delete references, if table exists, for they will be recreated in WriteTableFromXMLFile
+    if (in_array($config['database']['prefix'] .'ref', $import->installed_tables)) $db->qry('TRUNCATE TABLE %prefix%ref');
 
-      // Delete references, if table exists, for they will be recreated in WriteTableFromXMLFile
-      if (in_array($config['database']['prefix'] .'ref', $import->installed_tables)) $db->qry('TRUNCATE TABLE %prefix%ref');
-
-      if (is_dir("modules")) {
-        // Do install-mod first! (for translations-table must exist)
-        if (is_dir("modules/install/mod_settings")) {
-          // Try to find DB-XML-File
-          if (file_exists("modules/install/mod_settings/db.xml")){
-            $this->WriteTableFromXMLFile('install');
-            $db->qry_first("TRUNCATE %prefix%plugin");
-            if ($display_to_screen) $dsp->AddDoubleRow("Modul 'install'", "[<a href=\"index.php?mod=install&action=db&step=7&module=install&quest=1\">".t('zurücksetzen')."</a>]");
-          }
-        }
-
-        // Generate module table, so Lansuite knows, which modules need to be written
-        $this->InsertModules();
-
-        $ActiveModules = array();
-        $res = $db->qry('SELECT name FROM %prefix%modules WHERE active = 1');
-        while($row = $db->fetch_array($res)) {
-          $module = $row['name'];
-#        $modules_dir = opendir("modules/");
-#        while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND $module != "install" AND is_dir("modules/$module")) {
-        
-          // Try to find DB-XML-File
-          if (file_exists("modules/$module/mod_settings/db.xml")) {
-            $this->WriteTableFromXMLFile($module);
-            if ($display_to_screen) $dsp->AddDoubleRow("Modul '$module'", "[<a href=\"index.php?mod=install&action=db&step=7&module=$module&quest=1\">".t('zurücksetzen')."</a>]");
-          }
-        }
-        $db->free_result($res);
-#        closedir($modules_dir);
-      }
-
-      if ($display_to_screen) $dsp->AddDoubleRow("<b>". t('Alle Tabellen') ."</b>", "[<a href=\"index.php?mod=install&action=db&step=3&quest=1\">".t('zurücksetzen')."</a>]");
-
-      return $tablecreate;
-  }
-
-
-  // Insert Setting-Entrys in DB, if not exist
-  function InsertSettings($module) {
-    global $db, $config, $xml, $func;
-    
-    $ConfigFileName = "modules/$module/mod_settings/config.xml";
-    if (file_exists($ConfigFileName)) {
-      $handle = fopen ($ConfigFileName, "r");
-      $xml_file = fread ($handle, filesize ($ConfigFileName));
-      fclose ($handle);
-      
-      $SettingList = array();
-      
-      $xml_config = $xml->get_tag_content('config', $xml_file);
-      // Read types
-      $xml_types = $xml->get_tag_content_array('typedefinition', $xml_config);
-      if ($xml_types) while ($xml_type = array_shift($xml_types)) {
-        $xml_head = $xml->get_tag_content('head', $xml_type);
-        $name = $xml->get_tag_content('name', $xml_head);
-        $db->qry("DELETE FROM %prefix%config_selections WHERE cfg_key = %string%", $name);
-        
-        $xml_entries = $xml->get_tag_content_array('entry', $xml_type);
-        if ($xml_entries) while ($xml_entry = array_shift($xml_entries)) {
-        $value = $xml->get_tag_content('value', $xml_entry);
-        $description = $xml->get_tag_content('description', $xml_entry);              
-        
-        if ($name != '' and $description != '') $db->qry("INSERT INTO %prefix%config_selections SET cfg_key = %string%, cfg_value = %string%, cfg_display = %string%",
-  $name, $value, $description);
+    if (is_dir("modules")) {
+      // Do install-mod first! (for translations-table must exist)
+      if (is_dir("modules/install/mod_settings")) {
+        // Try to find DB-XML-File
+        if (file_exists("modules/install/mod_settings/db.xml")){
+          $this->WriteTableFromXMLFile('install'); // Calls InsertModules and InsertMenus as well
+          $db->qry_first("TRUNCATE %prefix%plugin");
+          if ($display_to_screen) $dsp->AddDoubleRow("Modul 'install'", "[<a href=\"index.php?mod=install&action=db&step=7&module=install&quest=1\">".t('zurücksetzen')."</a>]");
         }
       }
 
-      // Read settings
-      $xml_groups = $xml->get_tag_content_array('group', $xml_config);
-      if ($xml_groups) while ($xml_group = array_shift($xml_groups)) {
-        $xml_head = $xml->get_tag_content('head', $xml_group);
-        $group = $xml->get_tag_content('name', $xml_head);
-        
-        $xml_items = $xml->get_tag_content_array('item', $xml_group);
-        if ($xml_items) while ($xml_item = array_shift($xml_items)) {
-          $name = $xml->get_tag_content('name', $xml_item);
-          $type = $xml->get_tag_content('type', $xml_item);
-          $default = $xml->get_tag_content('default', $xml_item);
-          $description = $xml->get_tag_content('description', $xml_item);
-          $pos = $xml->get_tag_content('pos', $xml_item);
-          array_push($SettingList, $name);
-          
-          // Insert into DB, if not exists
-          $found = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_key = %string%", $name);
-          if (!$found['cfg_key']) $db->qry("INSERT INTO %prefix%config SET cfg_key = %string%, cfg_value = %string%, cfg_type = %string%, cfg_group = %string%, cfg_desc = %string%, cfg_module = %string%, cfg_pos = %int%",
-  $name, $default, $type, $group, $description, $module, $pos);
+      // Try to find and import db.xml-Files
+      foreach($func->ActiveModules as $module => $caption) {
+        if ($module != 'install' and file_exists("modules/$module/mod_settings/db.xml")) {
+          $this->WriteTableFromXMLFile($module);
+          if ($display_to_screen) $dsp->AddDoubleRow("Modul '$module'", "[<a href=\"index.php?mod=install&action=db&step=7&module=$module&quest=1\">".t('zurücksetzen')."</a>]");
         }
-      }
-      
-      // Delete Settings from DB, which are no longer in the modules config.sql
-      $settings_db = $db->qry("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $module);
-      while ($setting_db = $db->fetch_array($settings_db)) {
-        if (!in_array($setting_db["cfg_key"], $SettingList)) $db->qry("DELETE FROM %prefix%config WHERE cfg_key = %string%", $setting_db["cfg_key"]);
       }
     }
-  }
 
+    if ($display_to_screen) $dsp->AddDoubleRow("<b>". t('Alle Tabellen') ."</b>", "[<a href=\"index.php?mod=install&action=db&step=3&quest=1\">".t('zurücksetzen')."</a>]");
+
+    return $tablecreate;
+  }
 
   // Insert PLZ-Entrys in DB, if not exist
   function InsertPLZs() {
@@ -265,6 +189,7 @@ class Install {
 
       // module.xml
       $file = "modules/$module/mod_settings/module.xml";
+      $ModActive = 0;
       if (file_exists($file)) {
         $handle = fopen ($file, "r");
         $xml_file = fread ($handle, filesize ($file));
@@ -285,9 +210,8 @@ class Install {
         $reqPhp = $xml->get_tag_content("php", $requires);
         $reqMysql = $xml->get_tag_content("mysql", $requires);
 
+        $ModActive = $active;
         $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%modules WHERE name = %string%", $module);
-
-        $this->InsertSettings($module);
 
         if ($name) {
           if (!$mod_found["found"]) $db->qry_first("REPLACE INTO %prefix%modules
@@ -299,50 +223,109 @@ class Install {
         }
       }
 
-      // boxes.xml
-      $file = "modules/$module/boxes/boxes.xml";
-      if (file_exists($file)) {
-        $handle = fopen ($file, "r");
-        $xml_file = fread ($handle, filesize ($file));
-        fclose ($handle);
+      if ($ModActive) {
 
-        ($module == 'install')? $modTmp = '' : $modTmp = $module;
+        // config.xml
+        $ConfigFileName = "modules/$module/mod_settings/config.xml";
+        if (file_exists($ConfigFileName)) {
+          $handle = fopen ($ConfigFileName, "r");
+          $xml_file = fread ($handle, filesize ($ConfigFileName));
+          fclose ($handle);
 
-        $boxes = $xml->get_tag_content_array("box", $xml_file);
-        foreach ($boxes as $box) {
-          $name = $xml->get_tag_content("name", $box);
-          $place = $xml->get_tag_content("place", $box);
-          $pos = $xml->get_tag_content("pos", $box);
-          $active = $xml->get_tag_content("active", $box);
-          $internet = $xml->get_tag_content("internet", $box);
-          $login = $xml->get_tag_content("login", $box);
-          $source = $xml->get_tag_content("source", $box);
-          $callback = $xml->get_tag_content("callback", $box);
+          $SettingList = array();
 
-          $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
-          if ($rewrite or !$mod_found['found']) {
-            $db->qry_first("DELETE FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
-            $db->qry_first("INSERT INTO %prefix%boxes
-              SET name=%string%, place=%string%, pos=%string%, active=%string%, internet=%string%, login=%string%, source=%string%, callback=%string%, module=%string%",
-              $name, $place, $pos, $active, $internet, $login, $source, $callback, $modTmp);
+          $xml_config = $xml->get_tag_content('config', $xml_file);
+          // Read types
+          $xml_types = $xml->get_tag_content_array('typedefinition', $xml_config);
+          if ($xml_types) while ($xml_type = array_shift($xml_types)) {
+            $xml_head = $xml->get_tag_content('head', $xml_type);
+            $name = $xml->get_tag_content('name', $xml_head);
+            $db->qry("DELETE FROM %prefix%config_selections WHERE cfg_key = %string%", $name);
+
+            $xml_entries = $xml->get_tag_content_array('entry', $xml_type);
+            if ($xml_entries) while ($xml_entry = array_shift($xml_entries)) {
+            $value = $xml->get_tag_content('value', $xml_entry);
+            $description = $xml->get_tag_content('description', $xml_entry);
+
+            if ($name != '' and $description != '') $db->qry("INSERT INTO %prefix%config_selections SET cfg_key = %string%, cfg_value = %string%, cfg_display = %string%",
+      $name, $value, $description);
+            }
+          }
+
+          // Read settings
+          $xml_groups = $xml->get_tag_content_array('group', $xml_config);
+          if ($xml_groups) while ($xml_group = array_shift($xml_groups)) {
+            $xml_head = $xml->get_tag_content('head', $xml_group);
+            $group = $xml->get_tag_content('name', $xml_head);
+
+            $xml_items = $xml->get_tag_content_array('item', $xml_group);
+            if ($xml_items) while ($xml_item = array_shift($xml_items)) {
+              $name = $xml->get_tag_content('name', $xml_item);
+              $type = $xml->get_tag_content('type', $xml_item);
+              $default = $xml->get_tag_content('default', $xml_item);
+              $description = $xml->get_tag_content('description', $xml_item);
+              $pos = $xml->get_tag_content('pos', $xml_item);
+              array_push($SettingList, $name);
+
+              // Insert into DB, if not exists
+              $found = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE cfg_key = %string%", $name);
+              if (!$found['cfg_key']) $db->qry("INSERT INTO %prefix%config SET cfg_key = %string%, cfg_value = %string%, cfg_type = %string%, cfg_group = %string%, cfg_desc = %string%, cfg_module = %string%, cfg_pos = %int%",
+      $name, $default, $type, $group, $description, $module, $pos);
+            }
+          }
+
+          // Delete Settings from DB, which are no longer in the modules config.sql
+          $settings_db = $db->qry("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $module);
+          while ($setting_db = $db->fetch_array($settings_db)) {
+            if (!in_array($setting_db["cfg_key"], $SettingList)) $db->qry("DELETE FROM %prefix%config WHERE cfg_key = %string%", $setting_db["cfg_key"]);
           }
         }
-      }
 
-      //plugins.xml
-      $file = "modules/$module/plugins/plugins.xml";
-      if (file_exists($file)) {
-        $handle = fopen ($file, "r");
-        $xml_file = fread ($handle, filesize ($file));
-        fclose ($handle);
+        // boxes.xml
+        $file = "modules/$module/boxes/boxes.xml";
+        if (file_exists($file)) {
+          $handle = fopen ($file, "r");
+          $xml_file = fread ($handle, filesize ($file));
+          fclose ($handle);
 
-        $plugins = $xml->get_tag_content_array("plugin", $xml_file);
-        foreach ($plugins as $plugin) {
-          $name = $xml->get_tag_content("name", $plugin);
-          $caption = $xml->get_tag_content("caption", $plugin);
-          $icon = $xml->get_tag_content("icon", $plugin);
-          $pos = $xml->get_tag_content("pos", $plugin);
-          $db->qry_first("INSERT INTO %prefix%plugin SET module=%string%, pluginType=%string%, caption=%string%, pos=%int%, icon=%string%", $module, $name, $caption, $pos, $icon);
+          ($module == 'install')? $modTmp = '' : $modTmp = $module;
+
+          $boxes = $xml->get_tag_content_array("box", $xml_file);
+          foreach ($boxes as $box) {
+            $name = $xml->get_tag_content("name", $box);
+            $place = $xml->get_tag_content("place", $box);
+            $pos = $xml->get_tag_content("pos", $box);
+            $active = $xml->get_tag_content("active", $box);
+            $internet = $xml->get_tag_content("internet", $box);
+            $login = $xml->get_tag_content("login", $box);
+            $source = $xml->get_tag_content("source", $box);
+            $callback = $xml->get_tag_content("callback", $box);
+
+            $mod_found = $db->qry_first("SELECT 1 AS found FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
+            if ($rewrite or !$mod_found['found']) {
+              $db->qry_first("DELETE FROM %prefix%boxes WHERE source = %string% AND module = %string%", $source, $modTmp);
+              $db->qry_first("INSERT INTO %prefix%boxes
+                SET name=%string%, place=%string%, pos=%string%, active=%string%, internet=%string%, login=%string%, source=%string%, callback=%string%, module=%string%",
+                $name, $place, $pos, $active, $internet, $login, $source, $callback, $modTmp);
+            }
+          }
+        }
+
+        // plugins.xml
+        $file = "modules/$module/plugins/plugins.xml";
+        if (file_exists($file)) {
+          $handle = fopen ($file, "r");
+          $xml_file = fread ($handle, filesize ($file));
+          fclose ($handle);
+
+          $plugins = $xml->get_tag_content_array("plugin", $xml_file);
+          foreach ($plugins as $plugin) {
+            $name = $xml->get_tag_content("name", $plugin);
+            $caption = $xml->get_tag_content("caption", $plugin);
+            $icon = $xml->get_tag_content("icon", $plugin);
+            $pos = $xml->get_tag_content("pos", $plugin);
+            $db->qry_first("INSERT INTO %prefix%plugin SET module=%string%, pluginType=%string%, caption=%string%, pos=%int%, icon=%string%", $module, $name, $caption, $pos, $icon);
+          }
         }
       }
     }
@@ -351,6 +334,9 @@ class Install {
     $mods = $db->qry("SELECT name FROM %prefix%modules");
     while($row = $db->fetch_array($mods)) if (!in_array($row["name"], $mod_list)) $db->qry("DELETE FROM %prefix%modules WHERE name = %string%", $row["name"]);
     $db->free_result($mods);
+
+    // Generate module table, so Lansuite knows, which modules need to be written
+    $func->getActiveModules();
   }
 
 
@@ -407,13 +393,11 @@ class Install {
 
   function InsertTranslations() {
 #    global $translation;
-    global $db, $xml, $language;
+    global $db, $xml, $func;
 
     $db->qry('TRUNCATE TABLE %prefix%translation');
 
-    $modules_dir = opendir("modules/");
-    while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
-
+    foreach($func->ActiveModules as $module => $caption) {
       $file = "modules/$module/mod_settings/translation.xml";
       if (file_exists($file)) {
 
@@ -427,10 +411,10 @@ class Install {
           $org = $xml->getFirstTagContent("org", $entry, 1);
           $de = $xml->getFirstTagContent("de", $entry, 1);
           $en = $xml->getFirstTagContent("en", $entry, 1);
-          if ($language == 'es') $es = $xml->getFirstTagContent("es", $entry, 1);
-          if ($language == 'fr') $fr = $xml->getFirstTagContent("fr", $entry, 1);
-          if ($language == 'nl') $nl = $xml->getFirstTagContent("nl", $entry, 1);
-          if ($language == 'it') $it = $xml->getFirstTagContent("it", $entry, 1);
+          $es = $xml->getFirstTagContent("es", $entry, 1);
+          $fr = $xml->getFirstTagContent("fr", $entry, 1);
+          $nl = $xml->getFirstTagContent("nl", $entry, 1);
+          $it = $xml->getFirstTagContent("it", $entry, 1);
           $file = $xml->getFirstTagContent("file", $entry);
 
           $db->qry_first('INSERT INTO %prefix%translation SET
@@ -438,7 +422,6 @@ class Install {
             $id, $org, $de, $en, $es, $fr, $nl, $it, $file);
         }
       }
-
 #      $translation->xml_write_file_to_db($module);
     }
 #    $translation->xml_write_file_to_db('DB');

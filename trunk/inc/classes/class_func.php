@@ -21,6 +21,7 @@ function htmlspecchars ($string, $quote_style=ENT_COMPAT, $format=null) {
 
 
 class func {
+  var $ActiveModules = array();
   /**
    * CONSTRUCTOR : Get referer and transform in a internal Link
    *
@@ -819,6 +820,30 @@ class func {
       $bar .= '<ul class="BarClear">&nbsp;</ul>';
 
     	return $bar;
+    }
+    
+    function getActiveModules() {
+      global $db, $ActiveModules;
+
+      $ActiveModules = array(); // deprecated should be replaced by isModActive();
+      $this->ActiveModules = array();
+      $res = $db->qry('SELECT name, caption FROM %prefix%modules WHERE active = 1');
+      while($row = $db->fetch_array($res)) {
+        $ActiveModules[] = $row['name'];
+        $this->ActiveModules[$row['name']] = $row['caption'];
+      }
+      $db->free_result($res);
+      $ActiveModules[] = 'helplet';
+      $ActiveModules[] = 'popups';
+      $ActiveModules[] = 'auth';
+      $this->ActiveModules['helplet'] = 'Helplets';
+      $this->ActiveModules['popups'] = 'Popups';
+      $this->ActiveModules['auth'] = 'Auth';
+    }
+    
+    function isModActive($mod, &$caption = '') {
+      $caption = $this->ActiveModules[$mod];
+      return array_key_exists($mod, $this->ActiveModules);
     }
 }
 ?>
