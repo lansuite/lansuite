@@ -40,8 +40,25 @@ class func {
     function read_db_config() {
         global $db;
 
-        $get_conf = $db->qry("SELECT cfg_value, cfg_key FROM %prefix%config");
-        while ($row=$db->fetch_array($get_conf,0)) $cfg["{$row['cfg_key']}"] = $row['cfg_value'];
+        $get_conf = $db->qry('SELECT cfg_value, cfg_key, cfg_type FROM %prefix%config WHERE cfg_module = "install" OR cfg_module = %string%', $_GET['mod']);
+        while ($row=$db->fetch_array($get_conf,0)) {
+          switch ($row['cfg_type']) {
+            case 'integer':
+            case 'int':
+              $cfg["{$row['cfg_key']}"] = (int)$row['cfg_value'];
+            break;
+            case 'boolean':
+            case 'bool':
+              $cfg["{$row['cfg_key']}"] = (bool)$row['cfg_value'];
+            break;
+            case 'float':
+              $cfg["{$row['cfg_key']}"] = (float)$row['cfg_value'];
+            break;
+            default:
+              $cfg["{$row['cfg_key']}"] = $row['cfg_value'];
+            break;
+          }
+        }
         $db->free_result($get_conf);
 
         return $cfg;
