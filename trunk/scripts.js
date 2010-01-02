@@ -342,8 +342,12 @@ function change_selection(id, ms_number) {
 
 
 //// Search Box ////
-function SubmitDropDown(FormObj, DropDownObj) {
-  FormObj.action = DropDownObj.value;
+function SubmitDropDown(FormObj) {
+  var pieces = FormObj.SearchBoxModule.value.split("|");
+  FormObj.mod.value = pieces[0];
+  FormObj.action.value = pieces[1];
+  FormObj.SearchBoxModule.value = '';
+  FormObj.SearchBoxModule.name = '';
   FormObj.submit();
 }
 
