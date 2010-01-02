@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,16 +15,31 @@
 			<entry>
 				<id>c481b00a606907fd59b4d46623b8d99d</id>
 				<org>Autor</org>
+				<en>Author</en>
+				<es>Autor</es>
+				<fr>Auteur</fr>
+				<nl>Auteur</nl>
+				<it>Autore</it>
 				<file>guestbook</file>
 			</entry>
 			<entry>
 				<id>0b0d4662661492e2fa892c7d65d3e817</id>
 				<org>Eintrag</org>
+				<en>Entry</en>
+				<es>Entrada</es>
+				<fr>Entrée</fr>
+				<nl>Entry</nl>
+				<it>Registrazione</it>
 				<file>guestbook</file>
 			</entry>
 			<entry>
 				<id>9ba51734ced032fd8ec25acfb387a23f</id>
 				<org>Datum</org>
+				<en>Date</en>
+				<es>Fecha</es>
+				<fr>Date</fr>
+				<nl>Datum</nl>
+				<it>Data</it>
 				<file>guestbook</file>
 			</entry>
 		</content>

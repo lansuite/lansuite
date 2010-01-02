@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,311 +15,621 @@
 			<entry>
 				<id>c9bcac873e61cef1c12bae8463c38266</id>
 				<org>Der Text darf nicht mehr als 5000 Zeichen enthalten</org>
+				<en>The text must not contain more than 5000 characters</en>
+				<es>El texto no debe contener más de 5000 caracteres</es>
+				<fr>Le texte ne doit pas contenir plus de 5000 caractères</fr>
+				<nl>De tekst mag niet meer dan 5000 karakters</nl>
+				<it>Il testo non deve contenere più di 5000 caratteri</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c4128d9eaaa49f7201417336961de686</id>
 				<org>Bitte geben Sie eine kurze Beschreibung / Überschrift ein</org>
+				<en>Please give a brief description / heading a</en>
+				<es>Por favor dé una breve descripción / al frente de una</es>
+				<fr>S&amp;#39;il vous plaît donner une brève description / tête d&amp;#39;une</fr>
+				<nl>Geef een korte beschrijving / post een</nl>
+				<it>Si prega di fornire una breve descrizione / a capo di una</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>35bedb45241d6b3f70fa6f56197c3361</id>
 				<org>Beschreibung</org>
+				<en>Description</en>
+				<es>Descripción</es>
+				<fr>Description</fr>
+				<nl>Beschrijving</nl>
+				<it>Descrizione</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>efcfe755debad10919b919b6b2be112f</id>
 				<org>Kategorie</org>
+				<en>Category</en>
+				<es>Categoría</es>
+				<fr>Catégorie</fr>
+				<nl>Categorie</nl>
+				<it>Categoria</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>561bc1c77801170559c8f1a5cbdbab28</id>
 				<org>Niedrig</org>
+				<en>Low</en>
+				<es>Bajo</es>
+				<fr>Bas</fr>
+				<nl>Laag</nl>
+				<it>Basso</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>960b44c579bc2f6818d2daaf9e4c16f0</id>
 				<org>Normal</org>
+				<en>Normal</en>
+				<es>Normal</es>
+				<fr>Normal</fr>
+				<nl>Normaal</nl>
+				<it>Normale</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>73607fe5dfe3102101eb2bbe0d5c6353</id>
 				<org>Hoch</org>
+				<en>High</en>
+				<es>Alto</es>
+				<fr>Haut</fr>
+				<nl>Hoog</nl>
+				<it>Alto</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c6fbd094d458d8fc8d7e7328811dd076</id>
 				<org>Kritisch</org>
+				<en>Critical</en>
+				<es>Crítica</es>
+				<fr>Critique</fr>
+				<nl>Kritische</nl>
+				<it>Critica</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>66ba618363f1d1a41d28fbc24e2fa79c</id>
 				<org>Keine weiteren Informationen angegeben.</org>
+				<en>No further information given.</en>
+				<es>No hay más información dada.</es>
+				<fr>Aucune autre information donnée.</fr>
+				<nl>Geen verdere informatie gegeven.</nl>
+				<it>Nessuna informazione ulteriore dato.</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>f4af0e9f163ceb8e4a8d9ce7244bbec4</id>
 				<org>Ihnen wurde das Troubleticket &quot;&lt;b&gt;%1&lt;/b&gt;&quot;zugewiesen.</org>
+				<en>They were the ticket &lt;b&gt;&amp;quot;%1&amp;quot;&lt;/b&gt; was assigned.</en>
+				<es>Fueron los billetes &lt;b&gt;&amp;quot;%1&lt;/b&gt; se ha &lt;b&gt;asignado&amp;quot;.&lt;/b&gt;</es>
+				<fr>Ils ont été les billets &lt;b&gt;«%1»&lt;/b&gt; a été attribué.</fr>
+				<nl>Zij waren het ticket &lt;b&gt;&amp;quot;%1&amp;quot;&lt;/b&gt; is toegewezen.</nl>
+				<it>Erano il biglietto &lt;b&gt;&amp;quot;%1&amp;quot;&lt;/b&gt; è stato assegnato.</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>813438eea59f53d34eb19b27c0a1428b</id>
 				<org>Das Troubleticket wurde erfolgreich eingetragen</org>
+				<en>The trouble ticket has been entered successfully</en>
+				<es>El ticket de problema se ha introducido con éxito</es>
+				<fr>Le ticket d&amp;#39;incident a été conclue avec succès</fr>
+				<nl>Het probleem ticket is met succes ingevoerd</nl>
+				<it>Trouble ticket è stato inserito con successo</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>78a82d7b0b8bf899223d6282aa23c366</id>
 				<org>Das Troubleticket konnte nicht zugewiesen werden! Problem mit der Datenbank !</org>
+				<en>The trouble ticket could not be assigned! Problem with the database!</en>
+				<es>El ticket de problema no puede ser asignado! Problema con la base de datos!</es>
+				<fr>Le ticket d&amp;#39;incident ne pouvait pas être attribué! Problème avec la base de données!</fr>
+				<nl>Het probleem ticket kan niet worden toegewezen! Probleem met de database!</nl>
+				<it>Trouble ticket non possano essere assegnati! Problema con il database!</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>6391c35adbc40be0095c99c93c0e4a96</id>
 				<org>Sie haben keine Kategorie zum ändern ausgewählt</org>
+				<en>You have chosen to change is no category for</en>
+				<es>Ha elegido no es el cambio de categoría para</es>
+				<fr>Vous avez choisi de changement n&amp;#39;est pas de catégorie pour</fr>
+				<nl>U heeft gekozen voor verandering is geen categorie voor</nl>
+				<it>Hai scelto di cambiare non è per la categoria</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>6954f6c1230cc1e2612f6c767c40d3ec</id>
 				<org>Name zu lang oder leer</org>
+				<en>Name too long or empty</en>
+				<es>Nombre demasiado largo o vacío</es>
+				<fr>Trop long ou de nom vide</fr>
+				<nl>Naam te lang of leeg</nl>
+				<it>Troppo a lungo o vuoto Nome</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>aac00a54e8a09c6ab9828649ec17e7f8</id>
 				<org>Bitte Auswählen</org>
+				<en>Please select</en>
+				<es>Por favor seleccione</es>
+				<fr>S&amp;#39;il vous plaît choisir</fr>
+				<nl>Selecteer</nl>
+				<it>Si prega di selezionare</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>dbc3e1fb6a513d966de8e85586fd15f8</id>
 				<org>Keine Kategorien vorhanden</org>
+				<en>No categories available</en>
+				<es>No hay categorías disponibles</es>
+				<fr>Aucune catégorie disponible</fr>
+				<nl>Geen categorieën beschikbaar</nl>
+				<it>No categorie disponibili</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>f258909c1c5b0a5fe222559b26dc196a</id>
 				<org>Kein zuständiger Admin</org>
+				<en>No competent admin</en>
+				<es>No admin competentes</es>
+				<fr>Aucun admin compétente</fr>
+				<nl>De bevoegde admin</nl>
+				<it>No admin competenti</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>276957322b1122fe7fdfe7a875b143a9</id>
 				<org>Zuständiger Admin</org>
+				<en>Responsible Owner</en>
+				<es>Dueño Responsable</es>
+				<fr>Responsable Propriétaire</fr>
+				<nl>Verantwoordelijk Eigenaar</nl>
+				<it>Responsabile Proprietario</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>8eb98168309859fc747ae51a4def2377</id>
 				<org>Kategorie erfolgreich hinzugefügt/geändert</org>
+				<en>Category successfully added / updated</en>
+				<es>Categoría de agregado / modificado</es>
+				<fr>Catégorie d&amp;#39;ajouter / mis à jour</fr>
+				<nl>Categorie toegevoegd / bijgewerkt</nl>
+				<it>Categoria correttamente aggiunto / aggiornato</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>dfbf73174951725f49c289d5586d5700</id>
 				<org>Kategorie konnte nicht hinzugefügt/geändert werden</org>
+				<en>Category could not be added / changed</en>
+				<es>La categoría no se podría añadir / cambiar</es>
+				<fr>Catégorie ne peut être ajouté / modifié</fr>
+				<nl>Categorie kon niet worden toegevoegd / gewijzigd</nl>
+				<it>Categoria non può essere aggiunto / cambiato</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>673addbfdc25bd50aff1ba90aca7521a</id>
 				<org>Bei einer direkten Ablehnung ist die Angabe eines Grundes notwendig.</org>
+				<en>In a direct rejection specifying the reason is necessary.</en>
+				<es>En un rechazo directo especificando el motivo es necesario.</es>
+				<fr>Dans un rejet direct en précisant la raison est nécessaire.</fr>
+				<nl>In een directe afwijzing met vermelding van de reden is noodzakelijk.</nl>
+				<it>In un rifiuto diretto specificarne il motivo, è necessario.</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>26e4ffbe54431a35a1ffb83dc0778de7</id>
 				<org>Troubleticket bearbeiten</org>
+				<en>Edit trouble ticket</en>
+				<es>Ticket de problema Editar</es>
+				<fr>Modifier Trouble Ticket</fr>
+				<nl>Edit trouble ticket</nl>
+				<it>Ticket Modifica guai</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>22f9de3383b9419e4f8cb14baf39ddba</id>
 				<org>Überschrift</org>
+				<en>Headline</en>
+				<es>Headline</es>
+				<fr>Headline</fr>
+				<nl>Headline</nl>
+				<it>Headline</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>e3d4008a77b3a75a8c16ad003c71383c</id>
 				<org>Problembeschreibung</org>
+				<en>SYMPTOMS</en>
+				<es>Síntomas</es>
+				<fr>Symptômes</fr>
+				<nl>Symptomen</nl>
+				<it>Sintomi</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>0f13ae50eebff79958b0c75efc27e1f8</id>
 				<org>Eingetragen am/um</org>
+				<en>Added on / around</en>
+				<es>Añadido el / alrededor de</es>
+				<fr>Ajoutée le / Autour</fr>
+				<nl>Toegevoegd op / rond</nl>
+				<it>Aggiunto il / dintorni</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>96dd7b71ee3b8adfa9288508d02fc4dc</id>
 				<org>Von Benutzer</org>
+				<en>User</en>
+				<es>Usuario</es>
+				<fr>Utilisateur</fr>
+				<nl>Gebruiker</nl>
+				<it>Utente</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>3825b818d64f528ece805a31b8a8c2db</id>
 				<org>default: Scriptfehler!</org>
+				<en>default: Script Error!</en>
+				<es>default: error de script!</es>
+				<fr>default: erreur de script!</fr>
+				<nl>default: Script Error!</nl>
+				<it>default: errore di script!</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>4650c73a6f8f56ced16a5cc9db87e119</id>
 				<org>Auf Erledigt setzen</org>
+				<en>Set to Done</en>
+				<es>A «hecho»</es>
+				<fr>Set to Fait</fr>
+				<nl>Zet op Done</nl>
+				<it>Set di Fatto</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>16c5ff544f36e71785b9221cea312f99</id>
 				<org>Bearbeitung ablehnen</org>
+				<en>Reject processing</en>
+				<es>Rechazar tratamiento</es>
+				<fr>Rejeter la transformation</fr>
+				<nl>Weigeren verwerking</nl>
+				<it>Rifiuta di trasformazione</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>4d34ed1f59c4010e601615c132c03052</id>
 				<org>Keine Änderung</org>
+				<en>No change</en>
+				<es>Sin cambios</es>
+				<fr>Pas de changement</fr>
+				<nl>Geen verandering</nl>
+				<it>Nessun cambiamento</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>bc96559d898246e283878d308f5bb4eb</id>
 				<org>In Arbeit</org>
+				<en>In Progress</en>
+				<es>In Progress</es>
+				<fr>In Progress</fr>
+				<nl>In Progress</nl>
+				<it>In Progress</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>54af6a39cb0b779a99caf88e940a00f8</id>
 				<org>In Bearbeitung seit</org>
+				<en>In progress since</en>
+				<es>En curso desde</es>
+				<fr>En cours depuis</fr>
+				<nl>In vooruitgang sinds</nl>
+				<it>In corso dal</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>e5a557e11c5934e2ed68ef8e4501ba72</id>
 				<org>Abgeschlossen</org>
+				<en>Completed</en>
+				<es>Completo</es>
+				<fr>Terminé</fr>
+				<nl>Afgesloten</nl>
+				<it>Completato</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>cb0b5faeeb5b47f21cb6fa88641d52f9</id>
 				<org>Beendet am/um</org>
+				<en>Ended on / around</en>
+				<es>Terminó el / alrededor de</es>
+				<fr>S&amp;#39;est terminé le / Autour</fr>
+				<nl>Eindigde op / rond</nl>
+				<it>Si è concluso il / dintorni</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>76bec9222b6c223f96d25f8b79492ca2</id>
 				<org>Abgelehnt</org>
+				<en>Rejected</en>
+				<es>Rechazado</es>
+				<fr>Rejeté</fr>
+				<nl>Afgewezen</nl>
+				<it>Respinto</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>d136b0c3cadce6495f00621e0bac8c52</id>
 				<org>Bearbeitung abgelehnt am/um</org>
+				<en>Editing rejected on / around</en>
+				<es>Edición rechazado / alrededor de</es>
+				<fr>Modification rejetée sur / autour de</fr>
+				<nl>Bewerken afgewezen op / rond</nl>
+				<it>Editing respinta in / attorno</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>697b26ca50de194b18ac9aa1fcbf5cf1</id>
 				<org>Ticketstatus</org>
+				<en>Ticket Status</en>
+				<es>Venta de entradas Situación</es>
+				<fr>Ticket Status</fr>
+				<nl>Ticket Status</nl>
+				<it>Ticket Status</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>d09fe2886f34b6a376825bf340c2cd6f</id>
 				<org>Bearbeitender Orga</org>
+				<en>Investigating Organization</en>
+				<es>La investigación de la Organización</es>
+				<fr>Investigating Organisation</fr>
+				<nl>Onderzoeken Organisatie</nl>
+				<it>Investigating Organizzazione</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>80814e6ae6465fe959e5f282f0613bd8</id>
 				<org>Wollen Sie das ausgewählte Troubleticket wirklich löschen?</org>
+				<en>Do you want to delete the selected trouble ticket?</en>
+				<es>¿Desea borrar el ticket de problema seleccionado?</es>
+				<fr>Voulez-vous supprimer le ticket d&amp;#39;incident sélectionné?</fr>
+				<nl>Wilt u de geselecteerde trouble ticket verwijderen?</nl>
+				<it>Vuoi eliminare il biglietto selezionato guai?</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>440ddcb109822c88edf8604a2d775d31</id>
 				<org>Das ausgewählte Ticket wurde gelöscht.</org>
+				<en>The selected ticket has been erased.</en>
+				<es>El billete seleccionado ha sido borrado.</es>
+				<fr>Le billet sélectionné a été effacé.</fr>
+				<nl>De geselecteerde ticket is gewist.</nl>
+				<it>Il biglietto selezionato è stato cancellato.</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c1f4a165bd32fe217c3b4f90647636b9</id>
 				<org>Das Troubleticket konnte nicht gelöscht werden! Problem mit der Datenbank!</org>
+				<en>The trouble ticket could not be deleted! Problem with the database!</en>
+				<es>El ticket de problema no puede ser eliminado! Problema con la base de datos!</es>
+				<fr>Le ticket d&amp;#39;incident ne pouvait pas être supprimés! Problème avec la base de données!</fr>
+				<nl>Het probleem ticket kan niet worden verwijderd! Probleem met de database!</nl>
+				<it>Trouble ticket non può essere cancellato! Problema con il database!</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>ba18fd7b24b0cbbf0b03c557af6cbf7e</id>
 				<org>Troubleticket anzeigen</org>
+				<en>View Trouble Ticket</en>
+				<es>Ver Trouble Ticket</es>
+				<fr>Voir Trouble Ticket</fr>
+				<nl>Bekijk Trouble Ticket</nl>
+				<it>Vedi Trouble Ticket</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c6213344c8dae963abe208388b67c155</id>
 				<org>Hier sehen Sie alle Informationen zu diesem Ticket</org>
+				<en>Here you see all the information about this ticket</en>
+				<es>Aquí puede ver toda la información sobre este billete</es>
+				<fr>Ici vous trouvez toutes les informations sur ce billet</fr>
+				<nl>Hier zie je alle informatie over dit ticket</nl>
+				<it>Qui potete vedere tutte le informazioni su questo biglietto</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>2b5a13908862668be976590981c50981</id>
 				<org>Kein Hinweis eingetragen</org>
+				<en>No reference listed</en>
+				<es>No se hace referencia figuran</es>
+				<fr>Aucune mention figurant</fr>
+				<nl>Geen vermelde referentie</nl>
+				<it>Nessun riferimento elencati</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>9953dff7163c3460b6883fe63ab1056e</id>
 				<org>Bitte wählen Sie eine Kategorie</org>
+				<en>Please select a category</en>
+				<es>Por favor seleccione una categoría</es>
+				<fr>S&amp;#39;il vous plaît choisir une catégorie</fr>
+				<nl>Selecteer een categorie</nl>
+				<it>Si prega di selezionare una categoria</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c5238a4b00ace3818de791304a07f707</id>
 				<org>Troubleticket hinzufügen</org>
+				<en>Add a trouble ticket</en>
+				<es>Añadir un ticket de problema</es>
+				<fr>Ajouter un ticket d&amp;#39;incident</fr>
+				<nl>Voeg een trouble ticket</nl>
+				<it>Aggiungere un nuovo ticket</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>a231f485ad2e273589074ff2a9fc467d</id>
 				<org>Mit diesem Formular können Sie ein Troubleticket hinzufügen, falls Sie ein Problem haben</org>
+				<en>This form allows you to add a trouble ticket if you have a problem</en>
+				<es>Este formulario le permite añadir un ticket de problema si usted tiene un problema de</es>
+				<fr>Ce formulaire vous permet d&amp;#39;ajouter un ticket si vous avez un problème</fr>
+				<nl>Dit formulier kunt u een trouble ticket toe te voegen als je een probleem hebt</nl>
+				<it>Questo modulo permette di aggiungere un nuovo ticket, se hai un problema</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>c30f584de7e81f4232d4d2a5094228f5</id>
 				<org>Priorität</org>
+				<en>Priority</en>
+				<es>Prioridad</es>
+				<fr>Priorité</fr>
+				<nl>Prioriteit</nl>
+				<it>Priorità</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>dbe73e1d89c4006c63a25cef92bfc9f0</id>
 				<org>Sichtbar für Alle</org>
+				<en>Visible to all</en>
+				<es>Visible para todos los</es>
+				<fr>Visible pour tous</fr>
+				<nl>Zichtbaar voor alle</nl>
+				<it>Visibile a tutti</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>d4845a8f0239999963bd46d5dc0c7311</id>
 				<org>Sichtbar nur für Orgas</org>
+				<en>Visible only to Orgas</en>
+				<es>Visible sólo para astunómous</es>
+				<fr>Visible uniquement pour Orgas</fr>
+				<nl>Alleen zichtbaar voor Orgas</nl>
+				<it>Visibile solo a Orgas</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>63e9c05fd3d53f7404fd5647bd6b54a2</id>
 				<org>Das ausgewählte Ticket wurde dem Orga zugewiesen.</org>
+				<en>The selected ticket has been assigned to the Organization.</en>
+				<es>El billete seleccionado ha sido asignado a la Organización.</es>
+				<fr>Le billet sélectionné a été attribué à l&amp;#39;Organisation.</fr>
+				<nl>De geselecteerde ticket is toegewezen aan de Organisatie.</nl>
+				<it>Il biglietto selezionato è stato assegnato l&amp;#39;Organizzazione.</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>70835e995e339f6a9d98b7838c90ceee</id>
 				<org>Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.</org>
+				<en>It was given no trouble ticket ID. Call incorrect.</en>
+				<es>Se le ha dado ningún registro de problemas de identificación. Llame incorrecta.</es>
+				<fr>Elle n&amp;#39;a reçu aucun ticket d&amp;#39;incident ID. Appel incorrect.</fr>
+				<nl>Het was bepaald geen moeite ticket ID. Bel onjuist.</nl>
+				<it>È stata data alcuna trouble ticket ID. Call corretto.</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>f93e15805ab45759b5fda8aefc9a180f</id>
 				<org>Neu / Ungeprüft</org>
+				<en>New / Unproven</en>
+				<es>Nuevos / No probado</es>
+				<fr>Nouveau / non fondées</fr>
+				<nl>Nieuw / onbewezen</nl>
+				<it>Nuovo / provata</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>2b6ee5bc4d88b52d89f57b868db6e958</id>
 				<org>Überprüft / Akzeptiert</org>
+				<en>Checks / Accepted</en>
+				<es>Cheques / aceptada</es>
+				<fr>Checks / Accepté</fr>
+				<nl>Controles / geaccepteerd</nl>
+				<it>Controlli / Accettato</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>2d21343de8510f602fad6287ae2dd6cb</id>
 				<org>Problem nicht übernehmen und zurückgeben</org>
+				<en>Not take issue and return</en>
+				<es>No tome entrega y devolución</es>
+				<fr>Pas prendre sortie et de retour</fr>
+				<nl>Niet te geven en terug</nl>
+				<it>Non mettere in discussione e ritorno</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>0086ddc9c1dbe9bf703a0b3354b89c75</id>
 				<org>Problem übernehmen und Bearbeitung beginnen</org>
+				<en>Problem page and start editing</en>
+				<es>Página de problemas y comenzar a editar</es>
+				<fr>Page du problème et de commencer à éditer</fr>
+				<nl>Probleem pagina en start editing</nl>
+				<it>Pagina del problema e avviare la modifica</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>16400eb599a875e30ac60576d0e928ed</id>
 				<org>Überprüft am/um</org>
+				<en>Checks on / around</en>
+				<es>Los controles de encendido / en torno a</es>
+				<fr>Contrôles de / autour de</fr>
+				<nl>Controles op / rond</nl>
+				<it>Controlli / dintorni</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>4d4b2383b7691ef5fdbd24c584135e53</id>
 				<org>Status auswählen</org>
+				<en>Select Status</en>
+				<es>Seleccione Estado</es>
+				<fr>Sélectionnez Etat</fr>
+				<nl>Selecteer Status</nl>
+				<it>Selezionare Stato</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>3b55133a071dd630de4bab9bc07e84d0</id>
 				<org>Kommentar für Benutzer</org>
+				<en>User Comment</en>
+				<es>Comentario de usuario</es>
+				<fr>User Comment</fr>
+				<nl>User Comment</nl>
+				<it>User Comment</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>f67de5862e43838aa5bca22d9e7d097c</id>
 				<org>Kommentar für Orgas</org>
+				<en>Comment on Orgas</en>
+				<es>Opina sobre astunómous</es>
+				<fr>Réagir à Orgas</fr>
+				<nl>Commentaar op Orgas</nl>
+				<it>Commento su Orgas</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>15ab95b22a4f4b270ed132256df49199</id>
 				<org>Das Troubleticket wurde erfolgreich geändert</org>
+				<en>The trouble ticket has been successfully changed</en>
+				<es>El ticket de problema se ha cambiado correctamente</es>
+				<fr>Le ticket d&amp;#39;incident a été changé avec succès</fr>
+				<nl>Het probleem ticket is met succes veranderd</nl>
+				<it>Trouble ticket è stato cambiato con successo</it>
 				<file>troubleticket</file>
 			</entry>
 			<entry>
 				<id>f3fcd6331337b1c01314c1c425ce5213</id>
 				<org>Kommentar von und für Orgas</org>
+				<en>Comment by and for Orgas</en>
+				<es>Comentario por y para astunómous</es>
+				<fr>Commentaire par et pour les Orgas</fr>
+				<nl>Reactie door en voor Orgas</nl>
+				<it>Commento da e per Orgas</it>
 				<file>troubleticket</file>
 			</entry>
 		</content>

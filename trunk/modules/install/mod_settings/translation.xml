@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -17,6 +17,10 @@
 				<org>Tabellen erstellen</org>
 				<de>Tabellen erstellen</de>
 				<en>Create tables</en>
+				<es>Crear tablas</es>
+				<fr>Créer des tables</fr>
+				<nl>Creëer tabellen</nl>
+				<it>Creare tabelle</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -24,6 +28,10 @@
 				<org>zurücksetzen</org>
 				<de>zurücksetzen</de>
 				<en>reset</en>
+				<es>Perdí</es>
+				<fr>Reset</fr>
+				<nl>Reset</nl>
+				<it>Reset</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -31,6 +39,10 @@
 				<org>Alle Tabellen</org>
 				<de>Alle Tabellen</de>
 				<en>All tables</en>
+				<es>Todas las tablas</es>
+				<fr>Tous les tableaux</fr>
+				<nl>Alle tabellen</nl>
+				<it>Tutte le tabelle</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -38,6 +50,10 @@
 				<org>erfolgreich</org>
 				<de>erfolgreich</de>
 				<en>Success</en>
+				<es>éxito</es>
+				<fr>avec succès</fr>
+				<nl>succes</nl>
+				<it>successo</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -45,6 +61,10 @@
 				<org>fehlgeschlagen</org>
 				<de>fehlgeschlagen</de>
 				<en>Failed</en>
+				<es>No se ha podido</es>
+				<fr>Echec</fr>
+				<nl>Mislukt</nl>
+				<it>Fallito</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -52,6 +72,10 @@
 				<org>bedenkliche Einstellung</org>
 				<de>bedenkliche Einstellung</de>
 				<en>Risky</en>
+				<es>actitud seria</es>
+				<fr>graves attitude</fr>
+				<nl>ernstige houding</nl>
+				<it>grave atteggiamento</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -59,6 +83,10 @@
 				<org>Leider nicht möglich</org>
 				<de>Leider nicht möglich</de>
 				<en>Not possible</en>
+				<es>Imposible</es>
+				<fr>Impossible</fr>
+				<nl>Onmogelijk</nl>
+				<it>Impossibile</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -66,20 +94,32 @@
 				<org>Unbekannt</org>
 				<de>Unbekannt</de>
 				<en>Unknown</en>
+				<es>Desconocido</es>
+				<fr>Inconnu</fr>
+				<nl>Onbekend</nl>
+				<it>Unknown</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e131109beb747315914fc6010f9193d3</id>
 				<org>Auf Ihrem System konnte das PHP-Modul &lt;b&gt;FTP-Library&lt;/b&gt; nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.</org>
-				<de>Auf Ihrem System konnte das PHP-Modul &lt;b&gt;FTP-Library&lt;/b&gt; nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.</de>
-				<en>The PHP-Module &lt;b&gt;FTP-Library&lt;/b&gt; was not found. This will result in errors in the modules connecting to FTP-Servers, like (download, or server)</en>
+				<de>Auf Ihrem System konnte das PHP-Modul &amp;lt;b&amp;gt;FTP-Library&amp;lt;/b&amp;gt; nicht gefunden werden. Dies kann zur Folge haben, dass Module, die auf FTP-Server zugreifen (z.B. Downloadmodul, Servermodul), nicht korrekt funktionieren.</de>
+				<en>The PHP-Module &amp;lt;b&amp;gt;FTP-Library&amp;lt;/b&amp;gt; was not found. This will result in errors in the modules connecting to FTP-Servers, like (download, or server)</en>
+				<es>En su sistema, la &lt;b&gt;biblioteca&lt;/b&gt; del módulo PHP &lt;b&gt;FTP&lt;/b&gt; no pudo ser encontrado. Esto puede significar que los módulos que funcionan para acceder a servidores FTP (por ejemplo, el módulo de descarga, módulo de servidor) no es correcta.</es>
+				<fr>Sur votre système, le module PHP &lt;b&gt;librairie FTP&lt;/b&gt; n&amp;#39;a pas pu être trouvé. Cela signifie que les modules de mai de cette fonction pour accéder aux serveurs FTP (par exemple télécharger le module, le module serveur) n&amp;#39;est pas correct.</fr>
+				<nl>Op uw systeem kunnen, de PHP-module &lt;b&gt;FTP-bibliotheek&lt;/b&gt; niet worden gevonden. Dit kan betekenen dat modules die functie FTP-servers (bijvoorbeeld downloaden module, server module) om toegang te krijgen is niet correct.</nl>
+				<it>Sul vostro sistema, la &lt;b&gt;libreria&lt;/b&gt; PHP &lt;b&gt;FTP&lt;/b&gt; modulo non è stato trovato. Questo può significare che i moduli che funzionano per accedere ai server FTP (ad esempio, scaricare il modulo, modulo server) non è corretta.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>3a0d8f3fa5da153c350bce57d29d62ba</id>
 				<org>Die Datei &lt;b&gt;config.php&lt;/b&gt; befindet sich &lt;b&gt;nicht&lt;/b&gt; im Lansuite-Verzeichnis &lt;b&gt; inc/base/ &lt;/b&gt;. Bitte überprüfen Sie die Datei auf korrekte Groß- und Kleinschreibung.</org>
-				<de>Die Datei &lt;b&gt;config.php&lt;/b&gt; befindet sich &lt;b&gt;nicht&lt;/b&gt; im Lansuite-Verzeichnis &lt;b&gt; inc/base/ &lt;/b&gt;. Bitte überprüfen Sie die Datei auf korrekte Groß- und Kleinschreibung.</de>
-				<en>The file &lt;b&gt;config.php&lt;/b&gt; was not found in &lt;b&gt; inc/base/ &lt;/b&gt;. Please check the file is completely lowercase.</en>
+				<de>Die Datei &amp;lt;b&amp;gt;config.php&amp;lt;/b&amp;gt; befindet sich &amp;lt;b&amp;gt;nicht&amp;lt;/b&amp;gt; im Lansuite-Verzeichnis &amp;lt;b&amp;gt; inc/base/ &amp;lt;/b&amp;gt;. Bitte überprüfen Sie die Datei auf korrekte Groß- und Kleinschreibung.</de>
+				<en>The file &amp;lt;b&amp;gt;config.php&amp;lt;/b&amp;gt; was not found in &amp;lt;b&amp;gt; inc/base/ &amp;lt;/b&amp;gt;. Please check the file is completely lowercase.</en>
+				<es>El archivo &lt;b&gt;config.php no&lt;/b&gt; está en el directorio Lansuite &lt;b&gt;inc / base /.&lt;/b&gt; Por favor, consulte el archivo de las mayúsculas y minúsculas correctas.</es>
+				<fr>Le fichier &lt;b&gt;config.php&lt;/b&gt; n&amp;#39;est &lt;b&gt;pas&lt;/b&gt; dans le répertoire &lt;b&gt;inc&lt;/b&gt; Lansuite &lt;b&gt;/ base /.&lt;/b&gt; S&amp;#39;il vous plaît vérifier le fichier à corriger les majuscules et minuscules.</fr>
+				<nl>Het &lt;b&gt;config.php&lt;/b&gt; bestand is &lt;b&gt;niet&lt;/b&gt; in de directory Lansuite &lt;b&gt;inc / base /.&lt;/b&gt; Controleer het bestand naar de juiste hoofdletters en kleine letters.</nl>
+				<it>Il file &lt;b&gt;config.php non&lt;/b&gt; si trova nella directory &lt;b&gt;inc&lt;/b&gt; Lansuite &lt;b&gt;/ base /.&lt;/b&gt; Si prega di controllare il file per la corretta maiuscole e minuscole.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -87,46 +127,90 @@
 				<org>Schreibrechte auf die Konfigurationsdatei</org>
 				<de>Schreibrechte auf die Konfigurationsdatei</de>
 				<en>Writeaccess to the Config-File</en>
+				<es>Escribir en el fichero de configuración</es>
+				<fr>Ecrire le fichier de configuration</fr>
+				<nl>Schrijf naar het configuratiebestand</nl>
+				<it>Scrivere sul file di configurazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>f05e3d3775944115ffa8f880374a9796</id>
 				<org>Auf ihrem System leider nicht möglich. Der Befehl oder die Datei HTML_NEWLINE{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.</org>
+				<en>In their system, unfortunately, not possible. The command or file HTML_NEWLINE (ERROR) was not found. Possibly. only the permissions of the file does not adequately set.</en>
+				<es>En su sistema, lamentablemente no, es posible. El comando o archivo HTML_NEWLINE (error) no fue encontrada. Posiblemente. sólo los permisos del archivo no establecido adecuadamente.</es>
+				<fr>Dans leur système, malheureusement, pas possible. La commande ou un fichier HTML_NEWLINE (ERREUR) est introuvable. Peut-être. seules les autorisations du fichier ne pas suffisamment défini.</fr>
+				<nl>In hun systeem, helaas niet mogelijk. Het commando of bestand HTML_NEWLINE (FOUT) is niet gevonden. Mogelijk. alleen de permissies van het bestand niet adequaat geregeld.</nl>
+				<it>Nel loro sistema, purtroppo non è, possibile. Il comando o file HTML_NEWLINE (ERROR) non è stato trovato. Forse. solo le autorizzazioni del file non è adeguatamente definito.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>c273744d0e15fb7bf27512c0d1a1f3bd</id>
 				<org>Der Ordner &lt;b&gt;ext_inc&lt;/b&gt; existiert &lt;b&gt;nicht&lt;/b&gt; im Lansuite-Verzeichnis. Bitte überprüfen Sie den Pfad auf korrekte Groß- und Kleinschreibung. Legen Sie den Ordner gegebenfalls bitte selbst an.</org>
+				<en>The folder &lt;b&gt;does not&lt;/b&gt; exist in &lt;b&gt;ext_inc&lt;/b&gt; Lansuite directory. Please check the path to correct uppercase and lowercase letters. Create the folder if necessary, please yourself.</en>
+				<es>La carpeta &lt;b&gt;no&lt;/b&gt; existe en el directorio Lansuite &lt;b&gt;ext_inc.&lt;/b&gt; Por favor marque el camino para corregir las letras mayúsculas y minúsculas. Cree la carpeta si es necesario, sírvase usted mismo.</es>
+				<fr>Le &lt;b&gt;dossier&lt;/b&gt; n&amp;#39;existe &lt;b&gt;pas&lt;/b&gt; dans le répertoire Lansuite &lt;b&gt;ext_inc.&lt;/b&gt; S&amp;#39;il vous plaît vérifiez le chemin d&amp;#39;accès à corriger les lettres majuscules et minuscules. Créez le dossier s&amp;#39;il ya lieu, s&amp;#39;il vous plaît vous-m�</fr>
+				<nl>De map bestaat &lt;b&gt;niet&lt;/b&gt; in &lt;b&gt;ext_inc&lt;/b&gt; Lansuite directory. Controleer het pad naar de juiste hoofdletters en kleine letters. Maak de map, indien nodig, neem jezelf.</nl>
+				<it>La cartella &lt;b&gt;non&lt;/b&gt; esiste in &lt;b&gt;ext_inc&lt;/b&gt; directory Lansuite. Si prega di verificare il percorso per correggere lettere maiuscole e minuscole. Creare la cartella, se necessario, si prega di te stesso.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>a502c84c03b61377a2c8cf81691ac1e1</id>
 				<org>Schreibrechte im Ordner 'ext_inc'</org>
+				<en>Write permission to the folder &amp;#39;ext_inc&amp;#39;</en>
+				<es>Permiso de escritura a la carpeta &amp;#39;ext_inc&amp;#39;</es>
+				<fr>Autorisation d&amp;#39;écriture sur le dossier &amp;#39;ext_inc&amp;#39;</fr>
+				<nl>Schrijf toestemming om de map &amp;#39;ext_inc&amp;#39;</nl>
+				<it>L&amp;#39;autorizzazione di scrittura alla cartella &amp;#39;ext_inc&amp;#39;</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ecaa9d8fe562e76129248d07dfb09efc</id>
 				<org>Die Funktion &quot;Debug Backtrace&quot; ist auf deinem System nicht vorhanden. Diese wird jedoch benötigt, um Übersetzungs-Texte einem bestimmten Modul zuzuordnen. Solange du lansuite nur in Deutsch verwenden willst, sollte dies keine Auswirkung haben</org>
+				<en>The &amp;quot;Debug backtrace &amp;#39;does not exist on your system. This assertion is required to assign a specific text translation module. As long as you use lansuite only in German like this should have no effect</en>
+				<es>El &amp;quot;backtrace Depurar &amp;#39;no existe en su sistema. Esta afirmación está obligado a asignar un módulo específico de traducción de texto. Mientras utiliza lansuite sólo en alemán como esta no debe tener ningún efecto</es>
+				<fr>Le backtrace &amp;quot;Debug&amp;quot; ne figure pas sur votre système. Cette affirmation est nécessaire pour attribuer un module spécifique de traduction de texte. Tant que vous utilisez lansuite seulement en allemand comme celui-ci devrait avoir aucun effet</fr>
+				<nl>De &amp;quot;Debug backtrace &amp;#39;bestaat niet op uw systeem. Deze bewering is verplicht het toewijzen van een bepaalde tekst vertaling module. Zolang u lansuite alleen in het Duits als dit zou geen effect</nl>
+				<it>Il backtrace &amp;quot;Debug &amp;#39;non esiste nel sistema. Questa affermazione è richiesto di assegnare un modulo specifico di traduzione del testo. Finché si utilizza lansuite solo in tedesco come questo dovrebbe avere alcun effetto</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4b35f36343961e82ba1b5e37f2522e3d</id>
 				<org>Sind Sie sicher, dass Sie die Datenbank des Moduls &lt;b&gt;'%NAME%'&lt;/b&gt; zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
+				<en>Are you sure you want to reset the database of the module &lt;b&gt;&amp;#39;%NAME%&amp;#39;?&lt;/b&gt; This permanently deletes all data that have been written in this module already!</en>
+				<es>¿Estás seguro de que desea restablecer la base de datos del módulo &lt;b&gt;&amp;#39;%name%&amp;quot;?&lt;/b&gt; Esto borra de manera permanente todos los datos que se han escrito en este módulo ya!</es>
+				<fr>Etes-vous sûr de vouloir rétablir la base de données du module &lt;b&gt;&amp;#39;%NOM%&amp;#39;?&lt;/b&gt; Cela supprime définitivement toutes les données qui ont été écrites dans ce module déjà!</fr>
+				<nl>Weet u zeker dat u de database van de module &lt;b&gt;&amp;#39;reset%naam%&amp;#39;?&lt;/b&gt; Dit verwijdert permanent alle gegevens die zijn geschreven in deze module al!</nl>
+				<it>Sei sicuro di voler ripristinare il database del modulo &lt;b&gt;&amp;#39;%NAME%&amp;#39;?&lt;/b&gt; Questo elimina definitivamente tutti i dati che sono stati scritti in questo modulo già!</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>f0814a994b2ec37dbd92512c20ab3eab</id>
 				<org>Sind Sie sicher, dass Sie &lt;b&gt;'alle Tabellen'&lt;/b&gt; zurücksetzen möchten? Dies löscht unwiderruflich alle Datenbankeinträge und Lansuite wird komplett auf den Ausgangszustand zurückgesetzt!</org>
+				<en>Are you sure that you &lt;b&gt;&amp;#39;want&lt;/b&gt; to reset &lt;b&gt;all tables&amp;#39;?&lt;/b&gt; This permanently deletes all database entries and Lansuite will be completely reset to its initial state!</en>
+				<es>¿Estás seguro de que usted &lt;b&gt;&amp;quot;desea&lt;/b&gt; restablecer &lt;b&gt;todas las tablas?&lt;/b&gt; Esto borra de manera permanente todas las entradas de base de datos y Lansuite estará completamente restablecido a su estado inicial!</es>
+				<fr>Etes-vous sûr que vous &lt;b&gt;&amp;quot;souhaitez&lt;/b&gt; réinitialiser &lt;b&gt;tous les tableaux?&lt;/b&gt; Cela supprime définitivement toutes les entrées de base de données et Lansuite sera réinitialiser complètement à son état initial!</fr>
+				<nl>Weet je zeker dat &lt;b&gt;je&lt;/b&gt; opnieuw &lt;b&gt;wilt instellen alle tabellen &amp;#39;?&lt;/b&gt; Dit verwijdert permanent alle database-items en Lansuite wordt volledig in de oorspronkelijke staat!</nl>
+				<it>Sei sicuro che si &lt;b&gt;&amp;#39;desidera&lt;/b&gt; ripristinare &lt;b&gt;tutte le tabelle&amp;#39;?&lt;/b&gt; Questo elimina definitivamente tutte le voci di database e Lansuite sarà completamente reimpostato al suo stato iniziale!</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>401c16f53a97ca511280bbbe7ab8481d</id>
 				<org>Sind Sie sicher, dass Sie &lt;b&gt;'alle Konfigurationen'&lt;/b&gt; zurücksetzen möchten? Damit gehen alle Ihre Moduleinstellungen verloren!</org>
+				<en>Are you sure that you &lt;b&gt;&amp;#39;want&lt;/b&gt; to reset &lt;b&gt;all configurations&amp;#39;?&lt;/b&gt; To ensure that all your module settings will be lost!</en>
+				<es>¿Estás seguro de que usted &lt;b&gt;&amp;quot;desea&lt;/b&gt; restablecer &lt;b&gt;todas las configuraciones?&lt;/b&gt; Para garantizar que todos los ajustes del módulo se perderán!</es>
+				<fr>Etes-vous sûr que vous &lt;b&gt;&amp;quot;voulez&lt;/b&gt; réinitialiser &lt;b&gt;toutes les configurations?&lt;/b&gt; Pour s&amp;#39;assurer que tous les paramètres de votre module sera perdu!</fr>
+				<nl>Weet je zeker dat &lt;b&gt;je&lt;/b&gt; opnieuw &lt;b&gt;wilt instellen alle configuraties &amp;#39;?&lt;/b&gt; Om ervoor te zorgen dat al uw module instellingen zullen verloren gaan!</nl>
+				<it>Sei sicuro che si &lt;b&gt;&amp;#39;desidera&lt;/b&gt; ripristinare &lt;b&gt;tutte le configurazioni&amp;#39;?&lt;/b&gt; Per garantire che tutte le tue impostazioni del modulo andranno persi!</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>f137a009133b56e5a32102450b1c342d</id>
 				<org>Sind Sie sicher, dass Sie den Status der Benutzer zurücksetzen möchten? Damit ist kein Benutzer mehr zur aktuellen Party angemeldet. Außerdem wird der Bezahltstatus aller Benutzer auf 'Nicht Bezahlt' gesetzt.</org>
+				<en>Are you sure you want to reset the status of the user? So that no user is logged on to more current party. In addition, the Bezahltstatus all users &amp;#39;Not Paid&amp;#39; set.</en>
+				<es>¿Estás seguro de que desea restablecer la situación de los usuarios? Para que ningún usuario está conectado a la fiesta más actual. En adición, la Bezahltstatus todos los usuarios &amp;quot;no pagado&amp;quot; set.</es>
+				<fr>Etes-vous sûr de vouloir rétablir le statut de l&amp;#39;utilisateur? De sorte qu&amp;#39;aucun utilisateur n&amp;#39;est connecté à partie la plus actuelle. En outre, la Bezahltstatus tous les utilisateurs &amp;quot;Not Paid &amp;#39;Set.</fr>
+				<nl>Weet u zeker dat u de status van de gebruiker reset? Dus dat er geen gebruiker is aangemeld bij meer stroom partij. In Bovendien, de Bezahltstatus alle gebruikers &amp;#39;Not Paid&amp;#39; ingesteld.</nl>
+				<it>Sei sicuro di voler ripristinare la situazione di un utente? In modo che nessun utente è connesso al partito più attuali. In aggiunta, il Bezahltstatus tutti gli utenti &amp;#39;Not Paid&amp;#39; set.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -134,6 +218,10 @@
 				<org>Sind Sie sicher, dass Sie die Modultabelle zurücksetzen möchten? Dadurch sind nur noch die Standardmodule aktiviert.</org>
 				<de>Sind Sie sicher, dass Sie die Modultabelle zurücksetzen möchten? Dadurch sind nur noch die Standardmodule aktiviert.</de>
 				<en>Are you sure, to reset the module-table? After this only those modules are active, which are active by default.</en>
+				<es>¿Estás seguro de que desea restablecer la mesa del módulo? Por lo tanto, sólo están habilitados los módulos estándar.</es>
+				<fr>Etes-vous sûr de vouloir réinitialiser le tableau de module? Ainsi, seuls les modules standard sont activés.</fr>
+				<nl>Weet u zeker dat u de module tafel reset? Zo zijn alleen de standaard modules ingeschakeld.</nl>
+				<it>Sei sicuro di voler ripristinare la tabella del modulo? Così, soltanto i moduli standard sono abilitati.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -141,6 +229,10 @@
 				<org>Sind Sie sicher, dass Sie die Datenbank dieses Moduls zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
 				<de>Sind Sie sicher, dass Sie die Datenbank dieses Moduls zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</de>
 				<en>Are you sure to reset the databse of this module? All entries of this module will be lost!.</en>
+				<es>¿Estás seguro de que desea restablecer la base de datos de este módulo? Esto borra de manera permanente todos los datos que se han escrito en este módulo ya!</es>
+				<fr>Etes-vous sûr de vouloir rétablir la base de données de ce module? Cela supprime définitivement toutes les données qui ont été écrites dans ce module déjà!</fr>
+				<nl>Weet u zeker dat u de database van deze module reset? Dit verwijdert permanent alle gegevens die zijn geschreven in deze module al!</nl>
+				<it>Sei sicuro di voler ripristinare il database di questo modulo? Questo elimina definitivamente tutti i dati che sono stati scritti in questo modulo già!</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -148,6 +240,10 @@
 				<org>Status zurückgesetzt</org>
 				<de>Status zurückgesetzt</de>
 				<en>Reset Status</en>
+				<es>Restablecer estado</es>
+				<fr>Situation de réinitialisation</fr>
+				<nl>Status reset</nl>
+				<it>Stato di reset</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -155,35 +251,63 @@
 				<org>Datenbank-Initialisierung</org>
 				<de>Datenbank-Initialisierung</de>
 				<en>Database-Initialisation</en>
+				<es>Inicialización de base de datos</es>
+				<fr>Initialisation de la base</fr>
+				<nl>Database initialisatie</nl>
+				<it>Banca dati di inizializzazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>bd5f2667e5180a9dd98462912df5fe83</id>
 				<org>&lt;br&gt;&lt;b&gt;Ihre Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht&lt;/b&gt;. Zusätzlich können Sie unterhalb einzelne Modul-Datenbanken zurücksetzen</org>
-				<de>&lt;br&gt;&lt;b&gt;Ihre Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht&lt;/b&gt;. Zusätzlich können Sie unterhalb einzelne Modul-Datenbanken zurücksetzen</de>
-				<en>&lt;br&gt;&lt;b&gt;Your data base structure has just been updated to the current level&lt;/b&gt;. Additionaly you can reset your module data bases below</en>
+				<de>&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;Ihre Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht&amp;lt;/b&amp;gt;. Zusätzlich können Sie unterhalb einzelne Modul-Datenbanken zurücksetzen</de>
+				<en>&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;Your data base structure has just been updated to the current level&amp;lt;/b&amp;gt;. Additionaly you can reset your module data bases below</en>
+				<es>&lt;br&gt; &lt;b&gt;La estructura de tu base de datos ha sido automáticamente actualizados.&lt;/b&gt; Además, usted puede bajar restablecer módulo de bases de datos individuales</es>
+				<fr>&lt;br&gt; &lt;b&gt;Votre structure de base de données vient d&amp;#39;être automatiquement mis à jour.&lt;/b&gt; En outre, vous pouvez réduire les bases de données individuelles de réinitialisation du module</fr>
+				<nl>&lt;br&gt; &lt;b&gt;Uw database structuur is net automatisch bijgehouden.&lt;/b&gt; Daarnaast kunt u afzonderlijk lager module reset Databases</nl>
+				<it>&lt;br&gt; &lt;b&gt;La struttura del database è stato appena automaticamente aggiornati.&lt;/b&gt; Inoltre, è possibile ridurre i singoli database reset modulo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>de5b8a20942df1bfd9d3efcab3797eb7</id>
 				<org>Menu Einträge ersetzen</org>
 				<de>Menu Einträge ersetzen</de>
+				<en>Menu items replaced</en>
+				<es>Los elementos de menú sustituye</es>
+				<fr>Les éléments du menu remplacé</fr>
+				<nl>Menu-items vervangen</nl>
+				<it>Le voci di menu sostituito</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>05b9262260f5be95f0e142d504407c1c</id>
 				<org>Menu erfolgreich neu geschrieben</org>
 				<de>Menu erfolgreich neu geschrieben</de>
+				<en>Menu successfully rewritten</en>
+				<es>Menú éxito reescrito</es>
+				<fr>Menu succès réécrit</fr>
+				<nl>Menu succes herschreven</nl>
+				<it>Menu successo riscritto</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>d2683a1996753a35a2ce9e493c58a329</id>
 				<org>Design Manager</org>
+				<en>Design Manager</en>
+				<es>Gerente de Diseño</es>
+				<fr>Design Manager</fr>
+				<nl>Design Manager</nl>
+				<it>Design Manager</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>2132a8e288001984d771b489edceb1b4</id>
 				<org>Editieren Sie Design-Templates und setzen Sie das aktive Design</org>
+				<en>Edit your design templates and then set the active design</en>
+				<es>Modificar el diseño de plantillas y establecer el diseño de activos</es>
+				<fr>Modifiez vos modèles de conception et puis définissez la conception active</fr>
+				<nl>Bewerk uw ontwerpsjablonen en vervolgens de werkzame ontwerp vastgesteld</nl>
+				<it>Modificare il design dei modelli e quindi impostare la progettazione attiva</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -191,6 +315,10 @@
 				<org>Webserverkonfiguration und Systemvorraussetzungen überprüfen</org>
 				<de>Webserverkonfiguration und Systemvorraussetzungen überprüfen</de>
 				<en>Check webserverconfig an system-requirements</en>
+				<es>La configuración del servidor Web y los requisitos del sistema de verificación</es>
+				<fr>Exigences de configuration du serveur Web et le système de check</fr>
+				<nl>Web server configuratie en systeem eisen na</nl>
+				<it>Requisiti di configurazione del server Web e il sistema di controllo</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -198,6 +326,10 @@
 				<org>Hier können Sie testen, ob Lansuite auf ihrem System evtl. Probleme haben wird und bekommen entsprechende Lösungsvorschläge angezeigt.</org>
 				<de>Hier können Sie testen, ob Lansuite auf ihrem System evtl. Probleme haben wird und bekommen entsprechende Lösungsvorschläge angezeigt.</de>
 				<en>Test, whether LANSuite will heave trouble on your system and read some solutions if so.</en>
+				<es>Aquí se puede comprobar si los problemas Lansuite pueden tener en su sistema y recibirá las soluciones adecuadas aparecer.</es>
+				<fr>Ici vous pouvez tester si les problèmes Lansuite mai avoir sur leur système et recevra des solutions appropriées apparaissent.</fr>
+				<nl>Hier kunt u testen of Lansuite problemen kunnen hebben op hun systeem en krijgt passende oplossingen verschijnen.</nl>
+				<it>Qui si può verificare se i problemi Lansuite possono avere sulla loro sistema e riceveranno adeguate soluzioni appaiono.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -205,6 +337,10 @@
 				<org>Daten exportieren</org>
 				<de>Daten exportieren</de>
 				<en>Export data</en>
+				<es>Exportar datos</es>
+				<fr>Exporter des données</fr>
+				<nl>Gegevens exporteren</nl>
+				<it>Esportare i dati</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -212,6 +348,10 @@
 				<org>Hier können Sie Benutzerdaten exportieren. Diese können Sie später wieder in Lansuite importieren.</org>
 				<de>Hier können Sie Benutzerdaten exportieren. Diese können Sie später wieder in Lansuite importieren.</de>
 				<en>This is where you can export userdata, which you can lateron import into lansuite again.</en>
+				<es>Puede exportar los datos del usuario. Estas últimas pueden importar en Lansuite.</es>
+				<fr>Vous pouvez exporter des données utilisateur. Ceux-ci peuvent ensuite importer dans Lansuite.</fr>
+				<nl>U kunt de uitvoer van gebruikersgegevens. Deze kunnen later importeren in Lansuite.</nl>
+				<it>È possibile esportare i dati dell&amp;#39;utente. Questi possono poi importare in Lansuite.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -219,6 +359,10 @@
 				<org>XML: Komplette Datenbank Exportieren (Empfohlen)</org>
 				<de>XML: Komplette Datenbank Exportieren (Empfohlen)</de>
 				<en>XML: Complete export (Recommended)</en>
+				<es>XML: la exportación de base de datos completa (recomendado)</es>
+				<fr>XML: export base de données complète (recommandé)</fr>
+				<nl>XML: Complete database te exporteren (aanbevolen)</nl>
+				<it>XML: l&amp;#39;esportazione del database completo (consigliato)</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -226,6 +370,10 @@
 				<org>XML: Nur ausgewählte Module exportiern</org>
 				<de>XML: Nur ausgewählte Module exportiern</de>
 				<en>XML: Export selected modules only</en>
+				<es>Exportar XML: módulos Sólo los seleccionados</es>
+				<fr>XML Export: seuls les modules sélectionnés</fr>
+				<nl>XML Export: Alleen geselecteerde modules</nl>
+				<it>Export XML: moduli Solo selezionati</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -233,6 +381,10 @@
 				<org>XML: Nur ausgewählte Tabellen exportieren (für Experten)</org>
 				<de>XML: Nur ausgewählte Tabellen exportieren (für Experten)</de>
 				<en>XML: Export selected tables only (for experts)</en>
+				<es>XML: Exportar sólo las tablas seleccionadas (para expertos)</es>
+				<fr>XML: l&amp;#39;exportation que sur les tableaux sélectionnés (pour les experts)</fr>
+				<nl>XML: Export alleen geselecteerde tabellen (voor experts)</nl>
+				<it>XML: Export solo tabelle selezionate (per esperti)</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -240,11 +392,20 @@
 				<org>CSV: Userdaten komplett (inkl. Sitzplatz und IP)</org>
 				<de>CSV: Userdaten komplett (inkl. Sitzplatz und IP)</de>
 				<en>CSV: Userdata complete (inkl. seat and IP)</en>
+				<es>CSV: los datos del usuario en su conjunto (incluidos los asientos y la propiedad intelectual)</es>
+				<fr>CSV: données de l&amp;#39;utilisateur dans son ensemble (y compris les sièges et IP)</fr>
+				<nl>CSV: gebruikersgegevens als geheel (inclusief zit-en IP)</nl>
+				<it>CSV: i dati degli utenti nel suo insieme (compresi i sedili e IP)</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>3471dc4c4368a618f1eb1dd8f7d7be46</id>
 				<org>CSV: Userdaten 'Aufkleber' (Name, Username, Clan, Sitzplatz und IP)</org>
+				<en>CSV: userdata &amp;#39;Sticker&amp;#39; (name, user name, clan, seating and IP)</en>
+				<es>CSV: Sticker userdata &amp;#39;(nombre, nombre de usuario, el clan, los asientos e IP)</es>
+				<fr>CSV: userdata &amp;#39;Autocollant&amp;#39; (nom, nom d&amp;#39;utilisateur, un clan, de sièges et IP)</fr>
+				<nl>CSV: Sticker userdata &amp;#39;(naam, gebruikersnaam, clan, een zitje en IP)</nl>
+				<it>CSV: Sticker userdata &amp;#39;&amp;#39; (nome, nome utente, clan, posti a sedere e IP)</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -252,6 +413,10 @@
 				<org>CSV: Sitzplatzkarten (Name, Username, Clan, Sitzplatz und IP)</org>
 				<de>CSV: Sitzplatzkarten (Name, Username, Clan, Sitzplatz und IP)</de>
 				<en>CSV: Seat-Cards (Name, username, clan, seat and IP)</en>
+				<es>CSV: tarjetas de asientos (nombre, nombre de usuario, el clan, los asientos e IP)</es>
+				<fr>CSV: cartes de sièges (nom, nom d&amp;#39;utilisateur, un clan, de sièges et IP)</fr>
+				<nl>CSV: zitplaatsen kaarten (naam, gebruikersnaam, clan, een zitje en IP)</nl>
+				<it>CSV: Carte di posti a sedere (nome, nome utente, clan, posti a sedere e IP)</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -259,11 +424,20 @@
 				<org>DATA: Daten-Ordner herunterladen (Avatare, Bildergallerie, Banner, ...)</org>
 				<de>DATA: Daten-Ordner herunterladen (Avatare, Bildergallerie, Banner, ...)</de>
 				<en>DATA: Download Data-Directory (Avatars, Picturegallery, Banner, ...)</en>
+				<es>DATOS: descargar la carpeta de datos (avatares, galería de fotos, banners, ...)</es>
+				<fr>DONNEES: Télécharger le dossier de données (avatars, galerie photos, des bannières, ...)</fr>
+				<nl>DATA: map Data download (avatars, foto galerij, banners, ...)</nl>
+				<it>DATI: scarica la cartella Dati (avatar, galleria di foto, banner, ...)</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>087ddeb87295eef2ef1de6e20f4148df</id>
 				<org>NGL-Spiel</org>
+				<en>NGL Game</en>
+				<es>NGL Juego</es>
+				<fr>NGL Game</fr>
+				<nl>NGL Game</nl>
+				<it>NGL Game</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -271,6 +445,10 @@
 				<org>Struktur exportieren</org>
 				<de>Struktur exportieren</de>
 				<en>Export structure</en>
+				<es>Estructura de las exportaciones</es>
+				<fr>Structure des exportations</fr>
+				<nl>Export structuur</nl>
+				<it>Export struttura</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -278,6 +456,10 @@
 				<org>Inhalt exportieren</org>
 				<de>Inhalt exportieren</de>
 				<en>Export content</en>
+				<es>Exportación de contenido</es>
+				<fr>D&amp;#39;exporter le contenu</fr>
+				<nl>Exporteren Content</nl>
+				<it>Esportazione di contenuti</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -285,6 +467,10 @@
 				<org>Diese Tabelle exportieren</org>
 				<de>Diese Tabelle exportieren</de>
 				<en>Export this table</en>
+				<es>Exportar esta tabla</es>
+				<fr>Exporter ce tableau</fr>
+				<nl>Exporteer deze tabel</nl>
+				<it>Esporta questa tabella</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -292,6 +478,10 @@
 				<org>Lansuite-CSV-Export speichern</org>
 				<de>Lansuite-CSV-Export speichern</de>
 				<en>Save LANSuite-CSV-Export</en>
+				<es>Lansuite exportación CSV Guardar</es>
+				<fr>Lansuite exportation CSV sauver</fr>
+				<nl>Lansuite CSV-export redden</nl>
+				<it>Lansuite esportazione CSV Salva</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -299,6 +489,10 @@
 				<org>Lansuite-Aufkleber-Export speichern</org>
 				<de>Lansuite-Aufkleber-Export speichern</de>
 				<en>Save LANSuite-Sticker-Export</en>
+				<es>Etiqueta de la tienda Lansuite-Export</es>
+				<fr>Lansuite magasin étiquette-Export</fr>
+				<nl>Lansuite label store-Export</nl>
+				<it>Store label Lansuite-Export</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -306,6 +500,10 @@
 				<org>Lansuite-Sitzplatzkarten-Export speichern</org>
 				<de>Lansuite-Sitzplatzkarten-Export speichern</de>
 				<en>Save LANSuite-Seatcard-Export</en>
+				<es>Lansuite billete de asiento Guardar exportación</es>
+				<fr>Lansuite-ticket siège Enregistrer l&amp;#39;exportation</fr>
+				<nl>Lansuite-seat ticket Opslaan Export</nl>
+				<it>Lansuite-seat ticket Salva Export</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -313,6 +511,10 @@
 				<org>Lansuite Daten-Ordner herunterladen</org>
 				<de>Lansuite Daten-Ordner herunterladen</de>
 				<en>Download LanSuite Data-Directory</en>
+				<es>De datos Lansuite carpeta de descarga</es>
+				<fr>Données Lansuite dossier de téléchargement</fr>
+				<nl>Lansuite gegevens folder downloaden</nl>
+				<it>Dati Lansuite cartella di download</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -320,6 +522,10 @@
 				<org>Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.</org>
 				<de>Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.</de>
 				<en>This filetype is not supported. Chosse a file of the type *.xml, or *.csv, or skip the file-import.</en>
+				<es>Para especificar el tipo de archivo no es compatible. Por favor, seleccione un archivo de tipo *. xml o *. csv, o saltar a la importación de archivos.</es>
+				<fr>Vous spécifiez le type de fichier n&amp;#39;est pas supporté. S&amp;#39;il vous plaît sélectionnez un fichier de type *. xml, *. csv, ou de sauter l&amp;#39;importation de fichiers.</fr>
+				<nl>U geeft het bestandstype wordt niet ondersteund. Selecteer een bestand van het type *. xml, of *. csv, of sla het bestand te importeren.</nl>
+				<it>Si specifica il tipo di file non è supportato. Si prega di selezionare un file di tipo *. xml, o *. csv, o saltare l&amp;#39;importazione di file.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -327,6 +533,10 @@
 				<org>Daten importieren</org>
 				<de>Daten importieren</de>
 				<en>Import data</en>
+				<es>Importación de datos</es>
+				<fr>Importer des données</fr>
+				<nl>Gegevens importeren</nl>
+				<it>Importazione di dati</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -334,6 +544,10 @@
 				<org>Hier können Sie Benutzerdaten, die Sie aus einem anderen System exportiert haben, in Lansuite importieren.</org>
 				<de>Hier können Sie Benutzerdaten, die Sie aus einem anderen System exportiert haben, in Lansuite importieren.</de>
 				<en>Here you can import data to LANSuite, which you have exported from another system</en>
+				<es>Aquí usted puede datos de usuario que ha exportado desde otro sistema, la exportación a Lansuite.</es>
+				<fr>Ici, vous pouvez les données utilisateur que vous avez exporté depuis un autre système, l&amp;#39;exporter vers Lansuite.</fr>
+				<nl>Hier kan de gebruiker gegevens die u uitgevoerd vanuit een ander systeem, exporteren naar Lansuite.</nl>
+				<it>Qui puoi dati utente che avete esportato da un altro sistema, l&amp;#39;esportazione a Lansuite.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -341,13 +555,21 @@
 				<org>Zu importierende Datei</org>
 				<de>Zu importierende Datei</de>
 				<en>File to import</en>
+				<es>Archivo para importar</es>
+				<fr>Fichier à importer</fr>
+				<nl>Bestand importeren</nl>
+				<it>File da importare</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>d308106d63b02058a024fdacec421fdc</id>
 				<org>Import (.xml, .csv, .tgz)</org>
 				<de>Import (.xml, .csv, .tgz)</de>
-				<en>Import (*.xml, *.csv)</en>
+				<en>Import (. Xml,. Csv,. Tgz)</en>
+				<es>(Importación. Xml,. Csv,. Tgz)</es>
+				<fr>(Import. Xml,. CSV,. Tgz)</fr>
+				<nl>Import (. XML,. Csv,. TGZ)</nl>
+				<it>(Import. Xml,. Csv,. Tgz)</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -355,6 +577,10 @@
 				<org>Lansuite-XML-Export</org>
 				<de>Lansuite-XML-Export</de>
 				<en>LanSuite-XML-Exports</en>
+				<es>Lansuite XML de exportación</es>
+				<fr>Lansuite XML Export</fr>
+				<nl>Lansuite XML Export</nl>
+				<it>Lansuite XML Export</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -362,6 +588,10 @@
 				<org>Vorhandene Einträge ersetzen</org>
 				<de>Vorhandene Einträge ersetzen</de>
 				<en>Replace existing entries</en>
+				<es>Reemplazar las entradas existentes</es>
+				<fr>Remplacer les entrées existantes</fr>
+				<nl>Vervang de bestaande vermeldingen</nl>
+				<it>Sostituire le voci esistenti</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -369,6 +599,10 @@
 				<org>LanSurfer-XML-Export</org>
 				<de>LanSurfer-XML-Export</de>
 				<en>LanSurfer-XML-Export</en>
+				<es>LanSurfer XML de exportación</es>
+				<fr>LanSurfer XML Export</fr>
+				<nl>LanSurfer XML Export</nl>
+				<it>LanSurfer XML Export</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -376,6 +610,10 @@
 				<org>Kommentar für alle setzen</org>
 				<de>Kommentar für alle setzen</de>
 				<en>Write a comment for each imported user</en>
+				<es>Comentario para todos compartimos</es>
+				<fr>Comment for All Share</fr>
+				<nl>Reactie voor alle delen</nl>
+				<it>Commento per tutti i parti</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -383,6 +621,10 @@
 				<org>Alte Benutzerdaten löschen</org>
 				<de>Alte Benutzerdaten löschen</de>
 				<en>Delete old userdata</en>
+				<es>Borrar los datos de usuario de edad</es>
+				<fr>Supprimer un utilisateur des données anciennes</fr>
+				<nl>Verwijder oude gebruikersgegevens</nl>
+				<it>Elimina dati utente vecchio</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -390,6 +632,10 @@
 				<org>Vorhandene Einträge überschreiben</org>
 				<de>Vorhandene Einträge überschreiben</de>
 				<en>Replace existing entries</en>
+				<es>Sobrescribir las entradas existentes</es>
+				<fr>Écraser les entrées existantes</fr>
+				<nl>Overschrijven bestaande vermeldingen</nl>
+				<it>Sovrascrivere le voci esistenti</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -397,6 +643,10 @@
 				<org>Benutzer zur aktuellen Party anmelden</org>
 				<de>Benutzer zur aktuellen Party anmelden</de>
 				<en>Sign on user to current party</en>
+				<es>Los usuarios se suscriben a la actual Partido</es>
+				<fr>Les utilisateurs s&amp;#39;inscrivent à l&amp;#39;actuel parti</fr>
+				<nl>Gebruikers zich abonneren op de huidige partij</nl>
+				<it>Gli utenti iscriversi al corso Party</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -404,6 +654,10 @@
 				<org>Sitzplan NICHT importieren</org>
 				<de>Sitzplan NICHT importieren</de>
 				<en>Do not import seatings</en>
+				<es>Ubicación de las plazas no importan</es>
+				<fr>Seating arrangement ne pas importer</fr>
+				<nl>Seating Arrangement niet importeren</nl>
+				<it>Disposizione dei posti non importano</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -411,6 +665,10 @@
 				<org>Datei-Import erfolgreich.</org>
 				<de>Datei-Import erfolgreich.</de>
 				<en>Import successfull</en>
+				<es>Importación de archivos de éxito.</es>
+				<fr>Import de fichiers de succès.</fr>
+				<nl>Bestand importeren succesvol.</nl>
+				<it>Importa file di successo.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -418,6 +676,10 @@
 				<org>Dateityp</org>
 				<de>Dateityp</de>
 				<en>Filetype</en>
+				<es>Filetype</es>
+				<fr>Filetype</fr>
+				<nl>Filetype</nl>
+				<it>Filetype</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -425,6 +687,10 @@
 				<org>Exportiert am/um</org>
 				<de>Exportiert am/um</de>
 				<en>Export at</en>
+				<es>Las exportaciones en / alrededor de</es>
+				<fr>Exportations sur / autour de</fr>
+				<nl>Uitvoer op / rond</nl>
+				<it>Esportazioni in / attorno</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -432,6 +698,10 @@
 				<org>Quelle</org>
 				<de>Quelle</de>
 				<en>Source</en>
+				<es>Fuente</es>
+				<fr>Source</fr>
+				<nl>Bron</nl>
+				<it>Origine</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -439,6 +709,10 @@
 				<org>LanParty</org>
 				<de>LanParty</de>
 				<en>LanParty</en>
+				<es>LanParty</es>
+				<fr>LanParty</fr>
+				<nl>LanParty</nl>
+				<it>LanParty</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -446,6 +720,10 @@
 				<org>Lansuite-Version</org>
 				<de>Lansuite-Version</de>
 				<en>LANSuite-Version</en>
+				<es>Versión Lansuite</es>
+				<fr>Lansuite version</fr>
+				<nl>Lansuite versie</nl>
+				<it>Lansuite versione</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -453,6 +731,10 @@
 				<org>Import erfolgreich.</org>
 				<de>Import erfolgreich.</de>
 				<en>Import sucessfull</en>
+				<es>Importación de éxito.</es>
+				<fr>Import réussi.</fr>
+				<nl>Import succesvol.</nl>
+				<it>Importazione di successo.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -460,11 +742,20 @@
 				<org>Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte laden und entpacken Sie den Ordner manuell auf Ihren Webspace.</org>
 				<de>Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte laden und entpacken Sie den Ordner manuell auf Ihren Webspace.</de>
 				<en>The export of the ext_inc-Directory could not be imported using lansuite, yet. Upload and extract it anually, please</en>
+				<es>La exportación de Ext. carpeta Inc actualmente no se pueden importar a través de Lansuite desgracia. Por favor, descargue y descomprima el archivo manualmente a su espacio web.</es>
+				<fr>L&amp;#39;exportation de Ext-Inc dossier ne peut pas actuellement être importées via Lansuite malheureusement. S&amp;#39;il vous plaît télécharger et décompresser le dossier manuellement à votre espace web.</fr>
+				<nl>De uitvoer van Ext-Inc map kan momenteel niet worden ingevoerd via Lansuite helaas. Download en unzip de map handmatig naar uw webruimte.</nl>
+				<it>L&amp;#39;esportazione di Ext-cartella Inc attualmente non può essere importato tramite Lansuite purtroppo. Si prega di scaricare e decomprimere la cartella manualmente al vostro spazio web.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>cef964e10f734bd9ceab2c100fe1c44b</id>
 				<org>CSV Import erfolgreich</org>
+				<en>CSV Import successful</en>
+				<es>Importar CSV con éxito</es>
+				<fr>CSV Importation réussie</fr>
+				<nl>CSV Import succesvol</nl>
+				<it>Import CSV di successo</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -472,6 +763,10 @@
 				<org>Installation und Administration</org>
 				<de>Installation und Administration</de>
 				<en>Installation and Administration</en>
+				<es>De instalación y administración</es>
+				<fr>Installation et administration</fr>
+				<nl>Installatie en beheer</nl>
+				<it>Installazione e amministrazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -479,13 +774,21 @@
 				<org>Auf diesen Seiten können Sie Lansuite installieren und verwalten</org>
 				<de>Auf diesen Seiten können Sie Lansuite installieren und verwalten</de>
 				<en>At this page you can install and admin LANSuite</en>
+				<es>En estas páginas se puede instalar y gestionar Lansuite</es>
+				<fr>Sur ces pages, vous pouvez installer et gérer Lansuite</fr>
+				<nl>Op deze pagina&amp;#39;s kunt installeren en te beheren Lansuite</nl>
+				<it>In queste pagine è possibile installare e gestire Lansuite</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>20ad6ce72eddc46242d487e04d00cf00</id>
 				<org>&lt;b&gt;ACHTUNG&lt;/b&gt;: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.</org>
-				<de>&lt;b&gt;ACHTUNG&lt;/b&gt;: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.</de>
-				<en>&lt;b&gt;ATTENTION&lt;/b&gt;: There is no adminaccount. As long as no adminaccount exists, everyone will be granted access to the admin-page</en>
+				<de>&amp;lt;b&amp;gt;ACHTUNG&amp;lt;/b&amp;gt;: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.</de>
+				<en>&amp;lt;b&amp;gt;ATTENTION&amp;lt;/b&amp;gt;: There is no adminaccount. As long as no adminaccount exists, everyone will be granted access to the admin-page</en>
+				<es>&lt;b&gt;NOTA:&lt;/b&gt; No hay ninguna cuenta de administrador. Por lo tanto, cada usuario tiene derechos de administrador. Asegúrese de utilizar el Administrador de usuarios a un super administrador.</es>
+				<fr>&lt;b&gt;NOTE:&lt;/b&gt; Il n&amp;#39;ya pas le compte Administrateur. Par conséquent, chaque utilisateur dispose des droits administrateur. Veillez à utiliser le Gestionnaire d&amp;#39;utilisateurs à un super admin.</fr>
+				<nl>&lt;b&gt;LET OP:&lt;/b&gt; Er is geen admin account. Daarom heeft iedere gebruiker admin rechten. Zorg ervoor dat de User Manager gebruiken om een Super Admin.</nl>
+				<it>&lt;b&gt;NOTA:&lt;/b&gt; Non vi è alcun account admin. Pertanto, ogni utente ha diritti di amministratore. Assicurarsi di utilizzare l&amp;#39;User Manager di un Amministratore Super.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -493,6 +796,10 @@
 				<org>Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:</org>
 				<de>Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:</de>
 				<en>The following modules have no admin defined and are therefore changeable by every admin:</en>
+				<es>Los siguientes módulos no tienen un administrador y, por lo tanto cambiante para cada Admin:</es>
+				<fr>Les modules suivants ne disposent pas d&amp;#39;admin et sont donc modifiables pour chaque Administrateur:</fr>
+				<nl>De volgende modules hebben geen admin en zijn dus veranderlijk voor elke Admin:</nl>
+				<it>I seguenti moduli non sono un amministratore e sono pertanto modificabili per ogni Amministrazione:</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -500,6 +807,10 @@
 				<org>Aktuell sind noch nicht alle Module so programmiert, dass sie eigene Admins haben können.</org>
 				<de>Aktuell sind noch nicht alle Module so programmiert, dass sie eigene Admins haben können.</de>
 				<en>Currently not all modules are programmed to have their own admins</en>
+				<es>No hemos de todos los módulos programados para que puedan tener sus propios administradores.</es>
+				<fr>Nous n&amp;#39;avons pas tous les modules programmés de sorte qu&amp;#39;ils puissent avoir leurs propres administrateurs.</fr>
+				<nl>We hebben niet alle modules zo geprogrammeerd dat ze hun eigen beheerders kunnen hebben.</nl>
+				<it>Non abbiamo tutti i moduli programmati in modo che possano avere i propri amministratori.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -507,6 +818,10 @@
 				<org>Lansuite konfigurieren</org>
 				<de>Lansuite konfigurieren</de>
 				<en>Configure LANSuite</en>
+				<es>Configuración de Lansuite</es>
+				<fr>Configuration Lansuite</fr>
+				<nl>Configureren Lansuite</nl>
+				<it>Configurazione Lansuite</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -514,6 +829,10 @@
 				<org>Grundeinstellungen (Datenbank-Zugangsdaten)</org>
 				<de>Grundeinstellungen (Datenbank-Zugangsdaten)</de>
 				<en>Main-Settings (DB-Connection)</en>
+				<es>Preferencias (acceso a bases de datos)</es>
+				<fr>Préférences (base de données d&amp;#39;accès)</fr>
+				<nl>Voorkeuren (database toegang)</nl>
+				<it>Preferenze (database di Access)</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -521,6 +840,10 @@
 				<org>Allgemeine Einstellungen</org>
 				<de>Allgemeine Einstellungen</de>
 				<en>Common Settings</en>
+				<es>Configuración general</es>
+				<fr>Paramètres généraux</fr>
+				<nl>Algemene instellingen</nl>
+				<it>Impostazioni generali</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -528,6 +851,10 @@
 				<org>Modulmanager</org>
 				<de>Modulmanager</de>
 				<en>Modulmanager</en>
+				<es>Gestor de módulos</es>
+				<fr>Gestionnaire de modules</fr>
+				<nl>Modulemanager</nl>
+				<it>Module Manager</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -535,6 +862,10 @@
 				<org>Navigationsmenü verwalten</org>
 				<de>Navigationsmenü verwalten</de>
 				<en>Manage navigation-menu</en>
+				<es>Manejar el menú de navegación</es>
+				<fr>Gérer le menu de navigation</fr>
+				<nl>Beheer het navigatiemenu</nl>
+				<it>Gestire il menu di navigazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -542,6 +873,10 @@
 				<org>Administrator Account anlegen</org>
 				<de>Administrator Account anlegen</de>
 				<en>Create an Admin-Account</en>
+				<es>Crear una cuenta de administrador</es>
+				<fr>Créer un compte administrateur</fr>
+				<nl>Maak een beheerdersaccount</nl>
+				<it>Creare un account amministratore</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -549,6 +884,10 @@
 				<org>Lansuite updaten / reparieren</org>
 				<de>Lansuite updaten / reparieren</de>
 				<en>Update / repair LANSuite</en>
+				<es>Lansuite de actualización y reparación</es>
+				<fr>Lansuite upgrade / réparation</fr>
+				<nl>Lansuite upgrade / reparatie</nl>
+				<it>Lansuite upgrade / riparazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -556,6 +895,10 @@
 				<org>Systemvoraussetzungen testen</org>
 				<de>Systemvoraussetzungen testen</de>
 				<en>Check System</en>
+				<es>Sistema de Prueba</es>
+				<fr>Test System</fr>
+				<nl>Test System</nl>
+				<it>Test System</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -563,6 +906,10 @@
 				<org>Datenbank updaten und verwalten</org>
 				<de>Datenbank updaten und verwalten</de>
 				<en>Update / Manage database</en>
+				<es>Actualización de la base de datos y gestión de</es>
+				<fr>Base de données mise à jour et gérer</fr>
+				<nl>Database updaten en beheren</nl>
+				<it>Database di aggiornare e gestire</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -570,6 +917,10 @@
 				<org>Menueinträge neu schreiben</org>
 				<de>Menueinträge neu schreiben</de>
 				<en>Rewrite Navigation</en>
+				<es>Los elementos de menú re-escribir</es>
+				<fr>Articles re Menu-écriture</fr>
+				<nl>Menu-items re-write</nl>
+				<it>Le voci di menu riscrivere</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -577,6 +928,10 @@
 				<org>Daten-Management</org>
 				<de>Daten-Management</de>
 				<en>Data-Management</en>
+				<es>Gestión de Datos</es>
+				<fr>Data Management</fr>
+				<nl>Datamanagement</nl>
+				<it>Data Management</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -584,6 +939,10 @@
 				<org>Daten-Import</org>
 				<de>Daten-Import</de>
 				<en>Data-Import</en>
+				<es>Importación de datos</es>
+				<fr>Données sur les importations</fr>
+				<nl>Gegevens importeren</nl>
+				<it>Importazione dei dati</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -591,16 +950,30 @@
 				<org>Daten-Export</org>
 				<de>Daten-Export</de>
 				<en>Data-Export</en>
+				<es>Exportación de datos</es>
+				<fr>Données sur les exportations</fr>
+				<nl>Data export</nl>
+				<it>Esportazione di dati</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ab1c156ad5f867f22ab441a73adfccb7</id>
 				<org>Datei 'config.php' konnte &lt;strong&gt;nicht&lt;/strong&gt; geschrieben werden.</org>
+				<en>File &amp;#39;config.php&amp;#39; could &lt;strong&gt;not&lt;/strong&gt; be written.</en>
+				<es>File config.php &amp;#39;,&amp;#39; &lt;strong&gt;No&lt;/strong&gt; se pudo escribir.</es>
+				<fr>Fichier config.php &amp;#39;n&amp;#39;a &lt;strong&gt;pas&lt;/strong&gt; pu être écrite.</fr>
+				<nl>Config.php Bestand &amp;#39;&amp;#39; kan &lt;strong&gt;niet&lt;/strong&gt; worden geschreven.</nl>
+				<it>Config.php file &amp;#39;&amp;#39; &lt;strong&gt;non&lt;/strong&gt; può essere scritta.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4e59471b683bc797e4f31b968059915a</id>
 				<org>Datei 'config.php' wurde erfolgreich geschrieben.</org>
+				<en>File &amp;#39;config.php&amp;#39; has been successfully written.</en>
+				<es>File config.php &amp;#39; »ha sido escrita.</es>
+				<fr>Fichier config.php &amp;#39;a été correctement écrit.</fr>
+				<nl>Config.php &amp;#39;is met succes geschreven.</nl>
+				<it>Config.php file &amp;#39;&amp;#39; è stato scritto correttamente.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -608,6 +981,10 @@
 				<org>Grundeinstellungen</org>
 				<de>Grundeinstellungen</de>
 				<en>Main-Settings</en>
+				<es>Preferencias</es>
+				<fr>Préférences</fr>
+				<nl>Voorkeuren</nl>
+				<it>Preferenze</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -615,6 +992,10 @@
 				<org>Bitte geben Sie nun die Zugangsdaten zur Datenbank an.</org>
 				<de>Bitte geben Sie nun die Zugangsdaten zur Datenbank an.</de>
 				<en>Use this page to set up the connection data of your database</en>
+				<es>Si ahora entramos en el acceso a la base de datos.</es>
+				<fr>S&amp;#39;il vous plaît entrez maintenant l&amp;#39;accès à la base de données.</fr>
+				<nl>Neem nu voer de toegang tot de database.</nl>
+				<it>Si prega di inserire ora l&amp;#39;accesso al database.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -622,6 +1003,10 @@
 				<org>Datenbank-Zugangsdaten</org>
 				<de>Datenbank-Zugangsdaten</de>
 				<en>Database connection</en>
+				<es>Acceso a bases de datos</es>
+				<fr>Database access</fr>
+				<nl>Database toegang</nl>
+				<it>Accesso alle banche dati</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -629,13 +1014,21 @@
 				<org>Host (Server-IP)</org>
 				<de>Host (Server-IP)</de>
 				<en>Host</en>
+				<es>Host (IP del servidor)</es>
+				<fr>Hôte (serveur IP)</fr>
+				<nl>Host (IP)</nl>
+				<it>Host (server IP)</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>cca8493f6f1bd794b75879a6d8a7bbc7</id>
 				<org>Benutzername</org>
 				<de>Benutzername</de>
-				<en>User</en>
+				<en>Username</en>
+				<es>Nombre de usuario</es>
+				<fr>Nom d&amp;#39;utilisateur</fr>
+				<nl>Gebruikersnaam</nl>
+				<it>Username</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -643,6 +1036,10 @@
 				<org>Kennwort</org>
 				<de>Kennwort</de>
 				<en>Password</en>
+				<es>Contraseña</es>
+				<fr>Mot de passe</fr>
+				<nl>Wachtwoord</nl>
+				<it>Password</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -650,6 +1047,10 @@
 				<org>Datenbank</org>
 				<de>Datenbank</de>
 				<en>Database</en>
+				<es>Base de datos</es>
+				<fr>Base de données</fr>
+				<nl>Database</nl>
+				<it>Database</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -657,16 +1058,30 @@
 				<org>Tabellen-Prefix</org>
 				<de>Tabellen-Prefix</de>
 				<en>Table-Prefix</en>
+				<es>Prefijo de la mesa</es>
+				<fr>Préfixe des tables</fr>
+				<nl>Tabellen prefix</nl>
+				<it>Tabelle prefisso</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
+				<en>No</en>
+				<es>No</es>
+				<fr>Non</fr>
+				<nl>Nee</nl>
+				<it>No</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
+				<en>Yes</en>
+				<es>Sí</es>
+				<fr>Oui</fr>
+				<nl>Ja</nl>
+				<it>Sì</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -674,6 +1089,10 @@
 				<org>MySQL-Fehler zeigen</org>
 				<de>MySQL-Fehler zeigen</de>
 				<en>Show MySQL-errors</en>
+				<es>Mostrar mensaje de error de MySQL</es>
+				<fr>Erreur MySQL Show</fr>
+				<nl>MySQL Error Show</nl>
+				<it>MySQL Error Show</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -681,6 +1100,10 @@
 				<org>Standard-Design</org>
 				<de>Standard-Design</de>
 				<en>Standard-Design</en>
+				<es>Standard Design</es>
+				<fr>Standard Design</fr>
+				<nl>Standard Design</nl>
+				<it>Standard Design</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -688,6 +1111,10 @@
 				<org>Sind Sie sicher, dass Sie alle Navigationseinträge zurücksetzen möchten?</org>
 				<de>Sind Sie sicher, dass Sie alle Navigationseinträge zurücksetzen möchten?</de>
 				<en>Are you sure to reset all navigation-entries?</en>
+				<es>¿Estás seguro de que desea restablecer todas las entradas del menú?</es>
+				<fr>Etes-vous sûr de vouloir réinitialiser toutes les entrées de menu?</fr>
+				<nl>Weet u zeker dat u alle menu-items reset?</nl>
+				<it>Sei sicuro di voler ripristinare tutte le voci di menu?</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -695,6 +1122,10 @@
 				<org>Gruppe ändern</org>
 				<de>Gruppe ändern</de>
 				<en>Change group</en>
+				<es>Cambio de grupo</es>
+				<fr>Change Group</fr>
+				<nl>Change Group</nl>
+				<it>Change Group</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -702,16 +1133,30 @@
 				<org>Hier können Sie diesen Navigationseintrag einer Gruppe zuweisen</org>
 				<de>Hier können Sie diesen Navigationseintrag einer Gruppe zuweisen</de>
 				<en>This is where you can assign a navigation-entry to a group.</en>
+				<es>Aquí usted puede asignar este elemento de menú a un grupo de</es>
+				<fr>Ici, vous pouvez affecter cet élément de menu à un groupe</fr>
+				<nl>Hier kunt u dit menu-item toewijzen aan een groep</nl>
+				<it>Qui è possibile assegnare questa voce di menu a un gruppo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e2c94c7fc9e7da03724704ca407ff309</id>
 				<org>Hinweis: Verwenden Sie die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box</org>
+				<en>Note: Use the menu box number to build new boxes. All entries with the same ID to land in the same box</en>
+				<es>Nota: Utilice el número de cuadro de menú para crear nuevas cajas. Todas las entradas con el mismo ID de la tierra en la misma caja</es>
+				<fr>Remarque: Utilisez le numéro de la case de menu pour construire de nouvelles boîtes. Toutes les entrées avec le même code d&amp;#39;identification à la terre dans la même boîte</fr>
+				<nl>Opmerking: Gebruik het menu aan de nieuwe doos aantal dozen te bouwen. Alle inzendingen met dezelfde ID om grond in hetzelfde vak</nl>
+				<it>Nota: Utilizzare il numero di casella di menu per creare nuovi widget. Tutte le voci con lo stesso ID a terra nella stessa scatola</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>75880c5861f705e59d87223225c2b716</id>
 				<org>Hinweis2: Verwenden sie die Gruppen um in der URL mit dem Parameter &amp;menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design</org>
+				<en>Note2: They use the groups to spend in the URL with the parameter &amp;amp; = xx menu_group only certain menu entries. This is useful in its own main menu in your own style</en>
+				<es>Nota 2: Utilizan a los grupos que pasan en la URL con el parámetro &amp;amp; = xx menu_group sólo algunas entradas del menú. Esto es útil en su menú principal propio en su propio estilo</es>
+				<fr>Note 2: Ils utilisent les groupes à passer dans l&amp;#39;URL avec le paramètre &amp;amp; = xx menu_group que certaines entrées de menu. Ceci est utile dans son propre menu principal dans votre propre style</fr>
+				<nl>NOTE2: Zij maken gebruik van de groepen te besteden in de URL met de parameter &amp;amp; = xx menu_group alleen bepaalde menu-items. Dit is handig in zijn eigen hoofdmenu in uw eigen stijl</nl>
+				<it>Nota2: Usano i gruppi per trascorrere l&amp;#39;URL con il parametro &amp;amp; = xx menu_group solo alcune voci di menu. Ciò è utile nel proprio menu principale nel vostro stile</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -719,6 +1164,10 @@
 				<org>Navigation zurücksetzen</org>
 				<de>Navigation zurücksetzen</de>
 				<en>Reset navigation-menu</en>
+				<es>Menú Reset</es>
+				<fr>Menu Reset</fr>
+				<nl>Reset menu</nl>
+				<it>Reset menu</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -726,6 +1175,10 @@
 				<org>Alle Einträge anzeigen</org>
 				<de>Alle Einträge anzeigen</de>
 				<en>Show all entries</en>
+				<es>Todas las entradas</es>
+				<fr>Tous les articles</fr>
+				<nl>Alle inzendingen</nl>
+				<it>Tutte le voci</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -733,6 +1186,10 @@
 				<org>Nur Einträge von aktivierten Modulen anzeigen</org>
 				<de>Nur Einträge von aktivierten Modulen anzeigen</de>
 				<en>Show entriers of activated modules only</en>
+				<es>Sólo los elementos de los módulos permitió mapa</es>
+				<fr>Seuls les éléments de modules activé la carte</fr>
+				<nl>Alleen artikel van modules geactiveerd kaart</nl>
+				<it>Solo gli elementi di moduli abilitati mappa</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -740,6 +1197,10 @@
 				<org>entfernen</org>
 				<de>entfernen</de>
 				<en>delete</en>
+				<es>eliminar</es>
+				<fr>supprimer</fr>
+				<nl>verwijderen</nl>
+				<it>rimuovere</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -747,6 +1208,10 @@
 				<org>editieren</org>
 				<de>editieren</de>
 				<en>edit</en>
+				<es>Editar</es>
+				<fr>Modifier</fr>
+				<nl>Edit</nl>
+				<it>Modifica</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -754,6 +1219,10 @@
 				<org>Trennzeile</org>
 				<de>Trennzeile</de>
 				<en>Draw line</en>
+				<es>Línea divisoria</es>
+				<fr>Ligne de séparation</fr>
+				<nl>Scheidingslijn</nl>
+				<it>Linea di demarcazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -761,6 +1230,10 @@
 				<org>Gruppe</org>
 				<de>Gruppe</de>
 				<en>Group</en>
+				<es>Grupo</es>
+				<fr>Groupe</fr>
+				<nl>Groep</nl>
+				<it>Gruppo</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -768,41 +1241,80 @@
 				<org>Pos</org>
 				<de>Pos</de>
 				<en>Pos</en>
+				<es>Pos.</es>
+				<fr>Pos</fr>
+				<nl>Pos</nl>
+				<it>Pos</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>d1bf55e6ce7e1188c3aac3ae84fb6666</id>
 				<org>Modul-Konfiguration</org>
+				<en>Module Configuration</en>
+				<es>Configuración del módulo</es>
+				<fr>Configuration de module</fr>
+				<nl>Moduleconfiguratie</nl>
+				<it>Configurazione modulo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>1d656f0b245f9b56f8b11eb1fe921d5e</id>
 				<org>Hier können Sie dieses Modul Ihren Bedürfnissen anpassen</org>
+				<en>Here you can customize this module to your needs</en>
+				<es>Aquí usted puede personalizar este módulo a sus necesidades</es>
+				<fr>Ici vous pouvez personnaliser ce module à vos besoins</fr>
+				<nl>Hier kunt u deze module aan uw behoeften</nl>
+				<it>Qui è possibile personalizzare questo modulo per le vostre esigenze</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>2e9305089a0a7089ae7793520d723cab</id>
 				<org>Verwaltungs-Werkzeuge</org>
+				<en>Administrative Tools</en>
+				<es>Herramientas administrativas</es>
+				<fr>Outils d&amp;#39;administration</fr>
+				<nl>Systeembeheer</nl>
+				<it>Strumenti di amministrazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>704183817f9cbe5f6f95d58a4b647e7e</id>
 				<org>Konfiguration</org>
+				<en>Configuration</en>
+				<es>Configuración</es>
+				<fr>Configuration</fr>
+				<nl>Configuratie</nl>
+				<it>Configurazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>26c6c9edef67c304b73c1f9d6c4cea7a</id>
 				<org>Hier können Sie Konfigurationen zu diesem Modul vornehmen</org>
+				<en>Here you can change configurations for this module</en>
+				<es>Aquí puedes cambiar las configuraciones para este módulo</es>
+				<fr>Ici vous pouvez changer les configurations de ce module</fr>
+				<nl>Hier configuraties kunnen veranderen voor deze module</nl>
+				<it>Qui è possibile modificare le configurazioni per questo modulo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ed74d5f1ab857b8a64fe32646280919e</id>
 				<org>Berechtigungen</org>
+				<en>Permissions</en>
+				<es>Permisos</es>
+				<fr>Autorisations</fr>
+				<nl>Machtigingen</nl>
+				<it>Autorizzazioni</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>11c3d918ffc6cb636d261f4b1ead9902</id>
 				<org>Legen Sie fest, welche Benutzer Berechtigungen zu welchem Menüpunkt erhalten</org>
+				<en>Determine which user privileges are set at what the menu item</en>
+				<es>Determinar que los privilegios de usuario se han fijado en lo que el elemento de menú</es>
+				<fr>Déterminer quels sont les privilèges utilisateurs sont définis à ce que l&amp;#39;élément de menu</fr>
+				<nl>Bepaal welke gebruiker privileges zijn vastgesteld op wat het menu-item</nl>
+				<it>Stabilire che i privilegi dell&amp;#39;utente sono fissati a ciò che la voce di menu</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -810,46 +1322,90 @@
 				<org>Menü</org>
 				<de>Menü</de>
 				<en>Menu</en>
+				<es>Menú</es>
+				<fr>Menu</fr>
+				<nl>Menu</nl>
+				<it>Menu</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>347b35d7ecce8c5f83cfd6196cfbf106</id>
 				<org>Definieren Sie eigene Menüpunkte</org>
+				<en>Define your own menu items</en>
+				<es>Definir su propio menú productos</es>
+				<fr>Définir vos propres éléments de menu</fr>
+				<nl>Bepaal uw eigen menu-items</nl>
+				<it>Definire il proprio menu articoli</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>f54f3c009e2e066d7007a52d6d32ec34</id>
 				<org>Übersetzung</org>
+				<en>Translation</en>
+				<es>Traducción</es>
+				<fr>Traduction</fr>
+				<nl>Vertaling</nl>
+				<it>Traduzione</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b8f85089aef5a6e668cb19df75254ca9</id>
 				<org>Übersetzen Sie Texte dieses Moduls in andere Sprachen, oder definieren Sie einen deutschen Text, um einen Text umzuformulieren</org>
+				<en>Translate text of this module into other languages, or define a German text to rewrite a text</en>
+				<es>Traducir texto de este módulo a otros idiomas, o definir un texto en lengua alemana para reescribir un texto de</es>
+				<fr>Traduire le texte de ce module dans d&amp;#39;autres langues, ou de définir un texte allemand de réécrire un texte</fr>
+				<nl>Vertaal tekst van deze module in andere talen, of definieer een Duitse tekst te herschrijven een tekst</nl>
+				<it>Traduci testo di questo modulo in altre lingue, o di definire un testo in lingua tedesca di riscrivere un testo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>0273c5c25e3bb7e4f30604650ad80cc4</id>
 				<org>Verwalten Sie die Datenbanktabellen, die diesem Modul zugeordnet sind</org>
+				<en>Manage the database tables that are associated with this module</en>
+				<es>Manejar las tablas de base de datos que se asocian con este módulo de</es>
+				<fr>Gérer les tables de base de données qui sont associés à ce module</fr>
+				<nl>Beheer de database tabellen die zijn gekoppeld aan deze module</nl>
+				<it>Gestire le tabelle del database che sono associati a questo modulo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>0ce064b188277a7160a150e6dfb02c49</id>
 				<org>Modul-Info</org>
+				<en>Module Info</en>
+				<es>Módulo de Información de</es>
+				<fr>Module info</fr>
+				<nl>Informatie Module</nl>
+				<it>Modulo Info</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>d9d98118e70780fc9f77185ac7ac2366</id>
 				<org>Hilfe und Informationen zu diesem Modul aufrufen</org>
+				<en>Help and information on this module to call</en>
+				<es>Ayuda e información sobre este módulo a llamar a</es>
+				<fr>Aide et informations sur ce module d&amp;#39;appeler</fr>
+				<nl>Hulp en informatie over deze module om te bellen</nl>
+				<it>Assistenza e informazione su questo modulo per chiamare</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>9ef60b7c83afc728a86d9bae8a03580e</id>
 				<org>Keine Einstellungen zu diesem Modul vorhanden</org>
+				<en>No settings for this module available</en>
+				<es>No configuración de este módulo disponible</es>
+				<fr>Pas de réglages disponibles pour ce module</fr>
+				<nl>Geen instellingen voor deze module beschikbaar</nl>
+				<it>N. impostazioni disponibili per questo modulo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>37c879e89dad97ff1cdfcd0a79a2d3bd</id>
 				<org>Erfolgreich geändert</org>
+				<en>Successfully amended</en>
+				<es>Modificado con éxito</es>
+				<fr>A réussi à modifier</fr>
+				<nl>Succesvol gewijzigd</nl>
+				<it>Riuscito a modificare</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -857,6 +1413,10 @@
 				<org>Jeder</org>
 				<de>Jeder</de>
 				<en>Everyone</en>
+				<es>Cada</es>
+				<fr>Chaque</fr>
+				<nl>Elke</nl>
+				<it>Ogni</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -864,6 +1424,10 @@
 				<org>Nur Eingeloggte</org>
 				<de>Nur Eingeloggte</de>
 				<en>Logged in only</en>
+				<es>Sólo Identificados</es>
+				<fr>Seuls les utilisateurs connectés</fr>
+				<nl>Alleen Logged</nl>
+				<it>Solo Logged</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -871,6 +1435,10 @@
 				<org>Nur Admins</org>
 				<de>Nur Admins</de>
 				<en>Admins only</en>
+				<es>Sólo Administradores</es>
+				<fr>Seuls les admins</fr>
+				<nl>Alleen Admins</nl>
+				<it>Solo gli amministratori</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -878,6 +1446,10 @@
 				<org>Nur Superadminen</org>
 				<de>Nur Superadminen</de>
 				<en>Superadmins only</en>
+				<es>Sólo Super Admin</es>
+				<fr>Seule Super Admin</fr>
+				<nl>Alleen Super Admin</nl>
+				<it>Solo Super Admin</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -885,6 +1457,10 @@
 				<org>Keine Admins</org>
 				<de>Keine Admins</de>
 				<en>No admins</en>
+				<es>No hay Administradores</es>
+				<fr>Aucune Administrateurs</fr>
+				<nl>Geen Admins</nl>
+				<it>N. Admins</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -892,41 +1468,80 @@
 				<org>Nur Ausgeloggte</org>
 				<de>Nur Ausgeloggte</de>
 				<en>Logged off only</en>
+				<es>Sólo se registra</es>
+				<fr>Seuls les utilisateurs connectés</fr>
+				<nl>Alleen ingelogd</nl>
+				<it>Solo registrati</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>5d7b3117874ea4964f0218d2d28b3231</id>
 				<org>Zugriff</org>
+				<en>Access</en>
+				<es>Acceso</es>
+				<fr>Access</fr>
+				<nl>Toegang</nl>
+				<it>Access</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>f356b0929e047b18efb8fc417cb0cb1d</id>
 				<org>Vorraussetzung</org>
+				<en>Prerequisite</en>
+				<es>Requisito previo</es>
+				<fr>Prérequis</fr>
+				<nl>Voorwaarde</nl>
+				<it>Prerequisito</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>18a8022569d6ced829f833aa855530ce</id>
 				<org>Titel</org>
+				<en>Title</en>
+				<es>Título</es>
+				<fr>Titre</fr>
+				<nl>Titel</nl>
+				<it>Titolo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>97e7c9a7d06eac006a28bf05467fcc8b</id>
 				<org>Link</org>
+				<en>Link</en>
+				<es>Vínculo</es>
+				<fr>Lien</fr>
+				<nl>Koppelen</nl>
+				<it>Collegamento</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b1228e186982783aa6bd3affab426e6c</id>
 				<org>Popup-Hinweis</org>
+				<en>Pop-up Note</en>
+				<es>Pop-up Nota</es>
+				<fr>Pop-up Note</fr>
+				<nl>Pop-up Note</nl>
+				<it>Pop-up Nota</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4fbd7ebee0b5c50eb74095f1eb14ebe5</id>
 				<org>Link hinzufügen</org>
+				<en>Link</en>
+				<es>Vínculo</es>
+				<fr>Lien</fr>
+				<nl>Koppelen</nl>
+				<it>Collegamento</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>67463c766c54f7c49bf52849943be052</id>
 				<org>Modul &quot;%1&quot; wurde nicht gefunden</org>
+				<en>Module &amp;quot;%1&amp;quot; was not found</en>
+				<es>Módulo &amp;quot;%1&amp;quot; no se encontró</es>
+				<fr>Module «%1» n&amp;#39;a pas été trouvé</fr>
+				<nl>Module &amp;quot;%1&amp;quot; is niet gevonden</nl>
+				<it>Modulo &amp;quot;%1&amp;quot; non è stato trovato</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -934,6 +1549,10 @@
 				<org>Datenbank - Modul</org>
 				<de>Datenbank - Modul</de>
 				<en>Database - module</en>
+				<es>Base de datos - Módulo de</es>
+				<fr>Base de données - Module</fr>
+				<nl>Database - Module</nl>
+				<it>Banca dati - Modulo</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -941,11 +1560,20 @@
 				<org>Hier können Sie die Datenbankeinträge zu diesem Modul verwalten</org>
 				<de>Hier können Sie die Datenbankeinträge zu diesem Modul verwalten</de>
 				<en>This is where you can manage the database-entries to this module</en>
+				<es>Aquí puede administrar las entradas de la base de datos para este módulo de</es>
+				<fr>Ici vous pouvez gérer les entrées de base de données pour ce module</fr>
+				<nl>Hier kunt u het beheer van de database inzendingen voor deze module</nl>
+				<it>Qui è possibile gestire le voci di database a questo modulo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>6afc6af6cec6a6ed87da423e2537e553</id>
 				<org>DB-Tabellen dieses Moduls</org>
+				<en>DB tables in this module</en>
+				<es>De tablas de BD en este módulo</es>
+				<fr>DB tableaux de ce module</fr>
+				<nl>DB tabellen in deze module</nl>
+				<it>Tabelle del DB in questo modulo</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -953,16 +1581,30 @@
 				<org>Modul-Datenbank exportieren</org>
 				<de>Modul-Datenbank exportieren</de>
 				<en>Export module-database</en>
+				<es>Módulo de base de datos de exportación</es>
+				<fr>Module de base de données à l&amp;#39;exportation</fr>
+				<nl>Module Database Export</nl>
+				<it>Modulo Database Export</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b7405e747816fecc21fc8185a08dd620</id>
 				<org>Weitere Aktionen</org>
+				<en>More Actions</en>
+				<es>Más acciones</es>
+				<fr>Plus d&amp;#39;actions</fr>
+				<nl>Meer acties</nl>
+				<it>Altre azioni</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e4f683a9ea094e0cd9f51f9a602cb297</id>
 				<org>Sind Sie sicher, dass Sie die Datenbank des Moduls &quot;%1&quot; zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
+				<en>Are you sure you want to reset the database of the module &amp;quot;%1&amp;quot;? This permanently deletes all data that have been written in this module already!</en>
+				<es>¿Estás seguro de que desea restablecer la base de datos%del módulo &amp;quot;1&amp;quot;? Esto borra de manera permanente todos los datos que se han escrito en este módulo ya!</es>
+				<fr>Etes-vous sûr de vouloir rétablir la base de données du module «%1»? Cela supprime définitivement toutes les données qui ont été écrites dans ce module déjà!</fr>
+				<nl>Weet u zeker dat u de database van de module &amp;quot;%1 reset&amp;quot;? Dit verwijdert permanent alle gegevens die zijn geschreven in deze module al!</nl>
+				<it>Sei sicuro di voler ripristinare il database del modulo &amp;quot;%1&amp;quot;? Questo elimina definitivamente tutti i dati che sono stati scritti in questo modulo già!</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -970,6 +1612,10 @@
 				<org>Tabelle wurde erfolgreich neu geschrieben</org>
 				<de>Tabelle wurde erfolgreich neu geschrieben</de>
 				<en>All tables were resetted successfully</en>
+				<es>El cuadro ha sido reescrito con éxito</es>
+				<fr>Le tableau a été réécrit avec succès</fr>
+				<nl>Tabel met succes herschreven</nl>
+				<it>La tabella è stata riscritta con successo</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -977,6 +1623,10 @@
 				<org>keine</org>
 				<de>keine</de>
 				<en>none</en>
+				<es>ninguno</es>
+				<fr>aucun</fr>
+				<nl>geen</nl>
+				<it>nessuno</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -984,11 +1634,20 @@
 				<org>Änderungen erfolgreich gespeichert.</org>
 				<de>Änderungen erfolgreich gespeichert.</de>
 				<en>Changes were saved successfully.</en>
+				<es>Los cambios se han guardado correctamente.</es>
+				<fr>Modifications enregistrées avec succès.</fr>
+				<nl>Wijzigingen opgeslagen succes.</nl>
+				<it>Modifiche salvate con successo.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>6fd13e8ac48bcf50d3d67c1710c080b5</id>
 				<org>Soll das Modul &lt;b&gt;'%NAME%'&lt;/b&gt; wirklich zurückgesetzt werden?HTML_NEWLINEDies wirkt sich &lt;u&gt;nicht&lt;/u&gt; auf die Datenbankeinträge des Modules aus, jedoch gehen alle Einstellungen und Menüänderungen verloren, die zu diesem Modul getätigt worden sind.</org>
+				<en>If the module &lt;b&gt;&amp;#39;%NAME%&amp;#39;&lt;/b&gt; Are you sure you reset? HTML_NEWLINEDies &lt;u&gt;no&lt;/u&gt; effect on the database entries of the module, but all the settings and menu changes are lost that have been made to this module.</en>
+				<es>&lt;b&gt;Si&lt;/b&gt; el nombre del módulo &lt;b&gt;&amp;#39;%%&amp;#39;&lt;/b&gt; ¿Estás seguro de reset? HTML_NEWLINEDies &lt;u&gt;ningún&lt;/u&gt; efecto en las entradas de la base de datos del módulo, pero todos los ajustes y cambios de menú están perdidos que se han realizado a este mó</es>
+				<fr>Si le module &lt;b&gt;&amp;#39;%NOM%&amp;#39; Etes-vous&lt;/b&gt; sûr de réinitialiser? HTML_NEWLINEDies &lt;u&gt;aucun&lt;/u&gt; effet sur les entrées de la base de données du module, mais tous les réglages et les modifications du menu sont perdues qui ont été faites à ce modul</fr>
+				<nl>&lt;b&gt;Als%&lt;/b&gt; van de module &lt;b&gt;&amp;#39;naam%&amp;#39;&lt;/b&gt; Weet je zeker dat je reset? HTML_NEWLINEDies &lt;u&gt;geen&lt;/u&gt; effect op de database gegevens van de module, maar alle instellingen en menu wijzigingen gaan verloren die zijn gedaan om deze module.</nl>
+				<it>Se il &lt;b&gt;modulo%&amp;#39;NAME%&amp;#39;&lt;/b&gt; Sei sicuro di reset? HTML_NEWLINEDies &lt;u&gt;alcun&lt;/u&gt; effetto sulle voci di database del modulo, ma tutte le impostazioni e le modifiche dei menu sono perse che sono state fatte a questo modulo.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -996,6 +1655,10 @@
 				<org>Modul-Menüeinträge</org>
 				<de>Modul-Menüeinträge</de>
 				<en>Module-Menuentries</en>
+				<es>Módulo de elementos de menú</es>
+				<fr>Module Menu Items</fr>
+				<nl>Module Menu-onderdelen</nl>
+				<it>Modulo Menu Items</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1003,6 +1666,10 @@
 				<org>Hier können Sie die Navigationseinträge dieses Moduls ändern.</org>
 				<de>Hier können Sie die Navigationseinträge dieses Moduls ändern.</de>
 				<en>Use this form to manage the navigationentries of this module</en>
+				<es>Aquí puede cambiar las entradas del menú en este módulo.</es>
+				<fr>Ici vous pouvez changer les entrées de menu dans ce module.</fr>
+				<nl>Hier kunt u de menu-items in deze module.</nl>
+				<it>Qui è possibile modificare le voci di menu in questo modulo.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1010,6 +1677,10 @@
 				<org>Hauptmenüpunkt des Moduls / Modul-Startseite</org>
 				<de>Hauptmenüpunkt des Moduls / Modul-Startseite</de>
 				<en>Main-Item of this module (mod-homepage)</en>
+				<es>Menú principal del módulo / Módulo-Top</es>
+				<fr>Menu principal du module / Module-Haut</fr>
+				<nl>Hoofdmenu van de module / Module-Top</nl>
+				<it>Menu principale del modulo / Module-Top</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1017,6 +1688,10 @@
 				<org>Untermenüpunkte</org>
 				<de>Untermenüpunkte</de>
 				<en>Sub-Item</en>
+				<es>Submenú</es>
+				<fr>Sous-menu</fr>
+				<nl>Submenu</nl>
+				<it>Sottomenu</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1024,6 +1699,10 @@
 				<org>Keine Menüpunkte - Interne Verweise</org>
 				<de>Keine Menüpunkte - Interne Verweise</de>
 				<en>Internal referrer (not listed in menu)</en>
+				<es>No hay elementos de menú - Enlaces internos</es>
+				<fr>Aucun élément de menu - Les liens internes</fr>
+				<nl>Geen menu items - Interne links</nl>
+				<it>N. voci di menu - I collegamenti interni</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1031,6 +1710,10 @@
 				<org>Neuen Menüeintrag hinzufügen</org>
 				<de>Neuen Menüeintrag hinzufügen</de>
 				<en>Add a new menu-entry</en>
+				<es>Añadir nuevo elemento de menú</es>
+				<fr>Ajouter un nouvel élément de menu</fr>
+				<nl>Voeg nieuwe menu-item</nl>
+				<it>Voce di menu Aggiungi nuovo</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1038,6 +1721,10 @@
 				<org>Der Menü-Eintrag wurde erfolgreich gelöscht</org>
 				<de>Der Menü-Eintrag wurde erfolgreich gelöscht</de>
 				<en>The menu-entry was deleted successfully</en>
+				<es>El elemento de menú se ha eliminado con éxito</es>
+				<fr>L&amp;#39;élément de menu a été supprimé avec succès</fr>
+				<nl>Het menu-item is succesvol verwijderd</nl>
+				<it>La voce di menu è stato eliminato con successo</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1045,6 +1732,10 @@
 				<org>Modulverwaltung</org>
 				<de>Modulverwaltung</de>
 				<en>Module-Management</en>
+				<es>Módulo de gestión</es>
+				<fr>Module de gestion</fr>
+				<nl>Management Module</nl>
+				<it>Management Module</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1052,6 +1743,10 @@
 				<org>Hier können Sie Module de-/aktivieren, sowie deren Einstellungen verändern.</org>
 				<de>Hier können Sie Module de-/aktivieren, sowie deren Einstellungen verändern.</de>
 				<en>Here you can de-/activate modules, and manage their settings</en>
+				<es>Aquí usted puede desactivar el módulo, así como cambiar su configuración.</es>
+				<fr>Ici, vous pouvez désactiver le module, ainsi que de modifier leurs paramètres.</fr>
+				<nl>Hier kunt u uitschakelen module, evenals hun instellingen wijzigen.</nl>
+				<it>Qui si può disattivazione del modulo, nonché di modificare le impostazioni.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1059,6 +1754,10 @@
 				<org>Alle Module zurücksetzen</org>
 				<de>Alle Module zurücksetzen</de>
 				<en>Reset all modules</en>
+				<es>Todos los módulos Reset</es>
+				<fr>Tous les modules Reset</fr>
+				<nl>Alle modules Reset</nl>
+				<it>Tutti i moduli Reset</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1066,6 +1765,10 @@
 				<org>Konfig.</org>
 				<de>Konfig.</de>
 				<en>Config.</en>
+				<es>Config.</es>
+				<fr>Config.</fr>
+				<nl>Config.</nl>
+				<it>Config.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1073,6 +1776,10 @@
 				<org>DB</org>
 				<de>DB</de>
 				<en>DB</en>
+				<es>PP</es>
+				<fr>DB</fr>
+				<nl>DB</nl>
+				<it>DB</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1080,11 +1787,20 @@
 				<org>Lansuite Installation und Administration</org>
 				<de>Lansuite Installation und Administration</de>
 				<en>LANSuite Installation and Administration</en>
+				<es>Instalación y Administración Lansuite</es>
+				<fr>Installation et administration Lansuite</fr>
+				<nl>Lansuite Installatie en beheer</nl>
+				<it>Lansuite di installazione e amministrazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ff940ad7740516663c385c2e3837fec0</id>
 				<org>Sprache</org>
+				<en>Language</en>
+				<es>Idioma</es>
+				<fr>Langue</fr>
+				<nl>Taal</nl>
+				<it>Lingua</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1092,20 +1808,32 @@
 				<org>Datenbank überschreiben</org>
 				<de>Datenbank überschreiben</de>
 				<en>Overwrite database</en>
+				<es>Base de datos de reemplazar</es>
+				<fr>Base de données de l&amp;#39;emporter</fr>
+				<nl>Database override</nl>
+				<it>Database override</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4092fee4764a868691b6e20ce4af8304</id>
 				<org>&lt;b&gt;ACHTUNG:&lt;/b&gt; Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!</org>
-				<de>&lt;b&gt;ACHTUNG:&lt;/b&gt; Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!</de>
+				<de>&amp;lt;b&amp;gt;ACHTUNG:&amp;lt;/b&amp;gt; Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!</de>
 				<en>Existing data in this database will be lost</en>
+				<es>&lt;b&gt;ADVERTENCIA:&lt;/b&gt; los datos existentes en la base de datos anteriores se ha perdido!</es>
+				<fr>&lt;b&gt;AVERTISSEMENT:&lt;/b&gt; Toutes les données existantes dans la base de données ci-dessus sont perdus!</fr>
+				<nl>&lt;b&gt;WAARSCHUWING:&lt;/b&gt; Alle bestaande gegevens in de bovenstaande database zijn verloren!</nl>
+				<it>&lt;b&gt;ATTENZIONE:&lt;/b&gt; Tutti i dati contenuti nella banca dati di cui sopra sono persi!</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4e303bdd50bec3088c0514a9f00382ae</id>
 				<org>&lt;b&gt;ACHTUNG:&lt;/b&gt;&lt;br&gt;Der Aufruf der nächsten Seite kann bis zu eine Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!</org>
-				<de>&lt;b&gt;ACHTUNG:&lt;/b&gt;&lt;br&gt;Der Aufruf der nächsten Seite kann bis zu eine Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!</de>
+				<de>&amp;lt;b&amp;gt;ACHTUNG:&amp;lt;/b&amp;gt;&amp;lt;br&amp;gt;Der Aufruf der nächsten Seite kann bis zu eine Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!</de>
 				<en>Attention: Calling the next page, could last a minute. Please do not cancel loading during this time!</en>
+				<es>&lt;b&gt;Atención:&lt;/b&gt; &lt;br&gt; La llamada a la siguiente página puede tomar hasta un minuto! Por favor, no cancelar la carga en este momento!</es>
+				<fr>&lt;b&gt;Attention:&lt;/b&gt; &lt;br&gt; L&amp;#39;appel à la page suivante mai prendre jusqu&amp;#39;à une minute! S&amp;#39;il vous plaît ne s&amp;#39;annulent pas à la charge pour cette fois!</fr>
+				<nl>&lt;b&gt;Opgelet:&lt;/b&gt; &lt;br&gt; De oproep naar de volgende pagina kan maximaal een minuut! Neem annuleren niet de belasting op dit moment!</nl>
+				<it>&lt;b&gt;Attenzione:&lt;/b&gt; &lt;br&gt; La chiamata alla pagina successiva può richiedere fino a un minuto! Si prega di non annullare il carico in questo momento!</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1113,11 +1841,20 @@
 				<org>Die Datenbank ist nicht erreichbar. Überprüfen Sie bitte die Angaben zur Datenbankverbindung.</org>
 				<de>Die Datenbank ist nicht erreichbar. Überprüfen Sie bitte die Angaben zur Datenbankverbindung.</de>
 				<en>Database unavailable. Please check your connection-data</en>
+				<es>La base de datos no es accesible. Por favor, consulte la información sobre la conexión de base de datos.</es>
+				<fr>La base de données n&amp;#39;est pas accessible. S&amp;#39;il vous plaît vérifier les informations sur la connexion de base de données.</fr>
+				<nl>De database is niet bereikbaar. Controleer de informatie op de database connectie.</nl>
+				<it>Il database non è raggiungibile. Si prega di verificare le informazioni sulla connessione al database.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>48612f0b5b824919765c5671ebb4b784</id>
 				<org>Die Datenbank '%DB%' existiert bereits und wurde daher nicht neu angelegt.</org>
+				<en>The database &amp;#39;%DB%&amp;#39; already exists and was therefore not re-created.</en>
+				<es>PP La base de datos &amp;#39;%%&amp;#39; ya existe y por tanto no vuelve a crear.</es>
+				<fr>La base de données &amp;#39;%DB%»existe déjà et n&amp;#39;a donc pas été recréés.</fr>
+				<nl>De database%&amp;quot;DB%&amp;#39;bestaat al en is daarom niet opnieuw gemaakt.</nl>
+				<it>%La banca dati &amp;#39;DB%&amp;#39; esiste già e pertanto non è stato ri-creato.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1125,6 +1862,10 @@
 				<org>Anlegen der Datenbank fehlgeschlagen. Überprüfen Sie bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfen Sie, ob Sie den Namen der Datenbank korrekt angegeben haben.</org>
 				<de>Anlegen der Datenbank fehlgeschlagen. Überprüfen Sie bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfen Sie, ob Sie den Namen der Datenbank korrekt angegeben haben.</de>
 				<en>Database-Creation failed. Please check, whether your database-user has enough rights to create his own database or if you have submitted the correct name given to you by your provider.</en>
+				<es>Creación de la base de datos ha fallado. Por favor, compruebe si el usuario especificado tiene derechos suficientes para crear una nueva base de datos y asegúrese de que tiene el nombre de la base de datos correctamente.</es>
+				<fr>Création de la base a échoué. S&amp;#39;il vous plaît vérifier si l&amp;#39;utilisateur spécifié dispose de droits suffisants pour créer une nouvelle base de données et assurez-vous d&amp;#39;avoir le nom de la base de données correctement.</fr>
+				<nl>Het creëren van de database is mislukt. Controleer of de opgegeven gebruiker voldoende rechten heeft om een nieuwe database te maken en zorg ervoor dat je de naam van de database correct.</nl>
+				<it>Creazione del database non riuscita. Si prega di verificare se l&amp;#39;utente specificato disponga di diritti sufficienti per creare un nuovo database e assicurarsi di avere il nome del database in modo corretto.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1132,6 +1873,10 @@
 				<org>Datenbank wurde erfolgreich angelegt.</org>
 				<de>Datenbank wurde erfolgreich angelegt.</de>
 				<en>Database was created successfully</en>
+				<es>Base de datos se ha creado correctamente.</es>
+				<fr>Base de données a été créée avec succès.</fr>
+				<nl>Database is gemaakt.</nl>
+				<it>Database è stato creato con successo.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1139,18 +1884,31 @@
 				<org>Datenimport</org>
 				<de>Datenimport</de>
 				<en>Data-Import</en>
+				<es>Importación de datos</es>
+				<fr>Importer des données</fr>
+				<nl>Gegevens importeren</nl>
+				<it>Importazione di dati</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e3a587a858f4537997c324fc89dac1eb</id>
 				<org>&lt;b&gt;ACHTUNG:&lt;/b&gt; Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.</org>
-				<de>&lt;b&gt;ACHTUNG:&lt;/b&gt; Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.</de>
+				<de>&amp;lt;b&amp;gt;ACHTUNG:&amp;lt;/b&amp;gt; Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.</de>
 				<en>Attention: If you import an adminaccount within the data, you will be prompted to enter its passwort (or a password of any other adminaccount) from now on.</en>
+				<es>&lt;b&gt;NOTA:&lt;/b&gt; Si importados con los datos importados y una cuenta de administrador, se le pedirá a partir de ahora con este registro durante la instalación.</es>
+				<fr>&lt;b&gt;REMARQUE:&lt;/b&gt; Si importées avec les données importées et un compte admin, il vous sera demandé dès maintenant avec ce journal pendant l&amp;#39;installation.</fr>
+				<nl>&lt;b&gt;OPMERKING:&lt;/b&gt; Als ingevoerd met de ingevoerde gegevens en een admin-account, wordt u gevraagd worden vanaf nu met deze log tijdens de installatie.</nl>
+				<it>&lt;b&gt;NOTA:&lt;/b&gt; Se importati con i dati importati e di un account amministratore, ti verrà chiesto fin d&amp;#39;ora con questo registro durante l&amp;#39;installazione.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>d2a0be35cdf5a485fa98de7cf181d4a4</id>
 				<org>Import wurde mit folgendem Ergebnis ausgeführt:HTML_NEWLINE&lt;ul&gt;Fehler: %ERROR%HTML_NEWLINEKeine Aktion: %NOTHING%HTML_NEWLINENeue eingefügt: %INSERT%HTML_NEWLINEAlte überschrieben: %REPLACE%&lt;/ul&gt;</org>
+				<en>Import was carried out with the following result: HTML_NEWLINE &lt;ul&gt; Error:%%ERROR inserted HTML_NEWLINEKeine Action:%%NOTHING HTML_NEWLINENeue:%%INSERT overwritten HTML_NEWLINEAlte: REPLACE%%&lt;/ul&gt;</en>
+				<es>De importación se realizó con el siguiente resultado: HTML_NEWLINE &lt;ul&gt; Error: Error de%%añade HTML_NEWLINEKeine acción: Nada%%HTML_NEWLINENeue: INSERT%%HTML_NEWLINEAlte sobrescribe: reemplazar%%&lt;/ul&gt;</es>
+				<fr>Import a été réalisée avec le résultat suivant: HTML_NEWLINE &lt;ul&gt; Erreur:%%ERREUR inséré HTML_NEWLINEKeine Action: rien%%HTML_NEWLINENeue: INSERT%%HTML_NEWLINEAlte écrasés: remplacer%%&lt;/ul&gt;</fr>
+				<nl>Import is uitgevoerd met het volgende resultaat: HTML_NEWLINE &lt;ul&gt; Fout:%%FOUT ingevoegd HTML_NEWLINEKeine Actie:%%NIETS HTML_NEWLINENeue:%%INSERT overschreven HTML_NEWLINEAlte: VERVANGEN%%&lt;/ul&gt;</nl>
+				<it>Importazione è stata effettuata con il seguente risultato: HTML_NEWLINE &lt;ul&gt; Errore: ERRORE%%inserito HTML_NEWLINEKeine azione: NULLA%%HTML_NEWLINENeue: INSERT%%HTML_NEWLINEAlte sovrascritti: sostituire%%&lt;/ul&gt;</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1158,18 +1916,31 @@
 				<org>Adminaccount anlegen</org>
 				<de>Adminaccount anlegen</de>
 				<en>Create adminaccount</en>
+				<es>Creación de administrador de la cuenta</es>
+				<fr>Création de Compte &amp;quot;admin&amp;quot;</fr>
+				<nl>Admin account aanmaken</nl>
+				<it>Creazione Account Amministratore</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>c6b794d4e4bb40f4fcf134e23e8cb474</id>
 				<org>Hier können Sie einen Adminaccount anlegen. Falls dies bereits durch den Import geschehen ist, können Sie diesen Schritt auch überspringen (auf &lt;b&gt;'Weiter'&lt;/b&gt; klicken).</org>
+				<en>Here you can create an admin account. If this has already been done by the import, you can skip this step ( &lt;b&gt;&amp;#39;Next&amp;#39;&lt;/b&gt; Click).</en>
+				<es>Aquí puede crear una cuenta de administrador. Si esto ya se ha hecho por la importación, puede saltarse este paso ( &lt;b&gt;&amp;quot;Haga&lt;/b&gt; clic en &lt;b&gt;Siguiente &amp;#39;).&lt;/b&gt;</es>
+				<fr>Ici, vous pouvez créer un compte administrateur. Si cela a déjà été fait par l&amp;#39;import, vous pouvez sauter cette étape ( &lt;b&gt;&amp;#39;Cliquez sur&amp;#39; Suivant &amp;#39;).&lt;/b&gt;</fr>
+				<nl>Hier kunt u een admin account. Als dit al is gedaan door de invoer, kunt u deze stap overslaan ( &lt;b&gt;&amp;#39;Next&amp;#39;&lt;/b&gt; Click).</nl>
+				<it>Qui si può creare un account amministratore. Se questo è già stato fatto da parte di importazione, si può saltare questo passaggio ( &lt;b&gt;&amp;#39;Fare&lt;/b&gt; clic su &lt;b&gt;Avanti&amp;#39;).&lt;/b&gt;</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>082e55a73f10496681c84231dc1c88f7</id>
 				<org>E-Mail</org>
 				<de>E-Mail</de>
-				<en>eMail</en>
+				<en>E-mail</en>
+				<es>E-mail</es>
+				<fr>E-mail</fr>
+				<nl>E-mail</nl>
+				<it>E-mail</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1177,6 +1948,10 @@
 				<org>Kennwort wiederholen</org>
 				<de>Kennwort wiederholen</de>
 				<en>Confirm password</en>
+				<es>Repetir contraseña</es>
+				<fr>Répéter Mot de passe</fr>
+				<nl>Herhaal wachtwoord</nl>
+				<it>Ripetere Password</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1184,6 +1959,10 @@
 				<org>Bitte geben Sie eine E-Mail-Adresse ein!</org>
 				<de>Bitte geben Sie eine E-Mail-Adresse ein!</de>
 				<en>Enter an eMail-Address, please</en>
+				<es>Por favor, introduzca una dirección de correo electrónico!</es>
+				<fr>S&amp;#39;il vous plaît entrer une adresse e-mail!</fr>
+				<nl>Geef een e-mail adres!</nl>
+				<it>Si prega di inserire un indirizzo e-mail!</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1191,6 +1970,10 @@
 				<org>Bitte geben Sie ein Kennwort ein!</org>
 				<de>Bitte geben Sie ein Kennwort ein!</de>
 				<en>Choose your password</en>
+				<es>Por favor, introduzca una contraseña!</es>
+				<fr>S&amp;#39;il vous plaît entrer un mot de passe!</fr>
+				<nl>Voer een wachtwoord!</nl>
+				<it>Si prega di inserire una password!</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1198,6 +1981,10 @@
 				<org>Das Passwort und seine Verifizierung stimmen nicht überein!</org>
 				<de>Das Passwort und seine Verifizierung stimmen nicht überein!</de>
 				<en>The password and its verification are not equal.</en>
+				<es>La contraseña y su verificación no coinciden!</es>
+				<fr>Le mot de passe et sa vérification ne correspondent pas!</fr>
+				<nl>Het wachtwoord en de verificatie niet overeen!</nl>
+				<it>La password e la sua verifica non corrispondono!</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1205,6 +1992,10 @@
 				<org>Wichtige Systemvariablen einstellen</org>
 				<de>Wichtige Systemvariablen einstellen</de>
 				<en>Define importent variables</en>
+				<es>Importante de configuración del sistema</es>
+				<fr>Important System Configuration</fr>
+				<nl>Belangrijke System Setting</nl>
+				<it>Importante System Setting</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1212,6 +2003,10 @@
 				<org>Hier, in diesem letzten Schritt, werden die wichtigsten Konfigurationen in Lansuite eingestellt.</org>
 				<de>Hier, in diesem letzten Schritt, werden die wichtigsten Konfigurationen in Lansuite eingestellt.</de>
 				<en>Here, in this last step, lansuites main configuration is made</en>
+				<es>Aquí, en este último paso, las configuraciones más importantes previstas en Lansuite.</es>
+				<fr>Ici, dans cette dernière étape, les configurations les plus importants définis dans Lansuite.</fr>
+				<nl>Hier, in deze laatste stap, de belangrijkste configuraties ingesteld in Lansuite.</nl>
+				<it>Qui, in questo ultimo passo, le configurazioni più importanti insieme a Lansuite.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1219,6 +2014,10 @@
 				<org>Land, in dem die Party stattfindet</org>
 				<de>Land, in dem die Party stattfindet</de>
 				<en>Country where the party takes place</en>
+				<es>País donde el partido tiene lugar</es>
+				<fr>Pays où la partie se déroule</fr>
+				<nl>Land waar het feest plaatsvindt</nl>
+				<it>Paese dove il partito ha luogo</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1226,6 +2025,10 @@
 				<org>URL der Webseite</org>
 				<de>URL der Webseite</de>
 				<en>The URL of this webseite</en>
+				<es>URL de la Web</es>
+				<fr>URL du site Web</fr>
+				<nl>URL van de webpagina</nl>
+				<it>URL del Web</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1233,6 +2036,10 @@
 				<org>E-Mail des Webmasters</org>
 				<de>E-Mail des Webmasters</de>
 				<en>The webmasters email</en>
+				<es>E-mail al webmaster</es>
+				<fr>E-mail au webmaster</fr>
+				<nl>E-mail de webmaster</nl>
+				<it>E-mail al webmaster</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1240,6 +2047,10 @@
 				<org>Internet-Seite. Vor der Party</org>
 				<de>Internet-Seite. Vor der Party</de>
 				<en>Internet-Page. Before the party</en>
+				<es>Sitio de Internet. Antes de la fiesta</es>
+				<fr>Site Internet. Avant la partie</fr>
+				<nl>Website. Voordat de partij</nl>
+				<it>Sito internet. Prima della festa</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1247,6 +2058,10 @@
 				<org>Intranet-Seite. Auf der Party</org>
 				<de>Intranet-Seite. Auf der Party</de>
 				<en>Intranet-Page. At the party</en>
+				<es>Sitio de Intranet. En la fiesta</es>
+				<fr>Site intranet. Lors de la fête</fr>
+				<nl>Intranetsite. Op het feest</nl>
+				<it>Intranet sito. Alla festa</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1254,6 +2069,10 @@
 				<org>Internet- oder Lokaler-Modus?</org>
 				<de>Internet- oder Lokaler-Modus?</de>
 				<en>Internet-, or Local-Mode?</en>
+				<es>En Internet o en modo local?</es>
+				<fr>Internet ou en mode local?</fr>
+				<nl>Internet of Lokale modus?</nl>
+				<it>Internet o in modalità locale?</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1261,6 +2080,10 @@
 				<org>Installation abschließen</org>
 				<de>Installation abschließen</de>
 				<en>Finish installation</en>
+				<es>Finalización de la instalación</es>
+				<fr>Fin de l&amp;#39;installation</fr>
+				<nl>Installatie voltooien</nl>
+				<it>Completamento dell&amp;#39;installazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1268,11 +2091,20 @@
 				<org>Die Installation wurde erfolgreich beendet.</org>
 				<de>Die Installation wurde erfolgreich beendet.</de>
 				<en>The Installation was successfull</en>
+				<es>La instalación se ha completado con éxito.</es>
+				<fr>L&amp;#39;installation a été effectuée avec succès.</fr>
+				<nl>De installatie werd met succes afgerond.</nl>
+				<it>L&amp;#39;installazione è stata completata con successo.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e4cad194fc929c07631addbbe4e214d7</id>
 				<org>&lt;b&gt;Es wurde kein Admin-Account angelegt&lt;/b&gt;HTML_NEWLINESolange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.</org>
+				<en>&lt;b&gt;There was no admin account created&lt;/b&gt; HTML_NEWLINESolange no administrator account exists, the admin page for EVERYONE in the network.</en>
+				<es>&lt;b&gt;No había ninguna cuenta de administrador creada&lt;/b&gt; HTML_NEWLINESolange cuenta de administrador no existe, la página de administración para todos en la red.</es>
+				<fr>&lt;b&gt;Il n&amp;#39;y avait pas de compte admin créé&lt;/b&gt; HTML_NEWLINESolange aucun compte d&amp;#39;administrateur existe, la page d&amp;#39;admin pour chacun dans le réseau.</fr>
+				<nl>&lt;b&gt;Er was geen admin account aangemaakt&lt;/b&gt; HTML_NEWLINESolange geen administrator account bestaat, de admin pagina voor iedereen in het netwerk.</nl>
+				<it>&lt;b&gt;Non è stato account amministratore creato&lt;/b&gt; HTML_NEWLINESolange account amministratore non esiste, la pagina di amministrazione per tutti in rete.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1280,6 +2112,10 @@
 				<org>Hier legen Sie einen Adminaccount an, über welchen Sie Zugriff auf diese Admin-Seite erhalten. Wenn Sie bereits Benutzer-Daten importiert haben müssen Sie hier keinen weiteren Account anlegen.</org>
 				<de>Hier legen Sie einen Adminaccount an, über welchen Sie Zugriff auf diese Admin-Seite erhalten. Wenn Sie bereits Benutzer-Daten importiert haben müssen Sie hier keinen weiteren Account anlegen.</de>
 				<en>Here you create an adminaccount, which will grant you access to this admin-page. If you allready have importet user-data containing an admin, you dont have to create a secound admin here.</en>
+				<es>Aquí usted puede crear una cuenta de administrador en el que acceder a esta página de administración. Si usted ya ha importado los datos del usuario no tiene que crear otra cuenta.</es>
+				<fr>Ici vous pouvez créer un compte administrateur sur lequel vous accéder à cette page d&amp;#39;admin. Si vous avez déjà importé les données utilisateur Avez-vous besoin de créer un autre compte.</fr>
+				<nl>Hier creëer je een Admin account waarop u toegang tot deze admin pagina. Als u al gebruiker ingevoerde gegevens heb je nodig om een ander account te maken.</nl>
+				<it>Qui si crea un account di amministratore per il quale si accede a questa pagina admin. Se hai già importato i dati degli utenti non è necessario creare un altro account.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1287,6 +2123,10 @@
 				<org>ACHTUNG: Es wurde noch kein Adminaccount angelegt. Bitte legen Sie diesen unbedingt unterhalb an. Sobald dieser angelegt worden ist, ist diese Seite nur noch mit diesem Account erreichbar.</org>
 				<de>ACHTUNG: Es wurde noch kein Adminaccount angelegt. Bitte legen Sie diesen unbedingt unterhalb an. Sobald dieser angelegt worden ist, ist diese Seite nur noch mit diesem Account erreichbar.</de>
 				<en>ATTENTION: No adminaccount has been created, yet. As long, as no adminaccount has been created, each user will be granted to access the admin-page.</en>
+				<es>Atención: Aún no ha creado una cuenta de administrador. Sírvase adjuntar a este importante más adelante. Una vez que este ha sido creado, esta página sólo es accesible por esa cuenta.</es>
+				<fr>Attention: Il n&amp;#39;a pas encore créé un compte admin. S&amp;#39;il vous plaît joindre à cette importante ci-dessous. Une fois que ceci a été créé, cette page n&amp;#39;est accessible que par ce compte.</fr>
+				<nl>Let op: Het is nog niet creëerde een admin account. Gelieve deze belangrijke hieronder. Als dit eenmaal is aangemaakt, deze pagina is alleen toegankelijk door die rekening.</nl>
+				<it>Attenzione: non è ancora creato un account admin. Si prega di allegare a questa importante qui sotto. Una volta che questa è stata creata, questa pagina è accessibile solo da tale conto.</it>
 				<file>install</file>
 			</entry>
 			<entry>
@@ -1294,341 +2134,1450 @@
 				<org>Der Adminaccount wurde erfolgreich angelegt.</org>
 				<de>Der Adminaccount wurde erfolgreich angelegt.</de>
 				<en>Adminaccount was created successfully</en>
+				<es>La cuenta de administrador se ha creado con éxito.</es>
+				<fr>Le compte admin a été créé avec succès.</fr>
+				<nl>Het admin-account is aangemaakt.</nl>
+				<it>L&amp;#39;account amministratore è stato creato con successo.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ab828c6aefb298143635c14cfaa769b3</id>
 				<org>Soll das Modul &lt;b&gt;'%1'&lt;/b&gt; wirklich zurückgesetzt werden?&lt;br /&gt;Dies wirkt sich &lt;u&gt;nicht&lt;/u&gt; auf die Datenbankeinträge des Modules aus, jedoch gehen alle Einstellungen und Menüänderungen verloren, die zu diesem Modul getätigt worden sind.</org>
+				<en>If the module &lt;b&gt;&amp;#39;%1&amp;#39;&lt;/b&gt; is actually reset? &lt;br /&gt; This does &lt;u&gt;not&lt;/u&gt; affect the database entries of the module, but all the settings and menu changes are lost that have been made to this module.</en>
+				<es>&lt;b&gt;Si%&lt;/b&gt; el módulo &lt;b&gt;«1»&lt;/b&gt; es en realidad reset? &lt;br /&gt; Esto &lt;u&gt;no&lt;/u&gt; afecta a las entradas de la base de datos del módulo, pero todos los ajustes y cambios de menú están perdidos que se han realizado a este módulo.</es>
+				<fr>Si le &lt;b&gt;module%1 »est&lt;/b&gt; en fait le reset? &lt;br /&gt; Cela n&amp;#39;affecte &lt;u&gt;pas&lt;/u&gt; les entrées de la base de données du module, mais tous les réglages et les modifications du menu sont perdues qui ont été faites à ce module.</fr>
+				<nl>&lt;b&gt;Als%&lt;/b&gt; van de module &lt;b&gt;&amp;#39;1&amp;#39;&lt;/b&gt; is eigenlijk reset? &lt;br /&gt; Dit heeft &lt;u&gt;geen&lt;/u&gt; invloed op de database gegevens van de module, maar alle instellingen en menu verandert zijn verloren die zijn gedaan om deze module.</nl>
+				<it>Se il &lt;b&gt;modulo%&amp;#39;1&amp;#39;&lt;/b&gt; è in realtà reset? &lt;br /&gt; Ciò &lt;u&gt;non&lt;/u&gt; pregiudica le voci di database del modulo, ma tutte le impostazioni e le modifiche dei menu sono perse che sono state fatte a questo modulo.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ebbf908c688713bb690026ebc10e99b8</id>
 				<org>Die Datenbank '%1' existiert bereits und wurde daher nicht neu angelegt.</org>
+				<en>The database &amp;#39;%1&amp;#39; already exists and was therefore not re-created.</en>
+				<es>La base de datos%&amp;#39;1&amp;#39; ya existe y por tanto no vuelve a crear.</es>
+				<fr>La base de données%1 »existe déjà et n&amp;#39;a donc pas été recréés.</fr>
+				<nl>De database &amp;#39;%1&amp;#39; bestaat al en is daarom niet opnieuw gemaakt.</nl>
+				<it>Il database%&amp;#39;1&amp;#39; esiste già e pertanto non è stato ri-creato.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>668fb7fec7465e17fa6a0dec67ef50e0</id>
 				<org>Import wurde mit folgendem Ergebnis ausgeführt:HTML_NEWLINE&lt;ul&gt;Fehler: %1HTML_NEWLINEKeine Aktion: %1HTML_NEWLINENeue eingefügt: %1HTML_NEWLINEAlte überschrieben: %1&lt;/ul&gt;</org>
+				<en>Import was carried out with the following result: HTML_NEWLINE &lt;ul&gt; Error:%1HTML_NEWLINEKeine Action: added%1HTML_NEWLINENeue: overwrite 1HTML_NEWLINEAlte%:%1 &lt;/ul&gt;</en>
+				<es>De importación se realizó con el siguiente resultado: HTML_NEWLINE &lt;ul&gt; Error:%1HTML_NEWLINEKeine Acción: añadido%1HTML_NEWLINENeue: sobrescribir%1HTML_NEWLINEAlte:%1 &lt;/ul&gt;</es>
+				<fr>Import a été réalisée avec le résultat suivant: HTML_NEWLINE &lt;ul&gt; Erreur:%1HTML_NEWLINEKeine Action: ajout de%1HTML_NEWLINENeue: remplacer%1HTML_NEWLINEAlte:%1 &lt;/ul&gt;</fr>
+				<nl>Import is uitgevoerd met het volgende resultaat: HTML_NEWLINE &lt;ul&gt; Fout:%1HTML_NEWLINEKeine Actie: toegevoegd%1HTML_NEWLINENeue: overschrijven 1HTML_NEWLINEAlte%:%1 &lt;/ul&gt;</nl>
+				<it>Importazione è stata effettuata con il seguente risultato: HTML_NEWLINE &lt;ul&gt; Errore:%1HTML_NEWLINEKeine Azione: aggiunta%1HTML_NEWLINENeue: sovrascrivere%1HTML_NEWLINEAlte: 1%&lt;/ul&gt;</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b47334e0a8741536aef4eebdd21995cc</id>
 				<org>Import wurde mit folgendem Ergebnis ausgeführt:&lt;br /&gt;&lt;ul&gt;Fehler: %1&lt;br /&gt;Keine Aktion: %1&lt;br /&gt;Neue eingefügt: %1&lt;br /&gt;Alte überschrieben: %1&lt;/ul&gt;</org>
+				<en>Import was carried out with the following result: &lt;br /&gt;&lt;ul&gt; Error:%1 &lt;br /&gt; No action:%1 &lt;br /&gt; New added:%1 &lt;br /&gt; Old overwrite:%1 &lt;/ul&gt;</en>
+				<es>De importación se realizó con el siguiente resultado: &lt;br /&gt;&lt;ul&gt; Error:%1 &lt;br /&gt; Ninguna acción:%1 &lt;br /&gt; Nuevo añadido:%1 &lt;br /&gt; Sobrescribir anterior: 1%&lt;/ul&gt;</es>
+				<fr>Import a été réalisée avec le résultat suivant: &lt;br /&gt;&lt;ul&gt; Erreur:%1 &lt;br /&gt; Aucune action:%1 &lt;br /&gt; À nouveau ajouté:%1 &lt;br /&gt; Ecrase les anciens:%1 &lt;/ul&gt;</fr>
+				<nl>Import is uitgevoerd met het volgende resultaat: &lt;br /&gt;&lt;ul&gt; Fout:%1 &lt;br /&gt; Geen actie:%1 &lt;br /&gt; Nieuw toegevoegd:%1 &lt;br /&gt; Oude overschrijven:%1 &lt;/ul&gt;</nl>
+				<it>Importazione è stata effettuata con il seguente risultato: &lt;br /&gt;&lt;ul&gt; Errore:%1 &lt;br /&gt; Nessuna azione: 1%&lt;br /&gt; New aggiunto: 1%&lt;br /&gt; Sovrascrivere Old: 1%&lt;/ul&gt;</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>8cfebf89fd84de2527078cb659a9ec2d</id>
 				<org>&lt;b&gt;Es wurde kein Admin-Account angelegt&lt;/b&gt;&lt;br /&gt;Solange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.</org>
+				<en>&lt;b&gt;It was created no admin account&lt;/b&gt; &lt;br /&gt; As long as no administrator account exists, the admin page for EVERYONE in the network.</en>
+				<es>&lt;b&gt;Fue creado ninguna cuenta de administrador&lt;/b&gt; &lt;br /&gt; Mientras no existe la cuenta de administrador, la página de administración para todos en la red.</es>
+				<fr>&lt;b&gt;Il a été créé aucun compte admin&lt;/b&gt; &lt;br /&gt; Tant qu&amp;#39;il n&amp;#39;existera pas compte de l&amp;#39;administrateur, la page d&amp;#39;admin pour chacun dans le réseau.</fr>
+				<nl>&lt;b&gt;Het was geschapen geen admin account&lt;/b&gt; &lt;br /&gt; Zolang er geen administrator account bestaat, de admin pagina voor iedereen in het netwerk.</nl>
+				<it>&lt;b&gt;E &amp;#39;stato creato nessun account admin&lt;/b&gt; &lt;br /&gt; Finché non esiste account amministratore, la pagina di amministrazione per tutti in rete.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e7ee70e712e2fe41c61e066d922e247c</id>
 				<org>Dies scheint keine Lansuite-kompatible-XML-Datei zu sein. Bitte Überprüfen sie den Eintrag &amp;lt;filetype&amp;gt; am Anfang der XML-Datei (FileType: '%1</org>
+				<en>This does not look Lansuite-compatible XML file to be. Please check the entry &amp;lt;FileType&amp;gt; at the beginning of the XML file (FileType: &amp;#39;%1</en>
+				<es>Esto no parece compatible con Lansuite archivo XML que sea. Por favor, compruebe el &amp;lt;tipoArchivo&amp;gt; entrada al principio del archivo XML (filetype: &amp;#39;%1</es>
+				<fr>Cette valeur ne semble pas compatible Lansuite fichier XML de l&amp;#39;être. S&amp;#39;il vous plaît vérifier l&amp;#39;&amp;lt;typedefichier&amp;gt; entrée au début du fichier XML (filetype: &amp;#39;%1</fr>
+				<nl>Dit ziet er niet Lansuite-compatibel XML-bestand te zijn. Controleer de vermelding &amp;lt;FileType&amp;gt; aan het begin van het XML-bestand (bestandstype: &amp;#39;%1</nl>
+				<it>Questo non sembra Lansuite-compatibili file XML di essere. Si prega di verificare le &amp;lt;FileType&amp;gt; ingresso all&amp;#39;inizio del file XML (file: &amp;#39;%1</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>47a1717583a38d065dd69434b2398f7c</id>
 				<org>Das Modul %1 kann nicht aktiviert werden, da die PHP Version %2 benötigt wird</org>
+				<en>The module%1 could not be activated because the required PHP version%2</en>
+				<es>El módulo%1 no puede ser activado debido a que el%PHP requiere la versión 2</es>
+				<fr>Le module%1 n&amp;#39;a pas pu être activé car la version PHP requise de 2%</fr>
+				<nl>De module%1 kon niet worden geactiveerd omdat de vereiste PHP versie%2</nl>
+				<it>Il modulo%1 non poteva essere attivato perché l&amp;#39;%PHP versione richiesta 2</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>703c32996a72ec618df378dcc7f7703d</id>
 				<org>Benötigt</org>
+				<en>Requires</en>
+				<es>Requiere</es>
+				<fr>Nécessite</fr>
+				<nl>Vereist</nl>
+				<it>Richiede</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>32fd9580bb559fcfe00b3b29ea11f542</id>
 				<org>Verwenden Sie die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box</org>
+				<en>Use the menu box number to build new boxes. All entries with the same ID to land in the same box</en>
+				<es>Utilice el número de cuadro de menú para crear nuevas cajas. Todas las entradas con el mismo ID de la tierra en la misma caja</es>
+				<fr>Utilisez le numéro de la case de menu pour construire de nouvelles boîtes. Toutes les entrées avec le même code d&amp;#39;identification à la terre dans la même boîte</fr>
+				<nl>Gebruik het menu om nieuwe doos aantal dozen te bouwen. Alle inzendingen met dezelfde ID om grond in hetzelfde vak</nl>
+				<it>Utilizzare il numero di casella di menu per creare nuovi widget. Tutte le voci con lo stesso ID a terra nella stessa scatola</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b2153d6647abc2a07b4f3eb5ce5fe3e9</id>
 				<org>Verwenden sie die Gruppen um in der URL mit dem Parameter &amp;menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design</org>
+				<en>They use the groups to spend in the URL with the parameter &amp;amp; = xx menu_group only certain menu entries. This is useful in its own main menu in your own style</en>
+				<es>Utilizan a los grupos que pasan en la URL con el parámetro &amp;amp; = xx menu_group sólo algunas entradas del menú. Esto es útil en su menú principal propio en su propio estilo</es>
+				<fr>Ils utilisent des groupes pour passer dans l&amp;#39;URL avec le paramètre &amp;amp; = xx menu_group que certaines entrées de menu. Ceci est utile dans son propre menu principal dans votre propre style</fr>
+				<nl>Zij maken gebruik van de groepen te besteden in de URL met de parameter &amp;amp; = xx menu_group alleen bepaalde menu items. Dit is handig in zijn eigen hoofdmenu in uw eigen stijl</nl>
+				<it>Usano i gruppi per trascorrere l&amp;#39;URL con il parametro &amp;amp; = xx menu_group solo alcune voci di menu. Ciò è utile nel proprio menu principale nel vostro stile</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ded86575b97cdfd8a7ea9c2dd57bb337</id>
 				<org>Erfolgreich</org>
+				<en>Successful</en>
+				<es>Éxito</es>
+				<fr>Réussie</fr>
+				<nl>Succesvolle</nl>
+				<it>Successo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>de1707496ef1fa73a956d6b02db54784</id>
 				<org>Fehlgeschlagen</org>
+				<en>Failed</en>
+				<es>No se ha podido</es>
+				<fr>Echec</fr>
+				<nl>Mislukt</nl>
+				<it>Fallito</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>938d62458b984f15ccc750f0d12a6afd</id>
 				<org>Bedenkliche Einstellung</org>
+				<en>Questionable attitude</en>
+				<es>Actitud cuestionable</es>
+				<fr>Questionable attitude</fr>
+				<nl>Verdachte houding</nl>
+				<it>Discutibile atteggiamento</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>adb781900af027be404e2e33bc297f51</id>
 				<org>Optimierungsbedarf</org>
+				<en>Optimization requirements</en>
+				<es>Los requisitos de optimización de</es>
+				<fr>Exigences d&amp;#39;optimisation</fr>
+				<nl>Optimalisatie eisen</nl>
+				<it>Esigenze di ottimizzazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>3ca804fe56c1fa6436f9bcc8a7c46bb8</id>
 				<org>Auf Ihrem System konnte das PHP-Modul &lt;b&gt;FTP-Library&lt;/b&gt; nicht gefunden werden. Dies hat zur Folge haben, dass das Download-Modul nur im Standard-Modus, jedoch nicht im FTP-Modus, verwendet werden kann</org>
+				<en>On your system, the PHP module &lt;b&gt;FTP library&lt;/b&gt; could not be found. This has lead to that, the download module only in standard mode, but not in FTP mode, can be used</en>
+				<es>En su sistema, la &lt;b&gt;biblioteca&lt;/b&gt; del módulo PHP &lt;b&gt;FTP&lt;/b&gt; no pudo ser encontrado. Esto ha llevado a que, el módulo de descarga sólo en el modo estándar, pero no en el modo de FTP, puede ser utilizado</es>
+				<fr>Sur votre système, le module PHP &lt;b&gt;librairie FTP&lt;/b&gt; n&amp;#39;a pas pu être trouvé. Ceci a conduit à cela, le module de téléchargement uniquement en mode standard, mais pas en mode FTP, peut être utilisé</fr>
+				<nl>Op uw systeem kunnen, de PHP-module &lt;b&gt;FTP-bibliotheek&lt;/b&gt; niet worden gevonden. Dit heeft geleid tot dat, kan de download-module alleen in de standaard mode, maar niet in FTP-modus, worden gebruikt</nl>
+				<it>Sul vostro sistema, la &lt;b&gt;libreria&lt;/b&gt; PHP &lt;b&gt;FTP&lt;/b&gt; modulo non è stato trovato. Ciò ha portato a questo, il modulo per il download solo in modalità standard, ma non in modalità FTP, può essere utilizzato</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>5ae963e63928340137b8938216ed9492</id>
 				<org>Informationen - Interesante Server-Einstellungen im Überblick</org>
+				<en>Information - Interesting Overview of server settings</en>
+				<es>Información - Interés general de la configuración del servidor</es>
+				<fr>De l&amp;#39;information - Vue d&amp;#39;ensemble intéressante paramètres du serveur</fr>
+				<nl>Informatie - Interessante Overzicht van de server instellingen</nl>
+				<it>Informazioni - Interessante Panoramica delle impostazioni del server</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>7417eeb41d24185403a02cdb71bb304d</id>
 				<org>Webserver</org>
+				<en>Web</en>
+				<es>Web</es>
+				<fr>Web</fr>
+				<nl>Web</nl>
+				<it>Web</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>eddb48061fa1223c3ebac7425ab8f0f7</id>
 				<org>Freier Speicherplatz</org>
+				<en>Free Space</en>
+				<es>Espacio Libre</es>
+				<fr>Free Space</fr>
+				<nl>Free Space</nl>
+				<it>Free Space</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>2fec392304a5c23ac138da22847f9b7c</id>
 				<org>PHP</org>
+				<en>PHP</en>
+				<es>PHP</es>
+				<fr>PHP</fr>
+				<nl>PHP</nl>
+				<it>PHP</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>62a004b95946bb97541afa471dcca73a</id>
 				<org>MySQL</org>
+				<en>MySQL</en>
+				<es>MySQL</es>
+				<fr>MySQL</fr>
+				<nl>MySQL</nl>
+				<it>MySQL</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>45873bd9a1ef08dc2ca9ebb3dd5e0917</id>
 				<org>Key buffer size -  MySQL empfiehlt für optimale Performance: 25% des Arbeitsspeichers. Oft reicht weniger.</org>
+				<en>Key buffer size - MySQL is recommended for optimum performance: 25%of RAM. Often less is sufficient.</en>
+				<es>Tamaño de búfer Key - MySQL se recomienda para un rendimiento óptimo: 25%de RAM. A menudo, menos es suficiente.</es>
+				<fr>Taille du tampon de clés - MySQL est recommandé pour des performances optimum: 25%de RAM. Souvent moins est suffisant.</fr>
+				<nl>Key buffer size - MySQL wordt aanbevolen voor een optimale prestatie: 25%van RAM-geheugen. Vaak minder is voldoende.</nl>
+				<it>Dimensione del buffer Key - MySQL è consigliato per ottenere prestazioni ottimali: il 25%di RAM. Spesso meno è sufficiente.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>3127d8996580e46f68c79aa744481830</id>
 				<org>Key blocks - Performance: Key_blocks_unused sollte niemals 0 erreichen! Wenn der Wert nahe 0 ist: key_buffer_size erhöhen</org>
+				<en>Key blocks - Performance: Key_blocks_unused should never reach 0! If the value is close to 0: raise key_buffer_size</en>
+				<es>Bloques clave - de la ejecución: Key_blocks_unused nunca debería llegar a 0! Si el valor es cercano a 0: aumentar key_buffer_size</es>
+				<fr>Blocs-clés - Performance: Key_blocks_unused ne devrait jamais atteindre 0! Si la valeur est proche de 0: raise key_buffer_size</fr>
+				<nl>Key blokken - Performance: Key_blocks_unused mag nooit bereiken 0! Als de waarde dicht bij 0: raise key_buffer_size</nl>
+				<it>Blocchi Key - Performance: Key_blocks_unused non dovrebbe mai raggiungere lo 0! Se il valore è vicino a 0: raise key_buffer_size</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>5b5c44503f413bd376c69e45a2bfceba</id>
 				<org>Query cache - Beschleunigt MySQL-Abfragen. Sollte aktiv sein</org>
+				<en>Query cache - Accelerates MySQL queries. Should be active</en>
+				<es>Caché de consultas - Acelera las consultas de MySQL. Debe ser activa</es>
+				<fr>Cache de requêtes - accélère les requêtes MySQL. Doit être active</fr>
+				<nl>Query cache - Versnelt MySQL queries. Moet actief</nl>
+				<it>Query cache - Accelera query MySQL. Dovrebbe essere attivo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>0fcc95d2bc2190504e692c1b0e8bb558</id>
 				<org>Sicherheit - Diese Einstellungen sollten aus Security-Gründen vorgenommen werden</org>
+				<en>Security - This setting should be made out of security reasons</en>
+				<es>Seguridad - Este ajuste debe ser motivos de seguridad</es>
+				<fr>Sécurité - Ce paramètre doit être tiré des raisons de sécurité</fr>
+				<nl>Security - Deze instelling moet worden gemaakt uit veiligheidsoverwegingen</nl>
+				<it>Sicurezza - Questa impostazione dovrebbe essere fatto di ragioni di sicurezza</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>649e57673cbf175e3684a22ca78c5197</id>
 				<org>Sie müssen einen Admin-Account anlegen, um fortfahren zu können</org>
+				<en>You must create an Admin account, to continue</en>
+				<es>Usted debe crear una cuenta de administrador, para continuar</es>
+				<fr>Vous devez créer un compte d&amp;#39;administrateur, de continuer</fr>
+				<nl>U moet een Admin account, om verder te gaan</nl>
+				<it>È necessario creare un account amministratore, per continuare</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>99ddd592c1eed478c374f84074ccbf2c</id>
 				<org>ACHTUNG: Der Aufruf der nächsten Seite kann bis zu einer Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!</org>
+				<en>PLEASE NOTE: The call to the next page may take up to one minute in demand! Please do not cancel the load at this time!</en>
+				<es>NOTA: La llamada a la siguiente página puede tomar hasta un minuto para reclamar! Por favor, no cancelar la carga en este momento!</es>
+				<fr>NOTE: L&amp;#39;appel à la page suivante mai prendre jusqu&amp;#39;à une minute pour réclamation! S&amp;#39;il vous plaît ne s&amp;#39;annulent pas à la charge pour cette fois!</fr>
+				<nl>OPMERKING: De oproep naar de volgende pagina kan tot een minuut te beweren! Neem annuleren niet de belasting op dit moment!</nl>
+				<it>NOTA: La chiamata alla pagina successiva potrebbe richiedere fino a un minuto di credito! Si prega di non annullare il carico in questo momento!</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>44a18f465e153de552cf7ba477e0b8dd</id>
 				<org>Verbdindung ok aber keinen Datenbanknamen angegeben.</org>
+				<en>Verbdindung ok but do not specify a database name.</en>
+				<es>Ok Verbdindung pero no especifica un nombre de base de datos.</es>
+				<fr>Ok Verbdindung mais ne précise pas le nom d&amp;#39;une base de données.</fr>
+				<nl>Verbdindung ok maar geven niet aan een database naam.</nl>
+				<it>Ok Verbdindung ma non si specifica un nome di database.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>30919743bfd257e68b3da745e4df17e6</id>
 				<org>Datenbank wurde erfolgreich Überschrieben.</org>
+				<en>Database has been successfully overwritten.</en>
+				<es>Base de datos ha sido sobrescrito con éxito.</es>
+				<fr>Base de données a été correctement remplacé.</fr>
+				<nl>Database is succesvol overschreven.</nl>
+				<it>Database è stato correttamente sovrascritto.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>1ac2c94e511f108f36d3da2954ba5ef6</id>
 				<org>Die Tabellenstruktur wurde erfolgreich angepasst</org>
+				<en>The table structure has been successfully adapted</en>
+				<es>La estructura de la tabla se ha adaptado con éxito</es>
+				<fr>La structure de table a été adaptée avec succès</fr>
+				<nl>De tabel structuur is met succes aangepast</nl>
+				<it>La struttura della tabella è stato adattato con successo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>83e7ac51db2a979c0154cea4f31f5a21</id>
 				<org>Datenbankgenerierung</org>
+				<en>Database Generation</en>
+				<es>Generación de bases de datos</es>
+				<fr>Base de données Generation</fr>
+				<nl>Database Generation</nl>
+				<it>Database Generation</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>9d06d5514ed82c43aaf4eba3f8b2295a</id>
 				<org>Das Setup versucht nun die Datenbank zu initialisieren.</org>
+				<en>The setup is now trying to initialize the database.</en>
+				<es>El programa de instalación está ahora tratando de inicializar la base de datos.</es>
+				<fr>Le programme d&amp;#39;installation essaie maintenant d&amp;#39;initialiser la base de données.</fr>
+				<nl>De installatie is nu probeert te initialiseren van de database.</nl>
+				<it>L&amp;#39;installazione è il tentativo di inizializzare il database.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ac8323aa44be5ffc1395e4d9878a6487</id>
 				<org>Importsettings</org>
+				<en>Import Settings</en>
+				<es>Configuración de la importación</es>
+				<fr>Paramètres d&amp;#39;importation</fr>
+				<nl>Import Instellingen</nl>
+				<it>Importare le impostazioni</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>fd944430e98693af42ca0d85f0b68834</id>
 				<org>wizard_importupload_caption</org>
+				<en>wizard_importupload_caption</en>
+				<es>wizard_importupload_caption</es>
+				<fr>wizard_importupload_caption</fr>
+				<nl>wizard_importupload_caption</nl>
+				<it>wizard_importupload_caption</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>7a89dfff8185c6b71095c2fb1784c0df</id>
 				<org>wizard_importupload_subcaption</org>
+				<en>wizard_importupload_subcaption</en>
+				<es>wizard_importupload_subcaption</es>
+				<fr>wizard_importupload_subcaption</fr>
+				<nl>wizard_importupload_subcaption</nl>
+				<it>wizard_importupload_subcaption</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b15b7b0340f52d448dc6191fc9317f3a</id>
 				<org>Benutzer</org>
+				<en>Users</en>
+				<es>Usuarios</es>
+				<fr>Utilisateurs</fr>
+				<nl>Gebruikers</nl>
+				<it>Utenti</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>dd1ba1872df91985ed1ca4cde2dfe669</id>
 				<org>News</org>
+				<en>News</en>
+				<es>Noticias</es>
+				<fr>Nouvelles</fr>
+				<nl>Nieuws</nl>
+				<it>News</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>cf1e8c14e54505f60aa10ceb8d5d8ab3</id>
 				<org>server</org>
+				<en>server</en>
+				<es>servidor</es>
+				<fr>serveur</fr>
+				<nl>server</nl>
+				<it>server</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>d97477d6d8a838ead9348185bb5b6742</id>
 				<org>Thread</org>
+				<en>Thread</en>
+				<es>Hilo</es>
+				<fr>Fil</fr>
+				<nl>Draad</nl>
+				<it>Filo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>b2e255e5cfd29133935ae00468406e2e</id>
 				<org>Troubletickets</org>
+				<en>Trouble Tickets</en>
+				<es>Trouble Tickets</es>
+				<fr>Trouble Tickets</fr>
+				<nl>Trouble Tickets</nl>
+				<it>Trouble Tickets</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4c13a0f237fca3cba3a7d63d2a7c165d</id>
 				<org>Zuletzt angemeldet</org>
+				<en>Last registered</en>
+				<es>Último registrado</es>
+				<fr>Derniers inscrits</fr>
+				<nl>Laatste ingeschrevenen</nl>
+				<it>Ultima registrati</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e402136bbbf3f32728e0bdcc50cfb792</id>
 				<org>Registrieren</org>
+				<en>Register</en>
+				<es>Registro</es>
+				<fr>Inscrivez-vous</fr>
+				<nl>Registreer</nl>
+				<it>Registrati</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>1b9ab42b566b6e7bd605c9313d430539</id>
 				<org>Passwort vergessen</org>
+				<en>Password</en>
+				<es>Contraseña</es>
+				<fr>Mot de passe</fr>
+				<nl>Wachtwoord</nl>
+				<it>Password</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>80545ef9178fc406a52cb1a9fdb040eb</id>
 				<org>Keine Einträge in den </org>
+				<en>No entries found in the</en>
+				<es>No hay entradas en el</es>
+				<fr>Aucun article trouvé dans le</fr>
+				<nl>Geen items gevonden in de</nl>
+				<it>Nessun risultato trovato nella</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>2fbba2aa21264d81881619d5fd6dbb7e</id>
 				<org>letzten 30 Minuten</org>
+				<en>last 30 minutes</en>
+				<es>últimos 30 minutos</es>
+				<fr>durer 30 minutes</fr>
+				<nl>laatste 30 minuten</nl>
+				<it>negli ultimi 30 minuti</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>8c7c0332388ef9862fb8b85f7bf88e21</id>
 				<org>Zu diesem Modul sind keine Einstellungen vorhanden</org>
+				<en>This module no settings are available</en>
+				<es>Este módulo no tiene estos ajustes están disponibles</es>
+				<fr>Ce module aucun paramètre n&amp;#39;est disponible</fr>
+				<nl>Deze module geen instellingen zijn beschikbaar</nl>
+				<it>Questo modulo non sono disponibili impostazioni</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>1b26a8bba6e841f1c375b283db5c1c61</id>
 				<org>Keine</org>
+				<en>None</en>
+				<es>Ninguno</es>
+				<fr>Aucun</fr>
+				<nl>Geen</nl>
+				<it>Nessuno</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>c220e6690f8d6c2809ee9593012d1658</id>
 				<org>Dieses Modul benötigt keine Datenbank Tabellen</org>
+				<en>This module requires no database tables</en>
+				<es>Este módulo no requiere de tablas de base de datos</es>
+				<fr>Ce module ne nécessite pas de tables de base de données</fr>
+				<nl>Deze module vereist geen database tabellen</nl>
+				<it>Questo modulo non richiede le tabelle del database</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ee215187f3e610af6f72626ab7995770</id>
 				<org>Dieses Modul ist nicht aktiv.</org>
+				<en>This module is not active.</en>
+				<es>Este módulo no está activo.</es>
+				<fr>Ce module n&amp;#39;est pas actif.</fr>
+				<nl>Deze module is niet actief.</nl>
+				<it>Questo modulo non è attivo.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>64db6dadc009480fb44bef4f08ee07c0</id>
 				<org>Abhängigkeiten</org>
+				<en>Dependencies</en>
+				<es>Dependencias</es>
+				<fr>Dépendances</fr>
+				<nl>Afhankelijkheden</nl>
+				<it>Dipendenze</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>89c5a5190426df049b6e313617e02029</id>
 				<org>Rot: Wenn rechts ein Eintrag gelöscht wird, wenden links die passenden mit gelöscht</org>
+				<en>Red: If an item is deleted on the right, left turn, with the appropriate delete</en>
+				<es>Rojo: Si se elimina un elemento de la derecha, la izquierda a su vez, con la correspondiente eliminación</es>
+				<fr>Rouge: Si un élément est supprimé sur la droite, à gauche tour, avec le cas échéant supprimer</fr>
+				<nl>Rood: Als een item wordt verwijderd rechts, links draaien, met de juiste verwijderen</nl>
+				<it>Rosso: se un elemento viene eliminato a destra, a sinistra girare, con le opportune eliminare</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>119a0682e2624633e02a773caec371da</id>
 				<org>Grün: Rechts kann kein Eintrag gelöscht werden, solange links nocht mindestens ein Wert auf diesen referenziert</org>
+				<en>Green: Right no entry can be deleted, as long as Nocht left at least one value referenced to this</en>
+				<es>Verde: El derecho de entrada no puede ser suprimido, mientras Nocht dejó al menos un valor de referencia de la presente</es>
+				<fr>Vert: aucun droit d&amp;#39;entrée peuvent être supprimés, tant que Nocht laissé au moins une valeur référencée à ce</fr>
+				<nl>Groen: Rechts geen toegang kan worden geschrapt, zolang Nocht links ten minste een waarde gerelateerd aan deze</nl>
+				<it>Verdi: destra non iscrizione può essere cancellato, fintantoché Nocht lasciato almeno un valore di riferimento a questa</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>8ef702dddbd3dc28197adad3254dbddd</id>
 				<org>Tabellen, die Tabellen dieses Moduls vorraussetzen</org>
+				<en>Tables, the tables in this module may require you</en>
+				<es>Las tablas, las tablas de este módulo puede requerir que usted</es>
+				<fr>Tableaux, les tableaux de ce module de mai vous avez besoin</fr>
+				<nl>Tabellen, de tabellen in deze module kan u verplichten</nl>
+				<it>Tavole, le tabelle in questo modulo possono richiedere la</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>db7dd8175c2c1ea1622af8b4547b323f</id>
 				<org>Sprache wechseln. Achtung, nicht gesicherte &amp;Auml;nderungen gehen verloren.</org>
+				<en>Language. Be careful, do not secure changes are lost.</en>
+				<es>Idioma. Tenga cuidado, los cambios no se pierden seguro.</es>
+				<fr>Langue. Soyez prudent, ne pas les changements sécurisées sont perdus.</fr>
+				<nl>Taal. Wees voorzichtig, niet veilig wijzigingen gaan verloren.</nl>
+				<it>Lingua. Stare attenti, non si sono perse le modifiche sicuro.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>2a6cc405419ee2c86a8f8b8d5abeec08</id>
 				<org>Ziel Sprache</org>
+				<en>Target language</en>
+				<es>Idioma de destino</es>
+				<fr>Langue cible</fr>
+				<nl>Doeltaal</nl>
+				<it>Target language</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>67b46e8a03d8542528a9097a88d63b1a</id>
 				<org>Texte editieren.</org>
+				<en>Text editing.</en>
+				<es>Edición de texto.</es>
+				<fr>Édition de texte.</fr>
+				<nl>Tekst bewerken.</nl>
+				<it>La modifica del testo.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>da9e910785b339e391a9e910a5965b6e</id>
 				<org>Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:[br]%1</org>
+				<en>The following modules do not have an admin and are therefore changeable for each admin: [br]%1</en>
+				<es>Los siguientes módulos no tienen un administrador y, por lo tanto cambiante para cada administrador: [br]%1</es>
+				<fr>Les modules suivants ne disposent pas d&amp;#39;admin et sont donc modifiables pour chaque admin: [br]%1</fr>
+				<nl>De volgende modules hebben geen admin en zijn dus veranderlijk voor elke admin: [br]%1</nl>
+				<it>I seguenti moduli non sono un amministratore e sono pertanto modificabili per ogni admin: [br] 1%</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>4484cab2f272040d09a283a001136299</id>
 				<org>Es wurden SQL-Fehler im Log gefunden, die auf eine nicht aktuelle Struktur der Lansuite-Datenbank hindeuten. Es wird empfohlen die Datenbank zu aktuallisieren.</org>
+				<en>SQL errors were found in the log that indicate a non-Lansuite current structure of the database. It is recommended aktuallisieren the database.</en>
+				<es>Errores de SQL se encontraron en el registro que indican una no estructura Lansuite actual de la base de datos. Se recomienda aktuallisieren la base de datos.</es>
+				<fr>Erreurs SQL ont été trouvés dans le journal qui indiquent une non-structure Lansuite actuelle de la base de données. Il est recommandé aktuallisieren la base de données.</fr>
+				<nl>SQL-fouten werden gevonden in het logboek die duiden op een niet-Lansuite huidige structuur van de database. Het wordt aanbevolen aktuallisieren de database.</nl>
+				<it>Errori di SQL sono stati trovati nel file di registro che indicano una non-struttura Lansuite corrente del database. Si raccomanda aktuallisieren il database.</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>e320dbe53b48b2eacd9ad742a118fb61</id>
 				<org>Datenbank jetzt aktuallisieren</org>
+				<en>Database aktuallisieren now</en>
+				<es>Aktuallisieren base de datos ahora</es>
+				<fr>Base de données aktuallisieren maintenant</fr>
+				<nl>Database aktuallisieren nu</nl>
+				<it>Aktuallisieren Database ora</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>84f181810c654721aee880a3187f1ed7</id>
 				<org>Konfigurationseinstellungen suchen</org>
+				<en>Looking for configuration settings</en>
+				<es>Buscando opciones de configuración</es>
+				<fr>Vous cherchez des paramètres de configuration</fr>
+				<nl>Op zoek naar configuratie-instellingen</nl>
+				<it>Looking for impostazioni di configurazione</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>9be562988ac623e9e2b31d40d95c553f</id>
 				<org>Alle Felder</org>
+				<en>All Fields</en>
+				<es>Todos los campos</es>
+				<fr>Tous les champs</fr>
+				<nl>Alle velden</nl>
+				<it>Tutti i campi</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>897356954c2cd3d41b221e3f24f99bba</id>
 				<org>Key</org>
+				<en>Key</en>
+				<es>Llave</es>
+				<fr>Clé</fr>
+				<nl>Sleutel</nl>
+				<it>Chiave</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>666b23dcd48ede325a744d21b1628e9e</id>
 				<org>Modul</org>
+				<en>Module</en>
+				<es>Módulo</es>
+				<fr>Module</fr>
+				<nl>Module</nl>
+				<it>Modulo</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>689202409e48743b914713f96d93947c</id>
 				<org>Value</org>
+				<en>Value</en>
+				<es>Valor</es>
+				<fr>Valeur</fr>
+				<nl>Waarde</nl>
+				<it>Valore</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>35bedb45241d6b3f70fa6f56197c3361</id>
 				<org>Beschreibung</org>
+				<en>Description</en>
+				<es>Descripción</es>
+				<fr>Description</fr>
+				<nl>Beschrijving</nl>
+				<it>Descrizione</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>f08620b4c5eccde44ce089f603b63948</id>
 				<org>Sind Sie sicher, dass Sie &lt;b&gt;'alle Konfigurationen'&lt;/b&gt; zurÃ¼cksetzen möchten? Damit gehen alle Ihre Moduleinstellungen verloren!</org>
+				<en>Are you sure that you &lt;b&gt;&amp;#39;want&lt;/b&gt; cksetzen &lt;b&gt;all configurations&amp;#39; Return?&lt;/b&gt; To ensure that all your module settings will be lost!</en>
+				<es>¿Estás seguro de que &lt;b&gt;&amp;quot;quieren&lt;/b&gt; cksetzen &lt;b&gt;Volver todas las configuraciones?&lt;/b&gt; Para garantizar que todos los ajustes del módulo se perderán!</es>
+				<fr>Êtes-vous sûr que &lt;b&gt;tu veux&lt;/b&gt; cksetzen &lt;b&gt;Retour à toutes les configurations?&lt;/b&gt; Pour s&amp;#39;assurer que tous les paramètres de votre module sera perdu!</fr>
+				<nl>Weet je zeker dat &lt;b&gt;je wilt Return alle configuraties &amp;#39;cksetzen?&lt;/b&gt; Om ervoor te zorgen dat al uw module instellingen zullen verloren gaan!</nl>
+				<it>Sei sicuro che si &lt;b&gt;&amp;#39;desidera&lt;/b&gt; cksetzen &lt;b&gt;Return tutte le configurazioni di&amp;#39;?&lt;/b&gt; Per garantire che tutte le tue impostazioni del modulo andranno persi!</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>c780db0f6cfd1bdad7fc8065bb494da1</id>
 				<org>Sonstige neue Kommentare</org>
+				<en>Other new comments</en>
+				<es>Otros nuevos comentarios</es>
+				<fr>Autres nouveaux commentaires</fr>
+				<nl>Andere nieuwe reacties</nl>
+				<it>Altri nuovi commenti</it>
 				<file>install</file>
 			</entry>
 			<entry>
 				<id>ec587aecd4a4830ab84f0c3ae0c6a2dd</id>
 				<org>Keine Einträge vorhanden</org>
+				<en>No entries</en>
+				<es>No hay entradas</es>
+				<fr>Pas d&amp;#39;entrées</fr>
+				<nl>No entries</nl>
+				<it>Nessuna voce</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
+				<org>Alle</org>
+				<en>All</en>
+				<es>Todo</es>
+				<fr>Tous</fr>
+				<nl>Alle</nl>
+				<it>Tutto</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>a45da96d0bf6575970f2d27af22be28a</id>
+				<org>System</org>
+				<en>System</en>
+				<es>Sistema</es>
+				<fr>Système</fr>
+				<nl>Systeem</nl>
+				<it>Sistema</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>0aeae8dd0fafb773fc1b18e71fdcaf77</id>
+				<org>Auslöser</org>
+				<en>Shutter</en>
+				<es>Shutter</es>
+				<fr>Shutter</fr>
+				<nl>Sluitertijd</nl>
+				<it>Shutter</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>1ab78c8eb552f68ef248f3e5b673abd2</id>
+				<org>Beitrags ID</org>
+				<en>Entry ID</en>
+				<es>ID de Entrada</es>
+				<fr>ID d&amp;#39;entrée</fr>
+				<nl>Entry ID</nl>
+				<it>Registrazione ID</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>18b9c44c3e91fe7840dac13aae9c5d9a</id>
+				<org>Meldung</org>
+				<en>Message</en>
+				<es>Mensaje</es>
+				<fr>Message</fr>
+				<nl>Bericht</nl>
+				<it>Messaggio</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>9ba51734ced032fd8ec25acfb387a23f</id>
+				<org>Datum</org>
+				<en>Date</en>
+				<es>Fecha</es>
+				<fr>Date</fr>
+				<nl>Datum</nl>
+				<it>Data</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>99dea78007133396a7b8ed70578ac6ae</id>
+				<org>Login</org>
+				<en>Login</en>
+				<es>Inicio de sesión</es>
+				<fr>Connexion</fr>
+				<nl>Inloggen</nl>
+				<it>Accesso</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>8be24a252caa4be51f5d71a9ba58ff04</id>
+				<org>Modulmanager (Module de-/aktivieren)</org>
+				<en>Module Manager (Modules Deactivating)</en>
+				<es>Gestor de módulos (Módulos Desactivar)</es>
+				<fr>Gestionnaire de modules (modules désactivation)</fr>
+				<nl>Module Manager (Modules deactiveren)</nl>
+				<it>Module Manager (Moduli Disattivazione)</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>51e9ba9a74becd5a35cc653e594bd5da</id>
+				<org>durchsuchen</org>
+				<en>Search</en>
+				<es>Búsqueda</es>
+				<fr>Recherche</fr>
+				<nl>Zoeken</nl>
+				<it>Ricerca</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>0dccdaaf1488368c54521df2937731e5</id>
+				<org>Texte übersetzen</org>
+				<en>Translating Texts</en>
+				<es>Traducción de textos</es>
+				<fr>Traduire des textes</fr>
+				<nl>Het vertalen van teksten</nl>
+				<it>Traduzione di testi</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>bec5c3fd13b6dd9774f1d79eb9d3adb6</id>
+				<org>System Zustand</org>
+				<en>System Status</en>
+				<es>Estado del sistema</es>
+				<fr>Statut du système</fr>
+				<nl>Systeemstatus</nl>
+				<it>System Status</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>a880968faebe121719ff1b82edacd9f2</id>
+				<org>Log File ansehen</org>
+				<en>View Log File</en>
+				<es>Ver archivo de registro</es>
+				<fr>Afficher le fichier journal</fr>
+				<nl>View Log File</nl>
+				<it>Visualizza file di log</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>6a67951a8a401832aacedd36190c7ade</id>
+				<org>Aktuelle Sessions auflisten</org>
+				<en>Current Sessions List</en>
+				<es>Actual lista de sesiones</es>
+				<fr>Faire la liste des Sessions</fr>
+				<nl>Huidige Sessions Lijst</nl>
+				<it>Sessioni correnti List</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>4e9dae26c7f4831a392919de6b9bed44</id>
+				<org>Datenbank updaten und verwalten (sollte nach jedem Lansuite-Update ausgeführt werden)</org>
+				<en>Database update and manage (should be executed) after each update Lansuite</en>
+				<es>Actualizar y administrar la base de datos (en caso de ser ejecutado) después de cada actualización Lansuite</es>
+				<fr>Base de données mise à jour et gérer (et doit être exécuté) après chaque mise à jour Lansuite</fr>
+				<nl>Database updaten en beheren (moet worden uitgevoerd) na elke update Lansuite</nl>
+				<it>Database di aggiornare e gestire (deve essere eseguito) dopo ogni aggiornamento Lansuite</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>0d0f5af518e8bbe3162ff6301cedb2f6</id>
+				<org>Menüeinträge neu schreiben</org>
+				<en>Menu items re-write</en>
+				<es>Los elementos de menú re-escribir</es>
+				<fr>Articles re Menu-écriture</fr>
+				<nl>Menu-items re-write</nl>
+				<it>Le voci di menu riscrivere</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>52e4c4c8636769c725055e066c5b5917</id>
+				<org>Kommentare aller Module durchsuchen</org>
+				<en>Comments browse all modules</en>
+				<es>Comentarios Mostrar todos los módulos</es>
+				<fr>Commentaires Voir tous les modules</fr>
+				<nl>Reacties bladeren alle modules</nl>
+				<it>Commenti Mostra tutti i moduli</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>a12a3079e14ced46e69ba52b8a90b21a</id>
+				<org>IP</org>
+				<en>IP</en>
+				<es>IP</es>
+				<fr>IP</fr>
+				<nl>IP</nl>
+				<it>IP</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>40dba2c0dfb0a075372ff47065b50815</id>
+				<org>Session-ID</org>
+				<en>Session ID</en>
+				<es>ID de la sesión</es>
+				<fr>ID de session</fr>
+				<nl>Session ID</nl>
+				<it>ID di sessione</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>3d60e1651d302a5aaf33325d3f7d6298</id>
+				<org>Login?</org>
+				<en>Login?</en>
+				<es>Inicio de sesión?</es>
+				<fr>Login?</fr>
+				<nl>Login?</nl>
+				<it>Login?</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>b69df945ae986e6b1882cdc87ad19617</id>
+				<org>Hits</org>
+				<en>Hits</en>
+				<es>Visitas</es>
+				<fr>Hits</fr>
+				<nl>Hits</nl>
+				<it>Hits</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>d7e637a6e9ff116de2fa89551240a94d</id>
+				<org>Visits</org>
+				<en>Visits</en>
+				<es>Visitas</es>
+				<fr>Visites</fr>
+				<nl>Bezoeken</nl>
+				<it>Visite</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>770d534783c837e962411a1cb140d294</id>
+				<org>Letzter Aufruf</org>
+				<en>Last call</en>
+				<es>Última llamada</es>
+				<fr>Last Call</fr>
+				<nl>Last call</nl>
+				<it>Ultima chiamata</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>b34a94ed6c29e661d98a252e34fa390e</id>
+				<org>Eingeloggt</org>
+				<en>Logged</en>
+				<es>Identificados</es>
+				<fr>Connecté</fr>
+				<nl>Logged</nl>
+				<it>Logged</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>d974e2f9442fc9e7a6da51013e1afe3b</id>
+				<org>Session beenden</org>
+				<en>End Session</en>
+				<es>Finalizar sesión</es>
+				<fr>Fin de session</fr>
+				<nl>Einde Sessie</nl>
+				<it>Fine sessione</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>c59cefbcfba7b00b96d89f1efaec9aed</id>
+				<org>Übersetzen</org>
+				<en>Translate</en>
+				<es>Traducir</es>
+				<fr>Traduire</fr>
+				<nl>Vertalen</nl>
+				<it>Tradurre</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>9667f699ec3d30264876870d26d6b48e</id>
+				<org>Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden</org>
+				<en>Entries must only be registered, which differ in the target language from the original</en>
+				<es>Sólo las entradas deben estar registrados, que difieren en el idioma de destino en el original</es>
+				<fr>Les inscriptions doivent être enregistrées, qui diffèrent dans la langue cible à partir de l&amp;#39;original</fr>
+				<nl>Inzendingen moeten alleen worden geregistreerd, die verschillen in de doeltaal van de oorspronkelijke</nl>
+				<it>Le voci devono essere oggetto di registrazione, che si differenziano nella lingua di destinazione dall&amp;#39;originale</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>74d4970585ff185f2ea01fd5ddb179ce</id>
+				<org>Allgemeine Wartungsfunktionen</org>
+				<en>General Maintenance Functions</en>
+				<es>Mantenimiento General Funciones</es>
+				<fr>General Maintenance Fonctions</fr>
+				<nl>Algemeen onderhoud Functies</nl>
+				<it>Funzioni generali di manutenzione</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>3c4c1e8758172707784ae2a5e763ae3a</id>
+				<org>Alle Datenbankeinträge auflisten</org>
+				<en>All database entries List</en>
+				<es>Todas las entradas de la lista de bases de datos</es>
+				<fr>Toutes les entrées de base de données Liste</fr>
+				<nl>Alle database gegevens Lijst</nl>
+				<it>Elencare tutte le voci di database</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>46e91ee2def2e3d428aafb8da5f0daba</id>
+				<org>Einträge neu aus Quellcode auslesen und in die Datenbank schreiben</org>
+				<en>New messages read out from a source and write to the database</en>
+				<es>Nuevos mensajes lectura a partir de una fuente y escribir en la base de datos</es>
+				<fr>Nouveaux messages lus à partir d&amp;#39;une source et d&amp;#39;écrire sur la base de données</fr>
+				<nl>Nieuwe berichten lezen uit een bron en schrijven naar de database</nl>
+				<it>Nuovi messaggi letto da una fonte e scrivere al database</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>b726878457a1cbd35ca90c64302468a1</id>
+				<org>Einträge aus DB in mod_translation.xml schreiben (alle Module)</org>
+				<en>Records from DB in mod_translation.xml write (all modules)</en>
+				<es>Los registros de DB en mod_translation.xml escribir (todos los módulos)</es>
+				<fr>Records de DB dans mod_translation.xml écrire (tous les modules)</fr>
+				<nl>Records uit DB in mod_translation.xml schrijven (alle modules)</nl>
+				<it>Record da DB in mod_translation.xml scrivere (tutti i moduli)</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>97a1242d6110d20a23ce77d85a084f59</id>
+				<org>mod_translation.xml auslesen und in DB schreiben (alle Module)</org>
+				<en>mod_translation.xml read and write database (all modules)</en>
+				<es>mod_translation.xml leer y escribir en la base de datos (todos los módulos)</es>
+				<fr>mod_translation.xml lire et écrire des données (tous les modules)</fr>
+				<nl>mod_translation.xml lezen en schrijven database (alle modules)</nl>
+				<it>mod_translation.xml leggere e scrivere dati (tutti i moduli)</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>b3405a55413bd16428d69161bac62673</id>
+				<org>Suche nach übereinstimmungen Aktuelle / Veraltete Texte (Mergen)</org>
+				<en>Search for Term Matches Current / Outdated texts (Mergen)</en>
+				<es>Buscar concuerda con el término actual / textos obsoletos (Mergen)</es>
+				<fr>Recherche pour le Terme matchs en cours / textes obsolètes (Mergen)</fr>
+				<nl>Zoek Term wedstrijden Huidige / Verouderde teksten (Mergen)</nl>
+				<it>Search for term Partite correnti / testi obsoleti (Mergen)</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>03e54382184e947b112834b8a66dc009</id>
+				<org>Module übersetzen</org>
+				<en>Translate Module</en>
+				<es>Traducir Módulo</es>
+				<fr>Traduire Module</fr>
+				<nl>Translate Module</nl>
+				<it>Traduci Module</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>7dce122004969d56ae2e0245cb754d35</id>
+				<org>Edit</org>
+				<en>Edit</en>
+				<es>Editar</es>
+				<fr>Modifier</fr>
+				<nl>Edit</nl>
+				<it>Modifica</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>801ab24683a4a8c433c6eb40c48bcd9d</id>
+				<org>Download</org>
+				<en>Download</en>
+				<es>Descargar</es>
+				<fr>Télécharger</fr>
+				<nl>Downloaden</nl>
+				<it>Scaricare</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>622531434770e881021aa79cab0e16a7</id>
+				<org>Fundstelle</org>
+				<en>Directory</en>
+				<es>Directorio</es>
+				<fr>Annuaire</fr>
+				<nl>Directory</nl>
+				<it>Directory</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>319be822a88df6a7585360f99e2b62f8</id>
+				<org>Englisch</org>
+				<en>English</en>
+				<es>Inglés</es>
+				<fr>Anglais</fr>
+				<nl>Engels</nl>
+				<it>Inglese</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>e142ae51c1d959fcf6fbc4ca1b425964</id>
+				<org>Egal</org>
+				<en>Indifferent</en>
+				<es>Indiferente</es>
+				<fr>Indifférent</fr>
+				<nl>Onverschillig</nl>
+				<it>Indifferente</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>3a84f77b4bbcd5d0c201c613fce5e4d1</id>
+				<org>Vorhanden</org>
+				<en>Present</en>
+				<es>Presente</es>
+				<fr>Actuel</fr>
+				<nl>Cadeau</nl>
+				<it>Regalo</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>2d698d066986540c9b0f8bb98fcb1f45</id>
+				<org>Veraltet</org>
+				<en>Deprecated</en>
+				<es>Obsoleto</es>
+				<fr>Obsolète</fr>
+				<nl>Verouderd</nl>
+				<it>Deprecato</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>9883171236c13d05762839ea705d2f44</id>
+				<org>Nur neue</org>
+				<en>Only new</en>
+				<es>Sólo nuevo</es>
+				<fr>Seules les nouvelles</fr>
+				<nl>Alleen nieuwe</nl>
+				<it>Solo i nuovi</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>c897f95a95e680f5e1660d8169f814a1</id>
+				<org>Nur veraltete</org>
+				<en>Only outdated</en>
+				<es>Sólo obsoleta</es>
+				<fr>Seulement dépassée</fr>
+				<nl>Alleen verouderde</nl>
+				<it>Solo superata</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
+				<org>Text</org>
+				<en>Text</en>
+				<es>Texto</es>
+				<fr>Texte</fr>
+				<nl>Tekst</nl>
+				<it>Testo</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>2084c04f7a380a68b653e5fc82d352f0</id>
+				<org>De</org>
+				<en>De</en>
+				<es>De</es>
+				<fr>De</fr>
+				<nl>De</nl>
+				<it>De</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>6d416f7786dbe588eaa6ab48666588d1</id>
+				<org>En</org>
+				<en>En</en>
+				<es>En</es>
+				<fr>Fr</fr>
+				<nl>En</nl>
+				<it>It</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>24dd08cf43692996cf27a1bc921ce3be</id>
+				<org>Es</org>
+				<en>It</en>
+				<es>Ello</es>
+				<fr>Il</fr>
+				<nl>Het</nl>
+				<it>Esso</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>ec60fd87d4bf4c2699938059b9bdbb65</id>
+				<org>Nl</org>
+				<en>Nl</en>
+				<es>Nl</es>
+				<fr>Nl</fr>
+				<nl>Nl</nl>
+				<it>NL</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>6e57d6c47d23024e41f4a1aac73a3ea9</id>
+				<org>It</org>
+				<en>It</en>
+				<es>Ello</es>
+				<fr>Il</fr>
+				<nl>Het</nl>
+				<it>Esso</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>a50201f5ae1cb857936c0503e62a5c12</id>
+				<org>Orginal-Text</org>
+				<en>Original Text</en>
+				<es>Texto original</es>
+				<fr>Texte original</fr>
+				<nl>Originele tekst</nl>
+				<it>Testo originale</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>39608e4c68cb0c94694ed3b43a853f85</id>
+				<org>FrameWork</org>
+				<en>FrameWork</en>
+				<es>FrameWork</es>
+				<fr>FrameWork</fr>
+				<nl>FrameWork</nl>
+				<it>FrameWork</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>e55f75a29310d7b60f7ac1d390c8ae42</id>
+				<org>Module</org>
+				<en>Modules</en>
+				<es>Módulos</es>
+				<fr>Modules</fr>
+				<nl>Modules</nl>
+				<it>Moduli</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>3565dd10d33f6575d3df1f3849a32773</id>
+				<org>DB-Internal</org>
+				<en>Internal DB</en>
+				<es>Interior PP</es>
+				<fr>Interne DB</fr>
+				<nl>Interne DB</nl>
+				<it>Interno DB</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>1e5df6016b3c79322f5f5fd72e1b0e25</id>
+				<org>Modul Übersetzen : </org>
+				<en>Module Translate:</en>
+				<es>Módulo Traducir:</es>
+				<fr>Module Traduire:</fr>
+				<nl>Module Vertaal:</nl>
+				<it>Modulo Traduci:</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>310c5c1562dda360af18dcbe4169a13a</id>
+				<org>Schreibe Modulübersetzung in translation.xml</org>
+				<en>Writing in Translation module translation.xml</en>
+				<es>Escribiendo en Traducción translation.xml módulo</es>
+				<fr>Writing in Translation translation.xml module</fr>
+				<nl>Schrijven in Translation module translation.xml</nl>
+				<it>Iscritto in Translation translation.xml modulo</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>08edda1bed5b5c2f6583d7dd37cb8344</id>
+				<org>Schreibe</org>
+				<en>Writing</en>
+				<es>Escritura</es>
+				<fr>Rédaction</fr>
+				<nl>Schrijven</nl>
+				<it>Iscritto</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>4eb9ebf2d26092c13f8803304b54dd5e</id>
+				<org>Lese Modulübersetzung von translation.xml</org>
+				<en>Reading module translating translation.xml</en>
+				<es>Lectura translation.xml módulo de traducción</es>
+				<fr>Reading translation.xml module de traduction</fr>
+				<nl>Reading module vertalen translation.xml</nl>
+				<it>Lettura modulo translation.xml traduzione</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>3217dfbe94d9883c7717b00a46ecba2b</id>
+				<org>Lese</org>
+				<en>Reading</en>
+				<es>Lectura</es>
+				<fr>Reading</fr>
+				<nl>Reading</nl>
+				<it>Reading</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>01da6a37bac4ac95a31ebd6a60da93a6</id>
+				<org>Alle leeren Felder mit Google-Translate-Übersetzungen füllen</org>
+				<en>All empty fields with Google Translate translation complete</en>
+				<es>Todos los campos vacíos con Google Translate traducción completa</es>
+				<fr>Tous les champs vides avec la traduction Google Translate complète</fr>
+				<nl>Alle lege velden met Google Translate vertaling compleet</nl>
+				<it>Tutti i campi vuoti con la traduzione di Google Translate completa</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>54a3ecf6b2e260a639ee5bee626d932a</id>
+				<org>Modul Übersetzen</org>
+				<en>Translate Module</en>
+				<es>Traducir Módulo</es>
+				<fr>Traduire Module</fr>
+				<nl>Translate Module</nl>
+				<it>Traduci Module</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>8f0ca2185f684aa4edeae4b25a65239b</id>
+				<org>Deutsch</org>
+				<en>German</en>
+				<es>Alemán</es>
+				<fr>Allemand</fr>
+				<nl>Duits</nl>
+				<it>Tedesco</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>d961416d60a912b77d56ea49907c2fbe</id>
+				<org>Spanisch</org>
+				<en>Spanish</en>
+				<es>Español</es>
+				<fr>Espagnol</fr>
+				<nl>Spaans</nl>
+				<it>Spagnolo</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>b4f8e106bba2164f7fed5815b214a4ec</id>
+				<org>Französisch</org>
+				<en>French</en>
+				<es>Francés</es>
+				<fr>Français</fr>
+				<nl>Frans</nl>
+				<it>Francese</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>aaa4b07dc10ed3bf12978a5c0a08ba82</id>
+				<org>Holländisch</org>
+				<en>Holländisch</en>
+				<es>Holländisch</es>
+				<fr>Holländisch</fr>
+				<nl>Holländisch</nl>
+				<it>Olandese</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>1df38244440a25a0e51e5095b8d10738</id>
+				<org>Italienisch</org>
+				<en>Italian</en>
+				<es>Italiano</es>
+				<fr>Italien</fr>
+				<nl>Italiaans</nl>
+				<it>Italiano</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>05847ade50f51a4f213f23afe08a2418</id>
+				<org>Achtung!!! Alle vorhandenen Übersetzungen in den XML-Dateien werden überschrieben</org>
+				<en>Oops! All existing translations in the XML files will be overwritten</en>
+				<es>¡Uy! Todas las traducciones existentes en los archivos XML se sobrescribirá</es>
+				<fr>Oops! Toutes les traductions existantes dans les fichiers XML seront écrasées</fr>
+				<nl>Oeps! Alle bestaande vertalingen in de XML-bestanden worden overschreven</nl>
+				<it>Oops! Tutte le traduzioni esistenti nei file XML saranno sovrascritti</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>2b9c4b64b2ab7800a7167407bfb45929</id>
+				<org>Achtung!!! Alle vorhandenen Übersetzungen werden von den XML-Dateien in die Datenbank geschrieben</org>
+				<en>Oops! All existing translations are written by the XML files in the database</en>
+				<es>¡Uy! Todas las traducciones existentes son escritos por los archivos XML en la base de datos</es>
+				<fr>Oops! Toutes les traductions existantes sont écrites par les fichiers XML dans la base de données</fr>
+				<nl>Oeps! Alle bestaande vertalingen worden geschreven door de XML-bestanden in de database</nl>
+				<it>Oops! Tutte le traduzioni esistenti sono scritti dai file XML nel database</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>7521fa1ec14daeea60144cd1bea77d23</id>
+				<org>Veraltete Eintraege</org>
+				<en>Outdated entries</en>
+				<es>Entradas ha sido superado</es>
+				<fr>Entrées obsolètes</fr>
+				<nl>Verouderde gegevens</nl>
+				<it>Obsolete entries</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>2da66adb8a7a7ba2ccd6e52ab2be3389</id>
+				<org>Veraltete Eingtraege die aehnlichkeiten mit einem neuen Eintrag aufweisen</org>
+				<en>Obsolete Eingtraege the similarities with a new entry have</en>
+				<es>Obsoleto Eingtraege las similitudes con una entrada de nuevas</es>
+				<fr>Obsolète Eingtraege les similitudes avec une nouvelle entrée ont</fr>
+				<nl>Verouderde Eingtraege de gelijkenissen met een nieuw item hebben</nl>
+				<it>Obsolete Eingtraege le somiglianze con una nuova voce sono</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>7d0e82c6dd32198a9b11ad4dd4d6b3c2</id>
+				<org>Modul/File Wechseln.</org>
+				<en>Module / File Swap.</en>
+				<es>Módulo / archivo de intercambio.</es>
+				<fr>Module / fichier d&amp;#39;échange.</fr>
+				<nl>Module / File Swap.</nl>
+				<it>Modulo / file di swap.</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>281b2c4053c1914bbf8d13cecf4691e8</id>
+				<org>Ziel Modul/File</org>
+				<en>Target module / File</en>
+				<es>Módulo de destino / archivo</es>
+				<fr>Objectif du module / File</fr>
+				<nl>Target module / File</nl>
+				<it>Modulo di destinazione / File</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>834ac64c00ab9b195d31429baf2649d3</id>
+				<org>Zusammenführen</org>
+				<en>Merge</en>
+				<es>Combinar</es>
+				<fr>Fusionner</fr>
+				<nl>Merge</nl>
+				<it>Unione</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>225eeaa35e02f0640447e4230a85e0a3</id>
+				<org>Modulübersetzung wurde in &lt;b&gt;translation.xml (%1)&lt;/b&gt; geschrieben&lt;br &gt;</org>
+				<en>Translation module is written in &lt;b&gt;translation.xml (%1)&lt;/b&gt; &lt;br &gt;</en>
+				<es>Módulo de traducción está escrito en &lt;b&gt;translation.xml%(1)&lt;/b&gt; &lt;br &gt;</es>
+				<fr>Module de traduction est écrite en &lt;b&gt;translation.xml (%1)&lt;/b&gt; &lt;br &gt;</fr>
+				<nl>Vertaling module is geschreven in &lt;b&gt;translation.xml (%1)&lt;/b&gt; &lt;br &gt;</nl>
+				<it>Modulo di traduzione è scritto in &lt;b&gt;translation.xml (1%)&lt;/b&gt; &lt;br &gt;</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>fc5f2847121108b55b5dfeddf7c07ddb</id>
+				<org>Modulübersetzung wurde von &lt;b&gt;%1&lt;/b&gt; gelesen. (%2)&lt;br &gt;</org>
+				<en>Module translation was read &lt;b&gt;by%1.&lt;/b&gt; (%2) &lt;br &gt;</en>
+				<es>Módulo de traducción fue leído &lt;b&gt;por el%1.&lt;/b&gt; (%2) &lt;br &gt;</es>
+				<fr>Module de traduction a été lu &lt;b&gt;par%1.&lt;/b&gt; (%2) &lt;br &gt;</fr>
+				<nl>Module vertaling werd gelezen &lt;b&gt;door%1.&lt;/b&gt; (%2) &lt;br &gt;</nl>
+				<it>Modulo di traduzione è stato letto &lt;b&gt;da%1.&lt;/b&gt; (2%) &lt;br &gt;</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>0967de2c7c7e5fd3d73d445b0109c63b</id>
+				<org>Prioritat</org>
+				<en>Prioritate</en>
+				<es>Prioritate</es>
+				<fr>Prioritate</fr>
+				<nl>Prioritate</nl>
+				<it>Prioritate</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>61035ba6e5cfbb1cbcef0ac4b5b636cd</id>
+				<org>Prio.</org>
+				<en>Prio.</en>
+				<es>Prío.</es>
+				<fr>PRIO.</fr>
+				<nl>Prio.</nl>
+				<it>Prio.</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
+				<org>Details</org>
+				<en>Details</en>
+				<es>Detalles</es>
+				<fr>Détails</fr>
+				<nl>Details</nl>
+				<it>Dettagli</it>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
+				<file>install</file>
+			</entry>
+			<entry>
+				<id></id>
+				<org></org>
 				<file>install</file>
 			</entry>
 			<entry>

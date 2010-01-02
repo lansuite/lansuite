@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,176 +15,371 @@
 			<entry>
 				<id>d4de1143d6971dfbbcfd38bdef9ac6f1</id>
 				<org>Dieser Kategoriename existiert bereits</org>
+				<en>This category name already exists</en>
+				<es>Este nombre de la categoría ya existe</es>
+				<fr>Ce nom de la catégorie existe déjà</fr>
+				<nl>Deze categorie naam bestaat al</nl>
+				<it>Questo nome categoria esiste già</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>cc007a445ca7f77fd974d4bd27e00bd1</id>
 				<org>Bitte geben Sie einen Namen für die neue Kategorie ein</org>
+				<en>Please enter a name for the new category</en>
+				<es>Por favor, introduzca un nombre para la nueva categoría</es>
+				<fr>S&amp;#39;il vous plaît, entrez un nom pour la nouvelle catégorie</fr>
+				<nl>Voer een naam voor de nieuwe categorie</nl>
+				<it>Si prega di inserire un nome per la nuova categoria</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>edd597784c485b0f27567b7d8a6567e9</id>
 				<org>Kategorie hinzufügen</org>
+				<en>Add Category</en>
+				<es>Agregar Categoría</es>
+				<fr>Ajouter une catégorie</fr>
+				<nl>Add Category</nl>
+				<it>Aggiungi Categoria</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>81f8331bba6ea39a14e654961b0bc2ee</id>
 				<org>Um eine Kategorie hinzuzufügen, füllen Sie bitte das folgende Formular aus. Für das Feld Kategoriename stehen Ihnen 30 Zeichen zur Verfügung.</org>
+				<en>To add a category, please fill out the form below. Category name for the field you have 30 characters left.</en>
+				<es>Para agregar una categoría, por favor, rellene el siguiente formulario. Nombre de la categoría para el campo tiene 30 caracteres a la izquierda.</es>
+				<fr>Pour ajouter une catégorie, s&amp;#39;il vous plaît remplir le formulaire ci-dessous. Nom de catégorie pour le champ que vous disposez de 30 caractères à gauche.</fr>
+				<nl>Als u een categorie, vul dan onderstaand formulier in. Categorie naam voor het veld dat u nog 30 tekens links.</nl>
+				<it>Per aggiungere una categoria, vi preghiamo di compilare il modulo sottostante. Nome della categoria per il campo che si hanno 30 caratteri a sinistra.</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>c84770b242ae13be4caa332c1f05ce90</id>
 				<org>Neue Kategorie</org>
+				<en>New Category</en>
+				<es>Nueva Categoría</es>
+				<fr>Nouvelle catégorie</fr>
+				<nl>Nieuwe categorie</nl>
+				<it>Nuova categoria</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>63bf88bfe18b09a0d47754f1b1300714</id>
 				<org>Die Kategorie wurde erfolgreich eingetragen</org>
+				<en>The category has been entered successfully</en>
+				<es>La categoría se ha introducido con éxito</es>
+				<fr>La catégorie a été conclue avec succès</fr>
+				<nl>De categorie is succesvol ingevoerd</nl>
+				<it>La categoria è stata inserita con successo</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>cc87976a8e24b634eb26157f629927f3</id>
 				<org>Die Antwort darf nicht mehr als 5000 Zeichen enthalten</org>
+				<en>The answer can contain no more than 5000 characters</en>
+				<es>La respuesta no puede contener más de 5000 caracteres</es>
+				<fr>La réponse ne peut pas contenir plus de 5000 caractères</fr>
+				<nl>Het antwoord kan bevatten niet meer dan 5000 karakters</nl>
+				<it>La risposta non può contenere più di 5000 caratteri</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>3e92a50d159088d9609feef463270501</id>
 				<org>Bitte geben Sie eine Frage ein</org>
+				<en>Please enter a question</en>
+				<es>Por favor, introduzca una pregunta</es>
+				<fr>S&amp;#39;il vous plaît entrer une question</fr>
+				<nl>Voer een vraag</nl>
+				<it>Si prega di inserire una domanda</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>ca75ec7a684a0981aba32330331ba217</id>
 				<org>Bitte geben Sie einen Text ein</org>
+				<en>Please enter a message</en>
+				<es>Por favor, introduzca un mensaje</es>
+				<fr>S&amp;#39;il vous plaît entrer un message</fr>
+				<nl>Geef een bericht</nl>
+				<it>Si prega di inserire un messaggio</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>56be20cdf1f36b704fda35167b6fe81f</id>
 				<org>Bitte wählen Sie eine Kategorie aus oder erstellen Sie eine neue Kategorie</org>
+				<en>Please select a category or create a new category</en>
+				<es>Por favor seleccione una categoría o crear una nueva categoría</es>
+				<fr>S&amp;#39;il vous plaît sélectionnez une catégorie ou créer une nouvelle catégorie</fr>
+				<nl>Selecteer een categorie of een nieuwe categorie</nl>
+				<it>Si prega di selezionare una categoria o creare una nuova categoria</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>b00c9a2e9e9191137a14b2254928a9f2</id>
 				<org>Bitte wählen Sie eine Kategorie aus &lt;b&gt; ODER &lt;/b&gt; erstellen Sie eine neue Kategorie</org>
+				<en>Please select a category &lt;b&gt;OR&lt;/b&gt; you can create a new category</en>
+				<es>Por favor, seleccione una categoría &lt;b&gt;o&lt;/b&gt; crear una nueva categoría</es>
+				<fr>S&amp;#39;il vous plaît sélectionnez une &lt;b&gt;catégorie&lt;/b&gt; ou vous pouvez créer une nouvelle catégorie</fr>
+				<nl>Kies een categorie &lt;b&gt;of&lt;/b&gt; u kunt een nieuwe categorie</nl>
+				<it>Si prega di selezionare una categoria &lt;b&gt;o&lt;/b&gt; è possibile creare una nuova categoria</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>fa348c5d45be8754b906452cc89a53ed</id>
 				<org>Frage hinzufügen</org>
+				<en>Add Question</en>
+				<es>Agregar pregunta</es>
+				<fr>Ajouter une question</fr>
+				<nl>Vraag toevoegen</nl>
+				<it>Aggiungi domanda</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>ef0baa08838050876ef9f39e9e0b0b5d</id>
 				<org>Kategorie wählen</org>
+				<en>Select Category</en>
+				<es>Selecciona una categoría</es>
+				<fr>Sélectionner une catégorie</fr>
+				<nl>Selecteer categorie</nl>
+				<it>Seleziona Categoria</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>b78e686563dcf74da296977d1ba42ada</id>
 				<org>Frage / Überschrift</org>
+				<en>Question / title</en>
+				<es>Pregunta / título</es>
+				<fr>Question / titre</fr>
+				<nl>Vraag / titel</nl>
+				<it>Domanda / title</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
+				<en>Text</en>
+				<es>Texto</es>
+				<fr>Texte</fr>
+				<nl>Tekst</nl>
+				<it>Testo</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>47e986faf70aeaafd107c5227e4374ce</id>
 				<org>Bestehende Kategorie</org>
+				<en>Existing Categories</en>
+				<es>Las categorías existentes</es>
+				<fr>Catégories existantes</fr>
+				<nl>Bestaande categorieën</nl>
+				<it>Esistenti Categorie</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>870783b7a522226969f7be735310e1ef</id>
 				<org>Die Frage und die Kategorie wurden erfolgreich eingetragen</org>
+				<en>The question and the category has been successfully entered</en>
+				<es>La pregunta y la categoría se ha escrito correctamente</es>
+				<fr>La question et la catégorie a été entré avec succès</fr>
+				<nl>De vraag en de categorie is met succes ingevoerd</nl>
+				<it>La domanda e la categoria è stato correttamente inserito</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>fb5c70a0600404de3937558c38527959</id>
 				<org>Die Frage wurde erfolgreich eingetragen</org>
+				<en>The issue has been entered successfully</en>
+				<es>El tema se ha introducido con éxito</es>
+				<fr>La question a été conclu avec succès</fr>
+				<nl>De kwestie is met succes ingevoerd</nl>
+				<it>Il problema è stato inserito con successo</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>bef6e267fb80e8611244100262fe4754</id>
 				<org>Frage ändern</org>
+				<en>Change Question</en>
+				<es>Cambiar la pregunta</es>
+				<fr>Modifier la question</fr>
+				<nl>Change Vraag</nl>
+				<it>Cambia Domanda</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>e90902410f3f2c21c062dd0446bf70e3</id>
 				<org>Diese Kategorie existiert nicht</org>
+				<en>This category does not exist</en>
+				<es>Esta categoría no existe</es>
+				<fr>Cette catégorie n&amp;#39;existe pas</fr>
+				<nl>Deze categorie bestaat niet</nl>
+				<it>Questa categoria non esiste</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>860b45ce5eac60c0c9028cb372234679</id>
 				<org>Die Kategorie wurde erfolgreich geändert</org>
+				<en>The category was changed successfully</en>
+				<es>La categoría se ha cambiado correctamente</es>
+				<fr>La catégorie a été modifié avec succès</fr>
+				<nl>De categorie is succesvol veranderd</nl>
+				<it>La categoria è stata modificata con successo</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>ae86ac60037312f00598f522099b192e</id>
 				<org>Keine Einträge vorhanden.</org>
+				<en>No entries available.</en>
+				<es>No hay entradas disponibles.</es>
+				<fr>Pas d&amp;#39;entrées disponibles.</fr>
+				<nl>Geen items beschikbaar.</nl>
+				<it>Nessuna voce disponibile.</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>98c7687026aeb49b394ce7b001719b7f</id>
 				<org>FAQ ändern</org>
+				<en>FAQs Change</en>
+				<es>Preguntas Frecuentes Cambiar</es>
+				<fr>FAQ Changer</fr>
+				<nl>Vragen Change</nl>
+				<it>FAQ Cambia</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>20b8ece2557f76dc7c9d00a8250faafd</id>
 				<org>Auf dieser Seite sehen Sie häufig gestellte Fragen und deren Antworten. Die Fragen sind in verschiedene Kategorien eingeteilt, die Sie mit dem /'/+/'/-Symbol aufklappen können.</org>
+				<en>On this page you will see frequently asked questions and their answers. The questions are divided into different categories you can expand the /&amp;#39;/+/&amp;#39;/- icon.</en>
+				<es>En esta página podrás ver las preguntas más frecuentes y sus respuestas. Las preguntas se dividen en diferentes categorías, se puede ampliar el icono /&amp;#39;/+/&amp;#39;/-.</es>
+				<fr>Sur cette page vous pourrez voir les questions fréquemment posées et leurs réponses. Les questions sont divisées en différentes catégories, vous pouvez agrandir l&amp;#39;icône /&amp;#39;/+/&amp;#39;/-.</fr>
+				<nl>Op deze pagina ziet u veelgestelde vragen en hun antwoorden. De vragen zijn onderverdeeld in verschillende categorieën die u kunt uitbreiden van de /&amp;#39;/+/&amp;#39;/- pictogram.</nl>
+				<it>In questa pagina potrete vedere le domande più frequenti e le loro risposte. Le domande sono suddivise in diverse categorie, è possibile espandere l&amp;#39;icona /&amp;#39;/+/&amp;#39;/-.</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>48e3944a896517f7c209a3ff13ae71f2</id>
 				<org>Diese Frage existiert nicht</org>
+				<en>This question does not exist</en>
+				<es>Esta cuestión no existe</es>
+				<fr>Cette question n&amp;#39;existe pas</fr>
+				<nl>Deze vraag bestaat niet</nl>
+				<it>Questa domanda non esiste</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>7097c0d2bf3e3f5841e8f07f212e6b99</id>
 				<org>Frage und Kategorie wurden erfolgreich geändert</org>
+				<en>Question and category have been successfully changed</en>
+				<es>Pregunta y categoría se han cambiado correctamente</es>
+				<fr>Question et catégorie ont été changé avec succès</fr>
+				<nl>Vraag en categorie zijn met succes veranderd</nl>
+				<it>Questione e la categoria è stata cambiata con successo</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>7a35e3824e2c0edf7761c13a293392aa</id>
 				<org>Die Frage wurde erfolgreich ge&amp;ändert</org>
+				<en>The issue has been successfully changed &amp;amp; ge</en>
+				<es>El tema ha sido cambiado correctamente y GE</es>
+				<fr>La question a été changé avec succès &amp;amp; ge</fr>
+				<nl>De kwestie is met succes veranderd &amp;amp; ge</nl>
+				<it>La questione è stata cambiata con successo e ge</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>c69449b404ac920743d21133cbf736a4</id>
 				<org>FAQ löschen</org>
+				<en>Delete FAQ</en>
+				<es>Eliminar FAQ</es>
+				<fr>Supprimer FAQ</fr>
+				<nl>Verwijderen FAQ</nl>
+				<it>Elimina FAQ</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>7913e26e1c96356d33f1f650dad4f65e</id>
 				<org>Sind Sie sicher, dass Sie die Kategorie  &lt;b&gt; %1 &lt;/b&gt; und die darin enthaltenen Fragen wirklich löschen wollen?</org>
+				<en>Are you sure you want to delete the &lt;b&gt;category%1&lt;/b&gt; and it contains questions?</en>
+				<es>¿Estás seguro de que desea eliminar la &lt;b&gt;categoría 1%&lt;/b&gt; y que contiene preguntas?</es>
+				<fr>Êtes-vous sûr de vouloir &lt;b&gt;supprimer la catégorie%1,&lt;/b&gt; et les questions qui y figurent?</fr>
+				<nl>Weet u zeker dat u de &lt;b&gt;categorie%1&lt;/b&gt; verwijderen en het bevat vragen?</nl>
+				<it>Sei sicuro di voler eliminare la &lt;b&gt;categoria 1%&lt;/b&gt; e contiene domande?</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>d9fe7e61d7bc03d497c50c81df1ced33</id>
 				<org>Die Kategorie wurde erfolgreich gelöscht</org>
+				<en>The category has been successfully deleted</en>
+				<es>La categoría se ha eliminado correctamente</es>
+				<fr>Cette catégorie a été supprimé avec succès</fr>
+				<nl>De categorie is met succes verwijderd</nl>
+				<it>La categoria è stato cancellato con successo</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>67ddc496ef581417360fe228ff6f64dc</id>
 				<org>Sind Sie sicher, dass Sie die Frage &lt;b&gt; %1 &lt;/b&gt; löschen wollen ?</org>
+				<en>Are you sure you want to delete the &lt;b&gt;question,%1?&lt;/b&gt;</en>
+				<es>¿Estás seguro de que desea eliminar la &lt;b&gt;pregunta,%1?&lt;/b&gt;</es>
+				<fr>Etes-vous sûr de vouloir supprimer la &lt;b&gt;question,%1?&lt;/b&gt;</fr>
+				<nl>Weet u zeker dat u de &lt;b&gt;vraag, verwijderen%1?&lt;/b&gt;</nl>
+				<it>Sei sicuro di voler eliminare il &lt;b&gt;problema,%1?&lt;/b&gt;</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>a7f8402e6957ad98180d26555cfee205</id>
 				<org>Die Frage wurde erfolgreich gelöscht</org>
+				<en>The question has been successfully deleted</en>
+				<es>La cuestión ha sido eliminado correctamente</es>
+				<fr>La question a été supprimé avec succès</fr>
+				<nl>De vraag is met succes verwijderd</nl>
+				<it>La questione è stato cancellato con successo</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>1fe917b01f9a3f87fa2d7d3b7643fac1</id>
 				<org>FAQ</org>
+				<en>FAQ</en>
+				<es>Preguntas frecuentes</es>
+				<fr>FAQ</fr>
+				<nl>FAQ</nl>
+				<it>FAQ</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>0a68f6ca4707a573b22056beac3b0420</id>
 				<org>&lt;b&gt;F&lt;/b&gt;requently &lt;b&gt;A&lt;/b&gt;sked &lt;b&gt;Q&lt;/b&gt;uestions</org>
+				<en>&lt;b&gt;F&lt;/b&gt; requently &lt;b&gt;A&lt;/b&gt; sked &lt;b&gt;Q&lt;/b&gt; uestions</en>
+				<es>&lt;b&gt;F&lt;/b&gt; REGUNTAS &lt;b&gt;A&lt;/b&gt; REGUNTAS SKED &lt;b&gt;Q&lt;/b&gt;</es>
+				<fr>&lt;b&gt;F OIRE&lt;/b&gt; AUX QUESTIONS</fr>
+				<nl>&lt;b&gt;F EEL V&lt;/b&gt; RAGEN</nl>
+				<it>&lt;b&gt;F&lt;/b&gt; OMANDE &lt;b&gt;A&lt;/b&gt; sked &lt;b&gt;D&lt;/b&gt; OMANDE</it>
 				<file>faq</file>
 			</entry>
 			<entry>
 				<id>ccfe5b8991f93fde4c6a7967cdbfdc2d</id>
 				<org>Auf dieser Seite sehen Sie häufig gestellte Fragen und deren Antworten</org>
+				<en>On this page you will see frequently asked questions and their answers</en>
+				<es>En esta página podrás ver las preguntas más frecuentes y sus respuestas</es>
+				<fr>Sur cette page vous pourrez voir les questions fréquemment posées et leurs réponses</fr>
+				<nl>Op deze pagina ziet u veelgestelde vragen en hun antwoorden</nl>
+				<it>In questa pagina potrete vedere le domande più frequenti e le loro risposte</it>
+				<file>faq</file>
+			</entry>
+			<entry>
+				<id>935fcb13a2e9891eb309a158dbd5c943</id>
+				<org>Zur�ck</org>
+				<en>Back</en>
+				<es>Espalda</es>
+				<fr>Retour</fr>
+				<nl>Terug</nl>
+				<it>Indietro</it>
+				<file>faq</file>
+			</entry>
+			<entry>
+				<id>49a3e591ed376cc632036fc126f3185c</id>
+				<org>L�schen</org>
+				<en>Delete</en>
+				<es>Borrar</es>
+				<fr>Supprimer</fr>
+				<nl>Wissen</nl>
+				<it>Eliminare</it>
 				<file>faq</file>
 			</entry>
 			<entry>

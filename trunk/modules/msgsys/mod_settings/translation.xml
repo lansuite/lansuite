@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,56 +15,111 @@
 			<entry>
 				<id>557b9ee2e2c8d804024a21dc5424e62f</id>
 				<org>Sie haben keinen Benutzer ausgew&amp;auml;hlt</org>
+				<en>You have selected a User</en>
+				<es>Usted ha seleccionado un usuario</es>
+				<fr>Vous avez sélectionné un utilisateur</fr>
+				<nl>Je hebt een gebruiker</nl>
+				<it>Hai scelto un utente</it>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>aeb723c7ed601f4e1b1d0cf5c0fb680a</id>
 				<org>Wollen Sie den Benutzer &lt;b&gt;%1 (%2 %3)&lt;/b&gt; wirklich aus Ihrer Buddy-Liste entfernen?</org>
+				<en>Do you want to remove the &lt;b&gt;user%1 (%2%3)&lt;/b&gt; really in your buddy list?</en>
+				<es>¿Desea eliminar el &lt;b&gt;usuario%1 (%2%3)&lt;/b&gt; en realidad en su lista de amigos?</es>
+				<fr>Ne vous souhaitez supprimer &lt;b&gt;l&amp;#39;utilisateur%1 (%2%3)&lt;/b&gt; vraiment dans votre liste d&amp;#39;amis?</fr>
+				<nl>Wilt u de &lt;b&gt;gebruiker%1 (%2%3)&lt;/b&gt; echt verwijderen uit je buddy lijst?</nl>
+				<it>Vuoi rimuovere &lt;b&gt;l&amp;#39;utente%1 (%2%3)&lt;/b&gt; in realtà nella lista dei contatti?</it>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>a9010f2b374569ad92d33c24b372a201</id>
 				<org>Wollen Sie den Benutzer &lt;b&gt;%1&lt;/b&gt; wirklich aus Ihrer Buddy-Liste entfernen?</org>
+				<en>Do you want to remove the &lt;b&gt;user%1&lt;/b&gt; from your buddy list?</en>
+				<es>¿Desea eliminar el &lt;b&gt;usuario%1&lt;/b&gt; de su lista de amigos?</es>
+				<fr>Ne vous souhaitez supprimer &lt;b&gt;l&amp;#39;utilisateur%1&lt;/b&gt; à partir de votre liste d&amp;#39;amis?</fr>
+				<nl>Wilt u de &lt;b&gt;gebruiker%1&lt;/b&gt; verwijderen uit je buddy list?</nl>
+				<it>Vuoi rimuovere &lt;b&gt;l&amp;#39;utente%1&lt;/b&gt; dalla tua lista di amici?</it>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>770656677df22ab271f752b343b2cb2f</id>
 				<org>Dieser Benutzer befindet sich nicht in ihrer Buddy-Liste</org>
+				<en>This user is not on their buddy list</en>
+				<es>Este usuario no está en su lista de contactos</es>
+				<fr>Cet utilisateur n&amp;#39;est pas sur leur liste de contacts</fr>
+				<nl>Deze gebruiker is niet op hun buddy list</nl>
+				<it>L&amp;#39;utente non è dalla loro lista di amici</it>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>7f618a1563f4c10ca80f19504e131511</id>
 				<org>Der Benutzer &lt;b&gt;%1&lt;/b&gt; wurde aus Ihrer Buddy-Liste entfernt. Die &amp;Auml;nderung wird beim n&amp;auml;chsten Seitenaufruf wirksam.</org>
+				<en>The &lt;b&gt;user%1&lt;/b&gt; has been removed from your Buddy List. The change will take effect the next page request.</en>
+				<es>El &lt;b&gt;usuario%1&lt;/b&gt; se ha eliminado de su lista de contactos. El cambio surtirá efecto la solicitud de la página siguiente.</es>
+				<fr>&lt;b&gt;L&amp;#39;utilisateur%1&lt;/b&gt; a été supprimé de votre liste de contacts. Le changement prendra effet la demande de la page suivante.</fr>
+				<nl>De &lt;b&gt;gebruiker%1&lt;/b&gt; is verwijderd uit je Buddy List. De wijziging wordt van kracht de volgende pagina verzoek.</nl>
+				<it>&lt;b&gt;L&amp;#39;utente%1&lt;/b&gt; è stato rimosso dalla lista dei contatti. La modifica avrà effetto la richiesta della pagina successiva.</it>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>46cab2c50eda5ecbd19e9fab5ac97c52</id>
 				<org>Der Benutzer &lt;b&gt;%1 (%2 %3)&lt;/b&gt; wurde aus Ihrer Buddy-Liste entfernt. Die &amp;Auml;nderung wird beim n&amp;auml;chsten Seitenaufruf wirksam.</org>
+				<en>The &lt;b&gt;user%1 (%2%3)&lt;/b&gt; has been removed from your Buddy List. The change will take effect the next page request.</en>
+				<es>El &lt;b&gt;usuario%1 (%2%3)&lt;/b&gt; se ha eliminado de su lista de contactos. El cambio surtirá efecto la solicitud de la página siguiente.</es>
+				<fr>&lt;b&gt;L&amp;#39;utilisateur%1 (%2%3)&lt;/b&gt; a été supprimé de votre liste de contacts. Le changement prendra effet la demande de la page suivante.</fr>
+				<nl>De &lt;b&gt;gebruiker%1 (%2%3)&lt;/b&gt; is verwijderd uit je Buddy List. De wijziging wordt van kracht de volgende pagina verzoek.</nl>
+				<it>&lt;b&gt;L&amp;#39;utente%1 (%2%3)&lt;/b&gt; è stata rimossa dalla lista dei contatti. La modifica avrà effetto la richiesta della pagina successiva.</it>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>2dd4fbf756579b1aa33e66add42a4c24</id>
 				<org>Messenger mit %1 starten</org>
+				<en>Messenger with start%1</en>
+				<es>Messenger con inicio 1%</es>
+				<fr>Messenger avec départ 1%</fr>
+				<nl>Messenger met start%1</nl>
+				<it>Messenger con inizio 1%</it>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>7c29f8d4c9c8834c1cdfc5743be781b4</id>
 				<org>Benutzer %1 aus Buddy-Liste entfernen</org>
+				<en>User%1 from Buddy List Remove</en>
+				<es>El usuario%1 de lista de contactos Eliminar</es>
+				<fr>L&amp;#39;utilisateur%1 à partir de Buddy List Remove</fr>
+				<nl>Gebruiker%1 van Buddy List verwijderen</nl>
+				<it>L&amp;#39;utente%1 da Buddy List Rimuovi</it>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>34034107b5c56b5114fc3f25cc812377</id>
 				<org>Noch keine Buddies</org>
+				<en>No Buddies</en>
+				<es>N Amigos</es>
+				<fr>N Amis</fr>
+				<nl>Geen Vrienden</nl>
+				<it>N. Amici</it>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>757289adb5f0fc254a0952cc6ad53396</id>
 				<org>Benutzer %1 in Buddy-Liste aufnehmen</org>
+				<en>User%1 at Buddy List record</en>
+				<es>El usuario%1 en el registro de lista de contactos</es>
+				<fr>L&amp;#39;utilisateur%1 à la Buddy List record</fr>
+				<nl>Gebruiker%1 op Buddy List record</nl>
+				<it>L&amp;#39;utente%1 al record Buddy List</it>
 				<file>msgsys</file>
 			</entry>
 			<entry>
 				<id>78b02c8ee4330aae24c314a1855aa475</id>
 				<org>Benutzer hinzufügen</org>
+				<en>Add Users</en>
+				<es>Agregar usuarios</es>
+				<fr>Ajouter des utilisateurs</fr>
+				<nl>Gebruikers toevoegen</nl>
+				<it>Aggiungi utenti</it>
 				<file>msgsys</file>
 			</entry>
 		</content>

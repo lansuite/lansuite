@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -16,152 +16,290 @@
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
 				<en>Yes</en>
+				<es>Sí</es>
+				<fr>Oui</fr>
+				<nl>Ja</nl>
+				<it>Sì</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
 				<en>No</en>
+				<es>No</es>
+				<fr>Non</fr>
+				<nl>Nee</nl>
+				<it>No</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>8bfc6dfc150abba3ddc987551c0a03f9</id>
 				<org>Seitentitel</org>
 				<en>Lemma</en>
+				<es>Título de la página</es>
+				<fr>Titre de la page</fr>
+				<nl>Paginatitel</nl>
+				<it>Titolo pagina</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>b5b672c9d2e6836588978c12d9b534d5</id>
 				<org>Untertitel</org>
-				<en>Subtitel</en>
+				<en>Subtitles</en>
+				<es>Subtítulos</es>
+				<fr>Sous-titres</fr>
+				<nl>Ondertitels</nl>
+				<it>Sottotitoli</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
 				<en>Details</en>
+				<es>Detalles</es>
+				<fr>Détails</fr>
+				<nl>Details</nl>
+				<it>Dettagli</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>9363ece6cc72bbab27121d73c142ee61</id>
 				<org>Informationsseite - Bearbeiten</org>
 				<en>Information page - Edit</en>
+				<es>Información de la página - Editar</es>
+				<fr>Page d&amp;#39;information - Edit</fr>
+				<nl>Information Page - Bewerk</nl>
+				<it>Informazioni Page - Modifica</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>98e2dafaad8f3300a4612790ffca5a2e</id>
 				<org>Hier können Sie den Inhalt der Info-Seiten editieren.</org>
 				<en>Here you can edit the content of the information Pages.</en>
+				<es>Aquí usted puede editar el contenido de las páginas info.</es>
+				<fr>Ici vous pouvez modifier le contenu des pages info.</fr>
+				<nl>Hier kunt u de inhoud van de info pagina&amp;#39;s.</nl>
+				<it>Qui puoi modificare il contenuto delle pagine info.</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>c44e07cffb5cd991f28e866e8854b548</id>
 				<org>Aktiv</org>
 				<en>Active</en>
+				<es>Activo</es>
+				<fr>Active</fr>
+				<nl>Actief</nl>
+				<it>Active</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>60bbccc81058c0a02ef3bc32bcab4115</id>
 				<org>Hier können Sie den Inhalt der Seite editieren.</org>
 				<en>Here you can edit the Pagecontent</en>
+				<es>Aquí usted puede editar el contenido de la página.</es>
+				<fr>Ici vous pouvez modifier le contenu de la page.</fr>
+				<nl>Hier kunt u de inhoud van de pagina.</nl>
+				<it>Qui puoi modificare il contenuto della pagina.</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>967986841ae5935a30001d9e6ceae7aa</id>
 				<org>Bitte füllen Sie alle Felder aus!</org>
 				<en>Please fill in all fields!</en>
+				<es>Por favor, complete todos los campos!</es>
+				<fr>S&amp;#39;il vous plaît remplir tous les champs!</fr>
+				<nl>Gelieve alle velden in!</nl>
+				<it>Si prega di compilare tutti i campi!</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>4ca5953cced64feb37101fff3ea2f04c</id>
 				<org>Der Eintrag wurde erfolgreich erstellt.</org>
 				<en>The entry has been successfully created.</en>
+				<es>La entrada se ha creado correctamente.</es>
+				<fr>L&amp;#39;entrée a été créée avec succès.</fr>
+				<nl>De vermelding is gemaakt.</nl>
+				<it>La voce è stato creato con successo.</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>9b56afbfe38c58945d2e0f34dc793ffd</id>
 				<org>Der Eintrag wurde erfolgreich geändert.</org>
 				<en>The entry has been successfully changed.</en>
+				<es>La entrada se ha cambiado correctamente.</es>
+				<fr>L&amp;#39;entrée a été changé.</fr>
+				<nl>De vermelding is succesvol gewijzigd.</nl>
+				<it>L&amp;#39;entrata è stata cambiata con successo.</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>3a0ca56f99c4ab93b8793e5e8993d43b</id>
 				<org>Der Eintrag wurde gelöscht.</org>
 				<en>The entry has been deleted.</en>
+				<es>La entrada ha sido borrado.</es>
+				<fr>L&amp;#39;entrée a été supprimée.</fr>
+				<nl>De vermelding is verwijderd.</nl>
+				<it>La voce è stata cancellata.</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>e5d71bd8bf30e401a28e747c9aa66130</id>
 				<org>Der Aktiv-Status wurde erfolgreich geändert.</org>
 				<en>The activestate has been changed.</en>
+				<es>El estado activo se cambia correctamente.</es>
+				<fr>L&amp;#39;état actif est changé avec succès.</fr>
+				<nl>De Active staat is met succes veranderd.</nl>
+				<it>Lo stato attivo è cambiata con successo.</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>4789ac07952deecf2a4ae4276ef5caad</id>
 				<org>Seite</org>
-				<en>Page</en>
+				<en>Side</en>
+				<es>Lado</es>
+				<fr>Côté</fr>
+				<nl>Zijkant</nl>
+				<it>Lato</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>0b48b4f7b6f8aab43cb47a4c840ef2f9</id>
 				<org>Diese Seite enthält selbst definierten Text. Sie können ihn ändern, indem Sie den Informationen-Link in der Navigations-Box auswählen.</org>
 				<en>This Page contains self defined Text. You can change them wenn you use the Information-Link in the Navigationbox.</en>
+				<es>Esta página contiene el texto definido por sí mismo. Usted puede cambiar seleccionando el enlace de información en el cuadro de navegación.</es>
+				<fr>Cette page contient elle-même définie texte. Vous pouvez le modifier en sélectionnant le lien entre l&amp;#39;information dans la zone de navigation.</fr>
+				<nl>Deze pagina bevat zelf gedefinieerde tekst. U kunt dit wijzigen door het selecteren van de informatie link in de navigatie box.</nl>
+				<it>Questa pagina contiene la definizione stessa del testo. È possibile modificare, selezionando il link informazioni nella finestra di navigazione.</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>728cd87695ab19ce5fa501d230e8e19e</id>
 				<org>Sie haben keine Seite ausgewählt.</org>
 				<en>You have no Page selected</en>
+				<es>No ha elegido un lado.</es>
+				<fr>Vous n&amp;#39;avez pas choisi un camp.</fr>
+				<nl>U heeft niet gekozen voor een kant.</nl>
+				<it>Non hai scelto un lato.</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>97e7c9a7d06eac006a28bf05467fcc8b</id>
 				<org>Link</org>
+				<en>Link</en>
+				<es>Vínculo</es>
+				<fr>Lien</fr>
+				<nl>Koppelen</nl>
+				<it>Collegamento</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>c1aa5eed0da0c8e6bf00f35ed6a315d5</id>
 				<org>Einen Text für die Sprache &quot;%1&quot; definieren</org>
+				<en>A text for the language &amp;quot;%1 Define</en>
+				<es>Un texto para la lengua &amp;quot;%1 Definir</es>
+				<fr>Un texte pour la langue &amp;quot;%1 Définir</fr>
+				<nl>Een tekst voor de taal &amp;quot;%1 Define</nl>
+				<it>Un testo per la lingua &amp;quot;%1 Definizione</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
+				<en>Text</en>
+				<es>Texto</es>
+				<fr>Texte</fr>
+				<nl>Tekst</nl>
+				<it>Testo</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>fa478d0041d67f25c64b4417c4ceb538</id>
 				<org>Eintrag deaktiviert</org>
+				<en>Posting disabled</en>
+				<es>Anuncio con discapacidad</es>
+				<fr>Annonce handicapées</fr>
+				<nl>Posting handicap</nl>
+				<it>Distacco disabili</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>4718992adaf8102425a6e5319bb3a41e</id>
 				<org>Eintrag aktiviert</org>
+				<en>Entry activated</en>
+				<es>Entrada activa</es>
+				<fr>Entrée activée</fr>
+				<nl>Entry geactiveerd</nl>
+				<it>Registrazione attivata</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>37740ea476ecbeb9e13f26ef316227ce</id>
 				<org>Hier können Sie einen externen Link definieren.</org>
+				<en>Here you can define an external link.</en>
+				<es>Aquí puede definir un enlace externo.</es>
+				<fr>Ici vous pouvez définir un lien externe.</fr>
+				<nl>Hier kunt u een externe link.</nl>
+				<it>Qui si può definire un link esterno.</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>9da19df2ef302844828cdeaf6824a1cd</id>
 				<org>Popup-Infotext</org>
+				<en>Pop-up info text</en>
+				<es>Pop-up Info-texto</es>
+				<fr>Pop-up Text info</fr>
+				<nl>Pop-up info tekst</nl>
+				<it>Pop-up di testo info</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>a1c14db599b4e4a0077f2935c38aaa90</id>
 				<org>Diese Info-Seite ist nicht aktiviert. Ein Admin muss sie zuerst im Info-Modul aktivieren</org>
+				<en>This info page is not activated. An admin, they must first turn in the info module</en>
+				<es>Esta página de información no está activado. Un administrador, primero debe activar en el módulo de información de</es>
+				<fr>Cette page d&amp;#39;info n&amp;#39;est pas activé. Un admin, ils doivent d&amp;#39;abord passer dans le module d&amp;#39;info</fr>
+				<nl>Deze info-pagina is niet geactiveerd. Een admin, moet hij eerst weer in de info-module</nl>
+				<it>Questa pagina info non è attivo. Un admin, devono prima volta nel modulo info</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>73db50e0f089f9349dc9a9ca7285a3aa</id>
 				<org>Sie haben keine Seite ausgewählt</org>
+				<en>You have not chosen a side</en>
+				<es>No ha elegido un lado</es>
+				<fr>Vous n&amp;#39;avez pas choisi un camp</fr>
+				<nl>U heeft niet gekozen voor een kant</nl>
+				<it>Non hai scelto un lato</it>
 				<file>info2</file>
 			</entry>
 			<entry>
 				<id>5156ea1bc331b25950210fd0a0726278</id>
 				<org>Es liegen Informationen zu der ausgewählten Seite vor, jedoch nicht in Ihrer aktuell gewählten Sprache: &lt;b&gt;%1&lt;/b&gt;</org>
+				<en>There are available to recommend the selected page, but not in your currently selected &lt;b&gt;language:%1&lt;/b&gt;</en>
+				<es>Hay disponibles para recomendar la página seleccionada, pero no en el &lt;b&gt;idioma&lt;/b&gt; seleccionado &lt;b&gt;actualmente:%1&lt;/b&gt;</es>
+				<fr>Il sont prêts à recommander la page sélectionnée, mais pas dans votre &lt;b&gt;langue&lt;/b&gt; actuellement &lt;b&gt;sélectionnée:%1&lt;/b&gt;</fr>
+				<nl>Er zijn beschikbaar voor de geselecteerde pagina te bevelen, maar niet in uw geselecteerde &lt;b&gt;taal:%1&lt;/b&gt;</nl>
+				<it>Ci sono a disposizione per segnalare la pagina selezionata, ma non nella &lt;b&gt;lingua selezionata: 1%&lt;/b&gt;</it>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>5e3e07837e609be93787d022ed8c52ab</id>
+				<org>Deaktivieren</org>
+				<en>Disable</en>
+				<es>Desactivar</es>
+				<fr>Désactiver</fr>
+				<nl>Uitschakelen</nl>
+				<it>Disattivare</it>
+				<file>info2</file>
+			</entry>
+			<entry>
+				<id>2958e457c4bceb5786345e5e2d7817fe</id>
+				<org>Aktivieren</org>
+				<en>Enable</en>
+				<es>Posibilitar</es>
+				<fr>Activer</fr>
+				<nl>In staat stellen</nl>
+				<it>Consentire</it>
 				<file>info2</file>
 			</entry>
 		</content>

@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,371 +15,741 @@
 			<entry>
 				<id>30727110f2a5709d338764ed643b2b2e</id>
 				<org>Eine Bestätigung der Anmeldung wurde an Ihre E-Mail-Adresse gesendet.</org>
+				<en>A registration confirmation is sent to your email address.</en>
+				<es>Una confirmación de inscripción se envía a su dirección de correo electrónico.</es>
+				<fr>Une confirmation d&amp;#39;inscription est envoyé à votre adresse email.</fr>
+				<nl>Een registratie bevestiging is verzonden naar uw e-mailadres.</nl>
+				<it>A conferma della registrazione viene inviata al tuo indirizzo email.</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>e42b75af3c2fe0641e48b717d80fc4ac</id>
 				<org>Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.</org>
+				<en>There was an error while sending the information e-mail.</en>
+				<es>Se produjo un error al enviar la información de correo electrónico.</es>
+				<fr>Il ya eu une erreur lors de l&amp;#39;envoi des informations par courrier électronique.</fr>
+				<nl>Er is een fout opgetreden bij het verzenden van de informatie e-mail.</nl>
+				<it>Si è verificato un errore durante l&amp;#39;invio delle informazioni e-mail.</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>c297fc3c889bb0b4b2c511599d4abfc4</id>
 				<org>Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf &quot;nicht bezahlt&quot; zu setzen, bevor sich abmelden</org>
+				<en>You are already paying for this party set. Ask an admin share on &amp;quot;not paid&amp;quot; before logging off</en>
+				<es>Usted ya está pagando por este partido establecido. Pida una cuota de admin el &amp;quot;no pagar&amp;quot; antes de cerrar la sesión</es>
+				<fr>Vous payez déjà pour ce parti fixés. Demandez une part admin le «non payé» avant de vous déconnecter</fr>
+				<nl>U bent al betaalt voor deze partij stellen. Vraag het een admin aandeel op &amp;quot;niet betaald&amp;quot; voor afmelden</nl>
+				<it>Si stanno già pagando per questa festa insieme. Chiedere una quota di admin il &amp;quot;non pagato&amp;quot; prima della disconnessione</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>31493eab02656fe21f6ba7b29293bf5e</id>
 				<org>Angemeldet</org>
+				<en>Remember</en>
+				<es>Recordar</es>
+				<fr>Se souvenir</fr>
+				<nl>Onthouden</nl>
+				<it>Ricordare</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>c3998db674d32a76bc6f7fc5e6892314</id>
 				<org>Wenn dieses Häckchen gesetzt ist, sind Sie zu dieser Party angemeldet</org>
+				<en>If this box is set, you are registered to this party</en>
+				<es>Si se establece este cuadro, usted está inscrito para este partido</es>
+				<fr>Si cette case est activée, vous êtes inscrit à ce parti</fr>
+				<nl>Als dit vakje is ingesteld, wordt u geregistreerd bij deze partij</nl>
+				<it>Se questa casella è impostata, si sono registrati a questo partito</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>9eabaacbbbdd3c37fe4da3e3f83dca74</id>
 				<org>Nicht bezahlt</org>
+				<en>Not paid</en>
+				<es>No pagado</es>
+				<fr>Non payé</fr>
+				<nl>Niet betaald</nl>
+				<it>Non pagati</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>7314aa603b390704793ed95fc0d41f98</id>
 				<org>Bezahlt - Vorverkauf</org>
+				<en>Paid - Tickets</en>
+				<es>Pagados - Entradas</es>
+				<fr>Payé - Billets</fr>
+				<nl>Betaald - Tickets</nl>
+				<it>Pagati - Biglietti</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>21f0af220cbea00120a1bdfa19b4d6f3</id>
 				<org>Bezahlt - Abendkasse</org>
+				<en>Paid - box office</en>
+				<es>Pagados - taquilla</es>
+				<fr>Payé - box-office</fr>
+				<nl>Betaald - box office</nl>
+				<it>Pagati - box office</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>4b3d45867e3166b92bfc351c85c796c4</id>
 				<org>Bezahltstatus</org>
+				<en>Bezahltstatus</en>
+				<es>Bezahltstatus</es>
+				<fr>Bezahltstatus</fr>
+				<nl>Bezahltstatus</nl>
+				<it>Bezahltstatus</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>30c64856e560daffcefc742493cb9069</id>
 				<org>Eintrittspreis</org>
+				<en>Admission</en>
+				<es>Admisión</es>
+				<fr>Admission</fr>
+				<nl>Toelating</nl>
+				<it>Ammissione</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>74d2882ce8f651d09013eeaa1213a8ee</id>
 				<org>Für diese Party wurden keine Preise definiert</org>
+				<en>For this party no prices have been defined</en>
+				<es>Para este partido los precios no se han definido</es>
+				<fr>Pour ce parti aucun prix n&amp;#39;a été défini</fr>
+				<nl>Voor deze partij geen prijzen vastgesteld</nl>
+				<it>Per questa parte i prezzi non sono stati definiti</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>5936cd25dce7742711410aea58f7f4a9</id>
 				<org>Bezahltdatum</org>
+				<en>Bezahltdatum</en>
+				<es>Bezahltdatum</es>
+				<fr>Bezahltdatum</fr>
+				<nl>Bezahltdatum</nl>
+				<it>Bezahltdatum</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>b2f7016decfeff062c7d93e24026e7e3</id>
 				<org>Eingecheckt</org>
+				<en>Checked</en>
+				<es>Checked</es>
+				<fr>Checked</fr>
+				<nl>Gecontroleerd</nl>
+				<it>Checked</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>345613e04c19c374f9b4915c141cff93</id>
 				<org>Ausgecheckt</org>
+				<en>Checked Out</en>
+				<es>Desprotegido</es>
+				<fr>Checked Out</fr>
+				<nl>Gecontroleerd</nl>
+				<it>Checked Out</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>0adb610472e8bd6164e0c959b9d53ec8</id>
 				<org>Anmeldedatum</org>
+				<en>Joined</en>
+				<es>Antigüedad</es>
+				<fr>Inscription</fr>
+				<nl>Geregistreerd</nl>
+				<it>Iscritto</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>225c3048aea0472017a03724225d66da</id>
 				<org>Partystatus ändern</org>
+				<en>Change Party Status</en>
+				<es>Cambiar Estado Parte</es>
+				<fr>Changement de partie</fr>
+				<nl>Wijzig status van partij</nl>
+				<it>Cambia Party Status</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>dbdf9ba522023a170378afa9623fb605</id>
 				<org>Hier k&amp;ouml;nnen sie die Anmeldedaten im Detail f&amp;uuml;r jeden User / Party einstellen</org>
+				<en>Here you can set the credentials in detail for each user / Party</en>
+				<es>Aquí se puede establecer las credenciales en detalle para cada usuario / Partido</es>
+				<fr>Ici vous pouvez définir les informations d&amp;#39;identification en détail pour chaque utilisateur / groupe</fr>
+				<nl>Hier kunt u de referenties in detail voor elke gebruiker / Party</nl>
+				<it>Qui è possibile impostare le credenziali in dettaglio per ogni utente / gruppo</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>0af296968c506e3918cb4fd569609ce4</id>
 				<org>Text für Eintrittspreis</org>
+				<en>Text for Admission</en>
+				<es>Texto de admisión</es>
+				<fr>Texte d&amp;#39;admission</fr>
+				<nl>Tekst voor Toelating</nl>
+				<it>Testo per l&amp;#39;ammissione</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>17a2725097ccbce4b0bbe1b69fb49aaf</id>
 				<org>Preis</org>
+				<en>Price</en>
+				<es>Precio</es>
+				<fr>Prix</fr>
+				<nl>Prijs</nl>
+				<it>Prezzo</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
+				<en>All</en>
+				<es>Todo</es>
+				<fr>Tous</fr>
+				<nl>Alle</nl>
+				<it>Tutto</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>8df3f805c649152e26746661a7983e0f</id>
 				<org>Admins und Superadmins</org>
+				<en>Admins and Super Admins</en>
+				<es>Administradores y Super Administradores</es>
+				<fr>Administrateurs et Super Admins</fr>
+				<nl>Admins en Super Admins</nl>
+				<it>Amministratori e Super Admins</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>58f64a9bdcf1459a2a3f1ba9b12a9ed9</id>
 				<org>Superadmins</org>
+				<en>Super Admins</en>
+				<es>Super Administradores</es>
+				<fr>Super Admins</fr>
+				<nl>Super Admins</nl>
+				<it>Super Admins</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>1f3c7461657d164064c0eff75ef9940a</id>
 				<org>Beschreibung eines Depots</org>
+				<en>Description of a depot</en>
+				<es>Descripción de un depósito de</es>
+				<fr>Description d&amp;#39;un dépôt</fr>
+				<nl>Beschrijving van een depot</nl>
+				<it>Descrizione di un deposito</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>980d919791b82c6d337ca57be4fd692c</id>
 				<org>Depotpreis (Leer lassen, wenn es kein Depot gibt.)</org>
+				<en>Depot Price (Leave blank if there is no deposit.)</en>
+				<es>Precio Depot (Deja en blanco si no hay ningún depósito.)</es>
+				<fr>Depot Prix (Laissez en blanc s&amp;#39;il n&amp;#39;ya pas de dépôt.)</fr>
+				<nl>Depot Prijs (Laat leeg als er geen borg.)</nl>
+				<it>Prezzo Depot (Lascia in bianco se non vi è alcun deposito.)</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>d7d001377af53f0336a8a6eca47aa1a7</id>
 				<org>Gruppenname</org>
+				<en>Group Name</en>
+				<es>Nombre del grupo</es>
+				<fr>Nom du groupe</fr>
+				<nl>Groepsnaam</nl>
+				<it>Nome del gruppo</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>b4251d60fa4f136bf2fa8732ec6ed08e</id>
 				<org>Sichtbar für</org>
+				<en>Visible to</en>
+				<es>Visible para</es>
+				<fr>Visible à</fr>
+				<nl>Zichtbaar voor</nl>
+				<it>Visibile a</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>abf7ac09dfe3da2923516dd75445cd7e</id>
 				<org>Gültig bis</org>
+				<en>Expires</en>
+				<es>Expira</es>
+				<fr>Expires</fr>
+				<nl>Verloopt</nl>
+				<it>Scade</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>64b1098d6777705f3921a1bb92dffb1b</id>
 				<org>Party anzeigen</org>
+				<en>Party Profile</en>
+				<es>Parte perfil</es>
+				<fr>Parti le profil</fr>
+				<nl>Party Profiel</nl>
+				<it>Partito Profilo</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>ab45c791ddd4695d8f647901e32c070f</id>
 				<org>Die Details der Partys.</org>
+				<en>The details of the parties.</en>
+				<es>Los detalles de las partes.</es>
+				<fr>Les détails des parties.</fr>
+				<nl>De details van de partijen.</nl>
+				<it>I dettagli delle parti.</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
+				<en>Details</en>
+				<es>Detalles</es>
+				<fr>Détails</fr>
+				<nl>Details</nl>
+				<it>Dettagli</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>a97f3c5af10a3d51118a90c6c05002f1</id>
 				<org>Partyname</org>
+				<en>Party Name</en>
+				<es>Nombre de la Parte</es>
+				<fr>Nom de la partie</fr>
+				<nl>Naam partij</nl>
+				<it>Nome party</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>9548f502e461dace852f11129cd2311b</id>
 				<org>Anzahl Plätze</org>
+				<en>Number of seats</en>
+				<es>Número de asientos de</es>
+				<fr>Nombre de places</fr>
+				<nl>Aantal zitplaatsen</nl>
+				<it>Numero di posti</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>cd31dae2aeabc40bc5bb1094c182bf1c</id>
 				<org>PLZ</org>
+				<en>Postcode</en>
+				<es>Código postal</es>
+				<fr>Code postal</fr>
+				<nl>Postcode</nl>
+				<it>Cap</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>473390974397014edf78846c8f0e93b3</id>
 				<org>Ort</org>
+				<en>Location</en>
+				<es>Ubicación</es>
+				<fr>Emplacement</fr>
+				<nl>Locatie</nl>
+				<it>Località</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>aed64cf84d53a5e8ecf28a9d4108b173</id>
 				<org>Party startet am</org>
+				<en>Party starts at</en>
+				<es>Fiesta empieza a las</es>
+				<fr>Partie commence à</fr>
+				<nl>Party begint om</nl>
+				<it>Party inizia alle</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>89ca9cb435647c3f67aefd38040868cb</id>
 				<org>Party endet am</org>
+				<en>Party ends at</en>
+				<es>Parte termina en</es>
+				<fr>Partie se termine à</fr>
+				<nl>Party eindigt om</nl>
+				<it>Party termina in</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>132f88a2aca453d522e58e5bd846466d</id>
 				<org>Anmeldung startet am</org>
+				<en>Registration starts at</en>
+				<es>Registro comienza a las</es>
+				<fr>L&amp;#39;inscription débutera à</fr>
+				<nl>Registratie begint om</nl>
+				<it>La registrazione inizia</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>01c9efe865c01816c1ef954a05921b4d</id>
 				<org>Anmeldung endet am</org>
+				<en>Registration closes</en>
+				<es>La inscripción cierra</es>
+				<fr>L&amp;#39;inscription se termine</fr>
+				<nl>Inschrijving sluit</nl>
+				<it>La registrazione si chiude</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>43f519d8bc795324340e613aa8391db0</id>
 				<org>Party auswählen</org>
+				<en>Choose party</en>
+				<es>Elija partido</es>
+				<fr>Sélectionner un parti</fr>
+				<nl>Kies partij</nl>
+				<it>Scegli party</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>0d757455651ad1f9693ce4d049bc4d10</id>
 				<org>Preis auswählen</org>
+				<en>Select Price</en>
+				<es>Seleccione Precio</es>
+				<fr>Choisir Prix</fr>
+				<nl>Selecteer Prijs</nl>
+				<it>Seleziona Prezzo</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>519254a57df6430bd507c3fe8a166cd2</id>
 				<org>Die Anmeldung von %ID% bei der Party %PARTY% wurde geändert. Neu: Bezahlt = %PAID%, Checkin = %CHECKIN%, Checkout = %CHECKOUT%, Pfand = %SEATCONTROL%, Preisid = %PIRCEID%</org>
+				<en>The declaration of%ID%%%PARTY at the party has changed. New: Paid PAID =%%=%CHECKIN%Checkin, Checkout CHECKOUT =%%=%deposit SEAT CONTROL%, Preisid =%%PIRCEID</en>
+				<es>La declaración de identificación del Partido%%%%en el partido ha cambiado. Nuevo: pago PAGADO =%%%%= CHECKIN Entrada, Salida CHECKOUT =%%=%de depósito SEAT CONTROL%, Preisid =%%PIRCEID</es>
+				<fr>La déclaration d&amp;#39;ID%%%%PARTY à la fête a changé. Nouveau: payer Payé =%%%%= CHECKIN archivage, Checkout CAISSE =%%=%%dépôt SIEGE DE COMMANDE, Preisid =%%PIRCEID</fr>
+				<nl>De verklaring van ID%%%%PARTY op het feest is veranderd. Nieuw: Betaald BETAALD = =%%%%CHECKIN Checkin, Checkout AFREKENEN =%%=%aanbetaling SEAT CONTROL%, Preisid =%%PIRCEID</nl>
+				<it>La dichiarazione di ID%Partito%%%al partito è cambiato. Novità: paid = =%%%%CHECKIN Checkin, Acquista Acquista%=%=%di deposito SEAT CONTROL%, Preisid =%%PIRCEID</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>c745ae9e66898b2e7fea506489bd1242</id>
 				<org>Ohne Gruppe</org>
+				<en>No Group</en>
+				<es>N grupo</es>
+				<fr>Pas de groupe</fr>
+				<nl>Nr. Groep</nl>
+				<it>N. gruppo</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>9e9cec8bc20dcdafcc5d6eadfcd13482</id>
 				<org>Benutzergruppe</org>
+				<en>User group</en>
+				<es>Grupo de usuarios</es>
+				<fr>User Group</fr>
+				<nl>Gebruikersgroep</nl>
+				<it>User Group</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>fd27d51d3c25def0f73eadf1a4195437</id>
 				<org>Keine Benutzergruppe vorhanden</org>
+				<en>No user group exists</en>
+				<es>N grupo de usuarios existe</es>
+				<fr>Aucun groupe d&amp;#39;utilisateur existe</fr>
+				<nl>Geen gebruiker groep bestaat</nl>
+				<it>Nessun gruppo utente esiste</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>4d30d83c330743e9f3e0f8eb49e68c16</id>
 				<org>Der Endzeitpunkt muss nach dem Startzeitpunkt liegen</org>
+				<en>The end date must be after start date</en>
+				<es>La fecha de finalización debe ser posterior a la fecha de inicio</es>
+				<fr>La date de fin doit être postérieure à la date de début</fr>
+				<nl>De einddatum moet na de startdatum</nl>
+				<it>La data di fine deve essere dopo la data di inizio</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>ca516c820763a265be48a5ea5eaf3681</id>
 				<org>Der Anmeldestart muss vor dem Partystart liegen</org>
+				<en>The sign-off must be before the party start</en>
+				<es>El sign-off debe ser antes del inicio partido</es>
+				<fr>Le signe d&amp;#39;arrêt doit être placé avant la fête commence</fr>
+				<nl>De teken-off moet worden voordat het feest begint</nl>
+				<it>Il sign-off deve essere prima parte</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>47b03c1d5e9f4528668c2905263dc1ff</id>
 				<org>Der Anmeldeschluss muss nach dem Anmeldestart liegen</org>
+				<en>The registration deadline must be later than the start of registration</en>
+				<es>El plazo de inscripción debe ser más tarde del comienzo de la inscripción</es>
+				<fr>La date limite d&amp;#39;inscription doit être plus tard au début de l&amp;#39;enregistrement</fr>
+				<nl>De uiterste termijn voor registratie moet uiterlijk bij de start van de registratie</nl>
+				<it>Il termine di registrazione deve essere entro l&amp;#39;inizio della registrazione</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>dc4eab6cc679fe22f4c4d56d6e179b2d</id>
 				<org>Der Anmeldeschluss muss vor dem Partystart liegen</org>
+				<en>The registration deadline must be before the party start</en>
+				<es>El plazo de inscripción debe ser antes del inicio partido</es>
+				<fr>La date limite d&amp;#39;inscription doit être antérieure à la fête commence</fr>
+				<nl>De uiterste termijn voor registratie moet worden voordat het feest begint</nl>
+				<it>Il termine di registrazione deve essere prima parte</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>db301a401fc5c967406acf2921b74f9c</id>
 				<org>Die Daten wurden erfolgreich ge�ndert.</org>
+				<en>The data were successfully gendert.</en>
+				<es>Los datos fueron exitosamente gendert.</es>
+				<fr>Les données ont été gendert succès.</fr>
+				<nl>De gegevens werden met succes gendert.</nl>
+				<it>I dati sono stati correttamente gendert.</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>246f0b0ab9e49ac6fb298a06ca3fa36c</id>
 				<org>Anzahl Pl�tze</org>
+				<en>Number of Seats open</en>
+				<es>Número de plazas abiertas</es>
+				<fr>Nombre de sièges ouverts</fr>
+				<nl>Aantal Seats open</nl>
+				<it>Numero di posti disponibili</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>4562044232d0676187bc533061ceb14b</id>
 				<org>Text f�r Eintrittspreis</org>
+				<en>Text fr Admission</en>
+				<es>Texto fr Admisión</es>
+				<fr>Text fr Admission</fr>
+				<nl>Tekst fr Toelating</nl>
+				<it>Fr Testo Ammissione</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>ad60cf5dd813abd16900c25dc1069c84</id>
 				<org>Bezahlt</org>
+				<en>Paid</en>
+				<es>Pagado</es>
+				<fr>Payé</fr>
+				<nl>Betaald</nl>
+				<it>Pagati</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>64d129224a5377b63e9727479ec987d9</id>
 				<org>Counter</org>
+				<en>Counter</en>
+				<es>Contador</es>
+				<fr>Counter</fr>
+				<nl>Counter</nl>
+				<it>Counter</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>31ce770010c6671548a36168293f774a</id>
 				<org>Diese Party ist bereits vorüber</org>
+				<en>The party is already over</en>
+				<es>El partido ya ha terminado</es>
+				<fr>La fête est déjà terminée</fr>
+				<nl>Het feest is al voorbij</nl>
+				<it>La festa è già finita</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>4d89dd5f9cb6886d2b0074c20c8f0a25</id>
 				<org>Die Party läuft gerade!</org>
+				<en>The party is running!</en>
+				<es>El partido está funcionando!</es>
+				<fr>Le parti est en cours d&amp;#39;exécution!</fr>
+				<nl>De partij wordt uitgevoerd!</nl>
+				<it>Il partito è in esecuzione!</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>7af763f68c3438bf124d6d91d49391f3</id>
 				<org>Noch %1 Minuten.</org>
+				<en>Even%1 minutes.</en>
+				<es>Incluso%1 minutos.</es>
+				<fr>Même%1 minutes.</fr>
+				<nl>Zelfs%1 minuten.</nl>
+				<it>Anche%1 minuto.</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>f340726c83681d1eb5d1a1130523b071</id>
 				<org>Noch %1 Stunden.</org>
+				<en>Even%1 hours.</en>
+				<es>Incluso%1 horas.</es>
+				<fr>Même%1 heures.</fr>
+				<nl>Zelfs%1 uur.</nl>
+				<it>Anche%1 ore.</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>9c9002470e77c1baf431bcf1b85c9287</id>
 				<org>Noch %1 Tage.</org>
+				<en>Even%1 days.</en>
+				<es>Incluso%1 días.</es>
+				<fr>Même%1 derniers jours.</fr>
+				<nl>Zelfs%1 dagen.</nl>
+				<it>Anche%1 giorni.</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>a2b4f8a78b76d51d6090fd54efbf1adb</id>
 				<org>Letzter Kontocheck</org>
+				<en>Last account check</en>
+				<es>Ultima cuenta de verificación</es>
+				<fr>Dernière compte de chèques</fr>
+				<nl>Last-account controleren</nl>
+				<it>Conto Ultimo controllo</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>200adafa8a40db52970a5e124d0e001a</id>
 				<org>Der neue Abendkasse-Preis wurde gesetzt</org>
+				<en>The new box office price was set</en>
+				<es>El nuevo precio de taquilla se estableció</es>
+				<fr>Le nouveau prix a été fixé au box-office</fr>
+				<nl>De nieuwe box office prijs werd</nl>
+				<it>Il nuovo prezzo è stato fissato al box office</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
+				<en>Yes</en>
+				<es>Sí</es>
+				<fr>Oui</fr>
+				<nl>Ja</nl>
+				<it>Sì</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
+				<en>No</en>
+				<es>No</es>
+				<fr>Non</fr>
+				<nl>Nee</nl>
+				<it>No</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>999a1fe4d3acf248cfab2d1651a9d8e3</id>
 				<org>Abendkasse-Preis?</org>
+				<en>Box office price?</en>
+				<es>Precio de taquilla?</es>
+				<fr>Box Prix bureau?</fr>
+				<nl>Box office prijs?</nl>
+				<it>Prezzo Box office?</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>44ad3109446e640ac2eb2ac75b5ce0d6</id>
 				<org>Unsere Partys</org>
+				<en>Our Parties</en>
+				<es>Nuestras Fiestas</es>
+				<fr>Nos parties</fr>
+				<nl>Onze partijen</nl>
+				<it>I nostri parti</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>e00204588b6953c5c04f8b14701bd35d</id>
 				<org>Hier siehst du eine Liste aller geplanten Partys</org>
+				<en>Here are a list of planned parties</en>
+				<es>Aquí hay una lista de las partes prevista</es>
+				<fr>Voici une liste des parties prévues</fr>
+				<nl>Hier zijn een lijst van geplande partijen</nl>
+				<it>Ecco l&amp;#39;elenco dei soggetti previsti</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>116f77d62b6084d13e0e88920f9cce08</id>
 				<org>Partyanmeldung</org>
+				<en>Party Registration</en>
+				<es>Parte de Registro</es>
+				<fr>Enregistrement des partis</fr>
+				<nl>Party Registration</nl>
+				<it>Partito Registration</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>094a173d3b32f44f5b5c996e8710ae28</id>
 				<org>Party</org>
+				<en>Party</en>
+				<es>Fiesta</es>
+				<fr>Fête</fr>
+				<nl>Feestje</nl>
+				<it>Festa</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>827ebef78fd80e4cd6af55afce7fa40c</id>
 				<org>Gäste bezahlt / eingecheckt / ausgecheckt</org>
+				<en>Guests pay / check in / check out</en>
+				<es>Los huéspedes pagan / check in / check-out</es>
+				<fr>Les clients paient / check in / check out</fr>
+				<nl>Gasten betalen / check in / check out</nl>
+				<it>Gli ospiti possono pagare / check in / check out</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>00dcb99942ed6de2085035d5f3704093</id>
 				<org>Besucher gesamt / Gerade eingeloggt</org>
+				<en>Total visits / Just logged in.</en>
+				<es>Total de visitas / Just logged in</es>
+				<fr>Total visites / Just logged in</fr>
+				<nl>Totaal bezoekers / Just ingelogd</nl>
+				<it>Visite totali / Just logged</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>8c15679a81c7ec9625771462fc6100d0</id>
 				<org>Nicht Angemeldet</org>
+				<en>Not Registered</en>
+				<es>No registrado</es>
+				<fr>Non inscrit</fr>
+				<nl>Niet Geregistreerd</nl>
+				<it>Non Iscritti</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>9172c147d3e074952cc2c5542abced2d</id>
 				<org> gezahlt</org>
+				<en>paid</en>
+				<es>pagado</es>
+				<fr>payés</fr>
+				<nl>betaald</nl>
+				<it>pagati</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>a3ec8fba4b09873489782e9375548b76</id>
 				<org> NICHT gezahlt</org>
+				<en>NOT paid</en>
+				<es>No pagado</es>
+				<fr>Non payé</fr>
+				<nl>Niet betaald</nl>
+				<it>Non pagato</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>391916c78f84bcd02911270f1e31bdf9</id>
 				<org>Nicht eingecheckt</org>
+				<en>Not checked</en>
+				<es>No verificado</es>
+				<fr>Non vérifié</fr>
+				<nl>Niet gecontroleerd</nl>
+				<it>Non controllato</it>
 				<file>party</file>
 			</entry>
 			<entry>
 				<id>26361d584204ed388d8b05b3aae400bf</id>
 				<org>Nicht ausgecheckt</org>
+				<en>Not checked out</en>
+				<es>No comprobado</es>
+				<fr>Non vérifié</fr>
+				<nl>Niet gecontroleerd</nl>
+				<it>Non verificato</it>
 				<file>party</file>
 			</entry>
 			<entry>

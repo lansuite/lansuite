@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,11 +15,21 @@
 			<entry>
 				<id>eff111190077dce01fd0c41846a202d7</id>
 				<org>Anfahrt</org>
+				<en>Directions</en>
+				<es>Cómo llegar</es>
+				<fr>Itinéraire</fr>
+				<nl>Routebeschrijving</nl>
+				<it>Indicazioni</it>
 				<file>map</file>
 			</entry>
 			<entry>
 				<id>0897dd10177144fbdbd4eb4ab284faf5</id>
 				<org>Hier könnt ihr euch von Map24.de eure Route zur LAN berechnen lassen.</org>
+				<en>Here you can Map24.de you of your route to the LAN can be calculated.</en>
+				<es>Aquí puede usted Map24.de de la ruta a la LAN se puede calcular.</es>
+				<fr>Ici, vous pouvez Map24.de de votre itinéraire au réseau local peut être calculé.</fr>
+				<nl>Hier kunt u Map24.de van uw route naar het LAN kan worden berekend.</nl>
+				<it>Qui si può Map24.de voi del vostro itinerario per la LAN può essere calcolato.</it>
 				<file>map</file>
 			</entry>
 		</content>

@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,156 +15,311 @@
 			<entry>
 				<id>bf5cb63de95b7b6d2f013bff683b5458</id>
 				<org>Bitte geben sie einen Vornamen ein</org>
+				<en>Please enter your first name</en>
+				<es>Por favor, introduzca su nombre de pila</es>
+				<fr>S&amp;#39;il vous plaît entrer votre prénom</fr>
+				<nl>Geef uw voornaam</nl>
+				<it>Inserisci il tuo nome</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>2fec6ca6deff4ea9a44bdf4fd230fc6f</id>
 				<org>Bitte geben sie einen Namen ein</org>
+				<en>Please enter a name</en>
+				<es>Por favor, introduzca un nombre</es>
+				<fr>S&amp;#39;il vous plaît entrer un nom</fr>
+				<nl>Geef een naam</nl>
+				<it>Si prega di inserire un nome</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>cafbba04e7294d371b4fff86c02a93d9</id>
 				<org>Bitte geben sie eine Email ein</org>
+				<en>Please enter your email</en>
+				<es>Por favor, introduzca su email</es>
+				<fr>S&amp;#39;il vous plaît entrer votre e-mail</fr>
+				<nl>Vul uw e-mail</nl>
+				<it>Inserisci la tua email</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>5aebad07ebf1cb896b792abbffc649f0</id>
 				<org>Kein Preis ausgew&amp;auml;hlt</org>
+				<en>No price selected</en>
+				<es>Precio no seleccionados</es>
+				<fr>Aucun prix sélectionnés</fr>
+				<nl>Geen ingestelde prijs</nl>
+				<it>Nessun prezzo selezionati</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>d423f4e9112f6d15d068ebf5df65e13d</id>
 				<org>Daten eingeben</org>
+				<en>Enter data</en>
+				<es>Ingrese los datos</es>
+				<fr>Saisir les données</fr>
+				<nl>Gegevens invoeren</nl>
+				<it>Inserire i dati</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>f04455d31e409b1d96006bdd4aae66dd</id>
 				<org>Bitte geben sie ihre Zahlungsdaten ein.</org>
+				<en>Please enter your payment information.</en>
+				<es>Por favor, introduzca su información de pago.</es>
+				<fr>S&amp;#39;il vous plaît entrer vos informations de paiement.</fr>
+				<nl>Geef uw betalingsgegevens.</nl>
+				<it>Si prega di inserire i vostri dati di pagamento.</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>fecc7b92efa313ac8de08d4094455c9e</id>
 				<org>Vorname</org>
+				<en>First name</en>
+				<es>Nombre</es>
+				<fr>Prénom</fr>
+				<nl>Voornaam</nl>
+				<it>Nome</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>43895f9ec69cb177446921df9828c680</id>
 				<org>Nachname</org>
+				<en>Surname</en>
+				<es>Apellido</es>
+				<fr>Nom de famille</fr>
+				<nl>Achternaam</nl>
+				<it>Cognome</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>8b6e1ce90c17ae5b1a31fc23e7304545</id>
 				<org>Strasse</org>
+				<en>Street</en>
+				<es>Street</es>
+				<fr>Street</fr>
+				<nl>Street</nl>
+				<it>Street</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>c05fc5cd8ba6911178b3200da05cd1e3</id>
 				<org>Stadt</org>
+				<en>City</en>
+				<es>Ciudad</es>
+				<fr>Ville</fr>
+				<nl>Stad</nl>
+				<it>Città</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>cd31dae2aeabc40bc5bb1094c182bf1c</id>
 				<org>PLZ</org>
+				<en>Postcode</en>
+				<es>Código postal</es>
+				<fr>Code postal</fr>
+				<nl>Postcode</nl>
+				<it>Cap</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>082e55a73f10496681c84231dc1c88f7</id>
 				<org>E-Mail</org>
+				<en>E-mail</en>
+				<es>E-mail</es>
+				<fr>E-mail</fr>
+				<nl>E-mail</nl>
+				<it>E-mail</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>e52631cfb80cd672c852bcc891c9f985</id>
 				<org>Zu &amp;uuml;berweisender Betrag</org>
+				<en>Amount to be transferred</en>
+				<es>Cantidad a transferir</es>
+				<fr>Montant à transférer</fr>
+				<nl>Bedrag over te dragen</nl>
+				<it>Importo da trasferire</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>55e26d89d561ff0c00fba2da2e6902a8</id>
 				<org>Achtung mit dem klicken auf weiter wird die Zahlung durchgef&amp;uuml;hrt</org>
+				<en>Caution with the click will further complete the payment</en>
+				<es>Precaución con el aún más completa, haga clic en el pago</es>
+				<fr>Attention avec le clic accentuera le paiement</fr>
+				<nl>Voorzichtig met een klik verder voltooien van de betaling</nl>
+				<it>Attenzione con il clic ulteriormente completare il pagamento</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>9c3382794e30895927348068b8de526d</id>
 				<org>Senden der Daten</org>
+				<en>Sending data</en>
+				<es>Envío de datos</es>
+				<fr>Envoi de données</fr>
+				<nl>Gegevens verzenden</nl>
+				<it>L&amp;#39;invio di dati</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>353bf28f855d8db5b6d701aff1518afb</id>
 				<org>Die Daten werden gesendet einen Moment bitte</org>
+				<en>The data is sent one moment please</en>
+				<es>Los datos se envían en un momento por favor</es>
+				<fr>Les données sont envoyées un instant s&amp;#39;il vous plaît</fr>
+				<nl>De gegevens worden verzonden een moment geduld aub</nl>
+				<it>I dati vengono inviati Un attimo di pazienza</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>ea5da16b08df3487034dfc529ff08a44</id>
 				<org>Einen Moment Bitte die Daten werden gesendet</org>
+				<en>One moment please, the data is sent</en>
+				<es>Un momento por favor, se envían los datos</es>
+				<fr>Un instant s&amp;#39;il vous plaît, les données sont envoyées</fr>
+				<nl>Een moment alstublieft, worden de gegevens verzonden</nl>
+				<it>Un attimo per favore, i dati vengono inviati</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>482873f9c055792b35849d012beddf75</id>
 				<org>Zahlung erfolgreich</org>
+				<en>Payment successful</en>
+				<es>Pago de éxito</es>
+				<fr>Paiement réussi</fr>
+				<nl>Betaling succesvol</nl>
+				<it>Pagamento di successo</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>a11b4cdeb41afc893c48903c3ca88f34</id>
 				<org>Die Zahlung war erfolgreich. Wir danken f&amp;uuml;r die Einzahlung.</org>
+				<en>The payment was successful. We thank you for the deposit.</en>
+				<es>El pago se realizó correctamente. Te damos gracias por el depósito.</es>
+				<fr>Le paiement a été couronnée de succès. Nous vous remercions pour le dépôt.</fr>
+				<nl>De betaling is geslaagd. Wij danken u voor de aanbetaling.</nl>
+				<it>Il pagamento è stato di successo. Ti ringraziamo per il deposito.</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>b883dad46eeaaa3239bf753a081e8d2d</id>
 				<org>Zahlungsnummer</org>
+				<en>Payment Number</en>
+				<es>Número de pago</es>
+				<fr>Numéro de paiement</fr>
+				<nl>Betaling Nummer</nl>
+				<it>Numero di pagamento</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>f371445084251f709ce08627c4bb8ce1</id>
 				<org>Zahlungsdatum</org>
+				<en>Payment Date</en>
+				<es>Fecha de Pago</es>
+				<fr>Date de paiement</fr>
+				<nl>Betalingsdatum</nl>
+				<it>Data di pagamento</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>4fa5aeaa81a861e4eab8a8588bafb4bd</id>
 				<org>Transaktionsfehler oder unerlaubter Zugriff</org>
+				<en>Transaction errors, or unauthorized access</en>
+				<es>Los errores de transacción, o el acceso no autorizado</es>
+				<fr>Les erreurs de transaction, ou l&amp;#39;accès non autorisé</fr>
+				<nl>Transactie fouten, of ongeoorloofde toegang</nl>
+				<it>Errori di transazione, o di accesso non autorizzato</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>c71967d240bb23e62b75a5fa899727f6</id>
 				<org>Bitte melden sie sich beim einem Admin damit der die Zahlung pr&amp;uuml;fen kann.</org>
+				<en>Check Please log in to an admin so that the payment may be.</en>
+				<es>Hora Inicia sesión para un administrador para que el pago puede ser.</es>
+				<fr>S&amp;#39;il vous plaît vérifier log-vous à un admin pour que le paiement mai être.</fr>
+				<nl>Check Log in om een admin, zodat de betaling kan worden.</nl>
+				<it>Check Accedi ad un admin in modo che il pagamento può essere.</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>52e5304c8c7dfe795117f86497f74b8d</id>
 				<org>Fehler</org>
+				<en>Mistake</en>
+				<es>Falta</es>
+				<fr>Erreur</fr>
+				<nl>Fout</nl>
+				<it>Errore</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>04e7213b070d361d6c7ba7d8951506a9</id>
 				<org>Die Transaktion konnte nicht durchgef&amp;uuml;hrt werden.</org>
+				<en>The transaction could not be performed.</en>
+				<es>La operación no pudo realizarse.</es>
+				<fr>La transaction ne peut être réalisée.</fr>
+				<nl>De transactie kan niet worden uitgevoerd.</nl>
+				<it>L&amp;#39;operazione non potrebbe essere eseguita.</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>1870901ad7311ca0165d340c00559f74</id>
 				<org>Sie k&amp;ouml;nnen nichts einzahlen wenn Sie nicht eingeloggt sind.</org>
+				<en>You can pay nothing if you are not logged.</en>
+				<es>Usted puede pagar nada si no se registran.</es>
+				<fr>Vous pouvez payer rien si vous n&amp;#39;êtes pas connecté.</fr>
+				<nl>U kunt betalen niets als u niet bent ingelogd.</nl>
+				<it>È possibile pagare nulla se non si è connessi.</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>7c6ae118401281ccb8b2ed82e0574ebb</id>
 				<org>Einzahlen</org>
+				<en>Deposit</en>
+				<es>Fuerte</es>
+				<fr>Caution</fr>
+				<nl>Borg</nl>
+				<it>Deposito</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>8c8e0b44ba00480522be4c086b6e7ac6</id>
 				<org>Hier sehen sie was f&amp;uuml;r Betr&amp;auml;ge noch ausstehend sind. W&amp;auml;hlen sie was sie bezahlen m&amp;ouml;chten.</org>
+				<en>Here you can see what amounts are still outstanding. They choose what they want to pay.</en>
+				<es>Aquí puedes ver lo que viene todavía están pendientes. Ellos eligen lo que quieren pagar.</es>
+				<fr>Ici vous pouvez voir quels montants sont encore en suspens. Ils choisissent ce qu&amp;#39;ils veulent payer.</fr>
+				<nl>Hier kunt u zien welke bedragen zijn nog steeds uitstekend. Ze kiezen wat ze willen betalen.</nl>
+				<it>Qui si può vedere ciò che gli importi sono ancora in sospeso. Scelgono quello che vogliono pagare.</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>1561dc299173b1fa086b9026c73cf93c</id>
 				<org>Alle Eintrittspreise bezahlt.</org>
+				<en>All admission fees paid.</en>
+				<es>Todos los precios de entrada de pago.</es>
+				<fr>Tous les droits d&amp;#39;entrée payés.</fr>
+				<nl>Alle toegangsprijzen betaald.</nl>
+				<it>Tutti i biglietti d&amp;#39;ingresso versati.</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>dd222861d3e8832d5a8e31380bd5c60a</id>
 				<org>Einzahlung f&amp;uuml;r Catering</org>
+				<en>Deposit for catering</en>
+				<es>Depósito para la restauración</es>
+				<fr>Caution pour la restauration</fr>
+				<nl>Borgsom voor catering</nl>
+				<it>Deposito per la ristorazione</it>
 				<file>paypal</file>
 			</entry>
 			<entry>
 				<id>fff87014aa86602f883c419ee43f9224</id>
 				<org>Spende f&amp;uuml;r die Organisatoren</org>
+				<en>Donation to the organizers</en>
+				<es>Donación a los organizadores</es>
+				<fr>Donation aux organisateurs</fr>
+				<nl>Donatie aan de organisatoren</nl>
+				<it>Donazione agli organizzatori</it>
 				<file>paypal</file>
 			</entry>
 		</content>

@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,791 +15,1581 @@
 			<entry>
 				<id>7449b30c6d02c085df6cb392be29b28e</id>
 				<org>Bitte einen Korrekten Betrag angeben</org>
+				<en>Please specify a correct amount</en>
+				<es>Por favor, especifique una cantidad correcta</es>
+				<fr>S&amp;#39;il vous plaît spécifier un montant correct</fr>
+				<nl>Geef een juiste bedrag</nl>
+				<it>Si prega di indicare un importo corretto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>d2a42bf44c8fed00da041ad02f686458</id>
 				<org>Kommentar zu lange bitte kürzen.</org>
+				<en>Comment too long, please shorten.</en>
+				<es>Comentario demasiado largo, por favor, se acortan.</es>
+				<fr>Commentaire trop long, s&amp;#39;il vous plaît raccourcir.</fr>
+				<nl>Reactie te lang, gelieve te korten.</nl>
+				<it>Commento troppo lungo, si prega di accorciare.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>517c35cdf05b9ae794567370114db514</id>
 				<org>Kontoverwaltung</org>
+				<en>Account Management</en>
+				<es>Gestión de la cuenta</es>
+				<fr>Gestion de compte</fr>
+				<nl>Accountbeheer</nl>
+				<it>Account Management</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>9b148fa6112c3f643268c9d42800443c</id>
 				<org>Hier können Sie Einzahlungen, Auszahlungen verwalten und Kontostände einsehen.</org>
+				<en>Here you can manage deposits, withdrawals, and view account balances.</en>
+				<es>Aquí puede administrar los depósitos, retiros, y los saldos de cuenta de vista.</es>
+				<fr>Ici vous pouvez gérer les dépôts, retraits, et les soldes des comptes de vue.</fr>
+				<nl>Hier kunt deposito&amp;#39;s kunt beheren, uit de markt nemen, en te bekijken rekeningsaldi.</nl>
+				<it>Qui è possibile gestire i depositi, ritiri, e saldi dei conti di vista.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>0cd64b24ca55e5db9dc020e48940e256</id>
 				<org>Zahlungen</org>
+				<en>Payments</en>
+				<es>Pagos</es>
+				<fr>Paiements</fr>
+				<nl>Betalingen</nl>
+				<it>Pagamenti</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>e2a063ad8c2c84beda04596a7171ce0b</id>
 				<org>Fremder Kontoauszug</org>
+				<en>Stranger Statement</en>
+				<es>Declaración de Stranger</es>
+				<fr>Stranger Déclaration</fr>
+				<nl>Stranger Statement</nl>
+				<it>Stranger Statement</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>d9dc47a3cb27352fe549d3d8004dd12c</id>
 				<org>Eigener Kontoauszug</org>
+				<en>Private Statement</en>
+				<es>Declaración Privada</es>
+				<fr>Private Statement</fr>
+				<nl>Eigen Verklaring</nl>
+				<it>Private Statement</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>0003743b98321ae3ee2d8c8a13f76a26</id>
 				<org>Betrag</org>
+				<en>Amount</en>
+				<es>Cantidad</es>
+				<fr>Montant</fr>
+				<nl>Hoeveelheid</nl>
+				<it>Quantità</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>e4028dca879f96e7e3a3bc136e7a89fa</id>
 				<org>Kommentar (Dein Name wird in Klammer angefügt)</org>
+				<en>Comments (Your name will be added in parentheses)</en>
+				<es>Comentarios (Su nombre será añadido en paréntesis)</es>
+				<fr>Commentaires (Votre nom sera ajouté entre parenthèses)</fr>
+				<nl>Reacties (Uw naam zal worden toegevoegd tussen haakjes)</nl>
+				<it>Commenti (Il tuo nome verrà aggiunto in parentesi)</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>284f3fb8b14ca3e16d906c02a4b7ddde</id>
 				<org>Das Produkt wurde hinzugefügt.</org>
+				<en>The product has been added.</en>
+				<es>El producto ha sido añadido.</es>
+				<fr>Le produit a été ajouté.</fr>
+				<nl>Het product is toegevoegd.</nl>
+				<it>Il prodotto è stato aggiunto.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>1a96d0e2ec12134d015bd1fe353bf242</id>
 				<org>Das Foodcenter ist geschlossen. Die Öffnungszeigen sind:</org>
+				<en>The Food Center is closed. The Öffnungszeigen are:</en>
+				<es>El Centro de Alimentación está cerrado. El Öffnungszeigen son:</es>
+				<fr>Le Centre de l&amp;#39;alimentation est fermée. Le Öffnungszeigen sont les suivants:</fr>
+				<nl>Het Food Center is gesloten. De Öffnungszeigen zijn:</nl>
+				<it>Il Centro Food è chiusa. Il Öffnungszeigen sono:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>649eedb59d668ad71e5d11f398141a86</id>
 				<org>Das Foodcenter ist geschlossen Bestellungen sind m�glich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:</org>
+				<en>The Food Center is mglich orders are closed but are only after opening abgearbeitet.Die Öffnungszeigen:</en>
+				<es>El Centro de la Alimentación es órdenes mglich están cerradas pero que sólo después de la apertura Öffnungszeigen abgearbeitet.Die:</es>
+				<fr>Le Centre de l&amp;#39;alimentation est de plusieurs ordres mglich sont fermés mais sont seulement après l&amp;#39;ouverture abgearbeitet.Die Öffnungszeigen:</fr>
+				<nl>Het Food Center is mglich orders worden afgesloten, maar worden slechts na opening abgearbeitet.Die Öffnungszeigen:</nl>
+				<it>Il Centro Il cibo è ordini mglich sono chiuse, ma solo dopo l&amp;#39;apertura abgearbeitet.Die Öffnungszeigen:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>f2bcf09212f02b9e5c1726c93f69598a</id>
 				<org>Die Bestellung wurde aufgenommen</org>
+				<en>The order was received</en>
+				<es>La orden fue recibida</es>
+				<fr>L&amp;#39;ordre a été reçu</fr>
+				<nl>De order is ontvangen</nl>
+				<it>L&amp;#39;ordine è stato ricevuto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>b3a47dae15b32867685ecacc2aeefddd</id>
 				<org>Kontoauszug</org>
+				<en>Statement</en>
+				<es>Declaración</es>
+				<fr>Déclaration</fr>
+				<nl>Verklaring</nl>
+				<it>Affermazione</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>9f0d3af14c4f58d8166dead65c69de73</id>
 				<org>Alle bisher getätigten Zahlungen</org>
+				<en>All payments made so far</en>
+				<es>Todos los pagos realizados hasta la fecha</es>
+				<fr>Tous les paiements effectués à ce jour</fr>
+				<nl>Alle betalingen die tot nu toe</nl>
+				<it>Tutti i pagamenti effettuati finora</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>96b0141273eabab320119c467cdcaf17</id>
 				<org>Total</org>
+				<en>Total</en>
+				<es>Total</es>
+				<fr>Total</fr>
+				<nl>Totaal</nl>
+				<it>Totale</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>0274ada6d08fcb48f50e9d02c9c0106d</id>
 				<org>Keine Kontobewegungen</org>
+				<en>No account movements</en>
+				<es>No hay movimientos de la cuenta</es>
+				<fr>Pas de mouvements de compte</fr>
+				<nl>Geen account bewegingen</nl>
+				<it>No conto dei movimenti</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>6f64708ea9eef68e5cf061545114845d</id>
 				<org>In dieser Kategorie sind keine Produkte vorhanden</org>
+				<en>In this category there are no products available</en>
+				<es>En esta categoría no hay productos disponibles</es>
+				<fr>Dans cette catégorie il n&amp;#39;y a pas de produits disponibles</fr>
+				<nl>In deze categorie zijn er geen producten beschikbaar</nl>
+				<it>In questa categoria non ci sono prodotti disponibili</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>ec697c7e1ce27bc240c42f38070972eb</id>
 				<org>Bitte geben sie einen Produknamen an.</org>
+				<en>Please enter a name products.</en>
+				<es>Por favor, escriba un nombre de los productos.</es>
+				<fr>S&amp;#39;il vous plaît, entrez un nom de produits.</fr>
+				<nl>Geef een naam producten.</nl>
+				<it>Si prega di inserire un nome di prodotti.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>c26d813be65ab8260df7f2ac3186d885</id>
 				<org>Datei konnte nicht hochgeladen werden</org>
+				<en>File could not be uploaded</en>
+				<es>El archivo no puede ser cargado</es>
+				<fr>Fichier n&amp;#39;a pas pu être téléchargé</fr>
+				<nl>Bestand kon niet worden geüpload</nl>
+				<it>File non può essere caricato</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>0b3f915aef567b5bafb40f68f4cf840a</id>
 				<org>Das Produkt ist nicht in dieser Menge vorhanden.</org>
+				<en>The product is not available in this set.</en>
+				<es>El producto no está disponible en este conjunto.</es>
+				<fr>Le produit n&amp;#39;est pas disponible dans cette série.</fr>
+				<nl>Het product is niet beschikbaar in deze set.</nl>
+				<it>Il prodotto non è disponibile in questa serie.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>733238a7fc19707bfbcffbde4010e9cd</id>
 				<org>Produkt hinzuf�gen</org>
+				<en>ADD TO Catalog</en>
+				<es>Agregar a catálogo</es>
+				<fr>AJOUTER À Catalogue</fr>
+				<nl>TOEVOEGEN AAN Winkel</nl>
+				<it>ADD TO Catalogo</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>09a56c2ac6ae93d3b011d77eff25e0fa</id>
 				<org>Hier k�nnen sie ein Produkt hinzuf&amp;uuml;gen</org>
+				<en>Here you may submit a review</en>
+				<es>Aquí usted puede presentar una revisión</es>
+				<fr>Ici vous proposer un commentaire mai</fr>
+				<nl>Hier kunt u een evaluatieverslag</nl>
+				<it>Qui si può presentare una recensione</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>b7c230e4fa771b14f797c2d986cc3342</id>
 				<org>Produkt �ndern</org>
+				<en>Change Product</en>
+				<es>Cambio de producto</es>
+				<fr>Changer de produit</fr>
+				<nl>Change Product</nl>
+				<it>Cambio di prodotto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>857905c78c8adc493462d5ac48c236b8</id>
 				<org>Produktname</org>
+				<en>Product</en>
+				<es>Producto</es>
+				<fr>Produit</fr>
+				<nl>Product</nl>
+				<it>Prodotto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>0f46dff1ebfdb39c4e7b639d8df1e954</id>
 				<org>Produktbeschreibung</org>
+				<en>Product</en>
+				<es>Producto</es>
+				<fr>Produit</fr>
+				<nl>Product</nl>
+				<it>Prodotto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>68ec19d85caadea33ee430f79414dd21</id>
 				<org>Bild hochladen</org>
+				<en>Upload Image</en>
+				<es>Subir imagen</es>
+				<fr>Upload Image</fr>
+				<nl>Upload Image</nl>
+				<it>Carica Immagine</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>5164e803a0232e15e1e082a119ac6903</id>
 				<org>Infos f�r Lieferant (zb. seine Artikelnummer)</org>
+				<en>Supplier Info fr () zb. his article</en>
+				<es>Fr Información de Proveedores () Zb. Su artículo</es>
+				<fr>Info-fournisseur FR () Zb. Son article</fr>
+				<nl>Leverancier Info fr () zb. Zijn artikel</nl>
+				<it>Fornitore fr Info () zb. Suo articolo</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>fca21dae1a52f7c3e8b109bc6076f363</id>
 				<org>Materialverwaltung</org>
+				<en>Material management</en>
+				<es>Gestión de materiales</es>
+				<fr>Gestion du matériel</fr>
+				<nl>Materiaal beheer</nl>
+				<it>Material Management</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>eb44c5798d7c8c811fde5f6a5715dee4</id>
 				<org>Materialverwaltung aktivieren</org>
+				<en>Activate Material Management</en>
+				<es>Activa Gestión de Materiales</es>
+				<fr>Activer la gestion du matériel</fr>
+				<nl>Activeer Material Management</nl>
+				<it>Attiva Material Management</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>a02dcdb6a17c822098e24e94a4bab428</id>
 				<org>Bestelllistenartikel</org>
+				<en>Cart items</en>
+				<es>Artículos de compra</es>
+				<fr>Panier articles</fr>
+				<nl>Cart items</nl>
+				<it>Articoli nel carrello</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>341a21b75c82a027ec76cd4f8ecfddf5</id>
 				<org>Muss der Arktikel angefordert werden (Pizza)</org>
+				<en>Must be requested of Arktikel (pizza)</en>
+				<es>Debe ser solicitada de Arktikel (pizza)</es>
+				<fr>Devant être demandées Arktikel (pizza)</fr>
+				<nl>Moeten worden aangevraagd Arktikel (pizza)</nl>
+				<it>Deve essere richiesto di Arktikel (pizza)</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>90e814c6e04194dc8153b93dd5fd36cd</id>
 				<org>Normales Produkt</org>
+				<en>Normal Product</en>
+				<es>Normal del producto</es>
+				<fr>Plein de produit</fr>
+				<nl>Normaal Product</nl>
+				<it>Normal Product</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>3fc686c916711ec8c1cdbc767782146e</id>
 				<org>Erweitertes Produkt</org>
+				<en>Ordering Products</en>
+				<es>Cómo realizar pedidos</es>
+				<fr>Commande de Produits</fr>
+				<nl>Klantnummeraanvraagformulier</nl>
+				<it>Ordina i prodotti</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>67cc146556147dea40d52633e5bdd811</id>
 				<org>Produktart</org>
+				<en>Product</en>
+				<es>Producto</es>
+				<fr>Produit</fr>
+				<nl>Product</nl>
+				<it>Prodotto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>0c7957cea5ab356db65bc6fe73e2d74b</id>
 				<org>Mehrfachauswahl m�glich</org>
+				<en>Multiple mglich</en>
+				<es>Mglich múltiples</es>
+				<fr>Multiples mglich</fr>
+				<nl>Meerdere mglich</nl>
+				<it>Multiple mglich</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>e95dc0eb643d781b59f5130249987bd9</id>
 				<org>Produktebeschreibung</org>
+				<en>Description</en>
+				<es>Descripción</es>
+				<fr>Description</fr>
+				<nl>Beschrijving</nl>
+				<it>Descrizione</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>dbae42ae1483c609ea0c51b88edf6f3a</id>
 				<org>Auswahlm�glichkeiten</org>
+				<en>Player choice</en>
+				<es>La selección del Jugador</es>
+				<fr>Lecteur choix</fr>
+				<nl>Speler keuze</nl>
+				<it>Player scelta</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>f2470d7b9802448b193c8cfa4cb5aee2</id>
 				<org>Bitte geben sie einen Artikelnamen ein</org>
+				<en>Please enter a product name</en>
+				<es>Por favor, introduzca un nombre de producto</es>
+				<fr>S&amp;#39;il vous plaît, entrez un nom de produit</fr>
+				<nl>Voer een productnaam</nl>
+				<it>Si prega di inserire il nome del prodotto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>a7351c8bdfaf62f837cefff616d4a135</id>
 				<org>Bitte geben sie eine einheit an (Stk./dl/kg)</org>
+				<en>Please enter a single to (units / dl / kg)</en>
+				<es>Por favor, introduzca un sencillo a (unidades / dl / kg)</es>
+				<fr>S&amp;#39;il vous plaît entrer un à simple (unités / dl / kg)</fr>
+				<nl>Geef een honkslag tegen (eenheden / dl / kg)</nl>
+				<it>Si prega di inserire un singolo (unità / dl / kg)</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>990540d4bcd9d8b5454e7bc73701255a</id>
 				<org>Bitte geben sie einen Preis an</org>
+				<en>Please enter a Price</en>
+				<es>Por favor, introduzca un precio</es>
+				<fr>S&amp;#39;il vous plaît entrer un prix</fr>
+				<nl>Vul een prijs</nl>
+				<it>Inserisci un prezzo</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>2d5a9136729446814ed1de997679e4bf</id>
 				<org>Option fixieren</org>
+				<en>Freeze</en>
+				<es>Freeze</es>
+				<fr>Freeze</fr>
+				<nl>Freeze</nl>
+				<it>Freeze</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>f92d20b51130c103401f1d7349bb63f4</id>
 				<org>Dies ist ein Pflichtartikel</org>
+				<en>This is a mandatory article</en>
+				<es>Este es un artículo obligatorio</es>
+				<fr>Ceci est un article obligatoire</fr>
+				<nl>Dit is een verplicht artikel</nl>
+				<it>Questo è un articolo obbligatoria</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>3ca7cf78ce7cdda385050c4fb6be02f4</id>
 				<org>Artikelname</org>
+				<en>Product Name</en>
+				<es>Nombre del producto</es>
+				<fr>Nom du produit</fr>
+				<nl>Artikelnaam</nl>
+				<it>Nome del prodotto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>79381be264759f86a3c2698327837d90</id>
 				<org>Produktoption</org>
+				<en>Product Option</en>
+				<es>Option</es>
+				<fr>Produit Option</fr>
+				<nl>Product Option</nl>
+				<it>Prodotto Option</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>574cd0682e6bdac50e4c1bb7eaf839e8</id>
 				<org>Einheit</org>
+				<en>Unit</en>
+				<es>Unidad</es>
+				<fr>Unité</fr>
+				<nl>Eenheid</nl>
+				<it>Unità</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>17a2725097ccbce4b0bbe1b69fb49aaf</id>
 				<org>Preis</org>
+				<en>Price</en>
+				<es>Precio</es>
+				<fr>Prix</fr>
+				<nl>Prijs</nl>
+				<it>Prezzo</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>281125e7ce130b06d22e9fbb187509bb</id>
 				<org>Einkaufspreis</org>
+				<en>Purchase</en>
+				<es>Compra</es>
+				<fr>Acheter</fr>
+				<nl>Kopen</nl>
+				<it>Acquistare</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>71f221d8debed7f7baf1ee4e7b658199</id>
 				<org>Anzahl</org>
+				<en>Number</en>
+				<es>Número</es>
+				<fr>Nombre</fr>
+				<nl>Aantal</nl>
+				<it>Numero</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>b93eaef026c32ad9b73e53ba24a5875e</id>
 				<org>Barcode</org>
+				<en>Barcode</en>
+				<es>Código de barras</es>
+				<fr>Code-barres</fr>
+				<nl>Barcode</nl>
+				<it>Codice a barre</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>dea9a165039363a96e90d6b436fa3c9c</id>
 				<org>Neuer Lieferant</org>
+				<en>New supplier</en>
+				<es>Nuevo proveedor</es>
+				<fr>Nouveau fournisseur</fr>
+				<nl>Nieuwe leverancier</nl>
+				<it>Nuovo fornitore</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>cf3a63f5a5fec941c280e84607903823</id>
 				<org>Bitte geben sie einen Lieferant an</org>
+				<en>Please enter a supplier</en>
+				<es>Por favor, introduzca un proveedor</es>
+				<fr>S&amp;#39;il vous plaît entrer un fournisseur</fr>
+				<nl>Voer leverancier</nl>
+				<it>Si prega di inserire un fornitore</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>c05de0721c8ef1717254fabe803fea3a</id>
 				<org>Lieferant</org>
+				<en>Supplier</en>
+				<es>Proveedor</es>
+				<fr>Fournisseur</fr>
+				<nl>Leverancier</nl>
+				<it>Fornitore</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>c84770b242ae13be4caa332c1f05ce90</id>
 				<org>Neue Kategorie</org>
+				<en>New Category</en>
+				<es>Nueva Categoría</es>
+				<fr>Nouvelle catégorie</fr>
+				<nl>Nieuwe categorie</nl>
+				<it>Nuova categoria</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>b25e35a9817ae5c4ead2f160ed59b84b</id>
 				<org>Bitte geben sie eine Kategorie an</org>
+				<en>Please enter a Category</en>
+				<es>Por favor, introduzca una categoría</es>
+				<fr>S&amp;#39;il vous plaît entrez une catégorie</fr>
+				<nl>Voer een categorie</nl>
+				<it>Si prega di inserire una categoria</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>27789a80fa2b64588e3a3d6f8dec1858</id>
 				<org>Produktkategorie</org>
+				<en>Product category</en>
+				<es>Categoría de productos</es>
+				<fr>Catégorie de produit</fr>
+				<nl>Productcategorie</nl>
+				<it>Product Category</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>bd9bd586467b0a781deb0a2c9a563a79</id>
 				<org>Neue Produktkategorie</org>
+				<en>New Product Category</en>
+				<es>Nueva Categoría de Producto</es>
+				<fr>Nouvelle catégorie de produit</fr>
+				<nl>Nieuwe Product Categorie</nl>
+				<it>New Product Category</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>b64b59bf81b68600101f6eff3326b31d</id>
 				<org>Münzzähler</org>
+				<en>Coin counter</en>
+				<es>Coin counter</es>
+				<fr>Coin counter</fr>
+				<nl>Munt</nl>
+				<it>Coin counter</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>5aa71e0e0474560dd27c85c4cb9cae1c</id>
 				<org>Hier kannst du die gezählten M&amp;uuml;nzen eintragen um den Total zu erfahren.</org>
+				<en>Here you can enter the counted coins to find the Total.</en>
+				<es>Aquí puede introducir las monedas contadas para encontrar el total.</es>
+				<fr>Ici vous pouvez entrer les pièces comptées pour obtenir le total.</fr>
+				<nl>Hier kunt u de getelde munten te vinden het totaal.</nl>
+				<it>Qui puoi inserire le monete contate per trovare la Total.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>e294f34621e0ae7e832b7977101ebe00</id>
 				<org>Cent</org>
+				<en>Cent</en>
+				<es>Cent</es>
+				<fr>Cent</fr>
+				<nl>Cent</nl>
+				<it>Cent</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>0bd0d985072af55aee9bbc73136debaf</id>
 				<org>M&amp;uuml;nzen</org>
+				<en>Coins</en>
+				<es>Monedas</es>
+				<fr>Coins</fr>
+				<nl>Munten</nl>
+				<it>Monete</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>53352d28707230767138c91e1f71d37b</id>
 				<org>Noten</org>
+				<en>Scores</en>
+				<es>Partituras</es>
+				<fr>Partitions</fr>
+				<nl>Scores</nl>
+				<it>Scores</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>6b8bf7b7f7e27d07927a17523a2a3335</id>
 				<org>Hartgeld total:</org>
+				<en>Coin total:</en>
+				<es>Total de la moneda:</es>
+				<fr>Coin total:</fr>
+				<nl>Coin totaal:</nl>
+				<it>Coin totale:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>7e5e5faea479de79180bc241d23d13bb</id>
 				<org>Weichgeld total:</org>
+				<en>Weichgeld total:</en>
+				<es>Total Weichgeld:</es>
+				<fr>Weichgeld total:</fr>
+				<nl>Weichgeld totaal:</nl>
+				<it>Weichgeld totale:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>8db00653b3e19f8e772d1ffaf758c010</id>
 				<org>Produktsuche</org>
+				<en>Product Search</en>
+				<es>Búsqueda de productos</es>
+				<fr>Recherche de produits</fr>
+				<nl>Product Search</nl>
+				<it>Product Search</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>976edb40beb2cd17be9ba5c8cbed02bb</id>
 				<org>Hier findest du alles was das Herz begehrt</org>
+				<en>Here you will find everything what your heart desires</en>
+				<es>Aquí encontrarás todo lo que su corazón desea</es>
+				<fr>Ici vous trouverez tout ce que votre coeur désire</fr>
+				<nl>Hier vindt u alles wat uw hartje begeert</nl>
+				<it>Qui potrete trovare tutto ciò che il tuo cuore desidera</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
+				<en>Details</en>
+				<es>Detalles</es>
+				<fr>Détails</fr>
+				<nl>Details</nl>
+				<it>Dettagli</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>eea3b21b91f1d1440e817fc4c094a779</id>
 				<org>Keine aktuellen Bestellungen vorhanden.</org>
+				<en>No recent orders so far.</en>
+				<es>No hay pedidos recientes hasta el momento.</es>
+				<fr>Aucune commande récente à ce jour.</fr>
+				<nl>Geen recente orders tot nu toe.</nl>
+				<it>Nessun ordine recenti finora.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>49c974a0bf5806aeb71b6d1994a09d7d</id>
 				<org>Es müssen keine Produkte bestellt werden.</org>
+				<en>You have to order any items.</en>
+				<es>Usted tiene que pedir las partidas.</es>
+				<fr>Vous pouvez aussi commander tous les éléments.</fr>
+				<nl>U heeft geen producten te bestellen.</nl>
+				<it>Devi ordinare tutti gli articoli.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>c55593222562b3f920433bd2fda95bd8</id>
 				<org>Es wird auf keine Lieferung gewartet.</org>
+				<en>There is no waiting for delivery.</en>
+				<es>No hay que esperar para la entrega.</es>
+				<fr>Il n&amp;#39;ya pas d&amp;#39;attente pour la livraison.</fr>
+				<nl>Er is geen wachttijd voor levering.</nl>
+				<it>Non vi è nessuna attesa per la consegna.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>170fef808f6cb56728451786b385e5ce</id>
 				<org>Derzeit gibt es keine fertiggestellten Gerichte aus der Küche.</org>
+				<en>Currently there are no completed dishes from the kitchen.</en>
+				<es>Actualmente no hay completado platos de la cocina.</es>
+				<fr>Actuellement il n&amp;#39;y a pas rempli les plats de la cuisine.</fr>
+				<nl>Momenteel zijn er geen voltooid gerechten uit de keuken.</nl>
+				<it>Attualmente non ci sono completati i piatti della cucina.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>b22118d5d45a2333a62e276e1ae119bf</id>
 				<org>Sie haben alle Produkte abgeholt.</org>
+				<en>You have collected all the products.</en>
+				<es>Hemos recogido todos los productos.</es>
+				<fr>Vous avez rassemblé tous les produits.</fr>
+				<nl>U hebt verzameld alle producten.</nl>
+				<it>Avete raccolto tutti i prodotti.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>9f1d6780e10dc626a9777fb3f8513c94</id>
 				<org>Küche</org>
+				<en>Kitchen</en>
+				<es>Cocina</es>
+				<fr>Cuisine</fr>
+				<nl>Keuken</nl>
+				<it>Cucina</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>4c966d9d93b31c141b163b82a00f3aa9</id>
 				<org>Auflistung derzeitiger unbearbeiter Produktionsauftraege</org>
+				<en>Listing of current unbearbeiter Produktionsauftraege</en>
+				<es>Listado de Produktionsauftraege unbearbeiter actual</es>
+				<fr>Liste des Produktionsauftraege unbearbeiter actuelle</fr>
+				<nl>Listing van de huidige unbearbeiter Produktionsauftraege</nl>
+				<it>Annuncio di Produktionsauftraege unbearbeiter corrente</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>ec53a8c4f07baed5d8825072c89799be</id>
 				<org>Status</org>
+				<en>Status</en>
+				<es>Estatus</es>
+				<fr>État</fr>
+				<nl>Status</nl>
+				<it>Stato</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>da521b40db09289b1bf14d9134bbafcd</id>
 				<org>Produkt</org>
+				<en>Product</en>
+				<es>Producto</es>
+				<fr>Produit</fr>
+				<nl>Product</nl>
+				<it>Prodotto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>7737aad4407e5d40a0bc801a5146a128</id>
 				<org>Bestelldatum</org>
+				<en>OrderDate</en>
+				<es>OrderDate</es>
+				<fr>OrderDate</fr>
+				<nl>Orderdatum</nl>
+				<it>OrderDate</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>598db54dadc1dbf0699a56b9f4c7c95e</id>
 				<org>Besteller</org>
+				<en>Buyer</en>
+				<es>Comprador</es>
+				<fr>Acheteur</fr>
+				<nl>Koper</nl>
+				<it>Acquirente</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>09df854234ecfd32d6e5eff6fbef2cee</id>
 				<org>Fertigstellen</org>
+				<en>Finish</en>
+				<es>Finalizar</es>
+				<fr>Terminer</fr>
+				<nl>Finish</nl>
+				<it>Fine</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>8faa77c9cf7465efb7d16af6a0b2630c</id>
 				<org>AUS</org>
+				<en>OFF</en>
+				<es>OFF</es>
+				<fr>OFF</fr>
+				<nl>OFF</nl>
+				<it>OFF</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>2958e457c4bceb5786345e5e2d7817fe</id>
 				<org>Aktivieren</org>
+				<en>Enable</en>
+				<es>Posibilitar</es>
+				<fr>Activer</fr>
+				<nl>In staat stellen</nl>
+				<it>Consentire</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>d9681d05860552e9c3113da381f916fc</id>
 				<org>AN</org>
+				<en>AN</en>
+				<es>AN</es>
+				<fr>AN</fr>
+				<nl>AN</nl>
+				<it>AN</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>5e3e07837e609be93787d022ed8c52ab</id>
 				<org>Deaktivieren</org>
+				<en>Disable</en>
+				<es>Desactivar</es>
+				<fr>Désactiver</fr>
+				<nl>Uitschakelen</nl>
+				<it>Disattivare</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>9c01935c68b74bdb53dd1987e3f0a36e</id>
 				<org>Bestellungen</org>
+				<en>Orders</en>
+				<es>Pedidos</es>
+				<fr>Commandes</fr>
+				<nl>Bestellingen</nl>
+				<it>Ordini</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>d38fca4ac39ad4240808e97459f3ba20</id>
 				<org>Auflistung deiner aktiven und abgeschlossenen Catering-Bestellungen</org>
+				<en>Listing your active and completed catering orders</en>
+				<es>Listado de pedidos de restauración activa y completa</es>
+				<fr>Annonce la restauration de vos commandes en cours ou terminés</fr>
+				<nl>Listing uw actieve en voltooide catering bestellingen</nl>
+				<it>L&amp;#39;elenco dei tuoi ordini di ristorazione attivo e completato</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>b37607a8fb3831f65a478890ad8e3609</id>
 				<org>Verschiedene</org>
+				<en>Various</en>
+				<es>Varios</es>
+				<fr>Divers</fr>
+				<nl>Diverse</nl>
+				<it>Varie</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>ad60cf5dd813abd16900c25dc1069c84</id>
 				<org>Bezahlt</org>
+				<en>Paid</en>
+				<es>Pagado</es>
+				<fr>Payé</fr>
+				<nl>Betaald</nl>
+				<it>Pagati</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>9eabaacbbbdd3c37fe4da3e3f83dca74</id>
 				<org>Nicht bezahlt</org>
+				<en>Not paid</en>
+				<es>No pagado</es>
+				<fr>Non payé</fr>
+				<nl>Niet betaald</nl>
+				<it>Non pagati</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>b7135bbf08bb1f4143db11ff0b7304a5</id>
 				<org>Benutzertyp</org>
+				<en>Guest</en>
+				<es>Anónimo</es>
+				<fr>Client</fr>
+				<nl>Guest</nl>
+				<it>Guest</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
+				<en>All</en>
+				<es>Todo</es>
+				<fr>Tous</fr>
+				<nl>Alle</nl>
+				<it>Tutto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>13fd9321f108c7827ac9e7b0c1c6c949</id>
 				<org>Gelöschte User</org>
+				<en>Deleted User</en>
+				<es>Usuario borrado</es>
+				<fr>Deleted User</fr>
+				<nl>Verwijderde gebruiker</nl>
+				<it>Utente cancellato</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>7b7bc2512ee1fedcd76bdc68926d4f7b</id>
 				<org>Administrator</org>
+				<en>Administrator</en>
+				<es>Administrador</es>
+				<fr>Administrateur</fr>
+				<nl>Administrator</nl>
+				<it>Administrator</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>dddcdaa8264e6d96baadd43f324fbd83</id>
 				<org>Superadmin</org>
+				<en>Super Admin</en>
+				<es>Super Admin</es>
+				<fr>Super Admin</fr>
+				<nl>Hoofdbeheerder</nl>
+				<it>Super Admin</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>b862a1b61b8434fa18bc6aaa20f7b3d8</id>
 				<org>Orgas</org>
+				<en>Orga</en>
+				<es>Orga</es>
+				<fr>Orga</fr>
+				<nl>Orga</nl>
+				<it>Orga</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>b2f7016decfeff062c7d93e24026e7e3</id>
 				<org>Eingecheckt</org>
+				<en>Checked</en>
+				<es>Checked</es>
+				<fr>Checked</fr>
+				<nl>Gecontroleerd</nl>
+				<it>Checked</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>391916c78f84bcd02911270f1e31bdf9</id>
 				<org>Nicht eingecheckt</org>
+				<en>Not checked</en>
+				<es>No verificado</es>
+				<fr>Non vérifié</fr>
+				<nl>Niet gecontroleerd</nl>
+				<it>Non controllato</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>345613e04c19c374f9b4915c141cff93</id>
 				<org>Ausgecheckt</org>
+				<en>Checked Out</en>
+				<es>Desprotegido</es>
+				<fr>Checked Out</fr>
+				<nl>Gecontroleerd</nl>
+				<it>Checked Out</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>26361d584204ed388d8b05b3aae400bf</id>
 				<org>Nicht ausgecheckt</org>
+				<en>Not checked out</en>
+				<es>No comprobado</es>
+				<fr>Non vérifié</fr>
+				<nl>Niet gecontroleerd</nl>
+				<it>Non verificato</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>3385907aeccaabfb2db22dba6d8d608c</id>
 				<org>Bez.</org>
+				<en>Signed</en>
+				<es>Firmado</es>
+				<fr>Signé</fr>
+				<nl>Getekend</nl>
+				<it>Firmato</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>33b940eef9dfa7d1cd2ce35d01b5255b</id>
 				<org>Zuweisen</org>
+				<en>Assignment</en>
+				<es>Asignación</es>
+				<fr>Affectation</fr>
+				<nl>Opdracht</nl>
+				<it>Assegnazione</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>3c9031e274d7f42eb15f37a237c1d1c5</id>
 				<org>Das Foodcenter ist geschlossen. Die Produkte werden nicht im Warenkorb abgelegt. Die Öffnungszeigen sind:</org>
+				<en>The Food Center is closed. The products are not stored in the basket. The Öffnungszeigen are:</en>
+				<es>El Centro de Alimentación está cerrado. Los productos no se almacenan en la cesta. El Öffnungszeigen son:</es>
+				<fr>Le Centre de l&amp;#39;alimentation est fermée. Les produits ne sont pas stockées dans le panier. Le Öffnungszeigen sont les suivants:</fr>
+				<nl>Het Food Center is gesloten. De producten worden niet opgeslagen in de mand. De Öffnungszeigen zijn:</nl>
+				<it>Il Centro Food è chiusa. I prodotti non sono memorizzate nel basket. Il Öffnungszeigen sono:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>8360b1eeaf5b1a805a8245c82c8919ce</id>
 				<org>Speiseliste</org>
+				<en>Supply List</en>
+				<es>Lista de útiles</es>
+				<fr>Liste d&amp;#39;approvisionnement</fr>
+				<nl>Supply Lijst</nl>
+				<it>Supply List</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>93a6493f7049f8ec9f17b22ce246572d</id>
 				<org>Produkt(e) im Warenkorb</org>
+				<en>Product (s) in cart</en>
+				<es>Producto (s) en carrito</es>
+				<fr>Produit (s) dans le panier</fr>
+				<nl>Product (s) in winkelwagen</nl>
+				<it>Product (s) nel carrello</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>d89fcbbfe2a2bc8228f7e76cf1bbd533</id>
 				<org>Strichcode</org>
+				<en>Barcode</en>
+				<es>Código de barras</es>
+				<fr>Code-barres</fr>
+				<nl>Barcode</nl>
+				<it>Codice a barre</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>4d9c2876fef5afa39d113527e76cd7c0</id>
 				<org>Ausgewählter Benutzer:</org>
+				<en>Selected users:</en>
+				<es>Los usuarios seleccionados:</es>
+				<fr>Utilisateurs sélectionnés:</fr>
+				<nl>Geselecteerde gebruikers:</nl>
+				<it>Utenti selezionati:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>fef46e5063ce3dc78b8ae64fa474241d</id>
 				<org>Exit</org>
+				<en>Exit</en>
+				<es>Salir</es>
+				<fr>Exit</fr>
+				<nl>Exit</nl>
+				<it>Exit</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>68657f2244b1fd1e3eb5d02da65eeb39</id>
 				<org>Warenkorb</org>
+				<en>Cart</en>
+				<es>Compra</es>
+				<fr>Panier</fr>
+				<nl>Winkelwagen</nl>
+				<it>Cart</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>091e5358b839cffb1a0a44d5f25f3735</id>
 				<org>Um einen Artikel zu l�schen, setzen Sie ihn auf 0 und klicken anschlie�end auf /'/Neu berechnen/'/.</org>
+				<en>To Delete an item, set it to 0 and click Subsequently on / &amp;#39;/ Recalculate /&amp;#39; /.</en>
+				<es>Para eliminar un elemento, ponerlo a 0 y haga clic en Más tarde / &amp;#39;/ Actualizar /&amp;#39; /.</es>
+				<fr>Pour supprimer un élément, elle a mis à 0 et cliquez ensuite sur / &amp;#39;/ Recalculer /&amp;#39; /.</fr>
+				<nl>Als u een item Verwijderen, stel deze in op 0 en klik vervolgens op / &amp;#39;/ Herberekenen /&amp;#39; /.</nl>
+				<it>Per eliminare un elemento, impostare a 0 e cliccare successivamente su / &amp;#39;/ Ricalcola /&amp;#39; /.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>4a304355d7393232b1437181edec67e7</id>
 				<org>Artikel / Preis</org>
+				<en>Products / Price</en>
+				<es>Producto / Precio</es>
+				<fr>Produits / Prix</fr>
+				<nl>Producten / Prijs</nl>
+				<it>Prodotti / Prezzo</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>198e30ec690babfb9076c9156177574e</id>
 				<org>Gesamtpreis:</org>
+				<en>Price:</en>
+				<es>Precio:</es>
+				<fr>Prix:</fr>
+				<nl>Prijs:</nl>
+				<it>Prezzo:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>aed3e0d717c0bc439064d1e4a9d34cb7</id>
 				<org>Anzahl Artikel:</org>
+				<en>Items:</en>
+				<es>Items:</es>
+				<fr>Articles:</fr>
+				<nl>Items:</nl>
+				<it>Articoli:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>4410ec34d9e6c1a68100ca0ce033fb17</id>
 				<org>Array</org>
+				<en>Array</en>
+				<es>Array</es>
+				<fr>Array</fr>
+				<nl>Array</nl>
+				<it>Array</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>8deddf996d3746bdd16338722c8223be</id>
 				<org>Keine Artikel im Warenkorb</org>
+				<en>No items in cart</en>
+				<es>No hay artículos en el carrito</es>
+				<fr>Pas d&amp;#39;articles dans le panier</fr>
+				<nl>Geen items in winkelwagen</nl>
+				<it>Nessun prodotto nel carrello</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>c04153d4c23a36e6d2af3990390934f7</id>
 				<org>Nicht gen�gend Geld auf dem Konto.</org>
+				<en>Not enough free money in the account.</en>
+				<es>No hay suficiente dinero libre en la cuenta.</es>
+				<fr>Pas assez d&amp;#39;argent frais dans le compte.</fr>
+				<nl>Niet genoeg gratis geld op de rekening.</nl>
+				<it>Non abbastanza denaro gratuito nel conto.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>7fcbc25d605c00ad07ae39411de74820</id>
 				<org>Bestellung Foodcenter</org>
+				<en>Ordering Food Center</en>
+				<es>Pedidos Food Center</es>
+				<fr>Centre de commande de produits alimentaires</fr>
+				<nl>Bestellen Food Center</nl>
+				<it>Ordinazione Food Center</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>40195068e1468e4d1fee5d5d7352026a</id>
 				<org>R�ckzahlung bei abbestellten Produkten</org>
+				<en>Rckzahlung canceled when products</en>
+				<es>Rckzahlung cancelada cuando los productos</es>
+				<fr>Rckzahlung annulée lorsque des produits</fr>
+				<nl>Rckzahlung geannuleerd wanneer producten</nl>
+				<it>Rckzahlung annullata quando i prodotti</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>9b6db9c21173dc3cfbbf7768b40f3198</id>
 				<org>Deine bestellten Produkte sind abholbereit</org>
+				<en>Your ordered products are ready for collection</en>
+				<es>Sus productos son ordenados para su recogida</es>
+				<fr>Vos produits commandés sont prêts pour la collecte</fr>
+				<nl>Uw bestelde producten gereed zijn voor inzameling</nl>
+				<it>I vostri prodotti ordinati sono pronti per la raccolta</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>42183562da5f12b8af482f75eabddf08</id>
 				<org>Bestellte Produkte</org>
+				<en>Ordered Products</en>
+				<es>Productos de A a Z</es>
+				<fr>Ordered Products</fr>
+				<nl>Bestelde producten</nl>
+				<it>Prodotti dalla A alla Z</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>9ec7b3055947fbb177238df05d01898b</id>
 				<org>Produkte die bestellt werden</org>
+				<en>Products are ordered</en>
+				<es>Los productos están ordenados</es>
+				<fr>Les produits sont classés</fr>
+				<nl>Producten worden besteld</nl>
+				<it>Prodotti sono classificati in ordine</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>90d1a72fc98af69190adb5e5edcd47e4</id>
 				<org>Es m�ssen keine Produkte bestellt werden.</org>
+				<en>There have to all be ordered any products yet.</en>
+				<es>Tiene que pedir a todos los productos todavía.</es>
+				<fr>Il doit y avoir tous être commandé de produits pour le moment.</fr>
+				<nl>Er zijn al besteld worden alle producten toegevoegd.</nl>
+				<it>Ci devono essere ordinati tutti i prodotti ancora.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>1baeb36550aecc77b114792416c62e8a</id>
 				<org>Diese Produkte wurden bestellt. Auf die Lieferung wird gewartet.</org>
+				<en>These products have been ordered. On the supply is maintained.</en>
+				<es>Estos productos se han ordenado. En la oferta se mantiene.</es>
+				<fr>Ces produits ont été commandés. Sur l&amp;#39;offre est maintenue.</fr>
+				<nl>Deze producten zijn besteld. Aan de aanbodzijde wordt gehandhaafd.</nl>
+				<it>Questi prodotti sono stati ordinati. Per la fornitura è mantenuta.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>24e4bc931f43ba74546bc222ca0bc3b5</id>
 				<org>Fertiggestellte K�chengerichte zur Abholung/Lieferung</org>
+				<en>Completed Kchengerichte for pickup / delivery</en>
+				<es>Completo Kchengerichte para su recogida o entrega</es>
+				<fr>Terminé Kchengerichte pour le ramassage / livraison</fr>
+				<nl>Afgesloten Kchengerichte voor afhalen / levering</nl>
+				<it>Completato Kchengerichte per il ritiro / consegna</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>d69555f5692acca3744992dece949b24</id>
 				<org>Derzeit gibt es keine fertiggestellten Gerichte aus der K�che.</org>
+				<en>Currently there are no completed dishes from the kitchen.</en>
+				<es>Actualmente no hay completado platos de la cocina.</es>
+				<fr>Actuellement il n&amp;#39;y a pas rempli les plats de la cuisine.</fr>
+				<nl>Momenteel zijn er geen voltooid gerechten uit de keuken.</nl>
+				<it>Attualmente non ci sono completati i piatti della cucina.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>e93f820ebb2c85d656349de3e1a12506</id>
 				<org>Abgeholt</org>
+				<en>Picked</en>
+				<es>Picked</es>
+				<fr>Picked</fr>
+				<nl>Picked</nl>
+				<it>Picked</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>5e5c9b72c8a2ecceaf88f8208cb30be1</id>
 				<org>Bitte Template ausw�hlen:</org>
+				<en>Please template auswhlen:</en>
+				<es>Si la plantilla auswhlen:</es>
+				<fr>S&amp;#39;il vous plaît modèle auswhlen:</fr>
+				<nl>Gelieve sjabloon auswhlen:</nl>
+				<it>Si prega di template auswhlen:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>70a28bf79704a91f46c6f063e61ad57e</id>
 				<org>Status setzen</org>
+				<en>Set Status</en>
+				<es>Establecer estado</es>
+				<fr>Set Condition</fr>
+				<nl>Status instellen</nl>
+				<it>Impostare lo stato</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>c17c3ebdc836571af20ad3dd2ece0a14</id>
 				<org>Produkt abbestellen</org>
+				<en>Product Unsubscribe</en>
+				<es>Darse de baja de productos</es>
+				<fr>Produit désabonner</fr>
+				<nl>Product opzeggen</nl>
+				<it>Prodotto Cancellati</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>4ba422c48b479fbfc32a2387af5e1755</id>
 				<org>Bitte w�hlen sie die Produktanzahl die abbestellt werden soll.</org>
+				<en>Please select the product number to be canceled.</en>
+				<es>Por favor seleccione el número de producto que ser cancelado.</es>
+				<fr>S&amp;#39;il vous plaît sélectionnez le numéro de produit pour être annulé.</fr>
+				<nl>Selecteer het product nummer te worden geannuleerd.</nl>
+				<it>Si prega di selezionare il numero del prodotto per essere annullato.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>081bb138b83a8f0bf9fb723395e80b00</id>
 				<org>Das Foodcenter ist geschlossen Bestellungen sind möglich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:</org>
+				<en>The Food Center is closed orders are possible but are only after opening abgearbeitet.Die Öffnungszeigen:</en>
+				<es>El Centro de Alimentación está cerrado órdenes son posibles, pero sólo después de la apertura Öffnungszeigen abgearbeitet.Die:</es>
+				<fr>Le Centre de l&amp;#39;alimentation est fermé les commandes sont possibles, mais seulement après l&amp;#39;ouverture abgearbeitet.Die Öffnungszeigen:</fr>
+				<nl>Het Food Center is gesloten bestellingen zijn mogelijk, maar alleen na opening abgearbeitet.Die Öffnungszeigen:</nl>
+				<it>Il Centro Food è chiusa ordini sono possibili, ma solo dopo l&amp;#39;apertura abgearbeitet.Die Öffnungszeigen:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>22dac8460a4420d0fdc37dc24868c733</id>
 				<org>Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf /'/Neu berechnen/'/.</org>
+				<en>To delete an item, set it to 0 and click / &amp;#39;/ Recalculate /&amp;#39; /.</en>
+				<es>Para eliminar un elemento, ponerlo a 0 y haga clic en / &amp;#39;/ Actualizar /&amp;#39; /.</es>
+				<fr>Pour supprimer un élément, elle a mis à 0 et cliquez sur / &amp;#39;/ Recalculer /&amp;#39; /.</fr>
+				<nl>Als u een item te verwijderen, zet deze op 0 en klik / &amp;#39;/ Herberekenen /&amp;#39; /.</nl>
+				<it>Per eliminare un elemento, impostare a 0 e fare clic su / &amp;#39;/ Ricalcola /&amp;#39; /.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>aaeca57c7c73f314caa2ebbfe6f39760</id>
 				<org>Nicht abgeholt</org>
+				<en>Not collected</en>
+				<es>No se recoge</es>
+				<fr>Non recueilli</fr>
+				<nl>Niet verzameld</nl>
+				<it>Non riscossi</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>08fc0f0270c26c0b0f653fbe700751ed</id>
 				<org>Alles direkt abgeholt</org>
+				<en>All collected directly</en>
+				<es>Todos los recogidos directamente</es>
+				<fr>Tous collectées directement</fr>
+				<nl>Alle verzamelde direct</nl>
+				<it>Tutti raccolti direttamente</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>c1ec57c053313a0b9e93addf4a2f4a23</id>
 				<org>Abgeholt ausser Wartelisten Produkte</org>
+				<en>Picked up outside waiting lists products</en>
+				<es>Cogió fuera de las listas de espera de los productos de</es>
+				<fr>Captées en dehors des produits des listes d&amp;#39;attente</fr>
+				<nl>Pakte buiten wachtlijsten producten</nl>
+				<it>Prese al di fuori dei prodotti liste d&amp;#39;attesa</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>2fbe79800b259905f69a560bd744cd25</id>
 				<org>Nicht genügend Geld auf dem Konto.</org>
+				<en>Not enough money in the account.</en>
+				<es>No tengo suficiente dinero en la cuenta.</es>
+				<fr>Pas assez d&amp;#39;argent dans le compte.</fr>
+				<nl>Niet genoeg geld op de rekening.</nl>
+				<it>Non abbastanza denaro nel conto.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>83a800a4a735fed99d84826ebe676abb</id>
 				<org>Produkt hinzufügen</org>
+				<en>Review</en>
+				<es>Revisar</es>
+				<fr>Vérifier</fr>
+				<nl>Beoordelen</nl>
+				<it>Revisione</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>503f0e7c0df7a374e8ed1e6e87c31a89</id>
 				<org>Hier können sie ein Produkt hinzufügen</org>
+				<en>Here you can add a product</en>
+				<es>Aquí usted puede agregar un producto</es>
+				<fr>Ici, vous pouvez ajouter un produit</fr>
+				<nl>Hier kunt u een product</nl>
+				<it>Qui è possibile aggiungere un prodotto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>015fdaf472bb7425420c251744fdb2e3</id>
 				<org>Produkt ändern</org>
+				<en>Change Product</en>
+				<es>Cambio de producto</es>
+				<fr>Changer de produit</fr>
+				<nl>Change Product</nl>
+				<it>Cambio di prodotto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>7a567703c7947c7aa3a1648a35afb024</id>
 				<org>Infos für Lieferant (zb. seine Artikelnummer)</org>
+				<en>Information for Supplier () zb. his article</en>
+				<es>Información para los Proveedores () Zb. Su artículo</es>
+				<fr>Renseignements pour les fournisseurs () Zb. Son article</fr>
+				<nl>Informatie voor Leverancier () zb. Zijn artikel</nl>
+				<it>Informazioni per i fornitori () zb. Suo articolo</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>886873ab978175f67f9e7694f3dd2c13</id>
 				<org>Muss der Artikel angefordert werden (Pizza)</org>
+				<en>Must be requested of the article (pizza)</en>
+				<es>Debe ser solicitada del artículo (pizza)</es>
+				<fr>Doit être demandé de l&amp;#39;article (pizza)</fr>
+				<nl>Moet worden gevraagd van het artikel (pizza)</nl>
+				<it>Deve essere richiesto di questo articolo (pizza)</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>b30b763575777e156b5e7f053509bc51</id>
 				<org>Mehrfachauswahl möglich</org>
+				<en>Multiple choice</en>
+				<es>De elección múltiple</es>
+				<fr>Choix multiple</fr>
+				<nl>Meerkeuzevragen</nl>
+				<it>A scelta multipla</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>117965965c67fa0363d5d7185e462c4c</id>
 				<org>Auswahlmöglichkeiten</org>
+				<en>Choices</en>
+				<es>Opciones</es>
+				<fr>Choix</fr>
+				<nl>Keuzes</nl>
+				<it>Scelte</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>209fae5ba7e3c63ea69aee9af6594387</id>
 				<org>Das Foodcenter ist geschlossen. Bestellungen sind möglich werden aber erst nach Öffnung abgearbeitet.Die Öffnungszeigen sind:</org>
+				<en>The Food Center is closed. Orders are to be possible, however, are only after opening abgearbeitet.Die Öffnungszeigen:</en>
+				<es>El Centro de Alimentación está cerrado. Las órdenes deben ser posible, sin embargo, sólo después de la apertura Öffnungszeigen abgearbeitet.Die:</es>
+				<fr>Le Centre de l&amp;#39;alimentation est fermée. Les commandes sont d&amp;#39;être possible, cependant, sont seulement après l&amp;#39;ouverture abgearbeitet.Die Öffnungszeigen:</fr>
+				<nl>Het Food Center is gesloten. Bestellingen worden mogelijk, echter alleen na opening abgearbeitet.Die Öffnungszeigen:</nl>
+				<it>Il Centro Food è chiusa. Gli ordini devono essere possibili, tuttavia, solo dopo l&amp;#39;apertura abgearbeitet.Die Öffnungszeigen:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>66bfea60101ba8c5c10a73d3507fcbe5</id>
 				<org>Rückzahlung bei abbestellten Produkten</org>
+				<en>Repayment of canceled products</en>
+				<es>Reembolso de los productos cancelados</es>
+				<fr>Remboursement des produits annulée</fr>
+				<nl>Terugbetaling van producten geannuleerd</nl>
+				<it>Rimborso di prodotti annullata</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>389b37aec8645c21ff369e85dec3360c</id>
 				<org>Status ändern: Abgeholt</org>
+				<en>Change Status: Picked</en>
+				<es>Cambiar Estado: Seleccionado</es>
+				<fr>Modifier l&amp;#39;état: Picked</fr>
+				<nl>Verander Status: Picked</nl>
+				<it>Cambia Status: Picked</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>e23e45b08c1f0549527a12b28efa0f14</id>
 				<org>Status ändern: Abholbereit</org>
+				<en>Status Change: pickup</en>
+				<es>Cambio de estado: recogida</es>
+				<fr>Changement de statut: Pickup</fr>
+				<nl>Status Change: pick</nl>
+				<it>Cambia stato: pickup</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>4eaf4234d375b7345461eef8bba46ac6</id>
 				<org>Status ändern: Lieferung erwartet</org>
+				<en>Status change: expect delivery</en>
+				<es>Cambio de Estatus: esperar la entrega</es>
+				<fr>Changement d&amp;#39;état: il faut prévoir la livraison</fr>
+				<nl>Status wijzigen: levering verwacht</nl>
+				<it>Cambiamento di stato: si aspettano di consegna</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>e253ae80dd3bdcdfe1e69f25b8f5d062</id>
 				<org>Status ändern: An Platz geliefert</org>
+				<en>Change Status: Delivered to place</en>
+				<es>Cambiar Estado: Entregado al lugar</es>
+				<fr>Modifier l&amp;#39;état: Livré à placer</fr>
+				<nl>Change Status: Delivered te plaatsen</nl>
+				<it>Cambiamento di status: Consegnato a posto</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>d98a34c06d8c64dbff994981bd93a40f</id>
 				<org>Produkt abbestellen und Geld zurücküberweisen.</org>
+				<en>Unsubscribe zurücküberweisen product and money.</en>
+				<es>Anular zurücküberweisen producto y dinero.</es>
+				<fr>Se désabonner produit zurücküberweisen et d&amp;#39;argent.</fr>
+				<nl>Uitschrijven zurücküberweisen product en geld.</nl>
+				<it>Prodotto Cancellati zurücküberweisen e denaro.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>7806f8abcd86d93b853bb333a08e624a</id>
 				<org>Fertiggestellte Küchengerichte zur Abholung/Lieferung</org>
+				<en>Finished cooking meals for pickup / delivery</en>
+				<es>Cocinar final para la recolección o entrega</es>
+				<fr>Terminé la cuisson des repas pour le ramassage / livraison</fr>
+				<nl>Afgewerkt koken voor afhalen / levering</nl>
+				<it>Finito di cucinare pasti per il ritiro / consegna</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>bcc9cf5be687e7914e7b13028cd20969</id>
 				<org>Bitte Template auswählen:</org>
+				<en>Please select template:</en>
+				<es>Por favor, seleccione la plantilla:</es>
+				<fr>S&amp;#39;il vous plaît Sélectionner un modèle:</fr>
+				<nl>Selecteer template:</nl>
+				<it>Si prega di selezionare modello:</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>7a376bb670ea0d8eed21f53db959a4b9</id>
 				<org>Produkte abbestellt</org>
+				<en>Products canceled</en>
+				<es>Productos cancelados</es>
+				<fr>Produits annulée</fr>
+				<nl>Producten geannuleerd</nl>
+				<it>Prodotti annullata</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>e21c0d17eb43240753cf9131543c95db</id>
 				<org>Status auf abgeholt gesetzt</org>
+				<en>Status on pick set</en>
+				<es>Sobre el estado de juego de ganzúas</es>
+				<fr>Situation le Pick Set</fr>
+				<nl>Status pick set</nl>
+				<it>Stato il Pick set</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>446287d9e5dfc0ec3c237eeee9ae614b</id>
 				<org>Status auf Abholbereit gesetzt</org>
+				<en>Status is set to pickup</en>
+				<es>Estado se establece en camioneta</es>
+				<fr>Status est définie à Pickup</fr>
+				<nl>Status is ingesteld op pick-up</nl>
+				<it>Stato è impostato su pick-up</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>3d75fec560ad7d9570beb1e2c1ea2987</id>
 				<org>Status auf bestellt gesetzt</org>
+				<en>Status on orders placed</en>
+				<es>Sobre el estado de los pedidos</es>
+				<fr>Situation sur les commandes passées</fr>
+				<nl>Status bestellingen</nl>
+				<it>Sullo stato di ordini</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>c9a6846a5a18836e1bcdeef15ca8e433</id>
 				<org>Status auf bestellen gesetzt</org>
+				<en>Order status to set</en>
+				<es>Estado de la orden de establecer</es>
+				<fr>Afin de définir le statut</fr>
+				<nl>Order status in te stellen</nl>
+				<it>Lo stato per definire</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>2ff82bc41b574ef421d824216369be67</id>
 				<org>Bitte wählen sie die Produktanzahl die abbestellt werden soll.</org>
+				<en>Please select the product number to be canceled.</en>
+				<es>Por favor seleccione el número de producto que ser cancelado.</es>
+				<fr>S&amp;#39;il vous plaît sélectionnez le numéro de produit pour être annulé.</fr>
+				<nl>Selecteer het product nummer te worden geannuleerd.</nl>
+				<it>Si prega di selezionare il numero del prodotto per essere annullato.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>d4622fe75bc8b4d01ef99b191d350d6e</id>
 				<org>Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf &quot;Neu berechnen&quot;.</org>
+				<en>To delete an item, set it to 0 and click &amp;quot;Recalculate&amp;quot;.</en>
+				<es>Para eliminar un elemento, ponerlo a 0 y haga clic en &amp;quot;Actualizar&amp;quot;.</es>
+				<fr>Pour supprimer un élément, elle a mis à 0 et cliquez sur &amp;quot;Recalculer&amp;quot;.</fr>
+				<nl>Als u een item te verwijderen, zet deze op 0 en klik op &amp;quot;herberekenen&amp;quot;.</nl>
+				<it>Per eliminare un elemento, impostare a 0 e fare clic su &amp;quot;Ricalcola&amp;quot;.</it>
 				<file>foodcenter</file>
 			</entry>
 			<entry>
 				<id>02888f9b0113e4c7a8190f258a21c77c</id>
 				<org>Dieses Produkt ist leider nicht mehr vorhanden.</org>
+				<en>This product is no longer available.</en>
+				<es>Este producto ya no está disponible.</es>
+				<fr>Ce produit n&amp;#39;est plus disponible.</fr>
+				<nl>Dit product is niet langer beschikbaar.</nl>
+				<it>Questo prodotto non è più disponibile.</it>
 				<file>foodcenter</file>
 			</entry>
 		</content>

@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,201 +15,401 @@
 			<entry>
 				<id>f9a26283d7a8988b63a8f9f5f681ab76</id>
 				<org>Unbekannt</org>
+				<en>Unknown</en>
+				<es>Desconocido</es>
+				<fr>Inconnu</fr>
+				<nl>Onbekend</nl>
+				<it>Unknown</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>9356559b78688044bf1b37bce0ca8b34</id>
 				<org>Wollen sie das Bild &lt;b&gt;%1 (%2)&lt;/b&gt; wirklich l&amp;ouml;schen?</org>
+				<en>Do you want to delete the &lt;b&gt;image%1 (%&lt;/b&gt; real &lt;b&gt;2)?&lt;/b&gt;</en>
+				<es>¿Desea borrar la &lt;b&gt;imagen%1 (%2 reales)?&lt;/b&gt;</es>
+				<fr>Voulez-vous supprimer &lt;b&gt;l&amp;#39;image%1 (%&lt;/b&gt; real &lt;b&gt;2)?&lt;/b&gt;</fr>
+				<nl>Wilt u de &lt;b&gt;afbeelding%1 (%&lt;/b&gt; reëel &lt;b&gt;2) verwijderen?&lt;/b&gt;</nl>
+				<it>Vuoi eliminare &lt;b&gt;l&amp;#39;immagine%1 (2%reale)?&lt;/b&gt;</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>9d51145bf302b24c5dd867a9bf2d79ca</id>
 				<org>Das Bild &lt;b&gt;%1 (%2)&lt;/b&gt; wurde gel&amp;ouml;scht</org>
+				<en>The image &lt;b&gt;of%1 (%2)&lt;/b&gt; was deleted</en>
+				<es>La imagen &lt;b&gt;de%1 (%2)&lt;/b&gt; se ha eliminado</es>
+				<fr>L&amp;#39;image &lt;b&gt;de%1 (%2)&lt;/b&gt; a été supprimée</fr>
+				<nl>Het beeld &lt;b&gt;van%1 (%2)&lt;/b&gt; is verwijderd</nl>
+				<it>L&amp;#39;immagine &lt;b&gt;del 1%(2%)&lt;/b&gt; è stato eliminato</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>23977ee3aa7d0d446860a2f0603b7f75</id>
 				<org>Möchten Sie dieses Verzeichnis wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!</org>
+				<en>Do you want to delete this directory? In all the pictures to be deleted!</en>
+				<es>¿Quieres eliminar este directorio? En todas las fotos que desea borrar!</es>
+				<fr>Voulez-vous pour supprimer ce répertoire? Dans toutes les photos pour en être supprimée!</fr>
+				<nl>Wilt u deze map verwijderen? In alle foto&amp;#39;s worden verwijderd!</nl>
+				<it>Vuoi eliminare questa directory? In tutte le immagini da cancellare!</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>3a0bd8cf714fa6b461ca9597c9824e78</id>
 				<org>Das Verzeichnis wurde erfolgreich gelöscht</org>
+				<en>The directory was deleted successfully</en>
+				<es>El directorio se ha eliminado con éxito</es>
+				<fr>Le répertoire a été supprimé avec succès</fr>
+				<nl>De map is succesvol verwijderd</nl>
+				<it>La directory è stato eliminato con successo</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>a8917e8bdcc893fe2e6dcb14fceeb6b3</id>
 				<org>Bildergalerie</org>
+				<en>Gallery</en>
+				<es>Galería</es>
+				<fr>Galerie</fr>
+				<nl>Gallery</nl>
+				<it>Gallery</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>1a9f852f5f0c25cfc8569ad21ca374a1</id>
 				<org>Hitliste</org>
+				<en>Hitlist</en>
+				<es>Hitlist</es>
+				<fr>Hitlist</fr>
+				<nl>Hitlist</nl>
+				<it>Hitlist</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>a673751aa7cbb9648032ee88560bc458</id>
 				<org>Die letzten Änderungen</org>
+				<en>The latest changes</en>
+				<es>Los últimos cambios</es>
+				<fr>Les dernières modifications</fr>
+				<nl>De laatste wijzigingen</nl>
+				<it>Le ultime modifiche</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>43e731d40c1e84f333de9c0f6b0dac77</id>
 				<org>Die meisten Hits</org>
+				<en>Most Hits</en>
+				<es>La mayoría de Visitas</es>
+				<fr>La plupart des montres</fr>
+				<nl>Hits</nl>
+				<it>La maggior parte Hits</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>98ad71ee88efbd8f91bdedb6cee94635</id>
 				<org>Die neusten Kommentare</org>
+				<en>The latest comments</en>
+				<es>Los últimos comentarios</es>
+				<fr>Les derniers commentaires</fr>
+				<nl>De laatste reacties</nl>
+				<it>Gli ultimi commenti</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>e23ecca2a88cbbe62100c9d029f79400</id>
 				<org>Die meisten Kommentare</org>
+				<en>Most Comments</en>
+				<es>Los más comentados</es>
+				<fr>Le plus de commentaires</fr>
+				<nl>Meeste reacties</nl>
+				<it>La maggior parte dei Commenti</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>99d69eb50d3132c02a04a6ddf9b5a9a3</id>
 				<org>Sie sind nicht berechtigt neue Galerien anzulegen</org>
+				<en>You are not authorized to create new galleries</en>
+				<es>Usted no está autorizado para crear nuevas galerías</es>
+				<fr>Vous n&amp;#39;êtes pas autorisé à créer de nouvelles galeries</fr>
+				<nl>U bent niet gemachtigd om nieuwe galeries</nl>
+				<it>Non siete autorizzati a creare nuove gallerie</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>76c03461c608e3d7b8b06049736abe66</id>
 				<org>Kein GD installiert</org>
+				<en>No GD installed</en>
+				<es>N GD instalada</es>
+				<fr>N GD installée</fr>
+				<nl>Geen GD geïnstalleerd</nl>
+				<it>N. GD installata</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>59a649a09a8338895d879c0b86e6f22a</id>
 				<org>Klicken Sie auf ein Bild oder auf /'/�ffnen/'/ um das Bild anzuzeigen.</org>
+				<en>Simply click on your picture or on / &amp;#39;Open / /&amp;#39; / to the image.</en>
+				<es>Simplemente haga click en la imagen o el / &amp;#39;Abrir / /&amp;#39; / a la imagen.</es>
+				<fr>Il suffit de cliquer sur votre image ou sur / &amp;#39;Open / /&amp;#39; / à l&amp;#39;image.</fr>
+				<nl>Klik op de foto of op / &amp;#39;Open / /&amp;#39; / op de afbeelding.</nl>
+				<it>È sufficiente fare clic sulle foto e su / &amp;#39;Open / /&amp;#39; / per l&amp;#39;immagine.</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>45a882e7f87b208bd6b352dee9f00769</id>
 				<org>Ordner</org>
+				<en>Folder</en>
+				<es>Folder</es>
+				<fr>Dossier</fr>
+				<nl>Folder</nl>
+				<it>Folder</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>4789ac07952deecf2a4ae4276ef5caad</id>
 				<org>Seite</org>
+				<en>Side</en>
+				<es>Lado</es>
+				<fr>Côté</fr>
+				<nl>Zijkant</nl>
+				<it>Lato</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>04a2fb1c36faf7f9ceb8df52c1fc096b</id>
 				<org>Keine Bilder in diesem Ordner vorhanden</org>
+				<en>No images in this folder exists</en>
+				<es>No hay imágenes en esta carpeta existe</es>
+				<fr>Pas d&amp;#39;image dans ce dossier existe</fr>
+				<nl>Geen afbeeldingen in deze map bestaat</nl>
+				<it>Nessuna immagine in questa cartella esiste</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>702a112b36ec9ee0b0db922f3604ca68</id>
 				<org>Bild anzeigen</org>
+				<en>View Image</en>
+				<es>De la imagen</es>
+				<fr>Voir l&amp;#39;image</fr>
+				<nl>View Image</nl>
+				<it>View Image</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>820f3b889f9865171c0a8b08ba8fafee</id>
 				<org>Bild l&amp;ouml;schen</org>
+				<en>Delete image</en>
+				<es>Eliminar imagen</es>
+				<fr>Supprimer l&amp;#39;image</fr>
+				<nl>Afb.verwijderen</nl>
+				<it>Eliminare l&amp;#39;immagine</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>868326b9247c15dccc8cc4bb393dfb57</id>
 				<org>Bild herrunterladen</org>
+				<en>Image herrunterladen</en>
+				<es>Imagen herrunterladen</es>
+				<fr>Image herrunterladen</fr>
+				<nl>Afbeelding herrunterladen</nl>
+				<it>Image herrunterladen</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>715380d7bcc0b403482990fa332214cc</id>
 				<org>Statistiken</org>
+				<en>Statistics</en>
+				<es>Estadísticas</es>
+				<fr>Statistiques</fr>
+				<nl>Statistieken</nl>
+				<it>Statistiche</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>828f196bf6cb0832762b0af8eaf1414a</id>
 				<org>Dateien</org>
+				<en>Files</en>
+				<es>Archivos</es>
+				<fr>Fichiers</fr>
+				<nl>Bestanden</nl>
+				<it>Files</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>3f0604b531a4e938485353e0188b6e4f</id>
 				<org>Letzte Änderung</org>
+				<en>Last Change</en>
+				<es>Last Change</es>
+				<fr>Last Change</fr>
+				<nl>Last Change</nl>
+				<it>Last Change</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>c8346c004fd9633c5b7dff34be0df64a</id>
 				<org>Datei hochladen</org>
+				<en>Upload file</en>
+				<es>Subir archivo</es>
+				<fr>Chargement de fichier</fr>
+				<nl>Upload bestand</nl>
+				<it>Carica un file</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>5a1c38e71d7119522260964bb77bbf48</id>
 				<org>Neue Galerie anlegen</org>
+				<en>Create New Gallery</en>
+				<es>Crear Nueva Galería</es>
+				<fr>Créer une nouvelle galerie</fr>
+				<nl>Nieuwe Gallery</nl>
+				<it>Create New Gallery</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>f7c20c733936ee84aff4b4ffce5c89ef</id>
 				<org>Dieses Bild ist nicht vorhanden</org>
+				<en>This image is not available</en>
+				<es>Esta imagen no está disponible</es>
+				<fr>Cette image n&amp;#39;est pas disponible</fr>
+				<nl>Deze afbeelding is niet beschikbaar</nl>
+				<it>Questa immagine non è disponibile</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>261fcf4221d22099a366894e38524fa8</id>
 				<org>Bildname</org>
+				<en>Filename</en>
+				<es>Nombre de archivo</es>
+				<fr>Nom du fichier</fr>
+				<nl>Bestandsnaam</nl>
+				<it>Filename</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>9028d5babfa256fa5e780d914a9b1478</id>
 				<org>Vollbild</org>
+				<en>Fullscreen</en>
+				<es>Pantalla Completa</es>
+				<fr>Fullscreen</fr>
+				<nl>Fullscreen</nl>
+				<it>Fullscreen</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>cf28edb861527ecf72642ade8f5e3ef0</id>
 				<org>Bild zur&amp;uuml;ck</org>
+				<en>Image</en>
+				<es>Imagen</es>
+				<fr>Image</fr>
+				<nl>Afbeelding</nl>
+				<it>Image</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>76d8e498afc228b3db3fb70594c0604d</id>
 				<org>Bild weiter</org>
+				<en>Next Image</en>
+				<es>Next Image</es>
+				<fr>Image suivante</fr>
+				<nl>Volgende Afbeelding</nl>
+				<it>Next Image</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>5ec530b672d5f647cf9146251a254176</id>
 				<org>Dateiname</org>
+				<en>Filename</en>
+				<es>Nombre de archivo</es>
+				<fr>Nom du fichier</fr>
+				<nl>Bestandsnaam</nl>
+				<it>Filename</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>15191ae9d6890209f219ba0a959f6ca8</id>
 				<org>Bildgr&amp;ouml;&amp;szlig;e</org>
+				<en>Resolution</en>
+				<es>Resolución</es>
+				<fr>Résolution</fr>
+				<nl>Resolutie</nl>
+				<it>Risoluzione</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>7c6cb74764b781e546e605a1086486f8</id>
 				<org>Erstellt</org>
+				<en>Created</en>
+				<es>Creada</es>
+				<fr>Créé</fr>
+				<nl>Gemaakt</nl>
+				<it>Creato</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>1966445c1281c4dec33b6ece47789f58</id>
 				<org>Ersteller</org>
+				<en>Creator</en>
+				<es>Creador</es>
+				<fr>Créateur</fr>
+				<nl>Creator</nl>
+				<it>Creator</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>c1e949c74c82d88410af27e490d554e9</id>
 				<org>Aufrufe</org>
+				<en>Views</en>
+				<es>Vistas</es>
+				<fr>Vues</fr>
+				<nl>Bekeken</nl>
+				<it>Views</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>c2e52e860e1ada35eb290650970ac699</id>
 				<org>Klicken Sie auf ein Bild oder auf /'/öffnen/'/ um das Bild anzuzeigen.</org>
+				<en>Simply click on your picture or on / &amp;#39;/ / open&amp;#39; / to the image.</en>
+				<es>Simplemente haga click en la imagen o el / &amp;#39;/ / open&amp;#39; / a la imagen.</es>
+				<fr>Il suffit de cliquer sur votre image ou sur / &amp;#39;/ / open&amp;#39; / à l&amp;#39;image.</fr>
+				<nl>Klik op de foto of op / &amp;#39;/ / open&amp;#39; / op de afbeelding.</nl>
+				<it>È sufficiente fare clic sulle foto e su / &amp;#39;/ / open&amp;#39; / per l&amp;#39;immagine.</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>e28cdc819b0ebd27d9208e56853a3bcb</id>
 				<org>Es sind noch keine Bilder hochgeladen.</org>
+				<en>They are not uploaded any images.</en>
+				<es>No se cargan las imágenes.</es>
+				<fr>Ils ne sont pas téléchargé les images.</fr>
+				<nl>Ze zijn niet alle afbeeldingen geüpload.</nl>
+				<it>Essi non vengono caricate tutte le immagini.</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>973ad29408b29d15da7423d2836a0446</id>
 				<org>Nicht über LS hochgeladene Dateien müssen einmal angeklickt werden um in die Datenbank aufgenommen zu werden</org>
+				<en>Not on LS uploaded files must be clicked once to be included in the database</en>
+				<es>No en LS cargado los archivos deben hacer clic una vez para ser incluidos en la base de datos</es>
+				<fr>Pas sur LS téléchargé des fichiers il faut cliquer une fois pour être inclus dans la base de données</fr>
+				<nl>Niet op LS geüploade bestanden moeten worden aangeklikt keer worden opgenomen in de database</nl>
+				<it>Non su LS caricato i file devono essere cliccato una volta di essere inclusi nella banca dati</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>56ea364f5042ea58da46665f7cb1b5c5</id>
 				<org>Klicken Sie auf ein Bild um das Bild in voller Größe anzuzeigen.</org>
+				<en>Click on an image to view the image in full size.</en>
+				<es>Haga clic sobre una imagen para ver la imagen en tamaño completo.</es>
+				<fr>Cliquez sur une image pour visualiser l&amp;#39;image en taille réelle.</fr>
+				<nl>Klik op een foto om de afbeelding in ware grootte.</nl>
+				<it>Fare clic su un&amp;#39;immagine per visualizzare l&amp;#39;immagine in full size.</it>
 				<file>picgallery</file>
 			</entry>
 			<entry>
 				<id>4d2c4a1333381a0f8ba3ad1c5c3dfa04</id>
 				<org>Bild löschen</org>
+				<en>Delete image</en>
+				<es>Eliminar imagen</es>
+				<fr>Supprimer l&amp;#39;image</fr>
+				<nl>Afb.verwijderen</nl>
+				<it>Eliminare l&amp;#39;immagine</it>
 				<file>picgallery</file>
 			</entry>
 		</content>

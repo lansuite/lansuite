@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,251 +15,561 @@
 			<entry>
 				<id>3c54dae6156e4757330e208321d25f76</id>
 				<org>Datum und Uhrzeit wurden erfolgreich eingetragen!</org>
+				<en>Date and time have been successfully recorded!</en>
+				<es>Fecha y hora de tener éxito!</es>
+				<fr>Date et heure ont été enregistrées avec succès!</fr>
+				<nl>Datum en tijd zijn met succes geregistreerd!</nl>
+				<it>Data e ora sono stati registrati con successo!</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>ba2473da9ac51a46344dcefb473141d1</id>
 				<org>Soll das Datum &lt;b&gt;&quot;Letzter Kontocheck&quot;&lt;/b&gt; auf das aktuelle Datum gesetzt werden?</org>
+				<en>If the date of &lt;b&gt;&amp;quot;Last account check&amp;quot;&lt;/b&gt; is set to the current date?</en>
+				<es>Si la fecha de &lt;b&gt;&amp;quot;Ultima cuenta de verificación&amp;quot;&lt;/b&gt; está ajustado a la fecha actual?</es>
+				<fr>Si la date de la &lt;b&gt;«Dernière vérification du compte»&lt;/b&gt; est défini à la date actuelle?</fr>
+				<nl>Indien de datum van &lt;b&gt;&amp;quot;Last account controle&amp;quot;&lt;/b&gt; is ingesteld op de huidige datum?</nl>
+				<it>Se la data del &lt;b&gt;&amp;quot;conto Ultimo controllo&amp;quot;&lt;/b&gt; è impostato alla data corrente?</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>f2a4fd47919f7dce5ba4891a074d9eb0</id>
 				<org>Keinen Benutzer ausgewählt</org>
+				<en>No user selected</en>
+				<es>Ningún usuario seleccionado</es>
+				<fr>Pas d&amp;#39;utilisateur sélectionné</fr>
+				<nl>Geen gebruiker geselecteerd</nl>
+				<it>Nessun utente selezionato</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>6584aa821297be54872583430d48925e</id>
 				<org>Keine Party ausgewählt</org>
+				<en>No party selected</en>
+				<es>Ninguna de las partes seleccionadas</es>
+				<fr>Aucune partie sélectionnée</fr>
+				<nl>Geen partij geselecteerd</nl>
+				<it>No party selezionato</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>d44e188cb04566c25432501b7fcd4027</id>
 				<org>Benutzer &quot;%1&quot; wurde für die Party &quot;%2&quot; auf &quot;bezahlt&quot; gesetzt</org>
+				<en>User &amp;quot;%1&amp;quot; has been set for the party &amp;quot;%2&amp;quot; to &amp;quot;paid&amp;quot;</en>
+				<es>Usuario &amp;quot;%1&amp;quot; ha sido fijada para el partido &amp;quot;%2&amp;quot; a &amp;quot;pagar&amp;quot;</es>
+				<fr>L&amp;#39;utilisateur «%1» a été fixée pour la partie &amp;quot;%2&amp;quot; à &amp;quot;payé&amp;quot;</fr>
+				<nl>Gebruiker &amp;quot;%1&amp;quot; is ingesteld voor de partij &amp;quot;%2&amp;quot; naar &amp;quot;betaald&amp;quot;</nl>
+				<it>Utente &amp;quot;%1&amp;quot; è stato fissato per il partito &amp;quot;%2&amp;quot; a &amp;quot;pagare&amp;quot;</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>187a61ff249bcc8c10814db6f86f4f30</id>
 				<org>Benutzer &quot;%1&quot; wurde für die Party &quot;%2&quot; auf &quot;nicht bezahlt&quot; gesetzt</org>
+				<en>User &amp;quot;%1&amp;quot; has been set for the party &amp;quot;%2&amp;quot; to &amp;quot;not paid&amp;quot;</en>
+				<es>Usuario &amp;quot;%1&amp;quot; ha sido fijada para el partido &amp;quot;%2&amp;quot; a &amp;quot;no pagar&amp;quot;</es>
+				<fr>L&amp;#39;utilisateur «%1» a été fixée pour la partie &amp;quot;%2&amp;quot; à &amp;quot;pas payé&amp;quot;</fr>
+				<nl>Gebruiker &amp;quot;%1&amp;quot; is ingesteld voor de partij &amp;quot;%2&amp;quot; tot &amp;quot;niet betaald&amp;quot;</nl>
+				<it>Utente &amp;quot;%1&amp;quot; è stato fissato per il partito &amp;quot;%2&amp;quot; a &amp;quot;non pagato&amp;quot;</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>8adff049058746f7c5789533ffd1eacb</id>
 				<org>Benutzer &quot;%1&quot; wurde für die Party &quot;%2&quot; eingecheckt</org>
+				<en>User &amp;quot;%1&amp;quot; was checked in for the party &amp;quot;%2&amp;quot;</en>
+				<es>Usuario &amp;quot;%1&amp;quot; fue facturado para el partido &amp;quot;%2&amp;quot;</es>
+				<fr>L&amp;#39;utilisateur «%1» a été enregistré pour la partie &amp;quot;%2&amp;quot;</fr>
+				<nl>Gebruiker &amp;quot;%1&amp;quot; is ingecheckt voor de partij &amp;quot;%2&amp;quot;</nl>
+				<it>Utente &amp;quot;%1&amp;quot; è stato registrato per il partito &amp;quot;%2&amp;quot;</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>255e49317729bf9c8d76fccbd0eb13e0</id>
 				<org>Benutzer &quot;%1&quot; wurde für die Party &quot;%2&quot; ausgecheckt</org>
+				<en>User &amp;quot;%1&amp;quot; has been checked out for the party &amp;quot;%2&amp;quot;</en>
+				<es>Usuario &amp;quot;%1&amp;quot; ha sido comprobado por el partido &amp;quot;%2&amp;quot;</es>
+				<fr>L&amp;#39;utilisateur «%1» a été verrouillé en vue de la partie &amp;quot;%2&amp;quot;</fr>
+				<nl>Gebruiker &amp;quot;%1&amp;quot; is uitgecheckt voor de partij &amp;quot;%2&amp;quot;</nl>
+				<it>Utente &amp;quot;%1&amp;quot; è stato verificato per il partito &amp;quot;%2&amp;quot;</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>cc92215e6864257136c6cee6a4284065</id>
 				<org>Einceck- und Auscheckstatus des Benutzers &quot;%1&quot; wurde für die Party &quot;%2&quot; zurückgesetzt</org>
+				<en>Einceck and Auscheckstatus the user &amp;quot;%1&amp;quot; has been reset for the party &amp;quot;%2&amp;quot;</en>
+				<es>Einceck y Auscheckstatus el usuario &amp;quot;%1&amp;quot; se ha restablecido para el partido &amp;quot;%2&amp;quot;</es>
+				<fr>Einceck et Auscheckstatus l&amp;#39;utilisateur &amp;quot;%1&amp;quot; a été remis à zéro pour la partie &amp;quot;%2&amp;quot;</fr>
+				<nl>Einceck en Auscheckstatus de gebruiker &amp;quot;%1&amp;quot; is opnieuw van de partij &amp;quot;%2&amp;quot;</nl>
+				<it>Einceck e Auscheckstatus l&amp;#39;utente &amp;quot;%1&amp;quot; è stato ripristinato per il partito &amp;quot;%2&amp;quot;</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>f48f686e4113252e6cc2fd32f5ee0aaf</id>
 				<org>Der Zahlstatus wurde erfolgreich gesetzt</org>
+				<en>The numerical status was successfully set</en>
+				<es>La situación numérica fue configurado correctamente</es>
+				<fr>Le statut numérique a été défini avec succès</fr>
+				<nl>De numerieke status werd succesvol ingesteld</nl>
+				<it>Lo stato numerico è stato installato correttamente</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>7ef689a305000ad06d40025d8ab963ed</id>
 				<org>Die Mails wurden erfolgreich an alle Benutzer versandt:</org>
+				<en>The mails were successfully sent to all users:</en>
+				<es>Los correos fueron enviados correctamente a todos los usuarios:</es>
+				<fr>Les courriers ont été envoyés avec succès à tous les utilisateurs:</fr>
+				<nl>De mails werden verzonden aan alle gebruikers:</nl>
+				<it>Le mail sono state inviate con successo a tutti gli utenti:</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>77f103efdb5f6fc303cd653d8da655a1</id>
 				<org>Jedoch konnte die Benachrichtigungsmail nicht an alle Benutzer gesendet werden.</org>
+				<en>However, the notification letter was not sent to all users.</en>
+				<es>Sin embargo, la carta de notificación no fue enviada a todos los usuarios.</es>
+				<fr>Toutefois, la lettre de notification n&amp;#39;a pas été envoyé à tous les utilisateurs.</fr>
+				<nl>Toch was de aanmelding brief niet verstuurd naar alle gebruikers.</nl>
+				<it>Tuttavia, la lettera di notifica non è stata inviata a tutti gli utenti.</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>fe01163a91bb99975bae8d51af3b8096</id>
 				<org>Erfolgreich:</org>
+				<en>Successful:</en>
+				<es>Con éxito:</es>
+				<fr>Réussies:</fr>
+				<nl>Succesvolle:</nl>
+				<it>Successo:</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>6b3a22c82cd0f03d6c6a7f7d70e13f93</id>
 				<org>Fehlgeschlagen:</org>
+				<en>Failed:</en>
+				<es>Error:</es>
+				<fr>Échec:</fr>
+				<nl>Mislukt:</nl>
+				<it>Fallito:</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>aa75002595decb87a712378e307c7f38</id>
 				<org>Der Zahlstatus wurde erfolgreich entfernt</org>
+				<en>The numerical status was successfully removed</en>
+				<es>La situación numérica se ha eliminado correctamente</es>
+				<fr>Le statut numérique a été supprimé avec succès</fr>
+				<nl>De numerieke status werd succesvol verwijderd</nl>
+				<it>Lo stato numerica è stato rimosso con successo</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>f797b8b90122a69df0310d0531ca242e</id>
 				<org>Der Benutzer #%1 konnte nicht eingecheckt werden, da er nicht auf &quot;bezahlt&quot; steht</org>
+				<en>The user #%1 could not be checked because he was not to &amp;quot;pay&amp;quot; is</en>
+				<es>El usuario #%1 no se pudo comprobar porque no era para &amp;quot;pagar&amp;quot; es</es>
+				<fr>L&amp;#39;utilisateur #%1 n&amp;#39;a pas pu être vérifiées car il n&amp;#39;est pas à «payer» est</fr>
+				<nl>De gebruiker #%1 kon niet worden gecontroleerd omdat hij niet te &amp;quot;betalen&amp;quot; is</nl>
+				<it>L&amp;#39;utente #%1 non possono essere controllati perché non era quello di &amp;quot;pagare&amp;quot; è</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>b105ae7b2cbe48f83a5573eb75f0f333</id>
 				<org>Checkin wurde durchgeführt</org>
+				<en>Checkin was conducted</en>
+				<es>Entrada se llevó a cabo</es>
+				<fr>Checkin a été menée</fr>
+				<nl>Checkin werd uitgevoerd</nl>
+				<it>Checkin è stata condotta</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>f580dfa8476830c382c4f598102c44c3</id>
 				<org>Der Benutzer #%1 konnte nicht ausgecheckt werden, da er nicht eingecheckt ist</org>
+				<en>The user #%1 could not be checked out, because it is not checked in.</en>
+				<es>El usuario #%1 no pudo ser comprobada, porque no es registrados</es>
+				<fr>L&amp;#39;utilisateur #%1 n&amp;#39;a pas pu être vérifiée, car il n&amp;#39;est pas le check-in</fr>
+				<nl>De gebruiker #%1 kon niet worden gecontroleerd, omdat het niet wordt ingecheckt</nl>
+				<it>L&amp;#39;utente # 1%non ha potuto essere verificata, in quanto esso non è selezionata a.</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>9cff7a3cc73fcb5f3a4040a52df38468</id>
 				<org>Checkout wurde durchgeführt</org>
+				<en>Checkout was implemented</en>
+				<es>Pedido se llevó a cabo</es>
+				<fr>Commander a été mis en œuvre</fr>
+				<nl>Afrekenen is uitgevoerd</nl>
+				<it>Checkout è stato attuato</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>37072f5161f890923cd195fbc47c2d83</id>
 				<org>Checkin- und Checkout- Marken wurden entfernt</org>
+				<en>Checkin and checkout marks were removed</en>
+				<es>Entrada y las marcas de comprobación fueron retirados</es>
+				<fr>Checkin et les marques de la caisse ont été retirés</fr>
+				<nl>Checkin en kassa merken waren verwijderd</nl>
+				<it>Checkin checkout e marchi sono stati rimossi</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>cca8493f6f1bd794b75879a6d8a7bbc7</id>
 				<org>Benutzername</org>
+				<en>Username</en>
+				<es>Nombre de usuario</es>
+				<fr>Nom d&amp;#39;utilisateur</fr>
+				<nl>Gebruikersnaam</nl>
+				<it>Username</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>dba046ea55236c2dc38416e938ab7213</id>
 				<org>Userid</org>
+				<en>Userid</en>
+				<es>Userid</es>
+				<fr>Userid</fr>
+				<nl>Userid</nl>
+				<it>Userid</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
+				<en>Name</en>
+				<es>Nombre</es>
+				<fr>Nom</fr>
+				<nl>Naam</nl>
+				<it>Nome</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>ad60cf5dd813abd16900c25dc1069c84</id>
 				<org>Bezahlt</org>
+				<en>Paid</en>
+				<es>Pagado</es>
+				<fr>Payé</fr>
+				<nl>Betaald</nl>
+				<it>Pagati</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>b2f7016decfeff062c7d93e24026e7e3</id>
 				<org>Eingecheckt</org>
+				<en>Checked</en>
+				<es>Checked</es>
+				<fr>Checked</fr>
+				<nl>Gecontroleerd</nl>
+				<it>Checked</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
+				<en>All</en>
+				<es>Todo</es>
+				<fr>Tous</fr>
+				<nl>Alle</nl>
+				<it>Tutto</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>1b1b82548989c65a4905422caa943c3a</id>
 				<org>Nicht Eingecheckt</org>
+				<en>Not Checked</en>
+				<es>No prestado</es>
+				<fr>Not Checked</fr>
+				<nl>Niet gecontroleerd</nl>
+				<it>Non Controllato</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>345613e04c19c374f9b4915c141cff93</id>
 				<org>Ausgecheckt</org>
+				<en>Checked Out</en>
+				<es>Desprotegido</es>
+				<fr>Checked Out</fr>
+				<nl>Gecontroleerd</nl>
+				<it>Checked Out</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>111000880cf0d2d966b8acad8f057995</id>
 				<org>Nicht Ausgecheckt</org>
+				<en>Not Checked Out</en>
+				<es>No prestado</es>
+				<fr>Not Checked Out</fr>
+				<nl>Not Checked Out</nl>
+				<it>Non Checked Out</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>fecc7b92efa313ac8de08d4094455c9e</id>
 				<org>Vorname</org>
+				<en>First name</en>
+				<es>Nombre</es>
+				<fr>Prénom</fr>
+				<nl>Voornaam</nl>
+				<it>Nome</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>43895f9ec69cb177446921df9828c680</id>
 				<org>Nachname</org>
+				<en>Surname</en>
+				<es>Apellido</es>
+				<fr>Nom de famille</fr>
+				<nl>Achternaam</nl>
+				<it>Cognome</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>3385907aeccaabfb2db22dba6d8d608c</id>
 				<org>Bez.</org>
+				<en>Signed</en>
+				<es>Firmado</es>
+				<fr>Signé</fr>
+				<nl>Getekend</nl>
+				<it>Firmato</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>0127d29ba9d1b835520798c4e5a3bcbf</id>
 				<org>Sitz</org>
+				<en>Seat</en>
+				<es>Seat</es>
+				<fr>Seat</fr>
+				<nl>Seat</nl>
+				<it>Seat</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>efeb369cccbd560588a756610865664c</id>
 				<org>In</org>
+				<en>In</en>
+				<es>En</es>
+				<fr>Dans</fr>
+				<nl>In</nl>
+				<it>In</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>7c147cda9e49590f6abe83d118b7353b</id>
 				<org>Out</org>
+				<en>Out</en>
+				<es>Fuera</es>
+				<fr>Dehors</fr>
+				<nl>Uit</nl>
+				<it>Fuori</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
+				<en>Details</en>
+				<es>Detalles</es>
+				<fr>Détails</fr>
+				<nl>Details</nl>
+				<it>Dettagli</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>3e108ee61ea675d22d971783d9281371</id>
 				<org>Mail senden</org>
+				<en>Mail</en>
+				<es>Mail</es>
+				<fr>Mail</fr>
+				<nl>Mail</nl>
+				<it>Mail</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>bb30546f235336dec5c3d756ccc64580</id>
 				<org>Auf &quot;Bezahlt&quot; setzen</org>
+				<en>Set to &amp;quot;Paid&amp;quot;</en>
+				<es>Set &amp;quot;Pagado&amp;quot;</es>
+				<fr>Réglé sur &amp;quot;payé&amp;quot;</fr>
+				<nl>Zet op &amp;quot;Paid&amp;quot;</nl>
+				<it>Impostato a &amp;quot;pagamento&amp;quot;</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>6af07dc241f2627a0d60a522f91443cb</id>
 				<org>Auf &quot;Nicht Bezahlt&quot; setzen</org>
+				<en>Do not put on &amp;quot;Paid&amp;quot;</en>
+				<es>No poner encima de &amp;quot;Pagado&amp;quot;</es>
+				<fr>Ne pas poser sur «payé»</fr>
+				<nl>Don&amp;#39;t gelegd op &amp;quot;Paid&amp;quot;</nl>
+				<it>Non mettere il &amp;quot;pagamento&amp;quot;</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>26974d16fd2c60f43571cb0d190e1b04</id>
 				<org>Einchecken</org>
+				<en>Check</en>
+				<es>Comprobar</es>
+				<fr>Vérifier</fr>
+				<nl>Controleren</nl>
+				<it>Controllo</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>4ebb466b34e3519469757947e0d944ff</id>
 				<org>Auschecken</org>
+				<en>Check out</en>
+				<es>Hora de salida</es>
+				<fr>Check out</fr>
+				<nl>Uitchecken</nl>
+				<it>Check out</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>3110c626e9e951a0518319e37b59b00b</id>
 				<org>Ein- und Auschecken rückgängig</org>
+				<en>Inputs and Undo Check Out</en>
+				<es>Entradas y Deshacer desprotección</es>
+				<fr>Entrées et Undo Check Out</fr>
+				<nl>Ingangen en ongedaan Check Out</nl>
+				<it>Ingressi e Annulla estrazione</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>0d02af63f8a237ffa0fb973febf45ccd</id>
 				<org>Besucherkarte</org>
+				<en>Visitor Map</en>
+				<es>Visitor Map</es>
+				<fr>Visitor Map</fr>
+				<nl>Visitor Map</nl>
+				<it>Visitor Map</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>8987bf4925587b7a5d2fd1d9cad2aa9f</id>
 				<org>Hier sehen Sie aus welchen Gegenden Deutschlands Besucher zu dieser Party kommen</org>
+				<en>Here you can see what parts of Germany come from visitors to this party</en>
+				<es>Aquí usted puede ver qué partes de Alemania, provienen de los visitantes a esta fiesta</es>
+				<fr>Ici vous pouvez voir quelles parties de l&amp;#39;Allemagne proviennent les visiteurs de ce parti</fr>
+				<nl>Hier kunt u zien welke delen van Duitsland afkomstig van bezoekers van deze partij</nl>
+				<it>Qui potete vedere quali parti della Germania provengono da visitatori di questo partito</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>3e1afbf148bd94f5651696ff029471a8</id>
 				<org>Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben</org>
+				<en>You must first create a Google under http://www.google.com/apis/maps/signup.html Maps API key and enter it in the%1</en>
+				<es>Primero debe crear una clave de Google en virtud del http://www.google.com/apis/maps/signup.html Maps API e introducirla en el 1%</es>
+				<fr>Vous devez d&amp;#39;abord créer une sous clé http://www.google.com/apis/maps/signup.html Google Maps API et l&amp;#39;inscrire dans le 1%</fr>
+				<nl>U moet eerst een kader http://www.google.com/apis/maps/signup.html Google Maps API-sleutel en voer het in de%1</nl>
+				<it>È necessario innanzitutto creare un quadro http://www.google.com/apis/maps/signup.html Google Maps API key ed entrare nel 1%</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>636c3a0f3163b6cce225ffa2ae93a9fe</id>
 				<org>AdminSeite in den Allgemeinen Einstellungen&lt;/a&gt;</org>
+				<en>Admin page in the General Settings</en>
+				<es>Página Administración de la Configuración general</es>
+				<fr>Page &amp;quot;Admin&amp;quot; dans les Paramètres généraux</fr>
+				<nl>Admin pagina in de Algemene instellingen</nl>
+				<it>Pagina Amministrazione nelle impostazioni generali</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>260762763f33c57f40d610f448484ca8</id>
 				<org>Leider hat noch keiner der angemeldeten Benutzer seine Postleitzahl angegeben. Das Bestimmen der Position ist daher nicht m&amp;ouml;glich.</org>
+				<en>Unfortunately, none of the logged-on user&amp;#39;s specified zip code. Determining the position is therefore not possible.</en>
+				<es>Desafortunadamente, ninguno de los que ha iniciado sesión en el código postal especificada usuario. La determinación de la posición es por lo tanto no es posible.</es>
+				<fr>Malheureusement, aucun des connecté sur le code postal de l&amp;#39;utilisateur spécifié. Déterminer la position n&amp;#39;est donc pas possible.</fr>
+				<nl>Helaas, geen van de aangemelde gebruiker opgegeven zip code. Het bepalen van de positie is dus niet mogelijk.</nl>
+				<it>Purtroppo, nessuno dei connesso codice di avviamento postale dell&amp;#39;utente specificato. Determinare la posizione non è quindi possibile.</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>9eabaacbbbdd3c37fe4da3e3f83dca74</id>
 				<org>Nicht bezahlt</org>
+				<en>Not paid</en>
+				<es>No pagado</es>
+				<fr>Non payé</fr>
+				<nl>Niet betaald</nl>
+				<it>Non pagati</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>17a2725097ccbce4b0bbe1b69fb49aaf</id>
 				<org>Preis</org>
+				<en>Price</en>
+				<es>Precio</es>
+				<fr>Prix</fr>
+				<nl>Prijs</nl>
+				<it>Prezzo</it>
 				<file>guestlist</file>
 			</entry>
 			<entry>
 				<id>6c018f871e5fbb17996d16723769069d</id>
 				<org>Zahlung vornehmen</org>
+				<en>Make payment</en>
+				<es>Hacer un pago</es>
+				<fr>Effectuer un paiement</fr>
+				<nl>Maak betaling</nl>
+				<it>Effettuare il pagamento</it>
+				<file>guestlist</file>
+			</entry>
+			<entry>
+				<id>aae664ec001228981739e711929417cc</id>
+				<org>Zufallsuser</org>
+				<en>Random Members</en>
+				<es>Usuarios Aleatorios</es>
+				<fr>Membres au hasard</fr>
+				<nl>Willekeurige leden</nl>
+				<it>Random Membri</it>
+				<file>guestlist</file>
+			</entry>
+			<entry>
+				<id>094a173d3b32f44f5b5c996e8710ae28</id>
+				<org>Party</org>
+				<en>Party</en>
+				<es>Fiesta</es>
+				<fr>Fête</fr>
+				<nl>Feestje</nl>
+				<it>Festa</it>
+				<file>guestlist</file>
+			</entry>
+			<entry>
+				<id>391916c78f84bcd02911270f1e31bdf9</id>
+				<org>Nicht eingecheckt</org>
+				<en>Not checked</en>
+				<es>No verificado</es>
+				<fr>Non vérifié</fr>
+				<nl>Niet gecontroleerd</nl>
+				<it>Non controllato</it>
+				<file>guestlist</file>
+			</entry>
+			<entry>
+				<id>ba57170e9b72aaeadb71e965509c1afc</id>
+				<org>LS ID</org>
+				<en>LS ID</en>
+				<es>ID LS</es>
+				<fr>LS ID</fr>
+				<nl>LS ID</nl>
+				<it>LS ID</it>
+				<file>guestlist</file>
+			</entry>
+			<entry>
+				<id>e6b391a8d2c4d45902a23a8b6585703d</id>
+				<org>URL</org>
+				<en>URL</en>
+				<es>URL</es>
+				<fr>URL</fr>
+				<nl>URL</nl>
+				<it>URL</it>
+				<file>guestlist</file>
+			</entry>
+			<entry>
+				<id>770d534783c837e962411a1cb140d294</id>
+				<org>Letzter Aufruf</org>
+				<en>Last call</en>
+				<es>Última llamada</es>
+				<fr>Last Call</fr>
+				<nl>Last call</nl>
+				<it>Ultima chiamata</it>
 				<file>guestlist</file>
 			</entry>
 		</content>

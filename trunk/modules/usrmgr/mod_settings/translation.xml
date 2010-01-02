@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,1541 +15,3131 @@
 			<entry>
 				<id>ff16eac4bb1728bdfea6162a83b34d65</id>
 				<org>Ihr Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.</org>
+				<en>Your password and further information were sent to the e-mail address.</en>
+				<es>Su contraseña y demás información se enviará a la dirección de correo electrónico.</es>
+				<fr>Votre mot de passe et des informations complémentaires ont été envoyés à l&amp;#39;adresse e-mail.</fr>
+				<nl>Uw wachtwoord en verdere informatie gestuurd naar het e-mailadres.</nl>
+				<it>La tua password e altre informazioni sono state inviate all&amp;#39;indirizzo e-mail.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0df9bd6b9bc6b346c7dd48b4ed97ddb0</id>
 				<org>Es ist ein Fehler beim Versand der Informations-Email aufgetreten.</org>
+				<en>There was an error while sending the e-mail information.</en>
+				<es>Se produjo un error al enviar el correo la información de correo electrónico.</es>
+				<fr>Il ya eu une erreur lors de l&amp;#39;envoi du courrier d&amp;#39;information électronique.</fr>
+				<nl>Er is een fout opgetreden bij het versturen van de e-mail informatie.</nl>
+				<it>Si è verificato un errore durante l&amp;#39;invio di e-informazioni di posta elettronica.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a48417c75c7820deee77f0706bec69ca</id>
 				<org>Ihre Anmeldung bei %1</org>
+				<en>Your registration at%1</en>
+				<es>Su registro en%1</es>
+				<fr>Votre inscription à 1%</fr>
+				<nl>Uw registratie op%1</nl>
+				<it>La registrazione a 1%</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bd15dbd29f73a4865f4ab11b9c493202</id>
 				<org>Sie haben sich soeben bei uns auf %1 angemeldet. Damit Sie sich bei uns Einloggen können, müssen wir jedoch zuerst sicherstellen, dass Ihre Email korrekt ist. Klicken Sie zum Verifizieren Ihrer Email-Adresse bitte auf den folgenden Link %2</org>
+				<en>They have just signed up with us at%1. Before you can login with us, we must first make sure that your email is correct. Click to verify your email address, please visit the following link%2</en>
+				<es>Ellos acaban de firmar con nosotros en%1. Antes de que pueda ingresar con nosotros, primero tiene que asegurarse que su correo sea correcto. Haga clic para verificar su dirección de correo electrónico, por favor, visite el siguiente enlace 2%</es>
+				<fr>Ils viennent de signer avec nous à l&amp;#39;adresse%1. Avant que vous pouvez vous connecter avec nous, nous devons d&amp;#39;abord vous assurer que votre email est correcte. Cliquez ici pour vérifier votre adresse email, s&amp;#39;il vous plaît visitez le lien ci</fr>
+				<nl>Ze hebben net getekend met ons op%1. Voordat u kunt inloggen met ons, moeten we eerst zorgen dat uw e-mail juist is. Klik om te controleren of uw e-mailadres, kunt u de volgende link:%2</nl>
+				<it>Hanno appena firmato con noi a%1. Prima di poter effettuare il login con noi, dobbiamo prima fare in modo che la tua email sia corretto. Clicca per verificare il tuo indirizzo e-mail, si prega di visitare il seguente link 2%</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>42fcab1bcd21ecc8e1c3ed814898903e</id>
 				<org>Es ist ein Fehler beim Versand der Verifikations-Email aufgetreten.</org>
+				<en>There was an error sending the verification email.</en>
+				<es>Hubo un error al enviar el mensaje de verificación.</es>
+				<fr>Il y avait une erreur d&amp;#39;envoyer le message de vérification.</fr>
+				<nl>Er is een fout verzenden van de verificatie e-mail.</nl>
+				<it>Si è verificato un errore durante l&amp;#39;invio della email di verifica.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>80b436d74101b5f80e38aa566dabbe0b</id>
 				<org>Ihr Passwort lautet: &lt;b&gt;%1&lt;/b&gt;</org>
+				<en>Your password &lt;b&gt;is:%1&lt;/b&gt;</en>
+				<es>Su contraseña &lt;b&gt;es:%1&lt;/b&gt;</es>
+				<fr>Votre mot de passe &lt;b&gt;est:%1&lt;/b&gt;</fr>
+				<nl>Uw wachtwoord &lt;b&gt;is:%1&lt;/b&gt;</nl>
+				<it>La tua password &lt;b&gt;è:%1&lt;/b&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>40ffb1db4249441fe2777eb856eaab88</id>
 				<org>Passwort falsch!</org>
+				<en>Wrong password!</en>
+				<es>Wrong password!</es>
+				<fr>Mot de passe incorrect!</fr>
+				<nl>Wrong password!</nl>
+				<it>Wrong password!</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8fb16e2cdfa514dcb8fa5e91e591a8ec</id>
 				<org>Dieser Clan existiert bereits!</org>
+				<en>This clan already exists!</en>
+				<es>Este clan ya existe!</es>
+				<fr>Ce clan existe déjà!</fr>
+				<nl>Deze clan bestaat al!</nl>
+				<it>Questo clan esiste già!</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d383fa17b53fb01cc32ad7f9c1380011</id>
 				<org>Wenn Sie diesem beitreten möchten, wählen Sie ihn oberhalb aus dem Dropdownmenü aus.</org>
+				<en>If you want to join this, select it from the dropdown menu above.</en>
+				<es>Si desea unirse a este, seleccione en el menú desplegable.</es>
+				<fr>Si vous souhaitez participer à cela, le sélectionner dans le menu déroulant ci-dessus.</fr>
+				<nl>Als u dit wilt deelnemen, selecteert u uit het dropdown menu hierboven.</nl>
+				<it>Se volete partecipare a questo, selezionare dal menu a discesa.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>af2544990da9f365b7e0d814e2b972a1</id>
 				<org>Sie verwenden nicht zugelassene Sonderzeichen in Ihrem Clannamen.</org>
+				<en>Do not use special characters allowed in your clan.</en>
+				<es>No utilice caracteres especiales permitidos en su clan.</es>
+				<fr>N&amp;#39;utilisez pas de caractères spéciaux sont interdits dans votre clan.</fr>
+				<nl>Gebruik geen speciale tekens toegestaan in uw clan.</nl>
+				<it>Non utilizzare caratteri speciali previste per il clan.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9ef16d98f70cf8bab901c12e4ca62645</id>
 				<org>Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: 'aaaaaaaaaaD&lt;&lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</org>
+				<en>The format of the identity card number is incorrect. Please enter the following pattern: &amp;#39;aaaaaaaaaaD &amp;lt; &lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</en>
+				<es>El formato del número de tarjeta de identidad es incorrecta. Por favor introduce el siguiente patrón: «aaaaaaaaaaD &amp;lt; &lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</es>
+				<fr>Le format du numéro de carte d&amp;#39;identité est incorrecte. S&amp;#39;il vous plaît entrer le format suivant: «aaaaaaaaaaD &amp;lt; &lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</fr>
+				<nl>Het formaat van de identiteitskaart nummer is onjuist. Vul het volgende patroon: &amp;#39;aaaaaaaaaaD &amp;lt; &lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</nl>
+				<it>Il formato del numero della carta d&amp;#39;identità non è corretto. Si prega di inserire il seguente schema: &amp;#39;aaaaaaaaaaD &amp;lt; &lt;bbbbbbb&lt;ccccccc&lt;&lt;&lt;&lt;&lt;&lt;&lt;d'</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b70acced570918cfb100f33d576ddae0</id>
 				<org>Prüfsummenfehler. Bitte überprüfen Sie Ihre Angabe. Sehr wahrscheinlich haben Sie eine oder mehrere Zahlen falsch abgeschrieben.</org>
+				<en>Checksum error. Please check your claim. Most likely you have incorrectly written off one or more numbers.</en>
+				<es>Error de comprobación. Por favor, compruebe su reclamo. Lo más probable es que haya escrito incorrectamente fuera de uno o más números.</es>
+				<fr>Checksum error. S&amp;#39;il vous plaît vérifier votre demande. Vous avez probablement incorrectement mis un ou plusieurs numéros.</fr>
+				<nl>Checksum error. Controleer uw vordering. Waarschijnlijk heb je verkeerd afgeschreven een of meer nummers.</nl>
+				<it>Checksum errore. Controlla la tua richiesta. Probabilmente avete erroneamente cancellato uno o più numeri.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>4c396ddda998024fda8ea6f3d75ed920</id>
 				<org>Dieser Personalausweis ist leider bereits abgelaufen.</org>
+				<en>This card is unfortunately already expired.</en>
+				<es>Esta tarjeta es, por desgracia ya ha caducado.</es>
+				<fr>Cette carte est malheureusement déjà expiré.</fr>
+				<nl>Deze kaart is helaas al verstreken.</nl>
+				<it>Questa scheda è purtroppo già scaduto.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c5c0b38ed571190b92ef2995e27b0bab</id>
 				<org>Geburtstag</org>
+				<en>Birthday</en>
+				<es>Cumpleaños</es>
+				<fr>Anniversaire</fr>
+				<nl>Verjaardag</nl>
+				<it>Compleanno</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d2baf6dc6d14fc7cb7f1f5c7444422ac</id>
 				<org>U18-Prüfung</org>
+				<en>U18 Test</en>
+				<es>Prueba Sub-18</es>
+				<fr>U18 Test</fr>
+				<nl>U18 Test</nl>
+				<it>U18 Test</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>15c22e0be7fbfa97d9d48804b279acd8</id>
 				<org>Jahre</org>
+				<en>Years</en>
+				<es>Años</es>
+				<fr>Années</fr>
+				<nl>Years</nl>
+				<it>Anni</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>807134f0c9bc3dade943e99a2cd68f58</id>
 				<org>Straße und Hausnummer</org>
+				<en>Street and number</en>
+				<es>Calle y número</es>
+				<fr>Rue et numéro</fr>
+				<nl>Straat en nummer</nl>
+				<it>Via e numero civico</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3248e23319978acd17f3a9ce3f126eb5</id>
 				<org>Bitte geben Sie Straße und Hausnummer in folgendem Format ein: &quot;Straßenname 12&quot;.</org>
+				<en>Please enter the street address in the following format: &amp;quot;Street Name 12&amp;quot;.</en>
+				<es>Por favor, introduzca la dirección de la calle en el siguiente formato: &amp;quot;Nombre de la calle 12&amp;quot;.</es>
+				<fr>S&amp;#39;il vous plaît entrez l&amp;#39;adresse dans le format suivant: &amp;quot;Nom de la rue 12&amp;quot;.</fr>
+				<nl>Vul het adres in de volgende notatie: &amp;quot;Straat 12&amp;quot;.</nl>
+				<it>Si prega di inserire l&amp;#39;indirizzo nel seguente formato: &amp;quot;Nome Street 12&amp;quot;.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>17bc9c00dbd5087fd51a7130f1bc56d8</id>
 				<org>Die Hausnummer muss numerisch sein.</org>
+				<en>The house number must be numeric.</en>
+				<es>El número de la casa deben ser numéricos.</es>
+				<fr>Le numéro de la maison doit être numérique.</fr>
+				<nl>Het huisnummer moet numeriek zijn.</nl>
+				<it>Il numero civico deve essere numerico.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>483445541aa3fcbb4446fc7fbcdc2fc9</id>
 				<org>PLZ und Ort</org>
+				<en>City or ZIP</en>
+				<es>Ciudad o CP</es>
+				<fr>Ville ou CP</fr>
+				<nl>Stad of Postcode</nl>
+				<it>Città o CAP</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>59bcf8bcc6646b03e94be2b39a99cdce</id>
 				<org>Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: &quot;12345 Stadt&quot;.</org>
+				<en>Please enter zip code and city in the following format: &amp;quot;12345 city.&amp;quot;</en>
+				<es>Por favor introduce el código postal y ciudad en el siguiente formato: &amp;quot;12345 de la ciudad.&amp;quot;</es>
+				<fr>S&amp;#39;il vous plaît entrez le code postal et ville dans le format suivant: &amp;quot;12345 ville».</fr>
+				<nl>Vul postcode en stad in het volgende formaat: &amp;quot;12345 stad.&amp;quot;</nl>
+				<it>Si prega di inserire il codice di avviamento postale e città nel formato seguente: &amp;quot;12345 città&amp;quot;.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8cf9142dabec9614610f3c0443e25453</id>
 				<org>Die Postleitzahl muss aus 5 Ziffern bestehen. Postleitzahlen mit weniger Ziffern bitte mit führenden Nullen schreiben (z.B. 00123).</org>
+				<en>The postal code must consist of 5 digits. ZIP codes with fewer digits with leading zeros, please write (eg 00123).</en>
+				<es>El código postal debe constar de 5 dígitos. Códigos de área con menos dígitos con ceros principales, favor de escribir (por ejemplo, 00123).</es>
+				<fr>Le code postal doit être composé de 5 chiffres. Les codes postaux avec moins de chiffres avec des zéros de premier plan, s&amp;#39;il vous plaît écrire (par exemple 00123).</fr>
+				<nl>De postcode moet bestaan uit 5 cijfers. ZIP codes met minder cijfers met leidende nullen, kunt u schrijven (bijv. 00123).</nl>
+				<it>Il codice postale deve essere composto di 5 cifre. Codici di avviamento postale con meno cifre con zeri leader, si prega di scrivere (ad esempio, 00.123).</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cca8493f6f1bd794b75879a6d8a7bbc7</id>
 				<org>Benutzername</org>
+				<en>Username</en>
+				<es>Nombre de usuario</es>
+				<fr>Nom d&amp;#39;utilisateur</fr>
+				<nl>Gebruikersnaam</nl>
+				<it>Username</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>97f56f5948579a25eb83c679970b71f8</id>
 				<org>Als Benutzer können Sie Ihren Benutzernamen, Bezahlt &amp; Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden Sie sich dazu bitte an einen Administrator.</org>
+				<en>As a user you can use your user name &amp;amp; Paid-place status, passport / other, and this DOES NOT change. You should be addressed to an administrator.</en>
+				<es>Como usuario, usted puede utilizar su nombre de usuario y pagado el estatuto de lugar, pasaporte / otro, y este cambio no. Usted debe ser dirigida a un administrador.</es>
+				<fr>En tant qu&amp;#39;utilisateur, vous pouvez utiliser votre nom d&amp;#39;utilisateur et Payant statut de place, passeport / autres, et ce changement n&amp;#39;est pas. Vous devez être adressée à un administrateur.</fr>
+				<nl>Als gebruiker kunt u uw gebruikersnaam &amp;amp; Paid-plaats status paspoort / andere, en dit verandert niet. U moet worden gericht aan een beheerder.</nl>
+				<it>Come utente è possibile utilizzare il proprio nome utente e Paid lo status di luogo, passaporto / altro, e questo cambiamento non. Si dovrebbe essere indirizzata ad un amministratore.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>fecc7b92efa313ac8de08d4094455c9e</id>
 				<org>Vorname</org>
+				<en>First name</en>
+				<es>Nombre</es>
+				<fr>Prénom</fr>
+				<nl>Voornaam</nl>
+				<it>Nome</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>43895f9ec69cb177446921df9828c680</id>
 				<org>Nachname</org>
+				<en>Surname</en>
+				<es>Apellido</es>
+				<fr>Nom de famille</fr>
+				<nl>Achternaam</nl>
+				<it>Cognome</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>136eaef8d0a72925dc72b45c3b350a83</id>
 				<org>Namen</org>
+				<en>Name</en>
+				<es>Nombre</es>
+				<fr>Nom</fr>
+				<nl>Naam</nl>
+				<it>Nome</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b15b7b0340f52d448dc6191fc9317f3a</id>
 				<org>Benutzer</org>
+				<en>Users</en>
+				<es>Usuarios</es>
+				<fr>Utilisateurs</fr>
+				<nl>Gebruikers</nl>
+				<it>Utenti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7b7bc2512ee1fedcd76bdc68926d4f7b</id>
 				<org>Administrator</org>
+				<en>Administrator</en>
+				<es>Administrador</es>
+				<fr>Administrateur</fr>
+				<nl>Administrator</nl>
+				<it>Administrator</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>dddcdaa8264e6d96baadd43f324fbd83</id>
 				<org>Superadmin</org>
+				<en>Super Admin</en>
+				<es>Super Admin</es>
+				<fr>Super Admin</fr>
+				<nl>Hoofdbeheerder</nl>
+				<it>Super Admin</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b7135bbf08bb1f4143db11ff0b7304a5</id>
 				<org>Benutzertyp</org>
+				<en>Guest</en>
+				<es>Anónimo</es>
+				<fr>Client</fr>
+				<nl>Guest</nl>
+				<it>Guest</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2ff29d42364de1b39f0c9a5decddbdd6</id>
 				<org>Zugriffsberechtigung</org>
+				<en>Access Privilege</en>
+				<es>Privilegios de acceso de</es>
+				<fr>Accès Privilège</fr>
+				<nl>Toegang Privilege</nl>
+				<it>Accesso Privilege</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e7f9bdeffdf2f3af91ea9f9053e3bb68</id>
 				<org>Der Benutzertyp muss zusätzlich Admin, oder Superadmin sein.</org>
+				<en>The user type must be an additional Admin or Super Admin.</en>
+				<es>El tipo de usuario debe ser un administrador adicional o Super Admin.</es>
+				<fr>Le type d&amp;#39;utilisateur doit être un administrateur supplémentaire, ou Super Admin.</fr>
+				<nl>De gebruiker type moet een extra Admin of Super Admin.</nl>
+				<it>Il tipo di utente deve essere un ulteriore Admin o Super Admin.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>67ca595570fe049fcd0e4b9625f5ef1e</id>
 				<org>Solange kein Admim einem Modul zugeordnet ist, hat dort jeder Admin Berechtigungen.</org>
+				<en>ADMIM As long as no one module is assigned, where each has Admin privileges.</en>
+				<es>ADMIM Mientras no se le asigna un módulo, donde cada uno tiene privilegios de administrador.</es>
+				<fr>ADMIM Tant qu&amp;#39;il n&amp;#39;existera pas un seul module est assigné, où chacun a des privilèges Admin.</fr>
+				<nl>ADMIM Zolang er geen een module wordt toegewezen, waarbij elk heeft Admin privileges.</nl>
+				<it>ADMIM Finché non un modulo viene assegnato, in cui ognuno ha i privilegi di amministratore.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1b26a8bba6e841f1c375b283db5c1c61</id>
 				<org>Keine</org>
+				<en>None</en>
+				<es>Ninguno</es>
+				<fr>Aucun</fr>
+				<nl>Geen</nl>
+				<it>Nessuno</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3b77a53bb0cbab20a1d684f05c5cf8d6</id>
 				<org>Gruppe</org>
+				<en>Group</en>
+				<es>Grupo</es>
+				<fr>Groupe</fr>
+				<nl>Groep</nl>
+				<it>Gruppo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>082e55a73f10496681c84231dc1c88f7</id>
 				<org>E-Mail</org>
+				<en>E-mail</en>
+				<es>E-mail</es>
+				<fr>E-mail</fr>
+				<nl>E-mail</nl>
+				<it>E-mail</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3e45af4ca27ea2b03fc6183af40ea112</id>
 				<org>Passwort</org>
+				<en>Password</en>
+				<es>Contraseña</es>
+				<fr>Mot de passe</fr>
+				<nl>Wachtwoord</nl>
+				<it>Password</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9354a136f8293bb454e4f3e96413393a</id>
 				<org>Zugangsdaten</org>
+				<en>Login</en>
+				<es>Inicio de sesión</es>
+				<fr>Connexion</fr>
+				<nl>Inloggen</nl>
+				<it>Accesso</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0cd6fcd5e4ec629f868a6aff2e8187e3</id>
 				<org>Vorhandener Clan</org>
+				<en>Existing Clan</en>
+				<es>Existentes Clan</es>
+				<fr>Existants Clan</fr>
+				<nl>Bestaande Clan</nl>
+				<it>Esistenti Clan</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bf15dea129590abcba1bab3e6a98afae</id>
 				<org>Neuer Clan</org>
+				<en>New Clan</en>
+				<es>Nuevo Clan</es>
+				<fr>Nouveau Clan</fr>
+				<nl>Nieuwe Clan</nl>
+				<it>Nuovo Clan</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
+				<en>Name</en>
+				<es>Nombre</es>
+				<fr>Nom</fr>
+				<nl>Naam</nl>
+				<it>Nome</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>40ccd64464e8bfacd537f36519dad0a3</id>
 				<org>Webseite</org>
+				<en>Website</en>
+				<es>Sitio web</es>
+				<fr>Site</fr>
+				<nl>Website</nl>
+				<it>Sito web</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>603c07e2735df19b9a7ce091d7453d2b</id>
 				<org>Clan</org>
+				<en>Clan</en>
+				<es>Clan</es>
+				<fr>Clan</fr>
+				<nl>Clan</nl>
+				<it>Clan</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cc6c71eb9ea33fc3b29bc29eb79cf196</id>
 				<org>WWCL ID</org>
+				<en>WWCL ID</en>
+				<es>WWCL ID</es>
+				<fr>WWCL ID</fr>
+				<nl>WWCL ID</nl>
+				<it>WWCL ID</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>52cc3b0a5af24cac3db06f3bbddba9aa</id>
 				<org>NGL ID</org>
+				<en>NGL ID</en>
+				<es>NGL ID</es>
+				<fr>NGL ID</fr>
+				<nl>NGL-ID</nl>
+				<it>NGL ID</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>4a91af7cb25af50cd78ad670feeb59c0</id>
 				<org>LGZ ID</org>
+				<en>LGZ ID</en>
+				<es>LGZ ID</es>
+				<fr>LGZ ID</fr>
+				<nl>LGZ ID</nl>
+				<it>LGZ ID</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>33d7e8e1b828ba633ab01cfd2dc90468</id>
 				<org>Ligen</org>
+				<en>Leagues</en>
+				<es>Ligas</es>
+				<fr>Ligues</fr>
+				<nl>Competities</nl>
+				<it>Campionati</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>50d46c2f993f4c6ab66c095555dcc401</id>
 				<org>Adresse</org>
+				<en>Address</en>
+				<es>Dirección</es>
+				<fr>Adresse</fr>
+				<nl>Adres</nl>
+				<it>Indirizzo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0975cf6baccb3862c31522c2b5b8fabc</id>
 				<org>Telefon</org>
+				<en>Phone</en>
+				<es>Teléfono</es>
+				<fr>Téléphone</fr>
+				<nl>Telefoon</nl>
+				<it>Telefono</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f525aa846d36e5177cffd429d8bdca45</id>
 				<org>Handy</org>
+				<en>Mobile</en>
+				<es>Mobile</es>
+				<fr>Mobile</fr>
+				<nl>Mobile</nl>
+				<it>Mobile</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>92316d41c56daf9140fc04509aecaaca</id>
 				<org>Kontakt</org>
+				<en>Contact</en>
+				<es>Contacto</es>
+				<fr>Contact</fr>
+				<nl>Contact</nl>
+				<it>Contatto</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>39c6a9c3da84ae1e6456d11f2b9d7634</id>
 				<org>Personalausweis</org>
+				<en>Identity</en>
+				<es>Identidad</es>
+				<fr>Identité</fr>
+				<nl>Identiteit</nl>
+				<it>Identità</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c3c53a7d3d270f9a0ddd32a53ff58e65</id>
 				<org>Keine Angabe</org>
+				<en>Unspecified</en>
+				<es>Sin especificar</es>
+				<fr>Non spécifié</fr>
+				<nl>Unspecified</nl>
+				<it>Non specificato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3322b72720651014f6f473f0cf2dae22</id>
 				<org>Männlich</org>
+				<en>Male</en>
+				<es>Macho</es>
+				<fr>Mâle</fr>
+				<nl>Mannelijk</nl>
+				<it>Maschile</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c1a9d224abe4774fd94d39c4d8f883c4</id>
 				<org>Weiblich</org>
+				<en>Female</en>
+				<es>Hembra</es>
+				<fr>Femelle</fr>
+				<nl>Vrouwelijk</nl>
+				<it>Femminile</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b33509e4101693a82829fd320a7394ef</id>
 				<org>Geschlecht</org>
+				<en>Gender</en>
+				<es>Género</es>
+				<fr>Sexe</fr>
+				<nl>Geslacht</nl>
+				<it>Genere</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3a73d560367bf091921f74c8aa9b3d1c</id>
 				<org>Newsletter abonnieren</org>
+				<en>Subscribe to Newsletter</en>
+				<es>Suscribirse a Newsletter</es>
+				<fr>Inscription à la newsletter</fr>
+				<nl>Abonneren op de nieuwsbrief</nl>
+				<it>Iscriviti alla Newsletter</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>85f7e39236b05dee70e5e08bf0b37bf2</id>
 				<org>Benutzerbild hochladen</org>
+				<en>Avatar Upload</en>
+				<es>Subida de avatar</es>
+				<fr>Avatar Upload</fr>
+				<nl>Avatar Upload</nl>
+				<it>Avatar Upload</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a0b11c7923576079536aa8823eae2f67</id>
 				<org>U18-Vollmacht</org>
+				<en>U18 power</en>
+				<es>Poder U18</es>
+				<fr>U18 pouvoir</fr>
+				<nl>U18 macht</nl>
+				<it>U18 potere</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>199292108b7b512477d90e905827cc64</id>
 				<org>Hiermit bestätige ich, die %1 der Veranstaltung &lt;b&gt;&quot;%2&quot;&lt;/b&gt; gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.</org>
+				<en>I hereby certify that I have read the%1 of the event &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; and bring back filled to the event.</en>
+				<es>Por la presente certifico que he leído el 1%del evento &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; y traer de vuelta completa al evento.</es>
+				<fr>Je certifie que j&amp;#39;ai lu le 1%de l&amp;#39;événement &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; et de ramener rempli à l&amp;#39;événement.</fr>
+				<nl>Hierbij verklaar ik dat ik de%1 van het evenement hebben gelezen &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; en breng terug gevuld tot het evenement.</nl>
+				<it>Il sottoscritto dichiara di aver letto l&amp;#39;1%della manifestazione &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; e riportare riempito l&amp;#39;evento.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b54701c5e382484367f8626240b21d92</id>
 				<org>U18 Vollmacht</org>
+				<en>U18 power</en>
+				<es>Poder U18</es>
+				<fr>U18 pouvoir</fr>
+				<nl>U18 macht</nl>
+				<it>U18 potere</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>aa7d1dea08ac9ea09f5e285e5cac5fe5</id>
 				<org>AGB bestätigen</org>
+				<en>Terms confirm</en>
+				<es>Condiciones confirmar</es>
+				<fr>Conditions confirmer</fr>
+				<nl>Voorwaarden bevestigen</nl>
+				<it>Termini di confermare</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2a70610f6a423f37edd79c0c32e81328</id>
 				<org>Hiermit bestätige ich die %1 der Veranstaltung &lt;b&gt;&quot;%2&quot;&lt;/b&gt; gelesen zu haben und stimme ihnen zu.</org>
+				<en>I hereby acknowledge having read the%1 of the event &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; and agree with them.</en>
+				<es>Por la presente acuso de haber leído el 1%del evento &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; y de acuerdo con ellos.</es>
+				<fr>Je reconnais avoir lu le 1%de l&amp;#39;événement &lt;b&gt;«%2»&lt;/b&gt; et à s&amp;#39;entendre avec eux.</fr>
+				<nl>Hierbij bevestig ik het lezen van de%1 van het evenement &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; en met ze eens.</nl>
+				<it>Ho l&amp;#39;onore di riconoscere di aver letto l&amp;#39;1%della manifestazione &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; e d&amp;#39;accordo con loro.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c4ae8cdfc66973e53c8a1970545a3e2b</id>
 				<org>AGB</org>
+				<en>Terms</en>
+				<es>Términos</es>
+				<fr>Termes</fr>
+				<nl>Voorwaarden</nl>
+				<it>Termini</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c31fe5dcdc7e7fdf050faf5e1bd0a418</id>
 				<org>Verschiedenes</org>
+				<en>Miscellaneous</en>
+				<es>Varios</es>
+				<fr>Divers</fr>
+				<nl>Diversen</nl>
+				<it>Varie</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f0219d768e0b271002f1a49de97a8494</id>
 				<org>Bitte wählen sie ein Geschlecht aus.</org>
+				<en>Please select a gender.</en>
+				<es>Por favor seleccione una de género.</es>
+				<fr>S&amp;#39;il vous plaît sélectionnez une des sexes.</fr>
+				<nl>Selecteer een geslacht.</nl>
+				<it>Si prega di selezionare uno tra i sessi.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>aa425556858b926477ad97703d250f2d</id>
 				<org>Bitte das korrekte Geburtsdatum eingeben.</org>
+				<en>Please correct date of birth.</en>
+				<es>Por favor, fecha de nacimiento correcta.</es>
+				<fr>S&amp;#39;il vous plaît bonne date de naissance.</fr>
+				<nl>Gelieve juiste datum van geboorte.</nl>
+				<it>Si prega di data esatta di nascita.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e174ea03fb9b4d4b420c24cc91a382ef</id>
 				<org>Wollen sie auch gleich zur Lan-Anmeldung weitergeleitet werden?</org>
+				<en>Will they also be forwarded straight to the Lan-registration?</en>
+				<es>¿También se enviarán directamente a la Lan-registro?</es>
+				<fr>Seront-ils aussi être transmis directement à la Lan-enregistrement?</fr>
+				<nl>Zullen ze ook toegezonden rechtstreeks naar de Lan-registratie?</nl>
+				<it>Saranno anche essere inviata direttamente alla Lan-registrazione?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b6246ce7fc6579128aeccde58ae02d2f</id>
 				<org>Passwort inkorrekt</org>
+				<en>Password incorrect</en>
+				<es>Contraseña incorrecta</es>
+				<fr>Mot de passe incorrect</fr>
+				<nl>Wachtwoord onjuist</nl>
+				<it>Password errata</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>86c663f404587b4084a53e144ab877f7</id>
 				<org>Derzeitiges Passwort</org>
+				<en>Current password</en>
+				<es>Contraseña actual</es>
+				<fr>Mot de passe actuel</fr>
+				<nl>Huidig wachtwoord</nl>
+				<it>Password attuale</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c8a18c65f4dae9b897a5449b335132c7</id>
 				<org>Neues Passwort</org>
+				<en>New Password</en>
+				<es>Nueva Contraseña</es>
+				<fr>Nouveau mot de passe</fr>
+				<nl>Nieuw wachtwoord</nl>
+				<it>Nuova Password</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bf92b28c96a95efc99b27a0e81d3756a</id>
 				<org>Es gibt keine aktive Party. Bitte setzen Sie im Partymanager eine Party aktiv</org>
+				<en>There are no active party. Please get active in the party manager a party</en>
+				<es>No hay parte activa. Por favor, póngase en forma en el gestor de la fiesta de un partido</es>
+				<fr>Il n&amp;#39;ya pas de partie active. S&amp;#39;il vous plaît être actifs dans le gestionnaire de partie Une partie</fr>
+				<nl>Er zijn geen actieve partij. Please get actief in de partij manager een partij</nl>
+				<it>Non ci sono parte attiva. Si prega di arrivare attiva nel gestore partito un partito</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d89fcbbfe2a2bc8228f7e76cf1bbd533</id>
 				<org>Strichcode</org>
+				<en>Barcode</en>
+				<es>Código de barras</es>
+				<fr>Code-barres</fr>
+				<nl>Barcode</nl>
+				<it>Codice a barre</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>57c7869106fd3be06d0e273a1fd8bbd3</id>
 				<org>UserID</org>
+				<en>UserID</en>
+				<es>UserID</es>
+				<fr>UserID</fr>
+				<nl>UserID</nl>
+				<it>UserID</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>23a5ad1d8681f33734695c0b153e119e</id>
 				<org>Bereits &lt;b&gt;angemeldeten Gast einchecken&lt;/b&gt;</org>
+				<en>Already &lt;b&gt;registered guest check&lt;/b&gt;</en>
+				<es>Ya se ha &lt;b&gt;registrado resultados de verificación&lt;/b&gt;</es>
+				<fr>Déjà &lt;b&gt;enregistré vérifier guest&lt;/b&gt;</fr>
+				<nl>Reeds &lt;b&gt;geregistreerd gast controleren&lt;/b&gt;</nl>
+				<it>Già &lt;b&gt;registrato check clientela&lt;/b&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2d7495658fddc98d952bd37fed16ef3d</id>
 				<org>Bereits &lt;b&gt;zu einer vergangenen Party angemeldeten Gast einchecken&lt;/b&gt;</org>
+				<en>Already a &lt;b&gt;check to a party last notified Guest&lt;/b&gt;</en>
+				<es>Ya un &lt;b&gt;cheque a un partido por última notificado Posadas&lt;/b&gt;</es>
+				<fr>Déjà &lt;b&gt;un&lt;/b&gt; chèque &lt;b&gt;à&lt;/b&gt; une &lt;b&gt;dernière partie notifiée de l&amp;#39;utilisateur&lt;/b&gt;</fr>
+				<nl>Al een &lt;b&gt;controle aan een partij het laatst aangemelde gast&lt;/b&gt;</nl>
+				<it>Già un &lt;b&gt;controllo per un partito ultimo comunicato del cliente&lt;/b&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e9ef2295a1778c5f4ecdab8a7f596c4b</id>
 				<org>Neuer Gast. Einen &lt;b&gt;Account erstellen&lt;/b&gt;HTML_NEWLINE&lt;i&gt;Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.&lt;/i&gt;</org>
+				<en>New guest. &lt;b&gt;Create&lt;/b&gt; an &lt;b&gt;account&lt;/b&gt; HTML_NEWLINE &lt;i&gt;It will only create an e-mail address and password automatically. All other data is provided by the user with a login on the first itself.&lt;/i&gt;</en>
+				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Sólo se creará una dirección de correo electrónico y la contraseña de forma automática. Todos los demás datos es proporcionada por el usuario con un inicio de sesión en el primero sí.</es>
+				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Elle ne fera que créer une adresse e-mail et mot de passe automatiquement. Toutes les autres données sont fournies par l&amp;#39;utilisateur avec un login sur le premier lui-même.&lt;/i&gt;</fr>
+				<nl>Nieuwe gasten. &lt;b&gt;Maak&lt;/b&gt; een &lt;b&gt;account&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Het zal alleen een e-mail adres en wachtwoord automatisch. Alle andere gegevens worden verstrekt door de gebruiker met een login op de eerste zelf.&lt;/i&gt;</nl>
+				<it>Nuovo ospite. &lt;b&gt;Creare&lt;/b&gt; un &lt;b&gt;account&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Sarà solo per creare un indirizzo e-mail e la password automaticamente. Tutti gli altri dati sono forniti dagli utenti con un account di accesso al primo stessa.&lt;/i&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c782f31af2e1ff59bc9b4f2baff7c79f</id>
 				<org>Neuer Gast. Einen &lt;b&gt;erweiterten Account erstellen&lt;/b&gt;HTML_NEWLINE&lt;i&gt;Hier legen Sie direkt am Einlass alle Benutzerdaten fest.&lt;/i&gt;</org>
+				<en>New guest. An &lt;b&gt;expanded account Create&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Here you create directly on the inlet solid all user data.&lt;/i&gt;</en>
+				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta ampliado&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Aquí usted puede crear directamente en la sólida entrada de todos los datos de usuario.&lt;/i&gt;</es>
+				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte élargi&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Ici vous créez directement sur le solide d&amp;#39;entrée de toutes les données utilisateur.&lt;/i&gt;</fr>
+				<nl>Nieuwe gasten. Een &lt;b&gt;uitgebreide account aanmaken&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Hier maakt u direct op de inlaat solide alle gebruikersgegevens.&lt;/i&gt;</nl>
+				<it>Nuovo ospite. &lt;b&gt;Creare&lt;/b&gt; un &lt;b&gt;account ampliato&lt;/b&gt; HTML_NEWLINE &lt;i&gt;Qui si crea direttamente il condotto di aspirazione solidi tutti i dati utente.&lt;/i&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>78b02c8ee4330aae24c314a1855aa475</id>
 				<org>Benutzer hinzufügen</org>
+				<en>Add Users</en>
+				<es>Agregar usuarios</es>
+				<fr>Ajouter des utilisateurs</fr>
+				<nl>Gebruikers toevoegen</nl>
+				<it>Aggiungi utenti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f0534f5fcf89fd9f2435e4950a639477</id>
 				<org>Um einen Benutzer hinzuzufügen, füllen Sie bitte das folgende Formular vollständig aus.</org>
+				<en>To add a user, please fill out the following form completely.</en>
+				<es>Para añadir un usuario, por favor, rellene el siguiente formulario completamente.</es>
+				<fr>Pour ajouter un utilisateur, s&amp;#39;il vous plaît remplir le formulaire suivant.</fr>
+				<nl>Als u een gebruiker, vul dan onderstaand formulier volledig.</nl>
+				<it>Per aggiungere un utente, ti preghiamo di compilare il seguente modulo.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>142cdad3ef137e208c6eaf2170239bc3</id>
 				<org>Wollen Sie diesem Benutzer einen Sitzplatz zuweisen?HTML_NEWLINEEr sitzt aktuell auf:HTML_NEWLINE%1</org>
+				<en>You want to assign that user a seat? HTML_NEWLINEEr currently sits at: HTML_NEWLINE%1</en>
+				<es>Que desea asignar a dicho usuario un asiento? HTML_NEWLINEEr actualmente se encuentra en: HTML_NEWLINE%1</es>
+				<fr>Vous souhaitez attribuer à cet utilisateur un siège? HTML_NEWLINEEr se situe actuellement à: HTML_NEWLINE%1</fr>
+				<nl>U wilt toewijzen aan die gebruiker een stoel? HTML_NEWLINEEr zit momenteel op: HTML_NEWLINE%1</nl>
+				<it>Si desidera assegnare ad un utente la sede? HTML_NEWLINEEr si trova attualmente a: HTML_NEWLINE%1</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b2aae3c7d634947aab328ac19c35e68d</id>
 				<org>Der Benutzer &lt;b&gt;%1&lt;/b&gt; wurde erfolgreich eingecheckt</org>
+				<en>The &lt;b&gt;user%1&lt;/b&gt; was successfully checked in.</en>
+				<es>El &lt;b&gt;usuario%1&lt;/b&gt; se logró registrados</es>
+				<fr>&lt;b&gt;L&amp;#39;utilisateur%1&lt;/b&gt; a été avec succès le check-in</fr>
+				<nl>De &lt;b&gt;gebruiker%1&lt;/b&gt; is succesvol gecontroleerd inch</nl>
+				<it>&lt;b&gt;L&amp;#39;utente%1&lt;/b&gt; è stata verificata con successo a.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>720a9a802bfab300eaca38db3b084ca9</id>
 				<org>Sie verwenden nicht zugelassene Sonderzeichen</org>
+				<en>Do not use special characters allowed</en>
+				<es>No utilice caracteres especiales permitidos</es>
+				<fr>N&amp;#39;utilisez pas de caractères spéciaux sont interdits</fr>
+				<nl>Gebruik geen speciale tekens toegestaan</nl>
+				<it>Non utilizzare caratteri speciali consentiti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e8e14b3f2a312b4445e1cd9b21e60ea3</id>
 				<org>Sie haben nicht die erforderlichen Rechte, um einen Admin zu löschen</org>
+				<en>You do not have the necessary permissions to delete an admin to</en>
+				<es>Usted no tiene los permisos necesarios para eliminar un administrador para</es>
+				<fr>Vous n&amp;#39;avez pas les autorisations nécessaires pour supprimer un administrateur de</fr>
+				<nl>Je hebt niet de vereiste machtigingen om een admin te verwijderen</nl>
+				<it>Non si dispone delle autorizzazioni necessarie per eliminare un admin per</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e96b0bf437569f756c2080d02a904c5c</id>
 				<org>Dieser Benutzer wurde bereits gelöscht</org>
+				<en>This user has already been deleted</en>
+				<es>Este usuario ya ha sido borrado</es>
+				<fr>Cet utilisateur a déjà été supprimé</fr>
+				<nl>Deze gebruiker is al verwijderd</nl>
+				<it>Questo utente è già stato cancellato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>06e03e4e219d2def8f8245c9cb8c76da</id>
 				<org>Sie können sich nicht selbst löschen</org>
+				<en>You can not delete itself</en>
+				<es>Usted no puede borrarse a sí mismo</es>
+				<fr>On ne peut pas se supprimer</fr>
+				<nl>U kunt zich niet verwijderen</nl>
+				<it>Non è possibile eliminare per sé</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e82bdb44c13b0a39d0d9a1a51e062958</id>
 				<org>Dieser Benutzer existiert nicht</org>
+				<en>This user does not exist</en>
+				<es>Este usuario no existe</es>
+				<fr>Cet utilisateur n&amp;#39;existe pas</fr>
+				<nl>Deze gebruiker bestaat niet</nl>
+				<it>Questo utente non esiste</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7fac17024083ce56dc3eab15063a52e4</id>
 				<org>Dieser User wurde gelöscht!</org>
+				<en>This user has been deleted!</en>
+				<es>Este usuario ha sido eliminado!</es>
+				<fr>Cet utilisateur a été supprimé!</fr>
+				<nl>Deze gebruiker is verwijderd!</nl>
+				<it>Questo utente è stato cancellato!</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8ec6a02760b2b1ddc197f5e6215cd4c6</id>
 				<org>und den vorhandenen Sitzplatz freigeben</org>
+				<en>and the existing seat sharing</en>
+				<es>y el asiento de distribución existentes</es>
+				<fr>et le siège actuel de partage</fr>
+				<nl>en de bestaande stoel delen</nl>
+				<it>e la sede attuale di condivisione</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0b5bda8c70c6963539fcb4b15f14e721</id>
 				<org>Sind Sie sicher, dass Sie den Benutzer %1 wirklich löschen %2 wollen?</org>
+				<en>Are you sure you want to delete the user%1%2?</en>
+				<es>¿Estás seguro de que desea eliminar el usuario%1%2?</es>
+				<fr>Etes-vous sûr de vouloir supprimer l&amp;#39;utilisateur%1%2?</fr>
+				<nl>Weet u zeker dat u de gebruiker%1%2 verwijderen?</nl>
+				<it>Sei sicuro di voler eliminare l&amp;#39;utente%1%2?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>4f9e4eeb954a29300ffef6b4a6bccaf8</id>
 				<org>Der Benutzer wurde erfolgreich gelöscht</org>
+				<en>The user was successfully deleted</en>
+				<es>El usuario ha sido borrado</es>
+				<fr>L&amp;#39;utilisateur a été supprimé avec succès</fr>
+				<nl>De gebruiker is succesvol verwijderd</nl>
+				<it>L&amp;#39;utente è stato cancellato con successo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c376a6f568cb18c10a5d5193c253a9cb</id>
 				<org>Organisator (gesperrt)</org>
+				<en>Organizer (locked)</en>
+				<es>Organizador (bloqueado)</es>
+				<fr>Organisateur (verrouillé)</fr>
+				<nl>Organizer (slot)</nl>
+				<it>Organizer (bloccato)</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ee89f826c84e92934d31338404c5dd01</id>
 				<org>Gast (gesperrt)</org>
+				<en>Guest (locked)</en>
+				<es>Anónimo (bloqueado)</es>
+				<fr>Guest (verrouillé)</fr>
+				<nl>Gast (slot)</nl>
+				<it>Guest (bloccato)</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>22ace15ab07978febd9fd6de38557302</id>
 				<org>Gast (deaktiviert)</org>
+				<en>Guest (disabled)</en>
+				<es>Guest (discapacitados)</es>
+				<fr>Guest (handicapés)</fr>
+				<nl>Gast (uitgeschakeld)</nl>
+				<it>Guest (disabili)</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>073d1761d3ec7841355ae85fb1dfa522</id>
 				<org>Organisator</org>
+				<en>Organizer</en>
+				<es>Organizador</es>
+				<fr>Organisateur</fr>
+				<nl>Organisator</nl>
+				<it>Organizer</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>97d56bdb0ad6fa9d7205deecd0806956</id>
 				<org>Spielerinfos</org>
+				<en>Player Info</en>
+				<es>Información del jugador</es>
+				<fr>Info Joueur</fr>
+				<nl>Speler Info</nl>
+				<it>Info giocatore</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bf2129aece92fe202715f8914e9d9e95</id>
 				<org>Sonstiges</org>
+				<en>Miscellaneous</en>
+				<es>Varios</es>
+				<fr>Divers</fr>
+				<nl>Diversen</nl>
+				<it>Varie</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>133411acb622893dc763a14a76f62794</id>
 				<org>Eigene Felder</org>
+				<en>Own fields</en>
+				<es>Propios campos</es>
+				<fr>Propres champs</fr>
+				<nl>Eigen velden</nl>
+				<it>Propri campi</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a9c4b6c9fbd990849d1f128dfc4ed3e7</id>
 				<org>Sessions</org>
+				<en>Sessions</en>
+				<es>Sesiones</es>
+				<fr>Sessions</fr>
+				<nl>Sessions</nl>
+				<it>Sessioni</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e4f7e6a9b71a60365e5878c5fa2e4ddf</id>
 				<org>Userdetails von %1</org>
+				<en>User details from%1</en>
+				<es>Datos del usuario de%1</es>
+				<fr>Détails de l&amp;#39;utilisateur de%1</fr>
+				<nl>Gebruiker details van%1</nl>
+				<it>Dettagli utente da%1</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2bec7cc6645b62e2d48b2020b119cba7</id>
 				<org>Hier finden Sie alle Details zu diesem User. Am Ende der Seite finden Sie alle Funktionen, die Sie auf den User anwenden dürfen.</org>
+				<en>Here you will find all the details of this user. At the end of the page you will find all the functions that you can apply it to the user.</en>
+				<es>Aquí encontrarás todos los detalles de este usuario. Al final de la página encontrará todas las funciones que se pueden aplicar al usuario.</es>
+				<fr>Ici vous trouverez tous les détails de cet utilisateur. À la fin de la page, vous trouverez toutes les fonctions que vous pouvez l&amp;#39;appliquer à l&amp;#39;utilisateur.</fr>
+				<nl>Hier vindt u alle details van deze gebruiker. Aan het einde van de pagina vindt u alle functies die je kunt toepassen op de gebruiker.</nl>
+				<it>Qui troverete tutti i dettagli di questo utente. Alla fine della pagina troverete tutte le funzioni che è possibile applicare all&amp;#39;utente.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>53cabb79721cace0768b2bd99ac9fe0f</id>
 				<org>Account freigeben</org>
+				<en>Share Account</en>
+				<es>Cuenta de acciones</es>
+				<fr>Partager compte</fr>
+				<nl>Share Account</nl>
+				<it>Condividi Account</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>01b2c729c9f6dc18d5be344fb1e15990</id>
 				<org>Account sperren</org>
+				<en>Account Lock</en>
+				<es>Cuenta de bloqueo</es>
+				<fr>De verrouillage du compte</fr>
+				<nl>Account Lock</nl>
+				<it>Conto Lock</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2bc5c0d9fe07727f725f7b34fe152efe</id>
 				<org>Benutzer wechseln</org>
+				<en>Change user</en>
+				<es>Cambiar de usuario</es>
+				<fr>Changer d&amp;#39;utilisateur</fr>
+				<nl>Wijzig gebruiker</nl>
+				<it>Cambia utente</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>aea804c7071ed45c1f3641c003ddd006</id>
 				<org>Passwort ändern</org>
+				<en>Change Password</en>
+				<es>Cambiar Contraseña</es>
+				<fr>Change Password</fr>
+				<nl>Wachtwoord wijzigen</nl>
+				<it>Cambia password</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9e9cec8bc20dcdafcc5d6eadfcd13482</id>
 				<org>Benutzergruppe</org>
+				<en>User group</en>
+				<es>Grupo de usuarios</es>
+				<fr>User Group</fr>
+				<nl>Gebruikersgroep</nl>
+				<it>User Group</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>fa34f691af35ed01cef03fda4faa8b1c</id>
 				<org>Keiner Gruppe zugeordnet</org>
+				<en>Associated with any groups</en>
+				<es>Asociados con ningún grupo</es>
+				<fr>Associée à des groupes</fr>
+				<nl>Aangesloten bij geen groepen</nl>
+				<it>Associato con alcun gruppo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>31493eab02656fe21f6ba7b29293bf5e</id>
 				<org>Angemeldet</org>
+				<en>Remember</en>
+				<es>Recordar</es>
+				<fr>Se souvenir</fr>
+				<nl>Onthouden</nl>
+				<it>Ricordare</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8c15679a81c7ec9625771462fc6100d0</id>
 				<org>Nicht Angemeldet</org>
+				<en>Not Registered</en>
+				<es>No registrado</es>
+				<fr>Non inscrit</fr>
+				<nl>Niet Geregistreerd</nl>
+				<it>Non Iscritti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ad60cf5dd813abd16900c25dc1069c84</id>
 				<org>Bezahlt</org>
+				<en>Paid</en>
+				<es>Pagado</es>
+				<fr>Payé</fr>
+				<nl>Betaald</nl>
+				<it>Pagati</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9eabaacbbbdd3c37fe4da3e3f83dca74</id>
 				<org>Nicht bezahlt</org>
+				<en>Not paid</en>
+				<es>No pagado</es>
+				<fr>Non payé</fr>
+				<nl>Niet betaald</nl>
+				<it>Non pagati</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cdbdbaf870ffa1beed206f0211d46ad7</id>
 				<org>Abendkasse</org>
+				<en>Box-office</en>
+				<es>Taquilla</es>
+				<fr>Box-office</fr>
+				<nl>Box-office</nl>
+				<it>Box-office</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9172c147d3e074952cc2c5542abced2d</id>
 				<org>gezahlt</org>
+				<en>paid</en>
+				<es>pagado</es>
+				<fr>payés</fr>
+				<nl>betaald</nl>
+				<it>pagati</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a3ec8fba4b09873489782e9375548b76</id>
 				<org>NICHT gezahlt</org>
+				<en>NOT paid</en>
+				<es>No pagado</es>
+				<fr>Non payé</fr>
+				<nl>Niet betaald</nl>
+				<it>Non pagato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b2f7016decfeff062c7d93e24026e7e3</id>
 				<org>Eingecheckt</org>
+				<en>Checked</en>
+				<es>Checked</es>
+				<fr>Checked</fr>
+				<nl>Gecontroleerd</nl>
+				<it>Checked</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>391916c78f84bcd02911270f1e31bdf9</id>
 				<org>Nicht eingecheckt</org>
+				<en>Not checked</en>
+				<es>No verificado</es>
+				<fr>Non vérifié</fr>
+				<nl>Niet gecontroleerd</nl>
+				<it>Non controllato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>345613e04c19c374f9b4915c141cff93</id>
 				<org>Ausgecheckt</org>
+				<en>Checked Out</en>
+				<es>Desprotegido</es>
+				<fr>Checked Out</fr>
+				<nl>Gecontroleerd</nl>
+				<it>Checked Out</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>26361d584204ed388d8b05b3aae400bf</id>
 				<org>Nicht ausgecheckt</org>
+				<en>Not checked out</en>
+				<es>No comprobado</es>
+				<fr>Non vérifié</fr>
+				<nl>Niet gecontroleerd</nl>
+				<it>Non verificato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>919885c924275a788504778d4fb7a2b1</id>
 				<org>Kein Sitzplatz ausgewählt / zugeteilt.</org>
+				<en>No seat chosen / assigned.</en>
+				<es>N asiento elegido / asignado.</es>
+				<fr>Pas de place choisis / affectés.</fr>
+				<nl>Geen zetel gekozen / toegewezen.</nl>
+				<it>Senza posto scelto / assegnato.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>72109ac727f431c9c7e193f06c530625</id>
 				<org>Sitzplatz</org>
+				<en>Patio</en>
+				<es>Patio</es>
+				<fr>Patio</fr>
+				<nl>Patio</nl>
+				<it>Patio</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c3746ea7afe3a36ab1954d6416b54f8f</id>
 				<org>LANSuite-Mail an den User senden</org>
+				<en>LANsuite-mail to the user</en>
+				<es>LANsuite-mail al usuario</es>
+				<fr>LANsuite-mail à l&amp;#39;utilisateur</fr>
+				<nl>LANsuite-mail naar de gebruiker</nl>
+				<it>LANsuite-mail per l&amp;#39;utente</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ce8ae9da5b7cd6c3df2929543a9af92d</id>
 				<org>Email</org>
+				<en>Email</en>
+				<es>Correo</es>
+				<fr>Email</fr>
+				<nl>E</nl>
+				<it>E-mail</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>5c5d206956a9d22b3af98afa3567a909</id>
 				<org>Benutzer ist Online</org>
+				<en>User is Online</en>
+				<es>Usuario está en línea</es>
+				<fr>Utilisateur est en ligne</fr>
+				<nl>Gebruiker is online</nl>
+				<it>L&amp;#39;utente è on-line</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>75d7b5135e3492bafc21653def3a4e04</id>
 				<org>Benutzer ist Offline</org>
+				<en>User is Offline</en>
+				<es>Usuario está desconectado</es>
+				<fr>L&amp;#39;utilisateur est hors ligne</fr>
+				<nl>Gebruiker is Offline</nl>
+				<it>Utente è offline</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ecdc7ffafe7a5b5058e9f1e5585d8b78</id>
 				<org>Den User zu Ihrer Buddyliste hinzufügen</org>
+				<en>To add someone to your Buddy List</en>
+				<es>Para añadir a alguien a tu lista de contactos</es>
+				<fr>Pour ajouter quelqu&amp;#39;un à votre liste de contacts</fr>
+				<nl>Iemand toe te voegen aan uw Buddy List</nl>
+				<it>Per aggiungere un contatto alla tua Lista Amici</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a7468612383cbc998a13587c659a6d38</id>
 				<org>Passnummer / Sonstiges</org>
+				<en>Passport No. / Other</en>
+				<es>N º Pasaporte / Otros</es>
+				<fr>N ° de passeport / autres</fr>
+				<nl>Paspoort nr. / Overige</nl>
+				<it>Passport No. / Other</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d0c1334318d5c2a27eb3b34dc8bad4d9</id>
 				<org>Hinweis: Die Angaben zu Straße und Passnummer sind nur für Sie und die Organisatoren sichtbar.</org>
+				<en>Note: The information on road and passport number are only visible to you and the organizers.</en>
+				<es>Nota: La información en carretera y número de pasaporte sólo son visibles para usted y los organizadores.</es>
+				<fr>Note: Les informations sur la route et le numéro de passeport ne sont visibles que par vous et les organisateurs.</fr>
+				<nl>Opmerking: De informatie op de weg en het paspoortnummer zijn alleen zichtbaar voor u en de organisatoren.</nl>
+				<it>Nota: Le informazioni su strada e il numero di passaporto sono visibili solo a voi e gli organizzatori.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c623e5ccec29982407b194ef78079880</id>
 				<org>Nicht angegeben</org>
+				<en>Not Specified</en>
+				<es>Sin especificar</es>
+				<fr>Non indiquée</fr>
+				<nl>Niet opgegeven</nl>
+				<it>Non specificato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>fa2219740e195a6a88e8996baf902e5a</id>
 				<org>Benutzerbild</org>
+				<en>Avatar</en>
+				<es>Avatar</es>
+				<fr>Avatar</fr>
+				<nl>Avatar</nl>
+				<it>Avatar</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7bb5b2b26fb24e353740cf379232fe65</id>
 				<org>Board Posts</org>
+				<en>Board posts</en>
+				<es>Puestos de la Junta</es>
+				<fr>Conseil postes</fr>
+				<nl>Bestuur posts</nl>
+				<it>Consiglio di posti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2723788f31e57b2644a580e82e0f3631</id>
 				<org>Letzte 10 Threads</org>
+				<en>Last 10 Threads</en>
+				<es>Last 10 Threads</es>
+				<fr>Les 10 derniers Threads</fr>
+				<nl>Laatste 10 Threads</nl>
+				<it>Ultimi 10 Threads</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>da2fcb1e3070b3d66f50bca40147ebf6</id>
 				<org>Logins</org>
+				<en>Logins</en>
+				<es>Conexiones</es>
+				<fr>Logins</fr>
+				<nl>Logins</nl>
+				<it>Logins</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f9144a923cd7766eb8e26e341b9ed75f</id>
 				<org>am/um:</org>
+				<en>on / around:</en>
+				<es>en / en torno a:</es>
+				<fr>sur / autour de:</fr>
+				<nl>op / rond:</nl>
+				<it>in / attorno a:</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ac4c78bc02167273a98c3ec529f98992</id>
 				<org>noch nicht eingeloggt</org>
+				<en>not logged in</en>
+				<es>no se registra en</es>
+				<fr>pas connecté</fr>
+				<nl>niet ingelogd</nl>
+				<it>Non sei loggato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f57c6cbb5423af158ddc14394f5f67a7</id>
 				<org>Letzter Login</org>
+				<en>Last login</en>
+				<es>Última entrada</es>
+				<fr>Dernière connexion</fr>
+				<nl>Laatste login</nl>
+				<it>Last login</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>62d8bdb300a5ee6ba99a16738b18e786</id>
 				<org>Signatur</org>
+				<en>Signature</en>
+				<es>Firma</es>
+				<fr>Signature</fr>
+				<nl>Handtekening</nl>
+				<it>Firma</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>6d8cd478dba1daf6bd88f206befedc00</id>
 				<org>Dieser Benutzer hat keinen Avatar ausgewählt.</org>
+				<en>This user has not selected an avatar.</en>
+				<es>Este usuario no ha seleccionado un avatar.</es>
+				<fr>Cet utilisateur n&amp;#39;a pas choisi un avatar.</fr>
+				<nl>Deze gebruiker heeft niet gekozen een avatar.</nl>
+				<it>Questo utente non ha scelto un avatar.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>40dba2c0dfb0a075372ff47065b50815</id>
 				<org>Session-ID</org>
+				<en>Session ID</en>
+				<es>ID de la sesión</es>
+				<fr>ID de session</fr>
+				<nl>Session ID</nl>
+				<it>ID di sessione</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a12a3079e14ced46e69ba52b8a90b21a</id>
 				<org>IP</org>
+				<en>IP</en>
+				<es>IP</es>
+				<fr>IP</fr>
+				<nl>IP</nl>
+				<it>IP</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3d60e1651d302a5aaf33325d3f7d6298</id>
 				<org>Login?</org>
+				<en>Login?</en>
+				<es>Inicio de sesión?</es>
+				<fr>Login?</fr>
+				<nl>Login?</nl>
+				<it>Login?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b69df945ae986e6b1882cdc87ad19617</id>
 				<org>Hits</org>
+				<en>Hits</en>
+				<es>Visitas</es>
+				<fr>Hits</fr>
+				<nl>Hits</nl>
+				<it>Hits</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d7e637a6e9ff116de2fa89551240a94d</id>
 				<org>Visits</org>
+				<en>Visits</en>
+				<es>Visitas</es>
+				<fr>Visites</fr>
+				<nl>Bezoeken</nl>
+				<it>Visite</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>770d534783c837e962411a1cb140d294</id>
 				<org>Letzter Aufruf</org>
+				<en>Last call</en>
+				<es>Última llamada</es>
+				<fr>Last Call</fr>
+				<nl>Last call</nl>
+				<it>Ultima chiamata</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b34a94ed6c29e661d98a252e34fa390e</id>
 				<org>Eingeloggt</org>
+				<en>Logged</en>
+				<es>Identificados</es>
+				<fr>Connecté</fr>
+				<nl>Logged</nl>
+				<it>Logged</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3a88ce0911552406a97b8586e86a7ee8</id>
 				<org>Benutzerübersicht</org>
+				<en>User Overview</en>
+				<es>Resumen del usuario</es>
+				<fr>Aperçu de l&amp;#39;utilisateur</fr>
+				<nl>Gebruiker Overzicht</nl>
+				<it>Utente Panoramica</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>36b6716390932caec61d6e0a47cc6464</id>
 				<org>Vorheriger Benutzer</org>
+				<en>Previous Users</en>
+				<es>Los usuarios anteriores</es>
+				<fr>Précédent Utilisateurs</fr>
+				<nl>Vorige Gebruikers</nl>
+				<it>Precedente Utenti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>5dca8c95fb60b331c098a03dae6a6092</id>
 				<org>Nächster Benutzer</org>
+				<en>Next user</en>
+				<es>Siguiente usuario</es>
+				<fr>Suivant l&amp;#39;utilisateur</fr>
+				<nl>Volgende gebruiker</nl>
+				<it>Next user</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1f94b920cbb6530663d40b6540c76fcf</id>
 				<org>Keine zuweisung</org>
+				<en>No allocation</en>
+				<es>N asignación</es>
+				<fr>Aucun quota</fr>
+				<nl>Geen toewijzing</nl>
+				<it>Non vengono assegnate quote</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b85145adbca4dc969d89cf96e9546a8b</id>
 				<org>Alter</org>
+				<en>Age</en>
+				<es>Edad</es>
+				<fr>Âge</fr>
+				<nl>Leeftijd</nl>
+				<it>Età</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b71458124f924a7a956ef5aac8b3eb99</id>
 				<org>M�nnlich</org>
+				<en>Mnnlich</en>
+				<es>Mnnlich</es>
+				<fr>Mnnlich</fr>
+				<nl>Mnnlich</nl>
+				<it>Mnnlich</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b1a63d3835a2ce74a29b554d96e75b70</id>
 				<org>Ortschaft</org>
+				<en>Location</en>
+				<es>Ubicación</es>
+				<fr>Emplacement</fr>
+				<nl>Locatie</nl>
+				<it>Località</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>5e5f7323f2adb9765fbc13f59307bbd7</id>
 				<org>Geben Sie einen Gruppennamen ein</org>
+				<en>Enter a group name</en>
+				<es>Introduzca un nombre de grupo de</es>
+				<fr>Entrez un nom de groupe</fr>
+				<nl>Voer een groepsnaam</nl>
+				<it>Immettere il nome del gruppo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1995495b92941998a46a49513a1055dc</id>
 				<org>Alter wurde falsch angegeben bitte in der Form 14+ , -18 oder 15-17 angeben.</org>
+				<en>Age was incorrectly specified in the form of 14 + please specify -18 or 15-17.</en>
+				<es>Edad se ha especificado correctamente en la forma de 14 + por favor, especifique -18 o 15-17.</es>
+				<fr>L&amp;#39;âge a été incorrectement spécifié sous la forme de 14 + s&amp;#39;il vous plaît préciser -18 ou 15-17.</fr>
+				<nl>Leeftijd onjuist vermeld in de vorm van 14 + omschrijf -18 of 15-17.</nl>
+				<it>Di età è stato erroneamente indicato in forma di 14 + specificare -18 o 15-17.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bbff3cb1e10d06bdeed1ad7fbc8714d4</id>
 				<org>Bitte eine Stadt angeben</org>
+				<en>Please enter a city</en>
+				<es>Por favor introduzca una ciudad</es>
+				<fr>S&amp;#39;il vous plaît entrer une ville</fr>
+				<nl>Voer een stad</nl>
+				<it>Si prega di inserire una città</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7852bfcea2c56ec4d6fe011cf467d249</id>
 				<org>Gruppenverwaltung</org>
+				<en>Group Administration</en>
+				<es>Grupo de Administración de</es>
+				<fr>Groupe Administration</fr>
+				<nl>Groep Administratie</nl>
+				<it>Gruppo di Amministrazione</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cb1ecfb3f6560c25d0037c10d722a83f</id>
 				<org>Erstellen Sie Benutzergruppen um unterschiedliche Preise zu verlangen.</org>
+				<en>Create user groups require at different prices.</en>
+				<es>Crear grupos de usuarios requieren de diferentes precios.</es>
+				<fr>Créez des groupes d&amp;#39;utilisateurs exigent à différents prix.</fr>
+				<nl>Maak gebruikersgroepen vereisen op verschillende prijzen.</nl>
+				<it>Creare gruppi di utenti richiedono a prezzi diversi.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9a42c14b3e26b60502de2820e516d261</id>
 				<org>Benutzer einer Gruppe zuweisen</org>
+				<en>Assign users to a group</en>
+				<es>Asignar usuarios a un grupo de</es>
+				<fr>Affecter des utilisateurs à un groupe</fr>
+				<nl>Toewijzen aan een groep gebruikers</nl>
+				<it>Assegnazione di utenti a un gruppo di</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d7d001377af53f0336a8a6eca47aa1a7</id>
 				<org>Gruppenname</org>
+				<en>Group Name</en>
+				<es>Nombre del grupo</es>
+				<fr>Nom du groupe</fr>
+				<nl>Groepsnaam</nl>
+				<it>Nome del gruppo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f79a9b06387e8fc9f3f834237971be91</id>
 				<org>Benutzergruppenbeschreibung</org>
+				<en>User Group Description</en>
+				<es>Descripción del Grupo de Usuarios</es>
+				<fr>User Group Description</fr>
+				<nl>User Group Description</nl>
+				<it>User Group Descrizione</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>63e2138e7684040e9918a16c5012e0a0</id>
 				<org>Automatische Zuweisung</org>
+				<en>Automatic allocation</en>
+				<es>La asignación automática</es>
+				<fr>L&amp;#39;allocation automatique</fr>
+				<nl>Automatische toekenning</nl>
+				<it>L&amp;#39;assegnazione automatica</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>13eef23234ac36a2f4efc0154f96be98</id>
 				<org>Zuweisungsbegriff (f�r Alter z.b. 18+, 16-18, -18)</org>
+				<en>Allocation concept (eg fr Age 18 +, 16-18, -18)</en>
+				<es>Concepto de asignación (por ejemplo, fr Edad 18 +, 16-18, -18)</es>
+				<fr>Attribution concept (fr Age 18 +, 16-18, -18)</fr>
+				<nl>Toewijzing concept (bijv. fr Leeftijd 18 +, 16-18, -18)</nl>
+				<it>Concetto di assegnazione (ad es fr Age 18 +, 16-18, -18)</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0e895454f7f9532b6f2df000c4f71fe1</id>
 				<org>Automatisch Zuordnung sortieren</org>
+				<en>Automatically sort mapping</en>
+				<es>Automáticamente la asignación de clase</es>
+				<fr>Trier automatiquement la cartographie</fr>
+				<nl>Automatisch sorteren mapping</nl>
+				<it>Automaticamente sorta di mappatura</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b31de82a35d22eae31bae787e998168f</id>
 				<org>Benutzergruppe wurde hinzugef�gt</org>
+				<en>User group was hinzugefgt</en>
+				<es>Grupo de usuarios se hinzugefgt</es>
+				<fr>Groupe d&amp;#39;utilisateurs a été hinzugefgt</fr>
+				<nl>Gebruikers groep was hinzugefgt</nl>
+				<it>Il gruppo di utenti è stato hinzugefgt</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a00c02c7918dd48a303271c150091adf</id>
 				<org>Benutzergruppe wurde erfolgreich editiert.</org>
+				<en>User group has been successfully edited.</en>
+				<es>Grupo de usuarios ha sido editado correctamente.</es>
+				<fr>Groupe d&amp;#39;utilisateurs a été modifié avec succès.</fr>
+				<nl>Gebruikersgroep is met succes bewerkt.</nl>
+				<it>Il gruppo di utenti è stato modificato con successo.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c209b2ea7e2a3049c0c59951c9999a24</id>
 				<org>Die Benutzergruppe konnte nicht angelegt werden.</org>
+				<en>The user group could not be created.</en>
+				<es>El grupo de usuarios no puede ser creado.</es>
+				<fr>Le groupe d&amp;#39;utilisateurs n&amp;#39;ont pas pu être créé.</fr>
+				<nl>De gebruikersgroep kon niet worden aangemaakt.</nl>
+				<it>Il gruppo di utenti, non potrebbe essere creato.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2ea0b06ae2c1160f8a57255a35373c5b</id>
 				<org>Gruppe ausw�hlen</org>
+				<en>Group auswhlen</en>
+				<es>Auswhlen Grupo</es>
+				<fr>Groupe auswhlen</fr>
+				<nl>Groep auswhlen</nl>
+				<it>Gruppo auswhlen</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a6e78ded0ea697c12872f1f7a8a85bfe</id>
 				<org>ist in der Gruppe</org>
+				<en>is in the group</en>
+				<es>está en el grupo</es>
+				<fr>est dans le groupe</fr>
+				<nl>is in de groep</nl>
+				<it>è nel gruppo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>df2a692b4c6dbf4631795539636aa5b4</id>
 				<org>ist in keiner Gruppe</org>
+				<en>in any groups</en>
+				<es>de todos los grupos</es>
+				<fr>dans tous les groupes</fr>
+				<nl>in alle groepen</nl>
+				<it>in nessun gruppo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>5a5c644448564dfa9a6ec27b273190bd</id>
 				<org>Wollen Sie diese Benutzer der Gruppe %1 zuweisen?</org>
+				<en>Do you want to assign that user to the group%1?</en>
+				<es>¿Usted desea asignar al usuario al grupo%1?</es>
+				<fr>Ne vous souhaitez attribuer à cet utilisateur au groupe%1?</fr>
+				<nl>Wilt u die gebruiker toe te wijzen aan de groep%1?</nl>
+				<it>Non si desidera assegnare l&amp;#39;utente al gruppo%1?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>483a854f6b746a7eacad4e1974fbdcea</id>
 				<org>Wollen Sie den Benutzer %1 der Gruppe %2 zuweisen?</org>
+				<en>Do you want to assign to the user%1%of group 2?</en>
+				<es>¿Desea asignar al usuario%1%del grupo 2?</es>
+				<fr>Ne vous voulez attribuer à l&amp;#39;utilisateur%1%du groupe 2?</fr>
+				<nl>Heeft u wilt toewijzen aan de gebruiker%1%van groep 2?</nl>
+				<it>Vuoi assegnare per l&amp;#39;utente%1%del gruppo 2?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>eb360dda2e3d61791c7d384eeb40dac6</id>
 				<org>Die Gruppenzuweisung wurde erfolgreich durchgef�hrt</org>
+				<en>The group assignment was successfully durchgefhrt</en>
+				<es>La asignación de grupo con éxito durchgefhrt</es>
+				<fr>L&amp;#39;attribution de groupe a été mené durchgefhrt</fr>
+				<nl>De groep opdracht is met succes durchgefhrt</nl>
+				<it>L&amp;#39;assegnazione gruppo era successo durchgefhrt</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>31e12de04249eab983553dc91459c0a0</id>
 				<org>Gruppen sortieren</org>
+				<en>Sort groups</en>
+				<es>Ordenar los grupos de</es>
+				<fr>Trier les groupes</fr>
+				<nl>Sorteren groepen</nl>
+				<it>Ordina gruppi</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>54f668e09cf179fd8fb1b3a1cd025019</id>
 				<org>Hier k�nnen Sie die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die h�chste Priorit�t</org>
+				<en>You may submit the groups sort the order in which they are to be Applied. The top has the hchste Prioritt</en>
+				<es>Usted puede presentar la clase grupos de la orden en que han de aplicarse. La parte superior tiene el Prioritt hchste</es>
+				<fr>Vous mai présenter le genre des groupes de l&amp;#39;ordre dans lequel elles doivent être appliquées. Le sommet a le Prioritt hchste</fr>
+				<nl>U kan bij de groepen sorteren de volgorde waarin ze moeten worden toegepast. De top heeft de hchste Prioritt</nl>
+				<it>Si può presentare il tipo gruppi l&amp;#39;ordine in cui essi devono essere applicate. La parte superiore ha il hchste Prioritt</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>98b0e913db21dbfc8c8572b40bfa82b4</id>
 				<org>Wollen sie die Gruppe %1 wirklich l�schen?</org>
+				<en>Do they really Delete the group%1?</en>
+				<es>¿Realmente Elimine el grupo%1?</es>
+				<fr>Supprimer-ils vraiment le groupe%1?</fr>
+				<nl>Hebben ze echt Verwijder de groep%1?</nl>
+				<it>Davvero Eliminare il gruppo%1?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>6d511b0089ea73f7f3b11a3cae563031</id>
 				<org>Gruppe zuweisen</org>
+				<en>Group Assignment</en>
+				<es>Grupo de Tarea</es>
+				<fr>Affectation à un groupe</fr>
+				<nl>Groepsopdracht</nl>
+				<it>Gruppo Assegnazione</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>54f4731545f7549313ce1f8dcb071198</id>
 				<org>Welche Gruppe m�chten Sie den Benutzern die in der gel�schten Gruppe sind zuweisen?</org>
+				<en>Interested in what category you assign users to gelschten in the group are?</en>
+				<es>¿Interesado en qué categoría se asigna a los usuarios gelschten en el grupo son?</es>
+				<fr>Intéressé à quelle catégorie vous assigner des utilisateurs à gelschten dans le groupe sont?</fr>
+				<nl>Geïnteresseerd in welke categorie u toewijst gebruikers gelschten in de groep zijn?</nl>
+				<it>Interessati a quale categoria si assegna agli utenti di gelschten del gruppo sono?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>419c212762172d0f7da33179e04fa063</id>
 				<org>Gruppe erfolgreich gel�scht.</org>
+				<en>Group successfully gelscht.</en>
+				<es>Grupo éxito gelscht.</es>
+				<fr>Groupe gelscht succès.</fr>
+				<nl>Groep succes gelscht.</nl>
+				<it>Gruppo successo gelscht.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e75792f08d1cd6274cbf05a3f13eb7eb</id>
 				<org>Benutzerkarte</org>
+				<en>User Map</en>
+				<es>Mapa de Usuarios</es>
+				<fr>User Map</fr>
+				<nl>Gebruikers Kaart</nl>
+				<it>User Map</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>36a8b3af3d2ee9b76c28cd4f0d1ae41a</id>
 				<org>Auf dieser Karte finden Sie alle Benutzer, die eine PLZ eingegeben haben.</org>
+				<en>On this map you will find all users who have entered a zip code.</en>
+				<es>En este mapa encontrarás todos los usuarios que han ingresado un código postal.</es>
+				<fr>Sur cette carte, vous trouverez tous les utilisateurs qui ont entré un code postal.</fr>
+				<nl>Op deze kaart vindt u alle gebruikers die zijn binnengekomen een postcode.</nl>
+				<it>Su questa mappa potrete trovare tutti gli utenti che sono entrati in un codice di avviamento postale.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>30db0e19953c0646116e81ec1c8ed728</id>
 				<org>Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben.</org>
+				<en>You must first create a Google under http://www.google.com/apis/maps/signup.html Maps API key and enter it in the%1.</en>
+				<es>Primero debe crear una clave de Google con http://www.google.com/apis/maps/signup.html Maps API e introducirla en el%1.</es>
+				<fr>Vous devez d&amp;#39;abord créer une sous clé Google Maps API http://www.google.com/apis/maps/signup.html et entrez-le dans le répertoire%1.</fr>
+				<nl>U moet eerst een kader http://www.google.com/apis/maps/signup.html Google Maps API-sleutel en voer het in de%1.</nl>
+				<it>È necessario innanzitutto creare un quadro http://www.google.com/apis/maps/signup.html Google Maps API key e inserirlo nella cartella%1.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bf5499349feba8c07fafd9c9f88db427</id>
 				<org>AdminSeite in den Allgemeinen Einstellungen</org>
+				<en>Admin page in the General Settings</en>
+				<es>Página Administración de la Configuración general</es>
+				<fr>Page &amp;quot;Admin&amp;quot; dans les Paramètres généraux</fr>
+				<nl>Admin pagina in de Algemene instellingen</nl>
+				<it>Pagina Amministrazione nelle impostazioni generali</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a180c183e819635b20bcc1a94310c4cb</id>
 				<org>Unvollständiges Benutzerprofil</org>
+				<en>Incomplete Profile</en>
+				<es>Perfil incompleto</es>
+				<fr>Incomplète profil</fr>
+				<nl>Onvolledige Profiel</nl>
+				<it>Incompleti Profilo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1784d98330683fbda5d224bdca9de1c5</id>
 				<org>Es gibt noch unausgefüllte Pflichtfelder in Ihrem Benutzerprofil. Bitte pflegen Sie diese nach</org>
+				<en>There are unfilled required fields in your user profile. Please take care of them after</en>
+				<es>Hay campos obligatorios sin llenar en su perfil de usuario. Por favor tenga cuidado de ellos después de</es>
+				<fr>Il ya en carnet champs requis dans votre profil utilisateur. S&amp;#39;il vous plaît prendre soin d&amp;#39;eux après</fr>
+				<nl>Er zijn onvervulde vereiste velden in uw gebruikersprofiel. Houdt u er zorg voor hen na</nl>
+				<it>Ci sono vacanti i campi richiesti nel profilo utente. Si prega di prendersi cura di loro, dopo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e0eec00c478b84151a4433e16b461500</id>
 				<org>Eintrittskarte drucken</org>
+				<en>Ticket Print</en>
+				<es>Venta de entradas Imprimir</es>
+				<fr>Ticket imprimer</fr>
+				<nl>Ticket Print</nl>
+				<it>Ticket Stampa</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3cfa0c33ca17502b148b9c7d69cc086a</id>
 				<org>Diese Seite ermöglicht es Ihnen Ihre Eintrittskarte zur Veranstaltung auszudrucken</org>
+				<en>This page allows you to print your admission ticket to the event</en>
+				<es>Esta página le permite imprimir tu boleto de entrada para el evento</es>
+				<fr>Cette page vous permet d&amp;#39;imprimer votre billet d&amp;#39;entrée à l&amp;#39;événement</fr>
+				<nl>Deze pagina kunt u uw toegangsbewijs tot het evenement af te drukken</nl>
+				<it>Questa pagina ti permette di stampare il biglietto d&amp;#39;ingresso per l&amp;#39;evento</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>878508319b73dfe092a35c3676230e3e</id>
 				<org>Eintrittskarte anzeigen (Bitte speichern sie die Datei vor dem &amp;ouml;ffnen ab.)</org>
+				<en>Admission map (Please save the file before opening.)</en>
+				<es>Mapa de admisión (Por favor, guarde el archivo antes de abrirlo.)</es>
+				<fr>La carte d&amp;#39;admission (S&amp;#39;il vous plaît enregistrer le fichier avant de l&amp;#39;ouvrir.)</fr>
+				<nl>Entree kaart (Sla het bestand voor het openen.)</nl>
+				<it>Mappa di ammissione (Si prega di salvare il file prima di aprire.)</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>74b47e4fdda9347c68b8762b0b07747c</id>
 				<org>Für die Eintrittskarte muss das PDF-Modul aktiv sein und es muss ein Template eingestellt sein.</org>
+				<en>The ticket must have the PDF module to be active and it must be a template set.</en>
+				<es>El billete debe tener el módulo PDF para ser activo y debe ser un conjunto de plantillas.</es>
+				<fr>Le billet doit avoir le module de PDF pour être active et elle doit être un jeu de templates.</fr>
+				<nl>Het ticket moet de PDF-module actief te zijn en het moet een sjabloon ingesteld.</nl>
+				<it>Il biglietto deve avere il modulo PDF di essere attivo e deve essere un modello di serie.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b0d2b68c2b194c535082d58517796fa7</id>
 				<org>Sind Sie sicher, dass Sie dem Benutzer &lt;b&gt;%1% %2% (%3%)&lt;/b&gt; ein neues Passwort zuweisen wollen?</org>
+				<en>Are you sure you want to assign to the &lt;b&gt;user%1%2%%(%3%)&lt;/b&gt; a new password?</en>
+				<es>¿Estás seguro de que desea asignar al &lt;b&gt;usuario%1%2%%(%3%)&lt;/b&gt; una nueva contraseña?</es>
+				<fr>Êtes-vous sûr que vous voulez attribuer à &lt;b&gt;l&amp;#39;utilisateur%1%2%%(%3%)&lt;/b&gt; un nouveau mot de passe?</fr>
+				<nl>Weet u zeker dat u wilt toewijzen aan de &lt;b&gt;gebruiker%1%2%%(%3%)&lt;/b&gt; een nieuw wachtwoord?</nl>
+				<it>Sei sicuro di voler assegnare per &lt;b&gt;l&amp;#39;utente%1%2%%(%3%),&lt;/b&gt; una nuova password?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a25a2b45a188ba2953655d6ee01763fd</id>
 				<org>Sie verfügen über ein geringeres Benutzerlevel, als derjenige, auf den Sie diese Funktion anwenden möchten. Es wurde kein neues Passwort generiert</org>
+				<en>They have a lower user level than that to which you want to use this feature. It has generated a new password</en>
+				<es>Ellos tienen un menor nivel de usuario que aquel al que desea utilizar esta característica. Se ha generado una nueva contraseña</es>
+				<fr>Ils ont un niveau inférieur à l&amp;#39;utilisateur que celle à laquelle vous souhaitez utiliser cette fonctionnalité. Il a généré un nouveau mot de passe</fr>
+				<nl>Ze hebben een gebruiker lager niveau dan dat waarop u deze functie wilt gebruiken. Het heeft een nieuwe wachtwoord</nl>
+				<it>Hanno un basso livello di utente a quello di cui si desidera utilizzare questa funzionalità. Che ha generato una nuova password</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0d4955cb9ce166c5a17ea5b9941bd0cb</id>
 				<org>Das Passwort von &lt;b&gt;%2 %3 (%4)&lt;/b&gt; wurde erfolgreich geändert.HTML_NEWLINEDas neue Passwort lautet &lt;b&gt;%1&lt;/b&gt;.</org>
+				<en>The password &lt;b&gt;of%2%3 (%4)&lt;/b&gt; was successfully geändert.HTML_NEWLINEDas new password &lt;b&gt;is%1.&lt;/b&gt;</en>
+				<es>La contraseña &lt;b&gt;de%2%3 (%4)&lt;/b&gt; con éxito nueva contraseña geändert.HTML_NEWLINEDas &lt;b&gt;es%1.&lt;/b&gt;</es>
+				<fr>Le mot de passe &lt;b&gt;de%2%3 (4%)&lt;/b&gt; a été avec succès geändert.HTML_NEWLINEDas nouveau mot de passe &lt;b&gt;est%1.&lt;/b&gt;</fr>
+				<nl>Het wachtwoord &lt;b&gt;van%2%3 (%4)&lt;/b&gt; is succesvol geändert.HTML_NEWLINEDas nieuwe wachtwoord &lt;b&gt;is%1.&lt;/b&gt;</nl>
+				<it>La password &lt;b&gt;del 3%al 2%(4%)&lt;/b&gt; è stata con successo geändert.HTML_NEWLINEDas nuova password &lt;b&gt;è%1.&lt;/b&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>30727110f2a5709d338764ed643b2b2e</id>
 				<org>Eine Bestätigung der Anmeldung wurde an Ihre E-Mail-Adresse gesendet.</org>
+				<en>A registration confirmation is sent to your email address.</en>
+				<es>Una confirmación de inscripción se envía a su dirección de correo electrónico.</es>
+				<fr>Une confirmation d&amp;#39;inscription est envoyé à votre adresse email.</fr>
+				<nl>Een registratie bevestiging is verzonden naar uw e-mailadres.</nl>
+				<it>A conferma della registrazione viene inviata al tuo indirizzo email.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e42b75af3c2fe0641e48b717d80fc4ac</id>
 				<org>Es ist ein Fehler beim Versand der Informations-E-Mail aufgetreten.</org>
+				<en>There was an error while sending the information e-mail.</en>
+				<es>Se produjo un error al enviar la información de correo electrónico.</es>
+				<fr>Il ya eu une erreur lors de l&amp;#39;envoi des informations par courrier électronique.</fr>
+				<nl>Er is een fout opgetreden bij het verzenden van de informatie e-mail.</nl>
+				<it>Si è verificato un errore durante l&amp;#39;invio delle informazioni e-mail.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8ca7152b0410c22edc383581c375abac</id>
 				<org>Aktuell sind keine Partys geplant.</org>
+				<en>Currently no parties are planned.</en>
+				<es>En la actualidad no se prevén las partes.</es>
+				<fr>Actuellement, aucune des parties sont prévues.</fr>
+				<nl>Momenteel zijn er geen partijen zijn gepland.</nl>
+				<it>Al momento non sono previste parti.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>dde3f908a92cf1d24f81bae749d973fb</id>
 				<org>Sie können Sich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist</org>
+				<en>You may register at no more to this party, unsubscribe, or because it is already over</en>
+				<es>Usted se puede inscribir en no más a este partido, darse de baja, o porque ya es más de</es>
+				<fr>Vous mai s&amp;#39;inscrire sans plus pour ce parti, vous désabonner, ou parce qu&amp;#39;elle est déjà terminée</fr>
+				<nl>U kunt inschrijven op niet meer aan deze partij, afmelden, of omdat het al meer dan</nl>
+				<it>È possibile registrarsi a non più di questo partito, cancellati, o perché è già finita</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f3dbefb496131bb1fdac8a64e50d8585</id>
 				<org>Die Anmeldung öffnet am</org>
+				<en>Registration opens on</en>
+				<es>El registro se abre en</es>
+				<fr>Ouverture des inscriptions sur</fr>
+				<nl>Registratie opent op</nl>
+				<it>Le iscrizioni si aprono il</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a7c299aa1de86dfc789a9195e9c65f04</id>
 				<org>Die Anmeldung ist beendet seit</org>
+				<en>The registration is completed since</en>
+				<es>El registro se completa desde</es>
+				<fr>L&amp;#39;enregistrement est achevé depuis</fr>
+				<nl>De inschrijving is sinds voltooid</nl>
+				<it>La registrazione è completata dal</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c297fc3c889bb0b4b2c511599d4abfc4</id>
 				<org>Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf &quot;nicht bezahlt&quot; zu setzen, bevor sich abmelden</org>
+				<en>You are already paying for this party set. Ask an admin share on &amp;quot;not paid&amp;quot; before logging off</en>
+				<es>Usted ya está pagando por este partido establecido. Pida una cuota de admin el &amp;quot;no pagar&amp;quot; antes de cerrar la sesión</es>
+				<fr>Vous payez déjà pour ce parti fixés. Demandez une part admin le «non payé» avant de vous déconnecter</fr>
+				<nl>U bent al betaalt voor deze partij stellen. Vraag het een admin aandeel op &amp;quot;niet betaald&amp;quot; voor afmelden</nl>
+				<it>Si stanno già pagando per questa festa insieme. Chiedere una quota di admin il &amp;quot;non pagato&amp;quot; prima della disconnessione</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c3998db674d32a76bc6f7fc5e6892314</id>
 				<org>Wenn dieses Häckchen gesetzt ist, sind Sie zu dieser Party angemeldet</org>
+				<en>If this box is set, you are registered to this party</en>
+				<es>Si se establece este cuadro, usted está inscrito para este partido</es>
+				<fr>Si cette case est activée, vous êtes inscrit à ce parti</fr>
+				<nl>Als dit vakje is ingesteld, wordt u geregistreerd bij deze partij</nl>
+				<it>Se questa casella è impostata, si sono registrati a questo partito</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>21f0af220cbea00120a1bdfa19b4d6f3</id>
 				<org>Bezahlt - Abendkasse</org>
+				<en>Paid - box office</en>
+				<es>Pagados - taquilla</es>
+				<fr>Payé - box-office</fr>
+				<nl>Betaald - box office</nl>
+				<it>Pagati - box office</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>4b3d45867e3166b92bfc351c85c796c4</id>
 				<org>Bezahltstatus</org>
+				<en>Bezahltstatus</en>
+				<es>Bezahltstatus</es>
+				<fr>Bezahltstatus</fr>
+				<nl>Bezahltstatus</nl>
+				<it>Bezahltstatus</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>30c64856e560daffcefc742493cb9069</id>
 				<org>Eintrittspreis</org>
+				<en>Admission</en>
+				<es>Admisión</es>
+				<fr>Admission</fr>
+				<nl>Toelating</nl>
+				<it>Ammissione</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>74d2882ce8f651d09013eeaa1213a8ee</id>
 				<org>Für diese Party wurden keine Preise definiert</org>
+				<en>For this party no prices have been defined</en>
+				<es>Para este partido los precios no se han definido</es>
+				<fr>Pour ce parti aucun prix n&amp;#39;a été défini</fr>
+				<nl>Voor deze partij geen prijzen vastgesteld</nl>
+				<it>Per questa parte i prezzi non sono stati definiti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>5936cd25dce7742711410aea58f7f4a9</id>
 				<org>Bezahltdatum</org>
+				<en>Bezahltdatum</en>
+				<es>Bezahltdatum</es>
+				<fr>Bezahltdatum</fr>
+				<nl>Bezahltdatum</nl>
+				<it>Bezahltdatum</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0adb610472e8bd6164e0c959b9d53ec8</id>
 				<org>Anmeldedatum</org>
+				<en>Joined</en>
+				<es>Antigüedad</es>
+				<fr>Inscription</fr>
+				<nl>Geregistreerd</nl>
+				<it>Iscritto</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>8b08876e45a04360dd78df5e0ab4c28a</id>
 				<org>Vergangene Partys</org>
+				<en>Past Parties</en>
+				<es>Partes Anteriores</es>
+				<fr>Past Parties</fr>
+				<nl>Afgelopen partijen</nl>
+				<it>Passato parti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f4f97331e7600b250dede6f17a901435</id>
 				<org>Sie waren angemeldet</org>
+				<en>They were registered</en>
+				<es>Que fueron registrados</es>
+				<fr>Elles ont été enregistrées</fr>
+				<nl>Ze werden geregistreerd</nl>
+				<it>Sono stati registrati</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b03c4737658f2c7c1acfe99c88865aa1</id>
 				<org>, aber hatten nicht bezahlt.</org>
+				<en>But had not paid.</en>
+				<es>Pero no había pagado.</es>
+				<fr>Mais il n&amp;#39;avait pas payé.</fr>
+				<nl>Maar niet had betaald.</nl>
+				<it>Ma non aveva pagato.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>dd99acb9f6f5c7b0c0db42e66935f3e3</id>
 				<org>und hatten per Vorkasse gezahlt.</org>
+				<en>and had paid by cash in advance.</en>
+				<es>y había pagado en efectivo por adelantado.</es>
+				<fr>et qu&amp;#39;il avait payé en argent comptant à l&amp;#39;avance.</fr>
+				<nl>en had betaald met contant geld op voorhand.</nl>
+				<it>e aveva pagato in contanti in anticipo.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>820b938e3d30e48cc5a1d55c3a76dced</id>
 				<org>und hatten per Abendkasse gezahlt.</org>
+				<en>and were paid by box office.</en>
+				<es>y fueron pagados por taquilla.</es>
+				<fr>et étaient payés par la billetterie.</fr>
+				<nl>en werden betaald door de box office.</nl>
+				<it>e sono stati pagati da box-office.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2605f3d5b4810082160ca896d406386d</id>
 				<org>Eingecheckt:</org>
+				<en>Checked:</en>
+				<es>Revisado por:</es>
+				<fr>Vérifié par:</fr>
+				<nl>Gecontroleerd:</nl>
+				<it>Checked:</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ff5b42295215a52932a04a00a5aa284a</id>
 				<org>Ausgecheckt:</org>
+				<en>Checked:</en>
+				<es>Revisado por:</es>
+				<fr>Vérifié par:</fr>
+				<nl>Gecontroleerd:</nl>
+				<it>Checked:</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2b060a1acdf7413bd86a173f4d961c49</id>
 				<org>Du warst nicht angemeldet</org>
+				<en>You were not logged in</en>
+				<es>Usted no se ha identificado</es>
+				<fr>Vous n&amp;#39;étiez pas connecté</fr>
+				<nl>Je bent niet ingelogd</nl>
+				<it>Non sono stati registrati nel</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1b9ab42b566b6e7bd605c9313d430539</id>
 				<org>Passwort vergessen</org>
+				<en>Password</en>
+				<es>Contraseña</es>
+				<fr>Mot de passe</fr>
+				<nl>Wachtwoord</nl>
+				<it>Password</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>932ae3abe7672bf1a294a32081a9235c</id>
 				<org>Mit diesem Modul kÃ¶nnen Sie sich ein neues Passwort generieren lassen</org>
+				<en>KÃ ¶ With this module you can generate a new password</en>
+				<es>KÃ ¶ Con este módulo se puede generar una nueva contraseña</es>
+				<fr>KÃ ¶ Avec ce module, vous pouvez générer un nouveau mot de passe</fr>
+				<nl>KÃ ¶ Met deze module kunt u een nieuw wachtwoord</nl>
+				<it>KÃ ¶ Con questo modulo è possibile generare una nuova password</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>042dc3e0f32f96a3e68b6aa6fccdcd17</id>
 				<org>Diese Funktion ist nur im Internetmodus verfÃ¼gbar</org>
+				<en>This feature is only in Internet mode gbar verfÃ ¼</en>
+				<es>Esta función sólo está en el modo de Internet gbar verfÃ ¼</es>
+				<fr>Cette fonctionnalité est uniquement en mode Internet gbar verfÃ ¼</fr>
+				<nl>Deze functie is alleen in Internet modus gbar verfÃ ¼</nl>
+				<it>Questa funzione è solo in Internet in modalità gbar VerfÃ ¼</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cbf324cfe96536e78ae69a061eaa7181</id>
 				<org>Für den System-Account darf kein neues Passwort generiert werden</org>
+				<en>For the system account not a new password can be generated</en>
+				<es>Para la cuenta de sistema no una nueva contraseña se puede generar</es>
+				<fr>Pour le compte système n&amp;#39;est pas un nouveau mot de passe peuvent être générés</fr>
+				<nl>Voor het systeem rekening kan niet een nieuw wachtwoord worden gegenereerd</nl>
+				<it>Per l&amp;#39;account di sistema non è una nuova password può essere generato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>252148a47b3fdbfa32da59349bad9053</id>
 				<org>Ihnen wurde nun eine Freischalte-URL an die angegebene Emailadresse gesendet. Mit dem Aufruf dieser URL wird Ihr neues Passwort generiert werden.</org>
+				<en>They were then sent to a de-energizing URL to the specified email address. By entering this URL Your new password will be generated.</en>
+				<es>Luego fueron enviados a un desenergizar URL a la dirección de correo electrónico especificada. Al entrar en este URL de tu nueva contraseña será generada.</es>
+				<fr>Ils ont ensuite été envoyés à une mise hors tension Web à l&amp;#39;adresse mail indiquée. En s&amp;#39;inscrivant à cette adresse URL de votre nouveau mot de passe sera généré.</fr>
+				<nl>Ze werden vervolgens naar een de-energizing URL naar het opgegeven e-mailadres. Door het invoeren van deze URL Uw nieuwe wachtwoord zal worden gegenereerd.</nl>
+				<it>Sono stati quindi inviati a un de-energizzante URL l&amp;#39;indirizzo email specificato. Entrando in questo URL La nuova password sarà generata.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c6cd2b5322ded901134c16b3261a34a9</id>
 				<org>Die von Ihnen eigegebene Email existiert nicht in der Datenbank</org>
+				<en>The eigegebene you email does not exist in the database</en>
+				<es>La eigegebene de correo electrónico que no existe en la base de datos</es>
+				<fr>Le eigegebene vous email n&amp;#39;existe pas dans la base de données</fr>
+				<nl>De eigegebene u e-mail bestaat niet in de database</nl>
+				<it>Il eigegebene email non esiste nel database</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0f1f9436e12aefcfe1bb87154229936c</id>
 				<org>Das neue Kennwort wurde erfolgreich generiert.HTML_NEWLINEEs lautet:</org>
+				<en>The new password has been successfully generiert.HTML_NEWLINEEs reads:</en>
+				<es>La nueva contraseña ha sido exitosamente generiert.HTML_NEWLINEEs dice lo siguiente:</es>
+				<fr>Le nouveau mot de passe a été correctement generiert.HTML_NEWLINEEs lit comme suit:</fr>
+				<nl>Het nieuwe wachtwoord is met succes generiert.HTML_NEWLINEEs luidt als volgt:</nl>
+				<it>La nuova password è stata correttamente generiert.HTML_NEWLINEEs recita:</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>106953b3883d86158f874bd735a18f7c</id>
 				<org>Der von Ihnen Ã¼bermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prÃ¼fen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.</org>
+				<en>The bermittelte you Ã ¼ Freischaltecode is incorrect! It has generated a new password. Please check your fen you whether you have completely copied the URL from the notification email.</en>
+				<es>El bermittelte un ¼ Freischaltecode es incorrecta! Se ha generado una nueva contraseña. Por favor, consulte su fen si usted ha copiado completamente la dirección de correo electrónico de notificación.</es>
+				<fr>Le vous bermittelte Ã ¼ Freischaltecode est incorrecte! Il a généré un nouveau mot de passe. S&amp;#39;il vous plaît vérifier votre fen-vous si vous avez copié l&amp;#39;URL complète de l&amp;#39;e-mail de notification.</fr>
+				<nl>De bermittelte je Ã ¼ Freischaltecode is onjuist! Het heeft een nieuwe wachtwoord. Controleer uw moeras of u volledig hebben de URL gekopieerd van de aanmelding e-mail.</nl>
+				<it>Il bermittelte si Ã ¼ Freischaltecode non è corretto! Che ha generato una nuova password. Controlla la tua fen se si è completamente copiato l&amp;#39;URL dalla mail di notifica.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a5f6126a37c91e5ffce3181cde6eef53</id>
 				<org>Bitte geben Sie die Email-Adresse ein, mit der Sie sich am System angemeldet haben</org>
+				<en>Please enter the email address with which you are logged into the system have</en>
+				<es>Por favor, introduzca la dirección de correo electrónico con el que se registran en el sistema han</es>
+				<fr>S&amp;#39;il vous plaît entrez l&amp;#39;adresse e-mail avec laquelle vous êtes connecté au système ont</fr>
+				<nl>Vul het e-mailadres waarmee u bent aangemeld in het systeem hebben</nl>
+				<it>Inserisci l&amp;#39;indirizzo email con il quale si è registrato nel sistema hanno</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f2c51fef2ce6d144b0f4c162e617aee0</id>
 				<org>Ihre Email</org>
+				<en>Your Email</en>
+				<es>Su correo electrónico</es>
+				<fr>Votre Email</fr>
+				<nl>Uw e-mail</nl>
+				<it>La tua e-mail</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
+				<en>All</en>
+				<es>Todo</es>
+				<fr>Tous</fr>
+				<nl>Alle</nl>
+				<it>Tutto</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>60c00ad88b5e169f3249fa4230436e40</id>
 				<org>Nicht Gast</org>
+				<en>Non-host</en>
+				<es>No-host</es>
+				<fr>Non-hôte</fr>
+				<nl>Non-host</nl>
+				<it>Non-host</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e729d5b15056a33b2e599e91157ff93e</id>
 				<org>Deaktiviert</org>
+				<en>Deactivated</en>
+				<es>Desactivado</es>
+				<fr>Désactivé</fr>
+				<nl>Gedeactiveerd</nl>
+				<it>Disattivato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e3afed0047b08059d0fada10f400c1e5</id>
 				<org>Admin</org>
+				<en>Admin</en>
+				<es>Admin</es>
+				<fr>Admin</fr>
+				<nl>Admin</nl>
+				<it>Admin</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>6acebd87e0a2d48d33d7e62907ccd8ea</id>
 				<org>Admin, oder Superadmin</org>
+				<en>Admin or Super Admin</en>
+				<es>Admin o Super Admin</es>
+				<fr>Admin ou Super Admin</fr>
+				<nl>Admin of Super Admin</nl>
+				<it>Admin o Super Admin</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a224e304ae6ecef2e2d67bfc52c373e5</id>
 				<org>Zahlstatus</org>
+				<en>Number Status</en>
+				<es>Número de estado</es>
+				<fr>Numéro Statut</fr>
+				<nl>Aantal Status</nl>
+				<it>Numero Status</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0e156cab485b12c9d94b358b54f62d39</id>
 				<org>Bezahlt per Vorverkauf</org>
+				<en>Paid by advance</en>
+				<es>Pagados por adelantado</es>
+				<fr>Payés par avance</fr>
+				<nl>Betaald door vooraf</nl>
+				<it>Pagato dal anticipo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7120093a4cd2e464c529cbbf73338cbe</id>
 				<org>Bezahlt per Abendkasse</org>
+				<en>Paid by box office</en>
+				<es>Pagado por la taquilla</es>
+				<fr>Payé par box-office</fr>
+				<nl>Betaald door box office</nl>
+				<it>Pagato dal box office</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f9a26283d7a8988b63a8f9f5f681ab76</id>
 				<org>Unbekannt</org>
+				<en>Unknown</en>
+				<es>Desconocido</es>
+				<fr>Inconnu</fr>
+				<nl>Onbekend</nl>
+				<it>Unknown</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>257a7d1690e744ce71907dbbab30eb44</id>
 				<org>Weblich</org>
+				<en>Weblich</en>
+				<es>Weblich</es>
+				<fr>Weblich</fr>
+				<nl>Weblich</nl>
+				<it>Weblich</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9b945efebb006547a94415eadaa12921</id>
 				<org>Accounts</org>
+				<en>Accounts</en>
+				<es>Cuentas</es>
+				<fr>Comptes</fr>
+				<nl>Accounts</nl>
+				<it>Conti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d9a82bf69d27432236297f443af9d0be</id>
 				<org>Nur freigegebene</org>
+				<en>Only released</en>
+				<es>Sólo en libertad</es>
+				<fr>Uniquement délivrés</fr>
+				<nl>Alleen vrijgegeven</nl>
+				<it>Rilasciato solo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>28126ff6c83a909c81fdcc768399bf8d</id>
 				<org>Nur gesperrte</org>
+				<en>Only Locked</en>
+				<es>Sólo Bloqueado</es>
+				<fr>Seuls Verrouillé</fr>
+				<nl>Alleen Gesloten</nl>
+				<it>Solo Locked</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
+				<en>Details</en>
+				<es>Detalles</es>
+				<fr>Détails</fr>
+				<nl>Details</nl>
+				<it>Dettagli</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>116f77d62b6084d13e0e88920f9cce08</id>
 				<org>Partyanmeldung</org>
+				<en>Party Registration</en>
+				<es>Parte de Registro</es>
+				<fr>Enregistrement des partis</fr>
+				<nl>Party Registration</nl>
+				<it>Partito Registration</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3e108ee61ea675d22d971783d9281371</id>
 				<org>Mail senden</org>
+				<en>Mail</en>
+				<es>Mail</es>
+				<fr>Mail</fr>
+				<nl>Mail</nl>
+				<it>Mail</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3feb60cc8933aae7bdc33af66b0010ac</id>
 				<org>Geld auf Konto buchen</org>
+				<en>Bid on Book Account</en>
+				<es>Puja por libro de cuentas</es>
+				<fr>Enchérissez sur le livre de comptes</fr>
+				<nl>Bied op Book-account</nl>
+				<it>Fai un&amp;#39;offerta per il libro dei conti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0e973da33f58680a5a079821f3f4d7e1</id>
 				<org>Kontostand zeigen</org>
+				<en>Balance point</en>
+				<es>Equilibrio</es>
+				<fr>Point d&amp;#39;équilibre</fr>
+				<nl>Balance punt</nl>
+				<it>Punto di equilibrio</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d823e4620ec3222dd9e3aaf93a8cc5b9</id>
 				<org>Freigeben</org>
+				<en>Sharing</en>
+				<es>Compartir</es>
+				<fr>Partage</fr>
+				<nl>Delen</nl>
+				<it>Condivisione</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>950b650b6e401fbf52327f2191f5f5c3</id>
 				<org>Sperren</org>
+				<en>Locks</en>
+				<es>Cerraduras</es>
+				<fr>Serrures</fr>
+				<nl>Sloten</nl>
+				<it>Serrature</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7d43e5722e659bb5d4f02c073fa19006</id>
 				<org>Accounts wurden gesperrt</org>
+				<en>Accounts have been blocked</en>
+				<es>Cuentas han sido bloqueadas</es>
+				<fr>Les comptes ont été bloqués</fr>
+				<nl>Rekeningen zijn geblokkeerd</nl>
+				<it>I conti sono stati bloccati</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>6b54f68f6c7eaa4f8bbbe099c730e5ea</id>
 				<org>Accounts wurden freigegeben</org>
+				<en>Accounts have been released</en>
+				<es>Cuentas han sido liberados</es>
+				<fr>Les comptes ont été libérés</fr>
+				<nl>Accounts zijn vrijgegeven</nl>
+				<it>I conti sono stati rilasciati</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>13fd9321f108c7827ac9e7b0c1c6c949</id>
 				<org>Gelöschte User</org>
+				<en>Deleted User</en>
+				<es>Usuario borrado</es>
+				<fr>Deleted User</fr>
+				<nl>Verwijderde gebruiker</nl>
+				<it>Utente cancellato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b862a1b61b8434fa18bc6aaa20f7b3d8</id>
 				<org>Orgas</org>
+				<en>Orga</en>
+				<es>Orga</es>
+				<fr>Orga</fr>
+				<nl>Orga</nl>
+				<it>Orga</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>59e7393fc4842bdded062b767c9ad743</id>
 				<org>bezahlt per Abendkasse</org>
+				<en>paid by box office</en>
+				<es>pagados por la taquilla</es>
+				<fr>payé par box-office</fr>
+				<nl>betaald door box office</nl>
+				<it>pagato dal box office</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>be92243cd892ea9cfdf97fc86bbad262</id>
 				<org>Geschlecht unbekannt</org>
+				<en>Gender unknown</en>
+				<es>Género desconocido</es>
+				<fr>Sexe inconnu</fr>
+				<nl>Geslacht onbekend</nl>
+				<it>Genere sconosciuto</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>183920a8ab5bd9e0bcdeff70406e9d60</id>
 				<org>ist männlich</org>
+				<en>is male</en>
+				<es>es masculino</es>
+				<fr>est de sexe masculin</fr>
+				<nl>is mannelijk</nl>
+				<it>è maschio</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>e9ef705fb9f40a416d2d69d3fd430bc2</id>
 				<org>ist weiblich</org>
+				<en>is female</en>
+				<es>es mujer</es>
+				<fr>est une femme</fr>
+				<nl>is vrouwelijk</nl>
+				<it>è femminile</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>33b940eef9dfa7d1cd2ce35d01b5255b</id>
 				<org>Zuweisen</org>
+				<en>Assignment</en>
+				<es>Asignación</es>
+				<fr>Affectation</fr>
+				<nl>Opdracht</nl>
+				<it>Assegnazione</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>dba046ea55236c2dc38416e938ab7213</id>
 				<org>Userid</org>
+				<en>Userid</en>
+				<es>Userid</es>
+				<fr>Userid</fr>
+				<nl>Userid</nl>
+				<it>Userid</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c52c2ade97623bbed2a5578b368f4a4a</id>
 				<org>Bitte eine Grafikdatei auswählen</org>
+				<en>Please select a graphics file</en>
+				<es>Por favor, seleccione un archivo de gráficos</es>
+				<fr>S&amp;#39;il vous plaît sélectionnez un fichier graphique</fr>
+				<nl>Selecteer een grafisch bestand</nl>
+				<it>Si prega di selezionare un file grafico</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>4df15ef563aee0ab5a8a99f3abff632b</id>
 				<org>Standard Design</org>
+				<en>Standard Design</en>
+				<es>Standard Design</es>
+				<fr>Standard Design</fr>
+				<nl>Standard Design</nl>
+				<it>Standard Design</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1afa74da05ca145d3418aad9af510109</id>
 				<org>Design</org>
+				<en>Design</en>
+				<es>Diseñar</es>
+				<fr>Conception</fr>
+				<nl>Ontwerpen</nl>
+				<it>Progettare</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>fd54efce6a0bc90e7662608c7cf9e26b</id>
 				<org>Mich auf der Karte zeigen</org>
+				<en>Show me on the map</en>
+				<es>Show Me en el mapa</es>
+				<fr>Montrez-moi sur la carte</fr>
+				<nl>Toon me op de kaart</nl>
+				<it>Show me sulla mappa</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c3aaf4ccdf112fa459b8753b843d4d1b</id>
 				<org>Meine Adresse in der Besucherkarte anzeigen?</org>
+				<en>View My address in the visitor card?</en>
+				<es>Ver mi dirección en la tarjeta de visitante?</es>
+				<fr>Voir mon adresse sur la carte de visiteur?</fr>
+				<nl>Bekijk mijn adres in de bezoeker kaart?</nl>
+				<it>Vedere il mio indirizzo nella scheda di visitatori?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>de18b20ac5c08031ca1d00d024263339</id>
 				<org>LS-Mail Alert</org>
+				<en>LS-mail Alert</en>
+				<es>LS-mail Alert</es>
+				<fr>LS-mail alerte</fr>
+				<nl>LS-mail alert</nl>
+				<it>LS-mail Alert</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9bb4d53bb5ed74f3221f4c5e68f0dc88</id>
 				<org>Mir eine E-Mail senden, wenn eine neue LS-Mail eingegangen ist</org>
+				<en>Send me an e-mail when a new LS-mail is received</en>
+				<es>Enviar un e-mail cuando se recibe un nuevo LS-mail</es>
+				<fr>Envoyez-moi un e-mail dès qu&amp;#39;une nouvelle LS-mail est reçu</fr>
+				<nl>Stuur me een e-mail wanneer er een nieuwe LS-mail is ontvangen</nl>
+				<it>Inviami una e-mail quando un nuovo LS-mail ricevute</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>a09d8126df9d144a38010d6482649bda</id>
 				<org>Email-Adresse verifizieren</org>
+				<en>Email address verification</en>
+				<es>Dirección de correo electrónico de verificación</es>
+				<fr>Vérification d&amp;#39;adresse Email</fr>
+				<nl>E-mail adres verificatie</nl>
+				<it>La verifica degli indirizzi e-mail</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c3f497fb804c7651f47f01bb89d91bf5</id>
 				<org>Ihre Email-Adresse wurde erfolgreich verifiziert. Vielen Dank!</org>
+				<en>Your email address has been successfully verified. Thank you very much!</en>
+				<es>Su dirección de correo electrónico se ha verificado correctamente. Muchas gracias!</es>
+				<fr>Votre adresse email a été vérifié avec succès. Merci beaucoup!</fr>
+				<nl>Uw e-mailadres is geverifieerd. Hartelijk dank!</nl>
+				<it>Il tuo indirizzo email è stato verificato correttamente. Grazie mille!</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b871c0aeabd5f0a2f4d136f3613c73e7</id>
 				<org>Der von Ihnen Übermittelte Verifizierungscode ist inkorrekt! Bitte prüfen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.</org>
+				<en>Information reported by you, the verification code is incorrect! Please check that you have completely copied the URL from the notification email.</en>
+				<es>Información presentada por usted, el código de verificación es incorrecta! Por favor, compruebe que ha copiado completamente la dirección de correo electrónico de notificación.</es>
+				<fr>Information communiquée par vous, le code de vérification est incorrect! S&amp;#39;il vous plaît vérifiez que vous avez copié l&amp;#39;URL complète de l&amp;#39;e-mail de notification.</fr>
+				<nl>Informatie gemeld door u, de verificatie code is onjuist! Controleer of u volledig hebben de URL gekopieerd van de aanmelding e-mail.</nl>
+				<it>Informazioni fornite da voi, il codice di verifica non è corretto! Si prega di verificare di aver completamente copiato l&amp;#39;URL dalla mail di notifica.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>2c4c27cd20c81464afd5f280cce9d6e7</id>
 				<org>Neuer Gast. Einen &lt;b&gt;Account erstellen&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.&lt;/i&gt;</org>
+				<en>New guest. &lt;b&gt;Create&lt;/b&gt; an &lt;b&gt;account&lt;/b&gt; &lt;br /&gt; &lt;i&gt;It will only create an e-mail address and password automatically. All other data is provided by the user with a login on the first itself.&lt;/i&gt;</en>
+				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Sólo se creará una dirección de correo electrónico y la contraseña de forma automática. Todos los demás datos es proporcionada por el usuario con un inicio de sesión en el primero sí.&lt;/i&gt;</es>
+				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Il ne fera que créer une adresse e-mail et mot de passe automatiquement. Toutes les autres données sont fournies par l&amp;#39;utilisateur avec un login sur le premier lui-même.&lt;/i&gt;</fr>
+				<nl>Nieuwe gasten. &lt;b&gt;Maak&lt;/b&gt; een &lt;b&gt;account&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Het zal alleen een e-mail adres en wachtwoord automatisch. Alle andere gegevens worden verstrekt door de gebruiker met een login op de eerste zelf.&lt;/i&gt;</nl>
+				<it>Nuovo ospite. &lt;b&gt;Crea&lt;/b&gt; un &lt;b&gt;account&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Sarà solo per creare un indirizzo e-mail e la password automaticamente. Tutti gli altri dati sono forniti dagli utenti con un account di accesso al primo stessa.&lt;/i&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cf8f638099c7276677856b18e018a6b5</id>
 				<org>Neuer Gast. Einen &lt;b&gt;erweiterten Account erstellen&lt;/b&gt;&lt;br /&gt;&lt;i&gt;Hier legen Sie direkt am Einlass alle Benutzerdaten fest.&lt;/i&gt;</org>
+				<en>New guest. &lt;b&gt;Create&lt;/b&gt; an &lt;b&gt;extended account&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Here you can put directly on the inlet solid all user data.&lt;/i&gt;</en>
+				<es>Nuevo huésped. &lt;b&gt;Crear&lt;/b&gt; una &lt;b&gt;cuenta extendido&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Aquí se puede poner directamente en la sólida entrada de todos los datos de usuario.&lt;/i&gt;</es>
+				<fr>Nouveaux Clients. &lt;b&gt;Créer&lt;/b&gt; un &lt;b&gt;compte étendu&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Ici, vous pouvez directement mis sur le solide d&amp;#39;entrée de toutes les données utilisateur.&lt;/i&gt;</fr>
+				<nl>Nieuwe gasten. &lt;b&gt;Maak&lt;/b&gt; een &lt;b&gt;uitgebreid account&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Hier kunt u rechtstreeks op de inlaat solide alle gebruikersgegevens.&lt;/i&gt;</nl>
+				<it>Nuovo ospite. &lt;b&gt;Creare&lt;/b&gt; un &lt;b&gt;account esteso&lt;/b&gt; &lt;br /&gt; &lt;i&gt;Qui si può mettere direttamente il condotto di aspirazione solidi tutti i dati utente.&lt;/i&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c59bf87ad94077fa158bcbd9490f2190</id>
 				<org>Wollen Sie diesem Benutzer einen Sitzplatz zuweisen?&lt;br /&gt;Er sitzt aktuell auf:&lt;br /&gt;%1</org>
+				<en>Do you want to assign that user a seat? &lt;br /&gt; He currently sits on: &lt;br /&gt; %1</en>
+				<es>¿Desea asignar a dicho usuario un asiento? &lt;br /&gt; Actualmente se encuentra en: &lt;br /&gt; %1</es>
+				<fr>Ne vous souhaitez attribuer à cet utilisateur un siège? &lt;br /&gt; Il siège actuellement sur: &lt;br /&gt; %1</fr>
+				<nl>Wilt u die gebruiker toe een stoel? &lt;br /&gt; Hij zit momenteel op: &lt;br /&gt; %1</nl>
+				<it>Volete assegnare ad un utente la sede? &lt;br /&gt; Si siede attualmente in: &lt;br /&gt; 1%</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7fe5866e05aeff64093ea7a80791ef6a</id>
 				<org>Zuweisungsbegriff (für Alter z.b. 18+, 16-18, -18)</org>
+				<en>Term assignment (eg for age 18 +, 16-18, -18)</en>
+				<es>Plazo de asignación (por ejemplo, para la edad 18 +, 16-18, -18)</es>
+				<fr>Cession terme (par exemple pour l&amp;#39;âge 18 +, 16-18, -18)</fr>
+				<nl>Term opdracht (bijv. voor leeftijd 18 +, 16-18, -18)</nl>
+				<it>Assegnazione termine (ad esempio per l&amp;#39;età 18 +, 16-18, -18)</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0777cc0701de1a4f0735e386afeb81b5</id>
 				<org>Benutzergruppe wurde hinzugefügt</org>
+				<en>User group was added</en>
+				<es>Grupo de usuarios se añadió</es>
+				<fr>Groupe d&amp;#39;utilisateurs a été ajouté</fr>
+				<nl>Gebruikers groep werd toegevoegd</nl>
+				<it>Il gruppo di utenti è stato aggiunto</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d6d184a5f59a5656fc39e97c2aec760d</id>
 				<org>Gruppe auswählen</org>
+				<en>Select group</en>
+				<es>Seleccionar grupo</es>
+				<fr>Sélectionner le groupe</fr>
+				<nl>Selecteer groep</nl>
+				<it>Seleziona gruppo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3fc8436c69de241f2f15bc0abe590b09</id>
 				<org>Die Gruppenzuweisung wurde erfolgreich durchgeführt</org>
+				<en>The group assignment was successful</en>
+				<es>La asignación de grupo fue un éxito</es>
+				<fr>L&amp;#39;attribution de groupe a réussi</fr>
+				<nl>De groep opdracht was geslaagd</nl>
+				<it>L&amp;#39;assegnazione del gruppo ha avuto successo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>322300b8c47b9c8651823cad639c4a1f</id>
 				<org>Hier können Sie die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die höchste Priorität</org>
+				<en>You can sort the groups in which order they should be applied. The top has the highest priority</en>
+				<es>Puede ordenar los grupos en que orden en que deben aplicarse. La parte superior tiene la más alta prioridad</es>
+				<fr>Vous pouvez trier les groupes de l&amp;#39;ordre dans lequel elles doivent être appliquées. Le sommet a la plus haute priorité</fr>
+				<nl>U kunt de groepen in welke volgorde ze moeten worden toegepast. De top heeft de hoogste prioriteit</nl>
+				<it>È possibile ordinare i gruppi in cui essi dovrebbero essere applicate. La parte superiore ha la massima priorità</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>3fcab896f8f6bd9868e49ab3858e457d</id>
 				<org>Wollen sie die Gruppe %1 wirklich löschen?</org>
+				<en>Do you want to delete the group%1?</en>
+				<es>¿Desea borrar el grupo%1?</es>
+				<fr>Voulez-vous supprimer le groupe%1?</fr>
+				<nl>Wilt u de groep%1 verwijderen?</nl>
+				<it>Vuoi eliminare il gruppo%1?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1dbf8f1a03e420baa7be645370a92edc</id>
 				<org>Welche Gruppe möchten Sie den Benutzern die in der gelöschten Gruppe sind zuweisen?</org>
+				<en>Which group you want to assign to users in the group are the deleted?</en>
+				<es>¿Qué grupo que desea asignar a los usuarios en el grupo son las suprime?</es>
+				<fr>Quel est le groupe que vous souhaitez attribuer à des utilisateurs dans le groupe sont les supprimer?</fr>
+				<nl>Welke groep u wilt toewijzen aan gebruikers in de groep zijn de verwijderde?</nl>
+				<it>Gruppo che si desidera assegnare agli utenti del gruppo sono gli eliminati?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>9355d159f7d9eb018b5d5bb8ec8c7eb8</id>
 				<org>Gruppe erfolgreich gelöscht.</org>
+				<en>Group successfully deleted.</en>
+				<es>Grupo se ha eliminado.</es>
+				<fr>Groupe supprimé avec succès.</fr>
+				<nl>Groep succesvol verwijderd.</nl>
+				<it>Gruppo cancellato con successo.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>d626baeaf1303f8ed3000a49c73af2b4</id>
 				<org>Mit diesem Modul können Sie sich ein neues Passwort generieren lassen</org>
+				<en>With this module you can generate a new password</en>
+				<es>Con este módulo se puede generar una nueva contraseña</es>
+				<fr>Avec ce module, vous pouvez générer un nouveau mot de passe</fr>
+				<nl>Met deze module kunt u een nieuw wachtwoord</nl>
+				<it>Con questo modulo è possibile generare una nuova password</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7a45a7187490b2e72786c53a5ba2a495</id>
 				<org>Diese Funktion ist nur im Internetmodus verfügbar</org>
+				<en>This feature is only available in the Internet mode</en>
+				<es>Esta función sólo está disponible en el modo de Internet</es>
+				<fr>Cette fonctionnalité est uniquement disponible en mode Internet</fr>
+				<nl>Deze functie is alleen beschikbaar in het Internet modus</nl>
+				<it>Questa funzione è disponibile solo in modalità Internet</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f191b53605c6341fe10e5ff0e43bc6d1</id>
 				<org>Der von Ihnen übermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prüfen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.</org>
+				<en>The Freischaltecode you submitted is incorrect! It has generated a new password. Please check that you have completely copied the URL from the notification email.</en>
+				<es>El Freischaltecode que ha enviado es incorrecta! Se ha generado una nueva contraseña. Por favor, compruebe que ha copiado completamente la dirección de correo electrónico de notificación.</es>
+				<fr>Le Freischaltecode vous avez présenté est incorrecte! Il a généré un nouveau mot de passe. S&amp;#39;il vous plaît vérifiez que vous avez copié l&amp;#39;URL complète de l&amp;#39;e-mail de notification.</fr>
+				<nl>De Freischaltecode die u heeft opgegeven is onjuist! Het heeft een nieuwe wachtwoord. Controleer of u volledig hebben de URL gekopieerd van de aanmelding e-mail.</nl>
+				<it>Il Freischaltecode hai inviato non è corretto! Che ha generato una nuova password. Si prega di verificare di aver completamente copiato l&amp;#39;URL dalla mail di notifica.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>df156eb68a6e72f3ef17e61e1a3552d0</id>
 				<org>Die Verifikations-Email ist versandt worden.</org>
+				<en>The verification email is sent.</en>
+				<es>El correo electrónico de verificación es enviado.</es>
+				<fr>L&amp;#39;email de vérification est envoyé.</fr>
+				<nl>De verificatie e-mail is verzonden.</nl>
+				<it>L&amp;#39;email di verifica viene inviato.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>87405aa35e1fbb4d4a9d1b5ee4c6fa9f</id>
 				<org>Der von ihm gewünschte Preis war: </org>
+				<en>The desired price he was:</en>
+				<es>El precio deseado era:</es>
+				<fr>Le prix souhaité qu&amp;#39;il était:</fr>
+				<nl>De gewenste prijs die hij was:</nl>
+				<it>Il prezzo desiderato era:</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>eb46f9bb04c26e910c65e762b93c372b</id>
 				<org>Achtung: Der Benutzer wird mit der nächsten Seite auf Bezahlt gesetzt.</org>
+				<en>Caution: The user is set to the next page to Paid.</en>
+				<es>Precaución: El usuario se establece en la siguiente página de pago.</es>
+				<fr>Attention: l&amp;#39;utilisateur est définie à la page suivante comme payé.</fr>
+				<nl>Let op: De gebruiker is ingesteld op de volgende pagina om Betaald.</nl>
+				<it>Attenzione: L&amp;#39;utente è impostato alla pagina successiva a pagamento.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>df0cac8401db444d0ad21e1faa1af0b5</id>
 				<org>Preis: </org>
+				<en>Price:</en>
+				<es>Precio:</es>
+				<fr>Prix:</fr>
+				<nl>Prijs:</nl>
+				<it>Prezzo:</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>452a73be664e385ee55980d6a7b53ab8</id>
 				<org>Zurück wechseln</org>
+				<en>Go back</en>
+				<es>Volver atrás</es>
+				<fr>Go back</fr>
+				<nl>Terug</nl>
+				<it>Torna indietro</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>7ea70a16624757199315bd1fbdd8a288</id>
 				<org>Ausloggen</org>
+				<en>Logout</en>
+				<es>Cerrar sesión</es>
+				<fr>Déconnexion</fr>
+				<nl>Afmelden</nl>
+				<it>Logout</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>51a8cf58189641aa8eb7e6e61e35712e</id>
 				<org>Pers. Details</org>
+				<en>Pers. Details</en>
+				<es>Pers. Detalles</es>
+				<fr>Pers. Détails</fr>
+				<nl>Pers. Details</nl>
+				<it>Pers. Dettagli</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>194231a81cf56730eac805e131b9cd25</id>
 				<org>Pers. Einstellungen</org>
+				<en>Pers. Preferences</en>
+				<es>Pers. Preferencias</es>
+				<fr>Pers. Préférences</fr>
+				<nl>Pers. Voorkeuren</nl>
+				<it>Pers. Preferenze</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>0323de4f66a1700e2173e9bcdce02715</id>
 				<org>Logout</org>
+				<en>Logout</en>
+				<es>Cerrar sesión</es>
+				<fr>Déconnexion</fr>
+				<nl>Afmelden</nl>
+				<it>Logout</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>cfb02c9f943ba5136e21a9c5f9219d01</id>
 				<org>Zuletzt eingeloggt</org>
+				<en>Last Logged</en>
+				<es>Last Logged</es>
+				<fr>Last Logged</fr>
+				<nl>Last Logged</nl>
+				<it>Ultimo accesso</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>418a783af339d833d98de81b33bf3268</id>
 				<org>Meine Einstellungen</org>
+				<en>My Settings</en>
+				<es>Mi configuración</es>
+				<fr>My Settings</fr>
+				<nl>Mijn instellingen</nl>
+				<it>My Settings</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>acacdbb77afcd714b879a298f0977b09</id>
 				<org>Mein Clan</org>
+				<en>My Clan</en>
+				<es>Mi Clan</es>
+				<fr>Mon Clan</fr>
+				<nl>Mijn Clan</nl>
+				<it>Il mio clan</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>40d506c69f527b13cc7afcc978c4a7c8</id>
 				<org>Mein Postfach</org>
+				<en>My mailbox</en>
+				<es>Mis correos</es>
+				<fr>Ma boîte à lettres</fr>
+				<nl>Mijn mailbox</nl>
+				<it>Mia casella di posta</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>11996162440d1846771669d9ec6e919d</id>
 				<org>Meine Eintrittskarte</org>
+				<en>My ticket</en>
+				<es>Mi billete</es>
+				<fr>Mon billet</fr>
+				<nl>Mijn ticket</nl>
+				<it>Il mio biglietto</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
+				<en>No</en>
+				<es>No</es>
+				<fr>Non</fr>
+				<nl>Nee</nl>
+				<it>No</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>eb8e45201c095a4f7abcf90036ee7e57</id>
 				<org>Hier anmelden</org>
+				<en>Register here</en>
+				<es>Regístrese aquí</es>
+				<fr>Inscrivez-vous ici</fr>
+				<nl>Registreer hier</nl>
+				<it>Registrati qui</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
+				<en>Yes</en>
+				<es>Sí</es>
+				<fr>Oui</fr>
+				<nl>Ja</nl>
+				<it>Sì</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>042ea475b7d24dccc86ddb56b7c92722</id>
 				<org>Bezahlinfos</org>
+				<en>Payment info</en>
+				<es>Información acerca del pago</es>
+				<fr>Info paiement</fr>
+				<nl>Betaling info</nl>
+				<it>Payment info</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>ec53a8c4f07baed5d8825072c89799be</id>
 				<org>Status</org>
+				<en>Status</en>
+				<es>Estatus</es>
+				<fr>État</fr>
+				<nl>Status</nl>
+				<it>Stato</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>17a2725097ccbce4b0bbe1b69fb49aaf</id>
 				<org>Preis</org>
+				<en>Price</en>
+				<es>Precio</es>
+				<fr>Prix</fr>
+				<nl>Prijs</nl>
+				<it>Prezzo</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1ced0b2dd2255a3651a2ffc02549ddb7</id>
 				<org>Benutzerdetails von %1</org>
+				<en>User Details from%1</en>
+				<es>Datos de usuario de%1</es>
+				<fr>Détails de l&amp;#39;utilisateur de%1</fr>
+				<nl>User Details van%1</nl>
+				<it>Dettagli utente da%1</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1bb5ed0dd7a4146d94d065e1d2560a16</id>
 				<org>Hier finden Sie alle Details zu dem Benutzer %1</org>
+				<en>Here you will find all the details of the user%1</en>
+				<es>Aquí encontrarás todos los detalles del usuario%1</es>
+				<fr>Ici vous trouverez tous les détails de l&amp;#39;utilisateur%1</fr>
+				<nl>Hier vindt u alle details van de gebruiker%1</nl>
+				<it>Qui troverete tutti i dettagli del 1%degli utenti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>6c018f871e5fbb17996d16723769069d</id>
 				<org>Zahlung vornehmen</org>
+				<en>Make payment</en>
+				<es>Hacer un pago</es>
+				<fr>Effectuer un paiement</fr>
+				<nl>Maak betaling</nl>
+				<it>Effettuare il pagamento</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>741f8d0d219e75d3ecef8e9bee22ed37</id>
 				<org>Aktueller Kontobetrag:</org>
+				<en>Current account balance:</en>
+				<es>Balanza por cuenta corriente:</es>
+				<fr>Solde du compte courant:</fr>
+				<nl>Lopende rekening van de betalingsbalans:</nl>
+				<it>Saldo del conto corrente:</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>f95d7d1c7a0596b921180ee48bd37cfd</id>
 				<org>Mail versenden?</org>
+				<en>Mail?</en>
+				<es>Mail?</es>
+				<fr>Mail?</fr>
+				<nl>Mail?</nl>
+				<it>Mail?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>117c2f9579cfb6e02e65d51990598940</id>
 				<org>Den Benutzer per Mail über die Änderung informieren</org>
+				<en>The user via e-mail informing about the change</en>
+				<es>El usuario a través de e-mail informando sobre el cambio de</es>
+				<fr>L&amp;#39;utilisateur par e-mail l&amp;#39;informant de la modification</fr>
+				<nl>De gebruiker via e-mail informeren over de verandering</nl>
+				<it>L&amp;#39;utente via e-mail per informare dell&amp;#39;avvenuto cambiamento</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>c3e78da0fc6aafb9cfe57ddf61779dec</id>
 				<org> und hatten bezahlt.</org>
+				<en>and had paid for.</en>
+				<es>y había pagado.</es>
+				<fr>et d&amp;#39;avoir payé.</fr>
+				<nl>en had betaald.</nl>
+				<it>e aveva pagato.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>512ef7c688a2c8572d5e16f44e17e869</id>
 				<org>Land</org>
+				<en>Country</en>
+				<es>País</es>
+				<fr>Pays</fr>
+				<nl>Land</nl>
+				<it>Paese</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>b67cea1cc23f7e1eaf7e9578d06383d3</id>
 				<org>System-Vorgabe</org>
+				<en>System requirement</en>
+				<es>Requisitos del sistema</es>
+				<fr>Configuration requise</fr>
+				<nl>Systeemvereisten</nl>
+				<it>Requisiti di sistema</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>27014dd1bf5fe7e41ced3bedfc4cd2aa</id>
 				<org>Einstellungen</org>
+				<en>Preferences</en>
+				<es>Preferencias</es>
+				<fr>Préférences</fr>
+				<nl>Voorkeuren</nl>
+				<it>Preferenze</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>4273b0921017d8b1ac66dcac6951c087</id>
 				<org>Dieser Benutzer ist noch zu einer Party angemeldet. Melden sie ihn zuerst ab</org>
+				<en>This user is currently logged on to a party. They sign him first from</en>
+				<es>Este usuario no está conectado a una fiesta. Ellos firman lo primero de</es>
+				<fr>Cet utilisateur est actuellement connecté à un parti. Ils le premier signe de</fr>
+				<nl>Deze gebruiker is momenteel aangemeld bij een partij. Zij ondertekenen hem eerst uit</nl>
+				<it>Questo utente è attualmente connesso a una festa. Segno che lui per primo da</it>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>0a0146bd95479d2dec580961a77b8817</id>
+				<org>In Kommentaren</org>
+				<en>In comments</en>
+				<es>En los comentarios</es>
+				<fr>Dans des commentaires</fr>
+				<nl>In reacties</nl>
+				<it>Nei commenti</it>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>666b23dcd48ede325a744d21b1628e9e</id>
+				<org>Modul</org>
+				<en>Module</en>
+				<es>Módulo</es>
+				<fr>Module</fr>
+				<nl>Module</nl>
+				<it>Modulo</it>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>1ab78c8eb552f68ef248f3e5b673abd2</id>
+				<org>Beitrags ID</org>
+				<en>Entry ID</en>
+				<es>ID de Entrada</es>
+				<fr>ID d&amp;#39;entrée</fr>
+				<nl>Entry ID</nl>
+				<it>Registrazione ID</it>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>fe0e5b2fd333908eedf2163f01561cc1</id>
+				<org>Internet-Mail</org>
+				<en>Internet mail</en>
+				<es>De correo de Internet</es>
+				<fr>Mail internet</fr>
+				<nl>Internet-mail</nl>
+				<it>Internet mail</it>
+				<file>usrmgr</file>
+			</entry>
+			<entry>
+				<id>d07628e2c2c640afcdb16421e3545aa6</id>
+				<org>System-Mail</org>
+				<en>System-mail</en>
+				<es>Sistema electrónico</es>
+				<fr>System-mail</fr>
+				<nl>Systeem-mail</nl>
+				<it>System-mail</it>
 				<file>usrmgr</file>
 			</entry>
 		</content>

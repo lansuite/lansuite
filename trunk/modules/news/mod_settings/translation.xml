@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -16,267 +16,410 @@
 				<id>621198805df73c2536ae624678201b1a</id>
 				<org>News verwalten</org>
 				<en>Manage News</en>
+				<es>La gestión de noticias</es>
 				<fr>Gérer les news</fr>
+				<nl>Beheer Nieuws</nl>
+				<it>Gestisci News</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>b40270b1794198416acf37a1be27cf01</id>
 				<org>Mit Hilfe des folgenden Formulars können Sie Neuigkeiten auf Ihrer Seite ergänzen und bearbeiten</org>
 				<en>Using the form below you can add oder customize your News.</en>
+				<es>Con la ayuda de la forma siguiente, usted puede añadir y editar noticias en su sitio</es>
+				<fr>Avec l&amp;#39;aide du formulaire suivant, vous pouvez ajouter et modifier des nouvelles sur votre site</fr>
+				<nl>Met behulp van het onderstaande formulier kunt, je toevoegen en bewerken nieuws op uw site</nl>
+				<it>Con l&amp;#39;aiuto del modulo seguente, è possibile aggiungere e modificare le news sul tuo sito</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>8eba0c1845d59e877ab09d83d87d0215</id>
 				<org>Überschrift (Knappe Zusammenfassung für die Startseite)</org>
 				<en>Caption (Tight summary for the Startpage)</en>
-				<fr>Titre (Résumé de la pénurie de la page d&amp;#39;accueil)</fr>
+				<es>Título (resumen escaso para el Hogar)</es>
+				<fr>Titre (Résumé de la pénurie de la page d&amp;amp;#39;accueil)</fr>
+				<nl>Titel (Scarce samenvatting voor het Home)</nl>
+				<it>Titolo (sintesi scarsa per la casa)</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>5236b0f0fb26d1d73909687ee9195458</id>
 				<org>Kategorie / Icon</org>
 				<en>Category / Icon</en>
+				<es>Categoría / Icon</es>
 				<fr>Catégorie / Icon</fr>
+				<nl>Categorie / Icon</nl>
+				<it>Categoria / Icon</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
 				<en>Text</en>
-				<fr>Titre (Résumé de la pénurie de la page d&amp;#39;accueil)</fr>
+				<es>Texto</es>
+				<fr>Texte</fr>
+				<nl>Tekst</nl>
+				<it>Testo</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>960b44c579bc2f6818d2daaf9e4c16f0</id>
 				<org>Normal</org>
 				<en>Normal</en>
+				<es>Normal</es>
 				<fr>Normal</fr>
+				<nl>Normaal</nl>
+				<it>Normale</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>9b924aa7d0c7d0264b2fbb28f666414b</id>
 				<org>Wichtig</org>
 				<en>Important</en>
+				<es>Importante</es>
 				<fr>Important</fr>
+				<nl>Belangrijke</nl>
+				<it>Importante</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>c30f584de7e81f4232d4d2a5094228f5</id>
 				<org>Priorität</org>
 				<en>Priority</en>
+				<es>Prioridad</es>
 				<fr>Priorité</fr>
+				<nl>Prioriteit</nl>
+				<it>Priorità</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
 				<en>No</en>
+				<es>No</es>
 				<fr>Non</fr>
+				<nl>Nee</nl>
+				<it>No</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
 				<en>Yes</en>
+				<es>Sí</es>
 				<fr>Oui</fr>
+				<nl>Ja</nl>
+				<it>Sì</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>34357d471a47e12b2bbf2c2c0785952f</id>
 				<org>Top-Meldung</org>
 				<en>Top news</en>
+				<es>Top news</es>
 				<fr>Top message</fr>
+				<nl>Top nieuws</nl>
+				<it>Top news</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>0ad63c9ca1f63b06c10949141eb9bef4</id>
 				<org>Newsfeed wurde erfolgreich aktuallisiert</org>
 				<en>News Feed has been successfully updated</en>
+				<es>Éxito actualizada por última vez newsfeeds</es>
 				<fr>Usenet a été mis à jour</fr>
+				<nl>Succesvol laatst bijgewerkt newsfeeds</nl>
+				<it>Successo Ultimo aggiornamento newsfeed</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>ad497a59cdd8e2b20cddc69d74dfeec4</id>
 				<org>Newsfeed</org>
 				<en>Newsfeed</en>
+				<es>Newsfeed</es>
 				<fr>News Feed</fr>
+				<nl>Newsfeed</nl>
+				<it>Newsfeed</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>ee48fde91f2bb69bd4c6ade5a9b712f2</id>
 				<org>Konnte Newsfeed nicht erstellen. Fehler beim Schreiben in der Datei ext_inc/newsfeed/news.xml</org>
 				<en>Could not create Newsfeed. Error writing the file ext_inc/newsfeed/news.xml</en>
+				<es>No es posible crear de noticias. Error al escribir en el archivo ext_inc / newsfeed / news.xml</es>
+				<fr>Impossible de créer newsfeeds. Erreur d&amp;#39;écriture dans le fichier ext_inc / newsfeed / news.xml</fr>
+				<nl>Couldn&amp;#39;t newsfeeds te creëren. Fout bij schrijven naar het bestand ext_inc / newsfeed / news.xml</nl>
+				<it>Impossibile creare il newsfeed. Errore durante la scrittura del file ext_inc / newsfeed / news.xml</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>f29cfe64211f930f447f5caca12f67c4</id>
 				<org>Konnte Newsfeed nicht erstellen. Fehler beim &amp;amp;Ouml;ffnen der Datei ext_inc/newsfeed/news.xml</org>
 				<en>Could not create Newsfeed. Error while opening the File ext_inc/newsfeed/news.xml</en>
+				<es>No es posible crear de noticias. No se pudo abrir el archivo ext_inc / newsfeed / news.xml</es>
+				<fr>Impossible de créer newsfeeds. Impossible d&amp;#39;ouvrir le fichier ext_inc / newsfeed / news.xml</fr>
+				<nl>Couldn&amp;#39;t newsfeeds te creëren. Kon het bestand ext_inc open / newsfeed / news.xml</nl>
+				<it>Impossibile creare il newsfeed. Impossibile aprire il file ext_inc / newsfeed / news.xml</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>a7833fc4c467b10ee0c96ee18acf5167</id>
 				<org>Konnte Newsfeed nicht erstellen. Keine Schreibrechte im Ordner ext_inc/newsfeed/</org>
 				<en>Could not create Newsfeed. No writing permissions in ext_inc/newsfeed/</en>
+				<es>No es posible crear de noticias. No hay permiso de escritura en la carpeta ext_inc / newsfeed /</es>
+				<fr>Impossible de créer newsfeeds. Aucune autorisation d&amp;#39;écrire dans le dossier ext_inc / newsfeed /</fr>
+				<nl>Couldn&amp;#39;t newsfeeds te creëren. Geen schrijfrechten voor de map ext_inc / newsfeed /</nl>
+				<it>Impossibile creare il newsfeed. Nessun permesso di scrittura alla cartella ext_inc / newsfeed /</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>739fe7bcbebf114a3ec4a0022fee16e5</id>
 				<org>Newsmeldung + Kommentare</org>
 				<en>News + Comments</en>
+				<es>Noticias + comentarios</es>
 				<fr>News message + commentaires</fr>
+				<nl>Nieuws + reacties</nl>
+				<it>News + commenti</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>68e7655d984e0cf064e4a497f9b3ad93</id>
 				<org>Hier können Sie diese News kommentieren</org>
 				<en>Here you can comment on this News</en>
+				<es>Puede comentar esta noticia</es>
 				<fr>Vous pouvez commenter cette news</fr>
+				<nl>U kunt commentaar op dit nieuws</nl>
+				<it>Puoi commentare questa news</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>e00147ea0b7008a411c5ad1b6b2aeea4</id>
 				<org>Newsübersicht</org>
 				<en>News Overview</en>
-				<fr>Vue d&amp;#39;ensemble News</fr>
+				<es>Vista general</es>
+				<fr>Vue d&amp;amp;#39;ensemble News</fr>
+				<nl>Nieuwsoverzicht</nl>
+				<it>News Overview</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>1460ac7e6f637065b6f36c40b28fdf38</id>
 				<org>Diese Newsmeldung existiert nicht</org>
 				<en>This news item does not exist</en>
-				<fr>Ce message n&amp;#39;existe pas News</fr>
+				<es>Este informe de prensa no existe</es>
+				<fr>Ce message n&amp;amp;#39;existe pas News</fr>
+				<nl>Dit nieuwsbericht bestaat niet</nl>
+				<it>Questa news report non esiste</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>18a8022569d6ced829f833aa855530ce</id>
 				<org>Titel</org>
-				<en>Titel</en>
+				<en>Title</en>
+				<es>Título</es>
 				<fr>Titre</fr>
+				<nl>Titel</nl>
+				<it>Titolo</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>c481b00a606907fd59b4d46623b8d99d</id>
 				<org>Autor</org>
 				<en>Author</en>
+				<es>Autor</es>
 				<fr>Auteur</fr>
+				<nl>Auteur</nl>
+				<it>Autore</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>9ba51734ced032fd8ec25acfb387a23f</id>
 				<org>Datum</org>
 				<en>Date</en>
+				<es>Fecha</es>
 				<fr>Date</fr>
+				<nl>Datum</nl>
+				<it>Data</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
 				<en>Details</en>
+				<es>Detalles</es>
 				<fr>Détails</fr>
+				<nl>Details</nl>
+				<it>Dettagli</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>f030a2eb086608f51539becffd28b4e0</id>
 				<org>News Archiv</org>
 				<en>Newsarchiv</en>
+				<es>Archivo de noticias</es>
 				<fr>News Archives</fr>
+				<nl>Nieuwsarchief</nl>
+				<it>Archivio News</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>622b8b4706839855613a8b00115454cd</id>
 				<org>Archivierte Mitteilungen</org>
 				<en>Saved Messages</en>
+				<es>Archived Releases</es>
 				<fr>Communiqués archivés</fr>
+				<nl>Archived Releases</nl>
+				<it>Archived Releases</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>35c9c1df912962d906c66f5a2d0c3a48</id>
 				<org>Zur&amp;amp;uuml;ck</org>
 				<en>Back</en>
+				<es>Espalda</es>
 				<fr>Retour</fr>
+				<nl>Terug</nl>
+				<it>Indietro</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>f33ed9a5efc6d8a1249d0e2cd56011db</id>
 				<org>Neuigkeiten</org>
 				<en>News</en>
+				<es>Noticias</es>
 				<fr>Quoi de neuf?</fr>
+				<nl>Nieuws</nl>
+				<it>News</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>10fbd0690508ebbbf614ef03f417b906</id>
 				<org>Hier sehen Sie aktuelle Neuigkeiten.</org>
 				<en>Here you can reed the actual News</en>
+				<es>Aquí hay noticias actuales.</es>
 				<fr>Voici les dernières nouveautés.</fr>
+				<nl>Hier is actuele nieuws.</nl>
+				<it>Ecco le notizie attuali.</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>9b7c3cb8f1d6ea930aaf50b48d3175af</id>
 				<org>Kommentar(e)</org>
 				<en>Comment(s)</en>
+				<es>Comentario (s)</es>
 				<fr>Commentaire(s)</fr>
+				<nl>Reactie (s)</nl>
+				<it>Comment (s)</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>c4739a9771977c455528f194c138cdbc</id>
 				<org>&amp;amp;Auml;ltere Mitteilungen</org>
 				<en>Older Messages</en>
+				<es>Otras versiones</es>
 				<fr>Les anciens messages</fr>
+				<nl>Oudere Releases</nl>
+				<it>Comunicati anziani</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>e52e0d8722baca7e7a5cc493a6f66874</id>
 				<org>Newsmeldungen</org>
 				<en>News</en>
+				<es>Noticias Noticias</es>
 				<fr>Actualités</fr>
+				<nl>Nieuws Nieuws</nl>
+				<it>News News</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>17c356ec98b72c0ad4b6337beddef772</id>
 				<org>Fuckoff</org>
+				<en>FuckOff</en>
 				<es>FuckoffEsFile</es>
+				<fr>FuckOff</fr>
 				<nl>FuckoffDBNlTest2</nl>
+				<it>Vaffanculo</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>7376b501ab83a31882ae2f3fa2828510</id>
 				<org>Links zum Thema:</org>
+				<en>Related links:</en>
+				<es>Enlaces relacionados:</es>
+				<fr>Liens connexes:</fr>
+				<nl>Gerelateerde links:</nl>
+				<it>Related Links:</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>ff30d1ab8188d0abed485a496f341bcf</id>
 				<org>Kommentare wurden deaktiviert.</org>
+				<en>Comments have been disabled.</en>
+				<es>Comentarios se han inhabilitado.</es>
+				<fr>Les commentaires ont été désactivés.</fr>
+				<nl>Reacties zijn uitgeschakeld.</nl>
+				<it>Commenti sono stati disabilitati.</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>a31a84fa1e8cd2b562842e41b2be117f</id>
 				<org>Es sind keine News vorhanden.</org>
+				<en>There are no news available.</en>
+				<es>No hay noticias disponibles.</es>
+				<fr>Il n&amp;#39;y a pas de nouvelles disponibles.</fr>
+				<nl>Er zijn geen nieuws beschikbaar.</nl>
+				<it>Non ci sono notizie disponibili.</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>aa3d1b20090697af0c1b6d6160904685</id>
 				<org>Link 1</org>
+				<en>Link 1</en>
+				<es>Link 1</es>
+				<fr>Link 1</fr>
+				<nl>Link 1</nl>
+				<it>Link 1</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>fe892886118adfa13f9bf4c4e2187194</id>
 				<org>Link 2</org>
+				<en>Link 2</en>
+				<es>Link 2</es>
+				<fr>Link 2</fr>
+				<nl>Link 2</nl>
+				<it>Link 2</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>1a794ff57b78e58064c407ea2f5e4426</id>
 				<org>Link 3</org>
+				<en>Link 3</en>
+				<es>Link 3</es>
+				<fr>Link 3</fr>
+				<nl>Link 3</nl>
+				<it>Link 3</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>3c38d55f15fd77de020451cd1826a550</id>
 				<org>Aktuelle News</org>
+				<en>Latest News</en>
+				<es>Últimas Noticias</es>
+				<fr>Dernières Nouvelles</fr>
+				<nl>Laatste Nieuws</nl>
+				<it>Ultime Notizie</it>
 				<file>news</file>
 			</entry>
 			<entry>
 				<id>b3363a26e8336410177b9ba3d509e8e1</id>
 				<org>Keine News bisher vorhanden</org>
+				<en>No news yet available</en>
+				<es>No hay noticias aún disponibles</es>
+				<fr>Pas de nouvelles encore disponible</fr>
+				<nl>Nog geen nieuws beschikbaar</nl>
+				<it>Nessuna notizia ancora disponibili</it>
 				<file>news</file>
 			</entry>
 		</content>

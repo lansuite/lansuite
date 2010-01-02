@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,138 +15,271 @@
 			<entry>
 				<id>6e84fd6f756da2194cc569f0cb114dea</id>
 				<org>Aktuelles im Board</org>
+				<en>News on the Board</en>
+				<es>Noticias de la Junta de</es>
+				<fr>Nouvelles du conseil</fr>
+				<nl>Nieuws over de raad</nl>
+				<it>News del consiglio</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>dba464b5a401fe7f6609aa0d44061059</id>
 				<org>Thread wurde geschlossen</org>
+				<en>Thread is closed</en>
+				<es>La discusión está cerrada</es>
+				<fr>Discussion fermée</fr>
+				<nl>Onderwerp is gesloten</nl>
+				<it>Thread è chiuso</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>eee3d44600327c43cc220e6a1ddf7f24</id>
 				<org>Keine Beiträge vorhanden</org>
+				<en>No Posts</en>
+				<es>No hay publicaciones</es>
+				<fr>Pas de Messages</fr>
+				<nl>Geen berichten</nl>
+				<it>No Posts</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>6a05707c807162a10d325e27983f9a09</id>
 				<org>Neue Bugs und Feature Wünsche</org>
+				<en>New bugs and feature requests</en>
+				<es>Nueva errores y peticiones</es>
+				<fr>Nouveaux bugs et demandes de fonctionnalités</fr>
+				<nl>Nieuwe bugs en feature requests</nl>
+				<it>Nuovi bug e richieste di nuove funzioni</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>ec587aecd4a4830ab84f0c3ae0c6a2dd</id>
 				<org>Keine Einträge vorhanden</org>
+				<en>No entries</en>
+				<es>No hay entradas</es>
+				<fr>Pas d&amp;#39;entrées</fr>
+				<nl>No entries</nl>
+				<it>Nessuna voce</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>fb1f271be4c8ba886014243495742271</id>
 				<org>Neue Mails</org>
+				<en>New mail</en>
+				<es>El correo nuevo</es>
+				<fr>New mail</fr>
+				<nl>Nieuwe mail</nl>
+				<it>New mail</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>00efd72dcc6976257ca0fee13c0eaf6c</id>
 				<org>Keine Mails bisher vorhanden</org>
+				<en>No messages yet available</en>
+				<es>No hay mensajes aún disponibles</es>
+				<fr>Pas encore de messages disponibles</fr>
+				<nl>Nog geen berichten beschikbaar</nl>
+				<it>Nessun messaggio ancora disponibili</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>3c38d55f15fd77de020451cd1826a550</id>
 				<org>Aktuelle News</org>
+				<en>Latest News</en>
+				<es>Últimas Noticias</es>
+				<fr>Dernières Nouvelles</fr>
+				<nl>Laatste Nieuws</nl>
+				<it>Ultime Notizie</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>b3363a26e8336410177b9ba3d509e8e1</id>
 				<org>Keine News bisher vorhanden</org>
+				<en>No news yet available</en>
+				<es>No hay noticias aún disponibles</es>
+				<fr>Pas de nouvelles encore disponible</fr>
+				<nl>Nog geen nieuws beschikbaar</nl>
+				<it>Nessuna notizia ancora disponibili</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>e97674e077ea2015b443c70e51d6a433</id>
 				<org>Die nächsten Partys</org>
+				<en>The next party</en>
+				<es>La proxima fiesta</es>
+				<fr>La partie suivante</fr>
+				<nl>De volgende partij</nl>
+				<it>La prossima festa</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>b1bf9f9099721388913d60e905660264</id>
 				<org>Aktuelle Umfragen</org>
+				<en>Latest Polls</en>
+				<es>Ultimas encuestas</es>
+				<fr>Les derniers sondages</fr>
+				<nl>Latest Polls</nl>
+				<it>Più recenti sondaggi</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>e1598f2e5fba4bffbb79af4ebfca6b40</id>
 				<org>Abstimmung wurde geschlossen</org>
 				<en>Vote has been closed</en>
+				<es>La votación ha sido cerrada</es>
+				<fr>Le vote a été fermé</fr>
+				<nl>Stemmen is gesloten</nl>
+				<it>Il voto è stato chiuso</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>8b855067fd97a4bf3b96532a7cbeaeae</id>
 				<org>Keine Umfragen vorhanden</org>
+				<en>No polls available</en>
+				<es>No hay encuestas disponibles</es>
+				<fr>Aucun sondage disponible</fr>
+				<nl>Geen polls beschikbaar</nl>
+				<it>Non ci sono sondaggi disponibili</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>9131a1b7c0a2a326a04b71f2dc6d5b67</id>
 				<org>Neue Server</org>
+				<en>New servers</en>
+				<es>Nuevos servidores</es>
+				<fr>Nouveaux serveurs</fr>
+				<nl>Nieuwe servers</nl>
+				<it>Nuovi server</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>b6c68b8a968f5e598492ec09332686f0</id>
 				<org>Keine Server vorhanden</org>
+				<en>No servers available</en>
+				<es>No hay servidores disponibles</es>
+				<fr>Pas de serveurs disponibles</fr>
+				<nl>Geen servers beschikbaar</nl>
+				<it>Nessun server disponibile</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>c84369cb124912750ac1c1982a7b7e05</id>
 				<org>Startseite</org>
+				<en>Home</en>
+				<es>Inicio</es>
+				<fr>Accueil</fr>
+				<nl>Home</nl>
+				<it>Casa</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>14544db096fe4b7f02cac8e3de843fd0</id>
 				<org>Willkommen! Hier sehen Sie eine kleine Übersicht der wichtigsten Aktivitäten.</org>
+				<en>Welcome! Here is a brief overview of the main activities.</en>
+				<es>Bienvenido! He aquí una breve reseña de las principales actividades.</es>
+				<fr>Bienvenue! Voici un bref aperçu des principales activités.</fr>
+				<nl>Welkom! Hier is een kort overzicht van de belangrijkste activiteiten.</nl>
+				<it>Benvenuto! Ecco una breve panoramica delle principali attività.</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>c577d157c52b9895941b3c23fdfaa03f</id>
 				<org>Willkommen! Zum Einloggen verwenden Sie bitte, die Login-Box auf der rechten Seite</org>
+				<en>Welcome! To log in please use the login box on the right side</en>
+				<es>Bienvenido! Para acceder por favor use el cuadro de acceso en el lado derecho</es>
+				<fr>Bienvenue! Pour vous connecter s&amp;#39;il vous plaît utiliser la boîte de connexion sur le côté droit</fr>
+				<nl>Welkom! Om in te loggen gebruikt u de login-box aan de rechterkant</nl>
+				<it>Benvenuto! Per accedere si prega di utilizzare la casella di accesso sul lato destro</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>5e29e29e2f3ab047528d80b1a6788a6c</id>
 				<org>Die letzten News:</org>
+				<en>The latest news:</en>
+				<es>Las últimas noticias:</es>
+				<fr>Les dernières nouvelles:</fr>
+				<nl>Het laatste nieuws:</nl>
+				<it>Le ultime notizie:</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>715380d7bcc0b403482990fa332214cc</id>
 				<org>Statistiken</org>
 				<en>Statistics</en>
+				<es>Estadísticas</es>
+				<fr>Statistiques</fr>
+				<nl>Statistieken</nl>
+				<it>Statistiche</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>827ebef78fd80e4cd6af55afce7fa40c</id>
 				<org>Gäste bezahlt / eingecheckt / ausgecheckt</org>
+				<en>Guests pay / check in / check out</en>
+				<es>Los huéspedes pagan / check in / check-out</es>
+				<fr>Les clients paient / check in / check out</fr>
+				<nl>Gasten betalen / check in / check out</nl>
+				<it>Gli ospiti possono pagare / check in / check out</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>00dcb99942ed6de2085035d5f3704093</id>
 				<org>Besucher gesamt / Gerade eingeloggt</org>
+				<en>Total visits / Just logged in.</en>
+				<es>Total de visitas / Just logged in</es>
+				<fr>Total visites / Just logged in</fr>
+				<nl>Totaal bezoekers / Just ingelogd</nl>
+				<it>Visite totali / Just logged</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>b2e255e5cfd29133935ae00468406e2e</id>
 				<org>Troubletickets</org>
+				<en>Trouble Tickets</en>
+				<es>Trouble Tickets</es>
+				<fr>Trouble Tickets</fr>
+				<nl>Trouble Tickets</nl>
+				<it>Trouble Tickets</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>a377bf984e816b7da45903df0c39cfea</id>
 				<org>Verleih</org>
+				<en>Rental</en>
+				<es>Alquiler</es>
+				<fr>Location</fr>
+				<nl>Verhuur</nl>
+				<it>Noleggio</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>a7895bd53b30eb23b71fa4287fc4982d</id>
 				<org>Turnier: Spielpaarungen</org>
+				<en>Tournament: Fixtures</en>
+				<es>Torneo: Calendario</es>
+				<fr>Tournois: Fixtures</fr>
+				<nl>Toernooi: Uitslagen</nl>
+				<it>Torneo: Calendario</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>c23182c930ec83dbd96b943ebce81745</id>
 				<org>Es sind keine aktuellen Spielpaarungen vorhanden</org>
+				<en>There are no current club fixtures available</en>
+				<es>No hay accesorios disponibles club actual</es>
+				<fr>Il n&amp;#39;ya pas de matches du club actuellement disponibles</fr>
+				<nl>Er zijn momenteel geen club armaturen beschikbaar</nl>
+				<it>Non ci sono partite correnti club disponibili</it>
 				<file>home</file>
 			</entry>
 			<entry>
 				<id>8014ff3cb864ccbbc0d4d4ab2a42b905</id>
 				<org>Übersicht der neusten Aktivitäten auf %1.</org>
+				<en>Overview of the latest activity on%1</en>
+				<es>Información general de la última actividad en%1</es>
+				<fr>Vue d&amp;#39;ensemble sur la dernière activité sur%1</fr>
+				<nl>Overzicht van de laatste activiteit op%1</nl>
+				<it>Panoramica delle attività entro il 1%</it>
 				<file>home</file>
 			</entry>
 		</content>
