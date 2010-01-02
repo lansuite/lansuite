@@ -180,9 +180,11 @@ class Install {
     global $db, $xml, $func;
 
     // Tabelle Modules leeren um Module zu deinstallieren
-    if($_GET["action"] == "wizard") $db->qry("TRUNCATE TABLE %prefix%modules");
+    if($_GET["action"] == "wizard") {
+      $db->qry("TRUNCATE TABLE %prefix%modules");
+    }
     $db->qry("TRUNCATE %prefix%plugin");
-    
+
     $mod_list = array();
     $modules_dir = opendir("modules/");
     while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
@@ -327,6 +329,36 @@ class Install {
             $db->qry("INSERT INTO %prefix%plugin SET module=%string%, pluginType=%string%, caption=%string%, pos=%int%, icon=%string%", $module, $name, $caption, $pos, $icon);
           }
         }
+        
+        // translation.xml
+        $file = "modules/$module/mod_settings/translation.xml";
+        if (file_exists($file)) {
+
+          $handle = fopen ($file, "r");
+          $xml_file = fread ($handle, filesize ($file));
+          fclose ($handle);
+
+          $entries = $xml->getTagContentArray("entry", $xml_file);
+          foreach ($entries as $entry) {
+            $id = $xml->getFirstTagContent("id", $entry);
+            $org = $xml->getFirstTagContent("org", $entry, 1);
+            $de = $xml->getFirstTagContent("de", $entry, 1);
+            $en = $xml->getFirstTagContent("en", $entry, 1);
+            $es = $xml->getFirstTagContent("es", $entry, 1);
+            $fr = $xml->getFirstTagContent("fr", $entry, 1);
+            $nl = $xml->getFirstTagContent("nl", $entry, 1);
+            $it = $xml->getFirstTagContent("it", $entry, 1);
+            $file = $xml->getFirstTagContent("file", $entry);
+
+            if (strlen($org) > 255) $long = '_long'; else $long = '';
+
+            // Insert only, if id-file combination does not exist
+            $db->qry('INSERT INTO %prefix%translation%plain% SET
+              id=%string%, file=%string%, org=%string%, de=%string%, en=%string%, es=%string%, fr=%string%, nl=%string%, it=%string%
+              ON DUPLICATE KEY UPDATE id = id',
+              $long, $id, $file, $org, $de, $en, $es, $fr, $nl, $it);
+          }
+        }
       }
     }
 
@@ -388,44 +420,6 @@ class Install {
         }
       }
     }
-  }
-
-
-  function InsertTranslations() {
-#    global $translation;
-    global $db, $xml, $func;
-
-    $db->qry('TRUNCATE TABLE %prefix%translation');
-
-    foreach($func->ActiveModules as $module => $caption) {
-      $file = "modules/$module/mod_settings/translation.xml";
-      if (file_exists($file)) {
-
-        $handle = fopen ($file, "r");
-        $xml_file = fread ($handle, filesize ($file));
-        fclose ($handle);
-
-        $entries = $xml->getTagContentArray("entry", $xml_file);
-        foreach ($entries as $entry) {
-          $id = $xml->getFirstTagContent("id", $entry);
-          $org = $xml->getFirstTagContent("org", $entry, 1);
-          $de = $xml->getFirstTagContent("de", $entry, 1);
-          $en = $xml->getFirstTagContent("en", $entry, 1);
-          $es = $xml->getFirstTagContent("es", $entry, 1);
-          $fr = $xml->getFirstTagContent("fr", $entry, 1);
-          $nl = $xml->getFirstTagContent("nl", $entry, 1);
-          $it = $xml->getFirstTagContent("it", $entry, 1);
-          $file = $xml->getFirstTagContent("file", $entry);
-
-          $db->qry_first('INSERT INTO %prefix%translation SET
-            id=%string%, org=%string%, de=%string%, en=%string%, es=%string%, fr=%string%, nl=%string%, it=%string%, file=%string%',
-            $id, $org, $de, $en, $es, $fr, $nl, $it, $file);
-        }
-      }
-#      $translation->xml_write_file_to_db($module);
-    }
-#    $translation->xml_write_file_to_db('DB');
-#    $translation->xml_write_file_to_db('System');
   }
 
 

@@ -11,11 +11,11 @@ switch ($_GET['step']) {
     $dsp->NewContent(t('Übersetzen'), t('Es müssen nur Einträge eingetragen werden, die sich in der Zielsprache vom Orginal unterscheiden'));
     
     $dsp->AddFieldSetStart(t('Allgemeine Wartungsfunktionen'));
-    $dsp->AddDoubleRow('','<a href="index.php?mod=install&action=translation&step=2">'. t('Alle Datenbankeinträge auflisten') .'</a>');
-    $dsp->AddDoubleRow('','<a href="index.php?mod=install&action=translation&step=10">'. t('Einträge neu aus Quellcode auslesen und in die Datenbank schreiben') .'</a>');
-    $dsp->AddDoubleRow('','<a href="index.php?mod=install&action=translation&step=50">'. t('Einträge aus DB in mod_translation.xml schreiben (alle Module)') .'</a>');
-    $dsp->AddDoubleRow('','<a href="index.php?mod=install&action=translation&step=60">'. t('mod_translation.xml auslesen und in DB schreiben (alle Module)') .'</a>');
-    $dsp->AddDoubleRow('','<a href="index.php?mod=install&action=translation&step=70">'. t('Suche nach übereinstimmungen Aktuelle / Veraltete Texte (Mergen)') .'</a>');
+    $dsp->AddDoubleRow('','<img src="design/images/icon_search.png" border="0" /> <a href="index.php?mod=install&action=translation&step=2">'. t('Übersetzungs-Eintrag suchen') .'</a>');
+    $dsp->AddDoubleRow('','<img src="design/images/icon_generate.png" border="0" /> <a href="index.php?mod=install&action=translation&step=10">'. t('Quellcode nach t() durchsuchen. Neu gefundene Texte in DB übernehmen') .'</a>');
+    $dsp->AddDoubleRow('','<img src="design/images/icon_in.png" border="0" /> <a href="index.php?mod=install&action=translation&step=60">'. t('mod_translation.xml auslesen und in DB schreiben (alle Module)') .'</a>');
+    $dsp->AddDoubleRow('','<img src="design/images/icon_forward.png" border="0" /> <a href="index.php?mod=install&action=translation&step=50">'. t('Einträge aus DB in mod_translation.xml schreiben (alle Module)') .'</a>');
+    $dsp->AddDoubleRow('','<img src="design/images/icon_change.png" border="0" /> <a href="index.php?mod=install&action=translation&step=70">'. t('Suche nach übereinstimmungen Aktuelle / Veraltete Texte (Mergen)') .'</a>');
     $dsp->AddFieldSetEnd();
 
     if ($_GET['target_language']) $_SESSION['target_language'] = $_GET['target_language'];
@@ -136,7 +136,6 @@ switch ($_GET['step']) {
   case 20:
     // If Write2File
     if ($_GET['subact'] == 'writetofile') $translation->xml_write_db_to_file($_GET['file']);
-    if ($_GET['subact'] == 'writetodb') $translation->xml_write_file_to_db($_GET['file']);
 
     $dsp->NewContent(t('Modul Übersetzen : ').$_GET['file'], '');
     $framework->add_js_path('http://www.google.com/jsapi');
@@ -192,9 +191,7 @@ function translate_all_empty(from, to) {
         $dsp->AddFormSubmitRow(t('Ändern'));
 
         $tmp_link_write = "index.php?mod=install&action=translation&step=20&file=".$_GET['file']."&subact=writetofile";
-        $tmp_link_read = "index.php?mod=install&action=translation&step=20&file=".$_GET['file']."&subact=writetodb";
         $dsp->AddDoubleRow(t('Schreibe Modulübersetzung in translation.xml') ,$dsp->FetchSpanButton(t('Schreibe'), $tmp_link_write));
-        $dsp->AddDoubleRow(t('Lese Modulübersetzung von translation.xml') ,$dsp->FetchSpanButton(t('Lese'), $tmp_link_read));
     $dsp->AddFieldSetEnd();
 
     // Start Tanslation
@@ -290,18 +287,14 @@ function translate_all_empty(from, to) {
                             'index.php?mod=install&action=translation&step=60&confirm=yes',
                             'index.php?mod=install&action=translation');
       } else {
-          $modules = array();
-          $res = $db->qry("SELECT name FROM %prefix%modules");
-          while($row = $db->fetch_array($res)) $modules[] = $row['name'];
-          $db->free_result($res);  
-          // Add Systemtranslations
-          $modules[] = "DB";
-          $modules[] = "System"; 
-          foreach ($modules as $modul) {
-              $meld = $translation->xml_write_file_to_db($modul);
-              $info .= t("Modulübersetzung wurde von <b>%1</b> gelesen. (%2)<br \>",$translation->get_trans_filename($modul),$meld);
-          }
-          $func->information($info,'index.php?mod=install&action=translation');
+        $db->qry("TRUNCATE %prefix%translation");
+        $db->qry("TRUNCATE %prefix%translation_long");
+
+        include_once("modules/install/class_install.php");
+        $install = new install;
+        $install->InsertModules();
+
+        $func->confirmation(t('Die Übersetzungen wurden in die Datenbank eingelesen'),'index.php?mod=install&action=translation');
       }
   break;
 
