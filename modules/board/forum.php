@@ -220,7 +220,7 @@ if ($_GET['fid'] and $auth['login']) {
 
 // Generate Boardlist-Dropdown
 $foren_liste = $db->qry("SELECT fid, name FROM %prefix%board_forums WHERE need_type <= %int% AND (!need_group OR need_group = %int%)", ($auth['type'] + 1), $auth['group_id']);
-while ($forum = $db->fetch_array($foren_liste)) $goto .= "<option value=\"index.php?mod=board&action=forum&fid={$forum["fid"]}\">{$forum["name"]}</option>";
+while ($forum = $db->fetch_array($foren_liste)) $goto .= "<option value=\"{$forum["fid"]}\">{$forum["name"]}</option>";
 $smarty->assign('goto', $goto);
 $smarty->assign('forum_choise', t('Bitte auswählen'));
 $dsp->AddDoubleRow(t('Gehe zu Forum'), $smarty->fetch('modules/board/templates/forum_dropdown.htm'));

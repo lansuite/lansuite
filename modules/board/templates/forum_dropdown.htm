@@ -1,6 +1,8 @@
-<form name="ForumSelect" method="post" action="?mod=board&action=forum">
-  <select name="ForumURL" class="form" onchange="SubmitDropDown(document.ForumSelect, this)">
-  <option selected value="none">{$forum_choise}</option>
-  {$goto}  
+<form name="ForumSelect" method="GET" action="index.php">
+  <input type="hidden" name="mod" value="board" />
+  <input type="hidden" name="action" value="forum" />
+  <select name="fid" class="form" onchange="this.form.submit();">
+    <option selected value="none">{$forum_choise}</option>
+    {$goto}
   </select>
 </form>
