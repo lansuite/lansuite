@@ -223,7 +223,7 @@ class Install {
         }
       }
 
-      if ($ModActive) {
+      if ($ModActive or $func->isModActive($module)) {
 
         // config.xml
         $file = "modules/$module/mod_settings/config.xml";
