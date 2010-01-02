@@ -1,4 +1,5 @@
 <?php
+
 include_once("modules/install/class_import.php");
 $import = New Import();
 
@@ -94,7 +95,10 @@ class Install {
 
   // Creates a DB-table using the file $table, located in the mod_settings-directory of the module $mod
   function WriteTableFromXMLFile($mod, $rewrite = NULL){
-    global $import;
+    global $db, $config, $import;
+    
+    // Delete references, if table exists, for they will be recreated in ImportXML()
+    if (in_array($config['database']['prefix'] .'ref', $import->installed_tables)) $db->qry('TRUNCATE TABLE %prefix%ref');
 
     $import->GetImportHeader("modules/$mod/mod_settings/db.xml");
     $import->ImportXML($rewrite);
@@ -108,13 +112,10 @@ class Install {
   // Scans 'install/db_skeleton/' for non-existand tables and creates them
   // Puts the results to the screen, by using $dsp->AddSingleRow for each table, if $display_to_screen = 1
   function CreateNewTables($display_to_screen = 1) {
-    global $dsp, $config, $db, $import, $func;
+    global $dsp, $config, $db, $func;
 
     $tablecreate = Array("anz" => 0, "created" => 0, "exist" => 0, "failed" => "");
     if ($display_to_screen) $dsp->AddSingleRow("<b>". t('Tabellen erstellen') ."</b>");
-
-    // Delete references, if table exists, for they will be recreated in WriteTableFromXMLFile
-    if (in_array($config['database']['prefix'] .'ref', $import->installed_tables)) $db->qry('TRUNCATE TABLE %prefix%ref');
 
     if (is_dir("modules")) {
       // Do install-mod first! (for translations-table must exist)
@@ -374,29 +375,28 @@ class Install {
 
   // Auto-Load Menuentries from XML-Files
   function InsertMenus($rewrite = false) {
-    global $db, $xml;
+    global $db, $xml, $func;
 
+    if ($rewrite) $db->qry("TRUNCATE TABLE %prefix%menu");
     $menubox = $db->qry_first('SELECT boxid FROM %prefix%boxes WHERE source = \'menu\' AND active = 1');
 
     $modules_dir = opendir("modules/");
-    while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
-      $file = "modules/$module/mod_settings/menu.xml";
-      if (file_exists($file)) {
-        $menu_found = $db->qry_first("SELECT 1 AS found FROM %prefix%menu WHERE module = %string%", $module);
+    while ($module = readdir($modules_dir)) if ($func->isModActive($module)) {
+      $menu_found = $db->qry_first("SELECT 1 AS found FROM %prefix%menu WHERE module = %string%", $module);
+      if (!$menu_found["found"]) {
 
-        $i = 0;
-        if ($rewrite or (!$menu_found["found"])) {
-          $db->qry_first("DELETE FROM %prefix%menu WHERE module = %string%", $module);
+        $file = "modules/$module/mod_settings/menu.xml";
+        if (file_exists($file)) {
 
           $handle = fopen ($file, "r");
           $xml_file = fread ($handle, filesize ($file));
           fclose ($handle);
 
           $menu = $xml->get_tag_content("menu", $xml_file);
-
           $main_pos = $xml->get_tag_content("pos", $menu);
           $entrys = $xml->get_tag_content_array("entry", $menu);
 
+          $i = 0;
           foreach ($entrys as $entry) {
             $action = $xml->get_tag_content("action", $entry);
             $file = $xml->get_tag_content("file", $entry);
@@ -657,16 +657,18 @@ class Install {
   // This meens lansuite is not able to clean up tables, which changed their name during versions
   // But this is much safer than DROP DATABASE, for this clean methode would drop other web-systems using the same DB table, too
   function DeleteAllTables () {
-    global $import, $xml, $db;
+    global $xml, $db;
   
     $modules_dir = opendir("modules/");
     while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
       $file = "modules/$module/mod_settings/db.xml";
 
       if (file_exists($file)) {
-        $import->GetImportHeader($file);
-        $tables = $xml->get_tag_content_array("table", $import->xml_content_lansuite);
+        $handle = fopen ($file, "r");
+        $xml_file = fread ($handle, filesize ($file));
+        fclose ($handle);
 
+        $tables = $xml->get_tag_content_array("table", $xml_file);
         foreach ($tables as $table) {        
           $table_head = $xml->get_tag_content("table_head", $table, 0);
           $table_name = $xml->get_tag_content("name", $table_head);
