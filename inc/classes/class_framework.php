@@ -305,7 +305,7 @@ pageTracker._trackPageview();
           $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
           $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
           $smarty->assign('MainLogo', '<img src="design/'.$this->design.'/images/lansuite-logo.gif" alt="Lansuite Logo" title="Lansuite Logo" border="0" />');
-          if ($auth['type'] >= 2 and $cfg['sys_showdebug'] and isset($debug)) {
+          if ($auth['type'] >= 2 and isset($debug)) { // and $cfg['sys_showdebug'] (no more, for option now in inc/base/config)
             $smarty->assign('MainDebug', $debug->show());
           }
         } else {

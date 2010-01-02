@@ -329,8 +329,8 @@ class debug {
     function show() {
         if ($this->mode > 0) {
             $this->tracker("END DEBUG-CLASS");
-            $out .= "<div align=\"left\"><a name=\"debug_top\"><table width=\"100%\" border=\"0\" cols=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
-            $out .= debug::row_top("<b>Quicknavi</b>");
+            $out .= "<div align=\"left\"><table width=\"100%\" border=\"0\" cols=\"0\" cellpadding=\"0\" cellspacing=\"0\">";
+            $out .= debug::row_top("<a name=\"debug_top\"><b>Quicknavi</b></a>");
             $out .= debug::row_single("<a href=\"#debugtracker\">Debugtracker</a>&nbsp;|&nbsp;"
                                      ."<a href=\"#debugvars\">User-Debugvars</a>&nbsp;|&nbsp;"
                                      ."<a href=\"#post\">\$_POST</a>&nbsp;|&nbsp;"
