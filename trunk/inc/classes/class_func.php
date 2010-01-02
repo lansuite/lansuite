@@ -35,13 +35,15 @@ class func {
    * Read the Config-settings from DB
    * @global mixed Databaseobject
    * @global array Baseconfig from File
-   * @return array Config-array with all Settings from DB
+   * @return $cfg
    */
     function read_db_config() {
         global $db;
 
-        $get_conf = $db->qry('SELECT cfg_value, cfg_key, cfg_type FROM %prefix%config WHERE cfg_module = "install" OR cfg_module = %string%', $_GET['mod']);
-        while ($row=$db->fetch_array($get_conf,0)) {
+        // Idea: Select current mod only, does not work with plugin.
+        // $res = $db->qry('SELECT cfg_value, cfg_key, cfg_type FROM %prefix%config WHERE cfg_module = "install" OR cfg_module = %string%', $mod);
+        $res = $db->qry('SELECT cfg_value, cfg_key, cfg_type FROM %prefix%config');
+        while ($row = $db->fetch_array($res, 0)) {
           switch ($row['cfg_type']) {
             case 'integer':
             case 'int':
@@ -59,8 +61,8 @@ class func {
             break;
           }
         }
-        $db->free_result($get_conf);
-
+        $db->free_result($res);
+        
         return $cfg;
     }
 

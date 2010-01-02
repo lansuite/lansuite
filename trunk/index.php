@@ -215,7 +215,7 @@
 
         // Load DB-Data after installwizard step 3
         if ($_GET["action"] == "wizard" and $_GET["step"] > 3) {
-            $cfg = $func->read_db_config();  // read Configtable
+          $cfg = $func->read_db_config();  // read Configtable
         }
     } else {
         ### Normal auth cycle and Database-init
