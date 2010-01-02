@@ -227,9 +227,9 @@
             </field>
             <field>
                 <name>cfg_module</name>
-                <type>varchar(20)</type>
+                <type>char(20)</type>
                 <null></null>
-                <key></key>
+                <key>IND</key>
                 <default></default>
                 <extra></extra>
             </field>
@@ -243,7 +243,7 @@
             </field>
             <field>
                 <name>cfg_pos</name>
-                <type>int(3)</type>
+                <type>tinyint(3)</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -259,10 +259,18 @@
         </table_head>
         <structure>
             <field>
-                <name>cfg_key</name>
-                <type>varchar(16)</type>
+                <name>id</name>
+                <type>smallint(5)</type>
                 <null></null>
-                <key></key>
+                <key>PRI</key>
+                <default></default>
+                <extra>auto_increment</extra>
+            </field>
+            <field>
+                <name>cfg_key</name>
+                <type>char(16)</type>
+                <null></null>
+                <key>IND</key>
                 <default></default>
                 <extra></extra>
             </field>
@@ -1438,7 +1446,7 @@
             </field>
             <field>
                 <name>ref_name</name>
-                <type>varchar(20)</type>
+                <type>char(20)</type>
                 <null></null>
                 <key></key>
                 <default></default>
@@ -1646,8 +1654,8 @@
 				<key>IND</key>
 				<default></default>
 				<extra></extra>
-                <foreign_key>user.userid</foreign_key>
-    	       <on_delete>DELETE</on_delete>
+        <foreign_key>user.userid</foreign_key>
+        <on_delete>DELETE</on_delete>
 			</field>
 		</structure>
     </table>
