@@ -823,19 +823,12 @@ class func {
     }
     
     function getActiveModules() {
-      global $db, $ActiveModules;
+      global $db;
 
-      $ActiveModules = array(); // deprecated should be replaced by isModActive();
       $this->ActiveModules = array();
       $res = $db->qry('SELECT name, caption FROM %prefix%modules WHERE active = 1');
-      while($row = $db->fetch_array($res)) {
-        $ActiveModules[] = $row['name'];
-        $this->ActiveModules[$row['name']] = $row['caption'];
-      }
+      while($row = $db->fetch_array($res)) $this->ActiveModules[$row['name']] = $row['caption'];
       $db->free_result($res);
-      $ActiveModules[] = 'helplet';
-      $ActiveModules[] = 'popups';
-      $ActiveModules[] = 'auth';
       $this->ActiveModules['helplet'] = 'Helplets';
       $this->ActiveModules['popups'] = 'Popups';
       $this->ActiveModules['auth'] = 'Auth';

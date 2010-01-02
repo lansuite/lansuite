@@ -140,7 +140,7 @@ else switch ($_GET['step']) {
 
     $dsp->StartTab(t('Datenbank'), 'database');
   		if (!file_exists('modules/'. $_GET['module'] .'/mod_settings/db.xml')) $func->information(t('Dieses Modul benötigt keine Datenbank Tabellen'), NO_LINK);
-  		elseif (!in_array($_GET['module'], $ActiveModules)) $func->information(t('Dieses Modul ist nicht aktiv.'));
+  		elseif (!$func->isModActive($_GET['module'])) $func->information(t('Dieses Modul ist nicht aktiv.'));
   		else {
         switch ($_GET['step']) {
         	// Rewrite specific Module-DB - Question

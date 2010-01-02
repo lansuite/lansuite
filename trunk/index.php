@@ -196,7 +196,6 @@
 
 ### Installingsystem or normal auth
 
-    $ActiveModules = array();
     if ($config['environment']['configured'] == 0) {
         $translation->load_trans('xml', 'install'); // Filemode on Installation
         ### Prepare install
@@ -254,7 +253,7 @@
 
     // Initialize party
     // Needed also, when not configured for LanSurfer Import
-    if (in_array('party', $ActiveModules)) {
+    if ($func->isModActive('party')) {
       include_once("modules/party/class_party.php");
       $party = new party();
     } else { // If without party-module: just give a fake ID, for many modules need it

@@ -25,11 +25,11 @@ class plugin {
     var $type = '';
 
     function plugin($type) {
-      global $db, $ActiveModules, $func;
+      global $db, $func;
 
       $res = $db->qry('SELECT caption, module, icon FROM %prefix%plugin WHERE pluginType = %string% ORDER BY pos', $type);
       while ($row = $db->fetch_array($res)) {
-        if (in_array($row['module'], $ActiveModules)) {
+        if ($func->isModActive($row['module'])) {
           $this->modules[] = $row['module'];
           ($row['caption'] != '')? $this->captions[] = $row['caption'] : $this->captions[] = $row['module'];
           ($row['icon'] != '')? $this->icons[] = $row['icon'] : $this->icons[] = $row['icon'];

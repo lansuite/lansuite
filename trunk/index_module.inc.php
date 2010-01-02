@@ -56,8 +56,7 @@ if (!$missing_fields and !$siteblock) {
 
         default:
             // If module is deactivated display error message
-            if (!in_array($mod, $ActiveModules))
-                $func->error('DEACTIVATED');
+            if (!$func->isModActive($mod)) $func->error('DEACTIVATED');
 
             //// Load Mod-Config
             else {

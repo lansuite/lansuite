@@ -113,7 +113,7 @@ class auth {
    * @return array Returns the auth-dataarray
    */
     function login($email, $password, $show_confirmation = 1) {
-        global $db, $func, $cfg, $party, $ActiveModules;
+        global $db, $func, $cfg, $party;
 
         $tmp_login_email = "";
         $tmp_login_pass = "";        
@@ -138,7 +138,7 @@ class auth {
               $tmp_login_email, $is_email, $tmp_login_email);
 
             // Needs to be a seperate query; WHERE (p.party_id IS NULL OR p.party_id=%int%) does not work when 2 parties exist
-            if (in_array('party', $ActiveModules)) $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
+            if ($func->isModActive('party')) $party_query = $db->qry_first('SELECT p.checkin AS checkin, p.checkout AS checkout FROM %prefix%party_user AS p WHERE p.party_id=%int% AND user_id=%int%', $party->party_id, $user['userid']);
 
             // Count login errors
             $row = $db->qry_first('SELECT COUNT(*) AS anz
@@ -179,11 +179,11 @@ class auth {
                 $db->qry('INSERT INTO %prefix%login_errors SET userid = %int%, ip = INET_ATON(%string%)', $user['userid'], $_SERVER['REMOTE_ADDR']);
                 $this->cookie_unset();
             // Not checked in?
-            } elseif(in_array('party', $ActiveModules) and (!$party_query["checkin"] or $party_query["checkin"] == '0000-00-00 00:00:00') AND $user["type"] < 2 AND !$cfg["sys_internet"]){
+            } elseif($func->isModActive('party') and (!$party_query["checkin"] or $party_query["checkin"] == '0000-00-00 00:00:00') AND $user["type"] < 2 AND !$cfg["sys_internet"]){
                 $func->information(t('Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account nicht eingecheckt).', $tmp_login_email), "2", "Authentifikation");
             // Already checked out?
-            } elseif (in_array('party', $ActiveModules) and $party_query["checkout"] and $party_query["checkout"] != '0000-00-00 00:00:00' AND $user["type"] < 2 AND !$cfg["sys_internet"]){
+            } elseif ($func->isModActive('party') and $party_query["checkout"] and $party_query["checkout"] != '0000-00-00 00:00:00' AND $user["type"] < 2 AND !$cfg["sys_internet"]){
                 $func->information(t('Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.') .HTML_NEWLINE. t('Bitte melden Sie sich bei der Organisation.'), '', 1);
                 $func->log_event(t('Login für %1 fehlgeschlagen (Account ausgecheckt).', $tmp_login_email), "2", "Authentifikation");
             // Everything fine!
@@ -255,7 +255,7 @@ class auth {
      * Logs the user on the phpbb board on, if the board was integrated.
      */
     function loginPhpbb($userid = '') {
-        global $config, $ActiveModules;
+        global $config, $func;
 
         if ($userid == '')
             $userid = $this->auth['userid'];
@@ -263,7 +263,7 @@ class auth {
         // The User will be logged in on the phpBB Board if the modul is available, configured and active.
         if ($config['environment']['configured'])
         {
-            if (in_array('board2', $ActiveModules)) {
+            if ($func->isModActive('board2')) {
                 include_once ('./modules/board2/class_board2.php');
                 $board2 = new Board2();
                 $board2->loginPhpBB($userid);
@@ -277,7 +277,7 @@ class auth {
      * @return array Returns the cleared auth-dataarray
      */
     function logout() {
-        global $db, $ActiveModules, $func;
+        global $db, $func;
 
         // Delete entry from SID
         $db->qry('DELETE FROM %prefix%stats_auth WHERE sessid=%string%', $this->auth["sessid"]);
@@ -309,10 +309,10 @@ class auth {
      * Logs the user from the phpbb board off, if it was integrated.
      */
     function logoutPhpbb() {
-        global $ActiveModules;
+        global $func;
  
         // The User will be logged out on the phpBB Board if the modul is available, configured and active.
-        if (in_array('board2', $ActiveModules) and $this->auth['userid'] != '') {
+        if ($func->isModActive('board2') and $this->auth['userid'] != '') {
             include_once ('./modules/board2/class_board2.php');
             $board2 = new board2();
             $board2->logoutPhpBB($this->auth['userid']);
