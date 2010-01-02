@@ -57,7 +57,7 @@ class foodcenter_print{
 
 
 	function GetSupp($value){
-		global $lang, $db, $config;
+		global $lang, $db;
 		
 		if($value == ""){
 			return t('Verschiedene');		
@@ -71,7 +71,7 @@ class foodcenter_print{
 	
 	
 	function GetFoodoption($value){
-		global $func, $cfg, $db, $config, $lang;
+		global $func, $cfg, $db, $lang;
 		
 		
 		if(stristr($value,"/")){
@@ -101,7 +101,7 @@ class foodcenter_print{
 	}
 
 	function GetUsername( $userid )	{
-		global $db, $config, $lang;
+		global $db, $lang;
 		if($userid == 'all'){
 			return t('Verschiedene');	
 		}else {
@@ -111,7 +111,7 @@ class foodcenter_print{
 	}
 	
 	function GetUserdata( $userid )	{
-		global $db, $config, $lang, $party;
+		global $db, $lang, $party;
 		if($userid == 'all'){
 			return t('Verschiedene');	
 		}else {
@@ -131,7 +131,7 @@ class foodcenter_print{
 	}
 
 	function sql(){
-		global $db, $config;
+		global $db;
 		// Suchstring erstellen
 		if($_POST['search_input'][0] != ""){
 			$config['search_fields'][]  = "p.caption";

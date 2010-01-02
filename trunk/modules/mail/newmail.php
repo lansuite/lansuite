@@ -6,7 +6,7 @@ $dsp->NewContent(t('Neue Mail verfassen'), '');
 $dsp->AddContent();
 
 function SendOnlineMail() {
-  global $db, $config, $func, $__POST, $auth;
+  global $db, $func, $__POST, $auth;
 
   include_once("modules/mail/class_mail.php");
   $mail = new mail();

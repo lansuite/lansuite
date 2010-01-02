@@ -7,7 +7,7 @@ $seat2 = new seat2();
 class guestlist {
 
   function SetPaid($userid, $partyid) {
-    global $db, $config, $cfg, $func, $auth, $seat2, $usrmgr;
+    global $db, $cfg, $func, $auth, $seat2, $usrmgr;
 
     include_once("modules/mail/class_mail.php");
     $mail = new mail();
@@ -44,7 +44,7 @@ class guestlist {
   }
 
   function SetNotPaid($userid, $partyid) {
-    global $db, $config, $cfg, $func, $auth, $seat2, $usrmgr;
+    global $db, $cfg, $func, $auth, $seat2, $usrmgr;
 
     include_once("modules/mail/class_mail.php");
     $mail = new mail();
@@ -78,7 +78,7 @@ class guestlist {
   }
 
   function CheckIn($userid, $partyid) {
-    global $db, $config, $func;
+    global $db, $func;
 
     // Check paid
     $row = $db->qry_first('SELECT paid FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
@@ -93,7 +93,7 @@ class guestlist {
   }
 
   function CheckOut($userid, $partyid) {
-    global $db, $config, $func;
+    global $db, $func;
 
     // Check checkin
     $row = $db->qry_first('SELECT checkin FROM %prefix%party_user WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
@@ -108,7 +108,7 @@ class guestlist {
   }
 
   function UndoCheckInOut($userid, $partyid) {
-    global $db, $config, $func;
+    global $db, $func;
 
     $db->qry('UPDATE %prefix%party_user SET checkin = 0, checkout = 0 WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
 

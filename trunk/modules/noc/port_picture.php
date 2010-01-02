@@ -11,9 +11,6 @@ $noc = new noc();
  *	Maintainer: Joachim Garth <josch@one-network.org>
  */
 
-If ( $config['environment']['gd'] == "0" ) { break; }
-
-
 // Check Filesystem
 $filepath = "design/images/";
 

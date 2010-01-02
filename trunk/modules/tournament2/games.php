@@ -67,7 +67,7 @@ function WriteRoundHeadline($headline, $akt_round){
 
 
 function WritePairs ($bracket, $max_pos) {
-	global $config, $dsp, $db, $tournamentid, $tfunc, $akt_round, $lang, $func, $map, $tournament, $i, $game;
+	global $dsp, $db, $tournamentid, $tfunc, $akt_round, $lang, $func, $map, $tournament, $i, $game;
 
 	WriteRoundHeadline("$bracket-Bracket - ", $akt_round);
 

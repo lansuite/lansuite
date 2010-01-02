@@ -5,7 +5,7 @@ $news = new News();
 class News {
 
   function GenerateNewsfeed() {
-    global $db, $config, $cfg, $func;
+    global $db, $cfg, $func;
 
     include_once("inc/classes/class_xml.php");
     $xml = new xml;

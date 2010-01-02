@@ -25,7 +25,7 @@ else {
   if ($_GET['user_id'] == $auth['userid'] or $auth['type'] >= 2) {
   
     function ChangeAllowed($id) {
-      global $db, $config, $row, $lang, $func, $auth, $seat2;
+      global $db, $row, $lang, $func, $auth, $seat2;
     
       // Do not allow changes, if party is over
       if ($row['enddate'] < time()) return t('Sie können Sich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist');

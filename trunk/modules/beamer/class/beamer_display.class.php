@@ -34,7 +34,7 @@ class beamer_display {
 
 	
 	function viewContent () {
-	global $dsp, $lang, $beamermodul, $bcid, $beamerid, $config;
+	global $dsp, $lang, $beamermodul, $bcid, $beamerid;
 
 		// private ms2 funktionen
 		function formatContentType ( $var ) {

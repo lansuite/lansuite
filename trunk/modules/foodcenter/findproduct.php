@@ -3,7 +3,7 @@ include_once("modules/foodcenter/class_product.php");
 include_once('modules/mastersearch2/class_mastersearch2.php');
   
 function GetTitelName($id) {
-	global $db, $config, $auth, $lang;
+	global $db, $auth, $lang;
 
 	$data = $db->qry_first("SELECT caption, p_desc, cat_id FROM %prefix%food_product WHERE id = %int%", $id);
 	

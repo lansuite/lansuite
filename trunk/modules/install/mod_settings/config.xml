@@ -223,6 +223,12 @@
     		<description>Nur Eingeloggte dürfen Kommentare verfassen</description>
     	</item>
     	<item>
+    		<name>show_mysql_errors</name>
+    		<type>boolean</type>
+    		<default>1</default>
+    		<description>MySQL Fehlermeldungen anzeigen</description>
+    	</item>
+    	<item>
     		<name>mf_forbidden_trashmail_domains</name>
     		<type>text</type>
     		<default>dodgeit.com

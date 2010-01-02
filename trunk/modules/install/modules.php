@@ -4,14 +4,14 @@ include_once('modules/install/class_install.php');
 $install = new Install();
 
 function FindCfgKeyForMod($name) {
-  global $db, $config;
+  global $db;
 
     $find_config = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $name);
     if ($find_config["cfg_key"] != '') return true; else return false;
 } 
 
 function WriteMenuEntries() {
-  global $smarty, $res, $db, $config, $dsp, $MenuCallbacks;
+  global $smarty, $res, $db, $dsp, $MenuCallbacks;
 
   if ($db->num_rows($res) == 0) $dsp->AddDoubleRow("", "<i>- keine -</i>");
   else while ($row = $db->fetch_array($res)) {

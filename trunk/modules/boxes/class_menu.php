@@ -173,9 +173,7 @@ function sys_internet() {
  * @return
  */
 function snmp() {
-  global $config;
-
-  if ($config['snmp']) return true;
+  if (extension_loaded('snmp')) return true;
   else return false;
 }
 

@@ -44,6 +44,7 @@ class MasterSearch2 {
     }
 
     $this->config['EntriesPerPage'] = 20;
+    $this->config['dont_link_first_line'] = false;
     $this->NoItemsText = t('Es wurden keine Einträge gefunden');
   }
 
@@ -533,7 +534,7 @@ class MasterSearch2 {
             $arr['entry'] = substr($arr['entry'], 0, $current_field['max_char'] - 2) .'...';
 
           // Link first row to same target as first icon
-          if ($k == 0 and !$config['dont_link_first_line'] and $this->icon_field[0]['link']) $arr['link'] = $this->icon_field[0]['link'] . $line[$select_id_field];
+          if ($k == 0 and !$this->config['dont_link_first_line'] and $this->icon_field[0]['link']) $arr['link'] = $this->icon_field[0]['link'] . $line[$select_id_field];
 
           // Width?
           if ($current_field['width']) $arr['width'] = $current_field['width'];

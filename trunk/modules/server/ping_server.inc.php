@@ -1,8 +1,7 @@
 <?php
 
-	function ping_server($host, $port) 
-	{
-		global $db, $config,$func;
+	function ping_server($host, $port) {
+		global $db, $func;
 
 		$cfg["server_ping_refresh"] = (int) $cfg["server_ping_refresh"];
 		$server_daten = $db->qry_first("SELECT UNIX_TIMESTAMP(NOW())-UNIX_TIMESTAMP(lastscan) AS idle, type, available, special_info

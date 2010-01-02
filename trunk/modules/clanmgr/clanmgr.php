@@ -12,7 +12,7 @@ function ShowRole ($role) {
 }
 
 function CheckClanPW ($clanpw) {
-  global $db, $config, $auth;
+  global $db, $auth;
 
   $clan = $db->qry_first("SELECT password FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);
   if ($clan['password'] and $clan['password'] == md5($clanpw)) return true;

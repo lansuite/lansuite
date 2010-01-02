@@ -48,7 +48,7 @@ case 2:
    WHERE  userid =%int%
    ", $auth['userid']);
 			$user_num = $db->num_rows();
-			if($user_num >= $config[size][buddies]) {
+			if($user_num >= 20) {
 				$to_many_users = 1;
 			}
 

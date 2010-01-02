@@ -6,7 +6,7 @@ class stats {
 	
 	// Constructor
 	function stats() {
-		global $db, $config, $auth;
+		global $db, $auth;
 
 		// Update usage stats
 		// Is the user known, or is it a new visit? - After 30min idle this counts as a new visit
@@ -70,7 +70,7 @@ class stats {
 
 	// this function is called on each page
 	function update($time, $size) {
-		global $db, $config, $auth;
+		global $db, $auth;
 
 		// Update duration and traffic
     $time = round($time, 0);
@@ -185,7 +185,7 @@ class stats {
 		$stats['start'] 	= $_SESSION['party_info']['partybegin'];
 		$stats['end'] 		= $_SESSION['party_info']['partyend'];
 		$stats['mail'] 		= $cfg["sys_party_mail"];
-		$stats['version'] 	= $config['lansuite']['version'];
+		$stats['version'] = $config['lansuite']['version'];
 
 		return $stats;		
 	}

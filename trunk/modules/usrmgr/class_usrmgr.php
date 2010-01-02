@@ -31,14 +31,14 @@ class UsrMgr {
   }
 
   function LockAccount($userid) {
-    global $db, $config;
+    global $db;
 
     $db->qry("UPDATE %prefix%user SET locked = 1 WHERE userid=%int%", $userid);
     $db->qry('DELETE FROM %prefix%stats_auth WHERE userid=%int%', $userid);
   }
 
   function UnlockAccount($userid) {
-    global $db, $config;
+    global $db;
 
     $db->qry("UPDATE %prefix%user SET locked = 0 WHERE userid=%int%", $userid);
   }
@@ -112,7 +112,7 @@ class UsrMgr {
 
 
     function SendSignonMail($type = 0){
-        global $cfg, $func, $templ, $dsp, $mail, $db, $config, $auth;
+        global $cfg, $func, $templ, $dsp, $mail, $db, $auth;
 
     switch ($type) {
 

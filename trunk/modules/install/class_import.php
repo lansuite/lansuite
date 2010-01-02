@@ -587,7 +587,7 @@ class Import {
 
 
 	function ImportCSV($tmp_file_name, $del_db, $replace, $signon, $comment){
-		global $db, $config;
+		global $db;
 
 		// Delete User-Table
 		if ($del_db){

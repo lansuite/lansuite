@@ -21,7 +21,7 @@ class beamer {
   
   
   function countSQL($where) {
-  global $db, $config;
+  global $db;
    $row = $db->qry_first("SELECT count(bcID) as n FROM %prefix%beamer_content %plain%", $where);
    return $row['n']; 
   }
@@ -43,13 +43,13 @@ class beamer {
 
  
   function set2first( $bcid ) {
-  global $config, $db; 
+  global $db;
   	  	$update = $db->qry("UPDATE %prefix%beamer_content SET lastView = '0' WHERE bcid = %int% LIMIT 1", $bcid);
   }
  
  
   function toggleActive ( $bcid ) {
-  global $config, $db;
+  global $db;
   	$row = $db->qry_first("SELECT active FROM %prefix%beamer_content WHERE bcID = %int%", $bcid);
 	$active = $row['active'];
 	
@@ -62,7 +62,7 @@ class beamer {
 
 
   function toggleBeamerActive ( $bcid , $beamerid ) {
-  global $config, $db;
+  global $db;
     if( $beamerid == "" ) { return; }
   	$row = $db->qry_first('SELECT b%plain% As active FROM %prefix%beamer_content WHERE bcID = %int%', $beamerid, $bcid);
 	$active = $row['active'];
@@ -74,7 +74,7 @@ class beamer {
   }
 
   function deleteContent ( $bcid ) {
-  global $db, $config;
+  global $db;
   
   	$delete =  $db->qry("DELETE FROM %prefix%beamer_content WHERE bcID = %int% LIMIT 1", $bcid);
   
@@ -82,7 +82,7 @@ class beamer {
   
 
   function saveContent ( $c ) {
-  global $config, $db;
+  global $db;
   
 	$lastview = time();
   	if ( !$c['bcid'] ) 
@@ -99,7 +99,7 @@ class beamer {
 
   
   function getContent( $bcid ) {
-  global $db, $config, $func;  
+  global $db, $func;
   	$row = $db->qry_first("SELECT * FROM %prefix%beamer_content WHERE bcid = %int% LIMIT 1", $bcid);
 	return $row;
   
@@ -112,7 +112,7 @@ class beamer {
   */
   
   function getCurrentContent ( $beamerid ) {
-  global $db, $config, $func;
+  global $db, $func;
   
   	$row = $db->qry_first('SELECT * FROM %prefix%beamer_content WHERE active = 1 AND b%plain% = 1 ORDER BY lastView ASC', $beamerid);
 	$update = $db->qry('UPDATE %prefix%beamer_content SET lastView = %int% WHERE bcID = %int% LIMIT 1', time(), $row['bcID']);
@@ -144,7 +144,7 @@ class beamer {
   
   
   function getAllTournamentsAsOptionList() {
-  global $db, $config, $func;
+  global $db, $func;
     
   	$result = $db->qry('SELECT tournamentid, name FROM %prefix%tournament_tournaments');
 	while ($row = $db->fetch_array($result))
@@ -155,7 +155,7 @@ class beamer {
   }
   
   function getTournamentNamebyID( $ctid ) {
-  global $db, $config, $func;  
+  global $db, $func;
    	$result = $db->qry_first('SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%', $ctid);
     return $result['name'];
   }

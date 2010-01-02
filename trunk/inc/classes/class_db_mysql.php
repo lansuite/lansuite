@@ -238,9 +238,9 @@ class db {
   }
 
   function DisplayErrors() {
-    global $config, $func;
+    global $cfg, $func;
 
-    if ($config['database']['display_debug_errors'] and $this->errors) {
+    if ($cfg['show_mysql_errors'] and $this->errors) {
       $func->error($this->errors);
       $this->errors = '';
     } 

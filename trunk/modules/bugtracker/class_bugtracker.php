@@ -16,7 +16,7 @@ class Bugtracker {
   }
 
   function SetBugStateInternal($bugid, $state) {
-    global $db, $config, $func, $auth;
+    global $db, $func, $auth;
 
     if ($auth['type'] <= 1) {
       $row = $db->qry_first("SELECT reporter, caption, state FROM %prefix%bugtracker WHERE bugid = %int%", $bugid);
@@ -79,7 +79,7 @@ class Bugtracker {
   }
 
   function AssignBugToUserInternal($bugid, $userid) {
-    global $db, $config, $func, $auth;
+    global $db, $func, $auth;
 
     $row = $db->qry_first("SELECT 1 AS found FROM %prefix%bugtracker WHERE agent = %int% AND bugid = %int%", $userid, $bugid);
     if (!$row['found']) {

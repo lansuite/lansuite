@@ -23,7 +23,7 @@ class modules {
    *
    */
     function modules() {
-        global $db, $config;
+        global $db;
 
         // Read Active Modules (once, better performance)
         $res = $db->qry("SELECT name FROM %prefix%modules WHERE active = 1");
@@ -101,7 +101,7 @@ class modules {
    * @return boolean Should Userrights to be resetet?
    */
     function get_modulpermission($modul, $userid) {
-        global $config;
+        global $db;
         // Has at least someone access to this mod?
         $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions WHERE module = %string%", $modul);
         // If so: Has the current user access to this mod?

@@ -154,7 +154,7 @@ class noc {
 	}
 	
 	function getMacAddress($Device,$ReadComunity,$device_id,$modell){
-		global $db,$config;
+		global $db;
 		
 		$ports = $this->getSNMPwalk($Device,$ReadComunity,".1.3.6.1.2.1.17.4.3.1.2");
 		$Addresses = $this->getSNMPwalk($Device,$ReadComunity,".1.3.6.1.2.1.17.4.3.1.1");
@@ -190,7 +190,7 @@ class noc {
 	}
 		
 	function IPtoMAC_arp($ip){
-		global $db,$dsp,$config,$lang,$func;
+		global $db,$dsp,$lang,$func;
 		// Host anpingen um seine MAC-Adresse in den Speicher zu laden.
 		$func->ping($ip);
 		if (stristr(strtolower($_SERVER['SERVER_SOFTWARE']) , "win") == ""){

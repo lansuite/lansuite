@@ -1,6 +1,6 @@
 <?php
 function LastPostDetails($date) {
-  global $db, $config, $line, $dsp, $templ, $cfg;
+  global $db, $line, $dsp, $templ, $cfg;
 
   if ($date) {
     $row = $db->qry_first("SELECT p.userid, p.pid, p.tid, u.username FROM %prefix%board_posts AS p

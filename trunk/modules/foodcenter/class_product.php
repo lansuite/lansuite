@@ -359,7 +359,7 @@ class product{
 
     /*
     function get_product_by_option($id){
-        global $db,$config;
+        global $db;
         
         $option = $db->qry_first("SELECT parentid FROM %prefix%food_option WHERE id=%int%", $id);   
         

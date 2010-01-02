@@ -263,7 +263,7 @@ class auth {
         // The User will be logged in on the phpBB Board if the modul is available, configured and active.
         if ($config['environment']['configured'])
         {
-            if (in_array('board2', $ActiveModules) and $config["board2"]["configured"]) {
+            if (in_array('board2', $ActiveModules)) {
                 include_once ('./modules/board2/class_board2.php');
                 $board2 = new Board2();
                 $board2->loginPhpBB($userid);
@@ -309,10 +309,10 @@ class auth {
      * Logs the user from the phpbb board off, if it was integrated.
      */
     function logoutPhpbb() {
-        global $config, $ActiveModules;
+        global $ActiveModules;
  
         // The User will be logged out on the phpBB Board if the modul is available, configured and active.
-        if (in_array('board2', $ActiveModules) and $config['board2']['configured'] and $this->auth['userid'] != '') {
+        if (in_array('board2', $ActiveModules) and $this->auth['userid'] != '') {
             include_once ('./modules/board2/class_board2.php');
             $board2 = new board2();
             $board2->logoutPhpBB($this->auth['userid']);

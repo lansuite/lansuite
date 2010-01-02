@@ -142,7 +142,7 @@ class Install {
 
   // Insert PLZ-Entrys in DB, if not exist
   function InsertPLZs() {
-      global $db, $config, $cfg;
+      global $db, $cfg;
 
       if ($cfg['guestlist_guestmap'] == 1) {
         $return_val = 1;
@@ -177,7 +177,7 @@ class Install {
   // Auto-Load Modules from XML-Files
   // And boxes
   function InsertModules($rewrite = false) {
-    global $db, $config, $xml, $func;
+    global $db, $xml, $func;
 
     // Tabelle Modules leeren um Module zu deinstallieren
     if($_GET["action"] == "wizard") $db->qry("TRUNCATE TABLE %prefix%modules");
@@ -342,7 +342,7 @@ class Install {
 
   // Auto-Load Menuentries from XML-Files
   function InsertMenus($rewrite = false) {
-    global $db, $config, $xml;
+    global $db, $xml;
 
     $menubox = $db->qry_first('SELECT boxid FROM %prefix%boxes WHERE source = \'menu\' AND active = 1');
 
@@ -431,7 +431,7 @@ class Install {
 
   // System prüfen
   function envcheck() {
-    global $db, $dsp, $config, $func;
+    global $db, $dsp, $func;
 
     $continue = 1;
 
@@ -501,11 +501,9 @@ class Install {
             $gd_check .= '<table>';
             foreach ($GD as $key => $val) $gd_check .= '<tr><td class="content">'. $key .'</td><td class="content">'. $val .'</td></tr>';
             $gd_check .= '</table>';
-            $config["environment"]["gd"] = 1;
         } else $gd_check = $warning . t('Auf Ihrem System wurde das PHP-Modul <b>GD-Library</b> nur in der Version GD1  gefunden. Damit ist die Qualität der erzeugten Bilder wesentlich schlechter. Es wird deshalb empfohlen GD2 zu benutzen. Sollten Sie die Auswahl zwischen GD und GD2 haben, wählen Sie immer das neuere GD2. Sie können die Installation jetzt fortführen, allerdings werden Sie entsprechende Einschränkungen im Gebrauch machen müssen.');
     } else {
         $gd_check = $failed . t('Auf Ihrem System konnte das PHP-Modul <b>GD-Library</b> nicht gefunden werden. Durch diese Programmierbibliothek werden in Lansuite Grafiken, wie z.B. User-Avatare generiert. Ab PHP Version 4.3.0 ist die GD bereits in PHP enthalten. Sollten Sie PHP 4.3.0 installiert haben und diese Meldung dennoch erhalten, überprüfen Sie, ob das GD-Modul evtl. deaktiviert ist. In PHP Version 4.2.3 ist die GD nicht enthalten. Wenn Sie diese Version benutzen muss GD 2.0 separat heruntergeladen, installiert und in PHP einkompiliert werden. Sollten Sie Windows und PHP 4.2.3 benutzen, empfehlen wir auf PHP 4.3.0 umzusteigen, da Sie sich auf diese Weise viel Arbeit sparen. Sollten Sie die Auswahl zwischen GD und GD2 haben, wählen Sie immer das neuere GD2. Sie können die Installation jetzt fortführen, allerdings werden Sie erhebliche Einschränkungen im Gebrauch machen müssen.');
-        $config["environment"]["gd"] = 0;
     }
     $dsp->AddDoubleRow("GD Library", $gd_check);
 
@@ -514,42 +512,28 @@ class Install {
     else $safe_mode = $not_possible . t('Auf Ihrem System ist die PHP-Einstellung <b>safe_mode</b> auf <b>On</b> gesetzt. safe_mode ist dazu gedacht, einige Systemfunktionen auf dem Server zu sperren um Angriffe zu verhindern (siehe dazu: <a href=\'http://de2.php.net/features.safe-mode\' target=\'_blank\'>www.php.net</a>). Doch leider benötigen einige Lansuite-Module (speziell: LansinTV, Serverstatistiken oder das Server-Modul) Zugriff auf genau diese Funktionen. Sie sollten daher, wenn Sie Probleme in diesen Modulen haben, in Ihrer <b>PHP.ini</b> die Option <b>safe_mode</b> auf <b>Off</b> setzen! <br />Außer bei oben genannten Modulen, kann es bei aktiviertem safe_mode außerdem auch zu Problemen bei dem Generieren von Buttons, wie dem am Ende dieser Seite kommen.');
     $dsp->AddDoubleRow("Safe Mode", $safe_mode);
 
-    // Server statistic
-    $config["server_stats"]["status"] = 0;
-    $config["server_stats"]["uptime"] = 0;
-    $config["server_stats"]["cpuinfo"] = 0;
-    $config["server_stats"]["meminfo"] = 0;
-    $config["server_stats"]["loadavg"] = 0;
-    $config["server_stats"]["ifconfig"] = 0;
-    $config["server_stats"]["ls_getinfo"] = 0;
-
     // Testing Safe-Mode and execution of system-programs
     if (!ini_get("safe_mode")) {
       if (stristr(strtolower($_SERVER['SERVER_SOFTWARE']) , "win") == ""){
         if (@shell_exec("cat /proc/uptime") == ""){
           $env_stats .= "<strong>/proc/uptime</strong>" . HTML_NEWLINE;
-          $config["server_stats"]["uptime"] = 0;
-        } else $config["server_stats"]["uptime"] = 1;
+        }
 
         if (@shell_exec("/sbin/ifconfig") == "" and @shell_exec("/usr/sbin/ifconfig") == ""){
           $env_stats .= "<strong>ifconfig</strong>" . HTML_NEWLINE;
-          $config["server_stats"]["ifconfig"] = 0;
-        } else $config["server_stats"]["ifconfig"] = 1;
+        }
 
         if (@shell_exec("cat /proc/loadavg") == ""){
           $env_stats .= "<strong>/proc/loadavg</strong>" . HTML_NEWLINE;
-          $config["server_stats"]["loadavg"] = 0;
-        } else $config["server_stats"]["loadavg"] = 1;
+        }
 
         if (@shell_exec("cat /proc/cpuinfo") == ""){
           $env_stats .= "<strong>/proc/cpuinfo</strong>" . HTML_NEWLINE;
-          $config["server_stats"]["cpuinfo"] = 0;
-        } else $config["server_stats"]["cpuinfo"] = 1;  
+        }  
 
         if (@shell_exec("cat /proc/meminfo") == ""){
           $env_stats .= "<strong>/proc/meminfo</strong>" . HTML_NEWLINE;
-          $config["server_stats"]["meminfo"] = 0;
-        } else $config["server_stats"]["meminfo"] = 0;
+        }
 
         if ($env_stats == "") $server_stats = $ok;
         else $server_stats = $not_possible . ereg_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei HTML_NEWLINE{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
@@ -558,13 +542,10 @@ class Install {
       } else {
         system("modules\stats\ls_getinfo.exe", $status);
         if ($status == 0){
-          $config["server_stats"]["status"] = 1;
-          $config["server_stats"]["ls_getinfo"] = 1;
           $server_stats = $ok;
         } else {
           $env_stats = "<strong>modules/stats/ls_getinfo.exe</strong>" . HTML_NEWLINE;
           $server_stats = $not_possible . ereg_replace("{FEHLER}", $env_stats, t('Auf ihrem System leider nicht möglich. Der Befehl oder die Datei HTML_NEWLINE{FEHLER} wurde nicht gefunden. Evtl. sind nur die Berechtigungen der Datei nicht ausreichend gesetzt.'));
-          $config["server_stats"]["status"] = 0;
         }
       }
       $dsp->AddDoubleRow("Server Stats", $server_stats);
@@ -578,20 +559,16 @@ class Install {
     // SNMP-Lib
     if (extension_loaded('snmp')){
         $snmp_check = $ok;
-        $config["environment"]["snmp"] = 1;
     } else {
         $snmp_check = $not_possible . t('Auf Ihrem System konnte das PHP-Modul <b>SNMP-Library</b> nicht gefunden werden. SNMP ermöglicht es, auf Netzwerkdevices zuzugreifen, um detaillierte Informatioen über diese zu liefern. Ohne diese Bibliothek kann das Lansuite-Modul <b> NOC </b> (Netzwerküberwachung) nicht arbeiten. Das Modul NOC wird <b>automatisch deaktiviert</b>.');
-        $config["environment"]["snmp"] = 0;
     }
     $dsp->AddDoubleRow("SNMP Library", $snmp_check);
 
     // FTP-Lib
     if (extension_loaded('ftp')){
         $ftp_check = $ok;
-        $config["environment"]["ftp"] = 1;
     } else {
         $ftp_check = $not_possible . t('Auf Ihrem System konnte das PHP-Modul <b>FTP-Library</b> nicht gefunden werden. Dies hat zur Folge haben, dass das Download-Modul nur im Standard-Modus, jedoch nicht im FTP-Modus, verwendet werden kann');
-        $config["environment"]["ftp"] = 0;
     }
     $dsp->AddDoubleRow("FTP Library", $ftp_check);
 
@@ -677,20 +654,6 @@ class Install {
     $dsp->AddDoubleRow("Register_argc_argv", $check);
 
     $dsp->AddFieldSetEnd();
-
-
-    // Get Operating System
-    $software_arr =  preg_split('/\s/', $_SERVER['SERVER_SOFTWARE'], 0);
-    $environment_os =  preg_replace('/\(|\)/', "", $software_arr[1]);
-    $config["environment"]["os"] = $environment_os;
-
-    // Get Directory
-    $config["environment"]["dir"] = substr($_SERVER['REQUEST_URI'], 1, strpos($_SERVER['REQUEST_URI'] - 1, "index.php"));
-
-    // Set Configs
-    $this->WriteConfig();
-
-
     $dsp->AddFieldSetEnd();
 
     return $continue;
@@ -700,7 +663,7 @@ class Install {
   // This meens lansuite is not able to clean up tables, which changed their name during versions
   // But this is much safer than DROP DATABASE, for this clean methode would drop other web-systems using the same DB table, too
   function DeleteAllTables () {
-    global $config, $import, $xml, $db;
+    global $import, $xml, $db;
   
     $modules_dir = opendir("modules/");
     while ($module = readdir($modules_dir)) if ($module != "." AND $module != ".." AND $module != ".svn" AND is_dir("modules/$module")) {
@@ -720,7 +683,6 @@ class Install {
   }
   
   function check_updates(){
-    global $db, $config;
 /*
     include("modules/install/class_update.php");
     
