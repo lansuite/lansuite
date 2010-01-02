@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,36 +15,91 @@
 			<entry>
 				<id>ea1168e867fc3a51f45975443da8c6ca</id>
 				<org>Sortieren nach &quot;%1&quot; nicht möglich. Feld ist nicht im Select-Teil definiert</org>
+				<en>Sort by &amp;quot;%1&amp;quot; not possible. Field is not defined in the Select part</en>
+				<es>Ordenar por &amp;quot;%1&amp;quot; no es posible. Campo no se define en la parte Seleccionar</es>
+				<fr>Trier par &amp;quot;%1&amp;quot; n&amp;#39;est pas possible. Champ n&amp;#39;est pas défini dans la zone Sélectionner le cadre</fr>
+				<nl>Sorteren op &amp;quot;%1&amp;quot; niet mogelijk. Veld is niet gedefinieerd in het Select deel</nl>
+				<it>Ordina per &amp;quot;%1&amp;quot; non è possibile. Campo non è definito nel selezionare parte</it>
 				<file>mastersearch2</file>
 			</entry>
 			<entry>
 				<id>5b0d731637e877f6d8f1be86ca2b472e</id>
 				<org>Sortieren-Ordnung, darf nur ASC, oder DESC sein</org>
+				<en>Sort-order, may only be ASC or DESC to be</en>
+				<es>Ordenar orden, sólo podrán ser ASC o DESC para ser</es>
+				<fr>Sort-commande, mai seulement être ASC ou DESC pour être</fr>
+				<nl>Sorteer-orde, mag alleen worden ASC of DESC te</nl>
+				<it>Sort-fine, possono essere ASC o DESC per essere</it>
 				<file>mastersearch2</file>
 			</entry>
 			<entry>
 				<id>e18208d3c9423b835749d37cdca366c2</id>
 				<org>Zeige %1 von %2</org>
+				<en>Show%1%2</en>
+				<es>Mostrar%1%2</es>
+				<fr>Afficher%1%2</fr>
+				<nl>Toon%1%2</nl>
+				<it>Mostra%1%2</it>
 				<file>mastersearch2</file>
 			</entry>
 			<entry>
 				<id>229f63071ced9831a0288988ca8e1024</id>
 				<org>Zeige alle %1</org>
+				<en>Show all%1</en>
+				<es>Mostrar todos los%1</es>
+				<fr>Afficher tous les%1</fr>
+				<nl>Toon alle%1</nl>
+				<it>Mostra tutte le 1%</it>
 				<file>mastersearch2</file>
 			</entry>
 			<entry>
 				<id>30c00de81a6bdd246fcd5419ed4583d4</id>
 				<org>%1 Einträge</org>
+				<en>%1 entries</en>
+				<es>Entradas de 1%</es>
+				<fr>Entrées%1</fr>
+				<nl>%1 entries</nl>
+				<it>Entries%1</it>
 				<file>mastersearch2</file>
 			</entry>
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
+				<en>Yes</en>
+				<es>Sí</es>
+				<fr>Oui</fr>
+				<nl>Ja</nl>
+				<it>Sì</it>
 				<file>mastersearch2</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
+				<en>No</en>
+				<es>No</es>
+				<fr>Non</fr>
+				<nl>Nee</nl>
+				<it>No</it>
+				<file>mastersearch2</file>
+			</entry>
+			<entry>
+				<id>f5a04af5bc9568b0cf57272f38da6791</id>
+				<org>Es wurden keine Einträge gefunden</org>
+				<en>There were no results found</en>
+				<es>No se ha encontrado ningún resultado</es>
+				<fr>Aucun résultat trouvé</fr>
+				<nl>Er zijn geen resultaten gevonden</nl>
+				<it>Non ci sono stati risultati</it>
+				<file>mastersearch2</file>
+			</entry>
+			<entry>
+				<id>5dd135d1bcfa7f63c3b7f25425c2a4a1</id>
+				<org>Score</org>
+				<en>Score</en>
+				<es>Puntuación</es>
+				<fr>Score</fr>
+				<nl>Score</nl>
+				<it>Valutazione</it>
 				<file>mastersearch2</file>
 			</entry>
 		</content>

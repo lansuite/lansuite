@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,41 +15,81 @@
 			<entry>
 				<id>4557d6b7f0b38af1932188e11fa72383</id>
 				<org>Neue Wiki Einträge</org>
+				<en>New Wiki Entries</en>
+				<es>Nueva Wiki entradas</es>
+				<fr>New Wiki Entrées</fr>
+				<nl>Nieuwe Wiki Entries</nl>
+				<it>New Entries Wiki</it>
 				<file>wiki</file>
 			</entry>
 			<entry>
 				<id>18a8022569d6ced829f833aa855530ce</id>
 				<org>Titel</org>
+				<en>Title</en>
+				<es>Título</es>
+				<fr>Titre</fr>
+				<nl>Titel</nl>
+				<it>Titolo</it>
 				<file>wiki</file>
 			</entry>
 			<entry>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
+				<en>Text</en>
+				<es>Texto</es>
+				<fr>Texte</fr>
+				<nl>Tekst</nl>
+				<it>Testo</it>
 				<file>wiki</file>
 			</entry>
 			<entry>
 				<id>34b6cd75171affba6957e308dcbd92be</id>
 				<org>Version</org>
+				<en>Version</en>
+				<es>Versión</es>
+				<fr>Version</fr>
+				<nl>Versie</nl>
+				<it>Versione</it>
 				<file>wiki</file>
 			</entry>
 			<entry>
 				<id>5c1c5bafe6b260f65df62f3c90070f04</id>
 				<org>Letzer Autor</org>
+				<en>Letzer Author</en>
+				<es>Autor Letzer</es>
+				<fr>Letzer Auteur</fr>
+				<nl>Letzer Auteur</nl>
+				<it>Letzer Autore</it>
 				<file>wiki</file>
 			</entry>
 			<entry>
 				<id>3f0604b531a4e938485353e0188b6e4f</id>
 				<org>Letzte Änderung</org>
+				<en>Last Change</en>
+				<es>Last Change</es>
+				<fr>Last Change</fr>
+				<nl>Last Change</nl>
+				<it>Last Change</it>
 				<file>wiki</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
+				<en>Details</en>
+				<es>Detalles</es>
+				<fr>Détails</fr>
+				<nl>Details</nl>
+				<it>Dettagli</it>
 				<file>wiki</file>
 			</entry>
 			<entry>
 				<id>ec587aecd4a4830ab84f0c3ae0c6a2dd</id>
 				<org>Keine Einträge vorhanden</org>
+				<en>No entries</en>
+				<es>No hay entradas</es>
+				<fr>Pas d&amp;#39;entrées</fr>
+				<nl>No entries</nl>
+				<it>Nessuna voce</it>
 				<file>wiki</file>
 			</entry>
 		</content>

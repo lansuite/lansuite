@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,41 +15,81 @@
 			<entry>
 				<id>b8d1f656ae718a7db24ad2fd2383fe75</id>
 				<org>ShortOpenTags</org>
+				<en>ShortOpenTags</en>
+				<es>ShortOpenTags</es>
+				<fr>ShortOpenTags</fr>
+				<nl>ShortOpenTags</nl>
+				<it>ShortOpenTags</it>
 				<file>codecheck</file>
 			</entry>
 			<entry>
 				<id>9af6115eb51753faf15897584d0b78f8</id>
 				<org>$db-&gt;query</org>
+				<en>$ db-&amp;gt; query</en>
+				<es>Consulta $ db-&amp;gt;</es>
+				<fr>$ Db-&amp;gt; query</fr>
+				<nl>$ Db-&amp;gt; query</nl>
+				<it>$ Db-&amp;gt; query</it>
 				<file>codecheck</file>
 			</entry>
 			<entry>
 				<id>7015777bcc86cd0c5e4819310d62b040</id>
 				<org>Tabs</org>
+				<en>Tabs</en>
+				<es>Aquí</es>
+				<fr>Tabs</fr>
+				<nl>Tabs</nl>
+				<it>Tabs</it>
 				<file>codecheck</file>
 			</entry>
 			<entry>
 				<id>82ee279b339313c813dd40ad9d65d387</id>
 				<org>$ in $db-&gt;qry</org>
+				<en>$ In $ db-&amp;gt; qry</en>
+				<es>En $ $ db-&amp;gt; qry</es>
+				<fr>$ In $ db-&amp;gt; qry</fr>
+				<nl>In $ $ db-&amp;gt; qry</nl>
+				<it>In $ $ db-&amp;gt; qry</it>
 				<file>codecheck</file>
 			</entry>
 			<entry>
 				<id>cbfcca2f5bb6d27e624261500699e8d8</id>
 				<org>Es sollte immer &lt;?php statt &lt;? verwendet werden. Anders funktioniert LS beispielsweise im IIS nicht</org>
+				<en>It should always &lt;?php statt &lt;? verwendet werden. Anders funktioniert LS beispielsweise im IIS nicht</en>
+				<es>Se debe siempre &lt;?php statt &lt;? verwendet werden. Anders funktioniert LS beispielsweise im IIS nicht</es>
+				<fr>Il doit toujours &lt;?php statt &lt;? verwendet werden. Anders funktioniert LS beispielsweise im IIS nicht</fr>
+				<nl>Het moet altijd &lt;?php statt &lt;? verwendet werden. Anders funktioniert LS beispielsweise im IIS nicht</nl>
+				<it>Si deve sempre &lt;?php statt &lt;? verwendet werden. Anders funktioniert LS beispielsweise im IIS nicht</it>
 				<file>codecheck</file>
 			</entry>
 			<entry>
 				<id>9fa427d71fe45d442af7e5b71c224deb</id>
 				<org>$db-&gt;query sollte durch das neue $qb-&gt;qry ausgetauscht werden. Dieses kann SQL-Injections sehr zuverlässig verhindern</org>
+				<en>$ db-&amp;gt; query should be replaced by the new $ qb-&amp;gt; qry be replaced. This can very reliably prevent SQL injections</en>
+				<es>$ Db-&amp;gt; consulta debe ser sustituido por el nuevo $ qb-&amp;gt; qry ser sustituido. Esto puede muy fiable evitar que las inyecciones SQL</es>
+				<fr>$ Db-&amp;gt; query devrait être remplacé par la nouvelle somme de qb-&amp;gt; qry être remplacé. Cela peut très fiable éviter les injections SQL</fr>
+				<nl>$ Db-&amp;gt; query moeten worden vervangen door de nieuwe $ qb-&amp;gt; qry worden vervangen. Dit kan erg betrouwbaar voorkomen SQL injecties</nl>
+				<it>$ Db-&amp;gt; query dovrebbe essere sostituito dal nuovo $ QB-&amp;gt; qry essere sostituito. Questo può molto affidabile evitare iniezioni SQL</it>
 				<file>codecheck</file>
 			</entry>
 			<entry>
 				<id>d98efbc0ee5f45ab477fc321ff602a1a</id>
 				<org>Es sollten keine Tabs im Code verwendet werden. Statt dessen am Besten 2 Leerzeichen</org>
+				<en>It should not be used tabs in the code. Instead, the best 2 Spaces</en>
+				<es>No debe ser utilizado aquí en el código. En cambio, el mejor 2 plazas</es>
+				<fr>Il ne devrait pas être utilisé onglets dans le code. Au lieu de cela, le meilleur 2 places</fr>
+				<nl>Het mag niet worden gebruikt tabbladen in de code. In plaats daarvan, de beste 2 ruimtes</nl>
+				<it>Essa non deve essere utilizzato schede nel codice. Invece, i migliori 2 Spaces</it>
 				<file>codecheck</file>
 			</entry>
 			<entry>
 				<id>352df1e566caaeafdbf208bc7fb571a3</id>
 				<org>Kein $ in erstem $db-&gt;qry Parameter. Statt dessen %string%, oder %int% verwenden. Zur Not %plain%</org>
+				<en>No $ in the first $ db-&amp;gt; qry parameter. Instead,%%string, or use%%int. At a pinch, plain%%</en>
+				<es>N $ en los primeros $ db-&amp;gt; parámetro qry. En cambio, de cadena%%o%int%de uso. En un apuro,%%de fricción</es>
+				<fr>No $ dans les premiers $ db-&amp;gt; Paramètre qry. Au lieu de cela,%%chaîne de caractères, ou int%utilisent%. Lors d&amp;#39;une pincée,%%plaine</fr>
+				<nl>No $ in de eerste $ db-&amp;gt; qry parameter. In plaats daarvan,%%string, of gebruik%%int. Op een snuifje, vlakte%%</nl>
+				<it>No $ nei primi $ db-&amp;gt; parametro qry. Invece, stringa%%, o l&amp;#39;uso%%int. A un pizzico,%%pianura</it>
 				<file>codecheck</file>
 			</entry>
 		</content>

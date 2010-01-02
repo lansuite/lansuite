@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,196 +15,391 @@
 			<entry>
 				<id>3fb3e2357d542cf2bb08f3519fae7322</id>
 				<org>Kalkulation</org>
+				<en>Costing</en>
+				<es>Costeo</es>
+				<fr>Costing</fr>
+				<nl>Costing</nl>
+				<it>Costing</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>ccdabefa0fcf9c61d969e83d135830df</id>
 				<org>Zur aktuellen Lanparty zum derzeitigen Stand</org>
+				<en>On the current Lanparty the current state</en>
+				<es>En la Lanparty actual de la situación actual</es>
+				<fr>Sur la Lanparty actuelle de l&amp;#39;état actuel</fr>
+				<nl>Op de huidige Lanparty de huidige stand</nl>
+				<it>Sulla Lanparty corrente dello stato attuale</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>abcb3ba5684143af7fab59077c60f9f6</id>
 				<org>Betrag Buchen</org>
+				<en>Booking Amount</en>
+				<es>Cantidad de reservas</es>
+				<fr>Réservation Montant</fr>
+				<nl>Reservatie Bedrag</nl>
+				<it>Prenotazione Importo</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>59d5119be6549778a85846eb1c0664c7</id>
 				<org>Fixbetrag (z.B Miete oder Sponsoring) oder Geldschiebungen</org>
+				<en>Fixed amount (eg, rental or sponsorship) or money profiteering</en>
+				<es>Cantidad fija (por ejemplo, de alquiler o patrocinio) o dinero especulación</es>
+				<fr>Montant fixe (par exemple, de location ou de parrainage) ou de l&amp;#39;argent profiteurs</fr>
+				<nl>Vast bedrag (bijvoorbeeld huur of sponsoring) of geld woekerwinsten</nl>
+				<it>Importo fisso (ad esempio, di locazione o di sponsorizzazione) o soldi speculazione</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>9f28ab11360e68bf5bd9e19605adfc7d</id>
 				<org>Meine Buchhaltung</org>
+				<en>My Accounts</en>
+				<es>Mis cuentas</es>
+				<fr>Mes comptes</fr>
+				<nl>Mijn accounts</nl>
+				<it>My Account</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>aad3dcb226e72e4ed18a29dcaafa3933</id>
 				<org>Übersicht aller Ausgaben und Einnahmen</org>
+				<en>Overview of all expenditures and revenues</en>
+				<es>Listado de todos los gastos y los ingresos de</es>
+				<fr>Vue d&amp;#39;ensemble de toutes les dépenses et les recettes</fr>
+				<nl>Overzicht van alle uitgaven en inkomsten</nl>
+				<it>Panoramica di tutte le spese e le entrate</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>9ba51734ced032fd8ec25acfb387a23f</id>
 				<org>Datum</org>
+				<en>Date</en>
+				<es>Fecha</es>
+				<fr>Date</fr>
+				<nl>Datum</nl>
+				<it>Data</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>666b23dcd48ede325a744d21b1628e9e</id>
 				<org>Modul</org>
+				<en>Module</en>
+				<es>Módulo</es>
+				<fr>Module</fr>
+				<nl>Module</nl>
+				<it>Modulo</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>ddf3633213983571ca8ab347ac24049f</id>
 				<org>Bearbeiter</org>
+				<en>Arranger</en>
+				<es>Arreglista</es>
+				<fr>Arrangeur</fr>
+				<nl>Arrangeur</nl>
+				<it>Arranger</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>0003743b98321ae3ee2d8c8a13f76a26</id>
 				<org>Betrag</org>
+				<en>Amount</en>
+				<es>Cantidad</es>
+				<fr>Montant</fr>
+				<nl>Hoeveelheid</nl>
+				<it>Quantità</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>fe478c3aeaab8465d461e1bcb2d8bd34</id>
 				<org>Stromkosten</org>
+				<en>Electricity costs</en>
+				<es>Los costos de electricidad</es>
+				<fr>Coûts de l&amp;#39;électricité</fr>
+				<nl>Elektriciteitskosten</nl>
+				<it>I costi dell&amp;#39;energia elettrica</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>d13550013bdff3ae56eab17e1941cdc5</id>
 				<org>Gruppenanzeige Positive Fixbetraege</org>
+				<en>Group Display Positive fixed amounts</en>
+				<es>Grupo de cantidades fijas de visualización positiva</es>
+				<fr>Group Display Positive montants fixes</fr>
+				<nl>Groep Display Positieve vaste bedragen</nl>
+				<it>Gruppo Display Positivo importi fissi</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>f1a13ca936dd995c4c3327bbfa8101b0</id>
 				<org>Gruppenanzeige Negative Fixbetraege</org>
+				<en>Ad group negative fixed amounts</en>
+				<es>Cantidades del grupo de anuncios negativos fijos</es>
+				<fr>Groupe d&amp;#39;annonces négatives montants fixes</fr>
+				<nl>Advertentiegroep negatieve vaste bedragen</nl>
+				<it>Gruppo negativi gli importi fissi di annunci</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>89e09035e9d1a17620404d80e5d0f0ca</id>
 				<org>Gruppenanzeige Einnahmen</org>
+				<en>Group Ad Revenue</en>
+				<es>Grupo de ingresos publicitarios</es>
+				<fr>Chiffre d&amp;#39;affaires Groupe Ad</fr>
+				<nl>Advertentiegroepen Revenue</nl>
+				<it>Gruppo di annunci Entrate</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>db84eb2022116236f3174dccad0a6243</id>
 				<org>Gruppenanzeige Ausgaben</org>
+				<en>Group ad spending</en>
+				<es>El gasto en publicidad del Grupo</es>
+				<fr>Groupe ad dépenses</fr>
+				<nl>Groep advertentie-uitgaven</nl>
+				<it>La spesa di gruppo di annunci</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>9680dbe9699981d216ef5a8632ac6b6f</id>
 				<org>Gruppen verwalten</org>
+				<en>Manage Groups</en>
+				<es>Administrar Grupos</es>
+				<fr>Gestion des groupes</fr>
+				<nl>Groepen beheren</nl>
+				<it>Gestire i gruppi</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>2cff771efc00c2fa2d978118f14ddcc9</id>
 				<org>Uebersicht</org>
+				<en>Overview</en>
+				<es>Descripción general</es>
+				<fr>Présentation</fr>
+				<nl>Overzicht</nl>
+				<it>Panoramica</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
+				<en>Name</en>
+				<es>Nombre</es>
+				<fr>Nom</fr>
+				<nl>Naam</nl>
+				<it>Nome</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>a07cb45499a0a765f28fa19d36bd9a70</id>
 				<org>Gruppe anlegen/ editieren</org>
+				<en>Group Create / Edit</en>
+				<es>Grupo Crear / Editar</es>
+				<fr>Groupe Créer / Modifier</fr>
+				<nl>Groep maken / bewerken</nl>
+				<it>Gruppo Crea / Modifica</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>a3e9a48af974e973ee6c5f085294a38e</id>
 				<org>Summe</org>
+				<en>Total</en>
+				<es>Total</es>
+				<fr>Total</fr>
+				<nl>Totaal</nl>
+				<it>Totale</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>7f1aa996ac08d222c49b1d9660d26304</id>
 				<org>Geld überweisen</org>
+				<en>Transfer money</en>
+				<es>Transferencia de dinero</es>
+				<fr>Transfert d&amp;#39;argent</fr>
+				<nl>Geld overmaken</nl>
+				<it>Trasferimento di denaro</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>99ccd2dac2a2d18592c827ad36ddc17a</id>
 				<org>Hier können Sie anderen Benutzern Geld überweisen</org>
+				<en>Here you can transfer money to other users</en>
+				<es>Aquí usted puede transferir dinero a otros usuarios</es>
+				<fr>Ici, vous pouvez transférer de l&amp;#39;argent à d&amp;#39;autres utilisateurs</fr>
+				<nl>Hier kunt u geld overmaken naar andere gebruikers</nl>
+				<it>Qui si può trasferire denaro ad altri utenti</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>3124e63231a4594958d87771b4aaf064</id>
 				<org>Admins</org>
+				<en>Admins</en>
+				<es>Administradores</es>
+				<fr>Admins</fr>
+				<nl>Admins</nl>
+				<it>Admins</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>b15b7b0340f52d448dc6191fc9317f3a</id>
 				<org>Benutzer</org>
+				<en>Users</en>
+				<es>Usuarios</es>
+				<fr>Utilisateurs</fr>
+				<nl>Gebruikers</nl>
+				<it>Utenti</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>889e0013996756b3434cb04de2f02c24</id>
 				<org>Empfänger</org>
+				<en>Receivers</en>
+				<es>Receptores</es>
+				<fr>Récepteurs</fr>
+				<nl>Receivers</nl>
+				<it>Ricevitori</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>ce15bd0bab6c3a2a4d378dd2c575dab1</id>
 				<org>Ihre Identität konnte nicht verifiziert werden. Die Transaktion wird sicherheitshalber abgebrochen.</org>
+				<en>Their identity could not be verified. The transaction will be canceled for safety.</en>
+				<es>Su identidad no pudo ser verificada. La transacción será cancelada por la seguridad.</es>
+				<fr>Leur identité n&amp;#39;a pu être vérifiée. La transaction sera annulée pour la sécurité.</fr>
+				<nl>Hun identiteit niet kon worden geverifieerd. De transactie zal worden geannuleerd voor de veiligheid.</nl>
+				<it>La loro identità non hanno potuto essere verificate. La transazione sarà annullata per la sicurezza.</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>2f30b326c73a1688b01b78f67f1d43c5</id>
 				<org>Bitte wählen Sie einen Empfänger für Ihre Transaktion aus</org>
+				<en>Please select a recipient from your transaction</en>
+				<es>Por favor, seleccione un destinatario de la transacción</es>
+				<fr>S&amp;#39;il vous plaît sélectionner un destinataire dans votre transaction</fr>
+				<nl>Selecteer een ontvanger van uw transactie</nl>
+				<it>Si prega di selezionare un destinatario dalla transazione</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>49f59907a934f606a56458276091cf4d</id>
 				<org>Sie können nicht sich selbst Geld überweisen</org>
+				<en>You can not pay himself money</en>
+				<es>Usted no puede pagar el mismo precio</es>
+				<fr>On ne peut pas se payer de l&amp;#39;argent</fr>
+				<nl>U kunt niet betalen zelf geld</nl>
+				<it>Non è possibile pagare lo stesso prezzo</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>3a91e36a4d38183f2802a751b3242540</id>
 				<org>Sie können keine negativen oder neutralen  Beträge überweisen</org>
+				<en>You can transfer any negative or neutral sums</en>
+				<es>Usted puede transferir las sumas negativo o neutral</es>
+				<fr>Vous pouvez transférer les sommes éventuellement négatives ou neutres</fr>
+				<nl>U kunt de overdracht geen negatieve of neutrale bedragen</nl>
+				<it>È possibile trasferire le somme negativo o neutro</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>6935a7b1e6dbe5c6afbebbf9fc16a1aa</id>
 				<org>Bitte geben Sie einen Kommentar zu ihrer Überweisung an.</org>
+				<en>Please enter a comment to their transfer.</en>
+				<es>Por favor, introduzca un comentario a su transferencia.</es>
+				<fr>S&amp;#39;il vous plaît entrer un commentaire à leur transfert.</fr>
+				<nl>Geef een reactie op hun overdracht.</nl>
+				<it>Si prega di inserire un commento al loro trasferimento.</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>094a173d3b32f44f5b5c996e8710ae28</id>
 				<org>Party</org>
+				<en>Party</en>
+				<es>Fiesta</es>
+				<fr>Fête</fr>
+				<nl>Feestje</nl>
+				<it>Festa</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>f00b7c617fc5d1905744b8f302ad2597</id>
 				<org>Betrifft Benutzer</org>
+				<en>Subject searching</en>
+				<es>Sin perjuicio de la búsqueda</es>
+				<fr>La recherche par sujet</fr>
+				<nl>Onderwerp zoeken</nl>
+				<it>Oggetto di ricerca</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>25d126eda39e5058c84bc5b65f2df555</id>
 				<org>keine Auswahl</org>
+				<en>No Selection</en>
+				<es>Ninguna selección</es>
+				<fr>Aucune sélection</fr>
+				<nl>Geen Selectie</nl>
+				<it>Nessuna selezione</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>3b77a53bb0cbab20a1d684f05c5cf8d6</id>
 				<org>Gruppe</org>
+				<en>Group</en>
+				<es>Grupo</es>
+				<fr>Groupe</fr>
+				<nl>Groep</nl>
+				<it>Gruppo</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>f3c15fb168e7347c2beb25d9ef383fbc</id>
 				<org>Buchhaltung</org>
+				<en>Accounting</en>
+				<es>Contabilidad</es>
+				<fr>Comptabilité</fr>
+				<nl>Boekhouding</nl>
+				<it>Contabilità</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>e6bff40bd0db21a56ddd4a095cc8297e</id>
 				<org>Übersicht aller meiner Ein- und Ausgaben</org>
+				<en>Overview of all my inputs and outputs</en>
+				<es>Información general de todas mis entradas y salidas de</es>
+				<fr>Vue d&amp;#39;ensemble de toutes mes entrées et sorties</fr>
+				<nl>Overzicht van al mijn in-en uitgangen</nl>
+				<it>Panoramica di tutti i miei ingressi e uscite</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>27cdd9dd4ec67da55a6d2317b2d49557</id>
 				<org>Party Kalkulation</org>
+				<en>Party Costing</en>
+				<es>Parte de costeo</es>
+				<fr>Partie Costing</fr>
+				<nl>Party Costing</nl>
+				<it>Partito Costing</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>e2a063ad8c2c84beda04596a7171ce0b</id>
 				<org>Fremder Kontoauszug</org>
+				<en>Stranger Statement</en>
+				<es>Declaración de Stranger</es>
+				<fr>Stranger Déclaration</fr>
+				<nl>Stranger Statement</nl>
+				<it>Stranger Statement</it>
 				<file>cashmgr</file>
 			</entry>
 			<entry>
 				<id>d9dc47a3cb27352fe549d3d8004dd12c</id>
 				<org>Eigener Kontoauszug</org>
+				<en>Private Statement</en>
+				<es>Declaración Privada</es>
+				<fr>Private Statement</fr>
+				<nl>Eigen Verklaring</nl>
+				<it>Private Statement</it>
 				<file>cashmgr</file>
 			</entry>
 		</content>

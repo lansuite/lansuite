@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,6 +15,11 @@
 			<entry>
 				<id>a82be0f551b8708bc08eb33cd9ded0cf</id>
 				<org>Information</org>
+				<en>Information</en>
+				<es>Información</es>
+				<fr>Information</fr>
+				<nl>Informatie</nl>
+				<it>Informazioni</it>
 				<file>about</file>
 			</entry>
 		</content>

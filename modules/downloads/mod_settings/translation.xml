@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,81 +15,161 @@
 			<entry>
 				<id>c20c35ef53bf1b70789ce94e66800147</id>
 				<org>Downloads</org>
+				<en>Downloads</en>
+				<es>Descargas</es>
+				<fr>Téléchargements</fr>
+				<nl>Downloads</nl>
+				<it>Download</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>47be0e0ed779f0097f84344c6bfe5c88</id>
 				<org>Ordner-Information</org>
+				<en>Folder Information</en>
+				<es>Carpeta de Información de</es>
+				<fr>Dossier d&amp;#39;information</fr>
+				<nl>Folder Informatie</nl>
+				<it>Folder Information</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>f794d72a2433e8064f13ffd124ac4872</id>
 				<org>Navigation:</org>
+				<en>Navigation:</en>
+				<es>Navegación:</es>
+				<fr>Navigation:</fr>
+				<nl>Navigatie:</nl>
+				<it>Navigazione:</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>c8346c004fd9633c5b7dff34be0df64a</id>
 				<org>Datei hochladen</org>
+				<en>Upload file</en>
+				<es>Subir archivo</es>
+				<fr>Chargement de fichier</fr>
+				<nl>Upload bestand</nl>
+				<it>Carica un file</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>e2aa67cf2a7876cccd32f27356facdc6</id>
 				<org>Datei</org>
+				<en>File</en>
+				<es>Archivo</es>
+				<fr>Fichier</fr>
+				<nl>Bestand</nl>
+				<it>File</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>05ec9a3b3486d5d2030da7d9e2eda79d</id>
 				<org>URL verlinken</org>
+				<en>URL Link</en>
+				<es>URL Link</es>
+				<fr>Web Link</fr>
+				<nl>URL Link</nl>
+				<it>URL Link</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>e6b391a8d2c4d45902a23a8b6585703d</id>
 				<org>URL</org>
+				<en>URL</en>
+				<es>URL</es>
+				<fr>URL</fr>
+				<nl>URL</nl>
+				<it>URL</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>5b314ec8140bb02a546cd619fc94058f</id>
 				<org>Ordner Text und Einstellungen editieren</org>
+				<en>Text editing and Settings folder</en>
+				<es>La edición de texto y la configuración de carpetas</es>
+				<fr>Édition de texte et dossier des paramètres</fr>
+				<nl>Tekst bewerken en Settings</nl>
+				<it>L&amp;#39;editing del testo e la cartella Impostazioni</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>9dffbf69ffba8bc38bc4e01abf4b1675</id>
 				<org>Text</org>
+				<en>Text</en>
+				<es>Texto</es>
+				<fr>Texte</fr>
+				<nl>Tekst</nl>
+				<it>Testo</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>9ec08529d3c6b867c3dd06e5b8b5213e</id>
 				<org>Benutzer-Upload erlauben?</org>
+				<en>Allow users upload?</en>
+				<es>Permitir a los usuarios subir?</es>
+				<fr>Autoriser les utilisateurs télécharger?</fr>
+				<nl>Laat gebruikers uploaden?</nl>
+				<it>Consentire agli utenti di caricare?</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>564a750fb276ddf556be0a99852b3c08</id>
 				<org>Die PHP-Erweiterung &lt;b&gt;FTP&lt;/b&gt; konnte nicht geladen werden. &amp;Uuml;berpr&amp;uuml;fen Sie, ob diese in PHP einkompiliert bzw. aktiviert ist</org>
+				<en>The PHP &lt;b&gt;FTP&lt;/b&gt; extension could not be loaded. Check to see if it is compiled into PHP or activated</en>
+				<es>La extensión de PHP &lt;b&gt;FTP&lt;/b&gt; no se pudo cargar. Compruebe para ver si es compilada dentro de PHP o activado</es>
+				<fr>L&amp;#39;extension PHP &lt;b&gt;FTP n&amp;#39;a&lt;/b&gt; pas pu être chargé. Vérifiez pour voir si elle est compilée dans PHP ou activés</fr>
+				<nl>De PHP &lt;b&gt;FTP&lt;/b&gt; uitbreiding kon niet worden geladen. Controleer om te zien of het is gecompileerd in PHP of geactiveerd</nl>
+				<it>L&amp;#39;estensione PHP &lt;b&gt;FTP&lt;/b&gt; non potrebbe essere caricato. Verificare se è compilata nel PHP o attivato</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>9b7e5066d6880c10e4aea346cddf8644</id>
 				<org>Konnte Verbindung zum Downloadserver nicht herstellen</org>
+				<en>Could not establish connection to download server</en>
+				<es>No se pudo establecer la conexión con el servidor de descargas</es>
+				<fr>Impossible d&amp;#39;établir la connexion au serveur de téléchargement</fr>
+				<nl>Kan niet vaststellen verbinding met download server</nl>
+				<it>Impossibile stabilire la connessione al server per il download</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>a7de5affd8223c54f620c3d31f5465e4</id>
 				<org>Konnte Verbindung zu FTP-Server &quot;%1&quot; auf Port %2 nicht herstellen.</org>
+				<en>Could not connect to FTP server &amp;quot;%1&amp;quot; not produce on port%2.</en>
+				<es>No puedo conectar al servidor FTP &amp;quot;%1&amp;quot; no produce en el puerto%2.</es>
+				<fr>Impossible de se connecter au serveur FTP &amp;quot;%1&amp;quot; ne produira pas sur le port%2.</fr>
+				<nl>Kon niet verbinden met FTP-server &amp;quot;%1&amp;quot; niet tot op poort%2.</nl>
+				<it>Impossibile connettersi al server FTP &amp;quot;%1&amp;quot; non producono sulla porta%2.</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>715380d7bcc0b403482990fa332214cc</id>
 				<org>Statistiken</org>
+				<en>Statistics</en>
+				<es>Estadísticas</es>
+				<fr>Statistiques</fr>
+				<nl>Statistieken</nl>
+				<it>Statistiche</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
+				<en>Details</en>
+				<es>Detalles</es>
+				<fr>Détails</fr>
+				<nl>Details</nl>
+				<it>Dettagli</it>
 				<file>downloads</file>
 			</entry>
 			<entry>
 				<id>74142bff204be650af10065422435d30</id>
 				<org>Kein Inhalt vorhanden</org>
+				<en>No content available</en>
+				<es>No hay contenido disponible</es>
+				<fr>Aucun contenu disponible</fr>
+				<nl>Geen inhoud beschikbaar</nl>
+				<it>No disponibili i contenuti</it>
 				<file>downloads</file>
 			</entry>
 			<entry>

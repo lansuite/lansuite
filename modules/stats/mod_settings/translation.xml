@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,301 +15,601 @@
 			<entry>
 				<id>0f2afe882a29cadfc8ec08531f997608</id>
 				<org>Benutzeralter</org>
+				<en>User Age</en>
+				<es>Edad de usuario</es>
+				<fr>Utilisateur Âge</fr>
+				<nl>Gebruikers Leeftijd</nl>
+				<it>User Età</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>c3c53a7d3d270f9a0ddd32a53ff58e65</id>
 				<org>Keine Angabe</org>
+				<en>Unspecified</en>
+				<es>Sin especificar</es>
+				<fr>Non spécifié</fr>
+				<nl>Unspecified</nl>
+				<it>Non specificato</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>2c6f7ea2cdca462dcc27315772f63e6d</id>
 				<org>Datenbank Statistik</org>
+				<en>Database Statistics</en>
+				<es>Base de datos estadísticos</es>
+				<fr>Base de données statistiques</fr>
+				<nl>Database statistieken</nl>
+				<it>Database Statistics</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>bb75315746079ed4a477853b45cb8dfe</id>
 				<org>Auf dieser Seite erhalten Sie Informationen &amp;uuml;ber die Datenbank und aktuelle Leistungsdaten.</org>
+				<en>On this page you will find information about the database and actual performance data.</en>
+				<es>En esta página usted encontrará información sobre la base de datos y datos de rendimiento real.</es>
+				<fr>Sur cette page vous trouverez des informations sur la base de données et les données de performances réelles.</fr>
+				<nl>Op deze pagina vindt u informatie over de database en de werkelijke prestaties van gegevens.</nl>
+				<it>In questa pagina troverete informazioni sul database e dati relativi alle prestazioni effettive.</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>12d51585ff9a9b906bf17310fdd56d5c</id>
 				<org>Servername</org>
+				<en>Server Name</en>
+				<es>Nombre del servidor</es>
+				<fr>Nom du serveur</fr>
+				<nl>Servernaam</nl>
+				<it>Nome server</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>4dca2405b845004ec02e611e16b3cc3a</id>
 				<org>Verbindungstyp</org>
+				<en>Connection</en>
+				<es>Conexión</es>
+				<fr>Connection</fr>
+				<nl>Verbinding</nl>
+				<it>Connessione</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>91bbe79e4f896b48eccc40e483ceb49f</id>
 				<org>L&amp;auml;uft seit</org>
+				<en>Uptime</en>
+				<es>Fecha</es>
+				<fr>Uptime</fr>
+				<nl>Uptime</nl>
+				<it>Uptime</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>74ce5e9ce1e10aa894271686bb10dae0</id>
 				<org>Stunde(n)</org>
+				<en>Time (s)</en>
+				<es>Tiempo (s)</es>
+				<fr>Temps (s)</fr>
+				<nl>Tijd (s)</nl>
+				<it>Tempo (s)</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>ff2d1a520fbf5cafcd80e3b59a6ef103</id>
 				<org>Minute(n)</org>
+				<en>Minute (s)</en>
+				<es>Minuto (s)</es>
+				<fr>Minute (s)</fr>
+				<nl>Minute (s)</nl>
+				<it>Minute (s)</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>da8b4fda84fd81b8e713e38097798459</id>
 				<org>Abfragen Insg.</org>
+				<en>Queries Insg.</en>
+				<es>Consultas insg.</es>
+				<fr>Requêtes insg.</fr>
+				<nl>Queries insg.</nl>
+				<it>Query insg.</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>1265dbe2234cfd5a09735596e1ad5f7b</id>
 				<org>Abfragen / Sekunde</org>
+				<en>Queries / second</en>
+				<es>Consultas / segundo</es>
+				<fr>Les requêtes / seconde</fr>
+				<nl>Queries / seconde</nl>
+				<it>Query al secondo</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>f04a481498b66229701df88b12146c1f</id>
 				<org>Offene Tabellen</org>
+				<en>Open tables</en>
+				<es>Open tables</es>
+				<fr>Open tables</fr>
+				<nl>Open tafels</nl>
+				<it>Aprire le tabelle</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>03bfaee27b3b5cfb28deef84a0f416e5</id>
 				<org>Threads</org>
+				<en>Threads</en>
+				<es>Threads</es>
+				<fr>Threads</fr>
+				<nl>Threads</nl>
+				<it>Threads</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>54681ecb0b31f537146cc1fd21ee02c3</id>
 				<org>nicht eingetragen</org>
+				<en>not registered</en>
+				<es>no registrado</es>
+				<fr>pas enregistrés</fr>
+				<nl>niet geregistreerd</nl>
+				<it>non registrati</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>34273bfcba9bc4664f434913ee215610</id>
 				<org>Die Daten wurden erfolgreich &amp;uuml;bermittelt</org>
+				<en>The data were successfully transmitted</en>
+				<es>Los datos se transmitió con éxito</es>
+				<fr>Les données ont été transmis avec succès</fr>
+				<nl>De gegevens werden met succes verzonden</nl>
+				<it>I dati sono stati trasmessi correttamente</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>297b8daf146c6557d94eb5ebf29b2981</id>
 				<org>Benutzerstatistiken</org>
+				<en>User statistics</en>
+				<es>Estadísticas de usuario</es>
+				<fr>Statistiques utilisateur</fr>
+				<nl>Gebruikersstatistieken</nl>
+				<it>Statistiche utente</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>5a3a40cd9446a70f3577fdeb27d266da</id>
 				<org>Hier sehen sie wie viele Benutzer ihre Seite besuchen</org>
+				<en>Here you can see how many people visit their site</en>
+				<es>Aquí usted puede ver cuántas personas visitan su sitio</es>
+				<fr>Ici vous pouvez voir combien de personnes visitent leur site</fr>
+				<nl>Hier kunt u zien hoeveel mensen bezoeken de site</nl>
+				<it>Qui puoi vedere quante persone visitano il loro sito</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>65e072b16de354786fb55c0e4b88b33b</id>
 				<org>Besucher (Visits)</org>
+				<en>Visitors (visits)</en>
+				<es>Visitantes (visitas)</es>
+				<fr>Les visiteurs (visites)</fr>
+				<nl>Bezoekers (bezoeken)</nl>
+				<it>Visitatori (visite)</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>dc9db34d93cbee5d5d97a50652672732</id>
 				<org>Seitenaufrufe (Hits)</org>
+				<en>Page views (hits)</en>
+				<es>Page Views (Hits)</es>
+				<fr>Page Views (Hits)</fr>
+				<nl>Page views (hits)</nl>
+				<it>Page Views (visite)</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>cb17b5605158f205e8d5bd1e7fdf90d5</id>
 				<org>Seiten pro Besucher</org>
+				<en>Pages Per Visitor</en>
+				<es>Páginas por visitante</es>
+				<fr>Pages par visiteur</fr>
+				<nl>Pagina&amp;#39;s per bezoeker</nl>
+				<it>Pagine per visitatore</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>0a979e1459b681c1521cffd01efa9ff5</id>
 				<org>Benutzer eingeloggt (letzte Stunde)</org>
+				<en>User logged in (last hour)</en>
+				<es>Usuario conectado (última hora)</es>
+				<fr>Utilisateur connecté (dernière heure)</fr>
+				<nl>Gebruikers ingelogd (laatste uur)</nl>
+				<it>Registrazione dell&amp;#39;utente (ultima ora)</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>46459aa998fecff24d7b717bb2302548</id>
 				<org>Bis jetzt ben&amp;ouml;tigte Zeit f&amp;uuml;r Skript</org>
+				<en>Until now, time required for script</en>
+				<es>Hasta ahora, tiempo necesario para la secuencia de comandos</es>
+				<fr>Jusqu&amp;#39;à maintenant, temps nécessaire pour le script</fr>
+				<nl>Tot nu, tijd die nodig is voor het script</nl>
+				<it>Fino a ora, il tempo necessario per lo script</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>c14c74a8ad8ad39eabb29f600d1b7ef2</id>
 				<org>Sekunde(n)</org>
+				<en>Second (s)</en>
+				<es>Segundo (s)</es>
+				<fr>Seconde (s)</fr>
+				<nl>Tweede (s)</nl>
+				<it>Secondo (s)</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>bca21a1ef2a52bac46a7adac3bae621d</id>
 				<org>Bis jetzt &amp;uuml;bertragene Daten</org>
+				<en>Until now transmitted data</en>
+				<es>Hasta ahora de transmisión de datos</es>
+				<fr>Jusqu&amp;#39;à présent, transmis des données</fr>
+				<nl>Tot nu verzonden gegevens</nl>
+				<it>Fino ad ora trasmessi i dati</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>e4a649985a88fc61cb8183ebc3db0001</id>
 				<org>Server Statistik</org>
+				<en>Server Stats</en>
+				<es>Server Stats</es>
+				<fr>Statistiques du serveur</fr>
+				<nl>Server Stats</nl>
+				<it>Server Stats</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>0bff39c5ad722f2fe63400b432ed9afe</id>
 				<org>Hier sehen Sie die aktuelle Auslastung des Servers auf dem Lansuite gerade ausgeführt wird</org>
+				<en>Here you will see the actual usage of the server currently running on the Lansuite</en>
+				<es>Aquí podrás ver el uso real del servidor ejecutando actualmente en el Lansuite</es>
+				<fr>Ici vous pourrez voir l&amp;#39;utilisation réelle du serveur qui exécute actuellement sur le Lansuite</fr>
+				<nl>Hier ziet u het daadwerkelijke gebruik van de server die momenteel op de Lansuite</nl>
+				<it>Qui potrete vedere l&amp;#39;utilizzo effettivo del server attualmente in esecuzione sul Lansuite</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>f9a26283d7a8988b63a8f9f5f681ab76</id>
 				<org>Unbekannt</org>
+				<en>Unknown</en>
+				<es>Desconocido</es>
+				<fr>Inconnu</fr>
+				<nl>Onbekend</nl>
+				<it>Unknown</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>611d552879a79dcc1961a7aeb4caf430</id>
 				<org>Serverinfo</org>
+				<en>Server info</en>
+				<es>Información del servidor</es>
+				<fr>Infos serveur</fr>
+				<nl>Server info</nl>
+				<it>Server Info</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>4d86f2856e28b954277f6a680f63e96c</id>
 				<org>Tag(e)</org>
+				<en>Day (s)</en>
+				<es>Día (s)</es>
+				<fr>Jour (s)</fr>
+				<nl>Day (s)</nl>
+				<it>Day (s)</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>3e60099ef3d8b123b52c776f3de1ca4d</id>
 				<org>Load Avarage</org>
+				<en>Load Avarage</en>
+				<es>Media de carga</es>
+				<fr>Load avarage</fr>
+				<nl>Load Redelijk</nl>
+				<it>Carico Avarage</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>b233ca205fb3fed2eaceb79bd6c8ebb8</id>
 				<org>Prozessor(en)</org>
+				<en>Processor (s)</en>
+				<es>Processor (s)</es>
+				<fr>Processeur (s)</fr>
+				<nl>Processor (s)</nl>
+				<it>Processor (s)</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>8d18ad94a26ece3a3224038247a04b16</id>
 				<org>Arbeitsspeicher gesamt</org>
+				<en>Total Memory</en>
+				<es>Memoria total</es>
+				<fr>Mémoire totale</fr>
+				<nl>Totaal geheugen</nl>
+				<it>Memoria totale</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>bf7301b076a6eb4321bc84d9de774922</id>
 				<org>Arbeitsspeicher frei</org>
+				<en>Free memory</en>
+				<es>Liberar memoria</es>
+				<fr>Libère la mémoire</fr>
+				<nl>Vrij geheugen</nl>
+				<it>Liberare la memoria</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>fb18f3dde5ca7ba2955a0b23e45dd959</id>
 				<org>Swapspeicher gesamt</org>
+				<en>Total swap</en>
+				<es>Intercambio total</es>
+				<fr>Total swap</fr>
+				<nl>Totaal swap</nl>
+				<it>Totale swap</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>81bab3c85070e653befdbf8698f03d5e</id>
 				<org>Swapspeicher frei</org>
+				<en>Swap free</en>
+				<es>De intercambio libre</es>
+				<fr>Swap libre</fr>
+				<nl>Swap gratis</nl>
+				<it>Swap</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>f1eb30f65eebeaa04a8be317374a71be</id>
 				<org>Bis jetzt gesendet (TX)</org>
+				<en>Until now sent (TX)</en>
+				<es>Hasta ahora enviado (TX)</es>
+				<fr>Jusqu&amp;#39;à présent envoi (TX)</fr>
+				<nl>Tot nu verzonden (TX)</nl>
+				<it>Fino ad oggi ha inviato (TX)</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>d90aec2e260d77b7f2e45f15330aba14</id>
 				<org>Bis jetzt empfangen (RX)</org>
+				<en>Until now receive (RX)</en>
+				<es>Hasta la fecha de recepción (RX)</es>
+				<fr>Jusqu&amp;#39;à présent réception (Rx)</fr>
+				<nl>Tot nu toe ontvangen (RX)</nl>
+				<it>Fino ad oggi ricezione (Rx)</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>9e898cafd3ad0249f04a88e2fe43f603</id>
 				<org>Leider ist diese Anzeige auf Ihrem System nicht möglich</org>
+				<en>Unfortunately, this ad is not available on your system</en>
+				<es>Lamentablemente no, este anuncio está disponible en su sistema</es>
+				<fr>Malheureusement, cette annonce n&amp;#39;est pas disponible sur votre système</fr>
+				<nl>Helaas, deze advertentie is niet beschikbaar op uw systeem</nl>
+				<it>Purtroppo non, questo annuncio è disponibile sul vostro sistema</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>b5b5a454e70028ee8e2d728483baa43f</id>
 				<org>Suchmaschinen</org>
+				<en>Search Engines</en>
+				<es>Motores de búsqueda</es>
+				<fr>Moteurs de recherche</fr>
+				<nl>Zoekmachines</nl>
+				<it>Motori di ricerca</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>cc87d5dccd4ab169f9f80a7681b7f86a</id>
 				<org>Hier sehen Sie, &amp;uuml;ber welche Suchbegriffe Besucher &amp;uuml;ber Suchmaschinenen auf Ihrer Seite gelandet sind</org>
+				<en>Here you can see which search terms visitors have arrived via search engines on your side</en>
+				<es>Aquí usted puede ver que los visitantes términos de búsqueda han llegado a través de motores de búsqueda de su lado</es>
+				<fr>Ici vous pouvez voir les termes de recherche que les visiteurs sont arrivés par le biais des moteurs de recherche de votre côté</fr>
+				<nl>Hier kunt u zien welke zoektermen bezoekers zijn gekomen via zoekmachines aan uw kant</nl>
+				<it>Qui puoi vedere quali visitatori in termini di ricerca sono arrivato tramite motori di ricerca su un fianco</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
+				<en>All</en>
+				<es>Todo</es>
+				<fr>Tous</fr>
+				<nl>Alle</nl>
+				<it>Tutto</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>83d5a3f000e4fe6f737eeadbf07d3a50</id>
 				<org>Die Statistikanzeige ben&amp;ouml;tigt ddie GD Bibliothek</org>
+				<en>The statistics display requires ddie GD</en>
+				<es>La pantalla de estadísticas requiere GD ddie</es>
+				<fr>L&amp;#39;affichage de statistiques suppose ddie GD</fr>
+				<nl>De statistieken tonen vereist ddie GD</nl>
+				<it>Il display statistiche richiede ddie GD</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>d01fa3312f5fb19b9855aadbdc28e6a3</id>
 				<org>Konnte kein Bild erzeugen</org>
+				<en>Could produce no image</en>
+				<es>No puede producir la imagen</es>
+				<fr>Pourrait produire aucune image</fr>
+				<nl>Kan produceren geen beeld</nl>
+				<it>Potrebbe produrre nessuna immagine</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>130c3d026c9b37f8de3b6a07045469c8</id>
 				<org>Keine Daten vorhanden. Sie m&amp;uuml;ssen das Modulsuitebeat aktivieren und den Cron-Job einrichten</org>
+				<en>No data available. You need to activate the module suite beat and set up the cron job</en>
+				<es>No hay datos disponibles. Deberá activar el conjunto de módulo golpearon y configurar el trabajo de cron</es>
+				<fr>Aucune donnée disponible. Vous avez besoin d&amp;#39;activer la suite module battu et mis en place la tâche cron</fr>
+				<nl>Geen gegevens beschikbaar. Je moet de module suite laten activeren en het opzetten van de cron job</nl>
+				<it>Nessun dato disponibile. È necessario attivare la suite modulo beat e impostare il lavoro cron</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>781ee1177c24df1ff920bbefc042bb6e</id>
 				<org>Zu wenige Daten f&amp;uuml;r ein Skript / Stellen sie die Laufzeit des Cron-Jobs auf 1min und warten sie 15min</org>
+				<en>Too few data for a script / Set the duration of the cron jobs at 1min and 15min wait</en>
+				<es>Demasiado pocos datos para un script / Establecer la duración de los trabajos de cron en 1min y esperar 15 minutos</es>
+				<fr>Trop peu de données pour un script / Définit la durée des tâches cron à 1min et 15min d&amp;#39;attente</fr>
+				<nl>Te weinig gegevens voor een script / Stel de duur van de cron jobs op 1min en 15min wachten</nl>
+				<it>Troppo pochi dati per uno script / Imposta la durata dei lavori cron a 1min e 15min di aspettare</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>5511e399fcf5a9a40c37e42e643028e5</id>
 				<org>Anmeldestatistik</org>
+				<en>Application Stats</en>
+				<es>Estadísticas de aplicación</es>
+				<fr>Application Stats</fr>
+				<nl>Toepassing Stats</nl>
+				<it>Applicazione Stats</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>e992f966374bcdf2426881a9abf279b2</id>
 				<org>Hier sehen Sie die aktuelle Statistik zur laufenden LAN</org>
+				<en>Here you see the current statistics on the current LAN</en>
+				<es>Aquí puede ver las estadísticas actuales en la LAN actual</es>
+				<fr>Ici vous voyez les statistiques actuelles sur le langage courant</fr>
+				<nl>Hier ziet u de huidige statistieken over de huidige LAN</nl>
+				<it>Qui sotto potete vedere le statistiche attuali sulla LAN attuale</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>e5b1c9b4ba5c2920b1e4a27305f71d5b</id>
 				<org>Ben&amp;ouml;tigte Anmeldung pro Tag</org>
+				<en>Registration Required per day</en>
+				<es>Registro Obligatorio por día</es>
+				<fr>Inscription requise par jour</fr>
+				<nl>Registratie Vereiste per dag</nl>
+				<it>È richiesta la registrazione al giorno</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>c942cfe32ac2f4408b00373e9e17919f</id>
 				<org>Ben&amp;ouml;tigte Bezahlungen pro Tag</org>
+				<en>Required payments per day</en>
+				<es>Los pagos requeridos por día</es>
+				<fr>Requis paiements par jour</fr>
+				<nl>Vereiste betalingen per dag</nl>
+				<it>Richiesti pagamenti al giorno</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>412615d7120eca7d1f79daa182c6e9bd</id>
 				<org>Vergangene Anmeldezahlen</org>
+				<en>Past Identification Numbers</en>
+				<es>Últimos números de identificación</es>
+				<fr>Past Numéros d&amp;#39;identification</fr>
+				<nl>Afgelopen identificatienummers</nl>
+				<it>Ultimi numeri d&amp;#39;identificazione</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>11774e03f74e09399f3092f48dc798a8</id>
 				<org>Derzeit ist keine Party geplant</org>
+				<en>Currently there is no party planned</en>
+				<es>Actualmente no hay ningún partido previsto</es>
+				<fr>Actuellement, il n&amp;#39;existe aucun parti prévu</fr>
+				<nl>Momenteel is er geen partij is gepland</nl>
+				<it>Attualmente non esiste alcun partito ha in programma</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>cc1b2f941455b40f375b1bc7d07b3941</id>
 				<org>Vergangene Bezahlungen</org>
+				<en>Past Payments</en>
+				<es>Pagos anteriores</es>
+				<fr>Past Paiements</fr>
+				<nl>Afgelopen Betalingen</nl>
+				<it>Passato Pagamenti</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>b15b7b0340f52d448dc6191fc9317f3a</id>
 				<org>Benutzer</org>
+				<en>Users</en>
+				<es>Usuarios</es>
+				<fr>Utilisateurs</fr>
+				<nl>Gebruikers</nl>
+				<it>Utenti</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>30878e181e2ff822d97bf7999a9f87fe</id>
 				<org>Besucher</org>
+				<en>Visitors</en>
+				<es>Visitantes</es>
+				<fr>Visiteurs</fr>
+				<nl>Bezoekers</nl>
+				<it>Visitatori</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>08dce0bd0b0cc4067394fbc46f5326dc</id>
 				<org>Besucher insgesamt</org>
+				<en>Total Visitors</en>
+				<es>Total de visitantes</es>
+				<fr>Total Visiteurs</fr>
+				<nl>Totaal Bezoekers</nl>
+				<it>Totale Visitatori</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>17d4195364c54efa2f207e7957f720e0</id>
 				<org>Besucher in der letzten Stunde</org>
+				<en>Visitors in the last hour</en>
+				<es>Visitantes en la última hora</es>
+				<fr>Visiteurs dans la dernière heure</fr>
+				<nl>Bezoekers in het laatste uur</nl>
+				<it>Visitatori nell&amp;#39;ultima ora</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>c1e949c74c82d88410af27e490d554e9</id>
 				<org>Aufrufe</org>
+				<en>Views</en>
+				<es>Vistas</es>
+				<fr>Vues</fr>
+				<nl>Bekeken</nl>
+				<it>Views</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>c20e16d742309e4c0159f4265cfd60c9</id>
 				<org>Seitenzugriffe insgesamt</org>
+				<en>Total Page Views</en>
+				<es>Total Page Views</es>
+				<fr>Total Page Views</fr>
+				<nl>Totaal Page Views</nl>
+				<it>Total Page Views</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>0f0c259ac9f6a3d1880f2b4cb7494e4d</id>
 				<org>Seitenzugriffe in der letzten Stunde</org>
+				<en>Page views in the last hour</en>
+				<es>Páginas vistas en la última hora</es>
+				<fr>Pages vues dans la dernière heure</fr>
+				<nl>Pageviews in het laatste uur</nl>
+				<it>Pagine viste nell&amp;#39;ultima ora</it>
 				<file>stats</file>
 			</entry>
 			<entry>
 				<id>b34a94ed6c29e661d98a252e34fa390e</id>
 				<org>Eingeloggt</org>
+				<en>Logged</en>
+				<es>Identificados</es>
+				<fr>Connecté</fr>
+				<nl>Logged</nl>
+				<it>Logged</it>
 				<file>stats</file>
 			</entry>
 		</content>

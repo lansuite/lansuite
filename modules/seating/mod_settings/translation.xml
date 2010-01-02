@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,561 +15,1121 @@
 			<entry>
 				<id>c81a678e53bba069d5e8b705773f210e</id>
 				<org>Keine zugeordnet</org>
+				<en>None assigned</en>
+				<es>Ninguno asignado</es>
+				<fr>Non assigné</fr>
+				<nl>Geen toegewezen</nl>
+				<it>Non assegnato</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>e1e4c8c9ccd9fc39c391da4bcd093fb2</id>
 				<org>Block</org>
+				<en>Block</en>
+				<es>Bloque</es>
+				<fr>Block</fr>
+				<nl>Blok</nl>
+				<it>Block</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>cca8493f6f1bd794b75879a6d8a7bbc7</id>
 				<org>Benutzername</org>
+				<en>Username</en>
+				<es>Nombre de usuario</es>
+				<fr>Nom d&amp;#39;utilisateur</fr>
+				<nl>Gebruikersnaam</nl>
+				<it>Username</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
+				<en>Name</en>
+				<es>Nombre</es>
+				<fr>Nom</fr>
+				<nl>Naam</nl>
+				<it>Nome</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>603c07e2735df19b9a7ce091d7453d2b</id>
 				<org>Clan</org>
+				<en>Clan</en>
+				<es>Clan</es>
+				<fr>Clan</fr>
+				<nl>Clan</nl>
+				<it>Clan</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>a12a3079e14ced46e69ba52b8a90b21a</id>
 				<org>IP</org>
+				<en>IP</en>
+				<es>IP</es>
+				<fr>IP</fr>
+				<nl>IP</nl>
+				<it>IP</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>69566353ee20bf15bbfab86db1146ed6</id>
 				<org>Frei</org>
+				<en>Free</en>
+				<es>Libre</es>
+				<fr>Gratuit</fr>
+				<nl>Vrij</nl>
+				<it>Libero</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>b31d7e4af4df00b6a8708006427e3f3f</id>
 				<org>Gesperrt</org>
+				<en>Locked</en>
+				<es>Bloqueado</es>
+				<fr>Verrouillé</fr>
+				<nl>Gesloten</nl>
+				<it>Bloccato</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>35bedb45241d6b3f70fa6f56197c3361</id>
 				<org>Beschreibung</org>
+				<en>Description</en>
+				<es>Descripción</es>
+				<fr>Description</fr>
+				<nl>Beschrijving</nl>
+				<it>Descrizione</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>26748b021bdc8922f93d9bf054cbec5d</id>
 				<org>WC</org>
+				<en>Wc</en>
+				<es>Wc</es>
+				<fr>Wc</fr>
+				<nl>Wc</nl>
+				<it>Wc</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>f567c2291ae8f2c513f7e62f443ccd47</id>
 				<org>Notausgang</org>
+				<en>Fire Escape</en>
+				<es>Fire Escape</es>
+				<fr>Fire Escape</fr>
+				<nl>Brandtrap</nl>
+				<it>Fire Escape</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>e5f6696fe35a80686e78bd72bd59ca17</id>
 				<org>Catering</org>
+				<en>Catering</en>
+				<es>Catering</es>
+				<fr>Catering</fr>
+				<nl>Catering</nl>
+				<it>Catering</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>d637ab41b86a871f5ee19fcc3bfd73fb</id>
 				<org>Besetzt</org>
+				<en>Busy</en>
+				<es>Ocupado</es>
+				<fr>Occupé</fr>
+				<nl>Bezig</nl>
+				<it>Occupato</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>cbda5bca0b76733f30b255ddd9c6ac95</id>
 				<org>Platz eines Clanmates</org>
+				<en>Place Clanmate</en>
+				<es>Lugar Clanmate</es>
+				<fr>Place Clanmate</fr>
+				<nl>Plaats Clanmate</nl>
+				<it>Luogo Clanmate</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>d36f4a4e9ff09ede1bd6c6678d9f5be6</id>
 				<org>Vorgemerkt</org>
+				<en>Bookmarked</en>
+				<es>Favoritos</es>
+				<fr>Mes favoris</fr>
+				<nl>Favoriete</nl>
+				<it>Bookmarked</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>544abd94cdd2627fc27b7683bd864609</id>
 				<org>Gesperrter Platz</org>
+				<en>Locked position</en>
+				<es>Posición de bloqueo</es>
+				<fr>Position verrouillée</fr>
+				<nl>Vergrendeld</nl>
+				<it>Bloccato posizione</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>0fccb324f0e0d860452200b2168e514d</id>
 				<org>Besetzt (Eingecheckt)</org>
+				<en>Occupied (Checked)</en>
+				<es>Ocupados (Marcado)</es>
+				<fr>Occupés (Coché)</fr>
+				<nl>Bezette (Checked)</nl>
+				<it>Occupati (Spuntato)</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>8e9beceba56c1092687e43042e063afb</id>
 				<org>Frei (Ausgecheckt)</org>
+				<en>Clear (Checked)</en>
+				<es>Clear (Revisado)</es>
+				<fr>Clear (Coché)</fr>
+				<nl>Clear (Gecontroleerd)</nl>
+				<it>Clear (Spuntato)</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>3bbbe31c70563fac868e091e95bc79ec</id>
 				<org>Ausgew�hlter User</org>
+				<en>Chosen with the user</en>
+				<es>Elegido con el usuario</es>
+				<fr>Choisis avec l&amp;#39;utilisateur</fr>
+				<nl>Gekozen met de gebruiker</nl>
+				<it>Scelto con l&amp;#39;utente</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>21e41d9c216d49d5bb55799773cd92bd</id>
 				<org>Ihr Platz</org>
+				<en>Your place</en>
+				<es>Su lugar</es>
+				<fr>Votre place</fr>
+				<nl>Uw plaats</nl>
+				<it>Il tuo posto</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>668b1e13ff6bf731158f233dfb31671a</id>
 				<org>Kopieren</org>
+				<en>Copy</en>
+				<es>Copiar</es>
+				<fr>Copier</fr>
+				<nl>Kopiëren</nl>
+				<it>Copia</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>d5a9908b821fd07e9e1742a8ca1ac94d</id>
 				<org>Der Sitzplan wurde erfolgreich kopiert</org>
+				<en>The seating plan has been successfully copied</en>
+				<es>El plan de asientos ha sido copiado con éxito</es>
+				<fr>Le plan de table a été copié avec succès</fr>
+				<nl>De plattegrond is met succes gekopieerd</nl>
+				<it>Il piano di posti a sedere è stato copiato con successo</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>a8aa44a1c41d24880c7f6b1646649717</id>
 				<org>Wollen Sie diesen Sitzblock wirklich löschen?</org>
+				<en>Do you want to delete this office block?</en>
+				<es>¿Quieres eliminar este edificio de oficinas?</es>
+				<fr>Voulez-vous supprimer cet immeuble de bureaux?</fr>
+				<nl>Wilt u dit kantoorgebouw verwijderen?</nl>
+				<it>Vuoi eliminare questo blocco ufficio?</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>422c306dcdb938d6d8b1cce124891eb7</id>
 				<org>Der Sitzblock wurde erfolgreich gelöscht</org>
+				<en>The office block was successfully deleted</en>
+				<es>La torre de oficinas ha sido borrado</es>
+				<fr>Le bloc de bureau a été supprimé avec succès</fr>
+				<nl>Het kantoorgebouw is succesvol verwijderd</nl>
+				<it>Il blocco di ufficio è stato cancellato con successo</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>8cff30c30f16385069c7911cfdc4144f</id>
 				<org>Bitte geben Sie die horizontale Länge ein</org>
+				<en>Please enter the horizontal length</en>
+				<es>Por favor, introduzca la longitud horizontal</es>
+				<fr>S&amp;#39;il vous plaît entrez la longueur horizontale</fr>
+				<nl>Vul de horizontale lengte</nl>
+				<it>Si prega di inserire la lunghezza orizzontale</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>3c3cee656c89085940521c5086fa16b2</id>
 				<org>Bitte geben Sie eine Zahl, die größer als 0 ist ein</org>
+				<en>Please enter a number that is greater than 0</en>
+				<es>Por favor, introduzca un número que es mayor que 0</es>
+				<fr>S&amp;#39;il vous plaît, entrez un numéro qui est supérieur à 0</fr>
+				<nl>Voer een getal dat groter is dan 0</nl>
+				<it>Si prega di inserire un numero che è maggiore di 0</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>01921a4d5bd806cbeb129e0f3b436ac7</id>
 				<org>Bitte geben Sie eine kleinere Zahl als 60 ein</org>
+				<en>Please enter a smaller number than 60, a</en>
+				<es>Por favor, introduzca un número menor que 60, un</es>
+				<fr>S&amp;#39;il vous plaît entrer un nombre inférieur à 60, une</fr>
+				<nl>Geef een kleiner aantal dan 60, een</nl>
+				<it>Si prega di inserire un numero inferiore a 60, uno</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>b25f72f7d910e34c7e2d93713a5b6b07</id>
 				<org>Bitte geben Sie eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entfernen Sie bitte die betroffenen Benutzer.</org>
+				<en>Please enter a larger number, otherwise seats will be deleted. Nevertheless, in order to generate a smaller office block, please remove the affected user.</en>
+				<es>Por favor, introduzca un número mayor, de lo contrario los asientos serán eliminados. Sin embargo, con el fin de generar un bloque de oficinas más pequeñas, por favor, elimine el usuario afectado.</es>
+				<fr>S&amp;#39;il vous plaît entrer un plus grand nombre, faute de quoi les sièges seront supprimés. Néanmoins, afin de générer un bloc plus petit bureau, s&amp;#39;il vous plaît supprimer l&amp;#39;utilisateur affecté.</fr>
+				<nl>Geef een groter aantal, anders zetels worden geschrapt. Toch, met het oog op het genereren van een kleiner kantoorgebouw, verwijder de betrokken gebruiker.</nl>
+				<it>Si prega di inserire un numero maggiore, altrimenti posti a sedere saranno cancellati. Tuttavia, al fine di generare un blocco più piccolo ufficio, si prega di rimuovere l&amp;#39;utente interessato.</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>0945cb36a8ebc66793fb5a97c86ae2d5</id>
 				<org>Bitte geben Sie die vertikale Länge ein</org>
+				<en>Please enter the vertical length</en>
+				<es>Por favor, introduzca la longitud vertical</es>
+				<fr>S&amp;#39;il vous plaît entrer la longueur verticale</fr>
+				<nl>Vul de verticale lengte</nl>
+				<it>Si prega di inserire la lunghezza verticale</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>c7913a48b644f1d90ac0f96b8a56d99f</id>
 				<org>Bitte geben Sie eine kleinere Zahl als 100 ein</org>
+				<en>Please enter a smaller number than 100 a</en>
+				<es>Por favor, introduzca un número menor de 100 por</es>
+				<fr>S&amp;#39;il vous plaît entrer un nombre inférieur à 100 A</fr>
+				<nl>Geef een kleiner aantal dan 100 A</nl>
+				<it>Si prega di inserire un numero inferiore a 100 A</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>ec98732b8ba25faed3ccf231ad2969fc</id>
 				<org>Bitte geben Sie weniger als 1500 Zeichen ein</org>
+				<en>Please enter less than 1500 characters</en>
+				<es>Por favor, introduzca menos de 1500 caracteres</es>
+				<fr>S&amp;#39;il vous plaît entrez moins de 1500 caractères</fr>
+				<nl>Geef minder dan 1500 karakters</nl>
+				<it>Si prega di inserire meno di 1500 caratteri</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>d758c451255ae9b28d333107ffbee263</id>
 				<org>Sitzblock erstellen</org>
+				<en>Create office block</en>
+				<es>Crear un bloque de oficinas</es>
+				<fr>Créer un immeuble de bureaux</fr>
+				<nl>Maak kantoorgebouw</nl>
+				<it>Creare blocco uffici</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>8ceb079dcb2dd5a728a331ebae1fa0d2</id>
 				<org>Mit Hilfe des folgenden Formulars können Sie einen neuen Sitzblock erstellen. In einem folgenden zweiten Schritt können Sie dann Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bedürfnissen anzupassen.</org>
+				<en>With the help of the following form, you can create a new office block. In a subsequent second step, you can then select places of the seat block to adjust or disable the seat block your needs.</en>
+				<es>Con la ayuda de la forma siguiente, puede crear un nuevo bloque de oficinas. En un paso posterior segundo, a continuación, puede seleccionar los lugares del bloque de asiento para ajustar o desactivar el bloque de asiento a sus necesidades.</es>
+				<fr>Avec l&amp;#39;aide du formulaire suivant, vous pouvez créer un nouvel immeuble de bureaux. Dans une étape ultérieure secondes, vous pouvez alors choisir des lieux du bloc de sièges à ajuster ou désactiver le siège bloquer vos besoins.</fr>
+				<nl>Met behulp van het onderstaande formulier kunt, u een nieuw kantoorgebouw. In een latere tweede stap kunt, u vervolgens plaatsen van de stoel blok aan te passen of uitschakelen van de stoel blok uw behoeften.</nl>
+				<it>Con l&amp;#39;aiuto del modulo seguente, è possibile creare un nuovo blocco uffici. In una fase successiva secondi, quindi è possibile selezionare i posti di blocco del sedile per regolare o disattivare il blocco del sedile vostre esigenze.</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>d7579b3073e9ba93ce9397378ad1b341</id>
 				<org>Sitzblockname</org>
+				<en>Seat Block Name</en>
+				<es>Seat Nombre Edificio</es>
+				<fr>Seat Nom Bâtiment</fr>
+				<nl>Seat Blok Naam</nl>
+				<it>Seat Block Nome</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>9d33b6bfac847d36120b2c2c17b06d05</id>
 				<org>Länge horizontal</org>
+				<en>Horizontal Length</en>
+				<es>Longitud horizontal</es>
+				<fr>Longueur horizontale</fr>
+				<nl>Horizontale Lengte</nl>
+				<it>Lunghezza orizzontale</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>ad65a9c8c62ec1169e527dd9dfa92450</id>
 				<org>Länge vertikal</org>
+				<en>Length vertical</en>
+				<es>Longitud vertical</es>
+				<fr>Longueur verticale</fr>
+				<nl>Lengte verticale</nl>
+				<it>Lunghezza verticale</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>0e1b090efb14373e9e7bb7c4fe69981a</id>
 				<org>Vertikal</org>
+				<en>Vertical</en>
+				<es>Vertical</es>
+				<fr>Vertical</fr>
+				<nl>Verticale</nl>
+				<it>Verticale</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>c1b5fa03ecdb95d4a45dd1c40b02527f</id>
 				<org>Horizontal</org>
+				<en>Horizontal</en>
+				<es>Horizontal</es>
+				<fr>Horizontal</fr>
+				<nl>Horizontale</nl>
+				<it>Orizzontale</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>5e108b1e1a047ade45971d08653d322c</id>
 				<org>Orientierung</org>
+				<en>Orientation</en>
+				<es>Orientación</es>
+				<fr>Orientation</fr>
+				<nl>Orientation</nl>
+				<it>Orientamento</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>752de4848611be671adc01dea7863472</id>
 				<org>U18 Block</org>
+				<en>Block U18</en>
+				<es>Sub-18 Block</es>
+				<fr>Block U18</fr>
+				<nl>Block U18</nl>
+				<it>Block U18</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>61dd5c0ce0a43ceb3d52834dc795ce7f</id>
 				<org>Für alle Benutzer offen</org>
+				<en>For all users open</en>
+				<es>Para todos los usuarios abierto</es>
+				<fr>Pour tous les utilisateurs ouvrent</fr>
+				<nl>Voor alle gebruikers open</nl>
+				<it>Per tutti gli utenti aprono</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>54eca29c5fb4a3df281225ee07ab91b4</id>
 				<org>Nur für Benutzer dieser Gruppe</org>
+				<en>Only for users of this group</en>
+				<es>Sólo para los usuarios de este grupo de</es>
+				<fr>Uniquement pour les utilisateurs de ce groupe</fr>
+				<nl>Alleen voor de gebruikers van deze groep</nl>
+				<it>Solo per gli utenti di questo gruppo</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>29d24cfe37ad8af49e4a5eee013752df</id>
 				<org>Nur für diesen Eintrittspreis</org>
+				<en>Only for those admission</en>
+				<es>Sólo para los de admisión</es>
+				<fr>Seulement pour ceux d&amp;#39;admission</fr>
+				<nl>Alleen voor de toelating</nl>
+				<it>Solo per quelle di ammissione</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>32fca0502cabf47fbc3e8dfcb881d814</id>
 				<org>Bemerkung</org>
+				<en>Remark</en>
+				<es>Observación</es>
+				<fr>Remarque</fr>
+				<nl>Opmerking</nl>
+				<it>Annotazione</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>4f4a12f5d374268cf780d1350e979477</id>
 				<org>Sitzblockbeschriftung</org>
+				<en>Office block lettering</en>
+				<es>Caracteres de imprenta Oficina de</es>
+				<fr>Office Block lettrage</fr>
+				<nl>Kantoorgebouw belettering</nl>
+				<it>Lettering Office blocco</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>094a173d3b32f44f5b5c996e8710ae28</id>
 				<org>Party</org>
+				<en>Party</en>
+				<es>Fiesta</es>
+				<fr>Fête</fr>
+				<nl>Feestje</nl>
+				<it>Festa</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>85e717954ac10b9f2dd36bd617672d1d</id>
 				<org>Sitzblock Zwischengänge definieren</org>
+				<en>Office block defining Entrees</en>
+				<es>Oficina de bloque que define Entradas</es>
+				<fr>Office Block définir Entrees</fr>
+				<nl>Kantoorgebouw omschrijving Entrees</nl>
+				<it>Ufficio blocco che definisce Entrees</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>0ae30f6ee89be223402ed5a93f0f6e87</id>
 				<org>Abstände zwischen einzelnen Zeilen bzw. Reihen können mit den außen angezeigten Pfeilen eingefügt bzw. wieder gelöscht werden.</org>
+				<en>Distances between individual rows and rows can be inserted with the arrows displayed outside or deleted.</en>
+				<es>Las distancias entre filas y filas individuales se pueden insertar con las flechas que aparece fuera o eliminado.</es>
+				<fr>Les distances entre les lignes et les lignes peuvent être insérées avec les flèches affichées à l&amp;#39;extérieur ou supprimé.</fr>
+				<nl>Afstanden tussen afzonderlijke rijen en rijen kunnen worden ingevoegd met de pijltjes weergegeven buiten of verwijderd.</nl>
+				<it>Le distanze tra le righe i singoli e le righe possono essere inserite con le frecce visualizzate al di fuori o cancellati.</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>43edc2625b0cf82e3ae2334f4004cce8</id>
 				<org>Sitzblock Sitze definieren</org>
+				<en>Office block defining Seats</en>
+				<es>Oficina de bloque que define Asientos</es>
+				<fr>Office Block définir Sièges</fr>
+				<nl>Kantoorgebouw definiëren Seats</nl>
+				<it>Ufficio blocco che definisce Seggi</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>d99164769ccde7f591137bc288550917</id>
 				<org>Der Sitzplan wurde erfolgreich bearbeitet</org>
+				<en>The seating plan has been successfully processed</en>
+				<es>El plan de asientos ha sido realizado con éxito</es>
+				<fr>Le plan de la salle a été traitée avec succès</fr>
+				<nl>De plattegrond is met succes is verwerkt</nl>
+				<it>Il piano di posti a sedere sono stati trattati con successo</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>062557b6929d291980f012d8aafc2662</id>
 				<org>Das Format mindestens einer IP ist ungültig. Format: 192.168.123.12</org>
+				<en>The format of at least one IP is invalid. Format: 192.168.123.12</en>
+				<es>El formato de al menos un IP no es válida. Formato: 192.168.123.12</es>
+				<fr>Le format d&amp;#39;au moins un IP n&amp;#39;est pas valide. Format: 192.168.123.12</fr>
+				<nl>Het formaat van ten minste een IP is ongeldig. Formaat: 192.168.123.12</nl>
+				<it>Il formato di almeno un IP non è valido. Formato: 192.168.123.12</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>1303e9760ea8d34a5fbdca24dbdc4821</id>
 				<org>Mindestens eine IP wurde bereits vergeben</org>
+				<en>At least one IP was already assigned</en>
+				<es>Por lo menos un período de investigación ya ha sido asignado</es>
+				<fr>Au moins un IP a déjà été assigné</fr>
+				<nl>Ten minste een IP was al toegewezen</nl>
+				<it>Almeno un IP era già stata assegnata</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>8e7e5e81d197afbe7e40255ca605296a</id>
 				<org>Sitzplatz - Informationen</org>
+				<en>Seats - Details</en>
+				<es>Asientos - Detalles</es>
+				<fr>Sièges - Détails</fr>
+				<nl>Seats - Details</nl>
+				<it>Posti - Dettagli</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>ce9859e3dcb29b3300a8ba713c5b66d4</id>
 				<org>Fahren Sie mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.</org>
+				<en>Take the mouse over a seat to get more information.</en>
+				<es>Tome el mouse encima de un asiento para obtener más información.</es>
+				<fr>Prendre la souris sur un siège pour obtenir plus d&amp;#39;informations.</fr>
+				<nl>Neem de muis over een zetel voor meer informatie.</nl>
+				<it>Prendete il mouse sopra un sedile per avere maggiori informazioni.</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>6c6bc569e769b5430ce3e4429ecf88ae</id>
 				<org>Die IPs wurden erfolgreich eingetragen</org>
+				<en>The IPs were successfully filled</en>
+				<es>Las poblaciones indígenas fueron correctamente llenado</es>
+				<fr>Les adresses IP ont été remplis avec succès</fr>
+				<nl>De IP-adressen werden met succes ingevuld</nl>
+				<it>PI erano riusciti ad occupare la</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>aad5e0b7a3bbb8e7861148f3c0c2da40</id>
 				<org>IP-Generierung</org>
+				<en>IP Generation</en>
+				<es>IP de nueva generación</es>
+				<fr>IP nouvelle génération</fr>
+				<nl>IP Generation</nl>
+				<it>IP di nuova generazione</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>0b56b5e161fc56d2d1df0bf68aee171c</id>
 				<org>Die IP Adressen wurden erfolgreich eingetragen.</org>
+				<en>The IP addresses were successfully registered.</en>
+				<es>Las direcciones IP se ha registrado correctamente.</es>
+				<fr>Les adresses IP ont été enregistré avec succès.</fr>
+				<nl>De IP-adressen werden succesvol geregistreerd.</nl>
+				<it>Gli indirizzi IP sono stati correttamente registrati.</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>aa20a9459585f65e70732b4cdfe823f3</id>
 				<org>IPs dieses Sitzblocks wirklich alle löschen?</org>
+				<en>IPs delete this office block really all?</en>
+				<es>IPs eliminar este edificio de oficinas realmente todo?</es>
+				<fr>IPs supprimer ce bloc bureau vraiment tout?</fr>
+				<nl>IP verwijder dit kantoorgebouw echt alles?</nl>
+				<it>IPs eliminare questo blocco ufficio davvero tutti?</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>cac4019eeb8df5fff0b158e0af022a6d</id>
 				<org>Die IPs dieses Plans wurden erfolgreich gelöscht</org>
+				<en>The IPs of the plan have been successfully removed</en>
+				<es>La IP del plan se han eliminado con éxito</es>
+				<fr>Les adresses IP de ce plan ont été retiré avec succès</fr>
+				<nl>De IP-adressen van het plan met succes is verwijderd</nl>
+				<it>PI del piano sono stati rimossi</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>74d80184ff999aefa795c2689e150b8b</id>
 				<org>Blockname</org>
+				<en>Block Name</en>
+				<es>Nombre del Bloque</es>
+				<fr>Nom de bloc</fr>
+				<nl>Blok Naam</nl>
+				<it>Nome blocco</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>10ea6cc278346e585921ac8dde7a8a2c</id>
 				<org>Plätze</org>
+				<en>Places</en>
+				<es>Lugares</es>
+				<fr>Lieux</fr>
+				<nl>Plaatsen</nl>
+				<it>Places</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>74533df52e14d028a7125f66a92290b7</id>
 				<org>Belegt</org>
+				<en>Busy</en>
+				<es>Ocupado</es>
+				<fr>Occupé</fr>
+				<nl>Bezig</nl>
+				<it>Occupato</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>d4bbf10579ffb03de0a2963d3c5c7afa</id>
 				<org>Auslastung</org>
+				<en>Utilization</en>
+				<es>Utilización</es>
+				<fr>Utilisation</fr>
+				<nl>Utilization</nl>
+				<it>Utilizzo</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
+				<en>Details</en>
+				<es>Detalles</es>
+				<fr>Détails</fr>
+				<nl>Details</nl>
+				<it>Dettagli</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>a9a8a0559f534dc179ff8486fc87031e</id>
 				<org>IPs generieren</org>
+				<en>IPs generate</en>
+				<es>IPs generar</es>
+				<fr>IPs générer</fr>
+				<nl>IP genereren</nl>
+				<it>IPs generano</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>076d4b2c537c0b64327447c96208e1ef</id>
 				<org>IPs editieren</org>
+				<en>Edit IPs</en>
+				<es>Editar las direcciones IP</es>
+				<fr>Modifier des adresses IP</fr>
+				<nl>Edit IP</nl>
+				<it>Modificare gli IP</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>858c268ed9d5c2a2eedf375dbb59492c</id>
 				<org>IPs löschen</org>
+				<en>Delete IPs</en>
+				<es>Eliminar PI</es>
+				<fr>Supprimer les IPs</fr>
+				<nl>Verwijderen IP</nl>
+				<it>Elimina IPs</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>dce3022d236a624aabc05aafae0f008b</id>
 				<org>Es wurde kein Benutzer ausgewählt</org>
+				<en>There was no user selected the</en>
+				<es>No había ningún usuario selecciona el</es>
+				<fr>Il n&amp;#39;a pas été sélectionné par l&amp;#39;utilisateur la</fr>
+				<nl>Er was geen gebruiker gekozen</nl>
+				<it>Non c&amp;#39;era utente ha selezionato l&amp;#39;</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>25519a8284b4fd80420a900cecf5a455</id>
 				<org>Es wurde kein Sitzblock ausgewählt</org>
+				<en>It was not selected an office block</en>
+				<es>No se ha seleccionado un bloque de oficinas</es>
+				<fr>Il n&amp;#39;a pas été sélectionné un immeuble de bureaux</fr>
+				<nl>Het was niet geselecteerd voor een kantoorgebouw</nl>
+				<it>Non è stato selezionato un blocco uffici</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>fed13d37a0816dfd0540e4cc4751198d</id>
 				<org>Der Sitzplatz wurde erfolgreich für %1 reserviert</org>
+				<en>The seat has been reserved successfully for%1</en>
+				<es>El asiento ha sido reservado con éxito para%1</es>
+				<fr>Le siège a été réservé avec succès pour%1</fr>
+				<nl>De stoel is succesvol gereserveerd voor%1</nl>
+				<it>La sede è stato riservato con successo per il 1%</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>c522caf4bae1e9dc682ea78a79b64da4</id>
 				<org>Dieser Sitzplatz existiert nicht</org>
+				<en>This seat does not exist</en>
+				<es>Este asiento no existe</es>
+				<fr>Ce siège n&amp;#39;existe pas</fr>
+				<nl>Deze stoel bestaat niet</nl>
+				<it>Questa sede non esiste</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>95eb3db3f15d0ec3ded279e285d62d30</id>
 				<org>Sitzplatz reservierenHTML_NEWLINE(Ein evtl. zuvor für diesen Benutzer reservierter Platz wird freigegeben)</org>
+				<en>Patio reservierenHTML_NEWLINE (An earlier shared space is reserved for this user)</en>
+				<es>Patio reservierenHTML_NEWLINE (un espacio compartido antes se reserva para este usuario)</es>
+				<fr>Patio reservierenHTML_NEWLINE (un espace plus tôt partagée est réservée à cet utilisateur)</fr>
+				<nl>Patio reservierenHTML_NEWLINE (een eerdere gedeelde ruimte is gereserveerd voor deze gebruiker)</nl>
+				<it>Patio reservierenHTML_NEWLINE (Uno spazio condiviso in precedenza è riservato a questo utente)</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>557d54a4bf9ba2761fa6304c62a08ca8</id>
 				<org>Sitzplatz markieren</org>
+				<en>Seat mark</en>
+				<es>Marca Seat</es>
+				<fr>Seat marque</fr>
+				<nl>Seat merk</nl>
+				<it>Seat marchio</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>c581ae1897743803ac4f14d57c25522a</id>
 				<org>Aktion abbrechen. Zurück zum Sitzplan</org>
+				<en>Cancel action. Back to the seating plan</en>
+				<es>Cancelar la acción. Volver al plano de la sala</es>
+				<fr>Annuler l&amp;#39;action. Retour vers le plan de salle</fr>
+				<nl>Annuleren actie. Terug naar de plattegrond</nl>
+				<it>Annulla azione. Torna al piano di posti a sedere</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>a2c1e970fbea187f02c56ca828f81fb0</id>
 				<org>Dieser Sitzplatz ist aktuell noch frei (bzw. nur markiert)HTML_NEWLINESoll er fest reserviert oder nur markiert werden?</org>
+				<en>This seat is currently still available (or only) selected HTML_NEWLINESoll he be fully reserved, or just selected?</en>
+				<es>Este asiento está aún disponible (o única), seleccione HTML_NEWLINESoll sea completamente reservado, o simplemente seleccionado?</es>
+				<fr>Ce siège est actuellement toujours disponible (ou unique), sélectionnez HTML_NEWLINESoll il être entièrement réservés, ou tout simplement choisi?</fr>
+				<nl>Deze stoel is momenteel nog beschikbaar is (of alleen) geselecteerd HTML_NEWLINESoll hij volledig worden gereserveerd, of gewoon geselecteerd?</nl>
+				<it>Questa sede è attualmente ancora disponibili (o solo) ha selezionato HTML_NEWLINESoll essere pienamente riservati, o semplicemente selezionate?</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>23f4d14c2a68e36817fabac16e1a7713</id>
 				<org>Dies ist der Sitzplatz des aktuell ausgewählten Benutzers. Soll der Platz freigegeben werden?</org>
+				<en>This is the seat of the currently selected user. If the space will be released?</en>
+				<es>Esta es la sede del usuario seleccionado. Si el espacio se dará a conocer?</es>
+				<fr>C&amp;#39;est le siège de l&amp;#39;utilisateur actuellement sélectionné. Si l&amp;#39;espace sera libéré?</fr>
+				<nl>Dit is de zetel van de geselecteerde gebruiker. Indien de ruimte zal worden vrijgegeven?</nl>
+				<it>Questa è la sede dell&amp;#39;utente correntemente selezionato. Se lo spazio verrà rilasciato?</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>e33471baec51ad1785623fecb5c5c6cc</id>
 				<org>Dennoch reservieren. %1 hat dadurch anschließend keinen Sitzplatz mehr</org>
+				<en>Nevertheless Reserve. %1 has then no space</en>
+				<es>Sin embargo Reserva. %1 tiene entonces ningún espacio</es>
+				<fr>Néanmoins réserve. %1 a donc pas d&amp;#39;espace</fr>
+				<nl>Toch Reserve. %1 heeft dan geen ruimte</nl>
+				<it>Tuttavia Reserve. %1 ha quindi alcuno spazio</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>de5ee62aa5d8c68174b136de6d5a78f6</id>
 				<org>Dennoch reservieren und %USERNAME% anschließend einen neuen Sitzplatz aussuchen</org>
+				<en>However, reserve and%USERNAME%then choose a new seat</en>
+				<es>Sin embargo, la reserva y%USERNAME%y elija un nuevo asiento</es>
+				<fr>Toutefois, les réserves et%USERNAME%alors choisir un nouveau siège</fr>
+				<nl>Echter, reserve en%GEBRUIKERSNAAM%en kies vervolgens een nieuwe stoel</nl>
+				<it>Tuttavia, riserva e%%USERNAME quindi scegliere una nuova sede</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>57dedb74d3dd104c0530186e31b53db1</id>
 				<org>Dieser Sitzplatz ist aktuell belegt durch %1 (%2 %3)</org>
+				<en>This seat is currently occupied by%1 (%2%3)</en>
+				<es>Este asiento está ocupado actualmente por%1 (%2%3)</es>
+				<fr>Ce siège est actuellement occupé par%1 (%2%3)</fr>
+				<nl>Deze stoel is momenteel bezet door%1 (%2%3)</nl>
+				<it>Questa sede è attualmente occupato da%1 (%2%3)</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>e62f33ca616242c0250b3e86c5913718</id>
 				<org>Der Sitzplatz wurde erfolgreich für %1 vorgemerkt</org>
+				<en>The seat has been marked success for%1</en>
+				<es>El asiento ha sido notable éxito, para%1</es>
+				<fr>Le siège a été marqué pour la réussite de 1%</fr>
+				<nl>De stoel is gemarkeerd is succes voor%1</nl>
+				<it>La sede è stata applicata con notevole successo per l&amp;#39;1%</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>920973ad5699d9b03104caef100d7561</id>
 				<org>Der Sitzplatz wurde wieder freigegeben</org>
+				<en>The seat was re-released</en>
+				<es>La sede fue re-editado</es>
+				<fr>Le siège a été re-publié</fr>
+				<nl>De zitting werd opnieuw uitgebracht</nl>
+				<it>La sede è stato ripubblicato</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>eab367cc1731e75432a20ab2dbc25a8d</id>
 				<org>Sie müssen zuerst für diese Party bezahlen, bevor Sie sich einen Sitzplatz reservieren dürfen.</org>
+				<en>You must first pay for this party, before you are allowed to reserve a seat.</en>
+				<es>En primer lugar, debe pagar por este partido, antes de que se le permite reservar un asiento.</es>
+				<fr>Vous devez d&amp;#39;abord payer pour ce parti, avant d&amp;#39;être autorisés à réserver une place.</fr>
+				<nl>U moet eerst betalen voor deze partij, voordat u toegestaan om een zitplaats te reserveren.</nl>
+				<it>È innanzitutto necessario pagare per questo partito, prima di essere autorizzati a prenotare un posto.</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>4f05c69ebe5cd42fad2b1836ede839e1</id>
 				<org>Dieser Sitzplatz ist bereits vergeben</org>
+				<en>This seat is already taken</en>
+				<es>Este asiento ya se ha tenido</es>
+				<fr>Ce siège est déjà pris</fr>
+				<nl>Deze stoel is reeds genomen</nl>
+				<it>Questa sede è già stata presa</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>cad205fd227a8ee7c3370ccd9730b311</id>
 				<org>Solange Sie nicht für diese Party bezahlt haben, dürfen Sie nur einen Sitz vormerken</org>
+				<en>As long as you have not paid for this party, you may mark only one seat</en>
+				<es>Mientras usted no ha pagado por este partido, usted puede marcar un solo asiento</es>
+				<fr>Tant que vous n&amp;#39;avez pas payé pour cette partie, vous mai marque un seul siège</fr>
+				<nl>Zolang je niet betaald hebt voor deze partij, mag u merk slechts een zetel</nl>
+				<it>Finché non avete pagato per questo partito, potrebbe essere soltanto il marchio di un seggio</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>106161cc31656cfe2f858f8114885d11</id>
 				<org>Sie haben bereits einen Sitzplatz reserviert. Möchten Sie Ihren Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?</org>
+				<en>They have already reserved a seat. Would you like to be free again and reserve your seat instead of this place?</en>
+				<es>Ya han reservado un asiento. ¿Te gustaría ser libre de nuevo y reservar su asiento en lugar de este lugar?</es>
+				<fr>Ils ont déjà réservé un siège. Souhaitez-vous être à nouveau libre et réserver votre siège au lieu de ce lieu?</fr>
+				<nl>Ze hebben al een gereserveerde zitplaats. Wilt u graag weer vrij en reserveer uw stoel in plaats van deze plek?</nl>
+				<it>Hanno già prenotato un posto. Vuoi essere di nuovo libero e prenotare il vostro posto, invece di questo posto?</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>7c41b8ee26d93674b04a12e2688339d7</id>
 				<org>Diesen Sitzplatz für mich reservieren</org>
+				<en>This seat reserved for me</en>
+				<es>Este asiento reservado para mí</es>
+				<fr>Ce siège est réservé pour moi</fr>
+				<nl>Deze stoel gereserveerd voor mij</nl>
+				<it>Questa sede mi ha riservato</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>00fe63aa5a29076d33156db10a91172a</id>
 				<org>Diesen Sitzplatz für einen Freund vormerkenHTML_NEWLINE(Eine Vormekung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)</org>
+				<en>This seat for a friend vormerkenHTML_NEWLINE (A Vormekung can be overridden by anyone. It was only after the payment is a fixed reservations accepted)</en>
+				<es>Este asiento para un vormerkenHTML_NEWLINE amigo (A Vormekung se puede reemplazar por cualquier persona. Sólo después de que el pago es una reserva fija aceptado)</es>
+				<fr>Ce siège de vormerkenHTML_NEWLINE ami (A Vormekung peut être substituée par n&amp;#39;importe qui. Ce n&amp;#39;est qu&amp;#39;après le paiement est une des réserves fixes acceptée)</fr>
+				<nl>Deze stoel voor een vriend vormerkenHTML_NEWLINE (A Vormekung kan worden overschreven door iedereen. Het was pas na de betaling is een vaste aanvaard reserveringen)</nl>
+				<it>Questa sede per un vormerkenHTML_NEWLINE amico (A Vormekung può essere modificato da chiunque. E &amp;#39;stato solo dopo il pagamento è accettato prenotazioni fisse)</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>d2904227ab05e758fce7e9fe2edc3ac8</id>
 				<org>Möchten Sie als Admin diese Vormerkung entfernen?</org>
+				<en>Do you want to remove this flag as an admin?</en>
+				<es>¿Desea eliminar esta bandera como un administrador?</es>
+				<fr>Voulez-vous supprimer cet indicateur comme un admin?</fr>
+				<nl>Wilt u deze vlag te verwijderen als admin?</nl>
+				<it>Vuoi rimuovere questo flag come amministratore?</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>a2ddc878372eeaca9739b28797b98710</id>
 				<org>Diesen Sitzplatz für mich vormerkenHTML_NEWLINE(Eine Vormekung kann von jedem überschrieben werden. Erst nach dem Bezahlen ist eine feste Reservierung möglich)</org>
+				<en>This seat for me vormerkenHTML_NEWLINE (A Vormekung can be overridden by anyone. It was only after the payment is a fixed reservations accepted)</en>
+				<es>Este asiento para mí vormerkenHTML_NEWLINE (A Vormekung se puede reemplazar por cualquier persona. Sólo después de que el pago es una reserva fija aceptado)</es>
+				<fr>Ce siège pour moi vormerkenHTML_NEWLINE (A Vormekung peut être substituée par n&amp;#39;importe qui. Ce n&amp;#39;est qu&amp;#39;après le paiement est une des réserves fixes acceptée)</fr>
+				<nl>Deze stoel voor mij vormerkenHTML_NEWLINE (A Vormekung overschreven kan worden door iedereen. Het was pas na de betaling is een vaste aanvaard reserveringen)</nl>
+				<it>Questa sede per me vormerkenHTML_NEWLINE (A Vormekung può essere modificato da chiunque. E &amp;#39;stato solo dopo il pagamento è accettato prenotazioni fisse)</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>20c263ac0e9391bcd7ae1d085b2d7652</id>
 				<org>Dieser Sitzplatz ist momentan noch frei</org>
+				<en>This seat is currently still available</en>
+				<es>Este asiento está aún disponible</es>
+				<fr>Ce siège est actuellement encore disponible</fr>
+				<nl>Deze stoel is momenteel nog beschikbaar</nl>
+				<it>Questa sede è attualmente ancora disponibile</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>fc2c6d02f3284f9bcab993f351dcb545</id>
 				<org>Sie gehören nicht der richtigen Gruppe an, um in diesem Block einen Sitz zu reservieren</org>
+				<en>They do not belong to the right group to reserve a seat in this block</en>
+				<es>Ellos no pertenecen al grupo de derecho de reservar un asiento en este bloque de</es>
+				<fr>Ils n&amp;#39;appartiennent pas au groupe le droit de réserver un siège dans ce bloc</fr>
+				<nl>Ze behoren niet tot de juiste groep om een plaats reserveren in dit blok</nl>
+				<it>Esse non appartengono al gruppo diritto di prenotare un posto in questo blocco</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>f222f0af73d7a31e200b4f88869bd2f8</id>
 				<org>Sie sind nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz zu reservieren</org>
+				<en>You are not the right ticket assigned to reserve a seat in this block</en>
+				<es>Usted no es el ticket asignado el derecho a reservar un asiento en este bloque</es>
+				<fr>Vous n&amp;#39;êtes pas le billet approprié attribué pour réserver une place dans ce bloc</fr>
+				<nl>U bent niet de juiste ticket toegewezen aan een plaats reserveren in dit blok</nl>
+				<it>Lei non è il biglietto giusto assegnato a prenotare un posto in questo blocco</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>02c4027b6b6ce8c2fbb85352c1d113cb</id>
 				<org>Der Sitzplatz wurde erfolgreich reserviert</org>
+				<en>The seat has been successfully reserved</en>
+				<es>El asiento se ha logrado reservados</es>
+				<fr>Le siège a été réservé avec succès</fr>
+				<nl>De stoel is met succes gereserveerd</nl>
+				<it>La sede è stata con successo riservati</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>d2a4233173ed1610c1405c94a6b8bcaf</id>
 				<org>Nur zur Party angemeldete Benutzer dürfen Sitzplätze vormerken</org>
+				<en>Only registered users are allowed to mark the party seats</en>
+				<es>Sólo los usuarios registrados pueden marcar el Partido Escaños</es>
+				<fr>Seuls les utilisateurs enregistrés sont autorisés à marquer les sièges Parti</fr>
+				<nl>Alleen geregistreerde gebruikers zijn toegestaan ter gelegenheid van de partij zetels</nl>
+				<it>Solo gli utenti registrati possono contrassegnare i seggi Partito</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>925fdd283e9fa0a3f73ddd25a6b18e83</id>
 				<org>Sie haben bereits das Maximum an Sitzen reserviert</org>
+				<en>They have already reserved the maximum of seats</en>
+				<es>Ya han reservado el máximo de escaños</es>
+				<fr>Ils ont déjà réservé le maximum de sièges</fr>
+				<nl>Ze hebben al gereserveerd het maximum van de zetels</nl>
+				<it>Hanno già riservato il massimo di posti a sedere</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>317ef09bb7404d5c3ea7d9308916849e</id>
 				<org>Meinen Sitzplatz wieder freigeben</org>
+				<en>My seat back release</en>
+				<es>Mi asiento de atrás de liberación</es>
+				<fr>Mon dossier de sortie</fr>
+				<nl>Mijn rugleuning release</nl>
+				<it>Il mio sedile posteriore di rilascio</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>28d08d91511e7a209d3adc9a28b648d9</id>
 				<org>Dieser Sitzplatz ist momentan für Sie reserviert</org>
+				<en>This seat is currently reserved for you</en>
+				<es>Este asiento está reservado para usted</es>
+				<fr>Ce siège est actuellement réservé pour vous</fr>
+				<nl>Deze stoel is op dit moment voor u gereserveerd</nl>
+				<it>Questa sede è attualmente riservato per voi</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>1db6e2c1be5147513d8ae49753b82e8f</id>
 				<org>Der Sitzplatz wurde erfolgreich freigegeben</org>
+				<en>The seat has been successfully released</en>
+				<es>El asiento ha sido lanzado con éxito</es>
+				<fr>Le siège a été publié avec succès</fr>
+				<nl>De stoel is met succes is uitgebracht</nl>
+				<it>La sede è stato liberato con successo</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>b16d75d76b6d0997c7c7d58d7125af33</id>
 				<org>Sind Sie sicher, dass Sie diesen Sitzplatz wieder freigeben möchten?</org>
+				<en>Are you sure you want to share this seat again?</en>
+				<es>¿Estás seguro de que desea compartir este asiento de nuevo?</es>
+				<fr>Etes-vous sûr que vous souhaitez partager ce siège à nouveau?</fr>
+				<nl>Weet u zeker dat u deze stoel weer delen?</nl>
+				<it>Sei sicuro di voler condividere questo posto nuovo?</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>f57aecdba38be6cb558bf9f478b9f729</id>
 				<org>Ausgewählter User</org>
+				<en>User Selected</en>
+				<es>El usuario seleccionado</es>
+				<fr>L&amp;#39;utilisateur sélectionné</fr>
+				<nl>User Selected</nl>
+				<it>Utente selezionato</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>0bf6b5feac5a4e19ed34e5128ce8235f</id>
 				<org>Diesen Sitzplatz für mein bezahltes Clan-Mitglied %1 reservieren</org>
+				<en>These seats paid for my clan member%1 Reserve</en>
+				<es>Estos asientos pagado por mi clan de miembros 1%de reserva</es>
+				<fr>Ces sièges payé pour mon%membre du clan 1 Réserve</fr>
+				<nl>Deze zitplaatsen betaald voor mijn clan member%1 Reserve</nl>
+				<it>Questi seggi pagato per la mia%membro del clan 1 Riserva</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>0ef2d98cde94fd2902e38a0e86a1a7d6</id>
 				<org>Der Sitzplatz wurde erfolgreich vorgemerkt</org>
+				<en>The seat was successfully flagged</en>
+				<es>La sede fue marcado éxito</es>
+				<fr>Le siège a été marqué avec succès</fr>
+				<nl>De zitting werd gemarkeerd</nl>
+				<it>La sede è stato contrassegnato con successo</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>fe5eebfd39c7928d035b089338644423</id>
 				<org>Diesen Sitzplatz wieder freigeben</org>
+				<en>This seat back release</en>
+				<es>Este asiento de atrás de liberación</es>
+				<fr>Ce siège arrière de sortie</fr>
+				<nl>Deze zitplaatsen ontgrendelen</nl>
+				<it>Questo sedile posteriore release</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>cd7a7be1288d3b3996e3004793b20d65</id>
 				<org>Für %1 einen anderen Sitzplatz bestimmen (umsetzen)</org>
+				<en>For%1 to a different seat to determine translate ()</en>
+				<es>Para%1 a otro asiento para determinar translate ()</es>
+				<fr>Pour le%1 à une autre place pour déterminer translate ()</fr>
+				<nl>Voor%1 naar een andere stoel te gaan vertalen ()</nl>
+				<it>Per 1%di un posto diverso per determinare tradurre ()</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>89eedbda5852b67f2be0d8e29ceb7479</id>
 				<org>Dieser Sitzplatz ist momentan für %1 reserviert. Sie können:</org>
+				<en>This seat is reserved currently for%1. You can:</en>
+				<es>Este asiento está reservado actualmente para%1. Usted puede:</es>
+				<fr>Ce siège est réservé actuellement à 1%. Vous pouvez:</fr>
+				<nl>Deze stoel is gereserveerd voor%1. U kunt:</nl>
+				<it>Questa sede è attualmente riservati per%1. È possibile:</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>ffde4bbd01c63ea78fcb4d01c5023639</id>
 				<org>Es können nur freie Sitzplätze geändert werden</org>
+				<en>It may be amended only free seats</en>
+				<es>Podrá ser modificada sólo asientos libres</es>
+				<fr>Mai il être modifié seulement les sièges libres</fr>
+				<nl>Het kan alleen worden gewijzigd vrije plaatsen</nl>
+				<it>Esso può essere modificato solo posti liberi</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>c750f9f8d5deaecc9162be3abdb7c95f</id>
 				<org>Auswahl</org>
+				<en>Selection</en>
+				<es>Selección</es>
+				<fr>Sélection</fr>
+				<nl>Selectie</nl>
+				<it>Selezione</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>ea4339583cba244eb427e5102f126418</id>
 				<org>Clanmate</org>
+				<en>Clanmate</en>
+				<es>Clanmate</es>
+				<fr>Clanmate</fr>
+				<nl>Clanmate</nl>
+				<it>Clanmate</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>d2fb2a722f65d9f872abfaad0de6480d</id>
 				<org>Sitzplatz für %1 reservierenHTML_NEWLINE(Ein evtl. zuvor für diesen Benutzer reservierter Platz wird freigegeben)</org>
+				<en>Seat%1 reservierenHTML_NEWLINE (An earlier shared space is reserved for this user)</en>
+				<es>Asiento 1%reservierenHTML_NEWLINE (un espacio compartido antes se reserva para este usuario)</es>
+				<fr>Seat%1 reservierenHTML_NEWLINE (un espace plus tôt partagée est réservée à cet utilisateur)</fr>
+				<nl>Seat%1 reservierenHTML_NEWLINE (een eerdere gedeelde ruimte is gereserveerd voor deze gebruiker)</nl>
+				<it>Seat reservierenHTML_NEWLINE%1 (Uno spazio condiviso in precedenza è riservato a questo utente)</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>51c69ad573b24519bd5dc04b3350a541</id>
 				<org>Dieser Sitzplatz ist noch frei (bzw. nur markiert)HTML_NEWLINESoll er fest reserviert oder nur markiert werden?</org>
+				<en>This seat is still available (or only) selected HTML_NEWLINESoll he be fully reserved, or just selected?</en>
+				<es>Este asiento está disponible (o única), seleccione HTML_NEWLINESoll sea completamente reservado, o simplemente seleccionado?</es>
+				<fr>Ce siège est toujours disponible (ou unique), sélectionnez HTML_NEWLINESoll il être entièrement réservés, ou tout simplement choisi?</fr>
+				<nl>Deze stoel is nog beschikbaar is (of alleen) geselecteerd HTML_NEWLINESoll hij volledig worden gereserveerd, of gewoon geselecteerd?</nl>
+				<it>Questa sede è ancora disponibile (o solo) ha selezionato HTML_NEWLINESoll essere pienamente riservati, o semplicemente selezionate?</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>4a943603941e6280d322416059952225</id>
 				<org>Sitzplatz - IP-Verteilung</org>
+				<en>Seats - IP Distribution</en>
+				<es>Asientos - Distribución de la propiedad intelectual</es>
+				<fr>Sièges - IP Distribution</fr>
+				<nl>Seats - IP Distributie</nl>
+				<it>Posti a sedere - Distribuzione IP</it>
 				<file>seating</file>
 			</entry>
 			<entry>
 				<id>95defd2b0ccb58f134e0b376470956dd</id>
 				<org>Hier sehen Sie die einzelnen Sitzpl&amp;auml;tze und die jeweils zugewiesene IP-Nummer. Diese k&amp;ouml;nnen einzeln von Hand neu eingetragen oder ge&amp;auml;ndert werden.</org>
+				<en>Here you see the individual seats and the respective assigned IP number. This can be used individually by hand to be re-entered or changed.</en>
+				<es>Aquí puede ver los asientos individuales y los respectivos números de IP asignado. Esto se puede utilizar individualmente a mano para volver a introducir o modificar.</es>
+				<fr>Ici vous voyez les sièges individuels et les respectives attribué des numéros IP. Ceci peut être utilisé individuellement à la main pour être réinscrit ou modifiés.</fr>
+				<nl>Hier zie je de individuele zitplaatsen en de respectieve toegewezen IP-nummer. Dit kan individueel worden gebruikt met de hand worden opnieuw worden ingevoerd of gewijzigd.</nl>
+				<it>Qui sotto potete vedere i sedili singoli e il rispettivo numero IP assegnato. Questo può essere utilizzato singolarmente a mano per essere re-inseriti o modificati.</it>
 				<file>seating</file>
 			</entry>
 			<entry>

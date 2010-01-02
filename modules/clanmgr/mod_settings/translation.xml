@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,241 +15,481 @@
 			<entry>
 				<id>40ffb1db4249441fe2777eb856eaab88</id>
 				<org>Passwort falsch!</org>
+				<en>Wrong password!</en>
+				<es>Wrong password!</es>
+				<fr>Mot de passe incorrect!</fr>
+				<nl>Wrong password!</nl>
+				<it>Wrong password!</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>f8288a8b8522b04f83c54e8fcc72a9f2</id>
 				<org>Clanname</org>
+				<en>Clanname</en>
+				<es>Clanname</es>
+				<fr>Clanname</fr>
+				<nl>Clanname</nl>
+				<it>Clanname</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>a498e927f7acf347d9f2dcc1af6b196b</id>
 				<org>Mitglieder</org>
+				<en>Members</en>
+				<es>Miembros</es>
+				<fr>Membres</fr>
+				<nl>Leden</nl>
+				<it>Membri</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>2bca61615ad4e3e8c668c33b238a99c8</id>
 				<org>Alle</org>
+				<en>All</en>
+				<es>Todo</es>
+				<fr>Tous</fr>
+				<nl>Alle</nl>
+				<it>Tutto</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>ff9ce20c2def45ebd038a5879d669dce</id>
 				<org>Ohne Mitglieder</org>
+				<en>Without members</en>
+				<es>Sin que los miembros</es>
+				<fr>Sans membres</fr>
+				<nl>Zonder leden</nl>
+				<it>Senza iscritti</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>2ed6e15432d7e968476f9193aee15d70</id>
 				<org>Mit Mitglieder</org>
+				<en>By Members</en>
+				<es>Por los miembros</es>
+				<fr>Par les députés</fr>
+				<nl>Door leden</nl>
+				<it>Dai deputati</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>40ccd64464e8bfacd537f36519dad0a3</id>
 				<org>Webseite</org>
+				<en>Website</en>
+				<es>Sitio web</es>
+				<fr>Site</fr>
+				<nl>Website</nl>
+				<it>Sito web</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>9bfb4a8fde32141d992e633af9392471</id>
 				<org>Clan-Details</org>
+				<en>Clan-Details</en>
+				<es>Clan-Detalles</es>
+				<fr>Clan-Détails</fr>
+				<nl>Clan-Details</nl>
+				<it>Clan-Details</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>aea804c7071ed45c1f3641c003ddd006</id>
 				<org>Passwort ändern</org>
+				<en>Change Password</en>
+				<es>Cambiar Contraseña</es>
+				<fr>Change Password</fr>
+				<nl>Wachtwoord wijzigen</nl>
+				<it>Cambia password</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>603c07e2735df19b9a7ce091d7453d2b</id>
 				<org>Clan</org>
+				<en>Clan</en>
+				<es>Clan</es>
+				<fr>Clan</fr>
+				<nl>Clan</nl>
+				<it>Clan</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>0f1927ef7fe8ba4d11d0d4e83c153eaa</id>
 				<org>Keine Clan-ID angegeben!</org>
+				<en>No clan id specified!</en>
+				<es>Ningún clan id especificado!</es>
+				<fr>Pas de clan id spécifié!</fr>
+				<nl>Geen clan id opgegeven!</nl>
+				<it>N. clan ID specificato!</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>22227681d901d1cd79ab6302ab84bc36</id>
 				<org>Sie sind nicht berechtigt das Passwort dieses Clans zu ändern</org>
+				<en>You are not authorized to change the password of this clan</en>
+				<es>Usted no está autorizado para cambiar la contraseña de este clan</es>
+				<fr>Vous n&amp;#39;êtes pas autorisé à changer le mot de passe de ce clan</fr>
+				<nl>U bent niet gemachtigd om het wachtwoord van deze clan</nl>
+				<it>Non sono autorizzati a cambiare la password di questo clan</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>789085db55ee5a64f08d6d3320b2ed70</id>
 				<org>Dezeitiges Passwort</org>
+				<en>Dezeitiges Password</en>
+				<es>Dezeitiges Contraseña</es>
+				<fr>Dezeitiges Mot de passe</fr>
+				<nl>Dezeitiges Wachtwoord</nl>
+				<it>Dezeitiges Password</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>c8a18c65f4dae9b897a5449b335132c7</id>
 				<org>Neues Passwort</org>
+				<en>New Password</en>
+				<es>Nueva Contraseña</es>
+				<fr>Nouveau mot de passe</fr>
+				<nl>Nieuw wachtwoord</nl>
+				<it>Nuova Password</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>81fd0da972d00380f6401eaeeb4a2168</id>
 				<org>Clanpasswort geändert</org>
+				<en>Clanpasswort last</en>
+				<es>Clanpasswort última</es>
+				<fr>Clanpasswort dernier</fr>
+				<nl>Clanpasswort laatste</nl>
+				<it>Clanpasswort scorso</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>554fd9ae8aa07d1d68b78a95d86cc37e</id>
 				<org>Das Clanpasswort wurde durch den Benutzer %1 in &quot;%2&quot; geändert</org>
+				<en>The Clanpasswort was amended by the user%1 to%2 &amp;quot;</en>
+				<es>El Clanpasswort fue modificado por el usuario%1 a%2 &amp;quot;</es>
+				<fr>Le Clanpasswort a été modifiée par l&amp;#39;utilisateur%1 à%2 &amp;quot;</fr>
+				<nl>De Clanpasswort werd gewijzigd door de gebruiker%1 naar%2 &amp;quot;</nl>
+				<it>Il Clanpasswort è stato modificato dal utente%1 a%2 &amp;quot;</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>759bf9ab76392208dc6601bc2ae785c8</id>
 				<org>Das Clanpasswort wurde durch den Benutzer %1 geändert</org>
+				<en>The Clanpasswort was amended by the user%1</en>
+				<es>El Clanpasswort fue modificado por el usuario%1</es>
+				<fr>Le Clanpasswort a été modifiée par l&amp;#39;utilisateur%1</fr>
+				<nl>De Clanpasswort werd gewijzigd door de gebruiker%1</nl>
+				<it>Il Clanpasswort è stato modificato dal utente%1</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>a6b4ee85e610112c9b19d0ff4bc87245</id>
 				<org>Clanmanager</org>
+				<en>Clanmanager</en>
+				<es>Clanmanager</es>
+				<fr>Clanmanager</fr>
+				<nl>Clanmanager</nl>
+				<it>Clanmanager</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>36e4d3a016360583463bc6e8ae7e7ecb</id>
 				<org>Löschen erfolgreich</org>
+				<en>Delete successful</en>
+				<es>Eliminar éxito</es>
+				<fr>Supprimer succès</fr>
+				<nl>Verwijderen succesvol</nl>
+				<it>Eliminare con successo</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>113ca7d705c728f13ae3e895cdbeee96</id>
 				<org>Clan-Daten</org>
+				<en>Clan information</en>
+				<es>Información del Clan</es>
+				<fr>Clan information</fr>
+				<nl>Clan informatie</nl>
+				<it>Clan informazioni</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>fecc7b92efa313ac8de08d4094455c9e</id>
 				<org>Vorname</org>
+				<en>First name</en>
+				<es>Nombre</es>
+				<fr>Prénom</fr>
+				<nl>Voornaam</nl>
+				<it>Nome</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>43895f9ec69cb177446921df9828c680</id>
 				<org>Nachname</org>
+				<en>Surname</en>
+				<es>Apellido</es>
+				<fr>Nom de famille</fr>
+				<nl>Achternaam</nl>
+				<it>Cognome</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>cca8493f6f1bd794b75879a6d8a7bbc7</id>
 				<org>Benutzername</org>
+				<en>Username</en>
+				<es>Nombre de usuario</es>
+				<fr>Nom d&amp;#39;utilisateur</fr>
+				<nl>Gebruikersnaam</nl>
+				<it>Username</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>33c2d2bffa9c86b1d88feac46381c301</id>
 				<org>Clan-Admin</org>
+				<en>Clan Admin</en>
+				<es>Clan Admin</es>
+				<fr>Clan Admin</fr>
+				<nl>Clan Admin</nl>
+				<it>Clan Admin</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>4104150b33072ab28dc4042cc4545105</id>
 				<org>Clan-Mitglied</org>
+				<en>Clan member</en>
+				<es>Miembro del clan</es>
+				<fr>Membre du Clan</fr>
+				<nl>Clan member</nl>
+				<it>Clan member</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>557f9bc794d9f691ac8fae516783e5b7</id>
 				<org>Bevor du einen neuen Clan anlegen kannst, musst du aus deinem aktuellen Clan austreten.</org>
+				<en>Before you can create a new clan, you have to resign from your current clan.</en>
+				<es>Antes de poder crear un clan nuevo, usted tiene que renunciar a su clan actual.</es>
+				<fr>Avant de pouvoir créer un nouveau clan, vous devez démissionner de votre clan en cours.</fr>
+				<nl>Voordat u een nieuwe clan kunt maken, moet u ontslag van uw huidige clan.</nl>
+				<it>Prima di creare un nuovo clan, devi dare le dimissioni dal proprio clan corrente.</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>af0f911a49bf75ea1b6145b181717b00</id>
 				<org>Clan %1 erstellt</org>
+				<en>Clan%1 created</en>
+				<es>Clan 1%creado</es>
+				<fr>Clan%1 créé</fr>
+				<nl>Clan%1 aangemaakt</nl>
+				<it>Clan%1 creato</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>0e39651ad6900e04f4a82b2c1ced2804</id>
 				<org>clanmgr</org>
+				<en>clanmgr</en>
+				<es>clanmgr</es>
+				<fr>clanmgr</fr>
+				<nl>clanmgr</nl>
+				<it>clanmgr</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>c4cc76ffa992deaf2487bc6892b00090</id>
 				<org>Der Clan wurde erfolgreich angelegt. Als Ersteller haben Sie die Rolle Admin in diesem Clan.</org>
+				<en>The clan has been successfully created. As a creator you have the admin role in this clan.</en>
+				<es>El clan ha sido creado con éxito. Como creador tiene la función de administrador en este clan.</es>
+				<fr>Le clan a été créé avec succès. En tant que créateur, vous avez le rôle admin dans ce clan.</fr>
+				<nl>De clan is met succes gemaakt. Als maker heb je de admin rol in deze clan.</nl>
+				<it>Il clan è stato creato con successo. Come un creatore che ha il ruolo di amministratore in questo clan.</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>1a6dd7e170a3f3516bd11e86ed02620c</id>
 				<org>Clan beitreten</org>
+				<en>Join Clan</en>
+				<es>Join Clan</es>
+				<fr>Joignez-vous Clan</fr>
+				<nl>Join Clan</nl>
+				<it>Join Clan</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>d10bc0ab2c7a70d61dc6673fe4dda6df</id>
 				<org>Clan verlassen</org>
+				<en>Leaving Clan</en>
+				<es>Dejando Clan</es>
+				<fr>Laissant Clan</fr>
+				<nl>Leaving Clan</nl>
+				<it>Lasciando Clan</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>884f5e8fd9845e362879efa4f7a4d198</id>
 				<org>Clan editieren</org>
+				<en>Edit Clan</en>
+				<es>Editar Clan</es>
+				<fr>Modifier Clan</fr>
+				<nl>Edit Clan</nl>
+				<it>Modifica Clan</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>e897f3e6021c38043df9faf67a822f9d</id>
 				<org>Rolle</org>
+				<en>Role</en>
+				<es>Papel</es>
+				<fr>Rôle</fr>
+				<nl>Rol</nl>
+				<it>Ruolo</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>6e5929520463c4d762dd23d5a9c29fb0</id>
 				<org>Sie sind nicht berechtigt diesen Clan zu ändern</org>
+				<en>You are not authorized to change this clan</en>
+				<es>Usted no está autorizado a cambiar este clan</es>
+				<fr>Vous n&amp;#39;êtes pas autorisé à changer ce clan</fr>
+				<nl>U bent niet gemachtigd om dit te veranderen clan</nl>
+				<it>Non sei autorizzato a modificare questo clan</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>474e1875579bea0eda1db13e26f86dd2</id>
 				<org>Beitritts Passwort</org>
+				<en>Accession Password</en>
+				<es>Adhesión Contraseña</es>
+				<fr>Adhésion de passe</fr>
+				<nl>Toetreding Wachtwoord</nl>
+				<it>Adesione Password</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>3db79edcb848b99f5d34d6ec381a7103</id>
 				<org>Clanlogo</org>
+				<en>Clanlogo</en>
+				<es>Clanlogo</es>
+				<fr>Clanlogo</fr>
+				<nl>Clanlogo</nl>
+				<it>Clanlogo</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>6a53af0b20cd2bca7b67148ee0264444</id>
 				<org>Löschen nicht möglich. Sie sind der einzige Clan-Admin in diesem Clan. Bennen Sie bitte vorher einen weiteren Admin.</org>
+				<en>Deleting not possible. They are the only Clan-Admin in this clan. Bennen Please pull another Admin</en>
+				<es>Eliminar no es posible. Ellos son el Clan sólo del administrador en este clan. Si Bennen tirar de otra administración</es>
+				<fr>Suppression impossible. Ils sont les seuls Clan-admin dans ce clan. Bennen pull S&amp;#39;il vous plaît un autre administrateur</fr>
+				<nl>Verwijderen niet mogelijk. Zij zijn de enige Clan-Admin in deze clan. Bennen Please pull ander Admin</nl>
+				<it>L&amp;#39;eliminazione non è possibile. Essi sono gli unici Clan-Admin in questo clan. Bennen Si prega di tirare un altro Admin</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>9f69aa69dc56506fdee6a2a92db60da1</id>
 				<org>Sie sind nicht berechtigt Mitglieder aus diesem Clan zu entfernen</org>
+				<en>You are not authorized to remove members from this clan</en>
+				<es>Usted no está autorizado para eliminar a los miembros de este clan</es>
+				<fr>Vous n&amp;#39;êtes pas autorisé à retirer des membres de ce clan</fr>
+				<nl>U bent niet gemachtigd om leden te verwijderen uit deze clan</nl>
+				<it>Non sei autorizzato a rimuovere i membri di questo clan</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>b6b8bcf8ccd0a6b6f88a79c3c11079aa</id>
 				<org>Sie können %1 nicht die Admin Rolle entziehen, da %1 z.z das einzige Mitglied mit der Rolle Clan-Admin ist. Benennen Sie bitte vorher einen anderen Admin.</org>
+				<en>You can remove%1 is not the admin role, since%1 zz is the only member with the role of clan-admin is. Please designate in advance a different Admin</en>
+				<es>Usted puede eliminar%1 no es el papel de administrador, desde el 1%ZZ es el único miembro con el papel de clan-admin es. Por favor, designar de antemano una administración diferente</es>
+				<fr>Vous pouvez supprimer%1 n&amp;#39;est pas le rôle admin, depuis%1 ZZ est le seul membre avec le rôle du clan-admin est. S&amp;#39;il vous plaît désigner à l&amp;#39;avance un autre Admin</fr>
+				<nl>U kunt verwijderen%1 is niet de admin rol, aangezien%1 zz is het enige lid met de rol van de clan-admin is. Gelieve wijzen op voorhand een ander Admin</nl>
+				<it>È possibile rimuovere%1 non è il ruolo di amministratore, poiché%1 ZZ è l&amp;#39;unico membro con il ruolo di clan-admin è. Si prega di indicare in anticipo un diverso Admin</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>dc602a538b58ab4a59daf04d85c1fc1f</id>
 				<org>Benutzer %1 ist nun kein Clan-Admin mehr</org>
+				<en>User%1 is now no longer Clan Admin</en>
+				<es>El usuario%1 ya no es Clan Admin</es>
+				<fr>L&amp;#39;utilisateur%1 est maintenant plus Clan Admin</fr>
+				<nl>Gebruiker%1 is nu niet langer Clan Admin</nl>
+				<it>L&amp;#39;utente%1 è ora non è più Clan Admin</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>2baf73722a11e97398b5ff4acb46fbee</id>
 				<org>Benutzer %1 ist nun Clan-Admin</org>
+				<en>User%1 is now Clan Admin</en>
+				<es>El usuario%1 es ahora Clan Admin</es>
+				<fr>L&amp;#39;utilisateur%1 est maintenant Clan Admin</fr>
+				<nl>Gebruiker%1 is nu Clan Admin</nl>
+				<it>L&amp;#39;utente%1 è ora Clan Admin</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>34d52a830aed5b9afcee0ec647bd7efa</id>
 				<org>Sie sind nicht berechtigt die Berehtigung dieses Nutzers zu verändern</org>
+				<en>You are not authorized to modify this user Berehtigung</en>
+				<es>Usted no está autorizado a modificar este usuario Berehtigung</es>
+				<fr>Vous n&amp;#39;êtes pas autorisé à modifier cet utilisateur Berehtigung</fr>
+				<nl>U bent niet gemachtigd om deze gebruiker te wijzigen Berehtigung</nl>
+				<it>Non sei autorizzato a modificare questo utente Berehtigung</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>333d9d6df95ccfa268ad20317793661a</id>
 				<org>Keine Berechtigung diese Funktion auszuführen</org>
+				<en>No permission to perform this function</en>
+				<es>No tiene permiso para realizar esta función</es>
+				<fr>Aucune autorisation pour exercer cette fonction</fr>
+				<nl>Geen toestemming voor het uitvoeren van deze functie</nl>
+				<it>No, il permesso di svolgere questa funzione</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>2a4bf0c6ccf8b4c8675f5a22cc7f5146</id>
 				<org>Um den Clan beizutreten, müssen Sie das Clanpasswort eingeben. Sollten Sie dies nicht kennen, wenden Sie sich bitte an Ihren Clan-Admin.</org>
+				<en>To join the clan, you must enter the Clanpasswort. If you do not know this, you should contact your clan admin.</en>
+				<es>Para unirte al clan, debe introducir el Clanpasswort. Si usted no sabe esto, usted debe ponerse en contacto con su administrador del clan.</es>
+				<fr>Pour rejoindre le clan, vous devez entrer le Clanpasswort. Si vous ne connaissez pas, vous devriez communiquer avec votre admin clan.</fr>
+				<nl>Om lid van de clan, moet u de Clanpasswort. Als u dit niet weet, moet u contact opnemen met uw clan admin.</nl>
+				<it>Per aderire al clan, è necessario immettere il Clanpasswort. Se non sapete questo, ti consigliamo di contattare il vostro amministratore clan.</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>2bb5fdb6ef8e79c7dabaaeef7e3e320e</id>
 				<org>Clan Passwort</org>
+				<en>Clan Password</en>
+				<es>Clan Contraseña</es>
+				<fr>Clan Mot de passe</fr>
+				<nl>Clan Wachtwoord</nl>
+				<it>Clan Password</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>49b87cfdf5d6ee4eaee0f5936277bd0e</id>
 				<org>Sie sind erfolgreich dem Clan beigetreten.</org>
+				<en>You have successfully joined the clan.</en>
+				<es>Ha unido al clan.</es>
+				<fr>Vous avez réussi à vous joindre le clan.</fr>
+				<nl>U hebt met succes toegetreden tot de clan.</nl>
+				<it>Volta entrati il clan.</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>536f39205b677181e66f8560a32af056</id>
 				<org>%1 ist dem Clan %2 beigetreten</org>
+				<en>%1 has joined the clan%2</en>
+				<es>%1 se ha unido al clan de 2%</es>
+				<fr>%1 a rejoint le clan 2%</fr>
+				<nl>%1 is toegetreden tot de clan%2</nl>
+				<it>%1 è entrato il 2%dei clan</it>
 				<file>clanmgr</file>
 			</entry>
 			<entry>
 				<id>d0832c299407f092d5b54fd84fdf206d</id>
 				<org>Das eingegebene Clanpasswort ist falsch.</org>
+				<en>The Clanpasswort entered is incorrect.</en>
+				<es>El Clanpasswort introducido es incorrecto.</es>
+				<fr>Le Clanpasswort entré est incorrect.</fr>
+				<nl>De Clanpasswort ingevoerd is onjuist.</nl>
+				<it>Il Clanpasswort inserito non è corretto.</it>
 				<file>clanmgr</file>
 			</entry>
 		</content>

@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,51 +15,101 @@
 			<entry>
 				<id>418dd16247096753d339ca8a8b7f94b6</id>
 				<org>Cronjob hinzufügen</org>
+				<en>Add a cronjob</en>
+				<es>Añadir un cronjob</es>
+				<fr>Ajouter une tâche cron</fr>
+				<nl>Voeg een cronjob</nl>
+				<it>Aggiungere un cronjob</it>
 				<file>cron2</file>
 			</entry>
 			<entry>
 				<id>49ee3087348e8d44e1feda1917443987</id>
 				<org>Name</org>
+				<en>Name</en>
+				<es>Nombre</es>
+				<fr>Nom</fr>
+				<nl>Naam</nl>
+				<it>Nome</it>
 				<file>cron2</file>
 			</entry>
 			<entry>
 				<id>d142ebe4786fbc0ffb437b1ed3c2d2c7</id>
 				<org>SQL-Statement</org>
+				<en>SQL Statement</en>
+				<es>De sentencias SQL</es>
+				<fr>SQL</fr>
+				<nl>SQL Statement</nl>
+				<it>SQL Statement</it>
 				<file>cron2</file>
 			</entry>
 			<entry>
 				<id>c44e07cffb5cd991f28e866e8854b548</id>
 				<org>Aktiv</org>
+				<en>Active</en>
+				<es>Activo</es>
+				<fr>Active</fr>
+				<nl>Actief</nl>
+				<it>Active</it>
 				<file>cron2</file>
 			</entry>
 			<entry>
 				<id>d7f5e7a20f32d5e84348b6d0d7199208</id>
 				<org>Ausführen täglich, um</org>
+				<en>Running daily to</en>
+				<es>Funcionamiento diario de</es>
+				<fr>Fonctionnement quotidien de</fr>
+				<nl>Running dagelijks</nl>
+				<it>Gestione quotidiana di</it>
 				<file>cron2</file>
 			</entry>
 			<entry>
 				<id>717746aa7f1d6b5e39641edb2b5253c1</id>
 				<org>Cronjob &quot;%1&quot; wurde ausgeführt</org>
+				<en>Cron job &amp;quot;%1&amp;quot; was executed</en>
+				<es>Cron job &amp;quot;%1&amp;quot; fue ejecutado</es>
+				<fr>Tâche Cron &amp;quot;%1&amp;quot; a été exécuté</fr>
+				<nl>Cron job &amp;quot;%1&amp;quot; is uitgevoerd</nl>
+				<it>Cron job &amp;quot;%1&amp;quot; è stato giustiziato</it>
 				<file>cron2</file>
 			</entry>
 			<entry>
 				<id>057f0c192deb731db46239490c056aba</id>
 				<org>Folgender SQL-Befehl wurde ausgeführt</org>
+				<en>The following SQL command was executed</en>
+				<es>El comando SQL siguiente fue ejecutado</es>
+				<fr>La commande SQL suivante a été exécuté</fr>
+				<nl>De volgende SQL-opdracht werd uitgevoerd</nl>
+				<it>Il seguente comando SQL è stato eseguito</it>
 				<file>cron2</file>
 			</entry>
 			<entry>
 				<id>415cb0cd0fe2a239b06b1c27ac901bd9</id>
 				<org>Geplant um</org>
+				<en>Scheduled to</en>
+				<es>Programado para</es>
+				<fr>Prévu pour</fr>
+				<nl>Gepland voor</nl>
+				<it>Prevista per</it>
 				<file>cron2</file>
 			</entry>
 			<entry>
 				<id>17c4a6518b679ab3017dc4c79f7fa09c</id>
 				<org>Letzte Ausführung</org>
+				<en>Last Run</en>
+				<es>Last Run</es>
+				<fr>Last Run</fr>
+				<nl>Last Run</nl>
+				<it>Last Run</it>
 				<file>cron2</file>
 			</entry>
 			<entry>
 				<id>578226c1cd65323c43b1da815f4dabb7</id>
 				<org>Jetzt ausführen</org>
+				<en>Run Now</en>
+				<es>Ejecutar ahora</es>
+				<fr>Exécuter maintenant</fr>
+				<nl>Nu uitvoeren</nl>
+				<it>Esegui ora</it>
 				<file>cron2</file>
 			</entry>
 		</content>

@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,41 +15,81 @@
 			<entry>
 				<id>78ab99fd7cee813363b51b2540f34bf7</id>
 				<org>Zur LAN-Party &lt;b&gt;%1&lt;/b&gt; anmelden</org>
+				<en>Register For LAN &lt;b&gt;party%1&lt;/b&gt;</en>
+				<es>Registro Para LAN &lt;b&gt;Party 1%&lt;/b&gt;</es>
+				<fr>Inscrivez-vous pour le LAN &lt;b&gt;Party 1%&lt;/b&gt;</fr>
+				<nl>Inschrijven voor &lt;b&gt;LAN-party%1&lt;/b&gt;</nl>
+				<it>Registrati per LAN &lt;b&gt;party 1%&lt;/b&gt;</it>
 				<file>signon</file>
 			</entry>
 			<entry>
 				<id>fd35e959c94d5b3aa28c77a60a7d2be4</id>
 				<org>Bitte f�llen Sie die folgenden Felder sorgf�lltig aus</org>
+				<en>Please fill out the following fields sorgflltig</en>
+				<es>Por favor, rellene los siguientes campos sorgflltig</es>
+				<fr>S&amp;#39;il vous plaît remplissez les champs suivants sorgflltig</fr>
+				<nl>Vul de volgende velden sorgflltig</nl>
+				<it>Si prega di compilare i seguenti campi sorgflltig</it>
 				<file>signon</file>
 			</entry>
 			<entry>
 				<id>f69b4ec591479daec38c2f4bdcf5012b</id>
 				<org>Nicht anzeigen</org>
+				<en>Do not show</en>
+				<es>No volver a mostrar</es>
+				<fr>Ne pas montrer</fr>
+				<nl>Don&amp;#39;t show</nl>
+				<it>Non mostrare</it>
 				<file>signon</file>
 			</entry>
 			<entry>
 				<id>d162796a121c65f6beb75757a8a4ff07</id>
 				<org>Optionale Eingabe</org>
+				<en>Optional input</en>
+				<es>Entrada opcional</es>
+				<fr>Alimentation en option</fr>
+				<nl>Optionele invoer</nl>
+				<it>Ingresso opzionale</it>
 				<file>signon</file>
 			</entry>
 			<entry>
 				<id>254f8e6742c9c22fa791839c94ef7c18</id>
 				<org>Pflichteingabe</org>
+				<en>Pflichteingabe</en>
+				<es>Pflichteingabe</es>
+				<fr>Pflichteingabe</fr>
+				<nl>Pflichteingabe</nl>
+				<it>Pflichteingabe</it>
 				<file>signon</file>
 			</entry>
 			<entry>
 				<id>7ae96fab7bfe8f899de28d17d779fa11</id>
 				<org>Einstellungen wurden erfolgreich ge�ndert</org>
+				<en>Configuration was successfully gendert</en>
+				<es>Configuración de éxito gendert</es>
+				<fr>Configuration a été gendert succès</fr>
+				<nl>Configuratie is succesvol gendert</nl>
+				<it>La configurazione con successo gendert</it>
 				<file>signon</file>
 			</entry>
 			<entry>
 				<id>98a86298651147198da034062113942f</id>
 				<org>Bitte füllen Sie die folgenden Felder sorgfälltig aus</org>
+				<en>Please complete the following fields carefully</en>
+				<es>Por favor, complete los campos siguientes cuidadosamente</es>
+				<fr>S&amp;#39;il vous plaît remplissez les champs suivant attentivement</fr>
+				<nl>Vul de volgende velden zorgvuldig</nl>
+				<it>Si prega di compilare i seguenti campi con attenzione</it>
 				<file>signon</file>
 			</entry>
 			<entry>
 				<id>0bc3b3a6f55581f588137e10773c1d3a</id>
 				<org>Einstellungen wurden erfolgreich geändert</org>
+				<en>Settings were successfully changed</en>
+				<es>Ajustes se ha cambiado correctamente</es>
+				<fr>Les paramètres ont été changé avec succès</fr>
+				<nl>Instellingen zijn met succes veranderd</nl>
+				<it>Impostazioni sono state modificate con successo</it>
 				<file>signon</file>
 			</entry>
 		</content>

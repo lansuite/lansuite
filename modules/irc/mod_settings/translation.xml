@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,36 +15,71 @@
 			<entry>
 				<id>dc303b6e2aa9c9ed36dd1eb2aa5d6d0f</id>
 				<org>Kein IRC Server in den Moduleinstellungen definiert.</org>
+				<en>No IRC server defined in the module settings.</en>
+				<es>No hay ningún servidor IRC se define en la configuración del módulo.</es>
+				<fr>Aucun serveur IRC défini dans les paramètres du module.</fr>
+				<nl>Geen IRC server gedefinieerd in de module instellingen.</nl>
+				<it>Nessun server IRC definito nelle impostazioni del modulo.</it>
 				<file>irc</file>
 			</entry>
 			<entry>
 				<id>4eac25b07b7e7c71d3a8cd15216c04a8</id>
 				<org>Keine Gr&amp;ouml;&amp;szlig;enangaben in den Moduleinstellungen definiert.</org>
+				<en>No size information defined in the module settings.</en>
+				<es>No hay información sobre el tamaño definido en la configuración del módulo.</es>
+				<fr>Aucune information taille définie dans les paramètres du module.</fr>
+				<nl>Geen maat informatie gedefinieerd in de module instellingen.</nl>
+				<it>Nessuna informazione dimensioni definite nelle impostazioni del modulo.</it>
 				<file>irc</file>
 			</entry>
 			<entry>
 				<id>55dcdf017b51fc96f7b5f9d63013b95d</id>
 				<org>Chat</org>
+				<en>Chat</en>
+				<es>Chat</es>
+				<fr>Chat</fr>
+				<nl>Chat</nl>
+				<it>Chat</it>
 				<file>irc</file>
 			</entry>
 			<entry>
 				<id>67a29f7f889ceed42cb938a8496fcb3e</id>
 				<org>Hier k&amp;ouml;nnen Sie auf unserem IRC Server chatten.</org>
+				<en>Here you can chat on our IRC server.</en>
+				<es>Aquí usted puede chatear en nuestro servidor de IRC.</es>
+				<fr>Ici vous pouvez discuter sur notre serveur IRC.</fr>
+				<nl>Hier kun je chatten op onze IRC server.</nl>
+				<it>Qui si può chattare sul nostro server IRC.</it>
 				<file>irc</file>
 			</entry>
 			<entry>
 				<id>cca8493f6f1bd794b75879a6d8a7bbc7</id>
 				<org>Benutzername</org>
+				<en>Username</en>
+				<es>Nombre de usuario</es>
+				<fr>Nom d&amp;#39;utilisateur</fr>
+				<nl>Gebruikersnaam</nl>
+				<it>Username</it>
 				<file>irc</file>
 			</entry>
 			<entry>
 				<id>fecc7b92efa313ac8de08d4094455c9e</id>
 				<org>Vorname</org>
+				<en>First name</en>
+				<es>Nombre</es>
+				<fr>Prénom</fr>
+				<nl>Voornaam</nl>
+				<it>Nome</it>
 				<file>irc</file>
 			</entry>
 			<entry>
 				<id>43895f9ec69cb177446921df9828c680</id>
 				<org>Nachname</org>
+				<en>Surname</en>
+				<es>Apellido</es>
+				<fr>Nom de famille</fr>
+				<nl>Achternaam</nl>
+				<it>Cognome</it>
 				<file>irc</file>
 			</entry>
 		</content>

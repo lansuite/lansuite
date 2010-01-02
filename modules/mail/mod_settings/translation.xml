@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,46 +15,91 @@
 			<entry>
 				<id>5a5bfccccf63cfd05f7fef5a2fee1d35</id>
 				<org>Sys-Mail Fehler: Kein Absender angegeben</org>
+				<en>Sys-Mail Error: No sender specified</en>
+				<es>Sys-Mail de error: No remitente especificado</es>
+				<fr>Sys-Mail erreur: Aucun expéditeur spécifié</fr>
+				<nl>Sys-Mail Fout: geen afzender opgegeven</nl>
+				<it>Sys-Mail Error: No mittente specificato</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>86b23e8be75223998195cab356b73fc8</id>
 				<org>Sys-Mail Fehler: Kein Empfänger angegeben</org>
+				<en>Sys-Mail Error: No recipients specified</en>
+				<es>Sys-Mail de error: No destinatarios especificados</es>
+				<fr>Sys-Mail Erreur: Aucun destinataire spécifié</fr>
+				<nl>Sys-Mail Fout: geen specifieke ontvangers</nl>
+				<it>Sys-Mail di errore: Nessun destinatario specificato</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>f11f841e54195c0b72c2a9102afba7bb</id>
 				<org>Benachrichtigung: Neue LS-Mail</org>
+				<en>Notification: New LS-mail</en>
+				<es>Notificación: LS-mail</es>
+				<fr>Notification: nouvelle LS-mail</fr>
+				<nl>Aanmelding: Nieuwe LS-mail</nl>
+				<it>Notifica: Nuovo LS-mail</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>98df3a896cd2c29c7564e505e6b80767</id>
 				<org>Sie haben eine neue Lansuite-Mail erhalten. Diese Benachrichtigung können Sie im System unter &quot;Meine Einstellungen&quot; deaktivieren</org>
+				<en>You have received a new Lansuite-mail. This alerts you to the system under &amp;quot;My Settings disable&amp;quot;</en>
+				<es>Ha recibido un nuevo Lansuite-mail. Esta alerta en el sistema en &amp;quot;Mi configuración desactivar&amp;quot;</es>
+				<fr>Vous avez reçu un nouveau Lansuite-mail. Cela vous des alertes dans le système aux &amp;quot;Mes réglages désactiver&amp;quot;</fr>
+				<nl>U hebt een nieuw Lansuite-mail. Deze waarschuwt u om het systeem onder &amp;quot;Mijn Instellingen uitschakelen&amp;quot;</nl>
+				<it>Hai ricevuto un nuovo Lansuite-mail. Questo avvisi di sistema sotto &amp;quot;Le mie impostazioni disattivare&amp;quot;</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>d2c153bab25b01b3c9e62f3e067475da</id>
 				<org>Um Internet-Mails zu versenden, muss sich Lansuite im Internet-Modus befinden</org>
+				<en>To send Internet mail, it must be located on the Internet Lansuite mode</en>
+				<es>Para enviar correo de Internet, debe estar ubicado en el modo de Lansuite Internet</es>
+				<fr>Pour envoyer du courrier Internet, elle doit être située sur le mode Lansuite Internet</fr>
+				<nl>Als u Internet-mail, moet worden gevestigd op het internet Lansuite modus</nl>
+				<it>Per inviare posta Internet, esso deve essere riportata sulla modalità Internet Lansuite</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>bb97a42b82d577c8f0ca620423b8d917</id>
 				<org>Posteingang</org>
+				<en>Inbox</en>
+				<es>Bandeja de entrada</es>
+				<fr>Boîte de réception</fr>
+				<nl>Inbox</nl>
+				<it>Posta in arrivo</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>f9d9ac64ee8e7c0c69b96e73d7279b18</id>
 				<org>Sie haben &lt;b&gt;%1&lt;/b&gt; Mail(s) empfangen. Davon sind &lt;b&gt;%2&lt;/b&gt; ungelesen.</org>
+				<en>You have &lt;b&gt;received%1&lt;/b&gt; email (s). &lt;b&gt;%2&lt;/b&gt; of them are unread.</en>
+				<es>Ha &lt;b&gt;recibido 1%&lt;/b&gt; de correo electrónico (s). &lt;b&gt;2%&lt;/b&gt; de ellos son leídos.</es>
+				<fr>Vous avez &lt;b&gt;reçu%1&lt;/b&gt; e-mail (s). &lt;b&gt;2%&lt;/b&gt; d&amp;#39;entre eux sont non lus.</fr>
+				<nl>U &lt;b&gt;hebt%1&lt;/b&gt; e-mail (s). &lt;b&gt;%2&lt;/b&gt; van hen zijn ongelezen.</nl>
+				<it>Hai &lt;b&gt;ricevuto%1&lt;/b&gt; e-mail (s). &lt;b&gt;2%&lt;/b&gt; di loro sono da leggere.</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>646de5ec436a54d8efd39b20a1cfaa61</id>
 				<org>Um Ihren Posteingang sehen zu können, müssen Sie sich zuerst einloggen.</org>
+				<en>To view your Inbox, you need to log in first.</en>
+				<es>Para ver la Bandeja de entrada, es necesario iniciar sesión primero.</es>
+				<fr>Pour consulter votre boîte de réception, vous devez vous connecter en premier.</fr>
+				<nl>Als u uw Postvak IN, moet u eerst in te loggen.</nl>
+				<it>Per visualizzare la Posta in arrivo, è necessario effettuare il login.</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>48aad4a58176184d3f53998cb6895d66</id>
 				<org>Nutzen Sie das &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;Kontaktformular&lt;/a&gt; um Mails zu versenden. Dies ist auch im ausgeloggten Zustand möglich.</org>
+				<en>Take advantage of sending the &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;contact form&lt;/a&gt; to mail. This is possible even in the logged condition.</en>
+				<es>Tome ventaja de enviar el &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;formulario de contacto&lt;/a&gt; al correo. Esto es posible incluso en las condiciones registrado.</es>
+				<fr>Profitez de l&amp;#39;envoi du &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;formulaire de contact&lt;/a&gt; du courrier. Cela est possible même dans l&amp;#39;état connecté.</fr>
+				<nl>Profiteer van het verzenden van het &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;contact formulier&lt;/a&gt; om e-mail. Dit is mogelijk, zelfs in de ingelogde toestand.</nl>
+				<it>Approfitta di inviare il &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;modulo di contatto&lt;/a&gt; per posta elettronica. Questo è possibile anche in condizioni registrato.</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -62,6 +107,10 @@
 				<org>Ungelesen</org>
 				<de>Ungelesen</de>
 				<en>Unread</en>
+				<es>No leídos</es>
+				<fr>Non lu</fr>
+				<nl>Ongelezen</nl>
+				<it>Da leggere</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -69,6 +118,10 @@
 				<org>Gelesen</org>
 				<de>Gelesen</de>
 				<en>Read</en>
+				<es>Leer</es>
+				<fr>Lire</fr>
+				<nl>Lezen</nl>
+				<it>Letto</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -76,6 +129,10 @@
 				<org>Beantwortet</org>
 				<de>Beantwortet</de>
 				<en>Answered</en>
+				<es>Respuesta</es>
+				<fr>Réponse</fr>
+				<nl>Antwoord</nl>
+				<it>Risposta</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -83,114 +140,220 @@
 				<org>Nachricht von</org>
 				<de>Nachricht von</de>
 				<en>Message from</en>
+				<es>Mensaje del</es>
+				<fr>Message de</fr>
+				<nl>Bericht van</nl>
+				<it>Messaggio da</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>27b0e915af0dde50f2d122b229235d3b</id>
 				<org>Betreff</org>
+				<en>Subject</en>
+				<es>Tema</es>
+				<fr>Sujet</fr>
+				<nl>Onderwerp</nl>
+				<it>Soggetto</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>fa02f30e460fd5a6d9f02667c7ee7761</id>
 				<org>Gesendet</org>
+				<en>Sent</en>
+				<es>Enviado</es>
+				<fr>Envoyé</fr>
+				<nl>Verstuurd</nl>
+				<it>Inviato</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>3ec365dd533ddb7ef3d1c111186ce872</id>
 				<org>Details</org>
 				<en>Details</en>
+				<es>Detalles</es>
+				<fr>Détails</fr>
+				<nl>Details</nl>
+				<it>Dettagli</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>1d0b81bbf2a0aa8ee550e34e8bf07427</id>
 				<org>Markierung entfernen</org>
+				<en>Unstar</en>
+				<es>Eliminar estrella</es>
+				<fr>Annuler le suivi</fr>
+				<nl>Ster verwijderen</nl>
+				<it>UNSTAR</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>5810c9d615de6f24f43696d3ad437fae</id>
 				<org>Markieren: Rot</org>
+				<en>Highlight: Red</en>
+				<es>Resaltar: Rojo</es>
+				<fr>Highlight: Rouge</fr>
+				<nl>Highlight: Rood</nl>
+				<it>Highlight: Red</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>c012b9175721c020d188473b3af97696</id>
 				<org>Markieren: Blau</org>
+				<en>Highlight: Blue</en>
+				<es>Resaltar: Azul</es>
+				<fr>Highlight: Blue</fr>
+				<nl>Highlight: Blauw</nl>
+				<it>Highlight: Blue</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>1ff61e9470ea556a9b9d3aeebcd300cd</id>
 				<org>Markieren: Grün</org>
+				<en>Mark Green</en>
+				<es>Mark Green</es>
+				<fr>Mark Green</fr>
+				<nl>Mark Green</nl>
+				<it>Mark Green</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>2ddc71dc3a06875c919484aa6954af78</id>
 				<org>Markieren: Gelb</org>
+				<en>Select: Yellow</en>
+				<es>Seleccione: Amarillo</es>
+				<fr>Sélectionnez: Jaune</fr>
+				<nl>Selecteer: Geel</nl>
+				<it>Seleziona: Giallo</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>78e735b52cb9c27b818436f28a5c5966</id>
 				<org>Markieren: Lila</org>
+				<en>Select: Purple</en>
+				<es>Seleccione: Purple</es>
+				<fr>Sélectionnez: Purple</fr>
+				<nl>Selecteer: Purple</nl>
+				<it>Seleziona: Purple</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>4066c42775af2fc661bfe8cb58057757</id>
 				<org>In den Papierkorb</org>
+				<en>In the Trash</en>
+				<es>En la basura</es>
+				<fr>Dans la corbeille</fr>
+				<nl>In de prullenbak</nl>
+				<it>Nel cestino</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>694ccb3f831a6f1eea5e429c81165fdc</id>
 				<org>Neue Mail verfassen</org>
+				<en>Write New Mail</en>
+				<es>Escribir nuevo correo</es>
+				<fr>Écrire un nouveau mail</fr>
+				<nl>Schrijf New Mail</nl>
+				<it>Scrivere New Mail</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>132bf65fb3a94b1a38242423c4cafdc5</id>
 				<org>Info-Adressen</org>
+				<en>Information Addresses</en>
+				<es>Direcciones de Información</es>
+				<fr>Renseignements Adresses</fr>
+				<nl>Informatie Adressen</nl>
+				<it>Informazioni Indirizzi</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>3124e63231a4594958d87771b4aaf064</id>
 				<org>Admins</org>
+				<en>Admins</en>
+				<es>Administradores</es>
+				<fr>Admins</fr>
+				<nl>Admins</nl>
+				<it>Admins</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>b15b7b0340f52d448dc6191fc9317f3a</id>
 				<org>Benutzer</org>
+				<en>Users</en>
+				<es>Usuarios</es>
+				<fr>Utilisateurs</fr>
+				<nl>Gebruikers</nl>
+				<it>Utenti</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>889e0013996756b3434cb04de2f02c24</id>
 				<org>Empfänger</org>
+				<en>Receivers</en>
+				<es>Receptores</es>
+				<fr>Récepteurs</fr>
+				<nl>Receivers</nl>
+				<it>Ricevitori</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>e5c2e7590d209565a468f0fe6c3678d4</id>
 				<org>Als System-Mail</org>
+				<en>As a system-Mail</en>
+				<es>Como un sistema electrónico</es>
+				<fr>En tant que système-Mail</fr>
+				<nl>Een systeem-Mail</nl>
+				<it>Come un sistema-Mail</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>7b2d1b3c1ae514a2e107add53bd9e668</id>
 				<org>An die Email-Adresse. Hinweis: Kein LS-Code möglich!</org>
+				<en>To the email address. Note: No LS-code available!</en>
+				<es>A la dirección de correo electrónico. Nota: No LS-código disponible!</es>
+				<fr>À l&amp;#39;adresse e-mail. Note: Aucune LS-code disponible!</fr>
+				<nl>Om het e-mailadres. Opmerking: Geen LS-code beschikbaar!</nl>
+				<it>Per l&amp;#39;indirizzo e-mail. Nota: No LS-codice disponibile!</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>1974104f6c2c5af49e0337aabe66d0e1</id>
 				<org>Mail-Typ</org>
+				<en>Mail Type</en>
+				<es>Escriba mail</es>
+				<fr>Tapez mail</fr>
+				<nl>Mail Type</nl>
+				<it>Digitare mail</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>913422fef664376fa5d41ed7d82f0d24</id>
 				<org>Absender E-Mail</org>
+				<en>Email</en>
+				<es>Correo</es>
+				<fr>Email</fr>
+				<nl>E</nl>
+				<it>E-mail</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>d87d49ade9a44cfe4e05485dd581d4e4</id>
 				<org>Nachricht</org>
 				<en>Message</en>
+				<es>Mensaje</es>
+				<fr>Message</fr>
+				<nl>Bericht</nl>
+				<it>Messaggio</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>800eea669563a3d62f84d19fdadceeb9</id>
 				<org>Mail abschicken</org>
 				<en>Send Mail</en>
+				<es>Enviar correo</es>
+				<fr>Send Mail</fr>
+				<nl>Send Mail</nl>
+				<it>Send Mail</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -198,6 +361,10 @@
 				<org>Bitte geben Sie einen Betreff an</org>
 				<de>Bitte geben Sie einen Betreff an</de>
 				<en>Enter a subject, please</en>
+				<es>Por favor, indique un tema</es>
+				<fr>S&amp;#39;il vous plaît indiquer un sujet</fr>
+				<nl>Gelieve een onderwerp</nl>
+				<it>Si prega di indicare un soggetto</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -205,6 +372,10 @@
 				<org>Bitte geben Sie einen Text an</org>
 				<de>Bitte geben Sie einen Text an</de>
 				<en>Enter a text, please</en>
+				<es>Por favor, introduzca el texto</es>
+				<fr>S&amp;#39;il vous plaît entrer un texte</fr>
+				<nl>Voer tekst</nl>
+				<it>Si prega di inserire il testo</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -212,6 +383,10 @@
 				<org>Bitte w�hlen Sie mindestens ein Ziel aus</org>
 				<de>Bitte w�hlen Sie mindestens ein Ziel aus</de>
 				<en>Choose at lease one receiver</en>
+				<es>Por favor, seleccione al menos un destino</es>
+				<fr>S&amp;#39;il vous plaît choisir au moins une destination</fr>
+				<nl>Selecteer ten minste een bestemming</nl>
+				<it>Seleziona almeno una destinazione</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -219,6 +394,10 @@
 				<org>Rundmail versenden</org>
 				<de>Rundmail versenden</de>
 				<en>Send newsletter</en>
+				<es>Rundmail amigo</es>
+				<fr>Rundmail ami</fr>
+				<nl>Rundmail Friend</nl>
+				<it>Rundmail Friend</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -226,6 +405,10 @@
 				<org>Hier k�nnen Sie eine Rundmail an alle Benutzer senden.</org>
 				<de>Hier k�nnen Sie eine Rundmail an alle Benutzer senden.</de>
 				<en>This is where you can send a newsletter to all of your guests</en>
+				<es>Usted puede presentar una Escribir un mensaje a todos los usuarios.</es>
+				<fr>Vous mai soumettre une Écrire un message à tous les utilisateurs.</fr>
+				<nl>U kan bij een Schrijf een bericht aan alle gebruikers.</nl>
+				<it>Si può presentare uno scrivere un messaggio a tutti gli utenti.</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -233,6 +416,10 @@
 				<org>Nur Newsletter</org>
 				<de>Nur Newsletter</de>
 				<en>Newsletter only</en>
+				<es>Sólo Newsletter</es>
+				<fr>Seulement Lettre d&amp;#39;information</fr>
+				<nl>Alleen Nieuwsbrief</nl>
+				<it>Solo Newsletter</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -240,6 +427,10 @@
 				<org>Nur an Benutzer, die den Newsletter bei der Anmeldung bestellt haben</org>
 				<de>Nur an Benutzer, die den Newsletter bei der Anmeldung bestellt haben</de>
 				<en>Send to users, requesting the newsletter, only</en>
+				<es>Sólo los usuarios que han ordenado el boletín al registrarse</es>
+				<fr>Seuls les utilisateurs qui ont commandé le bulletin d&amp;#39;information lors de l&amp;#39;inscription</fr>
+				<nl>Alleen gebruikers die de nieuwsbrief bij de registratie besteld</nl>
+				<it>Solo gli utenti che hanno ordinato la newsletter al momento della registrazione</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -247,6 +438,10 @@
 				<org>Nur Angemeldete</org>
 				<de>Nur Angemeldete</de>
 				<en>Signed on only</en>
+				<es>Sólo registrados</es>
+				<fr>Just Inscrits</fr>
+				<nl>Just Geregistreerd</nl>
+				<it>Just Registered</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -254,21 +449,40 @@
 				<org>Nur an Benutzer, die zur aktuellen Party angemeldet sind</org>
 				<de>Nur an Benutzer, die zur aktuellen Party angemeldet sind</de>
 				<en>Send to users, signed on to this party, only</en>
+				<es>Sólo los usuarios que se registran en el actual Partido</es>
+				<fr>Seuls les utilisateurs qui sont connectés à l&amp;#39;actuel parti</fr>
+				<nl>Alleen gebruikers die zijn ingelogd op de huidige partij</nl>
+				<it>Solo gli utenti che si connettono al corrente Party</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>57e55e102e54e718f34adb36ee94e9ca</id>
 				<org>An alle Benutzer</org>
+				<en>To all users</en>
+				<es>Para todos los usuarios</es>
+				<fr>Pour tous les utilisateurs</fr>
+				<nl>Voor alle gebruikers</nl>
+				<it>A tutti gli utenti</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>23958afe32be5750a7b0ef09f307076b</id>
 				<org>Zu keiner Party angemeldet</org>
+				<en>Registered to any party</en>
+				<es>Registrado a nombre de cualquiera de las partes</es>
+				<fr>Enregistré à toute partie</fr>
+				<nl>Geregistreerd elke partij</nl>
+				<it>Registrati ad alcun partito</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>6046dd8f4bde47bc206f6097cb6ec650</id>
 				<org>Nur Angemeldete an folgender Party</org>
+				<en>Only Registered at the following party</en>
+				<es>Sólo Inscrita en el partido siguiente</es>
+				<fr>Seuls Inscrit à la partie suivante</fr>
+				<nl>Alleen Ingeschreven bij de volgende partij</nl>
+				<it>Solo Registrati alla festa seguenti</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -276,6 +490,10 @@
 				<org>Nur an Benutzer, die bezahlt haben</org>
 				<de>Nur an Benutzer, die bezahlt haben</de>
 				<en>Send to users, having paid, only</en>
+				<es>Sólo a los usuarios que han pagado el</es>
+				<fr>Uniquement aux utilisateurs qui ont payé les</fr>
+				<nl>Alleen voor gebruikers die hebben betaald</nl>
+				<it>Solo per gli utenti che hanno pagato il</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -283,66 +501,130 @@
 				<org>Nur an Benutzer, die NICHT bezahlt haben</org>
 				<de>Nur an Benutzer, die NICHT bezahlt haben</de>
 				<en>Send to users, having NOT paid, only</en>
+				<es>Han pagado sólo a los usuarios que no</es>
+				<fr>Ont versé uniquement aux utilisateurs qui n&amp;#39;ont PAS</fr>
+				<nl>Heb alleen aan gebruikers die niet</nl>
+				<it>Hanno pagato solo agli utenti che NON</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>d080ce7deba26d4171b01cbe7508ab98</id>
 				<org>Nur Benutzer die zu oben ausgewählter Party bezahlt haben</org>
+				<en>Only users who have paid to the above selected party</en>
+				<es>Sólo los usuarios que han pagado a la parte seleccionada sobre</es>
+				<fr>Seuls les utilisateurs qui ont payé pour la partie sélectionnée ci-dessus</fr>
+				<nl>Alleen gebruikers die hebben betaald aan de hierboven geselecteerde partij</nl>
+				<it>Solo gli utenti che hanno pagato per la parte sopra selezionato</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>1b37af1bb8d5d5d81477db459e0bdbde</id>
 				<org>Nur an Gäste</org>
+				<en>Only to score</en>
+				<es>Sólo para anotar</es>
+				<fr>Seulement à marquer</fr>
+				<nl>Alleen om te scoren</nl>
+				<it>Solo a segnare</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>be27f0a07975ae2282eeaed73e660da9</id>
 				<org>Nur an Admins und Superadminen</org>
+				<en>Only to Admins and Super Admin</en>
+				<es>Sólo para Administradores y Super Admin</es>
+				<fr>Seulement aux Administrateurs et Super Admin</fr>
+				<nl>Alleen Admins en Super Admin</nl>
+				<it>Solo per Amministratori e Super Admin</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>b3fcbe3a733b56645bd2149ade9b4af3</id>
 				<org>Nur an Superadminen</org>
+				<en>Only at Super Admin</en>
+				<es>Sólo en Super Admin</es>
+				<fr>Seulement chez Super Admin</fr>
+				<nl>Alleen bij Super Admin</nl>
+				<it>Solo a Super Admin</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>1460bd7faea63a35cec96a1f92e0e3af</id>
 				<org>Nur an folgende Benutzertypen</org>
+				<en>Only the following types of users</en>
+				<es>Sólo los siguientes tipos de usuarios de</es>
+				<fr>Seuls les types suivants d&amp;#39;utilisateurs</fr>
+				<nl>Alleen de volgende typen gebruikers</nl>
+				<it>Solo i seguenti tipi di utenti</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>b4defdcfa45e1849a1b587143b4e90c4</id>
 				<org>An alle Gruppen</org>
+				<en>All groups</en>
+				<es>Todos los grupos</es>
+				<fr>Tous les groupes</fr>
+				<nl>Alle groepen</nl>
+				<it>Tutti i gruppi</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>c10382adf8f80d152b18bd608eb7885c</id>
 				<org>Nur an Benutzer ohne Gruppe</org>
+				<en>Only for users with no group</en>
+				<es>Solo para usuarios con ningún grupo</es>
+				<fr>Uniquement pour les utilisateurs avec aucun groupe</fr>
+				<nl>Alleen voor gebruikers met geen enkele groep</nl>
+				<it>Solo per gli utenti con nessun gruppo</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>266a39f60aeeaff8b32b491e37012097</id>
 				<org>Nur an folgende Gruppen</org>
+				<en>Only the following groups</en>
+				<es>Sólo los grupos de la siguiente</es>
+				<fr>Seuls les groupes suivants</fr>
+				<nl>Alleen de volgende groepen</nl>
+				<it>Solo le seguenti gruppi</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>3fd6ac52294f4781356da1b0f05f9f38</id>
 				<org>E-Mail-Adresse</org>
+				<en>E-mail Address</en>
+				<es>E-mail</es>
+				<fr>Adresse e-mail</fr>
+				<nl>E-mail Adres</nl>
+				<it>Indirizzo e-mail</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>a2f128b782e3ffa4cfc91342e71215a2</id>
 				<org>An die bei der Anmeldung angegebene E-Mail-Adresse</org>
+				<en>At the indicated during the registration e-mail address</en>
+				<es>En el indicado durante el registro de e-mail</es>
+				<fr>Au indiqué lors de l&amp;#39;enregistrement adresse e-mail</fr>
+				<nl>Op de aangegeven tijdens de registratie e-mail adres</nl>
+				<it>Al indicati durante la registrazione indirizzo e-mail</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>68fde89592aa2355012091fc57aeec16</id>
 				<org>System-Mailbox</org>
+				<en>System mailbox</en>
+				<es>Sistema de buzón de correo</es>
+				<fr>Système de boîte aux lettres</fr>
+				<nl>Systeem mailbox</nl>
+				<it>Sistema mailbox</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>81e71adbee04b853cac2508432fe5b13</id>
 				<org>An die System-Mailbox des Benutzers</org>
+				<en>To the system mailbox of the user</en>
+				<es>Para el buzón del sistema del usuario</es>
+				<fr>Dans la boîte aux lettres système de l&amp;#39;utilisateur</fr>
+				<nl>Om het systeem mailbox van de gebruiker</nl>
+				<it>Alla cassetta postale di sistema dell&amp;#39;utente</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -350,18 +632,30 @@
 				<org>Text</org>
 				<de>Text</de>
 				<en>Text</en>
+				<es>Texto</es>
+				<fr>Texte</fr>
+				<nl>Tekst</nl>
+				<it>Testo</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>375ee26098b46e23bcb854331f0ad8c5</id>
 				<org>Ja</org>
 				<en>Yes</en>
+				<es>Sí</es>
+				<fr>Oui</fr>
+				<nl>Ja</nl>
+				<it>Sì</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>b397ec0bea79fb90df2b7ec2845cde07</id>
 				<org>Nein</org>
 				<en>No</en>
+				<es>No</es>
+				<fr>Non</fr>
+				<nl>Nee</nl>
+				<it>No</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -369,6 +663,10 @@
 				<org>Die Mail wurde erfolgreich an folgende Benutzer gesendet:</org>
 				<de>Die Mail wurde erfolgreich an folgende Benutzer gesendet:</de>
 				<en>The mail was delivered successfully to the following users:</en>
+				<es>El correo se ha enviado a los siguientes usuarios:</es>
+				<fr>Le mail a été envoyé aux utilisateurs suivants:</fr>
+				<nl>De mail is verzonden naar de volgende gebruikers:</nl>
+				<it>La mail è stata inviata ai seguenti utenti:</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -376,6 +674,10 @@
 				<org>An folgende Benutzer konnte die Mail leider nicht gesendet werden:</org>
 				<de>An folgende Benutzer konnte die Mail leider nicht gesendet werden:</de>
 				<en>The mail failed to be send to the following users:</en>
+				<es>El correo del usuario después no fue enviado, por desgracia:</es>
+				<fr>Le courrier de l&amp;#39;utilisateur suivant n&amp;#39;a pas été envoyé, malheureusement:</fr>
+				<nl>Op mail de volgende gebruiker is niet verzonden, helaas:</nl>
+				<it>Su mail il seguente utente non è stato inviato, purtroppo:</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -383,6 +685,10 @@
 				<org>Die Nachrichten an die System-Mailbox wurden erfolgreich versandt</org>
 				<de>Die Nachrichten an die System-Mailbox wurden erfolgreich versandt</de>
 				<en>The mails to the system-mailbox were successfully delivered</en>
+				<es>Los mensajes en el buzón del sistema se envió con éxito</es>
+				<fr>Les messages à la boîte aux lettres système a été envoyé avec succès</fr>
+				<nl>De berichten van het systeem mailbox is met succes verzonden</nl>
+				<it>I messaggi alla cassetta postale di sistema è stato inviato correttamente</it>
 				<file>mail</file>
 			</entry>
 			<entry>
@@ -390,78 +696,161 @@
 				<org>Postausgang</org>
 				<de>Postausgang</de>
 				<en>Outgoing</en>
+				<es>Bandeja de salida</es>
+				<fr>Boîte d&amp;#39;envoi</fr>
+				<nl>Outbox</nl>
+				<it>In uscita</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>33ec486c947a1c90ed7ea85252cefcad</id>
 				<org>Sie haben &lt;b&gt;%1&lt;/b&gt; Mail(s) versendet. Davon wurde(n) &lt;b&gt;%2&lt;/b&gt; gelesen.</org>
-				<de>Sie haben &lt;b&gt;%1&lt;/b&gt; Mail(s) versendet. Davon wurde(n) &lt;b&gt;%2&lt;/b&gt; gelesen.</de>
-				<en>You have send &lt;b&gt;%1&lt;/b&gt; mail(s). &lt;b&gt;%2&lt;/b&gt; of those were read.</en>
+				<de>Sie haben &amp;lt;b&amp;gt;%1&amp;lt;/b&amp;gt; Mail(s) versendet. Davon wurde(n) &amp;lt;b&amp;gt;%2&amp;lt;/b&amp;gt; gelesen.</de>
+				<en>You have send &amp;lt;b&amp;gt;%1&amp;lt;/b&amp;gt; mail(s). &amp;lt;b&amp;gt;%2&amp;lt;/b&amp;gt; of those were read.</en>
+				<es>Usted &lt;b&gt;tiene%1&lt;/b&gt; envía el correo (s). &lt;b&gt;N&lt;/b&gt; de estos &lt;b&gt;()%2&lt;/b&gt; ha sido leído.</es>
+				<fr>Vous &lt;b&gt;avez%1&lt;/b&gt; envoie mail (s). De ces &lt;b&gt;n (%) 2&lt;/b&gt; a été lu.</fr>
+				<nl>U &lt;b&gt;hebt%1&lt;/b&gt; stuurt mail (s). Van deze &lt;b&gt;(n)%2&lt;/b&gt; is gelezen.</nl>
+				<it>&lt;b&gt;Hai%1&lt;/b&gt; invia la posta (s). Di questi &lt;b&gt;n ()%2&lt;/b&gt; è stato letto.</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>8d88f9d93ef5ec9db11a4f6725345398</id>
 				<org>Keine Mail ausgewählt</org>
+				<en>No Mail selected</en>
+				<es>N de correo seleccionado</es>
+				<fr>No Mail sélectionnés</fr>
+				<nl>Geen Mail geselecteerd</nl>
+				<it>Nessun messaggio selezionato</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>a841eaa78fc1f3ed80701e71b3b65bbb</id>
 				<org>Zugriff verweigert</org>
+				<en>Access denied</en>
+				<es>Acceso denegado</es>
+				<fr>Accès refusé</fr>
+				<nl>Toegang geweigerd</nl>
+				<it>Accesso negato</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>ac9bebfcb2b274fd133af0bccc2defa4</id>
 				<org>Von</org>
+				<en>Of</en>
+				<es>De</es>
+				<fr>De</fr>
+				<nl>Van</nl>
+				<it>Di</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>a45da96d0bf6575970f2d27af22be28a</id>
 				<org>System</org>
+				<en>System</en>
+				<es>Sistema</es>
+				<fr>Système</fr>
+				<nl>Systeem</nl>
+				<it>Sistema</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>978b697963cfc5abfced8a4b611977c9</id>
 				<org>An</org>
+				<en>At</en>
+				<es>En</es>
+				<fr>À</fr>
+				<nl>Op</nl>
+				<it>A</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>feacfbd2c91af5cd584acbb3a700cbfa</id>
 				<org>Papierkorb</org>
+				<en>Trash</en>
+				<es>Papelera</es>
+				<fr>Trash</fr>
+				<nl>Trash</nl>
+				<it>Trash</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>274bda0f491054e0ae85f9de38ab558b</id>
 				<org>Sie haben &lt;b&gt;%1&lt;/b&gt; Mail(s) in ihrem Papierkorb. Davon wurde(n) &lt;b&gt;%2&lt;/b&gt; nicht von Ihnen gelesen.</org>
+				<en>You &lt;b&gt;have%1&lt;/b&gt; email (s) in their trash. Of these &lt;b&gt;(n)%2 is&lt;/b&gt; not from you has been read.</en>
+				<es>Usted &lt;b&gt;tiene%1&lt;/b&gt; de correo electrónico (s) en su basura. &lt;b&gt;N&lt;/b&gt; de estos &lt;b&gt;()%2&lt;/b&gt; no &lt;b&gt;es&lt;/b&gt; de usted se ha leído.</es>
+				<fr>Vous &lt;b&gt;avez%1 e-mail&lt;/b&gt; (s) dans leur poubelle. Parmi ceux-ci &lt;b&gt;(n)%2 n&amp;#39;est&lt;/b&gt; pas de vous a été lu.</fr>
+				<nl>U &lt;b&gt;hebt%1&lt;/b&gt; e-mail (s) in de prullenbak. Van deze &lt;b&gt;(n)%2 is&lt;/b&gt; niet van u is gelezen.</nl>
+				<it>&lt;b&gt;Hai%1&lt;/b&gt; e-mail (s) nella loro spazzatura. Di questi &lt;b&gt;n ()%2&lt;/b&gt; non &lt;b&gt;è&lt;/b&gt; da voi è stato letto.</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>0b21b8b253ea0b2473562339f2465f3b</id>
 				<org>Entgültig löschen</org>
+				<en>Be final delete</en>
+				<es>Será definitiva eliminar</es>
+				<fr>Définitive supprimer</fr>
+				<nl>Wees definitief verwijderen</nl>
+				<it>Definitiva eliminazione</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>77c058c791ef97e37ba4ac69b989dbe8</id>
 				<org>Um Ihren Posteingang sehen zu können, müssen Sie sich zuerst einloggen. Nutzen Sie das &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;Kontaktformular&lt;/a&gt; um Mails zu versenden. Dies ist auch im ausgeloggten Zustand möglich.</org>
+				<en>To view your Inbox, you need to log in first. Take advantage of sending the &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;contact form&lt;/a&gt; to mail. This is possible even in the logged condition.</en>
+				<es>Para ver la Bandeja de entrada, es necesario iniciar sesión primero. Tome ventaja de enviar el &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;formulario de contacto&lt;/a&gt; al correo. Esto es posible incluso en las condiciones registrado.</es>
+				<fr>Pour consulter votre boîte de réception, vous devez vous connecter en premier. Profitez de l&amp;#39;envoi du &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;formulaire de contact&lt;/a&gt; du courrier. Cela est possible même dans l&amp;#39;état connecté.</fr>
+				<nl>Als u uw Postvak IN, moet u eerst in te loggen. Profiteer van het verzenden van het &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;contact formulier&lt;/a&gt; om e-mail. Dit is mogelijk, zelfs in de ingelogde toestand.</nl>
+				<it>Per visualizzare la Posta in arrivo, è necessario effettuare il login. Approfitta di inviare il &lt;a href=&quot;index.php?mod=mail&amp;action=newmail&quot;&gt;modulo di contatto&lt;/a&gt; per posta elettronica. Questo è possibile anche in condizioni registrato.</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>2e63305451d28a133daeeac6da078ae9</id>
 				<org>Bitte geben Sie einen Empfänger für Ihre Mail an</org>
+				<en>Please enter a recipient for your email</en>
+				<es>Por favor, introduzca un destinatario para su correo electrónico</es>
+				<fr>S&amp;#39;il vous plaît entrer un destinataire de votre message</fr>
+				<nl>Voer een ontvanger voor uw e-mail</nl>
+				<it>Si prega di inserire un destinatario per la tua e-mail</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>fb1f271be4c8ba886014243495742271</id>
 				<org>Neue Mails</org>
+				<en>New mail</en>
+				<es>El correo nuevo</es>
+				<fr>New mail</fr>
+				<nl>Nieuwe mail</nl>
+				<it>New mail</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>00efd72dcc6976257ca0fee13c0eaf6c</id>
 				<org>Keine Mails bisher vorhanden</org>
+				<en>No messages yet available</en>
+				<es>No hay mensajes aún disponibles</es>
+				<fr>Pas encore de messages disponibles</fr>
+				<nl>Nog geen berichten beschikbaar</nl>
+				<it>Nessun messaggio ancora disponibili</it>
 				<file>mail</file>
 			</entry>
 			<entry>
 				<id>6220913b5f3eb6c2bd5f888f57d69565</id>
 				<org>Weiterleiten</org>
+				<en>Forward</en>
+				<es>Adelante</es>
+				<fr>Vers l&amp;#39;avant</fr>
+				<nl>Vooruit</nl>
+				<it>Avanti</it>
+				<file>mail</file>
+			</entry>
+			<entry>
+				<id>9c2529a3a47b6183b3a9a3efd4ccdc98</id>
+				<org>Antworten</org>
+				<en>Reply</en>
+				<es>Responder</es>
+				<fr>Répondre</fr>
+				<nl>Antwoorden</nl>
+				<it>Rispondere</it>
 				<file>mail</file>
 			</entry>
 		</content>

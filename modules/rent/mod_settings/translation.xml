@@ -5,7 +5,7 @@
 		<filetype>LanSuite</filetype>
 		<version>2.0</version>
 		<source>http://www.lansuite.de</source>
-		<date>2009-12-30 11:44</date>
+		<date>2010-01-02 05:47</date>
 	</header>
 	<table>
 		<table_head>
@@ -15,56 +15,111 @@
 			<entry>
 				<id>a377bf984e816b7da45903df0c39cfea</id>
 				<org>Verleih</org>
+				<en>Rental</en>
+				<es>Alquiler</es>
+				<fr>Location</fr>
+				<nl>Verhuur</nl>
+				<it>Noleggio</it>
 				<file>rent</file>
 			</entry>
 			<entry>
 				<id>677d191cace169dc92d02204e96e6505</id>
 				<org>Neuen Artikel zum Verleih eintragen</org>
+				<en>Adding new equipment for hire</en>
+				<es>Adición de nuevos equipos para alquiler de</es>
+				<fr>L&amp;#39;ajout de nouveaux équipements à la location</fr>
+				<nl>Het toevoegen van nieuwe apparatuur te huur</nl>
+				<it>Inserimento di nuove apparecchiature a noleggio</it>
 				<file>rent</file>
 			</entry>
 			<entry>
 				<id>6e2ee1c6d1ee1da0c54264077a3bf6b2</id>
 				<org>Bezeichnung</org>
+				<en>Title</en>
+				<es>Título</es>
+				<fr>Titre</fr>
+				<nl>Titel</nl>
+				<it>Titolo</it>
 				<file>rent</file>
 			</entry>
 			<entry>
 				<id>35bedb45241d6b3f70fa6f56197c3361</id>
 				<org>Beschreibung</org>
+				<en>Description</en>
+				<es>Descripción</es>
+				<fr>Description</fr>
+				<nl>Beschrijving</nl>
+				<it>Descrizione</it>
 				<file>rent</file>
 			</entry>
 			<entry>
 				<id>7c856a87e148ff82d5bcfa472c19b006</id>
 				<org>Menge</org>
+				<en>Quantity</en>
+				<es>Cantidad</es>
+				<fr>Quantité</fr>
+				<nl>Aantal</nl>
+				<it>Quantità</it>
 				<file>rent</file>
 			</entry>
 			<entry>
 				<id>ae5476012de8bce9fc10e7463b0f338e</id>
 				<org>Keinem zugeordnet</org>
+				<en>None assigned</en>
+				<es>Ninguno asignado</es>
+				<fr>Non assigné</fr>
+				<nl>Geen toegewezen</nl>
+				<it>Non assegnato</it>
 				<file>rent</file>
 			</entry>
 			<entry>
 				<id>8b0261a6c73560a48862c7795bdf733e</id>
 				<org>Besitzer</org>
+				<en>Owner</en>
+				<es>Propietario</es>
+				<fr>Propriétaire</fr>
+				<nl>Eigenaar</nl>
+				<it>Proprietario</it>
 				<file>rent</file>
 			</entry>
 			<entry>
 				<id>902336cac8b9f39c878824aaf56ca964</id>
 				<org>Zurücknehmen</org>
+				<en>Undo</en>
+				<es>Deshacer</es>
+				<fr>Undo</fr>
+				<nl>Ongedaan</nl>
+				<it>Annulla</it>
 				<file>rent</file>
 			</entry>
 			<entry>
 				<id>7c064279d18367364e32a36263f740a3</id>
 				<org>Artikel wurde zurückgenommen</org>
+				<en>Article has been withdrawn</en>
+				<es>El artículo ha sido retirada</es>
+				<fr>Article a été retiré</fr>
+				<nl>Artikel is ingetrokken</nl>
+				<it>L&amp;#39;articolo è stato ritirato</it>
 				<file>rent</file>
 			</entry>
 			<entry>
 				<id>33b940eef9dfa7d1cd2ce35d01b5255b</id>
 				<org>Zuweisen</org>
+				<en>Assignment</en>
+				<es>Asignación</es>
+				<fr>Affectation</fr>
+				<nl>Opdracht</nl>
+				<it>Assegnazione</it>
 				<file>rent</file>
 			</entry>
 			<entry>
 				<id>e098a7eb4082e1beab35e482809ba6fb</id>
 				<org>OK, der Artikel wurde verliehen.</org>
+				<en>Ok, the article was presented.</en>
+				<es>Ok, se presentó el artículo.</es>
+				<fr>Ok, l&amp;#39;article a été présenté.</fr>
+				<nl>Ok, het artikel werd gepresenteerd.</nl>
+				<it>Ok, l&amp;#39;articolo è stato presentato.</it>
 				<file>rent</file>
 			</entry>
 		</content>
