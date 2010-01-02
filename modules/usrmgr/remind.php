@@ -41,7 +41,7 @@ else switch ($_GET['step']) {
         $dsp->SetForm("index.php?mod=usrmgr&action=pwrecover&step=2");
         $dsp->AddSingleRow(t('Bitte geben Sie die Email-Adresse ein, mit der Sie sich am System angemeldet haben'));
         $dsp->AddTextFieldRow("pwr_mail", t('Ihre Email'), $_POST['pwr_mail'], $mail_error);
-        $dsp->AddFormSubmitRow("send");
+        $dsp->AddFormSubmitRow(t('Abschicken'));
         $dsp->AddBackButton("index.php", "usrmgr/pwremind");
     break;
 }

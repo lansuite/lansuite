@@ -37,7 +37,7 @@ switch($step) {
 		}
 		$db->free_result($rows);
 
-		$dsp->AddFormSubmitRow("add");
+		$dsp->AddFormSubmitRow(t('Hinzufügen'));
 		$dsp->AddContent();
 	break;
 

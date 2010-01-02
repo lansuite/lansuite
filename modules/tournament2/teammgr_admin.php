@@ -65,7 +65,7 @@ switch($_GET["step"]) {
 			$dsp->AddPasswordRow("set_password2", t('Team-Passwort wiederholen'), $_POST["set_password2"], $error["set_password2"]);
 			$dsp->AddTextAreaPlusRow("team_comment", t('Bemerkung'), $team_comment, "", "", "", 1);
 			$dsp->AddFileSelectRow("team_banner", t('Team-Logo (max. 1MB)'), "", "", 1000000, 1);
-			$dsp->AddFormSubmitRow("add");
+			$dsp->AddFormSubmitRow(t('Hinzufügen'));
 			$dsp->AddBackButton("index.php?mod=tournament2&action=teammgr_admin", ""); 
 		}
 	break;
@@ -98,7 +98,7 @@ switch($_GET["step"]) {
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=40");
 			$dsp->AddDropDownFieldRow("tournamentid", t('Neues Team (Spieler) anmelden<br />(Nur in Anmeldephase möglich)'), $t_array, "");
-			$dsp->AddFormSubmitRow("send");
+			$dsp->AddFormSubmitRow(t('Abschicken'));
 		}
 		$db->free_result($teams);
 
@@ -117,7 +117,7 @@ switch($_GET["step"]) {
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=10");
 			$dsp->AddDropDownFieldRow("teamid", t('Komplettes Team löschen<br />(Nur in Anmeldephase möglich)'), $t_array, "");
-			$dsp->AddFormSubmitRow("delete");
+			$dsp->AddFormSubmitRow(t('Löschen'));
 		}
 		$db->free_result($teams);
 
@@ -140,7 +140,7 @@ switch($_GET["step"]) {
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=20");
 			$dsp->AddDropDownFieldRow("teamid", t('Spieler einem Team hinzufügen'), $t_array, "");
-			$dsp->AddFormSubmitRow("send");
+			$dsp->AddFormSubmitRow(t('Abschicken'));
 		}
 		$db->free_result($teams);
 
@@ -161,7 +161,7 @@ switch($_GET["step"]) {
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=30");
 			$dsp->AddDropDownFieldRow("member_user", t('Spieler aus einem Team löschen'), $t_array, "");
-			$dsp->AddFormSubmitRow("delete");
+			$dsp->AddFormSubmitRow(t('Löschen'));
 		}
 		$db->free_result($teams);
 

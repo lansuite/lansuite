@@ -22,7 +22,7 @@ switch($_GET["step"]){
 		}
 		$dsp->AddDropDownFieldRow("type", t('NGL-Spiel'), $t_array, "", 1);
 
-		$dsp->AddFormSubmitRow("next");
+		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddBackButton("index.php?mod=install", "install/export");
 		$dsp->AddContent();
 	break;
@@ -38,7 +38,7 @@ switch($_GET["step"]){
 				$dsp->AddCheckBoxRow("e_struct", t('Struktur exportieren'), "", "", 1, 1);
 				$dsp->AddCheckBoxRow("e_cont", t('Inhalt exportieren'), "", "", 1, 1);
 
-				$dsp->AddFormSubmitRow("next");
+				$dsp->AddFormSubmitRow(t('Weiter'));
 			break;
 
 			case "xml_modules":
@@ -75,7 +75,7 @@ switch($_GET["step"]){
 				}
 				$db->free_result($res);
 
-				$dsp->AddFormSubmitRow("next");
+				$dsp->AddFormSubmitRow(t('Weiter'));
 			break;
 
 			case "xml_tables":
@@ -109,7 +109,7 @@ switch($_GET["step"]){
 				}
 				$db->free_result($res);
 
-				$dsp->AddFormSubmitRow("next");
+				$dsp->AddFormSubmitRow(t('Weiter'));
 			break;
 
 			case "csv_complete":

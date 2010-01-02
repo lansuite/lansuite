@@ -180,7 +180,7 @@ switch($_GET['step']) {
     $db->free_result($res);
 		$dsp->AddDropDownFieldRow('party_id', t('Party'), $selections, '');
 
-		$dsp->AddFormSubmitRow('next');
+		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddBackButton('index.php?mod=seating', 'seating/add');
 		$dsp->AddContent();
 	break;
@@ -246,7 +246,7 @@ switch($_GET['step']) {
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 1));
 
 		$dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=5&blockid={$_GET['blockid']}");
-		$dsp->AddFormSubmitRow('next');
+		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddBackButton("index.php?mod=seating&action={$_GET['action']}&step=2&blockid={$_GET['blockid']}", 'seating/add');
 		$dsp->AddContent();
 	break;
@@ -257,7 +257,7 @@ switch($_GET['step']) {
 		$dsp->NewContent(t('Sitzblock Sitze definieren'), t('Nun können Sie Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bedürfnissen anzupassen.<br /><br />Ganze Reihen bzw. Spalten von Plätzen können aktiviert bzw. deaktiviert werden, indem Sie auf die Spalten- bzw. Reihen-Beschriftung  klicken.'));
 		$dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=6&blockid={$_GET['blockid']}", "block");
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 2));
-		$dsp->AddFormSubmitRow('save');
+		$dsp->AddFormSubmitRow(t('Speichern'));
 		$dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=seating&action={$_GET['action']}&step=7&blockid={$_GET['blockid']}"));
 		$dsp->AddBackButton("index.php?mod=seating&action={$_GET['action']}&step=4&blockid={$_GET['blockid']}", 'seating/add');
 		$dsp->AddContent();

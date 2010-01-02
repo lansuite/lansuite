@@ -92,7 +92,7 @@ class party{
 				}
         $dsp->SetForm($link);
 				$dsp->AddDropDownFieldRow("set_party_id",t('Party auswählen'),$list_array,'');
-        $dsp->AddFormSubmitRow("change");
+        $dsp->AddFormSubmitRow(t('Ändern'));
 			}
 		}
 

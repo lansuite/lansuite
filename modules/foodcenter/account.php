@@ -57,7 +57,7 @@ switch($_GET['act']){
 				$dsp->SetForm("index.php?mod=foodcenter&action=account&act=payment&step=3&userid=".$_GET['userid']);
 				$dsp->AddTextFieldRow("amount",t('Betrag'),$_POST['amount'],$error['amount']);
 				$dsp->AddTextFieldRow("comment",t('Kommentar (Dein Name wird in Klammer angefügt)'),$_POST['comment'],$error['comment']);
-				$dsp->AddFormSubmitRow("send");
+				$dsp->AddFormSubmitRow(t('Abschicken'));
 				$dsp->AddContent();
 				$account = new accounting($_GET['userid']);
 				$account->list_balance();

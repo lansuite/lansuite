@@ -430,8 +430,8 @@ class display {
     $this->AddDoubleRow($key, $value);
   }
 
-  function AddFormSubmitRow($button, $helplet_id = NULL, $var = 'imageField', $close = true) {
-    $this->AddDoubleRow('&nbsp;', '<input type="submit" class="Button" name="'. $var .'" value="'. t($button) .'" />');
+  function AddFormSubmitRow($text, $close = true) {
+    $this->AddDoubleRow('&nbsp;', '<input type="submit" class="Button" name="imageField" value="'. $text .'" />');
     if ($this->form_open and $close) $this->CloseForm();
   }
 

@@ -34,7 +34,7 @@ switch($_GET["step"]) {
 		$dsp->AddTextFieldRow("email", t('E-Mail'), $user, "");
 		$dsp->AddPasswordRow("password", t('Kennwort'), $pass, "");
 		$dsp->AddPasswordRow("password2", t('Kennwort wiederholen'), $pass, "");
-		$dsp->AddFormSubmitRow("next");
+		$dsp->AddFormSubmitRow(t('Weiter'));
 
 		$dsp->AddBackButton("index.php?mod=install", "install/admin");
 		$dsp->AddContent();

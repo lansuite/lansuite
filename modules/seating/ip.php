@@ -46,7 +46,7 @@ switch($_GET['step']) {
 
 		$dsp->SetForm("index.php?mod=seating&action=ip&step=3&blockid={$_GET['blockid']}");
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 3));
-		$dsp->AddFormSubmitRow('next');
+		$dsp->AddFormSubmitRow(t('Weiter'));
 
 		$dsp->AddBackButton('index.php?mod=seating', 'seating/show');
 		$dsp->AddContent();

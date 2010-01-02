@@ -217,7 +217,7 @@ function translate_all_empty(from, to) {
         
         }
         $db->free_result($res);
-        $dsp->AddFormSubmitRow('edit');
+        $dsp->AddFormSubmitRow(t('Editieren'));
     $dsp->AddFieldSetEnd();
     $dsp->AddBackButton('index.php?mod=install&action=translation');
 
@@ -332,7 +332,7 @@ function translate_all_empty(from, to) {
 
           $dsp->AddDropDownFieldRow('target_file', t('Ziel Modul/File'), $list, '');
           $db->free_result($res);
-          $dsp->AddFormSubmitRow('change');
+          $dsp->AddFormSubmitRow(t('Ändern'));
       $dsp->AddFieldSetEnd();
 
       

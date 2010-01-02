@@ -140,7 +140,7 @@ switch($_GET["step"]) {
 			$dsp->AddTextAreaPlusRow("tticket_publictext", t('Kommentar für Benutzer'), $_POST['tticket_publictext'], $error["tticket_publictext"]);
 			$dsp->AddTextAreaPlusRow("tticket_orgatext", t('Kommentar für Orgas'), $_POST['tticket_orgatext'], $error["tticket_orgatext"]);
 
-			$dsp->AddFormSubmitRow("add");
+			$dsp->AddFormSubmitRow(t('Hinzufügen'));
 			$dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/change");
 			$dsp->AddContent();
 		}

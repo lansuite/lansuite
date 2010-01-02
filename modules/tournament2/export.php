@@ -43,7 +43,7 @@ switch ($_GET["step"]) {
 		$dsp->AddTextFieldRow("ngl_event_id", "NGL-Event-ID", "", "");
 		$dsp->AddSingleRow("LGZ");
 		$dsp->AddTextFieldRow("lgz_event_id", "LGZ-Event-ID", "", "");
-		$dsp->AddFormSubmitRow("next");	
+		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddBackButton("index.php?mod=tournament2", "tournament2/export"); 
 	break;
 }

@@ -251,7 +251,7 @@ if( !$row = $db->fetch_array() ) {
 		} // END WHILE
 		
 		$dsp->AddSingleRow($tmp_noc . "<td>");
-		$dsp->AddFormSubmitRow("edit");
+		$dsp->AddFormSubmitRow(t('Editieren'));
 		$dsp->AddContent();			
 		break;
 		

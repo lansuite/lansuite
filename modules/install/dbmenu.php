@@ -9,7 +9,7 @@ switch ($_GET['step']){
 	default:	
 				$dsp->SetForm("?mod=install&action=dbmenu&step=2");
 				$dsp->AddCheckBoxRow("rewrite",t('Menu Einträge ersetzen'),"","");
-				$dsp->AddFormSubmitRow("next");
+				$dsp->AddFormSubmitRow(t('Weiter'));
 				$dsp->AddBackButton("?mod=install");
 				break;
 	case 2:

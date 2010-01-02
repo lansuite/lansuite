@@ -94,7 +94,7 @@ switch ($step){
             $dsp->SetForm("?mod=games&action=number");
             $dsp->AddTextFieldRow("eingabe", t('Zahl vorschlagen'), $_POST['eingabe'], "");
             $dsp->AddDoubleRow(t('Versuche'), $_SESSION["versuch"]);
-            $dsp->AddFormSubmitRow("next");
+            $dsp->AddFormSubmitRow(t('Weiter'));
 
             $dsp->AddBackButton("?mod=games", "games/number");
             $dsp->AddSingleRow("<font size=\"1\" color=\"#FF0000\">".t('Tipp: Die Zahl ist größer -1 und kleiner 1001')."</font>");
@@ -112,7 +112,7 @@ switch ($step){
             $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "", "", "", $auth['login']);
             $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", FIELD_OPTIONAL);
             
-            $dsp->AddFormSubmitRow("next");
+            $dsp->AddFormSubmitRow(t('Weiter'));
 
             $dsp->AddBackButton("?mod=games", "games/number");
         }

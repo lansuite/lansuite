@@ -92,7 +92,7 @@ switch ($_GET['step']){
 #		$dsp->AddDropDownFieldRow("selection",t('Automatische Zuweisung'),$selection_array,$error_usrmgr['selection']);
 #		$dsp->AddTextFieldRow("select_opts",t('Zuweisungsbegriff (für Alter z.b. 18+, 16-18, -18)'),$_POST['select_opts'],$error_usrmgr['select_opts']);
 		
-		$dsp->AddFormSubmitRow("add","usrmgr/group");
+		$dsp->AddFormSubmitRow(t('Hinzufügen'));
 		
 		if($_GET['var'] != "update"){
 			$count = $db->qry_first("SELECT count(group_id) as n FROM %prefix%party_usergroups WHERE selection != 0");
@@ -103,13 +103,13 @@ switch ($_GET['step']){
 			$dsp->AddHRuleRow();
 			$dsp->SetForm("index.php?mod=usrmgr&action=group&step=2&var=update");
 			if($party->get_user_group_dropdown()){
-				$dsp->AddFormSubmitRow("edit");
+				$dsp->AddFormSubmitRow(t('Editieren'));
 			}				
 			if($dsp->form_open) $dsp->CloseForm();
 			$dsp->AddHRuleRow();
 			$dsp->SetForm("index.php?mod=usrmgr&action=group&step=20");
 			if($party->get_user_group_dropdown()){
-				$dsp->AddFormSubmitRow("delete");
+				$dsp->AddFormSubmitRow(t('Löschen'));
 			}
 			if($dsp->form_open) $dsp->CloseForm();
 			
@@ -135,7 +135,7 @@ switch ($_GET['step']){
 		$dsp->NewContent(t('Gruppe auswählen'),t('Gruppe auswählen'));
 		$dsp->SetForm("index.php?mod=usrmgr&action=group&step=10");		
 		$party->get_user_group_dropdown();
-		$dsp->AddFormSubmitRow("next");
+		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddContent();
 	break;
 	
@@ -223,7 +223,7 @@ switch ($_GET['step']){
 		$dsp->NewContent(t('Gruppe zuweisen'),t('Welche Gruppe möchten Sie den Benutzern die in der gelöschten Gruppe sind zuweisen?'));
 		$dsp->SetForm("index.php?mod=usrmgr&action=group&step=22&group_id={$_GET['group_id']}");
 		$party->get_user_group_dropdown("NULL",1);
-		$dsp->AddFormSubmitRow("next");
+		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddContent();
 	break;
 	

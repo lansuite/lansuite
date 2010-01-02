@@ -284,12 +284,12 @@ elseif (!$akt_file) {
 	if ($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) {
 		$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}", "", "", "multipart/form-data");
 		$dsp->AddFileSelectRow("file_upload", t('Datei hochladen'), "");
-		$dsp->AddFormSubmitRow("add");
+		$dsp->AddFormSubmitRow(t('Hinzufügen'));
 
 		// Add Gallery
 		$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}", "Form2", "", "");
 		$dsp->AddTextFieldRow("gallery_name", t('Neue Galerie anlegen'), "", "");
-		$dsp->AddFormSubmitRow("add");
+		$dsp->AddFormSubmitRow(t('Hinzufügen'));
 	}
 
 	$dsp->AddContent();
@@ -357,7 +357,7 @@ elseif (!$akt_file) {
 			if ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming']) {
   			$dsp->SetForm("index.php?mod=picgallery&file={$_GET["file"]}");
   			$dsp->AddTextFieldRow("file_name", t('Bildname'), $pic['caption'], "");
-  			$dsp->AddFormSubmitRow("edit");
+  			$dsp->AddFormSubmitRow(t('Editieren'));
       }
 
 			// Show Picname

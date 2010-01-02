@@ -15,7 +15,7 @@ elseif (!$_POST["username"]) {
 	$dsp->AddTextFieldRow("firstname", t('Vorname'), $_POST["firstname"], "");
 	$dsp->AddTextFieldRow("name", t('Nachname'), $_POST["name"], "");
 
-	$dsp->AddFormSubmitRow("add");
+	$dsp->AddFormSubmitRow(t('Hinzufügen'));
 	$dsp->AddContent();
 
 } else {

@@ -23,7 +23,7 @@ switch($_GET["step"]){
 		$dsp->AddCheckBoxRow("noseat", t('Sitzplan NICHT importieren'), "", "", 1, "");
  		$dsp->AddFieldsetEnd();
 
-		$dsp->AddFormSubmitRow("next");
+		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddBackButton("index.php?mod=install", "install/import");
 		$dsp->AddContent();
 	break;
@@ -67,7 +67,7 @@ switch($_GET["step"]){
 				$dsp->SetForm("index.php?mod=install&action=import&step=2&filename={$_GET["filename"]}", "", "", "multipart/form-data");
 				if ($_POST["seperator"] == "") $_POST["seperator"] = ";";
 				$dsp->AddTextFieldRow("seperator", "<b>Trennzeichen</b>", $_POST["seperator"], "");
-				$dsp->AddFormSubmitRow("change"); 
+				$dsp->AddFormSubmitRow(t('Ändern'));
 
 				$dsp->AddHRuleRow();
 				$dsp->SetForm("index.php?mod=install&action=import&step=3&filename={$_GET["filename"]}&seperator={$_POST["seperator"]}", "", "", "multipart/form-data");
@@ -96,7 +96,7 @@ switch($_GET["step"]){
   				$db->free_result($query);
         }
         
-				$dsp->AddFormSubmitRow("next"); 
+				$dsp->AddFormSubmitRow(t('Weiter'));
 				$dsp->AddBackButton("index.php?mod=install&action=import", "install/import");
 				$dsp->AddContent();
 			break;

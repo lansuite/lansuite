@@ -164,7 +164,7 @@ else {
   			$dsp->AddTextFieldRow('team_score['. $game['gameid'] .']', $game['name'] .' '. $tfunc->button_team_details($game['teamid'], $tournamentid), $game['score'], $team_score_error[$game['gameid']]);
   		}
   		$db->free_result($games);
-  		$dsp->AddFormSubmitRow("save");
+  		$dsp->AddFormSubmitRow(t('Speichern'));
   		if ($tournament['status'] == 'process') $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Beenden'), "index.php?mod=tournament2&action=games&step=11&tournamentid=$tournamentid"));
 		elseif ($tournament['status'] == 'closed') $dsp->AddDoubleRow('', $dsp->FetchSpanButton(t('Beenden rückgängig'), "index.php?mod=tournament2&action=games&step=12&tournamentid=$tournamentid"));
   	break;

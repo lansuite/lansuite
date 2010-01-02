@@ -137,7 +137,7 @@ class pdf_tmpl{
         // Formular für hinzufügen von Einträgen
         $dsp->SetForm("index.php?mod=pdf&action=" . $this->action . "&act=insert_mask&id=" . $this->tmpl_id);
         $dsp->AddDropDownFieldRow('type',t('Wahl des Feldes') ,$type,"");
-        $dsp->AddFormSubmitRow("add");
+        $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action,"pdf/change_template");
         $dsp->AddContent(); 
     }
@@ -231,7 +231,7 @@ class pdf_tmpl{
                 $dsp->AddTextFieldRow("sort",t('Reihenfolge'),'','');
                 $help = "pdf/item_img";
             }
-        $dsp->AddFormSubmitRow("add");
+        $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action, $help);
         $dsp->AddContent(); 
     }
@@ -338,7 +338,7 @@ class pdf_tmpl{
                 $dsp->AddTextFieldRow("sort",t('Reihenfolge'),$data['sort'],'');
                 $help = "pdf/item_img";
             }
-        $dsp->AddFormSubmitRow("add");
+        $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddBackButton("index.php?mod=pdf&action=" . $this->action ."&act=change&id=" . $this->tmpl_id,$help);
         $dsp->AddContent(); 
     }
@@ -443,7 +443,7 @@ class pdf_tmpl{
         $dsp->AddTextFieldRow("rand_x", t('Rand in x-Richtung'),'','');
         $dsp->AddTextFieldRow("rand_y", t('Rand in y-Richtung'),'','');
         $dsp->AddCheckBoxRow("landscape",t('Querformat'),'','');
-        $dsp->AddFormSubmitRow("add","pdf/new_template");
+        $dsp->AddFormSubmitRow(t('Hinzufügen'));
         $dsp->AddContent();
     }
 }

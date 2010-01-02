@@ -93,7 +93,7 @@ switch ($_GET["step"]) {
         $dsp->AddDoubleRow("Versuchte Buchstaben", $_SESSION["used_letters"]);
 
         $dsp->AddTextFieldRow("buchstabe", t('Bitte einen Buchstaben raten'), "", $BuchstabeError);
-        $dsp->AddFormSubmitRow("next");
+        $dsp->AddFormSubmitRow(t('Weiter'));
     break;
 
     // Sieg
@@ -108,7 +108,7 @@ switch ($_GET["step"]) {
             $dsp->AddDoubleRow("Fehlversuche", $_SESSION["versuche"]);
             $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "", "", "", $auth['login']);
             $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", FIELD_OPTIONAL);
-            $dsp->AddFormSubmitRow("next");
+            $dsp->AddFormSubmitRow(t('Weiter'));
         }
     break;
 
@@ -159,7 +159,7 @@ switch ($_GET["step"]) {
         $dsp->SetForm("?mod=games&action=hangman&step=1");
         $dsp->AddDoubleRow("", "Um ein zufälliges Wort zu erhalten, bitte kein Wort eingeben.<br>Nur bei zufälligen Wörtern gibt es einen Highscoreeintrag");
         $dsp->AddTextFieldRow("word", t('Folgendes Wort erraten'), "", "");
-        $dsp->AddFormSubmitRow("next");
+        $dsp->AddFormSubmitRow(t('Weiter'));
 
         $dsp->AddBackButton("?mod=games", "games/hangman");
     break;

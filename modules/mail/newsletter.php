@@ -72,7 +72,7 @@ switch($_GET["step"]) {
 		$dsp->AddTextAreaMailRow("text", t('Text'), $_POST["text"], $text_error);
 		$dsp->AddFieldSetEnd();
 
-		$dsp->AddFormSubmitRow("send");
+		$dsp->AddFormSubmitRow(t('Senden'));
 		$dsp->AddContent();
 	break;
 

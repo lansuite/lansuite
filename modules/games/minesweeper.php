@@ -87,7 +87,7 @@ switch ($_GET["step"]) {
         $dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
         $dsp->AddDoubleRow(t('Zeit'), $score);
         $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "");
-        $dsp->AddFormSubmitRow("next");
+        $dsp->AddFormSubmitRow(t('Weiter'));
 
         $dsp->AddBackButton("?mod=games", "games/minesweeper");
     break;
@@ -119,7 +119,7 @@ switch ($_GET["step"]) {
         $dsp->AddTextFieldRow("rows", t('Reihen'), "12", "");
         $dsp->AddTextFieldRow("columns", t('Spalten'), "20", "");
         $dsp->AddTextFieldRow("mines", t('Minen'), "25", "");
-        $dsp->AddFormSubmitRow("next");
+        $dsp->AddFormSubmitRow(t('Weiter'));
 
         $dsp->AddBackButton("?mod=games", "games/minesweeper");
     break;

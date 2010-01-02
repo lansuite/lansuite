@@ -71,7 +71,7 @@ switch($_GET["step"]) {
 		$menu = $db->qry_first("SELECT group_nr FROM %prefix%menu WHERE pos = %string%", $_GET["pos"]);
 		$dsp->AddTextFieldRow("group", "Gruppe", (int)$menu["group_nr"], "");
 
-		$dsp->AddFormSubmitRow("next");
+		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddBackButton("index.php?mod=install&action=menu&onlyactive={$_GET["onlyactive"]}", "install/modules");
 		$dsp->AddContent();
 	break;
@@ -128,7 +128,7 @@ switch($_GET["step"]) {
 		}
 		$db->free_result($menus);
 
-		$dsp->AddFormSubmitRow("next");
+		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddBackButton("index.php?mod=install", "install/modules");
 		$dsp->AddContent();
 	break;

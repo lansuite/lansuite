@@ -18,7 +18,7 @@ switch ($_GET['step']){
 			$dsp->NewContent(t('User im Netzwerk finden'),t('Mit diesem Formular k&ouml;nnen sie einen User im Netzwerk lokalisieren'));
 			$dsp->SetForm("index.php?mod=noc&action=find&step=2");
 			$dsp->AddTextFieldRow("ip",t('IP-Adresse'),$_POST['ip'],$error_noc['ip']);
-			$dsp->AddFormSubmitRow("next");
+			$dsp->AddFormSubmitRow(t('Weiter'));
 			$dsp->AddBackButton("index.php?mod=noc");
 			$dsp->AddContent();
 	break;
