@@ -19,7 +19,7 @@ else {
   		if ($cfg['sys_barcode_on']) $dsp->AddBarcodeForm("<strong>" . t('Strichcode') . "</strong>", "", "index.php?mod=usrmgr&action=entrance&step=3&userid=");
       $dsp->SetForm('index.php?mod=usrmgr&action=entrance&step=3', 'CheckinAssistantUseridForm');
       $dsp->AddTextFieldRow('userid', t('UserID'), '', '');
-      $dsp->AddFormSubmitRow('next');
+      $dsp->AddFormSubmitRow(t('Weiter'));
       $dsp->AddFieldsetEnd();
 
   		$questionarr[1] = t('Bereits <b>angemeldeten Gast einchecken</b>');

@@ -55,7 +55,7 @@ switch( $_GET["step"] ) {
 		$dsp->AddDoubleRow(t('MAC-Adresse'), nl2br($row["mac"]));
 		$dsp->AddDoubleRow(t('IP-Adresse'), $row["ip"]);
 		$dsp->AddDoubleRow(t('Portstatus'), $linkstatus);
-		$dsp->AddFormSubmitRow("edit");
+		$dsp->AddFormSubmitRow(t('Editieren'));
 		$dsp->AddDoubleRow(t('Geschwindigkeit'),$row["speed"]. " MBit/s (entspricht ~ " . round($row["speed"] / 8,2) . " MBytes/s)");
 		$dsp->AddDoubleRow(t('Empfangene Bytes'),$bytesIn);
 		$dsp->AddDoubleRow(t('Gesendete Bytes'),$bytesOut);

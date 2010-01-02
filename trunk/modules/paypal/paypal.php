@@ -32,7 +32,7 @@ if($auth['userid'] == 0 && $cfg['paypal_donation'] == 0){
 		$dsp->AddTextFieldRow("donation",t('Spende f&uuml;r die Organisatoren'),0,"");
 	}
 	
-	$dsp->AddFormSubmitRow("next");
+	$dsp->AddFormSubmitRow(t('Weiter'));
 	$db->free_result($pay_partys);
 	$dsp->AddContent();
 }

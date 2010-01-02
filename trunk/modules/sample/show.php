@@ -27,7 +27,7 @@
 
 	// Use this to display the form-submit-link
 	// "add" is the text which is displayed on the button. It will be translatet into other languages, if translations exist
-	$dsp->AddFormSubmitRow("add");
+	$dsp->AddFormSubmitRow(t('Hinzufügen'));
 
 	// This is how to load your own template, located in the 'templates'-folder of your module
 	$dsp->AddSingleRow($smarty->fetch('modules/sample/templates/my_template.htm'));

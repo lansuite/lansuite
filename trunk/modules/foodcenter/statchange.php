@@ -176,7 +176,7 @@ switch ($_GET['step']){
 		echo "<input type=\"hidden\" name=\"search_dd_input[1]\" value=\"{$_POST['search_dd_input'][1]}\">";
 		echo "<input type=\"hidden\" name=\"search_dd_input[2]\" value=\"{$_POST['search_dd_input'][2]}\">";
 		
-		$dsp->AddFormSubmitRow("print");
+		$dsp->AddFormSubmitRow(t('Drucken'));
 		$dsp->AddContent();
 		break;
 	case 2:
@@ -271,7 +271,7 @@ switch ($_GET['step']){
 		$dsp->NewContent(t('Produkt abbestellen'),t('Bitte wählen sie die Produktanzahl die abbestellt werden soll.'));
 		$dsp->SetForm("index.php?mod=foodcenter&action=statchange&step=3&id={$_GET['id']}&status=4");
 		$dsp->AddDropDownFieldRow("delcount",t('Anzahl'),$count_array,"");
-		$dsp->AddFormSubmitRow("next");
+		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddContent();
 	break;
 }

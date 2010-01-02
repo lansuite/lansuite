@@ -103,7 +103,7 @@ else switch ($_GET['step']) {
           $dsp->AddFieldsetEnd();
       	}
       	$db->free_result($resGroup);
-      	$dsp->AddFormSubmitRow('next');
+      	$dsp->AddFormSubmitRow(t('Weiter'));
       }
     }
     $dsp->EndTab();
@@ -248,7 +248,7 @@ else switch ($_GET['step']) {
       			$dsp->SetForm('index.php?mod=install&action=mod_cfg&design=base&step=43&module='. $_GET['module'] .'&tab=2', '', '', '');
       			$dsp->AddCheckBoxRow('e_struct', t('Struktur exportieren'), '', '', 1, 1);
       			$dsp->AddCheckBoxRow('e_cont', t('Inhalt exportieren'), '', '', 1, 1);
-      			$dsp->AddFormSubmitRow('DB exportieren');
+      			$dsp->AddFormSubmitRow(t('DB exportieren'));
       			$dsp->AddFieldsetEnd();
 
       			$dsp->AddFieldsetStart(t('Weitere Aktionen'));
@@ -292,7 +292,7 @@ else switch ($_GET['step']) {
         }
         $dsp->AddDropDownFieldRow('target_language', t('Ziel Sprache'), $list, '');
         $db->free_result($res);
-        $dsp->AddFormSubmitRow('change');
+        $dsp->AddFormSubmitRow(t('Ändern'));
       $dsp->AddFieldSetEnd();
 
       // Start Tanslation
@@ -318,7 +318,7 @@ else switch ($_GET['step']) {
               }
             }
             $db->free_result($res);
-            $dsp->AddFormSubmitRow('edit');
+            $dsp->AddFormSubmitRow(t('Editieren'));
           }
         }
       $dsp->AddFieldSetEnd();

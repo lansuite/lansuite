@@ -47,7 +47,7 @@ switch($_GET['step']){
 
 			$dsp->SetForm("index.php?mod=troubleticket&action=cat&act=change&step=2");
 			$dsp->AddDropDownFieldRow("tticket_cat",t('Kategorie'),$t_cat_array,$error['tticket_cat']);
-			$dsp->AddFormSubmitRow("change");
+			$dsp->AddFormSubmitRow(t('Ändern'));
 		}else{
 			$dsp->AddSingleRow(t('Keine Kategorien vorhanden'));
 			
@@ -81,14 +81,14 @@ switch($_GET['step']){
 			$dsp->SetForm("index.php?mod=troubleticket&action=cat&act=add&step=3");
 			$dsp->AddTextFieldRow("name",t('Kategorie'),"",$error_cat['name']);
 			$dsp->AddDropDownFieldRow("orga",t('Zuständiger Admin'),$user_row_option,"");
-			$dsp->AddFormSubmitRow("add");
+			$dsp->AddFormSubmitRow(t('Hinzufügen'));
 		}else{
 			$cat_data = $db->qry_first("SELECT * FROM %prefix%troubleticket_cat WHERE cat_id = %string%", $_POST["tticket_cat"]);
 			
 			$dsp->SetForm("index.php?mod=troubleticket&action=cat&act=change&step=3&cat_id={$_POST['tticket_cat']}");
 			$dsp->AddTextFieldRow("name",t('Kategorie'),$cat_data['cat_text'],$error_cat['name']);
 			$dsp->AddDropDownFieldRow("orga",t('Zuständiger Admin'),$user_row_option,"");
-			$dsp->AddFormSubmitRow("change");
+			$dsp->AddFormSubmitRow(t('Ändern'));
 		}
 		$dsp->AddContent();
 	

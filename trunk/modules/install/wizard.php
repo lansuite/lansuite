@@ -53,7 +53,7 @@ switch ($_GET["step"]){
         if ($language == "en") $selected = 'selected'; else $selected = '';
         array_push ($lang_array, "<option $selected value=\"en\">English</option>");
         $dsp->AddDropDownFieldRow("language", t('Sprache'), $lang_array, "");
-        $dsp->AddFormSubmitRow("change");
+        $dsp->AddFormSubmitRow(t('Ändern'));
 
         $continue = $install->envcheck();
 
@@ -114,7 +114,7 @@ switch ($_GET["step"]){
         $dsp->AddCheckBoxRow("resetdb", t('Datenbank überschreiben'), t('<b>ACHTUNG:</b> Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!'), "", 0, "");
         $func->information(t('ACHTUNG: Der Aufruf der nächsten Seite kann bis zu einer Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!'),NO_LINK);
 
-        $dsp->AddFormSubmitRow("next");
+        $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=1", "install/ls_conf");
         $dsp->AddContent();
     break;
@@ -209,7 +209,7 @@ switch ($_GET["step"]){
         $dsp->AddCheckBoxRow("noseat", t('Sitzplan NICHT importieren'), "", "", 1, "");
 
         $dsp->AddSingleRow(t('<b>ACHTUNG:</b> Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.'));
-        $dsp->AddFormSubmitRow("add");
+        $dsp->AddFormSubmitRow(t('Hinzufügen'));
 
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=3", "install/import");
@@ -282,7 +282,7 @@ switch ($_GET["step"]){
         $dsp->AddPasswordRow("password2", t('Kennwort wiederholen'), '', '');
         $smarty->assign('pw_security_id', '1');
         $dsp->AddDoubleRow('', $smarty->fetch('design/templates/ls_row_pw_security.htm'));
-        $dsp->AddFormSubmitRow("add");
+        $dsp->AddFormSubmitRow(t('Hinzufügen'));
 
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=8"));
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=4", "install/admin");
@@ -326,7 +326,7 @@ switch ($_GET["step"]){
         array_push ($mode_array, '<option $selected value="0">'. t('Intranet-Seite. Auf der Party') .'</option>');
         $dsp->AddDropDownFieldRow("mode", t('Internet- oder Lokaler-Modus?'), $mode_array, "");
 
-        $dsp->AddFormSubmitRow("next");
+        $dsp->AddFormSubmitRow(t('Weiter'));
 
         $dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/vars");
         $dsp->AddContent();

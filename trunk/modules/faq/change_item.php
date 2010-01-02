@@ -122,7 +122,7 @@ switch($_GET["step"]) {
 				$dsp->AddTextAreaPlusRow("question_text",t('Text'),$_POST['question_text'],$faq_error['question_text'], 70, 20);
 				$dsp->AddDropDownFieldRow("question_cat",t('Bestehende Kategorie'),$faq_cats,"");
 				$dsp->AddTextFieldRow("question_new_cat",t('Neue Kategorie'),$_POST['question_new_cat'],$faq_error['question_cat']);
-				$dsp->AddFormSubmitRow("add");
+				$dsp->AddFormSubmitRow(t('Hinzufügen'));
 				$dsp->AddContent();
 		}
 

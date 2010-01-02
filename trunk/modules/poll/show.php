@@ -54,7 +54,7 @@ switch ($_GET['step']) {
       }
       $db->free_result($res);
   
-  		$dsp->AddFormSubmitRow("vote");
+  		$dsp->AddFormSubmitRow(t('Abstimmen'));
   	}
 		$dsp->AddBackButton("index.php?mod=poll", "poll/vote");
   break;

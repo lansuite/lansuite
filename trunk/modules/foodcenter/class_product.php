@@ -694,9 +694,9 @@ class product{
         }
         
         if($this->id != null){
-            $dsp->AddFormSubmitRow("edit");
+            $dsp->AddFormSubmitRow(t('Editieren'));
         }else {
-            $dsp->AddFormSubmitRow("add");
+            $dsp->AddFormSubmitRow(t('Hinzufügen'));
         }
         
                 
@@ -763,7 +763,7 @@ class product{
                     $i++;
                 }
                 if($this->choise == 1){
-                    $dsp->AddFormSubmitRow("order");
+                    $dsp->AddFormSubmitRow(t('Bestellen'));
                 }
                 break;
                     
@@ -847,7 +847,7 @@ class product{
                     $i++;
                 }
                 if($this->choise == 1){
-                    $dsp->AddFormSubmitRow("order");
+                    $dsp->AddFormSubmitRow(t('Bestellen'));
                 }
                 break;
 

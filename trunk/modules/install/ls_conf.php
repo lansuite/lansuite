@@ -69,7 +69,7 @@ switch($_GET["step"]) {
 		}
 		$dsp->AddDropDownFieldRow("design", t('Standard-Design'), $t_array, "");
 
-		$dsp->AddFormSubmitRow("next");
+		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddBackButton("index.php?mod=install", "install/ls_conf");
 		$dsp->AddContent();
 	break;

@@ -296,7 +296,7 @@ class pdf {
         $dsp->AddCheckBoxRow("only", t('Nur dieses Datum drucken'), "", "", "1", "0", "0");
 */      
         // Knopf für erzeugen der PDF
-        $dsp->AddFormSubmitRow("next");
+        $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=pdf&action=$action","pdf/usercards"); 
         $dsp->AddContent();
     }
@@ -335,7 +335,7 @@ class pdf {
             // Dropdown für Sortierung      
             $dsp->AddDropDownFieldRow("order", t('Sortierung'), $order, "", 1);
             // Knopf für erzeugen der PDF
-            $dsp->AddFormSubmitRow("next");
+            $dsp->AddFormSubmitRow(t('Weiter'));
             $dsp->AddBackButton("index.php?mod=pdf&action=$action","pdf/seatcards"); 
             $dsp->AddContent();
         }
@@ -386,7 +386,7 @@ class pdf {
         
         // Knopf für erzeugen der PDF
         $dsp->AddDropDownFieldRow("order", t('Sortierung'), $s_array, "", 1);
-        $dsp->AddFormSubmitRow("next");
+        $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddBackButton("index.php?mod=pdf&action=$action","pdf/userlist"); 
         $dsp->AddContent();
     }

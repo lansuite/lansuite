@@ -40,7 +40,7 @@ function CheckStateChangeAllowed($state) {
 
 #$dsp->SetForm('index.php?mod=tournament2&action=add&step=10');
 #$dsp->AddDropDownFieldRow('template', t('Von Vorlage laden'), $selections, '');
-#$dsp->AddFormSubmitRow('next');
+#$dsp->AddFormSubmitRow(t('Weiter'));
 
 
 include_once('inc/classes/class_masterform.php');

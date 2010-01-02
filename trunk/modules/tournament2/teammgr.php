@@ -73,7 +73,7 @@ switch($_GET['step']) {
 			if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("nglclanid", t('NGL Clan ID'), $team['nglclanid'], "");
 		}
 
-		$dsp->AddFormSubmitRow("edit");
+		$dsp->AddFormSubmitRow(t('Editieren'));
 		$dsp->AddBackButton("index.php?mod=tournament2&action=teammgr", "tournament2/teammgr");
 
 		$dsp->AddContent();

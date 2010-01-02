@@ -96,7 +96,7 @@ switch ($_GET["step"]) {
 
 		$dsp->AddTextAreaPlusRow("tticket_text", "Text", $_POST["tticket_text"], $error["tticket_text"], "", "", 1);
 
-		$dsp->AddFormSubmitRow("add");
+		$dsp->AddFormSubmitRow(t('Hinzufügen'));
 		$dsp->AddBackButton("index.php?mod=troubleticket", "troubleticket/add");
 		$dsp->AddContent();
 	break;

@@ -91,7 +91,7 @@ if ($tteam->SignonCheck($tournamentid)) {
 				if ($tournament['teamplayer'] > 1) $dsp->AddTextFieldRow("lgzclanid", t('LGZ Clan ID'), $user['lgzclanid'], "");
 			}
 
-			$dsp->AddFormSubmitRow("join");
+			$dsp->AddFormSubmitRow(t('Beitreten'));
 			$dsp->AddBackButton("index.php?mod=tournament2&action=details&tournamentid=$tournamentid", "tournament2/join"); 
 
 			$dsp->AddContent();

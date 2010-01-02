@@ -189,7 +189,7 @@ function check_transaction($verify_file,$checked_file,$verify_id,$item_id){
 									<input type=\"hidden\" name=\"depot\" value=\"" . urlencode(serialize($_POST['depot'])) . "\">
 									<input type=\"hidden\" name=\"catering\" value=\"" . $_POST['catering'] . "\">
 									<input type=\"hidden\" name=\"donation\" value=\"" . $_POST['donation'] . "\">");
-				$dsp->AddFormSubmitRow("next");
+				$dsp->AddFormSubmitRow(t('Weiter'));
 				$dsp->AddBackButton("\" OnClick=\"javascript: refreshParent()");
 				$dsp->AddContent();
 			}

@@ -119,7 +119,7 @@ switch($_GET["step"]) {
 
         $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&module={$_GET["module"]}&step=22\">".t('Neuen Menüeintrag hinzufügen')."</a>");
 
-        $dsp->AddFormSubmitRow("next");
+        $dsp->AddFormSubmitRow(t('Weiter'));
         $dsp->AddContent();
     break;
 
@@ -232,7 +232,7 @@ switch($_GET["step"]) {
       }
       $db->free_result($res);
 
-      $dsp->AddFormSubmitRow("next");
+      $dsp->AddFormSubmitRow(t('Weiter'));
       $dsp->AddBackButton("index.php?mod=install", "install/modules");
       $dsp->AddContent();
     break;

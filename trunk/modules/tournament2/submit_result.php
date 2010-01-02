@@ -127,7 +127,7 @@ if ($tournament["name"] == "") {
 			if ($team1['comment'] != "") $score_comment = $team1['comment'];
 			$dsp->AddTextAreaPlusRow("score_comment", t('Bemerkung'), $score_comment, "", "", "", 1);
 			$dsp->AddFieldSetEnd();
-			$dsp->AddFormSubmitRow("result");
+			$dsp->AddFormSubmitRow(t('Ergebnis'));
 
     	$dsp->AddFieldsetStart('Log');
       include_once('modules/mastersearch2/class_mastersearch2.php');
