@@ -354,19 +354,6 @@ nospamfor.us</default>
   </group>
   <group>
     <head>
-      <name>Debuging</name>
-    </head>
-    <items>
-    	<item>
-    		<name>sys_showdebug</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Sollen Debug-Mitteilungen angezeigt werden?</description>
-    	</item>
-    </items>
-  </group>
-  <group>
-    <head>
       <name>Barcode</name>
     </head>
     <items>
