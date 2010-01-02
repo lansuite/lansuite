@@ -1,9 +1,8 @@
 <?php
 
-$ms_number = 0;
-
 class MasterSearch2 {
-  var $query;
+  var $query = array('select' => '', 'from' => '', 'where' => '', 'group_by' => '', 'order_by' => '', 'limit' => '',
+    'having' => '', 'default_order_by' => '', 'default_order_dir' => '', 'order_by_end' => '');
   var $result_field = array();
   var $search_fields = array();
   var $search_dropdown = array();
@@ -12,24 +11,27 @@ class MasterSearch2 {
   var $config = array();
   var $bgcolors = array();
   var $bgcolor_attr = '';
-  var $sql_select_field_list = array();
-  var $sql_select_field_alias_list = array();
+  var $orderByFieldFound = false;
   var $post_in_get = '';
   var $NoItemsText = '';
   var $SQLFieldTypes = array();
   var $HiddenGetFields = array();
+  var $ms_number = 0;
 
   // Constructor
   function MasterSearch2($module = '') {
-    global $language, $lang, $ms_number;
+    $this->ms_number++;
 
-    $ms_number++;
-
+    $this->query['select'] = '';
     $this->query['from'] = '';
     $this->query['where'] = '';
     $this->query['group_by'] = '';
     $this->query['order_by'] = '';
     $this->query['limit'] = '';
+    $this->query['having'] = '';
+    $this->query['default_order_by'] = '';
+    $this->query['default_order_dir'] = '';
+    $this->query['order_by_end'] = '';
 
     // Write Get to Post, for MF expects this for default values
     if ($_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
@@ -46,14 +48,12 @@ class MasterSearch2 {
   }
 
   function AddSelect($sql_field){
-    if ($sql_field and !in_array($sql_field, $this->sql_select_field_list)) array_push($this->sql_select_field_list, $sql_field);
+    $this->query['select'] .= $sql_field .', ';
 
-    // cut of 'table.', in front of field name
+    // cut of 'xxx as ', in front of alias name
     $first_as = strpos(strtolower($sql_field), ' as ');
-#    $first_dot = strpos($sql_field, '.');
     if ($first_as > 0) $sql_field = substr($sql_field, $first_as + 4, strlen($sql_field));
-#    elseif ($first_dot > 0) $sql_field = substr($sql_field, $first_dot + 1, strlen($sql_field));
-    if ($sql_field and !in_array($sql_field, $this->sql_select_field_alias_list)) array_push($this->sql_select_field_alias_list, $sql_field);
+    if ($sql_field == $_GET['order_by']) $this->orderByFieldFound = true;
   }
 
   function AddBGColor($sql_field, $color_list){
@@ -112,8 +112,8 @@ class MasterSearch2 {
     array_push($this->multi_select_action, $arr);
   }
 
-    function PrintSearch($working_link, $select_id_field, $multiaction = '') {
-    global $smarty, $db, $config, $dsp, $templ, $func, $auth, $line, $lang, $ms_number, $framework;
+  function PrintSearch($working_link, $select_id_field, $multiaction = '') {
+    global $smarty, $db, $config, $dsp, $templ, $func, $auth, $line, $framework;
 
     $UrlParas = explode('&', substr($working_link, strpos($working_link, '?') + 1, strlen($working_link)));
     foreach ($UrlParas as $UrlPara) {
@@ -122,7 +122,7 @@ class MasterSearch2 {
     }
 
 #    $working_link .= $this->post_in_get;
-    $working_link .= '&ms_number='. $ms_number;
+    $working_link .= '&ms_number='. $this->ms_number;
     $this->AddSelect($select_id_field); 
     $min_skipped_items = 99;
    
@@ -239,8 +239,7 @@ class MasterSearch2 {
     }
 
     ###### Generate Select
-    $this->query['select'] = implode(', ', $this->sql_select_field_list);
-    
+    $this->query['select'] = substr($this->query['select'], 0, strlen($this->query['select']) - 2);
 
     ###### Generate Group By
     $this->query['group_by'] .= $select_id_field;
@@ -251,13 +250,13 @@ class MasterSearch2 {
     // Order by user selection
     if ($_GET['order_by']) {
 
-      if (!in_array($_GET['order_by'], $this->sql_select_field_alias_list)) $func->error(t('Sortieren nach "%1" nicht möglich. Feld ist nicht im Select-Teil definiert', array($_GET['order_by'])));
+      if (!$this->orderByFieldFound) $func->error(t('Sortieren nach "%1" nicht möglich. Feld ist nicht im Select-Teil definiert', array($_GET['order_by'])), NO_LINK);
       else {
         $this->query['order_by'] .= $_GET['order_by'];
   
         // Order direction given by user?
         if ($_GET['order_dir']) {
-          if ($_GET['order_dir'] != 'ASC' and $_GET['order_dir'] != 'DESC') $func->error(t('Sortieren-Ordnung, darf nur ASC, oder DESC sein')); 
+          if ($_GET['order_dir'] != 'ASC' and $_GET['order_dir'] != 'DESC') $func->error(t('Sortieren-Ordnung, darf nur ASC, oder DESC sein'), NO_LINK);
           else $this->query['order_by'] .= ' '. $_GET['order_dir'];
   
         // Get default order direction by sql-field type
@@ -291,7 +290,7 @@ class MasterSearch2 {
     ###### Generate Limit
     if (!$this->config['EntriesPerPage']) $this->query['limit'] = '';
     else {
-      if ($_GET['ms_page'] != '' and (!$_GET['ms_number'] or $_GET['ms_number'] == $ms_number)) $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
+      if ($_GET['ms_page'] != '' and (!$_GET['ms_number'] or $_GET['ms_number'] == $this->ms_number)) $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
       else $page_start = 0;
       if ($page_start < 0) $page_start = 0;
       $this->query['limit'] = "LIMIT $page_start, ". $this->config['EntriesPerPage'];
@@ -615,7 +614,7 @@ class MasterSearch2 {
       }
       $db->free_result($res);
 
-      $smarty->assign('ms_number', $ms_number);
+      $smarty->assign('ms_number', $this->ms_number);
       $dsp->AddContentLine($smarty->fetch('modules/mastersearch2/templates/result_case.htm'));
     }
   }
@@ -640,7 +639,7 @@ function MS2GetTime($time){
 }
 
 function TrueFalse($val){
-  global $dsp, $templ, $lang;
+  global $dsp, $templ;
   
   if ($val) return $dsp->FetchIcon('', 'yes', t('Ja'));
   else return $dsp->FetchIcon('', 'no', t('Nein'));
