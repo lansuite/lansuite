@@ -6,7 +6,7 @@ class stats {
 	
 	// Constructor
 	function stats() {
-		global $db, $auth;
+		global $db, $auth, $cfg;
 
     // Try not to count search engine bots
     // Bad Examples:
@@ -20,6 +20,9 @@ class stats {
       and strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'crawl') === false
       and strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'search') === false
       and strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'find') === false) {
+      
+      if ($cfg['log_browser_stats']) $db->qry('INSERT INTO %prefix%stats_browser SET useragent = %string%, referrer = %string%, accept_language = %string%',
+        $_SERVER['HTTP_USER_AGENT'], $_SERVER['HTTP_REFERER'], $_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
   		// Update usage stats
   		// Is the user known, or is it a new visit? - After 30min idle this counts as a new visit

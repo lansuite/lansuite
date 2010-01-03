@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>log_browser_stats</name>
+    		<type>boolean</type>
+    		<default>0</default>
+    		<description>Detailierte Browserinfo loggen (momentan nur zu Testzwecken und ohne irgendeine Ausgabe)</description>
+    	</item>
+    </items>
+  </group>
+</config>
