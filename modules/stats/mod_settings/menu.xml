@@ -22,16 +22,6 @@
 		<level>1</level>
 	</entry>
 	<entry>
-		<action>server</action>
-		<file>localserver</file>
-		<caption>Server</caption>
-		<hint></hint>
-		<link>?mod=stats&amp;action=server</link>
-		<requirement>2</requirement>
-		<needed_config></needed_config>
-		<level>1</level>
-	</entry>
-	<entry>
 		<action>usage</action>
 		<file>usage</file>
 		<caption>Verwendung</caption>
@@ -67,8 +57,8 @@
 		<level>1</level>
 	</entry>
 	<entry>
-		<action>age</action>
-		<file>age</file>
+		<action>hits</action>
+		<file>hits</file>
 		<caption>Benutzerstatistik</caption>
 		<hint></hint>
 		<link>?mod=stats&amp;action=hits</link>
