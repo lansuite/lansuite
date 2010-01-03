@@ -2,32 +2,32 @@
 
 $dsp->NewContent(t('Suchmaschinen'), t('Hier sehen Sie, &uuml;ber welche Suchbegriffe Besucher &uuml;ber Suchmaschinenen auf Ihrer Seite gelandet sind'));
 
-// Generate header menu
-$se_name = array ();
-$se_name[] = t('Alle');
-$query = $db->qry("SELECT se FROM %prefix%stats_se GROUP BY se ORDER BY se");
-$i = 1;
-while ($row = $db->fetch_array($query)) {
-	$se_name[$i] = $row["se"];
-	$i++;
-}
+include_once('modules/mastersearch2/class_mastersearch2.php');
+$ms2 = new mastersearch2();
+
+$ms2->query['from'] = "%prefix%stats_se";
+$ms2->query['default_order_by'] = 'hits DESC';
+
+$ms2->config['EntriesPerPage'] = 50;
+
+$ms2->AddTextSearchField(t('Suchbegriff'), array('term' => 'like'));
+
+$list = array('' => 'Alle');
+$res = $db->qry('SELECT se FROM %prefix%stats_se GROUP BY se ORDER BY se');
+while($row = $db->fetch_array($res)) $list[$row['se']] = $row['se'];
 $db->free_result($res);
-$dsp->AddHeaderMenu($se_name, "index.php?mod=stats&action=search_engines", $_GET["headermenuitem"]);
+$ms2->AddTextSearchDropDown('Suchmaschiene', 'se', $list);
 
-// Show only entries of the selected search engine
-$_GET["headermenuitem"]--;
-if ($_GET["headermenuitem"] == 0) $where = ""; // Show all
-elseif ($se_name[$_GET["headermenuitem"]] != "") $where = "WHERE se = '{$se_name[$_GET["headermenuitem"]]}'"; // Show selected
-else $where = ""; // Wrong selection
+$ms2->AddResultField(t('Suchbegriff'), 'term', '', 80);
+$ms2->AddResultField(t('Anzahl'), 'hits');
+$ms2->AddResultField(t('Erstmalig'), 'UNIX_TIMESTAMP(first) AS first', 'MS2GetDate');
+$ms2->AddResultField(t('Zuletzt'), 'UNIX_TIMESTAMP(last) AS last', 'MS2GetDate');
 
-$query = $db->qry("SELECT * FROM %prefix%stats_se %plain% ORDER BY hits DESC, term ASC", $where);
-while ($row = $db->fetch_array($query)) {
-  if (strlen($row['term']) > 30) $row['term'] = '<div class="infolink" style="display:inline">'. substr($row['term'], 0, 28) .'...<span class="infobox">'. $row['term'] .'</span>';
-  $dsp->AddDoubleRow($row["term"], $row["hits"] .' Hits bei '. $row["se"] .' ('. $func->unixstamp2date($row["first"], "datetime") .' - '. $func->unixstamp2date($row["last"], "datetime") .')');
-}
-$db->free_result($res);
+#$ms2->AddIconField('details', 'index.php?mod=news&action=comment&newsid=', t('Details'));
+#if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=news&action=change&step=2&newsid=', t('Editieren'));
+#if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=news&action=delete&step=2&newsid=', t('Löschen'));
 
-$dsp->AddSingleRow($table);
+$ms2->PrintSearch('index.php?mod=stats&action=search_engines', '1');
 
 $dsp->AddBackButton("index.php?mod=stats", "stats/se");
 $dsp->AddContent();
