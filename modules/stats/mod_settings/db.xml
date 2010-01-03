@@ -63,15 +63,15 @@
 				<name>term</name>
 				<type>varchar(255)</type>
 				<null></null>
-				<key></key>
+				<key>PRI</key>
 				<default></default>
 				<extra></extra>
 			</field>
 			<field>
 				<name>se</name>
-				<type>varchar(20)</type>
+				<type>enum("", "google", "yahoo", "altavista", "msn", "aol_de", "aol_com", "web_de")</type>
 				<null></null>
-				<key></key>
+				<key>PRI</key>
 				<default></default>
 				<extra></extra>
 			</field>
@@ -85,7 +85,7 @@
 			</field>
 			<field>
 				<name>first</name>
-				<type>int(15)</type>
+				<type>datetime</type>
 				<null></null>
 				<key></key>
 				<default></default>
@@ -93,7 +93,7 @@
 			</field>
 			<field>
 				<name>last</name>
-				<type>int(15)</type>
+				<type>timestamp</type>
 				<null></null>
 				<key></key>
 				<default></default>
