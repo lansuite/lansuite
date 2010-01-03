@@ -72,8 +72,8 @@ class stats {
   				// Search for parameter containing the search term
   				if ($para_var == $query_var[$search_engine]){
   					$row = $db->qry_first_rows("SELECT term FROM %prefix%stats_se WHERE term = %string% AND se = %string%", $para_val, $search_engine);
-  					if ($row["number"] > 0) $db->qry("UPDATE %prefix%stats_se SET hits = hits + 1, last = 'time()' WHERE term = %string% AND se = %string%", $para_val, $search_engine);
-  					else $db->qry("INSERT INTO %prefix%stats_se SET hits = 1, term = %string%, se = %string%, first = %int%, last = %int%", $para_val, $search_engine, time(), time());
+  					if ($row["number"] > 0) $db->qry("UPDATE %prefix%stats_se SET hits = hits + 1 WHERE term = %string% AND se = %string%", $para_val, $search_engine);
+  					else $db->qry("INSERT INTO %prefix%stats_se SET hits = 1, term = %string%, se = %string%, first = NOW()", $para_val, $search_engine);
   				}
   			}
       }
