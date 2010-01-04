@@ -56,7 +56,7 @@ if (!$missing_fields and !$siteblock) {
 
         default:
             // If module is deactivated display error message
-            if (!$func->isModActive($mod)) $func->error('DEACTIVATED');
+            if (!$func->isModActive($mod)) $func->error(t('Das Modul %1 wurde deaktiviert und steht somit nicht zur Verfügung.', $mod));
 
             //// Load Mod-Config
             else {
@@ -87,7 +87,7 @@ if (!$missing_fields and !$siteblock) {
 
                             // 4) Error: 'Not Found'
                         } else
-                            $func->error('NOT_FOUND');
+                            $func->error(t('Leider ist die von Ihnen aufgerufene Seite auf diesem Server nicht vorhanden.<br/>Um Fehler zu vermeiden, sollten Sie die URL nicht manuell ändern, sondern die Links benutzen. Wenn Sie die Adresse manuell eingegeben haben überprüfen Sie bitte die URL.'));
                     }
                 }
             }
