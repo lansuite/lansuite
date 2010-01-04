@@ -19,6 +19,7 @@ class stats {
       and strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'spider') === false
       and strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'crawl') === false
       and strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'search') === false
+      and strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'google') === false
       and strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'find') === false) {
       
       if ($cfg['log_browser_stats']) $db->qry('INSERT INTO %prefix%stats_browser SET useragent = %string%, referrer = %string%, accept_language = %string%',
