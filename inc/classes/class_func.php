@@ -237,8 +237,6 @@ class func {
     switch($text) {
       case "ACCESS_DENIED": $text = t('Sie haben keine Zugriffsrechte für diesen Bereich.'); break;
       case "NO_LOGIN": $text = t('Sie sind nicht eingeloggt. Bitte loggen Sie sich erst ein, bevor Sie diesen Bereich betreten.'); break;
-      case "NOT_FOUND": $text = t('Leider ist die von Ihnen aufgerufene Seite auf diesem Server nicht vorhanden.<br/>Um Fehler zu vermeiden, sollten Sie die URL nicht manuell ändern, sondern die Links benutzen. Wenn Sie die Adresse manuell eingegeben haben überprüfen Sie bitte die URL.'); break;
-      case "DEACTIVATED": $text = t('Dieses Lansuite Modul wurde deaktiviert und steht somit nicht zur Verfügung.'); break;
       case "NO_REFRESH": $text = t('Sie haben diese Anfrage wiederholt ausgeführt.'); break;
     }
     $smarty->assign('msg', $text);

@@ -45,10 +45,11 @@ class framework {
         $this->timer2 = explode(' ', microtime());
 
         if (isset($_SERVER['REQUEST_URI'])) {
-            $CurentURL = parse_url($_SERVER['REQUEST_URI']);
+          if ($CurentURL = @parse_url($_SERVER['REQUEST_URI'])) {
             $this->internal_url_query['base'] = $CurentURL['path'].'?'.$CurentURL['query']; // Enspricht alter $CurentURLBase;
             $this->internal_url_query['query'] = preg_replace('/[&]?fullscreen=(no|yes)/sUi', '', $CurentURL['query']); // Enspricht alter $URLQuery;
             $this->internal_url_query['host'] = $CurentURL['host'];
+          }
         }
         if (!$this->internal_url_query['host']) $this->internal_url_query['host'] = $_SERVER['SERVER_NAME'];
         
