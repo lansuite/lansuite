@@ -257,7 +257,7 @@ class MasterSearch2 {
   
         // Order direction given by user?
         if ($_GET['order_dir']) {
-          if ($_GET['order_dir'] != 'asc' and $_GET['order_dir'] != 'desc') $func->error(t('Sortieren-Ordnung, darf nur "asc", oder "desc" sein'), NO_LINK);
+          if (strtolower($_GET['order_dir']) != 'asc' and strtolower($_GET['order_dir']) != 'desc') $func->error(t('Sortieren-Ordnung, darf nur "asc", oder "desc" sein'), NO_LINK);
           else $this->query['order_by'] .= ' '. $_GET['order_dir'];
   
         // Get default order direction by sql-field type
