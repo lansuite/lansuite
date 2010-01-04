@@ -8,7 +8,7 @@
 	<author>Jochen (KnoX)</author>				<!-- The author of this module -->
 	<email>knox@orgapage.net</email>					<!-- The E-Mail-Adress of the modules author -->
 	<version>1.0</version>			<!-- The version of this module -->
-	<state>Beta</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
+	<state>stable</state>			<!-- The state of this module (f.e.: stable, in development, beta, ...) -->
 	<requires>
 		<php>5.1.0</php>
 	</requires>
