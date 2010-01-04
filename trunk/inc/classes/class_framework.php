@@ -46,11 +46,8 @@ class framework {
 
         if (isset($_SERVER['REQUEST_URI'])) {
             $CurentURL = parse_url($_SERVER['REQUEST_URI']);
-
-            // Filter for Query
-            $URLQuery = preg_replace('/[&]?fullscreen=(no|yes)/sUi', '', $CurentURL['query']); // Remove Fullscreenvar
             $this->internal_url_query['base'] = $CurentURL['path'].'?'.$CurentURL['query']; // Enspricht alter $CurentURLBase;
-            $this->internal_url_query['query'] = $URLQuery; // Enspricht alter $URLQuery;
+            $this->internal_url_query['query'] = preg_replace('/[&]?fullscreen=(no|yes)/sUi', '', $CurentURL['query']); // Enspricht alter $URLQuery;
             $this->internal_url_query['host'] = $CurentURL['host'];
         }
         if (!$this->internal_url_query['host']) $this->internal_url_query['host'] = $_SERVER['SERVER_NAME'];
@@ -61,6 +58,14 @@ class framework {
 
         $this->add_css_path('ext_scripts/jquery-ui/smoothness/jquery-ui-1.7.2.custom.css');
         $this->add_css_path('design/style.css');
+        
+        if ($this->internal_url_query['query']) {
+          $query = preg_replace('/&language=(de|en|it|fr|es|nl)/sUi', '', $this->internal_url_query['query']);
+          $query = preg_replace('/&order_by=(.)*&/sUi', '&', $query);
+          $query = preg_replace('/&order_dir=(asc|desc)/sUi', '', $query);
+          $query = preg_replace('/&EntsPerPage=[0..9]*/sUi', '', $query);
+          $this->main_header_metatags = '<link rel="canonical" href="index.php?'. $query .'" />';
+        }
     }
 
   /**
