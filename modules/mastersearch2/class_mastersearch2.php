@@ -257,7 +257,7 @@ class MasterSearch2 {
   
         // Order direction given by user?
         if ($_GET['order_dir']) {
-          if ($_GET['order_dir'] != 'ASC' and $_GET['order_dir'] != 'DESC') $func->error(t('Sortieren-Ordnung, darf nur ASC, oder DESC sein'), NO_LINK);
+          if ($_GET['order_dir'] != 'asc' and $_GET['order_dir'] != 'desc') $func->error(t('Sortieren-Ordnung, darf nur "asc", oder "desc" sein'), NO_LINK);
           else $this->query['order_by'] .= ' '. $_GET['order_dir'];
   
         // Get default order direction by sql-field type
@@ -466,14 +466,14 @@ class MasterSearch2 {
 
         // Order Link and Image
         ($_GET['ms_page'] == 'all')? $add_page = '&ms_page=all' : $add_page = '';
-        $order_dir = '';
+        $order_dir = 'asc';
         if ($_GET['order_by'] == $current_field['sql_field']) {
           if ($this->SQLFieldTypes[$current_field['sql_field']] == 'datetime'
             or $this->SQLFieldTypes[$current_field['sql_field']] == 'date'
             or $this->SQLFieldTypes[$current_field['sql_field']] == 'time'
             or $this->SQLFieldTypes[$current_field['sql_field']] == 'timestamp')
-            ($_GET['order_dir'] != 'ASC')? $order_dir = 'ASC' : $order_dir = 'DESC';
-          else ($_GET['order_dir'] != 'DESC')? $order_dir = 'DESC' : $order_dir = 'ASC';
+            ($_GET['order_dir'] != 'asc')? $order_dir = 'asc' : $order_dir = 'desc';
+          else ($_GET['order_dir'] != 'desc')? $order_dir = 'desc' : $order_dir = 'asc';
         }
 
         // Generate Headlines
@@ -490,7 +490,7 @@ class MasterSearch2 {
           $arr['link'] = preg_replace('#mf_id=.\\&?#si', '', $arr['link']);
 
           if ($_GET['order_by'] == $current_field['sql_field']) {
-            if ($order_dir == 'DESC') $arr['entry'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
+            if ($order_dir == 'desc') $arr['entry'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_desc_active.gif\" border=\"0\" />";
             else $arr['entry'] .= " <img src=\"design/{$auth['design']}/images/arrows_orderby_asc_active.gif\" border=\"0\" />";
           }
         }
