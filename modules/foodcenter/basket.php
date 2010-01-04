@@ -51,7 +51,7 @@ if($open == false && ($cfg['foodcenter_foodtime'] == 3 || $cfg['foodcenter_foodt
 	if($_POST['imageField'] != ''){
 		if($basket->change_basket($auth['userid'])){
 			$basket->order_basket($auth['userid']);
-			$func->confirmation(t('Die Bestellung wurde aufgenommen'),"?mod=foodcenter");
+			$func->confirmation(t('Die Bestellung wurde aufgenommen'),"index.php?mod=foodcenter");
 		}else{
 			$basket->show_basket();
 		}

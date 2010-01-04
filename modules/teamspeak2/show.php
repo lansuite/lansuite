@@ -14,7 +14,7 @@
         $autorefresh = 0;
     }
     if ($autorefresh == 1) {
-        echo("      <meta http-equiv=\"refresh\" content=\"". $cfg['autorefresh'] ."; URL=" . $_SERVER["PHP_SELF"] . "?mod=teamspeak2&autorefresh=1\">\n");
+        echo("      <meta http-equiv=\"refresh\" content=\"". $cfg['autorefresh'] ."; URL=" . $_SERVER["PHP_SELF"] . "index.php?mod=teamspeak2&autorefresh=1\">\n");
     }
 
      // Load the Teamspeak Display:

@@ -25,7 +25,7 @@ $dsp->NewContent(t('MineSweeper'), t('Versuchen Sie alle Felder aufzudecken, ohn
 
 $menunames[1] = t('Start');
 $menunames[2] = t('Highscore');
-$dsp->AddHeaderMenu($menunames, "?mod=games&action=minesweeper", $headermenuitem);
+$dsp->AddHeaderMenu($menunames, "index.php?mod=games&action=minesweeper", $headermenuitem);
 
 if ($headermenuitem == 1) $_GET["step"] = 1;
 if ($headermenuitem == 2) $_GET["step"] = 5;
@@ -34,16 +34,16 @@ if ($headermenuitem == 2) $_GET["step"] = 5;
 switch ($_GET["step"]) {
     case 2:
         if ($_POST["rows"] > 20) {
-            $func->information(t('Es dürfen maximal 20 Reihen ausgewählt werden'), "?mod=games&action=minesweeper");
+            $func->information(t('Es dürfen maximal 20 Reihen ausgewählt werden'), "index.php?mod=games&action=minesweeper");
 
         } elseif ($_POST["columns"] > 40) {
-            $func->information(t('Es dürfen maximal 40 Spalten ausgewählt werden'), "?mod=games&action=minesweeper");
+            $func->information(t('Es dürfen maximal 40 Spalten ausgewählt werden'), "index.php?mod=games&action=minesweeper");
 
         } elseif ($_POST["mines"] > $_POST["rows"] * $_POST["columns"]) {
-            $func->information(t('Es dürfen nicht mehr Mienen, als Felder ausgewählt werden'), "?mod=games&action=minesweeper");
+            $func->information(t('Es dürfen nicht mehr Mienen, als Felder ausgewählt werden'), "index.php?mod=games&action=minesweeper");
 
         } elseif ($_POST["mines"] < 5) {
-            $func->information(t('Es sollten mindestens 5 Mienen versteckt sein, sonst ist das Spiel witzlos!'), "?mod=games&action=minesweeper");
+            $func->information(t('Es sollten mindestens 5 Mienen versteckt sein, sonst ist das Spiel witzlos!'), "index.php?mod=games&action=minesweeper");
 
         } else {
             $tmp_nick = rand(0, 100000);
@@ -68,7 +68,7 @@ switch ($_GET["step"]) {
             $smarty->assign('rows', $_POST["rows"]);
             $smarty->assign('columns', $_POST["columns"]);
             $smarty->assign('mines', $_POST["mines"]);
-            $smarty->assign('link_won', "?mod=games&action=minesweeper&step=3&tmp_nick=$tmp_nick");
+            $smarty->assign('link_won', "index.php?mod=games&action=minesweeper&step=3&tmp_nick=$tmp_nick");
             $smarty->assign('generate_field', $generate_field);
             $dsp->AddSingleRow($smarty->fetch('modules/games/templates/minesweeper.htm'));
         }
@@ -83,13 +83,13 @@ switch ($_GET["step"]) {
             WHERE (nick = %string% AND game = 'mw_tmp')
             ", time(), $_GET["tmp_nick"]);
 
-        $dsp->SetForm("?mod=games&action=minesweeper&step=4&tmp_nick={$_GET["tmp_nick"]}");
+        $dsp->SetForm("index.php?mod=games&action=minesweeper&step=4&tmp_nick={$_GET["tmp_nick"]}");
         $dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
         $dsp->AddDoubleRow(t('Zeit'), $score);
         $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "");
         $dsp->AddFormSubmitRow(t('Weiter'));
 
-        $dsp->AddBackButton("?mod=games", "games/minesweeper");
+        $dsp->AddBackButton("index.php?mod=games", "games/minesweeper");
     break;
 
     case 4:
@@ -98,8 +98,8 @@ switch ($_GET["step"]) {
             WHERE (nick = %string% AND game = 'mw_tmp')
             ", $_POST["nick"], $_GET["tmp_nick"]);
 
-        if ($db->get_affected_rows() > 0) $func->confirmation(t('Highscore wurde eingetragen'), "?mod=games&action=minesweeper&headermenuitem=2");
-        else $func->information("Der angegebene temporäre Nick wurde nicht gefunden. Das Ergebnis konnte daher leider nicht eingetragen werden.", "?mod=games&action=minesweeper&headermenuitem=2");
+        if ($db->get_affected_rows() > 0) $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=minesweeper&headermenuitem=2");
+        else $func->information("Der angegebene temporäre Nick wurde nicht gefunden. Das Ergebnis konnte daher leider nicht eingetragen werden.", "index.php?mod=games&action=minesweeper&headermenuitem=2");
     break;
 
     case 5:
@@ -111,17 +111,17 @@ switch ($_GET["step"]) {
         }
         $db->free_result($hs_liste);
 
-        $dsp->AddBackButton("?mod=games", "games/minesweeper");
+        $dsp->AddBackButton("index.php?mod=games", "games/minesweeper");
     break;
 
     default:
-        $dsp->SetForm("?mod=games&action=minesweeper&step=2");
+        $dsp->SetForm("index.php?mod=games&action=minesweeper&step=2");
         $dsp->AddTextFieldRow("rows", t('Reihen'), "12", "");
         $dsp->AddTextFieldRow("columns", t('Spalten'), "20", "");
         $dsp->AddTextFieldRow("mines", t('Minen'), "25", "");
         $dsp->AddFormSubmitRow(t('Weiter'));
 
-        $dsp->AddBackButton("?mod=games", "games/minesweeper");
+        $dsp->AddBackButton("index.php?mod=games", "games/minesweeper");
     break;
 }
 

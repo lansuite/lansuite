@@ -28,7 +28,7 @@ class func {
     function func() {
         define('NO_LINK', -1);
         $url_array = parse_url($_SERVER['HTTP_REFERER']);
-        $this->internal_referer = "?".$url_array['query'].$url_array['fragment'];
+        $this->internal_referer = "index.php?".$url_array['query'].$url_array['fragment'];
     }
 
 

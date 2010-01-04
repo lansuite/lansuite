@@ -22,7 +22,7 @@ $dsp->NewContent(t('Hangman'), t('Versuchen Sie durch Buchstaben tippen ein Wort
 
 $menunames[1] = t('Start');
 $menunames[2] = t('Highscore');
-$dsp->AddHeaderMenu($menunames, "?mod=games&action=hangman", $_GET["headermenuitem"]);
+$dsp->AddHeaderMenu($menunames, "index.php?mod=games&action=hangman", $_GET["headermenuitem"]);
 
 if ($_GET["headermenuitem"] == 1) $_GET["step"] = 0;
 if ($_GET["headermenuitem"] == 2) $_GET["step"] = 5;
@@ -86,7 +86,7 @@ if (!$_GET["sieg"]) {
 switch ($_GET["step"]) {
     // Spiel
     case 1:
-        $dsp->SetForm("?mod=games&action=hangman&step=1&ratewort={$_GET["ratewort"]}");
+        $dsp->SetForm("index.php?mod=games&action=hangman&step=1&ratewort={$_GET["ratewort"]}");
 
         $dsp->AddDoubleRow("Lösung", "<b>{$_GET["ratewort"]}</b>");
         $dsp->AddDoubleRow("Fehlversuche", $_SESSION["versuche"]);
@@ -103,7 +103,7 @@ switch ($_GET["step"]) {
 
         if ($_SESSION["do_highscore"]) {
         	$_SESSION["ratewort"] = $_GET["ratewort"];
-            $dsp->SetForm("?mod=games&action=hangman&step=4&sieg=1");
+            $dsp->SetForm("index.php?mod=games&action=hangman&step=4&sieg=1");
             $dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
             $dsp->AddDoubleRow("Fehlversuche", $_SESSION["versuche"]);
             $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "", "", "", $auth['login']);
@@ -118,13 +118,13 @@ switch ($_GET["step"]) {
     elseif($auth['login'])  
 	{
         $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_SESSION["versuche"], $_POST["comment"]);
-        $func->confirmation(t('Highscore wurde eingetragen'), "?mod=games&action=hangman&headermenuitem=2");
+        $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=hangman&headermenuitem=2");
     	unset($_SESSION["ratewort"]);
         unset($_SESSION["losungswort"]);
         unset($_SESSION["do_highscore"]);
     }else{
         $db->qry("INSERT INTO %prefix%game_hs SET game = 'hm', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_SESSION["versuche"], $_POST["comment"]);
-        $func->confirmation(t('Highscore wurde eingetragen'), "?mod=games&action=hangman&headermenuitem=2");
+        $func->confirmation(t('Highscore wurde eingetragen'), "index.php?mod=games&action=hangman&headermenuitem=2");
     	unset($_SESSION["ratewort"]);
         unset($_SESSION["losungswort"]);
         unset($_SESSION["do_highscore"]);
@@ -151,17 +151,17 @@ switch ($_GET["step"]) {
 		$ms2->PrintSearch('index.php?mod=games&action=hangman&headermenuitem=2', 'g.id');
 
 
-        $dsp->AddBackButton("?mod=games", "games/hangman");
+        $dsp->AddBackButton("index.php?mod=games", "games/hangman");
     break;
 
     // Startscreen
     default:
-        $dsp->SetForm("?mod=games&action=hangman&step=1");
+        $dsp->SetForm("index.php?mod=games&action=hangman&step=1");
         $dsp->AddDoubleRow("", "Um ein zufälliges Wort zu erhalten, bitte kein Wort eingeben.<br>Nur bei zufälligen Wörtern gibt es einen Highscoreeintrag");
         $dsp->AddTextFieldRow("word", t('Folgendes Wort erraten'), "", "");
         $dsp->AddFormSubmitRow(t('Weiter'));
 
-        $dsp->AddBackButton("?mod=games", "games/hangman");
+        $dsp->AddBackButton("index.php?mod=games", "games/hangman");
     break;
 }
 

@@ -71,7 +71,7 @@ class masterdelete {
         // Print confirmation message
         if (!$_POST['confirmed']) {
             #echo ."\n".$_SESSION['md_referrer'];
-            if ($func->internal_referer != '?'.$_SERVER['QUERY_STRING']) $_SESSION['md_referrer'] = $func->internal_referer;
+            if ($func->internal_referer != 'index.php?'.$_SERVER['QUERY_STRING']) $_SESSION['md_referrer'] = $func->internal_referer;
             
             $refFieldsDelete = '';
             $refFieldsSet0 = '';

@@ -55,7 +55,7 @@ class basket{
 			
 			$dsp->NewContent(t('Warenkorb'),t('Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf "Neu berechnen".'));
 			if($this->product->count_products() > 0){
-				$dsp->SetForm("?mod=foodcenter&action={$_GET['action']}&mode=change");
+				$dsp->SetForm("index.php?mod=foodcenter&action={$_GET['action']}&mode=change");
 				$dsp->AddDoubleRow("<b>" . t('Artikel / Preis') . "</b> ","<b>" . t('Anzahl') . "</b> ");
 
 				$this->product->get_basket_form();			
