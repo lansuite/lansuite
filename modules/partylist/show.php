@@ -62,7 +62,7 @@ function AddSignonStatus($lsurl, $show_history = 0) {
   $content = GetSite($lsurl);
 
 #  if (!$lines) return t('infos.xml fehlt');
-  if (!$content) return '<div class="infolink" style="display:inline">'. t('infos.xml fehlt') .'<span class="infobox"'. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace("'", "\\'", str_replace('"', "'", str_replace("\r\n", HTML_NEWLINE, $HTTPHeader))) .'</span></div>';
+  if (!$content) return '<div class="infolink" style="display:inline">'. t('infos.xml fehlt') .'<span class="infobox">'. $lsurl .HTML_NEWLINE.HTML_NEWLINE. str_replace("'", "\\'", str_replace('"', "'", str_replace("\r\n", HTML_NEWLINE, $HTTPHeader))) .'</span></div>';
   else {
 #    $content = '';
 #    foreach ($lines as $line_num => $line) $content .= $line;
