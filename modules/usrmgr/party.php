@@ -135,7 +135,7 @@ else {
     $db->free_result($res);
     $dsp->AddFieldsetEnd();
 
-  } else $func->error('ACCESS_DENIED', ''); 
+  } else $func->information('ACCESS_DENIED', '');
 
   $dsp->AddBackButton('index.php?mod='. $_GET['mod']);
   $dsp->AddContent();

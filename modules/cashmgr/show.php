@@ -6,7 +6,7 @@ include_once("modules/cashmgr/class_accounting.php");
 if(!$_GET['step']){
 switch($auth['type']) {
 	default: 
-	$func->error("ACCESS_DENIED");
+	$func->information("ACCESS_DENIED");
 	break;
 	
 	case 1:
@@ -30,7 +30,7 @@ switch($auth['type']) {
 switch($_GET['step'])
 {
 	case 1:
-	if($auth['type'] < 3) $func->error("ACCESS_DENIED");
+	if($auth['type'] < 3) $func->information("ACCESS_DENIED");
 	else
 	{
 		$dsp->NewContent(t('Kalkulation'), t('Zur aktuellen Lanparty zum derzeitigen Stand'));

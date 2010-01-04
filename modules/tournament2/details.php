@@ -15,7 +15,7 @@ else {
 	switch ($_GET['step']){
     // Shuffle maps
     case 20:
-      if ($auth['type'] <= 1) $func->error('ACCESS_DENIED');
+      if ($auth['type'] <= 1) $func->information('ACCESS_DENIED');
       else {
         $maps = explode("\n", $tournament["mapcycle"]);
         shuffle($maps);

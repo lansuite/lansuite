@@ -17,7 +17,7 @@ function getColor() {
 	if(!$line['my']) return "<font color='green'>+".number_format($line['movement'], 2, ',', '.') . " EUR</font>";
 }
 
-if($_GET['act'] == "him" and $auth['type'] < 3) $func->error("ACCESS_DENIED");
+if($_GET['act'] == "him" and $auth['type'] < 3) $func->information("ACCESS_DENIED");
 elseif($_GET['act'] == "him" and $auth['type'] = 3)
 {
 	switch ($_GET['step']){
