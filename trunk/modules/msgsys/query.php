@@ -7,7 +7,7 @@ if ($auth['login']) {
 	echo $index;
 
 } else {
-	$func->error("NO_LOGIN");
+	$func->information("NO_LOGIN");
 	echo $templ_index_content;
 }
 ?>
