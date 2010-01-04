@@ -52,7 +52,7 @@
 						
 	case 'editcontent'			:	$beamerdisplay->viewEditContent(); break;
 						
-	case 'askfordelete'			:   $func->question(HTML_NEWLINE.t("Wirklich L&ouml;schen?"), "?mod=beamer&action=deletecontent&bcid=".$bcid, $link_target_no = ''); break;
+	case 'askfordelete'			:   $func->question(HTML_NEWLINE.t("Wirklich L&ouml;schen?"), "index.php?mod=beamer&action=deletecontent&bcid=".$bcid, $link_target_no = ''); break;
 						
 	case 'deletecontent'		:	$beamermodul->deleteContent( $bcid ); $beamerdisplay->viewContent();		break;
 

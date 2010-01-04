@@ -48,12 +48,12 @@ if(!isset($_SESSION['foodcenter']['theke_userid'])){
 
 	if($_GET['info']){
 		$product_list->load_cat($cat[$_GET['headermenuitem']]);
-		$product_list->get_info($_GET['info'],"?mod=foodcenter&action=theke&headermenuitem={$_GET['headermenuitem']}");
+		$product_list->get_info($_GET['info'],"index.php?mod=foodcenter&action=theke&headermenuitem={$_GET['headermenuitem']}");
 	}else{
 		if(is_numeric($cat[$_GET['headermenuitem']])){
-			$dsp->AddHeaderMenu($menus,"?mod=foodcenter&action=theke",$_GET['headermenuitem']);
+			$dsp->AddHeaderMenu($menus,"index.php?mod=foodcenter&action=theke",$_GET['headermenuitem']);
 			$product_list->load_cat($cat[$_GET['headermenuitem']]);
-			$product_list->get_list("?mod=foodcenter&action=theke&headermenuitem={$_GET['headermenuitem']}");
+			$product_list->get_list("index.php?mod=foodcenter&action=theke&headermenuitem={$_GET['headermenuitem']}");
 		}else{
 			$dsp->AddSingleRow(t('In dieser Kategorie sind keine Produkte vorhanden'));
 		}
@@ -71,7 +71,7 @@ if(!isset($_SESSION['foodcenter']['theke_userid'])){
 	if($_POST['imageField'] && !isset($_GET['add'])){
 		if($basket->change_basket($_SESSION['foodcenter']['theke_userid'])){
 			$basket->order_basket($_SESSION['foodcenter']['theke_userid'],$_POST['delivered']);
-			$func->information(t('Die Bestellung wurde aufgenommen'),"?mod=foodcenter&action=theke");
+			$func->information(t('Die Bestellung wurde aufgenommen'),"index.php?mod=foodcenter&action=theke");
 		}else{
 			$basket->show_basket();
 		}

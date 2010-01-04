@@ -10,7 +10,7 @@ function Update($id) {
       ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
 
         if ($_POST['link']) $link = $_POST['link'] .'" target="_blank';
-        else $link = '?mod=info2&action=show_info2&id='. $id;
+        else $link = 'index.php?mod=info2&action=show_info2&id='. $id;
 
 			$db->qry("UPDATE %prefix%menu
         SET module = 'info2',
@@ -180,7 +180,7 @@ if ($auth['type'] <= 1) {
         ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
 
         if ($menu_intem['link']) $link = $menu_intem['link'] .'" target="_blank';
-        else $link = '?mod=info2&action=show_info2&id='. $item;
+        else $link = 'index.php?mod=info2&action=show_info2&id='. $item;
 
 				$db->qry("UPDATE %prefix%info SET active = 1 WHERE infoID = %string%", $item);
 				$db->qry("INSERT INTO %prefix%menu
@@ -210,7 +210,7 @@ if ($auth['type'] <= 1) {
         ($cfg['info2_use_submenus'])? $level = 1 : $level = 0;
 
         if ($menu_intem['link']) $link = $menu_intem['link'] .'" target="_blank';
-        else $link = '?mod=info2&action=show_info2&id='. $item;
+        else $link = 'index.php?mod=info2&action=show_info2&id='. $item;
 
 				$db->qry("UPDATE %prefix%info SET active = 1 WHERE infoID = %string%", $item);
 				$db->qry("INSERT INTO %prefix%menu

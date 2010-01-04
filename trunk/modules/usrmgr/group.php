@@ -67,7 +67,7 @@ switch ($_GET['step']){
 	
 	default :
 		$dsp->NewContent(t('Gruppenverwaltung'),t('Erstellen Sie Benutzergruppen um unterschiedliche Preise zu verlangen.'));
-		$dsp->AddSingleRow("<a href='?mod=usrmgr&action=group&step=9'>".t('Benutzer einer Gruppe zuweisen')."</a>");
+		$dsp->AddSingleRow("<a href='index.php?mod=usrmgr&action=group&step=9'>".t('Benutzer einer Gruppe zuweisen')."</a>");
 
 		if($_GET['var'] == "update"){
 			$dsp->AddDoubleRow('',$dsp->FetchSpanButton(t('Hinzufügen'), "index.php?mod=usrmgr&action=group&step=2&var=new"));
@@ -98,7 +98,7 @@ switch ($_GET['step']){
 			$count = $db->qry_first("SELECT count(group_id) as n FROM %prefix%party_usergroups WHERE selection != 0");
 			if($count['n'] > 1){
 				$dsp->AddHRuleRow();
-				$dsp->AddDoubleRow("","<a href='?mod=usrmgr&action=group&step=15'>".t('Automatisch Zuordnung sortieren')."</a>");
+				$dsp->AddDoubleRow("","<a href='index.php?mod=usrmgr&action=group&step=15'>".t('Automatisch Zuordnung sortieren')."</a>");
 			}
 			$dsp->AddHRuleRow();
 			$dsp->SetForm("index.php?mod=usrmgr&action=group&step=2&var=update");
@@ -121,12 +121,12 @@ switch ($_GET['step']){
 	case 3:
 		if($_GET['var'] == "new"){
 			$party->add_user_group($_POST['group_name'],$_POST['description'],$_POST['selection'],$_POST['select_opts']);
-			$func->confirmation(t('Benutzergruppe wurde hinzugefügt'),'?mod=usrmgr&action=group&step=2');
+			$func->confirmation(t('Benutzergruppe wurde hinzugefügt'),'index.php?mod=usrmgr&action=group&step=2');
 		}elseif ($_GET['var'] == "update"){
 			$party->update_user_group($_GET['group_id'],$_POST['group_name'],$_POST['description'],$_POST['selection'],$_POST['select_opts']);
-			$func->confirmation(t('Benutzergruppe wurde erfolgreich editiert.'),'?mod=usrmgr&action=group&step=2');
+			$func->confirmation(t('Benutzergruppe wurde erfolgreich editiert.'),'index.php?mod=usrmgr&action=group&step=2');
 		}else{
-			$func->error(t('Die Benutzergruppe konnte nicht angelegt werden.'),'?mod=usrmgr&action=group&step=2');
+			$func->error(t('Die Benutzergruppe konnte nicht angelegt werden.'),'index.php?mod=usrmgr&action=group&step=2');
 		}
 		
 	break;

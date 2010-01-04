@@ -21,7 +21,7 @@ switch ($_GET['step']){
 	
 	case 2:
 		$food->write();
-		$func->confirmation(t('Das Produkt wurde hinzugefügt.'),"?mod=foodcenter");
+		$func->confirmation(t('Das Produkt wurde hinzugefügt.'),"index.php?mod=foodcenter");
 	break;
 	
 }

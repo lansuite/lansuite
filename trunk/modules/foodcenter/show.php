@@ -70,12 +70,12 @@ if($open == false && $cfg['foodcenter_foodtime'] == 3){
 	}
 	if($_GET['info']){
 		$product_list->load_cat($cat[$_GET['headermenuitem']]);
-		$product_list->get_info($_GET['info'],"?mod=foodcenter&action=showfood&headermenuitem={$_GET['headermenuitem']}");
+		$product_list->get_info($_GET['info'],"index.php?mod=foodcenter&action=showfood&headermenuitem={$_GET['headermenuitem']}");
 	}else{
 		if(is_numeric($cat[$_GET['headermenuitem']])){
-			$dsp->AddHeaderMenu($menus,"?mod=foodcenter",$_GET['headermenuitem']);
+			$dsp->AddHeaderMenu($menus,"index.php?mod=foodcenter",$_GET['headermenuitem']);
 			$product_list->load_cat($cat[$_GET['headermenuitem']]);
-			$product_list->get_list("?mod=foodcenter&action=showfood&headermenuitem={$_GET['headermenuitem']}");
+			$product_list->get_list("index.php?mod=foodcenter&action=showfood&headermenuitem={$_GET['headermenuitem']}");
 		}else{
 			$dsp->AddSingleRow(t('In dieser Kategorie sind keine Produkte vorhanden'));
 		}

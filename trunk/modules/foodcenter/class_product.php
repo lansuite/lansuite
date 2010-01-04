@@ -605,10 +605,10 @@ class product{
         // Change or New ?
         if($this->id != null){
             $dsp->NewContent(t('Produkt hinzufügen'),t('Hier können sie ein Produkt hinzufügen'));
-            $dsp->SetForm("?mod=foodcenter&action=addproduct&step=$nextstep&id={$this->id}","food_add", "", "multipart/form-data"); 
+            $dsp->SetForm("index.php?mod=foodcenter&action=addproduct&step=$nextstep&id={$this->id}","food_add", "", "multipart/form-data");
         }else{
             $dsp->NewContent(t('Produkt ändern'),t('Produkt ändern'));
-            $dsp->SetForm("?mod=foodcenter&action=addproduct&step=$nextstep","food_add","", "multipart/form-data");
+            $dsp->SetForm("index.php?mod=foodcenter&action=addproduct&step=$nextstep","food_add","", "multipart/form-data");
         }       
         
         // Add Javascript Code
@@ -852,7 +852,7 @@ class product{
                 break;
 
             }
-            if($auth['type'] > 1) $dsp->AddDoubleRow("",$dsp->FetchSpanButton(t('Editieren'), "?mod=foodcenter&amp;action=addproduct&amp;id=". $this->id));
+            if($auth['type'] > 1) $dsp->AddDoubleRow("",$dsp->FetchSpanButton(t('Editieren'), "index.php?mod=foodcenter&amp;action=addproduct&amp;id=". $this->id));
             $dsp->AddBackButton($worklink); 
     }
 

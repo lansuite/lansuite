@@ -26,7 +26,7 @@ $dsp->NewContent(t('ZahlenRaten'), t('Versuchen Sie mit möglichst wenig Versuch
 
 $menunames[1] = t('Start');
 $menunames[2] = t('Highscore');
-$dsp->AddHeaderMenu($menunames, "?mod=games&action=number", $headermenuitem);
+$dsp->AddHeaderMenu($menunames, "index.php?mod=games&action=number", $headermenuitem);
 
 if ($headermenuitem == 1) $step = 1;
 if ($headermenuitem == 2) $step = 3;
@@ -38,12 +38,12 @@ switch ($step){
     elseif($auth['login'])  
     {
         $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, userid = %string%, score = %string%, comment = %string%", $auth["username"], $auth["userid"], $_GET["score"], $_POST["comment"]);
-   		$func->confirmation(t('Ihre Highscore wurde eingetragen'), "?mod=games&action=number&headermenuitem=2");
+   		$func->confirmation(t('Ihre Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
     	$_SESSION["versuch"] = 0;
         $_SESSION["gewonnen"] = 0;
     }else{
         $db->qry("INSERT INTO %prefix%game_hs SET game = 'num', nick = %string%, score = %string%, comment = %string%", $_POST["nick"], $_GET["score"], $_POST["comment"]);
-        $func->confirmation(t('Ihre Highscore wurde eingetragen'), "?mod=games&action=number&headermenuitem=2");
+        $func->confirmation(t('Ihre Highscore wurde eingetragen'), "index.php?mod=games&action=number&headermenuitem=2");
     	$_SESSION["versuch"] = 0;
         $_SESSION["gewonnen"] = 0;
     }
@@ -68,7 +68,7 @@ switch ($step){
 		$ms2->AddResultField(t('Kommentar'), 'g.comment');
 		$ms2->PrintSearch('index.php?mod=games&action=number&headermenuitem=2', 'g.id');
 		
-        $dsp->AddBackButton("?mod=games", "games/number");
+        $dsp->AddBackButton("index.php?mod=games", "games/number");
     break;
 
     // Game
@@ -91,12 +91,12 @@ switch ($step){
         else $_SESSION["gewonnen"] = 1;
 
         if (!$_SESSION["gewonnen"]) {
-            $dsp->SetForm("?mod=games&action=number");
+            $dsp->SetForm("index.php?mod=games&action=number");
             $dsp->AddTextFieldRow("eingabe", t('Zahl vorschlagen'), $_POST['eingabe'], "");
             $dsp->AddDoubleRow(t('Versuche'), $_SESSION["versuch"]);
             $dsp->AddFormSubmitRow(t('Weiter'));
 
-            $dsp->AddBackButton("?mod=games", "games/number");
+            $dsp->AddBackButton("index.php?mod=games", "games/number");
             $dsp->AddSingleRow("<font size=\"1\" color=\"#FF0000\">".t('Tipp: Die Zahl ist größer -1 und kleiner 1001')."</font>");
 
             $_SESSION["versuch"]++;
@@ -106,7 +106,7 @@ switch ($step){
             $dsp->AddSingleRow(t('Sie benötigten %1 Versuche', $_SESSION['versuch']));
 
             $score = $_SESSION['versuch'];
-            $dsp->SetForm("?mod=games&action=number&step=2&score=$score");
+            $dsp->SetForm("index.php?mod=games&action=number&step=2&score=$score");
             $dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
             $dsp->AddDoubleRow(t('Versuche'), $score);
             $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "", "", "", $auth['login']);
@@ -114,7 +114,7 @@ switch ($step){
             
             $dsp->AddFormSubmitRow(t('Weiter'));
 
-            $dsp->AddBackButton("?mod=games", "games/number");
+            $dsp->AddBackButton("index.php?mod=games", "games/number");
         }
     break;
 }
