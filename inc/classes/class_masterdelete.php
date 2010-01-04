@@ -110,7 +110,7 @@ class masterdelete {
         } else {
             $res = $this->DoDelete($table, $idname, $id);
             if ($res) $func->confirmation(t('Der Eintrag wurde erfolgreich gelöscht'), $_SESSION['md_referrer']);
-            else $func->error(t('Der Eintrag konnte nicht gelöscht werden'), $_SESSION['md_referrer']);
+            else $func->information(t('Der Eintrag konnte nicht gelöscht werden'), $_SESSION['md_referrer']);
             unset($_SESSION['md_referrer']);
             return $res;
         }

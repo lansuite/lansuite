@@ -532,7 +532,6 @@ class auth {
             // But still we maybe need Cookies for not logged in users. So just keep it.
             #$this->cookie_unset();
             #$func->error(t('Fehlerhafte Cookie-Daten. Cookie wurde gelöscht'), '', 1);
-            #$func->log_event(t('Fehlerhafte Cookie-Daten. Cookie wurde gelöscht'), "2", "Authentifikation");
         }
         return $ok;
     }

@@ -530,7 +530,7 @@
             </field>
             <field>
                 <name>type</name>
-                <type>tinyint(1)</type>
+                <type>tinyint(3)</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -556,10 +556,10 @@
             </field>
             <field>
                 <name>date</name>
-                <type>datetime</type>
+                <type>timestamp</type>
                 <null></null>
                 <key></key>
-                <default>0</default>
+                <default></default>
                 <extra></extra>
             </field>
             <field>

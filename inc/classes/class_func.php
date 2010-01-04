@@ -256,6 +256,7 @@ class func {
   }
 
   function error($text, $link_target = '', $JustReturn = 0, $link_type = '') {
+    $this->log_event('LS Error: '. $text, 3, 'LS-Fehler');
     return $this->GeneralDialog('error', $text, $link_target, $JustReturn, $link_type);
   }
 
@@ -489,29 +490,23 @@ class func {
 
   
   #### Misc ####
-  function log_event($message, $type, $sort_tag = '', $target_id = '') {
+  // Types:  1 = Info, 2 = Warning, 3 = Error (be careful with 3)
+  function log_event($message, $type = 1, $sort_tag = '', $target_id = '') {
       global $db, $auth;
 
-      if ($message == '' or $type == '') echo("Function log_event needs message and type defined! - Invalid arguments supplied!");
-
-      // Types:  1 = Info, 2 = Warning, 3 = Error (be careful with 3)
+      if ($message == '') echo("Function log_event needs message defined! - Invalid arguments supplied!");
       else {
           if ($sort_tag == '') $sort_tag = $_GET['mod'];
-          $atuser = $auth["userid"];
-          if($atuser == "") $atuser = "0";
-          $timestamp = date("U");
           $entry = $db->qry("INSERT INTO %prefix%log SET
-             userid=%string%,
+             userid = %int%,
              description=%string%,
              type=%string%,
-             date=NOW(),
              sort_tag = %string%,
              target_id = %int%
-             ", $atuser, $message, $type, $sort_tag, $target_id);
-
-          if ($entry == 1) return(1); else return(0);
+             ", $auth['userid'], $message, $type, $sort_tag, $target_id);
+          if ($entry == 1) return 1;
       }
-                              
+      return 0;
   }
   
   // Better use MasterSearch..

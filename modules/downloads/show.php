@@ -243,10 +243,7 @@ else {
 
     $debugFTP[] = "FTP> Quit connection " . $connect. HTML_NEWLINE;
 
-  } else {
-    $func->error(t('Konnte Verbindung zum Downloadserver nicht herstellen'));
-    $func->log_event(t('Konnte Verbindung zu FTP-Server "%1" auf Port %2 nicht herstellen.', $server, $port), "2");
-  } 
+  } else $func->error(t('Konnte Verbindung zum Downloadserver "%1" auf Port %2 nicht herstellen', $server, $port));
 
   if (isset($debug) and $cfg['sys_showdebug_ftp'] == "1") $debug->addvar('FTP', $debugFTP);
 }
