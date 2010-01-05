@@ -11,7 +11,7 @@ switch($_GET["step"]){
     $ms2->config['EntriesPerPage'] = 50;
 
     $ms2->AddTextSearchField(t('Meldung'), array('l.description' => 'like'));
-    $ms2->AddTextSearchField(t('Gruppe'), array('l.sort_tag' => 'like'));
+    $ms2->AddTextSearchField(t('IP'), array('ip' => 'like'));
 
     $list = array('' => t('Alle'), '0' => t('System'));
     $res = $db->qry("SELECT l.userid, u.username FROM %prefix%log AS l
@@ -31,6 +31,7 @@ switch($_GET["step"]){
 
     $ms2->AddSelect('u.userid');
     $ms2->AddResultField(t('Meldung'), 'l.description', '', 140);
+    $ms2->AddResultField(t('IP'), 'INET_NTOA(l.ip) AS ip');
     $ms2->AddResultField(t('Gruppe'), 'l.sort_tag');
     $ms2->AddResultField(t('Datum'), 'UNIX_TIMESTAMP(l.date) AS date', 'MS2GetDate');
     $ms2->AddResultField(t('Auslöser'), 'u.username', 'UserNameAndIcon');
