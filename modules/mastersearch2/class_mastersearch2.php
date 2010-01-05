@@ -248,15 +248,14 @@ class MasterSearch2 {
     ###### Generate Order By
     if (strpos($_GET['order_by'], "\'") > 0) $_GET['order_by'] = ''; # Important for FIND_IN_SET ranking
 
+    // Is $_GET['order_by'] defined in select statement? if not set to default order by value
+    if ($_GET['order_by'] and !$this->orderByFieldFound) {
+      $func->information(t('Sortieren nach "%1" nicht möglich. Es wird statt dessen nach "%2" sortiert', $_GET['order_by'], $this->query['default_order_by']), NO_LINK);
+      $_GET['order_by'] = '';
+    }
+
     // Order by user selection
     if ($_GET['order_by']) {
-
-      // Is $_GET['order_by'] defined in select statement? if not set to default order by value
-      if (!$this->orderByFieldFound) {
-        $func->information(t('Sortieren nach "%1" nicht möglich. Es wird statt dessen nach "%2" sortiert', $_GET['order_by'], $this->query['default_order_by']), NO_LINK);
-        $_GET['order_by'] = $this->query['default_order_by'];
-      }
-
       $this->query['order_by'] .= $_GET['order_by'];
 
       // Order direction given by user?
