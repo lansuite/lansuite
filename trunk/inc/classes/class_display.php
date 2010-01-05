@@ -809,6 +809,7 @@ class display {
   function FetchUserIcon($userid, $username = '') {
     global $smarty, $authentication;
 
+    if ($userid == 0) $username = '<i>System</i>';
     $smarty->assign('userid', $userid);
     $smarty->assign('username', $username);
     $smarty->assign('hint', t('Benutzerdetails aufrufen'));
