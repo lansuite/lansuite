@@ -45,8 +45,10 @@ if (!$missing_fields and !$siteblock) {
         break;
 
         case 'install':
-            if ($IsAboutToInstall) include_once ('modules/install/wizard.php');
-        break;
+            if ($IsAboutToInstall) {
+              include_once ('modules/install/wizard.php');
+              break;
+            }
 
         default:
             // If module is deactivated display information message and redirect to home-mod
