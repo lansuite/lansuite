@@ -15,14 +15,14 @@ function t(/*$input, $parameter1, $parameter2....*/) {
     global $db, $translation, $func;
     
     ### Prepare Functionparameters
-        // First argument is the Inputstring, the following are Parameters
-        $args = func_get_args();
-        (string)$input = array_shift($args);
-        foreach ($args as $CurrentArg) {
-            // If second Parameter is Array (old Style)
-            if (!is_array($CurrentArg)) $parameters[] = $CurrentArg;
-                else $parameters = $CurrentArg;
-        }
+    // First argument is the Inputstring, the following are Parameters
+    $args = func_get_args();
+    $input = (string)array_shift($args);
+    foreach ($args as $CurrentArg) {
+        // If second Parameter is Array (old Style)
+        if (!is_array($CurrentArg)) $parameters[] = $CurrentArg;
+        else $parameters = $CurrentArg;
+    }
     ### End prepare Functionparameters
 
     if ($input == '') return '';
