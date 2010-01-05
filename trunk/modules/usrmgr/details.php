@@ -193,7 +193,7 @@ else {
   ($user_data['newsletter']) ? $mail .= $dsp->AddIcon('yes') : $mail .= $dsp->AddIcon('no');
   $mail .= ']';
   $mail .= '</td><td align="right">&nbsp;';
-      if ($auth['login'] and $func->isModActive('mail') $mail .= $dsp->AddIcon('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID='. $_GET['userid'], t('LANSuite-Mail an den User senden')) .' ';
+  if ($auth['login'] and $func->isModActive('mail')) $mail .= $dsp->AddIcon('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID='. $_GET['userid'], t('LANSuite-Mail an den User senden')) .' ';
   $mail .= '</td></tr></table>';
   $dsp->AddDoubleRow(t('Email'), $mail);
     
