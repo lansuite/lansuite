@@ -578,6 +578,30 @@
                 <default></default>
                 <extra></extra>
             </field>
+            <field>
+                <name>script</name>
+                <type>varchar(255)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>referer</name>
+                <type>varchar(255)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
+                <name>ip</name>
+                <type>int(11) unsigned</type>
+                <null>NULL</null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
         </structure>
         <content>
         </content>

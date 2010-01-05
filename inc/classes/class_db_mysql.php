@@ -25,9 +25,9 @@ class db {
   function print_error($msg, $query_string_with_error) {
     global $func, $config, $auth;
 
-    $error = t('SQL-Failure. Database respondet: <b>%1</b><br/><br/>Query: <br><i>%2</i><br/><br/>Script: <a href="%3">%3</a><br/>Referrer: <a href="%4">%4</a><br/>', $msg, $query_string_with_error, $_SERVER["REQUEST_URI"], $func->internal_referer);
+    $error = t('SQL-Failure. Database respondet: <b>%1</b><br /><br />Query: <br /><i>%2</i>', $msg, $query_string_with_error);
 
-    $this->errors .= $error;
+    $this->errors .= $error . '<br />';
     $this->errorsFound = 1;
     // Need to use mysql_querys here, to prevent loops!!
     $query = 'INSERT INTO '. $config['database']['prefix'] .'log SET date = NOW(), userid = '. (int)$auth['userid'] .', type = 3, description = "'. strip_tags($error) .'", sort_tag = "SQL-Fehler"';

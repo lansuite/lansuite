@@ -62,7 +62,6 @@
 
       // Write to DB-Log
       // Attention: Be aware of loops!
-      $err .= sprintf('Script: %s<br/>Referrer: %s<br />', $_SERVER["REQUEST_URI"], $_SERVER['HTTP_REFERER']);
       if (isset($db) and $db->success) $db->qry('INSERT INTO %prefix%log
         SET date = NOW(), userid = %int%, type = 3, description = %string%, sort_tag = "PHP-Fehler"',
         (int)$auth['userid'], $err);

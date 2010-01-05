@@ -500,8 +500,11 @@ class func {
              description=%string%,
              type=%string%,
              sort_tag = %string%,
-             target_id = %int%
-             ", $auth['userid'], $message, $type, $sort_tag, $target_id);
+             target_id = %int%,
+             script = %string%,
+             referer = %string%,
+             ip = INET_ATON(%string%)
+             ", $auth['userid'], $message, $type, $sort_tag, $target_id, $_SERVER["REQUEST_URI"], $this->internal_referer, $_SERVER['REMOTE_ADDR']);
           if ($entry == 1) return 1;
       }
       return 0;

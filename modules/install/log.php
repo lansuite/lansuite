@@ -43,11 +43,20 @@ switch($_GET["step"]){
 	break;
 
   case 2:
-    $log = $db->qry_first("SELECT *, UNIX_TIMESTAMP(date) AS date FROM %prefix%log WHERE logid = %int%", $_GET['logid']);
-    $dsp->AddSingleRow($log['sort_tag']);
-    $dsp->AddSingleRow($log['description']);
-    $dsp->AddSingleRow($func->unixstamp2date($log['date'], 'datetime'));
-    if ($log['userid']) $dsp->AddSingleRow($dsp->FetchUserIcon($log['userid']));
+    $log = $db->qry_first("SELECT l.type, l.sort_tag, l.description, l.script, l.referer, l.userid, UNIX_TIMESTAMP(l.date) AS date,
+      INET_NTOA(l.ip) AS ip, u.username
+      FROM %prefix%log AS l
+      LEFT JOIN %prefix%user AS u ON l.userid = u.userid
+      WHERE l.logid = %int%
+      ", $_GET['logid']);
+    $dsp->NewContent($log['sort_tag']);
+    $dsp->AddDoubleRow(t('Meldung'), $log['description']);
+    $dsp->AddDoubleRow(t('Zeitpunkt'), $func->unixstamp2date($log['date'], 'datetime'));
+    $dsp->AddDoubleRow(t('Priorität'), $log['type']);
+    $dsp->AddDoubleRow(t('IP'), $log['ip']);
+    $dsp->AddDoubleRow(t('Referer'), $log['referer']);
+    $dsp->AddDoubleRow(t('Script'), $log['script']);
+    $dsp->AddDoubleRow(t('Auslöser'), $dsp->FetchUserIcon($log['userid'], $log['username']));
     $dsp->AddBackButton("index.php?mod=install&action=log", '');
     $dsp->AddContent();
   break;
