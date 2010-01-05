@@ -251,30 +251,33 @@ class MasterSearch2 {
     // Order by user selection
     if ($_GET['order_by']) {
 
-      if (!$this->orderByFieldFound) $func->error(t('Sortieren nach "%1" nicht möglich. Feld ist nicht im Select-Teil definiert', array($_GET['order_by'])), NO_LINK);
-      else {
-        $this->query['order_by'] .= $_GET['order_by'];
-  
-        // Order direction given by user?
-        if ($_GET['order_dir']) {
-          if (strtolower($_GET['order_dir']) != 'asc' and strtolower($_GET['order_dir']) != 'desc') $func->error(t('Sortieren-Ordnung, darf nur "asc", oder "desc" sein'), NO_LINK);
-          else $this->query['order_by'] .= ' '. $_GET['order_dir'];
-  
-        // Get default order direction by sql-field type
-        } else {
-          if (strpos($this->query['from'], ' ')) $FirstTable = substr($this->query['from'], 0, strpos($this->query['from'], ' '));
-          else $FirstTable = $this->query['from'];
-          
-          $res = $db->qry("DESCRIBE %plain%", $FirstTable);
-          while ($row = $db->fetch_array($res)) $this->SQLFieldTypes[$row['Field']] = $row['Type'];
-          $db->free_result($res);
-          
-          if ($this->SQLFieldTypes[$this->query['order_by']] == 'datetime'
-            or $this->SQLFieldTypes[$this->query['order_by']] == 'date'
-            or $this->SQLFieldTypes[$this->query['order_by']] == 'time'
-            or $this->SQLFieldTypes[$this->query['order_by']] == 'timestamp')
-            $this->query['order_by'] .= ' DESC';
-        }
+      // Is $_GET['order_by'] defined in select statement? if not set to default order by value
+      if (!$this->orderByFieldFound) {
+        $func->information(t('Sortieren nach "%1" nicht möglich. Es wird statt dessen nach "%2" sortiert', $_GET['order_by'], $this->query['default_order_by']), NO_LINK);
+        $_GET['order_by'] = $this->query['default_order_by'];
+      }
+
+      $this->query['order_by'] .= $_GET['order_by'];
+
+      // Order direction given by user?
+      if ($_GET['order_dir']) {
+        if (strtolower($_GET['order_dir']) != 'desc') $_GET['order_dir'] = 'asc';
+        else $this->query['order_by'] .= ' '. $_GET['order_dir'];
+
+      // Get default order direction by sql-field type
+      } else {
+        if (strpos($this->query['from'], ' ')) $FirstTable = substr($this->query['from'], 0, strpos($this->query['from'], ' '));
+        else $FirstTable = $this->query['from'];
+        
+        $res = $db->qry("DESCRIBE %plain%", $FirstTable);
+        while ($row = $db->fetch_array($res)) $this->SQLFieldTypes[$row['Field']] = $row['Type'];
+        $db->free_result($res);
+        
+        if ($this->SQLFieldTypes[$this->query['order_by']] == 'datetime'
+          or $this->SQLFieldTypes[$this->query['order_by']] == 'date'
+          or $this->SQLFieldTypes[$this->query['order_by']] == 'time'
+          or $this->SQLFieldTypes[$this->query['order_by']] == 'timestamp')
+          $this->query['order_by'] .= ' DESC';
       }
       
     // Default order by (if non given per URL)
