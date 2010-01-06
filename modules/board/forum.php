@@ -26,7 +26,7 @@ function FormatTitle($title) {
   
   $icon = '';
   if ($line['closed']) $icon = $dsp->FetchIcon('', 'locked', t('Nicht bezahlt!'));
-  if ($line['sticky']) $icon = $dsp->FetchIcon('', 'important', t('Wichtig!'));
+  if ($line['sticky']) $icon = $dsp->FetchIcon('', 'signon', t('Wichtig!'));
   return $icon . "<a class=\"menu\" href=\"index.php?mod=board&action=thread&tid={$line['tid']}\">{$func->AllowHTML($title)}</a>";
 }
 
