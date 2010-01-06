@@ -62,8 +62,9 @@ function t(/*$input, $parameter1, $parameter2....*/) {
 
 function t_no_html() {
   $args = func_get_args();
+  $input = (string)array_shift($args);
   $translation_no_html_replace = true;
-  t($args);
+  t($input, $args);
   $translation_no_html_replace = false;
 }
 /**
