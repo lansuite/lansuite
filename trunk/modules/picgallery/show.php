@@ -298,7 +298,11 @@ elseif (!$akt_file) {
 
 // Details
 } else {
-	if (!is_file($root_file)) $func->error(t('Dieses Bild ist nicht vorhanden'), "index.php?mod=picgallery");
+	if (!is_file($root_file)) 
+	{
+		$db->qry("DELETE FROM %prefix%picgallery WHERE name =  %string% AND clicks = 0", $db_dir);
+		$func->error(t('Dieses Bild ist nicht vorhanden'), "index.php?mod=picgallery");
+	}
 	else {
 
 		if ($_GET['mcact'] == "show" or $_GET['mcact'] == ""){
