@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<pos>17</pos>
+	<entry>
+		<action>default</action>
+		<file>show</file>
+		<caption>Shoutbox</caption>
+		<hint></hint>
+		<link>?mod=shoutbox&amp;action=sow</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>0</level>
+	</entry>
+	<entry>
+		<action>shoutqueries</action>
+		<file>shoutqueries</file>
+	</entry>
+</menu>

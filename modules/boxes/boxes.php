@@ -71,8 +71,8 @@ while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or $fun
     if (file_exists('modules/'. $BoxRow['module'] .'/boxes/'. $BoxRow['source'] .'.php')) {
         include_once('modules/'. $BoxRow['module'] .'/boxes/'. $BoxRow['source'] .'.php');
 #        if (!$_SESSION['box_'. $BoxRow['boxid'] .'_active']) {
-        if ($BoxRow['place'] == 0 or $framework->IsMobileBrowser) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']),t($BoxRow['name']));
-        elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']),t($BoxRow['name']));
+        if ($BoxRow['place'] == 0 or $framework->IsMobileBrowser) $templ['index']['control']['boxes_letfside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']),t($BoxRow['name']),$BoxRow['module']);
+        elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $box->CreateBox($BoxRow['boxid'], t($BoxRow['name']),t($BoxRow['name']),$BoxRow['module']);
 #        }
     }
   }

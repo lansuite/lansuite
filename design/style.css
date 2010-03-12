@@ -433,6 +433,36 @@ div.wikiH1 {
   text-decoration: none;
 }
 
+/* 
+ * Shoutbox 
+*/
+#shoutbox {
+      font-family: Arial,Helvetica,sans-serif;
+      font-size: 11px;
+}
+    .shoutbox-list {
+      border-bottom: 1px solid #627C98; 
+      padding: 5px;
+    }
+    #shoutbox-list {
+      text-align: left;
+      margin: 0px auto;
+    }
+    #shoutbox-form {
+      text-align: left;
+	  padding: 5px;
+    }
+    .shoutbox-list-time {
+      color: #8DA2B4;
+    }
+    .shoutbox-list-nick {
+      margin-left: 5px;
+      font-weight: bold;
+    }
+    .shoutbox-list-message {
+      margin-left: 5px;
+    }
+
 /*
 *   Tooltip
 */
