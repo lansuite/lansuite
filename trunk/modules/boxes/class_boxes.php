@@ -234,7 +234,7 @@ class boxes {
    * @param string $caption
    * @return
    */
-    function CreateBox($boxid, $caption = '', $title = '') {
+    function CreateBox($boxid, $caption = '', $title = '', $module = '') {
         global $smarty, $auth;
         if ($this->box_rows != '') $smarty->assign('content', $this->box_rows);
         if (!$title) switch((int)$boxid) {
@@ -251,7 +251,8 @@ class boxes {
             case 11: $title = 'wwcl'; break;
         }
         $smarty->assign('title', $title);
-        $smarty->assign('caption', $caption);            
+        $smarty->assign('caption', $caption);     
+        $smarty->assign('module', $module);          
         $smarty->assign('link_open_close', "index.php?box_action=change&amp;boxid=$boxid");
         // Open or closed Box
         if (!$_SESSION['box_'. $boxid .'_active']) $file = 'design/'. $auth['design'] .'/templates/box_case.htm';

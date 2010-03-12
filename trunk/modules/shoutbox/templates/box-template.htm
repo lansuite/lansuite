@@ -1,0 +1,110 @@
+<!-- TEMPLATE - STANDARD - SHOUTBOX --> 
+<div id="shoutbox">
+  	<div id="shoutbox-list"><span id="shoutbox-loader"><img src="design/images/ajax-loader.gif" /> Lade Shoutbox...</span></div>
+	<div id="shoutbox-input">
+    <form id="shoutbox-form" method="post" action="index.php?mod=shoutbox&frmwrkmode=ajax&action=shoutqueries&shout=add">
+    <b>Name:</b><br /><input class="text" type="text" name="nickname" /><br />
+    <b>Nachricht:</b><br /><input class="text" type="text" id="shoutmessage" name="message" /><br />
+	    <input type="submit" value="Submit" />
+    <span id="shoutbox-response"></span>
+   </form>
+   </div>
+</div>
+<!-- TEMPLATE - STANDARD - SHOUTBOX -->
+
+{literal}
+ <script type="text/javascript">
+        var count = 0;
+        var lastTime = 0;
+		var maxcount = 0;
+        
+        function prepare(response) {
+          var d = new Date();
+          count++;
+          d.setTime(response.time*1000);
+          var mytime = d.getHours()+':'+d.getMinutes();
+          var string = '<div class="shoutbox-list" id="list-'+count+'">'
+              + '<span class="shoutbox-list-time">'+mytime+'</span>'
+              + '<span class="shoutbox-list-nick">'+response.nickname+':</span><br />'
+              + '<span class="shoutbox-list-message">'+response.message+'</span>'
+              +'</div>';
+		  
+		  removeOld();
+          return string;
+        }
+        
+        function success(response, status)  { 
+          if(status == 'success') {
+            lastTime = response.time;
+            $('#shoutbox-response').html('<img src="design/images/icon_yes.png" />');
+            $('#shoutbox-list').append(prepare(response));
+            $('#list-'+count).fadeIn('slow');
+			$("#shoutmessage").attr('value', '').focus();
+            timeoutID = setTimeout(refresh, 300);
+          }
+        }
+        
+        function validate(formData, jqForm, options) {
+          for (var i=0; i < formData.length; i++) { 
+              if (!formData[i].value) {
+                  alert('Bitte alle Felder ausfüllen!'); 
+                  $('input[@name='+formData[i].name+']').css('background', 'red');
+                  return false; 
+              } 
+          } 
+          $('#shoutbox-response').html('<img src="design/images/ajax-loader.gif" />');
+          clearTimeout(timeoutID);
+        }
+		
+		function shoutboxLoading(loading){
+			if(loading)
+				$('#shoutbox-response').html('<img src="design/images/ajax-loader.gif" />');
+			else
+				$('#shoutbox-response').html('');
+		}
+
+        function refresh() {
+		
+		if($('#shoutbox-loader').length)
+			$('#shoutbox-loader').remove();
+			
+			
+          $.getJSON("index.php?mod=shoutbox&frmwrkmode=ajax&action=shoutqueries&shout=view&time="+lastTime, 
+		  function(json) {
+			if(json && json.length >0) {
+              for(i=0; i < json.length; i++) {
+                $('#shoutbox-list').append(prepare(json[i]));
+                $('#list-' + count).fadeIn('slow');
+              }
+              var j = i-1;
+              lastTime = json[j].time;
+			  maxcount = json[j].cfgentries;
+            }
+          });
+          timeoutID = setTimeout(refresh, 10000);
+        }
+		
+		function removeOld() {
+			//Alte entfernen			 
+			if(count>=maxcount)
+			{
+				x = count - maxcount;
+				$('#list-' + x).fadeOut('slow', function() { 
+					$('#list-' + x).remove(); 
+					});					
+			}
+		}
+        
+        // wait for the DOM to be loaded 
+        $(document).ready(function() { 
+            var options = { 
+              dataType:       'json',
+              beforeSubmit:   validate,
+              success:        success
+            }; 
+            $('#shoutbox-form').ajaxForm(options);
+        
+            timeoutID = setTimeout(refresh, 100);
+        });
+  </script>
+{/literal}

@@ -1,7 +1,9 @@
 <?php
 
 // Info Seite blockiert
-if ($cfg['sys_blocksite'] == 1) $func->information($cfg['sys_blocksite_text'], "index.php?mod=install");
+if ($cfg['sys_blocksite'] == 1) 
+	if ($framework->modus != "ajax")
+		$func->information($cfg['sys_blocksite_text'], "index.php?mod=install");
 
 $missing_fields = 0;
 if ($func->admin_exists() and $_GET["mod"] != 'install') {

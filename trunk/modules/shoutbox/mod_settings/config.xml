@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Allgemein</name>
+    </head>
+    <items>
+    	<item>
+    		<name>shout_entries</name>
+    		<type>integer</type>
+    		<default>5</default>
+    		<description>Anzahl der angezigten Einträge</description>
+    	</item>
+    </items>
+  </group>
+</config>
