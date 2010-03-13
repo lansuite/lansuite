@@ -12,7 +12,6 @@ if ($func->admin_exists() and $_GET["mod"] != 'install') {
 
   // Reset $auth['type'], if no permission to Mod
   if ($auth['type'] > 1) {
-
       // Has at least someone (with rights equal or above) access to this mod?
       $permission = $db->qry_first("SELECT 1 AS found FROM %prefix%user_permissions AS p
         LEFT JOIN %prefix%user AS u on p.userid = u.userid
@@ -30,11 +29,11 @@ if ($func->admin_exists() and $_GET["mod"] != 'install') {
           }
       }
   }
-}
-    
+}    
 
 
-if ($cfg['sys_blocksite'] == 1 and $auth['type'] < 2 and $_GET['mod'] != 'info2') $siteblock = true;
+if ($cfg['sys_blocksite'] == 1 and $auth['type'] < 2 and $_GET['mod'] != 'info2' and $framework->modus != "ajax") 
+$siteblock = true;
 
 if (!$missing_fields and !$siteblock) {
     switch ($_GET['mod']) {
