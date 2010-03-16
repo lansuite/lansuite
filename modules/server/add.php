@@ -53,7 +53,7 @@ else {
   
   //Party-Liste
 		$party_list = array('' => t('KEINE'));
-		$row = $db->qry("SELECT party_id, name FROM %plain%partys");
+		$row = $db->qry("SELECT party_id, name FROM %prefix%partys");
 		while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
 		$db->free_result($row);
   
