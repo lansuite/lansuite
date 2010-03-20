@@ -7,7 +7,7 @@
     </plugin>
     <plugin>
         <name>usrmgr_details_tab</name>
-        <caption>LAN-Teilnahme</caption>
+        <caption>Partys</caption>
         <icon>signon</icon>
         <pos></pos>
     </plugin>
