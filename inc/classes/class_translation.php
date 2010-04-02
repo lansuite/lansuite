@@ -12,7 +12,7 @@
  */
 $translation_no_html_replace = false;
 function t(/*$input, $parameter1, $parameter2....*/) {
-    global $db, $translation, $func;
+    global $db, $translation, $func, $translation_no_html_replace;
     
     ### Prepare Functionparameters
     // First argument is the Inputstring, the following are Parameters
@@ -50,7 +50,7 @@ function t(/*$input, $parameter1, $parameter2....*/) {
         }
     }
 
-    if (!$translation_no_html_replace) {
+    if ($translation_no_html_replace) {
       // Deprecated. Should be replaced in t() by '<', '>' and '[br]'
       $output = str_replace("--lt--", "<", $output);
       $output = str_replace("--gt--", ">", $output);
@@ -64,7 +64,7 @@ function t_no_html() {
   $args = func_get_args();
   $input = (string)array_shift($args);
   $translation_no_html_replace = true;
-  t($input, $args);
+  return t($input, $args);
   $translation_no_html_replace = false;
 }
 /**
