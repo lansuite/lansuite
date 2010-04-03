@@ -13,7 +13,7 @@ switch ($_GET['step']) {
     include_once('modules/mastersearch2/class_mastersearch2.php');
     $ms2 = new mastersearch2('usrmgr');
     
-    $ms2->query['from'] = "%plain%user_fields AS f";
+    $ms2->query['from'] = "%prefix%user_fields AS f";
     
     $ms2->config['EntriesPerPage'] = 20;
     
