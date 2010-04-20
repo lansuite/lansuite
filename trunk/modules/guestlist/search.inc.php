@@ -2,8 +2,10 @@
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();
 
-include_once("modules/seating/class_seat.php");
-$seat2 = new seat2();
+if ($func->isModActive('seating')) {
+  include_once("modules/seating/class_seat.php");
+  $seat2 = new seat2();
+}
 
 function SeatNameLink($userid){
   global $seat2;
@@ -83,7 +85,7 @@ if ($party->party_id) {
   $ms2->AddResultField(t('Bez.'), 'p.paid', 'PaidIconLink');
   $ms2->AddSelect('i.price');
   $ms2->AddResultField(t('Preis'), 'i.price_text', 'p_price');
-  $ms2->AddResultField(t('Sitz'), 'u.userid', 'SeatNameLink');
+  if ($func->isModActive('seating')) $ms2->AddResultField(t('Sitz'), 'u.userid', 'SeatNameLink');
 
   if (!$cfg['sys_internet']) {
     $ms2->AddResultField(t('In'), 'UNIX_TIMESTAMP(p.checkin) AS checkin', 'MS2GetDate');
