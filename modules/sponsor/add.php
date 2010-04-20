@@ -126,7 +126,9 @@ else {
   $mf->AddField(t('Oder: Bild-Code (z.B. Flash)') . $code_popup_link_box, 'pic_code_button', 'text', '', FIELD_OPTIONAL);
   $mf->AddGroup('Sponsoren Box');
 
-  $mf->AddDropDownFromTable(t('Sponsor einem Turnier zuordnen'), 'tournamentid', 'tournamentid', 'name', 'tournament_tournaments', t('Keine'), 'party_id = '. (int)$party->party_id);
+  if ($func->isModActive('tournament2')) {
+    $mf->AddDropDownFromTable(t('Sponsor einem Turnier zuordnen'), 'tournamentid', 'tournamentid', 'name', 'tournament_tournaments', t('Keine'), 'party_id = '. (int)$party->party_id);
+  }
   $mf->AddField(t('Position'), 'pos');
   $mf->AddField(t('Text'), 'text', '', HTML_ALLOWED, FIELD_OPTIONAL);
   $mf->AddGroup('Misc.');
