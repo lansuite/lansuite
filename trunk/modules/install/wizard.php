@@ -165,7 +165,7 @@ switch ($_GET["step"]){
                 $install->CreateNewTables(0);
                 $output .= t('Die Tabellenstruktur wurde erfolgreich angepasst'). HTML_NEWLINE . HTML_NEWLINE;
                 // Insert translations of DB-items
-                $install->InsertTranslations();
+                //$install->InsertTranslations();
             }
         }
 
