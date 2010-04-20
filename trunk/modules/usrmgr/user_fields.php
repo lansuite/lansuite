@@ -8,6 +8,11 @@ function Update($id){
   return true;
 }
 
+function check_no_space($val) {
+  if (strpos($val, ' ') !== false) return t('Der Feldname darf kein Leerzeichen enthalten');
+  else return false;
+}
+
 switch ($_GET['step']) {
   default:
     include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -33,9 +38,14 @@ switch ($_GET['step']) {
     include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
 
+    $mf->AddField('Feldname', 'name', '', '', '', 'check_no_space');
     $mf->AddField('Bezeichnung', 'caption');
-    $mf->AddField('Feldname', 'name');
-    $mf->AddField('Optional', 'optional');
+
+    $selections = array();
+    $selections['0'] = t('Ausblenden');
+    $selections['1'] = t('Optional');
+    $selections['2'] = t('Pflichtfeld');
+    $mf->AddField(t('Optional'), 'optional', IS_SELECTION, $selections);
 
     $mf->AdditionalDBUpdateFunction = 'Update';
     $mf->SendForm('index.php?mod=usrmgr&action=user_fields&step=10', 'user_fields', 'fieldid', $_GET['fieldid']);
