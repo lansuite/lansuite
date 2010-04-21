@@ -60,8 +60,8 @@ class db {
     $database = $config['database']['database'];
 
     // Try to connect
-    if ($this->mysqli) $this->link_id = mysqli_connect($server, $user, $pass);
-    else $this->link_id = mysql_connect($server, $user, $pass);
+    if ($this->mysqli) $this->link_id = @mysqli_connect($server, $user, $pass);
+    else $this->link_id = @mysql_connect($server, $user, $pass);
     if (!$this->link_id) {
       if ($save) {
       	$this->connectfailure = 1;
