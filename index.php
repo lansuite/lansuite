@@ -84,7 +84,7 @@
     $framework = new framework();
     $framework->fullscreen($_GET['fullscreen']);                // Switch fullscreen via GET
     // Notlösung... design als base und popup sollen ganz verschwinden
-    if ($_GET['design']=='base' OR $_GET['design']=='popup' OR $_GET['design']=='ajax' OR $_GET['design']=='print') $frmwrkmode = $_GET['design']; // Set Popupmode via GET (base, popup)
+    if ($_GET['design']=='base' OR $_GET['design']=='popup' OR $_GET['design']=='ajax' OR $_GET['design']=='print' OR $_GET['design']=='beamer') $frmwrkmode = $_GET['design']; // Set Popupmode via GET (base, popup)
     if ($_GET['frmwrkmode']) $frmwrkmode = $_GET['frmwrkmode']; // Set Popupmode via GET (base, popup)
     if (isset($frmwrkmode)) $framework->set_modus($frmwrkmode);
     // Ende Notlösung

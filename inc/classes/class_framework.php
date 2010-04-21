@@ -243,7 +243,7 @@ pageTracker._trackPageview();
 </script>';
     $smarty->assign('EndJS', $EndJS);
 
-    ### Switch Displaymodus (popup, base, print, normal)                    
+    ### Switch Displaymodus (popup, base, print, normal, beamer)                    
     switch ($this->modus) {
       case 'print':
         // Make a Printpopup (without Boxes and Special CSS for printing)
@@ -300,13 +300,13 @@ pageTracker._trackPageview();
         $smarty->assign('Design', $this->design);
   
         // Unterscheidung fullscreen / Normal
-        if ($_SESSION['lansuite']['fullscreen']) $smarty->assign('MainContentStyleID', 'ContentFullscreen');
+        if ($_SESSION['lansuite']['fullscreen'] or $this->modus == 'beamer') $smarty->assign('MainContentStyleID', 'ContentFullscreen');
         else $smarty->assign('MainContentStyleID', 'Content');
         
         if ($auth['login']) $smarty->assign('MainLogout', '<a href="index.php?mod=auth&action=logout" class="menu">Logout</a>');     
     
         // Ausgabe Hauptseite
-        if (!$_SESSION['lansuite']['fullscreen']) {
+        if (!$_SESSION['lansuite']['fullscreen'] and !$this->modus == 'beamer') {
           $smarty->assign('MainFrameworkmessages', $this->framework_messages); 
           $smarty->assign('MainLeftBox', $templ['index']['control']['boxes_letfside']);
           $smarty->assign('MainRightBox', $templ['index']['control']['boxes_rightside']);
@@ -314,7 +314,7 @@ pageTracker._trackPageview();
           if ($auth['type'] >= 2 and isset($debug)) { // and $cfg['sys_showdebug'] (no more, for option now in inc/base/config)
             $smarty->assign('MainDebug', $debug->show());
           }
-        } else {
+        } elseif ($_SESSION['lansuite']['fullscreen']) {
           // Ausgabe Vollbildmodus    
           $smarty->assign('CloseFullscreen', '<a href="index.php?'. $this->get_clean_url_query('query') .'&amp;fullscreen=no" class="menu"><img src="design/'. $this->design .'/images/arrows_delete.gif" border="0" alt="" /><span class="infobox">'. t('Vollbildmodus schließen') .'</span> Lansuite - Vollbildmodus</a>');
         }
