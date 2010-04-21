@@ -6,8 +6,8 @@
 		<file>show</file>
 		<caption>Shoutbox</caption>
 		<hint></hint>
-		<link>?mod=shoutbox&amp;action=sow</link>
-		<requirement>2</requirement>
+		<link>?mod=shoutbox&action=show</link>
+		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>0</level>
 	</entry>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <config>
   <group>
     <head>
@@ -10,6 +10,18 @@
     		<type>integer</type>
     		<default>5</default>
     		<description>Anzahl der angezigten Einträge</description>
+    	</item>
+	    <item>
+    		<name>shout_delay</name>
+    		<type>integer</type>
+    		<default>20</default>
+    		<description>Aktualisierungsintervall in Sekunden</description>
+    	</item>
+	    <item>
+    		<name>shout_length</name>
+    		<type>integer</type>
+    		<default>160</default>
+    		<description>Erlaubte Zeichen</description>
     	</item>
     </items>
   </group>

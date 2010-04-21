@@ -48,10 +48,18 @@
 				<name>created</name>
 				<type>timestamp</type>
 				<null></null>
-				<key></key>
+				<key>IND</key>
 				<default></default>
 				<extra></extra>
 			</field>
+		    <field>
+                <name>ip</name>
+                <type>char(15)</type>
+                <null></null>
+                <key></key>
+                <default></default>
+                <extra></extra>
+            </field>
 
 		</structure>
 	</table>

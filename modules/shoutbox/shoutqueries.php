@@ -2,37 +2,57 @@
 $framework->set_modus('ajax');
 
 switch($_GET['shout']) {
-    case 'add': 
-      $_POST['nickname'] = htmlentities($_POST['nickname']);
-      $_POST['message'] = htmlentities($_POST['message']); 
-     
-     if($_POST['nickname'] and $_POST['message'])
+    case 'add': 	 
+	 if($_POST['captchaInputSend'] == $_SESSION['captcha'] and $_POST['captchaInputSend'] != "")
+	 	$captchaCheck = true;
+	 else
+	 	$captchaCheck = false;
+	
+     if(!$auth['login'] or !$captchaCheck)
      {
-     	$result = $db->qry("INSERT INTO %prefix%shoutbox (name, message) VALUES (%string%,%string%)",$_POST["nickname"],$_POST["message"]);
-		$resp =  $db->qry_first("SELECT created FROM %prefix%shoutbox WHERE id = %int%",$db->insert_id());
-		
+     	// No Login -> Captcha
+     	include_once('ext_scripts/ascii_captcha.class.php');
+     	$captcha = new ASCII_Captcha();
+     	$cap = $captcha->create($text);
+     	$_SESSION['captcha'] = $text;
+     	$data['response'] = 'captcha';
+     	$data['code'] = $text;
+     	$data['captcha'] = $cap;
+     }
+
+	 if(($_POST['message'] and $auth['login']) or ($_POST['message'] and $captchaCheck))
+	 {
+	 	$_POST['nickname'] = htmlentities($_POST['nickname'],ENT_COMPAT,'UTF-8');
+      	$_POST['message'] = htmlentities($_POST['message'],ENT_COMPAT,'UTF-8'); 
+      
+      	if($auth['type']>=1)
+			 $_POST['nickname'] = $auth['username'];
+			 
+	    $result = $db->qry("INSERT INTO %prefix%shoutbox (userid, ip, name, message) VALUES (%int%,%string%,%string%,%string%)",$auth['userid'],$auth['ip'],$_POST["nickname"],$_POST["message"]);
+		$resp =  $db->qry_first("SELECT id, created FROM %prefix%shoutbox WHERE id = %int%",$db->insert_id());
+			
 		$data['response'] = 'Good work';
 		$data['nickname'] = $_POST['nickname'];
 		$data['message'] = $_POST['message'];
 		$data['time'] = strtotime($resp['created']);
-      }
+		$data['id'] = $resp['id']; 	
+     }
     break;
     
     case 'view':
       $data = array();
 
-      if(!$_GET['time'])
-        $_GET['time'] = 0;
+      if(!$_GET['lastid'])
+        $_GET['lastid'] = 0;
   
-  		$mysqldate = date( 'Y-m-d H:i:s', $_GET['time'] );
-      	$qry = $db->qry('SELECT * FROM %prefix%shoutbox WHERE created > %string% ORDER BY ID DESC LIMIT %int%',$mysqldate,$cfg['shout_entries']);
+		$qry = $db->qry('SELECT * FROM %prefix%shoutbox WHERE id > %int% ORDER BY ID DESC LIMIT %int%',$_GET['lastid'],$cfg['shout_entries']);
 
 		while ($row = $db->fetch_array($qry)) {
 			$data[] = array(
-					"message"=>$row['message'],
+					"message"=>html_entity_decode($row['message'], ENT_QUOTES, 'UTF-8'),
 					"nickname"=>$row['name'],
 					"time"=>strtotime($row['created']),
-					"cfgentries"=>$cfg['shout_entries']
+					"id"=>$row['id']
 					);
 		}
 		$data = array_reverse($data);
@@ -40,8 +60,14 @@ switch($_GET['shout']) {
     break;
   }
   
-  require_once('ext_scripts/json/json.php');
-  $json = new Services_JSON();
-  $out = $json->encode($data);
-  print $out;
+require_once('ext_scripts/json/json.php');
+$json = new Services_JSON();
+header("Content-Type: application/json; charset=utf-8");
+header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
+header("Cache-Control: no-store, no-cache, must-revalidate");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+
+$out = $json->encode($data);
+print $out;
 ?>
