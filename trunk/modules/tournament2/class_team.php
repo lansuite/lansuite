@@ -20,7 +20,7 @@ class team {
 		$t = $db->qry_first("SELECT status, teamplayer, maxteams, blind_draw FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tid);
 
 		if ($t["teamplayer"] == 1 or $t["blind_draw"]) {
-			$c_teams = $db->qry_first("SELECT COUNT(*) AS teams FROM %prefix%t2_teams WHERE (tournamentid = %int%) GROUP BY teamid", $tid);
+			$c_teams = $db->qry_first("SELECT COUNT(*) AS teams FROM %prefix%t2_teams WHERE tournamentid = %int%", $tid);
 			$completed_teams = $c_teams["teams"];
 			$waiting_teams = 0;
 		} else {
