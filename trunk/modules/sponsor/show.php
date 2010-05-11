@@ -25,13 +25,15 @@ while ($sponsor = $db->fetch_array($sponsoren)){
 			$col1 = "<a href=\"index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=page&amp;sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $col1 ."</a>";
 	}
 
-	$col2 = '<b>'. $sponsor["name"] .'</b>';
+	$sponsorname = '<b>'. $sponsor["name"] .'</b>';
 	if ($sponsor["url"] != "" && $sponsor["url"] != "http://")
-		$col2 = "<a href=\"index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=page&amp;sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $col2 ."</a>";
-	$col2 .= HTML_NEWLINE. $func->text2html($sponsor["text"]);
+		$sponsorname = "<a href=\"index.php?mod=sponsor&amp;action=bannerclick&amp;design=base&amp;type=page&amp;sponsorid={$sponsor["sponsorid"]}\" target=\"_blank\">". $sponsorname ."</a>";
+	
+	$sponsortext = $func->text2html($sponsor["text"]);
 
   $smarty->assign('col1', $col1);
-  $smarty->assign('col2', $col2);
+  $smarty->assign('sponsorname', $sponsorname);
+  $smarty->assign('sponsortext', $sponsortext);
 	$out .= $smarty->fetch('modules/sponsor/templates/liste.htm');
 }
 $db->free_result($sponsoren);
