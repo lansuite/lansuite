@@ -46,12 +46,14 @@ else {
 		default:	// Show details
 			$dsp->NewContent(t('Turnier %1', $tournament['name']), t('Hier finden Sie Informationen zu diesem Turnier und können sich anmelden'));
 
-			$menunames[1] = t('Turnierinfos');
+			/*$menunames[1] = t('Turnierinfos');
 			$menunames[2] = t('Angemeldete Teams');
 			$dsp->AddHeaderMenu($menunames, "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}", $headermenuitem);
-
-			switch ($headermenuitem) {
-				case 1:
+			*/
+			$dsp->StartTabs();
+				
+				$dsp->StartTab(t('Turnierinfos'), 'details');
+				
 					$dsp->AddDoubleRow(t('Turniername'), $tournament['name']);
 
 					if (($tournament['icon']) && ($tournament['icon'] != "none")) $icon = "<img src=\"ext_inc/tournament_icons/{$tournament['icon']}\" alt=\"Icon\"> ";
@@ -144,9 +146,10 @@ else {
           if ($auth['type'] > 1) $mapcycle .= '<a href="index.php?mod=tournament2&action=details&tournamentid='. $_GET['tournamentid'] .'&step=20">'. t('Maps neu mischen') .'</a>';
 					$dsp->AddDoubleRow($mapcycle, $func->text2html($map_str));
           $dsp->AddFieldsetEnd();
-				break;
+          $dsp->EndTab();
 
-				case 2:
+
+		  $dsp->StartTab(t('Angemeldete Teams'), 'assign');
 					$waiting_teams = "";
 					$completed_teams = "";
 					$teams = $db->qry("SELECT name, teamid, seeding_mark, disqualified FROM %prefix%t2_teams WHERE (tournamentid = %int%)", $_GET['tournamentid']);
@@ -190,8 +193,9 @@ else {
 						$dsp->AddSingleRow(t('Folgende %1 Teams sind noch unvollständig', ($teamcount[0] + 0)));
 						$dsp->AddDoubleRow(t('Teamnamen'), $waiting_teams);
 					}
-				break;
-			} // END Switch($headermenuitem)
+				$dsp->EndTab();
+
+		$dsp->EndTabs();
 
 			$buttons="";
 			switch($tournament["status"]) {
