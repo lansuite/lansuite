@@ -63,7 +63,7 @@ else {
   $dsp->NewContent(t('Benutzerdetails von %1', $user_data['username']), t('Hier finden Sie alle Details zu dem Benutzer %1', $user_data['username']));
   $dsp->StartTabs();
 
-  $dsp->StartTab(t('Spielerinfos'), 'assign');
+  $dsp->StartTab(t('Spieler'), 'assign');
 
   // First name, last name, username, user ID
   $name = '<table width="100%" cellspacing="0" cellpadding="0"><tr><td>';
@@ -265,7 +265,7 @@ else {
       $ms2 = new mastersearch2();
 
       $ms2->query['from'] = "%prefix%comments_bookmark AS b";
-      $ms2->query['where'] = 'b.userid = '. (int)$auth['userid'];
+      $ms2->query['where'] = 'b.userid = '. (int)$_GET['userid'];
       $ms2->query['default_order_by'] = 'b.relatedto_item';
       $ms2->config['EntriesPerPage'] = 20;
 
@@ -280,7 +280,7 @@ else {
     $dsp->AddFieldsetEnd();
   $dsp->EndTab();
   
-  $dsp->StartTab(t('Sonstiges'), 'details');
+  $dsp->StartTab(t('Sonstiges'));
   // logins, last login
   if ($auth['type'] >= 2) {
       $lastLoginTS = $db->qry_first("SELECT max(logintime) FROM %prefix%stats_auth WHERE userid = %int% AND login = '1'", $_GET['userid']);
