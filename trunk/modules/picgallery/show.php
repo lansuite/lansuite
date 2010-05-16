@@ -128,7 +128,7 @@ elseif (!$akt_file) {
 	if ($dir_list) foreach($dir_list as $dir) {
 	  $DelDirLink = '';
     if ($auth['type'] > 2) $DelDirLink = ' <a href="index.php?mod=picgallery&action=delete&step=10&file='.$akt_dir.$dir.'"><img src="design/'.$auth['design'].'/images/arrows_delete.gif" border="0" /></a>';
-    $directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$akt_dir$dir/\">$dir$DelDirLink</a>] ";
+    $directory_selection .= "[<a href=\"index.php?mod=picgallery&file=$akt_dir$dir/\">$dir$DelDirLink</a>] <br />";
   }
 	if ($directory_selection) $dsp->AddDoubleRow(t('Ordner'), $directory_selection);
 
@@ -335,9 +335,12 @@ elseif (!$akt_file) {
 				$dsp->AddDoubleRow("", "<a href=\"$js_full_link\"><img border=\"1\" src=\"$root_file\" width=\"$pic_width\" class=\"img\"></a>");
 
 			// Define Buttons
-			if(!IsPackage($extension)) $dl_button = $dsp->FetchIcon($js_full_link, "fullscreen", t('Vollbild'));
+			if(!IsPackage($extension)) 
+				$dl_button = $dsp->FetchIcon($js_full_link, "fullscreen", t('Vollbild'));
 			$full_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "download", t('Bild herrunterladen'));
 			($auth[type] > "1") ? $del_button = $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file={$_GET["file"]}", "delete", t('Bild l&ouml;schen')) : $del_button = "";
+			$note_button = $dsp->FetchIcon("index.php?mod=picgallery&action=download&design=base&picurl={$_GET["file"]}", "add", t('Verlinkung hinzufügen'));
+
 
 			// Scan Directory
 			$file_list = array();
@@ -355,7 +358,7 @@ elseif (!$akt_file) {
 			else $prev_button = "";
 			if ($file_list[$akt_file[0] + 1]) $next_button = $dsp->FetchIcon("index.php?mod=picgallery&file=$akt_dir". $file_list[$akt_file[0] + 1], "next", t('Bild weiter'));
 			else $next_button = "";
-			$dsp->AddDoubleRow("", "$prev_button $next_button $full_button $dl_button $del_button");
+			$dsp->AddDoubleRow("", "$prev_button $next_button $full_button $dl_button $del_button $note_button");
 
 			// Change Pic-Name
 			if ($auth['type'] >= 2 or $cfg['picgallery_allow_user_naming']) {
