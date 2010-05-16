@@ -190,7 +190,7 @@ class auth {
             } else {
 
                 // Set Logonstats
-                $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate WHERE userid = %int%', $user['userid']);
+                $db->qry('UPDATE %prefix%user SET logins = logins + 1, changedate = changedate, lastlogin = NOW() WHERE userid = %int%', $user['userid']);
                 
                 // If not logged in by cookie, generete new cookie and store it
                 if (!$cookierow['userid']) $this->set_cookie_pw($user['userid']);

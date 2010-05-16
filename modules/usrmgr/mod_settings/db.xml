@@ -99,6 +99,13 @@
                 <extra></extra>
             </field>
             <field>
+                <name>lastlogin</name>
+                <type>datetime</type>
+                <null></null>
+                <default></default>
+                <extra></extra>
+            </field>
+            <field>
                 <name>portnumber</name>
                 <type>smallint(5) unsigned</type>
                 <null></null>
