@@ -18,8 +18,8 @@ function Update($id) {
 				hint = %string%,
 				level = %int%,
 				link = %string%
-				WHERE id = %int%",
-        $_POST["caption"], $_POST["shorttext"], $level, $link, $id);
+				WHERE link = %string%",
+        $_POST["caption"], $_POST["shorttext"], $level, $link, $link);
 		}
 	}
 	
