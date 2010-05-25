@@ -815,6 +815,8 @@ class display {
     $smarty->assign('hint', t('Benutzerdetails aufrufen'));
 
     (in_array($userid, $authentication->online_users))? $state ='online' : $state ='offline';
+    if(in_array($userid, $authentication->away_users)) $state ='idle';
+    
     $smarty->assign('state', $state);
 
     return $smarty->fetch('design/templates/ls_usericon.htm');

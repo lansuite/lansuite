@@ -1,7 +1,7 @@
 <?php
 
 // Delete old read states
-$db->qry('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7');
+$db->qry('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7 AND tab != "task"');
 
 if ($auth["type"] == 1 or $auth["type"] == 2 or $auth["type"] == 3) $home_page = $cfg["home_login"];
 else $home_page = $cfg["home_logout"];
@@ -21,6 +21,7 @@ switch ($home_page) {
         or ($caption == 'party' and $party->count > 0)
         or ($caption == 'troubleticket' and $auth['type'] >= 2)
         or ($caption == 'rent' and $auth['type'] >= 2)
+        or ($caption == 'task' and $auth['type'] >= 2)
         ) {
         if ($z % 2 == 0) {
           $MainContent .= '<ul class="Line">';

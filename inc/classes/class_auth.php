@@ -30,6 +30,8 @@ class auth {
     var $cookie_crypt =    true;         // Crypt Cookie with AzDGCrypt
     var $cookie_crypt_pw = "iD9ww32e";   // Passphrase for AzDGCrypt
     var $online_users = array();         // Array containing all users, currently online
+    var $away_users = array();         // Array containing all users, currently online by ajax but no hit last 10min
+    
  /**#@-*/
   
   /**
@@ -49,11 +51,18 @@ class auth {
         //$this->cookie_crypt_pw = $cfg[''];    // CryptPW via Config => uniqekey
         
         // Better handle it here, otherwise its an DB-Query for each $dsp->FetchUserIcon()
-        $res = $db->qry('SELECT userid FROM %prefix%stats_auth
-            WHERE login = "1" AND lasthit > %int% AND userid > 0
+        $res = $db->qry('SELECT userid,lasthit FROM %prefix%stats_auth
+            WHERE login = "1" AND (lasthit > %int% OR lastajaxhit > %int%) AND userid > 0
             GROUP BY userid',
-            time() - 60*10);
-        while ($row = $db->fetch_array($res)) $this->online_users[] = $row['userid'];
+            $this->timestamp - 60*10,$this->timestamp - 60*1);
+        while ($row = $db->fetch_array($res)) 
+        {
+        	if($row['lasthit'] > ($this->timestamp - 60*10))
+        		$this->online_users[] = $row['userid'];
+        	else
+        		$this->away_users[] = $row['userid'];
+        }
+        
         
         // Close sessions older than 1-2 hours.
         // ceil(x / $oneHour) * $oneHour for making query the same for one hour and therefore cacheable by MySQL
@@ -464,13 +473,18 @@ class auth {
    */
     function update_visits($frmwrkmode="") {
         global $db;
-        if($frmwrkmode != "ajax" OR $frmwrkmode != "print" OR $frmwrkmode != "popup" OR $frmwrkmode != "base") {
+        if($frmwrkmode != "ajax" and $frmwrkmode != "print" and $frmwrkmode != "popup" and $frmwrkmode != "base") {
             // Update visits, hits, IP and lasthit
             $visit_timeout = time() - 60*60;
             // If a session loaded no page for over one hour, this counts as a new visit
             $db->qry('UPDATE %prefix%stats_auth SET visits = visits + 1 WHERE (sessid=%string%) AND (lasthit < %int%)', $this->auth["sessid"], $visit_timeout);
             // Update user-stats and lasthit, so the timeout is resetted
             $db->qry('UPDATE %prefix%stats_auth SET lasthit=%int%, hits = hits + 1, ip=%string%, lasthiturl= %string% WHERE sessid=%string%', $this->timestamp, $this->auth["ip"], $_SERVER['REQUEST_URI'], $this->auth["sessid"]);
+        }
+        // Heartbeat
+        if($frmwrkmode == "ajax")
+        {
+        	$db->qry('UPDATE %prefix%stats_auth SET lastajaxhit=%int% WHERE sessid=%string%', $this->timestamp, $this->auth["sessid"]);
         }
     }
 

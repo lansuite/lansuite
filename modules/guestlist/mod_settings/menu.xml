@@ -45,7 +45,7 @@
 		<caption>Onlineuser</caption>
 		<hint></hint>
 		<link>?mod=guestlist&action=onlineuser</link>
-		<requirement>2</requirement>
+		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
 	</entry>

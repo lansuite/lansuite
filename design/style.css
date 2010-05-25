@@ -297,6 +297,10 @@ input.yes_button {
   margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 0px 0px 2px;
   content: url(images/arrows_user_offline.png);
 }
+.user_idle:after {
+  margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 0px 0px 2px;
+  content: url(images/arrows_user_idle.png);
+}
 .icon_delete:after {
   margin: 0px 0px 0px 0px;   border: 0px;   padding: 0px 0px 0px 2px;
   content: url(images/arrows_delete.gif);

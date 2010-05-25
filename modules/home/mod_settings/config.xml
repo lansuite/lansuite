@@ -114,12 +114,12 @@
     		<description>Wiki</description>
     	</item>
     </items>
-    <items>
+	<items>
     	<item>
-    		<name>home_item_cnt_wiki</name>
+    		<name>home_item_cnt_server</name>
     		<type>integer</type>
     		<default>8</default>
-    		<description>Wiki</description>
+    		<description>Server</description>
     	</item>
     </items>
   </group>
