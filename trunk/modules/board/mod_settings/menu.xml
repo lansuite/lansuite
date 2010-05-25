@@ -56,23 +56,8 @@
 		<requirement>2</requirement>
 	</entry>	
 	<entry>
-		<action>change</action>
-		<file>change</file>
-		<requirement>2</requirement>
-	</entry>
-	<entry>
 		<action>delete</action>
 		<file>delete</file>
 		<requirement>3</requirement>
-	</entry>
-	<entry>
-		<action>edit</action>
-		<file>edit</file>
-		<requirement>1</requirement>
 	</entry>	
-	<entry>
-		<action>post</action>
-		<file>post</file>
-		<requirement>0</requirement>
-	</entry>		
 </menu>

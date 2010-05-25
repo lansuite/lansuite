@@ -12,7 +12,7 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
 		$info = $db->qry_first("SELECT active, text%plain%, shorttext%plain%, caption%plain% FROM %prefix%info WHERE infoID = %int%", $val, $val, $val, $_GET["id"]);
 	}
 
-	$dsp->NewContent(t('Seite').": {$info["caption$val"]}", $info["shorttext$val"]);
+	$dsp->NewContent("{$info["caption$val"]}", $info["shorttext$val"]);
 	$framework->AddToPageTitle($info["caption$val"]);
 
   if ($info['active'] == 1) {
