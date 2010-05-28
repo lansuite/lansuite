@@ -287,6 +287,10 @@ pageTracker._trackPageview();
         $smarty->assign('main_footer_timer', round($this->out_work(), 2));
         $smarty->assign('main_footer_cleanquery', $this->get_clean_url_query('query'));
         
+        if($cfg["sys_footer_impressum"])
+                $smarty->assign('main_footer_impressum', $cfg["sys_footer_impressum"]);
+        
+        
         $main_footer_mem_usage = '';
         if (function_exists('memory_get_peak_usage')) $main_footer_mem_usage = 'Memory-Usage: '. $func->FormatFileSize(memory_get_peak_usage()) .' |';
         $smarty->assign('main_footer_mem_usage', $main_footer_mem_usage);

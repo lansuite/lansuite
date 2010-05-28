@@ -9,4 +9,5 @@
 DB-Querys: {$main_footer_countquery} | 
 Processed in: {$main_footer_timer} Sec |
 {$main_footer_mem_usage}
-<a href="index.php?{$main_footer_cleanquery}&amp;fullscreen=yes" class="menu" rel="nofollow">Fullscreen</a>
+<a href="index.php?{$main_footer_cleanquery}&amp;fullscreen=yes" class="menu" rel="nofollow">Fullscreen</a> {if $main_footer_impressum}| 
+<a href="index.php?mod=info2&action=show_info2&id={$main_footer_impressum}" class="menu" rel="nofollow">Impressum</a>{/if}

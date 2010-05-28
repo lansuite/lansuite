@@ -1,14 +1,17 @@
-<?php
+﻿<?php
 
 $smarty->assign('caption', t('Sonstige neue Kommentare'));
 $content = "";
 
 if (!$func->isModActive('faq')) $exclude .= ' AND relatedto_item != \'faq\'';
+if (!$func->isModActive('task') or $auth['type'] < 2) $exclude .= ' AND relatedto_item != \'task\'';
+if ($auth['type'] < 2) $exclude .= ' AND relatedto_item != \'SponSupp\'';
 if (!$func->isModActive('usrmgr')) $exclude .= ' AND relatedto_item != \'User\'';
 if (!$func->isModActive('poll')) $exclude .= ' AND relatedto_item != \'Poll\'';
 if (!$func->isModActive('server')) $exclude .= ' AND relatedto_item != \'server\'';
 if (!$func->isModActive('downloads')) $exclude .= ' AND relatedto_item != \'downloads\'';
 if (!$func->isModActive('picgallery')) $exclude .= ' AND relatedto_item != \'Picgallery\'';
+if (!$func->isModActive('clan')) $exclude .= ' AND relatedto_item != \'Clan\'';
 
 $query = $db->qry('SELECT relatedto_id, relatedto_item, MAX(UNIX_TIMESTAMP(date)) AS date, COUNT(*) AS cnt FROM %prefix%comments
     WHERE relatedto_item != \'BugEintrag\' AND relatedto_item != \'news\' %plain%
@@ -48,9 +51,25 @@ if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
       $link = 'index.php?mod=picgallery&action=show&step=2&file=/'. $row2['name'];
       $title = 'Gallery: '. $row2['name'];
     break;
+    case 'Task':
+      $row2 = $db->qry_first('SELECT caption FROM %prefix%tasks WHERE id = %int%', $row['relatedto_id']);
+      $link = 'index.php?mod=task&action=show&step=1&tid='. (int)$row['relatedto_id'];
+      $title = 'Task: '. $row2['caption'];
+    break;
+    case 'Clan':
+      $row2 = $db->qry_first('SELECT name FROM %prefix%clan WHERE clanid = %int%', $row['relatedto_id']);
+      $link = 'index.php?mod=clanmgr&step=2&clanid='. (int)$row['relatedto_id'];
+      $title = 'Clan: '. $row2['name'];
+    break;
+    case 'SponSupp':
+      $row2 = $db->qry_first('SELECT sponsorid FROM %prefix%sponsorsupport WHERE supportid = %int%', $row['relatedto_id']);
+      $row3 = $db->qry_first('SELECT name FROM %prefix%sponsor WHERE sponsorid = %int%', $row2['sponsorid']);
+      $link = 'index.php?mod=sponsor&action=change&step=40&supportid='. (int)$row['relatedto_id'];
+      $title = 'Sponsor: '. $row3['name'];
+    break;       
     default:
       $link = '';
-      $title = '';
+      $title = $row['relatedto_id'];
     break;
   }
   $smarty->assign('link', $link);
