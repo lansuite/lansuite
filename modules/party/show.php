@@ -54,7 +54,7 @@ switch($_GET['step']){
 	break;
 
 	case 1:
-		$row = $db->qry_first("SELECT p.*, UNIX_TIMESTAMP(p.startdate) AS startdate, UNIX_TIMESTAMP(p.enddate) AS enddate, UNIX_TIMESTAMP(p.sstartdate) AS sstartdate, UNIX_TIMESTAMP(p.senddate) AS senddate FROM %prefix%partys AS p WHERE party_id=%int%", $party->party_id);
+		$row = $db->qry_first("SELECT p.*, UNIX_TIMESTAMP(p.startdate) AS startdate, UNIX_TIMESTAMP(p.enddate) AS enddate, UNIX_TIMESTAMP(p.sstartdate) AS sstartdate, UNIX_TIMESTAMP(p.senddate) AS senddate FROM %prefix%partys AS p WHERE party_id=%int%", $_GET["party_id"]);
 
 		$dsp->AddDoubleRow(t('Partyname'),$row['name']);
 		$dsp->AddDoubleRow(t('Anzahl Plätze'),$row['max_guest']);
