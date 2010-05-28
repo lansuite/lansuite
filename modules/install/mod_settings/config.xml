@@ -185,6 +185,12 @@
     		<default></default>
     		<description>Fügt den Text als weitere Footerzeile unter dem bestehendem hinzu. (html-code)</description>
     	</item>
+		<item>
+    		<name>sys_footer_impressum</name>
+    		<type>int</type>
+    		<default></default>
+    		<description>info2 ID zum Impressum</description>
+    	</item>
     	<item>
     		<name>sys_internet</name>
     		<type>boolean</type>
