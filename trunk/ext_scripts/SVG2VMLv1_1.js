@@ -23,14 +23,21 @@ var linearGradients = new Object();
 
 VectorModel.prototype = {
 	init: function() {
-		this.svg_capable = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#CoreAttribute", "1.1");
+		this.svg_capable = document.implementation.hasFeature("org.w3c.dom.svg", '1.1');
 		this.vml_capable = (document.all && !(navigator.userAgent.indexOf("Opera")>=0)) ? true : false;
 		
 		if ( this.vml_capable ) {
-			document.namespaces.add("v","urn:schemas-microsoft-com:vml");
-//			document.createStyleSheet().addRule("v\\:*", "behavior:url(#default#VML)");
-			document.createStyleSheet().addRule("v\\:*", "behavior:url(#default#VML); position:absolute" );
-
+			document.namespaces.add('v','urn:schemas-microsoft-com:vml'); 
+			document.createStyleSheet().addRule("v\\: *", "behavior:url(#default#VML); position:absolute" ); 
+			document.createStyleSheet().addRule("v\\:roundrect", "behavior:url(#default#VML); position:absolute" ); 
+			document.createStyleSheet().addRule("v\\:oval", "behavior:url(#default#VML); position:absolute" ); 
+			document.createStyleSheet().addRule("v\\:roundrect", "behavior:url(#default#VML); position:absolute" ); 
+			document.createStyleSheet().addRule("v\\:fill", "behavior:url(#default#VML); position:absolute" ); 
+			document.createStyleSheet().addRule("v\\:line", "behavior:url(#default#VML); position:absolute" ); 
+			document.createStyleSheet().addRule("v\\:shape", "behavior:url(#default#VML); position:absolute" ); 
+			document.createStyleSheet().addRule("v\\:polyline", "behavior:url(#default#VML); position:absolute" ); 
+			document.createStyleSheet().addRule("v\\:stroke", "behavior:url(#default#VML); position:absolute" ); 
+ 
 			var me = this;
 			document.createElementNS = function( ns, element ) {
 				return me.createElement( element );
@@ -143,6 +150,8 @@ VectorModel.prototype = {
 				return createVMLStop();
 			} else if( element == "defs" ) {
 				return createVMLDefs();
+			} else if ( element == "polyline") {
+				return createVMLPolyline();
 			}
 
 		} else {
@@ -695,6 +704,40 @@ var createVMLDefs = function() {
 	return myDef;
 }
 
+var createVMLPolyline = function() {
+	var domElement = document.createElement("v:polyline");
+	domElement.style.width = '21600'; domElement.style.height = '21600'; domElement.coordsize = '21600, 21600'; domElement.style.position = "absolute";
+	;
+	domElement.setAttribute = function( key, value ) {
+		if ( key == "points" ) {
+			this.points = value; return;
+		} else if ( key == "stroke" ) {
+			this.strokecolor = value; return;
+		} else if ( key == "stroke-width" ) {
+			this.strokeweight = parseFloat(value)/1.2 + "pt"; return;
+		} else if ( key == "fill" ) {
+			return this.fill;
+		}
+	}
+	domElement.getAttribute = function( key ) {
+		if ( key == "points" ) {
+			if ( !this.points ) { return 0; } return points;
+		} else if ( key == "stroke" ) {
+			return this.strokecolor;
+		} else if ( key == "stroke-width" ) {
+			return parseFloat( this.strokecolor ) / 1.2 + 'px';
+		} else if ( key == "fill" ) {
+			return this.fill;
+		} else if ( key == "width" ) {
+			return parseInt( this.style.width );
+		} else if ( key == "height" ) {
+			return parseInt( this.style.height );
+		}
+	}
+
+	return domElement;
+}
+
 var LinGradient = function( ) {
 	this.init( );
 };
@@ -722,3 +765,4 @@ LinGradient.prototype = {
 		this.stops.push(stop);
 	}
 }
+
