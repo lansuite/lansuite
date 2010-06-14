@@ -8,6 +8,12 @@ $_GET['file'] = str_replace('/..', '', $_GET['file']);
 $_GET['file'] = str_replace('\\..', '', $_GET['file']);
 
 $icon_dir = "ext_inc/picgallery_icon/";
+
+function IsSupportedVideo($ext) {
+	if (($ext == "mp4") or ($ext == "mpg") or ($ext == "mpeg") or ($ext == "ogv")) return true;
+	else return false;
+}
+
 // Returns, wheather the supplied extension is supported, or not.
 function IsSupportedType($ext) {
 	$ext = strtolower($ext);
@@ -16,6 +22,7 @@ function IsSupportedType($ext) {
 	or ($ext == "gif" and (ImageTypes() & IMG_GIF))
 	or ($ext == "wbmp" and (ImageTypes() & IMG_WBMP))
 	or ($ext == "bmp")
+	or (IsSupportedVideo($ext))
 #	or ($ext == "ico")		// Problem: "Die" in target-function + most Browsers can not display this type
 #	or ($ext == "cur")		// Problem: "Die" in target-function + most Browsers can not display this type
 #	or ($ext == "ani")		// Problem: "Die" in target-function + most Browsers can not display this type
@@ -161,21 +168,10 @@ elseif (!$akt_file) {
 				if ($z > $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * $_GET["page"]
 				and $z <= $cfg["picgallery_rows"] * $cfg["picgallery_items_per_row"] * ($_GET["page"] + 1)) {
 
-					$thumb_path = $root_dir ."lsthumb_". $file;
+					$thumb_path = $root_dir."lsthumb_". $file;
 
-					// Wenn Thumb noch nicht generiert wurde, generieren versuchen
-					if (!file_exists($thumb_path)) $gd->CreateThumb($root_dir . $file, $thumb_path, $cfg["picgallery_max_width"], $cfg["picgallery_max_height"]);
+          $extension =  strtolower(substr($file, strrpos($file, ".") + 1, 4));
 
-					// Size HTML
-					if (file_exists($thumb_path)) $pic_dimensions = GetImageSize($thumb_path);
-					if (!$pic_dimensions) {
-						$pic_dimensions[0] = $cfg["picgallery_max_width"];
-						$pic_dimensions[1] = $cfg["picgallery_max_height"];
-					}
-
-          $smarty->assign('pic_width', $pic_dimensions[0]);
-          $smarty->assign('pic_height', $pic_dimensions[1]);
-          $smarty->assign('pic_src', $thumb_path);
           $smarty->assign('file', $akt_dir . $file);
 
 					if (strlen($file) > 22) $file_name = substr(strtolower($file), 0, 16) ."..". substr(strtolower($file), strrpos($file, "."), 5);
@@ -189,7 +185,7 @@ elseif (!$akt_file) {
             ", $db_dir . $file);
 					($pic['caption']) ? $caption = $pic['caption'] : $caption = "<i>Unbenannt</i>";
 					$smarty->assign('caption', $caption);
-					
+
 					$smarty->assign('clicks', $dsp->HelpText($pic['clicks'], 'Angesehen') .'/'. $dsp->HelpText($pic['comments'], 'Kommentare'));
 					$smarty->assign('galleryid', $gallery_id);
 
@@ -197,7 +193,31 @@ elseif (!$akt_file) {
 					if ($auth["type"] > 1) $buttons .= " ". $dsp->FetchIcon("index.php?mod=picgallery&action=delete&file=$akt_dir$file&page={$_GET["page"]}", "delete", t('Bild löschen'));
 					$smarty->assign('buttons', $buttons);
 
-					$cols .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_spalte.htm');
+          // Videos
+          if (IsSupportedVideo($extension)) {
+            $smarty->assign('pic_width', $cfg["picgallery_max_width"]);
+            $smarty->assign('pic_height', $cfg["picgallery_max_height"]);
+            $smarty->assign('pic_src', $root_dir . $file);
+
+  					$cols .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_spalte_vid.htm');
+          // Pics
+          } else {
+  					// Wenn Thumb noch nicht generiert wurde, generieren versuchen
+  					if (!file_exists($thumb_path)) $gd->CreateThumb($root_dir . $file, $thumb_path, $cfg["picgallery_max_width"], $cfg["picgallery_max_height"]);
+
+  					// Size HTML
+  					if (file_exists($thumb_path)) $pic_dimensions = GetImageSize($thumb_path);
+  					if (!$pic_dimensions) {
+  						$pic_dimensions[0] = $cfg["picgallery_max_width"];
+  						$pic_dimensions[1] = $cfg["picgallery_max_height"];
+  					}
+
+            $smarty->assign('pic_width', $pic_dimensions[0]);
+            $smarty->assign('pic_height', $pic_dimensions[1]);
+            $smarty->assign('pic_src', $thumb_path);
+
+  					$cols .= $smarty->fetch('modules/picgallery/templates/ls_row_gallery_spalte.htm');
+          }
 
 					if ($z % $cfg["picgallery_items_per_row"] == 0) {
             $smarty->assign('cols', $cols);
@@ -306,15 +326,8 @@ elseif (!$akt_file) {
 	else {
 
 		if ($_GET['mcact'] == "show" or $_GET['mcact'] == ""){
-			// Get pic data
-			$picinfo = GetImageSize($root_file);
-			$picinfo['5'] = filesize($root_file) / 1024;
 
 			$extension =  strtolower(substr($root_file, strrpos($root_file, ".") + 1, 4));
-			// Check width
-			($picinfo['0'] > "450") ? $pic_width = "450" : $pic_width = $picinfo['0'];
-
-			$js_full_link = "javascript:var w=window.open('$root_file','_blank','width=". ($picinfo['0'] + 10) .",height=". ($picinfo['1'] + 10) .",resizable=yes,scrollbars=yes')";
 
 			// Select pic data
 			$pic = $db->qry_first("SELECT p.picid, p.userid, p.caption, p.clicks, u.userid, u.username
@@ -330,9 +343,27 @@ elseif (!$akt_file) {
 
 			if ($pic['caption']) $dsp->AddDoubleRow(t('Bildname'), $pic['caption']);
 
-			//					JPG						PNG						GIF						BMP
-			if ($picinfo['2'] == "1" or $picinfo['2'] == "2" or $picinfo['2'] == "3" or $picinfo['2'] == "6")
-				$dsp->AddDoubleRow("", "<a href=\"$js_full_link\"><img border=\"1\" src=\"$root_file\" width=\"$pic_width\" class=\"img\"></a>");
+      // Videos
+      if (IsSupportedVideo($extension)) {
+				$dsp->AddDoubleRow("", '<video width="450" height="350" src="'. $root_file .'" autobuffer autoplay controls>
+          <div class="video-fallback"><br>Sie benoetigen einen Browser, der HTML5 unterstuetzt.</div>
+        </video>');
+
+      // Pics
+      } else {
+  			// Get pic data
+  			$picinfo = GetImageSize($root_file);
+  			$picinfo['5'] = filesize($root_file) / 1024;
+
+  			// Check width
+  			($picinfo['0'] > "450") ? $pic_width = "450" : $pic_width = $picinfo['0'];
+
+  			$js_full_link = "javascript:var w=window.open('$root_file','_blank','width=". ($picinfo['0'] + 10) .",height=". ($picinfo['1'] + 10) .",resizable=yes,scrollbars=yes')";
+
+  			//					JPG						PNG						GIF						BMP
+  			if ($picinfo['2'] == "1" or $picinfo['2'] == "2" or $picinfo['2'] == "3" or $picinfo['2'] == "6")
+  				$dsp->AddDoubleRow("", "<a href=\"$js_full_link\"><img border=\"1\" src=\"$root_file\" width=\"$pic_width\" class=\"img\"></a>");
+      }
 
 			// Define Buttons
 			if(!IsPackage($extension)) 
