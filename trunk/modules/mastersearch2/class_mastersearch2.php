@@ -17,6 +17,8 @@ class MasterSearch2 {
   var $SQLFieldTypes = array();
   var $HiddenGetFields = array();
   var $ms_number = 0;
+  var $TargetPageField = '';
+  var $TargetPageCount = 0;
 
   // Constructor
   function MasterSearch2($module = '') {
@@ -111,6 +113,11 @@ class MasterSearch2 {
     $arr['security_question'] = $security_question;
     $arr['icon'] = $icon;
     array_push($this->multi_select_action, $arr);
+  }
+
+  function SetTargetPage($name, $pages) {
+    $this->TargetPageField = $name;
+    $this->TargetPageCount = $pages;
   }
 
   function PrintSearch($working_link, $select_id_field, $multiaction = '') {
@@ -536,7 +543,14 @@ class MasterSearch2 {
             $arr['entry'] = substr($arr['entry'], 0, $current_field['max_char'] - 2) .'...';
 
           // Link first row to same target as first icon
-          if ($k == 0 and !$this->config['dont_link_first_line'] and $this->icon_field[0]['link']) $arr['link'] = $this->icon_field[0]['link'] . $line[$select_id_field];
+          if ($k == 0 and !$this->config['dont_link_first_line'] and $this->icon_field[0]['link']) {
+            if ($this->TargetPageCount) $TargetPage = floor($line[$this->TargetPageField] / $this->TargetPageCount);
+            else $TargetPage = 0;
+            $arr['link'] = $this->icon_field[0]['link'];
+            if (strpos($arr['link'], '%id%')) $arr['link'] = str_replace('%id%', $line[$select_id_field], $arr['link']);
+            else $arr['link'] .= $line[$select_id_field];
+            if (strpos($arr['link'], '%page%')) $arr['link'] = str_replace('%page%', $TargetPage, $arr['link']);
+          }
 
           // Width?
           if ($current_field['width']) $arr['width'] = $current_field['width'];
@@ -560,8 +574,11 @@ class MasterSearch2 {
             $arr['width'] = '20px';
             if (substr($current_field['link'], 0, 11) == 'javascript:') $arr['link'] = '#" onclick="'. $current_field['link'];
             else $arr['link'] = $current_field['link'];
+            if ($this->TargetPageCount) $TargetPage = floor($line[$this->TargetPageField] / $this->TargetPageCount);
+            else $TargetPage = 0;
             if (strpos($arr['link'], '%id%')) $arr['link'] = str_replace('%id%', $line[$select_id_field], $arr['link']);
             else $arr['link'] .= $line[$select_id_field];
+            if (strpos($arr['link'], '%page%')) $arr['link'] = str_replace('%page%', $TargetPage, $arr['link']);
             $arr['name'] = $current_field['icon_name'];
             $arr['title'] = $current_field['tooltipp'];
             $displayed++;
