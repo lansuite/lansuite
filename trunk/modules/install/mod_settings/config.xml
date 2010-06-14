@@ -5,14 +5,14 @@
       <name>boolean</name>    
     </head>
     <entries>
-  		<entry>
-  			<value>0</value>
-  			<description>Nein</description>
-  		</entry>
-  		<entry>
-  			<value>1</value>
-  			<description>Ja</description>
-  		</entry>
+      <entry>
+        <value>0</value>
+        <description>Nein</description>
+      </entry>
+      <entry>
+        <value>1</value>
+        <description>Ja</description>
+      </entry>
     </entries>
   </typedefinition>
   <typedefinition>
@@ -20,30 +20,30 @@
       <name>language</name>    
     </head>
     <entries>
-  		<entry>
-  			<value>de</value>
-  			<description>Deutsch</description>
-  		</entry>
-  		<entry>
-  			<value>en</value>
-  			<description>English</description>
-  		</entry>
-  		<entry>
-  			<value>nl</value>
-  			<description>Nederlands</description>
-  		</entry>
-  		<entry>
-  			<value>es</value>
-  			<description>Español</description>
-  		</entry>
-  		<entry>
-  			<value>fr</value>
-  			<description>Français</description>
-  		</entry>
-  		<entry>
-  			<value>it</value>
-  			<description>Italiano</description>
-  		</entry>
+      <entry>
+        <value>de</value>
+        <description>Deutsch</description>
+      </entry>
+      <entry>
+        <value>en</value>
+        <description>English</description>
+      </entry>
+      <entry>
+        <value>nl</value>
+        <description>Nederlands</description>
+      </entry>
+      <entry>
+        <value>es</value>
+        <description>Español</description>
+      </entry>
+      <entry>
+        <value>fr</value>
+        <description>Français</description>
+      </entry>
+      <entry>
+        <value>it</value>
+        <description>Italiano</description>
+      </entry>
     </entries>
   </typedefinition>
   <typedefinition>
@@ -51,42 +51,42 @@
       <name>timezone</name>    
     </head>
     <entries>
-  		<entry>
-  			<value></value>
-  			<description>Use system default</description>
-  		</entry>
-  		<entry>
-  			<value>Europe/Amsterdam</value>
-  			<description>Europe/Amsterdam</description>
-  		</entry>
-  		<entry>
-  			<value>Europe/Berlin</value>
-  			<description>Europe/Berlin</description>
-  		</entry>
-  		<entry>
-  			<value>Europe/Vatican</value>
-  			<description>Europe/Vatican</description>
-  		</entry>
-  		<entry>
-  			<value>Europe/Lisbon</value>
-  			<description>Europe/Lisbon</description>
-  		</entry>
-  		<entry>
-  			<value>Europe/Vienna</value>
-  			<description>Europe/Vienna</description>
-  		</entry>
-  		<entry>
-  			<value>Europe/Zurich</value>
-  			<description>Europe/Zurich</description>
-  		</entry>
-  		<entry>
-  			<value>Europe/London</value>
-  			<description>Europe/London</description>
-  		</entry>
-  		<entry>
-  			<value>Europe/Luxembourg</value>
-  			<description>Europe/Luxembourg</description>
-  		</entry>
+      <entry>
+        <value></value>
+        <description>Use system default</description>
+      </entry>
+      <entry>
+        <value>Europe/Amsterdam</value>
+        <description>Europe/Amsterdam</description>
+      </entry>
+      <entry>
+        <value>Europe/Berlin</value>
+        <description>Europe/Berlin</description>
+      </entry>
+      <entry>
+        <value>Europe/Vatican</value>
+        <description>Europe/Vatican</description>
+      </entry>
+      <entry>
+        <value>Europe/Lisbon</value>
+        <description>Europe/Lisbon</description>
+      </entry>
+      <entry>
+        <value>Europe/Vienna</value>
+        <description>Europe/Vienna</description>
+      </entry>
+      <entry>
+        <value>Europe/Zurich</value>
+        <description>Europe/Zurich</description>
+      </entry>
+      <entry>
+        <value>Europe/London</value>
+        <description>Europe/London</description>
+      </entry>
+      <entry>
+        <value>Europe/Luxembourg</value>
+        <description>Europe/Luxembourg</description>
+      </entry>
     </entries>
   </typedefinition>
   <typedefinition>
@@ -94,42 +94,42 @@
       <name>country</name>    
     </head>
     <entries>
-  		<entry>
-  			<value>de</value>
-  			<description>Deutschland</description>
-  		</entry>
-  		<entry>
-  			<value>at</value>
-  			<description>Österreich</description>
-  		</entry>
-  		<entry>
-  			<value>ch</value>
-  			<description>Schweiz</description>
-  		</entry>
-  		<entry>
-  			<value>en</value>
-  			<description>England</description>
-  		</entry>
-  		<entry>
-  			<value>nl</value>
-  			<description>Niederlande</description>
-  		</entry>
-  		<entry>
-  			<value>es</value>
-  			<description>Spanien</description>
-  		</entry>
-  		<entry>
-  			<value>it</value>
-  			<description>Italien</description>
-  		</entry>
-  		<entry>
-  			<value>fr</value>
-  			<description>Frankreich</description>
-  		</entry>
-  		<entry>
-  			<value></value>
-  			<description>Sonstiges</description>
-  		</entry>
+      <entry>
+        <value>de</value>
+        <description>Deutschland</description>
+      </entry>
+      <entry>
+        <value>at</value>
+        <description>Österreich</description>
+      </entry>
+      <entry>
+        <value>ch</value>
+        <description>Schweiz</description>
+      </entry>
+      <entry>
+        <value>en</value>
+        <description>England</description>
+      </entry>
+      <entry>
+        <value>nl</value>
+        <description>Niederlande</description>
+      </entry>
+      <entry>
+        <value>es</value>
+        <description>Spanien</description>
+      </entry>
+      <entry>
+        <value>it</value>
+        <description>Italien</description>
+      </entry>
+      <entry>
+        <value>fr</value>
+        <description>Frankreich</description>
+      </entry>
+      <entry>
+        <value></value>
+        <description>Sonstiges</description>
+      </entry>
     </entries>
   </typedefinition>
   <typedefinition>
@@ -137,18 +137,18 @@
       <name>mail_verifiy</name>    
     </head>
     <entries>
-  		<entry>
-  			<value>0</value>
-  			<description>Nein</description>
-  		</entry>
-  		<entry>
-  			<value>1</value>
-  			<description>Verifizierungscode verschicken und Antwort in DB speichern, jedoch nicht am Login hindern</description>
-  		</entry>
-  		<entry>
-  			<value>2</value>
-  			<description>Nur Benutzer mit verifizierten Mail-Adressen düfen sich einloggen (Betrifft keine Admins)</description>
-  		</entry>
+      <entry>
+        <value>0</value>
+        <description>Nein</description>
+      </entry>
+      <entry>
+        <value>1</value>
+        <description>Verifizierungscode verschicken und Antwort in DB speichern, jedoch nicht am Login hindern</description>
+      </entry>
+      <entry>
+        <value>2</value>
+        <description>Nur Benutzer mit verifizierten Mail-Adressen düfen sich einloggen (Betrifft keine Admins)</description>
+      </entry>
     </entries>
   </typedefinition>
   <typedefinition>
@@ -156,22 +156,22 @@
       <name>barcode</name>    
     </head>
     <entries>
-  		<entry>
-  			<value>EAN-13</value>
-  			<description>EAN-13</description>
-  		</entry>
-  		<entry>
-  			<value>CODE39</value>
-  			<description>CODE39</description>
-  		</entry>
-  		<entry>
-  			<value>CODE93</value>
-  			<description>CODE93</description>
-  		</entry>
-  		<entry>
-  			<value>UPC-A</value>
-  			<description>UPC-A</description>
-  		</entry>
+      <entry>
+        <value>EAN-13</value>
+        <description>EAN-13</description>
+      </entry>
+      <entry>
+        <value>CODE39</value>
+        <description>CODE39</description>
+      </entry>
+      <entry>
+        <value>CODE93</value>
+        <description>CODE93</description>
+      </entry>
+      <entry>
+        <value>UPC-A</value>
+        <description>UPC-A</description>
+      </entry>
     </entries>
   </typedefinition>
   <group>
@@ -210,34 +210,34 @@
       <name>Sicherheit und Anti-Spam</name>
     </head>
     <items>
-    	<item>
-    		<name>sys_logoffdoubleusers</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Soll ein eingeloggter User ausgeloggt werden, wenn sich ein zweiter (er selbst an einem anderen PC) mit seinem Account anmeldet?</description>
-    	</item>
-    	<item>
-    		<name>sys_login_verified_mail_only</name>
-    		<type>mail_verifiy</type>
-    		<default>0</default>
-    		<description>Müssen Benutzer ihre Email-Adresse verifizieren</description>
-    	</item>
-    	<item>
-    		<name>mc_only_logged_in</name>
-    		<type>boolean</type>
-    		<default>1</default>
-    		<description>Nur Eingeloggte dürfen Kommentare verfassen</description>
-    	</item>
-    	<item>
-    		<name>show_mysql_errors</name>
-    		<type>boolean</type>
-    		<default>1</default>
-    		<description>MySQL Fehlermeldungen anzeigen</description>
-    	</item>
-    	<item>
-    		<name>mf_forbidden_trashmail_domains</name>
-    		<type>text</type>
-    		<default>dodgeit.com
+      <item>
+        <name>sys_logoffdoubleusers</name>
+        <type>boolean</type>
+        <default>0</default>
+        <description>Soll ein eingeloggter User ausgeloggt werden, wenn sich ein zweiter (er selbst an einem anderen PC) mit seinem Account anmeldet?</description>
+      </item>
+      <item>
+        <name>sys_login_verified_mail_only</name>
+        <type>mail_verifiy</type>
+        <default>0</default>
+        <description>Müssen Benutzer ihre Email-Adresse verifizieren</description>
+      </item>
+      <item>
+        <name>mc_only_logged_in</name>
+        <type>boolean</type>
+        <default>1</default>
+        <description>Nur Eingeloggte dürfen Kommentare verfassen</description>
+      </item>
+      <item>
+        <name>show_mysql_errors</name>
+        <type>boolean</type>
+        <default>1</default>
+        <description>MySQL Fehlermeldungen anzeigen</description>
+      </item>
+      <item>
+        <name>mf_forbidden_trashmail_domains</name>
+        <type>text</type>
+        <default>dodgeit.com
 mailinator.com
 jetable.org
 spam.la
@@ -255,8 +255,8 @@ trashdevil.de
 mailtrash.net
 eintagsmail.de
 nospamfor.us</default>
-    		<description>Email-Domain-Blacklist (Um Wegwerf-Mailadressen zu vermeiden)</description>
-    	</item>
+        <description>Email-Domain-Blacklist (Um Wegwerf-Mailadressen zu vermeiden)</description>
+      </item>
     </items>
   </group>
   <group>
@@ -264,30 +264,30 @@ nospamfor.us</default>
       <name>IP-Sperre</name>
     </head>
     <items>
-    	<item>
-    		<name>ip_blacklist</name>
-    		<type>text</type>
-    		<default></default>
-    		<description>Liste aller IP-Adressen, die von Lansuite komplett geblockt werden sollen</description>
-    	</item>
-    	<item>
-    		<name>reload_limit</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Seite bei zu häufigen Zugriffen von einer IP sperren?</description>
-    	</item>
-    	<item>
-    		<name>reload_time</name>
-    		<type>int</type>
-    		<default>600</default>
-    		<description>Aufzeichnungszeitraum für IP-Reload in Sekunden</description>
-    	</item>
-    	<item>
-    		<name>reload_hits</name>
-    		<type>int</type>
-    		<default>120</default>
-    		<description>Nach wie vielen Hits im Zeitraum soll eine IP gesperrt werden?</description>
-    	</item>
+      <item>
+        <name>ip_blacklist</name>
+        <type>text</type>
+        <default></default>
+        <description>Liste aller IP-Adressen, die von Lansuite komplett geblockt werden sollen</description>
+      </item>
+      <item>
+        <name>reload_limit</name>
+        <type>boolean</type>
+        <default>0</default>
+        <description>Seite bei zu häufigen Zugriffen von einer IP sperren?</description>
+      </item>
+      <item>
+        <name>reload_time</name>
+        <type>int</type>
+        <default>600</default>
+        <description>Aufzeichnungszeitraum für IP-Reload in Sekunden</description>
+      </item>
+      <item>
+        <name>reload_hits</name>
+        <type>int</type>
+        <default>120</default>
+        <description>Nach wie vielen Hits im Zeitraum soll eine IP gesperrt werden?</description>
+      </item>
     </items>
   </group>
   <group>
@@ -295,36 +295,36 @@ nospamfor.us</default>
       <name>Lokalisierung</name>
     </head>
     <items>
-    	<item>
-    		<name>sys_language</name>
-    		<type>language</type>
-    		<default>de</default>
-    		<description>Sprache des Systems</description>
-    	</item>
-		<item>
-    		<name>sys_timezone</name>
-    		<type>timezone</type>
-    		<default></default>
-    		<description>Zeitzone</description>
-    	</item>
-    	<item>
-    		<name>sys_country</name>
-    		<type>country</type>
-    		<default>de</default>
-    		<description>Land in dem die Party stattfindet</description>
-    	</item>
-    	<item>
-    		<name>sys_currency</name>
-    		<type>string</type>
-    		<default>Euro</default>
-    		<description>Währung des Systems</description>
-    	</item>
-    	<item>
-    		<name>show_translation_links</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Soll Admins hinter jedem übersetzbaren Text ein Editieren-Link gezeigt werden?</description>
-    	</item>
+      <item>
+        <name>sys_language</name>
+        <type>language</type>
+        <default>de</default>
+        <description>Sprache des Systems</description>
+      </item>
+    <item>
+        <name>sys_timezone</name>
+        <type>timezone</type>
+        <default></default>
+        <description>Zeitzone</description>
+      </item>
+      <item>
+        <name>sys_country</name>
+        <type>country</type>
+        <default>de</default>
+        <description>Land in dem die Party stattfindet</description>
+      </item>
+      <item>
+        <name>sys_currency</name>
+        <type>string</type>
+        <default>Euro</default>
+        <description>Währung des Systems</description>
+      </item>
+      <item>
+        <name>show_translation_links</name>
+        <type>boolean</type>
+        <default>0</default>
+        <description>Soll Admins hinter jedem übersetzbaren Text ein Editieren-Link gezeigt werden?</description>
+      </item>
     </items>
   </group>
   <group>
@@ -332,36 +332,42 @@ nospamfor.us</default>
       <name>Website-Spezifisches</name>
     </head>
     <items>
-    	<item>
-    		<name>sys_page_title</name>
-    		<type>string</type>
-    		<default>Lansuite CMS</default>
-    		<description>Der Seitentitel. Z.b. oben Links im Browserfenster, oder im RSS-Feed</description>
-    	</item>
-    	<item>
-    		<name>sys_partyurl</name>
-    		<type>string</type>
-    		<default>http://lansuite.orgapage.de</default>
-    		<description>Der Link zu der LanParty-Homepage</description>
-    	</item>
-    	<item>
-    		<name>sys_party_mail</name>
-    		<type>string</type>
-    		<default></default>
-    		<description>Kontaktemail der Lanparty (Webmaster)</description>
-    	</item>
-    	<item>
-    		<name>google_maps_api_key</name>
-    		<type>string</type>
-    		<default></default>
-    		<description>Google-Maps-Api-Key (Für die Besucher-Karte) Siehe: http://www.google.com/apis/maps/signup.html</description>
-    	</item>
-    	<item>
-    		<name>google_analytics_id</name>
-    		<type>string</type>
-    		<default></default>
-    		<description>Google-Analytics-ID. ID um Google-Analytics Code zu aktivieren</description>
-    	</item>
+      <item>
+        <name>sys_page_title</name>
+        <type>string</type>
+        <default>Lansuite CMS</default>
+        <description>Der Seitentitel. Z.b. oben Links im Browserfenster, oder im RSS-Feed</description>
+      </item>
+      <item>
+        <name>sys_partyurl</name>
+        <type>string</type>
+        <default>http://lansuite.orgapage.de</default>
+        <description>Der Link zu der LanParty-Homepage</description>
+      </item>
+      <item>
+        <name>sys_partyurl_ssl</name>
+        <type>string</type>
+        <default></default>
+        <description>Der SSL-Link (HTTPS://) zur LanParty-Homepage (falls vorhanden)</description>
+      </item>
+      <item>
+        <name>sys_party_mail</name>
+        <type>string</type>
+        <default></default>
+        <description>Kontaktemail der Lanparty (Webmaster)</description>
+      </item>
+      <item>
+        <name>google_maps_api_key</name>
+        <type>string</type>
+        <default></default>
+        <description>Google-Maps-Api-Key (Für die Besucher-Karte) Siehe: http://www.google.com/apis/maps/signup.html</description>
+      </item>
+      <item>
+        <name>google_analytics_id</name>
+        <type>string</type>
+        <default></default>
+        <description>Google-Analytics-ID. ID um Google-Analytics Code zu aktivieren</description>
+      </item>
     </items>
   </group>
   <group>
@@ -369,18 +375,18 @@ nospamfor.us</default>
       <name>Barcode</name>
     </head>
     <items>
-     	<item>
-    		<name>sys_barcode_on</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Soll das Barcodesystem verwendet werden?</description>
-    	</item>
-    	<item>
-    		<name>sys_barcode_typ</name>
-    		<type>barcode</type>
-    		<default>EAN-13</default>
-    		<description>Barcode-Typ der verwendet werden soll</description>
-    	</item>
+       <item>
+        <name>sys_barcode_on</name>
+        <type>boolean</type>
+        <default>0</default>
+        <description>Soll das Barcodesystem verwendet werden?</description>
+      </item>
+      <item>
+        <name>sys_barcode_typ</name>
+        <type>barcode</type>
+        <default>EAN-13</default>
+        <description>Barcode-Typ der verwendet werden soll</description>
+      </item>
     </items>
   </group>
   <group>
@@ -388,24 +394,24 @@ nospamfor.us</default>
       <name>Seite sperren</name>
     </head>
     <items>
-    	<item>
-    		<name>sys_blocksite</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Lansuiteseite sperren - Es wird auf jeder Seite nur noch ein Infotext angezeigt</description>
-    	</item>
-    	<item>
-    		<name>sys_blocksite_text</name>
-    		<type>string</type>
-    		<default>Die Seite ist momentan Offline.</default>
-    		<description>Offlinetext wenn die Seite gesperrt ist.</description>
-    	</item>
-    	<item>
-    		<name>sys_freeze</name>
-    		<type>boolean</type>
-    		<default>0</default>
-    		<description>Freeze-Mode - Keine Änderungen an der DB mehr erlauben</description>
-    	</item>
+      <item>
+        <name>sys_blocksite</name>
+        <type>boolean</type>
+        <default>0</default>
+        <description>Lansuiteseite sperren - Es wird auf jeder Seite nur noch ein Infotext angezeigt</description>
+      </item>
+      <item>
+        <name>sys_blocksite_text</name>
+        <type>string</type>
+        <default>Die Seite ist momentan Offline.</default>
+        <description>Offlinetext wenn die Seite gesperrt ist.</description>
+      </item>
+      <item>
+        <name>sys_freeze</name>
+        <type>boolean</type>
+        <default>0</default>
+        <description>Freeze-Mode - Keine Änderungen an der DB mehr erlauben</description>
+      </item>
     </items>
   </group>
 </config>

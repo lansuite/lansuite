@@ -13,5 +13,9 @@ $smarty->assign('buttons_add', $dsp->FetchIcon('index.php?mod=signon', 'add_user
 $smarty->assign('buttons_pw', $dsp->FetchIcon('index.php?mod=usrmgr&amp;action=pwrecover', 'pw_forgot',t('Passwort vergessen')));
 $smarty->assign('buttons_login', '<input type="submit" class="Button" name="login" value="Einloggen" />');
 
+// 62.67.200.4 = Proxy IP of https://sslsites.de/lansuite.orgapage.de
+if ($cfg['sys_partyurl_ssl'] and ($_SERVER['HTTPS'] != 'on' and getenv(REMOTE_ADDR) != "62.67.200.4"))
+  $smarty->assign('ssl_link', $cfg['sys_partyurl_ssl']);
+
 $box->AddTemplate($smarty->fetch('modules/boxes/templates/box_login_content.htm'));
 ?>
