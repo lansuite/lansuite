@@ -124,7 +124,9 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $ms2->AddResultField(t('Datum'), 'UNIX_TIMESTAMP(b.date) AS date', 'MS2GetDate');
   $ms2->AddResultField(t('Letzte Änderung'), 'UNIX_TIMESTAMP(b.changedate) AS changedate', 'MS2GetDate');
 
-  $ms2->AddIconField('details', 'index.php?mod=bugtracker&bugid=', t('Details'));
+  $ms2->SetTargetPage('comments', 20);
+
+  $ms2->AddIconField('details', 'index.php?mod=bugtracker&bugid=%id%&ms_page=%page%', t('Details'));
   if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=bugtracker&action=add&bugid=', t('Editieren'));
   if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=bugtracker&action=delete&bugid=', t('Löschen'));
 
