@@ -20,39 +20,39 @@ function RewriteFields() {
 
 function UploadFiles() {
 global $func, $gd;
-		// Check for errors
-		if ($_POST['name'] == '') {
-			$name_error = t('Bitte geben Sie einen Namen ein');
-			$_GET['step'] = 1;
-		}
-		if (strlen($_POST['text']) > 5000) {
-			$text_error = t('Der Text darf nicht mehr als 5000 Zeichen enthalten');
-			$_GET['step'] = 1;
-		}
+    // Check for errors
+    if ($_POST['name'] == '') {
+      $name_error = t('Bitte geben Sie einen Namen ein');
+      $_GET['step'] = 1;
+    }
+    if (strlen($_POST['text']) > 5000) {
+      $text_error = t('Der Text darf nicht mehr als 5000 Zeichen enthalten');
+      $_GET['step'] = 1;
+    }
 
     // --- Sponsor Page Banner ---
     // 1) Was a picture uploaded?
     if ($_FILES['pic_upload']['name']) {
-			$_POST['pic_path'] = $_POST['pic_upload'];
+      $_POST['pic_path'] = $_POST['pic_upload'];
 
-		// 2) Was an external URL given?
-		} elseif ($_POST['pic_path'] != 'http://' and $_POST['pic_path'] != '') $_POST['pic_path'] = $_POST['pic_path'];
+    // 2) Was an external URL given?
+    } elseif ($_POST['pic_path'] != 'http://' and $_POST['pic_path'] != '') $_POST['pic_path'] = $_POST['pic_path'];
 
-		// 3) Was a code submitted?
+    // 3) Was a code submitted?
     elseif ($_POST['pic_code'] != '') {
       $_POST['pic_path'] = $_POST['pic_code'];
       if (substr($_POST['pic_path'], 0, 12) != 'html-code://') $_POST['pic_path'] = 'html-code://'. $_POST['pic_path'];
     }
 
-		// --- Rotation Banner ---
+    // --- Rotation Banner ---
     // 1) Was a picture uploaded?
     if ($_FILES['pic_upload_banner']['name']) {
       $_POST['pic_path_banner'] = $_POST['pic_upload_banner'];
 
-		// 2) Was an external URL given?
-		} elseif ($_POST['pic_path_banner'] != 'http://' and $_POST['pic_path_banner'] != '') $_POST['pic_path_banner'] = $_POST['pic_path_banner'];
+    // 2) Was an external URL given?
+    } elseif ($_POST['pic_path_banner'] != 'http://' and $_POST['pic_path_banner'] != '') $_POST['pic_path_banner'] = $_POST['pic_path_banner'];
 
-		// 3) Was a code submitted?
+    // 3) Was a code submitted?
     elseif ($_POST['pic_code_banner'] != '') {
       $_POST['pic_path_banner'] = $_POST['pic_code_banner'];
       if (substr($_POST['pic_path_banner'], 0, 12) != 'html-code://') $_POST['pic_path_banner'] = 'html-code://'. $_POST['pic_path_banner'];
@@ -63,15 +63,15 @@ global $func, $gd;
       $_POST['pic_path_banner'] = 'ext_inc/banner/banner_'. $_FILES['pic_upload']['name'];
     }
 
-		// --- Box Button ---
+    // --- Box Button ---
     // 1) Was a picture uploaded?
     if ($_FILES['pic_upload_button']['name']) {
-			$_POST['pic_path_button'] = $_POST['pic_upload_button'];
+      $_POST['pic_path_button'] = $_POST['pic_upload_button'];
 
-		// 2) Was an external URL given?
-		} elseif ($_POST['pic_path_button'] != 'http://' and $_POST['pic_path_button'] != '') $_POST['pic_path_button'] = $_POST['pic_path_button'];
+    // 2) Was an external URL given?
+    } elseif ($_POST['pic_path_button'] != 'http://' and $_POST['pic_path_button'] != '') $_POST['pic_path_button'] = $_POST['pic_path_button'];
 
-		// 3) Was a code submitted?
+    // 3) Was a code submitted?
     elseif ($_POST['pic_code_button'] != '') {
       $_POST['pic_path_button'] = $_POST['pic_code_button'];
       if (substr($_POST['pic_path_button'], 0, 12) != 'html-code://') $_POST['pic_path_button'] = 'html-code://'. $_POST['pic_path_button'];
@@ -114,16 +114,18 @@ else {
   $mf->AddField('', '', IS_TEXT_MESSAGE, t('Wenn Sie hier keine Datei angeben, wird der Banner/Button automatisch durch verkleinern der oben angegebenen Datei erzeugt (Funktioniert nur bei heraufgeladenen Dateien).'));
   $mf->AddGroup('');
 
-  $mf->AddField(t('In Rotations-Banner').'|'.t('Der Banner wird oben in den Rotations-Banner aufgenommen'), 'rotation', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+  $mf->AddField(t('In Rotations-Banner').'|'.t('Der Banner wird oben in den Rotations-Banner aufgenommen'), 'rotation', 'tinyint(1)', '', FIELD_OPTIONAL, '', 4);
   $mf->AddField(t('Bild-Upload'), 'pic_upload_banner', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
   $mf->AddField(t('Oder: Bild-URL'), 'pic_path_banner', 'varchar(255)', '', FIELD_OPTIONAL);
   $mf->AddField(t('Oder: Bild-Code (z.B. Flash)') . $code_popup_link_banner, 'pic_code_banner', 'text', '', FIELD_OPTIONAL);
+  $mf->AddField(t('Bei HTTPS verstecken').'|'.t('Diese Option solltest du aktivieren, wenn du den Banner-Code von einer externen Webseite lädst und er dort nur als HTTP Version verfügbar ist, du deine Webseite aber als HTTPS ausliefern möchtest.'), 'ssl_hide_banner', '', '', FIELD_OPTIONAL);
   $mf->AddGroup('Rotation Banner');
 
-  $mf->AddField(t('In Sponsoren-Box').'|'.t('Der Banner wird in der Sponsoren-Box angezeigt'), 'active', 'tinyint(1)', '', FIELD_OPTIONAL, '', 3);
+  $mf->AddField(t('In Sponsoren-Box').'|'.t('Der Banner wird in der Sponsoren-Box angezeigt'), 'active', 'tinyint(1)', '', FIELD_OPTIONAL, '', 4);
   $mf->AddField(t('Bild-Upload'), 'pic_upload_button', IS_FILE_UPLOAD, 'ext_inc/banner/', FIELD_OPTIONAL);
   $mf->AddField(t('Oder: Bild-URL'), 'pic_path_button', 'varchar(255)', '', FIELD_OPTIONAL);
   $mf->AddField(t('Oder: Bild-Code (z.B. Flash)') . $code_popup_link_box, 'pic_code_button', 'text', '', FIELD_OPTIONAL);
+  $mf->AddField(t('Bei HTTPS verstecken').'|'.t('Diese Option solltest du aktivieren, wenn du den Banner-Code von einer externen Webseite lädst und er dort nur als HTTP Version verfügbar ist, du deine Webseite aber als HTTPS ausliefern möchtest.'), 'ssl_hide_button', '', '', FIELD_OPTIONAL);
   $mf->AddGroup('Sponsoren Box');
 
   if ($func->isModActive('tournament2')) {
