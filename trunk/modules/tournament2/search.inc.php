@@ -59,6 +59,8 @@ function IfFinished($tid) {
   else return false;
 }
 
+$dsp->NewContent(t('Turnierübersicht'), t('Hier finden Sie eine Übersicht aller angebotenen Turniere.'));
+
 
 $ms2->query['from'] = "%prefix%tournament_tournaments AS t LEFT JOIN %prefix%t2_teams AS teams ON t.tournamentid = teams.tournamentid";
 $ms2->query['where'] = "(t.status != 'invisible' OR ". (int)$auth['type'] ." > 1) AND t.party_id = ". (int)$party->party_id;
@@ -73,7 +75,7 @@ $ms2->AddSelect('t.ngl_gamename');
 $ms2->AddSelect('t.lgz_gamename');
 $ms2->AddSelect('COUNT(teams.tournamentid) AS teamanz');
 $ms2->AddResultField(t('Turniername'), 't.name', 'GetTournamentName');
-$ms2->AddResultField(t('Turnier beginnt um'), 'UNIX_TIMESTAMP(t.starttime) AS starttime', 'MS2GetDate');
+$ms2->AddResultField(t('Startzeit'), 'UNIX_TIMESTAMP(t.starttime) AS starttime', 'MS2GetDate');
 $ms2->AddResultField(t('Team'), 't.maxteams', 'GetTournamentTeamAnz');
 $ms2->AddResultField(t('Status'), 't.status', 'GetTournamentStatus');
 
@@ -85,6 +87,8 @@ if ($auth['type'] >= 2) $ms2->AddIconField('generate', 'index.php?mod=tournament
 if ($auth['type'] >= 2) $ms2->AddIconField('edit', 'index.php?mod=tournament2&action=change&step=1&tournamentid=', t('Editieren'));
 if ($auth['type'] >= 3) $ms2->AddIconField('delete', 'index.php?mod=tournament2&action=delete&step=2&tournamentid=', t('Löschen'));
 
+if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('Anmeldung &ouml;ffnen', 'index.php?mod=tournament2&action=changestat&step=open', 1);
+if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('Anmeldung sperren', 'index.php?mod=tournament2&action=changestat&step=lock', 1);
 if ($auth['type'] >= 3) $ms2->AddMultiSelectAction('L&ouml;schen', 'index.php?mod=tournament2&action=delete&step=10', 1);
 
 $ms2->PrintSearch('index.php?mod=tournament2', 't.tournamentid');
