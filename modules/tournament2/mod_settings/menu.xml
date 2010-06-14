@@ -62,6 +62,11 @@
 		<requirement>2</requirement>
 	</entry>
 	<entry>
+		<action>changestat</action>
+		<file>tournaments_change</file>
+		<requirement>3</requirement>
+	</entry>
+	<entry>
 		<action>delete</action>
 		<file>tournaments_del</file>
 		<requirement>3</requirement>
