@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $smarty->assign('caption', t('Sonstige neue Kommentare'));
 $content = "";
@@ -29,7 +29,7 @@ if ($db->num_rows($query) > 0) while($row = $db->fetch_array($query)) {
     break;
     case 'User':
       $row2 = $db->qry_first('SELECT username FROM %prefix%user WHERE userid = %int%', $row['relatedto_id']);
-      $link = 'index.php?mod=usrmgr&action=details&userid='. (int)$row['relatedto_id'] .'&headermenuitem=3';
+      $link = 'index.php?mod=usrmgr&action=details&userid='. (int)$row['relatedto_id'] .'#tabs-2';
       $title = 'User: '. $row2['username'];
     break;
     case 'Poll':
