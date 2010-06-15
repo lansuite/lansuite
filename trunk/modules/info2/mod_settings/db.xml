@@ -1,219 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <lansuite>
-	<header>
-		<filetype>LanSuite</filetype>
-		<version>2.0</version>
-		<source>http://www.lansuite.de</source>
-		<date>2005-08-23 11:35</date>
-	</header>
-	<table>
-		<table_head>
-			<name>info</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>infoID</name>
-				<type>int(11)</type>
-				<null></null>
-				<key>PRI</key>
-				<default></default>
-				<extra>auto_increment</extra>
-			</field>
-			<field>
-				<name>active</name>
-				<type>tinyint(1)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>caption</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>shorttext</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>text</name>
-				<type>text</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>caption_en</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>shorttext_en</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>text_en</name>
-				<type>text</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>caption_es</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>shorttext_es</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>text_es</name>
-				<type>text</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>caption_fr</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>shorttext_fr</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>text_fr</name>
-				<type>text</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>caption_nl</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>shorttext_nl</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>text_nl</name>
-				<type>text</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>caption_it</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>shorttext_it</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>text_it</name>
-				<type>text</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>picture</name>
-				<type>varchar(50)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>sortorder</name>
-				<type>tinyint(2)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>partyid</name>
-				<type>int(11)</type>
-				<null></null>
-				<key>IND</key>
-				<default>0</default>
-				<extra></extra>
-    	  <foreign_key>partys.party_id</foreign_key>
-    	  <on_delete>ASK_SET0</on_delete>
-			</field>
-			<field>
-				<name>link</name>
-				<type>varchar(255)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-		</structure>
-		<content>
-			<entry>
-				<infoID>1</infoID>
-				<active>0</active>
-				<caption>Location</caption>
-				<shorttext>Hier wird die Party stattfinden</shorttext>
-				<text>Gemeindehalle--lt--br--gt--
+  <header>
+    <filetype>LanSuite</filetype>
+    <version>2.0</version>
+    <source>http://www.lansuite.de</source>
+    <date>2005-08-23 11:35</date>
+  </header>
+  <table>
+    <table_head>
+      <name>info</name>
+    </table_head>
+    <structure>
+      <field>
+        <name>infoID</name>
+        <type>int(11)</type>
+        <null></null>
+        <key>PRI</key>
+        <default></default>
+        <extra>auto_increment</extra>
+      </field>
+      <field>
+        <name>active</name>
+        <type>tinyint(1)</type>
+        <null></null>
+        <key></key>
+        <default>0</default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>caption</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>shorttext</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>text</name>
+        <type>text</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>caption_en</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>shorttext_en</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>text_en</name>
+        <type>text</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>caption_es</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>shorttext_es</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>text_es</name>
+        <type>text</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>caption_fr</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>shorttext_fr</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>text_fr</name>
+        <type>text</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>caption_nl</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>shorttext_nl</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>text_nl</name>
+        <type>text</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>caption_it</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>shorttext_it</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>text_it</name>
+        <type>text</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>picture</name>
+        <type>varchar(50)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>sortorder</name>
+        <type>tinyint(2)</type>
+        <null></null>
+        <key></key>
+        <default>0</default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>partyid</name>
+        <type>int(11)</type>
+        <null></null>
+        <key>IND</key>
+        <default>0</default>
+        <extra></extra>
+        <foreign_key>partys.party_id</foreign_key>
+        <on_delete>ASK_SET0</on_delete>
+      </field>
+      <field>
+        <name>link</name>
+        <type>varchar(255)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+    </structure>
+    <content>
+      <entry>
+        <infoID>1</infoID>
+        <active>0</active>
+        <caption>Location</caption>
+        <shorttext>Hier wird die Party stattfinden</shorttext>
+        <text>Gemeindehalle--lt--br--gt--
 Beispielstraße 12--lt--br--gt--
 12345 Beispielshausen--lt--br--gt--
 --lt--br--gt--
@@ -223,52 +223,61 @@ Beispielstraße 12--lt--br--gt--
 --lt--br--gt--
 --lt--span style="font-style: italic;"--gt--Wie ihr zu uns findet, könnt ihr unter dem Link "Anfahrt" links in der Navigation nachschauen.--lt--/span--gt----lt--br--gt--
 </text>
-				<sortorder>0</sortorder>
-				<partyid>0</partyid>
-			</entry>
-			<entry>
-				<infoID>2</infoID>
-				<active>0</active>
-				<caption>Anfahrt</caption>
-				<shorttext>Anfahrtsbeschreibung zur Lan-Party</shorttext>
-				<text>--lt--P--gt--Hier könnt ihr euch den Weg zu uns über den Web.de-Routen-Planer berechnen lassen. --lt--/P--gt--
---lt--P--gt--Eine detailierte Anfahrtbeschreibung, folgt unterhalb. --lt--!-- WEB.DE Routenplanung Beginn ----gt----lt--/P--gt--
---lt--DIV--gt----lt--/DIV--gt--
---lt--FORM action=http://route.web.de/start.sql method=get target=_blank--gt--
---lt--DIV align=left--gt----lt--INPUT type=hidden value=europa name=select--gt-- --lt--/DIV--gt--
---lt--DIV align=left--gt----lt--/DIV--gt--
---lt--TABLE cellSpacing=0 cellPadding=4 align=left border=1--gt--
---lt--TBODY--gt--
---lt--TR bgColor=#cc510a--gt--
---lt--TD--gt----lt--FONT face="Arial, Helvetica" color=#ffffff size=-1--gt----lt--B--gt--WEB.DE Routenplaner:--lt--/FONT--gt----lt--/B--gt----lt--/TD--gt----lt--/TR--gt--
---lt--TR--gt--
---lt--TD bgColor=#ffffff--gt--
---lt--TABLE cellSpacing=1 cellPadding=2 border=0--gt--
---lt--TBODY--gt--
---lt--TR--gt--
---lt--TD bgColor=#ffffff--gt----lt--FONT face="Arial, Helvetica" color=#000000 size=-2--gt----lt--B--gt--Start:--lt--/B--gt----lt--/FONT--gt----lt--/TD--gt--
---lt--TD bgColor=#efefef--gt----lt--FONT face="Arial, Helvetica" color=#000000 size=-1--gt----lt--INPUT name=fromcity--gt----lt--/FONT--gt-- --lt--/TD--gt--
---lt--TD align=middle bgColor=#efefef rowSpan=2--gt--
---lt--CENTER--gt----lt--FONT color=#000000--gt----lt--INPUT type=image height=40 alt="Routenplanung starten" width=144 src="http://img.web.de/web/img/v4/route/napping.gif" border=0 name=IMAGE--gt----lt--/FONT--gt-- --lt--/CENTER--gt----lt--/TD--gt----lt--/TR--gt--
---lt--TR--gt--
---lt--TD bgColor=#ffffff--gt----lt--FONT face="Arial, Helvetica" color=#000000 size=-2--gt----lt--B--gt--Ziel:--lt--/B--gt----lt--/FONT--gt----lt--/TD--gt--
---lt--TD bgColor=#efefef--gt----lt--FONT face="Arial, Helvetica" color=#000000 size=-1--gt----lt--INPUT value=zielort name=tocity--gt-- --lt--/FONT--gt----lt--/TD--gt----lt--/TR--gt----lt--/TBODY--gt----lt--/TABLE--gt----lt--/TD--gt----lt--/TR--gt----lt--/TBODY--gt----lt--/TABLE--gt----lt--/FORM--gt--
---lt--P--gt----lt--!-- WEB.DE Routenplanung Ende----gt----lt--/P--gt--
---lt--P--gt--&nbsp;--lt--/P--gt--
---lt--P--gt--&nbsp;--lt--/P--gt--
---lt--P--gt--&nbsp;--lt--/P--gt--
---lt--P--gt--&nbsp;--lt--/P--gt--
---lt--P--gt--Auch werden wir vor Ort den Weg ausschildern.--lt--/P--gt--
---lt--P--gt--Wenn ihr uns dennoch nicht findet, meldet euch doch einfach bei folgender Handy-Nummer: 0123-4567890--lt--/P--gt--</text>
-				<sortorder>0</sortorder>
-				<partyid>0</partyid>
-			</entry>
-			<entry>
-				<infoID>3</infoID>
-				<active>0</active>
-				<caption>Impressum_ev</caption>
-				<shorttext>Die Urheber dieser Webseite</shorttext>
-				<text>
+        <sortorder>0</sortorder>
+        <partyid>0</partyid>
+      </entry>
+      <entry>
+        <infoID>2</infoID>
+        <active>0</active>
+        <caption>Anfahrt</caption>
+        <shorttext>Anfahrtsbeschreibung zur Lan-Party</shorttext>
+        <text>--lt--p--gt--Hier k&ouml;nnt ihr euch den Weg zu uns &uuml;ber Google Maps berechnen lassen.--lt--/p--gt--
+--lt--p--gt--Eine detailierte Anfahrtbeschreibung, folgt unterhalb.--lt--/p--gt--
+--lt--div id="map" style="width: 530px; height: 450px;"--gt--&nbsp;--lt--/div--gt--
+--lt--script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAFnydSIy1XA1P5Slzu5fFDxQQ5hZ60MvgP9LXhqcuHYyPhOmTyRSUf6PUiqfRdy1JAX08VCTOW9kLeA"
+      type="text/javascript"--gt----lt--/script--gt-- --lt--script type="text/javascript"--gt--
+//--lt--![CDATA[
+
+var map = null;
+var geocoder = null;
+var pointabs = new GLatLng(48.727307900406544,8.850173950195312);
+var text = "--lt--b--gt--Lanparty--lt--/b--gt----lt--br /--gt----lt--a href='http://maps.google.de/maps?daddr=Strasse+12,+12345+Ortname' target='_blank'--gt----lt--u--gt--Route--lt--/u--gt----lt--/a--gt--";
+var marker = new GMarker(pointabs);
+
+function load() {
+
+if (GBrowserIsCompatible()) {
+
+map = new GMap2(document.getElementById("map"));
+map.addControl(new GSmallMapControl());
+map.addControl(new GMapTypeControl());
+map.addControl(new GOverviewMapControl());
+map.setCenter(pointabs, 10);
+
+map.addOverlay(marker);
+marker.openInfoWindowHtml(text);
+
+GEvent.addListener(marker, "click", function() {
+marker.openInfoWindowHtml(text);
+});
+
+}
+}
+load();
+//]]--gt--
+
+--lt--/script--gt--
+--lt--p--gt--Auch werden wir vor Ort den Weg ausschildern.--lt--/p--gt--
+--lt--p--gt--Wenn ihr uns dennoch nicht findet, meldet euch doch einfach bei folgender Handy-Nummer: 0123-4567890--lt--/p--gt--</text>
+        <sortorder>0</sortorder>
+        <partyid>0</partyid>
+      </entry>
+      <entry>
+        <infoID>3</infoID>
+        <active>0</active>
+        <caption>Impressum_ev</caption>
+        <shorttext>Die Urheber dieser Webseite</shorttext>
+        <text>
 Kleingärtnerverein Musterstadt e. V.--lt--br--gt--
 
 Musterstraße 1--lt--br--gt--
@@ -301,15 +310,15 @@ Haftungshinweis: Trotz sorgfältiger inhaltlicher Kontrolle übernehmen
 wir keine Haftung für die Inhalte externer Links. Für den Inhalt der
 verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
 </text>
-				<sortorder>0</sortorder>
-				<partyid>0</partyid>
-			</entry>
-			<entry>
-				<infoID>4</infoID>
-				<active>0</active>
-				<caption>Regeln (AGB)</caption>
-				<shorttext>Regeln für eine erfolgreiche Lan-Party</shorttext>
-				<text>Liebe Teilnehmerin, lieber Teilnehmer,--lt--br--gt----lt--br--gt--
+        <sortorder>0</sortorder>
+        <partyid>0</partyid>
+      </entry>
+      <entry>
+        <infoID>4</infoID>
+        <active>0</active>
+        <caption>Regeln (AGB)</caption>
+        <shorttext>Regeln für eine erfolgreiche Lan-Party</shorttext>
+        <text>Liebe Teilnehmerin, lieber Teilnehmer,--lt--br--gt----lt--br--gt--
 
 die folgenden Bedingungen regeln das vertragliche Verhältnis zwischen Euch (nachfolgend Teilnehmer) und der %PARTYNAME% (nachfolgend Veranstalter genannt). Mit dem Abschicken der Anmeldung bzw. dem Betreten der Räumlichkeiten werden diese Regeln anerkannt. --lt--br--gt--Vielen Dank für eurer Verständnis !
 
@@ -405,15 +414,15 @@ Sollte einer der hier aufgeführten Punkte durch bestimmte Umstände seine Gült
 --lt--/ul--gt--
 
 --lt--br--gt--%VERNSTALTER_NAME%</text>
-				<sortorder>0</sortorder>
-				<partyid>0</partyid>
-			</entry>
-			<entry>
-				<infoID>5</infoID>
-				<active>0</active>
-				<caption>Party-Infos</caption>
-				<shorttext>Alle Fakten der LAN im Überblick</shorttext>
-				<text>Auf dieser Seite findet ihr alle Fakten der Party im Überblick.--lt--BR--gt--
+        <sortorder>0</sortorder>
+        <partyid>0</partyid>
+      </entry>
+      <entry>
+        <infoID>5</infoID>
+        <active>0</active>
+        <caption>Party-Infos</caption>
+        <shorttext>Alle Fakten der LAN im Überblick</shorttext>
+        <text>Auf dieser Seite findet ihr alle Fakten der Party im Überblick.--lt--BR--gt--
 --lt--UL--gt--
 --lt--LI--gt--Einlass: xx.yy.zzzz aa:bb Uhr--lt--/LI--gt--
 --lt--LI--gt--Ende: xx.yy.zzzz aa:bb Uhr--lt--/LI--gt--
@@ -430,15 +439,15 @@ Sollte einer der hier aufgeführten Punkte durch bestimmte Umstände seine Gült
 --lt--UL--gt--
 --lt--LI--gt--IBAN: --lt--/LI--gt--
 --lt--LI--gt--SWIFT/BIC-Code: --lt--/LI--gt----lt--/UL--gt--</text>
-				<sortorder>0</sortorder>
-				<partyid>0</partyid>
-			</entry>
-			<entry>
-				<infoID>6</infoID>
-				<active>0</active>
-				<caption>Impressum</caption>
-				<shorttext>Die Urheber dieser Webseite</shorttext>
-				<text>
+        <sortorder>0</sortorder>
+        <partyid>0</partyid>
+      </entry>
+      <entry>
+        <infoID>6</infoID>
+        <active>0</active>
+        <caption>Impressum</caption>
+        <shorttext>Die Urheber dieser Webseite</shorttext>
+        <text>
 Max Mustermann--lt--br--gt--
 
 Musterstraße 1--lt--br--gt--
@@ -464,9 +473,9 @@ wir keine Haftung für die Inhalte externer Links. Für den Inhalt der
 verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
 
 </text>
-				<sortorder>0</sortorder>
-				<partyid>0</partyid>
-			</entry>
+        <sortorder>0</sortorder>
+        <partyid>0</partyid>
+      </entry>
                         <entry>
                                 <infoID>7</infoID>
                                 <active>0</active>
@@ -481,98 +490,98 @@ Bei Fragen zur Veranstaltung scheut euch nicht uns anzuschreiben!
                                 <sortorder>0</sortorder>
                                 <partyid>0</partyid>
                         </entry>
-		</content>
-	</table>
-	<table>
-		<table_head>
-			<name>infocat</name>
-		</table_head>
-		<structure>
-			<field>
-				<name>infocatID</name>
-				<type>int(11)</type>
-				<null></null>
-				<key>PRI</key>
-				<default></default>
-				<extra>auto_increment</extra>
-			</field>
-			<field>
-				<name>active</name>
-				<type>tinyint(1)</type>
-				<null></null>
-				<key></key>
-				<default>1</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>category</name>
-				<type>tinyint(2)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>title</name>
-				<type>varchar(250)</type>
-				<null></null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>infogroup</name>
-				<type>varchar(50)</type>
-				<null></null>
-				<key></key>
-				<default>keine</default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>descr</name>
-				<type>varchar(250)</type>
-				<null>YES</null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>text1</name>
-				<type>text</type>
-				<null>YES</null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>picture</name>
-				<type>varchar(50)</type>
-				<null>YES</null>
-				<key></key>
-				<default></default>
-				<extra></extra>
-			</field>
-			<field>
-				<name>sortorder</name>
-				<type>tinyint(2)</type>
-				<null></null>
-				<key></key>
-				<default>0</default>
-				<extra></extra>
-			</field>
-		</structure>
-		<content>
-			<entry>
-				<infocatID>8</infocatID>
-				<active>1</active>
-				<category>2</category>
-				<title>Switch</title>
-				<infogroup>Netzwerk</infogroup>
-				<descr>Bunt und in Farbe und mit Bild</descr>
-				<text1>asdasf</text1>
-				<picture>c6b2bf624e0d0cca03c3f019aa1e9eb1bauherrenprojekt.j</picture>
-				<sortorder>0</sortorder>
-			</entry>
-		</content>
-	</table>
+    </content>
+  </table>
+  <table>
+    <table_head>
+      <name>infocat</name>
+    </table_head>
+    <structure>
+      <field>
+        <name>infocatID</name>
+        <type>int(11)</type>
+        <null></null>
+        <key>PRI</key>
+        <default></default>
+        <extra>auto_increment</extra>
+      </field>
+      <field>
+        <name>active</name>
+        <type>tinyint(1)</type>
+        <null></null>
+        <key></key>
+        <default>1</default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>category</name>
+        <type>tinyint(2)</type>
+        <null></null>
+        <key></key>
+        <default>0</default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>title</name>
+        <type>varchar(250)</type>
+        <null></null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>infogroup</name>
+        <type>varchar(50)</type>
+        <null></null>
+        <key></key>
+        <default>keine</default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>descr</name>
+        <type>varchar(250)</type>
+        <null>YES</null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>text1</name>
+        <type>text</type>
+        <null>YES</null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>picture</name>
+        <type>varchar(50)</type>
+        <null>YES</null>
+        <key></key>
+        <default></default>
+        <extra></extra>
+      </field>
+      <field>
+        <name>sortorder</name>
+        <type>tinyint(2)</type>
+        <null></null>
+        <key></key>
+        <default>0</default>
+        <extra></extra>
+      </field>
+    </structure>
+    <content>
+      <entry>
+        <infocatID>8</infocatID>
+        <active>1</active>
+        <category>2</category>
+        <title>Switch</title>
+        <infogroup>Netzwerk</infogroup>
+        <descr>Bunt und in Farbe und mit Bild</descr>
+        <text1>asdasf</text1>
+        <picture>c6b2bf624e0d0cca03c3f019aa1e9eb1bauherrenprojekt.j</picture>
+        <sortorder>0</sortorder>
+      </entry>
+    </content>
+  </table>
 </lansuite>
