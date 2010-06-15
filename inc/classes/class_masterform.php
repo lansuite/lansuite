@@ -299,6 +299,7 @@ class masterform {
 
               // No \r \n \t \0 \x0B in Non-Multiline-Fields
               elseif ($field['type'] != 'text' and $field['type'] != 'mediumtext' and $field['type'] != 'longtext' and $SQLFieldTypes[$field['name']] != 'text' and $SQLFieldTypes[$field['name']] != 'mediumtext' and $SQLFieldTypes[$field['name']] != 'longtext'
+                and !is_array($_POST[$field['name']])
                 and ((strpos($_POST[$field['name']], "\r") !== false) or (strpos($_POST[$field['name']], "\n") !== false) or (strpos($_POST[$field['name']], "\t") !== false) or (strpos($_POST[$field['name']], "\0") !== false) or (strpos($_POST[$field['name']], "\x0B") !== false))) {
                   $this->error[$field['name']] = t('Dieses Feld enthält nicht erlaubte Steuerungszeichen (z.B. einen Tab, oder Zeilenumbruch)');
               }
