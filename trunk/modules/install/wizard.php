@@ -44,7 +44,7 @@ switch ($_GET["step"]){
 switch ($_GET["step"]){
     // Check Environment
     default:
-        $dsp->NewContent(t('Lansuite Installation und Administration'), t('Willkommen bei der Installation von Lansuite.<br />Im ersten Schritt wird die Konfiguration Ihres Webservers überprüft.<br />Sollte alles korrekt sein, so drücken Sie bitte am Ende der Seite auf --lt--b--gt--Weiter--lt--/b--gt-- um mit der Eingabe der Grundeinstellungen fortzufahren.'));
+    $dsp->NewContent(t('Lansuite Installation und Administration'), t('Willkommen bei der Installation von Lansuite.<br />Im ersten Schritt wird die Konfiguration Ihres Webservers überprüft.<br />Sollte alles korrekt sein, so drücken Sie bitte am Ende der Seite auf <b>Weiter</b> um mit der Eingabe der Grundeinstellungen fortzufahren.'));
 
         $dsp->SetForm("index.php?mod=install&action=wizard");
         $lang_array = array();
@@ -111,7 +111,7 @@ switch ($_GET["step"]){
         }
         $dsp->AddDropDownFieldRow("design", t('Standard-Design'), $t_array, "");
 
-        $dsp->AddCheckBoxRow("resetdb", t('Datenbank überschreiben'), t('<b>ACHTUNG:</b> Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!'), "", 0, "");
+        $dsp->AddCheckBoxRow("resetdb", t('Datenbank überschreiben'), t('ACHTUNG: Eventuell vorhandene Daten in der oben angegeben Datenbank gehen verloren!'), "", 0, "");
         $func->information(t('ACHTUNG: Der Aufruf der nächsten Seite kann bis zu einer Minute in Anspruch nehmen! Bitte in dieser Zeit den Ladevorgang nicht abbrechen!'),NO_LINK);
 
         $dsp->AddFormSubmitRow(t('Weiter'));
@@ -200,7 +200,7 @@ switch ($_GET["step"]){
         $dsp->AddSingleRow("<b>".t('LanSurfer-XML-Export')."</b>");
         $dsp->AddCheckBoxRow("noseat", t('Sitzplan NICHT importieren'), "", "", 1, "");
 
-        $dsp->AddSingleRow(t('<b>ACHTUNG:</b> Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.'));
+        $dsp->AddSingleRow(t('ACHTUNG: Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.'));
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
 
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
