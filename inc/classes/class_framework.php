@@ -45,11 +45,22 @@ class framework {
         $this->timer2 = explode(' ', microtime());
 
         if (isset($_SERVER['REQUEST_URI'])) {
+          if (strpos($_SERVER['REQUEST_URI'], '://') !== false) $req_uri = substr($_SERVER['REQUEST_URI'], strpos($_SERVER['REQUEST_URI'], '://') + 3, strlen($_SERVER['REQUEST_URI']));
+          else $req_uri = $_SERVER['REQUEST_URI'];
+          $this->internal_url_query['host'] = substr($req_uri, 0, strpos($req_uri, '/'));
+          $req_uri = substr($req_uri, strpos($req_uri, '/') + 1, strlen($req_uri));
+          $this->internal_url_query['base'] = $req_uri;
+          if (strpos($req_uri, '?') !== false) $this->internal_url_query['query'] = preg_replace('/[&]?fullscreen=(no|yes)/sUi', '', substr($req_uri, strpos($req_uri, '?') + 1, strlen($req_uri)));
+          else $this->internal_url_query['query'] = '';
+
+          /*
+          // Does not work for https://sslsites.de/lansuite.orgapage.de/index.php (because path is detected as '/' instead of 'lansuite.orgapage.de/')
           if ($CurentURL = @parse_url($_SERVER['REQUEST_URI'])) {
             $this->internal_url_query['base'] = $CurentURL['path'].'?'.$CurentURL['query']; // Enspricht alter $CurentURLBase;
             $this->internal_url_query['query'] = preg_replace('/[&]?fullscreen=(no|yes)/sUi', '', $CurentURL['query']); // Enspricht alter $URLQuery;
             $this->internal_url_query['host'] = $CurentURL['host'];
           }
+          */
         }
         if (!$this->internal_url_query['host']) $this->internal_url_query['host'] = $_SERVER['SERVER_NAME'];
         
