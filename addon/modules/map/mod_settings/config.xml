@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <group>
+    <head>
+      <name>Zieladresse</name>
+    </head>
+    <items>
+    	<item>
+    		<pos>1</pos>
+    		<name>map_street</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Straße</description>
+    	</item>
+    	<item>
+    		<pos>2</pos>
+    		<name>map_hnr</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Hausnummer</description>
+    	</item>
+    	<item>
+    		<pos>3</pos>
+    		<name>map_plz</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>PLZ</description>
+    	</item>
+    	<item>
+    		<pos>4</pos>
+    		<name>map_city</name>
+    		<type>string</type>
+    		<default></default>
+    		<description>Ort</description>
+    	</item>
+    </items>
+  </group>
+</config>
