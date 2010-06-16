@@ -13,7 +13,7 @@
 # 2 days cache for images
 <ifModule mod_headers.c>
   <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf)$">
-  Header set Cache-Control "max-age=172800, public"
+  Header set Cache-Control "max-age=5184000, public"
   </FilesMatch>
 
   # 2 hours cache for css and js
