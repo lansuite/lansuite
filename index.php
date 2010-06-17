@@ -259,7 +259,8 @@
       class party {
         var $party_id;
       }
-      $party->party_id = $cfg['signon_partyid'];
+      $party = new party();
+      $party->party_id = (int)$cfg['signon_partyid'];
     }
 
     if ($config['environment']['configured'] != 0) {
