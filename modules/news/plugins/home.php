@@ -11,7 +11,10 @@ $query = $db->qry("SELECT n.newsid, n.caption, n.priority, MAX(n.date) AS date, 
   ", $cfg['home_item_cnt_news']);
 
 if ($db->num_rows($query) > 0) while ($row = $db->fetch_array($query)) {
-  $smarty->assign('link', "index.php?mod=news&action=comment&newsid={$row["newsid"]}");
+  $page = floor(($row['comments']) / 20);
+  $smarty->assign('link', "index.php?mod=board&action=thread&tid={$row['tid']}&posts_page={$page}#pid{$row['pid']}");
+
+  $smarty->assign('link', "index.php?mod=news&action=comment&newsid={$row["newsid"]}&ms_page={$page}");
   if ($cfg['news_comments_allowed'])
   	$smarty->assign('text', $func->CutString($row["caption"], 40));
   else
