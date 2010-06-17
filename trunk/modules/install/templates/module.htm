@@ -6,7 +6,7 @@
 </tr>
 <tr>
 	<td width="140"> V: {$version} (<i>{$state}</i>)</td>
-	<td nowrap><small><a href="index.php?mod=install&action=modules&step=4&module={$name}">Reset</a>{$db_link}{$menu_link}{$settings_link}{$help_link}</small></td>
+	<td nowrap>{if $showLinks}<small><a href="index.php?mod=install&action=modules&step=4&module={$name}">Reset</a>{$db_link}{$menu_link}{$settings_link}{$help_link}</small>{/if}</td>
 	<td align="right"><small><i>By: {$author}</i></small></td>
 </tr>
 </table>

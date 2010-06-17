@@ -266,8 +266,7 @@ switch ($_GET["step"]){
     case 6:
         $dsp->NewContent(t('Adminaccount anlegen'), t('Hier können Sie einen Adminaccount anlegen. Falls dies bereits durch den Import geschehen ist, können Sie diesen Schritt auch überspringen (auf <b>\'Weiter\'</b> klicken).'));
         $dsp->SetForm("index.php?mod=install&action=wizard&step=7");
-        // FIX language
-    if ($func->admin_exists()) $dsp->AddDoubleRow("Info", "Es existiert bereits ein Adminaccount");
+        if ($func->admin_exists()) $dsp->AddDoubleRow(t('Info'), t('Es existiert bereits ein Adminaccount'));
         
         $dsp->AddTextFieldRow("email", t('E-Mail'), 'admin@admin.de', '');
         $dsp->AddPasswordRow("password", t('Kennwort'), '', '', '', '', "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel1)\"");
@@ -284,15 +283,45 @@ switch ($_GET["step"]){
 
     // Create Adminaccount
     case 7:
-
     // No break!
 
 
-    // Set main config-variables
+    // Load modules
     case 8:
+        $dsp->NewContent(t('Module aktivieren'), t('Hier können Sie festlegen, welche Module aktiv sein sollen'));
+        $dsp->SetForm("index.php?mod=install&action=wizard&step=9");
+        $res = $db->qry("SELECT * FROM %prefix%modules ORDER BY changeable DESC, caption");
+        while ($row = $db->fetch_array($res)) $dsp->AddContentLine($install->getModConfigLine($row, 0));
+        $db->free_result($res);
+        $dsp->AddFormSubmitRow(t('Weiter'));
+
+        $dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/admin");
+        $dsp->AddContent();
+    break;
+
+    // Set main config-variables
+    case 9:
+        // Update modules
+        $res = $db->qry("SELECT name, reqphp, reqmysql FROM %prefix%modules WHERE changeable");
+        while ($row = $db->fetch_array($res)){
+            if ($_POST[$row["name"]]) {
+                if ($row['reqphp'] and version_compare(phpversion(), $row['reqphp']) < 0) $func->information(t('Das Modul %1 kann nicht aktiviert werden, da die PHP Version %2 benötigt wird', $row["name"], $row['reqphp']), NO_LINK);
+                else $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = %string%", $row["name"]);
+            } elseif (count($_POST)) $db->qry_first("UPDATE %prefix%modules SET active = 0 WHERE name = %string%", $row["name"]);
+        }
+        $db->free_result($res);
+
+        $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'settings'");
+        $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'banner'");
+        $db->qry_first("UPDATE %prefix%modules SET active = 1 WHERE name = 'about'");
+
+        $func->getActiveModules();
+        $install->CreateNewTables(0);
+
+
         $dsp->NewContent(t('Wichtige Systemvariablen einstellen'), t('Hier, in diesem letzten Schritt, werden die wichtigsten Konfigurationen in Lansuite eingestellt.'));
 
-        $dsp->SetForm("index.php?mod=install&action=wizard&step=9");
+        $dsp->SetForm("index.php?mod=install&action=wizard&step=10");
 
         // Country
         // Get Selections
@@ -320,13 +349,13 @@ switch ($_GET["step"]){
 
         $dsp->AddFormSubmitRow(t('Weiter'));
 
-        $dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/vars");
+        $dsp->AddBackButton("index.php?mod=install&action=wizard&step=8", "install/vars");
         $dsp->AddContent();
     break;
 
 
     // Display final hints
-    case 9:
+    case 10:
         // Set variables
         $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_language'", $language);
         $db->qry("UPDATE %prefix%config SET cfg_value = %string% WHERE cfg_key = 'sys_country'", $_POST['country']);
@@ -342,7 +371,7 @@ switch ($_GET["step"]){
         if (!func::admin_exists()) $dsp->AddSingleRow("<font color=red>". t('<b>Es wurde kein Admin-Account angelegt</b><br />Solange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.') ."</font>");
 
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Login'), "index.php?mod=install"));
-        $dsp->AddBackButton("index.php?mod=install&action=wizard&step=6", "install/admin");
+        $dsp->AddBackButton("index.php?mod=install&action=wizard&step=9", "install/admin");
         $dsp->AddContent();
         
         $config["environment"]["configured"] = 1;

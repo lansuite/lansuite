@@ -3,13 +3,6 @@
 include_once('modules/install/class_install.php');
 $install = new Install();
 
-function FindCfgKeyForMod($name) {
-  global $db;
-
-    $find_config = $db->qry_first("SELECT cfg_key FROM %prefix%config WHERE (cfg_module = %string%)", $name);
-    if ($find_config["cfg_key"] != '') return true; else return false;
-} 
-
 function WriteMenuEntries() {
   global $smarty, $res, $db, $dsp, $MenuCallbacks;
 
@@ -179,57 +172,7 @@ switch($_GET["step"]) {
       $dsp->SetForm("index.php?mod=install&action=modules&step=2");
 
       $res = $db->qry("SELECT * FROM %prefix%modules ORDER BY changeable DESC, caption");
-      while ($row = $db->fetch_array($res)){
-
-        $smarty->assign('name', $row['name']);
-        $smarty->assign('caption', $row['caption']);
-        $smarty->assign('description', $row['description']);
-        $smarty->assign('version', $row["version"]);
-
-        if ($row["email"]) $author = "<a href=\"mailto:{$row["email"]}\">{$row["author"]}</a>";
-        else $author = $row["author"];
-        $smarty->assign('author', $author);
-
-        if ($row["reqphp"] or $row["reqmysql"]) {
-	    $req = '<br /><u>'. t('Benötigt') .'</u>: ';
-            if ($row["reqphp"]) $req .= 'PHP >= '. $row["reqphp"] .' ';
-            if ($row["reqmysql"]) $req .= 'MySQL >= '. $row["reqmysql"] .' ';
-	} else $req = '';
-        $smarty->assign('req', $req);
-
-        $active = '';
-        if ($row["active"]) $active = ' checked="checked"';
-        $smarty->assign('active', $active);
-
-        $changeable = '';
-        if (!$row["changeable"]) $changeable = ' disabled';
-        $smarty->assign('changeable', $changeable);
-        
-        ($row["state"] == "Stable")? $state = $row["state"] : $state = "<font color=\"red\">{$row["state"]}</font>";
-        $smarty->assign('state', $state);
-
-        (file_exists("modules/{$row["name"]}/icon.gif"))? $img = "modules/{$row["name"]}/icon.gif" : $img = "modules/sample/icon.gif";
-        $smarty->assign('img', $img);
-
-        if (FindCfgKeyForMod($row["name"])) $settings_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=10&module={$row["name"]}\">". t('Konfig.') ."</a>";
-        else $settings_link = "";
-        $smarty->assign('settings_link', $settings_link);
-
-        $find_mod = $db->qry_first("SELECT module FROM %prefix%menu WHERE module=%string%", $row["name"]);
-        if ($find_mod["module"]) $menu_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=30&module={$row["name"]}\">". t('Menü') ."</a>";
-        else $menu_link = "";
-        $smarty->assign('menu_link', $menu_link);
-
-        if (file_exists("modules/{$row["name"]}/mod_settings/db.xml")) $db_link = " | <a href=\"index.php?mod=install&action=mod_cfg&step=40&module={$row["name"]}\">". t('DB') ."</a>";
-        else $db_link = "";
-        $smarty->assign('db_link', $db_link);
-
-        if (file_exists("modules/{$row["name"]}/docu/{$language}_help.php")) $help_link = " | <a href=\"#\" onclick=\"javascript:var w=window.open('index.php?mod=helplet&action=helplet&design=base&module={$row["name"]}&helpletid=help','_blank','width=700,height=500,resizable=no,scrollbars=yes');\" class=\"Help\">?</a>";
-        else $help_link = '';
-        $smarty->assign('help_link', $help_link);
-  
-        $dsp->AddContentLine($smarty->fetch('modules/install/templates/module.htm'));
-      }
+      while ($row = $db->fetch_array($res)) $dsp->AddContentLine($install->getModConfigLine($row));
       $db->free_result($res);
 
       $dsp->AddFormSubmitRow(t('Weiter'));
