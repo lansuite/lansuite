@@ -271,6 +271,14 @@
 				<default></default>
 				<extra></extra>
 			</field>			
+			<field>
+				<name>exported</name>
+				<type>boolean</type>
+				<null>YES</null>
+				<key></key>
+				<default>0</default>
+				<extra></extra>
+			</field>		
 		</structure>
 		<content>
 		</content>
