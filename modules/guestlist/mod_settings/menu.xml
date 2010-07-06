@@ -24,7 +24,15 @@
 	<entry>
 		<caption>Kontocheck updaten</caption>
 		<hint></hint>
-		<link>?mod=guestlist&amp;action=checking</link>
+		<link>?mod=guestlist&auml;action=checking</link>
+		<requirement>2</requirement>
+		<needed_config></needed_config>
+		<level>1</level>
+	</entry>
+	<entry>
+		<caption>Gäste exportieren</caption>
+		<hint></hint>
+		<link>?mod=guestlist&amp;action=export</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>

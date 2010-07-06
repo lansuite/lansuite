@@ -572,6 +572,36 @@
 				<it>Ultima chiamata</it>
 				<file>guestlist</file>
 			</entry>
+			<entry>
+				<id>c70d534783c837e962411a1cb140d294</id>
+				<org>Bitte markieren Sie die User jetzt noch als exportiert.</org>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>export</file>
+			</entry>
+			<entry>
+				<id>b70d534783c837e962411a1cb140d294</id>
+				<org>Die User wurden für die aktuelle Party als exportiert markiert.</org>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>export</file>
+			</entry>
+			<entry>
+				<id>a70d534783c837e962411a1cb140d294</id>
+				<org>Bitte setzten Sie zuerst eine aktive Party.</org>
+				<en></en>
+				<es></es>
+				<fr></fr>
+				<nl></nl>
+				<it></it>
+				<file>export</file>
+			</entry>
 		</content>
 	</table>
 </lansuite>

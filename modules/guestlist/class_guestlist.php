@@ -117,5 +117,24 @@ class guestlist {
     $row2 = $db->qry_first('SELECT name FROM %prefix%partys WHERE party_id = %int%', $partyid);
     $func->log_event(t('Einceck- und Auscheckstatus des Benutzers "%1" wurde für die Party "%2" zurückgesetzt', $row['username'], $row2['name']), 1, '', 'Checkin');
   }
+	
+	function SetExported($userid, $partyid) {
+		global $db, $func;
+		
+		$db->qry('UPDATE %prefix%party_user SET exported = 1 WHERE user_id = %int% AND party_id = %int% LIMIT 1', $userid, $partyid);
+ 	}
+	
+	function Export($userid, $partyid) {
+		global $db, $func;
+		
+		$row = $db->qry_first('SELECT pu.user_id "user_id", u.username "username", u.firstname "firstname", u.name "secondname", c.name "clan"
+			FROM %prefix%party_user pu
+			INNER JOIN %prefix%user u ON u.userid = pu.user_id
+			LEFT JOIN %prefix%clan c ON c.clanid = u.clanid
+			WHERE pu.user_id = %int% AND pu.party_id = %int% LIMIT 1', $userid, $partyid);
+			
+		return $row['user_id'] . ';' . $row['username'] . ';' . $row['firstname'] . ';' . $row['secondname'] . ';' . $row['clan'];
+ 	}
+	
 }
 ?>
