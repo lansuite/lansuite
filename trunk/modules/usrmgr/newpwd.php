@@ -19,7 +19,7 @@ switch($_GET['step']) {
 		else {
 			$db->qry("UPDATE %prefix%user SET password = %string% WHERE userid = %int%", $md5_password, $_GET['userid']);
 
-			$func->confirmation(t('Das Passwort von <b>%2 %3 (%4)</b> wurde erfolgreich geändert.HTML_NEWLINEDas neue Passwort lautet <b>%1</b>.', $password, $user_data["firstname"], $user_data["name"], $user_data["username"]), "index.php?mod=usrmgr&action=details&userid=". $_GET['userid']);
+			$func->confirmation(t('Das Passwort von <b>%2 %3 (%4)</b> wurde erfolgreich geändert.<br>Das neue Passwort lautet <b>%1</b>.', $password, $user_data["firstname"], $user_data["name"], $user_data["username"]), "index.php?mod=usrmgr&action=details&userid=". $_GET['userid']);
 		}
 	break;
 }
