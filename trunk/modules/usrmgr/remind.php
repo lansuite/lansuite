@@ -33,7 +33,7 @@ else switch ($_GET['step']) {
         
             $db->qry("UPDATE %prefix%user SET password = %string%, fcode = '' WHERE fcode = %string%", md5($new_pwd), $_GET['fcode']);
 
-            $func->confirmation(t('Das neue Kennwort wurde erfolgreich generiert.<br>Es lautet:') ." <b>$new_pwd</b>", "index.php");
+            $func->confirmation(t('Das neue Kennwort wurde erfolgreich generiert.<br>Es lautet:') ."\"<b>$new_pwd</b>\"", "index.php");
         } else $func->error(t('Der von Ihnen übermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prüfen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.'), "index.php?mod=usrmgr&action=pwrecover&step=1");
     break;
 
