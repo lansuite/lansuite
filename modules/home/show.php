@@ -23,17 +23,20 @@ switch ($home_page) {
         or ($caption == 'rent' and $auth['type'] >= 2)
         or ($caption == 'task' and $auth['type'] >= 2)
         ) {
-        if ($z % 2 == 0) {
-          $MainContent .= '<ul class="Line">';
-          $MainContent .= '<li class="LineLeftHalf">';
-        } else $MainContent .= '<li class="LineRightHalf">';
-        $smarty->assign('text2', '');
+        $content = '';
         include($inc);
-        $smarty->assign('content', $content);
-        $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
-        $MainContent .= '</li>';
-        if ($z % 2 == 1) $MainContent .= '</ul>';
-        $z++;
+        if ($content) {
+          if ($z % 2 == 0) {
+            $MainContent .= '<ul class="Line">';
+            $MainContent .= '<li class="LineLeftHalf">';
+          } else $MainContent .= '<li class="LineRightHalf">';
+          $smarty->assign('text2', '');
+          $smarty->assign('content', $content);
+          $MainContent .= $smarty->fetch('modules/home/templates/show_item.htm');
+          $MainContent .= '</li>';
+          if ($z % 2 == 1) $MainContent .= '</ul>';
+          $z++;
+        }
       }
     }
 
