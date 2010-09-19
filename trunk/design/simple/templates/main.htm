@@ -33,7 +33,7 @@
   <img src="design/simple/images/lansuite-logo.gif" alt="Lansuite Logo" title="Lansuite Logo" width="191" height="62" border="0" />
 </div>
 <div id="DateLogout">
-  {$smarty.now|date_format:"%d.%m.%Y"} | <a href="index.php?mod=auth&action=logout" class="menu">Logout</a>
+  {$smarty.now|date_format:"%d.%m.%Y"}{if $MainLogout} | {$MainLogout}{/if}
 </div>
 <div id="Banner">{$MainBanner}</div>
 {/if}
