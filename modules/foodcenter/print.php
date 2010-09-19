@@ -75,7 +75,7 @@ class foodcenter_print{
 		
 		
 		if(stristr($value,"/")){
-			$values = split("/",$value);
+			$values = explode("/",$value);
 
 			foreach ($values as $number){
 				if(is_numeric($number)){

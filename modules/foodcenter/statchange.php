@@ -26,7 +26,7 @@ switch ($_GET['step']) {
 				$price = 0;
 				$account = new accounting($prodrow['userid']);
 				if(stristr($prodrow['opts'],"/")){
-					$values = split("/",$prodrow['opts']);
+					$values = explode("/",$prodrow['opts']);
 
 					foreach ($values as $number){
 						if(is_numeric($number)){
@@ -217,7 +217,7 @@ switch ($_GET['step']){
 				$price = 0;
 				$tempdesc = "";
 				if(stristr($prodrow['opts'],"/")){
-					$values = split("/",$prodrow['opts']);
+					$values = explode("/",$prodrow['opts']);
 
 					foreach ($values as $number){
 						if(is_numeric($number)){

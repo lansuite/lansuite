@@ -2,9 +2,9 @@
 function getboardrank($posts) {
   global $cfg;
   
-  $lines = split("\n", $cfg['board_rank']);
+  $lines = explode("\n", $cfg['board_rank']);
   foreach ($lines as $line) {
-    list($num, $name) = split("->", $line);
+    list($num, $name) = explode("->", $line);
     if ($num > $posts) break;
     $rank = $name;
   }

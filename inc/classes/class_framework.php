@@ -358,13 +358,14 @@ class framework {
         if ($compression_mode and $cfg['sys_compress_level']) {
           header("Content-Encoding: $compression_mode");
           echo "\x1f\x8b\x08\x00\x00\x00\x00\x00";
-          $index = $smarty->fetch("design/{$this->design}/templates/main.htm") ."\n<!-- Compressed by $compression_mode -->";
-          $this->content_size = strlen($index);
-          $this->content_crc = crc32($index);
-          $index = gzcompress($index, $cfg['sys_compress_level']);
-          $index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
-          echo $index;
-          echo pack('V', $this->content_crc) . pack('V', $this->content_size); 
+          # $index = $smarty->fetch("design/{$this->design}/templates/main.htm") ."\n<!-- Compressed by $compression_mode -->";
+          #$this->content_size = strlen($index);
+          #$this->content_crc = crc32($index);
+          #$index = gzcompress($index, $cfg['sys_compress_level']);
+          echo gzcompress($smarty->fetch("design/{$this->design}/templates/main.htm") ."\n<!-- Compressed by $compression_mode -->", $cfg['sys_compress_level']);
+          #$index = substr($index, 0, strlen($index) - 4); // Letzte 4 Zeichen werden abgeschnitten. Aber Warum?
+          #echo $index;
+          #echo pack('V', $this->content_crc) . pack('V', $this->content_size);
         } else $smarty->display("design/{$this->design}/templates/main.htm");
       break;
     }

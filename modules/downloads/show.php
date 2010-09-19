@@ -23,7 +23,7 @@ if (!$cfg['download_use_ftp']) {
   } else {
 
     // Generate up-links
-    $Dirs = split('/',$_GET['dir']);
+    $Dirs = explode('/',$_GET['dir']);
     $LinkUp = '<a href="index.php?mod=downloads" class="menu">Downloads</a>';
     $LinkUpDir = '';
     $FileName = '';
