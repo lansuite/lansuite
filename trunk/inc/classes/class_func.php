@@ -588,6 +588,7 @@ class func {
         if ($_FILES[$source_var]['tmp_name'] == '') return false;
 
                 if (strrpos($path, '/') + 1 != strlen($path)) $path .= "/";
+                if (!file_exists($path)) mkdir($path);
                 if ($name) {
                     // Auto-Add File-Extension
                     if (!strpos($name, ".")) $name .= substr($_FILES[$source_var]['name'], strrpos($_FILES[$source_var]['name'], "."), 5);
