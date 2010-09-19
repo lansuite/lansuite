@@ -754,7 +754,7 @@ class display {
     $FileEnding = strtolower(substr($file, strrpos($file, '.'), 5));
 
     if ($FileEnding == '.png' or $FileEnding == '.gif' or $FileEnding == '.jpg' or $FileEnding == '.jpeg') {
-      $FileNamePath = strtolower(substr($file, 0, strrpos($file, '.') - 1));
+      $FileNamePath = strtolower(substr($file, 0, strrpos($file, '.')));
       $FileThumb = $FileNamePath. '_thumb' .$FileEnding;
 
       $gd->CreateThumb($file, $FileThumb, '300', '300');
