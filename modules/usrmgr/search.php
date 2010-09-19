@@ -7,15 +7,33 @@ switch ($_GET['step']) {
 	case 10:
     if (!$_POST['action'] and $_GET['userid']) $_POST['action'][$_GET['userid']] = 1;
 
-    foreach ($_POST['action'] as $key => $val) $UsrMgr->LockAccount($key);
-    $func->confirmation(t('Accounts wurden gesperrt'));
+    $err = '';
+    foreach ($_POST['action'] as $key => $val) if ($key == $auth['userid']) {
+      $err = t('Sie können nicht Ihren eigenen Account sperren');
+      break;
+    }
+
+    if ($err) $func->information($err);
+    else {
+      foreach ($_POST['action'] as $key => $val) $UsrMgr->LockAccount($key);
+      $func->confirmation(t('Accounts wurden gesperrt'));
+    }
 	break;
 
 	case 11:
     if (!$_POST['action'] and $_GET['userid']) $_POST['action'][$_GET['userid']] = 1;
 
-    foreach ($_POST['action'] as $key => $val) $UsrMgr->UnlockAccount($key);
-    $func->confirmation(t('Accounts wurden freigegeben'));
+    $err = '';
+    foreach ($_POST['action'] as $key => $val) if ($key == $auth['userid']) {
+      $err = t('Sie können nicht Ihren eigenen Account freigeben');
+      break;
+    }
+
+    if ($err) $func->information($err);
+    else {
+      foreach ($_POST['action'] as $key => $val) $UsrMgr->UnlockAccount($key);
+      $func->confirmation(t('Accounts wurden freigegeben'));
+    }
 	break;
 }
 
