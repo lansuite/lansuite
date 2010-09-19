@@ -32,7 +32,7 @@ switch($_GET["step"]) {
 
 	// Member aus Team löschen
 	case 30:
-		list($team_id, $user_id) = split("-", $_POST["member_user"], 2);
+		list($team_id, $user_id) = explode("-", $_POST["member_user"], 2);
 		if ($tteam->kick($team_id, $user_id)) $func->confirmation(t('Der Spieler wurde erfolgreich aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr_admin");
 	break;
 

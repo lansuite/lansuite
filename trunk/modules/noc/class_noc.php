@@ -143,7 +143,7 @@ class noc {
 		
 		foreach ($walkvalue as $value){
 			if( stristr($value,":")){			
-				$tmp = split(":",$value);
+				$tmp = explode(":",$value);
 				$data[] .= trim($tmp[1]);
 			}else{
 				$data[] .= trim($value);

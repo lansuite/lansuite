@@ -89,7 +89,7 @@ class basket{
 		$this->count = 0;
 		foreach ($_POST as $key => $value){
 				if(stristr($key,"option")){
-					$tmp = split("_",$key);
+					$tmp = explode("_",$key);
 					if(!$this->product->chanche_ordered($tmp[1],$tmp[2],$value)){
 						$ok = false;
 					}

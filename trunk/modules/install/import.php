@@ -142,7 +142,7 @@ switch($_GET["step"]){
 				// Get index assignment
 				$indexes = array();
 				foreach ($_POST as $var => $val) if ($var != "imageField_x" and $var != "imageField_y") {
-				  $var = split('--', $var);
+				  $var = explode('--', $var);
 				  $table = $var[0];
 				  $field = $var[1];
 					if ($val) $indexes[$table][$field] = $val;

@@ -125,7 +125,7 @@ class MasterSearch2 {
 
     $UrlParas = explode('&', substr($working_link, strpos($working_link, '?') + 1, strlen($working_link)));
     foreach ($UrlParas as $UrlPara) {
-      list($key, $val) = split('=', $UrlPara);
+      list($key, $val) = explode('=', $UrlPara);
       $this->HiddenGetFields[$key] .= $val;
     }
 
@@ -446,7 +446,7 @@ class MasterSearch2 {
     $this->HiddenGetFields = array();
     $UrlParas = explode('&', $_SERVER['QUERY_STRING']);
     foreach ($UrlParas as $UrlPara) {
-      list($key, $val) = split('=', $UrlPara);
+      list($key, $val) = explode('=', $UrlPara);
       if ($key != 'ms_page') if (!array_key_exists(urldecode($key), $this->HiddenGetFields)) $this->HiddenGetFields[urldecode($key)] .= urldecode($val);
     }
     $smarty->assign('HiddenGetFields', $this->HiddenGetFields);

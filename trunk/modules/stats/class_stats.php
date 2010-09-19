@@ -71,7 +71,7 @@ class stats {
   			$url_paras = explode ("&", $url_paras[1]);
 
   			foreach($url_paras as $akt_para){
-  				list($para_var, $para_val) = split ("=", $akt_para);
+  				list($para_var, $para_val) = explode("=", $akt_para);
 
   				// Search for parameter containing the search term
   				if ($para_var == $query_var[$search_engine]){
@@ -149,7 +149,7 @@ class stats {
 	  $loadavg = '';
 	  if (@file_exists("/proc/loadavg")) {
   		$loadavg = file ("/proc/loadavg");
-  		$loadavg = split(" ",$loadavg[0]);
+  		$loadavg = explode(" ",$loadavg[0]);
     }
 		return $loadavg;
 	}

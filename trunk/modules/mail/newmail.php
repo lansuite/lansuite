@@ -77,7 +77,7 @@ if($_SESSION['tmpmsgsubject'] and $_GET['back']) $_POST['Subject'] = $_SESSION['
 
 $selections = array();
 if ($cfg['sys_internet'] and $cfg['mail_additional_mails']) {
-  $AdditionalMails = split("\n", $cfg['mail_additional_mails']);
+  $AdditionalMails = explode("\n", $cfg['mail_additional_mails']);
   $z = 0;
   $selections['-OptGroup-0'] = t('Info-Adressen');
   foreach ($AdditionalMails as $AdditionalMail) if ($AdditionalMail){

@@ -178,7 +178,7 @@ switch ($_GET['step']){
 	
 	case 12:
 		if ($_GET["userids"]) {
-			$userids = split(",", $_GET["userids"]);
+			$userids = explode(",", $_GET["userids"]);
 			foreach ($userids as $userid) {
 				$db->qry("UPDATE %prefix%user SET group_id = %int% WHERE userid = %int% LIMIT 1", $_GET['group_id'], $_GET["userid"]);
 			}
