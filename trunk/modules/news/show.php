@@ -9,7 +9,7 @@ else {
     $dsp->NewContent(t('News Archiv'), t('Archivierte Mitteilungen'));
 
     if ($cfg["news_shorted_archiv"] == "") $cfg["news_shorted_archiv"] = 10;
-    $pages = page_split_archiv($_GET["news_page"], $cfg["news_shorted_archiv"], $overall_news - ($cfg['news_shorted'] + $cfg['news_completed']), "index.php?mod=news&action=show&subaction=archive", "news_page", ($cfg['news_shorted'] + $cfg['news_complete']));
+    $pages = $func->page_split($_GET["news_page"], $cfg["news_shorted_archiv"], $overall_news - ($cfg['news_shorted'] + $cfg['news_completed']), "index.php?mod=news&action=show&subaction=archive", "news_page");
   
     $get_newsshorted = $db->qry("SELECT UNIX_TIMESTAMP(n.date) AS date, n.caption, n.text, u.username, n.newsid FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC %plain%", $pages["sql"]);
     while($row=$db->fetch_array($get_newsshorted)) {
@@ -170,53 +170,6 @@ else {
     $smarty->assign('rows', $rows);
     $dsp->AddSingleRow($smarty->fetch("modules/news/templates/show_case.htm"));
     $dsp->AddContent();
-  }
-}
-
-function page_split_archiv($current_page, $max_entries_per_page, $overall_entries, $working_link, $var_page_name, $offset) {
-  if ($max_entries_per_page > 0 and $overall_entries >= 0 and $working_link != "" and $var_page_name != "") {
-    if($current_page == "") {
-      $page_sql = "LIMIT ".  $offset ."," . $max_entries_per_page;
-      $page_a = 0;
-      $page_b = $max_entries_per_page;
-    }
-    if($current_page == "all") {
-      $page_sql = "LIMIT " .$offset ."," .$overall_entries;
-      $page_a = 0;
-      $page_b = $overall_entries;
-    } else  {
-      $page_sql = ("LIMIT " . (($current_page * $max_entries_per_page) + $offset) . ", " . ($max_entries_per_page));
-      $page_a = ($current_page * $max_entries_per_page);
-      $page_b = ($max_entries_per_page);
-    }
-    if ($overall_entries > $max_entries_per_page) {
-      $page_output = ("Seiten: ");
-      if( $current_page != "all" && ($current_page + 1) > 1 )
-        $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&amp;" . $var_page_name . "=" . ($current_page - 1) . "&amp;orderby=" . $orderby . "\">" ."<b>" . "<" . "</b>" . "</a>");
-      $i = 0;                 
-      while($i < ($overall_entries / $max_entries_per_page)) {
-        if($current_page == $i && $current_page != "all") $page_output .= (" " . ($i + 1));
-        else $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link . "&amp;" . $var_page_name . "=" . $i . "\">" ."<b>" . ($i + 1) . "</b>" . "</a>");
-        $i++;
-      }
-      if($current_page != "all" && ($current_page + 1) < ($overall_entries/$max_entries_per_page))
-        $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&amp;" . $var_page_name . "=" . ($current_page + 1) . "\">" ."<b>" . ">" . "</b>" . "</a>");
-      if($current_page != "all")
-        $page_output .= ("&nbsp; " . "<a class=\"menu\" href=\"" . $working_link ."&amp;" . $var_page_name . "=all" . "\">" ."<b>" . "Alle" . "</b>" . "</a>");                                 
-      if ($current_page == "all")
-        $page_output .= "&nbsp; Alle";
-      if ($page_output != "") $page_output .= " | ";
-  
-      $output["html"] = $page_output;
-      $output["sql"] = $page_sql;
-      $output["a"] = $page_a;
-      $output["b"] = $page_b;
-      
-      return($output);
-  
-    // ?!?! unset($output); unset($working_link); unset($page_sql); unset($page_output);
-  
-    }# else echo ("Error: Function page_split needs defined: current_page, max_entries_per_page,working_link, page_varname For more information please visit the lansuite programmers docu");
   }
 }
 ?>
