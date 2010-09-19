@@ -281,7 +281,7 @@ class team {
 
 		// No delete if tournament is generated
 		if ($team['status'] != "open") {
-			$func->information(t('Dieses Turnier wird bereits gespielt!HTML_NEWLINEEin Abmelden ist daher nicht mehr möglich.'));
+			$func->information(t('Dieses Turnier wird bereits gespielt![br]Ein Abmelden ist daher nicht mehr möglich.'));
 			return false;
 		}
 
