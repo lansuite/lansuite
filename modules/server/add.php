@@ -51,14 +51,16 @@ else {
     else $mf->AddFix('owner', $auth['userid']);
   }
   
-  //Party-Liste
-		$party_list = array('' => t('KEINE'));
-		$row = $db->qry("SELECT party_id, name FROM %prefix%partys");
-		while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
-		$db->free_result($row);
-  
   $mf->AddField(t('Name'), 'caption');
-  $mf->AddField(t('Party'), 'party_id', IS_SELECTION, $party_list, $party->party_id);
+
+  //Party-Liste
+  if ($func->isModActive('party')) {
+  	$party_list = array('' => t('KEINE'));
+  	$row = $db->qry("SELECT party_id, name FROM %prefix%partys");
+  	while($res = $db->fetch_array($row)) $party_list[$res['party_id']] = $res['name'];
+  	$db->free_result($row);
+    $mf->AddField(t('Party'), 'party_id', IS_SELECTION, $party_list, $party->party_id);
+  }
 
   $selections = array();
   $selections['gameserver'] = t('Gameserver');
