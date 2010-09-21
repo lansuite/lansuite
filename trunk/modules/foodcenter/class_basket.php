@@ -60,7 +60,7 @@ class basket{
 
 				$this->product->get_basket_form();			
 				$dsp->AddDoubleRow("<b>" . t('Gesamtpreis: ') . "</b> " . $this->product->count_products_price() . " " . $cfg['sys_currency'],"<b>" . t('Anzahl Artikel: ') . "</b> " . $this->product->count_products());
-				$dsp->AddFormSubmitRow(t('Neu berechnen'), false);
+				$dsp->AddFormSubmitRow(t('Neu berechnen'), false, 'calculate');
 				if($_GET['action'] == "theke"){
 					$fc_theke_delivered[0] = t('Nicht abgeholt');
                     $fc_theke_delivered[1] = t('Alles direkt abgeholt');
