@@ -155,13 +155,23 @@
 
 ### Include and Initialize base classes
 
+    require_once "inc/classes/class_debug.php";       // Debug initialisieren
     if ($config['lansuite']['debugmode'] > 0) {
-      require_once "inc/classes/class_debug.php";       // Debug initialisieren
       $debug = new debug($config['lansuite']['debugmode']);
     }
 
     include_once("inc/classes/class_translation.php");  // Load Translationclass. No t()-Function before this point!
     $translation = new translation();
+
+    include_once('ext_scripts/smarty/Smarty.class.php');
+    $smarty      = new Smarty();
+    $smarty->template_dir = '.';
+    $smarty->compile_dir = './ext_inc/templates_c/';
+    $smarty->cache_dir = './ext_inc/templates_cache/';
+    $smarty->caching = false;
+    $smarty->cache_lifetime = 0; // sec
+    #$smarty->compile_check = 0;
+    if (isset($debug)) $debug->tracker("Include and Init Smarty");
 
     include_once("inc/classes/class_display.php");      // Display Functions (to load the lansuite-templates)
     $dsp = new display();
@@ -176,18 +186,6 @@
     $cron2 = new cron2();
     if (isset($debug)) $debug->tracker("Include and Init Base Classes");
     
-### Load Smarty template engine
-    
-    include_once('ext_scripts/smarty/Smarty.class.php');
-    $smarty      = new Smarty();
-    $smarty->template_dir = '.';
-    $smarty->compile_dir = './ext_inc/templates_c/';
-    $smarty->cache_dir = './ext_inc/templates_cache/';
-    $smarty->caching = false;
-    $smarty->cache_lifetime = 0; // sec
-    #$smarty->compile_check = 0;
-    if (isset($debug)) $debug->tracker("Include and Init Smarty");
-
 ### Initalize Basic Parameters
 
     $language = $translation->get_lang(); // Set and Read Systemlanguage
