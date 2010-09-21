@@ -6,8 +6,6 @@
  |                                                                                                            |
  |    Released under the terms and conditions of the GNU General Public License Version 3 (http://gnu.org)    |
  |                                                                                                            |
- |-------------------------------------------------------------------------------------------------------------
- |        [ EDITOR STYLE SETTINGS: LUCIDA CONSOLE, SIZE 10, TAB = 2 SPACES, BOLD GLOBALLY TURNED OFF ]        |
  \-----------------------------------------------------------------------------------------------------------*/
 
 //------------------------------------------------------------------------------------------------------------+
@@ -34,20 +32,21 @@
   $lgsl_type_list = lgsl_type_list();
   unset($lgsl_type_list['test']);
   asort($lgsl_type_list);
-  $type = "source";
 
-//-----------------------------------------------------------------------------------------------------------+
+  $type   = empty($_POST['form_type'])   ? "source" :        trim($_POST['form_type']);
+  $ip     = empty($_POST['form_ip'])     ? ""       :        trim($_POST['form_ip']);
+  $c_port = empty($_POST['form_c_port']) ? 0        : intval(trim($_POST['form_c_port']));
+  $q_port = empty($_POST['form_q_port']) ? 0        : intval(trim($_POST['form_q_port']));
+  $s_port = 0;
 
-  if ($_POST['lgsl_submit_test'] || $_POST['lgsl_submit_add'])
-  {
-    $type   = trim($_POST['form_type']);
-    $ip     = trim($_POST['form_ip']);
-    $c_port = intval(trim($_POST['form_c_port']));
-    $q_port = intval(trim($_POST['form_q_port']));
-    $s_port = 0;
+  if     (preg_match("/(\[[0-9a-z\:]+\])/iU", $ip, $match)) { $ip = $match[1]; }
+  elseif (preg_match("/([0-9a-z\.\-]+)/i", $ip, $match))    { $ip = $match[1]; }
+  else                                                      { $ip = ""; }
 
-    list($c_port, $q_port, $s_port) = lgsl_port_conversion($type, $c_port, $q_port, $s_port);
-  }
+  if ($c_port > 99999 || $q_port < 1024) { $c_port = 0; }
+  if ($q_port > 99999 || $q_port < 1024) { $q_port = 0; }
+
+  list($c_port, $q_port, $s_port) = lgsl_port_conversion($type, $c_port, $q_port, $s_port);
 
 //-----------------------------------------------------------------------------------------------------------+
 
@@ -115,12 +114,8 @@
 
 //-----------------------------------------------------------------------------------------------------------+
 
-  if (!$lgsl_type_list[$type] || !$ip || !$c_port || !$q_port) { return; }
-  if ($q_port > 99999 || $q_port < 1024)                       { return; }
-
-  if     (preg_match("/(\[[0-9a-z\:]+\])/iU", $ip, $match)) { $ip = $match[1]; }
-  elseif (preg_match("/([0-9a-z\.\-]+)/i", $ip, $match))    { $ip = $match[1]; }
-  else   { return; }
+  if (empty($_POST['lgsl_submit_test']) && empty($_POST['lgsl_submit_add'])) { return; }
+  if (!isset($lgsl_type_list[$type]) || !$ip || !$c_port || !$q_port)        { return; }
 
 //-----------------------------------------------------------------------------------------------------------+
 
@@ -191,7 +186,7 @@
 
 //-----------------------------------------------------------------------------------------------------------+
 
-  if ($_POST['lgsl_submit_add'])
+  if (!empty($_POST['lgsl_submit_add']))
   {
     $disabled = ($lgsl_config['public_add'] == "2") ? "0" : "1";
 
@@ -266,6 +261,4 @@
 
   </form>";
 
-//-----------------------------------------------------------------------------------------------------------+
-
-?>
+//------------------------------------------------------------------------------------------------------------+

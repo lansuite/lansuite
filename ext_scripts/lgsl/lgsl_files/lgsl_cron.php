@@ -6,23 +6,19 @@
  |                                                                                                            |
  |    Released under the terms and conditions of the GNU General Public License Version 3 (http://gnu.org)    |
  |                                                                                                            |
- |-------------------------------------------------------------------------------------------------------------
- |        [ EDITOR STYLE SETTINGS: LUCIDA CONSOLE, SIZE 10, TAB = 2 SPACES, BOLD GLOBALLY TURNED OFF ]        |
  \-----------------------------------------------------------------------------------------------------------*/
 
 //------------------------------------------------------------------------------------------------------------+
 
   require "lgsl_class.php";
+
   lgsl_database();
-  global $lgsl_config;
 
 //------------------------------------------------------------------------------------------------------------+
 // CRON SETTINGS:
 
   @set_time_limit(3600);           // MAXIMUM TIME THE CRON IS ALLOWED TO TAKE
-
   $lgsl_config['cache_time'] = 60; // HOW OLD CACHE MUST BE BEFORE IT NEEDS REFRESHING
-
   $request = "sep";                // WHAT TO PRE-CACHE: [s] = BASIC INFO [e] = SETTINGS [p] = PLAYERS
 
 //------------------------------------------------------------------------------------------------------------+
@@ -36,12 +32,12 @@
 
   while($mysql_row = mysql_fetch_array($mysql_result, MYSQL_ASSOC))
   {
-    echo      str_pad(lgsl_timer("taken"),  8,  " ").":".
-              str_pad($mysql_row['type'],   15, " ").":".
-              str_pad($mysql_row['ip'],     30, " ").":".
-              str_pad($mysql_row['c_port'], 6,  " ").":".
-              str_pad($mysql_row['q_port'], 6,  " ").":".
-              str_pad($mysql_row['s_port'], 12, " ")."\r\n";
+    echo str_pad(lgsl_timer("taken"),  8,  " ").":".
+         str_pad($mysql_row['type'],   15, " ").":".
+         str_pad($mysql_row['ip'],     30, " ").":".
+         str_pad($mysql_row['c_port'], 6,  " ").":".
+         str_pad($mysql_row['q_port'], 6,  " ").":".
+         str_pad($mysql_row['s_port'], 12, " ")."\r\n";
 
     lgsl_query_cached($mysql_row['type'], $mysql_row['ip'], $mysql_row['c_port'], $mysql_row['q_port'], $mysql_row['s_port'], $request);
 
@@ -54,5 +50,3 @@
   echo "\r\nFINISHED</pre>";
 
 //------------------------------------------------------------------------------------------------------------+
-
-?>

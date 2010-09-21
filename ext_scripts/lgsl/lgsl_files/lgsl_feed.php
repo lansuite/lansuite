@@ -6,25 +6,23 @@
  |                                                                                                            |
  |    Released under the terms and conditions of the GNU General Public License Version 3 (http://gnu.org)    |
  |                                                                                                            |
- |-------------------------------------------------------------------------------------------------------------
- |        [ EDITOR STYLE SETTINGS: LUCIDA CONSOLE, SIZE 10, TAB = 2 SPACES, BOLD GLOBALLY TURNED OFF ]        |
  \-----------------------------------------------------------------------------------------------------------*/
 
 //------------------------------------------------------------------------------------------------------------+
 
-  require "lgsl_class.php"; global $lgsl_config;
+  require "lgsl_class.php";
 
 //------------------------------------------------------------------------------------------------------------+
 
-  $type     = lgsl_string_html($_GET['type']);
-  $ip       = lgsl_string_html($_GET['ip']);
-  $c_port   = intval($_GET['c_port']);
-  $q_port   = intval($_GET['q_port']);
-  $s_port   = intval($_GET['s_port']);
-  $request  = lgsl_string_html($_GET['request']);
-  $xml      = intval($_GET['xml']);
-  $version  = lgsl_string_html($_GET['version']);
-  $format   = intval($_GET['format']);
+  $type    = isset($_GET['type'])    ? lgsl_string_html($_GET['type'])    : "";
+  $ip      = isset($_GET['ip'])      ? lgsl_string_html($_GET['ip'])      : "";
+  $c_port  = isset($_GET['c_port'])  ? intval($_GET['c_port'])            : 0;
+  $q_port  = isset($_GET['q_port'])  ? intval($_GET['q_port'])            : 0;
+  $s_port  = isset($_GET['s_port'])  ? intval($_GET['s_port'])            : 0;
+  $request = isset($_GET['request']) ? lgsl_string_html($_GET['request']) : "";
+  $version = isset($_GET['version']) ? lgsl_string_html($_GET['version']) : "";
+  $xml     = isset($_GET['xml'])     ? intval($_GET['xml'])               : 0;
+  $format  = isset($_GET['format'])  ? intval($_GET['format'])            : 0;
 
 //------------------------------------------------------------------------------------------------------------+
 // VALIDATE REQUEST
@@ -56,7 +54,7 @@
 
   $lgsl_protocol_list = lgsl_protocol_list();
 
-  if (!$lgsl_protocol_list[$type])
+  if (!isset($lgsl_protocol_list[$type]))
   {
     exit("LGSL FEED PROBLEM: ".($type ? "UNKNOWN TYPE '{$type}'" : "MISSING TYPE")." FOR {$ip} : {$c_port} : {$q_port} : {$s_port}");
   }
@@ -87,12 +85,12 @@
 
   if (is_dir("logs") && is_writable("logs"))
   {
-    if (filesize("logs/feed_usage.html") > 1234567)
-    {
-      unlink("logs/feed_usage.html");
-    }
+//  $file_path = "logs/log_feed.html";
+    $file_path = "logs/log_feed_{$_SERVER['REMOTE_ADDR']}.html";
 
-    $file_handle = fopen("logs/feed_usage.html", "a");
+    if (filesize($file_path) > 1234567) { unlink($file_path); }
+
+    $file_handle = fopen($file_path, "a");
 
     $file_string  = "
     [ ".date("Y/m/d H:i:s")." ] {$type}:{$ip}:{$c_port}:{$q_port}:{$s_port}:{$request}
@@ -112,10 +110,18 @@
 
   if (!$xml)
   {
-    if     ($format == 2 && function_exists("gzcompress")) { echo "_F2_".base64_encode(gzcompress(serialize($server)))."_F2_"; }
-    elseif ($format != 0) { echo "_F1_".base64_encode(serialize($server))."_F1_"; }
-    else   { echo "_SLGSLF_".serialize($server)."_SLGSLF_"; } // LEGACY SUPPORT FOR 5.6 AND OLDER
-    exit;
+    if ($format == 0) { exit("_SLGSLF_".serialize($server)."_SLGSLF_"); } // LEGACY SYSTEM ( 5.6 AND OLDER )
+
+    if (($format == 3 || $format == 4) && function_exists("json_encode"))
+    {
+      if ($format == 4 && function_exists("gzcompress")) { exit("_F4_".base64_encode(gzcompress(json_encode($server)))."_F4_"); }
+      else                                               { exit("_F3_".base64_encode(           json_encode($server)). "_F3_"); }
+    }
+    else
+    {
+      if ($format == 2 && function_exists("gzcompress")) { exit("_F2_".base64_encode(gzcompress(serialize($server)))."_F2_"); }
+      else                                               { exit("_F1_".base64_encode(           serialize($server)). "_F1_"); }
+    }
   }
 
 //------------------------------------------------------------------------------------------------------------+
@@ -154,5 +160,3 @@
   echo "</server>\r\n";
 
 //------------------------------------------------------------------------------------------------------------+
-
-?>

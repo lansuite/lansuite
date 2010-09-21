@@ -2,10 +2,7 @@
 //------------------------------------------------------------------------------------------------------------+
   require "lgsl_files/lgsl_config.php";
 
-  $auth   = md5($_SERVER['REMOTE_ADDR'].md5($lgsl_config['admin']['user'].md5($lgsl_config['admin']['pass'])));
-  $cookie = $_COOKIE['lgsl_admin_auth'];
-
-  if (!$lgsl_config['admin']['user'] || !$lgsl_config['admin']['pass'])
+  if (empty($lgsl_config['admin']['user']) || empty($lgsl_config['admin']['pass']))
   {
     exit("ADMIN USERNAME OR PASSWORD MISSING FROM CONFIG");
   }
@@ -13,17 +10,21 @@
   {
     exit("ADMIN PASSWORD MUST BE CHANGED FROM THE DEFAULT");
   }
+
+  $auth   = md5($_SERVER['REMOTE_ADDR'].md5($lgsl_config['admin']['user'].md5($lgsl_config['admin']['pass'])));
+  $cookie = isset($_COOKIE['lgsl_admin_auth']) ? $_COOKIE['lgsl_admin_auth'] : "";
+
+  if (isset($_POST['lgsl_user']) && isset($_POST['lgsl_pass']) && $lgsl_config['admin']['user'] == $_POST['lgsl_user'] && $lgsl_config['admin']['pass'] == $_POST['lgsl_pass'])
+  {
+    setcookie("lgsl_admin_auth", $auth, (time() + (60 * 60 * 24)), "/");
+    define("LGSL_ADMIN", TRUE);
+  }
   elseif ($cookie == $auth)
   {
     setcookie("lgsl_admin_auth", $auth, (time() + (60 * 60 * 24)), "/");
-    define("LGSL_ADMIN", "1");
+    define("LGSL_ADMIN", TRUE);
   }
-  elseif ($lgsl_config['admin']['user'] == $_POST['lgsl_user'] && $lgsl_config['admin']['pass'] == $_POST['lgsl_pass'])
-  {
-    setcookie("lgsl_admin_auth", $auth, (time() + (60 * 60 * 24)), "/");
-    define("LGSL_ADMIN", "1");
-  }
-//------------------------------------------------------------------------------------------------------------+
+
   header("Content-Type:text/html; charset=utf-8");
 //------------------------------------------------------------------------------------------------------------+
 ?>
@@ -50,6 +51,7 @@
 //------------------------------------------------------------------------------------------------------------+
   if (defined("LGSL_ADMIN"))
   {
+    global $output;
     $output = "";
     require "lgsl_files/lgsl_admin.php";
     echo $output;

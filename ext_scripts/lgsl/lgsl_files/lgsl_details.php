@@ -6,8 +6,6 @@
  |                                                                                                            |
  |    Released under the terms and conditions of the GNU General Public License Version 3 (http://gnu.org)    |
  |                                                                                                            |
- |-------------------------------------------------------------------------------------------------------------
- |        [ EDITOR STYLE SETTINGS: LUCIDA CONSOLE, SIZE 10, TAB = 2 SPACES, BOLD GLOBALLY TURNED OFF ]        |
  \-----------------------------------------------------------------------------------------------------------*/
 
 //------------------------------------------------------------------------------------------------------------+
@@ -15,23 +13,21 @@
   require "lgsl_class.php";
 
 //------------------------------------------------------------------------------------------------------------+
-// THIS ALLOWS YOU TO CONTROL THE FIELDS DISPLAYED AND THEIR ORDER
+// THIS CONTROLS HOW THE PLAYER FIELDS ARE DISPLAYED
 
-  $fields_show  = array("name", "score", "deaths", "team", "ping", "bot", "time"); // THESE FIELDS ARE ORDERED FIRST
-  $fields_hide  = array("teamindex", "pid", "pbguid"); // THESE FIELDS ARE REMOVED
-  $fields_other = TRUE; // FALSE WILL HIDE FIELDS NOT IN $fields_show
+  $fields_show  = array("name", "score", "kills", "deaths", "team", "ping", "bot", "time"); // ORDERED FIRST
+  $fields_hide  = array("teamindex", "pid", "pbguid"); // REMOVED
+  $fields_other = TRUE; // FALSE TO ONLY SHOW FIELDS IN $fields_show
 
 //------------------------------------------------------------------------------------------------------------+
 // GET THE SERVER DETAILS AND PREPARE IT FOR DISPLAY
 
-  $lookup = lgsl_lookup_id($_GET['s']);
+  global $lgsl_server_id;
 
-  if (!$lookup)
-  {
-    $output .= "<div style='margin:auto; text-align:center'> {$lgsl_config['text']['mid']} </div>"; return;
-  }
+  $server = lgsl_query_cached("", "", "", "", "", "sep", $lgsl_server_id);
 
-  $server = lgsl_query_cached($lookup['type'], $lookup['ip'], $lookup['c_port'], $lookup['q_port'], $lookup['s_port'], "sep");
+  if (!$server) { $output .= "<div style='margin:auto; text-align:center'> {$lgsl_config['text']['mid']} </div>"; return; }
+
   $fields = lgsl_sort_fields($server, $fields_show, $fields_hide, $fields_other);
   $server = lgsl_sort_players($server);
   $server = lgsl_sort_extras($server);
@@ -57,15 +53,20 @@
         <b> {$server['s']['name']} </b><br /><br />
       </td>
     </tr>
+  </table>
+  <table cellpadding='2' cellspacing='2' style='margin:auto'>
     <tr>
       <td colspan='2' style='text-align:center'>
         <table cellpadding='4' cellspacing='2' style='width:100%; margin:auto'>
           <tr><td style='".lgsl_bg(TRUE)."; text-align:center'><a href='{$misc['software_link']}'>{$lgsl_config['text']['slk']}</a></td></tr>
         </table>
       </td>
-      <td rowspan='2' style='text-align:center' >
-        <div style='background-image:url({$misc['image_map']}); background-repeat:no-repeat; background-position:center'>
-          <img alt='' src='{$misc['image_map_password']}' style='border:none; width:{$zone_width}; background:url({$misc['icon_game']}); background-repeat:no-repeat; background-position:4px 4px' />
+      <td rowspan='2' style='text-align:center; vertical-align:top'>
+        <div style='width:{$lgsl_config['zone']['width']}px; padding:2px; position:relative; margin:auto'>
+          <img alt='' src='{$misc['image_map']}'                                            style='vertical-align:middle' />
+          <img alt='' src='{$misc['image_map_password']}'                                   style='position:absolute; z-index:2; top:0px; left:0px;' />
+          <img alt='' src='{$misc['icon_game']}'          title='{$misc['text_type_game']}' style='position:absolute; z-index:2; top:6px; left:6px;' />
+          <img alt='' src='{$misc['icon_location']}'      title='{$misc['text_location']}'  style='position:absolute; z-index:2; top:6px; right:6px;' />
         </div>
       </td>
     </tr>
@@ -102,7 +103,7 @@
   $output .= "
   <div style='margin:auto; overflow:auto; text-align:center; padding:10px'>";
 
-  if (!$server['p'] || !is_array($server['p']))
+  if (empty($server['p']) || !is_array($server['p']))
   {
     $output .= "
     <table cellpadding='4' cellspacing='2' style='margin:auto'>
@@ -158,7 +159,7 @@
 //------------------------------------------------------------------------------------------------------------+
 // SHOW THE SETTINGS
 
-  if (!$server['e'] || !is_array($server['e']))
+  if (empty($server['e']) || !is_array($server['e']))
   {
     $output .= "
     <table cellpadding='4' cellspacing='2' style='margin:auto'>
@@ -202,8 +203,6 @@
   </div>";
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-//------  PLEASE MAKE A DONATION OR SIGN THE GUESTBOOK AT GREYCUBE.COM IF YOU REMOVE THIS CREDIT ---------------------------------------------------------------------------------------------------+
+//------ PLEASE MAKE A DONATION OR SIGN THE GUESTBOOK AT GREYCUBE.COM IF YOU REMOVE THIS CREDIT ----------------------------------------------------------------------------------------------------+
   $output .= "<div style='text-align:center; font-family:tahoma; font-size:9px'><br /><br /><br /><a href='http://www.greycube.com' style='text-decoration:none'>".lgsl_version()."</a><br /></div>";
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-?>
