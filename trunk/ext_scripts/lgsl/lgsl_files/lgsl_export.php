@@ -6,8 +6,6 @@
  |                                                                                                            |
  |    Released under the terms and conditions of the GNU General Public License Version 3 (http://gnu.org)    |
  |                                                                                                            |
- |-------------------------------------------------------------------------------------------------------------
- |        [ EDITOR STYLE SETTINGS: LUCIDA CONSOLE, SIZE 10, TAB = 2 SPACES, BOLD GLOBALLY TURNED OFF ]        |
  \-----------------------------------------------------------------------------------------------------------*/
 
 //------------------------------------------------------------------------------------------------------------+
@@ -18,25 +16,36 @@
 
 //------------------------------------------------------------------------------------------------------------+
 
-                             $tmp   = array();
-  if ($_GET['nodisabled']) { $tmp[] = "`disabled` = '0'"; } // ONLY LIST ENABLED
-  if ($_GET['online'])     { $tmp[] = "`status`   = '1'"; } // ONLY LIST ONLINE
-
-  $filter = $tmp ? "WHERE ".implode(" AND ", $tmp) : "";
-
-      if ($_GET['sort'] == "ip")   { $filter .= " ORDER BY CONCAT(`ip`, `c_port`) ASC"; }
-  elseif ($_GET['sort'] == "type") { $filter .= " ORDER BY `type` ASC"; }
-  else                             { $filter .= " ORDER BY `id` ASC"; }
+  $xml         = empty($_GET['xml'])         ? FALSE : TRUE;
+  $online      = empty($_GET['online'])      ? FALSE : TRUE;
+  $nodisabled  = empty($_GET['nodisabled'])  ? FALSE : TRUE;
+  $download    = empty($_GET['download'])    ? FALSE : TRUE;
+  $sort        = empty($_GET['sort'])        ? FALSE : $_GET['sort'];
+  $randomzones = empty($_GET['randomzones']) ? FALSE : intval($_GET['randomzones']);
 
 //------------------------------------------------------------------------------------------------------------+
 
-  $mysql_result = mysql_query("SELECT * FROM `{$lgsl_config['db']['prefix']}{$lgsl_config['db']['table']}` {$filter}");
+  $output       = "";
+  $mysql_filter = "";
+  $mysql_where  = array();
+
+  if ($nodisabled)  { $mysql_where[] = "`disabled`=0"; } // ONLY LIST ENABLED
+  if ($online)      { $mysql_where[] = "`status`=1"; }   // ONLY LIST ONLINE
+  if ($mysql_where) { $mysql_filter  = "WHERE ".implode(" AND ", $mysql_where); }
+
+  if     ($sort == "ip")   { $mysql_filter .= " ORDER BY CONCAT(`ip`, `c_port`) ASC"; }
+  elseif ($sort == "type") { $mysql_filter .= " ORDER BY `type` ASC"; }
+  else                     { $mysql_filter .= " ORDER BY `id` ASC"; }
+
+//------------------------------------------------------------------------------------------------------------+
+
+  $mysql_result = mysql_query("SELECT * FROM `{$lgsl_config['db']['prefix']}{$lgsl_config['db']['table']}` {$mysql_filter}");
 
   while($mysql_row = mysql_fetch_array($mysql_result, MYSQL_ASSOC))
   {
-    if ($_GET['randomzones']) { $mysql_row['zone'] = rand(1, intval($_GET['randomzones'])); } // MAKE UP RANDOM ZONES FOR SERVERS FROM 1 TO RANDOMZONES=NUMBER
+    if ($randomzones) { $mysql_row['zone'] = rand(1, $randomzones); } // FILL ZONES WITH RANDOM NUMBERS ( 1 TO $randomzones )
 
-    if ($_GET['xml'])
+    if ($xml)
     {
       $output .= "
       <server>
@@ -57,15 +66,15 @@
 
 //------------------------------------------------------------------------------------------------------------+
 
-  if ($_GET['download'])
+  if ($download)
   {
     header("Content-type: application/octet-stream");
-    header("Content-Disposition: attachment; filename=\"lgsl_export.txt\"");
+    header("Content-Disposition: attachment; filename=\"servers.txt\"");
     echo $output;
     exit;
   }
 
-  if ($_GET['xml'])
+  if ($xml)
   {
     header("content-type: text/xml");
     echo "<?xml version='1.0' encoding='UTF-8' ?>
@@ -74,8 +83,8 @@
   }
 
 //------------------------------------------------------------------------------------------------------------+
-
 ?>
+
 
 <!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'>
 

@@ -23,22 +23,19 @@
 
 <?php
 //------------------------------------------------------------------------------------------------------------+
+  global $output, $lgsl_server_id;
+
   $output = "";
 
-  if (isset($_GET['s']) && is_numeric($_GET['s']))
-  {
-    require "lgsl_files/lgsl_details.php";
-  }
-  elseif (isset($_GET['s']) && $_GET['s'] == "add")
-  {
-    require "lgsl_files/lgsl_add.php";
-  }
-  else
-  {
-    require "lgsl_files/lgsl_list.php";
-  }
+  $s = isset($_GET['s']) ? $_GET['s'] : "";
+
+  if     (is_numeric($s)) { $lgsl_server_id = $s; require "lgsl_files/lgsl_details.php"; }
+  elseif ($s == "add")    {                       require "lgsl_files/lgsl_add.php";     }
+  else                    {                       require "lgsl_files/lgsl_list.php";    }
 
   echo $output;
+
+  unset($output);
 //------------------------------------------------------------------------------------------------------------+
 ?>
 
