@@ -60,13 +60,15 @@ if ($tournament["name"] == "") {
 
 			unset($_SESSION['tournament_submit_result_blocker']);
 			
-			 //Server auslesen
-			 $selections = array();
-   			 $selections['0'] = t('Kein Server zugewiesen');
-   			 $res = $db->qry("SELECT * FROM %prefix%server WHERE party_id = %int%", $party->party_id);
-			 while ($row = $db->fetch_array($res)) $selections[$row['serverid']] = $row['caption'];
-    			 	$db->free_result($res);
-
+			if ($func->isModActive('server')) {
+        //Server auslesen
+        $selections = array();
+        $selections['0'] = t('Kein Server zugewiesen');
+        $res = $db->qry("SELECT * FROM %prefix%server WHERE party_id = %int%", $party->party_id);
+        while ($row = $db->fetch_array($res)) $selections[$row['serverid']] = $row['caption'];
+        $db->free_result($res);
+      }
+      
 			$dsp->NewContent(t('Details der Partie %1 vs %2', $team1['name'], $team2['name']), t('Hier sehen Sie Details zu dieser Partie und können das Ergebnis eintragen.'));
 			// Write Start and Enddate for each round
 			$round_start = $tfunc->GetGameStart($tournament, $team1['round'],$team1['group_nr']);
@@ -75,17 +77,13 @@ if ($tournament["name"] == "") {
 			$dsp->AddDoubleRow(t('Map'), $map[(abs(floor($team1['round'])) % count($map))]);
 			if ($func->isModActive('server')) $dsp->AddDoubleRow(t('Server'), '<a href="index.php?mod=server&action=show_details&serverid='.$team1['server_id'].'">'.$selections[$team1['server_id']].'</a>');
 			
-			if($func->isModActive('server') and $auth['type'] >= 2)
-			{
+			if($func->isModActive('server') and $auth['type'] >= 2) {
 				include_once('inc/classes/class_masterform.php');
-    			$mf = new masterform();
- 	
-    			$mf->AddField(t('Server Zuweisen'), 'server_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
-
-    			if($mf->SendForm("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=".$tournamentid."&gameid1=".$gameid1."&gameid2=".$gameid2, 't2_games', 'gameid', $gameid1))
-    			{
-    					$db->qry("UPDATE %prefix%t2_games SET server_id = %int% WHERE gameid = %int%", $_POST['server_id'], $gameid2);
-    			}
+  			$mf = new masterform();
+  			$mf->AddField(t('Server Zuweisen'), 'server_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
+  			if ($mf->SendForm("index.php?mod=tournament2&action=submit_result&step=1&tournamentid=".$tournamentid."&gameid1=".$gameid1."&gameid2=".$gameid2, 't2_games', 'gameid', $gameid1)) {
+  				$db->qry("UPDATE %prefix%t2_games SET server_id = %int% WHERE gameid = %int%", $_POST['server_id'], $gameid2);
+  			}
 			}
 
 			$dsp->AddHRuleRow();
