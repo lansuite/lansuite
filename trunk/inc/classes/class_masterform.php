@@ -491,14 +491,14 @@ class masterform {
                   if (is_array($field['selections'])) {
                       $selections = array();
                       foreach($field['selections'] as $key => $val) {
-                          if (substr($key, 0, 10) == '-OptGroup-') {
-                        if ($this->OptGroupOpen) $selections[] = '</optgroup>';
-                        $selections[] = '<optgroup label="'. $val .'">';
-                        $this->OptGroupOpen = 1;
-                      } else {
-                              ($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
-                              $selections[] = "<option$selected value=\"$key\">$val</option>";
-                      }
+                        if (substr($key, 0, 10) == '-OptGroup-') {
+                          if ($this->OptGroupOpen) $selections[] = '</optgroup>';
+                          $selections[] = '<optgroup label="'. $val .'">';
+                          $this->OptGroupOpen = 1;
+                        } else {
+                          ($_POST[$field['name']] == $key) ? $selected = " selected" : $selected = "";
+                          $selections[] = "<option$selected value=\"$key\">$val</option>";
+                        }
                       }
                     if ($this->OptGroupOpen) $selections[] = '</optgroup>';
                     $this->OptGroupOpen = 0;

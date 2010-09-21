@@ -172,15 +172,19 @@ function Addr1Input($field, $mode, $error = '') {
     break;
 
     case CHECK_ERROR_PROC:
-        if ($_POST['street|hnr'] != '' or FieldNeeded('street')){
-        $pieces = explode(' ', $_POST['street|hnr']);
-        $_POST['hnr'] = (int)array_pop($pieces);
-        $_POST['street'] = implode(' ', $pieces);
+      switch($_POST['country']) {
+        case 'de': // PLZ + City check germany
+          if ($_POST['street|hnr'] != '' or FieldNeeded('street')){
+          $pieces = explode(' ', $_POST['street|hnr']);
+          $_POST['hnr'] = (int)array_pop($pieces);
+          $_POST['street'] = implode(' ', $pieces);
 
-            if ($_POST['street'] == '') return t('Bitte geben Sie Straße und Hausnummer in folgendem Format ein: "Straßenname 12".');
-            elseif ($_POST['hnr'] == 0) return t('Die Hausnummer muss numerisch sein.');
-        }
-            return false; // -> Means no error
+              if ($_POST['street'] == '') return t('Bitte geben Sie Straße und Hausnummer in folgendem Format ein: "Straßenname 12".');
+              elseif ($_POST['hnr'] == 0) return t('Die Hausnummer muss numerisch sein.');
+          }
+          return false; // -> Means no error
+        break;
+      }
     break;
   }
 }
@@ -196,15 +200,19 @@ function Addr2Input($field, $mode, $error = '') {
     break;
 
     case CHECK_ERROR_PROC:
-        if (($_POST['plz|city'] != '') || (FieldNeeded('city'))){
-        $pieces = explode(' ', $_POST['plz|city']);
-        $_POST['plz'] = array_shift($pieces);
-        $_POST['city'] = implode(' ', $pieces);
+      switch($_POST['country']) {
+        case 'de': // PLZ + City check germany
+          if (($_POST['plz|city'] != '') || (FieldNeeded('city'))){
+          $pieces = explode(' ', $_POST['plz|city']);
+          $_POST['plz'] = array_shift($pieces);
+          $_POST['city'] = implode(' ', $pieces);
 
-            if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".');
-            elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen. Postleitzahlen mit weniger Ziffern bitte mit führenden Nullen schreiben (z.B. 00123).');
-        }
-            return false; // -> Means no error
+              if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".');
+              elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen. Postleitzahlen mit weniger Ziffern bitte mit führenden Nullen schreiben (z.B. 00123).');
+          }
+        break;
+      }
+      return false; // -> Means no error
     break;
   }
 }
@@ -353,12 +361,11 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
       if (ShowField('city')) $mf->AddField('', 'plz|city', IS_CALLBACK, 'Addr2Input', Optional('city'));
 
       $list = array();
-      if (!$_POST['country']) $_POST['country'] = $cfg['sys_country'];
+      if (!isset($_POST['country'])) $_POST['country'] = $cfg['sys_country'];
       $res = $db->qry("SELECT cfg_display, cfg_value FROM %prefix%config_selections WHERE cfg_key = 'country' ORDER BY cfg_display");
-      echo $row['cfg_display'];
       while($row = $db->fetch_array($res)) $list[$row['cfg_value']] = $row['cfg_display'];
       $db->free_result($res);
-      $mf->AddField(t('Land'), 'country', IS_SELECTION, $list);
+      $mf->AddField(t('Land'), 'country', IS_SELECTION, $list, FIELD_OPTIONAL);
       $mf->AddGroup(t('Adresse'));
 
       // Contact
