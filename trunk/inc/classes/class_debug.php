@@ -22,7 +22,19 @@
 *
 */
 function d() {
-    global $debug;
+    global $debug, $func;
+
+    $arg_vars = func_get_args();
+    if (!isset($debug)) $debug = new debug(1);
+
+    if (substr($arg_vars[0], 0, 1) == '$') {
+      eval('global '. $arg_vars[0] .'; $arg_vars[1] = '. $arg_vars[0] .';');
+    }
+
+    if ($arg_vars[1]) $func->information($arg_vars[0] .':<br>"'. nl2br(str_replace(' ', '&nbsp;', htmlentities(print_r($arg_vars[1], true)))) .'"');
+    else $func->information('"'. nl2br(str_replace(' ', '&nbsp;', htmlentities(print_r($arg_vars[0], true)))) .'"');
+    
+    /*
     $arg_count = func_num_args();
     $arg_vars = func_get_args();
     if ($debug->mode > 0) {
@@ -31,7 +43,7 @@ function d() {
         } elseif ($arg_count==1) {
             $debug->addvar(NULL, $arg_vars[0]);
         }
-    }
+    }*/
 }
 
 /**
@@ -88,6 +100,7 @@ class debug {
         $this->mode = $mode;
         $this->debug_path = $debug_path;
         $this->tracker("INIT DEBUG-CLASS");  // Sets first Timerpoint
+        if ($this->mode > 0) @ini_set('display_errors', 1);
     }
 
 
@@ -369,6 +382,7 @@ class debug {
             return $out;
         } else {
             return "";
+
         }
     }
 }
