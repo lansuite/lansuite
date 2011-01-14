@@ -239,7 +239,8 @@
         $func->getActiveModules();
 
         $framework->AddToPageTitle($cfg['sys_page_title']);
-        if ($func->isModActive($_GET['mod'], $caption)) $framework->AddToPageTitle($caption);
+        if ($func->isModActive($_GET['mod'], $caption) && $_GET['mod'] != 'home')
+					$framework->AddToPageTitle($caption);
 
         ### Start autentication, just if LS is working
         include_once("inc/classes/class_auth.php");
