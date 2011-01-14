@@ -44,7 +44,7 @@ class Install {
 
 
           $i++;
-      } // END while( $row = $file[$i] )
+      } // END while( $row = $conf[$i] )
 
 
       // Write new settings to the config.php file
