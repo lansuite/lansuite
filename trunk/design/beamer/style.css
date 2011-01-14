@@ -209,7 +209,7 @@ li.Confirmation {
 	background: #84cd82;
   list-style: none;
 }
-div.Headline {
+h1 {
   position: relative;
   font-weight: bold;
 }

@@ -578,10 +578,12 @@ span.AdminIcons {
 /*
 *   Page headline and header menu
 */
-div.Headline {
+h1 {
   position: relative;
   font-size: 14px;
   font-weight: bold;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 div.HeadlineSub {
   font-size: 12px;
