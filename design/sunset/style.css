@@ -8,7 +8,7 @@ http://lansuite-docu.orgapage.de/index.php?title=Stylesheets
 
 /* ---- BEGINN neuer Elemente ----*/
 
-div.Headline {
+h1 {
   position: relative;
   font-weight: bold;
   background: #DEE3E7;

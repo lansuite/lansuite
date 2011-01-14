@@ -24,7 +24,7 @@ div#LansuiteFullscreen {
 	left: 4px;
 }
 
-div.Headline {
+h1 {
   	position: relative;
   	background: #DEE3E7;
   	font-size: 11px;  
