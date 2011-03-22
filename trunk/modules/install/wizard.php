@@ -268,7 +268,7 @@ switch ($_GET["step"]){
         $dsp->SetForm("index.php?mod=install&action=wizard&step=7");
         if ($func->admin_exists()) $dsp->AddDoubleRow(t('Info'), t('Es existiert bereits ein Adminaccount'));
         
-        $dsp->AddTextFieldRow("email", t('E-Mail'), 'admin@admin.de', '');
+        $dsp->AddTextFieldRow("email", t('E-Mail'), 'admin@example.com', '');
         $dsp->AddPasswordRow("password", t('Kennwort'), '', '', '', '', "onkeyup=\"CheckPasswordSecurity(this.value, document.images.seclevel1)\"");
         $dsp->AddPasswordRow("password2", t('Kennwort wiederholen'), '', '');
         $smarty->assign('pw_security_id', '1');
