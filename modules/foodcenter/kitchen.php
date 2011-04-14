@@ -7,7 +7,7 @@ if (isset($_GET['autorefresh'])) {
 	$autorefresh = 0;
 }
 if ($autorefresh == 1) {
-	echo("<meta http-equiv=\"refresh\" content=\"". $cfg['autorefresh'] ."; URL=" . $_SERVER["PHP_SELF"] . "index.php?mod=foodcenter&action=kitchen&autorefresh=1\">\n");
+	echo("<meta http-equiv=\"refresh\" content=\"". $cfg['autorefresh'] ."; URL=" . $_SERVER["PHP_SELF"] . "?mod=foodcenter&action=kitchen&autorefresh=1\">\n");
 }
 
 
