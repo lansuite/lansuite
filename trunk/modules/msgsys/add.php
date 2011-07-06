@@ -13,7 +13,7 @@ switch($_GET['step']) {
 // Add
 case 2:
 
-  if ($_GET['userid'] == '') $func->error(t('Sie haben keinen Benutzer ausgew&auml;hlt'),"index.php?mod=msgsys&action=addbuddy");
+  if ($_GET['userid'] == '') $func->error(t('Du hast keinen Benutzer ausgew&auml;hlt'),"index.php?mod=msgsys&action=addbuddy");
   else {
 
     $user[] = $_GET['userid'];
@@ -138,7 +138,7 @@ case 2:
                                            - Der Benutzer ist bereits in Ihrer Buddy-Liste HTML_NEWLINE
                                            - Der Benutzer existiert nicht HTML_NEWLINE
                                            - Es sind bereits zuviele Benutzer in Ihrer Buddy-Liste HTML_NEWLINE
-                                           - Sie versuchen sich selbst in die Buddy-Liste hinzuzuf&uuml;gen HTML_NEWLINE
+                                           - Du versuchst dich selbst in die Buddy-Liste hinzuzuf&uuml;gen HTML_NEWLINE
                                            Die &Auml;nderung wird beim n&auml;chsten Seitenaufruf sichtbar.'))),"");
 			} // elseif
 
@@ -152,7 +152,7 @@ case 2:
 					  - Der Benutzer ist bereits in Ihrer Buddy-Liste HTML_NEWLINE
 					  - Der Benutzer existiert nicht HTML_NEWLINE
 					  - Es sind bereits zuviele Benutzer in Ihrer Buddy-Liste HTML_NEWLINE
-					  - Sie versuchen sich selbst in die Buddy-Liste hinzuzuf&uuml;gen HTML_NEWLINE'));
+					  - Du versuchst dich selbst in die Buddy-Liste hinzuzuf&uuml;gen HTML_NEWLINE'));
 			} // elseif
 		}
 break;

@@ -14,7 +14,7 @@
 		<content>
 			<entry>
 				<id>7163118c683013bd76207da5ef80f9e8</id>
-				<org>Sie haben in der letzten Minute bereits 5 mal Ihr Passwort falsch eingegeben. Bitte waren Sei einen Moment, bevor Sie es erneut versuchen dürfen</org>
+				<org>Du hast in der letzten Minute bereits 5 mal dein Passwort falsch eingegeben. Bitte warte einen Moment, bevor du es erneut versuchen darfst</org>
 				<en>In the last Minute you have entered 5 times a wrong password. Please wait a moment before you can try again.</en>
 				<es>Se han introducido correctamente en el último minuto como 5 veces su contraseña. Por favor, tuvo un momento antes de poder volver a intentarlo</es>
 				<fr>Ils ont été mal saisis dans la dernière minute que 5 fois votre mot de passe. S&amp;#39;il vous plaît Soyez eu un moment avant que vous soyez autorisé à essayer de nouveau</fr>
@@ -24,7 +24,7 @@
 			</entry>
 			<entry>
 				<id>96cd67b7c7fdd4ba1e0a82a3825dda2a</id>
-				<org>Dieser Benutzer existiert nicht in unserer Datenbank. Bitte prüfen Sie die eingegebene Email/ID</org>
+				<org>Dieser Benutzer existiert nicht in unserer Datenbank. Bitte prüfe die eingegebene Email/ID</org>
 				<en>This user doesen't exist in the Database. Pleas check your entered Email/ID</en>
 				<es>Este usuario no existe en nuestra base de datos. Por favor, consulte la entrada de correo electrónico / ID</es>
 				<fr>Cet utilisateur n&amp;#39;existe pas dans notre base de données. S&amp;#39;il vous plaît vérifier l&amp;#39;entrée e-mail / ID</fr>
@@ -44,7 +44,7 @@
 			</entry>
 			<entry>
 				<id>effcc817fc18787f96bc0b665b8faa8e</id>
-				<org>Die von Ihnen eingebenen Login-Daten sind fehlerhaft. Bitte Überprüfen Sie Ihre Eingaben.</org>
+				<org>Die von dir eingebenen Login-Daten sind fehlerhaft. Bitte überprüfe die Eingaben.</org>
 				<en>Your Logindata are wrong. Pleas check your entrys</en>
 				<es>Cados por que la información de acceso es incorrecta. Por favor, compruebe sus entradas.</es>
 				<fr>Gistrée par vous les informations de connexion est incorrect. S&amp;#39;il vous plaît vérifier vos entrées.</fr>
@@ -54,7 +54,7 @@
 			</entry>
 			<entry>
 				<id>ae9da221e6553e31803344d27f2e81a8</id>
-				<org>Sie sind nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.</org>
+				<org>Du bist nicht eingecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn du eingecheckt bist.</org>
 				<en>You are not checked in. In the intranet mode, a login is only possible if you are checked in.</en>
 				<es>No se comprueban. En el modo de intranet, un inicio de sesión sólo es posible si se chequea.</es>
 				<fr>Ils ne sont pas vérifiées. Dans le mode intranet, un code d&amp;#39;accès n&amp;#39;est possible que si vous êtes enregistrés.</fr>
@@ -64,7 +64,7 @@
 			</entry>
 			<entry>
 				<id>6217b75cb76719dfb767ba9e87e62082</id>
-				<org>Bitte melden Sie sich bei der Organisation.</org>
+				<org>Bitte melde dich bei der Organisation.</org>
 				<en>Please get in touch with the organization.</en>
 				<es>Por favor, póngase en contacto con la organización.</es>
 				<fr>S&amp;#39;il vous plaît prendre contact avec l&amp;#39;organisation.</fr>
@@ -74,7 +74,7 @@
 			</entry>
 			<entry>
 				<id>45df15e01082967b782698c0a4c42e75</id>
-				<org>Sie sind bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn Sie eingecheckt sind.</org>
+				<org>Du bist bereits ausgecheckt. Im Intranetmodus ist ein Einloggen nur möglich, wenn du eingecheckt bist.</org>
 				<en>You are already checked out. In the intranet mode, a login is only possible if you are checked in.</en>
 				<es>Usted ya está desprotegido. En el modo de intranet, un inicio de sesión sólo es posible si se chequea.</es>
 				<fr>Vous êtes déjà extrait. Dans le mode intranet, un code d&amp;#39;accès n&amp;#39;est possible que si vous êtes enregistrés.</fr>
@@ -144,7 +144,7 @@
 			</entry>
 			<entry>
 				<id>8fb0bcc0b38db9274e73487e07642c1c</id>
-				<org>Sie wurden erfolgreich ausgeloggt. Vielen dank für ihren Besuch.</org>
+				<org>Du wurdest erfolgreich ausgeloggt. Vielen dank für deinen Besuch.</org>
 				<en>You have successfully logged out. Thank you for your visit.</en>
 				<es>Ha cerrado la sesión. Gracias por su visita.</es>
 				<fr>Vous êtes déconnecté. Nous vous remercions de votre visite.</fr>
@@ -164,7 +164,7 @@
 			</entry>
 			<entry>
 				<id>39f5e954cb57ce0e3796b7ae82d61260</id>
-				<org>Ihr Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt</org>
+				<org>Dein Benutzerlevel ist geringer, als das des Ziel-Benutzers. Ein Wechsel ist daher untersagt</org>
 				<en>Your user level is lower than that of the target user. A change is therefore prohibited</en>
 				<es>Su nivel de usuario es inferior a la del usuario de destino. Un cambio es por tanto, prohibida</es>
 				<fr>Votre niveau de l&amp;#39;utilisateur est inférieur à celui de l&amp;#39;utilisateur cible. Un changement est donc interdit</fr>
@@ -364,7 +364,7 @@
 			</entry>
 			<entry>
 				<id>5393323c3710c96ed0313b77bb70c02e</id>
-				<org>Bitte wählen Sie eine Möglichkeit aus:</org>
+				<org>Bitte wähle eine Möglichkeit aus:</org>
 				<en>Please select one possibility:</en>
 				<es>Por favor seleccione una opción:</es>
 				<fr>S&amp;#39;il vous plaît sélectionnez une option:</fr>
@@ -414,7 +414,7 @@
 			</entry>
 			<entry>
 				<id>ab559eb6c85d0c3a970dca3e9a94312c</id>
-				<org>Bitte loggen Sie sich ein, bevor Sie einen Kommentar verfassen</org>
+				<org>Bitte loggen dich sich ein, bevor du einen Kommentar verfasst</org>
 				<en>Please log in before you leave a comment</en>
 				<es>Debes iniciar sesión antes de dejar un comentario</es>
 				<fr>S&amp;#39;il vous plaît vous connecter avant de laisser un commentaire</fr>
@@ -454,7 +454,7 @@
 			</entry>
 			<entry>
 				<id>edac91e982f98f2f8bc845e59defdf73</id>
-				<org>Sie sind nicht berechtigt, diesen Kommentar zu editieren</org>
+				<org>Du bist nicht berechtigt, diesen Kommentar zu editieren</org>
 				<en>You are not authorized to edit this comment</en>
 				<es>Usted no está autorizado a editar este comentario</es>
 				<fr>Vous n&amp;#39;êtes pas autorisé à modifier ce commentaire</fr>
@@ -554,7 +554,7 @@
 			</entry>
 			<entry>
 				<id>fd2e2099e065e78a7b7b34ef7b3b7cd0</id>
-				<org>Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?</org>
+				<org>Bist du sicher, dass du diesen Eintrag löschen möchtest?</org>
 				<en>Are you sure you want to delete this entry?</en>
 				<es>¿Está seguro que quiere borrar esta entrada?</es>
 				<fr>Etes-vous sûr de vouloir supprimer ce message?</fr>
@@ -624,7 +624,7 @@
 			</entry>
 			<entry>
 				<id>fc0ca0f38f5ae5091e705b46e2589430</id>
-				<org>Bitte geben Sie eine Email ein</org>
+				<org>Bitte gib eine Email ein</org>
 				<en>Please enter an email</en>
 				<es>Por favor, escriba un e-mail</es>
 				<fr>Entrez s&amp;#39;il vous plaît un e-mail</fr>
@@ -654,7 +654,7 @@
 			</entry>
 			<entry>
 				<id>e46678cfa410e25e4d3e2398ac866c7d</id>
-				<org>Bitte geben Sie Ihre E-Mail-Adresse oder Ihre Lansuite-ID ein.</org>
+				<org>Bitte gib deine E-Mail-Adresse oder deine Lansuite-ID ein.</org>
 				<en>Please enter your email address or your Lansuite ID.</en>
 				<es>Por favor, introduzca su dirección de correo electrónico o su Lansuite ID.</es>
 				<fr>S&amp;#39;il vous plaît, entrez votre adresse e-mail ou votre Lansuite ID.</fr>
@@ -664,7 +664,7 @@
 			</entry>
 			<entry>
 				<id>c86f920d4c0db848c4fbe280d6f150db</id>
-				<org>Bitte geben Sie Ihr Kennwort ein.</org>
+				<org>Bitte gib dein Kennwort ein.</org>
 				<en>Please enter your password.</en>
 				<es>Por favor, introduzca su contraseña.</es>
 				<fr>S&amp;#39;il vous plaît entrer votre mot de passe.</fr>
@@ -674,7 +674,7 @@
 			</entry>
 			<entry>
 				<id>fdacaf37a0b8798dde0742571cc22fc6</id>
-				<org>Ihr Account ist gesperrt. Melden Sie sich bitte bei der Organisation.</org>
+				<org>Dein Account ist gesperrt. Melde dich bitte bei der Organisation.</org>
 				<en>Your account is locked. Get in touch with the organization.</en>
 				<es>Su cuenta está bloqueada. Inicia sesión con la organización.</es>
 				<fr>Votre compte est verrouillé. Connectez-vous avec l&amp;#39;organisation.</fr>
@@ -684,7 +684,7 @@
 			</entry>
 			<entry>
 				<id>4c9957b42093cea3b99c7838eb7a396c</id>
-				<org>Dieser Account ist noch nicht freigeschaltet. Bitte warten Sie bis ein Organisator Sie freigeschaltet hat.</org>
+				<org>Dieser Account ist noch nicht freigeschaltet. Bitte warte ein Organisator dich freigeschaltet hat.</org>
 				<en>This account is not activated yet. Please wait until an organizer, has unlocked you.</en>
 				<es>Esta cuenta no está activada todavía. Por favor, espere hasta que un organizador, que la hayas desbloqueado.</es>
 				<fr>Ce compte n&amp;#39;est pas encore activée. S&amp;#39;il vous plaît attendre jusqu&amp;#39;à ce qu&amp;#39;un organisateur, vous avez déverrouillé.</fr>
@@ -694,7 +694,7 @@
 			</entry>
 			<entry>
 				<id>3fd404486b4f50f32046ff95bbb7c1c8</id>
-				<org>Sollten Sie ihr Passwort vergessen haben, wenden Sie sich bitte an die Organisation.</org>
+				<org>Solltest du dein Passwort vergessen haben, wende dich bitte an die Organisation.</org>
 				<en>If you have forgotten your password, please contact the organization.</en>
 				<es>Si has olvidado tu contraseña, por favor, póngase en contacto con la organización.</es>
 				<fr>Si vous avez oublié votre mot de passe, s&amp;#39;il vous plaît contacter l&amp;#39;organisation.</fr>
@@ -744,7 +744,7 @@
 			</entry>
 			<entry>
 				<id>e7667b33a716b582c1b1ba453c5b82ad</id>
-				<org>Bitte füllen Sie dieses Pflichtfeld aus.</org>
+				<org>Bitte fülle dieses Pflichtfeld aus.</org>
 				<en>Please fill out this required field.</en>
 				<es>Por favor, rellene el campo requerido.</es>
 				<fr>S&amp;#39;il vous plaît remplir ce champ obligatoire.</fr>
@@ -754,7 +754,7 @@
 			</entry>
 			<entry>
 				<id>46985c8e1b7a587fa61d38da8204e0e8</id>
-				<org>Bitte geben Sie eine Zahl ein.</org>
+				<org>Bitte gib eine Zahl ein.</org>
 				<en>Please enter a number.</en>
 				<es>Por favor, introduzca un número.</es>
 				<fr>S&amp;#39;il vous plaît, entrez un numéro.</fr>
@@ -974,7 +974,7 @@
 			</entry>
 			<entry>
 				<id>008d04f41ae4d1009111a68de817d0f4</id>
-				<org>Sie haben keine Zugriffsrechte für diesen Bereich.</org>
+				<org>Du hast keine Zugriffsrechte für diesen Bereich.</org>
 				<en>You do not have access to that area.</en>
 				<es>Usted no tiene acceso a esa zona.</es>
 				<fr>Vous n&amp;#39;avez pas accès à cette zone.</fr>
@@ -984,7 +984,7 @@
 			</entry>
 			<entry>
 				<id>e7ba52be00619245bf487b34e862db3c</id>
-				<org>Sie sind nicht eingeloggt. Bitte loggen Sie sich erst ein, bevor Sie diesen Bereich betreten.</org>
+				<org>Du bist nicht eingeloggt. Bitte loggen dich erst ein, bevor du diesen Bereich betritst.</org>
 				<en>You are not logged. Please log in first before you enter this area.</en>
 				<es>No está conectado. Debes iniciar sesión antes de entrar en esta área.</es>
 				<fr>Vous n&amp;#39;êtes pas connecté. S&amp;#39;il vous plaît Connectez-vous en premier avant de pénétrer dans cette zone.</fr>
@@ -994,7 +994,7 @@
 			</entry>
 			<entry>
 				<id>b88306302f2681ea25c7ea17d545a037</id>
-				<org>Leider ist die von Ihnen aufgerufene Seite auf diesem Server nicht vorhanden.&lt;br/&gt;Um Fehler zu vermeiden, sollten Sie die URL nicht manuell ändern, sondern die Links benutzen. Wenn Sie die Adresse manuell eingegeben haben überprüfen Sie bitte die URL.</org>
+				<org>Leider ist die von dir aufgerufene Seite auf diesem Server nicht vorhanden.&lt;br/&gt;Um Fehler zu vermeiden, solltest du die URL nicht manuell ändern, sondern die Links benutzen. Wenn du die Adresse manuell eingegeben hast überprüfe bitte die URL.</org>
 				<en>Unfortunately, the page you requested does not exist on this server. &lt;br/&gt; To avoid errors, you should not change the URL manually, but use the links. If you have manually entered the address, please check the URL.</en>
 				<es>Lamentablemente, la página solicitada no existe en este servidor. &lt;br/&gt; Para evitar errores, no se debe cambiar la dirección manualmente, pero el uso de los enlaces. Si ha introducido manualmente la dirección, por favor, compruebe el URL.</es>
 				<fr>Malheureusement, la page demandée n&amp;#39;existe pas sur ce serveur. &lt;br/&gt; Pour éviter les erreurs, vous ne devez pas modifier l&amp;#39;URL manuellement, mais utilisez les liens. Si vous avez saisi manuellement l&amp;#39;adresse, s&amp;#39;il vous plaît vérifier l</fr>
@@ -1014,7 +1014,7 @@
 			</entry>
 			<entry>
 				<id>4f712108e0e13abdfd131cfa68799338</id>
-				<org>Sie haben diese Anfrage wiederholt ausgeführt.</org>
+				<org>Du hast diese Anfrage wiederholt ausgeführt.</org>
 				<en>They have repeatedly stated this request.</en>
 				<es>Ellos han declarado en repetidas ocasiones esta petición.</es>
 				<fr>Ils ont déclaré à plusieurs reprises cette demande.</fr>
@@ -1164,7 +1164,7 @@
 			</entry>
 			<entry>
 				<id>9baed4461ee81660fff41f6f70389834</id>
-				<org>Das MySQL-PHP Modul ist nicht geladen. Bitte fügen Sie die mysql.so Erweiterung zur php.ini hinzu und restarten Sie den Webserver neu. Lansuite wird abgebrochen</org>
+				<org>Das MySQL-PHP Modul ist nicht geladen. Bitte füge die mysql.so Erweiterung zur php.ini hinzu und restarte den Webserver neu. Lansuite wird abgebrochen</org>
 				<en>The MySQL PHP module is not loaded. Please add the mysql.so extension to php.ini and restart the web server. Lansuite is canceled</en>
 				<es>El módulo de PHP de MySQL no está cargado. Por favor, añada la extensión mysql.so a php.ini y reinicie el servidor web. Lansuite se cancela</es>
 				<fr>Le module PHP pour MySQL n&amp;#39;est pas chargé. S&amp;#39;il vous plaît ajoutez l&amp;#39;extension mysql.so à votre php.ini et redémarrez le serveur web. Lansuite est annulée</fr>
@@ -1284,7 +1284,7 @@
 			</entry>
 			<entry>
 				<id>df24d29109c2ee42527311d45a2f3e19</id>
-				<org>Diese Webseite ist Momentan im &quot;Freeze-Mode&quot;.[br]D.h. es können keine neuen Daten in die Datenbank geschrieben werden.[br][br]Bitte versuchen Sie es zu einem Späteren Zeitpunkt nocheinmal.</org>
+				<org>Diese Webseite ist Momentan im &quot;Freeze-Mode&quot;.[br]D.h. es können keine neuen Daten in die Datenbank geschrieben werden.[br][br]Bitte versuche es zu einem Späteren Zeitpunkt nocheinmal.</org>
 				<en>This website is currently in &amp;quot;freeze mode&amp;quot;. [Br] That is, it is not possible to write any new data into the database. [Br] [br] Please try again at a later time.</en>
 				<es>Este sitio web está actualmente en modo de la &amp;quot;congelación&amp;quot;. [Br] Esto es, es posible escribir nuevos datos en la base de datos. [Br] [br] Por favor, inténtelo de nuevo más tarde.</es>
 				<fr>Ce site est actuellement en mode &amp;quot;geler&amp;quot;. [Fr] Cela est, il est possible d&amp;#39;écrire de nouvelles données dans la base de données. [Br] [br] S&amp;#39;il vous plaît essayer de nouveau à une date ultérieure.</fr>
@@ -1304,7 +1304,7 @@
 			</entry>
 			<entry>
 				<id>78ce20219f0f80bd2e6f5e991f4295ef</id>
-				<org>Bitte geben Sie diesen Text unterhalb ein</org>
+				<org>Bitte gib diesen Text unterhalb ein</org>
 				<en>Please enter the text below</en>
 				<es>Por favor, introduzca el texto de la caída por debajo de un</es>
 				<fr>S&amp;#39;il vous plaît entrez la chute en dessous d&amp;#39;un texte</fr>
@@ -1324,7 +1324,7 @@
 			</entry>
 			<entry>
 				<id>e6b431736c96f4307e84d3fe19f1b14f</id>
-				<org>Sie haben Ihre Email-Adresse (%1) noch nicht verifiziert. Bitte folgen Sie dem Link in der Ihnen zugestellten Email.</org>
+				<org>Du hast deine Email-Adresse (%1) noch nicht verifiziert. Bitte folge dem Link in der dir zugestellten Email.</org>
 				<en>You have not yet verified your email address (%1). Please follow the link in the e-mail delivered to you.</en>
 				<es>Todavía no ha verificado su dirección de correo electrónico (%1). Por favor siga el enlace en el e-mail que le ofrece.</es>
 				<fr>Vous n&amp;#39;avez pas encore validé votre adresse e-mail (%1). S&amp;#39;il vous plaît suivez le lien dans l&amp;#39;e-mail vous est livré.</fr>
@@ -1334,7 +1334,7 @@
 			</entry>
 			<entry>
 				<id>f2999f6023f7896c13d6f3ca77985cb9</id>
-				<org>Klicken Sie hier, um die Mail erneut zu versenden&lt;/a&gt;</org>
+				<org>Klicke hier, um die Mail erneut zu versenden&lt;/a&gt;</org>
 				<en>Click here to resend the mail to</en>
 				<es>Haga clic aquí para reenviar el correo a</es>
 				<fr>Cliquez ici pour renvoyer le courrier à</fr>
@@ -1344,7 +1344,7 @@
 			</entry>
 			<entry>
 				<id>116157fc9c4516dd2e35512965048960</id>
-				<org>Haben Sie ihr Passwort vergessen?&lt;br/&gt;&lt;a href=&quot;/index.php?mod=usrmgr&amp;action=pwrecover&quot;/&gt;Hier können Sie sich ein neues Passwort generieren&lt;/a&gt;.</org>
+				<org>Hast du dein Passwort vergessen?&lt;br/&gt;&lt;a href=&quot;/index.php?mod=usrmgr&amp;action=pwrecover&quot;/&gt;Hier kannst du dir ein neues Passwort generieren&lt;/a&gt;.</org>
 				<en>Forgot your password? &amp;lt;br/&amp;gt; &amp;lt;a href=&amp;quot;/index.php?mod=usrmgr&amp;amp;action=pwrecover&amp;quot;/&amp;gt;Here you can generate a new password.&amp;lt;/a&amp;gt;</en>
 				<es>¿Olvidaste tu contraseña? &lt;br/&gt; &lt;a href=&quot;/index.php?mod=usrmgr&amp;action=pwrecover&quot;/&gt;Aquí se puede generar una contraseña nueva.&lt;/a&gt;</es>
 				<fr>Vous avez oublié votre mot de passe? &lt;br/&gt; &lt;a href=&quot;/index.php?mod=usrmgr&amp;action=pwrecover&quot;/&gt;Ici vous pouvez générer un mot de passe nouveau.&lt;/a&gt;</fr>
@@ -1354,7 +1354,7 @@
 			</entry>
 			<entry>
 				<id>811e47f41d8090c0c509dea9cefcebab</id>
-				<org>Ihre Session ist abgelaufen und das bei Ihnen gesetzte Cookie ist fehlerhaft. Leider konnten Sie damit nicht eingeloggt werden. Bitte loggen Sie sich neben erneut manuell ein</org>
+				<org>Deine Session ist abgelaufen und das bei dir gesetzte Cookie ist fehlerhaft. Leider konntest du damit nicht eingeloggt werden. Bitte logge dich erneut manuell ein</org>
 				<en>Your session has expired and the cookie set is corrupt. Unfortunately, you were unable to be logged in. Please log in manually again</en>
 				<es>Su sesión ha caducado y se establece la &amp;quot;cookie&amp;quot; es corrupto. Desafortunadamente, usted no pudo estar conectado. Inicia sesión, además de manualmente</es>
 				<fr>Votre session a expiré et que vous définissez le cookie est endommagé. Malheureusement, vous n&amp;#39;avez pas pu être identifié. S&amp;#39;il vous plaît Connectez-vous en plus manuellement</fr>

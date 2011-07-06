@@ -34,7 +34,7 @@ switch($_GET["step"]) {
 			
 		if($_POST["cat_caption"] == "") {
 			
-			$faq_error['cat_caption']	= t('Bitte geben Sie einen Namen für die neue Kategorie ein');
+			$faq_error['cat_caption']	= t('Bitte gib einen Namen für die neue Kategorie ein');
 			
 			eval($error);
 			

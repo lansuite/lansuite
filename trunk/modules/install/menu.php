@@ -31,7 +31,7 @@ switch($_GET["step"]) {
 
 	// Rewrite Menu Question
 	case 6:
-		$func->question(t('Sind Sie sicher, dass Sie alle Navigationseinträge zurücksetzen möchten?'), "index.php?mod=install&action=menu&step=7&onlyactive={$_GET["onlyactive"]}", "index.php?mod=install&action=menu&onlyactive={$_GET["onlyactive"]}");
+		$func->question(t('Bist du sicher, dass du alle Navigationseinträge zurücksetzen möchten?'), "index.php?mod=install&action=menu&step=7&onlyactive={$_GET["onlyactive"]}", "index.php?mod=install&action=menu&onlyactive={$_GET["onlyactive"]}");
 	break;
 
 	// Rewrite Menu Action
@@ -65,7 +65,7 @@ switch($_GET["step"]) {
 
 	// Change Group Choice
 	case 8:
-		$dsp->NewContent(t('Gruppe ändern'), t('Hier können Sie diesen Navigationseintrag einer Gruppe zuweisen'));
+		$dsp->NewContent(t('Gruppe ändern'), t('Hier kannst du diesen Navigationseintrag einer Gruppe zuweisen'));
 		$dsp->SetForm("index.php?mod=install&action=menu&step=9&pos={$_GET["pos"]}&onlyactive={$_GET["onlyactive"]}");
 
 		$menu = $db->qry_first("SELECT group_nr FROM %prefix%menu WHERE pos = %string%", $_GET["pos"]);
@@ -79,8 +79,8 @@ switch($_GET["step"]) {
 
 	default:
 		$dsp->NewContent(t('Navigationsmenü verwalten'), '');
-		$dsp->AddDoubleRow("Hinweis MenüBox", "<font color=\"red\">".t("Verwenden Sie die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box")."</font>");
-		$dsp->AddDoubleRow("Hinweis Gruppen", "<font color=\"red\">".t("Verwenden sie die Gruppen um in der URL mit dem Parameter &menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design")."</font>");
+		$dsp->AddDoubleRow("Hinweis MenüBox", "<font color=\"red\">".t("Verwende die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box")."</font>");
+		$dsp->AddDoubleRow("Hinweis Gruppen", "<font color=\"red\">".t("Verwende die Gruppen um in der URL mit dem Parameter &menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design")."</font>");
 		$dsp->SetForm("index.php?mod=install&action=menu&step=10&onlyactive={$_GET["onlyactive"]}");
 
 		$dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=menu&step=6&onlyactive={$_GET["onlyactive"]}\">".t('Navigation zurücksetzen')."</a>");

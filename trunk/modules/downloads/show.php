@@ -138,7 +138,7 @@ if (!$cfg['download_use_ftp']) {
 
 
 // Try to connect to FTP-Server
-} elseif (!extension_loaded(ftp)) $func->error(t('Die PHP-Erweiterung <b>FTP</b> konnte nicht geladen werden. &Uuml;berpr&uuml;fen Sie, ob diese in PHP einkompiliert bzw. aktiviert ist'));
+} elseif (!extension_loaded(ftp)) $func->error(t('Die PHP-Erweiterung <b>FTP</b> konnte nicht geladen werden. &Uuml;berpr&uuml;fe, ob diese in PHP einkompiliert bzw. aktiviert ist'));
 else {
 
   session_register("downloads_dir");
@@ -234,7 +234,7 @@ else {
       }
     } else $func->information(t('Kein Inhalt vorhanden'));
 
-    $dsp->NewContent(t('Downloads'), t('Hier können Sie zum Download bereitgestellte Dateien downloaden. Ordner sind durch ein Ordner-Symbol gekennzeichnet und können per Klick auf dieses oder den Namen ge&ouml;ffnet werden. Bei &ouml;ffnen eines Unterverzeichnisses wird das aktuelle Verzeichnis am oberen Rand angezeigt. Ebenfalls angezeigt wird ein Symbol mit dem Sie zum nächst höhergelegenen Verzeichnis gelangen'));
+    $dsp->NewContent(t('Downloads'), t('Hier kannst du zum Download bereitgestellte Dateien downloaden. Ordner sind durch ein Ordner-Symbol gekennzeichnet und können per Klick auf dieses oder den Namen ge&ouml;ffnet werden. Bei &ouml;ffnen eines Unterverzeichnisses wird das aktuelle Verzeichnis am oberen Rand angezeigt. Ebenfalls angezeigt wird ein Symbol mit dem du zum nächst höhergelegenen Verzeichnis gelangst'));
     if (count($_SESSION['downloads_dir']) > "0") $dsp->AddSingleRow('<a href="index.php?mod=downloads&action=show&go_dir=up"><img src="design/'. $auth['design'] .'/images/downloads_goup.gif" border="0"></a> '. $dir .'/');
     $dsp->AddTableRow($table);
     $dsp->AddContent();

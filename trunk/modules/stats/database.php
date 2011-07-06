@@ -16,7 +16,7 @@
 
 $hostname = explode(' ', $db->get_host_info());
 
-$dsp->NewContent(t('Datenbank Statistik'), t('Auf dieser Seite erhalten Sie Informationen &uuml;ber die Datenbank und aktuelle Leistungsdaten.'));
+$dsp->NewContent(t('Datenbank Statistik'), t('Auf dieser Seite erhälst du Informationen &uuml;ber die Datenbank und aktuelle Leistungsdaten.'));
 $dsp->AddDoubleRow(t('Servername'), $hostname[0]);
 $dsp->AddDoubleRow(t('Verbindungstyp'), $hostname[2]);
 

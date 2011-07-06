@@ -50,7 +50,7 @@ switch($_GET['step']) {
 	break;
 
 	case 3:
-		$dsp->NewContent(t('Sitzplatz - Informationen'), t('Fahren Sie mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.'));
+		$dsp->NewContent(t('Sitzplatz - Informationen'), t('Fahre mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.'));
 
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 0, "index.php?mod=seating&action=seatadmin&step=10&userid={$_GET['userid']}&blockid={$_GET['blockid']}"));
 

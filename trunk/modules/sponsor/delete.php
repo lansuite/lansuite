@@ -7,7 +7,7 @@ switch ($_GET['step']){
 
 	case 2:
 		$sponsor = $db->qry_first('SELECT name FROM %prefix%sponsor WHERE sponsorid=%int%', $_GET['sponsorid']);
-		$func->question(t('Wollen Sie den Sponsor <b>%1</b> wirklich löschen?', $sponsor['name']), "index.php?mod=sponsor&amp;action=delete&amp;step=3&amp;sponsorid=". $_GET['sponsorid'], "index.php?mod=sponsor&amp;action=delete");
+		$func->question(t('Wilsst du den Sponsor <b>%1</b> wirklich löschen?', $sponsor['name']), "index.php?mod=sponsor&amp;action=delete&amp;step=3&amp;sponsorid=". $_GET['sponsorid'], "index.php?mod=sponsor&amp;action=delete");
 	break;
 
 	case 3:

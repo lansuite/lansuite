@@ -5,7 +5,7 @@ if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_sel
     include_once('inc/classes/class_masterform.php');
     $mf = new masterform();
     
-    $dsp->NewContent(t("Hardware &auml;ndern"), t("Hier k&ouml;nnen sie die Hardware eingeben"));
+    $dsp->NewContent(t("Hardware &auml;ndern"), t("Hier kannst du die Hardware eingeben"));
     $mf->AddField('CPU', 'cpu','','',FIELD_OPTIONAL);
     $mf->AddField('Ram (in MB)', 'ram','','',FIELD_OPTIONAL);
     $mf->AddField('Grafikkarte', 'graka','','',FIELD_OPTIONAL);
@@ -23,6 +23,6 @@ if ($auth['type'] >= 2 or ($_GET['userid'] == $auth['userid'] and $cfg['user_sel
     $mf->SendForm('index.php?mod=hardware&action=edit&userid='.$_GET['userid'], 'hardware','hardwareid',$_GET['hardwareid']);
     $dsp->AddContent();
 } else {
-    $func->error(t('Sie haben keine Berechtigung diese Daten zu &auml;ndern'));
+    $func->error(t('Du hast keine Berechtigung diese Daten zu &auml;ndern'));
 }
 ?>

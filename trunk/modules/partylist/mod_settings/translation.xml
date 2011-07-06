@@ -24,7 +24,7 @@
 			</entry>
 			<entry>
 				<id>6bf488e40782ece763f5c0ec080aed91</id>
-				<org>Hier können Sie Ihre Party der Liste hinzufügen</org>
+				<org>Hier kannst du deine Party der Liste hinzufügen</org>
 				<en>Here you can add your party list</en>
 				<es>Aquí usted puede agregar sus listas de partidos</es>
 				<fr>Ici vous pouvez ajouter votre liste de parti</fr>
@@ -204,7 +204,7 @@
 			</entry>
 			<entry>
 				<id>3e1afbf148bd94f5651696ff029471a8</id>
-				<org>Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben</org>
+				<org>Du musst dir zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben</org>
 				<en>You must first create a Google under http://www.google.com/apis/maps/signup.html Maps API key and enter it in the%1</en>
 				<es>Primero debe crear una clave de Google en virtud del http://www.google.com/apis/maps/signup.html Maps API e introducirla en el 1%</es>
 				<fr>Vous devez d&amp;#39;abord créer une sous clé http://www.google.com/apis/maps/signup.html Google Maps API et l&amp;#39;inscrire dans le 1%</fr>

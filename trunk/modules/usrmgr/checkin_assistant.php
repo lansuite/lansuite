@@ -5,7 +5,7 @@ $seat2 = new seat2();
 
 $timestamp 	= time();
 
-if (!$party->party_id) $func->information(t('Es gibt keine aktive Party. Bitte setzen Sie im Partymanager eine Party aktiv'));
+if (!$party->party_id) $func->information(t('Es gibt keine aktive Party. Bitte setze im Partymanager eine Party aktiv'));
 else {
 
   // Main-Switch
@@ -25,7 +25,7 @@ else {
   		$questionarr[1] = t('Bereits <b>angemeldeten Gast einchecken</b>');
   		$questionarr[2] = t('Bereits <b>zu einer vergangenen Party angemeldeten Gast einchecken</b>');
   		$questionarr[3] = t('Neuer Gast. Einen <b>Account erstellen</b><br /><i>Es wird nur eine E-Mail-Adresse angelegt und ein Passwort automatisch generiert. Alle weiteren Daten gibt der Benutzer beim ersten Einloggen selbst ein.</i>');
-  		$questionarr[4] = t('Neuer Gast. Einen <b>erweiterten Account erstellen</b><br /><i>Hier legen Sie direkt am Einlass alle Benutzerdaten fest.</i>');
+  		$questionarr[4] = t('Neuer Gast. Einen <b>erweiterten Account erstellen</b><br /><i>Hier liegst du direkt am Einlass alle Benutzerdaten fest.</i>');
   		$linkarr[1]	= "index.php?mod=usrmgr&action=entrance&step=2&signon=1";
   		$linkarr[2]	= "index.php?mod=usrmgr&action=entrance&step=2&signon=0";
   		$linkarr[3]	= "index.php?mod=usrmgr&action=entrance&step=3&quick_signon=1";
@@ -54,7 +54,7 @@ else {
       if ($_GET['quick_signon']) $_SESSION['quick_signon'] = $_GET['quick_signon'];
       if ($_SESSION['quick_signon']) $quick_signon = $_SESSION['quick_signon'];
 
-  		$dsp->NewContent(t('Benutzer hinzufügen'), t('Um einen Benutzer hinzuzufügen, füllen Sie bitte das folgende Formular vollständig aus.'));
+  		$dsp->NewContent(t('Benutzer hinzufügen'), t('Um einen Benutzer hinzuzufügen, fülle bitte das folgende Formular vollständig aus.'));
 
       $row = $db->qry_first('SELECT pp.price, pp.price_text FROM %prefix%partys AS p
         LEFT JOIN %prefix%party_prices AS pp ON p.evening_price_id = pp.price_id
@@ -100,14 +100,14 @@ else {
 
   	// Neuen Sitzplatz auswählen?
   	case 6:
-  		$func->question(t('Wollen Sie diesem Benutzer einen Sitzplatz zuweisen?<br />Er sitzt aktuell auf:<br />%1', $seat2->SeatNameLink($_GET["userid"])), "index.php?mod=usrmgr&action=entrance&step=7&umode=". $_GET["umode"] ."&userid=". $_GET["userid"], "index.php?mod=usrmgr&action=entrance&step=11&umode=". $_GET["umode"] ."&userid=". $_GET["userid"]);
+  		$func->question(t('Willst du diesem Benutzer einen Sitzplatz zuweisen?<br />Er sitzt aktuell auf:<br />%1', $seat2->SeatNameLink($_GET["userid"])), "index.php?mod=usrmgr&action=entrance&step=7&umode=". $_GET["umode"] ."&userid=". $_GET["userid"], "index.php?mod=usrmgr&action=entrance&step=11&umode=". $_GET["umode"] ."&userid=". $_GET["userid"]);
   	break;
 
   	// Sitzblock auswählen
   	case 7:
   		if ($_GET['next_userid']) {
   			$seat2->AssignSeat($_GET['userid'], $_GET['blockid'], $_GET['row'], $_GET['col']);
-  			$func->confirmation("Der Sitzplatz wurde erfolgreich reserviert. Sie fahren nun mit dem alten Besitzer dieses Sitzplatzes fort", '');
+  			$func->confirmation("Der Sitzplatz wurde erfolgreich reserviert. Fahre nun mit dem alten Besitzer dieses Sitzplatzes fort", '');
   			$_GET['userid'] = $_GET['next_userid'];
   		}
 
@@ -118,7 +118,7 @@ else {
 
   	// Sitzplatz auswählen
   	case 8:
-  		$dsp->NewContent('Sitzplatz - Informationen', 'Fahren Sie mit der Maus über einen Sitzplatz um weitere Informationen zu erhalten.');
+  		$dsp->NewContent('Sitzplatz - Informationen', 'Fahre mit der Maus über einen Sitzplatz um weitere Informationen zu erhalten.');
 
   		$dsp->AddDoubleRow('Sitzplatz', '', 'seating');
   		$dsp->AddDoubleRow('Benutzer', '', 'name');

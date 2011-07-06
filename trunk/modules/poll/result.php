@@ -11,7 +11,7 @@
     INNER JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
     WHERE o.pollid = %int% AND v.userid = %int%', $_GET['pollid'], $auth['userid']);
 	if (!$pollrow['caption']) {
-		$func->error(t('Dieser Poll existiert nicht, oder Sie haben keine Berechtigung ihn zu sehen'), NO_LINK);
+		$func->error(t('Dieser Poll existiert nicht, oder du hast keine Berechtigung ihn zu sehen'), NO_LINK);
 		$_GET['step'] = 1;
 	}
 	

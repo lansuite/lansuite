@@ -11,7 +11,7 @@ switch( $_GET["step"] ) {
 	
 		If( $_POST["device_caption"] == "" ) { 
 
-			$noc_error['device_caption'] = t('Bitte geben Sie einen Namen f&uuml;r das Device ein');
+			$noc_error['device_caption'] = t('Bitte gib einen Namen f&uuml;r das Device ein');
 
 			$_GET["step"] = 2;
 			
@@ -19,7 +19,7 @@ switch( $_GET["step"] ) {
 		
 		If( $_POST["device_ip"] == "" ) {
 		
-			$noc_error['device_ip'] = t('Bitte geben Sie eine IP-Adresse f&uuml;r das Device ein');
+			$noc_error['device_ip'] = t('Bitte gib eine IP-Adresse f&uuml;r das Device ein');
 			
 			$_GET["step"] = 2;
 			
@@ -27,7 +27,7 @@ switch( $_GET["step"] ) {
 		
 			If( !( $func->checkIP( $_POST["device_ip"] ) ) ) {
 				
-				$noc_error['device_ip'] = t('Bitte geben Sie eine <em>g&uuml;ltige</em> IP-Adresse f&uuml;r das Device ein');
+				$noc_error['device_ip'] = t('Bitte gib eine <em>g&uuml;ltige</em> IP-Adresse f&uuml;r das Device ein');
 			
 				$_GET["step"] = 2;
 					
@@ -38,7 +38,7 @@ switch( $_GET["step"] ) {
 				
 		If( $_POST["device_write"] == "" ) {
 			
-			$noc_error['device_write'] = t('Bitte geben Sie eine Write-Community f&uuml;r das Device an.');
+			$noc_error['device_write'] = t('Bitte gib eine Write-Community f&uuml;r das Device an.');
 				
 			$_GET["step"] = 2;
 			
@@ -46,7 +46,7 @@ switch( $_GET["step"] ) {
 		
 		If( $_POST["device_read"] == "" ) {
 		
-			$noc_error['device_read'] = t('Bitte geben Sie eine Read-Community f&uuml;r das Device an.');
+			$noc_error['device_read'] = t('Bitte gib eine Read-Community f&uuml;r das Device an.');
 							
 			$_GET["step"] = 2;
 			
@@ -79,7 +79,7 @@ switch( $_GET["step"] ) {
 			$device_read = $row["readcommunity"];
 			$device_write = $row["writecommunity"];
 
-			$dsp->NewContent(t('Device hinzuf&uuml;gen'),t('Um einen Device zum NOC hinzuzuf&uuml;gen, f&uuml;llen Sie bitte
+			$dsp->NewContent(t('Device hinzuf&uuml;gen'),t('Um einen Device zum NOC hinzuzuf&uuml;gen, f&uuml;lle bitte
 				         		  das folgende Formular vollst&auml;ndig aus.HTML_NEWLINEF&uuml;r das Feld Name
               					   stehen 30 Zeichen zur Verf&uuml;gung. '));
 			$dsp->SetForm("index.php?mod=noc&action=change_device&step=3&deviceid=" . $_GET["deviceid"],"noc");
@@ -113,9 +113,9 @@ switch( $_GET["step"] ) {
 				      				- Das Device hat keinen StromHTML_NEWLINE
 				      				- Das Device hat noch keine IP-AdresseHTML_NEWLINE
 				      				- Das Device unterst&uuml;tzt kein SNMPHTML_NEWLINE
-				      				- Sie haben eine falsche Read-Community angegebenHTML_NEWLINE
-				      				- Sie haben eine falsche IP-Adresse angegebenHTML_NEWLINE
-				      				- Sie haben vergessen, SNMP am device einzuschaltenHTML_NEWLINE
+				      				- Du hast eine falsche Read-Community angegebenHTML_NEWLINE
+				      				- Du hast eine falsche IP-Adresse angegebenHTML_NEWLINE
+				      				- Du hast vergessen, SNMP am device einzuschaltenHTML_NEWLINE
 				      				- Dieses PHP unterst&uuml;tzt kein SNMP, kompilieren sie es mit SNMPHTML_NEWLINE
 				      				&nbsp; &nbsp;oder laden sie sich ein vorkompiliertes PHP mit SNMP vonHTML_NEWLINE
 				      				&nbsp; &nbsp;<a href="http://de.php.net">Der Deutschen PHP Seite</a> herunterHTML_NEWLINE, '));

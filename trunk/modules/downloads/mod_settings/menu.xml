@@ -5,7 +5,7 @@
 		<action>default</action>
 		<file>show</file>
 		<caption>Downloads</caption>
-		<hint>Hier können Sie Dateien downloaden</hint>
+		<hint>Hier kannst du Dateien downloaden</hint>
 		<link>?mod=downloads</link>
 		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<level>0</level>

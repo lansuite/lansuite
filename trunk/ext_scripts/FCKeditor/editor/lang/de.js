@@ -152,16 +152,16 @@ FontFormats			: "Normal;Formatiert;Addresse;Überschrift 1;Überschrift 2;Übers
 // Alerts and Messages
 ProcessingXHTML		: "Bearbeite XHTML. Bitte warten...",
 Done				: "Fertig",
-PasteWordConfirm	: "Der Text, den Sie einfügen möchten, scheint aus MS-Word kopiert zu sein. Möchten Sie ihn zuvor bereinigen lassen?",
-NotCompatiblePaste	: "Diese Funktion steht nur im Internet Explorer ab Version 5.5 zur Verfügung. Möchten Sie den Text unbereinigt einfügen?",
+PasteWordConfirm	: "Der Text, den du einfügen möchtest, scheint aus MS-Word kopiert zu sein. Möchtest du ihn zuvor bereinigen lassen?",
+NotCompatiblePaste	: "Diese Funktion steht nur im Internet Explorer ab Version 5.5 zur Verfügung. Möchtest du den Text unbereinigt einfügen?",
 UnknownToolbarItem	: "Unbekanntes Menüleisten-Objekt \"%1\"",
 UnknownCommand		: "Unbekannter Befehl \"%1\"",
 NotImplemented		: "Befehl nicht implementiert",
 UnknownToolbarSet	: "Menüleiste \"%1\" existiert nicht",
-NoActiveX			: "Die Sicherheitseinstellungen Ihres Browsers beschränken evtl. einige Funktionen des Editors. Aktivieren Sie die Option \"ActiveX-Steuerelemente und Plugins ausführen\" in den Sicherheitseinstellungen, um diese Funktionen nutzen zu können",
-BrowseServerBlocked : "Ein Auswahlfenster konnte nicht geöffnet werden. Stellen Sie sicher, das alle Popup-Blocker ausgeschaltet sind.",
-DialogBlocked		: "Das Dialog-Fenster konnte nicht geöffnet werden. Stellen Sie sicher, das alle Popup-Blocker ausgeschaltet sind.",
-VisitLinkBlocked	: "Es war leider nicht möglich ein neues Fenster zu öffnen. Bitte versichern Sie sich das der Popup-Blocker ausgeschaltet ist.",
+NoActiveX			: "Die Sicherheitseinstellungen deines Browsers beschränken evtl. einige Funktionen des Editors. Aktiviere die Option \"ActiveX-Steuerelemente und Plugins ausführen\" in den Sicherheitseinstellungen, um diese Funktionen nutzen zu können",
+BrowseServerBlocked : "Ein Auswahlfenster konnte nicht geöffnet werden. Stelle sicher, das alle Popup-Blocker ausgeschaltet sind.",
+DialogBlocked		: "Das Dialog-Fenster konnte nicht geöffnet werden. Stelle sicher, das alle Popup-Blocker ausgeschaltet sind.",
+VisitLinkBlocked	: "Es war leider nicht möglich ein neues Fenster zu öffnen. Bitte versiche dich das der Popup-Blocker ausgeschaltet ist.",
 
 // Dialogs
 DlgBtnOK			: "OK",
@@ -171,7 +171,7 @@ DlgBtnBrowseServer	: "Server durchsuchen",
 DlgAdvancedTag		: "Erweitert",
 DlgOpOther			: "<andere>",
 DlgInfoTab			: "Info",
-DlgAlertUrl			: "Bitte tragen Sie die URL ein",
+DlgAlertUrl			: "Bitte trage die URL ein",
 
 // General Dialogs Labels
 DlgGenNotSet		: "<nichts>",
@@ -215,7 +215,7 @@ DlgImgAlignRight	: "Rechts",
 DlgImgAlignTextTop	: "Text Oben",
 DlgImgAlignTop		: "Oben",
 DlgImgPreview		: "Vorschau",
-DlgImgAlertUrl		: "Bitte geben Sie die Bild-URL an",
+DlgImgAlertUrl		: "Bitte gib die Bild-URL an",
 DlgImgLinkTab		: "Link",
 
 // Flash Dialog
@@ -273,9 +273,9 @@ DlgLnkPopHeight		: "Höhe",
 DlgLnkPopLeft		: "Linke Position",
 DlgLnkPopTop		: "Obere Position",
 
-DlnLnkMsgNoUrl		: "Bitte geben Sie die Link-URL an",
-DlnLnkMsgNoEMail	: "Bitte geben Sie e-Mail Adresse an",
-DlnLnkMsgNoAnchor	: "Bitte wählen Sie einen Anker aus",
+DlnLnkMsgNoUrl		: "Bitte gib die Link-URL an",
+DlnLnkMsgNoEMail	: "Bitte gib deine e-Mail Adresse an",
+DlnLnkMsgNoAnchor	: "Bitte wähle einen Anker aus",
 DlnLnkMsgInvPopName	: "Der Name des Popups muss mit einem Buchstaben beginnen und darf keine Leerzeichen enthalten",
 
 // Color Dialog
@@ -362,14 +362,14 @@ DlgReplaceReplAllBtn	: "Alle Ersetzen",
 DlgReplaceWordChk		: "Nur ganze Worte suchen",
 
 // Paste Operations / Dialog
-PasteErrorCut	: "Die Sicherheitseinstellungen Ihres Browsers lassen es nicht zu, den Text automatisch auszuschneiden. Bitte benutzen Sie die System-Zwischenablage über STRG-X (ausschneiden) und STRG-V (einfügen).",
-PasteErrorCopy	: "Die Sicherheitseinstellungen Ihres Browsers lassen es nicht zu, den Text automatisch kopieren. Bitte benutzen Sie die System-Zwischenablage über STRG-C (kopieren).",
+PasteErrorCut	: "Die Sicherheitseinstellungen deines Browsers lassen es nicht zu, den Text automatisch auszuschneiden. Bitte benutze die System-Zwischenablage über STRG-X (ausschneiden) und STRG-V (einfügen).",
+PasteErrorCopy	: "Die Sicherheitseinstellungen deines Browsers lassen es nicht zu, den Text automatisch kopieren. Bitte benutze die System-Zwischenablage über STRG-C (kopieren).",
 
 PasteAsText		: "Als Text einfügen",
 PasteFromWord	: "Aus Word einfügen",
 
-DlgPasteMsg2	: "Bitte fügen Sie den Text in der folgenden Box über die Tastatur (mit <STRONG>Strg+V</STRONG>) ein und bestätigen Sie mit <STRONG>OK</STRONG>.",
-DlgPasteSec		: "Aufgrund von Sicherheitsbeschränkungen Ihres Browsers kann der Editor nicht direkt auf die Zwischenablage zugreifen. Bitte fügen Sie den Inhalt erneut in diesem Fenster ein.",
+DlgPasteMsg2	: "Bitte füge den Text in der folgenden Box über die Tastatur (mit <STRONG>Strg+V</STRONG>) ein und bestätige mit <STRONG>OK</STRONG>.",
+DlgPasteSec		: "Aufgrund von Sicherheitsbeschränkungen deines Browsers kann der Editor nicht direkt auf die Zwischenablage zugreifen. Bitte füge den Inhalt erneut in diesem Fenster ein.",
 DlgPasteIgnoreFont		: "Ignoriere Schriftart-Definitionen",
 DlgPasteRemoveStyles	: "Entferne Style-Definitionen",
 
@@ -383,7 +383,7 @@ DocProps		: "Dokument-Eigenschaften",
 // Anchor Dialog
 DlgAnchorTitle		: "Anker-Eigenschaften",
 DlgAnchorName		: "Anker Name",
-DlgAnchorErrorName	: "Bitte geben Sie den Namen des Ankers ein",
+DlgAnchorErrorName	: "Bitte gib den Namen des Ankers ein",
 
 // Speller Pages Dialog
 DlgSpellNotInDic		: "Nicht im Wörterbuch",
@@ -400,7 +400,7 @@ DlgSpellNoChanges		: "Rechtschreibprüfung abgeschlossen - keine Worte geändert
 DlgSpellOneChange		: "Rechtschreibprüfung abgeschlossen - ein Wort geändert",
 DlgSpellManyChanges		: "Rechtschreibprüfung abgeschlossen - %1 Wörter geändert",
 
-IeSpellDownload			: "Rechtschreibprüfung nicht installiert. Möchten Sie sie jetzt herunterladen?",
+IeSpellDownload			: "Rechtschreibprüfung nicht installiert. Möchtest du sie jetzt herunterladen?",
 
 // Button Dialog
 DlgButtonText		: "Text (Wert)",
@@ -514,7 +514,7 @@ DlgDocPreview		: "Vorschau",
 // Templates Dialog
 Templates			: "Vorlagen",
 DlgTemplatesTitle	: "Vorlagen",
-DlgTemplatesSelMsg	: "Klicken Sie auf eine Vorlage, um sie im Editor zu öffnen (der aktuelle Inhalt wird dabei gelöscht!):",
+DlgTemplatesSelMsg	: "Klicke auf eine Vorlage, um sie im Editor zu öffnen (der aktuelle Inhalt wird dabei gelöscht!):",
 DlgTemplatesLoading	: "Liste der Vorlagen wird geladen. Bitte warten...",
 DlgTemplatesNoTpl	: "(keine Vorlagen definiert)",
 DlgTemplatesReplace	: "Aktuellen Inhalt ersetzen",

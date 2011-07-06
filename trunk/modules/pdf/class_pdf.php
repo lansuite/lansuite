@@ -172,7 +172,7 @@ class pdf {
                 $this->_menuSeatcards($action);
             break;              
             default:
-                $func->error(t('Die von Ihnen gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'),"index.php?mod=pdf&action=" . $action);
+                $func->error(t('Die von dir gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'),"index.php?mod=pdf&action=" . $action);
             break;
             case 'userlist':
                 $this->_menuUserlist($action);
@@ -201,7 +201,7 @@ class pdf {
                 $this->_makeUserlist($_POST['paid'],$_POST['guest'],$_POST['op'],$_POST['orga'],$_POST['order']);
             break;  
             default:
-                $func->error(t('Die von Ihnen gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'),"index.php?mod=pdf&action=" . $action);
+                $func->error(t('Die von dir gew&uuml;nschte Funtkion konnte nicht ausgef&uuml;rt werden'),"index.php?mod=pdf&action=" . $action);
             break;
             case 'ticket':
                 if($auth["userid"] == $_GET['userid'] || $auth["type"] > 2){

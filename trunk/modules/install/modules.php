@@ -92,7 +92,7 @@ switch($_GET["step"]) {
     case 20:
         $db->qry("DELETE FROM %prefix%menu WHERE caption='' AND action='' AND file=''");
 
-        $dsp->NewContent(t('Modul-Menüeinträge'), t('Hier können Sie die Navigationseinträge dieses Moduls ändern.'));
+        $dsp->NewContent(t('Modul-Menüeinträge'), t('Hier kannst du die Navigationseinträge dieses Moduls ändern.'));
         $dsp->SetForm("index.php?mod=install&action=modules&step=21&module={$_GET["module"]}");
 
         $dsp->AddFieldsetStart(t('Hauptmenüpunkt des Moduls / Modul-Startseite'));
@@ -129,7 +129,7 @@ switch($_GET["step"]) {
     // Delete Menuentry
     case 23:
       $row = $db->qry_first("SELECT requirement FROM %prefix%menu WHERE id=%int%", $_GET["id"]);
-      if ($row['requirement'] > 0) $func->information(t('Mit diesem Eintrag ist eine Zugriffsberechtigung verknüpft. Sie sollten diesen Eintrag daher nicht löschen, da sonst jeder Zugriff auf die betreffende Datei hat.HTML_NEWLINEWenn Sie nur den Menülink entfernen möchten, löschen Sie die Felder Titel und Linkziel.HTML_NEWLINEWenn Sie wirklich jedem Zugriff auf die Datei geben möchten, setzen Sie den Zugriff auf Jeder und löschen Sie dann den Eintrag.'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
+      if ($row['requirement'] > 0) $func->information(t('Mit diesem Eintrag ist eine Zugriffsberechtigung verknüpft. Du solltest diesen Eintrag daher nicht löschen, da sonst jeder Zugriff auf die betreffende Datei hat.HTML_NEWLINEWenn du nur den Menülink entfernen möchten, lösche die Felder Titel und Linkziel.HTML_NEWLINEWenn du wirklich jedem Zugriff auf die Datei geben möchten, setze den Zugriff auf Jeder und lösche dann den Eintrag.'), "index.php?mod=install&action=modules&step=20&module={$_GET["module"]}");
       
       else {
         $db->qry("DELETE FROM %prefix%menu WHERE id=%int%", $_GET["id"]);
@@ -164,7 +164,7 @@ switch($_GET["step"]) {
       $install->InsertMenus($rewrite_all);
 
       // Output Module-List
-      $dsp->NewContent(t('Modulverwaltung'), t('Hier können Sie Module de-/aktivieren, sowie deren Einstellungen verändern.'));
+      $dsp->NewContent(t('Modulverwaltung'), t('Hier kannst du Module de-/aktivieren, sowie deren Einstellungen verändern.'));
 
       $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=modules&step=3\">".t('Alle Module zurücksetzen')."</a>");
 

@@ -6,15 +6,15 @@ $mail = new mail();
 switch($_GET["step"]) {
 	case 2:
 		if ($_POST["subject"] == ""){
-			$subject_error = t('Bitte geben Sie einen Betreff an');
+			$subject_error = t('Bitte gib einen Betreff an');
 			$_GET["step"] = 1;
 		}
 		if ($_POST["text"] == ""){
-			$text_error = t('Bitte geben Sie einen Text an');
+			$text_error = t('Bitte gib einen Text an');
 			$_GET["step"] = 1;
 		}
 		if (($_POST["toinet"] == "") && ($_POST["tosys"] == "")){
-			$inet_error = t('Bitte wählen Sie mindestens ein Ziel aus');
+			$inet_error = t('Bitte wähle mindestens ein Ziel aus');
 			$_GET["step"] = 1;
 		}
 	break;
@@ -22,7 +22,7 @@ switch($_GET["step"]) {
 
 switch($_GET["step"]) {
 	default:
-		$dsp->NewContent(t('Rundmail versenden'), t('Hier können Sie eine Rundmail an alle Benutzer senden.'));
+		$dsp->NewContent(t('Rundmail versenden'), t('Hier kannst du eine Rundmail an alle Benutzer senden.'));
 		$dsp->SetForm("index.php?mod=mail&action=newsletter&step=2");
 
 		if ($_POST["onlynewsletter"] == "") $_POST["onlynewsletter"] = 1;

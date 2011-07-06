@@ -32,7 +32,7 @@ if ($check["caption"] != "") {
 
 	// SELECT ACTION TYPE
 	if ($_GET["mcact"] == "" OR $_GET["mcact"] == "show") {
-		$dsp->NewContent(t('Newsmeldung + Kommentare'), t('Hier können Sie diese News kommentieren'));
+		$dsp->NewContent(t('Newsmeldung + Kommentare'), t('Hier kannst du diese News kommentieren'));
 		$dsp->AddSingleRow($smarty->fetch("modules/news/templates/show_single_row_$news_type.htm"));
 		$dsp->AddSingleRow($dsp->FetchSpanButton(t('Newsübersicht'), "index.php?mod=news&action=show"));
 	}

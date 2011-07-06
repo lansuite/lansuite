@@ -1,5 +1,5 @@
 [b]Willkommen auf der Webseite ...[/b]
 
-DIESE DATEI FINDEN SIE UNTER: /ext_inc/home/   
+DIESE DATEI FINDEST DU UNTER: /ext_inc/home/   
 
 Name: logout.txt

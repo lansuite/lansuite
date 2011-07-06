@@ -25,7 +25,7 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
 	// Show edit/aktivate Buttons
 	// FIX : add delete
 	if ($auth["type"] > 1) {
-		//$dsp->AddSingleRow(" <font color=\"#ff0000\">".t('Diese Seite enthält selbst definierten Text. Sie können ihn ändern, indem Sie den Informationen-Link in der Navigations-Box auswählen.')."</font>");
+		//$dsp->AddSingleRow(" <font color=\"#ff0000\">".t('Diese Seite enthält selbst definierten Text. Du kannst ihn ändern, indem du den Informationen-Link in der Navigations-Box auswählen.')."</font>");
 		$buttons .= $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=info2&action=change&step=2&infoID={$_GET["id"]}"). " ";
 		if ($info['active'] == 1) {
     		$buttons .= $dsp->FetchSpanButton(t('Deaktivieren'), "index.php?mod=info2&action=change&step=20&infoID={$_GET["id"]}"). " ";
@@ -36,5 +36,5 @@ if (($_GET["submod"] != "")||($_GET["id"]>=1)) {
     }
 
 	$dsp->AddContent();
-} else $func->error(t('Sie haben keine Seite ausgewählt'));
+} else $func->error(t('Du hast keine Seite ausgewählt'));
 ?>

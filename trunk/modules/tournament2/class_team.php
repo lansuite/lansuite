@@ -13,7 +13,7 @@ class team {
 		global $db, $func, $lang;
 
 		if ($tid == "") {
-			$func->error(t('Sie müssen zuerst ein Turnier auswählen!'));
+			$func->error(t('Du musst zuerst ein Turnier auswählen!'));
 			return false;
 		}
 
@@ -130,10 +130,10 @@ class team {
 		global $db, $auth, $lang, $func, $mail;
 
 		if ($teamid == "") { 
-			$func->error(t('Sie haben kein Team ausgeählt!'));
+			$func->error(t('Du hast kein Team ausgeählt!'));
 			return false;
 		} elseif ($userid == "") {
-			$func->error(t('Sie haben keinen Benutzer ausgewählt!'));
+			$func->error(t('Du hast keinen Benutzer ausgewählt!'));
 			return false;
 
 		} else {
@@ -165,7 +165,7 @@ class team {
       teamid = %int%
       ", $team["tournamentid"], $userid, $teamid);
 
-					$mail->create_sys_mail($userid, t_no_html('Sie wurden dem Team %1 im Turnier %2 hinzugefügt', $team["teamname"], $team["tname"]), t_no_html('Der Ersteller des Teams <b>%1</b> hat Sie in sein Team im Turnier <b>%2</b> aufgenommen.', $team["teamname"], $team["tname"]));
+					$mail->create_sys_mail($userid, t_no_html('Du wurdest dem Team %1 im Turnier %2 hinzugefügt', $team["teamname"], $team["tname"]), t_no_html('Der Ersteller des Teams <b>%1</b> hat dich in sein Team im Turnier <b>%2</b> aufgenommen.', $team["teamname"], $team["tname"]));
 
 					$func->log_event(t('Der Benutzer %1 ist dem Team %2 im Turnier %3 beigetreten', $auth["username"], $team["teamname"], $team["tname"]), 1, t('Turnier Teamverwaltung'));
 				}
@@ -269,7 +269,7 @@ class team {
 		global $db, $lang, $func, $mail;
 
 		if ($teamid == "") {
-			$func->error(t('Sie haben kein Team ausgeählt!'));
+			$func->error(t('Du hast kein Team ausgeählt!'));
 			return false;
 		}
 
@@ -288,7 +288,7 @@ class team {
 		// Send Mail to Teammebers
 		$members = $db->qry("SELECT userid FROM %prefix%t2_teammembers WHERE teamid = %int%", $teamid);
 		while ($member = $db->fetch_array($members)) {
-			$mail->create_sys_mail($member['userid'], t_no_html('Ihr Team im Turnier %1 wurde aufgelöst', $team['tname']), t_no_html('Der Ersteller des Teams hat soeben sein Team aufgelöst. Dies bedeutet, dass Sie nun nicht mehr zu dem Turnier %1 angemeldet sind.', $team['tname']));
+			$mail->create_sys_mail($member['userid'], t_no_html('Dein Team im Turnier %1 wurde aufgelöst', $team['tname']), t_no_html('Der Ersteller des Teams hat soeben sein Team aufgelöst. Dies bedeutet, dass du nun nicht mehr zu dem Turnier %1 angemeldet bist.', $team['tname']));
 		}
 		$db->free_result($members);
 
@@ -307,11 +307,11 @@ class team {
 		global $db, $lang, $func, $mail;
 
 		if ($teamid == "") {
-			$func->error(t('Sie haben kein Team ausgeählt!'));
+			$func->error(t('Du hast kein Team ausgeählt!'));
 			return false;
 		}
 		if ($userid == "") {
-			$func->error(t('Sie haben keinen Benutzer ausgewählt!'));
+			$func->error(t('Du hast keinen Benutzer ausgewählt!'));
 			return false;
 		}
 
@@ -333,7 +333,7 @@ class team {
 		$db->qry("DELETE FROM %prefix%t2_teammembers WHERE (userid = %int%) AND (teamid = %int%)", $userid, $teamid);
 
 		// Create Outputs
-		$mail->create_sys_mail($userid, t_no_html('Sie wurden im Turnier %1 aus ihrem Team geworfen', $t["name"]), str_replace("%NAME%", $t["name"], t_no_html('Der Ersteller dieses Teams hat Sie soeben aus seinem Team entfernt. Dies bedeutet, dass Sie nun nicht mehr zu dem Turnier \'%NAME%\' angemeldet sind.')));
+		$mail->create_sys_mail($userid, t_no_html('Du wurdest im Turnier %1 aus deinem Team geworfen', $t["name"]), str_replace("%NAME%", $t["name"], t_no_html('Der Ersteller dieses Teams hat dich soeben aus seinem Team entfernt. Dies bedeutet, dass du nun nicht mehr zu dem Turnier \'%NAME%\' angemeldet bist.')));
 		$func->log_event(t('Der Benutzer %1 wurde vom Teamadmin aus dem Team %2 geworfen', $user["username"], $team['name']), 1, t('Turnier Teamverwaltung'));
 
 		return true;

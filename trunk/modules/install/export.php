@@ -5,7 +5,7 @@ $export = New Export();
 
 switch($_GET["step"]){
 	default:
-		$dsp->NewContent(t('Daten exportieren'), t('Hier können Sie Benutzerdaten exportieren. Diese können Sie später wieder in Lansuite importieren.'));
+		$dsp->NewContent(t('Daten exportieren'), t('Hier kannst du Benutzerdaten exportieren. Diese kannst du später wieder in Lansuite importieren.'));
 		$dsp->SetForm("index.php?mod=install&action=export&step=2", "", "", "");
 
 		$type_array = array("xml" => t('XML: Komplette Datenbank Exportieren (Empfohlen)'),
@@ -29,7 +29,7 @@ switch($_GET["step"]){
 
 	case 2:
 		$db->connect();
-		$dsp->NewContent(t('Daten exportieren'), t('Hier können Sie Benutzerdaten exportieren. Diese können Sie später wieder in Lansuite importieren.'));
+		$dsp->NewContent(t('Daten exportieren'), t('Hier kannst du Benutzerdaten exportieren. Diese kannst du später wieder in Lansuite importieren.'));
 
 		switch ($_POST["type"]){
 			case "xml":	
@@ -129,7 +129,7 @@ switch($_GET["step"]){
       break;
 
 			default:
-				$func->information(t('Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.'), "index.php?mod=install&action=import");
+				$func->information(t('Der von dir angegebene Dateityp wird nicht unterstützt. Bitte wähle eine Datei vom Typ *.xml, oder *.csv aus oder überspringe den Dateiimport.'), "index.php?mod=install&action=import");
 			break;
 		}
 
@@ -182,7 +182,7 @@ switch($_GET["step"]){
 			break;
 
 			default:
-				$func->information(t('Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.'), "index.php?mod=install&action=import");
+				$func->information(t('Der von dir angegebene Dateityp wird nicht unterstützt. Bitte wählen dir eine Datei vom Typ *.xml, oder *.csv aus oder überspringe den Dateiimport.'), "index.php?mod=install&action=import");
 			break;
 		}
 	break;

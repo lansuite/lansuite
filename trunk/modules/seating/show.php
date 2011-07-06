@@ -13,7 +13,7 @@ switch($_GET['step']) {
 
 	// Show seatplan
 	case 2:
-		$dsp->NewContent(t('Sitzplatz - Informationen'), t('Fahren Sie mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.'));
+		$dsp->NewContent(t('Sitzplatz - Informationen'), t('Fahre mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.'));
 
     $current_url = 'index.php?mod=seating';
     include_once('modules/seating/search_basic_blockselect.inc.php');
@@ -32,7 +32,7 @@ switch($_GET['step']) {
       WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 
 		// Check paid
-		if (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) $func->information(t('Sie müssen zuerst für diese Party bezahlen, bevor Sie sich einen Sitzplatz reservieren dürfen.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+		if (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) $func->information(t('Du musst zuerst für diese Party bezahlen, bevor du dir einen Sitzplatz reservieren darfst.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check seat availability
 	  elseif ($seat_user['status'] == 2) $func->error(t('Dieser Sitzplatz ist bereits vergeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
@@ -48,7 +48,7 @@ switch($_GET['step']) {
     WHERE s.userid = %int% AND s.status = 3 AND b.party_id = %int%", $auth['userid'], $party->party_id);
 
 			// Check if not paid user has allready marked one seat
-      if (!$user_data['paid'] and $marked_seats['anz'] >= 1) $func->information(t('Solange Sie nicht für diese Party bezahlt haben, dürfen Sie nur einen Sitz vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+      if (!$user_data['paid'] and $marked_seats['anz'] >= 1) $func->information(t('Solange du nicht für diese Party bezahlt hast, darfst du nur einen Sitz vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
       else {
 				$questionarray = array();
 				$linkarray = array();
@@ -57,7 +57,7 @@ switch($_GET['step']) {
 				if ($user_data['paid']) {
 					// Reserve seat for myselfe
 					if ($row['seatid']) {
-						array_push($questionarray, t('Sie haben bereits einen Sitzplatz reserviert. Möchten Sie Ihren Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?'));
+						array_push($questionarray, t('Du hast bereits einen Sitzplatz reserviert. Möchtest du deinen Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?'));
 						array_push($linkarray, "index.php?mod=seating&action=show&step=11&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
 					// Change my seat, if I allready have one
 					} else {
@@ -81,7 +81,7 @@ switch($_GET['step']) {
 					}
 					// Delete mark, if Admin
 					if ($auth['type'] > 1 and $seat_user['status'] == 3) {
-						array_push($questionarray, t('Möchten Sie als Admin diese Vormerkung entfernen?'));
+						array_push($questionarray, t('Möchtest du als Admin diese Vormerkung entfernen?'));
 						array_push($linkarray, "index.php?mod=seating&action=show&step=31&blockid={$_GET['blockid']}&row={$_GET['row']}&col={$_GET['col']}");
 					}
 				// Mark seat for myselfe (if not paid)
@@ -111,13 +111,13 @@ switch($_GET['step']) {
             WHERE blockid = %int% AND row = %string% AND col = %string%", $_GET['blockid'], $_GET['row'], $_GET['col']);
 
 		// Check paid
-		if (!$user_data['paid'] and $cfg['seating_paid_only']) $func->information(t('Sie müssen zuerst für diese Party bezahlen, bevor Sie sich einen Sitzplatz reservieren dürfen.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+		if (!$user_data['paid'] and $cfg['seating_paid_only']) $func->information(t('Du musst zuerst für diese Party bezahlen, bevor du dir einen Sitzplatz reservieren darfst.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check Group ID
-		elseif ($block_data['group_id'] and $user['group_id'] != $block_data['group_id']) $func->information(t('Sie gehören nicht der richtigen Gruppe an, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+		elseif ($block_data['group_id'] and $user['group_id'] != $block_data['group_id']) $func->information(t('Du gehörst nicht der richtigen Gruppe an, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check Price ID
-        elseif ($block_data['price_id'] and $user_data['price_id'] != $block_data['price_id']) $func->information(t('Sie sind nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+        elseif ($block_data['price_id'] and $user_data['price_id'] != $block_data['price_id']) $func->information(t('Du bist nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz zu reservieren'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 		
 		// Check seat availability
     elseif ($seat_user['status'] == 2)  $func->error(t('Dieser Sitzplatz ist bereits vergeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
@@ -150,10 +150,10 @@ switch($_GET['step']) {
 		if (!$user_party['user_id']) $func->information(t('Nur zur Party angemeldete Benutzer dürfen Sitzplätze vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check paid
-		elseif (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) $func->information(t('Sie müssen zuerst für diese Party bezahlen, bevor Sie sich einen Sitzplatz reservieren dürfen.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+		elseif (!$user_data['paid'] and $cfg['seating_paid_only'] and !$cfg['seating_not_paid_mark']) $func->information(t('Du musst zuerst für diese Party bezahlen, bevor du dich einen Sitzplatz reservieren darfst.'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check Group ID
-        elseif ($block_data['price_id'] and $user_data['price_id'] != $block_data['price_id']) $func->information(t('Sie sind nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz vorzumerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+        elseif ($block_data['price_id'] and $user_data['price_id'] != $block_data['price_id']) $func->information(t('Du bist nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz vorzumerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
 		// Check seat availability
 		elseif ($seat_user['userid']) $func->error(t('Dieser Sitzplatz ist bereits vergeben'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
@@ -171,10 +171,10 @@ switch($_GET['step']) {
 		array_push($linkarray, "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 		
 		
-		$func->multiquestion($questionarray, $linkarray, t('Solange Sie nicht für diese Party bezahlt haben, dürfen Sie nur einen Sitz vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");    	
+		$func->multiquestion($questionarray, $linkarray, t('Solange du nicht für diese Party bezahlt hast, darfst du nur einen Sitz vormerken'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");    	
      }
 		// Check number of marked seats of this user
-		elseif ($user_data['paid'] and $marked_seats['anz'] >= $cfg['seating_max_marks']) $func->information(t('Sie haben bereits das Maximum an Sitzen reserviert'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
+		elseif ($user_data['paid'] and $marked_seats['anz'] >= $cfg['seating_max_marks']) $func->information(t('Du hast bereits das Maximum an Sitzen reserviert'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
     // Check is a seat 
     elseif ($seat_user['status'] > 9) $func->error(t('Dieser Sitzplatz existiert nicht'), "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
@@ -198,7 +198,7 @@ switch($_GET['step']) {
 		array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
 		array_push($linkarray, "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
-		$func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist momentan für Sie reserviert'));
+		$func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist momentan für dich reserviert'));
 	break;
 
 	// Release seat
@@ -234,7 +234,7 @@ switch($_GET['step']) {
 		array_push($questionarray, t('Aktion abbrechen. Zurück zum Sitzplan'));
 		array_push($linkarray, "index.php?mod=seating&action=show&step=2&blockid={$_GET['blockid']}");
 
-		$func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist momentan für %1 reserviert. Sie können:',$seatingUser['username']));
+		$func->multiquestion($questionarray, $linkarray, t('Dieser Sitzplatz ist momentan für %1 reserviert. Du kannst:',$seatingUser['username']));
     }
 	break;
 	

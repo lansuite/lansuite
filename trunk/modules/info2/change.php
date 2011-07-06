@@ -53,7 +53,7 @@ if ($auth['type'] <= 1) {
 
   switch($_GET["step"]){
   	default:
-      $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier können Sie den Inhalt der Info-Seiten editieren.'));
+      $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du den Inhalt der Info-Seiten editieren.'));
       $dsp->AddSingleRow($dsp->FetchSpanButton('Neuen Infotext hinzufügen', 'index.php?mod=info2&action=change&step=2'));
 
       include_once('modules/mastersearch2/class_mastersearch2.php');
@@ -110,7 +110,7 @@ if ($auth['type'] <= 1) {
         LEFT JOIN %prefix%menu AS m ON i.caption = m.caption AND m.action = 'show_info2'
         WHERE i.infoID = %int%", $_GET["infoID"]);
 
-  		$dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier können Sie den Inhalt der Seite editieren.'));
+  		$dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du den Inhalt der Seite editieren.'));
 
       include_once('inc/classes/class_masterform.php');
       $mf = new masterform();
@@ -230,7 +230,7 @@ if ($auth['type'] <= 1) {
 
     // Define external link
     case 30:
-      $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier können Sie einen externen Link definieren.'));
+      $dsp->NewContent(t('Informationsseite - Bearbeiten'), t('Hier kannst du einen externen Link definieren.'));
 
       include_once('inc/classes/class_masterform.php');
       $mf = new masterform();

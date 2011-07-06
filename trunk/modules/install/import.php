@@ -5,7 +5,7 @@ $import = New Import();
 
 switch($_GET["step"]){
 	default:
-		$dsp->NewContent(t('Daten importieren'), t('Hier können Sie Benutzerdaten, die Sie aus einem anderen System exportiert haben, in Lansuite importieren.'));
+		$dsp->NewContent(t('Daten importieren'), t('Hier kannst du Benutzerdaten, die du aus einem anderen System exportiert habst, in Lansuite importieren.'));
 		$dsp->SetForm("index.php?mod=install&action=import&step=2", "", "", "multipart/form-data");
 
 		$dsp->AddSingleRow("<b>".t('Zu importierende Datei')."</b>");
@@ -43,7 +43,7 @@ switch($_GET["step"]){
       break;
 
       case UPLOAD_ERR_PARTIAL:
-        $func->error('Die Datei wurde nur teilweise hochgeladen. bitte versuchen Sie es erneut');
+        $func->error('Die Datei wurde nur teilweise hochgeladen. Bitte versuche es erneut');
       break;
 
       case UPLOAD_ERR_NO_FILE:
@@ -81,7 +81,7 @@ switch($_GET["step"]){
 
     			case "csv":
     				if ($_GET["filename"] == "") $_GET["filename"] = $func->FileUpload("importdata", "ext_inc/import/");
-    				$dsp->NewContent(t('Daten importieren'), t('Hier können Sie Benutzerdaten, die Sie aus einem anderen System exportiert haben, in Lansuite importieren.'));
+    				$dsp->NewContent(t('Daten importieren'), t('Hier kannst du Benutzerdaten, die du aus einem anderen System exportiert hast, in Lansuite importieren.'));
 
     				$dsp->SetForm("index.php?mod=install&action=import&step=2&filename={$_GET["filename"]}", "", "", "multipart/form-data");
     				if ($_POST["seperator"] == "") $_POST["seperator"] = ";";
@@ -121,13 +121,13 @@ switch($_GET["step"]){
     			break;
 
     			case 'tgz':
-    			  $func->information(t('Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte laden und entpacken Sie den Ordner manuell auf Ihren Webspace.'), 'index.php?mod=install&action=import');
+    			  $func->information(t('Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte lade und entpacke den Ordner manuell auf Ihren Webspace.'), 'index.php?mod=install&action=import');
     //			  $import->ImportExtInc($_FILES['importdata']['tmp_name']);
     //				$func->confirmation(t('Import erfolgreich.'), "index.php?mod=install&action=import");
     			break;
 
     			default:
-    				$func->information(t('Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.'), "index.php?mod=install&action=import");
+    				$func->information(t('Der von dir angegebene Dateityp wird nicht unterstützt. Bitte wähle eine Datei vom Typ *.xml, oder *.csv aus oder überspringe den Dateiimport.'), "index.php?mod=install&action=import");
     			break;
     		}
       break;
@@ -181,7 +181,7 @@ switch($_GET["step"]){
 			break;
 
 			default:
-				$func->information(t('Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.'), "index.php?mod=install&action=import");
+				$func->information(t('Der von dir angegebene Dateityp wird nicht unterstützt. Bitte wähle eine Datei vom Typ *.xml, oder *.csv aus oder überspringe den Dateiimport.'), "index.php?mod=install&action=import");
 			break;
 		}
 	break;

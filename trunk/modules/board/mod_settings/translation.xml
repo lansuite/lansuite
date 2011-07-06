@@ -164,7 +164,7 @@
 			</entry>
 			<entry>
 				<id>e1b1f1dcfbcee43e00f99f6929306773</id>
-				<org>Sie müssen sich zuerst einloggen, um einen Thread in diesem Forum starten zu können</org>
+				<org>Du musst dich zuerst einloggen, um einen Thread in diesem Forum starten zu können</org>
 				<en>You need to login first to start a thread in this forum to be able</en>
 				<es>Necesita iniciar sesión primero en iniciar un hilo en este foro para que puedas</es>
 				<fr>Vous devez vous connecter pour lancer un thread dans ce forum pour être en mesure</fr>
@@ -194,7 +194,7 @@
 			</entry>
 			<entry>
 				<id>2d192234c765bce35a8a5e2d33720437</id>
-				<org>Achtung: Sie haben als Suche einen Autor, bzw. Text angegeben. Die Ergebnis-Felder Antworten, sowie erster und letzter Beitrag beziehen sich daher nur noch auf Posts, in denen diese Eingaben gefunden wurden, nicht mehr auf den ganzen Thread!</org>
+				<org>Achtung: Du hast als Suche einen Autor, bzw. Text angegeben. Die Ergebnis-Felder Antworten, sowie erster und letzter Beitrag beziehen sich daher nur noch auf Posts, in denen diese Eingaben gefunden wurden, nicht mehr auf den ganzen Thread!</org>
 				<en>Warning: You have specified a search of an Author, or text. The result fields answers, as well as first and last contribution, therefore, refer only to posts that have been found in which these inputs, not on the whole thread!</en>
 				<es>Advertencia: Se ha especificado una búsqueda de un autor, o de texto. Campos de resultado las respuestas, así como la primera y la contribución pasada, por lo tanto, se refieren únicamente a los puestos que se han encontrado en que estos insumos, no e</es>
 				<fr>Attention: Vous avez spécifié une quête d&amp;#39;auteur ou du texte. Les réponses champs de résultat, ainsi que les premier et contribution dernier, par conséquent, ne concernent que les postes qui ont été trouvés dans lequel ces intrants, et non su</fr>
@@ -604,7 +604,7 @@
 			</entry>
 			<entry>
 				<id>b0b134716345cf9498cfe1ea4535232e</id>
-				<org>Um auf diese Beiträge zu antworten, loggen Sie sich bitte zuerst ein.</org>
+				<org>Um auf diese Beiträge zu antworten, loggen dich bitte zuerst ein.</org>
 				<en>To respond to these contributions, please log in first.</en>
 				<es>Para responder a estas contribuciones, por favor, acceda primero.</es>
 				<fr>Pour répondre à ces contributions, s&amp;#39;il vous plaît connecter.</fr>
@@ -614,7 +614,7 @@
 			</entry>
 			<entry>
 				<id>f6a903018329a29a614731861b0c27fc</id>
-				<org>Um auf diese Beiträge zu antworten, müssen Sie Admin sein.</org>
+				<org>Um auf diese Beiträge zu antworten, musst du Admin sein.</org>
 				<en>To respond to these posts, you must be admin.</en>
 				<es>Para responder a estos puestos, debe ser administrador.</es>
 				<fr>Pour répondre à ces postes, vous devez être administrateur.</fr>
@@ -694,7 +694,7 @@
 			</entry>
 			<entry>
 				<id>db56936d998f738e44cf66e8267bf10b</id>
-				<org>Sie gehören nicht der richtigen Gruppe an, um einen Thread in diesem Forum starten zu können</org>
+				<org>Du gehörst nicht der richtigen Gruppe an, um einen Thread in diesem Forum starten zu können</org>
 				<en>They do not belong to the right group to start a thread in this forum to be able</en>
 				<es>Ellos no pertenecen al grupo de derecha para iniciar un hilo en este foro para que puedas</es>
 				<fr>Ils n&amp;#39;appartiennent pas au groupe de droit de lancer un thread dans ce forum pour être en mesure</fr>
@@ -704,7 +704,7 @@
 			</entry>
 			<entry>
 				<id>5bdfa06a882c8bbd71f992cf2624fb39</id>
-				<org>Sie gehören nicht der richtigen Gruppe an, um auf diese Beiträge zu antworten.</org>
+				<org>Du gehörst nicht der richtigen Gruppe an, um auf diese Beiträge zu antworten.</org>
 				<en>They do not belong to the right group to respond to these contributions.</en>
 				<es>Ellos no pertenecen al grupo de derecho a responder a estas contribuciones.</es>
 				<fr>Ils n&amp;#39;appartiennent pas au groupe de droit de répondre à ces contributions.</fr>
@@ -754,7 +754,7 @@
 			</entry>
 			<entry>
 				<id>791a33be2a8c5ae2651a9f814e8cc8f5</id>
-				<org>Sie sind hier » </org>
+				<org>Du bist hier » </org>
 				<en>You are here »</en>
 				<es>Usted está aquí »</es>
 				<fr>Vous êtes ici »</fr>
@@ -794,7 +794,7 @@
 			</entry>
 			<entry>
 				<id>36042acbf37cec640f15a0fd187d36fa</id>
-				<org>Um in diesem Board zu posten zu antworten, loggen Sie sich bitte zuerst ein.</org>
+				<org>Um in diesem Board zu posten zu antworten, logge dich bitte zuerst ein.</org>
 				<en>To reply to post in this board too, please log in first.</en>
 				<es>Para responder al mensaje en este foro también, por favor ingresa primero.</es>
 				<fr>Pour répondre au message dans ce forum aussi, s&amp;#39;il vous plaît connecter.</fr>
@@ -804,7 +804,7 @@
 			</entry>
 			<entry>
 				<id>458bcef14b19cf63dec88a9fffcff93f</id>
-				<org>Um in diesem Board zu posten, müssen Sie Admin sein.</org>
+				<org>Um in diesem Board zu posten, musst du Admin sein.</org>
 				<en>To post to this board, you must be admin.</en>
 				<es>Para escribir en este consejo, debe ser administrador.</es>
 				<fr>Pour poster sur ce forum, vous devez être administrateur.</fr>

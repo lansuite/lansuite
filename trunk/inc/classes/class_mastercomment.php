@@ -87,7 +87,7 @@ class Mastercomment{
     $_GET['order_by'] = $order_by_tmp;
 
     // Add new comments
-    if ($cfg['mc_only_logged_in'] and !$auth['login']) $func->information(t('Bitte loggen Sie sich ein, bevor Sie einen Kommentar verfassen'), NO_LINK);
+    if ($cfg['mc_only_logged_in'] and !$auth['login']) $func->information(t('Bitte loggen dich ein, bevor du einen Kommentar verfasst'), NO_LINK);
     else {
       if ($_GET['commentid']) $row = $db->qry_first("SELECT creatorid FROM %prefix%comments WHERE commentid = %int%", $_GET['commentid']);
       if (!$_GET['commentid'] or ($row['creatorid'] and $row['creatorid'] == $auth['userid']) or $auth['type'] >= 2) {
@@ -132,7 +132,7 @@ class Mastercomment{
           }
         }
 
-      } else $func->error(t('Sie sind nicht berechtigt, diesen Kommentar zu editieren'));
+      } else $func->error(t('Du bist nicht berechtigt, diesen Kommentar zu editieren'));
     }
 
     $dsp->AddFieldsetEnd();

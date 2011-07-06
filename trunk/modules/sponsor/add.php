@@ -22,7 +22,7 @@ function UploadFiles() {
 global $func, $gd;
     // Check for errors
     if ($_POST['name'] == '') {
-      $name_error = t('Bitte geben Sie einen Namen ein');
+      $name_error = t('Bitte gib einen Namen ein');
       $_GET['step'] = 1;
     }
     if (strlen($_POST['text']) > 5000) {
@@ -111,7 +111,7 @@ else {
   $mf->AddField(t('Oder: Bild-Code (z.B. Flash)') . $code_popup_link_banner, 'pic_code', 'text', '', FIELD_OPTIONAL);
   $mf->AddGroup('Sponsorenseite');
 
-  $mf->AddField('', '', IS_TEXT_MESSAGE, t('Wenn Sie hier keine Datei angeben, wird der Banner/Button automatisch durch verkleinern der oben angegebenen Datei erzeugt (Funktioniert nur bei heraufgeladenen Dateien).'));
+  $mf->AddField('', '', IS_TEXT_MESSAGE, t('Wenn du hier keine Datei angibst, wird der Banner/Button automatisch durch verkleinern der oben angegebenen Datei erzeugt (Funktioniert nur bei heraufgeladenen Dateien).'));
   $mf->AddGroup('');
 
   $mf->AddField(t('In Rotations-Banner').'|'.t('Der Banner wird oben in den Rotations-Banner aufgenommen'), 'rotation', 'tinyint(1)', '', FIELD_OPTIONAL, '', 4);

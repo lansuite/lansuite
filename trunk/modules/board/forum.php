@@ -44,7 +44,7 @@ if ($_GET['fid'] != '') {
   // Board Headline
 	$hyperlink = '<a href="%s" class="menu">%s</a>';
 	$overview_capt = '<b>'.sprintf($hyperlink, "index.php?mod=board", t('Forum')).'</b>';
-	$dsp->NewContent($row['name'], "<br />".t('Sie sind hier » ').$overview_capt.' » '.$row['name']);
+	$dsp->NewContent($row['name'], "<br />".t('Du bist hier » ').$overview_capt.' » '.$row['name']);
 	$framework->AddToPageTitle($row['name']);
   $dsp->AddSingleRow($new_thread ." ". $dsp->FetchIcon("index.php?mod=board", "back"));
 }
@@ -116,7 +116,7 @@ $colors[5] = 'purple';
 
 
 if ($_POST['search_input'][1] != '' or $_POST['search_input'][2] != '' or $_GET['search_input'][1] != '' or $_GET['search_input'][2] != '')
-  $dsp->AddSingleRow('<b>'.t('Achtung: Sie haben als Suche einen Autor, bzw. Text angegeben. Die Ergebnis-Felder Antworten, sowie erster und letzter Beitrag beziehen sich daher nur noch auf Posts, in denen diese Eingaben gefunden wurden, nicht mehr auf den ganzen Thread!').'</b>');
+  $dsp->AddSingleRow('<b>'.t('Achtung: du hast als Suche einen Autor, bzw. Text angegeben. Die Ergebnis-Felder Antworten, sowie erster und letzter Beitrag beziehen sich daher nur noch auf Posts, in denen diese Eingaben gefunden wurden, nicht mehr auf den ganzen Thread!').'</b>');
 
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();

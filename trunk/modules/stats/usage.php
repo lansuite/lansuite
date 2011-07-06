@@ -35,7 +35,7 @@ switch ($_GET['time']) {
 }
 
 $dsp->AddSingleRow('<object data="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'" type="image/svg+xml" width="700" height="300">
-  Ihr Browser kann das Objekt leider nicht anzeigen!
+  Dein Browser kann das Objekt leider nicht anzeigen!
 </object>');
 #  <param name="src" value="index.php?mod=stats&action=usage_grafik&design=base&time='. $_GET['time'] .'&timeframe='. $_GET['timeframe'] .'>
 

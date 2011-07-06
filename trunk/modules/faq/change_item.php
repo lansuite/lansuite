@@ -46,31 +46,31 @@ switch($_GET["step"]) {
 
 	if($_POST["question_new_cat"] == "" AND $_POST["question_cat"] == "new") {
 
-		$faq_error['cat_name']	= t('Bitte geben Sie einen Namen für die neue Kategorie ein');
+		$faq_error['cat_name']	= t('Bitte gib einen Namen für die neue Kategorie ein');
 		$_GET["step"] = 2;
 	}
 
 	if($_POST["question_caption"] == "") {
 
-		$faq_error['question_caption']	= t('Bitte geben Sie eine Frage ein');
+		$faq_error['question_caption']	= t('Bitte gib eine Frage ein');
 		$_GET["step"] = 2;
 	}
 
 
 	if($_POST["question_text"] == "") {
-		$faq_error['question_text']	= t('Bitte geben Sie einen Text ein');
+		$faq_error['question_text']	= t('Bitte gib einen Text ein');
 		$_GET["step"] = 2;
 	}
 
 	if($_POST["question_cat"] == 0 AND $_POST["question_new_cat"] == "") {
 
-		$faq_error['question_cat']	= t('Bitte wählen Sie eine Kategorie aus oder erstellen Sie eine neue Kategorie');
+		$faq_error['question_cat']	= t('Bitte wähle eine Kategorie aus oder erstelle eine neue Kategorie');
 		$_GET["step"] = 2;
 	}
 
 	if($_POST["question_cat"] != 0 AND $_POST["question_new_cat"] != "") {
 
-		$faq_error['question_cat']	= t('Bitte wählen Sie eine Kategorie aus <b> ODER </b> erstellen Sie eine neue Kategorie');
+		$faq_error['question_cat']	= t('Bitte wähle eine Kategorie aus <b> ODER </b> erstelle eine neue Kategorie');
 		$_GET["step"] = 2;
 	}
 
@@ -104,7 +104,7 @@ switch($_GET["step"]) {
 				$_POST["question_cat"]=($_POST["question_cat"] == "") ? $get_data["catid"] : $_POST["question_cat"];
 
 
-				$dsp->NewContent(t('Frage ändern'),t(' Um eine Frage hinzuzufügen, füllen Sie bitte das folgende Formular vollständig aus. Für das Feld Überschirft stehen 30 Zeichen, für das Feld Text 5000 Zeichen zur Verfügung. Im Feld Kategorie können Sie die Kategorie definieren, in der die Frage angezeigt werden soll.'));
+				$dsp->NewContent(t('Frage ändern'),t(' Um eine Frage hinzuzufügen, fülle bitte das folgende Formular vollständig aus. Für das Feld Überschirft stehen 30 Zeichen, für das Feld Text 5000 Zeichen zur Verfügung. Im Feld Kategorie kannst du die Kategorie definieren, in der die Frage angezeigt werden soll.'));
 				$dsp->SetForm("index.php?mod=faq&object=item&came_from=$came_from&action=change_item&step=3&itemid=" .$_GET["itemid"]);
 
 				$get_cats = $db->qry("SELECT name,catid FROM %prefix%faq_cat");

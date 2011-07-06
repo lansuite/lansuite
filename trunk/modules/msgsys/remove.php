@@ -57,9 +57,9 @@ if($_GET[queryid])
 				// Question
 				//
 				if($cfg['sys_internet'] == 0){
-					$func->question(t('Wollen Sie den Benutzer <b>%1 (%2 %3)</b> wirklich aus Ihrer Buddy-Liste entfernen?',$row[name],$row[firstname],$row[username]),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php");
+					$func->question(t('Willst du den Benutzer <b>%1 (%2 %3)</b> wirklich aus deiner Buddy-Liste entfernen?',$row[name],$row[firstname],$row[username]),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php");
 				}else {
-					$func->question(t('Wollen Sie den Benutzer <b>%1</b> wirklich aus Ihrer Buddy-Liste entfernen?', $row[username]),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php");
+					$func->question(t('Willst du den Benutzer <b>%1</b> wirklich aus deiner Buddy-Liste entfernen?', $row[username]),"index.php?mod=msgsys&action=removebuddy&queryid=$_GET[queryid]&step=2","index.php");
 				}
 			} // if
 			else
@@ -67,7 +67,7 @@ if($_GET[queryid])
 				//
 				// Error
 				//
-				$func->error(t('Dieser Benutzer befindet sich nicht in ihrer Buddy-Liste'));
+				$func->error(t('Dieser Benutzer befindet sich nicht in deiner Buddy-Liste'));
 
 			} // else
 
@@ -119,6 +119,6 @@ else
 	//
 	// Error
 	//
-	$func->error(t('Sie haben keinen Benutzer ausgew&auml;hlt'));
+	$func->error(t('Du hast keinen Benutzer ausgew&auml;hlt'));
 } // else queryid
 ?>

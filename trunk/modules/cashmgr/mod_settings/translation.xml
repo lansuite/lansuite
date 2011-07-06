@@ -224,7 +224,7 @@
 			</entry>
 			<entry>
 				<id>99ccd2dac2a2d18592c827ad36ddc17a</id>
-				<org>Hier können Sie anderen Benutzern Geld überweisen</org>
+				<org>Hier kannst du anderen Benutzern Geld überweisen</org>
 				<en>Here you can transfer money to other users</en>
 				<es>Aquí usted puede transferir dinero a otros usuarios</es>
 				<fr>Ici, vous pouvez transférer de l&amp;#39;argent à d&amp;#39;autres utilisateurs</fr>
@@ -274,7 +274,7 @@
 			</entry>
 			<entry>
 				<id>2f30b326c73a1688b01b78f67f1d43c5</id>
-				<org>Bitte wählen Sie einen Empfänger für Ihre Transaktion aus</org>
+				<org>Bitte wähle einen Empfänger für Ihre Transaktion aus</org>
 				<en>Please select a recipient from your transaction</en>
 				<es>Por favor, seleccione un destinatario de la transacción</es>
 				<fr>S&amp;#39;il vous plaît sélectionner un destinataire dans votre transaction</fr>
@@ -284,7 +284,7 @@
 			</entry>
 			<entry>
 				<id>49f59907a934f606a56458276091cf4d</id>
-				<org>Sie können nicht sich selbst Geld überweisen</org>
+				<org>Du kannst dir nicht selbst Geld überweisen</org>
 				<en>You can not pay himself money</en>
 				<es>Usted no puede pagar el mismo precio</es>
 				<fr>On ne peut pas se payer de l&amp;#39;argent</fr>
@@ -294,7 +294,7 @@
 			</entry>
 			<entry>
 				<id>3a91e36a4d38183f2802a751b3242540</id>
-				<org>Sie können keine negativen oder neutralen  Beträge überweisen</org>
+				<org>Du kannst keine negativen oder neutralen  Beträge überweisen</org>
 				<en>You can transfer any negative or neutral sums</en>
 				<es>Usted puede transferir las sumas negativo o neutral</es>
 				<fr>Vous pouvez transférer les sommes éventuellement négatives ou neutres</fr>
@@ -304,7 +304,7 @@
 			</entry>
 			<entry>
 				<id>6935a7b1e6dbe5c6afbebbf9fc16a1aa</id>
-				<org>Bitte geben Sie einen Kommentar zu ihrer Überweisung an.</org>
+				<org>Bitte gib einen Kommentar zu ihrer Überweisung an.</org>
 				<en>Please enter a comment to their transfer.</en>
 				<es>Por favor, introduzca un comentario a su transferencia.</es>
 				<fr>S&amp;#39;il vous plaît entrer un commentaire à leur transfert.</fr>

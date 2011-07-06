@@ -2,7 +2,7 @@
 $mail_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'delete'", $auth['userid']);
 $mail_unread_total = $db->qry_first("SELECT count(*) as n FROM %prefix%mail_messages WHERE ToUserID = %int% AND mail_status = 'delete' AND des_status = 'new'", $auth['userid']);
 
-$dsp->NewContent(t('Papierkorb'), t('Sie haben <b>%1</b> Mail(s) in ihrem Papierkorb. Davon wurde(n) <b>%2</b> nicht von Ihnen gelesen.',$mail_total["n"],$mail_unread_total["n"]));
+$dsp->NewContent(t('Papierkorb'), t('Du hast <b>%1</b> Mail(s) in ihrem Papierkorb. Davon wurde(n) <b>%2</b> nicht von dir gelesen.',$mail_total["n"],$mail_unread_total["n"]));
 
 function MailStatus ( $status ) {
  global $lang;

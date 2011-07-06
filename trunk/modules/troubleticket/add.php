@@ -43,12 +43,12 @@ switch($_GET["step"]) {
 		}
 
 		if ($_POST["tticket_desc"] == "") {
-			$func->information(t('Bitte geben Sie eine kurze Beschreibung / Überschrift ein'), "index.php?mod=troubleticket&action=add");
+			$func->information(t('Bitte gib eine kurze Beschreibung / Überschrift ein'), "index.php?mod=troubleticket&action=add");
 			$_GET["step"] = 1;
 		}
 		
 		if(isset($_POST['tticket_cat']) && $_POST['tticket_cat'] == 0){
-			$error['tticket_cat'] = t('Bitte wählen Sie eine Kategorie');
+			$error['tticket_cat'] = t('Bitte wähle eine Kategorie');
 			$_GET['step'] = 1;
 		}
 	break;
@@ -57,7 +57,7 @@ switch($_GET["step"]) {
 
 switch ($_GET["step"]) {
 	default:
-		$dsp->NewContent(t('Troubleticket hinzufügen'),t(' Mit diesem Formular können Sie ein Troubleticket hinzufügen, falls Sie ein Problem haben'));
+		$dsp->NewContent(t('Troubleticket hinzufügen'),t(' Mit diesem Formular kannst du ein Troubleticket hinzufügen, falls du ein Problem hast'));
 		$dsp->SetForm("index.php?mod=troubleticket&action=add&step=2");
 
 		$dsp->AddTextFieldRow("tticket_desc",t('Beschreibung'), $_POST['tticket_desc'], $error["tticket_desc"]);
@@ -145,7 +145,7 @@ switch ($_GET["step"]) {
 
 		
 		if($cat_data['orga'] > 0 && isset($_POST["tticket_cat"]) && $_POST["tticket_cat"] > 0){
-			$func->setainfo(t('Ihnen wurde das Troubleticket "<b>%1</b>"zugewiesen. ',$_POST["tticket_desc"]),$cat_data['orga'],1,"troubleticket",$db->insert_id());
+			$func->setainfo(t('dir wurde das Troubleticket "<b>%1</b>"zugewiesen. ',$_POST["tticket_desc"]),$cat_data['orga'],1,"troubleticket",$db->insert_id());
 		}
 		
 		$func->confirmation(t('Das Troubleticket wurde erfolgreich eingetragen'), "index.php?mod=troubleticket&action=add");

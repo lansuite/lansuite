@@ -24,7 +24,7 @@
 			</entry>
 			<entry>
 				<id>c4128d9eaaa49f7201417336961de686</id>
-				<org>Bitte geben Sie eine kurze Beschreibung / Überschrift ein</org>
+				<org>Bitte gib eine kurze Beschreibung / Überschrift ein</org>
 				<en>Please give a brief description / heading a</en>
 				<es>Por favor dé una breve descripción / al frente de una</es>
 				<fr>S&amp;#39;il vous plaît donner une brève description / tête d&amp;#39;une</fr>
@@ -104,7 +104,7 @@
 			</entry>
 			<entry>
 				<id>f4af0e9f163ceb8e4a8d9ce7244bbec4</id>
-				<org>Ihnen wurde das Troubleticket &quot;&lt;b&gt;%1&lt;/b&gt;&quot;zugewiesen.</org>
+				<org>dir wurde das Troubleticket &quot;&lt;b&gt;%1&lt;/b&gt;&quot;zugewiesen.</org>
 				<en>They were the ticket &lt;b&gt;&amp;quot;%1&amp;quot;&lt;/b&gt; was assigned.</en>
 				<es>Fueron los billetes &lt;b&gt;&amp;quot;%1&lt;/b&gt; se ha &lt;b&gt;asignado&amp;quot;.&lt;/b&gt;</es>
 				<fr>Ils ont été les billets &lt;b&gt;«%1»&lt;/b&gt; a été attribué.</fr>
@@ -134,7 +134,7 @@
 			</entry>
 			<entry>
 				<id>6391c35adbc40be0095c99c93c0e4a96</id>
-				<org>Sie haben keine Kategorie zum ändern ausgewählt</org>
+				<org>Du hast keine Kategorie zum ändern ausgewählt</org>
 				<en>You have chosen to change is no category for</en>
 				<es>Ha elegido no es el cambio de categoría para</es>
 				<fr>Vous avez choisi de changement n&amp;#39;est pas de catégorie pour</fr>
@@ -394,7 +394,7 @@
 			</entry>
 			<entry>
 				<id>80814e6ae6465fe959e5f282f0613bd8</id>
-				<org>Wollen Sie das ausgewählte Troubleticket wirklich löschen?</org>
+				<org>Willst du das ausgewählte Troubleticket wirklich löschen?</org>
 				<en>Do you want to delete the selected trouble ticket?</en>
 				<es>¿Desea borrar el ticket de problema seleccionado?</es>
 				<fr>Voulez-vous supprimer le ticket d&amp;#39;incident sélectionné?</fr>
@@ -434,7 +434,7 @@
 			</entry>
 			<entry>
 				<id>c6213344c8dae963abe208388b67c155</id>
-				<org>Hier sehen Sie alle Informationen zu diesem Ticket</org>
+				<org>Hier siehst du alle Informationen zu diesem Ticket</org>
 				<en>Here you see all the information about this ticket</en>
 				<es>Aquí puede ver toda la información sobre este billete</es>
 				<fr>Ici vous trouvez toutes les informations sur ce billet</fr>
@@ -454,7 +454,7 @@
 			</entry>
 			<entry>
 				<id>9953dff7163c3460b6883fe63ab1056e</id>
-				<org>Bitte wählen Sie eine Kategorie</org>
+				<org>Bitte wähle eine Kategorie</org>
 				<en>Please select a category</en>
 				<es>Por favor seleccione una categoría</es>
 				<fr>S&amp;#39;il vous plaît choisir une catégorie</fr>
@@ -474,7 +474,7 @@
 			</entry>
 			<entry>
 				<id>a231f485ad2e273589074ff2a9fc467d</id>
-				<org>Mit diesem Formular können Sie ein Troubleticket hinzufügen, falls Sie ein Problem haben</org>
+				<org>Mit diesem Formular kannst du ein Troubleticket hinzufügen, falls du ein Problem hast</org>
 				<en>This form allows you to add a trouble ticket if you have a problem</en>
 				<es>Este formulario le permite añadir un ticket de problema si usted tiene un problema de</es>
 				<fr>Ce formulaire vous permet d&amp;#39;ajouter un ticket si vous avez un problème</fr>

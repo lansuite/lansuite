@@ -5,7 +5,7 @@
 		<action>default</action>
 		<file>show</file>
 		<caption>Bug melden</caption>
-		<hint>Hier können Sie Fehler auf dieser Webseite melden</hint>
+		<hint>Hier kannst du Fehler auf dieser Webseite melden</hint>
 		<link>?mod=bugtracker</link>
 		<requirement>1</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<level>0</level>

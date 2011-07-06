@@ -12,7 +12,7 @@ if ($_GET['step'] >= 2) {
     INNER JOIN %prefix%pollvotes AS v ON o.polloptionid = v.polloptionid
     WHERE o.pollid = %int% AND v.userid = %int%', $_GET['pollid'], $auth['userid']);
 	if (!$pollrow['caption']) {
-		$func->error(t('Dieser Poll existiert nicht, oder Sie haben keine Berechtigung ihn zu sehen'), NO_LINK);
+		$func->error(t('Dieser Poll existiert nicht, oder du hast keine Berechtigung ihn zu sehen'), NO_LINK);
 		$_GET['step'] = 1;
 	}
 
@@ -21,10 +21,10 @@ if ($_GET['step'] >= 2) {
       $func->information(t('Dieser Poll ist bereits beendet'));
       $_GET['step'] = 2;
     } elseif ($voted['found']) {
-      $func->information(t('Sie haben bereits gevoted'));
+      $func->information(t('Du hast bereits gevoted'));
       $_GET['step'] = 2;
     } elseif ($pollrow['requirement'] == 1 and $auth['login'] == 0) {
-      $func->information(t("Sie müssen eingeloggt sein um zu diesem Poll ihre Stimme abzugeben."));
+      $func->information(t("Du musst eingeloggt sein um zu diesem Poll ihre Stimme abzugeben."));
       $_GET['step'] = 2;
     }
   }

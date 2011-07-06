@@ -48,7 +48,7 @@ $team2 = $db->qry_first("SELECT games.round, games.score, games.comment, games.s
 
 ########## Einschränkungen prüfen
 if ($tournament["name"] == "") { 
-	$func->error(t('Sie müssen zuerst ein Turnier auswählen!'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
+	$func->error(t('Du musst zuerst ein Turnier auswählen!'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
 
 
 ########## Keine Einschränkungen gefunden
@@ -69,7 +69,7 @@ if ($tournament["name"] == "") {
         $db->free_result($res);
       }
       
-			$dsp->NewContent(t('Details der Partie %1 vs %2', $team1['name'], $team2['name']), t('Hier sehen Sie Details zu dieser Partie und können das Ergebnis eintragen.'));
+			$dsp->NewContent(t('Details der Partie %1 vs %2', $team1['name'], $team2['name']), t('Hier siehst du Details zu dieser Partie und kannst das Ergebnis eintragen.'));
 			// Write Start and Enddate for each round
 			$round_start = $tfunc->GetGameStart($tournament, $team1['round'],$team1['group_nr']);
 			$round_end = $tfunc->GetGameEnd($tournament, $team1['round'],$team1['group_nr']);
@@ -176,7 +176,7 @@ if ($tournament["name"] == "") {
 				$func->information(t('Dieses Turnier ist bereits beendet, oder noch nicht gestartet!'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 
 			} elseif (($score_team1 == "") && ($score_team2 == "")) { 
-				$func->information(t('Bitte geben Sie ein Ergebnis ein'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
+				$func->information(t('Bitte gib ein Ergebnis ein'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 
 			} elseif (($score_team1 < 0) || ($score_team2 < 0)) {
 			                                $func->information(t('Das Ergebnis muss eine possitive Zahl sein'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
@@ -197,7 +197,7 @@ if ($tournament["name"] == "") {
 					$func->information(t('Nur Teilnehmer des Aktuellen Spiels und Turnieradmins dürfen ein Ergebnis eintragen'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 				}
 			} elseif (($not_new) && ($auth["type"] <= 1)) { 
-				$func->information(t('Es wurde bereits ein Ergebnis für diese Partie eingetragen. Das Ergebnis kann nur noch von Turnieradmins editiert werden. Melden Sie sich daher für Änderungen bei diesen.'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
+				$func->information(t('Es wurde bereits ein Ergebnis für diese Partie eingetragen. Das Ergebnis kann nur noch von Turnieradmins editiert werden. Melden dich daher für Änderungen bei diesen.'), "index.php?mod=tournament2&action=submit_result&step=1&tournamentid=$tournamentid&gameid1=$gameid1&gameid2=$gameid2");
 
 			} else {
         // Upload Screenshot
@@ -208,7 +208,7 @@ if ($tournament["name"] == "") {
         }
         
 				if (($not_new) && ($qacc != 1)){
-					$func->question(t('ACHTUNG: Zu diesem Turnier wurde bereits ein Ergebnis eingetragen. Wurde noch keine der Folgepartien dieses Spieles gespielt, so kann ohne Probleme fortgefahren werden. Wurden diese hingegen bereits gespielt, so sollten Sie sich im Klaren darüber sein, dass die beiden Folgepartien dadurch teilweise überschrieben werden und das Ergebnis dort auf 0 (noch nicht gespielt) gesetzt wird, sodass Sie alle aus dieser Partie resultierenden Partien erneut eintragen müssen!'), "index.php?mod=tournament2&action=submit_result&step=2&gameid1=$gameid1&gameid2=$gameid2&tournamentid=$tournamentid&qacc=1&score_team1=$score_team1&score_team2=$score_team2&score_comment=$score_comment", "index.php?mod=tournament2&action=submit_result&step=1&gameid1=$gameid1&gameid2=$gameid2&tournamentid=$tournamentid");
+					$func->question(t('ACHTUNG: Zu diesem Turnier wurde bereits ein Ergebnis eingetragen. Wurde noch keine der Folgepartien dieses Spieles gespielt, so kann ohne Probleme fortgefahren werden. Wurden diese hingegen bereits gespielt, so solltest du dir im Klaren darüber sein, dass die beiden Folgepartien dadurch teilweise überschrieben werden und das Ergebnis dort auf 0 (noch nicht gespielt) gesetzt wird, sodass du alle aus dieser Partie resultierenden Partien erneut eintragen musst!'), "index.php?mod=tournament2&action=submit_result&step=2&gameid1=$gameid1&gameid2=$gameid2&tournamentid=$tournamentid&qacc=1&score_team1=$score_team1&score_team2=$score_team2&score_comment=$score_comment", "index.php?mod=tournament2&action=submit_result&step=1&gameid1=$gameid1&gameid2=$gameid2&tournamentid=$tournamentid");
 				} else {
 					$_SESSION["tournament_submit_result_blocker"] = TRUE;
 					

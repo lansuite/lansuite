@@ -4,7 +4,7 @@
 if ($cfg['guestlist_showorga'] == 0) $querytype = 'user.type = 1';
 else $querytype = 'user.type >= 1';
 
-$dsp->NewContent(t('Anmeldestatistik'), t('Hier sehen Sie die aktuelle Statistik zur laufenden LAN'));
+$dsp->NewContent(t('Anmeldestatistik'), t('Hier siehst du die aktuelle Statistik zur laufenden LAN'));
 
 // Ermittle die Anzahl der derzeit angemeldeten Usern
 $get_cur = $db->qry_first("SELECT count(userid) as n FROM %prefix%user AS user LEFT JOIN %prefix%party_user AS party ON user.userid = party.user_id WHERE party_id=%int% AND (%plain%)", $party->party_id, $querytype);

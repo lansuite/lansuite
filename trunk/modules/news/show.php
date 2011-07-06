@@ -40,7 +40,7 @@ else {
 
   } else {
     if ($cfg["news_shorted"]== "0") {
-      $dsp->NewContent(t('Neuigkeiten'), t('Hier sehen Sie aktuelle Neuigkeiten.'));
+      $dsp->NewContent(t('Neuigkeiten'), t('Hier siehst du aktuelle Neuigkeiten.'));
       if ($cfg["news_count"] == "") $cfg["news_count"] = 5;
       $pages = $func->page_split($_GET["news_page"], $cfg["news_count"], $overall_news, "index.php?mod=news&amp;action=show", "news_page");
 
@@ -92,7 +92,7 @@ else {
   
     } else {
       if ($cfg["news_complete"] == "") $cfg["news_complete"] = 3;
-      $dsp->NewContent(t('Neuigkeiten'), t('Hier sehen Sie aktuelle Neuigkeiten.'));
+      $dsp->NewContent(t('Neuigkeiten'), t('Hier siehst du aktuelle Neuigkeiten.'));
       
       $get_news = $db->qry('SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.userid, u.username FROM %prefix%news AS n LEFT JOIN %prefix%user AS u ON u.userid = n.poster ORDER BY n.top DESC, n.date DESC LIMIT %plain%', $cfg["news_complete"]);
       while($row=$db->fetch_array($get_news)) {

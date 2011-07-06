@@ -9,7 +9,7 @@ switch ($_GET['step']) {
 
     $err = '';
     foreach ($_POST['action'] as $key => $val) if ($key == $auth['userid']) {
-      $err = t('Sie können nicht Ihren eigenen Account sperren');
+      $err = t('Du kannst nicht deinen eigenen Account sperren');
       break;
     }
 
@@ -25,7 +25,7 @@ switch ($_GET['step']) {
 
     $err = '';
     foreach ($_POST['action'] as $key => $val) if ($key == $auth['userid']) {
-      $err = t('Sie können nicht Ihren eigenen Account freigeben');
+      $err = t('Du kannst nicht deinen eigenen Account freigeben');
       break;
     }
 

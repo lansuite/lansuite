@@ -12,10 +12,10 @@ function CheckDeleteUser($userid) {
         LEFT JOIN %prefix%partys AS p ON p.party_id = pu.party_id
         WHERE pu.user_id = %int% AND UNIX_TIMESTAMP(p.enddate) > UNIX_TIMESTAMP(NOW())', $userid);
     
-    if ($auth["type"] == 2 and $get_data["type"] >= 2) $func->error(t('Sie haben nicht die erforderlichen Rechte, um einen Admin zu löschen'), "index.php?mod=usrmgr");
+    if ($auth["type"] == 2 and $get_data["type"] >= 2) $func->error(t('Du hast nicht die erforderlichen Rechte, um einen Admin zu löschen'), "index.php?mod=usrmgr");
     elseif ($get_party_data["found"]) $func->error(t('Dieser Benutzer ist noch zu einer Party angemeldet. Melden sie ihn zuerst ab'), "index.php?mod=usrmgr");
     elseif ($get_data["type"] < 0) $func->error(t('Dieser Benutzer wurde bereits gelöscht'), "index.php?mod=usrmgr");
-    elseif ($auth["userid"] == $userid) $func->error(t('Sie können sich nicht selbst löschen'), "index.php?mod=usrmgr");
+    elseif ($auth["userid"] == $userid) $func->error(t('Du kannst dich nicht selbst löschen'), "index.php?mod=usrmgr");
     else {						
         $db->qry("UPDATE %prefix%seat_seats SET status = '1', userid='0' WHERE userid = %int%", $userid);
         return true;
@@ -56,7 +56,7 @@ switch ($_GET["step"]) {
 			$get_seat = $db->qry_first("SELECT count(*) as n FROM %prefix%seat_seats WHERE userid = %int%", $userid);
 			if ($get_seat["n"] > 0) $seattext = t('und den vorhandenen Sitzplatz freigeben');
 
-			$func->question(t('Sind Sie sicher, dass Sie den Benutzer %1 wirklich löschen %2 wollen?', "<b>$username</b>", $seattext), "index.php?mod=usrmgr&action=delete&step=3&userid=$userid", "index.php?mod=usrmgr&action=details&userid=".$userid);
+			$func->question(t('Bist du sicher, dass du den Benutzer %1 wirklich löschen %2 willst?', "<b>$username</b>", $seattext), "index.php?mod=usrmgr&action=delete&step=3&userid=$userid", "index.php?mod=usrmgr&action=details&userid=".$userid);
 		} else $func->error(t('Dieser Benutzer existiert nicht'),"index.php?mod=usrmgr&action=delete");	
 	break;
 	

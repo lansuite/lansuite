@@ -3,7 +3,7 @@
 	<pos>8</pos>
 	<entry>
 		<caption>Foodcenter</caption>
-		<hint>Hier können Sie komfortabel Speisen und Getränke bestellen</hint>
+		<hint>Hier kannst du komfortabel Speisen und Getränke bestellen</hint>
 		<link>?mod=foodcenter</link>
 		<requirement>1</requirement>
 		<level>0</level>
@@ -84,7 +84,7 @@
 	</entry>	
 	<entry>
 		<caption>Münzzähler</caption>
-		<hint>Hier können Sie den Kassenstand prüfen</hint>
+		<hint>Hier kannst du den Kassenstand prüfen</hint>
 		<link>?mod=foodcenter&amp;action=coincounter</link>
 		<file>coincounter</file>
 		<requirement>2</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->

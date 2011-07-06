@@ -21,7 +21,7 @@
 $headermenuitem = $_GET["headermenuitem"];
 $action = $_GET["action"];
 
-$dsp->NewContent(t('MineSweeper'), t('Versuchen Sie alle Felder aufzudecken, ohne dabei auf eine Miene zu klicken'));
+$dsp->NewContent(t('MineSweeper'), t('Versuche alle Felder aufzudecken, ohne dabei auf eine Mine zu klicken'));
 
 $menunames[1] = t('Start');
 $menunames[2] = t('Highscore');
@@ -75,7 +75,7 @@ switch ($_GET["step"]) {
     break;
 
     case 3:
-        $dsp->AddSingleRow("<b>". t('Sie haben Gewonnen! Herzlichen Glückwunsch!') ."</b>");
+        $dsp->AddSingleRow("<b>". t('Du hast Gewonnen! Herzlichen Glückwunsch!') ."</b>");
         $dsp->AddHRuleRow();
 
         $db->qry("UPDATE %prefix%game_hs
@@ -84,7 +84,7 @@ switch ($_GET["step"]) {
             ", time(), $_GET["tmp_nick"]);
 
         $dsp->SetForm("index.php?mod=games&action=minesweeper&step=4&tmp_nick={$_GET["tmp_nick"]}");
-        $dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
+        $dsp->AddSingleRow(t('Hier kannst du dich in die Highscoreliste eintragen'));
         $dsp->AddDoubleRow(t('Zeit'), $score);
         $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "");
         $dsp->AddFormSubmitRow(t('Weiter'));

@@ -18,7 +18,7 @@
 *
 **************************************************************************/
 
-$dsp->NewContent(t('Hangman'), t('Versuchen Sie durch Buchstaben tippen ein Wort zu erraten'));
+$dsp->NewContent(t('Hangman'), t('Versuche durch Buchstaben tippen ein Wort zu erraten'));
 
 $menunames[1] = t('Start');
 $menunames[2] = t('Highscore');
@@ -61,7 +61,7 @@ if (!$_GET["sieg"]) {
     // Richtige Buchstaben ersetzen
     $BuchstabeError = '';
     if ($_POST["buchstabe"] != ""){
-    if (strlen($_POST["buchstabe"]) > 1) $BuchstabeError = t('Bitte geben Sie nur einen Buchstaben ein');
+    if (strlen($_POST["buchstabe"]) > 1) $BuchstabeError = t('Bitte gebe nur einen Buchstaben ein');
     else {
         $_SESSION["used_letters"] .= $_POST["buchstabe"];
 
@@ -98,13 +98,13 @@ switch ($_GET["step"]) {
 
     // Sieg
     case 2:
-        $dsp->AddDoubleRow("", "Herzlichen Glückwunsch! Sie haben das Wort '{$_SESSION["losungswort"]}' mit {$_SESSION["versuche"]} Fehlversuchen erraten");
+        $dsp->AddDoubleRow("", "Herzlichen Glückwunsch! Du hast das Wort '{$_SESSION["losungswort"]}' mit {$_SESSION["versuche"]} Fehlversuchen erraten");
         $dsp->AddHRuleRow();
 
         if ($_SESSION["do_highscore"]) {
         	$_SESSION["ratewort"] = $_GET["ratewort"];
             $dsp->SetForm("index.php?mod=games&action=hangman&step=4&sieg=1");
-            $dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
+            $dsp->AddSingleRow(t('Hier kannst du dich in die Highscoreliste eintragen'));
             $dsp->AddDoubleRow("Fehlversuche", $_SESSION["versuche"]);
             $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "", "", "", $auth['login']);
             $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", FIELD_OPTIONAL);

@@ -332,7 +332,7 @@ function change_selection(id, ms_number) {
 		else resultObj.elements[z].checked = 1;
 	} else {
 	  if (MultiSelectSecurityQuest[this.value] == 1) {
-      if (!confirm("Wollen Sie die Aktion '"+ id.options[id.selectedIndex].text +"' wirklich auf alle ausgewählten Einträge anwenden?")) return 0;
+      if (!confirm("Willst du die Aktion '"+ id.options[id.selectedIndex].text +"' wirklich auf alle ausgewählten Einträge anwenden?")) return 0;
     }
     MultiSelectActions[id.value] = MultiSelectActions[id.value].replace(/&amp;/g, "&");
     resultObj.action = MultiSelectActions[id.value];

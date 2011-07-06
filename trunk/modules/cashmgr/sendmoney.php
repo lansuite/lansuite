@@ -18,16 +18,16 @@ function Check() {
 		$func->error(t("Ihre Identität konnte nicht verifiziert werden. Die Transaktion wird sicherheitshalber abgebrochen."));
 		$ret = false;
 	}elseif($_POST['toUserid'] == -1) {
-		$func->information(t("Bitte wählen Sie einen Empfänger für Ihre Transaktion aus"));
+		$func->information(t("Bitte wähle einen Empfänger für Ihre Transaktion aus"));
 		$ret = false;
 	}elseif($_POST['toUserid'] == $auth['userid']) {
-		$func->information(t("Sie können nicht sich selbst Geld überweisen"));
+		$func->information(t("Du kannst dir nicht selbst Geld überweisen"));
 		$ret = false;
 	}elseif((float)$_POST['movement'] <= 0) {
-		$func->information(t("Sie können keine negativen oder neutralen  Beträge überweisen"));
+		$func->information(t("Du kannst keine negativen oder neutralen  Beträge überweisen"));
 		$ret = false;
 	}elseif($_POST['comment'] == "") {
-		$func->information(t("Bitte geben Sie einen Kommentar zu ihrer Überweisung an."));
+		$func->information(t("Bitte gib einen Kommentar zu ihrer Überweisung an."));
 		$ret = false;
 	}
 	return $ret;
@@ -36,7 +36,7 @@ function Check() {
 include_once('inc/classes/class_masterform.php');
 $mf = new masterform();
 
-$dsp->NewContent(t('Geld überweisen'), t('Hier können Sie anderen Benutzern Geld überweisen'));
+$dsp->NewContent(t('Geld überweisen'), t('Hier kannst du anderen Benutzern Geld überweisen'));
 
 $AdminFound = 0;
 $UserFound = 0;

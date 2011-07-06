@@ -73,7 +73,7 @@ switch($_GET["step"]) {
 	// Neues Team eröffnen - In DB schreiben
 	case 42:
 		if ($_POST["set_password"] and $_POST["set_password"] != $_POST["set_password2"]) $func->information("Die Passworteingaben stimmen nicht überein", "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
-		elseif ($_POST['team_name'] == "") $func->information(t('Bitte geben Sie einen Teamnamen ein, oder wählen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
+		elseif ($_POST['team_name'] == "") $func->information(t('Bitte gib einen Teamnamen ein, oder wähle ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr_admin&step=41&tournamentid=$tournamentid&userid=$userid");
 
 		elseif (!$sec->locked("t_admteam_create")) {
 			$t = $db->qry_first("SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $_GET["tournamentid"]);
@@ -86,7 +86,7 @@ switch($_GET["step"]) {
 
 
 	default:
-		$dsp->NewContent(t('Admin-Teammanager'), t('Hier können Sie Teams löschen oder ihnen weitere Spieler zuweisen.'));
+		$dsp->NewContent(t('Admin-Teammanager'), t('Hier kannst du Teams löschen oder ihnen weitere Spieler zuweisen.'));
 
 		// Neues Team anmelden
 		$tourneys = $db->qry("SELECT tournamentid, name FROM %prefix%tournament_tournaments WHERE (status = 'open')  AND party_id=%int% ORDER BY name", $party->party_id);

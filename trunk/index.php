@@ -148,7 +148,7 @@
     // Exit if no Configfile
     if (!$config) {
         echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
-        Überprüfen Sie die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
+        Überprüfe die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
         exit();
     }
     $lang = array(); // For old $lang 

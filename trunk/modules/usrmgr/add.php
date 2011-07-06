@@ -31,15 +31,15 @@ global $mf, $db, $auth, $authentication, $party, $usrmgr, $func, $cfg, $signon;
     if ($_POST['password_original']) $_SESSION['tmp_pass'] = $_POST['password_original'];
 
     if ($cfg["signon_password_mail"]) {
-      if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Ihr Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.'), NO_LINK);
-      else if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-Email aufgetreten.') .'<br />'. t('Ihr Passwort lautet: <b>%1</b>', array($_SESSION['tmp_pass'])), NO_LINK);
+      if ($usrmgr->SendSignonMail(0)) $func->confirmation(t('Dein Passwort und weitere Informationen wurden an Ihre angegebene E-Mail-Adresse gesendet.'), NO_LINK);
+      else if ($cfg['sys_internet']) $func->error(t('Es ist ein Fehler beim Versand der Informations-Email aufgetreten.') .'<br />'. t('Dein Passwort lautet: <b>%1</b>', array($_SESSION['tmp_pass'])), NO_LINK);
     }
 
     // Send email-verification link
     if ($cfg['sys_login_verified_mail_only']) $usrmgr->SendVerificationEmail($id);
 
     // Show passwort, if wanted, or has mail failed
-    if ($cfg['signon_password_view']) $func->information(t('Ihr Passwort lautet: <b>%1</b>', array($_SESSION['tmp_pass'])), NO_LINK);
+    if ($cfg['signon_password_view']) $func->information(t('Dein Passwort lautet: <b>%1</b>', array($_SESSION['tmp_pass'])), NO_LINK);
     $_SESSION['tmp_pass'] = '';
     }
 
@@ -111,9 +111,9 @@ function CheckClanNotExists ($ClanName) {
   global $db, $auth;
 
   $clan = $db->qry_first("SELECT 1 AS found FROM %prefix%clan WHERE name = %string%", $ClanName);
-  if ($clan['found']) return t('Dieser Clan existiert bereits!') .HTML_NEWLINE. t(' Wenn Sie diesem beitreten möchten, wählen Sie ihn oberhalb aus dem Dropdownmenü aus.');
+  if ($clan['found']) return t('Dieser Clan existiert bereits!') .HTML_NEWLINE. t(' Wenn du diesem beitreten möchten, wähle ihn oberhalb aus dem Dropdownmenü aus.');
 
-    if (preg_match("/([.^\"\'`´]+)/", $ClanName)) return t('Sie verwenden nicht zugelassene Sonderzeichen in Ihrem Clannamen.');
+    if (preg_match("/([.^\"\'`´]+)/", $ClanName)) return t('Du verwendest nicht zugelassene Sonderzeichen in deinem Clannamen.');
 
   return false;
 }
@@ -152,7 +152,7 @@ function PersoInput($field, $mode, $error = '') {
         $perso_res = $usrmgr->CheckPerso($_POST[$field]);
         switch ($perso_res) {
           case 2: return str_replace("<", "&lt;", t('Das Format der Personalausweisnummer ist falsch. Bitte nach folgendem Muster eingeben: \'aaaaaaaaaaD<<bbbbbbb<ccccccc<<<<<<<d\'')); break;
-          case 3: return t('Prüfsummenfehler. Bitte überprüfen Sie Ihre Angabe. Sehr wahrscheinlich haben Sie eine oder mehrere Zahlen falsch abgeschrieben.'); break;
+          case 3: return t('Prüfsummenfehler. Bitte überprüfen deine Angaben. Sehr wahrscheinlich hast du eine oder mehrere Zahlen falsch abgeschrieben.'); break;
           case 4: return t('Dieser Personalausweis ist leider bereits abgelaufen.'); break;
         }
       }
@@ -179,7 +179,7 @@ function Addr1Input($field, $mode, $error = '') {
           $_POST['hnr'] = (int)array_pop($pieces);
           $_POST['street'] = implode(' ', $pieces);
 
-              if ($_POST['street'] == '') return t('Bitte geben Sie Straße und Hausnummer in folgendem Format ein: "Straßenname 12".');
+              if ($_POST['street'] == '') return t('Bitte gib Straße und Hausnummer in folgendem Format ein: "Straßenname 12".');
               elseif ($_POST['hnr'] == 0) return t('Die Hausnummer muss numerisch sein.');
           }
           return false; // -> Means no error
@@ -207,7 +207,7 @@ function Addr2Input($field, $mode, $error = '') {
           $_POST['plz'] = array_shift($pieces);
           $_POST['city'] = implode(' ', $pieces);
 
-              if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte geben Sie Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".');
+              if ($_POST['plz'] == 0 or $_POST['city'] == '') return t('Bitte gib Postleitzahl und Ort in folgendem Format ein: "12345 Stadt".');
               elseif (strlen($_POST['plz']) < 4) return t('Die Postleitzahl muss aus 5 Ziffern bestehen. Postleitzahlen mit weniger Ziffern bitte mit führenden Nullen schreiben (z.B. 00123).');
           }
         break;
@@ -258,7 +258,7 @@ if (!($_GET['mod'] == 'signon' and $auth['login'] and $_GET['party_id'])) {
       //   Show Username Field
       ($quick_signon)? $optional = 1 : $optional = 0;
       if (($auth['type'] >= 2 or !$_GET['userid'] or $missing_fields)) $mf->AddField(t('Benutzername'), 'username', '', '', $optional);
-      else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, t('Als Benutzer können Sie Ihren Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden Sie sich dazu bitte an einen Administrator.'));
+      else $mf->AddField(t('Benutzername'), '', IS_TEXT_MESSAGE, t('Als Benutzer kannst du deinen Benutzernamen, Bezahlt & Platz-Status, Ausweis / Sonstiges und Kommentar NICHT ändern. Wenden dich dazu bitte an einen Administrator.'));
   
       if (!$quick_signon) {
         if (ShowField('firstname')) $mf->AddField(t('Vorname'), 'firstname', '', '', Optional('firstname'));

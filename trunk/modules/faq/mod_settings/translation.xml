@@ -24,7 +24,7 @@
 			</entry>
 			<entry>
 				<id>cc007a445ca7f77fd974d4bd27e00bd1</id>
-				<org>Bitte geben Sie einen Namen für die neue Kategorie ein</org>
+				<org>Bitte gib einen Namen für die neue Kategorie ein</org>
 				<en>Please enter a name for the new category</en>
 				<es>Por favor, introduzca un nombre para la nueva categoría</es>
 				<fr>S&amp;#39;il vous plaît, entrez un nom pour la nouvelle catégorie</fr>
@@ -44,7 +44,7 @@
 			</entry>
 			<entry>
 				<id>81f8331bba6ea39a14e654961b0bc2ee</id>
-				<org>Um eine Kategorie hinzuzufügen, füllen Sie bitte das folgende Formular aus. Für das Feld Kategoriename stehen Ihnen 30 Zeichen zur Verfügung.</org>
+				<org>Um eine Kategorie hinzuzufügen, fülle bitte das folgende Formular aus. Für das Feld Kategoriename stehen dir 30 Zeichen zur Verfügung.</org>
 				<en>To add a category, please fill out the form below. Category name for the field you have 30 characters left.</en>
 				<es>Para agregar una categoría, por favor, rellene el siguiente formulario. Nombre de la categoría para el campo tiene 30 caracteres a la izquierda.</es>
 				<fr>Pour ajouter une catégorie, s&amp;#39;il vous plaît remplir le formulaire ci-dessous. Nom de catégorie pour le champ que vous disposez de 30 caractères à gauche.</fr>
@@ -84,7 +84,7 @@
 			</entry>
 			<entry>
 				<id>3e92a50d159088d9609feef463270501</id>
-				<org>Bitte geben Sie eine Frage ein</org>
+				<org>Bitte gib eine Frage ein</org>
 				<en>Please enter a question</en>
 				<es>Por favor, introduzca una pregunta</es>
 				<fr>S&amp;#39;il vous plaît entrer une question</fr>
@@ -94,7 +94,7 @@
 			</entry>
 			<entry>
 				<id>ca75ec7a684a0981aba32330331ba217</id>
-				<org>Bitte geben Sie einen Text ein</org>
+				<org>Bitte gib einen Text ein</org>
 				<en>Please enter a message</en>
 				<es>Por favor, introduzca un mensaje</es>
 				<fr>S&amp;#39;il vous plaît entrer un message</fr>
@@ -104,7 +104,7 @@
 			</entry>
 			<entry>
 				<id>56be20cdf1f36b704fda35167b6fe81f</id>
-				<org>Bitte wählen Sie eine Kategorie aus oder erstellen Sie eine neue Kategorie</org>
+				<org>Bitte wähle eine Kategorie aus oder erstellen eine neue Kategorie</org>
 				<en>Please select a category or create a new category</en>
 				<es>Por favor seleccione una categoría o crear una nueva categoría</es>
 				<fr>S&amp;#39;il vous plaît sélectionnez une catégorie ou créer une nouvelle catégorie</fr>
@@ -114,7 +114,7 @@
 			</entry>
 			<entry>
 				<id>b00c9a2e9e9191137a14b2254928a9f2</id>
-				<org>Bitte wählen Sie eine Kategorie aus &lt;b&gt; ODER &lt;/b&gt; erstellen Sie eine neue Kategorie</org>
+				<org>Bitte wähle eine Kategorie aus &lt;b&gt; ODER &lt;/b&gt; erstelle eine neue Kategorie</org>
 				<en>Please select a category &lt;b&gt;OR&lt;/b&gt; you can create a new category</en>
 				<es>Por favor, seleccione una categoría &lt;b&gt;o&lt;/b&gt; crear una nueva categoría</es>
 				<fr>S&amp;#39;il vous plaît sélectionnez une &lt;b&gt;catégorie&lt;/b&gt; ou vous pouvez créer une nouvelle catégorie</fr>
@@ -244,7 +244,7 @@
 			</entry>
 			<entry>
 				<id>20b8ece2557f76dc7c9d00a8250faafd</id>
-				<org>Auf dieser Seite sehen Sie häufig gestellte Fragen und deren Antworten. Die Fragen sind in verschiedene Kategorien eingeteilt, die Sie mit dem /'/+/'/-Symbol aufklappen können.</org>
+				<org>Auf dieser Seite siehst du häufig gestellte Fragen und deren Antworten. Die Fragen sind in verschiedene Kategorien eingeteilt, die du mit dem /'/+/'/-Symbol aufklappen kannst.</org>
 				<en>On this page you will see frequently asked questions and their answers. The questions are divided into different categories you can expand the /&amp;#39;/+/&amp;#39;/- icon.</en>
 				<es>En esta página podrás ver las preguntas más frecuentes y sus respuestas. Las preguntas se dividen en diferentes categorías, se puede ampliar el icono /&amp;#39;/+/&amp;#39;/-.</es>
 				<fr>Sur cette page vous pourrez voir les questions fréquemment posées et leurs réponses. Les questions sont divisées en différentes catégories, vous pouvez agrandir l&amp;#39;icône /&amp;#39;/+/&amp;#39;/-.</fr>
@@ -294,7 +294,7 @@
 			</entry>
 			<entry>
 				<id>7913e26e1c96356d33f1f650dad4f65e</id>
-				<org>Sind Sie sicher, dass Sie die Kategorie  &lt;b&gt; %1 &lt;/b&gt; und die darin enthaltenen Fragen wirklich löschen wollen?</org>
+				<org>Bist du sicher, dass du die Kategorie  &lt;b&gt; %1 &lt;/b&gt; und die darin enthaltenen Fragen wirklich löschen willst?</org>
 				<en>Are you sure you want to delete the &lt;b&gt;category%1&lt;/b&gt; and it contains questions?</en>
 				<es>¿Estás seguro de que desea eliminar la &lt;b&gt;categoría 1%&lt;/b&gt; y que contiene preguntas?</es>
 				<fr>Êtes-vous sûr de vouloir &lt;b&gt;supprimer la catégorie%1,&lt;/b&gt; et les questions qui y figurent?</fr>
@@ -314,7 +314,7 @@
 			</entry>
 			<entry>
 				<id>67ddc496ef581417360fe228ff6f64dc</id>
-				<org>Sind Sie sicher, dass Sie die Frage &lt;b&gt; %1 &lt;/b&gt; löschen wollen ?</org>
+				<org>Bist du sicher, dass du die Frage &lt;b&gt; %1 &lt;/b&gt; löschen willst?</org>
 				<en>Are you sure you want to delete the &lt;b&gt;question,%1?&lt;/b&gt;</en>
 				<es>¿Estás seguro de que desea eliminar la &lt;b&gt;pregunta,%1?&lt;/b&gt;</es>
 				<fr>Etes-vous sûr de vouloir supprimer la &lt;b&gt;question,%1?&lt;/b&gt;</fr>
@@ -354,7 +354,7 @@
 			</entry>
 			<entry>
 				<id>ccfe5b8991f93fde4c6a7967cdbfdc2d</id>
-				<org>Auf dieser Seite sehen Sie häufig gestellte Fragen und deren Antworten</org>
+				<org>Auf dieser Seite siehst du häufig gestellte Fragen und deren Antworten</org>
 				<en>On this page you will see frequently asked questions and their answers</en>
 				<es>En esta página podrás ver las preguntas más frecuentes y sus respuestas</es>
 				<fr>Sur cette page vous pourrez voir les questions fréquemment posées et leurs réponses</fr>

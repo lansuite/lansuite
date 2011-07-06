@@ -23,7 +23,7 @@ switch($_GET["step"]) {
 	
 		if($caption != "") {
 		
-			$func->question(t('Sind Sie sicher, dass Sie die Frage <b> %1 </b> löschen wollen ?', $caption),"index.php?mod=faq&object=item&action=delete_item&itemid={$_GET['itemid']}&step=3","index.php?mod=faq&object=cat&action=delete_cat");
+			$func->question(t('Bist du sicher, dass die Frage <b> %1 </b> löschen willst ?', $caption),"index.php?mod=faq&object=item&action=delete_item&itemid={$_GET['itemid']}&step=3","index.php?mod=faq&object=cat&action=delete_cat");
 		}
 		
 			else {

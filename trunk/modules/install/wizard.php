@@ -9,8 +9,8 @@ $_SESSION['auth']['design'] = 'simple';
 // Error-Switch
 switch ($_GET["step"]){
   case 7:
-    if ($_POST["email"] == "") $func->error(t('Bitte geben Sie eine E-Mail-Adresse ein!'), "index.php?mod=install&action=wizard&step=6");
-    elseif ($_POST["password"] == "") $func->error(t('Bitte geben Sie ein Kennwort ein!'), "index.php?mod=install&action=wizard&step=6");
+    if ($_POST["email"] == "") $func->error(t('Bitte gib eine E-Mail-Adresse ein!'), "index.php?mod=install&action=wizard&step=6");
+    elseif ($_POST["password"] == "") $func->error(t('Bitte gib ein Kennwort ein!'), "index.php?mod=install&action=wizard&step=6");
     elseif ($_POST["password"] != $_POST["password2"]) $func->error(t('Das Passwort und seine Verifizierung stimmen nicht überein!'), "index.php?mod=install&action=wizard&step=6");
     else {
       // Check for existing Admin-Account.
@@ -35,7 +35,7 @@ switch ($_GET["step"]){
 
   case 8:
     if (!$func->admin_exists()) {
-      $func->information(t('Sie müssen einen Admin-Account anlegen, um fortfahren zu können'));
+      $func->information(t('Du musst einen Admin-Account anlegen, um fortfahren zu können'));
       $_GET['step'] = 6;
     }
   break;
@@ -44,7 +44,7 @@ switch ($_GET["step"]){
 switch ($_GET["step"]){
     // Check Environment
     default:
-    $dsp->NewContent(t('Lansuite Installation und Administration'), t('Willkommen bei der Installation von Lansuite.<br />Im ersten Schritt wird die Konfiguration Ihres Webservers überprüft.<br />Sollte alles korrekt sein, so drücken Sie bitte am Ende der Seite auf <b>Weiter</b> um mit der Eingabe der Grundeinstellungen fortzufahren.'));
+    $dsp->NewContent(t('Lansuite Installation und Administration'), t('Willkommen bei der Installation von Lansuite.<br />Im ersten Schritt wird die Konfiguration deines Webservers überprüft.<br />Sollte alles korrekt sein, so drücke bitte am Ende der Seite auf <b>Weiter</b> um mit der Eingabe der Grundeinstellungen fortzufahren.'));
 
         $dsp->SetForm("index.php?mod=install&action=wizard");
         $lang_array = array();
@@ -68,7 +68,7 @@ switch ($_GET["step"]){
         $config["database"]["database"] = '';
         $install->WriteConfig();
 
-        $dsp->NewContent(t('Grundeinstellungen'), t('Bitte geben Sie nun die Zugangsdaten zur Datenbank an.'));
+        $dsp->NewContent(t('Grundeinstellungen'), t('Bitte gib nun die Zugangsdaten zur Datenbank an.'));
         $dsp->SetForm("index.php?mod=install&action=wizard&step=3");
 
         // Set default settings from Config-File
@@ -145,9 +145,9 @@ switch ($_GET["step"]){
 
             $res = $install->TryCreateDB($_POST["resetdb"]);
             switch ($res){
-                case 0: $output .= $fail_leadin . t('Die Datenbank ist nicht erreichbar. Überprüfen Sie bitte die Angaben zur Datenbankverbindung.') . $leadout; break;
+                case 0: $output .= $fail_leadin . t('Die Datenbank ist nicht erreichbar. Überprüfe bitte die Angaben zur Datenbankverbindung.') . $leadout; break;
                 case 1: $output .= t('Die Datenbank \'%1\' existiert bereits und wurde daher nicht neu angelegt.', $config["database"]["database"]); break;
-                case 2: $output .= $fail_leadin . t('Anlegen der Datenbank fehlgeschlagen. Überprüfen Sie bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfen Sie, ob Sie den Namen der Datenbank korrekt angegeben haben.') . $leadout; break;
+                case 2: $output .= $fail_leadin . t('Anlegen der Datenbank fehlgeschlagen. Überprüfe bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfe, ob du den Namen der Datenbank korrekt angegeben hast.') . $leadout; break;
                 case 3: $output .= t('Datenbank wurde erfolgreich angelegt.'); break;
                 case 4: $output .= $fail_leadin . t('Verbdindung ok aber keinen Datenbanknamen angegeben.') . $leadout; break;
                 case 5: $output .= t('Datenbank wurde erfolgreich Überschrieben.'); break;
@@ -181,7 +181,7 @@ switch ($_GET["step"]){
     // Display import form
     case 4:
 
-        $dsp->NewContent(t('Datenimport'), t('Hier können Sie die XML- oder CSV-Datei mit den Benutzerdaten ihrer Gäste importieren. Diese erhalten Sie z.B. bei LanSurfer, oder über den Export-Link einer anderen Lansuite-Version oder von jedem anderen System, das das Lansuite XML-Benutzerformat unterstützt.<br />Sie können den Import auch überspringen (auf <b>\'Weiter\'</b> klicken). In diesem Fall sollten Sie im nächsten Schritt einen Adminaccount anlegen.'));
+        $dsp->NewContent(t('Datenimport'), t('Hier kannst du die XML- oder CSV-Datei mit den Benutzerdaten ihrer Gäste importieren. Diese erhälst du z.B. bei LanSurfer, oder über den Export-Link einer anderen Lansuite-Version oder von jedem anderen System, das das Lansuite XML-Benutzerformat unterstützt.<br />Du kannst den Import auch überspringen (auf <b>\'Weiter\'</b> klicken). In diesem Fall solltest du im nächsten Schritt einen Adminaccount anlegen.'));
 
         $dsp->SetForm("index.php?mod=install&action=wizard&step=5", "", "", "multipart/form-data");
 
@@ -200,7 +200,7 @@ switch ($_GET["step"]){
         $dsp->AddSingleRow("<b>".t('LanSurfer-XML-Export')."</b>");
         $dsp->AddCheckBoxRow("noseat", t('Sitzplan NICHT importieren'), "", "", 1, "");
 
-        $dsp->AddSingleRow(t('ACHTUNG: Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.'));
+        $dsp->AddSingleRow(t('ACHTUNG: Wird mit den importierten Daten auch ein Adminaccount importiert, wirst du ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.'));
         $dsp->AddFormSubmitRow(t('Hinzufügen'));
 
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Weiter'), "index.php?mod=install&action=wizard&step=6"));
@@ -256,7 +256,7 @@ switch ($_GET["step"]){
             break;
 
             default:
-                $func->information(t('Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.'), "index.php?mod=install&action=wizard&step=4");
+                $func->information(t('Der von dir angegebene Dateityp wird nicht unterstützt. Bitte wähle eine Datei vom Typ *.xml, oder *.csv aus oder überspringe den Dateiimport.'), "index.php?mod=install&action=wizard&step=4");
             break;
         }
     break;
@@ -264,7 +264,7 @@ switch ($_GET["step"]){
 
     // Display form to create Adminaccount
     case 6:
-        $dsp->NewContent(t('Adminaccount anlegen'), t('Hier können Sie einen Adminaccount anlegen. Falls dies bereits durch den Import geschehen ist, können Sie diesen Schritt auch überspringen (auf <b>\'Weiter\'</b> klicken).'));
+        $dsp->NewContent(t('Adminaccount anlegen'), t('Hier kannst du einen Adminaccount anlegen. Falls dies bereits durch den Import geschehen ist, kannst du diesen Schritt auch überspringen (auf <b>\'Weiter\'</b> klicken).'));
         $dsp->SetForm("index.php?mod=install&action=wizard&step=7");
         if ($func->admin_exists()) $dsp->AddDoubleRow(t('Info'), t('Es existiert bereits ein Adminaccount'));
         
@@ -288,7 +288,7 @@ switch ($_GET["step"]){
 
     // Load modules
     case 8:
-        $dsp->NewContent(t('Module aktivieren'), t('Hier können Sie festlegen, welche Module aktiv sein sollen'));
+        $dsp->NewContent(t('Module aktivieren'), t('Hier kannst du festlegen, welche Module aktiv sein sollen'));
         $dsp->SetForm("index.php?mod=install&action=wizard&step=9");
         $res = $db->qry("SELECT * FROM %prefix%modules ORDER BY changeable DESC, caption");
         while ($row = $db->fetch_array($res)) $dsp->AddContentLine($install->getModConfigLine($row, 0));
@@ -367,7 +367,7 @@ switch ($_GET["step"]){
 
         $dsp->NewContent(t('Installation abschließen'), t('Die Installation wurde erfolgreich beendet.'));
             
-        $dsp->AddSingleRow(t('Die Installation ist nun beendet.<br /><br />Mit einem Klick auf <b>Einloggen</b> unterhalb schließen Sie die Installation ab und gelangen auf die Adminseite. Dort können Sie weitere Konfigurationen vornehmen sowie bereits in der Installation getätigte ändern.<br /><br />Der Modulmanager ermöglicht es Ihnen dort Module zu de-/aktivieren.<br /><br />Über den Link \'Allgemeine Einstellungen\' stehen Ihnen eine Vielzahl an Konfigurationen in den einzelnen Modulen zur Verfügung.'));
+        $dsp->AddSingleRow(t('Die Installation ist nun beendet.<br /><br />Mit einem Klick auf <b>Einloggen</b> unterhalb schließest dz die Installation ab und gelangst auf die Adminseite. Dort kannst du weitere Konfigurationen vornehmen sowie bereits in der Installation getätigte ändern.<br /><br />Der Modulmanager ermöglicht es dir dort Module zu de-/aktivieren.<br /><br />Über den Link \'Allgemeine Einstellungen\' stehen dir eine Vielzahl an Konfigurationen in den einzelnen Modulen zur Verfügung.'));
         if (!func::admin_exists()) $dsp->AddSingleRow("<font color=red>". t('<b>Es wurde kein Admin-Account angelegt</b><br />Solange kein Admin-Account existiert, ist die Admin-Seite für JEDEN im Netzwerk erreichbar.') ."</font>");
 
         $dsp->AddDoubleRow("", $dsp->FetchSpanButton(t('Login'), "index.php?mod=install"));

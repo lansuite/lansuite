@@ -134,7 +134,7 @@ class masterform {
 
     // In freeze-mode there are no changes to the DB allowed
     if ($cfg['sys_freeze']) {
-      $func->information(t('Diese Webseite ist Momentan im "Freeze-Mode".[br]D.h. es können keine neuen Daten in die Datenbank geschrieben werden.[br][br]Bitte versuchen Sie es zu einem Späteren Zeitpunkt nocheinmal.'));
+      $func->information(t('Diese Webseite ist Momentan im "Freeze-Mode".[br]D.h. es können keine neuen Daten in die Datenbank geschrieben werden.[br][br]Bitte versuche es zu einem Späteren Zeitpunkt nocheinmal.'));
       return;
     }
 
@@ -275,12 +275,12 @@ class masterform {
               if ($err) $this->error[$field['name']] = $err;
 
               // Check for value
-              if (!$field['optional'] and $_POST[$field['name']] == '') $this->error[$field['name']] = t('Bitte füllen Sie dieses Pflichtfeld aus.');
+              if (!$field['optional'] and $_POST[$field['name']] == '') $this->error[$field['name']] = t('Bitte fülle dieses Pflichtfeld aus.');
 
               // Check Int
               elseif (strpos($SQLFieldTypes[$field['name']], 'int') !== false and $SQLFieldTypes[$field['name']] != 'tinyint(1)'
                 and $SQLFieldTypes[$field['name']] != "enum('0','1')"
-                and $_POST[$field['name']] and (int)$_POST[$field['name']] == 0) $this->error[$field['name']] = t('Bitte geben Sie eine Zahl ein.');
+                and $_POST[$field['name']] and (int)$_POST[$field['name']] == 0) $this->error[$field['name']] = t('Bitte gib eine Zahl ein.');
 
               // Check date
               elseif (($SQLFieldTypes[$field['name']] == 'datetime' or $SQLFieldTypes[$field['name']] == 'date')
@@ -480,7 +480,7 @@ class masterform {
                    $captcha = new ASCII_Captcha();
                    $data = $captcha->create($text);
                    $_SESSION['captcha'] = $text;
-                   $dsp->AddDoubleRow(t('Bitte geben Sie diesen Text unterhalb ein'), "<pre style='font-size:8px;'>$data</pre>");
+                   $dsp->AddDoubleRow(t('Bitte gib diesen Text unterhalb ein'), "<pre style='font-size:8px;'>$data</pre>");
                    $dsp->AddTextFieldRow('captcha', '', $_POST['captcha'], $this->error['captcha']);
                 break;
 
@@ -700,7 +700,7 @@ class masterform {
 function CheckValidEmail($email){
 global $cfg;
 
-  if ($email == '') return t('Bitte geben Sie eine Email ein');
+  if ($email == '') return t('Bitte gib deine Email ein');
   elseif (substr_count($email, '@') != 1) return t('Die Adresse muss genau ein @-Zeichen enthalten');
   else {
     $ccTLD = array('ac', 'ad', 'ae', 'af', 'ag', 'ai', 'al', 'am', 'an', 'ao', 'aq', 'ar', 'as', 'at', 'au', 'aw', 'az', 'ba', 'bb', 'bd', 'be', 'bf', 'bg', 'bh', 'bi', 'bj', 'bm', 'bn', 'bo', 'br', 'bs', 'bt', 'bv', 'bw', 'by', 'bz', 'ca', 'cc', 'cd', 'cf', 'cg', 'ch', 'ci', 'ck', 'cl', 'cm', 'cn', 'co', 'cr', 'cu', 'cv', 'cx', 'cy', 'cz', 'de', 'dj', 'dk', 'dm', 'do', 'dz', 'ec', 'ee', 'eg', 'eh', 'er', 'es', 'et', 'fi', 'fj', 'fk', 'fm', 'fo', 'fr', 'ga', 'gd', 'ge', 'gf', 'gg', 'gh', 'gi', 'gl', 'gm', 'gn', 'gp', 'gq', 'gr', 'gs', 'gt', 'gu', 'gw', 'gy', 'hk', 'hm', 'hn', 'hr', 'ht', 'hu', 'id', 'ie', 'il', 'im', 'in', 'io', 'iq', 'ir', 'is', 'it', 'je', 'jm', 'jo', 'jp', 'ke', 'kg', 'kh', 'ki', 'km', 'kn', 'kp', 'kr', 'kw', 'ky', 'kz', 'la', 'lb', 'lc', 'li', 'lk', 'lr', 'ls', 'lt', 'lu', 'lv', 'ly', 'ma', 'mc', 'md', 'mg', 'mh', 'mk', 'ml', 'mm', 'mn', 'mo', 'mp', 'mq', 'mr', 'ms', 'mt', 'mu', 'mv', 'mw', 'mx', 'my', 'mz', 'na', 'nc', 'ne', 'nf', 'ng', 'ni', 'nl', 'no', 'np', 'nr', 'nu', 'nz', 'om', 'pa', 'pe', 'pf', 'pg', 'ph', 'pk', 'pl', 'pm', 'pn', 'pr', 'ps', 'pt', 'pw', 'py', 'qa', 're', 'ro', 'ru', 'rw', 'sa', 'sb', 'sc', 'sd', 'se', 'sg', 'sh', 'si', 'sj', 'sk', 'sl', 'sm', 'sn', 'so', 'sr', 'st', 'sv', 'sy', 'sz', 'tc', 'td', 'tf', 'tg', 'th', 'tj', 'tk', 'tm', 'tn', 'to', 'tp', 'tr', 'tt', 'tv', 'tw', 'tz', 'ua', 'ug', 'uk', 'um', 'us', 'uy', 'uz', 'va', 'vc', 've', 'vg', 'vi', 'vn', 'vu', 'wf', 'ws', 'ye', 'yt', 'yu', 'za', 'zm', 'zw');

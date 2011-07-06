@@ -4,7 +4,7 @@ $count_cat = $db->num_rows($get_cat);
 
 if ($count_cat == 0) $func->information(t('Keine Einträge vorhanden.'), "index.php?mod=home");
 else {
-	$dsp->NewContent(t('FAQ'), t('Auf dieser Seite sehen Sie häufig gestellte Fragen und deren Antworten'));
+	$dsp->NewContent(t('FAQ'), t('Auf dieser Seite siehst du häufig gestellte Fragen und deren Antworten'));
 
 	while ($row = $db->fetch_array($get_cat)) {
 

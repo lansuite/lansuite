@@ -36,7 +36,7 @@ switch($_GET["step"]) {
 			
 		if($_POST["cat_caption"] == "") {
 			
-			$faq_error['cat_caption']	= t('Bitte geben Sie einen Namen für die neue Kategorie ein');
+			$faq_error['cat_caption']	= t('Bitte gib einen Namen für die neue Kategorie ein');
 			
 			eval($error);
 			
@@ -55,7 +55,7 @@ switch($_GET["step"]) {
 			
 	unset($_SESSION['add_blocker_faqcat']);
 			
-	$dsp->NewContent(t('Kategorie hinzufügen'),t(' Um eine Kategorie hinzuzufügen, füllen Sie bitte das folgende Formular aus. Für das Feld Kategoriename stehen Ihnen 30 Zeichen zur Verfügung.'));
+	$dsp->NewContent(t('Kategorie hinzufügen'),t(' Um eine Kategorie hinzuzufügen, fülle bitte das folgende Formular aus. Für das Feld Kategoriename stehen dir 30 Zeichen zur Verfügung.'));
 	$dsp->SetForm("index.php?mod=faq&object=cat&action=add_cat&step=2");
 	$dsp->AddTextFieldRow("cat_caption",t('Neue Kategorie'),$_POST['cat_caption'],$faq_error['cat_caption']);
 	$dsp->AddFormSubmitRow("add");

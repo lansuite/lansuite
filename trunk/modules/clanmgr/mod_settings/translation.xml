@@ -124,7 +124,7 @@
 			</entry>
 			<entry>
 				<id>22227681d901d1cd79ab6302ab84bc36</id>
-				<org>Sie sind nicht berechtigt das Passwort dieses Clans zu ändern</org>
+				<org>Du bist nicht berechtigt das Passwort dieses Clans zu ändern</org>
 				<en>You are not authorized to change the password of this clan</en>
 				<es>Usted no está autorizado para cambiar la contraseña de este clan</es>
 				<fr>Vous n&amp;#39;êtes pas autorisé à changer le mot de passe de ce clan</fr>
@@ -294,7 +294,7 @@
 			</entry>
 			<entry>
 				<id>c4cc76ffa992deaf2487bc6892b00090</id>
-				<org>Der Clan wurde erfolgreich angelegt. Als Ersteller haben Sie die Rolle Admin in diesem Clan.</org>
+				<org>Der Clan wurde erfolgreich angelegt. Als Ersteller hast du die Rolle Admin in diesem Clan.</org>
 				<en>The clan has been successfully created. As a creator you have the admin role in this clan.</en>
 				<es>El clan ha sido creado con éxito. Como creador tiene la función de administrador en este clan.</es>
 				<fr>Le clan a été créé avec succès. En tant que créateur, vous avez le rôle admin dans ce clan.</fr>
@@ -344,7 +344,7 @@
 			</entry>
 			<entry>
 				<id>6e5929520463c4d762dd23d5a9c29fb0</id>
-				<org>Sie sind nicht berechtigt diesen Clan zu ändern</org>
+				<org>Du bist nicht berechtigt diesen Clan zu ändern</org>
 				<en>You are not authorized to change this clan</en>
 				<es>Usted no está autorizado a cambiar este clan</es>
 				<fr>Vous n&amp;#39;êtes pas autorisé à changer ce clan</fr>
@@ -374,7 +374,7 @@
 			</entry>
 			<entry>
 				<id>6a53af0b20cd2bca7b67148ee0264444</id>
-				<org>Löschen nicht möglich. Sie sind der einzige Clan-Admin in diesem Clan. Bennen Sie bitte vorher einen weiteren Admin.</org>
+				<org>Löschen nicht möglich. Du bist der einzige Clan-Admin in diesem Clan. Benne bitte vorher einen weiteren Admin.</org>
 				<en>Deleting not possible. They are the only Clan-Admin in this clan. Bennen Please pull another Admin</en>
 				<es>Eliminar no es posible. Ellos son el Clan sólo del administrador en este clan. Si Bennen tirar de otra administración</es>
 				<fr>Suppression impossible. Ils sont les seuls Clan-admin dans ce clan. Bennen pull S&amp;#39;il vous plaît un autre administrateur</fr>
@@ -384,7 +384,7 @@
 			</entry>
 			<entry>
 				<id>9f69aa69dc56506fdee6a2a92db60da1</id>
-				<org>Sie sind nicht berechtigt Mitglieder aus diesem Clan zu entfernen</org>
+				<org>Du bist nicht berechtigt Mitglieder aus diesem Clan zu entfernen</org>
 				<en>You are not authorized to remove members from this clan</en>
 				<es>Usted no está autorizado para eliminar a los miembros de este clan</es>
 				<fr>Vous n&amp;#39;êtes pas autorisé à retirer des membres de ce clan</fr>
@@ -394,7 +394,7 @@
 			</entry>
 			<entry>
 				<id>b6b8bcf8ccd0a6b6f88a79c3c11079aa</id>
-				<org>Sie können %1 nicht die Admin Rolle entziehen, da %1 z.z das einzige Mitglied mit der Rolle Clan-Admin ist. Benennen Sie bitte vorher einen anderen Admin.</org>
+				<org>Du kannst %1 nicht die Admin Rolle entziehen, da %1 z.z das einzige Mitglied mit der Rolle Clan-Admin ist. Benenne bitte vorher einen anderen Admin.</org>
 				<en>You can remove%1 is not the admin role, since%1 zz is the only member with the role of clan-admin is. Please designate in advance a different Admin</en>
 				<es>Usted puede eliminar%1 no es el papel de administrador, desde el 1%ZZ es el único miembro con el papel de clan-admin es. Por favor, designar de antemano una administración diferente</es>
 				<fr>Vous pouvez supprimer%1 n&amp;#39;est pas le rôle admin, depuis%1 ZZ est le seul membre avec le rôle du clan-admin est. S&amp;#39;il vous plaît désigner à l&amp;#39;avance un autre Admin</fr>
@@ -424,7 +424,7 @@
 			</entry>
 			<entry>
 				<id>34d52a830aed5b9afcee0ec647bd7efa</id>
-				<org>Sie sind nicht berechtigt die Berehtigung dieses Nutzers zu verändern</org>
+				<org>Du bist nicht berechtigt die Berehtigung dieses Nutzers zu verändern</org>
 				<en>You are not authorized to modify this user Berehtigung</en>
 				<es>Usted no está autorizado a modificar este usuario Berehtigung</es>
 				<fr>Vous n&amp;#39;êtes pas autorisé à modifier cet utilisateur Berehtigung</fr>
@@ -444,7 +444,7 @@
 			</entry>
 			<entry>
 				<id>2a4bf0c6ccf8b4c8675f5a22cc7f5146</id>
-				<org>Um den Clan beizutreten, müssen Sie das Clanpasswort eingeben. Sollten Sie dies nicht kennen, wenden Sie sich bitte an Ihren Clan-Admin.</org>
+				<org>Um den Clan beizutreten, musst du das Clanpasswort eingeben. Solltest du dies nicht kennen, wende dich bitte an Ihren Clan-Admin.</org>
 				<en>To join the clan, you must enter the Clanpasswort. If you do not know this, you should contact your clan admin.</en>
 				<es>Para unirte al clan, debe introducir el Clanpasswort. Si usted no sabe esto, usted debe ponerse en contacto con su administrador del clan.</es>
 				<fr>Pour rejoindre le clan, vous devez entrer le Clanpasswort. Si vous ne connaissez pas, vous devriez communiquer avec votre admin clan.</fr>
@@ -464,7 +464,7 @@
 			</entry>
 			<entry>
 				<id>49b87cfdf5d6ee4eaee0f5936277bd0e</id>
-				<org>Sie sind erfolgreich dem Clan beigetreten.</org>
+				<org>Du bist erfolgreich dem Clan beigetreten.</org>
 				<en>You have successfully joined the clan.</en>
 				<es>Ha unido al clan.</es>
 				<fr>Vous avez réussi à vous joindre le clan.</fr>

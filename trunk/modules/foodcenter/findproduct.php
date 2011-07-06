@@ -58,7 +58,7 @@ switch ($_POST['search_dd_input'][0]){
     	break;
     	
      	case 5:
-    		$ms2->NoItemsText = t('Sie haben alle Produkte abgeholt.');
+    		$ms2->NoItemsText = t('Du hast alle Produkte abgeholt.');
     	break;  
     	
     	default:

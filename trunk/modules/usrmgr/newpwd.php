@@ -8,14 +8,14 @@ switch($_GET['step']) {
 	break;
 
 	case 2:
-		$func->question(t('Sind Sie sicher, dass Sie dem Benutzer <b>%1% %2% (%3%)</b> ein neues Passwort zuweisen wollen?', $user_data["firstname"], $user_data["name"], $user_data["username"]), "index.php?mod=usrmgr&action=newpwd&step=3&userid=". $_GET['userid']);
+		$func->question(t('Bist du sicher, dass du dem Benutzer <b>%1% %2% (%3%)</b> ein neues Passwort zuweisen willst?', $user_data["firstname"], $user_data["name"], $user_data["username"]), "index.php?mod=usrmgr&action=newpwd&step=3&userid=". $_GET['userid']);
 	break;
 
 	case 3:
 		$password = rand(1000, 9999);
 		$md5_password = md5($password);
 
-		if ($_SESSION["auth"]["type"] < $userdata["type"]) $func->information(t('Sie verfügen über ein geringeres Benutzerlevel, als derjenige, auf den Sie diese Funktion anwenden möchten. Es wurde kein neues Passwort generiert'));
+		if ($_SESSION["auth"]["type"] < $userdata["type"]) $func->information(t('Du verfügst über ein geringeres Benutzerlevel, als derjenige, auf den du diese Funktion anwenden möchten. Es wurde kein neues Passwort generiert'));
 		else {
 			$db->qry("UPDATE %prefix%user SET password = %string% WHERE userid = %int%", $md5_password, $_GET['userid']);
 

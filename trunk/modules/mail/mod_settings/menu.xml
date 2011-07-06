@@ -5,7 +5,7 @@
 		<action>default</action>
 		<file>inbox</file>
 		<caption>Mail</caption>
-		<hint>Ihr Posteingangs-Ordner</hint>
+		<hint>Dein Posteingangs-Ordner</hint>
 		<link>?mod=mail</link>
 		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>
@@ -15,7 +15,7 @@
 		<action>newmail</action>
 		<file>newmail</file>
 		<caption>Mail Senden</caption>
-		<hint>Hier versenden Sie eine Mail</hint>
+		<hint>Hier versendest du eine Mail</hint>
 		<link>?mod=mail&amp;action=newmail</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>
@@ -25,7 +25,7 @@
 		<action>outbox</action>
 		<file>outbox</file>
 		<caption>Postausgang</caption>
-		<hint>Ihr Postausgang</hint>
+		<hint>Dein Postausgang</hint>
 		<link>?mod=mail&amp;action=outbox</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>
@@ -35,7 +35,7 @@
 		<action>trash</action>
 		<file>trashcan</file>
 		<caption>Papierkorb</caption>
-		<hint>Hier finden sie Ihre gelöschten Mails</hint>
+		<hint>Hier findest du deine gelöschten Mails</hint>
 		<link>?mod=mail&amp;action=trash</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>
@@ -45,7 +45,7 @@
 		<action>newsletter</action>
 		<file>newsletter</file>
 		<caption>Rundmail</caption>
-		<hint>Hier können Sie allen Ihren Gästen eine Mail schreiben</hint>
+		<hint>Hier kannst du allen Ihren Gästen eine Mail schreiben</hint>
 		<link>?mod=mail&amp;action=newsletter</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>

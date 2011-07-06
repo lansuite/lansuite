@@ -1,6 +1,6 @@
 <?php
 
-if (!$_GET['tournamentid']) $func->error(t('Sie haben kein Turnier ausgewählt!'));
+if (!$_GET['tournamentid']) $func->error(t('Du hast kein Turnier ausgewählt!'));
 else {
 
   switch($_GET['step']) {
@@ -27,7 +27,7 @@ else {
   		$tfunc = new tfunc;
   		$ranking_data = $tfunc->get_ranking($_GET['tournamentid']);
   
-  		$dsp->NewContent(t('Turnier %1 (%2) - Rangliste', $tournament['name'], $modus), t('Hier sehen Sie das Ergebnis dieses Turniers'));
+  		$dsp->NewContent(t('Turnier %1 (%2) - Rangliste', $tournament['name'], $modus), t('Hier siehst du das Ergebnis dieses Turniers'));
 
       $rows = '';
   		$anz_elements = count($ranking_data->tid);

@@ -22,7 +22,7 @@ class Mail {
 		// Send Info-Mail to receiver
     if ($cfg['sys_internet']) {
       $row = $db->qry_first('SELECT u.username, u.email, u.lsmail_alert FROM %prefix%user AS u WHERE u.userid = %int%', $to_userid);
-  		if ($row['lsmail_alert']) $this->create_inet_mail($row['username'], $row['email'], t('Benachrichtigung: Neue LS-Mail'), t('Sie haben eine neue Lansuite-Mail erhalten. Diese Benachrichtigung können Sie im System unter "Meine Einstellungen" deaktivieren'));
+  		if ($row['lsmail_alert']) $this->create_inet_mail($row['username'], $row['email'], t('Benachrichtigung: Neue LS-Mail'), t('Du hast eine neue Lansuite-Mail erhalten. Diese Benachrichtigung kkannst du im System unter "Meine Einstellungen" deaktivieren'));
     }
 
 		return true;

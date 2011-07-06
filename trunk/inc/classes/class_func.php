@@ -235,9 +235,9 @@ class func {
 
     // Text
     switch($text) {
-      case "ACCESS_DENIED": $text = t('Sie haben keine Zugriffsrechte für diesen Bereich.'); break;
-      case "NO_LOGIN": $text = t('Sie sind nicht eingeloggt. Bitte loggen Sie sich erst ein, bevor Sie diesen Bereich betreten.'); break;
-      case "NO_REFRESH": $text = t('Sie haben diese Anfrage wiederholt ausgeführt.'); break;
+      case "ACCESS_DENIED": $text = t('Du hast keine Zugriffsrechte für diesen Bereich.'); break;
+      case "NO_LOGIN": $text = t('Du bist nicht eingeloggt. Bitte logge dich erst ein, bevor du diesen Bereich betritst.'); break;
+      case "NO_REFRESH": $text = t('Du hast diese Anfrage wiederholt ausgeführt.'); break;
     }
     $smarty->assign('msg', $text);
 
@@ -273,7 +273,7 @@ class func {
   function multiquestion($questionarray, $linkarray, $text = '') {
     global $smarty, $dsp;
     
-    if ($text == '') $text = t('Bitte wählen Sie eine Möglichkeit aus:');
+    if ($text == '') $text = t('Bitte wähle eine Möglichkeit aus:');
     $smarty->assign('msg', $text);
     
     if (is_array($questionarray)) foreach($questionarray as $ind => $question)

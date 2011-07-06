@@ -558,7 +558,7 @@ class seat2 {
       $jscode .= "CreateText('". t('Besetzt') ."', ". 14 .", ". ($YOffset + 72) .", '');\n";
       $jscode .= "DrawSeatingSymbol(4, 0, ". ($YOffset + 78) .", '', '');\n";
       if ($selected_user) $jscode .= "CreateText('". t('Auswahl') ."', ". 14 .", ". ($YOffset + 86) .", '');\n";
-      else $jscode .= "CreateText('". t('Ihr Platz') ."', ". 14 .", ". ($YOffset + 86) .", '');\n";
+      else $jscode .= "CreateText('". t('Dein Platz') ."', ". 14 .", ". ($YOffset + 86) .", '');\n";
       $jscode .= "DrawSeatingSymbol(3, 0, ". ($YOffset + 92) .", '', '');\n";
       $jscode .= "CreateText('". t('Vorgemerkt') ."', ". 14 .", ". ($YOffset + 100) .", '');\n";
 

@@ -15,7 +15,7 @@
     		<name>serverqueryport</name>
     		<type>integer</type>
     		<default>51234</default>
-    		<description>TeamSpeak QueryPort. Schauen Sie in die server.ini von TeamSpeak (Standard: 51234)</description>
+    		<description>TeamSpeak QueryPort. Schaue in die server.ini von TeamSpeak (Standard: 51234)</description>
     	</item>
     	<item>
     		<name>serverudpport</name>

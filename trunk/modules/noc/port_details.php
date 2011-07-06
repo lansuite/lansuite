@@ -67,7 +67,7 @@ switch( $_GET["step"] ) {
 	
 	case 2:
 	
-	$func->question(t('Sind Sie sicher, dass Sie den Status dieses Ports &auml;ndern wollen?'),
+	$func->question(t('Bist du sicher, dass du den Status dieses Ports &auml;ndern willst?'),
 				"index.php?mod=noc&action=port_details&portid={$_GET["portid"]}&step=3",
 			  	"index.php?mod=noc&action=port_details&portid={$_GET["portid"]}");
 	

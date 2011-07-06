@@ -19,7 +19,7 @@ switch ($_GET["step"]) {
 		elseif ($numrows == "") { $func->information(t('Es wurde keine Troubleticket-ID übergeben. Aufruf inkorrekt.')); }
 
 		else {
-			$dsp->NewContent(t('Troubleticket anzeigen'),t('Hier sehen Sie alle Informationen zu diesem Ticket'));
+			$dsp->NewContent(t('Troubleticket anzeigen'),t('Hier siehst du alle Informationen zu diesem Ticket'));
 
 			// Ticket aus DB laden und ausgeben
 			$row = $db->qry_first("SELECT * FROM %prefix%troubleticket WHERE ttid = %int%", $tt_id);

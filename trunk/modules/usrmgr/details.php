@@ -60,7 +60,7 @@ else {
   $user_fields = $db->qry("SELECT name, caption, optional FROM %prefix%user_fields");
   ($db->num_rows($user_fields) > 0)? $hasUserFields = 1 : $hasUserFields = 0;
 
-  $dsp->NewContent(t('Benutzerdetails von %1', $user_data['username']), t('Hier finden Sie alle Details zu dem Benutzer %1', $user_data['username']));
+  $dsp->NewContent(t('Benutzerdetails von %1', $user_data['username']), t('Hier findest du alle Details zu dem Benutzer %1', $user_data['username']));
   $dsp->StartTabs();
 
   $dsp->StartTab(t('Spieler'), 'assign');
@@ -223,7 +223,7 @@ else {
 
   // Perso
   if ($user_data['perso'] and ($auth['type'] >= 2 or ($auth['userid'] == $_GET['userid'] and $cfg['user_showownstreet'] == '1')))
-    $dsp->AddDoubleRow(t('Passnummer / Sonstiges'), $user_data['perso'] .'<br>'. t('Hinweis: Die Angaben zu Straße und Passnummer sind nur für Sie und die Organisatoren sichtbar.'));
+    $dsp->AddDoubleRow(t('Passnummer / Sonstiges'), $user_data['perso'] .'<br>'. t('Hinweis: Die Angaben zu Straße und Passnummer sind nur für dich und die Organisatoren sichtbar.'));
 
   // Birthday
   if ($cfg['sys_internet'] == 0 OR $auth['type'] >= 2 OR $auth['userid'] == $_GET['userid'])

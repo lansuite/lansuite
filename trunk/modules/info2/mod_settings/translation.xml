@@ -74,7 +74,7 @@
 			</entry>
 			<entry>
 				<id>98e2dafaad8f3300a4612790ffca5a2e</id>
-				<org>Hier können Sie den Inhalt der Info-Seiten editieren.</org>
+				<org>Hier kannst du den Inhalt der Info-Seiten editieren.</org>
 				<en>Here you can edit the content of the information Pages.</en>
 				<es>Aquí usted puede editar el contenido de las páginas info.</es>
 				<fr>Ici vous pouvez modifier le contenu des pages info.</fr>
@@ -94,7 +94,7 @@
 			</entry>
 			<entry>
 				<id>60bbccc81058c0a02ef3bc32bcab4115</id>
-				<org>Hier können Sie den Inhalt der Seite editieren.</org>
+				<org>Hier kannst du den Inhalt der Seite editieren.</org>
 				<en>Here you can edit the Pagecontent</en>
 				<es>Aquí usted puede editar el contenido de la página.</es>
 				<fr>Ici vous pouvez modifier le contenu de la page.</fr>
@@ -104,7 +104,7 @@
 			</entry>
 			<entry>
 				<id>967986841ae5935a30001d9e6ceae7aa</id>
-				<org>Bitte füllen Sie alle Felder aus!</org>
+				<org>Bitte fülle alle Felder aus!</org>
 				<en>Please fill in all fields!</en>
 				<es>Por favor, complete todos los campos!</es>
 				<fr>S&amp;#39;il vous plaît remplir tous les champs!</fr>
@@ -164,7 +164,7 @@
 			</entry>
 			<entry>
 				<id>0b48b4f7b6f8aab43cb47a4c840ef2f9</id>
-				<org>Diese Seite enthält selbst definierten Text. Sie können ihn ändern, indem Sie den Informationen-Link in der Navigations-Box auswählen.</org>
+				<org>Diese Seite enthält selbst definierten Text. Du kannst ihn ändern, indem du den Informationen-Link in der Navigations-Box auswählen.</org>
 				<en>This Page contains self defined Text. You can change them wenn you use the Information-Link in the Navigationbox.</en>
 				<es>Esta página contiene el texto definido por sí mismo. Usted puede cambiar seleccionando el enlace de información en el cuadro de navegación.</es>
 				<fr>Cette page contient elle-même définie texte. Vous pouvez le modifier en sélectionnant le lien entre l&amp;#39;information dans la zone de navigation.</fr>
@@ -174,7 +174,7 @@
 			</entry>
 			<entry>
 				<id>728cd87695ab19ce5fa501d230e8e19e</id>
-				<org>Sie haben keine Seite ausgewählt.</org>
+				<org>Du hast keine Seite ausgewählt.</org>
 				<en>You have no Page selected</en>
 				<es>No ha elegido un lado.</es>
 				<fr>Vous n&amp;#39;avez pas choisi un camp.</fr>
@@ -234,7 +234,7 @@
 			</entry>
 			<entry>
 				<id>37740ea476ecbeb9e13f26ef316227ce</id>
-				<org>Hier können Sie einen externen Link definieren.</org>
+				<org>Hier kannst du einen externen Link definieren.</org>
 				<en>Here you can define an external link.</en>
 				<es>Aquí puede definir un enlace externo.</es>
 				<fr>Ici vous pouvez définir un lien externe.</fr>
@@ -264,7 +264,7 @@
 			</entry>
 			<entry>
 				<id>73db50e0f089f9349dc9a9ca7285a3aa</id>
-				<org>Sie haben keine Seite ausgewählt</org>
+				<org>Du hast keine Seite ausgewählt</org>
 				<en>You have not chosen a side</en>
 				<es>No ha elegido un lado</es>
 				<fr>Vous n&amp;#39;avez pas choisi un camp</fr>
@@ -274,7 +274,7 @@
 			</entry>
 			<entry>
 				<id>5156ea1bc331b25950210fd0a0726278</id>
-				<org>Es liegen Informationen zu der ausgewählten Seite vor, jedoch nicht in Ihrer aktuell gewählten Sprache: &lt;b&gt;%1&lt;/b&gt;</org>
+				<org>Es liegen Informationen zu der ausgewählten Seite vor, jedoch nicht in deiner aktuell gewählten Sprache: &lt;b&gt;%1&lt;/b&gt;</org>
 				<en>There are available to recommend the selected page, but not in your currently selected &lt;b&gt;language:%1&lt;/b&gt;</en>
 				<es>Hay disponibles para recomendar la página seleccionada, pero no en el &lt;b&gt;idioma&lt;/b&gt; seleccionado &lt;b&gt;actualmente:%1&lt;/b&gt;</es>
 				<fr>Il sont prêts à recommander la page sélectionnée, mais pas dans votre &lt;b&gt;langue&lt;/b&gt; actuellement &lt;b&gt;sélectionnée:%1&lt;/b&gt;</fr>

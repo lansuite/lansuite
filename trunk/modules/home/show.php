@@ -53,7 +53,7 @@ switch ($home_page) {
 	
 	// Show Logout-Text
 	case 2:
-		$dsp->NewContent(t('Startseite'), t('Willkommen! Zum Einloggen verwenden Sie bitte, die Login-Box auf der rechten Seite'));
+		$dsp->NewContent(t('Startseite'), t('Willkommen! Zum Einloggen verwende bitte, die Login-Box auf der rechten Seite'));
 		$logout_hometext = file_get_contents("ext_inc/home/logout.txt");
 		$dsp->AddSingleRow($func->text2html($logout_hometext));
 		$dsp->AddHRuleRow();

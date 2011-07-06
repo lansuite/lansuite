@@ -1,8 +1,8 @@
 <?php
 switch($_GET['step']) {
   default:
-    $dsp->NewContent(t('Bugtracker Export'), t('Nutzen Sie diese Funktion um einen Export der Bugtracker-Einträge zu erstellen, den sie auf lansuite.de importieren können'));
-    $dsp->AddDoubleRow('', t('Bitte versuchen Sie Fehler zunächst selbst zu beheben und filtern Sie vor dem Export Probleme aus, die nicht von generellem Interesse für Lansuite sind. Es werden nur Probleme mit Status offen, oder bestätigt exportiert. Ergänzen Sie unvollständige Angaben, so gut Sie können. Danke, für die Hilfe!'));
+    $dsp->NewContent(t('Bugtracker Export'), t('Nutze diese Funktion um einen Export der Bugtracker-Einträge zu erstellen, den sie auf lansuite.de importieren können'));
+    $dsp->AddDoubleRow('', t('Bitte versuche Fehler zunächst selbst zu beheben und filter vor dem Export Probleme aus, die nicht von generellem Interesse für Lansuite sind. Es werden nur Probleme mit Status offen, oder bestätigt exportiert. Ergänze unvollständige Angaben, so gut di kannst. Danke, für die Hilfe!'));
     $dsp->SetForm('index.php?mod=bugtracker&action=export&step=2');
     $dsp->AddTextFieldRow('version', t('Version'), $config['lansuite']['version'], '');
     $dsp->AddTextFieldRow('url', t('URL'), $_SERVER['SERVER_NAME'], '');

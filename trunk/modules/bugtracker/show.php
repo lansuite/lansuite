@@ -59,7 +59,7 @@ function FetchType($type) {
 }
 
 if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
-  $dsp->NewContent(t('Bugtracker'), t('Hier können Sie Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.'));
+  $dsp->NewContent(t('Bugtracker'), t('Hier kannst du Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.'));
 
   include_once('modules/mastersearch2/class_mastersearch2.php');
   $ms2 = new mastersearch2('bugtracker');
@@ -171,7 +171,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $dsp->AddDoubleRow(t('Letzte Änderung'), $func->unixstamp2date($row['changedate'], 'daydatetime'));
 
   $dsp->AddDoubleRow(t('Status'), $bugtracker->stati[$row['state']]);
-        if ($row['price']) $dsp->AddDoubleRow(t('Gespendet'), (int)$row['price_payed'] .'&euro; / '. $row['price'] .'&euro; ['. (round((((int)$row['price_payed'] / (int)$row['price']) * 100), 1)) .'%]<br /><font color="red">'. t('Dieses Feature wird erst umgesetzt, wenn genug dafür gespendet wurde. Um selbst etwas zu Spenden, schreiben Sie bitte den eingetragenen Bearbeiter an. Dieser kann Ihnen dann seine Kontodaten mitteilen') .'</font>');
+        if ($row['price']) $dsp->AddDoubleRow(t('Gespendet'), (int)$row['price_payed'] .'&euro; / '. $row['price'] .'&euro; ['. (round((((int)$row['price_payed'] / (int)$row['price']) * 100), 1)) .'%]<br /><font color="red">'. t('Dieses Feature wird erst umgesetzt, wenn genug dafür gespendet wurde. Um selbst etwas zu Spenden, schreibe bitte den eingetragenen Bearbeiter an. Dieser kann dir dann seine Kontodaten mitteilen') .'</font>');
   if ($row['agent']) $dsp->AddDoubleRow(t('Bearbeiter'), $dsp->FetchUserIcon($row['agent'], $row['agent_name']));
   else $dsp->AddDoubleRow(t('Bearbeiter'), t('Noch nicht zugeordnet'));
 

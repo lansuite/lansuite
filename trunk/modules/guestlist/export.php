@@ -25,7 +25,7 @@ switch($_GET['step']) {
 			exit;
     }
 	
-	$func->information(t('Bitte markieren Sie die User jetzt noch als exportiert.'));
+	$func->information(t('Bitte markiere die User jetzt noch als exportiert.'));
 	break;
 	
 	// Set Exported
@@ -58,7 +58,7 @@ function ClanURLLink($clan_name) {
 }
 
 if (!$party->party_id)
-	$func->information(t('Bitte setzten Sie zuerst eine aktive Party.'));
+	$func->information(t('Bitte setzte zuerst eine aktive Party.'));
 else
 {
 $ms2->query['from'] = "%prefix%party_user pu

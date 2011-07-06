@@ -59,7 +59,7 @@ function IfFinished($tid) {
   else return false;
 }
 
-$dsp->NewContent(t('Turnierübersicht'), t('Hier finden Sie eine Übersicht aller angebotenen Turniere.'));
+$dsp->NewContent(t('Turnierübersicht'), t('Hier findest du eine Übersicht aller angebotenen Turniere.'));
 
 
 $ms2->query['from'] = "%prefix%tournament_tournaments AS t LEFT JOIN %prefix%t2_teams AS teams ON t.tournamentid = teams.tournamentid";

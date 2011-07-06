@@ -113,8 +113,8 @@
 			</entry>
 			<entry>
 				<id>3a0d8f3fa5da153c350bce57d29d62ba</id>
-				<org>Die Datei &lt;b&gt;config.php&lt;/b&gt; befindet sich &lt;b&gt;nicht&lt;/b&gt; im Lansuite-Verzeichnis &lt;b&gt; inc/base/ &lt;/b&gt;. Bitte überprüfen Sie die Datei auf korrekte Groß- und Kleinschreibung.</org>
-				<de>Die Datei &amp;lt;b&amp;gt;config.php&amp;lt;/b&amp;gt; befindet sich &amp;lt;b&amp;gt;nicht&amp;lt;/b&amp;gt; im Lansuite-Verzeichnis &amp;lt;b&amp;gt; inc/base/ &amp;lt;/b&amp;gt;. Bitte überprüfen Sie die Datei auf korrekte Groß- und Kleinschreibung.</de>
+				<org>Die Datei &lt;b&gt;config.php&lt;/b&gt; befindet sich &lt;b&gt;nicht&lt;/b&gt; im Lansuite-Verzeichnis &lt;b&gt; inc/base/ &lt;/b&gt;. Bitte überprüfe die Datei auf korrekte Groß- und Kleinschreibung.</org>
+				<de>Die Datei &amp;lt;b&amp;gt;config.php&amp;lt;/b&amp;gt; befindet sich &amp;lt;b&amp;gt;nicht&amp;lt;/b&amp;gt; im Lansuite-Verzeichnis &amp;lt;b&amp;gt; inc/base/ &amp;lt;/b&amp;gt;. Bitte überprüfe die Datei auf korrekte Groß- und Kleinschreibung.</de>
 				<en>The file &amp;lt;b&amp;gt;config.php&amp;lt;/b&amp;gt; was not found in &amp;lt;b&amp;gt; inc/base/ &amp;lt;/b&amp;gt;. Please check the file is completely lowercase.</en>
 				<es>El archivo &lt;b&gt;config.php no&lt;/b&gt; está en el directorio Lansuite &lt;b&gt;inc / base /.&lt;/b&gt; Por favor, consulte el archivo de las mayúsculas y minúsculas correctas.</es>
 				<fr>Le fichier &lt;b&gt;config.php&lt;/b&gt; n&amp;#39;est &lt;b&gt;pas&lt;/b&gt; dans le répertoire &lt;b&gt;inc&lt;/b&gt; Lansuite &lt;b&gt;/ base /.&lt;/b&gt; S&amp;#39;il vous plaît vérifier le fichier à corriger les majuscules et minuscules.</fr>
@@ -145,7 +145,7 @@
 			</entry>
 			<entry>
 				<id>c273744d0e15fb7bf27512c0d1a1f3bd</id>
-				<org>Der Ordner &lt;b&gt;ext_inc&lt;/b&gt; existiert &lt;b&gt;nicht&lt;/b&gt; im Lansuite-Verzeichnis. Bitte überprüfen Sie den Pfad auf korrekte Groß- und Kleinschreibung. Legen Sie den Ordner gegebenfalls bitte selbst an.</org>
+				<org>Der Ordner &lt;b&gt;ext_inc&lt;/b&gt; existiert &lt;b&gt;nicht&lt;/b&gt; im Lansuite-Verzeichnis. Bitte überprüfe den Pfad auf korrekte Groß- und Kleinschreibung. Lege den Ordner gegebenfalls bitte selbst an.</org>
 				<en>The folder &lt;b&gt;does not&lt;/b&gt; exist in &lt;b&gt;ext_inc&lt;/b&gt; Lansuite directory. Please check the path to correct uppercase and lowercase letters. Create the folder if necessary, please yourself.</en>
 				<es>La carpeta &lt;b&gt;no&lt;/b&gt; existe en el directorio Lansuite &lt;b&gt;ext_inc.&lt;/b&gt; Por favor marque el camino para corregir las letras mayúsculas y minúsculas. Cree la carpeta si es necesario, sírvase usted mismo.</es>
 				<fr>Le &lt;b&gt;dossier&lt;/b&gt; n&amp;#39;existe &lt;b&gt;pas&lt;/b&gt; dans le répertoire Lansuite &lt;b&gt;ext_inc.&lt;/b&gt; S&amp;#39;il vous plaît vérifiez le chemin d&amp;#39;accès à corriger les lettres majuscules et minuscules. Créez le dossier s&amp;#39;il ya lieu, s&amp;#39;il vous plaît vous-m�</fr>
@@ -175,7 +175,7 @@
 			</entry>
 			<entry>
 				<id>4b35f36343961e82ba1b5e37f2522e3d</id>
-				<org>Sind Sie sicher, dass Sie die Datenbank des Moduls &lt;b&gt;'%NAME%'&lt;/b&gt; zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
+				<org>Bist du sicher, dass du die Datenbank des Moduls &lt;b&gt;'%NAME%'&lt;/b&gt; zurücksetzen möchtest? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
 				<en>Are you sure you want to reset the database of the module &lt;b&gt;&amp;#39;%NAME%&amp;#39;?&lt;/b&gt; This permanently deletes all data that have been written in this module already!</en>
 				<es>¿Estás seguro de que desea restablecer la base de datos del módulo &lt;b&gt;&amp;#39;%name%&amp;quot;?&lt;/b&gt; Esto borra de manera permanente todos los datos que se han escrito en este módulo ya!</es>
 				<fr>Etes-vous sûr de vouloir rétablir la base de données du module &lt;b&gt;&amp;#39;%NOM%&amp;#39;?&lt;/b&gt; Cela supprime définitivement toutes les données qui ont été écrites dans ce module déjà!</fr>
@@ -185,7 +185,7 @@
 			</entry>
 			<entry>
 				<id>f0814a994b2ec37dbd92512c20ab3eab</id>
-				<org>Sind Sie sicher, dass Sie &lt;b&gt;'alle Tabellen'&lt;/b&gt; zurücksetzen möchten? Dies löscht unwiderruflich alle Datenbankeinträge und Lansuite wird komplett auf den Ausgangszustand zurückgesetzt!</org>
+				<org>Bist du sicher, dass du &lt;b&gt;'alle Tabellen'&lt;/b&gt; zurücksetzen möchtest? Dies löscht unwiderruflich alle Datenbankeinträge und Lansuite wird komplett auf den Ausgangszustand zurückgesetzt!</org>
 				<en>Are you sure that you &lt;b&gt;&amp;#39;want&lt;/b&gt; to reset &lt;b&gt;all tables&amp;#39;?&lt;/b&gt; This permanently deletes all database entries and Lansuite will be completely reset to its initial state!</en>
 				<es>¿Estás seguro de que usted &lt;b&gt;&amp;quot;desea&lt;/b&gt; restablecer &lt;b&gt;todas las tablas?&lt;/b&gt; Esto borra de manera permanente todas las entradas de base de datos y Lansuite estará completamente restablecido a su estado inicial!</es>
 				<fr>Etes-vous sûr que vous &lt;b&gt;&amp;quot;souhaitez&lt;/b&gt; réinitialiser &lt;b&gt;tous les tableaux?&lt;/b&gt; Cela supprime définitivement toutes les entrées de base de données et Lansuite sera réinitialiser complètement à son état initial!</fr>
@@ -195,7 +195,7 @@
 			</entry>
 			<entry>
 				<id>401c16f53a97ca511280bbbe7ab8481d</id>
-				<org>Sind Sie sicher, dass Sie &lt;b&gt;'alle Konfigurationen'&lt;/b&gt; zurücksetzen möchten? Damit gehen alle Ihre Moduleinstellungen verloren!</org>
+				<org>Bist du sicher, dass du &lt;b&gt;'alle Konfigurationen'&lt;/b&gt; zurücksetzen möchtest? Damit gehen alle deine Moduleinstellungen verloren!</org>
 				<en>Are you sure that you &lt;b&gt;&amp;#39;want&lt;/b&gt; to reset &lt;b&gt;all configurations&amp;#39;?&lt;/b&gt; To ensure that all your module settings will be lost!</en>
 				<es>¿Estás seguro de que usted &lt;b&gt;&amp;quot;desea&lt;/b&gt; restablecer &lt;b&gt;todas las configuraciones?&lt;/b&gt; Para garantizar que todos los ajustes del módulo se perderán!</es>
 				<fr>Etes-vous sûr que vous &lt;b&gt;&amp;quot;voulez&lt;/b&gt; réinitialiser &lt;b&gt;toutes les configurations?&lt;/b&gt; Pour s&amp;#39;assurer que tous les paramètres de votre module sera perdu!</fr>
@@ -205,7 +205,7 @@
 			</entry>
 			<entry>
 				<id>f137a009133b56e5a32102450b1c342d</id>
-				<org>Sind Sie sicher, dass Sie den Status der Benutzer zurücksetzen möchten? Damit ist kein Benutzer mehr zur aktuellen Party angemeldet. Außerdem wird der Bezahltstatus aller Benutzer auf 'Nicht Bezahlt' gesetzt.</org>
+				<org>Bist du sicher, dass du den Status der Benutzer zurücksetzen möchtest? Damit ist kein Benutzer mehr zur aktuellen Party angemeldet. Außerdem wird der Bezahltstatus aller Benutzer auf 'Nicht Bezahlt' gesetzt.</org>
 				<en>Are you sure you want to reset the status of the user? So that no user is logged on to more current party. In addition, the Bezahltstatus all users &amp;#39;Not Paid&amp;#39; set.</en>
 				<es>¿Estás seguro de que desea restablecer la situación de los usuarios? Para que ningún usuario está conectado a la fiesta más actual. En adición, la Bezahltstatus todos los usuarios &amp;quot;no pagado&amp;quot; set.</es>
 				<fr>Etes-vous sûr de vouloir rétablir le statut de l&amp;#39;utilisateur? De sorte qu&amp;#39;aucun utilisateur n&amp;#39;est connecté à partie la plus actuelle. En outre, la Bezahltstatus tous les utilisateurs &amp;quot;Not Paid &amp;#39;Set.</fr>
@@ -215,8 +215,8 @@
 			</entry>
 			<entry>
 				<id>de650c7182c4235e325101be86a81875</id>
-				<org>Sind Sie sicher, dass Sie die Modultabelle zurücksetzen möchten? Dadurch sind nur noch die Standardmodule aktiviert.</org>
-				<de>Sind Sie sicher, dass Sie die Modultabelle zurücksetzen möchten? Dadurch sind nur noch die Standardmodule aktiviert.</de>
+				<org>Bist du sicher, dass du die Modultabelle zurücksetzen möchtest? Dadurch sind nur noch die Standardmodule aktiviert.</org>
+				<de>Bist du sicher, dass du die Modultabelle zurücksetzen möchtest? Dadurch sind nur noch die Standardmodule aktiviert.</de>
 				<en>Are you sure, to reset the module-table? After this only those modules are active, which are active by default.</en>
 				<es>¿Estás seguro de que desea restablecer la mesa del módulo? Por lo tanto, sólo están habilitados los módulos estándar.</es>
 				<fr>Etes-vous sûr de vouloir réinitialiser le tableau de module? Ainsi, seuls les modules standard sont activés.</fr>
@@ -226,8 +226,8 @@
 			</entry>
 			<entry>
 				<id>9476a25db048a8f02d7029d928fc8b90</id>
-				<org>Sind Sie sicher, dass Sie die Datenbank dieses Moduls zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
-				<de>Sind Sie sicher, dass Sie die Datenbank dieses Moduls zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</de>
+				<org>Bist du sicher, dass du die Datenbank dieses Moduls zurücksetzen möchtest? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
+				<de>Bist du sicher, dass du die Datenbank dieses Moduls zurücksetzen möchtest? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</de>
 				<en>Are you sure to reset the databse of this module? All entries of this module will be lost!.</en>
 				<es>¿Estás seguro de que desea restablecer la base de datos de este módulo? Esto borra de manera permanente todos los datos que se han escrito en este módulo ya!</es>
 				<fr>Etes-vous sûr de vouloir rétablir la base de données de ce module? Cela supprime définitivement toutes les données qui ont été écrites dans ce module déjà!</fr>
@@ -259,8 +259,8 @@
 			</entry>
 			<entry>
 				<id>bd5f2667e5180a9dd98462912df5fe83</id>
-				<org>&lt;br&gt;&lt;b&gt;Ihre Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht&lt;/b&gt;. Zusätzlich können Sie unterhalb einzelne Modul-Datenbanken zurücksetzen</org>
-				<de>&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;Ihre Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht&amp;lt;/b&amp;gt;. Zusätzlich können Sie unterhalb einzelne Modul-Datenbanken zurücksetzen</de>
+				<org>&lt;br&gt;&lt;b&gt;Deine Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht&lt;/b&gt;. Zusätzlich kannst du unterhalb einzelne Modul-Datenbanken zurücksetzen</org>
+				<de>&lt;br&gt;&lt;b&gt;Deine Datenbank-Struktur wurde soeben automatisch auf den neusten Stand gebracht&lt;/b&gt;. Zusätzlich kannst du unterhalb einzelne Modul-Datenbanken zurücksetzen</de>
 				<en>&amp;lt;br&amp;gt;&amp;lt;b&amp;gt;Your data base structure has just been updated to the current level&amp;lt;/b&amp;gt;. Additionaly you can reset your module data bases below</en>
 				<es>&lt;br&gt; &lt;b&gt;La estructura de tu base de datos ha sido automáticamente actualizados.&lt;/b&gt; Además, usted puede bajar restablecer módulo de bases de datos individuales</es>
 				<fr>&lt;br&gt; &lt;b&gt;Votre structure de base de données vient d&amp;#39;être automatiquement mis à jour.&lt;/b&gt; En outre, vous pouvez réduire les bases de données individuelles de réinitialisation du module</fr>
@@ -302,7 +302,7 @@
 			</entry>
 			<entry>
 				<id>2132a8e288001984d771b489edceb1b4</id>
-				<org>Editieren Sie Design-Templates und setzen Sie das aktive Design</org>
+				<org>Editiere Design-Templates und setze das aktive Design</org>
 				<en>Edit your design templates and then set the active design</en>
 				<es>Modificar el diseño de plantillas y establecer el diseño de activos</es>
 				<fr>Modifiez vos modèles de conception et puis définissez la conception active</fr>
@@ -323,8 +323,8 @@
 			</entry>
 			<entry>
 				<id>dfd4e236c1a654437144aa881b20b3a0</id>
-				<org>Hier können Sie testen, ob Lansuite auf ihrem System evtl. Probleme haben wird und bekommen entsprechende Lösungsvorschläge angezeigt.</org>
-				<de>Hier können Sie testen, ob Lansuite auf ihrem System evtl. Probleme haben wird und bekommen entsprechende Lösungsvorschläge angezeigt.</de>
+				<org>Hier kannst du testen, ob Lansuite auf ihrem System evtl. Probleme haben wird und bekommest entsprechende Lösungsvorschläge angezeigt.</org>
+				<de>Hier kannst du testen, ob Lansuite auf ihrem System evtl. Probleme haben wird und bekommest entsprechende Lösungsvorschläge angezeigt.</de>
 				<en>Test, whether LANSuite will heave trouble on your system and read some solutions if so.</en>
 				<es>Aquí se puede comprobar si los problemas Lansuite pueden tener en su sistema y recibirá las soluciones adecuadas aparecer.</es>
 				<fr>Ici vous pouvez tester si les problèmes Lansuite mai avoir sur leur système et recevra des solutions appropriées apparaissent.</fr>
@@ -345,8 +345,8 @@
 			</entry>
 			<entry>
 				<id>c1c19b3637b5ce0626287610d9719b03</id>
-				<org>Hier können Sie Benutzerdaten exportieren. Diese können Sie später wieder in Lansuite importieren.</org>
-				<de>Hier können Sie Benutzerdaten exportieren. Diese können Sie später wieder in Lansuite importieren.</de>
+				<org>Hier kannst du Benutzerdaten exportieren. Diese kannst du später wieder in Lansuite importieren.</org>
+				<de>Hier kannst du Benutzerdaten exportieren. Diese kannst du später wieder in Lansuite importieren.</de>
 				<en>This is where you can export userdata, which you can lateron import into lansuite again.</en>
 				<es>Puede exportar los datos del usuario. Estas últimas pueden importar en Lansuite.</es>
 				<fr>Vous pouvez exporter des données utilisateur. Ceux-ci peuvent ensuite importer dans Lansuite.</fr>
@@ -519,8 +519,8 @@
 			</entry>
 			<entry>
 				<id>0d38727c87dac9f64a0cfdcf32075853</id>
-				<org>Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.</org>
-				<de>Der von Ihnen angegebene Dateityp wird nicht unterstützt. Bitte wählen Sie eine Datei vom Typ *.xml, oder *.csv aus oder überspringen Sie den Dateiimport.</de>
+				<org>Der von dir angegebene Dateityp wird nicht unterstützt. Bitte wähle eine Datei vom Typ *.xml, oder *.csv aus oder überspringe den Dateiimport.</org>
+				<de>Der von dir angegebene Dateityp wird nicht unterstützt. Bitte wähle eine Datei vom Typ *.xml, oder *.csv aus oder überspringe den Dateiimport.</de>
 				<en>This filetype is not supported. Chosse a file of the type *.xml, or *.csv, or skip the file-import.</en>
 				<es>Para especificar el tipo de archivo no es compatible. Por favor, seleccione un archivo de tipo *. xml o *. csv, o saltar a la importación de archivos.</es>
 				<fr>Vous spécifiez le type de fichier n&amp;#39;est pas supporté. S&amp;#39;il vous plaît sélectionnez un fichier de type *. xml, *. csv, ou de sauter l&amp;#39;importation de fichiers.</fr>
@@ -541,8 +541,8 @@
 			</entry>
 			<entry>
 				<id>1eabb306c80d3fe8219ba4ebd65d33d9</id>
-				<org>Hier können Sie Benutzerdaten, die Sie aus einem anderen System exportiert haben, in Lansuite importieren.</org>
-				<de>Hier können Sie Benutzerdaten, die Sie aus einem anderen System exportiert haben, in Lansuite importieren.</de>
+				<org>Hier kannst du Benutzerdaten, die du aus einem anderen System exportiert hast, in Lansuite importieren.</org>
+				<de>Hier kannst du Benutzerdaten, die du aus einem anderen System exportiert hast, in Lansuite importieren.</de>
 				<en>Here you can import data to LANSuite, which you have exported from another system</en>
 				<es>Aquí usted puede datos de usuario que ha exportado desde otro sistema, la exportación a Lansuite.</es>
 				<fr>Ici, vous pouvez les données utilisateur que vous avez exporté depuis un autre système, l&amp;#39;exporter vers Lansuite.</fr>
@@ -739,8 +739,8 @@
 			</entry>
 			<entry>
 				<id>070e23f9580eb7a7a46d6ab602705e30</id>
-				<org>Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte laden und entpacken Sie den Ordner manuell auf Ihren Webspace.</org>
-				<de>Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte laden und entpacken Sie den Ordner manuell auf Ihren Webspace.</de>
+				<org>Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte lade und entpacke den Ordner manuell auf deinem Webspace.</org>
+				<de>Der Export des Ext-Inc Ordners kann aktuell leider nicht über Lansuite importiert werden. Bitte lade und entpacke den Ordner manuell auf deinem Webspace.</de>
 				<en>The export of the ext_inc-Directory could not be imported using lansuite, yet. Upload and extract it anually, please</en>
 				<es>La exportación de Ext. carpeta Inc actualmente no se pueden importar a través de Lansuite desgracia. Por favor, descargue y descomprima el archivo manualmente a su espacio web.</es>
 				<fr>L&amp;#39;exportation de Ext-Inc dossier ne peut pas actuellement être importées via Lansuite malheureusement. S&amp;#39;il vous plaît télécharger et décompresser le dossier manuellement à votre espace web.</fr>
@@ -771,8 +771,8 @@
 			</entry>
 			<entry>
 				<id>948600c857d4b7083978fc6069f9db1e</id>
-				<org>Auf diesen Seiten können Sie Lansuite installieren und verwalten</org>
-				<de>Auf diesen Seiten können Sie Lansuite installieren und verwalten</de>
+				<org>Auf diesen Seiten kannst du Lansuite installieren und verwalten</org>
+				<de>Auf diesen Seiten kannst du Lansuite installieren und verwalten</de>
 				<en>At this page you can install and admin LANSuite</en>
 				<es>En estas páginas se puede instalar y gestionar Lansuite</es>
 				<fr>Sur ces pages, vous pouvez installer et gérer Lansuite</fr>
@@ -782,8 +782,8 @@
 			</entry>
 			<entry>
 				<id>20ad6ce72eddc46242d487e04d00cf00</id>
-				<org>&lt;b&gt;ACHTUNG&lt;/b&gt;: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.</org>
-				<de>&amp;lt;b&amp;gt;ACHTUNG&amp;lt;/b&amp;gt;: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.</de>
+				<org>&lt;b&gt;ACHTUNG&lt;/b&gt;: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Lege unbedingt im Benutzermanager einen Superadmin an.</org>
+				<de>&amp;lt;b&amp;gt;ACHTUNG&amp;lt;/b&amp;gt;: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Lege unbedingt im Benutzermanager einen Superadmin an.</de>
 				<en>&amp;lt;b&amp;gt;ATTENTION&amp;lt;/b&amp;gt;: There is no adminaccount. As long as no adminaccount exists, everyone will be granted access to the admin-page</en>
 				<es>&lt;b&gt;NOTA:&lt;/b&gt; No hay ninguna cuenta de administrador. Por lo tanto, cada usuario tiene derechos de administrador. Asegúrese de utilizar el Administrador de usuarios a un super administrador.</es>
 				<fr>&lt;b&gt;NOTE:&lt;/b&gt; Il n&amp;#39;ya pas le compte Administrateur. Par conséquent, chaque utilisateur dispose des droits administrateur. Veillez à utiliser le Gestionnaire d&amp;#39;utilisateurs à un super admin.</fr>
@@ -989,8 +989,8 @@
 			</entry>
 			<entry>
 				<id>7b64185798b20df931d659bd6cebdf74</id>
-				<org>Bitte geben Sie nun die Zugangsdaten zur Datenbank an.</org>
-				<de>Bitte geben Sie nun die Zugangsdaten zur Datenbank an.</de>
+				<org>Bitte gib nun die Zugangsdaten zur Datenbank an.</org>
+				<de>Bitte gib nun die Zugangsdaten zur Datenbank an.</de>
 				<en>Use this page to set up the connection data of your database</en>
 				<es>Si ahora entramos en el acceso a la base de datos.</es>
 				<fr>S&amp;#39;il vous plaît entrez maintenant l&amp;#39;accès à la base de données.</fr>
@@ -1108,8 +1108,8 @@
 			</entry>
 			<entry>
 				<id>f1d7cb153944e1a677dfec9599178359</id>
-				<org>Sind Sie sicher, dass Sie alle Navigationseinträge zurücksetzen möchten?</org>
-				<de>Sind Sie sicher, dass Sie alle Navigationseinträge zurücksetzen möchten?</de>
+				<org>Bist du sicher, dass du alle Navigationseinträge zurücksetzen möchtest?</org>
+				<de>Bist du sicher, dass du alle Navigationseinträge zurücksetzen möchtest?</de>
 				<en>Are you sure to reset all navigation-entries?</en>
 				<es>¿Estás seguro de que desea restablecer todas las entradas del menú?</es>
 				<fr>Etes-vous sûr de vouloir réinitialiser toutes les entrées de menu?</fr>
@@ -1130,8 +1130,8 @@
 			</entry>
 			<entry>
 				<id>6c665592de16120552de8573bf5e4a8f</id>
-				<org>Hier können Sie diesen Navigationseintrag einer Gruppe zuweisen</org>
-				<de>Hier können Sie diesen Navigationseintrag einer Gruppe zuweisen</de>
+				<org>Hier kannst du diesen Navigationseintrag einer Gruppe zuweisen</org>
+				<de>Hier kannst du diesen Navigationseintrag einer Gruppe zuweisen</de>
 				<en>This is where you can assign a navigation-entry to a group.</en>
 				<es>Aquí usted puede asignar este elemento de menú a un grupo de</es>
 				<fr>Ici, vous pouvez affecter cet élément de menu à un groupe</fr>
@@ -1141,7 +1141,7 @@
 			</entry>
 			<entry>
 				<id>e2c94c7fc9e7da03724704ca407ff309</id>
-				<org>Hinweis: Verwenden Sie die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box</org>
+				<org>Hinweis: Verwende die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box</org>
 				<en>Note: Use the menu box number to build new boxes. All entries with the same ID to land in the same box</en>
 				<es>Nota: Utilice el número de cuadro de menú para crear nuevas cajas. Todas las entradas con el mismo ID de la tierra en la misma caja</es>
 				<fr>Remarque: Utilisez le numéro de la case de menu pour construire de nouvelles boîtes. Toutes les entrées avec le même code d&amp;#39;identification à la terre dans la même boîte</fr>
@@ -1151,7 +1151,7 @@
 			</entry>
 			<entry>
 				<id>75880c5861f705e59d87223225c2b716</id>
-				<org>Hinweis2: Verwenden sie die Gruppen um in der URL mit dem Parameter &amp;menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design</org>
+				<org>Hinweis2: Verwende die Gruppen um in der URL mit dem Parameter &amp;menu_group=xx nur bestimmte Menü-Eintrage auszugeben. Das ist nützlich bei einer eigenen Hauptnavigation im eigenen Design</org>
 				<en>Note2: They use the groups to spend in the URL with the parameter &amp;amp; = xx menu_group only certain menu entries. This is useful in its own main menu in your own style</en>
 				<es>Nota 2: Utilizan a los grupos que pasan en la URL con el parámetro &amp;amp; = xx menu_group sólo algunas entradas del menú. Esto es útil en su menú principal propio en su propio estilo</es>
 				<fr>Note 2: Ils utilisent les groupes à passer dans l&amp;#39;URL avec le paramètre &amp;amp; = xx menu_group que certaines entrées de menu. Ceci est utile dans son propre menu principal dans votre propre style</fr>
@@ -1259,7 +1259,7 @@
 			</entry>
 			<entry>
 				<id>1d656f0b245f9b56f8b11eb1fe921d5e</id>
-				<org>Hier können Sie dieses Modul Ihren Bedürfnissen anpassen</org>
+				<org>Hier kannst du dieses Modul Ihren Bedürfnissen anpassen</org>
 				<en>Here you can customize this module to your needs</en>
 				<es>Aquí usted puede personalizar este módulo a sus necesidades</es>
 				<fr>Ici vous pouvez personnaliser ce module à vos besoins</fr>
@@ -1289,7 +1289,7 @@
 			</entry>
 			<entry>
 				<id>26c6c9edef67c304b73c1f9d6c4cea7a</id>
-				<org>Hier können Sie Konfigurationen zu diesem Modul vornehmen</org>
+				<org>Hier kannst du Konfigurationen zu diesem Modul vornehmen</org>
 				<en>Here you can change configurations for this module</en>
 				<es>Aquí puedes cambiar las configuraciones para este módulo</es>
 				<fr>Ici vous pouvez changer les configurations de ce module</fr>
@@ -1309,7 +1309,7 @@
 			</entry>
 			<entry>
 				<id>11c3d918ffc6cb636d261f4b1ead9902</id>
-				<org>Legen Sie fest, welche Benutzer Berechtigungen zu welchem Menüpunkt erhalten</org>
+				<org>Lege fest, welche Benutzer Berechtigungen zu welchem Menüpunkt erhalten</org>
 				<en>Determine which user privileges are set at what the menu item</en>
 				<es>Determinar que los privilegios de usuario se han fijado en lo que el elemento de menú</es>
 				<fr>Déterminer quels sont les privilèges utilisateurs sont définis à ce que l&amp;#39;élément de menu</fr>
@@ -1330,7 +1330,7 @@
 			</entry>
 			<entry>
 				<id>347b35d7ecce8c5f83cfd6196cfbf106</id>
-				<org>Definieren Sie eigene Menüpunkte</org>
+				<org>Definiere eigene Menüpunkte</org>
 				<en>Define your own menu items</en>
 				<es>Definir su propio menú productos</es>
 				<fr>Définir vos propres éléments de menu</fr>
@@ -1350,7 +1350,7 @@
 			</entry>
 			<entry>
 				<id>b8f85089aef5a6e668cb19df75254ca9</id>
-				<org>Übersetzen Sie Texte dieses Moduls in andere Sprachen, oder definieren Sie einen deutschen Text, um einen Text umzuformulieren</org>
+				<org>Übersetze Texte dieses Moduls in andere Sprachen, oder definiere einen deutschen Text, um einen Text umzuformulieren</org>
 				<en>Translate text of this module into other languages, or define a German text to rewrite a text</en>
 				<es>Traducir texto de este módulo a otros idiomas, o definir un texto en lengua alemana para reescribir un texto de</es>
 				<fr>Traduire le texte de ce module dans d&amp;#39;autres langues, ou de définir un texte allemand de réécrire un texte</fr>
@@ -1360,7 +1360,7 @@
 			</entry>
 			<entry>
 				<id>0273c5c25e3bb7e4f30604650ad80cc4</id>
-				<org>Verwalten Sie die Datenbanktabellen, die diesem Modul zugeordnet sind</org>
+				<org>Verwalte die Datenbanktabellen, die diesem Modul zugeordnet sind</org>
 				<en>Manage the database tables that are associated with this module</en>
 				<es>Manejar las tablas de base de datos que se asocian con este módulo de</es>
 				<fr>Gérer les tables de base de données qui sont associés à ce module</fr>
@@ -1557,8 +1557,8 @@
 			</entry>
 			<entry>
 				<id>6832d2f1addd2e19a9d4ffa869c61ab3</id>
-				<org>Hier können Sie die Datenbankeinträge zu diesem Modul verwalten</org>
-				<de>Hier können Sie die Datenbankeinträge zu diesem Modul verwalten</de>
+				<org>Hier kannst du die Datenbankeinträge zu diesem Modul verwalten</org>
+				<de>Hier kannst du die Datenbankeinträge zu diesem Modul verwalten</de>
 				<en>This is where you can manage the database-entries to this module</en>
 				<es>Aquí puede administrar las entradas de la base de datos para este módulo de</es>
 				<fr>Ici vous pouvez gérer les entrées de base de données pour ce module</fr>
@@ -1599,7 +1599,7 @@
 			</entry>
 			<entry>
 				<id>e4f683a9ea094e0cd9f51f9a602cb297</id>
-				<org>Sind Sie sicher, dass Sie die Datenbank des Moduls &quot;%1&quot; zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
+				<org>Bist du sicher, dass du die Datenbank des Moduls &quot;%1&quot; zurücksetzen möchtest? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!</org>
 				<en>Are you sure you want to reset the database of the module &amp;quot;%1&amp;quot;? This permanently deletes all data that have been written in this module already!</en>
 				<es>¿Estás seguro de que desea restablecer la base de datos%del módulo &amp;quot;1&amp;quot;? Esto borra de manera permanente todos los datos que se han escrito en este módulo ya!</es>
 				<fr>Etes-vous sûr de vouloir rétablir la base de données du module «%1»? Cela supprime définitivement toutes les données qui ont été écrites dans ce module déjà!</fr>
@@ -1663,8 +1663,8 @@
 			</entry>
 			<entry>
 				<id>722ac62a9487055b59737161c7c610f7</id>
-				<org>Hier können Sie die Navigationseinträge dieses Moduls ändern.</org>
-				<de>Hier können Sie die Navigationseinträge dieses Moduls ändern.</de>
+				<org>Hier kannst du die Navigationseinträge dieses Moduls ändern.</org>
+				<de>Hier kannst du die Navigationseinträge dieses Moduls ändern.</de>
 				<en>Use this form to manage the navigationentries of this module</en>
 				<es>Aquí puede cambiar las entradas del menú en este módulo.</es>
 				<fr>Ici vous pouvez changer les entrées de menu dans ce module.</fr>
@@ -1740,8 +1740,8 @@
 			</entry>
 			<entry>
 				<id>d7bed5de517da2c6d9138c60208b604c</id>
-				<org>Hier können Sie Module de-/aktivieren, sowie deren Einstellungen verändern.</org>
-				<de>Hier können Sie Module de-/aktivieren, sowie deren Einstellungen verändern.</de>
+				<org>Hier kannst du Module de-/aktivieren, sowie deren Einstellungen verändern.</org>
+				<de>Hier kannst du Module de-/aktivieren, sowie deren Einstellungen verändern.</de>
 				<en>Here you can de-/activate modules, and manage their settings</en>
 				<es>Aquí usted puede desactivar el módulo, así como cambiar su configuración.</es>
 				<fr>Ici, vous pouvez désactiver le module, ainsi que de modifier leurs paramètres.</fr>
@@ -1838,8 +1838,8 @@
 			</entry>
 			<entry>
 				<id>b3f4e509d02b6fdc361ff7a9e1b3fcb4</id>
-				<org>Die Datenbank ist nicht erreichbar. Überprüfen Sie bitte die Angaben zur Datenbankverbindung.</org>
-				<de>Die Datenbank ist nicht erreichbar. Überprüfen Sie bitte die Angaben zur Datenbankverbindung.</de>
+				<org>Die Datenbank ist nicht erreichbar. Überprüfe bitte die Angaben zur Datenbankverbindung.</org>
+				<de>Die Datenbank ist nicht erreichbar. Überprüfe bitte die Angaben zur Datenbankverbindung.</de>
 				<en>Database unavailable. Please check your connection-data</en>
 				<es>La base de datos no es accesible. Por favor, consulte la información sobre la conexión de base de datos.</es>
 				<fr>La base de données n&amp;#39;est pas accessible. S&amp;#39;il vous plaît vérifier les informations sur la connexion de base de données.</fr>
@@ -1859,8 +1859,8 @@
 			</entry>
 			<entry>
 				<id>76f654c23df0493ff85c5e3c9945e1a5</id>
-				<org>Anlegen der Datenbank fehlgeschlagen. Überprüfen Sie bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfen Sie, ob Sie den Namen der Datenbank korrekt angegeben haben.</org>
-				<de>Anlegen der Datenbank fehlgeschlagen. Überprüfen Sie bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfen Sie, ob Sie den Namen der Datenbank korrekt angegeben haben.</de>
+				<org>Anlegen der Datenbank fehlgeschlagen. Überprüfe bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfe, ob du den Namen der Datenbank korrekt angegeben haben.</org>
+				<de>Anlegen der Datenbank fehlgeschlagen. Überprüfe bitte, ob der angegebene Benutzer über ausreichende Rechte verfügt um eine neue Datenbank anzulegen, bzw. überprüfe, ob du den Namen der Datenbank korrekt angegeben haben.</de>
 				<en>Database-Creation failed. Please check, whether your database-user has enough rights to create his own database or if you have submitted the correct name given to you by your provider.</en>
 				<es>Creación de la base de datos ha fallado. Por favor, compruebe si el usuario especificado tiene derechos suficientes para crear una nueva base de datos y asegúrese de que tiene el nombre de la base de datos correctamente.</es>
 				<fr>Création de la base a échoué. S&amp;#39;il vous plaît vérifier si l&amp;#39;utilisateur spécifié dispose de droits suffisants pour créer une nouvelle base de données et assurez-vous d&amp;#39;avoir le nom de la base de données correctement.</fr>
@@ -1892,8 +1892,8 @@
 			</entry>
 			<entry>
 				<id>e3a587a858f4537997c324fc89dac1eb</id>
-				<org>&lt;b&gt;ACHTUNG:&lt;/b&gt; Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.</org>
-				<de>&amp;lt;b&amp;gt;ACHTUNG:&amp;lt;/b&amp;gt; Wird mit den importierten Daten auch ein Adminaccount importiert, werden Sie ab sofort aufgefordert sich mit diesem bei der Installation einzuloggen.</de>
+				<org>&lt;b&gt;ACHTUNG:&lt;/b&gt; Wird mit den importierten Daten auch ein Adminaccount importiert, wirst du ab sofort aufgefordert dich mit diesem bei der Installation einzuloggen.</org>
+				<de>&amp;lt;b&amp;gt;ACHTUNG:&amp;lt;/b&amp;gt; Wird mit den importierten Daten auch ein Adminaccount importiert, wirst du ab sofort aufgefordert dich mit diesem bei der Installation einzuloggen.</de>
 				<en>Attention: If you import an adminaccount within the data, you will be prompted to enter its passwort (or a password of any other adminaccount) from now on.</en>
 				<es>&lt;b&gt;NOTA:&lt;/b&gt; Si importados con los datos importados y una cuenta de administrador, se le pedirá a partir de ahora con este registro durante la instalación.</es>
 				<fr>&lt;b&gt;REMARQUE:&lt;/b&gt; Si importées avec les données importées et un compte admin, il vous sera demandé dès maintenant avec ce journal pendant l&amp;#39;installation.</fr>
@@ -1924,7 +1924,7 @@
 			</entry>
 			<entry>
 				<id>c6b794d4e4bb40f4fcf134e23e8cb474</id>
-				<org>Hier können Sie einen Adminaccount anlegen. Falls dies bereits durch den Import geschehen ist, können Sie diesen Schritt auch überspringen (auf &lt;b&gt;'Weiter'&lt;/b&gt; klicken).</org>
+				<org>Hier kannst du einen Adminaccount anlegen. Falls dies bereits durch den Import geschehen ist, kannst du diesen Schritt auch überspringen (auf &lt;b&gt;'Weiter'&lt;/b&gt; klicken).</org>
 				<en>Here you can create an admin account. If this has already been done by the import, you can skip this step ( &lt;b&gt;&amp;#39;Next&amp;#39;&lt;/b&gt; Click).</en>
 				<es>Aquí puede crear una cuenta de administrador. Si esto ya se ha hecho por la importación, puede saltarse este paso ( &lt;b&gt;&amp;quot;Haga&lt;/b&gt; clic en &lt;b&gt;Siguiente &amp;#39;).&lt;/b&gt;</es>
 				<fr>Ici, vous pouvez créer un compte administrateur. Si cela a déjà été fait par l&amp;#39;import, vous pouvez sauter cette étape ( &lt;b&gt;&amp;#39;Cliquez sur&amp;#39; Suivant &amp;#39;).&lt;/b&gt;</fr>
@@ -1956,8 +1956,8 @@
 			</entry>
 			<entry>
 				<id>c9c814aad888308ee13d28920c313906</id>
-				<org>Bitte geben Sie eine E-Mail-Adresse ein!</org>
-				<de>Bitte geben Sie eine E-Mail-Adresse ein!</de>
+				<org>Bitte gib deine E-Mail-Adresse ein!</org>
+				<de>Bitte gib deine E-Mail-Adresse ein!</de>
 				<en>Enter an eMail-Address, please</en>
 				<es>Por favor, introduzca una dirección de correo electrónico!</es>
 				<fr>S&amp;#39;il vous plaît entrer une adresse e-mail!</fr>
@@ -1967,8 +1967,8 @@
 			</entry>
 			<entry>
 				<id>3b549eaf6dc1e2222ef1b7540cbb74ab</id>
-				<org>Bitte geben Sie ein Kennwort ein!</org>
-				<de>Bitte geben Sie ein Kennwort ein!</de>
+				<org>Bitte gib ein Kennwort ein!</org>
+				<de>Bitte gib ein Kennwort ein!</de>
 				<en>Choose your password</en>
 				<es>Por favor, introduzca una contraseña!</es>
 				<fr>S&amp;#39;il vous plaît entrer un mot de passe!</fr>
@@ -2109,8 +2109,8 @@
 			</entry>
 			<entry>
 				<id>97a29dbcab805e64d919b5656c161a85</id>
-				<org>Hier legen Sie einen Adminaccount an, über welchen Sie Zugriff auf diese Admin-Seite erhalten. Wenn Sie bereits Benutzer-Daten importiert haben müssen Sie hier keinen weiteren Account anlegen.</org>
-				<de>Hier legen Sie einen Adminaccount an, über welchen Sie Zugriff auf diese Admin-Seite erhalten. Wenn Sie bereits Benutzer-Daten importiert haben müssen Sie hier keinen weiteren Account anlegen.</de>
+				<org>Hier legst du einen Adminaccount an, über welchen du Zugriff auf diese Admin-Seite erhalten. Wenn du bereits Benutzer-Daten importiert haben musst du hier keinen weiteren Account anlegen.</org>
+				<de>Hier legst du einen Adminaccount an, über welchen du Zugriff auf diese Admin-Seite erhalten. Wenn du bereits Benutzer-Daten importiert haben musst du hier keinen weiteren Account anlegen.</de>
 				<en>Here you create an adminaccount, which will grant you access to this admin-page. If you allready have importet user-data containing an admin, you dont have to create a secound admin here.</en>
 				<es>Aquí usted puede crear una cuenta de administrador en el que acceder a esta página de administración. Si usted ya ha importado los datos del usuario no tiene que crear otra cuenta.</es>
 				<fr>Ici vous pouvez créer un compte administrateur sur lequel vous accéder à cette page d&amp;#39;admin. Si vous avez déjà importé les données utilisateur Avez-vous besoin de créer un autre compte.</fr>
@@ -2120,8 +2120,8 @@
 			</entry>
 			<entry>
 				<id>2244030968576ff2d44bade701b4716f</id>
-				<org>ACHTUNG: Es wurde noch kein Adminaccount angelegt. Bitte legen Sie diesen unbedingt unterhalb an. Sobald dieser angelegt worden ist, ist diese Seite nur noch mit diesem Account erreichbar.</org>
-				<de>ACHTUNG: Es wurde noch kein Adminaccount angelegt. Bitte legen Sie diesen unbedingt unterhalb an. Sobald dieser angelegt worden ist, ist diese Seite nur noch mit diesem Account erreichbar.</de>
+				<org>ACHTUNG: Es wurde noch kein Adminaccount angelegt. Bitte lege diesen unbedingt unterhalb an. Sobald dieser angelegt worden ist, ist diese Seite nur noch mit diesem Account erreichbar.</org>
+				<de>ACHTUNG: Es wurde noch kein Adminaccount angelegt. Bitte lege diesen unbedingt unterhalb an. Sobald dieser angelegt worden ist, ist diese Seite nur noch mit diesem Account erreichbar.</de>
 				<en>ATTENTION: No adminaccount has been created, yet. As long, as no adminaccount has been created, each user will be granted to access the admin-page.</en>
 				<es>Atención: Aún no ha creado una cuenta de administrador. Sírvase adjuntar a este importante más adelante. Una vez que este ha sido creado, esta página sólo es accesible por esa cuenta.</es>
 				<fr>Attention: Il n&amp;#39;a pas encore créé un compte admin. S&amp;#39;il vous plaît joindre à cette importante ci-dessous. Une fois que ceci a été créé, cette page n&amp;#39;est accessible que par ce compte.</fr>
@@ -2222,7 +2222,7 @@
 			</entry>
 			<entry>
 				<id>32fd9580bb559fcfe00b3b29ea11f542</id>
-				<org>Verwenden Sie die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box</org>
+				<org>Verwende die MenüBox-Nr um neue Boxen zu bilden. Alle Einträge mit gleicher ID landen in der gleichen Box</org>
 				<en>Use the menu box number to build new boxes. All entries with the same ID to land in the same box</en>
 				<es>Utilice el número de cuadro de menú para crear nuevas cajas. Todas las entradas con el mismo ID de la tierra en la misma caja</es>
 				<fr>Utilisez le numéro de la case de menu pour construire de nouvelles boîtes. Toutes les entrées avec le même code d&amp;#39;identification à la terre dans la même boîte</fr>
@@ -2382,7 +2382,7 @@
 			</entry>
 			<entry>
 				<id>649e57673cbf175e3684a22ca78c5197</id>
-				<org>Sie müssen einen Admin-Account anlegen, um fortfahren zu können</org>
+				<org>Du musst einen Admin-Account anlegen, um fortfahren zu können</org>
 				<en>You must create an Admin account, to continue</en>
 				<es>Usted debe crear una cuenta de administrador, para continuar</es>
 				<fr>Vous devez créer un compte d&amp;#39;administrateur, de continuer</fr>
@@ -2782,7 +2782,7 @@
 			</entry>
 			<entry>
 				<id>f08620b4c5eccde44ce089f603b63948</id>
-				<org>Sind Sie sicher, dass Sie &lt;b&gt;'alle Konfigurationen'&lt;/b&gt; zurÃ¼cksetzen möchten? Damit gehen alle Ihre Moduleinstellungen verloren!</org>
+				<org>Bist du sicher, dass du &lt;b&gt;'alle Konfigurationen'&lt;/b&gt; zurÃ¼cksetzen möchtest? Damit gehen alle Ihre Moduleinstellungen verloren!</org>
 				<en>Are you sure that you &lt;b&gt;&amp;#39;want&lt;/b&gt; cksetzen &lt;b&gt;all configurations&amp;#39; Return?&lt;/b&gt; To ensure that all your module settings will be lost!</en>
 				<es>¿Estás seguro de que &lt;b&gt;&amp;quot;quieren&lt;/b&gt; cksetzen &lt;b&gt;Volver todas las configuraciones?&lt;/b&gt; Para garantizar que todos los ajustes del módulo se perderán!</es>
 				<fr>Êtes-vous sûr que &lt;b&gt;tu veux&lt;/b&gt; cksetzen &lt;b&gt;Retour à toutes les configurations?&lt;/b&gt; Pour s&amp;#39;assurer que tous les paramètres de votre module sera perdu!</fr>

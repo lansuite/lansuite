@@ -14,7 +14,7 @@
 		<content>
 			<entry>
 				<id>72c62cc21d1d62dd8ab69cd2e34a3ea0</id>
-				<org>Bitte geben Sie einen Pollnamen ein</org>
+				<org>Bitte gib einen Pollnamen ein</org>
 				<en>Please enter a Pollnamen</en>
 				<es>Por favor, introduzca un Pollnamen</es>
 				<fr>S&amp;#39;il vous plaît entrer un Pollnamen</fr>
@@ -24,7 +24,7 @@
 			</entry>
 			<entry>
 				<id>4b5f841d965833bf0b0e4d46bf4a87aa</id>
-				<org>Sie d&amp;uuml;rfen 2 Optionen nicht gleich benennen.</org>
+				<org>Du darfst 2 Optionen nicht gleich benennen.</org>
 				<en>You may not equal to 2 options to name.</en>
 				<es>Usted no puede ser igual a 2 opciones de nombre.</es>
 				<fr>Vous mai pas égal à 2 options pour le nom.</fr>
@@ -34,7 +34,7 @@
 			</entry>
 			<entry>
 				<id>706a598f419574c5706dc871e6be90c3</id>
-				<org>Sie m&amp;uuml;ssen mindestens 2 Optionen eingeben</org>
+				<org>Du musst mindestens 2 Optionen eingeben</org>
 				<en>You must enter at least 2 options</en>
 				<es>Debe introducir al menos 2 opciones</es>
 				<fr>Vous devez saisir au moins 2 options</fr>
@@ -64,7 +64,7 @@
 			</entry>
 			<entry>
 				<id>c63eabcb1640ebf578cb39bd0f6029e9</id>
-				<org>Um den Poll hinzuzuf&amp;uuml;gen / zu &amp;auml;ndern, f&amp;uuml;llen Sie bitte das folgende Formular vollst&amp;auml;ndig aus. F&amp;uuml;r das Feld Überschrift stehen 30 Zeichen, f&amp;uuml;r das Feld Text 5000 Zeichen zur Verf&amp;uuml;gung.</org>
+				<org>Um den Poll hinzuzuf&amp;uuml;gen / zu &amp;auml;ndern, f&amp;uuml;lle bitte das folgende Formular vollst&amp;auml;ndig aus. F&amp;uuml;r das Feld Überschrift stehen 30 Zeichen, f&amp;uuml;r das Feld Text 5000 Zeichen zur Verf&amp;uuml;gung.</org>
 				<en>To add a poll / change, please fill out the following form completely. For the title field, 30 characters are available for the text field 5000 characters available.</en>
 				<es>Para añadir una encuesta / cambio, por favor, rellene el siguiente formulario completamente. Para el campo de título, 30 caracteres disponibles para el campo de texto de 5000 caracteres disponibles.</es>
 				<fr>Pour ajouter un sondage / changement, s&amp;#39;il vous plaît remplir le formulaire suivant. Pour le champ titre, 30 caractères sont disponibles pour le champ texte de 5000 caractères disponibles.</fr>
@@ -144,7 +144,7 @@
 			</entry>
 			<entry>
 				<id>2a7942796ca6d1ce199db865edc5d4b8</id>
-				<org>Unterhalb legen Sie die Poll-Optionen f&amp;uuml;r diesen Poll fest. F&amp;uuml;llen Sie dazu beliebig viele Formularfelder aus. Es m&amp;uuml;ssen mindestens 2 Felder ausgef&amp;uuml;llt werden. Pro Feld stehen Ihnen 30 Zeichen zur Verf&amp;uuml;gung.</org>
+				<org>Unterhalb legest du die Poll-Optionen f&amp;uuml;r diesen Poll fest. F&amp;uuml;lle dazu beliebig viele Formularfelder aus. Es m&amp;uuml;ssen mindestens 2 Felder ausgef&amp;uuml;llt werden. Pro Feld stehen dir 30 Zeichen zur Verf&amp;uuml;gung.</org>
 				<en>Below you put the poll options for this poll. Then just fill in any number of form fields. You must complete at least 2 fields. Per box you have 30 characters left.</en>
 				<es>A continuación se pone las opciones de encuesta para esta encuesta. Entonces, por favor introduzca cualquier número de campos de formulario. Usted debe completar por lo menos 2 campos. Por caja tiene 30 caracteres a la izquierda.</es>
 				<fr>Ci-dessous vous mettre les options d&amp;#39;un sondage pour ce sondage. Ensuite, il suffit de renseigner un certain nombre de champs de formulaire. Vous devez remplir au moins 2 domaines. Par boîte vous disposez de 30 caractères à gauche.</fr>
@@ -274,7 +274,7 @@
 			</entry>
 			<entry>
 				<id>a8f89a87b1c62795fd4080b6b86eff42</id>
-				<org>Bewegen Sie den Mauszeiger über einen der Balken, um zu sehen wer für diese Option abgestimmt hat.</org>
+				<org>Bewege den Mauszeiger über einen der Balken, um zu sehen wer für diese Option abgestimmt hat.</org>
 				<en>Move the cursor over one of the bars to see who voted for this option.</en>
 				<es>Mueve el cursor sobre una de las barras para ver los que votaron por esta opción.</es>
 				<fr>Déplacez le curseur sur l&amp;#39;un des bars pour voir qui a voté pour cette option.</fr>
@@ -344,7 +344,7 @@
 			</entry>
 			<entry>
 				<id>fd5de599ec7773f305cd3445dcc55fff</id>
-				<org>Sie m&amp;uuml;ssen eine Option ausw&amp;auml;hlen</org>
+				<org>Du musst eine Option ausw&amp;auml;hlen</org>
 				<en>You must select an option</en>
 				<es>Usted debe seleccionar una opción</es>
 				<fr>Vous devez sélectionner une option</fr>
@@ -364,7 +364,7 @@
 			</entry>
 			<entry>
 				<id>bf62257835872c5d98b31d1dceb7ed61</id>
-				<org>Um f&amp;uuml;r einen Poll zu voten, klicken Sie bitte das Feld der Option an f&amp;uuml;r die Sie stimmen wollen. Wenn die Mehrfachauswahl f&amp;uuml;r diesen Poll aktiviert ist, k&amp;ouml;nnen Sie auch f&amp;uuml;r mehrere Optionen stimmen.</org>
+				<org>Um f&amp;uuml;r einen Poll zu voten, klicke bitte das Feld der Option an f&amp;uuml;r die du stimmen willst. Wenn die Mehrfachauswahl f&amp;uuml;r diesen Poll aktiviert ist, kannst du auch f&amp;uuml;r mehrere Optionen stimmen.</org>
 				<en>To vote for a poll, please click the box to the option for which you want to vote. If multiple selection is enabled for this poll, you can also vote for several options.</en>
 				<es>Para votar por una encuesta, por favor haga clic en la casilla de la opción para la que desea votar. Si la selección múltiple está habilitado para esta encuesta, también se puede votar por varias opciones.</es>
 				<fr>Pour voter pour un scrutin, s&amp;#39;il vous plaît cliquer sur la case pour l&amp;#39;option pour laquelle vous voulez voter. Si la sélection multiple est activé pour ce scrutin, vous pouvez aussi voter pour plusieurs options.</fr>
@@ -374,7 +374,7 @@
 			</entry>
 			<entry>
 				<id>9686df6dffeecf1b93290adcc242117e</id>
-				<org>Dieser Poll kann nicht angezeigt werden. Dies kann folgende Ursachen haben:&lt;li&gt;Der Poll existiert nicht&lt;li&gt;Der Poll ist bereits beendet&lt;li&gt;Sie haben bereits f&amp;uuml;r diesen Poll gevotet</org>
+				<org>Dieser Poll kann nicht angezeigt werden. Dies kann folgende Ursachen haben:&lt;li&gt;Der Poll existiert nicht&lt;li&gt;Der Poll ist bereits beendet&lt;li&gt;Du hast bereits f&amp;uuml;r diesen Poll gevotet</org>
 				<en>This poll can not be displayed. This may be because: &lt;li&gt; The poll does not exist &lt;li&gt; The poll has ended &lt;li&gt; You have already voted for this poll</en>
 				<es>Esta encuesta no se puede mostrar. Esto puede ser porque: &lt;li&gt; La encuesta no existe &lt;li&gt; La encuesta ha terminado &lt;li&gt; Usted ya ha votado a favor de esta encuesta</es>
 				<fr>Ce sondage ne peut pas être affichée. Cette mai-être parce que: &lt;li&gt; Le sondage n&amp;#39;existe pas &lt;li&gt; Le sondage a pris fin &lt;li&gt; Vous avez déjà voté pour ce sondage</fr>
@@ -394,7 +394,7 @@
 			</entry>
 			<entry>
 				<id>15647391b7441afac37f36746f8accd7</id>
-				<org>Sie haben bereits gevotet</org>
+				<org>Du hast bereits gevotet</org>
 				<en>You have already voted</en>
 				<es>Usted ya ha votado</es>
 				<fr>Vous avez déjà voté</fr>
@@ -424,7 +424,7 @@
 			</entry>
 			<entry>
 				<id>bfef50da7b7da7ff609626f3e6dfc3aa</id>
-				<org>Dieser Poll existiert nicht, oder Sie haben keine Berechtigung ihn zu sehen</org>
+				<org>Dieser Poll existiert nicht, oder du hast keine Berechtigung ihn zu sehen</org>
 				<en>This poll does not exist or you do not have permission to see him</en>
 				<es>Esta encuesta no existe o no tiene permiso para verlo</es>
 				<fr>Ce sondage n&amp;#39;existe pas ou si vous n&amp;#39;avez pas la permission de le voir</fr>
@@ -444,7 +444,7 @@
 			</entry>
 			<entry>
 				<id>e759f1e5b021f9f9473ee0702ed9b76a</id>
-				<org>Sie haben bereits gevoted</org>
+				<org>Du hast bereits gevoted</org>
 				<en>You have already gevoted</en>
 				<es>Usted ya ha gevoted</es>
 				<fr>Vous avez déjà gevoted</fr>
@@ -454,7 +454,7 @@
 			</entry>
 			<entry>
 				<id>54f18aaa37ff026be51492a4c7ff8d3f</id>
-				<org>Ihre Stimme wurde gezählt</org>
+				<org>Deine Stimme wurde gezählt</org>
 				<en>Your vote has been counted</en>
 				<es>Su voto ha sido contado</es>
 				<fr>Votre vote a été compté</fr>
@@ -464,7 +464,7 @@
 			</entry>
 			<entry>
 				<id>f06f5d577444686484582d4a48193160</id>
-				<org>Sie müssen eingeloggt sein um zu diesem Poll ihre Stimme abzugeben.</org>
+				<org>Du musst eingeloggt sein um zu diesem Poll deine Stimme abzugeben.</org>
 				<en>You must be logged in to order on this poll their votes.</en>
 				<es>Usted debe estar conectado a fin en esta encuesta los votos.</es>
 				<fr>Vous devez être connecté pour commander sur ce sondage leur vote.</fr>
@@ -484,7 +484,7 @@
 			</entry>
 			<entry>
 				<id>6a0f35fc7221cb16694e2243756c3b06</id>
-				<org>Um den Poll hinzuzufügen / zu ändern, füllen Sie bitte das folgende Formular vollständig aus.</org>
+				<org>Um den Poll hinzuzufügen / zu ändern, fülle bitte das folgende Formular vollständig aus.</org>
 				<en>To add a poll / change, please fill out the following form completely.</en>
 				<es>Para añadir una encuesta / cambio, por favor, rellene el siguiente formulario completamente.</es>
 				<fr>Pour ajouter un sondage / changement, s&amp;#39;il vous plaît remplir le formulaire suivant.</fr>

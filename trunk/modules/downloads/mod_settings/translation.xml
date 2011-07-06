@@ -114,7 +114,7 @@
 			</entry>
 			<entry>
 				<id>564a750fb276ddf556be0a99852b3c08</id>
-				<org>Die PHP-Erweiterung &lt;b&gt;FTP&lt;/b&gt; konnte nicht geladen werden. &amp;Uuml;berpr&amp;uuml;fen Sie, ob diese in PHP einkompiliert bzw. aktiviert ist</org>
+				<org>Die PHP-Erweiterung &lt;b&gt;FTP&lt;/b&gt; konnte nicht geladen werden. &amp;Uuml;berpr&amp;uuml;fe, ob diese in PHP einkompiliert bzw. aktiviert ist</org>
 				<en>The PHP &lt;b&gt;FTP&lt;/b&gt; extension could not be loaded. Check to see if it is compiled into PHP or activated</en>
 				<es>La extensión de PHP &lt;b&gt;FTP&lt;/b&gt; no se pudo cargar. Compruebe para ver si es compilada dentro de PHP o activado</es>
 				<fr>L&amp;#39;extension PHP &lt;b&gt;FTP n&amp;#39;a&lt;/b&gt; pas pu être chargé. Vérifiez pour voir si elle est compilée dans PHP ou activés</fr>

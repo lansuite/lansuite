@@ -14,7 +14,7 @@
 		<content>
 			<entry>
 				<id>4ddaadaea7dda2f778fa2c5cf2d126e2</id>
-				<org>Bitte geben Sie eine gültige IP Adresse ein</org>
+				<org>Bitte gib eine gültige IP Adresse ein</org>
 				<en>Please enter a valid IP address</en>
 				<es>Por favor, introduzca una dirección IP válida</es>
 				<fr>S&amp;#39;il vous plaît entrer une adresse IP valide</fr>
@@ -24,7 +24,7 @@
 			</entry>
 			<entry>
 				<id>40f77ff4a8a7ca69ec2313dce8614a1e</id>
-				<org>Bitte geben Sie eine gültige MAC Adresse ein</org>
+				<org>Bitte gib eine gültige MAC Adresse ein</org>
 				<en>Please enter a valid MAC address</en>
 				<es>Por favor, introduzca una dirección MAC válida</es>
 				<fr>S&amp;#39;il vous plaît entrer une adresse MAC valide</fr>
@@ -44,7 +44,7 @@
 			</entry>
 			<entry>
 				<id>8a6379866812f5eb151c714820c349c6</id>
-				<org>Es sind keine freien IPs mehr vorhanden. Bitten Sie einen Administrator darum den vorgesehenen Bereich zu erhöhren</org>
+				<org>Es sind keine freien IPs mehr vorhanden. Bitte einen Administrator darum den vorgesehenen Bereich zu erhöhren</org>
 				<en>There are no free IPs longer exists. Ask erhöhren an administrator about the intended area</en>
 				<es>No hay IPs libre ya no existe. Pregunte erhöhren un administrador acerca de la zona prevista</es>
 				<fr>Il n&amp;#39;y a pas IPs libre n&amp;#39;existe plus. Demandez erhöhren un administrateur sur la région vise</fr>
@@ -64,7 +64,7 @@
 			</entry>
 			<entry>
 				<id>ee53580344ff5a06475e759002ff0939</id>
-				<org>Sie müssen zuerst bezahlen, um Server hinzufügen zu dürfen</org>
+				<org>Du musst zuerst bezahlen, um Server hinzufügen zu dürfen</org>
 				<en>You must pay first in order to add servers to be allowed to</en>
 				<es>Usted tiene que pagar en primer lugar para añadir los servidores que se les permita</es>
 				<fr>Vous devez payer d&amp;#39;abord afin d&amp;#39;ajouter des serveurs pour être autorisés à</fr>
@@ -444,7 +444,7 @@
 			</entry>
 			<entry>
 				<id>f9c80131eb937dd75ff865060096181b</id>
-				<org>Der von Ihnen aufgerufene Server existiert nicht</org>
+				<org>Der von dir aufgerufene Server existiert nicht</org>
 				<en>The page you server does not exist</en>
 				<es>La página que el servidor no existe</es>
 				<fr>La page que vous Server n&amp;#39;existe pas</fr>
@@ -464,7 +464,7 @@
 			</entry>
 			<entry>
 				<id>32b470e40e3125ca3f2025d8420cfa70</id>
-				<org>Auf dieser Seite sehen Sie alle Details zum Server &lt;b&gt;%1&lt;/b&gt;. Durch eine Klick auf den Zur&amp;uuml;ck-Button gelangen Sie zur Übersicht zur&amp;uuml;ck</org>
+				<org>Auf dieser Seite siehst du alle Details zum Server &lt;b&gt;%1&lt;/b&gt;. Durch eine Klick auf den Zur&amp;uuml;ck-Button gelangst du zur Übersicht zur&amp;uuml;ck</org>
 				<en>On this page you will see all details to the &lt;b&gt;server%1.&lt;/b&gt; With a click on the Back button takes you back to overview</en>
 				<es>En esta página podrás ver todos los detalles para el &lt;b&gt;servidor%1.&lt;/b&gt; Con un clic en el botón Atrás le lleva a la vista general</es>
 				<fr>Sur cette page vous pourrez voir tous les détails pour le &lt;b&gt;serveur%1.&lt;/b&gt; Avec un clic sur le bouton &amp;quot;Retour&amp;quot; vous ramène à l&amp;#39;aperçu</fr>

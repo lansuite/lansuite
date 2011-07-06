@@ -44,7 +44,7 @@
 			</entry>
 			<entry>
 				<id>9b148fa6112c3f643268c9d42800443c</id>
-				<org>Hier können Sie Einzahlungen, Auszahlungen verwalten und Kontostände einsehen.</org>
+				<org>Hier kannst du Einzahlungen, Auszahlungen verwalten und Kontostände einsehen.</org>
 				<en>Here you can manage deposits, withdrawals, and view account balances.</en>
 				<es>Aquí puede administrar los depósitos, retiros, y los saldos de cuenta de vista.</es>
 				<fr>Ici vous pouvez gérer les dépôts, retraits, et les soldes des comptes de vue.</fr>
@@ -724,7 +724,7 @@
 			</entry>
 			<entry>
 				<id>b22118d5d45a2333a62e276e1ae119bf</id>
-				<org>Sie haben alle Produkte abgeholt.</org>
+				<org>Du hast alle Produkte abgeholt.</org>
 				<en>You have collected all the products.</en>
 				<es>Hemos recogido todos los productos.</es>
 				<fr>Vous avez rassemblé tous les produits.</fr>
@@ -1084,7 +1084,7 @@
 			</entry>
 			<entry>
 				<id>091e5358b839cffb1a0a44d5f25f3735</id>
-				<org>Um einen Artikel zu l�schen, setzen Sie ihn auf 0 und klicken anschlie�end auf /'/Neu berechnen/'/.</org>
+				<org>Um einen Artikel zu l�schen, setze ihn auf 0 und klicken anschlie�end auf /'/Neu berechnen/'/.</org>
 				<en>To Delete an item, set it to 0 and click Subsequently on / &amp;#39;/ Recalculate /&amp;#39; /.</en>
 				<es>Para eliminar un elemento, ponerlo a 0 y haga clic en Más tarde / &amp;#39;/ Actualizar /&amp;#39; /.</es>
 				<fr>Pour supprimer un élément, elle a mis à 0 et cliquez ensuite sur / &amp;#39;/ Recalculer /&amp;#39; /.</fr>
@@ -1304,7 +1304,7 @@
 			</entry>
 			<entry>
 				<id>22dac8460a4420d0fdc37dc24868c733</id>
-				<org>Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf /'/Neu berechnen/'/.</org>
+				<org>Um einen Artikel zu löschen, setze ihn auf 0 und klicken anschließend auf /'/Neu berechnen/'/.</org>
 				<en>To delete an item, set it to 0 and click / &amp;#39;/ Recalculate /&amp;#39; /.</en>
 				<es>Para eliminar un elemento, ponerlo a 0 y haga clic en / &amp;#39;/ Actualizar /&amp;#39; /.</es>
 				<fr>Pour supprimer un élément, elle a mis à 0 et cliquez sur / &amp;#39;/ Recalculer /&amp;#39; /.</fr>
@@ -1574,7 +1574,7 @@
 			</entry>
 			<entry>
 				<id>d4622fe75bc8b4d01ef99b191d350d6e</id>
-				<org>Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf &quot;Neu berechnen&quot;.</org>
+				<org>Um einen Artikel zu löschen, setze ihn auf 0 und klicken anschließend auf &quot;Neu berechnen&quot;.</org>
 				<en>To delete an item, set it to 0 and click &amp;quot;Recalculate&amp;quot;.</en>
 				<es>Para eliminar un elemento, ponerlo a 0 y haga clic en &amp;quot;Actualizar&amp;quot;.</es>
 				<fr>Pour supprimer un élément, elle a mis à 0 et cliquez sur &amp;quot;Recalculer&amp;quot;.</fr>

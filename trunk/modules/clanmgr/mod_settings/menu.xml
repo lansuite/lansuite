@@ -15,7 +15,7 @@
 		<action>new</action>
 		<file>clanmgr</file>
 		<caption>Clan anlegen</caption>
-		<hint>Hier können Sie einen neuen Clan hinzufügen</hint>
+		<hint>Hier kannst du einen neuen Clan hinzufügen</hint>
 		<link>?mod=clanmgr&step=30</link>
 		<requirement>1</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>

@@ -53,7 +53,7 @@ class basket{
 	function show_basket(){
 			global $dsp,$cfg, $func;
 			
-			$dsp->NewContent(t('Warenkorb'),t('Um einen Artikel zu löschen, setzen Sie ihn auf 0 und klicken anschließend auf "Neu berechnen".'));
+			$dsp->NewContent(t('Warenkorb'),t('Um einen Artikel zu löschen, setze ihn auf 0 und klicken anschließend auf "Neu berechnen".'));
 			if($this->product->count_products() > 0){
 				$dsp->SetForm("index.php?mod=foodcenter&action={$_GET['action']}&mode=change");
 				$dsp->AddDoubleRow("<b>" . t('Artikel / Preis') . "</b> ","<b>" . t('Anzahl') . "</b> ");

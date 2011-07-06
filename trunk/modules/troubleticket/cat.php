@@ -19,7 +19,7 @@
 switch($_GET['step']){
 	case 2:
 		if($_POST['tticket_cat'] == 0 && $_GET['act'] == "change"){
-			$error['tticket_cat'] = t('Sie haben keine Kategorie zum ändern ausgewählt');
+			$error['tticket_cat'] = t('Du hast keine Kategorie zum ändern ausgewählt');
 			$_GET['step'] = 1;
 		}
 		break;
