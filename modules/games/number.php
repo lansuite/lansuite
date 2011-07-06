@@ -22,7 +22,7 @@ $headermenuitem = $_GET["headermenuitem"];
 $action = $_GET["action"];
 $step = $_GET["step"];
 
-$dsp->NewContent(t('ZahlenRaten'), t('Versuchen Sie mit möglichst wenig Versuchen die gesuchte Zahl zu erraten'));
+$dsp->NewContent(t('ZahlenRaten'), t('Versuche mit möglichst wenig Versuchen die gesuchte Zahl zu erraten'));
 
 $menunames[1] = t('Start');
 $menunames[2] = t('Highscore');
@@ -101,13 +101,13 @@ switch ($step){
 
             $_SESSION["versuch"]++;
         } else {
-            $dsp->AddSingleRow("<b>". t('Sie haben Gewonnen! Herzlichen Glückwunsch!') ."</b>");
+            $dsp->AddSingleRow("<b>". t('Du hast Gewonnen! Herzlichen Glückwunsch!') ."</b>");
             $dsp->AddSingleRow(t('Die gesuchte Zahl lautete') .": ". $_SESSION['zahl']);
-            $dsp->AddSingleRow(t('Sie benötigten %1 Versuche', $_SESSION['versuch']));
+            $dsp->AddSingleRow(t('Du hast %1 Versuche benötigt', $_SESSION['versuch']));
 
             $score = $_SESSION['versuch'];
             $dsp->SetForm("index.php?mod=games&action=number&step=2&score=$score");
-            $dsp->AddSingleRow(t('Hier können Sie sich in die Highscoreliste eintragen'));
+            $dsp->AddSingleRow(t('Hier kannst du dich in die Highscoreliste eintragen'));
             $dsp->AddDoubleRow(t('Versuche'), $score);
             $dsp->AddTextFieldRow("nick", t('Name'), $auth["username"], "", "", "", $auth['login']);
             $dsp->AddTextFieldRow("comment", t('Kommentar'), "", "", "", FIELD_OPTIONAL);

@@ -1,6 +1,6 @@
 <?php
 
-$dsp->NewContent(t('Passwort vergessen'), t('Mit diesem Modul können Sie sich ein neues Passwort generieren lassen'));
+$dsp->NewContent(t('Passwort vergessen'), t('Mit diesem Modul kannst du dir ein neues Passwort generieren lassen'));
 
 if (!$cfg['sys_internet']) $func->information(t('Diese Funktion ist nur im Internetmodus verfügbar'));
 
@@ -21,8 +21,8 @@ else switch ($_GET['step']) {
             $mail = new mail();
             $mail->create_inet_mail($user_data['username'], $_POST['pwr_mail'], $cfg['usrmgr_pwrecovery_subject'], str_replace("%USERNAME%", $user_data['username'], str_replace("%PATH%", "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=pwrecover&step=3&fcode=$fcode", $cfg['usrmgr_pwrecovery_text'])));
 
-            $func->confirmation(t('Ihnen wurde nun eine Freischalte-URL an die angegebene Emailadresse gesendet. Mit dem Aufruf dieser URL wird Ihr neues Passwort generiert werden.'), "index.php");
-        } else $func->information(t('Die von Ihnen eigegebene Email existiert nicht in der Datenbank'), "index.php?mod=usrmgr&action=pwrecover&step=1");
+            $func->confirmation(t('Dir wurde nun eine Freischalte-URL an die angegebene Emailadresse gesendet. Mit dem Aufruf dieser URL wird dir neues Passwort generiert werden.'), "index.php");
+        } else $func->information(t('Die von dir eigegebene Email existiert nicht in der Datenbank'), "index.php?mod=usrmgr&action=pwrecover&step=1");
     break;
 
     case 3: // Freischaltecode prüfen, Passwort generieren, Freischaltcode zurücksetzen
@@ -34,12 +34,12 @@ else switch ($_GET['step']) {
             $db->qry("UPDATE %prefix%user SET password = %string%, fcode = '' WHERE fcode = %string%", md5($new_pwd), $_GET['fcode']);
 
             $func->confirmation(t('Das neue Kennwort wurde erfolgreich generiert.<br>Es lautet:') ."\"<b>$new_pwd</b>\"", "index.php");
-        } else $func->error(t('Der von Ihnen übermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prüfen Sie, ob Sie die URL komplett aus der Benachrichtigungs-Mail kopiert haben.'), "index.php?mod=usrmgr&action=pwrecover&step=1");
+        } else $func->error(t('Der von dir übermittelte Freischaltecode ist inkorrekt! Es wurde kein neues Kennwort generiert. Bitte prüfe, ob du die URL komplett aus der Benachrichtigungs-Mail kopiert hast.'), "index.php?mod=usrmgr&action=pwrecover&step=1");
     break;
 
     default:
         $dsp->SetForm("index.php?mod=usrmgr&action=pwrecover&step=2");
-        $dsp->AddSingleRow(t('Bitte geben Sie die Email-Adresse ein, mit der Sie sich am System angemeldet haben'));
+        $dsp->AddSingleRow(t('Bitte gib die Email-Adresse ein, mit der du dich am System angemeldet hast'));
         $dsp->AddTextFieldRow("pwr_mail", t('Ihre Email'), $_POST['pwr_mail'], $mail_error);
         $dsp->AddFormSubmitRow(t('Abschicken'));
         $dsp->AddBackButton("index.php", "usrmgr/pwremind");

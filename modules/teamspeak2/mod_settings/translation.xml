@@ -24,7 +24,7 @@
 			</entry>
 			<entry>
 				<id>58e62b3f8cbbe2cf014f88b4323280ec</id>
-				<org>Konnte nicht zum Server verbinden, da Sie kein Nickname eingetragen haben</org>
+				<org>Konnte nicht zum Server verbinden, da du kein Nickname eingetragen hast</org>
 				<en>Could not connect to the server, because you have registered no nickname</en>
 				<es>No se pudo conectar con el servidor, ya que se ha registrado ningún apodo</es>
 				<fr>Impossible de se connecter au serveur, parce que vous avez enregistré aucune pseudo</fr>
@@ -44,7 +44,7 @@
 			</entry>
 			<entry>
 				<id>4fbc64274d15cb81b996ce63e6ddcedf</id>
-				<org>Konnte nicht zum Server verbinden, da Sie kein Teamspeak Server Passwort eingetragen haben</org>
+				<org>Konnte nicht zum Server verbinden, da du kein Teamspeak Server Passwort eingetragen hast</org>
 				<en>Could not connect to the server, because you have not registered TeamSpeak Server Password</en>
 				<es>No se pudo conectar con el servidor, ya que no se ha registrado TeamSpeak Server Contraseña</es>
 				<fr>Impossible de se connecter au serveur, parce que vous n&amp;#39;êtes pas encore inscrit Mot de passe TeamSpeak Server</fr>
@@ -64,7 +64,7 @@
 			</entry>
 			<entry>
 				<id>5c68f3801a25f1ae644a0ab9eb99721a</id>
-				<org>Konnte nicht zum Server verbinden, da Sie kein Channel Passwort eingetragen haben</org>
+				<org>Konnte nicht zum Server verbinden, da du kein Channel Passwort eingetragen hast</org>
 				<en>Could not connect to the server, because you have entered no channel</en>
 				<es>No se pudo conectar con el servidor, ya que han entrado en ningún canal</es>
 				<fr>Impossible de se connecter au serveur, parce que vous avez entré aucun canal</fr>

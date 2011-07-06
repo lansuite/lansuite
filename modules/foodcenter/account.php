@@ -33,7 +33,7 @@ switch($_GET['act']){
 
 
 	case "menu":
-		$dsp->NewContent(t('Kontoverwaltung'),t('Hier können Sie Einzahlungen, Auszahlungen verwalten und Kontostände einsehen.'));
+		$dsp->NewContent(t('Kontoverwaltung'),t('Hier kannst du Einzahlungen, Auszahlungen verwalten und Kontostände einsehen.'));
 		$dia_quest[] .= t('Zahlungen')	;
 		$dia_quest[] .= t('Fremder Kontoauszug');
 		$dia_quest[] .= t('Eigener Kontoauszug');

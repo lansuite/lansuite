@@ -369,7 +369,7 @@ class teamspeakDisplayClass {
 			echo("		window.alert('Could not enter the teamspeak server because the nickname you entered contains one or more of these forbidden characters: " . str_replace("'", "\\'", $settings["forbiddennicknamechars"]) . "');\n");
 			echo("		return;\n");
 			echo("	} else if (nickname == \"\") {\n");
-			echo("		window.alert('".t('Konnte nicht zum Server verbinden, da Sie kein Nickname eingetragen haben')."');\n");
+			echo("		window.alert('".t('Konnte nicht zum Server verbinden, da du kein Nickname eingetragen hast')."');\n");
 			echo("		return;\n");
 			echo("	}\n");
 			echo("	serveraddress = serveraddress + \"/nickname=\" + escape(nickname);\n");
@@ -378,7 +378,7 @@ class teamspeakDisplayClass {
 				echo("	if (password == null) {\n");
 				echo("		return;\n");
 				echo("	} else if (password == \"\") {\n");
-				echo("		window.alert('".t('Konnte nicht zum Server verbinden, da Sie kein Teamspeak Server Passwort eingetragen haben')."');\n");
+				echo("		window.alert('".t('Konnte nicht zum Server verbinden, da du kein Teamspeak Server Passwort eingetragen hast')."');\n");
 				echo("		return;\n");
 				echo("	}\n");
 				echo("	serveraddress = serveraddress + \"?password=\" + escape(password);\n");
@@ -396,7 +396,7 @@ class teamspeakDisplayClass {
 			echo("		if (channelpassword == null) {\n");
 			echo("			return;\n");
 			echo("		} else if (channelpassword == \"\") {\n");
-			echo("			window.alert('".t('Konnte nicht zum Server verbinden, da Sie kein Channel Passwort eingetragen haben')."');\n");
+			echo("			window.alert('".t('Konnte nicht zum Server verbinden, da du kein Channel Passwort eingetragen hast')."');\n");
 			echo("			return;\n");
 			echo("		}\n");
 			echo("		serveraddress = serveraddress + \"?channelpassword=\" + escape(channelpassword);\n");

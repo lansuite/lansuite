@@ -7,8 +7,8 @@ function CheckIP($ip) {
 
 	$explode = explode('.', $ip_address);
 	$count = count($explode);
-	if ($count != 4) return t('Bitte geben Sie eine gültige IP Adresse ein');
-	elseif ($explode[0] > 255 or $explode[1] > 255 or $explode[2] > 255 or $explode[3] > 255) return t('Bitte geben Sie eine gültige IP Adresse ein');
+	if ($count != 4) return t('Bitte gib eine gültige IP Adresse ein');
+	elseif ($explode[0] > 255 or $explode[1] > 255 or $explode[2] > 255 or $explode[3] > 255) return t('Bitte gib eine gültige IP Adresse ein');
 
   return false;
 }
@@ -17,7 +17,7 @@ function CheckMAC($mac) {
   if ($mac) {
   	$explode = explode('-', $mac);
   	$count = count($explode);
-  	if ($count != 6) return t('Bitte geben Sie eine gültige MAC Adresse ein');
+  	if ($count != 6) return t('Bitte gib eine gültige MAC Adresse ein');
   }
   return false;
 }
@@ -36,9 +36,9 @@ if ($cfg['server_ip_auto_assign']) {
   $IPEnd = substr($IPArea, strrpos($IPArea, '-') + 1, strlen($IPArea));
 }
 
-if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) $func->information(t('Es sind keine freien IPs mehr vorhanden. Bitten Sie einen Administrator darum den vorgesehenen Bereich zu erhöhren'), "index.php?mod=server");
+if ($cfg['server_ip_auto_assign'] and $cfg['server_ip_next'] > $IPEnd) $func->information(t('Es sind keine freien IPs mehr vorhanden. Bitte einen Administrator darum den vorgesehenen Bereich zu erhöhren'), "index.php?mod=server");
 elseif ($cfg["server_admin_only"] and $auth['type'] <= 1) $func->information(t('Nur Adminsitratoren dürfen Server hinzufügen'), "index.php?mod=server");
-elseif (!$get_paid['paid'] and $auth["type"] <= 1) $func->information(t('Sie müssen zuerst bezahlen, um Server hinzufügen zu dürfen'), "index.php?mod=server");
+elseif (!$get_paid['paid'] and $auth["type"] <= 1) $func->information(t('Du musst zuerst bezahlen, um Server hinzufügen zu dürfen'), "index.php?mod=server");
 else {
 	
   $dsp->NewContent(t('Server'), t('Hinzufügen und Aendern der Server'));

@@ -64,7 +64,7 @@
 			</entry>
 			<entry>
 				<id>4214b4fdbdc5f544945821c4f224cbfd</id>
-				<org>Bitte geben Sie einen Namen f&amp;uuml;r das Device ein</org>
+				<org>Bitte gib einen Namen f&amp;uuml;r das Device ein</org>
 				<en>Please enter a name for the device</en>
 				<es>Por favor, introduzca un nombre para el dispositivo</es>
 				<fr>S&amp;#39;il vous plaît, entrez un nom pour l&amp;#39;appareil</fr>
@@ -74,7 +74,7 @@
 			</entry>
 			<entry>
 				<id>76239b40697b8168fec91936f4b39f46</id>
-				<org>Bitte geben Sie eine IP-Adresse f&amp;uuml;r das Device ein</org>
+				<org>Bitte gib eine IP-Adresse f&amp;uuml;r das Device ein</org>
 				<en>Please enter an IP address for the device</en>
 				<es>Por favor, introduzca una dirección IP para el dispositivo</es>
 				<fr>S&amp;#39;il vous plaît entrer une adresse IP pour le périphérique</fr>
@@ -84,7 +84,7 @@
 			</entry>
 			<entry>
 				<id>dbbace6dd4151bd0ba91cf36e9cfee5b</id>
-				<org>Bitte geben Sie eine &lt;em&gt;g&amp;uuml;ltige&lt;/em&gt; IP-Adresse f&amp;uuml;r das Device ein</org>
+				<org>Bitte gib eine &lt;em&gt;g&amp;uuml;ltige&lt;/em&gt; IP-Adresse f&amp;uuml;r das Device ein</org>
 				<en>Please enter a &lt;em&gt;valid&lt;/em&gt; IP address for the device</en>
 				<es>Por favor, introduzca una dirección IP &lt;em&gt;válida&lt;/em&gt; para el dispositivo</es>
 				<fr>S&amp;#39;il vous plaît entrer une adresse IP &lt;em&gt;valide&lt;/em&gt; pour le dispositif</fr>
@@ -94,7 +94,7 @@
 			</entry>
 			<entry>
 				<id>d9bf586b3bf48499d9de25d662dc70a1</id>
-				<org>Bitte geben Sie eine Write-Community f&amp;uuml;r das Device an.</org>
+				<org>Bitte gib eine Write-Community f&amp;uuml;r das Device an.</org>
 				<en>Please enter a write-community for the device.</en>
 				<es>Por favor, introduzca una escritura de la comunidad para el dispositivo.</es>
 				<fr>S&amp;#39;il vous plaît entrer une réduction de la collectivité pour le périphérique.</fr>
@@ -104,7 +104,7 @@
 			</entry>
 			<entry>
 				<id>30ecc73f1c3e5c0eda64193fe0fc8ea2</id>
-				<org>Bitte geben Sie eine Read-Community f&amp;uuml;r das Device an.</org>
+				<org>Bitte gib eine Read-Community f&amp;uuml;r das Device an.</org>
 				<en>Please specify a read community for the device.</en>
 				<es>Por favor, especifique una comunidad de lectura para el dispositivo.</es>
 				<fr>S&amp;#39;il vous plaît spécifier une communauté de lecture pour le périphérique.</fr>
@@ -344,7 +344,7 @@
 			</entry>
 			<entry>
 				<id>cb9703019461bf544ce6b9cfcc5139c2</id>
-				<org>Geben sie bitte alle Ports an die Sie &amp;auml;ndern wollen</org>
+				<org>Gib bitte alle Ports an die du &amp;auml;ndern willst</org>
 				<en>Please specify what you want to change all ports to which you</en>
 				<es>Por favor, especifique lo que desea cambiar todos los puertos a los que</es>
 				<fr>S&amp;#39;il vous plaît indiquer ce que vous voulez modifier tous les ports vers lequel vous</fr>
@@ -354,7 +354,7 @@
 			</entry>
 			<entry>
 				<id>c4053c0b644825cb4d52dda2cb6decba</id>
-				<org>Wollen Sie folgende Ports &amp;auml;ndern?</org>
+				<org>Willst du folgende Ports &amp;auml;ndern?</org>
 				<en>Do you want to change the following ports?</en>
 				<es>¿Desea cambiar los puertos siguientes?</es>
 				<fr>Voulez-vous changer les ports suivants?</fr>
@@ -514,7 +514,7 @@
 			</entry>
 			<entry>
 				<id>9a07908092cfcc7b3cf9cf32e275303a</id>
-				<org>Sind Sie sicher, dass Sie den Status dieses Ports &amp;auml;ndern wollen?</org>
+				<org>Bist du sicher, dass du den Status dieses Ports &amp;auml;ndern willst?</org>
 				<en>Are you sure you want to change the status of this port?</en>
 				<es>¿Estás seguro de que desea cambiar el estado de este puerto?</es>
 				<fr>Êtes-vous sûr de vouloir modifier le statut de ce port?</fr>

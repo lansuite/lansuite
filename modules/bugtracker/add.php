@@ -1,5 +1,5 @@
 <?php
-$dsp->NewContent(t('Bugtracker'), t('Hier können Sie Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.'));
+$dsp->NewContent(t('Bugtracker'), t('Hier kannst du Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.'));
 
 $row = $db->qry_first('SELECT reporter FROM %prefix%bugtracker WHERE bugid = %int%', $_GET['bugid']);
 if ($_GET['bugid'] and $auth['type'] < 2 and $row['reporter'] != $auth['userid']) $func->error(t('Nur Admins und der Reporter dürfen Bug-Einträge im Nachhinein editieren'), 'index.php?mod=bugtracker');

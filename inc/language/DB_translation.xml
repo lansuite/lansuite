@@ -754,7 +754,7 @@
 			</entry>
 			<entry>
 				<id>fb7dfd2a627d32515802c4aae403d450</id>
-				<org>Verwalten Sie die Boxen</org>
+				<org>Verwalte die Boxen</org>
 				<en>Manage boxes</en>
 				<es>Administrar el hoyo</es>
 				<fr>Gérer la fosse</fr>
@@ -764,7 +764,7 @@
 			</entry>
 			<entry>
 				<id>2001066ead53f753661d38f40cea405d</id>
-				<org>Hier können Sie Fehler auf dieser Webseite melden</org>
+				<org>Hier kannst du Fehler auf dieser Webseite melden</org>
 				<en>Here you can report bugs on this website</en>
 				<es>Aquí se puede informar de los errores en este sitio web</es>
 				<fr>Ici vous pouvez signaler des bogues sur ce site</fr>
@@ -804,7 +804,7 @@
 			</entry>
 			<entry>
 				<id>066ff34f4170e2b2eb08aa42dfee4a9a</id>
-				<org>Hier können Sie Dateien downloaden</org>
+				<org>Hier kannst du Dateien downloaden</org>
 				<en>Here you can download files</en>
 				<es>Archivos Aquí puede descargar</es>
 				<fr>Ici, vous pouvez télécharger des fichiers</fr>
@@ -854,7 +854,7 @@
 			</entry>
 			<entry>
 				<id>55de752de8f37467a1dc5ce67489e54b</id>
-				<org>Hier können Sie komfortabel Speisen und Getränke bestellen</org>
+				<org>Hier kannst du komfortabel Speisen und Getränke bestellen</org>
 				<en>Here you can conveniently order food and drinks</en>
 				<es>Aquí usted puede ordenar convenientemente los alimentos y bebidas</es>
 				<fr>Ici, vous pouvez facilement commander des aliments et des boissons</fr>
@@ -924,7 +924,7 @@
 			</entry>
 			<entry>
 				<id>ef0d7e6974a1e79e5220dd926bf1b519</id>
-				<org>Hier können Sie den Kassenstand prüfen</org>
+				<org>Hier kannst du den Kassenstand prüfen</org>
 				<en>Here you can check the cash situation</en>
 				<es>Aquí puede comprobar la situación de caja</es>
 				<fr>Ici vous pouvez vérifier la situation de trésorerie</fr>
@@ -944,7 +944,7 @@
 			</entry>
 			<entry>
 				<id>c84fde76b82c2e3366e816d2cb5126f9</id>
-				<org>Hier sehen Sie aus welchen Gegenden die Besucher kommen</org>
+				<org>Hier siehst du aus welchen Gegenden die Besucher kommen</org>
 				<en>Here you can see what countries the visitors come from</en>
 				<es>Aquí puedes ver lo que los países de los visitantes provienen de</es>
 				<fr>Ici vous pouvez voir quels pays les visiteurs proviennent de</fr>
@@ -954,7 +954,7 @@
 			</entry>
 			<entry>
 				<id>ef818c0bea000f676296672d295b9af2</id>
-				<org>Hier können Sie Änderungen an der Konfiguration von LanSuite vornehmen</org>
+				<org>Hier kannst du Änderungen an der Konfiguration von LanSuite vornehmen</org>
 				<en>Here you can make changes to the configuration of LanSuite</en>
 				<es>Usted puede hacer cambios en la configuración de LanSuite</es>
 				<fr>Ici vous pouvez apporter des modifications à la configuration de LanSuite</fr>
@@ -984,7 +984,7 @@
 			</entry>
 			<entry>
 				<id>a553dde5efd7a0e93b7944fe4d6b2f4c</id>
-				<org>Ihr Posteingangs-Ordner</org>
+				<org>Dein Posteingangs-Ordner</org>
 				<en>Your Inbox folder</en>
 				<es>Su carpeta Bandeja de entrada</es>
 				<fr>Votre dossier Boîte de réception</fr>
@@ -994,7 +994,7 @@
 			</entry>
 			<entry>
 				<id>890b87fcb3181c7dbaf8b36aac7031a6</id>
-				<org>Hier versenden Sie eine Mail</org>
+				<org>Hier versendest du eine Mail</org>
 				<en>Here you can send an e-mail</en>
 				<es>Aquí usted puede enviar un e-mail</es>
 				<fr>Ici vous pouvez envoyer un e-mail</fr>
@@ -1004,7 +1004,7 @@
 			</entry>
 			<entry>
 				<id>14d65d8c203e3438b176fde55d814a01</id>
-				<org>Ihr Postausgang</org>
+				<org>Dein Postausgang</org>
 				<en>My Outbox</en>
 				<es>Mi Bandeja de salida</es>
 				<fr>Ma boîte d&amp;#39;envoi</fr>
@@ -1014,7 +1014,7 @@
 			</entry>
 			<entry>
 				<id>725c47de5ae7f7e7d41600ff6452e2ef</id>
-				<org>Hier können Sie allen Ihren Gästen eine Mail schreiben</org>
+				<org>Hier kannst du allen Ihren Gästen eine Mail schreiben</org>
 				<en>Here you can write a mail to all your guests</en>
 				<es>Aquí usted puede escribir un correo electrónico a todos sus invitados</es>
 				<fr>Ici vous pouvez écrire un mail à tous vos invités</fr>
@@ -1044,7 +1044,7 @@
 			</entry>
 			<entry>
 				<id>453e9414324099e92a34a541eeecaeb1</id>
-				<org>Hier sehen Sie alle eingetragen News-Meldungen</org>
+				<org>Hier siehst du alle eingetragen News-Meldungen</org>
 				<en>Here you see all registered news messages</en>
 				<es>Aquí puede ver todos los mensajes de noticias registradas</es>
 				<fr>Ici vous pouvez voir tous les messages de nouvelles enregistré</fr>
@@ -1054,7 +1054,7 @@
 			</entry>
 			<entry>
 				<id>54e14a4fded6412b9a754f252cd38901</id>
-				<org>Hier können Sie News-Meldungen hinzufügen</org>
+				<org>Hier kannst du News-Meldungen hinzufügen</org>
 				<en>You can add news messages</en>
 				<es>Usted puede agregar mensajes de noticias</es>
 				<fr>Vous pouvez ajouter des messages de nouvelles</fr>
@@ -1084,7 +1084,7 @@
 			</entry>
 			<entry>
 				<id>5403fe3d5bec1ec95ddc319a3b5dc5d2</id>
-				<org>Hier können Sie einen vorhanden Sitzplan kopieren</org>
+				<org>Hier kannst du einen vorhanden Sitzplan kopieren</org>
 				<en>You can copy an existing seating plan</en>
 				<es>Puede copiar un plan de asientos existentes</es>
 				<fr>Vous pouvez copier un plan existant de sièges</fr>
@@ -1094,7 +1094,7 @@
 			</entry>
 			<entry>
 				<id>cb83dd6e8cddf8fd34fac47c1526afbf</id>
-				<org>Hier finden Sie eine Liste der Sponsoren dieser Veranstaltung</org>
+				<org>Hier findest du eine Liste der Sponsoren dieser Veranstaltung</org>
 				<en>Here is a list of the sponsors of this event</en>
 				<es>Aquí está una lista de los patrocinadores de este evento</es>
 				<fr>Voici une liste des sponsors de cet événement</fr>
@@ -1174,7 +1174,7 @@
 			</entry>
 			<entry>
 				<id>67274a8a90b8f1eadb6d59879ad8357e</id>
-				<org>Lassen Sie Gäste Fehler melden, die Sie entweder selbst beheben, oder an das Lansuite weiterreichen können</org>
+				<org>Lasse Gäste Fehler melden, die du entweder selbst behebest, oder an das Lansuite weiterreichen können</org>
 				<en>Allow visitors to sign errors, which can either fix themselves or pass it to the Lansuite</en>
 				<es>Permitir a los visitantes para firmar los errores, que puede fijarse o pasar a la Lansuite</es>
 				<fr>Autoriser les visiteurs à signer des erreurs, qui peuvent soit se fixer ou de le remettre à l&amp;#39;Lansuite</fr>
@@ -1704,7 +1704,7 @@
 			</entry>
 			<entry>
 				<id>b4869102d1eb8033f0d868c60ba27ab4</id>
-				<org>Geben Sie hier weitere E-Mail Adressen an, an die - neben den Benutzern - Mails gesendet werden können</org>
+				<org>Gib hier weitere E-Mail Adressen an, an die - neben den Benutzern - Mails gesendet werden können</org>
 				<en>Enter more email addresses can be sent to the - next to the users - emails</en>
 				<es>Escriba las direcciones de correo electrónico más pueden ser enviadas a la - junto a los usuarios - mensajes de correo electrónico</es>
 				<fr>Entrez les adresses e-mail peut être envoyé à l&amp;#39;autre - aux utilisateurs - des e-mails</fr>
@@ -2224,7 +2224,7 @@
 			</entry>
 			<entry>
 				<id>2f65a7396e9cb9a6e68329af0e7aa98a</id>
-				<org>TeamSpeak QueryPort. Schauen Sie in die server.ini von TeamSpeak (Standard: 51234)</org>
+				<org>TeamSpeak QueryPort. Schau in die server.ini von TeamSpeak (Standard: 51234)</org>
 				<en>TeamSpeak QueryPort. Look in the server.ini (TeamSpeak default: 51234)</en>
 				<es>TeamSpeak QueryPort. Buscar en la Server.ini (TeamSpeak por defecto: 51234)</es>
 				<fr>TeamSpeak QueryPort. Regardez dans la server.ini (par défaut TeamSpeak: 51234)</fr>
@@ -3244,7 +3244,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>8de7a554d22e7977bf7c9214d323b9a3</id>
-				<org>Hier können Sie einen neuen Clan hinzufügen</org>
+				<org>Hier kannst du einen neuen Clan hinzufügen</org>
 				<en>Here you can add a new clan</en>
 				<es>Aquí usted puede agregar un nuevo clan</es>
 				<fr>Ici vous pouvez ajouter un nouveau clan</fr>
@@ -3254,7 +3254,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>e424902a162a5383fc641c8cb7584241</id>
-				<org>Hier finden sie Ihre gelöschten Mails</org>
+				<org>Hier findst du deine gelöschten Mails</org>
 				<en>Here you can find your deleted messages</en>
 				<es>Aquí usted puede encontrar los mensajes eliminados</es>
 				<fr>Ici vous pouvez trouver vos messages supprimés</fr>
@@ -3264,7 +3264,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>d74566102e33397dbc5fd20e19113edb</id>
-				<org>Hier können Sie nach News-Meldungen suchen</org>
+				<org>Hier kannst du nach News-Meldungen suchen</org>
 				<en>Here you can search for news reports</en>
 				<es>Aquí usted puede buscar noticias</es>
 				<fr>Ici, vous pouvez lancer une recherche sur les bulletins de nouvelles</fr>
@@ -3274,7 +3274,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>376482f2da8854be4149c703f820478c</id>
-				<org>Hier können Sie Polls hinzufügen</org>
+				<org>Hier kannst du Polls hinzufügen</org>
 				<en>Here you can add polls</en>
 				<es>Aquí usted puede añadir las encuestas</es>
 				<fr>Ici, vous pouvez ajouter des sondages</fr>
@@ -3284,7 +3284,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>3df7cce05f2551e9a4d776898965628b</id>
-				<org>Hier können Sie alle eingetragenen Polls anzeigen</org>
+				<org>Hier kannst du alle eingetragenen Polls anzeigen</org>
 				<en>Here you can view all registered Polls</en>
 				<es>Aquí usted puede ver todas las encuestas registradas</es>
 				<fr>Ici vous pouvez voir tous les sondages enregistré</fr>
@@ -3324,7 +3324,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>b051da88d1f719f7e598010d6cc0302e</id>
-				<org>Hier können Sie einzelnen Benutzern neue Sitzplätze zuweisen</org>
+				<org>Hier kannst du einzelnen Benutzern neue Sitzplätze zuweisen</org>
 				<en>Here you can assign individual users, new seats</en>
 				<es>Aquí usted puede asignar a los usuarios individuales, nuevos asientos</es>
 				<fr>Ici, vous pouvez assigner des utilisateurs individuels, de nouveaux sièges</fr>
@@ -3334,7 +3334,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>d49c82c662cbbfdbd9778d98463eced5</id>
-				<org>Hier können Sie einen Sitzblock hinzufügen</org>
+				<org>Hier kannst du einen Sitzblock hinzufügen</org>
 				<en>Here you can add a seat block</en>
 				<es>Aquí usted puede agregar un bloque de asiento</es>
 				<fr>Ici vous pouvez ajouter un bloc de sièges</fr>
@@ -3344,7 +3344,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>3ab364619fb2439d4631fba4f508aa0e</id>
-				<org>Hier können Sie alle Sitzblöcke anzeigen</org>
+				<org>Hier kannst du alle Sitzblöcke anzeigen</org>
 				<en>Here you can view all established units</en>
 				<es>Aquí puede ver todos los establecido unidades</es>
 				<fr>Ici, vous pouvez afficher tous créé des unités</fr>
@@ -3354,7 +3354,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>458296f34fda69814880737aa07fc239</id>
-				<org>Hier können Sie Ergebnisse exportieren</org>
+				<org>Hier kannst du Ergebnisse exportieren</org>
 				<en>Here you can export results</en>
 				<es>Aquí usted puede exportar los resultados de</es>
 				<fr>Ici, vous pouvez exporter les résultats</fr>
@@ -3364,7 +3364,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>3bf43e22f2b91c6dd816a8d0a5d19c0d</id>
-				<org>Hier können Sie Teams verwalten</org>
+				<org>Hier kannst du Teams verwalten</org>
 				<en>Here you can manage teams</en>
 				<es>Aquí puede administrar los equipos de</es>
 				<fr>Ici, vous pouvez gérer des équipes</fr>
@@ -3374,7 +3374,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>86a757d146748b8f25e6a0dd0eba657a</id>
-				<org>Hier können Sie ein neues Turnier erstellen</org>
+				<org>Hier kannst du ein neues Turnier erstellen</org>
 				<en>Here you can create a new tournament</en>
 				<es>Aquí usted puede crear un nuevo torneo</es>
 				<fr>Ici, vous pouvez créer un nouveau tournoi</fr>
@@ -3384,7 +3384,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>41dbb673bc8a7b209642bf105bd18778</id>
-				<org>Hier können Sie eine übersicht über alle Turniere aufrufen</org>
+				<org>Hier kannst du eine übersicht über alle Turniere aufrufen</org>
 				<en>Here you can request a review of all tournaments</en>
 				<es>Aquí usted puede solicitar una revisión de todos los torneos de</es>
 				<fr>Ici, vous pouvez demander une révision de tous les tournois</fr>
@@ -3514,7 +3514,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>51c9710627bef2aea022517e0e28b08f</id>
-				<org>Hier können Sie die Informationseite Ihren Wünschen anpassen</org>
+				<org>Hier kannst du die Informationseite Ihren Wünschen anpassen</org>
 				<en>Here you can customize the information page of your needs</en>
 				<es>Aquí usted puede personalizar la página de información de sus necesidades</es>
 				<fr>Ici vous pouvez personnaliser la page d&amp;#39;information de vos besoins</fr>
@@ -3554,7 +3554,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>0ac45b05e51c8157961bb59655473c95</id>
-				<org>Suchen Sie in den Wiki-Beiträgen</org>
+				<org>Suche in den Wiki-Beiträgen</org>
 				<en>Looking into the wiki-contributions</en>
 				<es>Mirando hacia el wiki de las contribuciones</es>
 				<fr>En regardant dans le wiki des contributions</fr>
@@ -3564,7 +3564,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>869163c4b846079b1a9fb42e619bbefa</id>
-				<org>Schlagen Sie wissenswertes in unserem Wiki nach</org>
+				<org>Schlage wissenswertes in unserem Wiki nach</org>
 				<en>Suggest wissenswertes in our wiki for</en>
 				<es>Sugerir Wissenswertes en nuestro wiki para</es>
 				<fr>Suggérez Wissenswertes dans notre wiki de</fr>
@@ -3574,7 +3574,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>bda3e0945c52bbf270cfc5501a8b897b</id>
-				<org>Hier können Sie ältere News-Meldungen anschauen</org>
+				<org>Hier kannst du ältere News-Meldungen anschauen</org>
 				<en>Here you can view older news messages</en>
 				<es>Aquí usted puede ver los mensajes de noticias anteriores</es>
 				<fr>Ici, vous pouvez afficher messages plus anciens nouvelles</fr>
@@ -4304,7 +4304,7 @@ Variablen:
 			</entry>
 			<entry>
 				<id>e71894340ff02f6030984614782087bc</id>
-				<org>Setzen sie diese Option auf wahr, damit das Board in einem neuen Fenster angezeigt wird.</org>
+				<org>Setze diese Option auf wahr, damit das Board in einem neuen Fenster angezeigt wird.</org>
 				<en>They set this option to true, so the board will be displayed in a new window.</en>
 				<es>Se establece esta opción a true, por lo que la Junta se mostrará en una ventana nueva.</es>
 				<fr>Ils ont mis cette option à true, de sorte que le conseil sera affiché dans une nouvelle fenêtre.</fr>

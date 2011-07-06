@@ -13,11 +13,11 @@ class beamer_display {
 	global $dsp, $lang, $beamermodul, $bcid, $beamerid;	
 	
 		$dsp->NewContent( t('Beamer&uuml;bersicht') ,"");
-		$dsp->AddSingleRow('<br/>'.t('Mit diesem Modul k&ouml;nnen Sie Texte und anderen Daten f&uuml;r eine Beamerpr&auml;sentation aufbereiten.').'<br/><br/>'.
+		$dsp->AddSingleRow('<br/>'.t('Mit diesem Modul kannst du Texte und anderen Daten f&uuml;r eine Beamerpr&auml;sentation aufbereiten.').'<br/><br/>'.
 						   t('Aktive Inhalte: ').$beamermodul->countContent("1").'<br/>'.
 						   t('Inhalte gesamt: ').$beamermodul->countContent().
 						   '<p />' );
-		$dsp->AddSingleRow('<br />' . t('Das Modul arbeitet derzeit nur mit dem Template /\'/simple/\'/ und /\'/beamer/\'/ zusammen. F&uuml;r eine schnelle L&ouml;sung erstellen Sie einen zus&auml;tzlichen Account der das Beamer-Template verwendet. Damit haben Sie die besten Ergebnisse im Fullscreen Mode. <p/>Damit es mit jedem anderen Template funktioniert, m&uuml;ssen Sie in ihrem Template im Bereich der Meta-Angaben folgende Codezeilen hinzuf&uuml;gen:<p/> if( $_GET[/\'/sitereload/\'/] ) { echo ... (Restlichen Anweisungsblock bitte as der Design-index.php entnehmen.)  } ')	);				
+		$dsp->AddSingleRow('<br />' . t('Das Modul arbeitet derzeit nur mit dem Template /\'/simple/\'/ und /\'/beamer/\'/ zusammen. F&uuml;r eine schnelle L&ouml;sung erstelle einen zus&auml;tzlichen Account der das Beamer-Template verwendet. Damit hast du die besten Ergebnisse im Fullscreen Mode. <p/>Damit es mit jedem anderen Template funktioniert, musst du in deinem Template im Bereich der Meta-Angaben folgende Codezeilen hinzuf&uuml;gen:<p/> if( $_GET[/\'/sitereload/\'/] ) { echo ... (Restlichen Anweisungsblock bitte as der Design-index.php entnehmen.)  } ')	);				
 		$dsp->AddSingleRow("<br />");
 		$dsp->AddContent();
 	}
@@ -117,7 +117,7 @@ class beamer_display {
 	function viewAddNewContent1() {
 	global $dsp, $lang, $beamermodul, $bcid, $beamerid;	
 		$dsp->NewContent( t('Inhalte hinzuf&uuml;gen') );
-		$dsp->AddSingleRow( HTML_NEWLINE.t("Bitte w&auml;hlen Sie einen Inhaltstyp aus:").HTML_NEWLINE.HTML_NEWLINE);
+		$dsp->AddSingleRow( HTML_NEWLINE.t("Bitte w&auml;hle einen Inhaltstyp aus:").HTML_NEWLINE.HTML_NEWLINE);
 		$dsp->SetForm("index.php?mod=beamer&action=newcontent2");
 		$dsp->AddRadioRow("ctype", t("<strong>Text</strong><br /> (FCKeditor, HTML/Bilder/Flash m&ouml;glich)") , 'text' , $errortext = NULL, $optional = NULL, $checked = TRUE, $disabled = NULL);
 		$dsp->AddRadioRow("ctype", t("<strong>Wrapper</strong><br /> (IFrame f&uuml;r Webseiten oder sonstigen Content)") , 'wrapper' , $errortext = NULL, $optional = NULL, $checked = FALSE, $disabled = NULL);

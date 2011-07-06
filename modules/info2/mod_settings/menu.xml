@@ -5,7 +5,7 @@
 		<action>default</action>
 		<file>show</file>
 		<caption>Informationen</caption>
-		<hint>Hier können Sie die Informationseite Ihren Wünschen anpassen</hint>
+		<hint>Hier kannst du die Informationseite Ihren Wünschen anpassen</hint>
 		<link>?mod=info2&amp;action=change</link>
 		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>

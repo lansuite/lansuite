@@ -182,7 +182,7 @@ if( !$row = $db->fetch_array() ) {
 		
 		
 		case 2:
-		$dsp->NewContent(t('Portstatus &auml;ndern'),t('Geben sie bitte alle Ports an die Sie &auml;ndern wollen'));
+		$dsp->NewContent(t('Portstatus &auml;ndern'),t('Gib bitte alle Ports an die du &auml;ndern willst'));
 		$dsp->SetForm("index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=3");
 
 		$db->qry("SELECT portnr, portid, linkstatus, adminstatus, speed, type, indexname FROM %prefix%noc_ports WHERE deviceid = %int% AND type != 'system' ORDER BY portnr ASC", $_GET["deviceid"]);
@@ -260,10 +260,10 @@ if( !$row = $db->fetch_array() ) {
 				foreach ($_POST['noc'] as $noc_data){
 					$ports .= $noc_data . HTML_NEWLINE;	
 				}
-				$func->question(t('Wollen Sie folgende Ports &auml;ndern?') . HTML_NEWLINE . $ports,"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=4","index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]. "&step=2");
+				$func->question(t('Willst du folgende Ports &auml;ndern?') . HTML_NEWLINE . $ports,"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=4","index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]. "&step=2");
 			}elseif (isset($_POST['noc'])){
 				$ports = $_POST['noc'];
-				$func->question(t('Wollen Sie folgende Ports &auml;ndern?') . HTML_NEWLINE . $ports,"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=4","index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]. "&step=2");
+				$func->question(t('Willst du folgende Ports &auml;ndern?') . HTML_NEWLINE . $ports,"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=4","index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"]. "&step=2");
 			}else{
 				$func->error(t('Keine Ports ausgew&auml;hlt'),"index.php?mod=noc&action=details_device&deviceid=". $_GET["deviceid"] ."&step=2");
 			}

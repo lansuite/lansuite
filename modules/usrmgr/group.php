@@ -25,7 +25,7 @@ switch ($_GET['step']){
 	case 3:
 		if(isset($_GET['group_id'])) $_POST['group_id'] = $_GET['group_id'];
 		if($_POST['group_name'] == ""){
-			$error_usrmgr['group'] = t('Geben Sie einen Gruppennamen ein');
+			$error_usrmgr['group'] = t('Gib einen Gruppennamen ein');
 			$_GET['step'] = 2;
 		}
 		
@@ -66,7 +66,7 @@ switch ($_GET['step']){
 switch ($_GET['step']){
 	
 	default :
-		$dsp->NewContent(t('Gruppenverwaltung'),t('Erstellen Sie Benutzergruppen um unterschiedliche Preise zu verlangen.'));
+		$dsp->NewContent(t('Gruppenverwaltung'),t('Erstelle Benutzergruppen um unterschiedliche Preise zu verlangen.'));
 		$dsp->AddSingleRow("<a href='index.php?mod=usrmgr&action=group&step=9'>".t('Benutzer einer Gruppe zuweisen')."</a>");
 
 		if($_GET['var'] == "update"){
@@ -160,7 +160,7 @@ switch ($_GET['step']){
 				$userids .= "$userid,";
 			}
 			$row = $db->qry_first("SELECT group_name FROM %prefix%party_usergroups WHERE group_id=%int%", $_GET['group_id']);
-			$text .= HTML_NEWLINE . t('Wollen Sie diese Benutzer der Gruppe %1 zuweisen?',"\"<b>" .$row['group_name'] . "</b>\"");
+			$text .= HTML_NEWLINE . t('Willst du diese Benutzer der Gruppe %1 zuweisen?',"\"<b>" .$row['group_name'] . "</b>\"");
 			$userids = substr($userids, 0, strlen($userids) - 1);
 			$func->question($text, "index.php?mod=usrmgr&action=group&step=12&userids=$userids&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}");
 
@@ -168,7 +168,7 @@ switch ($_GET['step']){
 			$user_data = $db->qry_first("SELECT user.username, g.group_name FROM %prefix%user AS user LEFT JOIN %prefix%party_usergroups AS g ON user.group_id = g.group_id WHERE userid = %int%", $_GET["userid"]);
 					
 			if ($user_data["username"]) {
-				$func->question(t('Wollen Sie den Benutzer %1 der Gruppe %2 zuweisen?', $user_data["username"],$user_data["group_name"]),"index.php?mod=usrmgr&action=group&step=12&userid={$_GET["userid"]}&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}");
+				$func->question(t('Willst du den Benutzer %1 der Gruppe %2 zuweisen?', $user_data["username"],$user_data["group_name"]),"index.php?mod=usrmgr&action=group&step=12&userid={$_GET["userid"]}&group_id={$_GET['group_id']}", "index.php?mod=usrmgr&action=group&step=10&group_id={$_GET['group_id']}");
 			}else{
 				$func->error(t('Dieser Benutzer existiert nicht'), "index.php?mod=usrmgr&action=group&step=10");	
 			}
@@ -190,7 +190,7 @@ switch ($_GET['step']){
 	
 	// Sort Groups
 	case 15:
-		$dsp->NewContent(t('Gruppen sortieren'), t('Hier können Sie die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die höchste Priorität'));
+		$dsp->NewContent(t('Gruppen sortieren'), t('Hier kannst du die Gruppen sortieren in welcher Reihenfolge sie Angewendet werden sollen. Die oberste hat die höchste Priorität'));
 
 		$groups = $db->qry("SELECT * FROM %prefix%party_usergroups WHERE selection != 0 ORDER BY pos");
 		$z = 0;
@@ -220,7 +220,7 @@ switch ($_GET['step']){
 	break;
 	
 	case 21:
-		$dsp->NewContent(t('Gruppe zuweisen'),t('Welche Gruppe möchten Sie den Benutzern die in der gelöschten Gruppe sind zuweisen?'));
+		$dsp->NewContent(t('Gruppe zuweisen'),t('Welche Gruppe möchtest du den Benutzern die in der gelöschten Gruppe sind zuweisen?'));
 		$dsp->SetForm("index.php?mod=usrmgr&action=group&step=22&group_id={$_GET['group_id']}");
 		$party->get_user_group_dropdown("NULL",1);
 		$dsp->AddFormSubmitRow(t('Weiter'));

@@ -17,7 +17,7 @@ foreach ($auth as $key => $val) {
 }
 
 if ($missing_fields) {
-  $dsp->NewContent(t('Unvollständiges Benutzerprofil'), t('Es gibt noch unausgefüllte Pflichtfelder in Ihrem Benutzerprofil. Bitte pflegen Sie diese nach'));
+  $dsp->NewContent(t('Unvollständiges Benutzerprofil'), t('Es gibt noch unausgefüllte Pflichtfelder in deinem Benutzerprofil. Bitte pflege diese nach'));
   $dsp->AddContent();
 
   $_GET['userid'] = $auth['userid'];

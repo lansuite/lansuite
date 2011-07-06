@@ -1,6 +1,6 @@
 <?php
 
-$dsp->NewContent(t('Installation und Administration'), t('Auf diesen Seiten können Sie Lansuite installieren und verwalten'));
+$dsp->NewContent(t('Installation und Administration'), t('Auf diesen Seiten kannst du Lansuite installieren und verwalten'));
 
 // Scan for DB-Structure SQL-Errors
 $row = $db->qry_first('SELECT 1 AS found FROM %prefix%log WHERE type = 3 AND description LIKE \'%Unknown column%\'');
@@ -34,7 +34,7 @@ $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=export\"><img src
 $dsp->AddDoubleRow("", "<a href=\"index.php?mod=install&action=mc_search\"><img src=\"design/images/icon_search.png\" border=\"0\" /> ".t('Kommentare aller Module durchsuchen')."</a>");
 $dsp->AddFieldSetEnd();
 
-if (!func::admin_exists()) $func->information(t('<b>ACHTUNG</b>: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Legen Sie unbedingt im Benutzermanager einen Superadmin an.'));
+if (!func::admin_exists()) $func->information(t('<b>ACHTUNG</b>: Es existiert noch kein Admin-Account. Daher hat JEDER Benutzer Admin-Rechte. Lege unbedingt im Benutzermanager einen Superadmin an.'));
 else {
     $module_list = $db->qry("SELECT module.caption FROM %prefix%modules AS module
             LEFT JOIN %prefix%menu AS menu ON menu.module = module.name

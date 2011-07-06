@@ -77,7 +77,7 @@ elseif ($thread['caption'] != '') {
 	$hyperlink = '<a href="%s" class="menu">%s</a>';
 	$overview_capt = '<b>'.sprintf($hyperlink, "index.php?mod=board", t('Forum')).'</b>';
 	$forum_capt = '<b>'.sprintf($hyperlink, "index.php?mod=board&action=forum&fid=$fid", $thread['ForumName']).'</b>';
-	$dsp->NewContent($thread["caption"],"<br/>".t('Sie sind hier » ').$overview_capt.' » '.$forum_capt.' » '.$thread["caption"]);
+	$dsp->NewContent($thread["caption"],"<br/>".t('Du bist hier » ').$overview_capt.' » '.$forum_capt.' » '.$thread["caption"]);
 
 	// Generate Thread-Buttons
 	$buttons = '';
@@ -160,12 +160,12 @@ elseif ($thread['caption'] != '') {
 }
 
 if ($thread['closed']) $func->information(t('Dieser Thread wurde geschlossen. Es können keine Antworten mehr geschrieben werden'), NO_LINK);
-elseif ($thread['need_type'] >= 1 and !$auth['login'] and !$_GET['tid']) $func->information(t('Sie müssen sich zuerst einloggen, um einen Thread in diesem Forum starten zu können'), NO_LINK);
-elseif ($thread['need_type'] >= 1 and !$auth['login'] and $_GET['tid']) $func->information(t('Um in diesem Board zu posten zu antworten, loggen Sie sich bitte zuerst ein.'), NO_LINK);
-elseif ($thread['need_type'] > (int)($auth['type'] + 1)) $func->information(t('Um in diesem Board zu posten, müssen Sie Admin sein.'), NO_LINK);
-elseif ($thread['need_group'] and $auth['group_id'] != $thread['need_group'] and $_GET['tid']) $func->information(t('Sie gehören nicht der richtigen Gruppe an, um auf diese Beiträge zu antworten.'), NO_LINK); 
-elseif ($thread['need_group'] and $auth['group_id'] != $thread['need_group'] and !$_GET['tid']) $new_thread = t('Sie gehören nicht der richtigen Gruppe an, um einen Thread in diesem Forum starten zu können');
-elseif ($_GET['pid'] != '' and $auth['type'] <= 1 and $current_post['userid'] != $auth['userid']) $func->error('Sie dürfen nur Ihre eigenen Beiträge editieren!', NO_LINK);
+elseif ($thread['need_type'] >= 1 and !$auth['login'] and !$_GET['tid']) $func->information(t('Du musst dich zuerst einloggen, um einen Thread in diesem Forum starten zu können'), NO_LINK);
+elseif ($thread['need_type'] >= 1 and !$auth['login'] and $_GET['tid']) $func->information(t('Um in diesem Board zu posten zu antworten, logge dich bitte zuerst ein.'), NO_LINK);
+elseif ($thread['need_type'] > (int)($auth['type'] + 1)) $func->information(t('Um in diesem Board zu posten, musst du Admin sein.'), NO_LINK);
+elseif ($thread['need_group'] and $auth['group_id'] != $thread['need_group'] and $_GET['tid']) $func->information(t('Du gehörst nicht der richtigen Gruppe an, um auf diese Beiträge zu antworten.'), NO_LINK); 
+elseif ($thread['need_group'] and $auth['group_id'] != $thread['need_group'] and !$_GET['tid']) $new_thread = t('Du gehörst nicht der richtigen Gruppe an, um einen Thread in diesem Forum starten zu können');
+elseif ($_GET['pid'] != '' and $auth['type'] <= 1 and $current_post['userid'] != $auth['userid']) $func->error('Du darfst nur deine eigenen Beiträge editieren!', NO_LINK);
 elseif ($thread) {
 	//Topic erstellen oder auf Topic antworten
   if($_GET['tid']) $dsp->AddFieldsetStart(t('Antworten - Der Beitrag kann anschließend noch editiert werden'));

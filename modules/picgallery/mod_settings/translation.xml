@@ -44,7 +44,7 @@
 			</entry>
 			<entry>
 				<id>23977ee3aa7d0d446860a2f0603b7f75</id>
-				<org>Möchten Sie dieses Verzeichnis wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!</org>
+				<org>Möchtest du dieses Verzeichnis wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!</org>
 				<en>Do you want to delete this directory? In all the pictures to be deleted!</en>
 				<es>¿Quieres eliminar este directorio? En todas las fotos que desea borrar!</es>
 				<fr>Voulez-vous pour supprimer ce répertoire? Dans toutes les photos pour en être supprimée!</fr>
@@ -124,7 +124,7 @@
 			</entry>
 			<entry>
 				<id>99d69eb50d3132c02a04a6ddf9b5a9a3</id>
-				<org>Sie sind nicht berechtigt neue Galerien anzulegen</org>
+				<org>Du bist nicht berechtigt neue Galerien anzulegen</org>
 				<en>You are not authorized to create new galleries</en>
 				<es>Usted no está autorizado para crear nuevas galerías</es>
 				<fr>Vous n&amp;#39;êtes pas autorisé à créer de nouvelles galeries</fr>
@@ -144,7 +144,7 @@
 			</entry>
 			<entry>
 				<id>59a649a09a8338895d879c0b86e6f22a</id>
-				<org>Klicken Sie auf ein Bild oder auf /'/�ffnen/'/ um das Bild anzuzeigen.</org>
+				<org>Klicke auf ein Bild oder auf /'/�ffnen/'/ um das Bild anzuzeigen.</org>
 				<en>Simply click on your picture or on / &amp;#39;Open / /&amp;#39; / to the image.</en>
 				<es>Simplemente haga click en la imagen o el / &amp;#39;Abrir / /&amp;#39; / a la imagen.</es>
 				<fr>Il suffit de cliquer sur votre image ou sur / &amp;#39;Open / /&amp;#39; / à l&amp;#39;image.</fr>
@@ -364,7 +364,7 @@
 			</entry>
 			<entry>
 				<id>c2e52e860e1ada35eb290650970ac699</id>
-				<org>Klicken Sie auf ein Bild oder auf /'/öffnen/'/ um das Bild anzuzeigen.</org>
+				<org>Klicke auf ein Bild oder auf /'/öffnen/'/ um das Bild anzuzeigen.</org>
 				<en>Simply click on your picture or on / &amp;#39;/ / open&amp;#39; / to the image.</en>
 				<es>Simplemente haga click en la imagen o el / &amp;#39;/ / open&amp;#39; / a la imagen.</es>
 				<fr>Il suffit de cliquer sur votre image ou sur / &amp;#39;/ / open&amp;#39; / à l&amp;#39;image.</fr>
@@ -394,7 +394,7 @@
 			</entry>
 			<entry>
 				<id>56ea364f5042ea58da46665f7cb1b5c5</id>
-				<org>Klicken Sie auf ein Bild um das Bild in voller Größe anzuzeigen.</org>
+				<org>Klicke auf ein Bild um das Bild in voller Größe anzuzeigen.</org>
 				<en>Click on an image to view the image in full size.</en>
 				<es>Haga clic sobre una imagen para ver la imagen en tamaño completo.</es>
 				<fr>Cliquez sur une image pour visualiser l&amp;#39;image en taille réelle.</fr>

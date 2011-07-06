@@ -38,7 +38,7 @@ $siteblock = true;
 if (!$missing_fields and !$siteblock) {
     switch ($_GET['mod']) {
         case 'logout':
-            $func->confirmation(t('Sie wurden erfolgreich ausgeloggt.'), '');
+            $func->confirmation(t('Du wurdest erfolgreich ausgeloggt.'), '');
         break;
 
         case 'auth':
@@ -55,8 +55,8 @@ if (!$missing_fields and !$siteblock) {
             // If module is deactivated display information message and redirect to home-mod
             if (!$func->isModActive($_GET['mod'])) {
               $row = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name = %string%', $_GET['mod']);
-              if ($row['caption']) $func->information(t('Das Modul %1 wurde deaktiviert und steht somit nicht zur Verfügung. Sie wurden zur Startseite weitergeleitet', $row['caption']), NO_LINK);
-              else $func->information(t('Das Modul %1 existiert nicht. Überprüfen Sie, ob Sie die Adresse korrekt eingegeben haben. Sie wurden zur Startseite weitergeleitet', $_GET['mod']), NO_LINK);
+              if ($row['caption']) $func->information(t('Das Modul %1 wurde deaktiviert und steht somit nicht zur Verfügung. Du wurdest zur Startseite weitergeleitet', $row['caption']), NO_LINK);
+              else $func->information(t('Das Modul %1 existiert nicht. Überprüfe, ob du die Adresse korrekt eingegeben hast. Du wurdest zur Startseite weitergeleitet', $_GET['mod']), NO_LINK);
               $_GET['mod'] = 'home';
             }
 
@@ -87,7 +87,7 @@ if (!$missing_fields and !$siteblock) {
                             include_once ("modules/{$_GET['mod']}/{$menu['file']}.php");
 
                     // 4) Error: 'Not Found'
-                    } else $func->error(t('Leider ist die von Ihnen aufgerufene Seite auf diesem Server nicht vorhanden.<br/>Um Fehler zu vermeiden, sollten Sie die URL nicht manuell ändern, sondern die Links benutzen. Wenn Sie die Adresse manuell eingegeben haben überprüfen Sie bitte die URL.'));
+                    } else $func->error(t('Leider ist die von dir aufgerufene Seite auf diesem Server nicht vorhanden.<br/>Um Fehler zu vermeiden, solltest du die URL nicht manuell ändern, sondern die Links benutzen. Wenn du die Adresse manuell eingegeben hast überprüfe bitte die URL.'));
                 }
             }
             break;

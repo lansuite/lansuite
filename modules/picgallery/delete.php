@@ -29,7 +29,7 @@ if (!$pic['caption']) $pic['caption'] = "<i>".t('Unbekannt')."</i>";
 
 switch ($_GET["step"]) {
 	default:
-		$func->question(t('Wollen sie das Bild <b>%1 (%2)</b> wirklich l&ouml;schen?', $pic['caption'], $_GET["file"]), "index.php?mod=picgallery&action=delete&step=2&file={$_GET["file"]}", "index.php?mod=picgallery&file=$akt_dir");
+		$func->question(t('Willst du das Bild <b>%1 (%2)</b> wirklich l&ouml;schen?', $pic['caption'], $_GET["file"]), "index.php?mod=picgallery&action=delete&step=2&file={$_GET["file"]}", "index.php?mod=picgallery&file=$akt_dir");
 	break;
 	
 	case 2:
@@ -43,7 +43,7 @@ switch ($_GET["step"]) {
 	
   // Delete directory
 	case 10:
-		$func->question(t('Möchten Sie dieses Verzeichnis wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!'),
+		$func->question(t('Möchtest du dieses Verzeichnis wirklich löschen? Dabei werden alle darin enthaltenen Bilder mit gelöscht!'),
       "index.php?mod=picgallery&action=delete&step=11&file={$_GET["file"]}",
       "index.php?mod=picgallery&file=$akt_dir"
       );

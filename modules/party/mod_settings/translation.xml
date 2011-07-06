@@ -34,7 +34,7 @@
 			</entry>
 			<entry>
 				<id>c297fc3c889bb0b4b2c511599d4abfc4</id>
-				<org>Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf &quot;nicht bezahlt&quot; zu setzen, bevor sich abmelden</org>
+				<org>Du bist für diese Party bereits auf bezahlt gesetzt. Bitte einen Admin dich auf &quot;nicht bezahlt&quot; zu setzen, bevor du dich abmeldest</org>
 				<en>You are already paying for this party set. Ask an admin share on &amp;quot;not paid&amp;quot; before logging off</en>
 				<es>Usted ya está pagando por este partido establecido. Pida una cuota de admin el &amp;quot;no pagar&amp;quot; antes de cerrar la sesión</es>
 				<fr>Vous payez déjà pour ce parti fixés. Demandez une part admin le «non payé» avant de vous déconnecter</fr>
@@ -54,7 +54,7 @@
 			</entry>
 			<entry>
 				<id>c3998db674d32a76bc6f7fc5e6892314</id>
-				<org>Wenn dieses Häckchen gesetzt ist, sind Sie zu dieser Party angemeldet</org>
+				<org>Wenn dieses Häckchen gesetzt ist, bist du zu dieser Party angemeldet</org>
 				<en>If this box is set, you are registered to this party</en>
 				<es>Si se establece este cuadro, usted está inscrito para este partido</es>
 				<fr>Si cette case est activée, vous êtes inscrit à ce parti</fr>

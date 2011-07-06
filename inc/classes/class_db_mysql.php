@@ -16,7 +16,7 @@ class db {
   // Construktor
   function db() {
     if (extension_loaded("mysqli")) $this->mysqli = 1;
-    elseif (!extension_loaded("mysql")) echo HTML_FONT_ERROR . t('Das MySQL-PHP Modul ist nicht geladen. Bitte fügen Sie die mysql.so Erweiterung zur php.ini hinzu und restarten Sie den Webserver neu. Lansuite wird abgebrochen') . HTML_FONT_END;
+    elseif (!extension_loaded("mysql")) echo HTML_FONT_ERROR . t('Das MySQL-PHP Modul ist nicht geladen. Bitte füge die mysql.so Erweiterung zur php.ini hinzu und restarte den Webserver neu. Lansuite wird abgebrochen') . HTML_FONT_END;
   }
 
 

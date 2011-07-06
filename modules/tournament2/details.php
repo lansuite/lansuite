@@ -31,7 +31,7 @@ else {
 			$team = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%t2_teams WHERE (tournamentid = %int%) GROUP BY tournamentid", $_GET['tournamentid']);
 
 			if (($seeded['anz']+1) > ($team['anz'] / 2)){
-				$func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkieren Sie zuerst ein Team, bevor Sie ein weiteres markieren'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
+				$func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkiere zuerst ein Team, bevor du ein weiteres markierst'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
 			} else {
 				$db->qry("UPDATE %prefix%t2_teams SET seeding_mark = '1' WHERE (teamid = %int%)", $_GET['teamid']);
 				$func->confirmation(t('Das Team wurde zum Setzen markiert.HTML_NEWLINEAlle markierten Teams werden beim Generieren so gesetzt, dass sie möglichst spät im Turnierbaum aufeinander treffen werden.'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
@@ -44,7 +44,7 @@ else {
 		break;
 
 		default:	// Show details
-			$dsp->NewContent(t('Turnier %1', $tournament['name']), t('Hier finden Sie Informationen zu diesem Turnier und können sich anmelden'));
+			$dsp->NewContent(t('Turnier %1', $tournament['name']), t('Hier findest du Informationen zu diesem Turnier und kannst dich anmelden'));
 
 			/*$menunames[1] = t('Turnierinfos');
 			$menunames[2] = t('Angemeldete Teams');
@@ -112,8 +112,8 @@ else {
          GROUP BY members.userid
          ", $auth["userid"], $party->party_id);
   						(($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']) < $tournament['coins']) ?
-  							$coin_out = t('Das Anmelden kostet %COST% Coins, Sie besitzen jedoch nur %IS% Coins!')
-  							: $coin_out = t('Das Anmelden kostet %COST% Coins. Sie besitzen noch: %IS% Coins');
+  							$coin_out = t('Das Anmelden kostet %COST% Coins, du besitzt jedoch nur %IS% Coins!')
+  							: $coin_out = t('Das Anmelden kostet %COST% Coins. Du besitzen noch: %IS% Coins');
   						
   						$dsp->AddDoubleRow(t('Coin-Kosten'), "<div class=\"tbl_error\">". str_replace("%IS%", ($cfg['t_coins'] - $team_coin['t_coins'] - $member_coin['t_coins']), str_replace("%COST%", $tournament['coins'], $coin_out)) ."</div>");
   					}

@@ -46,7 +46,7 @@ function IsPackage($ext){
 if ($_POST['gallery_name']) {
 	if ($cfg["picgallery_allow_user_upload"] or $auth["type"] > 1) {
 	  $func->CreateDir('ext_inc/picgallery/'. $_GET['file'] . $_POST['gallery_name']);
-	} else $func->error(t('Sie sind nicht berechtigt neue Galerien anzulegen'), "index.php?mod=picgallery&file={$_GET["file"]}");
+	} else $func->error(t('Du bist nicht berechtigt neue Galerien anzulegen'), "index.php?mod=picgallery&file={$_GET["file"]}");
 }
 
 if (!$_GET["file"]) $_GET["file"] = "/";
@@ -84,7 +84,7 @@ elseif (!$akt_file) {
 	session_unregister("klick_reload");
 	unset($klick_reload);
 
-	$dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicken Sie auf ein Bild um das Bild in voller Größe anzuzeigen.'));
+	$dsp->NewContent(t('Bildergalerie') . ": ". $get_gname["caption"], $overall_entries . " " . t('Klicke auf ein Bild um das Bild in voller Größe anzuzeigen.'));
 
 	if (!$cfg["picgallery_items_per_row"]) $cfg["picgallery_items_per_row"] = 3;
 	if (!$cfg["picgallery_rows"]) $cfg["picgallery_rows"] = 4;
@@ -346,7 +346,7 @@ elseif (!$akt_file) {
       // Videos
       if (IsSupportedVideo($extension)) {
 				$dsp->AddDoubleRow("", '<video width="450" height="350" src="'. $root_file .'" autobuffer autoplay controls>
-          <div class="video-fallback"><br>Sie benoetigen einen Browser, der HTML5 unterstuetzt.</div>
+          <div class="video-fallback"><br>Du ben�tigst einen Browser, der HTML5 unterst�tzt.</div>
         </video>');
 
       // Pics

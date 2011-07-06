@@ -16,7 +16,7 @@ function Update($id) {
   return true;
 }
 
-$dsp->NewContent(t('Poll hinzufügen / ändern'), t('Um den Poll hinzuzufügen / zu ändern, füllen Sie bitte das folgende Formular vollständig aus.'));
+$dsp->NewContent(t('Poll hinzufügen / ändern'), t('Um den Poll hinzuzufügen / zu ändern, fülle bitte das folgende Formular vollständig aus.'));
 
 include_once('inc/classes/class_masterform.php');
 $mf = new masterform();

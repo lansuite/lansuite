@@ -7,7 +7,7 @@ $server = $db->qry_first("SELECT a.*, b.userid, b.username
   WHERE serverid = %int%
   ", $serverid);
      
-if($server == "") $func->error(t('Der von Ihnen aufgerufene Server existiert nicht'), "index.php?mod=server&action=show");
+if($server == "") $func->error(t('Der von dir aufgerufene Server existiert nicht'), "index.php?mod=server&action=show");
 else {
 
 	$func->SetRead('server', $_GET["serverid"]);
@@ -15,7 +15,7 @@ else {
 	//Just show details if the user is not adding, deleting or chaning his comment
 	if($_GET["mcact"] == "" || $_GET["mcact"] == "show") {
 
-		$dsp->NewContent(t('Serverdetails'), t('Auf dieser Seite sehen Sie alle Details zum Server <b>%1</b>. Durch eine Klick auf den Zur&uuml;ck-Button gelangen Sie zur Übersicht zur&uuml;ck', $server["caption"]));
+		$dsp->NewContent(t('Serverdetails'), t('Auf dieser Seite diehst du alle Details zum Server <b>%1</b>. Durch eine Klick auf den Zur&uuml;ck-Button gelangst du zur Übersicht zur&uuml;ck', $server["caption"]));
 
 		$dsp->AddDoubleRow(t('Name'), $server["caption"]);
 		$dsp->AddDoubleRow(t('Besitzer'), $dsp->FetchUserIcon($server['userid'], $server["username"]));

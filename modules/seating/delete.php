@@ -6,7 +6,7 @@ switch($_GET['step']) {
 	break;
 
 	case 2:
-		$func->question(t('Wollen Sie diesen Sitzblock wirklich löschen?'),
+		$func->question(t('Willst du diesen Sitzblock wirklich löschen?'),
 			"index.php?mod=seating&action=delete&step=3&blockid={$_GET['blockid']}",
 			'index.php?mod=seating&action=delete');
 	break;

@@ -6,7 +6,7 @@ $tfunc = new tfunc;
 if (!$_GET["teamid"]) $func->error(t('Es wurde kein Team ausgewählt! Die Anzeige der Team-Details ist daher nicht möglich'));
 
 else {
-	$dsp->NewContent(t('Turnier Verwaltung'), t('Mit Hilfe des folgenden Formulars können Sie ein Turnier erstellen / ändern'));
+	$dsp->NewContent(t('Turnier Verwaltung'), t('Mit Hilfe des folgenden Formulars kannst du ein Turnier erstellen / ändern'));
 
 	// Get Data
 	$team = $db->qry_first("SELECT teams.name, teams.comment, teams.disqualified, teams.banner, users.username, users.userid

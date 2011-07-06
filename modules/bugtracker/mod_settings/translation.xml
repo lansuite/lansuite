@@ -24,7 +24,7 @@
 			</entry>
 			<entry>
 				<id>73774f61a21ca97d0a26b5b00bb8f2f6</id>
-				<org>Hier können Sie Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.</org>
+				<org>Hier kannst du Fehler melden, die bei der Verwendung dieses Systems auftreten, sowie Feature Wünsche äußern. Können die Admins dieser Webseite sie nicht selbst beheben, haben diese die Möglichkeit sie an das Lansuite-Team weiterzureichen.</org>
 				<en>Here you can report errors that occur when using this system, as well as external feature requests. Can the admins of this site they do not resolve themselves, they have the ability to pass on to the Lansuite team.</en>
 				<es>Aquí se puede informar de los errores que se producen cuando se utiliza este sistema, así como peticiones de características externas. Pueden los administradores de este sitio no resuelven por sí mismos, tienen la capacidad de pasar al equipo de Lansu</es>
 				<fr>Ici vous pouvez signaler les erreurs qui se produisent lorsque vous utilisez ce système, ainsi que les demandes de fonctionnalités externes. Puis les admins de ce site, ils ne permettent pas de résoudre eux-mêmes, ils ont la capacité de transmettre �</fr>
@@ -324,7 +324,7 @@
 			</entry>
 			<entry>
 				<id>8afe1f19e3bf97e983e5047c1b813698</id>
-				<org>Der Status des Bugreports &lt;b&gt;&quot;%1&quot;&lt;/b&gt; konnte nicht geändert werden, da Sie nur von &lt;b&gt;&quot;Neu&quot; auf &quot;Bestätigt&quot;&lt;/b&gt;, von &lt;b&gt;&quot;Feedback benötigt&quot; auf &quot;In Bearbeitung&quot;&lt;/b&gt; und von &lt;b&gt;&quot;Behoben&quot; auf &quot;Wiedereröffnet&quot;&lt;/b&gt; wechseln dürfen.</org>
+				<org>Der Status des Bugreports &lt;b&gt;&quot;%1&quot;&lt;/b&gt; konnte nicht geändert werden, da du nur von &lt;b&gt;&quot;Neu&quot; auf &quot;Bestätigt&quot;&lt;/b&gt;, von &lt;b&gt;&quot;Feedback benötigt&quot; auf &quot;In Bearbeitung&quot;&lt;/b&gt; und von &lt;b&gt;&quot;Behoben&quot; auf &quot;Wiedereröffnet&quot;&lt;/b&gt; wechseln darfst.</org>
 				<en>The status of the bug reports &lt;b&gt;&amp;quot;%1&amp;quot;&lt;/b&gt; could not be changed, since you &lt;b&gt;confirmed&lt;/b&gt; only by &lt;b&gt;&amp;quot;New&amp;quot; to &amp;quot;&amp;quot;&lt;/b&gt; may switch from &lt;b&gt;&amp;#39;feedback needed &amp;quot;to&amp;quot; In Progress &amp;quot;and&amp;quot; Fixed &amp;quot;to&amp;quot; Reo</en>
 				<es>El estado de los informes de error &lt;b&gt;&amp;quot;%1&amp;quot;&lt;/b&gt; no puede modificarse, ya que &lt;b&gt;confirmó que&lt;/b&gt; sólo por la &lt;b&gt;&amp;quot;Nueva&amp;quot; a &amp;quot;&amp;quot;&lt;/b&gt; puede cambiar de &lt;b&gt;&amp;#39;retroalimentación necesaria &amp;quot;a&amp;quot; en progreso &amp;quot;y&amp;quot; f</es>
 				<fr>Le statut des rapports de bugs &lt;b&gt;&amp;quot;%1&amp;quot;&lt;/b&gt; ne pouvait pas être changé, puisque vous avez &lt;b&gt;confirmé&lt;/b&gt; que par &lt;b&gt;&amp;quot;Nouveau&amp;quot; à &amp;quot;&amp;quot;&lt;/b&gt; passer de mai &lt;b&gt;&amp;#39;feedback nécessaires &amp;quot;à&amp;quot; En cours &amp;quot;et&amp;quot; fix</fr>
@@ -334,7 +334,7 @@
 			</entry>
 			<entry>
 				<id>f74ad2ec68aba04ae938bbe65c227be0</id>
-				<org>Sie dürfen nicht Ihren eigenen Bugreport bestätigen</org>
+				<org>Du darfst nicht deinen eigenen Bugreport bestätigen</org>
 				<en>You may not confirm your own bug report</en>
 				<es>Usted no puede confirmar su informe de error propio</es>
 				<fr>Vous mai pas confirmer votre rapport de bogue propres</fr>
@@ -364,7 +364,7 @@
 			</entry>
 			<entry>
 				<id>c7b08e0d668bc9c8b1959781cbd1c7eb</id>
-				<org>Ihr Bugreport wurde bestätigt</org>
+				<org>Dein Bugreport wurde bestätigt</org>
 				<en>My bug report has been confirmed</en>
 				<es>Mi informe de fallo ha sido confirmado</es>
 				<fr>Mon rapport de bogue a été confirmé</fr>
@@ -374,7 +374,7 @@
 			</entry>
 			<entry>
 				<id>56621a47660cf77a0e48a3b67fc1f4a5</id>
-				<org>Ihr Bugreport wird nun bearbeitet</org>
+				<org>Dein Bugreport wird nun bearbeitet</org>
 				<en>Your bug report is now being processed</en>
 				<es>Su informe de error está siendo procesada</es>
 				<fr>Votre rapport de bug est en cours de traitement</fr>
@@ -404,7 +404,7 @@
 			</entry>
 			<entry>
 				<id>96086f1c39393afe50d88d72e2c4290f</id>
-				<org>Ihr Bugreport wurde aufgeschoben</org>
+				<org>Dein Bugreport wurde aufgeschoben</org>
 				<en>My bug report has been delayed</en>
 				<es>Mi informe de error se ha retrasado</es>
 				<fr>Mon rapport de bogue a été retardée</fr>
@@ -414,7 +414,7 @@
 			</entry>
 			<entry>
 				<id>4ab8830621a03ab387148706cc0d67d9</id>
-				<org>Ihr Bugreport wurde geschlossen</org>
+				<org>Dein Bugreport wurde geschlossen</org>
 				<en>My bug report was closed</en>
 				<es>Mi informe de error fue cerrado</es>
 				<fr>Mon rapport de bogue a été fermé</fr>
@@ -434,7 +434,7 @@
 			</entry>
 			<entry>
 				<id>574357baec3fadf21acb5807a913366d</id>
-				<org>Ein Ihnen zugewiesener Bugreport wartet auf seine Bearbeitung</org>
+				<org>Ein dir zugewiesener Bugreport wartet auf seine Bearbeitung</org>
 				<en>A bug waiting to be assigned to you processing</en>
 				<es>Un fallo en espera de ser asignado a usted de procesamiento</es>
 				<fr>Un bogue qui attendent d&amp;#39;être assigné pour vous la transformation</fr>
@@ -444,7 +444,7 @@
 			</entry>
 			<entry>
 				<id>6f8eba87d2706931a69c66f7f704ebee</id>
-				<org>Ein Ihnen zugewiesener Bugreport wurde wiedereröffnet</org>
+				<org>Ein dir zugewiesener Bugreport wurde wiedereröffnet</org>
 				<en>A bug was re-assigned to you</en>
 				<es>Un error fue reasignado a usted</es>
 				<fr>Un bug a été réaffecté à vous</fr>
@@ -494,7 +494,7 @@
 			</entry>
 			<entry>
 				<id>737d47f1f5cd2615e0a6fd88dac8d1ec</id>
-				<org>Nutzen Sie diese Funktion um einen Export der Bugtracker-Einträge zu erstellen, den sie auf lansuite.de importieren können</org>
+				<org>Nutze diese Funktion um einen Export der Bugtracker-Einträge zu erstellen, den du auf lansuite.de importieren kannst</org>
 				<en>Use this function to create an export of the bugtracker entries, they can import on lansuite.de</en>
 				<es>Use esta función para crear una exportación de las entradas Bugtracker, se puede importar en lansuite.de</es>
 				<fr>Utilisez cette fonction pour créer une exportation des mentions bugtracker, ils peuvent à l&amp;#39;importation sur lansuite.de</fr>
@@ -534,7 +534,7 @@
 			</entry>
 			<entry>
 				<id>d5da0e1ffffcb7c55e4e3512ae5ef189</id>
-				<org>Hier können Sie die bugs.xml-Datei Importieren, die Sie auf Ihrer Webseite exportiert haben</org>
+				<org>Hier kannst du die bugs.xml-Datei Importieren, die du auf Ihrer Webseite exportiert hast</org>
 				<en>Here you can bugs.xml file importing, you exported to your website</en>
 				<es>Aquí usted puede bugs.xml archivo de importación, que exportó a su sitio web</es>
 				<fr>Ici, vous pouvez bugs.xml import de fichiers, vous avez exporté vers votre site</fr>
@@ -724,7 +724,7 @@
 			</entry>
 			<entry>
 				<id>2eaabe5c6033b725134b3451e8801487</id>
-				<org>Dieses Feature wird erst umgesetzt, wenn genug dafür gespendet wurde. Um selbst etwas zu Spenden, schreiben Sie bitte den eingetragenen Bearbeiter an. Dieser kann Ihnen dann seine Kontodaten mitteilen</org>
+				<org>Dieses Feature wird erst umgesetzt, wenn genug dafür gespendet wurde. Um selbst etwas zu Spenden, schreibe bitte den eingetragenen Bearbeiter an. Dieser kann dir dann seine Kontodaten mitteilen</org>
 				<en>This feature will only be implemented if enough has been donated for that. To do anything himself donation, please write to the registered agent. This you can then share his account information</en>
 				<es>Esta característica sólo se aplicará si se ha donado suficientes para ello. Para hacer cualquier cosa a sí mismo la donación, por favor escriba al agente registrado. Esto puede compartir su información de cuenta de</es>
 				<fr>Cette fonctionnalité ne sera mis en œuvre si un nombre suffisant a été donné pour cela. Pour ne rien lui-même don, s&amp;#39;il vous plaît écrire à l&amp;#39;agent enregistré. Ceci, on peut partager ses informations de compte</fr>

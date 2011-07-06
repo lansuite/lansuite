@@ -5,7 +5,7 @@ $install = new Install();
 
 $CurrentMod = $db->qry_first('SELECT caption FROM %prefix%modules WHERE name=%string%', $_GET['module']);
 
-$dsp->NewContent(t('Modul-Konfiguration') .' - '. $CurrentMod['caption'], t('Hier können Sie dieses Modul Ihren Bedürfnissen anpassen'));
+$dsp->NewContent(t('Modul-Konfiguration') .' - '. $CurrentMod['caption'], t('Hier kannst du dieses Modul deinen Bedürfnissen anpassen'));
 
 $menunames = array();
 $res = $db->qry('SELECT name, caption FROM %prefix%modules WHERE active = 1 ORDER BY caption');
@@ -145,7 +145,7 @@ else switch ($_GET['step']) {
         switch ($_GET['step']) {
         	// Rewrite specific Module-DB - Question
         	case 41:
-        		$func->question(t('Sind Sie sicher, dass Sie die Datenbank des Moduls "%1" zurücksetzen möchten? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!', array($_GET['module'])),
+        		$func->question(t('Bist du sicher, dass du die Datenbank des Moduls "%1" zurücksetzen möchtest? Dies löscht unwiderruflich alle Daten, die in diesem Modul bereits geschrieben wurden!', array($_GET['module'])),
               'index.php?mod=install&action=mod_cfg&step=42&module='. $_GET['module'] .'&tab=2',
               'index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&tab=2');
         	break;
@@ -169,7 +169,7 @@ else switch ($_GET['step']) {
         	break;
 
           default:
-      #			$dsp->NewContent(t('Datenbank - Modul') .": ". $_GET["module"], t('Hier können Sie die Datenbankeinträge zu diesem Modul verwalten'));
+      #			$dsp->NewContent(t('Datenbank - Modul') .": ". $_GET["module"], t('Hier kannst du die Datenbankeinträge zu diesem Modul verwalten'));
 
             $mod_tables = '';
             $mod_tables_arr = array();
@@ -334,11 +334,11 @@ else switch ($_GET['step']) {
 /*
     $dsp->AddFieldsetStart(t('Verwaltungs-Werkzeuge'));
     $find_config = $db->qry_first('SELECT cfg_key FROM %prefix%config WHERE cfg_module = %string%', $_GET['module']);
-    if ($find_config['cfg_key']) $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=10&module='. $_GET['module'] .'"><img src="design/images/icon_config.png" border="0"> '. t('Konfiguration') .'</a>', t('Hier können Sie Konfigurationen zu diesem Modul vornehmen'));
-    $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=20&module='. $_GET['module'] .'"><img src="design/images/icon_delete_group.png" border="0"> '. t('Berechtigungen') .'</a>', t('Legen Sie fest, welche Benutzer Berechtigungen zu welchem Menüpunkt erhalten'));
-    $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=30&module='. $_GET['module'] .'"><img src="design/images/icon_tree.png" border="0"> '. t('Menü') .'</a>', t('Definieren Sie eigene Menüpunkte'));
-    $dsp->AddDoubleRow('<a href="index.php?mod=misc&action=translation&step=20&file='. $_GET['module'] .'"><img src="design/images/icon_translate.png" border="0"> '. t('Übersetzung') .'</a>', t('Übersetzen Sie Texte dieses Moduls in andere Sprachen, oder definieren Sie einen deutschen Text, um einen Text umzuformulieren'));
-    if (file_exists('modules/'. $_GET['module'] .'/mod_settings/db.xml')) $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=40&module='. $_GET['module'] .'"><img src="design/images/icon_database.png" border="0"> '. t('Datenbank') .'</a>', t('Verwalten Sie die Datenbanktabellen, die diesem Modul zugeordnet sind'));
+    if ($find_config['cfg_key']) $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=10&module='. $_GET['module'] .'"><img src="design/images/icon_config.png" border="0"> '. t('Konfiguration') .'</a>', t('Hier kannst du Konfigurationen zu diesem Modul vornehmen'));
+    $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=20&module='. $_GET['module'] .'"><img src="design/images/icon_delete_group.png" border="0"> '. t('Berechtigungen') .'</a>', t('Lege fest, welche Benutzer Berechtigungen zu welchem Menüpunkt erhalten'));
+    $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=30&module='. $_GET['module'] .'"><img src="design/images/icon_tree.png" border="0"> '. t('Menü') .'</a>', t('Definiere eigene Menüpunkte'));
+    $dsp->AddDoubleRow('<a href="index.php?mod=misc&action=translation&step=20&file='. $_GET['module'] .'"><img src="design/images/icon_translate.png" border="0"> '. t('Übersetzung') .'</a>', t('Übersetze Texte dieses Moduls in andere Sprachen, oder definiere einen deutschen Text, um einen Text umzuformulieren'));
+    if (file_exists('modules/'. $_GET['module'] .'/mod_settings/db.xml')) $dsp->AddDoubleRow('<a href="index.php?mod=install&action=mod_cfg&step=40&module='. $_GET['module'] .'"><img src="design/images/icon_database.png" border="0"> '. t('Datenbank') .'</a>', t('Verwalte die Datenbanktabellen, die diesem Modul zugeordnet sind'));
     if (file_exists('modules/'. $_GET['module'] .'/docu/'. $language .'_help.php')) $dsp->AddDoubleRow('<a href="#" onclick="javascript:var w=window.open(\'index.php?mod=helplet&action=helplet&design=base&module='. $_GET['module'] .'&helpletid=help\',\'_blank\',\'width=700,height=500,resizable=no,scrollbars=yes\');"><img src="design/images/icon_help.png" border="0"> '. t('Modul-Info') .'</a>', t('Hilfe und Informationen zu diesem Modul aufrufen'));
     $dsp->AddFieldsetEnd();
 */

@@ -25,7 +25,7 @@ else {
 		case "undo_generate":
 			switch ($_GET["step"]){
 				default:
-					$func->question(t('Sind Sie sicher, dass Sie das generieren rückgängig machen wollen? Alle Paarungen und alle bereits eingetragenen Ergebnisse dieses Turnieres werden dabei gelöscht! Bei bereits beendeten Turnieren geht dadurch außerdem die Rangliste verloren!'), "index.php?mod=tournament2&action=undo_generate&step=2&tournamentid=$tournamentid", "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=1");
+					$func->question(t('Bist du sicher, dass du das generieren rückgängig machen wilst? Alle Paarungen und alle bereits eingetragenen Ergebnisse dieses Turnieres werden dabei gelöscht! Bei bereits beendeten Turnieren geht dadurch außerdem die Rangliste verloren!'), "index.php?mod=tournament2&action=undo_generate&step=2&tournamentid=$tournamentid", "index.php?mod=tournament2&action=details&tournamentid=$tournamentid&headermenuitem=1");
 				break;
 
 				case 2:
@@ -55,7 +55,7 @@ else {
 		case "undo_close":
 			$db->qry("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = %int%", $tournamentid);
 
-			$func->confirmation(t('Der Status wurde wieder auf \'wird gespielt\' gesetzt. Das Turnier wird wieder beendet, sobald Sie das nächste Ergebniss eingetragen haben.'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
+			$func->confirmation(t('Der Status wurde wieder auf \'wird gespielt\' gesetzt. Das Turnier wird wieder beendet, sobald du das nächste Ergebniss eingetragen hast.'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
 			$func->log_event(t('Der Status wurde wieder auf \'wird gespielt\' gesetzt'), 1, t('Turnier Verwaltung'));
 		break;
 	}

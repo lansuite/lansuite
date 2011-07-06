@@ -1,10 +1,10 @@
 <?php
 
-$dsp->NewContent(t('Besucherkarte'), t('Hier sehen Sie aus welchen Gegenden Deutschlands Besucher zu dieser Party kommen'));
+$dsp->NewContent(t('Besucherkarte'), t('Hier siehst du aus welchen Gegenden Deutschlands Besucher zu dieser Party kommen'));
 
 // Use Googlemaps
 if ($cfg['guestlist_guestmap'] == 2) {
-  if (!$cfg['google_maps_api_key']) $func->information(t('Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben', '<a href="index.php?mod=install&action=modules&step=10&module=install">'.t('AdminSeite in den Allgemeinen Einstellungen</a>')));
+  if (!$cfg['google_maps_api_key']) $func->information(t('Du musst dich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben', '<a href="index.php?mod=install&action=modules&step=10&module=install">'.t('AdminSeite in den Allgemeinen Einstellungen</a>')));
   else {
 
     $where_pid = '';

@@ -28,7 +28,7 @@ else {
       global $db, $row, $lang, $func, $auth, $seat2;
     
       // Do not allow changes, if party is over
-      if ($row['enddate'] < time()) return t('Sie können Sich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist');
+      if ($row['enddate'] < time()) return t('Du kannst dich nicht mehr zu dieser Party an-, oder abmelden, da sie bereits vorüber ist');
 
       // Signon started?
       if ($row['sstartdate'] > time()) return t('Die Anmeldung öffnet am'). HTML_NEWLINE .'<strong>'. $func->unixstamp2date($row['sstartdate'], 'daydatetime'). '</strong>';
@@ -39,7 +39,7 @@ else {
       // Do not allow changes, if user has paid
       if ($auth['type'] <= 1) {
         $row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
-        if ($row2['paid']!= 0) return t('Sie sind für diese Party bereits auf bezahlt gesetzt. Bitten Sie einen Admin Sie auf "nicht bezahlt" zu setzen, bevor sich abmelden');
+        if ($row2['paid']!= 0) return t('Du bist für diese Party bereits auf bezahlt gesetzt. Bitte einen Admin dich auf "nicht bezahlt" zu setzen, bevor du dich abmeldest');
       }
 
 			$row2 = $db->qry_first("SELECT paid FROM %prefix%party_user WHERE party_id = %int% AND user_id = %int%", $_GET['party_id'], $id);
@@ -66,7 +66,7 @@ else {
         $mf->AdditionalKey = 'party_id = '. $row['party_id'];
     
         // Signon
-        $mf->AddInsertControllField = t('Angemeldet').'|'.t('Wenn dieses Häckchen gesetzt ist, sind Sie zu dieser Party angemeldet');
+        $mf->AddInsertControllField = t('Angemeldet').'|'.t('Wenn dieses Häckchen gesetzt ist, bist du zu dieser Party angemeldet');
         $mf->AddChangeCondition = 'ChangeAllowed';
     
         // Paid
@@ -123,7 +123,7 @@ else {
     while ($row = $db->fetch_array($res)) {
       $text = '';
       if ($row['user_id']) {
-        $text .= t('Sie waren angemeldet');
+        $text .= t('Du warst angemeldet');
         if ($row['paid'] == 0) $text .= t(', aber hatten nicht bezahlt.');
         if ($row['paid']) $text .= t(' und hatten bezahlt.');
 

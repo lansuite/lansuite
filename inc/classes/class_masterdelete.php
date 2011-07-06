@@ -93,7 +93,7 @@ class masterdelete {
                 $func->information(t('Dieser Eintrag kann momentan leider nicht gelöscht werden, da Einträge aus folgenden Tabellen noch darauf referenzieren') .
                 ': '. HTML_NEWLINE . HTML_NEWLINE . $refFieldsDeny, $_SESSION['md_referrer']);
             } else {
-                $q = t('Sind Sie sicher, dass Sie diesen Eintrag löschen möchten?');
+                $q = t('Bist du sicher, dass du diesen Eintrag löschen möchtest?');
                 if ($refFieldsDelete) $q .= HTML_NEWLINE . HTML_NEWLINE .'<b>'. t('Achtung') .'</b>: '.
                     t('Folgende Einträge referenzieren noch auf diesen Eintrag:') .
                     HTML_NEWLINE .'<b>'. t('Diese Eintrag werden mitgelöscht!') .'</b>'. HTML_NEWLINE .

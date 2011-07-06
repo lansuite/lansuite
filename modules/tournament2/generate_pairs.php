@@ -28,7 +28,7 @@ if ($team_anz < 4) {
 
 ## Nicht mehr als die Hälft geseeded
 } elseif (($seeded['anz']) > ($team_anz / 2)){
-	$func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkieren Sie zuerst ein Team, bevor Sie ein weiteres markieren'), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
+	$func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkiere zuerst ein Team, bevor du ein weiteres markieren'), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
 
 
 ########## Keine Fehler gefunden
@@ -73,7 +73,7 @@ if ($team_anz < 4) {
 
 		## Wenn unvollständige Teams vorhanden: Fragen, ob löschen
 		if (($tournament['teamplayer'] == 1) || ($waiting_teams == 0)) $_GET["step"] = 3;
-		else $func->question(t('Zu diesem Turnier haben sich Teams angemeldet, welche noch nicht komplett sind. Möchten Sie diese beim Generieren aus dem Turnier entfernen?'), "index.php?mod=tournament2&action=generate_pairs&step=4&tournamentid={$_GET["tournamentid"]}", "index.php?mod=tournament2&action=generate_pairs&step=3&tournamentid={$_GET["tournamentid"]}");
+		else $func->question(t('Zu diesem Turnier haben sich Teams angemeldet, welche noch nicht komplett sind. Möchtest du diese beim Generieren aus dem Turnier entfernen?'), "index.php?mod=tournament2&action=generate_pairs&step=4&tournamentid={$_GET["tournamentid"]}", "index.php?mod=tournament2&action=generate_pairs&step=3&tournamentid={$_GET["tournamentid"]}");
 	}
 
 	## Unvollständige Teams löschen
@@ -89,13 +89,13 @@ if ($team_anz < 4) {
 				$db->qry("DELETE FROM %prefix%t2_teams WHERE (teamid = %int%) AND (tournamentid = %int%)", $team2["teamid"], $_GET["tournamentid"]);
 				$db->qry("DELETE FROM %prefix%t2_teammembers WHERE (teamid = %int%) AND (tournamentid = %int%)", $team2["teamid"], $_GET["tournamentid"]);
 
-				$mail->create_sys_mail($team2['leaderid'], t_no_html('Ihr Team wurde vom Turnier %1 abgemeldet', $tournament['name']) , t_no_html('Der Turnieradmin hat soeben die Paarungen für das Turnier %1 generiert. Da Ihr Team zu diesem Zeitpunkt leider noch nicht vollständig war, wurde es, wie vom Turnieradmin gewünscht, vom Turnier abgemeldet.', $tournament['name']));
+				$mail->create_sys_mail($team2['leaderid'], t_no_html('Dein Team wurde vom Turnier %1 abgemeldet', $tournament['name']) , t_no_html('Der Turnieradmin hat soeben die Paarungen für das Turnier %1 generiert. Da Dein Team zu diesem Zeitpunkt leider noch nicht vollständig war, wurde es, wie vom Turnieradmin gewünscht, vom Turnier abgemeldet.', $tournament['name']));
 				$func->log_event(t('Alle unvollständigen Teams im Turnier %1 wurden entfernt', $tournament['name']), 1, t('Turnier Teamverwaltung'));
 			}
 		}
 		$db->free_result($teams2);
 
-		$func->question(t('Alle unvollständigen Teams im Turnier %1 wurden erfolgreich gelöscht. Möchten Sie das Turnier nun generieren?', $tournament["name"]), "index.php?mod=tournament2&action=generate_pairs&step=3&tournamentid={$_GET["tournamentid"]}", "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
+		$func->question(t('Alle unvollständigen Teams im Turnier %1 wurden erfolgreich gelöscht. Möchtest du das Turnier nun generieren?', $tournament["name"]), "index.php?mod=tournament2&action=generate_pairs&step=3&tournamentid={$_GET["tournamentid"]}", "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}&headermenuitem=2");
 	}
 
 
@@ -126,7 +126,7 @@ if ($team_anz < 4) {
 					if ($team["seeding_mark"]) array_push($seed_team_liste, $team["leaderid"]);
 					else array_push($noseed_team_liste, $team["leaderid"]);
 
-					$mail->create_sys_mail($team['leaderid'],  t_no_html('Turnier %1 generiert', $tournament['name']) , t_no_html('Die Rundes des Turniers %1 wurden soeben generiert. Wir bitten Sie, direkt mit dem ersten Spiel anzufangen, damit es keine unnötge Verzögerung im Turnier gibt. Viel Erfolg!', $tournament['name']));
+					$mail->create_sys_mail($team['leaderid'],  t_no_html('Turnier %1 generiert', $tournament['name']) , t_no_html('Die Rundes des Turniers %1 wurden soeben generiert. Wir bitte dich, direkt mit dem ersten Spiel anzufangen, damit es keine unnötge Verzögerung im Turnier gibt. Viel Erfolg!', $tournament['name']));
 				}
 				$seeded_teams_num = count($seed_team_liste);
 

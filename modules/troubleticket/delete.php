@@ -7,7 +7,7 @@ switch($_GET["step"]) {
 
 	case 2:
 		$tt_id = $_GET["ttid"];
-		$func->question(t('Wollen Sie das ausgewählte Troubleticket wirklich löschen?'), "index.php?mod=troubleticket&action=delete&step=3&ttid=$tt_id", "index.php?mod=troubleticket&action=delete");
+		$func->question(t('Willst du das ausgewählte Troubleticket wirklich löschen?'), "index.php?mod=troubleticket&action=delete&step=3&ttid=$tt_id", "index.php?mod=troubleticket&action=delete");
 	break;
 
     case 3:

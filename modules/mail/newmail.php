@@ -14,7 +14,7 @@ function SendOnlineMail() {
   if ($_POST['toUserID'] == -1) {
   	$_SESSION['tmpmsgbody'] = $_POST['msgbody'];
   	$_SESSION['tmpmsgsubject'] = $_POST['Subject'];
-  	$func->information(t("Bitte geben Sie einen Empfänger für Ihre Mail an"),"index.php?mod=mail&action=".$_GET['action']."&step=2&replyto=".$_GET['replyto']."&back=1");
+  	$func->information(t("Bitte gib einen Empfänger für deine Mail an"),"index.php?mod=mail&action=".$_GET['action']."&step=2&replyto=".$_GET['replyto']."&back=1");
 
   // To additional recipients from cfg
   } elseif (substr($_POST['toUserID'], 1, 7) == '-mail-'){
@@ -30,7 +30,7 @@ function SendOnlineMail() {
 		// Send Info-Mail to receiver
     if ($cfg['sys_internet']) {
       $row = $db->qry_first('SELECT u.username, u.email, u.lsmail_alert FROM %prefix%user AS u WHERE u.userid = %int%', $_POST['toUserID']);
-  		if ($row['lsmail_alert']) $mail->create_inet_mail($row['username'], $row['email'], t('Benachrichtigung: Neue LS-Mail'), t('Sie haben eine neue Lansuite-Mail erhalten. Diese Benachrichtigung können Sie im System unter "Meine Einstellungen" deaktivieren'));
+  		if ($row['lsmail_alert']) $mail->create_inet_mail($row['username'], $row['email'], t('Benachrichtigung: Neue LS-Mail'), t('Du hast eine neue Lansuite-Mail erhalten. Diese Benachrichtigung kannst du im System unter "Meine Einstellungen" deaktivieren'));
     }
     return true;
 

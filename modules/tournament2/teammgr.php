@@ -9,7 +9,7 @@ $tteam = new team;
 switch($_GET['step']) {
 	// Team verlassen
 	case 10:
-		if ($tteam->kick($_GET["teamid"], $auth["userid"])) $func->confirmation(t('Sie wurden aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr");
+		if ($tteam->kick($_GET["teamid"], $auth["userid"])) $func->confirmation(t('Du wurdest aus dem Team entfernt'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
 	// Spieler aus Team entfernen
@@ -19,7 +19,7 @@ switch($_GET['step']) {
 
 	// Team abmelden (löschen) / Mich abmelden
 	case 30:
-		if ($tteam->delete($_GET["teamid"])) $func->confirmation(t('Ihr Team wurde vom Turnier abgemeldet'), "index.php?mod=tournament2&action=teammgr");
+		if ($tteam->delete($_GET["teamid"])) $func->confirmation(t('Dein Team wurde vom Turnier abgemeldet'), "index.php?mod=tournament2&action=teammgr");
 	break;
 
 	// Spieler zum eigenen Team hinzufügen - Suchen
@@ -48,7 +48,7 @@ switch($_GET['step']) {
     LEFT JOIN %prefix%user AS user ON user.userid = team.leaderid
     WHERE teamid = %int%", $_GET["teamid"]);
 
-		$dsp->NewContent(t('Teammanager'), t('Hier können Sie Ihre Teams verwalten'));
+		$dsp->NewContent(t('Teammanager'), t('Hier kannst du Ihre Teams verwalten'));
 
 		$dsp->SetForm("index.php?mod=tournament2&action=teammgr&step=51&teamid={$_GET["teamid"]}&tournamentid=$tournamentid", "", "", "multipart/form-data");
 
@@ -85,7 +85,7 @@ switch($_GET['step']) {
 			$tournament = $db->qry_first("SELECT name FROM %prefix%tournament_tournaments WHERE tournamentid = %int%", $tournamentid);
 
 			if ($_POST['team_name'] == "" and $tournament['teamplayer'] > 1){
-				$func->information(t('Bitte geben Sie einen Teamnamen ein, oder wählen Sie ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr&tournamentid=$tournamentid&teamid={$_GET["teamid"]}&step=50");
+				$func->information(t('Bitte gib einen Teamnamen ein, oder wähle ein vorhandenes Team aus'), "index.php?mod=tournament2&action=teammgr&tournamentid=$tournamentid&teamid={$_GET["teamid"]}&step=50");
 				break;
 			}
 
@@ -99,16 +99,16 @@ switch($_GET['step']) {
 
 
 	default:
-		$dsp->NewContent(t('Teammanager'), t('Hier können Sie Ihre Teams verwalten'));
+		$dsp->NewContent(t('Teammanager'), t('Hier kannst du Ihre Teams verwalten'));
 
-		$dsp->AddSingleRow(t('Einzelspieler-Turniere, an denen Sie teilnehmen'));
+		$dsp->AddSingleRow(t('Einzelspieler-Turniere, an denen du teilnimmst'));
 		// Teamname und Turniername auslesen
 		$i=0;
 		$teams = $db->qry("SELECT teams.teamid, teams.name, t.name AS tname, t.teamplayer, t.tournamentid
    FROM %prefix%t2_teams AS teams
    LEFT JOIN %prefix%tournament_tournaments AS t ON (t.tournamentid = teams.tournamentid)
    WHERE (teams.leaderid = %int%) AND (t.teamplayer = 1) AND t.party_id=%int%", $auth["userid"], $party->party_id);
-		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Turnier'), t('Sie haben sich zu noch keinem Einzelspieler-Turnier angemeldet'));
+		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Turnier'), t('Du hast dich zu noch keinem Einzelspieler-Turnier angemeldet'));
 		else while($team = $db->fetch_array($teams)) {
 			$i++;
 			
@@ -117,7 +117,7 @@ switch($_GET['step']) {
 		$db->free_result($teams);
 
 
-		$dsp->AddSingleRow(t('Teams, die Sie erstellt haben'));
+		$dsp->AddSingleRow(t('Teams, die du erstellt hast'));
 		// Teamname und Turniername auslesen
 		$i=0;
 		$teams = $db->qry("SELECT teams.teamid, teams.name, t.name AS tname, t.tournamentid, t.teamplayer
@@ -125,7 +125,7 @@ switch($_GET['step']) {
    LEFT JOIN %prefix%tournament_tournaments AS t ON t.tournamentid = teams.tournamentid
    WHERE (teams.leaderid = %int%) AND (t.teamplayer > 1) AND t.party_id=%int%
    ", $auth["userid"], $party->party_id);
-		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Team'), t('Sie haben noch keine Teams erstellt'));
+		if ($db->num_rows($teams) == 0) $dsp->AddDoubleRow(t('Team'), t('Du hast noch keine Teams erstellt'));
 		else while($team = $db->fetch_array($teams)) {
 			$i++;
 
@@ -149,7 +149,7 @@ switch($_GET['step']) {
 		$db->free_result($teams);
 
 
-		$dsp->AddSingleRow(t('Teams, in denen Sie Mitglied sind'));
+		$dsp->AddSingleRow(t('Teams, in denen du Mitglied bist'));
 		$members = $db->qry("SELECT users.username, users.userid, teams.name, teams.teamid, t.name AS tname, t.teamplayer
    FROM %prefix%t2_teammembers AS members
    LEFT JOIN %prefix%t2_teams AS teams ON members.teamid = teams.teamid
@@ -160,7 +160,7 @@ switch($_GET['step']) {
 		$member_liste = "";
 		$anz_memb = 0;
 		$i = 0;
-		if ($db->num_rows($members) == 0) $dsp->AddDoubleRow(t('Team'), t('Sie sind noch in keinem Team Mitglied'));
+		if ($db->num_rows($members) == 0) $dsp->AddDoubleRow(t('Team'), t('Du bist noch in keinem Team Mitglied'));
 		else while($member = $db->fetch_array($members)) {
 			$i++;
 
@@ -184,7 +184,7 @@ switch($_GET['step']) {
 		$db->free_result($members);
 
 
-		$dsp->AddSingleRow(t('Um ein neues Team zu erstellen / Sich zu einem Turnier anzumelden, wählen Sie bitte in der Turnierübersicht das entsprechende Turnier aus und klicken am Ende der erscheinenden Detailansicht auf den Anmelde-Button.'));
+		$dsp->AddSingleRow(t('Um ein neues Team zu erstellen / Dich zu einem Turnier anzumelden, wähle bitte in der Turnierübersicht das entsprechende Turnier aus und klicke am Ende der erscheinenden Detailansicht auf den Anmelde-Button.'));
 
 		$dsp->AddBackButton("index.php?mod=tournament2", "tournament2/teammgr"); 
 		$dsp->AddContent();

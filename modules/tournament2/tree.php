@@ -1,7 +1,7 @@
 
 <?php
 
-if (!$_GET['tournamentid']) $func->error(t('Sie haben kein Turnier ausgewählt!'));
+if (!$_GET['tournamentid']) $func->error(t('Du hast kein Turnier ausgewählt!'));
 else {
   
   switch($_GET['step']) {
@@ -26,13 +26,13 @@ else {
   	$tfunc = new tfunc; 
   	$team_anz = $tfunc->GetTeamAnz($_GET['tournamentid'], $tournament['mode'], $_POST['group']);  
   
-  	$dsp->NewContent(t('Turnierbaum zum Turnier %1 (%2)', $tournament['name'], $modus), t('Hier sehen Sie grafisch dargestellt, wer gegen wen spielt und können Ergebnisse melden'));
+  	$dsp->NewContent(t('Turnierbaum zum Turnier %1 (%2)', $tournament['name'], $modus), t('Hier siehst du grafisch dargestellt, wer gegen wen spielt und kannst Ergebnisse melden'));
   
   	if ($team_anz == 0) {
   		$func->information(t('Dieses Turnier wurde noch nicht generiert. Die Paarungen sind noch nicht bekannt.'), "index.php?mod=tournament2&action=tree&step=1");
   		break;
   	} elseif ($tournament['mode'] == "all") {
-  		$func->information(t('Ein Turnierbaum ist für diesen Spiel-Modus nicht vorgesehen. Schauen Sie bitte unter Paarungen nach'), "index.php?mod=tournament2&action=games&step=2&tournamentid=". $_GET['tournamentid']);
+  		$func->information(t('Ein Turnierbaum ist für diesen Spiel-Modus nicht vorgesehen. Schaue bitte unter Paarungen nach'), "index.php?mod=tournament2&action=games&step=2&tournamentid=". $_GET['tournamentid']);
   		break;
   	} else {
   		if ($tournament['mode'] == "liga") {
@@ -62,13 +62,13 @@ else {
 #  					$cronjob->load_job("cron_tmod");
 #  					$cronjob->loaded_class->add_job($_GET["tournamentid"], $_POST['group']);
   				}
-#  				$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_" . $_GET['tournamentid'] . "_" . $_POST['group'] . ".png\">".t('Hier können Sie die Grafik herunterladen')."</a>");
+#  				$dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_" . $_GET['tournamentid'] . "_" . $_POST['group'] . ".png\">".t('Hier kannst du die Grafik herunterladen')."</a>");
   			}else{
   				if(!file_exists("ext_inc/tournament_trees/tournament_" . $_GET['tournamentid'] . ".png")){
 #  					$cronjob->load_job("cron_tmod");
 #  					$cronjob->loaded_class->add_job($_GET["tournamentid"],"");
   				}
-#  				if (!$cfg['t_text_tree']) $dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_". $_GET['tournamentid'] .".png\">".t('Hier können Sie die Grafik herunterladen')."</a>");
+#  				if (!$cfg['t_text_tree']) $dsp->AddDoubleRow("", "<a href=\"ext_inc/tournament_trees/tournament_". $_GET['tournamentid'] .".png\">".t('Hier kannst du die Grafik herunterladen')."</a>");
   			}
   		}
 */

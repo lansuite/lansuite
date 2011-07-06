@@ -93,7 +93,7 @@ function WritePairs ($bracket, $max_pos) {
 }
 
 
-if (!$tournamentid) $func->error(t('Sie haben kein Turnier ausgewählt!'));
+if (!$tournamentid) $func->error(t('Du hast kein Turnier ausgewählt!'));
 else {
   switch($_GET["step"]) {
   case 1:
@@ -125,7 +125,7 @@ else {
   	if ($tournament['mode'] == "all") $modus = t('Alle in einem');
   
   	// Start Output
-  	$dsp->NewContent(t('Turnier %1 (%2) - Paarungen', $tournament['name'], $modus), t('Hier sehen Sie eine Liste aller Paarungen dieses Turniers'));
+  	$dsp->NewContent(t('Turnier %1 (%2) - Paarungen', $tournament['name'], $modus), t('Hier siehst du eine Liste aller Paarungen dieses Turniers'));
   
   
   
@@ -134,7 +134,7 @@ else {
   		// Update score, if submitted
   		if ($_GET['step'] == 10) {
   			foreach ($_POST['team_score'] as $gameid => $team_score) if ($gameid) {
-  				if (!is_numeric($team_score)) $team_score_error[$gameid] = t('Bitte geben Sie eine Zahl ein');
+  				if (!is_numeric($team_score)) $team_score_error[$gameid] = t('Bitte gib eine Zahl ein');
   				else $db->qry("UPDATE %prefix%t2_games
        SET score = %string%
        WHERE gameid = %int%", $team_score, $gameid);

@@ -46,7 +46,7 @@ function Update($id) {
 
 		
 	if($db->qry("UPDATE %prefix%user SET clanid = %int%, clanadmin = 1 WHERE userid =%int%", $id, $auth["userid"]))
-			$func->confirmation(t('Der Clan wurde erfolgreich angelegt. Als Ersteller haben Sie die Rolle Admin in diesem Clan.'), "index.php?mod=clanmgr");
+			$func->confirmation(t('Der Clan wurde erfolgreich angelegt. Als Ersteller hast du die Rolle Admin in diesem Clan.'), "index.php?mod=clanmgr");
 }
 	
 
@@ -131,7 +131,7 @@ switch ($_GET['step']) {
   // Change clan password
   case 10:
     if($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
-    elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) $func->information(t('Sie sind nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
+    elseif ($_GET['clanid'] != $auth['clanid'] and $auth['type'] < 2) $func->information(t('Du bist nicht berechtigt das Passwort dieses Clans zu ändern'), "index.php?mod=home");
     else {
       include_once('inc/classes/class_masterform.php');
       $mf = new masterform();
@@ -170,7 +170,7 @@ switch ($_GET['step']) {
   // Add - Edit
   case 30:
    // if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
-    if ($_GET['clanid'] != '' and !($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) and $auth['type'] < 2) $func->information(t('Sie sind nicht berechtigt diesen Clan zu ändern'), "index.php?mod=home");
+    if ($_GET['clanid'] != '' and !($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) and $auth['type'] < 2) $func->information(t('Du bist nicht berechtigt diesen Clan zu ändern'), "index.php?mod=home");
     else {
       include_once('inc/classes/class_masterform.php');
       $mf = new masterform();
@@ -217,11 +217,11 @@ switch ($_GET['step']) {
   // Delete Member
   case 40:
     if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
-    elseif(CountAdmins() == 1 and $auth['clanadmin'] == 1) {$func->information(t('Löschen nicht möglich. Sie sind der einzige Clan-Admin in diesem Clan. Bennen Sie bitte vorher einen weiteren Admin.'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);}
+    elseif(CountAdmins() == 1 and $auth['clanadmin'] == 1) {$func->information(t('Löschen nicht möglich. Du bist der einzige Clan-Admin in diesem Clan. Benne bitte vorher einen weiteren Admin.'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);}
     elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin'] == 1) or ($_GET['clanid'] == $auth['clanid'] and $_GET['userid'] = $auth['userid']) or $auth['type'] > 2) {
       $db->qry("UPDATE %prefix%user SET clanid = 0 WHERE userid = %int%", $_GET['userid']);
       $func->confirmation(t('Löschen erfolgreich'), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);
-    } else $func->information(t('Sie sind nicht berechtigt Mitglieder aus diesem Clan zu entfernen'), "index.php?mod=home");
+    } else $func->information(t('Du bist nicht berechtigt Mitglieder aus diesem Clan zu entfernen'), "index.php?mod=home");
   break;
 
   // Change role
@@ -229,7 +229,7 @@ switch ($_GET['step']) {
     if ($_GET['clanid'] == '') $func->error(t('Keine Clan-ID angegeben!'), "index.php?mod=home");
     elseif (($_GET['clanid'] == $auth['clanid'] and $auth['clanadmin']) or $auth['type'] > 1) {  	
       $cur_role = $db->qry_first("SELECT username, clanadmin FROM %prefix%user WHERE clanid = %int% AND userid = %int%", $_GET['clanid'], $_GET['userid']);
-      if ($cur_role['clanadmin'] and CountAdmins() == 1) $func->information(t('Sie können %1 nicht die Admin Rolle entziehen, da %1 z.z das einzige Mitglied mit der Rolle Clan-Admin ist. Benennen Sie bitte vorher einen anderen Admin.', $cur_role['username']), "index.php?mod=clanmgr&step=2&clanid=".$_GET["clanid"]);
+      if ($cur_role['clanadmin'] and CountAdmins() == 1) $func->information(t('Du kannst %1 nicht die Admin Rolle entziehen, da %1 z.z das einzige Mitglied mit der Rolle Clan-Admin ist. Benenne bitte vorher einen anderen Admin.', $cur_role['username']), "index.php?mod=clanmgr&step=2&clanid=".$_GET["clanid"]);
       elseif ($cur_role['clanadmin']) {
         $db->qry("UPDATE %prefix%user SET clanadmin = 0 WHERE userid = %int%", $_GET['userid']);
         $func->confirmation(t('Benutzer %1 ist nun kein Clan-Admin mehr',$cur_role['username']), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);
@@ -237,7 +237,7 @@ switch ($_GET['step']) {
         $db->qry("UPDATE %prefix%user SET clanadmin = 1 WHERE userid = %int%", $_GET['userid']);
         $func->confirmation(t('Benutzer %1 ist nun Clan-Admin',$cur_role['username']), 'index.php?mod=clanmgr&action=clanmgr&step=2&clanid='. $_GET['clanid']);
       }
-    } else $func->information(t('Sie sind nicht berechtigt die Berehtigung dieses Nutzers zu verändern'), "index.php?mod=home");
+    } else $func->information(t('Du bist nicht berechtigt die Berehtigung dieses Nutzers zu verändern'), "index.php?mod=home");
   break;
   
   //Clan beitreten
@@ -247,7 +247,7 @@ switch ($_GET['step']) {
   elseif(!$_POST['clan_pass'])
   {
   	$dsp->SetForm("index.php?mod=clanmgr&action=clanmgr&step=60&clanid=".$_GET['clanid']);
-    $dsp->AddSingleRow(t('Um den Clan beizutreten, müssen Sie das Clanpasswort eingeben. Sollten Sie dies nicht kennen, wenden Sie sich bitte an Ihren Clan-Admin.'));
+    $dsp->AddSingleRow(t('Um den Clan beizutreten, musst du das Clanpasswort eingeben. Solltest du dies nicht kennen, wenden dich bitte an Ihren Clan-Admin.'));
     $dsp->AddPasswordRow("clan_pass", t('Clan Passwort'), $_POST['clan_pass'], $mail_error);
     $dsp->AddFormSubmitRow("send");
     $dsp->AddBackButton("index.php?mod=clanmgr&action=clanmgr&step=2&clanid=".$_GET['clanid'], "usrmgr/pwremind");
@@ -258,7 +258,7 @@ switch ($_GET['step']) {
   	{
   		  $db->qry("UPDATE %prefix%user SET clanid = %int%, clanadmin = 0 WHERE userid =%int%", $_GET['clanid'], $auth["userid"]);
   		  $tmpclanname =  $db->qry_first("SELECT name FROM %prefix%clan WHERE clanid = %int%", $_GET['clanid']);
-  		  $func->confirmation(t('Sie sind erfolgreich dem Clan beigetreten.'), "index.php?mod=clanmgr&action=clanmgr&step=2&clanid=".$_GET['clanid']);
+  		  $func->confirmation(t('Du bist erfolgreich dem Clan beigetreten.'), "index.php?mod=clanmgr&action=clanmgr&step=2&clanid=".$_GET['clanid']);
   		  $func->log_event(t('%1 ist dem Clan %2 beigetreten', $auth['username'], $tmpclanname['name']), 1, t('clanmgr'));
   	}
   	else

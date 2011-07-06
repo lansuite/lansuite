@@ -42,7 +42,7 @@ switch($_GET['step']) {
     include_once("modules/seating/class_seat.php");
     $seat2 = new seat2();
 
-		$dsp->NewContent(t('Sitzplatz - IP-Verteilung'), t('Hier sehen Sie die einzelnen Sitzpl&auml;tze und die jeweils zugewiesene IP-Nummer. Diese k&ouml;nnen einzeln von Hand neu eingetragen oder ge&auml;ndert werden.'));
+		$dsp->NewContent(t('Sitzplatz - IP-Verteilung'), t('Hier siehst du die einzelnen Sitzpl&auml;tze und die jeweils zugewiesene IP-Nummer. Diese k&ouml;nnen einzeln von Hand neu eingetragen oder ge&auml;ndert werden.'));
 
 		$dsp->SetForm("index.php?mod=seating&action=ip&step=3&blockid={$_GET['blockid']}");
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 3));

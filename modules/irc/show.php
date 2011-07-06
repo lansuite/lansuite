@@ -8,7 +8,7 @@ if ($cfg["irc_server"] == "null" or $cfg["irc_server"] == "") $func->error(t('Ke
 elseif ($cfg["irc_width"] == "" or $cfg["irc_height"] == "") $func->error(t('Keine Gr&ouml;&szlig;enangaben in den Moduleinstellungen definiert.'));
 
 elseif (!$_POST["username"]) {
-	$dsp->NewContent(t('Chat'), t('Hier k&ouml;nnen Sie auf unserem IRC Server chatten.'));
+	$dsp->NewContent(t('Chat'), t('Hier kannst du auf unserem IRC Server chatten.'));
 	$dsp->SetForm("index.php?mod=irc");
 
 	$dsp->AddTextFieldRow("username", t('Benutzername'), $_POST["username"], "");
@@ -22,7 +22,7 @@ elseif (!$_POST["username"]) {
 	if ($language == "en") $lang_out = "english";
 	else $lang_out = "german";
 
-	$dsp->NewContent(t('Chat'), t('Hier k&ouml;nnen Sie auf unserem IRC Server chatten.'));
+	$dsp->NewContent(t('Chat'), t('Hier kannst du auf unserem IRC Server chatten.'));
 	$dsp->AddSingleRow(HTML_NEWLINE . '<div align=center><applet code=IRCApplet.class codebase="ext_scripts/pjirc/" archive="irc.jar,pixx.jar" width=' . $cfg["irc_width"] . ' height=' . $cfg["irc_height"] . '>
 	<param name="CABINETS" value="irc.cab,securedirc.cab,pixx.cab">
 

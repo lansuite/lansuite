@@ -444,7 +444,7 @@
 			</entry>
 			<entry>
 				<id>8987bf4925587b7a5d2fd1d9cad2aa9f</id>
-				<org>Hier sehen Sie aus welchen Gegenden Deutschlands Besucher zu dieser Party kommen</org>
+				<org>Hier siehst du aus welchen Gegenden Deutschlands Besucher zu dieser Party kommen</org>
 				<en>Here you can see what parts of Germany come from visitors to this party</en>
 				<es>Aquí usted puede ver qué partes de Alemania, provienen de los visitantes a esta fiesta</es>
 				<fr>Ici vous pouvez voir quelles parties de l&amp;#39;Allemagne proviennent les visiteurs de ce parti</fr>
@@ -454,7 +454,7 @@
 			</entry>
 			<entry>
 				<id>3e1afbf148bd94f5651696ff029471a8</id>
-				<org>Sie müssen sich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben</org>
+				<org>Du musst dich zuerst unter http://www.google.com/apis/maps/signup.html einen Google-Maps API Key erzeugen und diesen auf der %1 eingeben</org>
 				<en>You must first create a Google under http://www.google.com/apis/maps/signup.html Maps API key and enter it in the%1</en>
 				<es>Primero debe crear una clave de Google en virtud del http://www.google.com/apis/maps/signup.html Maps API e introducirla en el 1%</es>
 				<fr>Vous devez d&amp;#39;abord créer une sous clé http://www.google.com/apis/maps/signup.html Google Maps API et l&amp;#39;inscrire dans le 1%</fr>
@@ -574,7 +574,7 @@
 			</entry>
 			<entry>
 				<id>c70d534783c837e962411a1cb140d294</id>
-				<org>Bitte markieren Sie die User jetzt noch als exportiert.</org>
+				<org>Bitte markiere die User jetzt noch als exportiert.</org>
 				<en></en>
 				<es></es>
 				<fr></fr>
@@ -594,7 +594,7 @@
 			</entry>
 			<entry>
 				<id>a70d534783c837e962411a1cb140d294</id>
-				<org>Bitte setzten Sie zuerst eine aktive Party.</org>
+				<org>Bitte setzten zuerst eine aktive Party.</org>
 				<en></en>
 				<es></es>
 				<fr></fr>

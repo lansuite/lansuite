@@ -153,7 +153,7 @@ switch ($_GET['step']){
     	
      	case 5:
         $dsp->NewContent(t('Abgeholt'), '');
-    		$ms2->NoItemsText = t('Sie haben alle Produkte abgeholt.');
+    		$ms2->NoItemsText = t('Du hast alle Produkte abgeholt.');
     	break;  
        }
 

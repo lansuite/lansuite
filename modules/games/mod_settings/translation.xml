@@ -24,7 +24,7 @@
 			</entry>
 			<entry>
 				<id>06b73e67045f0ffcdd5100a29707f1b6</id>
-				<org>Versuchen Sie durch Buchstaben tippen ein Wort zu erraten</org>
+				<org>Versuche durch Buchstaben tippen ein Wort zu erraten</org>
 				<en>Try typing a word letter by guess</en>
 				<es>Pruebe a escribir una carta palabra por adivinar</es>
 				<fr>Essayez de taper un mot lettre par Guess</fr>
@@ -54,7 +54,7 @@
 			</entry>
 			<entry>
 				<id>24a931cda2d854128a7f463bc35bf81b</id>
-				<org>Bitte geben Sie nur einen Buchstaben ein</org>
+				<org>Bitte gib nur einen Buchstaben ein</org>
 				<en>Please enter only one letter</en>
 				<es>Por favor, introduzca sólo una letra</es>
 				<fr>S&amp;#39;il vous plaît entrer une seule lettre</fr>
@@ -74,7 +74,7 @@
 			</entry>
 			<entry>
 				<id>b5088a7e86a8416fdf33cd52111b9972</id>
-				<org>Hier können Sie sich in die Highscoreliste eintragen</org>
+				<org>Hier kannst du dich in die Highscoreliste eintragen</org>
 				<en>Here you can subscribe to the high score list</en>
 				<es>Aquí podrá suscribirse a la lista de puntuación</es>
 				<fr>Ici, vous pouvez vous abonner à la liste des meilleurs scores</fr>
@@ -134,7 +134,7 @@
 			</entry>
 			<entry>
 				<id>8d6e65fc4d10a9fef0a74844bee7845e</id>
-				<org>Versuchen Sie mit möglichst wenig Versuchen die gesuchte Zahl zu erraten</org>
+				<org>Versuche mit möglichst wenig Versuchen die gesuchte Zahl zu erraten</org>
 				<en>Try to guess, you try to minimize the required number of</en>
 				<es>Trate de adivinar, se intenta reducir al mínimo el número necesario de</es>
 				<fr>Essayez de deviner, vous essayez de minimiser le nombre requis de</fr>
@@ -204,7 +204,7 @@
 			</entry>
 			<entry>
 				<id>d4043edec794a93fdcd70373f6a0cbcc</id>
-				<org>Sie haben Gewonnen! Herzlichen Glückwunsch!</org>
+				<org>Du hast Gewonnen! Herzlichen Glückwunsch!</org>
 				<en>You have won! Congratulations!</en>
 				<es>Has ganado! Felicidades!</es>
 				<fr>Vous avez gagné! Félicitations!</fr>
@@ -224,7 +224,7 @@
 			</entry>
 			<entry>
 				<id>6996201a2328aa7c03f9da6072374c13</id>
-				<org>Sie benötigten %1 Versuche</org>
+				<org>Du hast %1 Versuche benötigt</org>
 				<en>They needed%1 attempts</en>
 				<es>Necesitaban%1 intentos</es>
 				<fr>Ils avaient besoin de 1%des tentatives</fr>
@@ -244,7 +244,7 @@
 			</entry>
 			<entry>
 				<id>09882c1bb4cb2762367cb7ec71bc46c2</id>
-				<org>Hier finden Sie ein paar kleine Webspiele, um sich die Zeit zu vertreiben</org>
+				<org>Hier findest du ein paar kleine Webspiele, um dir die Zeit zu vertreiben</org>
 				<en>Here are a few small Webgames to while away the time</en>
 				<es>Aquí hay unos pequeños Juegos Web para pasar el tiempo</es>
 				<fr>Voici quelques petits Jeux en Ligne pour passer le temps</fr>
@@ -264,7 +264,7 @@
 			</entry>
 			<entry>
 				<id>593b3710c6c0ad640e72f7ba58d38172</id>
-				<org>Versuchen Sie alle Felder aufzudecken, ohne dabei auf eine Miene zu klicken</org>
+				<org>Versuche alle Felder aufzudecken, ohne dabei auf eine Mine zu klicken</org>
 				<en>Try to uncover all the fields without clicking on a muscle</en>
 				<es>Trate de descubrir todos los campos sin hacer clic en un músculo</es>
 				<fr>Essayer de découvrir tous les champs sans avoir à cliquer sur un muscle</fr>
@@ -314,7 +314,7 @@
 			</entry>
 			<entry>
 				<id>8d798ccb99ac1ebea0071fce5cccba70</id>
-				<org>Sie haben Gewonnen! Herzlichen Gl�ckwunsch!</org>
+				<org>Du hast Gewonnen! Herzlichen Gl�ckwunsch!</org>
 				<en>You have won! Thank Glckwunsch!</en>
 				<es>Has ganado! Gracias Glckwunsch!</es>
 				<fr>Vous avez gagné! Merci Glckwunsch!</fr>
@@ -324,7 +324,7 @@
 			</entry>
 			<entry>
 				<id>98929f51afd1804d12d7988bbf02e301</id>
-				<org>Hier k�nnen Sie sich in die Highscoreliste eintragen</org>
+				<org>Hier kannst du dich in die Highscoreliste eintragen</org>
 				<en>You can spend their time adding to the high scores list</en>
 				<es>Usted puede pasar su tiempo de añadir a la lista de puntuaciones más altas</es>
 				<fr>Vous pouvez passer leur temps à ajouter à la liste des scores élevés</fr>

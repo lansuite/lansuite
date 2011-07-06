@@ -21,7 +21,7 @@ switch($_GET["step"]) {
 	break;
 	
 	default:
-		$dsp->NewContent(t('Grundeinstellungen'), t('Bitte geben Sie nun die Zugangsdaten zur Datenbank an.'));
+		$dsp->NewContent(t('Grundeinstellungen'), t('Bitte gib nun die Zugangsdaten zur Datenbank an.'));
 		$dsp->SetForm("index.php?mod=install&action=ls_conf&step=2");
 
 		if ($_POST["host"] == "") $_POST["host"] = $config['database']['server'];

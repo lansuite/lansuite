@@ -5,7 +5,7 @@
 		<action>default</action>
 		<file>show</file>
 		<caption>Wiki</caption>
-		<hint>Schlagen Sie wissenswertes in unserem Wiki nach</hint>
+		<hint>Schlage wissenswertes in unserem Wiki nach</hint>
 		<link>?mod=wiki</link>
 		<requirement>0</requirement>	<!-- 0 = All; 1 = Logged in; 2 = Admin; 3 = Superadmin; 4 = No Admins-->
 		<needed_config></needed_config>
@@ -15,7 +15,7 @@
 		<action>search</action>
 		<file>search</file>
 		<caption>Beitrags-Suche</caption>
-		<hint>Suchen Sie in den Wiki-Beiträgen</hint>
+		<hint>Suche in den Wiki-Beiträgen</hint>
 		<link>?mod=wiki&amp;action=search</link>
 		<requirement>0</requirement>
 		<needed_config></needed_config>

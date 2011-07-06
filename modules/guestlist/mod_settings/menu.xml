@@ -15,7 +15,7 @@
 		<action>usermap</action>
 		<file>usermap</file>
 		<caption>Besucherkarte</caption>
-		<hint>Hier sehen Sie aus welchen Gegenden die Besucher kommen</hint>
+		<hint>Hier siehst du aus welchen Gegenden die Besucher kommen</hint>
 		<link>?mod=guestlist&amp;action=usermap</link>
 		<requirement>0</requirement>
 		<needed_config>ShowGuestMap</needed_config>

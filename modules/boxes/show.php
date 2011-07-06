@@ -49,7 +49,7 @@ switch ($_GET['step']) {
   break;
 }
 
-$dsp->NewContent(t('Box-Manager'), t('Hier können Sie die Anzeige und Position der Boxen verwalten'));
+$dsp->NewContent(t('Box-Manager'), t('Hier kannst du die Anzeige und Position der Boxen verwalten'));
 
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2('');

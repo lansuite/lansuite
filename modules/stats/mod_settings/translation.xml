@@ -44,7 +44,7 @@
 			</entry>
 			<entry>
 				<id>bb75315746079ed4a477853b45cb8dfe</id>
-				<org>Auf dieser Seite erhalten Sie Informationen &amp;uuml;ber die Datenbank und aktuelle Leistungsdaten.</org>
+				<org>Auf dieser Seite erhälst du Informationen &amp;uuml;ber die Datenbank und aktuelle Leistungsdaten.</org>
 				<en>On this page you will find information about the database and actual performance data.</en>
 				<es>En esta página usted encontrará información sobre la base de datos y datos de rendimiento real.</es>
 				<fr>Sur cette page vous trouverez des informations sur la base de données et les données de performances réelles.</fr>
@@ -264,7 +264,7 @@
 			</entry>
 			<entry>
 				<id>0bff39c5ad722f2fe63400b432ed9afe</id>
-				<org>Hier sehen Sie die aktuelle Auslastung des Servers auf dem Lansuite gerade ausgeführt wird</org>
+				<org>Hier siehst du die aktuelle Auslastung des Servers auf dem Lansuite gerade ausgeführt wird</org>
 				<en>Here you will see the actual usage of the server currently running on the Lansuite</en>
 				<es>Aquí podrás ver el uso real del servidor ejecutando actualmente en el Lansuite</es>
 				<fr>Ici vous pourrez voir l&amp;#39;utilisation réelle du serveur qui exécute actuellement sur le Lansuite</fr>
@@ -404,7 +404,7 @@
 			</entry>
 			<entry>
 				<id>cc87d5dccd4ab169f9f80a7681b7f86a</id>
-				<org>Hier sehen Sie, &amp;uuml;ber welche Suchbegriffe Besucher &amp;uuml;ber Suchmaschinenen auf Ihrer Seite gelandet sind</org>
+				<org>Hier siehst du, &amp;uuml;ber welche Suchbegriffe Besucher &amp;uuml;ber Suchmaschinenen auf Ihrer Seite gelandet sind</org>
 				<en>Here you can see which search terms visitors have arrived via search engines on your side</en>
 				<es>Aquí usted puede ver que los visitantes términos de búsqueda han llegado a través de motores de búsqueda de su lado</es>
 				<fr>Ici vous pouvez voir les termes de recherche que les visiteurs sont arrivés par le biais des moteurs de recherche de votre côté</fr>
@@ -444,7 +444,7 @@
 			</entry>
 			<entry>
 				<id>130c3d026c9b37f8de3b6a07045469c8</id>
-				<org>Keine Daten vorhanden. Sie m&amp;uuml;ssen das Modulsuitebeat aktivieren und den Cron-Job einrichten</org>
+				<org>Keine Daten vorhanden.Du musst das Modulsuitebeat aktivieren und den Cron-Job einrichten</org>
 				<en>No data available. You need to activate the module suite beat and set up the cron job</en>
 				<es>No hay datos disponibles. Deberá activar el conjunto de módulo golpearon y configurar el trabajo de cron</es>
 				<fr>Aucune donnée disponible. Vous avez besoin d&amp;#39;activer la suite module battu et mis en place la tâche cron</fr>
@@ -474,7 +474,7 @@
 			</entry>
 			<entry>
 				<id>e992f966374bcdf2426881a9abf279b2</id>
-				<org>Hier sehen Sie die aktuelle Statistik zur laufenden LAN</org>
+				<org>Hier siehst du die aktuelle Statistik zur laufenden LAN</org>
 				<en>Here you see the current statistics on the current LAN</en>
 				<es>Aquí puede ver las estadísticas actuales en la LAN actual</es>
 				<fr>Ici vous voyez les statistiques actuelles sur le langage courant</fr>

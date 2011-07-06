@@ -3,7 +3,7 @@
 include_once("inc/classes/class_xml.php");
 $xml = new xml;
 
-$dsp->NewContent(t('Design Manager'), t('Editieren Sie Design-Templates und setzen Sie das aktive Design'));
+$dsp->NewContent(t('Design Manager'), t('Editiere Design-Templates und setze das aktive Design'));
 
 switch ($_GET['step']) {
 

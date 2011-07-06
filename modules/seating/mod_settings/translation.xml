@@ -204,7 +204,7 @@
 			</entry>
 			<entry>
 				<id>21e41d9c216d49d5bb55799773cd92bd</id>
-				<org>Ihr Platz</org>
+				<org>Dein Platz</org>
 				<en>Your place</en>
 				<es>Su lugar</es>
 				<fr>Votre place</fr>
@@ -234,7 +234,7 @@
 			</entry>
 			<entry>
 				<id>a8aa44a1c41d24880c7f6b1646649717</id>
-				<org>Wollen Sie diesen Sitzblock wirklich löschen?</org>
+				<org>Willst du diesen Sitzblock wirklich löschen?</org>
 				<en>Do you want to delete this office block?</en>
 				<es>¿Quieres eliminar este edificio de oficinas?</es>
 				<fr>Voulez-vous supprimer cet immeuble de bureaux?</fr>
@@ -254,7 +254,7 @@
 			</entry>
 			<entry>
 				<id>8cff30c30f16385069c7911cfdc4144f</id>
-				<org>Bitte geben Sie die horizontale Länge ein</org>
+				<org>Bitte gib die horizontale Länge ein</org>
 				<en>Please enter the horizontal length</en>
 				<es>Por favor, introduzca la longitud horizontal</es>
 				<fr>S&amp;#39;il vous plaît entrez la longueur horizontale</fr>
@@ -264,7 +264,7 @@
 			</entry>
 			<entry>
 				<id>3c3cee656c89085940521c5086fa16b2</id>
-				<org>Bitte geben Sie eine Zahl, die größer als 0 ist ein</org>
+				<org>Bitte gib eine Zahl, die größer als 0 ist ein</org>
 				<en>Please enter a number that is greater than 0</en>
 				<es>Por favor, introduzca un número que es mayor que 0</es>
 				<fr>S&amp;#39;il vous plaît, entrez un numéro qui est supérieur à 0</fr>
@@ -274,7 +274,7 @@
 			</entry>
 			<entry>
 				<id>01921a4d5bd806cbeb129e0f3b436ac7</id>
-				<org>Bitte geben Sie eine kleinere Zahl als 60 ein</org>
+				<org>Bitte gib eine kleinere Zahl als 60 ein</org>
 				<en>Please enter a smaller number than 60, a</en>
 				<es>Por favor, introduzca un número menor que 60, un</es>
 				<fr>S&amp;#39;il vous plaît entrer un nombre inférieur à 60, une</fr>
@@ -284,7 +284,7 @@
 			</entry>
 			<entry>
 				<id>b25f72f7d910e34c7e2d93713a5b6b07</id>
-				<org>Bitte geben Sie eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entfernen Sie bitte die betroffenen Benutzer.</org>
+				<org>Bitte gib eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entferne bitte die betroffenen Benutzer.</org>
 				<en>Please enter a larger number, otherwise seats will be deleted. Nevertheless, in order to generate a smaller office block, please remove the affected user.</en>
 				<es>Por favor, introduzca un número mayor, de lo contrario los asientos serán eliminados. Sin embargo, con el fin de generar un bloque de oficinas más pequeñas, por favor, elimine el usuario afectado.</es>
 				<fr>S&amp;#39;il vous plaît entrer un plus grand nombre, faute de quoi les sièges seront supprimés. Néanmoins, afin de générer un bloc plus petit bureau, s&amp;#39;il vous plaît supprimer l&amp;#39;utilisateur affecté.</fr>
@@ -294,7 +294,7 @@
 			</entry>
 			<entry>
 				<id>0945cb36a8ebc66793fb5a97c86ae2d5</id>
-				<org>Bitte geben Sie die vertikale Länge ein</org>
+				<org>Bitte gib die vertikale Länge ein</org>
 				<en>Please enter the vertical length</en>
 				<es>Por favor, introduzca la longitud vertical</es>
 				<fr>S&amp;#39;il vous plaît entrer la longueur verticale</fr>
@@ -304,7 +304,7 @@
 			</entry>
 			<entry>
 				<id>c7913a48b644f1d90ac0f96b8a56d99f</id>
-				<org>Bitte geben Sie eine kleinere Zahl als 100 ein</org>
+				<org>Bitte gib eine kleinere Zahl als 100 ein</org>
 				<en>Please enter a smaller number than 100 a</en>
 				<es>Por favor, introduzca un número menor de 100 por</es>
 				<fr>S&amp;#39;il vous plaît entrer un nombre inférieur à 100 A</fr>
@@ -314,7 +314,7 @@
 			</entry>
 			<entry>
 				<id>ec98732b8ba25faed3ccf231ad2969fc</id>
-				<org>Bitte geben Sie weniger als 1500 Zeichen ein</org>
+				<org>Bitte gib weniger als 1500 Zeichen ein</org>
 				<en>Please enter less than 1500 characters</en>
 				<es>Por favor, introduzca menos de 1500 caracteres</es>
 				<fr>S&amp;#39;il vous plaît entrez moins de 1500 caractères</fr>
@@ -334,7 +334,7 @@
 			</entry>
 			<entry>
 				<id>8ceb079dcb2dd5a728a331ebae1fa0d2</id>
-				<org>Mit Hilfe des folgenden Formulars können Sie einen neuen Sitzblock erstellen. In einem folgenden zweiten Schritt können Sie dann Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bedürfnissen anzupassen.</org>
+				<org>Mit Hilfe des folgenden Formulars kannst du einen neuen Sitzblock erstellen. In einem folgenden zweiten Schritt kannst du dann Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock deinen Bedürfnissen anzupassen.</org>
 				<en>With the help of the following form, you can create a new office block. In a subsequent second step, you can then select places of the seat block to adjust or disable the seat block your needs.</en>
 				<es>Con la ayuda de la forma siguiente, puede crear un nuevo bloque de oficinas. En un paso posterior segundo, a continuación, puede seleccionar los lugares del bloque de asiento para ajustar o desactivar el bloque de asiento a sus necesidades.</es>
 				<fr>Avec l&amp;#39;aide du formulaire suivant, vous pouvez créer un nouvel immeuble de bureaux. Dans une étape ultérieure secondes, vous pouvez alors choisir des lieux du bloc de sièges à ajuster ou désactiver le siège bloquer vos besoins.</fr>
@@ -544,7 +544,7 @@
 			</entry>
 			<entry>
 				<id>ce9859e3dcb29b3300a8ba713c5b66d4</id>
-				<org>Fahren Sie mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.</org>
+				<org>Fahre mit der Maus über einen Sitzplatz, um weitere Informationen zu erhalten.</org>
 				<en>Take the mouse over a seat to get more information.</en>
 				<es>Tome el mouse encima de un asiento para obtener más información.</es>
 				<fr>Prendre la souris sur un siège pour obtenir plus d&amp;#39;informations.</fr>
@@ -824,7 +824,7 @@
 			</entry>
 			<entry>
 				<id>eab367cc1731e75432a20ab2dbc25a8d</id>
-				<org>Sie müssen zuerst für diese Party bezahlen, bevor Sie sich einen Sitzplatz reservieren dürfen.</org>
+				<org>Du musst zuerst für diese Party bezahlen, bevor du dir einen Sitzplatz reservieren darfst.</org>
 				<en>You must first pay for this party, before you are allowed to reserve a seat.</en>
 				<es>En primer lugar, debe pagar por este partido, antes de que se le permite reservar un asiento.</es>
 				<fr>Vous devez d&amp;#39;abord payer pour ce parti, avant d&amp;#39;être autorisés à réserver une place.</fr>
@@ -844,7 +844,7 @@
 			</entry>
 			<entry>
 				<id>cad205fd227a8ee7c3370ccd9730b311</id>
-				<org>Solange Sie nicht für diese Party bezahlt haben, dürfen Sie nur einen Sitz vormerken</org>
+				<org>Solange du nicht für diese Party bezahlt hast, darfst du nur einen Sitz vormerken</org>
 				<en>As long as you have not paid for this party, you may mark only one seat</en>
 				<es>Mientras usted no ha pagado por este partido, usted puede marcar un solo asiento</es>
 				<fr>Tant que vous n&amp;#39;avez pas payé pour cette partie, vous mai marque un seul siège</fr>
@@ -854,7 +854,7 @@
 			</entry>
 			<entry>
 				<id>106161cc31656cfe2f858f8114885d11</id>
-				<org>Sie haben bereits einen Sitzplatz reserviert. Möchten Sie Ihren Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?</org>
+				<org>Du hast bereits einen Sitzplatz reserviert. Möchtest du deinen Sitzplatz wieder frei geben und statt dessen diesen Platz reservieren?</org>
 				<en>They have already reserved a seat. Would you like to be free again and reserve your seat instead of this place?</en>
 				<es>Ya han reservado un asiento. ¿Te gustaría ser libre de nuevo y reservar su asiento en lugar de este lugar?</es>
 				<fr>Ils ont déjà réservé un siège. Souhaitez-vous être à nouveau libre et réserver votre siège au lieu de ce lieu?</fr>
@@ -884,7 +884,7 @@
 			</entry>
 			<entry>
 				<id>d2904227ab05e758fce7e9fe2edc3ac8</id>
-				<org>Möchten Sie als Admin diese Vormerkung entfernen?</org>
+				<org>Möchtest du als Admin diese Vormerkung entfernen?</org>
 				<en>Do you want to remove this flag as an admin?</en>
 				<es>¿Desea eliminar esta bandera como un administrador?</es>
 				<fr>Voulez-vous supprimer cet indicateur comme un admin?</fr>
@@ -914,7 +914,7 @@
 			</entry>
 			<entry>
 				<id>fc2c6d02f3284f9bcab993f351dcb545</id>
-				<org>Sie gehören nicht der richtigen Gruppe an, um in diesem Block einen Sitz zu reservieren</org>
+				<org>Du gehörst nicht der richtigen Gruppe an, um in diesem Block einen Sitz zu reservieren</org>
 				<en>They do not belong to the right group to reserve a seat in this block</en>
 				<es>Ellos no pertenecen al grupo de derecho de reservar un asiento en este bloque de</es>
 				<fr>Ils n&amp;#39;appartiennent pas au groupe le droit de réserver un siège dans ce bloc</fr>
@@ -924,7 +924,7 @@
 			</entry>
 			<entry>
 				<id>f222f0af73d7a31e200b4f88869bd2f8</id>
-				<org>Sie sind nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz zu reservieren</org>
+				<org>Du bist nicht dem richtigen Eintrittspreis zugeordnet, um in diesem Block einen Sitz zu reservieren</org>
 				<en>You are not the right ticket assigned to reserve a seat in this block</en>
 				<es>Usted no es el ticket asignado el derecho a reservar un asiento en este bloque</es>
 				<fr>Vous n&amp;#39;êtes pas le billet approprié attribué pour réserver une place dans ce bloc</fr>
@@ -954,7 +954,7 @@
 			</entry>
 			<entry>
 				<id>925fdd283e9fa0a3f73ddd25a6b18e83</id>
-				<org>Sie haben bereits das Maximum an Sitzen reserviert</org>
+				<org>Du hast bereits das Maximum an Sitzen reserviert</org>
 				<en>They have already reserved the maximum of seats</en>
 				<es>Ya han reservado el máximo de escaños</es>
 				<fr>Ils ont déjà réservé le maximum de sièges</fr>
@@ -974,7 +974,7 @@
 			</entry>
 			<entry>
 				<id>28d08d91511e7a209d3adc9a28b648d9</id>
-				<org>Dieser Sitzplatz ist momentan für Sie reserviert</org>
+				<org>Dieser Sitzplatz ist momentan für dich reserviert</org>
 				<en>This seat is currently reserved for you</en>
 				<es>Este asiento está reservado para usted</es>
 				<fr>Ce siège est actuellement réservé pour vous</fr>
@@ -994,7 +994,7 @@
 			</entry>
 			<entry>
 				<id>b16d75d76b6d0997c7c7d58d7125af33</id>
-				<org>Sind Sie sicher, dass Sie diesen Sitzplatz wieder freigeben möchten?</org>
+				<org>Bist du sicher, dass du diesen Sitzplatz wieder freigeben möchtest?</org>
 				<en>Are you sure you want to share this seat again?</en>
 				<es>¿Estás seguro de que desea compartir este asiento de nuevo?</es>
 				<fr>Etes-vous sûr que vous souhaitez partager ce siège à nouveau?</fr>
@@ -1054,7 +1054,7 @@
 			</entry>
 			<entry>
 				<id>89eedbda5852b67f2be0d8e29ceb7479</id>
-				<org>Dieser Sitzplatz ist momentan für %1 reserviert. Sie können:</org>
+				<org>Dieser Sitzplatz ist momentan für %1 reserviert. Du kannst:</org>
 				<en>This seat is reserved currently for%1. You can:</en>
 				<es>Este asiento está reservado actualmente para%1. Usted puede:</es>
 				<fr>Ce siège est réservé actuellement à 1%. Vous pouvez:</fr>
@@ -1124,7 +1124,7 @@
 			</entry>
 			<entry>
 				<id>95defd2b0ccb58f134e0b376470956dd</id>
-				<org>Hier sehen Sie die einzelnen Sitzpl&amp;auml;tze und die jeweils zugewiesene IP-Nummer. Diese k&amp;ouml;nnen einzeln von Hand neu eingetragen oder ge&amp;auml;ndert werden.</org>
+				<org>Hier siehst du die einzelnen Sitzpl&amp;auml;tze und die jeweils zugewiesene IP-Nummer. Diese k&amp;ouml;nnen einzeln von Hand neu eingetragen oder ge&amp;auml;ndert werden.</org>
 				<en>Here you see the individual seats and the respective assigned IP number. This can be used individually by hand to be re-entered or changed.</en>
 				<es>Aquí puede ver los asientos individuales y los respectivos números de IP asignado. Esto se puede utilizar individualmente a mano para volver a introducir o modificar.</es>
 				<fr>Ici vous voyez les sièges individuels et les respectives attribué des numéros IP. Ceci peut être utilisé individuellement à la main pour être réinscrit ou modifiés.</fr>

@@ -26,7 +26,7 @@ switch($_GET["step"]) {
 		
 		if($get_catname["name"] != "") {
 			
-			$func->question(t('Sind Sie sicher, dass Sie die Kategorie  <b> %1 </b> und die darin enthaltenen Fragen wirklich löschen wollen?', $get_catname['name']),"index.php?mod=faq&object=cat&action=delete_cat&catid={$_GET['catid']}&step=3","index.php?mod=faq&object=cat&action=delete_cat");
+			$func->question(t('Bist du sicher, dass du die Kategorie  <b> %1 </b> und die darin enthaltenen Fragen wirklich löschen willst?', $get_catname['name']),"index.php?mod=faq&object=cat&action=delete_cat&catid={$_GET['catid']}&step=3","index.php?mod=faq&object=cat&action=delete_cat");
 		}
 		
 			else {

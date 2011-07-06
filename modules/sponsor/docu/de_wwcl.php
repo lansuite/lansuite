@@ -5,7 +5,7 @@ $helplet['action'] = 'Hilfe';
 $helplet['info'] = 'Informationen zum Einfügen des WWCl-Codes';
 
 $helplet['key'][1] = 'WWCL';
-$helplet['value'][1] = 'Falls Sie WWCL-Turniere auf Ihrer Party spielen, sollten Sie unten stehenden Banner-Code auf Ihrer Sponsoren-Seite hinzufügen. Das Einfügen eines Buttons ist nicht notwendig, da in LanSuite automatisch eine WWCL-Box mit dem Button auf allen Turnier-Seiten erscheint, die WWCL-Spiele enthalten';
+$helplet['value'][1] = 'Falls du WWCL-Turniere auf deiner Party spielst, solltest du unten stehenden Banner-Code auf deiner Sponsoren-Seite hinzufügen. Das Einfügen eines Buttons ist nicht notwendig, da in LanSuite automatisch eine WWCL-Box mit dem Button auf allen Turnier-Seiten erscheint, die WWCL-Spiele enthalten';
 $helplet['key'][2] = 'Code';
 $helplet['value'][2] = "&lt;!-- START OF WWCL BUTTON CODE 3.0--&gt;<br>
 &lt;script language='JavaScript' type='text/javascript' src='http://dico.planetlan-gmbh.de/adx.js'>&lt;/script><br>

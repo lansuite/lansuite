@@ -1,6 +1,6 @@
 <?php
 
-$dsp->NewContent(t('Suchmaschinen'), t('Hier sehen Sie, &uuml;ber welche Suchbegriffe Besucher &uuml;ber Suchmaschinenen auf Ihrer Seite gelandet sind'));
+$dsp->NewContent(t('Suchmaschinen'), t('Hier siehst du, &uuml;ber welche Suchbegriffe Besucher &uuml;ber Suchmaschinenen auf deiner Seite gelandet sind'));
 
 include_once('modules/mastersearch2/class_mastersearch2.php');
 $ms2 = new mastersearch2();

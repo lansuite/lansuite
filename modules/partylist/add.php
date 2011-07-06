@@ -1,5 +1,5 @@
 <?php
-$dsp->NewContent(t('Party eintragen'), t('Hier können Sie Ihre Party der Liste hinzufügen'));
+$dsp->NewContent(t('Party eintragen'), t('Hier kannst du deine Party der Liste hinzufügen'));
 
 include_once('inc/classes/class_masterform.php');
 $mf = new masterform();

@@ -10,27 +10,27 @@ $error = array();
 switch($_GET['step']) {
 	case 3:
 		// Error Columns
-		if ($_POST['cols'] == "") $error['cols'] = t('Bitte geben Sie die horizontale Länge ein');
-		elseif ($_POST['cols'] <= 0) $error['cols'] = t('Bitte geben Sie eine Zahl, die größer als 0 ist ein');
-		elseif ($_POST['cols'] >= 60) $error['cols'] = t('Bitte geben Sie eine kleinere Zahl als 60 ein');
+		if ($_POST['cols'] == "") $error['cols'] = t('Bitte gib die horizontale Länge ein');
+		elseif ($_POST['cols'] <= 0) $error['cols'] = t('Bitte gib eine Zahl, die größer als 0 ist ein');
+		elseif ($_POST['cols'] >= 60) $error['cols'] = t('Bitte gib eine kleinere Zahl als 60 ein');
 		else {
 			$row = $db->qry_first("SELECT count(*) AS number FROM %prefix%seat_seats
     WHERE blockid = %int% AND status = 2 AND col >= %int%", $_GET['blockid'], $_POST['cols']);
-			if ($row["number"] != 0) $error['cols'] = t('Bitte geben Sie eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entfernen Sie bitte die betroffenen Benutzer.');
+			if ($row["number"] != 0) $error['cols'] = t('Bitte gib eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entferne bitte die betroffenen Benutzer.');
 		}
 
 		// Error Rows
-		if ($_POST['rows'] == "") $error['rows'] = t('Bitte geben Sie die vertikale Länge ein');
-		elseif ($_POST['rows'] <= 0) $error['rows'] = t('Bitte geben Sie eine Zahl, die größer als 0 ist ein');
-		elseif ($_POST['rows'] >= 100) $error['rows'] = t('Bitte geben Sie eine kleinere Zahl als 100 ein');
+		if ($_POST['rows'] == "") $error['rows'] = t('Bitte gib die vertikale Länge ein');
+		elseif ($_POST['rows'] <= 0) $error['rows'] = t('Bitte gib eine Zahl, die größer als 0 ist ein');
+		elseif ($_POST['rows'] >= 100) $error['rows'] = t('Bitte gib eine kleinere Zahl als 100 ein');
 		else {
 			$row = $db->qry_first("SELECT count(*) AS number FROM %prefix%seat_seats
     WHERE blockid = %int% AND status = 2 AND row >= %int%", $_GET['blockid'], $_POST['rows']);
-    		if ($row["number"] != 0) $error['rows'] = t('Bitte geben Sie eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entfernen Sie bitte die betroffenen Benutzer.');
+    		if ($row["number"] != 0) $error['rows'] = t('Bitte gib eine größere Zahl ein, da sonst Sitzplätze gelöscht werden. Um Trotzdem einen kleineren Sitzblock zu erzeugen, entferne bitte die betroffenen Benutzer.');
     	}
 
 		// Remark
-		if (strlen($_POST['remark']) > 1500) $error['remark'] = t('Bitte geben Sie weniger als 1500 Zeichen ein');
+		if (strlen($_POST['remark']) > 1500) $error['remark'] = t('Bitte gib weniger als 1500 Zeichen ein');
 
 		foreach ($error as $key => $val) if ($val) {
 			$_GET['step']--;
@@ -129,7 +129,7 @@ switch($_GET['step']) {
       $smarty->assign('text_br', $_POST['text_br']);
 		}
 
-		$dsp->NewContent(t('Sitzblock erstellen'), t(' Mit Hilfe des folgenden Formulars können Sie einen neuen Sitzblock erstellen. In einem folgenden zweiten Schritt können Sie dann Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bedürfnissen anzupassen.'));
+		$dsp->NewContent(t('Sitzblock erstellen'), t(' Mit Hilfe des folgenden Formulars kannst du einen neuen Sitzblock erstellen. In einem folgenden zweiten Schritt kannst du dann Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock deinen Bedürfnissen anzupassen.'));
 		$dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=3&blockid={$_GET['blockid']}");
 
 		$dsp->AddTextFieldRow('name', t('Sitzblockname'),  $_POST['name'], $error['name']);
@@ -254,7 +254,7 @@ switch($_GET['step']) {
 	// Seat-Selection
 	case 5:
 	case 6:
-		$dsp->NewContent(t('Sitzblock Sitze definieren'), t('Nun können Sie Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock Ihren Bedürfnissen anzupassen.<br /><br />Ganze Reihen bzw. Spalten von Plätzen können aktiviert bzw. deaktiviert werden, indem Sie auf die Spalten- bzw. Reihen-Beschriftung  klicken.'));
+		$dsp->NewContent(t('Sitzblock Sitze definieren'), t('Nun kannst du Plätze des Sitzblockes aktivieren bzw. deaktivieren um den Sitzblock deinen Bedürfnissen anzupassen.<br /><br />Ganze Reihen bzw. Spalten von Plätzen können aktiviert bzw. deaktiviert werden, indem du auf die Spalten- bzw. Reihen-Beschriftung  klicken.'));
 		$dsp->SetForm("index.php?mod=seating&action={$_GET['action']}&step=6&blockid={$_GET['blockid']}", "block");
 		$dsp->AddSingleRow($seat2->DrawPlan($_GET['blockid'], 2));
 		$dsp->AddFormSubmitRow(t('Speichern'));
