@@ -24,7 +24,7 @@
 	<entry>
 		<caption>Kontocheck updaten</caption>
 		<hint></hint>
-		<link>?mod=guestlist&auml;action=checking</link>
+		<link>?mod=guestlist&amp;action=checking</link>
 		<requirement>2</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
@@ -52,7 +52,7 @@
 		<file>onlineuser</file>
 		<caption>Onlineuser</caption>
 		<hint></hint>
-		<link>?mod=guestlist&action=onlineuser</link>
+		<link>?mod=guestlist&amp;action=onlineuser</link>
 		<requirement>1</requirement>
 		<needed_config></needed_config>
 		<level>1</level>
