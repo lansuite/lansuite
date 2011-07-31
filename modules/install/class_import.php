@@ -331,7 +331,7 @@ class Import {
 					if ($primary_key) $primary_key = ", PRIMARY KEY (". substr($primary_key, 0, strlen($primary_key) - 2) .")";
 
 					// Create a new table, if it does not exist yet, or has been dropped above, due to rewrite
-					$db->qry("CREATE TABLE IF NOT EXISTS %prefix%%plain% ($mysql_fields %plain% $unique_key) TYPE = MyISAM CHARACTER SET utf8", $table_name, $primary_key);
+					$db->qry("CREATE TABLE IF NOT EXISTS %prefix%%plain% ($mysql_fields %plain% $unique_key) ENGINE = MyISAM CHARACTER SET utf8", $table_name, $primary_key);
 					#$db->qry("REPLACE INTO %prefix%table_names SET name = %string%", $table_name);
 
 					// Set Table-Charset to UTF-8
