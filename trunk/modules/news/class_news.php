@@ -25,7 +25,7 @@ class News {
       $channel .= $xml->write_master_tag("image", $image, 2);
     }
 
-    $get_news = $db->qry("SELECT n.*, u.name, u.firstname, u.username FROM  %prefix%news n
+    $get_news = $db->qry("SELECT n.*, UNIX_TIMESTAMP(n.date) AS date, u.name, u.firstname, u.username FROM  %prefix%news n
       LEFT JOIN %prefix%user u ON u.userid = n.poster
       ORDER BY n.date DESC");
     while($news = $db->fetch_array($get_news)) {
