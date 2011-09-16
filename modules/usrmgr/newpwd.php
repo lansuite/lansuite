@@ -8,7 +8,7 @@ switch($_GET['step']) {
 	break;
 
 	case 2:
-		$func->question(t('Bist du sicher, dass du dem Benutzer <b>%1% %2% (%3%)</b> ein neues Passwort zuweisen willst?', $user_data["firstname"], $user_data["name"], $user_data["username"]), "index.php?mod=usrmgr&action=newpwd&step=3&userid=". $_GET['userid']);
+		$func->question(t('Bist du sicher, dass du dem Benutzer <b>%1 %2 (%3)</b> ein neues Passwort zuweisen willst?', $user_data["firstname"], $user_data["name"], $user_data["username"]), "index.php?mod=usrmgr&action=newpwd&step=3&userid=". $_GET['userid']);
 	break;
 
 	case 3:
