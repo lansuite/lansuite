@@ -35,21 +35,21 @@
 			<entry>
 				<id>a48417c75c7820deee77f0706bec69ca</id>
 				<org>Ihre Anmeldung bei %1</org>
-				<en>Your registration at%1</en>
-				<es>Su registro en%1</es>
-				<fr>Votre inscription à 1%</fr>
-				<nl>Uw registratie op%1</nl>
-				<it>La registrazione a 1%</it>
+				<en>Your registration at %1</en>
+				<es>Su registro en %1</es>
+				<fr>Votre inscription à %1</fr>
+				<nl>Uw registratie op %1</nl>
+				<it>La registrazione a %1</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>bd15dbd29f73a4865f4ab11b9c493202</id>
 				<org>Du hast dich soeben bei uns auf %1 angemeldet. Damit du dich bei uns Einloggen kannst, müssen wir jedoch zuerst sicherstellen, dass deine Email korrekt ist. Klicke zum Verifizieren deiner Email-Adresse bitte auf den folgenden Link %2</org>
 				<en>They have just signed up with us at%1. Before you can login with us, we must first make sure that your email is correct. Click to verify your email address, please visit the following link%2</en>
-				<es>Ellos acaban de firmar con nosotros en%1. Antes de que pueda ingresar con nosotros, primero tiene que asegurarse que su correo sea correcto. Haga clic para verificar su dirección de correo electrónico, por favor, visite el siguiente enlace 2%</es>
+				<es>Ellos acaban de firmar con nosotros en%1. Antes de que pueda ingresar con nosotros, primero tiene que asegurarse que su correo sea correcto. Haga clic para verificar su dirección de correo electrónico, por favor, visite el siguiente enlace %2</es>
 				<fr>Ils viennent de signer avec nous à l&amp;#39;adresse%1. Avant que vous pouvez vous connecter avec nous, nous devons d&amp;#39;abord vous assurer que votre email est correcte. Cliquez ici pour vérifier votre adresse email, s&amp;#39;il vous plaît visitez le lien ci</fr>
 				<nl>Ze hebben net getekend met ons op%1. Voordat u kunt inloggen met ons, moeten we eerst zorgen dat uw e-mail juist is. Klik om te controleren of uw e-mailadres, kunt u de volgende link:%2</nl>
-				<it>Hanno appena firmato con noi a%1. Prima di poter effettuare il login con noi, dobbiamo prima fare in modo che la tua email sia corretto. Clicca per verificare il tuo indirizzo e-mail, si prega di visitare il seguente link 2%</it>
+				<it>Hanno appena firmato con noi a%1. Prima di poter effettuare il login con noi, dobbiamo prima fare in modo che la tua email sia corretto. Clicca per verificare il tuo indirizzo e-mail, si prega di visitare il seguente link %2</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -615,11 +615,11 @@
 			<entry>
 				<id>199292108b7b512477d90e905827cc64</id>
 				<org>Hiermit bestätige ich, die %1 der Veranstaltung &lt;b&gt;&quot;%2&quot;&lt;/b&gt; gelesen zu haben und ggf. ausgefüllt zur Veranstaltung mitzubringen.</org>
-				<en>I hereby certify that I have read the%1 of the event &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; and bring back filled to the event.</en>
-				<es>Por la presente certifico que he leído el 1%del evento &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; y traer de vuelta completa al evento.</es>
-				<fr>Je certifie que j&amp;#39;ai lu le 1%de l&amp;#39;événement &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; et de ramener rempli à l&amp;#39;événement.</fr>
-				<nl>Hierbij verklaar ik dat ik de%1 van het evenement hebben gelezen &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; en breng terug gevuld tot het evenement.</nl>
-				<it>Il sottoscritto dichiara di aver letto l&amp;#39;1%della manifestazione &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; e riportare riempito l&amp;#39;evento.</it>
+				<en>I hereby certify that I have read the %1 of the event &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; and bring back filled to the event.</en>
+				<es>Por la presente certifico que he leído el %1 del evento &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; y traer de vuelta completa al evento.</es>
+				<fr>Je certifie que j&amp;#39;ai lu le %1 de l&amp;#39;événement &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; et de ramener rempli à l&amp;#39;événement.</fr>
+				<nl>Hierbij verklaar ik dat ik de %1 van het evenement hebben gelezen &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; en breng terug gevuld tot het evenement.</nl>
+				<it>Il sottoscritto dichiara di aver letto l&amp;#39;%1 della manifestazione &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; e riportare riempito l&amp;#39;evento.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -645,11 +645,11 @@
 			<entry>
 				<id>2a70610f6a423f37edd79c0c32e81328</id>
 				<org>Hiermit bestätige ich die %1 der Veranstaltung &lt;b&gt;&quot;%2&quot;&lt;/b&gt; gelesen zu haben und stimme ihnen zu.</org>
-				<en>I hereby acknowledge having read the%1 of the event &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; and agree with them.</en>
-				<es>Por la presente acuso de haber leído el 1%del evento &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; y de acuerdo con ellos.</es>
-				<fr>Je reconnais avoir lu le 1%de l&amp;#39;événement &lt;b&gt;«%2»&lt;/b&gt; et à s&amp;#39;entendre avec eux.</fr>
-				<nl>Hierbij bevestig ik het lezen van de%1 van het evenement &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; en met ze eens.</nl>
-				<it>Ho l&amp;#39;onore di riconoscere di aver letto l&amp;#39;1%della manifestazione &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; e d&amp;#39;accordo con loro.</it>
+				<en>I hereby acknowledge having read the %1 of the event &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; and agree with them.</en>
+				<es>Por la presente acuso de haber leído el %1 del evento &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; y de acuerdo con ellos.</es>
+				<fr>Je reconnais avoir lu le %1 de l&amp;#39;événement &lt;b&gt;«%2»&lt;/b&gt; et à s&amp;#39;entendre avec eux.</fr>
+				<nl>Hierbij bevestig ik het lezen van de %1 van het evenement &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; en met ze eens.</nl>
+				<it>Ho l&amp;#39;onore di riconoscere di aver letto l&amp;#39;%1 della manifestazione &lt;b&gt;&amp;quot;%2&amp;quot;&lt;/b&gt; e d&amp;#39;accordo con loro.</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -915,11 +915,11 @@
 			<entry>
 				<id>0b5bda8c70c6963539fcb4b15f14e721</id>
 				<org>Bist du sicher, dass du den Benutzer %1 wirklich löschen %2 willst?</org>
-				<en>Are you sure you want to delete the user%1%2?</en>
-				<es>¿Estás seguro de que desea eliminar el usuario%1%2?</es>
-				<fr>Etes-vous sûr de vouloir supprimer l&amp;#39;utilisateur%1%2?</fr>
-				<nl>Weet u zeker dat u de gebruiker%1%2 verwijderen?</nl>
-				<it>Sei sicuro di voler eliminare l&amp;#39;utente%1%2?</it>
+				<en>Are you sure you want to delete the user %1 %2?</en>
+				<es>¿Estás seguro de que desea eliminar el usuario %1 %2?</es>
+				<fr>Etes-vous sûr de vouloir supprimer l&amp;#39;utilisateur %1 %2?</fr>
+				<nl>Weet u zeker dat u de gebruiker %1 %2 verwijderen?</nl>
+				<it>Sei sicuro di voler eliminare l&amp;#39;utente %1 %2?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -1715,11 +1715,11 @@
 			<entry>
 				<id>483a854f6b746a7eacad4e1974fbdcea</id>
 				<org>Willst du den Benutzer %1 der Gruppe %2 zuweisen?</org>
-				<en>Do you want to assign to the user%1%of group 2?</en>
-				<es>¿Desea asignar al usuario%1%del grupo 2?</es>
-				<fr>Ne vous voulez attribuer à l&amp;#39;utilisateur%1%du groupe 2?</fr>
-				<nl>Heeft u wilt toewijzen aan de gebruiker%1%van groep 2?</nl>
-				<it>Vuoi assegnare per l&amp;#39;utente%1%del gruppo 2?</it>
+				<en>Do you want to assign to the user %1 of group %2?</en>
+				<es>¿Desea asignar al usuario %1 del grupo %2?</es>
+				<fr>Ne vous voulez attribuer à l&amp;#39;utilisateur %1 du groupe %2?</fr>
+				<nl>Heeft u wilt toewijzen aan de gebruiker %1 van groep %2?</nl>
+				<it>Vuoi assegnare per l&amp;#39;utente %1 del gruppo %2?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -1894,12 +1894,12 @@
 			</entry>
 			<entry>
 				<id>b0d2b68c2b194c535082d58517796fa7</id>
-				<org>Bist du sicher, dass du dem Benutzer &lt;b&gt;%1% %2% (%3%)&lt;/b&gt; ein neues Passwort zuweisen willst?</org>
-				<en>Are you sure you want to assign to the &lt;b&gt;user%1%2%%(%3%)&lt;/b&gt; a new password?</en>
-				<es>¿Estás seguro de que desea asignar al &lt;b&gt;usuario%1%2%%(%3%)&lt;/b&gt; una nueva contraseña?</es>
-				<fr>Êtes-vous sûr que vous voulez attribuer à &lt;b&gt;l&amp;#39;utilisateur%1%2%%(%3%)&lt;/b&gt; un nouveau mot de passe?</fr>
-				<nl>Weet u zeker dat u wilt toewijzen aan de &lt;b&gt;gebruiker%1%2%%(%3%)&lt;/b&gt; een nieuw wachtwoord?</nl>
-				<it>Sei sicuro di voler assegnare per &lt;b&gt;l&amp;#39;utente%1%2%%(%3%),&lt;/b&gt; una nuova password?</it>
+				<org>Bist du sicher, dass du dem Benutzer &lt;b&gt;%1 %2 (%3)&lt;/b&gt; ein neues Passwort zuweisen willst?</org>
+				<en>Are you sure you want to assign to the user &lt;b&gt;%1 %2 (%3)&lt;/b&gt; a new password?</en>
+				<es>¿Estás seguro de que desea asignar al usuario &lt;b&gt;%1 %2 (%3)&lt;/b&gt; una nueva contraseña?</es>
+				<fr>Êtes-vous sûr que vous voulez attribuer à l&#39;utilisateur &lt;b&gt;%1 %2 (%3)&lt;/b&gt; un nouveau mot de passe?</fr>
+				<nl>Weet u zeker dat u wilt toewijzen aan de gebruiker &lt;b&gt;%1 %2(%3)&lt;/b&gt; een nieuw wachtwoord?</nl>
+				<it>Sei sicuro di voler assegnare per l&#39;utente &lt;b&gt;%1 %2 (%3),&lt;/b&gt; una nuova password?</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -1915,11 +1915,11 @@
 			<entry>
 				<id>0d4955cb9ce166c5a17ea5b9941bd0cb</id>
 				<org>Das Passwort von &lt;b&gt;%2 %3 (%4)&lt;/b&gt; wurde erfolgreich geändert.HTML_NEWLINEDas neue Passwort lautet &lt;b&gt;%1&lt;/b&gt;.</org>
-				<en>The password &lt;b&gt;of%2%3 (%4)&lt;/b&gt; was successfully geändert.HTML_NEWLINEDas new password &lt;b&gt;is%1.&lt;/b&gt;</en>
-				<es>La contraseña &lt;b&gt;de%2%3 (%4)&lt;/b&gt; con éxito nueva contraseña geändert.HTML_NEWLINEDas &lt;b&gt;es%1.&lt;/b&gt;</es>
-				<fr>Le mot de passe &lt;b&gt;de%2%3 (4%)&lt;/b&gt; a été avec succès geändert.HTML_NEWLINEDas nouveau mot de passe &lt;b&gt;est%1.&lt;/b&gt;</fr>
-				<nl>Het wachtwoord &lt;b&gt;van%2%3 (%4)&lt;/b&gt; is succesvol geändert.HTML_NEWLINEDas nieuwe wachtwoord &lt;b&gt;is%1.&lt;/b&gt;</nl>
-				<it>La password &lt;b&gt;del 3%al 2%(4%)&lt;/b&gt; è stata con successo geändert.HTML_NEWLINEDas nuova password &lt;b&gt;è%1.&lt;/b&gt;</it>
+				<en>The password &lt;b&gt;of %2 %3 (%4)&lt;/b&gt; was successfully geändert.HTML_NEWLINEDas new password &lt;b&gt;is%1.&lt;/b&gt;</en>
+				<es>La contraseña &lt;b&gt;de %2 %3 (%4)&lt;/b&gt; con éxito nueva contraseña geändert.HTML_NEWLINEDas &lt;b&gt;es%1.&lt;/b&gt;</es>
+				<fr>Le mot de passe &lt;b&gt;de %2 %3 (%4)&lt;/b&gt; a été avec succès geändert.HTML_NEWLINEDas nouveau mot de passe &lt;b&gt;est%1.&lt;/b&gt;</fr>
+				<nl>Het wachtwoord &lt;b&gt;van %2 %3 (%4)&lt;/b&gt; is succesvol geändert.HTML_NEWLINEDas nieuwe wachtwoord &lt;b&gt;is%1.&lt;/b&gt;</nl>
+				<it>La password &lt;b&gt;del %3al %2 (%4)&lt;/b&gt; è stata con successo geändert.HTML_NEWLINEDas nuova password &lt;b&gt;è%1.&lt;/b&gt;</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -2669,7 +2669,7 @@
 				<es>¿Desea asignar a dicho usuario un asiento? &lt;br /&gt; Actualmente se encuentra en: &lt;br /&gt; %1</es>
 				<fr>Ne vous souhaitez attribuer à cet utilisateur un siège? &lt;br /&gt; Il siège actuellement sur: &lt;br /&gt; %1</fr>
 				<nl>Wilt u die gebruiker toe een stoel? &lt;br /&gt; Hij zit momenteel op: &lt;br /&gt; %1</nl>
-				<it>Volete assegnare ad un utente la sede? &lt;br /&gt; Si siede attualmente in: &lt;br /&gt; 1%</it>
+				<it>Volete assegnare ad un utente la sede? &lt;br /&gt; Si siede attualmente in: &lt;br /&gt; %1</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
@@ -2987,19 +2987,19 @@
 				<org>Benutzerdetails von %1</org>
 				<en>User Details from%1</en>
 				<es>Datos de usuario de%1</es>
-				<fr>Détails de l&amp;#39;utilisateur de%1</fr>
-				<nl>User Details van%1</nl>
-				<it>Dettagli utente da%1</it>
+				<fr>Détails de l&amp;#39;utilisateur de %1</fr>
+				<nl>User Details van %1</nl>
+				<it>Dettagli utente da %1</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
 				<id>1bb5ed0dd7a4146d94d065e1d2560a16</id>
 				<org>Hier findest du alle Details zu dem Benutzer %1</org>
-				<en>Here you will find all the details of the user%1</en>
-				<es>Aquí encontrarás todos los detalles del usuario%1</es>
-				<fr>Ici vous trouverez tous les détails de l&amp;#39;utilisateur%1</fr>
-				<nl>Hier vindt u alle details van de gebruiker%1</nl>
-				<it>Qui troverete tutti i dettagli del 1%degli utenti</it>
+				<en>Here you will find all the details of the user %1</en>
+				<es>Aquí encontrarás todos los detalles del usuario %1</es>
+				<fr>Ici vous trouverez tous les détails de l&amp;#39;utilisateur %1</fr>
+				<nl>Hier vindt u alle details van de gebruiker %1</nl>
+				<it>Qui troverete tutti i dettagli del %1 degli utenti</it>
 				<file>usrmgr</file>
 			</entry>
 			<entry>
