@@ -1099,8 +1099,8 @@ class product_option{
         $this->barcode  = $_POST['barcode'][$nr];
         $this->caption  = $_POST['caption'][$nr];
         $this->unit     = $_POST['unit'][$nr];
-        $this->price    = $_POST['price'][$nr];
-        $this->eprice   = $_POST['eprice'][$nr];
+        $this->price    = str_replace(',', '.', $_POST['price'][$nr]);
+        $this->eprice   = str_replace(',', '.', $_POST['eprice'][$nr]);
         $this->pice     = $_POST['piece'][$nr];
         $this->fix      = isset($_POST['fix'][$nr]) ? 1 : 0;
     }
