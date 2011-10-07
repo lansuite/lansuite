@@ -384,7 +384,7 @@ nospamfor.us</default>
       <item>
         <name>sys_barcode_typ</name>
         <type>barcode</type>
-        <default>EAN-13</default>
+        <default>CODE39</default>
         <description>Barcode-Typ der verwendet werden soll</description>
       </item>
     </items>
