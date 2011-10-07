@@ -8,6 +8,7 @@ $basket = new basket();
 $basket->add_to_basket_from_global();
 
 
+if($_POST['barcodefield']) $_GET['userid']= $db->qry('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
 if(isset($_GET['userid'])) $_SESSION['foodcenter']['theke_userid'] = $_GET['userid'];
 
 if($_GET['step'] == "del"){
