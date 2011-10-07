@@ -442,7 +442,7 @@ class display {
     $this->AddDoubleRow('', $this->FetchSpanButton(t('Zurück'), $back_link));
   }
 
-  function AddBarcodeForm($key, $value, $action, $methode = "post", $errortext = NULL,  $size = NULL, $optional = NULL){
+  function AddBarcodeForm($key, $value, $action, $method = "post", $errortext = NULL,  $size = NULL, $optional = NULL){
     if ($size == '') $size = '30';
     ($errortext)? $errortext = $this->errortext_prefix . $errortext . $this->errortext_suffix : $errortext = '';
     ($optional)? $optional = "_optional" : $optional = '';
