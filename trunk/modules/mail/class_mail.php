@@ -41,7 +41,7 @@ class Mail {
 		if (!$from) $from = $cfg['sys_party_mail'];
 
     // No special charachters in Username!
-    $to_user_name = ereg_replace('[^a-zA-Z ]', '', $to_user_name);
+    $to_user_name = preg_replace('#[^a-zA-Z ]#', '', $to_user_name);
 
     // Do not send, when in intranet mode
 		if (!$cfg['sys_internet']) {
