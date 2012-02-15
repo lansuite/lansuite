@@ -35,6 +35,10 @@ function GetTypeDescription($type) {
     }
 }
 
+//Get Barcode if exists and translate to userid
+if ($_POST['barcodefield']) $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
+$_GET['userid']=$row['userid'];
+
 // Select from table_user
 // username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment
 $user_data = $db->qry_first("SELECT u.*, g.*, UNIX_TIMESTAMP(u.birthday) AS birthday, DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW()) - TO_DAYS(u.birthday)), '%Y') + 0 AS age, u.avatar_path, u.signature, clan.name AS clan, clan.url AS clanurl, UNIX_TIMESTAMP(lastlogin) AS lastlogin
