@@ -7,8 +7,10 @@ include_once("modules/foodcenter/class_product.php");
 $basket = new basket();
 $basket->add_to_basket_from_global();
 
+//Get Barcode if exists and translate to userid
+if ($_POST['barcodefield']) $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
+$_GET['userid']=$row['userid'];
 
-if($_POST['barcodefield']) $_GET['userid']= $db->qry('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
 if(isset($_GET['userid'])) $_SESSION['foodcenter']['theke_userid'] = $_GET['userid'];
 
 if($_GET['step'] == "del"){
