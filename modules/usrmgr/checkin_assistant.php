@@ -48,7 +48,9 @@ else {
       $cfg['signon_autopw'] = 1;
       $cfg['signon_captcha'] = 0;
 
-      if ($_POST['barcodefield']) $_GET['userid']= $db->qry('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST['barcodefield']);
+      if ($_POST['barcodefield']) $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST['barcodefield']);
+      $_GET['userid']=$row['userid'];
+                          
   		if (!$_GET['userid']) $_GET['userid'] = $_POST['userid'];
   		if (!$_POST['paid']) $_POST['paid'] = 2;
 
