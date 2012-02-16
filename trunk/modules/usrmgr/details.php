@@ -36,8 +36,10 @@ function GetTypeDescription($type) {
 }
 
 //Get Barcode if exists and translate to userid
-if ($_POST['barcodefield']) $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
-$_GET['userid']=$row['userid'];
+if ($_POST['barcodefield']) {
+  $row = $db->qry_first('SELECT userid FROM %prefix%user WHERE barcode = %string%', $_POST["barcodefield"]);
+  $_GET['userid']=$row['userid'];
+}
 
 // Select from table_user
 // username,type,name,firstname,clan,email,paid,seatcontrol,checkin,checkout,portnumber,posts,wwclid,wwclclanid,comment
