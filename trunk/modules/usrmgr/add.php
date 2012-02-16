@@ -11,9 +11,11 @@ global $mf, $db, $auth, $authentication, $party, $usrmgr, $func, $cfg, $signon;
   // Clan-Management
   include_once("modules/clanmgr/class_clan.php");
   $clan = new Clan();
-  if ($_POST['new_clan_select']) $clan->Add($_POST['clan_new'], $id, $_POST["clanurl"], $_POST["newclanpw"]);
-  elseif ($_POST['clan']) $clan->AddMember($_POST['clan'], $id);
-  else $clan->RemoveMember($id);
+  if (ShowField('clan')) {
+    if ($_POST['new_clan_select']) $clan->Add($_POST['clan_new'], $id, $_POST["clanurl"], $_POST["newclanpw"]);
+    elseif ($_POST['clan']) $clan->AddMember($_POST['clan'], $id);
+    elseif (isset($_POST['clan'])) $clan->RemoveMember($id);
+  }
 
     // Update User-Perissions
     if ($id) {
