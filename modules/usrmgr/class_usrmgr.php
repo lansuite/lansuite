@@ -15,7 +15,11 @@ class UsrMgr {
     $db->qry('UPDATE %prefix%user SET fcode=%string% WHERE userid = %int%', $verification_code, $id);
             
     $path = substr($_SERVER['REQUEST_URI'], 0, strpos($_SERVER['REQUEST_URI'], "index.php"));
-    $verification_link = "http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
+
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'
+      || $_SERVER['SERVER_PORT'] == 443) $proto = 'https';
+    else $proto = 'http';
+    $verification_link = "{$proto}://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$path}index.php?mod=usrmgr&action=verify_email&verification_code=$verification_code";
 
     $row = $db->qry_first('SELECT firstname, name, email FROM %prefix%user WHERE userid = %int%', $id);
     if (!$_POST['firstname']) $_POST['firstname'] = $row['firstname'];
