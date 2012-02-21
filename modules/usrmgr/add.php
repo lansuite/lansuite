@@ -184,9 +184,9 @@ function Addr1Input($field, $mode, $error = '') {
               if ($_POST['street'] == '') return t('Bitte gib Straße und Hausnummer in folgendem Format ein: "Straßenname 12".');
               elseif ($_POST['hnr'] == 0) return t('Die Hausnummer muss numerisch sein.');
           }
-          return false; // -> Means no error
         break;
       }
+      return false; // -> Means no error
     break;
   }
 }
