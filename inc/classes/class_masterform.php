@@ -183,7 +183,7 @@ class masterform {
 
     // Split fields, which consist of more than one
     if ($this->SQLFields) foreach ($this->SQLFields as $key => $val) if (strpos($this->SQLFields[$key], '|') > 0) {
-      $subfields = explode('\|', $this->SQLFields[$key]);
+      $subfields = explode('|', $this->SQLFields[$key]);
       if ($subfields) foreach ($subfields as $subfield) $this->SQLFields[] = $subfield;
     }
 
@@ -353,7 +353,7 @@ class masterform {
 
           $this->DependOnStarted = $this->NumFields;
           $additionalHTML = "onclick=\"CheckBoxBoxActivate('box_$InsContName', this.checked)\"";
-          list($text1, $text2) = explode('\|', $this->AddInsertControllField);
+          list($text1, $text2) = explode('|', $this->AddInsertControllField);
           $dsp->AddCheckBoxRow($InsContName, $text1, $text2, '', $field['optional'], $_POST[$InsContName], '', '', $additionalHTML);
           $dsp->StartHiddenBox('box_'.$InsContName, $_POST[$InsContName]);
         }
@@ -418,7 +418,7 @@ class masterform {
                 case "enum('0','1')": // Checkbox
                 case 'tinyint(1)':
                   if ($this->DependOnStarted == 0 and array_key_exists($field['name'], $this->DependOn)) $additionalHTML = "onclick=\"CheckBoxBoxActivate('box_{$field['name']}', this.checked)\"";
-                  list($field['caption1'], $field['caption2']) = explode('\|', $field['caption']);
+                  list($field['caption1'], $field['caption2']) = explode('|', $field['caption']);
                   if (!$_POST[$field['name']]) unset($_POST[$field['name']]);
                   $dsp->AddCheckBoxRow($field['name'], $field['caption1'], $field['caption2'], $this->error[$field['name']], $field['optional'], $_POST[$field['name']], '', '', $additionalHTML);
                 break;
