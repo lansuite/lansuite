@@ -4,11 +4,11 @@ $get_data = $db->qry_first("SELECT caption,text FROM %prefix%faq_item WHERE item
 $framework->AddToPageTitle($get_data["caption"]);
 
 $dsp->NewContent(t('<b>F</b>requently <b>A</b>sked <b>Q</b>uestions'));
-$buttons = $dsp->FetchSpanButton(t('Zurück'), "index.php?mod=faq");
+$buttons = $dsp->FetchSpanButton(t('ZurÃ¼ck'), "index.php?mod=faq");
 
 if ($auth["type"] > 1){
 	$buttons .= $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=faq&object=item&action=change_item&step=2&itemid=" . $_GET["itemid"]);
-	$buttons .= $dsp->FetchSpanButton(t('Löschen'), "index.php?mod=faq&object=item&action=delete_item&step=2&itemid=" . $_GET["itemid"]);
+	$buttons .= $dsp->FetchSpanButton(t('LÃ¶schen'), "index.php?mod=faq&object=item&action=delete_item&step=2&itemid=" . $_GET["itemid"]);
 }
 
 if ($_GET['mcact'] == "show" OR $_GET['mcact'] == "") {
