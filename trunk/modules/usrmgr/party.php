@@ -82,7 +82,7 @@ else {
         // Prices
         $selections = array();  
         $res2 = $db->qry("SELECT * FROM %prefix%party_prices WHERE party_id = %int% AND requirement <= %string%", $row['party_id'], $auth['type']);
-        while ($row2 = $db->fetch_array($res2)) $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']';
+        while ($row2 = $db->fetch_array($res2)) $selections[$row2['price_id']] = $row2['price_text'] .' ['. $row2['price'] .' '. $cfg['sys_currency'] .']&nbsp;&nbsp;'.t('Gültig bis : ').date_format(date_create($row2['enddate']), 'd.m.Y');
         if ($selections) $mf->AddField(t('Eintrittspreis'), 'price_id', IS_SELECTION, $selections, FIELD_OPTIONAL);
         else $mf->AddField(t('Eintrittspreis'), 'price_id', IS_TEXT_MESSAGE, t('Für diese Party wurden keine Preise definiert'));
         $db->free_result($res2);
@@ -124,8 +124,8 @@ else {
       $text = '';
       if ($row['user_id']) {
         $text .= t('Du warst angemeldet');
-        if ($row['paid'] == 0) $text .= t(', aber hatten nicht bezahlt.');
-        if ($row['paid']) $text .= t(' und hatten bezahlt.');
+        if ($row['paid'] == 0) $text .= t(', aber hattest nicht bezahlt');
+        if ($row['paid']) $text .= t(' und hattest bezahlt');
 
         if ($row['price_id']) $text .= '('. $row['price_id'] .')';
         $text .= '.'. HTML_NEWLINE;
