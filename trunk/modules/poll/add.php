@@ -37,7 +37,7 @@ elseif ($_GET['pollid'])  {
   for ($z = 1; $row = $db->fetch_array($res); $z++) if (!$_POST["poll_option[$z]"]) $_POST["poll_option[$z]"] = $row['caption'];
   $db->free_result($res);
 }
-if ($_GET['pollid']) $mf->AddField(t('Polloptionen ändern') .'|'. t('Achtung: Dies führt dazu, dass die Abstimmung zurückgesetzt wird!'), 'poll_reset', 'tinyint(1)', '', FIELD_OPTIONAL, '', 10);
+if ($_GET['pollid']) $mf->AddField(t('Polloptionen ändern') .'|'. t('Achtung: Dies führt dazu, dass die Abstimmung zurückgesetzt wird!'), 'poll_reset', 'tinyint(1)', '', FIELD_OPTIONAL, '', 20);
 for ($z = 1; $z <= 20; $z++) {
   ($z <= 2)? $optional = 0 : $optional = FIELD_OPTIONAL;
   $mf->AddField(t('Option') ." $z", "poll_option[$z]", 'varchar(80)', '', $optional);

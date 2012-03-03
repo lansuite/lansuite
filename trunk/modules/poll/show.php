@@ -26,7 +26,10 @@ if ($_GET['step'] >= 2) {
     } elseif ($pollrow['requirement'] == 1 and $auth['login'] == 0) {
       $func->information(t("Du musst eingeloggt sein um zu diesem Poll ihre Stimme abzugeben."));
       $_GET['step'] = 2;
-    }
+    } elseif (!is_array($_POST['option']) AND !is_string($_POST['option'])) {
+	  $func->information(t("Du hast keine Option ausgewählt!"));
+	  $_GET['step'] = 2;
+	}
   }
 
   $framework->AddToPageTitle($pollrow["caption"]);
