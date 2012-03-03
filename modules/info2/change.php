@@ -150,7 +150,7 @@ if ($auth['type'] <= 1) {
 
   	// Deactivate
   	case 20:
-  		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
+  		if ($_GET['infoID']) $_POST["action"][$_GET['infoID']] = '1';
   		foreach($_POST["action"] AS $item => $val) {
 				$db->qry("UPDATE %prefix%info SET active = 0 WHERE infoID = %string%", $item);
   			$menu_intem = $db->qry_first("SELECT active, caption, shorttext FROM %prefix%info WHERE infoID = %string%", $item);
@@ -161,7 +161,7 @@ if ($auth['type'] <= 1) {
     
     // Activate
     case 21:
-  		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
+  		if ($_GET['infoID']) $_POST["action"][$_GET['infoID']] = '1';
   		foreach($_POST["action"] AS $item => $val) {
 				$db->qry("UPDATE %prefix%info SET active = 1 WHERE infoID = %string%", $item);
       }
@@ -170,7 +170,7 @@ if ($auth['type'] <= 1) {
     
     // Activate and link
     case 22:
-  		if ($_GET['id']) $_POST["action"][$_GET['id']] = '1';
+  		if ($_GET['infoID']) $_POST["action"][$_GET['infoID']] = '1';
   		foreach($_POST["action"] AS $item => $val) {
   			$menu_intem = $db->qry_first("SELECT active, caption, shorttext, link FROM %prefix%info WHERE infoID = %string%", $item);
   			$info_menu = $db->qry_first("SELECT pos FROM %prefix%menu WHERE module='info2'");
