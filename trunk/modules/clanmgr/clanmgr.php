@@ -87,7 +87,8 @@ switch ($_GET['step']) {
     
     if (func::chk_img_path($row['clanlogo_path'])) $dsp->AddDoubleRow(t(''), '<img src="'. $row['clanlogo_path'] .'" alt="'.$row['name'].'">');
     $dsp->AddDoubleRow(t('Clan'), $row['name']);
-    $dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a>');
+	if(stristr($row['url'], 'http://') === FALSE) $row['url'] = "http://".$row['url'];
+	$dsp->AddDoubleRow(t('Webseite'), '<a href="'. $row['url'] .'" target="_blank">'. $row['url'] .'</a>');
     
     $buttons = '';
     if ($auth['type'] >= 1 and $auth['clanid'] != $_GET['clanid']) $buttons .= $dsp->FetchSpanButton(t('Clan beitreten'), 'index.php?mod='. $_GET['mod'] .'&step=60&clanid='. $_GET['clanid']).' ';
