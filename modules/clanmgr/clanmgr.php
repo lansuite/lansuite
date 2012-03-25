@@ -49,7 +49,11 @@ function Update($id) {
 			$func->confirmation(t('Der Clan wurde erfolgreich angelegt. Als Ersteller hast du die Rolle Admin in diesem Clan.'), "index.php?mod=clanmgr");
 }
 	
-
+function link_to_clan($clan_url) {
+  if ($clan_url== '') return '';
+  if(stristr($clan_url, 'http://') === FALSE) $clan_url = "http://".$clan_url;
+  return '<a href="'. $clan_url .'" target="_blank">'. $clan_url .'</a>';
+}
 
 switch ($_GET['step']) {
   default:
@@ -66,7 +70,7 @@ switch ($_GET['step']) {
     $ms2->AddTextSearchDropDown(t('Mitglieder'), 'COUNT(u.clanid)', array('' => t('Alle'), '0' => t('Ohne Mitglieder'), '>1' => t('Mit Mitglieder')));
     
     $ms2->AddResultField(t('Clanname'), 'c.name');
-    $ms2->AddResultField(t('Webseite'), 'c.url');
+    $ms2->AddResultField(t('Webseite'), 'c.url', 'link_to_clan');
     $ms2->AddResultField(t('Mitglieder'), 'COUNT(u.clanid) AS members');
 
     $ms2->AddIconField('details', 'index.php?mod=clanmgr&step=2&clanid=', t('Clan-Details'));
