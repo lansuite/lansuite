@@ -3,8 +3,11 @@
 // Delete old read states
 $db->qry('DELETE FROM %prefix%lastread WHERE DATEDIFF(NOW(), date) > 7 AND tab != "task"');
 
-if ($auth["type"] == 1 or $auth["type"] == 2 or $auth["type"] == 3) $home_page = $cfg["home_login"];
-else $home_page = $cfg["home_logout"];
+if ($auth["type"] == 1) {
+	$home_page = $cfg["home_login"];
+} elseif ($auth["type"] == 2 or $auth["type"] == 3) {
+	$home_page = $cfg["home_admin"];
+} else $home_page = $cfg["home_logout"];
 
 switch ($home_page) {
 	// Show overview

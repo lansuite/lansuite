@@ -25,6 +25,12 @@
     </head>
     <items>
     	<item>
+    		<name>home_admin</name>
+    		<type>homesite</type>
+    		<default>0</default>
+    		<description>Welche Startseite soll einem Admin oder Superadmin im eingeloggten Zustand angezeigt werden?</description>
+    	</item>
+		<item>
     		<name>home_login</name>
     		<type>homesite</type>
     		<default>0</default>
