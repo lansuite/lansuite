@@ -136,7 +136,7 @@ switch($_GET["step"]) {
 
 				$freie_platze = $team['teamplayer'] - ($member['members'] + 1);
 				if ($freie_platze > 0) 
-					array_push ($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']} (". t('Noch %FREE% frei', $freie_platze) .")</option>");
+					array_push ($t_array, "<option value=\"{$team['teamid']}\">{$team['tname']} - {$team['name']} (". t('Noch %1 frei', $freie_platze) .")</option>");
 			}
 			$dsp->SetForm("index.php?mod=tournament2&action=teammgr_admin&step=20");
 			$dsp->AddDropDownFieldRow("teamid", t('Spieler einem Team hinzufügen'), $t_array, "");
