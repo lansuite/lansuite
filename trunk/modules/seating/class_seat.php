@@ -243,6 +243,7 @@ class seat2 {
   				mySvg = vectorModel.createElement("svg");
   				container.appendChild(mySvg);
   				mySvg.setAttribute("version", "1.1");
+          mySvg.setAttribute("id", "SVGSeating");
   			  myG = vectorModel.createElement("g");
   				mySvg.appendChild(myG);
       ';

@@ -624,6 +624,11 @@ div#Footer {
     background: #D6D6D6;
 }
 
+#SVGSeating {
+  width:100%;
+  height:100%;
+}
+
 /*
 * Old should not be used anymore
 */
