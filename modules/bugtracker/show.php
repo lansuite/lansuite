@@ -69,7 +69,7 @@ if (!$_GET['bugid'] or $_GET['action'] == 'delete') {
   $quicklink['link'] = 'index.php?mod=bugtracker&order_by=&order_dir=&EntsPerPage=&search_input%5B0%5D=&search_input%5B1%5D=&search_dd_input%5B0%5D=&search_dd_input%5B1%5D=&search_dd_input%5B2%5D=&search_dd_input%5B3%5D=&search_dd_input%5B4%5D%5B%5D=0&search_dd_input%5B4%5D%5B%5D=1&search_dd_input%5B4%5D%5B%5D=2&search_dd_input%5B4%5D%5B%5D=3&search_dd_input%5B4%5D%5B%5D=5&search_dd_input%5B4%5D%5B%5D=7&search_dd_input%5B5%5D%5B%5D=2&search_dd_input%5B5%5D%5B%5D=3&search_dd_input%5B5%5D%5B%5D=4&search_dd_input%5B5%5D%5B%5D=5&suchen=Suchen';
   $ms2->quicklinks[] = $quicklink;
   $quicklink['name'] = 'Wünsche (offen)';
-  $quicklink['link'] = 'index.php?mod=bugtracker&order_by=&order_dir=&EntsPerPage=&search_input%5B0%5D=&search_input%5B1%5D=&search_dd_input%5B0%5D=&search_dd_input%5B1%5D=&search_dd_input%5B2%5D=&search_dd_input%5B3%5D=&search_dd_input%5B4%5D%5B%5D=0&search_dd_input%5B4%5D%5B%5D=1&search_dd_input%5B4%5D%5B%5D=2&search_dd_input%5B4%5D%5B%5D=3&search_dd_input%5B4%5D%5B%5D=5&search_dd_input%5B4%5D%5B%5D=7&search_dd_input%5B5%5D%5B%5D=2&search_dd_input%5B5%5D%5B%5D=3&search_dd_input%5B5%5D%5B%5D=4&search_dd_input%5B5%5D%5B%5D=5&suchen=Suchen';
+  $quicklink['link'] = 'index.php?mod=bugtracker&order_by=&order_dir=&EntsPerPage=&search_input%5B0%5D=&search_input%5B1%5D=&search_dd_input%5B0%5D=&search_dd_input%5B1%5D=&search_dd_input%5B2%5D=&search_dd_input%5B3%5D=&search_dd_input%5B4%5D%5B%5D=0&search_dd_input%5B4%5D%5B%5D=1&search_dd_input%5B4%5D%5B%5D=2&search_dd_input%5B4%5D%5B%5D=3&search_dd_input%5B4%5D%5B%5D=5&search_dd_input%5B4%5D%5B%5D=7&search_dd_input%5B5%5D%5B%5D=1&suchen=Suchen';
   $ms2->quicklinks[] = $quicklink;
 
   $ms2->query['from'] = "%prefix%bugtracker AS b
