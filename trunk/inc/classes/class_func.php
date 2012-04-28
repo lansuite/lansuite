@@ -629,10 +629,11 @@ class func {
 
           $i = '';
           do {
-            $targetUniq = $target . $i;
+            $targetStart = substr($target, 0, strrpos($target, "."));
+            $targetEnd = substr($target, strrpos($target, "."), strlen($target));
+            $targetUniq = $targetStart . $i . $targetEnd;
             $i++;
           } while (file_exists($targetUniq));
-          unlink($targetUniq);
           if (move_uploaded_file($_FILES[$source_var]['tmp_name'], $targetUniq)) {
               chmod ($targetUniq, octdec($config["lansuite"]["chmod_file"]));
               return $targetUniq;
