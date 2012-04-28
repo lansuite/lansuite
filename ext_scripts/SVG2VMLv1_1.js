@@ -21,30 +21,69 @@ var VectorModel = function() {
 
 var linearGradients = new Object();
 
+/*
+// 120428 Should be deactivated, as long as compatibility mode is still enabled
+// See http://lansuite.orgapage.de/index.php?mod=board&action=thread&tid=1321&posts_page=2
+
 VectorModel.prototype = {
 	init: function() {
 		this.svg_capable = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#CoreAttribute", "1.1");
 		this.vml_capable = (document.all && !(navigator.userAgent.indexOf("Opera")>=0)) ? true : false;
-		
+
 		if ( this.vml_capable ) {
-			document.namespaces.add('v','urn:schemas-microsoft-com:vml'); 
-			document.createStyleSheet().addRule("v\\: *", "behavior:url(#default#VML); position:absolute" ); 
-			document.createStyleSheet().addRule("v\\:roundrect", "behavior:url(#default#VML); position:absolute" ); 
-			document.createStyleSheet().addRule("v\\:oval", "behavior:url(#default#VML); position:absolute" ); 
-			document.createStyleSheet().addRule("v\\:roundrect", "behavior:url(#default#VML); position:absolute" ); 
-			document.createStyleSheet().addRule("v\\:fill", "behavior:url(#default#VML); position:absolute" ); 
-			document.createStyleSheet().addRule("v\\:line", "behavior:url(#default#VML); position:absolute" ); 
-			document.createStyleSheet().addRule("v\\:shape", "behavior:url(#default#VML); position:absolute" ); 
-			document.createStyleSheet().addRule("v\\:polyline", "behavior:url(#default#VML); position:absolute" ); 
-			document.createStyleSheet().addRule("v\\:stroke", "behavior:url(#default#VML); position:absolute" ); 
- 
+			document.namespaces.add('v','urn:schemas-microsoft-com:vml');
+			document.createStyleSheet().addRule("v\\: *", "behavior:url(#default#VML); position:absolute" );
+			document.createStyleSheet().addRule("v\\:roundrect", "behavior:url(#default#VML); position:absolute" );
+			document.createStyleSheet().addRule("v\\:oval", "behavior:url(#default#VML); position:absolute" );
+			document.createStyleSheet().addRule("v\\:roundrect", "behavior:url(#default#VML); position:absolute" );
+			document.createStyleSheet().addRule("v\\:fill", "behavior:url(#default#VML); position:absolute" );
+			document.createStyleSheet().addRule("v\\:line", "behavior:url(#default#VML); position:absolute" );
+			document.createStyleSheet().addRule("v\\:shape", "behavior:url(#default#VML); position:absolute" );
+			document.createStyleSheet().addRule("v\\:polyline", "behavior:url(#default#VML); position:absolute" );
+			document.createStyleSheet().addRule("v\\:stroke", "behavior:url(#default#VML); position:absolute" );
+
 			var me = this;
 			document.createElementNS = function( ns, element ) {
 				return me.createElement( element );
 			}
 		}
 	},
-	
+*/
+VectorModel.prototype = {
+  init: function() {
+  this.svg_capable = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#CoreAttribute", "1.1" );
+  this.vml_capable = (document.all && !(navigator.userAgent.indexOf("Opera")>=0)) ? true : false;
+
+  function onCreateElementNsReady(func) {
+            if (document.createElementNS != undefined) {
+                func();
+            } else {
+                setTimeout(function() { onCreateElementNsReady(func); }, 100);
+            }
+        }
+
+  onCreateElementNsReady(function() {
+            if ( this.vml_capable ) {
+    document.namespaces.add('v','urn:schemas-microsoft-com:vml');
+    document.createStyleSheet().addRule("v\\: *", "behavior:url(#default#VML); position:absolute" );
+    document.createStyleSheet().addRule("v\\:roundrect", "behavior:url(#default#VML); position:absolute" );
+    document.createStyleSheet().addRule("v\\:oval", "behavior:url(#default#VML); position:absolute" );
+    document.createStyleSheet().addRule("v\\:roundrect", "behavior:url(#default#VML); position:absolute" );
+    document.createStyleSheet().addRule("v\\:fill", "behavior:url(#default#VML); position:absolute" );
+    document.createStyleSheet().addRule("v\\:line", "behavior:url(#default#VML); position:absolute" );
+    document.createStyleSheet().addRule("v\\:shape", "behavior:url(#default#VML); position:absolute" );
+    document.createStyleSheet().addRule("v\\:polyline", "behavior:url(#default#VML); position:absolute" );
+    document.createStyleSheet().addRule("v\\:stroke", "behavior:url(#default#VML); position:absolute" );
+
+    var me = this;
+    document.createElementNS = function( ns, element ) {
+     return me.createElement( element );
+    }
+   }
+        });
+
+  },
+
 	createElement: function( element ) {
 		
 		if ( this.svg_capable ) {
