@@ -1,54 +1,87 @@
 <div id="GoogleMaps" style="width:100%; height:600px"></div>
 <div id="mapcode">
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key={$apikey}" type="text/javascript"></script>
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true">
+</script>
 <script type="text/javascript">
 {literal}
 function ShowMap() {
-  if (GBrowserIsCompatible()) {
+  var mapCenter = new google.maps.LatLng(51.17689812200107, 9.84375);
+  var mapOpt = {
+    zoom: 6,
+    center: mapCenter,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  var map = new google.maps.Map(document.getElementById("GoogleMaps"), mapOpt);
 
-    var map = new GMap2(document.getElementById("GoogleMaps"));
-    map.addControl(new GSmallMapControl());
-    map.addControl(new GMapTypeControl());
-    map.enableScrollWheelZoom();
-    map.setCenter(new GLatLng(51.17689812200107, 9.84375), 6);
+  var geocoder = new google.maps.Geocoder();
+  var infoWindow = null;
 
-    var geocoder = new GClientGeocoder();
+  function showAddress(country, city, plz, street, hnr, text) {
+    if (country == '') country = 'Germany';
+    if (city == '' && plz == '') return;
 
-    function showAddress(country, city, plz, street, hnr, text) {
-      if (country == '') country = 'Germany';
-      if (city == '' && plz == '') return;
-
-      geocoder.getLatLng(street+' '+hnr+', '+plz+' '+city+', '+country, function(point) {
-        if (point) {
-          var marker = new GMarker(point, 'text');
-          map.addOverlay(marker);
-          GEvent.addListener(marker, "click", function() { marker.openInfoWindowHtml(text); });
-        } else geocoder.getLatLng(street+', '+plz+' '+city+', '+country, function(point2) {
-          if (point2) {
-            var marker = new GMarker(point2, 'text');
-            map.addOverlay(marker);
-            GEvent.addListener(marker, "click", function() { marker.openInfoWindowHtml(text); });
-          } else geocoder.getLatLng(street+', '+plz+', '+country, function(point3) {
-            if (point3) {
-              var marker = new GMarker(point3, 'text');
-              map.addOverlay(marker);
-              GEvent.addListener(marker, "click", function() { marker.openInfoWindowHtml(text); });
-            } else geocoder.getLatLng(street+', '+city+', '+country, function(point4) {
-              if (point4) {
-                var marker = new GMarker(point4, 'text');
-                map.addOverlay(marker);
-                GEvent.addListener(marker, "click", function() { marker.openInfoWindowHtml(text); });
-              }
+    geocoder.geocode( { 'address': street+' '+hnr+', '+plz+' '+city+', '+country }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+          if (infoWindow) infoWindow.close();
+          infoWindow = new google.maps.InfoWindow({
+            content: text
+          });
+          infoWindow.open(map, marker);
+        });
+      } else geocoder.geocode( { 'address': street+', '+plz+' '+city+', '+country }, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+          });
+          google.maps.event.addListener(marker, 'click', function() {
+            if (infoWindow) infoWindow.close();
+            infoWindow = new google.maps.InfoWindow({
+              content: text
             });
+            infoWindow.open(map, marker);
+          });
+        } else geocoder.geocode( { 'address': street+', '+plz+', '+country }, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+              if (infoWindow) infoWindow.close();
+              infoWindow = new google.maps.InfoWindow({
+                content: text
+              });
+              infoWindow.open(map, marker);
+            });
+          } else geocoder.geocode( { 'address': street+', '+city+', '+country }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+              });
+              google.maps.event.addListener(marker, 'click', function() {
+                if (infoWindow) infoWindow.close();
+                infoWindow = new google.maps.InfoWindow({
+                  content: text
+                });
+                infoWindow.open(map, marker);
+              });
+            }
           });
         });
       });
-    }
+    });
+  }
 
 {/literal}
   {$adresses}
 {literal}
-  }
 }
 {/literal}
 </script>
