@@ -312,9 +312,9 @@ else switch ($_GET['step']) {
               $trans_link_google =" <a href=\"".$trans_link_google."\" target=\"_blank\"><img src=\"design/".$auth['design']."/images/arrows_transl.gif\" width=\"12\" height=\"13\" border=\"0\" /></a>";
 
               if (strlen($row['org'])<60) {
-                $dsp->AddTextFieldRow("id[{$row['id']}]",htmlentities($row['org']).$trans_link_google, $row[$_SESSION['target_language']], '', 65);
+                $dsp->AddTextFieldRow("id[{$row['id']}]",$row['org'].$trans_link_google, $row[$_SESSION['target_language']], '', 65);
               } else {
-                $dsp->AddTextAreaRow ("id[{$row['id']}]",htmlentities($row['org']).$trans_link_google, $row[$_SESSION['target_language']], '', 50, 5);
+                $dsp->AddTextAreaRow ("id[{$row['id']}]",$row['org'].$trans_link_google, $row[$_SESSION['target_language']], '', 50, 5);
               }
             }
             $db->free_result($res);
