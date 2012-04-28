@@ -127,6 +127,10 @@ class xml {
 
 		$first_space = strpos($tag, " ");
 		if ($first_space == 0) $first_space = strlen($tag);
+
+    // Todo: AllowHTML should be removed. Then --lt-- would also not be needed anymore
+    // But then the import will need to replace HTML back.
+    $content = $func->AllowHTML($content);
 		$content = str_replace("<", "--lt--", $content);
 		$content = str_replace(">", "--gt--", $content);
 
