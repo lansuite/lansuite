@@ -47,7 +47,7 @@ else {
             $mod_list .= "{$row["caption"]}, ";
         }
         $mod_list = substr($mod_list, 0, strlen($mod_list) - 2);
-		$func->information(t('Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:[br]%1', $mod_list), NO_LINK);
+		$func->information(t('Die folgenden Module haben noch keinen Admin und sind daher für jeden Admin änderbar:<br>%1', $mod_list), NO_LINK);
     }
 }
 
