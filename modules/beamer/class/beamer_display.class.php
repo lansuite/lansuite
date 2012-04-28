@@ -167,7 +167,7 @@ class beamer_display {
 	}
 
 	function viewEditContent () {
-	global $dsp, $lang, $beamermodul, $bcid, $beamerid, $ctype;		
+	global $dsp, $func, $lang, $beamermodul, $bcid, $beamerid, $ctype;
 		$content = $beamermodul->getContent( $bcid );
 		$dsp->NewContent( t('Inhalt bearbeiten') );	
 		$dsp->SetForm("index.php?mod=beamer&action=savecontent&ctype={$content['contentType']}&bcid=".$bcid);
@@ -178,7 +178,7 @@ class beamer_display {
 	        include_once("ext_scripts/FCKeditor/fckeditor.php");
 	        $oFCKeditor = new FCKeditor('FCKeditor1') ;
 	        $oFCKeditor->BasePath	= 'ext_scripts/FCKeditor/';
-	        $oFCKeditor->Value = $content['contentData'];
+	        $oFCKeditor->Value = $func->AllowHTML($content['contentData']);
 	        $oFCKeditor->Height = 380;
 	        $oFCKeditor->Create();
 	        $fcke_content = ob_get_contents();
