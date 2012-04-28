@@ -198,7 +198,7 @@ foreach ($games as $game){
 	$selections[$syscode] = $akt_game_name;
 }
 asort($selections);
-$selections = array('0' => t('Kein LGZ-Support für dieses Turnier')) + $selections;
+$selections = array('' => t('Kein LGZ-Support für dieses Turnier')) + $selections;
 $mf->AddField(t('LGZ-Spiel'), 'lgz_gamename', IS_SELECTION, $selections, FIELD_OPTIONAL, 'CheckModeForLeague');
 
 // Rules (Extern)
