@@ -41,17 +41,16 @@ function CountAdmins() {
 function Update($id) {
 	global $auth, $db, $func;
 	
-	if(!$_GET['clanid'])
-	$func->log_event(t('Clan %1 erstellt', $_POST['name']), 1, t('clanmgr'));
-
-		
-	if($db->qry("UPDATE %prefix%user SET clanid = %int%, clanadmin = 1 WHERE userid =%int%", $id, $auth["userid"]))
+	if(!$_GET['clanid']) {
+	  $func->log_event(t('Clan %1 erstellt', $_POST['name']), 1, t('clanmgr'));
+  	if($db->qry("UPDATE %prefix%user SET clanid = %int%, clanadmin = 1 WHERE userid =%int%", $id, $auth["userid"]))
 			$func->confirmation(t('Der Clan wurde erfolgreich angelegt. Als Ersteller hast du die Rolle Admin in diesem Clan.'), "index.php?mod=clanmgr");
+  }
 }
 	
 function link_to_clan($clan_url) {
   if ($clan_url== '') return '';
-  if(stristr($clan_url, 'http://') === FALSE) $clan_url = "http://".$clan_url;
+  if (substr($clan_url, 0, 7) != 'http://' and substr($clan_url, 0, 8) != 'https://') $clan_url = "http://".$clan_url;
   return '<a href="'. $clan_url .'" target="_blank">'. $clan_url .'</a>';
 }
 
