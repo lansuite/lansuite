@@ -20,7 +20,7 @@ switch($_GET["step"]){
 		while (list ($key, $val) = each ($type_array)) {
 			array_push ($t_array, "<option $selected value=\"$key\">$val</option>");
 		}
-		$dsp->AddDropDownFieldRow("type", t('NGL-Spiel'), $t_array, "", 1);
+		$dsp->AddDropDownFieldRow("type", t('Export Typ'), $t_array, "", 1);
 
 		$dsp->AddFormSubmitRow(t('Weiter'));
 		$dsp->AddBackButton("index.php?mod=install", "install/export");
