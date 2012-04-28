@@ -75,7 +75,7 @@ class Export {
 
 
 	function ExportTable($table, $e_struct = NULL, $e_cont = NULL){
-		global $db, $xml;
+		global $db, $xml, $func;
 
 		if ($e_struct or $e_cont) {
 			/* Table-Head */
@@ -128,7 +128,7 @@ class Export {
 					$entry = "";
 					for ($z = 0; $z < $db->num_fields(); $z++) {
 						$field_name = $db->field_name($z);
-						if ($row[$field_name] != "") $entry .= $xml->write_tag($field_name, $row[$field_name], 4);
+						if ($row[$field_name] != "") $entry .= $xml->write_tag($field_name, $func->AllowHTML($row[$field_name]), 4);
 					}
 					if ($entry) $content .= $xml->write_master_tag("entry", $entry, 3);
 				}
