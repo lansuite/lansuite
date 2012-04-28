@@ -565,79 +565,84 @@ class func {
   }
 
     function FileUpload($source_var, $path, $name = NULL) {
-        global $config;
+      global $config;
 
-        switch ($_FILES[$source_var]['error']) {
-            case 1:
-                echo "Fehler: Die hochgeladene Datei überschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte Größe";
-                return 0;
-            break;
-            case 2:
-                echo "Fehler: Die hochgeladene Datei überschreitet die in dem HTML Formular mittels der Anweisung MAX_FILE_SIZE angegebene maximale Dateigröße";
-                return 0;
-            break;
-            case 3:
-                echo "Fehler: Die Datei wurde nur teilweise hochgeladen";
-                return 0;
-            break;
-            case 4:
-                #echo "Fehler: Es wurde keine Datei hochgeladen";
-                return 0;
-            break;
-            default:
-        if ($_FILES[$source_var]['tmp_name'] == '') return false;
+      switch ($_FILES[$source_var]['error']) {
+        case 1:
+            echo "Fehler: Die hochgeladene Datei überschreitet die in der Anweisung upload_max_filesize in php.ini festgelegte Größe";
+            return 0;
+        break;
+        case 2:
+            echo "Fehler: Die hochgeladene Datei überschreitet die in dem HTML Formular mittels der Anweisung MAX_FILE_SIZE angegebene maximale Dateigröße";
+            return 0;
+        break;
+        case 3:
+            echo "Fehler: Die Datei wurde nur teilweise hochgeladen";
+            return 0;
+        break;
+        case 4:
+            #echo "Fehler: Es wurde keine Datei hochgeladen";
+            return 0;
+        break;
+        default:
+          if ($_FILES[$source_var]['tmp_name'] == '') return false;
 
-                if (strrpos($path, '/') + 1 != strlen($path)) $path .= "/";
-                if (!file_exists($path)) mkdir($path);
-                if ($name) {
-                    // Auto-Add File-Extension
-                    if (!strpos($name, ".")) $name .= substr($_FILES[$source_var]['name'], strrpos($_FILES[$source_var]['name'], "."), 5);
-                    $target = $path . $name;
-                } else $target = $path . $_FILES[$source_var]['name'];
+          if (strrpos($path, '/') + 1 != strlen($path)) $path .= "/";
+          if (!file_exists($path)) mkdir($path);
+          if ($name) {
+              // Auto-Add File-Extension
+              if (!strpos($name, ".")) $name .= substr($_FILES[$source_var]['name'], strrpos($_FILES[$source_var]['name'], "."), 5);
+              $target = $path . $name;
+          } else $target = $path . $_FILES[$source_var]['name'];
 
-        // Change .php to .php.txt
-        switch (substr($target, strrpos($target, "."), strlen($target))) {
-          // Script extentions
-          case '.php':
-          case '.php2':
-          case '.php3':
-          case '.php4':
-          case '.php5':
-          case '.phtml':
-          case '.pwml':
-          case '.inc':
-          case '.asp':
-          case '.aspx':
-          case '.ascx':
-          case '.jsp':
-          case '.cfm':
-          case '.cfc':
-          case '.pl':
-          case '.bat':
-          case '.vbs':
-          case '.reg':
-          case '.cgi':
-          case '.shtml':
-          // Harmless extentions, but better to view with .txt
-          case '.html':
-          case '.htm':
-          case '.js':
-          case '.css':
-            $target .= '.txt';
-          break;
-        }
-
-                if (file_exists($target)) unlink($target);
-                if (move_uploaded_file($_FILES[$source_var]['tmp_name'], $target)) {
-                    chmod ($target, octdec($config["lansuite"]["chmod_file"]));
-                    return $target;
-                } else {
-                    echo "Fehler: Datei konnte nicht hochgeladen werden." . HTML_NEWLINE;
-                    print_r($_FILES);
-                    return 0;
-                }
+          // Change .php to .php.txt
+          switch (substr($target, strrpos($target, "."), strlen($target))) {
+            // Script extentions
+            case '.php':
+            case '.php2':
+            case '.php3':
+            case '.php4':
+            case '.php5':
+            case '.phtml':
+            case '.pwml':
+            case '.inc':
+            case '.asp':
+            case '.aspx':
+            case '.ascx':
+            case '.jsp':
+            case '.cfm':
+            case '.cfc':
+            case '.pl':
+            case '.bat':
+            case '.vbs':
+            case '.reg':
+            case '.cgi':
+            case '.shtml':
+            // Harmless extentions, but better to view with .txt
+            case '.html':
+            case '.htm':
+            case '.js':
+            case '.css':
+              $target .= '.txt';
             break;
-        }
+          }
+
+          $i = '';
+          do {
+            $targetUniq = $target . $i;
+            $i++;
+          } while (file_exists($targetUniq));
+          unlink($targetUniq);
+          if (move_uploaded_file($_FILES[$source_var]['tmp_name'], $targetUniq)) {
+              chmod ($targetUniq, octdec($config["lansuite"]["chmod_file"]));
+              return $targetUniq;
+          } else {
+              echo "Fehler: Datei konnte nicht hochgeladen werden." . HTML_NEWLINE;
+              print_r($_FILES);
+              return 0;
+          }
+        break;
+      }
     }
 
     function CreateDir($dir) {
