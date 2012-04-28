@@ -293,7 +293,7 @@ if ($team_anz < 4) {
 		########## Turnierstatus auf "process" setzen
 		$db->qry("UPDATE %prefix%tournament_tournaments SET status='process' WHERE tournamentid = %int%", $_GET["tournamentid"]);
 
-		$func->confirmation(t('Das Turnier %1 wurde generiert.HTML_NEWLINEDie Begegnungen können nun gespielt werden.', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}");
+		$func->confirmation(t('Das Turnier %1 wurde generiert.<br>Die Begegnungen können nun gespielt werden.', $tournament["name"]), "index.php?mod=tournament2&action=details&tournamentid={$_GET["tournamentid"]}");
 		$func->log_event(t('Das Turnier %1 wurde generiert', $tournament["name"]), 1, t('Turnier Verwaltung'));
 /*
 		$cronjob->load_job("cron_tmod");
