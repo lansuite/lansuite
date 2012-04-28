@@ -37,8 +37,10 @@ class Import {
 		$this->xml_content = fread($xml_file, filesize($tmp_file_name));
 		fclose($xml_file);
 
-        // Due to a bug in PHP "5.2.4-2ubuntu5.7", fread seams to replace all ' with ''. So lets fix this:
-        $this->xml_content = str_replace("''", "'", $this->xml_content);
+    // Due to a bug in PHP "5.2.4-2ubuntu5.7", fread seams to replace all ' with ''. So lets fix this:
+    // 120428: Removed Fix again, since it cause Bugs with new MySQL Versions
+    // See: http://lansuite.orgapage.de/index.php?mod=bugtracker&bugid=1059
+    #$this->xml_content = str_replace("''", "'", $this->xml_content);
 
 		## Get Header-Tag
 		$header = "";
