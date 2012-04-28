@@ -124,12 +124,13 @@ Passwort: %PASSWORD%
 Clan: %CLAN%
 ----------------------------
 
-Dein %PARTYNAME%-Team</default>
+Dein %PAGE_TITLE%-Team</default>
     		<description>Text bei Registrierung im System
 
 Variablen:
 %USERNAME%
 %PARTYURL%
+%PAGE_TITLE%
 %EMAIL%
 %PASSWORD%
 %CLAN%
