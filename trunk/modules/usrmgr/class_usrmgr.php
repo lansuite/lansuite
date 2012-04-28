@@ -158,7 +158,7 @@ class UsrMgr {
             $message = str_replace('%PARTYNAME%', $_SESSION['party_info']['name'], $message);
             $message = str_replace('%MAXGUESTS%', $_SESSION['party_info']['max_guest'], $message);
             $anmelde_schluss = '';
-            if ($_SESSION['party_info']['s_enddate'] > 0) $anmelde_schluss = "Anmeldeschluss: ". $func->unixstamp2date($_SESSION['party_info']['s_enddate'], date) .HTML_NEWLINE;
+            if ($_SESSION['party_info']['s_enddate'] > 0) $anmelde_schluss = "Anmeldeschluss: ". $func->unixstamp2date($_SESSION['party_info']['s_enddate'], date);
             $message = str_replace('%SIGNON_DEADLINE%', $anmelde_schluss, $message);
             $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
             if ($mail->create_inet_mail($row["firstname"]." ".$row["name"], $row["email"], $subject, $message, $cfg["sys_party_mail"])) return true;
