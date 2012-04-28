@@ -125,6 +125,8 @@ else {
   				container = document.getElementById("content");
   				mySvg = vectorModel.createElement("svg");
         	mySvg.setAttribute("width", "'. (int)$width .'");
+          mySvg.setAttribute("height", container.getAttribute("height"));
+          mySvg.setAttribute("id", "SVGSeating");
   				container.appendChild(mySvg);
   				mySvg.setAttribute("version", "1.1");
   			  myG = vectorModel.createElement("g");
