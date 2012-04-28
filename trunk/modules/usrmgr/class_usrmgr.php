@@ -135,6 +135,7 @@ class UsrMgr {
             $message = str_replace('%CLAN%', $clan, $message);
 
             $message = str_replace('%PARTYURL%', $cfg['sys_partyurl'], $message);
+            $message = str_replace('%PARTYNAME%', $cfg['sys_page_title'], $message);
             if ($mail->create_inet_mail($_POST["firstname"]." ".$_POST["name"], $_POST["email"], $cfg["signon_signonemail_subject"], $message, $cfg["sys_party_mail"])) return true;
             else return false;
       break;
