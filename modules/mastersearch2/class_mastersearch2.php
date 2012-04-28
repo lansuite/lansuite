@@ -19,6 +19,7 @@ class MasterSearch2 {
   var $ms_number = 0;
   var $TargetPageField = '';
   var $TargetPageCount = 0;
+  var $quicklinks = array();
 
   // Constructor
   function MasterSearch2($module = '') {
@@ -437,6 +438,7 @@ class MasterSearch2 {
     }
 
     if ($this->search_fields or $this->search_dropdown) {
+      $smarty->assign('quicklinks', $this->quicklinks);
       $smarty->assign('SearchInputs', $SearchInputs);
       $smarty->assign('HiddenGetFields', $this->HiddenGetFields);
       $dsp->AddContentLine($smarty->fetch('modules/mastersearch2/templates/search_case.htm'));
