@@ -161,7 +161,7 @@ switch($_GET["step"]){
 					  foreach ($table as $field => $itemnr) $sql .= "$field = '". $func->escape_sql($items[$itemnr]) ."', ";
 						$sql = substr($sql, 0, strlen($sql) - 2);
 
-						$db->qry("REPLACE INTO %prefix%user SET %string%", $sql);
+						$db->qry("REPLACE INTO %prefix%user SET %plain%", $sql);
 						$userid = $db->insert_id();
 
             // Party-user table
