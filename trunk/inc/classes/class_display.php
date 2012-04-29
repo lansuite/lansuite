@@ -775,7 +775,7 @@ class display {
     return '<div class="Buttons" style="display:inline"><a href="'. $link .'"'. $target .'>'. $title . $hint .'</a></div>';
   }
   
-  function FetchIcon($link, $picname, $hint = NULL, $target = NULL, $align = 'left') {
+  function FetchIcon($link, $picname, $hint = null, $target = null, $align = 'left') {
     global $smarty;
 
     // Picname-Mappings
@@ -795,8 +795,9 @@ class display {
       case 'send': $hint = t('Senden'); break;
       case 'quote': $hint = t('Zitieren'); break;
     }
-    if ($hint) $smarty->assign('hint', $hint);
+    $smarty->assign('hint', $hint);
     if ($align == 'right') $smarty->assign('additionalhtml', 'align="right" valign="bottom" vspace="2" ');
+    else $smarty->assign('additionalhtml', '');
 
     if ($this->form_open) $ret = $smarty->fetch('design/templates/ls_fetch_icon_submit.htm');
     else $ret = $smarty->fetch('design/templates/ls_fetch_icon.htm');
