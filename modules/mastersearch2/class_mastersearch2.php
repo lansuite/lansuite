@@ -20,6 +20,7 @@ class MasterSearch2 {
   var $TargetPageField = '';
   var $TargetPageCount = 0;
   var $quicklinks = array();
+  var $isExport = 0;
 
   // Constructor
   function MasterSearch2($module = '') {
@@ -35,6 +36,8 @@ class MasterSearch2 {
     $this->query['default_order_by'] = '';
     $this->query['default_order_dir'] = '';
     $this->query['order_by_end'] = '';
+
+    if ($_GET['design'] != 'plain' and $_GET['msExport'] != '') $this->isExport = $_GET['msExport'];
 
     // Write Get to Post, for MF expects this for default values
     if ($_GET['search_input']) foreach($_GET['search_input'] as $key => $val) $_POST['search_input'][$key] = $val;
@@ -299,7 +302,7 @@ class MasterSearch2 {
     if ($_GET['EntsPerPage'] != '') $this->config['EntriesPerPage'] = $_GET['EntsPerPage'];
 
     ###### Generate Limit
-    if (!$this->config['EntriesPerPage']) $this->query['limit'] = '';
+    if (!$this->config['EntriesPerPage'] or $this->isExport) $this->query['limit'] = '';
     else {
       if ($_GET['ms_page'] != '' and (!$_GET['ms_number'] or $_GET['ms_number'] == $this->ms_number)) $page_start = (int)$_GET['ms_page'] * (int)$this->config['EntriesPerPage'];
       else $page_start = 0;
@@ -433,7 +436,7 @@ class MasterSearch2 {
 
     // If odd number of input fields, add the last one in a single row
     if ($y == 1) {
-      $SearchInputs[$x][$y]['type'] = '';
+      $SearchInputs[$x][$y]['type'] = 'space';
       $SearchInputs[$x][$y]['caption'] = '&nbsp;';
     }
 
@@ -441,7 +444,7 @@ class MasterSearch2 {
       $smarty->assign('quicklinks', $this->quicklinks);
       $smarty->assign('SearchInputs', $SearchInputs);
       $smarty->assign('HiddenGetFields', $this->HiddenGetFields);
-      $dsp->AddContentLine($smarty->fetch('modules/mastersearch2/templates/search_case.htm'));
+      if (!$this->isExport) $dsp->AddContentLine($smarty->fetch('modules/mastersearch2/templates/search_case.htm'));
     }
 
     // Hidden Fields for EntPerPage Box
@@ -466,6 +469,7 @@ class MasterSearch2 {
       if (count($this->multi_select_action) > 0) {
         $head[0]['width'] = '16';
         $head[0]['entry'] = '&nbsp;';
+        $head[0]['type'] = 'input';
       }
 
       // Normal headline
@@ -522,6 +526,7 @@ class MasterSearch2 {
         // Checkbox
         if (count($this->multi_select_action) > 0) {
           $body[$x]['line'][0]['entry'] = '<input type="checkbox" class="checkbox" name="action['. $line[$select_id_field] .']">';
+          $body[$x]['line'][0]['type'] = 'input';
           $y++;
         }
 
@@ -557,7 +562,7 @@ class MasterSearch2 {
           // Width?
           if ($current_field['width']) $arr['width'] = $current_field['width'];
 
-          // Output fro template
+          // Output from template
           if ($arr['entry'] == '') $arr['entry'] = '&nbsp;';
 
           $body[$x]['line'][$y] = $arr;
@@ -597,7 +602,7 @@ class MasterSearch2 {
       // Move empty Icons to the front
       foreach ($body as $k => $v) if (empty($body[$k]['line'][$first_icon + $max_displayed - 1])) {
         for ($i = $first_icon + $max_displayed - 1; $i > $first_icon; $i--) $body[$k]['line'][$i] = $body[$k]['line'][$i-1];
-        $body[$k]['line'][$first_icon]['type'] = '';
+        $body[$k]['line'][$first_icon]['type'] = 'space';
         $body[$k]['line'][$first_icon]['entry'] = '&nbsp;';
       }
 
@@ -606,6 +611,7 @@ class MasterSearch2 {
         $arr = array();
         $arr['entry'] = '&nbsp;';
         $arr['width'] = '20px';
+        $arr['type'] = 'icon';
         $head[] = $arr;
       }
 
@@ -637,9 +643,44 @@ class MasterSearch2 {
       $db->free_result($res);
 
       $smarty->assign('ms_number', $this->ms_number);
-      $dsp->AddContentLine($smarty->fetch('modules/mastersearch2/templates/result_case.htm'));
+      if (!$this->isExport) $dsp->AddContentLine($smarty->fetch('modules/mastersearch2/templates/result_case.htm'));
     }
-  }
+
+    // Generate Exports
+    if ($this->isExport) switch($this->isExport) {
+      case 'csv':
+        include("modules/install/class_export.php");
+        $export = New Export();
+
+        $output = '';
+        $y = 0;
+        foreach($head as $field) {
+          if ($field['type'] != 'input' and $field['type'] != 'icon' and $field['type'] != 'space') {
+            $y++;
+            if ($y > 1) $output .= ';';
+            if ($field['entry'] == '&nbsp;') $field['entry'] = '';
+            $output .= '"'. str_replace('"', '""', strip_tags(utf8_decode($field['entry']))) .'"';
+          }
+        }
+
+        foreach($body as $row) {
+          $y = 0;
+          $output .= "\n";
+          foreach ($row['line'] as $field) {
+            if ($field['type'] != 'input' and $field['type'] != 'icon' and $field['type'] != 'space') {
+              $y++;
+              if ($y > 1) $output .= ';';
+              if ($field['entry'] == '&nbsp;') $field['entry'] = '';
+              $output .= '"'. str_replace('"', '""', strip_tags(utf8_decode($field['entry']))) .'"';
+            }
+          }
+        }
+
+				$export->SendExport($output, 'lansuite-'. $_GET['mod'] .'.csv');
+      break;
+    }
+
+  } // End: PrintSearch()
 } // End: Class
 
 
