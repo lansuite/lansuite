@@ -121,7 +121,9 @@ class xml {
 	}
 
 	// This function writes tags
-	function write_tag($tag, $content, $level) {	
+	function write_tag($tag, $content, $level) {
+    global $func;
+
 		$tab = $this->level2tab($level);
 		$brackets = $tab."<%s>%s</%s>\r\n";
 
