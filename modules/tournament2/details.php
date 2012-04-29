@@ -34,7 +34,7 @@ else {
 				$func->information(t('Es wurde bereits die Hälfte der fest angemeldeten Teams markiert! Demarkiere zuerst ein Team, bevor du ein weiteres markierst'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
 			} else {
 				$db->qry("UPDATE %prefix%t2_teams SET seeding_mark = '1' WHERE (teamid = %int%)", $_GET['teamid']);
-				$func->confirmation(t('Das Team wurde zum Setzen markiert.HTML_NEWLINEAlle markierten Teams werden beim Generieren so gesetzt, dass sie möglichst spät im Turnierbaum aufeinander treffen werden.'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
+				$func->confirmation(t('Das Team wurde zum Setzen markiert.<br>Alle markierten Teams werden beim Generieren so gesetzt, dass sie möglichst spät im Turnierbaum aufeinander treffen werden.'), "index.php?mod=tournament2&action=details&tournamentid={$_GET['tournamentid']}&headermenuitem=2");
 			}
 		break;
 
