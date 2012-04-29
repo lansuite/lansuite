@@ -76,7 +76,7 @@ else {
 		$dsp->AddDoubleRow(t('Beschreibung'), $func->text2html($server["text"]));
 
 		$buttons = "";
-		if ($_SESSION["auth"]["type"] > 1 OR $_SESSION["auth"]["userid"] == $server["owner"]) {
+		if ($auth['type'] > 1 or $auth['userid'] == $server["owner"]) {
 			$buttons .= $dsp->FetchSpanButton(t('Editieren'), "index.php?mod=server&action=change&step=2&serverid=$serverid") ." ";
 			$buttons .= $dsp->FetchSpanButton(t('Löschen'), "index.php?mod=server&action=delete&step=2&serverid=$serverid") ." ";
 		}
