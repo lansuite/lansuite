@@ -21,23 +21,31 @@ MultiSelectSecurityQuest = new Array({$security_questions});
 <table width="100%" cellspacing="0" cellpadding="0">
 <tr>
   {foreach from=$head item=v}
-  	<th class="mastersearch2_result_row_key" width="{$v.width}"><a href="{$v.link}" class="mastersearch2_result_heading" rel="nofollow">{$v.entry}</a></th>
+  	<th class="mastersearch2_result_row_key"{if $v.width} width="{$v.width}"{/if}><a href="{$v.link}" class="mastersearch2_result_heading" rel="nofollow">{$v.entry}</a></th>
   {/foreach}
+  {if $maxIcons > 0}
+    <th class="mastersearch2_result_row_key">&nbsp;</th>
+  {/if}
 </tr>
 
 {foreach from=$body item=line}
 <tr onClick="markieren_permanent(this);" onMouseOver="markieren(this);" onMouseOut="unmarkieren(this);">
   {foreach from=$line.line item=v}
-    <td class="mastersearch2_result_row_value" valign="top" width="{$v.width}" {$line.bgcolor}>
+    <td class="mastersearch2_result_row_value" valign="top"{if $v.width} width="{$v.width}"{/if} {$line.bgcolor}>
     {if $v.link != ''}<a href="{$v.link}" class="menu">{/if}
-      {if $v.type == 'icon'}
-        <img src="design/images/icon_{$v.name}.png" alt="{$v.name}" title="{$v.title}" width="20" height="20" border="0">
-      {else}
-        {$v.entry}
-      {/if}
+      {$v.entry}
     {if $v.link != ''}</a>{/if}
     </td>
   {/foreach}
+  {if $line.icons|@count > 0}
+    <td class="mastersearch2_result_row_value" valign="top" align="right" width="{$maxIcons*24}" {$line.bgcolor}>
+    {foreach from=$line.icons item=v}
+      {if $v.link != ''}<a href="{$v.link}" class="menu">{/if}
+        <img src="design/images/icon_{$v.name}.png" alt="{$v.name}" title="{$v.title}" width="20" height="20" border="0">
+      {if $v.link != ''}</a>{/if}
+    {/foreach}
+    </td>
+  {/if}
 </tr>
 {/foreach}
 
