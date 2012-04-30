@@ -56,7 +56,7 @@ switch($_GET["step"]){
     $dsp->AddDoubleRow(t('Priorität'), $log['type']);
     $dsp->AddDoubleRow(t('IP'), $log['ip']);
     $dsp->AddDoubleRow(t('Referer'), $log['referer']);
-    $dsp->AddDoubleRow(t('Script'), $log['script']);
+    $dsp->AddDoubleRow(t('Script'), '<a href="'. $log['script'] .'">'. $log['script'] .'</a>');
     $dsp->AddDoubleRow(t('Auslöser'), $dsp->FetchUserIcon($log['userid'], $log['username']));
     $dsp->AddBackButton("index.php?mod=install&action=log", '');
     $dsp->AddContent();
