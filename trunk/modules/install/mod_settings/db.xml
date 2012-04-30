@@ -522,7 +522,7 @@
         <structure>
             <field>
                 <name>logid</name>
-                <type>int(11)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -530,9 +530,9 @@
             </field>
             <field>
                 <name>type</name>
-                <type>tinyint(3)</type>
+                <type>tinyint(3) unsigned</type>
                 <null></null>
-                <key></key>
+                <key>IND</key>
                 <default>0</default>
                 <extra></extra>
             </field>
@@ -540,7 +540,7 @@
                 <name>description</name>
                 <type>text</type>
                 <null></null>
-                <key></key>
+                <key>FUL</key>
                 <default></default>
                 <extra></extra>
             </field>
@@ -558,7 +558,7 @@
                 <name>date</name>
                 <type>timestamp</type>
                 <null></null>
-                <key></key>
+                <key>IND</key>
                 <default></default>
                 <extra></extra>
             </field>
@@ -566,7 +566,7 @@
                 <name>sort_tag</name>
                 <type>varchar(50)</type>
                 <null></null>
-                <key></key>
+                <key>IND</key>
                 <default></default>
                 <extra></extra>
             </field>
