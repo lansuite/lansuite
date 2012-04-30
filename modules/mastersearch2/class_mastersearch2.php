@@ -531,8 +531,8 @@ class MasterSearch2 {
         }
 
         // Normal fields
-        $max_displayed = 0;
-        foreach ($this->result_field as $k => $current_field) {    
+        $maxIcons = 0;
+        foreach ($this->result_field as $k => $current_field) {
           $arr = array();
 
           // cut of 'table.', in front of field name
@@ -570,15 +570,12 @@ class MasterSearch2 {
         }
 
         // Icon fields
-        $body_icons = array();
-        $first_icon = $y;
-        $displayed = 0;
+        $y = 0;
+        $maxIcons = 0;
         foreach ($this->icon_field as $current_field) {
           $arr = array();
 
           if (!$current_field['callback'] or call_user_func($current_field['callback'], $line[$select_id_field])) {
-            $arr['type'] = 'icon';
-            $arr['width'] = '20px';
             if (substr($current_field['link'], 0, 11) == 'javascript:') $arr['link'] = '#" onclick="'. $current_field['link'];
             else $arr['link'] = $current_field['link'];
             if ($this->TargetPageCount) $TargetPage = floor($line[$this->TargetPageField] / $this->TargetPageCount);
@@ -590,31 +587,16 @@ class MasterSearch2 {
             $arr['title'] = $current_field['tooltipp'];
             $displayed++;
 
-            $body[$x]['line'][$y] = $arr;
+            $body[$x]['icons'][$y] = $arr;
             $y++;
           }
         }
 
-        if ($displayed > $max_displayed) $max_displayed = $displayed;
+        if ($y > $maxIcons) $maxIcons = $y;
         $x++;
       } // End: Row
       
-      // Move empty Icons to the front
-      foreach ($body as $k => $v) if (empty($body[$k]['line'][$first_icon + $max_displayed - 1])) {
-        for ($i = $first_icon + $max_displayed - 1; $i > $first_icon; $i--) $body[$k]['line'][$i] = $body[$k]['line'][$i-1];
-        $body[$k]['line'][$first_icon]['type'] = 'space';
-        $body[$k]['line'][$first_icon]['entry'] = '&nbsp;';
-      }
-
-      // Add empty headlines for each icon column
-      for ($i = 0; $i < $max_displayed; $i++) {
-        $arr = array();
-        $arr['entry'] = '&nbsp;';
-        $arr['width'] = '20px';
-        $arr['type'] = 'icon';
-        $head[] = $arr;
-      }
-
+      $smarty->assign('maxIcons', $maxIcons + 1);
       $smarty->assign('head', $head);
       $smarty->assign('body', $body);
 
@@ -655,7 +637,7 @@ class MasterSearch2 {
         $output = '';
         $y = 0;
         foreach($head as $field) {
-          if ($field['type'] != 'input' and $field['type'] != 'icon' and $field['type'] != 'space') {
+          if ($field['type'] != 'input' and $field['type'] != 'space') {
             $y++;
             if ($y > 1) $output .= ';';
             if ($field['entry'] == '&nbsp;') $field['entry'] = '';
@@ -667,7 +649,7 @@ class MasterSearch2 {
           $y = 0;
           $output .= "\n";
           foreach ($row['line'] as $field) {
-            if ($field['type'] != 'input' and $field['type'] != 'icon' and $field['type'] != 'space') {
+            if ($field['type'] != 'input' and $field['type'] != 'space') {
               $y++;
               if ($y > 1) $output .= ';';
               if ($field['entry'] == '&nbsp;') $field['entry'] = '';
