@@ -14,7 +14,7 @@
         <structure>
             <field>
                 <name>refid</name>
-                <type>int(10)</type>
+                <type>smallint(5) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -79,7 +79,7 @@
         <structure>
             <field>
                 <name>commentid</name>
-                <type>int(10)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -87,7 +87,7 @@
             </field>
             <field>
                 <name>relatedto_id</name>
-                <type>int(10)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key>IND</key>
                 <default>0</default>
@@ -138,7 +138,7 @@
         <structure>
             <field>
                 <name>bid</name>
-                <type>int(6)</type>
+                <type>smallint(5) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -146,7 +146,7 @@
             </field>
             <field>
                 <name>relatedto_id</name>
-                <type>int(10)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key>IND</key>
                 <default>0</default>
@@ -172,7 +172,7 @@
             </field>
             <field>
                 <name>email</name>
-                <type>int(2)</type>
+                <type>tinyint(2) unsigned</type>
                 <null></null>
                 <key></key>
                 <default></default>
@@ -180,7 +180,7 @@
             </field>
             <field>
                 <name>sysemail</name>
-                <type>int(2)</type>
+                <type>tinyint(2) unsigned</type>
                 <null></null>
                 <key></key>
                 <default></default>
@@ -243,7 +243,7 @@
             </field>
             <field>
                 <name>cfg_pos</name>
-                <type>tinyint(3)</type>
+                <type>tinyint(3) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -260,7 +260,7 @@
         <structure>
             <field>
                 <name>id</name>
-                <type>smallint(5)</type>
+                <type>smallint(5) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -299,7 +299,7 @@
         <structure>
             <field>
                 <name>CID</name>
-                <type>int(20)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -363,7 +363,7 @@
             </field>
             <field>
                 <name>timestamp</name>
-                <type>int(50)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -380,7 +380,7 @@
         <structure>
             <field>
                 <name>BID</name>
-                <type>int(50)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -422,7 +422,7 @@
         <structure>
             <field>
                 <name>id</name>
-                <type>int(5)</type>
+                <type>smallint(5) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -472,7 +472,7 @@
             </field>
             <field>
                 <name>id_in_class</name>
-                <type>int(5)</type>
+                <type>smallint(5) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -489,7 +489,7 @@
         <structure>
             <field>
                 <name>plz</name>
-                <type>varchar(5)</type>
+                <type>mediumint(5) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -613,7 +613,7 @@
         <structure>
             <field>
                 <name>id</name>
-                <type>int(11)</type>
+                <type>smallint(5) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -653,7 +653,7 @@
             </field>
             <field>
                 <name>requirement</name>
-                <type>tinyint(8)</type>
+                <type>tinyint(3) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -661,7 +661,7 @@
             </field>
             <field>
                 <name>level</name>
-                <type>tinyint(8)</type>
+                <type>tinyint(3) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -669,7 +669,7 @@
             </field>
             <field>
                 <name>pos</name>
-                <type>int(6)</type>
+                <type>smallint(5) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -685,7 +685,7 @@
             </field>
             <field>
                 <name>group_nr</name>
-                <type>int(6)</type>
+                <type>smallint(5) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -709,7 +709,7 @@
             </field>
             <field>
                 <name>boxid</name>
-                <type>int(2)</type>
+                <type>smallint(5) unsigned</type>
                 <null></null>
                 <key>IND</key>
                 <default>1</default>
@@ -768,7 +768,7 @@
             </field>
             <field>
                 <name>active</name>
-                <type>tinyint(1)</type>
+                <type>tinyint(1) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -776,7 +776,7 @@
             </field>
             <field>
                 <name>changeable</name>
-                <type>tinyint(1)</type>
+                <type>tinyint(1) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>1</default>
@@ -825,7 +825,7 @@
         <structure>
             <field>
                 <name>shortcut</name>
-                <type>varchar(255)</type>
+                <type>varchar(16)</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -833,7 +833,7 @@
             </field>
             <field>
                 <name>image</name>
-                <type>varchar(255)</type>
+                <type>varchar(80)</type>
                 <null></null>
                 <key></key>
                 <default></default>
@@ -946,7 +946,7 @@
         <structure>
             <field>
                 <name>shortcut</name>
-                <type>varchar(255)</type>
+                <type>varchar(20)</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -954,7 +954,7 @@
             </field>
             <field>
                 <name>title</name>
-                <type>varchar(255)</type>
+                <type>varchar(120)</type>
                 <null></null>
                 <key></key>
                 <default></default>
@@ -1077,7 +1077,7 @@
             </field>
             <field>
                 <name>logtime</name>
-                <type>int(15)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -1085,7 +1085,7 @@
             </field>
             <field>
                 <name>logintime</name>
-                <type>int(15)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -1101,7 +1101,7 @@
             </field>
             <field>
                 <name>lasthit</name>
-                <type>int(15)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key>IND</key>
                 <default>0</default>
@@ -1109,7 +1109,7 @@
             </field>
 			<field>
                 <name>lastajaxhit</name>
-                <type>int(15)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key>IND</key>
                 <default>0</default>
@@ -1225,7 +1225,7 @@
         <structure>
             <field>
                 <name>tid</name>
-                <type>int(11)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key></key>
                 <default></default>
@@ -1305,7 +1305,7 @@
             </field>
             <field>
                 <name>obsolete</name>
-                <type>tinyint(1)</type>
+                <type>tinyint(1) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -1322,7 +1322,7 @@
         <structure>
             <field>
                 <name>tid</name>
-                <type>int(11)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key></key>
                 <default></default>
@@ -1402,7 +1402,7 @@
             </field>
             <field>
                 <name>obsolete</name>
-                <type>tinyint(1)</type>
+                <type>tinyint(1) unsigned</type>
                 <null></null>
                 <key></key>
                 <default>0</default>
@@ -1462,7 +1462,7 @@
         <structure>
             <field>
                 <name>ratingid</name>
-                <type>int(10)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key>PRI</key>
                 <default></default>
@@ -1470,7 +1470,7 @@
             </field>
             <field>
                 <name>ref_id</name>
-                <type>int(10)</type>
+                <type>int(11) unsigned</type>
                 <null></null>
                 <key>IND</key>
                 <default>0</default>
@@ -1521,7 +1521,7 @@
 		<structure>
 			<field>
 				<name>readid</name>
-				<type>int(11)</type>
+				<type>int(11) unsigned</type>
 				<null></null>
 				<key>PRI</key>
 				<default></default>
@@ -1537,7 +1537,7 @@
 			</field>
 			<field>
 				<name>entryid</name>
-				<type>int(11)</type>
+				<type>int(11) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default></default>
@@ -1570,7 +1570,7 @@
 		<structure>
 			<field>
 				<name>boxid</name>
-				<type>int(6)</type>
+				<type>smallint(5) unsigned</type>
 				<null></null>
 				<key>PRI</key>
 				<default>0</default>
@@ -1586,7 +1586,7 @@
 			</field>
 			<field>
 				<name>place</name>
-				<type>int(2)</type>
+				<type>tinyint(3) unsigned</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
@@ -1594,7 +1594,7 @@
 			</field>
 			<field>
 				<name>pos</name>
-				<type>int(6)</type>
+				<type>smallint(5) unsigned</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
@@ -1602,7 +1602,7 @@
 			</field>
 			<field>
 				<name>active</name>
-				<type>tinyint(1)</type>
+				<type>tinyint(1) unsigned</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
@@ -1610,7 +1610,7 @@
 			</field>
 			<field>
 				<name>internet</name>
-				<type>int(1)</type>
+				<type>tinyint(1) unsigned</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
@@ -1618,7 +1618,7 @@
 			</field>
 			<field>
 				<name>login</name>
-				<type>int(1)</type>
+				<type>tinyint(1) unsigned</type>
 				<null></null>
 				<key></key>
 				<default>0</default>
@@ -1730,7 +1730,7 @@
 			</field>
 			<field>
 				<name>pos</name>
-				<type>tinyint(3)</type>
+				<type>tinyint(3) unsigned</type>
 				<null></null>
 				<key>IND</key>
 				<default></default>
