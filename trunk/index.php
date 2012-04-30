@@ -340,16 +340,25 @@
      * Initializes the design of lansuite. 
      */
     function initializeDesign() {
-        global $cfg, $auth, $config, $_SESSION, $_GET, $smarty;
-        
-        // If user is not allowed to use an own selected design, or none is selected, use default
-        if (!$cfg['user_design_change'] or !$auth["design"]) $auth['design'] = $config['lansuite']['default_design'];
-        if (!$auth["design"]) $auth["design"] = "simple"; // Default if none
-        if (!file_exists("design/{$auth["design"]}/templates/main.htm")) $auth["design"] = "simple"; // Default if not availible
-        $_SESSION["auth"]["design"] = $auth["design"]; // For compaibility with old LS code
-        // folgendes betrifft momentan wohl nur Beamer
-        if ($_GET['design'] and $_GET['design'] != 'popup' and $_GET['design'] != 'base') $auth['design'] = $_GET['design'];
-        $smarty->assign('default_design', $auth['design']);
+      global $cfg, $auth, $config, $_SESSION, $_GET, $smarty;
+      
+      // If user is not allowed to use an own selected design, or none is selected, use default
+      if (!$cfg['user_design_change'] or !$auth['design']) $auth['design'] = $config['lansuite']['default_design'];
+
+      // Design switch by URL
+      if ($_GET['design'] and $_GET['design'] != 'popup' and $_GET['design'] != 'base') $auth['design'] = $_GET['design'];
+
+      // Fallback design is 'simple'
+      if (!$auth['design'] or !file_exists('design/'. $auth['design'] .'/templates/main.htm')) {
+        $auth['design'] = 'simple';
+        if ($_GET['design'] != 'popup' and $_GET['design'] != 'base') $_GET['design'] = 'simple';
+      }
+
+      // For compaibility with old LS code
+      $_SESSION['auth']['design'] = $auth['design'];
+
+      // Assign
+      $smarty->assign('default_design', $auth['design']);
     }
 
 ?>
