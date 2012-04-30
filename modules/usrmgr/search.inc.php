@@ -67,7 +67,6 @@ if ($cfg['signon_show_clan']) {
   $ms2->AddResultField(t('Clan'), 'c.name AS clan', 'ClanURLLink');
 }
 $ms2->AddIconField('details', 'index.php?mod=usrmgr&action=details&userid=', t('Details'));
-if ($party->count > 0) $ms2->AddIconField('signon', 'index.php?mod=usrmgr&action=party&user_id=', t('Partyanmeldung'));
 $ms2->AddIconField('send_mail', 'index.php?mod=mail&action=newmail&step=2&userID=', t('Mail senden'));
 $ms2->AddIconField('change_pw', 'index.php?mod=usrmgr&action=newpwd&step=2&userid=', t('Passwort ändern'), 'IfLowerOrEqualUserlevel');
 if ($auth['type'] >= 2) $ms2->AddIconField('assign', 'index.php?mod=auth&action=switch_to&userid=', t('Benutzer wechseln'), 'IfLowerUserlevel');
@@ -78,6 +77,7 @@ if ($auth['type'] >= 3 and $func->isModActive('foodcenter')) {
 $ms2->AddIconField('locked', 'index.php?mod=usrmgr&step=11&userid=', t('Account freigeben'), 'IfLocked');
 $ms2->AddIconField('unlocked', 'index.php?mod=usrmgr&step=10&userid=', t('Account sperren'), 'IfUnlocked');
 
+// Add icons depending on other modules
 include_once("inc/classes/class_plugin.php");
 $plugin = new plugin('usrmgr_search');
 while (list($caption, $inc) = $plugin->fetch()) include_once($inc);
