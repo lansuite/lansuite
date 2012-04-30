@@ -25,7 +25,7 @@ if ($auth['userid']) {
     // Move to trashcan
     case 20:
       if (!$_POST['action'] and $_GET['mailid']) $_POST['action'][$_GET['mailid']] = 1;
-      foreach ($_POST['action'] as $key => $val) $db->qry("UPDATE %prefix%mail_messages SET mail_status = 'delete' WHERE mailID = %int%", $key);
+      if ($_POST['action']) foreach ($_POST['action'] as $key => $val) $db->qry("UPDATE %prefix%mail_messages SET mail_status = 'delete' WHERE mailID = %int%", $key);
     break;
   }
 
