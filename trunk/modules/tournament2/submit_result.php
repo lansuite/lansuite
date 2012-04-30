@@ -31,14 +31,14 @@ if ($map[0] == "") $map[0] = t('unbekannt');
 $games = $db->qry_first("SELECT COUNT(*) AS anz FROM %prefix%t2_games WHERE (tournamentid = %int%) AND (round=0) GROUP BY round", $tournamentid);
 $team_anz = $games["anz"];
 
-$team1 = $db->qry_first("SELECT games.group_nr, games.round, games.score, games.comment, games.server_id, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
+$team1 = $db->qry_first("SELECT games.group_nr, games.round, games.position, games.score, games.comment, games.server_id, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
   FROM %prefix%t2_games AS games
   LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
   LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
   WHERE (teams.tournamentid = %int%) AND (games.gameid = %int%)
   ", $tournamentid, $gameid1);
 
-$team2 = $db->qry_first("SELECT games.round, games.score, games.comment, games.server_id, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
+$team2 = $db->qry_first("SELECT games.round, games.position, games.score, games.comment, games.server_id, teams.name, teams.teamid, teams.disqualified, user.userid, user.username
   FROM %prefix%t2_games AS games
   LEFT JOIN %prefix%t2_teams AS teams ON games.leaderid = teams.leaderid
   LEFT JOIN %prefix%user AS user ON user.userid = teams.leaderid
@@ -47,9 +47,11 @@ $team2 = $db->qry_first("SELECT games.round, games.score, games.comment, games.s
 
 
 ########## Einschränkungen prüfen
-if ($tournament["name"] == "") { 
+if ($tournament["name"] == "") {
 	$func->error(t('Du musst zuerst ein Turnier auswählen!'), "index.php?mod=tournament2&action=details&tournamentid=$tournamentid");
 
+} elseif (abs($team1['position'] - $team2['position']) != 1) {
+  $func->error(t('Diese Spielkonstellation existiert nicht!'. $team1['position']. $team2['position']));
 
 ########## Keine Einschränkungen gefunden
 } else {
