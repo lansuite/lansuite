@@ -515,6 +515,7 @@ class MasterSearch2 {
       #### Generate Result Body
       $body = array();
       $x = 0;
+      $maxIcons = 0;
       while($line = $db->fetch_array($res)) { // Start: Row
         $y = 0;
 
@@ -531,7 +532,6 @@ class MasterSearch2 {
         }
 
         // Normal fields
-        $maxIcons = 0;
         foreach ($this->result_field as $k => $current_field) {
           $arr = array();
 
@@ -571,7 +571,6 @@ class MasterSearch2 {
 
         // Icon fields
         $y = 0;
-        $maxIcons = 0;
         foreach ($this->icon_field as $current_field) {
           $arr = array();
 
@@ -596,7 +595,7 @@ class MasterSearch2 {
         $x++;
       } // End: Row
       
-      $smarty->assign('maxIcons', $maxIcons + 1);
+      $smarty->assign('maxIcons', $maxIcons);
       $smarty->assign('head', $head);
       $smarty->assign('body', $body);
 
