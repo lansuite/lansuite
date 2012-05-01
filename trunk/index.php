@@ -22,31 +22,30 @@
 
       // error_reporting setting currently doesn't show the following errors:
       // E_NOTICE
-      // E_USER_NOTICE
       // E_DEPRECATED
       // E_USER_NOTICE
-      // E_STRICT
-      // E_DEPRECATED
+      // E_USER_DEPRECATED
       // Should change in the future!
 
       switch($errno){
-          case E_ERROR:               $errors = "Error";                  break; // not catched
-          case E_WARNING:             $errors = "Warning";                break;
-          case E_PARSE:               $errors = "Parse Error";            break; // not catched
-          case E_NOTICE:              $errors = "Notice";                 break;
-          case E_CORE_ERROR:          $errors = "Core Error";             break; // not catched
-          case E_CORE_WARNING:        $errors = "Core Warning";           break; // not catched
-          case E_COMPILE_ERROR:       $errors = "Compile Error";          break; // not catched
-          case E_COMPILE_WARNING:     $errors = "Compile Warning";        break; // not catched
-          case E_USER_ERROR:          $errors = "User Error";             break;
-          case E_USER_WARNING:        $errors = "User Warning";           break;
-          case E_USER_NOTICE:         $errors = "User Notice";            break;
-          case E_STRICT:              $errors = "Strict Notice";          break; // catched only outside this file
-          case E_RECOVERABLE_ERROR:   $errors = "Recoverable Error";      break;
-          default:
-            if (defined('E_DEPRECATED') and $errno == E_DEPRECATED) $errors = "Deprecated";
-            else $errors = "Unknown error ($errno)";
-          break;
+        case E_ERROR:               $errors = "Error";                  break; // not catched
+        case E_WARNING:             $errors = "Warning";                break;
+        case E_PARSE:               $errors = "Parse Error";            break; // not catched
+        case E_NOTICE:              $errors = "Notice";                 break;
+        case E_CORE_ERROR:          $errors = "Core Error";             break; // not catched
+        case E_CORE_WARNING:        $errors = "Core Warning";           break; // not catched
+        case E_COMPILE_ERROR:       $errors = "Compile Error";          break; // not catched
+        case E_COMPILE_WARNING:     $errors = "Compile Warning";        break; // not catched
+        case E_USER_ERROR:          $errors = "User Error";             break;
+        case E_USER_WARNING:        $errors = "User Warning";           break;
+        case E_USER_NOTICE:         $errors = "User Notice";            break;
+        case E_STRICT:              $errors = "Strict Notice";          break; // catched only outside this file
+        case E_RECOVERABLE_ERROR:   $errors = "Recoverable Error";      break;
+        default:
+          if (defined('E_DEPRECATED') and $errno == E_DEPRECATED) $errors = "Deprecated";
+          elseif (defined('E_USER_DEPRECATED') and $errno == E_USER_DEPRECATED) $errors = "User Deprecated";
+          else $errors = "Unknown error ($errno)";
+        break;
       }
 
       // Store error, to print it later
@@ -74,23 +73,24 @@
     set_error_handler("myErrorHandler");
 
 ### Start session-management
-    
+
     #session_save_path('ext_inc/session'); Leave to hosters default value, for some don't seam to empty it and data here counts against web space quota
     session_start();
-    
+
 ### Initialise Frameworkclass for Basic output
-    
+
     include_once("inc/classes/class_framework.php");
     $framework = new framework();
-    $framework->fullscreen($_GET['fullscreen']);                // Switch fullscreen via GET
+    $framework->fullscreen($_GET['fullscreen']); // Switch fullscreen via GET
+
     // Notlösung... design als base und popup sollen ganz verschwinden
     if ($_GET['design']=='base' OR $_GET['design']=='popup' OR $_GET['design']=='ajax' OR $_GET['design']=='print' OR $_GET['design']=='beamer') $frmwrkmode = $_GET['design']; // Set Popupmode via GET (base, popup)
     if ($_GET['frmwrkmode']) $frmwrkmode = $_GET['frmwrkmode']; // Set Popupmode via GET (base, popup)
     if (isset($frmwrkmode)) $framework->set_modus($frmwrkmode);
     // Ende Notlösung
 
-### Set HTTP-Headers (still needed?)
-    
+### Set HTTP-Headers
+
     header('Content-Type: text/html; charset=utf-8');
     #header('Content-Type: application/xhtml+xml; charset=utf-8');
     #header("Cache-Control: no-cache, must-revalidate");
@@ -102,13 +102,14 @@
     @ini_set('arg_separator.output', '&amp;');
 
 ### load $_POST and $_GET variables
-    
+
+    // Fallback for PHP < 4.1 (still needed?)
     if (!is_array($_POST)) $_POST = $HTTP_POST_VARS;
     if (!is_array($_GET)) $_GET = $HTTP_GET_VARS;
     if (!is_array($_COOKIE)) $_COOKIE = $HTTP_COOKIE_VARS;
 
     // Base Functions (anything that doesnt belong elsewere)
-    include_once("inc/classes/class_func.php");
+    require_once("inc/classes/class_func.php");
     $func        = new func;
 
     // Prevent XSS
@@ -140,23 +141,25 @@
     // Protect from XSS
     #foreach ($_GET as $key => $val) $_GET[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_GET[$key]);
     #foreach ($_POST as $key => $val) $_POST[$key] = preg_replace('#&lt;script(.)*>#sUi', '', $_POST[$key]);
-    
+
 ### Read Config and Definitionfiles
-    
+
     $config = parse_ini_file('inc/base/config.php', 1); // Load Basic Config
     include_once('inc/base/define.php');                // Read definition file
     // Exit if no Configfile
     if (!$config) {
-        echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
-        Überprüfe die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
-        exit();
+      echo HTML_FONT_ERROR. 'Öffnen oder Lesen der Konfigurations-Datei nicht möglich. Lansuite wird beendet.' .HTML_NEWLINE . "
+      Überprüfe die Datei <b>config.php</b> im Verzeichnis inc/base/" .HTML_FONT_END;
+      error_log('Öffnen oder Lesen der Konfigurations-Datei inc/base/config.php nicht möglich');
+      exit();
     }
-    $lang = array(); // For old $lang 
 
 ### Include and Initialize base classes
 
-    require_once "inc/classes/class_debug.php";       // Debug initialisieren
+    $lang = array(); // For old $lang
+
     if ($config['lansuite']['debugmode'] > 0) {
+      include_once "inc/classes/class_debug.php";       // Debug initialisieren
       $debug = new debug($config['lansuite']['debugmode']);
     }
 
@@ -164,13 +167,14 @@
     $translation = new translation();
 
     include_once('ext_scripts/smarty/Smarty.class.php');
-    $smarty      = new Smarty();
+    $smarty = new Smarty();
     $smarty->template_dir = '.';
     $smarty->compile_dir = './ext_inc/templates_c/';
     $smarty->cache_dir = './ext_inc/templates_cache/';
     $smarty->caching = false;
     $smarty->cache_lifetime = 0; // sec
     #$smarty->compile_check = 0;
+
     if (isset($debug)) $debug->tracker("Include and Init Smarty");
 
     include_once("inc/classes/class_display.php");      // Display Functions (to load the lansuite-templates)
@@ -182,10 +186,8 @@
     include_once("inc/classes/class_sec.php");          // Security Functions (to lock pages)
     $sec = new sec;
 
-    include_once("modules/cron2/class_cron2.php");      // Load Cronjob
-    $cron2 = new cron2();
     if (isset($debug)) $debug->tracker("Include and Init Base Classes");
-    
+
 ### Initalize Basic Parameters
 
     $language = $translation->get_lang(); // Set and Read Systemlanguage
@@ -227,14 +229,14 @@
 
         $cfg = $func->read_db_config(); // Config-Tabelle aulesen
         $sec->check_blacklist();
-        
+
         // Set timezone info (php + mysql)
         if ($cfg['sys_timezone'] and function_exists('date_default_timezone_set')) {
           #date_default_timezone_set($cfg['sys_timezone']);
           #$db->qry('SET SESSION time_zone = %string%', $cfg['sys_timezone']);
           ##$db->qry('SET SESSION time_zone = \'+0:00\'');
         }
-        
+
         if (!$_GET['mod']) $_GET['mod'] = 'home';
         $func->getActiveModules();
 
@@ -274,74 +276,22 @@
                 break;
                 case 'switch_to': // Switch to user
                     $authentication->switchto($_GET["userid"]);
-                break;   
+                break;
                 case 'switch_back': // Switch back to Adminuser
                     $authentication->switchback();
                 break;
             }
         }
-               
-        // Statistic Functions (for generating server- and usage-statistics)
-        if ($db->success) {
-          include_once("modules/stats/class_stats.php");
-          $stats = new stats();
-        }
     }
 
 ### Set Default-Design, if non is set
 
-    initializeDesign();
-
-### Load Rotation Banner
-
-    include_once("modules/sponsor/banner.php");
-
-### Create Boxes / load Boxmanager
-    
-    if (!$IsAboutToInstall and $_GET['design'] != 'base') include_once("modules/boxes/boxes.php");
-
-### index_module.inc.php load the Modulactions and Codes
-
-    $db->DisplayErrors();
-    if ($PHPErrors) $func->error($PHPErrors);
-    $PHPErrors = '';
-
-    #$func->error($func->FormatFileSize(memory_get_usage()));
-    #trigger_error(memory_get_usage(), E_USER_ERROR);
-    include_once('index_module.inc.php');
-
-### Complete Framework and Output HTML
-
-    $framework->set_design($auth['design']); 
-
-    $db->DisplayErrors();
-    if ($PHPErrors) $func->error($PHPErrors);
-    $PHPErrors = '';
-
-    $framework->add_content($FrameworkMessages);    // Add old Frameworkmessages (sollten dann ausgetauscht werden)
-    $framework->add_content($MainContent);          // Add oll MainContent-Variable (sollte auch bereinigt werden)
-
-    // DEBUG:Alles
-    if (isset($debug)) $debug->addvar('$auth',$auth);
-    if (isset($debug)) $debug->addvar('$cfg',$cfg);
-    if (isset($debug)) $debug->tracker("All upto HTML-Output");
-
-    $framework->html_out();  // Output of all HTML
-    
-### Statistics will be updated only at scriptend, so pagesize and loadtime can be insert
-
-    if ($db->success) {
-      // Check Cronjobs
-      if (!$_GET['mod']=="install") $cron2->CheckJobs();
-      $db->disconnect();
-    }
-    
     /*
-     * Initializes the design of lansuite. 
+     * Initializes the design of lansuite.
      */
     function initializeDesign() {
       global $cfg, $auth, $config, $_SESSION, $_GET, $smarty;
-      
+
       // If user is not allowed to use an own selected design, or none is selected, use default
       if (!$cfg['user_design_change'] or !$auth['design']) $auth['design'] = $config['lansuite']['default_design'];
 
@@ -359,6 +309,70 @@
 
       // Assign
       $smarty->assign('default_design', $auth['design']);
+    }
+    initializeDesign();
+
+### Load Rotation Banner
+
+    include_once("modules/sponsor/banner.php");
+
+### Create Boxes / load Boxmanager
+
+    if (!$IsAboutToInstall and $_GET['design'] != 'base') include_once("modules/boxes/boxes.php");
+
+### index_module.inc.php load the Modulactions and Codes
+
+    $db->DisplayErrors();
+    if ($PHPErrors) $func->error($PHPErrors);
+    $PHPErrors = '';
+
+    #$func->error($func->FormatFileSize(memory_get_usage()));
+    #trigger_error(memory_get_usage(), E_USER_ERROR);
+    include_once('index_module.inc.php');
+
+### Complete Framework and Output HTML
+
+    $framework->set_design($auth['design']);
+
+    $db->DisplayErrors();
+    if ($PHPErrors) $func->error($PHPErrors);
+    $PHPErrors = '';
+
+    $framework->add_content($FrameworkMessages);    // Add old Frameworkmessages (sollten dann ausgetauscht werden)
+    $framework->add_content($MainContent);          // Add old MainContent-Variable (sollte auch bereinigt werden)
+
+    // DEBUG:Alles
+    if (isset($debug)) $debug->addvar('$auth',$auth);
+    if (isset($debug)) $debug->addvar('$cfg',$cfg);
+    if (isset($debug)) $debug->tracker("All upto HTML-Output");
+
+    $framework->html_out();  // Output of all HTML
+    unset($framework);
+    unset($smarty);
+    unset($dsp);
+
+### Statistics will be updated only at scriptend, so pagesize and loadtime can be insert
+
+    if ($db->success) {
+
+      // Statistic Functions (for generating server- and usage-statistics)
+      include_once("modules/stats/class_stats.php");
+      $stats = new stats();
+      unset($stats);
+
+      // Check Cronjobs
+      if (!$_GET['mod'] == 'install') {
+        if (!isset($cron2)) {
+          include_once('modules/cron2/class_cron2.php');
+          $cron2 = new cron2();
+        }
+        $cron2->CheckJobs();
+        unset($cron2);
+      }
+
+      // Disconnect DB
+      $db->disconnect();
+      unset($db);
     }
 
 ?>

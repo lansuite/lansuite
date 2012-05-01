@@ -10,8 +10,8 @@ switch ($_GET['step']) {
 
   // Run now
   case 20:
-
-    
+    include_once("modules/cron2/class_cron2.php");
+    $cron2 = new cron2();
 
     $dsp->AddDoubleRow(t('Folgender SQL-Befehl wurde ausgeführt'), $cron2->Run($_GET['jobid']));
     $dsp->AddBackButton('index.php?mod=cron2');
