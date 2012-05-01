@@ -1,5 +1,4 @@
 <?php
-include_once('modules/boxes/class_boxes.php');
 
 /**
 * PartyAvailible()
@@ -49,6 +48,7 @@ if ($auth['login'] == "1") {
 }
 
 ### Generate Boxes
+include_once('modules/boxes/class_boxes.php');
 
 // Fetch Boxes
 $MenuActive = 0;
@@ -58,15 +58,20 @@ $BoxRes = $db->qry("SELECT boxid, name, place, source, module, callback, login, 
     AND (login = 0 OR (login = 1 AND %int% = 0) OR (login = 2 AND %int% = 1) OR (login > 2 AND login <= %int% + 1))
   ORDER BY pos
   ", $cfg['sys_internet'], $auth['login'], $auth['login'], $auth['type']);
+
 while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or $func->isModActive($BoxRow['module'])) and ($BoxRow['callback'] == '' or call_user_func($BoxRow['callback'], ''))) {
+
   if ($BoxRow['source'] == 'menu') {
     include_once('modules/boxes/class_menu.php');
     $menu = new menu($BoxRow['boxid'], $BoxRow['name'], $BoxRow['source']);
     if ($BoxRow['place'] == 0 or $framework->IsMobileBrowser) $templ['index']['control']['boxes_letfside'] .= $menu->get_menu_items();
     elseif ($BoxRow['place'] == 1) $templ['index']['control']['boxes_rightside'] .= $menu->get_menu_items();
-    if ($menu->box->box_rows) $MenuActive = 1;            
+    if ($menu->box->box_rows) $MenuActive = 1;
+    unset($menu);
+
   } else {
     $box = new boxes();
+
     if (!$BoxRow['module']) $BoxRow['module'] = 'install';
     if (file_exists('modules/'. $BoxRow['module'] .'/boxes/'. $BoxRow['source'] .'.php')) {
         include_once('modules/'. $BoxRow['module'] .'/boxes/'. $BoxRow['source'] .'.php');
@@ -78,6 +83,8 @@ while ($BoxRow = $db->fetch_array($BoxRes)) if (($BoxRow['module'] == '' or $fun
   }
 }
 $db->free_result($BoxRes);
+unset($BoxRow);
+unset($BoxRes);
 
 // Add Link to boxmanager, if menu is missing and loginbox, if not logged in
 if (!$MenuActive) {
@@ -90,5 +97,8 @@ if (!$MenuActive) {
     $templ['index']['control']['boxes_letfside'] .= $box->CreateBox(0, t('Temporär'));
   }
 }
+
+unset($MenuActive);
+unset($box);
 
 ?>

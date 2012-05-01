@@ -4,7 +4,7 @@
  * menu
  *
  * @package lansuite_core
- * @author 
+ * @author
  * @copyright 2008
  * @version $Id$
  * @access public
@@ -23,10 +23,10 @@ class menu {
    * @return
    */
     function menu($id, $caption, $title = ''){
-	   $this->caption = $caption;
-	   $this->boxid = $id;
-	   $this->title = $title;
-	   $this->box = new boxes();
+      $this->caption = $caption;
+      $this->boxid = $id;
+      $this->title = $title;
+      $this->box = new boxes();
     }
 
   /**
@@ -37,22 +37,22 @@ class menu {
    */
     function FetchItem ($item) {
         global $cfg, $func;
-    
+
         $item['caption'] = t($item['caption']);
         $item['hint'] = t($item['hint']);
-    
+
         // Horrizontal Line IF Caption == '--hr--'
         if ($item['caption'] == '--hr--') switch($item['level']) {
             default: return $this->box->HRuleRow(); break;
             case 1: return $this->box->HRuleEngagedRow(); break;
-    
+
         } else {
             // Scan for ID in info2 Link
             if ($_GET['mod'] == 'info2') {
                 preg_match('/(id=)(\\d{1,4})/', $item['link'], $treffer);
                 $info2_id = $treffer[2];
             }
-            if ( ($item['module'] != 'info2' AND $item['module'] == $_GET['mod'] AND $item['level']==0)   
+            if ( ($item['module'] != 'info2' AND $item['module'] == $_GET['mod'] AND $item['level']==0)
                 OR ($item['module'] == 'info2' AND $item['module'] == $_GET['mod'] AND $item['level']==0 AND $info2_id == $_GET['id'])
                 OR ($item['module'] == 'info2' AND $_GET['mod'] == 'info2' AND $info2_id == $_GET['id'])
                 OR ($item['module'] == 'info2' AND $_GET['mod'] == 'info2' AND $cfg['info2_use_submenus']==1 AND $item['level']==0)
@@ -93,7 +93,7 @@ class menu {
             if ($main_item['needed_config'] == '' or call_user_func($main_item['needed_config'], '')) {
 
             $this->FetchItem($main_item);
-        
+
             // If selected Module: Get Sub-Items
             if (isset($_GET['module'])) $module = $_GET['module']; else $module = $_GET['mod'];
             if ($module and $main_item['module'] == $module and $main_item['action'] != 'show_info2') {
@@ -110,7 +110,7 @@ class menu {
                 while ($sub_item = $db->fetch_array($res2)) if ($sub_item['needed_config'] == '' or call_user_func($sub_item['needed_config'], ''))
                     $this->FetchItem($sub_item);
                 $db->free_result($res2);
-        
+
                 // If Admin add general Management-Links
                 if ($auth['type'] > 2) {
                     $AdminIcons .= $this->box->LinkItem('index.php?mod=install&amp;action=mod_cfg&amp;module='. $module, t('Mod-Konfig'), 'admin', t('Dieses Modul verwalten'));

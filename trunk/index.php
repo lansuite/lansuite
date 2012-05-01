@@ -314,7 +314,12 @@
 
 ### Load Rotation Banner
 
-    include_once("modules/sponsor/banner.php");
+    if ($_GET['design'] != 'popup'
+      and $_GET['action'] != 'wizard'
+      and !$_SESSION['lansuite']['fullscreen']
+      and $db->success
+      and $func->isModActive('sponsor')
+    ) include_once("modules/sponsor/banner.php");
 
 ### Create Boxes / load Boxmanager
 
@@ -349,6 +354,7 @@
     $framework->html_out();  // Output of all HTML
     unset($framework);
     unset($smarty);
+    unset($templ);
     unset($dsp);
 
 ### Statistics will be updated only at scriptend, so pagesize and loadtime can be insert
