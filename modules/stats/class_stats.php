@@ -84,6 +84,8 @@ class stats {
   	}
 	}
 
+/*
+  // Seams to not be used anywhere anymore (120501 delete soon?)
 
 	// this function is called on each page
 	function update($time, $size) {
@@ -221,6 +223,7 @@ class stats {
 		$stats_data .= '&version='.urlencode($stats['version']);
 
 		include("http://www.lansuite.de/report.php?".$stats_data);		
-	}	
+	}
+*/
 }
 ?>
