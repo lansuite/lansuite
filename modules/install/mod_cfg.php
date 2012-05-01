@@ -135,7 +135,9 @@ else switch ($_GET['step']) {
       }
       $db->free_result($res);
 
-      $mf->SendForm('', 'menu', 'id', "module = '". $_GET['module'] ."' AND caption != ''");
+      $mf->SendForm('index.php?mod=install&action=mod_cfg&module='. $_GET['module'] .'&id='. $_GET['id'] .'&tab=1',
+        'menu', 'id', "module = '". $_GET['module'] ."' AND caption != ''"
+      );
     $dsp->EndTab();
 
     $dsp->StartTab(t('Datenbank'), 'database');
