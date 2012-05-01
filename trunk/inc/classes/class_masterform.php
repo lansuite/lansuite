@@ -151,12 +151,13 @@ class masterform {
     $this->AddPage(); // Adds non-page-fields to fake page
     if ($BaseURL) $StartURL = $BaseURL .'&'. $idname .'='. $id;
     else {
-      $StartURL =$framework->get_clean_url_query('base');
+      $StartURL = $framework->get_clean_url_query('base');
       $StartURL = str_replace('&mf_step=2', '', $StartURL);
       $StartURL = preg_replace('#&mf_id=[0-9]*#si', '', $StartURL);
 
       if (strpos($StartURL, '&'. $idname .'='. $id) == 0) $StartURL .= '&'. $idname .'='. $id;
     }
+
     $this->LinkBack = $StartURL .'#MF'.$mf_number;
     if ($id or $this->MultiLineID) $this->isChange = true;
 
