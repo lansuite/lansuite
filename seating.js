@@ -328,6 +328,18 @@ function DrawSeatingSymbol(id, XOffset, YOffset, link, tooltip) {
 	  case 369: CreateText('ä', XOffset + 2, YOffset + 11, link); break;
 	  case 370: CreateText('ö', XOffset + 2, YOffset + 11, link); break;
 	  case 371: CreateText('ü', XOffset + 2, YOffset + 11, link); break;
+    case 372: CreateText('1', XOffset + 2, YOffset + 11, link); break;
+    case 373: CreateText('2', XOffset + 2, YOffset + 11, link); break;
+    case 374: CreateText('3', XOffset + 2, YOffset + 11, link); break;
+    case 375: CreateText('4', XOffset + 2, YOffset + 11, link); break;
+    case 376: CreateText('5', XOffset + 2, YOffset + 11, link); break;
+    case 377: CreateText('6', XOffset + 2, YOffset + 11, link); break;
+    case 378: CreateText('7', XOffset + 2, YOffset + 11, link); break;
+    case 379: CreateText('8', XOffset + 2, YOffset + 11, link); break;
+    case 380: CreateText('9', XOffset + 2, YOffset + 11, link); break;
+    case 381: CreateText('0', XOffset + 2, YOffset + 11, link); break;
+    case 382: CreateText('[', XOffset + 2, YOffset + 11, link); break;
+    case 383: CreateText(']', XOffset + 2, YOffset + 11, link); break;
 	}
 }
 
