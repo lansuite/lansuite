@@ -114,6 +114,8 @@ div.Box {
   	position: relative;
   	margin: 0px 4px 8px 4px;    
   	padding: 0px 0px 0px 0px;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 ul.BoxHeadline {
   	width: 160px;
