@@ -1,141 +1,281 @@
 <!-- TEMPLATE - STANDARD - SHOUTBOX --> 
+
 <div id="shoutbox">
+
   	<div id="shoutbox-list"><span id="shoutbox-loader"><img src="design/images/ajax-loader.gif" /> Lade Shoutbox...</span></div>
+
 	<div id="shoutbox-input">
+
     <form id="shoutbox-form" method="post" action="index.php?mod=shoutbox&frmwrkmode=ajax&action=shoutqueries&shout=add">
+
     <span id="shoutbox-status">Live <img src="design/images/onAir.gif" alt="onAir - Live" /></span>
+
 	{if $shoutuserid == 0}
+
 	<b>Name:</b><br /><input class="text" type="text" name="nickname" /><br />
+
 	{/if}
+
     <b>Nachricht:</b>
+
 	<br /><input class="text" maxlength="{$shoutlength}" type="text" id="shoutmessage" name="message" /><br />
+
 	<input type="hidden" id="captchaInputSend" name="captchaInputSend"/>
+
 	<div id="shoutsubmitline">
+
 		<input type="submit" value="Shout!" id="shoutsubmit" />
+
     	<span id="shoutbox-response"></span>
+
 		<span style="float:right;padding-right:8px;"><a href="index.php?mod=shoutbox">History</a></span>
+
 	</div>
+
 	<div class="clear"></div>
+
    </form>
+
    </div>
+
 </div>
+
 <!-- TEMPLATE - STANDARD - SHOUTBOX -->
+
 <div id="shoutdialog">
+
 	Als Gast musst du deine Eingabe mit dem Code bestaetigen:<br />
+
 	<pre style="font-size:8px;" id="captchacode"></pre>
+
 	Code: <input type="text" id="captchaInput"/>
+
 </div>
+<br>
 {literal}
+
  <script type="text/javascript">
+
         var count = 0;
+
 		var lastid = 0;
+
 		var dateNow = new Date();
+
 		var shoutinitload = 1;
+
         
+
         function prepare(response) {
+
           var d = new Date();
+
           count++;
+
           d.setTime(response.time*1000);
+
           var mytime = d.getHours()+':'+d.getMinutes();
+
           var string = '<div class="shoutbox-list" id="list-'+count+'">'
+
               + '<span class="shoutbox-list-time">'+mytime+'</span>'
+
               + '<span class="shoutbox-list-nick">'+response.nickname+':</span><br />'
+
               + '<span class="shoutbox-list-message">'+response.message+'</span>'
+
               +'</div>';
+
 		  
+
 		  removeOld();
+
           return string;
+
         }
+
         
+
         function success(response, status)  { 
+
           if(status == 'success') {
+
 		  	if(response.response == 'captcha')
+
 			{
+
 				$("#captchacode").html("");
+
 				$("#captchacode").append(response.captcha);
+
 				$("#shoutdialog").dialog({
+
                 	bgiframe: true,
+
                     height: 220,
+
 					width: 550,
+
                     modal: true,
+
                     buttons: {
+
                     	ok: function() {
+
 							$("#captchaInputSend").attr('value', $(this).find("#captchaInput").val());
+
 							$("#shoutbox-form").submit();
+
 							$(this).dialog('close');
+
                          }
+
                      }
+
                   });
+
 			}
+
 			else
+
 			{
+
 				lastid = response.id;
+
 	            $('#shoutbox-response').html('<img src="design/images/icon_yes.png" />');
+
 	            $('#shoutbox-list').append(prepare(response));
+
                 $('#list-'+count).fadeIn('slow');
+
 	       		$("#shoutmessage").attr('value', '').focus();
+
 	            timeoutID = setTimeout(refresh, 3000);
+
 				$('#shoutsubmit').removeAttr('disabled');
+
 			}
+
           }
+
         }
+
         
+
         function validate(formData, jqForm, options) {
+
           for (var i=0; i < formData.length; i++) { 
+
               if (!formData[i].value && formData[i].name != "captchaInputSend") {
+
                   alert('Bitte alle Felder ausfuellen!'); 
+
                   $('input[@name='+formData[i].name+']').css('background', 'red');
+
                   return false; 
+
               } 
+
           } 
+
 		  $('#shoutbox-response').html('<img src="design/images/ajax-loader.gif" />');
+
 		  $('#shoutsubmit').attr("disabled", 'true');
+
           clearTimeout(timeoutID);
+
 		}
 
+
+
         function refresh() {
+
 			if($('#shoutbox-loader').length)
+
 				$('#shoutbox-loader').remove();
+
 			
+
           $.getJSON("index.php?mod=shoutbox&frmwrkmode=ajax&action=shoutqueries&shout=view&lastid="+lastid+"&time="+dateNow.getTime(), 
+
 		  function(json) {
+
 			if(json && json.length >0) {
+
               for(i=0; i < json.length; i++) {
+
                 $('#shoutbox-list').append(prepare(json[i]));
+
 				if(shoutinitload != 0)
+
 					$('#list-'+count).fadeIn('slow');
+
 				else
+
 					$('#list-'+count).effect('pulsate',{mode:'show'});
+
               }
+
               var j = i-1;
+
 			  lastid = json[j].id;
+
 			  shoutinitload--;
+
             }
+
           });
+
           timeoutID = setTimeout(refresh, shoutdelay*1000);
+
         }
+
 		
+
 		// hide old entries
+
 		function removeOld() {
+
 			//Alte entfernen			 
+
 			if(count>=maxcount)
+
 			{
+
 				x = count - maxcount;
+
 				$('#list-' + x).fadeOut('slow', function() { 
+
 					$('#list-' + x).remove(); 
+
 					});					
+
 			}
+
 		}
+
        
+
 	    // wait for the DOM to be loaded 
+
         $(document).ready(function() { 
+
             var options = { 
+
               dataType:       'json',
+
               beforeSubmit:   validate,
+
               success:        success
+
             }; 
+
             $('#shoutbox-form').ajaxForm(options);
+
             timeoutID = setTimeout(refresh, 100);
+
         });
+
   </script>
+
 {/literal}
