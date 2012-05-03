@@ -340,7 +340,7 @@ class seat2 {
 
         $x = 0;
         $y = 56;
-        for ($i = 300; $i <= 371; $i++) {
+        for ($i = 300; $i <= 383; $i++) {
   	      $jscode .= "DrawClearSeatingSymbol($i, $x, $y, 'javascript:UpdateCurrentDrawingSymbol(\"$i\")', 'Test');\n";
   
           $x += 14;
